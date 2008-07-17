@@ -8,11 +8,11 @@
 	alarm_controller()
 
 /datum/event/temperature_change/announce()
-	event_announcement.Announce("Major failure detected within the ventilation system. Strange temperature changes expected within the next minutes.", "Atmospheric Alert")
+	GLOB.event_announcement.Announce("Major failure detected within the ventilation system. Strange temperature changes expected within the next minutes.", "Atmospheric Alert")
 
 /datum/event/temperature_change/end()
 	alarm_controller(T20C)
-	event_announcement.Announce("Temperature failure cleared, report to medbay if you feel unwell.", "Atmospheric Alert")
+	GLOB.event_announcement.Announce("Temperature failure cleared, report to medbay if you feel unwell.", "Atmospheric Alert")
 
 /datum/event/temperature_change/proc/alarm_controller(var/temp = temperature)
 	for(var/obj/machinery/alarm/A in GLOB.air_alarms)

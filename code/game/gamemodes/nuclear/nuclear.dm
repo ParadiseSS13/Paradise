@@ -476,7 +476,7 @@ proc/issyndicate(mob/living/M as mob)
 		GLOB.score_crewscore += killpoints
 		GLOB.score_crewscore += arrestpoints
 		if(GLOB.score_nuked)
-			GLOB.score_crewscore -= score_nuked_penalty
+			GLOB.score_crewscore -= GLOB.score_nuked_penalty
 
 
 
