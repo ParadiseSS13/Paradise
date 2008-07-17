@@ -1,3 +1,40 @@
+//proc para ver los tubos porteado de tg
+/obj/item/proc/t_ray_scan(var/mob/viewer, var/scan_range = 1, var/pulse_duration = 10)
+	if(!ismob(viewer) || !viewer.client)
+		return
+	for(var/turf/T in range(scan_range, viewer.loc) )
+		if(!T.intact)
+			continue
+		for(var/obj/O in T.contents)
+			if(O.level != 1)
+				continue
+
+			if(O.invisibility == 101)
+				O.invisibility = 0
+				O.alpha = 128
+				spawn(pulse_duration)
+					if(O)
+						var/turf/U = O.loc
+						if(U && U.intact)
+							O.invisibility = 101
+							O.alpha = 255
+		for(var/mob/living/M in T.contents)
+			var/oldalpha = M.alpha
+			if(M.alpha < 255 && istype(M))
+				M.alpha = 255
+				spawn(10)
+					if(M)
+						M.alpha = oldalpha
+
+		var/mob/living/M = locate() in T
+
+		if(M && M.invisibility == 2)
+			M.invisibility = 0
+			spawn(2)
+				if(M)
+					M.invisibility = INVISIBILITY_LEVEL_TWO
+// fin del proc de ver tuberias
+
 #define MODE_NONE ""
 #define MODE_MESON "meson"
 #define MODE_TRAY "t-ray"
