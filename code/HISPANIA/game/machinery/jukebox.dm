@@ -109,7 +109,7 @@
 		ui = new(user, src, ui_key, "hispaniabox.tmpl", name,  640, 350)
 		ui.open()
 
-/obj/machinery/hispaniabox/ui_data(mob/user, ui_key = "main", datum/topic_state/state = default_state)
+/obj/machinery/hispaniabox/ui_data(mob/user, ui_key = "main", datum/topic_state/state = GLOB.default_state)
 	var/data[0]
 	var/index = 0
 	data["song_name"] = ((track == "") ? "" : songs[track]["song_name"])

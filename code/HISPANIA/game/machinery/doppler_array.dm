@@ -61,7 +61,7 @@ obj/machinery/doppler_array/range/rotate(mob/user)
 		ui.open()
 		ui.set_auto_update(1)
 
-/obj/machinery/doppler_array/range/ui_data(mob/user, ui_key = "main", datum/topic_state/state = default_state)
+/obj/machinery/doppler_array/range/ui_data(mob/user, ui_key = "main", datum/topic_state/state = GLOB.default_state)
 	var/data[0]
 	var/list/explosion_data = list()
 	for(var/D in logged_explosions)
