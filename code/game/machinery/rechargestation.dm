@@ -287,27 +287,24 @@
 	if(isrobot(user))
 		var/mob/living/silicon/robot/R = user
 
-		if(R.stat == DEAD)
-			//Whoever had it so that a borg with a dead cell can't enter this thing should be shot. --NEO
-			return
 		if(occupant)
 			to_chat(R, "<span class='warning'>The cell is already occupied!</span>")
 			return
 		if(!R.cell)
 			to_chat(R, "<span class='warning'>Without a power cell, you can't be recharged.</span>")
 			//Make sure they actually HAVE a cell, now that they can get in while powerless. --NEO
-			return
 		can_accept_user = TRUE
 
 	else if(ishuman(user))
 		var/mob/living/carbon/human/H = user
 
-		if(H.stat == DEAD)
-			return
 		if(occupant)
 			to_chat(H, "<span class='warning'>The cell is already occupied!</span>")
 			return
-		if(!H.get_int_organ(/obj/item/organ/internal/cell))
+		if(ismachine(H))
+			can_accept_user = TRUE
+		else if(!H.get_int_organ(/obj/item/organ/internal/cell))
+			to_chat(user, "<span class='notice'>Only non-organics may enter the recharger!</span>")
 			return
 		can_accept_user = TRUE
 

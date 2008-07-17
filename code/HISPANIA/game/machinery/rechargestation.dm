@@ -29,7 +29,9 @@
 			to_chat(user, "<span class='warning'>Without a power cell, [R] can't be recharged.</span>")
 		can_accept_user = TRUE
 	if(ishuman(L))
-		if(!L.get_int_organ(/obj/item/organ/internal/cell))
+		if(ismachine(L))
+			can_accept_user = TRUE
+		else if(!L.get_int_organ(/obj/item/organ/internal/cell))
 			to_chat(user, "<span class='notice'>Only non-organics may enter the recharger!</span>")
 			return
 		can_accept_user = TRUE
