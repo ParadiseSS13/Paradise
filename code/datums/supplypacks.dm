@@ -798,7 +798,7 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 	cost = 10
 	containername = "advanced first aid kits crate"
 
-/datum/supply_packs/medical/firstaidmachine
+/datum/supply_packs/science/firstaidmachine
 	name = "Machine First Aid Kits Crate"
 	contains = list(/obj/item/storage/firstaid/machine,
 					/obj/item/storage/firstaid/machine,
@@ -924,11 +924,19 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 	contains = list(/obj/item/assembly/prox_sensor,
 					/obj/item/assembly/prox_sensor,
 					/obj/item/assembly/prox_sensor,
+					/obj/item/assembly/prox_sensor,
+					/obj/item/storage/firstaid,
+					/obj/item/storage/firstaid,
+					/obj/item/healthanalyzer,
+					/obj/item/healthanalyzer,
 					/obj/item/storage/toolbox/electrical,
+					/obj/item/storage/toolbox/mechanical,
 					/obj/item/storage/box/flashes,
-					/obj/item/stock_parts/cell/high,
-					/obj/item/stock_parts/cell/high)
-	cost = 10
+					/obj/item/stock_parts/cell/high/plus,
+					/obj/item/stock_parts/cell/high/plus,
+					/obj/item/reagent_containers/glass/bucket,
+					/obj/item/reagent_containers/glass/bucket)
+	cost = 20
 	containertype = /obj/structure/closet/crate/secure/scisec
 	containername = "robotics assembly crate"
 	access = access_robotics
