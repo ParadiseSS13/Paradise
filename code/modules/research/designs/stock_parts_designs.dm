@@ -146,7 +146,7 @@
 	id = "pico_mani"
 	req_tech = list("materials" = 5, "programming" = 4, "engineering" = 5)
 	build_type = PROTOLATHE
-	materials = list(MAT_METAL = 200)
+	materials = list(MAT_METAL = 160, MAT_TITANIUM = 20)
 	build_path = /obj/item/stock_parts/manipulator/pico
 	category = list("Stock Parts")
 	lathe_time_factor = 0.2
@@ -168,7 +168,7 @@
 	id = "super_matter_bin"
 	req_tech = list("materials" = 5, "engineering" = 5)
 	build_type = PROTOLATHE
-	materials = list(MAT_METAL = 200)
+	materials = list(MAT_METAL = 160, MAT_TITANIUM = 20)
 	build_path = /obj/item/stock_parts/matter_bin/super
 	category = list("Stock Parts")
 	lathe_time_factor = 0.2
@@ -201,7 +201,7 @@
 	name = "Femto Manipulator"
 	desc = "A stock part used in the construction of various devices."
 	id = "femto_mani"
-	req_tech = list("materials" = 7, "programming" = 5, "engineering" = 5, "bluespace" = 5)
+	req_tech = list("materials" = 7, "programming" = 6, "engineering" = 6, "bluespace" = 5)
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 200, MAT_DIAMOND = 30, MAT_TITANIUM = 30)
 	build_path = /obj/item/stock_parts/manipulator/femto
@@ -223,7 +223,7 @@
 	name = "Bluespace Matter Bin"
 	desc = "A stock part used in the construction of various devices."
 	id = "bluespace_matter_bin"
-	req_tech = list("materials" = 7, "engineering" = 5, "bluespace" = 5)
+	req_tech = list("materials" = 7, "engineering" = 6, "bluespace" = 5)
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 250, MAT_DIAMOND = 100, MAT_BLUESPACE = 100)
 	build_path = /obj/item/stock_parts/matter_bin/bluespace
