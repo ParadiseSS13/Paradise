@@ -25,14 +25,14 @@
 	path = /obj/item/clothing/suit/storage/labcoat/medicalroundlarge
 	allowed_roles = list("Chief Medical Officer", "Medical Doctor", "Chemist", "Psychiatrist", "Paramedic", "Virologist", "Brig Physician" , "Coroner")
 
-/datum/gear/suit/labcoat_RDlarge
+/datum/gear/suit/labcoat_rdlarge
 	display_name = "long labcoat, RD"
-	path = /obj/item/clothing/suit/storage/labcoat/RDlarge
+	path = /obj/item/clothing/suit/storage/labcoat/rdlarge
 	allowed_roles = list("Research Director")
 
-/datum/gear/suit/labcoat_RDlargeroundcut
+/datum/gear/suit/labcoat_rdlargeroundcut
 	display_name = "long labcoat roundcut, RD"
-	path = /obj/item/clothing/suit/storage/labcoat/RDlargeroundcut
+	path = /obj/item/clothing/suit/storage/labcoat/rdlargeroundcut
 	allowed_roles = list("Research Director")
 
 /datum/gear/suit/labcoat_rdlargeroundcutdark
