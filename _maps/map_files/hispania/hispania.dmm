@@ -41761,13 +41761,6 @@
 	icon_state = "2-4"
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/rack{
-	dir = 8;
-	layer = 2.9
-	},
-/obj/item/stack/sheet/cardboard{
-	amount = 30
-	},
 /turf/simulated/floor/plasteel,
 /area/quartermaster/storage)
 "bzD" = (
@@ -43077,10 +43070,6 @@
 	icon_state = "1-2"
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/rack{
-	dir = 8;
-	layer = 2.9
-	},
 /turf/simulated/floor/plasteel,
 /area/quartermaster/storage)
 "bCw" = (
@@ -43984,10 +43973,7 @@
 	dir = 2;
 	icon_state = "pipe-c"
 	},
-/obj/structure/rack{
-	dir = 8;
-	layer = 2.9
-	},
+/obj/structure/closet/crate/medical,
 /turf/simulated/floor/plasteel,
 /area/quartermaster/storage)
 "bEj" = (
@@ -44175,10 +44161,6 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
-	},
-/obj/structure/rack{
-	dir = 8;
-	layer = 2.9
 	},
 /turf/simulated/floor/plasteel,
 /area/quartermaster/storage)
@@ -44508,7 +44490,6 @@
 	pixel_y = -32
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/telepad_cargo,
 /turf/simulated/floor/plasteel,
 /area/quartermaster/storage)
 "bFr" = (
@@ -46300,6 +46281,7 @@
 	dir = 8;
 	pixel_x = -24
 	},
+/obj/machinery/telepad_cargo,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "brown"
@@ -96369,8 +96351,11 @@
 /obj/structure/shuttle/engine/propulsion{
 	tag = "icon-propulsion (NORTH)";
 	icon_state = "propulsion";
-	dir = 1
+	dir = 1;
+	step_x = 0;
+	step_y = 0
 	},
+/turf/space,
 /turf/simulated/shuttle/wall{
 	dir = 8;
 	icon_state = "diagonalWall3"
@@ -96461,6 +96446,7 @@
 /turf/simulated/floor/carpet,
 /area/maintenance/port)
 "gVl" = (
+/turf/space,
 /turf/simulated/shuttle/wall{
 	dir = 4;
 	icon_state = "diagonalWall3"
@@ -96575,6 +96561,7 @@
 /turf/simulated/floor/plating/airless,
 /area/space/nearstation)
 "iAO" = (
+/turf/space,
 /turf/simulated/shuttle/wall{
 	icon_state = "swall_f6";
 	dir = 2
@@ -96704,11 +96691,6 @@
 	icon_state = "wall3"
 	},
 /area/shuttle/tsf)
-"jAQ" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/closet/crate/medical,
-/turf/simulated/floor/plasteel,
-/area/quartermaster/storage)
 "jCF" = (
 /obj/machinery/door/airlock/highsecurity{
 	locked = 1;
@@ -97050,6 +97032,7 @@
 	},
 /area/shuttle/tsf)
 "nau" = (
+/turf/space,
 /turf/simulated/shuttle/wall{
 	dir = 1;
 	icon_state = "diagonalWall3"
@@ -97158,10 +97141,6 @@
 	icon_state = "floor4"
 	},
 /area/shuttle/tsf)
-"opX" = (
-/obj/structure/ore_box,
-/turf/simulated/floor/plasteel,
-/area/quartermaster/miningdock)
 "owE" = (
 /obj/structure/barricade/wooden/crude,
 /obj/machinery/door/airlock{
@@ -97356,6 +97335,7 @@
 	},
 /area/shuttle/tsf)
 "qKs" = (
+/turf/space,
 /turf/simulated/shuttle/wall{
 	dir = 8;
 	icon_state = "diagonalWall3"
@@ -97413,14 +97393,6 @@
 "rgm" = (
 /turf/simulated/floor/carpet,
 /area/maintenance/port)
-"rnE" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/rack{
-	dir = 8;
-	layer = 2.9
-	},
-/turf/simulated/floor/plasteel,
-/area/quartermaster/storage)
 "rvO" = (
 /obj/structure/closet/secure_closet/personal,
 /obj/machinery/light{
@@ -97514,6 +97486,7 @@
 	},
 /area/shuttle/tsf)
 "spK" = (
+/turf/space,
 /turf/simulated/shuttle/wall{
 	icon_state = "diagonalWall3"
 	},
@@ -97554,8 +97527,11 @@
 /obj/structure/shuttle/engine/propulsion{
 	tag = "icon-propulsion (NORTH)";
 	icon_state = "propulsion";
-	dir = 1
+	dir = 1;
+	step_x = 0;
+	step_y = 0
 	},
+/turf/space,
 /turf/simulated/shuttle/wall{
 	dir = 1;
 	icon_state = "diagonalWall3"
@@ -98069,6 +98045,7 @@
 /turf/space,
 /area/space/nearstation)
 "xAQ" = (
+/turf/space,
 /turf/simulated/shuttle/wall{
 	icon_state = "swall_f5";
 	dir = 2
@@ -119364,7 +119341,7 @@ bDx
 bEB
 bGY
 bIz
-jAQ
+byw
 bFp
 bFm
 bMi
@@ -119621,7 +119598,7 @@ byv
 bEH
 xiQ
 fdZ
-rnE
+byw
 bFq
 bFm
 bxb
@@ -120152,8 +120129,8 @@ cam
 cbI
 cdy
 cff
-opX
 cir
+cfb
 cfb
 cnS
 cno
@@ -141555,7 +141532,7 @@ qIy
 lpX
 udF
 qIy
-spK
+ahs
 aaa
 aaa
 aaa
@@ -141813,7 +141790,7 @@ fmE
 sFz
 fmE
 qIy
-spK
+ahs
 aaa
 aaa
 aaa
