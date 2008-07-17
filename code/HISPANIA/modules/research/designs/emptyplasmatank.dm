@@ -1,0 +1,13 @@
+obj/item/tank/plasma/empty/New()
+	..()
+	air_contents.toxins = null
+
+/datum/design/plasma_tank
+	name = "Empty plasma tank"
+	desc = "un tanque de plasma vacio"
+	id = "plasmatank"
+	req_tech = list("toxins" = 5)
+	build_type = PROTOLATHE
+	materials = list(MAT_METAL=3000, MAT_GLASS=500)
+	build_path = /obj/item/tank/plasma/empty
+	category = list("Miscellaneous")
