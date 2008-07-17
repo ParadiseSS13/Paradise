@@ -437,17 +437,17 @@ proc/issyndicate(mob/living/M as mob)
 	for(var/datum/mind/M in SSticker.mode.syndicates)
 		foecount++
 		if(!M || !M.current)
-			score_opkilled++
+			GLOB.score_opkilled++
 			continue
 
 		if(M.current.stat == DEAD)
-			score_opkilled++
+			GLOB.score_opkilled++
 
 		else if(M.current.restrained())
-			score_arrested++
+			GLOB.score_arrested++
 
-	if(foecount == score_arrested)
-		score_allarrested = 1
+	if(foecount == GLOB.score_arrested)
+		GLOB.score_allarrested = 1
 
 	for(var/obj/machinery/nuclearbomb/nuke in world)
 		if(nuke.r_code == "Nope")	continue
@@ -458,25 +458,25 @@ proc/issyndicate(mob/living/M as mob)
 		var/list/fiftythousand_penalty = list(/area/security/main, /area/security/brig, /area/security/armoury, /area/security/checkpoint2)
 
 		if(is_type_in_list(A, thousand_penalty))
-			score_nuked_penalty = 1000
+			GLOB.score_nuked_penalty = 1000
 
 		else if(is_type_in_list(A, fiftythousand_penalty))
-			score_nuked_penalty = 50000
+			GLOB.score_nuked_penalty = 50000
 
 		else if(istype(A, /area/engine))
-			score_nuked_penalty = 100000
+			GLOB.score_nuked_penalty = 100000
 
 		else
-			score_nuked_penalty = 10000
+			GLOB.score_nuked_penalty = 10000
 
 		break
 
-		var/killpoints = score_opkilled * 250
-		var/arrestpoints = score_arrested * 1000
-		score_crewscore += killpoints
-		score_crewscore += arrestpoints
-		if(score_nuked)
-			score_crewscore -= score_nuked_penalty
+		var/killpoints = GLOB.score_opkilled * 250
+		var/arrestpoints = GLOB.score_arrested * 1000
+		GLOB.score_crewscore += killpoints
+		GLOB.score_crewscore += arrestpoints
+		if(GLOB.score_nuked)
+			GLOB.score_crewscore -= score_nuked_penalty
 
 
 
@@ -524,11 +524,11 @@ proc/issyndicate(mob/living/M as mob)
 
 	dat += "<br>"
 
-	dat += "<b>Operatives Arrested:</b> [score_arrested] ([score_arrested * 1000] Points)<br>"
-	dat += "<b>All Operatives Arrested:</b> [score_allarrested ? "Yes" : "No"] (Score tripled)<br>"
+	dat += "<b>Operatives Arrested:</b> [GLOB.score_arrested] ([GLOB.score_arrested * 1000] Points)<br>"
+	dat += "<b>All Operatives Arrested:</b> [GLOB.score_allarrested ? "Yes" : "No"] (Score tripled)<br>"
 
-	dat += "<b>Operatives Killed:</b> [score_opkilled] ([score_opkilled * 1000] Points)<br>"
-	dat += "<b>Station Destroyed:</b> [score_nuked ? "Yes" : "No"] (-[score_nuked_penalty] Points)<br>"
+	dat += "<b>Operatives Killed:</b> [GLOB.score_opkilled] ([GLOB.score_opkilled * 1000] Points)<br>"
+	dat += "<b>Station Destroyed:</b> [GLOB.score_nuked ? "Yes" : "No"] (-[GLOB.score_nuked_penalty] Points)<br>"
 	dat += "<hr>"
 
 	return dat
