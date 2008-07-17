@@ -47,7 +47,7 @@
 
 /obj/item/storage/part_replacer/proc/play_rped_sound()
 	//Plays the sound for RPED exchanging or installing parts.
-	if(alt_sound && prob(1))
+	if(alt_sound && prob(3))
 		playsound(src, alt_sound, 40, 1)
 	else
 		playsound(src, primary_sound, 40, 1)

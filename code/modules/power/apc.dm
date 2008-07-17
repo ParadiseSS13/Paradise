@@ -625,6 +625,7 @@
 			if(opened==2)
 				opened = 1
 			update_icon()
+	//exchanging parts using the RPEd
 	else if(exchange_parts(user, W))
 		return
 	else
