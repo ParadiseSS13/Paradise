@@ -1,4 +1,4 @@
-/obj/item/stock_parts/cell/bluespace/xenoblue
+/obj/item/stock_parts/cell/xenoblue
 	icon = 'icons/HISPANIA/obj/xenobluecell.dmi'
 	icon_state = "xenobluecell"
 	item_state = "xenobluecell"
@@ -33,7 +33,7 @@
 
 /datum/crafting_recipe/xenobluespacecell
 	name = "Xenobluespace power cell"
-	result = /obj/item/stock_parts/cell/bluespace/xenoblue
+	result = /obj/item/stock_parts/cell/xenoblue
 	reqs = list(/obj/item/stock_parts/cell/high/slime = 1,
 				/obj/item/stock_parts/capacitor/quadratic = 1,
 				/obj/item/xenobluecellmaker = 1,
