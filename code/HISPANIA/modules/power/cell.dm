@@ -26,7 +26,7 @@
 	materials = list(MAT_GLASS = 1000)
 	var/build_step = 0
 	var/bluecharge
-	var/slimecharge
+	var/bluemaxcharge
 	var/obj/item/stock_parts/cell/xenocell
 	var/cell_type = /obj/item/stock_parts/cell/xenoblue
 
@@ -37,6 +37,7 @@
 			if(istype(I, /obj/item/stock_parts/cell/bluespace))
 				var/obj/item/stock_parts/cell/bluespace/B = I
 				bluecharge = B.charge
+				bluemaxcharge = B.maxcharge
 				if(!user.drop_item())
 					return
 				qdel(I)
@@ -48,7 +49,6 @@
 		if(1)
 			if(istype(I, /obj/item/stock_parts/cell/high/slime))
 				var/obj/item/stock_parts/cell/high/slime/S = I
-				slimecharge = S.charge
 				if(!user.drop_item())
 					return
 				build_step++
@@ -57,7 +57,9 @@
 				playsound(T, 'sound/magic/lightningshock.ogg', 10, 1, -1)
 				to_chat(user, "<span class='notice'>You complete the Xenobluespace power cell.</span>")
 				xenocell = new cell_type(src)
-				xenocell.charge = (bluecharge + slimecharge)/2 //como maximo tendra la mitad de su carga completa
+				xenocell.maxcharge = bluemaxcharge + S.maxcharge
+				xenocell.charge = (bluecharge + S.charge)/2 //como maximo tendra la mitad de su carga completa
+				xenocell.chargerate = S.chargerate * 1.2
 				if(istype(loc, /turf))
 					xenocell.forceMove(T)
 				else
