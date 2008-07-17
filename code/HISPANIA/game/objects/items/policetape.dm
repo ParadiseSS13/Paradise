@@ -148,7 +148,7 @@ var/list/tape_roll_applications = list()
 					possible_dirs += dir
 				else
 					for(var/obj/structure/window/W in T)
-						if(W.fulltile || W.dir == reverse_direction[dir])
+						if(W.fulltile || W.dir == reverse_direction(dir))
 							possible_dirs += dir
 			if(!possible_dirs)
 				start = null
@@ -206,7 +206,7 @@ var/list/tape_roll_applications = list()
 			tapetest = 0
 			tape_dir = dir
 			if(cur == start)
-				var/turf/T = get_step(start, reverse_direction[orientation])
+				var/turf/T = get_step(start, reverse_direction(orientation))
 				if(T && !T.density)
 					tape_dir = orientation
 					for(var/obj/structure/window/W in T)
@@ -215,9 +215,9 @@ var/list/tape_roll_applications = list()
 			else if(cur == end)
 				var/turf/T = get_step(end, orientation)
 				if(T && !T.density)
-					tape_dir = reverse_direction[orientation]
+					tape_dir = reverse_direction(orientation)
 					for(var/obj/structure/window/W in T)
-						if(W.fulltile || W.dir == reverse_direction[orientation])
+						if(W.fulltile || W.dir == reverse_direction(orientation))
 							tape_dir = dir
 			for(var/obj/item/taper/T in cur)
 				if((T.tape_dir == tape_dir) && (T.icon_base == icon_base))
