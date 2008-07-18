@@ -17,3 +17,13 @@
 	materials = list(MAT_METAL = 500, MAT_GLASS = 500, MAT_PLASMA = 250)
 	build_path = /obj/item/clothing/glasses/meson/engine
 	category = list("Equipment")
+
+/datum/design/reactive_armour
+	name = "Reactive Armour Shell"
+	desc = "An experimental suit of armour capable of utilizing an implanted anomaly core to protect the user."
+	id = "reactive_armour"
+	build_type = PROTOLATHE
+	req_tech = list("materials" = 7, "engineering" = 7, "plasmatech" = 7, "magnets" = 7, "toxins" = 7, "combat" = 7, "bluespace" = 7)
+	materials = list(MAT_METAL = 10000, MAT_DIAMOND = 5000, MAT_URANIUM = 8000, MAT_SILVER = 4500, MAT_GOLD = 5000, MAT_PLASMA = 2500)
+	build_path = /obj/item/reactive_armour_shell
+	category = list("Equipment")

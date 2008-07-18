@@ -1171,6 +1171,7 @@
 #include "code\HISPANIA\modules\clothing\head\misc.dm"
 #include "code\HISPANIA\modules\clothing\suits\armor.dm"
 #include "code\HISPANIA\modules\clothing\suits\labcoat.dm"
+#include "code\HISPANIA\modules\clothing\suits\reactive_armour.dm"
 #include "code\HISPANIA\modules\clothing\under\jobs\civilian.dm"
 #include "code\HISPANIA\modules\crafting\recipes.dm"
 #include "code\HISPANIA\modules\events\temperature_change.dm"

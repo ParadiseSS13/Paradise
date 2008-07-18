@@ -106,7 +106,7 @@ datum/theft_objective/ai/check_special_completion(var/obj/item/aicard/C)
 
 /datum/theft_objective/reactive
 	name = "the reactive teleport armor"
-	typepath = /obj/item/clothing/suit/armor/reactive/teleport
+	typepath = /obj/item/clothing/suit/armor/reactive/teleport/rd
 	protected_jobs = list("Research Director")
 
 /datum/theft_objective/steal/documents

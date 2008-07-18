@@ -166,6 +166,7 @@
 	icon_state = "anomaly core"
 	item_state = "electronic"
 	receiving = TRUE
+	var/anomaly_type = /obj/effect/anomaly
 
 /obj/item/assembly/signaler/anomaly/receive_signal(datum/signal/signal)
 	if(..())
