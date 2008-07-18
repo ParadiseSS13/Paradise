@@ -160,8 +160,8 @@
 			if(repairs)
 				R.heal_overall_damage(repairs, repairs)
 			if(R.cell)
-				use_power(min(R.cell.charge + recharge_speed, R.cell.maxcharge) * 12)
-				R.cell.charge = min(R.cell.charge + recharge_speed, R.cell.maxcharge)
+				var/transfered = R.cell.give(recharge_speed)
+				use_power(transfered * 12)
 		else if(istype(occupant, /mob/living/carbon/human))
 			var/mob/living/carbon/human/H = occupant
 			if(H.get_int_organ(/obj/item/organ/internal/cell) && H.nutrition < 450)
@@ -203,16 +203,17 @@
 						var/obj/item/gun/energy/disabler/cyborg/D = O
 						if(D.power_supply.charge < D.power_supply.maxcharge)
 							var/obj/item/ammo_casing/energy/E = D.ammo_type[D.select]
-							D.power_supply.give(E.e_cost)
+							var/transfered = D.power_supply.give(E.e_cost)
 							D.on_recharge()
 							D.update_icon()
-							use_power(E.e_cost * 12)
+							use_power(transfered * 12)
 						else
 							D.charge_tick = 0
 					if(istype(O,/obj/item/melee/baton))
 						var/obj/item/melee/baton/B = O
 						if(B.bcell)
-							B.bcell.charge = B.bcell.maxcharge
+							var/transfered = B.bcell.give(B.bcell.chargerate)
+							use_power(transfered * 12)
 					//Service
 					if(istype(O,/obj/item/reagent_containers/food/condiment/enzyme))
 						if(O.reagents.get_reagent_amount("enzyme") < 50)
