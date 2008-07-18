@@ -108,16 +108,17 @@
 		if(istype(charging, /obj/item/gun/energy))
 			var/obj/item/gun/energy/E = charging
 			if(E.power_supply.charge < E.power_supply.maxcharge)
-				E.power_supply.give(E.power_supply.chargerate * recharge_coeff)
+				var/transfered = E.power_supply.give(E.power_supply.chargerate * recharge_coeff)
 				E.on_recharge()
-				use_power(E.power_supply.chargerate * 10)
+				use_power(transfered * 10)
 				using_power = TRUE
 
 		if(istype(charging, /obj/item/melee/baton))
 			var/obj/item/melee/baton/B = charging
 			if(B.bcell)
-				if(B.bcell.give(B.bcell.chargerate))
-					use_power(B.bcell.chargerate * 12)
+				var/transfered = B.bcell.give(B.bcell.chargerate)
+				if(transfered)
+					use_power(transfered * 13)
 					using_power = TRUE
 
 		if(istype(charging, /obj/item/modular_computer))
