@@ -574,46 +574,49 @@
 			O.show_message("\red <B>The [L.loc] begins to shake violently!</B>", 1)
 
 
-		spawn(breakout_time*60*10) //minutes * 60seconds * 10deciseconds
-			if(!C || !L || L.stat != CONSCIOUS || L.loc != C || C.opened) //closet/user destroyed OR user dead/unconcious OR user no longer in closet OR closet opened
-				return
-
-			//Perform the same set of checks as above for weld and lock status to determine if there is even still a point in 'resisting'...
-			if(istype(L.loc, /obj/structure/closet/secure_closet))
-				var/obj/structure/closet/secure_closet/SC = L.loc
-				if(!SC.locked && !SC.welded)
-					return
-			else
-				if(!C.welded)
+		spawn(0)
+			if(do_after(usr,(breakout_time*60*10))) //minutes * 60seconds * 10deciseconds
+				if(!C || !L || L.stat != CONSCIOUS || L.loc != C || C.opened) //closet/user destroyed OR user dead/unconcious OR user no longer in closet OR closet opened
 					return
 
-			//Well then break it!
-			if(istype(usr.loc, /obj/structure/closet/secure_closet))
-				var/obj/structure/closet/secure_closet/SC = L.loc
-				SC.desc = "It appears to be broken."
-				SC.icon_state = SC.icon_off
-				flick(SC.icon_broken, SC)
-				sleep(10)
-				flick(SC.icon_broken, SC)
-				sleep(10)
-				SC.broken = 1
-				SC.locked = 0
-				usr << "\red You successfully break out!"
-				for(var/mob/O in viewers(L.loc))
-					O.show_message("\red <B>\the [usr] successfully broke out of \the [SC]!</B>", 1)
-				if(istype(SC.loc, /obj/structure/bigDelivery)) //Do this to prevent contents from being opened into nullspace (read: bluespace)
-					var/obj/structure/bigDelivery/BD = SC.loc
-					BD.attack_hand(usr)
-				SC.open()
-			else
-				C.welded = 0
-				usr << "\red You successfully break out!"
-				for(var/mob/O in viewers(L.loc))
-					O.show_message("\red <B>\the [usr] successfully broke out of \the [C]!</B>", 1)
-				if(istype(C.loc, /obj/structure/bigDelivery)) //nullspace ect.. read the comment above
-					var/obj/structure/bigDelivery/BD = C.loc
-					BD.attack_hand(usr)
-				C.open()
+				//Perform the same set of checks as above for weld and lock status to determine if there is even still a point in 'resisting'...
+				if(istype(L.loc, /obj/structure/closet/secure_closet))
+					var/obj/structure/closet/secure_closet/SC = L.loc
+					if(!SC.locked && !SC.welded)
+						return
+				else
+					if(!C.welded)
+						return
+
+				//Well then break it!
+				if(istype(usr.loc, /obj/structure/closet/secure_closet))
+					var/obj/structure/closet/secure_closet/SC = L.loc
+					SC.desc = "It appears to be broken."
+					SC.icon_state = SC.icon_off
+					flick(SC.icon_broken, SC)
+					sleep(10)
+					flick(SC.icon_broken, SC)
+					sleep(10)
+					SC.broken = 1
+					SC.locked = 0
+					SC.update_icon()
+					usr << "\red You successfully break out!"
+					for(var/mob/O in viewers(L.loc))
+						O.show_message("\red <B>\the [usr] successfully broke out of \the [SC]!</B>", 1)
+					if(istype(SC.loc, /obj/structure/bigDelivery)) //Do this to prevent contents from being opened into nullspace (read: bluespace)
+						var/obj/structure/bigDelivery/BD = SC.loc
+						BD.attack_hand(usr)
+					SC.open()
+				else
+					C.welded = 0
+					C.update_icon()
+					usr << "\red You successfully break out!"
+					for(var/mob/O in viewers(L.loc))
+						O.show_message("\red <B>\the [usr] successfully broke out of \the [C]!</B>", 1)
+					if(istype(C.loc, /obj/structure/bigDelivery)) //nullspace ect.. read the comment above
+						var/obj/structure/bigDelivery/BD = C.loc
+						BD.attack_hand(usr)
+					C.open()
 
 	//breaking out of handcuffs
 	else if(iscarbon(L))
