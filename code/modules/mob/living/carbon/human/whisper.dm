@@ -31,6 +31,9 @@
 	if (src.sdisabilities & MUTE)
 		return
 
+	if(M_WHISPER in src.mutations)
+		src.say(message)
+
 	if (istype(src.wear_mask, /obj/item/clothing/mask/muzzle))
 		return
 
@@ -48,13 +51,13 @@
 				if(findtext(temp_message[H], "*") || findtext(temp_message[H], ";") || findtext(temp_message[H], ":")) continue
 				temp_message[H] = ninjaspeak(temp_message[H])
 				pick_list -= H
-			message = list2text(temp_message, " ")
-			message = replacetext(message, "o", "¤")
-			message = replacetext(message, "p", "þ")
-			message = replacetext(message, "l", "£")
-			message = replacetext(message, "s", "§")
-			message = replacetext(message, "u", "µ")
-			message = replacetext(message, "b", "ß")
+			message = dd_list2text(temp_message, " ")
+			message = replacetext(message, "o", "ï¿½")
+			message = replacetext(message, "p", "ï¿½")
+			message = replacetext(message, "l", "ï¿½")
+			message = replacetext(message, "s", "ï¿½")
+			message = replacetext(message, "u", "ï¿½")
+			message = replacetext(message, "b", "ï¿½")
 
 	if (src.stuttering)
 		message = stutter(message)

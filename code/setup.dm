@@ -387,6 +387,11 @@ var/MAX_EXPLOSION_RANGE = 14
 #define M_PSY_RESIST    204		// Block remoteview
 #define M_SUPER_FART    205		// Duh
 
+// /vg/ muts
+#define M_LOUD		208		// CAUSES INTENSE YELLING
+#define M_WHISPER	209		// causes quiet whispering
+#define M_DIZZY		210		// Trippy.
+
 //disabilities
 #define NEARSIGHTED		1
 #define EPILEPSY		2
