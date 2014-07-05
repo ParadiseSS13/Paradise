@@ -181,7 +181,7 @@
 	if(module)
 		return
 
-	var/list/modules = list("Standard", "Engineering", "Medical", "Miner", "Janitor", "Service", "Security")
+	var/list/modules = list("Standard", "Engineering", "Surgeon", "Crisis", "Miner", "Janitor", "Service", "Security")
 	if(security_level == (SEC_LEVEL_GAMMA || SEC_LEVEL_EPSILON) || crisis)
 		src << "\red Crisis mode active. Combat module available."
 		modules+="Combat"
@@ -219,15 +219,26 @@
 			module_sprites["Advanced Droid"] = "droid-miner"
 			module_sprites["Treadhead"] = "Miner"
 
-		if("Medical")
-			module = new /obj/item/weapon/robot_module/medical(src)
+		if("Crisis")
+			module = new /obj/item/weapon/robot_module/crisis(src)
 			channels = list("Medical" = 1)
 			if(camera && "Robots" in camera.network)
 				camera.network.Add("Medical")
 			module_sprites["Basic"] = "Medbot"
+			module_sprites["Standard"] = "surgeon"
 			module_sprites["Advanced Droid"] = "droid-medical"
 			module_sprites["Needles"] = "medicalrobot"
+
+		if("Surgeon")
+			module = new /obj/item/weapon/robot_module/surgeon(src)
+			channels = list("Medical" = 1)
+			if(camera && "Robots" in camera.network)
+				camera.network.Add("Medical")
+
+			module_sprites["Basic"] = "Medbot"
 			module_sprites["Standard"] = "surgeon"
+			module_sprites["Advanced Droid"] = "droid-medical"
+			module_sprites["Needles"] = "medicalrobot"
 
 		if("Security")
 			module = new /obj/item/weapon/robot_module/security(src)
@@ -238,6 +249,15 @@
 			module_sprites["Bloodhound"] = "bloodhound"
 
 		if("Engineering")
+			module = new /obj/item/weapon/robot_module/engineering(src)
+			channels = list("Engineering" = 1)
+			if(camera && "Robots" in camera.network)
+				camera.network.Add("Engineering")
+			module_sprites["Basic"] = "Engineering"
+			module_sprites["Antique"] = "engineerrobot"
+			module_sprites["Landmate"] = "landmate"
+
+		if("Construction")
 			module = new /obj/item/weapon/robot_module/engineering(src)
 			channels = list("Engineering" = 1)
 			if(camera && "Robots" in camera.network)

@@ -396,10 +396,10 @@
 	if(occupant)
 		user << "\blue <B>The sleeper is already occupied!</B>"
 		return
-	if(isrobot(user))
+/*	if(isrobot(user))
 		if(!istype(user:module, /obj/item/weapon/robot_module/medical))
 			user << "<span class='warning'>You do not have the means to do this!</span>"
-			return
+			return*/
 	var/mob/living/L = O
 	if(!istype(L) || L.buckled)
 		return
