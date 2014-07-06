@@ -1,5 +1,5 @@
-// NanoConfig is the place to store utility functions
-var NanoConfig = function () 
+// NanoUtility is the place to store utility functions
+var NanoUtility = function () 
 {
     return {
         init: function () 
@@ -10,11 +10,41 @@ var NanoConfig = function ()
 			if (typeof $.views == 'undefined') {  
 				alert('ERROR: JSRender failed to load!');
 			}					
-        }        
+        },
+		// generate a Byond href, combines _urlParameters with parameters
+		generateHref: function (parameters)
+		{
+			var queryString = '?';
+
+			for (var key in _urlParameters)
+			{
+				if (_urlParameters.hasOwnProperty(key))
+				{
+					if (queryString !== '?')
+					{
+						queryString += ';';
+					}
+					queryString += key + '=' + _urlParameters[key];
+				}
+			}
+
+			for (var key in parameters)
+			{
+				if (parameters.hasOwnProperty(key))
+				{
+					if (queryString !== '?')
+					{
+						queryString += ';';
+					}
+					queryString += key + '=' + parameters[key];
+				}
+			}
+			return queryString;
+		}
     }
 } ();
 
-NanoConfig.init();
+NanoUtility.init();
 
 if (!Array.prototype.indexOf)
 {

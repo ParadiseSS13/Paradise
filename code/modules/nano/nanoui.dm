@@ -88,13 +88,13 @@ nanoui is used to open and update nano browser uis
 	add_common_assets()
 
  /**
-  * Use this proc to add assets which are common to all nano uis
+  * Use this proc to add assets which are common to (and required by) all nano uis
   *
   * @return nothing
   */
 /datum/nanoui/proc/add_common_assets()
-	add_script("libraries.min.js") // The jQuery library
-	add_script("nano_config.js") // The NanoConfig JS, this is used to store configuration values.
+	add_script("libraries.min.js") // A JS file comprising of jQuery, doT.js and jQuery Timer libraries (compressed together)
+	add_script("nano_utility.js") // The NanoUtility JS, this is used to store utility functions.
 	add_script("nano_update.js") // The NanoUpdate JS, this is used to receive updates and apply them.
 	add_script("nano_base_helpers.js") // The NanoBaseHelpers JS, this is used to set up template helpers which are common to all templates
 	add_stylesheet("shared.css") // this CSS sheet is common to all UIs

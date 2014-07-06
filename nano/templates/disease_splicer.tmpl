@@ -1,13 +1,13 @@
 <div class="item">
   <div class="itemContent">
-    {{:~link('Close', 'gear', {'close' : 1}, null, 'fixedLeft')}}
+    {{:helper.link('Close', 'gear', {'close' : 1}, null, 'fixedLeft')}}
   </div>
 </div>
 
-{{if busy}}
+{{if data.busy}}
   <h5 class='average'>The Splicer is currently busy.</h5>
   <div class='notice'>
-    <center><span class='bad'>{{:busy}}</span></center>
+    <center><span class='bad'>{{:data.busy}}</span></center>
   </div>
   <p>
     Thank you for your patience!
@@ -17,7 +17,7 @@
     <h2>Virus Dish</h2>
   </div>
   <div class="item">
-    {{:~link('Eject Dish', 'eject', { 'eject' : 1 }, dish_inserted ? null : 'disabled')}}
+    {{:helper.link('Eject Dish', 'eject', { 'eject' : 1 }, dish_inserted ? null : 'disabled')}}
   </div>
 
   <div class="item">
@@ -25,26 +25,26 @@
       <b>Growth Density:</b>
     </div>
     <div class="itemContent">
-      {{:~displayBar(growth, 0, 100, growth >= 50 ? 'good' : growth >= 25 ? 'average' : 'bad', growth + '%' )}}
+      {{:helper.displayBar(growth, 0, 100, growth >= 50 ? 'good' : growth >= 25 ? 'average' : 'bad', growth + '%' )}}
     </div>
   </div>
 
   <div class="statusDisplay" style="height: 145px; overflow: auto;">
     <div class='item'>
-      {{if !info}}
+      {{if !data.info}}
         <div class='itemLabel'>
           <span class='good'>Symptoms:</span>
         </div>
       {{/if}}
       <div class='itemContent' style="width: 100%;">
-        {{if info}}
-          <span class='average'>{{:info}}</span>
+        {{if data.info}}
+          <span class='average'>{{:data.info}}</span>
         {{else}}
-          {{for effects}}
+          {{for data.effects}}
             <div>
               <div class="highlight">
-                ({{:stage}}) {{:name}}
-                {{if badness > 1}}
+                ({{:data.stage}}) {{:data.name}}
+                {{if data.badness > 1}}
                   <span class='bad'><b>Dangerous</b></span>
                 {{/if}}
               </div>
@@ -53,18 +53,18 @@
         {{/if}}
       </div>
     </div>
-    {{if affected_species && !info}}
+    {{if data.affected_species && !info}}
       <div class='item'>
         <div class='itemLabelWide'>
           <span class='good'>Affected Species:</span>
         </div>
         <div class='itemContent'>
-          <span class='highlight'>{{:affected_species}}</span>
+          <span class='highlight'>{{:data.affected_species}}</span>
         </div>
       </div>
     {{/if}}
   </div>
-  {{if effects}}
+  {{if data.effects}}
     <div class='item'>
       <span class="bad"><i>CAUTION: Reverse engineering will destroy the viral sample.</i></span>
     </div>
@@ -73,12 +73,12 @@
         Reverse Engineering:
       </div>
       <div class='itemContent'>
-        {{for effects}}
-          {{:~link(stage, 'transferthick-e-w', { 'grab' : reference })}}
+        {{for data.effects}}
+          {{:helper.link(stage, 'transferthick-e-w', { 'grab' : reference })}}
         {{/for}}
       </div>
       <div class='itemContent'>
-        {{:~link('Species', 'transferthick-e-w', { 'affected_species' : 1 })}}
+        {{:helper.link('Species', 'transferthick-e-w', { 'affected_species' : 1 })}}
       </div>
     </div>
   {{/if}}
@@ -92,17 +92,17 @@
       <b>Memory Buffer:</b>
     </div>
     <div class='itemContent'>
-      {{if buffer}}
-        {{:buffer.name}} ({{:buffer.stage}})
+      {{if data.buffer}}
+        {{:data.buffer.name}} ({{:data.buffer.stage}})
       {{else}}
-        {{if species_buffer}}
-          {{:species_buffer}}
+        {{if data.species_buffer}}
+          {{:data.species_buffer}}
         {{else}}
           Empty
         {{/if}}
       {{/if}}
     </div>
   </div>
-  {{:~link('Save To Disk', 'disk', { 'disk' : 1 }, (buffer || species_buffer) ? null : 'disabled')}}
-  {{:~link('Splice Onto Dish', 'pencil', { 'splice' : 1 }, (buffer || species_buffer) && !info ? null : 'disabled')}}
+  {{:helper.link('Save To Disk', 'disk', { 'disk' : 1 }, (buffer || species_buffer) ? null : 'disabled')}}
+  {{:helper.link('Splice Onto Dish', 'pencil', { 'splice' : 1 }, (buffer || species_buffer) && !info ? null : 'disabled')}}
 {{/if}}

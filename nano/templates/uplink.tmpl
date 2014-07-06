@@ -3,15 +3,15 @@
 Title: Syndicate Uplink, uses some javascript to change nanoUI up a bit.
 Used In File(s): \code\game\objects\items\devices\uplinks.dm
  -->
-{{:~syndicateMode()}}
-<H2><span class="white">{{:welcome}}</span></H2>
+{{:helper.syndicateMode()}}
+<H2><span class="white">{{:data.welcome}}</span></H2>
 <br>
 <div class="item">
 	<div class="itemLabelNarrow">
 		<b>Functions</b>:
 	</div>
 	<div class="itemContent">
-		{{:~link('Close', 'gear', {'lock' : "1"}, null, 'fixedLeft')}}
+		{{:helper.link('Close', 'gear', {'lock' : "1"}, null, 'fixedLeft')}}
 	</div>
 </div>
 <br>
@@ -20,20 +20,20 @@ Used In File(s): \code\game\objects\items\devices\uplinks.dm
                 <b>Tele-Crystals</b>:
         </div>
         <div class="itemContent">
-                {{:crystals}}
+                {{:data.crystals}}
         </div>
 </div>
 <H2><span class="white">Request items:</span></H2><br>
 <span class="white"><i>Each item costs a number of tele-crystals as indicated by the number following their name.</i></span>
 
 <br><br>
-{{for nano_items}}
+{{for data.nano_items}}
 <div class="item">
-	<H3><span class="white">{{:Category}}</span></H3>
+	<H3><span class="white">{{:data.Category}}</span></H3>
 </div>
-	{{for items}}
+	{{for data.items}}
 <div class="item">
-		{{:~link( Name, 'gear', {'buy_item' : obj_path, 'cost' : Cost}, Cost > ~root.crystals ? 'disabled' : null, null)}} -<span class="white"> {{:Cost}}</span>
+		{{:helper.link( Name, 'gear', {'buy_item' : obj_path, 'cost' : Cost}, Cost > ~root.crystals ? 'disabled' : null, null)}} -<span class="white"> {{:data.Cost}}</span>
 </div>
 	{{/for}}
 <br>
@@ -41,6 +41,6 @@ Used In File(s): \code\game\objects\items\devices\uplinks.dm
 {{/for}}
 
 <div class="item">
-                {{:~link('Buy Random (??)' , 'gear', {'buy_item' : 'random'}, null, 'fixedLeftWidest')}}
+                {{:helper.link('Buy Random (??)' , 'gear', {'buy_item' : 'random'}, null, 'fixedLeftWidest')}}
 </div>
 

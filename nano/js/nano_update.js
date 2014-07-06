@@ -101,19 +101,15 @@ NanoUpdate = function ()
 			if (templateData.hasOwnProperty(key))
 			{
 				$.when($.get(templateData[key]))
-					.done(function(templateMarkup) {
-						if (_templates == null)
-						{
-							_templates = {};
-						}
+					.done(function(templateMarkup) {					
 						
-						templateMarkup = templateMarkup.replace(/ +\) *\}\}/g, ')}}');
+						//templateMarkup = templateMarkup.replace(/ +\) *\}\}/g, ')}}');
 						
-						templateMarkup += '<div class="clearBoth"></div>'
+						templateMarkup += '<div class="clearBoth"></div>';
 					
 						try
 						{
-							_templates[key] = $.templates(key, templateMarkup);							
+							NanoTemplate.addTemplate(key, templateMarkup)
 							
 							templateCount--;
 							
@@ -130,8 +126,6 @@ NanoUpdate = function ()
 								_isInitialised = true;
 								$('#uiNoJavaScript').hide();
 							}
-			
-							executeCallbacks(_afterUpdateCallbacks, _data);
 						}
 						catch(error)
 						{
@@ -163,11 +157,7 @@ NanoUpdate = function ()
 		
 		if (_isInitialised) // all templates have been registered, so render them
 		{
-			executeCallbacks(_beforeUpdateCallbacks, updateData);
-		
 			renderTemplates(updateData);
-			
-			executeCallbacks(_afterUpdateCallbacks, updateData);
 		}
 		else
 		{
@@ -178,31 +168,35 @@ NanoUpdate = function ()
 	// This function renders the template with the latest data
 	// It has to be done recursively as each piece of data is observed individually and needs to be updated individually
 	var renderTemplates = function (data)
-	{
-		if (!_templates.hasOwnProperty("main"))
+	{	
+		data = executeCallbacks(_beforeUpdateCallbacks, data);
+		
+		if (data === false)
 		{
-			alert('Error: Main template not found.');
+			return; // A beforeUpdateCallback returned a false value, this prevents the render from occuring
 		}
 		
 		_data = data;		
 		
 		try
 		{
-			$("#mainTemplate").html(_templates["main"].render(_data));
+			$("#mainTemplate").html(NanoTemplate.parse('main', _data));	
 		}
 		catch(error)
 		{
 			alert('ERROR: An error occurred while rendering the UI: ' + error.message);
 			return;
-		}
+		}	
+		
+		executeCallbacks(_afterUpdateCallbacks, _data);
 	};
 	
-	// Execute all callbacks in the callbacks array/object provided, updateData is passed to them for processing
+	// Execute all callbacks in the callbacks array/object provided, updateData is passed to them for processing and potential modification
 	var executeCallbacks = function (callbacks, updateData)
-	{
+	{	
 		for (var index in callbacks)
 		{
-			callbacks[index].call(this, updateData);
+			updateData = callbacks[index].call(this, updateData);
 		}
 		
 		return updateData;

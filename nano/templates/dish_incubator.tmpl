@@ -1,6 +1,6 @@
 <div class="item">
   <div class="itemContent">
-    {{:~link('Close', 'gear', {'close' : '1'}, null, 'fixedLeft')}}
+    {{:helper.link('Close', 'gear', {'close' : '1'}, null, 'fixedLeft')}}
   </div>
 </div>
 
@@ -12,12 +12,12 @@
     Power:
   </div>
   <div class="itemContent">
-    {{:~link('On', 'power', { 'power' : 1 }, !dish_inserted ? 'disabled' : on ? 'selected' : null)}}{{:~link('Off', 'close', { 'power' : 1 }, on ? null : 'selected')}}
+    {{:helper.link('On', 'power', { 'power' : 1 }, !dish_inserted ? 'disabled' : on ? 'selected' : null)}}{{:helper.link('Off', 'close', { 'power' : 1 }, on ? null : 'selected')}}
   </div>
 </div>
 <div class='item'>
-  {{:~link('Add Radiation', 'radiation', {'rad' : 1})}}
-  {{:~link('Flush System', 'trash', {'flush' : 1}, system_in_use ? null : 'disabled')}}
+  {{:helper.link('Add Radiation', 'radiation', {'rad' : 1})}}
+  {{:helper.link('Flush System', 'trash', {'flush' : 1}, system_in_use ? null : 'disabled')}}
 </div>
 
 <div class="statusDisplay" style="height: 100px; overflow: auto;">
@@ -26,7 +26,7 @@
       <span class='good'>Virus Food:</span>
     </div>
     <div class="itemContent">
-      {{:~displayBar(food_supply, 0, 100, 'good', food_supply)}}
+      {{:helper.displayBar(food_supply, 0, 100, 'good', food_supply)}}
     </div>
   </div>
   <div class='item'>
@@ -34,9 +34,9 @@
       <span class='good'>Radiation Level:</span>
     </div>
     <div class="itemContent">
-      {{:~displayBar(radiation, 0, 100, radiation >= 50 ? 'bad' : growth >= 25 ? 'average' : 'good')}}
+      {{:helper.displayBar(radiation, 0, 100, radiation >= 50 ? 'bad' : growth >= 25 ? 'average' : 'good')}}
       <br/>
-      {{:~formatNumber(radiation * 10000)}} <acronym title='In microSieverts'>&micro;Sv</acronym>
+      {{:helper.formatNumber(radiation * 10000)}} <acronym title='In microSieverts'>&micro;Sv</acronym>
     </div>
   </div>
   <div class='item'>
@@ -44,7 +44,7 @@
       <span class='good'>Toxicity:</span>
     </div>
     <div class="itemContent">
-      {{:~displayBar(toxins, 0, 100, toxins >= 50 ? 'bad' : toxins >= 25 ? 'average' : 'good', toxins + '%')}}
+      {{:helper.displayBar(toxins, 0, 100, toxins >= 50 ? 'bad' : toxins >= 25 ? 'average' : 'good', toxins + '%')}}
     </div>
   </div>
 </div>
@@ -53,17 +53,17 @@
   <h2>Chemicals</h2>
 </div>
 <div class='item'>
-  {{:~link('Eject Chemicals', 'eject', { 'ejectchem' : 1 }, chemicals_inserted ? null : 'disabled')}}
-  {{:~link('Breed Virus', 'circle-arrow-s', { 'virus' : 1 }, can_breed_virus ? null : 'disabled')}}
+  {{:helper.link('Eject Chemicals', 'eject', { 'ejectchem' : 1 }, chemicals_inserted ? null : 'disabled')}}
+  {{:helper.link('Breed Virus', 'circle-arrow-s', { 'virus' : 1 }, can_breed_virus ? null : 'disabled')}}
 </div>
 
-{{if chemicals_inserted}}
+{{if data.chemicals_inserted}}
   <div class='item'>
     <div class='itemLabel'>
       Volume:
     </div>
     <div class='itemContent'>
-      {{:~displayBar(chemical_volume, 0, max_chemical_volume, 'good', chemical_volume + ' / ' + max_chemical_volume)}}
+      {{:helper.displayBar(chemical_volume, 0, max_chemical_volume, 'good', chemical_volume + ' / ' + max_chemical_volume)}}
     </div>
   </div>
   <div class='item'>
@@ -71,10 +71,10 @@
       Breeding Environment:
     </div>
     <div class='itemContent'>
-      <span class='{{:can_breed_virus ? "good" : "average"}}'>
-        {{:!dish_inserted ? 'N/A' : can_breed_virus ? 'Suitable' : 'No hemolytic samples detected'}}
+      <span class='{{:data.can_breed_virus ? "good" : "average"}}'>
+        {{:!data.dish_inserted ? 'N/A' : can_breed_virus ? 'Suitable' : 'No hemolytic samples detected'}}
       </span>
-      {{if blood_already_infected}}
+      {{if data.blood_already_infected}}
         <br/>
         <span class='bad'><i>CAUTION: Viral infection detected in blood sample.</i></span>
       {{/if}}
@@ -90,17 +90,17 @@
   <h2>Virus Dish</h2>
 </div>
 <div class='item'>
-  {{:~link('Eject Dish', 'eject', {'ejectdish' : 1}, dish_inserted ? null : 'disabled')}}
+  {{:helper.link('Eject Dish', 'eject', {'ejectdish' : 1}, dish_inserted ? null : 'disabled')}}
 </div>
 
-{{if dish_inserted}}
-  {{if virus}}
+{{if data.dish_inserted}}
+  {{if data.virus}}
   <div class="item">
     <div class="itemLabel">
       <b>Growth Density:</b>
     </div>
     <div class="itemContent">
-      {{:~displayBar(growth, 0, 100, growth >= 50 ? 'good' : growth >= 25 ? 'average' : 'bad', growth + '%' )}}
+      {{:helper.displayBar(growth, 0, 100, growth >= 50 ? 'good' : growth >= 25 ? 'average' : 'bad', growth + '%' )}}
     </div>
   </div>
   <div class='item'>
@@ -108,7 +108,7 @@
       <b>Infection Rate:</b>
     </div>
     <div class='itemContent'>
-      {{:analysed ? infection_rate : "Unknown"}}
+      {{:data.analysed ? infection_rate : "Unknown"}}
     </div>
   </div>
   {{else}}

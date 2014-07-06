@@ -3,7 +3,7 @@
     <b>Machine</b>:
   </div>
   <div class="itemContent">
-    <span class="average">{{:machine_id}}</span>
+    <span class="average">{{:data.machine_id}}</span>
   </div>
 </div>
 <div class="item">
@@ -11,25 +11,25 @@
     <b>ID</b>:
   </div>
   <div class="itemContent">
-    {{:~link(id_card, 'eject', {'choice' : "insert_card"}, null, id_inserted ? 'fixedLeftWidest' : 'fixedLeft')}}
+    {{:helper.link(data.id_card, 'eject', {'choice' : "insert_card"}, null, data.id_inserted ? 'fixedLeftWidest' : 'fixedLeft')}}
   </div>
 </div>
 
-{{if access_level > 0}}
+{{if data.access_level > 0}}
   <div class='item'>
     <h2>Menu</h2>
   </div>
-  {{:~link('Home', 'home', {'choice' : 'view_accounts_list'}, !creating_new_account && !detailed_account_view ? 'disabled' : null, 'fixedLeft')}}
-  {{:~link('New Account', 'gear', {'choice' : 'create_account'}, creating_new_account ? 'disabled' : null, 'fixedLeft')}}
-  {{:~link('Print', 'print', {'choice' : 'print'}, creating_new_account ? 'disabled' : null, 'fixedLeft')}}
+  {{:helper.link('Home', 'home', {'choice' : 'view_accounts_list'}, !data.creating_new_account && !data.detailed_account_view ? 'disabled' : null, 'fixedLeft')}}
+  {{:helper.link('New Account', 'gear', {'choice' : 'create_account'}, data.creating_new_account ? 'disabled' : null, 'fixedLeft')}}
+  {{:helper.link('Print', 'print', {'choice' : 'print'}, data.creating_new_account ? 'disabled' : null, 'fixedLeft')}}
 
-  {{if creating_new_account}}
+  {{if data.creating_new_account}}
     <div class='item'>
       <h2>Create Account</h2>
     </div>
 
-    <form name='create_account' action='?src={{:src}}' method='get'>
-      <input type='hidden' name='src' value='{{:src}}'>
+    <form name='create_account' action='?src={{:data.src}}' method='get'>
+      <input type='hidden' name='src' value='{{:data.src}}'>
       <input type='hidden' name='choice' value='finalise_create_account'>
       <div class='item'>
         <div class='itemLabel'>
@@ -52,7 +52,7 @@
       </div>
     </form>
   {{else}}
-    {{if detailed_account_view}}
+    {{if data.detailed_account_view}}
       <div class='item'>
         <h2>Account Details</h2>
       </div>
@@ -62,7 +62,7 @@
           <span class='average'><b>Account Number</b>:</span>
         </div>
         <div class="itemContent">
-          #{{:account_number}}
+          #{{:data.account_number}}
         </div>
       </div>
 
@@ -71,7 +71,7 @@
           <span class='average'><b>Holder</b>:</span>
         </div>
         <div class="itemContent">
-          {{:owner_name}}
+          {{:data.owner_name}}
         </div>
       </div>
 
@@ -80,7 +80,7 @@
           <span class='average'><b>Balance</b>:</span>
         </div>
         <div class="itemContent">
-          ${{:~formatNumber(money)}}
+          ${{:helper.formatNumber(money)}}
         </div>
       </div>
 
@@ -89,17 +89,17 @@
           <span class='average'><b>Status</b>:</span>
         </div>
         <div class="itemContent">
-          <span class='{{: suspended ? "bad" : "good"}}'>
-            {{: suspended ? "Suspended" : "Active"}}
+          <span class='{{:data.suspended ? "bad" : "good"}}'>
+            {{:data.suspended ? "Suspended" : "Active"}}
           </span>
         </div>
       </div>
       <div class='item'>
-        {{:~link(suspended ? "Unsuspend" : "Suspend", 'gear', {'choice' : 'toggle_suspension'})}}
+        {{:helper.link(data.suspended ? "Unsuspend" : "Suspend", 'gear', {'choice' : 'toggle_suspension'})}}
       </div>
 
       <div class="statusDisplay" style="overflow: auto;">
-        {{if transactions}}
+        {{if data.transactions}}
         <table style='width: 100%'>
           <thead>
             <tr>
@@ -111,13 +111,13 @@
             </th>
           </thead>
           <tbody>
-              {{for transactions}}
+              {{for data.transactions}}
                 <tr>
-                    <td>{{:date}} {{:time}}</td>
-                    <td>{{:target_name}}</td>
-                    <td>{{:purpose}}</td>
-                    <td>{{:amount}}</td>
-                    <td>{{:source_terminal}}</td>
+                    <td>{{:value.date}} {{:value.time}}</td>
+                    <td>{{:value.target_name}}</td>
+                    <td>{{:value.purpose}}</td>
+                    <td>{{:value.amount}}</td>
+                    <td>{{:value.source_terminal}}</td>
                 </tr>
               {{/for}}
           </tbody>
@@ -126,7 +126,6 @@
           <span class='alert'>This account has no financial transactions on record for today.</span>
         {{/if}}
       </div>
-
         <div class='item'>
           <h2>CentCom Administrator</h2>
         </div>
@@ -134,15 +133,15 @@
           <div class='fixedLeft'>
             Payroll:
           </div>
-          {{:~link('Revoke', 'transferthick-e-w', {'choice' : 'revoke_payroll'}, account_number == station_account_number ? 'disabled' : null, 'linkDanger')}}
+          {{:helper.link('Revoke', 'transferthick-e-w', {'choice' : 'revoke_payroll'}, data.account_number == data.station_account_number ? 'disabled' : null, 'linkDanger')}}
         </div>
-        {{if access_level >= 2}}
+        {{if data.access_level >= 2}}
         <div class='item'>
           <div class='fixedLeft'>
             Silent Fund Adjustment:
           </div>
-          {{:~link('Add', 'plus', {'choice' : 'add_funds'})}}
-          {{:~link('Remove', 'minus', {'choice' : 'remove_funds'})}}
+          {{:helper.link('Add', 'plus', {'choice' : 'add_funds'})}}
+          {{:helper.link('Remove', 'minus', {'choice' : 'remove_funds'})}}
         </div>
         {{/if}}
     {{else}}
@@ -150,13 +149,13 @@
       <div class='item'>
         <h2>NanoTrasen Accounts</h2>
       </div>
-      {{if accounts}}
+      {{if data.accounts}}
         <table style="width: 100%">
-          {{for accounts}}
-            <tr class='{{: suspended ? "bad" : ""}}'>
-              <td><b>{{:~link('#' + account_number, '', {'choice' : 'view_account_detail', 'account_index' : account_index})}}</b></td>
-              <td>{{:owner_name}}</td>
-              <td>{{:suspended}}</td>
+          {{for data.accounts}}
+            <tr class='{{:value.suspended ? "bad" : ""}}'>
+              <td><b>{{:helper.link('#' + value.account_number, '', {'choice' : 'view_account_detail', 'account_index' : value.account_index})}}</b></td>
+              <td>{{:value.owner_name}}</td>
+              <td>{{:value.suspended}}</td>
             </tr>
           {{/for}}
         </table>

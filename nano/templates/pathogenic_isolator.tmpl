@@ -2,17 +2,17 @@
   <h2>Menu</h2>
 </div>
 <div class="item">
-  {{if !isolating}}
-    {{:~link('Home', 'home', {'home' : 1}, state == 'home' ? 'disabled' : null, 'fixedLeft')}}
-    {{:~link('List', 'note', {'list' : 1}, state == 'list' ? 'disabled' : null, 'fixedLeft')}}
-    {{:~link('Pathogen', 'folder-open', {'entry' : 1}, state == 'entry' ? 'disabled' : null, 'fixedLeft')}}
+  {{if !data.isolating}}
+    {{:helper.link('Home', 'home', {'home' : 1}, state == 'home' ? 'disabled' : null, 'fixedLeft')}}
+    {{:helper.link('List', 'note', {'list' : 1}, state == 'list' ? 'disabled' : null, 'fixedLeft')}}
+    {{:helper.link('Pathogen', 'folder-open', {'entry' : 1}, state == 'entry' ? 'disabled' : null, 'fixedLeft')}}
   {{/if}}
   <br>
-  {{:~link('Close', 'gear', {'close' : 1}, null, 'fixedLeft')}}
-  {{:~link('Print', 'print', { 'print' : 1 }, can_print ? null : 'disabled', 'fixedLeft')}}
+  {{:helper.link('Close', 'gear', {'close' : 1}, null, 'fixedLeft')}}
+  {{:helper.link('Print', 'print', { 'print' : 1 }, can_print ? null : 'disabled', 'fixedLeft')}}
 </div>
 
-{{if isolating}}
+{{if data.isolating}}
   <h5 class='average'>The Isolator is currently busy.</h5>
   <div class='notice'>
     <center><span class='bad'>Isolating pathogens...</span></center>
@@ -21,22 +21,22 @@
     Thank you for your patience!
   </p>
 {{else}}
-  {{if state =="home"}}
+  {{if data.state =="home"}}
     <div class="item">
       <h2>Blood Sample</h2>
     </div>
     <div class='item'>
-      {{:~link('Eject Syringe', 'eject', { 'eject' : 1 }, syringe_inserted ? null : 'disabled')}}
+      {{:helper.link('Eject Syringe', 'eject', { 'eject' : 1 }, syringe_inserted ? null : 'disabled')}}
     </div>
 
-    {{if syringe_inserted}}
+    {{if data.syringe_inserted}}
       <div class='statusDisplay'>
         <span class='good'><b>Pathogens:</b></span>
-          {{if pathogen_pool}}
-            {{for pathogen_pool}}
+          {{if data.pathogen_pool}}
+            {{for data.pathogen_pool}}
               <div class='item'>
-                <span class='highlight'><b><u>{{:#index + 1}}. #{{:unique_id}}</u> {{:is_in_database ? "(Analysed)" : ""}}</b></span><br>
-                <span class='average'>{{:name}}:</span> {{:dna}}
+                <span class='highlight'><b><u>{{:data.#index + 1}}. #{{:data.unique_id}}</u> {{:data.is_in_database ? "(Analysed)" : ""}}</b></span><br>
+                <span class='average'>{{:data.name}}:</span> {{:data.dna}}
               </div>
             {{/for}}
           {{else}}
@@ -48,14 +48,14 @@
         <span class='average'>No syringe loaded.</span>
       </div>
     {{/if}}
-    {{if pathogen_pool}}
+    {{if data.pathogen_pool}}
       <div class='item'>
         <div class='itemLabelWide'>
           Isolate Pathogens:
         </div>
         <div class='itemContent'>
-          {{for pathogen_pool}}
-            {{:~link('#' + unique_id, 'pencil', { 'isolate' : reference }, null, 'fixedLeft')}}
+          {{for data.pathogen_pool}}
+            {{:helper.link('#' + unique_id, 'pencil', { 'isolate' : reference }, null, 'fixedLeft')}}
           {{/for}}
         </div>
       </div>
@@ -64,25 +64,25 @@
           Database Lookup:
         </div>
         <div class='itemContent'>
-          {{for pathogen_pool}}
-            {{if is_in_database}}
-              {{:~link('#' + unique_id, 'info', { 'entry' : 1, 'view' : record }, null, 'fixedLeft')}}
+          {{for data.pathogen_pool}}
+            {{if data.is_in_database}}
+              {{:helper.link('#' + unique_id, 'info', { 'entry' : 1, 'view' : record }, null, 'fixedLeft')}}
             {{/if}}
           {{/for}}
         </div>
       </div>
     {{/if}}
   {{else}}
-    {{if state == "list"}}
+    {{if data.state == "list"}}
       <div class='item'>
         <h2>View Database</h2>
       </div>
       <div class='item'>
-      {{if database}}
-        {{for database}}
+      {{if data.database}}
+        {{for data.database}}
           <div class='itemContent'>
-            <div class='highlight fixedLeft'>{{:name}}</div>
-            {{:~link('Details', 'circle-arrow-s', { 'entry' : 1, 'view' : record }, null, 'fixedLeft')}}
+            <div class='highlight fixedLeft'>{{:data.name}}</div>
+            {{:helper.link('Details', 'circle-arrow-s', { 'entry' : 1, 'view' : record }, null, 'fixedLeft')}}
           </div>
         {{/for}}
       {{else}}
@@ -90,13 +90,13 @@
       {{/if}}
       </div>
     {{else}}
-      {{if state == "entry"}}
-        {{if entry}}
+      {{if data.state == "entry"}}
+        {{if data.entry}}
           <div class='item'>
-            <h2>{{:entry.name}}</h2>
+            <h2>{{:data.entry.name}}</h2>
           </div>
           <div class='statusDisplay'>
-            {{:entry.description}}
+            {{:data.entry.description}}
           </div>
         {{else}}
           <span class='average'>No virus selected.</span>
