@@ -58,8 +58,5 @@ var NanoTemplate = function () {
 		}
     }
 }();
-
-$(document).ready(function () {
-    NanoTemplate.init();
-});
+ 
 

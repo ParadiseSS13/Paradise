@@ -6,13 +6,6 @@ var NanoUtility = function ()
 	return {
         init: function () 
 		{
-			if (typeof jQuery == 'undefined') {  
-				alert('ERROR: Javascript library failed to load!');
-			}
-			if (typeof doT == 'undefined') {  
-				alert('ERROR: Template engine failed to load!');
-			}	
-
 			var body = $('body'); // We store data in the body tag, it's as good a place as any
 
 			_urlParameters = body.data('urlParameters');
@@ -48,9 +41,22 @@ var NanoUtility = function ()
 			return queryString;
 		}
     }
-} ();
+} (); 
 
-NanoUtility.init();
+if (typeof jQuery == 'undefined') {  
+	alert('ERROR: Javascript library failed to load!');
+}
+if (typeof doT == 'undefined') {  
+	alert('ERROR: Template engine failed to load!');
+}	
+
+// All scripts are initialised here, this allows control of init order
+$(document).ready(function () {
+	NanoUtility.init();
+	NanoTemplate.init();
+	NanoBaseHelpers.init();
+	NanoUpdate.init();
+});
 
 if (!Array.prototype.indexOf)
 {

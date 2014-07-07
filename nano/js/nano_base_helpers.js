@@ -197,11 +197,7 @@ NanoBaseHelpers = function ()
         }
 	};
 } ();
-
-$(document).ready(function()
-{
-	NanoBaseHelpers.init();
-});
+ 
 
 
 
