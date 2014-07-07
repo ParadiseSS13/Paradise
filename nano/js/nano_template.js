@@ -7,7 +7,7 @@ var NanoTemplate = function () {
 	var _helpers = {};
 
     var init = function () {
-        doT.templateSettings['varname'] = 'data';
+        
     };
 
     var compileTemplates = function () {

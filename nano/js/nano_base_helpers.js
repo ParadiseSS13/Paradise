@@ -1,13 +1,9 @@
 // NanoBaseHelpers is where the base template helpers (common to all templates) are stored
 NanoBaseHelpers = function ()
 {
-	var _urlParameters = {}; // This is populated with the base url parameters (used by all links), which is probaby just the "src" parameter
-
 	var init = function ()
 	{
-		var body = $('body'); // We store data in the body tag, it's as good a place as any
-
-		_urlParameters = body.data('urlParameters');
+		
 
 		initHelpers();
 	};
