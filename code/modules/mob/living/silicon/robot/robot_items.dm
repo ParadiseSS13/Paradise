@@ -95,14 +95,26 @@
 	var/mode = 1
 
 /obj/item/weapon/pen/robopen/attack_self(mob/user as mob)
+
+	var/choice = input("Would you like to change colour or mode?") as null|anything in list("Colour","Mode")
+	if(!choice) return
+
 	playsound(src.loc, 'sound/effects/pop.ogg', 50, 0)
-	if (mode == 1)
-		mode = 2
-		user << "Changed printing mode to 'Rename Paper'"
+
+	switch(choice)
+
+		if("Colour")
+			var/newcolour = input("Which colour would you like to use?") as null|anything in list("black","blue","red","green","yellow")
+			if(newcolour) color = newcolour
+
+		if("Mode")
+			if (mode == 1)
+				mode = 2
+			else
+				mode = 1
+			user << "Changed printing mode to '[mode == 2 ? "Rename Paper" : "Write Paper"]'"
+
 		return
-	if (mode == 2)
-		mode = 1
-		user << "Changed printing mode to 'Write Paper'"
 
 // Copied over from paper's rename verb
 // see code\modules\paperwork\paper.dm line 62
@@ -119,6 +131,12 @@
 		paper.name = "paper[(n_name ? text("- '[n_name]'") : null)]"
 	add_fingerprint(user)
 	return
+
+/obj/item/weapon/form_printer
+	name = "paperwork printer"
+	icon = 'icons/obj/bureaucracy.dmi'
+	icon_state = "paper_bin1"
+	item_state = "sheet-metal"
 
 //Personal shielding for the combat module.
 /obj/item/borg/combat/shield
