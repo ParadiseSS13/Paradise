@@ -11,7 +11,7 @@
 	docking_program = new/datum/computer/file/embedded_program/docking/airlock(src, airlock_program)
 	program = docking_program
 
-/obj/machinery/embedded_controller/radio/airlock/docking_port/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null)
+/obj/machinery/embedded_controller/radio/airlock/docking_port/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
 	var/data[0]
 
 	data = list(
@@ -24,7 +24,7 @@
 		"override_enabled" = docking_program.override_enabled,
 	)
 
-	ui = nanomanager.try_update_ui(user, src, ui_key, ui, data)
+	ui = nanomanager.try_update_ui(user, src, ui_key, ui, data, force_open)
 
 	if (!ui)
 		ui = new(user, src, ui_key, "docking_airlock_console.tmpl", name, 470, 290)

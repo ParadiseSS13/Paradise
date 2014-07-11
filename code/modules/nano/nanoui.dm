@@ -43,6 +43,8 @@ nanoui is used to open and update nano browser uis
 	// the body content for this ui, do not change unless you know what you're doing
 	// the #mainTemplate div will contain the compiled "main" template html
 	var/content = "<div id='mainTemplate'></div>"
+	// the title of this ui
+	var/state_key = "default"
 	// initial data, containing the full data structure, must be sent to the ui (the data structure cannot be extended later on)
 	var/list/initial_data[0]
 	// set to 1 to update the ui automatically every master_controller tick
@@ -96,7 +98,10 @@ nanoui is used to open and update nano browser uis
 	add_script("libraries.min.js") // A JS file comprising of jQuery, doT.js and jQuery Timer libraries (compressed together)
 	add_script("nano_utility.js") // The NanoUtility JS, this is used to store utility functions.
 	add_script("nano_template.js") // The NanoTemplate JS, this is used to render templates.
-	add_script("nano_update.js") // The NanoUpdate JS, this is used to receive updates and apply them.
+	add_script("nano_state_manager.js") // The
+	add_script("nano_state.js") // The
+	add_script("nano_state_default.js") // The
+	add_script("nano_base_callbacks.js") // The
 	add_script("nano_base_helpers.js") // The NanoBaseHelpers JS, this is used to set up template helpers which are common to all templates
 	add_stylesheet("shared.css") // this CSS sheet is common to all UIs
 	add_stylesheet("icons.css") // this CSS sheet is common to all UIs
@@ -110,12 +115,15 @@ nanoui is used to open and update nano browser uis
   * @return nothing
   */
 /datum/nanoui/proc/set_status(state, push_update)
-	if (state != status)
-		status = state
-		if (push_update || !status)
-			push_data(list(), 1) // Update the UI, force the update in case the status is 0
-	else
-		status = state
+	if (state != status) // Only update if it is different
+		if (status == STATUS_DISABLED)
+			status = state
+			if (push_update)
+				update()
+		else
+			status = state
+			if (push_update || status == 0)
+				push_data(null, 1) // Update the UI, force the update in case the status is 0, data is null so that previous data is used
 
  /**
   * Update the status (visibility) of this ui based on the user's status
@@ -124,7 +132,7 @@ nanoui is used to open and update nano browser uis
   *
   * @return nothing
   */
-/datum/nanoui/proc/update_status(push_update = 0)
+/datum/nanoui/proc/update_status(var/push_update = 0)
 	if (istype(user, /mob/living/silicon/ai))
 		set_status(STATUS_INTERACTIVE, push_update) // interactive (green visibility)
 	else if (istype(user, /mob/living/silicon/robot))
@@ -174,21 +182,39 @@ nanoui is used to open and update nano browser uis
   * @return nothing
   */
 /datum/nanoui/proc/set_initial_data(list/data)
-	initial_data = add_default_data(data)
+	initial_data = data
 
  /**
-  * Add default data to the data being sent to the ui.
+  * Get config data to sent to the ui.
   *
-  * @param data /list The list of data to be modified
-  *
-  * @return /list modified data
+  * @return /list config data
   */
-/datum/nanoui/proc/add_default_data(list/data)
-	data["ui"] = list(
+/datum/nanoui/proc/get_config_data()
+	var/list/config_data = list(
+			"title" = title,
+			"srcObject" = list("name" = src_object.name),
+			"stateKey" = state_key,
 			"status" = status,
 			"user" = list("name" = user.name)
 		)
-	return data
+	return config_data
+
+ /**
+  * Get data to sent to the ui.
+  *
+  * @param data /list The list of general data for this ui (can be null to use previous data sent)
+  *
+  * @return /list data to send to the ui
+  */
+/datum/nanoui/proc/get_send_data(var/list/data)
+	var/list/config_data = get_config_data()
+
+	var/list/send_data = list("config" = config_data)
+
+	if (!isnull(data))
+		send_data["data"] = data
+
+	return send_data
 
  /**
   * Set the browser window options for this ui
@@ -247,6 +273,16 @@ nanoui is used to open and update nano browser uis
 	content = ncontent
 
  /**
+  * Set the state key for use in the frontend Javascript
+  *
+  * @param nstate_key string The new HTML content for this UI
+  *
+  * @return nothing
+  */
+/datum/nanoui/proc/set_state_key(nstate_key)
+	state_key = nstate_key
+
+ /**
   * Set whether or not to use the "old" on close logic (mainly unset_machine())
   *
   * @param state int (bool) Set on_close_logic to 1 or 0 (true/false)
@@ -278,9 +314,8 @@ nanoui is used to open and update nano browser uis
 	if (templatel_data.len > 0)
 		template_data_json = list2json(templatel_data)
 
-	var/initial_data_json = "{}" // An empty JSON object
-	if (initial_data.len > 0)
-		initial_data_json = list2json(initial_data)
+	var/list/send_data = get_send_data(initial_data)
+	var/initial_data_json = list2json(send_data)
 
 	var/url_parameters_json = list2json(list("src" = "\ref[src]"))
 
@@ -291,11 +326,15 @@ nanoui is used to open and update nano browser uis
 		<script type='text/javascript'>
 			function receiveUpdateData(jsonString)
 			{
+<<<<<<< HEAD
 				// We need both jQuery and NanoUpdate to be able to recieve data
+=======
+				// We need both jQuery and NanoStateManager to be able to recieve data
+>>>>>>> 7e7e6cd... Continued work in progress on a major revision of the NanoUI templating system.
 				// At the moment any data received before those libraries are loaded will be lost
-				if (typeof NanoUpdate != 'undefined' && typeof jQuery != 'undefined')
+				if (typeof NanoStateManager != 'undefined' && typeof jQuery != 'undefined')
 				{
-					NanoUpdate.receiveUpdateData(jsonString);
+					NanoStateManager.receiveUpdateData(jsonString);
 				}
 			}
 		</script>
@@ -305,7 +344,16 @@ nanoui is used to open and update nano browser uis
 		<div id='uiWrapper'>
 			[title ? "<div id='uiTitleWrapper'><div id='uiStatusIcon' class='icon24 uiStatusGood'></div><div id='uiTitle'>[title]</div><div id='uiTitleFluff'></div></div>" : ""]
 			<div id='uiContent'>
+<<<<<<< HEAD
 				<noscript><div id='uiNoJavaScript'>Your browser does not have JavaScript enabled. Please enable JavaScript, then restart SS13.</div></noscript>
+=======
+				<div id='uiLoadingNotice'>Initiating...</div>
+				<noscript id='uiNoScript'>
+					<h2>JAVASCRIPT REQUIRED</h2>
+					<p>Your Internet Explorer's Javascript is disabled (or broken).<br/>
+					Enable Javascript and then open this UI again.</p>
+				</noscript>
+>>>>>>> 7e7e6cd... Continued work in progress on a major revision of the NanoUI templating system.
 	"}
 
  /**
@@ -387,9 +435,10 @@ nanoui is used to open and update nano browser uis
 	if (status == STATUS_DISABLED && !force_push)
 		return // Cannot update UI, no visibility
 
-	data = add_default_data(data)
+	var/list/send_data = get_send_data(data)
+
 	//user << list2json(data) // used for debugging
-	user << output(list2params(list(list2json(data))),"[window_id].browser:receiveUpdateData")
+	user << output(list2params(list(list2json(send_data))),"[window_id].browser:receiveUpdateData")
 
  /**
   * This Topic() proc is called whenever a user clicks on a link within a Nano UI
@@ -420,7 +469,15 @@ nanoui is used to open and update nano browser uis
 		return
 
 	if (status && (update || is_auto_updating))
-		src_object.ui_interact(user, ui_key, src) // Update the UI (update_status() is called whenever a UI is updated)
+		update() // Update the UI (update_status() is called whenever a UI is updated)
 	else
 		update_status(1) // Not updating UI, so lets check here if status has changed
+
+ /**
+  * Update the UI
+  *
+  * @return nothing
+  */
+/datum/nanoui/proc/update(var/force_open = 0)
+	src_object.ui_interact(user, ui_key, src, force_open)
 

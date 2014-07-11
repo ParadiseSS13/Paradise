@@ -13,7 +13,8 @@
             conditionalElse:   /\{\{else\s*([\s\S]*?)\s*\}\}/g,
             iterate:           /\{\{\/?for\s*(?:\}\}|([\s\S]+?)\s*(?:\:\s*([\w$]+))?\s*(?:\:\s*([\w$]+))?\s*\}\})/g,
             props:             /\{\{\/?props\s*(?:\}\}|([\s\S]+?)\s*(?:\:\s*([\w$]+))?\s*(?:\:\s*([\w$]+))?\s*\}\})/g,
-            varname: 'data, helper',
+            empty:   		   /\{\{empty\}\}/g,
+            varname: 'data, config, helper',
             strip: true,
             append: true,
             selfcontained: false
@@ -116,7 +117,7 @@
                 iname = iname || "index";
                 iterate = unescape(iterate);
                 var arrayName = "arr" + sid;
-                return "';var " + arrayName + "=" + iterate + ";if(" + arrayName + "){var " + vname + "," + iname + "=-1,l" + sid + "=" + arrayName + ".length-1;while(" + iname + "<l" + sid + "){"
+                return "';var " + arrayName + "=" + iterate + ";if(" + arrayName + " && " + arrayName + ".length > 0){var " + vname + "," + iname + "=-1,l" + sid + "=" + arrayName + ".length-1;while(" + iname + "<l" + sid + "){"
                     + vname + "=" + arrayName + "[" + iname + "+=1];out+='";
             })
             .replace(c.props || skip, function (m, iterate, vname, iname) {
@@ -126,7 +127,10 @@
                 iname = iname || "key";
                 iterate = unescape(iterate);
                 var objectName = "arr" + sid;
-                return "';var " + objectName + "=" + iterate + ";if(" + objectName + "){var " + vname + ";for( var " + iname + " in " + objectName + "){ if (!" + objectName + ".hasOwnProperty(" + iname + ")) continue; " + vname + "=" + objectName + "[" + iname + "];out+='";
+                return "';var " + objectName + "=" + iterate + ";if(" + objectName + " && Object.size(" + objectName + ") > 0){var " + vname + ";for( var " + iname + " in " + objectName + "){ if (!" + objectName + ".hasOwnProperty(" + iname + ")) continue; " + vname + "=" + objectName + "[" + iname + "];out+='";
+            })
+            .replace(c.empty || skip, function (m) {
+                return "';}}else{if(true){out+='"; // The "if(true)" condition is required to account for the for tag closing with two brackets
             })
             .replace(c.evaluate || skip, function (m, code) {
                 return "';" + unescape(code) + "out+='";

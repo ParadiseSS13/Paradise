@@ -53,9 +53,8 @@ if (typeof doT == 'undefined') {
 // All scripts are initialised here, this allows control of init order
 $(document).ready(function () {
 	NanoUtility.init();
+	NanoStateManager.init();
 	NanoTemplate.init();
-	NanoBaseHelpers.init();
-	NanoUpdate.init();
 });
 
 if (!Array.prototype.indexOf)
@@ -140,3 +139,10 @@ String.prototype.toTitleCase = function () {
 $.ajaxSetup({
     cache: false
 });
+
+Function.prototype.inheritsFrom = function (parentClassOrObject) {
+    this.prototype = new parentClassOrObject;
+    this.prototype.constructor = this;
+    this.prototype.parent = parentClassOrObject.prototype;
+    return this;
+};

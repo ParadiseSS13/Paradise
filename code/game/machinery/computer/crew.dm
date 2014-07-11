@@ -57,7 +57,7 @@
 /obj/machinery/computer/crew/interact(mob/user)
 	ui_interact(user)
 
-/obj/machinery/computer/crew/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null)
+/obj/machinery/computer/crew/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
 	if(stat & (BROKEN|NOPOWER))
 		return
 	user.set_machine(src)
@@ -97,7 +97,7 @@
 
 	data["crewmembers"] = crewmembers
 
-	ui = nanomanager.try_update_ui(user, src, ui_key, ui, data)
+	ui = nanomanager.try_update_ui(user, src, ui_key, ui, data, force_open)
 	if(!ui)
 		ui = new(user, src, ui_key, "crew_monitor.tmpl", "Crew Monitoring Computer", 900, 600)
 		ui.set_initial_data(data)

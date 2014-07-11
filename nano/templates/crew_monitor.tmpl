@@ -3,12 +3,12 @@ Crew Monitoring Computer interface
 -->
 <table width="100%"><tbody>
 	{{for data.crewmembers}}
-		{{if data.sensor_type == 1}}
-			<tr><td>{{:data.name}}</td><td>{{:data.dead ? "<span class='bad'>Deceased</span>" : "<span class='good'>Living</span>"}}</td><td><span class="neutral">Not Available</span></td></tr>
-		{{else data.sensor_type == 2}}
-			<tr><td>{{:data.name}}</td><td>{{:data.dead ? "<span class='bad'>Deceased</span>" : "<span class='good'>Living</span>"}} (<span class="oxyloss">{{:data.oxy}}</span>/<span class="toxin">{{:data.tox}}</span>/<span class="burn">{{:data.fire}}</span>/<span class="brute">{{:data.brute}}</span>)</td><td><span class="neutral">Not Available</td></td></tr>
-		{{else data.sensor_type == 3}}
-			<tr><td>{{:data.name}}</td><td>{{:data.dead ? "<span class='bad'>Deceased</span>" : "<span class='good'>Living</span>"}} (<span class="oxyloss">{{:data.oxy}}</span>/<span class="toxin">{{:data.tox}}</span>/<span class="burn">{{:data.fire}}</span>/<span class="brute">{{:data.brute}}</span>)</td><td>{{:data.area}}({{:data.x}}, {{:data.y}})</td></tr>
+		{{if value.sensor_type == 1}}
+			<tr><td>{{:value.name}}</td><td>{{:value.dead ? "<span class='bad'>Deceased</span>" : "<span class='good'>Living</span>"}}</td><td><span class="neutral">Not Available</span></td></tr>
+		{{else value.sensor_type == 2}}
+			<tr><td>{{:value.name}}</td><td>{{:value.dead ? "<span class='bad'>Deceased</span>" : "<span class='good'>Living</span>"}} (<span class="oxyloss">{{:value.oxy}}</span>/<span class="toxin">{{:value.tox}}</span>/<span class="burn">{{:value.fire}}</span>/<span class="brute">{{:value.brute}}</span>)</td><td><span class="neutral">Not Available</td></td></tr>
+		{{else value.sensor_type == 3}}
+			<tr><td>{{:value.name}}</td><td>{{:value.dead ? "<span class='bad'>Deceased</span>" : "<span class='good'>Living</span>"}} (<span class="oxyloss">{{:value.oxy}}</span>/<span class="toxin">{{:value.tox}}</span>/<span class="burn">{{:value.fire}}</span>/<span class="brute">{{:value.brute}}</span>)</td><td>{{:value.area}}({{:value.x}}, {{:value.y}})</td></tr>
 		{{/if}}
 	{{/for}}
 </tbody></table>

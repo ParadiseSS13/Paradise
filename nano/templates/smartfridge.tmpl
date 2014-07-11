@@ -14,24 +14,20 @@
   {{if data.contents}}
     {{for data.contents}}
       <div class='item'>
-        <div class='itemLabel'>
-          <span class='highlight'>{{:data.display_name}} ({{:data.quantity}}):</span>
-        </div>
-        <div class="itemContent">
-          {{:helper.link('Vend', 'circle-arrow-s', { "vend" : vend, "amount" : 1 }, null, 'statusValue')}}
-          {{if data.quantity >= 5}}
-            {{:helper.link('x5', 'circle-arrow-s', { "vend" : vend, "amount" : 5 }, null, 'statusValue')}}
-          {{/if}}
-          {{if data.quantity >= 10}}
-            {{:helper.link('x10', 'circle-arrow-s', { "vend" : vend, "amount" : 10 }, null, 'statusValue')}}
-          {{/if}}
-          {{if data.quantity >= 25}}
-            {{:helper.link('x25', 'circle-arrow-s', { "vend" : vend, "amount" : 25 }, null, 'statusValue')}}
-          {{/if}}
-          {{if data.quantity > 1}}
-            {{:helper.link('All', 'circle-arrow-s', { "vend" : vend, "amount" : quantity }, null, 'statusValue')}}
-          {{/if}}
-        </div>
+        <span class='highlight'>{{:value.display_name}} ({{:value.quantity}} available)</span>
+        <div style="float: left;">Vend:&nbsp;</div> {{:helper.link('x1', 'circle-arrow-s', { "vend" : value.vend, "amount" : 1 }, null, 'statusValue')}}
+		{{if value.quantity >= 5}}
+			{{:helper.link('x5', 'circle-arrow-s', { "vend" : value.vend, "amount" : 5 }, null, 'statusValue')}}
+		{{/if}}
+		{{if value.quantity >= 10}}
+			{{:helper.link('x10', 'circle-arrow-s', { "vend" : value.vend, "amount" : 10 }, null, 'statusValue')}}
+		{{/if}}
+		{{if value.quantity >= 25}}
+			{{:helper.link('x25', 'circle-arrow-s', { "vend" : value.vend, "amount" : 25 }, null, 'statusValue')}}
+		{{/if}}
+		{{if value.quantity > 1}}
+			{{:helper.link('All', 'circle-arrow-s', { "vend" : value.vend, "amount" : value.quantity }, null, 'statusValue')}}
+		{{/if}}
       </div>
     {{/for}}
   {{else}}
@@ -50,15 +46,15 @@
     <div class='itemContentWide'>
       {{for data.wires}}
         <div class='item'>
-          <div class='itemLabel' style='color: {{:data.wire}};'>
-            {{:data.wire}} wire:
+          <div class='itemLabel' style='color: {{:value.wire}};'>
+            {{:value.wire}} wire:
           </div>
           <div class='itemContent'>
-            {{if data.cut}}
-              {{:helper.link('Mend', 'plus', {'cutwire' : index})}}
+            {{if value.cut}}
+              {{:helper.link('Mend', 'plus', {'cutwire' : value.index})}}
             {{else}}
-              {{:helper.link('Cut', 'minus', {'cutwire' : index})}}
-              {{:helper.link('Pulse', 'signal-diag', {'pulsewire' : index})}}
+              {{:helper.link('Cut', 'minus', {'cutwire' : value.index})}}
+              {{:helper.link('Pulse', 'signal-diag', {'pulsewire' : value.index})}}
             {{/if}}
           </div>
         </div>
@@ -71,8 +67,8 @@
     The red light is <span class='{{:data.shoot_inventory ? "good" : "bad"}}'><b>{{:data.shoot_inventory ? "on" : "off"}}</b></span>.<br>
     {{if data.secure}}
       The green light is
-      <span class='{{:data.locked == 1 ? "bad" : locked == -1 ? "average" : "good"}}'>
-        {{:data.locked == 1 ? "off" : locked == -1 ? "blinking" : "on"}}
+      <span class='{{:data.locked == 1 ? "bad" : data.locked == -1 ? "average" : "good"}}'>
+        {{:data.locked == 1 ? "off" : data.locked == -1 ? "blinking" : "on"}}
       </span>.<br>
     {{/if}}
   </div>

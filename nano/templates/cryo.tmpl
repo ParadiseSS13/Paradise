@@ -23,42 +23,44 @@ Used In File(s): \code\game\machinery\cryo.dm
 			<div class="line">
 				<div class="statusLabel">Health:</div>
 				{{if data.occupant.health >= 0}}
-					{{:helper.displayBar(occupant.health, 0, occupant.maxHealth, 'good')}}
+					{{:helper.displayBar(data.occupant.health, 0, data.occupant.maxHealth, 'good')}}
 				{{else}}
-					{{:helper.displayBar(occupant.health, 0, occupant.minHealth, 'average alignRight')}}
+					{{:helper.displayBar(data.occupant.health, 0, data.occupant.minHealth, 'average alignRight')}}
 				{{/if}}
-				<div class="statusValue">{{:helper.round(occupant.health)}}</div>
+				<div class="statusValue">{{:helper.round(data.occupant.health)}}</div>
 			</div>
 		
 			<div class="line">
 				<div class="statusLabel">=&gt; Brute Damage:</div>
-				{{:helper.displayBar(occupant.bruteLoss, 0, occupant.maxHealth, 'bad')}}
-				<div class="statusValue">{{:helper.round(occupant.bruteLoss)}}</div>
+				{{:helper.displayBar(data.occupant.bruteLoss, 0, data.occupant.maxHealth, 'bad')}}
+				<div class="statusValue">{{:helper.round(data.occupant.bruteLoss)}}</div>
 			</div>
 		
 			<div class="line">
 				<div class="statusLabel">=&gt; Resp. Damage:</div>
-				{{:helper.displayBar(occupant.oxyLoss, 0, occupant.maxHealth, 'bad')}}
-				<div class="statusValue">{{:helper.round(occupant.oxyLoss)}}</div>
+				{{:helper.displayBar(data.occupant.oxyLoss, 0, data.occupant.maxHealth, 'bad')}}
+				<div class="statusValue">{{:helper.round(data.occupant.oxyLoss)}}</div>
 			</div>
 		
 			<div class="line">
 				<div class="statusLabel">=&gt; Toxin Damage:</div>
-				{{:helper.displayBar(occupant.toxLoss, 0, occupant.maxHealth, 'bad')}}
-				<div class="statusValue">{{:helper.round(occupant.toxLoss)}}</div>
+				{{:helper.displayBar(data.occupant.toxLoss, 0, data.occupant.maxHealth, 'bad')}}
+				<div class="statusValue">{{:helper.round(data.occupant.toxLoss)}}</div>
 			</div>
 		
 			<div class="line">
 				<div class="statusLabel">=&gt; Burn Severity:</div>
-				{{:helper.displayBar(occupant.fireLoss, 0, occupant.maxHealth, 'bad')}}
-				<div class="statusValue">{{:helper.round(occupant.fireLoss)}}</div>
+				{{:helper.displayBar(data.occupant.fireLoss, 0, data.occupant.maxHealth, 'bad')}}
+				<div class="statusValue">{{:helper.round(data.occupant.fireLoss)}}</div>
 			</div>
 		{{/if}}
 	{{/if}}
 	<hr>
-	<div class="line"><div class="statusLabel">Cell Temperature:</div><div class="statusValue">
-		{{:helper.string('<span class="{0}">{1} K</span>', cellTemperatureStatus, cellTemperature)}}
-	</div></div>
+	<div class="line">
+		<div class="statusLabel">Cell Temperature:</div><div class="statusValue">
+			<span class="{{:data.cellTemperatureStatus}}">{{:data.cellTemperature}} K</span>
+		</div>
+	</div>
 </div>
 
 <h3>Cryo Cell Operation</h3>
@@ -67,10 +69,10 @@ Used In File(s): \code\game\machinery\cryo.dm
 		Cryo Cell Status:
 	</div>
 	<div class="itemContent" style="width: 40%;">
-		{{:helper.link('On', 'power', {'switchOn' : 1}, isOperating ? 'selected' : null)}}{{:helper.link('Off', 'close', {'switchOff' : 1}, isOperating ? null : 'selected')}}
+		{{:helper.link('On', 'power', {'switchOn' : 1}, data.isOperating ? 'selected' : null)}}{{:helper.link('Off', 'close', {'switchOff' : 1}, data.isOperating ? null : 'selected')}}
 	</div>
 	<div class="itemContent" style="width: 26%;">
-		{{:helper.link('Eject Occupant', 'arrowreturnthick-1-s', {'ejectOccupant' : 1}, hasOccupant ? null : 'disabled')}}
+		{{:helper.link('Eject Occupant', 'arrowreturnthick-1-s', {'ejectOccupant' : 1}, data.hasOccupant ? null : 'disabled')}}
 	</div>
 </div>
 <div class="item">&nbsp;</div>
@@ -80,7 +82,7 @@ Used In File(s): \code\game\machinery\cryo.dm
 	</div>
 	<div class="itemContent" style="width: 40%;">
 		{{if data.isBeakerLoaded}}		
-			{{:data.beakerLabel ? beakerLabel : '<span class="average">No label</span>'}}<br>
+			{{:data.beakerLabel ? data.beakerLabel : '<span class="average">No label</span>'}}<br>
 			{{if data.beakerVolume}}
 				<span class="highlight">{{:data.beakerVolume}} units remaining</span><br>
 			{{else}}
@@ -91,6 +93,6 @@ Used In File(s): \code\game\machinery\cryo.dm
 		{{/if}}
 	</div>
 	<div class="itemContent" style="width: 26%;">
-		{{:helper.link('Eject Beaker', 'eject', {'ejectBeaker' : 1}, isBeakerLoaded ? null : 'disabled')}}
+		{{:helper.link('Eject Beaker', 'eject', {'ejectBeaker' : 1}, data.isBeakerLoaded ? null : 'disabled')}}
 	</div>
 </div>

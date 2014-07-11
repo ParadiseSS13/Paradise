@@ -1,17 +1,8 @@
 // NanoBaseHelpers is where the base template helpers (common to all templates) are stored
 NanoBaseHelpers = function ()
 {
-	var init = function ()
-	{
-		
-
-		initHelpers();
-	};
-
-	var initHelpers = function ()
-	{
-		NanoTemplate.addHelpers({
-
+	var _baseHelpers = {
+            // change ui styling to "syndicate mode"
 			syndicateMode: function() {
 				$('body').css("background-color","#8f1414");
 				$('body').css("background-image","url('uiBackground-Syndicate.png')");
@@ -24,7 +15,6 @@ NanoBaseHelpers = function ()
 
 				return '';
 			},
-
 			// Generate a Byond link
 			link: function( text, icon, parameters, status, elementClass, elementId) {
 
@@ -187,13 +177,22 @@ NanoBaseHelpers = function ()
 
 				return html;
 			}
-		});
-	};	
-
+		};
+		
 	return {
-        init: function ()
+        addHelpers: function ()
 		{
-            init();
+            NanoTemplate.addHelpers(_baseHelpers);
+        },
+		removeHelpers: function ()
+		{
+			for (var helperKey in _baseHelpers)
+			{
+				if (_baseHelpers.hasOwnProperty(helperKey))
+				{
+					NanoTemplate.removeHelper(helperKey);
+				}
+			}            
         }
 	};
 } ();

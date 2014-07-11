@@ -1,17 +1,17 @@
 <div class="item">
-    {{:~link('Overall status', 'note', {'state' :'status'}, null, state == 'status' ? 'selected' : null)}}
-    {{:~link('Details', 'note', {'state' : 'engines'}, null, state == 'engines' ? 'selected' : null)}}
+    {{:helper.link('Overall status', 'note', {'state' :'status'}, null, state == 'status' ? 'selected' : null)}}
+    {{:helper.link('Details', 'note', {'state' : 'engines'}, null, state == 'engines' ? 'selected' : null)}}
 </div>
 
-{{if state == "engines"}}
-	{{if engines_info}}
-		{{for engines_info}}
+{{if data.state == "engines"}}
+	{{if data.engines_info}}
+		{{for data.engines_info}}
 			<div class='item'>
 				<div class="itemLabel">
-					<span class='white'>Engine #{{:#index + 1}}:</span>
+					<span class='white'>Engine #{{:(index + 1)}}:</span>
 				</div>
 				<div class="itemContent">
-						{{:~link(eng_on ? 'Shutdown' : 'Power up', 'power', { 'toggle' : 1, 'engine' : eng_reference }, null, eng_on ? 'selected' : null)}}
+						{{:helper.link(value.eng_on ? 'Shutdown' : 'Power up', 'power', { 'toggle' : 1, 'engine' : value.eng_reference }, null, value.eng_on ? 'selected' : null)}}
 				</div>
 			</div>
 			<div class='statusDisplay'>
@@ -20,7 +20,7 @@
 					<span class='average'>Type:</span>
 				</div>
 				<div class="itemContent">
-					<span class='white'>{{:eng_type}}</span>
+					<span class='white'>{{:value.eng_type}}</span>
 				</div>
 			  </div>
 			  <div class='item'>
@@ -28,8 +28,8 @@
 					<span class='average'>Status:</span>
 				</div>
 				<div class="itemContent">
-					<span class='{{:eng_on ? 'good' : 'bad'}}'>{{:eng_on ? 'Online' : 'Offline'}}</span><br>
-					<span class='white'>{{:eng_status}}</span>
+					<span class='{{:value.eng_on ? 'good' : 'bad'}}'>{{:value.eng_on ? 'Online' : 'Offline'}}</span><br>
+					<span class='white'>{{:value.eng_status}}</span>
 				</div>
 			  </div>
 			  <div class='item'>
@@ -37,7 +37,7 @@
 					<span class='average'>Current thrust:</span>
 				</div>
 				<div class="itemContent">
-					<span class='white'>{{:eng_thrust}}</span>
+					<span class='white'>{{:value.eng_thrust}}</span>
 				</div>
 			  </div>
 			  <div class='item'>
@@ -45,25 +45,25 @@
 					<span class='average'>Thrust limit:</span>
 				</div>
 				<div class="itemContent">
-					{{:~link('', 'circle-plus', { 'limit' : 0.1, 'engine' : eng_reference }, null, null)}}
-					{{:~link(eng_thrust_limiter+'%', null, { 'set_limit' : 1, 'engine' : eng_reference }, null, null)}}
-					{{:~link('', 'circle-minus', { 'limit' : -0.1, 'engine' : eng_reference }, null, null)}}
+					{{:helper.link('', 'circle-plus', { 'limit' : 0.1, 'engine' : value.eng_reference }, null, null)}}
+					{{:helper.link(value.eng_thrust_limiter+'%', null, { 'set_limit' : 1, 'engine' : value.eng_reference }, null, null)}}
+					{{:helper.link('', 'circle-minus', { 'limit' : -0.1, 'engine' : value.eng_reference }, null, null)}}
 				</div>
 			  </div>
 		  </div>
 		{{/for}}
 	{{/if}}
 {{/if}}
-{{if state == "status"}}
-{{if engines_info}}
-		{{for engines_info}}
+{{if data.state == "status"}}
+	{{if data.engines_info}}
+		{{for data.engines_info}}
 			<div class='block'>
 				<div class='item'>
 					<div class="itemLabel">
-						<span class='white'>Engine #{{:#index + 1}}:</span>
+						<span class='white'>Engine #{{:(index + 1)}}:</span>
 					</div>
 					<div class="itemContent">
-						{{:~link(eng_on ? 'Shutdown' : 'Power up', 'power', { 'toggle' : 1, 'engine' : eng_reference }, null, eng_on ? 'selected' : null)}}
+						{{:helper.link(value.eng_on ? 'Shutdown' : 'Power up', 'power', { 'toggle' : 1, 'engine' : value.eng_reference }, null, value.eng_on ? 'selected' : null)}}
 					</div>
 				</div>
 				<div class='item'>
@@ -73,9 +73,9 @@
 						<span class='average'>Thrust limit:</span>
 					</div>
 					<div class="itemContent">
-						<span class='white'>{{:eng_thrust}}</span>
+						<span class='white'>{{:value.eng_thrust}}</span>
 						<br>
-						<span class='white'>{{:eng_thrust_limiter}}%</span>
+						<span class='white'>{{:value.eng_thrust_limiter}}%</span>
 					</div>
 				</div>
 			</div>

@@ -659,7 +659,7 @@
 			call(/obj/item/clothing/gloves/space_ninja/proc/drain)("APC",src,user:wear_suit)
 			return
 	// do APC interaction
-	user.set_machine(src)
+	//user.set_machine(src)
 	src.interact(user)
 
 /obj/machinery/power/apc/attack_alien(mob/living/carbon/alien/humanoid/user)
@@ -708,8 +708,7 @@
 	else
 		return 0 // 0 = User is not a Malf AI
 
-
-/obj/machinery/power/apc/ui_interact(mob/user, ui_key = "main")
+/obj/machinery/power/apc/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
 	if(!user)
 		return
 
@@ -720,7 +719,7 @@
 		"powerCellStatus" = cell ? cell.percent() : null,
 		"chargeMode" = chargemode,
 		"chargingStatus" = charging,
-		"totalLoad" = lastused_equip + lastused_light + lastused_environ,
+		"totalLoad" = round(lastused_equip + lastused_light + lastused_environ),
 		"coverLocked" = coverlocked,
 		"siliconUser" = istype(user, /mob/living/silicon),
 		"malfStatus" = get_malf_status(user),
@@ -728,7 +727,7 @@
 		"powerChannels" = list(
 			list(
 				"title" = "Equipment",
-				"powerLoad" = lastused_equip,
+				"powerLoad" = round(lastused_equip),
 				"status" = equipment,
 				"topicParams" = list(
 					"auto" = list("eqp" = 3),
@@ -738,7 +737,7 @@
 			),
 			list(
 				"title" = "Lighting",
-				"powerLoad" = lastused_light,
+				"powerLoad" = round(lastused_light),
 				"status" = lighting,
 				"topicParams" = list(
 					"auto" = list("lgt" = 3),
@@ -748,7 +747,7 @@
 			),
 			list(
 				"title" = "Environment",
-				"powerLoad" = lastused_environ,
+				"powerLoad" = round(lastused_environ),
 				"status" = environ,
 				"topicParams" = list(
 					"auto" = list("env" = 3),
@@ -759,7 +758,8 @@
 		)
 	)
 
-	var/datum/nanoui/ui = nanomanager.get_open_ui(user, src, ui_key)
+	// update the ui if it exists, returns null if no ui is passed/found
+	ui = nanomanager.try_update_ui(user, src, ui_key, ui, data, force_open)
 	if (!ui)
 		// the ui does not exist, so we'll create a new one
 		ui = new(user, src, ui_key, "apc.tmpl", "[area.name] - APC", 500, data["siliconUser"] ? 465 : 390)
@@ -845,7 +845,7 @@
 			return 0
 	return 1
 
-/obj/machinery/power/apc/Topic(href, href_list)
+/obj/machinery/power/apc/Topic(href, href_list, var/usingUI = 1)
 	if(..())
 		return 0
 
@@ -881,6 +881,14 @@
 		environ = setsubsystem(val)
 		update_icon()
 		update()
+	else if( href_list["close"] )
+		nanomanager.close_user_uis(usr, src)
+
+		return 0
+	else if (href_list["close2"])
+		usr << browse(null, "window=apcwires")
+
+		return 0
 
 	else if (href_list["overload"])
 		if(istype(usr, /mob/living/silicon))
@@ -891,7 +899,7 @@
 		if(get_malf_status(malfai)==1)
 			if (malfai.malfhacking)
 				malfai << "You are already hacking an APC."
-				return 1
+				return 0
 			malfai << "Beginning override of APC systems. This takes some time, and you cannot perform other actions during the process."
 			malfai.malfhack = src
 			malfai.malfhacking = 1

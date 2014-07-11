@@ -9,9 +9,9 @@
 		<div class="clearBoth"></div>
 	{{else}}
 		{{if data.locked}}
-			Swipe an ID card to unlock this interface.
+			Swipe an ID card to unlock this interface
 		{{else}}
-			Swipe an ID card to lock this interface.
+			Swipe an ID card to lock this interface
 		{{/if}}
 	{{/if}}
 </div>
@@ -114,11 +114,13 @@
 				{{else value.status >= 2}}
 					<span class='good'>On</span>
 				{{/if}}
-				{{if value.status == 1 || value.status == 3}}
-					[Auto]
-				{{else}}
-					[Manual]
-				{{/if}}		
+				{{if data.locked}}
+					{{if value.status == 1 || value.status == 3}}
+						&nbsp;&nbsp;Auto
+					{{else}}
+						&nbsp;&nbsp;Manual
+					{{/if}}		
+				{{/if}}
 			</div>
 			{{if !data.locked || data.siliconUser}}
 				<div class="itemContentFull">

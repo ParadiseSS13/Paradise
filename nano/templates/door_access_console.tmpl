@@ -28,14 +28,14 @@
 	<div class="item">
 		<div class="itemContent" style="width: 100%">
 		{{if data.exterior_status.state == "open"}}
-			{{:helper.link('Lock Exterior Door', 'alert', {'command' : 'force_ext'}, processing ? 'disabled' : null)}}
+			{{:helper.link('Lock Exterior Door', 'alert', {'command' : 'force_ext'}, data.processing ? 'disabled' : null)}}
 		{{else}}
-			{{:helper.link('Cycle to Exterior', 'arrowthickstop-1-w', {'command' : 'cycle_ext_door'}, processing ? 'disabled' : null)}}
+			{{:helper.link('Cycle to Exterior', 'arrowthickstop-1-w', {'command' : 'cycle_ext_door'}, data.processing ? 'disabled' : null)}}
 		{{/if}}
 		{{if data.interior_status.state == "open"}}
-			{{:helper.link('Lock Interior Door', 'alert', {'command' : 'force_int'}, processing ? 'disabled' : null)}}
+			{{:helper.link('Lock Interior Door', 'alert', {'command' : 'force_int'}, data.processing ? 'disabled' : null)}}
 		{{else}}
-			{{:helper.link('Cycle to Interior', 'arrowthickstop-1-e', {'command' : 'cycle_int_door'}, processing ? 'disabled' : null)}}
+			{{:helper.link('Cycle to Interior', 'arrowthickstop-1-e', {'command' : 'cycle_int_door'}, data.processing ? 'disabled' : null)}}
 		{{/if}}
 		</div>
 	</div>

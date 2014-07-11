@@ -1,6 +1,6 @@
 <div class="item">
   {{:helper.link('Close', 'gear', {'close' : 1}, null, 'fixedLeft')}}
-  {{:helper.link('Print', 'print', { 'print' : 1 }, antibodies || pathogens ? null : 'disabled', 'fixedLeft')}}
+  {{:helper.link('Print', 'print', { 'print' : 1 }, data.antibodies || data.pathogens ? null : 'disabled', 'fixedLeft')}}
 </div>
 
 {{if data.busy}}
@@ -16,10 +16,10 @@
     <h2>{{:data.is_antibody_sample ?  'Antibody Sample' : 'Blood Sample'}}</h2>
   </div>
   <div class='item'>
-    {{:helper.link('Eject Vial', 'eject', { 'action' : 'sample' }, sample_inserted ? null : 'disabled')}}
+    {{:helper.link('Eject Vial', 'eject', { 'action' : 'sample' }, data.sample_inserted ? null : 'disabled')}}
   </div>
   {{if data.sample_inserted}}
-    {{if data.antibodies || pathogens}}
+    {{if data.antibodies || data.pathogens}}
       <div class="statusDisplay">
         {{if data.antibodies}}
           <div class='item'>
@@ -39,7 +39,7 @@
             <div class='itemContent'>
               {{for data.pathogens}}
                 <div class='highlight'>
-                  {{:data.name}} ({{:data.spread_type}})
+                  {{:value.name}} ({{:value.spread_type}})
                 </div>
               {{/for}}
             </div>
@@ -56,13 +56,13 @@
       <span class='average'>No vial detected.</span>
     </div>
   {{/if}}
-  {{if data.antibodies && !is_antibody_sample}}
+  {{if data.antibodies && !data.is_antibody_sample}}
     <div class='item'>
       <div class='itemLabelWide'>
         Isolate Antibodies:
       </div>
       <div class='itemContent'>
-        {{:helper.link(antibodies, 'pencil', { 'action' : 'antibody' })}}
+        {{:helper.link(data.antibodies, 'pencil', { 'action' : 'antibody' })}}
       </div>
     </div>
   {{/if}}
@@ -73,7 +73,7 @@
       </div>
       <div class='itemContent'>
         {{for data.pathogens}}
-          {{:helper.link(name, 'pencil', { 'isolate' : reference })}}
+          {{:helper.link(value.name, 'pencil', { 'isolate' : value.reference })}}
         {{/for}}
       </div>
     </div>

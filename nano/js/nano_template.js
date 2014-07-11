@@ -7,7 +7,69 @@ var NanoTemplate = function () {
 	var _helpers = {};
 
     var init = function () {
-        
+        // We store initialData and templateData in the body tag, it's as good a place as any
+		var templateData = $('body').data('templateData');
+		
+		if (templateData == null)
+		{
+			alert('Error: Template data did not load correctly.');
+		}		
+		
+		// we count the number of templates for this ui so that we know when they've all been rendered
+		var templateCount = 0;
+		for (var key in templateData)
+		{
+			if (templateData.hasOwnProperty(key))
+			{
+				templateCount++;
+			}
+		}
+		
+		if (!templateCount)
+		{
+			alert('ERROR: No templates listed!');
+		}
+		
+		// load markup for each template and register it
+		for (var key in templateData)
+		{
+			if (!templateData.hasOwnProperty(key))
+			{
+				continue;
+			}
+			
+			$.when($.ajax({
+				url: templateData[key],
+				cache: false,
+				dataType: 'text'
+			}))
+				.done(function(templateMarkup) {					
+					
+					//templateMarkup = templateMarkup.replace(/ +\) *\}\}/g, ')}}');
+					
+					templateMarkup += '<div class="clearBoth"></div>';
+				
+					try
+					{
+						NanoTemplate.addTemplate(key, templateMarkup)
+						
+						templateCount--;
+						
+						if (templateCount <= 0)
+						{
+							$(document).trigger('templatesLoaded');
+						}
+					}
+					catch(error)
+					{
+						alert('ERROR: An error occurred while loading the UI: ' + error.message);
+						return;
+					}
+				})					
+				.fail(function () {
+					alert('ERROR: Loading template ' + key + '(' + templateData[key] + ') failed!');
+				});;    
+		}	
     };
 
     var compileTemplates = function () {
@@ -37,7 +99,7 @@ var NanoTemplate = function () {
                 }
                 compileTemplates();
             }
-            return _compiledTemplates[templateKey].call(this, data, _helpers);
+            return _compiledTemplates[templateKey].call(this, data['data'], data['config'], _helpers);
         },
 		addHelper: function (helperName, helperFunction) {
 			if (!jQuery.isFunction(helperFunction)) {
@@ -55,6 +117,12 @@ var NanoTemplate = function () {
 				}
 				NanoTemplate.addHelper(helperName, helpers[helperName]);
 			}
+		},
+		removeHelper: function (helperName) {
+			if (helpers.hasOwnProperty(helperName))
+			{
+				delete _helpers[helperName];
+			}	
 		}
     }
 }();

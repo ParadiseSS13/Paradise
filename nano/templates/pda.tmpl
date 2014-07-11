@@ -1,5 +1,5 @@
 
-<!-- 
+<!--
 Title: PDA UI
 Used In File(s): \code\game\objects\items\devices\PDA\PDA.dm
  -->
@@ -11,7 +11,7 @@ Used In File(s): \code\game\objects\items\devices\PDA\PDA.dm
         <div class="itemContent">
 			<!--{{:helper.link('Refresh', 'refresh', {'choice' : "Refresh"}, null, 'fixedLeft')}}-->
 			{{:helper.link('Close', 'gear', {'choice' : "Close"}, null, 'fixedLeft')}}
-			{{if data.idInserted}} {{:helper.link('Update PDA Info', 'eject', {'choice' : "UpdateInfo"}, null, 'fixedLeftWide')}} {{/if}}              
+			{{if data.idInserted}} {{:helper.link('Update PDA Info', 'eject', {'choice' : "UpdateInfo"}, null, 'fixedLeftWide')}} {{/if}}
 			{{if data.mode != 0}} {{:helper.link('Return', 'arrowreturn-1-w', {'choice' : "Return"}, null, 'fixedLeft')}} {{/if}}
 		</div>
 	</div>
@@ -40,7 +40,7 @@ Used In File(s): \code\game\objects\items\devices\PDA\PDA.dm
 			ID:
 		</div>
 		<div class="itemContent">
-			 {{:helper.link(idLink, 'eject', {'choice' : "Authenticate"}, idInserted ? null : 'disabled', idInserted ? 'fixedLeftWidest' : 'fixedLeft')}}
+			 {{:helper.link(data.idLink, 'eject', {'choice' : "Authenticate"}, data.idInserted ? null : 'disabled', data.idInserted ? 'fixedLeftWidest' : 'fixedLeft')}}
 		</div>
 	</div>
 	<br>
@@ -50,9 +50,9 @@ Used In File(s): \code\game\objects\items\devices\PDA\PDA.dm
                 </div>
                 <div class="itemContent">
 			{{if data.cart_loaded==1}}
-                         {{:helper.link(cartridge.name, 'eject', {'choice' : "Eject"},null,null)}}
+                {{:helper.link(data.cartridge.name, 'eject', {'choice' : "Eject"},null,null)}}
 			{{else}}
-			{{:helper.link('None', 'eject', {'choice' : "Eject"},'disabled',null)}}
+			    {{:helper.link('None', 'eject', {'choice' : "Eject"},'disabled',null)}}
 			{{/if}}
                 </div>
         </div>
@@ -65,7 +65,7 @@ Used In File(s): \code\game\objects\items\devices\PDA\PDA.dm
                 </div>
                 <div class="itemContent">
  			{{:helper.link('Notekeeper', 'note', {'choice' : "1"}, null, 'fixedLeftWide')}}
-			{{:helper.link('Messenger', newMessage ? 'mail-closed' : 'mail-open', {'choice' : "2"}, null, 'fixedLeftWide')}}
+			{{:helper.link('Messenger', data.newMessage ? 'mail-closed' : 'mail-open', {'choice' : "2"}, null, 'fixedLeftWide')}}
 			{{:helper.link('Crew Manifest', 'contact', {'choice' : "41"}, null, 'fixedLeftWide')}}
                 </div>
         </div>
@@ -100,7 +100,7 @@ Used In File(s): \code\game\objects\items\devices\PDA\PDA.dm
                 </div>
                 <div class="itemContent">
                         {{:helper.link('Medical Records', 'gear', {'choice' : "44"}, null, 'fixedLeftWide')}}
-			{{:helper.link(scanmode == 1 ? 'Disable Med Scanner' : 'Enable Med Scanner', 'gear', {'choice' : "Medical Scan"}, null , 'fixedLeftWide')}}
+			            {{:helper.link(data.scanmode == 1 ? 'Disable Med Scanner' : 'Enable Med Scanner', 'gear', {'choice' : "Medical Scan"}, null , 'fixedLeftWide')}}
                 </div>
         </div>
 		 <br>
@@ -138,30 +138,44 @@ Used In File(s): \code\game\objects\items\devices\PDA\PDA.dm
 			<b>Utilities</b>:
 		</div>
 		<div class = "itemContent">
-			{{if data.cartridge}} 
-				{{if data.cartridge.access.access_status_display == 1}} {{:helper.link('Status Display', 'gear', {'choice' : "42"}, null, 'fixedLeftWide')}}{{/if}}
-				{{if data.cartridge.access.access_janitor==1}} {{:helper.link('Custodial Locator', 'gear', {'choice' : "49"}, null, 'fixedLeftWide')}} {{/if}} 
-				{{if data.cartridge.radio == 2}} {{:helper.link('Signaler System', 'gear', {'choice' : "40"}, null, 'fixedLeftWide')}} {{/if}}
-				{{if data.cartridge.access.access_reagent_scanner==1}} {{:helper.link(scanmode == 3 ? 'Disable Reagent Scanner' : 'Enable Reagent Scanner', 'gear', {'choice' : "Reagent Scan"}, null, 'fixedLeftWider')}} {{/if}}
-				{{if data.cartridge.access.access_engine==1}} {{:helper.link(scanmode == 4 ? 'Disable Halogen Counter' : 'Enable Halogen Counter', 'gear', {'choice' : "Halogen Counter"}, null, 'fixedLeftWider')}} {{/if}}
-				{{if data.cartridge.access.access_atmos==1}} {{:helper.link(scanmode == 5 ? 'Disable Gas Scanner' : 'Enable Gas Scanner', 'gear', {'choice' : "Gas Scan"}, null, 'fixedLeftWide')}} {{/if}}
-				{{if data.cartridge.access.access_remote_door==1}}{{:helper.link('Toggle Door', 'gear', {'choice' : "Toggle Door"}, null, 'fixedLeftWide')}} {{/if}} 
-			{{/if}}
-			{{:helper.link('Atmospheric Scan', 'gear', {'choice' : "3"}, null, 'fixedLeftWide')}} 
-			{{:helper.link(fon==1 ? 'Disable Flashlight' : 'Enable Flashlight', 'lightbulb', {'choice' : "Light"}, null,'fixedLeftWide')}}
-		</div>
-	</div> 
-			{{if data.pai}}
-        <div class="item">
-                <div class = "itemLabelNarrow">
-			<b>PAI Utilities</b>:
-		</div>
-		<div class = "itemContent">
-			{{:helper.link('Configuration', 'gear', {'choice' : "pai", 'option' : "1"}, null, 'fixedLeft')}}
-			{{:helper.link('Eject pAI', 'eject', {'choice' : "pai", 'option' : "2"}, null, 'fixedLeft')}}
+			{{if data.cartridge}}
+				{{if data.cartridge.access.access_status_display == 1}}
+                    {{:helper.link('Status Display', 'gear', {'choice' : "42"}, null, 'fixedLeftWide')}}
+                {{/if}}
+				{{if data.cartridge.access.access_janitor==1}}
+                    {{:helper.link('Custodial Locator', 'gear', {'choice' : "49"}, null, 'fixedLeftWide')}}
+                {{/if}}
+				{{if data.cartridge.radio == 2}}
+                    {{:helper.link('Signaler System', 'gear', {'choice' : "40"}, null, 'fixedLeftWide')}}
+                {{/if}}
+				{{if data.cartridge.access.access_reagent_scanner==1}}
+                    {{:helper.link(data.scanmode == 3 ? 'Disable Reagent Scanner' : 'Enable Reagent Scanner', 'gear', {'choice' : "Reagent Scan"}, null, 'fixedLeftWider')}}
+                {{/if}}
+				{{if data.cartridge.access.access_engine==1}}
+                    {{:helper.link(data.scanmode == 4 ? 'Disable Halogen Counter' : 'Enable Halogen Counter', 'gear', {'choice' : "Halogen Counter"}, null, 'fixedLeftWider')}}
+                {{/if}}
+				{{if data.cartridge.access.access_atmos==1}}
+                    {{:helper.link(data.scanmode == 5 ? 'Disable Gas Scanner' : 'Enable Gas Scanner', 'gear', {'choice' : "Gas Scan"}, null, 'fixedLeftWide')}}
+                {{/if}}
+				{{if data.cartridge.access.access_remote_door==1}}
+                    {{:helper.link('Toggle Door', 'gear', {'choice' : "Toggle Door"}, null, 'fixedLeftWide')}}
+                {{/if}}
+            {{/if}}
+            {{:helper.link('Atmospheric Scan', 'gear', {'choice' : "3"}, null, 'fixedLeftWide')}}
+            {{:helper.link(fon==1 ? 'Disable Flashlight' : 'Enable Flashlight', 'lightbulb', {'choice' : "Light"}, null,'fixedLeftWide')}}
 		</div>
 	</div>
-			{{/if}}
+    {{if data.pai}}
+        <div class="item">
+            <div class = "itemLabelNarrow">
+                <b>PAI Utilities</b>:
+            </div>
+            <div class = "itemContent">
+                {{:helper.link('Configuration', 'gear', {'choice' : "pai", 'option' : "1"}, null, 'fixedLeft')}}
+                {{:helper.link('Eject pAI', 'eject', {'choice' : "pai", 'option' : "2"}, null, 'fixedLeft')}}
+            </div>
+        </div>
+    {{/if}}
 	{{/if}}
         {{if data.mode == 1}} <!-- Notekeeper -->
 	<div class="item">
@@ -182,7 +196,7 @@ Used In File(s): \code\game\objects\items\devices\PDA\PDA.dm
                 </div>
         </div>
 
-	
+
 	{{else data.mode == 2}} <!-- Messenger -->
 	<H2>SpaceMessenger V4.0.1</H2>
         <div class="item">
@@ -191,8 +205,8 @@ Used In File(s): \code\game\objects\items\devices\PDA\PDA.dm
                 </div>
 
 		<div class ="itemContent">
-			{{:helper.link(silent==1 ? 'Ringer: Off' : 'Ringer: On', silent==1 ? 'volume-off' : 'volume-on', {'choice' : "Toggle Ringer"}, null, 'fixedLeftWide')}}
-			{{:helper.link(toff==1 ? 'Messenger: Off' : 'Messenger: On',toff==1 ? 'close':'check', {'choice' : "Toggle Messenger"}, null, 'fixedLeftWide')}}
+			{{:helper.link(data.silent==1 ? 'Ringer: Off' : 'Ringer: On', data.silent==1 ? 'volume-off' : 'volume-on', {'choice' : "Toggle Ringer"}, null, 'fixedLeftWide')}}
+			{{:helper.link(data.toff==1 ? 'Messenger: Off' : 'Messenger: On',data.toff==1 ? 'close':'check', {'choice' : "Toggle Messenger"}, null, 'fixedLeftWide')}}
 			{{:helper.link('Set Ringtone', 'comment', {'choice' : "Ringtone"}, null, 'fixedLeftWide')}}
 			{{:helper.link('Delete all Conversations', 'trash', {'choice' : "Clear", 'option' : "All"}, null, 'fixedLeftWider')}}
 		</div>
@@ -200,37 +214,37 @@ Used In File(s): \code\game\objects\items\devices\PDA\PDA.dm
 			{{if data.toff == 0}}
 			<br><br>
 				{{if data.cartridge}}
-					{{if data.cartridge.charges}} 
+					{{if data.cartridge.charges}}
 		<div class="item">
 					<b>{{:data.cartridge.charges}}
 					{{if data.cartridge.type == "/obj/item/weapon/cartridge/syndicate"}} detonation charges left. {{/if}}
-					{{if data.cartridge.type == "/obj/item/weapon/cartridge/clown" || cartridge.type == "/obj/item/weapon/cartridge/mime"}} viral files left. {{/if}}
+					{{if data.cartridge.type == "/obj/item/weapon/cartridge/clown" || data.cartridge.type == "/obj/item/weapon/cartridge/mime"}} viral files left. {{/if}}
 				</b><br><br>
 		</div>
 					{{/if}}
 				{{/if}}
-	
+
 				{{if data.pda_count == 0}}<B>No other PDAS located</B>
-				{{else}}			
+				{{else}}
 		<H3>Current Conversations</H3>
 		                {{for data.convopdas}}
 	<div class="item">
-		                        {{:helper.link(Name, 'circle-arrow-s', {'choice' : "Select Conversation", 'convo' : Reference } , null, fixedLeftWider)}}
-					{{if data.~root.cartridge}}
-						{{if data.~root.cartridge.type == "/obj/item/weapon/cartridge/syndicate" && Detonate == 1}} {{:helper.link('*Detonate*', 'radiation', {'choice' : "Detonate", 'target' : Reference}, null, 'fixedLeft')}}  {{/if}} 
-						{{if data.~root.cartridge.type == "/obj/item/weapon/cartridge/clown"}} {{:helper.link('*Send Virus*', 'star', {'choice' : "Send Honk", 'target' : Reference}, null, 'fixedLeft')}}  {{/if}}
-						{{if data.~root.cartridge.type == "/obj/item/weapon/cartridge/mime"}}  {{:helper.link('*Send Virus*', 'circle-arrow-s', {'choice' : "Send Silence", 'target' : Reference}, null, 'fixedLeft')}}  {{/if}} 
+		            {{:helper.link(Name, 'circle-arrow-s', {'choice' : "Select Conversation", 'convo' : data.Reference } , null, fixedLeftWider)}}
+					{{if data.cartridge}}
+						{{if data.cartridge.type == "/obj/item/weapon/cartridge/syndicate" && data.Detonate == 1}} {{:helper.link('*Detonate*', 'radiation', {'choice' : "Detonate", 'target' : data.Reference}, null, 'fixedLeft')}}  {{/if}}
+						{{if data.cartridge.type == "/obj/item/weapon/cartridge/clown"}} {{:helper.link('*Send Virus*', 'star', {'choice' : "Send Honk", 'target' : data.Reference}, null, 'fixedLeft')}}  {{/if}}
+						{{if data.cartridge.type == "/obj/item/weapon/cartridge/mime"}}  {{:helper.link('*Send Virus*', 'circle-arrow-s', {'choice' : "Send Silence", 'target' : data.Reference}, null, 'fixedLeft')}}  {{/if}}
 					{{/if}}
 	</div>
 		                {{/for}}
 	<H3>Other PDAs</H3>
 	                        {{for data.pdas}}
         <div class="item">
-	                                {{:helper.link(Name, 'circle-arrow-s', {'choice' : "Message", 'target' : Reference}, null, fixedLeftWider)}}
-	                                {{if data.~root.cartridge}}
-		                                {{if data.~root.cartridge.type == "/obj/item/weapon/cartridge/syndicate" && Detonate == 1}} {{:helper.link('*Detonate*', 'radiation', {'choice' : "Detonate", 'target' : Reference}, null, 'fixedLeft')}}  {{/if}}
-		                                {{if data.~root.cartridge.type == "/obj/item/weapon/cartridge/clown"}} {{:helper.link('*Send Virus*', 'star', {'choice' : "Send Honk", 'target' : Reference}, null, 'fixedLeft')}}  {{/if}}
-		                                {{if data.~root.cartridge.type == "/obj/item/weapon/cartridge/mime"}}  {{:helper.link('*Send Virus*', 'circle-arrow-s', {'choice' : "Send Silence", 'target' : Reference}, null, 'fixedLeft')}}  {{/if}}
+	                                {{:helper.link(Name, 'circle-arrow-s', {'choice' : "Message", 'target' : value.Reference}, null, fixedLeftWider)}}
+	                                {{if value.cartridge}}
+		                                {{if value.cartridge.type == "/obj/item/weapon/cartridge/syndicate" && value.Detonate == 1}} {{:helper.link('*Detonate*', 'radiation', {'choice' : "Detonate", 'target' : value.Reference}, null, 'fixedLeft')}}  {{/if}}
+		                                {{if value.cartridge.type == "/obj/item/weapon/cartridge/clown"}} {{:helper.link('*Send Virus*', 'star', {'choice' : "Send Honk", 'target' : value.Reference}, null, 'fixedLeft')}}  {{/if}}
+		                                {{if value.cartridge.type == "/obj/item/weapon/cartridge/mime"}}  {{:helper.link('*Send Virus*', 'circle-arrow-s', {'choice' : "Send Silence", 'target' : value.Reference}, null, 'fixedLeft')}}  {{/if}}
 	                                {{/if}}
 	</div>
 				{{/for}}
@@ -254,19 +268,19 @@ Used In File(s): \code\game\objects\items\devices\PDA\PDA.dm
                 <div class="item">
                         <div class="itemContent" style="width: 100%;">
 				{{for data.messages}}
-					{{if data.~root.active_conversation == target}}
-					{{if data.sent==0}}
-					<span class="average"><B>Them</B>: {{:data.message}}</span><br>
-					{{else}}
-					<span class="good"><B>You</B>: {{:data.message}}</span><br>
-					{{/if}}	
+					{{if data.active_conversation == value.target}}
+                        {{if value.sent==0}}
+                            <span class="average"><B>Them</B>: {{:value.message}}</span><br>
+                        {{else}}
+                            <span class="good"><B>You</B>: {{:value.message}}</span><br>
+                        {{/if}}
 					{{/if}}
-	                        {{/for}}
-				
+	            {{/for}}
+
 			</div>
 		</div>
 	</div>
-				{{:helper.link('Reply', 'comment', {'choice' : "Message", 'target': active_conversation}, null, 'fixedLeft')}}
+				{{:helper.link('Reply', 'comment', {'choice' : "Message", 'target': data.active_conversation}, null, 'fixedLeft')}}
 
 	{{else data.mode== 41}} <!-- Manifest -->
 	<div class="item">
@@ -274,30 +288,30 @@ Used In File(s): \code\game\objects\items\devices\PDA\PDA.dm
 			{{if data.manifest.heads.length}}
 				<tr><th colspan="3" class="command">Command</th></tr>
 				{{for data.manifest["heads"]}}
-					{{if data.rank == "Captain"}}
-					<tr><td><span class="good">{{:data.name}}</span></td><td><span class="good">{{:data.rank}}</span></td><td><span class="good">{{:data.active}}</span></td></tr>
+					{{if value.rank == "Captain"}}
+					    <tr><td><span class="good">{{:value.name}}</span></td><td><span class="good">{{:value.rank}}</span></td><td><span class="good">{{:value.active}}</span></td></tr>
 					{{else}}
-					<tr><td><span class="average">{{:data.name}}</span></td><td><span class="average">{{:data.rank}}</span></td><td><span class="average">{{:data.active}}</span></td></tr>
+					    <tr><td><span class="average">{{:value.name}}</span></td><td><span class="average">{{:value.rank}}</span></td><td><span class="average">{{:value.active}}</span></td></tr>
 					{{/if}}
 				{{/for}}
 			{{/if}}
 			{{if data.manifest.sec.length}}
 				<tr><th colspan="3" class="sec">Security</th></tr>
 				{{for data.manifest["sec"]}}
-                                        {{if data.rank == "Head of Security"}}
-                                        <tr><td><span class="good">{{:data.name}}</span></td><td><span class="good">{{:data.rank}}</span></td><td><span class="good">{{:data.active}}</span></td></tr>
+                                        {{if value.rank == "Head of Security"}}
+                                        <tr><td><span class="good">{{:value.name}}</span></td><td><span class="good">{{:value.rank}}</span></td><td><span class="good">{{:value.active}}</span></td></tr>
                                         {{else}}
-                                        <tr><td><span class="average">{{:data.name}}</span></td><td><span class="average">{{:data.rank}}</span></td><td><span class="average">{{:data.active}}</span></td></tr>
+                                        <tr><td><span class="average">{{:value.name}}</span></td><td><span class="average">{{:value.rank}}</span></td><td><span class="average">{{:value.active}}</span></td></tr>
                                         {{/if}}
 				{{/for}}
 			{{/if}}
 			{{if data.manifest.eng.length}}
 				<tr><th colspan="3" class="eng">Engineering</th></tr>
 				{{for data.manifest["eng"]}}
-                                        {{if data.rank == "Chief Engineer"}}
-                                        <tr><td><span class="good">{{:data.name}}</span></td><td><span class="good">{{:data.rank}}</span></td><td><span class="good">{{:data.active}}</span></td></tr>
+                                        {{if value.rank == "Chief Engineer"}}
+                                        <tr><td><span class="good">{{:value.name}}</span></td><td><span class="good">{{:value.rank}}</span></td><td><span class="good">{{:value.active}}</span></td></tr>
                                         {{else}}
-                                        <tr><td><span class="average">{{:data.name}}</span></td><td><span class="average">{{:data.rank}}</span></td><td><span class="average">{{:data.active}}</span></td></tr>
+                                        <tr><td><span class="average">{{:value.name}}</span></td><td><span class="average">{{:value.rank}}</span></td><td><span class="average">{{:value.active}}</span></td></tr>
                                         {{/if}}
 
 	                        {{/for}}
@@ -305,37 +319,37 @@ Used In File(s): \code\game\objects\items\devices\PDA\PDA.dm
                         {{if data.manifest.med.length}}
 				<tr><th colspan="3" class="med">Medical</th></tr>
 				{{for data.manifest["med"]}}
-                                        {{if data.rank == "Chief Medical Officer"}}
-                                        <tr><td><span class="good">{{:data.name}}</span></td><td><span class="good">{{:data.rank}}</span></td><td><span class="good">{{:data.active}}</span></td></tr>
+                                        {{if value.rank == "Chief Medical Officer"}}
+                                        <tr><td><span class="good">{{:value.name}}</span></td><td><span class="good">{{:value.rank}}</span></td><td><span class="good">{{:value.active}}</span></td></tr>
                                         {{else}}
-                                        <tr><td><span class="average">{{:data.name}}</span></td><td><span class="average">{{:data.rank}}</span></td><td><span class="average">{{:data.active}}</span></td></tr>
+                                        <tr><td><span class="average">{{:value.name}}</span></td><td><span class="average">{{:value.rank}}</span></td><td><span class="average">{{:value.active}}</span></td></tr>
                                         {{/if}}
 				{{/for}}
 			{{/if}}
                         {{if data.manifest.sci.length}}
 				<tr><th colspan="3" class="sci">Science</th></tr>
 				{{for data.manifest["sci"]}}
-                                        {{if data.rank == "Research Director"}}
-                                        <tr><td><span class="good">{{:data.name}}</span></td><td><span class="good">{{:data.rank}}</span></td><td><span class="good">{{:data.active}}</span></td></tr>
+                                        {{if value.rank == "Research Director"}}
+                                        <tr><td><span class="good">{{:value.name}}</span></td><td><span class="good">{{:value.rank}}</span></td><td><span class="good">{{:value.active}}</span></td></tr>
                                         {{else}}
-                                        <tr><td><span class="average">{{:data.name}}</span></td><td><span class="average">{{:data.rank}}</span></td><td><span class="average">{{:data.active}}</span></td></tr>
+                                        <tr><td><span class="average">{{:value.name}}</span></td><td><span class="average">{{:value.rank}}</span></td><td><span class="average">{{:value.active}}</span></td></tr>
                                         {{/if}}
 				{{/for}}
 			{{/if}}
 			{{if data.manifest.civ.length}}
 				<tr><th colspan="3" class="civ">Civilian</th></tr>
 				{{for data.manifest["civ"]}}
-                                        {{if data.rank == "Head of Personnel"}}
-                                        <tr><td><span class="good">{{:data.name}}</span></td><td><span class="good">{{:data.rank}}</span></td><td><span class="good">{{:data.active}}</span></td></tr>
+                                        {{if value.rank == "Head of Personnel"}}
+                                        <tr><td><span class="good">{{:value.name}}</span></td><td><span class="good">{{:value.rank}}</span></td><td><span class="good">{{:value.active}}</span></td></tr>
                                         {{else}}
-                                        <tr><td><span class="average">{{:data.name}}</span></td><td><span class="average">{{:data.rank}}</span></td><td><span class="average">{{:data.active}}</span></td></tr>
+                                        <tr><td><span class="average">{{:value.name}}</span></td><td><span class="average">{{:value.rank}}</span></td><td><span class="average">{{:value.active}}</span></td></tr>
                                         {{/if}}
 				{{/for}}
 			{{/if}}
                         {{if data.manifest.misc.length}}
 				<tr><th colspan="3" class="misc">Misc</th></tr>
 				{{for data.manifest["misc"]}}
-				<tr><td><span class="average">{{:data.name}}</span></td><td><span class="average">{{:data.rank}}</span></td><td><span class="average">{{:data.active}}</span></td></tr>
+				<tr><td><span class="average">{{:value.name}}</span></td><td><span class="average">{{:value.rank}}</span></td><td><span class="average">{{:value.active}}</span></td></tr>
 				{{/for}}
 			{{/if}}
 
@@ -352,38 +366,38 @@ Used In File(s): \code\game\objects\items\devices\PDA\PDA.dm
                                                 Pressure:
                         </div>
                         <div class = "itemContent">
-				{{:helper.string('<span class="{0}">{1} kPa</span>', aircontents.pressure < 80 || aircontents.pressure > 120 ? 'bad' : aircontents.pressure < 95 || aircontents.pressure > 110 ? 'average' : 'good' , aircontents.pressure)}}
+				{{:helper.string('<span class="{0}">{1} kPa</span>', data.aircontents.pressure < 80 || data.aircontents.pressure > 120 ? 'bad' : data.aircontents.pressure < 95 || data.aircontents.pressure > 110 ? 'average' : 'good' , data.aircontents.pressure)}}
                         </div>
                         <div class="itemLabel">
                                                 Temperature:
                         </div>
                         <div class = "itemContent">
-				{{:helper.string('<span class="{0}">{1} &deg;C</span>', aircontents.temp < 5 || aircontents.temp > 35 ? 'bad' : aircontents.temp < 15 || aircontents.temp > 25 ? 'average' : 'good' , aircontents.temp)}}
+				{{:helper.string('<span class="{0}">{1} &deg;C</span>', data.aircontents.temp < 5 || data.aircontents.temp > 35 ? 'bad' : data.aircontents.temp < 15 || data.aircontents.temp > 25 ? 'average' : 'good' , data.aircontents.temp)}}
                         </div>
                         <br>
                         <div class="itemLabel">
                                                 Oxygen:
                         </div>
                         <div class = "itemContent">
-				{{:helper.string('<span class="{0}">{1}%</span>', aircontents.oxygen < 17 ? 'bad' : aircontents.oxygen < 19 ? 'average' : 'good' , aircontents.oxygen)}}
+				{{:helper.string('<span class="{0}">{1}%</span>', data.aircontents.oxygen < 17 ? 'bad' : data.aircontents.oxygen < 19 ? 'average' : 'good' , data.aircontents.oxygen)}}
                         </div>
 			<div class="itemLabel">
                                                 Nitrogen:
                         </div>
                         <div class = "itemContent">
-				{{:helper.string('<span class="{0}">{1}%</span>', aircontents.nitrogen > 82 ? 'bad' : aircontents.nitrogen > 80 ? 'average' : 'good' , aircontents.nitrogen)}}
+				{{:helper.string('<span class="{0}">{1}%</span>', data.aircontents.nitrogen > 82 ? 'bad' : data.aircontents.nitrogen > 80 ? 'average' : 'good' , data.aircontents.nitrogen)}}
                         </div>
                         <div class="itemLabel">
                                                 Carbon Dioxide:
                         </div>
                         <div class = "itemContent">
-				{{:helper.string('<span class="{0}">{1}%</span>', aircontents.carbon_dioxide > 5 ? 'bad' : 'good' , aircontents.carbon_dioxide)}}
+				{{:helper.string('<span class="{0}">{1}%</span>', data.aircontents.carbon_dioxide > 5 ? 'bad' : 'good' , data.aircontents.carbon_dioxide)}}
                         </div>
                         <div class="itemLabel">
                                                 Phoron:
                         </div>
                         <div class = "itemContent">
-			 	{{:helper.string('<span class="{0}">{1}%</span>', aircontents.phoron  > 0 ? 'bad' : 'good' , aircontents.phoron)}}	
+			 	{{:helper.string('<span class="{0}">{1}%</span>', data.aircontents.phoron  > 0 ? 'bad' : 'good' , data.aircontents.phoron)}}
 
                         </div>
                         {{if data.aircontents.other > 0}}
@@ -416,7 +430,7 @@ Used In File(s): \code\game\objects\items\devices\PDA\PDA.dm
 
 		{{:helper.link('+.2', null, {'cartmenu' : "1", 'choice' : "Signal Frequency", 'sfreq' : "2"}, null, null)}}&nbsp;
 		{{:helper.link('+1', null, {'cartmenu' : "1", 'choice' : "Signal Frequency", 'sfreq' : "10"}, null, null)}}
-		</div>	
+		</div>
 	</div>
 	<br><br>
 	<div class="item">
@@ -429,9 +443,9 @@ Used In File(s): \code\game\objects\items\devices\PDA\PDA.dm
 			</span>
 	        {{:helper.link('-5', null, {'cartmenu' : "1", 'choice' : "Signal Code", 'scode' : "-5"}, null, null)}}
 	        {{:helper.link('-1', null, {'cartmenu' : "1", 'choice' : "Signal Code", 'scode' : "-1"}, null, null)}}
-	        {{:helper.link('+1', null, {'cartmenu' : "1", 'choice' : "Signal Code", 'scode' : "1"}, null, null)}} 
+	        {{:helper.link('+1', null, {'cartmenu' : "1", 'choice' : "Signal Code", 'scode' : "1"}, null, null)}}
 	        {{:helper.link('+5', null, {'cartmenu' : "1", 'choice' : "Signal Code", 'scode' : "5"}, null, null)}}
-		</div>	
+		</div>
 	</div>
 	<div class="item">
 	{{:helper.link('Send Signal', 'radiation', {'cartmenu' : "1", 'choice' : "Send Signal"}, null, null)}}
@@ -450,12 +464,12 @@ Used In File(s): \code\game\objects\items\devices\PDA\PDA.dm
 		</div>
 	</div>
 	<br>
-	<div class="item">	
+	<div class="item">
                 <div class="itemLabel">
                         <b>Message line 1</b>
                 </div>
                 <div class="itemContent">
-		{{:helper.link(records.message1 + ' (set)', 'pencil', {'cartmenu' : "1", 'choice' : "Status",'statdisp' : "setmsg1"}, null, null)}}
+		{{:helper.link(data.records.message1 + ' (set)', 'pencil', {'cartmenu' : "1", 'choice' : "Status",'statdisp' : "setmsg1"}, null, null)}}
                 </div>
 	</div>
         <div class="item">
@@ -463,13 +477,13 @@ Used In File(s): \code\game\objects\items\devices\PDA\PDA.dm
                         <b>Message line 2</b>
                 </div>
                 <div class="itemContent">
-                {{:helper.link(records.message2 + ' (set)', 'pencil', {'cartmenu' : "1", 'choice' : "Status",'statdisp' : "setmsg2"}, null, null)}}
+                {{:helper.link(data.records.message2 + ' (set)', 'pencil', {'cartmenu' : "1", 'choice' : "Status",'statdisp' : "setmsg2"}, null, null)}}
                 </div>
         </div>
 
 	<br>
 	<div class="item">
-                <div class="itemLabel">		
+                <div class="itemLabel">
 			<b> ALERT!</b>:
 		</div>
 		<div class="itemContent">
@@ -481,14 +495,14 @@ Used In File(s): \code\game\objects\items\devices\PDA\PDA.dm
 	</div>
 
 	{{else data.mode == 43}}
-	
+
 	<H2>Station Powermonitors</H2>
         <div class="item">
         Select A power monitor:
 	</div>
 		{{for data.records.powermonitors}}
 	<div class="item">
-			 {{:helper.link(Name, 'radiation', {'cartmenu' : "1", 'choice' : "Power Select",'target' : ref}, null, null)}}
+			 {{:helper.link(value.Name, 'radiation', {'cartmenu' : "1", 'choice' : "Power Select",'target' : value.ref}, null, null)}}
 	</div>
 		{{/for}}
 
@@ -514,15 +528,15 @@ Used In File(s): \code\game\objects\items\devices\PDA\PDA.dm
 	<div class="item">
 		<table class="curvedEdges"><tbody>
 		{{for data.records.apcs}}
-			{{if data.#index % 20 === 0}}
+			{{if index % 20 === 0}}
 			<tr class=><th>&nbsp;Area&nbsp;</th><th>&nbsp;Eqp.&nbsp;</th><th>&nbsp;Lgt.&nbsp;</th><th>&nbsp;Env&nbsp;</th><th>&nbsp;Cell&nbsp;</th></tr>
 			{{/if}}
-			
-			<tr class=><td><span class="average">{{:data.Name}}</span></td>
-			{{:helper.string('<td bgcolor="{0}">&nbsp;</td>', Equipment==1 ? '#4f7529' : '#8f1414')}}
-			{{:helper.string('<td bgcolor="{0}">&nbsp;</td>', Lights==1 ? '#4f7529' : '#8f1414')}}
-			{{:helper.string('<td bgcolor="{0}">&nbsp;</td>', Environment==1 ? '#4f7529' : '#8f1414')}}
-			{{:helper.string('<td bgcolor="{0}">{1}</td>', CellStatus==1 ? '#4f7529' : '#8f1414', CellStatus==-1 ? 'No Cell' : CellPct + '%')}}
+
+			<tr class=><td><span class="average">{{:value.Name}}</span></td>
+			{{:helper.string('<td bgcolor="{0}">&nbsp;</td>', value.Equipment==1 ? '#4f7529' : '#8f1414')}}
+			{{:helper.string('<td bgcolor="{0}">&nbsp;</td>', value.Lights==1 ? '#4f7529' : '#8f1414')}}
+			{{:helper.string('<td bgcolor="{0}">&nbsp;</td>', value.Environment==1 ? '#4f7529' : '#8f1414')}}
+			{{:helper.string('<td bgcolor="{0}">{1}</td>', value.CellStatus==1 ? '#4f7529' : '#8f1414', value.CellStatus==-1 ? 'No Cell' : CellPct + '%')}}
 			</tr>
 		{{/for}}
 		</tbody></table>
@@ -536,11 +550,11 @@ Used In File(s): \code\game\objects\items\devices\PDA\PDA.dm
 	<br>
 		{{for data.records.medical_records}}
         <div class="item">
-                         {{:helper.link(Name, 'gear', {'cartmenu' : "1", 'choice' : "Medical Records",'target' : ref}, null, null)}}
+                         {{:helper.link(value.Name, 'gear', {'cartmenu' : "1", 'choice' : "Medical Records",'target' : value.ref}, null, null)}}
         </div>
 		{{/for}}
 
-	
+
 
 	{{else data.mode == 441}}
 	<H2>Medical Record</H2>
@@ -591,7 +605,7 @@ Used In File(s): \code\game\objects\items\devices\PDA\PDA.dm
         <br>
                 {{for data.records.security_records}}
         <div class="item">
-                         {{:helper.link(Name, 'gear', {'cartmenu' : "1", 'choice' : "Security Records",'target' : ref}, null, null)}}
+                         {{:helper.link(value.Name, 'gear', {'cartmenu' : "1", 'choice' : "Security Records",'target' : value.ref}, null, null)}}
         </div>
                 {{/for}}
 
@@ -634,7 +648,7 @@ Used In File(s): \code\game\objects\items\devices\PDA\PDA.dm
         </div>
 	{{else data.mode == 46}}
 	<H2>Security Bot Control </H2>
-		{{if data.records.beepsky.active == null || records.beepsky.active == 0}}
+		{{if data.records.beepsky.active == null || data.records.beepsky.active == 0}}
 			{{if data.records.beepsky.count == 0}}
 				<H1><span class="bad">No bots found.</span></H1>
 			{{else}}
@@ -644,7 +658,7 @@ Used In File(s): \code\game\objects\items\devices\PDA\PDA.dm
 			        <br>
 		                {{for data.records.beepsky.bots}}
 			        <div class="item">
-	        	                 {{:helper.link(Name, 'gear', {'radiomenu' : "1", 'op' : "control",'bot' : ref}, null, null)}} (Location: {{:data.Location}})
+	        	                 {{:helper.link(value.Name, 'gear', {'radiomenu' : "1", 'op' : "control",'bot' : value.ref}, null, null)}} (Location: {{:value.Location}})
 			        </div>
 		                {{/for}}
 			{{/if}}
@@ -676,7 +690,7 @@ Used In File(s): \code\game\objects\items\devices\PDA\PDA.dm
 							{{if data.records.beepsky.botstatus.mode ==0}}							Ready
 							{{else data.records.beepsky.botstatus.mode == 1}}
 							Apprehending target
-							{{else data.records.beepsky.botstatus.mode ==2 || records.beepsky.botstatus.mode == 3}}
+							{{else data.records.beepsky.botstatus.mode ==2 || data.records.beepsky.botstatus.mode == 3}}
 							Arresting target
 							{{else data.records.beepsky.botstatus.mode ==4}}
 							Starting patrol
@@ -689,12 +703,12 @@ Used In File(s): \code\game\objects\items\devices\PDA\PDA.dm
                                                 </div>
                                         </div>
 					<div class="item">
-					{{:helper.link('Stop Patrol', 'gear', {'radiomenu' : "1", 'op' : "stop"}, null, null)}} 
+					{{:helper.link('Stop Patrol', 'gear', {'radiomenu' : "1", 'op' : "stop"}, null, null)}}
 					{{:helper.link('Start Patrol', 'gear', {'radiomenu' : "1", 'op' : "go"}, null, null)}}
 					{{:helper.link('Summon Bot', 'gear', {'radiomenu' : "1", 'op' : "summon"}, null, null)}}
 					</div>
-			{{/if}}	
-			{{:helper.link('Return to Bot list', 'gear', {'radiomenu' : "1", 'op' : "botlist"}, null, null)}}			
+			{{/if}}
+			{{:helper.link('Return to Bot list', 'gear', {'radiomenu' : "1", 'op' : "botlist"}, null, null)}}
 		{{/if}}
 	{{else data.mode == 47}}
 		<H1><span class="average">Supply Record Interlink</span></H1>
@@ -720,7 +734,7 @@ Used In File(s): \code\game\objects\items\devices\PDA\PDA.dm
 					<span class="average"> No current approved orders </span><br><br>
 				{{else}}
 					{{for data.records.supply.approved}}
-					<span class="average">#{{:data.Number}} - {{:data.Name}} approved by {{:data.OrderedBy}}<br>{{if data.Comment != ""}} {{:data.Comment}} <br>{{/if}}<br></span>
+					<span class="average">#{{:value.Number}} - {{:value.Name}} approved by {{:value.OrderedBy}}<br>{{if value.Comment != ""}} {{:value.Comment}} <br>{{/if}}<br></span>
 					{{/for}}
 				{{/if}}
 				<br><br>
@@ -729,19 +743,19 @@ Used In File(s): \code\game\objects\items\devices\PDA\PDA.dm
                                         <span class="average"> No current requested orders </span><br><br>
                                 {{else}}
                                         {{for data.records.supply.requests}}
-                                        <span class="average">#{{:data.Number}} - {{:data.Name}} requested by {{:data.OrderedBy}}<br>{{if data.Comment != ""}} {{:data.Comment}} <br>{{/if}}<br></span>
+                                        <span class="average">#{{:value.Number}} - {{:value.Name}} requested by {{:value.OrderedBy}}<br>{{if value.Comment != ""}} {{:value.Comment}} <br>{{/if}}<br></span>
                                         {{/for}}
                                 {{/if}}
 				</div>
 			</div>
 		</div>
-	
+
 	{{else data.mode == 48}}
  		<H2>Mule Control </H2>
-                {{if data.records.mulebot.active == null || records.mulebot.active == 0}}
+                {{if data.records.mulebot.active == null || data.records.mulebot.active == 0}}
                         {{if data.records.mulebot.count == 0}}
                                 <H1><span class="bad">No bots found.</span></H1>
-				
+
                         {{else}}
                                 <H2>Mule List</H2>
                                 <div class="item">
@@ -750,7 +764,7 @@ Used In File(s): \code\game\objects\items\devices\PDA\PDA.dm
                                 <br>
                                 {{for data.records.mulebot.bots}}
                                 <div class="item">
-                                         {{:helper.link(Name, 'gear', {'radiomenu' : "1", 'op' : "control",'bot' : ref}, null, null)}} (Location: {{:data.Location}})
+                                         {{:helper.link(value.Name, 'gear', {'radiomenu' : "1", 'op' : "control",'bot' : value.ref}, null, null)}} (Location: {{:value.Location}})
                                 </div>
                                 {{/for}}
 			{{/if}}
@@ -785,7 +799,7 @@ Used In File(s): \code\game\objects\items\devices\PDA\PDA.dm
                                                         Navigating to Home
                                                         {{else data.records.mulebot.botstatus.mode ==4}}
                                                         Waiting for Clear Path
-                                                        {{else data.records.mulebot.botstatus.mode ==5 || records.mulebot.botstatus.mode == 6}}
+                                                        {{else data.records.mulebot.botstatus.mode ==5 || data.records.mulebot.botstatus.mode == 6}}
 							Calculating navigation Path
                                                         
                                                         {{else data.records.mulebot.botstatus.mode ==7}}
@@ -800,7 +814,7 @@ Used In File(s): \code\game\objects\items\devices\PDA\PDA.dm
 		        	</div>
 				<div class="itemContent">
 			        	<span class="average">
-					{{:helper.link(records.mulebot.botstatus.load == null ? 'None (Unload)' : records.mulebot.botstatus.load + ' (Unload)', 'gear', {'radiomenu' : "1", 'op' : "unload"},records.mulebot.botstatus.load == null ? 'disabled' : null, null)}}
+					{{:helper.link(data.records.mulebot.botstatus.load == null ? 'None (Unload)' : data.records.mulebot.botstatus.load + ' (Unload)', 'gear', {'radiomenu' : "1", 'op' : "unload"},data.records.mulebot.botstatus.load == null ? 'disabled' : null, null)}}
         	        	        </span>
 	                        </div>
 			</div>
@@ -820,9 +834,9 @@ Used In File(s): \code\game\objects\items\devices\PDA\PDA.dm
 					<span class="good">Destination:</span>
 				</div>
 				<div class="itemContent">
-					{{:helper.link(records.mulebot.botstatus.dest == null || records.mulebot.botstatus.dest == "" ? 'None (Set)': records.mulebot.botstatus.dest+ ' (Set)', 'gear', {'radiomenu' : "1", 'op' : "setdest"}, null, null)}}
+					{{:helper.link(data.records.mulebot.botstatus.dest == null || data.records.mulebot.botstatus.dest == "" ? 'None (Set)': data.records.mulebot.botstatus.dest+ ' (Set)', 'gear', {'radiomenu' : "1", 'op' : "setdest"}, null, null)}}
 				</div>
-				
+
 			</div>
 			<div class="item">
 				<div class="itemLabel">
@@ -837,7 +851,7 @@ Used In File(s): \code\game\objects\items\devices\PDA\PDA.dm
 					<span class="good">Auto Return:</span>
 				</div>
 				<div class="itemContent">
-                                               {{:helper.link(records.mulebot.botstatus.retn == 1 ? 'ON' : 'OFF', 'gear', {'radiomenu' : "1", 'op' : records.mulebot.botstatus.retn==1 ? "retoff" : "reton"}, null, null)}}
+                                               {{:helper.link(data.records.mulebot.botstatus.retn == 1 ? 'ON' : 'OFF', 'gear', {'radiomenu' : "1", 'op' : data.records.mulebot.botstatus.retn==1 ? "retoff" : "reton"}, null, null)}}
 				</div>
 			</div>
 			<div class="item">
@@ -845,7 +859,7 @@ Used In File(s): \code\game\objects\items\devices\PDA\PDA.dm
 					<span class="good">Auto Pickup:</span>
 				</div>
 				<div class="itemContent">
-                                               {{:helper.link(records.mulebot.botstatus.pick==1? 'ON' : 'OFF', 'gear', {'radiomenu' : "1", 'op' : records.mulebot.botstatus.pick==1 ? "pickoff" : "pickon"}, null, null)}}
+                                               {{:helper.link(data.records.mulebot.botstatus.pick==1? 'ON' : 'OFF', 'gear', {'radiomenu' : "1", 'op' : data.records.mulebot.botstatus.pick==1 ? "pickoff" : "pickon"}, null, null)}}
 				</div>
 			</div>
 			<div class="item">
@@ -860,13 +874,13 @@ Used In File(s): \code\game\objects\items\devices\PDA\PDA.dm
 			</div>
 			<br><br>
 			{{:helper.link('Return to Bot list', 'gear', {'radiomenu' : "1", 'op' : "botlist"}, null, null)}}
-			
+
 
                         {{/if}}
                {{/if}}
 
-		
-					
+
+
 	{{else data.mode == 49}}
 	<H2>Janatorial Supplies Locator</H2>
 	<div class="item">
@@ -879,42 +893,41 @@ Used In File(s): \code\game\objects\items\devices\PDA\PDA.dm
 	</div>
         <div class="item">
                 {{for data.records.janitor.mops}}
-                        {{if data.x==0}}
+                        {{if value.x==0}}
                                 <span class="bad">Unable to locate Mop</span>
                         {{else}}
                                 <span class="good">Mop Location:</span>
-                                <span class="average">({{:data.x}} / {{:data.y}}) - {{:data.dir}} - Status: {{:data.status}}</span><br>
+                                <span class="average">({{:value.x}} / {{:value.y}}) - {{:value.dir}} - Status: {{:value.status}}</span><br>
                         {{/if}}
                 {{/for}}
-        </div>	
+        </div>
 	<div class="item">
 		{{for data.records.janitor.buckets}}
-			{{if data.x==0}}
+			{{if value.x==0}}
 				<span class="bad">Unable to locate Water Buckets</span>
 			{{else}}
 				<span class="good">Water Buckets Location:</span>
-				<span class="average">({{:data.x}} / {{:data.y}}) - {{:data.dir}} - Water Level: {{:data.status}}</span><br>
+				<span class="average">({{:value.x}} / {{:value.y}}) - {{:value.dir}} - Water Level: {{:value.status}}</span><br>
 			{{/if}}
 		{{/for}}
 	</div>
 	<div class="item">
                 {{for data.records.janitor.cleanbots}}
-			{{if data.x==0}}
-				<span class="bad">Unable to locate Clean Bots</span>
-                        {{else}}
-                                <span class="good">Clean Bots Location:</span>
-                                <span class="average">({{:data.x}} / {{:data.y}}) - {{:data.dir}} - Status: {{:data.status}}</span><br>
-                        {{/if}}
-
+			        {{if value.x==0}}
+				        <span class="bad">Unable to locate Clean Bots</span>
+                    {{else}}
+                        <span class="good">Clean Bots Location:</span>
+                        <span class="average">({{:value.x}} / {{:value.y}}) - {{:value.dir}} - Status: {{:value.status}}</span><br>
+                    {{/if}}
                 {{/for}}
 	</div>
         <div class="item">
                 {{for data.records.janitor.carts}}
-                        {{if data.x==0}}
+                        {{if value.x==0}}
                                 <span class="bad">Unable to locate Janitorial Cart</span>
                         {{else}}
                                 <span class="good">Janitorial cart Location:</span>
-                                <span class="average">({{:data.x}} / {{:data.y}}) - {{:data.dir}} - Status: {{:data.status}}</span><br>
+                                <span class="average">({{:value.x}} / {{:value.y}}) - {{:value.dir}} - Status: {{:value.status}}</span><br>
                         {{/if}}
 
                 {{/for}}

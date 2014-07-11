@@ -9,7 +9,7 @@
 	docking_program = new/datum/computer/file/embedded_program/docking/simple(src)
 	program = docking_program
 
-/obj/machinery/embedded_controller/radio/simple_docking_controller/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null)
+/obj/machinery/embedded_controller/radio/simple_docking_controller/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
 	var/data[0]
 
 	data = list(
@@ -19,7 +19,7 @@
 		"door_lock" = 	docking_program.memory["door_status"]["lock"],
 	)
 
-	ui = nanomanager.try_update_ui(user, src, ui_key, ui, data)
+	ui = nanomanager.try_update_ui(user, src, ui_key, ui, data, force_open)
 
 	if (!ui)
 		ui = new(user, src, ui_key, "simple_docking_console.tmpl", name, 470, 290)

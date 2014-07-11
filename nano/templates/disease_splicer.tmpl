@@ -17,7 +17,7 @@
     <h2>Virus Dish</h2>
   </div>
   <div class="item">
-    {{:helper.link('Eject Dish', 'eject', { 'eject' : 1 }, dish_inserted ? null : 'disabled')}}
+    {{:helper.link('Eject Dish', 'eject', { 'eject' : 1 }, data.dish_inserted ? null : 'disabled')}}
   </div>
 
   <div class="item">
@@ -25,7 +25,7 @@
       <b>Growth Density:</b>
     </div>
     <div class="itemContent">
-      {{:helper.displayBar(growth, 0, 100, growth >= 50 ? 'good' : growth >= 25 ? 'average' : 'bad', growth + '%' )}}
+      {{:helper.displayBar(data.growth, 0, 100, (data.growth >= 50) ? 'good' : data.growth >= 25 ? 'average' : 'bad', data.growth + '%' )}}
     </div>
   </div>
 
@@ -53,7 +53,7 @@
         {{/if}}
       </div>
     </div>
-    {{if data.affected_species && !info}}
+    {{if data.affected_species && !data.info}}
       <div class='item'>
         <div class='itemLabelWide'>
           <span class='good'>Affected Species:</span>
@@ -74,7 +74,7 @@
       </div>
       <div class='itemContent'>
         {{for data.effects}}
-          {{:helper.link(stage, 'transferthick-e-w', { 'grab' : reference })}}
+          {{:helper.link(data.stage, 'transferthick-e-w', { 'grab' : data.reference })}}
         {{/for}}
       </div>
       <div class='itemContent'>
@@ -93,7 +93,7 @@
     </div>
     <div class='itemContent'>
       {{if data.buffer}}
-        {{:data.buffer.name}} ({{:data.buffer.stage}})
+		{{:data.buffer.name}} ({{:data.buffer.stage}})
       {{else}}
         {{if data.species_buffer}}
           {{:data.species_buffer}}
@@ -103,6 +103,6 @@
       {{/if}}
     </div>
   </div>
-  {{:helper.link('Save To Disk', 'disk', { 'disk' : 1 }, (buffer || species_buffer) ? null : 'disabled')}}
-  {{:helper.link('Splice Onto Dish', 'pencil', { 'splice' : 1 }, (buffer || species_buffer) && !info ? null : 'disabled')}}
+  {{:helper.link('Save To Disk', 'disk', { 'disk' : 1 }, (data.buffer || data.species_buffer) ? null : 'disabled')}}
+  {{:helper.link('Splice Onto Dish', 'pencil', { 'splice' : 1 }, ((data.buffer || data.species_buffer) && !data.info) ? null : 'disabled')}}
 {{/if}}

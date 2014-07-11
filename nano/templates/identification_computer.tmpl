@@ -7,9 +7,9 @@
     Thank you for your patience!
   </p>
 {{else}}
-  {{:helper.link('Access Modification', 'home', {'choice' : 'mode', 'mode_target' : 0}, !mode ? 'disabled' : null)}}
-  {{:helper.link('Crew Manifest', 'folder-open', {'choice' : 'mode', 'mode_target' : 1}, mode ? 'disabled' : null)}}
-  {{:helper.link('Print', 'print', {'choice' : 'print'}, (mode || has_modify) ? null : 'disabled')}}
+  {{:helper.link('Access Modification', 'home', {'choice' : 'mode', 'mode_target' : 0}, !data.mode ? 'disabled' : null)}}
+  {{:helper.link('Crew Manifest', 'folder-open', {'choice' : 'mode', 'mode_target' : 1}, data.mode ? 'disabled' : null)}}
+  {{:helper.link('Print', 'print', {'choice' : 'print'}, (data.mode || data.has_modify) ? null : 'disabled')}}
 
   {{if data.mode}}
     <div class='item'>
@@ -32,7 +32,7 @@
         Target Identity:
       </div>
       <div class='itemContent'>
-        {{:helper.link(target_name, 'eject', {'choice' : 'modify'})}}
+        {{:helper.link(data.target_name, 'eject', {'choice' : 'modify'})}}
       </div>
     </div>
     <div class='item'>
@@ -40,7 +40,7 @@
         Authorized Identity:
       </div>
       <div class='itemContent'>
-        {{:helper.link(scan_name, 'eject', {'choice' : 'scan'})}}
+        {{:helper.link(data.scan_name, 'eject', {'choice' : 'scan'})}}
       </div>
     </div>
     <hr>
@@ -64,15 +64,15 @@
           nameField.style.backgroundColor = "#FFDDDD";
         }
         function showAll(){
-          var allJobsSlot = document.getElementById('alljobsslot');
+          var allJobsSlot = document.getElementById('allvalue.jobsslot');
           allJobsSlot.innerHTML = "<a href='#' onclick='hideAll()'>Hide</a><br>";
-          var allJobs = document.getElementById('all-jobs');
+          var allJobs = document.getElementById('all-value.jobs');
           allJobs.style.display = 'block';
         }
         function hideAll(){
-          var allJobsSlot = document.getElementById('alljobsslot');
+          var allJobsSlot = document.getElementById('allvalue.jobsslot');
           allJobsSlot.innerHTML = "<a href='#' onclick='showAll()'>{{:data.target_rank}}</a>";
-          var allJobs = document.getElementById('all-jobs');
+          var allJobs = document.getElementById('all-value.jobs');
           allJobs.style.display = 'none';
         }
       </script>
@@ -115,7 +115,7 @@
             Terminations:
           </div>
           <div class='itemContent'>
-            {{:helper.link('Terminate ' + target_owner, 'gear', {'choice' : 'terminate'}, target_rank == "Terminated" ? 'disabled' : null, target_rank == "Terminated" ? 'disabled' : 'linkDanger')}}
+            {{:helper.link('Terminate ' + data.target_owner, 'gear', {'choice' : 'terminate'}, data.target_rank == "Terminated" ? 'disabled' : null, data.target_rank == "Terminated" ? 'disabled' : 'linkDanger')}}
           </div>
         </div>
 
@@ -124,12 +124,12 @@
         </div>
 
         <div class='item'>
-          <span id='alljobsslot'>
+          <span id='allvalue.jobsslot'>
             <a href='#' onclick='showAll()'>{{:data.target_rank}}</a>
           </span>
         </div>
         <div class='item'>
-          <div id="all-jobs" style='display: none;'>
+          <div id="all-value.jobs" style='display: none;'>
             <table>
               <tr>
                 <th></th><th>Command</th>
@@ -137,7 +137,7 @@
               <tr>
                 <th>Special</th>
                 <td>
-                  {{:helper.link("Captain", '', {'choice' : 'assign', 'assign_target' : 'Captain'}, target_rank == 'Captain' ? 'disabled' : null)}}
+                  {{:helper.link("Captain", '', {'choice' : 'assign', 'assign_target' : 'Captain'}, data.target_rank == 'Captain' ? 'disabled' : null)}}
                   {{:helper.link("Custom", '', {'choice' : 'assign', 'assign_target' : 'Custom'})}}
                 </td>
               </tr>
@@ -145,7 +145,7 @@
                 <th style="color: '#FFA500';">Engineering</th>
                 <td>
                   {{for data.engineering_jobs}}
-                    {{:helper.link(display_name, '', {'choice' : 'assign', 'assign_target' : job}, target_rank == job ? 'disabled' : null)}}
+                    {{:helper.link(value.display_name, '', {'choice' : 'assign', 'assign_target' : value.job}, data.target_rank == value.job ? 'disabled' : null)}}
                   {{/for}}
                 </td>
               </tr>
@@ -153,7 +153,7 @@
                 <th style="color: '#008000';">Medical</th>
                 <td>
                   {{for data.medical_jobs}}
-                    {{:helper.link(display_name, '', {'choice' : 'assign', 'assign_target' : job}, target_rank == job ? 'disabled' : null)}}
+                    {{:helper.link(value.display_name, '', {'choice' : 'assign', 'assign_target' : value.job}, data.target_rank == value.job ? 'disabled' : null)}}
                   {{/for}}
                 </td>
               </tr>
@@ -161,7 +161,7 @@
                 <th style="color: '#800080';">Science</th>
                 <td>
                   {{for data.science_jobs}}
-                    {{:helper.link(display_name, '', {'choice' : 'assign', 'assign_target' : job}, target_rank == job ? 'disabled' : null)}}
+                    {{:helper.link(value.display_name, '', {'choice' : 'assign', 'assign_target' : value.job}, data.target_rank == value.job ? 'disabled' : null)}}
                   {{/for}}
                 </td>
               </tr>
@@ -169,7 +169,7 @@
                 <th style="color: '#DD0000';">Security</th>
                 <td>
                   {{for data.security_jobs}}
-                    {{:helper.link(display_name, '', {'choice' : 'assign', 'assign_target' : job}, target_rank == job ? 'disabled' : null)}}
+                    {{:helper.link(value.display_name, '', {'choice' : 'assign', 'assign_target' : value.job}, data.target_rank == value.job ? 'disabled' : null)}}
                   {{/for}}
                 </td>
               </tr>
@@ -177,10 +177,10 @@
                 <th style="color: '#808080';">Civilian</th>
                 <td>
                   {{for data.civilian_jobs}}
-                    {{if data.#index && #index % 6 === 0}}
+                    {{if index && index % 6 === 0}}
                       </td></tr><tr><th></th><td>
                     {{/if}}
-                    {{:helper.link(display_name, '', {'choice' : 'assign', 'assign_target' : job}, target_rank == job ? 'disabled' : null)}}
+                    {{:helper.link(value.display_name, '', {'choice' : 'assign', 'assign_target' : value.job}, data.target_rank == value.job ? 'disabled' : null)}}
                   {{/for}}
                 </td>
               </tr>
@@ -189,11 +189,11 @@
                   <th style="color: '#A52A2A';">CentCom</th>
                   <td>
                     {{for data.centcom_jobs}}
-                      {{if data.#index % 6 === 0}}
+                      {{if index % 6 === 0}}
                         </td></tr><tr><th></th><td>
                       {{/if}}
 
-                      {{:helper.link(display_name, '', {'choice' : 'assign', 'assign_target' : job}, target_rank == job ? 'disabled' : null)}}
+                      {{:helper.link(value.display_name, '', {'choice' : 'assign', 'assign_target' : value.job}, data.target_rank == value.job ? 'disabled' : null)}}
                     {{/for}}
                   </td>
                 </tr>
@@ -209,7 +209,7 @@
           <div class='item' style='width: 100%'>
             {{for data.all_centcom_access}}
               <div class='itemContentWide'>
-              {{:helper.link(desc, '', {'choice' : 'access', 'access_target' : ref, 'allowed' : allowed}, null, allowed ? 'selected' : null)}}
+              {{:helper.link(value.desc, '', {'choice' : 'access', 'access_target' : value.ref, 'allowed' : allowed}, null, value.allowed ? 'selected' : null)}}
               </div>
             {{/for}}
           </div>
@@ -220,10 +220,10 @@
           <div class='item' style='width: 100%'>
             {{for data.regions}}
               <div style='float: left; width: 175px; min-height: 250px'>
-                <div class='average'><b>{{:data.name}}</b></div>
-                {{for data.accesses}}
+                <div class='average'><b>{{:value.name}}</b></div>
+                {{for value.accesses :accessValue:accessKey}}
                   <div class='itemContentWide'>
-                    {{:helper.link(desc, '', {'choice' : 'access', 'access_target' : ref, 'allowed' : allowed}, null, allowed ? 'selected' : null)}}
+                    {{:helper.link(accessValue.desc, '', {'choice' : 'access', 'access_target' : accessValue.ref, 'allowed' : accessValue.allowed}, null, accessValue.allowed ? 'selected' : null)}}
                   </div>
                 {{/for}}
               </div>
