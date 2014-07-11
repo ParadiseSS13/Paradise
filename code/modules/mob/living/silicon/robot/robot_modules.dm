@@ -178,6 +178,7 @@
 
 	stacktypes = list(
 		/obj/item/stack/sheet/metal = 50,
+		/obj/item/stack/sheet/glass = 50,
 		/obj/item/stack/sheet/rglass = 50,
 		/obj/item/stack/cable_coil = 50,
 		/obj/item/stack/rods = 15,
@@ -207,7 +208,11 @@
 		M.amount = 50
 		src.modules += M
 
-		var/obj/item/stack/sheet/rglass/cyborg/G = new /obj/item/stack/sheet/rglass/cyborg(src)
+		var/obj/item/stack/sheet/rglass/cyborg/R = new /obj/item/stack/sheet/rglass/cyborg(src)
+		R.amount = 50
+		src.modules += R
+
+		var/obj/item/stack/sheet/glass/G = new /obj/item/stack/sheet/glass(src)
 		G.amount = 50
 		src.modules += G
 
