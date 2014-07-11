@@ -105,7 +105,7 @@
 
 		if("Colour")
 			var/newcolour = input("Which colour would you like to use?") as null|anything in list("black","blue","red","green","yellow")
-			if(newcolour) color = newcolour
+			if(newcolour) colour = newcolour
 
 		if("Mode")
 			if (mode == 1)

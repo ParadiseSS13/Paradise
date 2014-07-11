@@ -78,7 +78,9 @@
 					"You hear metal clanking")
 			unbuckle()
 			src.add_fingerprint(user)
-	return
+			return 1
+
+	return 0
 
 /obj/structure/stool/bed/proc/buckle_mob(mob/M as mob, mob/user as mob)
 	if (!ticker)
@@ -118,6 +120,18 @@
 	icon = 'icons/obj/rollerbed.dmi'
 	icon_state = "down"
 	anchored = 0
+
+/obj/structure/stool/bed/roller/attackby(obj/item/weapon/W as obj, mob/user as mob)
+	if(istype(W,/obj/item/roller_holder))
+		if(buckled_mob)
+			manual_unbuckle()
+		else
+			visible_message("[user] collapses \the [src.name].")
+			new/obj/item/roller(get_turf(src))
+			spawn(0)
+				del(src)
+		return
+	..()
 
 /obj/item/roller
 	name = "roller bed"
