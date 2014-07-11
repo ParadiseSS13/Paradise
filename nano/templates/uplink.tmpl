@@ -16,31 +16,30 @@ Used In File(s): \code\game\objects\items\devices\uplinks.dm
 </div>
 <br>
 <div class="item">
-        <div class="itemLabel">
-                <b>Tele-Crystals</b>:
-        </div>
-        <div class="itemContent">
-                {{:data.crystals}}
-        </div>
+    <div class="itemLabel">
+        <b>Tele-Crystals</b>:
+    </div>
+    <div class="itemContent">
+        {{:data.crystals}}
+    </div>
 </div>
 <H2><span class="white">Request items:</span></H2><br>
 <span class="white"><i>Each item costs a number of tele-crystals as indicated by the number following their name.</i></span>
 
 <br><br>
 {{for data.nano_items}}
-<div class="item">
-	<H3><span class="white">{{:data.Category}}</span></H3>
-</div>
-	{{for data.items}}
-<div class="item">
-		{{:helper.link( Name, 'gear', {'buy_item' : obj_path, 'cost' : Cost}, Cost > ~root.crystals ? 'disabled' : null, null)}} -<span class="white"> {{:data.Cost}}</span>
-</div>
+    <div class="item">
+	    <H3><span class="white">{{:value.Category}}</span></H3>
+    </div>
+	{{for data.items :itemValue:itemIndex}}
+        <div class="item">
+            {{:helper.link( itemValue.Name, 'gear', {'buy_item' : itemValue.obj_path, 'cost' : itemValue.Cost}, itemValue.Cost > data.crystals ? 'disabled' : null, null)}} - <span class="white">{{:itemValue.Cost}}</span>
+        </div>
 	{{/for}}
-<br>
-
+    <br>
 {{/for}}
 
 <div class="item">
-                {{:helper.link('Buy Random (??)' , 'gear', {'buy_item' : 'random'}, null, 'fixedLeftWidest')}}
+    {{:helper.link('Buy Random (??)' , 'gear', {'buy_item' : 'random'}, null, 'fixedLeftWidest')}}
 </div>
 

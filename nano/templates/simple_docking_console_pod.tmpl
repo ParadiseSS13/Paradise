@@ -51,9 +51,9 @@
 			{{else data.docking_status == "docking"}}
 				{{if data.door_state == "open"}}
 					<span class="good">OPEN</span>
-				{{else data.door_state == "closed" && door_lock == "locked"}}
+				{{else data.door_state == "closed" && data.door_lock == "locked"}}
 					<span class="good">SECURED</span>
-				{{else data.door_state == "closed" && door_lock == "unlocked"}}
+				{{else data.door_state == "closed" && data.door_lock == "unlocked"}}
 					<span class="good">UNSECURED</span>
 				{{else}}
 					<span class="bad">ERROR</span>
@@ -61,9 +61,9 @@
 			{{else data.docking_status == "undocking"}}
 				{{if data.door_state == "open"}}
 					<span class="average">OPEN</span>
-				{{else data.door_state == "closed" && door_lock == "locked"}}
+				{{else data.door_state == "closed" && data.door_lock == "locked"}}
 					<span class="good">SECURED</span>
-				{{else data.door_state == "closed" && door_lock == "unlocked"}}
+				{{else data.door_state == "closed" && data.door_lock == "unlocked"}}
 					<span class="average">UNSECURED</span>
 				{{else}}
 					<span class="bad">ERROR</span>
@@ -71,9 +71,9 @@
 			{{else data.docking_status == "undocked"}}
 				{{if data.door_state == "open"}}
 					<span class="bad">OPEN</span>
-				{{else data.door_state == "closed" && door_lock == "locked"}}
+				{{else data.door_state == "closed" && data.door_lock == "locked"}}
 					<span class="good">SECURED</span>
-				{{else data.door_state == "closed" && door_lock == "unlocked"}}
+				{{else data.door_state == "closed" && data.door_lock == "unlocked"}}
 					<span class="bad">UNSECURED</span>
 				{{else}}
 					<span class="bad">ERROR</span>
@@ -88,12 +88,12 @@
 	<div class="item">
 		<div class="itemContent" style="padding-top: 2px; width: 100%">
 		{{if data.docking_status == "docked"}}
-			{{:helper.link('Force exterior door', 'alert', {'command' : 'force_door'}, override_enabled ? null : 'disabled', null)}}
-			{{:helper.link('Override', 'alert', {'command' : 'toggle_override'}, null, override_enabled ? 'redBackground' : null)}}
+			{{:helper.link('Force exterior door', 'alert', {'command' : 'force_door'}, data.override_enabled ? null : 'disabled', null)}}
+			{{:helper.link('Override', 'alert', {'command' : 'toggle_override'}, null, data.override_enabled ? 'redBackground' : null)}}
 			{{:helper.link('MANUAL EJECT', 'alert', {'command' : 'toggle_override'}, 'disabled', null)}}
 		{{else}}
-			{{:helper.link('Force exterior door', 'alert', {'command' : 'force_door'}, override_enabled ? null : 'disabled', override_enabled? 'redBackground' : null)}}
-			{{:helper.link('Override', 'alert', {'command' : 'toggle_override'}, null, override_enabled ? 'redBackground' : 'yellowBackground')}}
+			{{:helper.link('Force exterior door', 'alert', {'command' : 'force_door'}, data.override_enabled ? null : 'disabled', data.override_enabled ? 'redBackground' : null)}}
+			{{:helper.link('Override', 'alert', {'command' : 'toggle_override'}, null, data.override_enabled ? 'redBackground' : 'yellowBackground')}}
 			{{:helper.link('MANUAL EJECT', 'alert', {'command' : 'toggle_override'}, can_force ? null : 'disabled', can_force ? 'redBackground' : null)}}
 		{{/if}}
 		</div>

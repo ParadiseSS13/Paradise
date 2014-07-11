@@ -348,10 +348,12 @@ nanoui is used to open and update nano browser uis
 				<noscript><div id='uiNoJavaScript'>Your browser does not have JavaScript enabled. Please enable JavaScript, then restart SS13.</div></noscript>
 =======
 				<div id='uiLoadingNotice'>Initiating...</div>
-				<noscript id='uiNoScript'>
-					<h2>JAVASCRIPT REQUIRED</h2>
-					<p>Your Internet Explorer's Javascript is disabled (or broken).<br/>
-					Enable Javascript and then open this UI again.</p>
+				<noscript>
+					<div id='uiNoScript'>
+						<h2>JAVASCRIPT REQUIRED</h2>
+						<p>Your Internet Explorer's Javascript is disabled (or broken).<br/>
+						Enable Javascript and then open this UI again.</p>
+					</div>
 				</noscript>
 >>>>>>> 7e7e6cd... Continued work in progress on a major revision of the NanoUI templating system.
 	"}
