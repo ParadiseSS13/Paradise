@@ -384,4 +384,8 @@ BLIND     // can't see anything
 	sensor_mode = pick(0,1,2,3)
 	..()
 
+/obj/item/clothing/under/emp_act(severity)
+	if (hastie)
+		hastie.emp_act(severity)
+	..()
 
