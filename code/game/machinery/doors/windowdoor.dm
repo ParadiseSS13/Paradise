@@ -181,7 +181,7 @@
 	return src.attack_hand(user)
 
 /obj/machinery/door/window/attack_paw(mob/user as mob)
-	if(istype(user, /mob/living/carbon/alien/humanoid) || istype(user, /mob/living/carbon/slime/adult))
+	if(istype(user, /mob/living/carbon/alien/humanoid))
 		if(src.operating)
 			return
 		playsound(src.loc, 'sound/effects/Glasshit.ogg', 75, 1)

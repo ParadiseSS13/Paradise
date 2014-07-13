@@ -309,7 +309,7 @@ datum
 							T.wet_overlay = null
 
 				for(var/mob/living/carbon/slime/M in T)
-					M.adjustToxLoss(rand(15,20))
+					M.apply_water()
 
 				var/hotspot = (locate(/obj/fire) in T)
 				if(hotspot && !istype(T, /turf/space))

@@ -45,11 +45,6 @@ proc/isembryo(A)
 		return 1
 	return 0
 
-/proc/isslimeadult(A)
-	if(istype(A, /mob/living/carbon/slime/adult))
-		return 1
-	return 0
-
 /proc/isrobot(A)
 	if(istype(A, /mob/living/silicon/robot))
 		return 1

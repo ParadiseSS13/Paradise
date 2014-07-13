@@ -251,7 +251,7 @@
 			log_admin("[key_name(usr)] edited the Emergency Shuttle's launch time to [new_time_left]")
 			message_admins("\blue [key_name_admin(usr)] edited the Emergency Shuttle's launch time to [new_time_left*10]", 1)
 		else if (emergency_shuttle.shuttle.has_arrive_time())
-			
+
 			var/new_time_left = input("Enter new shuttle arrival time (seconds):","Edit Shuttle Arrival Time", emergency_shuttle.estimate_arrival_time() ) as num
 			emergency_shuttle.shuttle.arrive_time = world.time + new_time_left*10
 
@@ -259,7 +259,7 @@
 			message_admins("\blue [key_name_admin(usr)] edited the Emergency Shuttle's arrival time to [new_time_left*10]", 1)
 		else
 			alert("The shuttle is neither counting down to launch nor is it in transit. Please try again when it is.")
-		
+
 		href_list["secretsadmin"] = "check_antagonist"
 
 	else if(href_list["delay_round_end"])
@@ -295,7 +295,6 @@
 			if("larva")				M.change_mob_type( /mob/living/carbon/alien/larva , null, null, delmob )
 			if("human")				M.change_mob_type( /mob/living/carbon/human/human , null, null, delmob )
 			if("slime")			M.change_mob_type( /mob/living/carbon/slime , null, null, delmob )
-			if("adultslime")		M.change_mob_type( /mob/living/carbon/slime/adult , null, null, delmob )
 			if("monkey")			M.change_mob_type( /mob/living/carbon/monkey , null, null, delmob )
 			if("robot")				M.change_mob_type( /mob/living/silicon/robot , null, null, delmob )
 			if("cat")				M.change_mob_type( /mob/living/simple_animal/cat , null, null, delmob )

@@ -276,8 +276,7 @@
 		if(target.cores >= 0)
 			new target.coretype(target.loc)
 		if(target.cores <= 0)
-			var/origstate = initial(target.icon_state)
-			target.icon_state = "[origstate] dead-nocore"
+			target.icon_state = "[target.colour] baby slime dead-nocore"
 
 
 	fail_step(mob/living/user, mob/living/carbon/slime/target, target_zone, obj/item/tool)

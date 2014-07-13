@@ -174,3 +174,23 @@
 		src.force = on_damage
 		src.damtype = "fire"
 		processing_objects += src
+
+/obj/item/device/flashlight/slime
+	gender = PLURAL
+	name = "glowing slime extract"
+	desc = "A glowing ball of what appears to be amber."
+	icon = 'icons/obj/lighting.dmi'
+	icon_state = "floor1" //not a slime extract sprite but... something close enough!
+	item_state = "slime"
+	w_class = 1
+	brightness_on = 6
+	on = 1 //Bio-luminesence has one setting, on.
+
+/obj/item/device/flashlight/slime/New()
+	SetLuminosity(brightness_on)
+	spawn(1) //Might be sloppy, but seems to be necessary to prevent further runtimes and make these work as intended... don't judge me!
+		update_brightness()
+		icon_state = initial(icon_state)
+
+/obj/item/device/flashlight/slime/attack_self(mob/user)
+	return //Bio-luminescence does not toggle.

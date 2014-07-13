@@ -1271,10 +1271,11 @@ datum
 			required_container = /obj/item/slime_extract/yellow
 			required_other = 1
 			on_reaction(var/datum/reagents/holder)
-				for(var/mob/O in viewers(get_turf_loc(holder.my_atom), null))
-					O.show_message(text("\red The slime begins to emit a soft light."), 1)
-				var/obj/item/slime_extract/yellow/Y = holder
-				Y.luminosity = 6
+				for(var/mob/O in viewers(get_turf(holder.my_atom), null))
+					O.show_message(text("\red The contents of the slime core harden and begin to emit a warm, bright light."), 1)
+				var/obj/item/device/flashlight/slime/F = new /obj/item/device/flashlight/slime
+				F.loc = get_turf(holder.my_atom)
+
 //Purple
 
 		slimepsteroid
@@ -1335,8 +1336,7 @@ datum
 			required_container = /obj/item/slime_extract/red
 			required_other = 1
 			on_reaction(var/datum/reagents/holder)
-				for(var/mob/living/carbon/slime/slime in viewers(get_turf_loc(holder.my_atom), null))
-					slime.tame = 0
+				for(var/mob/living/carbon/slime/slime in viewers(get_turf(holder.my_atom), null))
 					slime.rabid = 1
 					for(var/mob/O in viewers(get_turf_loc(holder.my_atom), null))
 						O.show_message(text("\red The [slime] is driven into a frenzy!."), 1)

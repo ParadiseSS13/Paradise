@@ -293,11 +293,10 @@
 			babies += M
 		new_slime = pick(babies)
 	else
+		new_slime = new /mob/living/carbon/slime(loc)
 		if(adult)
-			new_slime = new /mob/living/carbon/slime/adult(loc)
+			new_slime.is_adult = 1
 		else
-			new_slime = new /mob/living/carbon/slime(loc)
-	new_slime.a_intent = "harm"
 	new_slime.key = key
 
 	new_slime << "<B>You are now a slime. Skreee!</B>"
