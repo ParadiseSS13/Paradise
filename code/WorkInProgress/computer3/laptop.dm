@@ -30,18 +30,18 @@
 	var/obj/machinery/computer3/laptop/stored_computer = null
 
 	verb/open_computer()
-		set name = "open laptop"
+		set name = "Open Laptop"
 		set category = "Object"
 		set src in view(1)
-		
+
 		if(usr.stat || usr.restrained() || usr.lying || !istype(usr, /mob/living))
 			usr << "\red You can't do that."
 			return
-		
+
 		if(!Adjacent(usr))
 			usr << "You can't reach it."
 			return
-		
+
 		if(!istype(loc,/turf))
 			usr << "[src] is too bulky!  You'll have to set it down."
 			return
@@ -69,9 +69,42 @@
 		if(Adjacent(usr))
 			open_computer()
 
+//Quickfix until Snapshot works out how he wants to redo power. ~Z
+/obj/item/device/laptop/verb/eject_id()
+	set category = "Object"
+	set name = "Eject ID Card"
+	set src in oview(1)
+
+	if(stored_computer)
+		stored_computer.eject_id()
+
+/obj/machinery/computer3/laptop/verb/eject_id()
+	set category = "Object"
+	set name = "Eject ID Card"
+	set src in oview(1)
+
+	var/obj/item/part/computer/cardslot/C = locate() in src.contents
+
+	if(!C)
+		usr << "There is no card port on the laptop."
+		return
+
+	var/obj/item/weapon/card/id/card
+	if(C.reader)
+		card = C.reader
+	else if(C.writer)
+		card = C.writer
+	else
+		usr << "There is nothing to remove from the laptop card port."
+		return
+
+	usr << "You remove [card] from the laptop."
+	C.remove(card)
+
+
 /obj/machinery/computer3/laptop
 	name = "Laptop Computer"
-	desc = "A clamshell portable computer.  It is open."
+	desc = "A clamshell portable computer. It is open."
 
 	icon_state		= "laptop"
 	density			= 0
@@ -90,15 +123,15 @@
 		set name = "Close Laptop"
 		set category = "Object"
 		set src in view(1)
-		
+
 		if(usr.stat || usr.restrained() || usr.lying || !istype(usr, /mob/living))
 			usr << "\red You can't do that."
 			return
-		
+
 		if(!Adjacent(usr))
 			usr << "You can't reach it."
 			return
-		
+
 		if(istype(loc,/obj/item/device/laptop))
 			testing("Close closed computer")
 			return
