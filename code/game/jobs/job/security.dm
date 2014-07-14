@@ -235,3 +235,36 @@
 		else
 			H.equip_or_collect(new /obj/item/weapon/storage/box/survival(H.back), slot_in_backpack)
 		return 1
+
+/datum/job/pilot
+	title = "Security Pod Pilot"
+	flag = PILOT
+	department_flag = ENGSEC
+	faction = "Station"
+	total_positions = 1
+	spawn_positions = 1
+	supervisors = "the head of security"
+	selection_color = "#ffeeee"
+	access = list(access_security, access_sec_doors, access_brig, access_court, access_maint_tunnels, access_morgue, access_weapons)
+	minimal_access = list(access_security, access_sec_doors, access_brig, access_court, access_maint_tunnels, access_weapons)
+	minimal_player_age = 7
+	equip(var/mob/living/carbon/human/H)
+		if(!H)	return 0
+		H.equip_or_collect(new /obj/item/device/radio/headset/headset_sec(H), slot_l_ear)
+		switch(H.backbag)
+			if(2) H.equip_or_collect(new /obj/item/weapon/storage/backpack/security(H), slot_back)
+			if(3) H.equip_or_collect(new /obj/item/weapon/storage/backpack/satchel_sec(H), slot_back)
+			if(4) H.equip_or_collect(new /obj/item/weapon/storage/backpack/satchel(H), slot_back)
+		H.equip_or_collect(new /obj/item/clothing/under/rank/security(H), slot_w_uniform)
+		H.equip_or_collect(new /obj/item/clothing/suit/bomber(H), slot_wear_suit)
+		H.equip_or_collect(new /obj/item/clothing/shoes/jackboots(H), slot_shoes)
+		H.equip_or_collect(new /obj/item/device/pda/security(H), slot_wear_pda)
+		H.equip_or_collect(new /obj/item/weapon/handcuffs(H), slot_s_store)
+		H.equip_or_collect(new /obj/item/device/flash(H), slot_l_store)
+		if(H.backbag == 1)
+			H.equip_or_collect(new /obj/item/weapon/storage/box/survival(H), slot_r_hand)
+			H.equip_or_collect(new /obj/item/weapon/handcuffs(H), slot_l_hand)
+		else
+			H.equip_or_collect(new /obj/item/weapon/storage/box/survival(H.back), slot_in_backpack)
+			H.equip_or_collect(new /obj/item/weapon/handcuffs(H), slot_in_backpack)
+		return 1
