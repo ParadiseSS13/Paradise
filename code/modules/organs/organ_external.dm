@@ -32,6 +32,7 @@
 	var/damage_msg = "\red You feel an intense pain"
 	var/broken_description
 
+	var/vital //Lose a vital limb, die immediately.
 	var/status = 0
 	var/open = 0
 	var/stage = 0
@@ -357,7 +358,7 @@ INFECTION_LEVEL_THREE	above this germ level the player will take additional toxi
 Note that amputating the affected organ does in fact remove the infection from the player's body.
 */
 /datum/organ/external/proc/update_germs()
-	
+
 	if(status & (ORGAN_ROBOT|ORGAN_DESTROYED) || (owner.species && owner.species.flags & IS_PLANT)) //Robotic limbs shouldn't be infected, nor should nonexistant limbs.
 		germ_level = 0
 		return
@@ -365,7 +366,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 	if(owner.bodytemperature >= 170)	//cryo stops germs from moving and doing their bad stuffs
 		//** Syncing germ levels with external wounds
 		handle_germ_sync()
-		
+
 		//** Handle antibiotics and curing infections
 		handle_antibiotics()
 
@@ -388,10 +389,10 @@ Note that amputating the affected organ does in fact remove the infection from t
 
 /datum/organ/external/proc/handle_germ_effects()
 	var/antibiotics = owner.reagents.get_reagent_amount("spaceacillin")
-	
+
 	if (germ_level > 0 && germ_level < INFECTION_LEVEL_ONE && prob(60))	//this could be an else clause, but it looks cleaner this way
 		germ_level--	//since germ_level increases at a rate of 1 per second with dirty wounds, prob(60) should give us about 5 minutes before level one.
-	
+
 	if(germ_level >= INFECTION_LEVEL_ONE)
 		//having an infection raises your body temperature
 		var/fever_temperature = (owner.species.heat_level_1 - owner.species.body_temperature - 1)* min(germ_level/INFECTION_LEVEL_THREE, 1) + owner.species.body_temperature
@@ -402,7 +403,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 		if(prob(round(germ_level/10)))
 			if (antibiotics < 5)
 				germ_level++
-			
+
 			if (prob(5))	//adjust this to tweak how fast people take toxin damage from infections
 				owner.adjustToxLoss(1)
 
@@ -413,7 +414,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 			if (I.germ_level > 0 && I.germ_level < min(germ_level, INFECTION_LEVEL_TWO))	//once the organ reaches whatever we can give it, or level two, switch to a different one
 				if (!target_organ || I.germ_level > target_organ.germ_level)	//choose the organ with the highest germ_level
 					target_organ = I
-		
+
 		if (!target_organ)
 			//figure out which organs we can spread germs to and pick one at random
 			var/list/candidate_organs = list()
@@ -422,7 +423,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 					candidate_organs += I
 			if (candidate_organs.len)
 				target_organ = pick(candidate_organs)
-		
+
 		if (target_organ)
 			target_organ.germ_level++
 
@@ -703,6 +704,9 @@ Note that amputating the affected organ does in fact remove the infection from t
 			owner.regenerate_icons()
 		return organ
 
+			if(vital)
+				owner.death()
+
 /****************************************************
 			   HELPERS
 ****************************************************/
@@ -865,7 +869,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 	max_damage = 75
 	min_broken_damage = 40
 	body_part = UPPER_TORSO
-
+	vital = 1
 
 /datum/organ/external/groin
 	name = "groin"
@@ -874,6 +878,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 	max_damage = 50
 	min_broken_damage = 30
 	body_part = LOWER_TORSO
+	vital = 1
 
 /datum/organ/external/l_arm
 	name = "l_arm"
@@ -968,6 +973,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 	body_part = HEAD
 	var/disfigured = 0
 	var/brained = 0
+	vital = 1
 
 /datum/organ/external/head/get_icon()
 	if (!owner)
