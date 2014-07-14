@@ -11,7 +11,7 @@
 
 	attack(mob/M as mob, mob/user as mob, def_zone)
 		if (canopened == 0)
-			user << "<span class='notice'> You need to open the drink!</span>"
+			user << "<span class='notice'>You need to open the drink!</span>"
 			return
 		var/datum/reagents/R = src.reagents
 		var/fillevel = gulp_size
@@ -21,27 +21,21 @@
 			return 0
 
 		if(M == user)
-			if(!src.reagents.total_volume && user.a_intent == "harm" && user.zone_sel.selecting == "head")
-				user.visible_message("<span class='notice'>[user] crushes the can of [src] on \his forehead!</span>", "<span class='notice'>You crush the can of [src] on your forehead!</span>")
-				playsound(user.loc,'sound/weapons/pierce.ogg', rand(10,50), 1)
-				var/obj/item/trash/can/crushed_can = new /obj/item/trash/can(user.loc)
-				crushed_can.icon_state = icon_state
-				del(src)
+			M << "\blue You swallow a gulp of [src]."
+			if(reagents.total_volume)
+				reagents.trans_to_ingest(M, gulp_size)
+				reagents.reaction(M, INGEST)
+				spawn(5)
+					reagents.trans_to(M, gulp_size)
 
-			else
-				M << "\blue You swallow a gulp of [src]."
-				if(reagents.total_volume)
-					reagents.reaction(M, INGEST)
-					spawn(5)
-						reagents.trans_to_ingest(M, gulp_size)
-
-				playsound(M.loc,'sound/items/drink.ogg', rand(10,50), 1)
-				return 1
-
-
-
+			playsound(M.loc,'sound/items/drink.ogg', rand(10,50), 1)
+			return 1
 		else if( istype(M, /mob/living/carbon/human) )
+			if (canopened == 0)
+				user << "<span class='notice'>You need to open the drink!</span>"
+				return
 
+		else if (canopened == 1)
 			for(var/mob/O in viewers(world.view, user))
 				O.show_message("\red [user] attempts to feed [M] [src].", 1)
 			if(!do_mob(user, M)) return
@@ -50,12 +44,10 @@
 
 			M.attack_log += text("\[[time_stamp()]\] <font color='orange'>Has been fed [src.name] by [user.name] ([user.ckey]) Reagents: [reagentlist(src)]</font>")
 			user.attack_log += text("\[[time_stamp()]\] <font color='red'>Fed [M.name] by [M.name] ([M.ckey]) Reagents: [reagentlist(src)]</font>")
-			log_attack("[user.name] ([user.ckey]) fed [M.name] ([M.ckey]) with [src.name] Reagents: [reagentlist(src)] (INTENT: [uppertext(user.a_intent)]) (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[user.x];Y=[user.y];Z=[user.z]'>JMP</a>)")
+			msg_admin_attack("[key_name(user)] fed [key_name(M)] with [src.name] Reagents: [reagentlist(src)] (INTENT: [uppertext(user.a_intent)]) (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[user.x];Y=[user.y];Z=[user.z]'>JMP</a>)")
 
 			if(reagents.total_volume)
-				reagents.reaction(M, INGEST)
-				spawn(5)
-					reagents.trans_to_ingest(M, gulp_size)
+				reagents.trans_to_ingest(M, gulp_size)
 
 			if(isrobot(user)) //Cyborg modules that include drinks automatically refill themselves, but drain the borg's cell
 				var/mob/living/silicon/robot/bro = user
@@ -74,6 +66,9 @@
 		if(!proximity) return
 
 		if(istype(target, /obj/structure/reagent_dispensers)) //A dispenser. Transfer FROM it TO us.
+			if (canopened == 0)
+				user << "<span class='notice'>You need to open the drink!</span>"
+				return
 
 			if(!target.reagents.total_volume)
 				user << "\red [target] is empty."
@@ -83,10 +78,21 @@
 				user << "\red [src] is full."
 				return
 
-			var/trans = target.reagents.trans_to(src, target:amount_per_transfer_from_this)
-			user << "\blue You fill [src] with [trans] units of the contents of [target]."
+				var/trans = target.reagents.trans_to(src, target:amount_per_transfer_from_this)
+				user << "\blue You fill [src] with [trans] units of the contents of [target]."
+
 
 		else if(target.is_open_container()) //Something like a glass. Player probably wants to transfer TO it.
+			if (canopened == 0)
+				user << "<span class='notice'>You need to open the drink!</span>"
+				return
+
+			if (istype(target, /obj/item/weapon/reagent_containers/food/drinks/cans))
+				var/obj/item/weapon/reagent_containers/food/drinks/cans/cantarget = target
+				if(cantarget.canopened == 0)
+					user << "<span class='notice'>You need to open the drink you want to pour into!</span>"
+					return
+
 			if(!reagents.total_volume)
 				user << "\red [src] is empty."
 				return
@@ -149,7 +155,7 @@
 
 /obj/item/weapon/reagent_containers/food/drinks/cans/waterbottle
 	name = "Bottled Water"
-	desc = "Introduced to the vending machines on health nut protest, taste fresh, pure glacial* water! *Note: Might be tapwater."
+	desc = "Introduced to the vending machines by Skrellian request, this water comes straight from the Martian poles."
 	icon_state = "waterbottle"
 	New()
 		..()
@@ -159,7 +165,7 @@
 
 /obj/item/weapon/reagent_containers/food/drinks/cans/beer
 	name = "Space Beer"
-	desc = "Beer. In space."
+	desc = "Contains only water, malt and hops."
 	icon_state = "beer"
 	New()
 		..()
@@ -242,7 +248,7 @@
 
 /obj/item/weapon/reagent_containers/food/drinks/cans/iced_tea
 	name = "Vrisk Serket Iced Tea"
-	desc = "That sweet, refreshing southern earthy flavor. That's where it's from, right? South Earth? Whatever!!!!!!!!"
+	desc = "That sweet, refreshing southern earthy flavor. That's where it's from, right? South Earth?"
 	icon_state = "ice_tea_can"
 	New()
 		..()
@@ -270,7 +276,7 @@
 
 /obj/item/weapon/reagent_containers/food/drinks/cans/sodawater
 	name = "Soda Water"
-	desc = "A can of soda water. Why not make a scotch and soda?"
+	desc = "A can of soda water. Still water's more refreshing cousin."
 	icon_state = "sodawater"
 	New()
 		..()
