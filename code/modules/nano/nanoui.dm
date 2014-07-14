@@ -98,10 +98,10 @@ nanoui is used to open and update nano browser uis
 	add_script("libraries.min.js") // A JS file comprising of jQuery, doT.js and jQuery Timer libraries (compressed together)
 	add_script("nano_utility.js") // The NanoUtility JS, this is used to store utility functions.
 	add_script("nano_template.js") // The NanoTemplate JS, this is used to render templates.
-	add_script("nano_state_manager.js") // The
-	add_script("nano_state.js") // The
-	add_script("nano_state_default.js") // The
-	add_script("nano_base_callbacks.js") // The
+	add_script("nano_state_manager.js") // The NanoStateManager JS, it handles updates from the server and passes data to the current state
+	add_script("nano_state.js") // The NanoState JS, this is the base state which all states must inherit from
+	add_script("nano_state_default.js") // The NanoStateDefault JS, this is the "default" state (used by all UIs by default), which inherits from NanoState
+	add_script("nano_base_callbacks.js") // The NanoBaseCallbacks JS, this is used to set up (before and after update) callbacks which are common to all templates
 	add_script("nano_base_helpers.js") // The NanoBaseHelpers JS, this is used to set up template helpers which are common to all templates
 	add_stylesheet("shared.css") // this CSS sheet is common to all UIs
 	add_stylesheet("icons.css") // this CSS sheet is common to all UIs
@@ -326,11 +326,7 @@ nanoui is used to open and update nano browser uis
 		<script type='text/javascript'>
 			function receiveUpdateData(jsonString)
 			{
-<<<<<<< HEAD
-				// We need both jQuery and NanoUpdate to be able to recieve data
-=======
 				// We need both jQuery and NanoStateManager to be able to recieve data
->>>>>>> 7e7e6cd... Continued work in progress on a major revision of the NanoUI templating system.
 				// At the moment any data received before those libraries are loaded will be lost
 				if (typeof NanoStateManager != 'undefined' && typeof jQuery != 'undefined')
 				{
@@ -344,9 +340,6 @@ nanoui is used to open and update nano browser uis
 		<div id='uiWrapper'>
 			[title ? "<div id='uiTitleWrapper'><div id='uiStatusIcon' class='icon24 uiStatusGood'></div><div id='uiTitle'>[title]</div><div id='uiTitleFluff'></div></div>" : ""]
 			<div id='uiContent'>
-<<<<<<< HEAD
-				<noscript><div id='uiNoJavaScript'>Your browser does not have JavaScript enabled. Please enable JavaScript, then restart SS13.</div></noscript>
-=======
 				<div id='uiLoadingNotice'>Initiating...</div>
 				<noscript>
 					<div id='uiNoScript'>
@@ -355,7 +348,6 @@ nanoui is used to open and update nano browser uis
 						Enable Javascript and then open this UI again.</p>
 					</div>
 				</noscript>
->>>>>>> 7e7e6cd... Continued work in progress on a major revision of the NanoUI templating system.
 	"}
 
  /**
