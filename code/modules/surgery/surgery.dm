@@ -25,8 +25,10 @@
 				return allowed_tools[T]
 		return 0
 
-	// Checks if this step applies to the mutantrace of the user.
-	proc/is_valid_mutantrace(mob/living/carbon/human/target)
+	// Checks if this step applies to the user mob at all
+	proc/is_valid_target(mob/living/carbon/human/target)
+		if(!hasorgans(target))
+			return 0
 
 		if(allowed_species)
 			for(var/species in allowed_species)
@@ -39,6 +41,7 @@
 					return 0
 
 		return 1
+
 
 	// checks whether this step can be applied with the given user and target
 	proc/can_use(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
@@ -81,7 +84,7 @@ proc/do_surgery(mob/living/M, mob/living/user, obj/item/tool)
 		return 0
 	for(var/datum/surgery_step/S in surgery_steps)
 		//check if tool is right or close enough and if this step is possible
-		if( S.tool_quality(tool) && S.can_use(user, M, user.zone_sel.selecting, tool) && S.is_valid_mutantrace(M))
+		if( S.tool_quality(tool) && S.can_use(user, M, user.zone_sel.selecting, tool) && S.is_valid_target(M))
 			S.begin_step(user, M, user.zone_sel.selecting, tool)		//start on it
 			//We had proper tools! (or RNG smiled.) and User did not move or change hands.
 			if( prob(S.tool_quality(tool)) &&  do_mob(user, M, rand(S.min_duration, S.max_duration)))
