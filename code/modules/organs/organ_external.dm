@@ -702,10 +702,10 @@ Note that amputating the affected organ does in fact remove the infection from t
 			// OK so maybe your limb just flew off, but if it was attached to a pair of cuffs then hooray! Freedom!
 			release_restraints()
 			owner.regenerate_icons()
-		return organ
 
 			if(vital)
 				owner.death()
+		return organ
 
 /****************************************************
 			   HELPERS
