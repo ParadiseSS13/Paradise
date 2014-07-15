@@ -19,6 +19,11 @@
 #define ui_action_slot3 "3:10,16:26"
 #define ui_action_slot4 "4:12,16:26"
 #define ui_action_slot5 "5:14,16:26"
+#define ui_action_slot6 "6:16,16:26"
+#define ui_action_slot7 "7:18,16:26"
+#define ui_action_slot8 "8:20,16:26"
+#define ui_action_slot9 "9:22,16:26"
+#define ui_action_slot10 "10:24,16:26"
 
 //Middle left indicators
 #define ui_alienplasmadisplay "1,6:15"
