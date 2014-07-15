@@ -43,7 +43,7 @@
 				step(src, turn(src.dir, 180))
 			if(istype(src,/mob/living))
 				var/mob/living/M = src
-				M.take_organ_damage(20)
+				M.turf_collision(T, speed)
 
 /atom/Del()
 	// Pass to Destroy().
