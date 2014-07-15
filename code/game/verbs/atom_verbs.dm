@@ -1,6 +1,6 @@
 /atom/movable/verb/pull()
 	set name = "Pull"
-	set category = "Object"
+	set category = null
 	set src in oview(1)
 
 	if(Adjacent(usr))
@@ -9,7 +9,7 @@
 
 /atom/verb/point()
 	set name = "Point To"
-	set category = "Object"
+	set category = null
 	set src in oview()
 	var/atom/this = src//detach proc from src
 	src = null

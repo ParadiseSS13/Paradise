@@ -939,7 +939,7 @@ var/global/list/obj/item/device/pda/PDAs = list()
 
 
 /obj/item/device/pda/verb/verb_remove_id()
-	set category = "Object"
+	set category = null
 	set name = "Remove id"
 	set src in usr
 
@@ -956,7 +956,7 @@ var/global/list/obj/item/device/pda/PDAs = list()
 
 
 /obj/item/device/pda/verb/verb_remove_pen()
-	set category = "Object"
+	set category = null
 	set name = "Remove pen"
 	set src in usr
 

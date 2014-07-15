@@ -35,12 +35,12 @@
 
 	set name = "Climb structure"
 	set desc = "Climbs onto a structure."
-	set category = "Object"
+	set category = null
 	set src in oview(1)
 
 	do_climb(usr)
 
-/obj/structure/MouseDrop(atom/over_object)
+/obj/structure/MouseDrop_T(atom/over_object)
 
 	var/mob/living/H = over_object
 	if(!istype(H)) return ..()

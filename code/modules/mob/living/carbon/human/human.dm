@@ -198,7 +198,7 @@
 		var/eta_status = emergency_shuttle.get_status_panel_eta()
 		if(eta_status)
 			stat(null, eta_status)
-	
+
 	if (client.statpanel == "Status")
 		if (internal)
 			if (!internal.air_contents)
@@ -1346,7 +1346,7 @@
 					src.adjustToxLoss(rand(1,3))
 
 /mob/living/carbon/human/verb/check_pulse()
-	set category = "Object"
+	set category = null
 	set name = "Check pulse"
 	set desc = "Approximately count somebody's pulse. Requires you to stand still at least 6 seconds."
 	set src in view(1)
