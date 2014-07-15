@@ -31,7 +31,7 @@
 		return formatted
 
 /obj/machinery/computer/card/verb/eject_id()
-	set category = "Object"
+	set category = null
 	set name = "Eject ID Card"
 	set src in oview(1)
 

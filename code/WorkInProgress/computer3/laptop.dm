@@ -71,7 +71,7 @@
 
 //Quickfix until Snapshot works out how he wants to redo power. ~Z
 /obj/item/device/laptop/verb/eject_id()
-	set category = "Object"
+	set category = null
 	set name = "Eject ID Card"
 	set src in oview(1)
 
@@ -79,7 +79,7 @@
 		stored_computer.eject_id()
 
 /obj/machinery/computer3/laptop/verb/eject_id()
-	set category = "Object"
+	set category = null
 	set name = "Eject ID Card"
 	set src in oview(1)
 
