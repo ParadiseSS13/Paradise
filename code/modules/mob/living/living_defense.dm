@@ -83,35 +83,22 @@
 
 		var/throw_damage = O.throwforce*(speed/5)
 
-		var/zone
-		if (istype(O.thrower, /mob/living))
-			var/mob/living/L = O.thrower
-			zone = check_zone(L.zone_sel.selecting)
-		else
-			zone = ran_zone("chest",75)	//Hits a random part of the body, geared towards the chest
-
+		var/miss_chance = 15
 		if (O.throw_source)
 			var/distance = get_dist(O.throw_source, loc)
-			zone = get_zone_with_miss_chance(zone, src, min(15*(distance-2), 0))
-		else
-			zone = get_zone_with_miss_chance(zone, src, 15)
+			miss_chance = min(15*(distance-2), 0)
 
-		if(!zone)
+		if (prob(miss_chance))
 			visible_message("\blue \The [O] misses [src] narrowly!")
 			return
 
-		O.throwing = 0		//it hit, so stop moving
-
-		if (istype(src, /mob/living/carbon/human))
-			var/mob/living/carbon/human/H = src
-			if (H.check_shields(throw_damage, "[O]"))
-				return
-
 		src.visible_message("\red [src] has been hit by [O].")
-		var/armor = run_armor_check(zone, "melee", "Your armor has protected your [zone].", "Your armor has softened the hit to your [zone].")
+		var/armor = run_armor_check(null, "melee")
 
 		if(armor < 2)
-			apply_damage(throw_damage, dtype, zone, armor, is_sharp(O), has_edge(O), O)
+			apply_damage(throw_damage, dtype, null, armor, is_sharp(O), has_edge(O), O)
+
+		O.throwing = 0		//it hit, so stop moving
 
 		if(ismob(O.thrower))
 			var/mob/M = O.thrower
@@ -133,11 +120,10 @@
 
 			if(!W || !src) return
 
-			if(istype(W.loc,/mob/living) && W.sharp) //Projectile is embedded and suitable for pinning.
-
-				if(!istype(src,/mob/living/carbon/human)) //Handles embedding for non-humans and simple_animals.
-					O.loc = src
-					src.embedded += O
+			if(W.sharp) //Projectile is suitable for pinning.
+				//Handles embedding for non-humans and simple_animals.
+				O.loc = src
+				src.embedded += O
 
 				var/turf/T = near_wall(dir,2)
 
