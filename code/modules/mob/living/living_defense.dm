@@ -68,6 +68,7 @@
 			src.dust()
 	return absorb
 
+//this proc handles being hit by a thrown atom
 /mob/living/hitby(atom/movable/AM as mob|obj,var/speed = 5)//Standardization and logging -Sieve
 	if(istype(AM,/obj/))
 		var/obj/O = AM
@@ -81,11 +82,27 @@
 
 		//run to-hit check here
 
+		var/throw_damage = O.throwforce*(speed/5)
+
+		//def_zone = get_zone_with_miss_chance(zone, src, 15*AM.throwing_dist_travelled)
+		zone = get_zone_with_miss_chance(zone, src)	//TODO: store the location of the thrower and adjust miss chance with distance
+
+		if(!zone)
+			visible_message("\blue \The [AM] misses [src] narrowly!")
+			return
+
+		AM.throwing = 0		//it hit, so stop moving
+
+		if (istype(src, /mob/living/carbon/human))
+			var/mob/living/carbon/human/H = src
+			if (H.check_shields(throw_damage, "[O]"))
+				return
+
 		src.visible_message("\red [src] has been hit by [O].")
-		var/armor = run_armor_check(zone, "melee", "Your armor has protected your [zone].", "Your armor has softened hit to your [zone].")
+		var/armor = run_armor_check(zone, "melee", "Your armor has protected your [zone].", "Your armor has softened the hit to your [zone].")
 
 		if(armor < 2)
-			apply_damage(O.throwforce*(speed/5), dtype, zone, armor, is_sharp(O), has_edge(O), O)
+			apply_damage(throw_damage, dtype, zone, armor, is_sharp(O), has_edge(O), O)
 
 		if(!O.fingerprintslast)
 			return
@@ -108,7 +125,7 @@
 			if(speed >= 15)
 				var/obj/item/weapon/W = O
 				var/momentum = speed/2
-				var/dir = get_dir(M,src)
+				var/dir = get_dir(M,src)	//TODO: store the location of the thrower and move this out of the fingerprintslast block
 
 				visible_message("\red [src] staggers under the impact!","\red You stagger under the impact!")
 				src.throw_at(get_edge_target_turf(src,dir),1,momentum)

@@ -30,7 +30,6 @@
 /atom/movable/Bump(var/atom/A as mob|obj|turf|area, yes)
 	if(src.throwing)
 		src.throw_impact(A)
-		src.throwing = 0
 
 	if ((A && yes))
 		A.last_bumped = world.time
@@ -50,6 +49,29 @@
 		return 1
 	return 0
 
+//called when src is thrown into hit_atom
+/atom/movable/proc/throw_impact(atom/hit_atom, var/speed)
+	if(istype(hit_atom,/mob/living))
+		var/mob/living/M = hit_atom
+		M.hitby(src,speed)
+
+	else if(isobj(hit_atom))
+		var/obj/O = hit_atom
+		if(!O.anchored)
+			step(O, src.dir)
+		O.hitby(src,speed)
+
+	else if(isturf(hit_atom))
+		src.throwing = 0
+		var/turf/T = hit_atom
+		if(T.density)
+			spawn(2)
+				step(src, turn(src.dir, 180))
+			if(istype(src,/mob/living))
+				var/mob/living/M = src
+				M.turf_collision(T, speed)
+
+//decided whether a movable atom being thrown can pass through the turf it is in.
 /atom/movable/proc/hit_check(var/speed)
 	if(src.throwing)
 		for(var/atom/A in get_turf(src))
@@ -57,12 +79,9 @@
 			if(istype(A,/mob/living))
 				if(A:lying) continue
 				src.throw_impact(A,speed)
-				if(src.throwing == 1)
-					src.throwing = 0
 			if(isobj(A))
 				if(A.density && !A.throwpass)	// **TODO: Better behaviour for windows which are dense, but shouldn't always stop movement
 					src.throw_impact(A,speed)
-					src.throwing = 0
 
 /atom/movable/proc/throw_at(atom/target, range, speed)
 	if(!target || !src)	return 0
@@ -155,8 +174,8 @@
 			a = get_area(src.loc)
 
 	//done throwing, either because it hit something or it finished moving
-	src.throwing = 0
 	if(isobj(src)) src.throw_impact(get_turf(src),speed)
+	src.throwing = 0
 
 
 //Overlays

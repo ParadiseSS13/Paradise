@@ -178,7 +178,11 @@ proc/hasorgans(A)
 */
 	return zone
 
-
+// Returns zone with a certain probability.
+// If the probability misses, returns "chest" instead.
+// If "chest" was passed in as zone, then on a "miss" will return "head", "l_arm", or "r_arm"
+// Do not use this if someone is intentionally trying to hit a specific body part.
+// Use get_zone_with_miss_chance() for that.
 /proc/ran_zone(zone, probability)
 	zone = check_zone(zone)
 	if(!probability)	probability = 90

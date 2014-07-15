@@ -475,6 +475,7 @@
 	return
 
 /obj/mecha/hitby(atom/movable/A as mob|obj) //wrapper
+	..()
 	src.log_message("Hit by [A].",1)
 	call((proc_res["dynhitby"]||src), "dynhitby")(A)
 	return

@@ -25,26 +25,6 @@
 	// Garbage collection
 	var/gc_destroyed=null
 
-/atom/proc/throw_impact(atom/hit_atom, var/speed)
-	if(istype(hit_atom,/mob/living))
-		var/mob/living/M = hit_atom
-		M.hitby(src,speed)
-
-	else if(isobj(hit_atom))
-		var/obj/O = hit_atom
-		if(!O.anchored)
-			step(O, src.dir)
-		O.hitby(src,speed)
-
-	else if(isturf(hit_atom))
-		var/turf/T = hit_atom
-		if(T.density)
-			spawn(2)
-				step(src, turn(src.dir, 180))
-			if(istype(src,/mob/living))
-				var/mob/living/M = src
-				M.turf_collision(T, speed)
-
 /atom/Del()
 	// Pass to Destroy().
 	if(!gc_destroyed)
@@ -265,6 +245,8 @@ its easier to just keep the beam vertical.
 
 
 /atom/proc/hitby(atom/movable/AM as mob|obj)
+	if (density)
+		AM.throwing = 0
 	return
 
 /atom/proc/add_hiddenprint(mob/living/M as mob)
