@@ -123,7 +123,7 @@
 		new /obj/item/device/flash(src)
 		new /obj/item/weapon/melee/baton/loaded(src)
 		new /obj/item/weapon/gun/energy/gun(src)
-		new /obj/item/clothing/tie/holster/waist(src)
+		new /obj/item/clothing/tie/holster/armpit(src)
 		new /obj/item/weapon/melee/telebaton(src)
 		return
 
@@ -281,7 +281,6 @@
 		new /obj/item/clothing/gloves/black(src)
 		new /obj/item/clothing/head/det_hat(src)
 		new /obj/item/clothing/shoes/brown(src)
-		new /obj/item/clothing/tie/accessory/gunholster(src)
 		new /obj/item/weapon/storage/box/evidence(src)
 		new /obj/item/device/radio/headset/headset_sec(src)
 		new /obj/item/device/detective_scanner(src)

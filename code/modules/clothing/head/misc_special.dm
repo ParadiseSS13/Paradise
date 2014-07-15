@@ -34,9 +34,7 @@
 	toggle()
 
 
-/obj/item/clothing/head/welding/verb/toggle()
-	set category = "Object"
-	set name = "Adjust welding mask"
+/obj/item/clothing/head/welding/proc/toggle()
 	set src in usr
 
 	if(usr.canmove && !usr.stat && !usr.restrained())

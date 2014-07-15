@@ -546,6 +546,10 @@
 /obj/item/proc/ui_action_click()
 	if( src in usr )
 		attack_self(usr)
+		return
+	else if(istype(src, /obj/item/clothing/tie))
+		if(istype(src.loc,/obj/item/clothing/under))
+			attack_self(usr)
 
 
 /obj/item/proc/IsShield()

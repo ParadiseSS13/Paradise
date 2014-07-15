@@ -267,12 +267,6 @@ BLIND     // can't see anything
 		I.loc = src
 		user << "<span class='notice'>You attach [I] to [src].</span>"
 
-		if (istype(hastie,/obj/item/clothing/tie/holster))
-			verbs += /obj/item/clothing/under/proc/holster
-
-		if (istype(hastie,/obj/item/clothing/tie/storage))
-			verbs += /obj/item/clothing/under/proc/storage
-
 		if(istype(loc, /mob/living/carbon/human))
 			var/mob/living/carbon/human/H = loc
 			H.update_inv_w_uniform()
@@ -284,7 +278,7 @@ BLIND     // can't see anything
 /obj/item/clothing/under/attack_hand(mob/user as mob)
 	//only forward to the attached accessory if the clothing is equipped (not in a storage)
 	if(hastie && src.loc == user)
-		hastie.attack_hand(user)
+		removetie()
 		return
 
 	if ((ishuman(usr) || ismonkey(usr)) && src.loc == user)	//make it harder to accidentally undress yourself
@@ -368,9 +362,7 @@ BLIND     // can't see anything
 	else
 		usr << "<span class='notice'>You cannot roll down the uniform!</span>"
 
-/obj/item/clothing/under/verb/removetie()
-	set name = "Remove Accessory"
-	set category = "Object"
+/obj/item/clothing/under/proc/removetie()
 	set src in usr
 	if(!istype(usr, /mob/living)) return
 	if(usr.stat) return
@@ -379,11 +371,7 @@ BLIND     // can't see anything
 		usr.put_in_hands(hastie)
 		hastie = null
 
-		if (istype(hastie,/obj/item/clothing/tie/holster))
-			verbs -= /obj/item/clothing/under/proc/holster
-
 		if (istype(hastie,/obj/item/clothing/tie/storage))
-			verbs -= /obj/item/clothing/under/proc/storage
 			var/obj/item/clothing/tie/storage/W = hastie
 			if (W.hold)
 				W.hold.loc = hastie
@@ -395,60 +383,5 @@ BLIND     // can't see anything
 /obj/item/clothing/under/rank/New()
 	sensor_mode = pick(0,1,2,3)
 	..()
-
-/obj/item/clothing/under/proc/holster()
-	set name = "Holster"
-	set category = "Object"
-	set src in usr
-	if(!istype(usr, /mob/living)) return
-	if(usr.stat) return
-
-	if (!hastie || !istype(hastie,/obj/item/clothing/tie/holster))
-		usr << "\red You need a holster for that!"
-		return
-	var/obj/item/clothing/tie/holster/H = hastie
-
-	if(!H.holstered)
-		if(!istype(usr.get_active_hand(), /obj/item/weapon/gun))
-			usr << "\blue You need your gun equiped to holster it."
-			return
-		var/obj/item/weapon/gun/W = usr.get_active_hand()
-		if (!W.isHandgun())
-			usr << "\red This gun won't fit in \the [H]!"
-			return
-		H.holstered = usr.get_active_hand()
-		usr.drop_item()
-		H.holstered.loc = src
-		usr.visible_message("\blue \The [usr] holsters \the [H.holstered].", "You holster \the [H.holstered].")
-	else
-		if(istype(usr.get_active_hand(),/obj) && istype(usr.get_inactive_hand(),/obj))
-			usr << "\red You need an empty hand to draw the gun!"
-		else
-			if(usr.a_intent == "harm")
-				usr.visible_message("\red \The [usr] draws \the [H.holstered], ready to shoot!", \
-				"\red You draw \the [H.holstered], ready to shoot!")
-			else
-				usr.visible_message("\blue \The [usr] draws \the [H.holstered], pointing it at the ground.", \
-				"\blue You draw \the [H.holstered], pointing it at the ground.")
-			usr.put_in_hands(H.holstered)
-			H.holstered = null
-
-/obj/item/clothing/under/proc/storage()
-	set name = "Look in storage"
-	set category = "Object"
-	set src in usr
-	if(!istype(usr, /mob/living)) return
-	if(usr.stat) return
-
-	if (!hastie || !istype(hastie,/obj/item/clothing/tie/storage))
-		usr << "\red You need something to store items in for that!"
-		return
-	var/obj/item/clothing/tie/storage/W = hastie
-
-	if (!istype(W.hold))
-		return
-
-	W.hold.loc = usr
-	W.hold.attack_hand(usr)
 
 

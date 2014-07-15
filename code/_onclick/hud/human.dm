@@ -504,6 +504,10 @@
 
 	hud_used.item_action_list = list()
 	for(var/obj/item/I in src)
+		if(istype(I,/obj/item/clothing/under))
+			var/obj/item/clothing/under/U = I
+			if(U.hastie)
+				I = U.hastie
 		if(I.icon_action_button)
 			var/obj/screen/item_action/A = new(hud_used)
 			//A.icon = 'icons/mob/screen1_action.dmi'
