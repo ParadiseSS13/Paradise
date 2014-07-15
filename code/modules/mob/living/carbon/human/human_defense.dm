@@ -193,7 +193,8 @@ emp_act
 /mob/living/carbon/human/proc/attacked_by(var/obj/item/I, var/mob/living/user, var/def_zone)
 	if(!I || !user)	return 0
 
-	var/target_zone = get_zone_with_miss_chance(user.zone_sel.selecting, src)
+	var/target_zone = def_zone? def_zone : get_zone_with_miss_chance(user.zone_sel.selecting, src)
+	
 	if(user == src) // Attacking yourself can't miss
 		target_zone = user.zone_sel.selecting
 	if(!target_zone && !src.stat)
@@ -253,7 +254,7 @@ emp_act
 	var/armor = run_armor_check(affecting, "melee", "Your armor has protected your [hit_area].", "Your armor has softened hit to your [hit_area].")
 	var/weapon_sharp = is_sharp(I)
 	var/weapon_edge = has_edge(I)
-	if ((weapon_sharp || weapon_edge) && prob(getarmor(def_zone, "melee")))
+	if ((weapon_sharp || weapon_edge) && prob(getarmor(target_zone, "melee")))
 		weapon_sharp = 0
 		weapon_edge = 0
 
