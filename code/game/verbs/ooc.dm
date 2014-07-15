@@ -119,6 +119,10 @@ var/global/normal_ooc_colour = "#002eb8"
 
 	log_ooc("(LOCAL) [mob.name]/[key] : [msg]")
 	var/list/heard = get_mobs_in_view(7, src.mob)
+	var/mob/S = src.mob
+	var/display_name = S.key
+	if(S.stat != DEAD)
+		display_name = S.name
 	for(var/mob/M in heard)
 		if(!M.client)
 			continue
@@ -127,7 +131,6 @@ var/global/normal_ooc_colour = "#002eb8"
 			continue //they are handled after that
 
 		if(C.prefs.toggles & CHAT_LOOC)
-			var/display_name = src.key
 			if(holder)
 				if(holder.fakekey)
 					if(C.holder)
@@ -137,7 +140,8 @@ var/global/normal_ooc_colour = "#002eb8"
 			C << "<font color='#6699CC'><span class='ooc'><span class='prefix'>LOOC:</span> <EM>[display_name]:</EM> <span class='message'>[msg]</span></span></font>"
 	for(var/client/C in admins)
 		if(C.prefs.toggles & CHAT_LOOC)
-			var/prefix = "(R)LOOC"
-			if (C.mob in heard)
-				prefix = "LOOC"
-			C << "<font color='#6699CC'><span class='ooc'><span class='prefix'>[prefix]:</span> <EM>[src.key]:</EM> <span class='message'>[msg]</span></span></font>"
+			var/prefix = "LOOC"
+			if (!(C.mob in heard))
+				prefix = "(R)LOOC"
+				display_name = S.key
+			C << "<font color='#6699CC'><span class='ooc'><span class='prefix'>[prefix]:</span> <EM>[display_name]:</EM> <span class='message'>[msg]</span></span></font>"
