@@ -90,7 +90,6 @@
 		else
 			zone = ran_zone("chest",75)	//Hits a random part of the body, geared towards the chest
 
-		//def_zone = get_zone_with_miss_chance(zone, src, 15*AM.throwing_dist_travelled)
 		if (O.throw_source)
 			var/distance = get_dist(O.throw_source, loc)
 			zone = get_zone_with_miss_chance(zone, src, min(15*(distance-2), 0))
@@ -114,47 +113,39 @@
 		if(armor < 2)
 			apply_damage(throw_damage, dtype, zone, armor, is_sharp(O), has_edge(O), O)
 
-		if(!O.fingerprintslast)
-			return
+		if(ismob(O.thrower))
+			var/mob/M = O.thrower
+			var/client/assailant = M.client
+			if(assailant)
+				src.attack_log += text("\[[time_stamp()]\] <font color='orange'>Has been hit with a [O], thrown by [M.name] ([assailant.ckey])</font>")
+				M.attack_log += text("\[[time_stamp()]\] <font color='red'>Hit [src.name] ([src.ckey]) with a thrown [O]</font>")
+				if(!istype(src,/mob/living/simple_animal/mouse))
+					msg_admin_attack("[src.name] ([src.ckey]) was hit by a [O], thrown by [M.name] ([assailant.ckey]) (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[src.x];Y=[src.y];Z=[src.z]'>JMP</a>)")
 
-		var/client/assailant = directory[ckey(O.fingerprintslast)]
-		if(assailant && assailant.mob && istype(assailant.mob,/mob))
-			var/mob/M = assailant.mob
+		// Begin BS12 momentum-transfer code.
+		if(O.throw_source && speed >= 15)
+			var/obj/item/weapon/W = O
+			var/momentum = speed/2
+			var/dir = get_dir(O.throw_source, src)
 
-			src.attack_log += text("\[[time_stamp()]\] <font color='orange'>Has been hit with a thrown [O], last touched by [M.name] ([assailant.ckey])</font>")
-			M.attack_log += text("\[[time_stamp()]\] <font color='red'>Hit [src.name] ([src.ckey]) with a thrown [O]</font>")
-			if(src.ckey)
-				msg_admin_attack("[src.name] ([src.ckey]) was hit by a thrown [O], last touched by [M.name] ([assailant.ckey]) (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[src.x];Y=[src.y];Z=[src.z]'>JMP</a>)")
-			if(!iscarbon(M))
-				src.LAssailant = null
-			else
-				src.LAssailant = M
+			visible_message("\red [src] staggers under the impact!","\red You stagger under the impact!")
+			src.throw_at(get_edge_target_turf(src,dir),1,momentum)
 
-			// Begin BS12 momentum-transfer code.
+			if(!W || !src) return
 
-			if(speed >= 15)
-				var/obj/item/weapon/W = O
-				var/momentum = speed/2
-				var/dir = get_dir(M,src)	//TODO: store the location of the thrower and move this out of the fingerprintslast block
+			if(istype(W.loc,/mob/living) && W.sharp) //Projectile is embedded and suitable for pinning.
 
-				visible_message("\red [src] staggers under the impact!","\red You stagger under the impact!")
-				src.throw_at(get_edge_target_turf(src,dir),1,momentum)
+				if(!istype(src,/mob/living/carbon/human)) //Handles embedding for non-humans and simple_animals.
+					O.loc = src
+					src.embedded += O
 
-				if(!W || !src) return
+				var/turf/T = near_wall(dir,2)
 
-				if(istype(W.loc,/mob/living) && W.sharp) //Projectile is embedded and suitable for pinning.
-
-					if(!istype(src,/mob/living/carbon/human)) //Handles embedding for non-humans and simple_animals.
-						O.loc = src
-						src.embedded += O
-
-					var/turf/T = near_wall(dir,2)
-
-					if(T)
-						src.loc = T
-						visible_message("<span class='warning'>[src] is pinned to the wall by [O]!</span>","<span class='warning'>You are pinned to the wall by [O]!</span>")
-						src.anchored = 1
-						src.pinned += O
+				if(T)
+					src.loc = T
+					visible_message("<span class='warning'>[src] is pinned to the wall by [O]!</span>","<span class='warning'>You are pinned to the wall by [O]!</span>")
+					src.anchored = 1
+					src.pinned += O
 
 //This is called when the mob is thrown into a dense turf
 /mob/living/proc/turf_collision(var/turf/T, var/speed)
