@@ -1,76 +1,73 @@
 
 var NanoTemplate = function () {
 
+    var _templateData = {};
+
     var _templates = {};
     var _compiledTemplates = {};
 	
 	var _helpers = {};
 
     var init = function () {
-        // We store initialData and templateData in the body tag, it's as good a place as any
-		var templateData = $('body').data('templateData');
-		
-		if (templateData == null)
+        // We store templateData in the body tag, it's as good a place as any
+		_templateData = $('body').data('templateData');
+
+		if (_templateData == null)
 		{
 			alert('Error: Template data did not load correctly.');
-		}		
-		
-		// we count the number of templates for this ui so that we know when they've all been rendered
-		var templateCount = 0;
-		for (var key in templateData)
-		{
-			if (templateData.hasOwnProperty(key))
-			{
-				templateCount++;
-			}
 		}
-		
-		if (!templateCount)
-		{
-			alert('ERROR: No templates listed!');
-		}
-		
-		// load markup for each template and register it
-		for (var key in templateData)
-		{
-			if (!templateData.hasOwnProperty(key))
-			{
-				continue;
-			}
-			
-			$.when($.ajax({
-				url: templateData[key],
-				cache: false,
-				dataType: 'text'
-			}))
-				.done(function(templateMarkup) {					
-					
-					//templateMarkup = templateMarkup.replace(/ +\) *\}\}/g, ')}}');
-					
-					templateMarkup += '<div class="clearBoth"></div>';
-				
-					try
-					{
-						NanoTemplate.addTemplate(key, templateMarkup)
-						
-						templateCount--;
-						
-						if (templateCount <= 0)
-						{
-							$(document).trigger('templatesLoaded');
-						}
-					}
-					catch(error)
-					{
-						alert('ERROR: An error occurred while loading the UI: ' + error.message);
-						return;
-					}
-				})					
-				.fail(function () {
-					alert('ERROR: Loading template ' + key + '(' + templateData[key] + ') failed!');
-				});;    
-		}	
+
+		loadNextTemplate();
     };
+
+    var loadNextTemplate = function () {
+        // we count the number of templates for this ui so that we know when they've all been rendered
+        var templateCount = Object.size(_templateData);
+
+        if (!templateCount)
+        {
+            $(document).trigger('templatesLoaded');
+            return;
+        }
+
+        // load markup for each template and register it
+        for (var key in _templateData)
+        {
+            if (!_templateData.hasOwnProperty(key))
+            {
+                continue;
+            }
+
+            $.when($.ajax({
+                    url: _templateData[key],
+                    cache: false,
+                    dataType: 'text'
+                }))
+                .done(function(templateMarkup) {
+
+                    templateMarkup += '<div class="clearBoth"></div>';
+
+                    try
+                    {
+                        NanoTemplate.addTemplate(key, templateMarkup);
+                    }
+                    catch(error)
+                    {
+                        alert('ERROR: An error occurred while loading the UI: ' + error.message);
+                        return;
+                    }
+
+                    delete _templateData[key];
+
+                    loadNextTemplate();
+                })
+                .fail(function () {
+                    alert('ERROR: Loading template ' + key + '(' + _templateData[key] + ') failed!');
+                });
+
+            return;
+        }
+    }
 
     var compileTemplates = function () {
 

@@ -45,7 +45,8 @@ NanoStateClass.prototype.onUpdate = function (data) {
 
     try
     {
-        $("#mainTemplate").html(NanoTemplate.parse('main', data)); // render the 'mail' template to the #mainTemplate div
+        $("#uiLayout").html(NanoTemplate.parse('layout', data)); // render the 'mail' template to the #mainTemplate div
+        $("#uiContent").html(NanoTemplate.parse('main', data)); // render the 'mail' template to the #mainTemplate div
     }
     catch(error)
     {

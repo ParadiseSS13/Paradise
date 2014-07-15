@@ -38,12 +38,11 @@ nanoui is used to open and update nano browser uis
 	var/list/stylesheets = list()
 	// the list of javascript scripts to use for this ui
 	var/list/scripts = list()
-	// the list of templates to use with this ui (usually just one)
+	// a list of templates which can be used with this ui
 	var/templates[0]
-	// the body content for this ui, do not change unless you know what you're doing
-	// the #mainTemplate div will contain the compiled "main" template html
-	var/content = "<div id='mainTemplate'></div>"
-	// the title of this ui
+	// the layout key for this ui (this is used on the frontend, leave it as "default" unless you know what you're doing)
+	var/layout_key = "default"
+	// the default state to use for this ui (this is used on the frontend, leave it as "default" unless you know what you're doing)
 	var/state_key = "default"
 	// initial data, containing the full data structure, must be sent to the ui (the data structure cannot be extended later on)
 	var/list/initial_data[0]
@@ -61,7 +60,7 @@ nanoui is used to open and update nano browser uis
   * @param nuser /mob The mob who has opened/owns this ui
   * @param nsrc_object /obj|/mob The obj or mob which this ui belongs to
   * @param nui_key string A string key to use for this ui. Allows for multiple unique uis on one src_oject
-  * @param ntemplate string The name of the template file from /nano/templates (e.g. "my_template.tmpl")
+  * @param ntemplate string The filename of the template file from /nano/templates (e.g. "my_template.tmpl")
   * @param ntitle string The title of this ui
   * @param nwidth int the width of the ui window
   * @param nheight int the height of the ui window
@@ -69,14 +68,14 @@ nanoui is used to open and update nano browser uis
   *
   * @return /nanoui new nanoui object
   */
-/datum/nanoui/New(nuser, nsrc_object, nui_key, ntemplate, ntitle = 0, nwidth = 0, nheight = 0, var/atom/nref = null)
+/datum/nanoui/New(nuser, nsrc_object, nui_key, ntemplate_filename, ntitle = 0, nwidth = 0, nheight = 0, var/atom/nref = null)
 	user = nuser
 	src_object = nsrc_object
 	ui_key = nui_key
 	window_id = "[ui_key]\ref[src_object]"
 
-	// Add the passed template as the 'main' template, this is required
-	add_template("main", ntemplate)
+	// add the passed template filename as the "main" template, this is required
+	add_template("main", ntemplate_filename)
 
 	if (ntitle)
 		title = ntitle
@@ -101,8 +100,8 @@ nanoui is used to open and update nano browser uis
 	add_script("nano_state_manager.js") // The NanoStateManager JS, it handles updates from the server and passes data to the current state
 	add_script("nano_state.js") // The NanoState JS, this is the base state which all states must inherit from
 	add_script("nano_state_default.js") // The NanoStateDefault JS, this is the "default" state (used by all UIs by default), which inherits from NanoState
-	add_script("nano_base_callbacks.js") // The NanoBaseCallbacks JS, this is used to set up (before and after update) callbacks which are common to all templates
-	add_script("nano_base_helpers.js") // The NanoBaseHelpers JS, this is used to set up template helpers which are common to all templates
+	add_script("nano_base_callbacks.js") // The NanoBaseCallbacks JS, this is used to set up (before and after update) callbacks which are common to all UIs
+	add_script("nano_base_helpers.js") // The NanoBaseHelpers JS, this is used to set up template helpers which are common to all UIs
 	add_stylesheet("shared.css") // this CSS sheet is common to all UIs
 	add_stylesheet("icons.css") // this CSS sheet is common to all UIs
 
@@ -228,6 +227,7 @@ nanoui is used to open and update nano browser uis
 
  /**
   * Add a CSS stylesheet to this UI
+  * These must be added before the UI has been opened, adding after that will have no effect
   *
   * @param file string The name of the CSS file from /nano/css (e.g. "my_style.css")
   *
@@ -238,6 +238,7 @@ nanoui is used to open and update nano browser uis
 
  /**
   * Add a JavsScript script to this UI
+  * These must be added before the UI has been opened, adding after that will have no effect
   *
   * @param file string The name of the JavaScript file from /nano/js (e.g. "my_script.js")
   *
@@ -247,35 +248,36 @@ nanoui is used to open and update nano browser uis
 	scripts.Add(file)
 
  /**
-  * Add a template to this UI
+  * Add a template for this UI
   * Templates are combined with the data sent to the UI to create the rendered view
-  * Each template needs a div in ui.content to contain the rendered content.
-  * The div format is '<div id='<templateKey>Template'></div>' where <templateKey> is replaced with the templater's key.
-  * All UIs are set up by default to use a 'main' template, so only use this proc if you want to add advanced functionality.
+  * These must be added before the UI has been opened, adding after that will have no effect
   *
-  * @param key string The key name for this template, used to identify the div to render this template into ('<div id='<templateKey>Template'></div>')
-  * @param file string The name of the template file from /nano/templates (e.g. "my_template.tmpl")
+  * @param key string The key which is used to reference this template in the frontend
+  * @param filename string The name of the template file from /nano/templates (e.g. "my_template.tmpl")
   *
   * @return nothing
   */
-/datum/nanoui/proc/add_template(key, file)
-	templates[key] = file
+/datum/nanoui/proc/add_template(key, filename)
+	templates[key] = filename
 
  /**
-  * Set the HTML content of the UI
-  * This should only really be used to add more template divs (see the add_template() proc)
+  * Set the layout key for use in the frontend Javascript
+  * The layout key is the basic layout key for the page
+  * Two files are loaded on the client based on the layout key varable:
+  *     -> a template in /nano/templates with the filename "layout_<layout_key>.tmpl
+  *     -> a CSS stylesheet in /nano/css with the filename "layout_<layout_key>.css
   *
-  * @param ncontent string The new HTML content for this UI
+  * @param nlayout string The layout key to use
   *
   * @return nothing
   */
-/datum/nanoui/proc/set_content(ncontent)
-	content = ncontent
+/datum/nanoui/proc/set_layout_key(nlayout_key)
+	layout_key = lowertext(nlayout_key)
 
  /**
   * Set the state key for use in the frontend Javascript
   *
-  * @param nstate_key string The new HTML content for this UI
+  * @param nstate_key string The key of the state to use
   *
   * @return nothing
   */
@@ -293,11 +295,16 @@ nanoui is used to open and update nano browser uis
 	on_close_logic = state
 
  /**
-  * Return the HTML header content for this UI
+  * Return the HTML for this UI
   *
-  * @return string HTML header content
+  * @return string HTML for the UI
   */
-/datum/nanoui/proc/get_header()
+/datum/nanoui/proc/get_html()
+
+	// before the UI opens, add the layout files based on the layout key
+	add_stylesheet("layout_[layout_key].css")
+	add_template("layout", "layout_[layout_key].tmpl")
+
 	var/head_content = ""
 
 	for (var/filename in scripts)
@@ -306,20 +313,17 @@ nanoui is used to open and update nano browser uis
 	for (var/filename in stylesheets)
 		head_content += "<link rel='stylesheet' type='text/css' href='[filename]'> "
 
-	var/templatel_data[0]
-	for (var/key in templates)
-		templatel_data[key] = templates[key];
-
 	var/template_data_json = "{}" // An empty JSON object
-	if (templatel_data.len > 0)
-		template_data_json = list2json(templatel_data)
+	if (templates.len > 0)
+		template_data_json = list2json(templates)
 
 	var/list/send_data = get_send_data(initial_data)
 	var/initial_data_json = list2json(send_data)
 
 	var/url_parameters_json = list2json(list("src" = "\ref[src]"))
 
-	return {"<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+	return {"
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 	<head>
@@ -336,43 +340,18 @@ nanoui is used to open and update nano browser uis
 		</script>
 		[head_content]
 	</head>
-	<body scroll=auto data-url-parameters='[url_parameters_json]' data-template-data='[template_data_json]' data-initial-data='[initial_data_json]'>
-		<div id='uiWrapper'>
-			[title ? "<div id='uiTitleWrapper'><div id='uiStatusIcon' class='icon24 uiStatusGood'></div><div id='uiTitle'>[title]</div><div id='uiTitleFluff'></div></div>" : ""]
-			<div id='uiContent'>
-				<div id='uiLoadingNotice'>Initiating...</div>
-				<noscript>
-					<div id='uiNoScript'>
-						<h2>JAVASCRIPT REQUIRED</h2>
-						<p>Your Internet Explorer's Javascript is disabled (or broken).<br/>
-						Enable Javascript and then open this UI again.</p>
-					</div>
-				</noscript>
-	"}
-
- /**
-  * Return the HTML footer content for this UI
-  *
-  * @return string HTML footer content
-  */
-/datum/nanoui/proc/get_footer()
-
-	return {"
-			</div>
+	<body scroll=auto data-template-data='[template_data_json]' data-url-parameters='[url_parameters_json]' data-initial-data='[initial_data_json]'>
+		<div id='uiLayout'>
 		</div>
+		<noscript>
+			<div id='uiNoScript'>
+				<h2>JAVASCRIPT REQUIRED</h2>
+				<p>Your Internet Explorer's Javascript is disabled (or broken).<br/>
+				Enable Javascript and then open this UI again.</p>
+			</div>
+		</noscript>
 	</body>
-</html>"}
-
- /**
-  * Return the HTML for this UI
-  *
-  * @return string HTML for the UI
-  */
-/datum/nanoui/proc/get_html()
-	return {"
-	[get_header()]
-	[content]
-	[get_footer()]
+</html>
 	"}
 
  /**
@@ -381,6 +360,7 @@ nanoui is used to open and update nano browser uis
   * @return nothing
   */
 /datum/nanoui/proc/open()
+
 	var/window_size = ""
 	if (width && height)
 		window_size = "size=[width]x[height];"

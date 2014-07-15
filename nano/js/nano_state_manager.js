@@ -25,8 +25,6 @@ NanoStateManager = function ()
 	// this function sets up the templates and base functionality
 	var init = function () 
 	{
-		$('#uiLoadingNotice').html('Loading...');		
-	
 		// We store initialData and templateData in the body tag, it's as good a place as any
 		_data = $('body').data('initialData');	
 		
@@ -47,7 +45,6 @@ NanoStateManager = function ()
 			doUpdate(_data);
 			
 			_isInitialised = true;
-			$('#uiLoadingNotice').hide();
 		});
 	};
 	
