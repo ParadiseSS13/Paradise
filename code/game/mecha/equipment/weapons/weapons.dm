@@ -312,7 +312,7 @@
 		var/obj/item/missile/M = new projectile(chassis.loc)
 		M.primed = 1
 		playsound(chassis, fire_sound, 50, 1)
-		M.throw_at(target, missile_range, missile_speed)
+		M.throw_at(target, missile_range, missile_speed, chassis)
 		projectiles--
 		log_message("Fired from [src.name], targeting [target].")
 		do_after_cooldown()
@@ -349,7 +349,7 @@
 		set_ready_state(0)
 		var/obj/item/weapon/grenade/flashbang/F = new projectile(chassis.loc)
 		playsound(chassis, fire_sound, 50, 1)
-		F.throw_at(target, missile_range, missile_speed)
+		F.throw_at(target, missile_range, missile_speed, chassis)
 		projectiles--
 		log_message("Fired from [src.name], targeting [target].")
 		spawn(det_time)
@@ -391,7 +391,7 @@
 		set_ready_state(0)
 		var/obj/item/weapon/bananapeel/B = new projectile(chassis.loc)
 		playsound(chassis, fire_sound, 60, 1)
-		B.throw_at(target, missile_range, missile_speed)
+		B.throw_at(target, missile_range, missile_speed, chassis)
 		projectiles--
 		log_message("Bananed from [src.name], targeting [target]. HONK!")
 		do_after_cooldown()
@@ -422,7 +422,7 @@
 		var/obj/item/device/assembly/mousetrap/M = new projectile(chassis.loc)
 		M.secured = 1
 		playsound(chassis, fire_sound, 60, 1)
-		M.throw_at(target, missile_range, missile_speed)
+		M.throw_at(target, missile_range, missile_speed, chassis)
 		projectiles--
 		log_message("Launched a mouse-trap from [src.name], targeting [target]. HONK!")
 		do_after_cooldown()

@@ -387,9 +387,7 @@ var/global/list/PDA_Manifest = list()
 	throw_speed = 1
 	throw_range = 20
 	flags = FPRINT | TABLEPASS | CONDUCT
-//	afterattack(atom/target as mob|obj|turf|area, mob/user as mob)
-//		user.drop_item()
-//		src.throw_at(target, throw_range, throw_speed)
+
 
 /obj/effect/stop
 	var/victim = null

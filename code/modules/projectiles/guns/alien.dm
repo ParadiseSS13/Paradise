@@ -110,7 +110,7 @@
 
 	user.visible_message("\red [user] fires [src]!", "\red You fire [src]!")
 	spike.loc = get_turf(src)
-	spike.throw_at(target,10,fire_force)
+	spike.throw_at(target,10,fire_force,user)
 	spike = null
 	update_icon()
 

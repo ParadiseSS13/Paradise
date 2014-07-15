@@ -136,7 +136,12 @@
 	if(propelled || (pulling && (pulling.a_intent == "harm")))
 		var/mob/living/occupant = buckled_mob
 		unbuckle()
-		occupant.throw_at(A, 3, 2)
+		
+		if (pulling && (pulling.a_intent == "hurt"))
+			occupant.throw_at(A, 3, 3, pulling)
+		else if (propelled)
+			occupant.throw_at(A, 3, propelled)
+		
 		occupant.apply_effect(6, STUN, 0)
 		occupant.apply_effect(6, WEAKEN, 0)
 		occupant.apply_effect(6, STUTTER, 0)

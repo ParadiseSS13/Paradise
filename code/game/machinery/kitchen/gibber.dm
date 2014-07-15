@@ -172,7 +172,7 @@
 			var/obj/item/meatslab = allmeat[i]
 			var/turf/Tx = locate(src.x - i, src.y, src.z)
 			meatslab.loc = src.loc
-			meatslab.throw_at(Tx,i,3)
+			meatslab.throw_at(Tx,i,3,src)
 			if (!Tx.density)
 				new /obj/effect/decal/cleanable/blood/gibs(Tx,i)
 		src.operating = 0

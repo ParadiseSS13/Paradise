@@ -545,7 +545,7 @@
 	if (!throw_item)
 		return 0
 	spawn(0)
-		throw_item.throw_at(target, 16, shoot_speed)
+		throw_item.throw_at(target, 16, 3, src)
 	src.visible_message("\red <b>[src] launches [throw_item.name] at [target.name]!</b>")
 	return 1
 

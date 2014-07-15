@@ -7,6 +7,8 @@
 	var/l_move_time = 1
 	var/m_flag = 1
 	var/throwing = 0
+	var/thrower
+	var/turf/throw_source = null
 	var/throw_speed = 2
 	var/throw_range = 7
 	var/moved_recently = 0
@@ -83,11 +85,13 @@
 				if(A.density && !A.throwpass)	// **TODO: Better behaviour for windows which are dense, but shouldn't always stop movement
 					src.throw_impact(A,speed)
 
-/atom/movable/proc/throw_at(atom/target, range, speed)
+/atom/movable/proc/throw_at(atom/target, range, speed, thrower)
 	if(!target || !src)	return 0
 	//use a modified version of Bresenham's algorithm to get from the atom's current position to that of the target
 
 	src.throwing = 1
+	src.thrower = thrower
+	src.throw_source = get_turf(src)	//store the origin turf
 
 	if(usr)
 		if(M_HULK in usr.mutations)
@@ -176,6 +180,8 @@
 	//done throwing, either because it hit something or it finished moving
 	if(isobj(src)) src.throw_impact(get_turf(src),speed)
 	src.throwing = 0
+	src.thrower = null
+	src.throw_source = null
 
 
 //Overlays

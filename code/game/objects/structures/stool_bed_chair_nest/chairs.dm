@@ -136,7 +136,7 @@
 	if(propelled)
 		var/mob/living/occupant = buckled_mob
 		unbuckle()
-		occupant.throw_at(A, 3, 2)
+		occupant.throw_at(A, 3, propelled)
 		occupant.apply_effect(6, STUN, 0)
 		occupant.apply_effect(6, WEAKEN, 0)
 		occupant.apply_effect(6, STUTTER, 0)
