@@ -14,10 +14,23 @@
 		var/mob/M = P
 		if(!M || !M.client)
 			continue
-		if(get_dist(M, turf_source) <= (world.view + extrarange) * 3)
+		
+		var/distance = get_dist(M, turf_source)
+		if(distance <= (world.view + extrarange) * 3)
 			var/turf/T = get_turf(M)
+			
 			if(T && T.z == turf_source.z)
-				M.playsound_local(turf_source, soundin, vol, vary, frequency, falloff)
+				//check that the air can transmit sound
+				var/datum/gas_mixture/environment = T.return_air()
+				if (!environment || environment.return_pressure() < SOUND_MINIMUM_PRESSURE)
+					if (distance > 1) 
+						continue
+					
+					var/new_frequency = 32000 + (frequency - 32000)*0.75	//lower the frequency a bit. very rudimentary
+					var/new_volume = vol*0.5								//muffle the sound, like we're hearing through contact
+					M.playsound_local(turf_source, soundin, new_volume, vary, new_frequency, falloff)
+				else
+					M.playsound_local(turf_source, soundin, vol, vary, frequency, falloff)
 
 var/const/FALLOFF_SOUNDS = 2
 var/const/SURROUND_CAP = 255

@@ -1,4 +1,3 @@
-#define SAY_MINIMUM_PRESSURE 10
 var/list/department_radio_keys = list(
 	  ":r" = "right ear",	"#r" = "right ear",		".r" = "right ear", "!r" = "fake right ear",
 	  ":l" = "left ear",	"#l" = "left ear",		".l" = "left ear",  "!l" = "fake left ear",
@@ -329,7 +328,7 @@ var/list/department_radio_keys = list(
 	var/datum/gas_mixture/environment = loc.return_air()
 	if(environment)
 		var/pressure = environment.return_pressure()
-		if (pressure < SAY_MINIMUM_PRESSURE)	//in space no one can hear you scream
+		if(pressure < SOUND_MINIMUM_PRESSURE)
 			italics = 1
 			message_range = 1
 
