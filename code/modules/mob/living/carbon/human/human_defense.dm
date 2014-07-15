@@ -51,11 +51,6 @@ emp_act
 
 				return -1 // complete projectile permutation
 
-	if(check_shields(P.damage, "the [P.name]"))
-		P.on_hit(src, 2, def_zone)
-		handle_suit_punctures(P.damage_type, P.damage)
-		return 2
-
 //BEGIN BOOK'S TASER NERF.
 	if(istype(P, /obj/item/projectile/beam/stun))
 		var/datum/organ/external/select_area = get_organ(def_zone) // We're checking the outside, buddy!
@@ -89,6 +84,9 @@ emp_act
 		return
 //END TASER NERF
 
+	if(check_shields(P.damage, "the [P.name]"))
+		P.on_hit(src, 2, def_zone)
+		return 2
 
 	var/datum/organ/external/organ = get_organ(check_zone(def_zone))
 
