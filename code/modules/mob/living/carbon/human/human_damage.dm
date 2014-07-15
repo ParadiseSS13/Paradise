@@ -318,9 +318,8 @@ This function restores all organs.
 			var/embed_threshold = sharp? 5*W.w_class : 15*W.w_class
 
 			//Sharp objects will always embed if they do enough damage.
-			if((sharp && damage > (10*W.w_class)) || (sharp && !ismob(W.loc)) || (damage > embed_threshold && prob(embed_chance)))
-				organ.embed(W)
-			else if( (damage > (5*W.w_class)) && ((!ismob(W.loc) && !sharp)) || (prob((damage - 2)/W.w_class) ) )
+			//Thrown objects have some momentum already and have a small chance to embed even if the damage is below the threshold
+			if((sharp && damage > (10*W.w_class)) || (sharp && !ismob(W.loc) && prob(damage/(10*W.w_class)*100)) || (damage > embed_threshold && prob(embed_chance)))
 				organ.embed(W)
 
 	return 1
