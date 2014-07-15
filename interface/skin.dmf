@@ -315,11 +315,11 @@ macro "hotkeymode"
 		is-disabled = false
 	elem 
 		name = "H"
-		command = "holster"
+		command = ".holster"
 		is-disabled = false
 	elem 
 		name = "CTRL+H"
-		command = "holster"
+		command = ".holster"
 		is-disabled = false
 	elem 
 		name = "Q"
