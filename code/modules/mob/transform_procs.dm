@@ -1,4 +1,10 @@
 /mob/living/carbon/human/proc/monkeyize()
+	var/mob/H = src
+	H.dna.SetSEState(MONKEYBLOCK,1)
+	domutcheck(H, null)
+
+/*
+/mob/living/carbon/human/proc/monkeyize()
 	if (monkeyizing)
 		return
 	for(var/obj/item/W in src)
@@ -49,6 +55,7 @@
 	del(animation)
 
 	return O
+*/
 
 /mob/new_player/AIize()
 	spawning = 1
