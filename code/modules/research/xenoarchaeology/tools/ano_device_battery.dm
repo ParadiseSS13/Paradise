@@ -16,6 +16,9 @@
 	p = min(p, 100)
 	icon_state = "anobattery[round(p,25)]"
 
+/obj/item/weapon/anobattery/proc/use_power(var/amount)
+	stored_charge = max(0, stored_charge - amount)
+
 /obj/item/weapon/anodevice
 	name = "Anomaly power utilizer"
 	icon = 'icons/obj/xenoarchaeology.dmi'
@@ -106,20 +109,20 @@
 						inserted_battery.battery_effect.DoEffectTouch(holder)
 
 						//consume power
-						inserted_battery.stored_charge -= energy_consumed_on_touch
+						inserted_battery.use_power(energy_consumed_on_touch)
 					else
 						//consume power equal to time passed
-						inserted_battery.stored_charge -= world.time - last_process
+						inserted_battery.use_power(world.time - last_process)
 
 				else if(inserted_battery.battery_effect.effect == EFFECT_PULSE)
 					inserted_battery.battery_effect.chargelevel = inserted_battery.battery_effect.chargelevelmax
 
 					//consume power relative to the time the artifact takes to charge and the effect range
-					inserted_battery.stored_charge -= inserted_battery.battery_effect.effectrange * inserted_battery.battery_effect.effectrange * inserted_battery.battery_effect.chargelevelmax
+					inserted_battery.use_power(inserted_battery.battery_effect.effectrange * inserted_battery.battery_effect.effectrange * inserted_battery.battery_effect.chargelevelmax)
 
 				else
 					//consume power equal to time passed
-					inserted_battery.stored_charge -= world.time - last_process
+					inserted_battery.use_power(world.time - last_process)
 
 				last_activation = world.time
 
@@ -196,7 +199,7 @@
 
 	if(activated && inserted_battery.battery_effect.effect == EFFECT_TOUCH && !isnull(inserted_battery))
 		inserted_battery.battery_effect.DoEffectTouch(M)
-		inserted_battery.stored_charge -= energy_consumed_on_touch
+		inserted_battery.use_power(energy_consumed_on_touch)
 		user.visible_message("\blue [user] taps [M] with [src], and it shudders on contact.")
 	else
 		user.visible_message("\blue [user] taps [M] with [src], but nothing happens.")
