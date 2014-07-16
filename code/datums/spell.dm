@@ -185,6 +185,8 @@ var/list/spells = typesof(/obj/effect/proc_holder/spell) //needed for the badmin
 				var/datum/effect/effect/system/bad_smoke_spread/smoke = new /datum/effect/effect/system/bad_smoke_spread()
 				smoke.set_up(smoke_amt, 0, location) //no idea what the 0 is
 				smoke.start()
+	if(ishuman(usr))
+		usr.update_power_buttons()
 
 /obj/effect/proc_holder/spell/proc/cast(list/targets)
 	return

@@ -24,6 +24,8 @@
 	proj_trail_lifespan = 5
 	proj_trail_icon_state = "magicmd"
 
+	icon_power_button = "spell_missile"
+
 /obj/effect/proc_holder/spell/targeted/inflict_handler/magic_missile
 	amt_weakened = 5
 	amt_dam_fire = 10
@@ -118,6 +120,8 @@
 
 	centcom_cancast = 0 //prevent people from getting to centcom
 
+	icon_power_button = "spell_blink"
+
 /obj/effect/proc_holder/spell/targeted/area_teleport/teleport
 	name = "Teleport"
 	desc = "This spell teleports you to a type of area of your selection."
@@ -133,6 +137,8 @@
 
 	smoke_spread = 1
 	smoke_amt = 5
+
+	icon_power_button = "spell_teleport"
 
 /obj/effect/proc_holder/spell/aoe_turf/conjure/forcewall
 	name = "Forcewall"
@@ -206,6 +212,8 @@
 
 	starting_spells = list("/obj/effect/proc_holder/spell/targeted/inflict_handler/blind","/obj/effect/proc_holder/spell/targeted/genetic/blind")
 
+	icon_power_button = "spell_blind"
+
 /obj/effect/proc_holder/spell/targeted/inflict_handler/blind
 	amt_eye_blind = 10
 	amt_eye_blurry = 20
@@ -247,6 +255,8 @@
 
 	proj_lifespan = 200
 	proj_step_delay = 1
+
+	icon_power_button = "spell_fireball"
 
 /obj/effect/proc_holder/spell/turf/fireball/cast(var/turf/T)
 	explosion(T, -1, 0, 2, 3, 0, flame_range = 2)

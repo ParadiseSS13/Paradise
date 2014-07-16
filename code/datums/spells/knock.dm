@@ -10,6 +10,8 @@
 	range = 3
 	cooldown_min = 20 //20 deciseconds reduction per rank
 
+	icon_power_button = "spell_knock"
+
 /obj/effect/proc_holder/spell/aoe_turf/knock/cast(list/targets)
 	for(var/turf/T in targets)
 		for(var/obj/machinery/door/door in T.contents)

@@ -45,7 +45,7 @@
 	var/obj/effect/proc_holder/spell/owner
 
 /obj/screen/power_action/Click()
-
+	owner.Click()
 
 /obj/screen/item_action
 	var/obj/item/owner

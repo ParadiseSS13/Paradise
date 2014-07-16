@@ -571,6 +571,16 @@
 			var/obj/screen/power_action/P = new(hud_used)
 			P.icon = 'icons/mob/screen1_action.dmi'
 			P.icon_state = S.icon_power_button
+			if(S.charge_counter != S.charge_max)
+				P.icon = 'icons/mob/screen1_action.dmi'
+				P.icon_state = S.icon_power_button
+				var/icon/newicon = new(P.icon, P.icon_state)
+				newicon.GrayScale()
+				P.icon = newicon
+			else
+				P.icon = 'icons/mob/screen1_action.dmi'
+				P.icon_state = S.icon_power_button
+
 
 			if(S.power_button_name)
 				P.name = S.power_button_name
