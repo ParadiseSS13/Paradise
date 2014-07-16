@@ -396,7 +396,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 
 	if(germ_level >= INFECTION_LEVEL_ONE)
 		//having an infection raises your body temperature
-		var/fever_temperature = (owner.species.heat_level_1 - owner.species.body_temperature - 1)* min(germ_level/INFECTION_LEVEL_THREE, 1) + owner.species.body_temperature
+		var/fever_temperature = (owner.species.heat_level_1 - owner.species.body_temperature - 1)* min(germ_level/(INFECTION_LEVEL_ONE+300), 1) + owner.species.body_temperature
 		if (owner.bodytemperature < fever_temperature)
 			//world << "fever: [owner.bodytemperature] < [fever_temperature], raising temperature."
 			owner.bodytemperature++
