@@ -146,6 +146,7 @@ var/list/department_radio_keys = list(
 	var/italics = 0
 	var/message_range = null
 	var/message_mode = null
+
 	var/datum/language/speaking = null //For use if a specific language is being spoken.
 
 	var/braindam = getBrainLoss()
@@ -178,7 +179,7 @@ var/list/department_radio_keys = list(
 		message_mode = department_radio_keys[channel_prefix]
 		if (message_mode || speaking || copytext(message,1,2) == ":")
 			message = trim(copytext(message, 3))
-			if (!(istype(src,/mob/living/carbon/human) || istype(src,/mob/living/carbon/monkey) || istype(src, /mob/living/simple_animal/parrot) || isrobot(src) && (message_mode=="department" || (message_mode in radiochannels))))
+			if (!(istype(src,/mob/living/carbon/human) || istype(src,/mob/living/carbon/monkey) || istype(src, /mob/living/simple_animal/parrot) || isrobot(src) && (message_mode=="department" || isAI(src) && (message_mode=="department") || (message_mode in radiochannels))))
 				message_mode = null //only humans can use headsets
 
 	if(src.stunned > 2 || (traumatic_shock > 61 && prob(50)))
@@ -284,7 +285,6 @@ var/list/department_radio_keys = list(
 				message_range = 1
 				italics = 1
 
-
 			if("changeling")
 				if(mind && mind.changeling)
 					log_say("[key_name(src)] ([mind.changeling.changelingID]): [message]")
@@ -301,12 +301,18 @@ var/list/department_radio_keys = list(
 					if(C:l_ear) devices += C:l_ear
 					if(C:r_ear) devices += C:r_ear
 				if(issilicon(src))
-					var/mob/living/silicon/Ro=src
-					if(!isAI(Ro))
-						if(Ro:radio)
-							devices += Ro:radio
+					if(isAI(src))//for the AI's radio.  This can't be with the borg thing above due to typecasting.
+						var/mob/living/silicon/ai/A = src
+						if(A.radio)
+							A.radio.talk_into(src, message, message_mode)
+							used_radios += A.radio
 					else
-						warning("[src] has no radio!")
+						var/mob/living/silicon/Ro=src
+						if(!isAI(Ro))
+							if(Ro:radio)
+								devices += Ro:radio
+						else
+							warning("[src] has no radio!")
 				message_range = 1
 				italics = 1
 	if(devices.len>0)
