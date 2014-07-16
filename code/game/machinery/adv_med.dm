@@ -305,10 +305,18 @@
 						if(e.open)
 							open = "Open:"
 						switch (e.germ_level)
-							if (INFECTION_LEVEL_ONE + 50 to INFECTION_LEVEL_TWO)
+							if (INFECTION_LEVEL_ONE to INFECTION_LEVEL_ONE + 200)
 								infected = "Mild Infection:"
-							if (INFECTION_LEVEL_TWO to INFECTION_LEVEL_THREE)
+							if (INFECTION_LEVEL_ONE + 200 to INFECTION_LEVEL_ONE + 300)
+								infected = "Mild Infection+:"
+							if (INFECTION_LEVEL_ONE + 300 to INFECTION_LEVEL_ONE + 400)
+								infected = "Mild Infection++:"
+							if (INFECTION_LEVEL_TWO to INFECTION_LEVEL_TWO + 200)
 								infected = "Acute Infection:"
+							if (INFECTION_LEVEL_TWO + 200 to INFECTION_LEVEL_TWO + 300)
+								infected = "Acute Infection+:"
+							if (INFECTION_LEVEL_TWO + 300 to INFECTION_LEVEL_TWO + 400)
+								infected = "Acute Infection++:"
 							if (INFECTION_LEVEL_THREE to INFINITY)
 								infected = "Septic:"
 
