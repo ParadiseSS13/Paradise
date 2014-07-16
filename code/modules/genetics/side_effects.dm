@@ -58,7 +58,9 @@
 
 	finish(mob/living/carbon/human/H)
 		if(!H.reagents.has_reagent("anti_toxin"))
-			H.monkeyize()
+			// H.monkeyize()					This proc causes the player to be ghosted if their DNA is changed back. Needs fixing. Below is hotfix
+			H.dna.SetSEState(MONKEYBLOCK,1)
+			domutcheck(H, null, )
 
 /datum/genetics/side_effect/confuse
 	name = "Confuse"
