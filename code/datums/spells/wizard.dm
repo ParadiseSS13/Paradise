@@ -68,6 +68,8 @@
 	sparks_spread = 1
 	sparks_amt = 4
 
+	icon_power_button = "spell_disintegrate"
+
 /obj/effect/proc_holder/spell/targeted/smoke
 	name = "Smoke"
 	desc = "This spell spawns a cloud of choking smoke at your location and does not require wizard garb."
@@ -83,6 +85,8 @@
 
 	smoke_spread = 2
 	smoke_amt = 10
+
+	icon_power_button = "spell_smoke"
 
 /obj/effect/proc_holder/spell/targeted/emplosion/disable_tech
 	name = "Disable Tech"
@@ -157,6 +161,7 @@
 	summon_type = list("/obj/effect/forcefield")
 	summon_lifespan = 300
 
+	icon_power_button = "spell_forcewall"
 
 /obj/effect/proc_holder/spell/aoe_turf/conjure/carp
 	name = "Summon Carp"
