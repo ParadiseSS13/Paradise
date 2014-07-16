@@ -15,6 +15,8 @@
 	var phaseshift = 0
 	var/jaunt_duration = 50 //in deciseconds
 
+	icon_power_button = "spell_jaunt"
+
 /obj/effect/proc_holder/spell/targeted/ethereal_jaunt/cast(list/targets) //magnets, so mostly hardcoded
 	for(var/mob/living/target in targets)
 		spawn(0)

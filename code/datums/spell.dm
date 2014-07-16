@@ -133,6 +133,8 @@ var/list/spells = typesof(/obj/effect/proc_holder/spell) //needed for the badmin
 	while(charge_counter < charge_max)
 		sleep(1)
 		charge_counter++
+	if(ishuman(usr))
+		usr.update_power_buttons()
 
 /obj/effect/proc_holder/spell/proc/perform(list/targets, recharge = 1, mob/user = usr) //if recharge is started is important for the trigger spells
 	before_cast(targets)

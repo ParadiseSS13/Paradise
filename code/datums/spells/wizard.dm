@@ -98,6 +98,8 @@
 	emp_heavy = 6
 	emp_light = 10
 
+	icon_power_button = "spell_tech"
+
 /obj/effect/proc_holder/spell/targeted/turf_teleport/blink
 	name = "Blink"
 	desc = "This spell randomly teleports you a short distance."
@@ -236,6 +238,8 @@
 	cooldown_min = 200 //100 deciseconds reduction per rank
 
 	summon_type = "/obj/structure/closet/statue"
+
+	icon_power_button = "spell_stone"
 
 /obj/effect/proc_holder/spell/dumbfire/fireball
 	name = "Fireball"
