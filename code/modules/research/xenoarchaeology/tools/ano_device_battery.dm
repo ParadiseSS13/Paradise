@@ -162,11 +162,12 @@
 			//max 10 sec interval
 			interval = min(max(interval, 0), 100)
 	if(href_list["startup"])
-		activated = 1
-		src.visible_message("\blue \icon[src] [src] whirrs.", "\icon[src]\blue You hear something whirr.")
-		if(!inserted_battery.battery_effect.activated)
-			inserted_battery.battery_effect.ToggleActivate(1)
-		time_end = world.time + duration
+		if(inserted_battery && inserted_battery.battery_effect && (inserted_battery.stored_charge > 0) )
+			activated = 1
+			src.visible_message("\blue \icon[src] [src] whirrs.", "\icon[src]\blue You hear something whirr.")
+			if(!inserted_battery.battery_effect.activated)
+				inserted_battery.battery_effect.ToggleActivate(1)
+			time_end = world.time + duration
 	if(href_list["shutdown"])
 		activated = 0
 	if(href_list["ejectbattery"])
