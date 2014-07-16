@@ -76,7 +76,7 @@ var NanoTemplate = function () {
                 _compiledTemplates[key] = doT.template(_templates[key], null, _templates)
             }
             catch (error) {
-                alert(error);
+                alert(error.message);
             }
         }
     };
@@ -89,12 +89,17 @@ var NanoTemplate = function () {
             _templates[key] = templateString;
         },
         parse: function (templateKey, data) {
-            if (!_compiledTemplates.hasOwnProperty(templateKey)) {
+            if (!_compiledTemplates.hasOwnProperty(templateKey) || !_compiledTemplates[templateKey]) {
                 if (!_templates.hasOwnProperty(templateKey)) {
                     alert('ERROR: Template "' + templateKey + '" does not exist in _compiledTemplates!');
-                    return;
+                    return '<h2>Template error (does not exist)</h2>';
                 }
                 compileTemplates();
+            }
+            if (typeof _compiledTemplates[templateKey] != 'function') {
+                alert(_compiledTemplates[templateKey]);
+                alert('ERROR: Template "' + templateKey + '" failed to compile!');
+                return '<h2>Template error (failed to compile)</h2>';
             }
             return _compiledTemplates[templateKey].call(this, data['data'], data['config'], _helpers);
         },
