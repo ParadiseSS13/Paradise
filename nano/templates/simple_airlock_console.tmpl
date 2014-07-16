@@ -4,7 +4,7 @@
 			Chamber Pressure:
 		</div>
 		<div class="itemContent">
-			{{:helper.displayBar(chamber_pressure, 0, 200, (chamber_pressure < 80) || (chamber_pressure > 120) ? 'bad' : (chamber_pressure < 95) || (chamber_pressure > 110) ? 'average' : 'good')}}
+			{{:helper.displayBar(data.chamber_pressure, 0, 200, (data.chamber_pressure < 80) || (data.chamber_pressure > 120) ? 'bad' : (data.chamber_pressure < 95) || (data.chamber_pressure > 110) ? 'average' : 'good')}}
 			<div class="statusValue">
 				{{:data.chamber_pressure}} kPa
 			</div>

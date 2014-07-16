@@ -94,7 +94,7 @@
 		{{else}}
 			{{:helper.link('Force exterior door', 'alert', {'command' : 'force_door'}, data.override_enabled ? null : 'disabled', data.override_enabled ? 'redBackground' : null)}}
 			{{:helper.link('Override', 'alert', {'command' : 'toggle_override'}, null, data.override_enabled ? 'redBackground' : 'yellowBackground')}}
-			{{:helper.link('MANUAL EJECT', 'alert', {'command' : 'toggle_override'}, can_force ? null : 'disabled', can_force ? 'redBackground' : null)}}
+			{{:helper.link('MANUAL EJECT', 'alert', {'command' : 'toggle_override'}, data.can_force ? null : 'disabled', data.can_force ? 'redBackground' : null)}}
 		{{/if}}
 		</div>
 	</div>

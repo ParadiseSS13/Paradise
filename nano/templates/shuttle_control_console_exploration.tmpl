@@ -67,7 +67,7 @@
 		<div class="itemContent" style="padding-top: 2px; width: 100%">
 			{{:data.~link('Launch Shuttle', 'arrowthickstop-1-e', {'move' : '1'}, data.can_launch ? null : 'disabled' , null)}}
 			{{:data.~link('Cancel Launch', 'cancel', {'cancel' : '1'}, data.can_cancel ? null : 'disabled' , null)}}
-			{{:data.~link('Force Launch', 'alert', {'force' : '1'}, data.can_force ? null : 'disabled' , can_force? 'redBackground' : null)}}
+			{{:data.~link('Force Launch', 'alert', {'force' : '1'}, data.can_force ? null : 'disabled' , data.can_force ? 'redBackground' : null)}}
 		</div>
 	</div>
 </div>
