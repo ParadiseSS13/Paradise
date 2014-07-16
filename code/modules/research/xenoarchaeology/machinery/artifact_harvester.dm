@@ -85,6 +85,7 @@
 			harvesting = 0
 			cur_artifact.anchored = 0
 			cur_artifact.being_used = 0
+			cur_artifact = null
 			src.visible_message("<b>[name]</b> states, \"Battery is full.\"")
 			icon_state = "incubator"
 
@@ -129,7 +130,6 @@
 			var/articount = 0
 			var/obj/machinery/artifact/analysed
 			for(var/obj/machinery/artifact/A in get_turf(owned_scanner))
-				testing("Found an artifact - [A]")
 				analysed = A
 				articount++
 
@@ -143,7 +143,7 @@
 			else
 				if(articount > 1)
 					state("Cannot harvest. Too many artifacts on the pad.")
-				else if(analyzed)
+				else if(analysed)
 					cur_artifact = analysed
 
 					//if both effects are active, we can't harvest either
@@ -220,6 +220,7 @@
 			harvesting = 0
 			cur_artifact.anchored = 0
 			cur_artifact.being_used = 0
+			cur_artifact = null
 			src.visible_message("<b>[name]</b> states, \"Energy harvesting interrupted.\"")
 			icon_state = "incubator"
 
