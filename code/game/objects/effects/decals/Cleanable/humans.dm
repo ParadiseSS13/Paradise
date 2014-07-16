@@ -16,12 +16,6 @@
 	var/list/datum/disease2/disease/virus2 = list()
 	var/amount = 5
 
-/obj/effect/decal/cleanable/blood/Destroy()
-	for(var/datum/disease/D in viruses)
-		D.cure(0)
-		D.holder = null
-	..()
-
 /obj/effect/decal/cleanable/blood/New()
 	..()
 	if(istype(src, /obj/effect/decal/cleanable/blood/gibs))
@@ -373,11 +367,7 @@
 		for (var/i = 0, i < pick(1, 200; 2, 150; 3, 50; 4), i++)
 			sleep(3)
 			if (i > 0)
-				var/obj/effect/decal/cleanable/blood/b = new /obj/effect/decal/cleanable/blood/splatter(src.loc)
-				for(var/datum/disease/D in src.viruses)
-					var/datum/disease/ND = D.Copy(1)
-					b.viruses += ND
-					ND.holder = b
+				new /obj/effect/decal/cleanable/blood/splatter(src.loc)
 
 			if (step_to(src, get_step(src, direction), 0))
 				break
@@ -407,10 +397,5 @@
 	icon = 'icons/mob/robots.dmi'
 	icon_state = "floor1"
 	random_icon_states = list("floor1", "floor2", "floor3", "floor4", "floor5", "floor6", "floor7")
-
-	Del()
-		for(var/datum/disease/D in viruses)
-			D.cure(0)
-		..()
 
 

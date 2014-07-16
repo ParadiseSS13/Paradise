@@ -334,8 +334,6 @@ ________________________________________________________________________________
 			dat += "Radiation Level: [U.radiation] rad<br>"
 			dat += "Body Temperature: [U.bodytemperature-T0C]&deg;C ([U.bodytemperature*1.8-459.67]&deg;F)<br>"
 
-			for(var/datum/disease/D in U.viruses)
-				dat += "Warning: Virus Detected. Name: [D.name].Type: [D.spread]. Stage: [D.stage]/[D.max_stages]. Possible Cure: [D.cure].<br>"
 			dat += "<ul>"
 			for(var/datum/reagent/R in reagents.reagent_list)
 				if(R.id=="uranium"&&s_control)//Can only directly inject uranium when AI is in control.

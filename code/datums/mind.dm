@@ -327,8 +327,6 @@ datum/mind
 					text += "<a href='?src=\ref[src];monkey=healthy'>healthy</a>|<a href='?src=\ref[src];monkey=infected'>infected</a>|<b>HUMAN</b>|other"
 				else if (istype(current, /mob/living/carbon/monkey))
 					var/found = 0
-					for(var/datum/disease/D in current.viruses)
-						if(istype(D, /datum/disease/jungle_fever)) found = 1
 
 					if(found)
 						text += "<a href='?src=\ref[src];monkey=healthy'>healthy</a>|<b>INFECTED</b>|<a href='?src=\ref[src];monkey=human'>human</a>|other"
@@ -951,30 +949,10 @@ datum/mind
 							M = H.monkeyize()
 							src = M.mind
 							//world << "DEBUG: \"healthy\": M=[M], M.mind=[M.mind], src=[src]!"
-						else if (istype(M) && length(M.viruses))
-							for(var/datum/disease/D in M.viruses)
-								D.cure(0)
 							sleep(0) //because deleting of virus is done through spawn(0)
-				if("infected")
-					if (usr.client.holder.rights & R_ADMIN)
-						var/mob/living/carbon/human/H = current
-						var/mob/living/carbon/monkey/M = current
-						if (istype(H))
-							log_admin("[key_name(usr)] attempting to monkeyize and infect [key_name(current)]")
-							message_admins("\blue [key_name_admin(usr)] attempting to monkeyize and infect [key_name_admin(current)]", 1)
-							src = null
-							M = H.monkeyize()
-							src = M.mind
-							current.contract_disease(new /datum/disease/jungle_fever,1,0)
-						else if (istype(M))
-							current.contract_disease(new /datum/disease/jungle_fever,1,0)
 				if("human")
 					var/mob/living/carbon/monkey/M = current
 					if (istype(M))
-						for(var/datum/disease/D in M.viruses)
-							if (istype(D,/datum/disease/jungle_fever))
-								D.cure(0)
-								sleep(0) //because deleting of virus is doing throught spawn(0)
 						log_admin("[key_name(usr)] attempting to humanize [key_name(current)]")
 						message_admins("\blue [key_name_admin(usr)] attempting to humanize [key_name_admin(current)]")
 						var/obj/item/weapon/dnainjector/m2h/m2h = new

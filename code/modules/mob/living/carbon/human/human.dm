@@ -1235,8 +1235,6 @@
 	for(var/datum/organ/internal/I in internal_organs)
 		I.damage = 0
 
-	for (var/datum/disease/virus in viruses)
-		virus.cure()
 	for (var/ID in virus2)
 		var/datum/disease2/disease/V = virus2[ID]
 		V.cure(src)

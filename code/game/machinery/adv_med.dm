@@ -269,10 +269,6 @@
 						dat += text("[]\tBicaridine: [] units<BR>", (occupant.reagents.get_reagent_amount("bicaridine") < 30 ? "<font color='black'>" : "<font color='red'>"), occupant.reagents.get_reagent_amount("bicaridine"))
 						dat += text("[]\tDexalin: [] units<BR>", (occupant.reagents.get_reagent_amount("dexalin") < 30 ? "<font color='black'>" : "<font color='red'>"), occupant.reagents.get_reagent_amount("dexalin"))
 
-					for(var/datum/disease/D in occupant.viruses)
-						if(!D.hidden[SCANNER])
-							dat += text("<font color='red'><B>Warning: [D.form] Detected</B>\nName: [D.name].\nType: [D.spread].\nStage: [D.stage]/[D.max_stages].\nPossible Cure: [D.cure]</FONT><BR>")
-
 					dat += "<HR><table border='1'>"
 					dat += "<tr>"
 					dat += "<th>Organ</th>"
@@ -338,14 +334,14 @@
 							mech = "Assisted:"
 						if(i.robotic == 2)
 							mech = "Mechanical:"
-							
+
 						var/infection = "None"
 						switch (i.germ_level)
 							if (1 to INFECTION_LEVEL_TWO)
 								infection = "Mild Infection:"
 							if (INFECTION_LEVEL_TWO to INFINITY)
 								infection = "Acute Infection:"
-							
+
 						dat += "<tr>"
 						dat += "<td>[i.name]</td><td>N/A</td><td>[i.damage]</td><td>[infection]:[mech]</td><td></td>"
 						dat += "</tr>"

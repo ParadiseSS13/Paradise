@@ -196,8 +196,6 @@
 	proc/handle_virus_updates()
 		if(status_flags & GODMODE)	return 0	//godmode
 		if(bodytemperature > 406)
-			for(var/datum/disease/D in viruses)
-				D.cure()
 			for (var/ID in virus2)
 				var/datum/disease2/disease/V = virus2[ID]
 				V.cure(src)

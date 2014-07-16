@@ -8949,7 +8949,7 @@
 "dqe" = (/obj/machinery/chem_master,/turf/unsimulated/floor{tag = "icon-floor"; icon_state = "floor"},/area/admin)
 "dqf" = (/obj/structure/table,/obj/item/weapon/storage/box/beakers,/obj/item/weapon/reagent_containers/glass/beaker/bluespace,/obj/item/weapon/reagent_containers/glass/beaker/bluespace,/obj/item/weapon/reagent_containers/glass/beaker/bluespace,/obj/item/weapon/reagent_containers/glass/beaker/bluespace,/turf/unsimulated/floor{tag = "icon-floor"; icon_state = "floor"},/area/admin)
 "dqg" = (/obj/structure/table,/obj/machinery/reagentgrinder,/turf/unsimulated/floor{tag = "icon-floor"; icon_state = "floor"},/area/admin)
-"dqh" = (/obj/structure/table,/obj/item/weapon/reagent_containers/glass/bottle/gbs{pixel_x = -3; pixel_y = 4},/obj/item/weapon/reagent_containers/glass/bottle/cyanide,/obj/item/weapon/reagent_containers/glass/bottle/wizarditis{pixel_x = 6; pixel_y = 5},/turf/unsimulated/floor{tag = "icon-floor"; icon_state = "floor"},/area/admin)
+"dqh" = (/obj/structure/table,/obj/item/weapon/reagent_containers/glass/bottle/cyanide,/turf/unsimulated/floor{tag = "icon-floor"; icon_state = "floor"},/area/admin)
 "dqi" = (/turf/space,/turf/unsimulated/wall{dir = 1; icon = 'icons/turf/shuttle.dmi'; icon_state = "diagonalWall3"},/area/adminconstruction)
 "dqj" = (/obj/machinery/door/airlock/external,/obj/machinery/door/poddoor{density = 0; icon_state = "pdoor0"; id = "ADMINLOCKDOWN"; name = "Security Doors"; opacity = 0},/turf/unsimulated/floor{tag = "icon-floor"; icon_state = "floor"},/area/admin)
 "dqk" = (/obj/machinery/door/airlock/hatch{name = "External Airlock"; req_access_txt = "0"},/turf/unsimulated/floor{tag = "icon-floor"; icon_state = "floor"},/area/admin)

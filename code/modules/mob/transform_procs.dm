@@ -36,8 +36,6 @@
 	O.viruses = viruses
 	O.a_intent = "harm"
 
-	for(var/datum/disease/D in O.viruses)
-		D.affected_mob = O
 
 	if (client)
 		client.mob = O

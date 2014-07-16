@@ -324,8 +324,6 @@
 			var/mob/living/carbon/human/human_mob = src
 			human_mob.restore_blood()
 
-	for(var/datum/disease/D in viruses)
-		D.cure(0)
 	restore_all_organs()
 	if(stat == 2)
 		dead_mob_list -= src

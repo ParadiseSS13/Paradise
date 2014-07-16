@@ -64,13 +64,6 @@
 				N.show_message(text("\red <B>[M] bursts out of [src]!</B>"), 2)
 	. = ..()
 
-/mob/living/carbon/proc/share_contact_diseases(var/mob/M)
-	for(var/datum/disease/D in viruses)
-		if(D.spread_by_touch())
-			M.contract_disease(D, 0, 1, CONTACT_HANDS)
-	for(var/datum/disease/D in M.viruses)
-		if(D.spread_by_touch())
-			contract_disease(D, 0, 1, CONTACT_HANDS)
 
 /mob/living/carbon/attack_hand(mob/M as mob)
 	if(!istype(M, /mob/living/carbon)) return
@@ -81,14 +74,8 @@
 		if(temp && !temp.is_usable())
 			M << "\red You can't use your [temp.display_name]"
 			return
-	share_contact_diseases(M)
 	return
 
-
-/mob/living/carbon/attack_paw(mob/M as mob)
-	if(!istype(M, /mob/living/carbon)) return
-	share_contact_diseases(M)
-	return
 
 /mob/living/carbon/electrocute_act(var/shock_damage, var/obj/source, var/siemens_coeff = 1.0)
 	if(status_flags & GODMODE)	return 0	//godmode
@@ -221,7 +208,6 @@
 			if(prob(10))
 				src.emote("fart")
 			reagents.add_reagent("paracetamol", 1)
-			share_contact_diseases(M)
 
 
 /mob/living/carbon/proc/eyecheck()

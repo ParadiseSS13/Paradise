@@ -84,9 +84,6 @@
 			if(M.see_invisible < patient.invisibility)
 				continue
 			var/foundVirus = 0
-			for(var/datum/disease/D in patient.viruses)
-				if(!D.hidden[SCANNER])
-					foundVirus++
 
 			for (var/ID in patient.virus2)
 				if (ID in virusDB)

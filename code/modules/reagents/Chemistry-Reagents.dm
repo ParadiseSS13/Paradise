@@ -64,7 +64,7 @@ datum
 								if(M.reagents)
 									M.reagents.add_reagent(self.id,self.volume/2)
 
-
+/*
 					if(method == INGEST && istype(M, /mob/living/carbon))
 						if(prob(1 * self.addictiveness))
 							if(prob(5 * volume))
@@ -76,6 +76,7 @@ datum
 								M.viruses += A
 								A.affected_mob = M
 								A.holder = M
+*/
 					return 1
 
 			reaction_obj(var/obj/O, var/volume) //By default we transfer a small part of the reagent to the object
@@ -133,16 +134,6 @@ datum
 			reaction_mob(var/mob/M, var/method=TOUCH, var/volume)
 				var/datum/reagent/blood/self = src
 				src = null
-				if(self.data && self.data["viruses"])
-					for(var/datum/disease/D in self.data["viruses"])
-						//var/datum/disease/virus = new D.type(0, D, 1)
-						// We don't spread.
-						if(D.spread_type == SPECIAL || D.spread_type == NON_CONTAGIOUS) continue
-
-						if(method == TOUCH)
-							M.contract_disease(D)
-						else //injected
-							M.contract_disease(D, 1, 0)
 				if(self.data && self.data["virus2"] && istype(M, /mob/living/carbon))//infecting...
 					var/list/vlist = self.data["virus2"]
 					if (vlist.len)
@@ -172,11 +163,6 @@ datum
 						blood_prop = new(T)
 						blood_prop.blood_DNA[self.data["blood_DNA"]] = self.data["blood_type"]
 
-					for(var/datum/disease/D in self.data["viruses"])
-						var/datum/disease/newVirus = D.Copy(1)
-						blood_prop.viruses += newVirus
-						newVirus.holder = blood_prop
-
 					if(self.data["virus2"])
 						blood_prop.virus2 = virus_copylist(self.data["virus2"])
 
@@ -186,20 +172,12 @@ datum
 					if(!blood_prop)
 						blood_prop = new(T)
 						blood_prop.blood_DNA["Non-Human DNA"] = "A+"
-					for(var/datum/disease/D in self.data["viruses"])
-						var/datum/disease/newVirus = D.Copy(1)
-						blood_prop.viruses += newVirus
-						newVirus.holder = blood_prop
 
 				else if(istype(self.data["donor"], /mob/living/carbon/alien))
 					var/obj/effect/decal/cleanable/xenoblood/blood_prop = locate() in T
 					if(!blood_prop)
 						blood_prop = new(T)
 						blood_prop.blood_DNA["UNKNOWN DNA STRUCTURE"] = "X*"
-					for(var/datum/disease/D in self.data["viruses"])
-						var/datum/disease/newVirus = D.Copy(1)
-						blood_prop.viruses += newVirus
-						newVirus.holder = blood_prop
 				return
 
 /* Must check the transfering of reagents and their data first. They all can point to one disease datum.
@@ -210,6 +188,8 @@ datum
 					D.cure(0)
 				..()
 */
+
+/*
 		vaccine
 			//data must contain virus type
 			name = "Vaccine"
@@ -232,7 +212,7 @@ datum
 
 					M.resistances += self.data
 				return
-
+*/
 
 		water
 			name = "Water"
@@ -1780,11 +1760,6 @@ datum
 				M.confused = 0
 				M.sleeping = 0
 				M.jitteriness = 0
-				for(var/datum/disease/D in M.viruses)
-					D.spread = "Remissive"
-					D.stage--
-					if(D.stage < 1)
-						D.cure()
 				..()
 				return
 
@@ -2113,7 +2088,7 @@ datum
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
+/*
 		nanites
 			name = "Nanomachines"
 			id = "nanites"
@@ -2137,6 +2112,7 @@ datum
 				src = null
 				if( (prob(10) && method==TOUCH) || method==INGEST)
 					M.contract_disease(new /datum/disease/xeno_transformation(0),1)
+*/
 
 		spore
 			name = "Blob Spores"
