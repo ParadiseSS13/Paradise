@@ -55,18 +55,6 @@
 		..(M,connected,flags)
 		M.verbs += /mob/living/carbon/human/proc/remotesay
 
-/datum/dna/gene/basic/morph
-	name="Morph"
-	activation_messages=list("Your skin feels strange.")
-	mutation=M_MORPH
-	instability=2
-
-	New()
-		block=MORPHBLOCK
-
-	activate(var/mob/M)
-		..(M)
-		M.verbs += /mob/living/carbon/human/proc/morph
 
 /datum/dna/gene/basic/heat_resist
 	name="Heat Resistance"

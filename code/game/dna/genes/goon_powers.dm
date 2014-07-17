@@ -136,6 +136,8 @@
 //	centcomm_cancast = 0
 	var/list/compatible_mobs = list(/mob/living/carbon/human, /mob/living/carbon/monkey)
 
+	icon_power_button = "genetic_cryo"
+
 /obj/effect/proc_holder/spell/targeted/cryokinesis/cast(list/targets)
 	if(!targets.len)
 		usr << "<span class='notice'>No target found in range.</span>"
@@ -223,6 +225,7 @@
 	range = 1
 	selection_type = "view"
 
+	icon_power_button = "genetic_eat"
 
 	var/list/types_allowed=list(/obj/item,/mob/living/simple_animal, /mob/living/carbon/monkey, /mob/living/carbon/human)
 
@@ -344,6 +347,8 @@
 	stat_allowed = 0
 	invocation_type = "none"
 
+	icon_power_button = "genetic_jump"
+
 /obj/effect/proc_holder/spell/targeted/leap/cast(list/targets)
 	var/failure = 0
 	if (istype(usr.loc,/mob/) || usr.lying || usr.stunned || usr.buckled || usr.stat)
@@ -438,6 +443,8 @@
 	invocation_type = "none"
 	range = 1
 	selection_type = "range"
+
+	icon_power_button = "genetic_poly"
 
 /obj/effect/proc_holder/spell/targeted/polymorph/cast(list/targets)
 	var/mob/living/M=targets[1]

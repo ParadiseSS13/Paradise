@@ -317,6 +317,8 @@
 	var/list/compatible_mobs = list(/mob/living/carbon/human, /mob/living/carbon/monkey)
 	include_user = 1
 
+	icon_power_button = "genetic_incendiary"
+
 /obj/effect/proc_holder/spell/targeted/immolate/cast(list/targets)
 	var/mob/living/L = usr
 
