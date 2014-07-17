@@ -71,13 +71,13 @@ Used In File(s): /code/game/machinery/computers/communications.dm
 		<h3>Presets</h3>
 		{{for stat_display.presets}}
 			<div class="line">
-				<div class="statusLabel">{{:helper.link(label,'info',{'operation':'setstat','statdisp':name},null,(name==~root.stat_display.type?'linkOn':''))}}</div>
+				<div class="statusLabel">{{:helper.link(label,'info',{'operation':'setstat','statdisp':name},null,(name==data.stat_display.type?'linkOn':''))}}</div>
 			</div>
 		{{/for}}
 		<h3>Alerts</h3>
 		{{for stat_display.alerts}}
 			<div class="line">
-				<div class="statusLabel">{{:helper.link(label,'alert',{'operation':'setstat','statdisp':'alert','alert':alert},null,(name==~root.stat_display.type?'linkOn':''))}}</div>
+				<div class="statusLabel">{{:helper.link(label,'alert',{'operation':'setstat','statdisp':'alert','alert':alert},null,(name==data.stat_display.type?'linkOn':''))}}</div>
 			</div>
 		{{/for}}
 		<h3>Messages</h3>
@@ -125,7 +125,7 @@ Used In File(s): /code/game/machinery/computers/communications.dm
 				<div class="itemLabel">Presets:</div>
 				<div class="itemContents">
 					{{for levels}}
-					{{:helper.link(name,'comment',{'operation':'newalertlevel','level':id},null,(id==~root.security_level?'linkOn':''))}}
+					{{:helper.link(name,'comment',{'operation':'newalertlevel','level':id},null,(id==data.security_level?'linkOn':''))}}
 					{{/for}}
 				</div>
 			</div>
