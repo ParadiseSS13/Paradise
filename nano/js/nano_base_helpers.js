@@ -15,6 +15,12 @@ NanoBaseHelpers = function ()
 
 				return '';
 			},
+            combine: function( arr1, arr2 ) {
+                return arr1 && arr2 ? arr1.concat(arr2) : arr1 || arr2;
+            },  
+            dump: function( arr1 ) {
+                return JSON.stringify(arr1);
+            },
 			// Generate a Byond link
 			link: function( text, icon, parameters, status, elementClass, elementId) {
 
@@ -44,6 +50,16 @@ NanoBaseHelpers = function ()
 
 				return '<div unselectable="on" class="link linkActive ' + iconClass + ' ' + elementClass + '" data-href="' + NanoUtility.generateHref(parameters) + '" ' + elementIdHtml + '>' + iconHtml + text + '</div>';
 			},
+			// Since jsrender breaks the ^ operator
+            xor: function(number,bit) {                               
+                return number ^ bit;
+            },
+            precisionRound: function (value, places) {
+                if(places==0)
+                    return Math.round(number);
+                var multiplier = Math.pow(10, places);
+                return (Math.round(value * multiplier) / multiplier);
+            },
 			// Round a number to the nearest integer
 			round: function(number) {
 				return Math.round(number);
@@ -122,6 +138,12 @@ NanoBaseHelpers = function ()
 				var percentage = Math.round((value - rangeMin) / (rangeMax - rangeMin) * 100);
 
 				return '<div class="displayBar ' + styleClass + '"><div class="displayBarFill ' + styleClass + '" style="width: ' + percentage + '%;"></div><div class="displayBarText ' + styleClass + '">' + showText + '</div></div>';
+			},
+			// Convert danger level to class (for the air alarm)
+			dangerToClass: function(level) {
+				if(level==0) return 'good';
+				if(level==1) return 'average';
+				return 'bad';
 			},
 			// Display DNA Blocks (for the DNA Modifier UI)
 			displayDNABlocks: function(dnaString, selectedBlock, selectedSubblock, blockSize, paramKey) {
