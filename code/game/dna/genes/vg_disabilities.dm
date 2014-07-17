@@ -43,7 +43,6 @@
 	desc = "Causes the cerebellum to shut down in some places."
 	activation_message = "You feel very dizzy..."
 	deactivation_message = "You regain your balance."
-	flags = GENE_UNNATURAL
 
 	New()
 		..()
@@ -53,4 +52,4 @@
 	OnMobLife(var/mob/living/carbon/human/M)
 		if(!istype(M)) return
 		if(M_DIZZY in M.mutations)
-			M.make_dizzy(300)
+			M.Dizzy(300)
