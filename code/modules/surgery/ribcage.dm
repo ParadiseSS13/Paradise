@@ -209,10 +209,10 @@
 		return ..() && is_chest_organ_damaged && target.op_stage.ribcage == 2
 
 	begin_step(mob/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
-		var/datum/organ/internal/heart/heart = target.internal_organs["heart"]
-		var/datum/organ/internal/lungs/lungs = target.internal_organs["lungs"]
-		var/datum/organ/internal/liver/liver = target.internal_organs["liver"]
-		var/datum/organ/internal/liver/kidney = target.internal_organs["kidney"]
+		var/datum/organ/internal/heart/heart = target.internal_organs_by_name["heart"]
+		var/datum/organ/internal/lungs/lungs = target.internal_organs_by_name["lungs"]
+		var/datum/organ/internal/liver/liver = target.internal_organs_by_name["liver"]
+		var/datum/organ/internal/liver/kidney = target.internal_organs_by_name["kidney"]
 
 		if (istype(tool, /obj/item/stack/medical/advanced/bruise_pack))
 			if(lungs.damage > 0)
@@ -270,10 +270,10 @@
 		..()
 
 	end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
-		var/datum/organ/internal/heart/heart = target.internal_organs["heart"]
-		var/datum/organ/internal/lungs/lungs = target.internal_organs["lungs"]
-		var/datum/organ/internal/liver/liver = target.internal_organs["liver"]
-		var/datum/organ/internal/liver/kidney = target.internal_organs["kidney"]
+		var/datum/organ/internal/heart/heart = target.internal_organs_by_name["heart"]
+		var/datum/organ/internal/lungs/lungs = target.internal_organs_by_name["lungs"]
+		var/datum/organ/internal/liver/liver = target.internal_organs_by_name["liver"]
+		var/datum/organ/internal/liver/kidney = target.internal_organs_by_name["kidney"]
 
 		if(lungs.damage > 0)
 			user.visible_message("\blue [user] mends the rupture in [target]'s lungs with \the [tool].", \
@@ -300,10 +300,10 @@
 			kidney.damage = 0
 
 	fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
-		var/datum/organ/internal/heart/heart = target.internal_organs["heart"]
-		var/datum/organ/internal/lungs/lungs = target.internal_organs["lungs"]
-		var/datum/organ/internal/liver/liver = target.internal_organs["liver"]
-		var/datum/organ/internal/liver/kidney = target.internal_organs["kidney"]
+		var/datum/organ/internal/heart/heart = target.internal_organs_by_name["heart"]
+		var/datum/organ/internal/lungs/lungs = target.internal_organs_by_name["lungs"]
+		var/datum/organ/internal/liver/liver = target.internal_organs_by_name["liver"]
+		var/datum/organ/internal/liver/kidney = target.internal_organs_by_name["kidney"]
 		var/datum/organ/external/chest/affected = target.get_organ("chest")
 		user.visible_message("\red [user]'s hand slips, getting mess and tearing the inside of [target]'s chest with \the [tool]!", \
 		"\red Your hand slips, getting mess and tearing the inside of [target]'s chest with \the [tool]!")
