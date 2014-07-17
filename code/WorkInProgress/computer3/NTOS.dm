@@ -22,20 +22,21 @@
 	var/dat = "<table border='0' align='left'>"
 	var/i = 0
 	for(var/datum/file/F in filelist)
-		i++
-		if(i==1)
-			dat += "<tr>"
-		if(i>= 6)
-			i = 0
-			dat += "</tr>"
-			continue
-		dat += {"
-		<td>
-			<center><a href='?src=\ref[src];[fileop]=\ref[F]'>
-				<img src=\ref[F.image]><br>
-				<span>[F.name]</span>
-			</a></center>
-		</td>"}
+		if(!F.hidden_file)
+			i++
+			if(i==1)
+				dat += "<tr>"
+			if(i>= 6)
+				i = 0
+				dat += "</tr>"
+				continue
+			dat += {"
+			<td>
+				<center><a href='?src=\ref[src];[fileop]=\ref[F]'>
+					<img src=\ref[F.image]><br>
+					<span>[F.name]</span>
+				</a></center>
+			</td>"}
 
 	dat += "</tr></table>"
 	return dat

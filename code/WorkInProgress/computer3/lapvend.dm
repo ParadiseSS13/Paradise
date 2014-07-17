@@ -320,6 +320,8 @@
 		newlap.spawn_files += (/datum/file/camnet_key/creed)
 	newlap.spawn_files += (/datum/file/program/arcade)
 	newlap.spawn_files += (/datum/file/camnet_key/entertainment)
+	//Atlantis: Each laptop gets "invisible" program/security - REQUIRED for camnetkeys to work.
+	newlap.spawn_files += (/datum/file/program/security/hidden)
 	newlap.update_spawn_files()
 
 /obj/machinery/lapvend/proc/calc_reimburse(var/obj/item/device/laptop/L)
