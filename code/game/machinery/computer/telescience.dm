@@ -63,8 +63,9 @@
 			s.start()
 		if(2)
 			for(var/mob/living/carbon/human/M in viewers(telepad, null))
-				M.apply_effect((rand(50, 100)), IRRADIATE, 0)
-				M << "\red You feel irradiated."
+				if(M.loc.loc == telepad.loc.loc)   //stops the geneticists with xray vision getting irradiated
+					M.apply_effect((rand(50, 100)), IRRADIATE, 0)
+					M << "\red You feel irradiated."
 		if(3)
 			for(var/turf/simulated/floor/target_tile in range(0,telepad))
 				var/datum/gas_mixture/napalm = new
