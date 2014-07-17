@@ -9,10 +9,10 @@ Used In File(s): /code/game/machinery/computers/communications.dm
 #define COMM_SCREEN_SECLEVEL	4
  --}}
 {{if !authenticated}}
-<div class="notice">Please swipe your ID card. {{:~link('Log In','unlocked',{'operation':'login'},null,'fixed')}}</div>
+<div class="notice">Please swipe your ID card. {{:helper.link('Log In','unlocked',{'operation':'login'},null,'fixed')}}</div>
 {{else}}
 	{{if !is_ai}}
-	<div class="notice">Please remember to {{:~link('Log Out','locked',{'operation':'logout'},null,'fixed')}}</div>
+	<div class="notice">Please remember to {{:helper.link('Log Out','locked',{'operation':'logout'},null,'fixed')}}</div>
 	{{/if}}
 	
 	<div class="item">
@@ -27,9 +27,9 @@ Used In File(s): /code/game/machinery/computers/communications.dm
 		<div class="itemContents">
 			{{if shuttle.pos == 0}}
 				{{if shuttle.on && !is_ai}}
-					{{:~link('Cancel Shuttle','arrowreturnthick-1-w',{'operation':'cancelshuttle'})}}
+					{{:helper.link('Cancel Shuttle','arrowreturnthick-1-w',{'operation':'cancelshuttle'})}}
 				{{else !shuttle.on}}
-					{{:~link('Call Shuttle','arrowthickstop-1-s',{'operation':'callshuttle'})}}
+					{{:helper.link('Call Shuttle','arrowthickstop-1-s',{'operation':'callshuttle'})}}
 				{{/if}}
 			{{/if}}
 		</div>
@@ -41,54 +41,54 @@ Used In File(s): /code/game/machinery/computers/communications.dm
 		<div class="item">
 			{{if authenticated==2}}
 				<div class="line">
-					{{:~link('Make an Announcement','alert',{'operation':'announce'})}}
+					{{:helper.link('Make an Announcement','alert',{'operation':'announce'})}}
 				</div>
 				<div class="line">
 				{{if emagged}}
-					{{:~link('Message [UNKNOWN]','mail-closed',{'operation':'MessageSyndicate'})}}
+					{{:helper.link('Message [UNKNOWN]','mail-closed',{'operation':'MessageSyndicate'})}}
 					</div>
 					<div class="line">
-					{{:~link('Reset Relays','refresh',{'operation':'MessageCentcomm'})}}
+					{{:helper.link('Reset Relays','refresh',{'operation':'MessageCentcomm'})}}
 				{{else}}
-					{{:~link('Message CentComm','mail-closed',{'operation':'MessageCentcomm'})}}
+					{{:helper.link('Message CentComm','mail-closed',{'operation':'MessageCentcomm'})}}
 				{{/if}}
 				</div>
 			{{/if}}
 			<div class="line">
-				{{:~link('Change Alert Level','signal-diag',{'operation':'changeseclevel'})}}
+				{{:helper.link('Change Alert Level','signal-diag',{'operation':'changeseclevel'})}}
 			</div>
 			<div class="line">
-				{{:~link('Change Status Displays','info',{'operation':'status'})}}
+				{{:helper.link('Change Status Displays','info',{'operation':'status'})}}
 			</div>
 			<div class="line">
-				{{:~link('Message List','comment',{'operation':'messagelist'})}}
+				{{:helper.link('Message List','comment',{'operation':'messagelist'})}}
 			</div>
 		</div>
 	{{else screen==2}}
 		{{!-- STATUS DISPLAYS --}}
 		<h2>Status Displays</h2>
-		{{:~link('Back','home',{'operation':'main'})}}
+		{{:helper.link('Back','home',{'operation':'main'})}}
 		<h3>Presets</h3>
 		{{for stat_display.presets}}
 			<div class="line">
-				<div class="statusLabel">{{:~link(label,'info',{'operation':'setstat','statdisp':name},null,(name==~root.stat_display.type?'linkOn':''))}}</div>
+				<div class="statusLabel">{{:helper.link(label,'info',{'operation':'setstat','statdisp':name},null,(name==~root.stat_display.type?'linkOn':''))}}</div>
 			</div>
 		{{/for}}
 		<h3>Alerts</h3>
 		{{for stat_display.alerts}}
 			<div class="line">
-				<div class="statusLabel">{{:~link(label,'alert',{'operation':'setstat','statdisp':'alert','alert':alert},null,(name==~root.stat_display.type?'linkOn':''))}}</div>
+				<div class="statusLabel">{{:helper.link(label,'alert',{'operation':'setstat','statdisp':'alert','alert':alert},null,(name==~root.stat_display.type?'linkOn':''))}}</div>
 			</div>
 		{{/for}}
 		<h3>Messages</h3>
 		<div class="item">
 			{{if stat_display.type}}
 			<div class="line">
-				<div class="statusLabel">{{:~link('Line 1:','gear',{'operation':'setmsg1'})}}</div>
+				<div class="statusLabel">{{:helper.link('Line 1:','gear',{'operation':'setmsg1'})}}</div>
 				<div class="statusValue">{{>stat_display.line_1}}</div>
 			</div>
 			<div class="line">
-				<div class="statusLabel">{{:~link('Line 2:','gear',{'operation':'setmsg2'})}}</div>
+				<div class="statusLabel">{{:helper.link('Line 2:','gear',{'operation':'setmsg2'})}}</div>
 				<div class="statusValue">{{>stat_display.line_2}}</div>
 			</div>
 			{{/if}}
@@ -97,17 +97,17 @@ Used In File(s): /code/game/machinery/computers/communications.dm
 		{{!-- MESSAGES --}}
 		<h3>Messages</h3>
 		{{if current_message}}
-			{{:~link('Messages','home',{'operation':'messagelist'})}}
+			{{:helper.link('Messages','home',{'operation':'messagelist'})}}
 			<h3>{{>title}}</h3>
 			<div class="item">
 				{{>body}}
 			</div>
 		{{else}}
-			{{:~link('Back','home',{'operation':'main'})}}
+			{{:helper.link('Back','home',{'operation':'main'})}}
 			{{for messages}}
 				<div class="line">
-					{{:~link('Open','mail-open',{'operation':'messagelist','msgid':id})}}
-					{{:~link('Delete','close',{'operation':'delmessage','msgid':id},'red')}}
+					{{:helper.link('Open','mail-open',{'operation':'messagelist','msgid':id})}}
+					{{:helper.link('Delete','close',{'operation':'delmessage','msgid':id},'red')}}
 					{{>title}}
 				</div>
 			{{/for}}
@@ -115,7 +115,7 @@ Used In File(s): /code/game/machinery/computers/communications.dm
 	{{else screen==4}}
 		{{!-- ALERT LEVEL --}}
 		<h3>Security Level</h3>
-		{{:~link('Back','home',{'operation':'main'})}}
+		{{:helper.link('Back','home',{'operation':'main'})}}
 		<div class="item">
 			<div class="line">
 				<div class="itemLabel">Security Level:</div>
@@ -125,7 +125,7 @@ Used In File(s): /code/game/machinery/computers/communications.dm
 				<div class="itemLabel">Presets:</div>
 				<div class="itemContents">
 					{{for levels}}
-					{{:~link(name,'comment',{'operation':'newalertlevel','level':id},null,(id==~root.security_level?'linkOn':''))}}
+					{{:helper.link(name,'comment',{'operation':'newalertlevel','level':id},null,(id==~root.security_level?'linkOn':''))}}
 					{{/for}}
 				</div>
 			</div>
