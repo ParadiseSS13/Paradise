@@ -80,7 +80,7 @@
           <span class='average'><b>Balance</b>:</span>
         </div>
         <div class="itemContent">
-          ${{:helper.formatNumber(money)}}
+          ${{:helper.formatNumber(data.money)}}
         </div>
       </div>
 
@@ -133,7 +133,7 @@
           <div class='fixedLeft'>
             Payroll:
           </div>
-          {{:helper.link('Revoke', 'transferthick-e-w', {'choice' : 'revoke_payroll'}, data.account_number == data.station_account_number ? 'disabled' : null, 'linkDanger')}}
+          {{:helper.link('Revoke', 'transferthick-e-w', {'choice' : 'revoke_payroll'}, (data.account_number == data.station_account_number) ? 'disabled' : null, 'linkDanger')}}
         </div>
         {{if data.access_level >= 2}}
         <div class='item'>
