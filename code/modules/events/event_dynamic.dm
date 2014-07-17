@@ -48,6 +48,9 @@ var/global/list/possibleEvents = list()
 	possibleEvents[/datum/event/trivial_news] = 200
 	possibleEvents[/datum/event/mundane_news] = 150
 
+	possibleEvents[/datum/event/cargo_bonus] = 150
+
+
 	possibleEvents[/datum/event/mass_hallucination] = 200
 	possibleEvents[/datum/event/falsealarm] = 300
 //	possibleEvents[/datum/event/immovable_rod] = 200
