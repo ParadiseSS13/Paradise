@@ -233,16 +233,16 @@ Used In File(s): \code\game\objects\items\devices\PDA\PDA.dm
                 <H3>Current Conversations</H3>
                 {{for data.convopdas}}
                     <div class="item">
-                        {{:helper.link(Name, 'circle-arrow-s', {'choice' : "Select Conversation", 'convo' : data.Reference } , null, fixedLeftWider)}}
-                        {{if data.cartridge}}
-                            {{if data.cartridge.type == "/obj/item/weapon/cartridge/syndicate" && data.Detonate == 1}}
-                                {{:helper.link('*Detonate*', 'radiation', {'choice' : "Detonate", 'target' : data.Reference}, null, 'fixedLeft')}}
+                        {{:helper.link(value.Name, 'circle-arrow-s', {'choice' : "Select Conversation", 'convo' : value.Reference } , null, value.fixedLeftWider)}}
+                        {{if value.cartridge}}
+                            {{if value.cartridge.type == "/obj/item/weapon/cartridge/syndicate" && value.Detonate == 1}}
+                                {{:helper.link('*Detonate*', 'radiation', {'choice' : "Detonate", 'target' : value.Reference}, null, 'fixedLeft')}}
                             {{/if}}
-                            {{if data.cartridge.type == "/obj/item/weapon/cartridge/clown"}}
-                                {{:helper.link('*Send Virus*', 'star', {'choice' : "Send Honk", 'target' : data.Reference}, null, 'fixedLeft')}}
+                            {{if value.cartridge.type == "/obj/item/weapon/cartridge/clown"}}
+                                {{:helper.link('*Send Virus*', 'star', {'choice' : "Send Honk", 'target' : value.Reference}, null, 'fixedLeft')}}
                             {{/if}}
-                            {{if data.cartridge.type == "/obj/item/weapon/cartridge/mime"}}
-                                {{:helper.link('*Send Virus*', 'circle-arrow-s', {'choice' : "Send Silence", 'target' : data.Reference}, null, 'fixedLeft')}}
+                            {{if value.cartridge.type == "/obj/item/weapon/cartridge/mime"}}
+                                {{:helper.link('*Send Virus*', 'circle-arrow-s', {'choice' : "Send Silence", 'target' : value.Reference}, null, 'fixedLeft')}}
                             {{/if}}
                         {{/if}}
                     </div>
@@ -250,7 +250,7 @@ Used In File(s): \code\game\objects\items\devices\PDA\PDA.dm
                 <H3>Other PDAs</H3>
                 {{for data.pdas}}
                     <div class="item">
-                        {{:helper.link(Name, 'circle-arrow-s', {'choice' : "Message", 'target' : value.Reference}, null, fixedLeftWider)}}
+                        {{:helper.link(value.Name, 'circle-arrow-s', {'choice' : "Message", 'target' : value.Reference}, null, value.fixedLeftWider)}}
                         {{if value.cartridge}}
                             {{if value.cartridge.type == "/obj/item/weapon/cartridge/syndicate" && value.Detonate == 1}} {{:helper.link('*Detonate*', 'radiation', {'choice' : "Detonate", 'target' : value.Reference}, null, 'fixedLeft')}}  {{/if}}
                             {{if value.cartridge.type == "/obj/item/weapon/cartridge/clown"}} {{:helper.link('*Send Virus*', 'star', {'choice' : "Send Honk", 'target' : value.Reference}, null, 'fixedLeft')}}  {{/if}}
