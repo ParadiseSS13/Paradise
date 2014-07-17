@@ -6,9 +6,12 @@
 	icon_state = "recharger0"
 	anchored = 1
 	use_power = 1
-	idle_power_usage = 4
-	active_power_usage = 250
+	idle_power_usage = 40
+	active_power_usage = 2500
 	var/obj/item/charging = null
+	var/icon_state_charged = "recharger2"
+	var/icon_state_charging = "recharger1"
+	var/icon_state_idle = "recharger0"
 
 /obj/machinery/recharger/attackby(obj/item/weapon/G as obj, mob/user as mob)
 	if(istype(user,/mob/living/silicon))
@@ -69,10 +72,10 @@
 			var/obj/item/weapon/gun/energy/E = charging
 			if(E.power_supply.charge < E.power_supply.maxcharge)
 				E.power_supply.give(1000)
-				icon_state = "recharger1"
+				icon_state = icon_state_charging
 				use_power(2500)
 			else
-				icon_state = "recharger2"
+				icon_state = icon_state_charged
 			return
 		if(istype(charging, /obj/item/weapon/melee/baton))
 			var/obj/item/weapon/melee/baton/B = charging
@@ -81,16 +84,16 @@
 				icon_state = "recharger1"
 				use_power(2000)
 			else
-				icon_state = "recharger2"
+				icon_state = icon_state_charged
 			return
 		if(istype(charging, /obj/item/device/laptop))
 			var/obj/item/device/laptop/L = charging
 			if(L.stored_computer.battery.charge < L.stored_computer.battery.maxcharge)
-				L.stored_computer.battery.give(100)
-				icon_state = "recharger1"
-				use_power(250)
+				L.stored_computer.battery.give(1000)
+				icon_state = icon_state_charging
+				use_power(2500)
 			else
-				icon_state = "recharger2"
+				icon_state = icon_state_charged
 			return
 
 
@@ -112,40 +115,15 @@
 
 /obj/machinery/recharger/update_icon()	//we have an update_icon() in addition to the stuff in process to make it feel a tiny bit snappier.
 	if(charging)
-		icon_state = "recharger1"
+		icon_state = icon_state_charging
 	else
-		icon_state = "recharger0"
+		icon_state = icon_state_idle
 
-/obj/machinery/recharger/wallcharger
+// Atlantis: No need for that copy-pasta code, just use var to store icon_states instead.
+obj/machinery/recharger/wallcharger
 	name = "wall recharger"
 	icon = 'icons/obj/stationobjs.dmi'
 	icon_state = "wrecharger0"
-
-/obj/machinery/recharger/wallcharger/process()
-	if(stat & (NOPOWER|BROKEN) || !anchored)
-		return
-
-	if(charging)
-		if(istype(charging, /obj/item/weapon/gun/energy))
-			var/obj/item/weapon/gun/energy/E = charging
-			if(E.power_supply.charge < E.power_supply.maxcharge)
-				E.power_supply.give(1000)
-				icon_state = "wrecharger1"
-				use_power(2500)
-			else
-				icon_state = "wrecharger2"
-			return
-		if(istype(charging, /obj/item/weapon/melee/baton))
-			var/obj/item/weapon/melee/baton/B = charging
-			if(B.bcell && B.bcell.charge < B.bcell.maxcharge)
-				B.bcell.charge += 1750
-				icon_state = "recharger1"
-				use_power(2000)
-			else
-				icon_state = "recharger2"
-
-/obj/machinery/recharger/wallcharger/update_icon()
-	if(charging)
-		icon_state = "wrecharger1"
-	else
-		icon_state = "wrecharger0"
+	icon_state_idle = "wrecharger0"
+	icon_state_charging = "wrecharger1"
+	icon_state_charged = "wrecharger2"
