@@ -23,6 +23,7 @@
 	req_one_access = list(access_medical, access_forensics_lockers)
 
 	var/obj/item/weapon/card/id/scan = null
+	var/obj/item/weapon/card/id/scan2 = null
 	var/authenticated = null
 	var/rank = null
 	var/screen = null
@@ -56,7 +57,12 @@
 		if (temp)
 			dat = text("<TT>[src.temp]</TT><BR><BR><A href='?src=\ref[src];temp=1'>Clear Screen</A>")
 		else
-			dat = text("Confirm Identity: <A href='?src=\ref[];scan=1'>[]</A><HR>", src, (src.scan ? text("[]", src.scan.name) : "----------"))
+			dat = text("Confirm Identity (R): <A href='?src=\ref[];cardr=1'>[]</A><HR>", src, (scan ? text("[]", scan.name) : "----------"))
+			if (computer.cardslot.dualslot)
+				dat += text("Check Identity (W): <A href='?src=\ref[];cardw=1'>[]</A><BR>", src, (scan2 ? text("[]", scan2.name) : "----------"))
+				if(scan2 && !scan)
+					dat += text("<div class='notice'>Insert card into reader slot to log in.</div><br>")
+
 			if (src.authenticated)
 				switch(src.screen)
 					if(1.0)
@@ -165,18 +171,31 @@
 		if (href_list["temp"])
 			src.temp = null
 
-		if (href_list["scan"])
+		if (href_list["cardr"])
 			if (scan)
 				if(istype(usr,/mob/living/carbon/human) && !usr.get_active_hand())
-					computer.cardslot.remove(scan)
+					computer.cardslot.remove(1)
 				else
 					scan.loc = get_turf(src)
 				scan = null
 			else
 				var/obj/item/I = usr.get_active_hand()
 				if (istype(I, /obj/item/weapon/card/id))
-					computer.cardslot.insert(I)
+					computer.cardslot.insert(I, 1)
 					scan = I
+
+		if (href_list["cardw"])
+			if (scan2)
+				if(istype(usr,/mob/living/carbon/human) && !usr.get_active_hand())
+					computer.cardslot.remove(2)
+				else
+					scan2.loc = get_turf(src)
+				scan2 = null
+			else
+				var/obj/item/I = usr.get_active_hand()
+				if (istype(I, /obj/item/weapon/card/id))
+					computer.cardslot.insert(I, 2)
+					scan2 = I
 
 		else if (href_list["logout"])
 			src.authenticated = null

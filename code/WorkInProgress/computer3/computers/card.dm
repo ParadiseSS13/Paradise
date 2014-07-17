@@ -253,9 +253,9 @@
 		if("remove" in href_list)
 			var/which = href_list["remove"]
 			if(which == "writer")
-				computer.cardslot.remove(computer.cardslot.writer)
+				computer.cardslot.remove(2)
 			else
-				computer.cardslot.remove(computer.cardslot.reader)
+				computer.cardslot.remove(1)
 			auth = 0
 
 		if("insert" in href_list)
@@ -264,9 +264,9 @@
 
 			var/which = href_list["insert"]
 			if(which == "writer")
-				computer.cardslot.insert(card,1)
-			else
 				computer.cardslot.insert(card,2)
+			else
+				computer.cardslot.insert(card,1)
 
 		if("print" in href_list)
 			if (printing)
