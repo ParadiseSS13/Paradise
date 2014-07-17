@@ -20,7 +20,6 @@
 	name = "labor camp shuttle console"
 	shuttle_tag = "Labor"
 	req_access = list(access_brig)
-	circuit = /obj/item/weapon/circuitboard/research_shuttle
 
 /obj/machinery/computer/shuttle_control/labor_camp/one_way
 	name = "prisoner shuttle console"
