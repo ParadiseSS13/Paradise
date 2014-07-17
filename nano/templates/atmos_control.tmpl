@@ -2,7 +2,7 @@
 Title: Atmos Control UI
 Used In File(s): /code/game/machinery/alarm.dm
 -->
-{{!--
+<!--
 #define AALARM_MODE_SCRUBBING	1
 #define AALARM_MODE_REPLACEMENT	2 //like scrubbing, but faster.
 #define AALARM_MODE_PANIC		3 //constantly sucks all air
@@ -15,7 +15,7 @@ Used In File(s): /code/game/machinery/alarm.dm
 #define AALARM_SCREEN_SCRUB		3
 #define AALARM_SCREEN_MODE		4
 #define AALARM_SCREEN_SENSORS	5
- --}}
+-->
 {{if !data.alarm}}
 	<h3>Atmospherics Control</h3>
 	<div class="statusDisplay">
@@ -135,7 +135,7 @@ Used In File(s): /code/game/machinery/alarm.dm
 				{{:helper.link('Thresholds','gear',{'screen':5},(data.screen==5)?'linkOn':'')}}
 			</div>
 		</div>
-		{{!-- VENTS --}}
+		<!-- VENTS -->
 		{{if data.screen == 2}}
 			<h3>Vent Pump Settings</h3>
 			{{for data.vents}}
@@ -173,7 +173,7 @@ Used In File(s): /code/game/machinery/alarm.dm
 			{{empty}}
 				<i>No vent pumps located in this area.</i>
 			{{/for}}
-		{{!-- SCRUBBERS --}}
+		<!-- SCRUBBERS -->
 		{{else data.screen == 3}}
 			<h3>Scrubbers</h3>
 			{{for data.scrubbers}}
@@ -209,10 +209,10 @@ Used In File(s): /code/game/machinery/alarm.dm
 					</div>
 					{{/if}}
 				</div>
-			{{else}}
+			{{empty}}
 				<i>No scrubbers located in this area.</i>
 			{{/for}}
-		{{!-- MODES --}}
+		<!-- MODES -->
 		{{else data.screen == 4}}
 			<h3>System Mode</h3>
 			<div class="statusDisplay">
@@ -237,7 +237,7 @@ Used In File(s): /code/game/machinery/alarm.dm
 				</div>
 				{{/for}}
 			</div>
-		{{!-- SENSORS --}}
+		<!-- SENSORS -->
 		{{else data.screen == 5}}
 			<h3>Sensor Thresholds</h3>
 			<div class="statusDisplay">
@@ -291,3 +291,4 @@ Used In File(s): /code/game/machinery/alarm.dm
 			</div>
 		{{/if}}
 	{{/if}}
+{{/if}}
