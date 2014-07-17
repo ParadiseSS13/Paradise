@@ -35,10 +35,10 @@
 	
 	if (istype(M, /obj/machinery/embedded_controller/radio/airlock))	//if our controller is an airlock controller than we can auto-init our tags
 		var/obj/machinery/embedded_controller/radio/airlock/controller = M
-		tag_exterior_door = controller.tag_exterior_door
-		tag_interior_door = controller.tag_interior_door
-		tag_airpump = controller.tag_airpump
-		tag_chamber_sensor = controller.tag_chamber_sensor
+		tag_exterior_door = controller.tag_exterior_door? controller.tag_exterior_door : "[id_tag]_outer"
+		tag_interior_door = controller.tag_interior_door? controller.tag_interior_door : "[id_tag]_inner"
+		tag_airpump = controller.tag_airpump? controller.tag_airpump : "[id_tag]_pump"
+		tag_chamber_sensor = controller.tag_chamber_sensor? controller.tag_chamber_sensor : "[id_tag]_sensor"
 		tag_exterior_sensor = controller.tag_exterior_sensor
 		tag_interior_sensor = controller.tag_interior_sensor
 		memory["secure"] = controller.tag_secure

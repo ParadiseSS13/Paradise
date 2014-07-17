@@ -58,7 +58,7 @@
 	if (istype(M, /obj/machinery/embedded_controller/radio/simple_docking_controller))
 		var/obj/machinery/embedded_controller/radio/simple_docking_controller/controller = M
 
-		tag_door = controller.tag_door
+		tag_door = controller.tag_door? controller.tag_door : "[id_tag]_hatch"
 
 		spawn(10)
 			signal_door("update")		//signals connected doors to update their status
