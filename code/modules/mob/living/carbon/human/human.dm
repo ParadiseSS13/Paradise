@@ -58,7 +58,7 @@
 	h_style = "blue IPC screen"
 	..(new_loc, "Machine")
 
-/mob/living/carbon/human/New(var/new_loc, var/new_species = null)
+/mob/living/carbon/human/New(var/new_loc, var/new_species = null, var/delay_ready_dna=0)
 	if(!species)
 		if(new_species)
 			set_species(new_species,null,1)
@@ -97,6 +97,9 @@
 	prev_gender = gender // Debug for plural genders
 	make_blood()
 
+	// Set up DNA.
+	if(!delay_ready_dna)
+		dna.ready_dna(src)
 
 /mob/living/carbon/human/Bump(atom/movable/AM as mob|obj, yes)
 	if ((!( yes ) || now_pushing))
