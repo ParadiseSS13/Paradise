@@ -205,6 +205,7 @@ var/global/datum/shuttle_controller/shuttle_controller
 	
 	//Gamma Shuttle
 	shuttle = new()
+	shuttle.location = 1
 	shuttle.warmup_time = 10
 	shuttle.area_offsite = locate(/area/shuttle/gamma/space)
 	shuttle.area_station = locate(/area/shuttle/gamma/station)
