@@ -164,7 +164,7 @@
 	spawn(30)
 		src.eject_wait = 0
 
-	var/mob/living/carbon/human/H = new /mob/living/carbon/human(src, R.dna.species)
+	var/mob/living/carbon/human/H = new /mob/living/carbon/human(src, delay_ready_dna=1)
 	occupant = H
 
 	if(!R.dna.real_name)	//to prevent null names
