@@ -178,7 +178,7 @@ var/global/datum/shuttle_controller/shuttle_controller
 	shuttle.dock_target_offsite = "research_outpost_dock"
 	shuttles["Research"] = shuttle
 	process_shuttles += shuttle
-	
+
 	shuttle = new()
 	shuttle.warmup_time = 10
 	shuttle.area_offsite = locate(/area/shuttle/siberia/outpost)
@@ -202,17 +202,7 @@ var/global/datum/shuttle_controller/shuttle_controller
 	ERT.dock_target_offsite = "specops_centcom_dock"
 	shuttles["Special Operations"] = ERT
 	process_shuttles += ERT
-	
-	//Gamma Shuttle
-	shuttle = new()
-	shuttle.location = 1
-	shuttle.warmup_time = 10
-	shuttle.area_offsite = locate(/area/shuttle/gamma/space)
-	shuttle.area_station = locate(/area/shuttle/gamma/station)
-	shuttle.docking_controller_tag = "gamma_shuttle"
-	shuttle.dock_target_station = "gamma_shuttle_dock"
-	shuttles["Gamma"] = shuttle
-	process_shuttles += shuttle
+
 
 	//Vox Shuttle.
 	var/datum/shuttle/multi_shuttle/VS = new/datum/shuttle/multi_shuttle()
@@ -292,12 +282,12 @@ var/global/datum/shuttle_controller/shuttle_controller
 					shuttle = dock_controller_map[C.id_tag]
 					shuttle.docking_controller = C.program
 					dock_controller_map -= C.id_tag
-					
+
 					//escape pods
 					if(istype(C, /obj/machinery/embedded_controller/radio/simple_docking_controller/escape_pod) && istype(shuttle, /datum/shuttle/ferry/escape_pod))
 						var/obj/machinery/embedded_controller/radio/simple_docking_controller/escape_pod/EPC = C
 						EPC.pod = shuttle
-					
+
 				if (C.id_tag in dock_controller_map_station)
 					multidock = dock_controller_map_station[C.id_tag]
 					if (istype(multidock))
