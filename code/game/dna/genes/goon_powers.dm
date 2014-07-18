@@ -82,15 +82,15 @@
 	var/obj/effect/proc_holder/spell/spelltype
 
 	activate(var/mob/M, var/connected, var/flags)
-		..()
 		M.spell_list += new spelltype(M)
+		..()
 		return 1
 
 	deactivate(var/mob/M, var/connected, var/flags)
-		..()
 		for(var/obj/effect/proc_holder/spell/S in M.spell_list)
 			if(istype(S,spelltype))
 				M.spell_list.Remove(S)
+		..()
 		return 1
 
 /datum/dna/gene/basic/grant_verb

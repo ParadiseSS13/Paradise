@@ -241,13 +241,13 @@ Obviously, requires DNA2.
 /datum/dna/gene/basic/grant_spell/remoteview
 	name="Remote Viewing"
 	activation_messages=list("Your mind expands.")
-	mutation=M_REMOTE_TALK
+	mutation=M_REMOTE_VIEW
 	instability=3
 
 	spelltype =/obj/effect/proc_holder/spell/targeted/remoteview
 
 	New()
-		block=REMOTETALKBLOCK
+		block=REMOTEVIEWBLOCK
 
 
 /obj/effect/proc_holder/spell/targeted/remoteview
