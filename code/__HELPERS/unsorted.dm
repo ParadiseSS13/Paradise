@@ -224,6 +224,19 @@ Turf and target are seperate in case you want to teleport some distance from a t
 
 	return 0
 
+// Returns true if a link is blocked and neither location has something climbable on
+// Used for inventory checks
+/proc/LinkBlockedUnclimbable(turf/A, turf/B)
+	if (!LinkBlocked(A, B))
+		return 0
+	for (var/obj/structure/S in A.contents)
+		if(S.climbable)
+			return 0
+	for (var/obj/structure/S in B.contents)
+		if(S.climbable)
+			return 0
+	return 1
+
 // Returns true if direction is blocked from loc
 // Checks if doors are open
 /proc/DirBlocked(turf/loc,var/dir)
