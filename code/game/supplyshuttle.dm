@@ -194,7 +194,7 @@ var/list/mechtoys = list(
 
 			// Must be in a crate!
 			if(istype(MA,/obj/structure/closet/crate))
-				callHook("sell_crate", list(MA, area_shuttle))
+				callHook("sell_crate", list(MA, area_shuttle))  // check this
 
 				points += points_per_crate
 				var/find_slip = 1
@@ -219,6 +219,8 @@ var/list/mechtoys = list(
 						var/obj/item/stack/sheet/mineral/platinum/P = A
 						plat_count += P.amount
 
+					// If you send something in a crate, centcom's keeping it! - fixes secure crates being sent to centom to open them
+					del(A)
 			del(MA)
 
 		if(plasma_count)
