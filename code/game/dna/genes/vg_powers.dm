@@ -215,7 +215,7 @@ Obviously, requires DNA2.
 	range = -2
 	selection_type = "range"
 
-	icon_power_button = "genetic_remotetalk"
+	icon_power_button = "genetic_project"
 
 
 /obj/effect/proc_holder/spell/targeted/remotetalk/cast(list/targets)
