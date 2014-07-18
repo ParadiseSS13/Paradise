@@ -40,8 +40,10 @@
 
 	do_climb(usr)
 
-/obj/structure/MouseDrop_T(atom/over_object)
-	do_climb(usr)
+/obj/structure/MouseDrop_T(var/atom/movable/C, mob/user as mob)
+	if(C == user)
+		do_climb(user)
+
 
 /obj/structure/proc/do_climb(var/mob/living/user)
 
