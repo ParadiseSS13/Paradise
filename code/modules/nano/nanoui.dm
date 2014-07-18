@@ -42,8 +42,14 @@ nanoui is used to open and update nano browser uis
 	var/templates[0]
 	// the layout key for this ui (this is used on the frontend, leave it as "default" unless you know what you're doing)
 	var/layout_key = "default"
+	// this sets whether to re-render the ui layout with each update (default 0, turning on will break the map ui if it's in use)
+	var/auto_update_layout = 0
+	// this sets whether to re-render the ui content with each update (default 1)
+	var/auto_update_content = 1
 	// the default state to use for this ui (this is used on the frontend, leave it as "default" unless you know what you're doing)
 	var/state_key = "default"
+	// show the map ui, this is used by the default layout
+	var/show_map = 0
 	// initial data, containing the full data structure, must be sent to the ui (the data structure cannot be extended later on)
 	var/list/initial_data[0]
 	// set to 1 to update the ui automatically every master_controller tick
@@ -170,8 +176,8 @@ nanoui is used to open and update nano browser uis
   *
   * @return nothing
   */
-/datum/nanoui/proc/set_auto_update(state = 1)
-	is_auto_updating = state
+/datum/nanoui/proc/set_auto_update(nstate = 1)
+	is_auto_updating = nstate
 
  /**
   * Set the initial data for the ui. This is vital as the data structure set here cannot be changed when pushing new updates.
@@ -194,6 +200,9 @@ nanoui is used to open and update nano browser uis
 			"srcObject" = list("name" = src_object.name),
 			"stateKey" = state_key,
 			"status" = status,
+			"autoUpdateLayout" = auto_update_layout,
+			"autoUpdateContent" = auto_update_content,
+			"showMap" = show_map,
 			"user" = list("name" = user.name)
 		)
 	return config_data
@@ -275,6 +284,26 @@ nanoui is used to open and update nano browser uis
 	layout_key = lowertext(nlayout_key)
 
  /**
+  * Set the ui to update the layout (re-render it) on each update, turning this on will break the map ui (if it's being used)
+  *
+  * @param state int (bool) Set update to 1 or 0 (true/false) (default 0)
+  *
+  * @return nothing
+  */
+/datum/nanoui/proc/set_auto_update_layout(nstate)
+	auto_update_layout = nstate
+
+ /**
+  * Set the ui to update the main content (re-render it) on each update
+  *
+  * @param state int (bool) Set update to 1 or 0 (true/false) (default 1)
+  *
+  * @return nothing
+  */
+/datum/nanoui/proc/set_auto_update_content(nstate)
+	auto_update_content = nstate
+
+ /**
   * Set the state key for use in the frontend Javascript
   *
   * @param nstate_key string The key of the state to use
@@ -283,6 +312,16 @@ nanoui is used to open and update nano browser uis
   */
 /datum/nanoui/proc/set_state_key(nstate_key)
 	state_key = nstate_key
+
+ /**
+  * Toggle showing the map ui
+  *
+  * @param nstate_key boolean 1 to show map, 0 to hide (default is 0)
+  *
+  * @return nothing
+  */
+/datum/nanoui/proc/set_show_map(nstate)
+	show_map = nstate
 
  /**
   * Set whether or not to use the "old" on close logic (mainly unset_machine())
@@ -426,7 +465,13 @@ nanoui is used to open and update nano browser uis
 	if (status != STATUS_INTERACTIVE || user != usr) // If UI is not interactive or usr calling Topic is not the UI user
 		return
 
-	if (src_object && src_object.Topic(href, href_list))
+	// This is used to toggle the nano map ui
+	var/show_map_updated = 0
+	if(href_list["showMap"])
+		set_show_map(text2num(href_list["showMap"]))
+		show_map_updated = 1
+
+	if ((src_object && src_object.Topic(href, href_list)) || show_map_updated)
 		nanomanager.update_uis(src_object) // update all UIs attached to src_object
 
  /**

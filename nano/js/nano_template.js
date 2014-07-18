@@ -88,6 +88,9 @@ var NanoTemplate = function () {
         addTemplate: function (key, templateString) {
             _templates[key] = templateString;
         },
+        templateExists: function (key) {
+            return _templates.hasOwnProperty(key);
+        },
         parse: function (templateKey, data) {
             if (!_compiledTemplates.hasOwnProperty(templateKey) || !_compiledTemplates[templateKey]) {
                 if (!_templates.hasOwnProperty(templateKey)) {

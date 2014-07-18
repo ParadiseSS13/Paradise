@@ -73,6 +73,10 @@ a.white:hover {
     background: #40628a;
 }
 
+.hidden {
+    display: none;
+}
+
 .linkOn, a.linkOn:link, a.linkOn:visited, a.linkOn:active, a.linkOn:hover, .selected, a.selected:link, a.selected:visited, a.selected:active, a.selected:hover {
     color: #ffffff;
     background: #2f943c;

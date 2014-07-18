@@ -1,0 +1,9 @@
+<!--
+Title: Crew Monitoring Console (Map content)
+Used In File(s): \code\game\machinery\computer\crew.dm
+ -->
+{{for data.crewmembers}}
+    {{if value.sensor_type == 3}}
+        <div style="position: absolute; left: {{:((value.x - 1) * 8)}}px; bottom: {{:((value.y - 1) * 8)}}px; width: 8px; height: 8px; background: green;"></div>
+    {{/if}}
+{{/for}}

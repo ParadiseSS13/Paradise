@@ -13,6 +13,9 @@ function NanoStateClass() {
 }
 
 NanoStateClass.prototype.key = null;
+NanoStateClass.prototype.layoutRendered = false;
+NanoStateClass.prototype.contentRendered = false;
+NanoStateClass.prototype.mapInitialised = false;
 
 NanoStateClass.prototype.isCurrent = function () {
     return NanoStateManager.getCurrentState() == this;
@@ -45,8 +48,47 @@ NanoStateClass.prototype.onUpdate = function (data) {
 
     try
     {
-        $("#uiLayout").html(NanoTemplate.parse('layout', data)); // render the 'mail' template to the #mainTemplate div
-        $("#uiContent").html(NanoTemplate.parse('main', data)); // render the 'mail' template to the #mainTemplate div
+        if (!this.layoutRendered || (data['config'].hasOwnProperty('autoUpdateLayout') && data['config']['autoUpdateLayout']))
+        {
+            $("#uiLayout").html(NanoTemplate.parse('layout', data)); // render the 'mail' template to the #mainTemplate div
+            this.layoutRendered = true;
+        }
+        if (!this.contentRendered || (data['config'].hasOwnProperty('autoUpdateContent') && data['config']['autoUpdateContent']))
+        {
+            $("#uiContent").html(NanoTemplate.parse('main', data)); // render the 'mail' template to the #mainTemplate div
+            this.contentRendered = true;
+        }
+        if (NanoTemplate.templateExists('mapContent'))
+        {
+            if (!this.mapInitialised)
+            {
+                // Add drag functionality to the map ui
+                $('#uiMap').drags({handle : '#uiMapImage'});
+
+                this.mapInitialised = true;
+            }
+
+            $("#uiMapContent").html(NanoTemplate.parse('mapContent', data)); // render the 'mapContent' template to the #uiMapContent div
+
+            if (data['config'].hasOwnProperty('showMap') && data['config']['showMap'])
+            {
+                $('#uiContent').addClass('hidden');
+                $('#uiMapWrapper').removeClass('hidden');
+            }
+            else
+            {
+                $('#uiMapWrapper').addClass('hidden');
+                $('#uiContent').removeClass('hidden');
+            }
+        }
+        if (NanoTemplate.templateExists('mapHeader'))
+        {
+            $("#uiMapHeader").html(NanoTemplate.parse('mapHeader', data)); // render the 'mapHeader' template to the #uiMapHeader div
+        }
+        if (NanoTemplate.templateExists('mapFooter'))
+        {
+            $("#uiMapFooter").html(NanoTemplate.parse('mapFooter', data)); // render the 'mapFooter' template to the #uiMapFooter div
+        }
     }
     catch(error)
     {
