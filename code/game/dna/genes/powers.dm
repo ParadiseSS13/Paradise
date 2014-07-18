@@ -11,18 +11,6 @@
 	New()
 		block=NOBREATHBLOCK
 
-/datum/dna/gene/basic/remoteview
-	name="Remote Viewing"
-	activation_messages=list("Your mind expands.")
-	mutation=M_REMOTE_VIEW
-	instability=3
-
-	New()
-		block=REMOTEVIEWBLOCK
-
-	activate(var/mob/M, var/connected, var/flags)
-		..(M,connected,flags)
-		M.verbs += /mob/living/carbon/human/proc/remoteobserve
 
 /datum/dna/gene/basic/regenerate
 	name="Regenerate"

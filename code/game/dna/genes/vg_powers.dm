@@ -202,12 +202,13 @@ Obviously, requires DNA2.
 	spelltype =/obj/effect/proc_holder/spell/targeted/remotetalk
 
 	New()
+		..()
 		block=REMOTETALKBLOCK
 
 /obj/effect/proc_holder/spell/targeted/remotetalk
 	name = "Project Mind"
 	desc = "Make people understand your thoughts at any range!"
-	charge_max = 1800
+	charge_max = 100
 
 	clothes_req = 0
 	stat_allowed = 0
@@ -217,6 +218,9 @@ Obviously, requires DNA2.
 
 	icon_power_button = "genetic_project"
 
+/obj/effect/proc_holder/spell/targeted/remotetalk/choose_targets(mob/user = usr)
+	var/list/targets
+	targets += input("Choose the target to talk to.", "Targeting") as mob in living_mob_list
 
 /obj/effect/proc_holder/spell/targeted/remotetalk/cast(list/targets)
 	if(!ishuman(usr))	return
@@ -232,49 +236,69 @@ Obviously, requires DNA2.
 		for(var/mob/dead/observer/G in player_list)
 			G.show_message("<i>Telepathic message from <b>[usr]</b> to <b>[target]</b>: [say]</i>")
 
-/mob/living/carbon/human/proc/remoteobserve()
-	set name = "Remote View"
-	set category = "Abilities"
 
-	if(stat!=CONSCIOUS)
-		remoteview_target = null
-		reset_view(0)
+
+/datum/dna/gene/basic/grant_spell/remoteview
+	name="Remote Viewing"
+	activation_messages=list("Your mind expands.")
+	mutation=M_REMOTE_TALK
+	instability=3
+
+	spelltype =/obj/effect/proc_holder/spell/targeted/remoteview
+
+	New()
+		block=REMOTETALKBLOCK
+
+
+/obj/effect/proc_holder/spell/targeted/remoteview
+	name = "Remote View"
+	desc = "Spy on people from any range!"
+	charge_max = 600
+
+	clothes_req = 0
+	stat_allowed = 0
+	invocation_type = "none"
+	range = -2
+	selection_type = "range"
+
+	icon_power_button = "genetic_view"
+
+/obj/effect/proc_holder/spell/targeted/remoteview/choose_targets(mob/user = usr)
+	var/list/targets
+	targets += input("Choose the target to spy on.", "Targeting") as mob in living_mob_list
+
+/obj/effect/proc_holder/spell/targeted/remoteview/cast(list/targets)
+	var/mob/living/carbon/human/user
+	if(ishuman(usr))
+		user = usr
+	else
 		return
 
-	if(!(M_REMOTE_VIEW in src.mutations))
-		remoteview_target = null
-		reset_view(0)
-		src.verbs -= /mob/living/carbon/human/proc/remoteobserve
+	var/mob/target
+
+	if(istype(user.l_hand, /obj/item/tk_grab) || istype(user.r_hand, /obj/item/tk_grab/))
+		user << "\red Your mind is too busy with that telekinetic grab."
+		user.remoteview_target = null
+		user.reset_view(0)
 		return
 
-	if(istype(l_hand, /obj/item/tk_grab) || istype(r_hand, /obj/item/tk_grab/))
-		src << "\red Your mind is too busy with that telekinetic grab."
-		remoteview_target = null
-		reset_view(0)
+	if(user.client.eye != user.client.mob)
+		user.remoteview_target = null
+		user.reset_view(0)
 		return
 
-	if(client.eye != client.mob)
-		remoteview_target = null
-		reset_view(0)
-		return
-
-	var/list/mob/creatures = list()
-
-	for(var/mob/living/carbon/human/h in world)
-		var/turf/temp_turf = get_turf(h)
-		if((temp_turf.z != 1 && temp_turf.z != 5) || h.stat!=CONSCIOUS) //Not on mining or the station. Or dead
-			continue
-		if(M_PSY_RESIST in h.mutations)
-			continue
-		creatures += h
-
-	var/mob/target = input ("Who do you want to project your mind to ?") as mob in creatures
+	for(var/mob/living/L in targets)
+		if(ishuman(L))
+			var/mob/living/carbon/human/H = L
+			if(M_PSY_RESIST in H.mutations)
+				continue
+		target = L
 
 	if (target)
-		remoteview_target = target
-		reset_view(target)
+		user.remoteview_target = target
+		user.reset_view(target)
 	else
-		remoteview_target = null
-		reset_view(0)
+		user.remoteview_target = null
+		user.reset_view(0)
 
 
