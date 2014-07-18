@@ -193,37 +193,44 @@ Obviously, requires DNA2.
 
 	M.visible_message("\blue \The [src] morphs and changes [M.get_visible_gender() == MALE ? "his" : M.get_visible_gender() == FEMALE ? "her" : "their"] appearance!", "\blue You change your appearance!", "\red Oh, god!  What the hell was that?  It sounded like flesh getting squished and bone ground into a different shape!")
 
+/datum/dna/gene/basic/grant_spell/remotetalk
+	name="Telepathy"
+	activation_messages=list("You expand your mind outwards.")
+	mutation=M_REMOTE_TALK
+	instability=1
+
+	spelltype =/obj/effect/proc_holder/spell/targeted/remotetalk
+
+	New()
+		block=REMOTETALKBLOCK
+
+/obj/effect/proc_holder/spell/targeted/remotetalk
+	name = "Project Mind"
+	desc = "Make people understand your thoughts at any range!"
+	charge_max = 1800
+
+	clothes_req = 0
+	stat_allowed = 0
+	invocation_type = "none"
+	range = -2
+	selection_type = "range"
+
+	icon_power_button = "genetic_remotetalk"
 
 
-
-
-/mob/living/carbon/human/proc/remotesay()
-	set name = "Project mind"
-	set category = "Abilities"
-
-	if(stat!=CONSCIOUS)
-		reset_view(0)
-		remoteview_target = null
-		return
-
-	if(!(M_REMOTE_TALK in src.mutations))
-		src.verbs -= /mob/living/carbon/human/proc/remotesay
-		return
-	var/list/creatures = list()
-	for(var/mob/living/carbon/human/h in world)
-		creatures += h
-	var/mob/target = input ("Who do you want to project your mind to ?") as null|anything in creatures
-	if (isnull(target))
-		return
+/obj/effect/proc_holder/spell/targeted/remotetalk/cast(list/targets)
+	if(!ishuman(usr))	return
 
 	var/say = input ("What do you wish to say")
-	if(M_REMOTE_TALK in target.mutations)
-		target.show_message("\blue You hear [src.real_name]'s voice: [say]")
-	else
-		target.show_message("\blue You hear a voice that seems to echo around the room: [say]")
-	usr.show_message("\blue You project your mind into [target.real_name]: [say]")
-	for(var/mob/dead/observer/G in world)
-		G.show_message("<i>Telepathic message from <b>[src]</b> to <b>[target]</b>: [say]</i>")
+
+	for(var/mob/living/target in targets)
+		if(M_REMOTE_TALK in target.mutations)
+			target.show_message("\blue You hear [usr.real_name]'s voice: [say]")
+		else
+			target.show_message("\blue You hear a voice that seems to echo around the room: [say]")
+		usr.show_message("\blue You project your mind into [target.real_name]: [say]")
+		for(var/mob/dead/observer/G in player_list)
+			G.show_message("<i>Telepathic message from <b>[usr]</b> to <b>[target]</b>: [say]</i>")
 
 /mob/living/carbon/human/proc/remoteobserve()
 	set name = "Remote View"

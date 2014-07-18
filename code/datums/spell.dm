@@ -243,8 +243,10 @@ var/list/spells = typesof(/obj/effect/proc_holder/spell) //needed for the badmin
 			for(var/mob/living/target in view_or_range(range, user, selection_type))
 				targets += target
 		if(1) //single target can be picked
-			if(range < 0)
+			if(range == -1)
 				targets += user
+			else if(range == -2)
+				targets += input("Choose the target for the spell.", "Targeting") as mob in living_mob_list
 			else
 				var/possible_targets = list()
 

@@ -47,7 +47,6 @@
 /mob/living/carbon/human/grey/New(var/new_loc)
 	..(new_loc, "Grey")
 	mutations.Add(M_REMOTE_TALK)
-	verbs += /mob/living/carbon/human/proc/remotesay
 
 /mob/living/carbon/human/human/New(var/new_loc)
 	..(new_loc, "Human")
