@@ -74,11 +74,7 @@
 				B.volume = 70
 				//set reagent data
 				B.data["donor"] = O
-
-
 				B.data["blood_DNA"] = copytext(O.dna.unique_enzymes,1,0)
-				if(O.resistances&&O.resistances.len)
-					B.data["resistances"] = O.resistances.Copy()
 				bucket_of_blood.reagents.reagent_list += B
 				bucket_of_blood.reagents.update_total()
 				bucket_of_blood.on_reagent_change()
