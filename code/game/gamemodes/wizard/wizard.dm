@@ -274,6 +274,7 @@
 /mob/proc/spellremove(var/mob/M as mob)
 	for(var/obj/effect/proc_holder/spell/spell_to_remove in src.spell_list)
 		del(spell_to_remove)
+		update_power_buttons()
 
 /*Checks if the wizard can cast spells.
 Made a proc so this is not repeated 14 (or more) times.*/

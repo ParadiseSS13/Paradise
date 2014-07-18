@@ -1411,7 +1411,6 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 		client.screen.Remove(global_hud.blurry, global_hud.druggy, global_hud.vimpaired, global_hud.darkMask/*, global_hud.nvg*/)
 
 		update_action_buttons()
-		update_power_buttons()
 
 		if(damageoverlay.overlays)
 			damageoverlay.overlays = list()

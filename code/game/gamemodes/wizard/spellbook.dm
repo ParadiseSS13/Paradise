@@ -313,6 +313,7 @@
 								H << "\blue The walls suddenly disappear."
 							temp = "You have purchased a scrying orb, and gained x-ray vision."
 							max_uses--
+			H.update_power_buttons()
 		else
 			if(href_list["temp"])
 				temp = null
@@ -352,6 +353,7 @@
 		user <<"<span class='notice'>you rapidly read through the arcane book. Suddenly you realize you understand [spellname]!</span>"
 		user.attack_log += text("\[[time_stamp()]\] <font color='orange'>[user.real_name] ([user.ckey]) learned the spell [spellname] ([S]).</font>")
 		onlearned(user)
+		user.update_power_buttons()
 
 /obj/item/weapon/spellbook/oneuse/proc/recoil(mob/user as mob)
 	user.visible_message("<span class='warning'>[src] glows in a black light!</span>")

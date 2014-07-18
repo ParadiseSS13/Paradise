@@ -72,10 +72,6 @@
 /mob/proc/update_action_buttons()
 	return
 
-/mob/proc/update_power_buttons()
-	return
-
-
 /obj/screen/grab
 	name = "grab"
 
