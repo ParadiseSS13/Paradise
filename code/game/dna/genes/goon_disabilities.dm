@@ -330,6 +330,8 @@
 
 ////////////////////////////////////////////////////////////////////////
 
+/* WTF THIS IS THE DUMBEST SHIT
+
 // WAS: /datum/bioEffect/melt
 /datum/dna/gene/basic/grant_verb/melt
 	name = "Self Biomass Manipulation"
@@ -370,3 +372,6 @@
 		usr.gib(1)
 
 	return
+
+
+*/
