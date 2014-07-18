@@ -43,8 +43,8 @@
           {{for data.effects}}
             <div>
               <div class="highlight">
-                ({{:data.stage}}) {{:data.name}}
-                {{if data.badness > 1}}
+                ({{:value.stage}}) {{:value.name}}
+                {{if value.badness > 1}}
                   <span class='bad'><b>Dangerous</b></span>
                 {{/if}}
               </div>
@@ -74,7 +74,7 @@
       </div>
       <div class='itemContent'>
         {{for data.effects}}
-          {{:helper.link(data.stage, 'transferthick-e-w', { 'grab' : data.reference })}}
+          {{:helper.link(value.stage, 'transferthick-e-w', { 'grab' : value.reference })}}
         {{/for}}
       </div>
       <div class='itemContent'>
