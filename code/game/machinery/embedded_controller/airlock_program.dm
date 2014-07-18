@@ -248,9 +248,15 @@
 	return (state == STATE_WAIT && target_state == TARGET_NONE)
 
 //are the doors closed and locked?
+/datum/computer/file/embedded_program/airlock/proc/check_exterior_door_secured()
+	return (memory["exterior_status"]["state"] == "closed" &&  memory["exterior_status"]["lock"] == "locked")
+
+/datum/computer/file/embedded_program/airlock/proc/check_interior_door_secured()
+	return (memory["interior_status"]["state"] == "closed" &&  memory["interior_status"]["lock"] == "locked")
+
 /datum/computer/file/embedded_program/airlock/proc/check_doors_secured()
-	var/ext_closed = (memory["exterior_status"]["state"] == "closed" &&  memory["exterior_status"]["lock"] == "locked")
-	var/int_closed = (memory["interior_status"]["state"] == "closed" &&  memory["interior_status"]["lock"] == "locked")
+	var/ext_closed = check_exterior_door_secured()
+	var/int_closed = check_interior_door_secured()
 	return (ext_closed && int_closed)
 
 /datum/computer/file/embedded_program/airlock/proc/signalDoor(var/tag, var/command)

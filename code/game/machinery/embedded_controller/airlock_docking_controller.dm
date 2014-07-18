@@ -108,7 +108,9 @@
 
 //are we ready for undocking?
 /datum/computer/file/embedded_program/docking/airlock/ready_for_undocking()
-	return airlock_program.check_doors_secured()
+	var/ext_closed = airlock_program.check_exterior_door_secured()
+	var/int_closed = airlock_program.check_interior_door_secured()
+	return (ext_closed || int_closed)
 
 //An airlock controller to be used by the airlock-based docking port controller.
 //Same as a regular airlock controller but allows disabling of the regular airlock functions when docking
