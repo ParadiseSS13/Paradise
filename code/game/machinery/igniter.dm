@@ -89,11 +89,11 @@
 
 /obj/machinery/sparker/attack_ai()
 	if (src.anchored)
-		return src.ignite()
+		return src.spark()
 	else
 		return
 
-/obj/machinery/sparker/proc/ignite()
+/obj/machinery/sparker/proc/spark()
 	if (!(powered()))
 		return
 
@@ -116,7 +116,7 @@
 	if(stat & (BROKEN|NOPOWER))
 		..(severity)
 		return
-	ignite()
+	spark()
 	..(severity)
 
 /obj/machinery/ignition_switch/attack_ai(mob/user as mob)
@@ -143,7 +143,7 @@
 	for(var/obj/machinery/sparker/M in world)
 		if (M.id == src.id)
 			spawn( 0 )
-				M.ignite()
+				M.spark()
 
 	for(var/obj/machinery/igniter/M in world)
 		if(M.id == src.id)

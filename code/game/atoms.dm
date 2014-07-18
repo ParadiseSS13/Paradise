@@ -240,9 +240,6 @@ its easier to just keep the beam vertical.
 /atom/proc/blob_act()
 	return
 
-/atom/proc/fire_act()
-	return
-
 
 /atom/proc/hitby(atom/movable/AM as mob|obj)
 	if (density)

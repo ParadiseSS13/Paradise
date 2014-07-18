@@ -13,6 +13,9 @@
 #define O2STANDARD 0.21
 #define N2STANDARD 0.79
 
+#define AUTOIGNITION_WOOD  573.15
+#define AUTOIGNITION_PAPER 519.15
+
 #define MOLES_O2STANDARD MOLES_CELLSTANDARD*O2STANDARD	// O2 standard value (21%)
 #define MOLES_N2STANDARD MOLES_CELLSTANDARD*N2STANDARD	// N2 standard value (79%)
 
@@ -906,3 +909,4 @@ var/list/RESTRICTED_CAMERA_NETWORKS = list( //Those networks can only be accesse
 #define IS_VOX 2
 #define IS_SKRELL 3
 #define IS_UNATHI 4
+

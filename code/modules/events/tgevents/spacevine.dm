@@ -263,6 +263,4 @@
 				return
 	return
 
-/obj/effect/spacevine/temperature_expose(null, temp, volume) //hotspots kill vines
-	del src
 
