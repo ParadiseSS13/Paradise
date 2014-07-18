@@ -41,11 +41,7 @@
 	do_climb(usr)
 
 /obj/structure/MouseDrop_T(atom/over_object)
-
-	var/mob/living/H = over_object
-	if(!istype(H)) return ..()
-
-	do_climb(H)
+	do_climb(usr)
 
 /obj/structure/proc/do_climb(var/mob/living/user)
 
