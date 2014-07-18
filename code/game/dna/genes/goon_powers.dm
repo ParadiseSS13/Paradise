@@ -468,100 +468,115 @@
 ////////////////////////////////////////////////////////////////////////
 
 // WAS: /datum/bioEffect/empath
-/datum/dna/gene/basic/grant_verb/empath
+/datum/dna/gene/basic/grant_spell/empath
 	name = "Empathic Thought"
 	desc = "The subject becomes able to read the minds of others for certain information."
 
-	verbtype = /proc/bioproc_empath
+	spelltype = /obj/effect/proc_holder/spell/targeted/empath
 	activation_messages = list("You suddenly notice more about others than you did before.")
 	deactivation_messages = list("You no longer feel able to sense intentions.")
 	instability=1
+
+	mutation=M_EMPATH
 
 	New()
 		..()
 		block = EMPATHBLOCK
 
-/proc/bioproc_empath(var/mob/living/carbon/M in range(7,usr))
-	set name = "Read Mind"
-	set desc = "Read the minds of others for information."
-	set category = "Mutant Abilities"
+/obj/effect/proc_holder/spell/targeted/empath
+	name = "Read Mind"
+	desc = "Read the minds of others for information."
+	charge_max = 1800
+	clothes_req = 0
+	stat_allowed = 0
+	invocation_type = "none"
+	range = -2
+	selection_type = "range"
 
-	if(!iscarbon(M))
-		usr << "\red You may only use this on other organic beings."
+	icon_power_button = "genetic_empath"
+
+/obj/effect/proc_holder/spell/targeted/empath/choose_targets(mob/user = usr)
+	var/list/targets
+	targets += input("Choose the target to spy on.", "Targeting") as mob in range(7,usr)
+
+/obj/effect/proc_holder/spell/targeted/empath/cast(list/targets)
+	if(!ishuman(usr))	return
+
+
+	for(var/mob/living/carbon/M in targets)
+		if(!iscarbon(M))
+			usr << "\red You may only use this on other organic beings."
+			return
+
+		if (M_PSY_RESIST in M.mutations)
+			usr << "\red You can't see into [M.name]'s mind at all!"
+			return
+
+		if (M.stat == 2)
+			usr << "\red [M.name] is dead and cannot have their mind read."
+			return
+		if (M.health < 0)
+			usr << "\red [M.name] is dying, and their thoughts are too scrambled to read."
+			return
+
+		usr << "\blue Mind Reading of [M.name]:</b>"
+		var/pain_condition = M.health
+		// lower health means more pain
+		var/list/randomthoughts = list("what to have for lunch","the future","the past","money",
+		"their hair","what to do next","their job","space","amusing things","sad things",
+		"annoying things","happy things","something incoherent","something they did wrong")
+		var/thoughts = "thinking about [pick(randomthoughts)]"
+		if (M.fire_stacks)
+			pain_condition -= 50
+			thoughts = "preoccupied with the fire"
+		if (M.radiation)
+			pain_condition -= 25
+
+		switch(pain_condition)
+			if (81 to INFINITY)
+				usr << "\blue <b>Condition</b>: [M.name] feels good."
+			if (61 to 80)
+				usr << "\blue <b>Condition</b>: [M.name] is suffering mild pain."
+			if (41 to 60)
+				usr << "\blue <b>Condition</b>: [M.name] is suffering significant pain."
+			if (21 to 40)
+				usr << "\blue <b>Condition</b>: [M.name] is suffering severe pain."
+			else
+				usr << "\blue <b>Condition</b>: [M.name] is suffering excruciating pain."
+				thoughts = "haunted by their own mortality"
+
+		switch(M.a_intent)
+			if ("help")
+				usr << "\blue <b>Mood</b>: You sense benevolent thoughts from [M.name]."
+			if ("disarm")
+				usr << "\blue <b>Mood</b>: You sense cautious thoughts from [M.name]."
+			if ("grab")
+				usr << "\blue <b>Mood</b>: You sense hostile thoughts from [M.name]."
+			if ("harm")
+				usr << "\blue <b>Mood</b>: You sense cruel thoughts from [M.name]."
+				for(var/mob/living/L in view(7,M))
+					if (L == M)
+						continue
+					thoughts = "thinking about punching [L.name]"
+					break
+			else
+				usr << "\blue <b>Mood</b>: You sense strange thoughts from [M.name]."
+
+		if (istype(M,/mob/living/carbon/human))
+			var/numbers[0]
+			var/mob/living/carbon/human/H = M
+			if(H.mind && H.mind.initial_account)
+				numbers += H.mind.initial_account.account_number
+				numbers += H.mind.initial_account.remote_access_pin
+			if(numbers.len>0)
+				usr << "\blue <b>Numbers</b>: You sense the number[numbers.len>1?"s":""] [english_list(numbers)] [numbers.len>1?"are":"is"] important to [M.name]."
+		usr << "\blue <b>Thoughts</b>: [M.name] is currently [thoughts]."
+
+		if (M_EMPATH in M.mutations)
+			M << "\red You sense [usr.name] reading your mind."
+		else if (prob(5) || M.mind.assigned_role=="Chaplain")
+			M << "\red You sense someone intruding upon your thoughts..."
 		return
-
-	if(usr.stat)
-		return
-
-	if (M_PSY_RESIST in M.mutations)
-		usr << "\red You can't see into [M.name]'s mind at all!"
-		return
-
-	if (M.stat == 2)
-		usr << "\red [M.name] is dead and cannot have their mind read."
-		return
-	if (M.health < 0)
-		usr << "\red [M.name] is dying, and their thoughts are too scrambled to read."
-		return
-
-	usr << "\blue Mind Reading of [M.name]:</b>"
-	var/pain_condition = M.health
-	// lower health means more pain
-	var/list/randomthoughts = list("what to have for lunch","the future","the past","money",
-	"their hair","what to do next","their job","space","amusing things","sad things",
-	"annoying things","happy things","something incoherent","something they did wrong")
-	var/thoughts = "thinking about [pick(randomthoughts)]"
-	if (M.fire_stacks)
-		pain_condition -= 50
-		thoughts = "preoccupied with the fire"
-	if (M.radiation)
-		pain_condition -= 25
-
-	switch(pain_condition)
-		if (81 to INFINITY)
-			usr << "\blue <b>Condition</b>: [M.name] feels good."
-		if (61 to 80)
-			usr << "\blue <b>Condition</b>: [M.name] is suffering mild pain."
-		if (41 to 60)
-			usr << "\blue <b>Condition</b>: [M.name] is suffering significant pain."
-		if (21 to 40)
-			usr << "\blue <b>Condition</b>: [M.name] is suffering severe pain."
-		else
-			usr << "\blue <b>Condition</b>: [M.name] is suffering excruciating pain."
-			thoughts = "haunted by their own mortality"
-
-	switch(M.a_intent)
-		if ("help")
-			usr << "\blue <b>Mood</b>: You sense benevolent thoughts from [M.name]."
-		if ("disarm")
-			usr << "\blue <b>Mood</b>: You sense cautious thoughts from [M.name]."
-		if ("grab")
-			usr << "\blue <b>Mood</b>: You sense hostile thoughts from [M.name]."
-		if ("harm")
-			usr << "\blue <b>Mood</b>: You sense cruel thoughts from [M.name]."
-			for(var/mob/living/L in view(7,M))
-				if (L == M)
-					continue
-				thoughts = "thinking about punching [L.name]"
-				break
-		else
-			usr << "\blue <b>Mood</b>: You sense strange thoughts from [M.name]."
-
-	if (istype(M,/mob/living/carbon/human))
-		var/numbers[0]
-		var/mob/living/carbon/human/H = M
-		if(H.mind && H.mind.initial_account)
-			numbers += H.mind.initial_account.account_number
-			numbers += H.mind.initial_account.remote_access_pin
-		if(numbers.len>0)
-			usr << "\blue <b>Numbers</b>: You sense the number[numbers.len>1?"s":""] [english_list(numbers)] [numbers.len>1?"are":"is"] important to [M.name]."
-	usr << "\blue <b>Thoughts</b>: [M.name] is currently [thoughts]."
-
-	if (/datum/dna/gene/basic/grant_verb/empath in M.active_genes)
-		M << "\red You sense [usr.name] reading your mind."
-	else if (prob(5) || M.mind.assigned_role=="Chaplain")
-		M << "\red You sense someone intruding upon your thoughts..."
-	return
 
 ////////////////////////////////////////////////////////////////////////
 
