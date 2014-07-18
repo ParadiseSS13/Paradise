@@ -296,7 +296,7 @@ Used In File(s): \code\game\objects\items\devices\PDA\PDA.dm
 	{{else data.mode== 41}} <!-- Manifest -->
 	    <div class="item">
             <center><table class="pmon"><tbody>
-                {{if data.manifest.heads.length}}
+                {{if data.manifest.heads}}
                     <tr><th colspan="3" class="command">Command</th></tr>
                     {{for data.manifest["heads"]}}
                         {{if value.rank == "Captain"}}
@@ -306,7 +306,7 @@ Used In File(s): \code\game\objects\items\devices\PDA\PDA.dm
                         {{/if}}
                     {{/for}}
                 {{/if}}
-                {{if data.manifest.sec.length}}
+                {{if data.manifest.sec}}
                     <tr><th colspan="3" class="sec">Security</th></tr>
                     {{for data.manifest["sec"]}}
                         {{if value.rank == "Head of Security"}}
@@ -316,7 +316,7 @@ Used In File(s): \code\game\objects\items\devices\PDA\PDA.dm
                         {{/if}}
                     {{/for}}
                 {{/if}}
-                {{if data.manifest.eng.length}}
+                {{if data.manifest.eng}}
                     <tr><th colspan="3" class="eng">Engineering</th></tr>
                     {{for data.manifest["eng"]}}
                         {{if value.rank == "Chief Engineer"}}
@@ -326,7 +326,7 @@ Used In File(s): \code\game\objects\items\devices\PDA\PDA.dm
                         {{/if}}
                     {{/for}}
                 {{/if}}
-                {{if data.manifest.med.length}}
+                {{if data.manifest.med}}
                     <tr><th colspan="3" class="med">Medical</th></tr>
                     {{for data.manifest["med"]}}
                         {{if value.rank == "Chief Medical Officer"}}
@@ -336,7 +336,7 @@ Used In File(s): \code\game\objects\items\devices\PDA\PDA.dm
                         {{/if}}
                     {{/for}}
                 {{/if}}
-                {{if data.manifest.sci.length}}
+                {{if data.manifest.sci}}
                     <tr><th colspan="3" class="sci">Science</th></tr>
                     {{for data.manifest["sci"]}}
                         {{if value.rank == "Research Director"}}
@@ -346,7 +346,7 @@ Used In File(s): \code\game\objects\items\devices\PDA\PDA.dm
                         {{/if}}
                     {{/for}}
                 {{/if}}
-                {{if data.manifest.civ.length}}
+                {{if data.manifest.civ}}
                     <tr><th colspan="3" class="civ">Civilian</th></tr>
                     {{for data.manifest["civ"]}}
                         {{if value.rank == "Head of Personnel"}}
@@ -356,7 +356,7 @@ Used In File(s): \code\game\objects\items\devices\PDA\PDA.dm
                         {{/if}}
                     {{/for}}
                 {{/if}}
-                {{if data.manifest.misc.length}}
+                {{if data.manifest.misc}}
                     <tr><th colspan="3" class="misc">Misc</th></tr>
                     {{for data.manifest["misc"]}}
                         <tr><td><span class="average">{{:value.name}}</span></td><td><span class="average">{{:value.rank}}</span></td><td><span class="average">{{:value.active}}</span></td></tr>
