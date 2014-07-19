@@ -30,6 +30,13 @@
 		"Vox" = 'icons/mob/species/vox/eyes.dmi'
 		)
 
+/obj/item/clothing/glasses/meson/cyber
+	name = "Eye Replacement Implant"
+	desc = "An implanted replacement for a left eye with meson vision capabilities."
+	icon_state = "cybereye-green"
+	item_state = "eyepatch"
+	canremove = 0
+
 /obj/item/clothing/glasses/science
 	name = "Science Goggles"
 	desc = "nothing"
@@ -76,6 +83,13 @@
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/eyes.dmi'
 		)
+
+/obj/item/clothing/glasses/material/cyber
+	name = "Eye Replacement Implant"
+	desc = "An implanted replacement for a left eye with material vision capabilities."
+	icon_state = "cybereye-blue"
+	item_state = "eyepatch"
+	canremove = 0
 
 /obj/item/clothing/glasses/regular
 	name = "Prescription Glasses"
@@ -273,3 +287,10 @@
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/eyes.dmi'
 		)
+
+/obj/item/clothing/glasses/thermal/cyber
+	name = "Eye Replacement Implant"
+	desc = "An implanted replacement for a left eye with thermal vision capabilities."
+	icon_state = "cybereye-red"
+	item_state = "eyepatch"
+	canremove = 0
