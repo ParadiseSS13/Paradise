@@ -21,12 +21,15 @@
 		return
 	if(usr.status_flags & FAKEDEATH)
 		return
+	if(usr.next_move > world.time)
+		return
 
 	var/tile = get_turf(this)
 	if (!tile)
 		return
 
 	var/P = new /obj/effect/decal/point(tile)
+	usr.next_move = world.time + 10
 	spawn (20)
 		if(P)	del(P)
 
