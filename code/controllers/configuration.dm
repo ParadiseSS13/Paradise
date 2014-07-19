@@ -76,7 +76,7 @@
 
 	var/server
 	var/banappeals
-	var/wikiurl = "http://baystation12.net/wiki/index.php?title=Main_Page"
+	var/wikiurl = "http://baystation12.net/wiki"
 	var/forumurl = "http://baystation12.net/forums/"
 
 	var/media_base_url = "http://80.244.78.90/media" // http://ss13.nexisonline.net/media
