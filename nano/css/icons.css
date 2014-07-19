@@ -235,6 +235,7 @@
     background-image: url(uiIcons16Green.png);
     background-position: -144px -96px;
     background-repeat: no-repeat;
+    zoom: 0.125;
 }
 .mapIcon16.dead {
     background-image: url(uiIcons16Red.png);

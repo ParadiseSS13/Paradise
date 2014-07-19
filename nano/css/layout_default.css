@@ -70,25 +70,25 @@ body {
     position: absolute;
     top: 50%;
     left: 50%;
-    margin: -1024px 0 0 -1024px;
-    width: 2048px;
-    height: 2048px;
+    margin: -512px 0 0 -512px;
+    width: 256px;
+    height: 256px;
+    overflow: hidden;
+    zoom: 4;
 }
 
 #uiMapImage {
     position: absolute;
-    top: 0px;
-    left: 0px;
-    width: 2048px;
-    height: 2048px;
+    bottom: 2px;
+    left: -6px;
 }
 
 #uiMapContent {
     position: absolute;
-    top: 0px;
+    bottom: 0px;
     left: 0px;
-    width: 2048px;
-    height: 2048px;
+    width: 256px;
+    height: 256px;
 }
 
 #uiMapFooter {
@@ -109,6 +109,7 @@ body {
     background-color: #272727;
     padding: 8px;
     display: none;
+    z-index: 9999;
 }
 
 #uiLoadingNotice {

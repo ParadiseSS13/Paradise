@@ -52,7 +52,7 @@ NanoBaseCallbacks = function ()
                     }
                 });
 		},
-        mapIcons: function (updateData) {
+        nanomap: function (updateData) {
             $('.mapIcon')
                 .off('mouseenter mouseleave')
                 .on('mouseenter',
@@ -67,6 +67,24 @@ NanoBaseCallbacks = function ()
                             });
                     }
                 );
+
+            $('.zoomLink')
+                .off('click')
+                .on('click', function (event) {
+                    event.preventDefault();
+                    var zoomLevel = $(this).data('zoomLevel');
+                    var uiMapObject = $('#uiMap');
+                    var uiMapWidth = uiMapObject.width() * zoomLevel;
+                    var uiMapHeight = uiMapObject.height() * zoomLevel;
+
+                    uiMapObject.css({
+                        zoom: zoomLevel,
+                        left: '50%',
+                        top: '50%',
+                        marginLeft: '-' + Math.floor(uiMapWidth / 2) + 'px',
+                        marginTop: '-' + Math.floor(uiMapHeight / 2) + 'px'
+                    });
+                });
         }
 	};
 

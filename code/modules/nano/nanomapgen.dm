@@ -17,7 +17,7 @@
 //NOTE: Does not explicitly support non 32x32 icons or stuff with large pixel_* values, so don't blame me if it doesn't work perfectly
 
 /mob/verb/nanomapgen_DumpImage()
-	set category = "Admin"	
+	set category = "Server"	
 	set name = "Generate NanoUI Map"
 	
 	if(!src.client.holder)
