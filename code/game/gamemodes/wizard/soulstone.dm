@@ -131,6 +131,7 @@
 							S.loc = C //put shade in stone
 							S.status_flags |= GODMODE //So they won't die inside the stone somehow
 							S.canmove = 0//Can't move out of the soul stone
+							S.faction |= "\ref[U]"
 							S.name = "Shade of [T.real_name]"
 							S.real_name = "Shade of [T.real_name]"
 							if (T.client)
@@ -159,6 +160,7 @@
 						T.status_flags |= GODMODE
 						T.canmove = 0
 						T.health = T.maxHealth
+						T.faction |= "\ref[U]"
 						C.icon_state = "soulstone2"
 						T << "Your soul has been recaptured by the soul stone, its arcane energies are reknitting your ethereal form"
 						U << "\blue <b>Capture successful!</b>: \black [T.name]'s has been recaptured and stored within the soul stone."
@@ -172,6 +174,7 @@
 					if("Juggernaut")
 						var/mob/living/simple_animal/construct/armoured/Z = new /mob/living/simple_animal/construct/armoured (get_turf(T.loc))
 						Z.key = A.key
+						Z.faction |= "\ref[U]"
 						if(iscultist(U))
 							if(ticker.mode.name == "cult")
 								ticker.mode:add_cultist(Z.mind)
@@ -187,6 +190,7 @@
 					if("Wraith")
 						var/mob/living/simple_animal/construct/wraith/Z = new /mob/living/simple_animal/construct/wraith (get_turf(T.loc))
 						Z.key = A.key
+						Z.faction |= "\ref[U]"
 						if(iscultist(U))
 							if(ticker.mode.name == "cult")
 								ticker.mode:add_cultist(Z.mind)
@@ -202,6 +206,7 @@
 					if("Artificer")
 						var/mob/living/simple_animal/construct/builder/Z = new /mob/living/simple_animal/construct/builder (get_turf(T.loc))
 						Z.key = A.key
+						Z.faction |= "\ref[U]"
 						if(iscultist(U))
 							if(ticker.mode.name == "cult")
 								ticker.mode:add_cultist(Z.mind)

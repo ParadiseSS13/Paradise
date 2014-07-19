@@ -13,7 +13,7 @@ var/global/datum/controller/occupations/job_master
 	var/list/job_debug = list()
 
 
-	proc/SetupOccupations(var/faction = "Station")
+	proc/SetupOccupations(var/list/faction = list("Station"))
 		if(no_synthetic)
 			occupations = list()
 			var/list/all_jobs = typesof(/datum/job) -list(/datum/job/ai,/datum/job/cyborg)

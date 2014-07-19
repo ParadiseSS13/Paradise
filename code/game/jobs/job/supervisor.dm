@@ -2,7 +2,6 @@
 	title = "Captain"
 	flag = CAPTAIN
 	department_flag = ENGSEC
-	faction = "Station"
 	total_positions = 1
 	spawn_positions = 1
 	supervisors = "Nanotrasen officials and Space law"
@@ -49,7 +48,6 @@
 	title = "Head of Personnel"
 	flag = HOP
 	department_flag = SUPPORT
-	faction = "Station"
 	total_positions = 1
 	spawn_positions = 1
 	supervisors = "the captain"
@@ -99,7 +97,6 @@
 	title = "Nanotrasen Representative"
 	flag =  NANO
 	department_flag = KARMA
-	faction = "Station"
 	total_positions = 1
 	spawn_positions = 1
 	supervisors = "Nanotrasen Board of Directors"
@@ -145,7 +142,6 @@
 	title = "Nanotrasen Recruiter"
 	flag =  NANOREC
 	department_flag = KARMA
-	faction = "Station"
 	total_positions = 1
 	spawn_positions = 1
 	supervisors = "Nanotrasen Board of Directors"
@@ -190,7 +186,6 @@
 	title = "Blueshield"
 	flag =  BLUESHIELD
 	department_flag = KARMA
-	faction = "Station"
 	total_positions = 1
 	spawn_positions = 1
 	supervisors = "Whichever head your protect, and ultimately the Captain"
@@ -240,7 +235,6 @@
 	title = "Magistrate"
 	flag =  JUDGE
 	department_flag = KARMA
-	faction = "Station"
 	total_positions = 1
 	spawn_positions = 1
 	supervisors = "Centcom High Court"
@@ -282,7 +276,6 @@
 	title = "Internal Affairs Agent"
 	flag = LAWYER
 	department_flag = SUPPORT
-	faction = "Station"
 	total_positions = 2
 	spawn_positions = 2
 	supervisors = "the magistrate"

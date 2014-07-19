@@ -426,7 +426,7 @@
 	icon_living = "mining_drone"
 	status_flags = CANSTUN|CANWEAKEN|CANPUSH
 	mouse_opacity = 1
-	faction = "neutral"
+	faction = list("neutral")
 	a_intent = "harm"
 	min_oxy = 0
 	max_oxy = 0
@@ -569,7 +569,7 @@
 		if(istype(target, /mob/living/simple_animal))
 			var/mob/living/simple_animal/M = target
 			if(M.stat == DEAD)
-				M.faction = "lazarus"
+				M.faction = list("lazarus")
 				M.revive()
 				if(istype(target, /mob/living/simple_animal/hostile))
 					var/mob/living/simple_animal/hostile/H = M

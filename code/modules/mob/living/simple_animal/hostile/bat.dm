@@ -35,7 +35,7 @@
 
 //	break_stuff_probability = 2
 
-	faction = "scarybat"
+	faction = list("scarybat")
 	var/mob/living/owner
 
 /mob/living/simple_animal/hostile/scarybat/New(loc, mob/living/L as mob)

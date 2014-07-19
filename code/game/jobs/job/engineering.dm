@@ -2,7 +2,6 @@
 	title = "Chief Engineer"
 	flag = CHIEF
 	department_flag = ENGSEC
-	faction = "Station"
 	total_positions = 1
 	spawn_positions = 1
 	supervisors = "the captain"
@@ -45,7 +44,6 @@
 	title = "Station Engineer"
 	flag = ENGINEER
 	department_flag = ENGSEC
-	faction = "Station"
 	total_positions = 5
 	spawn_positions = 5
 	supervisors = "the chief engineer"
@@ -80,7 +78,6 @@
 	title = "Life Support Specialist"
 	flag = ATMOSTECH
 	department_flag = ENGSEC
-	faction = "Station"
 	total_positions = 3
 	spawn_positions = 2
 	supervisors = "the chief engineer"
@@ -110,7 +107,6 @@
 	title = "Mechanic"
 	flag = MECHANIC
 	department_flag = KARMA
-	faction = "Station"
 	total_positions = 1
 	spawn_positions = 1
 	supervisors = "the chief engineer"
