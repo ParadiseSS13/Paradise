@@ -1,22 +1,23 @@
-<div id='uiTitleWrapper'><div id='uiStatusIcon' class='icon24 uiStatusGood'></div><div id='uiTitleText'>{{:config.title}}</div><div id='uiTitleFluff'></div></div>
-<div id='uiMapWrapper' class="hidden">
-    <div id='uiMapHeader'>
+<div id='uiTitleWrapper' unselectable="on"><div id='uiStatusIcon' class='icon24 uiStatusGood' unselectable="on"></div><div id='uiTitleText' unselectable="on">{{:config.title}}</div><div id='uiTitleFluff' unselectable="on"></div></div>
+<div id='uiMapWrapper' class="hidden" unselectable="on">
+    <div id='uiMapHeader' unselectable="on">
         {{:helper.link('Hide Map', 'close', {'showMap' : 0})}}
         <!-- Add a template with the key "mapHeader" to have it rendered here -->
     </div>
-    <div id='uiMapContainer'>
-        <div id='uiMap'>
-            <img id="uiMapImage" src="nanomap.png" width="2048" height="2048" />
-            <div id='uiMapContent'>
+    <div id='uiMapContainer' unselectable="on">
+        <div id='uiMap' unselectable="on">
+            <img id="uiMapImage" src="nanomap.png" width="2048" height="2048" unselectable="on" />
+            <div id='uiMapContent' unselectable="on">
                 <!-- Add a template with the key "mapContent" to have it rendered here (on the map) -->
                 <!-- Having a "mapContent" template enables the map functionality -->
             </div>
         </div>
+        <div id="uiMapTooltip"></div>
     </div>
-    <div id='uiMapFooter'>
+    <div id='uiMapFooter' unselectable="on">
         <!-- Add a template with the key "mapFooter" to have it rendered here -->
     </div>
 </div>
-<div id='uiContent'>
+<div id='uiContent' unselectable="on">
 	<div id='uiLoadingNotice'>Initiating...</div>
 </div>

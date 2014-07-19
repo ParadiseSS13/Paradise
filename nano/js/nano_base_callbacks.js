@@ -31,26 +31,43 @@ NanoBaseCallbacks = function ()
 			$('.linkActive').stopTime('linkPending');
 			$('.linkActive').removeClass('linkPending');
 
-			$('.linkActive').off('click');
-			$('.linkActive').on('click', function (event) {
-				event.preventDefault();
-				var href = $(this).data('href');
-				if (href != null && _canClick)
-				{
-					_canClick = false;
-					$('body').oneTime(300, 'enableClick', function () {
-						_canClick = true;
-					});
-					if (updateData['config']['status'] == 2)
-					{						
-						$(this).oneTime(300, 'linkPending', function () {
-							$(this).addClass('linkPending');
-						});
-					}
-					window.location.href = href;
-				}
-			});
-		}
+			$('.linkActive')
+                .off('click')
+			    .on('click', function (event) {
+                    event.preventDefault();
+                    var href = $(this).data('href');
+                    if (href != null && _canClick)
+                    {
+                        _canClick = false;
+                        $('body').oneTime(300, 'enableClick', function () {
+                            _canClick = true;
+                        });
+                        if (updateData['config']['status'] == 2)
+                        {
+                            $(this).oneTime(300, 'linkPending', function () {
+                                $(this).addClass('linkPending');
+                            });
+                        }
+                        window.location.href = href;
+                    }
+                });
+		},
+        mapIcons: function (updateData) {
+            $('.mapIcon')
+                .off('mouseenter mouseleave')
+                .on('mouseenter',
+                    function (event) {
+                        var self = this;
+                        $('#uiMapTooltip')
+                            .html($(this).children('.tooltip').html())
+                            .show()
+                            .stopTime()
+                            .oneTime(5000, 'hideTooltip', function () {
+                                $(this).fadeOut(500);
+                            });
+                    }
+                );
+        }
 	};
 
 	return {
