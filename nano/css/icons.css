@@ -239,6 +239,8 @@
 .mapIcon16.dead {
     background-image: url(uiIcons16Red.png);
 }
+
+/* Command Positions */
 .mapIcon16.rank-captain {
     background-position: -224px -112px;
 }
@@ -258,4 +260,50 @@
     background-position: -32px -128px;
 }
 
+/* Engineering Positions */
+.mapIcon16.rank-stationengineer {
+    background-position: -176px -112px;
+}
+.mapIcon16.rank-atmospherictechnician {
+    background-position: -176px -112px;
+}
+
+/* Medical Positions */
+.mapIcon16.rank-medicaldoctor {
+    background-position: -32px -128px;
+}
+.mapIcon16.rank-geneticist {
+    background-position: -32px -128px;
+}
+.mapIcon16.rank-psychiatrist {
+    background-position: -32px -128px;
+}
+.mapIcon16.rank-chemist {
+    background-position: -32px -128px;
+}
+
+/* Science Positions */
+.mapIcon16.rank-scientist {
+    background-position: -128px -128px;
+}
+.mapIcon16.rank-geneticist {
+    background-position: -128px -128px;
+}
+.mapIcon16.rank-roboticist {
+    background-position: -128px -128px;
+}
+.mapIcon16.rank-xenobiologist {
+    background-position: -128px -128px;
+}
+
+/* Security Positions */
+.mapIcon16.rank-warden {
+    background-position: -112px -128px;
+}
+.mapIcon16.rank-detective {
+    background-position: -112px -128px;
+}
+.mapIcon16.rank-securityofficer {
+    background-position: -112px -128px;
+}
 

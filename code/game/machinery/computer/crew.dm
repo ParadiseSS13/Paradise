@@ -84,10 +84,18 @@
 				crewmemberData["tox"] = round(H.getToxLoss(), 1)
 				crewmemberData["fire"] = round(H.getFireLoss(), 1)
 				crewmemberData["brute"] = round(H.getBruteLoss(), 1)
-				crewmemberData["name"] = (H.wear_id ? H.wear_id.name : "Unknown")	
-				crewmemberData["rank"] = "Unknown"
-				if(H.wear_id && istype(H.wear_id, /obj/item/weapon/card/id))
-					crewmemberData["rank"] = H.wear_id:rank
+				
+				crewmemberData["name"] = "Unknown"
+				crewmemberData["rank"] = "Unknown"				
+				if(H.wear_id && istype(H.wear_id, /obj/item/weapon/card/id) )
+					var/obj/item/weapon/card/id/I = H.wear_id
+					crewmemberData["name"] = I.name	
+					crewmemberData["rank"] = I.rank
+				else if(H.wear_id && istype(H.wear_id, /obj/item/device/pda) )
+					var/obj/item/device/pda/P = H.wear_id						
+					crewmemberData["name"] = (P.id ? P.id.name : "Unknown")				
+					crewmemberData["rank"] = (P.id ? P.id.rank : "Unknown")
+					
 				crewmemberData["area"] = get_area(H)
 				crewmemberData["x"] = pos.x
 				crewmemberData["y"] = pos.y
