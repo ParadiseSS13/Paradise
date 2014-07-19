@@ -16,25 +16,25 @@ var/global/datum/controller/occupations/job_master
 	proc/SetupOccupations(var/list/faction = list("Station"))
 		if(no_synthetic)
 			occupations = list()
-			var/list/all_jobs = typesof(/datum/job) -list(/datum/job/ai,/datum/job/cyborg)
+			var/list/all_jobs = typesof(/datum/job) -list(/datum/job,/datum/job/ai,/datum/job/cyborg)
 			if(!all_jobs.len)
 				world << "\red \b Error setting up jobs, no job datums found"
 				return 0
 			for(var/J in all_jobs)
 				var/datum/job/job = new J()
 				if(!job)	continue
-				if(job.faction != faction)	continue
+				if(!job.faction in faction)	continue
 				occupations += job
 		else
 			occupations = list()
-			var/list/all_jobs = typesof(/datum/job)
+			var/list/all_jobs = typesof(/datum/job) -/datum/job
 			if(!all_jobs.len)
 				world << "\red \b Error setting up jobs, no job datums found"
 				return 0
 			for(var/J in all_jobs)
 				var/datum/job/job = new J()
 				if(!job)	continue
-				if(job.faction != faction)	continue
+				if(!job.faction in faction)	continue
 				occupations += job
 
 
