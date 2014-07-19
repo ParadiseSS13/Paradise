@@ -222,6 +222,7 @@ its easier to just keep the beam vertical.
 	set name = "Examine"
 	set category = "IC"
 	set src in view(usr.client) //If it can be seen, it can be examined.
+	set popup_menu = 0
 
 	if (!( usr ))
 		return
