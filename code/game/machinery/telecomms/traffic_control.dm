@@ -20,6 +20,16 @@
 
 	var/storedcode = ""			// code stored
 
+	l_color = "#50AB00"
+	power_change()
+		..()
+		if(!(stat & (BROKEN|NOPOWER)))
+			SetLuminosity(2)
+		else
+			SetLuminosity(0)
+
+	req_access = list(access_tcomsat)
+
 
 	proc/update_ide()
 
