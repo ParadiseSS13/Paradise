@@ -10,6 +10,7 @@
 /atom/verb/point()
 	set name = "Point To"
 	set category = null
+	set popup_menu = 0
 	set src in oview()
 	var/atom/this = src//detach proc from src
 	src = null
