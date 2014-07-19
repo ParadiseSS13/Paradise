@@ -22,7 +22,7 @@ mob/living/carbon/var
 mob/living/carbon/proc/handle_hallucinations()
 	if(handling_hal) return
 	handling_hal = 1
-	while(hallucination > 20)
+	while(client && hallucination > 20)
 		sleep(rand(200,500)/(hallucination/25))
 		var/halpick = rand(1,100)
 		switch(halpick)
