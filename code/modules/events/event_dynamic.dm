@@ -93,6 +93,7 @@ var/global/list/possibleEvents = list()
 		possibleEvents[/datum/event/blob] = 20 * active_with_role["Engineer"]
 		possibleEvents[/datum/event/brand_intelligence] = 50 + 25 * active_with_role["Engineer"]
 		possibleEvents[/datum/event/spider_infestation] = 50 + 25 * active_with_role["Security"]
+		possibleEvents[/datum/event/borer_infestation] = 50 + 25 * active_with_role["Security"]
 
 
 	if(active_with_role["Medical"] > 0)
