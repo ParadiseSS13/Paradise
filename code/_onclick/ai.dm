@@ -79,6 +79,7 @@
 	than anything else in the game, atoms have separate procs
 	for AI shift, ctrl, and alt clicking.
 */
+
 /mob/living/silicon/ai/ShiftClickOn(var/atom/A)
 	A.AIShiftClick(src)
 /mob/living/silicon/ai/CtrlClickOn(var/atom/A)
@@ -111,14 +112,19 @@
 	else
 		Topic("aiDisable=4", list("aiDisable"="4"), 1)
 
-/obj/machinery/power/apc/AICtrlClick() // turns off APCs.
+/obj/machinery/power/apc/AICtrlClick() // turns off/on APCs.
 	Topic("breaker=1", list("breaker"="1"), 0) // 0 meaning no window (consistency! wait...)
 
+/obj/machinery/turretid/AICtrlClick() //turns off/on Turrets
+	src.enabled = !src.enabled
+	src.updateTurrets()
 
 /atom/proc/AIAltClick()
 	return
 
-/obj/machinery/door/airlock/AIAltClick() // Eletrifies doors.
+/obj/machinery/door/airlock/AIAltClick() // Electrifies doors.
+	if(emagged)
+		return
 	if(!secondsElectrified)
 		// permenant shock
 		Topic("aiEnable=6", list("aiEnable"="6"), 1) // 1 meaning no window (consistency!)
@@ -126,3 +132,14 @@
 		// disable/6 is not in Topic; disable/5 disables both temporary and permenant shock
 		Topic("aiDisable=5", list("aiDisable"="5"), 1)
 	return
+
+/obj/machinery/turretid/AIAltClick() //toggles lethal on turrets
+	src.lethal = !src.lethal
+	src.updateTurrets()
+
+//
+// Override AdjacentQuick for AltClicking
+//
+
+/mob/living/silicon/ai/TurfAdjacent(var/turf/T)
+	return (cameranet && cameranet.checkTurfVis(T))

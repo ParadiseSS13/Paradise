@@ -32,7 +32,7 @@
 
 
 /datum/visibility_network/proc/visibility(var/mob/targetMob)
-	
+
 	// if we've got not visibility interface on the mob, we canot do this
 	if (!targetMob.visibility_interface)
 		return
@@ -88,12 +88,12 @@
 
 /datum/visibility_network/proc/getViewpointFromMob(var/mob/currentMob)
 	return FALSE
-		
+
 /datum/visibility_network/proc/updateMob(var/mob/currentMob)
 	var/viewpoint = getViewpointFromMob(currentMob)
 	if(viewpoint)
 		updateViewpoint(viewpoint)
-		
+
 
 /datum/visibility_network/proc/updateViewpoint(var/viewpoint)
 	if(validViewpoint(viewpoint))
@@ -132,6 +132,9 @@
 // checks if the network can see a particular atom
 /datum/visibility_network/proc/checkCanSee(var/atom/target)
 	var/turf/position = get_turf(target)
+	return checkTurfVis(position)
+
+/datum/visibility_network/proc/checkTurfVis(var/turf/position)
 	var/datum/visibility_chunk/chunk = getChunk(position.x, position.y, position.z)
 	if(chunk)
 		if(chunk.changed)
