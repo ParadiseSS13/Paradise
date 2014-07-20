@@ -172,10 +172,10 @@
 				if(Environment.oxygen > max_oxy)
 					atmos_suitable = 0
 			if(min_tox)
-				if(Environment.plasma < min_tox)
+				if(Environment.toxins < min_tox)
 					atmos_suitable = 0
 			if(max_tox)
-				if(Environment.plasma > max_tox)
+				if(Environment.toxins > max_tox)
 					atmos_suitable = 0
 			if(min_n2)
 				if(Environment.nitrogen < min_n2)
