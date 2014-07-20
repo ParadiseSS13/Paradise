@@ -69,7 +69,6 @@
 	if(mages_made >= max_mages)
 		return 0
 	making_mage = 1
-	mages_made++
 	var/list/mob/dead/observer/candidates = list()
 	var/mob/dead/observer/theghost = null
 	spawn(rand(200, 600))
@@ -96,7 +95,6 @@
 		if(!candidates.len)
 			message_admins("This is awkward, sleeping until another mage check...")
 			making_mage = 0
-			mages_made--
 			return
 		else
 			shuffle(candidates)
@@ -110,6 +108,7 @@
 			var/mob/living/carbon/human/new_character= makeBody(theghost)
 			new_character.mind.make_Wizard()
 			making_mage = 0
+			mages_made++
 			return 1
 
 /datum/game_mode/wizard/raginmages/declare_completion()
