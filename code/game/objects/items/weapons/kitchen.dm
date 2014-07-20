@@ -32,7 +32,7 @@
 /obj/item/weapon/kitchen/utensil/New()
 	if (prob(60))
 		src.pixel_y = rand(0, 4)
-		
+
 	create_reagents(5)
 	return
 
@@ -58,7 +58,7 @@
 			for(var/mob/O in viewers(M, null))
 				O.show_message(text("\blue [] feeds [] some [] from \the []", user, M, loaded, src), 1)
 				M.reagents.add_reagent("nutriment", 1)
-
+		playsound(M.loc,'sound/items/eatfood.ogg', rand(10,40), 1)
 		overlays.Cut()
 		return
 
