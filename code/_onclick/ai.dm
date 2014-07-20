@@ -86,6 +86,8 @@
 	A.AICtrlClick(src)
 /mob/living/silicon/ai/AltClickOn(var/atom/A)
 	A.AIAltClick(src)
+/mob/living/silicon/ai/MiddleClickOn(var/atom/A)
+    A.AIMiddleClick(src)
 
 /*
 	The following criminally helpful code is just the previous code cleaned up;
@@ -101,7 +103,6 @@
 	else
 		Topic("aiDisable=7", list("aiDisable"="7"), 1)
 	return
-
 
 /atom/proc/AICtrlClick()
 	return
@@ -126,16 +127,26 @@
 	if(emagged)
 		return
 	if(!secondsElectrified)
-		// permenant shock
+		// permanent shock
 		Topic("aiEnable=6", list("aiEnable"="6"), 1) // 1 meaning no window (consistency!)
 	else
-		// disable/6 is not in Topic; disable/5 disables both temporary and permenant shock
+		// disable/6 is not in Topic; disable/5 disables both temporary and permanent shock
 		Topic("aiDisable=5", list("aiDisable"="5"), 1)
 	return
 
 /obj/machinery/turretid/AIAltClick() //toggles lethal on turrets
 	src.lethal = !src.lethal
 	src.updateTurrets()
+    
+/atom/proc/AIMiddleClick()
+	return
+    
+/obj/machinery/door/airlock/AIMiddleClick() // Toggles door bolt lights.
+	if(!src.lights)
+		Topic("aiEnable=10", list("aiEnable"="10"), 1) // 1 meaning no window (consistency!)
+	else
+		Topic("aiDisable=10", list("aiDisable"="10"), 1)
+	return
 
 //
 // Override AdjacentQuick for AltClicking
