@@ -1,9 +1,3 @@
-//This file was auto-corrected by findeclaration.exe on 25.5.2012 20:42:32
-
-
-
-
-
 /obj/machinery/computer/telecomms/traffic
 	name = "Telecommunications Traffic Control"
 	icon_state = "computer_generic"
@@ -21,12 +15,6 @@
 	var/storedcode = ""			// code stored
 
 	l_color = "#50AB00"
-	power_change()
-		..()
-		if(!(stat & (BROKEN|NOPOWER)))
-			SetLuminosity(2)
-		else
-			SetLuminosity(0)
 
 	req_access = list(access_tcomsat)
 

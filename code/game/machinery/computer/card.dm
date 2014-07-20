@@ -12,12 +12,6 @@
 	var/printing = null
 
 	l_color = "#0000FF"
-	power_change()
-		..()
-		if(!(stat & (BROKEN|NOPOWER)))
-			SetLuminosity(2)
-		else
-			SetLuminosity(0)
 
 	proc/is_centcom()
 		return istype(src, /obj/machinery/computer/card/centcom)

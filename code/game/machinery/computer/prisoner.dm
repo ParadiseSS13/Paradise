@@ -15,12 +15,6 @@
 	var/obj/item/weapon/card/id/prisoner/inserted_id
 
 	l_color = "#B40000"
-	power_change()
-		..()
-		if(!(stat & (BROKEN|NOPOWER)))
-			SetLuminosity(2)
-		else
-			SetLuminosity(0)
 
 
 	attack_ai(var/mob/user as mob)
