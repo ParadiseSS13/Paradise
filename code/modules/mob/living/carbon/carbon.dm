@@ -500,23 +500,17 @@
 
 	var/mob/living/simple_animal/borer/B = has_brain_worms()
 
-	if(!B)
-		return
-
-	if(B.controlling)
+	if(B && B.host_brain)
 		src << "\red <B>You withdraw your probosci, releasing control of [B.host_brain]</B>"
-		B.host_brain << "\red <B>Your vision swims as the alien parasite releases control of your body.</B>"
-		B.ckey = ckey
-		B.controlling = 0
-	if(B.host_brain.ckey)
-		ckey = B.host_brain.ckey
-		B.host_brain.ckey = null
-		B.host_brain.name = "host brain"
-		B.host_brain.real_name = "host brain"
 
-	verbs -= /mob/living/carbon/proc/release_control
-	verbs -= /mob/living/carbon/proc/punish_host
-	verbs -= /mob/living/carbon/proc/spawn_larvae
+		B.detatch()
+
+		verbs -= /mob/living/carbon/proc/release_control
+		verbs -= /mob/living/carbon/proc/punish_host
+		verbs -= /mob/living/carbon/proc/spawn_larvae
+
+	else
+		src << "\red <B>ERROR NO BORER OR BRAINMOB DETECTED IN THIS MOB, THIS IS A BUG !</B>"
 
 //Brain slug proc for tormenting the host.
 /mob/living/carbon/proc/punish_host()
