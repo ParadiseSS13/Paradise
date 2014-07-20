@@ -102,7 +102,7 @@
 				M.mind.objectives += new_objective
 				ticker.mode.traitors += M.mind
 				M.mind.special_role = "apprentice"
-
+				M.faction = list("wizard")
 			else
 				H << "Unable to reach your apprentice! You can either attack the spellbook with the contract to refund your points, or wait and try again later."
 	return
