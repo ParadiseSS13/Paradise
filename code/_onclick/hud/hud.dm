@@ -35,32 +35,32 @@ var/datum/global_hud/global_hud = new()
 	//that nasty looking dither you  get when you're short-sighted
 	vimpaired = newlist(/obj/screen,/obj/screen,/obj/screen,/obj/screen)
 	O = vimpaired[1]
-	O.screen_loc = "1,1 to 5,15"
+	O.screen_loc = "1,1 to 6,17"
 	O = vimpaired[2]
-	O.screen_loc = "5,1 to 10,5"
+	O.screen_loc = "6,1 to 11,6"
 	O = vimpaired[3]
-	O.screen_loc = "6,11 to 10,15"
+	O.screen_loc = "7,12 to 11,17"
 	O = vimpaired[4]
-	O.screen_loc = "11,1 to 15,15"
+	O.screen_loc = "12,1 to 17,17"
 
 	//welding mask overlay black/dither
 	darkMask = newlist(/obj/screen, /obj/screen, /obj/screen, /obj/screen, /obj/screen, /obj/screen, /obj/screen, /obj/screen)
 	O = darkMask[1]
-	O.screen_loc = "3,3 to 5,13"
+	O.screen_loc = "4,4 to 6,14"
 	O = darkMask[2]
-	O.screen_loc = "5,3 to 10,5"
+	O.screen_loc = "6,4 to 11,6"
 	O = darkMask[3]
-	O.screen_loc = "6,11 to 10,13"
+	O.screen_loc = "7,12 to 11,14"
 	O = darkMask[4]
-	O.screen_loc = "11,3 to 13,13"
+	O.screen_loc = "12,4 to 14,14"
 	O = darkMask[5]
-	O.screen_loc = "1,1 to 15,2"
+	O.screen_loc = "1,1 to 16,3"
 	O = darkMask[6]
-	O.screen_loc = "1,3 to 2,15"
+	O.screen_loc = "1,4 to 3,17"
 	O = darkMask[7]
-	O.screen_loc = "14,3 to 15,15"
+	O.screen_loc = "15,4 to 17,17"
 	O = darkMask[8]
-	O.screen_loc = "3,14 to 13,15"
+	O.screen_loc = "4,15 to 14,17"
 
 	for(i = 1, i <= 4, i++)
 		O = vimpaired[i]
