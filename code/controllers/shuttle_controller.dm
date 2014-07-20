@@ -195,7 +195,7 @@ var/global/datum/shuttle_controller/shuttle_controller
 	ERT.warmup_time = 10
 	ERT.area_offsite = locate(/area/shuttle/specops/centcom)
 	ERT.area_station = locate(/area/shuttle/specops/station)
-	ERT.docking_controller_tag = "specops_shuttle_port"
+	ERT.docking_controller_tag = "specops_shuttle_fore"
 	ERT.docking_controller_tag_station = "specops_shuttle_port"
 	ERT.docking_controller_tag_offsite = "specops_shuttle_fore"
 	ERT.dock_target_station = "specops_dock_airlock"
