@@ -268,7 +268,7 @@
 	icon_power_button = "spell_fireball"
 
 /obj/effect/proc_holder/spell/turf/fireball/cast(var/turf/T)
-	explosion(T, -1, 0, 2, 3, 0, flame_range = 2)
+	explosion(T, -1, 0, 2, 0)
 
 
 /obj/effect/proc_holder/spell/targeted/inflict_handler/fireball
@@ -277,6 +277,5 @@
 
 /obj/effect/proc_holder/spell/targeted/explosion/fireball
 	ex_severe = -1
-	ex_heavy = -1
+	ex_heavy = 0
 	ex_light = 2
-	ex_flash = 5
