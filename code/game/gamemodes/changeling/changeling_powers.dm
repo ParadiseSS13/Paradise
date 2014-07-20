@@ -916,11 +916,13 @@ var/list/datum/dna/hivemind_bank = list()
 	if(!changeling)
 		return 0
 
-	var/mob/living/carbon/T = changeling_sting(40, /mob/proc/changeling_extract_dna_sting)
+	var/mob/living/carbon/human/T = changeling_sting(40, /mob/proc/changeling_extract_dna_sting)
 	if(!T)	return 0
 
 	T.dna.real_name = T.real_name
 	changeling.absorbed_dna |= T.dna
+	if(T.species && !(T.species.name in changeling.absorbed_species))
+		changeling.absorbed_species += T.species.name
 
 	feedback_add_details("changeling_powers","ED")
 	return 1
