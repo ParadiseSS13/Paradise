@@ -485,14 +485,8 @@
 			B.host.adjustBrainLoss(rand(5,10))
 			H << "\red <B>With an immense exertion of will, you regain control of your body!</B>"
 			B.host << "\red <B>You feel control of the host brain ripped from your grasp, and retract your probosci before the wild neural impulses can damage you.</b>"
-			B.controlling = 0
 
-			B.ckey = B.host.ckey
-			B.host.ckey = H.ckey
-
-			H.ckey = null
-			H.name = "host brain"
-			H.real_name = "host brain"
+			B.detatch()
 
 			verbs -= /mob/living/carbon/proc/release_control
 			verbs -= /mob/living/carbon/proc/punish_host
