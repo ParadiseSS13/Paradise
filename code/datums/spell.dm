@@ -239,6 +239,9 @@ var/list/spells = typesof(/obj/effect/proc_holder/spell) //needed for the badmin
 	switch(max_targets)
 		if(0) //unlimited
 			for(var/mob/living/target in view_or_range(range, user, selection_type))
+				for(var/F in user.faction)
+					if(F in target.faction)
+						continue
 				targets += target
 		if(1) //single target can be picked
 			if(range < 0)
