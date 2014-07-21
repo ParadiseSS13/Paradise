@@ -4,12 +4,8 @@ NanoStateManager = function ()
 	// _isInitialised is set to true when all of this ui's templates have been processed/rendered
 	var _isInitialised = false;
 
-	// the array of template names to use for this ui
-	var _templates = null;
 	// the data for this ui
 	var _data = null;
-	// new data which arrives before _isInitialised is true is stored here for processing later
-	var _earlyUpdateData = null; 
 	
 	// this is an array of callbacks which are called when new data arrives, before it is processed
 	var _beforeUpdateCallbacks = {};
