@@ -1,8 +1,8 @@
 /obj/vehicle/train/cargo/engine
 	name = "cargo train tug"
 	desc = "A ridable electric car designed for pulling cargo trolleys."
-	icon = 'icons/obj/aibots.dmi'
-	icon_state = "mulebot1"			//mulebot icons until I get some proper icons
+	icon = 'icons/obj/vehicles.dmi'
+	icon_state = "cargo_engine"
 	on = 0
 	powered = 1
 	locked = 0
@@ -10,7 +10,7 @@
 	standing_mob = 1
 	load_item_visible = 1
 	load_offset_x = 0
-	load_offset_y = 5
+	load_offset_y = 8
 
 	var/car_limit = 3		//how many cars an engine can pull before performance degrades
 	active_engines = 1
@@ -25,16 +25,16 @@
 
 /obj/vehicle/train/cargo/trolley
 	name = "cargo train trolley"
-	icon = 'icons/vehicles/CargoTrain.dmi'
-	icon_state = "trolley"
+	icon = 'icons/obj/vehicles.dmi'
+	icon_state = "cargo_trailer"
 	anchored = 0
 	passenger_allowed = 0
 	locked = 0
 
 	standing_mob = 1
 	load_item_visible = 1
-	load_offset_x = 1
-	load_offset_y = 7
+	load_offset_x = 0
+	load_offset_y = 5
 
 //-------------------------------------------
 // Standard procs
@@ -76,13 +76,9 @@
 
 /obj/vehicle/train/cargo/update_icon()
 	if(open)
-		icon_state = "mulebot-hatch"
+		icon_state = initial(icon_state) + "_open"
 	else
 		icon_state = initial(icon_state)
-
-/obj/vehicle/train/cargo/engine/Emag(mob/user as mob)
-	..()
-	flick("mulebot-emagged", src)
 
 /obj/vehicle/train/cargo/trolley/insert_cell(var/obj/item/weapon/cell/C, var/mob/living/carbon/human/H)
 	return

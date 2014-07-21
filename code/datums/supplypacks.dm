@@ -254,6 +254,22 @@ var/list/all_supply_groups = list("Operations","Security","Hospitality","Enginee
 	containername = "MULEbot Crate"
 	group = "Operations"
 
+/datum/supply_packs/cargotrain
+	name = "Cargo Train Tug"
+	contains = list(/obj/vehicle/train/cargo/engine)
+	cost = 30
+	containertype = /obj/structure/largecrate
+	containername = "Cargo Train Tug Crate"
+	group = "Operations"
+
+/datum/supply_packs/cargotrailer
+	name = "Cargo Train Trolley"
+	contains = list(/obj/vehicle/train/cargo/trolley)
+	cost = 20
+	containertype = /obj/structure/largecrate
+	containername = "Cargo Train Trolley Crate"
+	group = "Operations"
+
 /datum/supply_packs/hydroponics // -- Skie
 	name = "Hydroponics Supply Crate"
 	contains = list(/obj/item/weapon/reagent_containers/spray/plantbgone,
