@@ -1,4 +1,4 @@
-/obj/effect/proc_holder/spell/aoe_turf/knock
+/obj/effect/proc_holder/spell/aoe_turf/wizard/knock
 	name = "Knock"
 	desc = "This spell opens nearby doors and does not require wizard garb."
 

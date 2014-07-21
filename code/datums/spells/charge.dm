@@ -1,4 +1,4 @@
-/obj/effect/proc_holder/spell/targeted/charge
+/obj/effect/proc_holder/spell/targeted/wizard/charge
 	name = "Charge"
 	desc = "This spell can be used to charge up spent magical artifacts, among other things."
 

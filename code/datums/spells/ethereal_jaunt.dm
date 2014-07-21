@@ -1,4 +1,4 @@
-/obj/effect/proc_holder/spell/targeted/ethereal_jaunt
+/obj/effect/proc_holder/spell/targeted/wizard/ethereal_jaunt
 	name = "Ethereal Jaunt"
 	desc = "This spell creates your ethereal form, temporarily making you invisible and able to pass through walls."
 
@@ -17,7 +17,7 @@
 
 	icon_power_button = "spell_jaunt"
 
-/obj/effect/proc_holder/spell/targeted/ethereal_jaunt/cast(list/targets) //magnets, so mostly hardcoded
+/obj/effect/proc_holder/spell/targeted/wizard/ethereal_jaunt/cast(list/targets) //magnets, so mostly hardcoded
 	for(var/mob/living/target in targets)
 		spawn(0)
 
