@@ -154,7 +154,7 @@
 "cX" = (/obj/effect/landmark/corpse/mime,/turf/simulated/floor,/area/planet/clown)
 "cY" = (/obj/structure/rack,/obj/item/clothing/head/bowlerhat,/turf/simulated/floor,/area/planet/clown)
 "cZ" = (/obj/effect/landmark/corpse/clown,/obj/effect/decal/cleanable/blood,/turf/unsimulated/floor/plating/snow,/area/planet/clown)
-"da" = (/obj/structure/table,/obj/item/weapon/gun/launcher/crossbow/french,/turf/simulated/floor,/area/planet/clown)
+"da" = (/obj/structure/table,/obj/item/weapon/crossbow/french,/turf/simulated/floor,/area/planet/clown)
 "db" = (/turf/simulated/floor{icon_state = "floorgrime"},/area/planet/clown)
 "dc" = (/obj/structure/table,/obj/item/weapon/reagent_containers/food/snacks/baguette,/obj/item/weapon/reagent_containers/food/snacks/baguette,/obj/item/weapon/reagent_containers/food/snacks/baguette,/turf/simulated/floor,/area/planet/clown)
 "dd" = (/obj/structure/table,/obj/item/weapon/paper_bin,/turf/simulated/floor,/area/planet/clown)
