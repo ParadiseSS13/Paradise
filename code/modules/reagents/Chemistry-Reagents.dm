@@ -403,8 +403,8 @@ datum
 
 			on_mob_life(var/mob/living/M as mob)
 				if(!M) M = holder.my_atom
-				M.adjustToxLoss(14)
-				M.adjustOxyLoss(14)
+				M.adjustToxLoss(4)
+				M.adjustOxyLoss(4)
 				M.sleeping += 1
 				..()
 				return
@@ -1916,44 +1916,19 @@ datum
 				..()
 				return
 
-		benazine
-			name = "Benazine"
-			id = "benazine"
-			description = "An innocuous cold medicine, good against Coldingtons. It is also the precursor of the highly addictive stiumlant hyperzine."
-			reagent_state = LIQUID
-			color = "#CCFF00" // rgb: 204, 255, 0
-
-			on_mob_life(var/mob/living/M as mob)
-				..()
-				return
-
 		hyperzine
 			name = "Hyperzine"
 			id = "hyperzine"
-			description = "Hyperzine is a highly effective, long lasting, muscle stimulant. It is highly addictive."
-			reagent_state = SOLID
-			color = "#FFFFFF" // rgb: 255,255,255
+			description = "Hyperzine is a highly effective, long lasting, muscle stimulant."
+			reagent_state = LIQUID
+			color = "#CCFF00" // rgb: 204, 255, 0
+			custom_metabolism = 0.05
 			addictiveness = 80
 
 			on_mob_life(var/mob/living/M as mob)
 				if(!M) M = holder.my_atom
-				if(!data) data = 1
 				if(prob(5)) M.emote(pick("twitch","blink_r","shiver"))
-				data++
-				switch(data)
-					if(35 to 50)
-						M.adjustOxyLoss(1) //They basically run out of breath
-
-					if(51 to 79) // Their cells burn more oxygen than the body can distribute
-						M.adjustToxLoss(1)
-						M.adjustOxyLoss(1)
-
-					if(80 to INFINITY) // At this point you're fucked
-						M.adjustOxyLoss(2) //you'll pass out pretty fucking quick, and die shortly after
-
 				..()
-
-
 				return
 
 		cryoxadone
