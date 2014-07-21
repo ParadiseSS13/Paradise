@@ -729,7 +729,6 @@ var/list/compatible_mobs = list(/mob/living/carbon/human, /mob/living/carbon/mon
 	name = "Coldingtons Effect"
 	stage = 1
 	activate(var/mob/living/carbon/mob,var/multiplier)
-		if (mob.reagents.has_reagent("benazine")) return
 		if (prob(30))
 			mob << "<span class='warning'>You feel like you are about to sneeze!</span>"
 		sleep(5)
