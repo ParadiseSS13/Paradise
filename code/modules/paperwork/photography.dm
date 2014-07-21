@@ -27,8 +27,11 @@
 	icon_state = "photo"
 	item_state = "paper"
 	w_class = 1.0
-	var/icon/img	//Big photo image
-	var/scribble	//Scribble on the back.
+	var/icon/img		//Big photo image
+	var/scribble		//Scribble on the back.
+
+	autoignition_temperature = 530 // Kelvin
+
 
 /obj/item/weapon/photo/attack_self(mob/user as mob)
 	examine()

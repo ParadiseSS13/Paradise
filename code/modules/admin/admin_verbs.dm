@@ -378,17 +378,16 @@ var/list/admin_verbs_mod = list(
 		if(null)
 			return 0
 		if("Small Bomb")
-			explosion(epicenter, 1, 2, 3, 3)
+			explosion(epicenter, 1, 2, 3)
 		if("Medium Bomb")
-			explosion(epicenter, 2, 3, 4, 4)
+			explosion(epicenter, 2, 3, 4)
 		if("Big Bomb")
-			explosion(epicenter, 3, 5, 7, 5)
+			explosion(epicenter, 3, 5, 7)
 		if("Custom Bomb")
 			var/devastation_range = input("Devastation range (in tiles):") as num
 			var/heavy_impact_range = input("Heavy impact range (in tiles):") as num
 			var/light_impact_range = input("Light impact range (in tiles):") as num
-			var/flash_range = input("Flash range (in tiles):") as num
-			explosion(epicenter, devastation_range, heavy_impact_range, light_impact_range, flash_range)
+			explosion(epicenter, devastation_range, heavy_impact_range, light_impact_range)
 	message_admins("\blue [ckey] creating an admin explosion at [epicenter.loc].")
 	feedback_add_details("admin_verb","DB") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
@@ -399,20 +398,11 @@ var/list/admin_verbs_mod = list(
 	var/obj/effect/proc_holder/spell/S = input("Choose the spell to give to that guy", "ABRAKADABRA") as null|anything in spells
 	if(!S) return
 	T.spell_list += new S
+	T.update_power_buttons()
 	feedback_add_details("admin_verb","GS") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 	log_admin("[key_name(usr)] gave [key_name(T)] the spell [S].")
 	message_admins("\blue [key_name_admin(usr)] gave [key_name(T)] the spell [S].", 1)
 
-/client/proc/give_disease(mob/T as mob in mob_list) // -- Giacom
-	set category = "Event"
-	set name = "Give Disease (old)"
-	set desc = "Gives a (tg-style) Disease to a mob."
-	var/datum/disease/D = input("Choose the disease to give to that guy", "ACHOO") as null|anything in diseases
-	if(!D) return
-	T.contract_disease(new D, 1)
-	feedback_add_details("admin_verb","GD") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
-	log_admin("[key_name(usr)] gave [key_name(T)] the disease [D].")
-	message_admins("\blue [key_name_admin(usr)] gave [key_name(T)] the disease [D].", 1)
 
 /client/proc/give_disease2(mob/T as mob in mob_list) // -- Giacom
 	set category = "Event"

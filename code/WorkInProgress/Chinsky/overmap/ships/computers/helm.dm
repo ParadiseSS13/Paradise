@@ -70,7 +70,7 @@
 
 	ui_interact(user)
 
-/obj/machinery/computer/helm/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null)
+/obj/machinery/computer/helm/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
 	if(!linked)
 		return
 
@@ -101,7 +101,7 @@
 
 	data["locations"] = locations
 
-	ui = nanomanager.try_update_ui(user, src, ui_key, ui, data)
+	ui = nanomanager.try_update_ui(user, src, ui_key, ui, data, force_open)
 	if (!ui)
 		ui = new(user, src, ui_key, "helm.tmpl", "[linked.name] Helm Control", 380, 530)
 		ui.set_initial_data(data)

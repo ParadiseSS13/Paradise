@@ -18,6 +18,12 @@
 	var/list/reagent_ids = list("tricordrazine", "inaprovaline", "spaceacillin")
 	//var/list/reagent_ids = list("dexalin", "kelotane", "bicaridine", "anti_toxin", "inaprovaline", "spaceacillin")
 
+/obj/item/weapon/reagent_containers/borghypo/surgeon
+	reagent_ids = list("bicaridine", "inaprovaline", "dexalin")
+
+/obj/item/weapon/reagent_containers/borghypo/crisis
+	reagent_ids = list("tricordrazine", "inaprovaline", "tramadol")
+
 /obj/item/weapon/reagent_containers/borghypo/New()
 	..()
 	for(var/R in reagent_ids)

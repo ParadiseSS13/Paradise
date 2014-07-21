@@ -11,6 +11,14 @@
 	density = 1
 	var/orient = "LEFT" // "RIGHT" changes the dir suffix to "-r"
 
+	l_color = "#7BF9FF"
+	power_change()
+		..()
+		if(!(stat & (BROKEN|NOPOWER)))
+			SetLuminosity(2)
+		else
+			SetLuminosity(0)
+
 /obj/machinery/sleep_console/process()
 	if(stat & (NOPOWER|BROKEN))
 		return
@@ -352,7 +360,7 @@
 
 	verb/eject()
 		set name = "Eject Sleeper"
-		set category = "Object"
+		set category = null
 		set src in oview(1)
 		if(usr.stat != 0)
 			return
@@ -365,7 +373,7 @@
 
 	verb/remove_beaker()
 		set name = "Remove Beaker"
-		set category = "Object"
+		set category = null
 		set src in oview(1)
 		if(usr.stat != 0)
 			return
@@ -396,10 +404,10 @@
 	if(occupant)
 		user << "\blue <B>The sleeper is already occupied!</B>"
 		return
-	if(isrobot(user))
+/*	if(isrobot(user))
 		if(!istype(user:module, /obj/item/weapon/robot_module/medical))
 			user << "<span class='warning'>You do not have the means to do this!</span>"
-			return
+			return*/
 	var/mob/living/L = O
 	if(!istype(L) || L.buckled)
 		return
@@ -443,7 +451,7 @@
 
 /obj/machinery/sleeper/verb/move_inside()
 	set name = "Enter Sleeper"
-	set category = "Object"
+	set category = null
 	set src in oview(1)
 	if(usr.stat != 0 || !(ishuman(usr) || ismonkey(usr)))
 		return

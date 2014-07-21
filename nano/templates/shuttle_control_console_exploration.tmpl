@@ -1,7 +1,7 @@
 <h3>Shuttle Status</h3>
 <div class="item" style="padding-top: 10px">
 	<div class="item">
-		{{:shuttle_status}}
+		{{:data.shuttle_status}}
 	</div>
 </div>
 <div class="item" style="padding-top: 10px">
@@ -10,11 +10,11 @@
 			Drive:
 		</div>
 		<div class="itemContent">
-			{{if shuttle_state == "idle"}}
+			{{if data.shuttle_state == "idle"}}
 				<span class="idle">IDLE</span>
-			{{else shuttle_state == "warmup"}}
+			{{else data.shuttle_state == "warmup"}}
 				<span style="font-weight: bold;color: #336699">SPINNING UP</span>
-			{{else shuttle_state == "in_transit"}}
+			{{else data.shuttle_state == "in_transit"}}
 				<span style="font-weight: bold;color: #336699">ENGAGED</span>
 			{{else}}
 				<span class="bad">ERROR</span>
@@ -22,53 +22,52 @@
 		</div>
 	</div>
 </div>
-{{if has_docking}}
+{{if data.has_docking}}
 	<div class="item" style="padding-top: 10px">
 		<div class="item">
 			<div class="itemLabel">
 				Docking Status:
 			</div>
 			<div class="itemContent">
-				{{if docking_status == "docked"}}
+				{{if data.docking_status == "docked"}}
 					<span class="good">DOCKED</span>
-				{{else docking_status == "docking"}}
-					{{if !docking_override}}
+				{{else data.docking_status == "docking"}}
+					{{if !data.docking_override}}
 						<span class="average">DOCKING</span>
 					{{else}}
 						<span class="average">DOCKING-MANUAL</span>
 					{{/if}}
-				{{else docking_status == "undocking"}}
-					{{if !docking_override}}
+				{{else data.docking_status == "undocking"}}
+					{{if !data.docking_override}}
 						<span class="average">UNDOCKING</span>
 					{{else}}
 						<span class="average">UNDOCKING-MANUAL</span>
 					{{/if}}
-				{{else docking_status == "undocked"}}
+				{{else data.docking_status == "undocked"}}
 					<span class="idle">UNDOCKED</span>
 				{{else}}
 					<span class="bad">ERROR</span>
 				{{/if}}
-
 			</div>
 		</div>
 	</div>
 {{/if}}
 <div class="item" style="padding-top: 10px">
 	<div class="itemLabel">
-	Current Destination:
+	    Current Destination:
 	</div>
-	<span class="average">{{:destination_name}}</span>
+	<span class="average">{{:data.destination_name}}</span>
 	<div class="item">
-		{{:~link('Choose Destination', 'arrowreturn-1-s', {'pick' : '1'}, can_pick? null : 'disabled' , null)}}
+		{{:data.~link('Choose Destination', 'arrowreturn-1-s', {'pick' : '1'}, data.can_pick ? null : 'disabled' , null)}}
 	</div>
 </div>
 <h3>Shuttle Control</h3>
 <div class="item" style="padding-top: 10px">
 	<div class="item">
 		<div class="itemContent" style="padding-top: 2px; width: 100%">
-			{{:~link('Launch Shuttle', 'arrowthickstop-1-e', {'move' : '1'}, can_launch? null : 'disabled' , null)}}
-			{{:~link('Cancel Launch', 'cancel', {'cancel' : '1'}, can_cancel? null : 'disabled' , null)}}
-			{{:~link('Force Launch', 'alert', {'force' : '1'}, can_force? null : 'disabled' , can_force? 'redBackground' : null)}}
+			{{:data.~link('Launch Shuttle', 'arrowthickstop-1-e', {'move' : '1'}, data.can_launch ? null : 'disabled' , null)}}
+			{{:data.~link('Cancel Launch', 'cancel', {'cancel' : '1'}, data.can_cancel ? null : 'disabled' , null)}}
+			{{:data.~link('Force Launch', 'alert', {'force' : '1'}, data.can_force ? null : 'disabled' , data.can_force ? 'redBackground' : null)}}
 		</div>
 	</div>
 </div>

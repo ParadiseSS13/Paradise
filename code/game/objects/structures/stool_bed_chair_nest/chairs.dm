@@ -49,7 +49,7 @@
 
 /obj/structure/stool/bed/chair/verb/rotate()
 	set name = "Rotate Chair"
-	set category = "Object"
+	set category = null
 	set src in oview(1)
 
 	if(config.ghost_interaction)
@@ -136,7 +136,7 @@
 	if(propelled)
 		var/mob/living/occupant = buckled_mob
 		unbuckle()
-		occupant.throw_at(A, 3, 2)
+		occupant.throw_at(A, 3, propelled)
 		occupant.apply_effect(6, STUN, 0)
 		occupant.apply_effect(6, WEAKEN, 0)
 		occupant.apply_effect(6, STUTTER, 0)

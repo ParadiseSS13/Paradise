@@ -286,6 +286,7 @@
 	return
 
 /obj/structure/closet/MouseDrop_T(atom/movable/O as mob|obj, mob/user as mob)
+	..()
 	if(istype(O, /obj/screen))	//fix for HUD elements making their way into the world	-Pete
 		return
 	if(O.loc == user)
@@ -337,7 +338,7 @@
 
 /obj/structure/closet/verb/verb_toggleopen()
 	set src in oview(1)
-	set category = "Object"
+	set category = null
 	set name = "Toggle Open"
 
 	if(!usr.canmove || usr.stat || usr.restrained())

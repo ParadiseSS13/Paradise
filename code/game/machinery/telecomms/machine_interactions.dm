@@ -19,6 +19,19 @@
 	if(istype(P, /obj/item/device/multitool))
 		attack_hand(user)
 
+
+	// REPAIRING: Use Nanopaste to repair 10-20 integrity points.
+	if(istype(P, /obj/item/stack/nanopaste))
+		var/obj/item/stack/nanopaste/T = P
+		if (integrity < 100)               								//Damaged, let's repair!
+			integrity = between(0, integrity + rand(10,20), 100)
+			T.use(1)
+			usr << "You apply the Nanopaste to [src], repairing some of the damage."
+		else
+			usr << "This machine is already in perfect condition."
+		return
+
+
 	switch(construct_op)
 		if(0)
 			if(istype(P, /obj/item/weapon/screwdriver))

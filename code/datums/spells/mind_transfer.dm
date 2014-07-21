@@ -18,6 +18,8 @@
 	var/paralysis_amount_caster = 20 //how much the caster is paralysed for after the spell
 	var/paralysis_amount_victim = 20 //how much the victim is paralysed for after the spell
 
+	icon_power_button = "spell_mind"
+
 /*
 Urist: I don't feel like figuring out how you store object spells so I'm leaving this for you to do.
 Make sure spells that are removed from spell_list are actually removed and deleted when mind transfering.

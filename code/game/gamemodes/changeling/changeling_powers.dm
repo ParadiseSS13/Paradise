@@ -400,7 +400,7 @@
 			W.dropped(C)
 			W.layer = initial(W.layer)
 
-	var/mob/living/carbon/human/O = new /mob/living/carbon/human( src )
+	var/mob/living/carbon/human/O = new /mob/living/carbon/human( src, delay_ready_dna=1 )
 	if (C.dna.GetUIState(DNA_UI_GENDER))
 		O.gender = FEMALE
 	else
@@ -502,8 +502,7 @@
 				O.trace_chemicals = list()
 				O.wounds = list()
 				O.wound_update_accuracy = 1
-			for(var/organ_name in H.internal_organs)
-				var/datum/organ/internal/IO = H.internal_organs[organ_name]
+			for(var/datum/organ/internal/IO in H.internal_organs)
 				IO.damage = 0
 				IO.trace_chemicals = list()
 			H.updatehealth()
@@ -917,11 +916,13 @@ var/list/datum/dna/hivemind_bank = list()
 	if(!changeling)
 		return 0
 
-	var/mob/living/carbon/T = changeling_sting(40, /mob/proc/changeling_extract_dna_sting)
+	var/mob/living/carbon/human/T = changeling_sting(40, /mob/proc/changeling_extract_dna_sting)
 	if(!T)	return 0
 
 	T.dna.real_name = T.real_name
 	changeling.absorbed_dna |= T.dna
+	if(T.species && !(T.species.name in changeling.absorbed_species))
+		changeling.absorbed_species += T.species.name
 
 	feedback_add_details("changeling_powers","ED")
 	return 1

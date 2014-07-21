@@ -20,7 +20,16 @@
 	var/mess = 0 //Need to clean out it if it's full of exploded clone.
 	var/attempting = 0 //One clone attempt at a time thanks
 	var/eject_wait = 0 //Don't eject them as soon as they are created fuckkk
-	var/biomass = CLONE_BIOMASS
+	var/biomass = CLONE_BIOMASS // * 3 - N3X
+
+	l_color = "#00FF00"
+	power_change()
+		..()
+		if(!(stat & (BROKEN|NOPOWER)))
+			SetLuminosity(2)
+		else
+			SetLuminosity(0)
+
 
 //The return of data disks?? Just for transferring between genetics machine/cloning machine.
 //TO-DO: Make the genetics machine accept them.
@@ -164,7 +173,7 @@
 	spawn(30)
 		src.eject_wait = 0
 
-	var/mob/living/carbon/human/H = new /mob/living/carbon/human(src, R.dna.species)
+	var/mob/living/carbon/human/H = new /mob/living/carbon/human(src, delay_ready_dna=1)
 	occupant = H
 
 	if(!R.dna.real_name)	//to prevent null names

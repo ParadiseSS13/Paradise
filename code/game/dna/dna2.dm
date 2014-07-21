@@ -5,10 +5,10 @@
 */
 
 // What each index means:
-#define DNA_OFF_LOWERBOUND 0
-#define DNA_OFF_UPPERBOUND 1
-#define DNA_ON_LOWERBOUND  2
-#define DNA_ON_UPPERBOUND  3
+#define DNA_OFF_LOWERBOUND 1		// changed as lists start at 1 not 0
+#define DNA_OFF_UPPERBOUND 2
+#define DNA_ON_LOWERBOUND  3
+#define DNA_ON_UPPERBOUND  4
 
 // Define block bounds (off-low,off-high,on-low,on-high)
 // Used in setupgame.dm
@@ -42,6 +42,7 @@
 //  and to tell our new DNA datum which values to set in order to turn something
 //  on or off.
 var/global/list/dna_activity_bounds[DNA_SE_LENGTH]
+var/global/list/assigned_gene_blocks[DNA_SE_LENGTH]
 
 // Used to determine what each block means (admin hax and species stuff on /vg/, mostly)
 var/global/list/assigned_blocks[DNA_SE_LENGTH]
@@ -277,7 +278,7 @@ var/global/list/bad_blocks[0]
 	if (block<=0) return 0
 	var/list/BOUNDS=GetDNABounds(block)
 	var/value=GetSEValue(block)
-	return (value > BOUNDS[DNA_ON_LOWERBOUND])
+	return (value >= BOUNDS[DNA_ON_LOWERBOUND])
 
 // Set a block "on" or "off".
 /datum/dna/proc/SetSEState(var/block,var/on,var/defer=0)

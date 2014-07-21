@@ -154,7 +154,7 @@
 
 	var/voice_name = "unidentifiable voice"
 
-	var/faction = "neutral" //Used for checking whether hostile simple animals will attack you, possibly more stuff later
+	var/list/faction = list("neutral") //Used for checking whether hostile simple animals will attack you, possibly more stuff later
 
 	var/move_on_shuttle = 1 // Can move on the shuttle.
 
@@ -186,9 +186,6 @@
 
 	var/viruses = list() // replaces var/datum/disease/virus
 
-//Monkey/infected mode
-	var/list/resistances = list()
-	var/datum/disease/virus = null
 
 	mouse_drag_pointer = MOUSE_ACTIVE_POINTER
 

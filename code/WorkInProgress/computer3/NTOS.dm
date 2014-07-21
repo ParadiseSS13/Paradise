@@ -22,20 +22,21 @@
 	var/dat = "<table border='0' align='left'>"
 	var/i = 0
 	for(var/datum/file/F in filelist)
-		i++
-		if(i==1)
-			dat += "<tr>"
-		if(i>= 6)
-			i = 0
-			dat += "</tr>"
-			continue
-		dat += {"
-		<td>
-			<center><a href='?src=\ref[src];[fileop]=\ref[F]'>
-				<img src=\ref[F.image]><br>
-				<span>[F.name]</span>
-			</a></center>
-		</td>"}
+		if(!F.hidden_file)
+			i++
+			if(i==1)
+				dat += "<tr>"
+			if(i>= 6)
+				i = 0
+				dat += "</tr>"
+				continue
+			dat += {"
+			<td>
+				<center><a href='?src=\ref[src];[fileop]=\ref[F]'>
+					<img src=\ref[F.image]><br>
+					<span>[F.name]</span>
+				</a></center>
+			</td>"}
 
 	dat += "</tr></table>"
 	return dat
@@ -164,6 +165,8 @@
 
 	<body><div style='width:640px;height:480px;	border:2px solid black;padding:8px;background-position:center;background-image:url(\ref['nano/images/uiBackground.png'])'>"}
 
+
+	dat += generate_status_bar()
 	var/list/files = list_files()
 	if(current)
 		dat +=window(current.name,buttonbar(),filegrid(files))
@@ -174,6 +177,32 @@
 
 	usr << browse(dat, "window=\ref[computer];size=670x510")
 	onclose(usr, "\ref[computer]")
+
+ 	// STATUS BAR
+ 	// Small 16x16 icons representing status of components, etc.
+ 	// Currently only used by battery icon
+ 	// TODO: Add more icons!
+/datum/file/program/ntos/proc/generate_status_bar()
+	var/dat = ""
+
+	// Battery level icon
+	switch(computer.check_battery_status())
+		if(-1)
+			dat += "<img src=\ref['icons/ntos/battery_icons/batt_none.gif']>"
+		if(0 to 5)
+			dat += "<img src=\ref['icons/ntos/battery_icons/batt_5.gif']>"
+		if(6 to 20)
+			dat += "<img src=\ref['icons/ntos/battery_icons/batt_20.gif']>"
+		if(21 to 40)
+			dat += "<img src=\ref['icons/ntos/battery_icons/batt_40.gif']>"
+		if(41 to 60)
+			dat += "<img src=\ref['icons/ntos/battery_icons/batt_60.gif']>"
+		if(61 to 80)
+			dat += "<img src=\ref['icons/ntos/battery_icons/batt_80.gif']>"
+		if(81 to 100)
+			dat += "<img src=\ref['icons/ntos/battery_icons/batt_100.gif']>"
+	dat += "<br>"
+	return dat
 
 /datum/file/program/ntos/Topic(href, list/href_list)
 	if(!interactable() || ..(href,href_list))

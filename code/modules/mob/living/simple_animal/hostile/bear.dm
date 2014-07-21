@@ -35,7 +35,7 @@
 	minbodytemp = 0
 	var/stance_step = 0
 
-	faction = "russian"
+	faction = list("russian")
 
 //SPACE BEARS! SQUEEEEEEEE~     OW! FUCK! IT BIT MY HAND OFF!!
 /mob/living/simple_animal/hostile/bear/Hudson

@@ -15,14 +15,15 @@
 	var/defence_deflect = 35
 	wreckage = /obj/effect/decal/mecha_wreckage/durand
 
-/*
-/obj/mecha/combat/durand/New()
+
+/obj/mecha/combat/durand/loaded/New()
 	..()
-	weapons += new /datum/mecha_weapon/ballistic/lmg(src)
-	weapons += new /datum/mecha_weapon/ballistic/scattershot(src)
-	selected_weapon = weapons[1]
+	var/obj/item/mecha_parts/mecha_equipment/ME = new /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/scattershot
+	ME.attach(src)
+	ME = new /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack
+	ME.attach(src)
 	return
-*/
+
 
 /obj/mecha/combat/durand/relaymove(mob/user,direction)
 	if(defence)

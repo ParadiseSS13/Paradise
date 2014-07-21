@@ -6,13 +6,16 @@ obj/machinery/door/airlock
 	var/frequency
 	var/shockedby = list()
 	var/datum/radio_frequency/radio_connection
-	explosion_resistance = 15
+	var/cur_command = null	//the command the door is currently attempting to complete
 
 obj/machinery/door/airlock/proc/can_radio()
 	if( !arePowerSystemsOn() || (stat & NOPOWER) || isWireCut(AIRLOCK_WIRE_AI_CONTROL) )
 		return 0
 	return 1
 
+obj/machinery/door/airlock/process()
+	..()
+	execute_current_command()
 
 obj/machinery/door/airlock/receive_signal(datum/signal/signal)
 	if (!can_radio()) return
@@ -21,7 +24,19 @@ obj/machinery/door/airlock/receive_signal(datum/signal/signal)
 
 	if(id_tag != signal.data["tag"] || !signal.data["command"]) return
 
-	switch(signal.data["command"])
+	cur_command = signal.data["command"]
+	execute_current_command()
+
+obj/machinery/door/airlock/proc/execute_current_command()
+	if (!cur_command)
+		return
+	
+	do_command(cur_command)
+	if (command_completed(cur_command))
+		cur_command = null
+
+obj/machinery/door/airlock/proc/do_command(var/command)
+	switch(command)
 		if("open")
 			open()
 
@@ -48,9 +63,30 @@ obj/machinery/door/airlock/receive_signal(datum/signal/signal)
 
 			lock()
 			sleep(2)
-
+	
 	send_status()
 
+obj/machinery/door/airlock/proc/command_completed(var/command)
+	switch(command)
+		if("open")
+			return (!density)
+
+		if("close")
+			return density
+
+		if("unlock")
+			return !locked
+
+		if("lock")
+			return locked
+
+		if("secure_open")
+			return (locked && !density)
+
+		if("secure_close")
+			return (locked && density)
+	
+	return 1	//Unknown command. Just assume it's completed.
 
 obj/machinery/door/airlock/proc/send_status()
 	if(radio_connection)

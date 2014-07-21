@@ -56,10 +56,6 @@
 	shardtype = /obj/item/weapon/shard/plasma
 	health = 120
 
-/obj/structure/window/full/plasmabasic/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
-	if(exposed_temperature > T0C + 32000)
-		hit(round(exposed_volume / 1000), 0)
-	..()
 
 /obj/structure/window/full/plasmareinforced
 	name = "reinforced plasma window"
@@ -70,8 +66,6 @@
 	reinf = 1
 	health = 160
 
-/obj/structure/window/full/plasmareinforced/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
-	return
 
 /obj/structure/window/full/reinforced
 	name = "reinforced window"

@@ -159,8 +159,9 @@ proc/wabbajack(mob/living/M)
 					Robot.mmi = new /obj/item/device/mmi(new_mob)
 					Robot.mmi.transfer_identity(M)	//Does not transfer key/client.
 				if("slime")
-					if(prob(50))		new_mob = new /mob/living/carbon/slime/adult(M.loc)
-					else				new_mob = new /mob/living/carbon/slime(M.loc)
+					new_mob = new /mob/living/carbon/slime(M.loc)
+/*					if(prob(50))
+						new_mob.is_adult = 1*/
 					new_mob.universal_speak = 1
 				if("xeno")
 					if(prob(50))
@@ -241,7 +242,7 @@ proc/wabbajack(mob/living/M)
 			for(var/mob/living/carbon/human/H in change.contents)
 				var/mob/living/simple_animal/hostile/statue/S = new /mob/living/simple_animal/hostile/statue(change.loc)
 				S.name = "statue of [H.name]"
-				S.faction = "\ref[firer]"
+				S.faction = list("\ref[firer]")
 				S.icon = change.icon
 				if(H.mind)
 					H.mind.transfer_to(S)

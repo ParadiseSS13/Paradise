@@ -86,11 +86,21 @@
 	CRYOBLOCK      = getAssignedBlock("CRYO",       numsToAssign, DNA_HARD_BOUNDS, good=1)
 	EATBLOCK       = getAssignedBlock("EAT",        numsToAssign, DNA_HARD_BOUNDS, good=1)
 	JUMPBLOCK      = getAssignedBlock("JUMP",       numsToAssign, DNA_HARD_BOUNDS, good=1)
-	MELTBLOCK      = getAssignedBlock("MELT",       numsToAssign, good=1)
+//	MELTBLOCK      = getAssignedBlock("MELT",       numsToAssign, good=1)
 	IMMOLATEBLOCK  = getAssignedBlock("IMMOLATE",   numsToAssign)
 	EMPATHBLOCK    = getAssignedBlock("EMPATH",     numsToAssign, DNA_HARD_BOUNDS, good=1)
 	SUPERFARTBLOCK = getAssignedBlock("SUPERFART",  numsToAssign, DNA_HARDER_BOUNDS, good=1)
 	POLYMORPHBLOCK = getAssignedBlock("POLYMORPH",  numsToAssign, DNA_HARDER_BOUNDS, good=1)
+
+	//
+	// /vg/ Blocks
+	/////////////////////////////////////////////
+
+	// Disabilities
+	LOUDBLOCK      = getAssignedBlock("LOUD",       numsToAssign)
+	WHISPERBLOCK   = getAssignedBlock("WHISPER",    numsToAssign)
+	DIZZYBLOCK     = getAssignedBlock("DIZZY",      numsToAssign)
+
 
 	//
 	// Static Blocks
@@ -114,7 +124,16 @@
 			blocks_assigned[G.block]=assignedToBlock
 			//testing("DNA2: Gene [G.name] assigned to block [G.block].")
 
-//	testing("DNA2: [numsToAssign.len] blocks are unused: [english_list(numsToAssign)]")
+	// I WILL HAVE A LIST OF GENES THAT MATCHES THE RANDOMIZED BLOCKS GODDAMNIT!
+	for(var/block=1;block<=DNA_SE_LENGTH;block++)
+		var/name = assigned_blocks[block]
+		for(var/datum/dna/gene/gene in dna_genes)
+			if(gene.name == name || gene.block == block)
+				if(gene.block in assigned_gene_blocks)
+					warning("DNA2: Gene [gene.name] trying to add to already assigned gene block list (used by [english_list(assigned_gene_blocks[block])])")
+				assigned_gene_blocks[block] = gene
+
+	//testing("DNA2: [numsToAssign.len] blocks are unused: [english_list(numsToAssign)]")
 
 // Run AFTER genetics setup and AFTER species setup.
 /proc/setup_species()

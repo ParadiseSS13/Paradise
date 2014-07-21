@@ -85,6 +85,7 @@
 			harvesting = 0
 			cur_artifact.anchored = 0
 			cur_artifact.being_used = 0
+			cur_artifact = null
 			src.visible_message("<b>[name]</b> states, \"Battery is full.\"")
 			icon_state = "incubator"
 
@@ -140,27 +141,13 @@
 				src.visible_message("<b>[src]</b> states, \"Cannot harvest. Source already being harvested.\"")
 
 			else
-				var/mundane = 0
-				for(var/obj/O in get_turf(owned_scanner))
-					if(O.invisibility)
-						continue
-					if(!istype(O, /obj/machinery/artifact) && !istype(O, /obj/machinery/artifact_scanpad))
-						mundane++
-						break
-				for(var/mob/O in get_turf(owned_scanner))
-					if(O.invisibility)
-						continue
-					mundane++
-					break
-
-				if(articount > 1 || mundane)
-					var/message = "<b>[src]</b> states, \"Cannot harvest. Too many artifacts on the pad.\""
-					src.visible_message(message)
-				else
+				if(articount > 1)
+					state("Cannot harvest. Too many artifacts on the pad.")
+				else if(analysed)
 					cur_artifact = analysed
 
 					//if both effects are active, we can't harvest either
-					if(cur_artifact.my_effect.activated && cur_artifact.secondary_effect.activated)
+					if(cur_artifact.my_effect && cur_artifact.my_effect.activated && cur_artifact.secondary_effect.activated)
 						src.visible_message("<b>[src]</b> states, \"Cannot harvest. Source is emitting conflicting energy signatures.\"")
 					else if(!cur_artifact.my_effect.activated && !cur_artifact.secondary_effect.activated)
 						src.visible_message("<b>[src]</b> states, \"Cannot harvest. No energy emitting from source.\"")
@@ -233,6 +220,7 @@
 			harvesting = 0
 			cur_artifact.anchored = 0
 			cur_artifact.being_used = 0
+			cur_artifact = null
 			src.visible_message("<b>[name]</b> states, \"Energy harvesting interrupted.\"")
 			icon_state = "incubator"
 

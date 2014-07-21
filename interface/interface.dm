@@ -1,14 +1,16 @@
 //Please use mob or src (not usr) in these procs. This way they can be called in the same fashion as procs.
-/client/verb/wiki()
+/client/verb/wiki(query as text)
 	set name = "wiki"
-	set desc = "Visit the wiki."
+	set desc = "Type what you want to know about.  This will open the wiki on your web browser."
 	set hidden = 1
-	if( config.wikiurl )
-		if(alert("This will open the wiki in your browser. Are you sure?",,"Yes","No")=="No")
-			return
-		src << link(config.wikiurl)
+	if(config.wikiurl)
+		if(query)
+			var/output = config.wikiurl + "/index.php?title=Special%3ASearch&profile=default&search=" + query
+			src << link(output)
+		else
+			src << link(config.wikiurl)
 	else
-		src << "\red The wiki URL is not set in the server configuration."
+		src << "<span class='danger'>The wiki URL is not set in the server configuration.</span>"
 	return
 
 #define CHANGELOG "http://80.244.78.90/phpBB3/viewtopic.php?f=10&t=36"

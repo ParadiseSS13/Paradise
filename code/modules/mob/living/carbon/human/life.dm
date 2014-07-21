@@ -759,6 +759,7 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 				loc_temp = environment.temperature
 
 			if(adjusted_pressure < species.warning_high_pressure && adjusted_pressure > species.warning_low_pressure && abs(loc_temp - bodytemperature) < 20 && bodytemperature < species.heat_level_1 && bodytemperature > species.cold_level_1 && environment.toxins < MOLES_PLASMA_VISIBLE)
+				pressure_alert = 0
 				return // Temperatures are within normal ranges, fuck all this processing. ~Ccomp
 
 			if(!on_fire) //If you're on fire, you do not heat up or cool down based on surrounding gases
@@ -1191,6 +1192,9 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 		return //TODO: DEFERRED
 
 	proc/handle_regular_status_updates()
+
+		if(status_flags & GODMODE)	return 0
+
 		if(stat == DEAD)	//DEAD. BROWN BREAD. SWIMMING WITH THE SPESS CARP
 			blinded = 1
 			silent = 0
@@ -1361,7 +1365,7 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 				var/pixel_x_diff = rand(-amplitude, amplitude)
 				var/pixel_y_diff = rand(-amplitude/3, amplitude/3)
 
-				animate(src, pixel_x = pixel_x + pixel_x_diff, pixel_y = pixel_y + pixel_y_diff , time = 2, loop = -1)
+				animate(src, pixel_x = pixel_x + pixel_x_diff, pixel_y = pixel_y + pixel_y_diff , time = 2, loop = 6)
 				animate(pixel_x = pixel_x - pixel_x_diff, pixel_y = pixel_y - pixel_y_diff, time = 2)
 				jitteriness = max(jitteriness-1, 0)
 
@@ -1746,8 +1750,6 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 	proc/handle_virus_updates()
 		if(status_flags & GODMODE)	return 0	//godmode
 		if(bodytemperature > 406)
-			for(var/datum/disease/D in viruses)
-				D.cure()
 			for (var/ID in virus2)
 				var/datum/disease2/disease/V = virus2[ID]
 				V.cure(src)
@@ -1941,9 +1943,6 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 
 	if(hud_updateflag & 1 << STATUS_HUD)
 		var/foundVirus = 0
-		for(var/datum/disease/D in viruses)
-			if(!D.hidden[SCANNER])
-				foundVirus++
 		for (var/ID in virus2)
 			if (ID in virusDB)
 				foundVirus = 1

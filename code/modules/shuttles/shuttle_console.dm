@@ -18,7 +18,7 @@
 	
 	ui_interact(user)
 
-/obj/machinery/computer/shuttle_control/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null)
+/obj/machinery/computer/shuttle_control/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
 	var/data[0]
 	var/datum/shuttle/ferry/shuttle = shuttle_controller.shuttles[shuttle_tag]
 	if (!istype(shuttle))
@@ -57,7 +57,7 @@
 		"can_force" = shuttle.can_force(),
 	)
 
-	ui = nanomanager.try_update_ui(user, src, ui_key, ui, data)
+	ui = nanomanager.try_update_ui(user, src, ui_key, ui, data, force_open)
 
 	if (!ui)
 		ui = new(user, src, ui_key, "shuttle_control_console.tmpl", "[shuttle_tag] Shuttle Control", 470, 310)
@@ -72,16 +72,30 @@
 	usr.set_machine(src)
 	src.add_fingerprint(usr)
 
+	if(href_list["move"])
+		launch()
+	if(href_list["force"])
+		force_launch()
+	else if(href_list["cancel"])
+		cancel_launch()
+
+/obj/machinery/computer/shuttle_control/proc/launch()
 	var/datum/shuttle/ferry/shuttle = shuttle_controller.shuttles[shuttle_tag]
 	if (!istype(shuttle))
 		return
+	shuttle.launch(src)
+	
+/obj/machinery/computer/shuttle_control/proc/force_launch()
+	var/datum/shuttle/ferry/shuttle = shuttle_controller.shuttles[shuttle_tag]
+	if (!istype(shuttle))
+		return
+	shuttle.force_launch(src)
 
-	if(href_list["move"])
-		shuttle.launch(src)
-	if(href_list["force"])
-		shuttle.force_launch(src)
-	else if(href_list["cancel"])
-		shuttle.cancel_launch(src)
+/obj/machinery/computer/shuttle_control/proc/cancel_launch()
+	var/datum/shuttle/ferry/shuttle = shuttle_controller.shuttles[shuttle_tag]
+	if (!istype(shuttle))
+		return
+	shuttle.cancel_launch(src)
 
 /obj/machinery/computer/shuttle_control/attackby(obj/item/weapon/W as obj, mob/user as mob)
 

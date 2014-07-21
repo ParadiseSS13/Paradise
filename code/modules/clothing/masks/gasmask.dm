@@ -113,6 +113,13 @@
 		M << "Your Clown Mask has now morphed into [choice], all praise the Honk Mother!"
 		return 1
 
+/obj/item/clothing/mask/gas/clownwiz
+	name = "wizard clown wig and mask"
+	desc = "Some pranksters are truly magical."
+	icon_state = "wizzclown"
+	item_state = "wizzclown"
+	flags = FPRINT | TABLEPASS | MASKCOVERSMOUTH | MASKCOVERSEYES | BLOCK_GAS_SMOKE_EFFECT | MASKINTERNALS | BLOCKHAIR
+
 /obj/item/clothing/mask/gas/virusclown_hat
 	name = "clown wig and mask"
 	desc = "A true prankster's facial attire. A clown is incomplete without his wig and mask."

@@ -13,6 +13,14 @@
 
 	var/current_heat_capacity = 50
 
+	l_color = "#00FF00"
+	power_change()
+		..()
+		if(!(stat & (BROKEN|NOPOWER)))
+			SetLuminosity(2)
+		else
+			SetLuminosity(0)
+
 /obj/machinery/atmospherics/unary/cryo_cell/New()
 	..()
 	initialize_directions = dir
@@ -53,10 +61,10 @@
 	if(occupant)
 		user << "\blue <B>The cryo cell is already occupied!</B>"
 		return
-	if(isrobot(user))
+/*	if(isrobot(user))
 		if(!istype(user:module, /obj/item/weapon/robot_module/medical))
 			user << "<span class='warning'>You do not have the means to do this!</span>"
-			return
+			return*/
 	var/mob/living/L = O
 	if(!istype(L) || L.buckled)
 		return
@@ -123,7 +131,7 @@
   *
   * @return nothing
   */
-/obj/machinery/atmospherics/unary/cryo_cell/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null)
+/obj/machinery/atmospherics/unary/cryo_cell/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
 
 	if(user == occupant || user.stat)
 		return
@@ -171,7 +179,7 @@
 				data["beakerVolume"] += R.volume
 
 	// update the ui if it exists, returns null if no ui is passed/found
-	ui = nanomanager.try_update_ui(user, src, ui_key, ui, data)
+	ui = nanomanager.try_update_ui(user, src, ui_key, ui, data, force_open)
 	if (!ui)
 		// the ui does not exist, so we'll create a new() one
         // for a list of parameters and their descriptions see the code docs in \code\modules\nano\nanoui.dm

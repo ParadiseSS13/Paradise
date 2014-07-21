@@ -31,6 +31,9 @@
 	if (src.sdisabilities & MUTE)
 		return
 
+	if(M_WHISPER in src.mutations)
+		src.say(message)
+
 	if (istype(src.wear_mask, /obj/item/clothing/mask/muzzle))
 		return
 

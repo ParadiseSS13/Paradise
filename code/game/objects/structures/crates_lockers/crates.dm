@@ -163,7 +163,7 @@
 
 /obj/structure/closet/crate/secure/verb/verb_togglelock()
 	set src in oview(1) // One square distance
-	set category = "Object"
+	set category = null
 	set name = "Toggle Lock"
 
 	if(!usr.canmove || usr.stat || usr.restrained()) // Don't use it if you're not able to! Checks for stuns, ghost and restrain

@@ -312,10 +312,12 @@
 	clothes_req = 0
 	stat_allowed = 0
 	invocation_type = "none"
-	range = -1
+	range = 7
 	selection_type = "range"
 	var/list/compatible_mobs = list(/mob/living/carbon/human, /mob/living/carbon/monkey)
-	include_user = 1
+	include_user = 0
+
+	icon_power_button = "genetic_incendiary"
 
 /obj/effect/proc_holder/spell/targeted/immolate/cast(list/targets)
 	var/mob/living/L = usr
@@ -327,6 +329,8 @@
 	playsound(L.loc, 'sound/effects/bamf.ogg', 50, 0)
 
 ////////////////////////////////////////////////////////////////////////
+
+/* WTF THIS IS THE DUMBEST SHIT
 
 // WAS: /datum/bioEffect/melt
 /datum/dna/gene/basic/grant_verb/melt
@@ -357,7 +361,7 @@
 		//	playsound(H.loc, 'male_fallscream.ogg', 50, 0)
 		//playsound(H.loc, 'bubbles.ogg', 50, 0)
 		//playsound(H.loc, 'loudcrunch2.ogg', 50, 0)
-		var/mob/living/carbon/human/skellington/nH = new /mob/living/carbon/human/skellington(H.loc)
+		var/mob/living/carbon/human/skellington/nH = new /mob/living/carbon/human/skellington(H.loc, delay_ready_dna=1)
 		nH.real_name = H.real_name
 		nH.name = "[H.name]'s skeleton"
 		//H.decomp_stage = 4
@@ -368,3 +372,6 @@
 		usr.gib(1)
 
 	return
+
+
+*/

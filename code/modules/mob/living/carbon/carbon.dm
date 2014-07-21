@@ -64,13 +64,6 @@
 				N.show_message(text("\red <B>[M] bursts out of [src]!</B>"), 2)
 	. = ..()
 
-/mob/living/carbon/proc/share_contact_diseases(var/mob/M)
-	for(var/datum/disease/D in viruses)
-		if(D.spread_by_touch())
-			M.contract_disease(D, 0, 1, CONTACT_HANDS)
-	for(var/datum/disease/D in M.viruses)
-		if(D.spread_by_touch())
-			contract_disease(D, 0, 1, CONTACT_HANDS)
 
 /mob/living/carbon/attack_hand(mob/M as mob)
 	if(!istype(M, /mob/living/carbon)) return
@@ -81,14 +74,8 @@
 		if(temp && !temp.is_usable())
 			M << "\red You can't use your [temp.display_name]"
 			return
-	share_contact_diseases(M)
 	return
 
-
-/mob/living/carbon/attack_paw(mob/M as mob)
-	if(!istype(M, /mob/living/carbon)) return
-	share_contact_diseases(M)
-	return
 
 /mob/living/carbon/electrocute_act(var/shock_damage, var/obj/source, var/siemens_coeff = 1.0)
 	if(status_flags & GODMODE)	return 0	//godmode
@@ -221,7 +208,6 @@
 			if(prob(10))
 				src.emote("fart")
 			reagents.add_reagent("paracetamol", 1)
-			share_contact_diseases(M)
 
 
 /mob/living/carbon/proc/eyecheck()
@@ -430,7 +416,7 @@
 */
 
 
-		item.throw_at(target, item.throw_range, item.throw_speed)
+		item.throw_at(target, item.throw_range, item.throw_speed, src)
 
 /mob/living/carbon/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume)
 	..()
@@ -514,23 +500,17 @@
 
 	var/mob/living/simple_animal/borer/B = has_brain_worms()
 
-	if(!B)
-		return
-
-	if(B.controlling)
+	if(B && B.host_brain)
 		src << "\red <B>You withdraw your probosci, releasing control of [B.host_brain]</B>"
-		B.host_brain << "\red <B>Your vision swims as the alien parasite releases control of your body.</B>"
-		B.ckey = ckey
-		B.controlling = 0
-	if(B.host_brain.ckey)
-		ckey = B.host_brain.ckey
-		B.host_brain.ckey = null
-		B.host_brain.name = "host brain"
-		B.host_brain.real_name = "host brain"
 
-	verbs -= /mob/living/carbon/proc/release_control
-	verbs -= /mob/living/carbon/proc/punish_host
-	verbs -= /mob/living/carbon/proc/spawn_larvae
+		B.detatch()
+
+		verbs -= /mob/living/carbon/proc/release_control
+		verbs -= /mob/living/carbon/proc/punish_host
+		verbs -= /mob/living/carbon/proc/spawn_larvae
+
+	else
+		src << "\red <B>ERROR NO BORER OR BRAINMOB DETECTED IN THIS MOB, THIS IS A BUG !</B>"
 
 //Brain slug proc for tormenting the host.
 /mob/living/carbon/proc/punish_host()

@@ -328,7 +328,7 @@
 	name = "Slime People"
 	language = "Bubblish"
 	path = /mob/living/carbon/human/slime
-	primitive = /mob/living/carbon/slime/adult
+	primitive = /mob/living/carbon/slime
 	unarmed_type = /datum/unarmed_attack/punch
 
 	flags = IS_WHITELISTED | NO_BREATHE | HAS_LIPS | NO_INTORGANS | NO_SCAN

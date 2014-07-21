@@ -324,8 +324,6 @@
 			var/mob/living/carbon/human/human_mob = src
 			human_mob.restore_blood()
 
-	for(var/datum/disease/D in viruses)
-		D.cure(0)
 	restore_all_organs()
 	if(stat == 2)
 		dead_mob_list -= src
@@ -487,14 +485,8 @@
 			B.host.adjustBrainLoss(rand(5,10))
 			H << "\red <B>With an immense exertion of will, you regain control of your body!</B>"
 			B.host << "\red <B>You feel control of the host brain ripped from your grasp, and retract your probosci before the wild neural impulses can damage you.</b>"
-			B.controlling = 0
 
-			B.ckey = B.host.ckey
-			B.host.ckey = H.ckey
-
-			H.ckey = null
-			H.name = "host brain"
-			H.real_name = "host brain"
+			B.detatch()
 
 			verbs -= /mob/living/carbon/proc/release_control
 			verbs -= /mob/living/carbon/proc/punish_host
@@ -601,6 +593,7 @@
 					sleep(10)
 					SC.broken = 1
 					SC.locked = 0
+					SC.update_icon()
 					usr << "\red You successfully break out!"
 					for(var/mob/O in viewers(L.loc))
 						O.show_message("\red <B>\the [usr] successfully broke out of \the [SC]!</B>", 1)
@@ -610,6 +603,7 @@
 					SC.open()
 				else
 					C.welded = 0
+					C.update_icon()
 					usr << "\red You successfully break out!"
 					for(var/mob/O in viewers(L.loc))
 						O.show_message("\red <B>\the [usr] successfully broke out of \the [C]!</B>", 1)

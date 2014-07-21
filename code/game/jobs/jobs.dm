@@ -55,7 +55,8 @@ var/const/BARBER			=(1<<3)
 var/const/MECHANIC			=(1<<4)
 var/const/BRIGDOC			=(1<<5)
 var/const/JUDGE				=(1<<6)
-
+var/const/PILOT				=(1<<7)
+var/const/NANOREC			=(1<<8)
 
 var/list/assistant_occupations = list(
 )
@@ -114,7 +115,9 @@ var/list/support_positions = list(
 	"Clown",
 	"Mime",
 	"Barber",
-	"Magistrate"
+	"Magistrate",
+	"Nanotrasen Representative",
+	"Nanotrasen Recruiter"
 )
 
 
@@ -125,7 +128,8 @@ var/list/security_positions = list(
 	"Security Officer",
 	"Customs Officer",
 	"Blueshield",
-	"Brig Physician"
+	"Brig Physician",
+	"Security Pod Pilot"
 )
 
 
@@ -146,7 +150,9 @@ var/list/whitelisted_positions = list(
 	"Barber",
 	"Mechanic",
 	"Brig Physician",
-	"Magistrate"
+	"Magistrate",
+	"Security Pod Pilot",
+	"Nanotrasen Recruiter"
 )
 
 

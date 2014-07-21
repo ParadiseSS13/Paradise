@@ -12,6 +12,13 @@
 	icon_state = "redwizard"
 	siemens_coefficient = 0.8
 
+/obj/item/clothing/head/wizard/clown
+	name = "purple wizard hat"
+	desc = "Strange-looking purple hat-wear that most certainly belongs to a real magic user."
+	icon_state = "wizhatclown"
+	item_state = "wizhatclown" // cheating
+	siemens_coefficient = 0.8
+
 /obj/item/clothing/head/wizard/fake
 	name = "wizard hat"
 	desc = "It has WIZZARD written across it in sequins. Comes with a cool beard."
@@ -55,6 +62,11 @@
 	icon_state = "redwizard"
 	item_state = "redwizrobe"
 
+/obj/item/clothing/suit/wizrobe/clown
+	name = "Clown Robe"
+	desc = "A set of armoured robes that seem to radiate a dark power. That, and bad fashion decisions."
+	icon_state = "wizzclown"
+	item_state = "wizzclown"
 
 /obj/item/clothing/suit/wizrobe/marisa
 	name = "Witch Robe"

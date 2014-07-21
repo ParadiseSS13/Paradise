@@ -1,34 +1,8 @@
 // NanoBaseHelpers is where the base template helpers (common to all templates) are stored
 NanoBaseHelpers = function ()
 {
-	var _urlParameters = {}; // This is populated with the base url parameters (used by all links), which is probaby just the "src" parameter
-
-	var init = function ()
-	{
-		var body = $('body'); // We store data in the body tag, it's as good a place as any
-
-		_urlParameters = body.data('urlParameters');
-
-		initHelpers();
-	};
-
-	var initHelpers = function ()
-	{
-	    $.views.tags({
-            fields: function(object) {
-                var key;
-                var ret = "";
-                for (key in object) {
-                    if (object.hasOwnProperty(key)) {
-                        // For each property/field, render the content of the {{fields object}} tag, with "~key" as template parameter
-                        ret += this.tagCtx.render(object[key], { key: key });
-                    }
-                }
-                return ret;
-            }
-	    });
-		$.views.helpers({ 
-		
+	var _baseHelpers = {
+            // change ui styling to "syndicate mode"
 			syndicateMode: function() {
 				$('body').css("background-color","#8f1414");
 				$('body').css("background-image","url('uiBackground-Syndicate.png')");
@@ -39,9 +13,8 @@ NanoBaseHelpers = function ()
 				$('#uiTitleFluff').css("background-position","50% 50%");
 				$('#uiTitleFluff').css("background-repeat", "no-repeat");
 
-			return '';
+				return '';
 			},
-			
             combine: function( arr1, arr2 ) {
                 return arr1 && arr2 ? arr1.concat(arr2) : arr1 || arr2;
             },  
@@ -75,23 +48,22 @@ NanoBaseHelpers = function ()
 					return '<div unselectable="on" class="link ' + iconClass + ' ' + elementClass + ' ' + status + '" ' + elementIdHtml + '>' + iconHtml + text + '</div>';
 				}
 
-				return '<div unselectable="on" class="link linkActive ' + iconClass + ' ' + elementClass + '" data-href="' + generateHref(parameters) + '" ' + elementIdHtml + '>' + iconHtml + text + '</div>';
+				return '<div unselectable="on" class="link linkActive ' + iconClass + ' ' + elementClass + '" data-href="' + NanoUtility.generateHref(parameters) + '" ' + elementIdHtml + '>' + iconHtml + text + '</div>';
 			},
-            // Since jsrender breaks the ^ operator
+			// Since jsrender breaks the ^ operator
             xor: function(number,bit) {                               
                 return number ^ bit;
             },
-			// Round a number to the nearest integer
-			round: function(number) {
-				return Math.round(number);
-			},
-			// Round a number to X decimal places.
             precisionRound: function (value, places) {
                 if(places==0)
                     return Math.round(number);
                 var multiplier = Math.pow(10, places);
                 return (Math.round(value * multiplier) / multiplier);
             },
+			// Round a number to the nearest integer
+			round: function(number) {
+				return Math.round(number);
+			},
 			// Round a number down to integer
 			floor: function(number) {
 				return Math.floor(number);
@@ -121,12 +93,12 @@ NanoBaseHelpers = function ()
 				}
 				return '';
 			},
-      formatNumber: function(x) {
-        // From http://stackoverflow.com/questions/2901102/how-to-print-a-number-with-commas-as-thousands-separators-in-javascript
-        var parts = x.toString().split(".");
-        parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-        return parts.join(".");
-      },
+			formatNumber: function(x) {
+				// From http://stackoverflow.com/questions/2901102/how-to-print-a-number-with-commas-as-thousands-separators-in-javascript
+				var parts = x.toString().split(".");
+				parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+				return parts.join(".");
+			},
 			// Display a bar. Used to show health, capacity, etc.
 			displayBar: function(value, rangeMin, rangeMax, styleClass, showText) {
 
@@ -173,6 +145,41 @@ NanoBaseHelpers = function ()
 				if(level==1) return 'average';
 				return 'bad';
 			},
+			dangerToSpan: function(level) {
+				if(level==0) return '"<span class="good">Good</span>"';
+				if(level==1) return '"<span class="average">Minor Alert</span>"';
+				return '"<span class="bad">Major Alert</span>"';
+			},
+			generateHref: function (parameters) {
+				var body = $('body'); // We store data in the body tag, it's as good a place as any
+				_urlParameters = body.data('urlParameters');
+				var queryString = '?';
+	
+				for (var key in _urlParameters)
+				{
+					if (_urlParameters.hasOwnProperty(key))
+					{
+						if (queryString !== '?')
+						{
+							queryString += ';';
+						}
+						queryString += key + '=' + _urlParameters[key];
+					}
+				}
+
+				for (var key in parameters)
+				{
+					if (parameters.hasOwnProperty(key))
+					{
+						if (queryString !== '?')
+						{
+							queryString += ';';
+						}
+						queryString += key + '=' + parameters[key];
+					}
+				}
+				return queryString;
+			},
 			// Display DNA Blocks (for the DNA Modifier UI)
 			displayDNABlocks: function(dnaString, selectedBlock, selectedSubblock, blockSize, paramKey) {
 			    if (!dnaString)
@@ -208,9 +215,7 @@ NanoBaseHelpers = function ()
                         status = 'selected';
                     }
 
-
-                    html += '<div class="link ' + status + ' dnaSubBlock" data-href="' + generateHref(parameters) + '" id="dnaBlock' + index + '">' + characters[index] + '</div>'
-
+                    html += '<div class="link ' + status + ' dnaSubBlock" data-href="' + NanoUtility.generateHref(parameters) + '" id="dnaBlock' + index + '">' + characters[index] + '</div>'
 
                     index++;
                     if (index % blockSize == 0 && index < characters.length)
@@ -229,52 +234,26 @@ NanoBaseHelpers = function ()
 
 				return html;
 			}
-		});
-	};
-
-	// generate a Byond href, combines _urlParameters with parameters
-	var generateHref = function (parameters)
-	{
-		var queryString = '?';
-
-		for (var key in _urlParameters)
-		{
-			if (_urlParameters.hasOwnProperty(key))
-			{
-				if (queryString !== '?')
-				{
-					queryString += ';';
-				}
-				queryString += key + '=' + _urlParameters[key];
-			}
-		}
-
-		for (var key in parameters)
-		{
-			if (parameters.hasOwnProperty(key))
-			{
-				if (queryString !== '?')
-				{
-					queryString += ';';
-				}
-				queryString += key + '=' + parameters[key];
-			}
-		}
-		return queryString;
-	};
-
+		};
+		
 	return {
-        init: function ()
+        addHelpers: function ()
 		{
-            init();
+            NanoTemplate.addHelpers(_baseHelpers);
+        },
+		removeHelpers: function ()
+		{
+			for (var helperKey in _baseHelpers)
+			{
+				if (_baseHelpers.hasOwnProperty(helperKey))
+				{
+					NanoTemplate.removeHelper(helperKey);
+				}
+			}            
         }
 	};
 } ();
-
-$(document).ready(function()
-{
-	NanoBaseHelpers.init();
-});
+ 
 
 
 

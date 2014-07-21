@@ -44,7 +44,7 @@
 /obj/machinery/atmospherics/unary/cold_sink/freezer/attack_hand(mob/user as mob)
 	src.ui_interact(user)
 
-/obj/machinery/atmospherics/unary/cold_sink/freezer/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null)
+/obj/machinery/atmospherics/unary/cold_sink/freezer/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
 	// this is the data which will be sent to the ui
 	var/data[0]
 	data["on"] = on ? 1 : 0
@@ -62,7 +62,7 @@
 	data["gasTemperatureClass"] = temp_class
 
 	// update the ui if it exists, returns null if no ui is passed/found
-	ui = nanomanager.try_update_ui(user, src, ui_key, ui, data)
+	ui = nanomanager.try_update_ui(user, src, ui_key, ui, data, force_open)
 	if (!ui)
 		// the ui does not exist, so we'll create a new() one
         // for a list of parameters and their descriptions see the code docs in \code\modules\nano\nanoui.dm
@@ -137,7 +137,7 @@
 /obj/machinery/atmospherics/unary/heat_reservoir/heater/attack_hand(mob/user as mob)
 	src.ui_interact(user)
 	
-/obj/machinery/atmospherics/unary/heat_reservoir/heater/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null)
+/obj/machinery/atmospherics/unary/heat_reservoir/heater/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
 	// this is the data which will be sent to the ui
 	var/data[0]
 	data["on"] = on ? 1 : 0
@@ -153,7 +153,7 @@
 	data["gasTemperatureClass"] = temp_class
 
 	// update the ui if it exists, returns null if no ui is passed/found
-	ui = nanomanager.try_update_ui(user, src, ui_key, ui, data)
+	ui = nanomanager.try_update_ui(user, src, ui_key, ui, data, force_open)
 	if (!ui)
 		// the ui does not exist, so we'll create a new() one
         // for a list of parameters and their descriptions see the code docs in \code\modules\nano\nanoui.dm

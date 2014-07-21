@@ -142,9 +142,7 @@
 *   SmartFridge Menu
 ********************/
 
-
-
-/obj/machinery/smartfridge/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null)
+/obj/machinery/smartfridge/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
 	user.set_machine(src)
 
 	var/data[0]
@@ -161,7 +159,7 @@
 		data["contents"] = items
 
 
-	ui = nanomanager.try_update_ui(user, src, ui_key, ui, data)
+	ui = nanomanager.try_update_ui(user, src, ui_key, ui, data, force_open)
 	if (!ui)
 		ui = new(user, src, ui_key, "smartfridge.tmpl", src.name, 400, 500)
 		ui.set_initial_data(data)
@@ -201,8 +199,6 @@
 		return 1
 
 	return 0
-
-
 
 
 

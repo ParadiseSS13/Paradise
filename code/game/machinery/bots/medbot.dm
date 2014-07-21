@@ -353,12 +353,6 @@
 		return 1
 
 
-	for(var/datum/disease/D in C.viruses)
-		if((D.stage > 1) || (D.spread_type == AIRBORNE))
-
-			if (!C.reagents.has_reagent(src.treatment_virus))
-				return 1 //STOP DISEASE FOREVER
-
 	return 0
 
 /obj/machinery/bot/medbot/proc/medicate_patient(mob/living/carbon/C as mob)
@@ -387,13 +381,6 @@
 		reagent_id = "toxin"
 
 	else
-		var/virus = 0
-		for(var/datum/disease/D in C.viruses)
-			virus = 1
-
-		if (!reagent_id && (virus))
-			if(!C.reagents.has_reagent(src.treatment_virus))
-				reagent_id = src.treatment_virus
 
 		if (!reagent_id && (C.getBruteLoss() >= heal_threshold))
 			if(!C.reagents.has_reagent(src.treatment_brute))

@@ -1,2 +1,3 @@
 /mob/living/carbon/brain/Login()
-	return ..()
+	..()
+	sleeping = 0

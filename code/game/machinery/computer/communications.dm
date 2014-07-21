@@ -56,6 +56,8 @@ var/shuttle_call/shuttle_calls[0]
 	var/stat_msg2
 	var/display_type="blank"
 
+	l_color = "#0000FF"
+
 /obj/machinery/computer/communications/Topic(href, href_list)
 	if(..(href, href_list))
 		return

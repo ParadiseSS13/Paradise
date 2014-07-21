@@ -48,6 +48,9 @@ var/global/list/possibleEvents = list()
 	possibleEvents[/datum/event/trivial_news] = 200
 	possibleEvents[/datum/event/mundane_news] = 150
 
+	possibleEvents[/datum/event/cargo_bonus] = 150
+
+
 	possibleEvents[/datum/event/mass_hallucination] = 200
 	possibleEvents[/datum/event/falsealarm] = 300
 //	possibleEvents[/datum/event/immovable_rod] = 200
@@ -90,11 +93,11 @@ var/global/list/possibleEvents = list()
 		possibleEvents[/datum/event/blob] = 20 * active_with_role["Engineer"]
 		possibleEvents[/datum/event/brand_intelligence] = 50 + 25 * active_with_role["Engineer"]
 		possibleEvents[/datum/event/spider_infestation] = 50 + 25 * active_with_role["Security"]
+		possibleEvents[/datum/event/borer_infestation] = 50 + 25 * active_with_role["Security"]
 
 
 	if(active_with_role["Medical"] > 0)
 		possibleEvents[/datum/event/radiation_storm] = active_with_role["Medical"] * 50
-		possibleEvents[/datum/event/spontaneous_appendicitis] = active_with_role["Medical"] * 150
 		possibleEvents[/datum/event/viral_outbreak] = active_with_role["Medical"] * 5
 		possibleEvents[/datum/event/organ_failure] = active_with_role["Medical"] * 50
 		possibleEvents[/datum/event/viral_infection] = 25 + active_with_role["Medical"] * 50

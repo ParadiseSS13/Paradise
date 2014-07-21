@@ -35,10 +35,10 @@
 	
 	if (istype(M, /obj/machinery/embedded_controller/radio/airlock))	//if our controller is an airlock controller than we can auto-init our tags
 		var/obj/machinery/embedded_controller/radio/airlock/controller = M
-		tag_exterior_door = controller.tag_exterior_door
-		tag_interior_door = controller.tag_interior_door
-		tag_airpump = controller.tag_airpump
-		tag_chamber_sensor = controller.tag_chamber_sensor
+		tag_exterior_door = controller.tag_exterior_door? controller.tag_exterior_door : "[id_tag]_outer"
+		tag_interior_door = controller.tag_interior_door? controller.tag_interior_door : "[id_tag]_inner"
+		tag_airpump = controller.tag_airpump? controller.tag_airpump : "[id_tag]_pump"
+		tag_chamber_sensor = controller.tag_chamber_sensor? controller.tag_chamber_sensor : "[id_tag]_sensor"
 		tag_exterior_sensor = controller.tag_exterior_sensor
 		tag_interior_sensor = controller.tag_interior_sensor
 		memory["secure"] = controller.tag_secure
@@ -248,9 +248,15 @@
 	return (state == STATE_WAIT && target_state == TARGET_NONE)
 
 //are the doors closed and locked?
+/datum/computer/file/embedded_program/airlock/proc/check_exterior_door_secured()
+	return (memory["exterior_status"]["state"] == "closed" &&  memory["exterior_status"]["lock"] == "locked")
+
+/datum/computer/file/embedded_program/airlock/proc/check_interior_door_secured()
+	return (memory["interior_status"]["state"] == "closed" &&  memory["interior_status"]["lock"] == "locked")
+
 /datum/computer/file/embedded_program/airlock/proc/check_doors_secured()
-	var/ext_closed = (memory["exterior_status"]["state"] == "closed" &&  memory["exterior_status"]["lock"] == "locked")
-	var/int_closed = (memory["interior_status"]["state"] == "closed" &&  memory["interior_status"]["lock"] == "locked")
+	var/ext_closed = check_exterior_door_secured()
+	var/int_closed = check_interior_door_secured()
 	return (ext_closed && int_closed)
 
 /datum/computer/file/embedded_program/airlock/proc/signalDoor(var/tag, var/command)

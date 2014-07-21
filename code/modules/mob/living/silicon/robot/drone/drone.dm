@@ -318,10 +318,10 @@
 	if (!yes || ( \
 	 !istype(AM,/obj/machinery/door) && \
 	 !istype(AM,/obj/machinery/recharge_station) && \
-	 !istype(AM,/obj/machinery/disposal/deliveryChute && \
+	 !istype(AM,/obj/machinery/disposal/deliveryChute) && \
 	 !istype(AM,/obj/machinery/teleport/hub) && \
 	 !istype(AM,/obj/effect/portal)
-	))) return
+	)) return
 	..()
 	return
 

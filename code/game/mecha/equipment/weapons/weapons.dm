@@ -4,18 +4,20 @@
 	origin_tech = "materials=3;combat=3"
 	var/projectile
 	var/fire_sound
-
+	var/size=0
 
 /obj/item/mecha_parts/mecha_equipment/weapon/can_attach(var/obj/mecha/combat/M as obj)
 	if(..())
 		if(istype(M))
+			if(size > M.maxsize)
+				return 0
 			return 1
 	return 0
 
 
 /obj/item/mecha_parts/mecha_equipment/weapon/energy
 	name = "General Energy Weapon"
-
+	size = 2
 	action(target)
 		if(!action_checks(target)) return
 		var/turf/curloc = chassis.loc
@@ -107,7 +109,7 @@
 	equip_cooldown = 8
 	projectile = /obj/item/projectile/beam/stun
 	fire_sound = 'sound/weapons/Taser.ogg'
-
+	size = 1
 
 /obj/item/mecha_parts/mecha_equipment/weapon/honker
 	name = "HoNkER BlAsT 5000"
@@ -169,7 +171,7 @@
 	name = "General Ballisic Weapon"
 	var/projectiles
 	var/projectile_energy_cost
-
+	size = 2
 	action_checks(atom/target)
 		if(..())
 			if(projectiles > 0)
@@ -312,7 +314,7 @@
 		var/obj/item/missile/M = new projectile(chassis.loc)
 		M.primed = 1
 		playsound(chassis, fire_sound, 50, 1)
-		M.throw_at(target, missile_range, missile_speed)
+		M.throw_at(target, missile_range, missile_speed, chassis)
 		projectiles--
 		log_message("Fired from [src.name], targeting [target].")
 		do_after_cooldown()
@@ -343,13 +345,13 @@
 	projectile_energy_cost = 800
 	equip_cooldown = 60
 	var/det_time = 20
-
+	size=1
 	action(target)
 		if(!action_checks(target)) return
 		set_ready_state(0)
 		var/obj/item/weapon/grenade/flashbang/F = new projectile(chassis.loc)
 		playsound(chassis, fire_sound, 50, 1)
-		F.throw_at(target, missile_range, missile_speed)
+		F.throw_at(target, missile_range, missile_speed, chassis)
 		projectiles--
 		log_message("Fired from [src.name], targeting [target].")
 		spawn(det_time)
@@ -361,7 +363,7 @@
 	name = "SOP-6 Grenade Launcher"
 	projectile = /obj/item/weapon/grenade/flashbang/clusterbang
 	construction_cost = list("metal"=20000,"gold"=6000,"uranium"=6000)
-
+	size=1
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/flashbang/clusterbang/limited/get_equip_info()//Limited version of the clusterbang launcher that can't reload
 	return "<span style=\"color:[equip_ready?"#0f0":"#f00"];\">*</span>&nbsp;[chassis.selected==src?"<b>":"<a href='?src=\ref[chassis];select_equip=\ref[src]'>"][src.name][chassis.selected==src?"</b>":"</a>"]\[[src.projectiles]\]"
 
@@ -391,7 +393,7 @@
 		set_ready_state(0)
 		var/obj/item/weapon/bananapeel/B = new projectile(chassis.loc)
 		playsound(chassis, fire_sound, 60, 1)
-		B.throw_at(target, missile_range, missile_speed)
+		B.throw_at(target, missile_range, missile_speed, chassis)
 		projectiles--
 		log_message("Bananed from [src.name], targeting [target]. HONK!")
 		do_after_cooldown()
@@ -422,7 +424,7 @@
 		var/obj/item/device/assembly/mousetrap/M = new projectile(chassis.loc)
 		M.secured = 1
 		playsound(chassis, fire_sound, 60, 1)
-		M.throw_at(target, missile_range, missile_speed)
+		M.throw_at(target, missile_range, missile_speed, chassis)
 		projectiles--
 		log_message("Launched a mouse-trap from [src.name], targeting [target]. HONK!")
 		do_after_cooldown()

@@ -3,7 +3,6 @@
 	title = "Bartender"
 	flag = BARTENDER
 	department_flag = SUPPORT
-	faction = "Station"
 	total_positions = 1
 	spawn_positions = 1
 	supervisors = "the head of personnel"
@@ -49,7 +48,6 @@
 	title = "Chef"
 	flag = CHEF
 	department_flag = SUPPORT
-	faction = "Station"
 	total_positions = 1
 	spawn_positions = 1
 	supervisors = "the head of personnel"
@@ -78,7 +76,6 @@
 	title = "Botanist"
 	flag = BOTANIST
 	department_flag = SUPPORT
-	faction = "Station"
 	total_positions = 3
 	spawn_positions = 2
 	supervisors = "the head of personnel"
@@ -111,7 +108,6 @@
 	title = "Quartermaster"
 	flag = QUARTERMASTER
 	department_flag = SUPPORT
-	faction = "Station"
 	total_positions = 1
 	spawn_positions = 1
 	supervisors = "the head of personnel"
@@ -141,7 +137,6 @@
 	title = "Cargo Technician"
 	flag = CARGOTECH
 	department_flag = SUPPORT
-	faction = "Station"
 	total_positions = 2
 	spawn_positions = 2
 	supervisors = "the quartermaster and the head of personnel"
@@ -169,7 +164,6 @@
 	title = "Shaft Miner"
 	flag = MINER
 	department_flag = SUPPORT
-	faction = "Station"
 	total_positions = 3
 	spawn_positions = 3
 	supervisors = "the quartermaster and the head of personnel"
@@ -208,7 +202,6 @@
 	title = "Clown"
 	flag = CLOWN
 	department_flag = SUPPORT
-	faction = "Station"
 	total_positions = 1
 	spawn_positions = 1
 	supervisors = "the head of personnel"
@@ -245,7 +238,6 @@
 	title = "Mime"
 	flag = MIME
 	department_flag = SUPPORT
-	faction = "Station"
 	total_positions = 1
 	spawn_positions = 1
 	supervisors = "the head of personnel"
@@ -290,7 +282,6 @@
 	title = "Janitor"
 	flag = JANITOR
 	department_flag = SUPPORT
-	faction = "Station"
 	total_positions = 1
 	spawn_positions = 1
 	supervisors = "the head of personnel"
@@ -319,7 +310,6 @@
 	title = "Librarian"
 	flag = LIBRARIAN
 	department_flag = SUPPORT
-	faction = "Station"
 	total_positions = 1
 	spawn_positions = 1
 	supervisors = "the head of personnel"
@@ -346,7 +336,6 @@
 	title = "Barber"
 	flag = BARBER
 	department_flag = KARMA
-	faction = "Station"
 	total_positions = 1
 	spawn_positions = 1
 	supervisors = "the head of personnel"

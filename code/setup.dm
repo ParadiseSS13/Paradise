@@ -13,6 +13,9 @@
 #define O2STANDARD 0.21
 #define N2STANDARD 0.79
 
+#define AUTOIGNITION_WOOD  573.15
+#define AUTOIGNITION_PAPER 519.15
+
 #define MOLES_O2STANDARD MOLES_CELLSTANDARD*O2STANDARD	// O2 standard value (21%)
 #define MOLES_N2STANDARD MOLES_CELLSTANDARD*N2STANDARD	// N2 standard value (79%)
 
@@ -26,6 +29,8 @@
 	//Amount of air to take a from a tile
 #define HUMAN_NEEDED_OXYGEN	MOLES_CELLSTANDARD*BREATH_PERCENTAGE*0.16
 	//Amount of air needed before pass out/suffocation commences
+
+#define SOUND_MINIMUM_PRESSURE 10
 
 // Pressure limits.
 #define HAZARD_HIGH_PRESSURE 550	//This determins at what pressure the ultra-high pressure red icon is displayed. (This one is set as a constant)
@@ -384,6 +389,12 @@ var/MAX_EXPLOSION_RANGE = 14
 #define M_SOBER         203		// Increased alcohol metabolism
 #define M_PSY_RESIST    204		// Block remoteview
 #define M_SUPER_FART    205		// Duh
+#define M_EMPATH		206		//Read minds
+
+// /vg/ muts
+#define M_LOUD		208		// CAUSES INTENSE YELLING
+#define M_WHISPER	209		// causes quiet whispering
+#define M_DIZZY		210		// Trippy.
 
 //disabilities
 #define NEARSIGHTED		1
@@ -899,3 +910,4 @@ var/list/RESTRICTED_CAMERA_NETWORKS = list( //Those networks can only be accesse
 #define IS_VOX 2
 #define IS_SKRELL 3
 #define IS_UNATHI 4
+

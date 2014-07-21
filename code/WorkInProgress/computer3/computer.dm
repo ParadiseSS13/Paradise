@@ -449,6 +449,16 @@
 				overlays += kb
 			name = initial(name) + " (orange screen of death)"
 
+	//Returns percentage of battery charge remaining. Returns -1 if no battery is installed.
+	proc/check_battery_status()
+		if (battery)
+			var/obj/item/weapon/cell/B = battery
+			return round(B.charge / (B.maxcharge / 100))
+		else
+			return -1
+
+
+
 /obj/machinery/computer3/wall_comp
 	name			= "terminal"
 	icon			= 'icons/obj/computer3.dmi'

@@ -205,9 +205,6 @@
 				var/damage = rand(1, 5)
 				adjustBruteLoss(damage)
 				health = 100 - getOxyLoss() - getToxLoss() - getFireLoss() - getBruteLoss()
-				for(var/datum/disease/D in M.viruses)
-					if(istype(D, /datum/disease/jungle_fever))
-						contract_disease(D,1,0)
 			else
 				for(var/mob/O in viewers(src, null))
 					O.show_message("\red <B>[M.name] has attempted to bite [name]!</B>", 1)
@@ -383,7 +380,7 @@
 
 		var/damage = rand(1, 3)
 
-		if(istype(src, /mob/living/carbon/slime/adult))
+		if(M.is_adult)
 			damage = rand(20, 40)
 		else
 			damage = rand(5, 35)

@@ -51,11 +51,6 @@ emp_act
 
 				return -1 // complete projectile permutation
 
-	if(check_shields(P.damage, "the [P.name]"))
-		P.on_hit(src, 2, def_zone)
-		handle_suit_punctures(P.damage_type, P.damage)
-		return 2
-
 //BEGIN BOOK'S TASER NERF.
 	if(istype(P, /obj/item/projectile/beam/stun))
 		var/datum/organ/external/select_area = get_organ(def_zone) // We're checking the outside, buddy!
@@ -89,6 +84,9 @@ emp_act
 		return
 //END TASER NERF
 
+	if(check_shields(P.damage, "the [P.name]"))
+		P.on_hit(src, 2, def_zone)
+		return 2
 
 	var/datum/organ/external/organ = get_organ(check_zone(def_zone))
 
@@ -195,7 +193,8 @@ emp_act
 /mob/living/carbon/human/proc/attacked_by(var/obj/item/I, var/mob/living/user, var/def_zone)
 	if(!I || !user)	return 0
 
-	var/target_zone = get_zone_with_miss_chance(user.zone_sel.selecting, src)
+	var/target_zone = def_zone? def_zone : get_zone_with_miss_chance(user.zone_sel.selecting, src)
+	
 	if(user == src) // Attacking yourself can't miss
 		target_zone = user.zone_sel.selecting
 	if(!target_zone && !src.stat)
@@ -255,7 +254,7 @@ emp_act
 	var/armor = run_armor_check(affecting, "melee", "Your armor has protected your [hit_area].", "Your armor has softened hit to your [hit_area].")
 	var/weapon_sharp = is_sharp(I)
 	var/weapon_edge = has_edge(I)
-	if ((weapon_sharp || weapon_edge) && prob(getarmor(def_zone, "melee")))
+	if ((weapon_sharp || weapon_edge) && prob(getarmor(target_zone, "melee")))
 		weapon_sharp = 0
 		weapon_edge = 0
 
@@ -307,6 +306,77 @@ emp_act
 				if(bloody)
 					bloody_body(src)
 	return 1
+
+//this proc handles being hit by a thrown atom
+/mob/living/carbon/human/hitby(atom/movable/AM as mob|obj,var/speed = 5)
+	if(istype(AM,/obj/))
+		var/obj/O = AM
+		var/dtype = BRUTE
+		if(istype(O,/obj/item/weapon))
+			var/obj/item/weapon/W = O
+			dtype = W.damtype
+		var/throw_damage = O.throwforce*(speed/5)
+		
+		var/zone
+		if (istype(O.thrower, /mob/living))
+			var/mob/living/L = O.thrower
+			zone = check_zone(L.zone_sel.selecting)
+		else
+			zone = ran_zone("chest",75)	//Hits a random part of the body, geared towards the chest
+		
+		//check if we hit
+		if (O.throw_source)
+			var/distance = get_dist(O.throw_source, loc)
+			zone = get_zone_with_miss_chance(zone, src, min(15*(distance-2), 0))
+		else
+			zone = get_zone_with_miss_chance(zone, src, 15)
+
+		if(!zone)
+			visible_message("\blue \The [O] misses [src] narrowly!")
+			return
+		
+		O.throwing = 0		//it hit, so stop moving
+		
+		if ((O.thrower != src) && check_shields(throw_damage, "[O]"))
+			return
+		
+		var/datum/organ/external/affecting = get_organ(zone)
+		var/hit_area = affecting.display_name
+		
+		src.visible_message("\red [src] has been hit in the [hit_area] by [O].")
+		var/armor = run_armor_check(affecting, "melee", "Your armor has protected your [hit_area].", "Your armor has softened hit to your [hit_area].") //I guess "melee" is the best fit here
+
+		if(armor < 2)
+			apply_damage(throw_damage, dtype, zone, armor, is_sharp(O), has_edge(O), O)
+
+		if(ismob(O.thrower))
+			var/mob/M = O.thrower
+			var/client/assailant = M.client
+			if(assailant)
+				src.attack_log += text("\[[time_stamp()]\] <font color='orange'>Has been hit with a [O], thrown by [M.name] ([assailant.ckey])</font>")
+				M.attack_log += text("\[[time_stamp()]\] <font color='red'>Hit [src.name] ([src.ckey]) with a thrown [O]</font>")
+				if(!istype(src,/mob/living/simple_animal/mouse))
+					msg_admin_attack("[src.name] ([src.ckey]) was hit by a [O], thrown by [M.name] ([assailant.ckey]) (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[src.x];Y=[src.y];Z=[src.z]'>JMP</a>)")
+
+		// Begin BS12 momentum-transfer code.
+		if(O.throw_source && speed >= 15)
+			var/obj/item/weapon/W = O
+			var/momentum = speed/2
+			var/dir = get_dir(O.throw_source, src)
+
+			visible_message("\red [src] staggers under the impact!","\red You stagger under the impact!")
+			src.throw_at(get_edge_target_turf(src,dir),1,momentum)
+
+			if(!W || !src) return
+
+			if(W.loc == src && W.sharp) //Projectile is embedded and suitable for pinning.
+				var/turf/T = near_wall(dir,2)
+
+				if(T)
+					src.loc = T
+					visible_message("<span class='warning'>[src] is pinned to the wall by [O]!</span>","<span class='warning'>You are pinned to the wall by [O]!</span>")
+					src.anchored = 1
+					src.pinned += O
 
 /mob/living/carbon/human/proc/bloody_hands(var/mob/living/source, var/amount = 2)
 

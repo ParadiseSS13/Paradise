@@ -456,7 +456,7 @@ datum
 						R.volume += amount
 						update_total()
 						my_atom.on_reagent_change()
-
+/*
 						// mix dem viruses
 						if(R.id == "blood" && reagent == "blood")
 							if(R.data && data)
@@ -481,6 +481,7 @@ datum
 											if(!istype(D, /datum/disease/advance))
 												preserve += D
 										R.data["viruses"] = preserve
+*/
 
 						handle_reactions()
 						return 0
@@ -492,7 +493,7 @@ datum
 					reagent_list += R
 					R.holder = src
 					R.volume = amount
-					SetViruses(R, data) // Includes setting data
+//					SetViruses(R, data) // Includes setting data
 
 					//debug
 					//world << "Adding data"

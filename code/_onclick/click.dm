@@ -200,9 +200,8 @@
 	Only used for swapping hands
 */
 /mob/proc/MiddleClickOn(var/atom/A)
+	A.point()
 	return
-/mob/living/carbon/MiddleClickOn(var/atom/A)
-	swap_hand()
 
 // In case of use break glass
 /*

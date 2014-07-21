@@ -25,26 +25,6 @@
 	// Garbage collection
 	var/gc_destroyed=null
 
-/atom/proc/throw_impact(atom/hit_atom, var/speed)
-	if(istype(hit_atom,/mob/living))
-		var/mob/living/M = hit_atom
-		M.hitby(src,speed)
-
-	else if(isobj(hit_atom))
-		var/obj/O = hit_atom
-		if(!O.anchored)
-			step(O, src.dir)
-		O.hitby(src,speed)
-
-	else if(isturf(hit_atom))
-		var/turf/T = hit_atom
-		if(T.density)
-			spawn(2)
-				step(src, turn(src.dir, 180))
-			if(istype(src,/mob/living))
-				var/mob/living/M = src
-				M.take_organ_damage(20)
-
 /atom/Del()
 	// Pass to Destroy().
 	if(!gc_destroyed)
@@ -242,6 +222,7 @@ its easier to just keep the beam vertical.
 	set name = "Examine"
 	set category = "IC"
 	set src in view(usr.client) //If it can be seen, it can be examined.
+	set popup_menu = 0
 
 	if (!( usr ))
 		return
@@ -260,11 +241,10 @@ its easier to just keep the beam vertical.
 /atom/proc/blob_act()
 	return
 
-/atom/proc/fire_act()
-	return
-
 
 /atom/proc/hitby(atom/movable/AM as mob|obj)
+	if (density)
+		AM.throwing = 0
 	return
 
 /atom/proc/add_hiddenprint(mob/living/M as mob)

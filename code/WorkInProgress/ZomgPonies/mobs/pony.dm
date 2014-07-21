@@ -21,7 +21,7 @@
 	speed = 0
 	stop_automated_movement = 0
 	status_flags = 0
-	faction = "cult"
+	faction = list("pony")
 	status_flags = CANPUSH
 	universal_speak = 1
 

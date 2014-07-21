@@ -187,7 +187,9 @@
 	ui_interact(user)
 
 
-/obj/machinery/power/smes/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null)
+
+/obj/machinery/power/smes/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
+
 	if(stat & BROKEN)
 		return
 
@@ -205,7 +207,7 @@
 	data["outputLoad"] = round(loaddemand)
 
 	// update the ui if it exists, returns null if no ui is passed/found
-	ui = nanomanager.try_update_ui(user, src, ui_key, ui, data)
+	ui = nanomanager.try_update_ui(user, src, ui_key, ui, data, force_open)
 	if (!ui)
 		// the ui does not exist, so we'll create a new() one
         // for a list of parameters and their descriptions see the code docs in \code\modules\nano\nanoui.dm

@@ -468,9 +468,10 @@ var/list/slot_equipment_priority = list( \
 				return L.container
 	return
 
+
 /mob/verb/mode()
 	set name = "Activate Held Object"
-	set category = "Object"
+	set category = null
 	set src = usr
 
 	if(istype(loc,/obj/mecha)) return

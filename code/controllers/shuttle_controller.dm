@@ -128,16 +128,18 @@ var/global/datum/shuttle_controller/shuttle_controller
 	shuttles["Centcom"] = shuttle
 	process_shuttles += shuttle
 
-	shuttle = new()
-	shuttle.location = 1
-	shuttle.warmup_time = 10	//want some warmup time so people can cancel.
-	shuttle.area_offsite = locate(/area/shuttle/administration/centcom)
-	shuttle.area_station = locate(/area/shuttle/administration/station)
-	shuttle.docking_controller_tag = "admin_shuttle"
-	shuttle.dock_target_station = "admin_shuttle_dock_airlock"
-	shuttle.dock_target_offsite = "admin_shuttle_bay"
-	shuttles["Administration"] = shuttle
-	process_shuttles += shuttle
+	var/datum/shuttle/ferry/multidock/admin_shuttle = new()
+	admin_shuttle.location = 1
+	admin_shuttle.warmup_time = 10	//want some warmup time so people can cancel.
+	admin_shuttle.area_offsite = locate(/area/shuttle/administration/centcom)
+	admin_shuttle.area_station = locate(/area/shuttle/administration/station)
+	admin_shuttle.docking_controller_tag = "admin_shuttle_port"
+	admin_shuttle.docking_controller_tag_station = "admin_shuttle_starboard"
+	admin_shuttle.docking_controller_tag_offsite = "admin_shuttle_port"
+	admin_shuttle.dock_target_station = "admin_shuttle_dock_airlock"
+	admin_shuttle.dock_target_offsite = "admin_shuttle_bay"
+	shuttles["Administration"] = admin_shuttle
+	process_shuttles += admin_shuttle
 
 	shuttle = new()
 	shuttle.area_offsite = locate(/area/shuttle/alien/base)
@@ -177,19 +179,30 @@ var/global/datum/shuttle_controller/shuttle_controller
 	shuttles["Research"] = shuttle
 	process_shuttles += shuttle
 
+	shuttle = new()
+	shuttle.warmup_time = 10
+	shuttle.area_offsite = locate(/area/shuttle/siberia/outpost)
+	shuttle.area_station = locate(/area/shuttle/siberia/station)
+	shuttle.docking_controller_tag = "labor_shuttle"
+	shuttle.dock_target_station = "labor_shuttle_dock"
+	shuttle.dock_target_offsite = "labor_camp_dock"
+	shuttles["Labor"] = shuttle
+	process_shuttles += shuttle
+
 	// ERT Shuttle
 	var/datum/shuttle/ferry/multidock/specops/ERT = new()
 	ERT.location = 1
 	ERT.warmup_time = 10
-	ERT.area_offsite = locate(/area/shuttle/specops/centcom)	//centcom is the home station, the Exodus is offsite
+	ERT.area_offsite = locate(/area/shuttle/specops/centcom)
 	ERT.area_station = locate(/area/shuttle/specops/station)
-	ERT.docking_controller_tag = "specops_shuttle_port"
+	ERT.docking_controller_tag = "specops_shuttle_fore"
 	ERT.docking_controller_tag_station = "specops_shuttle_port"
 	ERT.docking_controller_tag_offsite = "specops_shuttle_fore"
 	ERT.dock_target_station = "specops_dock_airlock"
 	ERT.dock_target_offsite = "specops_centcom_dock"
 	shuttles["Special Operations"] = ERT
 	process_shuttles += ERT
+
 
 	//Vox Shuttle.
 	var/datum/shuttle/multi_shuttle/VS = new/datum/shuttle/multi_shuttle()
@@ -269,12 +282,12 @@ var/global/datum/shuttle_controller/shuttle_controller
 					shuttle = dock_controller_map[C.id_tag]
 					shuttle.docking_controller = C.program
 					dock_controller_map -= C.id_tag
-					
+
 					//escape pods
 					if(istype(C, /obj/machinery/embedded_controller/radio/simple_docking_controller/escape_pod) && istype(shuttle, /datum/shuttle/ferry/escape_pod))
 						var/obj/machinery/embedded_controller/radio/simple_docking_controller/escape_pod/EPC = C
 						EPC.pod = shuttle
-					
+
 				if (C.id_tag in dock_controller_map_station)
 					multidock = dock_controller_map_station[C.id_tag]
 					if (istype(multidock))

@@ -504,6 +504,10 @@
 
 	hud_used.item_action_list = list()
 	for(var/obj/item/I in src)
+		if(istype(I,/obj/item/clothing/under))
+			var/obj/item/clothing/under/U = I
+			if(U.hastie)
+				I = U.hastie
 		if(I.icon_action_button)
 			var/obj/screen/item_action/A = new(hud_used)
 			//A.icon = 'icons/mob/screen1_action.dmi'
@@ -536,6 +540,16 @@
 					A.screen_loc = ui_action_slot4
 				if(5)
 					A.screen_loc = ui_action_slot5
+				if(6)
+					A.screen_loc = ui_action_slot6
+				if(7)
+					A.screen_loc = ui_action_slot7
+				if(8)
+					A.screen_loc = ui_action_slot8
+				if(9)
+					A.screen_loc = ui_action_slot9
+				if(10)
+					A.screen_loc = ui_action_slot10
 					break //5 slots available, so no more can be added.
 			num++
 	src.client.screen += src.hud_used.item_action_list

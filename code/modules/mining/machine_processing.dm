@@ -142,9 +142,19 @@
 
 /obj/machinery/mineral/processing_unit/process()
 
-	if (!active || !src.output || !src.input) return
+	if (!src.output || !src.input) return
 
 	var/list/tick_alloys = list()
+
+	//Grab some more ore to process this tick.
+	for(var/i = 0,i<sheets_per_tick,i++)
+		var/obj/item/weapon/ore/O = locate() in input.loc
+		if(!O) break
+		if(!isnull(ores_stored[O.oretag])) ores_stored[O.oretag]++
+		O.loc = null
+
+	if(!active)
+		return
 
 	//Process our stored ores and spit out sheets.
 	var/sheets = 0
@@ -220,12 +230,5 @@
 				new /obj/item/weapon/ore/slag(output.loc)
 		else
 			continue
-
-	//Grab some more ore to process next tick.
-	for(var/i = 0,i<sheets_per_tick,i++)
-		var/obj/item/weapon/ore/O = locate() in input.loc
-		if(!O) break
-		if(!isnull(ores_stored[O.oretag])) ores_stored[O.oretag]++
-		O.loc = null
 
 	console.updateUsrDialog()

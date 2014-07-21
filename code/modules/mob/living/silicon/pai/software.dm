@@ -438,9 +438,9 @@
 	for (var/ch_name in radio.channels)
 		dat+=radio.text_sec_channel(ch_name, radio.channels[ch_name])
 	dat+={"[radio.text_wires()]</TT></body></html>"}
-	
+
 	return dat
-	
+
 // Crew Manifest
 /mob/living/silicon/pai/proc/softwareManifest()
 	var/dat = ""
@@ -538,7 +538,7 @@
 					return dat
 		dat += {"<b>Bioscan Results for [M]</b>: <br>
 		Overall Status: [M.stat > 1 ? "dead" : "[M.health]% healthy"] <br><br>
-		
+
 		<b>Scan Breakdown</b>: <br>
 		Respiratory: [M.getOxyLoss() > 50 ? "<font color=#FF5555>" : "<font color=#55FF55>"][M.getOxyLoss()]</font><br>
 		Toxicology: [M.getToxLoss() > 50 ? "<font color=#FF5555>" : "<font color=#55FF55>"][M.getToxLoss()]</font><br>
@@ -546,13 +546,6 @@
 		Structural Integrity: [M.getBruteLoss() > 50 ? "<font color=#FF5555>" : "<font color=#55FF55>"][M.getBruteLoss()]</font><br>
 		Body Temperature: [M.bodytemperature-T0C]&deg;C ([M.bodytemperature*1.8-459.67]&deg;F)<br>
 		"}
-		for(var/datum/disease/D in M.viruses)
-			dat += {"<h4>Infection Detected.</h4><br>
-					 Name: [D.name]<br>
-					 Type: [D.spread]<br>
-					 Stage: [D.stage]/[D.max_stages]<br>
-					 Possible Cure: [D.cure]<br>
-					"}
 		dat += "<br><a href='byond://?src=\ref[src];software=medicalhud;sub=1'>Refresh Bioscan</a><br>"
 		dat += "<br><a href='byond://?src=\ref[src];software=medicalhud;sub=0'>Visual Status Overlay</a><br>"
 	return dat
@@ -676,7 +669,7 @@
 			dat += "</li>"
 	dat += "</ul>"
 	dat += "Messages: <hr>"
-	
+
 	dat += "<style>td.a { vertical-align:top; }</style>"
 	dat += "<table>"
 	for(var/index in pda.tnote)

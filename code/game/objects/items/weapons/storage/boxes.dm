@@ -26,6 +26,9 @@
 	item_state = "syringe_kit"
 	foldable = /obj/item/stack/sheet/cardboard	//BubbleWrap
 
+	autoignition_temperature = 522 // Kelvin
+
+
 /obj/item/weapon/storage/box/large
 	name = "large box"
 	desc = "You could build a fort with this."
@@ -36,8 +39,10 @@
 	storage_slots = 21
 	max_combined_w_class = 42 // 21*2
 
+	autoignition_temperature = 530 // Kelvin
 
-/obj/item/weapon/storage/box/surveillance/
+
+/obj/item/weapon/storage/box/surveillance
 	name = "\improper DromedaryCo packet"
 	desc = "A packet of six imported DromedaryCo cancer sticks. A label on the packaging reads, \"Wouldn't a slow death make a change?\""
 	icon = 'icons/obj/cigarettes.dmi'
@@ -52,7 +57,7 @@
 		for(var/i = 1 to 5)
 			new /obj/item/device/camera_bug(src)
 
-/obj/item/weapon/storage/box/survival/
+/obj/item/weapon/storage/box/survival
 	New()
 		..()
 		contents = list()

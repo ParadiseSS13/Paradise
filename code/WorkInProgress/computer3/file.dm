@@ -13,7 +13,7 @@
 	var/image = 'icons/ntos/file.png' // determines the icon to use, found in icons/ntos
 	var/obj/machinery/computer3/computer // the parent computer, if fixed
 	var/obj/item/part/computer/storage/device // the device that is containing this file
-
+	var/hidden_file = 0 // Prevents file from showing up on NTOS program list.
 	var/drm	= 0			// Copy protection, called by copy() and move()
 	var/readonly = 0	// Edit protection, called by edit(), which is just a failcheck proc
 

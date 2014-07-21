@@ -17,7 +17,8 @@
 	response_help  = "pets the"
 	response_disarm = "gently pushes aside the"
 	response_harm   = "kicks the"
-	faction = "goat"
+	faction = list("neutral")
+	attack_same = 1
 	attacktext = "kicks"
 	health = 40
 	melee_damage_lower = 1

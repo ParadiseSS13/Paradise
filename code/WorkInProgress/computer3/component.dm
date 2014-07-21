@@ -91,29 +91,127 @@
 			return
 		..(I,user)
 
-	proc/insert(var/obj/item/weapon/card/card)
+	// cardslot.insert(card, slot)
+	// card: The card obj you want to insert (usually your ID)
+	// slot: Which slot to insert into (1: reader, 2: writer, 3: auto), 3 default
+	proc/insert(var/obj/item/weapon/card/card, var/slot = 3)
 		if(!computer)
 			return 0
-		if(reader != null)
-			usr << "There is already something in the slot!"
+		// This shouldn't happen, just in case..
+		if(slot == 2 && !dualslot)
+			usr << "This device has only one card slot"
 			return 0
-		if(istype(card,/obj/item/weapon/card/emag)) // emag reader slot
-			usr << "You insert \the [card], and the computer grinds, sparks, and beeps.  After a moment, the card ejects itself."
-			computer.emagged = 1
-			return 1
-		var/mob/living/L = usr
-		L.drop_item()
-		card.loc = src
-		reader = card
 
-	proc/remove()
-		reader.loc = loc
-		var/mob/living/carbon/human/user = usr
-		if(istype(user) && !user.get_active_hand())
-			user.put_in_hands(reader)
-		else
-			reader.loc = computer.loc
-		reader = null
+		if(istype(card,/obj/item/weapon/card/emag)) // emag reader slot
+			if(!writer)
+				usr << "You insert \the [card], and the computer grinds, sparks, and beeps.  After a moment, the card ejects itself."
+				computer.emagged = 1
+				return 1
+			else
+				usr << "You are unable to insert \the [card], as the reader slot is occupied"
+
+		var/mob/living/L = usr
+		switch(slot)
+			if(1)
+				if(equip_to_reader(card, L))
+					usr << "You insert the card into reader slot"
+				else
+					usr << "There is already something in the reader slot."
+			if(2)
+				if(equip_to_writer(card, L))
+					usr << "You insert the card into writer slot"
+				else
+					usr << "There is already something in the reader slot."
+			if(3)
+				if(equip_to_reader(card, L))
+					usr << "You insert the card into reader slot"
+				else if (equip_to_writer(card, L) && dualslot)
+					usr << "You insert the card into writer slot"
+				else if (dualslot)
+					usr << "There is already something in both slots."
+				else
+					usr << "There is already something in the reader slot."
+
+
+	// Usage of insert() preferred, as it also tells result to the user.
+	proc/equip_to_reader(var/obj/item/weapon/card/card, var/mob/living/L)
+		if(!reader)
+			L.drop_item()
+			card.loc = src
+			reader = card
+			return 1
+		return 0
+
+	proc/equip_to_writer(var/obj/item/weapon/card/card, var/mob/living/L)
+		if(!writer && dualslot)
+			L.drop_item()
+			card.loc = src
+			writer = card
+			return 1
+		return 0
+
+	// cardslot.remove(slot)
+	// slot: Which slot to remove card(s) from (1: reader only, 2: writer only, 3: both [works even with one card], 4: reader and if empty then writer ), 3 default
+	proc/remove(var/slot = 3)
+		var/mob/living/L = usr
+		switch(slot)
+			if(1)
+				if (remove_reader(L))
+					L << "You remove the card from reader slot"
+				else
+					L << "There is no card in the reader slot"
+			if(2)
+				if (remove_writer(L))
+					L << "You remove the card from writer slot"
+				else
+					L << "There is no card in the writer slot"
+			if(3)
+				if (remove_reader(L))
+					if (remove_writer(L))
+						L << "You remove cards from both slots"
+					else
+						L << "You remove the card from reader slot"
+				else
+					if(remove_writer(L))
+						L << "You remove the card from writer slot"
+					else
+						L << "There are no cards in both slots"
+			if(4)
+				if (!remove_reader(L))
+					if (remove_writer(L))
+						L << "You remove the card from writer slot"
+					else if (!dualslot)
+						L << "There is no card in the reader slot"
+					else
+						L << "There are no cards in both slots"
+				else
+					L << "You remove the card from reader slot"
+
+
+	proc/remove_reader(var/mob/living/L)
+		if(reader)
+			reader.loc = loc
+			if(istype(L) && !L.get_active_hand())
+				L.put_in_hands(reader)
+			else
+				reader.loc = computer.loc
+			reader = null
+			return 1
+		return 0
+
+	proc/remove_writer(var/mob/living/L)
+		if(writer && dualslot)
+			writer.loc = loc
+			if(istype(L) && !L.get_active_hand())
+				L.put_in_hands(writer)
+			else
+				writer.loc = computer.loc
+			writer = null
+			return 1
+		return 0
+
+
+
 
 	// Authorizes the user based on the computer's requirements
 	proc/authenticate()
@@ -132,6 +230,13 @@
 	name	= "magnetic card reader"
 	desc	= "Contains slots for inserting magnetic swipe cards for reading and writing."
 	dualslot = 1
+
+
+	/*
+	// Atlantis: Reworked card manipulation a bit.
+	// No need for separated code for dual and single readers.
+	// Both is handled in single-slot reader code now, thanks to the "dualslot" var.
+	// Leaving this code here if someone wants to somehow use it, just uncomment.
 
 	insert(var/obj/item/weapon/card/card,var/slot = 0)
 		if(!computer)
@@ -194,5 +299,6 @@
 			user.put_in_hands(card)
 		else
 			card.loc = computer.loc
+*/
 
 

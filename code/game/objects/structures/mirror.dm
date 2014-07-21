@@ -105,7 +105,9 @@
 
 
 /obj/structure/mirror/attack_slime(mob/user as mob)
-	if(!isslimeadult(user)) return
+	var/mob/living/carbon/slime/S = user
+	if (!S.is_adult)
+		return
 	if(shattered)
 		playsound(src.loc, 'sound/effects/hit_on_shattered_glass.ogg', 70, 1)
 		return

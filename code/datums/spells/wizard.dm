@@ -24,6 +24,8 @@
 	proj_trail_lifespan = 5
 	proj_trail_icon_state = "magicmd"
 
+	icon_power_button = "spell_missile"
+
 /obj/effect/proc_holder/spell/targeted/inflict_handler/magic_missile
 	amt_weakened = 5
 	amt_dam_fire = 10
@@ -66,6 +68,8 @@
 	sparks_spread = 1
 	sparks_amt = 4
 
+	icon_power_button = "spell_disintegrate"
+
 /obj/effect/proc_holder/spell/targeted/smoke
 	name = "Smoke"
 	desc = "This spell spawns a cloud of choking smoke at your location and does not require wizard garb."
@@ -82,6 +86,8 @@
 	smoke_spread = 2
 	smoke_amt = 10
 
+	icon_power_button = "spell_smoke"
+
 /obj/effect/proc_holder/spell/targeted/emplosion/disable_tech
 	name = "Disable Tech"
 	desc = "This spell disables all weapons, cameras and most other technology in range."
@@ -95,6 +101,8 @@
 
 	emp_heavy = 6
 	emp_light = 10
+
+	icon_power_button = "spell_tech"
 
 /obj/effect/proc_holder/spell/targeted/turf_teleport/blink
 	name = "Blink"
@@ -118,6 +126,8 @@
 
 	centcom_cancast = 0 //prevent people from getting to centcom
 
+	icon_power_button = "spell_blink"
+
 /obj/effect/proc_holder/spell/targeted/area_teleport/teleport
 	name = "Teleport"
 	desc = "This spell teleports you to a type of area of your selection."
@@ -134,6 +144,8 @@
 	smoke_spread = 1
 	smoke_amt = 5
 
+	icon_power_button = "spell_teleport"
+
 /obj/effect/proc_holder/spell/aoe_turf/conjure/forcewall
 	name = "Forcewall"
 	desc = "This spell creates an unbreakable wall that lasts for 30 seconds and does not need wizard garb."
@@ -149,6 +161,7 @@
 	summon_type = list("/obj/effect/forcefield")
 	summon_lifespan = 300
 
+	icon_power_button = "spell_forcewall"
 
 /obj/effect/proc_holder/spell/aoe_turf/conjure/carp
 	name = "Summon Carp"
@@ -206,6 +219,8 @@
 
 	starting_spells = list("/obj/effect/proc_holder/spell/targeted/inflict_handler/blind","/obj/effect/proc_holder/spell/targeted/genetic/blind")
 
+	icon_power_button = "spell_blind"
+
 /obj/effect/proc_holder/spell/targeted/inflict_handler/blind
 	amt_eye_blind = 10
 	amt_eye_blurry = 20
@@ -229,6 +244,8 @@
 
 	summon_type = "/obj/structure/closet/statue"
 
+	icon_power_button = "spell_stone"
+
 /obj/effect/proc_holder/spell/dumbfire/fireball
 	name = "Fireball"
 	desc = "This spell fires a fireball at a target and does not require wizard garb."
@@ -248,8 +265,10 @@
 	proj_lifespan = 200
 	proj_step_delay = 1
 
+	icon_power_button = "spell_fireball"
+
 /obj/effect/proc_holder/spell/turf/fireball/cast(var/turf/T)
-	explosion(T, -1, 0, 2, 3, 0, flame_range = 2)
+	explosion(T, -1, 0, 2, 0)
 
 
 /obj/effect/proc_holder/spell/targeted/inflict_handler/fireball
@@ -258,6 +277,5 @@
 
 /obj/effect/proc_holder/spell/targeted/explosion/fireball
 	ex_severe = -1
-	ex_heavy = -1
+	ex_heavy = 0
 	ex_light = 2
-	ex_flash = 5

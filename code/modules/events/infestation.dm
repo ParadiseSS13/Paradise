@@ -84,7 +84,7 @@
 			spawn_types = list(/obj/effect/spider/spiderling)
 			vermstring = "spiders"
 		if(VERM_SLIMES)
-			spawn_types = typesof(/mob/living/carbon/slime) - /mob/living/carbon/slime - typesof(/mob/living/carbon/slime/adult)
+			spawn_types = typesof(/mob/living/carbon/slime) - /mob/living/carbon/slime
 			vermstring = "slimes"
 		if(VERM_BATS)
 			spawn_types = /mob/living/simple_animal/hostile/scarybat

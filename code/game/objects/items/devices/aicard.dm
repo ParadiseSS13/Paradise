@@ -71,6 +71,10 @@
 				dat += "<br>"
 				dat += {"<a href='byond://?src=\ref[src];choice=Wireless'>[A.control_disabled ? "Enable" : "Disable"] Wireless Activity</a>"}
 				dat += "<br>"
+				dat += "Subspace Transceiver is: [A.radio.disabledAi ? "Disabled" : "Enabled"]"
+				dat += "<br>"
+				dat += {"<a href='byond://?src=\ref[src];choice=Radio'>[A.radio.disabledAi ? "Enable" : "Disable"] Subspace Transceiver</a>"}
+				dat += "<br>"
 				dat += {"<a href='byond://?src=\ref[src];choice=Close'> Close</a>"}
 		user << browse(dat, "window=aicard")
 		onclose(user, "aicard")
@@ -109,6 +113,12 @@
 								A.updatehealth()
 								sleep(10)
 							flush = 0
+
+			if ("Radio")
+				for(var/mob/living/silicon/ai/A in src)
+					A.radio.disabledAi = !A.radio.disabledAi
+					A << "Your Subspace Transceiver has been: [A.radio.disabledAi ? "disabled" : "enabled"]"
+					U << "You [A.radio.disabledAi ? "Disable" : "Enable"] the AI's Subspace Transceiver"
 
 			if ("Wireless")
 				for(var/mob/living/silicon/ai/A in src)

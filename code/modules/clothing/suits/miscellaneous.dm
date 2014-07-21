@@ -398,3 +398,12 @@
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES
 	siemens_coefficient = 0.9
 	loose = 7
+
+
+/obj/item/clothing/suit/bomber
+	name = "bomber jacker"
+	desc = "A well-worn WW2 leather bomber jacket."
+	icon_state = "bomber"
+	item_state = "bomber"
+	flags = FPRINT | TABLEPASS
+	body_parts_covered = UPPER_TORSO|ARMS

@@ -12,20 +12,23 @@
 	var/last_scan_time = 0
 	var/scan_delay = 25
 
+/obj/item/device/ano_scanner/initialize()
+	scan()
+
 /obj/item/device/ano_scanner/attack_self(var/mob/user as mob)
 	return src.interact(user)
 
 /obj/item/device/ano_scanner/interact(var/mob/user as mob)
 	var/message = "Background radiation levels detected."
-
-	if(nearest_artifact_distance >= 0)
-		message = "Exotic energy detected on wavelength '[nearest_artifact_id]' in a radius of [nearest_artifact_distance]m"
-
-	user << "<span class='info'>[message]</span>"
-
 	if(world.time - last_scan_time >= scan_delay)
 		spawn(0)
 			scan()
+		if(nearest_artifact_distance >= 0)
+			message = "Exotic energy detected on wavelength '[nearest_artifact_id]' in a radius of [nearest_artifact_distance]m"
+	else
+		message = "Scanning array is recharging."
+
+	user << "<span class='info'>[message]</span>"
 
 /obj/item/device/ano_scanner/proc/scan()
 	last_scan_time = world.time

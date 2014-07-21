@@ -151,16 +151,19 @@
 					C = usr.buckled
 				var/obj/B = usr.buckled
 				var/movementdirection = turn(direction,180)
-				if(C)	C.propelled = 1
+				if(C)	C.propelled = 4
 				B.Move(get_step(usr,movementdirection), movementdirection)
+				sleep(1)
+				B.Move(get_step(usr,movementdirection), movementdirection)
+				if(C)	C.propelled = 3
 				sleep(1)
 				B.Move(get_step(usr,movementdirection), movementdirection)
 				sleep(1)
 				B.Move(get_step(usr,movementdirection), movementdirection)
-				sleep(1)
-				B.Move(get_step(usr,movementdirection), movementdirection)
+				if(C)	C.propelled = 2
 				sleep(2)
 				B.Move(get_step(usr,movementdirection), movementdirection)
+				if(C)	C.propelled = 1
 				sleep(2)
 				B.Move(get_step(usr,movementdirection), movementdirection)
 				if(C)	C.propelled = 0

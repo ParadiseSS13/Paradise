@@ -275,3 +275,7 @@
 			else
 				usr << "The screen turns to static."
 			return
+
+			// Atlantis: Required for camnetkeys to work.
+/datum/file/program/security/hidden
+	hidden_file = 1

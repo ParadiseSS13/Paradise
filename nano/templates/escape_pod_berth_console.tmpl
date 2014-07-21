@@ -4,17 +4,17 @@
 			Escape Pod Status:
 		</div>
 		<div class="itemContent">
-			{{if docking_status == "docked"}}
-				{{if armed}}
+			{{if data.docking_status == "docked"}}
+				{{if data.armed}}
 					<span class="average">ARMED</span>
 				{{else}}
 					<span class="good">SYSTEMS OK</span>
 				{{/if}}
-			{{else docking_status == "undocking"}}
+			{{else data.docking_status == "undocking"}}
 				<span class="average">EJECTING-STAND CLEAR!</span>
-			{{else docking_status == "undocked"}}
+			{{else data.docking_status == "undocked"}}
 				<span class="idle">POD EJECTED</span>
-			{{else docking_status == "docking"}}
+			{{else data.docking_status == "docking"}}
 				<span class="good">INITIALIZING...</span>
 			{{else}}
 				<span class="bad">ERROR</span>
@@ -25,17 +25,17 @@
 <div class="item" style="padding-top: 10px">
 	<div class="item">
 		<div class="itemContent" style="padding-top: 2px; width: 100%">
-		{{if armed}}
-			{{if docking_status == "docked"}}
-				{{:~link('Force exterior door', 'alert', {'command' : 'force_door'}, override_enabled ? null : 'disabled', null)}}
-				{{:~link('Override', 'alert', {'command' : 'toggle_override'}, null, override_enabled ? 'redBackground' : null)}}
+		{{if data.armed}}
+			{{if data.docking_status == "docked"}}
+				{{:helper.link('Force exterior door', 'alert', {'command' : 'force_door'}, data.override_enabled ? null : 'disabled', null)}}
+				{{:helper.link('Override', 'alert', {'command' : 'toggle_override'}, null, data.override_enabled ? 'redBackground' : null)}}
 			{{else}}
-				{{:~link('Force exterior door', 'alert', {'command' : 'force_door'}, override_enabled ? null : 'disabled', override_enabled? 'redBackground' : null)}}
-				{{:~link('Override', 'alert', {'command' : 'toggle_override'}, null, override_enabled ? 'redBackground' : 'yellowBackground')}}
+				{{:helper.link('Force exterior door', 'alert', {'command' : 'force_door'}, data.override_enabled ? null : 'disabled', data.override_enabled ? 'redBackground' : null)}}
+				{{:helper.link('Override', 'alert', {'command' : 'toggle_override'}, null, data.override_enabled ? 'redBackground' : 'yellowBackground')}}
 			{{/if}}
 		{{else}}
-			{{:~link('Force exterior door', 'alert', {'command' : 'force_door'}, 'disabled', null)}}
-			{{:~link('Override', 'alert', {'command' : 'toggle_override'}, 'disabled', null)}}
+			{{:helper.link('Force exterior door', 'alert', {'command' : 'force_door'}, 'disabled', null)}}
+			{{:helper.link('Override', 'alert', {'command' : 'toggle_override'}, 'disabled', null)}}
 		{{/if}}
 		</div>
 	</div>

@@ -1,6 +1,6 @@
 /atom/movable/verb/pull()
 	set name = "Pull"
-	set category = "Object"
+	set category = null
 	set src in oview(1)
 
 	if(Adjacent(usr))
@@ -9,7 +9,8 @@
 
 /atom/verb/point()
 	set name = "Point To"
-	set category = "Object"
+	set category = null
+	set popup_menu = 0
 	set src in oview()
 	var/atom/this = src//detach proc from src
 	src = null
@@ -20,12 +21,15 @@
 		return
 	if(usr.status_flags & FAKEDEATH)
 		return
+	if(usr.next_move > world.time)
+		return
 
 	var/tile = get_turf(this)
 	if (!tile)
 		return
 
 	var/P = new /obj/effect/decal/point(tile)
+	usr.next_move = world.time + 10
 	spawn (20)
 		if(P)	del(P)
 

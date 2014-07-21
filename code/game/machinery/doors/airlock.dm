@@ -25,6 +25,7 @@
 	icon_state = "door_closed"
 	power_channel = ENVIRON
 
+	explosion_resistance = 15
 	var/aiControlDisabled = 0 //If 1, AI control is disabled until the AI hacks back in and disables the lock. If 2, the AI has bypassed the lock. If -1, the control is enabled but the AI had bypassed it earlier, so if it is disabled again the AI would have no trouble getting back in.
 	var/hackProof = 0 // if 1, this door can't be hacked by the AI
 	var/secondsMainPowerLost = 0 //The number of seconds until power is restored.
@@ -226,13 +227,10 @@
 	icon = 'icons/obj/doors/Doorplasma.dmi'
 	mineral = "plasma"
 
-/obj/machinery/door/airlock/plasma/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume)
-	if(exposed_temperature > 300)
-		PlasmaBurn(exposed_temperature)
+	autoignition_temperature = 300
 
-/obj/machinery/door/airlock/plasma/proc/ignite(exposed_temperature)
-	if(exposed_temperature > 300)
-		PlasmaBurn(exposed_temperature)
+/obj/machinery/door/airlock/plasma/ignite(temperature)
+	PlasmaBurn(temperature)
 
 /obj/machinery/door/airlock/plasma/proc/PlasmaBurn(temperature)
 	for(var/turf/simulated/floor/target_tile in range(2,loc))

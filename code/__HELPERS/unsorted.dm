@@ -224,6 +224,19 @@ Turf and target are seperate in case you want to teleport some distance from a t
 
 	return 0
 
+// Returns true if a link is blocked and neither location has something climbable on
+// Used for inventory checks
+/proc/LinkBlockedUnclimbable(turf/A, turf/B)
+	if (!LinkBlocked(A, B))
+		return 0
+	for (var/obj/structure/S in A.contents)
+		if(S.climbable)
+			return 0
+	for (var/obj/structure/S in B.contents)
+		if(S.climbable)
+			return 0
+	return 1
+
 // Returns true if direction is blocked from loc
 // Checks if doors are open
 /proc/DirBlocked(turf/loc,var/dir)
@@ -818,14 +831,14 @@ proc/anim(turf/location as turf,target as mob|obj,a_icon,a_icon_state as text,fl
 		return 0
 
 	var/delayfraction = round(delay/numticks)
-	var/turf/T = get_turf(user)
+	var/original_loc = user.loc
 	var/holding = user.get_active_hand()
 
 	for(var/i = 0, i<numticks, i++)
 		sleep(delayfraction)
 
 
-		if(!user || user.stat || user.weakened || user.stunned || !(user.loc == T))
+		if(!user || user.stat || user.weakened || user.stunned || (user.loc != original_loc))
 			return 0
 		if(needhand && !(user.get_active_hand() == holding))	//Sometimes you don't want the user to have to keep their active hand
 			return 0

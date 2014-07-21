@@ -47,7 +47,6 @@
 /mob/living/carbon/human/grey/New(var/new_loc)
 	..(new_loc, "Grey")
 	mutations.Add(M_REMOTE_TALK)
-	verbs += /mob/living/carbon/human/proc/remotesay
 
 /mob/living/carbon/human/human/New(var/new_loc)
 	..(new_loc, "Human")
@@ -59,7 +58,7 @@
 	h_style = "blue IPC screen"
 	..(new_loc, "Machine")
 
-/mob/living/carbon/human/New(var/new_loc, var/new_species = null)
+/mob/living/carbon/human/New(var/new_loc, var/new_species = null, var/delay_ready_dna=0)
 	if(!species)
 		if(new_species)
 			set_species(new_species,null,1)
@@ -98,6 +97,9 @@
 	prev_gender = gender // Debug for plural genders
 	make_blood()
 
+	// Set up DNA.
+	if(!delay_ready_dna)
+		dna.ready_dna(src)
 
 /mob/living/carbon/human/Bump(atom/movable/AM as mob|obj, yes)
 	if ((!( yes ) || now_pushing))
@@ -198,7 +200,7 @@
 		var/eta_status = emergency_shuttle.get_status_panel_eta()
 		if(eta_status)
 			stat(null, eta_status)
-	
+
 	if (client.statpanel == "Status")
 		if (internal)
 			if (!internal.air_contents)
@@ -363,7 +365,7 @@
 
 		var/damage = rand(1, 3)
 
-		if(istype(M, /mob/living/carbon/slime/adult))
+		if(M.is_adult)
 			damage = rand(10, 35)
 		else
 			damage = rand(5, 25)
@@ -1037,162 +1039,6 @@
 				spawn(350)	//wait 35 seconds before next volley
 					lastpuke = 0
 
-/mob/living/carbon/human/proc/morph()
-	set name = "Morph"
-	set category = "Abilities"
-
-	if(stat!=CONSCIOUS)
-		reset_view(0)
-		remoteview_target = null
-		return
-
-	if(!(M_MORPH in mutations))
-		src.verbs -= /mob/living/carbon/human/proc/morph
-		return
-
-	if(!ishuman(src))
-		src.verbs -= /mob/living/carbon/human/proc/morph
-		return
-
-
-	var/new_facial = input("Please select facial hair color.", "Character Generation",rgb(r_facial,g_facial,b_facial)) as color
-	if(new_facial)
-		r_facial = hex2num(copytext(new_facial, 2, 4))
-		g_facial = hex2num(copytext(new_facial, 4, 6))
-		b_facial = hex2num(copytext(new_facial, 6, 8))
-
-	var/new_hair = input("Please select hair color.", "Character Generation",rgb(r_hair,g_hair,b_hair)) as color
-	if(new_facial)
-		r_hair = hex2num(copytext(new_hair, 2, 4))
-		g_hair = hex2num(copytext(new_hair, 4, 6))
-		b_hair = hex2num(copytext(new_hair, 6, 8))
-
-	var/new_eyes = input("Please select eye color.", "Character Generation",rgb(r_eyes,g_eyes,b_eyes)) as color
-	if(new_eyes)
-		r_eyes = hex2num(copytext(new_eyes, 2, 4))
-		g_eyes = hex2num(copytext(new_eyes, 4, 6))
-		b_eyes = hex2num(copytext(new_eyes, 6, 8))
-
-	var/new_tone = input("Please select skin tone level: 1-220 (1=albino, 35=caucasian, 150=black, 220='very' black)", "Character Generation", "[35-s_tone]")  as text
-
-	if (!new_tone)
-		new_tone = 35
-	s_tone = max(min(round(text2num(new_tone)), 220), 1)
-	s_tone =  -s_tone + 35
-
-	// hair
-	var/list/all_hairs = typesof(/datum/sprite_accessory/hair) - /datum/sprite_accessory/hair
-	var/list/hairs = list()
-
-	// loop through potential hairs
-	for(var/x in all_hairs)
-		var/datum/sprite_accessory/hair/H = new x // create new hair datum based on type x
-		hairs.Add(H.name) // add hair name to hairs
-		del(H) // delete the hair after it's all done
-
-	var/new_style = input("Please select hair style", "Character Generation",h_style)  as null|anything in hairs
-
-	// if new style selected (not cancel)
-	if (new_style)
-		h_style = new_style
-
-	// facial hair
-	var/list/all_fhairs = typesof(/datum/sprite_accessory/facial_hair) - /datum/sprite_accessory/facial_hair
-	var/list/fhairs = list()
-
-	for(var/x in all_fhairs)
-		var/datum/sprite_accessory/facial_hair/H = new x
-		fhairs.Add(H.name)
-		del(H)
-
-	new_style = input("Please select facial style", "Character Generation",f_style)  as null|anything in fhairs
-
-	if(new_style)
-		f_style = new_style
-
-	var/new_gender = alert(usr, "Please select gender.", "Character Generation", "Male", "Female")
-	if (new_gender)
-		if(new_gender == "Male")
-			gender = MALE
-		else
-			gender = FEMALE
-	regenerate_icons()
-	check_dna()
-
-	visible_message("\blue \The [src] morphs and changes [get_visible_gender() == MALE ? "his" : get_visible_gender() == FEMALE ? "her" : "their"] appearance!", "\blue You change your appearance!", "\red Oh, god!  What the hell was that?  It sounded like flesh getting squished and bone ground into a different shape!")
-
-/mob/living/carbon/human/proc/remotesay()
-	set name = "Project mind"
-	set category = "Abilities"
-
-	if(stat!=CONSCIOUS)
-		reset_view(0)
-		remoteview_target = null
-		return
-
-	if(!(M_REMOTE_TALK in src.mutations))
-		src.verbs -= /mob/living/carbon/human/proc/remotesay
-		return
-	var/list/creatures = list()
-	for(var/mob/living/carbon/human/h in world)
-		creatures += h
-	var/mob/target = input ("Who do you want to project your mind to ?") as null|anything in creatures
-	if (isnull(target))
-		return
-
-	var/say = input ("What do you wish to say")
-	if(M_REMOTE_TALK in target.mutations)
-		target.show_message("\blue You hear [src.real_name]'s voice: [say]")
-	else
-		target.show_message("\blue You hear a voice that seems to echo around the room: [say]")
-	usr.show_message("\blue You project your mind into [target.real_name]: [say]")
-	for(var/mob/dead/observer/G in world)
-		G.show_message("<i>Telepathic message from <b>[src]</b> to <b>[target]</b>: [say]</i>")
-
-/mob/living/carbon/human/proc/remoteobserve()
-	set name = "Remote View"
-	set category = "Abilities"
-
-	if(stat!=CONSCIOUS)
-		remoteview_target = null
-		reset_view(0)
-		return
-
-	if(!(M_REMOTE_VIEW in src.mutations))
-		remoteview_target = null
-		reset_view(0)
-		src.verbs -= /mob/living/carbon/human/proc/remoteobserve
-		return
-
-	if(istype(l_hand, /obj/item/tk_grab) || istype(r_hand, /obj/item/tk_grab/))
-		src << "\red Your mind is too busy with that telekinetic grab."
-		remoteview_target = null
-		reset_view(0)
-		return
-
-	if(client.eye != client.mob)
-		remoteview_target = null
-		reset_view(0)
-		return
-
-	var/list/mob/creatures = list()
-
-	for(var/mob/living/carbon/human/h in world)
-		var/turf/temp_turf = get_turf(h)
-		if((temp_turf.z != 1 && temp_turf.z != 5) || h.stat!=CONSCIOUS) //Not on mining or the station. Or dead
-			continue
-		if(M_PSY_RESIST in h.mutations)
-			continue
-		creatures += h
-
-	var/mob/target = input ("Who do you want to project your mind to ?") as mob in creatures
-
-	if (target)
-		remoteview_target = target
-		reset_view(target)
-	else
-		remoteview_target = null
-		reset_view(0)
 
 /mob/living/carbon/human/proc/get_visible_gender()
 	if(wear_suit && wear_suit.flags_inv & HIDEJUMPSUIT && ((head && head.flags_inv & HIDEMASK) || wear_mask))
@@ -1235,8 +1081,6 @@
 	for(var/datum/organ/internal/I in internal_organs)
 		I.damage = 0
 
-	for (var/datum/disease/virus in viruses)
-		virus.cure()
 	for (var/ID in virus2)
 		var/datum/disease2/disease/V = virus2[ID]
 		V.cure(src)
@@ -1346,7 +1190,7 @@
 					src.adjustToxLoss(rand(1,3))
 
 /mob/living/carbon/human/verb/check_pulse()
-	set category = "Object"
+	set category = null
 	set name = "Check pulse"
 	set desc = "Approximately count somebody's pulse. Requires you to stand still at least 6 seconds."
 	set src in view(1)
@@ -1550,7 +1394,7 @@
 	status_flags |= LEAPING
 
 	src.visible_message("<span class='warning'><b>\The [src]</b> leaps at [T]!</span>")
-	src.throw_at(get_step(get_turf(T),get_turf(src)), 5, 1)
+	src.throw_at(get_step(get_turf(T),get_turf(src)), 5, 1, src)
 	playsound(src.loc, 'sound/voice/shriek1.ogg', 50, 1)
 
 	sleep(5)

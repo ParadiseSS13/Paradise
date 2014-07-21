@@ -3,7 +3,6 @@
 	title = "Chaplain"
 	flag = CHAPLAIN
 	department_flag = SUPPORT
-	faction = "Station"
 	total_positions = 1
 	spawn_positions = 1
 	supervisors = "the head of personnel"

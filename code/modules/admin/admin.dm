@@ -819,12 +819,6 @@ var/global/nologevent = 0
 		if (ticker.mode.config_tag == "changeling")
 			return 2
 		return 1
-
-	for(var/datum/disease/D in M.viruses)
-		if(istype(D, /datum/disease/jungle_fever))
-			if (ticker.mode.config_tag == "monkey")
-				return 2
-			return 1
 	if(isrobot(M))
 		var/mob/living/silicon/robot/R = M
 		if(R.emagged)
@@ -834,24 +828,6 @@ var/global/nologevent = 0
 
 	return 0
 
-/*
-/datum/admins/proc/get_sab_desc(var/target)
-	switch(target)
-		if(1)
-			return "Destroy at least 70% of the plasma canisters on the station"
-		if(2)
-			return "Destroy the AI"
-		if(3)
-			var/count = 0
-			for(var/mob/living/carbon/monkey/Monkey in world)
-				if(Monkey.z == 1)
-					count++
-			return "Kill all [count] of the monkeys on the station"
-		if(4)
-			return "Cut power to at least 80% of the station"
-		else
-			return "Error: Invalid sabotage target: [target]"
-*/
 /datum/admins/proc/spawn_atom(var/object as text)
 	set category = "Debug"
 	set desc = "(atom path) Spawn an atom"

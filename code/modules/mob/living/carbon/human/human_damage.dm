@@ -316,9 +316,10 @@ This function restores all organs.
 			//blunt objects should really not be embedding in things unless a huge amount of force is involved
 			var/embed_chance = sharp? damage/W.w_class : damage/(W.w_class*3)
 			var/embed_threshold = sharp? 5*W.w_class : 15*W.w_class
-			
+
 			//Sharp objects will always embed if they do enough damage.
-			if((sharp && damage > (10*W.w_class)) || (sharp && !ismob(W.loc)) || (damage > embed_threshold && prob(embed_chance)))
+			//Thrown objects have some momentum already and have a small chance to embed even if the damage is below the threshold
+			if((sharp && damage > (10*W.w_class)) || (sharp && !ismob(W.loc) && prob(damage/(10*W.w_class)*100)) || (damage > embed_threshold && prob(embed_chance)))
 				organ.embed(W)
 
 	return 1

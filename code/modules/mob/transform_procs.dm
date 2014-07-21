@@ -1,4 +1,10 @@
 /mob/living/carbon/human/proc/monkeyize()
+	var/mob/H = src
+	H.dna.SetSEState(MONKEYBLOCK,1)
+	domutcheck(H, null)
+
+/*
+/mob/living/carbon/human/proc/monkeyize()
 	if (monkeyizing)
 		return
 	for(var/obj/item/W in src)
@@ -36,8 +42,6 @@
 	O.viruses = viruses
 	O.a_intent = "harm"
 
-	for(var/datum/disease/D in O.viruses)
-		D.affected_mob = O
 
 	if (client)
 		client.mob = O
@@ -51,6 +55,7 @@
 	del(animation)
 
 	return O
+*/
 
 /mob/new_player/AIize()
 	spawning = 1
@@ -293,11 +298,10 @@
 			babies += M
 		new_slime = pick(babies)
 	else
+		new_slime = new /mob/living/carbon/slime(loc)
 		if(adult)
-			new_slime = new /mob/living/carbon/slime/adult(loc)
+			new_slime.is_adult = 1
 		else
-			new_slime = new /mob/living/carbon/slime(loc)
-	new_slime.a_intent = "harm"
 	new_slime.key = key
 
 	new_slime << "<B>You are now a slime. Skreee!</B>"

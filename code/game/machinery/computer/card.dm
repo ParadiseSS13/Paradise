@@ -11,6 +11,8 @@
 	var/mode = 0.0
 	var/printing = null
 
+	l_color = "#0000FF"
+
 	proc/is_centcom()
 		return istype(src, /obj/machinery/computer/card/centcom)
 
@@ -31,7 +33,7 @@
 		return formatted
 
 /obj/machinery/computer/card/verb/eject_id()
-	set category = "Object"
+	set category = null
 	set name = "Eject ID Card"
 	set src in oview(1)
 
@@ -80,7 +82,7 @@
 	if(stat & (NOPOWER|BROKEN)) return
 	ui_interact(user)
 
-/obj/machinery/computer/card/ui_interact(mob/user, ui_key="main", datum/nanoui/ui=null)
+/obj/machinery/computer/card/ui_interact(mob/user, ui_key="main", var/datum/nanoui/ui = null, var/force_open = 1)
 	user.set_machine(src)
 
 	var/data[0]
@@ -134,7 +136,7 @@
 
 		data["regions"] = regions
 
-	ui = nanomanager.try_update_ui(user, src, ui_key, ui, data)
+	ui = nanomanager.try_update_ui(user, src, ui_key, ui, data, force_open)
 	if (!ui)
 		ui = new(user, src, ui_key, "identification_computer.tmpl", src.name, 600, 700)
 		ui.set_initial_data(data)

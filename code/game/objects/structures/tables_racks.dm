@@ -352,6 +352,7 @@
 	return 1
 
 /obj/structure/table/MouseDrop_T(obj/O as obj, mob/user as mob)
+	..()
 	if ((!( istype(O, /obj/item/weapon) ) || user.get_active_hand() != O))
 		return
 	if(isrobot(user))
@@ -424,7 +425,7 @@
 /obj/structure/table/verb/do_flip()
 	set name = "Flip table"
 	set desc = "Flips a non-reinforced table"
-	set category = "Object"
+	set category = null
 	set src in oview(1)
 
 	if (!can_touch(usr) || ismouse(usr))

@@ -41,6 +41,11 @@
 			S.close(usr)
 	return 1
 
+/obj/screen/power_action
+	var/obj/effect/proc_holder/spell/owner
+
+/obj/screen/power_action/Click()
+	owner.Click()
 
 /obj/screen/item_action
 	var/obj/item/owner
@@ -55,8 +60,10 @@
 	if(usr.stat || usr.restrained() || usr.stunned || usr.lying)
 		return 1
 
-	if(!(owner in usr))
+
+	if(!(owner in usr) && !(owner.loc.loc == usr))
 		return 1
+
 
 	owner.ui_action_click()
 	return 1
@@ -64,7 +71,6 @@
 //This is the proc used to update all the action buttons. It just returns for all mob types except humans.
 /mob/proc/update_action_buttons()
 	return
-
 
 /obj/screen/grab
 	name = "grab"

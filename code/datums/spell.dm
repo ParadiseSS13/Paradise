@@ -45,6 +45,9 @@ var/list/spells = typesof(/obj/effect/proc_holder/spell) //needed for the badmin
 	var/critfailchance = 0
 	var/centcom_cancast = 1 //Whether or not the spell should be allowed on z2
 
+	var/icon_power_button
+	var/power_button_name
+
 /obj/effect/proc_holder/spell/proc/cast_check(skipcharge = 0,mob/user = usr) //checks if the spell can be cast based on its settings; skipcharge is used when an additional cast_check is called inside the spell
 
 	if(!(src in user.spell_list))
@@ -130,6 +133,7 @@ var/list/spells = typesof(/obj/effect/proc_holder/spell) //needed for the badmin
 	while(charge_counter < charge_max)
 		sleep(1)
 		charge_counter++
+	usr.update_power_buttons()
 
 /obj/effect/proc_holder/spell/proc/perform(list/targets, recharge = 1, mob/user = usr) //if recharge is started is important for the trigger spells
 	before_cast(targets)
@@ -182,6 +186,7 @@ var/list/spells = typesof(/obj/effect/proc_holder/spell) //needed for the badmin
 				var/datum/effect/effect/system/bad_smoke_spread/smoke = new /datum/effect/effect/system/bad_smoke_spread()
 				smoke.set_up(smoke_amt, 0, location) //no idea what the 0 is
 				smoke.start()
+	usr.update_power_buttons()
 
 /obj/effect/proc_holder/spell/proc/cast(list/targets)
 	return
@@ -234,6 +239,9 @@ var/list/spells = typesof(/obj/effect/proc_holder/spell) //needed for the badmin
 	switch(max_targets)
 		if(0) //unlimited
 			for(var/mob/living/target in view_or_range(range, user, selection_type))
+				for(var/F in user.faction)
+					if(F in target.faction)
+						continue
 				targets += target
 		if(1) //single target can be picked
 			if(range < 0)

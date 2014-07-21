@@ -174,6 +174,8 @@
 	wizard_mob.equip_to_slot_or_del(new /obj/item/weapon/teleportation_scroll(wizard_mob), slot_r_store)
 	wizard_mob.equip_to_slot_or_del(new /obj/item/weapon/spellbook(wizard_mob), slot_r_hand)
 
+	wizard_mob.faction = list("wizard")
+
 	wizard_mob << "You will find a list of available spells in your spell book. Choose your magic arsenal carefully."
 	wizard_mob << "In your pockets you will find a teleport scroll. Use it as needed."
 	wizard_mob.mind.store_memory("<B>Remember:</B> do not forget to prepare your spells.")
@@ -274,6 +276,7 @@
 /mob/proc/spellremove(var/mob/M as mob)
 	for(var/obj/effect/proc_holder/spell/spell_to_remove in src.spell_list)
 		del(spell_to_remove)
+		update_power_buttons()
 
 /*Checks if the wizard can cast spells.
 Made a proc so this is not repeated 14 (or more) times.*/
