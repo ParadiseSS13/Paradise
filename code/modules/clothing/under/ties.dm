@@ -113,6 +113,13 @@
 	name = "medal of exceptional heroism"
 	desc = "An extremely rare golden medal awarded only by CentComm. To recieve such a medal is the highest honor and as such, very few exist. This medal is almost never awarded to anybody but commanders."
 
+/obj/item/clothing/tie/medal/gold/ion
+	name = "Ion Chef Medal"
+	desc = "A medal awarded to the winner of the Ion Chef contest"
+	icon_state = "ion"
+	_color = "ion"
+
+
 //Armbands
 /obj/item/clothing/tie/armband
 	name = "red armband"
