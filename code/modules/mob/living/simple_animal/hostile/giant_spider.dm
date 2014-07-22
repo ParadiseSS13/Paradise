@@ -22,7 +22,7 @@
 	response_disarm = "gently pushes aside"
 	response_harm   = "hits"
 	stop_automated_movement_when_pulled = 0
-	maxHealth = 200
+	maxHealth = 60
 	health = 200
 	melee_damage_lower = 15
 	melee_damage_upper = 20
@@ -57,7 +57,7 @@
 	icon_state = "hunter"
 	icon_living = "hunter"
 	icon_dead = "hunter_dead"
-	maxHealth = 120
+	maxHealth = 50
 	health = 120
 	melee_damage_lower = 10
 	melee_damage_upper = 20
