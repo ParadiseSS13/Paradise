@@ -23,7 +23,7 @@
 	response_harm   = "hits"
 	stop_automated_movement_when_pulled = 0
 	maxHealth = 60
-	health = 200
+	health = 60
 	melee_damage_lower = 15
 	melee_damage_upper = 20
 	heat_damage_per_tick = 20
@@ -58,7 +58,7 @@
 	icon_living = "hunter"
 	icon_dead = "hunter_dead"
 	maxHealth = 50
-	health = 120
+	health = 50
 	melee_damage_lower = 10
 	melee_damage_upper = 20
 	poison_per_bite = 5
