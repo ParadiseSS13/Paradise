@@ -12,7 +12,7 @@
 	var/eatverb
 	var/wrapped = 0
 	var/dried_type = null
-	var/deepfried = 0
+	var/cooktype[0]
 
 
 	//Placeholder for effect that trigger on eating that aren't tied to reagents.
@@ -1357,6 +1357,10 @@
 		reagents.add_reagent("toxin", 1)
 		reagents.add_reagent("carbon", 3)
 		bitesize = 2
+
+		// it's burned! it should start off being classed as any cooktype that burns
+		cooktype["grilled"] = 1
+		cooktype["deep fried"] = 1
 
 /obj/item/weapon/reagent_containers/food/snacks/meatsteak
 	name = "Meat steak"
@@ -3141,7 +3145,6 @@
 	icon = 'icons/obj/food.dmi'
 	icon_state = "deepfried_holder_icon"
 	bitesize = 2
-	deepfried = 1
 	New()
 		..()
 		reagents.add_reagent("nutriment", 30)
