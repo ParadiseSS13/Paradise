@@ -98,7 +98,10 @@ datum
 					var/mob/living/carbon/human/H = M
 					if(H.side_effects.len == 0)
 						M.add_side_effect(pick("Headache", "Bad Stomach", "Itch"))
-
+						
+					if( (overdose > 0) && (volume >= overdose))//Overdosing
+                         M.adjustToxLoss(overdose_dam * volume / overdose)
+						
 				holder.remove_reagent(src.id, custom_metabolism) //By default it slowly disappears.
 				return
 
@@ -505,7 +508,8 @@ datum
 			description = "An effective hypnotic used to treat insomnia."
 			reagent_state = LIQUID
 			color = "#E895CC" // rgb: 232, 149, 204
-
+			overdose = REAGENTS_OVERDOSE
+			
 			on_mob_life(var/mob/living/M as mob)
 				if(!M) M = holder.my_atom
 				if(!data) data = 1
@@ -582,7 +586,8 @@ datum
 			reagent_state = LIQUID
 			color = "#60A584" // rgb: 96, 165, 132
 			addictiveness = 25
-
+			overdose = REAGENTS_OVERDOSE/2
+			
 			on_mob_life(var/mob/living/M as mob)
 				if(!M) M = holder.my_atom
 				M.druggy = max(M.druggy, 15)
@@ -1099,6 +1104,7 @@ datum
 			description = "Ryetalyn can cure all genetic abnomalities."
 			reagent_state = SOLID
 			color = "#C8A5DC" // rgb: 200, 165, 220
+			overdose = REAGENTS_OVERDOSE/2
 
 			on_mob_life(var/mob/living/M as mob)
 				if(!M) M = holder.my_atom
@@ -1146,8 +1152,7 @@ datum
 			description = "Most probably know this as Tylenol, but this chemical is a mild, simple painkiller."
 			reagent_state = LIQUID
 			color = "#C855DC"
-			overdose_dam = 0
-			overdose = 60
+			overdose = REAGENTS_OVERDOSE*2
 			addictiveness = 5
 			scannable = 1
 			custom_metabolism = 0.025 // Lasts 10 minutes for 15 units
@@ -1193,7 +1198,7 @@ datum
 			reagent_state = LIQUID
 			addictiveness = 50
 			color = "#C8A5DC"
-			overdose = 30
+			overdose = REAGENTS_OVERDOSE
 			scannable = 1
 			custom_metabolism = 0.025 // Lasts 10 minutes for 15 units
 
@@ -1371,6 +1376,7 @@ datum
 			description = "A compound used to clean things. Now with 50% more sodium hypochlorite!"
 			reagent_state = LIQUID
 			color = "#A5F0EE" // rgb: 165, 240, 238
+			overdose = REAGENTS_OVERDOSE*2
 
 			reaction_obj(var/obj/O, var/volume)
 				if(istype(O,/obj/effect/decal/cleanable))
@@ -1532,6 +1538,7 @@ datum
 			description = "Cryptobiolin causes confusion and dizzyness."
 			reagent_state = LIQUID
 			color = "#FFD1DC" // rgb: 255, 209, 220
+			overdose = REAGENTS_OVERDOSE
 
 			on_mob_life(var/mob/living/M as mob)
 				if(!M) M = holder.my_atom
@@ -1566,6 +1573,7 @@ datum
 			description = "Kelotane is a drug used to treat burns."
 			reagent_state = LIQUID
 			color = "#ECD540" // rgb: 236, 213, 64
+			overdose = REAGENTS_OVERDOSE
 
 			on_mob_life(var/mob/living/M as mob)
 				if(M.stat == 2.0)
@@ -1648,6 +1656,7 @@ datum
 			description = "Tricordrazine is a highly potent stimulant, originally derived from cordrazine. Can be used to treat a wide range of injuries."
 			reagent_state = LIQUID
 			color = "#C8A5DC" // rgb: 200, 165, 220
+			overdose = REAGENTS_OVERDOSE
 			scannable = 1
 
 			on_mob_life(var/mob/living/M as mob, var/alien)
@@ -1668,6 +1677,7 @@ datum
 			description = "Alchdranine is an extremely strange chemical substance that can be used to treat almost any injury with a high level of effectiveness "
 			reagent_state = LIQUID
 			color = "#07a4d1" // rgb: 7, 164, 209
+			overdose = REAGENTS_OVERDOSE/2
 
 			on_mob_life(var/mob/living/M as mob, var/alien)
 				if(M.stat == 2.0)
@@ -1687,6 +1697,7 @@ datum
 			description = "Dylovene is a broad-spectrum antitoxin."
 			reagent_state = LIQUID
 			color = "#C8A5DC" // rgb: 200, 165, 220
+			overdose = REAGENTS_OVERDOSE
 			scannable = 1
 
 			on_mob_life(var/mob/living/M as mob, var/alien)
@@ -1825,6 +1836,7 @@ datum
 			description = "Arithrazine is an unstable medication used for the most extreme cases of radiation poisoning."
 			reagent_state = LIQUID
 			color = "#BFFF00" // rgb: 191, 255, 0
+			overdose = REAGENTS_OVERDOSE/2
 
 			on_mob_life(var/mob/living/M as mob)
 				if(M.stat == 2.0)
@@ -1844,7 +1856,7 @@ datum
 			reagent_state = LIQUID
 			color = "#F77FBE" // rgb: 247, 127, 190
 			custom_metabolism = 0.05
-			overdose = REAGENTS_OVERDOSE
+			overdose = REAGENTS_OVERDOSE/3
 			scannable = 1
 
 			on_mob_life(var/mob/living/M as mob)
@@ -1882,7 +1894,7 @@ datum
 			description = "Used to encourage recovery of internal organs and nervous systems. Medicate cautiously."
 			reagent_state = LIQUID
 			color = "#C8A5DC" // rgb: 200, 165, 220
-			overdose = 10
+			overdose = REAGENTS_OVERDOSE/3
 			scannable = 1
 
 			on_mob_life(var/mob/living/M as mob)
@@ -1922,6 +1934,7 @@ datum
 			description = "Hyperzine is a highly effective, long lasting, muscle stimulant."
 			reagent_state = LIQUID
 			color = "#CCFF00" // rgb: 204, 255, 0
+			overdose = REAGENTS_OVERDOSE
 			custom_metabolism = 0.05
 			addictiveness = 80
 
@@ -2348,6 +2361,7 @@ datum
 			reagent_state = LIQUID
 			nutriment_factor = 10 * REAGENTS_METABOLISM
 			color = "#BBEDA4" // rgb: 187, 237, 164
+			overdose = REAGENTS_OVERDOSE/2
 
 			on_mob_life(var/mob/living/M as mob)
 				if(!M) M = holder.my_atom
