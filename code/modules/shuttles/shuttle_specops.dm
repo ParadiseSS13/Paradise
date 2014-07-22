@@ -52,7 +52,7 @@
 
 		C.visible_message("\blue The Special Operations shuttle will depart in [(specops_countdown_time/10)] seconds.")
 
-	if (location)	//returning
+	if (!location)	//returning
 		radio_announce("THE SPECIAL OPERATIONS SHUTTLE IS PREPARING TO RETURN")
 	else
 		radio_announce("THE SPECIAL OPERATIONS SHUTTLE IS PREPARING FOR LAUNCH")
@@ -65,7 +65,7 @@
 
 /datum/shuttle/ferry/multidock/specops/move(var/area/origin,var/area/destination)
 	..(origin, destination)
-	if (!location)	//just arrived home
+	if (location)	//just arrived home
 		for(var/turf/T in get_area_turfs(destination))
 			var/mob/M = locate(/mob) in T
 			M << "\red You have arrived at Central Command. Operation has ended!"
