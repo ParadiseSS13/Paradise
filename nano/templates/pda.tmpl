@@ -25,36 +25,16 @@ Used In File(s): \code\game\objects\items\devices\PDA\PDA.dm
 		</div>
 	</div>
 	<br>
-	{{if mode == 0}} <!-- Main Menu -->
-	<div class="item">
-		<div class="itemLabelNarrow">
-			Owner:
-		</div>
-		<div class="itemContent">
-			<span class="average">{{:owner}}, {{:ownjob}}</span>
-		</div>
-	</div>
-	<br>
-	<div class="item">
-		<div class="itemLabelNarrow">
-			ID:
-		</div>
-		<div class="itemContent">
-			 {{:~link(idLink, 'eject', {'choice' : "Authenticate"}, idInserted ? null : 'disabled', idInserted ? 'floatright' : 'fixedLeft')}}
-		</div>
-	</div>
-	<br>
-	<div class="item">
-                <div class="itemLabelNarrow">
-                        <b>Cartridge</b>:
-                </div>
-                <div class="itemContent">
-			{{if cart_loaded==1}}
-                         {{:~link(cartridge.name, 'eject', {'choice' : "Eject"},null,null)}}
-			{{else}}
-			{{:~link('None', 'eject', {'choice' : "Eject"},'disabled',null)}}
-			{{/if}}
-                </div>
+
+
+	{{if data.mode == 0}} <!-- Main Menu -->
+        <div class="item">
+            <div class="itemLabelNarrow">
+                Owner:
+            </div>
+            <div class="itemContent">
+                <span class="average">{{:data.owner}}, {{:data.ownjob}}</span>
+            </div>
         </div>
         <br>
         <div class="item">
