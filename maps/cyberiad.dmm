@@ -2890,7 +2890,7 @@
 "bdD" = (/obj/machinery/camera{c_tag = "Escape Arm Airlocks"; dir = 8; network = list("SS13")},/obj/structure/table,/obj/machinery/atmospherics/pipe/simple,/obj/machinery/embedded_controller/radio/docking_port_multi{child_names_txt = "Airlock One;Airlock Two"; child_tags_txt = "escape_dock_north_airlock;escape_dock_south_airlock"; id_tag = "escape_dock"; pixel_x = 30},/turf/simulated/floor{dir = 4; icon_state = "warning"},/area/hallway/secondary/exit)
 "bdE" = (/turf/simulated/floor{desc = "\"This is a plaque in honour of those who died in the great space lube airlock incident.\" Scratched in beneath that is a crude image of a clown and a spaceman. The spaceman is slipping. The clown is laughing."; dir = 4; icon_state = "plaque"; name = "Memorial Plaque"; nitrogen = 30; oxygen = 70; temperature = 80},/area/hallway/secondary/exit)
 "bdF" = (/obj/structure/bush,/obj/machinery/light{icon_state = "tube1"; dir = 4},/turf/simulated/floor/grass,/area/hallway/secondary/exit)
-"bdG" = (/obj/machinery/door/airlock/glass_engineering{name = "Pod Docking Bay"; req_access_txt = "0"; req_one_access_txt = "70"},/turf/simulated/floor/plating,/area/hallway/secondary/entry)
+"bdG" = (/obj/machinery/door/airlock/glass{name = "Public Pod Bay"},/turf/simulated/floor/plating,/area/hallway/secondary/entry)
 "bdH" = (/obj/structure/table,/obj/machinery/light{dir = 8},/turf/simulated/floor,/area/crew_quarters/recruit)
 "bdI" = (/obj/machinery/vending/snack,/turf/simulated/floor,/area/crew_quarters/recruit)
 "bdJ" = (/obj/machinery/vending/cola,/turf/simulated/floor,/area/crew_quarters/recruit)
