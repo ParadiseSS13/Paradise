@@ -180,7 +180,7 @@ obj/item/weapon/wirerod/attackby(var/obj/item/I, mob/user as mob)
 		del(src)
 
 
-/obj/item/weapon/twohanded/spear/kidan
+/obj/item/weapon/spear/kidan
 	icon_state = "kidanspear"
 	name = "Kidan spear"
 	desc = "A one-handed spear brought over from the Kidan homeworld."
