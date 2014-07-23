@@ -256,7 +256,7 @@
 	return
 
 /mob/proc/TurfAdjacent(var/turf/T)
-	return T.AdjacentQuick(src)
+	return T.Adjacent(src)
 
 /*
 	Misc helpers
