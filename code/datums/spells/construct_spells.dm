@@ -72,7 +72,7 @@
 	summon_lifespan = 200
 
 
-/obj/effect/proc_holder/spell/targeted/wizard/ethereal_jaunt/shift
+/obj/effect/proc_holder/spell/targeted/ethereal_jaunt/shift
 	name = "Phase Shift"
 	desc = "This spell allows you to pass through walls"
 

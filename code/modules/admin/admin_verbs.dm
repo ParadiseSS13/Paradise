@@ -395,8 +395,7 @@ var/list/admin_verbs_mod = list(
 	set category = "Event"
 	set name = "Give Spell"
 	set desc = "Gives a spell to a mob."
-	var/list/spellList = typesof(/obj/effect/proc_holder/spell/targeted/wizard) + typesof(/obj/effect/proc_holder/spell/aoe_turf/wizard) + typesof(/obj/effect/proc_holder/spell/targeted/projectile/wizard) + typesof(/obj/effect/proc_holder/spell/wizard) + typesof(/obj/effect/proc_holder/spell/targeted/genetic/wizard) + typesof(/obj/effect/proc_holder/spell/targeted/inflict_handler/wizard) + typesof(/obj/effect/proc_holder/spell/targeted/emplosion/wizard) + typesof(/obj/effect/proc_holder/spell/targeted/turf_teleport/wizard) + typesof(/obj/effect/proc_holder/spell/targeted/area_teleport/wizard) + typesof(/obj/effect/proc_holder/spell/aoe_turf/conjure/wizard) + typesof(/obj/effect/proc_holder/spell/targeted/trigger/wizard) + typesof(/obj/effect/proc_holder/spell/dumbfire/wizard)
-	var/obj/effect/proc_holder/spell/S = input("Choose the spell to give to that guy", "ABRAKADABRA") as null|anything in spellList
+	var/obj/effect/proc_holder/spell/S = input("Choose the spell to give to that guy", "ABRAKADABRA") as null|anything in spells
 	if(!S) return
 	T.spell_list += new S
 	T.update_power_buttons()
