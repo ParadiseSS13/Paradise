@@ -64,7 +64,7 @@
 
 /obj/item/weapon/soap/deluxe
 	icon_state = "soapdeluxe"
-    
+
 /obj/item/weapon/soap/deluxe/New()
 	desc = "A deluxe Waffle Co. brand bar of soap. Smells of [pick("lavender", "vanilla", "strawberry", "chocolate" ,"space")]."
 
@@ -890,3 +890,8 @@ proc
 	icon_state = "rollball"
 	desc = "A device bored paper pushers use to remind themselves that the time did not stop yet."
 
+/obj/item/weapon/kidanglobe
+	name = "Kidan homeworld globe"
+	icon = 'icons/obj/decorations.dmi'
+	icon_state = "kidanglobe"
+	desc = "A globe of the Kidan homeworld."
