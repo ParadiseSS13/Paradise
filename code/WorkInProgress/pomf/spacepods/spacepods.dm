@@ -211,7 +211,7 @@
 
 /obj/spacepod/sec/New()
 	..()
-	var/obj/item/mecha_parts/mecha_equipment/weapon/energy/taser/T = new /obj/item/mecha_parts/mecha_equipment/weapon/energy/taser
+	var/obj/item/device/spacepod_equipment/weaponry/taser/burst/T = new /obj/item/device/spacepod_equipment/weaponry/taser/burst
 	T.loc = equipment_system
 	equipment_system.weapon_system = T
 	equipment_system.weapon_system.my_atom = T
