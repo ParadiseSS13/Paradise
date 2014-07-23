@@ -79,8 +79,10 @@ body {
 
 #uiMapImage {
     position: absolute;
-    bottom: 2px;
-    left: -6px;
+    bottom: 1px;
+    left: 1px;
+    width: 256px;
+    height: 256px;
 }
 
 #uiMapContent {
