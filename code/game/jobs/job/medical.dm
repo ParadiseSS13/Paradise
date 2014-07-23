@@ -14,7 +14,7 @@
 	minimal_access = list(access_eva, access_medical, access_morgue, access_genetics, access_heads,
 			access_chemistry, access_virology, access_cmo, access_surgery, access_RC_announce,
 			access_keycard_auth, access_sec_doors, access_psychiatrist, access_maint_tunnels)
-	minimal_player_age = 7
+	minimal_player_age = 21
 
 	equip(var/mob/living/carbon/human/H)
 		if(!H)	return 0
@@ -48,6 +48,7 @@
 	access = list(access_medical, access_morgue, access_surgery, access_chemistry, access_virology, access_genetics)
 	minimal_access = list(access_medical, access_morgue, access_surgery, access_maint_tunnels)
 	alt_titles = list("Surgeon","Nurse"/*,"Virologist","Medical Intern","Orderly","First Responder"*/)
+	minimal_player_age = 3
 
 	equip(var/mob/living/carbon/human/H)
 		if(!H)	return 0
@@ -104,6 +105,7 @@
 	access = list(access_medical, access_morgue, access_surgery, access_chemistry, access_virology, access_genetics)
 	minimal_access = list(access_medical, access_chemistry, access_maint_tunnels)
 	alt_titles = list("Pharmacist","Pharmacologist")
+	minimal_player_age = 7
 
 
 	equip(var/mob/living/carbon/human/H)
@@ -133,7 +135,7 @@
 	selection_color = "#ffeef0"
 	access = list(access_medical, access_morgue, access_surgery, access_chemistry, access_virology, access_genetics, access_research)
 	minimal_access = list(access_medical, access_morgue, access_genetics, access_research, access_maint_tunnels)
-
+	minimal_player_age = 3
 
 	equip(var/mob/living/carbon/human/H)
 		if(!H)	return 0
@@ -162,7 +164,7 @@
 	access = list(access_medical, access_morgue, access_surgery, access_chemistry, access_virology, access_genetics)
 	minimal_access = list(access_medical, access_virology, access_maint_tunnels)
 	alt_titles = list("Pathologist","Microbiologist")
-
+	minimal_player_age = 7
 
 	equip(var/mob/living/carbon/human/H)
 		if(!H)	return 0
@@ -224,6 +226,8 @@
 	selection_color = "#ffeef0"
 	access = list(access_paramedic, access_medical, access_sec_doors, access_maint_tunnels, access_external_airlocks)
 	minimal_access=list(access_paramedic, access_medical, access_sec_doors, access_maint_tunnels, access_external_airlocks)
+	minimal_player_age = 3
+
 
 	equip(var/mob/living/carbon/human/H)
 		if(!H)  return 0
