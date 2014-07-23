@@ -863,7 +863,7 @@ var/list/slot_equipment_priority = list( \
 				statpanel(listed_turf.name, null, A)
 
 	if(spell_list && spell_list.len)
-		for(var/obj/effect/proc_holder/spell/S in spell_list)
+		for(var/obj/effect/proc_holder/spell/wizard/S in spell_list)
 			switch(S.charge_type)
 				if("recharge")
 					statpanel(S.panel,"[S.charge_counter/10.0]/[S.charge_max/10]",S)

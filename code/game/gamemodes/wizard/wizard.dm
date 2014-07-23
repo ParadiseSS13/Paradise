@@ -147,7 +147,7 @@
 		wizard_mob.verbs += /client/proc/jaunt
 		wizard_mob.mind.special_verbs += /client/proc/jaunt
 	else
-		wizard_mob.spell_list += new /obj/effect/proc_holder/spell/targeted/ethereal_jaunt(usr)
+		wizard_mob.spell_list += new /obj/effect/proc_holder/spell/wizard/targeted/ethereal_jaunt(usr)
 */
 
 /datum/game_mode/proc/equip_wizard(mob/living/carbon/human/wizard_mob)
@@ -260,7 +260,7 @@
 			if(wizard.current && wizard.current.spell_list)
 				text += "<br><B>[wizard.name] used the following spells: </B>"
 				var/i = 1
-				for(var/obj/effect/proc_holder/spell/S in wizard.current.spell_list)
+				for(var/obj/effect/proc_holder/spell/wizard/S in wizard.current.spell_list)
 					text += "[S.name]"
 					if(wizard.current.spell_list.len > i)
 						text += ", "
@@ -274,7 +274,7 @@
 
 //To batch-remove wizard spells. Linked to mind.dm.
 /mob/proc/spellremove(var/mob/M as mob)
-	for(var/obj/effect/proc_holder/spell/spell_to_remove in src.spell_list)
+	for(var/obj/effect/proc_holder/spell/wizard/spell_to_remove in src.spell_list)
 		del(spell_to_remove)
 		update_power_buttons()
 

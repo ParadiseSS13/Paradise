@@ -18,7 +18,7 @@ Obviously, requires DNA2.
 	deactivation_messages = list("Your muscles quit tensing.")
 	instability=7
 
-	spelltype = /obj/effect/proc_holder/spell/targeted/hulk
+	spelltype = /obj/effect/proc_holder/spell/wizard/targeted/hulk
 
 	New()
 		..()
@@ -52,7 +52,7 @@ Obviously, requires DNA2.
 				M.Weaken(3)
 				M.emote("collapse")
 
-/obj/effect/proc_holder/spell/targeted/hulk
+/obj/effect/proc_holder/spell/wizard/targeted/hulk
 	name = "Hulk Out"
 	panel = "Abilities"
 	range = -1
@@ -68,11 +68,11 @@ Obviously, requires DNA2.
 
 	icon_power_button = "genetic_hulk"
 
-/obj/effect/proc_holder/spell/targeted/hulk/New()
+/obj/effect/proc_holder/spell/wizard/targeted/hulk/New()
 	desc = "Get mad!  For [HULK_DURATION/10] seconds, anyway."
 	..()
 
-/obj/effect/proc_holder/spell/targeted/hulk/cast(list/targets)
+/obj/effect/proc_holder/spell/wizard/targeted/hulk/cast(list/targets)
 	if (istype(usr.loc,/mob/))
 		usr << "\red You can't hulk out right now!"
 		return
@@ -92,7 +92,7 @@ Obviously, requires DNA2.
 	name = "Morphism"
 	desc = "Enables the subject to reconfigure their appearance to that of any human."
 
-	spelltype =/obj/effect/proc_holder/spell/targeted/morph
+	spelltype =/obj/effect/proc_holder/spell/wizard/targeted/morph
 	//cooldown = 1800
 	activation_messages=list("Your body feels funny.")
 	deactivation_messages = list("You body feels normal.")
@@ -105,7 +105,7 @@ Obviously, requires DNA2.
 		..()
 		block = MORPHBLOCK
 
-/obj/effect/proc_holder/spell/targeted/morph
+/obj/effect/proc_holder/spell/wizard/targeted/morph
 	name = "Morph"
 	desc = "Mimic the appearance of your choice!"
 	panel = "Abilities"
@@ -119,7 +119,7 @@ Obviously, requires DNA2.
 
 	icon_power_button = "genetic_morph"
 
-/obj/effect/proc_holder/spell/targeted/morph/cast(list/targets)
+/obj/effect/proc_holder/spell/wizard/targeted/morph/cast(list/targets)
 	if(!ishuman(usr))	return
 
 	if (istype(usr.loc,/mob/))
@@ -199,13 +199,13 @@ Obviously, requires DNA2.
 	mutation=M_REMOTE_TALK
 	instability=1
 
-	spelltype =/obj/effect/proc_holder/spell/targeted/remotetalk
+	spelltype =/obj/effect/proc_holder/spell/wizard/targeted/remotetalk
 
 	New()
 		..()
 		block=REMOTETALKBLOCK
 
-/obj/effect/proc_holder/spell/targeted/remotetalk
+/obj/effect/proc_holder/spell/wizard/targeted/remotetalk
 	name = "Project Mind"
 	desc = "Make people understand your thoughts at any range!"
 	charge_max = 100
@@ -218,11 +218,11 @@ Obviously, requires DNA2.
 
 	icon_power_button = "genetic_project"
 
-/obj/effect/proc_holder/spell/targeted/remotetalk/choose_targets(mob/user = usr)
+/obj/effect/proc_holder/spell/wizard/targeted/remotetalk/choose_targets(mob/user = usr)
 	var/list/targets
 	targets += input("Choose the target to talk to.", "Targeting") as mob in living_mob_list
 
-/obj/effect/proc_holder/spell/targeted/remotetalk/cast(list/targets)
+/obj/effect/proc_holder/spell/wizard/targeted/remotetalk/cast(list/targets)
 	if(!ishuman(usr))	return
 
 	var/say = input ("What do you wish to say")
@@ -244,13 +244,13 @@ Obviously, requires DNA2.
 	mutation=M_REMOTE_VIEW
 	instability=3
 
-	spelltype =/obj/effect/proc_holder/spell/targeted/remoteview
+	spelltype =/obj/effect/proc_holder/spell/wizard/targeted/remoteview
 
 	New()
 		block=REMOTEVIEWBLOCK
 
 
-/obj/effect/proc_holder/spell/targeted/remoteview
+/obj/effect/proc_holder/spell/wizard/targeted/remoteview
 	name = "Remote View"
 	desc = "Spy on people from any range!"
 	charge_max = 600
@@ -263,11 +263,11 @@ Obviously, requires DNA2.
 
 	icon_power_button = "genetic_view"
 
-/obj/effect/proc_holder/spell/targeted/remoteview/choose_targets(mob/user = usr)
+/obj/effect/proc_holder/spell/wizard/targeted/remoteview/choose_targets(mob/user = usr)
 	var/list/targets
 	targets += input("Choose the target to spy on.", "Targeting") as mob in living_mob_list
 
-/obj/effect/proc_holder/spell/targeted/remoteview/cast(list/targets)
+/obj/effect/proc_holder/spell/wizard/targeted/remoteview/cast(list/targets)
 	var/mob/living/carbon/human/user
 	if(ishuman(usr))
 		user = usr

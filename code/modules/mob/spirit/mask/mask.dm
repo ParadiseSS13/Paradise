@@ -4,28 +4,28 @@
 
 /mob/spirit/mask/New()
 	..()
-	spell_list += new /obj/effect/proc_holder/spell/aoe_turf/conjure/create_talisman(src)
-	spell_list += new /obj/effect/proc_holder/spell/aoe_turf/blood_speech(src)
-	spell_list += new /obj/effect/proc_holder/spell/aoe_turf/shatter_lights(src)
-	
+	spell_list += new /obj/effect/proc_holder/spell/wizard/aoe_turf/conjure/create_talisman(src)
+	spell_list += new /obj/effect/proc_holder/spell/wizard/aoe_turf/blood_speech(src)
+	spell_list += new /obj/effect/proc_holder/spell/wizard/aoe_turf/shatter_lights(src)
+
 
 /mob/spirit/mask/verb/go_to_follower()
 	set category = "Mask"
 	set name = "Go to follower"
 	set desc = "Select who you would like to go too."
-	
+
 	var/obj/cult_viewpoint/cultist = pick_cultist()
 	if (cultist)
 		follow_cultist(cultist.owner)
 		cult_log("[key_name_admin(src)] started following [key_name_admin(cultist)].")
 		src << "You start following [cultist.get_display_name()]."
-	
-	
+
+
 /mob/spirit/mask/verb/urge_cultist()
 	set category = "Mask"
 	set name = "Urge cultist"
 	set desc = "Push your cultists to do something."
-	
+
 	var/obj/cult_viewpoint/cultist = pick_cultist()
 	if (cultist)
 		if (cultist.owner)
@@ -38,7 +38,7 @@
 	set category = "Mask"
 	set name = "Set Cult Name"
 	set desc = "Grant a cultist a name."
-	
+
 	var/obj/cult_viewpoint/cultist = pick_cultist()
 	if (cultist)
 		var/newName = stripped_input(usr, "", "Set Cult Name", "")
@@ -48,25 +48,25 @@
 		src << "You grant [cultist.owner.name] the secret name of [newName]."
 		if (cultist.owner)
 			cult_log("[key_name_admin(src)] has set [key_name_admin(cultist.owner)] to \'[newName]\'")
-		
-		
+
+
 /mob/spirit/mask/verb/urge_cult()
 	set category = "Mask"
 	set name = "Urge Cult"
 	set desc = "Set urge on the entire cult."
-	
+
 	var/newUrge = stripped_input(usr, "Please choose an urge.", "Set Urge", "")
 	for(var/obj/cult_viewpoint/viewpoint in cult_viewpoints)
 		viewpoint.set_urge(newUrge)
 	src << "You urge the entire cult to [newUrge]."
 	cult_log("[key_name_admin(src)] has urged the entire cult to [newUrge]")
-			
-			
+
+
 /mob/spirit/mask/verb/set_favor_for_cultist()
 	set category = "Mask"
 	set name = "Show your favor"
 	set desc = "Set the favor for a cultist"
-	
+
 	var/obj/cult_viewpoint/cultist = pick_cultist()
 	if (cultist)
 		if (cultist.owner)
@@ -82,15 +82,15 @@
 				if("Indifference")
 					cultist.set_favor(0)
 					cult_log("[key_name_admin(src)] is indifferent too [key_name_admin(cultist.owner)]")
-	
-	
+
+
 /mob/spirit/mask/proc/set_name()
 	spawn(0)
 		var/newName = stripped_input(src, "Please pick a name.", "Pick Name for Mask", "")
 		name = newName ? newName : "Mask of Nar'sie"
 		src << "You have set your name to [name]."
-	
-	
+
+
 /mob/spirit/mask/proc/pick_cultist()
 	var/list/cultists = list()
 	for(var/obj/cult_viewpoint/viewpoint in cult_viewpoints)
@@ -98,7 +98,7 @@
 	var/input = input("Please, select a cultist!", "Cult", null, null) as null|anything in cultists
 	var/obj/cult_viewpoint/result = cultists[input]
 	return result
-	
+
 
 // this proc makes the mask visible very briefly
 /mob/spirit/mask/proc/flicker()
@@ -108,13 +108,13 @@
 		sleep(5)
 		invisibility=initial(invisibility)
 		alpha = 255
-	
+
 /proc/flicker_mask(mob/spirit/mask/target)
 	if(istype(target))
 		target.flicker()
 
 // SPELLS
-/obj/effect/proc_holder/spell/aoe_turf/blood_speech
+/obj/effect/proc_holder/spell/wizard/aoe_turf/blood_speech
 	name = "Speak to your Acolytes"
 	desc = "This spell allows you to speak to your flock."
 	school = "unknown evil"
@@ -124,8 +124,8 @@
 	invocation = "none"
 	invocation_type = "none"
 	range = 0
-	
-/obj/effect/proc_holder/spell/aoe_turf/blood_speech/cast(list/targets)
+
+/obj/effect/proc_holder/spell/wizard/aoe_turf/blood_speech/cast(list/targets)
 	var/input = stripped_input(usr, "Please choose a message to tell your acolytes.", "Voice of Blood", "")
 	if(!input)
 		revert_cast(usr)
@@ -133,12 +133,12 @@
 	flicker_mask(usr)
 	for(var/datum/mind/H in ticker.mode.cult)
 		if (H.current)
-			H.current << "<span class='cultspeech'><font size=3><span class='name'>[usr.name]: </span><span class='message'>[input]</span></font></span>"	
+			H.current << "<span class='cultspeech'><font size=3><span class='name'>[usr.name]: </span><span class='message'>[input]</span></font></span>"
 	for(var/mob/spirit/spirit in spirits)
 		spirit << "<span class='cultspeech'><font size=3><span class='name'>[usr.name]: </span><span class='message'>[input]</span></font></span>"
 
-		
-/obj/effect/proc_holder/spell/aoe_turf/shatter_lights
+
+/obj/effect/proc_holder/spell/wizard/aoe_turf/shatter_lights
 	name = "Spread Shadows"
 	desc = "This spell breaks lights near the mask."
 	school = "unknown evil"
@@ -148,8 +148,8 @@
 	invocation = "none"
 	invocation_type = "none"
 	range = 0
-	
-/obj/effect/proc_holder/spell/aoe_turf/shatter_lights/cast(list/targets)
+
+/obj/effect/proc_holder/spell/wizard/aoe_turf/shatter_lights/cast(list/targets)
 	cult_log("[key_name_admin(usr)] used Spread Shadows.")
 	flicker_mask(usr)
 	spawn(0)
@@ -160,9 +160,9 @@
 				sleep(1)
 			for(var/obj/item/device/flashlight/F in A)
 				F.on = 0
-				
-				
-/obj/effect/proc_holder/spell/aoe_turf/conjure/create_talisman
+
+
+/obj/effect/proc_holder/spell/wizard/aoe_turf/conjure/create_talisman
 	name = "Create Talisman"
 	desc = "This spell conjures a talisman"
 
@@ -174,35 +174,35 @@
 	invocation_type = "none"
 	range = 0
 	summon_type = list(/obj/item/weapon/paper/talisman)
-	
+
 	var/list/talismans = list(	"Armor"="armor",
 								"Blind"="blind",
 								"Conceal"="conceal",
 								"Communicate"="communicate",
 								"Deafen"="deafen",
-								"EMP"="emp", 
-								"Teleport"="teleport", 
-								"Tome"="newtome", 
+								"EMP"="emp",
+								"Teleport"="teleport",
+								"Tome"="newtome",
 								"Reveal Runes",
 								"Stun"="runestun",
 								"Soul Stone"="soulstone",
 								"Construct"="construct")
-								
-	
-/obj/effect/proc_holder/spell/aoe_turf/conjure/create_talisman/cast(list/targets)
-	
+
+
+/obj/effect/proc_holder/spell/wizard/aoe_turf/conjure/create_talisman/cast(list/targets)
+
 	var/talisman = input("Pick a talisman type", "Talisman", null, null) as null|anything in talismans
 	var/imbue_value = talismans[talisman]
 	if (!talisman)
 		usr << "You choose not to create a talisman."
 		revert_cast(usr)
 		return
-	
+
 	cult_log("[key_name_admin(usr,0)] created a talisman of type [talisman].")
 	flicker_mask(usr)
-	
+
 	switch(talisman)
-		
+
 		if ("Teleport")
 			var/target_rune = input("Pick a teleport target", "Teleport Rune", null, null) as null|anything in engwords
 			if (!target_rune)
@@ -211,17 +211,17 @@
 				return
 			summon_type = list(/obj/item/weapon/paper/talisman)
 			newVars = list("imbue" = "[target_rune]", "info" = "[target_rune]")
-		
+
 		if ("Soul Stone")
 			summon_type = list(/obj/item/device/soulstone)
 			newVars = list()
-			
+
 		if ("Construct")
 			summon_type = list(/obj/structure/constructshell)
 			newVars = list()
-		
+
 		else
 			summon_type = list(/obj/item/weapon/paper/talisman)
 			newVars = list("imbue" = "[imbue_value]")
-			
+
 	..()

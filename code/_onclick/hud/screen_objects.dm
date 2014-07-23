@@ -42,7 +42,7 @@
 	return 1
 
 /obj/screen/power_action
-	var/obj/effect/proc_holder/spell/owner
+	var/obj/effect/proc_holder/spell/wizard/owner
 
 /obj/screen/power_action/Click()
 	owner.Click()
