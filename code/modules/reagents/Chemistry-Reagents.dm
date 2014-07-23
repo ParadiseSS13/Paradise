@@ -98,10 +98,10 @@ datum
 					var/mob/living/carbon/human/H = M
 					if(H.side_effects.len == 0)
 						M.add_side_effect(pick("Headache", "Bad Stomach", "Itch"))
-						
+
 					if( (overdose > 0) && (volume >= overdose))//Overdosing
-                         M.adjustToxLoss(overdose_dam * volume / overdose)
-						
+						M.adjustToxLoss(overdose_dam * volume / overdose)
+
 				holder.remove_reagent(src.id, custom_metabolism) //By default it slowly disappears.
 				return
 
@@ -509,7 +509,7 @@ datum
 			reagent_state = LIQUID
 			color = "#E895CC" // rgb: 232, 149, 204
 			overdose = REAGENTS_OVERDOSE
-			
+
 			on_mob_life(var/mob/living/M as mob)
 				if(!M) M = holder.my_atom
 				if(!data) data = 1
@@ -587,7 +587,7 @@ datum
 			color = "#60A584" // rgb: 96, 165, 132
 			addictiveness = 25
 			overdose = REAGENTS_OVERDOSE/2
-			
+
 			on_mob_life(var/mob/living/M as mob)
 				if(!M) M = holder.my_atom
 				M.druggy = max(M.druggy, 15)
