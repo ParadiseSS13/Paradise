@@ -68,11 +68,18 @@
 		else
 			if(world.time > data + ANTIDEPRESSANT_MESSAGE_DELAY)
 				data = world.time
-				if(prob(90))
-					M << "\blue Your mind feels much more stable."
+				if(volume > 5)						// Bone White - Added any concentrations over 5 units to cause higher chance of mind breakage.
+					if (prob(min(100, volume * 5)))
+						M << "\red Your mind breaks apart.."
+						M.hallucination += 200
+					else
+						M << "\blue Your mind feels much more stable."
 				else
-					M << "\red Your mind breaks apart.."
-					M.hallucination += 200
+					if (prob(90))
+						M << "\blue Your mind feels much more stable."
+					else
+						M << "\red Your mind breaks apart.."
+						M.hallucination += 200
 		..()
 		return
 
