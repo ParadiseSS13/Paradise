@@ -396,7 +396,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 
 	if(germ_level >= INFECTION_LEVEL_ONE)
 		//having an infection raises your body temperature
-		var/fever_temperature = (owner.species.heat_level_1 - owner.species.body_temperature - 1)* min(germ_level/(INFECTION_LEVEL_TWO), 1) + owner.species.body_temperature
+		var/fever_temperature = (owner.species.heat_level_1 - owner.species.body_temperature - 1)* min(germ_level/INFECTION_LEVEL_TWO, 1) + owner.species.body_temperature
 		if (fever_temperature > owner.bodytemperature)
 			//need to make sure we raise temperature fast enough to get around environmental cooling preventing us from reaching fever_temperature
 			owner.bodytemperature += (fever_temperature - T20C)/BODYTEMP_COLD_DIVISOR + 1
@@ -405,7 +405,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 			if (antibiotics < 5)
 				germ_level++
 
-			if (prob(20))	//adjust this to tweak how fast people take toxin damage from infections
+			if (prob(10))	//adjust this to tweak how fast people take toxin damage from infections
 				owner.adjustToxLoss(1)
 
 	if(germ_level >= INFECTION_LEVEL_TWO && antibiotics < 5)
