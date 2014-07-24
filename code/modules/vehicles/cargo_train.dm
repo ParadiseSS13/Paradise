@@ -244,7 +244,10 @@
 	if(!istype(C,/obj/machinery) && !istype(C,/obj/structure/closet) && !istype(C,/obj/structure/largecrate) && !istype(C,/obj/structure/reagent_dispensers) && !istype(C,/obj/structure/ore_box) && !ismob(C))
 		return 0
 
-	return ..()
+	..()
+	
+	if(istype(load, /mob/living/carbon/human))
+		load.pixel_y += 4
 
 /obj/vehicle/train/cargo/engine/load(var/atom/movable/C)
 	if(!ismob(C))

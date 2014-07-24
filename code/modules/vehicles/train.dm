@@ -80,7 +80,7 @@
 	return 1
 
 /obj/vehicle/train/MouseDrop_T(var/atom/movable/C, mob/user as mob)
-	if(!usr.canmove || usr.stat || usr.restrained() || !Adjacent(usr) || !user.Adjacent(C))
+	if(user.buckled || user.stat || user.restrained() || !Adjacent(user) || !user.Adjacent(C))
 		return
 	if(istype(C,/obj/vehicle/train))
 		latch(C, user)
@@ -97,7 +97,7 @@
 		contents -= user
 	else if(load)
 		unload(user)			//unload if loaded
-	else if(!load)
+	else if(!load && !user.buckled)
 		load(user)				//else try climbing on board
 	else
 		return 0
