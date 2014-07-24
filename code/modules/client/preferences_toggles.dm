@@ -26,15 +26,6 @@
 	prefs.save_preferences(src)
 	feedback_add_details("admin_verb","TGR")
 
-/client/verb/toggle_hear_radio()
-	set name = "Show/Hide RadioChatter"
-	set category = "Preferences"
-	set desc = "Toggle seeing radiochatter from radios and speakers"
-	prefs.toggles ^= CHAT_RADIO
-	prefs.save_preferences(src)
-	usr << "You will [(prefs.toggles & CHAT_RADIO) ? "now" : "no longer"] see radio chatter from radios or speakers"
-	feedback_add_details("admin_verb","THR") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
-
 /client/verb/toggleadminhelpsound()
 	set name = "Hear/Silence Adminhelps"
 	set category = "Preferences"
