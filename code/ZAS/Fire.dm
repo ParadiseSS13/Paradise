@@ -127,6 +127,9 @@ turf/simulated/hotspot_expose(exposed_temperature, exposed_volume, soh)
 	loc.fire_act(air_contents, air_contents.temperature, air_contents.return_volume())
 	for(var/atom/A in loc)
 		A.fire_act(air_contents, air_contents.temperature, air_contents.return_volume())
+	// Burn the turf, too.
+	S.fire_act(air_contents, air_contents.temperature, air_contents.return_volume())
+
 	//spread
 	for(var/direction in cardinal)
 		var/turf/simulated/enemy_tile = get_step(S, direction)
