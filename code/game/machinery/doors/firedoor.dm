@@ -1,41 +1,13 @@
 /var/const/OPEN = 1
 /var/const/CLOSED = 2
 
-#define NORTHCOLD 1
-#define NORTHHOT 2
-#define SOUTHCOLD 4
-#define SOUTHHOT 8
-#define WESTCOLD 32
-#define WESTHOT 64
-#define EASTCOLD 128
-#define EASTHOT 256
-/* HAHA TOPY PASTAN
-/proc/getTemperatureDifferential(var/turf/loc)
-	var/mint=16777216;
-	var/maxt= 0;
-	for(var/dir in cardinal)
-		var/turf/simulated/T=get_turf(get_step(loc,dir))
-		var/ct=0
-		if(T && istype(T) && T.zone)
-			var/datum/gas_mixture/environment = T.return_air()
-			ct = environment.temperature
-		else
-			if(istype(T,/turf/simulated))
-				continue
-		if(ct<mint)mint=ct
-		if(ct>maxt)maxt=ct
-	if(mint <= T20C - 20)
-		return convert_temperature(mint)-convert_temperature(maxt)
-	else
-		return convert_temperature(maxt)-convert_temperature(mint)
-*/
 /proc/convert_k2c(var/temp)
 	return ((temp - T0C)) // * 1.8) + 32
 
 /proc/convert_c2k(var/temp)
 	return ((temp + T0C)) // * 1.8) + 32
 
-/proc/getCardinalTemperatures(var/turf/loc)
+/proc/getCardinalAirInfo(var/turf/loc, var/list/stats=list("temperature"))
 	var/list/temps = new/list(4)
 	for(var/dir in cardinal)
 		var/direction
@@ -49,17 +21,29 @@
 			if(WEST)
 				direction = 4
 		var/turf/simulated/T=get_turf(get_step(loc,dir))
+		var/list/rstats = new /list(stats.len)
 		if(T && istype(T) && T.zone)
 			var/datum/gas_mixture/environment = T.return_air()
-			temps[direction] = environment.temperature
-		else
-			if(istype(T, /turf/simulated))
-				temps[direction] = T20C
-			else
-				temps[direction] = 0
+			for(var/i=1;i<=stats.len;i++)
+				rstats[i] = environment.vars[stats[i]]
+		else if(istype(T, /turf/simulated))
+			rstats = null // Exclude zone (wall, door, etc).
+		else if(istype(T, /turf))
+			// Should still work.  (/turf/return_air())
+			var/datum/gas_mixture/environment = T.return_air()
+			for(var/i=1;i<=stats.len;i++)
+				rstats[i] = environment.vars[stats[i]]
+		temps[direction] = rstats
 	return temps
 
 #define FIREDOOR_MAX_PRESSURE_DIFF 25 // kPa
+#define FIREDOOR_MAX_TEMP 50 // °C
+#define FIREDOOR_MIN_TEMP 0
+
+// Bitflags
+#define FIREDOOR_ALERT_HOT      1
+#define FIREDOOR_ALERT_COLD     2
+// Not used #define FIREDOOR_ALERT_LOWPRESS 4
 
 /obj/machinery/door/firedoor
 	name = "\improper Emergency Shutter"
@@ -71,13 +55,21 @@
 	density = 0
 
 	var/blocked = 0
+	var/lockdown = 0 // When the door has detected a problem, it locks.
 	var/pdiff_alert = 0
 	var/pdiff = 0
-	var/tdiff_alert = 0
 	var/nextstate = null
 	var/net_id
 	var/list/areas_added
 	var/list/users_to_open
+	var/list/tile_info[4]
+	var/list/dir_alerts[4] // 4 dirs, bitflags
+
+	// MUST be in same order as FIREDOOR_ALERT_*
+	var/list/ALERT_STATES=list(
+		"hot",
+		"cold"
+	)
 
 /obj/machinery/door/firedoor/New()
 	. = ..()
@@ -109,46 +101,41 @@
 	set src in view()
 	. = ..()
 	if(pdiff >= FIREDOOR_MAX_PRESSURE_DIFF)
-		usr << "<span class='warning'>WARNING: Current pressure differential is [pdiff]kPa!</span>"
-	if(tdiff_alert)
-		var/alerts
-		var/list/temperatures = getCardinalTemperatures(src.loc)
-		for(var/index = 1; index <= temperatures.len; index++)
-			var/celsius = convert_k2c(temperatures[index])
-			switch(index)
-				if(1)
-					alerts += "NORTH: "
-					if(celsius >= 50 || celsius <= 0)
-						alerts += "[celsius]"
-					else
-						alerts += "NORMAL"
-				if(2)
-					alerts += " SOUTH: "
-					if(celsius >= 50 || celsius <= 0)
-						alerts += "[celsius]"
-					else
-						alerts += "NORMAL"
-				if(3)
-					alerts += " EAST: "
-					if(celsius >= 50 || celsius <= 0)
-						alerts += "[celsius]"
-					else
-						alerts += "NORMAL"
-				if(4)
-					alerts += " WEST: "
-					if(celsius >= 50 || celsius <= 0)
-						alerts += "[celsius]"
-					else
-						alerts += "NORMAL"
+		usr << "<span class='warning'>WARNING: Current pressure differential is [pdiff]kPa! Opening door may result in injury!</span>"
 
-		usr << "<span class='warning'>WARNING: Current temperatures are, [alerts] </span>"
+	usr << "<b>Sensor readings:</b>"
+	for(var/index = 1; index <= tile_info.len; index++)
+		var/o = "&nbsp;&nbsp;"
+		switch(index)
+			if(1)
+				o += "NORTH: "
+			if(2)
+				o += "SOUTH: "
+			if(3)
+				o += "EAST: "
+			if(4)
+				o += "WEST: "
+		if(tile_info[index] == null)
+			o += "<span class='warning'>DATA UNAVAILABLE</span>"
+			usr << o
+			continue
+		var/celsius = convert_k2c(tile_info[index][1])
+		var/pressure = tile_info[index][2]
+		if(dir_alerts[index] & (FIREDOOR_ALERT_HOT|FIREDOOR_ALERT_COLD))
+			o += "<span class='warning'>"
+		else
+			o += "<span style='color:blue'>"
+		o += "[celsius]?C</span> "
+		o += "<span style='color:blue'>"
+		o += "[pressure]kPa</span></li>"
+		usr << o
+
 	if( islist(users_to_open) && users_to_open.len)
 		var/users_to_open_string = users_to_open[1]
 		if(users_to_open.len >= 2)
 			for(var/i = 2 to users_to_open.len)
 				users_to_open_string += ", [users_to_open[i]]"
 		usr << "These people have opened \the [src] during an alert: [users_to_open_string]."
-
 
 /obj/machinery/door/firedoor/Bumped(atom/AM)
 	if(p_open || operating)
@@ -174,47 +161,7 @@
 
 
 /obj/machinery/door/firedoor/attack_hand(mob/user as mob)
-	add_fingerprint(user)
-	if(operating)
-		return//Already doing something.
-
-	if(blocked)
-		user << "<span class='warning'>\The [src] is welded solid!</span>"
-		return
-
-	if(!allowed(user))
-		user << "<span class='warning'>Access denied.</span>"
-		return
-
-	var/area/A = get_area(src)
-	ASSERT(istype(A))
-	if(A.master)
-		A = A.master
-	var/alarmed = A.air_doors_activated || A.fire
-
-	var/answer = alert(user, "Would you like to [density ? "open" : "close"] this [src.name]?[ alarmed && density ? "\nNote that by doing so, you acknowledge any damages from opening this\n[src.name] as being your own fault, and you will be held accountable under the law." : ""]",\
-	"\The [src]", "Yes, [density ? "open" : "close"]", "No")
-	if(answer == "No")
-		return
-	if(user.stat || !user.canmove || user.stunned || user.weakened || user.paralysis || get_dist(src, user) > 1)
-		user << "Sorry, you must remain able bodied and close to \the [src] in order to use it."
-		return
-
-	var/needs_to_close = 0
-	if(density)
-		if(alarmed)
-			needs_to_close = 1
-		spawn()
-			open()
-	else
-		spawn()
-			close()
-
-	if(needs_to_close)
-		spawn(50)
-			if(alarmed)
-				nextstate = CLOSED
-
+	return attackby(null, user)
 
 /obj/machinery/door/firedoor/attackby(obj/item/weapon/C as obj, mob/user as mob)
 	add_fingerprint(user)
@@ -235,48 +182,102 @@
 		return
 
 	var/area/A = get_area_master(src)
-	ASSERT(istype(A))
-	if(A.master)
-		A = A.master
-	var/alarmed = A.air_doors_activated || A.fire
+	ASSERT(istype(A)) // This worries me.
+	var/alarmed = A.doors_down || A.fire
 
 	if( istype(C, /obj/item/weapon/crowbar) || ( istype(C,/obj/item/weapon/twohanded/fireaxe) && C:wielded == 1 ) )
 		if(operating)
 			return
-
-		if( blocked && istype(C, /obj/item/weapon/crowbar) )
+		if( blocked )
 			user.visible_message("\red \The [user] pries at \the [src] with \a [C], but \the [src] is welded in place!",\
 			"You try to pry \the [src] [density ? "open" : "closed"], but it is welded in place!",\
 			"You hear someone struggle and metal straining.")
-			return
 
-		user.visible_message("\red \The [user] starts to force \the [src] [density ? "open" : "closed"] with \a [C]!",\
-				"You start forcing \the [src] [density ? "open" : "closed"] with \the [C]!",\
-				"You hear metal strain.")
-		if(do_after(user,30))
-			if( istype(C, /obj/item/weapon/crowbar) )
-				if( stat & (BROKEN|NOPOWER) || !density)
-					user.visible_message("\red \The [user] forces \the [src] [density ? "open" : "closed"] with \a [C]!",\
-					"You force \the [src] [density ? "open" : "closed"] with \the [C]!",\
-					"You hear metal strain, and a door [density ? "open" : "close"].")
-			else
-				user.visible_message("\red \The [user] forces \the [ blocked ? "welded" : "" ] [src] [density ? "open" : "closed"] with \a [C]!",\
-					"You force \the [ blocked ? "welded" : "" ] [src] [density ? "open" : "closed"] with \the [C]!",\
-					"You hear metal strain and groan, and a door [density ? "open" : "close"].")
-			var/needs_to_close = 0
-			if(density)
-				if(alarmed)
-					needs_to_close = 1
-				spawn(0)
-					open()
-			else
-				spawn(0)
-					close()
-			if(needs_to_close)
-				spawn(50)
-					if(alarmed)
-						nextstate = CLOSED
+		if( stat & (BROKEN|NOPOWER) || !density || !alarmed )
+			user.visible_message("\red \The [user] forces \the [src] [density ? "open" : "closed"] with \a [C]!",\
+			"You force \the [src] [density ? "open" : "closed"] with \the [C]!",\
+			"You hear metal strain, and a door [density ? "open" : "close"].")
+		else if( allowed(user) )
+			user.visible_message("\blue \The [user] lifts \the [src] with \a [C].",\
+			"\The [src] scans your ID, and obediently opens as you apply your [C].",\
+			"You hear metal move, and a door [density ? "open" : "close"].")
+		else if(lockdown)
+			user.visible_message("\blue \The [user] pries at \the [src] with \a [C], but \the [src] resists being opened.",\
+			"\red You pry at \the [src], but it actively resists your efforts.  Maybe use your ID, perhaps?",\
+			"You hear someone struggling and metal straining")
 			return
+		if(density)
+			spawn(0)
+				open()
+		else
+			spawn(0)
+				close()
+		return
+	var/access_granted = 0
+	var/users_name
+	if(!istype(C, /obj)) //If someone hit it with their hand.  We need to see if they are allowed.
+		if(allowed(user))
+			access_granted = 1
+		if(ishuman(user))
+			users_name = FindNameFromID(user)
+		else
+			users_name = "Unknown"
+
+	if( ishuman(user) &&  !stat && ( istype(C, /obj/item/weapon/card/id) || istype(C, /obj/item/device/pda) ) )
+		var/obj/item/weapon/card/id/ID = C
+
+		if( istype(C, /obj/item/device/pda) )
+			var/obj/item/device/pda/pda = C
+			ID = pda.id
+		if(!istype(ID))
+			ID = null
+
+		if(ID)
+			users_name = ID.registered_name
+
+		if(check_access(ID))
+			access_granted = 1
+
+	var/answer = "Yes"
+	if(answer == "No")
+		return
+	if(user.stat || user.stunned || user.weakened || user.paralysis || get_dist(src, user) > 1)
+		user << "Sorry, you must remain able bodied and close to \the [src] in order to use it."
+		return
+
+	if(alarmed && density && lockdown && !access_granted/* && !( users_name in users_to_open ) */)
+		// Too many shitters on /vg/ for the honor system to work.
+		user << "<span class='warning'>Access denied.  Please wait for authorities to arrive, or for the alert to clear.</span>"
+		return
+		// End anti-shitter system
+		/*
+		user.visible_message("\red \The [src] opens for \the [user]",\
+		"\The [src] opens after you acknowledge the consequences.",\
+		"You hear a beep, and a door opening.")
+		*/
+	else
+		user.visible_message("\blue \The [src] [density ? "open" : "close"]s for \the [user].",\
+		"\The [src] [density ? "open" : "close"]s.",\
+		"You hear a beep, and a door opening.")
+		// Accountability!
+		if(!users_to_open)
+			users_to_open = list()
+		users_to_open += users_name
+
+	var/needs_to_close = 0
+	if(density)
+		if(alarmed)
+			needs_to_close = 1
+		spawn()
+			open()
+	else
+		spawn()
+			close()
+
+	if(needs_to_close)
+		spawn(50)
+			if(alarmed)
+				nextstate = CLOSED
 
 
 
@@ -285,11 +286,12 @@
 	..()
 
 	if(density)
-		pdiff = getOPressureDifferential(get_turf(src))
-
-
 		var/changed = 0
+		lockdown=0
+		// Pressure alerts
+		pdiff = getOPressureDifferential(src.loc)
 		if(pdiff >= FIREDOOR_MAX_PRESSURE_DIFF)
+			lockdown = 1
 			if(!pdiff_alert)
 				pdiff_alert = 1
 				changed = 1 // update_icon()
@@ -297,33 +299,28 @@
 			if(pdiff_alert)
 				pdiff_alert = 0
 				changed = 1 // update_icon()
-		var/list/temperatures = getCardinalTemperatures(src.loc)
-		var/oldtdiff = tdiff_alert
-		for(var/index = 1; index <= temperatures.len; index++)
-			var/celsius = convert_k2c(temperatures[index])
-			switch(index)
-				if(1)
-					if(celsius >= 50)
-						tdiff_alert |= NORTHHOT
-					else if(celsius <= 0)
-						tdiff_alert |= NORTHCOLD
-				if(2)
-					if(celsius >= 50)
-						tdiff_alert |= SOUTHHOT
-					else if(celsius <= 0)
-						tdiff_alert |= SOUTHCOLD
-				if(3)
-					if(celsius >= 50)
-						tdiff_alert |= EASTHOT
-					else if(celsius <= 0)
-						tdiff_alert |= EASTCOLD
-				if(4)
-					if(celsius >= 50)
-						tdiff_alert |= WESTHOT
-					else if(celsius <= 0)
-						tdiff_alert |= WESTCOLD
 
-		if(oldtdiff != tdiff_alert)
+		tile_info = getCardinalAirInfo(src.loc,list("temperature","pressure"))
+		var/old_alerts = dir_alerts
+		for(var/index = 1; index <= 4; index++)
+			var/list/tileinfo=tile_info[index]
+			if(tileinfo==null)
+				continue // Bad data.
+			var/celsius = convert_k2c(tileinfo[1])
+
+			var/alerts=0
+
+			// Temperatures
+			if(celsius >= FIREDOOR_MAX_TEMP)
+				alerts |= FIREDOOR_ALERT_HOT
+				lockdown = 1
+			else if(celsius <= FIREDOOR_MIN_TEMP)
+				alerts |= FIREDOOR_ALERT_COLD
+				lockdown = 1
+
+			dir_alerts[index]=alerts
+
+		if(dir_alerts != old_alerts)
 			changed = 1
 		if(changed)
 			update_icon()
@@ -369,23 +366,13 @@
 			overlays += "welded"
 		if(pdiff_alert)
 			overlays += "palert"
-		if(tdiff_alert)
-			if(tdiff_alert & NORTHCOLD)
-				overlays += "calert_north"
-			if(tdiff_alert & NORTHHOT)
-				overlays += "halert_north"
-			if(tdiff_alert & SOUTHCOLD)
-				overlays += "calert_south"
-			if(tdiff_alert & SOUTHHOT)
-				overlays += "halert_south"
-			if(tdiff_alert & WESTCOLD)
-				overlays += "calert_west"
-			if(tdiff_alert & WESTHOT)
-				overlays += "halert_west"
-			if(tdiff_alert & EASTCOLD)
-				overlays += "calert_east"
-			if(tdiff_alert & EASTHOT)
-				overlays += "halert_east"
+		if(dir_alerts)
+			for(var/d=1;d<=4;d++)
+				var/cdir = cardinal[d]
+				// Loop while i = [1, 3], incrementing each loop
+				for(var/i=1;i<=ALERT_STATES.len;i++) //
+					if(dir_alerts[d] & (1<<(i-1))) // Check to see if dir_alerts[d] has the i-1th bit set.
+						overlays += new /icon(icon,"alert_[ALERT_STATES[i]]",dir=cdir)
 	else
 		icon_state = "door_open"
 		if(blocked)
@@ -445,12 +432,3 @@
 //used in the AStar algorithm to determinate if the turf the door is on is passable
 /obj/machinery/door/firedoor/CanAStarPass()
 	return !density
-
-#undef NORTHCOLD
-#undef NORTHHOT
-#undef SOUTHCOLD
-#undef SOUTHHOT
-#undef WESTCOLD
-#undef WESTHOT
-#undef EASTCOLD
-#undef EASTHOT
