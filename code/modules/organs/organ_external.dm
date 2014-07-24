@@ -444,6 +444,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 		if (!(status & ORGAN_DEAD))
 			status |= ORGAN_DEAD
 			owner << "<span class='notice'>You can't feel your [display_name] anymore...</span>"
+			owner.update_body(1)
 
 		germ_level++
 		owner.adjustToxLoss(1)
