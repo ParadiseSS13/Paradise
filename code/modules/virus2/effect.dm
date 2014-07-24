@@ -200,6 +200,13 @@
 
 ////////////////////////STAGE 4/////////////////////////////////
 
+/datum/disease2/effect/alchdranine
+	name = "Panacea Effect"
+	stage = 4
+	activate(var/mob/living/carbon/mob,var/multiplier)
+		if (mob.reagents.get_reagent_amount("alchdranine") < 1)
+			mob.reagents.add_reagent("alchdranine", 1)
+
 /datum/disease2/effect/viralsputum_major
 	name = "Hemoptysis"
 	stage = 4
@@ -210,7 +217,7 @@
 			if(D==null)
 				D = new(get_turf(mob))
 			D.virus2 |= virus_copylist(mob.virus2)
-			mob.reagents.remove_reagent("blood", 50) // Bone White - Blood loss when coughing up blood, experimental, may need adjusting.
+			mob.reagents.remove_reagent("blood", 20) // Bone White - Blood loss when coughing up blood, experimental, may need adjusting.
 		else
 
 /datum/disease2/effect/gibbingtons
@@ -507,6 +514,28 @@
 
 ////////////////////////STAGE 3/////////////////////////////////
 
+/datum/disease2/effect/brain_regen
+	name = "Regenerative Synapse Effect"
+	stage = 3
+	activate(var/mob/living/carbon/mob,var/multiplier)
+		if (mob.reagents.get_reagent_amount("alkysine") < 1)
+			mob.reagents.add_reagent("alkysine", 1)
+
+/datum/disease2/effect/paroxetine
+	name = "Psyche Collapse Syndrome"
+	stage = 3
+	activate(var/mob/living/carbon/mob,var/multiplier)
+		if (mob.reagents.get_reagent_amount("paroxetine") < 10)
+			mob.reagents.add_reagent("paroxetine", 1)
+
+/datum/disease2/effect/pain_major
+	name = "Phantom Pain Syndrome"
+	stage = 3
+	activate(var/mob/living/carbon/mob,var/multiplier)
+		if (mob.halloss < 100)
+			mob << "<span class = 'warning'> You feel like your body is on fire. Make the pain stop!</span>"
+			mob.apply_effect(20,AGONY,0)
+
 // === burn brute toxin clone brain damage symptoms - Bone White ===
 
 /datum/disease2/effect/burn
@@ -779,14 +808,22 @@ var/list/compatible_mobs = list(/mob/living/carbon/human, /mob/living/carbon/mon
 */
 
 
-/datum/disease2/effect/paroxetine
-	name = "Psyche Collapse Syndrome"
-	stage = 3
-	activate(var/mob/living/carbon/mob,var/multiplier)
-		if (mob.reagents.get_reagent_amount("paroxetine") < 5)
-			mob.reagents.add_reagent("paroxetine", 1)
-
 ////////////////////////STAGE 2/////////////////////////////////
+
+/datum/disease2/effect/methylphenidate
+	name = "Mental Stability Phenomenon"
+	stage = 2
+	activate(var/mob/living/carbon/mob,var/multiplier)
+		if (mob.reagents.get_reagent_amount("methylphenidate") < 5)
+			mob.reagents.add_reagent("methylphenidate", 1)
+
+/datum/disease2/effect/pain
+	name = "Acute Muscle Ache"
+	stage = 2
+	activate(var/mob/living/carbon/mob,var/multiplier)
+		if (mob.halloss < 50)
+			mob << "<span class='warning'>You ache all over!</span>"
+			mob.apply_effect(10,AGONY,0)
 
 // === burn brute toxin clone brain damage symptoms - Bone White ===
 
@@ -885,14 +922,14 @@ var/list/compatible_mobs = list(/mob/living/carbon/human, /mob/living/carbon/mon
 					H.h_style = "Balding Hair"
 					H.update_hair()
 
-/datum/disease2/effect/stimulant
-	name = "Adrenaline Extra"
+/datum/disease2/effect/stimulant_major
+	name = "Adrenal Overload"
 	stage = 2
 	activate(var/mob/living/carbon/mob,var/multiplier)
-		mob << "<span class='notice'>You feel a rush of energy inside you!</span>"
-		if (mob.reagents.get_reagent_amount("hyperzine") < 10)
+		if (mob.reagents.get_reagent_amount("hyperzine") < 40)
 			mob.reagents.add_reagent("hyperzine", 4)
 		if (prob(30))
+			mob << "<span class='notice'>You feel a rush of energy inside you!</span>"
 			mob.jitteriness += 10
 
 /datum/disease2/effect/drunk
@@ -950,7 +987,7 @@ var/list/compatible_mobs = list(/mob/living/carbon/human, /mob/living/carbon/mon
 			if(D==null)
 				D = new(get_turf(mob))
 			D.virus2 |= virus_copylist(mob.virus2)
-			mob.reagents.remove_reagent("blood", 20) // Bone White - Blood loss when coughing up blood, experimental, may need adjusting.
+			mob.reagents.remove_reagent("blood", 5) // Bone White - Blood loss when coughing up blood, experimental, may need adjusting.
 
 
 /datum/disease2/effect/lantern
@@ -972,7 +1009,30 @@ var/list/compatible_mobs = list(/mob/living/carbon/human, /mob/living/carbon/mon
 
 ////////////////////////STAGE 1/////////////////////////////////
 
+/datum/disease2/effect/citalopram
+	name = "Reality Check"
+	stage = 1
+	activate(var/mob/living/carbon/mob,var/multiplier)
+		if (mob.reagents.get_reagent_amount("citalopram") < 5)
+			mob.reagents.add_reagent("citalopram", 1)
 
+/datum/disease2/effect/pain_minor
+	name = "Heightened Sensitivity"
+	stage = 1
+	activate(var/mob/living/carbon/mob,var/multiplier)
+		if (mob.halloss < 20)
+			mob << "<span class='warning'>Your body aches.</span>"
+			mob.apply_effect(5,AGONY,0)
+
+/datum/disease2/effect/stimulant
+	name = "Adrenaline Extra"
+	stage = 1
+	activate(var/mob/living/carbon/mob,var/multiplier)
+		if (mob.reagents.get_reagent_amount("hyperzine") < 10)
+			mob.reagents.add_reagent("hyperzine", 4)
+		if (prob(30))
+			mob << "<span class='notice'>You feel a rush of energy inside you!</span>"
+			mob.jitteriness += 10
 
 /datum/disease2/effect/cough_minor
 	name = "Trachea Sensitivity"

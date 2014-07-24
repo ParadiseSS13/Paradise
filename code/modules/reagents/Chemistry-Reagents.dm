@@ -108,13 +108,13 @@ datum
 
 					if( (toxod > 0) && (volume >= toxod))//Toxin Overdosing
 						M.adjustToxLoss(overdose_dam * volume / toxod)
-						
+
 					if(	(bruteod > 0) && (volume >= bruteod))//Brute Overdosing
 						M.take_overall_damage(overdose_dam * volume / bruteod, 0)
-						
+
 					if( (burnod > 0) && (volume >= burnod))//Burn Overdosing
 						M.take_overall_damage(0, overdose_dam * volume / burnod)
-						
+
 					if( (oxyod > 0) && (volume >= oxyod))//Oxygen Overdosing
 						M.adjustOxyLoss(overdose_dam * volume / oxyod)
 
@@ -363,7 +363,7 @@ datum
 			color = "#006400" // rgb: 0, 100, 0
 			bruteod = BRUTE_OVERDOSE
 			burnod = BURN_OVERDOSE
-
+			mildly_toxic = 0
 			on_mob_life(var/mob/living/M as mob)
 				if(!M) M = holder.my_atom
 				if(holder.has_reagent("toxin"))
@@ -526,8 +526,8 @@ datum
 			description = "An effective hypnotic used to treat insomnia."
 			reagent_state = LIQUID
 			color = "#E895CC" // rgb: 232, 149, 204
-			toxod = TOX_OVERDOSE
-			oxyod = OXY_OVERDOSE
+			toxod = 40
+			oxyod = 40
 
 			on_mob_life(var/mob/living/M as mob)
 				if(!M) M = holder.my_atom
@@ -550,7 +550,7 @@ datum
 			description = "Put people to sleep, and heals them."
 			reagent_state = LIQUID
 			color = "#C8A5DC" // rgb: 200, 165, 220
-
+			mildly_toxic = 0
 			on_mob_life(var/mob/living/M as mob)
 				if(!M) M = holder.my_atom
 				if(!data) data = 1
@@ -583,8 +583,8 @@ datum
 			description = "Inaprovaline is a synaptic stimulant and cardiostimulant. Commonly used to stabilize patients."
 			reagent_state = LIQUID
 			color = "#C8A5DC" // rgb: 200, 165, 220
-			bruteod = BRUTE_OVERDOSE
-			oxyod = OXY_OVERDOSE
+			bruteod = 40
+			oxyod = 40
 			scannable = 1
 
 			on_mob_life(var/mob/living/M as mob, var/alien)
@@ -723,7 +723,7 @@ datum
 			id = "oxygen"
 			description = "A colorless, odorless gas."
 			reagent_state = GAS
-			color = "#808080" // rgb: 128, 128, 128			
+			color = "#808080" // rgb: 128, 128, 128
 
 			custom_metabolism = 0.01
 
@@ -1636,8 +1636,10 @@ datum
 			description = "Dexalin is used in the treatment of oxygen deprivation."
 			reagent_state = LIQUID
 			color = "#C8A5DC" // rgb: 200, 165, 220
-			toxod = TOX_OVERDOSE
-			burnod = BURN_OVERDOSE
+			toxod = 40
+			burnod = 40
+			bruteod = 40
+			oxyod = 40
 			scannable = 1
 
 			on_mob_life(var/mob/living/M as mob, var/alien)
