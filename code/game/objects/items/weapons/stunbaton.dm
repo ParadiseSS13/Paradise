@@ -106,37 +106,54 @@
 
 /obj/item/weapon/melee/baton/attack(mob/M, mob/user)
 	if(status && (M_CLUMSY in user.mutations) && prob(50))
-		user << "<span class='danger'>You accidentally hit yourself with [src]!</span>"
-		user.Weaken(stunforce*3)
+		user << "span class='danger'>You accidentally hit yourself with the [src]!</span>"
+		user.Weaken(30)
 		deductcharge(hitcost)
 		return
+
 
 	if(isrobot(M))
 		..()
 		return
 
-	if(!isliving(M))
-		return
-	var/mob/living/L = M
+	var/mob/living/carbon/human/H = M
 
-	if(user.a_intent == "harm")
-		..()
-		playsound(loc, "swing_hit", 50, 1, -1)
+	if(user.a_intent == "hurt")
+		if(!..()) return
+		H.visible_message("<span class='danger'>[M] has been beaten with the [src] by [user]!</span>")
+
+		user.attack_log += "\[[time_stamp()]\]<font color='red'> Beat [H.name] ([H.ckey]) with [src.name]</font>"
+		H.attack_log += "\[[time_stamp()]\]<font color='orange'> Beaten by [user.name] ([user.ckey]) with [src.name]</font>"
+		msg_admin_attack("[user.name] ([user.ckey]) beat [H.name] ([H.ckey]) with [src.name] (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[user.x];Y=[user.y];Z=[user.z]'>JMP</a>)")
+
+		playsound(src.loc, "swing_hit", 50, 1, -1)
 
 	else if(!status)
-		L.visible_message("<span class='warning'>[L] has been prodded with [src] by [user]. Luckily it was off.</span>")
+		H.visible_message("<span class='warning'>[H] has been prodded with [src] by [user]. Luckily it was off.</span>")
 		return
 
+	var/stunroll = (rand(1,100))
+
 	if(status)
-		user.lastattacked = L
-		L.lastattacker = user
+		user.lastattacked = H
+		H.lastattacker = user
+		if(user == H) // Attacking yourself can't miss
+			stunroll = 100
+		if(stunroll < 40)
+			H.visible_message("\red <B>[user] misses [H] with \the [src]!")
+			msg_admin_attack("[key_name(user)] attempted to stun [key_name(H)] with the [src].")
+			return
+		H.Stun(stunforce)
+		H.Weaken(stunforce)
+		H.apply_effect(STUTTER, stunforce)
 
-		L.Stun(stunforce)
-		L.Weaken(stunforce)
-		L.apply_effect(STUTTER, stunforce)
-
-		L.visible_message("<span class='danger'>[L] has been stunned with [src] by [user]!</span>")
+		H.visible_message("<span class='danger'>[H] has been stunned with [src] by [user]!</span>")
 		playsound(loc, 'sound/weapons/Egloves.ogg', 50, 1, -1)
+
+		msg_admin_attack("[key_name(user)] stunned [key_name(H)] with the [src].")
+
+		user.attack_log += "\[[time_stamp()]\]<font color='red'> Stunned [H.name] ([H.ckey]) with [src.name]</font>"
+		H.attack_log += "\[[time_stamp()]\]<font color='orange'> Stunned by [user.name] ([user.ckey]) with [src.name]</font>"
 
 		if(isrobot(loc))
 			var/mob/living/silicon/robot/R = loc
