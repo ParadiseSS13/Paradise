@@ -1244,6 +1244,9 @@ var/list/ghostteleportlocs = list()
 	name = "\improper Telescience Lab"
 	icon_state = "telesci"
 
+/area/toxins/telescipad
+	name = "\improper Telescience Lab Pad"
+	icon_state = "telescipad"
 
 //MedBay
 
