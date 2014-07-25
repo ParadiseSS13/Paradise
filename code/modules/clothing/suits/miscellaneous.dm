@@ -407,3 +407,15 @@
 	item_state = "bomber"
 	flags = FPRINT | TABLEPASS
 	body_parts_covered = UPPER_TORSO|ARMS
+
+/obj/item/clothing/suit/officercoat
+	name = "Officer's Coat"
+	desc = "Ein Mantel gemacht, um die Juden zu bestrafen."
+	icon_state = "officersuit"
+	item_state = "officersuit"
+
+/obj/item/clothing/suit/soldiercoat
+	name = "Soldier's Coat"
+	desc = "Ein Mantel gemacht, um die Verbündeten zu zerstören."
+	icon_state = "soldiersuit"
+	item_state = "soldiersuit"
