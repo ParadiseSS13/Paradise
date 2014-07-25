@@ -845,6 +845,7 @@ var/list/all_supply_groups = list("Operations","Security","Hospitality","Enginee
 	containername = "Arts and Crafts crate"
 	group = "Operations"
 
+
 /datum/supply_packs/randomised/contraband
 	num_contained = 6
 	contains = list(/obj/item/weapon/storage/pill_bottle/zoom,

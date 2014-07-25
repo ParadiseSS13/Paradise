@@ -713,7 +713,7 @@ var/list/TAGGERLOCATIONS = list("Disposals",
 #define BE_ALIEN		64
 #define BE_PAI			128
 #define BE_CULTIST		256
-#define BE_MONKEY		512
+#define BE_PLANT		512
 #define BE_NINJA		1024
 #define BE_VOX			2048
 #define BE_SLIME		4096
@@ -730,7 +730,7 @@ var/list/be_special_flags = list(
 	"Xenomorph" = BE_ALIEN,
 	"pAI" = BE_PAI,
 	"Cultist" = BE_CULTIST,
-	"Monkey" = BE_MONKEY,
+	"Plant" = BE_PLANT,
 	"Ninja" = BE_NINJA,
 	"Vox" = BE_VOX,
 	"Slime" = BE_SLIME,

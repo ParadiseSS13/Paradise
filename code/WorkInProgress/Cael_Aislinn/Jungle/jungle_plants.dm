@@ -67,7 +67,6 @@ var/jungle_plants_init = 0
 	reagent_effects = shuffle(reagent_effects)
 
 /obj/item/weapon/reagent_containers/food/snacks/grown/jungle_fruit
-	seed = ""
 	name = "jungle fruit"
 	desc = "It smells weird and looks off."
 	icon = 'code/WorkInProgress/Cael_Aislinn/Jungle/jungle.dmi'

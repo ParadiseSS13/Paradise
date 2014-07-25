@@ -124,7 +124,7 @@
 	w_class = 1
 	can_hold = list("/obj/item/weapon/reagent_containers/food/snacks/grown","/obj/item/seeds","/obj/item/weapon/grown", "/obj/item/stack/tile/grass")
 
-
+/*
 /obj/item/weapon/storage/bag/plants/portaseeder
 	name = "Portable Seed Extractor"
 	desc = "For the enterprising botanist on the go. Less efficient than the stationary model, it creates one seed per plant."
@@ -140,7 +140,7 @@
 		for(var/mob/M in range(1))
 			if (M.s_active == src)
 				src.close(M)
-
+*/
 
 // -----------------------------
 //        Sheet Snatcher

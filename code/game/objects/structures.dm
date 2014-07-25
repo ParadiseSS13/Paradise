@@ -84,7 +84,7 @@
 
 			var/damage = rand(15,30)
 			var/mob/living/carbon/human/H = M
-			if(!istype(M))
+			if(!istype(H))
 				H << "\red You land heavily!"
 				M.adjustBruteLoss(damage)
 				return

@@ -38,7 +38,7 @@
 		/obj/machinery/computer/centrifuge,
 		/obj/machinery/sleeper,
 		/obj/machinery/smartfridge/,
-		/obj/machinery/biogenerator,
+//		/obj/machinery/biogenerator,
 		/obj/machinery/hydroponics,
 		/obj/machinery/constructable_frame)
 

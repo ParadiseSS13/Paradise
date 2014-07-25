@@ -1,22 +1,14 @@
-<<<<<<< HEAD:code/modules/hydroponics/hydroitemdefines.dm
-// Plant analyzer
-=======
 //Analyzer, pestkillers, weedkillers, nutrients, hatchets.
 
->>>>>>> 7fb8f30... New machines, adjusted Cael's seeds, rewrote space vines.:code/modules/hydroponics/hydro_tools.dm
 /obj/item/device/analyzer/plant_analyzer
 	name = "plant analyzer"
-	desc = "A scanner used to evaluate a plant's various areas of growth."
 	icon = 'icons/obj/device.dmi'
 	icon_state = "hydro"
 	item_state = "analyzer"
-	origin_tech = "magnets=1;biotech=1"
 
 /obj/item/device/analyzer/plant_analyzer/attack_self(mob/user as mob)
 	return 0
 
-<<<<<<< HEAD:code/modules/hydroponics/hydroitemdefines.dm
-=======
 /obj/item/device/analyzer/plant_analyzer/afterattack(obj/target, mob/user, flag)
 	if(!flag) return
 
@@ -161,7 +153,6 @@
 
 	return
 
->>>>>>> 7fb8f30... New machines, adjusted Cael's seeds, rewrote space vines.:code/modules/hydroponics/hydro_tools.dm
 // *************************************
 // Hydroponics Tools
 // *************************************
@@ -169,7 +160,7 @@
 /obj/item/weapon/plantspray
 	icon = 'icons/obj/hydroponics.dmi'
 	item_state = "spray"
-	flags = OPENCONTAINER
+	flags = TABLEPASS | OPENCONTAINER | FPRINT | NOBLUDGEON
 	slot_flags = SLOT_BELT
 	throwforce = 4
 	w_class = 2.0
@@ -179,13 +170,7 @@
 	var/pest_kill_str = 0
 	var/weed_kill_str = 0
 
-<<<<<<< HEAD:code/modules/hydroponics/hydroitemdefines.dm
-	suicide_act(mob/user)
-		viewers(user) << "<span class='suicide'>[user] is huffing the [src.name]! It looks like \he's trying to commit suicide.</span>"
-		return (TOXLOSS)
-=======
 /obj/item/weapon/plantspray/weeds // -- Skie
->>>>>>> 7fb8f30... New machines, adjusted Cael's seeds, rewrote space vines.:code/modules/hydroponics/hydro_tools.dm
 
 	name = "weed-spray"
 	desc = "It's a toxic mixture, in spray form, to kill small weeds."
@@ -196,21 +181,6 @@
 	name = "pest-spray"
 	desc = "It's some pest eliminator spray! <I>Do not inhale!</I>"
 	icon_state = "pestspray"
-<<<<<<< HEAD:code/modules/hydroponics/hydroitemdefines.dm
-	item_state = "spray"
-	flags = OPENCONTAINER
-	slot_flags = SLOT_BELT
-	throwforce = 4
-	w_class = 2.0
-	throw_speed = 2
-	throw_range = 10
-	var/toxicity = 4
-	var/PestKillStr = 2
-
-	suicide_act(mob/user)
-		viewers(user) << "<span class='suicide'>[user] is huffing the [src.name]! It looks like \he's trying to commit suicide.</span>"
-		return (TOXLOSS)
-=======
 	pest_kill_str = 2
 
 /obj/item/weapon/plantspray/pests/old
@@ -235,7 +205,6 @@
 	icon_state = "bottle15"
 	toxicity = 8
 	pest_kill_str = 7
->>>>>>> 7fb8f30... New machines, adjusted Cael's seeds, rewrote space vines.:code/modules/hydroponics/hydro_tools.dm
 
 /obj/item/weapon/minihoe // -- Numbers
 	name = "mini hoe"
@@ -243,15 +212,11 @@
 	icon = 'icons/obj/weapons.dmi'
 	icon_state = "hoe"
 	item_state = "hoe"
-	flags = CONDUCT
+	flags = FPRINT | TABLEPASS | CONDUCT | NOBLUDGEON
 	force = 5.0
 	throwforce = 7.0
 	w_class = 2.0
-	m_amt = 50
 	attack_verb = list("slashed", "sliced", "cut", "clawed")
-<<<<<<< HEAD:code/modules/hydroponics/hydroitemdefines.dm
-	hitsound = 'sound/weapons/bladeslice.ogg'
-=======
 
 
 // *************************************
@@ -290,7 +255,6 @@
 	toxicity = 8
 	weed_kill_str = 7
 
->>>>>>> 7fb8f30... New machines, adjusted Cael's seeds, rewrote space vines.:code/modules/hydroponics/hydro_tools.dm
 
 // *************************************
 // Nutrient defines for hydroponics
@@ -300,7 +264,8 @@
 	name = "bottle of nutrient"
 	icon = 'icons/obj/chemical.dmi'
 	icon_state = "bottle16"
-	w_class = 1.0
+	flags = FPRINT |  TABLEPASS
+	w_class = 2.0
 	var/mutmod = 0
 	var/yieldmod = 0
 	New()
@@ -311,6 +276,7 @@
 	name = "bottle of E-Z-Nutrient"
 	icon = 'icons/obj/chemical.dmi'
 	icon_state = "bottle16"
+	flags = FPRINT |  TABLEPASS
 	mutmod = 1
 	yieldmod = 1
 
@@ -318,33 +284,13 @@
 	name = "bottle of Left 4 Zed"
 	icon = 'icons/obj/chemical.dmi'
 	icon_state = "bottle18"
+	flags = FPRINT |  TABLEPASS
 	mutmod = 2
 
 /obj/item/nutrient/rh
 	name = "bottle of Robust Harvest"
 	icon = 'icons/obj/chemical.dmi'
 	icon_state = "bottle15"
-<<<<<<< HEAD:code/modules/hydroponics/hydroitemdefines.dm
-	mutmod = 0
-	yieldmod = 2
-	New()
-		src.pixel_x = rand(-5.0, 5)
-		src.pixel_y = rand(-5.0, 5)
-
-// *************************************
-// Pestkiller defines for hydroponics
-// *************************************
-
-/obj/item/pestkiller
-	name = "bottle of pestkiller"
-	icon = 'icons/obj/chemical.dmi'
-	icon_state = "bottle16"
-	var/toxicity = 0
-	var/PestKillStr = 0
-	New()
-		src.pixel_x = rand(-5.0, 5)
-		src.pixel_y = rand(-5.0, 5)
-=======
 	flags = FPRINT |  TABLEPASS
 	yieldmod = 2
 
@@ -362,74 +308,21 @@
 	throw_range = 4
 	sharp = 1
 	edge = 1
-	matter = list("metal" = 15000)
 	origin_tech = "materials=2;combat=1"
 	attack_verb = list("chopped", "torn", "cut")
->>>>>>> 7fb8f30... New machines, adjusted Cael's seeds, rewrote space vines.:code/modules/hydroponics/hydro_tools.dm
 
-/obj/item/pestkiller/carbaryl
-	name = "bottle of carbaryl"
-	icon = 'icons/obj/chemical.dmi'
-	icon_state = "bottle16"
-	toxicity = 4
-	PestKillStr = 2
-	New()
-		src.pixel_x = rand(-5.0, 5)
-		src.pixel_y = rand(-5.0, 5)
+/obj/item/weapon/hatchet/attack(mob/living/carbon/M as mob, mob/living/carbon/user as mob)
+	playsound(loc, 'sound/weapons/bladeslice.ogg', 50, 1, -1)
+	return ..()
 
-/obj/item/pestkiller/lindane
-	name = "bottle of lindane"
-	icon = 'icons/obj/chemical.dmi'
-	icon_state = "bottle18"
-	toxicity = 6
-	PestKillStr = 4
-	New()
-		src.pixel_x = rand(-5.0, 5)
-		src.pixel_y = rand(-5.0, 5)
+//If it's a hatchet it goes here. I guess
+/obj/item/weapon/hatchet/unathiknife
+	name = "duelling knife"
+	desc = "A length of leather-bound wood studded with razor-sharp teeth. How crude."
+	icon = 'icons/obj/weapons.dmi'
+	icon_state = "unathiknife"
+	attack_verb = list("ripped", "torn", "cut")
 
-<<<<<<< HEAD:code/modules/hydroponics/hydroitemdefines.dm
-/obj/item/pestkiller/phosmet
-	name = "bottle of phosmet"
-	icon = 'icons/obj/chemical.dmi'
-	icon_state = "bottle15"
-	toxicity = 8
-	PestKillStr = 7
-	New()
-		src.pixel_x = rand(-5.0, 5)
-		src.pixel_y = rand(-5.0, 5)
-
-// *************************************
-// Weedkiller defines for hydroponics
-// *************************************
-
-/obj/item/weedkiller
-	name = "bottle of weedkiller"
-	icon = 'icons/obj/chemical.dmi'
-	icon_state = "bottle16"
-	var/toxicity = 0
-	var/WeedKillStr = 0
-
-/obj/item/weedkiller/glyphosate
-	name = "bottle of glyphosate"
-	icon = 'icons/obj/chemical.dmi'
-	icon_state = "bottle16"
-	toxicity = 4
-	WeedKillStr = 2
-
-/obj/item/weedkiller/triclopyr
-	name = "bottle of triclopyr"
-	icon = 'icons/obj/chemical.dmi'
-	icon_state = "bottle18"
-	toxicity = 6
-	WeedKillStr = 4
-
-/obj/item/weedkiller/D24
-	name = "bottle of 2,4-D"
-	icon = 'icons/obj/chemical.dmi'
-	icon_state = "bottle15"
-	toxicity = 8
-	WeedKillStr = 7
-=======
 /obj/item/weapon/scythe
 	icon_state = "scythe0"
 	name = "scythe"
@@ -451,4 +344,3 @@
 			if(prob(80))
 				del B
 		del A
->>>>>>> 7fb8f30... New machines, adjusted Cael's seeds, rewrote space vines.:code/modules/hydroponics/hydro_tools.dm

@@ -1446,20 +1446,14 @@ datum
 					M.clean_blood()
 
 		plantbgone
-			name = "Atrazine"
+			scannable = 1
+			name = "Plant-B-Gone"
 			id = "plantbgone"
 			description = "A harmful toxic mixture to kill plantlife. Do not ingest!"
 			reagent_state = LIQUID
-			color = "#C8A5DC" // rgb: 200, 165, 220
+			color = "#49002E" // rgb: 73, 0, 46
 			toxod = TOX_OVERDOSE/2
 			burnod = BURN_OVERDOSE/2
-			scannable = 1
-
-			on_mob_life(var/mob/living/carbon/M)
-				if(!M) M = holder.my_atom
-				M.adjustToxLoss(2)
-				..()
-				return
 
 			// Clear off wallrot fungi
 			reaction_turf(var/turf/T, var/volume)
@@ -1479,10 +1473,9 @@ datum
 					alien_weeds.healthcheck()
 				else if(istype(O,/obj/effect/glowshroom)) //even a small amount is enough to kill it
 					del(O)
-				else if(istype(O,/obj/effect/spacevine))
+				else if(istype(O,/obj/effect/plantsegment))
 					if(prob(50)) del(O) //Kills kudzu too.
-				// Damage that is done to growing plants is separately
-				// at code/game/machinery/hydroponics at obj/item/hydroponics
+				// Damage that is done to growing plants is separately at code/game/machinery/hydroponics at obj/item/hydroponics
 
 			reaction_mob(var/mob/living/M, var/method=TOUCH, var/volume)
 				src = null
@@ -2308,24 +2301,23 @@ datum
 			reagent_state = LIQUID
 			color = "#664300" // rgb: 102, 67, 0
 
-			on_mob_life(var/mob/living/M as mob)
+			reaction_mob(var/mob/living/carbon/M, var/method=TOUCH, var/volume)
+				if(!..())	return
+				if(!istype(M) || !M.dna)	return  //No robots, AIs, aliens, Ians or other mobs should be affected by this.
+				src = null
+				if((method==TOUCH && prob(33)) || method==INGEST)
+					randmuti(M)
+					if(prob(98))	randmutb(M)
+					else			randmutg(M)
+					domutcheck(M, null)
+					M.UpdateAppearance()
+				return
+			on_mob_life(var/mob/living/carbon/M)
+				if(!istype(M))	return
 				if(!M) M = holder.my_atom
-				if(!data) data = 1
-				switch(data)
-					if(1)
-						M.confused += 2
-						M.drowsyness += 2
-					if(2 to 50)
-						M.sleeping += 1
-					if(51 to INFINITY)
-						M.sleeping += 1
-						M.adjustToxLoss(data - 50)
-				data++
-				// Sleep toxins should always be consumed pretty fast
-				holder.remove_reagent(src.id, 0.4)
+				M.apply_effect(10,IRRADIATE,0)
 				..()
 				return
-
 
 
 		potassium_chloride
