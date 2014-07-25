@@ -31,7 +31,7 @@
 
 /obj/item/weapon/ore/plasma
 	name = "plasma crystals"
-	icon_state = "Plasa ore"
+	icon_state = "Plasma ore"
 	origin_tech = "materials=2"
 	oretag = "plasma"
 
