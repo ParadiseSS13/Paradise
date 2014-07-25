@@ -21,10 +21,17 @@
 	heat_capacity = 312500 //a little over 5 cm thick , 312500 for 1 m by 2.5 m by 0.25 m plasteel wall
 
 	var/walltype = "metal"
+	var/hardness = 40 //lower numbers are harder. Used to determine the probability of a hulk smashing through.
+	var/engraving, engraving_quality //engraving on the wall
+	var/del_suppress_resmoothing = 0 // Do not resmooth neighbors on Destroy. (smoothwall.dm)
+	canSmoothWith = list(
+		/turf/simulated/wall,
+		/obj/structure/falsewall,
+		/obj/structure/falserwall // WHY DO WE SMOOTH WITH FALSE R-WALLS WHEN WE DON'T SMOOTH WITH REAL R-WALLS.
+	)
 
 /turf/simulated/wall/Del()
 	for(var/obj/effect/E in src) if(E.name == "Wallrot") del E
-	..()
 
 /turf/simulated/wall/ChangeTurf(var/newtype)
 	for(var/obj/effect/E in src) if(E.name == "Wallrot") del E
