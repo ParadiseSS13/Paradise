@@ -186,9 +186,9 @@
 		corpsemask = /obj/item/clothing/mask/gas/clown_hat
 		corpsepocket1 = /obj/item/weapon/bikehorn
 		corpseback = /obj/item/weapon/storage/backpack/clown
-		corpsehelmet = /obj/item/clothing/head/stalhelm
+		corpsehelmet = /obj/item/clothing/head/naziofficer
 		corpseid = 1
-		corpseidjob = "Clown Soldier"
+		corpseidjob = "Clown Officer"
 		corpseidaccess = "Clown"
 		timeofdeath = -50000
 	else
@@ -200,9 +200,9 @@
 		corpsemask = /obj/item/clothing/mask/gas/clown_hat
 		corpsepocket1 = /obj/item/weapon/bikehorn
 		corpseback = /obj/item/weapon/storage/backpack/clown
-		corpsehelmet = /obj/item/clothing/head/naziofficer
+		corpsehelmet = /obj/item/clothing/head/stalhelm
 		corpseid = 1
-		corpseidjob = "Clown Officer"
+		corpseidjob = "Clown Soldier"
 		corpseidaccess = "Clown"
 		timeofdeath = -50000
 
