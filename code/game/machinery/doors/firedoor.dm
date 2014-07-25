@@ -183,7 +183,7 @@
 
 	var/area/A = get_area_master(src)
 	ASSERT(istype(A)) // This worries me.
-	var/alarmed = A.doors_down || A.fire
+	var/alarmed = A.air_doors_activated || A.fire
 
 	if( istype(C, /obj/item/weapon/crowbar) || ( istype(C,/obj/item/weapon/twohanded/fireaxe) && C:wielded == 1 ) )
 		if(operating)
