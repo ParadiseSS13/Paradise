@@ -39,13 +39,6 @@
 ////////////////////////EFFECTS/////////////////////////////////
 ////////////////////////////////////////////////////////////////
 
-// Badness : 1 means can be a minor viral outbreak event symptom
-//				it can also be a major mutation
-//           2 means can be a major or minor viral outbreak event symptom
-//				it can also be a major mutation
-//           3 means it cannot be in a viral outbreak event
-//				it cannot be a major mutation
-
 /datum/disease2/effect
 	var/chance_maxm = 50
 	var/name = "Blanking effect"
@@ -73,126 +66,9 @@
 			mob:gib()
 			del D
 
-
 /datum/disease2/effect/invisible
 	name = "Waiting Syndrome"
 	stage = 1
-	activate(var/mob/living/carbon/mob,var/multiplier)
-		return
-
-// Bone White - Empty sypmtoms. There is a better way of handling this but this is much faster.
-
-/datum/disease2/effect/invisible_stage_onea
-	name = "Non-existant Syndrome"
-	stage = 1
-	activate(var/mob/living/carbon/mob,var/multiplier)
-		return
-/datum/disease2/effect/invisible_stage_oneb
-	name = "Non-existant Syndrome"
-	stage = 1
-	activate(var/mob/living/carbon/mob,var/multiplier)
-		return
-
-/datum/disease2/effect/invisible_stage_twoa
-	name = "Non-existant Syndrome"
-	stage = 2
-	activate(var/mob/living/carbon/mob,var/multiplier)
-		return
-/datum/disease2/effect/invisible_stage_twob
-	name = "Non-existant Syndrome"
-	stage = 2
-	activate(var/mob/living/carbon/mob,var/multiplier)
-		return
-/datum/disease2/effect/invisible_stage_twoc
-	name = "Non-existant Syndrome"
-	stage = 2
-	activate(var/mob/living/carbon/mob,var/multiplier)
-		return
-/datum/disease2/effect/invisible_stage_twod
-	name = "Non-existant Syndrome"
-	stage = 2
-	activate(var/mob/living/carbon/mob,var/multiplier)
-		return
-
-/datum/disease2/effect/invisible_stage_threea
-	name = "Non-existant Syndrome"
-	stage = 3
-	activate(var/mob/living/carbon/mob,var/multiplier)
-		return
-/datum/disease2/effect/invisible_stage_threeb
-	name = "Non-existant Syndrome"
-	stage = 3
-	activate(var/mob/living/carbon/mob,var/multiplier)
-		return
-/datum/disease2/effect/invisible_stage_threec
-	name = "Non-existant Syndrome"
-	stage = 3
-	activate(var/mob/living/carbon/mob,var/multiplier)
-		return
-/datum/disease2/effect/invisible_stage_threed
-	name = "Non-existant Syndrome"
-	stage = 3
-	activate(var/mob/living/carbon/mob,var/multiplier)
-		return
-/datum/disease2/effect/invisible_stage_threee
-	name = "Non-existant Syndrome"
-	stage = 3
-	activate(var/mob/living/carbon/mob,var/multiplier)
-		return
-/datum/disease2/effect/invisible_stage_threef
-	name = "Non-existant Syndrome"
-	stage = 3
-	activate(var/mob/living/carbon/mob,var/multiplier)
-		return
-/datum/disease2/effect/invisible_stage_threeg
-	name = "Non-existant Syndrome"
-	stage = 3
-	activate(var/mob/living/carbon/mob,var/multiplier)
-		return
-/datum/disease2/effect/invisible_stage_threeh
-	name = "Non-existant Syndrome"
-	stage = 3
-	activate(var/mob/living/carbon/mob,var/multiplier)
-		return
-
-/datum/disease2/effect/invisible_stage_foura
-	name = "Non-existant Syndrome"
-	stage = 4
-	activate(var/mob/living/carbon/mob,var/multiplier)
-		return
-/datum/disease2/effect/invisible_stage_fourb
-	name = "Non-existant Syndrome"
-	stage = 4
-	activate(var/mob/living/carbon/mob,var/multiplier)
-		return
-/datum/disease2/effect/invisible_stage_fourc
-	name = "Non-existant Syndrome"
-	stage = 4
-	activate(var/mob/living/carbon/mob,var/multiplier)
-		return
-/datum/disease2/effect/invisible_stage_fourd
-	name = "Non-existant Syndrome"
-	stage = 4
-	activate(var/mob/living/carbon/mob,var/multiplier)
-		return
-/datum/disease2/effect/invisible_stage_foure
-	name = "Non-existant Syndrome"
-	stage = 4
-	activate(var/mob/living/carbon/mob,var/multiplier)
-		return
-/datum/disease2/effect/invisible_stage_fourf
-	name = "Non-existant Syndrome"
-	stage = 4
-	activate(var/mob/living/carbon/mob,var/multiplier)
-		return
-/datum/disease2/effect/invisible_stage_fourg
-	name = "Non-existant Syndrome"
-	stage = 4
-	activate(var/mob/living/carbon/mob,var/multiplier)
-		return
-/datum/disease2/effect/invisible_stage_fourh
-	name = "Non-existant Syndrome"
-	stage = 4
 	activate(var/mob/living/carbon/mob,var/multiplier)
 		return
 
@@ -200,25 +76,6 @@
 
 ////////////////////////STAGE 4/////////////////////////////////
 
-/datum/disease2/effect/alchdranine
-	name = "Panacea Effect"
-	stage = 4
-	activate(var/mob/living/carbon/mob,var/multiplier)
-		if (mob.reagents.get_reagent_amount("alchdranine") < 1)
-			mob.reagents.add_reagent("alchdranine", 1)
-
-/datum/disease2/effect/viralsputum_major
-	name = "Hemoptysis"
-	stage = 4
-	activate(var/mob/living/carbon/mob,var/multiplier)
-		if (prob(60))
-			mob.say("*cough")
-			var/obj/effect/decal/cleanable/blood/viralsputum/D= locate(/obj/effect/decal/cleanable/blood/viralsputum) in get_turf(mob)
-			if(D==null)
-				D = new(get_turf(mob))
-			D.virus2 |= virus_copylist(mob.virus2)
-			mob.reagents.remove_reagent("blood", 20) // Bone White - Blood loss when coughing up blood, experimental, may need adjusting.
-		else
 
 /datum/disease2/effect/gibbingtons
 	name = "Gibbingtons Syndrome"
@@ -226,10 +83,6 @@
 	badness = 2
 	activate(var/mob/living/carbon/mob,var/multiplier)
 		mob.gib()
-
-/datum/disease2/effect/blank_stage_4
-	name = "Nonexistant Syndrome"
-	stage = 4
 
 /datum/disease2/effect/radian
 	name = "Radian's Syndrome"
@@ -267,48 +120,19 @@
 			spawn(200) //in case they get revived by cryo chamber or something stupid like that, let them suicide again in 20 seconds
 				mob.suiciding = 0
 
-
-// === burn brute toxin clone brain damage symptoms - Bone White ===
-
-/datum/disease2/effect/burn_major
-	name = "Blood Plasma Pyroclastia"
-	stage = 4
-	activate(var/mob/living/carbon/mob,var/multiplier)
-		mob.take_overall_damage(0,15)
-
-/datum/disease2/effect/brute_major
-	name = "Exploding Cell Phenomenon"
-	stage = 4
-	activate(var/mob/living/carbon/mob,var/multiplier)
-		mob.take_overall_damage(15,0)
-
-/datum/disease2/effect/toxin_major
-	name = "Acute Kidney Failure"
+/datum/disease2/effect/killertoxins
+	name = "Toxification Syndrome"
 	stage = 4
 	activate(var/mob/living/carbon/mob,var/multiplier)
 		mob.adjustToxLoss(15*multiplier)
 
-/datum/disease2/effect/clone_major
+/datum/disease2/effect/dna
 	name = "Reverse Pattern Syndrome"
 	stage = 4
 	activate(var/mob/living/carbon/mob,var/multiplier)
 		mob.bodytemperature = max(mob.bodytemperature, 350)
 		scramble(0,mob,10)
 		mob.apply_damage(10, CLONE)
-
-/datum/disease2/effect/brain_major
-	name = "Cortical Liquification"
-	stage = 4
-	activate(var/mob/living/carbon/mob,var/multiplier)
-		if(istype(mob, /mob/living/carbon/human))
-			var/mob/living/carbon/human/H = mob
-			var/datum/organ/internal/brain/B = H.internal_organs_by_name["brain"]
-			if (B.damage < B.min_broken_damage)
-				B.take_damage(5)
-		else
-			mob.setBrainLoss(50)
-
-
 
 /datum/disease2/effect/organs
 	name = "Shutdown Syndrome"
@@ -514,86 +338,6 @@
 
 ////////////////////////STAGE 3/////////////////////////////////
 
-/datum/disease2/effect/brain_regen
-	name = "Regenerative Synapse Effect"
-	stage = 3
-	activate(var/mob/living/carbon/mob,var/multiplier)
-		if (mob.reagents.get_reagent_amount("alkysine") < 1)
-			mob.reagents.add_reagent("alkysine", 1)
-
-/datum/disease2/effect/paroxetine
-	name = "Psyche Collapse Syndrome"
-	stage = 3
-	activate(var/mob/living/carbon/mob,var/multiplier)
-		if (mob.reagents.get_reagent_amount("paroxetine") < 10)
-			mob.reagents.add_reagent("paroxetine", 1)
-
-/datum/disease2/effect/pain_major
-	name = "Phantom Pain Syndrome"
-	stage = 3
-	activate(var/mob/living/carbon/mob,var/multiplier)
-		if (mob.halloss < 100)
-			mob << "<span class = 'warning'> You feel like your body is on fire. Make the pain stop!</span>"
-			mob.apply_effect(20,AGONY,0)
-
-// === burn brute toxin clone brain damage symptoms - Bone White ===
-
-/datum/disease2/effect/burn
-	name = "Flammable inflammation"
-	stage = 3
-	activate(var/mob/living/carbon/mob,var/multiplier)
-		mob.take_overall_damage(0,5)
-
-/datum/disease2/effect/brute
-	name = "Continuous Contusions"
-	stage = 3
-	activate(var/mob/living/carbon/mob,var/multiplier)
-		mob.take_overall_damage(5,0)
-
-/datum/disease2/effect/toxin
-	name = "Hyperacidity"
-	stage = 3
-	activate(var/mob/living/carbon/mob,var/multiplier)
-		mob.adjustToxLoss(15*multiplier)
-
-/datum/disease2/effect/clone
-	name = "DNA Breakdown Effect"
-	stage = 3
-	activate(var/mob/living/carbon/mob,var/multiplier)
-		mob.bodytemperature = max(mob.bodytemperature, 350)
-		scramble(0,mob,5)
-		mob.apply_damage(5, CLONE)
-
-/datum/disease2/effect/brain
-	name = "Synapse Distancing"
-	stage = 3
-	activate(var/mob/living/carbon/mob,var/multiplier)
-		if(istype(mob, /mob/living/carbon/human))
-			var/mob/living/carbon/human/H = mob
-			var/datum/organ/internal/brain/B = H.internal_organs_by_name["brain"]
-			if (B.damage < B.min_broken_damage)
-				B.take_damage(1)
-		else
-			mob.setBrainLoss(10)
-
-
-/datum/disease2/effect/lantern_major
-	name = "Lantern Syndrome"
-	stage = 3
-	activate(var/mob/living/carbon/mob,var/multiplier)
-		mob.SetLuminosity(5)
-		mob << "<span class = 'notice'>You are glowing brightly!</span>"
-
-
-/datum/disease2/effect/cough_major
-	name = "Acute Tussis"
-	stage = 3
-	activate(var/mob/living/carbon/mob,var/multiplier)
-		mob.say("*cough")
-		for(var/mob/living/carbon/M in oview(3,mob))
-			mob.spread_disease_to(M)
-
-
 /datum/disease2/effect/bones
 	name = "Fragile Bones Syndrome"
 	stage = 3
@@ -609,6 +353,14 @@
 			for (var/datum/organ/external/E in H.organs)
 				E.min_broken_damage = initial(E.min_broken_damage)
 
+
+/datum/disease2/effect/toxins
+	name = "Hyperacidity"
+	stage = 3
+	maxm = 3
+	activate(var/mob/living/carbon/mob,var/multiplier)
+		mob.adjustToxLoss((2*multiplier))
+
 /datum/disease2/effect/shakey
 	name = "World Shaking Syndrome"
 	stage = 3
@@ -623,6 +375,18 @@
 		mob.dna.check_integrity()
 		mob.dna.SetSEState(REMOTETALKBLOCK,1)
 		domutcheck(mob, null)
+
+/datum/disease2/effect/mind
+	name = "Lazy Mind Syndrome"
+	stage = 3
+	activate(var/mob/living/carbon/mob,var/multiplier)
+		if(istype(mob, /mob/living/carbon/human))
+			var/mob/living/carbon/human/H = mob
+			var/datum/organ/internal/brain/B = H.internal_organs_by_name["brain"]
+			if (B.damage < B.min_broken_damage)
+				B.take_damage(5)
+		else
+			mob.setBrainLoss(50)
 
 /datum/disease2/effect/hallucinations
 	name = "Hallucinational Syndrome"
@@ -648,6 +412,13 @@
 	activate(var/mob/living/carbon/mob,var/multiplier)
 		mob << "<span class='notice'>You have trouble telling right and left apart all of a sudden.</span>"
 		mob.confused += 10
+
+/datum/disease2/effect/mutation
+	name = "DNA Degradation"
+	stage = 3
+	activate(var/mob/living/carbon/mob,var/multiplier)
+		mob.apply_damage(2, CLONE)
+
 
 /datum/disease2/effect/groan
 	name = "Groaning Syndrome"
@@ -807,64 +578,7 @@ var/list/compatible_mobs = list(/mob/living/carbon/human, /mob/living/carbon/mon
 			I.damage = 0
 */
 
-
 ////////////////////////STAGE 2/////////////////////////////////
-
-/datum/disease2/effect/methylphenidate
-	name = "Mental Stability Phenomenon"
-	stage = 2
-	activate(var/mob/living/carbon/mob,var/multiplier)
-		if (mob.reagents.get_reagent_amount("methylphenidate") < 5)
-			mob.reagents.add_reagent("methylphenidate", 1)
-
-/datum/disease2/effect/pain
-	name = "Acute Muscle Ache"
-	stage = 2
-	activate(var/mob/living/carbon/mob,var/multiplier)
-		if (mob.halloss < 50)
-			mob << "<span class='warning'>You ache all over!</span>"
-			mob.apply_effect(10,AGONY,0)
-
-// === burn brute toxin clone brain damage symptoms - Bone White ===
-
-/datum/disease2/effect/burn
-	name = "Prickly Heat Syndrome"
-	stage = 2
-	activate(var/mob/living/carbon/mob,var/multiplier)
-		mob.take_overall_damage(0,2)
-
-/datum/disease2/effect/brute
-	name = "Continuous Contusions"
-	stage = 2
-	activate(var/mob/living/carbon/mob,var/multiplier)
-		mob.take_overall_damage(2,0)
-
-/datum/disease2/effect/toxin
-	name = "White Blood Cell Putrification"
-	stage = 2
-	activate(var/mob/living/carbon/mob,var/multiplier)
-		mob.adjustToxLoss(5*multiplier)
-
-/datum/disease2/effect/clone
-	name = "RNA Compound Corruption"
-	stage = 2
-	activate(var/mob/living/carbon/mob,var/multiplier)
-		mob.bodytemperature = max(mob.bodytemperature, 350)
-		scramble(0,mob,5)
-		mob.apply_damage(5, CLONE)
-
-/datum/disease2/effect/brain
-	name = "Synapse Distancing"
-	stage = 2
-	activate(var/mob/living/carbon/mob,var/multiplier)
-		if(istype(mob, /mob/living/carbon/human))
-			var/mob/living/carbon/human/H = mob
-			var/datum/organ/internal/brain/B = H.internal_organs_by_name["brain"]
-			if (B.damage < B.min_broken_damage)
-				B.take_damage(0.5)
-		else
-			mob.setBrainLoss(5)
-
 
 /datum/disease2/effect/scream
 	name = "Loudness Syndrome"
@@ -968,7 +682,7 @@ var/list/compatible_mobs = list(/mob/living/carbon/human, /mob/living/carbon/mon
 	name = "Uncontrollable Bowel Syndrome"
 	stage = 2
 	activate(var/mob/living/carbon/mob,var/multiplier)
-		if  (prob(70))  // Bone White - Lessened the chance for actually shitting yourself.
+		if  (prob(50))
 			mob << "<span class='notice'>[pick("Your stomach rumbles strangely.", "You feel like you're going shit your pants any second now!")]</span>"
 		else
 			mob.visible_message("<B>[mob]</B> has explosive diarrhea all over the floor!")
@@ -987,7 +701,19 @@ var/list/compatible_mobs = list(/mob/living/carbon/human, /mob/living/carbon/mon
 			if(D==null)
 				D = new(get_turf(mob))
 			D.virus2 |= virus_copylist(mob.virus2)
-			mob.reagents.remove_reagent("blood", 5) // Bone White - Blood loss when coughing up blood, experimental, may need adjusting.
+
+
+/datum/disease2/effect/viralsputum
+	name = "Respiratory Putrification"
+	stage = 2
+	activate(var/mob/living/carbon/mob,var/multiplier)
+
+		if (prob(30))
+			mob.say("*cough")
+			var/obj/effect/decal/cleanable/blood/viralsputum/D= locate(/obj/effect/decal/cleanable/blood/viralsputum) in get_turf(mob)
+			if(D==null)
+				D = new(get_turf(mob))
+			D.virus2 |= virus_copylist(mob.virus2)
 
 
 /datum/disease2/effect/lantern
@@ -998,49 +724,7 @@ var/list/compatible_mobs = list(/mob/living/carbon/human, /mob/living/carbon/mon
 		mob << "<span class = 'notice'>You are glowing!</span>"
 
 
-/datum/disease2/effect/optimistic
-	name = "Full Glass Syndrome"
-	stage = 2
-	activate(var/mob/living/carbon/mob,var/multiplier)
-		mob << "<span class = 'notice'> You feel optimistic!</span>"
-		if (mob.reagents.get_reagent_amount("tricordrazine") < 1)
-			mob.reagents.add_reagent("tricordrazine", 1)
-
-
 ////////////////////////STAGE 1/////////////////////////////////
-
-/datum/disease2/effect/citalopram
-	name = "Reality Check"
-	stage = 1
-	activate(var/mob/living/carbon/mob,var/multiplier)
-		if (mob.reagents.get_reagent_amount("citalopram") < 5)
-			mob.reagents.add_reagent("citalopram", 1)
-
-/datum/disease2/effect/pain_minor
-	name = "Heightened Sensitivity"
-	stage = 1
-	activate(var/mob/living/carbon/mob,var/multiplier)
-		if (mob.halloss < 20)
-			mob << "<span class='warning'>Your body aches.</span>"
-			mob.apply_effect(5,AGONY,0)
-
-/datum/disease2/effect/stimulant
-	name = "Adrenaline Extra"
-	stage = 1
-	activate(var/mob/living/carbon/mob,var/multiplier)
-		if (mob.reagents.get_reagent_amount("hyperzine") < 10)
-			mob.reagents.add_reagent("hyperzine", 4)
-		if (prob(30))
-			mob << "<span class='notice'>You feel a rush of energy inside you!</span>"
-			mob.jitteriness += 10
-
-/datum/disease2/effect/cough_minor
-	name = "Trachea Sensitivity"
-	stage = 1
-	activate(var/mob/living/carbon/mob,var/multiplier)
-		mob.say("*cough")
-		for(var/mob/living/carbon/M in oview(1,mob))
-			mob.spread_disease_to(M)
 
 /datum/disease2/effect/sneeze
 	name = "Coldingtons Effect"
@@ -1110,8 +794,10 @@ var/list/compatible_mobs = list(/mob/living/carbon/human, /mob/living/carbon/mon
 		mob.emote("me",1,"wheezes.")
 
 
-/datum/disease2/effect/optimistic_minor
-	name = "Glass Half Full Syndrome"
+/datum/disease2/effect/optimistic
+	name = "Full Glass Syndrome"
 	stage = 1
 	activate(var/mob/living/carbon/mob,var/multiplier)
 		mob << "<span class = 'notice'> You feel optimistic!</span>"
+		if (mob.reagents.get_reagent_amount("tricordrazine") < 1)
+			mob.reagents.add_reagent("tricordrazine", 1)
