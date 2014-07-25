@@ -224,10 +224,12 @@ datum/controller/game_controller/proc/process()
 				processEvents()
 				events_cost = (world.timeofday - timer) / 10
 
+/*
 				//PUDDLES
 				timer = world.timeofday
 				processPuddles()
 				puddles_cost = (world.timeofday - timer) / 10
+*/
 
 				//TICKER
 				timer = world.timeofday
@@ -325,6 +327,7 @@ datum/controller/game_controller/proc/process()
 
 	checkEvent()
 
+/*
 /datum/controller/game_controller/proc/processPuddles()
 	last_thing_processed = /datum/puddle
 
@@ -332,6 +335,7 @@ datum/controller/game_controller/proc/process()
 		if (Puddle)
 			Puddle.process()
 			continue
+*/
 
 datum/controller/game_controller/proc/Recover()		//Mostly a placeholder for now.
 	var/msg = "## DEBUG: [time2text(world.timeofday)] MC restarted. Reports:\n"
