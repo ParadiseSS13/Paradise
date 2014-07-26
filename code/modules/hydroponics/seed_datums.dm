@@ -1154,7 +1154,7 @@ proc/populate_seed_list()
 	name = "weeds"
 	seed_name = "weed"
 	display_name = "weeds"
-	packet_icon = "seed"
+	packet_icon = "seed-ambrosiavulgaris"
 	plant_icon = "weeds"
 
 	lifespan = 100

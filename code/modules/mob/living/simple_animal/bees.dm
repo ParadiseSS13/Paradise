@@ -13,7 +13,7 @@
 	var/obj/machinery/apiary/parent
 	pass_flags = PASSTABLE
 	turns_per_move = 6
-	var/obj/machinery/hydroponics/my_hydrotray
+	var/obj/machinery/portable_atmospherics/hydroponics/my_hydrotray
 
 	// Allow final solutions.
 	min_oxy = 5
@@ -167,7 +167,7 @@
 			else if(feral < 0)
 				turns_since_move = 0
 			else if(!my_hydrotray || my_hydrotray.loc != src.loc || my_hydrotray.dead || !my_hydrotray.seed)
-				var/obj/machinery/hydroponics/my_hydrotray = locate() in src.loc
+				var/obj/machinery/portable_atmospherics/hydroponics/my_hydrotray = locate() in src.loc
 				if(my_hydrotray)
 					if(!my_hydrotray.dead && my_hydrotray.seed)
 						turns_per_move = rand(20,50)

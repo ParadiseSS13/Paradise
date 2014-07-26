@@ -8,11 +8,13 @@
 
 /obj/item/weapon/disk/botany/attack_self(var/mob/user as mob)
 	if(genes.len)
-		user << "You wipe the disk data."
-		name = initial(name)
-		desc = initial(name)
-		genes = list()
-		genesource = "unknown"
+		var/choice = alert(user, "Are you sure you want to wipe the disk?", "Xenobotany Data", "No", "Yes")
+		if(src && user && genes && choice == "Yes")
+			user << "You wipe the disk data."
+			name = initial(name)
+			desc = initial(name)
+			genes = list()
+			genesource = "unknown"
 
 /obj/item/weapon/storage/box/botanydisk
 	name = "flora disk box"
@@ -171,7 +173,7 @@
 /obj/machinery/botany/Topic(href, href_list)
 
 	if(..())
-		return
+		return 1
 
 	if(href_list["eject_packet"])
 		if(!seed) return
@@ -199,7 +201,7 @@
 /obj/machinery/botany/extractor/Topic(href, href_list)
 
 	if(..())
-		return
+		return 1
 
 	usr.set_machine(src)
 	src.add_fingerprint(usr)
@@ -299,7 +301,7 @@
 /obj/machinery/botany/editor/Topic(href, href_list)
 
 	if(..())
-		return
+		return 1
 
 	if(href_list["apply_gene"])
 		if(!loaded_disk || !seed) return

@@ -22,7 +22,7 @@
 
 	var/bees_in_hive = 0
 	var/list/owned_bee_swarms = list()
-	var/hydrotray_type = /obj/machinery/hydroponics
+	var/hydrotray_type = /obj/machinery/portable_atmospherics/hydroponics
 
 //overwrite this after it's created if the apiary needs a custom machinery sprite
 /obj/machinery/apiary/New()
@@ -169,7 +169,7 @@
 			bees_in_hive -= 1
 
 		//find some plants, harvest
-		for(var/obj/machinery/hydroponics/H in view(7, src))
+		for(var/obj/machinery/portable_atmospherics/hydroponics/H in view(7, src))
 			if(H.seed && !H.dead && prob(owned_bee_swarms.len * 10))
 				src.nutrilevel++
 				H.nutrilevel++

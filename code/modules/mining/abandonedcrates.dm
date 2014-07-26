@@ -39,7 +39,7 @@
 			return
 		if(9)
 			for(var/i = 0, i < 3, i++)
-				new/obj/machinery/hydroponics(src)
+				new/obj/machinery/portable_atmospherics/hydroponics(src)
 		if(10)
 			for(var/i = 0, i < 3, i++)
 				new/obj/item/weapon/reagent_containers/glass/beaker/noreact(src)

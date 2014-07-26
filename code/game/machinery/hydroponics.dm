@@ -1,6 +1,6 @@
 #define HYDRO_SPEED_MULTIPLIER 1
 
-/obj/machinery/hydroponics
+/obj/machinery/portable_atmospherics/hydroponics
 	name = "hydroponics tray"
 	icon = 'icons/obj/hydroponics.dmi'
 	icon_state = "hydrotray3"
@@ -30,7 +30,6 @@
 	var/lastcycle = 0          // Cycle timing/tracking var.
 	var/cycledelay = 150       // Delay per cycle.
 	var/closed_system          // If set, the tray will attempt to take atmos from a pipe.
-	var/obj/machinery/atmospherics/portables_connector/atmos_source //Used for above.
 
 	// Seed details/line data.
 	var/datum/seed/seed = null // The currently planted seed
@@ -111,21 +110,12 @@
 		"mutagen" = 3
 		)
 
-/obj/machinery/hydroponics/New()
+/obj/machinery/portable_atmospherics/hydroponics/New()
 	..()
-	if(closed_system)
-		get_connector()
-	updateicon()
+	connect()
+	update_icon()
 
-/obj/machinery/hydroponics/proc/get_connector()
-	atmos_source = null
-	var/turf/T = get_turf(src)
-	if(!T) return
-	atmos_source = locate() in T.contents
-	if(atmos_source)
-		src.visible_message("[src] connects to [atmos_source] with a solid clunk.")
-
-/obj/machinery/hydroponics/bullet_act(var/obj/item/projectile/Proj)
+/obj/machinery/portable_atmospherics/hydroponics/bullet_act(var/obj/item/projectile/Proj)
 
 	//Override for somatoray projectiles.
 	if(istype(Proj ,/obj/item/projectile/energy/floramut) && prob(20))
@@ -137,7 +127,7 @@
 
 	..()
 
-/obj/machinery/hydroponics/CanPass(atom/movable/mover, turf/target, height=0, air_group=0)
+/obj/machinery/portable_atmospherics/hydroponics/CanPass(atom/movable/mover, turf/target, height=0, air_group=0)
 	if(air_group || (height==0)) return 1
 
 	if(istype(mover) && mover.checkpass(PASSTABLE))
@@ -145,7 +135,7 @@
 	else
 		return 0
 
-/obj/machinery/hydroponics/process()
+/obj/machinery/portable_atmospherics/hydroponics/process()
 
 	// Update values every cycle rather than every process() tick.
 	if(world.time < (lastcycle + cycledelay))
@@ -191,10 +181,9 @@
 	var/turf/T = loc
 	var/datum/gas_mixture/environment
 
-	// If we're a closed system, take from any connected network.
-	if(closed_system && atmos_source)
-		if(atmos_source.network)
-			environment = atmos_source.network.air_transient
+	// If we're closed, take from our internal sources.
+	if(closed_system && (connected_port || holding))
+		environment = air_contents
 
 	// If atmos input is not there, grab from turf.
 	if(!environment)
@@ -268,11 +257,11 @@
 		pestlevel += 1 * HYDRO_SPEED_MULTIPLIER
 
 	check_level_sanity()
-	updateicon()
+	update_icon()
 	return
 
 //Harvests the product of a plant.
-/obj/machinery/hydroponics/proc/harvest(var/mob/user)
+/obj/machinery/portable_atmospherics/hydroponics/proc/harvest(var/mob/user)
 
 	//Harvest the product of the plant,
 	if(!seed || !harvest || !user)
@@ -295,11 +284,11 @@
 		age = 0
 
 	check_level_sanity()
-	updateicon()
+	update_icon()
 	return
 
 //Clears out a dead plant.
-/obj/machinery/hydroponics/proc/remove_dead(var/mob/user)
+/obj/machinery/portable_atmospherics/hydroponics/proc/remove_dead(var/mob/user)
 	if(!user || !dead) return
 
 	if(closed_system)
@@ -310,11 +299,11 @@
 	dead = 0
 	user << "You remove the dead plant from the [src]."
 	check_level_sanity()
-	updateicon()
+	update_icon()
 	return
 
 //Refreshes the icon and sets the luminosity
-/obj/machinery/hydroponics/proc/updateicon()
+/obj/machinery/portable_atmospherics/hydroponics/update_icon()
 
 	overlays.Cut()
 
@@ -370,7 +359,7 @@
 	return
 
  // If a weed growth is sufficient, this proc is called.
-obj/machinery/hydroponics/proc/weed_invasion()
+/obj/machinery/portable_atmospherics/hydroponics/proc/weed_invasion()
 
 	//Remove the seed if something is already planted.
 	if(seed) seed = null
@@ -384,12 +373,12 @@ obj/machinery/hydroponics/proc/weed_invasion()
 	harvest = 0
 	weedlevel = 0
 	pestlevel = 0
-	updateicon()
+	update_icon()
 	visible_message("\blue [src] has been overtaken by [seed.display_name].")
 
 	return
 
-/obj/machinery/hydroponics/proc/mutate(var/severity)
+/obj/machinery/portable_atmospherics/hydroponics/proc/mutate(var/severity)
 
 	// No seed, no mutations.
 	if(!seed)
@@ -397,7 +386,6 @@ obj/machinery/hydroponics/proc/weed_invasion()
 
 	// Check if we should even bother working on the current seed datum.
 	if(seed.mutants.len && severity > 1 && prob(10+mutation_mod))
-		world << "Mutating species instead."
 		mutate_species()
 		return
 
@@ -410,7 +398,7 @@ obj/machinery/hydroponics/proc/weed_invasion()
 
 	return
 
-/obj/machinery/hydroponics/proc/check_level_sanity()
+/obj/machinery/portable_atmospherics/hydroponics/proc/check_level_sanity()
 	//Make sure various values are sane.
 	if(seed)
 		health =     max(0,min(seed.endurance,health))
@@ -425,7 +413,7 @@ obj/machinery/hydroponics/proc/weed_invasion()
 	toxins =     max(0,min(toxins,10))
 
 
-/obj/machinery/hydroponics/proc/mutate_species()
+/obj/machinery/portable_atmospherics/hydroponics/proc/mutate_species()
 
 	var/previous_plant = seed.display_name
 	var/newseed = seed.get_mutant_variant()
@@ -442,16 +430,12 @@ obj/machinery/hydroponics/proc/weed_invasion()
 	harvest = 0
 	weedlevel = 0
 
-	updateicon()
+	update_icon()
 	visible_message("\red The \blue [previous_plant] \red has suddenly mutated into \blue [seed.display_name]!")
 
 	return
 
-/obj/machinery/hydroponics/attackby(var/obj/item/O as obj, var/mob/user as mob)
-
-	if(closed_system && !istype(O,/obj/item/weapon/wrench))
-		user << "You can't reach the interior while the lid is shut."
-		return
+/obj/machinery/portable_atmospherics/hydroponics/attackby(var/obj/item/O as obj, var/mob/user as mob)
 
 	if (istype(O, /obj/item/weapon/reagent_containers/glass))
 		var/b_amount = O.reagents.get_reagent_amount("water")
@@ -472,7 +456,7 @@ obj/machinery/hydroponics/proc/weed_invasion()
 			user << "\red \The [O] is not filled with water."
 
 		check_level_sanity()
-		updateicon()
+		update_icon()
 
 	// Nutrient fluid replacement. TODO: Consider rolling this into a proper reagent-processing proc.
 	else if ( istype(O, /obj/item/nutrient) )
@@ -483,7 +467,7 @@ obj/machinery/hydroponics/proc/weed_invasion()
 		mutation_mod = nutrient.mutmod
 		user << "You replace the nutrient solution in the [src]."
 		del(O)
-		updateicon()
+		update_icon()
 
 	 // Syringe stuff
 	else if(istype(O, /obj/item/weapon/reagent_containers/syringe))
@@ -599,7 +583,7 @@ obj/machinery/hydroponics/proc/weed_invasion()
 			user << "There's nothing to inject the solution into."
 
 		check_level_sanity()
-		updateicon()
+		update_icon()
 
 	else if (istype(O, /obj/item/seeds))
 
@@ -635,7 +619,7 @@ obj/machinery/hydroponics/proc/weed_invasion()
 			del(O)
 
 			check_level_sanity()
-			updateicon()
+			update_icon()
 
 		else
 			user << "\red The [src] already has seeds in it!"
@@ -656,7 +640,7 @@ obj/machinery/hydroponics/proc/weed_invasion()
 
 			visible_message("\red <B>\The [src] has been sprayed with \the [O][(user ? " by [user]." : ".")]")
 			playsound(loc, 'sound/effects/spray3.ogg', 50, 1, -6)
-			updateicon()
+			update_icon()
 		else
 			user << "There's nothing in [src] to spray!"
 
@@ -665,7 +649,7 @@ obj/machinery/hydroponics/proc/weed_invasion()
 		if(weedlevel > 0)
 			user.visible_message("\red [user] starts uprooting the weeds.", "\red You remove the weeds from the [src].")
 			weedlevel = 0
-			updateicon()
+			update_icon()
 		else
 			user << "\red This plot is completely devoid of weeds. It doesn't need uprooting."
 
@@ -691,16 +675,17 @@ obj/machinery/hydroponics/proc/weed_invasion()
 		del(O)
 
 		check_level_sanity()
-		updateicon()
+		update_icon()
 
 	else if(istype(O, /obj/item/weapon/wrench))
+
+		//If there's a connector here, the portable_atmospherics setup can handle it.
+		if(locate(/obj/machinery/atmospherics/portables_connector/) in loc)
+			return ..()
+
 		playsound(loc, 'sound/items/Ratchet.ogg', 50, 1)
 		anchored = !anchored
 		user << "You [anchored ? "wrench" : "unwrench"] \the [src]."
-
-		//Update atmos feed, if needed.
-		if(anchored && closed_system)
-			get_connector()
 
 	else if(istype(O, /obj/item/apiary))
 
@@ -717,7 +702,7 @@ obj/machinery/hydroponics/proc/weed_invasion()
 			del(src)
 	return
 
-/obj/machinery/hydroponics/attack_tk(mob/user as mob)
+/obj/machinery/portable_atmospherics/hydroponics/attack_tk(mob/user as mob)
 
 	if(harvest)
 		harvest(user)
@@ -725,7 +710,7 @@ obj/machinery/hydroponics/proc/weed_invasion()
 	else if(dead)
 		remove_dead(user)
 
-/obj/machinery/hydroponics/attack_hand(mob/user as mob)
+/obj/machinery/portable_atmospherics/hydroponics/attack_hand(mob/user as mob)
 
 	if(istype(usr,/mob/living/silicon))
 		return
@@ -750,7 +735,7 @@ obj/machinery/hydroponics/proc/weed_invasion()
 			usr << "[src] is \red filled with tiny worms!"
 		usr << text ("")
 
-/obj/machinery/hydroponics/verb/close_lid()
+/obj/machinery/portable_atmospherics/hydroponics/verb/close_lid()
 	set name = "Toggle Tray Lid"
 	set category = "Object"
 	set src in view(1)
@@ -760,12 +745,9 @@ obj/machinery/hydroponics/proc/weed_invasion()
 
 	closed_system = !closed_system
 	usr << "You [closed_system ? "close" : "open"] the tray's lid."
-	updateicon()
+	update_icon()
 
-	if(anchored && closed_system)
-		get_connector()
-
-/obj/machinery/hydroponics/soil
+/obj/machinery/portable_atmospherics/hydroponics/soil
 	name = "soil"
 	icon = 'icons/obj/hydroponics.dmi'
 	icon_state = "soil"
@@ -773,15 +755,17 @@ obj/machinery/hydroponics/proc/weed_invasion()
 	use_power = 0
 	draw_warnings = 0
 
-/obj/machinery/hydroponics/soil/attackby(var/obj/item/O as obj, var/mob/user as mob)
+/obj/machinery/portable_atmospherics/hydroponics/soil/attackby(var/obj/item/O as obj, var/mob/user as mob)
 	if(istype(O, /obj/item/weapon/shovel))
 		user << "You clear up [src]!"
 		del(src)
+	else if(istype(O,/obj/item/weapon/shovel) || istype(O,/obj/item/weapon/tank))
+		return
 	else
 		..()
 
-/obj/machinery/hydroponics/soil/New()
+/obj/machinery/portable_atmospherics/hydroponics/soil/New()
 	..()
-	verbs -= /obj/machinery/hydroponics/verb/close_lid
+	verbs -= /obj/machinery/portable_atmospherics/hydroponics/verb/close_lid
 
 #undef HYDRO_SPEED_MULTIPLIER
