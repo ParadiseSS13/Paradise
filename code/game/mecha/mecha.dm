@@ -39,6 +39,7 @@
 	var/datum/effect/effect/system/spark_spread/spark_system = new
 	var/lights = 0
 	var/lights_power = 6
+	var/emagged = 0
 
 	//inner atmos
 	var/use_internal_tank = 0
@@ -658,6 +659,16 @@
 //////////////////////
 
 /obj/mecha/attackby(obj/item/weapon/W as obj, mob/user as mob)
+
+	if(istype(W,  /obj/item/weapon/card/emag))
+		if(istype(src,	/obj/mecha/working/ripley) && emagged == 0)
+			emagged = 1
+			usr << "\blue You slide the [W] through the [src]'s ID slot."
+			playsound(src.loc, "sparks", 100, 1)
+			src.desc += "</br><b>\red The mech's equiptment slots spark dangerously!</b>"
+		else
+			usr <<"\red The [src]'s ID slot rejects the [W]."
+		return
 
 
 	if(istype(W, /obj/item/device/mmi) || istype(W, /obj/item/device/mmi/posibrain))
