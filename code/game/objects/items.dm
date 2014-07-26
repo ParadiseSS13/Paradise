@@ -614,6 +614,8 @@
 		)
 	if(istype(M, /mob/living/carbon/human))
 		var/datum/organ/internal/eyes/eyes = H.internal_organs_by_name["eyes"]
+		if(!eyes)
+			return
 		eyes.damage += rand(3,4)
 		if(eyes.damage >= eyes.min_bruised_damage)
 			if(M.stat != 2)
@@ -685,4 +687,5 @@
 	//not sure if this is worth it. It attaches the blood_overlay to every item of the same type if they don't have one already made.
 	for(var/obj/item/A in world)
 		if(A.type == type && !A.blood_overlay)
-			A.blood_overlay = I
+			A.blood_overlay = image(I)
+
