@@ -88,6 +88,7 @@ var/list/admin_verbs_event = list(
 	/client/proc/toggle_random_events,
 	/client/proc/editappear,
 	/client/proc/toggle_random_events,
+	/client/proc/toggle_ert_calling,
 	/client/proc/cmd_admin_change_custom_event,
 	/datum/admins/proc/access_news_network,	/*allows access of newscasters*/
 	/client/proc/cmd_admin_direct_narrate,	/*send text directly to a player with no padding. Useful for narratives and fluff-text*/
@@ -125,6 +126,7 @@ var/list/admin_verbs_server = list(
 	/client/proc/cmd_admin_direct_narrate,	/*send text directly to a player with no padding. Useful for narratives and fluff-text*/
 	/client/proc/cmd_admin_world_narrate,	/*sends text to all players with no padding*/
 	/client/proc/toggle_random_events,
+	/client/proc/toggle_ert_calling,
 	/client/proc/one_click_antag,
 	/client/proc/cmd_admin_change_custom_event,
 	/client/proc/cmd_admin_create_centcom_report,
