@@ -1,3 +1,5 @@
+/*
+
 /obj/item/weapon/reagent_containers/food/snacks/breadslice/attackby(obj/item/W as obj, mob/user as mob)
 
 	if(istype(W,/obj/item/weapon/shard) || istype(W,/obj/item/weapon/reagent_containers/food/snacks))
@@ -99,3 +101,4 @@
 		H << "\red You lacerate your mouth on a [shard.name] in the sandwich!"
 		H.adjustBruteLoss(5) //TODO: Target head if human.
 	..()
+*/

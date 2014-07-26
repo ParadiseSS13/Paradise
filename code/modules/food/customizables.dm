@@ -1,23 +1,24 @@
 /obj/item/weapon/reagent_containers/food/snacks/breadslice/attackby(obj/item/W as obj, mob/user as mob)
-	var/obj/item/weapon/reagent_containers/food/snacks/customizable/S = new(get_turf(user))
+	var/obj/item/weapon/reagent_containers/food/snacks/customizable/sandwich/S = new(get_turf(user))
 	S.attackby(W,user)
 	qdel(src)
+
 /obj/item/weapon/reagent_containers/food/snacks/bun/attackby(obj/item/W as obj, mob/user as mob)
 	var/obj/item/weapon/reagent_containers/food/snacks/customizable/burger/S = new(get_turf(user))
 	S.attackby(W,user)
 	qdel(src)
-	..()
 
 /obj/item/weapon/reagent_containers/food/snacks/sliceable/flatdough/attackby(obj/item/W as obj, mob/user as mob)
 	var/obj/item/weapon/reagent_containers/food/snacks/customizable/pizza/S = new(get_turf(user))
 	S.attackby(W,user)
 	qdel(src)
-	..()
+
 
 /obj/item/weapon/reagent_containers/food/snacks/boiledspagetti/attackby(obj/item/W as obj, mob/user as mob)
 	var/obj/item/weapon/reagent_containers/food/snacks/customizable/pasta/S = new(get_turf(user))
 	S.attackby(W,user)
 	qdel(src)
+
 
 /obj/item/trash/plate/attackby(obj/item/W as obj, mob/user as mob)
 	var/obj/item/weapon/reagent_containers/food/snacks/customizable/fullycustom/S = new(get_turf(user))
@@ -38,6 +39,17 @@
 		qdel(src)
 	..()
 
+/obj/item/weapon/reagent_containers/food/snacks/customizable/sandwich
+	/obj/item/weapon/reagent_containers/food/snacks/customizable
+	name = "sandwich"
+	desc = "A sandwich! A timeless classic."
+	icon_state = "breadslice"
+	baseicon = "sandwich"
+	basename = "sandwich"
+	toptype = new /obj/item/weapon/reagent_containers/food/snacks/breadslice()
+
+
+
 /obj/item/weapon/reagent_containers/food/snacks/customizable
 	name = "sandwich"
 	desc = "A sandwich! A timeless classic."
@@ -45,18 +57,20 @@
 	var/baseicon = "sandwich"
 	var/basename = "sandwich"
 	var/top = 1	//Do we have a top?
+	var/obj/item/toptype
 	var/add_overlays = 1	//Do we stack?
 //	var/offsetstuff = 1 //Do we offset the overlays?
 	var/sandwich_limit = 40
 	var/fullycustom = 0
 	trash = /obj/item/trash/plate
 	bitesize = 2
-
 	var/list/ingredients = list()
 
 	New()
 		..()
+
 		reagents.add_reagent("nutriment", 8)
+
 
 /obj/item/weapon/reagent_containers/food/snacks/customizable/pizza
 	name = "personal pizza"
@@ -292,45 +306,39 @@
 	icon_state = "burger"
 	baseicon = "burger"
 	basename = "burger"
+	toptype = new /obj/item/weapon/reagent_containers/food/snacks/bun()
 
-/obj/item/weapon/reagent_containers/food/snacks/customizable/attackby(obj/item/W as obj, mob/user as mob)
-	var/obj/item/I = W
+/obj/item/weapon/reagent_containers/food/snacks/customizable/attackby(obj/item/I, mob/user)
 	if(src.contents.len > sandwich_limit)
 		user << "<span class='warning'>If you put anything else in or on [src] it's going to make a mess.</span>"
 		return
 	if(istype(I, /obj/item/weapon/disk/nuclear))
-		user << "You think about it for a few seconds, then you realize Central Command likely doesn't find nuke disk sandwiches very funny, and so you decide not to turn the nuke disk into a foodstuff."
+		user << "You think about it for a few seconds, then you realize Central Command likely doesn't find nuke disk [basename]s very funny, and so you decide not to turn the nuke disk into a foodstuff."
 		return
 	if(istype(I, /obj/item/flag/nation))
 		user << "That's not going to fit!"
 		return
-
-	else
-		user << "<span class='notice'> You add [I] to [src].</span>"
-		if(istype(I,  /obj/item/weapon/reagent_containers/))
-			var/obj/item/weapon/reagent_containers/F = I
-			F.reagents.trans_to(src, F.reagents.total_volume)
-		user.drop_item()
-		I.loc = src
+	user << "<span class='notice'>You add [I] to [src].</span>"
+	if(istype(I,  /obj/item/weapon/reagent_containers/))
+		var/obj/item/weapon/reagent_containers/F = I
+		F.reagents.trans_to(src, F.reagents.total_volume)
+	if(istype(I, /obj/item/weapon/reagent_containers/food/snacks/customizable))
+		var/obj/item/weapon/reagent_containers/food/snacks/customizable/origin = I
+		ingredients += origin.ingredients
+	user.drop_item()
+	cooktype[basename] = 1
+	I.loc = src
+	if(!istype(I, toptype))
 		ingredients += I
-		update()
+	updateicon()
+	name = newname()
 
-/obj/item/weapon/reagent_containers/food/snacks/customizable/proc/update()
-	var/fullname = "" //We need to build this from the contents of the var.
-	var/i = 0
 
+/obj/item/weapon/reagent_containers/food/snacks/customizable/proc/updateicon()
 	overlays = 0
-
+	var/i=0
 	for(var/obj/item/O in ingredients)
-
 		i++
-		if(i == 1)
-			fullname += "[O.name]"
-		else if(i == ingredients.len)
-			fullname += " and [O.name]"
-		else
-			fullname += ", [O.name]"
-
 		if(!fullycustom)
 			var/image/I = new(src.icon, "[baseicon]_filling")
 			if(istype(O, /obj/item/weapon/reagent_containers/food/snacks))
@@ -358,10 +366,6 @@
 		T.pixel_y = (ingredients.len * 2)+1
 		overlays += T
 
-	name = lowertext("[fullname] [basename]")
-	if(length(name) > 80) name = "[pick(list("absurd","colossal","enormous","ridiculous","massive","oversized","cardiac-arresting","pipe-clogging","edible but sickening","sickening","gargantuan","mega","belly-burster","chest-burster"))] [basename]"
-	w_class = n_ceil(Clamp((ingredients.len/2),1,3))
-
 /obj/item/weapon/reagent_containers/food/snacks/customizable/Del()
 	for(var/obj/item/O in ingredients)
 		del(O)
@@ -372,3 +376,109 @@
 	var/whatsinside = pick(ingredients)
 
 	usr << "<span class='notice'> You think you can see [whatsinside] in there.</span>"
+
+/obj/item/weapon/reagent_containers/food/snacks/customizable/attack(mob/M as mob, mob/user as mob, def_zone)
+
+	var/obj/item/shard
+	for(var/obj/item/O in contents)
+		if(istype(O,/obj/item/weapon/shard))
+			shard = O
+			break
+
+	var/mob/living/H
+	if(istype(M,/mob/living))
+		H = M
+
+	if(H && shard && M == user) //This needs a check for feeding the food to other people, but that could be abusable.
+		H << "\red You lacerate your mouth on a [shard.name] in the sandwich!"
+		H.adjustBruteLoss(5) //TODO: Target head if human.
+	..()
+
+/obj/item/weapon/reagent_containers/food/snacks/customizable/proc/newname()
+	var/unsorteditems[0]
+	var/sorteditems[0]
+	var/unsortedtypes[0]
+	var/sortedtypes[0]
+	var/endpart = ""
+	var/c = 0
+	var/ci = 0
+	var/ct = 0
+	var/seperator = ""
+	var/sendback = ""
+	var/list/levels = list("", "double", "triple", "quad", "huge")
+
+	for(var/obj/item/ing in ingredients)
+		if(istype(ing, /obj/item/weapon/shard))
+			continue
+
+
+		if (istype(ing, /obj/item/weapon/reagent_containers/food/snacks/customizable))				// split the ingredients into ones with basenames (sandwich, burger, etc) and ones without, keeping track of how many of each there are
+			var/obj/item/weapon/reagent_containers/food/snacks/customizable/gettype = ing
+			if (unsortedtypes[gettype.basename])
+				unsortedtypes[gettype.basename]++
+				if (unsortedtypes[gettype.basename] > ct)
+					ct = unsortedtypes[gettype.basename]
+			else
+				(unsortedtypes[gettype.basename]) = 1
+				if (unsortedtypes[gettype.basename] > ct)
+					ct = unsortedtypes[gettype.basename]
+		else
+			if(unsorteditems[ing.name])
+				unsorteditems[ing.name]++
+				if (unsorteditems[ing.name] > ci)
+					ci = unsorteditems[ing.name]
+			else
+				unsorteditems[ing.name] = 1
+				if (unsorteditems[ing.name] > ci)
+					ci = unsorteditems[ing.name]
+
+	sorteditems = sortlist(unsorteditems, ci)				//order both types going from the lowest number to the highest number
+	sortedtypes = sortlist(unsortedtypes, ct)
+
+	for(var/ings in sorteditems)			   //add the non-basename items to the name, sorting out the , and the and
+		c++
+		if (c == sorteditems.len - 1)
+			seperator = " and "
+		else if (c == sorteditems.len)
+			seperator = " "
+		else
+			seperator = ", "
+
+		if (sorteditems[ings] > levels.len)
+			sorteditems[ings] = levels.len
+
+		if (sorteditems[ings] <= 1)
+			sendback +="[ings][seperator]"
+		else
+			sendback +="[levels[sorteditems[ings]]] [ings][seperator]"
+
+	for (var/ingtype in sortedtypes)   // now add the types basenames, keeping the src one seperate so it can go on the end
+		if (sortedtypes[ingtype] > levels.len)
+			sortedtypes[ingtype] = levels.len
+		if (ingtype == basename)
+			if (sortedtypes[ingtype] < levels.len)
+				sortedtypes[ingtype]++
+			endpart = "[levels[sortedtypes[ingtype]]] decker [basename]"
+			continue
+		if (sortedtypes[ingtype] >= 2)
+			sendback += "[levels[sortedtypes[ingtype]]] decker [ingtype] "
+		else
+			sendback += "[ingtype] "
+
+	if(endpart)
+		sendback += endpart
+	else
+		sendback += basename
+
+	if(length(sendback) > 80)
+		sendback = "[pick(list("absurd","colossal","enormous","ridiculous","massive","oversized","cardiac-arresting","pipe-clogging","edible but sickening","sickening","gargantuan","mega","belly-burster","chest-burster"))] [basename]"
+	return sendback
+
+/obj/item/weapon/reagent_containers/food/snacks/customizable/proc/sortlist(var/list/unsorted, var/highest)
+	var/sorted[0]
+	for(var/i = 1, i<= highest, i++)
+		for(var/it in unsorted)
+			if (unsorted[it] == i)
+				sorted[it] = i
+	return sorted
+
