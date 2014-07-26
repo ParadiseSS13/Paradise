@@ -1505,7 +1505,7 @@ datum
 				M.adjustToxLoss(2*REM)
 				..()
 				return
-			reaction_obj(var/obj/O, var/volume)
+/*			reaction_obj(var/obj/O, var/volume)
 				src = null
 				/*if(istype(O,/obj/item/weapon/reagent_containers/food/snacks/egg/slime))
 					var/obj/item/weapon/reagent_containers/food/snacks/egg/slime/egg = O
@@ -1525,7 +1525,7 @@ datum
 				fuel.moles = volume
 				napalm.trace_gases += fuel
 				T.assume_air(napalm)
-				return
+				return*/
 			reaction_mob(var/mob/living/M, var/method=TOUCH, var/volume)//Splashing people with plasma is stronger than fuel!
 				if(!istype(M, /mob/living))
 					return

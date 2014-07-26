@@ -388,7 +388,7 @@ datum
 
 							flick("e_flash", M.flash)
 							M.Stun(5)
-
+/*
 		napalm
 			name = "Napalm"
 			id = "napalm"
@@ -411,7 +411,7 @@ datum
 					spawn (0) target_tile.hotspot_expose(700, 400)
 				holder.del_reagent("napalm")
 				return
-
+*/
 		/*
 		smoke
 			name = "Smoke"
