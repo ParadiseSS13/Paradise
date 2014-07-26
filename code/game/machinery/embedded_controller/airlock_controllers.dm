@@ -7,6 +7,7 @@
 	var/tag_chamber_sensor
 	var/tag_exterior_sensor
 	var/tag_interior_sensor
+	var/tag_mech_sensor
 	var/tag_secure = 0
 
 /obj/machinery/embedded_controller/radio/airlock/initialize()
@@ -43,10 +44,10 @@
 /obj/machinery/embedded_controller/radio/airlock/advanced_airlock_controller/Topic(href, href_list)
 	if(..())
 		return
-	
+
 	usr.set_machine(src)
 	src.add_fingerprint(usr)
-	
+
 	var/clean = 0
 	switch(href_list["command"])	//anti-HTML-hacking checks
 		if("cycle_ext")
@@ -99,10 +100,10 @@
 /obj/machinery/embedded_controller/radio/airlock/airlock_controller/Topic(href, href_list)
 	if(..())
 		return
-	
+
 	usr.set_machine(src)
 	src.add_fingerprint(usr)
-	
+
 	var/clean = 0
 	switch(href_list["command"])	//anti-HTML-hacking checks
 		if("cycle_ext")
@@ -163,10 +164,10 @@
 /obj/machinery/embedded_controller/radio/airlock/access_controller/Topic(href, href_list)
 	if(..())
 		return
-	
+
 	usr.set_machine(src)
 	src.add_fingerprint(usr)
-	
+
 	var/clean = 0
 	switch(href_list["command"])	//anti-HTML-hacking checks
 		if("cycle_ext_door")

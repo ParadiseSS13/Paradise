@@ -13,12 +13,12 @@
 
 /datum/computer/file/embedded_program/docking/multi/New(var/obj/machinery/embedded_controller/M)
 	..(M)
-	
+
 	if (istype(M,/obj/machinery/embedded_controller/radio/docking_port_multi))	//if our parent controller is the right type, then we can auto-init stuff at construction
 		var/obj/machinery/embedded_controller/radio/docking_port_multi/controller = M
 		//parse child_tags_txt and create child tags
 		children_tags = text2list(controller.child_tags_txt, ";")
-	
+
 	children_ready = list()
 	children_override = list()
 	for (var/child_tag in children_tags)
@@ -33,13 +33,13 @@
 	var/receive_tag = signal.data["tag"]		//for docking signals, this is the sender id
 	var/command = signal.data["command"]
 	var/recipient = signal.data["recipient"]	//the intended recipient of the docking signal
-	
+
 	if (receive_tag in children_tags)
-		
+
 		//track children status
 		if (signal.data["override_status"])
 			children_override[receive_tag] = signal.data["override_status"]
-	
+
 		if (recipient == id_tag)
 			switch (command)
 				if ("ready_for_docking")
@@ -50,13 +50,13 @@
 					children_override[receive_tag] = 1
 				if ("status_override_disabled")
 					children_override[receive_tag] = 0
-	
+
 	..(signal, receive_method, receive_param)
 
 /datum/computer/file/embedded_program/docking/multi/prepare_for_docking()
 	//clear children ready status
 	clear_children_ready_status()
-	
+
 	//tell children to prepare for docking
 	for (var/child_tag in children_tags)
 		send_docking_command(child_tag, "prepare_for_docking")
@@ -72,14 +72,14 @@
 	//tell children to finish docking
 	for (var/child_tag in children_tags)
 		send_docking_command(child_tag, "finish_docking")
-	
+
 	//clear ready flags
 	clear_children_ready_status()
 
 /datum/computer/file/embedded_program/docking/multi/prepare_for_undocking()
 	//clear children ready status
 	clear_children_ready_status()
-	
+
 	//tell children to prepare for undocking
 	for (var/child_tag in children_tags)
 		send_docking_command(child_tag, "prepare_for_undocking")
@@ -95,7 +95,7 @@
 	//tell children to finish undocking
 	for (var/child_tag in children_tags)
 		send_docking_command(child_tag, "finish_undocking")
-	
+
 	//clear ready flags
 	clear_children_ready_status()
 
@@ -108,7 +108,7 @@
 */
 /datum/computer/file/embedded_program/airlock/multi_docking
 	var/master_tag
-	
+
 	var/master_status = "undocked"
 	var/override_enabled = 0
 	var/docking_enabled = 0
@@ -117,7 +117,7 @@
 
 /datum/computer/file/embedded_program/airlock/multi_docking/New(var/obj/machinery/embedded_controller/M)
 	..(M)
-	
+
 	if (istype(M, /obj/machinery/embedded_controller/radio/airlock/docking_port_multi))	//if our parent controller is the right type, then we can auto-init stuff at construction
 		var/obj/machinery/embedded_controller/radio/airlock/docking_port_multi/controller = M
 		src.master_tag = controller.master_tag
@@ -131,56 +131,58 @@
 			override_enabled = 1
 			broadcast_override_status()
 		return
-	
+
 	if (!docking_enabled|| override_enabled)	//only allow the port to be used as an airlock if nothing is docked here or the override is enabled
 		..(command)
 
 /datum/computer/file/embedded_program/airlock/multi_docking/receive_signal(datum/signal/signal, receive_method, receive_param)
 	..()
-	
+
 	var/receive_tag = signal.data["tag"]		//for docking signals, this is the sender id
 	var/command = signal.data["command"]
 	var/recipient = signal.data["recipient"]	//the intended recipient of the docking signal
-	
+
 	if (receive_tag != master_tag)
 		return	//only respond to master
-	
+
 	//track master's status
 	if (signal.data["dock_status"])
 		master_status = signal.data["dock_status"]
-	
+
 	if (recipient != id_tag)
 		return	//this signal is not for us
-	
+
 	switch (command)
 		if ("prepare_for_docking")
 			docking_enabled = 1
 			docking_mode = 0
 			response_sent = 0
-			
+
 			if (!override_enabled)
 				begin_cycle_in()
-		
+
 		if ("prepare_for_undocking")
 			docking_mode = 1
 			response_sent = 0
-			
+
 			if (!override_enabled)
 				stop_cycling()
 				close_doors()
-		
+				disable_mech_regulation()
+
 		if ("finish_docking")
 			if (!override_enabled)
+				enable_mech_regulation()
 				open_doors()
-		
+
 		if ("finish_undocking")
 			docking_enabled = 0
 
 /datum/computer/file/embedded_program/airlock/multi_docking/process()
 	..()
-	
+
 	if (docking_enabled && !response_sent)
-		
+
 		switch (docking_mode)
 			if (0)	//docking
 				if (ready_for_docking())

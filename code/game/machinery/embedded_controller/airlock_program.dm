@@ -16,13 +16,14 @@
 	var/tag_chamber_sensor
 	var/tag_exterior_sensor
 	var/tag_interior_sensor
+	var/tag_mech_sensor
 
 	var/state = STATE_WAIT
 	var/target_state = TARGET_NONE
 
 /datum/computer/file/embedded_program/airlock/New(var/obj/machinery/embedded_controller/M)
 	..(M)
-	
+
 	memory["chamber_sensor_pressure"] = ONE_ATMOSPHERE
 	memory["external_sensor_pressure"] = 0					//assume vacuum for simple airlock controller
 	memory["internal_sensor_pressure"] = ONE_ATMOSPHERE
@@ -32,7 +33,7 @@
 	memory["target_pressure"] = ONE_ATMOSPHERE
 	memory["purge"] = 0
 	memory["secure"] = 0
-	
+
 	if (istype(M, /obj/machinery/embedded_controller/radio/airlock))	//if our controller is an airlock controller than we can auto-init our tags
 		var/obj/machinery/embedded_controller/radio/airlock/controller = M
 		tag_exterior_door = controller.tag_exterior_door? controller.tag_exterior_door : "[id_tag]_outer"
@@ -41,8 +42,9 @@
 		tag_chamber_sensor = controller.tag_chamber_sensor? controller.tag_chamber_sensor : "[id_tag]_sensor"
 		tag_exterior_sensor = controller.tag_exterior_sensor
 		tag_interior_sensor = controller.tag_interior_sensor
+		tag_mech_sensor = controller.tag_mech_sensor? controller.tag_mech_sensor : "[id_tag]_mech"
 		memory["secure"] = controller.tag_secure
-	
+
 		spawn(10)
 			signalDoor(tag_exterior_door, "update")		//signals connected doors to update their status
 			signalDoor(tag_interior_door, "update")
@@ -187,11 +189,11 @@
 			//make sure to return to a sane idle state
 			if(memory["pump_status"] != "off")	//send a signal to stop pumping
 				signalPump(tag_airpump, 0)
-	
+
 	//the airlock will not allow itself to continue to cycle when any of the doors are forced open.
 	if (state && !check_doors_secured())
 		stop_cycling()
-	
+
 	switch(state)
 		if(STATE_PRESSURIZE)
 			if(memory["chamber_sensor_pressure"] >= memory["target_pressure"] * 0.95)
@@ -293,6 +295,11 @@
 			signalDoor(tag_exterior_door, command)
 			signalDoor(tag_interior_door, command)
 
+/datum/computer/file/embedded_program/airlock/proc/enable_mech_regulation()
+	signalDoor(tag_mech_sensor, "enable")
+
+/datum/computer/file/embedded_program/airlock/proc/disable_mech_regulation()
+	signalDoor(tag_mech_sensor, "disable")
 
 /*----------------------------------------------------------
 toggleDoor()

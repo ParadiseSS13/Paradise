@@ -35,10 +35,10 @@
 /obj/machinery/embedded_controller/radio/airlock/docking_port/Topic(href, href_list)
 	if(..())
 		return
-	
+
 	usr.set_machine(src)
 	src.add_fingerprint(usr)
-	
+
 	var/clean = 0
 	switch(href_list["command"])	//anti-HTML-hacking checks
 		if("cycle_ext")
@@ -77,7 +77,7 @@
 		else
 			enable_override()
 		return
-	
+
 	..(command)
 	airlock_program.receive_user_command(command)	//pass along to subprograms
 
@@ -99,12 +99,14 @@
 
 //we are docked, open the doors or whatever.
 /datum/computer/file/embedded_program/docking/airlock/finish_docking()
+	airlock_program.enable_mech_regulators()
 	airlock_program.open_doors()
 
 //tell the docking port to start getting ready for undocking - e.g. close those doors.
 /datum/computer/file/embedded_program/docking/airlock/prepare_for_undocking()
 	airlock_program.stop_cycling()
 	airlock_program.close_doors()
+	airlock_program.disable_mech_regulators()
 
 //are we ready for undocking?
 /datum/computer/file/embedded_program/docking/airlock/ready_for_undocking()
@@ -115,12 +117,17 @@
 //An airlock controller to be used by the airlock-based docking port controller.
 //Same as a regular airlock controller but allows disabling of the regular airlock functions when docking
 /datum/computer/file/embedded_program/airlock/docking
-	
 	var/datum/computer/file/embedded_program/docking/airlock/master_prog
 
 /datum/computer/file/embedded_program/airlock/docking/receive_user_command(command)
 	if (master_prog.undocked() || master_prog.override_enabled)	//only allow the port to be used as an airlock if nothing is docked here or the override is enabled
 		..(command)
+
+/datum/computer/file/embedded_program/airlock/docking/proc/enable_mech_regulators()
+	enable_mech_regulation()
+
+/datum/computer/file/embedded_program/airlock/docking/proc/disable_mech_regulators()
+	disable_mech_regulation()
 
 /datum/computer/file/embedded_program/airlock/docking/proc/open_doors()
 	toggleDoor(memory["interior_status"], tag_interior_door, memory["secure"], "open")
