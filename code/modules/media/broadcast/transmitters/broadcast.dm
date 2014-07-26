@@ -48,7 +48,7 @@
 			else
 				usr << "\red Invalid FM frequency. (90.0, 200.0)"
 
-
+/*
 
 
 /obj/machinery/media/transmitter/broadcast/linkWith(var/mob/user, var/obj/O, var/list/context)
@@ -69,3 +69,5 @@
 
 /obj/machinery/media/transmitter/broadcast/isLinkedWith(var/obj/O)
 	return O==source
+
+*/
