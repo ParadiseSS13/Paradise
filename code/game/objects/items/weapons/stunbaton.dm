@@ -163,21 +163,6 @@
 			deductcharge(hitcost)
 
 
-		user.attack_log += "\[[time_stamp()]\]<font color='red'> Stunned [L.name] ([L.ckey]) with [name]</font>"
-		L.attack_log += "\[[time_stamp()]\]<font color='orange'> Stunned by [user.name] ([user.ckey]) with [name]</font>"
-		log_attack("<font color='red'>[user.name] ([user.ckey]) stunned [L.name] ([L.ckey]) with [name]</font>" )
-
-		if(!iscarbon(user))
-			L.LAssailant = null
-		else
-			L.LAssailant = user
-
-		if(bcell.charge < hitcost)
-			status = 0
-			update_icon()
-
-	add_fingerprint(user)
-
 /obj/item/weapon/melee/baton/throw_impact(atom/hit_atom)
 	. = ..()
 	if (prob(50))
