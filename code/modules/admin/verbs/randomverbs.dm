@@ -1048,3 +1048,21 @@ Traitors and the like can also be revived with the previous role mostly intact.
 		message_admins("Admin [key_name_admin(usr)] has disabled random events.", 1)
 	feedback_add_details("admin_verb","TRE") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
+/client/proc/toggle_ert_calling()
+	set category = "Event"
+	set name = "Toggle ERT"
+
+	set desc = "Toggle the station's ability to call a response team."
+	if(!check_rights(R_EVENT)) return
+
+	if(ticker.mode.ert_disabled)
+		ticker.mode.ert_disabled = 0
+		usr << "\blue ERT has been <b>Enabled</b>."
+		log_admin("Admin [key_name(src)] has enabled ERT calling.")
+		message_admins("Admin [key_name_admin(usr)] has enabled ERT calling.", 1)
+	else
+		ticker.mode.ert_disabled = 1
+		usr << "\red ERT has been <b>Disabled</b>."
+		log_admin("Admin [key_name(src)] has disabled ERT calling.")
+		message_admins("Admin [key_name_admin(usr)] has disabled ERT calling.", 1)
+
