@@ -10,7 +10,7 @@
 	standing_mob = 1
 	load_item_visible = 1
 	load_offset_x = 0
-	load_offset_y = 8
+	load_offset_y = 7
 
 	var/car_limit = 3		//how many cars an engine can pull before performance degrades
 	active_engines = 1
@@ -34,7 +34,7 @@
 	standing_mob = 1
 	load_item_visible = 1
 	load_offset_x = 0
-	load_offset_y = 5
+	load_offset_y = 4
 
 //-------------------------------------------
 // Standard procs
@@ -44,6 +44,8 @@
 	cell = new /obj/item/weapon/cell/high
 	verbs -= /atom/movable/verb/pull
 	key = new()
+	var/image/I = new(icon = 'icons/obj/vehicles.dmi', icon_state = "cargo_engine_overlay", layer = src.layer + 0.2) //over mobs
+	overlays += I
 
 /obj/vehicle/train/cargo/engine/Move()
 	if(on && cell.charge < power_use)
@@ -248,6 +250,9 @@
 	
 	if(istype(load, /mob/living/carbon/human))
 		load.pixel_y += 4
+	
+	if(load)
+		return 1
 
 /obj/vehicle/train/cargo/engine/load(var/atom/movable/C)
 	if(!ismob(C))

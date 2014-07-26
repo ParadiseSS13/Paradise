@@ -80,7 +80,7 @@
 	return 1
 
 /obj/vehicle/train/MouseDrop_T(var/atom/movable/C, mob/user as mob)
-	if(user.buckled || user.stat || user.restrained() || !Adjacent(user) || !user.Adjacent(C))
+	if(user.buckled || user.stat || user.restrained() || !Adjacent(user) || !user.Adjacent(C) || !istype(C))
 		return
 	if(istype(C,/obj/vehicle/train))
 		latch(C, user)
