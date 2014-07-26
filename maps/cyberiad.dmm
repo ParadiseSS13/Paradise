@@ -2792,7 +2792,7 @@
 "bbJ" = (/obj/machinery/light,/obj/machinery/camera{c_tag = "Diona Embassy"; dir = 1},/turf/simulated/floor/grass,/area/embassy/diona)
 "bbK" = (/obj/machinery/camera{c_tag = "Kidan Embassy"; dir = 1},/turf/simulated/floor{icon_state = "wood"},/area/embassy/kidan)
 "bbL" = (/obj/item/device/radio/intercom{name = "Station Intercom (General)"; pixel_y = -29},/turf/simulated/floor{icon_state = "wood"},/area/embassy/kidan)
-"bbM" = (/obj/item/weapon/twohanded/spear/kidan,/turf/simulated/floor{icon_state = "wood"},/area/embassy/kidan)
+"bbM" = (/obj/item/weapon/spear/kidan,/turf/simulated/floor{icon_state = "wood"},/area/embassy/kidan)
 "bbN" = (/obj/machinery/door/firedoor/border_only,/turf/simulated/floor{icon_state = "blue"; dir = 4},/area/hallway/primary/central/nw)
 "bbO" = (/obj/machinery/door/airlock/glass_command{name = "Bridge"; req_access_txt = "19"},/obj/structure/cable{d1 = 1; d2 = 4; icon_state = "1-4"; tag = ""},/obj/structure/cable{d1 = 2; d2 = 4; icon_state = "2-4"; tag = ""},/turf/simulated/floor,/area/bridge)
 "bbP" = (/obj/machinery/door/poddoor{density = 0; icon_state = "pdoor0"; id = "bridge blast"; name = "Bridge Blast Doors"; opacity = 0},/obj/structure/cable{d1 = 4; d2 = 8; icon_state = "4-8"; tag = ""},/obj/machinery/door/firedoor/border_only,/turf/simulated/floor{icon_state = "delivery"; name = "floor"},/area/bridge)
