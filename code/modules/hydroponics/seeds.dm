@@ -11,14 +11,14 @@
 	var/modified = 0
 
 /obj/item/seeds/New()
-	..()
 	update_seed()
+	..()
 
 //Grabs the appropriate seed datum from the global list.
 /obj/item/seeds/proc/update_seed()
 	if(!seed && seed_type && !isnull(seed_types) && seed_types[seed_type])
 		seed = seed_types[seed_type]
-		update_appearance()
+	update_appearance()
 
 //Updates strings and icon appropriately based on seed datum.
 /obj/item/seeds/proc/update_appearance()
@@ -33,14 +33,7 @@
 		usr << "It's tagged as variety #[seed.uid]."
 
 /obj/item/seeds/replicapod
-	name = "pack of dionaea-replicant seeds"
 	seed_type = "diona"
-
-	var/ckey = null
-	var/realName = null
-	var/mob/living/carbon/human/source
-	var/obj/machinery/hydroponics/parent = null
-	var/found_player = 0
 
 /obj/item/seeds/poppyseed
 	seed_type = "poppies"
