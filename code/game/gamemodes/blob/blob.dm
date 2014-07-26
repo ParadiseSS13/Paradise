@@ -20,7 +20,7 @@ var/list/blob_nodes = list()
 	var/declared = 0
 
 	var/cores_to_spawn = 1
-	var/players_per_core = 30
+	var/players_per_core = 20
 	var/blob_point_rate = 3
 
 	var/blobwincount = 700
