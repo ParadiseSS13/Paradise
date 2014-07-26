@@ -946,11 +946,13 @@ datum/preferences
 			if("input")
 				switch(href_list["preference"])
 					if("name")
-						var/new_name = reject_bad_name( input(user, "Choose your character's name:", "Character Preference")  as text|null )
-						if(new_name)
-							real_name = new_name
-						else
-							user << "<font color='red'>Invalid name. Your name should be at least 2 and at most [MAX_NAME_LEN] characters long. It may only contain the characters A-Z, a-z, -, ' and .</font>"
+						var/raw_name = input(user, "Choose your character's name:", "Character Preference")  as text|null
+						if (raw_name) // Check to ensure that the user entered text (rather than cancel.)
+							var/new_name = reject_bad_name(raw_name)
+							if(new_name)
+								real_name = new_name
+							else
+								user << "<font color='red'>Invalid name. Your name should be at least 2 and at most [MAX_NAME_LEN] characters long. It may only contain the characters A-Z, a-z, -, ' and .</font>"
 
 					if("age")
 						var/new_age = input(user, "Choose your character's age:\n([AGE_MIN]-[AGE_MAX])", "Character Preference") as num|null
