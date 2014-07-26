@@ -88,6 +88,7 @@
 		src.modules += new /obj/item/weapon/retractor(src)
 		src.modules += new /obj/item/weapon/cautery(src)
 		src.modules += new /obj/item/weapon/bonegel(src)
+		src.modules += new /obj/item/weapon/FixOVein(src)
 		src.modules += new /obj/item/weapon/bonesetter(src)
 		src.modules += new /obj/item/weapon/circular_saw(src)
 		src.modules += new /obj/item/weapon/surgicaldrill(src)
