@@ -314,7 +314,7 @@
 		else
 			l.show_message("<span class=\"warning\">You hear an uneartly ringing and notice your skin is covered in fresh radiation burns.</span>", 2)
 		var/rads = 500 * sqrt( 1 / (get_dist(l, src) + 1) )
-		l.apply_effect(rads, IRRADIATE)
+		l.apply_effect(rads, IRRADIATE, 0) // Permit blocking
 
 
 /obj/machinery/power/supermatter/proc/supermatter_pull()
