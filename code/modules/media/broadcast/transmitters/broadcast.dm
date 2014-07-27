@@ -196,7 +196,7 @@
 				env.merge(removed)
 
 				//world << "turf now at [env.temperature]"
-
+/*
 		// Checks heat from the environment and applies any integrity damage
 		var/datum/gas_mixture/environment = loc.return_air()
 		switch(environment.temperature)
@@ -204,7 +204,7 @@
 				integrity = between(0, integrity, 100)
 			if((T20C + 20) to INFINITY)
 				integrity = max(0, integrity - 1)
-
+*/
 /*
 /obj/machinery/media/transmitter/broadcast/linkWith(var/mob/user, var/obj/O, var/list/context)
 	if(istype(O,/obj/machinery/media) && !is_type_in_list(O,list(/obj/machinery/media/transmitter,/obj/machinery/media/receiver)))

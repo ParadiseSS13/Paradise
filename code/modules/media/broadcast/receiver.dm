@@ -7,7 +7,7 @@ var/global/media_receivers=list()
 ///////////////////////
 
 /obj/machinery/media/receiver
-	var/media_frequency = 1234 // 123.4 MHz
+	var/media_frequency = 1015 // 123.4 MHz
 	var/media_crypto    = null // Crypto key
 
 /obj/machinery/media/receiver/New()

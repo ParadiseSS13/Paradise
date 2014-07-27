@@ -293,7 +293,7 @@ var/global/loopModeNames=list(
 // Relaxing elevator music~
 /obj/machinery/media/jukebox/dj
 
-	playlist_id="muzak"
+	playlist_id="bar"
 	autoplay = 1
 
 	id_tag="DJ Satellite" // For autolink
@@ -306,34 +306,6 @@ var/global/loopModeNames=list(
 		"lounge" = "Portishead - Dummy",
 		"customs" = "Customs Music",
 	)
-
-// So I don't have to do all this shit manually every time someone sacrifices pun-pun.
-// Also for debugging.
-/obj/machinery/media/jukebox/superjuke
-	name = "Super Juke"
-	desc = "A jukebox used for parties at Mount Olympus and shit."
-
-	state_base = "superjuke"
-
-	playlist_id="bar"
-	// Must be defined on your server.
-	playlists=list(
-		"bar"  = "Bar Mix",
-		"jazz" = "Jazz",
-		"rock" = "Rock",
-		"muzak" = "Muzak",
-
-		"emagged" = "Syndie Mix",
-		"shuttle" = "Shuttle",
-		"endgame" = "Apocalypse"
-	)
-
-/obj/machinery/media/jukebox/superjuke/attackby(obj/item/W, mob/user)
-	// NO FUN ALLOWED.  Emag list is included, anyway.
-	if(istype(W, /obj/item/weapon/card/emag))
-		user << "\red Your [W] refuses to touch \the [src]!"
-		return
-	..()
 
 /obj/machinery/media/jukebox/techno
 	name = "Techno disc"
@@ -360,7 +332,7 @@ var/global/loopModeNames=list(
 	playlists=list(
 		"lobby" = "Lobby Mix"
 	)
+	playlist_id = "lobby"
 	use_power = 0
 	invisibility=101
 	autoplay = 1
-	playing = 1
