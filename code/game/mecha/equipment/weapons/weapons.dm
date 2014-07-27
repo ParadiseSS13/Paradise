@@ -12,6 +12,8 @@
 			if(size > M.maxsize)
 				return 0
 			return 1
+		else if (M.emagged == 1)
+			return 1
 	return 0
 
 
