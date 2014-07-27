@@ -1015,7 +1015,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 /datum/organ/external/head/proc/breakskull()
 	if(brained)
 		return
-	owner.visible_message("\red The top of \the [owner]'s skull breaks, exposing the brain help within.",	\
+	owner.visible_message("\red The top of \the [owner]'s skull breaks, exposing the brain within.",	\
 	"\red <b>Unbearable pain hits you as the top of your skull breaks and exposes your brain!</b>",	\
 	"\red You hear a sickening crack.")
 	owner.expose_brain()
