@@ -106,13 +106,13 @@
 
 		var/atom/temp = new typepath(null)
 		var/datum/data/vending_product/R = new /datum/data/vending_product()
-		R.product_name = temp.name
 		R.product_path = typepath
 		R.amount = amount
 		R.max_amount = amount
 		R.price = price
 		R.display_color = pick("red","blue","green")
-
+		sleep(3)
+		R.product_name = temp.name
 		if(hidden)
 			hidden_records += R
 		else if(req_coin)
