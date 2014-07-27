@@ -525,7 +525,7 @@ var/list/liftable_structures = list(\
 
 	/obj/machinery/autolathe, \
 	/obj/machinery/constructable_frame, \
-	/obj/machinery/hydroponics, \
+	/obj/machinery/portable_atmospherics/hydroponics, \
 	/obj/machinery/computer, \
 	/obj/machinery/optable, \
 	/obj/structure/dispenser, \
@@ -689,7 +689,7 @@ var/list/TAGGERLOCATIONS = list("Disposals",
 #define CHAT_GHOSTEARS	4
 #define CHAT_GHOSTSIGHT	8
 #define CHAT_PRAYER		16
-#define CHAT_RADIO		32
+//#define CHAT_RADIO		32
 #define CHAT_ATTACKLOGS	64
 #define CHAT_DEBUGLOGS	128
 #define CHAT_LOOC		256
@@ -702,7 +702,7 @@ var/list/TAGGERLOCATIONS = list("Disposals",
 #define SOUND_STREAMING	16
 
 #define SOUND_DEFAULT (SOUND_ADMINHELP|SOUND_MIDI|SOUND_AMBIENCE|SOUND_LOBBY|SOUND_STREAMING)
-#define TOGGLES_DEFAULT (CHAT_OOC|CHAT_DEAD|CHAT_GHOSTEARS|CHAT_GHOSTSIGHT|CHAT_PRAYER|CHAT_RADIO|CHAT_ATTACKLOGS|CHAT_LOOC)
+#define TOGGLES_DEFAULT (CHAT_OOC|CHAT_DEAD|CHAT_GHOSTEARS|CHAT_GHOSTSIGHT|CHAT_PRAYER|CHAT_ATTACKLOGS|CHAT_LOOC)
 
 #define BE_TRAITOR		1
 #define BE_OPERATIVE	2
@@ -713,7 +713,7 @@ var/list/TAGGERLOCATIONS = list("Disposals",
 #define BE_ALIEN		64
 #define BE_PAI			128
 #define BE_CULTIST		256
-#define BE_MONKEY		512
+#define BE_PLANT		512
 #define BE_NINJA		1024
 #define BE_VOX			2048
 #define BE_SLIME		4096
@@ -730,7 +730,7 @@ var/list/be_special_flags = list(
 	"Xenomorph" = BE_ALIEN,
 	"pAI" = BE_PAI,
 	"Cultist" = BE_CULTIST,
-	"Monkey" = BE_MONKEY,
+	"Plant" = BE_PLANT,
 	"Ninja" = BE_NINJA,
 	"Vox" = BE_VOX,
 	"Slime" = BE_SLIME,

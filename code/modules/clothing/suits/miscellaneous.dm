@@ -407,3 +407,15 @@
 	item_state = "bomber"
 	flags = FPRINT | TABLEPASS
 	body_parts_covered = UPPER_TORSO|ARMS
+
+/obj/item/clothing/suit/officercoat
+	name = "Clown Officer's Coat"
+	desc = "A classy clown officer's overcoat, also designed by Hugo Boss."
+	icon_state = "officersuit"
+	item_state = "officersuit"
+
+/obj/item/clothing/suit/soldiercoat
+	name = "Clown Soldier's Coat"
+	desc = "An overcoat for the clown soldier, to keep him warm during those cold winter nights on the front."
+	icon_state = "soldiersuit"
+	item_state = "soldiersuit"

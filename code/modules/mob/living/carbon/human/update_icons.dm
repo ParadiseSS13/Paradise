@@ -600,8 +600,6 @@ proc/get_damage_icon_part(damage_state, body_part)
 			standing.icon = w_uniform.icon_override
 		else if(w_uniform.sprite_sheets && w_uniform.sprite_sheets[species.name])
 			standing.icon = w_uniform.sprite_sheets[species.name]
-		else
-			standing.icon = 'icons/mob/uniform.dmi'
 
 		if(w_uniform.blood_DNA)
 			if(green==1)

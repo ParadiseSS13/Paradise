@@ -78,7 +78,9 @@
 						var/mob/M = new mobtype
 
 						if(ishuman(M) || isbrain(M))
-							race = "Human"
+							var/mob/living/carbon/human/H = M
+							race = "[H.species.name]"
+
 
 						else if(ismonkey(M))
 							race = "Monkey"

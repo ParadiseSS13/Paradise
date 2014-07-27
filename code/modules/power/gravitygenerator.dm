@@ -122,7 +122,13 @@ var/const/GRAV_NEEDS_WRENCH = 3
 	for(var/obj/machinery/gravity_generator/part/O in parts)
 		O.main_part = null
 		qdel(O)
+	for(var/area/A in world)
+		if (A.z != 1) continue
+		A.gravitychange(0,A)
+	shake_everyone()
 	..()
+
+
 
 /obj/machinery/gravity_generator/main/proc/setup_parts()
 	var/turf/our_turf = get_turf(src)

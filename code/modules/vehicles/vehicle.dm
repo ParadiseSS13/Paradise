@@ -58,6 +58,8 @@
 		return 0
 
 /obj/vehicle/attackby(obj/item/weapon/W as obj, mob/user as mob)
+	if(istype(W, /obj/item/weapon/hand_labeler))
+		return
 	if(istype(W, /obj/item/weapon/screwdriver))
 		if(!locked)
 			open = !open
@@ -157,6 +159,8 @@
 /obj/vehicle/attack_ai(mob/user as mob)
 	return
 
+/obj/vehicle/proc/handle_rotation()
+	return
 
 //-------------------------------------------
 // Vehicle procs

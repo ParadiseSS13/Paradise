@@ -34,7 +34,7 @@ NanoBaseHelpers = function ()
 
 				if (typeof elementClass == 'undefined' || !elementClass)
 				{
-					elementClass = '';
+					elementClass = 'link';
 				}
 
 				var elementIdHtml = '';
@@ -48,7 +48,7 @@ NanoBaseHelpers = function ()
 					return '<div unselectable="on" class="link ' + iconClass + ' ' + elementClass + ' ' + status + '" ' + elementIdHtml + '>' + iconHtml + text + '</div>';
 				}
 
-				return '<div unselectable="on" class="link linkActive ' + iconClass + ' ' + elementClass + '" data-href="' + NanoUtility.generateHref(parameters) + '" ' + elementIdHtml + '>' + iconHtml + text + '</div>';
+				return '<div unselectable="on" class="linkActive ' + iconClass + ' ' + elementClass + '" data-href="' + NanoUtility.generateHref(parameters) + '" ' + elementIdHtml + '>' + iconHtml + text + '</div>';
 			},
 			// Since jsrender breaks the ^ operator
             xor: function(number,bit) {                               

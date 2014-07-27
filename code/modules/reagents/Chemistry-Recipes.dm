@@ -29,27 +29,17 @@ datum
 			required_reagents = list("water" = 1, "potassium" = 1)
 			result_amount = 2
 			on_reaction(var/datum/reagents/holder, var/created_volume)
-
-				if(holder.has_reagent("benazine"))
-					if(istype(holder.my_atom.loc, /obj/machinery/bunsen_burner))
-						if(holder.my_atom.loc:heated)
-							var/bvolume = holder.get_reagent_amount("benazine")
-							if(bvolume > created_volume / 2)
-								bvolume = created_volume
-							holder.add_reagent("hyperzine", bvolume)
-							holder.isolate_reagent("hyperzine")
-				else
-					var/datum/effect/effect/system/reagents_explosion/e = new()
-					e.set_up(round (created_volume/10, 1), holder.my_atom, 0, 0)
-					e.holder_damage(holder.my_atom)
-					if(isliving(holder.my_atom))
+				var/datum/effect/effect/system/reagents_explosion/e = new()
+				e.set_up(round (created_volume/10, 1), holder.my_atom, 0, 0)
+				e.holder_damage(holder.my_atom)
+				if(isliving(holder.my_atom))
+					e.amount *= 0.5
+					var/mob/living/L = holder.my_atom
+					if(L.stat!=DEAD)
 						e.amount *= 0.5
-						var/mob/living/L = holder.my_atom
-						if(L.stat!=DEAD)
-							e.amount *= 0.5
-					e.start()
-					holder.clear_reagents()
-					return
+				e.start()
+				holder.clear_reagents()
+				return
 
 		emp_pulse
 			name = "EMP Pulse"
@@ -279,24 +269,12 @@ datum
 			required_reagents = list("inaprovaline" = 1, "carbon" = 1)
 			result_amount = 2
 
-		benazine
-			name = "Benazine"
-			id = "benarzine"
-			result = "benazine"
-			required_reagents = list("sugar" = 1, "phosphorus" = 1, "sulfur" = 1,)
-			result_amount = 3
-
-/*
-		Made with benazine and potassium/water combo sekrit recipe.
-
 		hyperzine
 			name = "Hyperzine"
 			id = "hyperzine"
 			result = "hyperzine"
-			required_reagents = list("benazine" = 1, "potassium" = 1, "water" = 1,)
+			required_reagents = list("sugar" = 1, "phosphorus" = 1, "sulfur" = 1,)
 			result_amount = 3
-			requires_heating = 1
-*/
 
 		ryetalyn
 			name = "Ryetalyn"
@@ -410,7 +388,7 @@ datum
 
 							flick("e_flash", M.flash)
 							M.Stun(5)
-
+/*
 		napalm
 			name = "Napalm"
 			id = "napalm"
@@ -433,7 +411,7 @@ datum
 					spawn (0) target_tile.hotspot_expose(700, 400)
 				holder.del_reagent("napalm")
 				return
-
+*/
 		/*
 		smoke
 			name = "Smoke"

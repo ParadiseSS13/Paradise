@@ -247,13 +247,16 @@
 
 /atom/proc/AltClick(var/mob/user)
 	var/turf/T = get_turf(src)
-	if(T && T.Adjacent(user))
-		if(user.listed_turf == T)
+	if(T && user.TurfAdjacent(T))
+		if(user. == T)
 			user.listed_turf = null
 		else
 			user.listed_turf = T
 			user.client.statpanel = T.name
 	return
+
+/mob/proc/TurfAdjacent(var/turf/T)
+	return T.Adjacent(src)
 
 /*
 	Misc helpers

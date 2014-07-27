@@ -1,4 +1,7 @@
 # DMITool Difference Report: Z:\Git\Space Station 13\Baystation12\icons\mob\in-hand\left Z:\Git\Space Station 13\Baystation12\icons\mob\in-hand\right
+--- Z:\Git\Space Station 13\Baystation12\icons\mob\in-hand\left\ambassdor_left.dmi
++++ Z:\Git\Space Station 13\Baystation12\icons\mob\in-hand\right\ambassdor_left.dmi
+ + kidanspear
 --- Z:\Git\Space Station 13\Baystation12\icons\mob\in-hand\left\cable_stuff.dmi
 +++ Z:\Git\Space Station 13\Baystation12\icons\mob\in-hand\right\cable_stuff.dmi
  + cuff_cyan

@@ -203,6 +203,23 @@
 /obj/spacepod/random
 	icon_state = "pod_civ"
 // placeholder
+
+/obj/spacepod/sec
+	name = "\improper security spacepod"
+	desc = "An armed security spacepod."
+	icon_state = "pod_mil"
+
+/obj/spacepod/sec/New()
+	..()
+	var/obj/item/device/spacepod_equipment/weaponry/taser/burst/T = new /obj/item/device/spacepod_equipment/weaponry/taser/burst
+	T.loc = equipment_system
+	equipment_system.weapon_system = T
+	equipment_system.weapon_system.my_atom = T
+	var/path = text2path("[T.type]/proc/fire_weapon_system")
+	if(path)
+		verbs += path//obj/spacepod/proc/fire_weapons
+	return
+
 /obj/spacepod/random/New()
 	..()
 	icon_state = pick("pod_civ", "pod_black", "pod_mil", "pod_synd", "pod_gold", "pod_industrial")

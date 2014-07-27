@@ -44,7 +44,7 @@
 	client.screen -= hud_used.power_action_list
 
 	hud_used.power_action_list = list()
-	for(var/obj/effect/proc_holder/spell/S in spell_list)
+	for(var/obj/effect/proc_holder/spell/wizard/S in spell_list)
 		if(S.icon_power_button)
 			var/obj/screen/power_action/P = new(hud_used)
 			P.icon = 'icons/mob/screen1_action.dmi'

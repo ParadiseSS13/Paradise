@@ -355,7 +355,7 @@ mob/living/simple_animal/borer/proc/detatch()
 	host.verbs -= /mob/living/carbon/proc/spawn_larvae
 
 
-	if(host_brain && host_brain.ckey)
+	if(host_brain)
 
 		// host -> self
 		var/h2s_id = host.computer_id

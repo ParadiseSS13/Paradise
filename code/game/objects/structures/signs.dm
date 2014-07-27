@@ -150,15 +150,10 @@
 	desc = "This plaque commemorates the fall of the Atmos FEA division. For all the charred, dizzy, and brittle men who have died in its hands."
 	icon_state = "atmosplaque"
 
-/obj/structure/sign/double/maltesefalcon	//The sign is 64x32, so it needs two tiles. ;3
-	name = "The Maltese Falcon"
-	desc = "The Maltese Falcon, Space Bar and Grill."
-
-/obj/structure/sign/double/maltesefalcon/left
-	icon_state = "maltesefalcon-left"
-
-/obj/structure/sign/double/maltesefalcon/right
-	icon_state = "maltesefalcon-right"
+/obj/structure/sign/kidanplaque
+	name = "Kidan wall trophy"
+	desc = "A dead and stuffed Diona nymph, mounted on a board."
+	icon_state = "kidanplaque"
 
 /obj/structure/sign/science			//These 3 have multiple types, just var-edit the icon_state to whatever one you want on the map
 	name = "\improper SCIENCE!"
@@ -229,3 +224,4 @@
 	name = "\improper Escape Arm"
 	desc = "A direction sign, pointing out which way escape shuttle dock is."
 	icon_state = "direction_evac"
+

@@ -155,14 +155,14 @@
 
 	// sync the organ's damage with its wounds
 	src.update_damages()
-	
+
 	//If limb took enough damage, try to cut or tear it off
 	if(body_part != UPPER_TORSO && body_part != LOWER_TORSO) //as hilarious as it is, getting hit on the chest too much shouldn't effectively gib you.
 		if(config.limbs_can_break && brute_dam >= max_damage * config.organ_health_multiplier)
 			if( (edge && prob(5 * brute)) || (brute > 20 && prob(2 * brute)) )
 				droplimb(1)
 				return
-	
+
 	owner.updatehealth()
 
 	var/result = update_icon()
@@ -396,16 +396,16 @@ Note that amputating the affected organ does in fact remove the infection from t
 
 	if(germ_level >= INFECTION_LEVEL_ONE)
 		//having an infection raises your body temperature
-		var/fever_temperature = (owner.species.heat_level_1 - owner.species.body_temperature - 1)* min(germ_level/(INFECTION_LEVEL_ONE+300), 1) + owner.species.body_temperature
-		if (owner.bodytemperature < fever_temperature)
-			//world << "fever: [owner.bodytemperature] < [fever_temperature], raising temperature."
-			owner.bodytemperature++
+		var/fever_temperature = (owner.species.heat_level_1 - owner.species.body_temperature - 1)* min(germ_level/INFECTION_LEVEL_TWO, 1) + owner.species.body_temperature
+		if (fever_temperature > owner.bodytemperature)
+			//need to make sure we raise temperature fast enough to get around environmental cooling preventing us from reaching fever_temperature
+			owner.bodytemperature += (fever_temperature - T20C)/BODYTEMP_COLD_DIVISOR + 1
 
 		if(prob(round(germ_level/10)))
 			if (antibiotics < 5)
 				germ_level++
 
-			if (prob(5))	//adjust this to tweak how fast people take toxin damage from infections
+			if (prob(10))	//adjust this to tweak how fast people take toxin damage from infections
 				owner.adjustToxLoss(1)
 
 	if(germ_level >= INFECTION_LEVEL_TWO && antibiotics < 5)
@@ -444,6 +444,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 		if (!(status & ORGAN_DEAD))
 			status |= ORGAN_DEAD
 			owner << "<span class='notice'>You can't feel your [display_name] anymore...</span>"
+			owner.update_body(1)
 
 		germ_level++
 		owner.adjustToxLoss(1)
@@ -810,13 +811,13 @@ Note that amputating the affected organ does in fact remove the infection from t
 			return 1
 	return 0
 
-/datum/organ/external/get_icon(gender="")
+/datum/organ/external/get_icon(gender="", fat="")
 	if (status & ORGAN_MUTATED)
-		return new /icon(owner.deform_icon, "[icon_name][gender ? "_[gender]" : ""]")
+		return new /icon(owner.deform_icon, "[icon_name][gender ? "_[gender]" : ""][fat ? "_fat" : ""]")
 	else if (status & ORGAN_ROBOT && !(owner.species && owner.species.flags & IS_SYNTHETIC))
 		return new /icon('icons/mob/human_races/robotic.dmi', "[icon_name][gender ? "_[gender]" : ""]")
 	else
-		return new /icon(owner.race_icon, "[icon_name][gender ? "_[gender]" : ""]")
+		return new /icon(owner.race_icon, "[icon_name][gender ? "_[gender]" : ""][fat ? "_fat" : ""]")
 
 
 /datum/organ/external/proc/is_usable()

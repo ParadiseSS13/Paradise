@@ -13,6 +13,8 @@
 	using.icon = ui_style
 	using.icon_state = "intent_"+mymob.a_intent
 	using.screen_loc = ui_acti
+	using.color = ui_color
+	using.alpha = ui_alpha
 	using.layer = 20
 	src.adding += using
 	action_intent = using
@@ -27,6 +29,7 @@
 	using.name = "help"
 	using.icon = ico
 	using.screen_loc = ui_acti
+	using.alpha = ui_alpha
 	using.layer = 21
 	src.adding += using
 	help_intent = using
@@ -38,6 +41,7 @@
 	using.name = "disarm"
 	using.icon = ico
 	using.screen_loc = ui_acti
+	using.alpha = ui_alpha
 	using.layer = 21
 	src.adding += using
 	disarm_intent = using
@@ -49,6 +53,7 @@
 	using.name = "grab"
 	using.icon = ico
 	using.screen_loc = ui_acti
+	using.alpha = ui_alpha
 	using.layer = 21
 	src.adding += using
 	grab_intent = using
@@ -60,6 +65,7 @@
 	using.name = "harm"
 	using.icon = ico
 	using.screen_loc = ui_acti
+	using.alpha = ui_alpha
 	using.layer = 21
 	src.adding += using
 	hurt_intent = using
@@ -437,7 +443,7 @@
 	mymob.flash.icon = ui_style
 	mymob.flash.icon_state = "blank"
 	mymob.flash.name = "flash"
-	mymob.flash.screen_loc = "1,1 to 15,15"
+	mymob.flash.screen_loc = "1,1 to 17,17"
 	mymob.flash.layer = 17
 
 	mymob.pain = new /obj/screen( null )
@@ -451,23 +457,24 @@
 
 	//Handle the gun settings buttons
 	mymob.gun_setting_icon = new /obj/screen/gun/mode(null)
+	//mymob.gun_setting_icon.color = ui_color
+	mymob.gun_setting_icon.alpha = ui_alpha
+
+	mymob.item_use_icon = new /obj/screen/gun/item(null)
+	//mymob.item_use_icon.color = ui_color
+	mymob.item_use_icon.alpha = ui_alpha
+
+	mymob.gun_move_icon = new /obj/screen/gun/move(null)
+	//mymob.gun_move_icon.color = ui_color
+	mymob.gun_move_icon.alpha = ui_alpha
+
+	mymob.gun_run_icon = new /obj/screen/gun/run(null)
+	//mymob.gun_run_icon.color = ui_color
+	mymob.gun_run_icon.alpha = ui_alpha
+
 	if (mymob.client)
 		if (mymob.client.gun_mode) // If in aim mode, correct the sprite
 			mymob.gun_setting_icon.dir = 2
-	for(var/obj/item/weapon/gun/G in mymob) // If targeting someone, display other buttons
-		if (G.target)
-			mymob.item_use_icon = new /obj/screen/gun/item(null)
-			if (mymob.client.target_can_click)
-				mymob.item_use_icon.dir = 1
-			src.adding += mymob.item_use_icon
-			mymob.gun_move_icon = new /obj/screen/gun/move(null)
-			if (mymob.client.target_can_move)
-				mymob.gun_move_icon.dir = 1
-				mymob.gun_run_icon = new /obj/screen/gun/run(null)
-				if (mymob.client.target_can_run)
-					mymob.gun_run_icon.dir = 1
-				src.adding += mymob.gun_run_icon
-			src.adding += mymob.gun_move_icon
 
 
 	mymob.client.screen = null
@@ -510,6 +517,7 @@
 				I = U.hastie
 		if(I.icon_action_button)
 			var/obj/screen/item_action/A = new(hud_used)
+
 			//A.icon = 'icons/mob/screen1_action.dmi'
 			//A.icon_state = I.icon_action_button
 

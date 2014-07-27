@@ -143,14 +143,6 @@
 		M << "\red You are heated by the warmth of the of the [name]!"
 		M.bodytemperature += potency/2 * TEMPERATURE_DAMAGE_COEFFICIENT
 
-/obj/item/weapon/grown/novaflower/afterattack(atom/A as mob|obj, mob/user as mob,proximity)
-	if(!proximity) return
-	if(endurance > 0)
-		endurance -= rand(1,(endurance/3)+1)
-	else
-		usr << "All the petals have fallen off the [name] from violent whacking."
-		del(src)
-
 /obj/item/weapon/grown/novaflower/pickup(mob/living/carbon/human/user as mob)
 	if(!user.gloves)
 		user << "\red The [name] burns your bare hand!"

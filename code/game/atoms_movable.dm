@@ -14,6 +14,19 @@
 	var/moved_recently = 0
 	var/mob/pulledby = null
 
+	var/area/areaMaster
+
+
+/atom/movable/New()
+	. = ..()
+	areaMaster = get_area_master(src)
+
+
+// Used in shuttle movement and AI eye stuff.
+// Primarily used to notify objects being moved by a shuttle/bluespace fuckup.
+/atom/movable/proc/setLoc(var/T, var/teleported=0)
+	loc = T
+
 /atom/movable/Move()
 	var/atom/A = src.loc
 	. = ..()

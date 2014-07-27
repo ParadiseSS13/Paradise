@@ -8,7 +8,7 @@ mob/spirit/proc/Spirit_Move(direct)
 
 	var/initial = initial(sprint)
 	var/max_sprint = 50
-	
+
 	// if we haven't moved in a while, we stop sprinting
 	if(cooldown && cooldown < world.timeofday) // 3 seconds
 		sprint = initial
@@ -19,25 +19,25 @@ mob/spirit/proc/Spirit_Move(direct)
 			setLoc(step)
 
 	dir = direct // update our sprite
-	
+
 	cooldown = world.timeofday + 5
 	if(acceleration)
 		sprint = min(sprint + 0.5, max_sprint)
 	else
 		sprint = initial
-	
+
 	// if we're trying to move, we want to stop following our target
 	follow_target = null
-	
-	
+
+
 /mob/spirit/proc/follow_cultist(mob/living/target as mob)
 	if(!istype(target))	return
 	var/obj/cult_viewpoint/currentView = getCultViewpoint(target)
 	var/mob/spirit/U = usr
-	
+
 	if (!currentView)
 		U << "As a spirit, you may only track cultists."
-	
+
 	U.follow_target = target
 	U << "Now following [currentView.get_cult_name()]."
 
@@ -47,9 +47,9 @@ mob/spirit/proc/Spirit_Move(direct)
 				return
 			U.setLoc(get_turf(target))
 			sleep(10)
-			
-			
-mob/spirit/proc/setLoc(var/T)
+
+
+mob/spirit/setLoc(var/T)
 	T = get_turf(T)
 	loc = T
 	cultNetwork.visibility(src)

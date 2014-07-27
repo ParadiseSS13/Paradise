@@ -1013,7 +1013,9 @@ proc/anim(turf/location as turf,target as mob|obj,a_icon,a_icon_state as text,fl
 							del(O) // prevents multiple shuttle corners from stacking
 							continue
 						if(!istype(O,/obj)) continue
-						O.loc = X
+						O.loc.Exited(O)
+						O.setLoc(X,teleported=1)
+						O.loc.Entered(O)
 					for(var/mob/M in T)
 						if(!M.move_on_shuttle)
 							continue

@@ -301,6 +301,9 @@ var/global/list/uneatable = list(
 		gain = 2
 	else if(isturf(A))
 		var/turf/T = A
+		if(istype(T,/turf/simulated/wall))
+			var/turf/simulated/wall/W = T
+			W.del_suppress_resmoothing=1 // Reduce lag from wallsmoothing.
 		if(T.intact)
 			for(var/obj/O in T.contents)
 				if(O.level != 1)
@@ -565,6 +568,9 @@ var/global/list/uneatable = list(
 		O.loc = null
 	else if(isturf(A))
 		var/turf/T = A
+		if(istype(T,/turf/simulated/wall))
+			var/turf/simulated/wall/W = T
+			W.del_suppress_resmoothing=1 // Reduce lag from wallsmoothing.
 		if(T.intact)
 			for(var/obj/O in T.contents)
 				if(O.level != 1)

@@ -21,8 +21,11 @@
 
 	if (istype(loc, /turf/space)) return -1 // It's hard to be slowed down in space by... anything
 
-	var/health_deficiency = (100 - health + halloss)
+	var/health_deficiency = (100 - health)
+
 	if(health_deficiency >= 40) tally += (health_deficiency / 25)
+
+	if(halloss >= 10) tally += (halloss / 10)
 
 	var/hungry = (500 - nutrition)/5 // So overeat would be 100 and default level would be 80
 	if (hungry >= 70) tally += hungry/50

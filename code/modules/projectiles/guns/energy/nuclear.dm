@@ -29,6 +29,11 @@
 				projectile_type = "/obj/item/projectile/beam/stun"
 				modifystate = "energystun"
 		update_icon()
+		if(user.l_hand == src)
+			user.update_inv_l_hand()
+		else
+			user.update_inv_r_hand()
+
 
 
 

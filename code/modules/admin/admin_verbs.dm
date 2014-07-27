@@ -131,8 +131,8 @@ var/list/admin_verbs_server = list(
 	/client/proc/cmd_admin_change_custom_event,
 	/client/proc/cmd_admin_create_centcom_report,
 	/client/proc/cmd_admin_dress,
-	/client/proc/response_team // Response Teams admin verb
-
+	/client/proc/response_team, // Response Teams admin verb
+	/client/proc/nanomapgen_DumpImage
 	)
 var/list/admin_verbs_debug = list(
 	/client/proc/cmd_admin_list_open_jobs,
@@ -397,7 +397,7 @@ var/list/admin_verbs_mod = list(
 	set category = "Event"
 	set name = "Give Spell"
 	set desc = "Gives a spell to a mob."
-	var/obj/effect/proc_holder/spell/S = input("Choose the spell to give to that guy", "ABRAKADABRA") as null|anything in spells
+	var/obj/effect/proc_holder/spell/wizard/S = input("Choose the spell to give to that guy", "ABRAKADABRA") as null|anything in spells
 	if(!S) return
 	T.spell_list += new S
 	T.update_power_buttons()

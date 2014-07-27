@@ -249,3 +249,8 @@ obj/item/weapon/twohanded/
 /obj/item/weapon/twohanded/spear/attack(mob/living/carbon/M as mob, mob/living/carbon/user as mob)
 	playsound(loc, 'sound/weapons/bladeslice.ogg', 50, 1, -1)
 	return ..()
+
+/obj/item/weapon/twohanded/spear/kidan
+	icon_state = "kidanspear0"
+	name = "Kidan spear"
+	desc = "A spear brought over from the Kidan homeworld."

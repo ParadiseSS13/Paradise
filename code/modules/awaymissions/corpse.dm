@@ -28,6 +28,9 @@
 	var/coffin = 0
 
 /obj/effect/landmark/corpse/initialize()
+	if(istype(src,/obj/effect/landmark/corpse/clown))
+		var/obj/effect/landmark/corpse/clown/C = src
+		C.chooseRank()
 	createCorpse()
 
 /obj/effect/landmark/corpse/proc/createCorpse() //Creates a mob and checks for gear in each slot before attempting to equip it.
@@ -172,17 +175,36 @@
 	corpsehelmet = /obj/item/clothing/head/helmet/space/rig
 
 /obj/effect/landmark/corpse/clown
-	name = "Clown"
-	corpseuniform = /obj/item/clothing/under/rank/clown
-	corpseshoes = /obj/item/clothing/shoes/clown_shoes
-	corpseradio = /obj/item/device/radio/headset
-	corpsemask = /obj/item/clothing/mask/gas/clown_hat
-	corpsepocket1 = /obj/item/weapon/bikehorn
-	corpseback = /obj/item/weapon/storage/backpack/clown
-	corpseid = 1
-	corpseidjob = "Clown"
-	corpseidaccess = "Clown"
-	timeofdeath = -50000
+
+/obj/effect/landmark/corpse/clown/proc/chooseRank()
+	if(prob(10))
+		name = "Clown Officer"
+		corpseuniform = /obj/item/clothing/under/officeruniform
+		corpsesuit = /obj/item/clothing/suit/officercoat
+		corpseshoes = /obj/item/clothing/shoes/clown_shoes
+		corpseradio = /obj/item/device/radio/headset
+		corpsemask = /obj/item/clothing/mask/gas/clown_hat
+		corpsepocket1 = /obj/item/weapon/bikehorn
+		corpseback = /obj/item/weapon/storage/backpack/clown
+		corpsehelmet = /obj/item/clothing/head/naziofficer
+		corpseid = 1
+		corpseidjob = "Clown Officer"
+		corpseidaccess = "Clown"
+		timeofdeath = -50000
+	else
+		name = "Clown Soldier"
+		corpseuniform = /obj/item/clothing/under/soldieruniform
+		corpsesuit = /obj/item/clothing/suit/soldiercoat
+		corpseshoes = /obj/item/clothing/shoes/clown_shoes
+		corpseradio = /obj/item/device/radio/headset
+		corpsemask = /obj/item/clothing/mask/gas/clown_hat
+		corpsepocket1 = /obj/item/weapon/bikehorn
+		corpseback = /obj/item/weapon/storage/backpack/clown
+		corpsehelmet = /obj/item/clothing/head/stalhelm
+		corpseid = 1
+		corpseidjob = "Clown Soldier"
+		corpseidaccess = "Clown"
+		timeofdeath = -50000
 
 /obj/effect/landmark/corpse/clownking
 	name = "Clown King"

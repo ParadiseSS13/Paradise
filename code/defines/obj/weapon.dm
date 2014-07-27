@@ -64,7 +64,7 @@
 
 /obj/item/weapon/soap/deluxe
 	icon_state = "soapdeluxe"
-    
+
 /obj/item/weapon/soap/deluxe/New()
 	desc = "A deluxe Waffle Co. brand bar of soap. Smells of [pick("lavender", "vanilla", "strawberry", "chocolate" ,"space")]."
 
@@ -548,8 +548,8 @@
 
 /obj/item/weapon/scythe/afterattack(atom/A, mob/user as mob, proximity)
 	if(!proximity) return
-	if(istype(A, /obj/effect/spacevine))
-		for(var/obj/effect/spacevine/B in orange(A,1))
+	if(istype(A, /obj/effect/plantsegment))
+		for(var/obj/effect/plantsegment/B in orange(A,1))
 			if(prob(80))
 				del B
 		del A
@@ -890,3 +890,8 @@ proc
 	icon_state = "rollball"
 	desc = "A device bored paper pushers use to remind themselves that the time did not stop yet."
 
+/obj/item/weapon/kidanglobe
+	name = "Kidan homeworld globe"
+	icon = 'icons/obj/decorations.dmi'
+	icon_state = "kidanglobe"
+	desc = "A globe of the Kidan homeworld."

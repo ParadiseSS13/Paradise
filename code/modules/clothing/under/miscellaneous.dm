@@ -504,3 +504,17 @@
 	icon_state = "colin_earle"
 	item_state = "colin_earle"
 	_color = "colin_earle"
+
+/obj/item/clothing/under/officeruniform
+	name = "Clown Officer's Uniform"
+	desc = "For Clown officers, this uniform was designed by the great clown designer Hugo Boss."
+	icon_state = "officeruniform"
+	_color = "officeruniform"
+	body_parts_covered = UPPER_TORSO|LOWER_TORSO
+
+/obj/item/clothing/under/soldieruniform
+	name = "Clown Soldier's Uniform"
+	desc = "For the basic grunt of the Clown army."
+	icon_state = "soldieruniform"
+	_color = "soldieruniform"
+	body_parts_covered = UPPER_TORSO|LOWER_TORSO

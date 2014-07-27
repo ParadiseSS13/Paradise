@@ -293,3 +293,26 @@
 	name = "brown fedora"
 	icon_state = "bfedora"
 	loose = 35
+
+/obj/item/clothing/head/stalhelm
+	name = "Clown Stalhelm"
+	desc = "The typical clown soldier's helmet."
+	icon_state = "stalhelm"
+	item_state = "stalhelm"
+	flags = FPRINT | TABLEPASS | BLOCKHAIR
+	flags_inv = HIDEEARS
+
+/obj/item/clothing/head/panzer
+	name = "Clown HONKMech Cap"
+	desc = "The softcap worn by HONK Mech pilots."
+	icon_state = "panzercap"
+	item_state = "panzercap"
+	flags = FPRINT | TABLEPASS | BLOCKHAIR
+
+/obj/item/clothing/head/naziofficer
+	name = "Clown Officer Cap"
+	desc = "The peaked clown officer's cap, disturbingly similar to the warden's."
+	icon_state = "officercap"
+	item_state = "officercap"
+	flags = FPRINT | TABLEPASS | BLOCKHAIR
+	flags_inv = HIDEEARS

@@ -1,8 +1,8 @@
 /obj/vehicle/train/cargo/engine
 	name = "cargo train tug"
 	desc = "A ridable electric car designed for pulling cargo trolleys."
-	icon = 'icons/obj/aibots.dmi'
-	icon_state = "mulebot1"			//mulebot icons until I get some proper icons
+	icon = 'icons/obj/vehicles.dmi'
+	icon_state = "cargo_engine"
 	on = 0
 	powered = 1
 	locked = 0
@@ -10,7 +10,7 @@
 	standing_mob = 1
 	load_item_visible = 1
 	load_offset_x = 0
-	load_offset_y = 5
+	load_offset_y = 7
 
 	var/car_limit = 3		//how many cars an engine can pull before performance degrades
 	active_engines = 1
@@ -25,16 +25,16 @@
 
 /obj/vehicle/train/cargo/trolley
 	name = "cargo train trolley"
-	icon = 'icons/vehicles/CargoTrain.dmi'
-	icon_state = "trolley"
+	icon = 'icons/obj/vehicles.dmi'
+	icon_state = "cargo_trailer"
 	anchored = 0
 	passenger_allowed = 0
 	locked = 0
 
 	standing_mob = 1
 	load_item_visible = 1
-	load_offset_x = 1
-	load_offset_y = 7
+	load_offset_x = 0
+	load_offset_y = 4
 
 //-------------------------------------------
 // Standard procs
@@ -44,6 +44,8 @@
 	cell = new /obj/item/weapon/cell/high
 	verbs -= /atom/movable/verb/pull
 	key = new()
+	var/image/I = new(icon = 'icons/obj/vehicles.dmi', icon_state = "cargo_engine_overlay", layer = src.layer + 0.2) //over mobs
+	overlays += I
 
 /obj/vehicle/train/cargo/engine/Move()
 	if(on && cell.charge < power_use)
@@ -76,13 +78,9 @@
 
 /obj/vehicle/train/cargo/update_icon()
 	if(open)
-		icon_state = "mulebot-hatch"
+		icon_state = initial(icon_state) + "_open"
 	else
 		icon_state = initial(icon_state)
-
-/obj/vehicle/train/cargo/engine/Emag(mob/user as mob)
-	..()
-	flick("mulebot-emagged", src)
 
 /obj/vehicle/train/cargo/trolley/insert_cell(var/obj/item/weapon/cell/C, var/mob/living/carbon/human/H)
 	return
@@ -248,7 +246,13 @@
 	if(!istype(C,/obj/machinery) && !istype(C,/obj/structure/closet) && !istype(C,/obj/structure/largecrate) && !istype(C,/obj/structure/reagent_dispensers) && !istype(C,/obj/structure/ore_box) && !ismob(C))
 		return 0
 
-	return ..()
+	..()
+	
+	if(istype(load, /mob/living/carbon/human))
+		load.pixel_y += 4
+	
+	if(load)
+		return 1
 
 /obj/vehicle/train/cargo/engine/load(var/atom/movable/C)
 	if(!ismob(C))

@@ -853,7 +853,7 @@ var/list/slot_equipment_priority = list( \
 				stat(null, "MasterController-ERROR")
 
 	if(listed_turf && client)
-		if(get_dist(listed_turf,src) > 1)
+		if(!TurfAdjacent(listed_turf))
 			listed_turf = null
 		else
 			statpanel(listed_turf.name, null, listed_turf)
@@ -863,7 +863,7 @@ var/list/slot_equipment_priority = list( \
 				statpanel(listed_turf.name, null, A)
 
 	if(spell_list && spell_list.len)
-		for(var/obj/effect/proc_holder/spell/S in spell_list)
+		for(var/obj/effect/proc_holder/spell/wizard/S in spell_list)
 			switch(S.charge_type)
 				if("recharge")
 					statpanel(S.panel,"[S.charge_counter/10.0]/[S.charge_max/10]",S)
@@ -910,7 +910,11 @@ var/list/slot_equipment_priority = list( \
 	else
 		lying = 0
 		canmove = 1
-	if(buckled && (!buckled.movable))
+	var/is_movable
+	if(buckled && istype(buckled))
+		is_movable = buckled.movable
+
+	if(buckled && !is_movable)
 		anchored = 1
 		canmove = 0
 		if( istype(buckled,/obj/structure/stool/bed/chair) )
@@ -923,7 +927,7 @@ var/list/slot_equipment_priority = list( \
 				lying = 1
 		else
 			lying = 1
-	else if(buckled && (buckled.movable))
+	else if(buckled && is_movable)
 		anchored = 0
 		canmove = 1
 		lying = 0

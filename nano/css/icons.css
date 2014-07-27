@@ -231,11 +231,12 @@
     position: absolute;
     width: 16px;
     height: 16px;
-    margin: -8px 0 0 -8px;
     background-image: url(uiIcons16Green.png);
     background-position: -144px -96px;
     background-repeat: no-repeat;
     zoom: 0.125;
+    margin-left: -1px;
+    /*margin-bottom: -1px;*/
 }
 .mapIcon16.dead {
     background-image: url(uiIcons16Red.png);

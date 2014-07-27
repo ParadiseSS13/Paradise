@@ -894,7 +894,7 @@ var/global/list/obj/item/device/pda/PDAs = list()
 				if(istype(M, /mob/new_player))
 					continue
 				M.show_message("<span class='game say'>PDA Message - <span class='name'>[owner]</span> -> <span class='name'>[P.owner]</span>: <span class='message'>[t]</span></span>")
-
+		investigate_log("<span class='game say'>PDA Message - <span class='name'>[U.key] - [owner]</span> -> <span class='name'>[P.owner]</span>: <span class='message'>[t]</span></span>", "pda")
 		if(!conversations.Find("\ref[P]"))
 			conversations.Add("\ref[P]")
 		if(!P.conversations.Find("\ref[src]"))

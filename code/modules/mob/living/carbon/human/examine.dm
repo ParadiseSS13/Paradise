@@ -240,9 +240,7 @@
 
 	msg += "</span>"
 
-	if(stat == UNCONSCIOUS)
-		msg += "[t_He] [t_is]n't responding to anything around [t_him] and seems to be asleep.\n"
-	else if(getBrainLoss() >= 60)
+	if(getBrainLoss() >= 60)
 		msg += "[t_He] [t_has] a stupid expression on [t_his] face.\n"
 
 	if(!key && brain_op_stage != 4 && stat != DEAD)

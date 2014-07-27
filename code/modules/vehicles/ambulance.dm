@@ -111,7 +111,7 @@
 		return //so people can't knock others over by pushing a trolley around
 	..()
 
-/obj/vehicle/train/ambulance/engine/proc/handle_rotation()
+/obj/vehicle/train/ambulance/engine/handle_rotation()
 	if(dir == SOUTH)
 		layer = FLY_LAYER
 	else
