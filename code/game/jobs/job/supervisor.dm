@@ -216,6 +216,7 @@
 		H.equip_or_collect(new /obj/item/weapon/storage/box/survival(H.back), slot_in_backpack)
 		H.equip_or_collect(new /obj/item/clothing/gloves/combat(H), slot_gloves)
 		H.equip_or_collect(new /obj/item/clothing/shoes/jackboots(H), slot_shoes)
+		H.equip_or_collect(new /obj/item/clothing/glasses/hud/health_advanced, slot_glasses)
 		H.equip_if_possible(new /obj/item/clothing/under/rank/centcom/representative(H), slot_w_uniform)
 		H.equip_if_possible(new /obj/item/clothing/suit/armor/vest/fluff/deus_blueshield(H), slot_wear_suit)
 		H.equip_or_collect(new /obj/item/device/pda/heads/hop(H), slot_wear_pda)

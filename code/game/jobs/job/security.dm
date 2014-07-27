@@ -220,6 +220,7 @@
 			if(4) H.equip_or_collect(new /obj/item/weapon/storage/backpack/satchel(H), slot_back)
 		H.equip_or_collect(new /obj/item/clothing/under/rank/medical(H), slot_w_uniform)
 		H.equip_or_collect(new /obj/item/clothing/suit/storage/fr_jacket(H), slot_wear_suit)
+		H.equip_or_collect(new /obj/item/clothing/glasses/hud/health_advanced, slot_glasses)
 		H.equip_or_collect(new /obj/item/clothing/shoes/white(H), slot_shoes)
 		H.equip_or_collect(new /obj/item/device/pda/medical(H), slot_wear_pda)
 		H.equip_or_collect(new /obj/item/weapon/storage/firstaid/adv(H), slot_l_hand)

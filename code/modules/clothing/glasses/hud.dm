@@ -15,9 +15,24 @@
 	desc = "A heads-up display that scans the humans in view and provides accurate data about their health status."
 	icon_state = "healthhud"
 
+/obj/item/clothing/glasses/hud/health_advanced
+	name = "Advanced Health Scanner HUD"
+	desc = "A heads-up display that scans the humans in view and provides accurate data about their health status.  Includes anti-flash filter."
+	icon_state = "healthhud"
+
 
 
 /obj/item/clothing/glasses/hud/health/process_hud(var/mob/M)
+	if(!M)	return
+	if(!M.client)	return
+	var/client/C = M.client
+	for(var/mob/living/carbon/human/patient in view(get_turf(M)))
+		if(M.see_invisible < patient.invisibility)
+			continue
+		C.images += patient.hud_list[HEALTH_HUD]
+		C.images += patient.hud_list[STATUS_HUD]
+
+/obj/item/clothing/glasses/hud/health_advanced/process_hud(var/mob/M)
 	if(!M)	return
 	if(!M.client)	return
 	var/client/C = M.client
@@ -32,7 +47,7 @@
 	name = "Security HUD"
 	desc = "A heads-up display that scans the humans in view and provides accurate data about their ID status and security records."
 	icon_state = "securityhud"
-	var/global/list/jobs[0] 
+	var/global/list/jobs[0]
 
 /obj/item/clothing/glasses/hud/security/jensenshades
 	name = "Augmented shades"
