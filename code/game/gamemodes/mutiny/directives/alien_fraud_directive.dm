@@ -11,8 +11,8 @@ datum/directive/terminations/alien_fraud
 datum/directive/terminations/alien_fraud/get_crew_to_terminate()
 	var/list/aliens[0]
 	for(var/mob/M in player_list)
-		if (M.is_ready() && is_alien(M))
-			aliens+=(M)
+		if (M.is_ready() && is_alien(M) && M != mode.head_loyalist.current)
+			aliens.Add(M)
 	return aliens
 
 datum/directive/terminations/alien_fraud/get_description()
