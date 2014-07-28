@@ -154,18 +154,22 @@
 	..()
 
 
-/obj/item/device/camera/proc/get_icon(turf/the_turf as turf)
+/obj/item/device/camera/proc/get_icon(list/turfs, turf/center)
+
 	//Bigger icon base to capture those icons that were shifted to the next tile
 	//i.e. pretty much all wall-mounted machinery
 	var/icon/res = icon('icons/effects/96x96.dmi', "")
+	// Initialize the photograph to black.
+	res.Blend("#000", ICON_OVERLAY)
 
 	var/atoms[] = list()
-	// Add outselves to the list of stuff to draw
-	atoms.Add(the_turf);
-	// As well as anything that isn't invisible.
-	for(var/atom/A in the_turf)
-		if(A.invisibility) continue
-		atoms.Add(A)
+	for(var/turf/the_turf in turfs)
+		// Add outselves to the list of stuff to draw
+		atoms.Add(the_turf);
+		// As well as anything that isn't invisible.
+		for(var/atom/A in the_turf)
+			if(A.invisibility) continue
+			atoms.Add(A)
 
 	// Sort the atoms into their layers
 	var/list/sorted = sort_atoms_by_layer(atoms)
@@ -181,11 +185,17 @@
 				if(istype(A, /mob/living) && A:lying)
 					// If they are, apply that effect to their picture.
 					img.BecomeLying()
-				res.Blend(img, blendMode2iconMode(A.blend_mode), 33 + A.pixel_x, 33 + A.pixel_y)
-
+				// Calculate where we are relative to the center of the photo
+				var/xoff = (A.x - center.x) * 32
+				var/yoff = (A.y - center.y) * 32
+				res.Blend(img, blendMode2iconMode(A.blend_mode), 33 + A.pixel_x + xoff, 33 + A.pixel_y + yoff)
 
 	// Lastly, render any contained effects on top.
-	res.Blend(getFlatIcon(the_turf.loc), blendMode2iconMode(the_turf.blend_mode),33,33)
+	for(var/turf/the_turf in turfs)
+		// Calculate where we are relative to the center of the photo
+		var/xoff = (the_turf.x - center.x) * 32
+		var/yoff = (the_turf.y - center.y) * 32
+		res.Blend(getFlatIcon(the_turf.loc), blendMode2iconMode(the_turf.blend_mode),33 + xoff,33 + yoff)
 	return res
 
 
@@ -216,11 +226,8 @@
 	var/y_c = target.y + 1
 	var/z_c	= target.z
 
-	var/icon/temp = icon('icons/effects/96x96.dmi',"")
-	var/icon/black = icon('icons/turf/space.dmi', "black")
-	// Initialize the photograph to black.
-	temp.Blend("#000", ICON_OVERLAY)
 
+	var/list/turfs = list()
 	var/mobs = ""
 	for(var/i = 1; i <= 3; i++)
 		for(var/j = 1; j <= 3; j++)
@@ -230,9 +237,7 @@
 			if(user.client)		//To make shooting through security cameras possible
 				viewer = user.client.eye
 			if(dummy in viewers(world.view, viewer))
-				temp.Blend(get_icon(T), ICON_OVERLAY, 32 * (j-1-1), 32 - 32 * (i-1))
-			else
-				temp.Blend(black, ICON_OVERLAY, 32 * (j-1), 64 - 32 * (i-1))
+				turfs.Add(T)
 			mobs += get_mobs(T)
 			dummy.loc = null
 			dummy = null	//Alas, nameless creature	//garbage collect it instead
@@ -240,16 +245,20 @@
 		y_c--
 		x_c = x_c - 3
 
+	var/icon/photoimage = get_icon(turfs, target)
+
 	var/obj/item/weapon/photo/P = new/obj/item/weapon/photo()
 	P.loc = user.loc
 	if(!user.get_inactive_hand())
 		user.put_in_inactive_hand(P)
-	var/icon/small_img = icon(temp)
+	var/icon/small_img = icon(photoimage)
+	var/icon/tiny_img = icon(photoimage)
 	var/icon/ic = icon('icons/obj/items.dmi',"photo")
 	small_img.Scale(8, 8)
 	ic.Blend(small_img,ICON_OVERLAY, 10, 13)
 	P.icon = ic
-	P.img = temp
+	P.tiny = pc
+	P.img = photoimage
 	P.desc = mobs
 	P.pixel_x = rand(-10, 10)
 	P.pixel_y = rand(-10, 10)
