@@ -55,10 +55,10 @@
 /obj/item/weapon/photo/proc/show(mob/user as mob)
 	user << browse_rsc(img, "tmp_photo.png")
 	user << browse("<html><head><title>[name]</title></head>" \
-		+ "<body style='overflow:hidden'>" \
-		+ "<div> <img src='tmp_photo.png' width = '180'" \
-		+ "[scribble ? "<div> Written on the back:<br><i>[scribble]</i>" : ]"\
-		+ "</body></html>", "window=book;size=200x[scribble ? 400 : 200]")
+		+ "<body style='overflow:hidden;margin:0;text-align:center'>" \
+		+ "<img src='tmp_photo.png' width='192' style='-ms-interpolation-mode:nearest-neighbor' />" \
+		+ "[scribble ? "<br>Written on the back:<br><i>[scribble]</i>" : ""]"\
+		+ "</body></html>", "window=book;size=192x[scribble ? 400 : 192]")
 	onclose(user, "[name]")
 	return
 
@@ -166,18 +166,8 @@
 		if(A.invisibility) continue
 		atoms.Add(A)
 
-	//Sorting icons based on levels.
-	//JMO: I have no idea what they were doing here before, but the magic number alone
-	// was worth replacing it over. "gap = round(gap / 1.247330950103979)" really?
-	var/list/sorted = list()
-	var/j
-	for(var/i = 1 to atoms.len)
-		var/atom/c = atoms[i]
-		for(j = sorted.len, j > 0, --j)
-			var/atom/c2 = sorted[j]
-			if(c2.layer <= c.layer)
-				break
-		sorted.Insert(j+1, c)
+	// Sort the atoms into their layers
+	var/list/sorted = sort_atoms_by_layer(atoms)
 
 	for(var/i; i <= sorted.len; i++)
 		var/atom/A = sorted[i]
@@ -222,6 +212,9 @@
 
 	var/icon/temp = icon('icons/effects/96x96.dmi',"")
 	var/icon/black = icon('icons/turf/space.dmi', "black")
+	// Initialize the photograph to black.
+	temp.Blend("#000", ICON_OVERLAY)
+
 	var/mobs = ""
 	for(var/i = 1; i <= 3; i++)
 		for(var/j = 1; j <= 3; j++)

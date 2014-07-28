@@ -836,3 +836,22 @@ proc/adjust_brightness(var/color, var/value)
 	RGB[2] = Clamp(RGB[2]+value,0,255)
 	RGB[3] = Clamp(RGB[3]+value,0,255)
 	return rgb(RGB[1],RGB[2],RGB[3])
+
+proc/sort_atoms_by_layer(var/list/atoms)
+	// Comb sort icons based on levels
+	var/list/result = atoms.Copy()
+	var/gap = result.len
+	var/swapped = 1
+	while (gap > 1 || swapped)
+		swapped = 0
+		if(gap > 1)
+			gap = round(gap / 1.3) // 1.3 is the emperic comb sort coefficient
+		if(gap < 1)
+			gap = 1
+		for(var/i = 1; gap + i <= result.len; i++)
+			var/atom/l = result[i]		//Fucking hate
+			var/atom/r = result[gap+i]	//how lists work here
+			if(l.layer > r.layer)		//no "result[i].layer" for me
+				result.Swap(i, gap + i)
+				swapped = 1
+	return result
