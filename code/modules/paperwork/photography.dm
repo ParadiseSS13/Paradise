@@ -159,9 +159,10 @@
 	//i.e. pretty much all wall-mounted machinery
 	var/icon/res = icon('icons/effects/96x96.dmi', "")
 
-	res.Blend(getFlatIcon(the_turf), blendMode2iconMode(the_turf.blend_mode),33,33)
-
 	var/atoms[] = list()
+	// Add outselves to the list of stuff to draw
+	atoms.Add(the_turf);
+	// As well as anything that isn't invisible.
 	for(var/atom/A in the_turf)
 		if(A.invisibility) continue
 		atoms.Add(A)
@@ -173,13 +174,18 @@
 		var/atom/A = sorted[i]
 		if(A)
 			var/icon/img = getFlatIcon(A)//build_composite_icon(A)
-			// Check if we're looking at a mob that's lying down
-			if(istype(A, /mob/living) && A:lying)
-				// If they are, apply that effect to their picture.
-				img.BecomeLying()
 
+			// If what we got back is actually a picture, draw it.
 			if(istype(img, /icon))
+				// Check if we're looking at a mob that's lying down
+				if(istype(A, /mob/living) && A:lying)
+					// If they are, apply that effect to their picture.
+					img.BecomeLying()
 				res.Blend(img, blendMode2iconMode(A.blend_mode), 33 + A.pixel_x, 33 + A.pixel_y)
+
+
+	// Lastly, render any contained effects on top.
+	res.Blend(getFlatIcon(the_turf.loc), blendMode2iconMode(the_turf.blend_mode),33,33)
 	return res
 
 
