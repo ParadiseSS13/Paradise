@@ -21,14 +21,14 @@ var/list/mechtoys = list(
 )
 
 /area/supply/station //DO NOT TURN THE lighting_use_dynamic STUFF ON FOR SHUTTLES. IT BREAKS THINGS.
-	name = "supply shuttle"
+	name = "Supply Shuttle"
 	icon_state = "shuttle3"
 	luminosity = 1
 	lighting_use_dynamic = 0
 	requires_power = 0
 
 /area/supply/dock //DO NOT TURN THE lighting_use_dynamic STUFF ON FOR SHUTTLES. IT BREAKS THINGS.
-	name = "supply shuttle"
+	name = "Supply Shuttle"
 	icon_state = "shuttle3"
 	luminosity = 1
 	lighting_use_dynamic = 0
