@@ -682,12 +682,7 @@ proc // Creates a single icon from a given /atom or /image.  Only the first argu
 		var/image/copy
 		// Add the atom's icon itself, without pixel_x/y offsets.
 		if(!noIcon)
-			world.log << "***Rendering Icon [A.type] in state '[curstate]' on layer [A.layer] in direction [curdir]" // #JMO
 			copy = image(icon=curicon, icon_state=curstate, layer=A.layer, dir=curdir)
-			if (isnull(copy)) // #JMO
-				world.log << "****Created a null!" // #JMO
-			else // #JMO
-				world.log << "****Created a thing of type [copy.type]" // #JMO
 			copy.color = A.color
 			copy.alpha = A.alpha
 			copy.blend_mode = curblend
@@ -751,30 +746,22 @@ proc // Creates a single icon from a given /atom or /image.  Only the first argu
 				// This checks for a silent failure mode of the icon routine. If the requested dir
 				// doesn't exist in this icon state it returns a 32x32 icon with 0 alpha.
 				if (I:dir != SOUTH && add.Width() == 32 && add.Height() == 32)
-					// Since checking every pixel for blank isn't trivial, we make some assumptions about
-					// the content of the image to determine if it actually is blank. On a rare occassions
-					// this will cause the software to return a non-directional icon for when a
-					// directionalized one would be more appropriate. This is rare enough that this
-					// will suffice in place of a map rework that properly normalizes directions.
-					var/blankpixel=1;
-					// Check the four corners...
-					blankpixel &= isnull(add.GetPixel(1,1))
-					blankpixel &= isnull(add.GetPixel(32,1))
-					blankpixel &= isnull(add.GetPixel(32,32))
-					blankpixel &= isnull(add.GetPixel(32,1))
-					// The thirds...
-					blankpixel &= isnull(add.GetPixel(11,11))
-					blankpixel &= isnull(add.GetPixel(11,22))
-					blankpixel &= isnull(add.GetPixel(22,22))
-					blankpixel &= isnull(add.GetPixel(22,11))
-					// and the center...
-					blankpixel &= isnull(add.GetPixel(16,16))
+					// Check every pixel for blank (computationally expensive, but the process is limited
+					// by the amount of film on the station, only happens when we hit something that's
+					// turned, and bails at the very first pixel it sees.
+					var/blankpixel;
+					for(var/y;y<=32;y++)
+						for(var/x;x<32;x++)
+							blankpixel = isnull(add.GetPixel(x,y))
+							if(!blankpixel)
+								break
+						if(!blankpixel)
+							break
 					// If we ALWAYS returned a null (which happens when GetPixel encounters something with alpha 0)
 					if (blankpixel)
 						// Pull the default direction.
 						add = icon(I:icon, I:icon_state)
 			else // 'I' is an appearance object.
-				world.log << "***Recursing to render Icon [I:type] in state '[curstate]' in direction [curdir]" // #JMO
 				add = getFlatIcon(new/image(I), curdir, curicon, curstate, curblend)
 
 			// Find the new dimensions of the flat icon to fit the added overlay

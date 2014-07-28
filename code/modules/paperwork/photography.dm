@@ -154,16 +154,12 @@
 	..()
 
 
-/obj/item/device/camera/proc/get_icon(turf/the_turf as turf,mob/user as mob) //#JMO Added mob/user for debug for debug
+/obj/item/device/camera/proc/get_icon(turf/the_turf as turf)
 	//Bigger icon base to capture those icons that were shifted to the next tile
 	//i.e. pretty much all wall-mounted machinery
 	var/icon/res = icon('icons/effects/96x96.dmi', "")
 
-	world.log << "***Calling build composite..." //#JMO
-	//var/icon/turficon = build_composite_icon(the_turf)
 	res.Blend(getFlatIcon(the_turf), blendMode2iconMode(the_turf.blend_mode),33,33)
-	world.log << "***Exiting build composite..." //#JMO
-	//res.Blend(turficon, ICON_OVERLAY, 33, 33)
 
 	var/atoms[] = list()
 	for(var/atom/A in the_turf)
@@ -186,11 +182,9 @@
 	for(var/i; i <= sorted.len; i++)
 		var/atom/A = sorted[i]
 		if(A)
-			world.log << "**Calling getFlatIcon to render [A]" //#JMO
 			var/icon/img = getFlatIcon(A)//build_composite_icon(A)
 			// Check if we're looking at a mob that's lying down
 			if(istype(A, /mob/living) && A:lying)
-				world.log << "[A] is lying down. Making it look as such..." // #JMO;
 				// If they are, apply that effect to their picture.
 				img.BecomeLying()
 
@@ -237,7 +231,7 @@
 			if(user.client)		//To make shooting through security cameras possible
 				viewer = user.client.eye
 			if(dummy in viewers(world.view, viewer))
-				temp.Blend(get_icon(T,user), ICON_OVERLAY, 32 * (j-1-1), 32 - 32 * (i-1))
+				temp.Blend(get_icon(T), ICON_OVERLAY, 32 * (j-1-1), 32 - 32 * (i-1))
 			else
 				temp.Blend(black, ICON_OVERLAY, 32 * (j-1), 64 - 32 * (i-1))
 			mobs += get_mobs(T)
