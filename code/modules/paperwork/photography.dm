@@ -186,6 +186,9 @@
 				// Calculate where we are relative to the center of the photo
 				var/xoff = (A.x - center.x) * 32
 				var/yoff = (A.y - center.y) * 32
+				if (istype(A,/atom/movable))
+					xoff+=A:step_x
+					yoff+=A:step_y
 				res.Blend(img, blendMode2iconMode(A.blend_mode), 33 + A.pixel_x + xoff, 33 + A.pixel_y + yoff)
 
 	// Lastly, render any contained effects on top.
