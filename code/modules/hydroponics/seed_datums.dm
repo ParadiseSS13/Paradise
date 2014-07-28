@@ -59,8 +59,8 @@ proc/populate_seed_list()
 	//Tolerances.
 	var/requires_nutrients = 1      // The plant can starve.
 	var/nutrient_consumption = 0.25 // Plant eats this much per tick.
-	var/requires_water = 3          // The plant can become dehydrated.
-	var/water_consumption = 1       // Plant drinks this much per tick.
+	var/requires_water = 1          // The plant can become dehydrated.
+	var/water_consumption = 3       // Plant drinks this much per tick.
 	var/ideal_heat = 293            // Preferred temperature in Kelvin.
 	var/heat_tolerance = 20         // Departure from ideal that is survivable.
 	var/ideal_light = 8             // Preferred light level in luminosity.
