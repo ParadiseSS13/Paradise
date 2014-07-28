@@ -684,6 +684,10 @@ proc // Creates a single icon from a given /atom or /image.  Only the first argu
 		if(!noIcon)
 			world.log << "***Rendering Icon [A.type] in state '[curstate]' on layer [A.layer] in direction [curdir]" // #JMO
 			copy = image(icon=curicon, icon_state=curstate, layer=A.layer, dir=curdir)
+			if (isnull(copy)) // #JMO
+				world.log << "****Created a null!" // #JMO
+			else // #JMO
+				world.log << "****Created a thing of type [copy.type]" // #JMO
 			copy.color = A.color
 			copy.alpha = A.alpha
 			copy.blend_mode = curblend
@@ -744,6 +748,31 @@ proc // Creates a single icon from a given /atom or /image.  Only the first argu
 			if(I == copy) // 'I' is an /image based on the object being flattened.
 				curblend = BLEND_OVERLAY
 				add = icon(I:icon, I:icon_state, I:dir)
+				// This checks for a silent failure mode of the icon routine. If the requested dir
+				// doesn't exist in this icon state it returns a 32x32 icon with 0 alpha.
+				if (I:dir != SOUTH && add.Width() == 32 && add.Height() == 32)
+					// Since checking every pixel for blank isn't trivial, we make some assumptions about
+					// the content of the image to determine if it actually is blank. On a rare occassions
+					// this will cause the software to return a non-directional icon for when a
+					// directionalized one would be more appropriate. This is rare enough that this
+					// will suffice in place of a map rework that properly normalizes directions.
+					var/blankpixel=1;
+					// Check the four corners...
+					blankpixel &= isnull(add.GetPixel(1,1))
+					blankpixel &= isnull(add.GetPixel(32,1))
+					blankpixel &= isnull(add.GetPixel(32,32))
+					blankpixel &= isnull(add.GetPixel(32,1))
+					// The thirds...
+					blankpixel &= isnull(add.GetPixel(11,11))
+					blankpixel &= isnull(add.GetPixel(11,22))
+					blankpixel &= isnull(add.GetPixel(22,22))
+					blankpixel &= isnull(add.GetPixel(22,11))
+					// and the center...
+					blankpixel &= isnull(add.GetPixel(16,16))
+					// If we ALWAYS returned a null (which happens when GetPixel encounters something with alpha 0)
+					if (blankpixel)
+						// Pull the default direction.
+						add = icon(I:icon, I:icon_state)
 			else // 'I' is an appearance object.
 				world.log << "***Recursing to render Icon [I:type] in state '[curstate]' in direction [curdir]" // #JMO
 				add = getFlatIcon(new/image(I), curdir, curicon, curstate, curblend)
@@ -810,3 +839,13 @@ proc // Creates a single icon from a given /atom or /image.  Only the first argu
 		var/image/I = O
 		composite.Blend(icon(I.icon, I.icon_state, I.dir, 1), ICON_OVERLAY)
 	return composite
+
+proc/adjust_brightness(var/color, var/value)
+	if (!color) return "#FFFFFF"
+	if (!value) return color
+
+	var/list/RGB = ReadRGB(color)
+	RGB[1] = Clamp(RGB[1]+value,0,255)
+	RGB[2] = Clamp(RGB[2]+value,0,255)
+	RGB[3] = Clamp(RGB[3]+value,0,255)
+	return rgb(RGB[1],RGB[2],RGB[3])
