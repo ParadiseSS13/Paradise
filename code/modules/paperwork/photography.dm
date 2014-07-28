@@ -159,36 +159,41 @@
 	//i.e. pretty much all wall-mounted machinery
 	var/icon/res = icon('icons/effects/96x96.dmi', "")
 
-	var/icon/turficon = build_composite_icon(the_turf)
-	res.Blend(turficon, ICON_OVERLAY, 33, 33)
+	world.log << "***Calling build composite..." //#JMO
+	//var/icon/turficon = build_composite_icon(the_turf)
+	res.Blend(getFlatIcon(the_turf), blendMode2iconMode(the_turf.blend_mode),33,33)
+	world.log << "***Exiting build composite..." //#JMO
+	//res.Blend(turficon, ICON_OVERLAY, 33, 33)
 
 	var/atoms[] = list()
 	for(var/atom/A in the_turf)
 		if(A.invisibility) continue
 		atoms.Add(A)
 
-	//Sorting icons based on levels
-	var/gap = atoms.len
-	var/swapped = 1
-	while (gap > 1 || swapped)
-		swapped = 0
-		if(gap > 1)
-			gap = round(gap / 1.247330950103979)
-		if(gap < 1)
-			gap = 1
-		for(var/i = 1; gap + i <= atoms.len; i++)
-			var/atom/l = atoms[i]		//Fucking hate
-			var/atom/r = atoms[gap+i]	//how lists work here
-			if(l.layer > r.layer)		//no "atoms[i].layer" for me
-				atoms.Swap(i, gap + i)
-				swapped = 1
+	//Sorting icons based on levels.
+	//JMO: I have no idea what they were doing here before, but the magic number alone
+	// was worth replacing it over. "gap = round(gap / 1.247330950103979)" really?
+	var/list/sorted = list()
+	var/j
+	for(var/i = 1 to atoms.len)
+		var/atom/c = atoms[i]
+		for(j = sorted.len, j > 0, --j)
+			var/atom/c2 = sorted[j]
+			if(c2.layer <= c.layer)
+				break
+		sorted.Insert(j+1, c)
 
-	for(var/i; i <= atoms.len; i++)
-		var/atom/A = atoms[i]
+	for(var/i; i <= sorted.len; i++)
+		var/atom/A = sorted[i]
 		if(A)
-			var/icon/img = getFlatIcon(A, A.dir)//build_composite_icon(A)
-			if(istype(img, /icon))
-				res.Blend(new/icon(img, "", A.dir), ICON_OVERLAY, 33 + A.pixel_x, 33 + A.pixel_y)
+			world.log << "**Calling getFlatIcon to render [A.type]" //#JMO
+			var/icon/img = getFlatIcon(A)//build_composite_icon(A)
+			if(istype(A, /mob/living) && A:lying)
+				world.log << "[A.type] is lying down. Making it look as such..." // #JMO;
+				img.BecomeLying()
+
+			//if(istype(img, /icon))
+			res.Blend(img, blendMode2iconMode(A.blend_mode), 33 + A.pixel_x, 33 + A.pixel_y)
 	return res
 
 
@@ -222,6 +227,7 @@
 	var/icon/temp = icon('icons/effects/96x96.dmi',"")
 	var/icon/black = icon('icons/turf/space.dmi', "black")
 	var/mobs = ""
+	world << "Proof that this thing is alive! 1.0" // #JMO
 	for(var/i = 1; i <= 3; i++)
 		for(var/j = 1; j <= 3; j++)
 			var/turf/T = locate(x_c, y_c, z_c)

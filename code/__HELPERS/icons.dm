@@ -637,7 +637,7 @@ The _flatIcons list is a cache for generated icon files.
 proc // Creates a single icon from a given /atom or /image.  Only the first argument is required.
 	getFlatIcon(image/A, defdir=A.dir, deficon=A.icon, defstate=A.icon_state, defblend=A.blend_mode)
 		// We start with a blank canvas, otherwise some icon procs crash silently
-		var/icon/flat = icon('icons/effects/effects.dmi', "nothing") // Final flattened icon
+		var/icon/flat = icon('icons/effects/effects.dmi', "icon_state"="nothing") // Final flattened icon
 		if(!A)
 			return flat
 		if(A.alpha <= 0)
@@ -666,7 +666,7 @@ proc // Creates a single icon from a given /atom or /image.  Only the first argu
 				noIcon = TRUE // Do not render this object.
 
 		var/curdir
-		if(A.dir)
+		if(A.dir != 2)
 			curdir = A.dir
 		else
 			curdir = defdir
@@ -682,6 +682,7 @@ proc // Creates a single icon from a given /atom or /image.  Only the first argu
 		var/image/copy
 		// Add the atom's icon itself, without pixel_x/y offsets.
 		if(!noIcon)
+			world.log << "***Rendering Icon [A.type] in state '[curstate]' on layer [A.layer] in direction [curdir]" // #JMO
 			copy = image(icon=curicon, icon_state=curstate, layer=A.layer, dir=curdir)
 			copy.color = A.color
 			copy.alpha = A.alpha
@@ -744,6 +745,7 @@ proc // Creates a single icon from a given /atom or /image.  Only the first argu
 				curblend = BLEND_OVERLAY
 				add = icon(I:icon, I:icon_state, I:dir)
 			else // 'I' is an appearance object.
+				world.log << "***Recursing to render Icon [I:type] in state '[curstate]' in direction [curdir]" // #JMO
 				add = getFlatIcon(new/image(I), curdir, curicon, curstate, curblend)
 
 			// Find the new dimensions of the flat icon to fit the added overlay
