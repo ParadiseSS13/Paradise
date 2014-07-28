@@ -70,6 +70,7 @@
 	var/pose
 	var/base_icon = ""
 	var/crisis = 0
+	var/obj/item/device/camera/siliconcam/aiCamera = null //photography
 
 /mob/living/silicon/robot/New(loc,var/syndie = 0,var/unfinished = 0, var/alien = 0)
 	spark_system = new /datum/effect/effect/system/spark_spread()
@@ -114,6 +115,7 @@
 		if(connected_ai)
 			connected_ai.connected_robots += src
 			lawsync()
+			photosync()
 			lawupdate = 1
 		else
 			lawupdate = 0

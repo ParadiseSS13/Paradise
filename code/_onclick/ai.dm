@@ -51,9 +51,9 @@
 	if(control_disabled || stat || world.time <= next_move) return
 	next_move = world.time + 9
 
-	if(aicamera.in_camera_mode)
-		aicamera.camera_mode_off()
-		aicamera.captureimage(A, usr)
+	if(aiCamera.in_camera_mode)
+		aiCamera.camera_mode_off()
+		aiCamera.captureimage(A, usr)
 		return
 
 	/*

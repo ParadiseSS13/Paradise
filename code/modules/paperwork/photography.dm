@@ -209,7 +209,6 @@
 			mob_detail += "You can also see [A] on the photo[A:health < 75 ? " - [A] looks hurt":""].[holding ? " [holding]":"."]."
 	return mob_detail
 
-
 /obj/item/device/camera/afterattack(atom/target as mob|obj|turf|area, mob/user as mob, flag)
 	if(!on || !pictures_left || ismob(target.loc)) return
 	captureimage(target, user, flag)
@@ -256,13 +255,10 @@
 		y_c--
 		x_c = x_c - 3
 
-	printpicture(user, temp, mobs, flag)
+	var/datum/picture/P = createpicture(user, temp, mobs, flag)
+	printpicture(user, P)
 
-/obj/item/device/camera/proc/printpicture(mob/user, icon/temp, mobs, flag)
-	var/obj/item/weapon/photo/P = new/obj/item/weapon/photo()
-	P.loc = user.loc
-	if(!user.get_inactive_hand())
-		user.put_in_inactive_hand(P)
+/obj/item/device/camera/proc/createpicture(mob/user, icon/temp, mobs, flag)
 	var/icon/small_img = icon(temp)
 	var/icon/tiny_img = icon(temp)
 	var/icon/ic = icon('icons/obj/items.dmi',"photo")
@@ -271,12 +267,32 @@
 	tiny_img.Scale(4, 4)
 	ic.Blend(small_img,ICON_OVERLAY, 10, 13)
 	pc.Blend(tiny_img,ICON_OVERLAY, 12, 19)
-	P.icon = ic
-	P.tiny = pc
-	P.img = temp
-	P.desc = mobs
-	P.pixel_x = rand(-10, 10)
-	P.pixel_y = rand(-10, 10)
+
+	var/datum/picture/P = new()
+	P.fields["author"] = user
+	P.fields["icon"] = ic
+	P.fields["tiny"] = pc
+	P.fields["img"] = temp
+	P.fields["desc"] = mobs
+	P.fields["pixel_x"] = rand(-10, 10)
+	P.fields["pixel_y"] = rand(-10, 10)
+
+	return P
+
+/obj/item/device/camera/proc/printpicture(mob/user, var/datum/picture/P)
+	var/obj/item/weapon/photo/Photo = new/obj/item/weapon/photo()
+	Photo.loc = user.loc
+	if(!user.get_inactive_hand())
+		user.put_in_inactive_hand(Photo)
+	Photo.construct(P)
+
+/obj/item/weapon/photo/proc/construct(var/datum/picture/P)
+	icon = P.fields["icon"]
+	tiny = P.fields["tiny"]
+	img = P.fields["img"]
+	desc = P.fields["desc"]
+	pixel_x = P.fields["pixel_x"]
+	pixel_y = P.fields["pixel_y"]
 
 /**************
 *video camera *
