@@ -234,7 +234,7 @@
 /datum/job/pilot
 	title = "Security Pod Pilot"
 	flag = PILOT
-	department_flag = ENGSEC
+	department_flag = KARMA
 	total_positions = 1
 	spawn_positions = 1
 	supervisors = "the head of security"

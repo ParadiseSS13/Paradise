@@ -1,7 +1,7 @@
 /obj/machinery/computer/shuttle_control/specops
 	name = "special operations shuttle console"
 	shuttle_tag = "Special Operations"
-	req_access = list(access_cent_specops)
+	req_access = list(access_cent_general)
 
 //for shuttles that may use a different docking port at each location
 /datum/shuttle/ferry/multidock
@@ -20,7 +20,7 @@
 /datum/shuttle/ferry/multidock/specops
 	var/specops_return_delay = 6000		//After moving, the amount of time that must pass before the shuttle may move again
 	var/specops_countdown_time = 600	//Length of the countdown when moving the shuttle
-	
+
 	var/obj/item/device/radio/intercom/announcer = null
 	var/reset_time = 0	//the world.time at which the shuttle will be ready to move again.
 	var/launch_prep = 0
@@ -41,7 +41,7 @@
 
 	if (istype(user, /obj/machinery/computer))
 		var/obj/machinery/computer/C = user
-	
+
 		if(world.time <= reset_time)
 			C.visible_message("\blue Central Command will not allow the Special Operations shuttle to launch yet.")
 			if (((world.time - reset_time)/10) > 60)
@@ -58,7 +58,7 @@
 		radio_announce("THE SPECIAL OPERATIONS SHUTTLE IS PREPARING FOR LAUNCH")
 
 	sleep_until_launch()
-	
+
 	//launch
 	radio_announce("ALERT: INITIATING LAUNCH SEQUENCE")
 	..(user)
@@ -74,21 +74,21 @@
 		for(var/turf/T in get_area_turfs(destination))
 			var/mob/M = locate(/mob) in T
 			M << "\red You have arrived at [station_name]. Commence operation!"
-	
+
 	reset_time = world.time + specops_return_delay	//set the timeout
 
 /datum/shuttle/ferry/multidock/specops/cancel_launch()
 	if (!can_cancel())
 		return
-	
+
 	cancel_countdown = 1
 	radio_announce("ALERT: LAUNCH SEQUENCE ABORTED")
 	if (istype(in_use, /obj/machinery/computer))
 		var/obj/machinery/computer/C = in_use
 		C.visible_message("\red Launch sequence aborted.")
-	
+
 	..()
-	
+
 
 
 /datum/shuttle/ferry/multidock/specops/can_launch()
@@ -110,7 +110,7 @@
 
 	var/launch_time = world.time + specops_countdown_time
 	var/time_until_launch
-	
+
 	cancel_countdown = 0
 	launch_prep = 1
 	while(!cancel_countdown && (launch_time - world.time) > 0)
@@ -128,7 +128,7 @@
 			//Should call all the numbers but lag could mean some issues. Oh well. Not much I can do about that.
 
 		sleep(5)
-	
+
 	launch_prep = 0
 
 

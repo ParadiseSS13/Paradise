@@ -236,6 +236,14 @@ proc/issyndicate(mob/living/M as mob)
 				new_suit.species_restricted = list("Tajaran")
 			if("Skrell")
 				new_suit.species_restricted = list("Skrell")
+			if("Vox" || "Vox Armalis")
+				synd_mob.equip_to_slot_or_del(new /obj/item/clothing/mask/breath(synd_mob), slot_wear_mask)
+				synd_mob.equip_to_slot_or_del(new /obj/item/weapon/tank/nitrogen(synd_mob), slot_l_hand)
+				synd_mob.internal = synd_mob.l_hand
+				if (synd_mob.internals)
+					synd_mob.internals.icon_state = "internal1"
+				new_suit.species_restricted = list ("Vox", "Vox Armalis")
+
 
 	synd_mob.equip_to_slot_or_del(new_suit, slot_wear_suit)
 	synd_mob.equip_to_slot_or_del(new_helmet, slot_head)
