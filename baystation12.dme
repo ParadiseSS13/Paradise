@@ -1191,6 +1191,7 @@
 #include "code\modules\organs\pain.dm"
 #include "code\modules\organs\skeleton.dm"
 #include "code\modules\organs\wound.dm"
+#include "code\modules\paperwork\ai_photography.dm"
 #include "code\modules\paperwork\carbonpaper.dm"
 #include "code\modules\paperwork\clipboard.dm"
 #include "code\modules\paperwork\filingcabinet.dm"
