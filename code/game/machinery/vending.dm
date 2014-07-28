@@ -15,9 +15,10 @@
 	layer = 2.9
 	anchored = 1
 	density = 1
-	var/active = 1		//No sales pitches if off!
-	var/vend_ready = 1	//Are we ready to vend?? Is it time??
-	var/vend_delay = 10	//How long does it take to vend?
+	var/active = 1 //No sales pitches if off!
+	var/delay_product_spawn // If set, uses sleep() in product spawn proc (mostly for seeds to retrieve correct names).
+	var/vend_ready = 1 //Are we ready to vend?? Is it time??
+	var/vend_delay = 10 //How long does it take to vend?
 	var/datum/data/vending_product/currently_vending = null // A /datum/data/vending_product instance of what we're paying for right now.
 
 	// To be filled out at compile time
@@ -106,19 +107,25 @@
 
 		var/atom/temp = new typepath(null)
 		var/datum/data/vending_product/R = new /datum/data/vending_product()
+
 		R.product_path = typepath
 		R.amount = amount
 		R.max_amount = amount
 		R.price = price
 		R.display_color = pick("red","blue","green")
-		sleep(3)
-		R.product_name = temp.name
 		if(hidden)
 			hidden_records += R
 		else if(req_coin)
 			coin_records += R
 		else
 			product_records += R
+
+		if(delay_product_spawn)
+			sleep(3)
+			R.product_name = temp.name
+		else
+			R.product_name = temp.name
+
 //		world << "Added: [R.product_name]] - [R.amount] - [R.product_path]"
 
 
@@ -770,6 +777,8 @@
 	product_slogans = "THIS'S WHERE TH' SEEDS LIVE! GIT YOU SOME!;Hands down the best seed selection on the station!;Also certain mushroom varieties available, more for experts! Get certified today!"
 	product_ads = "We like plants!;Grow some crops!;Grow, baby, growww!;Aw h'yeah son!"
 	icon_state = "seeds"
+	delay_product_spawn = 1
+
 	products = list(/obj/item/seeds/bananaseed = 3,/obj/item/seeds/berryseed = 3,/obj/item/seeds/carrotseed = 3,/obj/item/seeds/chantermycelium = 3,/obj/item/seeds/chiliseed = 3,
 					/obj/item/seeds/cornseed = 3, /obj/item/seeds/eggplantseed = 3, /obj/item/seeds/potatoseed = 3, /obj/item/seeds/replicapod = 3,/obj/item/seeds/soyaseed = 3,
 					/obj/item/seeds/sunflowerseed = 3,/obj/item/seeds/tomatoseed = 3,/obj/item/seeds/towermycelium = 3,/obj/item/seeds/wheatseed = 3,/obj/item/seeds/appleseed = 3,

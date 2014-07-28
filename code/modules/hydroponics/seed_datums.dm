@@ -58,9 +58,9 @@ proc/populate_seed_list()
 
 	//Tolerances.
 	var/requires_nutrients = 1      // The plant can starve.
-	var/nutrient_consumption = 0.1 // Plant eats this much per tick.
-	var/requires_water = 1          // The plant can become dehydrated.
-	var/water_consumption = 1     // Plant drinks this much per tick.
+	var/nutrient_consumption = 0.25 // Plant eats this much per tick.
+	var/requires_water = 3          // The plant can become dehydrated.
+	var/water_consumption = 1       // Plant drinks this much per tick.
 	var/ideal_heat = 293            // Preferred temperature in Kelvin.
 	var/heat_tolerance = 20         // Departure from ideal that is survivable.
 	var/ideal_light = 8             // Preferred light level in luminosity.
@@ -104,9 +104,12 @@ proc/populate_seed_list()
 
 //Mutates the plant overall (randomly).
 /datum/seed/proc/mutate(var/degree,var/turf/source_turf)
+
+	world << "Seed mutation proc called with [degree]."
+
 	if(!degree || immutable) return
 
-	source_turf.visible_message("[display_name] quivers uneasily!")
+	source_turf.visible_message("\blue \The [display_name] quivers!")
 
 	//This looks like shit, but it's a lot easier to read/change this way.
 	var/total_mutations = rand(1,1+degree)
@@ -115,7 +118,7 @@ proc/populate_seed_list()
 			if(0) //Plant cancer!
 				lifespan = max(0,lifespan-rand(1,5))
 				endurance = max(0,endurance-rand(10,20))
-				source_turf.visible_message("[display_name] withers rapidly!")
+				source_turf.visible_message("\red \The [display_name] withers rapidly!")
 			if(1)
 				nutrient_consumption =      max(0,  min(5,   nutrient_consumption + rand(-(degree*0.1),(degree*0.1))))
 				water_consumption =         max(0,  min(50,  water_consumption    + rand(-degree,degree)))
@@ -134,7 +137,7 @@ proc/populate_seed_list()
 				if(prob(degree*5))
 					carnivorous =           max(0,  min(2,   carnivorous          + rand(-degree,degree)))
 					if(carnivorous)
-						source_turf.visible_message("[display_name] shudders hungrily.")
+						source_turf.visible_message("\blue \The [display_name] shudders hungrily.")
 			if(6)
 				weed_tolerance  =           max(0,  min(10,  weed_tolerance       + (rand(-2,2)   * degree)))
 				if(prob(degree*5))          parasite = !parasite
@@ -148,7 +151,7 @@ proc/populate_seed_list()
 				potency =                   max(0,  min(200, potency              + (rand(-20,20) * degree)))
 				if(prob(degree*5))
 					spread =                max(0,  min(2,   spread               + rand(-1,1)))
-					source_turf.visible_message("[display_name] spasms visibly, shifting in the tray.")
+					source_turf.visible_message("\blue \The [display_name] spasms visibly, shifting in the tray.")
 			if(9)
 				maturation =                max(0,  min(30,  maturation      + (rand(-1,1)   * degree)))
 				if(prob(degree*5))
@@ -157,22 +160,22 @@ proc/populate_seed_list()
 				if(prob(degree*2))
 					biolum = !biolum
 					if(biolum)
-						source_turf.visible_message("[display_name] begins to glow!")
+						source_turf.visible_message("\blue \The [display_name] begins to glow!")
 						if(prob(degree*2))
 							biolum_colour = "#[pick(list("FF0000","FF7F00","FFFF00","00FF00","0000FF","4B0082","8F00FF"))]"
-							source_turf.visible_message("[display_name]'s glow <font=[biolum_colour]>changes colour</font>!")
+							source_turf.visible_message("\blue \The [display_name]'s glow <font=[biolum_colour]>changes colour</font>!")
 					else
-						source_turf.visible_message("[display_name]'s glow dims...")
+						source_turf.visible_message("\blue \The [display_name]'s glow dims...")
 			if(11)
 				if(prob(degree*2))
 					flowers = !flowers
 					if(flowers)
-						source_turf.visible_message("[display_name] sprouts a bevy of flowers!")
+						source_turf.visible_message("\blue \The [display_name] sprouts a bevy of flowers!")
 						if(prob(degree*2))
 							flower_colour = "#[pick(list("FF0000","FF7F00","FFFF00","00FF00","0000FF","4B0082","8F00FF"))]"
-						source_turf.visible_message("[display_name]'s flowers <font=[flower_colour]>changes colour</font>!")
+						source_turf.visible_message("\blue \The [display_name]'s flowers <font=[flower_colour]>changes colour</font>!")
 					else
-						source_turf.visible_message("[display_name]'s flowers wither and fall off.")
+						source_turf.visible_message("\blue \The [display_name]'s flowers wither and fall off.")
 	return
 
 //Mutates a specific trait/set of traits.
@@ -368,7 +371,7 @@ proc/populate_seed_list()
 			yield_mod = 0
 			total_yield = yield
 		else
-			total_yield = max(1,rand(1,((yield_mod+yield))))
+			total_yield = max(1,rand(yield_mod,yield_mod+yield))
 
 		currently_querying = list()
 		for(var/i = 0;i<total_yield;i++)

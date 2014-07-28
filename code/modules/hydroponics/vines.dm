@@ -295,8 +295,8 @@
 	var/limited_growth = 0
 
 /obj/effect/plant_controller/creeper
-	collapse_limit = 50
-	slowdown_limit = 5
+	collapse_limit = 6
+	slowdown_limit = 3
 	limited_growth = 1
 
 /obj/effect/plant_controller/New()

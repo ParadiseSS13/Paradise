@@ -159,7 +159,7 @@
 		return
 
 	// Advance plant age.
-	age += 1 * HYDRO_SPEED_MULTIPLIER
+	if(prob(25)) age += 1 * HYDRO_SPEED_MULTIPLIER
 
 	// Maintain tray nutrient and water levels.
 	if(seed.nutrient_consumption > 0 && nutrilevel > 0 && prob(25))
@@ -380,12 +380,14 @@
 
 /obj/machinery/portable_atmospherics/hydroponics/proc/mutate(var/severity)
 
+	world << "Tray mutation proc called with [severity]."
+
 	// No seed, no mutations.
 	if(!seed)
 		return
 
 	// Check if we should even bother working on the current seed datum.
-	if(seed.mutants.len && severity > 1 && prob(10+mutation_mod))
+	if(seed.mutants. && seed.mutants.len && severity > 1 && prob(10+mutation_mod))
 		mutate_species()
 		return
 
@@ -573,7 +575,7 @@
 						reagent_value = mutagenic_reagents[R.id]+mutation_mod
 						if(reagent_total >= reagent_value)
 							if(prob(min(reagent_total*reagent_value,100)))
-								mutate(reagent_value > 10 ? 2 : 1)
+								mutate(reagent_total > 10 ? 2 : 1)
 
 				S.reagents.clear_reagents()
 
@@ -622,7 +624,7 @@
 			update_icon()
 
 		else
-			user << "\red The [src] already has seeds in it!"
+			user << "\red \The [src] already has seeds in it!"
 
 	else if (istype(O, /obj/item/weapon/reagent_containers/spray/plantbgone))
 		if(seed)
