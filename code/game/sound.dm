@@ -94,6 +94,7 @@ var/const/FALLOFF_SOUNDS = 0.5
 			if ("rustle") soundin = pick(rustle_sound)
 			if ("punch") soundin = pick(punch_sound)
 			if ("clownstep") soundin = pick(clown_sound)
+			if ("jackboot") soundin = pick(jackboot_sound)
 			if ("swing_hit") soundin = pick(swing_hit_sound)
 			if ("hiss") soundin = pick(hiss_sound)
 			if ("pageturn") soundin = pick(page_sound)
