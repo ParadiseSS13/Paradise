@@ -280,7 +280,10 @@ var/list/all_supply_groups = list("Operations","Security","Hospitality","Enginee
 					/obj/item/weapon/minihoe,
 					/obj/item/device/analyzer/plant_analyzer,
 					/obj/item/clothing/gloves/botanic_leather,
-					/obj/item/clothing/suit/apron) // Updated with new things
+					/obj/item/clothing/suit/apron,
+					/obj/item/weapon/minihoe,
+					/obj/item/weapon/storage/box/botanydisk
+					) // Updated with new things
 	cost = 15
 	containertype = /obj/structure/closet/crate/hydroponics
 	containername = "Hydroponics crate"

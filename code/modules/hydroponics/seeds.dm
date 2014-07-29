@@ -32,6 +32,14 @@
 	if(seed && !seed.roundstart)
 		usr << "It's tagged as variety #[seed.uid]."
 
+/obj/item/seeds/cutting
+	name = "cuttings"
+	desc = "Some plant cuttings."
+
+/obj/item/seeds/cutting/update_appearance()
+	..()
+	src.name = "packet of [seed.seed_name] cuttings"
+
 /obj/item/seeds/replicapod
 	seed_type = "diona"
 

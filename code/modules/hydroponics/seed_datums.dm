@@ -105,8 +105,6 @@ proc/populate_seed_list()
 //Mutates the plant overall (randomly).
 /datum/seed/proc/mutate(var/degree,var/turf/source_turf)
 
-	world << "Seed mutation proc called with [degree]."
-
 	if(!degree || immutable) return
 
 	source_turf.visible_message("\blue \The [display_name] quivers!")
@@ -346,7 +344,7 @@ proc/populate_seed_list()
 	return (P ? P : 0)
 
 //Place the plant products at the feet of the user.
-/datum/seed/proc/harvest(var/mob/user,var/yield_mod)
+/datum/seed/proc/harvest(var/mob/user,var/yield_mod,var/harvest_sample)
 	if(!user)
 		return
 
@@ -358,13 +356,19 @@ proc/populate_seed_list()
 	if(!got_product)
 		user << "\red You fail to harvest anything useful."
 	else
-		user << "You harvest from the [display_name]."
+		user << "You [harvest_sample ? "take a sample" : "harvest"] from the [display_name]."
 
 		//This may be a new line. Update the global if it is.
 		if(name == "new line" || !(name in seed_types))
 			uid = seed_types.len + 1
 			name = "[uid]"
 			seed_types[name] = src
+
+		if(harvest_sample)
+			var/obj/item/seeds/seeds = new(get_turf(user))
+			seeds.seed_type = name
+			seeds.update_seed()
+			return
 
 		var/total_yield
 		if(isnull(yield_mod) || yield_mod < 1)

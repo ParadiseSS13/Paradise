@@ -30,6 +30,7 @@
 	var/lastcycle = 0          // Cycle timing/tracking var.
 	var/cycledelay = 150       // Delay per cycle.
 	var/closed_system          // If set, the tray will attempt to take atmos from a pipe.
+	var/force_update
 
 	// Seed details/line data.
 	var/datum/seed/seed = null // The currently planted seed
@@ -117,6 +118,10 @@
 
 /obj/machinery/portable_atmospherics/hydroponics/bullet_act(var/obj/item/projectile/Proj)
 
+	//Don't act on seeds like dionaea that shouldn't change.
+	if(seed && seed.immutable)
+		return
+
 	//Override for somatoray projectiles.
 	if(istype(Proj ,/obj/item/projectile/energy/floramut) && prob(20))
 		mutate(1)
@@ -138,8 +143,11 @@
 /obj/machinery/portable_atmospherics/hydroponics/process()
 
 	// Update values every cycle rather than every process() tick.
-	if(world.time < (lastcycle + cycledelay))
+	if(force_update)
+		force_update = 0
+	else if(world.time < (lastcycle + cycledelay))
 		return
+
 	lastcycle = world.time
 
 	// Weeds like water and nutrients, there's a chance the weed population will increase.
@@ -380,8 +388,6 @@
 
 /obj/machinery/portable_atmospherics/hydroponics/proc/mutate(var/severity)
 
-	world << "Tray mutation proc called with [severity]."
-
 	// No seed, no mutations.
 	if(!seed)
 		return
@@ -439,7 +445,22 @@
 
 /obj/machinery/portable_atmospherics/hydroponics/attackby(var/obj/item/O as obj, var/mob/user as mob)
 
-	if (istype(O, /obj/item/weapon/reagent_containers/glass))
+	if(istype(O, /obj/item/weapon/wirecutters) || istype(O, /obj/item/weapon/scalpel))
+
+		if(!seed)
+			user << "There is nothing to take a sample from in \the [src]."
+			return
+
+		seed.harvest(user,yield_mod,1)
+		health -= (rand(1,5)*10)
+		check_level_sanity()
+
+		force_update = 1
+		process()
+
+		return
+
+	else if (istype(O, /obj/item/weapon/reagent_containers/glass))
 		var/b_amount = O.reagents.get_reagent_amount("water")
 		if(b_amount > 0 && waterlevel < 100)
 			if(b_amount + waterlevel > 100)
@@ -615,7 +636,8 @@
 				seed = S.seed //Grab the seed datum.
 				dead = 0
 				age = 1
-				health = seed.endurance
+				//Snowflakey, maybe move this to the seed datum
+				health = (istype(S, /obj/item/seeds/cutting) ? round(seed.endurance/rand(2,5)) : seed.endurance)
 				lastcycle = world.time
 
 			del(O)

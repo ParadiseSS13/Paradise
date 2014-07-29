@@ -85,16 +85,18 @@
 /obj/machinery/botany/attackby(obj/item/weapon/W as obj, mob/user as mob)
 	if(istype(W,/obj/item/seeds))
 		if(seed)
-			if(seed.seed.immutable)
-				user << "That seed is not compatible with our genetics technology."
-			else
-				user << "There is already a seed loaded."
+			user << "There is already a seed loaded."
+
+		var/obj/item/seeds/S =W
+		if(S.seed && S.seed.immutable)
+			user << "That seed is not compatible with our genetics technology."
 		else
 			user.drop_item(W)
 			W.loc = src
 			seed = W
 			user << "You load [W] into [src]."
 		return
+
 	if(istype(W,/obj/item/weapon/screwdriver))
 		open = !open
 		user << "\blue You [open ? "open" : "close"] the maintenance panel."
