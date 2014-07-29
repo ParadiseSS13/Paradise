@@ -119,7 +119,7 @@
 /obj/machinery/portable_atmospherics/hydroponics/bullet_act(var/obj/item/projectile/Proj)
 
 	//Don't act on seeds like dionaea that shouldn't change.
-	if(seed && seed.immutable)
+	if(seed && seed.immutable > 0)
 		return
 
 	//Override for somatoray projectiles.
@@ -169,6 +169,11 @@
 	// Advance plant age.
 	if(prob(25)) age += 1 * HYDRO_SPEED_MULTIPLIER
 
+	//Highly mutable plants have a chance of mutating every tick.
+	if(seed.immutable == -1)
+		var/mut_prob = rand(1,100)
+		if(mut_prob <= 5) mutate(mut_prob == 1 ? 2 : 1)
+
 	// Maintain tray nutrient and water levels.
 	if(seed.nutrient_consumption > 0 && nutrilevel > 0 && prob(25))
 		nutrilevel -= max(0,seed.nutrient_consumption * HYDRO_SPEED_MULTIPLIER)
@@ -196,9 +201,22 @@
 	// If atmos input is not there, grab from turf.
 	if(!environment)
 		if(istype(T))
-			environment = T.return_air()
-	if(!environment) //We're in a crate or nullspace, bail out.
+			environment = T.air
+	if(!environment)
 		return
+
+	// Handle gas consumption.
+	if(seed.consume_gasses && seed.consume_gasses.len)
+		var/missing_gas = 0
+		for(var/gas in seed.consume_gasses)
+			if(environment && environment.gas && environment.gas[gas] && \
+			 environment.gas[gas] >= seed.consume_gasses[gas])
+				environment.adjust_gas(gas,-seed.consume_gasses[gas],1)
+			else
+				missing_gas++
+
+		if(missing_gas > 0)
+			health -= missing_gas * HYDRO_SPEED_MULTIPLIER
 
 	// Process it.
 	var/pressure = environment.return_pressure()
@@ -207,6 +225,13 @@
 
 	if(abs(environment.temperature - seed.ideal_heat) > seed.heat_tolerance)
 		health -= healthmod
+
+	// Handle gas production.
+	if(seed.exude_gasses && seed.exude_gasses.len)
+		var/datum/gas_mixture/exuded = new
+		for(var/gas in seed.exude_gasses)
+			exuded.adjust_gas(gas,seed.exude_gasses[gas*seed.potency],1) //This will need adjustment since it produces moles.
+		loc.assume_air(exuded)
 
 	// Handle light requirements.
 	var/area/A = T.loc
@@ -257,13 +282,14 @@
 		pestlevel = 0
 
 	// If enough time (in cycles, not ticks) has passed since the plant was harvested, we're ready to harvest again.
-	else if(age > seed.production && (age - lastproduce) > seed.production && (!harvest && !dead))
+	else if(seed.products && seed.products.len && age > seed.production && \
+			(age - lastproduce) > seed.production && (!harvest && !dead))
+
 		harvest = 1
 		lastproduce = age
 
 	if(prob(5))  // On each tick, there's a 5 percent chance the pest population will increase
 		pestlevel += 1 * HYDRO_SPEED_MULTIPLIER
-
 	check_level_sanity()
 	update_icon()
 	return
@@ -757,7 +783,30 @@
 			usr << "[src] is \red filled with weeds!"
 		if(pestlevel >= 5)
 			usr << "[src] is \red filled with tiny worms!"
-		usr << text ("")
+		if(!istype(src,/obj/machinery/portable_atmospherics/hydroponics/soil))
+
+			var/turf/T = loc
+			var/datum/gas_mixture/environment
+
+			if(closed_system && (connected_port || holding))
+				environment = air_contents
+
+			if(!environment)
+				if(istype(T))
+					environment = T.return_air()
+
+			if(!environment) //We're in a crate or nullspace, bail out.
+				return
+
+			var/area/A = T.loc
+			var/light_available
+			if(A)
+				if(A.lighting_use_dynamic)
+					light_available = max(0,min(10,T.lighting_lumcount)-5)
+				else
+					light_available =  5
+
+			usr << "The tray's sensor suite is reporting a light level of [light_available] lumens and a temperature of [environment.temperature]K."
 
 /obj/machinery/portable_atmospherics/hydroponics/verb/close_lid()
 	set name = "Toggle Tray Lid"

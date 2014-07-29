@@ -83,7 +83,7 @@ proc/populate_seed_list()
 	var/spread = 0                  // 0 limits plant to tray, 1 = creepers, 2 = vines.
 	var/carnivorous = 0             // 0 = none, 1 = eat pests in tray, 2 = eat living things  (when a vine).
 	var/parasite = 0                // 0 = no, 1 = gain health from weed level.
-	var/immutable                   // If set, plant will never mutate.
+	var/immutable = 0               // If set, plant will never mutate. If -1, plant has a chance of mutating during process().
 	var/alter_temp                  // If set, the plant will periodically alter local temp by this amount.
 
 	// Cosmetics.
@@ -99,13 +99,13 @@ proc/populate_seed_list()
 
 //Returns a key corresponding to an entry in the global seed list.
 /datum/seed/proc/get_mutant_variant()
-	if(!mutants || !mutants.len || immutable) return 0
+	if(!mutants || !mutants.len || immutable > 0) return 0
 	return pick(mutants)
 
 //Mutates the plant overall (randomly).
 /datum/seed/proc/mutate(var/degree,var/turf/source_turf)
 
-	if(!degree || immutable) return
+	if(!degree || immutable > 0) return
 
 	source_turf.visible_message("\blue \The [display_name] quivers!")
 
@@ -179,7 +179,7 @@ proc/populate_seed_list()
 //Mutates a specific trait/set of traits.
 /datum/seed/proc/apply_gene(var/datum/plantgene/gene)
 
-	if(!gene || !gene.values || immutable) return
+	if(!gene || !gene.values || immutable > 0) return
 
 	switch(gene.genetype)
 
@@ -209,11 +209,12 @@ proc/populate_seed_list()
 				else
 					chems[rid] = gene.values[2][rid]
 
-			//TODO.
-			//if(!exude_gasses) exude_gasses = list()
-			//exude_gasses |= gene.values[3]
-			//for(var/gas in exude_gasses)
-			//	exude_gasses[gas] = max(1,round(exude_gasses[gas]/2))
+			var/list/new_gasses = gene.values[3]
+			if(istype(new_gasses))
+				if(!exude_gasses) exude_gasses = list()
+				exude_gasses |= new_gasses
+				for(var/gas in exude_gasses)
+					exude_gasses[gas] = max(1,round(exude_gasses[gas]*0.8))
 
 			alter_temp =           gene.values[4]
 			potency =              gene.values[5]
@@ -348,7 +349,6 @@ proc/populate_seed_list()
 	if(!user)
 		return
 
-	//TODO: check for failing to harvest.
 	var/got_product
 	if(!isnull(products) && products.len && yield > 0)
 		got_product = 1
@@ -389,7 +389,6 @@ proc/populate_seed_list()
 				handle_living_product(product)
 
 			// Make sure the product is inheriting the correct seed type reference.
-			// TODO: can this be collapsed into one type check since they share vars?
 			else if(istype(product,/obj/item/weapon/reagent_containers/food/snacks/grown))
 				var/obj/item/weapon/reagent_containers/food/snacks/grown/current_product = product
 				current_product.plantname = name
@@ -403,7 +402,7 @@ proc/populate_seed_list()
 // be put into the global datum list until the product is harvested, though.
 /datum/seed/proc/diverge(var/modified)
 
-	if(immutable) return
+	if(immutable > 0) return
 
 	//Set up some basic information.
 	var/datum/seed/new_seed = new
@@ -1170,6 +1169,7 @@ proc/populate_seed_list()
 	yield = -1
 	potency = -1
 	growth_stages = 4
+	immutable = -1
 
 /datum/seed/whitebeets
 	name = "whitebeet"
