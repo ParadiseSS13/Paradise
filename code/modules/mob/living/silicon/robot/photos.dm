@@ -3,9 +3,6 @@
 	if (!master_cam)
 		return
 
-	if(!aiCamera)
-		aiCamera = new/obj/item/device/camera/siliconcam/robot_camera(src)
-
 	var/synced
 	synced = 0
 	for(var/datum/picture/z in aiCamera.aipictures)

@@ -70,7 +70,6 @@
 	var/pose
 	var/base_icon = ""
 	var/crisis = 0
-	var/obj/item/device/camera/siliconcam/aiCamera = null //photography
 
 /mob/living/silicon/robot/New(loc,var/syndie = 0,var/unfinished = 0, var/alien = 0)
 	spark_system = new /datum/effect/effect/system/spark_spread()
@@ -157,11 +156,11 @@
 	hud_list[IMPTRACK_HUD]    = image('icons/mob/hud.dmi', src, "hudblank")
 	hud_list[SPECIALROLE_HUD] = image('icons/mob/hud.dmi', src, "hudblank")
 	hud_list[NATIONS_HUD] = image('icons/mob/hud.dmi', src, "hudblank")
+	init()
 
-	if(istype(src,/mob/living/silicon/robot/drone))
-		playsound(src.loc, 'sound/machines/twobeep.ogg', 50, 0)
-	else
-		playsound(loc, 'sound/voice/liveagain.ogg', 75, 1)
+/mob/living/silicon/robot/proc/init()
+	new/obj/item/device/camera/siliconcam/robot_camera(src)
+	playsound(loc, 'sound/voice/liveagain.ogg', 75, 1)
 
 // setup the PDA and its name
 /mob/living/silicon/robot/proc/setup_PDA()

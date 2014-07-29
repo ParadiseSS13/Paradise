@@ -10,6 +10,7 @@
 	var/list/hud_list[10]
 	var/list/alarm_types_show = list("Motion" = 0, "Fire" = 0, "Atmosphere" = 0, "Power" = 0, "Camera" = 0)
 	var/list/alarm_types_clear = list("Motion" = 0, "Fire" = 0, "Atmosphere" = 0, "Power" = 0, "Camera" = 0)
+	var/obj/item/device/camera/siliconcam/aiCamera = null //photography
 
 /mob/living/silicon/proc/cancelAlarm()
 	return

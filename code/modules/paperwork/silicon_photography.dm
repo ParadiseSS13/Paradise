@@ -5,10 +5,6 @@
 	var/name = "image"
 	var/list/fields = list()
 
-/datum/inject
-	var/name = "image"
-	var/list/fields = list()
-
 /obj/item/device/camera/siliconcam
 	var/in_camera_mode = 0
 	var/photos_taken = 0
@@ -19,6 +15,9 @@
 
 /obj/item/device/camera/siliconcam/robot_camera //camera cyborgs can take pictures with
 	name = "Cyborg photo camera"
+
+/obj/item/device/camera/siliconcam/drone_camera //currently doesn't offer the verbs, thus cannot be used
+	name = "Drone photo camera"
 
 /obj/item/device/camera/siliconcam/proc/injectaialbum(var/datum/picture/P, var/sufix = "") //stores image information to a list similar to that of the datacore
 	photos_taken++
@@ -37,6 +36,9 @@
 		usr << "<span class='unconscious'>Image recorded</span>"
 
 /obj/item/device/camera/siliconcam/proc/selectpicture(obj/item/device/camera/siliconcam/cam)
+	if(!cam)
+		cam = getsource()
+
 	var/list/nametemp = list()
 	var/find
 	if(cam.aipictures.len == 0)
@@ -50,8 +52,8 @@
 		if(q.fields["name"] == find)
 			return q
 
-/obj/item/device/camera/siliconcam/proc/viewpictures(obj/item/device/camera/siliconcam/cam)
-	var/datum/picture/selection = selectpicture(cam)
+/obj/item/device/camera/siliconcam/proc/viewpictures()
+	var/datum/picture/selection = selectpicture()
 
 	if(!selection)
 		return
@@ -112,7 +114,7 @@
 	set desc = "View images"
 	set src in usr
 
-	viewpictures(src)
+	viewpictures()
 
 /obj/item/device/camera/siliconcam/ai_camera/verb/delete_images()
 	set category = "AI Commands"
@@ -120,7 +122,7 @@
 	set desc = "Delete image"
 	set src in usr
 
-	deletepicture(src)
+	deletepicture()
 
 /obj/item/device/camera/siliconcam/robot_camera/verb/take_image()
 	set category ="Robot Commands"
@@ -136,8 +138,7 @@
 	set desc = "View images"
 	set src in usr
 
-	var/obj/item/device/camera/siliconcam/cam = getsource()
-	viewpictures(cam)
+	viewpictures()
 
 /obj/item/device/camera/siliconcam/robot_camera/verb/delete_images()
 	set category = "Robot Commands"
@@ -145,9 +146,13 @@
 	set desc = "Delete a local image"
 	set src in usr
 
+	// Explicitly only allow deletion from the local camera
 	deletepicture(src)
 
 obj/item/device/camera/siliconcam/proc/getsource()
+	if(istype(src.loc, /mob/living/silicon/ai))
+		return src
+
 	var/mob/living/silicon/robot/C = src.loc
 	var/obj/item/device/camera/siliconcam/Cinfo
 	if(C.connected_ai)

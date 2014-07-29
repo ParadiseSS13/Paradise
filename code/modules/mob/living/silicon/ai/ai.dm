@@ -31,7 +31,6 @@ var/list/ai_list = list()
 	var/icon/holo_icon//Default is assigned when AI is created.
 	var/obj/item/device/pda/ai/aiPDA = null
 	var/obj/item/device/multitool/aiMulti = null
-	var/obj/item/device/camera/siliconcam/aiCamera = null
 	var/custom_sprite = 0 //For our custom sprites
 	var/alienAI = 0
 
