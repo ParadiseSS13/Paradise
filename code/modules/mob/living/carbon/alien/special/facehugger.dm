@@ -84,6 +84,9 @@ var/const/MAX_ACTIVE_TIME = 400
 			return
 	..()
 
+/mob/living/carbon/alien/facehugger/UnarmedAttack(var/atom/A)
+	return
+
 /mob/living/carbon/alien/facehugger/examine()
 	..()
 	switch(stat)
@@ -249,7 +252,7 @@ var/const/MAX_ACTIVE_TIME = 400
 		blinded = 1
 		silent = 0
 	else				//ALIVE. LIGHTS ARE ON
-		if(health < -5 || brain_op_stage == 4.0)
+		if(health <= 0 || brain_op_stage == 4.0)
 			death()
 			blinded = 1
 			silent = 0
