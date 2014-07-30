@@ -63,8 +63,17 @@
 	</div>
 </div>
 <div class="item" style="padding-top: 10px">
+<<<<<<< HEAD
 	{{for data.auth_list}}
 		{{:helper.link(value.auth_name, 'eject', {'auth' : value.auth_hash}, null, 'itemContentWide')}}
+=======
+	{{for auth_list}}
+		{{if auth_hash}}
+			{{:~link(auth_name, 'eject', {'removeid' : auth_hash}, null, 'itemContentWide')}}
+		{{else}}
+			{{:~link("", 'eject', {'scanid' : 1}, null, 'itemContentWide')}}
+		{{/if}}
+>>>>>>> 17574b8... Allows escape shuttle to scan IDs from within UI
 	{{/for}}
 </div>
 
