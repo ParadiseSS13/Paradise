@@ -231,9 +231,6 @@
 		if(missing_gas > 0)
 			health -= missing_gas * HYDRO_SPEED_MULTIPLIER
 
-	if(!environment) //We're in a crate or nullspace, bail out.
-		return
-
 	// Process it.
 	var/pressure = environment.return_pressure()
 	if(pressure < seed.lowkpa_tolerance || pressure > seed.highkpa_tolerance)
@@ -244,11 +241,11 @@
 
 	// Handle gas production.
 	if(seed.exude_gasses && seed.exude_gasses.len)
-		var/datum/gas_mixture/exuded = new
 		for(var/gas in seed.exude_gasses)
-			exuded.adjust_gas(gas,seed.exude_gasses[gas*seed.potency],1) //This will need balancing since it produces moles.
-		loc.assume_air(exuded)
+			environment.adjust_gas(gas, max(1,round((seed.exude_gasses[gas]*seed.potency)/seed.exude_gasses.len)))
+
 */
+
 	// Handle light requirements.
 	var/area/A = T.loc
 	if(A)

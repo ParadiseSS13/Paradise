@@ -9995,7 +9995,7 @@
 "dKk" = (/turf/simulated/mineral/random,/area/mine/unexplored)
 "dKl" = (/obj/structure/transit_tube{icon_state = "N-SW"},/obj/structure/lattice,/turf/space,/area)
 "dKm" = (/turf/simulated/wall/r_wall,/area/mine/unexplored)
-"dKn" = (/obj/structure/closet/crate/hydroponics,/obj/item/weapon/shovel/spade,/obj/item/weapon/reagent_containers/glass/bucket,/obj/item/weapon/minihoe,/obj/item/weapon/reagent_containers/spray/plantbgone{pixel_x = 13; pixel_y = 5},/obj/item/weedkiller/triclopyr,/obj/item/nutrient/ez,/turf/simulated/floor/plating,/area/research_outpost/maintstore1)
+"dKn" = (/obj/structure/closet/crate/hydroponics,/obj/item/weapon/shovel/spade,/obj/item/weapon/reagent_containers/glass/bucket,/obj/item/weapon/minihoe,/obj/item/weapon/reagent_containers/spray/plantbgone{pixel_x = 13; pixel_y = 5},/obj/item/weedkiller/triclopyr,/obj/item/weapon/reagent_containers/glass/fertilizer/ez,/turf/simulated/floor/plating,/area/research_outpost/maintstore1)
 "dKo" = (/obj/machinery/light/small,/obj/structure/closet/walllocker/emerglocker/north{dir = 1; pixel_y = -32},/turf/simulated/floor/plating,/area/research_outpost/maintstore1)
 "dKp" = (/obj/machinery/door/firedoor/border_only{dir = 4; layer = 2.6; name = "Firelock"},/obj/machinery/door/airlock/maintenance{name = "Auxiliary Storage"; req_access_txt = "0"; req_one_access_txt = "65;12"},/turf/simulated/floor{icon_state = "white"},/area/research_outpost/maintstore1)
 "dKq" = (/turf/simulated/floor,/area/research_outpost/maintstore1)
