@@ -32,6 +32,7 @@
 	var/lastcycle = 0          // Cycle timing/tracking var.
 	var/cycledelay = 150       // Delay per cycle.
 	var/closed_system          // If set, the tray will attempt to take atmos from a pipe.
+	var/force_update           // Set this to bypass the cycle time check.
 
 	// Seed details/line data.
 	var/datum/seed/seed = null // The currently planted seed
@@ -127,6 +128,10 @@
 
 /obj/machinery/portable_atmospherics/hydroponics/bullet_act(var/obj/item/projectile/Proj)
 
+	//Don't act on seeds like dionaea that shouldn't change.
+	if(seed && seed.immutable > 0)
+		return
+
 	//Override for somatoray projectiles.
 	if(istype(Proj ,/obj/item/projectile/energy/floramut) && prob(20))
 		mutate(1)
@@ -152,7 +157,9 @@
 		process_reagents()
 
 	// Update values every cycle rather than every process() tick.
-	if(world.time < (lastcycle + cycledelay))
+	if(force_update)
+		force_update = 0
+	else if(world.time < (lastcycle + cycledelay))
 		return
 	lastcycle = world.time
 
@@ -174,6 +181,11 @@
 
 	// Advance plant age.
 	if(prob(25)) age += 1 * HYDRO_SPEED_MULTIPLIER
+
+	//Highly mutable plants have a chance of mutating every tick.
+	if(seed.immutable == -1)
+		var/mut_prob = rand(1,100)
+		if(mut_prob <= 5) mutate(mut_prob == 1 ? 2 : 1)
 
 	// Maintain tray nutrient and water levels.
 	if(seed.nutrient_consumption > 0 && nutrilevel > 0 && prob(25))
@@ -287,7 +299,8 @@
 		pestlevel = 0
 
 	// If enough time (in cycles, not ticks) has passed since the plant was harvested, we're ready to harvest again.
-	else if(seed.products && seed.products.len && age > seed.production && (age - lastproduce) > seed.production && (!harvest && !dead))
+	else if(seed.products && seed.products.len && age > seed.production && \
+	 (age - lastproduce) > seed.production && (!harvest && !dead))
 		harvest = 1
 		lastproduce = age
 
@@ -527,7 +540,22 @@
 	if (O.is_open_container())
 		return 0
 
-	if(istype(O, /obj/item/weapon/reagent_containers/syringe))
+	if(istype(O, /obj/item/weapon/wirecutters) || istype(O, /obj/item/weapon/scalpel))
+
+		if(!seed)
+			user << "There is nothing to take a sample from in \the [src]."
+			return
+
+		seed.harvest(user,yield_mod,1)
+		health -= (rand(1,5)*10)
+		check_level_sanity()
+
+		force_update = 1
+		process()
+
+		return
+
+	else if(istype(O, /obj/item/weapon/reagent_containers/syringe))
 
 		var/obj/item/weapon/reagent_containers/syringe/S = O
 
@@ -573,7 +601,9 @@
 				seed = S.seed //Grab the seed datum.
 				dead = 0
 				age = 1
-				health = seed.endurance
+				//Snowflakey, maybe move this to the seed datum
+				health = (istype(S, /obj/item/seeds/cutting) ? round(seed.endurance/rand(2,5)) : seed.endurance)
+
 				lastcycle = world.time
 
 			del(O)

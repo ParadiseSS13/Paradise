@@ -59,8 +59,8 @@ proc/populate_seed_list()
 	//Tolerances.
 	var/requires_nutrients = 1      // The plant can starve.
 	var/nutrient_consumption = 0.25 // Plant eats this much per tick.
-	var/requires_water = 3          // The plant can become dehydrated.
-	var/water_consumption = 1       // Plant drinks this much per tick.
+	var/requires_water = 1          // The plant can become dehydrated.
+	var/water_consumption = 3       // Plant drinks this much per tick.
 	var/ideal_heat = 293            // Preferred temperature in Kelvin.
 	var/heat_tolerance = 20         // Departure from ideal that is survivable.
 	var/ideal_light = 8             // Preferred light level in luminosity.
@@ -83,7 +83,7 @@ proc/populate_seed_list()
 	var/spread = 0                  // 0 limits plant to tray, 1 = creepers, 2 = vines.
 	var/carnivorous = 0             // 0 = none, 1 = eat pests in tray, 2 = eat living things  (when a vine).
 	var/parasite = 0                // 0 = no, 1 = gain health from weed level.
-	var/immutable= 0                // If set, plant will never mutate.
+	var/immutable = 0                // If set, plant will never mutate. If -1, plant is  highly mutable.
 	var/alter_temp                  // If set, the plant will periodically alter local temp by this amount.
 
 	// Cosmetics.
@@ -99,13 +99,13 @@ proc/populate_seed_list()
 
 //Returns a key corresponding to an entry in the global seed list.
 /datum/seed/proc/get_mutant_variant()
-	if(!mutants || !mutants.len || immutable) return 0
+	if(!mutants || !mutants.len || immutable > 0) return 0
 	return pick(mutants)
 
 //Mutates the plant overall (randomly).
 /datum/seed/proc/mutate(var/degree,var/turf/source_turf)
 
-	if(!degree || immutable) return
+	if(!degree || immutable > 0) return
 
 	source_turf.visible_message("\blue \The [display_name] quivers!")
 
@@ -179,7 +179,7 @@ proc/populate_seed_list()
 //Mutates a specific trait/set of traits.
 /datum/seed/proc/apply_gene(var/datum/plantgene/gene)
 
-	if(!gene || !gene.values || immutable) return
+	if(!gene || !gene.values || immutable > 0) return
 
 	switch(gene.genetype)
 
@@ -345,7 +345,7 @@ proc/populate_seed_list()
 	return (P ? P : 0)
 
 //Place the plant products at the feet of the user.
-/datum/seed/proc/harvest(var/mob/user,var/yield_mod)
+/datum/seed/proc/harvest(var/mob/user,var/yield_mod,var/harvest_sample)
 	if(!user)
 		return
 
@@ -356,13 +356,19 @@ proc/populate_seed_list()
 	if(!got_product)
 		user << "\red You fail to harvest anything useful."
 	else
-		user << "You harvest from the [display_name]."
+		user << "You [harvest_sample ? "take a sample" : "harvest"] from the [display_name]."
 
 		//This may be a new line. Update the global if it is.
 		if(name == "new line" || !(name in seed_types))
 			uid = seed_types.len + 1
 			name = "[uid]"
 			seed_types[name] = src
+
+		if(harvest_sample)
+			var/obj/item/seeds/seeds = new(get_turf(user))
+			seeds.seed_type = name
+			seeds.update_seed()
+			return
 
 		var/total_yield
 		if(isnull(yield_mod) || yield_mod < 1)
@@ -396,7 +402,7 @@ proc/populate_seed_list()
 // be put into the global datum list until the product is harvested, though.
 /datum/seed/proc/diverge(var/modified)
 
-	if(immutable) return
+	if(immutable > 0) return
 
 	//Set up some basic information.
 	var/datum/seed/new_seed = new
