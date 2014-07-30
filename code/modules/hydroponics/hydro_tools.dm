@@ -266,39 +266,44 @@
 // Nutrient defines for hydroponics
 // *************************************
 
-/obj/item/nutrient
-	name = "bottle of nutrient"
+/obj/item/weapon/reagent_containers/glass/fertilizer
+	name = "fertilizer bottle"
+	desc = "A small glass bottle. Can hold up to 10 units."
 	icon = 'icons/obj/chemical.dmi'
 	icon_state = "bottle16"
-	flags = FPRINT |  TABLEPASS
+	flags = FPRINT |  TABLEPASS | OPENCONTAINER
+	possible_transfer_amounts = null
 	w_class = 2.0
-	var/mutmod = 0
-	var/yieldmod = 0
-	New()
-		src.pixel_x = rand(-5.0, 5)
-		src.pixel_y = rand(-5.0, 5)
 
-/obj/item/nutrient/ez
+	var/fertilizer //Reagent contained, if any.
+
+	//Like a shot glass!
+	amount_per_transfer_from_this = 10
+	volume = 10
+
+/obj/item/weapon/reagent_containers/glass/fertilizer/New()
+	..()
+
+	src.pixel_x = rand(-5.0, 5)
+	src.pixel_y = rand(-5.0, 5)
+
+	if(fertilizer)
+		reagents.add_reagent(fertilizer,10)
+
+/obj/item/weapon/reagent_containers/glass/fertilizer/ez
 	name = "bottle of E-Z-Nutrient"
-	icon = 'icons/obj/chemical.dmi'
 	icon_state = "bottle16"
-	flags = FPRINT |  TABLEPASS
-	mutmod = 1
-	yieldmod = 1
+	fertilizer = "eznutrient"
 
-/obj/item/nutrient/l4z
+/obj/item/weapon/reagent_containers/glass/fertilizer/l4z
 	name = "bottle of Left 4 Zed"
-	icon = 'icons/obj/chemical.dmi'
 	icon_state = "bottle18"
-	flags = FPRINT |  TABLEPASS
-	mutmod = 2
+	fertilizer = "left4zed"
 
-/obj/item/nutrient/rh
+/obj/item/weapon/reagent_containers/glass/fertilizer/rh
 	name = "bottle of Robust Harvest"
-	icon = 'icons/obj/chemical.dmi'
 	icon_state = "bottle15"
-	flags = FPRINT |  TABLEPASS
-	yieldmod = 2
+	fertilizer = "robustharvest"
 
 //Hatchets and things to kill kudzu
 /obj/item/weapon/hatchet
