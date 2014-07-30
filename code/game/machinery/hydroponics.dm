@@ -153,8 +153,7 @@
 /obj/machinery/portable_atmospherics/hydroponics/process()
 
 	//Do this even if we're not ready for a plant cycle.
-	if(seed && !dead)
-		process_reagents()
+	process_reagents()
 
 	// Update values every cycle rather than every process() tick.
 	if(force_update)
@@ -313,39 +312,44 @@
 
 //Process reagents being input into the tray.
 /obj/machinery/portable_atmospherics/hydroponics/proc/process_reagents()
-	if(dead || !seed || !reagents) return
+
+	if(!reagents) return
 
 	if(reagents.total_volume <= 0)
 		return
 
 	for(var/datum/reagent/R in reagents.reagent_list)
 
+
 		var/reagent_total = reagents.get_reagent_amount(R.id)
 
-		//Handle some general level adjustments.
-		if(toxic_reagents[R.id])
-			toxins += toxic_reagents[R.id]         * reagent_total
+		if(seed && !dead)
+			//Handle some general level adjustments.
+			if(toxic_reagents[R.id])
+				toxins += toxic_reagents[R.id]         * reagent_total
+			if(weedkiller_reagents[R.id])
+				weedlevel += weedkiller_reagents[R.id] * reagent_total
+			if(pestkiller_reagents[R.id])
+				pestlevel += pestkiller_reagents[R.id] * reagent_total
+
+			// Beneficial reagents have a few impacts along with health buffs.
+			if(beneficial_reagents[R.id])
+				health += beneficial_reagents[R.id][1]       * reagent_total
+				yield_mod += beneficial_reagents[R.id][2]    * reagent_total
+				mutation_mod += beneficial_reagents[R.id][3] * reagent_total
+
+			// Mutagen is distinct from the previous types and mostly has a chance of proccing a mutation.
+			if(mutagenic_reagents[R.id])
+				var/reagent_min_value = mutagenic_reagents[R.id][1]
+				var/reagent_value =     mutagenic_reagents[R.id][2]+mutation_mod
+
+				if(reagent_total >= reagent_min_value)
+					if(prob(min(reagent_total*reagent_value,100)))
+						mutate(reagent_total > 10 ? 2 : 1)
+
+		// Handle nutrient refilling.
 		if(nutrient_reagents[R.id])
 			nutrilevel += nutrient_reagents[R.id]  * reagent_total
-		if(weedkiller_reagents[R.id])
-			weedlevel += weedkiller_reagents[R.id] * reagent_total
-		if(pestkiller_reagents[R.id])
-			pestlevel += pestkiller_reagents[R.id] * reagent_total
-
-		// Beneficial reagents have a few impacts along with health buffs.
-		if(beneficial_reagents[R.id])
-			health += beneficial_reagents[R.id][1]       * reagent_total
-			yield_mod += beneficial_reagents[R.id][2]    * reagent_total
-			mutation_mod += beneficial_reagents[R.id][3] * reagent_total
-
-		// Mutagen is distinct from the previous types and mostly has a chance of proccing a mutation.
-		if(mutagenic_reagents[R.id])
-			var/reagent_min_value = mutagenic_reagents[R.id][1]
-			var/reagent_value =     mutagenic_reagents[R.id][2]+mutation_mod
-
-			if(reagent_total >= reagent_min_value)
-				if(prob(min(reagent_total*reagent_value,100)))
-					mutate(reagent_total > 10 ? 2 : 1)
 
 		// Handle water and water refilling.
 		var/water_added = 0
