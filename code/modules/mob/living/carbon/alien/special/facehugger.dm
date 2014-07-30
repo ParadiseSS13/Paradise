@@ -47,6 +47,7 @@ var/const/MAX_ACTIVE_TIME = 400
 
 	maxHealth = 5
 	health = 5
+	density = 0 // Avoiding Facehugger clusterfucks at the egg room.
 	var/strength=5
 	var/sterile = 0
 	var/attached = 0
