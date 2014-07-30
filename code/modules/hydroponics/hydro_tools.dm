@@ -71,9 +71,7 @@
 	if(grown_seed.harvest_repeat)
 		dat += "This plant can be harvested repeatedly.<br>"
 
-	if(grown_seed.immutable == -1)
-		dat += "This plant is highly mutable.<br>"
-	else if(grown_seed.immutable > 0)
+	if(grown_seed.immutable)
 		dat += "This plant does not possess genetics that are alterable.<br>"
 
 	if(grown_seed.products && grown_seed.products.len)
