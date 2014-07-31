@@ -284,8 +284,8 @@
 			iscrayon = 1
 
 
-		// if paper is not in usr, then it must be in a clipboard or folder, which must be in or near usr
-		if(src.loc != usr && !((istype(src.loc, /obj/item/weapon/clipboard) || istype(src.loc, /obj/item/weapon/folder)) && (src.loc.loc == usr || src.loc.Adjacent(usr)) ) )
+		// if paper is not in usr, then it must be near them, or in a clipboard or folder, which must be in or near usr
+		if(src.loc != usr && !src.Adjacent(usr) && !((istype(src.loc, /obj/item/weapon/clipboard) || istype(src.loc, /obj/item/weapon/folder)) && (src.loc.loc == usr || src.loc.Adjacent(usr)) ) )
 			return
 /*
 		t = checkhtml(t)
