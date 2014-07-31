@@ -122,52 +122,50 @@
 	var/stun = stunforce
 	var/mob/living/L = M
 
-	var/contact = 1
-	var/target_zone
-	if(user.a_intent == "harm")
-		contact = ..()
+	var/target_zone = check_zone(user.zone_sel.selecting)
+	if(user.a_intent == "hurt")
+		if (!..())	//item/attack() does it's own messaging and logs
+			return 0	// item/attack() will return 1 if they hit, 0 if they missed.
 		agony *= 0.5	//whacking someone causes a much poorer contact than prodding them.
 		stun *= 0.5
-		//we can't really extract the actual hit zone from ..(), unfortunately. Just act like they prodded the chest.
-		target_zone = "chest"
+		//we can't really extract the actual hit zone from ..(), unfortunately. Just act like they attacked the area they intended to.
 	else
 		//copied from human_defense.dm - human defence code should really be refactored some time.
 		if (ishuman(L))
 			user.lastattacked = L	//are these used at all, if we have logs?
 			L.lastattacker = user
 
-			target_zone = get_zone_with_miss_chance(user.zone_sel.selecting, L)
-			if(user == L) // Attacking yourself can't miss
-				target_zone = check_zone(user.zone_sel.selecting)
-			if(!target_zone)
-				contact = 0
+			if (user != L) // Attacking yourself can't miss
+				target_zone = get_zone_with_miss_chance(user.zone_sel.selecting, L)
 
-		//put this here to avoid duplicate messages and logs from ..() above
-		if (!contact)
-			L.visible_message("\red <B>[user] misses [L] with \the [src]!")
+			if(!target_zone)
+				L.visible_message("\red <B>[user] misses [L] with \the [src]!")
+				return 0
+
+			var/mob/living/carbon/human/H = L
+			var/datum/organ/external/affecting = H.get_organ(target_zone)
+			if (affecting)
+				if(!status)
+					L.visible_message("<span class='warning'>[L] has been prodded in the [affecting.display_name] with [src] by [user]. Luckily it was off.</span>")
+					return 1
+				else
+					H.visible_message("<span class='danger'>[L] has been prodded in the [affecting.display_name] with [src] by [user]!</span>")
 		else
 			if(!status)
 				L.visible_message("<span class='warning'>[L] has been prodded with [src] by [user]. Luckily it was off.</span>")
+				return 1
 			else
-				//unfortunately we can't tuck this away into human/stun_effect_act()...
-				if (ishuman(L))
-					var/mob/living/carbon/human/H = L
-					var/datum/organ/external/affecting = H.get_organ(target_zone)
-					if (affecting)
-						H.visible_message("<span class='danger'>[L] has been prodded in the [affecting.display_name] with [src] by [user]!</span>")
-				else
-					L.visible_message("<span class='danger'>[L] has been prodded with [src] by [user]!</span>")
+				L.visible_message("<span class='danger'>[L] has been prodded with [src] by [user]!</span>")
 
 	//stun effects
-	if (contact)
-		msg_admin_attack("[key_name(user)] attempted to stun [key_name(L)] with the [src].")
+	L.stun_effect_act(stun, agony, target_zone, src)
 
-		L.stun_effect_act(stun, agony, target_zone, src)
+	playsound(loc, 'sound/weapons/Egloves.ogg', 50, 1, -1)
+	msg_admin_attack("[key_name(user)] stunned [key_name(L)] with the [src].")
 
-		playsound(loc, 'sound/weapons/Egloves.ogg', 50, 1, -1)
-		msg_admin_attack("[key_name(user)] stunned [key_name(L)] with the [src].")
+	deductcharge(hitcost)
 
-		deductcharge(hitcost)
+	return 1
 
 
 /obj/item/weapon/melee/baton/throw_impact(atom/hit_atom)
