@@ -40,6 +40,10 @@
 /mob/living/carbon/human/kidan/New(var/new_loc)
 	..(new_loc, "Kidan")
 
+/mob/living/carbon/human/plasma/New(var/new_loc)
+	h_style = "Bald"
+	..(new_loc, "Plasmaman")
+
 /mob/living/carbon/human/slime/New(var/new_loc)
 	..(new_loc, "Slime People")
 	verbs += /mob/living/carbon/human/slime/proc/slimepeople_ventcrawl
