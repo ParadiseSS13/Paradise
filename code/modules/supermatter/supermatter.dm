@@ -139,10 +139,11 @@
 
 		if(damage > explosion_point)
 			for(var/mob/living/mob in living_mob_list)
-				if(mob.loc.z == loc.z)
+				if(loc.z == mob.loc.z)
 					if(istype(mob, /mob/living/carbon/human))
 						//Hilariously enough, running into a closet should make you get hit the hardest.
-						mob:hallucination += max(50, min(300, DETONATION_HALLUCINATION * sqrt(1 / (get_dist(mob, src) + 1)) ) )
+						var/mob/living/carbon/human/H = mob
+						H.hallucination += max(50, min(300, DETONATION_HALLUCINATION * sqrt(1 / (get_dist(mob, src) + 1)) ) )
 					var/rads = DETONATION_RADS * sqrt( 1 / (get_dist(mob, src) + 1) )
 					mob.apply_effect(rads, IRRADIATE)
 
@@ -333,7 +334,8 @@
 				if(!X:anchored) //unanchored objects pulled twice as fast
 					step_towards(X,src)
 				if(istype(X, /obj/structure/window)) //shatter windows
-					X.ex_act(2.0)
+					var/obj/structure/window/W = X
+					W.ex_act(2.0)
 			else if(istype(X,/mob/living/carbon/human))
 				var/mob/living/carbon/human/H = X
 				if(istype(H.shoes,/obj/item/clothing/shoes/magboots))
