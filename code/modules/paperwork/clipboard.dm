@@ -91,7 +91,7 @@
 	if(src.loc == usr)
 
 		if(href_list["pen"])
-			if(haspen)
+			if(istype(haspen) && (haspen.loc == src))
 				haspen.loc = usr.loc
 				usr.put_in_hands(haspen)
 				haspen = null
@@ -108,7 +108,7 @@
 		else if(href_list["write"])
 			var/obj/item/weapon/P = locate(href_list["write"])
 			
-			if(P && (P.loc == src) && (istype(P, /obj/item/weapon/paper) || istype(P, /obj/item/weapon/photo)) )
+			if(P && (P.loc == src) && istype(P, /obj/item/weapon/paper) && (P == toppaper) )
 				
 				var/obj/item/I = usr.get_active_hand()
 				
@@ -134,7 +134,7 @@
 		else if(href_list["read"])
 			var/obj/item/weapon/paper/P = locate(href_list["read"])
 			
-			if(P && (P.loc == src) && (istype(P, /obj/item/weapon/paper) || istype(P, /obj/item/weapon/photo)) )
+			if(P && (P.loc == src) && istype(P, /obj/item/weapon/paper) )
 			
 				if(!(istype(usr, /mob/living/carbon/human) || istype(usr, /mob/dead/observer) || istype(usr, /mob/living/silicon)))
 					usr << browse("<HTML><HEAD><TITLE>[P.name]</TITLE></HEAD><BODY>[stars(P.info)][P.stamps]</BODY></HTML>", "window=[P.name]")
@@ -145,12 +145,12 @@
 
 		else if(href_list["look"])
 			var/obj/item/weapon/photo/P = locate(href_list["look"])
-			if(P && (P.loc == src) && (istype(P, /obj/item/weapon/paper) || istype(P, /obj/item/weapon/photo)) )
+			if(P && (P.loc == src) && istype(P, /obj/item/weapon/photo) )
 				P.show(usr)
 
-		else if(href_list["top"])
+		else if(href_list["top"]) // currently unused
 			var/obj/item/P = locate(href_list["top"])
-			if(P && (P.loc == src) && (istype(P, /obj/item/weapon/paper) || istype(P, /obj/item/weapon/photo)) )
+			if(P && (P.loc == src) && istype(P, /obj/item/weapon/paper) )
 				toppaper = P
 				usr << "<span class='notice'>You move [P.name] to the top.</span>"
 
