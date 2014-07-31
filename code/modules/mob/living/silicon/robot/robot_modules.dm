@@ -232,7 +232,7 @@
 		src.modules += new /obj/item/device/flash(src)
 		src.modules += new /obj/item/borg/sight/hud/sec(src)
 		src.modules += new /obj/item/weapon/handcuffs/cyborg(src)
-		src.modules += new /obj/item/weapon/melee/baton/loaded(src)
+		src.modules += new /obj/item/weapon/melee/baton/robot(src)
 		src.modules += new /obj/item/weapon/gun/energy/taser/cyborg(src)
 		src.modules += new /obj/item/taperoll/police(src)
 		src.emag = new /obj/item/weapon/gun/energy/laser/cyborg(src)
