@@ -156,5 +156,5 @@
 #define ui_ai_state_laws "SOUTH:6,WEST+9:16"
 #define ui_ai_pda_send "SOUTH:6,WEST+10:16"
 #define ui_ai_pda_log "SOUTH:6,WEST+11:16"
-//#define ui_ai_take_picture "SOUTH:6,WEST+12:16"
-//#define ui_ai_view_images "SOUTH:6,WEST+13:16"
+#define ui_ai_take_picture "SOUTH:6,WEST+12:16"
+#define ui_ai_view_images "SOUTH:6,WEST+13:16"

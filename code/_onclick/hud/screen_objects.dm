@@ -489,17 +489,17 @@
 			if(isAI(usr))
 				var/mob/living/silicon/ai/AI = usr
 				AI.cmd_show_message_log(usr)
-/*
+
 		if("Take Image")
 			if(isAI(usr))
 				var/mob/living/silicon/ai/AI = usr
-				AI.aicamera.toggle_camera_mode()
+				AI.aiCamera.toggle_camera_mode()
 
 		if("View Images")
 			if(isAI(usr))
 				var/mob/living/silicon/ai/AI = usr
-				AI.aicamera.viewpictures()
-*/
+				AI.aiCamera.viewpictures()
+
 		else
 			return 0
 	return 1
