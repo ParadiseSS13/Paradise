@@ -68,6 +68,30 @@
 			src.dust()
 	return absorb
 
+//Handles the effects of "stun" weapons
+/mob/living/proc/stun_effect_act(var/stun_amount, var/agony_amount, var/def_zone)
+	flash_pain()
+	
+	if (stun_amount)
+		Stun(stun_amount)
+		Weaken(stun_amount)
+		apply_effect(STUTTER, stun_amount)
+		apply_effect(EYE_BLUR, stun_amount)
+	
+	if (agony_amount)
+		apply_effect(agony_amount, AGONY,0)
+		apply_effect(STUTTER, agony_amount/10)
+		apply_effect(EYE_BLUR, agony_amount/10)
+
+/mob/living/proc/electrocute_act(var/shock_damage, var/obj/source, var/siemens_coeff = 1.0)
+	  return 0 //only carbon liveforms have this proc
+
+/mob/living/emp_act(severity)
+	var/list/L = src.get_contents()
+	for(var/obj/O in L)
+		O.emp_act(severity)
+	..()
+
 //this proc handles being hit by a thrown atom
 /mob/living/hitby(atom/movable/AM as mob|obj,var/speed = 5)//Standardization and logging -Sieve
 	if(istype(AM,/obj/))

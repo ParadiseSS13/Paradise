@@ -123,27 +123,24 @@
 	var/mob/living/L = M
 
 	var/contact = 1
+	var/target_zone
 	if(user.a_intent == "harm")
 		contact = ..()
 		agony *= 0.5	//whacking someone causes a much poorer contact than prodding them.
 		stun *= 0.5
+		//we can't really extract the actual hit zone from ..(), unfortunately. Just act like they prodded the chest.
+		target_zone = "chest"
 	else
-		//copied from human_defense.dm
+		//copied from human_defense.dm - human defence code should really be refactored some time.
 		if (ishuman(L))
 			user.lastattacked = L	//are these used at all, if we have logs?
 			L.lastattacker = user
 
-			var/target_zone = get_zone_with_miss_chance(user.zone_sel.selecting, L)
+			target_zone = get_zone_with_miss_chance(user.zone_sel.selecting, L)
 			if(user == L) // Attacking yourself can't miss
-				target_zone = user.zone_sel.selecting
+				target_zone = check_zone(user.zone_sel.selecting)
 			if(!target_zone)
 				contact = 0
-			else
-				switch (target_zone)
-					if("head")
-						agony *= 1.25
-					//if("l_hand", "r_hand")	//TODO
-					//if("l_foot", "r_foot")	//TODO
 
 		//put this here to avoid duplicate messages and logs from ..() above
 		if (!contact)
@@ -152,30 +149,20 @@
 			if(!status)
 				L.visible_message("<span class='warning'>[L] has been prodded with [src] by [user]. Luckily it was off.</span>")
 			else
-				L.visible_message("<span class='danger'>[L] has been prodded with [src] by [user]!</span>")
+				//unfortunately we can't tuck this away into human/stun_effect_act()...
+				if (ishuman(L))
+					var/mob/living/carbon/human/H = L
+					var/datum/organ/external/affecting = H.get_organ(target_zone)
+					if (affecting)
+						H.visible_message("<span class='danger'>[L] has been prodded in the [affecting.display_name] with [src] by [user]!</span>")
+				else
+					L.visible_message("<span class='danger'>[L] has been prodded with [src] by [user]!</span>")
 
 	//stun effects
 	if (contact)
 		msg_admin_attack("[key_name(user)] attempted to stun [key_name(L)] with the [src].")
 
-		if (ishuman(L))
-			var/mob/living/carbon/human/H = L
-			var/datum/organ/external/affected = get_organ(def_zone)
-			var/siemens_coeff = H.get_siemens_coefficient_organ(affected)
-			stun *= siemens_coeff
-			agony *= siemens_coeff
-
-		if (stun)
-			L.Stun(stun)
-			L.Weaken(stun)
-			L.apply_effect(STUTTER, stun)
-
-		if (agony)
-			//perhaps this could be merged with taser effects?
-			L.apply_effect(agony,AGONY,0)
-			L.apply_effect(STUTTER, agony/10)
-			L.apply_effect(EYE_BLUR, agony/10)
-			L.flash_pain()
+		L.stun_effect_act(stun, agony, target_zone)
 
 		playsound(loc, 'sound/weapons/Egloves.ogg', 50, 1, -1)
 		msg_admin_attack("[key_name(user)] stunned [key_name(L)] with the [src].")

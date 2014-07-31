@@ -227,14 +227,8 @@
 	return 0
 
 
-/mob/living/proc/electrocute_act(var/shock_damage, var/obj/source, var/siemens_coeff = 1.0)
-	  return 0 //only carbon liveforms have this proc
-
-/mob/living/emp_act(severity)
-	var/list/L = src.get_contents()
-	for(var/obj/O in L)
-		O.emp_act(severity)
-	..()
+/mob/living/proc/can_inject()
+	return 1
 
 /mob/living/proc/get_organ_target()
 	var/mob/shooter = src
