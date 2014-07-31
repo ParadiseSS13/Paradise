@@ -119,12 +119,14 @@
 		return
 
 	var/agony = agonyforce
+	var/stun = stunforce
 	var/mob/living/L = M
 
 	var/contact = 1
 	if(user.a_intent == "harm")
 		contact = ..()
 		agony *= 0.5	//whacking someone causes a much poorer contact than prodding them.
+		stun *= 0.5
 	else
 		//copied from human_defense.dm
 		if (ishuman(L))
@@ -151,18 +153,25 @@
 				L.visible_message("<span class='warning'>[L] has been prodded with [src] by [user]. Luckily it was off.</span>")
 			else
 				L.visible_message("<span class='danger'>[L] has been prodded with [src] by [user]!</span>")
-				msg_admin_attack("[key_name(user)] attempted to stun [key_name(L)] with the [src].")
 
 	//stun effects
 	if (contact)
-		if (stunforce)
-			L.Stun(stunforce)
-			L.Weaken(stunforce)
-			L.apply_effect(STUTTER, stunforce)
+		msg_admin_attack("[key_name(user)] attempted to stun [key_name(L)] with the [src].")
+
+		if (ishuman(L))
+			var/mob/living/carbon/human/H = L
+			var/datum/organ/external/affected = get_organ(def_zone)
+			var/siemens_coeff = H.get_siemens_coefficient_organ(affected)
+			stun *= siemens_coeff
+			agony *= siemens_coeff
+
+		if (stun)
+			L.Stun(stun)
+			L.Weaken(stun)
+			L.apply_effect(STUTTER, stun)
 
 		if (agony)
-			//Siemens coefficient?
-			//TODO: Merge this with taser effects
+			//perhaps this could be merged with taser effects?
 			L.apply_effect(agony,AGONY,0)
 			L.apply_effect(STUTTER, agony/10)
 			L.apply_effect(EYE_BLUR, agony/10)
