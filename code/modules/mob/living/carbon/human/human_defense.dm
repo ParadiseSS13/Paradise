@@ -59,14 +59,13 @@ emp_act
 
 				return -1 // complete projectile permutation
 
-	//BEGIN BOOK'S TASER NERF.
+	//Tasers
 	if(istype(P, /obj/item/projectile/beam/stun))
-		stun_effect_act(0, P.agony, def_zone)
+		stun_effect_act(0, P.agony, def_zone, P)
 		src <<"\red You have been hit by [P]!"
 		del P
 
 		return
-	//END TASER NERF
 
 	//Shrapnel
 	if (P.damage_type == BRUTE)
@@ -92,12 +91,12 @@ emp_act
 				c_hand = l_hand
 			else
 				c_hand = r_hand
-			
+
 			if(c_hand)
 				//Not only do you need to guess the correct hand, but you also have a 50% (and increases with distance, in the case of tasers) miss chance when targeting the hands
 				//Since you can disarm someone by spamming disarm with a 60% success rate, it seems fair to have this be an automatic disarm, even for tasers.
 				msg_admin_attack("[src.name] ([src.ckey]) was disarmed by a stun effect")
-				
+
 				u_equip(c_hand)
 				var/datum/organ/external/affected = get_organ(def_zone)
 				if (affected.status & ORGAN_ROBOT)

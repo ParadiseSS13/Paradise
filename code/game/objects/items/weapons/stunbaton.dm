@@ -162,7 +162,7 @@
 	if (contact)
 		msg_admin_attack("[key_name(user)] attempted to stun [key_name(L)] with the [src].")
 
-		L.stun_effect_act(stun, agony, target_zone)
+		L.stun_effect_act(stun, agony, target_zone, src)
 
 		playsound(loc, 'sound/weapons/Egloves.ogg', 50, 1, -1)
 		msg_admin_attack("[key_name(user)] stunned [key_name(L)] with the [src].")
