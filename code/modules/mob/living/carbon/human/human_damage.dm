@@ -304,6 +304,9 @@ This function restores all organs.
 				damage = damage*species.burn_mod
 			if(organ.take_damage(0, damage, sharp, edge, used_weapon))
 				UpdateDamageIcon()
+		if(HALLOSS)
+			if ((damage > 25 && prob(20)) || (damage > 50 && prob(60)))
+				emote("scream")
 
 	// Will set our damageoverlay icon to the next level, which will then be set back to the normal level the next mob.Life().
 	updatehealth()
