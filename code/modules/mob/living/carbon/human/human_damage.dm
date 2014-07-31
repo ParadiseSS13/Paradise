@@ -261,20 +261,20 @@ This function restores all organs.
 /mob/living/carbon/human/apply_damage(var/damage = 0, var/damagetype = BRUTE, var/def_zone = null, var/blocked = 0, var/sharp = 0, var/edge = 0, var/obj/used_weapon = null)
 
 	//visible_message("Hit debug. [damage] | [damagetype] | [def_zone] | [blocked] | [sharp] | [used_weapon]")
-	
+
 	//Handle other types of damage
 	if((damagetype != BRUTE) && (damagetype != BURN))
 		if(damagetype == HALLOSS)
 			if ((damage > 25 && prob(20)) || (damage > 50 && prob(60)))
 				emote("scream")
-		
-		
+
+
 		..(damage, damagetype, def_zone, blocked)
 		return 1
 
 	//Handle BRUTE and BURN damage
 	handle_suit_punctures(damagetype, damage)
-	
+
 	if(blocked >= 2)	return 0
 
 	var/datum/organ/external/organ = null
@@ -316,21 +316,6 @@ This function restores all organs.
 	// Will set our damageoverlay icon to the next level, which will then be set back to the normal level the next mob.Life().
 	updatehealth()
 	hud_updateflag |= 1 << HEALTH_HUD
-
-	//Embedded object code.
-	if(!organ) return
-	if(istype(used_weapon,/obj/item))
-		var/obj/item/W = used_weapon
-		if (!W.is_robot_module())
-			//blunt objects should really not be embedding in things unless a huge amount of force is involved
-			var/embed_chance = sharp? damage/W.w_class : damage/(W.w_class*3)
-			var/embed_threshold = sharp? 5*W.w_class : 15*W.w_class
-
-			//Sharp objects will always embed if they do enough damage.
-			//Thrown objects have some momentum already and have a small chance to embed even if the damage is below the threshold
-			if((sharp && damage > (10*W.w_class)) || (sharp && !ismob(W.loc) && prob(damage/(10*W.w_class)*100)) || (damage > embed_threshold && prob(embed_chance)))
-				organ.embed(W)
-
 	return 1
 
 
