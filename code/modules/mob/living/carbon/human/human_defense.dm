@@ -54,15 +54,7 @@ emp_act
 //BEGIN BOOK'S TASER NERF.
 	if(istype(P, /obj/item/projectile/beam/stun))
 		var/datum/organ/external/select_area = get_organ(def_zone) // We're checking the outside, buddy!
-		var/list/body_parts = list(head, wear_mask, wear_suit, w_uniform, gloves, shoes) // What all are we checking?
-		// var/deflectchance=90 //Is it a CRITICAL HIT with that taser?
-		for(var/bp in body_parts) //Make an unregulated var to pass around.
-			if(!bp)
-				continue //Does this thing we're shooting even exist?
-			if(bp && istype(bp ,/obj/item/clothing)) // If it exists, and it's clothed
-				var/obj/item/clothing/C = bp // Then call an argument C to be that clothing!
-				if(C.body_parts_covered & select_area.body_part) // Is that body part being targeted covered?
-					P.agony=P.agony*C.siemens_coefficient
+		P.agony *= get_siemens_coefficient_organ(select_area)
 		apply_effect(P.agony,AGONY,0)
 		flash_pain()
 		src <<"\red You have been shot!"
@@ -119,6 +111,21 @@ emp_act
 		organnum++
 	return (armorval/max(organnum, 1))
 
+//this proc returns the Siemens coefficient of electrical resistivity for a particular external organ.
+/mob/living/carbon/human/proc/get_siemens_coefficient_organ(var/datum/organ/external/def_zone)
+	if (!def_zone)
+		return 1.0
+	
+	var/siemens_coefficient = 1.0
+	
+	var/list/clothing_items = list(head, wear_mask, wear_suit, w_uniform, gloves, shoes) // What all are we checking?
+	for(var/obj/item/clothing/C in clothing_items)
+		if(!istype(C))	//is this necessary?
+			continue
+		else if(C.body_parts_covered & def_zone.body_part) // Is that body part being targeted covered?
+			siemens_coefficient *= C.siemens_coefficient
+	
+	return siemens_coefficient
 
 //this proc returns the armour value for a particular external organ.
 /mob/living/carbon/human/proc/getarmor_organ(var/datum/organ/external/def_zone, var/type)
@@ -193,7 +200,7 @@ emp_act
 /mob/living/carbon/human/proc/attacked_by(var/obj/item/I, var/mob/living/user, var/def_zone)
 	if(!I || !user)	return 0
 
-	var/target_zone = def_zone? def_zone : get_zone_with_miss_chance(user.zone_sel.selecting, src)
+	var/target_zone = def_zone? check_zone(def_zone) : get_zone_with_miss_chance(user.zone_sel.selecting, src)
 	
 	if(user == src) // Attacking yourself can't miss
 		target_zone = user.zone_sel.selecting
