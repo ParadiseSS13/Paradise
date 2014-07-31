@@ -10,23 +10,31 @@ emp_act
 
 /mob/living/carbon/human/bullet_act(var/obj/item/projectile/P, var/def_zone)
 
-// BEGIN TASER NERF
-					/* Commenting out new-old taser nerf.
-					if(C.siemens_coefficient == 0) //If so, is that clothing shock proof?
-						if(prob(deflectchance))
-							visible_message("\red <B>The [P.name] gets deflected by [src]'s [C.name]!</B>") //DEFLECT!
-							visible_message("\red <B> Taser hit for [P.damage] damage!</B>")
-							del P
-*/
-/* Commenting out old Taser nerf
-	if(wear_suit && istype(wear_suit, /obj/item/clothing/suit/armor))
-		if(istype(P, /obj/item/projectile/energy/electrode))
-			visible_message("\red <B>The [P.name] gets deflected by [src]'s [wear_suit.name]!</B>")
-			del P
-		return -1
-*/
-// END TASER NERF
+	var/datum/organ/external/organ = get_organ(check_zone(def_zone))
 
+	//Being hit while using a cloaking device
+	var/obj/item/weapon/cloaking_device/C = locate((/obj/item/weapon/cloaking_device) in src)
+	if(C && C.active)
+		C.attack_self(src)//Should shut it off
+		update_icons()
+		src << "\blue Your [C.name] was disrupted!"
+		Stun(2)
+
+/*
+	//Being hit while using a deadman switch
+	if(istype(equipped(),/obj/item/device/assembly/signaler))
+		var/obj/item/device/assembly/signaler/signaler = equipped()
+		if(signaler.deadman && prob(80))
+			src.visible_message("\red [src] triggers their deadman's switch!")
+			signaler.signal()
+*/
+
+	//Shields
+	if(check_shields(P.damage, "the [P.name]"))
+		P.on_hit(src, 2, def_zone)
+		return 2
+
+	//Laserproof armour
 	if(wear_suit && istype(wear_suit, /obj/item/clothing/suit/armor/laserproof))
 		if(istype(P, /obj/item/projectile/energy) || istype(P, /obj/item/projectile/beam))
 			var/reflectchance = 40 - round(P.damage/3)
@@ -51,45 +59,35 @@ emp_act
 
 				return -1 // complete projectile permutation
 
-//BEGIN BOOK'S TASER NERF.
+	//BEGIN BOOK'S TASER NERF.
 	if(istype(P, /obj/item/projectile/beam/stun))
 		var/datum/organ/external/select_area = get_organ(def_zone) // We're checking the outside, buddy!
-		P.agony *= get_siemens_coefficient_organ(select_area)
+		var/list/clothing_items = list(head, wear_mask, wear_suit, w_uniform, gloves, shoes) // What all are we checking?
+
+		for(var/obj/item/clothing/CL in clothing_items) //Make an unregulated var to pass around.
+			if(!istype(CL))	//This isn't necessary, is it?
+				continue
+			if(CL.body_parts_covered & select_area.body_part) // Is that body part being targeted covered by CL?
+				P.agony *= CL.siemens_coefficient
+
+		//blocked = 0 here as we've already adjused based on siemens_coefficient.
 		apply_effect(P.agony,AGONY,0)
 		flash_pain()
-		src <<"\red You have been shot!"
+		src <<"\red You have been hit by [P]!"
 		del P
 
-		var/obj/item/weapon/cloaking_device/C = locate((/obj/item/weapon/cloaking_device) in src)
-		if(C && C.active)
-			C.attack_self(src)//Should shut it off
-			update_icons()
-			src << "\blue Your [C.name] was disrupted!"
-			Stun(2)
-/*
-		if(istype(equipped(),/obj/item/device/assembly/signaler))
-			var/obj/item/device/assembly/signaler/signaler = equipped()
-			if(signaler.deadman && prob(80))
-				src.visible_message("\red [src] triggers their deadman's switch!")
-				signaler.signal()
-*/
 		return
-//END TASER NERF
+	//END TASER NERF
 
-	if(check_shields(P.damage, "the [P.name]"))
-		P.on_hit(src, 2, def_zone)
-		return 2
-
-	var/datum/organ/external/organ = get_organ(check_zone(def_zone))
-
-	var/armor = getarmor_organ(organ, "bullet")
-
-	if((P.embed && prob(20 + max(P.damage - armor, -10))) && P.damage_type == BRUTE)
-		var/obj/item/weapon/shard/shrapnel/SP = new()
-		(SP.name) = "[P.name] shrapnel"
-		(SP.desc) = "[SP.desc] It looks like it was fired from [P.shot_from]."
-		(SP.loc) = organ
-		organ.embed(SP)
+	//Shrapnel
+	if (P.damage_type == BRUTE)
+		var/armor = getarmor_organ(organ, "bullet")
+		if((P.embed && prob(20 + max(P.damage - armor, -10))))
+			var/obj/item/weapon/shard/shrapnel/SP = new()
+			(SP.name) = "[P.name] shrapnel"
+			(SP.desc) = "[SP.desc] It looks like it was fired from [P.shot_from]."
+			(SP.loc) = organ
+			organ.embed(SP)
 
 	return (..(P , def_zone))
 
@@ -115,16 +113,16 @@ emp_act
 /mob/living/carbon/human/proc/get_siemens_coefficient_organ(var/datum/organ/external/def_zone)
 	if (!def_zone)
 		return 1.0
-	
+
 	var/siemens_coefficient = 1.0
-	
+
 	var/list/clothing_items = list(head, wear_mask, wear_suit, w_uniform, gloves, shoes) // What all are we checking?
 	for(var/obj/item/clothing/C in clothing_items)
 		if(!istype(C))	//is this necessary?
 			continue
 		else if(C.body_parts_covered & def_zone.body_part) // Is that body part being targeted covered?
 			siemens_coefficient *= C.siemens_coefficient
-	
+
 	return siemens_coefficient
 
 //this proc returns the armour value for a particular external organ.
@@ -197,11 +195,12 @@ emp_act
 	..()
 
 
+//Returns 1 if the attack hit, 0 if it missed.
 /mob/living/carbon/human/proc/attacked_by(var/obj/item/I, var/mob/living/user, var/def_zone)
 	if(!I || !user)	return 0
 
 	var/target_zone = def_zone? check_zone(def_zone) : get_zone_with_miss_chance(user.zone_sel.selecting, src)
-	
+
 	if(user == src) // Attacking yourself can't miss
 		target_zone = user.zone_sel.selecting
 	if(!target_zone && !src.stat)
@@ -323,14 +322,14 @@ emp_act
 			var/obj/item/weapon/W = O
 			dtype = W.damtype
 		var/throw_damage = O.throwforce*(speed/5)
-		
+
 		var/zone
 		if (istype(O.thrower, /mob/living))
 			var/mob/living/L = O.thrower
 			zone = check_zone(L.zone_sel.selecting)
 		else
 			zone = ran_zone("chest",75)	//Hits a random part of the body, geared towards the chest
-		
+
 		//check if we hit
 		if (O.throw_source)
 			var/distance = get_dist(O.throw_source, loc)
@@ -341,15 +340,15 @@ emp_act
 		if(!zone)
 			visible_message("\blue \The [O] misses [src] narrowly!")
 			return
-		
+
 		O.throwing = 0		//it hit, so stop moving
-		
+
 		if ((O.thrower != src) && check_shields(throw_damage, "[O]"))
 			return
-		
+
 		var/datum/organ/external/affecting = get_organ(zone)
 		var/hit_area = affecting.display_name
-		
+
 		src.visible_message("\red [src] has been hit in the [hit_area] by [O].")
 		var/armor = run_armor_check(affecting, "melee", "Your armor has protected your [hit_area].", "Your armor has softened hit to your [hit_area].") //I guess "melee" is the best fit here
 

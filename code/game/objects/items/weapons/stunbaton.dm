@@ -186,7 +186,7 @@
 					H.Weaken(stunforce)
 					H.apply_effect(STUTTER, stunforce)
 
-				if (agony)
+				if (agonyforce)
 					//Siemens coefficient?
 					//TODO: Merge this with taser effects
 					H.apply_effect(agony,AGONY,0)
