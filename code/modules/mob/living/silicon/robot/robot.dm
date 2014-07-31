@@ -1182,11 +1182,17 @@
 
 /mob/living/silicon/robot/Topic(href, href_list)
 	..()
+
+	if(usr != src)
+		return
+
 	if (href_list["mach_close"])
 		var/t1 = text("window=[href_list["mach_close"]]")
 		unset_machine()
 		src << browse(null, t1)
 		return
+
+
 
 	if (href_list["showalerts"])
 		robot_alerts()
@@ -1194,12 +1200,41 @@
 
 	if (href_list["mod"])
 		var/obj/item/O = locate(href_list["mod"])
-		if (O)
+		if (isytpe(O) && (O.loc == src))
 			O.attack_self(src)
 
 	if (href_list["act"])
 		var/obj/item/O = locate(href_list["act"])
+<<<<<<< HEAD
 		activate_module(O)
+=======
+		if (!isytpe(O) || !(O.loc == src || O.loc == src.module))
+			return
+
+		if(activated(O))
+			src << "Already activated"
+			return
+		if(!module_state_1)
+			module_state_1 = O
+			O.layer = 20
+			contents += O
+			if(istype(module_state_1,/obj/item/borg/sight))
+				sight_mode |= module_state_1:sight_mode
+		else if(!module_state_2)
+			module_state_2 = O
+			O.layer = 20
+			contents += O
+			if(istype(module_state_2,/obj/item/borg/sight))
+				sight_mode |= module_state_2:sight_mode
+		else if(!module_state_3)
+			module_state_3 = O
+			O.layer = 20
+			contents += O
+			if(istype(module_state_3,/obj/item/borg/sight))
+				sight_mode |= module_state_3:sight_mode
+		else
+			src << "You need to disable a module first!"
+>>>>>>> ca78cb2... cyborg topic exploit fixes
 		installed_modules()
 
 	if (href_list["deact"])
