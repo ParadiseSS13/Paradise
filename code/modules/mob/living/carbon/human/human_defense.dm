@@ -83,9 +83,28 @@ emp_act
 /mob/living/carbon/human/stun_effect_act(var/stun_amount, var/agony_amount, var/def_zone)
 	switch (def_zone)
 		if("head")
-			agony_amount *= 1.25
-		//if("l_hand", "r_hand")	//TODO
+			//agony_amount *= 1.25
+			agony_amount *= 1.50	//it does add risk, so it should probably do more damage than average
 		//if("l_foot", "r_foot")	//TODO
+		if("l_hand", "r_hand")
+			var/c_hand
+			if (def_zone == "l_hand")
+				c_hand = l_hand
+			else
+				c_hand = r_hand
+			
+			if(c_hand)
+				//Not only do you need to guess the correct hand, but you also have a 50% (and increases with distance, in the case of tasers) miss chance when targeting the hands
+				//Since you can disarm someone by spamming disarm with a 60% success rate, it seems fair to have this be an automatic disarm, even for tasers.
+				msg_admin_attack("[src.name] ([src.ckey]) was disarmed by a stun effect")
+				
+				u_equip(c_hand)
+				var/datum/organ/external/affected = get_organ(def_zone)
+				if (affected.status & ORGAN_ROBOT)
+					emote("me", 1, "drops what they were holding, their [affected.display_name] malfunctioning!")
+				else
+					var/emote_scream = pick("screams in pain and", "lets out a sharp cry and", "cries out and")
+					emote("me", 1, "[(species && species.flags & NO_PAIN) ? "" : emote_scream ] drops what they were holding in their [affected.display_name]!")
 
 	var/datum/organ/external/affected = get_organ(check_zone(def_zone))
 	var/siemens_coeff = get_siemens_coefficient_organ(affected)
