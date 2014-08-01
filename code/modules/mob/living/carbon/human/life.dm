@@ -1,25 +1,5 @@
 //This file was auto-corrected by findeclaration.exe on 25.5.2012 20:42:32
 
-//NOTE: Breathing happens once per FOUR TICKS, unless the last breath fails. In which case it happens once per ONE TICK! So oxyloss healing is done once per 4 ticks while oxyloss damage is applied once per tick!
-#define HUMAN_MAX_OXYLOSS 1 //Defines how much oxyloss humans can get per tick. A tile with no air at all (such as space) applies this value, otherwise it's a percentage of it.
-#define HUMAN_CRIT_MAX_OXYLOSS ( (last_tick_duration) /5) //The amount of damage you'll get when in critical condition. We want this to be a 5 minute deal = 300s. There are 100HP to get through, so (1/3)*last_tick_duration per second. Breaths however only happen every 4 ticks.
-
-#define HEAT_DAMAGE_LEVEL_1 2 //Amount of damage applied when your body temperature just passes the 360.15k safety point
-#define HEAT_DAMAGE_LEVEL_2 4 //Amount of damage applied when your body temperature passes the 400K point
-#define HEAT_DAMAGE_LEVEL_3 8 //Amount of damage applied when your body temperature passes the 1000K point
-
-#define COLD_DAMAGE_LEVEL_1 0.5 //Amount of damage applied when your body temperature just passes the 260.15k safety point
-#define COLD_DAMAGE_LEVEL_2 1.5 //Amount of damage applied when your body temperature passes the 200K point
-#define COLD_DAMAGE_LEVEL_3 3 //Amount of damage applied when your body temperature passes the 120K point
-
-//Note that gas heat damage is only applied once every FOUR ticks.
-#define HEAT_GAS_DAMAGE_LEVEL_1 2 //Amount of damage applied when the current breath's temperature just passes the 360.15k safety point
-#define HEAT_GAS_DAMAGE_LEVEL_2 4 //Amount of damage applied when the current breath's temperature passes the 400K point
-#define HEAT_GAS_DAMAGE_LEVEL_3 8 //Amount of damage applied when the current breath's temperature passes the 1000K point
-
-#define COLD_GAS_DAMAGE_LEVEL_1 0.5 //Amount of damage applied when the current breath's temperature just passes the 260.15k safety point
-#define COLD_GAS_DAMAGE_LEVEL_2 1.5 //Amount of damage applied when the current breath's temperature passes the 200K point
-#define COLD_GAS_DAMAGE_LEVEL_3 3 //Amount of damage applied when the current breath's temperature passes the 120K point
 
 var/global/list/unconscious_overlays = list("1" = image("icon" = 'icons/mob/screen1_full.dmi', "icon_state" = "passage1"),\
 	"2" = image("icon" = 'icons/mob/screen1_full.dmi', "icon_state" = "passage2"),\
@@ -54,6 +34,8 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 	var/temperature_alert = 0
 	var/in_stasis = 0
 	var/do_deferred_species_setup=0
+	var/exposedtimenow = 0
+	var/firstexposed = 0
 
 // Doing this during species init breaks shit.
 /mob/living/carbon/human/proc/DeferredSpeciesSetup()
@@ -458,6 +440,14 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 
 		handle_breath(breath)
 
+		if(species.name=="Plasmaman")
+
+			// Check if we're wearing our biosuit and mask.
+			if (!istype(wear_suit,/obj/item/clothing/suit/space/plasmaman) || !istype(head,/obj/item/clothing/head/helmet/space/plasmaman))
+				//testing("Plasmaman [src] leakin'.  coverflags=[cover_flags]")
+				// OH FUCK HE LEAKIN'.
+				environment.adjust(tx = environment.total_moles()*BREATH_PERCENTAGE) // About one breath's worth. (I know we aren't breathing it out, but this should be about the right amount)
+
 		if(breath)
 			loc.assume_air(breath)
 
@@ -486,10 +476,9 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 		// Health is in deep shit and we're not already dead
 		return health <= 0 && stat != 2
 
-
-	proc/handle_breath(datum/gas_mixture/breath)
+	proc/handle_breath(var/datum/gas_mixture/breath)
 		if(status_flags & GODMODE)
-			return
+			return 0
 
 		if(!breath || (breath.total_moles() == 0) || suiciding)
 			if(suiciding)
@@ -508,231 +497,7 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 
 			return 0
 
-		var/safe_pressure_min = 16 // Minimum safe partial pressure of breathable gas in kPa
-		//var/safe_pressure_max = 140 // Maximum safe partial pressure of breathable gas in kPa (Not used for now)
-		var/safe_exhaled_max = 10 // Yes it's an arbitrary value who cares?
-		var/safe_toxins_max = 0.5
-		var/safe_toxins_mask = 5
-		var/SA_para_min = 1
-		var/SA_sleep_min = 5
-		var/inhaled_gas_used = 0
-
-		var/breath_pressure = (breath.total_moles()*R_IDEAL_GAS_EQUATION*breath.temperature)/BREATH_VOLUME
-		var/inhaling
-		var/exhaling
-		var/poison
-		var/no_exhale
-
-		var/failed_inhale = 0
-		var/failed_exhale = 0
-
-		switch(species.breath_type)
-			if("nitrogen")
-				inhaling = breath.nitrogen
-			if("plasma")
-				inhaling = breath.toxins
-			if("carbon_dioxide")
-				inhaling = breath.carbon_dioxide
-			else
-				inhaling = breath.oxygen
-
-		switch(species.poison_type)
-			if("oxygen")
-				poison = breath.oxygen
-			if("nitrogen")
-				poison = breath.nitrogen
-			if("carbon_dioxide")
-				poison = breath.carbon_dioxide
-			else
-				poison = breath.toxins
-
-		switch(species.exhale_type)
-			if("carbon_dioxide")
-				exhaling = breath.carbon_dioxide
-			if("oxygen")
-				exhaling = breath.oxygen
-			if("nitrogen")
-				exhaling = breath.nitrogen
-			if("plasma")
-				exhaling = breath.toxins
-			else
-				no_exhale = 1
-
-		var/inhale_pp = (inhaling/breath.total_moles())*breath_pressure
-		var/toxins_pp = (poison/breath.total_moles())*breath_pressure
-		var/exhaled_pp = (exhaling/breath.total_moles())*breath_pressure
-
-		// Not enough to breathe
-		if(inhale_pp < safe_pressure_min)
-			if(prob(20))
-				spawn(0) emote("gasp")
-			if(inhale_pp > 0)
-				var/ratio = inhale_pp/safe_pressure_min
-
-				 // Don't fuck them up too fast (space only does HUMAN_MAX_OXYLOSS after all!)
-				 // The hell? By definition ratio > 1, and HUMAN_MAX_OXYLOSS = 1... why do we even have this?
-				adjustOxyLoss(min(5*ratio, HUMAN_MAX_OXYLOSS))
-				failed_inhale = 1
-				inhaled_gas_used = inhaling*ratio/6
-
-			else
-
-				adjustOxyLoss(HUMAN_MAX_OXYLOSS)
-				failed_inhale = 1
-
-			oxygen_alert = max(oxygen_alert, 1)
-
-		else
-			// We're in safe limits
-			inhaled_gas_used = inhaling/6
-			oxygen_alert = 0
-
-		switch(species.breath_type)
-			if("nitrogen")
-				breath.nitrogen -= inhaled_gas_used
-			if("plasma")
-				breath.toxins -= inhaled_gas_used
-			if("carbon_dioxide")
-				breath.carbon_dioxide-= inhaled_gas_used
-			else
-				breath.oxygen -= inhaled_gas_used
-
-		if(!no_exhale)
-			switch(species.exhale_type)
-				if("oxygen")
-					breath.oxygen += inhaled_gas_used
-				if("nitrogen")
-					breath.nitrogen += inhaled_gas_used
-				if("plamsa")
-					breath.toxins += inhaled_gas_used
-				if("carbon_dioxide")
-					breath.carbon_dioxide += inhaled_gas_used
-
-		// Too much exhaled gas in the air
-		if(exhaled_pp > safe_exhaled_max)
-			if (!co2_alert|| prob(15))
-				var/word = pick("extremely dizzy","short of breath","faint","confused")
-				src << "\red <b>You feel [word].</b>"
-
-			adjustOxyLoss(HUMAN_MAX_OXYLOSS)
-			co2_alert = 1
-			failed_exhale = 1
-
-		else if(exhaled_pp > safe_exhaled_max * 0.7)
-			if (!co2_alert || prob(1))
-				var/word = pick("dizzy","short of breath","faint","momentarily confused")
-				src << "\red You feel [word]."
-
-			//scale linearly from 0 to 1 between safe_exhaled_max and safe_exhaled_max*0.7
-			var/ratio = 1.0 - (safe_exhaled_max - exhaled_pp)/(safe_exhaled_max*0.3)
-
-			//give them some oxyloss, up to the limit - we don't want people falling unconcious due to CO2 alone until they're pretty close to safe_exhaled_max.
-			if (getOxyLoss() < 50*ratio)
-				adjustOxyLoss(HUMAN_MAX_OXYLOSS)
-			co2_alert = 1
-			failed_exhale = 1
-
-		else if(exhaled_pp > safe_exhaled_max * 0.6)
-			if (prob(0.3))
-				var/word = pick("a little dizzy","short of breath")
-				src << "\red You feel [word]."
-
-		else
-			co2_alert = 0
-
-		// Too much poison in the air.
-		if(toxins_pp > safe_toxins_max) // Too much toxins
-			var/ratio = (poison/safe_toxins_max) * 10
-			if(wear_mask)
-				if(wear_mask.flags & BLOCK_GAS_SMOKE_EFFECT)
-					if(poison > safe_toxins_mask)
-						ratio = (poison/safe_toxins_mask) * 10
-					else
-						ratio = 0
-			if(ratio)
-				if(reagents)
-					reagents.add_reagent("plasma", Clamp(ratio, MIN_PLASMA_DAMAGE, MAX_PLASMA_DAMAGE))
-				toxins_alert = max(toxins_alert, 1)
-			toxins_alert = max(toxins_alert, 1)
-		else
-			toxins_alert = 0
-
-		// If there's some other shit in the air lets deal with it here.
-		if(breath.trace_gases.len)
-			for(var/datum/gas/sleeping_agent/SA in breath.trace_gases)
-				var/SA_pp = (SA.moles/breath.total_moles())*breath_pressure
-
-				// Enough to make us paralysed for a bit
-				if(SA_pp > SA_para_min)
-
-					// 3 gives them one second to wake up and run away a bit!
-					Paralyse(3)
-
-					// Enough to make us sleep as well
-					if(SA_pp > SA_sleep_min)
-						sleeping = min(sleeping+2, 10)
-
-				// There is sleeping gas in their lungs, but only a little, so give them a bit of a warning
-				else if(SA_pp > 0.15)
-					if(prob(20))
-						spawn(0) emote(pick("giggle", "laugh"))
-				SA.moles = 0
-
-		// Were we able to breathe?
-		if (failed_inhale || failed_exhale)
-			failed_last_breath = 1
-		else
-			failed_last_breath = 0
-			adjustOxyLoss(-5)
-
-		// Hot air hurts :(
-		if( (breath.temperature < species.cold_level_1 || breath.temperature > species.heat_level_1) && !(M_RESIST_HEAT in mutations))
-
-			if(status_flags & GODMODE)
-				return 1
-
-			if(breath.temperature < species.cold_level_1)
-				if(prob(20))
-					src << "\red You feel your face freezing and icicles forming in your lungs!"
-			else if(breath.temperature > species.heat_level_1)
-				if(prob(20))
-					src << "\red You feel your face burning and a searing heat in your lungs!"
-
-			switch(breath.temperature)
-				if(-INFINITY to species.cold_level_3)
-					apply_damage(COLD_GAS_DAMAGE_LEVEL_3, BURN, "head", used_weapon = "Excessive Cold")
-					fire_alert = max(fire_alert, 1)
-				if(species.cold_level_3 to species.cold_level_2)
-					apply_damage(COLD_GAS_DAMAGE_LEVEL_2, BURN, "head", used_weapon = "Excessive Cold")
-					fire_alert = max(fire_alert, 1)
-				if(species.cold_level_2 to species.cold_level_1)
-					apply_damage(COLD_GAS_DAMAGE_LEVEL_1, BURN, "head", used_weapon = "Excessive Cold")
-					fire_alert = max(fire_alert, 1)
-				if(species.heat_level_1 to species.heat_level_2)
-					apply_damage(HEAT_GAS_DAMAGE_LEVEL_1, BURN, "head", used_weapon = "Excessive Heat")
-					fire_alert = max(fire_alert, 2)
-				if(species.heat_level_2 to species.heat_level_3)
-					apply_damage(HEAT_GAS_DAMAGE_LEVEL_2, BURN, "head", used_weapon = "Excessive Heat")
-					fire_alert = max(fire_alert, 2)
-				if(species.heat_level_3 to INFINITY)
-					apply_damage(HEAT_GAS_DAMAGE_LEVEL_3, BURN, "head", used_weapon = "Excessive Heat")
-					fire_alert = max(fire_alert, 2)
-
-			//breathing in hot/cold air also heats/cools you a bit
-			var/temp_adj = breath.temperature - bodytemperature
-			if (temp_adj < 0)
-				temp_adj /= (BODYTEMP_COLD_DIVISOR * 5)	//don't raise temperature as much as if we were directly exposed
-			else
-				temp_adj /= (BODYTEMP_HEAT_DIVISOR * 5)	//don't raise temperature as much as if we were directly exposed
-
-			var/relative_density = breath.total_moles() / (MOLES_CELLSTANDARD * BREATH_PERCENTAGE)
-			temp_adj *= relative_density
-
-			if (temp_adj > BODYTEMP_HEATING_MAX) temp_adj = BODYTEMP_HEATING_MAX
-			if (temp_adj < BODYTEMP_COOLING_MAX) temp_adj = BODYTEMP_COOLING_MAX
-			//world << "Breath: [breath.temperature], [src]: [bodytemperature], Adjusting: [temp_adj]"
-			bodytemperature += temp_adj
-		return 1
+		return species.handle_breath(breath, src)
 
 	proc/handle_environment(datum/gas_mixture/environment)
 		if(!environment)
@@ -1079,6 +844,24 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 				apply_damage(0.4*discomfort, BURN, "l_arm")
 				apply_damage(0.4*discomfort, BURN, "r_arm")
 	*/
+
+	proc/get_covered_bodyparts()
+		var/covered = 0
+
+		if(head)
+			covered |= head.body_parts_covered
+		if(wear_suit)
+			covered |= wear_suit.body_parts_covered
+		if(w_uniform)
+			covered |= w_uniform.body_parts_covered
+		if(shoes)
+			covered |= shoes.body_parts_covered
+		if(gloves)
+			covered |= gloves.body_parts_covered
+		if(wear_mask)
+			covered |= wear_mask.body_parts_covered
+
+		return covered
 
 	proc/handle_chemicals_in_body()
 
@@ -2104,5 +1887,6 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 		C.images += H.hud_list[NATIONS_HUD]
 
 
-#undef HUMAN_MAX_OXYLOSS
-#undef HUMAN_CRIT_MAX_OXYLOSS
+// Need this in species.
+//#undef HUMAN_MAX_OXYLOSS
+//#undef HUMAN_CRIT_MAX_OXYLOSS

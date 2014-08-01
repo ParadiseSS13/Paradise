@@ -1,3 +1,22 @@
+/datum/shuttle/ferry/escape_pod
+	var/datum/computer/file/embedded_program/docking/simple/escape_pod/arming_controller
+
+/datum/shuttle/ferry/escape_pod/can_launch()
+	if(arming_controller && !arming_controller.armed)	//must be armed
+		return 0
+	if(location)
+		return 0	//it's a one-way trip.
+	return ..()
+
+/datum/shuttle/ferry/escape_pod/can_force()
+	if (arming_controller.eject_time && world.time < arming_controller.eject_time + 50)
+		return 0	//dont allow force launching until 5 seconds after the arming controller has reached it's countdown
+	return ..()
+
+/datum/shuttle/ferry/escape_pod/can_cancel()
+	return 0
+
+	
 //This controller goes on the escape pod itself
 /obj/machinery/embedded_controller/radio/simple_docking_controller/escape_pod
 	name = "escape pod controller"
@@ -11,7 +30,7 @@
 		"override_enabled" = docking_program.override_enabled,
 		"door_state" = 	docking_program.memory["door_status"]["state"],
 		"door_lock" = 	docking_program.memory["door_status"]["lock"],
-		"can_force" = pod.can_force(),
+		"can_force" = pod.can_force() || (emergency_shuttle.departed && pod.can_launch()),	//allow players to manually launch ahead of time if the shuttle leaves
 		"is_armed" = pod.arming_controller.armed,
 	)
 
@@ -30,7 +49,10 @@
 	if("manual_arm")
 		pod.arming_controller.arm()
 	if("force_launch")
-		pod.force_launch(src)
+		if (pod.can_force())
+			pod.force_launch(src)
+		else if (emergency_shuttle.departed && pod.can_launch())	//allow players to manually launch ahead of time if the shuttle leaves
+			pod.launch(src)
 
 	return 0
 

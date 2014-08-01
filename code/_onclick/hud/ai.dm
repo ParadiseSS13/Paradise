@@ -111,7 +111,7 @@
 	using.screen_loc = ui_ai_pda_log
 	using.layer = 20
 	adding += using
-/*
+
 //Take image
 	using = new /obj/screen()
 	using.name = "Take Image"
@@ -129,7 +129,7 @@
 	using.screen_loc = ui_ai_view_images
 	using.layer = 20
 	adding += using
-*/
+
 	mymob.client.screen += adding + other
 
 	return

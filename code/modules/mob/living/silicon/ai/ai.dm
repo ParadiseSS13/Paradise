@@ -94,6 +94,8 @@ var/list/ai_list = list()
 	radio = new(src)
 	radio.myAi = src
 
+	aiCamera = new/obj/item/device/camera/siliconcam/ai_camera(src)
+
 	if (istype(loc, /turf))
 		verbs.Add(/mob/living/silicon/ai/proc/ai_network_change, \
 		/mob/living/silicon/ai/proc/ai_statuschange, /mob/living/silicon/ai/proc/ai_hologram_change, \

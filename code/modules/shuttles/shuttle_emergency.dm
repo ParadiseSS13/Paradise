@@ -223,38 +223,13 @@
 	if(..())
 		return
 
-	if(href_list["auth"])
-		/*
-		//This doesn't work at all.
-		if (!emagged && href_list["auth"] == -1)
-			//They selected an empty entry. Try to scan their id.
-			if (ishuman(usr))
-				var/mob/living/carbon/human/H = usr
-				if (!read_authorization(H.get_active_hand()))	//try to read what's in their hand first
-					read_authorization(H.wear_id)
-		else
-		*/
-		//remove the authorization
-		var/dna_hash = href_list["auth"]
+	if(href_list["removeid"])
+		var/dna_hash = href_list["removeid"]
 		authorized -= dna_hash
-
-
-
-
-/datum/shuttle/ferry/escape_pod
-	var/datum/computer/file/embedded_program/docking/simple/escape_pod/arming_controller
-
-/datum/shuttle/ferry/escape_pod/can_launch()
-	if(arming_controller && !arming_controller.armed)
-		return 0
-	if(location)
-		return 0	//it's a one-way trip.
-	return ..()
-
-/datum/shuttle/ferry/escape_pod/can_force()
-	if (arming_controller.eject_time && world.time < arming_controller.eject_time + 50)
-		return 0	//dont allow force launching until 5 seconds after the arming controller has reached it's countdown
-	return ..()
-
-/datum/shuttle/ferry/escape_pod/can_cancel()
-	return 0
+	
+	if(!emagged && href_list["scanid"])
+		//They selected an empty entry. Try to scan their id.
+		if (ishuman(usr))
+			var/mob/living/carbon/human/H = usr
+			if (!read_authorization(H.get_active_hand()))	//try to read what's in their hand first
+				read_authorization(H.wear_id)
