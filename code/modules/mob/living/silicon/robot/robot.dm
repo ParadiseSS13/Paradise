@@ -100,24 +100,7 @@
 		hands.icon_state = "standard"
 		icon_state = "secborg"
 		modtype = "Security"
-	else if(istype(src,/mob/living/silicon/robot/drone))
-		laws = new /datum/ai_laws/drone()
-		connected_ai = null
-	else
-		if(mmi.alien || alien)
-			laws = new /datum/ai_laws/alienmov()
-			connected_ai = select_active_alien_ai()
-			scrambledcodes = 1
-		else
-			make_laws()
-			connected_ai = select_active_ai_with_fewest_borgs()
-		if(connected_ai)
-			connected_ai.connected_robots += src
-			lawsync()
-			photosync()
-			lawupdate = 1
-		else
-			lawupdate = 0
+	init(alien)
 
 	radio = new /obj/item/device/radio/borg(src)
 	if(!scrambledcodes && !camera)
@@ -156,10 +139,24 @@
 	hud_list[IMPTRACK_HUD]    = image('icons/mob/hud.dmi', src, "hudblank")
 	hud_list[SPECIALROLE_HUD] = image('icons/mob/hud.dmi', src, "hudblank")
 	hud_list[NATIONS_HUD] = image('icons/mob/hud.dmi', src, "hudblank")
-	init()
 
-/mob/living/silicon/robot/proc/init()
-	new/obj/item/device/camera/siliconcam/robot_camera(src)
+/mob/living/silicon/robot/proc/init(var/alien=0)
+	aiCamera = new/obj/item/device/camera/siliconcam/robot_camera(src)
+	if(mmi.alien || alien)
+		laws = new /datum/ai_laws/alienmov()
+		connected_ai = select_active_alien_ai()
+		scrambledcodes = 1
+	else
+		make_laws()
+		connected_ai = select_active_ai_with_fewest_borgs()
+	if(connected_ai)
+		connected_ai.connected_robots += src
+		lawsync()
+		photosync()
+		lawupdate = 1
+	else
+		lawupdate = 0
+
 	playsound(loc, 'sound/voice/liveagain.ogg', 75, 1)
 
 // setup the PDA and its name

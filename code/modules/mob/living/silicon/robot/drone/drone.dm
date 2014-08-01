@@ -63,7 +63,10 @@
 	updateicon()
 
 /mob/living/silicon/robot/drone/init()
-	new/obj/item/device/camera/siliconcam/drone_camera(src)
+	laws = new /datum/ai_laws/drone()
+	connected_ai = null
+
+	aiCamera = new/obj/item/device/camera/siliconcam/drone_camera(src)
 	playsound(src.loc, 'sound/machines/twobeep.ogg', 50, 0)
 
 //Redefining some robot procs...
