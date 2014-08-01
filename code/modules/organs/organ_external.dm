@@ -813,11 +813,13 @@ Note that amputating the affected organ does in fact remove the infection from t
 
 /datum/organ/external/get_icon(gender="", fat="")
 	if (status & ORGAN_MUTATED)
-		return new /icon(owner.deform_icon, "[icon_name][gender ? "_[gender]" : ""][fat ? "_fat" : ""]")
+		return new /icon(owner.species.deform, "[icon_name][gender ? "_[gender]" : ""][fat ? "_fat" : ""]")
 	else if (status & ORGAN_ROBOT && !(owner.species && owner.species.flags & IS_SYNTHETIC))
 		return new /icon('icons/mob/human_races/robotic.dmi', "[icon_name][gender ? "_[gender]" : ""]")
+	else if (owner.skeleton)
+		return new /icon(owner.skeleton, "[icon_name][gender ? "_[gender]" : ""]")
 	else
-		return new /icon(owner.race_icon, "[icon_name][gender ? "_[gender]" : ""][fat ? "_fat" : ""]")
+		return new /icon(owner.species.icobase, "[icon_name][gender ? "_[gender]" : ""][fat ? "_fat" : ""]")
 
 
 /datum/organ/external/proc/is_usable()
@@ -983,9 +985,11 @@ Note that amputating the affected organ does in fact remove the infection from t
 	var/g = "m"
 	if(owner.gender == FEMALE)	g = "f"
 	if (status & ORGAN_MUTATED)
-		. = new /icon(owner.deform_icon, "[icon_name]_[g]")
+		. = new /icon(owner.species.deform, "[icon_name]_[g]")
+	else if (owner.skeleton)
+		. = new /icon(owner.skeleton, "[icon_name]_[g]")
 	else
-		. = new /icon(owner.race_icon, "[icon_name]_[g]")
+		. = new /icon(owner.species.icobase, "[icon_name]_[g]")
 
 /datum/organ/external/head/take_damage(brute, burn, sharp, edge, used_weapon = null, list/forbidden_limbs = list())
 	..(brute, burn, sharp, edge, used_weapon, forbidden_limbs)
