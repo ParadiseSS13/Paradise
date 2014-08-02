@@ -104,10 +104,11 @@
 
 
 /mob/living/carbon/human/adjustCloneLoss(var/amount)
-	..()
 
 	if(species.flags & IS_SYNTHETIC)
 		return
+
+	..()
 
 	var/heal_prob = max(0, 80 - getCloneLoss())
 	var/mut_prob = min(80, getCloneLoss()+10)

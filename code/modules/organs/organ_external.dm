@@ -138,7 +138,8 @@
 		//If there are still hurties to dispense
 		if (burn || brute)
 			if (status & ORGAN_ROBOT)
-				droplimb(1) //Robot limbs just kinda fail at full damage.
+				if(body_part != UPPER_TORSO && body_part != LOWER_TORSO)          // as below, getting hit on the chest shouldn't gib you even if you've got a robotic chest
+					droplimb(1) //Robot limbs just kinda fail at full damage.
 			else
 				//List organs we can pass it to
 				var/list/datum/organ/external/possible_points = list()
@@ -585,7 +586,8 @@ Note that amputating the affected organ does in fact remove the infection from t
 	if(status & ORGAN_DESTROYED)
 		if(body_part == UPPER_TORSO)
 			return
-
+		if(body_part == LOWER_TORSO)
+			return
 		src.status &= ~ORGAN_BROKEN
 		src.status &= ~ORGAN_BLEEDING
 		src.status &= ~ORGAN_SPLINTED

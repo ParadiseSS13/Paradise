@@ -593,6 +593,16 @@
 
 	flesh_color = "#AAAAAA"
 
+/datum/species/machine/handle_death(var/mob/living/carbon/human/H)
+	for(var/organ_name in H.organs_by_name)
+		if (organ_name == "head")			// do the head last as that's when the user will be transfered to the posibrain
+			continue
+		var/datum/organ/external/O = H.organs_by_name[organ_name]
+		if((O.body_part != UPPER_TORSO) && (O.body_part != LOWER_TORSO))  // We're making them fall apart, not gibbing them!
+			O.droplimb(1)
+	var/datum/organ/external/O = H.organs_by_name["head"]
+	O.droplimb(1)
+
 //Species unarmed attacks
 
 /datum/unarmed_attack

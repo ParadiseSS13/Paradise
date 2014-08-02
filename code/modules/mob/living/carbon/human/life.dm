@@ -640,9 +640,9 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 			var/obj/item/device/suit_cooling_unit/CU = s_store
 			CU.cool_mob(src)
 
-		if (species.flags & IS_SYNTHETIC)
-			bodytemperature += species.synth_temp_gain		//that CPU/posibrain just keeps putting out heat.
-			return
+//		if (species.flags & IS_SYNTHETIC)
+//			bodytemperature += species.synth_temp_gain		//that CPU/posibrain just keeps putting out heat.		// commented out as making synthetics unplayable until cooling system sorted out
+//			return
 
 		var/body_temperature_difference = species.body_temperature - bodytemperature
 
