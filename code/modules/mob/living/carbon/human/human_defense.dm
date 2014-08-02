@@ -12,23 +12,6 @@ emp_act
 
 	var/datum/organ/external/organ = get_organ(check_zone(def_zone))
 
-	//Being hit while using a cloaking device
-	var/obj/item/weapon/cloaking_device/C = locate((/obj/item/weapon/cloaking_device) in src)
-	if(C && C.active)
-		C.attack_self(src)//Should shut it off
-		update_icons()
-		src << "\blue Your [C.name] was disrupted!"
-		Stun(2)
-
-/*
-	//Being hit while using a deadman switch
-	if(istype(equipped(),/obj/item/device/assembly/signaler))
-		var/obj/item/device/assembly/signaler/signaler = equipped()
-		if(signaler.deadman && prob(80))
-			src.visible_message("\red [src] triggers their deadman's switch!")
-			signaler.signal()
-*/
-
 	//Shields
 	if(check_shields(P.damage, "the [P.name]"))
 		P.on_hit(src, 2, def_zone)
@@ -59,14 +42,6 @@ emp_act
 
 				return -1 // complete projectile permutation
 
-	//Tasers
-	if(istype(P, /obj/item/projectile/beam/stun))
-		stun_effect_act(0, P.agony, def_zone, P)
-		src <<"\red You have been hit by [P]!"
-		del P
-
-		return
-
 	//Shrapnel
 	if (P.damage_type == BRUTE)
 		var/armor = getarmor_organ(organ, "bullet")
@@ -87,9 +62,7 @@ emp_act
 
 	switch (def_zone)
 		if("head")
-			//agony_amount *= 1.25
-			agony_amount *= 1.50	//Targeting the head does add risk, so it should probably do more damage than average.
-		//if("l_foot", "r_foot")	//TODO
+			agony_amount *= 1.50
 		if("l_hand", "r_hand")
 			var/c_hand
 			if (def_zone == "l_hand")
@@ -98,8 +71,6 @@ emp_act
 				c_hand = r_hand
 
 			if(c_hand && (stun_amount || agony_amount > 10))
-				//Not only do you need to guess the correct hand, but you also have a 50% (and increases with distance, in the case of tasers) miss chance when targeting the hands
-				//Since you can disarm someone by spamming disarm with a 60% success rate, it seems fair to have this be an automatic disarm, even for tasers.
 				msg_admin_attack("[src.name] ([src.ckey]) was disarmed by a stun effect")
 
 				u_equip(c_hand)
@@ -329,17 +300,17 @@ emp_act
 
 				if(bloody)
 					bloody_body(src)
-					
+
 	//Melee weapon embedded object code.
 	if (I.damtype == BRUTE && !I.is_robot_module())
 		var/damage = I.force
 		if (armor)
 			damage /= armor+1
-		
+
 		//blunt objects should really not be embedding in things unless a huge amount of force is involved
 		var/embed_chance = weapon_sharp? damage/I.w_class : damage/(I.w_class*3)
 		var/embed_threshold = weapon_sharp? 5*I.w_class : 15*I.w_class
-		
+
 		//Sharp objects will always embed if they do enough damage.
 		if((weapon_sharp && damage > (10*I.w_class)) || (damage > embed_threshold && prob(embed_chance)))
 			affecting.embed(I)
@@ -404,16 +375,16 @@ emp_act
 				var/damage = throw_damage
 				if (armor)
 					damage /= armor+1
-				
+
 				//blunt objects should really not be embedding in things unless a huge amount of force is involved
 				var/embed_chance = sharp? damage/I.w_class : damage/(I.w_class*3)
 				var/embed_threshold = sharp? 5*I.w_class : 15*I.w_class
-				
+
 				//Sharp objects will always embed if they do enough damage.
 				//Thrown sharp objects have some momentum already and have a small chance to embed even if the damage is below the threshold
 				if((sharp && prob(damage/(10*I.w_class)*100)) || (damage > embed_threshold && prob(embed_chance)))
 					affecting.embed(I)
-		
+
 		// Begin BS12 momentum-transfer code.
 		if(O.throw_source && speed >= 15)
 			var/obj/item/weapon/W = O
