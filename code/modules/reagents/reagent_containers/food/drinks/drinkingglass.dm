@@ -532,7 +532,7 @@
 			icon_state = "glass_empty"
 			name = "glass"
 			desc = "Your standard drinking glass."
-			center_of_mass = list("x"=16, "y"=10)
+//			center_of_mass = list("x"=16, "y"=10)
 			return
 
 // for /obj/machinery/vending/sovietsoda
