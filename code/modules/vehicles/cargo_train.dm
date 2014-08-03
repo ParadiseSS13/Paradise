@@ -7,10 +7,9 @@
 	powered = 1
 	locked = 0
 
-	standing_mob = 1
 	load_item_visible = 1
 	load_offset_x = 0
-	load_offset_y = 7
+	mob_offset_y = 7
 
 	var/car_limit = 3		//how many cars an engine can pull before performance degrades
 	active_engines = 1
@@ -31,10 +30,10 @@
 	passenger_allowed = 0
 	locked = 0
 
-	standing_mob = 1
 	load_item_visible = 1
 	load_offset_x = 0
 	load_offset_y = 4
+	mob_offset_y = 8
 
 //-------------------------------------------
 // Standard procs
@@ -119,7 +118,7 @@
 
 		verbs -= /obj/vehicle/train/cargo/engine/verb/stop_engine
 		verbs -= /obj/vehicle/train/cargo/engine/verb/start_engine
-		
+
 		if(on)
 			verbs += /obj/vehicle/train/cargo/engine/verb/stop_engine
 		else
@@ -130,7 +129,7 @@
 
 	verbs -= /obj/vehicle/train/cargo/engine/verb/stop_engine
 	verbs -= /obj/vehicle/train/cargo/engine/verb/start_engine
-	
+
 	if(!on)
 		verbs += /obj/vehicle/train/cargo/engine/verb/start_engine
 	else
@@ -267,10 +266,7 @@
 		return 0
 
 	..()
-	
-	if(istype(load, /mob/living/carbon/human))
-		load.pixel_y += 4
-	
+
 	if(load)
 		return 1
 
@@ -317,4 +313,4 @@
 		move_delay = max(0, (-car_limit * active_engines) + train_length - active_engines)	//limits base overweight so you cant overspeed trains
 		move_delay *= (1 / max(1, active_engines)) * 2 										//overweight penalty (scaled by the number of engines)
 		move_delay += config.run_speed 														//base reference speed
-		move_delay *= 1.05
+		move_delay *= 1.1																	//makes cargo trains 10% slower than running when not overweight

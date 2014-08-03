@@ -24,11 +24,11 @@
 	var/obj/item/weapon/cell/cell
 	var/power_use = 5	//set this to adjust the amount of power the vehicle uses per move
 
-	var/standing_mob = 0		//if a mob loaded on the vehicle should be standing
 	var/atom/movable/load		//all vehicles can take a load, since they should all be a least drivable
 	var/load_item_visible = 1	//set if the loaded item should be overlayed on the vehicle sprite
 	var/load_offset_x = 0		//pixel_x offset for item overlay
 	var/load_offset_y = 0		//pixel_y offset for item overlay
+	var/mob_offset_y = 0		//pixel_y offset for mob overlay
 
 //-------------------------------------------
 // Standard procs
@@ -44,10 +44,14 @@
 
 		var/init_anc = anchored
 		anchored = 0
-		if(..())
-			if(on && powered)
-				cell.use(power_use)
+		if(!..())
+			anchored = init_anc
+			return 0
+
 		anchored = init_anc
+
+		if(on && powered)
+			cell.use(power_use)			
 
 		if(load)
 			load.forceMove(loc)// = loc
@@ -200,6 +204,11 @@
 		cell.update_icon()
 		cell = null
 
+	//stuns people who are thrown off a train that has been blown up
+	if(istype(load, /mob/living))
+		var/mob/living/M = load
+		M.apply_effects(5, 5)
+
 	unload()
 
 	new /obj/effect/gibspawner/robot(Tsec)
@@ -280,7 +289,10 @@
 
 	if(load_item_visible)
 		C.pixel_x += load_offset_x
-		C.pixel_y += load_offset_y
+		if(ismob(C))
+			C.pixel_y += mob_offset_y
+		else
+			C.pixel_y += load_offset_y
 		C.layer = layer + 0.1		//so it sits above the vehicle
 
 	if(ismob(C))
