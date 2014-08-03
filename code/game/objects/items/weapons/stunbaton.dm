@@ -189,9 +189,9 @@
 				if (agonyforce)
 					//Siemens coefficient?
 					//TODO: Merge this with taser effects
-					H.apply_effect(agony,AGONY,0)
-					H.apply_effect(STUTTER, agony/10)
-					H.apply_effect(EYE_BLUR, agony/10)
+					H.apply_effect(agonyforce,AGONY,0)
+					H.apply_effect(STUTTER, agonyforce/10)
+					H.apply_effect(EYE_BLUR, agonyforce/10)
 					H.flash_pain()
 
 				deductcharge(hitcost)
