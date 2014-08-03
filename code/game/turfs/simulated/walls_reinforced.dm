@@ -320,9 +320,9 @@
 			playsound(get_turf(src), 'sound/weapons/circsawhit.ogg', 50, 1)
 			user.visible_message( \
 				"[user] starts drilling a hole in \the [src].", \
-				"\blue You start drilling a hole in \the [src].", \
+				"\blue You start drilling a hole in \the [src]. This is going to take a while.", \
 				"You hear ratchet.")
-			if (do_after(user, 80))
+			if (do_after(user, 160))
 				user.visible_message( \
 					"[user] drills a hole in \the [src] and pushes \a [P] into the void", \
 					"\blue You have finished drilling in \the [src] and push the [P] into the void.", \
