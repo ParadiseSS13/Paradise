@@ -180,9 +180,19 @@
 		if(istype(hit_atom, /mob/living))
 			var/mob/living/carbon/human/H = hit_atom
 			if(status)
-				H.Stun(stunforce)
-				H.Weaken(stunforce)
-				H.apply_effect(STUTTER, stunforce)
+			//stun effects
+				if (stunforce)
+					H.Stun(stunforce)
+					H.Weaken(stunforce)
+					H.apply_effect(STUTTER, stunforce)
+
+				if (agony)
+					//Siemens coefficient?
+					//TODO: Merge this with taser effects
+					H.apply_effect(agony,AGONY,0)
+					H.apply_effect(STUTTER, agony/10)
+					H.apply_effect(EYE_BLUR, agony/10)
+					H.flash_pain()
 
 				deductcharge(hitcost)
 
