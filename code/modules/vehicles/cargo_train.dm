@@ -43,10 +43,10 @@
 	..()
 	cell = new /obj/item/weapon/cell/high
 	verbs -= /atom/movable/verb/pull
-	verbs -= /obj/vehicle/train/cargo/engine/verb/stop_engine
 	key = new()
 	var/image/I = new(icon = 'icons/obj/vehicles.dmi', icon_state = "cargo_engine_overlay", layer = src.layer + 0.2) //over mobs
 	overlays += I
+	turn_off()	//so engine verbs are correctly set
 
 /obj/vehicle/train/cargo/engine/Move()
 	if(on && cell.charge < power_use)
@@ -116,6 +116,25 @@
 	else
 		..()
 		update_stats()
+
+		verbs -= /obj/vehicle/train/cargo/engine/verb/stop_engine
+		verbs -= /obj/vehicle/train/cargo/engine/verb/start_engine
+		
+		if(on)
+			verbs += /obj/vehicle/train/cargo/engine/verb/stop_engine
+		else
+			verbs += /obj/vehicle/train/cargo/engine/verb/start_engine
+
+/obj/vehicle/train/cargo/engine/turn_off()
+	..()
+
+	verbs -= /obj/vehicle/train/cargo/engine/verb/stop_engine
+	verbs -= /obj/vehicle/train/cargo/engine/verb/start_engine
+	
+	if(!on)
+		verbs += /obj/vehicle/train/cargo/engine/verb/start_engine
+	else
+		verbs += /obj/vehicle/train/cargo/engine/verb/stop_engine
 
 /obj/vehicle/train/cargo/RunOver(var/mob/living/carbon/human/H)
 	var/list/parts = list("head", "chest", "l_leg", "r_leg", "l_arm", "r_arm")
@@ -195,8 +214,6 @@
 	turn_on()
 	if (on)
 		usr << "You start [src]'s engine."
-		verbs += /obj/vehicle/train/cargo/engine/verb/stop_engine
-		verbs -= /obj/vehicle/train/cargo/engine/verb/start_engine
 	else
 		if(cell.charge < power_use)
 			usr << "[src] is out of power."
@@ -218,8 +235,6 @@
 	turn_off()
 	if (!on)
 		usr << "You stop [src]'s engine."
-		verbs -= /obj/vehicle/train/cargo/engine/verb/stop_engine
-		verbs += /obj/vehicle/train/cargo/engine/verb/start_engine
 
 /obj/vehicle/train/cargo/engine/verb/remove_key()
 	set name = "Remove key"
