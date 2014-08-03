@@ -7,7 +7,6 @@
 	powered = 1
 	locked = 0
 	layer = MOB_LAYER + 0.1
-	standing_mob = 1
 	load_item_visible = 1
 	load_offset_x = 0
 	load_offset_y = 7
@@ -31,7 +30,6 @@
 	passenger_allowed = 1
 	locked = 0
 
-	standing_mob = 0
 	load_item_visible = 1
 	load_offset_x = 1
 	load_offset_y = 7
