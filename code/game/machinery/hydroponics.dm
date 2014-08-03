@@ -205,6 +205,7 @@
 	if(!environment)
 		return
 
+/*
 	// Handle gas consumption.
 	if(seed.consume_gasses && seed.consume_gasses.len)
 		var/missing_gas = 0
@@ -232,7 +233,7 @@
 		for(var/gas in seed.exude_gasses)
 			exuded.adjust_gas(gas,seed.exude_gasses[gas*seed.potency],1) //This will need adjustment since it produces moles.
 		loc.assume_air(exuded)
-
+*/
 	// Handle light requirements.
 	var/area/A = T.loc
 	if(A)
