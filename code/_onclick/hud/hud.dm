@@ -195,6 +195,7 @@ datum/hud/New(mob/owner)
 		blob_hud()
 	else if(mymob.mind && mymob.mind.vampire)
 		vampire_hud()
+		human_hud('icons/mob/screen1_Vampire.dmi')
 
 //Triggered when F12 is pressed (Unless someone changed something in the DMF)
 /mob/verb/button_pressed_F12(var/full = 0 as null)
