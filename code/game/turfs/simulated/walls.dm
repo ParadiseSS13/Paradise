@@ -496,16 +496,20 @@
 					"[user] drills a hole in \the [src] and pushes \a [P] into the void", \
 					"\blue You have finished drilling in \the [src] and push the [P] into the void.", \
 					"You hear ratchet.")
-				/*
-				new /obj/item/pipe(loc, make_from=src)
-				for (var/obj/machinery/meter/meter in T)
-					if (meter.target == src)
-						new /obj/item/pipe_meter(T)
-						del(meter)
-				qdel(src)
-				*/
+
 				user.drop_item()
-				P.dir = user.dir
+				if (P.pipe_type in list (1,3,12))  // bent pipe rotation fix see construction.dm
+					P.dir = 5
+					if (user.dir == 1)
+						P.dir = 6
+					if (user.dir == 2)
+						P.dir = 9
+					if (user.dir == 4)
+						P.dir = 10
+					if (user.dir == 5)
+						P.dir = 8
+				else
+					P.dir = user.dir
 				P.x = src.x
 				P.y = src.y
 				P.z = src.z
