@@ -321,7 +321,7 @@
 
 /obj/effect/proc_holder/spell/wizard/targeted/immolate/cast(list/targets)
 	if(!targets.len)
-		user << "<span class='notice'>No target found in range.</span>"
+		usr << "<span class='notice'>No target found in range.</span>"
 		return
 
 	var/mob/living/carbon/L = targets[1]
