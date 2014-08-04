@@ -131,6 +131,7 @@ var/list/admin_verbs_server = list(
 	/client/proc/cmd_admin_change_custom_event,
 	/client/proc/cmd_admin_create_centcom_report,
 	/client/proc/cmd_admin_dress,
+	/client/proc/editappear,
 	/client/proc/response_team, // Response Teams admin verb
 	/client/proc/nanomapgen_DumpImage
 	)
