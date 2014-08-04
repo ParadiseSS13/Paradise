@@ -24,6 +24,7 @@
 	possible_transfer_amounts = list(5)
 	volume = 5
 	can_be_placed_into = null
+	flags = FPRINT | TABLEPASS | OPENCONTAINER | NOBLUDGEON
 
 /obj/item/weapon/reagent_containers/glass/rag/attack_self(mob/user as mob)
 	return

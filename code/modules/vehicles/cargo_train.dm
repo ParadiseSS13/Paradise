@@ -7,10 +7,9 @@
 	powered = 1
 	locked = 0
 
-	standing_mob = 1
 	load_item_visible = 1
 	load_offset_x = 0
-	load_offset_y = 7
+	mob_offset_y = 7
 
 	var/car_limit = 3		//how many cars an engine can pull before performance degrades
 	active_engines = 1
@@ -31,10 +30,10 @@
 	passenger_allowed = 0
 	locked = 0
 
-	standing_mob = 1
 	load_item_visible = 1
 	load_offset_x = 0
 	load_offset_y = 4
+	mob_offset_y = 8
 
 //-------------------------------------------
 // Standard procs
@@ -43,10 +42,10 @@
 	..()
 	cell = new /obj/item/weapon/cell/high
 	verbs -= /atom/movable/verb/pull
-	verbs -= /obj/vehicle/train/cargo/engine/verb/stop_engine
 	key = new()
 	var/image/I = new(icon = 'icons/obj/vehicles.dmi', icon_state = "cargo_engine_overlay", layer = src.layer + 0.2) //over mobs
 	overlays += I
+	turn_off()	//so engine verbs are correctly set
 
 /obj/vehicle/train/cargo/engine/Move()
 	if(on && cell.charge < power_use)
@@ -117,6 +116,25 @@
 		..()
 		update_stats()
 
+		verbs -= /obj/vehicle/train/cargo/engine/verb/stop_engine
+		verbs -= /obj/vehicle/train/cargo/engine/verb/start_engine
+
+		if(on)
+			verbs += /obj/vehicle/train/cargo/engine/verb/stop_engine
+		else
+			verbs += /obj/vehicle/train/cargo/engine/verb/start_engine
+
+/obj/vehicle/train/cargo/engine/turn_off()
+	..()
+
+	verbs -= /obj/vehicle/train/cargo/engine/verb/stop_engine
+	verbs -= /obj/vehicle/train/cargo/engine/verb/start_engine
+
+	if(!on)
+		verbs += /obj/vehicle/train/cargo/engine/verb/start_engine
+	else
+		verbs += /obj/vehicle/train/cargo/engine/verb/stop_engine
+
 /obj/vehicle/train/cargo/RunOver(var/mob/living/carbon/human/H)
 	var/list/parts = list("head", "chest", "l_leg", "r_leg", "l_arm", "r_arm")
 
@@ -149,7 +167,7 @@
 		return 0
 
 	if(is_train_head())
-		if(direction == reverse_direction(dir))
+		if(direction == reverse_direction(dir) && tow)
 			return 0
 		if(Move(get_step(src, direction)))
 			return 1
@@ -195,8 +213,6 @@
 	turn_on()
 	if (on)
 		usr << "You start [src]'s engine."
-		verbs += /obj/vehicle/train/cargo/engine/verb/stop_engine
-		verbs -= /obj/vehicle/train/cargo/engine/verb/start_engine
 	else
 		if(cell.charge < power_use)
 			usr << "[src] is out of power."
@@ -218,8 +234,6 @@
 	turn_off()
 	if (!on)
 		usr << "You stop [src]'s engine."
-		verbs -= /obj/vehicle/train/cargo/engine/verb/stop_engine
-		verbs += /obj/vehicle/train/cargo/engine/verb/start_engine
 
 /obj/vehicle/train/cargo/engine/verb/remove_key()
 	set name = "Remove key"
@@ -252,10 +266,7 @@
 		return 0
 
 	..()
-	
-	if(istype(load, /mob/living/carbon/human))
-		load.pixel_y += 4
-	
+
 	if(load)
 		return 1
 
@@ -302,4 +313,4 @@
 		move_delay = max(0, (-car_limit * active_engines) + train_length - active_engines)	//limits base overweight so you cant overspeed trains
 		move_delay *= (1 / max(1, active_engines)) * 2 										//overweight penalty (scaled by the number of engines)
 		move_delay += config.run_speed 														//base reference speed
-		move_delay *= 1.05
+		move_delay *= 1.1																	//makes cargo trains 10% slower than running when not overweight

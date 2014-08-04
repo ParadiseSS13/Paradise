@@ -583,3 +583,19 @@ turf/simulated/floor/proc/update_icon()
 					broken = 0
 				else
 					user << "\blue You need more welding fuel to complete this task."
+
+	if(istype(C,/obj/item/pipe))
+		var/obj/item/pipe/V = C
+		if(V.pipe_type != -1) // ANY PIPE
+			var/obj/item/pipe/P = C
+
+			user.visible_message( \
+				"[user] starts sliding a [P] along \the [src].", \
+				"\blue You slide a [P] along \the [src].", \
+				"You hear the scrape of metal against something.")
+			user.drop_item()
+			P.dir = user.dir
+			P.x = src.x
+			P.y = src.y
+			P.z = src.z
+			P.loc = src

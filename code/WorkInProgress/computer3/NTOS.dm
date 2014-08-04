@@ -210,6 +210,9 @@
 
 	if("viewperipheral" in href_list) // open drive, show status of peripheral
 		var/obj/item/part/computer/C = locate(href_list["viewperipheral"])
+		if(!istype(C) || (C.loc != src.computer))
+			return
+		
 		if(istype(C,/obj/item/part/computer/storage))
 			current = C
 			interact()

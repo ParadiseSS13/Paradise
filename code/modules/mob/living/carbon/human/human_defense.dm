@@ -10,23 +10,14 @@ emp_act
 
 /mob/living/carbon/human/bullet_act(var/obj/item/projectile/P, var/def_zone)
 
-// BEGIN TASER NERF
-					/* Commenting out new-old taser nerf.
-					if(C.siemens_coefficient == 0) //If so, is that clothing shock proof?
-						if(prob(deflectchance))
-							visible_message("\red <B>The [P.name] gets deflected by [src]'s [C.name]!</B>") //DEFLECT!
-							visible_message("\red <B> Taser hit for [P.damage] damage!</B>")
-							del P
-*/
-/* Commenting out old Taser nerf
-	if(wear_suit && istype(wear_suit, /obj/item/clothing/suit/armor))
-		if(istype(P, /obj/item/projectile/energy/electrode))
-			visible_message("\red <B>The [P.name] gets deflected by [src]'s [wear_suit.name]!</B>")
-			del P
-		return -1
-*/
-// END TASER NERF
+	var/datum/organ/external/organ = get_organ(check_zone(def_zone))
 
+	//Shields
+	if(check_shields(P.damage, "the [P.name]"))
+		P.on_hit(src, 2, def_zone)
+		return 2
+
+	//Laserproof armour
 	if(wear_suit && istype(wear_suit, /obj/item/clothing/suit/armor/laserproof))
 		if(istype(P, /obj/item/projectile/energy) || istype(P, /obj/item/projectile/beam))
 			var/reflectchance = 40 - round(P.damage/3)
@@ -51,56 +42,45 @@ emp_act
 
 				return -1 // complete projectile permutation
 
-//BEGIN BOOK'S TASER NERF.
-	if(istype(P, /obj/item/projectile/beam/stun))
-		var/datum/organ/external/select_area = get_organ(def_zone) // We're checking the outside, buddy!
-		var/list/body_parts = list(head, wear_mask, wear_suit, w_uniform, gloves, shoes) // What all are we checking?
-		// var/deflectchance=90 //Is it a CRITICAL HIT with that taser?
-		for(var/bp in body_parts) //Make an unregulated var to pass around.
-			if(!bp)
-				continue //Does this thing we're shooting even exist?
-			if(bp && istype(bp ,/obj/item/clothing)) // If it exists, and it's clothed
-				var/obj/item/clothing/C = bp // Then call an argument C to be that clothing!
-				if(C.body_parts_covered & select_area.body_part) // Is that body part being targeted covered?
-					P.agony=P.agony*C.siemens_coefficient
-		apply_effect(P.agony,AGONY,0)
-		flash_pain()
-		src <<"\red You have been shot!"
-		del P
-
-		var/obj/item/weapon/cloaking_device/C = locate((/obj/item/weapon/cloaking_device) in src)
-		if(C && C.active)
-			C.attack_self(src)//Should shut it off
-			update_icons()
-			src << "\blue Your [C.name] was disrupted!"
-			Stun(2)
-/*
-		if(istype(equipped(),/obj/item/device/assembly/signaler))
-			var/obj/item/device/assembly/signaler/signaler = equipped()
-			if(signaler.deadman && prob(80))
-				src.visible_message("\red [src] triggers their deadman's switch!")
-				signaler.signal()
-*/
-		return
-//END TASER NERF
-
-	if(check_shields(P.damage, "the [P.name]"))
-		P.on_hit(src, 2, def_zone)
-		return 2
-
-	var/datum/organ/external/organ = get_organ(check_zone(def_zone))
-
-	var/armor = getarmor_organ(organ, "bullet")
-
-	if((P.embed && prob(20 + max(P.damage - armor, -10))) && P.damage_type == BRUTE)
-		var/obj/item/weapon/shard/shrapnel/SP = new()
-		(SP.name) = "[P.name] shrapnel"
-		(SP.desc) = "[SP.desc] It looks like it was fired from [P.shot_from]."
-		(SP.loc) = organ
-		organ.embed(SP)
+	//Shrapnel
+	if (P.damage_type == BRUTE)
+		var/armor = getarmor_organ(organ, "bullet")
+		if((P.embed && prob(20 + max(P.damage - armor, -10))))
+			var/obj/item/weapon/shard/shrapnel/SP = new()
+			(SP.name) = "[P.name] shrapnel"
+			(SP.desc) = "[SP.desc] It looks like it was fired from [P.shot_from]."
+			(SP.loc) = organ
+			organ.embed(SP)
 
 	return (..(P , def_zone))
 
+/mob/living/carbon/human/stun_effect_act(var/stun_amount, var/agony_amount, var/def_zone)
+	var/datum/organ/external/affected = get_organ(check_zone(def_zone))
+	var/siemens_coeff = get_siemens_coefficient_organ(affected)
+	stun_amount *= siemens_coeff
+	agony_amount *= siemens_coeff
+
+	switch (def_zone)
+		if("head")
+			agony_amount *= 1.50
+		if("l_hand", "r_hand")
+			var/c_hand
+			if (def_zone == "l_hand")
+				c_hand = l_hand
+			else
+				c_hand = r_hand
+
+			if(c_hand && (stun_amount || agony_amount > 10))
+				msg_admin_attack("[src.name] ([src.ckey]) was disarmed by a stun effect")
+
+				u_equip(c_hand)
+				if (affected.status & ORGAN_ROBOT)
+					emote("me", 1, "drops what they were holding, their [affected.display_name] malfunctioning!")
+				else
+					var/emote_scream = pick("screams in pain and", "lets out a sharp cry and", "cries out and")
+					emote("me", 1, "[(species && species.flags & NO_PAIN) ? "" : emote_scream ] drops what they were holding in their [affected.display_name]!")
+
+	..(stun_amount, agony_amount, def_zone)
 
 /mob/living/carbon/human/getarmor(var/def_zone, var/type)
 	var/armorval = 0
@@ -132,6 +112,20 @@ emp_act
 			if(C.body_parts_covered & def_zone.body_part)
 				protection += C.armor[type]
 	return protection
+
+//this proc returns the Siemens coefficient of electrical resistivity for a particular external organ.
+/mob/living/carbon/human/proc/get_siemens_coefficient_organ(var/datum/organ/external/def_zone)
+	if (!def_zone)
+		return 1.0
+
+	var/siemens_coefficient = 1.0
+
+	var/list/clothing_items = list(head, wear_mask, wear_suit, w_uniform, gloves, shoes) // What all are we checking?
+	for(var/obj/item/clothing/C in clothing_items)
+		if(istype(C) && (C.body_parts_covered & def_zone.body_part)) // Is that body part being targeted covered?
+			siemens_coefficient *= C.siemens_coefficient
+
+	return siemens_coefficient
 
 /mob/living/carbon/human/proc/check_head_coverage()
 
@@ -190,11 +184,12 @@ emp_act
 	..()
 
 
+//Returns 1 if the attack hit, 0 if it missed.
 /mob/living/carbon/human/proc/attacked_by(var/obj/item/I, var/mob/living/user, var/def_zone)
 	if(!I || !user)	return 0
 
-	var/target_zone = def_zone? def_zone : get_zone_with_miss_chance(user.zone_sel.selecting, src)
-	
+	var/target_zone = def_zone? check_zone(def_zone) : get_zone_with_miss_chance(user.zone_sel.selecting, src)
+
 	if(user == src) // Attacking yourself can't miss
 		target_zone = user.zone_sel.selecting
 	if(!target_zone && !src.stat)
@@ -305,6 +300,20 @@ emp_act
 
 				if(bloody)
 					bloody_body(src)
+
+	//Melee weapon embedded object code.
+	if (I.damtype == BRUTE && !I.is_robot_module())
+		var/damage = I.force
+		if (armor)
+			damage /= armor+1
+
+		//blunt objects should really not be embedding in things unless a huge amount of force is involved
+		var/embed_chance = weapon_sharp? damage/I.w_class : damage/(I.w_class*3)
+		var/embed_threshold = weapon_sharp? 5*I.w_class : 15*I.w_class
+
+		//Sharp objects will always embed if they do enough damage.
+		if((weapon_sharp && damage > (10*I.w_class)) || (damage > embed_threshold && prob(embed_chance)))
+			affecting.embed(I)
 	return 1
 
 //this proc handles being hit by a thrown atom
@@ -316,14 +325,14 @@ emp_act
 			var/obj/item/weapon/W = O
 			dtype = W.damtype
 		var/throw_damage = O.throwforce*(speed/5)
-		
+
 		var/zone
 		if (istype(O.thrower, /mob/living))
 			var/mob/living/L = O.thrower
 			zone = check_zone(L.zone_sel.selecting)
 		else
 			zone = ran_zone("chest",75)	//Hits a random part of the body, geared towards the chest
-		
+
 		//check if we hit
 		if (O.throw_source)
 			var/distance = get_dist(O.throw_source, loc)
@@ -334,15 +343,15 @@ emp_act
 		if(!zone)
 			visible_message("\blue \The [O] misses [src] narrowly!")
 			return
-		
+
 		O.throwing = 0		//it hit, so stop moving
-		
+
 		if ((O.thrower != src) && check_shields(throw_damage, "[O]"))
 			return
-		
+
 		var/datum/organ/external/affecting = get_organ(zone)
 		var/hit_area = affecting.display_name
-		
+
 		src.visible_message("\red [src] has been hit in the [hit_area] by [O].")
 		var/armor = run_armor_check(affecting, "melee", "Your armor has protected your [hit_area].", "Your armor has softened hit to your [hit_area].") //I guess "melee" is the best fit here
 
@@ -357,6 +366,24 @@ emp_act
 				M.attack_log += text("\[[time_stamp()]\] <font color='red'>Hit [src.name] ([src.ckey]) with a thrown [O]</font>")
 				if(!istype(src,/mob/living/simple_animal/mouse))
 					msg_admin_attack("[src.name] ([src.ckey]) was hit by a [O], thrown by [M.name] ([assailant.ckey]) (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[src.x];Y=[src.y];Z=[src.z]'>JMP</a>)")
+
+		//thrown weapon embedded object code.
+		if(dtype == BRUTE && istype(O,/obj/item))
+			var/obj/item/I = O
+			if (!I.is_robot_module())
+				var/sharp = is_sharp(I)
+				var/damage = throw_damage
+				if (armor)
+					damage /= armor+1
+
+				//blunt objects should really not be embedding in things unless a huge amount of force is involved
+				var/embed_chance = sharp? damage/I.w_class : damage/(I.w_class*3)
+				var/embed_threshold = sharp? 5*I.w_class : 15*I.w_class
+
+				//Sharp objects will always embed if they do enough damage.
+				//Thrown sharp objects have some momentum already and have a small chance to embed even if the damage is below the threshold
+				if((sharp && prob(damage/(10*I.w_class)*100)) || (damage > embed_threshold && prob(embed_chance)))
+					affecting.embed(I)
 
 		// Begin BS12 momentum-transfer code.
 		if(O.throw_source && speed >= 15)
@@ -377,6 +404,7 @@ emp_act
 					visible_message("<span class='warning'>[src] is pinned to the wall by [O]!</span>","<span class='warning'>You are pinned to the wall by [O]!</span>")
 					src.anchored = 1
 					src.pinned += O
+
 
 /mob/living/carbon/human/proc/bloody_hands(var/mob/living/source, var/amount = 2)
 

@@ -73,25 +73,29 @@
 
 		if(href_list["inject1"])
 			var/obj/item/weapon/implant/I = locate(href_list["inject1"])
-			if(I)	I.activate(1)
+			if(istype(I))
+				I.activate(1)
 
 		else if(href_list["inject5"])
 			var/obj/item/weapon/implant/I = locate(href_list["inject5"])
-			if(I)	I.activate(5)
+			if(istype(I))
+				I.activate(5)
 
 		else if(href_list["inject10"])
 			var/obj/item/weapon/implant/I = locate(href_list["inject10"])
-			if(I)	I.activate(10)
+			if(istype(I))
+				I.activate(10)
 
 		else if(href_list["lock"])
 			screen = !screen
 
 		else if(href_list["warn"])
-			var/warning = copytext(sanitize(input(usr,"Message:","Enter your message here!","")),1,MAX_MESSAGE_LEN)
+			var/warning = trim(copytext(sanitize(input(usr,"Message:","Enter your message here!","")),1,MAX_MESSAGE_LEN))
 			if(!warning) return
 			var/obj/item/weapon/implant/I = locate(href_list["warn"])
-			if((I)&&(I.imp_in))
+			if( istype(I) && I.imp_in)
 				var/mob/living/carbon/R = I.imp_in
+				log_say("PrisonComputer3 message: [key_name(usr)]->[key_name(R)] : [warning]")
 				R << "\green You hear a voice in your head saying: '[warning]'"
 
 		interact()

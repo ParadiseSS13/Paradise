@@ -6,6 +6,8 @@
 	icon_state = "hydrotray3"
 	density = 1
 	anchored = 1
+	flags = OPENCONTAINER
+
 	var/draw_warnings = 1 //Set to 0 to stop it from drawing the alert lights.
 
 	// Plant maintenance vars.
@@ -30,96 +32,104 @@
 	var/lastcycle = 0          // Cycle timing/tracking var.
 	var/cycledelay = 150       // Delay per cycle.
 	var/closed_system          // If set, the tray will attempt to take atmos from a pipe.
-	var/force_update
+	var/force_update           // Set this to bypass the cycle time check.
 
 	// Seed details/line data.
 	var/datum/seed/seed = null // The currently planted seed
 
-	// Reagent information for attackby(), consider moving this to a controller along
+	// Reagent information for process(), consider moving this to a controller along
 	// with cycle information under 'mechanical concerns' at some point.
-	// For all following lists, when called in attackby() the relevant value will be increased
-	// by 1,val if val>0 or decreased by 1,val if val<0.
-
 	var/global/list/toxic_reagents = list(
-		"anti_toxin" = -2,
-		"toxin" = 2,
-		"fluorine" = 2.5,
-		"chlorine" = 1.5,
-		"sacid" = 1.5,
-		"pacid" = 3,
-		"plantbgone" = 3,
-		"cryoxadone" = -3,
-		"radium" = 2
+		"anti_toxin" =     -2,
+		"toxin" =           2,
+		"fluorine" =        2.5,
+		"chlorine" =        1.5,
+		"sacid" =           1.5,
+		"pacid" =           3,
+		"plantbgone" =      3,
+		"cryoxadone" =     -3,
+		"radium" =          2
 		)
 	var/global/list/nutrient_reagents = list(
-		"milk" = 0.1,
-		"beer" = 0.25,
-		"phosphorus" = 0.1,
-		"sugar" = 0.1,
-		"sodawater" = 0.1,
-		"ammonia" = 1,
-		"diethylamine" = 2,
-		"nutriment" = 1,
-		"adminordrazine" = 1
+		"milk" =            0.1,
+		"beer" =            0.25,
+		"phosphorus" =      0.1,
+		"sugar" =           0.1,
+		"sodawater" =       0.1,
+		"ammonia" =         1,
+		"diethylamine" =    2,
+		"nutriment" =       1,
+		"adminordrazine" =  1,
+		"eznutrient" =      1,
+		"robustharvest" =   1,
+		"left4zed" =        1
 		)
 	var/global/list/weedkiller_reagents = list(
-		"fluorine" = -4,
-		"chlorine" = -3,
-		"phosphorus" = -2,
-		"sugar" = 2,
-		"sacid" = -2,
-		"pacid" = -4,
-		"plantbgone" = -8,
+		"fluorine" =       -4,
+		"chlorine" =       -3,
+		"phosphorus" =     -2,
+		"sugar" =           2,
+		"sacid" =          -2,
+		"pacid" =          -4,
+		"plantbgone" =     -8,
 		"adminordrazine" = -5
 		)
 	var/global/list/pestkiller_reagents = list(
-		"sugar" = 2,
-		"diethylamine" = -2,
+		"sugar" =           2,
+		"diethylamine" =   -2,
 		"adminordrazine" = -5
 		)
-	var/global/list/beneficial_reagents = list(
-		"beer" = -0.05,
-		"fluorine" = -2,
-		"chlorine" = -1,
-		"phosphorus" = -0.75,
-		"sodawater" = 0.1,
-		"sacid" = -1,
-		"pacid" = -2,
-		"plantbgone" = -2,
-		"cryoxadone" = 3,
-		"ammonia" = 0.5,
-		"diethylamine" = 1,
-		"nutriment" = 0.5,
-		"radium" = -1.5,
-		"adminordrazine" = 1
-		)
 	var/global/list/water_reagents = list(
-		"adminordrazine" = 1,
-		"milk" = 0.9,
-		"beer" = 0.7,
-		"flourine" = -0.5,
-		"chlorine" = -0.5,
-		"phosphorus" = -0.5,
-		"water" = 1,
-		"sodawater" = 1,
+		"water" =           1,
+		"adminordrazine" =  1,
+		"milk" =            0.9,
+		"beer" =            0.7,
+		"flourine" =       -0.5,
+		"chlorine" =       -0.5,
+		"phosphorus" =     -0.5,
+		"water" =           1,
+		"sodawater" =       1,
+		)
+
+	// Beneficial reagents also have values for modifying yield_mod and mut_mod (in that order).
+	var/global/list/beneficial_reagents = list(
+		"beer" =           list( -0.05, 0,   0   ),
+		"fluorine" =       list( -2,    0,   0   ),
+		"chlorine" =       list( -1,    0,   0   ),
+		"phosphorus" =     list( -0.75, 0,   0   ),
+		"sodawater" =      list(  0.1,  0,   0   ),
+		"sacid" =          list( -1,    0,   0   ),
+		"pacid" =          list( -2,    0,   0   ),
+		"plantbgone" =     list( -2,    0,   0.2 ),
+		"cryoxadone" =     list(  3,    0,   0   ),
+		"ammonia" =        list(  0.5,  0,   0   ),
+		"diethylamine" =   list(  1,    0,   0   ),
+		"nutriment" =      list(  0.5,  1,   0   ),
+		"radium" =         list( -1.5,  0,   0.2 ),
+		"adminordrazine" = list(  1,    1,   1   ),
+		"robustharvest" =  list(  0,    0.2, 0   ),
+		"left4zed" =       list(  0,    0,   0.2 )
 		)
 
 	// Mutagen list specifies minimum value for the mutation to take place, rather
 	// than a bound as the lists above specify.
 	var/global/list/mutagenic_reagents = list(
-		"radium" = 8,
-		"mutagen" = 3
+		"radium" =  list(8,3),
+		"mutagen" = list(3,8)
 		)
 
 /obj/machinery/portable_atmospherics/hydroponics/New()
 	..()
+	create_reagents(200)
 	connect()
 	update_icon()
+	if(closed_system)
+		flags &= ~OPENCONTAINER
 
 /obj/machinery/portable_atmospherics/hydroponics/bullet_act(var/obj/item/projectile/Proj)
 
 	//Don't act on seeds like dionaea that shouldn't change.
-	if(seed && seed.immutable)
+	if(seed && seed.immutable > 0)
 		return
 
 	//Override for somatoray projectiles.
@@ -142,12 +152,14 @@
 
 /obj/machinery/portable_atmospherics/hydroponics/process()
 
+	//Do this even if we're not ready for a plant cycle.
+	process_reagents()
+
 	// Update values every cycle rather than every process() tick.
 	if(force_update)
 		force_update = 0
 	else if(world.time < (lastcycle + cycledelay))
 		return
-
 	lastcycle = world.time
 
 	// Weeds like water and nutrients, there's a chance the weed population will increase.
@@ -168,6 +180,11 @@
 
 	// Advance plant age.
 	if(prob(25)) age += 1 * HYDRO_SPEED_MULTIPLIER
+
+	//Highly mutable plants have a chance of mutating every tick.
+	if(seed.immutable == -1)
+		var/mut_prob = rand(1,100)
+		if(mut_prob <= 5) mutate(mut_prob == 1 ? 2 : 1)
 
 	// Maintain tray nutrient and water levels.
 	if(seed.nutrient_consumption > 0 && nutrilevel > 0 && prob(25))
@@ -197,8 +214,22 @@
 	if(!environment)
 		if(istype(T))
 			environment = T.return_air()
-	if(!environment) //We're in a crate or nullspace, bail out.
-		return
+
+	if(!environment) return
+
+/*
+	// Handle gas consumption.
+	if(seed.consume_gasses && seed.consume_gasses.len)
+		var/missing_gas = 0
+		for(var/gas in seed.consume_gasses)
+			if(environment && environment.gas && environment.gas[gas] && \
+			 environment.gas[gas] >= seed.consume_gasses[gas])
+				environment.adjust_gas(gas,-seed.consume_gasses[gas],1)
+			else
+				missing_gas++
+
+		if(missing_gas > 0)
+			health -= missing_gas * HYDRO_SPEED_MULTIPLIER
 
 	// Process it.
 	var/pressure = environment.return_pressure()
@@ -207,6 +238,13 @@
 
 	if(abs(environment.temperature - seed.ideal_heat) > seed.heat_tolerance)
 		health -= healthmod
+
+	// Handle gas production.
+	if(seed.exude_gasses && seed.exude_gasses.len)
+		for(var/gas in seed.exude_gasses)
+			environment.adjust_gas(gas, max(1,round((seed.exude_gasses[gas]*seed.potency)/seed.exude_gasses.len)))
+
+*/
 
 	// Handle light requirements.
 	var/area/A = T.loc
@@ -257,16 +295,72 @@
 		pestlevel = 0
 
 	// If enough time (in cycles, not ticks) has passed since the plant was harvested, we're ready to harvest again.
-	else if(age > seed.production && (age - lastproduce) > seed.production && (!harvest && !dead))
+	else if(seed.products && seed.products.len && age > seed.production && \
+	 (age - lastproduce) > seed.production && (!harvest && !dead))
 		harvest = 1
 		lastproduce = age
 
-	if(prob(5))  // On each tick, there's a 5 percent chance the pest population will increase
+	if(prob(3))  // On each tick, there's a chance the pest population will increase
 		pestlevel += 1 * HYDRO_SPEED_MULTIPLIER
 
 	check_level_sanity()
 	update_icon()
 	return
+
+//Process reagents being input into the tray.
+/obj/machinery/portable_atmospherics/hydroponics/proc/process_reagents()
+
+	if(!reagents) return
+
+	if(reagents.total_volume <= 0)
+		return
+
+	for(var/datum/reagent/R in reagents.reagent_list)
+
+
+		var/reagent_total = reagents.get_reagent_amount(R.id)
+
+		if(seed && !dead)
+			//Handle some general level adjustments.
+			if(toxic_reagents[R.id])
+				toxins += toxic_reagents[R.id]         * reagent_total
+			if(weedkiller_reagents[R.id])
+				weedlevel += weedkiller_reagents[R.id] * reagent_total
+			if(pestkiller_reagents[R.id])
+				pestlevel += pestkiller_reagents[R.id] * reagent_total
+
+			// Beneficial reagents have a few impacts along with health buffs.
+			if(beneficial_reagents[R.id])
+				health += beneficial_reagents[R.id][1]       * reagent_total
+				yield_mod += beneficial_reagents[R.id][2]    * reagent_total
+				mutation_mod += beneficial_reagents[R.id][3] * reagent_total
+
+			// Mutagen is distinct from the previous types and mostly has a chance of proccing a mutation.
+			if(mutagenic_reagents[R.id])
+				var/reagent_min_value = mutagenic_reagents[R.id][1]
+				var/reagent_value =     mutagenic_reagents[R.id][2]+mutation_mod
+
+				if(reagent_total >= reagent_min_value)
+					if(prob(min(reagent_total*reagent_value,100)))
+						mutate(reagent_total > 10 ? 2 : 1)
+
+		// Handle nutrient refilling.
+		if(nutrient_reagents[R.id])
+			nutrilevel += nutrient_reagents[R.id]  * reagent_total
+
+		// Handle water and water refilling.
+		var/water_added = 0
+		if(water_reagents[R.id])
+			var/water_input = water_reagents[R.id] * reagent_total
+			water_added += water_input
+			waterlevel += water_input
+
+		if(water_added > 0)
+			toxins -= round(water_added/4)
+
+	reagents.clear_reagents()
+	check_level_sanity()
+	update_icon()
 
 //Harvests the product of a plant.
 /obj/machinery/portable_atmospherics/hydroponics/proc/harvest(var/mob/user)
@@ -420,7 +514,6 @@
 	weedlevel =  max(0,min(weedlevel,10))
 	toxins =     max(0,min(toxins,10))
 
-
 /obj/machinery/portable_atmospherics/hydroponics/proc/mutate_species()
 
 	var/previous_plant = seed.display_name
@@ -445,6 +538,9 @@
 
 /obj/machinery/portable_atmospherics/hydroponics/attackby(var/obj/item/O as obj, var/mob/user as mob)
 
+	if (O.is_open_container())
+		return 0
+
 	if(istype(O, /obj/item/weapon/wirecutters) || istype(O, /obj/item/weapon/scalpel))
 
 		if(!seed)
@@ -460,153 +556,23 @@
 
 		return
 
-	else if (istype(O, /obj/item/weapon/reagent_containers/glass))
-		var/b_amount = O.reagents.get_reagent_amount("water")
-		if(b_amount > 0 && waterlevel < 100)
-			if(b_amount + waterlevel > 100)
-				b_amount = 100 - waterlevel
-			O.reagents.remove_reagent("water", b_amount)
-			waterlevel += b_amount
-			playsound(loc, 'sound/effects/slosh.ogg', 25, 1)
-			user << "You fill \the [src] with [round(b_amount,0.1)] units of water."
-
-			// The more water you put in, the more diluted the toxins become.
-			toxins -= round(b_amount/4)
-
-		else if(waterlevel >= 100)
-			user << "\red \The [src] is already full."
-		else
-			user << "\red \The [O] is not filled with water."
-
-		check_level_sanity()
-		update_icon()
-
-	// Nutrient fluid replacement. TODO: Consider rolling this into a proper reagent-processing proc.
-	else if ( istype(O, /obj/item/nutrient) )
-		var/obj/item/nutrient/nutrient = O
-		user.u_equip(O)
-		nutrilevel = 10
-		yield_mod = nutrient.yieldmod
-		mutation_mod = nutrient.mutmod
-		user << "You replace the nutrient solution in the [src]."
-		del(O)
-		update_icon()
-
-	 // Syringe stuff
 	else if(istype(O, /obj/item/weapon/reagent_containers/syringe))
 
 		var/obj/item/weapon/reagent_containers/syringe/S = O
 
-		if(seed)
-			// Injecting into the plant.
-			if (S.mode == 1)
-				if(!S.reagents.total_volume)
-					user << "\red [O] is empty."
-					return
-
-				user << "\red You inject the [seed.display_name] with a chemical solution."
-
-				// Uuuuuugh this whole chunk is going to be awful. TODO: condense it down somehow.
-				// Run through the various reagents in the lists and apply their effects as needed.
-				for(var/datum/reagent/R in S.reagents.reagent_list)
-
-					var/reagent_value = 0
-
-					if(toxic_reagents[R.id])
-						reagent_value = toxic_reagents[R.id]
-						if(reagent_value > 0)
-							if(reagent_value < 1)
-								toxins += reagent_value
-							else
-								toxins += round(S.reagents.get_reagent_amount(R.id)*rand(1,reagent_value))
-						else
-							if(reagent_value > -1)
-								toxins += reagent_value
-							else
-								toxins -= abs(round(S.reagents.get_reagent_amount(R.id)*rand(1,abs(reagent_value))))
-
-					if(nutrient_reagents[R.id])
-						reagent_value = nutrient_reagents[R.id]
-						if(reagent_value > 0)
-							if(reagent_value < 1)
-								nutrilevel += reagent_value
-							else
-								nutrilevel += round(S.reagents.get_reagent_amount(R.id)*rand(1,reagent_value))
-						else
-							if(reagent_value > -1)
-								nutrilevel += reagent_value
-							else
-								nutrilevel -= abs(round(S.reagents.get_reagent_amount(R.id)*rand(1,abs(reagent_value))))
-
-					if(weedkiller_reagents[R.id])
-						reagent_value = weedkiller_reagents[R.id]
-						if(reagent_value > 0)
-							if(reagent_value < 1)
-								weedlevel += reagent_value
-							else
-								weedlevel += round(S.reagents.get_reagent_amount(R.id)*rand(1,reagent_value))
-						else
-							if(reagent_value > -1)
-								weedlevel += reagent_value
-							else
-								weedlevel -= abs(round(S.reagents.get_reagent_amount(R.id)*rand(1,abs(reagent_value))))
-
-					if(pestkiller_reagents[R.id])
-						reagent_value = pestkiller_reagents[R.id]
-						if(reagent_value > 0)
-							if(reagent_value < 1)
-								pestlevel += reagent_value
-							else
-								pestlevel += round(S.reagents.get_reagent_amount(R.id)*rand(1,reagent_value))
-						else
-							if(reagent_value > -1)
-								pestlevel += reagent_value
-							else
-								pestlevel -= abs(round(S.reagents.get_reagent_amount(R.id)*rand(1,abs(reagent_value))))
-
-					if(beneficial_reagents[R.id])
-						reagent_value = beneficial_reagents[R.id]
-						if(reagent_value > 0)
-							if(reagent_value < 1)
-								health += reagent_value
-							else
-								health += round(S.reagents.get_reagent_amount(R.id)*rand(1,reagent_value))
-						else
-							if(reagent_value > -1)
-								health += reagent_value
-							else
-								health -= abs(round(S.reagents.get_reagent_amount(R.id)*rand(1,abs(reagent_value))))
-
-					if(water_reagents[R.id])
-						reagent_value = water_reagents[R.id]
-						if(reagent_value > 0)
-							if(reagent_value < 1)
-								waterlevel += reagent_value
-							else
-								waterlevel += round(S.reagents.get_reagent_amount(R.id)*rand(1,reagent_value))
-						else
-							if(reagent_value > -1)
-								waterlevel += reagent_value
-							else
-								waterlevel -= abs(round(S.reagents.get_reagent_amount(R.id)*rand(1,abs(reagent_value))))
-
-					// Mutagen is distinct from the previous types and mostly has a chance of proccing a mutation.
-					if(mutagenic_reagents[R.id])
-						var/reagent_total = S.reagents.get_reagent_amount(R.id)
-						reagent_value = mutagenic_reagents[R.id]+mutation_mod
-						if(reagent_total >= reagent_value)
-							if(prob(min(reagent_total*reagent_value,100)))
-								mutate(reagent_total > 10 ? 2 : 1)
-
-				S.reagents.clear_reagents()
-
+		if (S.mode == 1)
+			if(seed)
+				return ..()
 			else
-				user << "You can't get any extract out of this plant."
+				user << "There's no plant in the tray to inject."
+				return 1
 		else
-			user << "There's nothing to inject the solution into."
-
-		check_level_sanity()
-		update_icon()
+			if(seed)
+				//Leaving this in in case we want to extract from plants later.
+				user << "You can't get any extract out of this plant."
+			else
+				user << "There's nothing in the tray to draw something from."
+			return 1
 
 	else if (istype(O, /obj/item/seeds))
 
@@ -638,6 +604,7 @@
 				age = 1
 				//Snowflakey, maybe move this to the seed datum
 				health = (istype(S, /obj/item/seeds/cutting) ? round(seed.endurance/rand(2,5)) : seed.endurance)
+
 				lastcycle = world.time
 
 			del(O)
@@ -757,7 +724,31 @@
 			usr << "[src] is \red filled with weeds!"
 		if(pestlevel >= 5)
 			usr << "[src] is \red filled with tiny worms!"
-		usr << text ("")
+
+		if(!istype(src,/obj/machinery/portable_atmospherics/hydroponics/soil))
+
+			var/turf/T = loc
+			var/datum/gas_mixture/environment
+
+			if(closed_system && (connected_port || holding))
+				environment = air_contents
+
+			if(!environment)
+				if(istype(T))
+					environment = T.return_air()
+
+			if(!environment) //We're in a crate or nullspace, bail out.
+				return
+
+			var/area/A = T.loc
+			var/light_available
+			if(A)
+				if(A.lighting_use_dynamic)
+					light_available = max(0,min(10,T.lighting_lumcount)-5)
+				else
+					light_available =  5
+
+			usr << "The tray's sensor suite is reporting a light level of [light_available] lumens and a temperature of [environment.temperature]K."
 
 /obj/machinery/portable_atmospherics/hydroponics/verb/close_lid()
 	set name = "Toggle Tray Lid"
@@ -769,6 +760,11 @@
 
 	closed_system = !closed_system
 	usr << "You [closed_system ? "close" : "open"] the tray's lid."
+	if(closed_system)
+		flags &= ~OPENCONTAINER
+	else
+		flags |= OPENCONTAINER
+
 	update_icon()
 
 /obj/machinery/portable_atmospherics/hydroponics/soil
