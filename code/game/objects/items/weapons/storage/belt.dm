@@ -124,7 +124,8 @@
 		"/obj/item/device/radio/headset",
 		"/obj/item/weapon/melee",
 		"/obj/item/taperoll/police",
-		"/obj/item/weapon/gun/energy/taser"
+		"/obj/item/weapon/gun/energy/taser",
+		"/obj/item/weapon/gun/energy/stunrevolver"
 		)
 
 /obj/item/weapon/storage/belt/soulstone
