@@ -61,7 +61,7 @@
 			mob.antibodies |= antigen
 	if(mob.radiation > 50)
 		if(prob(1))
-			majormutateinactivate()
+			majormutateinactivate(mob)
 
 	//Space antibiotics stop disease completely
 	if(mob.reagents.has_reagent("spaceacillin"))
@@ -117,7 +117,7 @@
 	if (prob(5) && all_species.len)
 		affected_species = get_infectable_species()
 
-/datum/disease2/disease/proc/majormutateinactivate()
+/datum/disease2/disease/proc/majormutateinactivate(var/mob/living/carbon/mob) //Bone White - Duplicate of majormutate() with adminlogs, for use only in activate()
 	var/oldID = uniqueID
 	uniqueID = rand(0,10000)
 	var/datum/disease2/effectholder/holder = pick(effects)
@@ -126,13 +126,16 @@
 		var/oldAntigen = antigen
 		antigen = text2num(pick(ANTIGENS))
 		antigen |= text2num(pick(ANTIGENS))
-		log_admin("Stamm #[oldID] ([oldAntigen]) mutated in a mob to Stamm #[uniqueID] ([antigen])")
-		message_admins("Stamm #[oldID] ([oldAntigen]) mutated in a mob to Stamm #[uniqueID] ([antigen])")
-	if (prob(5) && all_species.len)
+		log_admin("Stamm #[oldID] ([oldAntigen]) mutated antigens in [mob.name] to Stamm #[uniqueID] ([antigen])")
+		message_admins("Stamm #[oldID] ([oldAntigen]) mutated antigens in [mob.name] to Stamm #[uniqueID] ([antigen])")
+	else if (prob(10) && all_species.len)
 		var/old_species = affected_species
 		affected_species = get_infectable_species()
-		log_admin("Stamm #[oldID] ([old_species]) mutated in a mob to Stamm #[uniqueID] ([affected_species])")
-		message_admins("Stamm #[oldID] ([old_species]) mutated in a mob to Stamm #[uniqueID] ([affected_species])")
+		log_admin("Stamm #[oldID] ([old_species]) mutated affected species in [mob.name] to Stamm #[uniqueID] ([affected_species])")
+		message_admins("Stamm #[oldID] ([old_species]) mutated affected species in [mob.name] to Stamm #[uniqueID] ([affected_species])")
+	else
+		log_admin("Stamm #[oldID] mutated in [mob.name] to Stamm #[uniqueID] ([antigen])")
+		message_admins("Stamm #[oldID]  mutated in a [mob.name] to Stamm #[uniqueID] ([antigen])")
 
 /datum/disease2/disease/proc/getcopy()
 	var/datum/disease2/disease/disease = new /datum/disease2/disease
