@@ -70,11 +70,11 @@ obj/item/weapon/gun/energy/laser/retro
 	name = "laser cannon"
 	desc = "With the L.A.S.E.R. cannon, the lasing medium is enclosed in a tube lined with uranium-235 and subjected to high neutron flux in a nuclear reactor core. This incredible technology may help YOU achieve high excitation rates with small laser volumes!"
 	icon_state = "lasercannon"
-	fire_sound = 'sound/weapons/lasercannonfire.ogg'
+//	fire_sound = 'sound/weapons/lasercannonfire.ogg'
 	origin_tech = "combat=4;materials=3;powerstorage=3"
 	projectile_type = "/obj/item/projectile/beam/heavylaser"
-
-	fire_delay = 20
+	charge_cost = 500 // Half the cost of the regular laser, weaker projectile.
+	fire_delay = 3
 
 	isHandgun()
 		return 0
