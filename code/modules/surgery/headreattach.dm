@@ -180,9 +180,14 @@
 		var/obj/item/weapon/organ/head/B = tool
 		if (B.brainmob.mind)
 			B.brainmob.mind.transfer_to(target)
+		if ((istype(B, /obj/item/weapon/organ/head/posi)) && (affected.status & ORGAN_ROBOT))  // cos you just know someone's going to put a robot head on a human body at some point!
+			dead_mob_list -= target
+			living_mob_list += target
+			target.stat = CONSCIOUS
 		target.update_body()
 		target.updatehealth()
 		target.UpdateDamageIcon()
+
 		del(B)
 
 	fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool)

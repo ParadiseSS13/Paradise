@@ -576,9 +576,6 @@
 	brute_mod = 1.5
 	burn_mod = 1.5
 
-	warning_low_pressure = 50
-	hazard_low_pressure = 0
-
 	cold_level_1 = 50
 	cold_level_2 = -1
 	cold_level_3 = -1
