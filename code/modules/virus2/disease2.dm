@@ -61,7 +61,7 @@
 			mob.antibodies |= antigen
 	if(mob.radiation > 50)
 		if(prob(1))
-			majormutate()
+			majormutateinactivate()
 
 	//Space antibiotics stop disease completely
 	if(mob.reagents.has_reagent("spaceacillin"))
@@ -116,6 +116,23 @@
 		antigen |= text2num(pick(ANTIGENS))
 	if (prob(5) && all_species.len)
 		affected_species = get_infectable_species()
+
+/datum/disease2/disease/proc/majormutateinactivate()
+	var/oldID = uniqueID
+	uniqueID = rand(0,10000)
+	var/datum/disease2/effectholder/holder = pick(effects)
+	holder.majormutate()
+	if (prob(5))
+		var/oldAntigen = antigen
+		antigen = text2num(pick(ANTIGENS))
+		antigen |= text2num(pick(ANTIGENS))
+		log_admin("Stamm #[oldID] ([oldAntigen]) mutated in a mob to Stamm #[uniqueID] ([antigen])")
+		message_admins("Stamm #[oldID] ([oldAntigen]) mutated in a mob to Stamm #[uniqueID] ([antigen])")
+	if (prob(5) && all_species.len)
+		var/old_species = affected_species
+		affected_species = get_infectable_species()
+		log_admin("Stamm #[oldID] ([old_species]) mutated in a mob to Stamm #[uniqueID] ([affected_species])")
+		message_admins("Stamm #[oldID] ([old_species]) mutated in a mob to Stamm #[uniqueID] ([affected_species])")
 
 /datum/disease2/disease/proc/getcopy()
 	var/datum/disease2/disease/disease = new /datum/disease2/disease
