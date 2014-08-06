@@ -160,6 +160,9 @@
 			affected.sabotaged = 1
 		else
 			affected.sabotaged = 0
+		affected.amputated = 0
+		affected.setAmputatedTree()
+		target.handle_organs()
 		target.update_body()
 		target.updatehealth()
 		target.UpdateDamageIcon()
