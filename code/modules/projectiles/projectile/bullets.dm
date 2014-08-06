@@ -20,10 +20,11 @@
 	name = "slug"
 
 
-/obj/item/projectile/bullet/rubberbullet
+/obj/item/projectile/bullet/rubberbullet  //  Bone White - Rubber bullets cause agony (halloss) instead of stun = 5, weakened = 5
 	damage = 10
-	stun = 5
-	weaken = 5
+	stun = 0
+	weaken = 0
+	agony = 60
 	embed = 0
 	sharp = 0
 
