@@ -249,6 +249,7 @@
 #include "code\game\gamemodes\mutiny\directives\research_to_ripleys_directive.dm"
 #include "code\game\gamemodes\mutiny\directives\tau_ceti_needs_women_directive.dm"
 #include "code\game\gamemodes\mutiny\directives\terminations_directive.dm"
+#include "code\game\gamemodes\mutiny\directives\vox_heist.dm"
 #include "code\game\gamemodes\nations\flag_pinpointer.dm"
 #include "code\game\gamemodes\nations\flagprocs.dm"
 #include "code\game\gamemodes\nations\nationdatums.dm"
