@@ -74,12 +74,12 @@
 
 	//Check arms and legs for existence
 	can_stand = 2 //can stand on both legs
-	var/datum/organ/external/E = organs_by_name["l_foot"]
-	if(E.status & ORGAN_DESTROYED)
+	var/datum/organ/external/F = organs_by_name["l_foot"]
+	if(F.status & ORGAN_DESTROYED)
 		can_stand--
 
-	E = organs_by_name["r_foot"]
-	if(E.status & ORGAN_DESTROYED)
+	F = organs_by_name["r_foot"]
+	if(F.status & ORGAN_DESTROYED)
 		can_stand--
 
 	if(!force_process && !bad_external_organs.len)
