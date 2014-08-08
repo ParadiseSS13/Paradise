@@ -15,7 +15,7 @@
 				tally = 2
 			if(60 to 80)
 				tally = 3
-			if(80 to 9999999)
+			if(80 to INFINITY)
 				tally = 4
 
 
