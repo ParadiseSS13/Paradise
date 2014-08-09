@@ -142,6 +142,15 @@
 	if (T.tow)
 		user << "\red [T] is already towing something."
 		return
+	
+	//check for cycles.
+	var/obj/vehicle/train/next_car = T
+	while (next_car)
+		if (next_car == src)
+			user << "\red That seems very silly."
+			return
+		next_car = next_car.lead
+	
 	//latch with src as the follower
 	lead = T
 	T.tow = src
@@ -191,23 +200,28 @@
 // size of the train, to limit super long trains.
 //-------------------------------------------------------
 /obj/vehicle/train/update_stats()
-	if(tow)
-		return tow.update_stats()	//take us to the very end
-	else
-		update_train_stats()		//we're at the end
+	//first, seek to the end of the train
+	var/obj/vehicle/train/T = src
+	while(T.tow)
+		//check for cyclic train.
+		if (T.tow == src)
+			lead.tow = null
+			lead.update_stats()
+			
+			lead = null
+			update_stats()
+			return
+		T = T.tow
 
-/obj/vehicle/train/proc/update_train_stats()
-	if(powered && on)
-		active_engines = 1	//increment active engine count if this is a running engine
-	else
-		active_engines = 0
+	//now walk back to the front.
+	var/active_engines = 0
+	var/train_length = 0
+	while(T)
+		train_length++
+		if (powered && on)
+			active_engines++
+		T.update_car(train_length, active_engines)
+		T = T.lead
 
-	train_length = 1
-
-	if(istype(tow))
-		active_engines += tow.active_engines
-		train_length += tow.train_length
-
-	//update the next section of train ahead of us
-	if(istype(lead))
-		lead.update_train_stats()
+/obj/vehicle/train/proc/update_car(var/train_length, var/active_engines)
+	return
