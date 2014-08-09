@@ -96,7 +96,7 @@
 
 			nanomanager.update_uis(src)
 
-	else if(istype(O, /obj/item/weapon/storage/bag/plants))
+	else if(istype(O, /obj/item/weapon/storage/bag/plants) || istype(O, /obj/item/weapon/storage/belt/medical))
 		var/obj/item/weapon/storage/bag/plants/P = O
 		var/plants_loaded = 0
 		for(var/obj/G in P.contents)
@@ -121,6 +121,7 @@
 
 		nanomanager.update_uis(src)
 
+
 	else
 		user << "<span class='notice'>\The [src] smartly refuses [O].</span>"
 		return 1
@@ -137,6 +138,39 @@
 /obj/machinery/smartfridge/attack_hand(mob/user as mob)
 
 	ui_interact(user)
+
+//Drag pill bottle to fridge to empty it into the fridge
+/obj/machinery/smartfridge/MouseDrop_T(obj/over_object as obj, mob/user as mob)
+	if(!istype(over_object, /obj/item/weapon/storage/pill_bottle)) //Only pill bottles, please
+		return
+
+	if(!src.ispowered)
+		user << "<span class='notice'>\The [src] is unpowered and useless.</span>"
+		return
+
+	var/obj/item/weapon/storage/box/pillbottles/P = over_object
+	var/items_loaded = 0
+	for(var/obj/G in P.contents)
+		if(accept_check(G))
+			if(contents.len >= max_n_of_items)
+				user << "<span class='notice'>\The [src] is full.</span>"
+				return 1
+			else
+				P.remove_from_storage(G,src)
+				if(item_quants[G.name])
+					item_quants[G.name]++
+				else
+					item_quants[G.name] = 1
+				items_loaded++
+	if(items_loaded)
+		user.visible_message( \
+		"<span class='notice'>[user] empties \the [P] into \the [src].</span>", \
+		"<span class='notice'>You empty \the [P] into \the [src].</span>")
+	if(P.contents.len > 0)
+		user << "<span class='notice'>Some items are refused.</span>"
+	nanomanager.update_uis(src)
+	updateUsrDialog()
+
 
 /*******************
 *   SmartFridge Menu
@@ -199,7 +233,5 @@
 		return 1
 
 	return 0
-
-
 
 
