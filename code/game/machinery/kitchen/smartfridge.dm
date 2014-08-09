@@ -96,7 +96,7 @@
 
 			nanomanager.update_uis(src)
 
-	else if(istype(O, /obj/item/weapon/storage/bag/plants))
+	else if(istype(O, /obj/item/weapon/storage/bag/plants) || istype(O, /obj/item/weapon/storage/belt/medical))
 		var/obj/item/weapon/storage/bag/plants/P = O
 		var/plants_loaded = 0
 		for(var/obj/G in P.contents)
@@ -120,7 +120,8 @@
 				user << "<span class='notice'>Some items are refused.</span>"
 
 		nanomanager.update_uis(src)
-
+	
+	
 	else
 		user << "<span class='notice'>\The [src] smartly refuses [O].</span>"
 		return 1
