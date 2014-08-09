@@ -944,9 +944,9 @@ var/list/slot_equipment_priority = list( \
 	else if( stunned )
 //		lying = 0
 		canmove = 0
-	else if (!buckled) //If not buckled, stunned, sleeping, etc
-		lying = !can_stand //If can't stand, then lying
-		canmove = has_limbs //If has any limbs, then can move
+	else if (!buckled)
+		lying = !can_stand
+		canmove = has_limbs
 
 	if(lying)
 		density = 0
