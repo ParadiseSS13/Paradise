@@ -147,22 +147,25 @@
 // Convinience proc.  Collects crap that fails to equip either onto the mob's back, or drops it.
 // Used in job equipping so shit doesn't pile up at the start loc.
 /mob/living/carbon/human/proc/equip_or_collect(var/obj/item/W, var/slot)
-	if(!equip_to_slot_or_del(W, slot))
+	if(W.mob_can_equip(src, slot, 1))
+		//Mob can equip.  Equip it.
+		equip_to_slot_or_del(W, slot)
+	else
+		//Mob can't equip it.  Put it in a bag B.
 		// Do I have a backpack?
 		var/obj/item/weapon/storage/B
 		if(istype(back,/obj/item/weapon/storage))
+			//Mob is wearing backpack
 			B = back
-			// Do I have a plastic bag?
 		else
+			//not wearing backpack.  Check if player holding plastic bag
 			B=is_in_hands(/obj/item/weapon/storage/bag/plasticbag)
-
-			if(!B)
-				// Gimme one.
+			if(!B) //If not holding plastic bag, give plastic bag
 				B=new /obj/item/weapon/storage/bag/plasticbag(null) // Null in case of failed equip.
-				if(!put_in_hands(B,slot_back))
-					return // Fuck it
+				if(!put_in_hands(B))
+					return // Bag could not be placed in players hands.  I don't know what to do here...
+		//Now, B represents a container we can insert W into.
 		B.handle_item_insertion(W,1)
-
 
 //The list of slots by priority. equip_to_appropriate_slot() uses this list. Doesn't matter if a mob type doesn't have a slot.
 var/list/slot_equipment_priority = list( \
@@ -941,9 +944,9 @@ var/list/slot_equipment_priority = list( \
 	else if( stunned )
 //		lying = 0
 		canmove = 0
-	else if (!buckled)
-		lying = !can_stand
-		canmove = has_limbs
+	else if (!buckled) //If not buckled, stunned, sleeping, etc
+		lying = !can_stand //If can't stand, then lying
+		canmove = has_limbs //If has any limbs, then can move
 
 	if(lying)
 		density = 0
