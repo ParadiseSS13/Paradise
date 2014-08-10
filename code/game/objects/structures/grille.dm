@@ -149,7 +149,7 @@
 			return
 
 //window placing begin
-	else if( istype(W,/obj/item/stack/sheet/rglass) || istype(W,/obj/item/stack/sheet/glass) )
+	else if( istype(W,/obj/item/stack/sheet/rglass) || istype(W,/obj/item/stack/sheet/glass) || istype(W,/obj/item/stack/sheet/plasmaglass) || istype(W,/obj/item/stack/sheet/plasmarglass) )
 		var/dir_to_set = 1
 		if(loc == user.loc)
 			dir_to_set = user.dir
@@ -182,8 +182,12 @@
 			var/obj/structure/window/WD
 			if(istype(W,/obj/item/stack/sheet/rglass))
 				WD = new/obj/structure/window/reinforced(loc) //reinforced window
-			else
+			else if(istype(W,/obj/item/stack/sheet/glass))
 				WD = new/obj/structure/window/basic(loc) //normal window
+			else if(istype(W,/obj/item/stack/sheet/plasmaglass))
+				WD = new/obj/structure/window/plasmabasic(loc) //basic plasma window
+			else
+				WD = new/obj/structure/window/plasmareinforced(loc) //reinforced plasma window
 			WD.dir = dir_to_set
 			WD.ini_dir = dir_to_set
 			WD.anchored = 0
@@ -228,7 +232,7 @@
 // returns 1 if shocked, 0 otherwise
 
 /obj/structure/grille/proc/shock(mob/user as mob, prb)
-	if(!anchored || destroyed)		// anchored/destroyed grilles are never connected
+	if(!anchored || destroyed)		// deanchored/destroyed grilles are never connected
 		return 0
 	if(!prob(prb))
 		return 0
