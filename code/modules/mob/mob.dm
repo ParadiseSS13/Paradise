@@ -812,6 +812,25 @@ var/list/slot_equipment_priority = list( \
 /mob/proc/is_ready()
 	return client && !!mind
 
+/mob/proc/is_in_brig()
+	if(!loc || !loc.loc)
+		return 0
+
+	// They should be in a cell or the Brig portion of the shuttle.
+	var/area/A = loc.loc
+	if(!istype(A, /area/security/prison) && !istype(A, /area/prison))
+		if(!istype(A, /area/shuttle/escape) || loc.name != "Brig floor")
+			return 0
+
+	// If they still have their ID they're not brigged.
+	for(var/obj/item/weapon/card/id/card in src)
+		return 0
+	for(var/obj/item/device/pda/P in src)
+		if(P.id)
+			return 0
+
+	return 1
+
 /mob/proc/get_gender()
 	return gender
 

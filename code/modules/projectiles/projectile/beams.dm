@@ -304,11 +304,11 @@ var/list/beam_master = list()
 	flag = "laser"
 	eyeblur = 2
 
-
+//changing heavy lasers to shoot twice as fast as regular lasers, and do a bit more DPS.
 /obj/item/projectile/beam/heavylaser
 	name = "heavy laser"
 	icon_state = "heavylaser"
-	damage = 45
+	damage = 25
 
 /obj/item/projectile/beam/xray
 	name = "xray beam"

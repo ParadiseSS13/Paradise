@@ -284,6 +284,7 @@
 	access = list(access_lawyer, access_court, access_sec_doors, access_maint_tunnels)
 	minimal_access = list(access_lawyer, access_court, access_sec_doors, access_maint_tunnels)
 	alt_titles = list("Lawyer","Public Defender")
+	minimal_player_age = 21
 
 	equip(var/mob/living/carbon/human/H)
 		if(!H)	return 0

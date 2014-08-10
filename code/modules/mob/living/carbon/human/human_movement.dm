@@ -4,6 +4,21 @@
 	if(species && species.flags & IS_SLOW)
 		tally = 5
 
+	//Bone White - added additional slow for wearing a rig suit.  Does not stack with having IS_SLOW flag (Diona)
+	if(wear_suit && istype(wear_suit,/obj/item/clothing/suit/space))
+		var/datum/gas_mixture/environment = loc.return_air()
+		var/local_pressure = environment.return_pressure()
+		switch (local_pressure)
+			if(20 to 40)
+				tally = 1
+			if(40 to 60)
+				tally = 2
+			if(60 to 80)
+				tally = 3
+			if(80 to INFINITY)
+				tally = 4
+
+
 	if (istype(loc, /turf/space)) return -1 // It's hard to be slowed down in space by... anything
 
 	if(embedded_flag)

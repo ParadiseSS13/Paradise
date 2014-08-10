@@ -37,6 +37,13 @@
 		else
 			return "Inactive"
 
+	proc/launch_shuttle()
+		spawn(rand(5 SECONDS, 45 SECONDS))
+			if(emergency_shuttle.call_evac())
+				spawn(20 SECONDS)
+					var/text = "[station_name()], we have confirmed your completion of Directive X. An evacuation shuttle is en route to receive your crew for debriefing."
+					command_alert(text, "Emergency Transmission")
+
 /obj/machinery/emergency_authentication_device/attack_hand(mob/user)
 	if(activated)
 		user << "\blue \The [src] is already active!"
@@ -51,6 +58,7 @@
 		activated = 1
 		user << "\blue You activate \the [src]!"
 		state("Command acknowledged. Initiating quantum entanglement relay to NanoTrasen High Command.")
+		launch_shuttle()
 		return
 
 	if(!captains_key && !secondary_key)

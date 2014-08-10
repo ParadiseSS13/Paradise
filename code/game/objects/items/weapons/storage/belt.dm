@@ -72,6 +72,7 @@
 
 
 /obj/item/weapon/storage/belt/medical
+	use_to_pickup = 1 //Allow medical belt to pick up medicine
 	name = "medical belt"
 	desc = "Can hold various medical equipment."
 	icon_state = "medicalbelt"

@@ -182,7 +182,7 @@
 		H.equip_or_collect(new /obj/item/clothing/under/rank/miner(H), slot_w_uniform)
 		H.equip_or_collect(new /obj/item/device/pda/shaftminer(H), slot_wear_pda)
 		H.equip_or_collect(new /obj/item/clothing/shoes/black(H), slot_shoes)
-		H.equip_or_collect(new /obj/item/weapon/pickaxe/drill(H), slot_r_hand)
+		H.equip_or_collect(new /obj/item/weapon/pickaxe/drill(H), slot_belt)
 //		H.equip_or_collect(new /obj/item/clothing/gloves/black(H), slot_gloves)
 		if(H.backbag == 1)
 			H.equip_or_collect(new /obj/item/weapon/storage/box/engineer(H), slot_r_hand)

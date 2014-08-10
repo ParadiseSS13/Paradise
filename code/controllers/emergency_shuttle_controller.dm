@@ -63,7 +63,7 @@ var/global/datum/emergency_shuttle_controller/emergency_shuttle
 
 //calls the shuttle for an emergency evacuation
 /datum/emergency_shuttle_controller/proc/call_evac()
-	if(!can_call()) return
+	if(!can_call()) return 0
 
 	//set the launch timer
 	autopilot = 1
@@ -79,6 +79,8 @@ var/global/datum/emergency_shuttle_controller/emergency_shuttle
 	for(var/area/A in world)
 		if(istype(A, /area/hallway))
 			A.readyalert()
+
+	return 1
 
 //calls the shuttle for a routine crew transfer
 /datum/emergency_shuttle_controller/proc/call_transfer()
@@ -134,8 +136,10 @@ var/global/datum/emergency_shuttle_controller/emergency_shuttle
 	return 1
 
 /datum/emergency_shuttle_controller/proc/get_shuttle_prep_time()
-	// During mutiny rounds, the shuttle takes twice as long.
-	if(ticker && istype(ticker.mode,/datum/game_mode/mutiny))
+	// During mutiny rounds, the shuttle takes longer. Unless of course the directive is finished.
+	if(!ticker) return SHUTTLE_PREPTIME
+	var/datum/game_mode/mutiny/m = ticker.mode
+	if(istype(m) && !m.ead.activated)
 		return SHUTTLE_PREPTIME * 3		//15 minutes
 
 	return SHUTTLE_PREPTIME

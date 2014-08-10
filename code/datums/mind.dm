@@ -1257,18 +1257,7 @@ datum/mind
 			brigged_since = -1
 			return 0
 
-		var/is_currently_brigged = 0
-
-		if(istype(T.loc,/area/security/brig))
-			is_currently_brigged = 1
-			for(var/obj/item/weapon/card/id/card in current)
-				is_currently_brigged = 0
-				break // if they still have ID they're not brigged
-			for(var/obj/item/device/pda/P in current)
-				if(P.id)
-					is_currently_brigged = 0
-					break // if they still have ID they're not brigged
-
+		var/is_currently_brigged = current.is_in_brig()
 		if(!is_currently_brigged)
 			brigged_since = -1
 			return 0
@@ -1277,9 +1266,6 @@ datum/mind
 			brigged_since = world.time
 
 		return (duration <= world.time - brigged_since)
-
-
-
 
 //Initialisation procs
 /mob/proc/mind_initialize()
