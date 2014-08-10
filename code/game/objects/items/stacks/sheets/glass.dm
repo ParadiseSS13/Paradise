@@ -100,6 +100,7 @@
 			W = new /obj/structure/window/basic( user.loc, 0 )
 			W.dir = dir_to_set
 			W.ini_dir = W.dir
+			W.state = 0
 			W.anchored = 0
 			src.use(1)
 		if("Full Window")
@@ -408,6 +409,7 @@
 			W = new /obj/structure/window/plasmabasic( user.loc, 0 )
 			W.dir = dir_to_set
 			W.ini_dir = W.dir
+			W.state = 0
 			W.anchored = 0
 			src.use(1)
 		if("Full Window")
@@ -480,6 +482,7 @@
 			W = new /obj/structure/window/plasmareinforced( user.loc, 0 )
 			W.dir = dir_to_set
 			W.ini_dir = W.dir
+			W.state = 0
 			W.anchored = 0
 			src.use(1)
 		if("Full Window")
