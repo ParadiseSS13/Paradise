@@ -62,7 +62,8 @@
 // Vehicle procs
 //-------------------------------------------
 /obj/vehicle/train/explode()
-	tow.unattach()
+	if (tow)
+		tow.unattach()
 	unattach()
 	..()
 
