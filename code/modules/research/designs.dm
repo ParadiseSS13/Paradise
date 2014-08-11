@@ -515,6 +515,15 @@ datum/design/custom_module
 	materials = list("$glass" = 2000, "sacid" = 20, "$diamond" = 100)
 	build_path = /obj/item/weapon/aiModule/core/full/custom
 
+datum/design/antimov_module
+	name = "Core Module Design (Antimov)
+	desc = "Allows for the construction of a Antimov AI Core Module."
+	id = "antimov_module"
+	req_tech = list("programming" = 4, "materials" = 6, "syndicate" = 2)
+	build_type = IMPRINTER
+	materials = list("$glass" = 2000, "sacid" = 20, "$diamond" = 100)
+	build_path = /obj/item/weapon/aiModule/core/full/antimov
+
 ///////////////////////////////////
 /////Subspace Telecomms////////////
 ///////////////////////////////////
