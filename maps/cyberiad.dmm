@@ -4664,7 +4664,7 @@
 "bLJ" = (/obj/structure/closet/secure_closet/RD,/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{dir = 9},/obj/structure/disposalpipe/segment{dir = 4},/turf/simulated/floor{dir = 2; icon_state = "cafeteria"; tag = "icon-cafeteria (NORTHEAST)"},/area/crew_quarters/hor)
 "bLK" = (/obj/machinery/disposal,/obj/structure/disposalpipe/trunk{dir = 8},/turf/simulated/floor{dir = 2; icon_state = "cafeteria"; tag = "icon-cafeteria (NORTHEAST)"},/area/crew_quarters/hor)
 "bLL" = (/obj/structure/filingcabinet/chestdrawer,/turf/simulated/floor{dir = 2; icon_state = "cafeteria"; tag = "icon-cafeteria (NORTHEAST)"},/area/crew_quarters/hor)
-"bLM" = (/obj/machinery/computer/shuttle_control/research{req_access = list("65"); req_access_txt = "65"},/turf/simulated/floor{dir = 4; icon_state = "whitebluecorner"},/area/medical/research_shuttle_dock)
+"bLM" = (/obj/machinery/computer/shuttle_control/research{req_access = null; req_access_txt = 0},/turf/simulated/floor{dir = 4; icon_state = "whitebluecorner"},/area/medical/research_shuttle_dock)
 "bLN" = (/obj/machinery/camera{c_tag = "Cargo Recieving Dock"; dir = 4},/obj/machinery/embedded_controller/radio/simple_docking_controller{id_tag = "cargo_bay"; pixel_x = -30; tag_door = "cargo_shuttle_inner"},/turf/simulated/floor{dir = 8; icon_state = "warning"},/area/quartermaster/storage)
 "bLO" = (/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,/obj/structure/cable{d1 = 1; d2 = 4; icon_state = "1-4"; tag = ""},/turf/simulated/floor{icon_state = "bot"},/area/quartermaster/storage)
 "bLP" = (/obj/structure/cable{d1 = 2; d2 = 4; icon_state = "2-4"; tag = ""},/obj/structure/cable{d1 = 4; d2 = 8; icon_state = "4-8"; pixel_x = 0; tag = ""},/turf/simulated/floor{icon_state = "bot"},/area/quartermaster/storage)
