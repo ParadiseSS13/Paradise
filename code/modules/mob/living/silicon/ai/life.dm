@@ -35,6 +35,9 @@
 			// Gain Power
 			adjustOxyLoss(-1)
 
+		// Handle EMP-stun
+		handle_stunned()
+
 		//stage = 1
 		//if (istype(src, /mob/living/silicon/ai)) // Are we not sure what we are?
 		var/blind = 0
