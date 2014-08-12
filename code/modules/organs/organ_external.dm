@@ -268,25 +268,6 @@ This function completely restores a damaged organ to perfect condition.
 		if(W)
 			wounds += W
 
-/datum/organ/external/proc/get_wound_type(var/type = CUT, var/damage)
-	//if you look a the names in the wound's stages list for each wound type you will see the logic behind these values.
-	switch(type)
-		if(CUT)
-			if (damage < 15) return /datum/wound/cut/small
-			if (damage < 25) return /datum/wound/cut/deep
-			if (damage < 50) return /datum/wound/cut/flesh
-			if (damage < 60) return /datum/wound/cut/gaping
-			if (damage < 70) return /datum/wound/cut/gaping_big
-			return /datum/wound/cut/massive
-		if(BRUISE)
-			return /datum/wound/bruise
-		if(BURN)
-			if (damage < 15) return /datum/wound/burn/moderate
-			if (damage < 30) return /datum/wound/burn/large
-			if (damage < 40) return /datum/wound/burn/severe
-			if (damage < 50) return /datum/wound/burn/deep
-			return /datum/wound/burn/carbonised
-
 /****************************************************
 			   PROCESSING & UPDATING
 ****************************************************/
@@ -399,10 +380,9 @@ Note that amputating the affected organ does in fact remove the infection from t
 
 	if(germ_level >= INFECTION_LEVEL_ONE)
 		//having an infection raises your body temperature
-		var/fever_temperature = (owner.species.heat_level_1 - owner.species.body_temperature - 1)* min(germ_level/INFECTION_LEVEL_TWO, 1) + owner.species.body_temperature
-		if (fever_temperature > owner.bodytemperature)
-			//need to make sure we raise temperature fast enough to get around environmental cooling preventing us from reaching fever_temperature
-			owner.bodytemperature += (fever_temperature - T20C)/BODYTEMP_COLD_DIVISOR + 1
+		var/fever_temperature = (owner.species.heat_level_1 - owner.species.body_temperature - 5)* min(germ_level/INFECTION_LEVEL_TWO, 1) + owner.species.body_temperature
+		//need to make sure we raise temperature fast enough to get around environmental cooling preventing us from reaching fever_temperature
+		owner.bodytemperature += between(0, (fever_temperature - T20C)/BODYTEMP_COLD_DIVISOR + 1, fever_temperature - owner.bodytemperature)
 
 		if(prob(round(germ_level/10)))
 			if (antibiotics < 5)
