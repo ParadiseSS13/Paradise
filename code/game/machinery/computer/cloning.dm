@@ -343,7 +343,7 @@
 	return
 
 /obj/machinery/computer/cloning/proc/scan_mob(mob/living/carbon/human/subject as mob)
-	if ((isnull(subject)) || (!(ishuman(subject))) || (!subject.dna) || (subject.flags & NO_SCAN))
+	if ((isnull(subject)) || (!(ishuman(subject))) || (!subject.dna) || (subject.species.flags & NO_SCAN))
 		scantemp = "Error: Unable to locate valid genetic data."
 		return
 	if (subject.brain_op_stage == 4.0)
