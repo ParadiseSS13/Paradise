@@ -523,6 +523,7 @@
 #include "code\game\objects\items\devices\megaphone.dm"
 #include "code\game\objects\items\devices\multitool.dm"
 #include "code\game\objects\items\devices\paicard.dm"
+#include "code\game\objects\items\devices\pipe_freezer.dm"
 #include "code\game\objects\items\devices\pipe_painter.dm"
 #include "code\game\objects\items\devices\powersink.dm"
 #include "code\game\objects\items\devices\scanners.dm"
