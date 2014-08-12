@@ -269,22 +269,22 @@ This function completely restores a damaged organ to perfect condition.
 			wounds += W
 
 /datum/organ/external/proc/get_wound_type(var/type = CUT, var/damage)
-	//if you look a the names in the wound's stages list for each wound type you will see the logic behind these values
+	//if you look a the names in the wound's stages list for each wound type you will see the logic behind these values.
 	switch(type)
 		if(CUT)
-			if (damage <= 5) return /datum/wound/cut/small
-			if (damage <= 15) return /datum/wound/cut/deep
-			if (damage <= 25) return /datum/wound/cut/flesh
-			if (damage <= 50) return /datum/wound/cut/gaping
-			if (damage <= 60) return /datum/wound/cut/gaping_big
+			if (damage < 15) return /datum/wound/cut/small
+			if (damage < 25) return /datum/wound/cut/deep
+			if (damage < 50) return /datum/wound/cut/flesh
+			if (damage < 60) return /datum/wound/cut/gaping
+			if (damage < 70) return /datum/wound/cut/gaping_big
 			return /datum/wound/cut/massive
 		if(BRUISE)
 			return /datum/wound/bruise
 		if(BURN)
-			if (damage <= 5) return /datum/wound/burn/moderate
-			if (damage <= 15) return /datum/wound/burn/large
-			if (damage <= 30) return /datum/wound/burn/severe
-			if (damage <= 40) return /datum/wound/burn/deep
+			if (damage < 15) return /datum/wound/burn/moderate
+			if (damage < 30) return /datum/wound/burn/large
+			if (damage < 40) return /datum/wound/burn/severe
+			if (damage < 50) return /datum/wound/burn/deep
 			return /datum/wound/burn/carbonised
 
 /****************************************************

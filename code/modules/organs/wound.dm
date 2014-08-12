@@ -220,7 +220,7 @@
 	damage_type = CUT
 
 /datum/wound/cut/flesh
-	max_bleeding_stage = 3
+	max_bleeding_stage = 4
 	stages = list("ugly ripped flesh wound" = 35, "ugly flesh wound" = 30, "flesh wound" = 25, "blood soaked clot" = 15, "large scab" = 5, "fresh skin" = 0)
 	damage_type = CUT
 
@@ -268,6 +268,7 @@ datum/wound/cut/massive
 	stages = list("carbonised area" = 50, "treated carbonised area" = 20, "massive burn scar" = 0)
 	damage_type = BURN
 
+/** INTERNAL BLEEDING **/
 /datum/wound/internal_bleeding
 	internal = 1
 	stages = list("severed vein" = 30, "cut vein" = 20, "damaged vein" = 10, "bruised vein" = 5)
