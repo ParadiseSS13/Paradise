@@ -9,17 +9,17 @@ obj/machinery/door/airlock
 	var/cur_command = null	//the command the door is currently attempting to complete
 
 obj/machinery/door/airlock/proc/can_radio()
-	if( !arePowerSystemsOn() || (stat & NOPOWER) || isWireCut(AIRLOCK_WIRE_AI_CONTROL) )
+	if(!arePowerSystemsOn())
 		return 0
 	return 1
 
 obj/machinery/door/airlock/process()
 	..()
-	if (arePowerSystemsOn() && !(stat & NOPOWER))
+	if (arePowerSystemsOn())
 		execute_current_command()
 
 obj/machinery/door/airlock/receive_signal(datum/signal/signal)
-	if (arePowerSystemsOn() && !(stat & NOPOWER)) return //no power
+	if (!arePowerSystemsOn()) return //no power
 
 	if (!can_radio()) return //no radio
 

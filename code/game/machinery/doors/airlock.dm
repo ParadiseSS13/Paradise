@@ -492,23 +492,26 @@ About the new airlock wires panel:
 	return wires.IsIndexCut(wireIndex)
 
 /obj/machinery/door/airlock/proc/canAIControl()
-	return ((src.aiControlDisabled!=1) && (!src.isAllPowerCut()));
+	return ((src.aiControlDisabled!=1) && (!src.isAllPowerLoss()));
 
-/obj/machinery/door/airlock/proc/canAIHack(var/user as mob)
-	return (isAI(user) && src.aiControlDisabled==1 && !hackProof && !src.isAllPowerCut());
+/obj/machinery/door/airlock/proc/canAIHack()
+	return ((src.aiControlDisabled==1) && (!hackProof) && (!src.isAllPowerLoss()));
 
 /obj/machinery/door/airlock/proc/arePowerSystemsOn()
+	if (stat & NOPOWER)
+		return 0
 	return (src.secondsMainPowerLost==0 || src.secondsBackupPowerLost==0)
 
 /obj/machinery/door/airlock/requiresID()
 	return !(src.isWireCut(AIRLOCK_WIRE_IDSCAN) || aiDisabledIdScanner)
 
-/obj/machinery/door/airlock/proc/isAllPowerCut()
-	var/retval=0
+/obj/machinery/door/airlock/proc/isAllPowerLoss()
+	if(stat & NOPOWER)
+		return 1
 	if(src.isWireCut(AIRLOCK_WIRE_MAIN_POWER1) || src.isWireCut(AIRLOCK_WIRE_MAIN_POWER2))
 		if(src.isWireCut(AIRLOCK_WIRE_BACKUP_POWER1) || src.isWireCut(AIRLOCK_WIRE_BACKUP_POWER2))
-			retval=1
-	return retval
+			return 1
+	return 0
 
 /obj/machinery/door/airlock/proc/regainMainPower()
 	if(src.secondsMainPowerLost > 0)
@@ -1102,7 +1105,7 @@ About the new airlock wires panel:
 			beingcrowbarred = 1 //derp, Agouri
 		else
 			beingcrowbarred = 0
-		if( beingcrowbarred && (density && welded && !operating && src.p_open && (!src.arePowerSystemsOn() || stat & NOPOWER) && !src.locked) )
+		if( beingcrowbarred && src.p_open && (operating == -1 || (density && welded && operating != 1 && !src.arePowerSystemsOn() && !src.locked)) )
 			playsound(src.loc, 'sound/items/Crowbar.ogg', 100, 1)
 			user.visible_message("[user] removes the electronics from the airlock assembly.", "You start to remove electronics from the airlock assembly.")
 			if(do_after(user,40))
@@ -1139,7 +1142,7 @@ About the new airlock wires panel:
 
 				del(src)
 				return
-		else if(arePowerSystemsOn() && !(stat & NOPOWER))
+		else if(arePowerSystemsOn())
 			user << "\blue The airlock's motors resist your efforts to force it."
 		else if(locked)
 			user << "\blue The airlock's bolts prevent it from being forced."
@@ -1175,7 +1178,7 @@ About the new airlock wires panel:
 	if( operating || welded || locked )
 		return 0
 	if(!forced)
-		if( !arePowerSystemsOn() || (stat & NOPOWER) || isWireCut(AIRLOCK_WIRE_OPEN_DOOR) )
+		if( !arePowerSystemsOn() || isWireCut(AIRLOCK_WIRE_OPEN_DOOR) )
 			return 0
 	use_power(50)
 	if(forced)
@@ -1203,7 +1206,7 @@ About the new airlock wires panel:
 	if(operating || welded || locked)
 		return
 	if(!forced)
-		if( !arePowerSystemsOn() || (stat & NOPOWER) || isWireCut(AIRLOCK_WIRE_DOOR_BOLTS) )
+		if( !arePowerSystemsOn() || isWireCut(AIRLOCK_WIRE_DOOR_BOLTS) )
 			return
 	if(safe)
 		for(var/turf/turf in locs)
@@ -1261,7 +1264,7 @@ About the new airlock wires panel:
 /obj/machinery/door/airlock/proc/unlock(var/forced=0)
 	if (operating || !src.locked) return
 
-	if (forced || (src.arePowerSystemsOn() && !(stat & NOPOWER))) //only can raise bolts if power's on
+	if (forced || (src.arePowerSystemsOn())) //only can raise bolts if power's on
 		src.locked = 0
 		for(var/mob/M in range(1,src))
 			M.show_message("You hear a click from the bottom of the door.", 2)
