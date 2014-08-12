@@ -1251,7 +1251,7 @@ About the new airlock wires panel:
 	return
 
 /obj/machinery/door/airlock/proc/lock(var/forced=0)
-	if (src.locked) return
+	if (operating || src.locked) return
 
 	src.locked = 1
 	for(var/mob/M in range(1,src))
@@ -1259,9 +1259,9 @@ About the new airlock wires panel:
 	update_icon()
 
 /obj/machinery/door/airlock/proc/unlock(var/forced=0)
-	if (!src.locked) return 0
+	if (operating || !src.locked) return
 
-	if(forced || src.arePowerSystemsOn()) //only can raise bolts if power's on
+	if (forced || (src.arePowerSystemsOn() && !(stat & NOPOWER))) //only can raise bolts if power's on
 		src.locked = 0
 		for(var/mob/M in range(1,src))
 			M.show_message("You hear a click from the bottom of the door.", 2)

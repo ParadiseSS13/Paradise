@@ -15,10 +15,13 @@ obj/machinery/door/airlock/proc/can_radio()
 
 obj/machinery/door/airlock/process()
 	..()
-	execute_current_command()
+	if (arePowerSystemsOn() && !(stat & NOPOWER))
+		execute_current_command()
 
 obj/machinery/door/airlock/receive_signal(datum/signal/signal)
-	if (!can_radio()) return
+	if (arePowerSystemsOn() && !(stat & NOPOWER)) return //no power
+
+	if (!can_radio()) return //no radio
 
 	if(!signal || signal.encryption) return
 
@@ -28,6 +31,9 @@ obj/machinery/door/airlock/receive_signal(datum/signal/signal)
 	execute_current_command()
 
 obj/machinery/door/airlock/proc/execute_current_command()
+	if(!operating)
+		return //emagged or busy doing something else
+
 	if (!cur_command)
 		return
 	
