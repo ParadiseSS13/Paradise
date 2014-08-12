@@ -54,6 +54,7 @@
 	basestate = "plasmawindow"
 	icon_state = "plasmawindow"
 	shardtype = /obj/item/weapon/shard/plasma
+	glasstype = /obj/item/stack/sheet/plasmaglass
 	health = 120
 
 
@@ -63,6 +64,7 @@
 	basestate = "plasmarwindow"
 	icon_state = "plasmarwindow"
 	shardtype = /obj/item/weapon/shard/plasma
+	glasstype = /obj/item/stack/sheet/plasmaglass
 	reinf = 1
 	health = 160
 
