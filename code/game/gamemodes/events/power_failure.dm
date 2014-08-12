@@ -9,7 +9,7 @@
 
 	for(var/obj/machinery/power/smes/S in world)
 		var/area/current_area = get_area(S)
-		if(current_area.type in skipped_areas)
+		if(current_area.type in skipped_areas || S.z != 1)
 			continue
 		S.charge = 0
 		S.output = 0
@@ -34,7 +34,7 @@
 			C.cell.charge = C.cell.maxcharge
 	for(var/obj/machinery/power/smes/S in world)
 		var/area/current_area = get_area(S)
-		if(current_area.type in skipped_areas)
+		if(current_area.type in skipped_areas || S.z != 1)
 			continue
 		S.charge = S.capacity
 		S.output = 200000
