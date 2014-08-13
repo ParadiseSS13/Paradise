@@ -5,19 +5,24 @@
 		tally = 5
 
 	//Bone White - added additional slow for wearing a rig suit.  Does not stack with having IS_SLOW flag (Diona)
-	if(wear_suit && istype(wear_suit,/obj/item/clothing/suit/space))
-		var/datum/gas_mixture/environment = loc.return_air()
-		var/local_pressure = environment.return_pressure()
-		switch (local_pressure)
-			if(20 to 40)
-				tally = 1
-			if(40 to 60)
-				tally = 2
-			if(60 to 80)
-				tally = 3
-			if(80 to INFINITY)
-				tally = 4
+	if(wear_suit)
+		if(wear_suit.slowdown > 0)
+			var/datum/gas_mixture/environment = loc.return_air()
+			var/local_pressure = environment.return_pressure()
+			switch (local_pressure)
+				if(20 to 40)
+					tally = min(1,wear_suit.slowdown)
+				if(40 to 60)
+					tally = min(2,wear_suit.slowdown)
+				if(60 to 80)
+					tally = min(3,wear_suit.slowdown)
+				if(80 to INFINITY)
+					tally = min(4,wear_suit.slowdown)
 
+		tally = min(wear_suit.slowdown, tally)  // Initial slow will never get more powerful than the slowdown on the suit.
+
+	//if(wear_suit)  // These two lines are now redundant due to comment above
+	//	tally += wear_suit.slowdown
 
 	if (istype(loc, /turf/space)) return -1 // It's hard to be slowed down in space by... anything
 
@@ -45,8 +50,6 @@
 	var/hungry = (500 - nutrition)/5 // So overeat would be 100 and default level would be 80
 	if (hungry >= 70) tally += hungry/50
 
-	if(wear_suit)
-		tally += wear_suit.slowdown
 
 	if(!buckled || (buckled && !istype(buckled, /obj/structure/stool/bed/chair/wheelchair)))
 		if(shoes)
