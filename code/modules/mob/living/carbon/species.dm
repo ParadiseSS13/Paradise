@@ -591,6 +591,7 @@
 	flesh_color = "#AAAAAA"
 
 /datum/species/machine/handle_death(var/mob/living/carbon/human/H)
+	H.emote("deathgasp")
 	for(var/organ_name in H.organs_by_name)
 		if (organ_name == "head")			// do the head last as that's when the user will be transfered to the posibrain
 			continue
