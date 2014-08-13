@@ -1,0 +1,21 @@
+Note: The proc name, source file, src and usr are all from the FIRST of the identical runtimes. Everything else is cropped.
+
+Total unique runtimes: 2
+Total runtimes: 2
+
+** Runtimes **
+
+The following runtime has occured 1 time(s).
+runtime error: type mismatch: the plating (107,70,1) (/turf/simulated/floor/plating) += the plating (108,70,1) (/turf/simulated/floor/plating)
+proc name: IsolateContents (/zone/proc/IsolateContents)
+  source file: ZAS_Zones.dm,747
+  usr: null
+  src: /zone (/zone)
+
+
+The following runtime has occured 1 time(s).
+runtime error: Cannot read null.len
+proc name: Rebuild (/zone/proc/Rebuild)
+  source file: ZAS_Zones.dm,669
+  usr: null
+  src: /zone (/zone)
