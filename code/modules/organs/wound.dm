@@ -7,7 +7,7 @@
 	var/current_stage = 0
 
 	// description of the wound
-	var/desc = ""
+	var/desc = "wound" //default in case something borks
 
 	// amount of damage this wound causes
 	var/damage = 0
@@ -287,23 +287,23 @@ datum/wound/cut/massive
 
 /** BURNS **/
 /datum/wound/burn/moderate
-	stages = list("ripped burn" = 10, "moderate burn" = 5, "moderate salved burn" = 2, "fresh skin" = 0)
+	stages = list("ripped burn" = 10, "moderate burn" = 5, "healing moderate burn" = 2, "fresh skin" = 0)
 	damage_type = BURN
 
 /datum/wound/burn/large
-	stages = list("ripped large burn" = 20, "large burn" = 15, "large salved burn" = 5, "fresh skin" = 0)
+	stages = list("ripped large burn" = 20, "large burn" = 15, "healing large burn" = 5, "fresh skin" = 0)
 	damage_type = BURN
 
 /datum/wound/burn/severe
-	stages = list("ripped severe burn" = 35, "severe burn" = 30, "severe salved burn" = 10, "burn scar" = 0)
+	stages = list("ripped severe burn" = 35, "severe burn" = 30, "healing severe burn" = 10, "burn scar" = 0)
 	damage_type = BURN
 
 /datum/wound/burn/deep
-	stages = list("ripped deep burn" = 45, "deep burn" = 40, "deep salved burn" = 15,  "large burn scar" = 0)
+	stages = list("ripped deep burn" = 45, "deep burn" = 40, "healing deep burn" = 15,  "large burn scar" = 0)
 	damage_type = BURN
 
 /datum/wound/burn/carbonised
-	stages = list("carbonised area" = 50, "treated carbonised area" = 20, "massive burn scar" = 0)
+	stages = list("carbonised area" = 50, "healing carbonised area" = 20, "massive burn scar" = 0)
 	damage_type = BURN
 
 /** INTERNAL BLEEDING **/
