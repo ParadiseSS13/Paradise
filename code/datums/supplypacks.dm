@@ -1095,3 +1095,30 @@ var/list/all_supply_groups = list("Operations","Security","Hospitality","Enginee
 	containertype = /obj/structure/closet/crate
 	containername = "mafia supply crate"
 	group = "Operations"
+
+/datum/supply_packs/fabric
+	name = "Fabric crate"
+	contains  = list(/obj/item/weapon/ore/fabric,
+					/obj/item/weapon/ore/fabric,
+					/obj/item/weapon/ore/fabric,
+					/obj/item/weapon/ore/fabric,
+					/obj/item/weapon/ore/fabric,
+					/obj/item/weapon/ore/fabric,
+					/obj/item/weapon/ore/fabric,
+					/obj/item/weapon/ore/fabric,
+					/obj/item/weapon/ore/fabric,
+					/obj/item/weapon/ore/fabric,
+					/obj/item/weapon/ore/fabric,
+					/obj/item/weapon/ore/fabric,
+					/obj/item/weapon/ore/fabric,
+					/obj/item/weapon/ore/fabric,
+					/obj/item/weapon/ore/fabric,
+					/obj/item/weapon/ore/fabric,
+					/obj/item/weapon/ore/fabric,
+					/obj/item/weapon/ore/fabric,
+					/obj/item/weapon/ore/fabric,
+					/obj/item/weapon/ore/fabric)
+	cost = 30
+	containertype = /obj/structure/closet/crate
+	containername = "Fabric crate"
+	group = "Operations"

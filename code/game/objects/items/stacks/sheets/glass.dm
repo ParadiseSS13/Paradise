@@ -6,6 +6,8 @@
  *		Plasma Glass Sheets
  *		Reinforced Plasma Glass Sheets (AKA Holy fuck strong windows)
 
+ Todo: Create a unified construct_window(sheet, user, created_window, full_window)
+
  */
 
 /*
@@ -98,6 +100,7 @@
 			W = new /obj/structure/window/basic( user.loc, 0 )
 			W.dir = dir_to_set
 			W.ini_dir = W.dir
+			W.state = 0
 			W.anchored = 0
 			src.use(1)
 		if("Full Window")
@@ -110,6 +113,7 @@
 				user << "\red There is a full window in the way."
 				return 1
 			var/obj/structure/window/W = new full_window( user.loc, 0 )
+			W.state = 0
 			W.anchored = 0
 			src.use(2)
 	return 0
@@ -126,6 +130,8 @@
 	g_amt = 3750
 	m_amt = 1875
 	origin_tech = "materials=2"
+	var/created_window = /obj/structure/window/reinforced
+	var/full_window = /obj/structure/window/full/reinforced
 
 /obj/item/stack/sheet/rglass/cyborg
 	name = "reinforced glass"
@@ -190,11 +196,8 @@
 			if(locate(/obj/structure/window/full) in user.loc)
 				user << "\red There is a window in the way."
 				return 1
-			var/obj/structure/window/W
-			W = new /obj/structure/window/reinforced( user.loc, 1 )
+			var/obj/structure/window/W = new full_window( user.loc, 0 )
 			W.state = 0
-			W.dir = SOUTHWEST
-			W.ini_dir = SOUTHWEST
 			W.anchored = 0
 			src.use(2)
 
@@ -349,7 +352,7 @@
 	var/full_window = /obj/structure/window/full/plasmabasic
 
 
-/obj/item/stack/sheet/glass/plasmaglass/attack_self(mob/user as mob)
+/obj/item/stack/sheet/plasmaglass/attack_self(mob/user as mob)
 	construct_window(user)
 
 /obj/item/stack/sheet/plasmaglass/attackby(obj/item/W, mob/user)
@@ -375,7 +378,7 @@
 	if(!user.IsAdvancedToolUser())
 		user << "\red You don't have the dexterity to do this!"
 		return 0
-	var/title = "Sheet-PlasmaGlass"
+	var/title = "Plasma-glass alloy"
 	title += " ([src.amount] sheet\s left)"
 	switch(alert(title, "Would you like full tile glass or one direction?", "One Direction", "Full Window", "Cancel", null))
 		if("One Direction")
@@ -406,6 +409,7 @@
 			W = new /obj/structure/window/plasmabasic( user.loc, 0 )
 			W.dir = dir_to_set
 			W.ini_dir = W.dir
+			W.state = 0
 			W.anchored = 0
 			src.use(1)
 		if("Full Window")
@@ -417,10 +421,8 @@
 			if(locate(/obj/structure/window) in user.loc)
 				user << "\red There is a window in the way."
 				return 1
-			var/obj/structure/window/W
-			W = new /obj/structure/window/plasmabasic( user.loc, 0 )
-			W.dir = SOUTHWEST
-			W.ini_dir = SOUTHWEST
+			var/obj/structure/window/W = new full_window( user.loc, 0 )
+			W.state = 0
 			W.anchored = 0
 			src.use(2)
 	return 0
@@ -440,5 +442,60 @@
 	var/full_window = /obj/structure/window/full/plasmareinforced
 
 
-/obj/item/stack/sheet/glass/plasmarglass/attack_self(mob/user as mob)
+/obj/item/stack/sheet/plasmarglass/attack_self(mob/user as mob)
 	construct_window(user)
+
+/obj/item/stack/sheet/plasmarglass/proc/construct_window(mob/user as mob)
+	if(!user || !src)  return 0
+	if(!istype(user.loc,/turf)) return 0
+	if(!user.IsAdvancedToolUser())
+		user << "\red You don't have the dexterity to do this!"
+		return 0
+	var/title = "Reinforced plasma-glass alloy"
+	title += " ([src.amount] sheet\s left)"
+	switch(alert(title, "Would you like full tile glass or one direction?", "One Direction", "Full Window", "Cancel", null))
+		if("One Direction")
+			if(!src)  return 1
+			if(src.loc != user)  return 1
+			var/list/directions = new/list(cardinal)
+			var/i = 0
+			for (var/obj/structure/window/win in user.loc)
+				i++
+				if(i >= 4)
+					user << "\red There are too many windows in this location."
+					return 1
+				directions-=win.dir
+				if(!(win.ini_dir in cardinal))
+					user << "\red Can't let you do that."
+					return 1
+			//Determine the direction. It will first check in the direction the person making the window is facing, if it finds an already made window it will try looking at the next cardinal direction, etc.
+			var/dir_to_set = 2
+			for(var/direction in list( user.dir, turn(user.dir,90), turn(user.dir,180), turn(user.dir,270) ))
+				var/found = 0
+				for(var/obj/structure/window/WT in user.loc)
+					if(WT.dir == direction)
+						found = 1
+				if(!found)
+					dir_to_set = direction
+					break
+			var/obj/structure/window/W
+			W = new /obj/structure/window/plasmareinforced( user.loc, 0 )
+			W.dir = dir_to_set
+			W.ini_dir = W.dir
+			W.state = 0
+			W.anchored = 0
+			src.use(1)
+		if("Full Window")
+			if(!src)  return 1
+			if(src.loc != user)  return 1
+			if(src.amount < 2)
+				user << "\red You need more glass to do that."
+				return 1
+			if(locate(/obj/structure/window) in user.loc)
+				user << "\red There is a window in the way."
+				return 1
+			var/obj/structure/window/W = new full_window( user.loc, 0 )
+			W.state = 0
+			W.anchored = 0
+			src.use(2)
+	return 0

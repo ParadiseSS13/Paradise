@@ -515,6 +515,15 @@ datum/design/custom_module
 	materials = list("$glass" = 2000, "sacid" = 20, "$diamond" = 100)
 	build_path = /obj/item/weapon/aiModule/core/full/custom
 
+datum/design/antimov_module
+	name = "Core Module Design (Antimov)"
+	desc = "Allows for the construction of a Antimov AI Core Module."
+	id = "antimov_module"
+	req_tech = list("programming" = 4, "materials" = 6, "syndicate" = 2)
+	build_type = IMPRINTER
+	materials = list("$glass" = 2000, "sacid" = 20, "$diamond" = 100)
+	build_path = /obj/item/weapon/aiModule/core/full/antimov
+
 ///////////////////////////////////
 /////Subspace Telecomms////////////
 ///////////////////////////////////
@@ -1763,6 +1772,33 @@ datum/design/mesons
 	build_type = PROTOLATHE
 	materials = list("$metal" = 50, "$glass" = 50)
 	build_path = "/obj/item/clothing/glasses/meson"
+
+datum/design/miningblueprint1
+	name = "Mining Schematic Disk Version 1"
+	desc = "Contains the schematics for a new range of Pickaxes."
+	id = "miningblueprint1"
+	req_tech = list("materials" = 3)
+	build_type = PROTOLATHE
+	materials = list("$metal" = 50, "$glass" = 50)
+	build_path = "/obj/item/weapon/disk/data/schematic/mining1"
+
+datum/design/miningblueprint2
+	name = "Mining Schematic Disk Version 2"
+	desc = "Contains the schematics for a new line of drills. And a Plasma Cutter. Has the previous level as well."
+	id = "miningblueprint2"
+	req_tech = list("materials" = 5)
+	build_type = PROTOLATHE
+	materials = list("$metal" = 50, "$glass" = 50)
+	build_path = "/obj/item/weapon/disk/data/schematic/mining2"
+
+datum/design/miningblueprint3
+	name = "Mining Schematic Disk Version 3"
+	desc = "Contains the schematics for a new type of Spacesuit, and schematics for a Jetpack. Has the previous levels as well."
+	id = "miningblueprint3"
+	req_tech = list("materials" = 6)
+	build_type = PROTOLATHE
+	materials = list("$metal" = 50, "$glass" = 50)
+	build_path = "/obj/item/weapon/disk/data/schematic/mining3"
 
 /////////////////////////////////////////
 //////////////Blue Space/////////////////

@@ -604,8 +604,9 @@ Note that amputating the affected organ does in fact remove the infection from t
 		switch(body_part)
 			if(HEAD)
 				if(owner.species.flags & IS_SYNTHETIC)
-					organ= new /obj/item/weapon/organ/head/posi(owner.loc, owner)
-					owner.death()
+					if(owner.mind)
+						organ= new /obj/item/weapon/organ/head/posi(owner.loc, owner)
+						owner.death()
 				else if(SKELETON in owner.mutations)
 					organ= new /obj/item/weapon/skeleton/head(owner.loc)
 				else

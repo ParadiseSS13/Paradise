@@ -69,6 +69,12 @@
 	origin_tech = "materials=4"
 	oretag="clown"
 
+/obj/item/weapon/ore/fabric
+	name = "fabric"
+	icon_state = "fabric"
+	origin_tech = "materials=1"
+	oretag = "fabric"
+
 /obj/item/weapon/ore/slag
 	name = "Slag"
 	desc = "Completely useless"

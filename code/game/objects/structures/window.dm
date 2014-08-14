@@ -13,6 +13,8 @@
 	var/reinf = 0
 	var/basestate
 	var/shardtype = /obj/item/weapon/shard
+	var/glasstype = /obj/item/stack/sheet/glass
+	var/disassembled = 0
 	var/sheets = 1 // Number of sheets needed to build this window (determines how much shit is spawned by destroy())
 //	var/silicate = 0 // number of units of silicate
 //	var/icon/silicateIcon = null // the silicated icon
@@ -232,6 +234,32 @@
 		state = 1 - state
 		playsound(loc, 'sound/items/Crowbar.ogg', 75, 1)
 		user << (state ? "<span class='notice'>You have pried the window into the frame.</span>" : "<span class='notice'>You have pried the window out of the frame.</span>")
+	else if(istype(W, /obj/item/weapon/wrench) && !anchored && health > 7) //Disassemble deconstructed window into parts
+		playsound(src.loc, 'sound/items/Ratchet.ogg', 50, 1)
+		for(var/i=0;i<sheets;i++)
+			var/obj/item/stack/sheet/glass/NG = getFromPool(glasstype, src.loc)
+			for (var/obj/item/stack/sheet/glass/G in src.loc) //Stack em up
+				if(G==NG)
+					continue
+				if(G.amount>=G.max_amount)
+					continue
+				G.attackby(NG, user)
+			
+			if (reinf)
+				var/obj/item/stack/rods/NR = new (src.loc)
+				for (var/obj/item/stack/rods/R in src.loc)
+					if(R==NR)
+						continue
+					if(R.amount>=R.max_amount)
+						continue
+					R.attackby(NR, user)			
+
+		user << "<span class='notice'>You have disassembled the window.</span>"
+		disassembled = 1
+		density = 0
+		update_nearby_tiles()
+		update_nearby_icons()
+		del(src)
 	else
 		if(W.damtype == BRUTE || W.damtype == BURN)
 			hit(W.force)
@@ -338,7 +366,7 @@
 /obj/structure/window/Destroy()
 	density = 0
 	update_nearby_tiles()
-	if(loc)
+	if(loc && !disassembled)
 		playsound(get_turf(src), "shatter", 70, 1)
 	update_nearby_icons()
 	..()
@@ -391,6 +419,7 @@
 	basestate = "plasmawindow"
 	icon_state = "plasmawindow"
 	shardtype = /obj/item/weapon/shard/plasma
+	glasstype = /obj/item/stack/sheet/plasmaglass
 	health = 120
 
 /obj/structure/window/plasmabasic/New(Loc,re=0)
@@ -412,6 +441,7 @@
 	basestate = "plasmarwindow"
 	icon_state = "plasmarwindow"
 	shardtype = /obj/item/weapon/shard/plasma
+	glasstype = /obj/item/stack/sheet/plasmaglass
 	reinf = 1
 	health = 160
 	explosion_resistance = 4
