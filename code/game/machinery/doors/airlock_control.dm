@@ -31,7 +31,7 @@ obj/machinery/door/airlock/receive_signal(datum/signal/signal)
 	execute_current_command()
 
 obj/machinery/door/airlock/proc/execute_current_command()
-	if(!operating)
+	if(operating)
 		return //emagged or busy doing something else
 
 	if (!cur_command)
