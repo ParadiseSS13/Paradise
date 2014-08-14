@@ -14,7 +14,7 @@
 	matter = list("glass" = 3750)
 	attack_verb = list("stabbed", "slashed", "sliced", "cut")
 
-	suicide_act(mob/user)
+/obj/item/weapon/shard/suicide_act(mob/user)
 		viewers(user) << pick("\red <b>[user] is slitting \his wrists with \the [src]! It looks like \he's trying to commit suicide.</b>", \
 							"\red <b>[user] is slitting \his throat with \the [src]! It looks like \he's trying to commit suicide.</b>")
 		return (BRUTELOSS)
