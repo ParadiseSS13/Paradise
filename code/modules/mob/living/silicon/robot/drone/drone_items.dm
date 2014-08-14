@@ -69,9 +69,9 @@
 /obj/item/weapon/gripper/attack(mob/living/carbon/M as mob, mob/living/carbon/user as mob)
 	return
 
-/obj/item/weapon/gripper/afterattack(atom/target as mob|obj|turf|area, mob/living/user as mob|obj, flag, params)
+/obj/item/weapon/gripper/afterattack(atom/target as mob|obj|turf|area, mob/living/user as mob|obj, proximity, params)
 
-	if(!target || !flag) //Target is invalid or we are not adjacent.
+	if(!target || !proximity) //Target is invalid or we are not adjacent.
 		return
 
 	//There's some weirdness with items being lost inside the arm. Trying to fix all cases. ~Z
@@ -80,25 +80,23 @@
 			wrapped = thing
 			break
 
-	if(wrapped) //Already have an item.
-
+	if(wrapped) //Already have an item.		
+		
+		// temporary put the item into user so attackby checks pass
 		wrapped.loc = user
-		//Pass the attack on to the target.
+		
+		//Pass the attack on to the target. this might delete/relocate wrapped
 		target.attackby(wrapped,user)
-
-		if(wrapped && src && wrapped.loc == user)
+		
+		// if the item did not get put into target or deleted, put it back into src
+		if(wrapped && user && (wrapped.loc == user))
 			wrapped.loc = src
 
-		//Sanity/item use checks.
-
-		if(!wrapped || !user)
-			return
-
-		if(wrapped.loc != src.loc)
+		else
 			wrapped = null
 			return
 
-	if(istype(target,/obj/item)) //Check that we're not pocketing a mob.
+	else if(istype(target,/obj/item)) //Check that we're not pocketing a mob.
 
 		//...and that the item is not in a container.
 		if(!isturf(target.loc))
@@ -158,9 +156,9 @@
 /obj/item/weapon/matter_decompiler/attack(mob/living/carbon/M as mob, mob/living/carbon/user as mob)
 	return
 
-/obj/item/weapon/matter_decompiler/afterattack(atom/target as mob|obj|turf|area, mob/living/user as mob|obj, flag, params)
+/obj/item/weapon/matter_decompiler/afterattack(atom/target as mob|obj|turf|area, mob/living/user as mob|obj, proximity, params)
 
-	if(!flag) return //Not adjacent.
+	if(!proximity) return //Not adjacent.
 
 	//We only want to deal with using this on turfs. Specific items aren't important.
 	var/turf/T = get_turf(target)
