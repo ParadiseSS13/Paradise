@@ -82,16 +82,15 @@
 
 	if(wrapped) //Already have an item.		
 		
-		// temporary put the item into user so attackby checks pass
+		//Temporary put wrapped into user so target's attackby() checks pass.
 		wrapped.loc = user
 		
-		//Pass the attack on to the target. this might delete/relocate wrapped
+		//Pass the attack on to the target. This might delete/relocate wrapped.
 		target.attackby(wrapped,user)
 		
-		// if the item did not get put into target or deleted, put it back into src
+		//If wrapped did neither get deleted nor put into target, put it back into the gripper.
 		if(wrapped && user && (wrapped.loc == user))
 			wrapped.loc = src
-
 		else
 			wrapped = null
 			return
