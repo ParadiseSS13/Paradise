@@ -50,7 +50,8 @@
 
 /mob/living/carbon/human/grey/New(var/new_loc)
 	..(new_loc, "Grey")
-	mutations.Add(M_REMOTE_TALK)
+	spell_list += new /obj/effect/proc_holder/spell/wizard/targeted/remotetalk
+
 
 /mob/living/carbon/human/human/New(var/new_loc)
 	..(new_loc, "Human")
@@ -105,6 +106,7 @@
 	// Set up DNA.
 	if(!delay_ready_dna)
 		dna.ready_dna(src)
+
 
 /mob/living/carbon/human/Bump(atom/movable/AM as mob|obj, yes)
 	if ((!( yes ) || now_pushing))

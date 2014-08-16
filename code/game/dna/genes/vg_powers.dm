@@ -220,7 +220,7 @@ Obviously, requires DNA2.
 	icon_power_button = "genetic_project"
 
 /obj/effect/proc_holder/spell/wizard/targeted/remotetalk/choose_targets(mob/user = usr)
-	var/list/targets
+	var/list/targets = new /list()
 	targets += input("Choose the target to talk to.", "Targeting") as mob in living_mob_list
 
 	perform(targets)
@@ -267,7 +267,7 @@ Obviously, requires DNA2.
 	icon_power_button = "genetic_view"
 
 /obj/effect/proc_holder/spell/wizard/targeted/remoteview/choose_targets(mob/user = usr)
-	var/list/targets
+	var/list/targets = new /list()
 	targets += input("Choose the target to spy on.", "Targeting") as mob in living_mob_list
 
 	perform(targets)
