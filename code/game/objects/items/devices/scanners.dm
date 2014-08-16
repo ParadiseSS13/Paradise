@@ -19,6 +19,21 @@ REAGENT SCANNER
 	item_state = "electronic"
 	m_amt = 150
 	origin_tech = "magnets=1;engineering=1"
+	var/scan_range = 1
+	var/pulse_duration = 10
+
+/obj/item/device/t_scanner/longer_pulse
+	origin_tech = "magnets=2;engineering=2"
+	pulse_duration = 50
+
+/obj/item/device/t_scanner/extended_range
+	origin_tech = "magnets=1;engineering=3"
+	scan_range = 3
+
+/obj/item/device/t_scanner/extended_range/longer_pulse
+	origin_tech = "magnets=2;engineering=3"
+	scan_range = 3
+	pulse_duration = 50
 
 /obj/item/device/t_scanner/Destroy()
 	if(on)
@@ -39,7 +54,7 @@ REAGENT SCANNER
 		processing_objects.Remove(src)
 		return null
 
-	for(var/turf/T in range(1, src.loc) )
+	for(var/turf/T in range(scan_range, src.loc) )
 
 		if(!T.intact)
 			continue
@@ -51,7 +66,7 @@ REAGENT SCANNER
 
 			if(O.invisibility == 101)
 				O.invisibility = 0
-				spawn(10)
+				spawn(pulse_duration)
 					if(O)
 						var/turf/U = O.loc
 						if(U.intact)
@@ -65,6 +80,7 @@ REAGENT SCANNER
 						M.alpha = oldalpha
 
 		var/mob/living/M = locate() in T
+
 		if(M && M.invisibility == 2)
 			M.invisibility = 0
 			spawn(2)
