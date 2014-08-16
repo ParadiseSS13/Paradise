@@ -22,6 +22,9 @@ datum/game_mode/nations
 			split_teams()
 			spawn_flags()
 			populate_vars()
+			for(var/mob/M in player_list)
+				if(!istype(M,/mob/new_player))
+					M << sound('sound/effects/purge_siren.ogg')
 	return ..()
 
 /datum/game_mode/nations/send_intercept()
