@@ -181,14 +181,12 @@
 				//check for an aggressive grab
 				for (var/obj/item/weapon/grab/G in src.grabbed_by)
 					if (G.assailant == M && G.state >= GRAB_AGGRESSIVE)
-						world << "aggressive grab"
 						randn -= 30  // this value is the % chance of knockdown if you disarm someone whilst you have an aggressive grab.
 			else
 			//if target is handcuffed, always push them over
 				randn = 0
 
 			if (randn <= 0)
-				world << "push over success"
 				apply_effect(4, WEAKEN, run_armor_check(affecting, "melee")) // first var here is the length of the knockdown
 				playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
 				visible_message("\red <B>[M] has floored [src]!</B>")
