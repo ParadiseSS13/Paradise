@@ -1,10 +1,6 @@
 /mob/living/carbon/human/movement_delay()
 	var/tally = 0
 
-	if(species && species.flags & IS_SLOW)
-		tally = 5
-
-	//Bone White - added additional slow for wearing a rig suit.  Does not stack with having IS_SLOW flag (Diona)
 	if(wear_suit)
 		if(wear_suit.slowdown > 0)
 			var/datum/gas_mixture/environment = loc.return_air()
@@ -20,6 +16,9 @@
 					tally = min(4,wear_suit.slowdown)
 
 		tally = min(wear_suit.slowdown, tally)  // Initial slow will never get more powerful than the slowdown on the suit.
+
+	if(species && species.flags & IS_SLOW) //Bone White - added additional slow for wearing a rig suit.  Species who have IS_SLOW (Diona) do not gain a speed buff now
+		tally = 5
 
 	//if(wear_suit)  // These two lines are now redundant due to comment above
 	//	tally += wear_suit.slowdown
