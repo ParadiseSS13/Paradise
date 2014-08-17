@@ -1171,7 +1171,7 @@ mob/proc/yank_out_object()
 	if(valid_objects.len == 1) //Yanking out last object - removing verb.
 		src.verbs -= /mob/proc/yank_out_object
 
-	if(istype(src,/mob/living/carbon/human))
+	if(ishuman(src))
 
 		var/mob/living/carbon/human/H = src
 		var/datum/organ/external/affected
@@ -1183,12 +1183,15 @@ mob/proc/yank_out_object()
 
 		affected.implants -= selection
 		H.shock_stage+=10
-		H.bloody_hands(S)
 
 		if(prob(10)) //I'M SO ANEMIC I COULD JUST -DIE-.
 			var/datum/wound/internal_bleeding/I = new (15)
 			affected.wounds += I
 			H.custom_pain("Something tears wetly in your [affected] as [selection] is pulled free!", 1)
+
+		if (ishuman(U))
+			var/mob/living/carbon/human/human_user = U
+			human_user.bloody_hands(H)
 
 	selection.loc = get_turf(src)
 
