@@ -7,7 +7,7 @@
 
 	var/list/skipped_areas = list(/area/turret_protected/ai)
 
-	for(var/obj/machinery/power/smes/S in world)
+	for(var/obj/machinery/power/smes/S in machines)
 		var/area/current_area = get_area(S)
 		if(current_area.type in skipped_areas || S.z != 1)
 			continue
@@ -29,10 +29,10 @@
 		command_alert("Power has been restored to [station_name()]. We apologize for the inconvenience.", "Power Systems Nominal")
 		for(var/mob/M in player_list)
 			M << sound('sound/AI/poweron.ogg')
-	for(var/obj/machinery/power/apc/C in world)
+	for(var/obj/machinery/power/apc/C in machines)
 		if(C.cell && C.z == 1)
 			C.cell.charge = C.cell.maxcharge
-	for(var/obj/machinery/power/smes/S in world)
+	for(var/obj/machinery/power/smes/S in machines)
 		var/area/current_area = get_area(S)
 		if(current_area.type in skipped_areas || S.z != 1)
 			continue
@@ -48,7 +48,7 @@
 		command_alert("All SMESs on [station_name()] have been recharged. We apologize for the inconvenience.", "Power Systems Nominal")
 		for(var/mob/M in player_list)
 			M << sound('sound/AI/poweron.ogg')
-	for(var/obj/machinery/power/smes/S in world)
+	for(var/obj/machinery/power/smes/S in machines)
 		if(S.z != 1)
 			continue
 		S.charge = S.capacity
