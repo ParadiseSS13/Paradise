@@ -11,7 +11,7 @@
 	force = 5.0
 	throwforce = 8.0
 	item_state = "shard-glass"
-	matter = list("glass" = 3750)
+//	matter = list("glass" = 3750)
 	attack_verb = list("stabbed", "slashed", "sliced", "cut")
 
 /obj/item/weapon/shard/suicide_act(mob/user)
@@ -68,7 +68,7 @@
 			return
 	return ..()
 
-/obj/item/weapon/shard/HasEntered(AM as mob|obj)
+/obj/item/weapon/shard/Crossed(AM as mob|obj)
 	if(ismob(AM))
 		var/mob/M = AM
 		M << "\red <B>You step on \the [src]!</B>"
