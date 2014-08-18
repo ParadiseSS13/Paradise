@@ -1865,7 +1865,7 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 					holder.icon_state = "hudscientopia"
 
 			hud_list[NATIONS_HUD] = holder
-
+	update_power_buttons()
 	hud_updateflag = 0
 
 /mob/living/carbon/human/proc/process_nations()

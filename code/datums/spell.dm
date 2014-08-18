@@ -48,11 +48,17 @@ var/list/spells = typesof(/obj/effect/proc_holder/spell) //needed for the badmin
 	var/icon_power_button
 	var/power_button_name
 
-/obj/effect/proc_holder/spell/wizard/proc/cast_check(skipcharge = 0,mob/user = usr) //checks if the spell can be cast based on its settings; skipcharge is used when an additional cast_check is called inside the spell
+/obj/effect/proc_holder/spell/wizard/proc/cast_check(skipcharge = 0, mob/user = usr) //checks if the spell can be cast based on its settings; skipcharge is used when an additional cast_check is called inside the spell
 
 	if(!(src in user.spell_list))
 		user << "<span class='warning'>You shouldn't have this spell! Something's wrong.</span>"
 		return 0
+	if (istype(user, /mob/living/carbon/human))
+		var/mob/living/carbon/human/caster = user
+		if(caster.remoteview_target)
+			caster.remoteview_target = null
+			caster.reset_view(0)
+			return 0
 
 	if(user.z == 2 && !centcom_cancast) //Certain spells are not allowed on the centcom zlevel
 		return 0
