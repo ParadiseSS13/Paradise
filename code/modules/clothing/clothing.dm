@@ -5,6 +5,41 @@
 //BS12: Species-restricted clothing check.
 /obj/item/clothing/mob_can_equip(M as mob, slot)
 
+	if(istype(M,/mob/living/carbon/human))
+		var/mob/living/carbon/human/H = M
+		if(istype(src, /obj/item/clothing/head/helmet/space/rig)) // If the item to be equipped is a rigid suit helmet
+			if(istype(H.wear_suit, /obj/item/clothing/suit/space/rig)) // If the person is wearing a rigid suit
+				var/tempX = H.x
+				var/tempY = H.y
+				H << "\blue You start securing the [src] to your suit.  (This will take a while)."
+				var/obj/item/clothing/head/helmet/space/rig/this_helmet = src
+				var/equip_time = round(this_helmet.equip_time/10)
+				var/i
+				for(i=1; i<=equip_time; i++)
+					sleep (10) // Check if they've moved every 10 time units
+					if ((tempX != usr.x) || (tempY != usr.y))
+						H << "\red \The [src] is too fiddly to fasten whilst moving. \..."
+						return 0
+				H << "\blue \The [src] clicks into place, sealing the suit to be space-proof."
+
+			else
+				M << "\red \The [src] is too heavy too wear without a rigid suit to support it. \..."
+				return 0
+
+		if(istype(src, /obj/item/clothing/suit/space/rig)) // If the equipped item is a rigid suit
+			var/tempX = H.x
+			var/tempY = H.y
+			M << "\blue You start climbing into the [src] and fasten the seals."
+			var/obj/item/clothing/suit/space/rig/this_rig = src
+			var/equip_time = round(this_rig.equip_time/10)
+			var/i
+			for(i=1; i<=equip_time; i++)
+				sleep (10) // Check if they've moved every 10 time units
+				if ((tempX != usr.x) || (tempY != usr.y))
+					H << "\red \The [src] is too fiddly to fasten whilst moving. \..."
+					return 0
+			M << "\blue You have finished fastening the [src]'s seals."
+
 	//if we can equip the item anyway, don't bother with species_restricted (aslo cuts down on spam)
 	if (!..())
 		return 0
