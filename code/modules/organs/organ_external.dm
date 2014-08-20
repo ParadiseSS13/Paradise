@@ -20,7 +20,7 @@
 
 	var/tmp/perma_injury = 0
 	var/tmp/destspawn = 0 //Has it spawned the broken limb?
-	var/tmp/amputated = 0 //Whether this has been cleanly amputated, thus causing no pain
+	var/amputated = 0 //Whether this has been cleanly amputated, thus causing no pain
 	var/min_broken_damage = 30
 
 	var/datum/organ/external/parent
