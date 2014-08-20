@@ -1,10 +1,13 @@
 /obj/item/clothing
 	name = "clothing"
 	var/list/species_restricted = null //Only these species can wear this kit.
+	var/equip_time = 0
+	var/equipping = 0
+	var/rig_restrict_helmet = 0 // Stops the user from equipping a rig helmet without attaching it to the suit first.
 
 //BS12: Species-restricted clothing check.
 /obj/item/clothing/mob_can_equip(M as mob, slot)
-
+/*
 	if(istype(M,/mob/living/carbon/human))
 		var/mob/living/carbon/human/H = M
 		if(istype(src, /obj/item/clothing/head/helmet/space/rig)) // If the item to be equipped is a rigid suit helmet
@@ -39,7 +42,7 @@
 					H << "\red \The [src] is too fiddly to fasten whilst moving. \..."
 					return 0
 			M << "\blue You have finished fastening the [src]'s seals."
-
+*/
 	//if we can equip the item anyway, don't bother with species_restricted (aslo cuts down on spam)
 	if (!..())
 		return 0

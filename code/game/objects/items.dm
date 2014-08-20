@@ -151,8 +151,17 @@
 		//canremove==0 means that object may not be removed. You can still wear it. This only applies to clothing. /N
 		if(!src.canremove)
 			return 0
-		else
 
+		if(istype(user,/mob/living/carbon/human))
+			if(istype(src, /obj/item/clothing/suit/space/rig)) // If the item to be unequipped is a rigid suit
+				if(user.delay_clothing_u_equip(src) == 0)
+					return 0
+			else
+				user.u_equip(src)
+		else
+			user.u_equip(src)
+
+		/*
 			if(istype(user,/mob/living/carbon/human))
 				var/mob/living/carbon/human/H = user
 				if(istype(src, /obj/item/clothing/suit/space/rig)) // If the item to unequip item is a rigid suit
@@ -186,8 +195,7 @@
 							H << "\red \The [src] is too fiddly to remove whilst moving."
 							return 0
 					H << "\blue You finish removing the [src]."
-
-			user.u_equip(src)
+		*/
 	else
 		if(isliving(src.loc))
 			return 0
