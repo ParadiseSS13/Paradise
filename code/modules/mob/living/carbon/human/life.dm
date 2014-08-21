@@ -395,27 +395,6 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 				if(damage && organs.len)
 					var/datum/organ/external/O = pick(organs)
 					if(istype(O)) O.add_autopsy_data("Radiation Poisoning", damage)
-
-	//Gave the rupture_lung() call it's own proc to have much more control over it.
-	proc/try_lung_rupture(argBreath)
-		var/datum/gas_mixture/environment = loc.return_air()
-		var/datum/gas_mixture/breath = argBreath	
-		var/pressure = environment.return_pressure()
-		var/adjusted_pressure = calculate_affecting_pressure(pressure)
-		
-		//High kPa
-		if(!is_lung_ruptured() && breath.total_moles > BREATH_MOLES * 5)
-			if(prob(5))
-				rupture_lung()
-			return
-		//Low kPa
-		else if(!is_lung_ruptured() && internal && adjusted_pressure <= species.hazard_low_pressure)
-			if(internal.distribute_pressure >= species.warning_low_pressure)
-				if(prob(33))
-					rupture_lung()
-				return
-		else
-			return
 	
 	proc/breathe()
 		if(reagents.has_reagent("lexorin")) return
