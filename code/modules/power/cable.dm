@@ -630,6 +630,9 @@ obj/structure/cable/proc/cableColor(var/colorC)
 		if(S.burn_dam > 0 && use(1))
 			S.heal_damage(0,15,0,1)
 			user.visible_message("\red \The [user] repairs some burn damage on \the [M]'s [S.display_name] with \the [src].")
+			if(istype(M,/mob/living/carbon/human))
+				var/mob/living/carbon/human/H = M
+				H.updatehealth()
 			return
 		else
 			user << "Nothing to fix!"

@@ -1090,7 +1090,8 @@
 					H.brainmob.mind.transfer_to(src)
 					del(H)
 
-	for(var/datum/organ/internal/I in internal_organs)
+	for(var/name in internal_organs_by_name)
+		var/datum/organ/internal/I = internal_organs_by_name[name]
 		I.damage = 0
 
 	for (var/ID in virus2)

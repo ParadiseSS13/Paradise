@@ -11,8 +11,15 @@
 		total_burn	+= O.burn_dam
 	health = 100 - getOxyLoss() - getToxLoss() - getCloneLoss() - total_burn - total_brute
 	//TODO: fix husking
-	if( ((100 - total_burn) < config.health_threshold_dead) && stat == DEAD) //100 only being used as the magic human max health number, feel free to change it if you add a var for it -- Urist
+	if( (((100 - total_burn) < config.health_threshold_dead) && stat == DEAD) && (!species.flags & IS_SYNTHETIC))//100 only being used as the magic human max health number, feel free to change it if you add a var for it -- Urist
 		ChangeToHusk()
+	if (species.flags & IS_SYNTHETIC)
+		var/datum/organ/external/H = organs_by_name["head"]
+		if (!H.amputated)
+			if ((health >= (config.health_threshold_dead/100*75)) && stat == DEAD)  //need to get them 25% away from death point before reviving them
+				dead_mob_list -= src
+				living_mob_list += src
+				stat = CONSCIOUS
 	return
 
 /mob/living/carbon/human/getBrainLoss()
