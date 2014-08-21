@@ -590,11 +590,22 @@ turf/simulated/floor/proc/update_icon()
 			var/obj/item/pipe/P = C
 
 			user.visible_message( \
-				"[user] starts sliding a [P] along \the [src].", \
-				"\blue You slide a [P] along \the [src].", \
+				"[user] starts sliding [P] along \the [src].", \
+				"\blue You slide [P] along \the [src].", \
 				"You hear the scrape of metal against something.")
 			user.drop_item()
-			P.dir = user.dir
+			if (P.pipe_type in list (1,3,12))  // bent pipe rotation fix see construction.dm
+				P.dir = 5
+				if (user.dir == 1)
+					P.dir = 6
+				if (user.dir == 2)
+					P.dir = 9
+				if (user.dir == 4)
+					P.dir = 10
+				if (user.dir == 5)
+					P.dir = 8
+			else
+				P.dir = user.dir
 			P.x = src.x
 			P.y = src.y
 			P.z = src.z
