@@ -51,7 +51,7 @@
 	R.my_atom = src
 
 /obj/vehicle/train/janitor/engine/Move()
-	if(on && cell.charge < power_use)
+	if(on && cell.charge < charge_use)
 		turn_off()
 		update_stats()
 		if(load && is_train_head())
@@ -277,7 +277,7 @@
 	if (on)
 		usr << "You start [src]'s engine."
 	else
-		if(cell.charge < power_use)
+		if(cell.charge < charge_use)
 			usr << "[src] is out of power."
 		else
 			usr << "[src]'s engine won't start."
@@ -343,23 +343,6 @@
 // more engines increases this limit by car_limit per
 // engine.
 //-------------------------------------------------------
-/obj/vehicle/train/janitor/engine/update_train_stats()
-	..()
-
-	update_move_delay()
-
-/obj/vehicle/train/janitor/trolley/update_train_stats()
-	..()
-
-	if(!lead && !tow)
-		anchored = 0
-		if(verbs.Find(/atom/movable/verb/pull))
-			return
-		else
-			verbs += /atom/movable/verb/pull
-	else
-		anchored = 1
-		verbs -= /atom/movable/verb/pull
 
 /obj/vehicle/train/janitor/engine/proc/update_move_delay()
 	if(!is_train_head() || !on)

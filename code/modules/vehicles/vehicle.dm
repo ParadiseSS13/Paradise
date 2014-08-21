@@ -22,7 +22,7 @@
 	var/movable = 1
 
 	var/obj/item/weapon/cell/cell
-	var/power_use = 5	//set this to adjust the amount of power the vehicle uses per move
+	var/charge_use = 5	//set this to adjust the amount of power the vehicle uses per move
 
 	var/atom/movable/load		//all vehicles can take a load, since they should all be a least drivable
 	var/load_item_visible = 1	//set if the loaded item should be overlayed on the vehicle sprite
@@ -39,7 +39,7 @@
 
 /obj/vehicle/Move()
 	if(world.time > l_move_time + move_delay)
-		if(on && powered && cell.charge < power_use)
+		if(on && powered && cell.charge < charge_use)
 			turn_off()
 
 		var/init_anc = anchored
@@ -51,7 +51,7 @@
 		anchored = init_anc
 
 		if(on && powered)
-			cell.use(power_use)			
+			cell.use(charge_use)
 
 		if(load)
 			load.forceMove(loc)// = loc
@@ -172,7 +172,7 @@
 /obj/vehicle/proc/turn_on()
 	if(stat)
 		return 0
-	if(powered && cell.charge < power_use)
+	if(powered && cell.charge < charge_use)
 		return 0
 	on = 1
 	luminosity = initial(luminosity)
@@ -228,7 +228,7 @@
 		turn_off()
 		return
 
-	if(cell.charge < power_use)
+	if(cell.charge < charge_use)
 		turn_off()
 		return
 

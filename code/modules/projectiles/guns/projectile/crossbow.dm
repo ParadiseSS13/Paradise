@@ -92,6 +92,7 @@
 
 	if(!..()) return //Only do this on a successful shot.
 	icon_state = "crossbow"
+	tension = 0
 
 /obj/item/weapon/gun/launcher/crossbow/attack_self(mob/living/user as mob)
 	if(tension)

@@ -17,6 +17,7 @@
 		if(world.timeofday >= silence_time)
 			silence_time = null
 			src << "<font color=green>Communication circuit reinitialized. Speech and messaging functionality restored.</font>"
+	handle_statuses()
 
 /mob/living/silicon/pai/updatehealth()
 	if(status_flags & GODMODE)

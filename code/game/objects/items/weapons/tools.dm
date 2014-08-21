@@ -477,6 +477,9 @@
 		if(S.brute_dam)
 			S.heal_damage(15,0,0,1)
 			user.visible_message("\red \The [user] patches some dents on \the [M]'s [S.display_name] with \the [src].")
+			if(istype(M,/mob/living/carbon/human))
+				var/mob/living/carbon/human/H = M
+				H.updatehealth()
 			return
 		else
 			user << "Nothing to fix!"

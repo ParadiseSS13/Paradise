@@ -230,8 +230,8 @@
 	var/list/types_allowed=list(/obj/item,/mob/living/simple_animal, /mob/living/carbon/monkey, /mob/living/carbon/human)
 
 /obj/effect/proc_holder/spell/wizard/targeted/eat/choose_targets(mob/user = usr)
-	var/list/targets = list()
-	var/list/possible_targets = list()
+	var/list/targets = new /list()
+	var/list/possible_targets = new /list()
 
 	for(var/atom/movable/O in view_or_range(range, user, selection_type))
 		if(is_type_in_list(O,types_allowed))
@@ -476,7 +476,6 @@
 	activation_messages = list("You suddenly notice more about others than you did before.")
 	deactivation_messages = list("You no longer feel able to sense intentions.")
 	instability=1
-
 	mutation=M_EMPATH
 
 	New()
@@ -486,7 +485,7 @@
 /obj/effect/proc_holder/spell/wizard/targeted/empath
 	name = "Read Mind"
 	desc = "Read the minds of others for information."
-	charge_max = 1800
+	charge_max = 180
 	clothes_req = 0
 	stat_allowed = 0
 	invocation_type = "none"
@@ -496,8 +495,10 @@
 	icon_power_button = "genetic_empath"
 
 /obj/effect/proc_holder/spell/wizard/targeted/empath/choose_targets(mob/user = usr)
-	var/list/targets
+	var/list/targets = new /list()
 	targets += input("Choose the target to spy on.", "Targeting") as mob in range(7,usr)
+
+	perform(targets)
 
 /obj/effect/proc_holder/spell/wizard/targeted/empath/cast(list/targets)
 	if(!ishuman(usr))	return

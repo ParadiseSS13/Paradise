@@ -99,12 +99,9 @@
 	if(health > maxHealth)
 		health = maxHealth
 
-	if(stunned)
-		AdjustStunned(-1)
-	if(weakened)
-		AdjustWeakened(-1)
-	if(paralysis)
-		AdjustParalysis(-1)
+	handle_stunned()
+	handle_weakened()
+	handle_paralysed()
 
 	//Movement
 	if(!client && !stop_automated_movement && wander)

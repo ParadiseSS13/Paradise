@@ -1157,23 +1157,7 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 				jitteriness = max(jitteriness-1, 0)
 
 			//Other
-			if(stunned)
-				AdjustStunned(-1)
-
-			if(weakened)
-				weakened = max(weakened-1,0)	//before you get mad Rockdtben: I done this so update_canmove isn't called multiple times
-
-			if(stuttering)
-				stuttering = max(stuttering-1, 0)
-
-			if (slurring)
-				slurring = max(slurring-(1*sober_str), 0)
-
-			if(silent)
-				silent = max(silent-1, 0)
-
-			if(druggy)
-				druggy = max(druggy-1, 0)
+			handle_statuses()
 
 			// If you're dirty, your gloves will become dirty, too.
 			if(gloves && germ_level > gloves.germ_level && prob(10))
@@ -1881,9 +1865,8 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 					holder.icon_state = "hudscientopia"
 
 			hud_list[NATIONS_HUD] = holder
-
+	update_power_buttons()
 	hud_updateflag = 0
-
 
 /mob/living/carbon/human/proc/process_nations()
 	var/client/C = client
