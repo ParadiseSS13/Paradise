@@ -393,13 +393,9 @@
 						else
 							dat += "<td>[e.display_name]</td><td>-</td><td>-</td><td>Not Found</td>"
 						dat += "</tr>"
-					for(var/datum/organ/internal/i in occupant.internal_organs)
-						var/mech = ""
-						if(i.robotic == 1)
-							mech = "Assisted:"
-						if(i.robotic == 2)
-							mech = "Mechanical:"
-
+					for(var/n in occupant.internal_organs_by_name)
+						var/datum/organ/internal/i = occupant.internal_organs_by_name[n]
+						var/mech = i.desc
 						var/infection = "None"
 						switch (i.germ_level)
 							if (1 to INFECTION_LEVEL_ONE + 200)

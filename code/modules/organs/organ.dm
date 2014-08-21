@@ -69,7 +69,8 @@
 			bad_external_organs += Ex
 
 	//processing internal organs is pretty cheap, do that first.
-	for(var/datum/organ/internal/I in internal_organs)
+	for(var/name in internal_organs_by_name)
+		var/datum/organ/internal/I = internal_organs_by_name[name]
 		I.process()
 
 	//Check arms and legs for existence

@@ -1910,7 +1910,8 @@ datum
 					var/mob/living/carbon/human/H = M
 
 					//Peridaxon is hard enough to get, it's probably fair to make this all internal organs
-					for(var/datum/organ/internal/I in H.internal_organs)
+					for(var/name in H.internal_organs_by_name)
+						var/datum/organ/internal/I = H.internal_organs_by_name[name]
 						if(I.damage > 0)
 							I.damage -= 0.20
 				..()
@@ -2804,7 +2805,7 @@ datum
 			description = "Finely shredded tea leaves, used for making tea."
 			reagent_state = SOLID
 			color = "#7F8400" // rgb: 127, 132, 0
-			
+
 		//Reagents used for plant fertilizers.
 		toxin/fertilizer
 			name = "fertilizer"

@@ -126,7 +126,7 @@ obj/var/contaminated = 0
 /mob/living/carbon/human/proc/burn_eyes()
 	//The proc that handles eye burning.
 	if(prob(20)) src << "\red Your eyes burn!"
-	var/datum/organ/internal/eyes/E = internal_organs["eyes"]
+	var/datum/organ/internal/eyes/E = internal_organs_by_name["eyes"]
 	E.damage += 2.5
 	eye_blurry = min(eye_blurry+1.5,50)
 	if (prob(max(0,E.damage - 15) + 1) && !eye_blind)

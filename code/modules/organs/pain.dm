@@ -102,7 +102,8 @@ mob/living/carbon/human/proc/handle_pain()
 		pain(damaged_organ.display_name, maxdam, 0)
 
 	// Damage to internal organs hurts a lot.
-	for(var/datum/organ/internal/I in internal_organs)
+	for(var/n in internal_organs_by_name)
+		var/datum/organ/internal/I = internal_organs_by_name[n]
 		if(I.damage > 2) if(prob(2))
 			var/datum/organ/external/parent = get_organ(I.parent_organ)
 			src.custom_pain("You feel a sharp pain in your [parent.display_name]", 1)
