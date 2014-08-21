@@ -219,10 +219,10 @@
 				user.visible_message("[user] starts sealing the rupture in [target]'s lungs with regenerative membrane.", \
 				"You start mending the rupture in [target]'s lungs with regenerative membrane." )
 			if(heart.damage > 0)
-				if(heart.robotic < 2)
+				if(!heart.desc == "Mechanical")
 					user.visible_message("[user] starts mending the bruises on [target]'s heart with regenerative membrane.", \
 					"You start mending the bruises on [target]'s heart with regenerative membrane." )
-				if(heart.robotic == 2)
+				else
 					user.visible_message("\blue [user] attempts to repair [target]'s mechanical heart with regenerative membrane...", \
 					"\blue You attempt to repair [target]'s heart with regenerative membrane...")
 			if(liver.damage > 0)
@@ -237,10 +237,10 @@
 					user.visible_message("[user] starts covering the rupture in [target]'s lungs with the poultice.", \
 					"You start covering the rupture in [target]'s lungs with the poultice." )
 				if(heart.damage > 0)
-					if(heart.robotic < 2)
+					if(!heart.desc == "Mechanical")
 						user.visible_message("[user] starts mending the bruises on [target]'s heart with the poultice.", \
 						"You start mending the bruises on [target]'s heart with the poultice." )
-					if(heart.robotic == 2)
+					else
 						user.visible_message("\blue [user] attempts to repair [target]'s mechanical heart with \the [tool]...", \
 						"\blue You attempt to repair [target]'s heart with \the [tool]...")
 				if(liver.damage > 0)
@@ -254,10 +254,10 @@
 					"You start mending the rupture in [target]'s lungs \the [tool]." )
 			else
 				if(heart.damage > 0)
-					if(heart.robotic < 2)
+					if(!heart.desc == "Mechanical")
 						user.visible_message("[user] starts mending the bruises on [target]'s heart with \the [tool].", \
 						"You start mending the bruises on [target]'s heart with \the [tool]." )
-					if(heart.robotic == 2)
+					else
 						user.visible_message("\blue [user] attempts to repair [target]'s mechanical heart with \the [tool]...", \
 						"\blue You attempt to repair [target]'s heart with \the [tool]...")
 				if(liver.damage > 0)
@@ -281,7 +281,7 @@
 			lungs.damage = 0
 
 		if(heart.damage > 0)
-			if(heart.robotic == 2)
+			if(heart.desc == "Mechanical")
 				user.visible_message("\blue [user] pokes [target]'s mechanical heart with \the [tool].", \
 				"\red [target]'s heart is not organic, you cannot operate on it with \the [tool]!")
 			else
@@ -363,7 +363,7 @@
 		var/datum/organ/internal/heart/heart = target.internal_organs_by_name["heart"]
 
 		if(heart.damage > 0)
-			if(heart.robotic == 2)
+			if(heart.desc == "Mechanical")
 				user.visible_message("[user] starts mending the mechanisms on [target]'s heart with \the [tool].", \
 				"You start mending the mechanisms on [target]'s heart with \the [tool]." )
 			else
@@ -375,7 +375,7 @@
 	end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
 		var/datum/organ/internal/heart/heart = target.internal_organs_by_name["heart"]
 		if(heart.damage > 0)
-			if(heart.robotic == 2)
+			if(heart.desc == "Mechanical")
 				user.visible_message("\blue [user] repairs [target]'s heart with \the [tool].", \
 				"\blue You repair [target]'s heart with \the [tool]." )
 				heart.damage = 0

@@ -660,10 +660,10 @@
 		var/datum/organ/internal/eyes/eyes = H.internal_organs_by_name["eyes"]
 		if(!eyes)
 			return
-		eyes.damage += rand(3,4)
+		eyes.take_damage(rand(3,4), 1)
 		if(eyes.damage >= eyes.min_bruised_damage)
 			if(M.stat != 2)
-				if(eyes.robotic <= 1) //robot eyes bleeding might be a bit silly
+				if(!(istype(eyes, /datum/organ/internal/eyes/robotic)) || istype(eyes, /datum/organ/internal/eyes/assisted)) //robot eyes bleeding might be a bit silly
 					M << "\red Your eyes start to bleed profusely!"
 			if(prob(50))
 				if(M.stat != 2)
