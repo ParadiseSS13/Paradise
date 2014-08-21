@@ -9,9 +9,10 @@
 	qdel(src)
 
 /obj/item/weapon/reagent_containers/food/snacks/sliceable/flatdough/attackby(obj/item/W as obj, mob/user as mob)
-	var/obj/item/weapon/reagent_containers/food/snacks/customizable/pizza/S = new(get_turf(user))
-	S.attackby(W,user)
-	qdel(src)
+	if(!istype(W, /obj/item/weapon/kitchenknife)) //Ignore this if object is kitchen knife - make dough slices instead of kitchen knife pizza
+		var/obj/item/weapon/reagent_containers/food/snacks/customizable/pizza/S = new(get_turf(user))
+		S.attackby(W,user)
+		qdel(src)
 
 
 /obj/item/weapon/reagent_containers/food/snacks/boiledspagetti/attackby(obj/item/W as obj, mob/user as mob)
