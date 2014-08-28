@@ -190,8 +190,11 @@
 		usr << "\red Error: Y is less than 11 or greater than 245."
 		fail = 1
 	if(z_co == 2 || z_co < 1 || z_co > 6)
-		usr << "\red Error: Z is less than 1, greater than 6, or equal to 2."
-		fail = 1
+		if (z_co == 7 & src.emagged == 1)
+		// This should be empty, allows for it to continue if the z-level is 7 and the machine is emagged.
+		else
+			usr << "\red Error: Z is less than 1, greater than [src.emagged ? "7" : "6"], or equal to 2."
+			fail = 1
 	if(istype(get_area(locate(x_co,y_co,z_co)), /area/security/armoury/gamma))
 		usr << "\red Error: Attempting to access telescience-protected area."
 		fail = 1
@@ -238,3 +241,13 @@
 		s.start()
 		usr << "\blue Calibration successful."
 		return
+
+/obj/machinery/computer/telescience/attackby(I as obj, user as mob)		//Emagging.
+	if(istype(I,/obj/item/weapon/card/emag))
+		if (src.emagged == 0)
+			user << "\blue You scramble the Telescience authentication key to an unknown signal, you should be able to teleport to more places now!"
+			src.emagged = 1
+		else
+			user << "\red The machine seems unaffected by the card swipe..."
+	else
+		return attack_hand(user)
