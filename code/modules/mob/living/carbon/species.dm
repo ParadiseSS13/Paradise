@@ -82,28 +82,17 @@
 	H.organs_by_name["r_foot"] = new/datum/organ/external/r_foot(H.organs_by_name["r_leg"])
 
 	if (name!="Slime People")
-		H.internal_organs = list()
-		H.internal_organs_by_name["heart"] = new/datum/organ/internal/heart(H)
-		H.internal_organs_by_name["lungs"] = new/datum/organ/internal/lungs(H)
-		H.internal_organs_by_name["liver"] = new/datum/organ/internal/liver(H)
-		H.internal_organs_by_name["kidney"] = new/datum/organ/internal/kidney(H)
-		H.internal_organs_by_name["brain"] = new/datum/organ/internal/brain(H)
-		H.internal_organs_by_name["eyes"] = new/datum/organ/internal/eyes(H)
+		new/datum/organ/internal/heart(H)
+		new/datum/organ/internal/lungs(H)
+		new/datum/organ/internal/liver(H)
+		new/datum/organ/internal/kidney(H)
+		new/datum/organ/internal/brain(H)
+		new/datum/organ/internal/eyes(H)
 
-	for(var/name in H.organs_by_name)
-		H.organs += H.organs_by_name[name]
-
-	for(var/datum/organ/external/O in H.organs)
+	for(var/n in H.organs_by_name)
+		var/datum/organ/external/O = H.organs_by_name[n]
 		O.owner = H
-
-	if(flags & IS_SYNTHETIC)
-		for(var/datum/organ/external/E in H.organs)
-			if(E.status & ORGAN_CUT_AWAY || E.status & ORGAN_DESTROYED) continue
-			E.status |= ORGAN_ROBOT
-		for(var/datum/organ/internal/I in H.internal_organs)
-			I.mechanize()
-
-
+		H.organs += O
 	return
 
 /datum/species/proc/handle_breath(var/datum/gas_mixture/breath, var/mob/living/carbon/human/H)
@@ -600,6 +589,38 @@
 			O.droplimb(1)
 	var/datum/organ/external/O = H.organs_by_name["head"]
 	O.droplimb(1)
+
+/datum/species/machine/create_organs(var/mob/living/carbon/human/H)
+
+	H.organs = new /list()
+	H.organs_by_name["chest"] = new/datum/organ/external/chest()
+	H.organs_by_name["groin"] = new/datum/organ/external/groin(H.organs_by_name["chest"])
+	H.organs_by_name["head"] = new/datum/organ/external/head(H.organs_by_name["chest"])
+	H.organs_by_name["l_arm"] = new/datum/organ/external/l_arm(H.organs_by_name["chest"])
+	H.organs_by_name["r_arm"] = new/datum/organ/external/r_arm(H.organs_by_name["chest"])
+	H.organs_by_name["r_leg"] = new/datum/organ/external/r_leg(H.organs_by_name["groin"])
+	H.organs_by_name["l_leg"] = new/datum/organ/external/l_leg(H.organs_by_name["groin"])
+	H.organs_by_name["l_hand"] = new/datum/organ/external/l_hand(H.organs_by_name["l_arm"])
+	H.organs_by_name["r_hand"] = new/datum/organ/external/r_hand(H.organs_by_name["r_arm"])
+	H.organs_by_name["l_foot"] = new/datum/organ/external/l_foot(H.organs_by_name["l_leg"])
+	H.organs_by_name["r_foot"] = new/datum/organ/external/r_foot(H.organs_by_name["r_leg"])
+
+	new/datum/organ/internal/heart/robotic(H)
+	new/datum/organ/internal/lungs/robotic(H)
+	new/datum/organ/internal/liver/robotic(H)
+	new/datum/organ/internal/kidney/robotic(H)
+	new/datum/organ/internal/brain/robotic(H)
+	new/datum/organ/internal/eyes/robotic(H)
+
+
+	for(var/n in H.organs_by_name)
+		var/datum/organ/external/O = H.organs_by_name[n]
+		O.owner = H
+		if(!(O.status & ORGAN_CUT_AWAY || O.status & ORGAN_DESTROYED))
+			O.status |= ORGAN_ROBOT
+		H.organs += O
+	return
+
 
 //Species unarmed attacks
 

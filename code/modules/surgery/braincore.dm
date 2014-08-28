@@ -111,7 +111,7 @@
 			B = new(target.loc)
 			B.transfer_identity(target)
 
-		target.internal_organs -= B
+		target.internal_organs_by_name -= B
 		target.internal_organs_by_name -= "brain"
 
 		target:brain_op_stage = 4.0
