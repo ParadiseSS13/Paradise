@@ -1,0 +1,4 @@
+1.Click 1prepare_map.bat
+2. Do your map edits.
+3.Click 2clean_map.bat
+4. Delete Cyberiad.dmm.backup in /maps
