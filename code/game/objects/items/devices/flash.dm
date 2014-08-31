@@ -37,7 +37,8 @@
 
 	M.attack_log += text("\[[time_stamp()]\] <font color='orange'>Has been flashed (attempt) with [src.name]  by [user.name] ([user.ckey])</font>")
 	user.attack_log += text("\[[time_stamp()]\] <font color='red'>Used the [src.name] to flash [M.name] ([M.ckey])</font>")
-	msg_admin_attack("[user.name] ([user.ckey]) Used the [src.name] to flash [M.name] ([M.ckey]) (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[user.x];Y=[user.y];Z=[user.z]'>JMP</a>)")
+	if(M.ckey)
+		msg_admin_attack("[user.name] ([user.ckey]) Used the [src.name] to flash [M.name] ([M.ckey]) (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[user.x];Y=[user.y];Z=[user.z]'>JMP</a>)")
 
 	if(!iscarbon(user))
 		M.LAssailant = null
@@ -168,6 +169,14 @@
 				for(var/obj/item/weapon/cloaking_device/S in M)
 					S.active = 0
 					S.icon_state = "shield0"
+		if(M.alpha < 255)
+			var/oldalpha = M.alpha
+			if(prob(80))
+				M.alpha = 255
+				M.visible_message("<span class='warning'>[M] suddenly becomes fully visible!</span>",\
+								"<span class='warning'>You see a bright flash of light and are suddenly fully visible again.</span>")
+				spawn(50)
+					M.alpha = oldalpha
 		var/safety = M:eyecheck()
 		if(!safety)
 			if(!M.blinded)

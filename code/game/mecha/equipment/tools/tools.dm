@@ -283,6 +283,7 @@
 	construction_cost = list("metal"=30000,"plasma"=25000,"silver"=20000,"gold"=20000)
 	var/mode = 0 //0 - deconstruct, 1 - wall or floor, 2 - airlock.
 	var/disabled = 0 //malf
+	var/canRwall = 0
 
 	action(atom/target)
 		if(istype(target,/area/shuttle)||istype(target, /turf/space/transit))//>implying these are ever made -Sieve
@@ -297,6 +298,8 @@
 		switch(mode)
 			if(0)
 				if (istype(target, /turf/simulated/wall))
+					if(istype(target, /turf/simulated/wall/r_wall) && !canRwall)
+						return 0
 					occupant_message("Deconstructing [target]...")
 					set_ready_state(0)
 					if(do_after_cooldown(target))
@@ -472,7 +475,7 @@
 					return
 				else if(target!=locked)
 					if(locked in view(chassis))
-						locked.throw_at(target, 14, 1.5)
+						locked.throw_at(target, 14, 1.5, chassis)
 						locked = null
 						send_byjax(chassis.occupant,"exosuit.browser","\ref[src]",src.get_equip_info())
 						set_ready_state(0)

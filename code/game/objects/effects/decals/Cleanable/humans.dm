@@ -16,11 +16,6 @@
 	var/list/datum/disease2/disease/virus2 = list()
 	var/amount = 5
 
-/obj/effect/decal/cleanable/blood/Del()
-	for(var/datum/disease/D in viruses)
-		D.cure(0)
-	..()
-
 /obj/effect/decal/cleanable/blood/New()
 	..()
 	if(istype(src, /obj/effect/decal/cleanable/blood/gibs))
@@ -43,7 +38,12 @@
 	if(amount < 1)
 		return
 
-	if(perp.shoes)
+	var/datum/organ/external/l_foot = perp.get_organ("l_foot")
+	var/datum/organ/external/r_foot = perp.get_organ("r_foot")
+	var/hasfeet = 1
+	if((!l_foot || l_foot.status & ORGAN_DESTROYED) && (!r_foot || r_foot.status & ORGAN_DESTROYED))
+		hasfeet = 0
+	if(perp.shoes && !perp.buckled)//Adding blood to shoes
 		perp.shoes:track_blood = max(amount,perp.shoes:track_blood)		//Adding blood to shoes
 		if(!perp.shoes.blood_overlay)
 			perp.shoes.generate_blood_overlay()
@@ -52,11 +52,14 @@
 			perp.shoes.overlays += perp.shoes.blood_overlay
 			perp.update_inv_shoes(1,0)
 		perp.shoes.blood_DNA |= blood_DNA.Copy()
-	else
+	else if (hasfeet)//Or feet
 		perp.track_blood = max(amount,perp.track_blood)				//Or feet
 		if(!perp.feet_blood_DNA)
 			perp.feet_blood_DNA = list()
 		perp.feet_blood_DNA |= blood_DNA.Copy()
+	else if (perp.buckled && istype(perp.buckled, /obj/structure/stool/bed/chair/wheelchair))
+		var/obj/structure/stool/bed/chair/wheelchair/W = perp.buckled
+		W.bloodiness = 4
 
 	amount--
 
@@ -68,7 +71,7 @@
 	icon = I
 	amount = 0
 	spawn(DRYING_TIME)
-		Del()
+		Destroy()
 
 /obj/effect/decal/cleanable/blood/attack_hand(mob/living/carbon/human/user)
 	..()
@@ -121,7 +124,12 @@
 	if(amount < 1)
 		return
 
-	if(perp.shoes)
+	var/datum/organ/external/l_foot = perp.get_organ("l_foot")
+	var/datum/organ/external/r_foot = perp.get_organ("r_foot")
+	var/hasfeet = 1
+	if((!l_foot || l_foot.status & ORGAN_DESTROYED) && (!r_foot || r_foot.status & ORGAN_DESTROYED))
+		hasfeet = 0
+	if(perp.shoes && !perp.buckled)//Adding blood to shoes
 		perp.shoes:track_blood_green= max(amount,perp.shoes:track_blood_green)		//Adding blood to shoes
 		if(!perp.shoes.blood_overlay)
 			perp.shoes.blood_overlay_color = 1
@@ -131,11 +139,14 @@
 			perp.shoes.overlays += perp.shoes.blood_overlay
 			perp.update_inv_shoes(1,1)
 		perp.shoes.blood_DNA |= blood_DNA.Copy()
-	else
+	else if (hasfeet)//Or feet
 		perp.track_blood_green = max(amount,perp.track_blood_green)				//Or feet
 		if(!perp.feet_blood_DNA)
 			perp.feet_blood_DNA = list()
 		perp.feet_blood_DNA |= blood_DNA.Copy()
+	else if (perp.buckled && istype(perp.buckled, /obj/structure/stool/bed/chair/wheelchair))
+		var/obj/structure/stool/bed/chair/wheelchair/W = perp.buckled
+		W.bloodiness = 4
 
 	amount--
 
@@ -356,11 +367,7 @@
 		for (var/i = 0, i < pick(1, 200; 2, 150; 3, 50; 4), i++)
 			sleep(3)
 			if (i > 0)
-				var/obj/effect/decal/cleanable/blood/b = new /obj/effect/decal/cleanable/blood/splatter(src.loc)
-				for(var/datum/disease/D in src.viruses)
-					var/datum/disease/ND = D.Copy(1)
-					b.viruses += ND
-					ND.holder = b
+				new /obj/effect/decal/cleanable/blood/splatter(src.loc)
 
 			if (step_to(src, get_step(src, direction), 0))
 				break
@@ -382,4 +389,13 @@
 /obj/effect/decal/cleanable/mucus/New()
 	spawn(DRYING_TIME * 2)
 		dry=1
+
+/obj/effect/decal/cleanable/blood/viralsputum
+	name = "viral sputum"
+	desc = "It's black and nasty."
+//	basecolor="#030303"
+	icon = 'icons/mob/robots.dmi'
+	icon_state = "floor1"
+	random_icon_states = list("floor1", "floor2", "floor3", "floor4", "floor5", "floor6", "floor7")
+
 

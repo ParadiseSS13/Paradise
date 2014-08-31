@@ -12,6 +12,7 @@
 	var/health = 10
 	var/destroyed = 0
 
+
 /obj/structure/grille/fence/
 	var/width = 3
 	health = 50
@@ -25,6 +26,7 @@
 			bound_width = world.icon_size
 			bound_height = width * world.icon_size
 
+
 /obj/structure/grille/fence/east_west
 	//width=80
 	//height=42
@@ -35,18 +37,18 @@
 	//height=42
 	icon='icons/fence-ns.dmi'
 
-/obj/structure/grille/Del()
+/obj/structure/grille/Destroy()
 	loc = null //garbage collect
 
 
 /obj/structure/grille/ex_act(severity)
-	qdel(src)
+	returnToPool(src)
 
 /obj/structure/grille/blob_act()
-	qdel(src)
+	returnToPool(src)
 
 /obj/structure/grille/meteorhit(var/obj/M)
-	qdel(src)
+	returnToPool(src)
 
 
 /obj/structure/grille/Bumped(atom/user)
@@ -67,7 +69,7 @@
 	if(M_HULK in user.mutations)
 		health -= 5
 	else
-		health -= 3
+		health -= 1
 	healthcheck()
 
 /obj/structure/grille/attack_alien(mob/user as mob)
@@ -84,7 +86,9 @@
 		return
 
 /obj/structure/grille/attack_slime(mob/user as mob)
-	if(!istype(user, /mob/living/carbon/slime/adult))	return
+	var/mob/living/carbon/slime/S = user
+	if (!S.is_adult)
+		return
 
 	playsound(loc, 'sound/effects/grillehit.ogg', 80, 1)
 	user.visible_message("<span class='warning'>[user] smashes against [src].</span>", \
@@ -119,7 +123,13 @@
 			return !density
 
 /obj/structure/grille/bullet_act(var/obj/item/projectile/Proj)
+
 	if(!Proj)	return
+
+	//Tasers and the like should not damage grilles.
+	if(Proj.damage_type == HALLOSS)
+		return
+
 	src.health -= Proj.damage*0.2
 	healthcheck()
 	return 0
@@ -129,7 +139,7 @@
 		if(!shock(user, 100))
 			playsound(loc, 'sound/items/Wirecutter.ogg', 100, 1)
 			new /obj/item/stack/rods(loc, 2)
-			del(src)
+			returnToPool(src)
 	else if((isscrewdriver(W)) && (istype(loc, /turf/simulated) || anchored))
 		if(!shock(user, 90))
 			playsound(loc, 'sound/items/Screwdriver.ogg', 100, 1)
@@ -139,7 +149,7 @@
 			return
 
 //window placing begin
-	else if( istype(W,/obj/item/stack/sheet/rglass) || istype(W,/obj/item/stack/sheet/glass) )
+	else if( istype(W,/obj/item/stack/sheet/rglass) || istype(W,/obj/item/stack/sheet/glass) || istype(W,/obj/item/stack/sheet/plasmaglass) || istype(W,/obj/item/stack/sheet/plasmarglass) )
 		var/dir_to_set = 1
 		if(loc == user.loc)
 			dir_to_set = user.dir
@@ -172,8 +182,12 @@
 			var/obj/structure/window/WD
 			if(istype(W,/obj/item/stack/sheet/rglass))
 				WD = new/obj/structure/window/reinforced(loc) //reinforced window
-			else
+			else if(istype(W,/obj/item/stack/sheet/glass))
 				WD = new/obj/structure/window/basic(loc) //normal window
+			else if(istype(W,/obj/item/stack/sheet/plasmaglass))
+				WD = new/obj/structure/window/plasmabasic(loc) //basic plasma window
+			else
+				WD = new/obj/structure/window/plasmareinforced(loc) //reinforced plasma window
 			WD.dir = dir_to_set
 			WD.ini_dir = dir_to_set
 			WD.anchored = 0
@@ -210,7 +224,7 @@
 		else
 			if(health <= -6)
 				new /obj/item/stack/rods(loc)
-				del(src)
+				returnToPool(src)
 				return
 	return
 
@@ -218,7 +232,7 @@
 // returns 1 if shocked, 0 otherwise
 
 /obj/structure/grille/proc/shock(mob/user as mob, prb)
-	if(!anchored || destroyed)		// anchored/destroyed grilles are never connected
+	if(!anchored || destroyed)		// deanchored/destroyed grilles are never connected
 		return 0
 	if(!prob(prb))
 		return 0
@@ -236,7 +250,7 @@
 			return 0
 	return 0
 
-/obj/structure/grille/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
+/obj/structure/grille/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume)
 	if(!destroyed)
 		if(exposed_temperature > T0C + 1500)
 			health -= 1

@@ -12,6 +12,7 @@ The currently supporting non-reagent materials:
 - $metal (/obj/item/stack/metal). One sheet = 3750 units.
 - $glass (/obj/item/stack/glass). One sheet = 3750 units.
 - $plasma (/obj/item/stack/plasma). One sheet = 3750 units.
+- $plasteel (/obj/item/stack/sheet/plasteel). One sheet = 3750 units.
 - $silver (/obj/item/stack/silver). One sheet = 3750 units.
 - $gold (/obj/item/stack/gold). One sheet = 3750 units.
 - $uranium (/obj/item/stack/uranium). One sheet = 3750 units.
@@ -222,6 +223,15 @@ datum/design/robocontrol
 	build_type = IMPRINTER
 	materials = list("$glass" = 2000, "sacid" = 20)
 	build_path = "/obj/item/weapon/circuitboard/robotics"
+
+datum/design/dronecontrol
+	name = "Circuit Design (Drone Control Console)"
+	desc = "Allows for the construction of circuit boards used to build a Drone Control console."
+	id = "dronecontrol"
+	req_tech = list("programming" = 4)
+	build_type = IMPRINTER
+	materials = list("$glass" = 2000, "sacid" = 20)
+	build_path = "/obj/item/weapon/circuitboard/drone_control"
 
 datum/design/clonecontrol
 	name = "Circuit Design (Cloning Machine Console)"
@@ -505,6 +515,15 @@ datum/design/custom_module
 	materials = list("$glass" = 2000, "sacid" = 20, "$diamond" = 100)
 	build_path = /obj/item/weapon/aiModule/core/full/custom
 
+datum/design/antimov_module
+	name = "Core Module Design (Antimov)"
+	desc = "Allows for the construction of a Antimov AI Core Module."
+	id = "antimov_module"
+	req_tech = list("programming" = 4, "materials" = 6, "syndicate" = 2)
+	build_type = IMPRINTER
+	materials = list("$glass" = 2000, "sacid" = 20, "$diamond" = 100)
+	build_path = /obj/item/weapon/aiModule/core/full/antimov
+
 ///////////////////////////////////
 /////Subspace Telecomms////////////
 ///////////////////////////////////
@@ -724,6 +743,15 @@ datum/design/honker_targ
 	materials = list("$glass" = 2000, "sacid" = 20)
 	build_path = "/obj/item/weapon/circuitboard/mecha/honker/targeting"
 
+/datum/design/spacepod_main
+	name = "Circuit Design (Space Pod Mainboard)"
+	desc = "Allows for the construction of a Space Pod mainboard."
+	id = "spacepod_main"
+	req_tech = list("programming" = 4)
+	build_type = IMPRINTER
+	materials = list("$glass" = 2000, "sacid" = 20)
+	build_path = /obj/item/weapon/circuitboard/mecha/pod
+
 ////////////////////////////////////////
 /////////// Mecha Equpment /////////////
 ////////////////////////////////////////
@@ -933,6 +961,16 @@ datum/design/tech_disk
 ////////////////////////////////////////
 /////////////Stock Parts////////////////
 ////////////////////////////////////////
+
+datum/design/RPED
+	name = "Rapid Part Exchange Device"
+	desc = "Special mechanical module made to store, sort, and apply standard machine parts."
+	id = "rped"
+	req_tech = list("engineering" = 3,
+					"materials" = 3)
+	build_type = PROTOLATHE
+	materials = list("$metal" = 15000, "$glass" = 5000) //hardcore
+	build_path = /obj/item/weapon/storage/part_replacer
 
 datum/design/basic_capacitor
 	name = "Basic Capacitor"
@@ -1582,6 +1620,100 @@ datum/design/plasmapistol
 	build_path = "/obj/item/weapon/gun/energy/toxgun"
 
 /////////////////////////////////////////
+/////////////////Armor///////////////////
+/////////////////////////////////////////
+
+datum/design/powerarmor
+	name = "Powered armor suit"
+	desc = "The frame for Centcom's patented powered armor."
+	id = "powerarmor"
+	req_tech = list("combat" = 3, "materials" = 3, "engineering" = 3, "biotech" = 2)
+	build_type = PROTOLATHE
+	materials = list("$metal" = 7500, "$plasteel" = 4000)
+	build_path = /obj/item/clothing/suit/space/powered
+
+datum/design/powerarmor_helmet
+	name = "Powered armor helmet"
+	desc = "The frame for Centcom's patented powered armor."
+	id = "powerarmorhelmet"
+	req_tech = list("combat" = 3, "materials" = 3, "engineering" = 3, "biotech" = 2)
+	build_type = PROTOLATHE
+	materials = list("$metal" = 3750, "$glass" = 3750, "$plasteel" = 2000)
+	build_path = /obj/item/clothing/head/space/powered
+
+datum/design/powerarmor_gloves
+	name = "Powered armor gloves"
+	desc = "The frame for Centcom's patented powered armor."
+	id = "powerarmorgloves"
+	req_tech = list("combat" = 3, "materials" = 3, "engineering" = 3, "biotech" = 2)
+	build_type = PROTOLATHE
+	materials = list("$metal" = 7500, "$plasteel" = 2000)
+	build_path = /obj/item/clothing/gloves/powered
+
+datum/design/powerarmor_boots
+	name = "Powered armor boots"
+	desc = "The frame for Centcom's patented powered armor."
+	id = "powerarmorboots"
+	req_tech = list("combat" = 3, "materials" = 3, "engineering" = 3, "biotech" = 2)
+	build_type = PROTOLATHE
+	materials = list("$metal" = 7500, "$plasteel" = 2000)
+	build_path = /obj/item/clothing/shoes/powered
+
+datum/design/powerarmor_plasma
+	name = "Powered armor miniaturized plasma generator"
+	desc = "One of the potential power sources for powered armor."
+	id = "powerarmorplasma"
+	req_tech = list("combat" = 3, "engineering" = 3, "powerstorage" = 4, "plasmatech" = 4)
+	build_type = PROTOLATHE
+	materials = list("$metal" = 7500, "$plasma" = 4000)
+	build_path = /obj/item/powerarmor/power/plasma
+
+datum/design/powerarmor_cell
+	name = "Powered armor powercell interface"
+	desc = "One of the potential power sources for powered armor."
+	id = "powerarmorcell"
+	req_tech = list("combat" = 3, "engineering" = 3, "powerstorage" = 3, "magnets" = 2)
+	build_type = PROTOLATHE
+	materials = list("$metal" = 7500, "$silver" = 4000)
+	build_path = /obj/item/powerarmor/power/powercell
+
+datum/design/powerarmor_nuclear
+	name = "Powered armor miniaturized nuclear generator"
+	desc = "One of the potential power sources for powered armor."
+	id = "powerarmornuclear"
+	req_tech = list("combat" = 3, "engineering" = 3, "powerstorage" = 4, "magnets" = 3)
+	build_type = PROTOLATHE
+	materials = list("$metal" = 7500, "$uranium" = 4000)
+	build_path = /obj/item/powerarmor/power/nuclear
+
+datum/design/powerarmor_reactive
+	name = "Powered armor reactive plating"
+	desc = "The core of the power armor's active defenses."
+	id = "powerarmorreactive"
+	req_tech = list("combat" = 3, "engineering" = 3, "powerstorage" = 3, "materials" = 4)
+	build_type = PROTOLATHE
+	materials = list("$metal" = 7500, "$diamond" = 4000)
+	build_path = /obj/item/powerarmor/reactive
+
+datum/design/powerarmor_servos
+	name = "Powered armor servos"
+	desc = "This allows the powerarmor to move efficiently."
+	id = "powerarmorservos"
+	req_tech = list("combat" = 3, "engineering" = 3, "powerstorage" = 3, "materials" = 4)
+	build_type = PROTOLATHE
+	materials = list("$metal" = 7500, "$plasteel" = 4000)
+	build_path = /obj/item/powerarmor/servos
+
+datum/design/powerarmor_atmoseal
+	name = "Powered armor atmospheric seal"
+	desc = "This keeps the bad stuff out."
+	id = "powerarmoratmoseal"
+	req_tech = list("combat" = 3, "engineering" = 3, "powerstorage" = 3, "materials" = 4)
+	build_type = PROTOLATHE
+	materials = list("$metal" = 7500, "$plasteel" = 4000)
+	build_path = /obj/item/powerarmor/atmoseal
+
+/////////////////////////////////////////
 /////////////////Mining//////////////////
 /////////////////////////////////////////
 
@@ -1640,6 +1772,33 @@ datum/design/mesons
 	build_type = PROTOLATHE
 	materials = list("$metal" = 50, "$glass" = 50)
 	build_path = "/obj/item/clothing/glasses/meson"
+
+datum/design/miningblueprint1
+	name = "Mining Schematic Disk Version 1"
+	desc = "Contains the schematics for a new range of Pickaxes."
+	id = "miningblueprint1"
+	req_tech = list("materials" = 3)
+	build_type = PROTOLATHE
+	materials = list("$metal" = 50, "$glass" = 50)
+	build_path = "/obj/item/weapon/disk/data/schematic/mining1"
+
+datum/design/miningblueprint2
+	name = "Mining Schematic Disk Version 2"
+	desc = "Contains the schematics for a new line of drills. And a Plasma Cutter. Has the previous level as well."
+	id = "miningblueprint2"
+	req_tech = list("materials" = 5)
+	build_type = PROTOLATHE
+	materials = list("$metal" = 50, "$glass" = 50)
+	build_path = "/obj/item/weapon/disk/data/schematic/mining2"
+
+datum/design/miningblueprint3
+	name = "Mining Schematic Disk Version 3"
+	desc = "Contains the schematics for a new type of Spacesuit, and schematics for a Jetpack. Has the previous levels as well."
+	id = "miningblueprint3"
+	req_tech = list("materials" = 6)
+	build_type = PROTOLATHE
+	materials = list("$metal" = 50, "$glass" = 50)
+	build_path = "/obj/item/weapon/disk/data/schematic/mining3"
 
 /////////////////////////////////////////
 //////////////Blue Space/////////////////

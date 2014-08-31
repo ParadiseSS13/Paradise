@@ -219,6 +219,18 @@
 	desc = "A small lighting fixture."
 	light_type = /obj/item/weapon/light/bulb
 
+// the desk lamps are a bit special
+/obj/machinery/light/small/lamp
+	name = "desk lamp"
+	icon_state = "lamp1"
+	base_state = "lamp"
+	desc = "A desk lamp with an adjustable mount."
+
+// green-shaded desk lamp
+/obj/machinery/light/small/lamp/green
+	desc = "A classic green-shaded desk lamp."
+	icon_state = "lampgreen1"
+	base_state = "lampgreen"
 
 /obj/machinery/light/spot
 	name = "spotlight"
@@ -253,7 +265,7 @@
 		spawn(1)
 			update(0)
 
-/obj/machinery/light/Del()
+/obj/machinery/light/Destroy()
 	var/area/A = get_area(src)
 	if(A)
 		on = 0
@@ -356,6 +368,7 @@
 				switchcount = L.switchcount
 				rigged = L.rigged
 				brightness = L.brightness
+				l_color = L.color
 				on = has_power()
 				update()
 
@@ -514,6 +527,7 @@
 	L.status = status
 	L.rigged = rigged
 	L.brightness = src.brightness
+	L.color = l_color
 
 	// light item inherits the switchcount, then zero it
 	L.switchcount = switchcount
@@ -540,6 +554,7 @@
 	L.status = status
 	L.rigged = rigged
 	L.brightness = brightness
+	L.color = l_color
 
 	// light item inherits the switchcount, then zero it
 	L.switchcount = switchcount
@@ -602,20 +617,21 @@
 
 #define LIGHTING_POWER_FACTOR 20		//20W per unit luminosity
 
+/*
 /obj/machinery/light/process()//TODO: remove/add this from machines to save on processing as needed ~Carn PRIORITY
 	if(on)
 		use_power(luminosity * LIGHTING_POWER_FACTOR, LIGHT)
+*/
 
 // called when area power state changes
 /obj/machinery/light/power_change()
 	spawn(10)
-		var/area/A = src.loc.loc
-		A = A.master
+		var/area/A = get_area_master(src)
 		seton(A.lightswitch && A.power_light)
 
 // called when on fire
 
-/obj/machinery/light/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
+/obj/machinery/light/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume)
 	if(prob(max(0, exposed_temperature - 673)))   //0% at <400C, 100% at >500C
 		broken()
 
@@ -747,5 +763,6 @@
 		src.visible_message("\red [name] shatters.","\red You hear a small glass object shatter.")
 		status = LIGHT_BROKEN
 		force = 5
+		sharp = 1
 		playsound(src.loc, 'sound/effects/Glasshit.ogg', 75, 1)
 		update()

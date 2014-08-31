@@ -17,6 +17,18 @@ proc/random_hair_style(gender, species = "Human")
 
 	return h_style
 
+/proc/GetOppositeDir(var/dir)
+	switch(dir)
+		if(NORTH)     return SOUTH
+		if(SOUTH)     return NORTH
+		if(EAST)      return WEST
+		if(WEST)      return EAST
+		if(SOUTHWEST) return NORTHEAST
+		if(NORTHWEST) return SOUTHEAST
+		if(NORTHEAST) return SOUTHWEST
+		if(SOUTHEAST) return NORTHWEST
+	return 0
+
 proc/random_facial_hair_style(gender, species = "Human")
 	var/f_style = "Shaved"
 
@@ -37,9 +49,9 @@ proc/random_facial_hair_style(gender, species = "Human")
 
 		return f_style
 
-proc/random_name(gender, species = "Human")
-	if(gender==FEMALE)	return capitalize(pick(first_names_female)) + " " + capitalize(pick(last_names))
-	else				return capitalize(pick(first_names_male)) + " " + capitalize(pick(last_names))
+proc/random_name(gender, speciesName = "Human")
+	var/datum/species/S = all_species[speciesName]
+	return S.makeName(gender)
 
 proc/random_skin_tone()
 	switch(pick(60;"caucasian", 15;"afroamerican", 10;"african", 10;"latino", 5;"albino"))
@@ -76,6 +88,28 @@ proc/age2agedescription(age)
 		if(70 to INFINITY)	return "elderly"
 		else				return "unknown"
 
+proc/RoundHealth(health)
+	switch(health)
+		if(100 to INFINITY)
+			return "health100"
+		if(70 to 100)
+			return "health80"
+		if(50 to 70)
+			return "health60"
+		if(30 to 50)
+			return "health40"
+		if(18 to 30)
+			return "health25"
+		if(5 to 18)
+			return "health10"
+		if(1 to 5)
+			return "health1"
+		if(-99 to 0)
+			return "health0"
+		else
+			return "health-100"
+	return "0"
+
 
 /*
 Proc for attack log creation, because really why not
@@ -87,11 +121,14 @@ Proc for attack log creation, because really why not
 */
 
 proc/add_logs(mob/target, mob/user, what_done, var/object=null, var/addition=null)
+	var/list/ignore=list("shaked","CPRed","grabbed","punched")
 	if(ismob(user))
 		user.attack_log += text("\[[time_stamp()]\] <font color='red'>Has [what_done] [target.name][ismob(target) ? "([target.ckey])" : ""][object ? " with [object]" : " "][addition]</font>")
 	if(ismob(target))
 		target.attack_log += text("\[[time_stamp()]\] <font color='orange'>Has been [what_done] by [user.name][ismob(user) ? "([user.ckey])" : ""][object ? " with [object]" : " "][addition]</font>")
 	log_attack("<font color='red'>[user.name][ismob(user) ? "([user.ckey])" : ""] [what_done] [target.name][ismob(target) ? "([target.ckey])" : ""][object ? " with [object]" : " "][addition]</font>")
 	if(target.client)
-		if(what_done != ("shaked" || "CPRed" || "grabbed"))
-			message_admins("[user.name][ismob(user) ? "([user.ckey])" : ""] [what_done] [target.name][ismob(target) ? "([target.ckey])" : ""][object ? " with [object]" : " "][addition](<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[target.x];Y=[target.y];Z=[target.z]'>JMP</a>)")
+		if(what_done in ignore) return
+		if(target == user)return
+		msg_admin_attack("[user.name][ismob(user) ? "([user.ckey])" : ""] [what_done] [target.name][ismob(target) ? "([target.ckey])" : ""][object ? " with [object]" : " "][addition](<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[target.x];Y=[target.y];Z=[target.z]'>JMP</a>)")
+

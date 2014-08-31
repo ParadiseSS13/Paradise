@@ -22,16 +22,25 @@
 	desc		= "A clamshell portable computer.  It is closed."
 	icon		= 'icons/obj/computer3.dmi'
 	icon_state	=  "laptop-closed"
+	item_state	=  "laptop-inhand"
 	pixel_x		= 2
 	pixel_y		= -3
-	w_class		= 4
+	w_class		= 3
 
 	var/obj/machinery/computer3/laptop/stored_computer = null
 
 	verb/open_computer()
-		set name = "open laptop"
+		set name = "Open Laptop"
 		set category = "Object"
 		set src in view(1)
+
+		if(usr.stat || usr.restrained() || usr.lying || !istype(usr, /mob/living))
+			usr << "\red You can't do that."
+			return
+
+		if(!Adjacent(usr))
+			usr << "You can't reach it."
+			return
 
 		if(!istype(loc,/turf))
 			usr << "[src] is too bulky!  You'll have to set it down."
@@ -46,22 +55,61 @@
 				del src
 			return
 
+		if(!stored_computer.manipulating)
+			stored_computer.manipulating = 1
+			stored_computer.loc = loc
+			stored_computer.stat &= ~MAINT
+			stored_computer.update_icon()
+			loc = null
+			usr << "You open \the [src]."
 
-		stored_computer.loc = loc
-		stored_computer.stat &= ~MAINT
-		stored_computer.update_icon()
-		loc = null
-		usr << "You open \the [src]."
+			spawn(5)
+				stored_computer.manipulating = 0
+				del src
+		else
+			usr << "\red You are already opening the computer!"
 
-		spawn(5)
-			del src
 
 	AltClick()
-		open_computer()
+		if(Adjacent(usr))
+			open_computer()
+
+//Quickfix until Snapshot works out how he wants to redo power. ~Z
+/obj/item/device/laptop/verb/eject_id()
+	set category = null
+	set name = "Eject ID Card"
+	set src in oview(1)
+
+	if(stored_computer)
+		stored_computer.eject_id()
+
+/obj/machinery/computer3/laptop/verb/eject_id()
+	set category = null
+	set name = "Eject ID Card"
+	set src in oview(1)
+
+	var/obj/item/part/computer/cardslot/C = locate() in src.contents
+
+	if(!C)
+		usr << "There is no card port on the laptop."
+		return
+
+	var/obj/item/weapon/card/id/card
+	if(C.reader)
+		card = C.reader
+	else if(C.writer)
+		card = C.writer
+	else
+		usr << "There is nothing to remove from the laptop card port."
+		return
+
+	usr << "You remove [card] from the laptop."
+	C.remove(card)
+
 
 /obj/machinery/computer3/laptop
 	name = "Laptop Computer"
-	desc = "A clamshell portable computer.  It is open."
+	desc = "A clamshell portable computer. It is open."
 
 	icon_state		= "laptop"
 	density			= 0
@@ -69,6 +117,7 @@
 	pixel_y			= -3
 	show_keyboard	= 0
 
+	var/manipulating = 0 // To prevent disappearing bug
 	var/obj/item/device/laptop/portable = null
 
 	New(var/L, var/built = 0)
@@ -77,9 +126,17 @@
 		..(L,built)
 
 	verb/close_computer()
-		set name = "close laptop"
+		set name = "Close Laptop"
 		set category = "Object"
 		set src in view(1)
+
+		if(usr.stat || usr.restrained() || usr.lying || !istype(usr, /mob/living))
+			usr << "\red You can't do that."
+			return
+
+		if(!Adjacent(usr))
+			usr << "You can't reach it."
+			return
 
 		if(istype(loc,/obj/item/device/laptop))
 			testing("Close closed computer")
@@ -96,10 +153,11 @@
 			portable=new
 			portable.stored_computer = src
 
-		portable.loc = loc
-		loc = portable
-		stat |= MAINT
-		usr << "You close \the [src]."
+		if(!manipulating)
+			portable.loc = loc
+			loc = portable
+			stat |= MAINT
+			usr << "You close \the [src]."
 
 	auto_use_power()
 		if(stat&MAINT)
@@ -132,5 +190,5 @@
 
 
 	AltClick()
-		close_computer()
-
+		if(Adjacent(usr))
+			close_computer()

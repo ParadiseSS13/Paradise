@@ -95,7 +95,7 @@ var/message_delay = 0 // To make sure restarting the recentmessages list is kept
 		/* --- Do a snazzy animation! --- */
 		flick("broadcaster_send", src)
 
-/obj/machinery/telecomms/broadcaster/Del()
+/obj/machinery/telecomms/broadcaster/Destroy()
 	// In case message_delay is left on 1, otherwise it won't reset the list and people can't say the same thing twice anymore.
 	if(message_delay)
 		message_delay = 0
@@ -283,12 +283,13 @@ var/message_delay = 0 // To make sure restarting the recentmessages list is kept
 
 	  /* --- Loop through the receivers and categorize them --- */
 
-		if (R.client && !(R.client.prefs.toggles & CHAT_RADIO)) //Adminning with 80 people on can be fun when you're trying to talk and all you can hear is radios.
-			continue
 
 		if(istype(R, /mob/new_player)) // we don't want new players to hear messages. rare but generates runtimes.
 			continue
 
+		// Ghosts hearing all radio chat don't want to hear syndicate intercepts, they're duplicates
+		if(data == 3 && istype(R, /mob/dead/observer) && R.client && (R.client.prefs.toggles & CHAT_GHOSTRADIO))
+			continue
 
 		// --- Check for compression ---
 		if(compression > 0)
@@ -347,6 +348,8 @@ var/message_delay = 0 // To make sure restarting the recentmessages list is kept
 				freq_text = "Special Ops"
 			if(1443)
 				freq_text = "Response Team"
+			if(1447)
+				freq_text = "AI Private"
 		//There's probably a way to use the list var of channels in code\game\communications.dm to make the dept channels non-hardcoded, but I wasn't in an experimentive mood. --NEO
 
 
@@ -374,6 +377,10 @@ var/message_delay = 0 // To make sure restarting the recentmessages list is kept
 		// command channel
 		else if (display_freq == COMM_FREQ)
 			part_a = "<span class='comradio'><span class='name'>"
+
+		// AI private channel
+		else if (display_freq == 1447)
+			part_a = "<span class='airadio'><span class='name'>"
 
 		// department radio formatting (poorly optimized, ugh)
 		else if (display_freq == SEC_FREQ)
@@ -608,8 +615,6 @@ var/message_delay = 0 // To make sure restarting the recentmessages list is kept
 
 	  /* --- Loop through the receivers and categorize them --- */
 
-		if (R.client && !(R.client.prefs.toggles & CHAT_RADIO)) //Adminning with 80 people on can be fun when you're trying to talk and all you can hear is radios.
-			continue
 
 
 		// --- Check for compression ---

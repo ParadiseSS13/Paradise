@@ -10,7 +10,7 @@ var/syndicate_elite_shuttle_can_send = 1
 var/syndicate_elite_shuttle_time = 0
 var/syndicate_elite_shuttle_timeleft = 0
 
-/obj/machinery/computer/syndicate_elite_shuttle
+/obj/machinery/computer3/syndicate_elite_shuttle
 	name = "Elite Syndicate Squad Shuttle Console"
 	icon = 'icons/obj/computer.dmi'
 	icon_state = "syndishuttle"
@@ -172,22 +172,22 @@ var/syndicate_elite_shuttle_timeleft = 0
 	if(syndicate_elite_shuttle_moving_to_station || syndicate_elite_shuttle_moving_to_mothership) return 0
 	else return 1
 
-/obj/machinery/computer/syndicate_elite_shuttle/attackby(I as obj, user as mob)
+/obj/machinery/computer3/syndicate_elite_shuttle/attackby(I as obj, user as mob)
 	return attack_hand(user)
 
-/obj/machinery/computer/syndicate_elite_shuttle/attack_ai(var/mob/user as mob)
+/obj/machinery/computer3/syndicate_elite_shuttle/attack_ai(var/mob/user as mob)
 	return attack_hand(user)
 
-/obj/machinery/computer/syndicate_elite_shuttle/attack_paw(var/mob/user as mob)
+/obj/machinery/computer3/syndicate_elite_shuttle/attack_paw(var/mob/user as mob)
 	return attack_hand(user)
 
-/obj/machinery/computer/syndicate_elite_shuttle/attackby(I as obj, user as mob)
+/obj/machinery/computer3/syndicate_elite_shuttle/attackby(I as obj, user as mob)
 	if(istype(I,/obj/item/card/emag))
 		user << "\blue The electronic systems in this console are far too advanced for your primitive hacking peripherals."
 	else
 		return attack_hand(user)
 
-/obj/machinery/computer/syndicate_elite_shuttle/attack_hand(var/mob/user as mob)
+/obj/machinery/computer3/syndicate_elite_shuttle/attack_hand(var/mob/user as mob)
 	if(!allowed(user))
 		user << "\red Access Denied."
 		return
@@ -216,7 +216,7 @@ var/syndicate_elite_shuttle_timeleft = 0
 	popup.open()
 	return
 
-/obj/machinery/computer/syndicate_elite_shuttle/Topic(href, href_list)
+/obj/machinery/computer3/syndicate_elite_shuttle/Topic(href, href_list)
 	if(..())
 		return
 

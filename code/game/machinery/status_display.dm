@@ -79,13 +79,19 @@
 			if(0)				//blank
 				remove_display()
 			if(1)				//emergency shuttle timer
-				if(emergency_shuttle.online)
-					var/line1
-					var/line2 = get_shuttle_timer()
-					if(emergency_shuttle.location == 1)
-						line1 = "-ETD-"
+				if(emergency_shuttle.waiting_to_leave())
+					var/line1 = "-ETD-"
+					var/line2
+					if (emergency_shuttle.shuttle.is_launching())
+						line2 = "Launch"
 					else
-						line1 = "-ETA-"
+						line2 = get_shuttle_timer_departure()
+						if(length(line2) > CHARS_PER_LINE)
+							line2 = "Error!"
+					update_display(line1, line2)
+				else if(emergency_shuttle.has_eta())
+					var/line1 = "-ETA-"
+					var/line2 = get_shuttle_timer_arrival()
 					if(length(line2) > CHARS_PER_LINE)
 						line2 = "Error!"
 					update_display(line1, line2)
@@ -115,13 +121,22 @@
 				update_display(line1, line2)
 			if(4)				// supply shuttle timer
 				var/line1 = "SUPPLY"
-				var/line2
-				if(supply_shuttle.moving)
+				var/line2 = ""
+
+				var/datum/shuttle/ferry/supply/shuttle = supply_controller.shuttle
+				if (!shuttle)
+					line2 = "Error"
+				else if(shuttle.has_arrive_time())
 					line2 = get_supply_shuttle_timer()
 					if(lentext(line2) > CHARS_PER_LINE)
 						line2 = "Error"
+				else if (shuttle.is_launching())
+					if (shuttle.at_station())
+						line2 = "Launch"
+					else
+						line2 = "ETA"
 				else
-					if(supply_shuttle.at_station)
+					if(shuttle.at_station())
 						line2 = "Docked"
 					else
 						line1 = ""
@@ -160,15 +175,25 @@
 		if(maptext != new_text)
 			maptext = new_text
 
-	proc/get_shuttle_timer()
-		var/timeleft = emergency_shuttle.timeleft()
-		if(timeleft)
-			return "[add_zero(num2text((timeleft / 60) % 60),2)]:[add_zero(num2text(timeleft % 60), 2)]"
-		return ""
+	proc/get_shuttle_timer_arrival()
+		var/timeleft = emergency_shuttle.estimate_arrival_time()
+		if(timeleft < 0)
+			return ""
+		return "[add_zero(num2text((timeleft / 60) % 60),2)]:[add_zero(num2text(timeleft % 60), 2)]"
+
+	proc/get_shuttle_timer_departure()
+		var/timeleft = emergency_shuttle.estimate_launch_time()
+		if(timeleft < 0)
+			return ""
+		return "[add_zero(num2text((timeleft / 60) % 60),2)]:[add_zero(num2text(timeleft % 60), 2)]"
 
 	proc/get_supply_shuttle_timer()
-		if(supply_shuttle.moving)
-			var/timeleft = round((supply_shuttle.eta_timeofday - world.timeofday) / 10,1)
+		var/datum/shuttle/ferry/supply/shuttle = supply_controller.shuttle
+		if (!shuttle)
+			return "Error"
+
+		if(shuttle.has_arrive_time())
+			var/timeleft = round((shuttle.arrive_time - world.time) / 10,1)
 			if(timeleft < 0)
 				return "Late"
 			return "[add_zero(num2text((timeleft / 60) % 60),2)]:[add_zero(num2text(timeleft % 60), 2)]"

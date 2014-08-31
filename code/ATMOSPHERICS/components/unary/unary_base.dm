@@ -28,7 +28,7 @@
 
 		return null
 
-	Del()
+	Destroy()
 		loc = null
 
 		if(node)

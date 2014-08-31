@@ -47,13 +47,10 @@
 		..()
 		sleep(2)
 		new /obj/item/clothing/glasses/sunglasses(src)
-		new /obj/item/clothing/suit/armor/vest(src)
-		new /obj/item/clothing/head/helmet(src)
 		new /obj/item/weapon/cartridge/hop(src)
 		new /obj/item/device/radio/headset/heads/hop(src)
 		new /obj/item/weapon/storage/box/ids(src)
 		new /obj/item/weapon/storage/box/ids( src )
-		new /obj/item/weapon/gun/energy/gun(src)
 		new /obj/item/device/flash(src)
 		return
 
@@ -123,7 +120,7 @@
 		new /obj/item/device/flash(src)
 		new /obj/item/weapon/melee/baton/loaded(src)
 		new /obj/item/weapon/gun/energy/gun(src)
-		new /obj/item/clothing/tie/holster/waist(src)
+		new /obj/item/clothing/tie/holster/armpit(src)
 		new /obj/item/weapon/melee/telebaton(src)
 		return
 
@@ -225,6 +222,7 @@
 		new /obj/item/clothing/under/rank/centcom_officer(src)
 		new /obj/item/device/flash(src)
 		new /obj/item/weapon/handcuffs(src)
+		new /obj/item/clothing/glasses/hud/health_advanced
 		return
 
 
@@ -281,7 +279,6 @@
 		new /obj/item/clothing/gloves/black(src)
 		new /obj/item/clothing/head/det_hat(src)
 		new /obj/item/clothing/shoes/brown(src)
-		new /obj/item/clothing/tie/accessory/gunholster(src)
 		new /obj/item/weapon/storage/box/evidence(src)
 		new /obj/item/device/radio/headset/headset_sec(src)
 		new /obj/item/device/detective_scanner(src)

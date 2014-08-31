@@ -38,11 +38,13 @@ var/religion_name = null
 
 	var/name = ""
 
-	name += pick("bee", "science", "edu", "captain", "assistant", "monkey", "alien", "space", "unit", "sprocket", "gadget", "bomb", "revolution", "beyond", "station", "goon", "robot", "ivor", "hobnob")
+	name += pick("bee", "science", "edu", "captain", "civilian", "monkey", "alien", "space", "unit", "sprocket", "gadget", "bomb", "revolution", "beyond", "station", "goon", "robot", "ivor", "hobnob")
 	name += pick("ism", "ia", "ology", "istism", "ites", "ick", "ian", "ity")
 
 	return capitalize(name)
 
+/proc/system_name()
+	return "Tau Ceti"
 
 /proc/station_name()
 	if (station_name)
@@ -206,7 +208,7 @@ var/syndicate_code_response//Code response for traitors.
 							code_phrase += " "
 							code_phrase += pick(last_names)
 					if(2)
-						code_phrase += pick(get_all_jobs())//Returns a job.
+						code_phrase += pick(joblist)//Returns a job.
 				safety -= 1
 			if(2)
 				switch(rand(1,2))//Places or things.
@@ -233,7 +235,7 @@ var/syndicate_code_response//Code response for traitors.
 /proc/GenerateKey()
 	var/newKey
 	newKey += pick("the", "if", "of", "as", "in", "a", "you", "from", "to", "an", "too", "little", "snow", "dead", "drunk", "rosebud", "duck", "al", "le")
-	newKey += pick("diamond", "beer", "mushroom", "assistant", "clown", "captain", "twinkie", "security", "nuke", "small", "big", "escape", "yellow", "gloves", "monkey", "engine", "nuclear", "ai")
+	newKey += pick("diamond", "beer", "mushroom", "civilian", "clown", "captain", "twinkie", "security", "nuke", "small", "big", "escape", "yellow", "gloves", "monkey", "engine", "nuclear", "ai")
 	newKey += pick("1", "2", "3", "4", "5", "6", "7", "8", "9", "0")
 	return newKey
 
@@ -283,7 +285,7 @@ var/syndicate_code_response//Code response for traitors.
 		if(5)
 			syndicate_code_phrase += pick("Do we have","Is there","Where is","Where's","Who's")
 			syndicate_code_phrase += " "
-			syndicate_code_phrase += "[pick(get_all_jobs())]"
+			syndicate_code_phrase += "[pick(joblist)]"
 			syndicate_code_phrase += "?"
 
 	switch(choice)
@@ -312,7 +314,7 @@ var/syndicate_code_response//Code response for traitors.
 					syndicate_code_response += pick(last_names)
 				else
 					syndicate_code_response += " the "
-					syndicate_code_response += "[pic(get_all_jobs())]"
+					syndicate_code_response += "[pic(joblist)]"
 				syndicate_code_response += "."
 			else
 				syndicate_code_response += pick("*shrug*","*smile*","*blink*","*sigh*","*laugh*","*nod*","*giggle*")

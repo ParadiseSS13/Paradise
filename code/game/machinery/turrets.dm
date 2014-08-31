@@ -213,17 +213,17 @@
 	if (src.lasers)
 		switch(lasertype)
 			if(1)
-				A = new /obj/item/projectile/beam( loc )
+				A = new /obj/item/projectile/beam(loc)
 			if(2)
-				A = new /obj/item/projectile/beam/heavylaser( loc )
+				A = new /obj/item/projectile/beam/heavylaser(loc)
 			if(3)
-				A = new /obj/item/projectile/beam/pulse( loc )
+				A = new /obj/item/projectile/beam/pulse(loc)
 			if(4)
-				A = new /obj/item/projectile/change( loc )
+				A = new /obj/item/projectile/change(loc)
 			if(5)
-				A = new /obj/item/projectile/beam/lastertag/blue( loc )
+				A = new /obj/item/projectile/beam/lastertag/blue(loc)
 			if(6)
-				A = new /obj/item/projectile/beam/lastertag/red( loc )
+				A = new /obj/item/projectile/beam/lastertag/red(loc)
 		A.original = target
 		use_power(500)
 	else
@@ -478,7 +478,7 @@
 	density = 1
 	anchored = 1
 	var/state = 0 //Like stat on mobs, 0 is alive, 1 is damaged, 2 is dead
-	var/faction = "syndicate"
+	var/list/faction = list("syndicate")
 	var/atom/cur_target = null
 	var/scan_range = 9 //You will never see them coming
 	var/health = 200 //Because it lacks a cover, and is mostly to keep people from touching the syndie shuttle.
@@ -579,12 +579,14 @@
 	var/list/pos_targets = list()
 	var/target = null
 	for(var/mob/living/M in view(scan_range,src))
-		if(M.stat || faction == M.faction)
+		if(M.stat)
+			continue
+		if(faction in M.faction)
 			continue
 		pos_targets += M
 	for(var/obj/mecha/M in oview(scan_range, src))
 		if(M.occupant)
-			if(faction == M.occupant.faction)
+			if(faction in M.occupant.faction)
 				continue
 		if(!M.occupant)
 			continue //Don't shoot at empty mechs.

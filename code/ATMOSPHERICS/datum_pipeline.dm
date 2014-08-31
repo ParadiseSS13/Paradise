@@ -1,3 +1,5 @@
+#define STEFAN_BOLTZMANN_CONSTANT 0.0000000567
+
 datum/pipeline
 	var/datum/gas_mixture/air
 
@@ -209,5 +211,12 @@ datum/pipeline
 					(partial_heat_capacity*target.heat_capacity/(partial_heat_capacity+target.heat_capacity))
 
 				air.temperature -= heat/total_heat_capacity
+		if(network)
+			network.update = 1
+			
+	proc/radiate_heat(surface, thermal_conductivity)
+		var/total_heat_capacity = air.heat_capacity()
+		var/heat = STEFAN_BOLTZMANN_CONSTANT * surface * air.temperature ** 4 * thermal_conductivity
+		air.temperature = max(0, air.temperature - heat / total_heat_capacity)
 		if(network)
 			network.update = 1

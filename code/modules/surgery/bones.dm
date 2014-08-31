@@ -97,6 +97,7 @@
 		user.visible_message("\blue [user] sets [target]'s skull with \the [tool]." , \
 			"\blue You set [target]'s skull with \the [tool].")
 		affected.stage = 2
+		target.unexpose_brain()
 
 	fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
 		var/datum/organ/external/affected = target.get_organ(target_zone)

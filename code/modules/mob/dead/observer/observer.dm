@@ -31,7 +31,7 @@
 	verbs += /mob/dead/observer/proc/dead_tele
 
 	// Our new boo spell.
-	spell_list += new /obj/effect/proc_holder/spell/aoe_turf/boo(src)
+	spell_list += new /obj/effect/proc_holder/spell/wizard/aoe_turf/boo(src)
 
 	can_reenter_corpse = flags & GHOST_CAN_REENTER
 	started_as_observer = flags & GHOST_IS_OBSERVER
@@ -96,8 +96,8 @@ Works together with spawning an observer, noted above.
 				client.images.Remove(hud)
 	if(antagHUD)
 		var/list/target_list = list()
-		for(var/mob/living/target in oview(src))
-			if( target.mind&&(target.mind.special_role||issilicon(target)) )
+		for(var/mob/living/target in oview(src, 14))
+			if(target.mind&&(target.mind.special_role||issilicon(target)||target.mind.nation) )
 				target_list += target
 		if(target_list.len)
 			assess_targets(target_list, src)
@@ -105,94 +105,20 @@ Works together with spawning an observer, noted above.
 		process_medHUD(src)
 
 
-// Direct copied from medical HUD glasses proc, used to determine what health bar to put over the targets head.
-/mob/dead/proc/RoundHealth(var/health)
-	switch(health)
-		if(100 to INFINITY)
-			return "health100"
-		if(70 to 100)
-			return "health80"
-		if(50 to 70)
-			return "health60"
-		if(30 to 50)
-			return "health40"
-		if(18 to 30)
-			return "health25"
-		if(5 to 18)
-			return "health10"
-		if(1 to 5)
-			return "health1"
-		if(-99 to 0)
-			return "health0"
-		else
-			return "health-100"
-	return "0"
-
-
-// Pretty much a direct copy of Medical HUD stuff, except will show ill if they are ill instead of also checking for known illnesses.
-
 /mob/dead/proc/process_medHUD(var/mob/M)
 	var/client/C = M.client
-	var/image/holder
-	for(var/mob/living/carbon/human/patient in oview(M))
-		var/foundVirus = 0
-		if(patient.virus2.len)
-			foundVirus = 1
-		if(!C) return
-		holder = patient.hud_list[HEALTH_HUD]
-		if(patient.stat == 2)
-			holder.icon_state = "hudhealth-100"
-		else
-			holder.icon_state = "hud[RoundHealth(patient.health)]"
-		C.images += holder
-
-		holder = patient.hud_list[STATUS_HUD]
-		if(patient.stat == 2)
-			holder.icon_state = "huddead"
-		else if(patient.status_flags & XENO_HOST)
-			holder.icon_state = "hudxeno"
-		else if(foundVirus)
-			holder.icon_state = "hudill"
-		else if(patient.has_brain_worms())
-			var/mob/living/simple_animal/borer/B = patient.has_brain_worms()
-			if(B.controlling)
-				holder.icon_state = "hudbrainworm"
-			else
-				holder.icon_state = "hudhealthy"
-		else
-			holder.icon_state = "hudhealthy"
-		C.images += holder
-
+	for(var/mob/living/carbon/human/patient in oview(M, 14))
+		C.images += patient.hud_list[HEALTH_HUD]
+		C.images += patient.hud_list[STATUS_HUD_OOC]
 
 /mob/dead/proc/assess_targets(list/target_list, mob/dead/observer/U)
-	var/icon/tempHud = 'icons/mob/hud.dmi'
-	for(var/mob/living/target in target_list)
-		if(iscarbon(target))
-			switch(target.mind.special_role)
-				if("traitor","Syndicate")
-					U.client.images += image(tempHud,target,"hudsyndicate")
-				if("Revolutionary")
-					U.client.images += image(tempHud,target,"hudrevolutionary")
-				if("Head Revolutionary")
-					U.client.images += image(tempHud,target,"hudheadrevolutionary")
-				if("Cultist")
-					U.client.images += image(tempHud,target,"hudcultist")
-				if("Changeling")
-					U.client.images += image(tempHud,target,"hudchangeling")
-				if("Wizard","Fake Wizard")
-					U.client.images += image(tempHud,target,"hudwizard")
-				if("Hunter","Sentinel","Drone","Queen")
-					U.client.images += image(tempHud,target,"hudalien")
-				if("Death Commando")
-					U.client.images += image(tempHud,target,"huddeathsquad")
-				if("Ninja")
-					U.client.images += image(tempHud,target,"hudninja")
-				if("Vampire")
-					U.client.images += image(tempHud,target,"vampire")
-				if("VampThrall")
-					U.client.images += image(tempHud,target,"vampthrall")
-				else//If we don't know what role they have but they have one.
-					U.client.images += image(tempHud,target,"hudunknown1")
+	var/client/C = U.client
+	for(var/mob/living/carbon/human/target in target_list)
+		C.images += target.hud_list[SPECIALROLE_HUD]
+		C.images += target.hud_list[NATIONS_HUD]
+
+
+/*
 		else//If the silicon mob has no law datum, no inherent laws, or a law zero, add them to the hud.
 			var/mob/living/silicon/silicon_target = target
 			if(!silicon_target.laws||(silicon_target.laws&&(silicon_target.laws.zeroth||!silicon_target.laws.inherent.len))||silicon_target.mind.special_role=="traitor")
@@ -200,6 +126,7 @@ Works together with spawning an observer, noted above.
 					U.client.images += image(tempHud,silicon_target,"hudmalborg")
 				else
 					U.client.images += image(tempHud,silicon_target,"hudmalai")
+*/
 	return 1
 
 /mob/proc/ghostize(var/flags = GHOST_CAN_REENTER)
@@ -221,6 +148,10 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	set category = "OOC"
 	set name = "Ghost"
 	set desc = "Relinquish your life and enter the land of the dead."
+
+	if(ticker && ticker.mode.name == "nations")
+		usr << "\blue Ghosting is disabled."
+		return
 
 	var/mob/M = src
 
@@ -249,6 +180,10 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 		for(var/obj/effect/step_trigger/S in NewLoc)
 			S.Crossed(src)
 
+		var/area/A = get_area_master(src)
+		if(A)
+			A.Entered(src)
+
 		return
 	loc = get_turf(src) //Get out of closets and such as a ghost
 	if((direct & NORTH) && y < world.maxy)
@@ -262,6 +197,10 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 
 	for(var/obj/effect/step_trigger/S in locate(x, y, z))	//<-- this is dumb
 		S.Crossed(src)
+
+	var/area/A = get_area_master(src)
+	if(A)
+		A.Entered(src)
 
 /mob/dead/observer/examine()
 	if(usr)
@@ -283,10 +222,9 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 					if(ticker.mode:malf_mode_declared)
 						stat(null, "Time left: [max(ticker.mode:AI_win_timeleft/(ticker.mode:apcs/3), 0)]")
 		if(emergency_shuttle)
-			if(emergency_shuttle.online && emergency_shuttle.location < 2)
-				var/timeleft = emergency_shuttle.timeleft()
-				if (timeleft)
-					stat(null, "ETA-[(timeleft / 60) % 60]:[add_zero(num2text(timeleft % 60), 2)]")
+			var/eta_status = emergency_shuttle.get_status_panel_eta()
+			if(eta_status)
+				stat(null, eta_status)
 
 /mob/dead/observer/verb/reenter_corpse()
 	set category = "Ghost"

@@ -6,6 +6,8 @@ var/global/obj/effect/overlay/plmaster = null
 var/global/obj/effect/overlay/slmaster = null
 
 
+var/global/list/active_areas = list()
+var/global/list/all_areas = list()
 var/global/list/machines = list()
 var/global/list/processing_objects = list()
 var/global/list/active_diseases = list()
@@ -73,7 +75,6 @@ var/LISPBLOCK = 0
 var/MUTEBLOCK = 0
 var/RADBLOCK = 0
 var/FATBLOCK = 0
-var/STUTTERBLOCK = 0
 var/CHAVBLOCK = 0
 var/SWEDEBLOCK = 0
 var/SCRAMBLEBLOCK = 0
@@ -89,11 +90,21 @@ var/CHAMELEONBLOCK = 0
 var/CRYOBLOCK = 0
 var/EATBLOCK = 0
 var/JUMPBLOCK = 0
-var/MELTBLOCK = 0
+//var/MELTBLOCK = 0
 var/EMPATHBLOCK = 0
 var/SUPERFARTBLOCK = 0
 var/IMMOLATEBLOCK = 0
 var/POLYMORPHBLOCK = 0
+
+///////////////////////////////
+// /vg/ Mutations
+///////////////////////////////
+var/LOUDBLOCK = 0
+var/WHISPERBLOCK = 0
+var/DIZZYBLOCK = 0
+
+
+
 
 var/skipupdate = 0
 	///////////////
@@ -108,9 +119,10 @@ var/endicon = null
 var/diary = null
 var/diaryofmeanpeople = null
 var/href_logfile = null
-var/station_name = "NSS Cyberiad"
+var/station_name = "NCS Cyberiad"
 var/game_version = "Custom ParaCode"
 var/changelog_hash = ""
+var/game_year = (text2num(time2text(world.realtime, "YYYY")) + 544)
 
 var/datum/air_tunnel/air_tunnel1/SS13_airtunnel = null
 var/going = 1.0
@@ -138,14 +150,13 @@ var/list/bombers = list(  )
 var/list/admin_log = list (  )
 var/list/lastsignalers = list(	)	//keeps last 100 signals here in format: "[src] used \ref[src] @ location [src.loc]: [freq]/[code]"
 var/list/lawchanges = list(  ) //Stores who uploaded laws to which silicon-based lifeform, and what the law was
-var/list/shuttles = list(  )
 var/list/reg_dna = list(  )
 //	list/traitobj = list(  )
 
 var/mouse_respawn_time = 5 //Amount of time that must pass between a player dying as a mouse and repawning as a mouse. In minutes.
 
 var/CELLRATE = 0.002  // multiplier for watts per tick <> cell storage (eg: .002 means if there is a load of 1000 watts, 20 units will be taken from a cell per second)
-var/CHARGELEVEL = 0.001 // Cap for how fast cells charge, as a percentage-per-tick (.001 means cellcharge is capped to 1% per second)
+var/CHARGELEVEL = 0.0005 // Cap for how fast cells charge, as a percentage-per-tick (.001 means cellcharge is capped to 1% per second)
 
 var/shuttle_z = 2	//default
 var/airtunnel_start = 68 // default
@@ -165,6 +176,7 @@ var/list/team_alpha = list()
 var/list/team_bravo = list()
 var/list/tdomeobserve = list()
 var/list/tdomeadmin = list()
+var/list/aroomwarp = list()
 var/list/prisonsecuritywarp = list()	//prison security goes to these
 var/list/prisonwarped = list()	//list of players already warped
 var/list/blobstart = list()
@@ -173,6 +185,8 @@ var/list/carplist = list()
 //	list/traitors = list()	//traitor list
 var/list/cardinal = list( NORTH, SOUTH, EAST, WEST )
 var/list/alldirs = list(NORTH, SOUTH, EAST, WEST, NORTHEAST, NORTHWEST, SOUTHEAST, SOUTHWEST)
+// reverse_dir[dir] = reverse of dir
+var/list/reverse_dir = list(2, 1, 3, 8, 10, 9, 11, 4, 6, 5, 7, 12, 14, 13, 15, 32, 34, 33, 35, 40, 42, 41, 43, 36, 38, 37, 39, 44, 46, 45, 47, 16, 18, 17, 19, 24, 26, 25, 27, 20, 22, 21, 23, 28, 30, 29, 31, 48, 50, 49, 51, 56, 58, 57, 59, 52, 54, 53, 55, 60, 62, 61, 63)
 
 var/datum/station_state/start_state = null
 var/datum/configuration/config = null
@@ -298,3 +312,10 @@ var/score_dmgestname = null // who had the most damage on the shuttle (but was s
 var/score_dmgestjob = null
 var/score_dmgestdamage = 0
 var/score_dmgestkey = null
+
+
+// Recall time limit:  2 hours
+var/recall_time_limit=72000
+
+//added for Xenoarchaeology, might be useful for other stuff
+var/global/list/alphabet_uppercase = list("A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z")

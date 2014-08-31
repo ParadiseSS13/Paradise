@@ -21,7 +21,7 @@
 		hijack_objective.owner = H.mind
 		H.mind.objectives += hijack_objective
 
-		H << "<B>You are the traitor.</B>"
+		H << "<B>You are a Highlander. Kill all other Highlanders. There can be only one.</B>"
 		var/obj_count = 1
 		for(var/datum/objective/OBJ in H.mind.objectives)
 			H << "<B>Objective #[obj_count]</B>: [OBJ.explanation_text]"
@@ -47,23 +47,9 @@
 		W.assignment = "Highlander"
 		W.registered_name = H.real_name
 		H.equip_to_slot_or_del(W, slot_wear_id)
+		H.regenerate_icons()
 
-	message_admins("\blue [key_name_admin(usr)] used THERE CAN BE ONLY ONE!", 1)
+	message_admins("\blue [key_name_admin(usr)] used THERE CAN BE ONLY ONE! -NO ATTACK LOGS WILL BE SENT TO ADMINS FROM THIS POINT FORTH-", 1)
+	nologevent = 1
 	log_admin("[key_name(usr)] used there can be only one.")
 	world << sound('sound/music/highlander.ogg')
-
-
-/obj/item/weapon/beach_ball/dodgeball
-	name = "dodgeball"
-	icon_state = "dodgeball"
-	item_state = "dodgeball"
-	desc = "Used for playing the most violent and degrading of childhood games."
-
-/obj/item/weapon/beach_ball/holoball/dodgeball/throw_impact(atom/hit_atom)
-	if((ishuman(hit_atom)))
-		var/mob/living/carbon/M = hit_atom
-		playsound(src, 'sound/items/dodgeball.ogg', 50, 1)
-		M.apply_damage(10, HALLOSS)
-		if(prob(5))
-			M.Weaken(3)
-			visible_message("\red [M] HAS BEEN ELIMINATED!!", 3)

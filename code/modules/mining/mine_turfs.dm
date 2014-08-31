@@ -1,9 +1,5 @@
 /**********************Mineral deposits**************************/
 
-
-datum/controller/game_controller/var/list/artifact_spawning_turfs = list()
-var/list/artifact_spawn = list() // Runtime fix for geometry loading before controller is instantiated.
-
 /turf/simulated/mineral //wall piece
 	name = "Rock"
 	icon = 'icons/turf/walls.dmi'
@@ -13,7 +9,7 @@ var/list/artifact_spawn = list() // Runtime fix for geometry loading before cont
 	opacity = 1
 	density = 1
 	blocks_air = 1
-	temperature = TCMB
+	temperature = T0C
 	var/mineral/mineral
 	var/mined_ore = 0
 	var/last_act = 0
@@ -26,7 +22,9 @@ var/list/artifact_spawn = list() // Runtime fix for geometry loading before cont
 	var/excav_overlay = ""
 	var/obj/item/weapon/last_find
 	var/datum/artifact_find/artifact_find
+	var/scan_state = null
 
+	has_resources = 1
 
 	New()
 		. = ..()
@@ -38,19 +36,19 @@ var/list/artifact_spawn = list() // Runtime fix for geometry loading before cont
 			if((istype(get_step(src, NORTH), /turf/simulated/floor)) || (istype(get_step(src, NORTH), /turf/space)) || (istype(get_step(src, NORTH), /turf/simulated/shuttle/floor)))
 				T = get_step(src, NORTH)
 				if (T)
-					T.overlays += image('icons/turf/walls.dmi', "rock_side_s")
+					T.overlays += image('icons/turf/walls.dmi', "rock_side_s", layer=2)
 			if((istype(get_step(src, SOUTH), /turf/simulated/floor)) || (istype(get_step(src, SOUTH), /turf/space)) || (istype(get_step(src, SOUTH), /turf/simulated/shuttle/floor)))
 				T = get_step(src, SOUTH)
 				if (T)
-					T.overlays += image('icons/turf/walls.dmi', "rock_side_n", layer=6)
+					T.overlays += image('icons/turf/walls.dmi', "rock_side_n", layer=2)
 			if((istype(get_step(src, EAST), /turf/simulated/floor)) || (istype(get_step(src, EAST), /turf/space)) || (istype(get_step(src, EAST), /turf/simulated/shuttle/floor)))
 				T = get_step(src, EAST)
 				if (T)
-					T.overlays += image('icons/turf/walls.dmi', "rock_side_w", layer=6)
+					T.overlays += image('icons/turf/walls.dmi', "rock_side_w", layer=2)
 			if((istype(get_step(src, WEST), /turf/simulated/floor)) || (istype(get_step(src, WEST), /turf/space)) || (istype(get_step(src, WEST), /turf/simulated/shuttle/floor)))
 				T = get_step(src, WEST)
 				if (T)
-					T.overlays += image('icons/turf/walls.dmi', "rock_side_e", layer=6)
+					T.overlays += image('icons/turf/walls.dmi', "rock_side_e", layer=2)
 
 
 	ex_act(severity)
@@ -101,13 +99,8 @@ var/list/artifact_spawn = list() // Runtime fix for geometry loading before cont
 			icon_state = "rock"
 			return
 		name = "\improper [mineral.display_name] deposit"
-		switch(mineral.display_name)
-			if("Iron")
-				icon_state = "rock_Iron[rand(1,3)]"
-			if("Plasma")
-				icon_state = "rock_Plasma[rand(1,3)]"
-			else
-				icon_state = "rock_[mineral.name]"
+		icon_state = "rock_[mineral.name][rand(1,3)]"
+		scan_state = "rock_[mineral.name][rand(1,3)]"
 
 	//Not even going to touch this pile of spaghetti
 	attackby(obj/item/weapon/W as obj, mob/user as mob)
@@ -288,7 +281,7 @@ var/list/artifact_spawn = list() // Runtime fix for geometry loading before cont
 		var/turf/simulated/floor/plating/airless/asteroid/N = ChangeTurf(/turf/simulated/floor/plating/airless/asteroid)
 		N.fullUpdateMineralOverlays()
 
-		if(rand(1,500) == 1)
+		if(rand(1,750) == 1)
 			visible_message("<span class='notice'>An old dusty crate was buried within!</span>")
 			new /obj/structure/closet/crate/secure/loot(src)
 
@@ -349,12 +342,12 @@ var/list/artifact_spawn = list() // Runtime fix for geometry loading before cont
 				if(5)
 					var/quantity = rand(1,3)
 					for(var/i=0, i<quantity, i++)
-						new /obj/item/weapon/shard(src)
+						getFromPool(/obj/item/weapon/shard, loc)
 
 				if(6)
 					var/quantity = rand(1,3)
 					for(var/i=0, i<quantity, i++)
-						new /obj/item/weapon/shard/plasma(src)
+						getFromPool(/obj/item/weapon/shard/plasma, loc)
 
 				if(7)
 					var/obj/item/stack/sheet/mineral/uranium/R = new(src)
@@ -363,7 +356,7 @@ var/list/artifact_spawn = list() // Runtime fix for geometry loading before cont
 
 /turf/simulated/mineral/random
 	name = "Mineral deposit"
-	var/mineralSpawnChanceList = list("Uranium" = 5, "Iron" = 50, "Diamond" = 1, "Gold" = 5, "Silver" = 5, "Plasma" = 25)//Currently, Adamantine won't spawn as it has no uses. -Durandan
+	var/mineralSpawnChanceList = list("Uranium" = 5, "Coal" = 50, "Iron" = 50, "Diamond" = 1, "Gold" = 5, "Silver" = 5, "Platinum" = 5, "Hydrogen" = 5, "Plasma" = 25, "Cave" = 1)//Currently, Adamantine won't spawn as it has no uses. -Durandan
 	var/mineralChance = 10  //means 10% chance of this plot changing to a mineral deposit
 
 	New()
@@ -382,11 +375,12 @@ var/list/artifact_spawn = list() // Runtime fix for geometry loading before cont
 
 /turf/simulated/mineral/random/high_chance
 	mineralChance = 25
-	mineralSpawnChanceList = list("Uranium" = 10, "Iron" = 30, "Diamond" = 2, "Gold" = 10, "Silver" = 10, "Plasma" = 25)
+	mineralSpawnChanceList = list("Uranium" = 10, "Coal" = 30, "Iron" = 30, "Diamond" = 2, "Gold" = 10, "Silver" = 10, "Platinum" = 10, "Hydrogen" = 10, "Plasma" = 25)
+
 
 /turf/simulated/mineral/random/high_chance_clown
 	mineralChance = 40
-	mineralSpawnChanceList = list("Uranium" = 10, "Iron" = 30, "Diamond" = 2, "Gold" = 5, "Silver" = 5, "Plasma" = 25, "Clown" = 15)
+	mineralSpawnChanceList = list("Uranium" = 10, "Coal" = 30, "Iron" = 30, "Diamond" = 2, "Gold" = 5, "Silver" = 5, "Platinum" = 5, "Hydrogen" = 5, "Plasma" = 25, "Clown" = 15)
 
 /**********************Asteroid**************************/
 
@@ -397,9 +391,10 @@ var/list/artifact_spawn = list() // Runtime fix for geometry loading before cont
 	icon_state = "asteroid"
 	oxygen = 0.01
 	nitrogen = 0.01
-	temperature = TCMB
+	temperature = T0C
 	icon_plating = "asteroid"
 	var/dug = 0       //0 = has not yet been dug, 1 = has already been dug
+	has_resources = 1
 
 /turf/simulated/floor/plating/airless/asteroid/New()
 	var/proper_name = name
@@ -486,6 +481,12 @@ var/list/artifact_spawn = list() // Runtime fix for geometry loading before cont
 			for(var/obj/item/weapon/ore/O in contents)
 				O.attackby(W,user)
 				return
+	else if(istype(W,/obj/item/weapon/storage/bag/fossils))
+		var/obj/item/weapon/storage/bag/fossils/S = W
+		if(S.collection_mode)
+			for(var/obj/item/weapon/fossil/F in contents)
+				F.attackby(W,user)
+				return
 
 	else
 		..(W,user)
@@ -560,3 +561,94 @@ var/list/artifact_spawn = list() // Runtime fix for geometry loading before cont
 				attackby(R.module_state_3,R)
 			else
 				return
+
+/turf/simulated/floor/plating/airless/asteroid/cave
+	var/length = 100
+	var/mob_spawn_list = list(
+		/mob/living/simple_animal/hostile/asteroid/goliath  = 5,
+		/mob/living/simple_animal/hostile/asteroid/goldgrub = 1,
+		/mob/living/simple_animal/hostile/asteroid/basilisk = 3,
+		/mob/living/simple_animal/hostile/asteroid/hivelord = 5
+	)
+	var/sanity = 1
+
+/turf/simulated/floor/plating/airless/asteroid/cave/New(loc, var/length, var/go_backwards = 1, var/exclude_dir = -1)
+
+	// If length (arg2) isn't defined, get a random length; otherwise assign our length to the length arg.
+	if(!length)
+		src.length = rand(25, 50)
+	else
+		src.length = length
+
+	// Get our directiosn
+	var/forward_cave_dir = pick(alldirs - exclude_dir)
+	// Get the opposite direction of our facing direction
+	var/backward_cave_dir = angle2dir(dir2angle(forward_cave_dir) + 180)
+
+	// Make our tunnels
+	make_tunnel(forward_cave_dir)
+	if(go_backwards)
+		make_tunnel(backward_cave_dir)
+	// Kill ourselves by replacing ourselves with a normal floor.
+	SpawnFloor(src)
+	..()
+
+/turf/simulated/floor/plating/airless/asteroid/cave/proc/make_tunnel(var/dir)
+
+	var/turf/simulated/mineral/tunnel = src
+	var/next_angle = pick(45, -45)
+
+	for(var/i = 0; i < length; i++)
+		if(!sanity)
+			break
+
+		var/list/L = list(45)
+		if(IsOdd(dir2angle(dir))) // We're going at an angle and we want thick angled tunnels.
+			L += -45
+
+		// Expand the edges of our tunnel
+		for(var/edge_angle in L)
+			var/turf/simulated/mineral/edge = get_step(tunnel, angle2dir(dir2angle(dir) + edge_angle))
+			if(istype(edge))
+				SpawnFloor(edge)
+
+		// Move our tunnel forward
+		tunnel = get_step(tunnel, dir)
+
+		if(istype(tunnel))
+			// Small chance to have forks in our tunnel; otherwise dig our tunnel.
+			if(i > 3 && prob(20))
+				new src.type(tunnel, rand(10, 15), 0, dir)
+			else
+				SpawnFloor(tunnel)
+		else //if(!istype(tunnel, src.parent)) // We hit space/normal/wall, stop our tunnel.
+			break
+
+		// Chance to change our direction left or right.
+		if(i > 2 && prob(33))
+			// We can't go a full loop though
+			next_angle = -next_angle
+			dir = angle2dir(dir2angle(dir) + next_angle)
+
+
+/turf/simulated/floor/plating/airless/asteroid/cave/proc/SpawnFloor(var/turf/T)
+	for(var/turf/S in range(2,T))
+		if(istype(S, /turf/space) || istype(S.loc, /area/mine/explored))
+			sanity = 0
+			break
+	if(!sanity)
+		return
+
+	SpawnMonster(T)
+
+
+/turf/simulated/floor/plating/airless/asteroid/cave/proc/SpawnMonster(var/turf/T)
+	if(prob(2))
+		if(istype(loc, /area/mine/explored))
+			return
+		for(var/atom/A in range(7,T))//Lowers chance of mob clumps
+			if(istype(A, /mob/living/simple_animal/hostile/asteroid))
+				return
+		var/randumb = pickweight(mob_spawn_list)
+		new randumb(T)
+	return

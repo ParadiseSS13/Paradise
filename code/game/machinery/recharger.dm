@@ -1,16 +1,19 @@
 //This file was auto-corrected by findeclaration.exe on 25.5.2012 20:42:31
 
-obj/machinery/recharger
+/obj/machinery/recharger
 	name = "recharger"
 	icon = 'icons/obj/stationobjs.dmi'
 	icon_state = "recharger0"
 	anchored = 1
 	use_power = 1
-	idle_power_usage = 4
-	active_power_usage = 250
+	idle_power_usage = 40
+	active_power_usage = 2500
 	var/obj/item/charging = null
+	var/icon_state_charged = "recharger2"
+	var/icon_state_charging = "recharger1"
+	var/icon_state_idle = "recharger0"
 
-obj/machinery/recharger/attackby(obj/item/weapon/G as obj, mob/user as mob)
+/obj/machinery/recharger/attackby(obj/item/weapon/G as obj, mob/user as mob)
 	if(istype(user,/mob/living/silicon))
 		return
 	if(istype(G, /obj/item/weapon/gun/energy) || istype(G, /obj/item/weapon/melee/baton) || istype(G,/obj/item/device/laptop))
@@ -29,7 +32,7 @@ obj/machinery/recharger/attackby(obj/item/weapon/G as obj, mob/user as mob)
 		if (istype(G, /obj/item/weapon/gun/energy/gun/nuclear) || istype(G, /obj/item/weapon/gun/energy/crossbow))
 			user << "<span class='notice'>Your gun's recharge port was removed to make room for a miniaturized reactor.</span>"
 			return
-		if(istype(G,/obj/item/device/laptop))
+		if(istype(G, /obj/item/device/laptop))
 			var/obj/item/device/laptop/L = G
 			if(!L.stored_computer.battery)
 				user << "There's no battery in it!"
@@ -47,7 +50,7 @@ obj/machinery/recharger/attackby(obj/item/weapon/G as obj, mob/user as mob)
 		user << "You [anchored ? "attached" : "detached"] the recharger."
 		playsound(loc, 'sound/items/Ratchet.ogg', 75, 1)
 
-obj/machinery/recharger/attack_hand(mob/user as mob)
+/obj/machinery/recharger/attack_hand(mob/user as mob)
 	add_fingerprint(user)
 
 	if(charging)
@@ -57,10 +60,10 @@ obj/machinery/recharger/attack_hand(mob/user as mob)
 		use_power = 1
 		update_icon()
 
-obj/machinery/recharger/attack_paw(mob/user as mob)
+/obj/machinery/recharger/attack_paw(mob/user as mob)
 	return attack_hand(user)
 
-obj/machinery/recharger/process()
+/obj/machinery/recharger/process()
 	if(stat & (NOPOWER|BROKEN) || !anchored)
 		return
 
@@ -68,33 +71,33 @@ obj/machinery/recharger/process()
 		if(istype(charging, /obj/item/weapon/gun/energy))
 			var/obj/item/weapon/gun/energy/E = charging
 			if(E.power_supply.charge < E.power_supply.maxcharge)
-				E.power_supply.give(100)
-				icon_state = "recharger1"
-				use_power(250)
+				E.power_supply.give(1000)
+				icon_state = icon_state_charging
+				use_power(2500)
 			else
-				icon_state = "recharger2"
+				icon_state = icon_state_charged
 			return
 		if(istype(charging, /obj/item/weapon/melee/baton))
 			var/obj/item/weapon/melee/baton/B = charging
 			if(B.bcell && B.bcell.charge < B.bcell.maxcharge)
-				B.bcell.charge += 175
+				B.bcell.charge += 1750
 				icon_state = "recharger1"
-				use_power(200)
+				use_power(2000)
 			else
-				icon_state = "recharger2"
+				icon_state = icon_state_charged
 			return
 		if(istype(charging, /obj/item/device/laptop))
 			var/obj/item/device/laptop/L = charging
 			if(L.stored_computer.battery.charge < L.stored_computer.battery.maxcharge)
-				L.stored_computer.battery.give(100)
-				icon_state = "recharger1"
-				use_power(250)
+				L.stored_computer.battery.give(1000)
+				icon_state = icon_state_charging
+				use_power(2500)
 			else
-				icon_state = "recharger2"
+				icon_state = icon_state_charged
 			return
 
 
-obj/machinery/recharger/emp_act(severity)
+/obj/machinery/recharger/emp_act(severity)
 	if(stat & (NOPOWER|BROKEN) || !anchored)
 		..(severity)
 		return
@@ -108,46 +111,19 @@ obj/machinery/recharger/emp_act(severity)
 		var/obj/item/weapon/melee/baton/B = charging
 		if(B.bcell)
 			B.bcell.charge = 0
-	else if(istype(charging, /obj/item/device/laptop))
-		charging.emp_act(severity)
 	..(severity)
 
-obj/machinery/recharger/update_icon()	//we have an update_icon() in addition to the stuff in process to make it feel a tiny bit snappier.
+/obj/machinery/recharger/update_icon()	//we have an update_icon() in addition to the stuff in process to make it feel a tiny bit snappier.
 	if(charging)
-		icon_state = "recharger1"
+		icon_state = icon_state_charging
 	else
-		icon_state = "recharger0"
+		icon_state = icon_state_idle
 
+// Atlantis: No need for that copy-pasta code, just use var to store icon_states instead.
 obj/machinery/recharger/wallcharger
 	name = "wall recharger"
 	icon = 'icons/obj/stationobjs.dmi'
 	icon_state = "wrecharger0"
-
-obj/machinery/recharger/wallcharger/process()
-	if(stat & (NOPOWER|BROKEN) || !anchored)
-		return
-
-	if(charging)
-		if(istype(charging, /obj/item/weapon/gun/energy))
-			var/obj/item/weapon/gun/energy/E = charging
-			if(E.power_supply.charge < E.power_supply.maxcharge)
-				E.power_supply.give(100)
-				icon_state = "wrecharger1"
-				use_power(250)
-			else
-				icon_state = "wrecharger2"
-			return
-		if(istype(charging, /obj/item/weapon/melee/baton))
-			var/obj/item/weapon/melee/baton/B = charging
-			if(B.bcell && B.bcell.charge < B.bcell.maxcharge)
-				B.bcell.charge += 175
-				icon_state = "recharger1"
-				use_power(200)
-			else
-				icon_state = "recharger2"
-
-obj/machinery/recharger/wallcharger/update_icon()
-	if(charging)
-		icon_state = "wrecharger1"
-	else
-		icon_state = "wrecharger0"
+	icon_state_idle = "wrecharger0"
+	icon_state_charging = "wrecharger1"
+	icon_state_charged = "wrecharger2"

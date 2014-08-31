@@ -16,6 +16,8 @@
 	var/stop = 0.0
 	var/screen = 0 // 0 - Main Menu, 1 - Cyborg Status, 2 - Kill 'em All! -- In text
 
+	l_color = "#CD00CD"
+
 
 /obj/machinery/computer/robotics/attack_ai(var/mob/user as mob)
 	return src.attack_hand(user)
@@ -42,6 +44,8 @@
 			dat += "<A href='?src=\ref[src];screen=2'>2. Emergency Full Destruct</A><BR>"
 		if(screen == 1)
 			for(var/mob/living/silicon/robot/R in mob_list)
+				if(istype(R, /mob/living/silicon/robot/drone))
+					continue //There's a specific console for drones.
 				if(istype(user, /mob/living/silicon/ai))
 					if (R.connected_ai != user)
 						continue
@@ -195,7 +199,10 @@
 		else if (href_list["magbot"])
 			if(src.allowed(usr))
 				var/mob/living/silicon/robot/R = locate(href_list["magbot"])
-				if(R)
+
+				// whatever weirdness this is supposed to be, but that is how the href gets added, so here it is again
+				if(istype(R) && istype(usr, /mob/living/silicon) && usr.mind.special_role && (usr.mind.original == usr) && !R.emagged)
+
 					var/choice = input("Are you certain you wish to hack [R.name]?") in list("Confirm", "Abort")
 					if(choice == "Confirm")
 						if(R && istype(R))
@@ -222,8 +229,7 @@
 	while(src.timeleft)
 
 	for(var/mob/living/silicon/robot/R in mob_list)
-		if(!R.scrambledcodes)
+		if(!R.scrambledcodes && !istype(R, /mob/living/silicon/robot/drone))
 			R.self_destruct()
 
 	return
-

@@ -10,48 +10,57 @@
 	var/machinedir = SOUTHEAST
 
 /obj/machinery/mineral/stacking_unit_console/New()
+
 	..()
+
 	spawn(7)
 		src.machine = locate(/obj/machinery/mineral/stacking_machine, get_step(src, machinedir))
 		if (machine)
-			machine.CONSOLE = src
+			machine.console = src
 		else
 			del(src)
 
-/obj/machinery/mineral/stacking_unit_console/attack_hand(user as mob)
+/obj/machinery/mineral/stacking_unit_console/attack_hand(mob/user)
+	add_fingerprint(user)
+	interact(user)
 
-	var/obj/item/stack/sheet/s
+/obj/machinery/mineral/stacking_unit_console/interact(mob/user)
+	user.set_machine(src)
+
 	var/dat
 
-	dat += text("<b>Stacking unit console</b><br><br>")
+	dat += text("<h1>Stacking unit console</h1><hr><table>")
 
-	for(var/O in machine.stack_list)
-		s = machine.stack_list[O]
-		if(s.amount > 0)
-			dat += text("[s.name]: [s.amount] <A href='?src=\ref[src];release=[s.type]'>Release</A><br>")
-
-	dat += text("<br>Stacking: [machine.stack_amt]<br><br>")
+	for(var/stacktype in machine.stack_storage)
+		if(machine.stack_storage[stacktype] > 0)
+			dat += "<tr><td width = 150><b>[capitalize(stacktype)]:</b></td><td width = 30>[machine.stack_storage[stacktype]]</td><td width = 50><A href='?src=\ref[src];release_stack=[stacktype]'>\[release\]</a></td></tr>"
+	dat += "</table><hr>"
+	dat += text("<br>Stacking: [machine.stack_amt] <A href='?src=\ref[src];change_stack=1'>\[change\]</a><br><br>")
 
 	user << browse("[dat]", "window=console_stacking_machine")
+	onclose(user, "console_stacking_machine")
 
-	return
 
 /obj/machinery/mineral/stacking_unit_console/Topic(href, href_list)
 	if(..())
 		return
-	usr.set_machine(src)
+
+	if(href_list["change_stack"])
+		var/choice = input("What would you like to set the stack amount to?") as null|anything in list(1,5,10,20,50)
+		if(!choice) return
+		machine.stack_amt = choice
+
+	if(href_list["release_stack"])
+		if(machine.stack_storage[href_list["release_stack"]] > 0)
+			var/stacktype = machine.stack_paths[href_list["release_stack"]]
+			var/obj/item/stack/sheet/S = new stacktype (get_turf(machine.output))
+			S.amount = machine.stack_storage[href_list["release_stack"]]
+			machine.stack_storage[href_list["release_stack"]] = 0
+
 	src.add_fingerprint(usr)
-	if(href_list["release"])
-		var/obj/item/stack/sheet/inp = machine.stack_list[text2path(href_list["release"])]
-		var/obj/item/stack/sheet/out = new inp.type()
-		out.amount = inp.amount
-		inp.amount = 0
-		out.loc = machine.output.loc
-
-
 	src.updateUsrDialog()
-	return
 
+	return
 
 /**********************Mineral stacking unit**************************/
 
@@ -62,16 +71,29 @@
 	icon_state = "stacker"
 	density = 1
 	anchored = 1.0
-	var/obj/machinery/mineral/stacking_unit_console/CONSOLE
-	var/stk_types = list()
-	var/stk_amt   = list()
+	var/obj/machinery/mineral/stacking_unit_console/console
 	var/obj/machinery/mineral/input = null
 	var/obj/machinery/mineral/output = null
-	var/stack_list[0] //Key: Type.  Value: Instance of type.
-	var/stack_amt = 50; //ammount to stack before releassing
+	var/list/stack_storage[0]
+	var/list/stack_paths[0]
+	var/stack_amt = 50; // Amount to stack before releassing
 
 /obj/machinery/mineral/stacking_machine/New()
 	..()
+
+	for(var/stacktype in typesof(/obj/item/stack/sheet/mineral)-/obj/item/stack/sheet/mineral)
+		var/obj/item/stack/S = new stacktype(src)
+		stack_storage[S.name] = 0
+		stack_paths[S.name] = stacktype
+		del(S)
+
+	stack_storage["glass"] = 0
+	stack_paths["glass"] = /obj/item/stack/sheet/glass
+	stack_storage["metal"] = 0
+	stack_paths["metal"] = /obj/item/stack/sheet/metal
+	stack_storage["plasteel"] = 0
+	stack_paths["plasteel"] = /obj/item/stack/sheet/plasteel
+
 	spawn( 5 )
 		for (var/dir in cardinal)
 			src.input = locate(/obj/machinery/mineral/input, get_step(src, dir))
@@ -79,34 +101,31 @@
 		for (var/dir in cardinal)
 			src.output = locate(/obj/machinery/mineral/output, get_step(src, dir))
 			if(src.output) break
-		if(!istype(output) || !istype(input))
-			del(src)
-			return
-		processing_objects.Add(src)
 		return
 	return
-
-/obj/machinery/mineral/stacking_machine/proc/process_sheet(obj/item/stack/sheet/inp)
-	if(!istype(inp)) //Non-sheets. Yuck.
-		return
-	if(!(inp.type in stack_list)) //It's the first of this sheet added
-		stack_list[inp.type] = new inp.type(src,0)
-	var/obj/item/stack/sheet/storage = stack_list[inp.type]
-	storage.amount += inp.amount //Stack the sheets
-	inp.loc = null //Let the old sheet garbage collect
-	while(storage.amount > stack_amt) //Get rid of excessive stackage
-		var/obj/item/stack/sheet/out = new inp.type()
-		out.amount = stack_amt
-		out.loc = output.loc
-		storage.amount -= stack_amt
-
 
 /obj/machinery/mineral/stacking_machine/process()
-	var/obj/item/O
-	while (locate(/obj/item, input.loc))
-		O = locate(/obj/item, input.loc)
-		if(istype(O,/obj/item/stack/sheet))
-			process_sheet(O)
-		else
-			O.loc = src.output.loc
+	if (src.output && src.input)
+		var/turf/T = get_turf(input)
+		for(var/obj/item/O in T.contents)
+			if(!O) return
+			if(istype(O,/obj/item/stack))
+				if(!isnull(stack_storage[O.name]))
+					stack_storage[O.name]++
+					O.loc = null
+				else
+					O.loc = output.loc
+			else
+				O.loc = output.loc
+
+	//Output amounts that are past stack_amt.
+	for(var/sheet in stack_storage)
+		if(stack_storage[sheet] >= stack_amt)
+			var/stacktype = stack_paths[sheet]
+			var/obj/item/stack/sheet/S = new stacktype (get_turf(output))
+			S.amount = stack_amt
+			stack_storage[sheet] -= stack_amt
+
+	console.updateUsrDialog()
 	return
+

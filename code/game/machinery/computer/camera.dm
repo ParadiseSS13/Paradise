@@ -10,6 +10,8 @@
 	var/list/network = list("SS13")
 	var/mapping = 0//For the overview file, interesting bit of code.
 
+	l_color = "#B40000"
+
 
 	attack_ai(var/mob/user as mob)
 		return attack_hand(user)
@@ -36,7 +38,7 @@
 			user.set_machine(src)
 
 		var/list/L = list()
-		for (var/obj/machinery/camera/C in cameranet.cameras)
+		for (var/obj/machinery/camera/C in cameranet.viewpoints)
 			L.Add(C)
 
 		camera_sort(L)

@@ -25,86 +25,64 @@
 	flags = FPRINT | TABLEPASS | CONDUCT
 	origin_tech = "materials=1"
 	attack_verb = list("attacked", "stabbed", "poked")
-	hitsound = 'sound/weapons/bladeslice.ogg'
+	sharp = 0
+
+	var/loaded      //Descriptive string for currently loaded food object.
 
 /obj/item/weapon/kitchen/utensil/New()
 	if (prob(60))
 		src.pixel_y = rand(0, 4)
+
+	create_reagents(5)
 	return
 
-/*
- * Spoons
- */
-/obj/item/weapon/kitchen/utensil/spoon
-	name = "spoon"
-	desc = "SPOON!"
-	icon_state = "spoon"
-	attack_verb = list("attacked", "poked")
-
-/obj/item/weapon/kitchen/utensil/pspoon
-	name = "plastic spoon"
-	desc = "Super dull action!"
-	icon_state = "pspoon"
-	attack_verb = list("attacked", "poked")
-
-/*
- * Forks
- */
-/obj/item/weapon/kitchen/utensil/fork
-	name = "fork"
-	desc = "Pointy."
-	icon_state = "fork"
-
-/obj/item/weapon/kitchen/utensil/fork/attack(mob/living/carbon/M as mob, mob/living/carbon/user as mob)
+/obj/item/weapon/kitchen/utensil/attack(mob/living/carbon/M as mob, mob/living/carbon/user as mob)
 	if(!istype(M))
 		return ..()
 
-	if(user.zone_sel.selecting != "eyes" && user.zone_sel.selecting != "head")
-		return ..()
+	if(user.a_intent != "help")
+		if(user.zone_sel.selecting == "head" || user.zone_sel.selecting == "eyes")
+			if((M_CLUMSY in user.mutations) && prob(50))
+				M = user
+			return eyestab(M,user)
+		else
+			return ..()
 
-	if (src.icon_state == "forkloaded") //This is a poor way of handling it, but a proper rewrite of the fork to allow for a more varied foodening can happen when I'm in the mood. --NEO
+	if (reagents.total_volume > 0)
+		reagents.trans_to_ingest(M, reagents.total_volume)
 		if(M == user)
 			for(var/mob/O in viewers(M, null))
-				O.show_message(text("\blue [] eats a delicious forkful of omelette!", user), 1)
+				O.show_message(text("\blue [] eats some [] from \the [].", user, loaded, src), 1)
 				M.reagents.add_reagent("nutriment", 1)
 		else
 			for(var/mob/O in viewers(M, null))
-				O.show_message(text("\blue [] feeds [] a delicious forkful of omelette!", user, M), 1)
+				O.show_message(text("\blue [] feeds [] some [] from \the []", user, M, loaded, src), 1)
 				M.reagents.add_reagent("nutriment", 1)
-		src.icon_state = "fork"
+		playsound(M.loc,'sound/items/eatfood.ogg', rand(10,40), 1)
+		overlays.Cut()
 		return
-	else
-		if((M_CLUMSY in user.mutations) && prob(50))
-			M = user
-		return eyestab(M,user)
+
+/obj/item/weapon/kitchen/utensil/fork
+	name = "fork"
+	desc = "It's a fork. Sure is pointy."
+	icon_state = "fork"
 
 /obj/item/weapon/kitchen/utensil/pfork
 	name = "plastic fork"
 	desc = "Yay, no washing up to do."
 	icon_state = "pfork"
 
-/obj/item/weapon/kitchen/utensil/pfork/attack(mob/living/carbon/M as mob, mob/living/carbon/user as mob)
-	if(!istype(M))
-		return ..()
+/obj/item/weapon/kitchen/utensil/spoon
+	name = "spoon"
+	desc = "It's a spoon. You can see your own upside-down face in it."
+	icon_state = "spoon"
+	attack_verb = list("attacked", "poked")
 
-	if(user.zone_sel.selecting != "eyes" && user.zone_sel.selecting != "head")
-		return ..()
-
-	if (src.icon_state == "forkloaded") //This is a poor way of handling it, but a proper rewrite of the fork to allow for a more varied foodening can happen when I'm in the mood. --NEO
-		if(M == user)
-			for(var/mob/O in viewers(M, null))
-				O.show_message(text("\blue [] eats a delicious forkful of omelette!", user), 1)
-				M.reagents.add_reagent("nutriment", 1)
-		else
-			for(var/mob/O in viewers(M, null))
-				O.show_message(text("\blue [] feeds [] a delicious forkful of omelette!", user, M), 1)
-				M.reagents.add_reagent("nutriment", 1)
-		src.icon_state = "fork"
-		return
-	else
-		if((M_CLUMSY in user.mutations) && prob(50))
-			M = user
-		return eyestab(M,user)
+/obj/item/weapon/kitchen/utensil/pspoon
+	name = "plastic spoon"
+	desc = "It's a plastic spoon. How dull."
+	icon_state = "pspoon"
+	attack_verb = list("attacked", "poked")
 
 /*
  * Knives
@@ -115,6 +93,8 @@
 	icon_state = "knife"
 	force = 10.0
 	throwforce = 10.0
+	sharp = 1
+	edge = 1
 
 	suicide_act(mob/user)
 		viewers(user) << pick("<span class='suicide'>[user] is slitting \his wrists with the [src.name]! It looks like \he's trying to commit suicide.</span>", \
@@ -155,6 +135,7 @@
 	desc = "A general purpose Chef's Knife made by SpaceCook Incorporated. Guaranteed to stay sharp for years to come."
 	flags = FPRINT | TABLEPASS | CONDUCT
 	sharp = 1
+	edge = 1
 	force = 10.0
 	w_class = 3.0
 	throwforce = 6.0
@@ -169,6 +150,17 @@
 							"<span class='suicide'>[user] is slitting \his throat with the [src.name]! It looks like \he's trying to commit suicide.</span>", \
 							"<span class='suicide'>[user] is slitting \his stomach open with the [src.name]! It looks like \he's trying to commit seppuku.</span>")
 		return (BRUTELOSS)
+
+/obj/item/weapon/kitchenknife/combat
+	name = "combat knife"
+	force = 15.0
+	throwforce = 10.0
+	origin_tech = "materials=2;combat=2"
+	desc = "A razor sharp knife, built from advanced alloys, designed for quick, melee killing. Also not half bad as a kitchen knife."
+	slot_flags = SLOT_BELT
+	icon = 'icons/obj/weapons.dmi'
+	icon_state = "combatknife"
+
 
 /obj/item/weapon/kitchenknife/ritual
 	name = "ritual knife"
@@ -193,6 +185,8 @@
 	m_amt = 12000
 	origin_tech = "materials=1"
 	attack_verb = list("cleaved", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
+	sharp = 1
+	edge = 1
 
 /obj/item/weapon/butch/meatcleaver
 	name = "Meat Cleaver"
@@ -490,48 +484,3 @@
 					if(I)
 						step(I, pick(NORTH,SOUTH,EAST,WEST))
 						sleep(rand(2,4))
-
-
-
-
-
-/////////////////////////////////////////////////////////////////////////////////////////
-//Enough with the violent stuff, here's what happens if you try putting food on it
-/////////////////////////////////////////////////////////////////////////////////////////////
-
-
-
-/*/obj/item/weapon/tray/attackby(obj/item/weapon/W as obj, mob/user as mob)
-	if(istype(W,/obj/item/weapon/kitchen/utensil/fork))
-		if (W.icon_state == "forkloaded")
-			user << "\red You already have omelette on your fork."
-			return
-		W.icon = 'icons/obj/kitchen.dmi'
-		W.icon_state = "forkloaded"
-		viewers(3,user) << "[user] takes a piece of omelette with his fork!"
-		reagents.remove_reagent("nutriment", 1)
-		if (reagents.total_volume <= 0)
-			del(src)*/
-
-
-/*			if (prob(33))
-						var/turf/location = H.loc
-						if (istype(location, /turf/simulated))
-							location.add_blood(H)
-					if (H.wear_mask)
-						H.wear_mask.add_blood(H)
-					if (H.head)
-						H.head.add_blood(H)
-					if (H.glasses && prob(33))
-						H.glasses.add_blood(H)
-					if (istype(user, /mob/living/carbon/human))
-						var/mob/living/carbon/human/user2 = user
-						if (user2.gloves)
-							user2.gloves.add_blood(H)
-						else
-							user2.add_blood(H)
-						if (prob(15))
-							if (user2.wear_suit)
-								user2.wear_suit.add_blood(H)
-							else if (user2.w_uniform)
-								user2.w_uniform.add_blood(H)*/

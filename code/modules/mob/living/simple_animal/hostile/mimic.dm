@@ -33,7 +33,7 @@
 	max_n2 = 0
 	minbodytemp = 0
 
-	faction = "mimic"
+	faction = list("mimic")
 	move_to_delay = 8
 
 /mob/living/simple_animal/hostile/mimic/FindTarget()
@@ -127,7 +127,7 @@
 // Copy Mimic
 //
 
-var/global/list/protected_objects = list(/obj/structure/table, /obj/structure/cable, /obj/structure/window)
+var/global/list/protected_objects = list(/obj/structure/table, /obj/structure/cable, /obj/structure/window, /obj/item/projectile/animate)
 
 /mob/living/simple_animal/hostile/mimic/copy
 
@@ -180,7 +180,7 @@ var/global/list/protected_objects = list(/obj/structure/table, /obj/structure/ca
 		maxHealth = health
 		if(creator)
 			src.creator = creator
-			faction = "\ref[creator]" // very unique
+			faction = list("\ref[creator]") // very unique
 		return 1
 	return
 
@@ -201,4 +201,4 @@ var/global/list/protected_objects = list(/obj/structure/table, /obj/structure/ca
 	if(owner != creator)
 		LoseTarget()
 		creator = owner
-		faction = "\ref[owner]"
+		faction |= "\ref[owner]"

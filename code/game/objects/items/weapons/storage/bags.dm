@@ -36,7 +36,7 @@
 	max_w_class = 2
 	storage_slots = 21
 	can_hold = list() // any
-	cant_hold = list("/obj/item/weapon/disk/nuclear")
+	cant_hold = list("/obj/item/weapon/disk/nuclear","/obj/item/flag/nation")
 
 /obj/item/weapon/storage/bag/trash/update_icon()
 	if(contents.len == 0)
@@ -58,12 +58,40 @@
 	icon = 'icons/obj/trash.dmi'
 	icon_state = "plasticbag"
 	item_state = "plasticbag"
+	slot_flags = SLOT_HEAD|SLOT_BELT
 
 	w_class = 4
 	max_w_class = 2
 	storage_slots = 21
 	can_hold = list() // any
-	cant_hold = list("/obj/item/weapon/disk/nuclear")
+	cant_hold = list("/obj/item/weapon/disk/nuclear","/obj/item/flag/nation")
+	var/head = 0
+
+/obj/item/weapon/storage/bag/plasticbag/mob_can_equip(M as mob, slot)
+
+	if(slot==slot_head && contents.len)
+		M << "\red You need to empty the bag first!"
+		return 0
+	return ..()
+
+
+/obj/item/weapon/storage/bag/plasticbag/equipped(var/mob/user, var/slot)
+	if(slot==slot_head)
+		head = 1
+		storage_slots = 0
+		processing_objects.Add(src)
+	return
+
+/obj/item/weapon/storage/bag/plasticbag/process()
+	if(is_equipped() && head)
+		if(ishuman(loc))
+			var/mob/living/carbon/human/H = loc
+			H.losebreath += 1
+	else
+		head = 0
+		storage_slots = 21
+		processing_objects.Remove(src)
+	return
 
 // -----------------------------
 //        Mining Satchel
@@ -96,7 +124,7 @@
 	w_class = 1
 	can_hold = list("/obj/item/weapon/reagent_containers/food/snacks/grown","/obj/item/seeds","/obj/item/weapon/grown", "/obj/item/stack/tile/grass")
 
-
+/*
 /obj/item/weapon/storage/bag/plants/portaseeder
 	name = "Portable Seed Extractor"
 	desc = "For the enterprising botanist on the go. Less efficient than the stationary model, it creates one seed per plant."
@@ -112,7 +140,7 @@
 		for(var/mob/M in range(1))
 			if (M.s_active == src)
 				src.close(M)
-
+*/
 
 // -----------------------------
 //        Sheet Snatcher

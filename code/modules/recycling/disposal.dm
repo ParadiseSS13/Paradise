@@ -22,6 +22,8 @@
 	var/flush_every_ticks = 30 //Every 30 ticks it will look whether it is ready to flush
 	var/flush_count = 0 //this var adds 1 once per tick. When it reaches flush_every_ticks it resets and tries to flush.
 	var/last_sound = 0
+	active_power_usage = 600
+	idle_power_usage = 100
 
 	// create a new disposal
 	// find the attached trunk (if present) and init gas resvr.
@@ -116,7 +118,8 @@
 					del(G)
 					usr.attack_log += text("\[[time_stamp()]\] <font color='red'>Has placed [GM.name] ([GM.ckey]) in disposals.</font>")
 					GM.attack_log += text("\[[time_stamp()]\] <font color='orange'>Has been placed in disposals by [usr.name] ([usr.ckey])</font>")
-					msg_admin_attack("[usr] ([usr.ckey]) placed [GM] ([GM.ckey]) in a disposals unit. (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[usr.x];Y=[usr.y];Z=[usr.z]'>JMP</a>)")
+					if(GM.ckey)
+						msg_admin_attack("[usr] ([usr.ckey]) placed [GM] ([GM.ckey]) in a disposals unit. (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[usr.x];Y=[usr.y];Z=[usr.z]'>JMP</a>)")
 			return
 
 		if(!I)	return
@@ -162,7 +165,8 @@
 
 			user.attack_log += text("\[[time_stamp()]\] <font color='red'>Has placed [target.name] ([target.ckey]) in disposals.</font>")
 			target.attack_log += text("\[[time_stamp()]\] <font color='orange'>Has been placed in disposals by [user.name] ([user.ckey])</font>")
-			msg_admin_attack("[user] ([user.ckey]) placed [target] ([target.ckey]) in a disposals unit. (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[user.x];Y=[user.y];Z=[user.z]'>JMP</a>)")
+			if(target.ckey)
+				msg_admin_attack("[user] ([user.ckey]) placed [target] ([target.ckey]) in a disposals unit. (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[user.x];Y=[user.y];Z=[user.z]'>JMP</a>)")
 		else
 			return
 		if (target.client)
@@ -340,6 +344,7 @@
 	// timed process
 	// charge the gas reservoir and perform flush if ready
 	process()
+		use_power = 0
 		if(stat & BROKEN)			// nothing can happen if broken
 			return
 
@@ -363,13 +368,13 @@
 		if(stat & NOPOWER)			// won't charge if no power
 			return
 
-		use_power(100)		// base power usage
+		use_power = 1
 
 		if(mode != 1)		// if off or ready, no need to charge
 			return
 
 		// otherwise charge
-		use_power(500)		// charging power usage
+		use_power = 2
 
 		var/atom/L = loc						// recharging from loc turf
 
@@ -398,7 +403,11 @@
 
 		var/wrapcheck = 0
 		var/obj/structure/disposalholder/H = new()	// virtual holder object which actually
-											// travels through the pipes.
+													// travels through the pipes.
+		//Hacky test to get drones to mail themselves through disposals.
+		for(var/mob/living/silicon/robot/drone/D in src)
+			wrapcheck = 1
+
 		for(var/obj/item/smallDelivery/O in src)
 			wrapcheck = 1
 
@@ -446,9 +455,10 @@
 
 				AM.loc = src.loc
 				AM.pipe_eject(0)
-				spawn(1)
-					if(AM)
-						AM.throw_at(target, 5, 1)
+				if(!istype(AM,/mob/living/silicon/robot/drone)) //Poor drones kept smashing windows and taking system damage being fired out of disposals. ~Z
+					spawn(1)
+						if(AM)
+							AM.throw_at(target, 5, 1)
 
 			H.vent_gas(loc)
 			del(H)
@@ -493,7 +503,7 @@
 		//Check for any living mobs trigger hasmob.
 		//hasmob effects whether the package goes to cargo or its tagged destination.
 		for(var/mob/living/M in D)
-			if(M && M.stat != 2)
+			if(M && M.stat != 2 && !istype(M,/mob/living/silicon/robot/drone))
 				hasmob = 1
 
 		//Checks 1 contents level deep. This means that players can be sent through disposals...
@@ -501,7 +511,7 @@
 		for(var/obj/O in D)
 			if(O.contents)
 				for(var/mob/living/M in O.contents)
-					if(M && M.stat != 2)
+					if(M && M.stat != 2 && !istype(M,/mob/living/silicon/robot/drone))
 						hasmob = 1
 
 		// now everything inside the disposal gets put into the holder
@@ -518,6 +528,10 @@
 			if(istype(AM, /obj/item/smallDelivery) && !hasmob)
 				var/obj/item/smallDelivery/T = AM
 				src.destinationTag = T.sortTag
+			//Drones can mail themselves through maint.
+			if(istype(AM, /mob/living/silicon/robot/drone))
+				var/mob/living/silicon/robot/drone/drone = AM
+				src.destinationTag = drone.mail_destination
 
 
 	// start the movement process
@@ -541,7 +555,8 @@
 		while(active)
 			if(hasmob && prob(3))
 				for(var/mob/living/H in src)
-					H.take_overall_damage(10, 0, "Blunt Trauma")//horribly maim any living creature jumping down disposals.  c'est la vie
+					if(!istype(H,/mob/living/silicon/robot/drone)) //Drones use the mailing code to move through the disposal system,
+						H.take_overall_damage(20, 0, "Blunt Trauma")//horribly maim any living creature jumping down disposals.  c'est la vie
 
 			if(has_fat_guy && prob(2)) // chance of becoming stuck per segment if contains a fat guy
 				active = 0
@@ -597,8 +612,17 @@
 
 	// called when player tries to move while in a pipe
 	relaymove(mob/user as mob)
-		if (user.stat)
+
+		if(!istype(user,/mob/living))
 			return
+
+		var/mob/living/U = user
+
+		if (U.stat || U.last_special <= world.time)
+			return
+
+		U.last_special = world.time+100
+
 		if (src.loc)
 			for (var/mob/M in hearers(src.loc.loc))
 				M << "<FONT size=[max(0, 5 - get_dist(src, M))]>CLONG, clong!</FONT>"
@@ -635,7 +659,7 @@
 
 	// pipe is deleted
 	// ensure if holder is present, it is expelled
-	Del()
+	Destroy()
 		var/obj/structure/disposalholder/H = locate() in src
 		if(H)
 			// holder was present
@@ -1258,8 +1282,9 @@
 			for(var/atom/movable/AM in H)
 				AM.loc = src.loc
 				AM.pipe_eject(dir)
-				spawn(5)
-					AM.throw_at(target, 3, 1)
+				if(!istype(AM,/mob/living/silicon/robot/drone)) //Drones keep smashing windows from being fired out of chutes. Bad for the station. ~Z
+					spawn(5)
+						AM.throw_at(target, 3, 1)
 			H.vent_gas(src.loc)
 			del(H)
 

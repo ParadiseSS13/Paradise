@@ -3,6 +3,8 @@
 	desc = "random arcade machine"
 	icon = 'icons/obj/computer.dmi'
 	icon_state = "arcade"
+	l_color = "#00FF00"
+
 	var/list/prizes = list(	/obj/item/weapon/storage/box/snappops			= 2,
 							/obj/item/clothing/under/syndicate/tacticool	= 2,
 							/obj/item/toy/blink								= 2,
@@ -26,6 +28,13 @@
 							/obj/item/toy/prize/phazon						= 1,
 							/obj/item/toy/nuke								= 2
 							)
+
+/obj/machinery/computer/arcade/power_change()
+	..()
+	if(!(stat & (BROKEN|NOPOWER)))
+		SetLuminosity(2)
+	else
+		SetLuminosity(0)
 
 /obj/machinery/computer/arcade/New()
 	..()
@@ -267,9 +276,8 @@
 
 		src.updateUsrDialog()
 	else
-		..()
-	return
 
+		..()
 
 
 

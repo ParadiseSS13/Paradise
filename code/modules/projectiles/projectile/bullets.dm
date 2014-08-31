@@ -6,6 +6,7 @@
 	nodamage = 0
 	flag = "bullet"
 	embed = 1
+	sharp = 1
 
 	on_hit(var/atom/target, var/blocked = 0)
 		if (..(target, blocked))
@@ -14,15 +15,18 @@
 			return 1
 		return 0
 
+
 /obj/item/projectile/bullet/slug
 	name = "slug"
 
 
-/obj/item/projectile/bullet/rubberbullet
+/obj/item/projectile/bullet/rubberbullet  //  Bone White - Rubber bullets cause agony (halloss) instead of stun = 5, weakened = 5
 	damage = 10
-	stun = 5
-	weaken = 5
+	stun = 0
+	weaken = 0
+	agony = 60
 	embed = 0
+	sharp = 0
 
 /obj/item/projectile/bullet/weakbullet/booze
 	embed = 0
@@ -45,10 +49,9 @@
 
 
 /obj/item/projectile/bullet/midbullet12
-	damage = 20
+	damage = 25
 	stun = 5
 	weaken = 5
-	embed = 0
 
 /obj/item/projectile/bullet/midbullet9
 	damage = 25
@@ -84,6 +87,8 @@
 /obj/item/projectile/bullet/burstbullet//I think this one needs something for the on hit
 	name = "exploding bullet"
 	damage = 20
+	embed = 0
+	edge = 1
 
 
 /obj/item/projectile/bullet/stunshot
@@ -92,14 +97,14 @@
 	stun = 10
 	weaken = 10
 	stutter = 10
+	embed = 0
+	sharp = 0
 
 /obj/item/projectile/bullet/a762
-	damage = 25
+	damage = 35
 
 
 /obj/item/projectile/bullet/incendiary
-	name = "incendiary bullet"
-	damage = 20
 
 /obj/item/projectile/bullet/incendiary/on_hit(var/atom/target, var/blocked = 0)
 	if(istype(target, /mob/living/carbon))
@@ -107,7 +112,23 @@
 		M.adjust_fire_stacks(1)
 		M.IgniteMob()
 
+/obj/item/projectile/bullet/incendiary/shell
+	damage = 20
+
+/obj/item/projectile/bullet/incendiary/mech
+	damage = 5
+
+/obj/item/projectile/bullet/mime
+	damage = 20
+
+/obj/item/projectile/bullet/mime/on_hit(var/atom/target, var/blocked = 0)
+		if(istype(target, /mob/living/carbon))
+				var/mob/living/carbon/M = target
+				M.silent = max(M.silent, 10)
+
 /*
+
+
 /obj/item/projectile/bullet/dart
 	name = "dart"
 	icon_state = "cbbolt"
@@ -154,4 +175,9 @@
 /obj/item/projectile/bullet/neurotoxin/on_hit(var/atom/target, var/blocked = 0)
 	if(isalien(target))
 		return 0
+	if(ishuman(target))
+		var/mob/living/carbon/human/H = target
+		if(prob(H.getarmor(def_zone, "melee")))
+			H.visible_message("\red The [src.name] splatters uselessly on the armor!")
+			return 0
 	..() // Execute the rest of the code.

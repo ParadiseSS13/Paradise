@@ -48,6 +48,10 @@ DEBUG
 	jobban_loadbanfile()
 */
 
+/hook/startup/proc/loadJobBans()
+	jobban_loadbanfile()
+	return 1
+
 /proc/jobban_loadbanfile()
 	if(config.ban_legacy_system)
 		var/savefile/S=new("data/job_full.ban")
@@ -97,15 +101,6 @@ DEBUG
 
 /proc/ban_unban_log_save(var/formatted_log)
 	text2file(formatted_log,"data/ban_unban_log.txt")
-
-
-/proc/jobban_updatelegacybans()
-	if(!jobban_runonce)
-		log_admin("Updating jobbanfile!")
-		// Updates bans.. Or fixes them. Either way.
-		for(var/T in jobban_keylist)
-			if(!T)	continue
-		jobban_runonce++	//don't run this update again
 
 
 /proc/jobban_remove(X)

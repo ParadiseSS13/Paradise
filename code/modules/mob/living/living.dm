@@ -227,14 +227,8 @@
 	return 0
 
 
-/mob/living/proc/electrocute_act(var/shock_damage, var/obj/source, var/siemens_coeff = 1.0)
-	  return 0 //only carbon liveforms have this proc
-
-/mob/living/emp_act(severity)
-	var/list/L = src.get_contents()
-	for(var/obj/O in L)
-		O.emp_act(severity)
-	..()
+/mob/living/proc/can_inject()
+	return 1
 
 /mob/living/proc/get_organ_target()
 	var/mob/shooter = src
@@ -271,7 +265,28 @@
 	adjustFireLoss(burn)
 	src.updatehealth()
 
+/mob/living/proc/restore_all_organs()
+	return
+
 /mob/living/proc/revive()
+	rejuvenate()
+	buckled = initial(src.buckled)
+	if(iscarbon(src))
+		var/mob/living/carbon/C = src
+
+		if (C.handcuffed && !initial(C.handcuffed))
+			C.drop_from_inventory(C.handcuffed)
+		C.handcuffed = initial(C.handcuffed)
+
+		if (C.legcuffed && !initial(C.legcuffed))
+			C.drop_from_inventory(C.legcuffed)
+		C.legcuffed = initial(C.legcuffed)
+	hud_updateflag |= 1 << HEALTH_HUD
+	hud_updateflag |= 1 << STATUS_HUD
+
+/mob/living/proc/rejuvenate()
+
+	// shut down various types of badness
 	setToxLoss(0)
 	setOxyLoss(0)
 	setCloneLoss(0)
@@ -297,15 +312,21 @@
 	if(iscarbon(src))
 		var/mob/living/carbon/C = src
 		C.handcuffed = initial(C.handcuffed)
-	for(var/datum/disease/D in viruses)
-		D.cure(0)
+
+		// restore all of the human's blood
+		if(ishuman(src))
+			var/mob/living/carbon/human/human_mob = src
+			human_mob.restore_blood()
+
+	restore_all_organs()
 	if(stat == 2)
 		dead_mob_list -= src
 		living_mob_list += src
 	stat = CONSCIOUS
 	update_fire()
 	regenerate_icons()
-	..()
+	hud_updateflag |= 1 << HEALTH_HUD
+	hud_updateflag |= 1 << STATUS_HUD
 	return
 
 /mob/living/proc/UpdateDamageIcon()
@@ -394,16 +415,16 @@
 						M.start_pulling(t)
 				else
 					if (pulling)
-						if (istype(pulling, /obj/structure/window))
-							if(pulling:ini_dir == NORTHWEST || pulling:ini_dir == NORTHEAST || pulling:ini_dir == SOUTHWEST || pulling:ini_dir == SOUTHEAST)
-								for(var/obj/structure/window/win in get_step(pulling,get_dir(pulling.loc, T)))
-									stop_pulling()
+						if (istype(pulling, /obj/structure/window/full))
+							for(var/obj/structure/window/win in get_step(pulling,get_dir(pulling.loc, T)))
+								stop_pulling()
 					if (pulling)
 						step(pulling, get_dir(pulling.loc, T))
 	else
 		stop_pulling()
 		. = ..()
-	if ((s_active && !( s_active in contents ) ))
+
+	if (s_active && !( s_active in contents ) && get_turf(s_active) != get_turf(src))	//check !( s_active in contents ) first so we hopefully don't have to call get_turf() so much.
 		s_active.close(src)
 
 	if(update_slimes)
@@ -423,9 +444,23 @@
 
 	//Getting out of someone's inventory.
 	if(istype(src.loc,/obj/item/weapon/holder))
-		var/obj/item/weapon/holder/H = src.loc
-		src.loc = get_turf(src.loc)
-		del(H)
+		var/obj/item/weapon/holder/H = src.loc //Get our item holder.
+		var/mob/M = H.loc                      //Get our mob holder (if any).
+
+		if(istype(M))
+			M.drop_from_inventory(H)
+			M << "[H] wriggles out of your grip!"
+			src << "You wriggle out of [M]'s grip!"
+		else if(istype(H.loc,/obj/item))
+			src << "You struggle free of [H.loc]."
+			H.loc = get_turf(H)
+
+		if(istype(M))
+			for(var/atom/A in M.contents)
+				if(istype(A,/mob/living/simple_animal/borer) || istype(A,/obj/item/weapon/holder))
+					return
+
+		M.status_flags &= ~PASSEMOTES
 		return
 
 	//Resisting control by an alien mind.
@@ -444,14 +479,8 @@
 			B.host.adjustBrainLoss(rand(5,10))
 			H << "\red <B>With an immense exertion of will, you regain control of your body!</B>"
 			B.host << "\red <B>You feel control of the host brain ripped from your grasp, and retract your probosci before the wild neural impulses can damage you.</b>"
-			B.controlling = 0
 
-			B.ckey = B.host.ckey
-			B.host.ckey = H.ckey
-
-			H.ckey = null
-			H.name = "host brain"
-			H.real_name = "host brain"
+			B.detatch()
 
 			verbs -= /mob/living/carbon/proc/release_control
 			verbs -= /mob/living/carbon/proc/punish_host
@@ -558,6 +587,7 @@
 					sleep(10)
 					SC.broken = 1
 					SC.locked = 0
+					SC.update_icon()
 					usr << "\red You successfully break out!"
 					for(var/mob/O in viewers(L.loc))
 						O.show_message("\red <B>\the [usr] successfully broke out of \the [SC]!</B>", 1)
@@ -567,6 +597,7 @@
 					SC.open()
 				else
 					C.welded = 0
+					C.update_icon()
 					usr << "\red You successfully break out!"
 					for(var/mob/O in viewers(L.loc))
 						O.show_message("\red <B>\the [usr] successfully broke out of \the [C]!</B>", 1)
@@ -623,9 +654,8 @@
 						for(var/mob/O in viewers(CM))//                                         lags so hard that 40s isn't lenient enough - Quarxink
 							O.show_message("\red <B>[CM] manages to remove the handcuffs!</B>", 1)
 						CM << "\blue You successfully remove \the [CM.handcuffed]."
-						CM.handcuffed.loc = usr.loc
-						CM.handcuffed = null
-						CM.update_inv_handcuffed()
+						CM.drop_from_inventory(CM.handcuffed)
+
 		else if(CM.legcuffed && CM.canmove && (CM.last_special <= world.time))
 			CM.next_move = world.time + 100
 			CM.last_special = world.time + 100
@@ -661,9 +691,19 @@
 						for(var/mob/O in viewers(CM))//                                         lags so hard that 40s isn't lenient enough - Quarxink
 							O.show_message("\red <B>[CM] manages to remove the legcuffs!</B>", 1)
 						CM << "\blue You successfully remove \the [CM.legcuffed]."
-						CM.legcuffed.loc = usr.loc
+						CM.drop_from_inventory(CM.legcuffed)
 						CM.legcuffed = null
 						CM.update_inv_legcuffed()
 
+/mob/living/update_gravity(has_gravity)
+	if(!ticker)
+		return
+	float(!has_gravity)
 
-
+/mob/living/proc/float(on)
+	if(on && !floating)
+		animate(src, pixel_y = 2, time = 10, loop = -1)
+		floating = 1
+	else if(!on && floating)
+		animate(src, pixel_y = initial(pixel_y), time = 10)
+		floating = 0

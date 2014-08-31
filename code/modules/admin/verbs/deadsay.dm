@@ -18,13 +18,23 @@
 	if (src.handle_spam_prevention(msg,MUTE_DEADCHAT))
 		return
 
+
+	var/stafftype = null
+
+	if(src.holder.rights & R_MOD && !(src.holder.rights & R_ADMIN))
+		stafftype = "MENTOR"
+
+
+	if (src.holder.rights & R_ADMIN)
+		stafftype = "ADMIN"
+
 	msg = copytext(sanitize(msg), 1, MAX_MESSAGE_LEN)
 	log_admin("[key_name(src)] : [msg]")
 
 	if (!msg)
 		return
 
-	var/rendered = "<span class='game deadsay'><span class='prefix'>DEAD:</span> <span class='name'>ADMIN</span> says, <span class='message'>\"[msg]\"</span></span>"
+	var/rendered = "<span class='game deadsay'><span class='prefix'>DEAD:</span> <span class='name'>[stafftype]</span> says, <span class='message'>\"[msg]\"</span></span>"
 
 	for (var/mob/M in player_list)
 		if (istype(M, /mob/new_player))

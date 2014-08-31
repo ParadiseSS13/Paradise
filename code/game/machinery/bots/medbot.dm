@@ -285,7 +285,8 @@
 
 	if(!src.path)
 		src.path = new()
-	if(src.patient && (get_dist(src,src.patient) <= 1))
+
+	if(src.patient && Adjacent(patient))
 		if(!src.currently_healing)
 			src.currently_healing = 1
 			src.frustration = 0
@@ -335,9 +336,8 @@
 	//If they're injured, we're using a beaker, and don't have one of our WONDERCHEMS.
 	if((src.reagent_glass) && (src.use_beaker) && ((C.getBruteLoss() >= heal_threshold) || (C.getToxLoss() >= heal_threshold) || (C.getToxLoss() >= heal_threshold) || (C.getOxyLoss() >= (heal_threshold + 15))))
 		for(var/datum/reagent/R in src.reagent_glass.reagents.reagent_list)
-			if(!C.reagents.has_reagent(R))
+			if(!C.reagents.has_reagent(R.id))
 				return 1
-			continue
 
 	//They're injured enough for it!
 	if((C.getBruteLoss() >= heal_threshold) && (!C.reagents.has_reagent(src.treatment_brute)))
@@ -352,12 +352,6 @@
 	if((C.getToxLoss() >= heal_threshold) && (!C.reagents.has_reagent(src.treatment_tox)))
 		return 1
 
-
-	for(var/datum/disease/D in C.viruses)
-		if((D.stage > 1) || (D.spread_type == AIRBORNE))
-
-			if (!C.reagents.has_reagent(src.treatment_virus))
-				return 1 //STOP DISEASE FOREVER
 
 	return 0
 
@@ -383,36 +377,33 @@
 
 	var/reagent_id = null
 
-	//Use whatever is inside the loaded beaker. If there is one.
-	if((src.use_beaker) && (src.reagent_glass) && (src.reagent_glass.reagents.total_volume))
-		reagent_id = "internal_beaker"
-
 	if(src.emagged == 2) //Emagged! Time to poison everybody.
 		reagent_id = "toxin"
 
-	var/virus = 0
-	for(var/datum/disease/D in C.viruses)
-		virus = 1
+	else
 
-	if (!reagent_id && (virus))
-		if(!C.reagents.has_reagent(src.treatment_virus))
-			reagent_id = src.treatment_virus
+		if (!reagent_id && (C.getBruteLoss() >= heal_threshold))
+			if(!C.reagents.has_reagent(src.treatment_brute))
+				reagent_id = src.treatment_brute
 
-	if (!reagent_id && (C.getBruteLoss() >= heal_threshold))
-		if(!C.reagents.has_reagent(src.treatment_brute))
-			reagent_id = src.treatment_brute
+		if (!reagent_id && (C.getOxyLoss() >= (15 + heal_threshold)))
+			if(!C.reagents.has_reagent(src.treatment_oxy))
+				reagent_id = src.treatment_oxy
 
-	if (!reagent_id && (C.getOxyLoss() >= (15 + heal_threshold)))
-		if(!C.reagents.has_reagent(src.treatment_oxy))
-			reagent_id = src.treatment_oxy
+		if (!reagent_id && (C.getFireLoss() >= heal_threshold))
+			if(!C.reagents.has_reagent(src.treatment_fire))
+				reagent_id = src.treatment_fire
 
-	if (!reagent_id && (C.getFireLoss() >= heal_threshold))
-		if(!C.reagents.has_reagent(src.treatment_fire))
-			reagent_id = src.treatment_fire
+		if (!reagent_id && (C.getToxLoss() >= heal_threshold))
+			if(!C.reagents.has_reagent(src.treatment_tox))
+				reagent_id = src.treatment_tox
 
-	if (!reagent_id && (C.getToxLoss() >= heal_threshold))
-		if(!C.reagents.has_reagent(src.treatment_tox))
-			reagent_id = src.treatment_tox
+		//If the patient is injured but doesn't have our special reagent in them then we should give it to them first
+		if(reagent_id && src.use_beaker && src.reagent_glass && src.reagent_glass.reagents.total_volume)
+			for(var/datum/reagent/R in src.reagent_glass.reagents.reagent_list)
+				if(!C.reagents.has_reagent(R.id))
+					reagent_id = "internal_beaker"
+					break
 
 	if(!reagent_id) //If they don't need any of that they're probably cured!
 		src.oldpatient = src.patient
@@ -438,16 +429,10 @@
 			src.currently_healing = 0
 			return
 
-//	src.speak(reagent_id)
 	reagent_id = null
 	return
 
 
-/obj/machinery/bot/medbot/proc/speak(var/message)
-	if((!src.on) || (!message))
-		return
-	visible_message("[src] beeps, \"[message]\"")
-	return
 
 /obj/machinery/bot/medbot/bullet_act(var/obj/item/projectile/Proj)
 	if(Proj.flag == "taser")
@@ -481,7 +466,7 @@
 /obj/machinery/bot/medbot/Bump(M as mob|obj) //Leave no door unopened!
 	if ((istype(M, /obj/machinery/door)) && (!isnull(src.botcard)))
 		var/obj/machinery/door/D = M
-		if (!istype(D, /obj/machinery/door/firedoor) && D.check_access(src.botcard))
+		if (!istype(D, /obj/machinery/door/firedoor) && D.check_access(src.botcard) && !istype(D,/obj/machinery/door/poddoor))
 			D.open()
 			src.frustration = 0
 	else if ((istype(M, /mob/living/)) && (!src.anchored))

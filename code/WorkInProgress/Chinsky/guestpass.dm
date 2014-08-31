@@ -19,20 +19,20 @@
 /obj/item/weapon/card/id/guest/examine()
 	..()
 	if (world.time < expiration_time)
-		usr << "\blue This pass expires at [worldtime2text(expiration_time)]."
+		usr << "<span class='notice'>This pass expires at [worldtime2text(expiration_time)].</span>"
 	else
-		usr << "\red It expired at [worldtime2text(expiration_time)]."
+		usr << "<span class='warning'>It expired at [worldtime2text(expiration_time)].</span>"
 
 /obj/item/weapon/card/id/guest/read()
 	if (world.time > expiration_time)
-		usr << "This pass expired at [worldtime2text(expiration_time)]."
+		usr << "<span class='notice'>This pass expired at [worldtime2text(expiration_time)].</span>"
 	else
-		usr << "This pass expires at [worldtime2text(expiration_time)]."
+		usr << "<span class='notice'>This pass expires at [worldtime2text(expiration_time)].</span>"
 
-	usr << "It grants access to following areas:"
+	usr << "<span class='notice'>It grants access to following areas:</span>"
 	for (var/A in temp_access)
-		usr << "[get_access_desc(A)]."
-	usr << "Issuing reason: [reason]."
+		usr << "<span class='notice'>[get_access_desc(A)].</span>"
+	usr << "<span class='notice'>Issuing reason: [reason].</span>"
 	return
 
 /////////////////////////////////////////////
@@ -49,17 +49,20 @@
 	var/list/accesses = list()
 	var/giv_name = "NOT SPECIFIED"
 	var/reason = "NOT SPECIFIED"
-	var/duration = 0
+	var/duration = 5
 
 	var/list/internal_log = list()
 	var/mode = 0  // 0 - making pass, 1 - viewing logs
 
 /obj/machinery/computer/guestpass/attackby(obj/O, mob/user)
 	if(istype(O, /obj/item/weapon/card/id))
-		user.drop_item()
-		O.loc = src
-		giver = O
-		updateUsrDialog()
+		if(!giver)
+			user.drop_item()
+			O.loc = src
+			giver = O
+			updateUsrDialog()
+		else
+			user << "<span class='warning'>There is already ID card inside.</span>"
 
 /obj/machinery/computer/guestpass/attack_ai(var/mob/user as mob)
 	return attack_hand(user)
@@ -110,18 +113,20 @@
 	if (href_list["choice"])
 		switch(href_list["choice"])
 			if ("giv_name")
-				var/nam = input("Person pass is issued to", "Name", name)
+				var/nam = strip_html_simple(input("Person pass is issued to", "Name", giv_name) as text|null)
 				if (nam)
 					giv_name = nam
 			if ("reason")
-				var/reas = input("Reason why pass is issued", "Reason", reason)
-				reason = reas
+				var/reas = strip_html_simple(input("Reason why pass is issued", "Reason", reason) as text|null)
+				if(reas)
+					reason = reas
 			if ("duration")
-				var/dur = input("Duration (in minutes) during which pass is valid.", "Duration") as num
-				if (dur > 0 && dur < 30)
-					duration = dur
-				else
-					usr << "\red Invalid duration."
+				var/dur = input("Duration (in minutes) during which pass is valid (up to 30 minutes).", "Duration") as num|null
+				if (dur)
+					if (dur > 0 && dur <= 30)
+						duration = dur
+					else
+						usr << "<span class='warning'>Invalid duration.</span>"
 			if ("access")
 				var/A = text2num(href_list["access"])
 				if (A in accesses)
@@ -140,6 +145,7 @@
 					else
 						giver.loc = src.loc
 						giver = null
+					accesses.Cut()
 				else
 					var/obj/item/I = usr.get_active_hand()
 					if (istype(I, /obj/item/weapon/card/id))

@@ -33,8 +33,9 @@
 			if(H.mind)
 				H.mind.transfer_to(brainmob)
 			respawnable_list += brainmob
+
 			brainmob << "\blue You feel slightly disoriented. That's normal when you're just a brain."
-			return
+			callHook("debrain", list(brainmob))
 
 /obj/item/brain/examine() // -- TLE
 	set src in oview(12)

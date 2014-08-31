@@ -184,7 +184,7 @@ RCD
 /obj/item/weapon/rcd/borg/New()
 	..()
 	desc = "A device used to rapidly build walls/floor."
-	canRwall = 1
+	canRwall = 0
 
 /obj/item/weapon/rcd_ammo
 	name = "compressed matter cartridge"

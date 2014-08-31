@@ -15,7 +15,7 @@
 	..()
 	overlays += "pai-off"
 
-/obj/item/device/paicard/Del()
+/obj/item/device/paicard/Destroy()
 	//Will stop people throwing friend pAIs into the singularity so they can respawn
 	if(!isnull(pai))
 		pai.death(0)
@@ -25,32 +25,200 @@
 	if (!in_range(src, user))
 		return
 	user.set_machine(src)
-	var/dat = "<TT><B>Personal AI Device</B><BR>"
-	if(pai && (!pai.master_dna || !pai.master))
-		dat += "<a href='byond://?src=\ref[src];setdna=1'>Imprint Master DNA</a><br>"
+	var/dat = {"
+		<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\" \"http://www.w3.org/TR/html4/loose.dtd\">
+		<html>
+			<head>
+				<style>
+					body {
+					    margin-top:5px;
+					    font-family:Verdana;
+					    color:white;
+					    font-size:13px;
+					    background-image:url('uiBackground.png');
+					    background-repeat:repeat-x;
+					    background-color:#272727;
+						background-position:center top;
+					}
+					table {
+					    font-size:13px;
+					    margin-left:-2px;
+					}
+					table.request {
+					    border-collapse:collapse;
+					}
+					table.desc {
+					    border-collapse:collapse;
+					    font-size:13px;
+					    border: 1px solid #161616;
+					    width:100%;
+					}
+					table.download {
+					    border-collapse:collapse;
+					    font-size:13px;
+					    border: 1px solid #161616;
+					    width:100%;
+					}
+					tr.d0 td, tr.d0 th {
+					    background-color: #506070;
+					    color: white;
+					}
+					tr.d1 td, tr.d1 th {
+					    background-color: #708090;
+					    color: white;
+					}
+					tr.d2 td {
+					    background-color: #00FF00;
+					    color: white;
+					    text-align:center;
+					}
+					td.button {
+					    border: 1px solid #161616;
+					    background-color: #40628a;
+					}
+					td.button {
+					    border: 1px solid #161616;
+					    background-color: #40628a;
+					    text-align: center;
+					}
+					td.button_red {
+					    border: 1px solid #161616;
+					    background-color: #B04040;
+					    text-align: center;
+					}
+					td.download {
+					    border: 1px solid #161616;
+					    background-color: #40628a;
+					    text-align: center;
+					}
+					th {
+					    text-align:left;
+					    width:125px;
+					}
+					td.request {
+					    width:140px;
+					    vertical-align:top;
+					}
+					td.radio {
+					    width:90px;
+					    vertical-align:top;
+					}
+					td.request {
+					    vertical-align:top;
+					}
+					a {
+					    color:#4477E0;
+					}
+					a.button {
+					    color:white;
+					    text-decoration: none;
+					}
+					h2 {
+					    font-size:15px;
+					}
+				</style>
+			</head>
+			<body>
+	"}
+
 	if(pai)
-		dat += "Installed Personality: [pai.name]<br>"
-		dat += "Prime directive: <br>[pai.pai_law0]<br>"
-		dat += "Additional directives: <br>[pai.pai_laws]<br>"
-		dat += "<a href='byond://?src=\ref[src];setlaws=1'>Configure Directives</a><br>"
+		dat += {"
+			<b><font size='3px'>Personal AI Device</font></b><br><br>
+			<table class="request">
+				<tr>
+					<td class="request">Installed Personality:</td>
+					<td>[pai.name]</td>
+				</tr>
+				<tr>
+					<td class="request">Prime directive:</td>
+					<td>[pai.pai_law0]</td>
+				</tr>
+				<tr>
+					<td class="request">Additional directives:</td>
+					<td>[pai.pai_laws]</td>
+				</tr>
+			</table>
+			<br>
+		"}
+		dat += {"
+			<table>
+				<td class="button">
+					<a href='byond://?src=\ref[src];setlaws=1' class='button'>Configure Directives</a>
+				</td>
+			</table>
+		"}
+		if(pai && (!pai.master_dna || !pai.master))
+			dat += {"
+				<table>
+					<td class="button">
+						<a href='byond://?src=\ref[src];setdna=1' class='button'>Imprint Master DNA</a>
+					</td>
+				</table>
+			"}
 		dat += "<br>"
-		dat += "<h3>Device Settings</h3><br>"
 		if(radio)
-			dat += "<b>Radio Uplink</b><br>"
-			dat += "Transmit: <A href='byond://?src=\ref[src];wires=[WIRE_TRANSMIT]'>[(radio.wires.IsIndexCut(WIRE_TRANSMIT)) ? "Disabled" : "Enabled"]</A><br>"
-			dat += "Receive: <A href='byond://?src=\ref[src];wires=[WIRE_RECEIVE]'>[(radio.wires.IsIndexCut(WIRE_RECEIVE)) ? "Disabled" : "Enabled"]</A><br>"
+			dat += "<b>Radio Uplink</b>"
+			dat += {"
+				<table class="request">
+					<tr>
+						<td class="radio">Transmit:</td>
+						<td><a href='byond://?src=\ref[src];wires=4'>[(radio.wires & 4) ? "<font color=#55FF55>En" : "<font color=#FF5555>Dis" ]abled</font></a>
+
+						</td>
+					</tr>
+					<tr>
+						<td class="radio">Receive:</td>
+						<td><a href='byond://?src=\ref[src];wires=2'>[(radio.wires & 2) ? "<font color=#55FF55>En" : "<font color=#FF5555>Dis" ]abled</font></a>
+
+						</td>
+					</tr>
+					<tr>
+						<td class="radio">Signal Pulser:</td>
+						<td><a href='byond://?src=\ref[src];wires=1'>[(radio.wires & 1) ? "<font color=#55FF55>En" : "<font color=#FF5555>Dis" ]abled</font></a>
+
+						</td>
+					</tr>
+				</table>
+				<br>
+			"}
 		else
 			dat += "<b>Radio Uplink</b><br>"
 			dat += "<font color=red><i>Radio firmware not loaded. Please install a pAI personality to load firmware.</i></font><br>"
-		dat += "<A href='byond://?src=\ref[src];wipe=1'>\[Wipe current pAI personality\]</a><br>"
+		dat += {"
+			<table>
+				<td class="button_red"><a href='byond://?src=\ref[src];wipe=1' class='button'>Wipe current pAI personality</a>
+
+				</td>
+			</table>
+		"}
 	else
 		if(looking_for_personality)
-			dat += "Searching for a personality..."
-			dat += "<A href='byond://?src=\ref[src];request=1'>\[View available personalities\]</a><br>"
+			dat += {"
+				<b><font size='3px'>pAI Request Module</font></b><br><br>
+				<p>Requesting AI personalities from central database... If there are no entries, or if a suitable entry is not listed, check again later as more personalities may be added.</p>
+				<img src='loading.gif' /> Searching for personalities<br><br>
+
+				<table>
+					<tr>
+						<td class="button">
+							<a href='byond://?src=\ref[src];request=1' class="button">Refresh available personalities</a>
+						</td>
+					</tr>
+				</table><br>
+			"}
 		else
-			dat += "No personality is installed.<br>"
-			dat += "<A href='byond://?src=\ref[src];request=1'>\[Request personal AI personality\]</a><br>"
-			dat += "Each time this button is pressed, a request will be sent out to any available personalities. Check back often and alot time for personalities to respond. This process could take anywhere from 15 seconds to several minutes, depending on the available personalities' timeliness."
+			dat += {"
+				<b><font size='3px'>pAI Request Module</font></b><br><br>
+			    <p>No personality is installed.</p>
+				<table>
+					<tr>
+						<td class="button"><a href='byond://?src=\ref[src];request=1' class="button">Request personality</a>
+						</td>
+					</tr>
+				</table>
+				<br>
+				<p>Each time this button is pressed, a request will be sent out to any available personalities. Check back often give plenty of time for personalities to respond. This process could take anywhere from 15 seconds to several minutes, depending on the available personalities' timeliness.</p>
+			"}
 	user << browse(dat, "window=paicard")
 	onclose(user, "paicard")
 	return
@@ -93,7 +261,7 @@
 		if(newlaws)
 			pai.pai_laws = newlaws
 			pai << "Your supplemental directives have been updated. Your new directives are:"
-			pai << "Prime Directive : <br>[pai.pai_law0]"
+			pai << "Prime Directive: <br>[pai.pai_law0]"
 			pai << "Supplemental Directives: <br>[pai.pai_laws]"
 	attack_self(usr)
 

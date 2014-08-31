@@ -174,6 +174,16 @@ var/list/all_supply_groups = list("Operations","Security","Hospitality","Enginee
 	containername = "Emergency Crate"
 	group = "Engineering"
 
+/datum/supply_packs/inflatable
+	name = "Inflatable barriers"
+	contains = list(/obj/item/weapon/storage/briefcase/inflatable,
+					/obj/item/weapon/storage/briefcase/inflatable,
+					/obj/item/weapon/storage/briefcase/inflatable)
+	cost = 20
+	containertype = /obj/structure/closet/crate
+	containername = "Inflatable Barrier Crate"
+	group = "Engineering"
+
 /datum/supply_packs/janitor
 	name = "Janitorial supplies"
 	contains = list(/obj/item/weapon/reagent_containers/glass/bucket,
@@ -244,6 +254,22 @@ var/list/all_supply_groups = list("Operations","Security","Hospitality","Enginee
 	containername = "MULEbot Crate"
 	group = "Operations"
 
+/datum/supply_packs/cargotrain
+	name = "Cargo Train Tug"
+	contains = list(/obj/vehicle/train/cargo/engine)
+	cost = 45
+	containertype = /obj/structure/largecrate
+	containername = "Cargo Train Tug Crate"
+	group = "Operations"
+
+/datum/supply_packs/cargotrailer
+	name = "Cargo Train Trolley"
+	contains = list(/obj/vehicle/train/cargo/trolley)
+	cost = 15
+	containertype = /obj/structure/largecrate
+	containername = "Cargo Train Trolley Crate"
+	group = "Operations"
+
 /datum/supply_packs/hydroponics // -- Skie
 	name = "Hydroponics Supply Crate"
 	contains = list(/obj/item/weapon/reagent_containers/spray/plantbgone,
@@ -254,7 +280,10 @@ var/list/all_supply_groups = list("Operations","Security","Hospitality","Enginee
 					/obj/item/weapon/minihoe,
 					/obj/item/device/analyzer/plant_analyzer,
 					/obj/item/clothing/gloves/botanic_leather,
-					/obj/item/clothing/suit/apron) // Updated with new things
+					/obj/item/clothing/suit/apron,
+					/obj/item/weapon/minihoe,
+					/obj/item/weapon/storage/box/botanydisk
+					) // Updated with new things
 	cost = 15
 	containertype = /obj/structure/closet/crate/hydroponics
 	containername = "Hydroponics crate"
@@ -819,6 +848,7 @@ var/list/all_supply_groups = list("Operations","Security","Hospitality","Enginee
 	containername = "Arts and Crafts crate"
 	group = "Operations"
 
+
 /datum/supply_packs/randomised/contraband
 	num_contained = 6
 	contains = list(/obj/item/weapon/storage/pill_bottle/zoom,
@@ -899,8 +929,7 @@ var/list/all_supply_groups = list("Operations","Security","Hospitality","Enginee
 	group = "Hospitality"
 
 /datum/supply_packs/formal_wear
-	contains = list(/obj/item/clothing/head/bowler,
-					/obj/item/clothing/head/that,
+	contains = list(/obj/item/clothing/head/that,
 					/obj/item/clothing/suit/storage/lawyer/bluejacket,
 					/obj/item/clothing/suit/storage/lawyer/purpjacket,
 					/obj/item/clothing/under/suit_jacket,
@@ -915,7 +944,7 @@ var/list/all_supply_groups = list("Operations","Security","Hospitality","Enginee
 	containertype = /obj/structure/closet
 	containername = "Formalwear for the best occasions."
 	group = "Operations"
-
+/*
 /datum/supply_packs/rust_injector
 	contains = list(/obj/machinery/power/rust_fuel_injector)
 	name = "RUST fuel injector"
@@ -951,7 +980,7 @@ var/list/all_supply_groups = list("Operations","Security","Hospitality","Enginee
 	containername = "RUST tokamak crate"
 	group = "Engineering"
 	access = access_engine
-
+*/
 /datum/supply_packs/shield_gen
 	contains = list(/obj/item/weapon/circuitboard/shield_gen)
 	name = "Experimental shield generator circuitry"
@@ -1061,8 +1090,35 @@ var/list/all_supply_groups = list("Operations","Security","Hospitality","Enginee
 	name = "Mafia Supply crate"
 	contains = list(/obj/item/clothing/suit/browntrenchcoat =1,/obj/item/clothing/suit/blacktrenchcoat =1,/obj/item/clothing/head/fedora/whitefedora =1,
 					/obj/item/clothing/head/fedora/brownfedora =1,/obj/item/clothing/head/fedora =1,/obj/item/clothing/under/flappers =1,/obj/item/clothing/under/mafia =1,/obj/item/clothing/under/mafia/vest =1,/obj/item/clothing/under/mafia/white =1,
-					/obj/item/clothing/under/mafia/sue =1,/obj/item/clothing/under/mafia/tan =1, /obj/item/toy/crossbow/tommygun =2,/obj/item/clothing/tie/accessory/gunholster =1,)
+					/obj/item/clothing/under/mafia/sue =1,/obj/item/clothing/under/mafia/tan =1, /obj/item/toy/crossbow/tommygun =2)
 	cost = 15
 	containertype = /obj/structure/closet/crate
 	containername = "mafia supply crate"
+	group = "Operations"
+
+/datum/supply_packs/fabric
+	name = "Fabric crate"
+	contains  = list(/obj/item/weapon/ore/fabric,
+					/obj/item/weapon/ore/fabric,
+					/obj/item/weapon/ore/fabric,
+					/obj/item/weapon/ore/fabric,
+					/obj/item/weapon/ore/fabric,
+					/obj/item/weapon/ore/fabric,
+					/obj/item/weapon/ore/fabric,
+					/obj/item/weapon/ore/fabric,
+					/obj/item/weapon/ore/fabric,
+					/obj/item/weapon/ore/fabric,
+					/obj/item/weapon/ore/fabric,
+					/obj/item/weapon/ore/fabric,
+					/obj/item/weapon/ore/fabric,
+					/obj/item/weapon/ore/fabric,
+					/obj/item/weapon/ore/fabric,
+					/obj/item/weapon/ore/fabric,
+					/obj/item/weapon/ore/fabric,
+					/obj/item/weapon/ore/fabric,
+					/obj/item/weapon/ore/fabric,
+					/obj/item/weapon/ore/fabric)
+	cost = 30
+	containertype = /obj/structure/closet/crate
+	containername = "Fabric crate"
 	group = "Operations"

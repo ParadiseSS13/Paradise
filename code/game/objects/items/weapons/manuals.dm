@@ -676,7 +676,7 @@
 		</head>
 
 		<body>
-		<iframe width='100%' height='97%' src="http://192.241.237.198/wiki/index.php?title=Space_Law&printable=yes" frameborder="0" id="main_frame"></iframe>		</body>
+		<iframe width='100%' height='97%' src="http://80.244.78.90/wiki/index.php?title=Space_law&printable=yes" frameborder="0" id="main_frame"></iframe>		</body>
 
 		</html>
 

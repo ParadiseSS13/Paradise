@@ -124,19 +124,13 @@
 				return
 			if(authenticated)
 				call_shuttle_proc(usr)
-				if(emergency_shuttle.online)
+				if(emergency_shuttle.online())
 					post_status("shuttle")
 			state = STATE_DEFAULT
 		if("cancelshuttle" in href_list)
 			state = STATE_DEFAULT
 			if(authenticated)
 				state = STATE_CANCELSHUTTLE
-		if("cancelshuttle2" in href_list)
-			if(!computer.radio.subspace)
-				return
-			if(authenticated)
-				cancel_call_proc(usr)
-			state = STATE_DEFAULT
 		if("messagelist" in href_list)
 			currmsg = 0
 			state = STATE_MESSAGELIST
@@ -197,7 +191,7 @@
 				usr << "Message transmitted."
 				log_say("[key_name(usr)] has made a Centcomm announcement: [input]")
 				centcomm_message_cooldown = 1
-				spawn(6000)//10 minute cooldown
+				spawn(600)//10 minute cooldown
 					centcomm_message_cooldown = 0
 
 
@@ -214,7 +208,7 @@
 				usr << "Message transmitted."
 				log_say("[key_name(usr)] has made a Syndicate announcement: [input]")
 				centcomm_message_cooldown = 1
-				spawn(6000)//10 minute cooldown
+				spawn(600)//10 minute cooldown
 					centcomm_message_cooldown = 0
 
 		if("RestoreBackup" in href_list)
@@ -275,8 +269,8 @@
 	proc/main_menu()
 		var/dat = ""
 		if (computer.radio.subspace)
-			if(emergency_shuttle.online && emergency_shuttle.location==0)
-				var/timeleft = emergency_shuttle.timeleft()
+			if(emergency_shuttle.online() && emergency_shuttle.location())
+				var/timeleft = emergency_shuttle.estimate_arrival_time()
 				dat += "<B>Emergency shuttle</B>\n<BR>\nETA: [timeleft / 60 % 60]:[add_zero(num2text(timeleft % 60), 2)]<BR>"
 				refresh = 1
 			else
@@ -292,8 +286,8 @@
 					dat += "<BR>\[ <A HREF='?src=\ref[src];RestoreBackup'>Restore Backup Routing Data</A> \]"
 
 				dat += "<BR>\[ <A HREF='?src=\ref[src];changeseclevel'>Change alert level</A> \]"
-			if(emergency_shuttle.location==0)
-				if (emergency_shuttle.online)
+			if(emergency_shuttle.location())
+				if (emergency_shuttle.online())
 					dat += "<BR>\[ <A HREF='?src=\ref[src];cancelshuttle'>Cancel Shuttle Call</A> \]"
 				else
 					dat += "<BR>\[ <A HREF='?src=\ref[src];callshuttle'>Call Emergency Shuttle</A> \]"

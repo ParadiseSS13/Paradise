@@ -10,12 +10,12 @@ var/global/datum/controller/gameticker/ticker
 	var/const/restart_timeout = 600
 	var/current_state = GAME_STATE_PREGAME
 
-	var/hide_mode = 1
+	var/hide_mode = 0 // leave here at 0 ! setup() will take care of it when needed for Secret mode -walter0o
 	var/datum/game_mode/mode = null
+	var/post_game = 0
 	var/event_time = null
 	var/event = 0
 
-	var/login_music			// music played in pregame lobby
 
 	var/list/datum/mind/minds = list()//The people in the game. Used for objective tracking.
 
@@ -38,11 +38,6 @@ var/global/datum/controller/gameticker/ticker
 	var/initialtpass = 0 //holder for inital autotransfer vote timer
 
 /datum/controller/gameticker/proc/pregame()
-	login_music = pick(\
-	'sound/music/knights.ogg',\
-	'sound/music/space.ogg',\
-	'sound/music/traitor.ogg',\
-	'sound/music/space_oddity.ogg') //Ground Control to Major Tom, this song is cool, what's going on?
 	do
 		pregame_timeleft = 180
 		world << "<B><FONT color='blue'>Welcome to the pre-game lobby!</FONT></B>"
@@ -100,6 +95,7 @@ var/global/datum/controller/gameticker/ticker
 		return 0
 
 	//Configure mode and assign player to special mode stuff
+	src.mode.pre_pre_setup()
 	job_master.DivideOccupations() //Distribute jobs
 	var/can_continue = src.mode.pre_setup()//Setup special modes
 	if(!can_continue)
@@ -125,8 +121,12 @@ var/global/datum/controller/gameticker/ticker
 	data_core.manifest()
 	current_state = GAME_STATE_PLAYING
 
+	callHook("roundstart")
+
 	//here to initialize the random events nicely at round start
 	setup_economy()
+
+	shuttle_controller.setup_shuttle_docks()
 
 	spawn(0)//Forking here so we dont have to wait for this to finish
 		mode.post_setup()
@@ -135,10 +135,67 @@ var/global/datum/controller/gameticker/ticker
 			//Deleting Startpoints but we need the ai point to AI-ize people later
 			if (S.name != "AI")
 				del(S)
+
+		// take care of random spesspod spawning
+		var/list/obj/effect/landmark/spacepod/random/L = list()
+		for(var/obj/effect/landmark/spacepod/random/SS in landmarks_list)
+			if(istype(SS))
+				L += SS
+		if(L.len)
+			var/obj/effect/landmark/spacepod/random/S = pick(L)
+			new /obj/spacepod/random(S.loc)
+			for(var/obj/effect/landmark/spacepod/random/R in L)
+				del(R)
+
 		world << "<FONT color='blue'><B>Enjoy the game!</B></FONT>"
 		world << sound('sound/AI/welcome.ogg') // Skie
 		//Holiday Round-start stuff	~Carn
 		Holiday_Game_Start()
+
+	spawn(0) // Forking dynamic room selection
+		var/list/area/dynamic/source/available_source_candidates = typesof(/area/dynamic/source) - /area/dynamic/source
+		var/list/area/dynamic/destination/available_destination_candidates = typesof(/area/dynamic/destination) - /area/dynamic/destination
+
+		for (var/area/dynamic/destination/current_destination_candidate in available_destination_candidates)
+			var/area/dynamic/destination/current_destination = locate(current_destination_candidate)
+
+			if (!current_destination)
+				continue
+
+			if (current_destination.match_width == 0 || current_destination.match_height == 0)
+				message_admins("Dynamic area destination '[current_destination.name]' does not have its size requirements set.")
+				continue
+
+			var/list/area/dynamic/source/candidate_source_areas = new /list(0)
+			for (var/area/dynamic/source/candidate_source_area in available_source_candidates)
+				var/area/dynamic/source/candidate_source = locate(candidate_source_area)
+
+				if (!candidate_source)
+					continue
+
+				if (candidate_source.match_tag != current_destination.match_tag)
+					continue
+
+				if (candidate_source.match_width != current_destination.match_width || \
+					candidate_source.match_height != current_destination.match_height)
+					continue
+
+				candidate_source_areas += candidate_source
+
+			if (candidate_source_areas.len == 0)
+				message_admins("Failed to find a matching source for dynamic area: [current_destination.name]")
+				continue
+
+			var/area/dynamic/source/selected_source = pick(candidate_source_areas)
+			available_source_candidates -= selected_source
+
+			selected_source.copy_contents_to(current_destination, 0)
+
+			if (current_destination.enable_lights || selected_source.enable_lights)
+				current_destination.power_light = 1
+			else
+				current_destination.power_light = 0
+			current_destination.power_change()
 
 	//start_events() //handles random events and space dust.
 	//new random event system is handled from the MC.
@@ -150,7 +207,7 @@ var/global/datum/controller/gameticker/ticker
 	if(admins_number == 0)
 		send2adminirc("Round has started with no admins online.")
 
-	supply_shuttle.process() 		//Start the supply shuttle regenerating points -- TLE
+	supply_controller.process() 		//Start the supply shuttle regenerating points -- TLE
 	master_controller.process()		//Start master_controller.process()
 	lighting_controller.process()	//Start processing DynamicAreaLighting updates
 
@@ -310,14 +367,24 @@ var/global/datum/controller/gameticker/ticker
 
 		emergency_shuttle.process()
 
-		var/mode_finished = mode.check_finished() || (emergency_shuttle.location == 2 && emergency_shuttle.alert == 1)
-		if(!mode.explosion_in_progress && mode_finished)
+		var/game_finished = 0
+		var/mode_finished = 0
+		if (config.continous_rounds)
+			game_finished = (emergency_shuttle.returned() || mode.station_was_nuked)
+			mode_finished = (!post_game && mode.check_finished())
+		else
+			game_finished = (mode.check_finished() || (emergency_shuttle.returned() && emergency_shuttle.evac == 1))
+			mode_finished = game_finished
+
+		if(!mode.explosion_in_progress && game_finished && (mode_finished || post_game))
 			current_state = GAME_STATE_FINISHED
 
 			spawn
 				declare_completion()
 
 			spawn(50)
+				callHook("roundend")
+
 				if (mode.station_was_nuked)
 					feedback_set_details("end_proper","nuke")
 					if(!delay_end)
@@ -339,6 +406,16 @@ var/global/datum/controller/gameticker/ticker
 						world << "\blue <B>An admin has delayed the round end</B>"
 				else
 					world << "\blue <B>An admin has delayed the round end</B>"
+
+		else if (mode_finished)
+			post_game = 1
+
+			mode.cleanup()
+
+			//call a transfer shuttle vote
+			spawn(50)
+				world << "\red The round has ended!"
+				vote.autotransfer()
 
 		return 1
 
@@ -374,7 +451,14 @@ var/global/datum/controller/gameticker/ticker
 				robolist += "[robo.name][robo.stat?" (Deactivated) (Played by: [robo.key]), ":" (Played by: [robo.key]), "]"
 			world << "[robolist]"
 
+	var/dronecount = 0
+
 	for (var/mob/living/silicon/robot/robo in mob_list)
+
+		if(istype(robo,/mob/living/silicon/robot/drone))
+			dronecount++
+			continue
+
 		if (!robo.connected_ai)
 			if (robo.stat != 2)
 				world << "<b>[robo.name] (Played by: [robo.key]) survived as an AI-less borg! Its laws were:</b>"
@@ -383,6 +467,9 @@ var/global/datum/controller/gameticker/ticker
 
 			if(robo) //How the hell do we lose robo between here and the world messages directly above this?
 				robo.laws.show_laws(world)
+
+	if(dronecount)
+		world << "<b>There [dronecount>1 ? "were" : "was"] [dronecount] industrious maintenance [dronecount>1 ? "drones" : "drone"] this round."
 
 	mode.declare_completion()//To declare normal completion.
 

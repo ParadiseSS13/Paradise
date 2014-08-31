@@ -46,7 +46,7 @@
 /obj/item/ammo_casing/c10mm
 	desc = "A 10mm bullet casing."
 	caliber = "10mm"
-	projectile_type = "obj/item/projectile/bullet/midbullet10"
+	projectile_type = "/obj/item/projectile/bullet/midbullet10"
 
 /obj/item/ammo_casing/a12mm
 	desc = "A 12mm bullet casing."
@@ -102,11 +102,19 @@
 	m_amt = 2500
 
 
+/obj/item/ammo_casing/shotgun/incendiary
+	name = "incendiary shell"
+	desc = "An incendiary shell"
+	icon_state = "ishell"
+	projectile_type = /obj/item/projectile/bullet/incendiary/shell
+	m_amt = 12500
+
+
 /obj/item/ammo_casing/shotgun/dart
-	name = "shotgun darts"
-	desc = "A dart for use in shotguns."
-	icon_state = "dart"
-	projectile_type = "/obj/item/projectile/energy/dart"
+	name = "shotgun dart"
+	desc = "A dart for use in shotguns. Can be injected with up to 30 units of any chemical."
+	icon_state = "cshell"
+	projectile_type = /obj/item/projectile/bullet/dart
 	m_amt = 12500
 
 obj/item/ammo_casing/shotgun/dart/New()
@@ -123,10 +131,15 @@ obj/item/ammo_casing/shotgun/dart/New()
 	caliber = "a762"
 	projectile_type = "/obj/item/projectile/bullet/a762"
 
-
 /obj/item/ammo_casing/rocket
 	name = "rocket shell"
 	desc = "A high explosive designed to be fired from a launcher."
 	icon_state = "rocketshell"
 	projectile_type = "/obj/item/missile"
 	caliber = "rocket"
+
+/obj/item/ammo_casing/energy/kinetic
+	projectile_type = /obj/item/projectile/bullet
+	//select_name = "kinetic"
+	//e_cost = 500
+	//fire_sound = 'sound/weapons/Gunshot4.ogg'

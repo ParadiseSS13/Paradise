@@ -6,19 +6,29 @@ A list of items and costs is stored under the datum of every game mode, alongsid
 
 */
 
+var/list/world_uplinks = list()
+
 /obj/item/device/uplink
 	var/welcome 					// Welcoming menu message
 	var/uses 						// Numbers of crystals
 	// List of items not to shove in their hands.
-	var/list/purchase_log = list()
+	var/purchase_log = ""
 	var/show_description = null
 	var/active = 0
 	var/job = null
 
+	var/uplink_owner = null//text-only
+	var/used_TC = 0
+
 /obj/item/device/uplink/New()
 	..()
+	world_uplinks+=src
 	welcome = ticker.mode.uplink_welcome
 	uses = ticker.mode.uplink_uses
+
+/obj/item/device/uplink/Del()
+	world_uplinks-=src
+	..()
 
 //Let's build a menu!
 /obj/item/device/uplink/proc/generate_menu(mob/user as mob)
@@ -171,7 +181,7 @@ A list of items and costs is stored under the datum of every game mode, alongsid
 /*
 	NANO UI FOR UPLINK WOOP WOOP
 */
-/obj/item/device/uplink/hidden/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null)
+/obj/item/device/uplink/hidden/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
 	var/title = "Syndicate Uplink"
 	var/data[0]
 
@@ -180,7 +190,7 @@ A list of items and costs is stored under the datum of every game mode, alongsid
 	data["welcome"] = welcome
 
 	// update the ui if it exists, returns null if no ui is passed/found
-	ui = nanomanager.try_update_ui(user, src, ui_key, ui, data)
+	ui = nanomanager.try_update_ui(user, src, ui_key, ui, data, force_open)
 	if (!ui)
 		// the ui does not exist, so we'll create a new() one
         // for a list of parameters and their descriptions see the code docs in \code\modules\nano\nanoui.dm

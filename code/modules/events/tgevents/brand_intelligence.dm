@@ -25,9 +25,6 @@
 	originMachine.shut_up = 0
 	originMachine.shoot_inventory = 1
 
-	scaling_factor = num_players() / 60	//Tweak this value to change the number of hostile machines. Lower value = more hostile machines.
-
-
 
 /datum/event/brand_intelligence/tick()
 	if(!originMachine || originMachine.shut_up || !originMachine.powered())	//if the original vending machine is missing or has it's voice switch flipped
@@ -41,17 +38,8 @@
 
 	if(!vendingMachines.len)	//if every machine is infected
 		for(var/obj/machinery/vending/upriser in infectedMachines)
-			if(prob(25)) return
-			if(prob(60 * scaling_factor))
-				var/mob/living/simple_animal/hostile/mimic/M = new(upriser.loc)
-				M.name = upriser.name
-				M.icon = upriser.icon
-				M.icon_state = initial(upriser.icon_state)
-			else
-				explosion(upriser.loc, 2, 2, 3, 5)
-				sleep(50)	//return control to lessen lag
-			del(upriser)
-
+			upriser.shoot_speed = 40	//Ouch! May be too much, needs play testing.
+			upriser.shoot_chance = 15
 		kill()
 		return
 

@@ -33,7 +33,6 @@ var/list/admin_datums = list()
 /datum/admins/proc/disassociate()
 	if(owner)
 		admins -= owner
-		owner.remove_admin_verbs()
 		owner.holder = null
 		owner = null
 

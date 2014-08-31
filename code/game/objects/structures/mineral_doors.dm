@@ -22,7 +22,7 @@
 		name = "[mineralType] door"
 		update_nearby_tiles(need_rebuild=1)
 
-	Del()
+	Destroy()
 		update_nearby_tiles()
 		..()
 
@@ -82,6 +82,7 @@
 		state = 1
 		update_icon()
 		isSwitchingStates = 0
+		update_nearby_tiles()
 
 	proc/Close()
 		isSwitchingStates = 1
@@ -93,6 +94,7 @@
 		state = 0
 		update_icon()
 		isSwitchingStates = 0
+		update_nearby_tiles()
 
 	update_icon()
 		if(state)
@@ -158,17 +160,7 @@
 	proc/update_nearby_tiles(need_rebuild) //Copypasta from airlock code
 		if(!air_master) return 0
 
-		var/turf/simulated/source = loc
-		var/turf/simulated/north = get_step(source,NORTH)
-		var/turf/simulated/south = get_step(source,SOUTH)
-		var/turf/simulated/east = get_step(source,EAST)
-		var/turf/simulated/west = get_step(source,WEST)
-
-		if(istype(source)) air_master.tiles_to_update += source
-		if(istype(north)) air_master.tiles_to_update += north
-		if(istype(south)) air_master.tiles_to_update += south
-		if(istype(east)) air_master.tiles_to_update += east
-		if(istype(west)) air_master.tiles_to_update += west
+		air_master.mark_for_update(get_turf(src))
 
 		return 1
 
@@ -209,7 +201,7 @@
 				TemperatureAct(100)
 		..()
 
-	temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
+	fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume)
 		if(exposed_temperature > 300)
 			TemperatureAct(exposed_temperature)
 

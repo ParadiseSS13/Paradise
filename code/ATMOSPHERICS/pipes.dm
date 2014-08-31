@@ -4,6 +4,7 @@ obj/machinery/atmospherics/pipe
 	var/datum/pipeline/parent
 
 	var/volume = 0
+	var/frozen = 0 //used by the pipe freezer
 	force = 20
 
 	layer = 2.4 //under wires with their 2.44
@@ -49,7 +50,7 @@ obj/machinery/atmospherics/pipe
 
 		return parent.return_network(reference)
 
-	Del()
+	Destroy()
 		del(parent)
 		if(air_temporary)
 			loc.assume_air(air_temporary)
@@ -172,7 +173,7 @@ obj/machinery/atmospherics/pipe
 			else if(dir==12)
 				dir = 4
 
-		Del()
+		Destroy()
 			if(node1)
 				node1.disconnect(src)
 			if(node2)
@@ -460,7 +461,7 @@ obj/machinery/atmospherics/pipe
 
 				..()
 
-		Del()
+		Destroy()
 			if(node1)
 				node1.disconnect(src)
 
@@ -569,7 +570,7 @@ obj/machinery/atmospherics/pipe
 			else if (nodealert)
 				nodealert = 0
 */
-		Del()
+		Destroy()
 			if(node1)
 				node1.disconnect(src)
 
@@ -680,7 +681,7 @@ obj/machinery/atmospherics/pipe
 			else if (nodealert)
 				nodealert = 0
 */
-		Del()
+		Destroy()
 			if(node1)
 				node1.disconnect(src)
 			if(node2)
@@ -933,7 +934,7 @@ obj/machinery/atmospherics/pipe
 			else if (nodealert)
 				nodealert = 0
 */
-		Del()
+		Destroy()
 			if(node1)
 				node1.disconnect(src)
 			if(node2)
@@ -1133,7 +1134,7 @@ obj/machinery/atmospherics/pipe
 				..()
 			else
 				. = PROCESS_KILL
-		Del()
+		Destroy()
 			if(node)
 				node.disconnect(src)
 
@@ -1176,6 +1177,7 @@ obj/machinery/atmospherics/pipe
 
 
 obj/machinery/atmospherics/pipe/attackby(var/obj/item/weapon/W as obj, var/mob/user as mob)
+
 	if (istype(src, /obj/machinery/atmospherics/pipe/tank))
 		return ..()
 	if (istype(src, /obj/machinery/atmospherics/pipe/vent))
@@ -1203,18 +1205,55 @@ obj/machinery/atmospherics/pipe/attackby(var/obj/item/weapon/W as obj, var/mob/u
 		update_icon()
 		return 1
 
+	if (istype(W, /obj/item/device/pipe_freezer))
+		if(!src.frozen) // If the pipe is not already frozen
+			user << "\red You begin to freeze the [src]"
+			if (do_after(user, 60))
+				user.visible_message( \
+					"[user] freezes \the [src].", \
+					"\blue You finished freezing \the [src].", \
+					"You hear the hiss of gas.")
+				src.frozen = 1
+				spawn (200)
+					src.frozen = 0
+					src.visible_message( \
+					"\the ice arounds the [src] melts.", \
+					"\blue Your frozen [src] has thawed.", \
+					"You hear dripping water.")
+
+		add_fingerprint(user)
+		return 1
+
 	if (!istype(W, /obj/item/weapon/wrench))
 		return ..()
 	var/turf/T = src.loc
 	if (level==1 && isturf(T) && T.intact)
 		user << "\red You must remove the plating first."
 		return 1
+
 	var/datum/gas_mixture/int_air = return_air()
 	var/datum/gas_mixture/env_air = loc.return_air()
 	if ((int_air.return_pressure()-env_air.return_pressure()) > 2*ONE_ATMOSPHERE)
-		user << "\red You cannot unwrench this [src], it too exerted due to internal pressure."
-		add_fingerprint(user)
-		return 1
+		if (!src.frozen) // If the pipe is not frozen
+			user << "\red You cannot unwrench this [src], it too exerted due to internal pressure."
+			add_fingerprint(user)
+			return 1
+		else // If the pipe is frozen
+			playsound(get_turf(src), 'sound/items/Ratchet.ogg', 50, 1)
+			user << "\blue You begin to unfasten \the [src] between the frozen segments..."
+			if (do_after(user, 40))
+				user.visible_message( \
+					"[user] unfastens \the [src].", \
+					"\blue You have unfastened \the [src].", \
+					"You hear ratchet.")
+				new /obj/item/pipe(loc, make_from=src)
+				for (var/obj/machinery/meter/meter in T)
+					if (meter.target == src)
+						new /obj/item/pipe_meter(T)
+						del(meter)
+				qdel(src)
+			return 1
+
 	playsound(get_turf(src), 'sound/items/Ratchet.ogg', 50, 1)
 	user << "\blue You begin to unfasten \the [src]..."
 	if (do_after(user, 40))

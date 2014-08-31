@@ -116,6 +116,10 @@
 	name = "Seraph wreckage"
 	icon_state = "seraph-broken"
 
+/obj/effect/decal/mecha_wreckage/recitence
+	name = "\improper Recitence wreckage"
+	icon_state = "recitence-broken"
+
 /obj/effect/decal/mecha_wreckage/ripley
 	name = "Ripley wreckage"
 	icon_state = "ripley-broken"
@@ -197,6 +201,11 @@
 				welder_salvage += part
 				parts -= part
 		return
+
+
+/obj/effect/decal/mecha_wreckage/durand/old
+	name = "Durand wreckage"
+	icon_state = "old_durand-broken"
 
 /obj/effect/decal/mecha_wreckage/phazon
 	name = "Phazon wreckage"

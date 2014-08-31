@@ -18,6 +18,7 @@
 	var/fire_sound = 'sound/weapons/Gunshot.ogg'
 	var/obj/item/projectile/in_chamber = null
 	var/silenced = 0
+	var/ghettomodded = 0
 	var/recoil = 0
 	var/clumsy_check = 1
 	var/obj/item/ammo_casing/chambered = null // The round (not bullet) that is in the chamber. THIS MISPLACED ITEM BROUGHT TO YOU BY HACKY BUCKSHOT.
@@ -42,12 +43,14 @@
 	proc/process_chambered()
 		return 0
 
+
 	proc/special_check(var/mob/M) //Placeholder for any special checks, like detective's revolver.
 		return 1
 
 
 	proc/shoot_with_empty_chamber(mob/living/user as mob|obj)
 		user << "<span class='warning'>*click*</span>"
+		playsound(user, 'sound/weapons/emptyclick.ogg', 40, 1)
 		return
 
 	emp_act(severity)
@@ -82,7 +85,7 @@
 				del(src)
 				return
 
-	if (!user.IsAdvancedToolUser())
+	if (!user.IsAdvancedToolUser() || istype(user, /mob/living/carbon/monkey/diona))
 		user << "\red You don't have the dexterity to do this!"
 		return
 	if(istype(user, /mob/living))
@@ -240,8 +243,8 @@
 				mouthshoot = 0
 				return
 			in_chamber.on_hit(M)
-			if (!in_chamber.nodamage)
-				user.apply_damage(in_chamber.damage*2.5, in_chamber.damage_type, "head", used_weapon = "Point blank shot in the mouth with \a [in_chamber]")
+			if (in_chamber.damage_type != HALLOSS)
+				user.apply_damage(in_chamber.damage*2.5, in_chamber.damage_type, "head", used_weapon = "Point blank shot in the mouth with \a [in_chamber]", sharp=1)
 				user.death()
 			else
 				user << "<span class = 'notice'>Ow...</span>"
@@ -258,11 +261,11 @@
 		//Point blank shooting if on harm intent or target we were targeting.
 		if(user.a_intent == "harm")
 			user.visible_message("\red <b> \The [user] fires \the [src] point blank at [M]!</b>")
-			in_chamber.damage *= 1.3
-			src.Fire(M,user,0,0,1)
+			if(istype(in_chamber)) in_chamber.damage *= 1.3
+			Fire(M,user,0,0,1)
 			return
 		else if(target && M in target)
-			src.Fire(M,user,0,0,1) ///Otherwise, shoot!
+			Fire(M,user,0,0,1) ///Otherwise, shoot!
 			return
 	else
 		return ..() //Pistolwhippin'

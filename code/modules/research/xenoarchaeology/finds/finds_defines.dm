@@ -33,7 +33,8 @@
 #define ARCHAEO_REMAINS_HUMANOID 32
 #define ARCHAEO_REMAINS_ROBOT 33
 #define ARCHAEO_REMAINS_XENO 34
-#define MAX_ARCHAEO 34
+#define ARCHAEO_GASMASK 35
+#define MAX_ARCHAEO 35
 //eggs
 //droppings
 //footprints
@@ -119,6 +120,8 @@
 			return "carbon"
 		if(ARCHAEO_REMAINS_XENO)
 			return "carbon"
+		if(ARCHAEO_GASMASK)
+			return "carbon"
 	return "plasma"
 
 //see /turf/simulated/mineral/New() in code/modules/mining/mine_turfs.dm
@@ -153,6 +156,7 @@
 			100;ARCHAEO_PEN,\
 			100;ARCHAEO_LIGHTER,\
 			100;ARCHAEO_BOX,\
+			75;ARCHAEO_GASMASK,\
 			75;ARCHAEO_COIN,\
 			75;ARCHAEO_UNKNOWN,\
 			50;ARCHAEO_SHARD,\
@@ -161,6 +165,7 @@
 			)
 		if(DIGSITE_TECHNICAL)
 			find_type = pick(\
+			125;ARCHAEO_GASMASK,\
 			100;ARCHAEO_METAL,\
 			100;ARCHAEO_GASTANK,\
 			100;ARCHAEO_TELEBEACON,\
@@ -175,6 +180,7 @@
 		if(DIGSITE_TEMPLE)
 			find_type = pick(\
 			200;ARCHAEO_CULTROBES,\
+			200;ARCHAEO_STATUETTE,\
 			100;ARCHAEO_URN,\
 			100;ARCHAEO_BOWL,\
 			100;ARCHAEO_KNIFE,\
@@ -188,7 +194,8 @@
 			10;ARCHAEO_CLAYMORE,\
 			10;ARCHAEO_SHARD,\
 			10;ARCHAEO_RODS,\
-			10;ARCHAEO_METAL\
+			10;ARCHAEO_METAL,\
+			10;ARCHAEO_GASMASK,\
 			)
 		if(DIGSITE_WAR)
 			find_type = pick(\
@@ -200,6 +207,7 @@
 			50;ARCHAEO_UNKNOWN,\
 			50;ARCHAEO_CULTROBES,\
 			50;ARCHAEO_CULTBLADE,\
+			50;ARCHAEO_GASMASK,\
 			25;ARCHAEO_HANDCUFFS,\
 			25;ARCHAEO_BEARTRAP,\
 			25;ARCHAEO_TOOL\
@@ -262,6 +270,8 @@ var/list/finds_as_strings = list( \
 #undef ARCHAEO_REMAINS_HUMANOID
 #undef ARCHAEO_REMAINS_ROBOT
 #undef ARCHAEO_REMAINS_XENO
+#undef ARCHAEO_GASMASK
+#undef MAX_ARCHAEO
 
 #undef DIGSITE_GARDEN
 #undef DIGSITE_ANIMAL

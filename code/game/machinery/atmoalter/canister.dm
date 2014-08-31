@@ -18,16 +18,7 @@
 	use_power = 0
 	var/release_log = ""
 	var/busy = 0
-/*	m_amt=10*CC_PER_SHEET_METAL
-
-// Need to redefine /obj/item's recyk method
-/obj/machinery/portable_atmospherics/canister/recycle(var/obj/machinery/mineral/processing_unit/recycle/rec)
-	if (src.m_amt == 0 && src.g_amt == 0)
-		return 0
-	rec.iron += src.m_amt/CC_PER_SHEET_METAL
-	rec.glass += src.g_amt/CC_PER_SHEET_GLASS
-	return 1
-*/
+	var/update_flag = 0
 
 /obj/machinery/portable_atmospherics/canister/sleeping_agent
 	name = "Canister: \[N2O\]"
@@ -60,44 +51,67 @@
 	_color = "grey"
 	can_label = 0
 
-/*
- * return 0 (reached the proc code end)
- *        1 (canister is destroyed)
- */
-/obj/machinery/portable_atmospherics/canister/update_icon()
-	var/L[0]
-	overlays = L
-
-	if (destroyed)
-		icon_state = "[_color]-1"
-		return 1
-
-	icon_state = "[_color]"
-
-	L += "can-o3"
+/obj/machinery/portable_atmospherics/canister/proc/check_change()
+	var/old_flag = update_flag
+	update_flag = 0
+	if(holding)
+		update_flag |= 1
+	if(connected_port)
+		update_flag |= 2
 
 	var/tank_pressure = air_contents.return_pressure()
+	if(tank_pressure < 10)
+		update_flag |= 4
+	else if(tank_pressure < ONE_ATMOSPHERE)
+		update_flag |= 8
+	else if(tank_pressure < 15*ONE_ATMOSPHERE)
+		update_flag |= 16
+	else
+		update_flag |= 32
 
-	if (tank_pressure < 10)
-		L[L.len] = "can-o0"
-	else if (tank_pressure < ONE_ATMOSPHERE)
-		L[L.len] = "can-o1"
-	else if (tank_pressure < 15 * ONE_ATMOSPHERE)
-		L[L.len] = "can-o2"
+	if(update_flag == old_flag)
+		return 1
+	else
+		return 0
 
-	tank_pressure = null
+/obj/machinery/portable_atmospherics/canister/update_icon()
+/*
+update_flag
+1 = holding
+2 = connected_port
+4 = tank_pressure < 10
+8 = tank_pressure < ONE_ATMOS
+16 = tank_pressure < 15*ONE_ATMOS
+32 = tank_pressure go boom.
+*/
 
-	if (holding)
-		L += "can-open"
+	if (src.destroyed)
+		src.overlays = 0
+		src.icon_state = text("[]-1", src._color)
 
-	if (connected_port)
-		L += "can-connector"
+	if(icon_state != "[_color]")
+		icon_state = "[_color]"
 
-	overlays = L
-	L = null
-	return 0
+	if(check_change()) //Returns 1 if no change needed to icons.
+		return
 
-/obj/machinery/portable_atmospherics/canister/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
+	src.overlays = 0
+
+	if(update_flag & 1)
+		overlays += "can-open"
+	if(update_flag & 2)
+		overlays += "can-connector"
+	if(update_flag & 4)
+		overlays += "can-o0"
+	if(update_flag & 8)
+		overlays += "can-o1"
+	else if(update_flag & 16)
+		overlays += "can-o2"
+	else if(update_flag & 32)
+		overlays += "can-o3"
+	return
+
+/obj/machinery/portable_atmospherics/canister/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume)
 	if(exposed_temperature > temperature_resistance)
 		health -= 5
 		healthcheck()
@@ -237,7 +251,7 @@
 /obj/machinery/portable_atmospherics/canister/attack_hand(var/mob/user as mob)
 	return src.ui_interact(user)
 
-/obj/machinery/portable_atmospherics/canister/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null)
+/obj/machinery/portable_atmospherics/canister/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
 	if (src.destroyed)
 		return
 
@@ -257,7 +271,7 @@
 		data["holdingTank"] = list("name" = holding.name, "tankPressure" = round(holding.air_contents.return_pressure()))
 
 	// update the ui if it exists, returns null if no ui is passed/found
-	ui = nanomanager.try_update_ui(user, src, ui_key, ui, data)
+	ui = nanomanager.try_update_ui(user, src, ui_key, ui, data, force_open)
 	if (!ui)
 		// the ui does not exist, so we'll create a new() one
         // for a list of parameters and their descriptions see the code docs in \code\modules\nano\nanoui.dm
@@ -270,9 +284,15 @@
 		ui.set_auto_update(1)
 
 /obj/machinery/portable_atmospherics/canister/Topic(href, href_list)
-	//Do not use "if(..()) return" here, canisters will stop working in unpowered areas like space or on the derelict.
+
+	//Do not use "if(..()) return" here, canisters will stop working in unpowered areas like space or on the derelict. // yeah but without SOME sort of Topic check any dick can mess with them via exploits as he pleases -walter0o
 	if (!istype(src.loc, /turf))
 		return 0
+
+	if(!usr.canmove || usr.stat || usr.restrained() || !in_range(loc, usr)) // exploit protection -walter0o
+		usr << browse(null, "window=canister")
+		onclose(usr, "canister")
+		return
 
 	if(href_list["toggle"])
 		if (valve_open)
@@ -289,6 +309,9 @@
 
 	if (href_list["remove_tank"])
 		if(holding)
+			if (valve_open)
+				valve_open = 0
+				release_log += "Valve was <b>closed</b> by [usr] ([usr.ckey]), stopping the transfer into the [holding]<br>"
 			holding.loc = loc
 			holding = null
 

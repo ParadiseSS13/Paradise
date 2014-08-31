@@ -7,7 +7,7 @@
 /datum/file/program/aifixer
 	name			= "AI system integrity restorer"
 	desc			= "Repairs and revives artificial intelligence cores."
-	image			= 'icons/NTOS/airestore.png'
+	image			= 'icons/ntos/airestore.png'
 	active_state	= "ai-fixer-empty"
 	req_access		= list(access_captain, access_robotics, access_heads)
 

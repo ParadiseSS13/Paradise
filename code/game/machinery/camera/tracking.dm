@@ -4,7 +4,7 @@
 		return
 
 	var/list/L = list()
-	for (var/obj/machinery/camera/C in cameranet.cameras)
+	for (var/obj/machinery/camera/C in cameranet.viewpoints)
 		L.Add(C)
 
 	camera_sort(L)
@@ -23,9 +23,6 @@
 
 
 /mob/living/silicon/ai/proc/ai_camera_list(var/camera in get_camera_list())
-	set category = "AI Commands"
-	set name = "Show Camera List"
-
 	if(src.stat == 2)
 		src << "You can't list the cameras because you are dead!"
 		return
@@ -104,10 +101,6 @@
 	return targets
 
 /mob/living/silicon/ai/proc/ai_camera_track(var/target_name in trackable_mobs())
-	set category = "AI Commands"
-	set name = "Track With Camera"
-	set desc = "Select who you would like to track."
-
 	if(src.stat == 2)
 		src << "You can't track with camera because you are dead!"
 		return
@@ -221,6 +214,7 @@
 	else if(!cameranet.checkCameraVis(M))
 		return 0
 	return 1
+
 
 /obj/machinery/camera/attack_ai(var/mob/living/silicon/ai/user as mob)
 	if (!istype(user))

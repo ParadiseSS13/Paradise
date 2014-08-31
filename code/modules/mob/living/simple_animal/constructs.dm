@@ -23,7 +23,7 @@
 	min_n2 = 0
 	max_n2 = 0
 	minbodytemp = 0
-	faction = "cult"
+	faction = list("cult")
 	var/list/construct_spells = list()
 
 /mob/living/simple_animal/construct/New()
@@ -84,16 +84,14 @@
 			now_pushing = 1
 			if (!( AM.anchored ))
 				var/t = get_dir(src, AM)
-				if (istype(AM, /obj/structure/window))
-					if(AM:ini_dir == NORTHWEST || AM:ini_dir == NORTHEAST || AM:ini_dir == SOUTHWEST || AM:ini_dir == SOUTHEAST)
-						for(var/obj/structure/window/win in get_step(AM,t))
-							now_pushing = 0
-							return
+				if (istype(AM, /obj/structure/window/full))
+					for(var/obj/structure/window/win in get_step(AM,t))
+						now_pushing = 0
+						return
 				step(AM, t)
 			now_pushing = null
 		return
 	return
-
 
 /mob/living/simple_animal/construct/attack_animal(mob/living/simple_animal/M as mob)
 	if(istype(M, /mob/living/simple_animal/construct/builder))
@@ -107,7 +105,7 @@
 				playsound(loc, M.attack_sound, 50, 1, 1)
 			for(var/mob/O in viewers(src, null))
 				O.show_message("<span class='attack'>\The <EM>[M]</EM> [M.attacktext] \the <EM>[src]</EM>!</span>", 1)
-			add_logs(M, src, "attacked", admin=0)
+			add_logs(M, src, "attacked")
 			var/damage = rand(M.melee_damage_lower, M.melee_damage_upper)
 			adjustBruteLoss(damage)
 
@@ -150,7 +148,7 @@
 	environment_smash = 2
 	attack_sound = 'sound/weapons/punch3.ogg'
 	status_flags = 0
-	construct_spells = list(/obj/effect/proc_holder/spell/aoe_turf/conjure/lesserforcewall)
+	construct_spells = list(/obj/effect/proc_holder/spell/wizard/aoe_turf/conjure/lesserforcewall)
 
 /mob/living/simple_animal/construct/armoured/attackby(var/obj/item/O as obj, var/mob/user as mob)
 	if(O.force)
@@ -172,6 +170,10 @@
 			if ((M.client && !( M.blinded )))
 				M.show_message("\red [user] gently taps [src] with [O]. ")
 
+
+/mob/living/simple_animal/construct/armoured/Life()
+	weakened = 0
+	..()
 
 /mob/living/simple_animal/construct/armoured/bullet_act(var/obj/item/projectile/P)
 	if(istype(P, /obj/item/projectile/energy) || istype(P, /obj/item/projectile/beam))
@@ -220,7 +222,7 @@
 	speed = -1
 	see_in_dark = 7
 	attack_sound = 'sound/weapons/bladeslice.ogg'
-	construct_spells = list(/obj/effect/proc_holder/spell/targeted/ethereal_jaunt/shift)
+	construct_spells = list(/obj/effect/proc_holder/spell/wizard/targeted/ethereal_jaunt/shift)
 
 
 
@@ -245,11 +247,11 @@
 	speed = 0
 	environment_smash = 2
 	attack_sound = 'sound/weapons/punch2.ogg'
-	construct_spells = list(/obj/effect/proc_holder/spell/aoe_turf/conjure/construct/lesser,
-							/obj/effect/proc_holder/spell/aoe_turf/conjure/wall,
-							/obj/effect/proc_holder/spell/aoe_turf/conjure/floor,
-							/obj/effect/proc_holder/spell/aoe_turf/conjure/soulstone,
-							/obj/effect/proc_holder/spell/targeted/projectile/magic_missile/lesser)
+	construct_spells = list(/obj/effect/proc_holder/spell/wizard/aoe_turf/conjure/construct/lesser,
+							/obj/effect/proc_holder/spell/wizard/aoe_turf/conjure/wall,
+							/obj/effect/proc_holder/spell/wizard/aoe_turf/conjure/floor,
+							/obj/effect/proc_holder/spell/wizard/aoe_turf/conjure/soulstone,
+							/obj/effect/proc_holder/spell/wizard/targeted/projectile/magic_missile/lesser)
 
 
 /////////////////////////////Behemoth/////////////////////////

@@ -267,7 +267,7 @@ datum
 				explanation_text = "Frame [target.current.real_name], the [target.assigned_role] for a crime and make sure they are arrested and brought back to the Centcom station alive.  We'll handle the rest from there."
 
 			check_completion()
-				if(emergency_shuttle.location<2)
+				if(!emergency_shuttle.returned())
 					return 0
 				if(target.current.stat == 2)
 					return 0
@@ -313,7 +313,7 @@ datum
 				explanation_text = "[target.current.real_name], the [target.assigned_role] is a [pick("relative of a","friend of a","") + pick("high ranking","important","well-liked")] Syndicate [pick("Leader","Officer","Agent","sympathiser")].  Make sure they get off the station safely, while minimizing intervention."
 
 			check_completion()
-				if(emergency_shuttle.location<2)
+				if(!emergency_shuttle.returned())
 					return 0
 
 				if(target.current.stat == 2)
@@ -477,7 +477,7 @@ datum
 			explanation_text = "Hijack the emergency shuttle by escaping alone."
 
 			check_completion()
-				if(emergency_shuttle.location<2)
+				if(!emergency_shuttle.returned())
 					return 0
 
 				if(!owner.current || owner.current.stat == 2)
@@ -512,7 +512,7 @@ datum
 			explanation_text = "Escape on the shuttle alive, without being arrested."
 
 			check_completion()
-				if(emergency_shuttle.location<2)
+				if(!emergency_shuttle.returned())
 					return 0
 
 				if(!owner.current || owner.current.stat ==2)
@@ -1224,7 +1224,7 @@ datum
 			check_completion()
 				if(!istype(owner.current, /mob/living/silicon))
 					return 0
-				if(emergency_shuttle.location<2)
+				if(!emergency_shuttle.returned())
 					return 0
 				if(!owner.current)
 					return 0
@@ -1447,7 +1447,7 @@ datum/objective/silence
 	explanation_text = "Do not allow anyone to escape the station.  Only allow the shuttle to be called when everyone is dead and your story is the only one left."
 
 	check_completion()
-		if(emergency_shuttle.location<2)
+		if(!emergency_shuttle.returned())
 			return 0
 
 		var/area/shuttle = locate(/area/shuttle/escape/centcom)

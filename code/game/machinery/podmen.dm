@@ -25,6 +25,7 @@ Growing it to term with nothing injected will grab a ghost from the observers. *
 	gender = MALE
 	var/obj/machinery/hydroponics/parent = null
 	var/found_player = 0
+	var/beingharvested = 0
 
 /obj/item/seeds/replicapod/attackby(obj/item/weapon/W as obj, mob/user as mob)
 
@@ -73,7 +74,12 @@ Growing it to term with nothing injected will grab a ghost from the observers. *
 	parent = loc
 //	var/found_player = 0
 
-	user.visible_message("\blue [user] carefully begins to open the pod...","\blue You carefully begin to open the pod...")
+
+	if(beingharvested)
+		user << ("\red You can only harvest the pod once!")
+	else
+		user.visible_message("\blue [user] carefully begins to open the pod...","\blue You carefully begin to open the pod...")
+		beingharvested = 1
 
 	//If a sample is injected (and revival is allowed) the plant will be controlled by the original donor.
 	if(source && source.stat == 2 && source.client && source.ckey && config.revival_pod_plants)
@@ -99,6 +105,8 @@ Growing it to term with nothing injected will grab a ghost from the observers. *
 		podman.dna.real_name = podman.real_name
 
 		// Update mode specific HUD icons.
+		callHook("harvest_podman", list(podman))
+
 		switch(ticker.mode.name)
 			if ("revolution")
 				if (podman.mind in ticker.mode:revolutionaries)

@@ -1,5 +1,5 @@
 #define SAVEFILE_VERSION_MIN	8
-#define SAVEFILE_VERSION_MAX	10
+#define SAVEFILE_VERSION_MAX	12
 
 //handles converting savefiles to new formats
 //MAKE SURE YOU KEEP THIS UP TO DATE!
@@ -31,6 +31,7 @@
 	path = "data/player_saves/[copytext(ckey,1,2)]/[ckey]/[filename]"
 	savefile_version = SAVEFILE_VERSION_MAX
 
+/*
 /datum/preferences/proc/load_preferences()
 	if(!path)				return 0
 	if(!fexists(path))		return 0
@@ -58,7 +59,7 @@
 	S["UI_style_color"]		>> UI_style_color
 	S["UI_style_alpha"]		>> UI_style_alpha
 	S["randomslot"]			>> randomslot
-
+	S["volume"]				>> volume
 	//Sanitize
 	ooccolor		= sanitize_hexcolor(ooccolor, initial(ooccolor))
 	lastchangelog	= sanitize_text(lastchangelog, initial(lastchangelog))
@@ -70,6 +71,7 @@
 	UI_style_color	= sanitize_hexcolor(UI_style_color, initial(UI_style_color))
 	UI_style_alpha	= sanitize_integer(UI_style_alpha, 0, 255, initial(UI_style_alpha))
 	randomslot		= sanitize_integer(randomslot, 0, 1, initial(randomslot))
+	volume			= sanitize_integer(volume, 0, 100, initial(volume))
 	return 1
 
 /datum/preferences/proc/save_preferences()
@@ -91,7 +93,20 @@
 	S["UI_style_color"]		<< UI_style_color
 	S["UI_style_alpha"]		<< UI_style_alpha
 	S["randomslot"]			<< randomslot
+	S["volume"]				<< volume
 	return 1
+
+
+//saving volume changes
+/datum/preferences/proc/save_volume()
+	if(!path)				return 0
+	var/savefile/S = new /savefile(path)
+	if(!S)					return 0
+	S.cd = "/"
+
+	S["volume"]				<< volume
+	return 1
+*/
 
 /datum/preferences/proc/load_save(dir)
 	var/savefile/S = new /savefile(path)
@@ -115,12 +130,16 @@
 	S["facial_green"]		>> g_facial
 	S["facial_blue"]		>> b_facial
 	S["skin_tone"]			>> s_tone
+	S["skin_red"]			>> r_skin
+	S["skin_green"]			>> g_skin
+	S["skin_blue"]			>> b_skin
 	S["hair_style_name"]	>> h_style
 	S["facial_style_name"]	>> f_style
 	S["eyes_red"]			>> r_eyes
 	S["eyes_green"]			>> g_eyes
 	S["eyes_blue"]			>> b_eyes
 	S["underwear"]			>> underwear
+	S["undershirt"]			>> undershirt
 	S["backbag"]			>> backbag
 	S["b_type"]				>> b_type
 	S["accent"]				>> accent
@@ -162,7 +181,7 @@
 	if(isnull(species)) species = "Human"
 	if(isnull(language)) language = "None"
 	if(isnull(nanotrasen_relation)) nanotrasen_relation = initial(nanotrasen_relation)
-	if(!real_name) real_name = random_name(gender)
+	if(!real_name) real_name = random_name(gender,species)
 	be_random_name	= sanitize_integer(be_random_name, 0, 1, initial(be_random_name))
 	gender			= sanitize_gender(gender)
 	age				= sanitize_integer(age, AGE_MIN, AGE_MAX, initial(age))
@@ -173,12 +192,16 @@
 	g_facial		= sanitize_integer(g_facial, 0, 255, initial(g_facial))
 	b_facial		= sanitize_integer(b_facial, 0, 255, initial(b_facial))
 	s_tone			= sanitize_integer(s_tone, -185, 34, initial(s_tone))
+	r_skin			= sanitize_integer(r_skin, 0, 255, initial(r_skin))
+	g_skin			= sanitize_integer(g_skin, 0, 255, initial(g_skin))
+	b_skin			= sanitize_integer(b_skin, 0, 255, initial(b_skin))
 	h_style			= sanitize_inlist(h_style, hair_styles_list, initial(h_style))
 	f_style			= sanitize_inlist(f_style, facial_hair_styles_list, initial(f_style))
 	r_eyes			= sanitize_integer(r_eyes, 0, 255, initial(r_eyes))
 	g_eyes			= sanitize_integer(g_eyes, 0, 255, initial(g_eyes))
 	b_eyes			= sanitize_integer(b_eyes, 0, 255, initial(b_eyes))
 	underwear		= sanitize_integer(underwear, 1, underwear_m.len, initial(underwear))
+	undershirt		= sanitize_integer(undershirt, 1, undershirt_t.len, initial(undershirt))
 	backbag			= sanitize_integer(backbag, 1, backbaglist.len, initial(backbag))
 	b_type			= sanitize_text(b_type, initial(b_type))
 	accent			= sanitize_text(accent, initial(accent))
@@ -224,7 +247,7 @@
 	S.cd = pick(saves)
 	load_save(S.cd)
 	return 1
-
+/*
 /datum/preferences/proc/load_character(slot)
 	if(!path)				return 0
 	if(!fexists(path))		return 0
@@ -238,7 +261,7 @@
 		S["default_slot"] << slot
 	S.cd = "/character[slot]"
 	load_save(S.cd)
-/* Now loaded by proc load_save(S.cd)
+ Now loaded by proc load_save(S.cd)
 	//Character
 	S["OOC_Notes"]			>> metadata
 	S["real_name"]			>> real_name
@@ -256,12 +279,16 @@
 	S["facial_green"]		>> g_facial
 	S["facial_blue"]		>> b_facial
 	S["skin_tone"]			>> s_tone
+	S["skin_red"]			>> r_skin
+	S["skin_green"]			>> g_skin
+	S["skin_blue"]			>> b_skin
 	S["hair_style_name"]	>> h_style
 	S["facial_style_name"]	>> f_style
 	S["eyes_red"]			>> r_eyes
 	S["eyes_green"]			>> g_eyes
 	S["eyes_blue"]			>> b_eyes
 	S["underwear"]			>> underwear
+	S["undershirt"]			>> undershirt
 	S["backbag"]			>> backbag
 	S["b_type"]				>> b_type
 
@@ -290,6 +317,7 @@
 	S["nanotrasen_relation"] >> nanotrasen_relation
 	//S["skin_style"]			>> skin_style
 
+
 	//Sanitize
 	metadata		= sanitize_text(metadata, initial(metadata))
 	real_name		= reject_bad_name(real_name)
@@ -307,12 +335,16 @@
 	g_facial		= sanitize_integer(g_facial, 0, 255, initial(g_facial))
 	b_facial		= sanitize_integer(b_facial, 0, 255, initial(b_facial))
 	s_tone			= sanitize_integer(s_tone, -185, 34, initial(s_tone))
+	r_skin			= sanitize_integer(r_skin, 0, 255, initial(r_skin))
+	g_skin			= sanitize_integer(g_skin, 0, 255, initial(g_skin))
+	b_skin			= sanitize_integer(b_skin, 0, 255, initial(b_skin))
 	h_style			= sanitize_inlist(h_style, hair_styles_list, initial(h_style))
 	f_style			= sanitize_inlist(f_style, facial_hair_styles_list, initial(f_style))
 	r_eyes			= sanitize_integer(r_eyes, 0, 255, initial(r_eyes))
 	g_eyes			= sanitize_integer(g_eyes, 0, 255, initial(g_eyes))
 	b_eyes			= sanitize_integer(b_eyes, 0, 255, initial(b_eyes))
 	underwear		= sanitize_integer(underwear, 1, underwear_m.len, initial(underwear))
+	undershirt		= sanitize_integer(undershirt, 1, undershirt_t.len, initial(undershirt))
 	backbag			= sanitize_integer(backbag, 1, backbaglist.len, initial(backbag))
 	b_type			= sanitize_text(b_type, initial(b_type))
 
@@ -331,7 +363,7 @@
 	if(!player_alt_titles) player_alt_titles = new()
 	if(!organ_data) src.organ_data = list()
 	//if(!skin_style) skin_style = "Default"
-*/
+
 	return 1
 
 /datum/preferences/proc/save_character()
@@ -355,12 +387,16 @@
 	S["facial_green"]		<< g_facial
 	S["facial_blue"]		<< b_facial
 	S["skin_tone"]			<< s_tone
+	S["skin_red"]			<< r_skin
+	S["skin_green"]			<< g_skin
+	S["skin_blue"]			<< b_skin
 	S["hair_style_name"]	<< h_style
 	S["facial_style_name"]	<< f_style
 	S["eyes_red"]			<< r_eyes
 	S["eyes_green"]			<< g_eyes
 	S["eyes_blue"]			<< b_eyes
 	S["underwear"]			<< underwear
+	S["undershirt"]			<< undershirt
 	S["backbag"]			<< backbag
 	S["b_type"]				<< b_type
 	S["accent"]				<< accent
@@ -397,7 +433,7 @@
 	//S["skin_style"]			<< skin_style
 
 	return 1
-
+*/
 
 #undef SAVEFILE_VERSION_MAX
 #undef SAVEFILE_VERSION_MIN

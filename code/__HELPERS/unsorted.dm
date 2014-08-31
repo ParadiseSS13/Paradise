@@ -150,44 +150,108 @@ Turf and target are seperate in case you want to teleport some distance from a t
 
 	return destination
 
+///////////////////
+//A* helpers procs
+///////////////////
 
+// Returns true if a link between A and B is blocked
+// Movement through doors allowed if ID has access
+/proc/LinkBlockedWithAccess(turf/A, turf/B, obj/item/weapon/card/id/ID)
 
-/proc/LinkBlocked(turf/A, turf/B)
 	if(A == null || B == null) return 1
 	var/adir = get_dir(A,B)
 	var/rdir = get_dir(B,A)
-	if((adir & (NORTH|SOUTH)) && (adir & (EAST|WEST)))	//	diagonal
-		var/iStep = get_step(A,adir&(NORTH|SOUTH))
-		if(!LinkBlocked(A,iStep) && !LinkBlocked(iStep,B)) return 0
+	if(adir & (adir-1))	//	diagonal
+		var/turf/iStep = get_step(A,adir&(NORTH|SOUTH))
+		if(!iStep.density && !LinkBlockedWithAccess(A,iStep, ID) && !LinkBlockedWithAccess(iStep,B,ID))
+			return 0
 
-		var/pStep = get_step(A,adir&(EAST|WEST))
-		if(!LinkBlocked(A,pStep) && !LinkBlocked(pStep,B)) return 0
+		var/turf/pStep = get_step(A,adir&(EAST|WEST))
+		if(!pStep.density && !LinkBlockedWithAccess(A,pStep,ID) && !LinkBlockedWithAccess(pStep,B,ID))
+			return 0
+
+		return 1
+
+	if(DirBlockedWithAccess(A,adir, ID))
+		return 1
+
+	if(DirBlockedWithAccess(B,rdir, ID))
+		return 1
+
+	for(var/obj/O in B)
+		if(O.density && !istype(O, /obj/machinery/door) && !(O.flags & ON_BORDER))
+			return 1
+
+	return 0
+
+// Returns true if direction is blocked from loc
+// Checks doors against access with given ID
+/proc/DirBlockedWithAccess(turf/loc,var/dir,var/obj/item/weapon/card/id/ID)
+	for(var/obj/structure/window/D in loc)
+		if(!D.density)			continue
+		if(D.dir == SOUTHWEST)	return 1 //full-tile window
+		if(D.dir == dir)		return 1 //matching border window
+
+	for(var/obj/machinery/door/D in loc)
+		if(!D.CanAStarPass(ID,dir))
+			return 1
+	return 0
+
+// Returns true if a link between A and B is blocked
+// Movement through doors allowed if door is open
+/proc/LinkBlocked(turf/A, turf/B)
+	if(A == null || B == null)
+		return 1
+	var/adir = get_dir(A,B)
+	var/rdir = get_dir(B,A)
+	if(adir & (adir-1)) //diagonal
+		var/turf/iStep = get_step(A,adir & (NORTH|SOUTH)) //check the north/south component
+		if(!iStep.density && !LinkBlocked(A,iStep) && !LinkBlocked(iStep,B))
+			return 0
+
+		var/turf/pStep = get_step(A,adir & (EAST|WEST)) //check the east/west component
+		if(!pStep.density && !LinkBlocked(A,pStep) && !LinkBlocked(pStep,B))
+			return 0
+
 		return 1
 
 	if(DirBlocked(A,adir)) return 1
 	if(DirBlocked(B,rdir)) return 1
+
+	for(var/obj/O in B)
+		if(O.density && !istype(O, /obj/machinery/door) && !(O.flags & ON_BORDER))
+			return 1
+
 	return 0
 
+// Returns true if a link is blocked and neither location has something climbable on
+// Used for inventory checks
+/proc/LinkBlockedUnclimbable(turf/A, turf/B)
+	if (!LinkBlocked(A, B))
+		return 0
+	for (var/obj/structure/S in A.contents)
+		if(S.climbable)
+			return 0
+	for (var/obj/structure/S in B.contents)
+		if(S.climbable)
+			return 0
+	return 1
 
+// Returns true if direction is blocked from loc
+// Checks if doors are open
 /proc/DirBlocked(turf/loc,var/dir)
 	for(var/obj/structure/window/D in loc)
 		if(!D.density)			continue
-		if(D.dir == SOUTHWEST)	return 1
+		if(D.is_fulltile())	return 1
 		if(D.dir == dir)		return 1
 
 	for(var/obj/machinery/door/D in loc)
-		if(!D.density)			continue
-		if(istype(D, /obj/machinery/door/window))
-			if((dir & SOUTH) && (D.dir & (EAST|WEST)))		return 1
-			if((dir & EAST ) && (D.dir & (NORTH|SOUTH)))	return 1
-		else return 1	// it's a real, air blocking door
+		if(!D.density)//if the door is open
+			continue
+		else return 1	// if closed, it's a real, air blocking door
 	return 0
 
-/proc/TurfBlockedNonWindow(turf/loc)
-	for(var/obj/O in loc)
-		if(O.density && !istype(O, /obj/structure/window))
-			return 1
-	return 0
+/////////////////////////////////////////////////////////////////////////
 
 /proc/sign(x)
 	return x!=0?x/abs(x):0
@@ -362,7 +426,7 @@ Turf and target are seperate in case you want to teleport some distance from a t
 	var/select = null
 	var/list/borgs = list()
 	for (var/mob/living/silicon/robot/A in player_list)
-		if (A.stat == 2 || A.connected_ai || A.scrambledcodes)
+		if (A.stat == 2 || A.connected_ai || A.scrambledcodes || istype(A,/mob/living/silicon/robot/drone))
 			continue
 		var/name = "[A.real_name] ([A.modtype] [A.braintype])"
 		borgs[name] = A
@@ -463,36 +527,29 @@ Turf and target are seperate in case you want to teleport some distance from a t
 
 	return creatures
 
+var/list/sortMobsOrder = list(	"/mob/living/silicon/ai",
+								"/mob/living/silicon/pai",
+								"/mob/living/silicon/robot",
+								"/mob/living/carbon/human",
+								"/mob/spirit/mask",
+								"/mob/living/carbon/brain",
+								"/mob/living/carbon/alien",
+								"/mob/dead/observer",
+								"/mob/new_player",
+								"/mob/living/carbon/monkey",
+								"/mob/living/carbon/slime",
+								"/mob/living/simple_animal",
+								"/mob/living/silicon/hivebot",
+								"/mob/living/silicon/hive_mainframe"	)
+
 //Orders mobs by type then by name
 /proc/sortmobs()
 	var/list/moblist = list()
 	var/list/sortmob = sortAtom(mob_list)
-	for(var/mob/living/silicon/ai/M in sortmob)
-		moblist.Add(M)
-	for(var/mob/living/silicon/pai/M in sortmob)
-		moblist.Add(M)
-	for(var/mob/living/silicon/robot/M in sortmob)
-		moblist.Add(M)
-	for(var/mob/living/carbon/human/M in sortmob)
-		moblist.Add(M)
-	for(var/mob/living/carbon/brain/M in sortmob)
-		moblist.Add(M)
-	for(var/mob/living/carbon/alien/M in sortmob)
-		moblist.Add(M)
-	for(var/mob/dead/observer/M in sortmob)
-		moblist.Add(M)
-	for(var/mob/new_player/M in sortmob)
-		moblist.Add(M)
-	for(var/mob/living/carbon/monkey/M in sortmob)
-		moblist.Add(M)
-	for(var/mob/living/carbon/slime/M in sortmob)
-		moblist.Add(M)
-	for(var/mob/living/simple_animal/M in sortmob)
-		moblist.Add(M)
-//	for(var/mob/living/silicon/hivebot/M in world)
-//		mob_list.Add(M)
-//	for(var/mob/living/silicon/hive_mainframe/M in world)
-//		mob_list.Add(M)
+	for (var/path in sortMobsOrder)
+		for (var/mob/sorting in sortmob)
+			if (istype(sorting,text2path(path)))
+				moblist.Add(sorting)
 	return moblist
 
 //E = MC^2
@@ -513,7 +570,7 @@ Turf and target are seperate in case you want to teleport some distance from a t
 		return -M
 
 
-/proc/key_name(var/whom, var/include_link = null, var/include_name = 1)
+/proc/key_name(var/whom, var/include_link = null, var/include_name = 1, var/type = null)
 	var/mob/M
 	var/client/C
 	var/key
@@ -537,7 +594,7 @@ Turf and target are seperate in case you want to teleport some distance from a t
 
 	if(key)
 		if(include_link && C)
-			. += "<a href='?priv_msg=\ref[C]'>"
+			. += "<a href='?priv_msg=\ref[C];type=[type]'>"
 
 		if(C && C.holder && C.holder.fakekey && !include_name)
 			. += "Administrator"
@@ -568,31 +625,6 @@ Turf and target are seperate in case you want to teleport some distance from a t
 	while(loc && loc.loc && !istype(loc.loc, /turf/))
 		loc = loc.loc
 	return loc
-
-
-// Registers the on-close verb for a browse window (client/verb/.windowclose)
-// this will be called when the close-button of a window is pressed.
-//
-// This is usually only needed for devices that regularly update the browse window,
-// e.g. canisters, timers, etc.
-//
-// windowid should be the specified window name
-// e.g. code is	: user << browse(text, "window=fred")
-// then use 	: onclose(user, "fred")
-//
-// Optionally, specify the "ref" parameter as the controlled atom (usually src)
-// to pass a "close=1" parameter to the atom's Topic() proc for special handling.
-// Otherwise, the user mob's machine var will be reset directly.
-//
-/proc/onclose(mob/user, windowid, var/atom/ref=null)
-	if(!user.client) return
-	var/param = "null"
-	if(ref)
-		param = "\ref[ref]"
-
-	winset(user, windowid, "on-close=\".windowclose [param]\"")
-
-	//world << "OnClose [user]: [windowid] : ["on-close=\".windowclose [param]\""]"
 
 
 // the on-close client verb
@@ -799,14 +831,14 @@ proc/anim(turf/location as turf,target as mob|obj,a_icon,a_icon_state as text,fl
 		return 0
 
 	var/delayfraction = round(delay/numticks)
-	var/turf/T = get_turf(user)
+	var/original_loc = user.loc
 	var/holding = user.get_active_hand()
 
 	for(var/i = 0, i<numticks, i++)
 		sleep(delayfraction)
 
 
-		if(!user || user.stat || user.weakened || user.stunned || !(user.loc == T))
+		if(!user || user.stat || user.weakened || user.stunned || (user.loc != original_loc))
 			return 0
 		if(needhand && !(user.get_active_hand() == holding))	//Sometimes you don't want the user to have to keep their active hand
 			return 0
@@ -934,10 +966,18 @@ proc/anim(turf/location as turf,target as mob|obj,a_icon,a_icon_state as text,fl
 					var/old_icon_state1 = T.icon_state
 					var/old_icon1 = T.icon
 
-					var/turf/X = new T.type(B)
+					var/turf/X = B.ChangeTurf(T.type)
 					X.dir = old_dir1
 					X.icon_state = old_icon_state1
 					X.icon = old_icon1 //Shuttle floors are in shuttle.dmi while the defaults are floors.dmi
+
+					var/turf/simulated/ST = T
+					if(istype(ST) && ST.zone)
+						var/turf/simulated/SX = X
+						if(!SX.air)
+							SX.make_air()
+						SX.air.copy_from(ST.zone.air)
+						ST.zone.remove(ST)
 
 					/* Quick visual fix for some weird shuttle corner artefacts when on transit space tiles */
 					if(direction && findtext(X.icon_state, "swall_s"))
@@ -973,7 +1013,9 @@ proc/anim(turf/location as turf,target as mob|obj,a_icon,a_icon_state as text,fl
 							del(O) // prevents multiple shuttle corners from stacking
 							continue
 						if(!istype(O,/obj)) continue
-						O.loc = X
+						O.loc.Exited(O)
+						O.setLoc(X,teleported=1)
+						O.loc.Entered(O)
 					for(var/mob/M in T)
 						if(!M.move_on_shuttle)
 							continue
@@ -988,16 +1030,7 @@ proc/anim(turf/location as turf,target as mob|obj,a_icon,a_icon_state as text,fl
 					toupdate += X
 
 					if(turftoleave)
-						var/turf/ttl = new turftoleave(T)
-
-//						var/area/AR2 = ttl.loc
-
-//						if(AR2.lighting_use_dynamic)						//TODO: rewrite this code so it's not messed by lighting ~Carn
-//							ttl.opacity = !ttl.opacity
-//							ttl.sd_SetOpacity(!ttl.opacity)
-
-						fromupdate += ttl
-
+						fromupdate += T.ChangeTurf(turftoleave)
 					else
 						T.ChangeTurf(/turf/space)
 
@@ -1241,12 +1274,21 @@ proc/get_mob_with_client_list()
 	else return zone
 
 
-/proc/get_turf(turf/location)
-	while(location)
-		if(isturf(location))
-			return location
-		location = location.loc
-	return null
+/proc/get_turf(const/atom/O)
+	if (isnull(O) || isarea(O))
+		return
+
+	var/atom/A = O
+
+	for (var/i = 0, ++i <= 20)
+		if (isturf(A))
+			return A
+
+		switch (istype(A))
+			if (1)
+				A = A.loc
+			if (0)
+				return
 
 /proc/get(atom/loc, type)
 	while(loc)
@@ -1346,8 +1388,23 @@ proc/is_hot(obj/item/W as obj)
 
 	return 0
 
-//Is this even used for anything besides balloons? Yes I took out the W:lit stuff because : really shouldnt be used.
-/proc/is_sharp(obj/item/W as obj)		// For the record, WHAT THE HELL IS THIS METHOD OF DOING IT?
+
+//Whether or not the given item counts as sharp in terms of dealing damage
+/proc/is_sharp(obj/O as obj)
+	if (!O) return 0
+	if (O.sharp) return 1
+	if (O.edge) return 1
+	return 0
+
+//Whether or not the given item counts as cutting with an edge in terms of removing limbs
+/proc/has_edge(obj/O as obj)
+	if (!O) return 0
+	if (O.edge) return 1
+	return 0
+
+//Returns 1 if the given item is capable of popping things like balloons, inflatable barriers, or cutting police tape.
+/proc/can_puncture(obj/item/W as obj)		// For the record, WHAT THE HELL IS THIS METHOD OF DOING IT?
+	if(!W) return 0
 	if(W.sharp) return 1
 	return ( \
 		W.sharp													  || \
@@ -1357,20 +1414,7 @@ proc/is_hot(obj/item/W as obj)
 		istype(W, /obj/item/weapon/lighter/zippo)				  || \
 		istype(W, /obj/item/weapon/match)            		      || \
 		istype(W, /obj/item/clothing/mask/cigarette) 		      || \
-		istype(W, /obj/item/weapon/wirecutters)                   || \
-		istype(W, /obj/item/weapon/circular_saw)                  || \
-		istype(W, /obj/item/weapon/melee/energy/sword)            || \
-		istype(W, /obj/item/weapon/melee/energy/blade)            || \
-		istype(W, /obj/item/weapon/shovel)                        || \
-		istype(W, /obj/item/weapon/kitchenknife)                  || \
-		istype(W, /obj/item/weapon/butch)						  || \
-		istype(W, /obj/item/weapon/scalpel)                       || \
-		istype(W, /obj/item/weapon/kitchen/utensil/knife)         || \
-		istype(W, /obj/item/weapon/shard)                         || \
-		istype(W, /obj/item/weapon/broken_bottle)				  || \
-		istype(W, /obj/item/weapon/reagent_containers/syringe)    || \
-		istype(W, /obj/item/weapon/kitchen/utensil/fork) && W.icon_state != "forkloaded" || \
-		istype(W, /obj/item/weapon/twohanded/fireaxe) \
+		istype(W, /obj/item/weapon/shovel) \
 	)
 
 /proc/is_surgery_tool(obj/item/W as obj)
@@ -1487,6 +1531,8 @@ proc/rotate_icon(file, state, step = 1, aa = FALSE)
 
 	return result
 
+/proc/format_text(text)
+	return replacetext(replacetext(text,"\proper ",""),"\improper ","")
 
 /*
 Standard way to write links -Sayu
@@ -1496,6 +1542,7 @@ Standard way to write links -Sayu
 	if(istype(arglist,/list))
 		arglist = list2params(arglist)
 	return "<a href='?src=\ref[D];[arglist]'>[content]</a>"
+
 
 
 /proc/get_location_accessible(mob/M, location)
@@ -1574,38 +1621,31 @@ proc/check_target_facings(mob/living/initator, mob/living/target)
 		return 3
 
 
-/proc/texttospeechstrip(var/t_in)
-    var/t_out = ""
-    for(var/i=1, i<=length(t_in), i++)
-        var/ascii_char = text2ascii(t_in,i)
-        switch(ascii_char)
-            // A .. Z
-            if(65 to 90)                        //Uppercase Letters
-                if(lentext(t_out) <= 150)
-                    t_out += ascii2text(ascii_char)
-            // a .. z
-            if(97 to 122)                        //Lowercase Letters
-                if(lentext(t_out) <= 150)
-                    t_out += ascii2text(ascii_char)
-            // 0 .. 9
-            if(48 to 57)                        //Numbers
-                if(lentext(t_out) <= 150)
-                    t_out += ascii2text(ascii_char)
-            // ` , - . ! ? : '
-            if(39,44,45,46,33,63,58,96,60,62)                        //Common name punctuation
-                if(lentext(t_out) <= 150)
-                    t_out += ascii2text(ascii_char)
-            //Space
-            if(32)
-                if(lentext(t_out) <= 150)
-                    t_out += ascii2text(ascii_char)
-    return t_out
-/var/lastspeak = ""
+atom/proc/GetTypeInAllContents(typepath)
+	var/list/processing_list = list(src)
+	var/list/processed = list()
 
+	var/atom/found = null
 
-/mob/proc/texttospeech(var/text, var/speed, var/pitch, var/accent, var/voice, var/echo)
-    text = texttospeechstrip(text)
-    lastspeak = text
-    ext_python("voice.py", "\"[accent]\" \"[voice]\" \"[pitch]\" \"[echo]\" \"[speed]\" \"[text]\" \"[src.ckey]\"")
+	while(processing_list.len && found==null)
+		var/atom/A = processing_list[1]
+		if(istype(A, typepath))
+			found = A
 
+		processing_list -= A
 
+		for(var/atom/a in A)
+			if(!(a in processed))
+				processing_list |= a
+
+		processed |= A
+
+	return found
+
+/proc/random_step(atom/movable/AM, steps, chance)
+	var/initial_chance = chance
+	while(steps > 0)
+		if(prob(chance))
+			step(AM, pick(alldirs))
+		chance = max(chance - (initial_chance / steps), 0)
+		steps--

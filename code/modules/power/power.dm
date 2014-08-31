@@ -9,7 +9,7 @@
 	idle_power_usage = 0
 	active_power_usage = 0
 
-/obj/machinery/power/Del()
+/obj/machinery/power/Destroy()
 	disconnect_from_network()
 	..()
 
@@ -54,13 +54,23 @@
 
 // increment the power usage stats for an area
 
-/obj/machinery/proc/use_power(var/amount, var/chan = -1) // defaults to power_channel
-	var/area/A = src.loc.loc		// make sure it's in an area
-	if(!A || !isarea(A) || !A.master)
+
+/obj/machinery/proc/use_power(var/amount, var/chan = -1, var/autocalled = 0) // defaults to power_channel
+	var/A = getArea()
+
+	if(!A || !isarea(A))
 		return
-	if(chan == -1)
+
+	var/area/B = A
+
+	if (!B.master)
+		return
+
+	if (-1 == chan)
 		chan = power_channel
-	A.master.use_power(amount, chan)
+
+
+	B.master.use_power(amount, chan)
 
 /obj/machinery/proc/power_change()		// called whenever the power settings of the containing area change
 										// by default, check equipment channel & set flag
@@ -78,6 +88,9 @@
 
 
 // rebuild all power networks from scratch
+
+/hook/startup/proc/buildPowernets()
+	return makepowernets()
 
 /proc/makepowernets()
 	for(var/datum/powernet/PN in powernets)
@@ -100,6 +113,8 @@
 	for(var/obj/machinery/power/M in machines)
 		if(!M.powernet)	continue	// APCs have powernet=0 so they don't count as network nodes directly
 		M.powernet.nodes[M] = M
+
+	return 1
 
 
 // returns a list of all power-related objects (nodes, cable, junctions) in turf,
@@ -429,9 +444,8 @@
 
 /area/proc/get_apc()
 	for(var/area/RA in src.related)
-		var/obj/machinery/power/apc/FINDME = locate() in RA
-		if (FINDME)
-			return FINDME
+		if (RA.apc.len >= 1)
+			return RA.apc[1]
 
 
 //Determines how strong could be shock, deals damage to mob, uses power.
@@ -441,6 +455,9 @@
 //No animations will be performed by this proc.
 /proc/electrocute_mob(mob/living/carbon/M as mob, var/power_source, var/obj/source, var/siemens_coeff = 1.0)
 	if(istype(M.loc,/obj/mecha))	return 0	//feckin mechs are dumb
+	
+	//This is for performance optimization only. 
+	//DO NOT modify siemens_coeff here. That is checked in human/electrocute_act()
 	if(istype(M,/mob/living/carbon/human))
 		var/mob/living/carbon/human/H = M
 		if(H.gloves)

@@ -1,5 +1,3 @@
-
-
 /obj/item/weapon/plastique
 	name = "plastic explosives"
 	desc = "Used to put holes in specific areas without too much extra hole."
@@ -7,7 +5,7 @@
 	icon = 'icons/obj/assemblies.dmi'
 	icon_state = "plastic-explosive0"
 	item_state = "plasticx"
-	flags = FPRINT | TABLEPASS | USEDELAY
+	flags = NOBLUDGEON
 	w_class = 2.0
 	origin_tech = "syndicate=2"
 	var/datum/wires/explosive/plastic/wires = null
@@ -62,6 +60,7 @@
 	timer = newtime
 	user << "Timer set for [timer] seconds."
 
+
 /obj/item/weapon/plastique/afterattack(atom/target as obj|turf, mob/user as mob, flag)
 	if (!flag)
 		return
@@ -69,24 +68,28 @@
 		return
 	user << "Planting explosives..."
 	if(ismob(target))
-
 		user.attack_log += "\[[time_stamp()]\] <font color='red'> [user.real_name] tried planting [name] on [target:real_name] ([target:ckey])</font>"
-		msg_admin_attack("[user.real_name] ([user.ckey]) tried planting [name] on [target:real_name] ([target:ckey]) (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[user.x];Y=[user.y];Z=[user.z]'>JMP</a>)")
+		if(target:ckey)
+			msg_admin_attack("[user.real_name] ([user.ckey]) tried planting [name] on [target:real_name] ([target:ckey]) (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[user.x];Y=[user.y];Z=[user.z]'>JMP</a>)")
 
 		user.visible_message("\red [user.name] is trying to plant some kind of explosive on [target.name]!")
+
 
 	if(do_after(user, 50) && in_range(user, target))
 		user.drop_item()
 		src.target = target
 		loc = null
+
 		if (ismob(target))
-			var/mob/M = target
-			target:attack_log += "\[[time_stamp()]\]<font color='orange'> Had the [name] planted on them by [user.real_name] ([user.ckey])</font>"
+			add_logs(user, target, "planted [name] on")
 			user.visible_message("\red [user.name] finished planting an explosive on [target.name]!")
-			if(!iscarbon(user))
-				M.LAssailant = null
-			else
-				M.LAssailant = user
+			message_admins("[key_name(user, user.client)](<A HREF='?_src_=holder;adminmoreinfo=\ref[user]'>?</A>) planted C4 on [key_name(target)](<A HREF='?_src_=holder;adminmoreinfo=\ref[target]'>?</A>) with [timer] second fuse",0,1)
+			log_game("[key_name(user)] planted C4 on [key_name(target)] with [timer] second fuse")
+
+		else
+			message_admins("[key_name(user, user.client)](<A HREF='?_src_=holder;adminmoreinfo=\ref[user]'>?</A>) planted C4 on [target.name] at ([target.x],[target.y],[target.z] - <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>) with [timer] second fuse",0,1)
+			log_game("[key_name(user)] planted C4 on [target.name] at ([target.x],[target.y],[target.z]) with [timer] second fuse")
+
 		target.overlays += image('icons/obj/assemblies.dmi', "plastic-explosive2")
 		user << "Bomb has been planted. Timer counting down from [timer]."
 		spawn(timer*10)
@@ -99,7 +102,7 @@
 	if(!target)
 		target = src
 	if(location)
-		explosion(location, -1, -1, 2, 3)
+		explosion(location, 0, 1, 3, 6)
 
 	if(target)
 		if (istype(target, /turf/simulated/wall))

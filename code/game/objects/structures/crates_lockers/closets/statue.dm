@@ -143,3 +143,18 @@
 	dump_contents()
 	visible_message("\red [src] shatters!. ")
 	del(src)
+
+
+/obj/structure/statue
+	name = "statue"
+	desc = "An incredibly lifelike marble carving"
+	icon = 'icons/obj/statue.dmi'
+	icon_state = "human_male"
+	density = 1
+	anchored = 1
+
+obj/structure/statue/angel
+	icon_state = "angelseen"
+
+obj/structure/statue/corgi
+	icon_state = "corgi"

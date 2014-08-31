@@ -116,10 +116,10 @@
 		if(scrubbing)
 			// Are we scrubbing gasses that are present?
 			if(\
-				(scrub_Toxins && environment.toxins > 0) ||\
-				(scrub_CO2 && environment.carbon_dioxide > 0) ||\
+				(scrub_Toxins && environment.toxins > 0.001) ||\
+				(scrub_CO2 && environment.carbon_dioxide > 0.001) ||\
 				(scrub_N2O && environment.trace_gases.len > 0) ||\
-				(scrub_O2 && environment.oxygen > 0))
+				(scrub_O2 && environment.oxygen > 0.001))
 				var/transfer_moles = min(1, volume_rate/environment.volume)*environment.total_moles()
 
 				//Take a gas sample
@@ -291,7 +291,7 @@
 			new /obj/item/pipe(loc, make_from=src)
 			del(src)
 
-/obj/machinery/atmospherics/unary/vent_scrubber/Del()
+/obj/machinery/atmospherics/unary/vent_scrubber/Destroy()
 	if(initial_loc)
 		initial_loc.air_scrub_info -= id_tag
 		initial_loc.air_scrub_names -= id_tag

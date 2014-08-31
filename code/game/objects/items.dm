@@ -7,8 +7,6 @@
 	var/item_state = null
 	var/r_speed = 1.0
 	var/health = null
-	var/burn_point = null
-	var/burning = null
 	var/hitsound = null
 	var/w_class = 3.0
 	flags = FPRINT | TABLEPASS
@@ -39,6 +37,31 @@
 	var/armor = list(melee = 0, bullet = 0, laser = 0,energy = 0, bomb = 0, bio = 0, rad = 0)
 	var/list/allowed = null //suit storage stuff.
 	var/obj/item/device/uplink/hidden/hidden_uplink = null // All items can have an uplink hidden inside, just remember to add the triggers.
+
+	/* Species-specific sprites, concept stolen from Paradise//vg/.
+	ex:
+	sprite_sheets = list(
+		"Tajaran" = 'icons/cat/are/bad'
+		)
+	If index term exists and icon_override is not set, this sprite sheet will be used.
+	*/
+	var/list/sprite_sheets = null
+	var/icon_override = null  //Used to override hardcoded clothing dmis in human clothing proc.
+	var/list/species_fit = null //This object has a different appearance when worn by these species
+
+/obj/item/Destroy()
+	if(istype(src.loc, /mob))
+		var/mob/H = src.loc
+		H.drop_from_inventory(src) // items at the very least get unequipped from their mob before being deleted
+	if(reagents && istype(reagents))
+		reagents.my_atom = null
+		reagents.delete()
+	if(hasvar(src, "holder"))
+		src:holder = null
+	/*  BROKEN, FUCK BYOND
+	if(hasvar(src, "my_atom"))
+		src:my_atom = null*/
+	..()
 
 /obj/item/device
 	icon = 'icons/obj/device.dmi'
@@ -74,7 +97,7 @@
 
 /obj/item/verb/move_to_top()
 	set name = "Move To Top"
-	set category = "Object"
+	set category = null
 	set src in oview(1)
 
 	if(!istype(src.loc, /turf) || usr.stat || usr.restrained() )
@@ -109,14 +132,14 @@
 	return
 
 /obj/item/attack_hand(mob/user as mob)
-	if (!user) return
+	if (!user) return 0
 	if (hasorgans(user))
 		var/datum/organ/external/temp = user:organs_by_name["r_hand"]
 		if (user.hand)
 			temp = user:organs_by_name["l_hand"]
 		if(temp && !temp.is_usable())
 			user << "<span class='notice'>You try to move your [temp.display_name], but cannot!"
-			return
+			return 0
 
 	if (istype(src.loc, /obj/item/weapon/storage))
 		//If the item is in a storage item, take it out
@@ -127,17 +150,61 @@
 	if (src.loc == user)
 		//canremove==0 means that object may not be removed. You can still wear it. This only applies to clothing. /N
 		if(!src.canremove)
-			return
+			return 0
+
+		if(istype(user,/mob/living/carbon/human))
+			if(istype(src, /obj/item/clothing/suit/space/rig)) // If the item to be unequipped is a rigid suit
+				if(user.delay_clothing_u_equip(src) == 0)
+					return 0
+			else
+				user.u_equip(src)
 		else
 			user.u_equip(src)
+
+		/*
+			if(istype(user,/mob/living/carbon/human))
+				var/mob/living/carbon/human/H = user
+				if(istype(src, /obj/item/clothing/suit/space/rig)) // If the item to unequip item is a rigid suit
+					if(! istype(H.head, /obj/item/clothing/head/helmet/space/rig)) // If the person is NOT wearing a rigid suit helmet
+						var/tempX = H.x
+						var/tempY = H.y
+						H << "\blue You unfastening the seals and clambering out of the [src]. (This will take a while)."
+						var/obj/item/clothing/head/helmet/space/rig/this_rig = src
+						var/equip_time = round(this_rig.equip_time/10)
+						var/i
+						for(i=1; i<=equip_time; i++)
+							sleep (10) // Check if they've moved every 10 time units
+							if ((tempX != usr.x) || (tempY != usr.y))
+								H << "\red \The [src] is too fiddly to remove whilst moving."
+								return 0
+						H << "\blue You finish removing the [src]."
+					else
+						H << "\red You must remove \the [H.head] first."
+						return 0
+
+				if(istype(src, /obj/item/clothing/head/helmet/space/rig)) // If the item to unequip is a rigid suit helmet
+					var/tempX = H.x
+					var/tempY = H.y
+					H << "\blue You start unfastening the [src].  (This will take a while)."
+					var/obj/item/clothing/suit/space/rig/this_helmet = src
+					var/equip_time = round(this_helmet.equip_time/10)
+					var/i
+					for(i=1; i<=equip_time; i++)
+						sleep (10) // Check if they've moved every 10 time units
+						if ((tempX != usr.x) || (tempY != usr.y))
+							H << "\red \The [src] is too fiddly to remove whilst moving."
+							return 0
+					H << "\blue You finish removing the [src]."
+		*/
 	else
 		if(isliving(src.loc))
-			return
+			return 0
 		user.next_move = max(user.next_move+2,world.time + 2)
+
 	src.pickup(user)
 	add_fingerprint(user)
 	user.put_in_active_hand(src)
-	return
+	return 1
 
 
 /obj/item/attack_paw(mob/user as mob)
@@ -256,6 +323,18 @@
 // note this isn't called during the initial dressing of a player
 /obj/item/proc/equipped(var/mob/user, var/slot)
 	return
+
+//returns 1 if the item is equipped by a mob, 0 otherwise.
+//This might need some error trapping, not sure if get_equipped_items() is safe for non-human mobs.
+/obj/item/proc/is_equipped()
+	if(!ismob(loc))
+		return 0
+
+	var/mob/M = loc
+	if(src in M.get_equipped_items())
+		return 1
+	else
+		return 0
 
 //the mob M is attempting to equip this item into the slot passed through as 'slot'. Return 1 if it can do this and 0 if it can't.
 //If you are making custom procs but would like to retain partial or complete functionality of this one, include a 'return ..()' to where you want this to happen.
@@ -473,7 +552,7 @@
 
 /obj/item/verb/verb_pickup()
 	set src in oview(1)
-	set category = "Object"
+	set category = null
 	set name = "Pick up"
 
 	if(!(usr)) //BS12 EDIT
@@ -509,10 +588,20 @@
 /obj/item/proc/ui_action_click()
 	if( src in usr )
 		attack_self(usr)
+		return
+	else if(istype(src, /obj/item/clothing/tie))
+		if(istype(src.loc,/obj/item/clothing/under))
+			attack_self(usr)
 
 
 /obj/item/proc/IsShield()
 	return 0
+
+/obj/item/proc/get_loc_turf()
+	var/atom/L = loc
+	while(L && !istype(L, /turf/))
+		L = L.loc
+	return loc
 
 /obj/item/proc/eyestab(mob/living/carbon/M as mob, mob/living/carbon/user as mob)
 
@@ -540,7 +629,8 @@
 
 	user.attack_log += "\[[time_stamp()]\]<font color='red'> Attacked [M.name] ([M.ckey]) with [src.name] (INTENT: [uppertext(user.a_intent)])</font>"
 	M.attack_log += "\[[time_stamp()]\]<font color='orange'> Attacked by [user.name] ([user.ckey]) with [src.name] (INTENT: [uppertext(user.a_intent)])</font>"
-	msg_admin_attack("[user.name] ([user.ckey]) attacked [M.name] ([M.ckey]) with [src.name] (INTENT: [uppertext(user.a_intent)]) (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[user.x];Y=[user.y];Z=[user.z]'>JMP</a>)") //BS12 EDIT ALG
+	if(M.ckey)
+		msg_admin_attack("[user.name] ([user.ckey]) attacked [M.name] ([M.ckey]) with [src.name] (INTENT: [uppertext(user.a_intent)]) (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[user.x];Y=[user.y];Z=[user.z]'>JMP</a>)") //BS12 EDIT ALG
 
 	if(!iscarbon(user))
 		M.LAssailant = null
@@ -567,11 +657,13 @@
 			"\red You stab yourself in the eyes with [src]!" \
 		)
 	if(istype(M, /mob/living/carbon/human))
-		var/datum/organ/internal/eyes/eyes = H.internal_organs["eyes"]
-		eyes.damage += rand(3,4)
+		var/datum/organ/internal/eyes/eyes = H.internal_organs_by_name["eyes"]
+		if(!eyes)
+			return
+		eyes.take_damage(rand(3,4), 1)
 		if(eyes.damage >= eyes.min_bruised_damage)
 			if(M.stat != 2)
-				if(eyes.robotic <= 1) //robot eyes bleeding might be a bit silly
+				if(!(istype(eyes, /datum/organ/internal/eyes/robotic)) || istype(eyes, /datum/organ/internal/eyes/assisted)) //robot eyes bleeding might be a bit silly
 					M << "\red Your eyes start to bleed profusely!"
 			if(prob(50))
 				if(M.stat != 2)
@@ -639,4 +731,5 @@
 	//not sure if this is worth it. It attaches the blood_overlay to every item of the same type if they don't have one already made.
 	for(var/obj/item/A in world)
 		if(A.type == type && !A.blood_overlay)
-			A.blood_overlay = I
+			A.blood_overlay = image(I)
+

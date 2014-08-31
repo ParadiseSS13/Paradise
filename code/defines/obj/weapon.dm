@@ -63,8 +63,10 @@
 	icon_state = "soapnt"
 
 /obj/item/weapon/soap/deluxe
-	desc = "A deluxe Waffle Co. brand bar of soap. Smells of condoms."
 	icon_state = "soapdeluxe"
+
+/obj/item/weapon/soap/deluxe/New()
+	desc = "A deluxe Waffle Co. brand bar of soap. Smells of [pick("lavender", "vanilla", "strawberry", "chocolate" ,"space")]."
 
 /obj/item/weapon/soap/syndie
 	desc = "An untrustworthy bar of soap. Smells of fear."
@@ -278,28 +280,6 @@
 	flags = FPRINT | TABLEPASS| CONDUCT
 	m_amt = 3750
 
-/obj/item/weapon/shard
-	name = "shard"
-	icon = 'icons/obj/shards.dmi'
-	icon_state = "large"
-	sharp = 1
-	desc = "Could probably be used as ... a throwing weapon?"
-	w_class = 1.0
-	force = 5.0
-	throwforce = 8.0
-	item_state = "shard-glass"
-	g_amt = 3750
-	attack_verb = list("stabbed", "slashed", "sliced", "cut")
-
-	suicide_act(mob/user)
-		viewers(user) << pick("\red <b>[user] is slitting \his wrists with the shard of glass! It looks like \he's trying to commit suicide.</b>", \
-							"\red <b>[user] is slitting \his throat with the shard of glass! It looks like \he's trying to commit suicide.</b>")
-		return (BRUTELOSS)
-
-/obj/item/weapon/shard/attack(mob/living/carbon/M as mob, mob/living/carbon/user as mob)
-	playsound(loc, 'sound/weapons/bladeslice.ogg', 50, 1, -1)
-	return ..()
-
 /*/obj/item/weapon/syndicate_uplink
 	name = "station bounced radio"
 	desc = "Remain silent about this..."
@@ -318,28 +298,6 @@
 	throw_range = 20
 	m_amt = 100
 	origin_tech = "magnets=2;syndicate=3"*/
-
-/obj/item/weapon/shard/shrapnel
-	name = "shrapnel"
-	icon = 'icons/obj/shards.dmi'
-	icon_state = "shrapnellarge"
-	desc = "A bunch of tiny bits of shattered metal."
-
-/obj/item/weapon/shard/shrapnel/New()
-
-	src.icon_state = pick("shrapnellarge", "shrapnelmedium", "shrapnelsmall")
-	switch(src.icon_state)
-		if("shrapnelsmall")
-			src.pixel_x = rand(-12, 12)
-			src.pixel_y = rand(-12, 12)
-		if("shrapnelmedium")
-			src.pixel_x = rand(-8, 8)
-			src.pixel_y = rand(-8, 8)
-		if("shrapnellarge")
-			src.pixel_x = rand(-5, 5)
-			src.pixel_y = rand(-5, 5)
-		else
-	return
 
 /obj/item/weapon/SWF_uplink
 	name = "station-bounced radio"
@@ -478,7 +436,7 @@
 
 /obj/item/weapon/camera_bug/attack_self(mob/usr as mob)
 	var/list/cameras = new/list()
-	for (var/obj/machinery/camera/C in cameranet.cameras)
+	for (var/obj/machinery/camera/C in cameranet.viewpoints)
 		if (C.bugged && C.status)
 			cameras.Add(C)
 	if (length(cameras) == 0)
@@ -501,16 +459,6 @@
 
 	usr.client.eye = target
 
-
-/obj/item/weapon/syntiflesh
-	name = "syntiflesh"
-	desc = "Meat that appears...strange..."
-	icon = 'icons/obj/food.dmi'
-	icon_state = "meat"
-	flags = FPRINT | TABLEPASS | CONDUCT
-	w_class = 1.0
-	origin_tech = "biotech=2"
-
 /obj/item/weapon/hatchet
 	name = "hatchet"
 	desc = "A very sharp axe blade upon a short fibremetal handle. It has a long history of chopping things, but now it is used for chopping wood."
@@ -518,6 +466,8 @@
 	icon_state = "hatchet"
 	flags = FPRINT | TABLEPASS | CONDUCT
 	force = 12.0
+	sharp = 1
+	edge = 1
 	w_class = 2.0
 	throwforce = 15.0
 	throw_speed = 4
@@ -540,6 +490,8 @@
 	desc = "A sharp and curved blade on a long fibremetal handle, this tool makes it easy to reap what you sow."
 	force = 13.0
 	throwforce = 5.0
+	sharp = 1
+	edge = 1
 	throw_speed = 1
 	throw_range = 3
 	w_class = 4.0
@@ -551,8 +503,8 @@
 
 /obj/item/weapon/scythe/afterattack(atom/A, mob/user as mob, proximity)
 	if(!proximity) return
-	if(istype(A, /obj/effect/spacevine))
-		for(var/obj/effect/spacevine/B in orange(A,1))
+	if(istype(A, /obj/effect/plantsegment))
+		for(var/obj/effect/plantsegment/B in orange(A,1))
 			if(prob(80))
 				del B
 		del A
@@ -578,6 +530,22 @@
 	var/obj/machinery/machine
 
 ///////////////////////////////////////Stock Parts /////////////////////////////////
+
+/obj/item/weapon/storage/part_replacer
+	name = "Rapid Part Exchange Device"
+	desc = "Special mechanical module made to store, sort, and apply standard machine parts."
+	icon_state = "RPED"
+	item_state = "RPED"
+	w_class = 5
+	can_hold = list("/obj/item/weapon/stock_parts")
+	storage_slots = 14
+	use_to_pickup = 1
+	allow_quick_gather = 1
+	allow_quick_empty = 1
+	collection_mode = 1
+	max_w_class = 3
+	max_combined_w_class = 28
+
 
 /obj/item/weapon/stock_parts
 	name = "stock part"
@@ -857,3 +825,28 @@ proc
             result.Insert(temp, "[angle]")
 
         return result*/
+
+
+/obj/item/weapon/fan
+	name = "desk fan"
+	icon = 'icons/obj/decorations.dmi'
+	icon_state = "fan"
+	desc = "A smal desktop fan. Button seems to be stuck in the 'on' position."
+
+/obj/item/weapon/newton
+	name = "newton cradle"
+	icon = 'icons/obj/decorations.dmi'
+	icon_state = "newton"
+	desc = "A device bored paper pushers use to remind themselves that the time did not stop yet. Contains gravity."
+
+/obj/item/weapon/balltoy
+	name = "ball toy"
+	icon = 'icons/obj/decorations.dmi'
+	icon_state = "rollball"
+	desc = "A device bored paper pushers use to remind themselves that the time did not stop yet."
+
+/obj/item/weapon/kidanglobe
+	name = "Kidan homeworld globe"
+	icon = 'icons/obj/decorations.dmi'
+	icon_state = "kidanglobe"
+	desc = "A globe of the Kidan homeworld."

@@ -66,7 +66,7 @@
 		spark_system.attach(src)
 		sleep(10)
 		if(!installation)// if for some reason the turret has no gun (ie, admin spawned) it resorts to basic taser shots
-			projectile = /obj/item/projectile/energy/electrode//holder for the projectile, here it is being set
+			projectile = /obj/item/projectile/beam/stun//holder for the projectile, here it is being set
 			eprojectile = /obj/item/projectile/beam//holder for the projectile when emagged, if it is different
 			reqpower = 200
 			sound = 1
@@ -128,7 +128,7 @@
 					reqpower = 700
 
 				if(/obj/item/weapon/gun/energy/taser)
-					projectile = /obj/item/projectile/energy/electrode
+					projectile = /obj/item/projectile/beam/stun
 					eprojectile = projectile
 					iconholder = 1
 					reqpower = 200
@@ -170,13 +170,13 @@
 					reqpower = 500
 
 				else // Energy gun shots
-					projectile = /obj/item/projectile/energy/electrode// if it hasn't been emagged, it uses normal taser shots
+					projectile = /obj/item/projectile/beam/stun// if it hasn't been emagged, it uses normal taser shots
 					eprojectile = /obj/item/projectile/beam//If it has, going to kill mode
 					iconholder = 1
 					egun = 1
 					reqpower = 200
 
-	Del()
+	Destroy()
 		// deletes its own cover with it
 		del(cover)
 		..()
@@ -450,8 +450,12 @@ Status: []<BR>"},
 
 	if(src.check_anomalies) // if its set to check for xenos/carps, check for non-mob "crittersssss"(And simple_animals)
 		for(var/mob/living/simple_animal/C in view(7,src))
-			if(!C.stat)
-				targets += C
+			if(C.stat)
+				continue
+			// Ignore lazarus-injected mobs.
+			if(C.faction == "lazarus")
+				continue
+			targets += C
 
 	for (var/mob/living/carbon/C in view(7,src)) // loops through all living carbon-based lifeforms in view(12)
 		if(istype(C, /mob/living/carbon/alien) && src.check_anomalies) // git those fukken xenos

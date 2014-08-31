@@ -18,14 +18,9 @@ var/global/vox_tick = 1
 			equip_to_slot_or_del(new /obj/item/clothing/glasses/thermal/monocle(src), slot_glasses) // REPLACE WITH CODED VOX ALTERNATIVE.
 			equip_to_slot_or_del(new /obj/item/device/chameleon(src), slot_l_store)
 
-			var/obj/item/weapon/crossbow/W = new(src)
-			W.cell = new /obj/item/weapon/cell/crap(W)
-			W.cell.charge = 500
+			var/obj/item/weapon/gun/launcher/spikethrower/W = new(src)
 			equip_to_slot_or_del(W, slot_r_hand)
 
-			var/obj/item/stack/rods/A = new(src)
-			A.amount = 20
-			equip_to_slot_or_del(A, slot_l_hand)
 
 		if(2) // Vox engineer!
 			equip_to_slot_or_del(new /obj/item/clothing/suit/space/vox/pressure(src), slot_wear_suit)
@@ -53,7 +48,7 @@ var/global/vox_tick = 1
 			equip_to_slot_or_del(new /obj/item/weapon/circular_saw(src), slot_l_store)
 			equip_to_slot_or_del(new /obj/item/weapon/gun/dartgun/vox/medical, slot_r_hand)
 
-	equip_to_slot_or_del(new /obj/item/clothing/mask/breath/vox(src), slot_wear_mask)
+	equip_to_slot_or_del(new /obj/item/clothing/mask/breath(src), slot_wear_mask)
 	equip_to_slot_or_del(new /obj/item/weapon/tank/nitrogen(src), slot_back)
 	equip_to_slot_or_del(new /obj/item/device/flashlight(src), slot_r_store)
 

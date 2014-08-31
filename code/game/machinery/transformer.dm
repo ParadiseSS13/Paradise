@@ -154,3 +154,105 @@
 	spawn(cooldown_duration)
 		cooldown = 0
 		update_icon()
+
+/obj/machinery/transformer/xray
+	name = "Automatic X-Ray 5000"
+	desc = "A large metalic machine with an entrance and an exit. A sign on the side reads, 'backpack go in, backpack come out', 'human go in, irradiated human come out'."
+
+/obj/machinery/transformer/xray/New()
+	// On us
+	new /obj/machinery/conveyor/auto(loc, EAST)
+	addAtProcessing()
+
+/obj/machinery/transformer/xray/conveyor/New()
+	..()
+	var/turf/T = loc
+	if(T)
+		// Spawn Conveyour Belts
+
+		//East
+		var/turf/east = locate(T.x + 1, T.y, T.z)
+		if(istype(east, /turf/simulated/floor))
+			new /obj/machinery/conveyor/auto(east, EAST)
+		//East2
+		var/turf/east2 = locate(T.x + 2, T.y, T.z)
+		if(istype(east2, /turf/simulated/floor))
+			new /obj/machinery/conveyor/auto(east2, EAST)
+
+		// West
+		var/turf/west = locate(T.x - 1, T.y, T.z)
+		if(istype(west, /turf/simulated/floor))
+			new /obj/machinery/conveyor/auto(west, EAST)
+
+		// West2
+		var/turf/west2 = locate(T.x - 2, T.y, T.z)
+		if(istype(west2, /turf/simulated/floor))
+			new /obj/machinery/conveyor/auto(west2, EAST)
+
+/obj/machinery/transformer/xray/power_change()
+	..()
+	update_icon()
+
+/obj/machinery/transformer/xray/update_icon()
+	..()
+	if(stat & (BROKEN|NOPOWER))
+		icon_state = "separator-AO0"
+	else
+		icon_state = initial(icon_state)
+
+/obj/machinery/transformer/xray/Bumped(var/atom/movable/AM)
+
+	if(cooldown == 1)
+		return
+
+	// Crossed didn't like people lying down.
+	if(ishuman(AM))
+		// Only humans can enter from the west side, while lying down.
+		var/move_dir = get_dir(loc, AM.loc)
+		var/mob/living/carbon/human/H = AM
+		if(H.lying && move_dir == WEST)// || move_dir == WEST)
+			AM.loc = src.loc
+			irradiate(AM)
+
+	else if(isobject(AM))
+		AM.loc = src.loc
+		scan(AM)
+
+/obj/machinery/transformer/xray/proc/irradiate(var/mob/living/carbon/human/H)
+	if(stat & (BROKEN|NOPOWER))
+		return
+
+	flick("separator-AO0",src)
+	playsound(src.loc, 'sound/effects/alert.ogg', 50, 0)
+	sleep(5)
+	H.apply_effect((rand(150,200)),IRRADIATE,0)
+	if (prob(5))
+		if(prob(75))
+			randmutb(H) // Applies bad mutation
+			domutcheck(H,null,1)
+		else
+			randmutg(H) // Applies good mutation
+			domutcheck(H,null,1)
+
+
+/obj/machinery/transformer/xray/proc/scan(var/obj/item/I)
+	var/badcount = 0
+	for(var/obj/item/weapon/gun/G in src.loc)
+		badcount++
+	for(var/obj/item/device/transfer_valve/B in src.loc)
+		badcount++
+	for(var/obj/item/weapon/kitchen/utensil/knife/K in src.loc)
+		badcount++
+	for(var/obj/item/weapon/kitchenknife/KK in src.loc)
+		badcount++
+	for(var/obj/item/weapon/plastique/KK in src.loc)
+		badcount++
+	for(var/obj/item/weapon/melee/ML in src.loc)
+		badcount++
+	if(badcount)
+		playsound(src.loc, 'sound/effects/alert.ogg', 50, 0)
+		flick("separator-AO0",src)
+	else
+		playsound(src.loc, 'sound/machines/ping.ogg', 50, 0)
+		sleep(30)
+

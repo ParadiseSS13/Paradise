@@ -24,7 +24,7 @@
 
 /datum/event/prison_break/start()
 	for(var/area/A in world)
-		if(istype(A, /area/security/prison) || istype(A, /area/security/brig))
+		if(istype(A, /area/security/prison) || istype(A, /area/security/brig) || istype(A, /area/prison) || istype(A, /area/security/lobby))
 			prisonAreas += A
 
 	if(prisonAreas && prisonAreas.len > 0)

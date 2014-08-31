@@ -31,7 +31,7 @@
 /datum/reagent/antidepressant/citalopram
 	name = "Citalopram"
 	id = "citalopram"
-	description = "Stabilizes the mind a little."
+	description = "Stabilizes the mind a little, reducing hallucinations."
 	reagent_state = LIQUID
 	color = "#C8A5DC"
 	custom_metabolism = 0.01
@@ -39,13 +39,7 @@
 
 	on_mob_life(var/mob/living/M as mob)
 		if(!M) M = holder.my_atom
-		if(src.volume <= 0.1) if(data != -1)
-			data = -1
-			M << "\red Your mind feels a little less stable.."
-		else
-			if(world.time > data + ANTIDEPRESSANT_MESSAGE_DELAY)
-				data = world.time
-				M << "\blue Your mind feels stable.. a little stable."
+		M.hallucination = max(0, M.hallucination - 10)
 		..()
 		return
 
@@ -74,11 +68,18 @@
 		else
 			if(world.time > data + ANTIDEPRESSANT_MESSAGE_DELAY)
 				data = world.time
-				if(prob(90))
-					M << "\blue Your mind feels much more stable."
+				if(volume > 5)						// Bone White - Added any concentrations over 5 units to cause higher chance of mind breakage.
+					if (prob(min(100, volume * 5)))
+						M << "\red Your mind breaks apart.."
+						M.hallucination += 200
+					else
+						M << "\blue Your mind feels much more stable."
 				else
-					M << "\red Your mind breaks apart.."
-					M.hallucination += 200
+					if (prob(90))
+						M << "\blue Your mind feels much more stable."
+					else
+						M << "\red Your mind breaks apart.."
+						M.hallucination += 200
 		..()
 		return
 

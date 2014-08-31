@@ -1,15 +1,3 @@
-/client/var/inquisitive_ghost = 1
-/mob/dead/observer/verb/toggle_inquisition() // warning: unexpected inquisition
-	set name = "Toggle Inquisitiveness"
-	set desc = "Sets whether your ghost examines everything on click by default"
-	set category = "Ghost"
-	if(!client) return
-	client.inquisitive_ghost = !client.inquisitive_ghost
-	if(client.inquisitive_ghost)
-		src << "\blue You will now examine everything you click on."
-	else
-		src << "\blue You will no longer examine things you click on."
-
 /mob/dead/observer/DblClickOn(var/atom/A, var/params)
 	if(client.buildmode)
 		build_click(src, client.buildmode, params, A)
@@ -33,9 +21,15 @@
 		return
 	if(world.time <= next_move) return
 	next_move = world.time + 8
+
+	var/list/modifiers = params2list(params)
+	if(modifiers["shift"])
+		ShiftClickOn(A)
+		return
 	// You are responsible for checking config.ghost_interaction when you override this function
 	// Not all of them require checking, see below
 	A.attack_ghost(src)
+
 
 // This is the ghost's follow verb with an argument
 /mob/dead/observer/proc/ManualFollow(var/atom/target)
@@ -58,11 +52,12 @@
 				sleep(15)
 			following = null
 
-// Oh by the way this didn't work with old click code which is why clicking shit didn't spam you
-/atom/proc/attack_ghost(mob/dead/observer/user as mob)
-	if(user.client && user.client.inquisitive_ghost)
-		examine()
-	return
+// We don't need a fucking toggle.
+/mob/dead/observer/ShiftClickOn(var/atom/A)
+	A.examine()
+
+/atom/proc/attack_ghost(mob/user as mob)
+	src.examine()
 
 // ---------------------------------------
 // And here are some good things for free:

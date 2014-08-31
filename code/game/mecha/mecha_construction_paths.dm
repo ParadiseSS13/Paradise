@@ -2,72 +2,7 @@
 ///// Construction datums //////
 ////////////////////////////////
 
-/datum/construction/mecha/custom_action(step, atom/used_atom, mob/user)
-	if(istype(used_atom, /obj/item/weapon/weldingtool))
-		var/obj/item/weapon/weldingtool/W = used_atom
-		if (W.remove_fuel(0, user))
-			playsound(holder, 'sound/items/Welder2.ogg', 50, 1)
-		else
-			return 0
-	else if(istype(used_atom, /obj/item/weapon/wrench))
-		playsound(holder, 'sound/items/Ratchet.ogg', 50, 1)
-
-	else if(istype(used_atom, /obj/item/weapon/screwdriver))
-		playsound(holder, 'sound/items/Screwdriver.ogg', 50, 1)
-
-	else if(istype(used_atom, /obj/item/weapon/wirecutters))
-		playsound(holder, 'sound/items/Wirecutter.ogg', 50, 1)
-
-	else if(istype(used_atom, /obj/item/stack/cable_coil))
-		var/obj/item/stack/cable_coil/C = used_atom
-		if(C.amount<4)
-			user << ("There's not enough cable to finish the task.")
-			return 0
-		else
-			C.use(4)
-			playsound(holder, 'sound/items/Deconstruct.ogg', 50, 1)
-	else if(istype(used_atom, /obj/item/stack))
-		var/obj/item/stack/S = used_atom
-		if(S.amount < 5)
-			user << ("There's not enough material in this stack.")
-			return 0
-		else
-			S.use(5)
-	return 1
-
-/datum/construction/reversible/mecha/custom_action(index as num, diff as num, atom/used_atom, mob/user as mob)
-	if(istype(used_atom, /obj/item/weapon/weldingtool))
-		var/obj/item/weapon/weldingtool/W = used_atom
-		if (W.remove_fuel(0, user))
-			playsound(holder, 'sound/items/Welder2.ogg', 50, 1)
-		else
-			return 0
-	else if(istype(used_atom, /obj/item/weapon/wrench))
-		playsound(holder, 'sound/items/Ratchet.ogg', 50, 1)
-
-	else if(istype(used_atom, /obj/item/weapon/screwdriver))
-		playsound(holder, 'sound/items/Screwdriver.ogg', 50, 1)
-
-	else if(istype(used_atom, /obj/item/weapon/wirecutters))
-		playsound(holder, 'sound/items/Wirecutter.ogg', 50, 1)
-
-	else if(istype(used_atom, /obj/item/stack/cable_coil))
-		var/obj/item/stack/cable_coil/C = used_atom
-		if(C.amount<4)
-			user << ("There's not enough cable to finish the task.")
-			return 0
-		else
-			C.use(4)
-			playsound(holder, 'sound/items/Deconstruct.ogg', 50, 1)
-	else if(istype(used_atom, /obj/item/stack))
-		var/obj/item/stack/S = used_atom
-		if(S.amount < 5)
-			user << ("There's not enough material in this stack.")
-			return 0
-		else
-			S.use(5)
-	return 1
-
+// custom_actions moved to construction_datum - N3X
 
 /datum/construction/mecha/ripley_chassis
 	steps = list(list("key"=/obj/item/mecha_parts/part/ripley_torso),//1
@@ -865,12 +800,12 @@
 
 /datum/construction/mecha/durand_chassis
 	steps = list(list("key"=/obj/item/mecha_parts/part/durand_torso),//1
-					 list("key"=/obj/item/mecha_parts/part/durand_left_arm),//2
-					 list("key"=/obj/item/mecha_parts/part/durand_right_arm),//3
-					 list("key"=/obj/item/mecha_parts/part/durand_left_leg),//4
-					 list("key"=/obj/item/mecha_parts/part/durand_right_leg),//5
-					 list("key"=/obj/item/mecha_parts/part/durand_head)
-					)
+				 list("key"=/obj/item/mecha_parts/part/durand_left_arm),//2
+				 list("key"=/obj/item/mecha_parts/part/durand_right_arm),//3
+				 list("key"=/obj/item/mecha_parts/part/durand_left_leg),//4
+				 list("key"=/obj/item/mecha_parts/part/durand_right_leg),//5
+				 list("key"=/obj/item/mecha_parts/part/durand_head)
+				)
 
 	custom_action(step, atom/used_atom, mob/user)
 		user.visible_message("[user] has connected [used_atom] to [holder].", "You connect [used_atom] to [holder]")
@@ -903,7 +838,7 @@
 					 		"backkey"=/obj/item/weapon/crowbar,
 					 		"desc"="External armor is installed."),
 					 //3
-					 list("key"=/obj/item/mecha_parts/part/durand_armour,
+					 list("key"=/obj/item/mecha_parts/part/durand_armor,
 					 		"backkey"=/obj/item/weapon/weldingtool,
 					 		"desc"="Internal armor is welded."),
 					 //4
@@ -1128,7 +1063,7 @@
 					holder.icon_state = "durand19"
 				else
 					user.visible_message("[user] pries Durand Armour Plates from [holder].", "You prie Durand Armour Plates from [holder].")
-					new /obj/item/mecha_parts/part/durand_armour(get_turf(holder))
+					new /obj/item/mecha_parts/part/durand_armor(get_turf(holder))
 					holder.icon_state = "durand17"
 			if(1)
 				if(diff==FORWARD)
@@ -1353,6 +1288,7 @@
 				else
 					user.visible_message("[user] cuts internal armor layer from [holder].", "You cut the internal armor layer from [holder].")
 					holder.icon_state = "odysseus10"
+			if(2)
 				if(diff==FORWARD)
 					user.visible_message("[user] secures external armor layer.", "You secure external reinforced armor layer.")
 					holder.icon_state = "odysseus13"

@@ -35,6 +35,8 @@
 				dat += "<a href='byond://?src=\ref[src];add=1'>+</a><BR><BR>"
 		else if(toner)
 			dat += "Please insert paper to copy.<BR><BR>"
+		if(istype(user,/mob/living/silicon))
+			dat += "<a href='byond://?src=\ref[src];aipic=1'>Print photo from database</a><BR><BR>"
 		dat += "Current toner level: [toner]"
 		if(!toner)
 			dat +="<BR>Please insert a new toner cartridge!"
@@ -52,7 +54,7 @@
 							c.info = "<font color = #101010>"
 						else			//no toner? shitty copies for you!
 							c.info = "<font color = #808080>"
-						var/copied = html_decode(copy.info)
+						var/copied = copy.info
 						copied = replacetext(copied, "<font face=\"[c.deffont]\" color=", "<font face=\"[c.deffont]\" nocolor=")	//state of the art techniques in action
 						copied = replacetext(copied, "<font face=\"[c.crayonfont]\" color=", "<font face=\"[c.crayonfont]\" nocolor=")	//This basically just breaks the existing color tag, which we need to do because the innermost tag takes priority.
 						c.info += copied
@@ -146,6 +148,27 @@
 			if(copies < maxcopies)
 				copies++
 				updateUsrDialog()
+		else if(href_list["aipic"])
+			if(!istype(usr,/mob/living/silicon)) return
+			if(toner >= 5)
+				var/mob/living/silicon/tempAI = usr
+				var/obj/item/device/camera/siliconcam/camera = tempAI.aiCamera
+
+				if(!camera)
+					return
+				var/datum/picture/selection = camera.selectpicture()
+				if (!selection)
+					return
+
+				var/obj/item/weapon/photo/p = new /obj/item/weapon/photo (src.loc)
+				p.construct(selection)
+				if (p.desc == "")
+					p.desc += "Copied by [tempAI.name]"
+				else
+					p.desc += " - Copied by [tempAI.name]"
+				toner -= 5
+				sleep(15)
+			updateUsrDialog()
 
 	attackby(obj/item/O as obj, mob/user as mob)
 		if(istype(O, /obj/item/weapon/paper))

@@ -4,144 +4,179 @@
 	icon_state = "crew"
 
 	var/datum/disease2/effectholder/memorybank = null
+	var/list/species_buffer = null
 	var/analysed = 0
 	var/obj/item/weapon/virusdish/dish = null
 	var/burning = 0
-
 	var/splicing = 0
 	var/scanning = 0
 
 /obj/machinery/computer/diseasesplicer/attackby(var/obj/I as obj, var/mob/user as mob)
 	if(istype(I, /obj/item/weapon/screwdriver))
 		return ..(I,user)
+
 	if(istype(I,/obj/item/weapon/virusdish))
 		var/mob/living/carbon/c = user
-		if(!dish)
+		if (dish)
+			user << "\The [src] is already loaded."
+			return
 
-			dish = I
-			c.drop_item()
-			I.loc = src
+		dish = I
+		c.drop_item()
+		I.loc = src
+
 	if(istype(I,/obj/item/weapon/diseasedisk))
-		user << "You upload the contents of the disk into the buffer"
+		user << "You upload the contents of the disk onto the buffer."
 		memorybank = I:effect
+		species_buffer = I:species
+		analysed = I:analysed
 
 	src.attack_hand(user)
-	return
 
 /obj/machinery/computer/diseasesplicer/attack_ai(var/mob/user as mob)
 	return src.attack_hand(user)
 
 /obj/machinery/computer/diseasesplicer/attack_paw(var/mob/user as mob)
-
 	return src.attack_hand(user)
-	return
 
 /obj/machinery/computer/diseasesplicer/attack_hand(var/mob/user as mob)
-	if(..())
-		return
+	if(..()) return
+	ui_interact(user)
+
+/obj/machinery/computer/diseasesplicer/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
 	user.set_machine(src)
-	var/dat
-	if(splicing)
-		dat = "Splicing in progress."
-	else if(scanning)
-		dat = "Splicing in progress."
-	else if(burning)
-		dat = "Data disk burning in progress."
+
+	var/data[0]
+	data["dish_inserted"] = !!dish
+	data["growth"] = 0
+	data["affected_species"] = null
+
+	if (memorybank)
+		data["buffer"] = list("name" = (analysed ? memorybank.effect.name : "Unknown Symptom"), "stage" = memorybank.stage)
+	if (species_buffer)
+		data["species_buffer"] = analysed ? list2text(species_buffer, ", ") : "Unknown Species"
+
+	if (splicing)
+		data["busy"] = "Splicing..."
+	else if (scanning)
+		data["busy"] = "Scanning..."
+	else if (burning)
+		data["busy"] = "Copying data to disk..."
+	else if (dish)
+		data["growth"] = min(dish.growth, 100)
+
+		if (dish.virus2)
+			if (dish.virus2.affected_species)
+				data["affected_species"] = dish.analysed ? list2text(dish.virus2.affected_species, ", ") : "Unknown"
+
+			if (dish.growth >= 50)
+				var/list/effects[0]
+				for (var/datum/disease2/effectholder/e in dish.virus2.effects)
+					effects.Add(list(list("name" = (dish.analysed ? e.effect.name : "Unknown"), "stage" = (e.stage), "reference" = "\ref[e]")))
+				data["effects"] = effects
+			else
+				data["info"] = "Insufficient cell growth for gene splicing."
+		else
+			data["info"] = "No virus detected."
 	else
-		if(dish)
-			dat = "Virus dish inserted."
+		data["info"] = "No dish loaded."
 
-		dat += "<BR>Current DNA strand : "
-		if(memorybank)
-			dat += "<A href='?src=\ref[src];splice=1'>"
-			if(analysed)
-				dat += "[memorybank.effect.name] ([5-memorybank.effect.stage])"
-			else
-				dat += "Unknown DNA strand ([5-memorybank.effect.stage])"
-			dat += "</a>"
-
-			dat += "<BR><A href='?src=\ref[src];disk=1'>Burn DNA Sequence to data storage disk</a>"
-		else
-			dat += "Empty."
-
-		dat += "<BR><BR>"
-
-		if(dish)
-			if(dish.virus2)
-				if(dish.growth >= 50)
-					for(var/datum/disease2/effectholder/e in dish.virus2.effects)
-						dat += "<BR><A href='?src=\ref[src];grab=\ref[e]'> DNA strand"
-						if(dish.analysed)
-							dat += ": [e.effect.name]"
-						dat += " (5-[e.effect.stage])</a>"
-				else
-					dat += "<BR>Insufficent cells to attempt gene splicing."
-			else
-				dat += "<BR>No virus found in dish."
-
-			dat += "<BR><BR><A href='?src=\ref[src];eject=1'>Eject disk</a>"
-		else
-			dat += "<BR>Please insert dish."
-
-	user << browse(dat, "window=computer;size=400x500")
-	onclose(user, "computer")
-	return
+	ui = nanomanager.try_update_ui(user, src, ui_key, ui, data, force_open)
+	if (!ui)
+		ui = new(user, src, ui_key, "disease_splicer.tmpl", src.name, 400, 600)
+		ui.set_initial_data(data)
+		ui.open()
 
 /obj/machinery/computer/diseasesplicer/process()
 	if(stat & (NOPOWER|BROKEN))
 		return
-	use_power(500)
 
 	if(scanning)
 		scanning -= 1
 		if(!scanning)
-			state("The [src.name] beeps", "blue")
+			ping("\The [src] pings, \"Analysis complete.\"")
+			nanomanager.update_uis(src)
 	if(splicing)
 		splicing -= 1
 		if(!splicing)
-			state("The [src.name] pings", "blue")
+			ping("\The [src] pings, \"Splicing operation complete.\"")
+			nanomanager.update_uis(src)
 	if(burning)
 		burning -= 1
 		if(!burning)
 			var/obj/item/weapon/diseasedisk/d = new /obj/item/weapon/diseasedisk(src.loc)
+			d.analysed = analysed
 			if(analysed)
-				d.name = "[memorybank.effect.name] GNA disk (Stage: [5-memorybank.effect.stage])"
+				if (memorybank)
+					d.name = "[memorybank.effect.name] GNA disk (Stage: [memorybank.effect.stage])"
+					d.effect = memorybank
+				else if (species_buffer)
+					d.name = "[list2text(species_buffer, ", ")] GNA disk"
+					d.species = species_buffer
 			else
-				d.name = "Unknown GNA disk (Stage: [5-memorybank.effect.stage])"
-			d.effect = memorybank
-			state("The [src.name] zings", "blue")
+				if (memorybank)
+					d.name = "Unknown GNA disk (Stage: [memorybank.effect.stage])"
+					d.effect = memorybank
+				else if (species_buffer)
+					d.name = "Unknown Species GNA disk"
+					d.species = species_buffer
 
-	src.updateUsrDialog()
-	return
+			ping("\The [src] pings, \"Backup disk saved.\"")
+			nanomanager.update_uis(src)
 
 /obj/machinery/computer/diseasesplicer/Topic(href, href_list)
-	if(..())
-		return
+	if(..()) return 0
 
-	if(usr) usr.set_machine(src)
+	var/mob/user = usr
+	var/datum/nanoui/ui = nanomanager.get_open_ui(user, src, "main")
+
+	src.add_fingerprint(user)
+
+	if (href_list["close"])
+		user.unset_machine()
+		ui.close()
+		return 0
 
 	if (href_list["grab"])
-		memorybank = locate(href_list["grab"])
-		analysed = dish.analysed
-		del(dish)
-		dish = null
-		scanning = 10
+		if (dish)
+			memorybank = locate(href_list["grab"])
+			species_buffer = null
+			analysed = dish.analysed
+			dish = null
+			scanning = 10
+		return 1
 
-	else if(href_list["eject"])
-		dish.loc = src.loc
-		dish = null
+	if (href_list["affected_species"])
+		if (dish)
+			memorybank = null
+			species_buffer = dish.virus2.affected_species
+			analysed = dish.analysed
+			dish = null
+			scanning = 10
+		return 1
 
-	else if(href_list["splice"])
+	if(href_list["eject"])
+		if (dish)
+			dish.loc = src.loc
+			dish = null
+		return 1
+
+	if(href_list["splice"])
 		if(dish)
-			for(var/datum/disease2/effectholder/e in dish.virus2.effects)
-				if(e.stage == memorybank.stage)
-					e.effect = memorybank.effect
+			if (memorybank)
+				for(var/datum/disease2/effectholder/e in dish.virus2.effects)
+					if(e.stage == memorybank.stage)
+						e.effect = memorybank.effect
+
+			if (species_buffer)
+				dish.virus2.affected_species = species_buffer
+
 			splicing = 10
-//			dish.virus2.spreadtype = "Blood"
+			dish.virus2.uniqueID = rand(0,10000)
+		return 1
 
-	else if(href_list["disk"])
+	if(href_list["disk"])
 		burning = 10
+		return 1
 
-	src.add_fingerprint(usr)
-	src.updateUsrDialog()
-	return
+	return 0

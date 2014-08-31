@@ -34,7 +34,6 @@ var/list/solars_list = list()
 	var/ndir = SOUTH
 	var/turn_angle = 0
 	var/obj/machinery/power/solar_control/control = null
-	var/image/overlay_image //overlay cache image
 
 /obj/machinery/power/solar/New(var/turf/loc, var/obj/item/solar_assembly/S, var/process = 1)
 	..(loc)
@@ -65,13 +64,13 @@ var/list/solars_list = list()
 /obj/machinery/power/solar/attackby(obj/item/weapon/W, mob/user)
 
 	if(iscrowbar(W))
-		playsound(src.loc, 'sound/machines/click.ogg', 50, 1)
+		playsound(get_turf(src), 'sound/machines/click.ogg', 50, 1)
 		if(do_after(user, 50))
 			var/obj/item/solar_assembly/S = locate() in src
 			if(S)
 				S.loc = src.loc
 				S.give_glass()
-			playsound(src.loc, 'sound/items/Deconstruct.ogg', 50, 1)
+			playsound(get_turf(src), 'sound/items/Deconstruct.ogg', 50, 1)
 			user.visible_message("<span class='notice'>[user] takes the glass off the solar panel.</span>")
 			del(src)
 		return
@@ -93,8 +92,8 @@ var/list/solars_list = list()
 		if(!(stat & BROKEN))
 			broken()
 		else
-			new /obj/item/weapon/shard(src.loc)
-			new /obj/item/weapon/shard(src.loc)
+			getFromPool(/obj/item/weapon/shard, loc)
+			getFromPool(/obj/item/weapon/shard, loc)
 			del(src)
 			return
 	return
@@ -103,14 +102,11 @@ var/list/solars_list = list()
 /obj/machinery/power/solar/update_icon()
 	..()
 	overlays.Cut()
-	if(isnull(src.overlay_image))
-		src.overlay_image = image('icons/obj/power.dmi', layer = FLY_LAYER)
 	if(stat & BROKEN)
-		src.overlay_image.icon_state = "solar_panel-b"
+		overlays += image('icons/obj/power.dmi', icon_state = "solar_panel-b", layer = FLY_LAYER)
 	else
-		src.overlay_image.icon_state = "solar_panel"
+		overlays += image('icons/obj/power.dmi', icon_state = "solar_panel", layer = FLY_LAYER)
 		src.dir = angle2dir(adir)
-	src.overlays += src.overlay_image
 	return
 
 
@@ -163,11 +159,11 @@ var/list/solars_list = list()
 		if(1.0)
 			qdel(src)
 			if(prob(15))
-				new /obj/item/weapon/shard( src.loc )
+				getFromPool(/obj/item/weapon/shard, loc)
 			return
 		if(2.0)
 			if (prob(25))
-				new /obj/item/weapon/shard( src.loc )
+				getFromPool(/obj/item/weapon/shard, loc)
 				qdel(src)
 				return
 			if (prob(50))
@@ -225,13 +221,13 @@ var/list/solars_list = list()
 		if(iswrench(W))
 			anchored = 1
 			user.visible_message("<span class='notice'>[user] wrenches the solar assembly into place.</span>")
-			playsound(src.loc, 'sound/items/Ratchet.ogg', 75, 1)
+			playsound(get_turf(src), 'sound/items/Ratchet.ogg', 75, 1)
 			return 1
 	else
 		if(iswrench(W))
 			anchored = 0
 			user.visible_message("<span class='notice'>[user] unwrenches the solar assembly from it's place.</span>")
-			playsound(src.loc, 'sound/items/Ratchet.ogg', 75, 1)
+			playsound(get_turf(src), 'sound/items/Ratchet.ogg', 75, 1)
 			return 1
 
 		if(istype(W, /obj/item/stack/sheet/glass) || istype(W, /obj/item/stack/sheet/rglass))
@@ -239,7 +235,7 @@ var/list/solars_list = list()
 			if(S.amount >= 2)
 				glass_type = W.type
 				S.use(2)
-				playsound(src.loc, 'sound/machines/click.ogg', 50, 1)
+				playsound(get_turf(src), 'sound/machines/click.ogg', 50, 1)
 				user.visible_message("<span class='notice'>[user] places the glass on the solar assembly.</span>")
 				if(tracker)
 					new /obj/machinery/power/tracker(get_turf(src), src)
@@ -285,7 +281,6 @@ var/list/solars_list = list()
 	var/trackrate = 60		// Measured in tenths of degree per minute (i.e. defaults to 6.0 deg/min)
 	var/trackdir = 1		// -1=CCW, 1=CW
 	var/nexttime = 0		// Next clock time that manual tracking will move the array
-	var/image/overlay_image
 
 
 /obj/machinery/power/solar_control/New()
@@ -309,22 +304,23 @@ var/list/solars_list = list()
 	set_panels(cdir)
 
 /obj/machinery/power/solar_control/update_icon()
-	overlays.Cut()
-	if(isnull(src.overlay_image))
-		src.overlay_image = image('icons/obj/computer.dmi', "solcon-o", layer = FLY_LAYER)
 	if(stat & BROKEN)
 		icon_state = "broken"
+		overlays.Cut()
 		return
 	if(stat & NOPOWER)
 		icon_state = "c_unpowered"
+		overlays.Cut()
 		return
 	icon_state = "solar"
+	overlays.Cut()
 	if(cdir > 0)
-		overlays += src.overlay_image //it doesn't change.
+		overlays += image('icons/obj/computer.dmi', "solcon-o", FLY_LAYER, angle2dir(cdir))
 	return
 
 
 /obj/machinery/power/solar_control/attack_ai(mob/user)
+	src.add_hiddenprint(user)
 	add_fingerprint(user)
 	if(stat & (BROKEN | NOPOWER)) return
 	interact(user)
@@ -338,12 +334,12 @@ var/list/solars_list = list()
 
 /obj/machinery/power/solar_control/attackby(I as obj, user as mob)
 	if(istype(I, /obj/item/weapon/screwdriver))
-		playsound(src.loc, 'sound/items/Screwdriver.ogg', 50, 1)
+		playsound(get_turf(src), 'sound/items/Screwdriver.ogg', 50, 1)
 		if(do_after(user, 20))
 			if (src.stat & BROKEN)
 				user << "\blue The broken glass falls out."
 				var/obj/structure/computerframe/A = new /obj/structure/computerframe( src.loc )
-				new /obj/item/weapon/shard( src.loc )
+				getFromPool(/obj/item/weapon/shard, loc)
 				var/obj/item/weapon/circuitboard/solar_control/M = new /obj/item/weapon/circuitboard/solar_control( A )
 				for (var/obj/C in src)
 					C.loc = src.loc
@@ -400,7 +396,7 @@ var/list/solars_list = list()
 /obj/machinery/power/solar_control/interact(mob/user)
 	if(stat & (BROKEN | NOPOWER)) return
 	if ( (get_dist(src, user) > 1 ))
-		if (!istype(user, /mob/living/silicon))
+		if (!istype(user, /mob/living/silicon/ai))
 			user.unset_machine()
 			user << browse(null, "window=solcon")
 			return
@@ -408,14 +404,18 @@ var/list/solars_list = list()
 	add_fingerprint(user)
 	user.set_machine(src)
 
-	var/t = "<TT><B>Solar Generator Control</B><HR><PRE>"
-	t += "<B>Generated power</B> : [round(lastgen)] W<BR>"
-	t += "Station Rotational Period: [60/abs(sun.rate)] minutes<BR>"
-	t += "Station Rotational Direction: [sun.rate<0 ? "CCW" : "CW"]<BR>"
-	t += "Star Orientation: [sun.angle]&deg ([angle2text(sun.angle)])<BR>"
-	t += "Array Orientation: [rate_control(src,"cdir","[cdir]&deg",1,10,60)] ([angle2text(cdir)])<BR>"
-	t += "<BR><HR><BR>"
-	t += "Tracking: "
+
+	// AUTOFIXED BY fix_string_idiocy.py
+	// C:\Users\Rob\Documents\Projects\vgstation13\code\modules\power\solar.dm:407: var/t = "<TT><B>Solar Generator Control</B><HR><PRE>"
+	var/t = {"<TT><B>Solar Generator Control</B><HR><PRE>
+<B>Generated power</B> : [round(lastgen)] W<BR>
+Station Rotational Period: [60/abs(sun.rate)] minutes<BR>
+Station Rotational Direction: [sun.rate<0 ? "CCW" : "CW"]<BR>
+Star Orientation: [sun.angle]&deg ([angle2text(sun.angle)])<BR>
+Array Orientation: [rate_control(src,"cdir","[cdir]&deg",1,10,60)] ([angle2text(cdir)])<BR>
+<BR><HR><BR>
+Tracking:"}
+	// END AUTOFIX
 	switch(track)
 		if(0)
 			t += "<B>Off</B> <A href='?src=\ref[src];track=1'>Manual</A> <A href='?src=\ref[src];track=2'>Automatic</A><BR>"
@@ -424,8 +424,12 @@ var/list/solars_list = list()
 		if(2)
 			t += "<A href='?src=\ref[src];track=0'>Off</A> <A href='?src=\ref[src];track=1'>Manual</A> <B>Automatic</B><BR>"
 
-	t += "Manual Tracking Rate: [rate_control(src,"tdir","[trackrate/10]&deg/min ([trackdir<0 ? "CCW" : "CW"])",1,10)]<BR>"
-	t += "Manual Tracking Direction: "
+
+	// AUTOFIXED BY fix_string_idiocy.py
+	// C:\Users\Rob\Documents\Projects\vgstation13\code\modules\power\solar.dm:423: t += "Manual Tracking Rate: [rate_control(src,"tdir","[trackrate/10]&deg/min ([trackdir<0 ? "CCW" : "CW"])",1,10)]<BR>"
+	t += {"Manual Tracking Rate: [rate_control(src,"tdir","[trackrate/10]&deg/min ([trackdir<0 ? "CCW" : "CW"])",1,10)]<BR>
+Manual Tracking Direction:"}
+	// END AUTOFIX
 	switch(trackdir)
 		if(-1)
 			t += "<A href='?src=\ref[src];trackdir=1'>CW</A> <B>CCW</B><BR>"
@@ -466,7 +470,7 @@ var/list/solars_list = list()
 		if(src.trackrate) nexttime = world.time + 6000/trackrate
 		track = text2num(href_list["track"])
 		if(powernet && (track == 2))
-			if(!solars_list.Find(src,1,0))
+			if(!solars_list.Find(src,1,0) || !(locate(src) in solars_list) || !(src in solars_list))
 				solars_list.Add(src)
 			for(var/obj/machinery/power/tracker/T in get_solars_powernet())
 				if(powernet.nodes[T])

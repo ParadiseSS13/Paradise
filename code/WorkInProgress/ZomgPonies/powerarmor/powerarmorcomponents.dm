@@ -5,6 +5,7 @@
 /obj/item/powerarmor
 	name = "Generic power armor component"
 	desc = "This is the base object, you should never see one."
+	icon = 'icons/obj/stock_parts.dmi'
 	var/obj/item/clothing/suit/space/powered/parent //so the component knows which armor it belongs to.
 	slowdown = 0 //how much the component slows down the wearer
 
@@ -26,6 +27,7 @@
 /obj/item/powerarmor/power/plasma
 	name = "Miniaturized plasma generator"
 	desc = "Runs on plasma."
+	icon_state = "plasma"
 	slowdown = 1
 	var/fuel = 0
 
@@ -45,12 +47,13 @@
 /obj/item/powerarmor/power/powercell
 	name = "Powercell interface"
 	desc = "Boring, but reliable."
+	icon_state = "powercell_interface"
 	var/obj/item/weapon/cell/cell
 	slowdown = 0.5
 
 /obj/item/powerarmor/power/powercell/process()
 	if (cell && cell.charge > 0 && parent.active)
-		cell.use(50)
+		cell.use(500)
 		spawn(50)
 			process()
 		return
@@ -64,6 +67,7 @@
 /obj/item/powerarmor/power/nuclear
 	name = "Miniaturized nuclear generator"
 	desc = "For all your radioactive needs."
+	icon_state = "nuclear"
 	slowdown = 1.5
 
 /obj/item/powerarmor/power/nuclear/process()
@@ -91,10 +95,10 @@
 	return !crit_fail
 
 /obj/item/powerarmor/reactive
-	name = "Adminbus power armor reactive plating"
-	desc = "Made with the rare Badminium molecule."
-	var/list/togglearmor = list(melee = 250, bullet = 100, laser = 100,energy = 100, bomb = 100, bio = 100, rad = 100)
-	 //Good lord an active energy axe does 150 damage a swing? Anyway, barring var editing, this armor loadout should be impervious to anything. Enjoy, badmins~ --NEO
+	name = "Centcom power armor reactive plating"
+	desc = "Pretty effective against everything, not perfect though."
+	var/list/togglearmor = list(melee = 90, bullet = 70, laser = 60,energy = 40, bomb = 75, bio = 75, rad = 75)
+	slowdown = 2
 
 /obj/item/powerarmor/reactive/toggle(sudden = 0)
 	switch(parent.active)
@@ -116,16 +120,13 @@
 		if(parent.shoes)
 			parent.shoes.armor[armorvar] = parent.armor[armorvar]
 
-/obj/item/powerarmor/reactive/Centcom
-	name = "Centcom power armor reactive plating"
-	desc = "Pretty effective against everything, not perfect though."
-	togglearmor = list(melee = 90, bullet = 70, laser = 60,energy = 40, bomb = 75, bio = 75, rad = 75)
-	slowdown = 2
+
 
 
 /obj/item/powerarmor/servos
-	name = "Adminbus power armor movement servos"
-	desc = "Made with the rare Badminium molecule."
+	name = "Power armor movement servos"
+	desc = "Help with moving in the the bulky armor."
+	icon_state = "servos"
 	var/toggleslowdown = 9
 
 /obj/item/powerarmor/servos/toggle(sudden = 0)
@@ -141,6 +142,7 @@
 /obj/item/powerarmor/atmoseal
 	name = "Power armor atmospheric seals"
 	desc = "Keeps the bad stuff out."
+	icon_state = "atmosseal"
 	slowdown = 1
 	var/sealed = 0
 
@@ -201,11 +203,6 @@
 				parent.shoes.max_heat_protection_temperature = SPACE_SUIT_MAX_HEAT_PROTECITON_TEMPERATURE
 			sealed = 1
 
-/obj/item/powerarmor/atmoseal/adminbus
-	name = "Adminbus power armor atmospheric seals"
-	desc = "Made with the rare Badminium molecule."
-	slowdown = 0
-
 /obj/item/powerarmor/atmoseal/optional
 	name = "Togglable power armor atmospheric seals"
 	desc = "Keeps the bad stuff out, but lets you remove your helmet without having to turn the whole suit off."
@@ -259,11 +256,6 @@
 				helm.parent = null
 
 
-
-/obj/item/powerarmor/atmoseal/optional/adminbus
-	name = "Adminbus togglable power armor atmospheric seals"
-	desc = "Made with the rare Badminium molecule."
-	slowdown = 0
 
 
 

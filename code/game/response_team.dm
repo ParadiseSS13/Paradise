@@ -9,7 +9,7 @@ var/can_call_ert
 
 /client/proc/response_team()
 	set name = "Dispatch Emergency Response Team"
-	set category = "Special Verbs"
+	set category = "Event"
 	set desc = "Send an emergency response team to the station"
 
 	if(!holder)

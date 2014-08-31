@@ -282,6 +282,15 @@
 	icon_on = "zippo_nt_on"
 	icon_off = "zippo_nt_off"
 
+/obj/item/weapon/lighter/zippo/fluff/purple
+	name = "purple engraved zippo"
+	desc = "All craftsspacemanship is of the highest quality. It is encrusted with refined plasma sheets. On the item is an image of a dwarf and the words 'Strike the Earth!' etched onto the side."
+	icon = 'icons/obj/custom_items.dmi'
+	icon_state = "purple_zippo_off"
+	icon_on = "purple_zippo_on"
+	icon_off = "purple_zippo_off"
+
+
 /obj/item/weapon/fluff/cado_keppel_1 //sparklysheep: Cado Keppel
 	name = "purple comb"
 	desc = "A pristine purple comb made from flexible plastic. It has a small K etched into its side."
@@ -293,7 +302,7 @@
 	attack_self(mob/user)
 		if(user.r_hand == src || user.l_hand == src)
 			for(var/mob/O in viewers(user, null))
-				O.show_message(text("\red [] uses [] to comb their hair with incredible style and sophistication. What a guy.", user, src), 1)
+				O.show_message(text("\red [] uses [] to comb their hair with incredible style and sophistication. What a [].", user, src, user.gender == FEMALE ? "lady" : "guy"), 1)
 		return
 
 /obj/item/weapon/fluff/hugo_cinderbacth_1 //thatoneguy: Hugo Cinderbatch

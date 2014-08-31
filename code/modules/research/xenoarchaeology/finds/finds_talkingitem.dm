@@ -4,50 +4,64 @@
 // This could be extended to atoms, but it's bad enough as is
 // I genuinely tried to Add and Remove them from var and proc lists, but just couldn't get it working
 
-/obj/item/weapon
-	var/list/heard_words = list()
-	var/lastsaid
-	var/listening_to_players = 0
-	var/speaking_to_players = 0
+//for easy reference
+/obj/var/datum/talking_atom/talking_atom
 
-/obj/item/weapon/process()
-	if(!speaking_to_players)
+/datum/talking_atom
+	var/list/heard_words = list()
+	var/last_talk_time = 0
+	var/atom/holder_atom
+	var/talk_interval = 50
+	var/talk_chance = 10
+
+/datum/talking_atom/proc/init()
+	if(holder_atom)
+		processing_objects.Add(src)
+
+/datum/talking_atom/proc/process()
+	if(!holder_atom)
 		processing_objects.Remove(src)
-		return
-	if(prob(10) && world.timeofday >= lastsaid && heard_words.len >= 1)
+
+	else if(heard_words.len >= 1 && world.time > last_talk_time + talk_interval && prob(talk_chance))
 		SaySomething()
 
-/obj/item/weapon/proc/catchMessage(var/msg, var/mob/source)
-	if(speaking_to_players)
-		var/list/seperate = list()
-		if(findtext(msg,"(("))
-			return
-		else if(findtext(msg,"))"))
-			return
-		else if(findtext(msg," ")==0)
-			return
-		else
-			/*var/l = lentext(msg)
-			if(findtext(msg," ",l,l+1)==0)
-				msg+=" "*/
-			seperate = text2list(msg, " ")
+/datum/talking_atom/proc/catchMessage(var/msg, var/mob/source)
+	if(!holder_atom)
+		return
 
-		for(var/Xa = 1,Xa<seperate.len,Xa++)
-			var/next = Xa + 1
-			if(heard_words.len > 20 + rand(10,20))
-				heard_words.Remove(heard_words[1])
-			if(!heard_words["[lowertext(seperate[Xa])]"])
-				heard_words["[lowertext(seperate[Xa])]"] = list()
-			var/list/w = heard_words["[lowertext(seperate[Xa])]"]
-			if(w)
-				w.Add("[lowertext(seperate[next])]")
-			//world << "Adding [lowertext(seperate[next])] to [lowertext(seperate[Xa])]"
+	var/list/seperate = list()
+	if(findtext(msg,"(("))
+		return
+	else if(findtext(msg,"))"))
+		return
+	else if(findtext(msg," ")==0)
+		return
+	else
+		/*var/l = lentext(msg)
+		if(findtext(msg," ",l,l+1)==0)
+			msg+=" "*/
+		seperate = text2list(msg, " ")
 
-		if(!rand(0, 5))
-			spawn(2) SaySomething(pick(seperate))
+	for(var/Xa = 1,Xa<seperate.len,Xa++)
+		var/next = Xa + 1
+		if(heard_words.len > 20 + rand(10,20))
+			heard_words.Remove(heard_words[1])
+		if(!heard_words["[lowertext(seperate[Xa])]"])
+			heard_words["[lowertext(seperate[Xa])]"] = list()
+		var/list/w = heard_words["[lowertext(seperate[Xa])]"]
+		if(w)
+			w.Add("[lowertext(seperate[next])]")
+		//world << "Adding [lowertext(seperate[next])] to [lowertext(seperate[Xa])]"
+
 	if(prob(30))
-		for(var/mob/O in viewers(src))
-			O.show_message("\blue [src] hums for bit then stops...", 1)
+		var/list/options = list("[holder_atom] seems to be listening intently to [source]...",\
+			"[holder_atom] seems to be focussing on [source]...",\
+			"[holder_atom] seems to turn it's attention to [source]...")
+		holder_atom.loc.visible_message("\blue \icon[holder_atom] [pick(options)]")
+
+	if(prob(20))
+		spawn(2)
+			SaySomething(pick(seperate))
 
 /*/obj/item/weapon/talkingcrystal/proc/debug()
 	//set src in view()
@@ -57,7 +71,9 @@
 		for(var/X in d)
 			world << "[X]"*/
 
-/obj/item/weapon/proc/SaySomething(var/word = null)
+/datum/talking_atom/proc/SaySomething(var/word = null)
+	if(!holder_atom)
+		return
 
 	var/msg
 	var/limit = rand(max(5,heard_words.len/2))+3
@@ -95,7 +111,7 @@
 		else
 			msg+="!"
 
-	var/list/listening = viewers(src)
+	var/list/listening = viewers(holder_atom)
 	for(var/mob/M in mob_list)
 		if (!M.client)
 			continue //skip monkeys and leavers
@@ -105,5 +121,5 @@
 			listening|=M
 
 	for(var/mob/M in listening)
-		M << "<b>[src]</b> reverberates, \blue\"[msg]\""
-	lastsaid = world.timeofday + rand(300,800)
+		M << "\icon[holder_atom] <b>[holder_atom]</b> reverberates, \blue\"[msg]\""
+	last_talk_time = world.time

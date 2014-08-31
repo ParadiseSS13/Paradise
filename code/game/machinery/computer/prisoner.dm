@@ -14,6 +14,8 @@
 	var/screen = 0 // 0 - No Access Denied, 1 - Access allowed
 	var/obj/item/weapon/card/id/prisoner/inserted_id
 
+	l_color = "#B40000"
+
 
 	attack_ai(var/mob/user as mob)
 		return src.attack_hand(user)
@@ -46,11 +48,15 @@
 				Tr = get_turf(C)
 				if((Tr) && (Tr.z != src.z))	continue//Out of range
 				if(!C.implanted) continue
-				dat += "[C.imp_in.name] | Remaining Units: [C.reagents.total_volume] | Inject: "
-				dat += "<A href='?src=\ref[src];inject1=\ref[C]'>(<font color=red>(1)</font>)</A>"
-				dat += "<A href='?src=\ref[src];inject5=\ref[C]'>(<font color=red>(5)</font>)</A>"
-				dat += "<A href='?src=\ref[src];inject10=\ref[C]'>(<font color=red>(10)</font>)</A><BR>"
-				dat += "********************************<BR>"
+
+				// AUTOFIXED BY fix_string_idiocy.py
+				// C:\Users\Rob\Documents\Projects\vgstation13\code\game\machinery\computer\prisoner.dm:41: dat += "[C.imp_in.name] | Remaining Units: [C.reagents.total_volume] | Inject: "
+				dat += {"[C.imp_in.name] | Remaining Units: [C.reagents.total_volume] | Inject:
+					<A href='?src=\ref[src];inject1=\ref[C]'>(<font color=red>(1)</font>)</A>
+					<A href='?src=\ref[src];inject5=\ref[C]'>(<font color=red>(5)</font>)</A>
+					<A href='?src=\ref[src];inject10=\ref[C]'>(<font color=red>(10)</font>)</A><BR>
+					********************************<BR>"}
+				// END AUTOFIX
 			dat += "<HR>Tracking Implants<BR>"
 			for(var/obj/item/weapon/implant/tracking/T in world)
 				Tr = get_turf(T)

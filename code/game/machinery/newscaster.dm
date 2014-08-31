@@ -108,7 +108,7 @@ var/list/obj/machinery/newscaster/allCasters = list() //Global list that will co
 	src.update_icon() //for any custom ones on the map...
 	..()                                //I just realised the newscasters weren't in the global machines list. The superconstructor call will tend to that
 
-/obj/machinery/newscaster/Del()
+/obj/machinery/newscaster/Destroy()
 	allCasters -= src
 	..()
 
@@ -748,16 +748,27 @@ var/list/obj/machinery/newscaster/allCasters = list() //Global list that will co
 
 /obj/machinery/newscaster/proc/AttachPhoto(mob/user as mob)
 	if(photo)
-		photo.loc = src.loc
-		user.put_in_inactive_hand(photo)
+		if(!issilicon(user))
+			photo.loc = src.loc
+			user.put_in_inactive_hand(photo)
 		photo = null
 	if(istype(user.get_active_hand(), /obj/item/weapon/photo))
 		photo = user.get_active_hand()
 		user.drop_item()
 		photo.loc = src
+	else if(istype(user,/mob/living/silicon))
+		var/mob/living/silicon/tempAI = user
+		var/obj/item/device/camera/siliconcam/camera = tempAI.aiCamera
 
+		if(!camera)
+			return
+		var/datum/picture/selection = camera.selectpicture()
+		if (!selection)
+			return
 
-
+		var/obj/item/weapon/photo/P = new/obj/item/weapon/photo()
+		P.construct(selection)
+		photo = P
 
 
 //########################################################################################################################

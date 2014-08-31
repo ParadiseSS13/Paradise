@@ -62,7 +62,7 @@
 
 		return null
 
-	Del()
+	Destroy()
 		loc = null
 
 		if(connected_device)

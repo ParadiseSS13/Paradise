@@ -16,7 +16,8 @@
 	pressure_resistance = 1
 	slot_flags = SLOT_HEAD
 	body_parts_covered = HEAD
-	attack_verb = list("")
+	attack_verb = list("slapped")
+	autoignition_temperature = AUTOIGNITION_PAPER
 
 	var/info		//What's actually written on the paper.
 	var/info_links	//A different version of the paper which includes html links at fields and EOF
@@ -182,6 +183,13 @@
 		t = replacetext(t, "\[/small\]", "</font>")
 		t = replacetext(t, "\[list\]", "<ul>")
 		t = replacetext(t, "\[/list\]", "</ul>")
+		t = replacetext(t, "\[table\]", "<table border=1 cellspacing=0 cellpadding=3 style='border: 1px solid black;'>")
+		t = replacetext(t, "\[/table\]", "</td></tr></table>")
+		t = replacetext(t, "\[grid\]", "<table>")
+		t = replacetext(t, "\[/grid\]", "</td></tr></table>")
+		t = replacetext(t, "\[row\]", "</td><tr>")
+		t = replacetext(t, "\[cell\]", "<td>")
+		t = replacetext(t, "\[logo\]", "<img src = http://baystation12.net/wiki/logo.png>")
 
 		t = "<font face=\"[deffont]\" color=[P.colour]>[t]</font>"
 	else // If it is a crayon, and he still tries to use these, make them empty!
@@ -191,6 +199,11 @@
 		t = replacetext(t, "\[/small\]", "")
 		t = replacetext(t, "\[list\]", "")
 		t = replacetext(t, "\[/list\]", "")
+		t = replacetext(t, "\[table\]", "")
+		t = replacetext(t, "\[/table\]", "")
+		t = replacetext(t, "\[row\]", "")
+		t = replacetext(t, "\[cell\]", "")
+		t = replacetext(t, "\[logo\]", "")
 
 		t = "<font face=\"[crayonfont]\" color=[P.colour]><b>[t]</b></font>"
 
@@ -271,9 +284,10 @@
 			iscrayon = 1
 
 
-		if((!in_range(src, usr) && loc != usr && !( istype(loc, /obj/item/weapon/clipboard) ) && loc.loc != usr && usr.get_active_hand() != i)) // Some check to see if he's allowed to write
+		// if paper is not in usr, then it must be near them, or in a clipboard or folder, which must be in or near usr
+		if(src.loc != usr && !src.Adjacent(usr) && !((istype(src.loc, /obj/item/weapon/clipboard) || istype(src.loc, /obj/item/weapon/folder)) && (src.loc.loc == usr || src.loc.Adjacent(usr)) ) )
 			return
-
+/*
 		t = checkhtml(t)
 
 		// check for exploits
@@ -283,7 +297,8 @@
 				log_admin("PAPER: [usr] ([usr.ckey]) tried to use forbidden word in [src]: [bad].")
 				message_admins("PAPER: [usr] ([usr.ckey]) tried to use forbidden word in [src]: [bad].")
 				return
-
+*/
+		t = html_encode(t)
 		t = replacetext(t, "\n", "<BR>")
 		t = parsepencode(t, i, usr, iscrayon) // Encode everything from pencode to html
 
@@ -378,6 +393,10 @@
 	icon_state = "photo"
 	var/photo_id = 0.0
 	item_state = "paper"
+
+/obj/item/weapon/paper/customs
+	name = "paper - 'Customs Form'"
+	info = "<font face=\"Verdana\" color=black><BR><center><B><I>Station Access Form</B></I><BR><BR>Name: <span class=\"paper_field\"></span><BR><BR>Rank: <span class=\"paper_field\"></span><BR><BR><I><B> NanoTrasen Science Station Cyberiad </I></B></center><BR><BR><HR><BR><BR>Signature: <span class=\"paper_field\"></span><BR><BR><BR><HR><center><B>Authorization</B><BR>Name: <BR><BR>Rank: <span class=\"paper_field\"></span><BR><BR></center><BR>If authorized, please sign here, <span class=\"paper_field\"></span>, and stamp the document with the Granted Stamp.<BR></font>"
 
 /obj/item/weapon/paper/sop
 	name = "paper- 'Standard Operating Procedure'"

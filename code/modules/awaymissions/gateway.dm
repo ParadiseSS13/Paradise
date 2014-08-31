@@ -123,13 +123,16 @@ obj/machinery/gateway/centerstation/process()
 		M.dir = SOUTH
 		return
 	else
+		for(var/obj/effect/landmark/L in landmarks_list)
+			if (L.name != "awaystart")
+				continue
+			awaydestinations.Add(L)
 		var/obj/effect/landmark/dest = pick(awaydestinations)
 		if(dest)
 			M.loc = dest.loc
 			M.dir = SOUTH
 			use_power(5000)
 		return
-
 
 /obj/machinery/gateway/centerstation/attackby(obj/item/device/W as obj, mob/user as mob)
 	if(istype(W,/obj/item/device/multitool))

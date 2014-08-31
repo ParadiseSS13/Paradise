@@ -2,12 +2,8 @@
 #define LIQUID 2
 #define GAS 3
 #define FOOD_METABOLISM 0.4
-#define REAGENTS_OVERDOSE 30
+#define OVERDOSE 90
 #define REM REAGENTS_EFFECT_MULTIPLIER
-
-//Some on_mob_life() procs check for alien races.
-#define IS_DIONA 1
-#define IS_VOX 2
 
 //The reaction procs must ALWAYS set src = null, this detaches the proc from the object (the reagent)
 //so that it can continue working when the reagent is deleted while the proc is still active.
@@ -27,9 +23,15 @@ datum
 		var/volume = 0
 		var/nutriment_factor = 0
 		var/custom_metabolism = REAGENTS_METABOLISM
-		var/mildly_toxic = 0
+		var/mildly_toxic = 1
+		var/toxod = 0
+		var/bruteod = 0
+		var/burnod = 0
+		var/oxyod = 0
 		var/overdose = 0
 		var/overdose_dam = 1
+		var/addictiveness = 0 //switched to zero until time to properly overhaul addiction
+		var/scannable = 0 //shows up on health analyzers
 		//var/list/viruses = list()
 		var/color = "#000000" // rgb: 0, 0, 0 (does not support alpha channels - yet!)
 
@@ -39,32 +41,47 @@ datum
 				var/datum/reagent/self = src
 				src = null										  //of the reagent to the mob on TOUCHING it.
 
-				if(!istype(self.holder.my_atom, /obj/effect/effect/chem_smoke))
-					// If the chemicals are in a smoke cloud, do not try to let the chemicals "penetrate" into the mob's system (balance station 13) -- Doohl
+				if(self.holder)		//for catching rare runtimes
+					if(!istype(self.holder.my_atom, /obj/effect/effect/chem_smoke))
+						// If the chemicals are in a smoke cloud, do not try to let the chemicals "penetrate" into the mob's system (balance station 13) -- Doohl
 
-					if(method == TOUCH)
+						if(method == TOUCH)
 
-						var/chance = 1
-						var/block  = 0
+							var/chance = 1
+							var/block  = 0
 
-						for(var/obj/item/clothing/C in M.get_equipped_items())
-							if(C.permeability_coefficient < chance) chance = C.permeability_coefficient
-							if(istype(C, /obj/item/clothing/suit/bio_suit))
-								// bio suits are just about completely fool-proof - Doohl
-								// kind of a hacky way of making bio suits more resistant to chemicals but w/e
-								if(prob(75))
-									block = 1
+							for(var/obj/item/clothing/C in M.get_equipped_items())
+								if(C.permeability_coefficient < chance) chance = C.permeability_coefficient
+								if(istype(C, /obj/item/clothing/suit/bio_suit))
+									// bio suits are just about completely fool-proof - Doohl
+									// kind of a hacky way of making bio suits more resistant to chemicals but w/e
+									if(prob(75))
+										block = 1
 
-							if(istype(C, /obj/item/clothing/head/bio_hood))
-								if(prob(75))
-									block = 1
+								if(istype(C, /obj/item/clothing/head/bio_hood))
+									if(prob(75))
+										block = 1
 
-						chance = chance * 100
+							chance = chance * 100
 
-						if(prob(chance) && !block)
-							if(M.reagents)
-								M.reagents.add_reagent(self.id,self.volume/2)
-				return 1
+							if(prob(chance) && !block)
+								if(M.reagents)
+									M.reagents.add_reagent(self.id,self.volume/2)
+
+/*
+					if(method == INGEST && istype(M, /mob/living/carbon))
+						if(prob(1 * self.addictiveness))
+							if(prob(5 * volume))
+								var/datum/disease/addiction/A = new /datum/disease/addiction
+								A.addicted_to = self
+								A.name = "[self.name] Addiction"
+								A.addiction ="[self.name]"
+								A.cure = self.id
+								M.viruses += A
+								A.affected_mob = M
+								A.holder = M
+*/
+					return 1
 
 			reaction_obj(var/obj/O, var/volume) //By default we transfer a small part of the reagent to the object
 				src = null						//if it can hold reagents. nope!
@@ -85,6 +102,18 @@ datum
 					var/mob/living/carbon/human/H = M
 					if(H.side_effects.len == 0)
 						M.add_side_effect(pick("Headache", "Bad Stomach", "Itch"))
+
+					if( (toxod > 0) && (volume >= toxod))//Toxin Overdosing
+						M.adjustToxLoss(overdose_dam * volume / toxod)
+
+					if(	(bruteod > 0) && (volume >= bruteod))//Brute Overdosing
+						M.take_overall_damage(overdose_dam, 0)
+
+					if( (burnod > 0) && (volume >= burnod))//Burn Overdosing
+						M.take_overall_damage(0, overdose_dam)
+
+					if( (oxyod > 0) && (volume >= oxyod))//Oxygen Overdosing
+						M.adjustOxyLoss(overdose_dam * volume / oxyod)
 
 				holder.remove_reagent(src.id, custom_metabolism) //By default it slowly disappears.
 				return
@@ -121,21 +150,16 @@ datum
 			reaction_mob(var/mob/M, var/method=TOUCH, var/volume)
 				var/datum/reagent/blood/self = src
 				src = null
-				if(self.data && self.data["viruses"])
-					for(var/datum/disease/D in self.data["viruses"])
-						//var/datum/disease/virus = new D.type(0, D, 1)
-						// We don't spread.
-						if(D.spread_type == SPECIAL || D.spread_type == NON_CONTAGIOUS) continue
-
-						if(method == TOUCH)
-							M.contract_disease(D)
-						else //injected
-							M.contract_disease(D, 1, 0)
 				if(self.data && self.data["virus2"] && istype(M, /mob/living/carbon))//infecting...
-					if(method == TOUCH)
-						infect_virus2(M,self.data["virus2"])
-					else
-						infect_virus2(M,self.data["virus2"],1)
+					var/list/vlist = self.data["virus2"]
+					if (vlist.len)
+						for (var/ID in vlist)
+							var/datum/disease2/disease/V = vlist[ID]
+
+							if(method == TOUCH)
+								infect_virus2(M,V.getcopy())
+							else
+								infect_virus2(M,V.getcopy(),1) //injected, force infection!
 				if(self.data && self.data["antibodies"] && istype(M, /mob/living/carbon))//... and curing
 					var/mob/living/carbon/C = M
 					C.antibodies |= self.data["antibodies"]
@@ -155,10 +179,8 @@ datum
 						blood_prop = new(T)
 						blood_prop.blood_DNA[self.data["blood_DNA"]] = self.data["blood_type"]
 
-					for(var/datum/disease/D in self.data["viruses"])
-						var/datum/disease/newVirus = D.Copy(1)
-						blood_prop.viruses += newVirus
-						newVirus.holder = blood_prop
+					if(self.data["virus2"])
+						blood_prop.virus2 = virus_copylist(self.data["virus2"])
 
 
 				else if(istype(self.data["donor"], /mob/living/carbon/monkey))
@@ -166,30 +188,24 @@ datum
 					if(!blood_prop)
 						blood_prop = new(T)
 						blood_prop.blood_DNA["Non-Human DNA"] = "A+"
-					for(var/datum/disease/D in self.data["viruses"])
-						var/datum/disease/newVirus = D.Copy(1)
-						blood_prop.viruses += newVirus
-						newVirus.holder = blood_prop
 
 				else if(istype(self.data["donor"], /mob/living/carbon/alien))
 					var/obj/effect/decal/cleanable/xenoblood/blood_prop = locate() in T
 					if(!blood_prop)
 						blood_prop = new(T)
 						blood_prop.blood_DNA["UNKNOWN DNA STRUCTURE"] = "X*"
-					for(var/datum/disease/D in self.data["viruses"])
-						var/datum/disease/newVirus = D.Copy(1)
-						blood_prop.viruses += newVirus
-						newVirus.holder = blood_prop
 				return
 
 /* Must check the transfering of reagents and their data first. They all can point to one disease datum.
 
-			Del()
+			Destroy()
 				if(src.data["virus"])
 					var/datum/disease/D = src.data["virus"]
 					D.cure(0)
 				..()
 */
+
+/*
 		vaccine
 			//data must contain virus type
 			name = "Vaccine"
@@ -212,7 +228,7 @@ datum
 
 					M.resistances += self.data
 				return
-
+*/
 
 		water
 			name = "Water"
@@ -289,7 +305,7 @@ datum
 							T.wet_overlay = null
 
 				for(var/mob/living/carbon/slime/M in T)
-					M.adjustToxLoss(rand(15,20))
+					M.apply_water()
 
 				var/hotspot = (locate(/obj/fire) in T)
 				if(hotspot && !istype(T, /turf/space))
@@ -341,29 +357,18 @@ datum
 			id = "anti_toxin"
 			description = "Dylovene is a broad-spectrum antitoxin."
 			reagent_state = LIQUID
-			color = "#006400" // rgb: 0, 100, 0
+			color = "#C8A5DC" // rgb: 200, 165, 220
+			toxod = OVERDOSE/1.5
+			oxyod = OVERDOSE/1.5
+			scannable = 1
 
-			on_mob_life(var/mob/living/M as mob)
+			on_mob_life(var/mob/living/M as mob, var/alien)
 				if(!M) M = holder.my_atom
-				if(holder.has_reagent("toxin"))
-					holder.remove_reagent("toxin", 1*REM)
-				if(holder.has_reagent("stoxin"))
-					holder.remove_reagent("stoxin", 1*REM)
-				if(holder.has_reagent("plasma"))
-					holder.remove_reagent("plasma", 1*REM)
-				if(holder.has_reagent("sacid"))
-					holder.remove_reagent("sacid", 1*REM)
-				if(holder.has_reagent("cyanide"))
-					holder.remove_reagent("cyanide", 1*REM)
-				if(holder.has_reagent("amatoxin"))
-					holder.remove_reagent("amatoxin", 1*REM)
-				if(holder.has_reagent("chloralhydrate"))
-					holder.remove_reagent("chloralhydrate", 1*REM)
-				if(holder.has_reagent("carpotoxin"))
-					holder.remove_reagent("carpotoxin", 1*REM)
-				if(holder.has_reagent("zombiepowder"))
-					holder.remove_reagent("zombiepowder", 1*REM)
-				M.adjustToxLoss(-1.5*REM)
+				if(!alien || alien != IS_DIONA)
+					M.reagents.remove_all_type(/datum/reagent/toxin, 1*REM, 0, 1)
+					M.drowsyness = max(M.drowsyness-2*REM, 0)
+					M.hallucination = max(0, M.hallucination - 5*REM)
+					M.adjustToxLoss(-2*REM)
 				..()
 				return
 
@@ -505,6 +510,8 @@ datum
 			description = "An effective hypnotic used to treat insomnia."
 			reagent_state = LIQUID
 			color = "#E895CC" // rgb: 232, 149, 204
+			toxod = 40
+			oxyod = 40
 
 			on_mob_life(var/mob/living/M as mob)
 				if(!M) M = holder.my_atom
@@ -527,7 +534,7 @@ datum
 			description = "Put people to sleep, and heals them."
 			reagent_state = LIQUID
 			color = "#C8A5DC" // rgb: 200, 165, 220
-
+			mildly_toxic = 0
 			on_mob_life(var/mob/living/M as mob)
 				if(!M) M = holder.my_atom
 				if(!data) data = 1
@@ -559,7 +566,10 @@ datum
 			id = "inaprovaline"
 			description = "Inaprovaline is a synaptic stimulant and cardiostimulant. Commonly used to stabilize patients."
 			reagent_state = LIQUID
-			color = "#0000FF" // rgb: 0, 0, 255
+			color = "#C8A5DC" // rgb: 200, 165, 220
+			bruteod = OVERDOSE
+			oxyod = OVERDOSE
+			scannable = 1
 
 			on_mob_life(var/mob/living/M as mob, var/alien)
 				if(!M) M = holder.my_atom
@@ -571,6 +581,7 @@ datum
 						M.losebreath = max(10, M.losebreath-5)
 
 				holder.remove_reagent(src.id, 0.5 * REAGENTS_METABOLISM)
+				..()
 				return
 
 		space_drugs
@@ -579,6 +590,8 @@ datum
 			description = "An illegal chemical compound used as drug."
 			reagent_state = LIQUID
 			color = "#60A584" // rgb: 96, 165, 132
+			addictiveness = 25
+			toxod = OVERDOSE/2
 
 			on_mob_life(var/mob/living/M as mob)
 				if(!M) M = holder.my_atom
@@ -588,6 +601,7 @@ datum
 						if(prob(10)) step(M, pick(cardinal))
 				if(prob(7)) M.emote(pick("twitch","drool","moan","giggle"))
 				holder.remove_reagent(src.id, 0.5 * REAGENTS_METABOLISM)
+				..()
 				return
 
 		holywater
@@ -789,7 +803,8 @@ datum
 
 			reaction_turf(var/turf/T, var/volume)
 				src = null
-				if(!istype(T, /turf/space))
+				// Only add one dirt per turf.  Was causing people to crash.
+				if(!istype(T, /turf/space) && !(locate(/obj/effect/decal/cleanable/dirt) in T))
 					new /obj/effect/decal/cleanable/dirt(T)
 
 		chlorine
@@ -1052,7 +1067,7 @@ datum
 			description = "Nitroglycerin is a heavy, colorless, oily, explosive liquid obtained by nitrating glycerol."
 			reagent_state = LIQUID
 			color = "#808080" // rgb: 128, 128, 128
-
+			toxod = OVERDOSE*2
 			mildly_toxic = 1
 			custom_metabolism = 0.01
 
@@ -1095,6 +1110,7 @@ datum
 			description = "Ryetalyn can cure all genetic abnomalities."
 			reagent_state = SOLID
 			color = "#C8A5DC" // rgb: 200, 165, 220
+			toxod = OVERDOSE/3
 
 			on_mob_life(var/mob/living/M as mob)
 				if(!M) M = holder.my_atom
@@ -1135,6 +1151,26 @@ datum
 				..()
 				return
 
+
+		paracetamol
+			name = "Paracetamol"
+			id = "paracetamol"
+			description = "Most probably know this as Tylenol, but this chemical is a mild, simple painkiller."
+			reagent_state = LIQUID
+			color = "#C855DC"
+			toxod = OVERDOSE
+			addictiveness = 5
+			scannable = 1
+			custom_metabolism = 0.025 // Lasts 10 minutes for 15 units
+
+			on_mob_life(var/mob/living/M as mob)
+				if(!M) M = holder.my_atom
+				..()
+				if (volume > overdose)
+					M.hallucination = max(M.hallucination, 2)
+					..()
+					return
+
 		mutagen
 			name = "Unstable mutagen"
 			id = "mutagen"
@@ -1168,14 +1204,36 @@ datum
 			id = "tramadol"
 			description = "A simple, yet effective painkiller."
 			reagent_state = LIQUID
-			color = "#FAEBD7" //rgb 250, 235, 215
+			addictiveness = 50
+			color = "#C8A5DC"
+			toxod = OVERDOSE
+			scannable = 1
+			custom_metabolism = 0.025 // Lasts 10 minutes for 15 units
+
+			on_mob_life(var/mob/living/M as mob)
+				if (volume > overdose)
+					M.hallucination = max(M.hallucination, 2)
+				..()
+				return
 
 		oxycodone
 			name = "Oxycodone"
 			id = "oxycodone"
 			description = "An effective and very addictive painkiller."
 			reagent_state = LIQUID
-			color = "#8A2BE2" // rgb 138, 43, 226
+			addictiveness = 80
+			color = "#C805DC"
+			toxod = OVERDOSE/4.5
+			oxyod = OVERDOSE/4.5
+			custom_metabolism = 0.25 // Lasts 10 minutes for 15 units
+
+			on_mob_life(var/mob/living/M as mob)
+				if (volume > overdose)
+					M.druggy = max(M.druggy, 10)
+					M.hallucination = max(M.hallucination, 3)
+				..()
+				return
+
 
 		virus_food
 			name = "Virus Food"
@@ -1196,7 +1254,19 @@ datum
 			id = "sterilizine"
 			description = "Sterilizes wounds in preparation for surgery."
 			reagent_state = LIQUID
-			color = "#F0FFF0" // rgb: 240, 255, 240
+			color = "#C8A5DC" // rgb: 200, 165, 220
+
+			//makes you squeaky clean
+			reaction_mob(var/mob/living/M, var/method=TOUCH, var/volume)
+				if (method == TOUCH)
+					M.germ_level -= min(volume*20, M.germ_level)
+
+			reaction_obj(var/obj/O, var/volume)
+				O.germ_level -= min(volume*20, O.germ_level)
+
+			reaction_turf(var/turf/T, var/volume)
+				T.germ_level -= min(volume*20, T.germ_level)
+
 	/*		reaction_mob(var/mob/living/M, var/method=TOUCH, var/volume)
 				src = null
 				if (method==TOUCH)
@@ -1315,6 +1385,7 @@ datum
 			description = "A compound used to clean things. Now with 50% more sodium hypochlorite!"
 			reagent_state = LIQUID
 			color = "#A5F0EE" // rgb: 165, 240, 238
+			toxod = OVERDOSE/2.5
 
 			reaction_obj(var/obj/O, var/volume)
 				if(istype(O,/obj/effect/decal/cleanable))
@@ -1359,19 +1430,18 @@ datum
 							if(H.shoes.clean_blood())
 								H.update_inv_shoes(0,0)
 					M.clean_blood()
+					..()
+					return
 
 		plantbgone
-			name = "Atrazine"
+			scannable = 1
+			name = "Plant-B-Gone"
 			id = "plantbgone"
 			description = "A harmful toxic mixture to kill plantlife. Do not ingest!"
 			reagent_state = LIQUID
 			color = "#49002E" // rgb: 73, 0, 46
-
-			on_mob_life(var/mob/living/carbon/M)
-				if(!M) M = holder.my_atom
-				M.adjustToxLoss(2)
-				..()
-				return
+			toxod = OVERDOSE/3
+			burnod = OVERDOSE/3
 
 			// Clear off wallrot fungi
 			reaction_turf(var/turf/T, var/volume)
@@ -1391,10 +1461,9 @@ datum
 					alien_weeds.healthcheck()
 				else if(istype(O,/obj/effect/glowshroom)) //even a small amount is enough to kill it
 					del(O)
-				else if(istype(O,/obj/effect/spacevine))
+				else if(istype(O,/obj/effect/plantsegment))
 					if(prob(50)) del(O) //Kills kudzu too.
-				// Damage that is done to growing plants is separately
-				// at code/game/machinery/hydroponics at obj/item/hydroponics
+				// Damage that is done to growing plants is separately at code/game/machinery/hydroponics at obj/item/hydroponics
 
 			reaction_mob(var/mob/living/M, var/method=TOUCH, var/volume)
 				src = null
@@ -1407,13 +1476,17 @@ datum
 						if(H.dna)
 							if(H.species.flags & IS_PLANT) //plantmen take a LOT of damage
 								H.adjustToxLoss(50)
+								..()
+								return
 
 		plasma
 			name = "Plasma"
 			id = "plasma"
 			description = "Plasma in its liquid form."
 			reagent_state = LIQUID
-			color = "#B233CC" // rgb: 178, 51, 204
+			color = "#C8A5DC" // rgb: 200, 165, 220
+			toxod = OVERDOSE
+			scannable = 1
 
 			on_mob_life(var/mob/living/M as mob)
 				if(!M) M = holder.my_atom
@@ -1432,14 +1505,14 @@ datum
 				var/turf/the_turf = get_turf(O)
 				var/datum/gas_mixture/napalm = new
 				var/datum/gas/volatile_fuel/fuel = new
-				fuel.moles = 5
+				fuel.moles = volume
 				napalm.trace_gases += fuel
 				the_turf.assume_air(napalm)
 			reaction_turf(var/turf/T, var/volume)
 				src = null
 				var/datum/gas_mixture/napalm = new
 				var/datum/gas/volatile_fuel/fuel = new
-				fuel.moles = 5
+				fuel.moles = volume
 				napalm.trace_gases += fuel
 				T.assume_air(napalm)
 				return
@@ -1448,7 +1521,8 @@ datum
 					return
 				if(method == TOUCH)
 					M.adjust_fire_stacks(volume / 5)
-				return
+					..()
+					return
 
 		leporazine
 			name = "Leporazine"
@@ -1456,6 +1530,8 @@ datum
 			description = "Leporazine can be use to stabilize an individuals body temperature."
 			reagent_state = LIQUID
 			color = "#E9D66B" // rgb: 233, 214, 107
+			toxod = OVERDOSE/1.5
+			burnod = OVERDOSE/1.5
 
 			on_mob_life(var/mob/living/M as mob)
 				if(!M) M = holder.my_atom
@@ -1472,10 +1548,11 @@ datum
 			description = "Cryptobiolin causes confusion and dizzyness."
 			reagent_state = LIQUID
 			color = "#FFD1DC" // rgb: 255, 209, 220
+			toxod = OVERDOSE/1.5
 
 			on_mob_life(var/mob/living/M as mob)
 				if(!M) M = holder.my_atom
-				M.make_dizzy(1)
+				M.Dizzy(1)
 				if(!M.confused) M.confused = 1
 				M.confused = max(M.confused, 20)
 				holder.remove_reagent(src.id, 0.5 * REAGENTS_METABOLISM)
@@ -1506,6 +1583,8 @@ datum
 			description = "Kelotane is a drug used to treat burns."
 			reagent_state = LIQUID
 			color = "#ECD540" // rgb: 236, 213, 64
+			toxod = OVERDOSE
+			bruteod = OVERDOSE
 
 			on_mob_life(var/mob/living/M as mob)
 				if(M.stat == 2.0)
@@ -1521,7 +1600,10 @@ datum
 			id = "dermaline"
 			description = "Dermaline is the next step in burn medication. Works twice as good as kelotane and enables the body to restore even the direst heat-damaged tissue."
 			reagent_state = LIQUID
-			color = "#F4A460" // rgb: 244, 164, 96
+			color = "#C8A5DC" // rgb: 200, 165, 220
+			toxod = OVERDOSE/2
+			bruteod = OVERDOSE/2
+			scannable = 1
 
 			on_mob_life(var/mob/living/M as mob, var/alien)
 				if(M.stat == 2.0) //THE GUY IS **DEAD**! BEREFT OF ALL LIFE HE RESTS IN PEACE etc etc. He does NOT metabolise shit anymore, god DAMN
@@ -1537,7 +1619,12 @@ datum
 			id = "dexalin"
 			description = "Dexalin is used in the treatment of oxygen deprivation."
 			reagent_state = LIQUID
-			color = "#00CED1" // rgb: 0, 206, 209
+			color = "#C8A5DC" // rgb: 200, 165, 220
+			toxod = OVERDOSE
+			burnod = OVERDOSE
+			bruteod = OVERDOSE
+			oxyod = OVERDOSE
+			scannable = 1
 
 			on_mob_life(var/mob/living/M as mob, var/alien)
 				if(M.stat == 2.0)
@@ -1559,7 +1646,11 @@ datum
 			id = "dexalinp"
 			description = "Dexalin Plus is used in the treatment of oxygen deprivation. Its highly effective."
 			reagent_state = LIQUID
-			color = "#00FFFF" // rgb: 0, 255, 255
+			color = "#C8A5DC" // rgb: 200, 165, 220
+			toxod = OVERDOSE/3
+			burnod = OVERDOSE/1.5
+			oxyod = OVERDOSE/3
+			scannable = 1
 
 			on_mob_life(var/mob/living/M as mob, var/alien)
 				if(M.stat == 2.0)
@@ -1581,7 +1672,11 @@ datum
 			id = "tricordrazine"
 			description = "Tricordrazine is a highly potent stimulant, originally derived from cordrazine. Can be used to treat a wide range of injuries."
 			reagent_state = LIQUID
-			color = "#DB7093" // rgb: 219, 112, 147
+			color = "#C8A5DC" // rgb: 200, 165, 220
+			toxod = OVERDOSE
+			bruteod = OVERDOSE
+			burnod = OVERDOSE
+			scannable = 1
 
 			on_mob_life(var/mob/living/M as mob, var/alien)
 				if(M.stat == 2.0)
@@ -1601,6 +1696,8 @@ datum
 			description = "Alchdranine is an extremely strange chemical substance that can be used to treat almost any injury with a high level of effectiveness "
 			reagent_state = LIQUID
 			color = "#07a4d1" // rgb: 7, 164, 209
+			toxod = OVERDOSE/3
+			burnod = OVERDOSE/3
 
 			on_mob_life(var/mob/living/M as mob, var/alien)
 				if(M.stat == 2.0)
@@ -1611,23 +1708,6 @@ datum
 					M.heal_organ_damage(1*REM,0)
 					M.heal_organ_damage(0,1*REM)
 					M.adjustToxLoss(-1*REM)
-				..()
-				return
-
-		anti_toxin
-			name = "Anti-Toxin (Dylovene)"
-			id = "anti_toxin"
-			description = "Dylovene is a broad-spectrum antitoxin."
-			reagent_state = LIQUID
-			color = "#C8A5DC" // rgb: 200, 165, 220
-
-			on_mob_life(var/mob/living/M as mob, var/alien)
-				if(!M) M = holder.my_atom
-				if(!alien || alien != IS_DIONA)
-					M.reagents.remove_all_type(/datum/reagent/toxin, 1*REM, 0, 1)
-					M.drowsyness = max(M.drowsyness-2*REM, 0)
-					M.hallucination = max(0, M.hallucination - 5*REM)
-					M.adjustToxLoss(-2*REM)
 				..()
 				return
 
@@ -1679,7 +1759,7 @@ datum
 //				M.sdisabilities &= ~BLIND			//doesn't even do anythig cos of the sdisabilities = 0 bit
 				if(ishuman(M))
 					var/mob/living/carbon/human/H = M
-					var/datum/organ/internal/eyes/E = H.internal_organs["eyes"]
+					var/datum/organ/internal/eyes/E = H.internal_organs_by_name["eyes"]
 					if(istype(E))
 						E.damage = max(E.damage-5 , 0)
 				M.SetWeakened(0)
@@ -1692,11 +1772,6 @@ datum
 				M.confused = 0
 				M.sleeping = 0
 				M.jitteriness = 0
-				for(var/datum/disease/D in M.viruses)
-					D.spread = "Remissive"
-					D.stage--
-					if(D.stage < 1)
-						D.cure()
 				..()
 				return
 
@@ -1705,8 +1780,10 @@ datum
 			id = "synaptizine"
 			description = "Synaptizine is used to treat various diseases."
 			reagent_state = LIQUID
-			color = "#FF4040" // rgb: 255, 64, 64
-			custom_metabolism = 0.05
+			color = "#C8A5DC" // rgb: 200, 165, 220
+			custom_metabolism = 0.01
+			toxod = OVERDOSE
+			scannable = 1
 
 			on_mob_life(var/mob/living/M as mob)
 				if(!M) M = holder.my_atom
@@ -1743,7 +1820,11 @@ datum
 			id = "hyronalin"
 			description = "Hyronalin is a medicinal drug used to counter the effect of radiation poisoning."
 			reagent_state = LIQUID
-			color = "#74C365" // rgb: 116, 195, 101
+			color = "#C8A5DC" // rgb: 200, 165, 220
+			custom_metabolism = 0.05
+			toxod = OVERDOSE
+			oxyod = OVERDOSE
+			scannable = 1
 
 			on_mob_life(var/mob/living/M as mob)
 				if(!M) M = holder.my_atom
@@ -1757,6 +1838,8 @@ datum
 			description = "Arithrazine is an unstable medication used for the most extreme cases of radiation poisoning."
 			reagent_state = LIQUID
 			color = "#BFFF00" // rgb: 191, 255, 0
+			toxod = OVERDOSE/1.5
+			burnod = OVERDOSE/1.5
 
 			on_mob_life(var/mob/living/M as mob)
 				if(M.stat == 2.0)
@@ -1776,6 +1859,10 @@ datum
 			reagent_state = LIQUID
 			color = "#F77FBE" // rgb: 247, 127, 190
 			custom_metabolism = 0.05
+			toxod = OVERDOSE/4.5
+			burnod = OVERDOSE/4.5
+			bruteod = OVERDOSE/4.5
+			scannable = 1
 
 			on_mob_life(var/mob/living/M as mob)
 				if(!M) M = holder.my_atom
@@ -1788,7 +1875,9 @@ datum
 			id = "imidazoline"
 			description = "Heals eye damage"
 			reagent_state = LIQUID
-			color = "#FFA500" // rgb: 255, 165, 0
+			color = "#C8A5DC" // rgb: 200, 165, 220
+			toxod = OVERDOSE
+			scannable = 1
 
 			on_mob_life(var/mob/living/M as mob)
 				if(!M) M = holder.my_atom
@@ -1796,7 +1885,7 @@ datum
 				M.eye_blind = max(M.eye_blind-5 , 0)
 				if(ishuman(M))
 					var/mob/living/carbon/human/H = M
-					var/datum/organ/internal/eyes/E = H.internal_organs["eyes"]
+					var/datum/organ/internal/eyes/E = H.internal_organs_by_name["eyes"]
 					if(istype(E))
 						if(E.damage > 0)
 							E.damage -= 1
@@ -1810,14 +1899,19 @@ datum
 			description = "Used to encourage recovery of internal organs and nervous systems. Medicate cautiously."
 			reagent_state = LIQUID
 			color = "#C8A5DC" // rgb: 200, 165, 220
-			overdose = 10
+			toxod = OVERDOSE/3
+			burnod = OVERDOSE/3
+			bruteod = OVERDOSE/3
+			scannable = 1
 
 			on_mob_life(var/mob/living/M as mob)
 				if(!M) M = holder.my_atom
 				if(ishuman(M))
 					var/mob/living/carbon/human/H = M
-					var/datum/organ/external/chest/C = H.get_organ("chest")
-					for(var/datum/organ/internal/I in C.internal_organs)
+
+					//Peridaxon is hard enough to get, it's probably fair to make this all internal organs
+					for(var/name in H.internal_organs_by_name)
+						var/datum/organ/internal/I = H.internal_organs_by_name[name]
 						if(I.damage > 0)
 							I.damage -= 0.20
 				..()
@@ -1829,7 +1923,9 @@ datum
 			id = "bicaridine"
 			description = "Bicaridine is an analgesic medication and can be used to treat blunt trauma."
 			reagent_state = LIQUID
-			color = "#FF003F" // rgb: 255, 0, 63
+			color = "#C8A5DC" // rgb: 200, 165, 220
+			toxod = OVERDOSE/1.5
+			scannable = 1
 
 			on_mob_life(var/mob/living/M as mob, var/alien)
 				if(M.stat == 2.0)
@@ -1846,7 +1942,10 @@ datum
 			description = "Hyperzine is a highly effective, long lasting, muscle stimulant."
 			reagent_state = LIQUID
 			color = "#CCFF00" // rgb: 204, 255, 0
+			toxod = OVERDOSE/1.5
+			burnod = OVERDOSE/1.5
 			custom_metabolism = 0.05
+			addictiveness = 80
 
 			on_mob_life(var/mob/living/M as mob)
 				if(!M) M = holder.my_atom
@@ -1859,7 +1958,8 @@ datum
 			id = "cryoxadone"
 			description = "A chemical mixture with almost magical healing powers. Its main limitation is that the targets body temperature must be under 170K for it to metabolise correctly."
 			reagent_state = LIQUID
-			color = "#BF00FF" // rgb: 191, 0, 255
+			color = "#C8A5DC" // rgb: 200, 165, 220
+			scannable = 1
 
 			on_mob_life(var/mob/living/M as mob)
 				if(!M) M = holder.my_atom
@@ -1876,7 +1976,8 @@ datum
 			id = "clonexadone"
 			description = "A liquid compound similar to that used in the cloning process. Can be used to 'finish' clones that get ejected early when used in conjunction with a cryo tube."
 			reagent_state = LIQUID
-			color = "#FF77FF" // rgb: 255, 119, 255
+			color = "#C8A5DC" // rgb: 200, 165, 220
+			scannable = 1
 
 			on_mob_life(var/mob/living/M as mob)
 				if(!M) M = holder.my_atom
@@ -1890,7 +1991,9 @@ datum
 			id = "rezadone"
 			description = "A powder derived from fish toxin, this substance can effectively treat genetic damage in humanoids, though excessive consumption has side effects."
 			reagent_state = SOLID
-			color = "#E25822" // rgb: 226, 88, 34
+			color = "#669900" // rgb: 102, 153, 0
+			toxod = OVERDOSE
+			scannable = 1
 
 			on_mob_life(var/mob/living/M as mob)
 				if(!M) M = holder.my_atom
@@ -1906,8 +2009,8 @@ datum
 						M.status_flags &= ~DISFIGURED
 					if(35 to INFINITY)
 						M.adjustToxLoss(1)
-						M.make_dizzy(5)
-						M.make_jittery(5)
+						M.Dizzy(5)
+						M.Jitter(5)
 
 				..()
 				return
@@ -1918,6 +2021,9 @@ datum
 			description = "An all-purpose antiviral agent."
 			reagent_state = LIQUID
 			color = "#228B22" // rgb: 34, 139, 34
+			custom_metabolism = 0.01
+			toxod = OVERDOSE/1.5
+			scannable = 1
 
 			on_mob_life(var/mob/living/M as mob)
 				..()
@@ -1944,7 +2050,10 @@ datum
 
 			on_mob_life(var/mob/living/carbon/M as mob)
 				if(!M) M = holder.my_atom
-				M.status_flags |= FAKEDEATH
+				if(volume >= 1) //Hotfix for Fakedeath never ending.
+					M.status_flags |= FAKEDEATH
+				else
+					M.status_flags &= ~FAKEDEATH
 				M.adjustOxyLoss(0.5*REM)
 				M.adjustToxLoss(0.5*REM)
 				M.Weaken(10)
@@ -1953,11 +2062,11 @@ datum
 				..()
 				return
 
-			Del()
+			/*Del()
 				if(holder && ismob(holder.my_atom))
 					var/mob/M = holder.my_atom
 					M.status_flags &= ~FAKEDEATH
-				..()
+				..()8*/
 
 		mindbreaker
 			name = "Mindbreaker Toxin"
@@ -1966,6 +2075,7 @@ datum
 			reagent_state = LIQUID
 			color = "#B31008" // rgb: 139, 166, 233
 			custom_metabolism = 0.05
+			addictiveness = 15
 
 			on_mob_life(var/mob/living/M)
 				if(!M) M = holder.my_atom
@@ -1975,7 +2085,7 @@ datum
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
+/*
 		nanites
 			name = "Nanomachines"
 			id = "nanites"
@@ -1999,6 +2109,35 @@ datum
 				src = null
 				if( (prob(10) && method==TOUCH) || method==INGEST)
 					M.contract_disease(new /datum/disease/xeno_transformation(0),1)
+*/
+
+		spore
+			name = "Blob Spores"
+			id = "spore"
+			description = "Spores of some blob creature thingy."
+			reagent_state = LIQUID
+			color = "#CE760A" // rgb: 206, 118, 10
+			var/client/blob_client = null
+			var/blob_point_rate = 3
+
+			on_mob_life(var/mob/living/M)
+				if(!M) M = holder.my_atom
+				if (holder.has_reagent("plantbgone",45))
+					holder.del_reagent("spore")
+				if (prob(1))
+					M << "\red Your mouth tastes funny."
+				if (prob(1) && prob(25))
+					if(iscarbon(M))
+						var/mob/living/carbon/C = M
+						if(directory[ckey(C.key)])
+							blob_client = directory[ckey(C.key)]
+							C.gib()
+							if(blob_client)
+								var/obj/effect/blob/core/core = new(get_turf(C), 200, blob_client, blob_point_rate)
+								if(core.overmind && core.overmind.mind)
+									core.overmind.mind.name = C.name
+
+				return
 
 //foam precursor
 
@@ -2025,6 +2164,7 @@ datum
 			description = "A highly addictive stimulant extracted from the tobacco plant."
 			reagent_state = LIQUID
 			color = "#181818" // rgb: 24, 24, 24
+			addictiveness = 90
 /*
 		ethanol
 			name = "Ethanol"
@@ -2036,7 +2176,7 @@ datum
 			on_mob_life(var/mob/living/M as mob)
 				if(!data) data = 1
 				data++
-				M.make_dizzy(5)
+				M.Dizzy(5)
 				M.jitteriness = max(M.jitteriness-5,0)
 				if(data >= 25)
 					if (!M.stuttering) M.stuttering = 1
@@ -2133,24 +2273,23 @@ datum
 			reagent_state = LIQUID
 			color = "#664300" // rgb: 102, 67, 0
 
-			on_mob_life(var/mob/living/M as mob)
+			reaction_mob(var/mob/living/carbon/M, var/method=TOUCH, var/volume)
+				if(!..())	return
+				if(!istype(M) || !M.dna)	return  //No robots, AIs, aliens, Ians or other mobs should be affected by this.
+				src = null
+				if((method==TOUCH && prob(33)) || method==INGEST)
+					randmuti(M)
+					if(prob(98))	randmutb(M)
+					else			randmutg(M)
+					domutcheck(M, null)
+					M.UpdateAppearance()
+				return
+			on_mob_life(var/mob/living/carbon/M)
+				if(!istype(M))	return
 				if(!M) M = holder.my_atom
-				if(!data) data = 1
-				switch(data)
-					if(1)
-						M.confused += 2
-						M.drowsyness += 2
-					if(2 to 50)
-						M.sleeping += 1
-					if(51 to INFINITY)
-						M.sleeping += 1
-						M.adjustToxLoss(data - 50)
-				data++
-				// Sleep toxins should always be consumed pretty fast
-				holder.remove_reagent(src.id, 0.4)
+				M.apply_effect(10,IRRADIATE,0)
 				..()
 				return
-
 
 
 		potassium_chloride
@@ -2192,7 +2331,6 @@ datum
 				return
 
 
-
 /////////////////////////Food Reagents////////////////////////////
 // Part of the food code. Nutriment is used instead of the old "heal_amt" code. Also is where all the food
 // 	condiments, additives, and such go.
@@ -2231,6 +2369,7 @@ datum
 			reagent_state = LIQUID
 			nutriment_factor = 10 * REAGENTS_METABOLISM
 			color = "#BBEDA4" // rgb: 187, 237, 164
+			toxod = OVERDOSE/2
 
 			on_mob_life(var/mob/living/M as mob)
 				if(!M) M = holder.my_atom
@@ -2464,18 +2603,18 @@ datum
 				switch(data)
 					if(1 to 5)
 						if (!M.stuttering) M.stuttering = 1
-						M.make_dizzy(5)
+						M.Dizzy(5)
 						if(prob(10)) M.emote(pick("twitch","giggle"))
 					if(5 to 10)
 						if (!M.stuttering) M.stuttering = 1
-						M.make_jittery(10)
-						M.make_dizzy(10)
+						M.Jitter(10)
+						M.Dizzy(10)
 						M.druggy = max(M.druggy, 35)
 						if(prob(20)) M.emote(pick("twitch","giggle"))
 					if (10 to INFINITY)
 						if (!M.stuttering) M.stuttering = 1
-						M.make_jittery(20)
-						M.make_dizzy(20)
+						M.Jitter(20)
+						M.Dizzy(20)
 						M.druggy = max(M.druggy, 40)
 						if(prob(30)) M.emote(pick("twitch","giggle"))
 				holder.remove_reagent(src.id, 0.2)
@@ -2667,6 +2806,28 @@ datum
 			reagent_state = SOLID
 			color = "#7F8400" // rgb: 127, 132, 0
 
+		//Reagents used for plant fertilizers.
+		toxin/fertilizer
+			name = "fertilizer"
+			id = "fertilizer"
+			description = "A chemical mix good for growing plants with."
+			reagent_state = LIQUID
+//			toxpwr = 0.2 //It's not THAT poisonous.
+			color = "#664330" // rgb: 102, 67, 48
+
+
+		toxin/fertilizer/eznutrient
+			name = "EZ Nutrient"
+			id = "eznutrient"
+
+		toxin/fertilizer/left4zed
+			name = "Left-4-Zed"
+			id = "left4zed"
+
+		toxin/fertilizer/robustharvest
+			name = "Robust Harvest"
+			id = "robustharvest"
+
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////// DRINKS BELOW, Beer is up there though, along with cola. Cap'n Pete's Cuban Spiced Rum////////////////////////////////
@@ -2730,6 +2891,7 @@ datum
 					..()
 					if(M.getToxLoss() && prob(20)) M.adjustToxLoss(-1)
 					return
+
 
 			carrotjuice
 				name = "Carrot juice"
@@ -2860,7 +3022,7 @@ datum
 
 				on_mob_life(var/mob/living/M as mob)
 					..()
-					M.make_jittery(5)
+					M.Jitter(5)
 					if(adj_temp > 0 && holder.has_reagent("frostoil"))
 						holder.remove_reagent("frostoil", 10*REAGENTS_METABOLISM)
 
@@ -2916,12 +3078,13 @@ datum
 						M.adjustToxLoss(-1)
 					return
 
-				icetea
-					name = "Iced Tea"
-					id = "icetea"
-					description = "No relation to a certain rap artist/ actor."
-					color = "#104038" // rgb: 16, 64, 56
-					adj_temp = -5
+
+			icetea
+				name = "Iced Tea"
+				id = "icetea"
+				description = "No relation to a certain rap artist/ actor."
+				color = "#104038" // rgb: 16, 64, 56
+				adj_temp = -5
 
 			kahlua
 				name = "Kahlua"
@@ -2934,7 +3097,7 @@ datum
 
 				on_mob_life(var/mob/living/M as mob)
 					..()
-					M.make_jittery(5)
+					M.Jitter(5)
 					return
 
 			cold
@@ -2981,7 +3144,7 @@ datum
 					adj_sleepy = -2
 
 					on_mob_life(var/mob/living/M as mob)
-						M.make_jittery(20)
+						M.Jitter(20)
 						M.druggy = max(M.druggy, 30)
 						M.dizziness +=5
 						M.drowsyness = 0
@@ -3075,7 +3238,7 @@ datum
 
 					on_mob_life(var/mob/living/M as mob)
 						..()
-						M.make_jittery(5)
+						M.Jitter(5)
 						return
 
 		hippies_delight
@@ -3092,18 +3255,18 @@ datum
 				switch(data)
 					if(1 to 5)
 						if (!M.stuttering) M.stuttering = 1
-						M.make_dizzy(10)
+						M.Dizzy(10)
 						if(prob(10)) M.emote(pick("twitch","giggle"))
 					if(5 to 10)
 						if (!M.stuttering) M.stuttering = 1
-						M.make_jittery(20)
-						M.make_dizzy(20)
+						M.Jitter(20)
+						M.Dizzy(20)
 						M.druggy = max(M.druggy, 45)
 						if(prob(20)) M.emote(pick("twitch","giggle"))
 					if (10 to INFINITY)
 						if (!M.stuttering) M.stuttering = 1
-						M.make_jittery(40)
-						M.make_dizzy(40)
+						M.Jitter(40)
+						M.Dizzy(40)
 						M.druggy = max(M.druggy, 60)
 						if(prob(30)) M.emote(pick("twitch","giggle"))
 				holder.remove_reagent(src.id, 0.2)
@@ -3127,11 +3290,10 @@ datum
 			var/blur_start = 260	//amount absorbed after which mob starts getting blurred vision
 			var/pass_out = 325	//amount absorbed after which mob starts passing out
 
-			on_mob_life(var/mob/living/M as mob)
+			on_mob_life(var/mob/living/M as mob, var/alien)
 				// Sobering multiplier.
 				// Sober block makes it more difficult to get drunk
-				var/sober_str=(M_SOBER in M.mutations)?1:2
-
+				var/sober_str=!(M_SOBER in M.mutations)?1:2
 				M:nutrition += nutriment_factor
 				holder.remove_reagent(src.id, FOOD_METABOLISM)
 				if(!src.data) data = 1
@@ -3145,7 +3307,10 @@ datum
 
 				d/=sober_str
 
-				M.dizziness +=dizzy_adj.
+				if(alien && alien == IS_SKRELL) //Skrell get very drunk very quickly.
+					d*=5
+
+				M.dizziness += dizzy_adj.
 				if(d >= slur_start && d < pass_out)
 					if (!M:slurring) M:slurring = 1
 					M:slurring += slurr_adj/sober_str
@@ -3160,11 +3325,10 @@ datum
 					M:drowsyness  = max(M:drowsyness, 30/sober_str)
 					if(ishuman(M))
 						var/mob/living/carbon/human/H = M
-						var/datum/organ/internal/liver/L = H.internal_organs["liver"]
+						var/datum/organ/internal/liver/L = H.internal_organs_by_name["liver"]
 						if (istype(L))
 							L.take_damage(0.1, 1)
 						H.adjustToxLoss(0.1)
-
 				holder.remove_reagent(src.id, 0.4)
 				..()
 				return
@@ -3230,7 +3394,7 @@ datum
 					if(!data) data = 1
 					data++
 					M:hallucination += 5
-					if(volume > REAGENTS_OVERDOSE)
+					if(volume > OVERDOSE)
 						M:adjustToxLoss(1)
 					..()
 					return
@@ -3250,7 +3414,7 @@ datum
 				on_mob_life(var/mob/living/M as mob)
 					..()
 					M.dizziness +=5
-					if(volume > REAGENTS_OVERDOSE)
+					if(volume > OVERDOSE)
 						M:adjustToxLoss(1)
 					return
 
@@ -3327,7 +3491,7 @@ datum
 					//	M:sleeping = max(0,M.sleeping-2)
 					if (M.bodytemperature > 310)
 						M.bodytemperature = max(310, M.bodytemperature-5)
-					M.make_jittery(1)
+					M.Jitter(1)
 					return
 
 
@@ -3824,4 +3988,7 @@ datum
 				M.adjustBrainLoss(10*REM)
 				return
 
+
 */
+// Undefine the alias for REAGENTS_EFFECT_MULTIPLER
+#undef REM

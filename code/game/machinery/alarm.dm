@@ -1043,6 +1043,13 @@ FIRE ALARM
 	var/last_process = 0
 	var/wiresexposed = 0
 	var/buildstage = 2 // 2 = complete, 1 = no wires,  0 = circuit gone
+	var/area/master_area
+
+/obj/machinery/firealarm/New()
+	var/area/A = get_area_master(src)
+	if (!( istype(A, /area) ))
+		return
+	master_area=A
 
 /obj/machinery/firealarm/update_icon()
 
@@ -1066,7 +1073,7 @@ FIRE ALARM
 	else
 		icon_state = "fire0"
 
-/obj/machinery/firealarm/temperature_expose(datum/gas_mixture/air, temperature, volume)
+/obj/machinery/firealarm/fire_act(datum/gas_mixture/air, temperature, volume)
 	if(src.detecting)
 		if(temperature > T0C+200)
 			src.alarm()			// added check of detector status here
@@ -1367,6 +1374,14 @@ Code shamelessly copied from apc_frame
 	use_power = 1
 	idle_power_usage = 2
 	active_power_usage = 6
+
+	var/area/master_area
+
+/obj/machinery/partyalarm/New()
+	var/area/A = get_area_master(src)
+	if (!( istype(A, /area) ))
+		return
+	master_area=A
 
 /obj/machinery/partyalarm/attack_paw(mob/user as mob)
 	return attack_hand(user)

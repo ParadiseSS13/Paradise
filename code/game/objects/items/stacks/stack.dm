@@ -21,7 +21,7 @@
 		src.amount=amount
 	return
 
-/obj/item/stack/Del()
+/obj/item/stack/Destroy()
 	if (src && usr && usr.machine==src)
 		usr << browse(null, "window=stack")
 	..()
@@ -168,7 +168,7 @@
 		src = null //dont kill proc after del()
 		if(usr)
 			usr.before_take_item(oldsrc)
-		del(oldsrc)
+		qdel(oldsrc)
 	return
 
 /obj/item/stack/proc/add_to_stacks(mob/usr as mob)
@@ -188,7 +188,7 @@
 
 /obj/item/stack/attack_hand(mob/user as mob)
 	if (user.get_inactive_hand() == src)
-		var/obj/item/stack/F = new src.type( user, amount=1)
+		var/obj/item/stack/F = new src.type( user, 1)
 		F.copy_evidences(src)
 		user.put_in_hands(F)
 		src.add_fingerprint(user)

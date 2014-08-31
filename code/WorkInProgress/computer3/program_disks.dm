@@ -7,12 +7,12 @@
 	icon_state = "datadisk_arcade"
 	spawn_files = list(/datum/file/program/arcade,/datum/file/program/arcade,/datum/file/program/arcade,/datum/file/program/arcade)
 
-/obj/item/weapon/disk/file/aifixer
+/*/obj/item/weapon/disk/file/aifixer
 	name = "AI System Integrity Restorer"
 	desc = "A program install disk."
 	icon = 'icons/obj/stock_parts.dmi'
 	icon_state = "datadisk_arcade"
-	spawn_files = list(/datum/file/program/aifixer)
+	spawn_files = list(/datum/file/program/aifixer)*/
 
 /obj/item/weapon/disk/file/atmos_alert
 	name = "Atmospheric Alert Notifier"

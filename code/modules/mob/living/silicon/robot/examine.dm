@@ -32,6 +32,9 @@
 	else
 		msg += "Its cover is closed.\n"
 
+	if(!has_power)
+		msg += "<span class='warning'>It appears to be running on backup power.</span>\n"
+
 	switch(src.stat)
 		if(CONSCIOUS)
 			if(!src.client)	msg += "It appears to be in stand-by mode.\n" //afk
@@ -39,7 +42,7 @@
 		if(DEAD)			msg += "<span class='deadsay'>It looks completely unsalvageable.</span>\n"
 	msg += "*---------*</span>"
 
-	if(print_flavor_text()) msg += "[print_flavor_text()]\n"
+	if(print_flavor_text()) msg += "\n[print_flavor_text()]\n"
 
 	if (pose)
 		if( findtext(pose,".",lentext(pose)) == 0 && findtext(pose,"!",lentext(pose)) == 0 && findtext(pose,"?",lentext(pose)) == 0 )

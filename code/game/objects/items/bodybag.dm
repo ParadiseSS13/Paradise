@@ -5,11 +5,12 @@
 	desc = "A folded bag designed for the storage and transportation of cadavers."
 	icon = 'icons/obj/bodybag.dmi'
 	icon_state = "bodybag_folded"
+	w_class = 2.0
 
 	attack_self(mob/user)
 		var/obj/structure/closet/body_bag/R = new /obj/structure/closet/body_bag(user.loc)
 		R.add_fingerprint(user)
-		del(src)
+		qdel(src)
 
 
 /obj/item/weapon/storage/box/bodybags
@@ -106,6 +107,8 @@
 	icon = 'icons/obj/cryobag.dmi'
 	item_path = /obj/item/bodybag/cryobag
 	var/used = 0
+	var/locked = 0
+	req_access = list(access_medical)
 
 	open()
 		. = ..()
@@ -122,3 +125,12 @@
 			if(!ishuman(usr))	return
 			usr << "\red You can't fold that up anymore.."
 		..()
+
+	attackby(W as obj, mob/user as mob)
+		if(istype(W, /obj/item/weapon/card/id) || istype(W, /obj/item/device/pda))
+			if(src.allowed(user))
+				src.locked = !src.locked
+				user << "The controls are now [src.locked ? "locked." : "unlocked."]"
+			else
+				user << "\red Access denied."
+			return

@@ -26,11 +26,16 @@ datum/controller/game_controller
 	var/powernets_cost	= 0
 	var/nano_cost		= 0
 	var/events_cost		= 0
+	var/puddles_cost
 	var/ticker_cost		= 0
 	var/gc_cost         = 0
 	var/total_cost		= 0
 
 	var/last_thing_processed
+
+	var/list/shuttle_list	                    // For debugging and VV
+	var/datum/ore_distribution/asteroid_ore_map // For debugging and VV.
+
 
 datum/controller/game_controller/New()
 	//There can be only one master_controller. Out with the old and in with the new.
@@ -48,18 +53,19 @@ datum/controller/game_controller/New()
 
 	if(!syndicate_code_phrase)		syndicate_code_phrase	= generate_code_phrase()
 	if(!syndicate_code_response)	syndicate_code_response	= generate_code_phrase()
-	if(!emergency_shuttle)			emergency_shuttle = new /datum/shuttle_controller/emergency_shuttle()
-	if(!supply_shuttle)				supply_shuttle = new /datum/controller/supply_shuttle()
+	if(!emergency_shuttle)			emergency_shuttle = new /datum/emergency_shuttle_controller()
+	if(!shuttle_controller)			shuttle_controller = new /datum/shuttle_controller()
 
 datum/controller/game_controller/proc/setup()
 	world.tick_lag = config.Ticklag
 
+/* //Do we even need this if we only have a single away mission loaded? Don't think so!
 	spawn(20)
 		createRandomZlevel()
+*/
 
 	if(!air_master)
 		air_master = new /datum/controller/air_system()
-//		air_master.setup()
 		air_master.Setup()
 
 	if(!ticker)
@@ -78,6 +84,7 @@ datum/controller/game_controller/proc/setup()
 		make_mining_asteroid_secret()
 
 	color_windows_init()
+
 
 	spawn(0)
 		if(ticker)
@@ -107,6 +114,14 @@ datum/controller/game_controller/proc/setup_objects()
 			var/obj/machinery/atmospherics/unary/vent_scrubber/T = U
 			T.broadcast_status()
 
+	//Create the mining ore distribution map.
+	asteroid_ore_map = new /datum/ore_distribution()
+	asteroid_ore_map.populate_distribution_map()
+
+
+	//Set up roundstart seed list.
+	populate_seed_list()
+
 	world << "\red \b Initializations complete."
 	sleep(-1)
 
@@ -128,6 +143,8 @@ datum/controller/game_controller/proc/process()
 				controller_iteration++
 
 				vote.process()
+//				transfer_controller.process()
+				shuttle_controller.process()
 				process_newscaster()
 
 				//AIR
@@ -161,28 +178,21 @@ datum/controller/game_controller/proc/process()
 
 				//MOBS
 				timer = world.timeofday
-				process_mobs()
+				processMobs()
 				mobs_cost = (world.timeofday - timer) / 10
-
-				sleep(breather_ticks)
-
-				//DISEASES
-				timer = world.timeofday
-				process_diseases()
-				diseases_cost = (world.timeofday - timer) / 10
 
 				sleep(breather_ticks)
 
 				//MACHINES
 				timer = world.timeofday
-				process_machines()
+				processMachines()
 				machines_cost = (world.timeofday - timer) / 10
 
 				sleep(breather_ticks)
 
 				//OBJECTS
 				timer = world.timeofday
-				process_objects()
+				processObjects()
 				objects_cost = (world.timeofday - timer) / 10
 
 				sleep(breather_ticks)
@@ -190,29 +200,36 @@ datum/controller/game_controller/proc/process()
 				//PIPENETS
 				if(!pipe_processing_killed)
 					timer = world.timeofday
-					process_pipenets()
+					processPipenets()
 					networks_cost = (world.timeofday - timer) / 10
 
 				sleep(breather_ticks)
 
 				//POWERNETS
 				timer = world.timeofday
-				process_powernets()
+				processPowernets()
 				powernets_cost = (world.timeofday - timer) / 10
 
 				sleep(breather_ticks)
 
 				//NANO UIS
 				timer = world.timeofday
-				process_nano()
+				processNano()
 				nano_cost = (world.timeofday - timer) / 10
 
 				sleep(breather_ticks)
 
 				//EVENTS
 				timer = world.timeofday
-				process_events()
+				processEvents()
 				events_cost = (world.timeofday - timer) / 10
+
+/*
+				//PUDDLES
+				timer = world.timeofday
+				processPuddles()
+				puddles_cost = (world.timeofday - timer) / 10
+*/
 
 				//TICKER
 				timer = world.timeofday
@@ -227,105 +244,98 @@ datum/controller/game_controller/proc/process()
 				gc_cost = (world.timeofday - timer) / 10
 
 				//TIMING
-				total_cost = air_cost + sun_cost + mobs_cost + diseases_cost + machines_cost + objects_cost + networks_cost + powernets_cost + nano_cost + events_cost + ticker_cost + gc_cost
+				total_cost = air_cost + sun_cost + mobs_cost + diseases_cost + machines_cost + objects_cost + networks_cost + powernets_cost + nano_cost + events_cost + puddles_cost + ticker_cost + gc_cost
 
 				var/end_time = world.timeofday
-				if(end_time < start_time)
+				if(end_time < start_time)	//why not just use world.time instead?
 					start_time -= 864000    //deciseconds in a day
 				sleep( round(minimum_ticks - (end_time - start_time),1) )
 			else
 				sleep(10)
 
-datum/controller/game_controller/proc/process_mobs()
-	var/i = 1
-	while(i<=mob_list.len)
-		var/mob/M = mob_list[i]
-		if(M)
-			last_thing_processed = M.type
-			M.Life()
-			i++
+/datum/controller/game_controller/proc/processMobs()
+	for (var/mob/Mob in mob_list)
+		if (Mob)
+			last_thing_processed = Mob.type
+			Mob.Life()
 			continue
-		mob_list.Cut(i,i+1)
 
-datum/controller/game_controller/proc/process_diseases()
-	var/i = 1
-	while(i<=active_diseases.len)
-		var/datum/disease/Disease = active_diseases[i]
-		if(Disease)
-			last_thing_processed = Disease.type
-			Disease.process()
-			i++
-			continue
-		active_diseases.Cut(i,i+1)
+		mob_list = mob_list - Mob
 
-datum/controller/game_controller/proc/process_machines()
-	var/i = 1
-	while(i<=machines.len)
-		var/obj/machinery/Machine = machines[i]
-		if(Machine && Machine.loc)
-			last_thing_processed = Machine.type
-			if(Machine.process() != PROCESS_KILL)
-				if(Machine)
-					if(Machine.use_power)
-						Machine.auto_use_power()
-					i++
+
+
+/datum/controller/game_controller/proc/processMachines()
+	for (var/obj/machinery/Machinery in machines)
+		if (Machinery && Machinery.loc)
+			last_thing_processed = Machinery.type
+
+			if(Machinery.process() != PROCESS_KILL)
+				if (Machinery) // Why another check?
+					if (Machinery.use_power)
+						Machinery.auto_use_power()
+
 					continue
-		machines.Cut(i,i+1)
 
-datum/controller/game_controller/proc/process_objects()
-	var/i = 1
-	while(i<=processing_objects.len)
-		var/obj/Object = processing_objects[i]
-		if(Object && Object.loc)
+		Machinery.removeAtProcessing()
+
+/datum/controller/game_controller/proc/processObjects()
+	for (var/obj/Object in processing_objects)
+		if (Object && Object.loc)
 			last_thing_processed = Object.type
 			Object.process()
-			i++
 			continue
-		processing_objects.Cut(i,i+1)
 
-datum/controller/game_controller/proc/process_pipenets()
+		processing_objects -= Object
+
+/datum/controller/game_controller/proc/processPipenets()
 	last_thing_processed = /datum/pipe_network
-	var/i = 1
-	while(i<=pipe_networks.len)
-		var/datum/pipe_network/Network = pipe_networks[i]
-		if(Network)
-			Network.process()
-			i++
-			continue
-		pipe_networks.Cut(i,i+1)
 
-datum/controller/game_controller/proc/process_powernets()
+	for (var/datum/pipe_network/Pipe_Network in pipe_networks)
+		if(Pipe_Network)
+			Pipe_Network.process()
+			continue
+
+		pipe_networks -= Pipe_Network
+
+/datum/controller/game_controller/proc/processPowernets()
 	last_thing_processed = /datum/powernet
-	var/i = 1
-	while(i<=powernets.len)
-		var/datum/powernet/Powernet = powernets[i]
-		if(Powernet)
+
+	for (var/datum/powernet/Powernet in powernets)
+		if (Powernet)
 			Powernet.reset()
-			i++
 			continue
-		powernets.Cut(i,i+1)
 
-datum/controller/game_controller/proc/process_nano()
-	var/i = 1
-	while(i<=nanomanager.processing_uis.len)
-		var/datum/nanoui/ui = nanomanager.processing_uis[i]
-		if(ui)
-			ui.process()
-			i++
+		powernets -= Powernet
+
+/datum/controller/game_controller/proc/processNano()
+	for (var/datum/nanoui/Nanoui in nanomanager.processing_uis)
+		if (Nanoui)
+			Nanoui.process()
 			continue
-		nanomanager.processing_uis.Cut(i,i+1)
 
-datum/controller/game_controller/proc/process_events()
+		nanomanager.processing_uis -= Nanoui
+
+/datum/controller/game_controller/proc/processEvents()
 	last_thing_processed = /datum/event
-	var/i = 1
-	while(i<=events.len)
-		var/datum/event/Event = events[i]
-		if(Event)
+
+	for (var/datum/event/Event in events)
+		if (Event)
 			Event.process()
-			i++
 			continue
-		events.Cut(i,i+1)
+
+		events -= Event
+
 	checkEvent()
+
+/*
+/datum/controller/game_controller/proc/processPuddles()
+	last_thing_processed = /datum/puddle
+
+	for (var/datum/puddle/Puddle in puddles)
+		if (Puddle)
+			Puddle.process()
+			continue
+*/
 
 datum/controller/game_controller/proc/Recover()		//Mostly a placeholder for now.
 	var/msg = "## DEBUG: [time2text(world.timeofday)] MC restarted. Reports:\n"

@@ -47,8 +47,7 @@
 				Robot.mmi = new /obj/item/device/mmi(new_mob)
 				Robot.mmi.transfer_identity(M)	//Does not transfer key/client.
 			if("slime")
-				if(prob(50))		new_mob = new /mob/living/carbon/slime/adult(M.loc)
-				else				new_mob = new /mob/living/carbon/slime(M.loc)
+				new_mob = new /mob/living/carbon/slime(M.loc)
 				new_mob.universal_speak = 1
 			if("xeno")
 				var/alien_caste = pick("Hunter","Sentinel","Drone","Larva")
@@ -59,7 +58,7 @@
 					else			new_mob = new /mob/living/carbon/alien/larva(M.loc)
 				new_mob.universal_speak = 1
 			if("human")
-				new_mob = new /mob/living/carbon/human(M.loc)
+				new_mob = new /mob/living/carbon/human(M.loc, delay_ready_dna=1)
 				if(M.gender == MALE)
 					new_mob.gender = MALE
 					new_mob.name = pick(first_names_male)
@@ -71,14 +70,10 @@
 
 				var/datum/preferences/A = new()	//Randomize appearance for the human
 				A.randomize_appearance_for(new_mob)
-
-				var/mob/living/carbon/human/H = new_mob
-				var/newspecies = pick(all_species)
-				H.set_species(newspecies)
 			else
 				return
 
-		for (var/obj/effect/proc_holder/spell/S in M.spell_list)
+		for (var/obj/effect/proc_holder/spell/wizard/S in M.spell_list)
 			new_mob.spell_list += new S.type
 
 		new_mob.a_intent = "harm"

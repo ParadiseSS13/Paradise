@@ -74,7 +74,7 @@ obj/effect/liquid/proc/spread()
 	//world << "DEBUG: liquid spread!"
 	var/surrounding_volume = 0
 	var/list/spread_directions = list(1,2,4,8)
-	var/turf/loc_turf = loc
+	var/turf/loc_turf = get_turf(src)
 	for(var/direction in spread_directions)
 		var/turf/T = get_step(src,direction)
 		if(!T)
@@ -131,30 +131,37 @@ obj/effect/liquid/proc/apply_calculated_effect()
 obj/effect/liquid/Move()
 	return 0
 
-obj/effect/liquid/Del()
+obj/effect/liquid/Destroy()
 	src.controller.liquid_objects.Remove(src)
 	..()
 
 obj/effect/liquid/proc/update_icon2()
 	//icon_state = num2text( max(1,min(7,(floor(volume),10)/10)) )
-
+	overlays = null
 	switch(volume)
-		if(0 to 0.1)
+		if(0 to 0.2)
 			del(src)
-		if(0.1 to 5)
+		if(0.2 to 5)
 			icon_state = "1"
+			overlays += image('icons/effects/liquid.dmi', src , "1-1", 5)
 		if(5 to 10)
 			icon_state = "2"
+			overlays += image('icons/effects/liquid.dmi', src , "2-1", 5)
 		if(10 to 20)
 			icon_state = "3"
+			overlays += image('icons/effects/liquid.dmi', src , "3-1", 5)
 		if(20 to 30)
 			icon_state = "4"
+			overlays += image('icons/effects/liquid.dmi', src , "4-1", 5)
 		if(30 to 40)
 			icon_state = "5"
+			overlays += image('icons/effects/liquid.dmi', src , "5-1", 5)
 		if(40 to 50)
 			icon_state = "6"
+			overlays += image('icons/effects/liquid.dmi', src , "6-1", 5)
 		if(50 to INFINITY)
 			icon_state = "7"
+			layer = 5
 
 turf/proc/can_accept_liquid(from_direction)
 	return 0
@@ -168,7 +175,7 @@ turf/space/can_leave_liquid(from_direction)
 
 turf/simulated/floor/can_accept_liquid(from_direction)
 	for(var/obj/structure/window/W in src)
-		if(W.dir in list(5,6,9,10))
+		if(W.is_fulltile())
 			return 0
 		if(W.dir & from_direction)
 			return 0
@@ -179,7 +186,7 @@ turf/simulated/floor/can_accept_liquid(from_direction)
 
 turf/simulated/floor/can_leave_liquid(to_direction)
 	for(var/obj/structure/window/W in src)
-		if(W.dir in list(5,6,9,10))
+		if(W.is_fulltile())
 			return 0
 		if(W.dir & to_direction)
 			return 0

@@ -1,4 +1,4 @@
-/mob/Del()//This makes sure that mobs with clients/keys are not just deleted from the game.
+/mob/Destroy()//This makes sure that mobs with clients/keys are not just deleted from the game.
 	mob_list -= src
 	dead_mob_list -= src
 	living_mob_list -= src
@@ -12,6 +12,10 @@
 	else
 		living_mob_list += src
 	..()
+
+/mob/proc/generate_name()
+	return name
+
 
 /mob/proc/Cell()
 	set category = "Admin"
@@ -52,7 +56,7 @@
 				if ((type & 1 && sdisabilities & BLIND))
 					return
 	// Added voice muffling for Issue 41.
-	if(stat == UNCONSCIOUS || sleeping > 0)
+	if(stat == UNCONSCIOUS || (sleeping > 0 && stat != 2))
 		src << "<I>... You can almost hear someone talking ...</I>"
 	else
 		src << msg
@@ -101,8 +105,19 @@
 /mob/proc/attack_ui(slot)
 	var/obj/item/W = get_active_hand()
 
+	//if(istype(W))
+	//	equip_to_slot_if_possible(W, slot)
+
 	if(istype(W))
-		equip_to_slot_if_possible(W, slot)
+
+		if(W:rig_restrict_helmet)
+			src << "\red You must fasten the helmet to a hardsuit first. (Target the head)" // Stop eva helms equipping.
+		else
+			if(W:equip_time > 0)
+				delay_clothing_equip_to_slot_if_possible(W, slot)
+			else
+				equip_to_slot_if_possible(W, slot)
+
 	if(ishuman(src) && W == src:head)
 		src:update_hair()
 
@@ -112,6 +127,29 @@
 	else if(equip_to_slot_if_possible(W, slot_r_hand, del_on_fail, disable_warning, redraw_mob))
 		return 1
 	return 0
+
+//This is a SAFE proc. Use this instead of equip_to_splot()!
+/mob/proc/delay_clothing_equip_to_slot_if_possible(obj/item/clothing/X as obj, slot, del_on_fail = 0, disable_warning = 0, redraw_mob = 1, delay_time = 0)
+	if(!istype(X)) return 0
+
+	if(X.equipping == 1) return 0 // Item is already being equipped
+
+	var/tempX = usr.x
+	var/tempY = usr.y
+	usr << "\blue You start equipping the [X]."
+	X.equipping = 1
+	var/equip_time = round(X.equip_time/10)
+	var/i
+	for(i=1; i<=equip_time; i++)
+		sleep (10) // Check if they've moved every 10 time units
+		if ((tempX != usr.x) || (tempY != usr.y))
+			src << "\red \The [X] is too fiddly to fasten whilst moving."
+			X.equipping = 0
+			return 0
+	equip_to_slot_if_possible(X, slot)
+	usr << "\blue You have finished equipping the [X]."
+	X.equipping = 0
+
 
 //This is a SAFE proc. Use this instead of equip_to_splot()!
 //set del_on_fail to have it delete W if it fails to equip
@@ -143,21 +181,25 @@
 // Convinience proc.  Collects crap that fails to equip either onto the mob's back, or drops it.
 // Used in job equipping so shit doesn't pile up at the start loc.
 /mob/living/carbon/human/proc/equip_or_collect(var/obj/item/W, var/slot)
-	if(!equip_to_slot_or_del(W, slot))
+	if(W.mob_can_equip(src, slot, 1))
+		//Mob can equip.  Equip it.
+		equip_to_slot_or_del(W, slot)
+	else
+		//Mob can't equip it.  Put it in a bag B.
 		// Do I have a backpack?
-		var/obj/item/weapon/storage/B = back
-
-		// Do I have a plastic bag?
-		if(!B)
+		var/obj/item/weapon/storage/B
+		if(istype(back,/obj/item/weapon/storage))
+			//Mob is wearing backpack
+			B = back
+		else
+			//not wearing backpack.  Check if player holding plastic bag
 			B=is_in_hands(/obj/item/weapon/storage/bag/plasticbag)
-
-		if(!B)
-			// Gimme one.
-			B=new /obj/item/weapon/storage/bag/plasticbag(null) // Null in case of failed equip.
-			if(!put_in_hands(B,slot_back))
-				return // Fuck it
+			if(!B) //If not holding plastic bag, give plastic bag
+				B=new /obj/item/weapon/storage/bag/plasticbag(null) // Null in case of failed equip.
+				if(!put_in_hands(B))
+					return // Bag could not be placed in players hands.  I don't know what to do here...
+		//Now, B represents a container we can insert W into.
 		B.handle_item_insertion(W,1)
-
 
 //The list of slots by priority. equip_to_appropriate_slot() uses this list. Doesn't matter if a mob type doesn't have a slot.
 var/list/slot_equipment_priority = list( \
@@ -463,9 +505,10 @@ var/list/slot_equipment_priority = list( \
 				return L.container
 	return
 
+
 /mob/verb/mode()
 	set name = "Activate Held Object"
-	set category = "Object"
+	set category = null
 	set src = usr
 
 	if(istype(loc,/obj/mecha)) return
@@ -494,6 +537,7 @@ var/list/slot_equipment_priority = list( \
 	src << browse(master)
 	return
 */
+
 
 /mob/verb/memory()
 	set name = "Notes"
@@ -554,12 +598,22 @@ var/list/slot_equipment_priority = list( \
 		else
 			return "\blue [copytext(msg, 1, 37)]... <a href='byond://?src=\ref[src];flavor_more=1'>More...</a>"
 
+/mob/proc/is_dead()
+	return stat == DEAD
+
+
 /*
 /mob/verb/help()
 	set name = "Help"
 	src << browse('html/help.html', "window=help")
 	return
 */
+
+
+/mob
+
+	var/newPlayerType = /mob/new_player
+
 /*
 /mob/verb/abandon_mob()
 	set name = "Respawn"
@@ -604,14 +658,13 @@ var/list/slot_equipment_priority = list( \
 		log_game("[usr.key] AM failed due to disconnect.")
 		return
 
-	var/mob/new_player/M = new /mob/new_player()
+	var/mob/newPlayer = new newPlayerType()
 	if(!client)
 		log_game("[usr.key] AM failed due to disconnect.")
-		del(M)
+		del(newPlayer)
 		return
 
-	M.key = key
-//	M.Login()	//wat
+	newPlayer.key = key
 	return
 */
 /mob/verb/observe()
@@ -788,6 +841,36 @@ var/list/slot_equipment_priority = list( \
 /mob/proc/is_active()
 	return (0 >= usr.stat)
 
+/mob/proc/is_mechanical()
+	if(mind && (mind.assigned_role == "Cyborg" || mind.assigned_role == "AI"))
+		return 1
+	return istype(src, /mob/living/silicon) || get_species() == "Machine"
+
+/mob/proc/is_ready()
+	return client && !!mind
+
+/mob/proc/is_in_brig()
+	if(!loc || !loc.loc)
+		return 0
+
+	// They should be in a cell or the Brig portion of the shuttle.
+	var/area/A = loc.loc
+	if(!istype(A, /area/security/prison) && !istype(A, /area/prison))
+		if(!istype(A, /area/shuttle/escape) || loc.name != "Brig floor")
+			return 0
+
+	// If they still have their ID they're not brigged.
+	for(var/obj/item/weapon/card/id/card in src)
+		return 0
+	for(var/obj/item/device/pda/P in src)
+		if(P.id)
+			return 0
+
+	return 1
+
+/mob/proc/get_gender()
+	return gender
+
 /mob/proc/see(message)
 	if(!is_active())
 		return 0
@@ -798,105 +881,35 @@ var/list/slot_equipment_priority = list( \
 	for(var/mob/M in viewers())
 		M.see(message)
 
-/*
-adds a dizziness amount to a mob
-use this rather than directly changing var/dizziness
-since this ensures that the dizzy_process proc is started
-currently only humans get dizzy
-
-value of dizziness ranges from 0 to 1000
-below 100 is not dizzy
-*/
-/mob/proc/make_dizzy(var/amount)
-	if(!istype(src, /mob/living/carbon/human)) // for the moment, only humans get dizzy
-		return
-
-	dizziness = min(1000, dizziness + amount)	// store what will be new value
-													// clamped to max 1000
-	if(dizziness > 100 && !is_dizzy)
-		spawn(0)
-			dizzy_process()
-
-
-/*
-dizzy process - wiggles the client's pixel offset over time
-spawned from make_dizzy(), will terminate automatically when dizziness gets <100
-note dizziness decrements automatically in the mob's Life() proc.
-*/
-/mob/proc/dizzy_process()
-	is_dizzy = 1
-	while(dizziness > 100)
-		if(client)
-			var/amplitude = dizziness*(sin(dizziness * 0.044 * world.time) + 1) / 70
-			client.pixel_x = amplitude * sin(0.008 * dizziness * world.time)
-			client.pixel_y = amplitude * cos(0.008 * dizziness * world.time)
-
-		sleep(1)
-	//endwhile - reset the pixel offsets to zero
-	is_dizzy = 0
-	if(client)
-		client.pixel_x = 0
-		client.pixel_y = 0
-
-// jitteriness - copy+paste of dizziness
-
-/mob/proc/make_jittery(var/amount)
-	if(!istype(src, /mob/living/carbon/human)) // for the moment, only humans get dizzy
-		return
-
-	jitteriness = min(1000, jitteriness + amount)	// store what will be new value
-													// clamped to max 1000
-	if(jitteriness > 100 && !is_jittery)
-		spawn(0)
-			jittery_process()
-
-
-// Typo from the oriignal coder here, below lies the jitteriness process. So make of his code what you will, the previous comment here was just a copypaste of the above.
-/mob/proc/jittery_process()
-	var/old_x = pixel_x
-	var/old_y = pixel_y
-	is_jittery = 1
-	while(jitteriness > 100)
-//		var/amplitude = jitteriness*(sin(jitteriness * 0.044 * world.time) + 1) / 70
-//		pixel_x = amplitude * sin(0.008 * jitteriness * world.time)
-//		pixel_y = amplitude * cos(0.008 * jitteriness * world.time)
-
-		var/amplitude = min(4, jitteriness / 100)
-		pixel_x = rand(-amplitude, amplitude)
-		pixel_y = rand(-amplitude/3, amplitude/3)
-
-		sleep(1)
-	//endwhile - reset the pixel offsets to zero
-	is_jittery = 0
-	pixel_x = old_x
-	pixel_y = old_y
-
 /mob/Stat()
 	..()
 
-	if(statpanel("Status"))	//not looking at that panel
+	if(client && client.holder)
 
-		if(client && client.holder)
-			stat(null,"Location:\t([x], [y], [z])")
-			stat(null,"CPU:\t[world.cpu]")
-			stat(null,"Instances:\t[world.contents.len]")
+		if(statpanel("Status"))	//not looking at that panel
+			stat(null, "Location:\t([x], [y], [z])")
+			stat(null, "CPU:\t[world.cpu]")
+			stat(null, "Instances:\t[world.contents.len]")
 
 			if(master_controller)
-				stat(null,"MasterController-[last_tick_duration] ([master_controller.processing?"On":"Off"]-[controller_iteration])")
-				stat(null,"Air-[master_controller.air_cost]\tSun-[master_controller.sun_cost]")
-				stat(null,"Mob-[master_controller.mobs_cost]\t#[mob_list.len]")
-				stat(null,"Dis-[master_controller.diseases_cost]\t#[active_diseases.len]")
-				stat(null,"Mch-[master_controller.machines_cost]\t#[machines.len]")
-				stat(null,"Obj-[master_controller.objects_cost]\t#[processing_objects.len]")
-				stat(null,"Net-[master_controller.networks_cost]\tPnet-[master_controller.powernets_cost]")
-				stat(null,"NanoUI-[master_controller.nano_cost]\t#[nanomanager.processing_uis.len]")
-				stat(null,"GC-[master_controller.gc_cost]\t#[garbage.queue.len]")
-				stat(null,"Tick-[master_controller.ticker_cost]\tALL-[master_controller.total_cost]")
+				stat(null, "MasterController-[last_tick_duration] ([master_controller.processing?"On":"Off"]-[controller_iteration])")
+				stat(null, "Air-[master_controller.air_cost]")
+				stat(null, "Sun-[master_controller.sun_cost]")
+				stat(null, "Mob-[master_controller.mobs_cost]\t#[mob_list.len]")
+				stat(null, "Dis-[master_controller.diseases_cost]\t#[active_diseases.len]")
+				stat(null, "Mch-[master_controller.machines_cost]\t#[machines.len]")
+				stat(null, "Obj-[master_controller.objects_cost]\t#[processing_objects.len]")
+				stat(null, "PiNet-[master_controller.networks_cost]\t#[pipe_networks.len]")
+				stat(null, "Ponet-[master_controller.powernets_cost]\t#[powernets.len]")
+				stat(null, "NanoUI-[master_controller.nano_cost]\t#[nanomanager.processing_uis.len]")
+//				stat(null, "GC-[master_controller.gc_cost]\t#[garbage.queue.len]")
+				stat(null, "Tick-[master_controller.ticker_cost]")
+				stat(null, "ALL-[master_controller.total_cost]")
 			else
-				stat(null,"MasterController-ERROR")
+				stat(null, "MasterController-ERROR")
 
 	if(listed_turf && client)
-		if(get_dist(listed_turf,src) > 1)
+		if(!TurfAdjacent(listed_turf))
 			listed_turf = null
 		else
 			statpanel(listed_turf.name, null, listed_turf)
@@ -906,7 +919,7 @@ note dizziness decrements automatically in the mob's Life() proc.
 				statpanel(listed_turf.name, null, A)
 
 	if(spell_list && spell_list.len)
-		for(var/obj/effect/proc_holder/spell/S in spell_list)
+		for(var/obj/effect/proc_holder/spell/wizard/S in spell_list)
 			switch(S.charge_type)
 				if("recharge")
 					statpanel(S.panel,"[S.charge_counter/10.0]/[S.charge_max/10]",S)
@@ -953,20 +966,38 @@ note dizziness decrements automatically in the mob's Life() proc.
 	else
 		lying = 0
 		canmove = 1
-	if(buckled)
+	var/is_movable
+	if(buckled && istype(buckled))
+		is_movable = buckled.movable
+
+	if(istype(buckled, /obj/vehicle))
+		var/obj/vehicle/V = buckled
+		if(stat || weakened || paralysis || resting || sleeping || (status_flags & FAKEDEATH))
+			lying = 1
+			canmove = 0
+			pixel_y = V.mob_offset_y - 5
+		else
+			lying = 0
+			canmove = 1
+			pixel_y = V.mob_offset_y
+	else if(buckled && (!buckled.movable))
 		anchored = 1
 		canmove = 0
 		if( istype(buckled,/obj/structure/stool/bed/chair) )
 			lying = 0
 		else
 			lying = 1
+	else if(buckled && is_movable)
+		anchored = 0
+		canmove = 1
+		lying = 0
 	else if( stat || weakened || paralysis || resting || sleeping || (status_flags & FAKEDEATH))
 		lying = 1
 		canmove = 0
 	else if( stunned )
 //		lying = 0
 		canmove = 0
-	else
+	else if (!buckled)
 		lying = !can_stand
 		canmove = has_limbs
 
@@ -995,41 +1026,45 @@ note dizziness decrements automatically in the mob's Life() proc.
 	drop_l_hand()
 	drop_r_hand()
 
-/mob/verb/eastface()
-	set hidden = 1
+/mob/proc/facedir(var/ndir)
 	if(!canface())	return 0
-	dir = EAST
+	dir = ndir
+	if(buckled && buckled.movable)
+		buckled.dir = ndir
+		buckled.handle_rotation()
 	client.move_delay += movement_delay()
 	return 1
+
+
+/mob/verb/eastface()
+	set hidden = 1
+	return facedir(EAST)
 
 
 /mob/verb/westface()
 	set hidden = 1
-	if(!canface())	return 0
-	dir = WEST
-	client.move_delay += movement_delay()
-	return 1
+	return facedir(WEST)
 
 
 /mob/verb/northface()
 	set hidden = 1
-	if(!canface())	return 0
-	dir = NORTH
-	client.move_delay += movement_delay()
-	return 1
+	return facedir(NORTH)
 
 
 /mob/verb/southface()
 	set hidden = 1
-	if(!canface())	return 0
-	dir = SOUTH
-	client.move_delay += movement_delay()
-	return 1
+	return facedir(SOUTH)
 
 
 /mob/proc/IsAdvancedToolUser()//This might need a rename but it should replace the can this mob use things check
 	return 0
 
+
+/mob/proc/Jitter(amount)
+	jitteriness = max(jitteriness,amount,0)
+
+/mob/proc/Dizzy(amount)
+	dizziness = max(dizziness,amount,0)
 
 /mob/proc/Stun(amount)
 	if(status_flags & CANSTUN)
@@ -1109,7 +1144,14 @@ note dizziness decrements automatically in the mob's Life() proc.
 /mob/proc/flash_weak_pain()
 	flick("weak_pain",pain)
 
-mob/verb/yank_out_object()
+/mob/proc/get_visible_implants(var/class = 0)
+	var/list/visible_implants = list()
+	for(var/obj/item/O in embedded)
+		if(O.w_class > class)
+			visible_implants += O
+	return visible_implants
+
+mob/proc/yank_out_object()
 	set category = "Object"
 	set name = "Yank out object"
 	set desc = "Remove an embedded item at the cost of bleeding and pain."
@@ -1135,10 +1177,7 @@ mob/verb/yank_out_object()
 	if(S == U)
 		self = 1 // Removing object from yourself.
 
-	for(var/obj/item/weapon/W in embedded)
-		if(W.w_class >= 2)
-			valid_objects += W
-
+	valid_objects = get_visible_implants(0)
 	if(!valid_objects.len)
 		if(self)
 			src << "You have nothing stuck in your body that is large enough to remove."
@@ -1149,9 +1188,9 @@ mob/verb/yank_out_object()
 	var/obj/item/weapon/selection = input("What do you want to yank out?", "Embedded objects") in valid_objects
 
 	if(self)
-		src << "<span class='warning'>You attempt to get a good grip on the [selection] in your body.</span>"
+		src << "<span class='warning'>You attempt to get a good grip on [selection] in your body.</span>"
 	else
-		U << "<span class='warning'>You attempt to get a good grip on the [selection] in [S]'s body.</span>"
+		U << "<span class='warning'>You attempt to get a good grip on [selection] in [S]'s body.</span>"
 
 	if(!do_after(U, 80))
 		return
@@ -1162,6 +1201,31 @@ mob/verb/yank_out_object()
 		visible_message("<span class='warning'><b>[src] rips [selection] out of their body.</b></span>","<span class='warning'><b>You rip [selection] out of your body.</b></span>")
 	else
 		visible_message("<span class='warning'><b>[usr] rips [selection] out of [src]'s body.</b></span>","<span class='warning'><b>[usr] rips [selection] out of your body.</b></span>")
+	valid_objects = get_visible_implants(0)
+	if(valid_objects.len == 1) //Yanking out last object - removing verb.
+		src.verbs -= /mob/proc/yank_out_object
+
+	if(ishuman(src))
+
+		var/mob/living/carbon/human/H = src
+		var/datum/organ/external/affected
+
+		for(var/datum/organ/external/organ in H.organs) //Grab the organ holding the implant.
+			for(var/obj/item/weapon/O in organ.implants)
+				if(O == selection)
+					affected = organ
+
+		affected.implants -= selection
+		H.shock_stage+=10
+
+		if(prob(10)) //I'M SO ANEMIC I COULD JUST -DIE-.
+			var/datum/wound/internal_bleeding/I = new (15)
+			affected.wounds += I
+			H.custom_pain("Something tears wetly in your [affected] as [selection] is pulled free!", 1)
+
+		if (ishuman(U))
+			var/mob/living/carbon/human/human_user = U
+			human_user.bloody_hands(H)
 
 	selection.loc = get_turf(src)
 
@@ -1181,7 +1245,7 @@ mob/verb/yank_out_object()
 	if((usr in respawnable_list) && (stat==2 || istype(usr,/mob/dead/observer)))
 		var/list/creatures = list("Mouse")
 		for(var/mob/living/L in living_mob_list)
-			if(safe_respawn(L.type))
+			if(safe_respawn(L.type) && L.stat!=2)
 				if(!L.key)
 					creatures += L
 		var/picked = input("Please select an NPC to respawn as", "Respawn as NPC")  as null|anything in creatures
@@ -1206,30 +1270,69 @@ mob/verb/yank_out_object()
 
 
 /mob/proc/become_mouse()
-	if(usr in respawnable_list)
-		var/timedifference = world.time - client.time_died_as_mouse
-		if(client.time_died_as_mouse && timedifference <= mouse_respawn_time * 600)
-			var/timedifference_text
-			timedifference_text = time2text(mouse_respawn_time * 600 - timedifference,"mm:ss")
-			src << "<span class='warning'>You may only spawn again as a mouse more than [mouse_respawn_time] minutes after your death. You have [timedifference_text] left.</span>"
-			return
-
-		//find a viable mouse candidate
-		var/mob/living/simple_animal/mouse/host
-		var/obj/machinery/atmospherics/unary/vent_pump/vent_found
-		var/list/found_vents = list()
-		for(var/obj/machinery/atmospherics/unary/vent_pump/v in world)
-			if(!v.welded && v.z == src.z)
-				found_vents.Add(v)
-		if(found_vents.len)
-			vent_found = pick(found_vents)
-			host = new /mob/living/simple_animal/mouse(vent_found.loc)
-		else
-			src << "<span class='warning'>Unable to find any unwelded vents to spawn mice at.</span>"
-
-		if(host)
-			host.ckey = src.ckey
-			host << "<span class='info'>You are now a mouse. Try to avoid interaction with players, and do not give hints away that you are more than a simple rodent.</span>"
-	else
-		usr << "You are not dead or you have given up your right to be respawned!"
+	var/timedifference = world.time - client.time_died_as_mouse
+	if(client.time_died_as_mouse && timedifference <= mouse_respawn_time * 600)
+		var/timedifference_text
+		timedifference_text = time2text(mouse_respawn_time * 600 - timedifference,"mm:ss")
+		src << "<span class='warning'>You may only spawn again as a mouse more than [mouse_respawn_time] minutes after your death. You have [timedifference_text] left.</span>"
 		return
+
+	//find a viable mouse candidate
+	var/mob/living/simple_animal/mouse/host
+	var/obj/machinery/atmospherics/unary/vent_pump/vent_found
+	var/list/found_vents = list()
+	for(var/obj/machinery/atmospherics/unary/vent_pump/v in world)
+		if(!v.welded && v.z == src.z)
+			found_vents.Add(v)
+	if(found_vents.len)
+		vent_found = pick(found_vents)
+		host = new /mob/living/simple_animal/mouse(vent_found.loc)
+	else
+		src << "<span class='warning'>Unable to find any unwelded vents to spawn mice at.</span>"
+
+	if(host)
+		host.ckey = src.ckey
+		host << "<span class='info'>You are now a mouse. Try to avoid interaction with players, and do not give hints away that you are more than a simple rodent.</span>"
+
+/mob/living/proc/handle_statuses()
+	handle_stunned()
+	handle_weakened()
+	handle_stuttering()
+	handle_silent()
+	handle_drugged()
+	handle_slurring()
+
+/mob/living/proc/handle_stunned()
+	if(stunned)
+		AdjustStunned(-1)
+	return stunned
+
+/mob/living/proc/handle_weakened()
+	if(weakened)
+		weakened = max(weakened-1,0)	//before you get mad Rockdtben: I done this so update_canmove isn't called multiple times
+	return weakened
+
+/mob/living/proc/handle_stuttering()
+	if(stuttering)
+		stuttering = max(stuttering-1, 0)
+	return stuttering
+
+/mob/living/proc/handle_silent()
+	if(silent)
+		silent = max(silent-1, 0)
+	return silent
+
+/mob/living/proc/handle_drugged()
+	if(druggy)
+		druggy = max(druggy-1, 0)
+	return druggy
+
+/mob/living/proc/handle_slurring()
+	if(slurring)
+		slurring = max(slurring-1, 0)
+	return slurring
+
+/mob/living/proc/handle_paralysed() // Currently only used by simple_animal.dm, treated as a special case in other mobs
+	if(paralysis)
+		AdjustParalysis(-1)
+	return paralysis

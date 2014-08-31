@@ -19,7 +19,7 @@
 /* 21st Sept 2010
 Updated by Skie -- Still not perfect but better!
 Stuff you can't do:
-Call proc /mob/proc/make_dizzy() for some player
+Call proc /mob/proc/Dizzy() for some player
 Because if you select a player mob as owner it tries to do the proc for
 /mob/living/carbon/human/ instead. And that gives a run-time error.
 But you can call procs that are of type /mob/living/carbon/human/proc/ for that player.
@@ -151,7 +151,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 	feedback_add_details("admin_verb","ASL") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /client/proc/cmd_admin_robotize(var/mob/M in mob_list)
-	set category = "Fun"
+	set category = "Event"
 	set name = "Make Robot"
 
 	if(!ticker)
@@ -166,7 +166,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 		alert("Invalid mob")
 
 /client/proc/cmd_admin_animalize(var/mob/M in mob_list)
-	set category = "Fun"
+	set category = "Event"
 	set name = "Make Simple Animal"
 
 	if(!ticker)
@@ -187,7 +187,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 
 
 /client/proc/makepAI(var/turf/T in mob_list)
-	set category = "Fun"
+	set category = "Event"
 	set name = "Make pAI"
 	set desc = "Specify a location to spawn a pAI device, then specify a key to play that pAI"
 
@@ -214,7 +214,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 	feedback_add_details("admin_verb","MPAI") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /client/proc/cmd_admin_alienize(var/mob/M in mob_list)
-	set category = "Fun"
+	set category = "Event"
 	set name = "Make Alien"
 
 	if(!ticker)
@@ -231,7 +231,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 		alert("Invalid mob")
 
 /client/proc/cmd_admin_slimeize(var/mob/M in mob_list)
-	set category = "Fun"
+	set category = "Event"
 	set name = "Make slime"
 
 	if(!ticker)
@@ -249,7 +249,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 
 /*
 /client/proc/cmd_admin_monkeyize(var/mob/M in world)
-	set category = "Fun"
+	set category = "Event"
 	set name = "Make Monkey"
 
 	if(!ticker)
@@ -264,7 +264,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 		alert("Invalid mob")
 
 /client/proc/cmd_admin_changelinginize(var/mob/M in world)
-	set category = "Fun"
+	set category = "Event"
 	set name = "Make Changeling"
 
 	if(!ticker)
@@ -299,7 +299,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 */
 /*
 /client/proc/make_cultist(var/mob/M in world) // -- TLE, modified by Urist
-	set category = "Fun"
+	set category = "Event"
 	set name = "Make Cultist"
 	set desc = "Makes target a cultist"
 	if(!cultwords["travel"])
@@ -363,7 +363,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 	feedback_add_details("admin_verb","MPWN") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /client/proc/cmd_debug_tog_aliens()
-	set category = "Server"
+	set category = "Event"
 	set name = "Toggle Aliens"
 
 	aliens_allowed = !aliens_allowed
@@ -422,19 +422,6 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 		del(adminmob)
 	feedback_add_details("admin_verb","ADC") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
-
-
-
-
-/client/proc/cmd_switch_radio()
-	set category = "Debug"
-	set name = "Switch Radio Mode"
-	set desc = "Toggle between normal radios and experimental radios. Have a coder present if you do this."
-
-	GLOBAL_RADIO_TYPE = !GLOBAL_RADIO_TYPE // toggle
-	log_admin("[key_name(src)] has turned the experimental radio system [GLOBAL_RADIO_TYPE ? "on" : "off"].")
-	message_admins("[key_name_admin(src)] has turned the experimental radio system [GLOBAL_RADIO_TYPE ? "on" : "off"].", 0)
-	feedback_add_details("admin_verb","SRM") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /client/proc/cmd_admin_areatest()
 	set category = "Mapping"
@@ -525,7 +512,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 		world << "* [areatype]"
 
 /client/proc/cmd_admin_dress(var/mob/living/carbon/human/M in mob_list)
-	set category = "Fun"
+	set category = "Event"
 	set name = "Select equipment"
 	if(!ishuman(M))
 		alert("Invalid mob")
@@ -533,6 +520,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 	//log_admin("[key_name(src)] has alienized [M.key].")
 	var/list/dresspacks = list(
 		"strip",
+		"as job...",
 		"Engineer RIG",
 		"CE RIG",
 		"Mining RIG",
@@ -562,7 +550,9 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 		"emergency response team",
 		"nanotrasen representative",
 		"nanotrasen officer",
-		"nanotrasen captain"
+		"nanotrasen captain",
+		"hawke - combat",
+		"hawke - formal"
 		)
 	var/dostrip = input("Do you want to strip [M] before equipping them? (0=no, 1=yes)", "STRIPTEASE") as null|anything in list(0,1)
 	if(isnull(dostrip))
@@ -570,6 +560,12 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 	var/dresscode = input("Select dress for [M]", "Robust quick dress shop") as null|anything in dresspacks
 	if (isnull(dresscode))
 		return
+
+	var/datum/job/jobdatum
+	if (dresscode == "as job...")
+		var/jobname = input("Select job", "Robust quick dress shop") as null|anything in get_all_jobs()
+		jobdatum = job_master.GetJob(jobname)
+
 	feedback_add_details("admin_verb","SEQ") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 	if(dostrip)
 		for (var/obj/item/I in M)
@@ -579,6 +575,12 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 	switch(dresscode)
 		if ("strip")
 			//do nothing
+
+		if ("as job...")
+			if(jobdatum)
+				dresscode = "[jobdatum.title]"
+				jobdatum.equip(M)
+
 		if ("standard space gear")
 			M.equip_to_slot_or_del(new /obj/item/clothing/shoes/black(M), slot_shoes)
 
@@ -938,9 +940,60 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 			W.registered_name = M.real_name
 			M.equip_to_slot_or_del(W, slot_wear_id)
 
+		if("hawke - combat")
+			M.equip_to_slot_or_del(new /obj/item/clothing/under/syndicate/combat(M), slot_w_uniform)
+			M.equip_to_slot_or_del(new /obj/item/clothing/suit/armor/swat/officer(M), slot_wear_suit)
+			M.equip_to_slot_or_del(new /obj/item/clothing/shoes/combat(M), slot_shoes)
+			M.equip_to_slot_or_del(new /obj/item/clothing/gloves/combat(M), slot_gloves)
+			M.equip_to_slot_or_del(new /obj/item/device/radio/headset/ert(src), slot_l_ear)
+			M.equip_to_slot_or_del(new /obj/item/clothing/glasses/thermal/cyber(M), slot_glasses)
+			M.equip_to_slot_or_del(new /obj/item/clothing/mask/cigarette/cigar/cohiba(M), slot_wear_mask)
+			M.equip_to_slot_or_del(new /obj/item/clothing/head/helmet/space/deathsquad/beret(M), slot_head)
+			M.equip_to_slot_or_del(new /obj/item/weapon/gun/energy/pulse_rifle/M1911(M), slot_belt)
+			M.equip_to_slot_or_del(new /obj/item/weapon/storage/box/matches(M), slot_r_store)
+			M.equip_to_slot_or_del(new /obj/item/weapon/storage/backpack/satchel(M), slot_back)
 
+			M.equip_to_slot_or_del(new /obj/item/weapon/storage/box/flashbangs(src), slot_in_backpack)
+			M.equip_to_slot_or_del(new /obj/item/weapon/storage/firstaid/regular(src), slot_in_backpack)
+			M.equip_to_slot_or_del(new /obj/item/weapon/melee/telebaton(M), slot_in_backpack)
+			M.equip_to_slot_or_del(new /obj/item/clothing/mask/gas(M), slot_in_backpack)
+
+
+		if("hawke - formal")
+			M.equip_if_possible(new /obj/item/clothing/under/rank/centcom/captain(M), slot_w_uniform)
+			M.equip_to_slot_or_del(new /obj/item/clothing/glasses/thermal/cyber(M), slot_glasses)
+			M.equip_to_slot_or_del(new /obj/item/device/radio/headset/ert(src), slot_l_ear)
+			M.equip_if_possible(new /obj/item/clothing/gloves/white(M), slot_gloves)
+			M.equip_to_slot_or_del(new /obj/item/clothing/shoes/centcom(M), slot_shoes)
+			M.equip_to_slot_or_del(new /obj/item/clothing/head/helmet/space/deathsquad/beret(M), slot_head)
+			M.equip_to_slot_or_del(new /obj/item/weapon/gun/energy/pulse_rifle/M1911(M), slot_belt)
+			M.equip_to_slot_or_del(new /obj/item/weapon/storage/backpack/satchel(M), slot_back)
+			M.equip_to_slot_or_del(new /obj/item/clothing/mask/cigarette/cigar/cohiba(M), slot_in_backpack)
+			M.equip_to_slot_or_del(new /obj/item/weapon/storage/box/matches(M), slot_in_backpack)
+
+			var/obj/item/device/pda/heads/pda = new(M)
+			pda.owner = M.real_name
+			pda.ownjob = "Special Operations Officer"
+			pda.icon_state = "pda-syndi"
+			pda.name = "PDA-[M.real_name] ([pda.ownjob])"
+			pda.desc = "A portable microcomputer by Thinktronic Systems, LTD. This is model is a special edition designed for military field work."
+			pda.default_cartridge = /obj/item/weapon/cartridge/captain
+
+			M.equip_if_possible(pda, slot_wear_pda)
+
+			M.equip_if_possible(new /obj/item/weapon/melee/telebaton(M), slot_r_store)
+
+			var/obj/item/weapon/card/id/W = new(M)
+			W.name = "[M.real_name]'s ID Card"
+			W.icon_state = "centcom"
+			W.access = get_all_accesses()
+			W.access += get_all_centcom_access()
+			W.assignment = "Special Operations Officer"
+			W.registered_name = M.real_name
+			M.equip_to_slot_or_del(W, slot_wear_id)
 
 		if("blue wizard")
+
 			M.equip_to_slot_or_del(new /obj/item/clothing/under/lightpurple(M), slot_w_uniform)
 			M.equip_to_slot_or_del(new /obj/item/clothing/suit/wizrobe(M), slot_wear_suit)
 			M.equip_to_slot_or_del(new /obj/item/clothing/shoes/sandal(M), slot_shoes)
@@ -1079,7 +1132,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 		return
 	if(istype(M, /mob/living/carbon))
 		M.dna.SetSEState(block,!M.dna.GetSEState(block))
-		domutcheck(M,null)
+		genemutcheck(M,block,null,MUTCHK_FORCED)
 		M.update_mutations()
 		var/state="[M.dna.GetSEState(block)?"on":"off"]"
 		var/blockname=assigned_blocks[block]
@@ -1087,3 +1140,4 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 		log_admin("[key_name(src)] has toggled [M.key]'s [blockname] block [state]!")
 	else
 		alert("Invalid mob")
+

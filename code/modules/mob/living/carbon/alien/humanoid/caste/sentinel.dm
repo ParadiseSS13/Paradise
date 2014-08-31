@@ -12,8 +12,8 @@
 	var/datum/reagents/R = new/datum/reagents(100)
 	reagents = R
 	R.my_atom = src
-	if(name == "alien sentinel")
-		name = text("alien sentinel ([rand(1, 1000)])")
+//	if(name == "alien sentinel")
+//		name = text("alien sentinel ([rand(1, 1000)])")
 	real_name = name
 	verbs.Add(/mob/living/carbon/alien/humanoid/proc/corrosive_acid)
 	..()
@@ -55,7 +55,10 @@
 		for(var/mob/O in viewers(src, null))
 			O.show_message(text("\green <B>[src] begins to twist and contort!</B>"), 1)
 		var/mob/living/carbon/alien/humanoid/sentinel/large/new_xeno = new (loc)
-		mind.transfer_to(new_xeno)
+		if(mind)
+			mind.transfer_to(new_xeno)
+		else
+			new_xeno.key = key
 		del(src)
 	return
 

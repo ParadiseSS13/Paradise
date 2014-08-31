@@ -49,7 +49,7 @@
 	lastTick = world.timeofday
 
 
-/obj/effect/glowshroom/Del()
+/obj/effect/glowshroom/Destroy()
 	processing_objects -= src
 	..()
 
@@ -156,7 +156,7 @@
 		else
 	return
 
-/obj/effect/glowshroom/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
+/obj/effect/glowshroom/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume)
 	if(exposed_temperature > 300)
 		endurance -= 5
 		CheckEndurance()

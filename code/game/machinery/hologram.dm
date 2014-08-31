@@ -33,6 +33,9 @@ var/const/HOLOPAD_MODE = 0
 	name = "\improper AI holopad"
 	desc = "It's a floor-mounted device for projecting holographic images. It is activated remotely."
 	icon_state = "holopad0"
+
+	layer = TURF_LAYER+0.1 //Preventing mice and drones from sneaking under them.
+
 	var/mob/living/silicon/ai/master//Which AI, if any, is controlling the object? Only one AI may control a hologram at any time.
 	var/last_request = 0 //to prevent request spam. ~Carn
 	var/holo_range = 5 // Change to change how far the AI can move away from the holopad before deactivating.
@@ -177,7 +180,7 @@ For the other part of the code, check silicon say.dm. Particularly robot talk.*/
 	del(src)
 	return
 
-/obj/machinery/hologram/Del()
+/obj/machinery/hologram/Destroy()
 	if(hologram)
 		src:clear_holo()
 	..()

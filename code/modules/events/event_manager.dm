@@ -69,6 +69,8 @@ var/scheduledEvent = null
 
 
 /datum/event/proc/findEventArea() //Here's a nice proc to use to find an area for your event to land in!
+	var/area/candidate = null
+
 	var/list/safe_areas = list(
 	/area/turret_protected/ai,
 	/area/turret_protected/ai_upload,
@@ -93,6 +95,21 @@ var/scheduledEvent = null
 	/area/engine/break_room,
 	/area/engine/chiefs_office)
 
-	//Need to locate() as it's just a list of paths.
-	return locate(pick((the_station_areas - safe_areas) + danger_areas))
+	var/list/event_areas = list()
+
+	for (var/areapath in the_station_areas)
+		event_areas += typesof(areapath)
+	for (var/areapath in safe_areas)
+		event_areas -= typesof(areapath)
+	for (var/areapath in danger_areas)
+		event_areas += typesof(areapath)
+
+	while (event_areas.len > 0)
+		var/list/event_turfs = null
+		candidate = locate(pick_n_take(event_areas))
+		event_turfs = get_area_turfs(candidate)
+		if (event_turfs.len > 0)
+			break
+
+	return candidate
 

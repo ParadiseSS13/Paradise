@@ -3,6 +3,7 @@
 	var/melee_cooldown = 10
 	var/melee_can_hit = 1
 	var/list/destroyable_obj = list(/obj/mecha, /obj/structure/window, /obj/structure/grille, /turf/simulated/wall)
+	var/maxsize = 2
 	internal_damage_threshold = 50
 	maint_access = 0
 	//add_req_access = 0
@@ -25,7 +26,7 @@
 	if(!melee_can_hit || !istype(target, /atom)) return
 	if(istype(target, /mob/living))
 		var/mob/living/M = target
-		if(src.occupant.a_intent == "harm")
+		if(src.occupant.a_intent == "harm" && !istype(src,/obj/mecha/combat/gygax))
 			playsound(src, 'sound/weapons/punch4.ogg', 50, 1)
 			if(damtype == "brute")
 				step_away(M,src,15)
@@ -113,7 +114,7 @@
 	if(!istype(target, /obj) && !istype(target, /mob)) return
 	if(istype(target, /mob))
 		var/mob/M = target
-		M.make_dizzy(3)
+		M.Dizzy(3)
 		M.adjustBruteLoss(1)
 		M.updatehealth()
 		for (var/mob/V in viewers(src))

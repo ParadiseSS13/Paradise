@@ -1,5 +1,5 @@
 /client/proc/play_sound(S as sound)
-	set category = "Fun"
+	set category = "Event"
 	set name = "Play Global Sound"
 	if(!check_rights(R_SOUNDS))	return
 
@@ -16,7 +16,7 @@
 
 
 /client/proc/play_local_sound(S as sound)
-	set category = "Fun"
+	set category = "Event"
 	set name = "Play Local Sound"
 	if(!check_rights(R_SOUNDS))	return
 
@@ -28,7 +28,7 @@
 
 /*
 /client/proc/cuban_pete()
-	set category = "Fun"
+	set category = "Event"
 	set name = "Cuban Pete Time"
 
 	message_admins("[key_name_admin(usr)] has declared Cuban Pete Time!", 1)
@@ -44,7 +44,7 @@
 
 
 /client/proc/bananaphone()
-	set category = "Fun"
+	set category = "Event"
 	set name = "Banana Phone"
 
 	message_admins("[key_name_admin(usr)] has activated Banana Phone!", 1)
@@ -55,7 +55,7 @@
 
 
 client/proc/space_asshole()
-	set category = "Fun"
+	set category = "Event"
 	set name = "Space Asshole"
 
 	message_admins("[key_name_admin(usr)] has played the Space Asshole Hymn.", 1)
@@ -66,7 +66,7 @@ client/proc/space_asshole()
 
 
 client/proc/honk_theme()
-	set category = "Fun"
+	set category = "Event"
 	set name = "Honk"
 
 	message_admins("[key_name_admin(usr)] has creeped everyone out with Blackest Honks.", 1)

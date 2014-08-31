@@ -1,5 +1,5 @@
 /mob/living/silicon/pai/examine() //removed as it was pointless...moved to the pai-card instead.
-	/* This is totaly pointless because this mob is contained inside a card!
+	/* This is totally pointless because this mob is contained inside a card!
 	set src in oview()
 
 	var/msg = "<span class='info'>*---------*\nThis is \icon[src] \a <EM>[src]</EM>!\n"

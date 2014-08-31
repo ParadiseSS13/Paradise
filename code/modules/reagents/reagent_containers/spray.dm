@@ -107,11 +107,14 @@
 	name = "space cleaner"
 	desc = "BLAM!-brand non-foaming space cleaner!"
 
+/obj/item/weapon/reagent_containers/spray/cleaner/drone
+	name = "space cleaner"
+	desc = "BLAM!-brand non-foaming space cleaner!"
+	volume = 50
 
 /obj/item/weapon/reagent_containers/spray/cleaner/New()
 	..()
-	reagents.add_reagent("cleaner", 250)
-
+	reagents.add_reagent("cleaner", src.volume)
 //pepperspray
 /obj/item/weapon/reagent_containers/spray/pepper
 	name = "pepperspray"
@@ -250,7 +253,8 @@
 
 /obj/item/weapon/reagent_containers/spray/plantbgone/afterattack(atom/A as mob|obj, mob/user as mob, proximity)
 	if(!proximity) return
-	if (istype(A, /obj/machinery/hydroponics)) // We are targeting hydrotray
+
+	if (istype(A, /obj/machinery/portable_atmospherics/hydroponics)) // We are targeting hydrotray
 		return
 
 	if (istype(A, /obj/effect/blob)) // blob damage in blob code

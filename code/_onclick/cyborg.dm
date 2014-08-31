@@ -15,6 +15,9 @@
 		build_click(src, client.buildmode, params, A)
 		return
 
+	if(stat || lockcharge || weakened || stunned || paralysis)
+		return
+
 	var/list/modifiers = params2list(params)
 	if(modifiers["middle"])
 		MiddleClickOn(A)
@@ -29,13 +32,18 @@
 		CtrlClickOn(A)
 		return
 
-	if(stat || lockcharge || weakened || stunned || paralysis)
-		return
-
 	if(next_move >= world.time)
 		return
 
 	face_atom(A) // change direction to face what you clicked on
+
+	if(aiCamera.in_camera_mode)
+		aiCamera.camera_mode_off()
+		if(is_component_functioning("camera"))
+			aiCamera.captureimage(A, usr)
+		else
+			src << "<span class='userdanger'>Your camera isn't functional.</span>"
+		return
 
 	/*
 	cyborg restrained() currently does nothing

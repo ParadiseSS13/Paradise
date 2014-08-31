@@ -6,6 +6,7 @@
 	icon = 'icons/obj/trash.dmi'
 	w_class = 1.0
 	desc = "This is rubbish."
+	autoignition_temperature = AUTOIGNITION_PAPER
 	raisins
 		name = "4no raisins"
 		icon_state= "4no_raisins"
@@ -52,6 +53,9 @@
 	liquidfood
 		name = "\improper \"LiquidFood\" ration"
 		icon_state = "liquidfood"
+	can
+		name = "crushed can"
+		icon_state = "cola"
 
 /obj/item/trash/attack(mob/M as mob, mob/living/user as mob)
 	return

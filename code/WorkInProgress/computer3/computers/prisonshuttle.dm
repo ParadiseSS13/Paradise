@@ -10,7 +10,7 @@ var/prison_shuttle_can_send = 1
 var/prison_shuttle_time = 0
 var/prison_shuttle_timeleft = 0
 
-/obj/machinery/computer/prison_shuttle
+/obj/machinery/computer3/prison_shuttle
 	name = "Prison Shuttle Console"
 	icon = 'icons/obj/computer.dmi'
 	icon_state = "shuttle"

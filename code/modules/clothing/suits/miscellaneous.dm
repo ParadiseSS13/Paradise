@@ -195,7 +195,7 @@
 	icon_state = "straight_jacket"
 	item_state = "straight_jacket"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS|HANDS
-	flags_inv = HIDEGLOVES|HIDESHOES|HIDEJUMPSUIT
+	flags_inv = HIDEGLOVES|HIDESHOES|HIDEJUMPSUIT|HIDETAIL
 	flags = FPRINT | TABLEPASS | ONESIZEFITSALL
 
 /obj/item/clothing/suit/ianshirt
@@ -371,3 +371,51 @@
 	icon_state = "swim_red"
 	_color = "swim_red"
 	siemens_coefficient = 1
+
+/obj/item/clothing/suit/storage/mercy_hoodie
+	name = "Mercy Robe"
+	desc = " A soft white robe made of a synthetic fiber that provides improved protection against biohazards. Possessing multiple overlapping layers, yet light enough to allow complete freedom of movement, it denotes its wearer as a master physician."
+	icon_state = "mercy_hoodie"
+	item_state = "mercy_hoodie"
+	w_class = 4//bulky item
+	gas_transfer_coefficient = 0.01
+	permeability_coefficient = 0.01
+	flags = FPRINT | TABLEPASS | ONESIZEFITSALL
+	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
+	allowed = list(/obj/item/weapon/tank/emergency_oxygen,/obj/item/weapon/pen,/obj/item/device/flashlight/pen)
+	armor = list(melee = 0, bullet = 0, laser = 0,energy = 0, bomb = 0, bio = 100, rad = 20)
+	flags_inv = HIDEGLOVES|HIDESHOES|HIDEJUMPSUIT|HIDETAIL
+	siemens_coefficient = 0.9
+
+/obj/item/clothing/head/mercy_hood
+	name = "Mercy Hood"
+	desc = "A soft white hood made of a synthetic fiber that provides improved protection against biohazards. Its elegant design allows a clear field of vision."
+	icon_state = "mercy_hood"
+	item_state = "mercy_hood"
+	permeability_coefficient = 0.01
+	flags = FPRINT|TABLEPASS|HEADCOVERSEYES|HEADCOVERSMOUTH|BLOCKHAIR
+	armor = list(melee = 0, bullet = 0, laser = 0,energy = 0, bomb = 0, bio = 100, rad = 20)
+	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES
+	siemens_coefficient = 0.9
+	loose = 7
+
+
+/obj/item/clothing/suit/bomber
+	name = "bomber jacker"
+	desc = "A well-worn WW2 leather bomber jacket."
+	icon_state = "bomber"
+	item_state = "bomber"
+	flags = FPRINT | TABLEPASS
+	body_parts_covered = UPPER_TORSO|ARMS
+
+/obj/item/clothing/suit/officercoat
+	name = "Clown Officer's Coat"
+	desc = "A classy clown officer's overcoat, also designed by Hugo Boss."
+	icon_state = "officersuit"
+	item_state = "officersuit"
+
+/obj/item/clothing/suit/soldiercoat
+	name = "Clown Soldier's Coat"
+	desc = "An overcoat for the clown soldier, to keep him warm during those cold winter nights on the front."
+	icon_state = "soldiersuit"
+	item_state = "soldiersuit"

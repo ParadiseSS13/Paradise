@@ -93,7 +93,7 @@
 		user.drop_item()
 		W.loc=src
 		user << "You cram \the [W] into the nozzle of \the [src]."
-		message_admins("[user]/[user.ckey] has crammed \a [W] into a [src].")
+		msg_admin_attack("[user]/[user.ckey] has crammed \a [W] into a [src].")
 
 
 /obj/item/weapon/extinguisher/afterattack(atom/target, mob/user , flag)
@@ -146,19 +146,27 @@
 
 		if(usr.buckled && isobj(usr.buckled) && !usr.buckled.anchored )
 			spawn(0)
+				var/obj/structure/stool/bed/chair/C = null
+				if(istype(usr.buckled, /obj/structure/stool/bed/chair))
+					C = usr.buckled
 				var/obj/B = usr.buckled
 				var/movementdirection = turn(direction,180)
+				if(C)	C.propelled = 4
 				B.Move(get_step(usr,movementdirection), movementdirection)
+				sleep(1)
+				B.Move(get_step(usr,movementdirection), movementdirection)
+				if(C)	C.propelled = 3
 				sleep(1)
 				B.Move(get_step(usr,movementdirection), movementdirection)
 				sleep(1)
 				B.Move(get_step(usr,movementdirection), movementdirection)
-				sleep(1)
-				B.Move(get_step(usr,movementdirection), movementdirection)
+				if(C)	C.propelled = 2
 				sleep(2)
 				B.Move(get_step(usr,movementdirection), movementdirection)
+				if(C)	C.propelled = 1
 				sleep(2)
 				B.Move(get_step(usr,movementdirection), movementdirection)
+				if(C)	C.propelled = 0
 				sleep(3)
 				B.Move(get_step(usr,movementdirection), movementdirection)
 				sleep(3)
@@ -169,7 +177,7 @@
 		if(locate(/obj) in src)
 			for(var/obj/thing in src)
 				thing.loc = get_turf(src)
-				thing.throw_at(target,10,rand(25,40))
+				thing.throw_at(target,thing.throw_range*2,throw_speed*2)
 				user.visible_message(
 					"<span class='danger'>[user] fires [src] and launches [thing] at [target]!</span>",
 					"<span class='danger'>You fire [src] and launch [thing] at [target]!</span>")

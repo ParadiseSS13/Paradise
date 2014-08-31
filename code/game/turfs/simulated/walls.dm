@@ -4,6 +4,15 @@
 	icon = 'icons/turf/walls.dmi'
 	var/mineral = "metal"
 	var/rotting = 0
+
+	var/damage = 0
+	var/damage_cap = 100 //Wall will break down to girders if damage reaches this point
+
+	var/damage_overlay
+	var/global/damage_overlays[8]
+
+	var/max_temperature = 1800 //K, walls will take damage if they're next to a fire hotter than this
+
 	opacity = 1
 	density = 1
 	blocks_air = 1
@@ -12,6 +21,96 @@
 	heat_capacity = 312500 //a little over 5 cm thick , 312500 for 1 m by 2.5 m by 0.25 m plasteel wall
 
 	var/walltype = "metal"
+	var/hardness = 40 //lower numbers are harder. Used to determine the probability of a hulk smashing through.
+	var/engraving, engraving_quality //engraving on the wall
+	var/del_suppress_resmoothing = 0 // Do not resmooth neighbors on Destroy. (smoothwall.dm)
+	canSmoothWith = list(
+		/turf/simulated/wall,
+		/obj/structure/falsewall,
+		/obj/structure/falserwall // WHY DO WE SMOOTH WITH FALSE R-WALLS WHEN WE DON'T SMOOTH WITH REAL R-WALLS.
+	)
+
+/turf/simulated/wall/Del()
+	for(var/obj/effect/E in src) if(E.name == "Wallrot") del E
+
+/turf/simulated/wall/ChangeTurf(var/newtype)
+	for(var/obj/effect/E in src) if(E.name == "Wallrot") del E
+	..(newtype)
+
+//Appearance
+
+/turf/simulated/wall/examine()
+	. = ..()
+
+	if(!damage)
+		usr << "<span class='notice'>It looks fully intact.</span>"
+	else
+		var/dam = damage / damage_cap
+		if(dam <= 0.3)
+			usr << "<span class='warning'>It looks slightly damaged.</span>"
+		else if(dam <= 0.6)
+			usr << "<span class='warning'>It looks moderately damaged.</span>"
+		else
+			usr << "<span class='danger'>It looks heavily damaged.</span>"
+
+	if(rotting)
+		usr << "<span class='warning'>There is fungus growing on [src].</span>"
+
+/turf/simulated/wall/proc/update_icon()
+	if(!damage_overlays[1]) //list hasn't been populated
+		generate_overlays()
+
+	if(!damage)
+		overlays.Cut()
+		return
+
+	var/overlay = round(damage / damage_cap * damage_overlays.len) + 1
+	if(overlay > damage_overlays.len)
+		overlay = damage_overlays.len
+
+	if(damage_overlay && overlay == damage_overlay) //No need to update.
+		return
+
+	overlays.Cut()
+	overlays += damage_overlays[overlay]
+	damage_overlay = overlay
+
+	return
+
+/turf/simulated/wall/proc/generate_overlays()
+	var/alpha_inc = 256 / damage_overlays.len
+
+	for(var/i = 1; i <= damage_overlays.len; i++)
+		var/image/img = image(icon = 'icons/turf/walls.dmi', icon_state = "overlay_damage")
+		img.blend_mode = BLEND_MULTIPLY
+		img.alpha = (i * alpha_inc) - 1
+		damage_overlays[i] = img
+
+//Damage
+
+/turf/simulated/wall/proc/take_damage(dam)
+	if(dam)
+		damage = max(0, damage + dam)
+		update_damage()
+	return
+
+/turf/simulated/wall/proc/update_damage()
+	var/cap = damage_cap
+	if(rotting)
+		cap = cap / 10
+
+	if(damage >= cap)
+		dismantle_wall()
+	else
+		update_icon()
+
+	return
+
+/turf/simulated/wall/adjacent_fire_act(turf/simulated/floor/adj_turf, datum/gas_mixture/adj_air, adj_temp, adj_volume)
+	if(adj_temp > max_temperature)
+		take_damage(rand(10, 20) * (adj_temp / max_temperature))
+
+	return ..()
 
 /turf/simulated/wall/proc/dismantle_wall(devastated=0, explode=0)
 	if(istype(src,/turf/simulated/wall/r_wall))
@@ -64,31 +163,76 @@
 	ChangeTurf(/turf/simulated/floor/plating)
 
 /turf/simulated/wall/ex_act(severity)
-	if(rotting) severity = 1.0
 	switch(severity)
 		if(1.0)
-			//SN src = null
 			src.ChangeTurf(/turf/space)
 			return
 		if(2.0)
-			if (prob(50))
-				dismantle_wall(0,1)
+			if(prob(75))
+				take_damage(rand(150, 250))
 			else
 				dismantle_wall(1,1)
 		if(3.0)
-			var/proba
-			if (istype(src, /turf/simulated/wall/r_wall))
-				proba = 15
-			else
-				proba = 40
-			if (prob(proba))
-				dismantle_wall(0,1)
+			take_damage(rand(0, 250))
 		else
 	return
 
 /turf/simulated/wall/blob_act()
-	if(prob(50) || rotting)
+	take_damage(rand(75, 125))
+	return
+
+// Wall-rot effect, a nasty fungus that destroys walls.
+/turf/simulated/wall/proc/rot()
+	if(!rotting)
+		rotting = 1
+
+		var/number_rots = rand(2,3)
+		for(var/i=0, i<number_rots, i++)
+			var/obj/effect/overlay/O = new/obj/effect/overlay( src )
+			O.name = "Wallrot"
+			O.desc = "Ick..."
+			O.icon = 'icons/effects/wallrot.dmi'
+			O.pixel_x += rand(-10, 10)
+			O.pixel_y += rand(-10, 10)
+			O.anchored = 1
+			O.density = 1
+			O.layer = 5
+			O.mouse_opacity = 0
+
+/turf/simulated/wall/proc/thermitemelt(mob/user as mob)
+	if(mineral == "diamond")
+		return
+	var/obj/effect/overlay/O = new/obj/effect/overlay( src )
+	O.name = "Thermite"
+	O.desc = "Looks hot."
+	O.icon = 'icons/effects/fire.dmi'
+	O.icon_state = "2"
+	O.anchored = 1
+	O.density = 1
+	O.layer = 5
+
+	src.ChangeTurf(/turf/simulated/floor/plating)
+
+	var/turf/simulated/floor/F = src
+	F.burn_tile()
+	F.icon_state = "wall_thermite"
+	user << "<span class='warning'>The thermite starts melting through the wall.</span>"
+
+	spawn(100)
+		if(O)	del(O)
+//	F.sd_LumReset()		//TODO: ~Carn
+	return
+
+/turf/simulated/wall/meteorhit(obj/M as obj)
+	if (prob(15) && !rotting)
 		dismantle_wall()
+	else if(prob(70) && !rotting)
+		ChangeTurf(/turf/simulated/floor/plating)
+	else
+		ReplaceWithLattice()
+	return 0
+
+//Interactions
 
 /turf/simulated/wall/attack_paw(mob/user as mob)
 	if ((M_HULK in user.mutations))
@@ -99,6 +243,7 @@
 			return
 		else
 			usr << text("\blue You punch the wall.")
+			take_damage(rand(25, 75))
 			return
 
 	return src.attack_hand(user)
@@ -110,11 +255,12 @@
 				dismantle_wall(1)
 				M << "<span class='info'>You smash through the wall.</span>"
 			else
-				M << "<span class='info'>This wall is far too strong for you to destroy.</span>"
-		else
-			M << "<span class='info'>You smash through the wall.</span>"
-			dismantle_wall(1)
-			return
+				M << text("\blue You smash against the wall.")
+				take_damage(rand(25, 75))
+				return
+
+	M << "\blue You push the wall but nothing happens!"
+	return
 
 /turf/simulated/wall/attack_hand(mob/user as mob)
 	if (M_HULK in user.mutations)
@@ -125,6 +271,7 @@
 			return
 		else
 			usr << text("\blue You punch the wall.")
+			take_damage(rand(25, 75))
 			return
 
 	if(rotting)
@@ -192,21 +339,36 @@
 
 	//DECONSTRUCTION
 	if( istype(W, /obj/item/weapon/weldingtool) )
+
+		var/response = "Dismantle"
+		if(damage)
+			response = alert(user, "Would you like to repair or dismantle [src]?", "[src]", "Repair", "Dismantle")
+
 		var/obj/item/weapon/weldingtool/WT = W
-		if( WT.remove_fuel(0,user) )
-			user << "<span class='notice'>You begin slicing through the outer plating.</span>"
-			playsound(src, 'sound/items/Welder.ogg', 100, 1)
 
-			sleep(100)
-			if( !istype(src, /turf/simulated/wall) || !user || !WT || !WT.isOn() || !T )	return
+		if(WT.remove_fuel(0,user))
+			if(response == "Repair")
+				user << "<span class='notice'>You start repairing the damage to [src].</span>"
+				playsound(src, 'sound/items/Welder.ogg', 100, 1)
+				if(do_after(user, max(5, damage / 5)) && WT && WT.isOn())
+					user << "<span class='notice'>You finish repairing the damage to [src].</span>"
+					take_damage(-damage)
 
-			if( user.loc == T && user.get_active_hand() == WT )
-				user << "<span class='notice'>You remove the outer plating.</span>"
-				var/pdiff=performWallPressureCheck(src.loc)
-				if(pdiff)
-					message_admins("[user.real_name] ([formatPlayerPanel(user,user.ckey)]) dismanted a wall with a pdiff of [pdiff] at [formatJumpTo(loc)]!")
-					log_admin("[user.real_name] ([user.ckey]) dismanted a wall with a pdiff of [pdiff] at [loc]!")
-				dismantle_wall()
+			else if(response == "Dismantle")
+				user << "<span class='notice'>You begin slicing through the outer plating.</span>"
+				playsound(src, 'sound/items/Welder.ogg', 100, 1)
+
+				sleep(100)
+				if( !istype(src, /turf/simulated/wall) || !user || !WT || !WT.isOn() || !T )	return
+
+				if( user.loc == T && user.get_active_hand() == WT )
+					user << "<span class='notice'>You remove the outer plating.</span>"
+					var/pdiff=performWallPressureCheck(src.loc)
+					if(pdiff)
+						message_admins("[user.real_name] ([formatPlayerPanel(user,user.ckey)]) dismanted a wall with a pdiff of [pdiff] at [formatJumpTo(loc)]!")
+						log_admin("[user.real_name] ([user.ckey]) dismanted a wall with a pdiff of [pdiff] at [loc]!")
+					dismantle_wall()
+			return
 		else
 			user << "<span class='notice'>You need more welding fuel to complete this task.</span>"
 			return
@@ -302,7 +464,7 @@
 		var/obj/item/light_fixture_frame/small/AH = W
 		AH.try_build(src)
 		return
-
+/*
 	else if(istype(W,/obj/item/rust_fuel_compressor_frame))
 		var/obj/item/rust_fuel_compressor_frame/AH = W
 		AH.try_build(src)
@@ -312,81 +474,49 @@
 		var/obj/item/rust_fuel_assembly_port_frame/AH = W
 		AH.try_build(src)
 		return
-
+*/
 	//Poster stuff
 	else if(istype(W,/obj/item/weapon/contraband/poster))
 		place_poster(W,user)
 		return
 
+	//Bone White - Place pipes on walls
+	else if(istype(W,/obj/item/pipe))
+		var/obj/item/pipe/V = W
+		if(V.pipe_type != -1) // ANY PIPE
+			var/obj/item/pipe/P = W
+
+			playsound(get_turf(src), 'sound/weapons/circsawhit.ogg', 50, 1)
+			user.visible_message( \
+				"[user] starts drilling a hole in \the [src].", \
+				"\blue You start drilling a hole in \the [src].", \
+				"You hear ratchet.")
+			if (do_after(user, 80))
+				user.visible_message( \
+					"[user] drills a hole in \the [src] and pushes \a [P] into the void", \
+					"\blue You have finished drilling in \the [src] and push the [P] into the void.", \
+					"You hear ratchet.")
+
+				user.drop_item()
+				if (P.pipe_type in list (1,3,12))  // bent pipe rotation fix see construction.dm
+					P.dir = 5
+					if (user.dir == 1)
+						P.dir = 6
+					if (user.dir == 2)
+						P.dir = 9
+					if (user.dir == 4)
+						P.dir = 10
+					if (user.dir == 5)
+						P.dir = 8
+				else
+					P.dir = user.dir
+				P.x = src.x
+				P.y = src.y
+				P.z = src.z
+				P.loc = src
+				P.level = 2
+		return
+
 	else
 		return attack_hand(user)
 	return
-
-// Wall-rot effect, a nasty fungus that destroys walls.
-/turf/simulated/wall/proc/rot()
-	if(!rotting)
-		rotting = 1
-
-		var/number_rots = rand(2,3)
-		for(var/i=0, i<number_rots, i++)
-			var/obj/effect/overlay/O = new/obj/effect/overlay( src )
-			O.name = "Wallrot"
-			O.desc = "Ick..."
-			O.icon = 'icons/effects/wallrot.dmi'
-			O.pixel_x += rand(-10, 10)
-			O.pixel_y += rand(-10, 10)
-			O.anchored = 1
-			O.density = 1
-			O.layer = 5
-			O.mouse_opacity = 0
-
-/turf/simulated/wall/proc/thermitemelt(mob/user as mob)
-	if(mineral == "diamond")
-		return
-	var/obj/effect/overlay/O = new/obj/effect/overlay( src )
-	O.name = "Thermite"
-	O.desc = "Looks hot."
-	O.icon = 'icons/effects/fire.dmi'
-	O.icon_state = "2"
-	O.anchored = 1
-	O.density = 1
-	O.layer = 5
-
-	src.ChangeTurf(/turf/simulated/floor/plating)
-
-	var/turf/simulated/floor/F = src
-	if(!F)
-		if(O)
-			message_admins("[user.real_name] ([formatPlayerPanel(user,user.ckey)]) thermited a wall into space at [formatJumpTo(loc)]!")
-			del(O)
-			user << "<span class='warning'>The thermite melts through the wall.</span>"
-		return
-	F.burn_tile()
-	F.icon_state = "wall_thermite"
-	user << "<span class='warning'>The thermite melts through the wall.</span>"
-
-	var/pdiff=performWallPressureCheck(src.loc)
-	if(pdiff)
-		message_admins("[user.real_name] ([formatPlayerPanel(user,user.ckey)]) thermited a wall with a pdiff of [pdiff] at [formatJumpTo(loc)]!")
-
-	spawn(100)
-		if(O)	del(O)
-//	F.sd_LumReset()		//TODO: ~Carn
-	return
-
-/turf/simulated/wall/meteorhit(obj/M as obj)
-	if (prob(15) && !rotting)
-		dismantle_wall()
-	else if(prob(70) && !rotting)
-		ChangeTurf(/turf/simulated/floor/plating)
-	else
-		ReplaceWithLattice()
-	return 0
-
-/turf/simulated/wall/Del()
-	for(var/obj/effect/E in src) if(E.name == "Wallrot") del E
-	..()
-
-/turf/simulated/wall/ChangeTurf(var/newtype)
-	for(var/obj/effect/E in src) if(E.name == "Wallrot") del E
-	..(newtype)

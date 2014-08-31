@@ -45,11 +45,6 @@ proc/isembryo(A)
 		return 1
 	return 0
 
-/proc/isslimeadult(A)
-	if(istype(A, /mob/living/carbon/slime/adult))
-		return 1
-	return 0
-
 /proc/isrobot(A)
 	if(istype(A, /mob/living/silicon/robot))
 		return 1
@@ -101,7 +96,7 @@ proc/isembryo(A)
 	return 0
 
 /proc/isAIEye(A)
-	if(istype(A, /mob/camera/aiEye))
+	if(istype(A, /mob/aiEye))
 		return 1
 	return 0
 
@@ -130,14 +125,30 @@ proc/isobserver(A)
 		return 1
 	return 0
 
+/proc/isSpirit(A)
+	if(istype(A, /mob/spirit))
+		return 1
+	return 0
+
 proc/isovermind(A)
 	if(istype(A, /mob/camera/blob))
+		return 1
+	return 0
+
+/proc/ismask(A)
+	if(istype(A, /mob/spirit/mask))
 		return 1
 	return 0
 
 proc/isorgan(A)
 	if(istype(A, /datum/organ/external))
 		return 1
+	return 0
+
+/proc/isloyal(A) //Checks to see if the person contains a loyalty implant, then checks that the implant is actually inside of them
+	for(var/obj/item/weapon/implant/loyalty/L in A)
+		if(L && L.implanted)
+			return 1
 	return 0
 
 proc/hasorgans(A)
@@ -154,20 +165,13 @@ proc/hasorgans(A)
 			zone = "head"
 		if("mouth")
 			zone = "head"
-/*		if("l_hand")
-			zone = "l_arm"
-		if("r_hand")
-			zone = "r_arm"
-		if("l_foot")
-			zone = "l_leg"
-		if("r_foot")
-			zone = "r_leg"
-		if("groin")
-			zone = "chest"
-*/
 	return zone
 
-
+// Returns zone with a certain probability.
+// If the probability misses, returns "chest" instead.
+// If "chest" was passed in as zone, then on a "miss" will return "head", "l_arm", or "r_arm"
+// Do not use this if someone is intentionally trying to hit a specific body part.
+// Use get_zone_with_miss_chance() for that.
 /proc/ran_zone(zone, probability)
 	zone = check_zone(zone)
 	if(!probability)	probability = 90
@@ -349,17 +353,25 @@ It's fairly easy to fix if dealing with single letters but not so much with comp
 
 
 /proc/shake_camera(mob/M, duration, strength=1)
-	spawn(0)
-		if(!M || !M.client || M.shakecamera)
-			return
-		var/oldeye=M.client.eye
+	if(!M || !M.client || M.shakecamera)
+		return
+	M.shakecamera = 1
+	spawn(1)
+
+		var/atom/oldeye=M.client.eye
+		var/aiEyeFlag = 0
+		if(istype(oldeye, /mob/aiEye))
+			aiEyeFlag = 1
+
 		var/x
-		M.shakecamera = 1
 		for(x=0; x<duration, x++)
-			M.client.eye = locate(dd_range(1,M.loc.x+rand(-strength,strength),world.maxx),dd_range(1,M.loc.y+rand(-strength,strength),world.maxy),M.loc.z)
+			if(aiEyeFlag)
+				M.client.eye = locate(dd_range(1,oldeye.loc.x+rand(-strength,strength),world.maxx),dd_range(1,oldeye.loc.y+rand(-strength,strength),world.maxy),oldeye.loc.z)
+			else
+				M.client.eye = locate(dd_range(1,M.loc.x+rand(-strength,strength),world.maxx),dd_range(1,M.loc.y+rand(-strength,strength),world.maxy),M.loc.z)
 			sleep(1)
-		M.shakecamera = 0
 		M.client.eye=oldeye
+		M.shakecamera = 0
 
 
 /proc/findname(msg)
@@ -454,3 +466,7 @@ var/list/intents = list("help","disarm","grab","harm")
 	if(!istype(P))
 		return null
 	return P
+
+/proc/get_both_hands(mob/living/carbon/M)
+	var/list/hands = list(M.l_hand, M.r_hand)
+	return hands

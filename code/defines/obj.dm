@@ -8,13 +8,7 @@
 		return attack_hand(user)
 
 	attack_hand(mob/user as mob)
-		switch(alert("Travel back to ss13?",,"Yes","No"))
-			if("Yes")
-				if(user.z != src.z)	return
-				user.loc.loc.Exited(user)
-				user.loc = pick(latejoin)
-			if("No")
-				return
+		user << "Civilians: NT is recruiting! Please head SOUTH to the NT Recruitment office to join the station's crew!"
 
 /obj/structure/ninjatele
 
@@ -99,7 +93,7 @@
 	var/list/eng = new()
 	var/list/med = new()
 	var/list/sci = new()
-	var/list/civ = new()
+	var/list/supp = new()
 	var/list/bot = new()
 	var/list/misc = new()
 	var/list/isactive = new()
@@ -148,8 +142,8 @@
 		if(real_rank in science_positions)
 			sci[name] = rank
 			department = 1
-		if(real_rank in civilian_positions)
-			civ[name] = rank
+		if(real_rank in support_positions)
+			supp[name] = rank
 			department = 1
 		if(real_rank in nonhuman_positions)
 			bot[name] = rank
@@ -181,10 +175,10 @@
 		for(name in sci)
 			dat += "<tr[even ? " class='alt'" : ""]><td>[name]</td><td>[sci[name]]</td><td>[isactive[name]]</td></tr>"
 			even = !even
-	if(civ.len > 0)
-		dat += "<tr><th colspan=3>Civilian</th></tr>"
-		for(name in civ)
-			dat += "<tr[even ? " class='alt'" : ""]><td>[name]</td><td>[civ[name]]</td><td>[isactive[name]]</td></tr>"
+	if(supp.len > 0)
+		dat += "<tr><th colspan=3>Support</th></tr>"
+		for(name in supp)
+			dat += "<tr[even ? " class='alt'" : ""]><td>[name]</td><td>[supp[name]]</td><td>[isactive[name]]</td></tr>"
 			even = !even
 	// in case somebody is insane and added them to the manifest, why not
 	if(bot.len > 0)
@@ -207,15 +201,22 @@
 
 /*
 We can't just insert in HTML into the nanoUI so we need the raw data to play with.
+Instead of creating this list over and over when someone leaves their PDA open to the page
+we'll only update it when it changes.  The PDA_Manifest global list is zeroed out upon any change
+using /obj/effect/datacore/proc/manifest_inject( ), or manifest_insert( )
 */
 
+var/global/list/PDA_Manifest = list()
+
 /obj/effect/datacore/proc/get_manifest_json()
+	if(PDA_Manifest.len)
+		return PDA_Manifest
 	var/heads[0]
 	var/sec[0]
 	var/eng[0]
 	var/med[0]
 	var/sci[0]
-	var/civ[0]
+	var/supp[0]
 	var/bot[0]
 	var/misc[0]
 	for(var/datum/data/record/t in data_core.general)
@@ -256,11 +257,11 @@ We can't just insert in HTML into the nanoUI so we need the raw data to play wit
 			if(depthead && sci.len != 1)
 				sci.Swap(1,sci.len)
 
-		if(real_rank in civilian_positions)
-			civ[++civ.len] = list("name" = name, "rank" = rank, "active" = isactive)
+		if(real_rank in support_positions)
+			supp[++supp.len] = list("name" = name, "rank" = rank, "active" = isactive)
 			department = 1
-			if(depthead && civ.len != 1)
-				civ.Swap(1,civ.len)
+			if(depthead && supp.len != 1)
+				supp.Swap(1,supp.len)
 
 		if(real_rank in nonhuman_positions)
 			bot[++bot.len] = list("name" = name, "rank" = rank, "active" = isactive)
@@ -269,16 +270,18 @@ We can't just insert in HTML into the nanoUI so we need the raw data to play wit
 		if(!department && !(name in heads))
 			misc[++misc.len] = list("name" = name, "rank" = rank, "active" = isactive)
 
-	return list(\
+
+	PDA_Manifest = list(\
 		"heads" = heads,\
 		"sec" = sec,\
 		"eng" = eng,\
 		"med" = med,\
 		"sci" = sci,\
-		"civ" = civ,\
+		"supp" = supp,\
 		"bot" = bot,\
 		"misc" = misc\
 		)
+	return PDA_Manifest
 
 
 /obj/effect/laser
@@ -312,6 +315,7 @@ We can't just insert in HTML into the nanoUI so we need the raw data to play wit
 	layer = 2.44 //Just below unary stuff, which is at 2.45 and above pipes, which are at 2.4
 	var/_color = "red"
 	var/obj/structure/powerswitch/power_switch
+	var/obj/item/device/powersink/attached // holding this here for qdel
 
 /obj/structure/cable/yellow
 	_color = "yellow"
@@ -377,9 +381,7 @@ We can't just insert in HTML into the nanoUI so we need the raw data to play wit
 	throw_speed = 1
 	throw_range = 20
 	flags = FPRINT | TABLEPASS | CONDUCT
-	afterattack(atom/target as mob|obj|turf|area, mob/user as mob)
-		user.drop_item()
-		src.throw_at(target, throw_range, throw_speed)
+
 
 /obj/effect/stop
 	var/victim = null

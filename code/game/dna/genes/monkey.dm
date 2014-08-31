@@ -9,7 +9,7 @@
 
 /datum/dna/gene/monkey/activate(var/mob/living/M, var/connected, var/flags)
 	if(!istype(M,/mob/living/carbon/human))
-		testing("Cannot monkey-ify [M], type is [M.type].")
+//		testing("Cannot monkey-ify [M], type is [M.type].")
 		return
 	var/mob/living/carbon/human/H = M
 	H.monkeyizing = 1
@@ -53,10 +53,6 @@
 			M.suiciding = null
 
 
-	for(var/datum/disease/D in M.viruses)
-		O.viruses += D
-		D.affected_mob = O
-		M.viruses -= D
 
 
 	for(var/obj/T in (M.contents-implants))
@@ -110,9 +106,14 @@
 		sleep(48)
 		del(animation)
 
-	var/mob/living/carbon/human/O = new( src )
+	var/mob/living/carbon/human/O
 	if(Mo.greaterform)
-		O.set_species(Mo.greaterform)
+		var/greatform = lowertext(Mo.greaterform)
+		var/typepath = "/mob/living/carbon/human/"
+		typepath += greatform
+		O = new typepath(src, greatform)
+	else
+		O = new(src)
 
 	if (M.dna.GetUIState(DNA_UI_GENDER))
 		O.gender = FEMALE
@@ -128,10 +129,6 @@
 			O.suiciding = M.suiciding
 			M.suiciding = null
 
-	for(var/datum/disease/D in M.viruses)
-		O.viruses += D
-		D.affected_mob = O
-		M.viruses -= D
 
 	//for(var/obj/T in M)
 	//	del(T)
@@ -158,6 +155,7 @@
 			continue
 		else
 			O.real_name = randomname
+			O.dna.real_name = randomname
 			i++
 	O.UpdateAppearance()
 	O.take_overall_damage(M.getBruteLoss(), M.getFireLoss())

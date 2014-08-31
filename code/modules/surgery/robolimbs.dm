@@ -30,6 +30,8 @@
 	max_duration = 100
 
 	can_use(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
+		if (!hasorgans(target))
+			return 0
 		var/datum/organ/external/affected = target.get_organ(target_zone)
 		return ..() && !(affected.status & ORGAN_CUT_AWAY)
 
@@ -85,7 +87,7 @@
 			affected = affected.parent
 			user.visible_message("\red [user]'s hand slips, tearing flesh on [target]'s [affected.display_name]!", \
 			"\red Your hand slips, tearing flesh on [target]'s [affected.display_name]!")
-			target.apply_damage(10, BRUTE, affected)
+			target.apply_damage(10, BRUTE, affected, sharp=1)
 
 
 /datum/surgery_step/limb/prepare
@@ -158,6 +160,9 @@
 			affected.sabotaged = 1
 		else
 			affected.sabotaged = 0
+		affected.amputated = 0
+		affected.setAmputatedTree()
+		target.handle_organs()
 		target.update_body()
 		target.updatehealth()
 		target.UpdateDamageIcon()
@@ -167,4 +172,4 @@
 		var/datum/organ/external/affected = target.get_organ(target_zone)
 		user.visible_message("\red [user]'s hand slips, damaging connectors on [target]'s [affected.display_name]!", \
 		"\red Your hand slips, damaging connectors on [target]'s [affected.display_name]!")
-		target.apply_damage(10, BRUTE, affected)
+		target.apply_damage(10, BRUTE, affected, sharp=1)

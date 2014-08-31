@@ -13,6 +13,9 @@
 #define O2STANDARD 0.21
 #define N2STANDARD 0.79
 
+#define AUTOIGNITION_WOOD  573.15
+#define AUTOIGNITION_PAPER 519.15
+
 #define MOLES_O2STANDARD MOLES_CELLSTANDARD*O2STANDARD	// O2 standard value (21%)
 #define MOLES_N2STANDARD MOLES_CELLSTANDARD*N2STANDARD	// N2 standard value (79%)
 
@@ -27,6 +30,8 @@
 #define HUMAN_NEEDED_OXYGEN	MOLES_CELLSTANDARD*BREATH_PERCENTAGE*0.16
 	//Amount of air needed before pass out/suffocation commences
 
+#define SOUND_MINIMUM_PRESSURE 10
+
 // Pressure limits.
 #define HAZARD_HIGH_PRESSURE 550	//This determins at what pressure the ultra-high pressure red icon is displayed. (This one is set as a constant)
 #define WARNING_HIGH_PRESSURE 325 	//This determins when the orange pressure icon is displayed (it is 0.7 * HAZARD_HIGH_PRESSURE)
@@ -35,19 +40,19 @@
 
 #define TEMPERATURE_DAMAGE_COEFFICIENT 1.5	//This is used in handle_temperature_damage() for humans, and in reagents that affect body temperature. Temperature damage is multiplied by this amount.
 #define BODYTEMP_AUTORECOVERY_DIVISOR 12 //This is the divisor which handles how much of the temperature difference between the current body temperature and 310.15K (optimal temperature) humans auto-regenerate each tick. The higher the number, the slower the recovery. This is applied each tick, so long as the mob is alive.
-#define BODYTEMP_AUTORECOVERY_MINIMUM 10 //Minimum amount of kelvin moved toward 310.15K per tick. So long as abs(310.15 - bodytemp) is more than 50.
+#define BODYTEMP_AUTORECOVERY_MINIMUM 1 //Minimum amount of kelvin moved toward 310.15K per tick. So long as abs(310.15 - bodytemp) is more than 50.
 #define BODYTEMP_COLD_DIVISOR 6 //Similar to the BODYTEMP_AUTORECOVERY_DIVISOR, but this is the divisor which is applied at the stage that follows autorecovery. This is the divisor which comes into play when the human's loc temperature is lower than their body temperature. Make it lower to lose bodytemp faster.
 #define BODYTEMP_HEAT_DIVISOR 6 //Similar to the BODYTEMP_AUTORECOVERY_DIVISOR, but this is the divisor which is applied at the stage that follows autorecovery. This is the divisor which comes into play when the human's loc temperature is higher than their body temperature. Make it lower to gain bodytemp faster.
-#define BODYTEMP_COOLING_MAX 30 //The maximum number of degrees that your body can cool in 1 tick, when in a cold area.
+#define BODYTEMP_COOLING_MAX -30 //The maximum number of degrees that your body can cool in 1 tick, when in a cold area.
 #define BODYTEMP_HEATING_MAX 30 //The maximum number of degrees that your body can heat up in 1 tick, when in a hot area.
 
 #define BODYTEMP_HEAT_DAMAGE_LIMIT 360.15 // The limit the human body can take before it starts taking damage from heat.
 #define BODYTEMP_COLD_DAMAGE_LIMIT 260.15 // The limit the human body can take before it starts taking damage from coldness.
 
 #define SPACE_HELMET_MIN_COLD_PROTECITON_TEMPERATURE 2.0 //what min_cold_protection_temperature is set to for space-helmet quality headwear. MUST NOT BE 0.
-#define SPACE_HELMET_MAX_HEAT_PROTECITON_TEMPERATURE 5000
+#define SPACE_HELMET_MAX_HEAT_PROTECITON_TEMPERATURE 10000
 #define SPACE_SUIT_MIN_COLD_PROTECITON_TEMPERATURE 2.0 //what min_cold_protection_temperature is set to for space-suit quality jumpsuits or suits. MUST NOT BE 0.
-#define SPACE_SUIT_MAX_HEAT_PROTECITON_TEMPERATURE 5000	//These need better heat protect
+#define SPACE_SUIT_MAX_HEAT_PROTECITON_TEMPERATURE 10000	//These need better heat protect
 #define FIRESUIT_MAX_HEAT_PROTECITON_TEMPERATURE 30000 //what max_heat_protection_temperature is set to for firesuit quality headwear. MUST NOT BE 0.
 #define FIRE_HELMET_MAX_HEAT_PROTECITON_TEMPERATURE 30000 //for fire helmet quality items (red and white hardhats)
 #define HELMET_MIN_COLD_PROTECITON_TEMPERATURE 160	//For normal helmets
@@ -227,6 +232,7 @@ var/MAX_EXPLOSION_RANGE = 14
 #define HIDESUITSTORAGE	2	//APPLIES ONLY TO THE EXTERIOR SUIT!!
 #define HIDEJUMPSUIT	4	//APPLIES ONLY TO THE EXTERIOR SUIT!!
 #define HIDESHOES		8	//APPLIES ONLY TO THE EXTERIOR SUIT!!
+#define HIDETAIL 		16	//APPLIES ONLY TO THE EXTERIOR SUIT!!
 #define HIDEMASK	1	//APPLIES ONLY TO HELMETS/MASKS!!
 #define HIDEEARS	2	//APPLIES ONLY TO HELMETS/MASKS!! (ears means headsets and such)
 #define HIDEEYES	4	//APPLIES ONLY TO HELMETS/MASKS!! (eyes means glasses)
@@ -383,6 +389,12 @@ var/MAX_EXPLOSION_RANGE = 14
 #define M_SOBER         203		// Increased alcohol metabolism
 #define M_PSY_RESIST    204		// Block remoteview
 #define M_SUPER_FART    205		// Duh
+#define M_EMPATH		206		//Read minds
+
+// /vg/ muts
+#define M_LOUD		208		// CAUSES INTENSE YELLING
+#define M_WHISPER	209		// causes quiet whispering
+#define M_DIZZY		210		// Trippy.
 
 //disabilities
 #define NEARSIGHTED		1
@@ -428,6 +440,10 @@ var/MAX_EXPLOSION_RANGE = 14
 #define MAX_STACK_AMOUNT_GLASS	50
 #define MAX_STACK_AMOUNT_RODS	60
 
+#define CC_PER_SHEET_METAL 3750
+#define CC_PER_SHEET_GLASS 3750
+#define CC_PER_SHEET_MISC 2000
+
 #define GAS_O2 	(1 << 0)
 #define GAS_N2	(1 << 1)
 #define GAS_PL	(1 << 2)
@@ -435,7 +451,7 @@ var/MAX_EXPLOSION_RANGE = 14
 #define GAS_N2O	(1 << 4)
 
 
-var/list/accessable_z_levels = list("1" = 5, "3" = 10, "4" = 15, "5" = 10, "6" = 60)
+var/list/accessable_z_levels = list("1" = 5, "3" = 10, "4" = 15, "5" = 10, "6" = 60, "7" = 0)
 //This list contains the z-level numbers which can be accessed via space travel and the percentile chances to get there.
 //(Exceptions: extended, sandbox and nuke) -Errorage
 //Was list("3" = 30, "4" = 70).
@@ -479,6 +495,8 @@ var/list/global_mutations = list() // list of hidden mutation things
 #define CANWEAKEN	2
 #define CANPARALYSE	4
 #define CANPUSH		8
+#define LEAPING		16
+#define PASSEMOTES	32      //Mob has a cortical borer or holders inside of it that need to see emotes.
 #define GODMODE		4096
 #define FAKEDEATH	8192	//Replaces stuff like changeling.changeling_fakedeath
 #define DISFIGURED	16384	//I'll probably move this elsewhere if I ever get wround to writing a bitflag mob-damage system
@@ -507,7 +525,7 @@ var/list/liftable_structures = list(\
 
 	/obj/machinery/autolathe, \
 	/obj/machinery/constructable_frame, \
-	/obj/machinery/hydroponics, \
+	/obj/machinery/portable_atmospherics/hydroponics, \
 	/obj/machinery/computer, \
 	/obj/machinery/optable, \
 	/obj/structure/dispenser, \
@@ -561,6 +579,9 @@ var/list/liftable_structures = list(\
 #define SEE_INVISIBLE_LEVEL_TWO 45	//Used by some other stuff in code. It's really poorly organized.
 #define INVISIBILITY_LEVEL_TWO 45	//Used by some other stuff in code. It's really poorly organized.
 
+#define INVISIBILITY_SPIRIT 50
+#define SEE_SPIRITS 50
+
 #define INVISIBILITY_OBSERVER 60
 #define SEE_INVISIBLE_OBSERVER 60
 
@@ -583,11 +604,15 @@ var/list/liftable_structures = list(\
 // Reference list for disposal sort junctions. Set the sortType variable on disposal sort junctions to
 // the index of the sort department that you want. For example, sortType set to 2 will reroute all packages
 // tagged for the Cargo Bay.
+
+//If you don't want to fuck up disposals, add to this list, and don't change the order.
+//If you insist on changing the order, you'll have to change every sort junction to reflect the new order. --Pete
+
 var/list/TAGGERLOCATIONS = list("Disposals",
 	"Cargo Bay", "QM Office", "Engineering", "CE Office",
-	"Atmospherics", "Security", "HoS Office", "Medbay",
+	"Atmospherics", "HoS Office", "Security", "Medbay",
 	"CMO Office", "Chemistry", "Research", "RD Office",
-	"Robotics", "HoP Office", "Library", "Chapel", "Theatre",
+	"Robotics", "HoP Office", "Library", "Chapel", "Captain's Office",
 	"Bar", "Kitchen", "Hydroponics", "Janitor Closet","Genetics")
 
 #define HOSTILE_STANCE_IDLE 1
@@ -642,7 +667,7 @@ var/list/TAGGERLOCATIONS = list("Disposals",
 #define R_BUILDMODE		1
 #define R_ADMIN			2
 #define R_BAN			4
-#define R_FUN			8
+#define R_EVENT			8
 #define R_SERVER		16
 #define R_DEBUG			32
 #define R_POSSESS		64
@@ -664,7 +689,7 @@ var/list/TAGGERLOCATIONS = list("Disposals",
 #define CHAT_GHOSTEARS	4
 #define CHAT_GHOSTSIGHT	8
 #define CHAT_PRAYER		16
-#define CHAT_RADIO		32
+//#define CHAT_RADIO		32
 #define CHAT_ATTACKLOGS	64
 #define CHAT_DEBUGLOGS	128
 #define CHAT_LOOC		256
@@ -673,11 +698,11 @@ var/list/TAGGERLOCATIONS = list("Disposals",
 #define SOUND_ADMINHELP	1
 #define SOUND_MIDI		2
 #define SOUND_AMBIENCE	4
-#define SOUND_LOBBY		8
-#define SOUND_VOICES	16
+#define SOUND_LOBBY		8 //Removed, can be replaced with any other sound bitflag as needed.
+#define SOUND_STREAMING	16
 
-#define SOUND_DEFAULT (SOUND_ADMINHELP|SOUND_MIDI|SOUND_AMBIENCE|SOUND_LOBBY)
-#define TOGGLES_DEFAULT (CHAT_OOC|CHAT_DEAD|CHAT_GHOSTEARS|CHAT_GHOSTSIGHT|CHAT_PRAYER|CHAT_RADIO|CHAT_ATTACKLOGS|CHAT_LOOC)
+#define SOUND_DEFAULT (SOUND_ADMINHELP|SOUND_MIDI|SOUND_AMBIENCE|SOUND_LOBBY|SOUND_STREAMING)
+#define TOGGLES_DEFAULT (CHAT_OOC|CHAT_DEAD|CHAT_GHOSTEARS|CHAT_GHOSTSIGHT|CHAT_PRAYER|CHAT_ATTACKLOGS|CHAT_LOOC)
 
 #define BE_TRAITOR		1
 #define BE_OPERATIVE	2
@@ -688,11 +713,12 @@ var/list/TAGGERLOCATIONS = list("Disposals",
 #define BE_ALIEN		64
 #define BE_PAI			128
 #define BE_CULTIST		256
-#define BE_MONKEY		512
+#define BE_PLANT		512
 #define BE_NINJA		1024
 #define BE_VOX			2048
 #define BE_SLIME		4096
 #define BE_VAMPIRE		8192
+#define BE_MUTINEER		16384
 
 var/list/be_special_flags = list(
 	"Traitor" = BE_TRAITOR,
@@ -704,11 +730,12 @@ var/list/be_special_flags = list(
 	"Xenomorph" = BE_ALIEN,
 	"pAI" = BE_PAI,
 	"Cultist" = BE_CULTIST,
-	"Monkey" = BE_MONKEY,
+	"Plant" = BE_PLANT,
 	"Ninja" = BE_NINJA,
 	"Vox" = BE_VOX,
 	"Slime" = BE_SLIME,
-	"Vampire" = BE_VAMPIRE
+	"Vampire" = BE_VAMPIRE,
+	"Mutineer" = BE_MUTINEER
 	)
 
 #define AGE_MIN 17			//youngest a character can be
@@ -728,13 +755,16 @@ var/list/be_special_flags = list(
 #define RIGHT 2
 
 // for secHUDs and medHUDs and variants. The number is the location of the image on the list hud_list of humans.
-#define HEALTH_HUD		1 // dead, alive, sick, health status
-#define STATUS_HUD		2 // a simple line rounding the mob's number health
+#define HEALTH_HUD		1 // a simple line rounding the mob's number health
+#define STATUS_HUD		2 // alive, dead, diseased, etc.
 #define ID_HUD			3 // the job asigned to your ID
 #define WANTED_HUD		4 // wanted, released, parroled, security status
-#define IMPLOYAL_HUD	5 // loyality implant
+#define IMPLOYAL_HUD		5 // loyality implant
 #define IMPCHEM_HUD		6 // chemical implant
-#define IMPTRACK_HUD	7 // tracking implant
+#define IMPTRACK_HUD		7 // tracking implant
+#define SPECIALROLE_HUD 	8 // AntagHUD image
+#define STATUS_HUD_OOC		9 // STATUS_HUD without virus db check for someone being ill.
+#define NATIONS_HUD			10 //Show nations icons during nations gamemode
 
 //Pulse levels, very simplified
 #define PULSE_NONE		0	//so !M.pulse checks would be possible
@@ -760,6 +790,7 @@ var/list/RESTRICTED_CAMERA_NETWORKS = list( //Those networks can only be accesse
 	)
 
 //Species flags.
+
 #define NO_BLOOD		1
 #define NO_BREATHE 		2
 #define IS_SLOW 		4
@@ -768,7 +799,6 @@ var/list/RESTRICTED_CAMERA_NETWORKS = list( //Those networks can only be accesse
 #define NO_PAIN 	32
 #define REQUIRE_LIGHT 	64
 #define IS_WHITELISTED 	128
-#define HAS_SKIN_TONE 	256
 #define HAS_LIPS 		512
 #define HAS_UNDERWEAR 	1024
 #define IS_SYNTHETIC	2048
@@ -786,20 +816,15 @@ var/list/RESTRICTED_CAMERA_NETWORKS = list( //Those networks can only be accesse
 #define FEET_PADDED		2
 #define FEET_NOSLIP		4
 #define HAS_TAIL 		8
+#define HAS_SKIN_TONE 	16
+#define HAS_SKIN_COLOR	32
 
 
 //Language flags.
 #define WHITELISTED 1  // Language is available if the speaker is whitelisted.
 #define RESTRICTED 2   // Language can only be accquired by spawning or an admin.
-
-
-//computer3 error codes, move lower in the file when it passes dev -Sayu
-#define PROG_CRASH      1  // Generic crash
-#define MISSING_PERIPHERAL  2  // Missing hardware
-#define BUSTED_ASS_COMPUTER  4  // Self-perpetuating error.  BAC will continue to crash forever.
-#define MISSING_PROGRAM    8  // Some files try to automatically launch a program.  This is that failing.
-#define FILE_DRM      16  // Some files want to not be copied/moved.  This is them complaining that you tried.
-#define NETWORK_FAILURE  32
+#define NONVERBAL 4    // Language has a significant non-verbal component. Speech is garbled without line-of-sight
+#define SIGNLANG 8     // Language is completely non-verbal. Speech is displayed through emotes for those who can understand.
 
 //Flags for zone sleeping
 #define ZONE_ACTIVE 1
@@ -825,3 +850,64 @@ var/list/RESTRICTED_CAMERA_NETWORKS = list( //Those networks can only be accesse
 #define CENTCOMM_Z 2
 #define TELECOMM_Z 3
 #define ASTEROID_Z 5
+
+//some colors
+#define COLOR_RED 		"#FF0000"
+#define COLOR_GREEN 	"#00FF00"
+#define COLOR_BLUE 		"#0000FF"
+#define COLOR_CYAN 		"#00FFFF"
+#define COLOR_PINK 		"#FF00FF"
+#define COLOR_YELLOW 	"#FFFF00"
+#define COLOR_ORANGE 	"#FF9900"
+#define COLOR_WHITE 	"#FFFFFF"
+
+
+
+/*
+	Germs and infections
+*/
+
+#define GERM_LEVEL_AMBIENT		110		//maximum germ level you can reach by standing still
+#define GERM_LEVEL_MOVE_CAP		200		//maximum germ level you can reach by running around
+
+#define INFECTION_LEVEL_ONE		100
+#define INFECTION_LEVEL_TWO		500
+#define INFECTION_LEVEL_THREE	1000
+
+
+/*
+	Shuttles
+*/
+
+// these define the time taken for the shuttle to get to SS13
+// and the time before it leaves again
+#define SHUTTLE_PREPTIME 				300	// 5 minutes = 300 seconds - after this time, the shuttle departs centcom and cannot be recalled
+#define SHUTTLE_LEAVETIME 				180	// 3 minutes = 180 seconds - the duration for which the shuttle will wait at the station after arriving
+#define SHUTTLE_TRANSIT_DURATION		300	// 5 minutes = 300 seconds - how long it takes for the shuttle to get to the station
+#define SHUTTLE_TRANSIT_DURATION_RETURN 120	// 2 minutes = 120 seconds - for some reason it takes less time to come back, go figure.
+
+//Shuttle moving status
+#define SHUTTLE_IDLE		0
+#define SHUTTLE_WARMUP		1
+#define SHUTTLE_INTRANSIT	2
+
+//Ferry shuttle processing status
+#define IDLE_STATE		0
+#define WAIT_LAUNCH		1
+#define WAIT_ARRIVE		2
+#define WAIT_FINISH		3
+
+//computer3 error codes, move lower in the file when it passes dev -Sayu
+ #define PROG_CRASH      1  // Generic crash
+ #define MISSING_PERIPHERAL  2  // Missing hardware
+ #define BUSTED_ASS_COMPUTER  4  // Self-perpetuating error.  BAC will continue to crash forever.
+ #define MISSING_PROGRAM    8  // Some files try to automatically launch a program.  This is that failing.
+ #define FILE_DRM      16  // Some files want to not be copied/moved.  This is them complaining that you tried.
+ #define NETWORK_FAILURE  32
+
+//Some on_mob_life() procs check for alien races.
+#define IS_DIONA 1
+#define IS_VOX 2
+#define IS_SKRELL 3
+#define IS_UNATHI 4
+

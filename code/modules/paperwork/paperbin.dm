@@ -11,12 +11,27 @@
 	var/amount = 30					//How much paper is in the bin.
 	var/list/papers = new/list()	//List of papers put in the bin for reference.
 
+	autoignition_temperature = 519.15 // Kelvin
+
+/obj/item/weapon/paper_bin/ignite(var/temperature)
+	on_fire=1
+	visible_message("\The [src]'s paper bursts into flame!")
+	overlays += fire_sprite
+	spawn(rand(3,10) SECONDS)
+		if(!on_fire)
+			return
+		new ashtype(src.loc)
+		papers=0
+		amount=0
+		update_icon()
 
 /obj/item/weapon/paper_bin/MouseDrop(mob/user as mob)
 	if((user == usr && (!( usr.restrained() ) && (!( usr.stat ) && (usr.contents.Find(src) || in_range(src, usr))))))
 		if(!istype(usr, /mob/living/carbon/slime) && !istype(usr, /mob/living/simple_animal))
 			if( !usr.get_active_hand() )		//if active hand is empty
-				attack_hand(usr, 1, 1)
+				src.loc = user
+				user.put_in_hands(src)
+				user.visible_message("<span class='notice'>[user] picks up the [src].</span>", "<span class='notice'>You grab [src] from the floor!</span>")
 
 	return
 
@@ -26,6 +41,13 @@
 
 
 /obj/item/weapon/paper_bin/attack_hand(mob/user as mob)
+	if (hasorgans(user))
+		var/datum/organ/external/temp = user:organs_by_name["r_hand"]
+		if (user.hand)
+			temp = user:organs_by_name["l_hand"]
+		if(temp && !temp.is_usable())
+			user << "<span class='notice'>You try to move your [temp.display_name], but cannot!"
+			return
 	if(amount >= 1)
 		amount--
 		if(amount==0)
@@ -79,3 +101,29 @@
 		icon_state = "paper_bin0"
 	else
 		icon_state = "paper_bin1"
+
+
+/obj/item/weapon/paper_bin/carbon
+	name = "carbonless paper bin"
+	icon_state = "paper_bin2"
+
+/obj/item/weapon/paper_bin/carbon/attack_hand(mob/user as mob)
+	if(amount >= 1)
+		amount--
+		if(amount==0)
+			update_icon()
+
+		var/obj/item/weapon/paper/carbon/P
+		if(papers.len > 0)	//If there's any custom paper on the stack, use that instead of creating a new paper.
+			P = papers[papers.len]
+			papers.Remove(P)
+		else
+			P = new /obj/item/weapon/paper/carbon
+		P.loc = user.loc
+		user.put_in_hands(P)
+		user << "<span class='notice'>You take [P] out of the [src].</span>"
+	else
+		user << "<span class='notice'>[src] is empty!</span>"
+
+	add_fingerprint(user)
+	return

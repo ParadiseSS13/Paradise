@@ -58,6 +58,9 @@ var/savefile/Banlist
 	CMinutes = (world.realtime / 10) / 60
 	return 1
 
+/hook/startup/proc/loadBans()
+	return LoadBans()
+
 /proc/LoadBans()
 
 	Banlist = new("data/banlist.bdb")

@@ -25,7 +25,12 @@
 			ghost_volunteers.Cut()
 			src.searching = 1
 			src.request_player()
-			spawn(600) reset_search()
+			spawn(600)
+				if(ghost_volunteers.len)
+					var/mob/dead/observer/O = pick(ghost_volunteers)
+					if(istype(O) && O.client && O.key)
+						transfer_personality(O)
+				reset_search()
 
 	proc/request_player()
 		for(var/mob/dead/observer/O in player_list)
@@ -60,6 +65,7 @@
 		brainmob.real_name = H.real_name
 		brainmob.dna = H.dna
 		brainmob.timeofhostdeath = H.timeofdeath
+		brainmob.stat = 0
 		if(brainmob.mind)
 			brainmob.mind.assigned_role = "Positronic Brain"
 		if(H.mind)

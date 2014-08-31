@@ -44,9 +44,12 @@ var/global/list/possibleEvents = list()
 	//see:
 	// Code/WorkInProgress/Cael_Aislinn/Economy/Economy_Events.dm
 	// Code/WorkInProgress/Cael_Aislinn/Economy/Economy_Events_Mundane.dm
-	possibleEvents[/datum/event/economic_event] = 200
-	possibleEvents[/datum/event/trivial_news] = 300
-	possibleEvents[/datum/event/mundane_news] = 200
+	possibleEvents[/datum/event/economic_event] = 150
+	possibleEvents[/datum/event/trivial_news] = 200
+	possibleEvents[/datum/event/mundane_news] = 150
+
+	possibleEvents[/datum/event/cargo_bonus] = 150
+
 
 	possibleEvents[/datum/event/mass_hallucination] = 200
 	possibleEvents[/datum/event/falsealarm] = 300
@@ -54,7 +57,7 @@ var/global/list/possibleEvents = list()
 	possibleEvents[/datum/event/vent_clog] = 300
 	possibleEvents[/datum/event/anomaly/anomaly_grav] = 200
 
-	possibleEvents[/datum/event/weightless] = 150
+//	possibleEvents[/datum/event/weightless] = 150
 	possibleEvents[/datum/event/wormholes] = 150
 
 	possibleEvents[/datum/event/pda_spam] = max(min(25, player_list.len) * 4, 200)
@@ -63,18 +66,17 @@ var/global/list/possibleEvents = list()
 //		possibleEvents[/datum/event/money_hacker] = max(min(25, player_list.len) * 4, 200)
 
 	possibleEvents[/datum/event/carp_migration] = 50 + 25 * active_with_role["Engineer"]
-	possibleEvents[/datum/event/spider_infestation] = 50 + 25 * active_with_role["Security"]
 	possibleEvents[/datum/event/dust] = 50 + 50 * active_with_role["Engineer"]
 	possibleEvents[/datum/event/dust/meaty] = 50 + 50 * active_with_role["Engineer"]
-	possibleEvents[/datum/event/brand_intelligence] = 50 + 20 * active_with_role["Engineer"]
+
 
 	possibleEvents[/datum/event/rogue_drone] = 25 + 25 * active_with_role["Engineer"] + 25 * active_with_role["Security"]
 	possibleEvents[/datum/event/infestation] = 50 + 25 * active_with_role["Janitor"]
 
 	possibleEvents[/datum/event/communications_blackout] = 50 + 30 * active_with_role["AI"] + active_with_role["Scientist"] * 25
-	possibleEvents[/datum/event/ionstorm] = active_with_role["AI"] * 50 + active_with_role["Cyborg"] * 25 + active_with_role["Engineer"] * 10 + active_with_role["Scientist"] * 5
+	possibleEvents[/datum/event/ionstorm] = active_with_role["AI"] * 75 + active_with_role["Cyborg"] * 25 + active_with_role["Engineer"] * 10 + active_with_role["Scientist"] * 5
 	possibleEvents[/datum/event/grid_check] = 25 + 20 * active_with_role["Engineer"]
-	possibleEvents[/datum/event/electrical_storm] = 10 * active_with_role["Janitor"] + 5 * active_with_role["Engineer"]
+	possibleEvents[/datum/event/electrical_storm] = 150 + 10 * active_with_role["Janitor"] + 5 * active_with_role["Engineer"]
 	possibleEvents[/datum/event/wallrot] = 30 * active_with_role["Engineer"] + 50 * active_with_role["Botanist"]
 	possibleEvents[/datum/event/spacevine] = 25 + 5 * active_with_role["Engineer"]
 	possibleEvents[/datum/event/biomass] = 25 + 5 * active_with_role["Engineer"]
@@ -82,25 +84,30 @@ var/global/list/possibleEvents = list()
 	if(minutes_passed >= 30) // Give engineers time to set up engine
 		possibleEvents[/datum/event/meteor_wave] = 10 * active_with_role["Engineer"]
 		possibleEvents[/datum/event/meteor_shower] = 40 * active_with_role["Engineer"]
-		possibleEvents[/datum/event/blob] = 20 * active_with_role["Engineer"]
-		possibleEvents[/datum/event/anomaly/anomaly_pyro] = 100 + 50 * active_with_role["Engineer"]
-		possibleEvents[/datum/event/anomaly/anomaly_vortex] = 50 + 20 * active_with_role["Engineer"]
-		possibleEvents[/datum/event/anomaly/anomaly_bluespace] = 50 + 15 * active_with_role["Engineer"]
+		possibleEvents[/datum/event/anomaly/anomaly_pyro] = 100 + 60 * active_with_role["Engineer"]
+		possibleEvents[/datum/event/anomaly/anomaly_vortex] = 50 + 25 * active_with_role["Engineer"]
+		possibleEvents[/datum/event/anomaly/anomaly_bluespace] = 50 + 25 * active_with_role["Engineer"]
 		possibleEvents[/datum/event/anomaly/anomaly_flux] = 50 + 50 * active_with_role["Engineer"]
 
-	possibleEvents[/datum/event/viral_infection] = 25 + active_with_role["Medical"] * 100
+	if(minutes_passed >= 60) //Delay for potentially destructive events.
+		possibleEvents[/datum/event/blob] = 20 * active_with_role["Engineer"]
+		possibleEvents[/datum/event/brand_intelligence] = 50 + 25 * active_with_role["Engineer"]
+		possibleEvents[/datum/event/spider_infestation] = 50 + 25 * active_with_role["Security"]
+		possibleEvents[/datum/event/borer_infestation] = 50 + 25 * active_with_role["Security"]
+
+
 	if(active_with_role["Medical"] > 0)
 		possibleEvents[/datum/event/radiation_storm] = active_with_role["Medical"] * 50
-		possibleEvents[/datum/event/spontaneous_appendicitis] = active_with_role["Medical"] * 150
-		possibleEvents[/datum/event/viral_outbreak] = active_with_role["Medical"] * 10
+		possibleEvents[/datum/event/viral_outbreak] = active_with_role["Medical"] * 5
 		possibleEvents[/datum/event/organ_failure] = active_with_role["Medical"] * 50
+		possibleEvents[/datum/event/viral_infection] = 25 + active_with_role["Medical"] * 50
 
 	possibleEvents[/datum/event/prison_break] = active_with_role["Security"] * 50
 	if(active_with_role["Security"] > 0)
 		if(aliens_allowed && !sent_aliens_to_station)
 			possibleEvents[/datum/event/alien_infestation] = max(active_with_role["Security"], 5) + 2.5
 		if(!sent_ninja_to_station && toggle_space_ninja)
-			possibleEvents[/datum/event/space_ninja] = active_with_role["Security"] * 20
+			possibleEvents[/datum/event/space_ninja] = active_with_role["Security"] * 5
 	possibleEvents[/datum/event/undead] = active_with_role["Security"] * 15
 	possibleEvents[/datum/event/ghosts] = active_with_role["Security"] * 25
 	possibleEvents[/datum/event/tear] = active_with_role["Security"] * 25

@@ -3,39 +3,27 @@
 <html>
 	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 	<head>
-		<link rel='stylesheet' type='text/css' href='shared.css'><link rel='stylesheet' type='text/css' href='icons.css'>
-	</head>
-	<body scroll=auto data-url-parameters='{"src":"[0x2100e3fe]"}' data-template-data='{"main":"vending.tmpl"}' data-initial-data='{"premiumItems":[],"contraband":{"/obj/item/weapon/reagent_containers/food/snacks/syndicake":6},"products":{"/obj/item/weapon/reagent_containers/food/snacks/candy":6,"/obj/item/weapon/reagent_containers/food/drinks/dry_ramen":6,"/obj/item/weapon/reagent_containers/food/snacks/chips":6,"/obj/item/weapon/reagent_containers/food/snacks/sosjerky":6,"/obj/item/weapon/reagent_containers/food/snacks/no_raisin":6,"/obj/item/weapon/reagent_containers/food/snacks/spacetwinkie":6,"/obj/item/weapon/reagent_containers/food/snacks/cheesiehonkers":6},"coin":null,"extendedInventory":0,"panelOpen":0,"productData":[{"amount":6,"name":"candy","price":20,"displayColor":"red","itself":"[0x2100ac7a]","path":"/obj/item/weapon/reagent_containers/food/snacks/candy"},{"amount":6,"name":"Cup Ramen","price":30,"displayColor":"green","itself":"[0x2100ac77]","path":"/obj/item/weapon/reagent_containers/food/drinks/dry_ramen"},{"amount":6,"name":"chips","price":25,"displayColor":"green","itself":"[0x2100ac74]","path":"/obj/item/weapon/reagent_containers/food/snacks/chips"},{"amount":6,"name":"Scaredy`s Private Reserve Beef Jerky","price":30,"displayColor":"blue","itself":"[0x2100ac71]","path":"/obj/item/weapon/reagent_containers/food/snacks/sosjerky"},{"amount":6,"name":"4no Raisins","price":20,"displayColor":"blue","itself":"[0x2100ac6e]","path":"/obj/item/weapon/reagent_containers/food/snacks/no_raisin"},{"amount":6,"name":"Space Twinkie","price":30,"displayColor":"blue","itself":"[0x2100ac6b]","path":"/obj/item/weapon/reagent_containers/food/snacks/spacetwinkie"},{"amount":6,"name":"Cheesie Honkers","price":25,"displayColor":"red","itself":"[0x2100ac68]","path":"/obj/item/weapon/reagent_containers/food/snacks/cheesiehonkers"}],"premiumData":[],"contrabandData":[{"amount":6,"name":"Syndi-Cakes","price":null,"displayColor":"green","itself":"[0x2100ac64]","path":"/obj/item/weapon/reagent_containers/food/snacks/syndicake"}],"ui":{"status":2,"user":{"name":"Rhetta Butterfill"}}}'>
 		<script type='text/javascript'>
 			function receiveUpdateData(jsonString)
 			{
 				// We need both jQuery and NanoUpdate to be able to recieve data
+				// At the moment any data received before those libraries are loaded will be lost
 				if (typeof NanoUpdate != 'undefined' && typeof jQuery != 'undefined')
 				{
 					NanoUpdate.receiveUpdateData(jsonString);
 				}
-				else
-				{
-					alert('receiveUpdateData error: something is not defined!');
-					if (typeof NanoUpdate == 'undefined')
-					{
-						alert('NanoUpdate not defined!');
-					}
-					if (typeof jQuery == 'undefined')
-					{
-						alert('jQuery not defined!');
-					}
-				}
-				// At the moment any data received before those libraries are loaded will be lost
 			}
 		</script>
+		<script type='text/javascript' src='libraries.min.js'></script> <script type='text/javascript' src='nano_config.js'></script> <script type='text/javascript' src='nano_update.js'></script> <script type='text/javascript' src='nano_base_helpers.js'></script> <link rel='stylesheet' type='text/css' href='shared.css'> <link rel='stylesheet' type='text/css' href='icons.css'> 
+	</head>
+	<body scroll=auto data-url-parameters='{"src":"[0x21013192]"}' data-template-data='{"main":"smes.tmpl"}' data-initial-data='{"nameTag":null,"storedCapacity":17.30000114440918,"charging":0,"chargeMode":0,"chargeLevel":50000,"chargeMax":200000,"outputOnline":1,"outputLevel":50000,"outputMax":200000,"outputLoad":7101,"ui":{"status":2,"user":{"name":"Captain"}}}'>
 		<div id='uiWrapper'>
-			<div id='uiTitleWrapper'><div id='uiStatusIcon' class='icon24 uiStatusGood'></div><div id='uiTitle'>Vending Machine</div><div id='uiTitleFluff'></div></div>
+			<div id='uiTitleWrapper'><div id='uiStatusIcon' class='icon24 uiStatusGood'></div><div id='uiTitle'>SMES Power Storage Unit</div><div id='uiTitleFluff'></div></div>
 			<div id='uiContent'>
+				<noscript><div id='uiNoJavaScript'>Your browser does not have JavaScript enabled. Please enable JavaScript, then restart SS13.</div></noscript>
 	
 	<div id='mainTemplate'></div>
 	
-				<script type='text/javascript' src='1-jquery.js'></script><script type='text/javascript' src='2-jsviews.js'></script><script type='text/javascript' src='3-jquery.timers.js'></script><script type='text/javascript' src='nano_update.js'></script><script type='text/javascript' src='nano_config.js'></script><script type='text/javascript' src='nano_base_helpers.js'></script>
 			</div>
 		</div>
 	</body>

@@ -21,16 +21,13 @@
 	tracks.AddTracks(mob,bloodDNA,comingdir,goingdir,typepath)
 
 /turf/simulated/Entered(atom/A, atom/OL)
-	if(movement_disabled && usr.ckey != movement_disabled_exception)
-		usr << "\red Movement is admin-disabled." //This is to identify lag problems
-		return
 
 	if (istype(A,/mob/living/carbon))
 		var/mob/living/carbon/M = A
 		if(M.lying)	return
 		dirt++
-		var/obj/effect/decal/cleanable/dirt/dirtoverlay = locate(/obj/effect/decal/cleanable/dirt, src)
 		if (dirt >= 50)
+			var/obj/effect/decal/cleanable/dirt/dirtoverlay = locate(/obj/effect/decal/cleanable/dirt, src)
 			if (!dirtoverlay)
 				dirtoverlay = new/obj/effect/decal/cleanable/dirt(src)
 				dirtoverlay.alpha = 15
@@ -94,6 +91,12 @@
 						from.AddTracks(/obj/effect/decal/cleanable/blood/tracks/footprints/green,H,bloodDNA,0,H.dir) // Going
 			bloodDNA = null
 
+		var/noslip = 0
+		for (var/obj/structure/stool/bed/chair/C in loc)
+			if (C.buckled_mob == M)
+				noslip = 1
+		if (noslip)
+			return // no slipping while sitting in a chair, plz
 		switch (src.wet)
 			if(1)
 				if(istype(M, /mob/living/carbon/human)) // Added check since monkeys don't have shoes
@@ -101,9 +104,9 @@
 						M.stop_pulling()
 						step(M, M.dir)
 						M << "\blue You slipped on the wet floor!"
-						playsound(src.loc, 'sound/misc/slip.ogg', 50, 1, -3)
-						M.Stun(8)
-						M.Weaken(5)
+						playsound(src, 'sound/misc/slip.ogg', 50, 1, -3)
+						M.Stun(5)
+						M.Weaken(3)
 					else
 						M.inertia_dir = 0
 						return
@@ -112,15 +115,15 @@
 						M.stop_pulling()
 						step(M, M.dir)
 						M << "\blue You slipped on the wet floor!"
-						playsound(src.loc, 'sound/misc/slip.ogg', 50, 1, -3)
-						M.Stun(8)
-						M.Weaken(5)
+						playsound(src, 'sound/misc/slip.ogg', 50, 1, -3)
+						M.Stun(5)
+						M.Weaken(3)
 					else
 						M.inertia_dir = 0
 						return
 
-			if(2) //lube		//can cause infinite loops - needs work
-				if(!istype(M, /mob/living/carbon/slime))
+			if(2) //lube                //can cause infinite loops - needs work
+				if(!istype(M, /mob/living/carbon/slime) && !M.buckled)
 					M.stop_pulling()
 					step(M, M.dir)
 					spawn(1) step(M, M.dir)
@@ -129,7 +132,7 @@
 					spawn(4) step(M, M.dir)
 					M.take_organ_damage(2) // Was 5 -- TLE
 					M << "\blue You slipped on the floor!"
-					playsound(src.loc, 'sound/misc/slip.ogg', 50, 1, -3)
+					playsound(src, 'sound/misc/slip.ogg', 50, 1, -3)
 					M.Weaken(10)
 
 			if(3) // Ice
@@ -138,7 +141,7 @@
 						M.stop_pulling()
 						step(M, M.dir)
 						M << "\blue You slipped on the icy floor!"
-						playsound(src.loc, 'sound/misc/slip.ogg', 50, 1, -3)
+						playsound(src, 'sound/misc/slip.ogg', 50, 1, -3)
 						M.Stun(4)
 						M.Weaken(5)
 					else
@@ -149,7 +152,7 @@
 						M.stop_pulling()
 						step(M, M.dir)
 						M << "\blue You slipped on the icy floor!"
-						playsound(src.loc, 'sound/misc/slip.ogg', 50, 1, -3)
+						playsound(src, 'sound/misc/slip.ogg', 50, 1, -3)
 						M.Stun(4)
 						M.Weaken(5)
 					else
@@ -166,21 +169,23 @@
 	for(var/obj/effect/decal/cleanable/blood/B in contents)
 		if(!B.blood_DNA[M.dna.unique_enzymes])
 			B.blood_DNA[M.dna.unique_enzymes] = M.dna.b_type
-		if (M.virus2.len)
-			B.virus2 |= virus_copylist(M.virus2)
+			B.virus2 = virus_copylist(M.virus2)
 		return 1 //we bloodied the floor
+
+
 
 	//if there isn't a blood decal already, make one.
 	if(M.species.bloodflags &BLOOD_GREEN)
 		var/obj/effect/decal/cleanable/blood/green/newblood = new /obj/effect/decal/cleanable/blood/green(src)
 		newblood.blood_DNA[M.dna.unique_enzymes] = M.dna.b_type
-		if (M.virus2.len)
-			newblood.virus2 |= virus_copylist(M.virus2)
+		newblood.virus2 = virus_copylist(M.virus2)
+		newblood.update_icon()
 	else
 		var/obj/effect/decal/cleanable/blood/newblood = new /obj/effect/decal/cleanable/blood(src)
 		newblood.blood_DNA[M.dna.unique_enzymes] = M.dna.b_type
-		if (M.virus2.len)
-			newblood.virus2 |= virus_copylist(M.virus2)
+		newblood.virus2 = virus_copylist(M.virus2)
+		newblood.update_icon()
+
 	return 1 //we bloodied the floor
 
 
@@ -210,3 +215,4 @@
 
 	else if( istype(M, /mob/living/silicon/robot ))
 		new /obj/effect/decal/cleanable/oil(src)
+

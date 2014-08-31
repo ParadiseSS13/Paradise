@@ -155,7 +155,8 @@
 
 	src.occupant.attack_log += "\[[time_stamp()]\] Was gibbed by <b>[user]/[user.ckey]</b>" //One shall not simply gib a mob unnoticed!
 	user.attack_log += "\[[time_stamp()]\] Gibbed <b>[src.occupant]/[src.occupant.ckey]</b>"
-	msg_admin_attack("[user.name] ([user.ckey]) gibbed [src.occupant] ([src.occupant.ckey]) (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[user.x];Y=[user.y];Z=[user.z]'>JMP</a>)")
+	if(src.occupant.ckey)
+		msg_admin_attack("[user.name] ([user.ckey]) gibbed [src.occupant] ([src.occupant.ckey]) (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[user.x];Y=[user.y];Z=[user.z]'>JMP</a>)")
 	if(!iscarbon(user))
 		src.occupant.LAssailant = null
 	else
@@ -171,7 +172,7 @@
 			var/obj/item/meatslab = allmeat[i]
 			var/turf/Tx = locate(src.x - i, src.y, src.z)
 			meatslab.loc = src.loc
-			meatslab.throw_at(Tx,i,3)
+			meatslab.throw_at(Tx,i,3,src)
 			if (!Tx.density)
 				new /obj/effect/decal/cleanable/blood/gibs(Tx,i)
 		src.operating = 0

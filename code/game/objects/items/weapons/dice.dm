@@ -5,6 +5,7 @@
 	icon_state = "d66"
 	w_class = 1
 	var/sides = 6
+	attack_verb = list("diced")
 
 /obj/item/weapon/dice/New()
 	icon_state = "[name][rand(sides)]"

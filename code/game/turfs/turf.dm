@@ -22,6 +22,12 @@
 	var/icon_old = null
 	var/pathweight = 1
 
+	//Mining resource generation stuff.
+	var/has_resources
+	var/list/resources
+
+	var/PathNode/PNode = null //associated PathNode in the A* algorithm
+
 /turf/New()
 	..()
 	for(var/atom/movable/AM as mob|obj in src)
@@ -47,9 +53,6 @@
 	return 0
 
 /turf/Enter(atom/movable/mover as mob|obj, atom/forget as mob|obj|turf|area)
-	if(movement_disabled && usr.ckey != movement_disabled_exception)
-		usr << "\red Movement is admin-disabled." //This is to identify lag problems
-		return
 	if (!mover)
 		return 1
 
@@ -86,9 +89,6 @@
 
 
 /turf/Entered(atom/atom as mob|obj)
-	if(movement_disabled)
-		usr << "\red Movement is admin-disabled." //This is to identify lag problems
-		return
 	..()
 //vvvvv Infared beam stuff vvvvv
 
@@ -133,6 +133,9 @@
 			return
 	return
 
+/turf/proc/adjacent_fire_act(turf/simulated/floor/source, temperature, volume)
+	return
+
 /turf/proc/is_plating()
 	return 0
 /turf/proc/is_asteroid_floor()
@@ -154,6 +157,16 @@
 
 /turf/proc/inertial_drift(atom/movable/A as mob|obj)
 	if(!(A.last_move))	return
+	if(istype(A, /obj/spacepod) && src.x > 2 && src.x < (world.maxx - 1) && src.y > 2 && src.y < (world.maxy-1))
+		var/obj/spacepod/SP = A
+		if(SP.Process_Spacemove(1))
+			SP.inertia_dir = 0
+			return
+		spawn(5)
+			if((SP && (SP.loc == src)))
+				if(SP.inertia_dir)
+					step(SP, SP.inertia_dir)
+					return
 	if(istype(A, /obj/structure/stool/bed/chair/cart/) && src.x > 2 && src.x < (world.maxx - 1) && src.y > 2 && src.y < (world.maxy-1))
 		var/obj/structure/stool/bed/chair/cart/JC = A //A bomb!
 		if(JC.Process_Spacemove(1))
@@ -206,9 +219,27 @@
 
 	var/old_lumcount = lighting_lumcount - initial(lighting_lumcount)
 
+	//world << "Replacing [src.type] with [N]"
+
+	if(connections) connections.erase_all()
+
+	if(istype(src,/turf/simulated))
+		//Yeah, we're just going to rebuild the whole thing.
+		//Despite this being called a bunch during explosions,
+		//the zone will only really do heavy lifting once.
+		var/turf/simulated/S = src
+		if(S.zone) S.zone.rebuild()
+
 	if(ispath(N, /turf/simulated/floor))
+		//if the old turf had a zone, connect the new turf to it as well - Cael
+		//Adjusted by SkyMarshal 5/10/13 - The air master will handle the addition of the new turf.
+		//if(zone)
+		//	zone.RemoveTurf(src)
+		//	if(!zone.CheckStatus())
+		//		zone.SetStatus(ZONE_ACTIVE)
+
 		var/turf/simulated/W = new N( locate(src.x, src.y, src.z) )
-		W.Assimilate_Air()
+		//W.Assimilate_Air()
 
 		W.lighting_lumcount += old_lumcount
 		if(old_lumcount != W.lighting_lumcount)
@@ -218,20 +249,17 @@
 		if (istype(W,/turf/simulated/floor))
 			W.RemoveLattice()
 
-		//if the old turf had a zone, connect the new turf to it as well - Cael
-		if(src.zone)
-			src.zone.RemoveTurf(src)
-			W.zone = src.zone
-			W.zone.AddTurf(W)
-
-		for(var/turf/simulated/T in orange(src,1))
-			air_master.tiles_to_update.Add(T)
+		if(air_master)
+			air_master.mark_for_update(src)
 
 		W.levelupdate()
 		return W
+
 	else
-		/*if(istype(src, /turf/simulated) && src.zone)
-			src.zone.rebuild = 1*/
+		//if(zone)
+		//	zone.RemoveTurf(src)
+		//	if(!zone.CheckStatus())
+		//		zone.SetStatus(ZONE_ACTIVE)
 
 		var/turf/W = new N( locate(src.x, src.y, src.z) )
 		W.lighting_lumcount += old_lumcount
@@ -239,18 +267,13 @@
 			W.lighting_changed = 1
 			lighting_controller.changed_turfs += W
 
-		if(src.zone)
-			src.zone.RemoveTurf(src)
-			W.zone = src.zone
-			W.zone.AddTurf(W)
-
 		if(air_master)
-			for(var/turf/simulated/T in orange(src,1))
-				air_master.tiles_to_update.Add(T)
+			air_master.mark_for_update(src)
 
 		W.levelupdate()
 		return W
 
+/*
 //////Assimilate Air//////
 /turf/simulated/proc/Assimilate_Air()
 	var/aoxy = 0//Holders to assimilate air from nearby turfs
@@ -295,7 +318,7 @@
 				S.air.toxins = air.toxins
 				S.air.temperature = air.temperature
 				S.air.update_values()
-
+*/
 /turf/proc/ReplaceWithLattice()
 	src.ChangeTurf(/turf/space)
 	new /obj/structure/lattice( locate(src.x, src.y, src.z) )
@@ -315,31 +338,102 @@
 		return
 	flags |= NOJAUNT
 
-/turf/proc/AdjacentTurfs()
-	var/L[] = new()
-	for(var/turf/simulated/t in oview(src,1))
-		if(!t.density)
-			if(!LinkBlocked(src, t) && !TurfBlockedNonWindow(t))
-				L.Add(t)
-	return L
-/turf/proc/Distance(turf/t)
-	if(get_dist(src,t) == 1)
-		var/cost = (src.x - t.x) * (src.x - t.x) + (src.y - t.y) * (src.y - t.y)
-		cost *= (pathweight+t.pathweight)/2
-		return cost
-	else
-		return get_dist(src,t)
-/turf/proc/AdjacentTurfsSpace()
-	var/L[] = new()
-	for(var/turf/t in oview(src,1))
-		if(!t.density)
-			if(!LinkBlocked(src, t) && !TurfBlockedNonWindow(t))
-				L.Add(t)
+/////////////////////////////////////////////////////////////////////////
+// Navigation procs
+// Used for A-star pathfinding
+////////////////////////////////////////////////////////////////////////
+
+///////////////////////////
+//Cardinal only movements
+///////////////////////////
+
+// Returns the surrounding cardinal turfs with open links
+// Including through doors openable with the ID
+/turf/proc/CardinalTurfsWithAccess(var/obj/item/weapon/card/id/ID)
+	var/list/L = new()
+	var/turf/simulated/T
+
+	for(var/dir in cardinal)
+		T = get_step(src, dir)
+		if(istype(T) && !T.density)
+			if(!LinkBlockedWithAccess(src, T, ID))
+				L.Add(T)
 	return L
 
-// This Distance proc assumes that only cardinal movement is
+// Returns the surrounding cardinal turfs with open links
+// Don't check for ID, doors passable only if open
+/turf/proc/CardinalTurfs()
+	var/list/L = new()
+	var/turf/simulated/T
+
+	for(var/dir in cardinal)
+		T = get_step(src, dir)
+		if(istype(T) && !T.density)
+			if(!LinkBlocked(src, T))
+				L.Add(T)
+	return L
+
+///////////////////////////
+//All directions movements
+///////////////////////////
+
+// Returns the surrounding simulated turfs with open links
+// Including through doors openable with the ID
+/turf/proc/AdjacentTurfsWithAccess(var/obj/item/weapon/card/id/ID = null,var/list/closed)//check access if one is passed
+	var/list/L = new()
+	var/turf/simulated/T
+	for(var/dir in list(NORTHWEST,NORTHEAST,SOUTHEAST,SOUTHWEST,NORTH,EAST,SOUTH,WEST)) //arbitrarily ordered list to favor non-diagonal moves in case of ties
+		T = get_step(src,dir)
+		if(T in closed) //turf already proceeded in A*
+			continue
+		if(istype(T) && !T.density)
+			if(!LinkBlockedWithAccess(src, T, ID))
+				L.Add(T)
+	return L
+
+//Idem, but don't check for ID and goes through open doors
+/turf/proc/AdjacentTurfs(var/list/closed)
+	var/list/L = new()
+	var/turf/simulated/T
+	for(var/dir in list(NORTHWEST,NORTHEAST,SOUTHEAST,SOUTHWEST,NORTH,EAST,SOUTH,WEST)) //arbitrarily ordered list to favor non-diagonal moves in case of ties
+		T = get_step(src,dir)
+		if(T in closed) //turf already proceeded by A*
+			continue
+		if(istype(T) && !T.density)
+			if(!LinkBlocked(src, T))
+				L.Add(T)
+	return L
+
+// check for all turfs, including unsimulated ones
+/turf/proc/AdjacentTurfsSpace(var/obj/item/weapon/card/id/ID = null, var/list/closed)//check access if one is passed
+	var/list/L = new()
+	var/turf/T
+	for(var/dir in list(NORTHWEST,NORTHEAST,SOUTHEAST,SOUTHWEST,NORTH,EAST,SOUTH,WEST)) //arbitrarily ordered list to favor non-diagonal moves in case of ties
+		T = get_step(src,dir)
+		if(T in closed) //turf already proceeded by A*
+			continue
+		if(istype(T) && !T.density)
+			if(!ID)
+				if(!LinkBlocked(src, T))
+					L.Add(T)
+			else
+				if(!LinkBlockedWithAccess(src, T, ID))
+					L.Add(T)
+	return L
+
+//////////////////////////////
+//Distance procs
+//////////////////////////////
+
+//Distance associates with all directions movement
+/turf/proc/Distance(var/turf/T)
+	return get_dist(src,T)
+
+//  This Distance proc assumes that only cardinal movement is
 //  possible. It results in more efficient (CPU-wise) pathing
 //  for bots and anything else that only moves in cardinal dirs.
-/turf/proc/Distance_cardinal(turf/t)
-	if(!src || !t) return 0
-	return abs(src.x - t.x) + abs(src.y - t.y)
+/turf/proc/Distance_cardinal(turf/T)
+	if(!src || !T) return 0
+	return abs(src.x - T.x) + abs(src.y - T.y)
+
+////////////////////////////////////////////////////

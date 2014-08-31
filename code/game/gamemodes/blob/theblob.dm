@@ -2,12 +2,13 @@
 /obj/effect/blob
 	name = "blob"
 	icon = 'icons/mob/blob.dmi'
-	luminosity = 3
+	luminosity = 0
 	desc = "Some blob creature thingy"
 	density = 0
 	opacity = 0
 	anchored = 1
 	var/health = 30
+	var/health_timestamp = 0
 	var/brute_resist = 4
 	var/fire_resist = 1
 
@@ -22,7 +23,7 @@
 		return
 
 
-	Del()
+	Destroy()
 		blobs -= src
 		..()
 		return
@@ -40,12 +41,14 @@
 
 	fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume)
 		..()
-		var/damage = Clamp(0.01 * exposed_temperature / fire_resist, 0, 4 - fire_resist)
+		var/damage = Clamp(0.03 * exposed_temperature / fire_resist, 0, 7 - fire_resist)
 		if(damage)
 			health -= damage
 			update_icon()
 
 	proc/Life()
+		for(var/atom/A in src.loc)//Hit everything in the turf
+			A.blob_act()
 		return
 
 
@@ -56,7 +59,7 @@
 		if(run_action())//If we can do something here then we dont need to pulse more
 			return
 
-		if(pulse > 30)
+		if(pulse > 20)
 			return//Inf loop check
 
 		//Looking for another blob to pulse

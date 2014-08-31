@@ -9,6 +9,18 @@
 		if(!I)
 			H << "<span class='notice'>You are not holding anything to equip.</span>"
 			return
+
+		if(istype(I, /obj/item/clothing/head/helmet/space/rig)) // If the item to be equipped is a rigid suit helmet
+			src << "\red You must fasten the helmet to a hardsuit first. (Target the head)" // Stop eva helms equipping.
+			return 0
+
+
+		if(istype(I, /obj/item/clothing/suit/space/rig)) // If the item to be equipped is a rigid suit
+			var/obj/item/clothing/suit/space/rig/J = I
+			if(J.equip_time > 0)
+				delay_clothing_equip_to_slot_if_possible(J, 13)  // 13 = suit slot
+				return 0
+
 		if(H.equip_to_appropriate_slot(I))
 			if(hand)
 				update_inv_l_hand(0)
@@ -104,20 +116,20 @@
 
 	if (W == wear_suit)
 		if(s_store)
-			u_equip(s_store)
+			drop_from_inventory(s_store)
 		if(W)
 			success = 1
 		wear_suit = null
 		update_inv_wear_suit()
 	else if (W == w_uniform)
 		if (r_store)
-			u_equip(r_store)
+			drop_from_inventory(r_store)
 		if (l_store)
-			u_equip(l_store)
+			drop_from_inventory(l_store)
 		if (wear_id)
-			u_equip(wear_id)
+			drop_from_inventory(wear_id)
 		if (belt)
-			u_equip(belt)
+			drop_from_inventory(belt)
 		w_uniform = null
 		success = 1
 		update_inv_w_uniform()
@@ -428,162 +440,168 @@
 					del(src)
 					return
 			if("internal")
-				if ((!( (istype(target.wear_mask, /obj/item/clothing/mask) && istype(target.back, /obj/item/weapon/tank) && !( target.internal )) ) && !( target.internal )))
+				if ((!( (istype(target.wear_mask, /obj/item/clothing/mask) && (istype(target.back, /obj/item/weapon/tank) || istype(target.belt, /obj/item/weapon/tank) || istype(target.s_store, /obj/item/weapon/tank)) && !( target.internal )) ) && !( target.internal )))
 					del(src)
 
-	var/list/L = list( "syringe", "pill", "drink", "dnainjector", "fuel")
-	if ((item && !( L.Find(place) )))
-		if(isrobot(source) && place != "handcuff")
-			del(src)
-		for(var/mob/O in viewers(target, null))
-			O.show_message("\red <B>[source] is trying to put \a [item] on [target]</B>", 1)
-	else
-		var/message=null
-		switch(place)
-			if("syringe")
-				message = "\red <B>[source] is trying to inject [target]!</B>"
-			if("pill")
-				message = "\red <B>[source] is trying to force [target] to swallow [item]!</B>"
-			if("drink")
-				message = "\red <B>[source] is trying to force [target] to swallow a gulp of [item]!</B>"
-			if("dnainjector")
-				message = "\red <B>[source] is trying to inject [target] with the [item]!</B>"
-			if("mask")
-				target.attack_log += text("\[[time_stamp()]\] <font color='orange'>Had their mask removed by [source.name] ([source.ckey])</font>")
-				source.attack_log += text("\[[time_stamp()]\] <font color='red'>Attempted to remove [target.name]'s ([target.ckey]) mask</font>")
-				if(target.wear_mask && !target.wear_mask.canremove)
-					message = "\red <B>[source] fails to take off \a [target.wear_mask] from [target]'s head!</B>"
-					return
-				else
-					message = "\red <B>[source] is trying to take off \a [target.wear_mask] from [target]'s head!</B>"
-			if("l_hand")
-				target.attack_log += text("\[[time_stamp()]\] <font color='orange'>Has had their left hand item ([target.l_hand]) removed by [source.name] ([source.ckey])</font>")
-				source.attack_log += text("\[[time_stamp()]\] <font color='red'>Attempted to remove [target.name]'s ([target.ckey]) left hand item ([target.l_hand])</font>")
-				message = "\red <B>[source] is trying to take off \a [target.l_hand] from [target]'s left hand!</B>"
-			if("r_hand")
-				target.attack_log += text("\[[time_stamp()]\] <font color='orange'>Has had their right hand item ([target.r_hand]) removed by [source.name] ([source.ckey])</font>")
-				source.attack_log += text("\[[time_stamp()]\] <font color='red'>Attempted to remove [target.name]'s ([target.ckey]) right hand item ([target.r_hand])</font>")
-				message = "\red <B>[source] is trying to take off \a [target.r_hand] from [target]'s right hand!</B>"
-			if("gloves")
-				target.attack_log += text("\[[time_stamp()]\] <font color='orange'>Has had their gloves ([target.gloves]) removed by [source.name] ([source.ckey])</font>")
-				source.attack_log += text("\[[time_stamp()]\] <font color='red'>Attempted to remove [target.name]'s ([target.ckey]) gloves ([target.gloves])</font>")
-				if(target.gloves && !target.gloves.canremove)
-					message = "\red <B>[source] fails to take off \a [target.gloves] from [target]'s hands!</B>"
-					return
-				else
-					message = "\red <B>[source] is trying to take off the [target.gloves] from [target]'s hands!</B>"
-			if("eyes")
-				target.attack_log += text("\[[time_stamp()]\] <font color='orange'>Has had their eyewear ([target.glasses]) removed by [source.name] ([source.ckey])</font>")
-				source.attack_log += text("\[[time_stamp()]\] <font color='red'>Attempted to remove [target.name]'s ([target.ckey]) eyewear ([target.glasses])</font>")
-				if(target.glasses && !target.glasses.canremove)
-					message = "\red <B>[source] fails to take off \a [target.glasses] from [target]'s eyes!</B>"
-					return
-				else
-					message = "\red <B>[source] is trying to take off the [target.glasses] from [target]'s eyes!</B>"
-			if("l_ear")
-				target.attack_log += text("\[[time_stamp()]\] <font color='orange'>Has had their left ear item ([target.l_ear]) removed by [source.name] ([source.ckey])</font>")
-				source.attack_log += text("\[[time_stamp()]\] <font color='red'>Attempted to remove [target.name]'s ([target.ckey]) left ear item ([target.l_ear])</font>")
-				if(target.l_ear && !target.l_ear.canremove)
-					message = "\red <B>[source] fails to take off \a [target.l_ear] from [target]'s left ear!</B>"
-					return
-				else
-					message = "\red <B>[source] is trying to take off the [target.l_ear] from [target]'s left ear!</B>"
-			if("r_ear")
-				target.attack_log += text("\[[time_stamp()]\] <font color='orange'>Has had their right ear item ([target.r_ear]) removed by [source.name] ([source.ckey])</font>")
-				source.attack_log += text("\[[time_stamp()]\] <font color='red'>Attempted to remove [target.name]'s ([target.ckey]) right ear item ([target.r_ear])</font>")
-				if(target.r_ear && !target.r_ear.canremove)
-					message = "\red <B>[source] fails to take off \a [target.r_ear] from [target]'s right ear!</B>"
-					return
-				else
-					message = "\red <B>[source] is trying to take off the [target.r_ear] from [target]'s right ear!</B>"
-			if("head")
-				target.attack_log += text("\[[time_stamp()]\] <font color='orange'>Has had their hat ([target.head]) removed by [source.name] ([source.ckey])</font>")
-				source.attack_log += text("\[[time_stamp()]\] <font color='red'>Attempted to remove [target.name]'s ([target.ckey]) hat ([target.head])</font>")
-				if(target.head && !target.head.canremove)
-					message = "\red <B>[source] fails to take off \a [target.head] from [target]'s head!</B>"
-					return
-				else
-					message = "\red <B>[source] is trying to take off the [target.head] from [target]'s head!</B>"
-			if("shoes")
-				target.attack_log += text("\[[time_stamp()]\] <font color='orange'>Has had their shoes ([target.shoes]) removed by [source.name] ([source.ckey])</font>")
-				source.attack_log += text("\[[time_stamp()]\] <font color='red'>Attempted to remove [target.name]'s ([target.ckey]) shoes ([target.shoes])</font>")
-				if(target.shoes && !target.shoes.canremove)
-					message = "\red <B>[source] fails to take off \a [target.shoes] from [target]'s feet!</B>"
-					return
-				else
-					message = "\red <B>[source] is trying to take off the [target.shoes] from [target]'s feet!</B>"
-			if("belt")
-				target.attack_log += text("\[[time_stamp()]\] <font color='orange'>Has had their belt item ([target.belt]) removed by [source.name] ([source.ckey])</font>")
-				source.attack_log += text("\[[time_stamp()]\] <font color='red'>Attempted to remove [target.name]'s ([target.ckey]) belt item ([target.belt])</font>")
-				if(!pickpocket)
-					message = "\red <B>[source] is trying to take off the [target.belt] from [target]'s belt!</B>"
-				else
-					source << "\blue You try to take off the [target.belt] from [target]'s belt!"
-			if("suit")
-				target.attack_log += text("\[[time_stamp()]\] <font color='orange'>Has had their suit ([target.wear_suit]) removed by [source.name] ([source.ckey])</font>")
-				source.attack_log += text("\[[time_stamp()]\] <font color='red'>Attempted to remove [target.name]'s ([target.ckey]) suit ([target.wear_suit])</font>")
-				if(target.wear_suit && !target.wear_suit.canremove)
-					message = "\red <B>[source] fails to take off \a [target.wear_suit] from [target]'s body!</B>"
-					return
-				else
-					message = "\red <B>[source] is trying to take off \a [target.wear_suit] from [target]'s body!</B>"
-			if("back")
-				target.attack_log += text("\[[time_stamp()]\] <font color='orange'>Has had their back item ([target.back]) removed by [source.name] ([source.ckey])</font>")
-				source.attack_log += text("\[[time_stamp()]\] <font color='red'>Attempted to remove [target.name]'s ([target.ckey]) back item ([target.back])</font>")
-				message = "\red <B>[source] is trying to take off \a [target.back] from [target]'s back!</B>"
-			if("handcuff")
-				target.attack_log += text("\[[time_stamp()]\] <font color='orange'>Was unhandcuffed by [source.name] ([source.ckey])</font>")
-				source.attack_log += text("\[[time_stamp()]\] <font color='red'>Attempted to unhandcuff [target.name]'s ([target.ckey])</font>")
+	var/message=null
+	switch(place)
+		if("syringe")
+			message = "\red <B>[source] is trying to inject [target]!</B>"
+		if("pill")
+			message = "\red <B>[source] is trying to force [target] to swallow [item]!</B>"
+		if("drink")
+			message = "\red <B>[source] is trying to force [target] to swallow a gulp of [item]!</B>"
+		if("dnainjector")
+			message = "\red <B>[source] is trying to inject [target] with the [item]!</B>"
+		if("mask")
+			target.attack_log += text("\[[time_stamp()]\] <font color='orange'>Had their mask removed by [source.name] ([source.ckey])</font>")
+			source.attack_log += text("\[[time_stamp()]\] <font color='red'>Attempted to remove [target.name]'s ([target.ckey]) mask</font>")
+			if(target.wear_mask && !target.wear_mask.canremove)
+				message = "\red <B>[source] fails to take off \a [target.wear_mask] from [target]'s head!</B>"
+				return
+			else if(target.wear_mask)
+				message = "\red <B>[source] is trying to take off \a [target.wear_mask] from [target]'s head!</B>"
+		if("l_hand")
+			target.attack_log += text("\[[time_stamp()]\] <font color='orange'>Has had their left hand item ([target.l_hand]) removed by [source.name] ([source.ckey])</font>")
+			source.attack_log += text("\[[time_stamp()]\] <font color='red'>Attempted to remove [target.name]'s ([target.ckey]) left hand item ([target.l_hand])</font>")
+			message = "\red <B>[source] is trying to take off \a [target.l_hand] from [target]'s left hand!</B>"
+		if("r_hand")
+			target.attack_log += text("\[[time_stamp()]\] <font color='orange'>Has had their right hand item ([target.r_hand]) removed by [source.name] ([source.ckey])</font>")
+			source.attack_log += text("\[[time_stamp()]\] <font color='red'>Attempted to remove [target.name]'s ([target.ckey]) right hand item ([target.r_hand])</font>")
+			message = "\red <B>[source] is trying to take off \a [target.r_hand] from [target]'s right hand!</B>"
+		if("gloves")
+			target.attack_log += text("\[[time_stamp()]\] <font color='orange'>Has had their gloves ([target.gloves]) removed by [source.name] ([source.ckey])</font>")
+			source.attack_log += text("\[[time_stamp()]\] <font color='red'>Attempted to remove [target.name]'s ([target.ckey]) gloves ([target.gloves])</font>")
+			if(target.gloves && !target.gloves.canremove)
+				message = "\red <B>[source] fails to take off \a [target.gloves] from [target]'s hands!</B>"
+				return
+			else if(target.gloves)
+				message = "\red <B>[source] is trying to take off the [target.gloves] from [target]'s hands!</B>"
+		if("eyes")
+			target.attack_log += text("\[[time_stamp()]\] <font color='orange'>Has had their eyewear ([target.glasses]) removed by [source.name] ([source.ckey])</font>")
+			source.attack_log += text("\[[time_stamp()]\] <font color='red'>Attempted to remove [target.name]'s ([target.ckey]) eyewear ([target.glasses])</font>")
+			if(target.glasses && !target.glasses.canremove)
+				message = "\red <B>[source] fails to take off \a [target.glasses] from [target]'s eyes!</B>"
+				return
+			else if(target.glasses)
+				message = "\red <B>[source] is trying to take off the [target.glasses] from [target]'s eyes!</B>"
+		if("l_ear")
+			target.attack_log += text("\[[time_stamp()]\] <font color='orange'>Has had their left ear item ([target.l_ear]) removed by [source.name] ([source.ckey])</font>")
+			source.attack_log += text("\[[time_stamp()]\] <font color='red'>Attempted to remove [target.name]'s ([target.ckey]) left ear item ([target.l_ear])</font>")
+			if(target.l_ear && !target.l_ear.canremove)
+				message = "\red <B>[source] fails to take off \a [target.l_ear] from [target]'s left ear!</B>"
+				return
+			else if(target.l_ear)
+				message = "\red <B>[source] is trying to take off the [target.l_ear] from [target]'s left ear!</B>"
+		if("r_ear")
+			target.attack_log += text("\[[time_stamp()]\] <font color='orange'>Has had their right ear item ([target.r_ear]) removed by [source.name] ([source.ckey])</font>")
+			source.attack_log += text("\[[time_stamp()]\] <font color='red'>Attempted to remove [target.name]'s ([target.ckey]) right ear item ([target.r_ear])</font>")
+			if(target.r_ear && !target.r_ear.canremove)
+				message = "\red <B>[source] fails to take off \a [target.r_ear] from [target]'s right ear!</B>"
+				return
+			else if(target.r_ear)
+				message = "\red <B>[source] is trying to take off the [target.r_ear] from [target]'s right ear!</B>"
+		if("head")
+			target.attack_log += text("\[[time_stamp()]\] <font color='orange'>Has had their hat ([target.head]) removed by [source.name] ([source.ckey])</font>")
+			source.attack_log += text("\[[time_stamp()]\] <font color='red'>Attempted to remove [target.name]'s ([target.ckey]) hat ([target.head])</font>")
+			if(target.head && !target.head.canremove)
+				message = "\red <B>[source] fails to take off \a [target.head] from [target]'s head!</B>"
+				return
+			else if(target.head)
+				message = "\red <B>[source] is trying to take off the [target.head] from [target]'s head!</B>"
+		if("shoes")
+			target.attack_log += text("\[[time_stamp()]\] <font color='orange'>Has had their shoes ([target.shoes]) removed by [source.name] ([source.ckey])</font>")
+			source.attack_log += text("\[[time_stamp()]\] <font color='red'>Attempted to remove [target.name]'s ([target.ckey]) shoes ([target.shoes])</font>")
+			if(target.shoes && !target.shoes.canremove)
+				message = "\red <B>[source] fails to take off \a [target.shoes] from [target]'s feet!</B>"
+				return
+			else if(target.shoes)
+				message = "\red <B>[source] is trying to take off [target.shoes] from [target]'s feet!</B>"
+		if("belt")
+			target.attack_log += text("\[[time_stamp()]\] <font color='orange'>Has had their belt item ([target.belt]) removed by [source.name] ([source.ckey])</font>")
+			source.attack_log += text("\[[time_stamp()]\] <font color='red'>Attempted to remove [target.name]'s ([target.ckey]) belt item ([target.belt])</font>")
+			if(!pickpocket && target.belt)
+				message = "\red <B>[source] is trying to take off \a [target.belt] from [target]'s belt!</B>"
+		if("suit")
+			target.attack_log += text("\[[time_stamp()]\] <font color='orange'>Has had their suit ([target.wear_suit]) removed by [source.name] ([source.ckey])</font>")
+			source.attack_log += text("\[[time_stamp()]\] <font color='red'>Attempted to remove [target.name]'s ([target.ckey]) suit ([target.wear_suit])</font>")
+			if(target.wear_suit && !target.wear_suit.canremove)
+				message = "\red <B>[source] fails to take off \a [target.wear_suit] from [target]'s body!</B>"
+				return
+			else if(target.wear_suit)
+				message = "\red <B>[source] is trying to take off \a [target.wear_suit] from [target]'s body!</B>"
+		if("back")
+			target.attack_log += text("\[[time_stamp()]\] <font color='orange'>Has had their back item ([target.back]) removed by [source.name] ([source.ckey])</font>")
+			source.attack_log += text("\[[time_stamp()]\] <font color='red'>Attempted to remove [target.name]'s ([target.ckey]) back item ([target.back])</font>")
+			message = "\red <B>[source] is trying to take off \a [target.back] from [target]'s back!</B>"
+		if("handcuff")
+			target.attack_log += text("\[[time_stamp()]\] <font color='orange'>Was unhandcuffed by [source.name] ([source.ckey])</font>")
+			source.attack_log += text("\[[time_stamp()]\] <font color='red'>Attempted to unhandcuff [target.name]'s ([target.ckey])</font>")
+			if(target.handcuffed)
 				message = "\red <B>[source] is trying to unhandcuff [target]!</B>"
-			if("legcuff")
-				target.attack_log += text("\[[time_stamp()]\] <font color='orange'>Was unlegcuffed by [source.name] ([source.ckey])</font>")
-				source.attack_log += text("\[[time_stamp()]\] <font color='red'>Attempted to unlegcuff [target.name]'s ([target.ckey])</font>")
+		if("legcuff")
+			target.attack_log += text("\[[time_stamp()]\] <font color='orange'>Was unlegcuffed by [source.name] ([source.ckey])</font>")
+			source.attack_log += text("\[[time_stamp()]\] <font color='red'>Attempted to unlegcuff [target.name]'s ([target.ckey])</font>")
+			if(target.legcuffed)
 				message = "\red <B>[source] is trying to unlegcuff [target]!</B>"
-			if("uniform")
-				target.attack_log += text("\[[time_stamp()]\] <font color='orange'>Has had their uniform ([target.w_uniform]) removed by [source.name] ([source.ckey])</font>")
-				source.attack_log += text("\[[time_stamp()]\] <font color='red'>Attempted to remove [target.name]'s ([target.ckey]) uniform ([target.w_uniform])</font>")
-				for(var/obj/item/I in list(target.l_store, target.r_store))
-					if(I.on_found(source))
-						return
-				if(target.w_uniform && !target.w_uniform.canremove)
-					message = "\red <B>[source] fails to take off \a [target.w_uniform] from [target]'s body!</B>"
+			else
+				message = "\red <B>[source] is trying to legcuff [target]!</B>"
+		if("uniform")
+			target.attack_log += text("\[[time_stamp()]\] <font color='orange'>Has had their uniform ([target.w_uniform]) removed by [source.name] ([source.ckey])</font>")
+			source.attack_log += text("\[[time_stamp()]\] <font color='red'>Attempted to remove [target.name]'s ([target.ckey]) uniform ([target.w_uniform])</font>")
+			for(var/obj/item/I in list(target.l_store, target.r_store))
+				if(I.on_found(source))
 					return
-				else
-					message = "\red <B>[source] is trying to take off \a [target.w_uniform] from [target]'s body!</B>"
-			if("s_store")
-				target.attack_log += text("\[[time_stamp()]\] <font color='orange'>Has had their suit storage item ([target.s_store]) removed by [source.name] ([source.ckey])</font>")
-				source.attack_log += text("\[[time_stamp()]\] <font color='red'>Attempted to remove [target.name]'s ([target.ckey]) suit storage item ([target.s_store])</font>")
-				message = "\red <B>[source] is trying to take off \a [target.s_store] from [target]'s suit!</B>"
-			if("pockets")
-				target.attack_log += text("\[[time_stamp()]\] <font color='orange'>Has had their pockets emptied by [source.name] ([source.ckey])</font>")
-				source.attack_log += text("\[[time_stamp()]\] <font color='red'>Attempted to empty [target.name]'s ([target.ckey]) pockets</font>")
-				for(var/obj/item/I in list(target.l_store, target.r_store))
-					if(I.on_found(source))
-						return
-				message = "\red <B>[source] is trying to empty [target]'s pockets.</B>"
-			if("CPR")
-				if (!target.cpr_time)
-					del(src)
-				target.cpr_time = 0
-				message = "\red <B>[source] is trying perform CPR on [target]!</B>"
-			if("id")
-				target.attack_log += text("\[[time_stamp()]\] <font color='orange'>Has had their ID ([target.wear_id]) removed by [source.name] ([source.ckey])</font>")
-				source.attack_log += text("\[[time_stamp()]\] <font color='red'>Attempted to remove [target.name]'s ([target.ckey]) ID ([target.wear_id])</font>")
-				if(!pickpocket)
-					message = "\red <B>[source] is trying to take off [target.wear_id] from [target]'s uniform!</B>"
-				else
-					source << "\blue You try to take off [target.wear_id] from [target]'s uniform!"
-			if("internal")
-				target.attack_log += text("\[[time_stamp()]\] <font color='orange'>Has had their internals toggled by [source.name] ([source.ckey])</font>")
-				source.attack_log += text("\[[time_stamp()]\] <font color='red'>Attempted to toggle [target.name]'s ([target.ckey]) internals</font>")
-				if (target.internal)
-					message = "\red <B>[source] is trying to remove [target]'s internals</B>"
-				else
-					message = "\red <B>[source] is trying to set on [target]'s internals.</B>"
-			if("splints")
-				message = text("\red <B>[] is trying to remove []'s splints!</B>", source, target)
+			if(target.w_uniform && !target.w_uniform.canremove)
+				message = "\red <B>[source] fails to take off \a [target.w_uniform] from [target]'s body!</B>"
+				return
+			else
+				message = "\red <B>[source] is trying to take off \a [target.w_uniform] from [target]'s body!</B>"
+		if("s_store")
+			target.attack_log += text("\[[time_stamp()]\] <font color='orange'>Has had their suit storage item ([target.s_store]) removed by [source.name] ([source.ckey])</font>")
+			source.attack_log += text("\[[time_stamp()]\] <font color='red'>Attempted to remove [target.name]'s ([target.ckey]) suit storage item ([target.s_store])</font>")
+			message = "\red <B>[source] is trying to take off \a [target.s_store] from [target]'s suit!</B>"
+		if("pockets")
+			target.attack_log += text("\[[time_stamp()]\] <font color='orange'>Has had their pockets emptied by [source.name] ([source.ckey])</font>")
+			source.attack_log += text("\[[time_stamp()]\] <font color='red'>Attempted to empty [target.name]'s ([target.ckey]) pockets</font>")
+			for(var/obj/item/I in list(target.l_store, target.r_store))
+				if(I.on_found(source))
+					return
+			message = "\red <B>[source] is trying to empty [target]'s pockets!</B>"
+		if("CPR")
+			if (!target.cpr_time)
+				del(src)
+			target.cpr_time = 0
+			message = "\red <B>[source] is trying perform CPR on [target]!</B>"
+		if("id")
+			target.attack_log += text("\[[time_stamp()]\] <font color='orange'>Has had their ID ([target.wear_id]) removed by [source.name] ([source.ckey])</font>")
+			source.attack_log += text("\[[time_stamp()]\] <font color='red'>Attempted to remove [target.name]'s ([target.ckey]) ID ([target.wear_id])</font>")
+			if(!pickpocket)
+				message = "\red <B>[source] is trying to take off [target.wear_id] from [target]'s uniform!</B>"
+			else
+				source << "\blue You try to take off [target.wear_id] from [target]'s uniform!"
+		if("pda")
+			target.attack_log += text("\[[time_stamp()]\] <font color='orange'>Has had their PDA ([target.wear_pda]) removed by [source.name] ([source.ckey])</font>")
+			source.attack_log += text("\[[time_stamp()]\] <font color='red'>Attempted to remove [target.name]'s ([target.ckey]) PDA ([target.wear_pda])</font>")
+			message = "\red <B>[source] is trying to take off [target.wear_pda] from [target]'s uniform!</B>"
+		if("internal")
+			target.attack_log += text("\[[time_stamp()]\] <font color='orange'>Has had their internals toggled by [source.name] ([source.ckey])</font>")
+			source.attack_log += text("\[[time_stamp()]\] <font color='red'>Attempted to toggle [target.name]'s ([target.ckey]) internals</font>")
+			if (target.internal)
+				message = "\red <B>[source] is trying to remove [target]'s internals!</B>"
+			else
+				message = "\red <B>[source] is trying to set on [target]'s internals.</B>"
+		if("splints")
+			message = "\red <B>[source] is trying to remove [target]'s splints!</B>"
 
-		for(var/mob/M in viewers(target, null))
+	for(var/mob/M in viewers(target, null))
+		if(findtext(message, "is trying to take off  from", 1, 0) > 0 || message == null)
+			message = "\red <B>[source] is trying to put \a [item] on [target]!</B>"
+			if(findtext(message, "is trying to put  on", 1, 0) > 0)
+				return
+			else
+				M.show_message(message, 1)
+		else
 			M.show_message(message, 1)
 	spawn( HUMAN_STRIP_DELAY )
 		done()
@@ -605,7 +623,7 @@ It can still be worn/put on as normal.
 	if(!source || !target) return		//Target or source no longer exist
 	if(source.loc != s_loc) return		//source has moved
 	if(target.loc != t_loc) return		//target has moved
-	if(LinkBlocked(s_loc,t_loc)) return	//Use a proxi!
+	if (LinkBlockedUnclimbable(t_loc, s_loc)) return
 	if(item && source.get_active_hand() != item) return	//Swapped hands / removed item from the active one
 	if ((source.restrained() || source.stat)) return //Source restrained or unconscious / dead
 
@@ -685,6 +703,16 @@ It can still be worn/put on as normal.
 			slot_to_process = slot_handcuffed
 			if (target.handcuffed)
 				strip_item = target.handcuffed
+			else if (source != target && ishuman(source))
+				//check that we are still grabbing them
+				var/grabbing = 0
+				for (var/obj/item/weapon/grab/G in target.grabbed_by)
+					if (G.loc == source && G.state >= GRAB_AGGRESSIVE)
+						grabbing = 1
+				if (!grabbing)
+					slot_to_process = null
+					source << "\red Your grasp was broken before you could restrain [target]!"
+
 		if("legcuff")
 			slot_to_process = slot_legcuffed
 			if (target.legcuffed)

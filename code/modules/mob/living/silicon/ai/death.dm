@@ -39,11 +39,9 @@
 		callshuttle = 0
 
 	if(callshuttle == 3) //if all three conditions are met
-		emergency_shuttle.incall(2)
+		emergency_shuttle.call_evac()
 		log_game("All the AIs, comm consoles and boards are destroyed. Shuttle called.")
 		message_admins("All the AIs, comm consoles and boards are destroyed. Shuttle called.", 1)
-		captain_announce("The emergency shuttle has been called. It will arrive in [round(emergency_shuttle.timeleft()/60)] minutes.")
-		world << sound('sound/AI/shuttlecalled.ogg')
 
 	if(explosive)
 		spawn(10)

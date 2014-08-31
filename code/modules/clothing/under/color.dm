@@ -19,6 +19,9 @@
 	_color = "blue"
 	flags = FPRINT | TABLEPASS | ONESIZEFITSALL
 
+/obj/item/clothing/under/color/blue/dodgeball
+	canremove = 0
+
 /obj/item/clothing/under/color/green
 	name = "green jumpsuit"
 	icon_state = "green"
@@ -32,6 +35,7 @@
 	item_state = "gy_suit"
 	_color = "grey"
 	flags = FPRINT | TABLEPASS | ONESIZEFITSALL
+	species_fit = list("Vox")
 
 /obj/item/clothing/under/color/orange
 	name = "orange jumpsuit"
@@ -56,6 +60,9 @@
 	item_state = "r_suit"
 	_color = "red"
 	flags = FPRINT | TABLEPASS | ONESIZEFITSALL
+
+/obj/item/clothing/under/color/red/dodgeball
+	canremove = 0
 
 /obj/item/clothing/under/color/white
 	name = "white jumpsuit"

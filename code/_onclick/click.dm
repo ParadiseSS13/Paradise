@@ -167,6 +167,8 @@
 	animals lunging, etc.
 */
 /mob/proc/RangedAttack(var/atom/A, var/params)
+	if(ishuman(src) && (istype(src:gloves, /obj/item/clothing/gloves/yellow/power)) && a_intent == "harm")
+		PowerGlove(A)
 	if(!mutations.len) return
 	if((M_LASER in mutations) && a_intent == "harm")
 		LaserEyes(A) // moved into a proc below
@@ -198,9 +200,8 @@
 	Only used for swapping hands
 */
 /mob/proc/MiddleClickOn(var/atom/A)
+	A.point()
 	return
-/mob/living/carbon/MiddleClickOn(var/atom/A)
-	swap_hand()
 
 // In case of use break glass
 /*
@@ -246,13 +247,16 @@
 
 /atom/proc/AltClick(var/mob/user)
 	var/turf/T = get_turf(src)
-	if(T && T.Adjacent(user))
+	if(T && user.TurfAdjacent(T))
 		if(user.listed_turf == T)
 			user.listed_turf = null
 		else
 			user.listed_turf = T
 			user.client.statpanel = T.name
 	return
+
+/mob/proc/TurfAdjacent(var/turf/T)
+	return T.Adjacent(src)
 
 /*
 	Misc helpers
@@ -268,7 +272,7 @@
 	var/turf/T = get_turf(src)
 	var/turf/U = get_turf(A)
 
-	var/obj/item/projectile/beam/LE = new /obj/item/projectile/beam( loc )
+	var/obj/item/projectile/beam/LE = new /obj/item/projectile/beam(loc)
 	LE.icon = 'icons/effects/genetics.dmi'
 	LE.icon_state = "eyelasers"
 	playsound(usr.loc, 'sound/weapons/taser2.ogg', 75, 1)
@@ -290,16 +294,95 @@
 	else
 		src << "\red You're out of energy!  You need food!"
 
+/mob/proc/PowerGlove(atom/A)
+	return
+
+/mob/living/carbon/human/PowerGlove(atom/A)
+	var/obj/item/clothing/gloves/yellow/power/G = src:gloves
+	var/time = 100
+	var/turf/T = get_turf(src)
+	var/turf/U = get_turf(A)
+	var/obj/structure/cable/cable = locate() in T
+	if(!cable || !istype(cable))
+		src << "<span class='warning'>There is no cable here to power the gloves.</span>"
+		return
+	if(world.time < G.next_shock)
+		src << "<span class='warning'>[G] aren't ready to shock again!</span>"
+		return
+	src.visible_message("<span class='warning'>[name] fires an arc of electricity!</span>", \
+	"<span class='warning'>You fire an arc of electricity!</span>", \
+	"You hear the loud crackle of electricity!")
+	var/datum/powernet/PN = cable.get_powernet()
+	var/available = 0
+	var/obj/item/projectile/beam/lightning/L = new /obj/item/projectile/beam/lightning/(get_turf(src))
+	if(PN)
+		available = PN.avail
+		L.damage = PN.get_electrocute_damage()
+		if(available >= 5000000)
+			L.damage = 205
+		if(L.damage >= 200)
+			apply_damage(15, BURN, (hand ? "l_hand" : "r_hand"))
+			//usr:Stun(15)
+			//usr:Weaken(15)
+			//if(usr:status_flags & CANSTUN) // stun is usually associated with stutter
+			//	usr:stuttering += 20
+			time = 200
+			src << "<span class='warning'>[G] overload from the massive current shocking you in the process!"
+		else if(L.damage >= 100)
+			apply_damage(5, BURN, (hand ? "l_hand" : "r_hand"))
+			//usr:Stun(10)
+			//usr:Weaken(10)
+			//if(usr:status_flags & CANSTUN) // stun is usually associated with stutter
+			//	usr:stuttering += 10
+			time = 150
+			src << "<span class='warning'>[G] overload from the massive current shocking you in the process!"
+		var/datum/effect/effect/system/spark_spread/s = new /datum/effect/effect/system/spark_spread
+		s.set_up(5, 1, src)
+		s.start()
+	if(L.damage <= 0)
+		del(L)
+	if(L)
+		playsound(get_turf(src), 'sound/effects/eleczap.ogg', 75, 1)
+		L.tang = L.adjustAngle(get_angle(U,T))
+		L.icon = midicon
+		L.icon_state = "[L.tang]"
+		L.firer = usr
+		L.def_zone = get_organ_target()
+		L.original = src
+		L.current = U
+		L.starting = U
+		L.yo = U.y - T.y
+		L.xo = U.x - T.x
+		spawn( 1 )
+			L.process()
+
+	next_move = world.time + 12
+	G.next_shock = world.time + time
 // Simple helper to face what you clicked on, in case it should be needed in more than one place
 /mob/proc/face_atom(var/atom/A)
-	if( stat || buckled || !A || !x || !y || !A.x || !A.y ) return
+
+	// Snowflake for space vines.
+	var/is_buckled = 0
+	if(buckled)
+		if(istype(buckled))
+			if(!buckled.movable)
+				is_buckled = 1
+		else
+			is_buckled = 0
+
+	if( stat || is_buckled || !A || !x || !y || !A.x || !A.y ) return
 	var/dx = A.x - x
 	var/dy = A.y - y
 	if(!dx && !dy) return
 
+	var/direction
 	if(abs(dx) < abs(dy))
-		if(dy > 0)	usr.dir = NORTH
-		else		usr.dir = SOUTH
+		if(dy > 0)	direction = NORTH
+		else		direction = SOUTH
 	else
-		if(dx > 0)	usr.dir = EAST
-		else		usr.dir = WEST
+		if(dx > 0)	direction = EAST
+		else		direction = WEST
+	usr.dir = direction
+	if(buckled && buckled.movable)
+		buckled.dir = direction
+		buckled.handle_rotation()

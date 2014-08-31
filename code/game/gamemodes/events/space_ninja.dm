@@ -452,7 +452,8 @@ As such, it's hard-coded for now. No reason for it not to be, really.
 	if(ishuman(M))
 		log_admin("[key_name(src)] turned [M.key] into a Space Ninja.")
 		spawn(10)
-			M:create_mind_space_ninja()
+			M.mind.assigned_role = "MODE"
+			M.mind.special_role = "Ninja"
 			M:equip_space_ninja(1)
 			if(istype(M:wear_suit, /obj/item/clothing/suit/space/space_ninja))
 				M:wear_suit:randomize_param()
@@ -464,7 +465,7 @@ As such, it's hard-coded for now. No reason for it not to be, really.
 //=======//CURRENT GHOST VERB//=======//
 
 /client/proc/send_space_ninja()
-	set category = "Fun"
+	set category = "Event"
 	set name = "Spawn Space Ninja"
 	set desc = "Spawns a space ninja for when you need a teenager with attitude."
 	set popup_menu = 0
@@ -521,7 +522,8 @@ As such, it's hard-coded for now. No reason for it not to be, really.
 	mind.assigned_role = "MODE"
 	mind.special_role = "Ninja"
 
-	//ticker.mode.ninjas |= mind
+	ticker.mode.ninjas += mind
+
 	return 1
 
 /mob/living/carbon/human/proc/equip_space_ninja(safety=0)//Safety in case you need to unequip stuff for existing characters.
@@ -562,10 +564,10 @@ As such, it's hard-coded for now. No reason for it not to be, really.
 
 //Randomizes suit parameters.
 /obj/item/clothing/suit/space/space_ninja/proc/randomize_param()
-	s_cost = rand(1,20)
-	s_acost = rand(20,100)
+	s_regen = rand(1,15)
+	s_cost = rand(20,100)
 	k_cost = rand(100,500)
-	k_damage = rand(1,20)
+	k_damage = rand(1,10)
 	s_delay = rand(10,100)
 	s_bombs = rand(5,20)
 	a_boost = rand(1,7)

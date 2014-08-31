@@ -14,6 +14,7 @@ Note: Must be placed west/left of and R&D console to function.
 
 	var/max_material_storage = 100000 //All this could probably be done better with a list but meh.
 	var/m_amount = 0.0
+	var/plasteel_amount = 0.0
 	var/g_amount = 0.0
 	var/gold_amount = 0.0
 	var/silver_amount = 0.0
@@ -21,7 +22,6 @@ Note: Must be placed west/left of and R&D console to function.
 	var/uranium_amount = 0.0
 	var/diamond_amount = 0.0
 	var/clown_amount = 0.0
-	var/adamantine_amount = 0.0
 
 
 /obj/machinery/r_n_d/protolathe/New()
@@ -52,6 +52,8 @@ Note: Must be placed west/left of and R&D console to function.
 	max_material_storage = T * 75000
 
 /obj/machinery/r_n_d/protolathe/attackby(var/obj/item/O as obj, var/mob/user as mob)
+	if(exchange_parts(user, O))
+		return
 	if (shocked)
 		shock(user,50)
 	if (O.is_open_container())
@@ -87,6 +89,9 @@ Note: Must be placed west/left of and R&D console to function.
 			if(g_amount >= 3750)
 				var/obj/item/stack/sheet/glass/G = new /obj/item/stack/sheet/glass(src.loc)
 				G.amount = round(g_amount / G.perunit)
+			if(plasteel_amount >= 2000)
+				var/obj/item/stack/sheet/plasteel/G = new /obj/item/stack/sheet/plasteel(src.loc)
+				G.amount = round(plasteel_amount / G.perunit)
 			if(plasma_amount >= 2000)
 				var/obj/item/stack/sheet/mineral/plasma/G = new /obj/item/stack/sheet/mineral/plasma(src.loc)
 				G.amount = round(plasma_amount / G.perunit)
@@ -105,9 +110,6 @@ Note: Must be placed west/left of and R&D console to function.
 			if(clown_amount >= 2000)
 				var/obj/item/stack/sheet/mineral/clown/G = new /obj/item/stack/sheet/mineral/clown(src.loc)
 				G.amount = round(clown_amount / G.perunit)
-			if(adamantine_amount >= 2000)
-				var/obj/item/stack/sheet/mineral/adamantine/G = new /obj/item/stack/sheet/mineral/adamantine(src.loc)
-				G.amount = round(adamantine_amount / G.perunit)
 			del(src)
 			return 1
 		else
@@ -162,6 +164,8 @@ Note: Must be placed west/left of and R&D console to function.
 				m_amount += amount * 3750
 			if(/obj/item/stack/sheet/glass)
 				g_amount += amount * 3750
+			if(/obj/item/stack/sheet/plasteel)
+				plasteel_amount += amount * 2000
 			if(/obj/item/stack/sheet/mineral/gold)
 				gold_amount += amount * 2000
 			if(/obj/item/stack/sheet/mineral/silver)
@@ -174,8 +178,6 @@ Note: Must be placed west/left of and R&D console to function.
 				diamond_amount += amount * 2000
 			if(/obj/item/stack/sheet/mineral/clown)
 				clown_amount += amount * 2000
-			if(/obj/item/stack/sheet/mineral/adamantine)
-				adamantine_amount += amount * 2000
 	else
 		new stacktype(src.loc, amount)
 	busy = 0

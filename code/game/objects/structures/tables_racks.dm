@@ -10,100 +10,6 @@
 /*
  * Tables
  */
-
-/datum/table_recipe
-	var/name = ""
-	var/reqs[] = list()
-	var/result_path
-	var/tools[] = list()
-	var/time = 0
-	var/parts[] = list()
-	var/chem_catalists[] = list()
-
-/datum/table_recipe/IED
-	name = "IED"
-	result_path = /obj/item/weapon/grenade/iedcasing
-	reqs = list("/obj/item/weapon/handcuffs/cable" = 1,
-				"/obj/item/stack/cable_coil" = 1,
-				"/obj/item/device/assembly/igniter" = 1,
-				"/obj/item/weapon/reagent_containers/food/drinks/cans" = 1,
-				"/datum/reagent/fuel" = 10)
-	time = 80
-
-/datum/table_recipe/stunprod
-	name = "Stunprod"
-	result_path = /obj/item/weapon/melee/baton/cattleprod
-	reqs = list("/obj/item/weapon/handcuffs/cable" = 1,
-				"/obj/item/stack/rods" = 1,
-				"/obj/item/weapon/wirecutters" = 1,
-				"/obj/item/weapon/cell" = 1)
-	time = 80
-	parts = list("/obj/item/weapon/cell" = 1)
-
-/datum/table_recipe/ed209
-	name = "ED209"
-	result_path = /obj/machinery/bot/ed209
-	reqs = list("/obj/item/robot_parts/robot_suit" = 1,
-				"/obj/item/clothing/head/helmet" = 1,
-				"/obj/item/clothing/suit/armor/vest" = 1,
-				"/obj/item/robot_parts/l_leg" = 1,
-				"/obj/item/robot_parts/r_leg" = 1,
-				"/obj/item/stack/sheet/metal" = 5,
-				"/obj/item/stack/cable_coil" = 5,
-				"/obj/item/weapon/gun/energy/taser" = 1,
-				"/obj/item/weapon/cell" = 1,
-				"/obj/item/device/assembly/prox_sensor" = 1,
-				"/obj/item/robot_parts/r_arm" = 1)
-	tools = list(/obj/item/weapon/weldingtool, /obj/item/weapon/screwdriver)
-	time = 120
-
-/datum/table_recipe/secbot
-	name = "Secbot"
-	result_path = /obj/machinery/bot/secbot
-	reqs = list("/obj/item/device/assembly/signaler" = 1,
-				"/obj/item/clothing/head/helmet" = 1,
-				"/obj/item/weapon/melee/baton" = 1,
-				"/obj/item/device/assembly/prox_sensor" = 1,
-				"/obj/item/robot_parts/r_arm" = 1)
-	tools = list(/obj/item/weapon/weldingtool)
-	time = 120
-
-/datum/table_recipe/cleanbot
-	name = "Cleanbot"
-	result_path = /obj/machinery/bot/cleanbot
-	reqs = list("/obj/item/weapon/reagent_containers/glass/bucket" = 1,
-				"/obj/item/device/assembly/prox_sensor" = 1,
-				"/obj/item/robot_parts/r_arm" = 1)
-	time = 80
-
-/datum/table_recipe/floorbot
-	name = "Floorbot"
-	result_path = /obj/machinery/bot/floorbot
-	reqs = list("/obj/item/weapon/storage/toolbox/mechanical" = 1,
-				"/obj/item/stack/tile/plasteel" = 1,
-				"/obj/item/device/assembly/prox_sensor" = 1,
-				"/obj/item/robot_parts/r_arm" = 1)
-	time = 80
-
-/datum/table_recipe/medbot
-	name = "Medbot"
-	result_path = /obj/machinery/bot/medbot
-	reqs = list("/obj/item/device/healthanalyzer" = 1,
-				"/obj/item/weapon/storage/firstaid" = 1,
-				"/obj/item/device/assembly/prox_sensor" = 1,
-				"/obj/item/robot_parts/r_arm" = 1)
-	time = 80
-
-/datum/table_recipe/flamethrower
-	name = "Flamethrower"
-	result_path = /obj/item/weapon/flamethrower
-	reqs = list("/obj/item/weapon/weldingtool" = 1,
-				"/obj/item/device/assembly/igniter" = 1,
-				"/obj/item/stack/rods" = 2)
-	tools = list(/obj/item/weapon/screwdriver)
-	time = 20
-
-
 /obj/structure/table
 	name = "table"
 	desc = "A square piece of metal standing on four metal legs. It can not move."
@@ -113,6 +19,8 @@
 	anchored = 1.0
 	layer = 2.8
 	throwpass = 1	//You can throw objects over this, despite it's density.")
+	climbable = 1
+
 	var/parts = /obj/item/weapon/table_parts
 	var/flipped = 0
 	var/health = 100
@@ -133,10 +41,11 @@
 	update_icon()
 	update_adjacent()
 
-/obj/structure/table/Del()
+	craft_holder = new /datum/crafting_holder(src, "table")
+
+/obj/structure/table/Destroy()
 	update_adjacent()
 	..()
-
 
 /obj/structure/table/proc/destroy()
 	new parts(loc)
@@ -146,187 +55,7 @@
 /obj/structure/table/MouseDrop(atom/over)
 	if(usr.stat || usr.lying || !Adjacent(usr) || (over != usr))
 		return
-	interact(usr)
-
-/obj/structure/table/proc/check_contents(datum/table_recipe/R)
-	check_table()
-	var/I = R.reqs.len
-	var/i = R.reqs.len
-	for(var/A in R.reqs)
-		var/AP = text2path(A)
-		if(!ispath(AP))
-			for(var/B in table_contents)
-				if(!ispath(B))
-					if(table_contents[B] >= R.reqs[A])
-						i--
-						break
-			I--
-			if(i > I)
-				return 0
-			else
-				continue
-		for(var/B in table_contents)
-			var/BP = text2path(B)
-			if(ispath(BP, AP))
-				if(table_contents[B] >= R.reqs[A])
-					i--
-					break
-		I--
-		if(i > I)
-			return 0
-	for(var/A in R.chem_catalists)
-		if(table_contents[A] < R.chem_catalists[A])
-			return 0
-	return !i
-
-/obj/structure/table/proc/check_table()
-	table_contents = list()
-	for(var/obj/item/I in loc)
-		if(istype(I, /obj/item/stack))
-			var/obj/item/stack/S = I
-			table_contents["[I.type]"] += S.amount   //(table_contents[I.type] ? (table_contents[I.type] + S.amount) : S.amount)
-		else
-			if(istype(I, /obj/item/weapon/reagent_containers))
-				for(var/datum/reagent/R in I.reagents.reagent_list)
-					table_contents["[R.type]"] += R.volume
-
-			table_contents["[I.type]"] += 1 //(table_contents[I.type] ? (table_contents[I.type] + 1) : 1)
-
-/obj/structure/table/proc/check_tools(mob/user, datum/table_recipe/TR)
-	if(!TR.tools.len)
-		return 1
-	var/list/possible_tools = list()
-	for(var/obj/item/I in user.contents)
-		if(istype(I, /obj/item/weapon/storage))
-			for(var/obj/item/SI in I.contents)
-				possible_tools += (SI.type)
-		else
-			possible_tools += (I.type)
-	for(var/obj/item/TI in loc)
-		possible_tools |= (TI.type)
-	var/i = TR.tools.len
-	var/I
-	for(var/A in TR.tools)
-		I = possible_tools.Find(A)
-		if(I)
-			possible_tools.Cut(I, I+1)
-			i--
-		else
-			break
-	return !i
-
-/obj/structure/table/proc/construct_item(mob/user, datum/table_recipe/TR)
-	check_table()
-	if(check_contents(TR) && check_tools(user, TR))
-		if(do_after(user, TR.time))
-			if(!check_contents(TR) || !check_tools(user, TR))
-				return 0
-			var/list/parts = del_reqs(TR)
-			var/atom/movable/I = new TR.result_path
-			for(var/A in parts)
-				if(istype(A, /obj/item))
-					var/atom/movable/B = A
-					B.loc = I
-				else
-					if(!I.reagents)
-						I.reagents = new /datum/reagents()
-					I.reagents.reagent_list.Add(A)
-			I.CheckParts()
-			I.loc = loc
-			return 1
-	return 0
-
-/obj/structure/table/proc/del_reqs(datum/table_recipe/R)
-	var/list/Deletion = list()
-	var/AP
-	var/BP
-	var/amt
-	for(var/A in R.reqs)
-		amt = R.reqs[A]
-		AP = text2path(A)
-		if(ispath(AP, /obj/item/stack))
-			var/obj/item/stack/S
-			stack_loop:
-				for(var/B in table_contents)
-					BP = text2path(B)
-					if(ispath(BP, AP))
-						while(amt > 0)
-							S = locate(BP) in loc
-							if(S.amount >= amt)
-								S.use(amt)
-								break stack_loop
-							else
-								amt -= S.amount
-								del(S)
-		else if(ispath(AP, /obj/item))
-			var/obj/item/I
-			item_loop:
-				for(var/B in table_contents)
-					BP = text2path(B)
-					if(ispath(BP, AP))
-						while(amt > 0)
-							I = locate(BP) in loc
-							Deletion.Add(I)
-							amt--
-						break item_loop
-		else
-			var/datum/reagent/RG = new AP
-			reagent_loop:
-				for(var/B in table_contents)
-					BP = text2path(B)
-					if(ispath(BP, /obj/item/weapon/reagent_containers))
-						var/obj/item/RC = locate(BP) in loc
-						if(RC.reagents.has_reagent(RG.id, amt))
-							RC.reagents.remove_reagent(RG.id, amt)
-							RG.volume = amt
-							Deletion.Add(RG)
-							break reagent_loop
-						else if(RC.reagents.has_reagent(RG.id))
-							Deletion.Add(RG)
-							RG.volume += RC.reagents.get_reagent_amount(RG.id)
-							amt -= RC.reagents.get_reagent_amount(RG.id)
-							RC.reagents.del_reagent(RG.id)
-
-	for(var/A in R.parts)
-		AP = text2path(A)
-		for(var/B in Deletion)
-			if(!istype(B, AP))
-				Deletion.Remove(B)
-				del(B)
-	return Deletion
-
-/obj/structure/table/interact(mob/user)
-	check_table()
-	if(!table_contents.len)
-		return
-	var/dat = "<h3>Construction menu</h3>"
-	dat += "<div class='statusDisplay'>"
-	if(busy)
-		dat += "Construction inprogress...</div>"
-	else
-		for(var/datum/table_recipe/R in table_recipes)
-			if(check_contents(R))
-				dat += "<A href='?src=\ref[src];make=\ref[R]'>[R.name]</A><BR>"
-		dat += "</div>"
-
-	var/datum/browser/popup = new(user, "table", "Table", 300, 300)
-	popup.set_content(dat)
-	popup.open()
-	return
-
-/obj/structure/table/Topic(href, href_list)
-	if(usr.stat || !Adjacent(usr) || usr.lying)
-		return
-	if(href_list["make"])
-		var/datum/table_recipe/TR = locate(href_list["make"])
-		busy = 1
-		interact(usr)
-		if(construct_item(usr, TR))
-			usr << "<span class='notice'>[TR.name] constructed.</span>"
-		else
-			usr << "<span class ='warning'>Construction failed.</span>"
-		busy = 0
-	attack_hand(usr)
+	craft_holder.interact(usr)
 
 /obj/structure/table/update_icon()
 	if(flipped)
@@ -576,6 +305,8 @@
 		return (check_cover(mover,target))
 	if(istype(mover) && mover.checkpass(PASSTABLE))
 		return 1
+	if(locate(/obj/structure/table) in get_turf(mover))
+		return 1
 	if (flipped)
 		if (get_dir(loc, target) == dir)
 			return !density
@@ -621,6 +352,7 @@
 	return 1
 
 /obj/structure/table/MouseDrop_T(obj/O as obj, mob/user as mob)
+	..()
 	if ((!( istype(O, /obj/item/weapon) ) || user.get_active_hand() != O))
 		return
 	if(isrobot(user))
@@ -676,38 +408,39 @@
 	return
 
 /obj/structure/table/proc/straight_table_check(var/direction)
-	var/turf/left = get_step(src,turn(direction,90))
-	var/turf/right = get_step(src,turn(direction,-90))
-	var/turf/next = get_step(src,direction)
-	if(locate(/obj/structure/table,left) || locate(/obj/structure/table,right))
-		return 0
-	var/obj/structure/table/T = locate(/obj/structure/table, next)
+	var/obj/structure/table/T
+	for(var/angle in list(-90,90))
+		T = locate() in get_step(src.loc,turn(direction,angle))
+		if(T && !T.flipped)
+			return 0
+	T = locate() in get_step(src.loc,direction)
+	if (!T || T.flipped)
+		return 1
 	if (istype(T,/obj/structure/table/reinforced/))
 		var/obj/structure/table/reinforced/R = T
 		if (R.status == 2)
 			return 0
-	if (!T)
-		return 1
-	else
-		return T.straight_table_check(direction)
+	return T.straight_table_check(direction)
 
 /obj/structure/table/verb/do_flip()
 	set name = "Flip table"
 	set desc = "Flips a non-reinforced table"
-	set category = "Object"
+	set category = null
 	set src in oview(1)
 
-	if (issilicon(usr))
-		usr << "<span class='notice'>You need hands for this.</span>"
+	if (!can_touch(usr) || ismouse(usr))
 		return
-	if (isobserver(usr))
-		usr << "<span class='notice'>No haunting outside halloween.</span>n"
-		return
+
 	if(!flip(get_cardinal_dir(usr,src)))
 		usr << "<span class='notice'>It won't budge.</span>"
-	else
-		usr.visible_message("<span class='warning'>[usr] flips \the [src]!</span>")
 		return
+
+	usr.visible_message("<span class='warning'>[usr] flips \the [src]!</span>")
+
+	if(climbable)
+		structure_shaken()
+
+	return
 
 /obj/structure/table/proc/do_put()
 	set name = "Put table back"
@@ -785,6 +518,7 @@
 	icon_state = "wood_table"
 	parts = /obj/item/weapon/table_parts/wood
 	health = 50
+	autoignition_temperature = AUTOIGNITION_WOOD // TODO:  Special ash subtype that looks like charred table legs.
 
 /obj/structure/table/woodentable/attackby(obj/item/I as obj, mob/user as mob)
 

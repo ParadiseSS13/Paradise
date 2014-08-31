@@ -47,14 +47,16 @@ var/const/MAX_ACTIVE_TIME = 400
 
 	maxHealth = 5
 	health = 5
+	density = 0 // Avoiding Facehugger clusterfucks at the egg room.
 	var/strength=5
 	var/sterile = 0
 	var/attached = 0
+	var/icon_dead = "facehugger_dead"
 
 /mob/living/carbon/alien/facehugger/New()
 	if(aliens_allowed)
-		if(name == "alien facehugger")
-			name = "alien facehugger ([rand(1, 1000)])"
+//		if(name == "alien facehugger")
+//			name = "alien facehugger ([rand(1, 1000)])"
 		real_name = name
 		regenerate_icons()
 		..()
@@ -82,6 +84,9 @@ var/const/MAX_ACTIVE_TIME = 400
 			..()
 			return
 	..()
+
+/mob/living/carbon/alien/facehugger/UnarmedAttack(var/atom/A)
+	return
 
 /mob/living/carbon/alien/facehugger/examine()
 	..()
@@ -116,37 +121,46 @@ var/const/MAX_ACTIVE_TIME = 400
 				O << text("[] slowly peaks up from the ground...", src)
 
 
-/mob/living/carbon/alien/facehugger/verb/Attach(M as mob)
+/mob/living/carbon/alien/facehugger/verb/Attach()
 	set name = "Facehug"
 	set desc = "Allows you to molest someone's mouth-hole in the hope of impregnating them with an embryo."
 	set category = "Alien"
+
+	var/list/choices = list()
+	for(var/mob/living/L in view(1,src))
+		if(L.stat != 2 && !istype(L,/mob/living/carbon/alien) && src.Adjacent(L))
+			choices += L
+
+	var/mob/living/M = pick(choices)
+
+	if(!M || !src) return
+
+	if(!(src.Adjacent(M))) return
 
 	if( (!iscorgi(M) && !iscarbon(M)) || isalien(M))
 		return
 	if(attached)
 		return
-	else
-		attached++
-		spawn(MAX_IMPREGNATION_TIME)
-			attached = 0
 
-	var/mob/living/L = M //just so I don't need to use :
+	attached++
+	spawn(MAX_IMPREGNATION_TIME)
+		attached = 0
 
-	if(loc == L) return
+	if(loc == M) return
 	if(stat != CONSCIOUS)	return
-	if(!sterile) L.take_organ_damage(strength,0) //done here so that even borgs and humans in helmets take damage
+	if(!sterile) M.take_organ_damage(strength,0) //done here so that even borgs and humans in helmets take damage
 
-	L.visible_message("\red \b [src] leaps at [L]'s face!")
+	M.visible_message("\red \b [src] leaps at [M]'s face!")
 
-	if(ishuman(L))
-		var/mob/living/carbon/human/H = L
+	if(ishuman(M))
+		var/mob/living/carbon/human/H = M
 		if(H.head && H.head.flags & HEADCOVERSMOUTH)
 			H.visible_message("\red \b [src] smashes against [H]'s [H.head]!")
 			death()
 			return
 
 	if(iscarbon(M))
-		var/mob/living/carbon/target = L
+		var/mob/living/carbon/target = M
 
 		if(target.wear_mask)
 			if(prob(20))	return
@@ -162,7 +176,8 @@ var/const/MAX_ACTIVE_TIME = 400
 		target.equip_to_slot(FH, slot_wear_mask)
 		target.regenerate_icons()
 
-		if(!sterile) L.Paralyse(MAX_IMPREGNATION_TIME/6) //something like 25 ticks = 20 seconds with the default settings
+		if(!sterile) M.Paralyse(MAX_IMPREGNATION_TIME/6) //something like 25 ticks = 20 seconds with the default settings
+
 	else if (iscorgi(M))
 		var/mob/living/simple_animal/corgi/C = M
 		var/obj/item/weapon/holder/facehugger/FH = new(loc)
@@ -175,13 +190,12 @@ var/const/MAX_ACTIVE_TIME = 400
 
 
 	spawn(rand(MIN_IMPREGNATION_TIME,MAX_IMPREGNATION_TIME))
-		Impregnate(L)
+		Impregnate(M)
 
 	return
 
 /mob/living/carbon/alien/facehugger/proc/Impregnate(mob/living/target as mob)
-	if(!target || !target.wear_mask || (!src in target.wear_mask.contents)  || target.stat == DEAD) //was taken off or something
-		message_admins("Something went wrong with the impregnation!")
+	if(!target || !target.wear_mask || (!src in target.wear_mask.contents)  || target.stat == DEAD || target.status_flags & XENO_HOST) //was taken off or something
 		return
 
 	if(!sterile)
@@ -217,4 +231,92 @@ var/const/MAX_ACTIVE_TIME = 400
 		var/mob/living/carbon/human/H = C
 		if(H.head && H.head.flags & HEADCOVERSMOUTH)
 			return 0
+	return 1
+
+/mob/living/carbon/alien/facehugger/Login()
+	..()
+	sleeping = 0
+
+/mob/living/carbon/alien/facehugger/death(gibbed)
+	icon_state = icon_dead
+	return ..(gibbed)
+
+/mob/living/carbon/alien/facehugger/Life()
+	..()
+	//Status updates, death etc.
+	handle_regular_status_updates()
+
+/mob/living/carbon/alien/facehugger/proc/handle_regular_status_updates()
+	updatehealth()
+
+	if(stat == DEAD)	//DEAD. BROWN BREAD. SWIMMING WITH THE SPESS CARP
+		blinded = 1
+		silent = 0
+	else				//ALIVE. LIGHTS ARE ON
+		if(health <= 0 || brain_op_stage == 4.0)
+			death()
+			blinded = 1
+			silent = 0
+			return 1
+
+		//UNCONSCIOUS. NO-ONE IS HOME
+		if( (getOxyLoss() > 5) || (0 > health) )
+			//if( health <= 20 && prob(1) )
+			//	spawn(0)
+			//		emote("gasp")
+			if(!reagents.has_reagent("inaprovaline"))
+				adjustOxyLoss(1)
+			Paralyse(3)
+
+		if(paralysis)
+			AdjustParalysis(-2)
+			blinded = 1
+			stat = UNCONSCIOUS
+		else if(sleeping)
+			sleeping = max(sleeping-1, 0)
+			blinded = 1
+			stat = UNCONSCIOUS
+			if( prob(10) && health )
+				spawn(0)
+					emote("hiss_")
+		//CONSCIOUS
+		else
+			stat = CONSCIOUS
+
+		/*	What in the living hell is this?*/
+		if(move_delay_add > 0)
+			move_delay_add = max(0, move_delay_add - rand(1, 2))
+
+		//Eyes
+		if(sdisabilities & BLIND)	//disabled-blind, doesn't get better on its own
+			blinded = 1
+		else if(eye_blind)			//blindness, heals slowly over time
+			eye_blind = max(eye_blind-1,0)
+			blinded = 1
+		else if(eye_blurry)	//blurry eyes heal slowly
+			eye_blurry = max(eye_blurry-1, 0)
+
+		//Ears
+		if(sdisabilities & DEAF)	//disabled-deaf, doesn't get better on its own
+			ear_deaf = max(ear_deaf, 1)
+		else if(ear_deaf)			//deafness, heals slowly over time
+			ear_deaf = max(ear_deaf-1, 0)
+		else if(ear_damage < 5)	//ear damage heals slowly under this threshold.
+			ear_damage = max(ear_damage-0.05, 0)
+
+		//Other
+		if(stunned)
+			AdjustStunned(-1)
+
+		if(weakened)
+			weakened = max(weakened-1,0)	//before you get mad Rockdtben: I done this so update_canmove isn't called multiple times
+
+		if(stuttering)
+			stuttering = max(stuttering-1, 0)
+
+		if(silent)
+			silent = max(silent-1, 0)
+
+		if(druggy)
+			druggy = max(druggy-1, 0)
 	return 1

@@ -36,7 +36,7 @@
 		if(reagents.total_volume)
 			reagents.reaction(M, INGEST)
 			spawn(5)
-				reagents.trans_to(M, 10)
+				reagents.trans_to_ingest(M, 10)
 
 		playsound(M.loc,'sound/items/drink.ogg', rand(10,50), 1)
 		return 1
@@ -50,7 +50,8 @@
 
 		M.attack_log += text("\[[time_stamp()]\] <font color='orange'>Has been fed [src.name] by [user.name] ([user.ckey]) Reagents: [reagentlist(src)]</font>")
 		user.attack_log += text("\[[time_stamp()]\] <font color='red'>Fed [src.name] by [M.name] ([M.ckey]) Reagents: [reagentlist(src)]</font>")
-		msg_admin_attack("[user.name] ([user.ckey]) fed [M.name] ([M.ckey]) with [src.name] (INTENT: [uppertext(user.a_intent)]) (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[user.x];Y=[user.y];Z=[user.z]'>JMP</a>)")
+		if(M.ckey)
+			msg_admin_attack("[user.name] ([user.ckey]) fed [M.name] ([M.ckey]) with [src.name] (INTENT: [uppertext(user.a_intent)]) (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[user.x];Y=[user.y];Z=[user.z]'>JMP</a>)")
 		if(!iscarbon(user))
 			M.LAssailant = null
 		else
@@ -190,16 +191,16 @@
 	if(istype(target, /obj/item/weapon/reagent_containers/food/snacks))
 		if(!reagents.total_volume)
 			user << "<span class='warning'>You tear open [src], but there's nothing in it.</span>"
-			Del()
+			Destroy()
 			return
 		if(target.reagents.total_volume >= target.reagents.maximum_volume)
 			user << "<span class='warning'>You tear open [src], but [target] is stacked so high that it just drips off!</span>" //Not sure if food can ever be full, but better safe than sorry.
-			Del()
+			Destroy()
 			return
 		else
 			user << "<span class='notice'>You tear open [src] above [target] and the condiments drip onto it.</span>"
 			src.reagents.trans_to(target, amount_per_transfer_from_this)
-			Del()
+			Destroy()
 
 /obj/item/weapon/reagent_containers/food/condiment/pack/on_reagent_change()
 	if(reagents.reagent_list.len > 0)

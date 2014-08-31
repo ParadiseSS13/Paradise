@@ -25,11 +25,11 @@
 /obj/effect/portal/New()
 	portals += src
 	spawn(300)
-		del(src)
+		qdel(src)
 		return
 	return
 
-/obj/effect/portal/Del()
+/obj/effect/portal/Destroy()
 	portals -= src
 	return ..()
 

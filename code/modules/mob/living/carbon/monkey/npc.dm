@@ -87,13 +87,3 @@ mob/living/carbon/monkey/react_to_attack(mob/M)
 
 		npc_fleeing = M
 		fleeing_duration = 30
-
-
-/*/mob/living/proc/apply_damage(var/damage = 0,var/damagetype = BRUTE, var/def_zone = null, var/blocked = 0, var/slash = 0, var/used_weapon = null)
-	if(!client && !stat)
-		if(damage > 10)
-			if(prob(40) || health == 100)
-				emote("me", 2, pick("screams loudly!", "whimpers in pain!"))
-		else if(health == 100 || (damage > 0 && prob(10)))
-			emote("me", 1, pick("flails about wildly!", "cringes visibly!", "chimpers nervously."))
-	return ..()*/

@@ -82,22 +82,13 @@ VOX HEIST ROUNDTYPE
 		raider.current.loc = raider_spawn[index]
 		index++
 
-		var/sounds = rand(2,8)
-		var/i = 0
-		var/newname = ""
-
-		while(i<=sounds)
-			i++
-			newname += pick(list("ti","hi","ki","ya","ta","ha","ka","ya","chi","cha","kah"))
 
 		var/mob/living/carbon/human/vox = raider.current
-
-		vox.real_name = capitalize(newname)
-		vox.name = vox.real_name
 		raider.name = vox.name
 		vox.age = rand(12,20)
 		vox.dna.mutantrace = "vox"
 		vox.set_species("Vox")
+		vox.generate_name()
 		vox.languages = list() // Removing language from chargen.
 		vox.flavor_text = ""
 		vox.add_language("Vox-pidgin")
@@ -144,7 +135,8 @@ VOX HEIST ROUNDTYPE
 	objs += new /datum/objective/heist/inviolate_crew
 	objs += new /datum/objective/heist/inviolate_death */
 
-	raid_objectives += new /datum/objective/vox/heist/kidnap
+	if(prob(25))
+		raid_objectives += new /datum/objective/vox/heist/kidnap
 	raid_objectives += new /datum/objective/vox/heist/loot
 	raid_objectives += new /datum/objective/vox/heist/salvage
 	raid_objectives += new /datum/objective/vox/inviolate_crew
@@ -262,8 +254,9 @@ datum/game_mode/proc/auto_declare_completion_heist()
 	return 1
 
 /datum/game_mode/vox/heist/check_finished()
-	if (!(is_vox_crew_alive()) || (vox_shuttle_location && (vox_shuttle_location == "start")))
-		return 1
+	// DO NOT FORGET TO FIX THIS.
+	//if (!(is_vox_crew_alive()) || (vox_shuttle_location && (vox_shuttle_location == "start")))
+	//	return 1
 	return ..()
 
 /datum/game_mode/vox/heist/proc/is_vox_crew_alive()

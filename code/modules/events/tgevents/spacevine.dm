@@ -39,7 +39,7 @@
 	New()
 		return
 
-	Del()
+	Destroy()
 		if(master)
 			master.vines -= src
 			master.growth_queue -= src
@@ -128,7 +128,7 @@
 		spawn_spacevine_piece(src.loc)
 		processing_objects.Add(src)
 
-	Del()
+	Destroy()
 		processing_objects.Remove(src)
 		..()
 
@@ -263,6 +263,4 @@
 				return
 	return
 
-/obj/effect/spacevine/temperature_expose(null, temp, volume) //hotspots kill vines
-	del src
 

@@ -32,7 +32,7 @@
 			intercepttext += "Message ends."
 			for (var/mob/living/silicon/ai/aiPlayer in player_list)
 				if (aiPlayer.client)
-					var/law = "The station is under quarantine, prevent biological entities from leaving the station at all costs while minimizing collateral damage. The nuclear failsafe must be activated at any cost, the code is: [get_nuke_code()]."
+					var/law = "The station is under quarantine, prevent biological entities from leaving the station at all costs. The nuclear failsafe must be activated at any cost, the code is: [get_nuke_code()]."
 					aiPlayer.set_zeroth_law(law)
 					aiPlayer << "\red <b>You have detected a change in your laws information:</b>"
 					aiPlayer << "Laws Updated: [law]"

@@ -1,4 +1,3 @@
-#define SAY_MINIMUM_PRESSURE 10
 var/list/department_radio_keys = list(
 	  ":r" = "right ear",	"#r" = "right ear",		".r" = "right ear", "!r" = "fake right ear",
 	  ":l" = "left ear",	"#l" = "left ear",		".l" = "left ear",  "!l" = "fake left ear",
@@ -146,6 +145,7 @@ var/list/department_radio_keys = list(
 	var/italics = 0
 	var/message_range = null
 	var/message_mode = null
+
 	var/datum/language/speaking = null //For use if a specific language is being spoken.
 
 	var/braindam = getBrainLoss()
@@ -178,7 +178,7 @@ var/list/department_radio_keys = list(
 		message_mode = department_radio_keys[channel_prefix]
 		if (message_mode || speaking || copytext(message,1,2) == ":")
 			message = trim(copytext(message, 3))
-			if (!(istype(src,/mob/living/carbon/human) || istype(src,/mob/living/carbon/monkey) || istype(src, /mob/living/simple_animal/parrot) || isrobot(src) && (message_mode=="department" || (message_mode in radiochannels))))
+			if (!(istype(src,/mob/living/carbon/human) || istype(src,/mob/living/carbon/monkey) || istype(src, /mob/living/simple_animal/parrot) || isrobot(src) && (message_mode=="department" || isAI(src) && (message_mode=="department") || (message_mode in radiochannels))))
 				message_mode = null //only humans can use headsets
 
 	if(src.stunned > 2 || (traumatic_shock > 61 && prob(50)))
@@ -284,7 +284,6 @@ var/list/department_radio_keys = list(
 				message_range = 1
 				italics = 1
 
-
 			if("changeling")
 				if(mind && mind.changeling)
 					log_say("[key_name(src)] ([mind.changeling.changelingID]): [message]")
@@ -301,11 +300,18 @@ var/list/department_radio_keys = list(
 					if(C:l_ear) devices += C:l_ear
 					if(C:r_ear) devices += C:r_ear
 				if(issilicon(src))
-					var/mob/living/silicon/Ro=src
-					if(Ro:radio)
-						devices += Ro:radio
+					if(isAI(src))//for the AI's radio.  This can't be with the borg thing above due to typecasting.
+						var/mob/living/silicon/ai/A = src
+						if(A.radio)
+							A.radio.talk_into(src, message, message_mode)
+							used_radios += A.radio
 					else
-						warning("[src] has no radio!")
+						var/mob/living/silicon/Ro=src
+						if(!isAI(Ro))
+							if(Ro:radio)
+								devices += Ro:radio
+						else
+							warning("[src] has no radio!")
 				message_range = 1
 				italics = 1
 	if(devices.len>0)
@@ -322,14 +328,14 @@ var/list/department_radio_keys = list(
 	var/datum/gas_mixture/environment = loc.return_air()
 	if(environment)
 		var/pressure = environment.return_pressure()
-		if (pressure < SAY_MINIMUM_PRESSURE)	//in space no one can hear you scream
+		if(pressure < SOUND_MINIMUM_PRESSURE)
 			italics = 1
 			message_range = 1
 
 	var/list/listening
 
 	listening = get_mobs_in_view(message_range, src)
-	var/list/onscreen = get_mobs_in_view(7, src)
+	var/list/onscreen = viewers()
 	for(var/mob/M in player_list)
 		if (!M.client)
 			continue //skip monkeys and leavers
@@ -356,6 +362,13 @@ var/list/department_radio_keys = list(
 			if(P.speech_buffer.len >= 10)
 				P.speech_buffer.Remove(pick(P.speech_buffer))
 			P.speech_buffer.Add(message)
+
+		if (isslime(A))
+			var/mob/living/carbon/slime/S = A
+			if (src in S.Friends)
+				S.speech_buffer = list()
+				S.speech_buffer.Add(src)
+				S.speech_buffer.Add(lowertext(html_decode(message)))
 
 		if(istype(A, /obj/)) //radio in pocket could work, radio in backpack wouldn't --rastaf0
 			var/obj/O = A
@@ -384,7 +397,7 @@ var/list/department_radio_keys = list(
 		if(M != src && is_speaking_radio)
 			M:show_message("<span class='notice'>[src] talks into [used_radios.len ? used_radios[1] : "radio"]</span>")
 
-	if(message_mode == null)
+/*	if(message_mode == null)
 		var/accent = "en-us"
 		var/voice = "m7"
 		var/speed = 175
@@ -399,7 +412,7 @@ var/list/department_radio_keys = list(
 			voice = src.client.prefs.voice
 			speed = src.client.prefs.talkspeed
 			pitch = src.client.prefs.pitch
-			src:texttospeech(message, speed, pitch, accent, "+[voice]", echo)
+			src:texttospeech(message, speed, pitch, accent, "+[voice]", echo)*/
 
 	var/rendered = null
 
@@ -415,14 +428,14 @@ var/list/department_radio_keys = list(
 
 		for (var/mob/M in heard_a)
 		//BEGIN TELEPORT CHANGES
-			if(message_mode == null && fexists("sound/playervoices/[src.ckey].ogg"))
+/*			if(message_mode == null && fexists("sound/playervoices/[src.ckey].ogg"))
 				if(M.client)
 					if(M.client.prefs)
 						if(M.client.prefs.sound & SOUND_VOICES)
-							M.playsound_local(get_turf(src), "sound/playervoices/[src.ckey].ogg", 70, 0, 5, 1)
+							M.playsound_local(get_turf(src), "sound/playervoices/[src.ckey].ogg", 70, 0, 5, 1)*/
 			if(!istype(M, /mob/new_player))
 				if(M && M.stat == DEAD)
-					if ((M.client.prefs.toggles & CHAT_GHOSTEARS) &&  M in onscreen)
+					if (M.client && M.client.prefs && (M.client.prefs.toggles & CHAT_GHOSTEARS) &&  M in onscreen)
 						rendered2 = "<span class='game say'><span class='name'>[GetVoice()]</span></span> [alt_name] <a href='byond://?src=\ref[M];follow2=\ref[M];follow=\ref[src]'>(Follow)</a> <span class='message'>[message_ghost]</span></span>"
 					else
 						rendered2 = "<span class='game say'><span class='name'>[GetVoice()]</span></span> [alt_name] <a href='byond://?src=\ref[M];follow2=\ref[M];follow=\ref[src]'>(Follow)</a> <span class='message'>[message_a]</span></span>"
@@ -486,11 +499,6 @@ var/list/department_radio_keys = list(
 			sleep(11)
 			del(B)
 		*/
-
-	//talking items
-	for(var/obj/item/weapon/O in view(3,src))
-		if(O.listening_to_players)
-			O.catchMessage(message, src)
 
 	log_say("[name]/[key] : [message]")
 

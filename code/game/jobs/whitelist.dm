@@ -2,6 +2,11 @@
 
 var/list/whitelist = list()
 
+/hook/startup/proc/loadWhitelist()
+	if(config.usewhitelist)
+		load_whitelist()
+	return 1
+
 /proc/load_whitelist()
 	whitelist = file2list(WHITELISTFILE)
 	if(!whitelist.len)	whitelist = null
@@ -39,9 +44,14 @@ var/list/whitelist = list()
 
 
 
-var/list/alien_whitelist = list()
+/var/list/alien_whitelist = list()
 
-proc/load_alienwhitelist()
+/hook/startup/proc/loadAlienWhitelist()
+	if(config.usealienwhitelist)
+		load_alienwhitelist()
+	return 1
+
+/proc/load_alienwhitelist()
 	var/text = file2text("config/alienwhitelist.txt")
 	if (!text)
 		diary << "Failed to load config/alienwhitelist.txt\n"
@@ -62,7 +72,7 @@ proc/load_alienwhitelist()
 		usr << "\red Unable to connect to whitelist database. Please try again later.<br>"
 		return 0
 	else
-		var/DBQuery/query = dbcon.NewQuery("SELECT species FROM whitelist WHERE ckey='[M.ckey]'")
+		var/DBQuery/query = dbcon.NewQuery("SELECT species FROM whitelist WHERE ckey='[M.key]'")
 		query.Execute()
 
 		while(query.NextRow())

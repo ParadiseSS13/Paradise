@@ -9,6 +9,12 @@
 	src:Topic(href, href_list)
 	return null
 
+/proc/get_area_master(const/O)
+	var/area/A = get_area(O)
+
+	if (isarea(A))
+		return A.master
+
 /proc/get_area(O)
 	var/atom/location = O
 	var/i
@@ -161,6 +167,8 @@
 // The old system would loop through lists for a total of 5000 per function call, in an empty server.
 // This new system will loop at around 1000 in an empty server.
 
+// SCREW THAT SHIT, we're not recursing.
+
 /proc/get_mobs_in_view(var/R, var/atom/source)
 	// Returns a list of mobs in range of R from source. Used in radio and say code.
 
@@ -172,18 +180,33 @@
 
 	var/list/range = hear(R, T)
 
-	for(var/atom/A in range)
-		if(ismob(A))
-			var/mob/M = A
-			if(M.client)
-				hear += M
-			//world.log << "Start = [M] - [get_turf(M)] - ([M.x], [M.y], [M.z])"
-		else if(istype(A, /obj/item/device/radio))
-			hear += A
+	for(var/mob/M in range)
+		hear += M
 
-		if(isobj(A) || ismob(A))
-			hear |= recursive_mob_check(A, hear, 3, 1, 0, 1)
+	var/list/objects = list()
 
+	for(var/obj/O in range)				//Get a list of objects in hearing range.  We'll check to see if any clients have their "eye" set to the object
+		objects += O
+
+	for(var/client/C in clients)
+		if(!istype(C) || !C.eye)
+			continue   			//I have no idea when this client check would be needed, but if this runtimes people won't hear anything
+							//So kinda paranoid about runtime avoidance.
+		if(istype(C.eye, /obj/machinery/camera))
+			continue				//No microphones in cameras.
+
+		if(C.mob in hear)
+			continue
+
+		var/list/hear_and_objects = (hear|objects)      //Combined these lists here instead of doing the combine 3 more times.
+
+		if(C.eye in hear_and_objects)
+			hear += C.mob
+
+		else if(C.mob && C.mob.loc in hear_and_objects)
+			hear += C.mob
+		else if(C.mob && C.mob.loc.loc in hear_and_objects)
+			hear += C.mob
 	return hear
 
 
@@ -209,8 +232,9 @@
 		if(M)
 			var/turf/ear = get_turf(M)
 			if(ear)
-				if(speaker_coverage[ear])
-					. |= M
+				// Ghostship is magic: Ghosts can hear radio chatter from anywhere
+				if(speaker_coverage[ear] || (istype(M, /mob/dead/observer) && (M.client) && (M.client.prefs.toggles & CHAT_GHOSTRADIO)))
+					. |= M		// Since we're already looping through mobs, why bother using |= ? This only slows things down.
 	return .
 
 #define SIGN(X) ((X<0)?-1:1)
@@ -274,6 +298,12 @@ proc/isInSight(var/atom/A, var/atom/B)
 			return get_step(start, WEST)
 		else
 			return get_step(start, EAST)
+
+/proc/try_move_adjacent(atom/movable/AM)
+	var/turf/T = get_turf(AM)
+	for(var/direction in cardinal)
+		if(AM.Move(get_step(T, direction)))
+			break
 
 /proc/get_mob_by_key(var/key)
 	for(var/mob/M in mob_list)
@@ -353,3 +383,101 @@ proc/get_candidates(be_special_flag=0)
 	sleep(duration)
 	for(var/client/C in show_to)
 		C.images -= I
+
+/proc/get_active_player_count()
+	// Get active players who are playing in the round
+	var/active_players = 0
+	for(var/i = 1; i <= player_list.len; i++)
+		var/mob/M = player_list[i]
+		if(M && M.client)
+			if(istype(M, /mob/new_player)) // exclude people in the lobby
+				continue
+			else if(isobserver(M)) // Ghosts are fine if they were playing once (didn't start as observers)
+				var/mob/dead/observer/O = M
+				if(O.started_as_observer) // Exclude people who started as observers
+					continue
+			active_players++
+	return active_players
+
+/datum/projectile_data
+	var/src_x
+	var/src_y
+	var/time
+	var/distance
+	var/power_x
+	var/power_y
+	var/dest_x
+	var/dest_y
+
+/datum/projectile_data/New(var/src_x, var/src_y, var/time, var/distance, \
+						   var/power_x, var/power_y, var/dest_x, var/dest_y)
+	src.src_x = src_x
+	src.src_y = src_y
+	src.time = time
+	src.distance = distance
+	src.power_x = power_x
+	src.power_y = power_y
+	src.dest_x = dest_x
+	src.dest_y = dest_y
+
+/proc/projectile_trajectory(var/src_x, var/src_y, var/rotation, var/angle, var/power)
+
+	// returns the destination (Vx,y) that a projectile shot at [src_x], [src_y], with an angle of [angle],
+	// rotated at [rotation] and with the power of [power]
+	// Thanks to VistaPOWA for this function
+
+	var/power_x = power * cos(angle)
+	var/power_y = power * sin(angle)
+	var/time = 2* power_y / 10 //10 = g
+
+	var/distance = time * power_x
+
+	var/dest_x = src_x + distance*sin(rotation);
+	var/dest_y = src_y + distance*cos(rotation);
+
+	return new /datum/projectile_data(src_x, src_y, time, distance, power_x, power_y, dest_x, dest_y)
+
+
+/proc/mobs_in_area(var/area/the_area, var/client_needed=0, var/moblist=mob_list)
+	var/list/mobs_found[0]
+	var/area/our_area = get_area_master(the_area)
+	for(var/mob/M in moblist)
+		if(client_needed && !M.client)
+			continue
+		if(our_area != get_area_master(M))
+			continue
+		mobs_found += M
+	return mobs_found
+
+/proc/GetRedPart(const/hexa)
+	return hex2num(copytext(hexa,2,4))
+
+/proc/GetGreenPart(const/hexa)
+	return hex2num(copytext(hexa,4,6))
+
+/proc/GetBluePart(const/hexa)
+	return hex2num(copytext(hexa,6,8))
+
+/proc/GetHexColors(const/hexa)
+	return list(
+			GetRedPart(hexa),
+			GetGreenPart(hexa),
+			GetBluePart(hexa)
+		)
+
+/proc/MixColors(const/list/colors)
+	var/list/reds = list()
+	var/list/blues = list()
+	var/list/greens = list()
+	var/list/weights = list()
+
+	for (var/i = 0, ++i <= colors.len)
+		reds.Add(GetRedPart(colors[i]))
+		blues.Add(GetBluePart(colors[i]))
+		greens.Add(GetGreenPart(colors[i]))
+		weights.Add(1)
+
+	var/r = mixOneColor(weights, reds)
+	var/g = mixOneColor(weights, greens)
+	var/b = mixOneColor(weights, blues)
+	return rgb(r,g,b)

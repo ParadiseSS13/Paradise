@@ -48,6 +48,7 @@
 					if(istype(A, /obj/item/device/radio/beacon)) continue // don't teleport beacons because that's just insanely stupid
 					if(A.anchored && istype(A, /obj/machinery)) continue
 					if(istype(A, /obj/structure/disposalpipe )) continue
+					if(istype(A, /obj/structure/disposaloutlet)) continue
 					if(istype(A, /obj/structure/cable )) continue
 
 					var/turf/newloc = locate(A.x + x_distance, A.y + y_distance, TO.z) // calculate the new place

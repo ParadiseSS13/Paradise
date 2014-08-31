@@ -13,17 +13,33 @@ datum/event/organ_failure/announce()
 datum/event/organ_failure/start()
 	var/list/candidates = list()	//list of candidate keys
 	for(var/mob/living/carbon/human/G in player_list)
-		if(G.mind && G.mind.current && G.mind.current.stat != DEAD && G.health > 70)
+		if(G.mind && G.mind.current && G.mind.current.stat != DEAD && G.health > 70 && G.internal_organs_by_name)
 			candidates += G
 	if(!candidates.len)	return
 	candidates = shuffle(candidates)//Incorporating Donkie's list shuffle
 
 	while(severity > 0 && candidates.len)
 		var/mob/living/carbon/human/C = candidates[1]
-		if(!C) continue
-		// Bruise one of their organs
-		var/datum/organ/internal/I = C.internal_organs[pick(C.internal_organs)]
-		if(!I) continue
-		I.damage = I.min_bruised_damage
-		candidates.Remove(C)
+
+		var/acute = prob(15)
+		if (prob(75))
+			//internal organ infection
+			var/org = pick(C.internal_organs_by_name)
+			var/datum/organ/internal/I = C.internal_organs_by_name[org]
+
+			if (acute)
+				I.germ_level = max(INFECTION_LEVEL_TWO, I.germ_level)
+			else
+				I.germ_level = max(rand(INFECTION_LEVEL_ONE,INFECTION_LEVEL_ONE*2), I.germ_level)
+		else
+			//external organ infection
+			var/datum/organ/external/O = pick(C.organs)
+
+			if (acute)
+				O.germ_level = max(INFECTION_LEVEL_TWO, O.germ_level)
+			else
+				O.germ_level = max(rand(INFECTION_LEVEL_ONE,INFECTION_LEVEL_ONE*2), O.germ_level)
+
+			C.bad_external_organs |= O
+
 		severity--

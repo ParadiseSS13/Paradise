@@ -110,36 +110,14 @@
 	flags = FPRINT | TABLEPASS | CONDUCT
 	brightness_on = 2
 
-
-// the desk lamps are a bit special
-/obj/item/device/flashlight/lamp
-	name = "desk lamp"
-	desc = "A desk lamp with an adjustable mount."
-	icon_state = "lamp"
-	item_state = "lamp"
-	brightness_on = 5
-	w_class = 4
+/obj/item/device/flashlight/drone
+	name = "low-power flashlight"
+	desc = "A miniature lamp, that might be used by small robots."
+	icon_state = "penlight"
+	item_state = ""
 	flags = FPRINT | TABLEPASS | CONDUCT
-	m_amt = 0
-	g_amt = 0
-	on = 1
-
-
-// green-shaded desk lamp
-/obj/item/device/flashlight/lamp/green
-	desc = "A classic green-shaded desk lamp."
-	icon_state = "lampgreen"
-	item_state = "lampgreen"
-	brightness_on = 5
-
-
-/obj/item/device/flashlight/lamp/verb/toggle_light()
-	set name = "Toggle light"
-	set category = "Object"
-	set src in oview(1)
-
-	if(!usr.stat)
-		attack_self(usr)
+	brightness_on = 2
+	w_class = 1
 
 // FLARES
 
@@ -196,3 +174,23 @@
 		src.force = on_damage
 		src.damtype = "fire"
 		processing_objects += src
+
+/obj/item/device/flashlight/slime
+	gender = PLURAL
+	name = "glowing slime extract"
+	desc = "A glowing ball of what appears to be amber."
+	icon = 'icons/obj/lighting.dmi'
+	icon_state = "floor1" //not a slime extract sprite but... something close enough!
+	item_state = "slime"
+	w_class = 1
+	brightness_on = 6
+	on = 1 //Bio-luminesence has one setting, on.
+
+/obj/item/device/flashlight/slime/New()
+	SetLuminosity(brightness_on)
+	spawn(1) //Might be sloppy, but seems to be necessary to prevent further runtimes and make these work as intended... don't judge me!
+		update_brightness()
+		icon_state = initial(icon_state)
+
+/obj/item/device/flashlight/slime/attack_self(mob/user)
+	return //Bio-luminescence does not toggle.

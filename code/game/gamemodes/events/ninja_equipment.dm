@@ -38,9 +38,21 @@ ________________________________________________________________________________
 	for(var/reagent_id in reagent_list)
 		reagent_id == "uranium" ? reagents.add_reagent(reagent_id, r_maxamount+(a_boost*a_transfer)) : reagents.add_reagent(reagent_id, r_maxamount)//It will take into account uranium used for adrenaline boosting.
 	cell = new/obj/item/weapon/cell/high//The suit should *always* have a battery because so many things rely on it.
-	cell.charge = 9000//Starting charge should not be higher than maximum charge. It leads to problems with recharging.
+	cell.charge = 9990//Starting charge should not be higher than maximum charge. It leads to problems with recharging.
+	cell.maxcharge = 10000 // Due to Ponies' overhaul Ninjas began starting with a 15000 energy cell. This should fix that issue.
 
-/obj/item/clothing/suit/space/space_ninja/Del()
+	/*switch(s_rank) In preparation for Ninja overhaul, differeing starting charge levels for each rank of Ninja.
+		if("Initiate")
+			cell.charge = 7490
+			cell.maxcharge = 7500
+		if("Assassin")
+			cell.charge = 9990
+			cell.maxcharge = 10000
+		if("Master")
+			cell.maxcharge = 15000
+			cell.charge = 14990*/
+
+/obj/item/clothing/suit/space/space_ninja/Destroy()
 	if(affecting)//To make sure the window is closed.
 		affecting << browse(null, "window=hack spideros")
 	if(AI)//If there are AIs present when the ninja kicks the bucket.
@@ -129,7 +141,8 @@ ________________________________________________________________________________
 
 		//Now let's do the normal processing.
 		if(s_coold)	s_coold--//Checks for ability s_cooldown first.
-		var/A = s_cost//s_cost is the default energy cost each ntick, usually 5.
+		var/A = 0 - s_regen//s_regen is the default energy regen each ntick, usually 5.
+
 		if(U.stat == 2)
 			U << browse(null, "window=spideros")
 			explosion(U.loc, 0, 1, 3, 4)
@@ -141,15 +154,20 @@ ________________________________________________________________________________
 			return
 		if(!kamikaze)
 			if(blade_check(U))//If there is a blade held in hand.
-				A += s_acost
+				A += s_cost
 			if(s_active)//If stealth is active.
-				A += s_acost
+				A += s_cost
 
 		else
 			if(prob(s_delay))//Suit delay is used as probability. May change later.
 				U.adjustBruteLoss(k_damage)//Default damage done, usually 1.
 			A = k_cost//kamikaze cost.
+
 		cell.charge-=A
+
+		if(src.cell.maxcharge < src.cell.charge)
+			src.cell.charge = src.cell.maxcharge
+
 		if(cell.charge<=0)
 			if(kamikaze)
 				U.say("I DIE TO LIVE AGAIN!")
@@ -316,8 +334,6 @@ ________________________________________________________________________________
 			dat += "Radiation Level: [U.radiation] rad<br>"
 			dat += "Body Temperature: [U.bodytemperature-T0C]&deg;C ([U.bodytemperature*1.8-459.67]&deg;F)<br>"
 
-			for(var/datum/disease/D in U.viruses)
-				dat += "Warning: Virus Detected. Name: [D.name].Type: [D.spread]. Stage: [D.stage]/[D.max_stages]. Possible Cure: [D.cure].<br>"
 			dat += "<ul>"
 			for(var/datum/reagent/R in reagents.reagent_list)
 				if(R.id=="uranium"&&s_control)//Can only directly inject uranium when AI is in control.
@@ -537,8 +553,11 @@ ________________________________________________________________________________
 			var/damage = min(cell.charge, rand(50,150))//Uses either the current energy left over or between 50 and 150.
 			if(damage>1)//So they don't spam it when energy is a factor.
 				spark_system.start()//SPARKS THERE SHALL BE SPARKS
-				U.electrocute_act(damage, src,0.1,1)//The last argument is a safety for the human proc that checks for gloves.
-				cell.charge -= damage
+				U.electrocute_act(damage, src, 0.1)
+				if(cell.charge < damage)
+					cell.use(cell.charge)
+				else
+					cell.use(damage)
 			else
 				A << "\red <b>ERROR</b>: \black Not enough energy remaining."
 
@@ -1340,6 +1359,34 @@ ________________________________________________________________________________
 	usr << "Voice mimicking algorithm is set <B>[!vchange?"inactive":"active"]</B>."
 
 /*
+=======================================================================================
+<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<SPACE NINJA HACKBUG>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+=======================================================================================
+*/
+
+/*
+Currently WIP, once finished they will, in theory, allow the Ninja to plant bugs on Computers/APCs/SMES units.
+Possibly more later, but for now I want to get basic function working.
+*/
+
+/obj/item/weapon/hackbug
+	name = "hack-bug"
+	desc = "A strange device. Where did this even come from?"
+	gender = PLURAL
+	icon = 'icons/obj/ninjaobjects.dmi'
+	icon_state = "hackbug"
+	flags = FPRINT | TABLEPASS | USEDELAY
+	w_class = 1.0
+
+/obj/item/weapon/hackbug/attack(atom/target as obj|turf, mob/user as mob, flag)
+	if (!flag)
+		return
+	if (istype(target, /turf/unsimulated) || istype(target, /turf/simulated/shuttle) || istype(target, /obj/item/weapon/storage/) || istype(target, /obj/machinery/door/airlock/hatch/gamma))
+		return
+	user << "Planting bug..."
+	target.overlays += image('icons/obj/ninjaobjects.dmi', "compoverlay")
+
+/*
 ===================================================================================
 <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<SPACE NINJA NET>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 ===================================================================================
@@ -1387,7 +1434,7 @@ It is possible to destroy the net by the occupant or someone else.
 		var/check = 30//30 seconds before teleportation. Could be extended I guess.
 		var/mob_name = affecting.name//Since they will report as null if terminated before teleport.
 		//The person can still try and attack the net when inside.
-		while(!isnull(M)&&!isnull(src)&&check>0)//While M and net exist, and 60 seconds have not passed.
+		while(!isnull(M)&&!isnull(src)&&check>0)//While M and net exist, and 30 seconds have not passed.
 			check--
 			sleep(10)
 

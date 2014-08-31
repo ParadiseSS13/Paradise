@@ -60,7 +60,7 @@ var/const/VOX_PATH = "sound/vox_fem/"
         popup.open()
 
 
-/mob/living/silicon/ai/verb/announcement()
+/mob/living/silicon/ai/proc/announcement()
 
 	set name = "Announcement"
 	set desc = "Create a vocal announcement by typing in the available words to create a sentence."

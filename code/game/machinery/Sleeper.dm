@@ -11,6 +11,14 @@
 	density = 1
 	var/orient = "LEFT" // "RIGHT" changes the dir suffix to "-r"
 
+	l_color = "#7BF9FF"
+	power_change()
+		..()
+		if(!(stat & (BROKEN|NOPOWER)))
+			SetLuminosity(2)
+		else
+			SetLuminosity(0)
+
 /obj/machinery/sleep_console/process()
 	if(stat & (NOPOWER|BROKEN))
 		return
@@ -165,11 +173,6 @@
 				icon_state = "sleeper_0-r"
 			return
 		return
-
-
-	allow_drop()
-		return 0
-
 
 	process()
 		if(filtering > 0)
@@ -357,7 +360,7 @@
 
 	verb/eject()
 		set name = "Eject Sleeper"
-		set category = "Object"
+		set category = null
 		set src in oview(1)
 		if(usr.stat != 0)
 			return
@@ -370,7 +373,7 @@
 
 	verb/remove_beaker()
 		set name = "Remove Beaker"
-		set category = "Object"
+		set category = null
 		set src in oview(1)
 		if(usr.stat != 0)
 			return
@@ -381,9 +384,74 @@
 		add_fingerprint(usr)
 		return
 
+/obj/machinery/sleeper/MouseDrop_T(atom/movable/O as mob|obj, mob/user as mob)
+	if(O.loc == user) //no you can't pull things out of your ass
+		return
+	if(user.restrained() || user.stat || user.weakened || user.stunned || user.paralysis || user.resting) //are you cuffed, dying, lying, stunned or other
+		return
+	if(O.anchored || get_dist(user, src) > 1 || get_dist(user, O) > 1 || user.contents.Find(src)) // is the mob anchored, too far away from you, or are you too far away from the source
+		return
+	if(!ismob(O)) //humans only
+		return
+	if(istype(O, /mob/living/simple_animal) || istype(O, /mob/living/silicon)) //animals and robutts dont fit
+		return
+	if(!ishuman(user) && !isrobot(user)) //No ghosts or mice putting people into the sleeper
+		return
+	if(user.loc==null) // just in case someone manages to get a closet into the blue light dimension, as unlikely as that seems
+		return
+	if(!istype(user.loc, /turf) || !istype(O.loc, /turf)) // are you in a container/closet/pod/etc?
+		return
+	if(occupant)
+		user << "\blue <B>The sleeper is already occupied!</B>"
+		return
+/*	if(isrobot(user))
+		if(!istype(user:module, /obj/item/weapon/robot_module/medical))
+			user << "<span class='warning'>You do not have the means to do this!</span>"
+			return*/
+	var/mob/living/L = O
+	if(!istype(L) || L.buckled)
+		return
+	if(L.abiotic())
+		user << "\blue <B>Subject cannot have abiotic items on.</B>"
+		return
+	for(var/mob/living/carbon/slime/M in range(1,L))
+		if(M.Victim == L)
+			usr << "[L.name] will not fit into the sleeper because they have a slime latched onto their head."
+			return
+	if(L == user)
+		visible_message("[user] starts climbing into the sleeper.", 3)
+	else
+		visible_message("[user] starts putting [L.name] into the sleeper.", 3)
+
+	if(do_after(user, 20))
+		if(src.occupant)
+			user << "\blue <B>The sleeper is already occupied!</B>"
+			return
+		if(!L) return
+
+		if(L.client)
+			L.client.perspective = EYE_PERSPECTIVE
+			L.client.eye = src
+		L.loc = src
+		src.occupant = L
+		src.icon_state = "sleeper_1"
+		if(orient == "RIGHT")
+			icon_state = "sleeper_1-r"
+		L << "\blue <b>You feel cool air surround you. You go numb as your senses turn inward.</b>"
+		for(var/obj/OO in src)
+			OO.loc = src.loc
+		src.add_fingerprint(user)
+		if(user.pulling == L)
+			user.pulling = null
+		return
+	return
+
+/obj/machinery/sleeper/allow_drop()
+	return 0
+
 /obj/machinery/sleeper/verb/move_inside()
 	set name = "Enter Sleeper"
-	set category = "Object"
+	set category = null
 	set src in oview(1)
 	if(usr.stat != 0 || !(ishuman(usr) || ismonkey(usr)))
 		return

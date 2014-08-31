@@ -9,5 +9,6 @@
 
 /datum/artifact_effect/emp/DoEffectPulse()
 	if(holder)
-		empulse(get_turf(holder), effectrange/2, effectrange)
+		var/turf/T = get_turf(holder)
+		empulse(T, effectrange/2, effectrange)
 		return 1

@@ -11,14 +11,19 @@ proc/get_infection_chance(var/mob/living/carbon/M, var/vector = "Airborne")
 				score += 5
 				if(istype(M:wear_mask, /obj/item/clothing/mask/surgical) && !M.internal)
 					score += 10
-			if(istype(M:wear_suit, /obj/item/clothing/suit/space) && istype(M:head, /obj/item/clothing/head/helmet/space)) score += 15
-			if(istype(M:wear_suit, /obj/item/clothing/suit/bio_suit) && istype(M:head, /obj/item/clothing/head/bio_hood)) score += 15
+			if(istype(M:wear_suit, /obj/item/clothing/suit/space) && istype(M:head, /obj/item/clothing/head/helmet/space))
+				score += 20
+			if(istype(M:wear_suit, /obj/item/clothing/suit/bio_suit) && istype(M:head, /obj/item/clothing/head/bio_hood))
+				score += 30
 
 
 		if (vector == "Contact")
 			if(M:gloves) score += 15
-			if(istype(M:wear_suit, /obj/item/clothing/suit/space)) score += 10
-			if(istype(M:wear_suit, /obj/item/clothing/suit/bio_suit)) score += 10
+			if(istype(M:wear_suit, /obj/item/clothing/suit/space) && istype(M:head, /obj/item/clothing/head/helmet/space))
+				score += 15
+			if(istype(M:wear_suit, /obj/item/clothing/suit/bio_suit) && istype(M:head, /obj/item/clothing/head/bio_hood))
+				score += 15
+
 
 //  log_debug("[M]'s resistance to [vector] viruses: [score]")
 
@@ -44,7 +49,7 @@ proc/airborne_can_reach(turf/source, turf/target, var/radius=5)
 
 	for(var/i=0, i<radius, i++) if(!step_towards(dummy, target)) break
 
-	var/rval = (dummy.loc in range(1,target))
+	var/rval = dummy.Adjacent(target)
 	dummy.loc = null
 	dummy = null
 	return rval
@@ -58,8 +63,22 @@ proc/airborne_can_reach(turf/source, turf/target, var/radius=5)
 	if ("[disease.uniqueID]" in M.virus2)
 		return 0
 	// if one of the antibodies in the mob's body matches one of the disease's antigens, don't infect
-	if(M.antibodies & disease.antigen != 0)
-		return 0
+	if((M.antibodies & disease.antigen) != 0)
+		return
+	if(M.reagents.has_reagent("spaceacillin"))
+		return
+
+	if(istype(M,/mob/living/carbon/monkey))
+		var/mob/living/carbon/monkey/chimp = M
+		if (!(chimp.greaterform in disease.affected_species))
+			return
+
+	if(istype(M,/mob/living/carbon/human))
+		var/mob/living/carbon/human/chump = M
+		if (!(chump.species.name in disease.affected_species))
+			return
+
+//	log_debug("Infecting [M]")
 
 	if(prob(disease.infectionchance) || forced)
 		// certain clothes can prevent an infection
@@ -69,8 +88,7 @@ proc/airborne_can_reach(turf/source, turf/target, var/radius=5)
 		var/datum/disease2/disease/D = disease.getcopy()
 		D.minormutate()
 		M.virus2["[D.uniqueID]"] = D
-		return 1
-	return 0
+		M.hud_updateflag |= 1 << STATUS_HUD
 
 //Infects mob M with random lesser disease, if he doesn't have one
 /proc/infect_mob_random_lesser(var/mob/living/carbon/M)
@@ -78,12 +96,14 @@ proc/airborne_can_reach(turf/source, turf/target, var/radius=5)
 	D.makerandom()
 	D.infectionchance = 1
 	M.virus2["[D.uniqueID]"] = D
+	M.hud_updateflag |= 1 << STATUS_HUD
 
 //Infects mob M with random greated disease, if he doesn't have one
 /proc/infect_mob_random_greater(var/mob/living/carbon/M)
 	var/datum/disease2/disease/D = new /datum/disease2/disease
 	D.makerandom(1)
 	M.virus2["[D.uniqueID]"] = D
+	M.hud_updateflag |= 1 << STATUS_HUD
 
 //Fancy prob() function.
 /proc/dprob(var/p)

@@ -25,6 +25,22 @@ a, a:link, a:visited, a:active, .linkOn, .linkOff
 	cursor:default;
 }
 
+a.nobg, a.nobg:link, a.nobg:visited, a.nobg:active
+{ 
+	color: #ffffff; 
+	text-decoration: none;
+	background: transparent;
+	border: none;
+	padding: 0px;
+	margin: 0px;
+	cursor:default;
+	font-weight:bold;
+}
+a.nobg:hover 
+{ 
+	color:#40628a;
+}
+
 a:hover 
 { 
 	color: #40628a;
@@ -140,22 +156,23 @@ h4
 }
 
 .uiTitleWrapper
-{
-	position:fixed;
-	top:0px;
-	left:0px;
-	right:0px;
-	z-index: 10
-}
+ {
+ 	position:fixed;
+ 	top:0px;
+ 	left:0px;
+ 	right:0px;
+ 	z-index: 10
+ }
+ 
+ .uiTitleButtons
+ {
+ 	position:fixed;
+ 	top:0px;
+ 	right:0px;
+ 	height:32px;
+ 	z-index:11;
+ }
 
-.uiTitleButtons
-{
-	position:fixed;
-	top:0px;
-	right:0px;
-	height:32px;
-	z-index:11;
-}
 
 .uiTitle.icon
 {

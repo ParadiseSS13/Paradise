@@ -17,11 +17,7 @@
 /obj/machinery/door/window/update_nearby_tiles(need_rebuild)
 	if(!air_master) return 0
 
-	var/turf/simulated/source = get_turf(src)
-	var/turf/simulated/target = get_step(source,dir)
-
-	if(istype(source)) air_master.tiles_to_update |= source
-	if(istype(target)) air_master.tiles_to_update |= target
+	air_master.mark_for_update(get_turf(src))
 
 	return 1
 
@@ -35,7 +31,7 @@
 	color = color_windows()
 	return
 
-/obj/machinery/door/window/Del()
+/obj/machinery/door/window/Destroy()
 	density = 0
 	playsound(src, "shatter", 70, 1)
 	..()
@@ -77,6 +73,11 @@
 		return !density
 	else
 		return 1
+
+
+//used in the AStar algorithm to determinate if the turf the door is on is passable
+/obj/machinery/door/window/CanAStarPass(var/obj/item/weapon/card/id/ID, var/to_dir)
+	return !density || (dir != to_dir) || check_access(ID)
 
 /obj/machinery/door/window/CheckExit(atom/movable/mover as mob|obj, turf/target as turf)
 	if(istype(mover) && mover.checkpass(PASSGLASS))
@@ -129,12 +130,14 @@
 /obj/machinery/door/window/proc/take_damage(var/damage)
 	src.health = max(0, src.health - damage)
 	if (src.health <= 0)
-		new /obj/item/weapon/shard(src.loc)
+		getFromPool(/obj/item/weapon/shard, loc)
 		var/obj/item/stack/cable_coil/CC = new /obj/item/stack/cable_coil(src.loc)
 		CC.amount = 2
 		var/obj/item/weapon/airlock_electronics/ae
 		if(!electronics)
 			ae = new/obj/item/weapon/airlock_electronics( src.loc )
+			if(!src.req_access)
+				src.check_access()
 			if(src.req_access.len)
 				ae.conf_access = src.req_access
 			else if (src.req_one_access.len)
@@ -178,18 +181,31 @@
 	return src.attack_hand(user)
 
 /obj/machinery/door/window/attack_paw(mob/user as mob)
-	if(istype(user, /mob/living/carbon/alien/humanoid) || istype(user, /mob/living/carbon/slime/adult))
+	if(istype(user, /mob/living/carbon/alien/humanoid))
 		if(src.operating)
 			return
 		playsound(src.loc, 'sound/effects/Glasshit.ogg', 75, 1)
 		visible_message("\red <B>[user] smashes against the [src.name].</B>", 1)
-		take_damage(25)
+		if (src.health <= 0)
+			getFromPool(/obj/item/weapon/shard, loc)
+			var/obj/item/stack/cable_coil/CC = new /obj/item/stack/cable_coil(src.loc)
+			CC.amount = 2
+			src.density = 0
+			del(src)
 	else
 		return src.attack_hand(user)
 
 
 /obj/machinery/door/window/attack_hand(mob/user as mob)
 	return src.attackby(user, user)
+
+/obj/machinery/door/window/attack_animal(mob/user as mob)
+	if(!isanimal(user)) return
+	var/mob/living/simple_animal/M = user
+	if(M.melee_damage_upper <= 0) return
+	playsound(src.loc, 'sound/effects/Glasshit.ogg', 75, 1)
+	visible_message("\red <B>[user] smashes against the [src.name].</B>", 1)
+	take_damage(M.melee_damage_upper)
 
 /obj/machinery/door/window/attackby(obj/item/weapon/I as obj, mob/user as mob)
 
@@ -234,6 +250,8 @@
 			var/obj/item/weapon/airlock_electronics/ae
 			if(!electronics)
 				ae = new/obj/item/weapon/airlock_electronics( src.loc )
+				if(!src.req_access)
+					src.check_access()
 				if(src.req_access.len)
 					ae.conf_access = src.req_access
 				else if (src.req_one_access.len)
@@ -251,11 +269,14 @@
 
 	//If it's a weapon, smash windoor. Unless it's an id card, agent card, ect.. then ignore it (Cards really shouldnt damage a door anyway)
 	if(src.density && istype(I, /obj/item/weapon) && !istype(I, /obj/item/weapon/card))
-		var/aforce = I.force
 		playsound(src.loc, 'sound/effects/Glasshit.ogg', 75, 1)
 		visible_message("\red <B>[src] was hit by [I].</B>")
-		if(I.damtype == BRUTE || I.damtype == BURN)
-			take_damage(aforce)
+		if (src.health <= 0)
+			getFromPool(/obj/item/weapon/shard, loc)
+			var/obj/item/stack/cable_coil/CC = new /obj/item/stack/cable_coil(src.loc)
+			CC.amount = 2
+			src.density = 0
+			del(src)
 		return
 
 
@@ -350,4 +371,3 @@
 	dir = SOUTH
 	icon_state = "rightsecure"
 	base_state = "rightsecure"
-

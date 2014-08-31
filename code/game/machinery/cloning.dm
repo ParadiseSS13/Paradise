@@ -20,7 +20,16 @@
 	var/mess = 0 //Need to clean out it if it's full of exploded clone.
 	var/attempting = 0 //One clone attempt at a time thanks
 	var/eject_wait = 0 //Don't eject them as soon as they are created fuckkk
-	var/biomass = CLONE_BIOMASS
+	var/biomass = CLONE_BIOMASS // * 3 - N3X
+
+	l_color = "#00FF00"
+	power_change()
+		..()
+		if(!(stat & (BROKEN|NOPOWER)))
+			SetLuminosity(2)
+		else
+			SetLuminosity(0)
+
 
 //The return of data disks?? Just for transferring between genetics machine/cloning machine.
 //TO-DO: Make the genetics machine accept them.
@@ -137,7 +146,7 @@
 	if(mess || attempting)
 		return 0
 	var/datum/mind/clonemind = locate(R.mind)
-	if(!istype(clonemind,/datum/mind))	//not a mind
+	if(!istype(clonemind))	//not a mind
 		return 0
 	if( clonemind.current && clonemind.current.stat != DEAD )	//mind is associated with a non-dead body
 		return 0
@@ -145,13 +154,16 @@
 		if( ckey(clonemind.key)!=R.ckey )
 			return 0
 	else
-		for(var/mob/dead/observer/G in player_list)
-			if(G.ckey == R.ckey)
-				if(G.can_reenter_corpse)
-					break
-				else
-					return 0
-
+		for(var/mob/M in player_list)
+			if(M.ckey == R.ckey)
+				if(istype(M, /mob/dead/observer))
+					var/mob/dead/observer/G = M
+					if(G.can_reenter_corpse)
+						break
+				if(istype(M, /mob/living/simple_animal))
+					if(M in respawnable_list)
+						break
+				return 0
 
 	src.heal_level = rand(10,40) //Randomizes what health the clone is when ejected
 	src.attempting = 1 //One at a time!!
@@ -161,7 +173,7 @@
 	spawn(30)
 		src.eject_wait = 0
 
-	var/mob/living/carbon/human/H = new /mob/living/carbon/human(src)
+	var/mob/living/carbon/human/H = new /mob/living/carbon/human(src, delay_ready_dna=1)
 	occupant = H
 
 	if(!R.dna.real_name)	//to prevent null names
@@ -182,6 +194,7 @@
 	H << "<span class='notice'><b>Consciousness slowly creeps over you as your body regenerates.</b><br><i>So this is what cloning feels like?</i></span>"
 
 	// -- Mode/mind specific stuff goes here
+	callHook("clone", list(H))
 
 	if((H.mind in ticker.mode:revolutionaries) || (H.mind in ticker.mode:head_revolutionaries))
 		ticker.mode.update_all_rev_icons() //So the icon actually appears
@@ -212,8 +225,10 @@
 		H.h_style = pick("Bedhead", "Bedhead 2", "Bedhead 3")
 
 	H.set_species(R.dna.species)
-	//for(var/datum/language/L in languages)
-	//	H.add_language(L.name)
+
+	for(var/datum/language/L in R.languages)
+		H.add_language(L.name)
+
 	H.suiciding = 0
 	src.attempting = 0
 	return 1
@@ -265,7 +280,7 @@
 			src.locked = 0
 		if (!src.mess)
 			icon_state = "pod_0"
-		use_power(200)
+		//use_power(200)
 		return
 
 	return
@@ -299,6 +314,21 @@
 		user.drop_item()
 		del(W)
 		return
+	else if (istype(W, /obj/item/weapon/wrench))
+		if(src.locked && (src.anchored || src.occupant))
+			user << "\red Can not do that while [src] is in use."
+		else
+			if(src.anchored)
+				src.anchored = 0
+				connected.pod1 = null
+				connected = null
+			else
+				src.anchored = 1
+			playsound(src.loc, 'sound/items/Ratchet.ogg', 100, 1)
+			if(anchored)
+				user.visible_message("[user] secures [src] to the floor.", "You secure [src] to the floor.")
+			else
+				user.visible_message("[user] unsecures [src] from the floor.", "You unsecure [src] from the floor.")
 	else
 		..()
 

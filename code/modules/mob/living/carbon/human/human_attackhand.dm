@@ -93,7 +93,7 @@
 			return 1
 
 		if("harm")
-
+			var/datum/unarmed_attack/attack = M.species.unarmed
 			//Vampire code
 			if(M.zone_sel && M.zone_sel.selecting == "head" && src != M)
 				if(M.mind && M.mind.vampire && (M.mind in ticker.mode.vampires) && !M.mind.vampire.draining)
@@ -116,7 +116,7 @@
 					return
 			//end vampire codes
 
-			add_logs(src, M, "[M.species.attack_verb]ed")
+			add_logs(src, M, "[pick(attack.attack_verb)]ed")
 
 			if(!iscarbon(M))
 				LAssailant = null
@@ -125,12 +125,8 @@
 
 			var/damage = rand(0, M.species.max_hurt_damage)//BS12 EDIT
 			if(!damage)
-				if(M.species.attack_verb == "punch")
-					playsound(loc, 'sound/weapons/punchmiss.ogg', 25, 1, -1)
-				else
-					playsound(loc, 'sound/weapons/slashmiss.ogg', 25, 1, -1)
-
-				visible_message("\red <B>[M] has attempted to [M.species.attack_verb] [src]!</B>")
+				playsound(loc, attack.miss_sound, 25, 1, -1)
+				visible_message("\red <B>[M] tried to [pick(attack.attack_verb)] [src]!</B>")
 				return 0
 
 
@@ -140,19 +136,16 @@
 			if(M_HULK in M.mutations)			damage += 5
 
 
-			if(M.species.attack_verb == "punch")
-				playsound(loc, "punch", 25, 1, -1)
-			else
-				playsound(loc, 'sound/weapons/slice.ogg', 25, 1, -1)
+			playsound(loc, attack.attack_sound, 25, 1, -1)
 
-			visible_message("\red <B>[M] has [M.species.attack_verb]ed [src]!</B>")
+			visible_message("\red <B>[M] [pick(attack.attack_verb)]ed [src]!</B>")
 			//Rearranged, so claws don't increase weaken chance.
 			if(damage >= 5 && prob(50))
 				visible_message("\red <B>[M] has weakened [src]!</B>")
 				apply_effect(2, WEAKEN, armor_block)
 
-			if(M.species.attack_verb != "punch")	damage += 5
-			apply_damage(damage, BRUTE, affecting, armor_block)
+			damage += attack.damage
+			apply_damage(damage, BRUTE, affecting, armor_block, sharp=attack.sharp, edge=attack.edge)
 
 
 		if("disarm")
@@ -183,12 +176,22 @@
 					return W.afterattack(target,src)
 
 			var/randn = rand(1, 100)
-			if (randn <= 25)
-				apply_effect(4, WEAKEN, run_armor_check(affecting, "melee"))
+
+			if(!src.handcuffed)  // Bone White - disarm knockdown only occurs if you have an aggressive grab on the target,  Longer duration (8) to allow handcuffing.
+				//check for an aggressive grab
+				for (var/obj/item/weapon/grab/G in src.grabbed_by)
+					if (G.assailant == M && G.state >= GRAB_AGGRESSIVE)
+						randn -= 30  // this value is the % chance of knockdown if you disarm someone whilst you have an aggressive grab.
+			else
+			//if target is handcuffed, always push them over
+				randn = 0
+
+			if (randn <= 0)
+				apply_effect(4, WEAKEN, run_armor_check(affecting, "melee")) // first var here is the length of the knockdown
 				playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
-				visible_message("\red <B>[M] has pushed [src]!</B>")
-				M.attack_log += text("\[[time_stamp()]\] <font color='red'>Pushed [src.name] ([src.ckey])</font>")
-				src.attack_log += text("\[[time_stamp()]\] <font color='orange'>Has been pushed by [M.name] ([M.ckey])</font>")
+				visible_message("\red <B>[M] has floored [src]!</B>")
+				M.attack_log += text("\[[time_stamp()]\] <font color='red'>Floored [src.name] ([src.ckey])</font>")
+				src.attack_log += text("\[[time_stamp()]\] <font color='orange'>Has been floored by [M.name] ([M.ckey])</font>")
 				if(!iscarbon(M))
 					LAssailant = null
 				else

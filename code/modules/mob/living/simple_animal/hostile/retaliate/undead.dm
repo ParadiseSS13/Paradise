@@ -51,7 +51,7 @@
 	max_n2 = 0
 	minbodytemp = 0
 
-	faction = "undead" // did I mention ghost
+	faction = list("undead") // did I mention ghost
 
 /mob/living/simple_animal/hostile/retaliate/ghost/Process_Spacemove(var/check_drift = 0)
 	return 1
@@ -103,7 +103,7 @@
 	max_n2 = 0
 	minbodytemp = 0
 
-	faction = "undead"
+	faction = list("undead")
 
 /mob/living/simple_animal/hostile/retaliate/skeleton/Die()
 	new /obj/effect/decal/remains/human(loc)
@@ -141,7 +141,7 @@
 	max_n2 = 0
 	minbodytemp = 0
 
-	faction = "undead"
+	faction = list("undead")
 
 /mob/living/simple_animal/hostile/retaliate/zombie/Die()
 	new /obj/effect/decal/cleanable/blood/gibs(loc)

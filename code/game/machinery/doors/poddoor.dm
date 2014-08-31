@@ -299,7 +299,7 @@
 		f1.sd_SetOpacity(opacity)
 		f2.sd_SetOpacity(opacity)
 
-	Del()
+	Destroy()
 		del f1
 		del f2
 		..()
@@ -318,7 +318,7 @@
 		f1.sd_SetOpacity(opacity)
 		f2.sd_SetOpacity(opacity)
 
-	Del()
+	Destroy()
 		del f1
 		del f2
 		..()
@@ -345,7 +345,7 @@
 		f4.SetOpacity(opacity)
 		f3.SetOpacity(opacity)
 
-	Del()
+	Destroy()
 		del f1
 		del f2
 		del f3
@@ -374,7 +374,7 @@
 		f4.SetOpacity(opacity)
 		f3.SetOpacity(opacity)
 
-	Del()
+	Destroy()
 		del f1
 		del f2
 		del f3

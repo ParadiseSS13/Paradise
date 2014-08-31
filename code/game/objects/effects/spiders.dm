@@ -47,7 +47,7 @@
 	if(health <= 0)
 		del(src)
 
-/obj/effect/spider/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
+/obj/effect/spider/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume)
 	if(exposed_temperature > 300)
 		health -= 5
 		healthcheck()
@@ -83,7 +83,7 @@
 /obj/effect/spider/eggcluster/process()
 	amount_grown += rand(0,2)
 	if(amount_grown >= 100)
-		var/num = rand(3,12)
+		var/num = rand(2,6)
 		for(var/i=0, i<num, i++)
 			new /obj/effect/spider/spiderling(src.loc)
 		del(src)
@@ -207,7 +207,7 @@
 	New()
 		icon_state = pick("cocoon1","cocoon2","cocoon3")
 
-/obj/effect/spider/cocoon/Del()
+/obj/effect/spider/cocoon/Destroy()
 	src.visible_message("\red \the [src] splits open.")
 	for(var/atom/movable/A in contents)
 		A.loc = src.loc

@@ -16,7 +16,6 @@
 	icon = 'icons/mob/alien.dmi'
 //	unacidable = 1 //Aliens won't ment their own.
 
-
 /*
  * Resin
  */
@@ -29,7 +28,7 @@
 	opacity = 1
 	anchored = 1
 	var/health = 200
-	//var/mob/living/affecting = null
+	var/turf/linked_turf
 
 	wall
 		name = "resin wall"
@@ -45,14 +44,13 @@
 
 /obj/effect/alien/resin/New()
 	..()
-	var/turf/T = get_turf(src)
-	T.thermal_conductivity = WALL_HEAT_TRANSFER_COEFFICIENT
+	linked_turf = get_turf(src)
+	linked_turf.thermal_conductivity = WALL_HEAT_TRANSFER_COEFFICIENT
 
-/obj/effect/alien/resin/Del()
-	var/turf/T = get_turf(src)
-	T.thermal_conductivity = initial(T.thermal_conductivity)
+/obj/effect/alien/resin/Destroy()
+	if(linked_turf)
+		linked_turf.thermal_conductivity = initial(linked_turf.thermal_conductivity)
 	..()
-	density = 0
 
 
 /obj/effect/alien/resin/proc/healthcheck()
@@ -186,26 +184,45 @@
 
 	anchored = 1
 	density = 0
+	layer = 2
 	var/health = 15
 	var/obj/effect/alien/weeds/node/linked_node = null
+
+/obj/effect/alien/weeds/Destroy()
+	if(linked_node)
+		linked_node.connected_weeds.Remove(src)
+		linked_node = null
+	..()
 
 /obj/effect/alien/weeds/node
 	icon_state = "weednode"
 	name = "purple sac"
 	desc = "Weird purple octopus-like thing."
+	layer = 3
 	luminosity = NODERANGE
 	var/node_range = NODERANGE
+	var/list/obj/effect/alien/weeds/connected_weeds
+
+/obj/effect/alien/weeds/node/Destroy()
+	for(var/obj/effect/alien/weeds/W in connected_weeds)
+		W.linked_node = null
+	..()
 
 /obj/effect/alien/weeds/node/New()
+	connected_weeds = new()
 	..(src.loc, src)
 
-
-/obj/effect/alien/weeds/New(pos, node)
+/obj/effect/alien/weeds/New(pos, var/obj/effect/alien/weeds/node/N)
 	..()
-	linked_node = node
+
 	if(istype(loc, /turf/space))
-		del(src)
+		qdel(src)
 		return
+
+	linked_node = N
+	if(linked_node)
+		linked_node.connected_weeds.Add(src)
+
 	if(icon_state == "weeds")icon_state = pick("weeds", "weeds1", "weeds2")
 	spawn(rand(150, 200))
 		if(src)
@@ -232,15 +249,16 @@ Alien plants should do something if theres a lot of poison
 		del(src)
 		return
 
+	if(!linked_node || (get_dist(linked_node, src) > linked_node.node_range) )
+		return
+
 	direction_loop:
 		for(var/dirn in cardinal)
+
 			var/turf/T = get_step(src, dirn)
 
 			if (!istype(T) || T.density || locate(/obj/effect/alien/weeds) in T || istype(T.loc, /area/arrival) || istype(T, /turf/space))
 				continue
-
-			if(!linked_node || get_dist(linked_node, src) > linked_node.node_range)
-				return
 
 	//		if (locate(/obj/movable, T)) // don't propogate into movables
 	//			continue
@@ -264,6 +282,13 @@ Alien plants should do something if theres a lot of poison
 				qdel(src)
 	return
 
+
+/obj/effect/alien/weeds/fire_act(null, temperature, volume)
+	if(temperature > T0C+200)
+		health -= 1 * temperature
+		healthcheck()
+
+
 /obj/effect/alien/weeds/attackby(var/obj/item/weapon/W, var/mob/user)
 	if(W.attack_verb.len)
 		visible_message("\red <B>\The [src] have been [pick(W.attack_verb)] with \the [W][(user ? " by [user]." : ".")]")
@@ -284,10 +309,10 @@ Alien plants should do something if theres a lot of poison
 
 /obj/effect/alien/weeds/proc/healthcheck()
 	if(health <= 0)
-		del(src)
+		qdel(src)
 
 
-/obj/effect/alien/weeds/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
+/obj/effect/alien/weeds/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume)
 	if(exposed_temperature > 300)
 		health -= 5
 		healthcheck()
@@ -412,27 +437,34 @@ Alien plants should do something if theres a lot of poison
 		return
 
 	proc/GetFacehugger()
-		return locate(/obj/item/clothing/mask/facehugger) in contents
+		return locate(/mob/living/carbon/alien/facehugger) in contents
 
 	proc/Grow()
 		icon_state = "egg"
 		status = GROWN
+		new /mob/living/carbon/alien/facehugger(src)
 		return
 
 	proc/Burst(var/kill = 1) //drops and kills the hugger if any is remaining
 		if(status == GROWN || status == GROWING)
+			var/mob/living/carbon/alien/facehugger/child = GetFacehugger()
 			icon_state = "egg_hatched"
 			flick("egg_opening", src)
 			status = BURSTING
 			spawn(15)
 				status = BURST
-				var/mob/living/carbon/alien/facehugger/F = new /mob/living/carbon/alien/facehugger(src.loc)
-				if(kill)
-					F.stat=2
+				if(!child)
+					src.visible_message("\red The egg bursts apart revealing nothing")
+					status = "GROWN"
+					new /obj/effect/decal/cleanable/xenoblood(src)
+				loc.contents += child//need to write the code for giving it to the alien later
+				if(kill && istype(child))
+					child.death()
 				else
+					child.cancel_camera()
 					for(var/mob/M in range(1,src))
 						if(CanHug(M))
-							F.Attach(M)
+							child.Attach(M)
 							break
 
 
@@ -457,7 +489,7 @@ Alien plants should do something if theres a lot of poison
 
 		if(WT.remove_fuel(0, user))
 			damage = 15
-			playsound(src.loc, 'sound/items/Welder.ogg', 100, 1)
+			playsound(get_turf(src), 'sound/items/Welder.ogg', 100, 1)
 
 	src.health -= damage
 	src.healthcheck()
@@ -467,7 +499,7 @@ Alien plants should do something if theres a lot of poison
 	if(health <= 0)
 		Burst()
 
-/obj/effect/alien/egg/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
+/obj/effect/alien/egg/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume)
 	if(exposed_temperature > 500)
 		health -= 5
 		healthcheck()

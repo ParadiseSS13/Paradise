@@ -18,6 +18,7 @@
 
 			else
 				lawsync()
+				photosync()
 				src << "<b>Laws synced with AI, be sure to note any changes.</b>"
 				if(mind && mind.special_role == "traitor" && mind.original == src)
 					src << "<b>Remember, your AI does NOT share or know about your law 0."
@@ -102,7 +103,7 @@
 
 /mob/living/silicon/proc/make_laws()
 	switch(config.default_laws)
-		if(0)  laws = new /datum/ai_laws/default/asimov()
+		if(0)  laws = new /datum/ai_laws/asimov()
 		if(1)  laws = new /datum/ai_laws/custom()
 		if(2)
 			var/datum/ai_laws/lawtype = pick(typesof(/datum/ai_laws/default) - /datum/ai_laws/default)

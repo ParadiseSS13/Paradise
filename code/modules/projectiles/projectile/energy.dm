@@ -20,6 +20,19 @@
 	hitsound = 'sound/weapons/tase.ogg'
 	//Damage will be handled on the MOB side, to prevent window shattering.
 
+
+/obj/item/projectile/energy/electroderevolver
+	name = "electrode"
+	icon_state = "spark"
+	nodamage = 1
+/*	stun = 2
+	weaken = 2
+	stutter = 10 */
+	agony = 50
+	damage_type = HALLOSS
+	hitsound = 'sound/weapons/tase.ogg'
+	//Damage will be handled on the MOB side, to prevent window shattering.
+
 /obj/item/projectile/energy/declone
 	name = "declone"
 	icon_state = "declone"

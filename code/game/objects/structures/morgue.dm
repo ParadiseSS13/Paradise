@@ -322,7 +322,9 @@
 		if(!isemptylist(src.search_contents_for(/obj/item/weapon/disk/nuclear)))
 			usr << "You get the feeling that you shouldn't cremate one of the items in the cremator."
 			return
-
+		if(!isemptylist(src.search_contents_for(/obj/item/flag/nation)))
+			usr << "You get the feeling that you shouldn't cremate one of the items in the cremator."
+			return
 		for (var/mob/M in viewers(src))
 			M.show_message("\red You hear a roar as the crematorium activates.", 1)
 

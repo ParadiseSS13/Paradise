@@ -98,6 +98,22 @@
 	drill_verb = "clearing"
 	w_class = 3
 
+/obj/item/weapon/pickaxe/robotic
+	name = "robotic pickaxe"
+	icon = 'icons/obj/xenoarchaeology.dmi'
+	icon_state = "pick_robotic"
+	item_state = "syringe_0"
+	digspeed = 30
+	desc = "An adjustable pickaxe designed to be resized internally as a robotic module.."
+	excavation_amount = 15
+	var/possible_excavation_amounts = list(1, 2, 4, 6, 8, 10, 12, 30)
+
+	attack_self(var/mob/user as mob)
+		var/N = input("Excavation amount (in centimeters):", "[src]") as null|anything in possible_excavation_amounts
+
+		if (N)
+			excavation_amount = N / 2
+
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Pack for holding pickaxes
 

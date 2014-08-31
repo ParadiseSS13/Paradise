@@ -5,6 +5,8 @@
 	force = 8.0
 	throwforce = 15.0
 	icon_state = "plasmalarge"
+	sharp = 1
+	edge = 1
 
 /obj/item/weapon/shard/plasma/New()
 
@@ -36,7 +38,7 @@
 				G.attackby(NG, user)
 				usr << "You add the newly-formed plasma glass to the stack. It now contains [NG.amount] sheets."
 			//SN src = null
-			del(src)
+			returnToPool(src)
 			return
 	return ..()
 

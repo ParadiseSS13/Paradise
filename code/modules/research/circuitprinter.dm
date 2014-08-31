@@ -50,6 +50,8 @@ using metal and glass, it uses glass and reagents (usually sulfuric acis).
 		return g_amount + gold_amount + diamond_amount + uranium_amount
 
 	attackby(var/obj/item/O as obj, var/mob/user as mob)
+		if(exchange_parts(user, O))
+			return
 		if (shocked)
 			shock(user,50)
 		if (istype(O, /obj/item/weapon/screwdriver))

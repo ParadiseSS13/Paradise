@@ -193,9 +193,9 @@
 	construction_time = 200
 	construction_cost = list("metal"=40000,"silver"=3000)
 
-/obj/item/mecha_parts/part/durand_armour
+/obj/item/mecha_parts/part/durand_armor
 	name="Durand Armour Plates"
-	icon_state = "durand_armour"
+	icon_state = "durand_armor"
 	origin_tech = "materials=5;combat=4;engineering=5"
 	construction_time = 600
 	construction_cost = list("metal"=50000,"uranium"=10000)
@@ -477,6 +477,10 @@
 
 	odysseus/main
 		name = "Circuit board (Odysseus Central Control module)"
+		icon_state = "mainboard"
+
+	pod
+		name = "Circuit board (Space Pod Mainboard)"
 		icon_state = "mainboard"
 
 

@@ -179,6 +179,7 @@
 	icon_state = "red_suit"
 	item_state = "r_suit"
 	_color = "red_suit"
+	species_fit = list("Vox")
 
 /obj/item/clothing/under/blackskirt
 	name = "black skirt"
@@ -429,3 +430,91 @@
 	icon_state = "mafiatan"
 	item_state = "mafiatan"
 	_color = "mafiatan"
+
+
+/obj/item/clothing/under/bane
+	name = "Bane Harness"
+	desc = "Wear this harness to become the bane of the station."
+	icon_state = "bane"
+	item_state = "bane"
+	_color = "bane"
+
+/obj/item/clothing/under/vox_grey
+	name = "Grey Vox Jumpsuit"
+	desc = "An assistant's jumpsuit ripped to better fit a vox."
+	icon_state = "vgrey"
+	item_state = "vgrey"
+	_color = "vgrey"
+
+/obj/item/clothing/under/vox_robotics
+	name = "Vox Robotics Jumpsuit"
+	desc = "A roboticist's jumpsuit ripped to better fit a vox."
+	icon_state = "vrobotics"
+	item_state = "vrobotics"
+	_color = "vrobotics"
+
+/obj/item/clothing/under/vox_toxins
+	name = "Vox Toxins Jumpsuit"
+	desc = "A Toxin Researcher's jumpsuit ripped to better fit a vox."
+	icon_state = "vtoxinswhite"
+	item_state = "vtoxinswhite"
+	_color = "vtoxinswhite"
+
+/obj/item/clothing/under/vox_atmos
+	name = "Vox Atmos Jumpsuit"
+	desc = "An Atmos Tech's jumpsuit ripped to better fit a vox."
+	icon_state = "vatmos"
+	item_state = "vatmos"
+	_color = "vatmos"
+
+/obj/item/clothing/under/vox_engi
+	name = "Vox Engineer Jumpsuit"
+	desc = "An Engineer's jumpsuit ripped to better fit a vox."
+	icon_state = "vengine"
+	item_state = "vengine"
+	_color = "vengine"
+	armor = list(melee = 0, bullet = 0, laser = 0,energy = 0, bomb = 0, bio = 0, rad = 10)
+
+/obj/item/clothing/under/vox_toxins
+	name = "Vox Security Jumpsuit"
+	desc = "A Security Uniform ripped to better fit a vox."
+	icon_state = "vred"
+	item_state = "vred"
+	_color = "vred"
+	armor = list(melee = 10, bullet = 0, laser = 0,energy = 0, bomb = 0, bio = 0, rad = 0)
+
+/obj/item/clothing/under/vox_toxins
+	name = "Vox Chemist Jumpsuit"
+	desc = "A Security Uniform ripped to better fit a vox."
+	icon_state = "vchem"
+	item_state = "vchem"
+	_color = "vchem"
+	armor = list(melee = 0, bullet = 0, laser = 0,energy = 0, bomb = 0, bio = 10, rad = 0)
+
+/obj/item/clothing/under/psyjump
+	name = "Psychic Amp Jumpsuit"
+	desc = "A suit made of strange materials."
+	icon_state = "psyamp"
+	item_state = "psyamp"
+	_color = "psyamp"
+
+/obj/item/clothing/under/rebeloutfit
+	name = "Rebel Outfit"
+	desc = "Made in Seattle, 2216."
+	icon_state = "colin_earle"
+	item_state = "colin_earle"
+	_color = "colin_earle"
+
+/obj/item/clothing/under/officeruniform
+	name = "Clown Officer's Uniform"
+	desc = "For Clown officers, this uniform was designed by the great clown designer Hugo Boss."
+	icon_state = "officeruniform"
+	_color = "officeruniform"
+	body_parts_covered = UPPER_TORSO|LOWER_TORSO
+
+/obj/item/clothing/under/soldieruniform
+	name = "Clown Soldier's Uniform"
+	desc = "For the basic grunt of the Clown army."
+	icon_state = "soldieruniform"
+	_color = "soldieruniform"
+	body_parts_covered = UPPER_TORSO|LOWER_TORSO

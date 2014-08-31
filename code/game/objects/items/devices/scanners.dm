@@ -19,6 +19,26 @@ REAGENT SCANNER
 	item_state = "electronic"
 	m_amt = 150
 	origin_tech = "magnets=1;engineering=1"
+	var/scan_range = 1
+	var/pulse_duration = 10
+
+/obj/item/device/t_scanner/longer_pulse
+	origin_tech = "magnets=2;engineering=2"
+	pulse_duration = 50
+
+/obj/item/device/t_scanner/extended_range
+	origin_tech = "magnets=1;engineering=3"
+	scan_range = 3
+
+/obj/item/device/t_scanner/extended_range/longer_pulse
+	origin_tech = "magnets=2;engineering=3"
+	scan_range = 3
+	pulse_duration = 50
+
+/obj/item/device/t_scanner/Destroy()
+	if(on)
+		processing_objects.Remove(src)
+	..()
 
 /obj/item/device/t_scanner/attack_self(mob/user)
 
@@ -34,7 +54,7 @@ REAGENT SCANNER
 		processing_objects.Remove(src)
 		return null
 
-	for(var/turf/T in range(1, src.loc) )
+	for(var/turf/T in range(scan_range, src.loc) )
 
 		if(!T.intact)
 			continue
@@ -46,13 +66,21 @@ REAGENT SCANNER
 
 			if(O.invisibility == 101)
 				O.invisibility = 0
-				spawn(10)
+				spawn(pulse_duration)
 					if(O)
 						var/turf/U = O.loc
 						if(U.intact)
 							O.invisibility = 101
+		for(var/mob/living/M in T.contents)
+			var/oldalpha = M.alpha
+			if(M.alpha < 255 && istype(M))
+				M.alpha = 255
+				spawn(10)
+					if(M)
+						M.alpha = oldalpha
 
 		var/mob/living/M = locate() in T
+
 		if(M && M.invisibility == 2)
 			M.invisibility = 0
 			spawn(2)
@@ -90,6 +118,17 @@ REAGENT SCANNER
 		usr << "\red You don't have the dexterity to do this!"
 		return
 	user.visible_message("<span class='notice'> [user] has analyzed [M]'s vitals.","<span class='notice'> You have analyzed [M]'s vitals.")
+
+	if (!istype(M, /mob/living/carbon) || (ishuman(M) && (M:species.flags & IS_SYNTHETIC)))
+		//these sensors are designed for organic life
+		user.show_message("\blue Analyzing Results for ERROR:\n\t Overall Status: ERROR")
+		user.show_message("\t Key: <font color='blue'>Suffocation</font>/<font color='green'>Toxin</font>/<font color='#FFA500'>Burns</font>/<font color='red'>Brute</font>", 1)
+		user.show_message("\t Damage Specifics: <font color='blue'>?</font> - <font color='green'>?</font> - <font color='#FFA500'>?</font> - <font color='red'>?</font>")
+		user.show_message("\blue Body Temperature: [M.bodytemperature-T0C]&deg;C ([M.bodytemperature*1.8-459.67]&deg;F)", 1)
+		user.show_message("\red <b>Warning: Blood Level ERROR: --% --cl.\blue Type: ERROR")
+		user.show_message("\blue Subject's pulse: <font color='red'>-- bpm.</font>")
+		return
+
 	var/fake_oxy = max(rand(1,40), M.getOxyLoss(), (300 - (M.getToxLoss() + M.getFireLoss() + M.getBruteLoss())))
 	var/OX = M.getOxyLoss() > 50 	? 	"<b>[M.getOxyLoss()]</b>" 		: M.getOxyLoss()
 	var/TX = M.getToxLoss() > 50 	? 	"<b>[M.getToxLoss()]</b>" 		: M.getToxLoss()
@@ -128,7 +167,20 @@ REAGENT SCANNER
 	user.show_message("[OX] | [TX] | [BU] | [BR]")
 	if (istype(M, /mob/living/carbon))
 		if(M:reagents.total_volume > 0)
-			user.show_message(text("\red Warning: Unknown substance detected in subject's blood."))
+			var/unknown = 0
+			var/reagentdata[0]
+			for(var/A in M.reagents.reagent_list)
+				var/datum/reagent/R = A
+				if(R.scannable)
+					reagentdata["[R.id]"] = "\t \blue [round(M.reagents.get_reagent_amount(R.id), 1)]u [R.name]"
+				else
+					unknown++
+			if(reagentdata.len)
+				user.show_message("\blue Beneficial reagents detected in subject's blood:")
+				for(var/d in reagentdata)
+					user.show_message(reagentdata[d])
+			if(unknown)
+				user.show_message(text("\red Warning: Unknown substance[(unknown>1)?"s":""] detected in subject's blood."))
 		if(M:virus2.len)
 			var/mob/living/carbon/C = M
 			for (var/ID in C.virus2)
@@ -138,12 +190,11 @@ REAGENT SCANNER
 //			user.show_message(text("\red Warning: Unknown pathogen detected in subject's blood."))
 	if (M.getCloneLoss())
 		user.show_message("\red Subject appears to have been imperfectly cloned.")
-	for(var/datum/disease/D in M.viruses)
-		if(!D.hidden[SCANNER])
-			user.show_message(text("\red <b>Warning: [D.form] Detected</b>\nName: [D.name].\nType: [D.spread].\nStage: [D.stage]/[D.max_stages].\nPossible Cure: [D.cure]"))
-	if (M.reagents && M.reagents.get_reagent_amount("inaprovaline"))
-		user.show_message("\blue Bloodstream Analysis located [M.reagents:get_reagent_amount("inaprovaline")] units of rejuvenation chemicals.")
-	if (M.getBrainLoss() >= 100 || istype(M, /mob/living/carbon/human) && M:brain_op_stage == 4.0)
+//	if (M.reagents && M.reagents.get_reagent_amount("inaprovaline"))
+//		user.show_message("\blue Bloodstream Analysis located [M.reagents:get_reagent_amount("inaprovaline")] units of rejuvenation chemicals.")
+	if (M.has_brain_worms())
+		user.show_message("\red Subject suffering from aberrant brain activity. Recommend further scanning.")
+	else if (M.getBrainLoss() >= 100 || istype(M, /mob/living/carbon/human) && M:brain_op_stage == 4.0)
 		user.show_message("\red Subject is brain dead.")
 	else if (M.getBrainLoss() >= 60)
 		user.show_message("\red Severe brain damage detected. Subject likely to have mental retardation.")
@@ -157,7 +208,7 @@ REAGENT SCANNER
 			if(e.status & ORGAN_BROKEN)
 				if(((e.name == "l_arm") || (e.name == "r_arm") || (e.name == "l_leg") || (e.name == "r_leg")) && (!(e.status & ORGAN_SPLINTED)))
 					user << "\red Unsecured fracture in subject [limb]. Splinting recommended for transport."
-			if(e.is_infected())
+			if(e.has_infected_wound())
 				user << "\red Infected wound detected in subject [limb]. Disinfection recommended."
 
 		for(var/name in H.organs_by_name)
@@ -395,3 +446,46 @@ REAGENT SCANNER
 	icon_state = "adv_spectrometer"
 	details = 1
 	origin_tech = "magnets=4;biotech=2"
+
+/obj/item/device/slime_scanner
+	name = "slime scanner"
+	icon_state = "adv_spectrometer"
+	item_state = "analyzer"
+	origin_tech = "biotech=1"
+	w_class = 2.0
+	flags = CONDUCT
+	throwforce = 0
+	throw_speed = 3
+	throw_range = 7
+//	matter = list("metal" = 30,"glass" = 20)
+
+/obj/item/device/slime_scanner/attack(mob/living/M as mob, mob/living/user as mob)
+	if (!isslime(M))
+		user << "<B>This device can only scan slimes!</B>"
+		return
+	var/mob/living/carbon/slime/T = M
+	user.show_message("Slime scan results:")
+	user.show_message(text("[T.colour] [] slime", T.is_adult ? "adult" : "baby"))
+	user.show_message(text("Nutrition: [T.nutrition]/[]", T.get_max_nutrition()))
+	if (T.nutrition < T.get_starve_nutrition())
+		user.show_message("<span class='alert'>Warning: slime is starving!</span>")
+	else if (T.nutrition < T.get_hunger_nutrition())
+		user.show_message("<span class='warning'>Warning: slime is hungry</span>")
+	user.show_message("Electric change strength: [T.powerlevel]")
+	user.show_message("Health: [T.health]")
+	if (T.slime_mutation[4] == T.colour)
+		user.show_message("This slime does not evolve any further")
+	else
+		if (T.slime_mutation[3] == T.slime_mutation[4])
+			if (T.slime_mutation[2] == T.slime_mutation[1])
+				user.show_message(text("Possible mutation: []", T.slime_mutation[3]))
+				user.show_message("Genetic destability: [T.mutation_chance/2]% chance of mutation on splitting")
+			else
+				user.show_message(text("Possible mutations: [], [], [] (x2)", T.slime_mutation[1], T.slime_mutation[2], T.slime_mutation[3]))
+				user.show_message("Genetic destability: [T.mutation_chance]% chance of mutation on splitting")
+		else
+			user.show_message(text("Possible mutations: [], [], [], []", T.slime_mutation[1], T.slime_mutation[2], T.slime_mutation[3], T.slime_mutation[4]))
+			user.show_message("Genetic destability: [T.mutation_chance]% chance of mutation on splitting")
+	if (T.cores > 1)
+		user.show_message("Anomalious slime core amount detected")
+	user.show_message("Growth progress: [T.amount_grown]/10")

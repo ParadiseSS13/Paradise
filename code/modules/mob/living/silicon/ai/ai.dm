@@ -33,7 +33,8 @@ var/list/ai_list = list()
 	var/obj/item/device/multitool/aiMulti = null
 	var/custom_sprite = 0 //For our custom sprites
 	var/alienAI = 0
-//Hud stuff
+
+	var/obj/item/device/radio/headset/heads/ai_integrated/radio = null
 
 	//MALFUNCTION
 	var/datum/module_picker/malf_picker
@@ -90,12 +91,15 @@ var/list/ai_list = list()
 	aiPDA.name = name + " (" + aiPDA.ownjob + ")"
 
 	aiMulti = new(src)
+	radio = new(src)
+	radio.myAi = src
+
+	aiCamera = new/obj/item/device/camera/siliconcam/ai_camera(src)
 
 	if (istype(loc, /turf))
-		verbs.Add(/mob/living/silicon/ai/proc/ai_call_shuttle,/mob/living/silicon/ai/proc/ai_camera_track, \
-		/mob/living/silicon/ai/proc/ai_camera_list, /mob/living/silicon/ai/proc/ai_network_change, \
+		verbs.Add(/mob/living/silicon/ai/proc/ai_network_change, \
 		/mob/living/silicon/ai/proc/ai_statuschange, /mob/living/silicon/ai/proc/ai_hologram_change, \
-		/mob/living/silicon/ai/proc/toggle_camera_light)
+		/mob/living/silicon/ai/proc/toggle_camera_light, /mob/living/silicon/ai/proc/control_integrateed_radio)
 
 	if(!safety)//Only used by AIize() to successfully spawn an AI.
 		if (!B)//If there is no player/brain inside.
@@ -107,7 +111,10 @@ var/list/ai_list = list()
 				if(B.alien)
 					B.brainmob.mind.transfer_to(src)
 					icon_state = "ai-alien"
-					verbs.Remove(/mob/living/silicon/ai/verb/pick_icon)
+					verbs.Remove(,/mob/living/silicon/ai/proc/ai_call_shuttle,/mob/living/silicon/ai/proc/ai_camera_track, \
+					/mob/living/silicon/ai/proc/ai_camera_list, /mob/living/silicon/ai/proc/ai_network_change, \
+					/mob/living/silicon/ai/proc/ai_statuschange, /mob/living/silicon/ai/proc/ai_hologram_change, \
+					/mob/living/silicon/ai/proc/toggle_camera_light,/mob/living/silicon/ai/verb/pick_icon)
 					laws = new /datum/ai_laws/alienmov
 				else
 					B.brainmob.mind.transfer_to(src)
@@ -122,14 +129,60 @@ var/list/ai_list = list()
 				src << "<b>These laws may be changed by other players, or by you being the traitor.</b>"
 
 			job = "AI"
+
+	spawn(5)
+		new /obj/machinery/ai_powersupply(src)
+
+
+	hud_list[HEALTH_HUD]      = image('icons/mob/hud.dmi', src, "hudblank")
+	hud_list[STATUS_HUD]      = image('icons/mob/hud.dmi', src, "hudblank")
+	hud_list[ID_HUD]          = image('icons/mob/hud.dmi', src, "hudblank")
+	hud_list[WANTED_HUD]      = image('icons/mob/hud.dmi', src, "hudblank")
+	hud_list[IMPLOYAL_HUD]    = image('icons/mob/hud.dmi', src, "hudblank")
+	hud_list[IMPCHEM_HUD]     = image('icons/mob/hud.dmi', src, "hudblank")
+	hud_list[IMPTRACK_HUD]    = image('icons/mob/hud.dmi', src, "hudblank")
+	hud_list[SPECIALROLE_HUD] = image('icons/mob/hud.dmi', src, "hudblank")
+	hud_list[NATIONS_HUD] = image('icons/mob/hud.dmi', src, "hudblank")
+
 	ai_list += src
 	..()
 	return
 
-/mob/living/silicon/ai/Del()
+/mob/living/silicon/ai/Destroy()
 	ai_list -= src
 	..()
 
+
+/*
+	The AI Power supply is a dummy object used for powering the AI since only machinery should be using power.
+	The alternative was to rewrite a bunch of AI code instead here we are.
+*/
+/obj/machinery/ai_powersupply
+	name="Power Supply"
+	active_power_usage=1000
+	use_power = 2
+	power_channel = EQUIP
+	var/mob/living/silicon/ai/powered_ai = null
+	invisibility = 100
+
+/obj/machinery/ai_powersupply/New(var/mob/living/silicon/ai/ai=null)
+	powered_ai = ai
+	if(isnull(powered_ai))
+		Del()
+
+	loc = powered_ai.loc
+	use_power(1) // Just incase we need to wake up the power system.
+
+	..()
+
+/obj/machinery/ai_powersupply/process()
+	if(!powered_ai || powered_ai.stat & DEAD)
+		Del()
+	if(!powered_ai.anchored)
+		loc = powered_ai.loc
+		use_power = 0
+	if(powered_ai.anchored)
+		use_power = 2
 
 /mob/living/silicon/ai/verb/pick_icon()
 	set category = "AI Commands"
@@ -156,7 +209,7 @@ var/list/ai_list = list()
 		//if(icon_state == initial(icon_state))
 	var/icontype = ""
 	if (custom_sprite == 1) icontype = ("Custom")//automagically selects custom sprite if one is available
-	else icontype = input("Select an icon!", "AI", null, null) in list("Monochrome", "Blue", "Clown", "Inverted", "Text", "Smiley", "Angry", "Dorf", "Matrix", "Bliss", "Firewall", "Green", "Red", "Static", "Triumvirate", "Triumvirate Static", "Red October", "Sparkles")
+	else icontype = input("Select an icon!", "AI", null, null) in list("Monochrome", "Blue", "Clown", "Inverted", "Text", "Smiley", "Angry", "Dorf", "Matrix", "Bliss", "Firewall", "Green", "Red", "Static", "Triumvirate", "Triumvirate Static", "Red October", "Sparkles", "ANIMA", "President")
 	switch(icontype)
 		if("Custom") icon_state = "[src.ckey]-ai"
 		if("Clown") icon_state = "ai-clown2"
@@ -176,6 +229,8 @@ var/list/ai_list = list()
 		if("Triumvirate Static") icon_state = "ai-triumvirate-malf"
 		if("Red October") icon_state = "ai-redoctober"
 		if("Sparkles") icon_state = "ai-sparkles"
+		if("ANIMA") icon_state = "ai-anima"
+		if("President") icon_state = "ai-president"
 		else icon_state = "ai"
 	//else
 			//usr <<"You can only change your display once!"
@@ -193,9 +248,6 @@ var/list/ai_list = list()
 
 
 /mob/living/silicon/ai/proc/ai_alerts()
-	set category = "AI Commands"
-	set name = "Show Alerts"
-
 	var/dat = "<HEAD><TITLE>Current Station Alerts</TITLE><META HTTP-EQUIV='Refresh' CONTENT='10'></HEAD><BODY>\n"
 	dat += "<A HREF='?src=\ref[src];mach_close=aialerts'>Close</A><BR><BR>"
 	for (var/cat in alarms)
@@ -230,13 +282,9 @@ var/list/ai_list = list()
 
 // this verb lets the ai see the stations manifest
 /mob/living/silicon/ai/proc/ai_roster()
-	set category = "AI Commands"
-	set name = "Show Crew Manifest"
 	show_station_manifest()
 
 /mob/living/silicon/ai/proc/ai_call_shuttle()
-	set category = "AI Commands"
-	set name = "Call Emergency Shuttle"
 	if(src.stat == 2)
 		src << "You can't call the shuttle because you are dead!"
 		return
@@ -252,15 +300,15 @@ var/list/ai_list = list()
 		call_shuttle_proc(src)
 
 	// hack to display shuttle timer
-	if(emergency_shuttle.online)
-		var/datum/radio_frequency/frequency = radio_controller.return_frequency(1435)
-		if(!frequency) return
-		var/datum/signal/status_signal = new
-		status_signal.source = src
-		status_signal.transmission_method = 1
-		status_signal.data["command"] = "shuttle"
-		frequency.post_signal(src, status_signal)
+	if(emergency_shuttle.online())
+		var/obj/machinery/computer/communications/C = locate() in machines
+		if(C)
+			C.post_status("shuttle")
+
 	return
+
+/mob/living/silicon/ai/cancel_camera()
+	src.view_core()
 
 /mob/living/silicon/ai/verb/toggle_anchor()
         set category = "AI Commands"
@@ -345,7 +393,7 @@ var/list/ai_list = list()
 		unset_machine()
 		src << browse(null, t1)
 	if (href_list["switchcamera"])
-		switchCamera(locate(href_list["switchcamera"])) in cameranet.cameras
+		switchCamera(locate(href_list["switchcamera"])) in cameranet.viewpoints
 	if (href_list["showalerts"])
 		ai_alerts()
 	//Carn: holopad requests
@@ -551,14 +599,6 @@ var/list/ai_list = list()
 		if (viewalerts) ai_alerts()
 	return !cleared
 
-/mob/living/silicon/ai/cancel_camera()
-	set category = "AI Commands"
-	set name = "Cancel Camera View"
-
-	//src.cameraFollow = null
-	src.view_core()
-
-
 //Replaces /mob/living/silicon/ai/verb/change_network() in ai.dm & camera.dm
 //Adds in /mob/living/silicon/ai/proc/ai_network_change() instead
 //Addition by Mord_Sith to define AI's network change ability
@@ -575,7 +615,7 @@ var/list/ai_list = list()
 
 	var/mob/living/silicon/ai/U = usr
 
-	for (var/obj/machinery/camera/C in cameranet.cameras)
+	for (var/obj/machinery/camera/C in cameranet.viewpoints)
 		if(!C.can_use())
 			continue
 
@@ -593,7 +633,7 @@ var/list/ai_list = list()
 	if(isnull(network))
 		network = old_network // If nothing is selected
 	else
-		for(var/obj/machinery/camera/C in cameranet.cameras)
+		for(var/obj/machinery/camera/C in cameranet.viewpoints)
 			if(!C.can_use())
 				continue
 			if(network in C.network)
@@ -685,17 +725,17 @@ var/list/ai_list = list()
 
 //Toggles the luminosity and applies it by re-entereing the camera.
 /mob/living/silicon/ai/proc/toggle_camera_light()
-	set name = "Toggle Camera Light"
-	set desc = "Toggles the light on the camera the AI is looking through."
-	set category = "AI Commands"
+	if(stat != CONSCIOUS)
+		return
 
 	camera_light_on = !camera_light_on
 	src << "Camera lights [camera_light_on ? "activated" : "deactivated"]."
 	if(!camera_light_on)
-		if(src.current)
-			src.current.SetLuminosity(0)
+		if(current)
+			current.SetLuminosity(0)
+			current = null
 	else
-		src.lightNearbyCamera()
+		lightNearbyCamera()
 
 
 
@@ -744,3 +784,13 @@ var/list/ai_list = list()
 			return
 	else
 		return ..()
+
+
+/mob/living/silicon/ai/proc/control_integrateed_radio()
+	set name = "Radio Settings"
+	set desc = "Allows you to change settings of your radio."
+	set category = "AI Commands"
+
+	src << "Accessing Subspace Transceiver control..."
+	if (src.radio)
+		src.radio.interact(src)

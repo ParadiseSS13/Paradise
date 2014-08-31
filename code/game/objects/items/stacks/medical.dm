@@ -78,15 +78,15 @@
 					if (W.internal)
 						continue
 					if (W.current_stage <= W.max_bleeding_stage)
-						user.visible_message( 	"\blue [user] bandages [W.desc] on [M]'s [affecting.display_name].", \
-										"\blue You bandage [W.desc] on [M]'s [affecting.display_name]." )
+						user.visible_message( 	"\blue [user] bandages \the [W.desc] on [M]'s [affecting.display_name].", \
+										"\blue You bandage \the [W.desc] on [M]'s [affecting.display_name]." )
 						//H.add_side_effect("Itch")
 					else if (istype(W,/datum/wound/bruise))
-						user.visible_message( 	"\blue [user] places bruise patch over [W.desc] on [M]'s [affecting.display_name].", \
-										"\blue You place bruise patch over [W.desc] on [M]'s [affecting.display_name]." )
+						user.visible_message( 	"\blue [user] places a bruise patch over \the [W.desc] on [M]'s [affecting.display_name].", \
+										"\blue You place a bruise patch over \the [W.desc] on [M]'s [affecting.display_name]." )
 					else
-						user.visible_message( 	"\blue [user] places bandaid over [W.desc] on [M]'s [affecting.display_name].", \
-										"\blue You place bandaid over [W.desc] on [M]'s [affecting.display_name]." )
+						user.visible_message( 	"\blue [user] places a bandaid over \the [W.desc] on [M]'s [affecting.display_name].", \
+										"\blue You place a bandaid over \the [W.desc] on [M]'s [affecting.display_name]." )
 				use(1)
 		else
 			if (can_operate(H))        //Checks if mob is lying down on table for surgery
@@ -117,15 +117,15 @@
 				user << "\red The wounds on [M]'s [affecting.display_name] have already been salved."
 				return 1
 			else
-				user.visible_message( 	"\blue [user] salves wounds on [M]'s [affecting.display_name].", \
-										"\blue You salve wounds on [M]'s [affecting.display_name]." )
+				user.visible_message( 	"\blue [user] salves the wounds on [M]'s [affecting.display_name].", \
+										"\blue You salve the wounds on [M]'s [affecting.display_name]." )
 				use(1)
 		else
 			if (can_operate(H))        //Checks if mob is lying down on table for surgery
 				if (do_surgery(H,user,src))
 					return
 			else
-				user << "<span class='notice'>The [affecting.display_name] is cut open, you'll need more than a bandage!</span>"
+				user << "<span class='notice'>The [affecting.display_name] is cut open, you'll need more than some ointment!</span>"
 
 /obj/item/stack/medical/bruise_pack/tajaran
 	name = "\improper S'rendarr's Hand leaf"
@@ -160,7 +160,10 @@
 		var/datum/organ/external/affecting = H.get_organ(user.zone_sel.selecting)
 
 		if(affecting.open == 0)
-			if(!affecting.bandage())
+			var/bandaged = affecting.bandage()
+			var/disinfected = affecting.disinfect()
+
+			if(!(bandaged || disinfected))
 				user << "\red The wounds on [M]'s [affecting.display_name] have already been treated."
 				return 1
 			else
@@ -168,16 +171,17 @@
 					if (W.internal)
 						continue
 					if (W.current_stage <= W.max_bleeding_stage)
-						user.visible_message( 	"\blue [user] cleans [W.desc] on [M]'s [affecting.display_name] and seals edges with bioglue.", \
-										"\blue You clean and seal [W.desc] on [M]'s [affecting.display_name]." )
+						user.visible_message( 	"\blue [user] cleans \the [W.desc] on [M]'s [affecting.display_name] and seals the edges with bioglue.", \
+										"\blue You clean and seal \the [W.desc] on [M]'s [affecting.display_name]." )
 						//H.add_side_effect("Itch")
 					else if (istype(W,/datum/wound/bruise))
-						user.visible_message( 	"\blue [user] places medicine patch over [W.desc] on [M]'s [affecting.display_name].", \
-										"\blue You place medicine patch over [W.desc] on [M]'s [affecting.display_name]." )
+						user.visible_message( 	"\blue [user] places a medicine patch over \the [W.desc] on [M]'s [affecting.display_name].", \
+										"\blue You place a medicine patch over \the [W.desc] on [M]'s [affecting.display_name]." )
 					else
 						user.visible_message( 	"\blue [user] smears some bioglue over [W.desc] on [M]'s [affecting.display_name].", \
 										"\blue You smear some bioglue over [W.desc] on [M]'s [affecting.display_name]." )
-				affecting.heal_damage(heal_brute,0)
+				if (bandaged)
+					affecting.heal_damage(heal_brute,0)
 				use(1)
 		else
 			if (can_operate(H))        //Checks if mob is lying down on table for surgery
@@ -208,8 +212,8 @@
 				user << "\red The wounds on [M]'s [affecting.display_name] have already been salved."
 				return 1
 			else
-				user.visible_message( 	"\blue [user] covers wounds on [M]'s [affecting.display_name] with regenerative membrane.", \
-										"\blue You cover wounds on [M]'s [affecting.display_name] with regenerative membrane." )
+				user.visible_message( 	"\blue [user] covers the wounds on [M]'s [affecting.display_name] with regenerative membrane.", \
+										"\blue You cover the wounds on [M]'s [affecting.display_name] with regenerative membrane." )
 				affecting.heal_damage(0,heal_burn)
 				use(1)
 		else

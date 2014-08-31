@@ -15,7 +15,6 @@
 	if(ticker)
 		initialize()
 
-
 /obj/machinery/computer/initialize()
 	power_change()
 
@@ -93,6 +92,10 @@
 /obj/machinery/computer/power_change()
 	..()
 	update_icon()
+	if(!(stat & (BROKEN|NOPOWER)))
+		SetLuminosity(2)
+	else
+		SetLuminosity(0)
 
 
 /obj/machinery/computer/proc/set_broken()
@@ -112,7 +115,7 @@
 				C.loc = src.loc
 			if (src.stat & BROKEN)
 				user << "\blue The broken glass falls out."
-				new /obj/item/weapon/shard( src.loc )
+				getFromPool(/obj/item/weapon/shard, loc)
 				A.state = 3
 				A.icon_state = "3"
 			else

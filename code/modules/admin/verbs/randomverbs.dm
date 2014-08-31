@@ -44,13 +44,12 @@
 		feedback_add_details("admin_verb","PRISON") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /client/proc/cmd_admin_subtle_message(mob/M as mob in mob_list)
-	set category = "Special Verbs"
+	set category = "Event"
 	set name = "Subtle Message"
 
 	if(!ismob(M))	return
-	if (!holder)
-		src << "Only administrators may use this command."
-		return
+
+	if(!check_rights(R_SERVER|R_EVENT))	return
 
 	var/msg = input("Message:", text("Subtle PM to [M.key]")) as text
 
@@ -65,13 +64,42 @@
 	message_admins("\blue \bold SubtleMessage: [key_name_admin(usr)] -> [key_name_admin(M)] : [msg]", 1)
 	feedback_add_details("admin_verb","SMS") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
+/client/proc/cmd_mentor_check_new_players()	//Allows mentors / admins to determine who the newer players are.
+	set category = "Admin"
+	set name = "Check new Players"
+	if(!holder)
+		src << "Only staff members may use this command."
+
+	var/age = alert(src, "Age check", "Show accounts yonger then _____ days","7", "30" , "All")
+
+	if(age == "All")
+		age = 9999999
+	else
+		age = text2num(age)
+
+	var/missing_ages = 0
+	var/msg = ""
+	for(var/client/C in clients)
+		if(C.player_age == "Requires database")
+			missing_ages = 1
+			continue
+		if(C.player_age < age)
+			msg += "[key_name_admin(C)]: account is [C.player_age] days old<br>"
+
+	if(missing_ages)
+		src << "Some accounts did not have proper ages set in their clients.  This function requires database to be present"
+
+	if(msg != "")
+		src << browse(msg, "window=Player_age_check")
+	else
+		src << "No matches for that age range found."
+
+
 /client/proc/cmd_admin_world_narrate() // Allows administrators to fluff events a little easier -- TLE
-	set category = "Special Verbs"
+	set category = "Event"
 	set name = "Global Narrate"
 
-	if (!holder)
-		src << "Only administrators may use this command."
-		return
+	if(!check_rights(R_SERVER|R_EVENT))	return
 
 	var/msg = input("Message:", text("Enter the text you wish to appear to everyone:")) as text
 
@@ -83,12 +111,10 @@
 	feedback_add_details("admin_verb","GLN") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /client/proc/cmd_admin_direct_narrate(var/mob/M)	// Targetted narrate -- TLE
-	set category = "Special Verbs"
+	set category = "Event"
 	set name = "Direct Narrate"
 
-	if(!holder)
-		src << "Only administrators may use this command."
-		return
+	if(!check_rights(R_SERVER|R_EVENT))	return
 
 	if(!M)
 		M = input("Direct narrate to who?", "Active Players") as null|anything in get_mob_with_client_list()
@@ -171,7 +197,7 @@ proc/cmd_admin_mute(mob/M as mob, mute_type, automute = 0)
 
 
 /client/proc/cmd_admin_add_random_ai_law()
-	set category = "Fun"
+	set category = "Event"
 	set name = "Add Random AI Law"
 	if(!holder)
 		src << "Only administrators may use this command."
@@ -341,7 +367,6 @@ Ccomp's first proc.
 	message_admins("Admin [key_name_admin(usr)] has [action] on joining the round if they use AntagHUD", 1)
 */
 
-
 /*
 If a guy was gibbed and you want to revive him, this is a good way to do so.
 Works kind of like entering the game with a new character. Character receives a new mind if they didn't have one.
@@ -440,7 +465,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 		new_character.mind.special_verbs = list()
 	else
 		new_character.mind_initialize()
-	if(!new_character.mind.assigned_role)	new_character.mind.assigned_role = "Assistant"//If they somehow got a null assigned role.
+	if(!new_character.mind.assigned_role)	new_character.mind.assigned_role = "Civilian"//If they somehow got a null assigned role.
 
 	//DNA
 	if(record_found)//Pull up their name from database records if they did have a mind.
@@ -593,7 +618,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	message_admins("Admin [key_name_admin(usr)] has [action] on joining the round if they use AntagHUD", 1)
 
 /client/proc/cmd_admin_add_freeform_ai_law()
-	set category = "Fun"
+	set category = "Event"
 	set name = "Add Custom AI law"
 	if(!holder)
 		src << "Only administrators may use this command."
@@ -638,11 +663,11 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	feedback_add_details("admin_verb","REJU") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /client/proc/cmd_admin_create_centcom_report()
-	set category = "Special Verbs"
+	set category = "Event"
 	set name = "Create Command Report"
-	if(!holder)
-		src << "Only administrators may use this command."
-		return
+
+	if(!check_rights(R_SERVER|R_EVENT))	return
+
 	var/input = input(usr, "Please enter anything you want. Anything. Serious.", "What?", "") as message|null
 	var/customname = input(usr, "Pick a title for the report.", "Title") as text|null
 	if(!input)
@@ -696,10 +721,10 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	feedback_add_details("admin_verb","LFS") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /client/proc/cmd_admin_explosion(atom/O as obj|mob|turf in world)
-	set category = "Special Verbs"
+	set category = "Event"
 	set name = "Explosion"
 
-	if(!check_rights(R_DEBUG|R_FUN))	return
+	if(!check_rights(R_DEBUG|R_EVENT))	return
 
 	var/devastation = input("Range of total devastation. -1 to none", text("Input"))  as num|null
 	if(devastation == null) return
@@ -727,7 +752,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	set category = "Special Verbs"
 	set name = "EM Pulse"
 
-	if(!check_rights(R_DEBUG|R_FUN))	return
+	if(!check_rights(R_DEBUG|R_EVENT))	return
 
 	var/heavy = input("Range of heavy pulse.", text("Input"))  as num|null
 	if(heavy == null) return
@@ -749,7 +774,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	set category = "Special Verbs"
 	set name = "Gib"
 
-	if(!check_rights(R_ADMIN|R_FUN))	return
+	if(!check_rights(R_ADMIN|R_EVENT))	return
 
 	var/confirm = alert(src, "You sure?", "Confirm", "Yes", "No")
 	if(confirm != "Yes") return
@@ -768,7 +793,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 
 /client/proc/cmd_admin_gib_self()
 	set name = "Gibself"
-	set category = "Fun"
+	set category = "Event"
 
 	var/confirm = alert(src, "You sure?", "Confirm", "Yes", "No")
 	if(confirm == "Yes")
@@ -902,7 +927,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	set category = "Admin"
 	set name = "Call Shuttle"
 
-	if ((!( ticker ) || emergency_shuttle.location))
+	if ((!( ticker ) || !emergency_shuttle.location()))
 		return
 
 	if(!check_rights(R_ADMIN))	return
@@ -910,16 +935,21 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	var/confirm = alert(src, "You sure?", "Confirm", "Yes", "No")
 	if(confirm != "Yes") return
 
+	var/choice
 	if(ticker.mode.name == "revolution" || ticker.mode.name == "AI malfunction" || ticker.mode.name == "confliction")
-		var/choice = input("The shuttle will just return if you call it. Call anyway?") in list("Confirm", "Cancel")
+		choice = input("The shuttle will just return if you call it. Call anyway?") in list("Confirm", "Cancel")
 		if(choice == "Confirm")
-			emergency_shuttle.fake_recall = rand(300,500)
+			emergency_shuttle.auto_recall = 1	//enable auto-recall
 		else
 			return
 
-	emergency_shuttle.incall()
-	captain_announce("The emergency shuttle has been called. It will arrive in [round(emergency_shuttle.timeleft()/60)] minutes.")
-	world << sound('sound/AI/shuttlecalled.ogg')
+	choice = input("Is this an emergency evacuation or a crew transfer?") in list("Emergency", "Crew Transfer")
+	if (choice == "Emergency")
+		emergency_shuttle.call_evac()
+	else
+		emergency_shuttle.call_transfer()
+
+
 	feedback_add_details("admin_verb","CSHUT") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 	log_admin("[key_name(usr)] admin-called the emergency shuttle.")
 	message_admins("\blue [key_name_admin(usr)] admin-called the emergency shuttle.", 1)
@@ -933,7 +963,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 
 	if(alert(src, "You sure?", "Confirm", "Yes", "No") != "Yes") return
 
-	if(!ticker || emergency_shuttle.location || emergency_shuttle.direction == 0)
+	if(!ticker || !emergency_shuttle.can_recall())
 		return
 
 	emergency_shuttle.recall()
@@ -968,11 +998,11 @@ Traitors and the like can also be revived with the previous role mostly intact.
 
 
 /client/proc/everyone_random()
-	set category = "Fun"
+	set category = "Event"
 	set name = "Make Everyone Random"
 	set desc = "Make everyone have a random appearance. You can only use this before rounds!"
 
-	if(!check_rights(R_FUN))	return
+	if(!check_rights(R_SERVER|R_EVENT))	return
 
 	if (ticker && ticker.mode)
 		usr << "Nope you can't do this, the game's already started. This only works before rounds!"
@@ -1002,11 +1032,11 @@ Traitors and the like can also be revived with the previous role mostly intact.
 
 
 /client/proc/toggle_random_events()
-	set category = "Server"
+	set category = "Event"
 	set name = "Toggle random events on/off"
 
 	set desc = "Toggles random events such as meteors, black holes, blob (but not space dust) on/off"
-	if(!check_rights(R_SERVER))	return
+	if(!check_rights(R_SERVER|R_EVENT))	return
 
 	if(!config.allow_random_events)
 		config.allow_random_events = 1
@@ -1017,4 +1047,22 @@ Traitors and the like can also be revived with the previous role mostly intact.
 		usr << "Random events disabled"
 		message_admins("Admin [key_name_admin(usr)] has disabled random events.", 1)
 	feedback_add_details("admin_verb","TRE") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+
+/client/proc/toggle_ert_calling()
+	set category = "Event"
+	set name = "Toggle ERT"
+
+	set desc = "Toggle the station's ability to call a response team."
+	if(!check_rights(R_EVENT)) return
+
+	if(ticker.mode.ert_disabled)
+		ticker.mode.ert_disabled = 0
+		usr << "\blue ERT has been <b>Enabled</b>."
+		log_admin("Admin [key_name(src)] has enabled ERT calling.")
+		message_admins("Admin [key_name_admin(usr)] has enabled ERT calling.", 1)
+	else
+		ticker.mode.ert_disabled = 1
+		usr << "\red ERT has been <b>Disabled</b>."
+		log_admin("Admin [key_name(src)] has disabled ERT calling.")
+		message_admins("Admin [key_name_admin(usr)] has disabled ERT calling.", 1)
 

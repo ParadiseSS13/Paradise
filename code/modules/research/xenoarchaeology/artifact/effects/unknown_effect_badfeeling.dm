@@ -41,7 +41,8 @@
 
 /datum/artifact_effect/badfeeling/DoEffectAura()
 	if(holder)
-		for (var/mob/living/carbon/human/H in range(src.effectrange,holder))
+		var/turf/T = get_turf(holder)
+		for (var/mob/living/carbon/human/H in range(src.effectrange,T))
 			if(prob(5))
 				if(prob(75))
 					H << "<font color='red'>[pick(messages)]</font>"
@@ -54,7 +55,8 @@
 
 /datum/artifact_effect/badfeeling/DoEffectPulse()
 	if(holder)
-		for (var/mob/living/carbon/human/H in range(src.effectrange,holder))
+		var/turf/T = get_turf(holder)
+		for (var/mob/living/carbon/human/H in range(src.effectrange,T))
 			if(prob(50))
 				if(prob(95))
 					H << "<font color='red' size='[num2text(rand(1,5))]'><b>[pick(drastic_messages)]</b></font>"

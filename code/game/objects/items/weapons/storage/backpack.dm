@@ -122,6 +122,12 @@
 	desc = "It's a very fancy satchel made with fine leather."
 	icon_state = "satchel"
 
+/obj/item/weapon/storage/backpack/satcheldeluxe
+	name = "leather satchel"
+	desc = "An NT Deluxe satchel, with the finest quality leather and the company logo in a thin gold stitch"
+	icon_state = "nt_deluxe"
+
+
 /obj/item/weapon/storage/backpack/satchel/withwallet
 	New()
 		..()
@@ -129,8 +135,8 @@
 
 /obj/item/weapon/storage/backpack/satchel_norm
 	name = "satchel"
-	desc = "A trendy looking satchel."
-	icon_state = "satchel-norm"
+	desc = "A deluxe NT Satchel, made of the highest quality leather."
+	icon_state = "satchel"
 
 /obj/item/weapon/storage/backpack/satchel_eng
 	name = "industrial satchel"

@@ -5,11 +5,11 @@
 /datum/game_mode/xenos
 	name = "xenos"
 	config_tag = "xenos"
-	required_players = 15
-	recommended_players = 20
-	required_players_secret = 15
-	required_enemies = 3
-	recommended_enemies = 5
+	required_players = 0
+	recommended_players = 30
+	required_players_secret = 20
+	required_enemies = 5
+	recommended_enemies = 8
 
 	var/const/waittime_l = 600 //lower bound on time before intercept arrives (in tenths of seconds)
 	var/const/waittime_h = 1800 //upper bound on time before intercept arrives (in tenths of seconds)
@@ -74,10 +74,9 @@
 	for(var/datum/mind/xeno_mind in xenos)
 		if(spawnpos > xenos_spawn.len)
 			spawnpos = 1
-		xeno_mind.current.loc = xenos_spawn[spawnpos]
 //XenoAI selection
 		if(!xenoai_selected)
-			var/mob/living/silicon/ai/O = new(xeno_mind.current.loc,,,1)//No MMI but safety is in effect.
+			var/mob/living/silicon/ai/O = new(xenos_spawn[spawnpos],,,1)//No MMI but safety is in effect.
 			O.invisibility = 0
 			O.aiRestorePowerRoutine = 0
 
@@ -93,15 +92,23 @@
 					loc_landmark = sloc
 			O.loc = loc_landmark.loc
 			O.icon_state = "ai-alien"
-			O.verbs.Remove(/mob/living/silicon/ai/verb/pick_icon)
+			O.verbs.Remove(,/mob/living/silicon/ai/proc/ai_call_shuttle,/mob/living/silicon/ai/proc/ai_camera_track, \
+			/mob/living/silicon/ai/proc/ai_camera_list, /mob/living/silicon/ai/proc/ai_network_change, \
+			/mob/living/silicon/ai/proc/ai_statuschange, /mob/living/silicon/ai/proc/ai_hologram_change, \
+			/mob/living/silicon/ai/proc/toggle_camera_light,/mob/living/silicon/ai/verb/pick_icon)
 			O.laws = new /datum/ai_laws/alienmov
 			O.name = "Alien AI"
+			O.real_name = name
+			O.alienAI = 1
+			O.network = list("SS13","Xeno")
+			O.holo_icon = getHologramIcon(icon('icons/mob/AI.dmi',"holo3"))
+			O.alien_talk_understand = 1
 			xenoai_selected = 1
 			spawnpos++
 			continue
 //XenoQueen Selection
 		if(!xenoqueen_selected)
-			var/mob/living/carbon/alien/humanoid/queen/large/O = new(xeno_mind.current.loc)
+			var/mob/living/carbon/alien/humanoid/queen/large/O = new(xenos_spawn[spawnpos])
 			if(xeno_mind.current)
 				xeno_mind.transfer_to(O)
 			else
@@ -112,7 +119,7 @@
 			continue
 //XenoBorg Selection
 		if(!xenoborg_selected)
-			var/mob/living/silicon/robot/O = new(xeno_mind.current.loc,0,0,1)
+			var/mob/living/silicon/robot/O = new(xenos_spawn[spawnpos],0,0,1)
 			O.mmi = new /obj/item/device/mmi(O)
 			O.mmi.alien = 1
 			O.mmi.transfer_identity(xeno_mind.current)//Does not transfer key/client.
@@ -126,11 +133,16 @@
 			del(xeno_mind)
 			O.job = "Alien Cyborg"
 			O.name = "Alien Cyborg"
+			O.real_name = name
 			O.module = new /obj/item/weapon/robot_module/alien/hunter(src)
 			O.hands.icon_state = "standard"
-			O.icon = "icons/mob/alien.dmi"
+			O.icon = 'icons/mob/alien.dmi'
 			O.icon_state = "xenoborg-state-a"
 			O.modtype = "Xeno-Hu"
+			O.connected_ai = select_active_alien_ai()
+			O.laws = new /datum/ai_laws/alienmov()
+			O.scrambledcodes = 1
+			O.alien_talk_understand = 1
 			feedback_inc("xeborg_hunter",1)
 
 
@@ -139,7 +151,7 @@
 			continue
 //Additional larvas if playercount > 20
 		else
-			var/mob/living/carbon/alien/larva/O = new(xeno_mind.current.loc)
+			var/mob/living/carbon/alien/larva/O = new(xenos_spawn[spawnpos])
 			if(xeno_mind.current)
 				xeno_mind.transfer_to(O)
 			else

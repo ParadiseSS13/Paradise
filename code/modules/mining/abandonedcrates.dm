@@ -39,7 +39,7 @@
 			return
 		if(9)
 			for(var/i = 0, i < 3, i++)
-				new/obj/machinery/hydroponics(src)
+				new/obj/machinery/portable_atmospherics/hydroponics(src)
 		if(10)
 			for(var/i = 0, i < 3, i++)
 				new/obj/item/weapon/reagent_containers/glass/beaker/noreact(src)
@@ -62,7 +62,7 @@
 		if(30)
 			new/obj/item/weapon/melee/baton(src)
 
-/obj/structure/closet/crate/secure/loot/attack_hand(mob/user as mob)
+/obj/structure/closet/crate/secure/loot/togglelock(mob/user as mob)
 	if(locked)
 		user << "<span class='notice'>The crate is locked with a Deca-code lock.</span>"
 		var/input = input(usr, "Enter digit from [min] to [max].", "Deca-Code Lock", "") as num
@@ -71,6 +71,8 @@
 			if (input == code)
 				user << "<span class='notice'>The crate unlocks!</span>"
 				locked = 0
+				overlays.Cut()
+				overlays += greenlight
 			else if (input == null || input > max || input < min)
 				user << "<span class='notice'>You leave the crate alone.</span>"
 			else

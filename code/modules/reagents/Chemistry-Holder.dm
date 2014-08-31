@@ -110,7 +110,7 @@ datum
 						continue
 					var/current_reagent_transfer = current_reagent.volume * part
 					if(preserve_data)
-						trans_data = current_reagent.data
+						trans_data = copy_data(current_reagent)
 
 					R.add_reagent(current_reagent.id, (current_reagent_transfer * multiplier), trans_data)
 					src.remove_reagent(current_reagent.id, current_reagent_transfer)
@@ -121,7 +121,55 @@ datum
 				src.handle_reactions()
 				return amount
 
-			copy_to(var/obj/target, var/amount=1, var/multiplier=1, var/preserve_data=1)
+			trans_to_ingest(var/obj/target, var/amount=1, var/multiplier=1, var/preserve_data=1)//For items ingested. A delay is added between ingestion and addition of the reagents
+				if (!target )
+					return
+				if (!target.reagents || src.total_volume<=0)
+					return
+
+				/*var/datum/reagents/R = target.reagents
+
+				var/obj/item/weapon/reagent_containers/glass/beaker/noreact/B = new /obj/item/weapon/reagent_containers/glass/beaker/noreact //temporary holder
+
+				amount = min(min(amount, src.total_volume), R.maximum_volume-R.total_volume)
+				var/part = amount / src.total_volume
+				var/trans_data = null
+				for (var/datum/reagent/current_reagent in src.reagent_list)
+					if (!current_reagent)
+						continue
+					//if (current_reagent.id == "blood" && ishuman(target))
+					//	var/mob/living/carbon/human/H = target
+					//	H.inject_blood(my_atom, amount)
+					//	continue
+					var/current_reagent_transfer = current_reagent.volume * part
+					if(preserve_data)
+						trans_data = current_reagent.data
+
+					B.add_reagent(current_reagent.id, (current_reagent_transfer * multiplier), trans_data, safety = 1)	//safety checks on these so all chemicals are transferred
+					src.remove_reagent(current_reagent.id, current_reagent_transfer, safety = 1)							// to the target container before handling reactions
+
+				src.update_total()
+				B.update_total()
+				B.handle_reactions()
+				src.handle_reactions()*/
+
+				var/obj/item/weapon/reagent_containers/glass/beaker/noreact/B = new /obj/item/weapon/reagent_containers/glass/beaker/noreact //temporary holder
+				B.volume = 1000
+
+				var/datum/reagents/BR = B.reagents
+				var/datum/reagents/R = target.reagents
+
+				amount = min(min(amount, src.total_volume), R.maximum_volume-R.total_volume)
+
+				src.trans_to(B, amount)
+
+				spawn(100)
+					BR.trans_to(target, BR.total_volume)
+					del(B)
+
+				return amount
+
+			copy_to(var/obj/target, var/amount=1, var/multiplier=1, var/preserve_data=1, var/safety = 0)
 				if(!target)
 					return
 				if(!target.reagents || src.total_volume<=0)
@@ -133,7 +181,7 @@ datum
 				for (var/datum/reagent/current_reagent in src.reagent_list)
 					var/current_reagent_transfer = current_reagent.volume * part
 					if(preserve_data)
-						trans_data = current_reagent.data
+						trans_data = copy_data(current_reagent)
 					R.add_reagent(current_reagent.id, (current_reagent_transfer * multiplier), trans_data)
 
 				src.update_total()
@@ -156,7 +204,7 @@ datum
 				for (var/datum/reagent/current_reagent in src.reagent_list)
 					if(current_reagent.id == reagent)
 						if(preserve_data)
-							trans_data = current_reagent.data
+							trans_data = copy_data(current_reagent)
 						R.add_reagent(current_reagent.id, amount, trans_data)
 						src.remove_reagent(current_reagent.id, amount, 1)
 						break
@@ -408,7 +456,7 @@ datum
 						R.volume += amount
 						update_total()
 						my_atom.on_reagent_change()
-
+/*
 						// mix dem viruses
 						if(R.id == "blood" && reagent == "blood")
 							if(R.data && data)
@@ -433,6 +481,7 @@ datum
 											if(!istype(D, /datum/disease/advance))
 												preserve += D
 										R.data["viruses"] = preserve
+*/
 
 						handle_reactions()
 						return 0
@@ -444,8 +493,8 @@ datum
 					reagent_list += R
 					R.holder = src
 					R.volume = amount
-					SetViruses(R, data) // Includes setting data
-
+//					SetViruses(R, data) // Includes setting data
+					R.data = data
 					//debug
 					//world << "Adding data"
 					//for(var/D in R.data)
@@ -556,6 +605,24 @@ datum
 				if(my_atom)
 					my_atom.reagents = null
 
+			copy_data(var/datum/reagent/current_reagent)
+				if (!current_reagent || !current_reagent.data) return null
+				if (!istype(current_reagent.data, /list)) return current_reagent.data
+
+				var/list/trans_data = current_reagent.data.Copy()
+
+				// We do this so that introducing a virus to a blood sample
+				// doesn't automagically infect all other blood samples from
+				// the same donor.
+				//
+				// Technically we should probably copy all data lists, but
+				// that could possibly eat up a lot of memory needlessly
+				// if most data lists are read-only.
+				if (trans_data["virus2"])
+					var/list/v = trans_data["virus2"]
+					trans_data["virus2"] = v.Copy()
+
+				return trans_data
 
 ///////////////////////////////////////////////////////////////////////////////////
 

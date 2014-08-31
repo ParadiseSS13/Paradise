@@ -7,7 +7,7 @@ Creature-level abilities.
 
 /mob/living/carbon/human/slime/proc/slimepeople_ventcrawl()
 
-	set category = "Ability"
+	set category = "Abilities"
 	set name = "Ventcrawl (Slime People)"
 	set desc = "The ability to crawl through vents if naked and not holding anything."
 

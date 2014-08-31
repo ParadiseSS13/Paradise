@@ -28,6 +28,9 @@ mineral
 		if(!display_name)
 			display_name = name
 
+	proc/UpdateTurf(var/turf/simulated/mineral/T)
+		T.UpdateMineral()
+
 mineral/uranium
 	name = "Uranium"
 	result_amount = 5
@@ -58,6 +61,12 @@ mineral/silver
 	spread_chance = 10
 	ore = /obj/item/weapon/ore/silver
 
+mineral/platinum
+	name = "Platinum"
+	result_amount = 5
+	spread_chance = 10
+	ore = /obj/item/weapon/ore/osmium
+
 mineral/plasma
 	name = "Plasma"
 	result_amount = 5
@@ -70,3 +79,29 @@ mineral/clown
 	result_amount = 3
 	spread = 0
 	ore = /obj/item/weapon/ore/clown
+
+mineral/coal
+	name = "Coal"
+	result_amount = 5
+	spread_chance = 25
+	ore = /obj/item/weapon/ore/coal
+
+mineral/hydrogen
+	name = "Hydrogen"
+	result_amount = 5
+	spread_chance = 10
+	ore = /obj/item/weapon/ore/coal
+
+
+mineral/cave
+	display_name = "Cave"
+	name = "Cave"
+	result_amount = 1
+	spread_chance = 10
+	ore = null
+	UpdateTurf(var/turf/T)
+		if(!istype(T,/turf/simulated/floor/plating/airless/asteroid/cave))
+			T.ChangeTurf(/turf/simulated/floor/plating/airless/asteroid/cave)
+		else
+			..()
+

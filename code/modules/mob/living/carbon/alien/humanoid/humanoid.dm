@@ -15,8 +15,8 @@
 	var/datum/reagents/R = new/datum/reagents(100)
 	reagents = R
 	R.my_atom = src
-	if(name == "alien")
-		name = text("alien ([rand(1, 1000)])")
+//	if(name == "alien")
+//		name = text("alien ([rand(1, 1000)])")
 	real_name = name
 	..()
 
@@ -38,11 +38,10 @@
 			now_pushing = 1
 			if (!AM.anchored)
 				var/t = get_dir(src, AM)
-				if (istype(AM, /obj/structure/window))
-					if(AM:ini_dir == NORTHWEST || AM:ini_dir == NORTHEAST || AM:ini_dir == SOUTHWEST || AM:ini_dir == SOUTHEAST)
-						for(var/obj/structure/window/win in get_step(AM,t))
-							now_pushing = 0
-							return
+				if (istype(AM, /obj/structure/window/full))
+					for(var/obj/structure/window/win in get_step(AM,t))
+						now_pushing = 0
+						return
 				step(AM, t)
 			now_pushing = null
 		return
@@ -178,7 +177,7 @@
 
 		var/damage = rand(1, 3)
 
-		if(istype(M, /mob/living/carbon/slime/adult))
+		if(M.is_adult)
 			damage = rand(10, 40)
 		else
 			damage = rand(5, 35)
@@ -402,3 +401,5 @@ In all, this is a lot like the monkey code. /N
 	return
 
 
+/mob/living/carbon/alien/humanoid/canBeHandcuffed()
+	return 1

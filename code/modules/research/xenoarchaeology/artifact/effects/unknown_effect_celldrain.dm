@@ -17,7 +17,8 @@
 
 /datum/artifact_effect/celldrain/DoEffectAura()
 	if(holder)
-		for (var/obj/machinery/power/apc/C in range(200, holder))
+		var/turf/T = get_turf(holder)
+		for (var/obj/machinery/power/apc/C in range(200, T))
 			for (var/obj/item/weapon/cell/B in C.contents)
 				B.charge = max(B.charge - 50,0)
 		for (var/obj/machinery/power/smes/S in range (src.effectrange,src))
@@ -30,7 +31,8 @@
 
 /datum/artifact_effect/celldrain/DoEffectPulse()
 	if(holder)
-		for (var/obj/machinery/power/apc/C in range(200, holder))
+		var/turf/T = get_turf(holder)
+		for (var/obj/machinery/power/apc/C in range(200, T))
 			for (var/obj/item/weapon/cell/B in C.contents)
 				B.charge = max(B.charge - rand() * 150,0)
 		for (var/obj/machinery/power/smes/S in range (src.effectrange,src))

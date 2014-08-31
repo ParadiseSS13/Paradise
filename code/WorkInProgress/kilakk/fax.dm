@@ -133,7 +133,9 @@ var/list/alldepartments = list("Central Command")
 		authenticated = 0
 
 	if(href_list["dept"])
+		var/lastdpt = dpt
 		dpt = input(usr, "Which department?", "Choose a department", "") as null|anything in alldepartments
+		if(!dpt) dpt = lastdpt
 
 	if(href_list["auth"])
 		if ( (!( authenticated ) && (scan)) )

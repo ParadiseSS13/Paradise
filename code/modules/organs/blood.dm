@@ -72,14 +72,14 @@ var/const/BLOOD_VOLUME_SURVIVE = 122
 
 		// Damaged heart virtually reduces the blood volume, as the blood isn't
 		// being pumped properly anymore.
-		var/datum/organ/internal/heart/heart = internal_organs["heart"]
-		if(heart)
-			if(heart.damage > 1 && heart.damage < heart.min_bruised_damage)
-				blood_volume *= 0.8
-			else if(heart.damage >= heart.min_bruised_damage && heart.damage < heart.min_broken_damage)
-				blood_volume *= 0.6
-			else if(heart.damage >= heart.min_broken_damage && heart.damage < INFINITY)
-				blood_volume *= 0.3
+		var/datum/organ/internal/heart/heart = internal_organs_by_name["heart"]
+
+		if(heart.damage > 1 && heart.damage < heart.min_bruised_damage)
+			blood_volume *= 0.8
+		else if(heart.damage >= heart.min_bruised_damage && heart.damage < heart.min_broken_damage)
+			blood_volume *= 0.6
+		else if(heart.damage >= heart.min_broken_damage && heart.damage < INFINITY)
+			blood_volume *= 0.3
 
 		//Effects of bloodloss
 		switch(blood_volume)
@@ -142,8 +142,6 @@ var/const/BLOOD_VOLUME_SURVIVE = 122
 				continue
 			for(var/datum/wound/W in temp.wounds) if(W.bleeding())
 				blood_max += W.damage / 4
-			if(temp.status & ORGAN_DESTROYED && !(temp.status & ORGAN_GAUZED) && !temp.amputated)
-				blood_max += 20 //Yer missing a fucking limb.
 			if (temp.open)
 				blood_max += 2  //Yer stomach is cut open
 		drip(blood_max)
@@ -183,6 +181,9 @@ var/const/BLOOD_VOLUME_SURVIVE = 122
 			this.icon_state = pick(iconL)
 			this.blood_DNA = list()
 			this.blood_DNA[dna.unique_enzymes] = dna.b_type
+			for (var/ID in virus2)
+				var/datum/disease2/disease/V = virus2[ID]
+				this.virus2[ID] = V.getcopy()
 		else
 			for(var/obj/effect/decal/cleanable/blood/drip/green/G in nums)
 				del G
@@ -201,6 +202,9 @@ var/const/BLOOD_VOLUME_SURVIVE = 122
 			this.icon_state = pick(iconL)
 			this.blood_DNA = list()
 			this.blood_DNA[dna.unique_enzymes] = dna.b_type
+			for (var/ID in virus2)
+				var/datum/disease2/disease/V = virus2[ID]
+				this.virus2[ID] = V.getcopy()
 		else
 			for(var/obj/effect/decal/cleanable/blood/drip/G in nums)
 				del G
@@ -227,11 +231,6 @@ var/const/BLOOD_VOLUME_SURVIVE = 122
 	B.data["virus2"] |= virus_copylist(src.virus2)
 	B.data["antibodies"] = src.antibodies
 	B.data["blood_DNA"] = copytext(src.dna.unique_enzymes,1,0)
-	if(src.resistances && src.resistances.len)
-		if(B.data["resistances"])
-			B.data["resistances"] |= src.resistances.Copy()
-		else
-			B.data["resistances"] = src.resistances.Copy()
 	B.data["blood_type"] = copytext(src.dna.b_type,1,0)
 	var/list/temp_chem = list()
 	for(var/datum/reagent/R in src.reagents.reagent_list)
@@ -268,7 +267,10 @@ var/const/BLOOD_VOLUME_SURVIVE = 122
 	var/datum/reagent/blood/injected = get_blood(container.reagents)
 	if (!injected)
 		return
-	src.virus2 |= virus_copylist(injected.data["virus2"])
+	var/list/sniffles = virus_copylist(injected.data["virus2"])
+	for(var/ID in sniffles)
+		var/datum/disease2/disease/sniffle = sniffles[ID]
+		infect_virus2(src,sniffle,1)
 	if (injected.data["antibodies"] && prob(5))
 		antibodies |= injected.data["antibodies"]
 	var/list/chems = list()

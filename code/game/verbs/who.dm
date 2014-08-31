@@ -5,9 +5,10 @@
 
 	var/msg = "<b>Current Players:</b>\n"
 
+
 	var/list/Lines = list()
 
-	if(holder)
+	if(holder && R_ADMIN & holder.rights)
 		for(var/client/C in clients)
 			var/entry = "\t[C.key]"
 			if(C.holder && C.holder.fakekey)
@@ -47,11 +48,17 @@
 	set name = "Adminwho"
 
 	var/msg = ""
+	var/modmsg = ""
 	var/num_mods_online = 0
 	var/num_admins_online = 0
 	if(holder)
 		for(var/client/C in admins)
-			if(R_ADMIN & C.holder.rights || !(R_MOD & C.holder.rights))
+			if(R_ADMIN & C.holder.rights || !R_MOD & C.holder.rights)
+
+				if(C.holder.fakekey && !R_ADMIN & holder.rights)		//Mentors/Mods can't see stealthmins
+					continue
+
+
 				msg += "\t[C] is a [C.holder.rank]"
 
 				if(C.holder.fakekey)
@@ -69,53 +76,31 @@
 				msg += "\n"
 
 				num_admins_online++
-			else
+
+			else if(R_MOD & C.holder.rights)
+				modmsg += "\t[C] is a [C.holder.rank]"
+
+				if(isobserver(C.mob))
+					modmsg += " - Observing"
+				else if(istype(C.mob,/mob/new_player))
+					modmsg += " - Lobby"
+				else
+					modmsg += " - Playing"
+
+				if(C.is_afk())
+					modmsg += " (AFK)"
+				modmsg += "\n"
 				num_mods_online++
 	else
 		for(var/client/C in admins)
-			if(R_ADMIN & C.holder.rights || !(R_MOD & C.holder.rights))
+
+			if(R_ADMIN & C.holder.rights || !R_MOD & C.holder.rights)
 				if(!C.holder.fakekey)
 					msg += "\t[C] is a [C.holder.rank]\n"
 					num_admins_online++
-			else
+			else if (R_MOD & C.holder.rights)
+				modmsg += "\t[C] is a [C.holder.rank]\n"
 				num_mods_online++
 
-	msg = "<b>Current Admins ([num_admins_online]):</b>\n" + msg
-	msg += "<b>There are also [num_mods_online] moderators online.</b> To view online moderators, type 'modwho'\n"
-	src << msg
-
-/client/verb/modwho()
-	set category = "Admin"
-	set name = "Modwho"
-
-	var/msg = ""
-	var/num_admins_online = 0
-	var/num_mods_online = 0
-	if(holder)
-		for(var/client/C in admins)
-			if(R_ADMIN & C.holder.rights || !(R_MOD & C.holder.rights))
-				num_admins_online++
-			else
-				msg += "\t[C] is a [C.holder.rank]"
-
-				if(isobserver(C.mob))
-					msg += " - Observing"
-				else if(istype(C.mob,/mob/new_player))
-					msg += " - Lobby"
-				else
-					msg += " - Playing"
-
-				if(C.is_afk())
-					msg += " (AFK)"
-				msg += "\n"
-				num_mods_online++
-	else
-		for(var/client/C in admins)
-			if(R_ADMIN & C.holder.rights || !(R_MOD & C.holder.rights))
-				num_admins_online++
-			else
-				msg += "\t[C] is a [C.holder.rank]\n"
-
-	msg = "<b>Current Moderators ([num_mods_online]):</b>\n" + msg
-	msg += "<b>There are also [num_admins_online] admins online.</b> To view online admins, type 'adminwho'\n"
+	msg = "<b>Current Admins ([num_admins_online]):</b>\n" + msg + "\n<b> Current Mentors ([num_mods_online]):</b>\n" + modmsg
 	src << msg

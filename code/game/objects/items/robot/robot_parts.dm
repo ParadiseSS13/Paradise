@@ -166,7 +166,7 @@
 		var/obj/item/device/mmi/M = W
 		if(check_completion())
 			if(!istype(loc,/turf))
-				user << "\red You can't put the [W] in, the frame has to be standing on the ground to be perfectly precise."
+				user << "\red You can't put \the [W] in, the frame has to be standing on the ground to be perfectly precise."
 				return
 			if(!M.brainmob)
 				user << "\red Sticking an empty [W] into the frame would sort of defeat the purpose."
@@ -178,8 +178,12 @@
 						if(G.can_reenter_corpse && G.mind == M.brainmob.mind)
 							ghost_can_reenter = 1
 							break
+					for(var/mob/living/simple_animal/S in player_list)
+						if(S in respawnable_list)
+							ghost_can_reenter = 1
+							break
 				if(!ghost_can_reenter)
-					user << "<span class='notice'>The [W] is completely unresponsive; there's no point.</span>"
+					user << "<span class='notice'>\The [W] is completely unresponsive; there's no point.</span>"
 					return
 
 			if(M.brainmob.stat == DEAD)
@@ -226,6 +230,7 @@
 				cell_component.installed = 1
 
 			feedback_inc("cyborg_birth",1)
+			callHook("borgify", list(O))
 			O.Namepick()
 
 			del(src)
@@ -268,7 +273,10 @@
 /obj/item/robot_parts/head/attackby(obj/item/W as obj, mob/user as mob)
 	..()
 	if(istype(W, /obj/item/device/flash))
-		if(src.flash1 && src.flash2)
+		if(istype(user,/mob/living/silicon/robot))
+			user << "\red How do you propose to do that?"
+			return
+		else if(src.flash1 && src.flash2)
 			user << "\blue You have already inserted the eyes!"
 			return
 		else if(src.flash1)

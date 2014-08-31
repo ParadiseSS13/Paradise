@@ -9,6 +9,8 @@
 	var/damaged = 0
 	var/last_change = 0
 
+	l_color = "#7BF9FF"
+
 
 	attack_ai(var/mob/user as mob)
 		return src.attack_hand(user)
@@ -208,7 +210,7 @@
 	//		loadProgram(target)
 
 //This could all be done better, but it works for now.
-/obj/machinery/computer/HolodeckControl/Del()
+/obj/machinery/computer/HolodeckControl/Destroy()
 	emergencyShutdown()
 	..()
 
@@ -473,7 +475,7 @@
 	flags = ON_BORDER
 
 
-/obj/structure/holowindow/Del()
+/obj/structure/holowindow/Destroy()
 	..()
 
 /obj/item/weapon/holo

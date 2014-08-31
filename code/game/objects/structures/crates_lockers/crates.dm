@@ -7,6 +7,7 @@
 	icon_state = "crate"
 	icon_opened = "crateopen"
 	icon_closed = "crate"
+	climbable = 1
 //	mouse_drag_pointer = MOUSE_ACTIVE_POINTER	//???
 	var/rigged = 0
 
@@ -36,7 +37,11 @@
 		O.loc = get_turf(src)
 	icon_state = icon_opened
 	src.opened = 1
-	return 1
+
+	if(climbable)
+		structure_shaken()
+
+	return
 
 /obj/structure/closet/crate/close()
 	if(!src.opened)
@@ -158,7 +163,7 @@
 
 /obj/structure/closet/crate/secure/verb/verb_togglelock()
 	set src in oview(1) // One square distance
-	set category = "Object"
+	set category = null
 	set name = "Toggle Lock"
 
 	if(!usr.canmove || usr.stat || usr.restrained()) // Don't use it if you're not able to! Checks for stuns, ghost and restrain

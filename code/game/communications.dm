@@ -140,6 +140,10 @@ var/const/RADIO_MAGNETS = "9"
 
 var/global/datum/controller/radio/radio_controller
 
+/hook/startup/proc/createRadioController()
+	radio_controller = new /datum/controller/radio()
+	return 1
+
 datum/controller/radio
 	var/list/datum/radio_frequency/frequencies = list()
 

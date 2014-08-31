@@ -108,10 +108,8 @@
   *
   * @return nothing
   */
-/obj/machinery/chem_dispenser/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null)
-	if(stat & (BROKEN|NOPOWER)) return
-	if(user.stat || user.restrained()) return
 
+/obj/machinery/chem_dispenser/ui_interact(mob/user, ui_key = "main",var/datum/nanoui/ui = null, var/force_open = 1)
 	if(broken_requirements.len)
 		user << "<span class='warning'>[src] is broken. [broken_requirements[broken_requirements[1]]]</span>"
 		return
@@ -120,8 +118,8 @@
 	// this is the data which will be sent to the ui
 	var/data[0]
 	data["amount"] = amount
-	data["energy"] = energy
-	data["maxEnergy"] = max_energy
+	data["energy"] = round(energy)
+	data["maxEnergy"] = round(max_energy)
 	data["isBeakerLoaded"] = beaker ? 1 : 0
 
 	var beakerContents[0]
@@ -147,11 +145,11 @@
 	data["chemicals"] = chemicals
 
 	// update the ui if it exists, returns null if no ui is passed/found
-	ui = nanomanager.try_update_ui(user, src, ui_key, ui, data)
+	ui = nanomanager.try_update_ui(user, src, ui_key, ui, data, force_open)
 	if (!ui)
 		// the ui does not exist, so we'll create a new() one
         // for a list of parameters and their descriptions see the code docs in \code\modules\nano\nanoui.dm
-		ui = new(user, src, ui_key, "chem_dispenser.tmpl", ui_title, 390, 660)
+		ui = new(user, src, ui_key, "chem_dispenser.tmpl", ui_title, 390, 655)
 		// when the ui is first opened this is the data it will use
 		ui.set_initial_data(data)
 		// open the new ui window
@@ -584,14 +582,17 @@
 ////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////
 
+/*
+
 /obj/machinery/computer/pandemic
 	name = "PanD.E.M.I.C 2200"
 	density = 1
 	anchored = 1
 	icon = 'icons/obj/chemical.dmi'
 	icon_state = "mixer0"
-	use_power = 1
-	idle_power_usage = 20
+	circuit = /obj/item/weapon/circuitboard/pandemic
+	//use_power = 1
+	//idle_power_usage = 20		//defaults make more sense.
 	var/temphtml = ""
 	var/wait = null
 	var/obj/item/weapon/reagent_containers/glass/beaker = null
@@ -820,33 +821,7 @@
 
 
 /obj/machinery/computer/pandemic/attackby(var/obj/I as obj, var/mob/user as mob)
-	if(istype(I, /obj/item/weapon/screwdriver))
-		playsound(src.loc, 'sound/items/Screwdriver.ogg', 50, 1)
-		if(do_after(user, 20))
-			if (src.stat & BROKEN)
-				user << "\blue The broken glass falls out."
-				var/obj/structure/computerframe/A = new /obj/structure/computerframe(src.loc)
-				new /obj/item/weapon/shard(src.loc)
-				var/obj/item/weapon/circuitboard/pandemic/M = new /obj/item/weapon/circuitboard/pandemic(A)
-				for (var/obj/C in src)
-					C.loc = src.loc
-				A.circuit = M
-				A.state = 3
-				A.icon_state = "3"
-				A.anchored = 1
-				del(src)
-			else
-				user << "\blue You disconnect the monitor."
-				var/obj/structure/computerframe/A = new /obj/structure/computerframe( src.loc )
-				var/obj/item/weapon/circuitboard/pandemic/M = new /obj/item/weapon/circuitboard/pandemic(A)
-				for (var/obj/C in src)
-					C.loc = src.loc
-				A.circuit = M
-				A.state = 4
-				A.icon_state = "4"
-				A.anchored = 1
-				del(src)
-	else if(istype(I, /obj/item/weapon/reagent_containers/glass))
+	if(istype(I, /obj/item/weapon/reagent_containers/glass))
 		if(stat & (NOPOWER|BROKEN)) return
 		if(src.beaker)
 			user << "A beaker is already loaded into the machine."
@@ -862,6 +837,8 @@
 	else
 		..()
 	return
+
+*/
 ////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////
 /obj/machinery/reagentgrinder
@@ -899,12 +876,6 @@
 		/obj/item/weapon/reagent_containers/food/snacks/grown/cherries = list("cherryjelly" = 0),
 		/obj/item/weapon/reagent_containers/food/snacks/grown/plastellium = list("plasticide" = 5),
 
-		//Grinder stuff, but only if dry
-		/obj/item/weapon/reagent_containers/food/snacks/grown/coffee_arabica = list("coffeepowder" = 0),
-		/obj/item/weapon/reagent_containers/food/snacks/grown/coffee_robusta = list("coffeepowder" = 0, "hyperzine" = 0),
-		/obj/item/weapon/reagent_containers/food/snacks/grown/tea_aspera = list("teapowder" = 0),
-		/obj/item/weapon/reagent_containers/food/snacks/grown/tea_astra = list("teapowder" = 0, "kelotane" = 0),
-
 
 		//archaeology!
 		/obj/item/weapon/rocksliver = list("ground_rock" = 50),
@@ -931,14 +902,6 @@
 		/obj/item/weapon/reagent_containers/food/snacks/grown/poisonberries = list("poisonberryjuice" = 0),
 	)
 
-	var/list/dried_items = list(
-
-		//Grinder stuff, but only if dry
-		/obj/item/weapon/reagent_containers/food/snacks/grown/coffee_arabica = list("coffeepowder" = 0),
-		/obj/item/weapon/reagent_containers/food/snacks/grown/coffee_robusta = list("coffeepowder" = 0, "hyperzine" = 0),
-		/obj/item/weapon/reagent_containers/food/snacks/grown/tea_aspera = list("teapowder" = 0),
-		/obj/item/weapon/reagent_containers/food/snacks/grown/tea_astra = list("teapowder" = 0, "kelotane" = 0),
-	)
 
 
 
@@ -991,11 +954,6 @@
 
 		src.updateUsrDialog()
 		return 0
-
-	if(is_type_in_list(O, dried_items))
-		if(!O:dry)
-			user << "You must dry that first!"
-			return 1
 
 
 	if (!is_type_in_list(O, blend_items) && !is_type_in_list(O, juice_items))

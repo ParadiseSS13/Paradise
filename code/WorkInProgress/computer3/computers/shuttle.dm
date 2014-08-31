@@ -3,7 +3,7 @@
 	there is nothing interactive about it.
 */
 
-/obj/machinery/computer/shuttle
+/obj/machinery/computer3/shuttle
 	name = "Shuttle"
 	desc = "For shuttle control."
 	icon_state = "shuttle"

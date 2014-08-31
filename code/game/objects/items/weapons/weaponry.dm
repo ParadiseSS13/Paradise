@@ -78,6 +78,8 @@
 	slot_flags = SLOT_BELT
 	force = 2
 	throwforce = 1
+	sharp = 1
+	edge = 1
 	w_class = 3
 	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
 
@@ -99,6 +101,8 @@
 	slot_flags = SLOT_BELT
 	force = 40
 	throwforce = 10
+	sharp = 1
+	edge = 1
 	w_class = 3
 	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
 
@@ -118,6 +122,8 @@
 	slot_flags = SLOT_BELT | SLOT_BACK
 	force = 40
 	throwforce = 10
+	sharp = 1
+	edge = 1
 	w_class = 3
 	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
 
@@ -136,6 +142,7 @@
 /obj/item/weapon/harpoon
 	name = "harpoon"
 	sharp = 1
+	edge = 0
 	desc = "Tharr she blows!"
 	icon_state = "harpoon"
 	item_state = "harpoon"
@@ -171,3 +178,13 @@ obj/item/weapon/wirerod/attackby(var/obj/item/I, mob/user as mob)
 		user << "<span class='notice'>You fasten the wirecutters to the top of the rod with the cable, prongs outward.</span>"
 		del(I)
 		del(src)
+
+
+/obj/item/weapon/spear/kidan
+	icon_state = "kidanspear"
+	name = "Kidan spear"
+	desc = "A one-handed spear brought over from the Kidan homeworld."
+	icon_state = "kidanspear"
+	item_state = "kidanspear"
+	force = 10
+	throwforce = 15

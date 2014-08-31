@@ -99,6 +99,9 @@ Note: Must be placed within 3 tiles of the R&D Console
 		spawn(10)
 			icon_state = "d_analyzer_l"
 			busy = 0
+
+	if(exchange_parts(user, O))
+		return
 	return
 
 //For testing purposes only.

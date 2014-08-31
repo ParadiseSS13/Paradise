@@ -65,7 +65,7 @@
 			prog.key = src
 			prog.camera_list = null
 			return
-		if(istype(source,/datum/file/program/NTOS))
+		if(istype(source,/datum/file/program/ntos))
 			for(var/obj/item/part/computer/storage/S in list(computer.hdd,computer.floppy))
 				for(var/datum/file/F in S.files)
 					if(istype(F,/datum/file/program/security))
@@ -142,7 +142,7 @@
 			return null
 
 		var/list/L = list()
-		for(var/obj/machinery/camera/C in cameranet.cameras)
+		for(var/obj/machinery/camera/C in cameranet.viewpoints)
 			var/list/temp = C.network & key.networks
 			if(temp.len)
 				L.Add(C)
@@ -175,7 +175,7 @@
 /datum/file/program/security
 	name			= "camera monitor"
 	desc			= "Connets to the Nanotrasen Camera Network"
-	image			= 'icons/NTOS/camera.png'
+	image			= 'icons/ntos/camera.png'
 	active_state	= "camera-static"
 
 	var/datum/file/camnet_key/key = null
@@ -258,10 +258,11 @@
 
 		if("show" in href_list)
 			var/obj/machinery/camera/C = locate(href_list["show"])
-			current = C
-			usr.reset_view(C)
-			interact()
-			return
+			if(istype(C) && C.status)
+				current = C
+				usr.reset_view(C)
+				interact()
+				return
 
 		if("keyselect" in href_list)
 			current = null
@@ -275,3 +276,7 @@
 			else
 				usr << "The screen turns to static."
 			return
+
+			// Atlantis: Required for camnetkeys to work.
+/datum/file/program/security/hidden
+	hidden_file = 1

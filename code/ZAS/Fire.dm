@@ -9,12 +9,28 @@ Fill rest with super hot gas from separated canisters, they should be about 125C
 Attach to transfer valve and open. BOOM.
 
 */
+/atom
+	var/autoignition_temperature = 0 // In Kelvin.  0 = Not flammable
+	var/on_fire=0
+	var/fire_dmi = 'icons/effects/fire.dmi'
+	var/fire_sprite = "fire"
+	var/ashtype = /obj/effect/decal/cleanable/ash
+	var/fire_time_min = 5 // Seconds
+	var/fire_time_max = 10 // Seconds
 
+/atom/proc/ignite(var/temperature)
+	on_fire=1
+	visible_message("\The [src] bursts into flame!")
+	overlays += image(fire_dmi,fire_sprite)
+	spawn(rand(fire_time_min,fire_time_max) SECONDS)
+		if(!on_fire)
+			return
+		new ashtype(src.loc)
+		qdel(src)
 
-//Some legacy definitions so fires can be started.
-atom/proc/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
-	return null
-
+/atom/proc/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume)
+	if(autoignition_temperature && !on_fire && exposed_temperature > autoignition_temperature)
+		ignite(exposed_temperature)
 
 turf/proc/hotspot_expose(exposed_temperature, exposed_volume, soh = 0)
 
@@ -27,12 +43,6 @@ turf/simulated/hotspot_expose(exposed_temperature, exposed_volume, soh)
 	var/datum/gas_mixture/air_contents = return_air()
 	if(!air_contents || exposed_temperature < PLASMA_MINIMUM_BURN_TEMPERATURE)
 		return 0
-
-	var/obj/structure/reagent_dispensers/fueltank/FT = locate() in src
-	if(exposed_temperature >= AUTOIGNITION_WELDERFUEL)
-		if (FT)
-			FT.explode()
-			return 1
 
 	var/igniting = 0
 	var/obj/effect/decal/cleanable/liquid_fuel/liquid = locate() in src
@@ -56,7 +66,7 @@ turf/simulated/hotspot_expose(exposed_temperature, exposed_volume, soh)
 
 	icon = 'icons/effects/fire.dmi'
 	icon_state = "1"
-
+	l_color = "#ED9200"
 	layer = TURF_LAYER
 
 	var/firelevel = 10000 //Calculated by gas_mixture.calculate_firelevel()
@@ -69,9 +79,11 @@ turf/simulated/hotspot_expose(exposed_temperature, exposed_volume, soh)
 
 	if(!istype(S))
 		del src
+		return
 
 	if(!S.zone)
 		del src
+		return
 
 	var/datum/gas_mixture/air_contents = S.return_air()
 	//get liquid fuels on the ground.
@@ -81,18 +93,19 @@ turf/simulated/hotspot_expose(exposed_temperature, exposed_volume, soh)
 
 	//since the air is processed in fractions, we need to make sure not to have any minuscle residue or
 	//the amount of moles might get to low for some functions to catch them and thus result in wonky behaviour
-	if(air_contents.oxygen < 0.001)
+	if(air_contents.oxygen < 0.1)
 		air_contents.oxygen = 0
-	if(air_contents.toxins < 0.001)
+	if(air_contents.toxins < 0.1)
 		air_contents.toxins = 0
 	if(fuel)
-		if(fuel.moles < 0.001)
+		if(fuel.moles < 0.1)
 			air_contents.trace_gases.Remove(fuel)
 
 	//check if there is something to combust
-	if(!air_contents.check_recombustability(liquid))
+	if(!air_contents.check_combustability(liquid))
 		//del src
 		RemoveFire()
+		return
 
 	//get a firelevel and set the icon
 	firelevel = air_contents.calculate_firelevel(liquid)
@@ -110,19 +123,23 @@ turf/simulated/hotspot_expose(exposed_temperature, exposed_volume, soh)
 	//im not sure how to implement a version that works for every creature so for now monkeys are firesafe
 	for(var/mob/living/carbon/human/M in loc)
 		M.FireBurn(firelevel, air_contents.temperature, air_contents.return_pressure() ) //Burn the humans!
+
+	loc.fire_act(air_contents, air_contents.temperature, air_contents.return_volume())
 	for(var/atom/A in loc)
 		A.fire_act(air_contents, air_contents.temperature, air_contents.return_volume())
+	// Burn the turf, too.
+	S.fire_act(air_contents, air_contents.temperature, air_contents.return_volume())
+
 	//spread
 	for(var/direction in cardinal)
-		if(S.air_check_directions&direction) //Grab all valid bordering tiles
+		var/turf/simulated/enemy_tile = get_step(S, direction)
 
-			var/turf/simulated/enemy_tile = get_step(S, direction)
-
-			if(istype(enemy_tile))
+		if(istype(enemy_tile))
+			if(S.open_directions & direction) //Grab all valid bordering tiles
 				var/datum/gas_mixture/acs = enemy_tile.return_air()
 				var/obj/effect/decal/cleanable/liquid_fuel/liq = locate() in enemy_tile
 				if(!acs) continue
-				if(!acs.check_recombustability(liq)) continue
+				if(!acs.check_combustability(liq)) continue
 				//If extinguisher mist passed over the turf it's trying to spread to, don't spread and
 				//reduce firelevel.
 				if(enemy_tile.fire_protection > world.time-30)
@@ -134,22 +151,17 @@ turf/simulated/hotspot_expose(exposed_temperature, exposed_volume, soh)
 					if( prob( 50 + 50 * (firelevel/vsc.fire_firelevel_multiplier) ) && S.CanPass(null, enemy_tile, 0,0) && enemy_tile.CanPass(null, S, 0,0))
 						new/obj/fire(enemy_tile,firelevel)
 
+			else
+				enemy_tile.adjacent_fire_act(loc, air_contents, air_contents.temperature, air_contents.return_volume())
+
 	//seperate part of the present gas
 	//this is done to prevent the fire burning all gases in a single pass
 	var/datum/gas_mixture/flow = air_contents.remove_ratio(vsc.fire_consuption_rate)
 ///////////////////////////////// FLOW HAS BEEN CREATED /// DONT DELETE THE FIRE UNTIL IT IS MERGED BACK OR YOU WILL DELETE AIR ///////////////////////////////////////////////
 
 	if(flow)
-
-		if(flow.check_recombustability(liquid))
-			//Ensure flow temperature is higher than minimum fire temperatures.
-				//this creates some energy ex nihilo but is necessary to get a fire started
-				//lets just pretend this energy comes from the ignition source and dont mention this again
-			//flow.temperature = max(PLASMA_MINIMUM_BURN_TEMPERATURE+0.1,flow.temperature)
-
-			//burn baby burn!
-
-			flow.zburn(liquid,1)
+		//burn baby burn!
+		flow.zburn(liquid,1)
 		//merge the air back
 		S.assume_air(flow)
 
@@ -206,10 +218,13 @@ datum/gas_mixture/proc/zburn(obj/effect/decal/cleanable/liquid_fuel/liquid, forc
 
 		if(liquid)
 		//Liquid Fuel
-			if(liquid.amount <= 0)
+			if(liquid.amount <= 0.1)
 				del liquid
 			else
 				total_fuel += liquid.amount
+
+		if(total_fuel == 0)
+			return 0
 
 		//Calculate the firelevel.
 		var/firelevel = calculate_firelevel(liquid)
@@ -263,9 +278,9 @@ datum/gas_mixture/proc/check_recombustability(obj/effect/decal/cleanable/liquid_
 	if(oxygen && (toxins || fuel || liquid))
 		if(liquid)
 			return 1
-		if (toxins)
+		if(toxins >= 0.1)
 			return 1
-		if(fuel)
+		if(fuel && fuel.moles >= 0.1)
 			return 1
 
 	return 0
@@ -278,9 +293,9 @@ datum/gas_mixture/proc/check_combustability(obj/effect/decal/cleanable/liquid_fu
 	if(oxygen && (toxins || fuel || liquid))
 		if(liquid)
 			return 1
-		if (toxins >= 0.7)
+		if(QUANTIZE(toxins * vsc.fire_consuption_rate) >= 0.1)
 			return 1
-		if(fuel && fuel.moles >= 1.4)
+		if(fuel && QUANTIZE(fuel.moles * vsc.fire_consuption_rate) >= 0.1)
 			return 1
 
 	return 0

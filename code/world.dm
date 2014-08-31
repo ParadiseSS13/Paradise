@@ -2,7 +2,7 @@
 	mob = /mob/new_player
 	turf = /turf/space
 	area = /area
-	view = "15x15"
+	view = "17x17"
 	cache_lifespan = 0	//stops player uploaded stuff from being kept in the rsc past the current session
 
 
@@ -11,7 +11,6 @@
 /world/New()
 	//logs
 	var/date_string = time2text(world.realtime, "YYYY/MM-Month/DD-Day")
-	log = file("data/logs/runtime/[time2text(world.realtime,"YYYY-MM")].log")		//funtimelog
 	href_logfile = file("data/logs/[date_string] hrefs.htm")
 	diary = file("data/logs/[date_string].log")
 	diaryofmeanpeople = file("data/logs/[date_string] Attack.log")
@@ -24,60 +23,17 @@
 	if(config && config.log_runtimes)
 		log = file("data/logs/runtime/[time2text(world.realtime,"YYYY-MM-DD-(hh-mm-ss)")]-runtime.log")
 
-	make_datum_references_lists()	//initialises global lists for referencing frequently used datums (so that we only ever do it once)
-
 	load_configuration()
-	load_mode()
-	load_motd()
-	load_admins()
-	load_mods()
-	LoadBansjob()
-	if(config.usewhitelist)
-		load_whitelist()
-	if(config.usealienwhitelist)
-		load_alienwhitelist()
-	jobban_loadbanfile()
-	appearance_loadbanfile()
-	jobban_updatelegacybans()
-	LoadBans()
+	SetupHooks() // /vg/
 
 	if(config && config.server_name != null && config.server_suffix && world.port > 0)
 		// dumb and hardcoded but I don't care~
 		config.server_name += " #[(world.port % 1000) / 100]"
 
-	investigate_reset()
-	Get_Holiday()	//~Carn, needs to be here when the station is named so :P
+	if(config && config.log_runtime)
+		log = file("data/logs/runtime/[time2text(world.realtime,"YYYY-MM-DD-(hh-mm-ss)")]-runtime.log")
 
-	src.update_status()
-
-	makepowernets()
-
-	sun = new /datum/sun()
-	radio_controller = new /datum/controller/radio()
-	data_core = new /obj/effect/datacore()
-	paiController = new /datum/paiController()
-
-	if(!setup_database_connection())
-		world.log << "Your server failed to establish a connection with the feedback database."
-	else
-		world.log << "Feedback database connection established."
-
-	if(!setup_old_database_connection())
-		world.log << "Your server failed to establish a connection with the tgstation database."
-	else
-		world.log << "Tgstation database connection established."
-
-	plmaster = new /obj/effect/overlay()
-	plmaster.icon = 'icons/effects/tile_effects.dmi'
-	plmaster.icon_state = "plasma"
-	plmaster.layer = FLY_LAYER
-	plmaster.mouse_opacity = 0
-
-	slmaster = new /obj/effect/overlay()
-	slmaster.icon = 'icons/effects/tile_effects.dmi'
-	slmaster.icon_state = "sleeping_agent"
-	slmaster.layer = FLY_LAYER
-	slmaster.mouse_opacity = 0
+	callHook("startup")
 
 	src.update_status()
 
@@ -85,16 +41,9 @@
 
 	sleep_offline = 1
 
-	send2mainirc("Server starting up on [config.server? "byond://[config.server]" : "byond://[world.address]:[world.port]"]")
-
 	master_controller = new /datum/controller/game_controller()
 	spawn(1)
 		master_controller.setup()
-
-		setup_species()
-
-	process_teleport_locs()			//Sets up the wizard teleport locations
-	process_ghost_teleport_locs()	//Sets up ghost teleport locations.
 
 	spawn(3000)		//so we aren't adding to the round-start lag
 		if(config.ToRban)
@@ -118,6 +67,9 @@
 //			return "Hello world!"
 //		world << "End of Topic() call."
 //		..()
+
+var/world_topic_spam_protect_ip = "0.0.0.0"
+var/world_topic_spam_protect_time = world.timeofday
 
 /world/Topic(T, addr, master, key)
 	diary << "TOPIC: \"[T]\", from:[addr], master:[master], key:[key]"
@@ -145,6 +97,7 @@
 		s["ai"] = config.allow_ai
 		s["host"] = host ? host : null
 		s["players"] = list()
+		s["stationtime"] = worldtime2text()
 		var/n = 0
 		var/admins = 0
 
@@ -162,11 +115,84 @@
 
 		return list2params(s)
 
+	else if(copytext(T,1,9) == "adminmsg")
+		/*
+			We got an adminmsg from IRC bot lets split the input then validate the input.
+			expected output:
+				1. adminmsg = ckey of person the message is to
+				2. msg = contents of message, parems2list requires
+				3. validatationkey = the key the bot has, it should match the gameservers commspassword in it's configuration.
+				4. sender = the ircnick that send the message.
+		*/
+
+
+		var/input[] = params2list(T)
+		if(input["key"] != config.comms_password)
+			if(world_topic_spam_protect_ip == addr && abs(world_topic_spam_protect_time - world.time) < 50)
+
+				spawn(50)
+					world_topic_spam_protect_time = world.time
+					return "Bad Key (Throttled)"
+
+			world_topic_spam_protect_time = world.time
+			world_topic_spam_protect_ip = addr
+
+			return "Bad Key"
+
+		var/client/C
+
+		for(var/client/K in clients)
+			if(K.ckey == input["adminmsg"])
+				C = K
+				break
+		if(!C)
+			return "No client with that name on server"
+
+		var/message =	"<font color='red'>IRC-Admin PM from <b><a href='?irc_msg=1'>[C.holder ? "IRC-" + input["sender"] : "Administrator"]</a></b>: [input["msg"]]</font>"
+		var/amessage =  "<font color='blue'>IRC-Admin PM from <a href='?irc_msg=1'>IRC-[input["sender"]]</a> to <b>[key_name(C)]</b> : [input["msg"]]</font>"
+
+		C.received_irc_pm = world.time
+		C.irc_admin = input["sender"]
+
+		C << 'sound/effects/adminhelp.ogg'
+		C << message
+
+
+		for(var/client/A in admins)
+			if(A != C)
+				A << amessage
+
+		return "Message Successful"
+
+	else if(copytext(T,1,6) == "notes")
+		/*
+			We got a request for notes from the IRC Bot
+			expected output:
+				1. notes = ckey of person the notes lookup is for
+				2. validationkey = the key the bot has, it should match the gameservers commspassword in it's configuration.
+		*/
+		var/input[] = params2list(T)
+		if(input["key"] != config.comms_password)
+			if(world_topic_spam_protect_ip == addr && abs(world_topic_spam_protect_time - world.time) < 50)
+
+				spawn(50)
+					world_topic_spam_protect_time = world.time
+					return "Bad Key (Throttled)"
+
+			world_topic_spam_protect_time = world.time
+			world_topic_spam_protect_ip = addr
+			return "Bad Key"
+
+		return show_player_info_irc(input["notes"])
+
+
+
+
 
 /world/Reboot(var/reason)
-	/*spawn(0)
+	spawn(0)
 		world << sound(pick('sound/AI/newroundsexy.ogg','sound/misc/apcdestroyed.ogg','sound/misc/bangindonk.ogg')) // random end sounds!! - LastyBatsy
-		*/
+
 	for(var/client/C in clients)
 		if(config.server)	//if you set a server location in config.txt, it sends you there instead of trying to reconnect to the same world address. -- NeoFite
 			C << link("byond://[config.server]")
@@ -223,8 +249,13 @@
 						for(var/obj/item/W in C)
 							C.drop_from_inventory(W)
 						del(C)
-#undef DISCONNECTED_DELETE
+#undef INACTIVITY_KICK
 */
+
+/hook/startup/proc/loadMode()
+	world.load_mode()
+	return 1
+
 /world/proc/load_mode()
 	var/list/Lines = file2list("data/mode.txt")
 	if(Lines.len)
@@ -237,8 +268,18 @@
 	fdel(F)
 	F << the_mode
 
+/hook/startup/proc/loadMusic()
+	for(var/obj/machinery/media/jukebox/J in machines)
+		J.process()
+	return 1
+
+/hook/startup/proc/loadMOTD()
+	world.load_motd()
+	return 1
+
 /world/proc/load_motd()
 	join_motd = file2text("config/motd.txt")
+
 
 /world/proc/load_configuration()
 	config = new /datum/configuration()
@@ -247,6 +288,11 @@
 	config.loadsql("config/dbconfig.txt")
 	config.loadforumsql("config/forumdbconfig.txt")
 	// apply some settings from config..
+
+/hook/startup/proc/loadMods()
+	world.load_mods()
+	return 1
+
 /world/proc/load_mods()
 	if(config.admin_legacy_system)
 		var/text = file2text("config/moderators.txt")
@@ -261,9 +307,12 @@
 				if (copytext(line, 1, 2) == ";")
 					continue
 
-				var/rights = admin_ranks["Moderator"]
+				var/title = "Moderator"
+				if(config.mods_are_mentors) title = "Mentor"
+				var/rights = admin_ranks[title]
+
 				var/ckey = copytext(line, 1, length(line)+1)
-				var/datum/admins/D = new /datum/admins("Moderator", rights, ckey)
+				var/datum/admins/D = new /datum/admins(title, rights, ckey)
 				D.associate(directory[ckey])
 
 /world/proc/update_status()
@@ -279,7 +328,6 @@
 	s += "</a>"
 	s += ")"
 	s += "<br>The Perfect Mix of RP & Action<br>"
-	s += "<b>NEW HOST. NO LAG. NO CRASH.</b><br>"
 
 
 
@@ -333,6 +381,13 @@
 var/failed_db_connections = 0
 var/failed_old_db_connections = 0
 
+/hook/startup/proc/connectDB()
+	if(!setup_database_connection())
+		world.log << "Your server failed to establish a connection with the feedback database."
+	else
+		world.log << "Feedback database connection established."
+	return 1
+
 proc/setup_database_connection()
 
 	if(failed_db_connections > FAILED_DB_CONNECTION_CUTOFF)	//If it failed to establish a connection more than 5 times in a row, don't bother attempting to conenct anymore.
@@ -368,7 +423,12 @@ proc/establish_db_connection()
 		return 1
 
 
-
+/hook/startup/proc/connectOldDB()
+	if(!setup_old_database_connection())
+		world.log << "Your server failed to establish a connection with the SQL database."
+	else
+		world.log << "SQL database connection established."
+	return 1
 
 //These two procs are for the old database, while it's being phased out. See the tgstation.sql file in the SQL folder for more information.
 proc/setup_old_database_connection()

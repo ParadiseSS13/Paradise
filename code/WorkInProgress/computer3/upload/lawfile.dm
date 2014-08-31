@@ -22,7 +22,7 @@
 	execute(var/datum/file/program/source)
 		if(istype(usr,/mob/living/silicon))
 			return
-		if(istype(source,/datum/file/program/NTOS))
+		if(istype(source,/datum/file/program/ntos))
 			if(configurable)
 				configure()
 			return

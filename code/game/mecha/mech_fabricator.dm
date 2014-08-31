@@ -91,7 +91,7 @@
 						/obj/item/mecha_parts/part/durand_right_arm,
 						/obj/item/mecha_parts/part/durand_left_leg,
 						/obj/item/mecha_parts/part/durand_right_leg,
-						/obj/item/mecha_parts/part/durand_armour
+						/obj/item/mecha_parts/part/durand_armor
 					),
 	"H.O.N.K"=list(
 						/obj/item/mecha_parts/chassis/honker,
@@ -129,10 +129,9 @@
 						/obj/item/borg/upgrade/jetpack
 						),
 
-
-
-
-
+	"Space Pod" = list(
+						/obj/item/pod_parts/core
+						),
 
 	"Misc"=list(/obj/item/mecha_parts/mecha_tracking)
 	)
@@ -187,7 +186,7 @@
 	if(time_coeff!=diff)
 		time_coeff = diff
 
-/obj/machinery/mecha_part_fabricator/Del()
+/obj/machinery/mecha_part_fabricator/Destroy()
 	for(var/atom/A in src)
 		del A
 	..()
@@ -206,16 +205,6 @@
 	M << "<font color='red'>You don't have required permissions to use [src]</font>"
 	return 0
 
-/obj/machinery/mecha_part_fabricator/check_access(obj/item/weapon/card/id/I)
-	if(istype(I, /obj/item/device/pda))
-		var/obj/item/device/pda/pda = I
-		I = pda.id
-	if(!istype(I) || !I.access) //not ID or no access
-		return 0
-	for(var/req in req_access)
-		if(!(req in I.access)) //doesn't have this access
-			return 0
-	return 1
 
 /obj/machinery/mecha_part_fabricator/proc/emag()
 	sleep()
@@ -341,6 +330,11 @@
 
 /obj/machinery/mecha_part_fabricator/proc/build_part(var/obj/item/part)
 	if(!part) return
+
+	 // critical exploit prevention, do not remove unless you replace it -walter0o
+	if( !(locate(part, src.contents)) || !(part.vars.Find("construction_time")) || !(part.vars.Find("construction_cost")) ) // these 3 are the current requirements for an object being buildable by the mech_fabricator
+		return
+
 	src.being_built = new part.type(src)
 	src.desc = "It's building [src.being_built]."
 	src.remove_resources(part)
@@ -570,9 +564,26 @@
 	onclose(user, "mecha_fabricator")
 	return
 
+/obj/machinery/mecha_part_fabricator/proc/exploit_prevention(var/obj/Part, mob/user as mob, var/desc_exploit)
+// critical exploit prevention, feel free to improve or replace this, but do not remove it -walter0o
+
+	if(!Part || !user || !istype(Part) || !istype(user)) // sanity
+		return 1
+
+	if( !(locate(Part, src.contents)) || !(Part.vars.Find("construction_time")) || !(Part.vars.Find("construction_cost")) ) // these 3 are the current requirements for an object being buildable by the mech_fabricator
+
+		var/turf/LOC = get_turf(user)
+		message_admins("[key_name_admin(user)] tried to exploit an Exosuit Fabricator to [desc_exploit ? "get the desc of" : "duplicate"] <a href='?_src_=vars;Vars=\ref[Part]'>[Part]</a> ! ([LOC ? "<a href='?_src_=holder;adminplayerobservecoodjump=1;X=[LOC.x];Y=[LOC.y];Z=[LOC.z]'>JMP</a>" : "null"])", 0)
+		log_admin("EXPLOIT : [key_name(user)] tried to exploit an Exosuit Fabricator to [desc_exploit ? "get the desc of" : "duplicate"] [Part] !")
+		return 1
+
+	return null
 
 /obj/machinery/mecha_part_fabricator/Topic(href, href_list)
-	..()
+
+	if(..()) // critical exploit prevention, do not remove unless you replace it -walter0o
+		return
+
 	var/datum/topic_input/filter = new /datum/topic_input(href,href_list)
 	if(href_list["part_set"])
 		var/tpart_set = filter.getStr("part_set")
@@ -583,13 +594,25 @@
 				src.part_set = tpart_set
 				screen = "parts"
 	if(href_list["part"])
-		var/list/part = filter.getObj("part")
+		var/obj/part = filter.getObj("part")
+
+		// critical exploit prevention, do not remove unless you replace it -walter0o
+		if(src.exploit_prevention(part, usr))
+			return
+
 		if(!processing_queue)
 			build_part(part)
 		else
 			add_to_queue(part)
 	if(href_list["add_to_queue"])
-		add_to_queue(filter.getObj("add_to_queue"))
+		var/obj/part = filter.getObj("add_to_queue")
+
+		// critical exploit prevention, do not remove unless you replace it -walter0o
+		if(src.exploit_prevention(part, usr))
+			return
+
+		add_to_queue(part)
+
 		return update_queue_on_page()
 	if(href_list["remove_from_queue"])
 		remove_from_queue(filter.getNum("remove_from_queue"))
@@ -628,6 +651,11 @@
 		return update_queue_on_page()
 	if(href_list["part_desc"])
 		var/obj/part = filter.getObj("part_desc")
+
+		// critical exploit prevention, do not remove unless you replace it -walter0o
+		if(src.exploit_prevention(part, usr, 1))
+			return
+
 		if(part)
 			temp = {"<h1>[part] description:</h1>
 						[part.desc]<br>
@@ -673,6 +701,8 @@
 
 
 /obj/machinery/mecha_part_fabricator/attackby(obj/W as obj, mob/user as mob)
+	if(exchange_parts(user, W))
+		return
 	if(istype(W,/obj/item/weapon/screwdriver))
 		if (!opened)
 			opened = 1
@@ -759,6 +789,10 @@
 		sleep(10)
 		if(stack && stack.amount)
 			while(src.resources[material] < res_max_amount && stack)
+				if(stack.amount < 0 || !stack)
+					user.drop_item(stack)
+					qdel(stack)
+					break
 				src.resources[material] += amnt
 				stack.use(1)
 				count++

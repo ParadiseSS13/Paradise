@@ -19,7 +19,10 @@
 	var/candrain = 0
 	var/mindrain = 200
 	var/maxdrain = 400
-
+	species_fit = list("Vox")
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/species/vox/mask.dmi'
+		)
 /*
 	This runs the gamut of what ninja gloves can do
 	The other option would be a dedicated ninja touch bullshit proc on everything

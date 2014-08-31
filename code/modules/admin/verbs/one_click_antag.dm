@@ -1,7 +1,9 @@
 client/proc/one_click_antag()
 	set name = "Create Antagonist"
 	set desc = "Auto-create an antagonist of your choice"
-	set category = "Admin"
+	set category = "Event"
+
+	if(!check_rights(R_SERVER|R_EVENT))	return
 
 	if(holder)
 		holder.one_click_antag()
@@ -153,7 +155,7 @@ client/proc/one_click_antag()
 	for(var/mob/G in respawnable_list)
 		if(!jobban_isbanned(G, "wizard") && !jobban_isbanned(G, "Syndicate"))
 			spawn(0)
-				switch(alert(G, "Do you wish to be considered for the position of Space Wizard Foundation 'diplomat'?","Please answer in 30 seconds!","Yes","No"))
+				switch(G.timed_alert("Do you wish to be considered for the position of Space Wizard Foundation 'diplomat'?","Please answer in 30 seconds!","No",300,"Yes","No"))//alert(G, "Do you wish to be considered for the position of Space Wizard Foundation 'diplomat'?","Please answer in 30 seconds!","Yes","No"))
 					if("Yes")
 						if((world.time-time_passed)>300)//If more than 30 game seconds passed.
 							return
@@ -382,7 +384,7 @@ client/proc/one_click_antag()
 	return 1
 
 
-/datum/admins/proc/makeBody(var/mob/dead/observer/G_found) // Uses stripped down and bastardized code from respawn character
+/proc/makeBody(var/mob/dead/observer/G_found) // Uses stripped down and bastardized code from respawn character
 	if(!G_found || !G_found.key)	return
 
 	//First we spawn a dude.
@@ -492,27 +494,18 @@ client/proc/one_click_antag()
 
 /datum/admins/proc/create_vox_raider(obj/spawn_location, leader_chosen = 0)
 
-	var/mob/living/carbon/human/new_vox = new(spawn_location.loc)
+	var/mob/living/carbon/human/new_vox = new(spawn_location.loc, "Vox")
 
 	new_vox.gender = pick(MALE, FEMALE)
 	new_vox.h_style = "Short Vox Quills"
 	new_vox.regenerate_icons()
 
-	var/sounds = rand(2,10)
-	var/i = 0
-	var/newname = ""
-
-	while(i<=sounds)
-		i++
-		newname += pick(list("ti","hi","ki","ya","ta","ha","ka","ya","chi","cha","kah"))
-
-	new_vox.real_name = capitalize(newname)
-	new_vox.name = new_vox.real_name
 	new_vox.age = rand(12,20)
 
 	new_vox.dna.ready_dna(new_vox) // Creates DNA.
 	new_vox.dna.mutantrace = "vox"
 	new_vox.set_species("Vox") // Actually makes the vox! How about that.
+	new_vox.generate_name()
 	new_vox.add_language("Vox-pidgin")
 	new_vox.mind_initialize()
 	new_vox.mind.assigned_role = "MODE"

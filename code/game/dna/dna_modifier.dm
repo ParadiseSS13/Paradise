@@ -16,6 +16,7 @@
 	var/implant=null
 	var/ckey=null
 	var/mind=null
+	var/languages=null
 
 /datum/dna2/record/proc/GetData()
 	var/list/ser=list("data" = null, "owner" = null, "label" = null, "type" = null, "ue" = 0)
@@ -72,7 +73,7 @@
 
 /obj/machinery/dna_scannernew/verb/eject()
 	set src in oview(1)
-	set category = "Object"
+	set category = null
 	set name = "Eject DNA Scanner"
 
 	if (usr.stat != 0)
@@ -97,7 +98,7 @@
 
 /obj/machinery/dna_scannernew/verb/move_inside()
 	set src in oview(1)
-	set category = "Object"
+	set category = null
 	set name = "Enter DNA Scanner"
 
 	if (usr.stat != 0)
@@ -142,10 +143,10 @@
 	if(occupant)
 		user << "\blue <B>The DNA Scanner is already occupied!</B>"
 		return
-	if(isrobot(user))
+/*	if(isrobot(user))
 		if(!istype(user:module, /obj/item/weapon/robot_module/medical))
 			user << "<span class='warning'>You do not have the means to do this!</span>"
-			return
+			return*/
 	var/mob/living/L = O
 	if(!istype(L) || L.buckled)
 		return
@@ -160,6 +161,8 @@
 		return
 	visible_message("[user] puts [L.name] into the DNA Scanner.", 3)
 	put_in(L)
+	if(user.pulling == L)
+		user.pulling = null
 
 /obj/machinery/dna_scannernew/attackby(var/obj/item/weapon/item as obj, var/mob/user as mob)
 	if (istype(item, /obj/item/weapon/screwdriver))
@@ -289,6 +292,7 @@
 	icon = 'icons/obj/computer.dmi'
 	icon_state = "scanner"
 	density = 1
+	circuit = /obj/item/weapon/circuitboard/scan_consolenew
 	var/selected_ui_block = 1.0
 	var/selected_ui_subblock = 1.0
 	var/selected_se_block = 1.0
@@ -310,32 +314,6 @@
 	var/waiting_for_user_input=0 // Fix for #274 (Mash create block injector without answering dialog to make unlimited injectors) - N3X
 
 /obj/machinery/computer/scan_consolenew/attackby(obj/item/I as obj, mob/user as mob)
-	if(istype(I, /obj/item/weapon/screwdriver))
-		playsound(get_turf(src), 'sound/items/Screwdriver.ogg', 50, 1)
-		if(do_after(user, 20))
-			if (src.stat & BROKEN)
-				user << "\blue The broken glass falls out."
-				var/obj/structure/computerframe/A = new /obj/structure/computerframe( src.loc )
-				new /obj/item/weapon/shard( src.loc )
-				var/obj/item/weapon/circuitboard/scan_consolenew/M = new /obj/item/weapon/circuitboard/scan_consolenew( A )
-				for (var/obj/C in src)
-					C.loc = src.loc
-				A.circuit = M
-				A.state = 3
-				A.icon_state = "3"
-				A.anchored = 1
-				del(src)
-			else
-				user << "\blue You disconnect the monitor."
-				var/obj/structure/computerframe/A = new /obj/structure/computerframe( src.loc )
-				var/obj/item/weapon/circuitboard/scan_consolenew/M = new /obj/item/weapon/circuitboard/scan_consolenew( A )
-				for (var/obj/C in src)
-					C.loc = src.loc
-				A.circuit = M
-				A.state = 4
-				A.icon_state = "4"
-				A.anchored = 1
-				del(src)
 	if (istype(I, /obj/item/weapon/disk/data)) //INSERT SOME diskS
 		if (!src.disk)
 			user.drop_item()
@@ -345,7 +323,7 @@
 			nanomanager.update_uis(src) // update all UIs attached to src()
 			return
 	else
-		src.attack_hand(user)
+		..()
 	return
 
 /obj/machinery/computer/scan_consolenew/ex_act(severity)
@@ -408,13 +386,6 @@
 	I.buf = buffer
 	return 1
 
-/obj/machinery/computer/scan_consolenew/attackby(obj/item/W as obj, mob/user as mob)
-	if ((istype(W, /obj/item/weapon/disk/data)) && (!src.disk))
-		user.drop_item()
-		W.loc = src
-		src.disk = W
-		user << "You insert [W]."
-		nanomanager.update_uis(src) // update all UIs attached to src()
 /*
 /obj/machinery/computer/scan_consolenew/process() //not really used right now
 	if(stat & (NOPOWER|BROKEN))
@@ -445,7 +416,7 @@
   *
   * @return nothing
   */
-/obj/machinery/computer/scan_consolenew/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null)
+/obj/machinery/computer/scan_consolenew/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
 
 	if(user == connected.occupant || user.stat)
 		return
@@ -525,7 +496,7 @@
 				data["beakerVolume"] += R.volume
 
 	// update the ui if it exists, returns null if no ui is passed/found
-	ui = nanomanager.try_update_ui(user, src, ui_key, ui, data)
+	ui = nanomanager.try_update_ui(user, src, ui_key, ui, data, force_open)
 	if (!ui)
 		// the ui does not exist, so we'll create a new() one
         // for a list of parameters and their descriptions see the code docs in \code\modules\nano\nanoui.dm
@@ -801,7 +772,7 @@
 		if (bufferOption == "saveUI")
 			if(src.connected.occupant && src.connected.occupant.dna)
 				var/datum/dna2/record/databuf=new
-				databuf.types = DNA2_BUF_UE
+				databuf.types = DNA2_BUF_UI // DNA2_BUF_UE
 				databuf.dna = src.connected.occupant.dna.Clone()
 				if(ishuman(connected.occupant))
 					databuf.dna.real_name=connected.occupant.name
@@ -851,7 +822,7 @@
 			src.connected.locked = 1//lock it
 			nanomanager.update_uis(src) // update all UIs attached to src
 
-			sleep(10*2) // sleep for 2 seconds
+			sleep(2 SECONDS)
 
 			irradiating = 0
 			src.connected.locked = lock_state
@@ -891,14 +862,9 @@
 				if(success)
 					I.loc = src.loc
 					I.name += " ([buf.name])"
-					//src.temphtml = "Injector created."
 					src.injector_ready = 0
 					spawn(300)
 						src.injector_ready = 1
-				//else
-					//src.temphtml = "Error in injector creation."
-			//else
-				//src.temphtml = "Replicator not ready yet."
 			return 1
 
 		if (bufferOption == "loadDisk")

@@ -24,14 +24,14 @@
 /proc/randmutb(var/mob/living/M)
 	if(!M) return
 	M.dna.check_integrity()
-	var/block = pick(GLASSESBLOCK,COUGHBLOCK,FAKEBLOCK,NERVOUSBLOCK,CLUMSYBLOCK,TWITCHBLOCK,HEADACHEBLOCK,BLINDBLOCK,DEAFBLOCK,HALLUCINATIONBLOCK)
+	var/block = pick(bad_blocks)
 	M.dna.SetSEState(block, 1)
 
 // Give Random Good Mutation to M
 /proc/randmutg(var/mob/living/M)
 	if(!M) return
 	M.dna.check_integrity()
-	var/block = pick(HULKBLOCK,XRAYBLOCK,FIREBLOCK,COLDBLOCK,TELEBLOCK,NOBREATHBLOCK,REMOTEVIEWBLOCK,REGENERATEBLOCK,INCREASERUNBLOCK,REMOTETALKBLOCK,MORPHBLOCK,NOPRINTSBLOCK,SHOCKIMMUNITYBLOCK,SMALLSIZEBLOCK)
+	var/block = pick(good_blocks)
 	M.dna.SetSEState(block, 1)
 
 // Random Appearance Mutation
@@ -138,6 +138,10 @@
 		H.r_facial = dna.GetUIValueRange(DNA_UI_BEARD_R,   255)
 		H.g_facial = dna.GetUIValueRange(DNA_UI_BEARD_G,   255)
 		H.b_facial = dna.GetUIValueRange(DNA_UI_BEARD_B,   255)
+
+		H.r_skin   = dna.GetUIValueRange(DNA_UI_SKIN_R,    255)
+		H.g_skin   = dna.GetUIValueRange(DNA_UI_SKIN_G,    255)
+		H.b_skin   = dna.GetUIValueRange(DNA_UI_SKIN_B,    255)
 
 		H.r_eyes   = dna.GetUIValueRange(DNA_UI_EYES_R,    255)
 		H.g_eyes   = dna.GetUIValueRange(DNA_UI_EYES_G,    255)

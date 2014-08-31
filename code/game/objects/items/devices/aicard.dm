@@ -71,6 +71,10 @@
 				dat += "<br>"
 				dat += {"<a href='byond://?src=\ref[src];choice=Wireless'>[A.control_disabled ? "Enable" : "Disable"] Wireless Activity</a>"}
 				dat += "<br>"
+				dat += "Subspace Transceiver is: [A.radio.disabledAi ? "Disabled" : "Enabled"]"
+				dat += "<br>"
+				dat += {"<a href='byond://?src=\ref[src];choice=Radio'>[A.radio.disabledAi ? "Enable" : "Disable"] Subspace Transceiver</a>"}
+				dat += "<br>"
 				dat += {"<a href='byond://?src=\ref[src];choice=Close'> Close</a>"}
 		user << browse(dat, "window=aicard")
 		onclose(user, "aicard")
@@ -110,6 +114,12 @@
 								sleep(10)
 							flush = 0
 
+			if ("Radio")
+				for(var/mob/living/silicon/ai/A in src)
+					A.radio.disabledAi = !A.radio.disabledAi
+					A << "Your Subspace Transceiver has been: [A.radio.disabledAi ? "disabled" : "enabled"]"
+					U << "You [A.radio.disabledAi ? "Disable" : "Enable"] the AI's Subspace Transceiver"
+
 			if ("Wireless")
 				for(var/mob/living/silicon/ai/A in src)
 					A.control_disabled = !A.control_disabled
@@ -120,7 +130,11 @@
 						overlays += image('icons/obj/aicards.dmi', "aicard-on")
 		attack_self(U)
 
-
-
-
-
+/obj/item/device/aicard/ex_act(severity)
+	switch(severity)
+		if(1.0)
+			del(src)
+		if(2.0)
+			if(prob(50)) del(src)
+		if(3.0)
+			if(prob(25)) del(src)

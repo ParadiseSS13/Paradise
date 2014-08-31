@@ -47,9 +47,11 @@ var/list/uplink_items = list()
 	var/list/job = null
 
 /datum/uplink_item/proc/spawn_item(var/turf/loc, var/obj/item/device/uplink/U)
-	U.uses -= max(cost, 0)
-	feedback_add_details("traitor_uplink_items_bought", name)
-	return new item(loc)
+	if(item)
+		U.uses -= max(cost, 0)
+		U.used_TC += cost
+		feedback_add_details("traitor_uplink_items_bought", name)
+		return new item(loc)
 
 /datum/uplink_item/proc/buy(var/obj/item/device/uplink/hidden/U, var/mob/user)
 
@@ -74,7 +76,12 @@ var/list/uplink_items = list()
 		if(ishuman(user))
 			var/mob/living/carbon/human/A = user
 			A.put_in_any_hand_if_possible(I)
-			U.purchase_log += "[user] ([user.ckey]) bought [name] for [cost]."
+
+			if(istype(I,/obj/item/weapon/storage/box/) && I.contents.len>0)
+				for(var/atom/o in I)
+					U.purchase_log += "<BIG>\icon[o]</BIG>"
+			else
+				U.purchase_log += "<BIG>\icon[I]</BIG>"
 
 		U.interact(user)
 		return 1
@@ -142,17 +149,17 @@ var/list/uplink_items = list()
 
 /datum/uplink_item/jobspecific/pickpocketgloves
 	name = "Pickpocket's Gloves"
-	desc = "A pair of sleek gloves to aid in pickpocketing, while wearing these you can see inside the pockets of any unsuspecting mark, loot the ID, belt, or pockets without them knowing, and pickpocketing puts the item directly into your hand."
+	desc = "A pair of sleek gloves to aid in pickpocketing, while wearing these you can see inside the pockets of any unsuspecting mark, loot the ID or pockets without them knowing, and pickpocketing puts the item directly into your hand."
 	item = /obj/item/clothing/gloves/black/thief
 	cost = 3
-	job = list("Assistant")
+	job = list("Civilian")
 
 /datum/uplink_item/jobspecific/greytide
 	name = "Greytide Implant"
 	desc = "A box containing an implanter filled with a greytide implant when injected into another person makes them loyal to the greytide and your cause, unless of course they're already implanted by someone else. Loyalty ends if the implant is no longer in their system."
 	item = /obj/item/weapon/storage/box/syndie_kit/greytide
 	cost = 7
-	job = list("Assistant")
+	job = list("Civilian")
 //Bartender
 
 /datum/uplink_item/jobspecific/drunkbullets
@@ -182,11 +189,41 @@ var/list/uplink_items = list()
 	item = /obj/item/weapon/gun/projectile/revolver
 	cost = 6
 
+/datum/uplink_item/dangerous/smg
+	name = "C-20r Submachine Gun"
+	desc = "A fully-loaded Scarborough Arms-developed submachine gun that fires 12mm automatic rounds with a 20-round magazine."
+	item = /obj/item/weapon/gun/projectile/automatic/c20r
+	cost = 6
+	gamemodes = list("nuclear emergency")
+
+/datum/uplink_item/dangerous/machinegun
+	name = "L6 Squad Automatic Weapon"
+	desc = "A traditionally constructed machine gun made by AA-2531. This deadly weapon has a massive 50-round magazine of 7.62×51mm ammunition."
+	item = /obj/item/weapon/gun/projectile/automatic/l6_saw
+	cost = 10
+	gamemodes = list("nuclear emergency")
+
+
 /datum/uplink_item/dangerous/ammo
 	name = "Ammo-357"
 	desc = "Seven additional rounds for the revolver. Reports indicate the presence of machinery aboard Nanotrasen space stations suitable for producing extra .357 cartridges."
 	item = /obj/item/ammo_box/a357
 	cost = 2
+
+/datum/uplink_item/ammo/smg
+	name = "Ammo-12mm"
+	desc = "A 20-round 12mm magazine for use in the C-20r submachine gun."
+	item = /obj/item/ammo_box/magazine/m12mm
+	cost = 1
+	gamemodes = list("nuclear emergency")
+
+
+/datum/uplink_item/ammo/machinegun
+	name = "Ammo-7.62×51mm"
+	desc = "A 50-round magazine of 7.62×51mm ammunition for use in the L6 SAW machinegun. By the time you need to use this, you'll already be on a pile of corpses."
+	item = /obj/item/ammo_box/magazine/m762
+	cost = 3
+	gamemodes = list("nuclear emergency")
 
 /datum/uplink_item/dangerous/crossbow
 	name = "Energy Crossbow"
@@ -230,12 +267,20 @@ var/list/uplink_items = list()
 	item = /obj/item/weapon/soap/syndie
 	cost = 1
 
-/datum/uplink_item/stealthy_weapons/detomatix
+/*/datum/uplink_item/stealthy_weapons/detomatix
 	name = "Detomatix PDA Cartridge"
 	desc = "When inserted into a personal digital assistant, this cartridge gives you five opportunities to detonate PDAs of crewmembers who have their message feature enabled. The concussive effect from the explosion will knock the recipient out for a short period, and deafen them for longer. It has a chance to detonate your PDA."
 	item = /obj/item/weapon/cartridge/syndicate
-	cost = 3
+	cost = 3 */
 
+// Commented out until a fix can be found, currently doesn't work with the PDA NanoUI and people keep wasting Telecrystals on it. -- Dave
+
+/datum/uplink_item/stealthy_weapons/silencer
+	name = "Stetchkin Silencer"
+	desc = "Fitted for use on the Stetchkin pistol, this silencer will make its shots quieter when equipped onto it."
+	item = /obj/item/weapon/silencer
+	cost = 1
+	gamemodes = list("nuclear emergency")
 
 // STEALTHY TOOLS
 
@@ -290,6 +335,15 @@ var/list/uplink_items = list()
 	desc = "The syndicate toolbox is a suspicious black and red. Aside from tools, it comes with cable and a multitool. Insulated gloves are not included."
 	item = /obj/item/weapon/storage/toolbox/syndicate
 	cost = 1
+
+
+/datum/uplink_item/device_tools/medkit
+	name = "Syndicate Medical Supply Kit"
+	desc = "A basic medical kit for treating injuries in the field."
+	item = /obj/item/weapon/storage/firstaid/adv
+	cost = 3
+	gamemodes = list("nuclear emergency")
+
 
 /datum/uplink_item/device_tools/space_suit
 	name = "Space Suit"
@@ -399,6 +453,13 @@ var/list/uplink_items = list()
 	desc = "Syndicate Bundles are specialised groups of items that arrive in a plain box. These items are collectively worth more than 10 telecrystals, but you do not know which specialisation you will receive."
 	item = /obj/item/weapon/storage/box/syndicate
 	cost = 10
+
+/datum/uplink_item/badass/syndiecards
+	name = "Syndicate Playing Cards"
+	desc = "A special deck of space-grade playing cards with a mono-molecular edge and metal reinforcement, making them lethal weapons both when wielded as a blade and when thrown. \
+	You can also play card games with them."
+	item = /obj/item/toy/cards/deck/syndicate
+	cost = 2
 
 /datum/uplink_item/badass/balloon
 	name = "For showing that you are The Boss"

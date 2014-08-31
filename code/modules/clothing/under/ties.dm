@@ -113,6 +113,13 @@
 	name = "medal of exceptional heroism"
 	desc = "An extremely rare golden medal awarded only by CentComm. To recieve such a medal is the highest honor and as such, very few exist. This medal is almost never awarded to anybody but commanders."
 
+/obj/item/clothing/tie/medal/gold/ion
+	name = "Ion Chef Medal"
+	desc = "A medal awarded to the winner of the Ion Chef contest"
+	icon_state = "ion"
+	_color = "ion"
+
+
 //Armbands
 /obj/item/clothing/tie/armband
 	name = "red armband"
@@ -162,18 +169,45 @@
 	icon_state = "holster"
 	_color = "holster"
 	var/obj/item/weapon/gun/holstered = null
+	icon_action_button = "action_holster"
+
+/obj/item/clothing/tie/holster/attack_self()
+	holster()
+
+/obj/item/clothing/tie/holster/proc/holster()
+	if(!istype(usr, /mob/living)) return
+	if(usr.stat) return
+
+	if(!holstered)
+		if(!istype(usr.get_active_hand(), /obj/item/weapon/gun))
+			usr << "\blue You need your gun equiped to holster it."
+			return
+		var/obj/item/weapon/gun/W = usr.get_active_hand()
+		if (!W.isHandgun())
+			usr << "\red This gun won't fit in \the [src]!"
+			return
+		holstered = usr.get_active_hand()
+		usr.drop_item()
+		holstered.loc = src
+		usr.visible_message("\blue \The [usr] holsters \the [holstered].", "You holster \the [holstered].")
+	else
+		if(istype(usr.get_active_hand(),/obj) && istype(usr.get_inactive_hand(),/obj))
+			usr << "\red You need an empty hand to draw the gun!"
+		else
+			if(usr.a_intent == "harm")
+				usr.visible_message("\red \The [usr] draws \the [holstered], ready to shoot!", \
+				"\red You draw \the [holstered], ready to shoot!")
+			else
+				usr.visible_message("\blue \The [usr] draws \the [holstered], pointing it at the ground.", \
+				"\blue You draw \the [holstered], pointing it at the ground.")
+			usr.put_in_hands(holstered)
+			holstered = null
 
 /obj/item/clothing/tie/holster/armpit
 	name = "shoulder holster"
 	desc = "A worn-out handgun holster. Perfect for concealed carry"
 	icon_state = "holster"
 	_color = "holster"
-
-/obj/item/clothing/tie/holster/waist
-	name = "shoulder holster"
-	desc = "A handgun holster. Made of expensive leather."
-	icon_state = "holster"
-	_color = "holster_low"
 
 /obj/item/clothing/tie/storage
 	name = "load bearing equipment"
@@ -182,19 +216,20 @@
 	_color = "webbing"
 	var/slots = 3
 	var/obj/item/weapon/storage/pockets/hold
+	icon_action_button = "action_storage"
 
 /obj/item/clothing/tie/storage/New()
 	hold = new /obj/item/weapon/storage/pockets(src)
 	hold.master_item = src
 	hold.storage_slots = slots
 
+
 /obj/item/clothing/tie/storage/attack_self(mob/user as mob)
-	user << "<span class='notice'>You empty [src].</span>"
-	var/turf/T = get_turf(src)
-	hold.hide_from(usr)
-	for(var/obj/item/I in hold.contents)
-		hold.remove_from_storage(I, T)
-	src.add_fingerprint(user)
+	if (!istype(hold))
+		return
+
+	hold.loc = user
+	hold.attack_hand(user)
 
 /obj/item/clothing/tie/storage/attackby(obj/item/weapon/W as obj, mob/user as mob)
 	hold.attackby(W,user)
@@ -335,14 +370,3 @@
 	..()
 	new /obj/item/weapon/hatchet/unathiknife(hold)
 	new /obj/item/weapon/hatchet/unathiknife(hold)
-
-
-/////////////////
-//Miscellaneous//
-/////////////////
-
-/obj/item/clothing/tie/accessory/gunholster
-	name = "gun holster"
-	desc = "When you just HAVE to show off your guns"
-	icon_state = "gunhulster"
-	_color = "gunhulster"

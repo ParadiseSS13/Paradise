@@ -88,15 +88,17 @@
 				air2.temperature = air2.temperature + heat/air2_heat_capacity
 				air1.temperature = air1.temperature - energy_transfer/air1_heat_capacity
 
-			//Transfer the air
-			circ1.air2.merge(air1)
-			circ2.air2.merge(air2)
+	//Transfer the air
+	if (air1)
+		circ1.air2.merge(air1)
+	if (air2)
+		circ2.air2.merge(air2)
 
-			//Update the gas networks
-			if(circ1.network2)
-				circ1.network2.update = 1
-			if(circ2.network2)
-				circ2.network2.update = 1
+	//Update the gas networks
+	if(circ1.network2)
+		circ1.network2.update = 1
+	if(circ2.network2)
+		circ2.network2.update = 1
 
 	// update icon overlays and power usage only if displayed level has changed
 	if(lastgen > 250000 && prob(10))

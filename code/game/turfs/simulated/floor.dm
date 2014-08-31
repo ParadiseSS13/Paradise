@@ -44,6 +44,15 @@ var/list/wood_icons = list("wood","wood-broken")
 	else
 		icon_regular_floor = icon_state
 
+/turf/simulated/floor/ignite(var/temperature)
+	on_fire=1
+	visible_message("\The [src] bursts into flame!")
+	overlays += image(fire_dmi,fire_sprite)
+	spawn(rand(fire_time_min,fire_time_max) SECONDS)
+		if(!on_fire)
+			return
+		burn_tile()
+
 //turf/simulated/floor/CanPass(atom/movable/mover, turf/target, height=0, air_group=0)
 //	if ((istype(mover, /obj/machinery/vehicle) && !(src.burnt)))
 //		if (!( locate(/obj/machinery/mass_driver, src) ))
@@ -76,6 +85,21 @@ var/list/wood_icons = list("wood","wood-broken")
 				src.break_tile()
 				src.hotspot_expose(500,CELL_VOLUME)
 	return
+
+/turf/simulated/floor/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume)
+	if(!burnt && prob(5))
+		burn_tile()
+	else if(prob(1) && !is_plating())
+		make_plating()
+		burn_tile()
+	return
+
+/turf/simulated/floor/adjacent_fire_act(turf/simulated/floor/adj_turf, datum/gas_mixture/adj_air, adj_temp, adj_volume)
+	var/dir_to = get_dir(src, adj_turf)
+
+	for(var/obj/structure/window/W in src)
+		if(W.dir == dir_to || W.is_fulltile()) //Same direction or diagonal (full tile)
+			W.fire_act(adj_air, adj_temp, adj_volume)
 
 /turf/simulated/floor/blob_act()
 	return
@@ -466,17 +490,16 @@ turf/simulated/floor/proc/update_icon()
 
 		return
 
-	if(istype(C, /obj/item/weapon/screwdriver))
-		if(is_wood_floor())
-			if(broken || burnt)
-				return
-			else
-				if(is_wood_floor())
-					user << "\red You unscrew the planks."
-					new floor_tile.type(src)
 
-			make_plating()
-			playsound(src, 'sound/items/Screwdriver.ogg', 80, 1)
+	if(istype(C, /obj/item/weapon/screwdriver) && is_wood_floor())
+		if(broken || burnt)
+			return
+		else
+			if(is_wood_floor())
+				user << "\red You unscrew the planks."
+				new floor_tile.type(src)
+		make_plating()
+		playsound(src, 'sound/items/Screwdriver.ogg', 80, 1)
 		if(is_catwalk())
 			if(broken) return
 			ReplaceWithLattice()
@@ -560,3 +583,30 @@ turf/simulated/floor/proc/update_icon()
 					broken = 0
 				else
 					user << "\blue You need more welding fuel to complete this task."
+
+	if(istype(C,/obj/item/pipe))
+		var/obj/item/pipe/V = C
+		if(V.pipe_type != -1) // ANY PIPE
+			var/obj/item/pipe/P = C
+
+			user.visible_message( \
+				"[user] starts sliding [P] along \the [src].", \
+				"\blue You slide [P] along \the [src].", \
+				"You hear the scrape of metal against something.")
+			user.drop_item()
+			if (P.pipe_type in list (1,3,12))  // bent pipe rotation fix see construction.dm
+				P.dir = 5
+				if (user.dir == 1)
+					P.dir = 6
+				if (user.dir == 2)
+					P.dir = 9
+				if (user.dir == 4)
+					P.dir = 10
+				if (user.dir == 5)
+					P.dir = 8
+			else
+				P.dir = user.dir
+			P.x = src.x
+			P.y = src.y
+			P.z = src.z
+			P.loc = src

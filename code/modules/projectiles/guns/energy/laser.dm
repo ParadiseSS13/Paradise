@@ -34,7 +34,7 @@ obj/item/weapon/gun/energy/laser/retro
 		processing_objects.Add(src)
 
 
-	Del()
+	Destroy()
 		processing_objects.Remove(src)
 		..()
 
@@ -44,7 +44,7 @@ obj/item/weapon/gun/energy/laser/retro
 		if(charge_tick < 4) return 0
 		charge_tick = 0
 		if(!power_supply) return 0
-		power_supply.give(100)
+		power_supply.give(1000)
 		update_icon()
 		return 1
 
@@ -56,22 +56,25 @@ obj/item/weapon/gun/energy/laser/retro
 	if(isrobot(src.loc))
 		var/mob/living/silicon/robot/R = src.loc
 		if(R && R.cell)
-			R.cell.use(100)
+			R.cell.use(500)
 			in_chamber = new/obj/item/projectile/beam(src)
+			fire_delay = 12
 			return 1
 	return 0
 
+/obj/item/weapon/gun/energy/laser/cyborg/emp_act()
+	return
 
 
 /obj/item/weapon/gun/energy/lasercannon
 	name = "laser cannon"
 	desc = "With the L.A.S.E.R. cannon, the lasing medium is enclosed in a tube lined with uranium-235 and subjected to high neutron flux in a nuclear reactor core. This incredible technology may help YOU achieve high excitation rates with small laser volumes!"
 	icon_state = "lasercannon"
-	fire_sound = 'sound/weapons/lasercannonfire.ogg'
+//	fire_sound = 'sound/weapons/lasercannonfire.ogg'
 	origin_tech = "combat=4;materials=3;powerstorage=3"
 	projectile_type = "/obj/item/projectile/beam/heavylaser"
-
-	fire_delay = 20
+	charge_cost = 500 // Half the cost of the regular laser, weaker projectile.
+	fire_delay = 3
 
 	isHandgun()
 		return 0
@@ -94,7 +97,7 @@ obj/item/weapon/gun/energy/laser/retro
 	fire_sound = 'sound/weapons/laser3.ogg'
 	origin_tech = "combat=5;materials=3;magnets=2;syndicate=2"
 	projectile_type = "/obj/item/projectile/beam/xray"
-	charge_cost = 50
+	charge_cost = 500
 
 
 ////////Laser Tag////////////////////
@@ -120,7 +123,7 @@ obj/item/weapon/gun/energy/laser/retro
 		processing_objects.Add(src)
 
 
-	Del()
+	Destroy()
 		processing_objects.Remove(src)
 		..()
 
@@ -157,7 +160,7 @@ obj/item/weapon/gun/energy/laser/retro
 		processing_objects.Add(src)
 
 
-	Del()
+	Destroy()
 		processing_objects.Remove(src)
 		..()
 

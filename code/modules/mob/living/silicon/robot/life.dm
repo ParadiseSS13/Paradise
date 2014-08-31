@@ -125,6 +125,10 @@
 		src.druggy--
 		src.druggy = max(0, src.druggy)
 
+	//update the state of modules and components here
+	if (src.stat != 0)
+		uneq_all()
+
 	if(!is_component_functioning("radio"))
 		radio.on = 0
 	else
@@ -134,6 +138,9 @@
 		src.blinded = 0
 	else
 		src.blinded = 1
+
+	if(!is_component_functioning("actuator"))
+		src.Paralyse(3)
 
 
 	return 1
@@ -175,21 +182,38 @@
 
 	if (src.healths)
 		if (src.stat != 2)
-			switch(health)
-				if(200 to INFINITY)
-					src.healths.icon_state = "health0"
-				if(150 to 200)
-					src.healths.icon_state = "health1"
-				if(100 to 150)
-					src.healths.icon_state = "health2"
-				if(50 to 100)
-					src.healths.icon_state = "health3"
-				if(0 to 50)
-					src.healths.icon_state = "health4"
-				if(config.health_threshold_dead to 0)
-					src.healths.icon_state = "health5"
-				else
-					src.healths.icon_state = "health6"
+			if(istype(src,/mob/living/silicon/robot/drone))
+				switch(health)
+					if(35 to INFINITY)
+						src.healths.icon_state = "health0"
+					if(25 to 34)
+						src.healths.icon_state = "health1"
+					if(15 to 24)
+						src.healths.icon_state = "health2"
+					if(5 to 14)
+						src.healths.icon_state = "health3"
+					if(0 to 4)
+						src.healths.icon_state = "health4"
+					if(-35 to 0)
+						src.healths.icon_state = "health5"
+					else
+						src.healths.icon_state = "health6"
+			else
+				switch(health)
+					if(200 to INFINITY)
+						src.healths.icon_state = "health0"
+					if(150 to 200)
+						src.healths.icon_state = "health1"
+					if(100 to 150)
+						src.healths.icon_state = "health2"
+					if(50 to 100)
+						src.healths.icon_state = "health3"
+					if(0 to 50)
+						src.healths.icon_state = "health4"
+					if(config.health_threshold_dead to 0)
+						src.healths.icon_state = "health5"
+					else
+						src.healths.icon_state = "health6"
 		else
 			src.healths.icon_state = "health7"
 

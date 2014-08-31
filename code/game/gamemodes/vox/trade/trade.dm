@@ -82,22 +82,13 @@ VOX TRADE ROUNDTYPE
 		trader.current.loc = trader_spawn[index]
 		index++
 
-		var/sounds = rand(2,8)
-		var/i = 0
-		var/newname = ""
-
-		while(i<=sounds)
-			i++
-			newname += pick(list("ti","hi","ki","ya","ta","ha","ka","ya","chi","cha","kah"))
-
 		var/mob/living/carbon/human/vox = trader.current
 
-		vox.real_name = capitalize(newname)
-		vox.name = vox.real_name
 		trader.name = vox.name
 		vox.age = rand(12,20)
 		vox.dna.mutantrace = "vox"
 		vox.set_species("Vox")
+		vox.generate_name()
 		vox.languages = list() // Removing language from chargen.
 		vox.flavor_text = ""
 		vox.add_language("Vox-pidgin")
@@ -238,8 +229,8 @@ datum/game_mode/proc/auto_declare_completion_trade()
 	return 1
 
 /datum/game_mode/vox/trade/check_finished()
-	if (!(is_vox_crew_alive()) || (vox_shuttle_location && (vox_shuttle_location == "start")))
-		return 1
+//	if (!(is_vox_crew_alive()) || (vox_shuttle_location && (vox_shuttle_location == "start")))
+//		return 1
 	return ..()
 
 /datum/game_mode/vox/trade/proc/is_vox_crew_alive()

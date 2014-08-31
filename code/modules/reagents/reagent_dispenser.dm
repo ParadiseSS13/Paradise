@@ -95,41 +95,55 @@
 		..()
 		reagents.add_reagent("fuel",1000)
 
-	examine()
-		set src in view()
-		..()
-		if (!(usr in view(2)) && usr!=src.loc) return
+	bullet_act(var/obj/item/projectile/Proj)
+		if(istype(Proj ,/obj/item/projectile/beam)||istype(Proj,/obj/item/projectile/bullet))
+			if(!istype(Proj ,/obj/item/projectile/beam/lastertag) && !istype(Proj ,/obj/item/projectile/beam/practice) )
+				explode()
+
+	blob_act()
+		explode()
+
+	ex_act()
+		explode()
+
+
+/obj/structure/reagent_dispensers/fueltank/examine()
+	set src in view()
+	..()
+	if (!(usr in view(2)) && usr!=src.loc) return
+	if (modded)
+		usr << "\red Fuel faucet is wrenched open, leaking the fuel!"
+	if(rig)
+		usr << "<span class='notice'>There is some kind of device rigged to the tank."
+
+/obj/structure/reagent_dispensers/fueltank/attack_hand()
+	if (rig)
+		usr.visible_message("[usr] begins to detach [rig] from \the [src].", "You begin to detach [rig] from \the [src]")
+		if(do_after(usr, 20))
+			usr.visible_message("\blue [usr] detaches [rig] from \the [src].", "\blue  You detach [rig] from \the [src]")
+			rig.loc = get_turf(usr)
+			rig = null
+			overlays = new/list()
+
+/obj/structure/reagent_dispensers/fueltank/attackby(obj/item/weapon/W as obj, mob/user as mob)
+	if (istype(W,/obj/item/weapon/wrench))
+		user.visible_message("[user] wrenches [src]'s faucet [modded ? "closed" : "open"].", \
+			"You wrench [src]'s faucet [modded ? "closed" : "open"]")
+		modded = modded ? 0 : 1
 		if (modded)
-			usr << "\red Fuel faucet is wrenched open, leaking the fuel!"
-		if(rig)
-			usr << "<span class='notice'>There is some kind of device rigged to the tank."
-
-	attack_hand()
+			leak_fuel(amount_per_transfer_from_this)
+	if (istype(W,/obj/item/device/assembly_holder))
 		if (rig)
-			usr.visible_message("[usr] begins to detach [rig] from \the [src].", "You begin to detach [rig] from \the [src]")
-			if(do_after(usr, 20))
-				usr.visible_message("\blue [usr] detaches [rig] from \the [src].", "\blue  You detach [rig] from \the [src]")
-				rig.loc = get_turf(usr)
-				rig = null
-				overlays = new/list()
+			user << "\red There is another device in the way."
+			return ..()
+		user.visible_message("[user] begins rigging [W] to \the [src].", "You begin rigging [W] to \the [src]")
+		if(do_after(user, 20))
+			user.visible_message("\blue [user] rigs [W] to \the [src].", "\blue  You rig [W] to \the [src]")
 
-	attackby(obj/item/weapon/W as obj, mob/user as mob)
-		if (istype(W,/obj/item/weapon/wrench))
-			user.visible_message("[user] wrenches [src]'s faucet [modded ? "closed" : "open"].", \
-				"You wrench [src]'s faucet [modded ? "closed" : "open"]")
-			modded = modded ? 0 : 1
-		if (istype(W,/obj/item/device/assembly_holder))
-			if (rig)
-				user << "\red There is another device in the way."
-				return ..()
-			user.visible_message("[user] begins rigging [W] to \the [src].", "You begin rigging [W] to \the [src]")
-			if(do_after(user, 20))
-				user.visible_message("\blue [user] rigs [W] to \the [src].", "\blue  You rig [W] to \the [src]")
-
-				var/obj/item/device/assembly_holder/H = W
-				if (istype(H.a_left,/obj/item/device/assembly/igniter) || istype(H.a_right,/obj/item/device/assembly/igniter))
-					message_admins("[key_name_admin(user)] rigged fueltank at ([loc.x],[loc.y],[loc.z]) for explosion.")
-					log_game("[key_name(user)] rigged fueltank at ([loc.x],[loc.y],[loc.z]) for explosion.")
+			var/obj/item/device/assembly_holder/H = W
+			if (istype(H.a_left,/obj/item/device/assembly/igniter) || istype(H.a_right,/obj/item/device/assembly/igniter))
+				message_admins("[key_name_admin(user)] rigged fueltank at ([loc.x],[loc.y],[loc.z]) for explosion.")
+				log_game("[key_name(user)] rigged fueltank at ([loc.x],[loc.y],[loc.z]) for explosion.")
 
 				rig = W
 				user.drop_item()
@@ -143,31 +157,52 @@
 		return ..()
 
 
-	bullet_act(var/obj/item/projectile/Proj)
-		if(istype(Proj ,/obj/item/projectile/beam)||istype(Proj,/obj/item/projectile/bullet))
-			if(!istype(Proj ,/obj/item/projectile/beam/lastertag) && !istype(Proj ,/obj/item/projectile/beam/practice) )
-				explode()
+/obj/structure/reagent_dispensers/fueltank/proc/explode()
+	if (reagents.total_volume > 500)
+		explosion(src.loc,1,2,4)
+	else if (reagents.total_volume > 100)
+		explosion(src.loc,0,1,3)
+	else
+		explosion(src.loc,-1,1,2)
+	if(src)
+		del(src)
 
-	blob_act()
+/obj/structure/reagent_dispensers/fueltank/fire_act(datum/gas_mixture/air, temperature, volume)
+	if(temperature > T0C+500)
 		explode()
+	return ..()
 
-	ex_act()
-		explode()
+/obj/structure/reagent_dispensers/fueltank/Move()
+	..()
+	if(modded)
+		leak_fuel(amount_per_transfer_from_this)
+	if(rig)
+		rig.process_movement()
 
-	temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
-		if(exposed_temperature >= AUTOIGNITION_WELDERFUEL)
-			explode()
+/obj/structure/reagent_dispensers/fueltank/proc/leak_fuel(amount)
+	if (reagents.total_volume == 0)
+		return
 
+	amount = min(amount, reagents.total_volume)
+	reagents.remove_reagent("fuel",amount)
+	new /obj/effect/decal/cleanable/liquid_fuel(src.loc, amount)
 
-	proc/explode()
-		if (reagents.total_volume > 500)
-			explosion(src.loc,1,2,4)
-		else if (reagents.total_volume > 100)
-			explosion(src.loc,0,1,3)
-		else
-			explosion(src.loc,-1,1,2)
-		if(src)
-			del(src)
+/obj/structure/reagent_dispensers/fueltank/HasProximity(atom/movable/AM)
+	if(rig)
+		rig.HasProximity(AM)
+
+/obj/structure/reagent_dispensers/fueltank/Crossed(atom/movable/AM)
+	if(rig)
+		rig.Crossed(AM)
+
+/obj/structure/reagent_dispensers/fueltank/hear_talk(mob/living/M, msg)
+	if(rig)
+		rig.hear_talk(M, msg)
+
+/obj/structure/reagent_dispensers/fueltank/Bump()
+	..()
+	if(rig)
+		rig.process_movement()
 
 /obj/structure/reagent_dispensers/peppertank
 	name = "Pepper Spray Refiller"

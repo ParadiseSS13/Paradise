@@ -1,10 +1,12 @@
 //This file was auto-corrected by findeclaration.exe on 25.5.2012 20:42:31
+var/global/list/all_objectives = list()
 
 var/list/potential_theft_objectives=typesof(/datum/theft_objective) \
 	- /datum/theft_objective \
 	- /datum/theft_objective/special \
 	- /datum/theft_objective/number \
-	- /datum/theft_objective/number/special
+	- /datum/theft_objective/number/special \
+	- /datum/theft_objective/number/coins
 
 datum/objective
 	var/datum/mind/owner = null			//Who owns the objective.
@@ -14,8 +16,13 @@ datum/objective
 	var/completed = 0					//currently only used for custom objectives.
 
 	New(var/text)
+		all_objectives |= src
 		if(text)
 			explanation_text = text
+
+	Del()
+		all_objectives -= src
+		..()
 
 	proc/check_completion()
 		return completed
@@ -28,13 +35,22 @@ datum/objective
 		if(possible_targets.len > 0)
 			target = pick(possible_targets)
 
-
 	proc/find_target_by_role(role, role_type=0)//Option sets either to check assigned role or special role. Default to assigned.
+		var/list/possible_targets = list()
 		for(var/datum/mind/possible_target in ticker.minds)
-			if((possible_target != owner) && ishuman(possible_target.current) && ((role_type ? possible_target.special_role : possible_target.assigned_role) == role) )
-				target = possible_target
-				break
+			if((possible_target != owner) && ishuman(possible_target.current) && ((role_type ? possible_target.special_role : possible_target.assigned_role) == role) && (possible_target.current.stat != 2) )
+				possible_targets += possible_target
+		if(possible_targets.len > 0)
+			target = pick(possible_targets)
 
+//Selects someone with a specific special role if role is != null. Or just anyone with a special role
+	proc/find_target_with_special_role(role)
+		var/list/possible_targets = list()
+		for(var/datum/mind/possible_target in ticker.minds)
+			if((possible_target != owner) && ishuman(possible_target.current) && (role && possible_target.special_role == role || !role && possible_target.special_role) && (possible_target.current.stat != 2) )
+				possible_targets += possible_target
+		if(possible_targets.len > 0)
+			target = pick(possible_targets)
 
 
 datum/objective/assassinate
@@ -212,7 +228,7 @@ datum/objective/anti_revolution/demote
 
 			if(!istype(I)) return 1
 
-			if(I.assignment == "Assistant")
+			if(I.assignment == "Civilian")
 				return 1
 			else
 				return 0
@@ -222,7 +238,7 @@ datum/objective/debrain//I want braaaainssss
 	find_target()
 		..()
 		if(target && target.current)
-			explanation_text = "Steal the brain of [target.current.real_name]."
+			explanation_text = "Steal the brain of [target.current.real_name] the [target.assigned_role]."
 		else
 			explanation_text = "Free Objective"
 		return target
@@ -260,9 +276,16 @@ datum/objective/protect//The opposite of killing a dude.
 			explanation_text = "Free Objective"
 		return target
 
-
 	find_target_by_role(role, role_type=0)
 		..(role, role_type)
+		if(target && target.current)
+			explanation_text = "Protect [target.current.real_name], the [!role_type ? target.assigned_role : target.special_role]."
+		else
+			explanation_text = "Free Objective"
+		return target
+
+	find_target_with_special_role(role,role_type=0)
+		..(role)
 		if(target && target.current)
 			explanation_text = "Protect [target.current.real_name], the [!role_type ? target.assigned_role : target.special_role]."
 		else
@@ -285,7 +308,7 @@ datum/objective/hijack
 	check_completion()
 		if(!owner.current || owner.current.stat)
 			return 0
-		if(emergency_shuttle.location<2)
+		if(!emergency_shuttle.returned())
 			return 0
 		if(issilicon(owner.current))
 			return 0
@@ -299,6 +322,28 @@ datum/objective/hijack
 						return 0
 		return 1
 
+datum/objective/speciesist
+	var/is_human = 0
+	find_target()
+		if(istype(owner.current,/mob/living/carbon/human/human))
+			explanation_text = "Do not allow any non-humans to escape on the shuttle."
+			is_human = 1
+		else
+			explanation_text = "Do not allow any humans to escape on the shuttle."
+		return 1
+
+	check_completion()
+		if(!emergency_shuttle.location())
+			return 0
+		var/area/shuttle = locate(/area/shuttle/escape/centcom)
+		for(var/mob/living/carbon/human/player in player_list)
+			if (player.mind)
+				if (is_human ? !istype(player,/mob/living/carbon/human/human) : istype(player,/mob/living/carbon/human/human))
+					if(player.stat != DEAD)			//they're not dead!
+						if(get_turf(player) in shuttle)
+							return 0
+		return 1
+
 
 datum/objective/block
 	explanation_text = "Do not allow any organic lifeforms to escape on the shuttle alive."
@@ -306,7 +351,7 @@ datum/objective/block
 	check_completion()
 		if(!istype(owner.current, /mob/living/silicon))
 			return 0
-		if(emergency_shuttle.location<2)
+		if(!emergency_shuttle.returned())
 			return 0
 		if(!owner.current)
 			return 0
@@ -324,7 +369,7 @@ datum/objective/silence
 	explanation_text = "Do not allow anyone to escape the station.  Only allow the shuttle to be called when everyone is dead and your story is the only one left."
 
 	check_completion()
-		if(emergency_shuttle.location<2)
+		if(!emergency_shuttle.returned())
 			return 0
 
 		for(var/mob/living/player in player_list)
@@ -348,7 +393,7 @@ datum/objective/escape
 			return 0
 		if(isbrain(owner.current))
 			return 0
-		if(emergency_shuttle.location<2)
+		if(!emergency_shuttle.returned())
 			return 0
 		if(!owner.current || owner.current.stat ==2)
 			return 0
@@ -517,7 +562,7 @@ datum/objective/steal
 			var/tmp_obj = new O.typepath
 			var/custom_name = tmp_obj:name
 			del(tmp_obj)
-			O.name = copytext(sanitize(input("Enter target name:", "Objective target", custom_name) as text|null),1,MAX_MESSAGE_LEN)
+			O.name = copytext(sanitize(input("Enter target name:", "Objective target", custom_name) as text|null),1,MAX_NAME_LEN)
 			if (!O.name) return
 			steal_target = O
 			explanation_text = "Steal [O.name]."
@@ -639,7 +684,7 @@ datum/objective/absorb
 			explanation_text = "Our knowledge must live on. Make sure at least 5 acolytes escape on the shuttle to spread their work on an another station."
 
 			check_completion()
-				if(emergency_shuttle.location<2)
+				if(!emergency_shuttle.returned())
 					return 0
 
 				var/cultists_escaped = 0

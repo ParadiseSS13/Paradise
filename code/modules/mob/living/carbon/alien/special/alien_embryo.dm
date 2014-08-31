@@ -15,14 +15,14 @@
 		affected_mob = loc
 		spawn(0)
 			AddInfectionImages(affected_mob)
-		if(name == "alien embryo")
-			name = "alien embryo ([rand(1, 1000)])"
+//		if(name == "alien embryo")
+//			name = "alien embryo ([rand(1, 1000)])"
 		real_name = name
 		regenerate_icons()
 	else
 		del(src)
 
-/mob/living/carbon/alien/embryo/Del()
+/mob/living/carbon/alien/embryo/Destroy()
 	if(affected_mob)
 		affected_mob.status_flags &= ~(XENO_HOST)
 		spawn(0)
@@ -42,7 +42,7 @@
 	if(stage < 5 && prob(3))
 		stage++
 		spawn(0)
-			RefreshInfectionImage(affected_mob)
+			RefreshInfectionImage()
 
 	switch(stage)
 		if(2, 3)
@@ -89,42 +89,32 @@
 
 /*----------------------------------------
 Proc: RefreshInfectionImage()
-Des: Removes all infection images from aliens and places an infection image on all infected mobs for aliens.
+Des: Removes the current icons located in the infected mob adds the current stage
 ----------------------------------------*/
+
 /mob/living/carbon/alien/embryo/proc/RefreshInfectionImage()
-	for(var/mob/living/carbon/alien/alien in player_list)
-		if(alien.client)
-			for(var/image/I in alien.client.images)
-				if(dd_hasprefix_case(I.icon_state, "infected"))
-					del(I)
-			for(var/mob/living/L in mob_list)
-				if(iscorgi(L) || iscarbon(L))
-					if(L.status_flags & XENO_HOST)
-						var/I = image('icons/mob/alien.dmi', loc = L, icon_state = "infected[stage]")
-						alien.client.images += I
+	RemoveInfectionImages()
+	AddInfectionImages()
 
 /*----------------------------------------
 Proc: AddInfectionImages(C)
-Des: Checks if the passed mob (C) is infected with the alien egg, then gives each alien client an infected image at C.
+Des: Adds the infection image to all aliens for this embryo
 ----------------------------------------*/
-/mob/living/carbon/alien/embryo/AddInfectionImages(var/mob/living/C)
-	if(C)
-		for(var/mob/living/carbon/alien/alien in player_list)
-			if(alien.client)
-				if(C.status_flags & XENO_HOST)
-					var/I = image('icons/mob/alien.dmi', loc = C, icon_state = "infected[stage]")
-					alien.client.images += I
+
+/mob/living/carbon/alien/embryo/AddInfectionImages()
+	for(var/mob/living/carbon/alien/alien in player_list)
+		if(alien.client)
+			var/I = image('icons/mob/alien.dmi', loc = src.loc, icon_state = "infected[stage]")
+			alien.client.images += I
 
 /*----------------------------------------
 Proc: RemoveInfectionImage(C)
-Des: Removes the alien infection image from all aliens in the world located in passed mob (C).
+Des: Removes all images from the mob infected by this embryo
 ----------------------------------------*/
 
-/mob/living/carbon/alien/embryo/RemoveInfectionImages(var/mob/living/C)
-	if(C)
-		for(var/mob/living/carbon/alien/alien in player_list)
-			if(alien.client)
-				for(var/image/I in alien.client.images)
-					if(I.loc == C)
-						if(dd_hasprefix_case(I.icon_state, "infected"))
-							del(I)
+/mob/living/carbon/alien/embryo/RemoveInfectionImages()
+	for(var/mob/living/carbon/alien/alien in player_list)
+		if(alien.client)
+			for(var/image/I in alien.client.images)
+				if(dd_hasprefix_case(I.icon_state, "infected") && I.loc == loc)
+					del(I)

@@ -391,3 +391,12 @@
 		if((M.client && M.machine == src))
 			attack_self(M)
 	return
+
+
+/obj/item/device/violin/guitar
+	name = "engraved guitar"
+	desc = "An aged wooden acoustic guitar It has an engraving on the back: \"For my loyal robotic companion, S.A.M. -LWK\"."
+	icon = 'icons/obj/musician.dmi'
+	icon_state = "guitar"
+	item_state = "guitar"
+	slot_flags = SLOT_BACK

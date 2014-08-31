@@ -59,6 +59,10 @@
 					if(G.can_reenter_corpse && G.mind == B.brainmob.mind)
 						ghost_can_reenter = 1
 						break
+				for(var/mob/living/simple_animal/S in player_list)
+					if(S in respawnable_list)
+						ghost_can_reenter = 1
+						break
 			if(!ghost_can_reenter)
 				user << "<span class='notice'>[O] is completely unresponsive; there's no point.</span>"
 				return
@@ -187,7 +191,7 @@
 		src.name = "Spider-bot"
 		update_icon()
 
-/mob/living/simple_animal/spiderbot/Del()
+/mob/living/simple_animal/spiderbot/Destroy()
 	eject_brain()
 	..()
 
@@ -212,7 +216,7 @@
 	held_item = null
 
 	robogibs(src.loc, viruses)
-	src.Del()
+	src.Destroy()
 	return
 
 //copy paste from alien/larva, if that func is updated please update this one also

@@ -22,6 +22,8 @@
 	var/sortBy = "name"
 	var/order = 1 // -1 = Descending - 1 = Ascending
 
+	l_color = "#B40000"
+
 
 /obj/machinery/computer/secure_data/attackby(obj/item/O as obj, user as mob)
 	if(istype(O, /obj/item/weapon/card/id) && !scan)
@@ -53,10 +55,59 @@
 		if (authenticated)
 			switch(screen)
 				if(1.0)
+
+					//body tag start + onload and onkeypress (onkeyup) javascript event calls
+					dat += "<body onload='selectTextField(); updateSearch();' onkeyup='updateSearch();'>"
+					//search bar javascript
+					dat += {"
+
+		<head>
+			<script src="libraries.min.js"></script>
+			<script type='text/javascript'>
+
+				function updateSearch(){
+					var filter_text = document.getElementById('filter');
+					var filter = filter_text.value.toLowerCase();
+
+					if(complete_list != null && complete_list != ""){
+						var mtbl = document.getElementById("maintable_data_archive");
+						mtbl.innerHTML = complete_list;
+					}
+
+					if(filter.value == ""){
+						return;
+					}else{
+						$("#maintable_data").children("tbody").children("tr").children("td").children("input").filter(function(index)
+						{
+							return $(this)\[0\].value.toLowerCase().indexOf(filter) == -1
+						}).parent("td").parent("tr").hide()
+					}
+				}
+
+				function selectTextField(){
+					var filter_text = document.getElementById('filter');
+					filter_text.focus();
+					filter_text.select();
+				}
+
+			</script>
+		</head>
+
+
+	"}
 					dat += {"
 <p style='text-align:center;'>"}
-					dat += text("<A href='?src=\ref[];choice=Search Records'>Search Records</A><BR>", src)
 					dat += text("<A href='?src=\ref[];choice=New Record (General)'>New Record</A><BR>", src)
+					//search bar
+					dat += {"
+						<table width='560' align='center' cellspacing='0' cellpadding='5' id='maintable'>
+							<tr id='search_tr'>
+								<td align='center'>
+									<b>Search:</b> <input type='text' id='filter' value='' style='width:300px;'>
+								</td>
+							</tr>
+						</table>
+					"}
 					dat += {"
 </p>
 <table style="text-align:center;" cellspacing="0" width="100%">
@@ -64,7 +115,9 @@
 <th>Records:</th>
 </tr>
 </table>
-<table style="text-align:center;" border="1" cellspacing="0" width="100%">
+
+<span id='maintable_data_archive'>
+<table id='maintable_data' style="text-align:center;" border="1" cellspacing="0" width="100%">
 <tr>
 <th><A href='?src=\ref[src];choice=Sorting;sort=name'>Name</A></th>
 <th><A href='?src=\ref[src];choice=Sorting;sort=id'>ID</A></th>
@@ -93,12 +146,19 @@
 								if("")
 									background = "'background-color:#FFFFFF;'"
 									crimstat = "No Record."
-							dat += text("<tr style=[]><td><A href='?src=\ref[];choice=Browse Record;d_rec=\ref[]'>[]</a></td>", background, src, R, R.fields["name"])
+							dat += "<tr style=[background]>"
+							dat += text("<td><input type='hidden' value='[] [] [] []'></input><A href='?src=\ref[];choice=Browse Record;d_rec=\ref[]'>[]</a></td>", R.fields["name"], R.fields["id"], R.fields["rank"], R.fields["fingerprint"], src, R, R.fields["name"])
 							dat += text("<td>[]</td>", R.fields["id"])
 							dat += text("<td>[]</td>", R.fields["rank"])
 							dat += text("<td>[]</td>", R.fields["fingerprint"])
 							dat += text("<td>[]</td></tr>", crimstat)
-						dat += "</table><hr width='75%' />"
+						dat += {"
+						</table></span>
+						<script type='text/javascript'>
+							var maintable = document.getElementById("maintable_data_archive");
+							var complete_list = maintable.innerHTML;
+						</script>
+						<hr width='75%' />"}
 					dat += text("<A href='?src=\ref[];choice=Record Maintenance'>Record Maintenance</A><br><br>", src)
 					dat += text("<A href='?src=\ref[];choice=Log Out'>{Log Out}</A>",src)
 				if(2.0)
@@ -136,53 +196,6 @@
 						dat += "<B>Security Record Lost!</B><BR>"
 						dat += text("<A href='?src=\ref[];choice=New Record (Security)'>New Security Record</A><BR><BR>", src)
 					dat += text("\n<A href='?src=\ref[];choice=Delete Record (ALL)'>Delete Record (ALL)</A><BR><BR>\n<A href='?src=\ref[];choice=Print Record'>Print Record</A><BR>\n<A href='?src=\ref[];choice=Return'>Back</A><BR>", src, src, src)
-				if(4.0)
-					if(!Perp.len)
-						dat += text("ERROR.  String could not be located.<br><br><A href='?src=\ref[];choice=Return'>Back</A>", src)
-					else
-						dat += {"
-<table style="text-align:center;" cellspacing="0" width="100%">
-<tr>					"}
-						dat += text("<th>Search Results for '[]':</th>", tempname)
-						dat += {"
-</tr>
-</table>
-<table style="text-align:center;" border="1" cellspacing="0" width="100%">
-<tr>
-<th>Name</th>
-<th>ID</th>
-<th>Rank</th>
-<th>Fingerprints</th>
-<th>Criminal Status</th>
-</tr>					"}
-						for(var/i=1, i<=Perp.len, i += 2)
-							var/crimstat = ""
-							var/datum/data/record/R = Perp[i]
-							if(istype(Perp[i+1],/datum/data/record/))
-								var/datum/data/record/E = Perp[i+1]
-								crimstat = E.fields["criminal"]
-							var/background
-							switch(crimstat)
-								if("*Arrest*")
-									background = "'background-color:#DC143C;'"
-								if("Incarcerated")
-									background = "'background-color:#CD853F;'"
-								if("Parolled")
-									background = "'background-color:#CD853F;'"
-								if("Released")
-									background = "'background-color:#3BB9FF;'"
-								if("None")
-									background = "'background-color:#00FF7F;'"
-								if("")
-									background = "'background-color:#FFFFFF;'"
-									crimstat = "No Record."
-							dat += text("<tr style=[]><td><A href='?src=\ref[];choice=Browse Record;d_rec=\ref[]'>[]</a></td>", background, src, R, R.fields["name"])
-							dat += text("<td>[]</td>", R.fields["id"])
-							dat += text("<td>[]</td>", R.fields["rank"])
-							dat += text("<td>[]</td>", R.fields["fingerprint"])
-							dat += text("<td>[]</td></tr>", crimstat)
-						dat += "</table><hr width='75%' />"
-						dat += text("<br><A href='?src=\ref[];choice=Return'>Return to index.</A>", src)
 				else
 		else
 			dat += text("<A href='?src=\ref[];choice=Log In'>{Log In}</A>", src)
@@ -266,30 +279,6 @@ What a mess.*/
 						rank = scan.assignment
 						screen = 1
 //RECORD FUNCTIONS
-			if("Search Records")
-				var/t1 = input("Search String: (Partial Name or ID or Fingerprints or Rank)", "Secure. records", null, null)  as text
-				if ((!( t1 ) || usr.stat || !( authenticated ) || usr.restrained() || !in_range(src, usr)))
-					return
-				Perp = new/list()
-				t1 = lowertext(t1)
-				var/list/components = text2list(t1, " ")
-				if(components.len > 5)
-					return //Lets not let them search too greedily.
-				for(var/datum/data/record/R in data_core.general)
-					var/temptext = R.fields["name"] + " " + R.fields["id"] + " " + R.fields["fingerprint"] + " " + R.fields["rank"]
-					for(var/i = 1, i<=components.len, i++)
-						if(findtext(temptext,components[i]))
-							var/prelist = new/list(2)
-							prelist[1] = R
-							Perp += prelist
-				for(var/i = 1, i<=Perp.len, i+=2)
-					for(var/datum/data/record/E in data_core.security)
-						var/datum/data/record/R = Perp[i]
-						if ((E.fields["name"] == R.fields["name"] && E.fields["id"] == R.fields["id"]))
-							Perp[i+1] = E
-				tempname = t1
-				screen = 4
-
 			if("Record Maintenance")
 				screen = 2
 				active1 = null
@@ -363,7 +352,7 @@ What a mess.*/
 				if (!( istype(active2, /datum/data/record) ))
 					return
 				var/a2 = active2
-				var/t1 = copytext(sanitize(input("Add Comment:", "Secure. records", null, null)  as message),1,MAX_MESSAGE_LEN)
+				var/t1 = copytext(trim(sanitize(input("Add Comment:", "Secure. records", null, null)  as message)),1,MAX_MESSAGE_LEN)
 				if ((!( t1 ) || !( authenticated ) || usr.stat || usr.restrained() || (!in_range(src, usr) && (!istype(usr, /mob/living/silicon))) || active2 != a2))
 					return
 				var/counter = 1
@@ -426,19 +415,19 @@ What a mess.*/
 				switch(href_list["field"])
 					if("name")
 						if (istype(active1, /datum/data/record))
-							var/t1 = input("Please input name:", "Secure. records", active1.fields["name"], null)  as text
+							var/t1 = reject_bad_name(input("Please input name:", "Secure. records", active1.fields["name"], null)  as text)
 							if ((!( t1 ) || !length(trim(t1)) || !( authenticated ) || usr.stat || usr.restrained() || (!in_range(src, usr) && (!istype(usr, /mob/living/silicon)))) || active1 != a1)
 								return
 							active1.fields["name"] = t1
 					if("id")
 						if (istype(active2, /datum/data/record))
-							var/t1 = copytext(sanitize(input("Please input id:", "Secure. records", active1.fields["id"], null)  as text),1,MAX_MESSAGE_LEN)
+							var/t1 = copytext(trim(sanitize(input("Please input id:", "Secure. records", active1.fields["id"], null)  as text)),1,MAX_MESSAGE_LEN)
 							if ((!( t1 ) || !( authenticated ) || usr.stat || usr.restrained() || (!in_range(src, usr) && (!istype(usr, /mob/living/silicon))) || active1 != a1))
 								return
 							active1.fields["id"] = t1
 					if("fingerprint")
 						if (istype(active1, /datum/data/record))
-							var/t1 = copytext(sanitize(input("Please input fingerprint hash:", "Secure. records", active1.fields["fingerprint"], null)  as text),1,MAX_MESSAGE_LEN)
+							var/t1 = copytext(trim(sanitize(input("Please input fingerprint hash:", "Secure. records", active1.fields["fingerprint"], null)  as text)),1,MAX_MESSAGE_LEN)
 							if ((!( t1 ) || !( authenticated ) || usr.stat || usr.restrained() || (!in_range(src, usr) && (!istype(usr, /mob/living/silicon))) || active1 != a1))
 								return
 							active1.fields["fingerprint"] = t1
@@ -456,31 +445,31 @@ What a mess.*/
 							active1.fields["age"] = t1
 					if("mi_crim")
 						if (istype(active2, /datum/data/record))
-							var/t1 = copytext(sanitize(input("Please input minor disabilities list:", "Secure. records", active2.fields["mi_crim"], null)  as text),1,MAX_MESSAGE_LEN)
+							var/t1 = copytext(trim(sanitize(input("Please input minor disabilities list:", "Secure. records", active2.fields["mi_crim"], null)  as text)),1,MAX_MESSAGE_LEN)
 							if ((!( t1 ) || !( authenticated ) || usr.stat || usr.restrained() || (!in_range(src, usr) && (!istype(usr, /mob/living/silicon))) || active2 != a2))
 								return
 							active2.fields["mi_crim"] = t1
 					if("mi_crim_d")
 						if (istype(active2, /datum/data/record))
-							var/t1 = copytext(sanitize(input("Please summarize minor dis.:", "Secure. records", active2.fields["mi_crim_d"], null)  as message),1,MAX_MESSAGE_LEN)
+							var/t1 = copytext(trim(sanitize(input("Please summarize minor dis.:", "Secure. records", active2.fields["mi_crim_d"], null)  as message)),1,MAX_MESSAGE_LEN)
 							if ((!( t1 ) || !( authenticated ) || usr.stat || usr.restrained() || (!in_range(src, usr) && (!istype(usr, /mob/living/silicon))) || active2 != a2))
 								return
 							active2.fields["mi_crim_d"] = t1
 					if("ma_crim")
 						if (istype(active2, /datum/data/record))
-							var/t1 = copytext(sanitize(input("Please input major diabilities list:", "Secure. records", active2.fields["ma_crim"], null)  as text),1,MAX_MESSAGE_LEN)
+							var/t1 = copytext(trim(sanitize(input("Please input major diabilities list:", "Secure. records", active2.fields["ma_crim"], null)  as text)),1,MAX_MESSAGE_LEN)
 							if ((!( t1 ) || !( authenticated ) || usr.stat || usr.restrained() || (!in_range(src, usr) && (!istype(usr, /mob/living/silicon))) || active2 != a2))
 								return
 							active2.fields["ma_crim"] = t1
 					if("ma_crim_d")
 						if (istype(active2, /datum/data/record))
-							var/t1 = copytext(sanitize(input("Please summarize major dis.:", "Secure. records", active2.fields["ma_crim_d"], null)  as message),1,MAX_MESSAGE_LEN)
+							var/t1 = copytext(trim(sanitize(input("Please summarize major dis.:", "Secure. records", active2.fields["ma_crim_d"], null)  as message)),1,MAX_MESSAGE_LEN)
 							if ((!( t1 ) || !( authenticated ) || usr.stat || usr.restrained() || (!in_range(src, usr) && (!istype(usr, /mob/living/silicon))) || active2 != a2))
 								return
 							active2.fields["ma_crim_d"] = t1
 					if("notes")
 						if (istype(active2, /datum/data/record))
-							var/t1 = copytext(sanitize(input("Please summarize notes:", "Secure. records", active2.fields["notes"], null)  as message),1,MAX_MESSAGE_LEN)
+							var/t1 = copytext(html_encode(trim(input("Please summarize notes:", "Secure. records", html_decode(active2.fields["notes"]), null)  as message)),1,MAX_MESSAGE_LEN)
 							if ((!( t1 ) || !( authenticated ) || usr.stat || usr.restrained() || (!in_range(src, usr) && (!istype(usr, /mob/living/silicon))) || active2 != a2))
 								return
 							active2.fields["notes"] = t1
@@ -500,14 +489,14 @@ What a mess.*/
 						if ((istype(active1, /datum/data/record) && L.Find(rank)))
 							temp = "<h5>Rank:</h5>"
 							temp += "<ul>"
-							for(var/rank in get_all_jobs())
+							for(var/rank in joblist)
 								temp += "<li><a href='?src=\ref[src];choice=Change Rank;rank=[rank]'>[rank]</a></li>"
 							temp += "</ul>"
 						else
 							alert(usr, "You do not have the required rank to do this!")
 					if("species")
 						if (istype(active1, /datum/data/record))
-							var/t1 = copytext(sanitize(input("Please enter race:", "General records", active1.fields["species"], null)  as message),1,MAX_MESSAGE_LEN)
+							var/t1 = copytext(trim(sanitize(input("Please enter race:", "General records", active1.fields["species"], null)  as message)),1,MAX_MESSAGE_LEN)
 							if ((!( t1 ) || !( authenticated ) || usr.stat || usr.restrained() || (!in_range(src, usr) && (!istype(usr, /mob/living/silicon))) || active1 != a1))
 								return
 							active1.fields["species"] = t1
@@ -519,11 +508,13 @@ What a mess.*/
 					if ("Change Rank")
 						if (active1)
 							active1.fields["rank"] = href_list["rank"]
-							if(href_list["rank"] in get_all_jobs())
+							if(href_list["rank"] in joblist)
 								active1.fields["real_rank"] = href_list["real_rank"]
 
 					if ("Change Criminal Status")
 						if (active2)
+							for(var/mob/living/carbon/human/H in player_list)
+								H.hud_updateflag |= 1 << WANTED_HUD
 							switch(href_list["criminal2"])
 								if("none")
 									active2.fields["criminal"] = "None"

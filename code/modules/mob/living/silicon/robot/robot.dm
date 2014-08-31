@@ -57,7 +57,7 @@
 	var/datum/effect/effect/system/ion_trail_follow/ion_trail = null
 	var/datum/effect/effect/system/spark_spread/spark_system//So they can initialize sparks whenever/N
 	var/jeton = 0
-
+	var/has_power = 1
 	var/killswitch = 0
 	var/killswitch_time = 60
 	var/weapon_lock = 0
@@ -100,20 +100,7 @@
 		hands.icon_state = "standard"
 		icon_state = "secborg"
 		modtype = "Security"
-	else
-		if(mmi.alien || alien)
-			laws = new /datum/ai_laws/alienmov()
-			connected_ai = select_active_alien_ai()
-			scrambledcodes = 1
-		else
-			make_laws()
-			connected_ai = select_active_ai_with_fewest_borgs()
-		if(connected_ai)
-			connected_ai.connected_robots += src
-			lawsync()
-			lawupdate = 1
-		else
-			lawupdate = 0
+	init(alien)
 
 	radio = new /obj/item/device/radio/borg(src)
 	if(!scrambledcodes && !camera)
@@ -143,6 +130,33 @@
 		cell_component.wrapped = cell
 		cell_component.installed = 1
 
+	hud_list[HEALTH_HUD]      = image('icons/mob/hud.dmi', src, "hudblank")
+	hud_list[STATUS_HUD]      = image('icons/mob/hud.dmi', src, "hudhealth100")
+	hud_list[ID_HUD]          = image('icons/mob/hud.dmi', src, "hudblank")
+	hud_list[WANTED_HUD]      = image('icons/mob/hud.dmi', src, "hudblank")
+	hud_list[IMPLOYAL_HUD]    = image('icons/mob/hud.dmi', src, "hudblank")
+	hud_list[IMPCHEM_HUD]     = image('icons/mob/hud.dmi', src, "hudblank")
+	hud_list[IMPTRACK_HUD]    = image('icons/mob/hud.dmi', src, "hudblank")
+	hud_list[SPECIALROLE_HUD] = image('icons/mob/hud.dmi', src, "hudblank")
+	hud_list[NATIONS_HUD] = image('icons/mob/hud.dmi', src, "hudblank")
+
+/mob/living/silicon/robot/proc/init(var/alien=0)
+	aiCamera = new/obj/item/device/camera/siliconcam/robot_camera(src)
+	if(mmi.alien || alien)
+		laws = new /datum/ai_laws/alienmov()
+		connected_ai = select_active_alien_ai()
+		scrambledcodes = 1
+	else
+		make_laws()
+		connected_ai = select_active_ai_with_fewest_borgs()
+	if(connected_ai)
+		connected_ai.connected_robots += src
+		lawsync()
+		photosync()
+		lawupdate = 1
+	else
+		lawupdate = 0
+
 	playsound(loc, 'sound/voice/liveagain.ogg', 75, 1)
 
 // setup the PDA and its name
@@ -153,7 +167,7 @@
 
 //If there's an MMI in the robot, have it ejected when the mob goes away. --NEO
 //Improved /N
-/mob/living/silicon/robot/Del()
+/mob/living/silicon/robot/Destroy()
 	if(mmi)//Safety for when a cyborg gets dust()ed. Or there is no MMI inside.
 		var/turf/T = get_turf(loc)//To hopefully prevent run time errors.
 		if(T)	mmi.loc = T
@@ -164,8 +178,7 @@
 /mob/living/silicon/robot/proc/pick_module()
 	if(module)
 		return
-
-	var/list/modules = list("Standard", "Engineering", "Medical", "Miner", "Janitor", "Service", "Security")
+	var/list/modules = list("Standard", "Engineering", "Construction", "Surgeon", "Crisis", "Miner", "Janitor", "Service", "Clerical", "Security")
 	if(security_level == (SEC_LEVEL_GAMMA || SEC_LEVEL_EPSILON) || crisis)
 		src << "\red Crisis mode active. Combat module available."
 		modules+="Combat"
@@ -194,6 +207,14 @@
 			module_sprites["Rich"] = "maximillion"
 			module_sprites["Default"] = "Service2"
 
+		if("Clerical")
+			module = new /obj/item/weapon/robot_module/clerical(src)
+			module_sprites["Waitress"] = "Service"
+			module_sprites["Kent"] = "toiletbot"
+			module_sprites["Bro"] = "Brobot"
+			module_sprites["Rich"] = "maximillion"
+			module_sprites["Default"] = "Service2"
+
 		if("Miner")
 			module = new /obj/item/weapon/robot_module/miner(src)
 			channels = list("Supply" = 1)
@@ -203,15 +224,26 @@
 			module_sprites["Advanced Droid"] = "droid-miner"
 			module_sprites["Treadhead"] = "Miner"
 
-		if("Medical")
-			module = new /obj/item/weapon/robot_module/medical(src)
+		if("Crisis")
+			module = new /obj/item/weapon/robot_module/crisis(src)
 			channels = list("Medical" = 1)
 			if(camera && "Robots" in camera.network)
 				camera.network.Add("Medical")
 			module_sprites["Basic"] = "Medbot"
+			module_sprites["Standard"] = "surgeon"
 			module_sprites["Advanced Droid"] = "droid-medical"
 			module_sprites["Needles"] = "medicalrobot"
+
+		if("Surgeon")
+			module = new /obj/item/weapon/robot_module/surgeon(src)
+			channels = list("Medical" = 1)
+			if(camera && "Robots" in camera.network)
+				camera.network.Add("Medical")
+
+			module_sprites["Basic"] = "Medbot"
 			module_sprites["Standard"] = "surgeon"
+			module_sprites["Advanced Droid"] = "droid-medical"
+			module_sprites["Needles"] = "medicalrobot"
 
 		if("Security")
 			module = new /obj/item/weapon/robot_module/security(src)
@@ -223,6 +255,15 @@
 
 		if("Engineering")
 			module = new /obj/item/weapon/robot_module/engineering(src)
+			channels = list("Engineering" = 1)
+			if(camera && "Robots" in camera.network)
+				camera.network.Add("Engineering")
+			module_sprites["Basic"] = "Engineering"
+			module_sprites["Antique"] = "engineerrobot"
+			module_sprites["Landmate"] = "landmate"
+
+		if("Construction")
+			module = new /obj/item/weapon/robot_module/construction(src)
 			channels = list("Engineering" = 1)
 			if(camera && "Robots" in camera.network)
 				camera.network.Add("Engineering")
@@ -267,10 +308,13 @@
 /mob/living/silicon/robot/proc/updatename(var/prefix as text)
 	if(prefix)
 		modtype = prefix
-	if(istype(mmi, /obj/item/device/mmi/posibrain))
-		braintype = "Android"
+	if(mmi)
+		if(istype(mmi, /obj/item/device/mmi/posibrain))
+			braintype = "Android"
+		else
+			braintype = "Cyborg"
 	else
-		braintype = "Cyborg"
+		braintype = "Robot"
 
 	var/changed_name = ""
 	if(custom_name)
@@ -311,7 +355,7 @@
 
 	spawn(0)
 		var/newname
-		newname = input(src,"You are a robot. Enter a name, or leave blank for the default name.", "Name change","") as text
+		newname = copytext(sanitize(input(src,"You are a robot. Enter a name, or leave blank for the default name.", "Name change","") as text),1,MAX_NAME_LEN)
 		if (newname != "")
 			custom_name = newname
 
@@ -341,7 +385,7 @@
 				var/list/alm = L[alarm]
 				var/area/A = alm[1]
 				var/list/sources = alm[3]
-				dat += "<NOBR>"
+				dat += "<NOBR>" // wat
 				dat += text("-- [A.name]")
 				if (sources.len > 1)
 					dat += text("- [sources.len] sources")
@@ -528,11 +572,10 @@
 			now_pushing = 1
 			if (!AM.anchored)
 				var/t = get_dir(src, AM)
-				if (istype(AM, /obj/structure/window))
-					if(AM:ini_dir == NORTHWEST || AM:ini_dir == NORTHEAST || AM:ini_dir == SOUTHWEST || AM:ini_dir == SOUTHEAST)
-						for(var/obj/structure/window/win in get_step(AM,t))
-							now_pushing = 0
-							return
+				if (istype(AM, /obj/structure/window/full))
+					for(var/obj/structure/window/win in get_step(AM,t))
+						now_pushing = 0
+						return
 				step(AM, t)
 			now_pushing = null
 		return
@@ -596,6 +639,11 @@
 				user.drop_item()
 				W.loc = null
 
+				var/obj/item/robot_parts/robot_component/WC = W
+				if(istype(WC))
+					C.brute_damage = WC.brute
+					C.electronics_damage = WC.burn
+
 				usr << "\blue You install the [W.name]."
 
 				return
@@ -616,7 +664,8 @@
 			user << "Need more welding fuel!"
 			return
 
-	else if(istype(W, /obj/item/stack/cable_coil) && wiresexposed)
+
+	else if(istype(W, /obj/item/stack/cable_coil) && (wiresexposed || istype(src,/mob/living/silicon/robot/drone)))
 		if (!getFireLoss())
 			user << "Nothing to fix here!"
 			return
@@ -633,19 +682,26 @@
 				user << "You close the cover."
 				opened = 0
 				updateicon()
-			else if(mmi && wiresexposed && wires.IsAllCut())
+			else if(wiresexposed && wires.IsAllCut())
 				//Cell is out, wires are exposed, remove MMI, produce damaged chassis, baleet original mob.
+				if(!mmi)
+					user << "\The [src] has no brain to remove."
+					return
+
 				user << "You jam the crowbar into the robot and begin levering [mmi]."
-				sleep(30)
-				user << "You damage some parts of the chassis, but eventually manage to rip out [mmi]!"
-				var/obj/item/robot_parts/robot_suit/C = new/obj/item/robot_parts/robot_suit(loc)
-				C.l_leg = new/obj/item/robot_parts/l_leg(C)
-				C.r_leg = new/obj/item/robot_parts/r_leg(C)
-				C.l_arm = new/obj/item/robot_parts/l_arm(C)
-				C.r_arm = new/obj/item/robot_parts/r_arm(C)
-				C.updateicon()
-				new/obj/item/robot_parts/chest(loc)
-				src.Del()
+				if(do_after(user,3 SECONDS))
+					user << "You damage some parts of the chassis, but eventually manage to rip out [mmi]!"
+					var/obj/item/robot_parts/robot_suit/C = new/obj/item/robot_parts/robot_suit(loc)
+					C.l_leg = new/obj/item/robot_parts/l_leg(C)
+					C.r_leg = new/obj/item/robot_parts/r_leg(C)
+					C.l_arm = new/obj/item/robot_parts/l_arm(C)
+					C.r_arm = new/obj/item/robot_parts/r_arm(C)
+					C.updateicon()
+					new/obj/item/robot_parts/chest(loc)
+					// This doesn't work.  Don't use it.
+					//src.Destroy()
+					// del() because it's infrequent and mobs act weird in qdel.
+					del(src)
 			else
 				// Okay we're not removing the cell or an MMI, but maybe something else?
 				var/list/removable_components = list()
@@ -659,8 +715,12 @@
 				if(!remove)
 					return
 				var/datum/robot_component/C = components[remove]
-				var/obj/item/I = C.wrapped
+				var/obj/item/robot_parts/robot_component/I = C.wrapped
 				user << "You remove \the [I]."
+				if(istype(I))
+					I.brute = C.brute_damage
+					I.burn = C.electronics_damage
+
 				I.loc = src.loc
 
 				if(C.installed == 1)
@@ -690,6 +750,9 @@
 			C.installed = 1
 			C.wrapped = W
 			C.install()
+			//This will mean that removing and replacing a power cell will repair the mount, but I don't care at this point. ~Z
+			C.brute_damage = 0
+			C.electronics_damage = 0
 
 	else if (istype(W, /obj/item/weapon/wirecutters) || istype(W, /obj/item/device/multitool))
 		if (wiresexposed)
@@ -914,7 +977,7 @@
 
 		var/damage = rand(1, 3)
 
-		if(istype(src, /mob/living/carbon/slime/adult))
+		if(M.is_adult)
 			damage = rand(20, 40)
 		else
 			damage = rand(5, 35)
@@ -1019,9 +1082,9 @@
 	if(!I || !istype(I, /obj/item/weapon/card/id) || !I.access) //not ID or no access
 		return 0
 	for(var/req in req_access)
-		if(!(req in I.access)) //doesn't have this access
-			return 0
-	return 1
+		if(req in I.access) //have one of the required accesses
+			return 1
+	return 0
 
 /mob/living/silicon/robot/proc/updateicon()
 
@@ -1119,11 +1182,17 @@
 
 /mob/living/silicon/robot/Topic(href, href_list)
 	..()
+
+	if(usr != src)
+		return
+
 	if (href_list["mach_close"])
 		var/t1 = text("window=[href_list["mach_close"]]")
 		unset_machine()
 		src << browse(null, t1)
 		return
+
+
 
 	if (href_list["showalerts"])
 		robot_alerts()
@@ -1131,11 +1200,14 @@
 
 	if (href_list["mod"])
 		var/obj/item/O = locate(href_list["mod"])
-		if (O)
+		if (istype(O) && (O.loc == src))
 			O.attack_self(src)
 
 	if (href_list["act"])
 		var/obj/item/O = locate(href_list["act"])
+		if (!istype(O) || !(O.loc == src || O.loc == src.module))
+			return
+
 		activate_module(O)
 		installed_modules()
 
@@ -1274,13 +1346,16 @@
 		icontype = "Custom"
 		triesleft = 0
 	else
+		lockcharge = 1  //Locks borg until it select an icon to avoid secborgs running around with a standard sprite
 		icontype = input("Select an icon! [triesleft ? "You have [triesleft] more chances." : "This is your last try."]", "Robot", null, null) in module_sprites
 
 	if(icontype)
 		icon_state = module_sprites[icontype]
+		lockcharge = null
 	else
 		src << "Something is badly wrong with the sprite selection. Harass a coder."
 		icon_state = module_sprites[1]
+		lockcharge = null
 		return
 
 	overlays -= "eyes"

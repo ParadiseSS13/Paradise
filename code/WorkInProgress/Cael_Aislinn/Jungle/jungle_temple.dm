@@ -86,9 +86,6 @@
 					for(var/coin_type in typesof(/obj/item/weapon/coin))
 						possible_spawns += coin_type
 
-					//no icon_state for mythril coins
-					possible_spawns -= /obj/item/weapon/coin/mythril
-
 					var/coin_type = pick(possible_spawns)
 					for(var/i=0,i<amount,i++)
 						new coin_type(C)
@@ -306,7 +303,7 @@
 	switch(trap_type)
 		if("sawburst")
 			M << "\red <b>A sawblade shoots out of the ground and strikes you!</b>"
-			M.apply_damage(rand(5,10), BRUTE)
+			M.apply_damage(rand(5,10), BRUTE, sharp=1, edge=1)
 
 			var/atom/myloc = src.loc
 			var/image/flicker = image('code/WorkInProgress/Cael_Aislinn/Jungle/jungle.dmi',"sawblade")

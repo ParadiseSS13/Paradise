@@ -9,6 +9,63 @@
 	icon_state = "body_scanner_0"
 	density = 1
 	anchored = 1
+	idle_power_usage = 1250
+	active_power_usage = 2500
+
+	l_color = "#00FF00"
+	power_change()
+		..()
+		if(!(stat & (BROKEN|NOPOWER)))
+			SetLuminosity(2)
+		else
+			SetLuminosity(0)
+
+/obj/machinery/bodyscanner/MouseDrop_T(atom/movable/O as mob|obj, mob/user as mob)
+	if(O.loc == user) //no you can't pull things out of your ass
+		return
+	if(user.restrained() || user.stat || user.weakened || user.stunned || user.paralysis || user.resting) //are you cuffed, dying, lying, stunned or other
+		return
+	if(O.anchored || get_dist(user, src) > 1 || get_dist(user, O) > 1 || user.contents.Find(src)) // is the mob anchored, too far away from you, or are you too far away from the source
+		return
+	if(!ismob(O)) //humans only
+		return
+	if(istype(O, /mob/living/simple_animal) || istype(O, /mob/living/silicon)) //animals and robutts dont fit
+		return
+	if(!ishuman(user) && !isrobot(user)) //No ghosts or mice putting people into the sleeper
+		return
+	if(user.loc==null) // just in case someone manages to get a closet into the blue light dimension, as unlikely as that seems
+		return
+	if(!istype(user.loc, /turf) || !istype(O.loc, /turf)) // are you in a container/closet/pod/etc?
+		return
+	if(occupant)
+		user << "\blue <B>The body scanner is already occupied!</B>"
+		return
+	var/mob/living/L = O
+	if(!istype(L) || L.buckled)
+		return
+	if(L.abiotic())
+		user << "\blue <B>Subject cannot have abiotic items on.</B>"
+		return
+	for(var/mob/living/carbon/slime/M in range(1,L))
+		if(M.Victim == L)
+			usr << "[L.name] will not fit into the body scanner because they have a slime latched onto their head."
+			return
+	if(L == user)
+		visible_message("[user] climbs into the body scanner.", 3)
+	else
+		visible_message("[user] puts [L.name] into the body scanner.", 3)
+
+	if (L.client)
+		L.client.perspective = EYE_PERSPECTIVE
+		L.client.eye = src
+	L.loc = src
+	src.occupant = L
+	src.icon_state = "body_scanner_1"
+	for(var/obj/OO in src)
+		OO.loc = src.loc
+		//Foreach goto(154)
+	src.add_fingerprint(user)
+	return
 
 /*/obj/machinery/bodyscanner/allow_drop()
 	return 0*/
@@ -164,6 +221,7 @@
 
 /obj/machinery/body_scanconsole
 	var/obj/machinery/bodyscanner/connected
+	var/known_implants = list(/obj/item/weapon/implant/chem, /obj/item/weapon/implant/death_alarm, /obj/item/weapon/implant/loyalty, /obj/item/weapon/implant/tracking)
 	var/delete
 	var/temphtml
 	name = "Body Scanner Console"
@@ -180,10 +238,12 @@
 		return
 	return
 
+/*
+
 /obj/machinery/body_scanconsole/process() //not really used right now
 	if(stat & (NOPOWER|BROKEN))
 		return
-	use_power(250) // power stuff
+	//use_power(250) // power stuff
 
 //	var/mob/M //occupant
 //	if (!( src.status )) //remove this
@@ -198,6 +258,8 @@
 //			src.status = null
 //	src.updateDialog()
 //	return
+
+*/
 
 
 /obj/machinery/body_scanconsole/attack_paw(user as mob)
@@ -264,10 +326,6 @@
 						dat += text("[]\tBicaridine: [] units<BR>", (occupant.reagents.get_reagent_amount("bicaridine") < 30 ? "<font color='black'>" : "<font color='red'>"), occupant.reagents.get_reagent_amount("bicaridine"))
 						dat += text("[]\tDexalin: [] units<BR>", (occupant.reagents.get_reagent_amount("dexalin") < 30 ? "<font color='black'>" : "<font color='red'>"), occupant.reagents.get_reagent_amount("dexalin"))
 
-					for(var/datum/disease/D in occupant.viruses)
-						if(!D.hidden[SCANNER])
-							dat += text("<font color='red'><B>Warning: [D.form] Detected</B>\nName: [D.name].\nType: [D.spread].\nStage: [D.stage]/[D.max_stages].\nPossible Cure: [D.cure]</FONT><BR>")
-
 					dat += "<HR><table border='1'>"
 					dat += "<tr>"
 					dat += "<th>Organ</th>"
@@ -277,6 +335,7 @@
 					dat += "</tr>"
 
 					for(var/datum/organ/external/e in occupant.organs)
+
 						dat += "<tr>"
 						var/AN = ""
 						var/open = ""
@@ -302,8 +361,31 @@
 							robot = "Prosthetic:"
 						if(e.open)
 							open = "Open:"
-						if(e.implants.len)
-							imp = "Unknown body present:"
+						switch (e.germ_level)
+							if (INFECTION_LEVEL_ONE to INFECTION_LEVEL_ONE + 200)
+								infected = "Mild Infection:"
+							if (INFECTION_LEVEL_ONE + 200 to INFECTION_LEVEL_ONE + 300)
+								infected = "Mild Infection+:"
+							if (INFECTION_LEVEL_ONE + 300 to INFECTION_LEVEL_ONE + 400)
+								infected = "Mild Infection++:"
+							if (INFECTION_LEVEL_TWO to INFECTION_LEVEL_TWO + 200)
+								infected = "Acute Infection:"
+							if (INFECTION_LEVEL_TWO + 200 to INFECTION_LEVEL_TWO + 300)
+								infected = "Acute Infection+:"
+							if (INFECTION_LEVEL_TWO + 300 to INFECTION_LEVEL_TWO + 400)
+								infected = "Acute Infection++:"
+							if (INFECTION_LEVEL_THREE to INFINITY)
+								infected = "Septic:"
+
+						var/unknown_body = 0
+						for(var/I in e.implants)
+							if(is_type_in_list(I,known_implants))
+								imp += "[I] implanted:"
+							else
+								unknown_body++
+
+						if(unknown_body || e.hidden)
+							imp += "Unknown body present:"
 						if(!AN && !open && !infected & !imp)
 							AN = "None:"
 						if(!(e.status & ORGAN_DESTROYED))
@@ -311,15 +393,26 @@
 						else
 							dat += "<td>[e.display_name]</td><td>-</td><td>-</td><td>Not Found</td>"
 						dat += "</tr>"
-					for(var/organ_name in occupant.internal_organs)
-						var/datum/organ/internal/i = occupant.internal_organs[organ_name]
-						var/mech = ""
-						if(i.robotic == 1)
-							mech = "Assisted:"
-						if(i.robotic == 2)
-							mech = "Mechanical:"
+					for(var/n in occupant.internal_organs_by_name)
+						var/datum/organ/internal/i = occupant.internal_organs_by_name[n]
+						var/mech = i.desc
+						var/infection = "None"
+						switch (i.germ_level)
+							if (1 to INFECTION_LEVEL_ONE + 200)
+								infection = "Mild Infection:"
+							if (INFECTION_LEVEL_ONE + 200 to INFECTION_LEVEL_ONE + 300)
+								infection = "Mild Infection+:"
+							if (INFECTION_LEVEL_ONE + 300 to INFECTION_LEVEL_ONE + 400)
+								infection = "Mild Infection++:"
+							if (INFECTION_LEVEL_TWO to INFECTION_LEVEL_TWO + 200)
+								infection = "Acute Infection:"
+							if (INFECTION_LEVEL_TWO + 200 to INFECTION_LEVEL_TWO + 300)
+								infection = "Acute Infection+:"
+							if (INFECTION_LEVEL_TWO + 300 to INFINITY)
+								infection = "Acute Infection++:"
+
 						dat += "<tr>"
-						dat += "<td>[i.name]</td><td>N/A</td><td>[i.damage]</td><td>None:[mech]</td><td></td>"
+						dat += "<td>[i.name]</td><td>N/A</td><td>[i.damage]</td><td>[infection]:[mech]</td><td></td>"
 						dat += "</tr>"
 					dat += "</table>"
 					if(occupant.sdisabilities & BLIND)

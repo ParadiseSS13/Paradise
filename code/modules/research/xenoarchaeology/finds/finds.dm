@@ -113,7 +113,10 @@
 	switch(find_type)
 		if(1)
 			item_type = "bowl"
-			new_item = new /obj/item/weapon/reagent_containers/glass(src.loc)
+			if(prob(33))
+				new_item = new /obj/item/weapon/reagent_containers/glass/replenishing(src.loc)
+			else
+				new_item = new /obj/item/weapon/reagent_containers/glass/beaker(src.loc)
 			new_item.icon = 'icons/obj/xenoarchaeology.dmi'
 			new_item.icon_state = "bowl"
 			apply_image_decorations = 1
@@ -121,7 +124,10 @@
 				additional_desc = "There appear to be [pick("dark","faintly glowing","pungent","bright")] [pick("red","purple","green","blue")] stains inside."
 		if(2)
 			item_type = "urn"
-			new_item = new /obj/item/weapon/reagent_containers/glass(src.loc)
+			if(prob(33))
+				new_item = new /obj/item/weapon/reagent_containers/glass/replenishing(src.loc)
+			else
+				new_item = new /obj/item/weapon/reagent_containers/glass/beaker(src.loc)
 			new_item.icon = 'icons/obj/xenoarchaeology.dmi'
 			new_item.icon_state = "urn"
 			apply_image_decorations = 1
@@ -139,11 +145,14 @@
 			"It's a mystery how anyone is supposed to eat with this",\
 			"You wonder what the creator's mouth was shaped like")]."
 		if(4)
+			name = "statuette"
 			item_type = "statuette"
 			icon_state = "statuette"
 			additional_desc = "It depicts a [pick("small","ferocious","wild","pleasing","hulking")] \
 			[pick("alien figure","rodent-like creature","reptilian alien","primate","unidentifiable object")] \
 			[pick("performing unspeakable acts","posing heroically","in a fetal position","cheering","sobbing","making a plaintive gesture","making a rude gesture")]."
+			if(prob(25))
+				new_item = new /obj/item/weapon/vampiric(src.loc)
 		if(5)
 			item_type = "instrument"
 			icon_state = "instrument"
@@ -194,6 +203,9 @@
 			new_item = new /obj/item/weapon/storage/box(src.loc)
 			new_item.icon = 'icons/obj/xenoarchaeology.dmi'
 			new_item.icon_state = "box"
+			var/obj/item/weapon/storage/box/new_box = new_item
+			new_box.max_w_class = pick(1,2,2,3,3,3,4,4)
+			new_box.max_combined_w_class = rand(new_box.max_w_class, new_box.max_w_class * 10)
 			if(prob(30))
 				apply_image_decorations = 1
 		if(12)
@@ -225,7 +237,6 @@
 			possible_spawns += /obj/item/stack/sheet/glass
 			possible_spawns += /obj/item/stack/sheet/rglass
 			possible_spawns += /obj/item/stack/sheet/mineral/plasma
-			possible_spawns += /obj/item/stack/sheet/mineral/mythril
 			possible_spawns += /obj/item/stack/sheet/mineral/gold
 			possible_spawns += /obj/item/stack/sheet/mineral/silver
 			possible_spawns += /obj/item/stack/sheet/mineral/enruranium
@@ -261,6 +272,10 @@
 			apply_material_decorations = 0
 			if(prob(10))
 				apply_image_decorations = 1
+			if(prob(25))
+				new_item = new /obj/item/device/soulstone(src.loc)
+				new_item.icon = 'icons/obj/xenoarchaeology.dmi'
+				new_item.icon_state = icon_state
 		if(17)
 			//cultblade
 			apply_prefix = 0
@@ -296,9 +311,10 @@
 			apply_material_decorations = 0
 		if(22)
 			if(prob(50))
-				new_item = new /obj/item/weapon/shard(src.loc)
+				new_item = getFromPool(/obj/item/weapon/shard, loc)
 			else
-				new_item = new /obj/item/weapon/shard/plasma(src.loc)
+				new_item = getFromPool(/obj/item/weapon/shard/plasma, loc)
+
 			apply_prefix = 0
 			apply_image_decorations = 0
 			apply_material_decorations = 0
@@ -463,7 +479,12 @@
 			"It doesn't look human.")
 			apply_image_decorations = 0
 			apply_material_decorations = 0
-
+		if(35)
+			//gas mask
+			if(prob(25))
+				new_item = new /obj/item/clothing/mask/gas/poltergeist(src.loc)
+			else
+				new_item = new /obj/item/clothing/mask/gas(src.loc)
 	var/decorations = ""
 	if(apply_material_decorations)
 		source_material = pick("cordite","quadrinium","steel","titanium","aluminium","ferritic-alloy","plasteel","duranium")
@@ -521,18 +542,14 @@
 		new_item.name = name
 		new_item.desc = src.desc
 
-		if(talkative && istype(new_item,/obj/item/weapon))
-			new_item.listening_to_players = 1
-			if(prob(25))
-				new_item.speaking_to_players = 1
-				processing_objects.Add(src)
-		var/turf/T = get_turf(src)
-		if(istype(T, /turf/simulated/mineral))
-			T:last_find = new_item
+		if(talkative)
+			new_item.talking_atom = new()
+			talking_atom.holder_atom = new_item
+			talking_atom.init()
+
 		del(src)
 
 	else if(talkative)
-		listening_to_players = 1
-		if(prob(25))
-			speaking_to_players = 1
-			processing_objects.Add(src)
+		src.talking_atom = new()
+		talking_atom.holder_atom = src
+		talking_atom.init()

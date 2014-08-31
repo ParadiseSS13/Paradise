@@ -1,7 +1,16 @@
 //print an error message to world.log
+
+// On Linux/Unix systems the line endings are LF, on windows it's CRLF, admins that don't use notepad++
+// will get logs that are one big line if the system is Linux and they are using notepad.  This solves it by adding CR to every line ending
+// in the logs.  ascii character 13 = CR
+
+/var/global/log_end= world.system_type == UNIX ? ascii2text(13) : ""
+
+
 /proc/error(msg)
 	world.log << "## ERROR: [msg]"
 
+#define WARNING(MSG) warning("[MSG] in [__FILE__] at line [__LINE__] src: [src] usr: [usr].")
 //print a warning message to world.log
 /proc/warning(msg)
 	world.log << "## WARNING: [msg]"
@@ -67,4 +76,7 @@
 
 /proc/log_pda(text)
 	if (config.log_pda)
-		diary << "\[[time_stamp()]]PDA: [text]"
+		diary << "\[[time_stamp()]]PDA: [text][log_end]"
+
+/proc/log_misc(text)
+	diary << "\[[time_stamp()]]MISC: [text][log_end]"

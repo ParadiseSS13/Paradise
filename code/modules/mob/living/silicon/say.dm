@@ -41,8 +41,14 @@
 				if(!R.is_component_functioning("comms"))
 					src << "\red Your binary communications component isn't functional."
 					return
-
 			robot_talk(message)
+
+		else if (department_radio_keys[prefix] == "alientalk")
+			if(!alien_talk_understand) return
+			message = copytext(message, 3)
+			message = trim(copytext(sanitize(message), 1, MAX_MESSAGE_LEN))
+
+			alien_talk(message)
 		else if (department_radio_keys[prefix] == "department")
 			if(isAI(src)&&client)//For patching directly into AI holopads.
 				var/mob/living/silicon/ai/U = src

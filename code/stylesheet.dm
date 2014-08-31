@@ -29,7 +29,7 @@ em						{font-style: normal;	font-weight: bold;}
 .comradio				{color: #193A7A;}
 .syndradio				{color: #6D3F40;}
 .centradio				{color: #5C5C8A;}
-
+.airadio				{color: #FF00FF;}
 .secradio				{color: #A30000;}
 .engradio				{color: #A66300;}
 .medradio				{color: #008160;}
@@ -54,17 +54,24 @@ h1.alert, h2.alert		{color: #000000;}
 .notice					{color: #000099;}
 .suicide				{color: #ff5050;	font-style: italic;}
 
-.alien					{color: #543354;}
+
 .newscaster				{color: #800000;}
 
 .mod					{color: #735638;	font-weight: bold;}
 .modooc					{color: #184880;	font-weight: bold;}
+.adminchat				{color: #9A04D1;	font-weight: bold;}
 .adminmod				{color: #402A14;	font-weight: bold;}
+
+.alien					{color: #543354;}
 .tajaran				{color: #803B56;}
 .skrell					{color: #00CED1;}
 .soghun					{color: #228B22;}
 .vox					{color: #AA00AA;}
+
 .say_quote				{font-family: Georgia, Verdana, sans-serif;}
 
 .interface				{color: #330033;}
+BIG IMG.icon 			{width: 32px; height: 32px;}
+
+
 </style>"}

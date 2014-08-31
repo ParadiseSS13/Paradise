@@ -1,9 +1,9 @@
 
 
-/obj/machinery/computer/aiupload
+/obj/machinery/computer3/aiupload
 	name = "AI Upload"
 	desc = "Used to upload laws to the AI."
-	icon_state = "command"
+	icon_state = "frame-rnd"
 	circuit = "/obj/item/part/board/circuit/aiupload"
 	var/mob/living/silicon/ai/current = null
 	var/opened = 0
@@ -13,7 +13,7 @@
 		set category = "Object"
 		set name = "Access Computer's Internals"
 		set src in oview(1)
-		if(get_dist(src, usr) > 1 || usr.restrained() || usr.lying || usr.stat || istype(usr, /mob/living/silicon))
+		if(!Adjacent(usr) || usr.restrained() || usr.lying || usr.stat || istype(usr, /mob/living/silicon) || !istype(usr, /mob/living))
 			return
 
 		opened = !opened
@@ -24,15 +24,14 @@
 		return
 
 
-	attackby(obj/item/O as obj, mob/user as mob)
+	attackby(obj/item/weapon/aiModule/module as obj, mob/user as mob)
 		if (user.z > 6)
 			user << "\red <b>Unable to establish a connection</b>: \black You're too far away from the station!"
 			return
-		if(istype(O, /obj/item/part/board/aiModule))
-			var/obj/item/part/board/aiModule/M = O
-			M.install(src)
+		if(istype(module, /obj/item/weapon/aiModule))
+			module.install(src)
 		else
-			..()
+			return ..()
 
 
 	attack_hand(var/mob/user as mob)
@@ -53,16 +52,16 @@
 
 
 
-/obj/machinery/computer/borgupload
+/obj/machinery/computer3/borgupload
 	name = "Cyborg Upload"
 	desc = "Used to upload laws to Cyborgs."
-	icon_state = "command"
+	icon_state = "frame-rnd"
 	circuit = "/obj/item/part/board/circuit/borgupload"
 	var/mob/living/silicon/robot/current = null
 
 
-	attackby(obj/item/part/board/aiModule/module as obj, mob/user as mob)
-		if(istype(module, /obj/item/part/board/aiModule))
+	attackby(obj/item/weapon/aiModule/module as obj, mob/user as mob)
+		if(istype(module, /obj/item/weapon/aiModule))
 			module.install(src)
 		else
 			return ..()

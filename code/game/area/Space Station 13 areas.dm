@@ -14,6 +14,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 */
 
 
+
 /area
 	var/fire = null
 	var/atmos = 1
@@ -32,6 +33,8 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 
 	var/eject = null
 
+	var/debug = 0
+	var/powerupdate = 10		//We give everything 10 ticks to settle out it's power usage.
 	var/requires_power = 1
 	var/always_unpowered = 0	//this gets overriden to 1 for space in area/New()
 
@@ -44,7 +47,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	var/used_environ = 0
 
 	var/has_gravity = 1
-
+	var/list/apc = list()
 	var/no_air = null
 	var/area/master				// master area used for power calcluations
 								// (original area before splitting due to sd_DAL)
@@ -57,7 +60,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 /*I am far too lazy to make it a proper list of areas so I'll just make it run the usual telepot routine at the start of the game*/
 var/list/teleportlocs = list()
 
-proc/process_teleport_locs()
+/hook/startup/proc/setupTeleportLocs()
 	for(var/area/AR in world)
 		if(istype(AR, /area/shuttle) || istype(AR, /area/syndicate_station) || istype(AR, /area/wizard_station)) continue
 		if(teleportlocs.Find(AR.name)) continue
@@ -66,20 +69,13 @@ proc/process_teleport_locs()
 			teleportlocs += AR.name
 			teleportlocs[AR.name] = AR
 
-	var/not_in_order = 0
-	do
-		not_in_order = 0
-		if(teleportlocs.len <= 1)
-			break
-		for(var/i = 1, i <= (teleportlocs.len - 1), i++)
-			if(sorttext(teleportlocs[i], teleportlocs[i+1]) == -1)
-				teleportlocs.Swap(i, i+1)
-				not_in_order = 1
-	while(not_in_order)
+	teleportlocs = sortAssoc(teleportlocs)
+
+	return 1
 
 var/list/ghostteleportlocs = list()
 
-proc/process_ghost_teleport_locs()
+/hook/startup/proc/setupGhostTeleportLocs()
 	for(var/area/AR in world)
 		if(ghostteleportlocs.Find(AR.name)) continue
 		if(istype(AR, /area/turret_protected/aisat) || istype(AR, /area/derelict) || istype(AR, /area/tdome))
@@ -90,17 +86,9 @@ proc/process_ghost_teleport_locs()
 			ghostteleportlocs += AR.name
 			ghostteleportlocs[AR.name] = AR
 
-	var/not_in_order = 0
-	do
-		not_in_order = 0
-		if(ghostteleportlocs.len <= 1)
-			break
-		for(var/i = 1, i <= (ghostteleportlocs.len - 1), i++)
-			if(sorttext(ghostteleportlocs[i], ghostteleportlocs[i+1]) == -1)
-				ghostteleportlocs.Swap(i, i+1)
-				not_in_order = 1
-	while(not_in_order)
+	ghostteleportlocs = sortAssoc(ghostteleportlocs)
 
+	return 1
 
 /*-----------------------------------------------------------------------------*/
 
@@ -352,6 +340,63 @@ proc/process_ghost_teleport_locs()
 	icon_state = "yellow"
 	requires_power = 0
 
+/area/shuttle/salvage
+	name = "\improper Salvage Ship"
+	icon_state = "yellow"
+	requires_power = 0
+
+/area/shuttle/salvage/start
+	name = "\improper Middle of Nowhere"
+	icon_state = "yellow"
+
+/area/shuttle/salvage/arrivals
+	name = "\improper Space Station Auxiliary Docking"
+	icon_state = "yellow"
+
+/area/shuttle/salvage/derelict
+	name = "\improper Derelict Station"
+	icon_state = "yellow"
+
+/area/shuttle/salvage/djstation
+	name = "\improper Ruskie DJ Station"
+	icon_state = "yellow"
+
+/area/shuttle/salvage/north
+	name = "\improper North of the Station"
+	icon_state = "yellow"
+
+/area/shuttle/salvage/east
+	name = "\improper East of the Station"
+	icon_state = "yellow"
+
+/area/shuttle/salvage/south
+	name = "\improper South of the Station"
+	icon_state = "yellow"
+
+/area/shuttle/salvage/commssat
+	name = "\improper The Communications Satellite"
+	icon_state = "yellow"
+
+/area/shuttle/salvage/mining
+	name = "\improper South-West of the Mining Asteroid"
+	icon_state = "yellow"
+
+/area/shuttle/salvage/abandoned_ship
+	name = "\improper Abandoned Ship"
+	icon_state = "yellow"
+
+/area/shuttle/salvage/clown_asteroid
+	name = "\improper Clown Asteroid"
+	icon_state = "yellow"
+
+/area/shuttle/salvage/trading_post
+	name = "\improper Trading Post"
+	icon_state = "yellow"
+
+/area/shuttle/salvage/transit
+	name = "\improper hyperspace"
+	icon_state = "shuttle"
+
 /area/airtunnel1/      // referenced in airtunnel.dm:759
 
 /area/dummy/           // Referenced in engine.dm:261
@@ -481,6 +526,10 @@ proc/process_ghost_teleport_locs()
 	name = "\improper Thunderdome (Observer.)"
 	icon_state = "purple"
 
+/area/exploration/methlab
+	name = "\improper Abandoned Drug Lab"
+	icon_state = "green"
+
 //ENEMY
 
 //names are used
@@ -579,22 +628,18 @@ proc/process_ghost_teleport_locs()
 /area/xenos_station/start
 	name = "\improper start area"
 	icon_state = "north"
-	requires_power = 0
 
 /area/xenos_station/transit
 	name = "\improper hyperspace"
 	icon_state = "shuttle"
-	requires_power = 0
 
 /area/xenos_station/southwest
 	name = "\improper aft port solars"
 	icon_state = "southwest"
-	requires_power = 0
 
 /area/xenos_station/northwest
 	name = "\improper fore port solars"
 	icon_state = "northwest"
-	requires_power = 0
 
 /area/xenos_station/northeast
 	name = "\improper fore starboard solars"
@@ -604,17 +649,14 @@ proc/process_ghost_teleport_locs()
 /area/xenos_station/southeast
 	name = "\improper aft starboard solars"
 	icon_state = "southeast"
-	requires_power = 0
 
 /area/xenos_station/north
-	name = "\improper north landing area"
+	name = "\improper west landing area"
 	icon_state = "north"
-	requires_power = 0
 
 /area/xenos_station/south
-	name = "\improper south landing area"
+	name = "\improper east landing area"
 	icon_state = "south"
-	requires_power = 0
 
 //PRISON
 /area/prison
@@ -828,6 +870,10 @@ proc/process_ghost_teleport_locs()
 
 /area/hallway/secondary/entry/south
 
+/area/hallway/secondary/entry/louge
+	name = "\improper Arrivals Lounge"
+
+
 //Command
 
 /area/bridge
@@ -843,6 +889,10 @@ proc/process_ghost_teleport_locs()
 /area/crew_quarters/captain
 	name = "\improper Captain's Office"
 	icon_state = "captain"
+
+/area/crew_quarters/recruit
+	name = "\improper Recruitment Office"
+	icon_state = "head_quarters"
 
 /area/crew_quarters/heads/hop
 	name = "\improper Head of Personnel's Quarters"
@@ -986,10 +1036,6 @@ proc/process_ghost_teleport_locs()
 	name = "\improper Clothing Shop"
 	icon_state = "Theatre"
 
-
-
-
-
 /area/holodeck
 	name = "\improper Holodeck"
 	icon_state = "Holodeck"
@@ -1048,9 +1094,41 @@ proc/process_ghost_teleport_locs()
 
 
 
+//Embassies
+/area/embassy/
+	name = "\improper Embassy Hallway"
 
+/area/embassy/tajaran
+	name = "\improper Tajaran Embassy"
+	icon_state = "tajaran"
 
+/area/embassy/skrell
+	name = "\improper Skrell Embassy"
+	icon_state = "skrell"
 
+/area/embassy/unathi
+	name = "\improper Unathi Embassy"
+	icon_state = "unathi"
+
+/area/embassy/kidan
+	name = "\improper Kidan Embassy"
+	icon_state = "kidan"
+
+/area/embassy/diona
+	name = "\improper Diona Embassy"
+	icon_state = "diona"
+
+/area/embassy/slime
+	name = "\improper Slime Person Embassy"
+	icon_state = "slime"
+
+/area/embassy/grey
+	name = "\improper Grey Embassy"
+	icon_state = "grey"
+
+/area/embassy/vox
+	name = "\improper Vox Embassy"
+	icon_state = "vox"
 
 
 
@@ -1074,6 +1152,9 @@ proc/process_ghost_teleport_locs()
 		name = "\improper Chief Engineer's office"
 		icon_state = "engine_control"
 
+	mechanic_workshop
+		name = "\improper Mechanic Workshop"
+		icon_state = "engine"
 
 //Solars
 
@@ -1163,6 +1244,9 @@ proc/process_ghost_teleport_locs()
 	name = "\improper Telescience Lab"
 	icon_state = "telesci"
 
+/area/toxins/telescipad
+	name = "\improper Telescience Lab Pad"
+	icon_state = "telescipad"
 
 //MedBay
 
@@ -1521,11 +1605,11 @@ proc/process_ghost_teleport_locs()
 //DJSTATION
 
 /area/djstation
-	name = "\improper Ruskie DJ Station"
+	name = "\improper Listening Post"
 	icon_state = "DJ"
 
 /area/djstation/solars
-	name = "\improper DJ Station Solars"
+	name = "\improper Listening Post Solars"
 	icon_state = "DJ"
 
 //DERELICT
@@ -1616,6 +1700,71 @@ proc/process_ghost_teleport_locs()
 	name = "\improper Derelict Singularity Engine"
 	icon_state = "engine"
 
+//HALF-BUILT STATION (REPLACES DERELICT IN BAYCODE, ABOVE IS LEFT FOR DOWNSTREAM)
+
+/area/shuttle/constructionsite
+	name = "\improper Construction Site Shuttle"
+	icon_state = "yellow"
+
+/area/shuttle/constructionsite/station
+	name = "\improper Construction Site Shuttle"
+
+/area/shuttle/constructionsite/site
+	name = "\improper Construction Site Shuttle"
+
+/area/constructionsite
+	name = "\improper Construction Site"
+	icon_state = "storage"
+
+/area/constructionsite/storage
+	name = "\improper Construction Site Storage Area"
+
+/area/constructionsite/science
+	name = "\improper Construction Site Research"
+
+/area/constructionsite/bridge
+	name = "\improper Construction Site Bridge"
+	icon_state = "bridge"
+
+/area/constructionsite/maintenance
+	name = "\improper Construction Site Maintenance"
+	icon_state = "yellow"
+
+/area/constructionsite/hallway/aft
+	name = "\improper Construction Site Aft Hallway"
+	icon_state = "hallP"
+
+/area/constructionsite/hallway/fore
+	name = "\improper Construction Site Fore Hallway"
+	icon_state = "hallS"
+
+/area/constructionsite/atmospherics
+	name = "\improper Construction Site Atmospherics"
+	icon_state = "green"
+
+/area/constructionsite/medical
+	name = "\improper Construction Site Medbay"
+	icon_state = "medbay"
+
+/area/constructionsite/ai
+	name = "\improper Construction Computer Core"
+	icon_state = "ai"
+
+/area/constructionsite/engineering
+	name = "\improper Construction Site Engine Bay"
+	icon_state = "engine"
+
+/area/solar/constructionsite
+	name = "\improper Construction Site Solars"
+	icon_state = "aft"
+
+//area/constructionsite
+//	name = "\improper Construction Site Shuttle"
+
+//area/constructionsite
+//	name = "\improper Construction Site Shuttle"
+
+
 //Construction
 
 /area/construction
@@ -1654,9 +1803,49 @@ proc/process_ghost_teleport_locs()
 //GAYBAR
 /area/secret/gaybar
 	name = "\improper Dance Bar"
-	requires_power = 0
 	icon_state = "dancebar"
 
+
+//Traitor Station
+/area/traitor/rnd
+	name = "\improper Syndicate Research and Development"
+	icon_state = "syndie_rnd"
+
+/area/traitor/chem
+	name = "\improper Syndicate Chemistry"
+	icon_state = "syndie_chem"
+
+/area/traitor/tox
+	name = "\improper Syndicate Toxins"
+	icon_state = "syndie_tox"
+
+/area/traitor/atmos
+	name = "\improper Syndicate Atmos"
+	icon_state = "syndie_atmo"
+
+/area/traitor/inter
+	name = "\improper Syndicate Interrogation"
+	icon_state = "syndie_inter"
+
+/area/traitor/radio
+	name = "\improper Syndicate Eavesdropping Booth"
+	icon_state = "syndie_radio"
+
+/area/traitor/surgery
+	name = "\improper Syndicate Surgery Theatre"
+	icon_state = "syndie_surgery"
+
+/area/traitor/hall
+	name = "\improper Syndicate Station"
+	icon_state = "syndie_hall"
+
+/area/traitor/kitchen
+	name = "\improper Syndicate Kitchen"
+	icon_state = "syndie_kitchen"
+
+/area/traitor/empty
+	name = "\improper Syndicate Project Room"
+	icon_state = "syndie_empty"
 
 
 //AI
@@ -1990,6 +2179,7 @@ var/list/the_station_areas = list (
 	/area/hallway/primary/central,
 	/area/bridge,
 	/area/crew_quarters,
+	/area/civilian,
 	/area/holodeck,
 	/area/library,
 	/area/chapel,
@@ -2000,6 +2190,7 @@ var/list/the_station_areas = list (
 	/area/teleporter,
 	/area/medical,
 	/area/security,
+	/area/prison,
 	/area/quartermaster,
 	/area/janitor,
 	/area/hydroponics,

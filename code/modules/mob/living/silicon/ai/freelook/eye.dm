@@ -3,17 +3,43 @@
 // An invisible (no icon) mob that the AI controls to look around the station with.
 // It streams chunks as it moves around, which will show it what the AI can and cannot see.
 
-/mob/camera/aiEye
+/mob/aiEye
 	name = "Inactive AI Eye"
-	var/list/visibleCameraChunks = list()
+	icon = 'icons/obj/status_display.dmi' // For AI friend secret shh :o
 	var/mob/living/silicon/ai/ai = null
+	density = 0
+	status_flags = GODMODE  // You can't damage it.
+	mouse_opacity = 0
+	see_in_dark = 7
 
+/mob/aiEye/New()
+	..()
+	visibility_interface = new /datum/visibility_interface/ai_eye(src)
+
+// Movement code. Returns 0 to stop air movement from moving it.
+/mob/aiEye/Move()
+	return 0
+
+// Hide popout menu verbs
+/mob/aiEye/examine()
+	set popup_menu = 0
+	set src = usr.contents
+	return 0
+
+/mob/aiEye/pull()
+	set popup_menu = 0
+	set src = usr.contents
+	return 0
+
+/mob/aiEye/point()
+	set popup_menu = 0
+	set src = usr.contents
+	return 0
 
 // Use this when setting the aiEye's location.
 // It will also stream the chunk that the new loc is in.
 
-/mob/camera/aiEye/proc/setLoc(var/T)
-
+/mob/aiEye/setLoc(var/T)
 	if(ai)
 		if(!isturf(ai.loc))
 			return
@@ -28,7 +54,7 @@
 			H.move_hologram()
 
 
-/mob/camera/aiEye/Move()
+/mob/aiEye/Move()
 	return 0
 
 // AI MOVEMENT
@@ -36,7 +62,7 @@
 // The AI's "eye". Described on the top of the page.
 
 /mob/living/silicon/ai
-	var/mob/camera/aiEye/eyeobj = new()
+	var/mob/aiEye/eyeobj = new()
 	var/sprint = 10
 	var/cooldown = 0
 	var/acceleration = 1
@@ -50,7 +76,7 @@
 	spawn(5)
 		eyeobj.loc = src.loc
 
-/mob/living/silicon/ai/Del()
+/mob/living/silicon/ai/Destroy()
 	eyeobj.ai = null
 	del(eyeobj) // No AI, no Eye
 	..()
@@ -60,7 +86,8 @@
 		var/mob/living/silicon/ai/AI = usr
 		if(AI.eyeobj && AI.client.eye == AI.eyeobj)
 			AI.cameraFollow = null
-			AI.eyeobj.setLoc(src)
+			if (isturf(src.loc) || isturf(src))
+				AI.eyeobj.setLoc(src)
 
 // This will move the AIEye. It will also cause lights near the eye to light up, if toggled.
 // This is handled in the proc below this one.
@@ -91,14 +118,6 @@
 
 
 // Return to the Core.
-
-/mob/living/silicon/ai/verb/core()
-	set category = "AI Commands"
-	set name = "AI Core"
-
-	view_core()
-
-
 /mob/living/silicon/ai/proc/view_core()
 
 	current = null
@@ -106,6 +125,7 @@
 	unset_machine()
 
 	if(src.eyeobj && src.loc)
+		src.eyeobj.z = src.z
 		src.eyeobj.loc = src.loc
 	else
 		src << "ERROR: Eyeobj not found. Creating new eye..."
@@ -115,7 +135,8 @@
 
 	if(client && client.eye)
 		client.eye = src
-	for(var/datum/camerachunk/c in eyeobj.visibleCameraChunks)
+
+	for(var/datum/visibility_chunk/camera/c in eyeobj.visibility_interface.visible_chunks)
 		c.remove(eyeobj)
 
 /mob/living/silicon/ai/verb/toggle_acceleration()

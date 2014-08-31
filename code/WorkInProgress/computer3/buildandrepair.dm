@@ -17,7 +17,7 @@
 	var/list/records = null
 	var/frame_desc = null
 
-	var/datum/file/program/OS = new/datum/file/program/NTOS
+	var/datum/file/program/OS = new/datum/file/program/ntos
 
 /obj/machinery/computer3/proc/disassemble(mob/user as mob) // todo
 	return

@@ -8,6 +8,7 @@
 	health = 25
 	storedPlasma = 50
 	max_plasma = 50
+	density = 0
 
 	var/amount_grown = 0
 	var/max_grown = 200
@@ -197,7 +198,7 @@
 
 		var/damage = rand(1, 3)
 
-		if(istype(src, /mob/living/carbon/slime/adult))
+		if(M.is_adult)
 			damage = rand(20, 40)
 		else
 			damage = rand(5, 35)
@@ -244,10 +245,9 @@
 		if ("grab")
 			if (M == src)
 				return
-			var/obj/item/weapon/grab/G = new /obj/item/weapon/grab( M, M, src )
+			var/obj/item/weapon/grab/G = new /obj/item/weapon/grab( M, src )
 
 			M.put_in_active_hand(G)
-
 			grabbed_by += G
 			G.synch()
 

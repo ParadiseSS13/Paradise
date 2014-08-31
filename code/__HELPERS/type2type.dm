@@ -163,13 +163,37 @@
 
 
 //slower then list2text, but correctly processes associative lists.
-proc/tg_list2text(list/list, glue=",")
+proc/tg_list2text(list/list, glue=",", assocglue=";")
 	if(!istype(list) || !list.len)
 		return
 	var/output
 	for(var/i=1 to list.len)
-		output += (i!=1? glue : null)+(!isnull(list["[list[i]]"])?"[list["[list[i]]"]]":"[list[i]]")
+		if(!isnull(list["[list[i]]"]))
+			output += (i!=1? glue : null)+ "[list[i]]"+(i!=1? assocglue : null)+"[list["[list[i]]"]]"
+		else
+			output += (i!=1? glue : null)+ "[list[i]]"
 	return output
+
+proc/tg_text2list(text, glue=",", assocglue=";")
+	var/length = length(glue)
+	if(length < 1) return list(text)
+	. = list()
+	var/lastglue_found = 1
+	var/foundglue
+	var/foundassocglue
+	var/searchtext
+	do
+		foundglue = findtext(text, glue, lastglue_found, 0)
+		searchtext = copytext(text, lastglue_found, foundglue)
+		foundassocglue = findtext(searchtext, assocglue, 1, 0)
+		if(foundassocglue)
+			var/sublist = copytext(searchtext, 1, foundassocglue)
+			sublist[1] = copytext(searchtext, foundassocglue, 0)
+			. += sublist
+		else
+			. += copytext(text, lastglue_found, foundglue)
+		lastglue_found = foundglue + length
+	while(foundglue)
 
 
 //Converts a string into a list by splitting the string at each delimiter found. (discarding the seperator)
@@ -287,13 +311,20 @@ proc/tg_list2text(list/list, glue=",")
 /proc/angle2text(var/degree)
 	return dir2text(angle2dir(degree))
 
+//Converts a blend_mode constant to one acceptable to icon.Blend()
+/proc/blendMode2iconMode(blend_mode)
+	switch(blend_mode)
+		if(BLEND_MULTIPLY) return ICON_MULTIPLY
+		if(BLEND_ADD)      return ICON_ADD
+		if(BLEND_SUBTRACT) return ICON_SUBTRACT
+		else               return ICON_OVERLAY
 
 //Converts a rights bitfield into a string
 /proc/rights2text(rights,seperator="")
 	if(rights & R_BUILDMODE)	. += "[seperator]+BUILDMODE"
 	if(rights & R_ADMIN)		. += "[seperator]+ADMIN"
 	if(rights & R_BAN)			. += "[seperator]+BAN"
-	if(rights & R_FUN)			. += "[seperator]+FUN"
+	if(rights & R_EVENT)		. += "[seperator]+EVENT"
 	if(rights & R_SERVER)		. += "[seperator]+SERVER"
 	if(rights & R_DEBUG)		. += "[seperator]+DEBUG"
 	if(rights & R_POSSESS)		. += "[seperator]+POSSESS"
@@ -310,3 +341,15 @@ proc/tg_list2text(list/list, glue=",")
 	switch(ui_style)
 		if("Midnight")  return 'icons/mob/screen1_Midnight.dmi'
 		else      return 'icons/mob/screen1_White.dmi'
+
+/proc/num2septext(var/theNum, var/sigFig = 7,var/sep=",") // default sigFig (1,000,000)
+	var/finalNum = num2text(theNum, sigFig)
+
+	// Start from the end, or from the decimal point
+	var/end = findtextEx(finalNum, ".") || length(finalNum) + 1
+
+	// Moving towards start of string, insert comma every 3 characters
+	for(var/pos = end - 3, pos > 1, pos -= 3)
+		finalNum = copytext(finalNum, 1, pos) + sep + copytext(finalNum, pos)
+
+	return finalNum

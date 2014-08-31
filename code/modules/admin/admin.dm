@@ -1,24 +1,26 @@
 
 var/global/BSACooldown = 0
 var/global/floorIsLava = 0
-
+var/global/nologevent = 0
 
 ////////////////////////////////
 /proc/message_admins(var/msg)
 	msg = "<span class=\"admin\"><span class=\"prefix\">ADMIN LOG:</span> <span class=\"message\">[msg]</span></span>"
 	log_adminwarn(msg)
 	for(var/client/C in admins)
-		if(R_ADMIN & C.holder.rights)
+		if(R_SERVER & C.holder.rights)
 			C << msg
 
 /proc/msg_admin_attack(var/text) //Toggleable Attack Messages
 	log_attack(text)
-	var/rendered = "<span class=\"admin\"><span class=\"prefix\">ATTACK:</span> <span class=\"message\">[text]</span></span>"
-	for(var/client/C in admins)
-		if(R_ADMIN & C.holder.rights)
-			if(C.prefs.toggles & CHAT_ATTACKLOGS)
-				var/msg = rendered
-				C << msg
+	if(!nologevent)
+		var/rendered = "<span class=\"admin\"><span class=\"prefix\">ATTACK:</span> <span class=\"message\">[text]</span></span>"
+		for(var/client/C in admins)
+			if(R_ADMIN & C.holder.rights)
+				if(C.prefs.toggles & CHAT_ATTACKLOGS)
+					if(!istype(C, /mob/living))
+						var/msg = rendered
+						C << msg
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////////Panels
@@ -81,7 +83,7 @@ var/global/floorIsLava = 0
 		<A href='?src=\ref[src];getmob=\ref[M]'>Get</A> |
 		<A href='?src=\ref[src];sendmob=\ref[M]'>Send To</A>
 		<br><br>
-		<A href='?src=\ref[src];traitor=\ref[M]'>Traitor panel</A> |
+		[check_rights(R_ADMIN,0) ? "<A href='?src=\ref[src];traitor=\ref[M]'>Traitor panel</A> | " : "" ]
 		<A href='?src=\ref[src];narrateto=\ref[M]'>Narrate to</A> |
 		<A href='?src=\ref[src];subtlemessage=\ref[M]'>Subtle message</A>
 	"}
@@ -109,6 +111,7 @@ var/global/floorIsLava = 0
 				body += "<B>Is an AI</B> "
 			else if(ishuman(M))
 				body += {"<A href='?src=\ref[src];makeai=\ref[M]'>Make AI</A> |
+					<A href='?src=\ref[src];makemask=\ref[M]'>Make Mask</A> |
 					<A href='?src=\ref[src];makerobot=\ref[M]'>Make Robot</A> |
 					<A href='?src=\ref[src];makealien=\ref[M]'>Make Alien</A> |
 					<A href='?src=\ref[src];makeslime=\ref[M]'>Make slime</A>
@@ -121,7 +124,7 @@ var/global/floorIsLava = 0
 				body += "<A href='?src=\ref[src];makeanimal=\ref[M]'>Animalize</A> | "
 
 			// DNA2 - Admin Hax
-			if(iscarbon(M))
+			if(M.dna && iscarbon(M))
 				body += "<br><br>"
 				body += "<b>DNA Blocks:</b><br><table border='0'><tr><th>&nbsp;</th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th>"
 				var/bname
@@ -170,6 +173,7 @@ var/global/floorIsLava = 0
 			<b>Other actions:</b>
 			<br>
 			<A href='?src=\ref[src];forcespeech=\ref[M]'>Forcesay</A> |
+			<A href='?src=\ref[src];aroomwarp=\ref[M]'>Admin Room</A> |
 			<A href='?src=\ref[src];tdome1=\ref[M]'>Thunderdome 1</A> |
 			<A href='?src=\ref[src];tdome2=\ref[M]'>Thunderdome 2</A> |
 			<A href='?src=\ref[src];tdomeadmin=\ref[M]'>Thunderdome Admin</A> |
@@ -290,7 +294,7 @@ var/global/floorIsLava = 0
 
 
 /datum/admins/proc/access_news_network() //MARKER
-	set category = "Fun"
+	set category = "Event"
 	set name = "Access Newscaster Network"
 	set desc = "Allows you to view, add and edit news feeds."
 
@@ -370,21 +374,21 @@ var/global/floorIsLava = 0
 		if(6)
 			dat+="<B><FONT COLOR='maroon'>ERROR: Could not submit Feed story to Network.</B></FONT><HR><BR>"
 			if(src.admincaster_feed_channel.channel_name=="")
-				dat+="<FONT COLOR='maroon'>•Invalid receiving channel name.</FONT><BR>"
+				dat+="<FONT COLOR='maroon'>Â•Invalid receiving channel name.</FONT><BR>"
 			if(src.admincaster_feed_message.body == "" || src.admincaster_feed_message.body == "\[REDACTED\]")
-				dat+="<FONT COLOR='maroon'>•Invalid message body.</FONT><BR>"
+				dat+="<FONT COLOR='maroon'>Â•Invalid message body.</FONT><BR>"
 			dat+="<BR><A href='?src=\ref[src];ac_setScreen=[3]'>Return</A><BR>"
 		if(7)
 			dat+="<B><FONT COLOR='maroon'>ERROR: Could not submit Feed Channel to Network.</B></FONT><HR><BR>"
 			if(src.admincaster_feed_channel.channel_name =="" || src.admincaster_feed_channel.channel_name == "\[REDACTED\]")
-				dat+="<FONT COLOR='maroon'>•Invalid channel name.</FONT><BR>"
+				dat+="<FONT COLOR='maroon'>Â•Invalid channel name.</FONT><BR>"
 			var/check = 0
 			for(var/datum/feed_channel/FC in news_network.network_channels)
 				if(FC.channel_name == src.admincaster_feed_channel.channel_name)
 					check = 1
 					break
 			if(check)
-				dat+="<FONT COLOR='maroon'>•Channel name already in use.</FONT><BR>"
+				dat+="<FONT COLOR='maroon'>Â•Channel name already in use.</FONT><BR>"
 			dat+="<BR><A href='?src=\ref[src];ac_setScreen=[2]'>Return</A><BR>"
 		if(9)
 			dat+="<B>[src.admincaster_feed_channel.channel_name]: </B><FONT SIZE=1>\[created by: <FONT COLOR='maroon'>[src.admincaster_feed_channel.author]</FONT>\]</FONT><HR>"
@@ -498,9 +502,9 @@ var/global/floorIsLava = 0
 		if(16)
 			dat+="<B><FONT COLOR='maroon'>ERROR: Wanted Issue rejected by Network.</B></FONT><HR><BR>"
 			if(src.admincaster_feed_message.author =="" || src.admincaster_feed_message.author == "\[REDACTED\]")
-				dat+="<FONT COLOR='maroon'>•Invalid name for person wanted.</FONT><BR>"
+				dat+="<FONT COLOR='maroon'>Â•Invalid name for person wanted.</FONT><BR>"
 			if(src.admincaster_feed_message.body == "" || src.admincaster_feed_message.body == "\[REDACTED\]")
-				dat+="<FONT COLOR='maroon'>•Invalid description.</FONT><BR>"
+				dat+="<FONT COLOR='maroon'>Â•Invalid description.</FONT><BR>"
 			dat+="<BR><A href='?src=\ref[src];ac_setScreen=[0]'>Return</A><BR>"
 		if(17)
 			dat+={"
@@ -690,7 +694,7 @@ var/global/floorIsLava = 0
 	feedback_add_details("admin_verb","TE") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /datum/admins/proc/toggleAI()
-	set category = "Server"
+	set category = "Event"
 	set desc="People can't be AI"
 	set name="Toggle AI"
 	config.allow_ai = !( config.allow_ai )
@@ -717,7 +721,7 @@ var/global/floorIsLava = 0
 	feedback_add_details("admin_verb","TR") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /datum/admins/proc/toggle_aliens()
-	set category = "Server"
+	set category = "Event"
 	set desc="Toggle alien mobs"
 	set name="Toggle Aliens"
 	aliens_allowed = !aliens_allowed
@@ -727,7 +731,7 @@ var/global/floorIsLava = 0
 
 
 /datum/admins/proc/toggle_space_ninja()
-	set category = "Server"
+	set category = "Event"
 	set desc="Toggle space ninjas spawning."
 	set name="Toggle Space Ninjas"
 	toggle_space_ninja = !toggle_space_ninja
@@ -815,12 +819,6 @@ var/global/floorIsLava = 0
 		if (ticker.mode.config_tag == "changeling")
 			return 2
 		return 1
-
-	for(var/datum/disease/D in M.viruses)
-		if(istype(D, /datum/disease/jungle_fever))
-			if (ticker.mode.config_tag == "monkey")
-				return 2
-			return 1
 	if(isrobot(M))
 		var/mob/living/silicon/robot/R = M
 		if(R.emagged)
@@ -830,24 +828,6 @@ var/global/floorIsLava = 0
 
 	return 0
 
-/*
-/datum/admins/proc/get_sab_desc(var/target)
-	switch(target)
-		if(1)
-			return "Destroy at least 70% of the plasma canisters on the station"
-		if(2)
-			return "Destroy the AI"
-		if(3)
-			var/count = 0
-			for(var/mob/living/carbon/monkey/Monkey in world)
-				if(Monkey.z == 1)
-					count++
-			return "Kill all [count] of the monkeys on the station"
-		if(4)
-			return "Cut power to at least 80% of the station"
-		else
-			return "Error: Invalid sabotage target: [target]"
-*/
 /datum/admins/proc/spawn_atom(var/object as text)
 	set category = "Debug"
 	set desc = "(atom path) Spawn an atom"
@@ -925,14 +905,6 @@ var/global/floorIsLava = 0
 	message_admins("\blue [key_name_admin(usr)] toggled guests game entering [guests_allowed?"":"dis"]allowed.", 1)
 	feedback_add_details("admin_verb","TGU") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
-/client/proc/unjobban_panel()
-	set name = "Unjobban Panel"
-	set category = "Admin"
-	if (src.holder)
-		src.holder.unjobbanpanel()
-	feedback_add_details("admin_verb","UJBP") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
-	return
-
 /datum/admins/proc/output_ai_laws()
 	var/ai_number = 0
 	for(var/mob/living/silicon/S in mob_list)
@@ -970,70 +942,6 @@ var/global/floorIsLava = 0
 //
 //ALL DONE
 //*********************************************************************************************************
-//TO-DO:
-//
-//
-
-
-/**********************Administration Shuttle**************************/
-
-var/admin_shuttle_location = 0 // 0 = centcom 13, 1 = station
-
-proc/move_admin_shuttle()
-	var/area/fromArea
-	var/area/toArea
-	if (admin_shuttle_location == 1)
-		fromArea = locate(/area/shuttle/administration/station)
-		toArea = locate(/area/shuttle/administration/centcom)
-	else
-		fromArea = locate(/area/shuttle/administration/centcom)
-		toArea = locate(/area/shuttle/administration/station)
-	fromArea.move_contents_to(toArea)
-	if (admin_shuttle_location)
-		admin_shuttle_location = 0
-	else
-		admin_shuttle_location = 1
-	return
-
-/**********************Centcom Ferry**************************/
-
-var/ferry_location = 0 // 0 = centcom , 1 = station
-
-proc/move_ferry()
-	var/area/fromArea
-	var/area/toArea
-	if (ferry_location == 1)
-		fromArea = locate(/area/shuttle/transport1/station)
-		toArea = locate(/area/shuttle/transport1/centcom)
-	else
-		fromArea = locate(/area/shuttle/transport1/centcom)
-		toArea = locate(/area/shuttle/transport1/station)
-	fromArea.move_contents_to(toArea)
-	if (ferry_location)
-		ferry_location = 0
-	else
-		ferry_location = 1
-	return
-
-/**********************Alien ship**************************/
-
-var/alien_ship_location = 1 // 0 = base , 1 = mine
-
-proc/move_alien_ship()
-	var/area/fromArea
-	var/area/toArea
-	if (alien_ship_location == 1)
-		fromArea = locate(/area/shuttle/alien/mine)
-		toArea = locate(/area/shuttle/alien/base)
-	else
-		fromArea = locate(/area/shuttle/alien/base)
-		toArea = locate(/area/shuttle/alien/mine)
-	fromArea.move_contents_to(toArea)
-	if (alien_ship_location)
-		alien_ship_location = 0
-	else
-		alien_ship_location = 1
-	return
 
 var/gamma_ship_location = 1 // 0 = station , 1 = space
 

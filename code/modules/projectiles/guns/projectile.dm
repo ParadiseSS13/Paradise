@@ -32,6 +32,7 @@
 	if(isnull(AC) || !istype(AC))
 		return 0
 	AC.loc = get_turf(src) //Eject casing onto ground.
+	AC.SpinAnimation(10, 1) //next gen special effects
 	chambered = null
 	chamber_round()
 	if(AC.BB)

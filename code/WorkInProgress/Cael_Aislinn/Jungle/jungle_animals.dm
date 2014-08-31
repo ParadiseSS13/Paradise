@@ -23,7 +23,7 @@
 		spawn(rand(1200,2400))
 			spawned_animal.loc = locate(src.x + rand(-12,12), src.y + rand(-12,12), src.z)
 
-/obj/effect/landmark/animal_spawner/Del()
+/obj/effect/landmark/animal_spawner/Destroy()
 	processing_objects.Remove(src)
 
 /obj/effect/landmark/animal_spawner/panther

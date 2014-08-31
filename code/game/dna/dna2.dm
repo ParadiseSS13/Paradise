@@ -5,10 +5,10 @@
 */
 
 // What each index means:
-#define DNA_OFF_LOWERBOUND 0
-#define DNA_OFF_UPPERBOUND 1
-#define DNA_ON_LOWERBOUND  2
-#define DNA_ON_UPPERBOUND  3
+#define DNA_OFF_LOWERBOUND 1		// changed as lists start at 1 not 0
+#define DNA_OFF_UPPERBOUND 2
+#define DNA_ON_LOWERBOUND  3
+#define DNA_ON_UPPERBOUND  4
 
 // Define block bounds (off-low,off-high,on-low,on-high)
 // Used in setupgame.dm
@@ -24,13 +24,16 @@
 #define DNA_UI_BEARD_G     5
 #define DNA_UI_BEARD_B     6
 #define DNA_UI_SKIN_TONE   7
-#define DNA_UI_EYES_R      8
-#define DNA_UI_EYES_G      9
-#define DNA_UI_EYES_B      10
-#define DNA_UI_GENDER      11
-#define DNA_UI_BEARD_STYLE 12
-#define DNA_UI_HAIR_STYLE  13
-#define DNA_UI_LENGTH      13 // Update this when you add something, or you WILL break shit.
+#define DNA_UI_SKIN_R      8
+#define DNA_UI_SKIN_G      9
+#define DNA_UI_SKIN_B      10
+#define DNA_UI_EYES_R      11
+#define DNA_UI_EYES_G      12
+#define DNA_UI_EYES_B      13
+#define DNA_UI_GENDER      14
+#define DNA_UI_BEARD_STYLE 15
+#define DNA_UI_HAIR_STYLE  16
+#define DNA_UI_LENGTH      16 // Update this when you add something, or you WILL break shit.
 
 #define DNA_SE_LENGTH 55 // Was STRUCDNASIZE, size 27. 15 new blocks added = 42, plus room to grow.
 
@@ -39,11 +42,15 @@
 //  and to tell our new DNA datum which values to set in order to turn something
 //  on or off.
 var/global/list/dna_activity_bounds[DNA_SE_LENGTH]
+var/global/list/assigned_gene_blocks[DNA_SE_LENGTH]
 
 // Used to determine what each block means (admin hax and species stuff on /vg/, mostly)
 var/global/list/assigned_blocks[DNA_SE_LENGTH]
 
 var/global/list/datum/dna/gene/dna_genes[0]
+
+var/global/list/good_blocks[0]
+var/global/list/bad_blocks[0]
 
 /////////////////
 // GENE DEFINES
@@ -134,6 +141,10 @@ var/global/list/datum/dna/gene/dna_genes[0]
 	SetUIValueRange(DNA_UI_EYES_R,    character.r_eyes,    255,    1)
 	SetUIValueRange(DNA_UI_EYES_G,    character.g_eyes,    255,    1)
 	SetUIValueRange(DNA_UI_EYES_B,    character.b_eyes,    255,    1)
+
+	SetUIValueRange(DNA_UI_SKIN_R,    character.r_skin,    255,    1)
+	SetUIValueRange(DNA_UI_SKIN_G,    character.g_skin,    255,    1)
+	SetUIValueRange(DNA_UI_SKIN_B,    character.b_skin,    255,    1)
 
 	SetUIValueRange(DNA_UI_SKIN_TONE, 35-character.s_tone, 220,    1) // Value can be negative.
 
@@ -267,7 +278,7 @@ var/global/list/datum/dna/gene/dna_genes[0]
 	if (block<=0) return 0
 	var/list/BOUNDS=GetDNABounds(block)
 	var/value=GetSEValue(block)
-	return (value > BOUNDS[DNA_ON_LOWERBOUND])
+	return (value >= BOUNDS[DNA_ON_LOWERBOUND])
 
 // Set a block "on" or "off".
 /datum/dna/proc/SetSEState(var/block,var/on,var/defer=0)

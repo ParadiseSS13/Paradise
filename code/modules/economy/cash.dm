@@ -64,11 +64,3 @@
 	desc = "It's worth 1000 credits."
 	worth = 1000
 
-proc/spawn_money(var/sum, spawnloc)
-	var/cash_type
-	for(var/i in list(1000,500,200,100,50,20,10,1))
-		cash_type = text2path("/obj/item/weapon/spacecash/c[i]")
-		while(sum >= i)
-			sum -= i
-			new cash_type(spawnloc)
-	return

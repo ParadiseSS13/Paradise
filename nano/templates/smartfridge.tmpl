@@ -1,0 +1,75 @@
+<div class='item'>
+  {{:helper.link('Close', 'gear', {'close' : 1}, null, 'fixedLeft')}}
+</div>
+
+<div class="item">
+  <h2>Storage</h2>
+  {{if data.secure}}
+    <span class='notice'>
+      {{:data.locked == -1 ? "Sec.re ACC_** //):securi_nt.diag=>##'or 1=1'%($..." : "Secure Access: Please have your identification ready."}}
+    </span>
+  {{/if}}
+</div>
+<div class='item'>
+  {{if data.contents}}
+    {{for data.contents}}
+      <div class='item'>
+        <span class='highlight'>{{:value.display_name}} ({{:value.quantity}} available)</span>
+        <div style="float: left;">Vend:&nbsp;</div> {{:helper.link('x1', 'circle-arrow-s', { "vend" : value.vend, "amount" : 1 }, null, 'statusValue')}}
+		{{if value.quantity >= 5}}
+			{{:helper.link('x5', 'circle-arrow-s', { "vend" : value.vend, "amount" : 5 }, null, 'statusValue')}}
+		{{/if}}
+		{{if value.quantity >= 10}}
+			{{:helper.link('x10', 'circle-arrow-s', { "vend" : value.vend, "amount" : 10 }, null, 'statusValue')}}
+		{{/if}}
+		{{if value.quantity >= 25}}
+			{{:helper.link('x25', 'circle-arrow-s', { "vend" : value.vend, "amount" : 25 }, null, 'statusValue')}}
+		{{/if}}
+		{{if value.quantity > 1}}
+			{{:helper.link('All', 'circle-arrow-s', { "vend" : value.vend, "amount" : value.quantity }, null, 'statusValue')}}
+		{{/if}}
+      </div>
+    {{/for}}
+  {{else}}
+    <span class='average'>No products loaded.</span>
+  {{/if}}
+</div>
+
+{{if data.panel_open}}
+  <div class='item'>
+    <h2>Access Panel</h2>
+  </div>
+  <div class='item'>
+    <div class='itemLabel'>
+      <span class='good'>Wires:</span>
+    </div>
+    <div class='itemContentWide'>
+      {{for data.wires}}
+        <div class='item'>
+          <div class='itemLabel' style='color: {{:value.wire}};'>
+            {{:value.wire}} wire:
+          </div>
+          <div class='itemContent'>
+            {{if value.cut}}
+              {{:helper.link('Mend', 'plus', {'cutwire' : value.index})}}
+            {{else}}
+              {{:helper.link('Cut', 'minus', {'cutwire' : value.index})}}
+              {{:helper.link('Pulse', 'signal-diag', {'pulsewire' : value.index})}}
+            {{/if}}
+          </div>
+        </div>
+      {{/for}}
+    </div>
+  </div>
+
+  <div class='statusDisplay'>
+    The orange light is <span class='{{:data.electrified ? "good" : "bad"}}'><b>{{:data.electrified ? "on" : "off"}}</b></span>.<br>
+    The red light is <span class='{{:data.shoot_inventory ? "good" : "bad"}}'><b>{{:data.shoot_inventory ? "on" : "off"}}</b></span>.<br>
+    {{if data.secure}}
+      The green light is
+      <span class='{{:data.locked == 1 ? "bad" : data.locked == -1 ? "average" : "good"}}'>
+        {{:data.locked == 1 ? "off" : data.locked == -1 ? "blinking" : "on"}}
+      </span>.<br>
+    {{/if}}
+  </div>
+{{/if}}

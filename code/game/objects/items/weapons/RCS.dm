@@ -24,7 +24,7 @@
 	processing_objects.Add(src)
 	desc = "Use this to send crates and closets to cargo telepads. There are [rcharges] charges left."
 
-/obj/item/weapon/rcs/Del()
+/obj/item/weapon/rcs/Destroy()
 	processing_objects.Remove(src)
 	..()
 

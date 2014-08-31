@@ -2,7 +2,7 @@
 	desc = "What may appear to be a simple black garment is in fact a highly sophisticated nano-weave helmet. Standard issue ninja gear."
 	name = "ninja hood"
 	icon_state = "s-ninja"
-	item_state = "s-ninja_mask"
+	item_state = "s-ninja_hood"
 	allowed = list(/obj/item/weapon/cell)
 	armor = list(melee = 60, bullet = 50, laser = 30,energy = 15, bomb = 30, bio = 30, rad = 25)
 	siemens_coefficient = 0.2
@@ -14,7 +14,7 @@
 	desc = "A unique, vaccum-proof suit of nano-enhanced armor designed specifically for Spider Clan assassins."
 	icon_state = "s-ninja"
 	item_state = "s-ninja_suit"
-	allowed = list(/obj/item/weapon/gun,/obj/item/ammo_box,/obj/item/ammo_casing,/obj/item/weapon/melee/baton,/obj/item/weapon/handcuffs,/obj/item/weapon/tank,/obj/item/weapon/cell)
+	allowed = list(/obj/item/weapon/gun,/obj/item/ammo_box,/obj/item/ammo_casing,/obj/item/weapon/melee/baton,/obj/item/weapon/handcuffs,/obj/item/weapon/tank,/obj/item/weapon/cell,/obj/item/device/suit_cooling_unit)
 	slowdown = 0
 	armor = list(melee = 60, bullet = 50, laser = 30,energy = 15, bomb = 30, bio = 30, rad = 30)
 	siemens_coefficient = 0.2
@@ -36,13 +36,14 @@
 		//Main function variables.
 	var/s_initialized = 0//Suit starts off.
 	var/s_coold = 0//If the suit is on cooldown. Can be used to attach different cooldowns to abilities. Ticks down every second based on suit ntick().
-	var/s_cost = 5.0//Base energy cost each ntick.
-	var/s_acost = 25.0//Additional cost for additional powers active.
+	var/s_regen = 5.0//Base energy regen each ntick.
+	var/s_cost = 25.0//Additional cost for additional powers active.
 	var/k_cost = 200.0//Kamikaze energy cost each ntick.
 	var/k_damage = 1.0//Brute damage potentially done by Kamikaze each ntick.
 	var/s_delay = 40.0//How fast the suit does certain things, lower is faster. Can be overridden in specific procs. Also determines adverse probability.
 	var/a_transfer = 20.0//How much reagent is transferred when injecting.
 	var/r_maxamount = 80.0//How much reagent in total there is.
+	//var/s_rank = "Master" The three ranks are "Initiate", "Assassin", and "Master". Master is the base case.
 
 		//Support function variables.
 	var/spideros = 0//Mode of SpiderOS. This can change so I won't bother listing the modes here (0 is hub). Check ninja_equipment.dm for how it all works.

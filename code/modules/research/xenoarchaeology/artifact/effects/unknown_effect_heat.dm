@@ -15,6 +15,7 @@
 
 /datum/artifact_effect/heat/DoEffectTouch(var/mob/user)
 	if(holder)
+		user << "\red You feel a wave of heat travel up your spine!"
 		var/datum/gas_mixture/env = holder.loc.return_air()
 		if(env)
 			env.temperature += rand(5,50)

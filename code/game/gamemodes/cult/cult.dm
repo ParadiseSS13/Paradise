@@ -8,6 +8,7 @@
 /proc/iscultist(mob/living/M as mob)
 	return istype(M) && M.mind && ticker && ticker.mode && (M.mind in ticker.mode.cult)
 
+
 /proc/is_convertable_to_cult(datum/mind/mind)
 	if(!istype(mind))	return 0
 	if(istype(mind.current, /mob/living/carbon/human) && (mind.assigned_role in list("Captain", "Chaplain")))	return 0
@@ -20,8 +21,8 @@
 /datum/game_mode/cult
 	name = "cult"
 	config_tag = "cult"
-	restricted_jobs = list("Chaplain","AI", "Cyborg", "Security Officer", "Warden", "Detective", "Head of Security", "Captain", "Head of Personnel", "Blueshield", "Nanotrasen Representative")
-	protected_jobs = list()
+	restricted_jobs = list("Chaplain","AI", "Cyborg", "Lawyer", "Head of Security", "Captain", "Head of Personnel", "Blueshield", "Nanotrasen Representative", "Nanotrasen Recruiter", "Magistrate")
+	protected_jobs = list("Security Officer", "Warden", "Detective", "Security Pod Pilot")
 	required_players = 5
 	required_players_secret = 15
 	required_enemies = 3
@@ -133,6 +134,7 @@
 			mob << "Your training has allowed you to overcome your clownish nature, allowing you to wield weapons without harming yourself."
 			mob.mutations.Remove(M_CLUMSY)
 
+	add_cult_viewpoint(mob) // give them a viewpoint
 
 	var/obj/item/weapon/paper/talisman/supply/T = new(mob)
 	var/list/slots = list (
@@ -169,11 +171,20 @@
 	cult_mob.mind.store_memory("<B>You remember that</B> [wordexp]", 0, 0)
 
 
+/datum/game_mode/proc/add_cult_viewpoint(var/mob/target)
+	for(var/obj/cult_viewpoint/viewpoint in target)
+		return
+	var/obj/cult_viewpoint/viewpoint = new(target)
+	viewpoint.loc = target
+	return viewpoint
+
+
 /datum/game_mode/proc/add_cultist(datum/mind/cult_mind) //BASE
 	if (!istype(cult_mind))
 		return 0
 	if(!(cult_mind in cult) && is_convertable_to_cult(cult_mind))
 		cult += cult_mind
+		add_cult_viewpoint(cult_mind.current)
 		update_cult_icons_added(cult_mind)
 		return 1
 
@@ -189,56 +200,132 @@
 		cult -= cult_mind
 		cult_mind.current << "\red <FONT size = 3><B>An unfamiliar white light flashes through your mind, cleansing the taint of the dark-one and the memories of your time as his servant with it.</B></FONT>"
 		cult_mind.memory = ""
+
+		// remove the cult viewpoint object
+		var/obj/viewpoint = getCultViewpoint(cult_mind.current)
+		del(viewpoint)
+
 		update_cult_icons_removed(cult_mind)
 		if(show_message)
 			for(var/mob/M in viewers(cult_mind.current))
 				M << "<FONT size = 3>[cult_mind.current] looks like they just reverted to their old faith!</FONT>"
 
+
 /datum/game_mode/proc/update_all_cult_icons()
 	spawn(0)
+		// reset the cult
 		for(var/datum/mind/cultist in cult)
-			if(cultist.current)
-				if(cultist.current.client)
-					for(var/image/I in cultist.current.client.images)
-						if(I.icon_state == "cult")
-							del(I)
+			reset_cult_icons_for_cultist(cultist)
+		// reset the spirits
+		for(var/mob/spirit/currentSpirit in spirits)
+			reset_cult_icons_for_spirit(currentSpirit)
 
+
+/datum/game_mode/proc/reset_cult_icons_for_cultist(var/datum/mind/target)
+	if(target.current)
+		if(target.current.client)
+			remove_all_cult_icons(target)
+			for(var/datum/mind/cultist in cult)
+				if(cultist.current)
+					add_cult_icon(target.current.client,cultist.current)
+
+
+/datum/game_mode/proc/reset_cult_icons_for_spirit(mob/spirit/target)
+	if (target.client)
+		remove_all_cult_icons(target)
 		for(var/datum/mind/cultist in cult)
 			if(cultist.current)
-				if(cultist.current.client)
-					for(var/datum/mind/cultist_1 in cult)
-						if(cultist_1.current)
-							var/I = image('icons/mob/mob.dmi', loc = cultist_1.current, icon_state = "cult")
-							cultist.current.client.images += I
+				add_cult_icon(target.client,cultist.current)
+
+
+/datum/game_mode/proc/add_cult_icon(client/target_client,mob/target_mob)
+	var/I = image('icons/mob/mob.dmi', loc = target_mob, icon_state = "cult")
+	target_client.images += I
+
+
+/datum/game_mode/proc/remove_cult_icon(client/target_client,mob/target_mob)
+	for(var/image/I in target_client.images)
+		if(I.icon_state == "cult" && I.loc == target_mob)
+			del(I)
+
+
+/datum/game_mode/proc/remove_all_cult_icons_from_client(client/target)
+	for(var/image/I in target.images)
+		if(I.icon_state == "cult")
+			del(I)
+
+
+/datum/game_mode/proc/remove_all_cult_icons(target)
+	var/datum/mind/cultist = target
+	if(istype(cultist))
+		if(cultist.current)
+			if(cultist.current.client)
+				remove_all_cult_icons_from_client(cultist.current.client)
+		return TRUE
+	var/mob/spirit/currentSpirit = target
+	if(istype(currentSpirit))
+		if (currentSpirit.client)
+			remove_all_cult_icons_from_client(currentSpirit.client)
+		return TRUE
+	return FALSE
+
+
+/datum/game_mode/proc/add_cult_icon_to_spirit(mob/spirit/currentSpirit,datum/mind/cultist)
+	if(!istype(currentSpirit) || !istype(cultist))
+		return FALSE
+	if (currentSpirit.client)
+		if (cultist.current)
+			add_cult_icon(currentSpirit.client,cultist.current)
+
+
+/datum/game_mode/proc/add_cult_icon_to_cultist(datum/mind/first_cultist,datum/mind/second_cultist)
+	if(first_cultist.current && second_cultist.current)
+		if(first_cultist.current.client)
+			add_cult_icon(first_cultist.current.client, second_cultist.current)
+
+
+/datum/game_mode/proc/remove_cult_icon_from_cultist(datum/mind/first_cultist,datum/mind/second_cultist)
+	if(first_cultist.current && second_cultist.current)
+		if(first_cultist.current.client)
+			remove_cult_icon(first_cultist.current.client,second_cultist.current)
+
+
+/datum/game_mode/proc/remove_cult_icon_from_spirit(mob/spirit/currentSpirit,datum/mind/cultist)
+	if(!istype(currentSpirit) || !istype(cultist))
+		return FALSE
+	if (currentSpirit.client)
+		if (cultist.current)
+			remove_cult_icon(currentSpirit.client,cultist.current)
+
+
+/datum/game_mode/proc/cult_icon_pair_link(datum/mind/first_cultist,datum/mind/second_cultist)
+	if (!istype(first_cultist) || !istype(second_cultist))
+		return 0
+	add_cult_icon_to_cultist(first_cultist,second_cultist)
+	add_cult_icon_to_cultist(second_cultist,first_cultist)
+
+
+/datum/game_mode/proc/cult_icon_pair_unlink(datum/mind/first_cultist,datum/mind/second_cultist)
+	if (!istype(first_cultist) || !istype(second_cultist))
+		return 0
+	remove_cult_icon(first_cultist,second_cultist)
+	remove_cult_icon(second_cultist,first_cultist)
 
 
 /datum/game_mode/proc/update_cult_icons_added(datum/mind/cult_mind)
 	spawn(0)
 		for(var/datum/mind/cultist in cult)
-			if(cultist.current)
-				if(cultist.current.client)
-					var/I = image('icons/mob/mob.dmi', loc = cult_mind.current, icon_state = "cult")
-					cultist.current.client.images += I
-			if(cult_mind.current)
-				if(cult_mind.current.client)
-					var/image/J = image('icons/mob/mob.dmi', loc = cultist.current, icon_state = "cult")
-					cult_mind.current.client.images += J
+			cult_icon_pair_link(cultist,cult_mind)
+		for(var/mob/spirit/currentSpirit in spirits)
+			add_cult_icon_to_spirit(currentSpirit,cult_mind)
 
 
 /datum/game_mode/proc/update_cult_icons_removed(datum/mind/cult_mind)
 	spawn(0)
 		for(var/datum/mind/cultist in cult)
-			if(cultist.current)
-				if(cultist.current.client)
-					for(var/image/I in cultist.current.client.images)
-						if(I.icon_state == "cult" && I.loc == cult_mind.current)
-							del(I)
-
-		if(cult_mind.current)
-			if(cult_mind.current.client)
-				for(var/image/I in cult_mind.current.client.images)
-					if(I.icon_state == "cult")
-						del(I)
+			cult_icon_pair_unlink(cultist,cult_mind)
+		for(var/mob/spirit/currentSpirit in spirits)
+			remove_cult_icon_from_spirit(currentSpirit,cult_mind)
 
 
 /datum/game_mode/cult/proc/get_unconvertables()
@@ -273,6 +360,10 @@
 		return 0
 	else
 		return 1
+
+
+/atom/proc/cult_log(var/message)
+	investigate_log(message, "cult")
 
 
 /datum/game_mode/cult/declare_completion()

@@ -3,9 +3,9 @@
  */
 
 /obj/item/clothing/suit/space/powered
-	name = "Powered armor"
+	name = "Powered armor suit"
 	desc = "Not for rookies."
-	icon_state = "swat"
+	icon_state = "power_armour"
 	item_state = "swat"
 	w_class = 4//bulky item
 
@@ -14,7 +14,7 @@
 	body_parts_covered = UPPER_TORSO|LEGS|FEET|ARMS
 	armor = list(melee = 40, bullet = 30, laser = 20,energy = 15, bomb = 25, bio = 10, rad = 10)
 	allowed = list(/obj/item/device/flashlight,/obj/item/weapon/gun,/obj/item/weapon/handcuffs,/obj/item/weapon/tank/emergency_oxygen)
-	slowdown = 9
+	slowdown = 5
 	var/fuel = 0
 
 	var/list/togglearmor = list(melee = 90, bullet = 70, laser = 60,energy = 40, bomb = 75, bio = 75, rad = 75)
@@ -23,10 +23,10 @@
 	var/helmrequired = 1
 	var/obj/item/clothing/head/space/powered/helm
 
-	var/glovesrequired = 0
+	var/glovesrequired = 1
 	var/obj/item/clothing/gloves/powered/gloves
 
-	var/shoesrequired = 0
+	var/shoesrequired = 1
 	var/obj/item/clothing/shoes/powered/shoes
 	//Adding gloves and shoes as possible armor components. --NEO
 
@@ -197,16 +197,44 @@
 					user << "<span class='danger'>The generator already has plenty of plasma.</span>"
 					return
 
-		..()
+	if(!servos)
+		if(istype(W,/obj/item/powerarmor/servos))
+			servos = W
+			W.loc = src
+			servos.parent = src
+			user << "<span class='notice'>You add some servos to the armor.</span>"
+	if(!reactive)
+		if(istype(W,/obj/item/powerarmor/reactive))
+			reactive = W
+			W.loc = src
+			reactive.parent = src
+			user << "<span class='notice'>You add some reactive plating to the armor.</span>"
+	if(!atmoseal)
+		if(istype(W,/obj/item/powerarmor/atmoseal))
+			atmoseal = W
+			W.loc = src
+			atmoseal.parent = src
+			user << "<span class='notice'>You add an atmospheric seals to the armor.</span>"
+	if(!power)
+		if(istype(W,/obj/item/powerarmor/power))
+			power = W
+			W.loc = src
+			power.parent = src
+			user << "<span class='notice'>You add a power module to the armor.</span>"
+	else
+		user << "<span class='danger'>The armor already contains a module of that type..</span>"
+		return
+	..()
 
 /obj/item/clothing/head/space/powered
-	name = "Powered armor"
-	icon_state = "swat"
+	name = "Powered armor helmet"
 	desc = "Not for rookies."
 	flags = FPRINT | TABLEPASS | HEADCOVERSEYES | HEADCOVERSMOUTH | STOPSPRESSUREDMAGE | BLOCKHAIR
+	icon_state = "power_armour_helmet"
 	item_state = "swat"
 	armor = list(melee = 40, bullet = 30, laser = 20,energy = 15, bomb = 25, bio = 10, rad = 10)
 	var/obj/item/clothing/suit/space/powered/parent
+	slowdown = 1
 
 /obj/item/clothing/head/space/powered/proc/atmotoggle()
 	set category = "Object"
@@ -236,45 +264,31 @@
 
 
 /obj/item/clothing/gloves/powered
-	name = "Powered armor"
-	icon_state = "swat"
+	name = "Powered armor gloves"
 	desc = "Not for rookies."
 	flags = FPRINT | TABLEPASS
-	item_state = "swat"
+	icon_state = "power_armour_gloves"
+	item_state = "power_armour_gloves"
 	armor = list(melee = 40, bullet = 30, laser = 20,energy = 15, bomb = 25, bio = 10, rad = 10)
+	slowdown = 1
 
 /obj/item/clothing/shoes/powered
-	name = "Powered armor"
-	icon_state = "swat"
+	name = "Powered armor boots"
 	desc = "Not for rookies."
 	flags = FPRINT | TABLEPASS
+	icon_state = "power_armour_boots"
 	item_state = "swat"
 	armor = list(melee = 40, bullet = 30, laser = 20,energy = 15, bomb = 25, bio = 10, rad = 10)
-
-
-obj/item/clothing/suit/space/powered/spawnable/badmin/New()
-	servos = new /obj/item/powerarmor/servos(src)
-	servos.parent = src
-	reactive = new /obj/item/powerarmor/reactive(src)
-	reactive.parent = src
-	atmoseal = new /obj/item/powerarmor/atmoseal/optional/adminbus(src)
-	atmoseal.parent = src
-	power = new /obj/item/powerarmor/power(src)
-	power.parent = src
-
-	verbs += /obj/item/clothing/suit/space/powered/proc/poweron
-
-	var/obj/item/clothing/head/space/powered/helm = new /obj/item/clothing/head/space/powered(src.loc)
-	helm.verbs += /obj/item/clothing/head/space/powered/proc/atmotoggle
+	slowdown = 2
 
 obj/item/clothing/suit/space/powered/spawnable/regular/New()
 	servos = new /obj/item/powerarmor/servos(src)
 	servos.parent = src
-	reactive = new /obj/item/powerarmor/reactive/Centcom(src)
+	reactive = new /obj/item/powerarmor/reactive(src)
 	reactive.parent = src
-	atmoseal = new /obj/item/powerarmor/atmoseal/optional/adminbus(src)
+	atmoseal = new /obj/item/powerarmor/atmoseal(src)
 	atmoseal.parent = src
-	power = new /obj/item/powerarmor/power(src)
+	power = new /obj/item/powerarmor/power/powercell(src)
 	power.parent = src
 
 	verbs += /obj/item/clothing/suit/space/powered/proc/poweron

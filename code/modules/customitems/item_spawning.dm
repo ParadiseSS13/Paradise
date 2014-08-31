@@ -1,29 +1,22 @@
 /proc/EquipRacialItems(mob/living/carbon/human/M)
-	if(M.species.name=="Vox")
+	if(M.species.name == "Vox" || M.species.name == "Vox Armalis")
 		M.equip_to_slot_or_del(new /obj/item/clothing/shoes/magboots/vox(M), slot_shoes) // REPLACE THESE WITH CODED VOX ALTERNATIVES.
-		M.equip_to_slot_or_del(new /obj/item/clothing/mask/breath/vox(M), slot_wear_mask)
+		M.equip_to_slot_or_del(new /obj/item/clothing/mask/breath(M), slot_wear_mask)
 		M.equip_to_slot_or_del(new /obj/item/weapon/tank/nitrogen(M), slot_back)
 		M << "\blue You are now running on nitrogen internals from the [M.back] in your suit storage. Your species finds oxygen toxic, so you must breathe nitrogen only."
 		M.internal = M.back
 		if (M.internals)
 			M.internals.icon_state = "internal1"
 
-		var/sounds = rand(2,10)
-		var/i = 0
-		var/newname = ""
-
-		while(i<=sounds)
-			i++
-			newname += pick(list("ti","hi","ki","ya","ta","ha","ka","ya","chi","cha","kah"))
-
-		M.real_name = capitalize(newname)
-		M.name = M.real_name
+		M.generate_name()
 
 	if( M.species.name=="Tajaran" || M.species.name=="Unathi" )
+		if(M.mind.assigned_role == "Cyborg" || M.mind.assigned_role == "Clown")
+			return //Cyborgs don't wear shoes.  Clown shoes are large.
 		M.equip_to_slot_or_del(new /obj/item/clothing/shoes/sandal(M), slot_shoes)
 
 /proc/EquipCustomItems(mob/living/carbon/human/M)
-	testing("\[CustomItem\] Checking for custom items for [M.ckey] ([M.real_name])...")
+//	testing("\[CustomItem\] Checking for custom items for [M.ckey] ([M.real_name])...")
 	if(!establish_db_connection())
 		return
 
@@ -42,7 +35,7 @@
 	*/
 
 	// Grab the info we want.
-	var/DBQuery/query = dbcon.NewQuery("SELECT cuiPath, cuiPropAdjust, cuiJobMask FROM CustomUserItems WHERE cuiCKey='[M.ckey]' AND (cuiRealName='[M.real_name]' OR cuiRealName='*')")
+	var/DBQuery/query = dbcon.NewQuery("SELECT cuiPath, cuiPropAdjust, cuiJobMask, cuiDescription FROM CustomUserItems WHERE cuiCKey='[M.ckey]' AND (cuiRealName='[M.real_name]' OR cuiRealName='*')")
 	query.Execute()
 
 	while(query.NextRow())
@@ -63,6 +56,7 @@
 
 
 		var/obj/item/Item = new path()
+		var/description = query.item[4]
 		testing("Adding new custom item [query.item[1]] to [key_name_admin(M)]...")
 		if(istype(Item,/obj/item/weapon/card/id))
 			var/obj/item/weapon/card/id/I = Item
@@ -94,6 +88,8 @@
 					testing("Added to [S]!")
 					M << "\blue Your [Item.name] has been added to your [S.name]."
 					break
+		if(description)
+			Item.desc = description
 
 		//skip:
 		if (ok == 0) // Finally, since everything else failed, place it on the ground

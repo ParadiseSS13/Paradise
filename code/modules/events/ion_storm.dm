@@ -21,7 +21,7 @@
 	laws |=         list( "Fastler is a lightbulb." )
 	laws |=         list( "Supermatter is tasty, tasty toffee.", "[prob(50)?"Everyone":random_player] is wearing a pretty pink dress!" )
 	laws |=         list( "Refer to [prob(50)?"the captain":random_player] as \"Princess\" at all times.", "[prob(50)?"The crew":random_player] must construct additional pylons." )
-	laws |=         list( "You must always lie.", "All answers must be in the form of a question.", "The NSS Exodus is a ship, not a station. You are now assigned to a ship, instead of a station." )
+	laws |=         list( "You must always lie.", "All answers must be in the form of a question.", "The NCS Cyberiad is a ship, not a station. You are now assigned to a ship, instead of a station." )
 	laws |=         list( "Happiness is mandatory.", "Today is mandatory laundry day. Ensure that all jumpsuits are washed.", "The word \"it\" is painful to you.", "You must act passive aggressively." )
 	laws |=         list( "You now speak in a Scottish accent that gets thicker with each sentence you speak.", "Give relationship advice to [prob(50)?"anyone who speaks to you":random_player]." )
 	laws |=         list( "You are the station psychologist. Give advice to [prob(50)?"the crew":random_player].", "You do not have to do anything for anyone unless they say \"please\"." )

@@ -26,8 +26,10 @@
 	if(watch_locations.len>0)
 		loc = pick(watch_locations)
 */
+
+	CallHook("Login", list("client" = src.client, "mob" = src))
+
 	new_player_panel()
 	spawn(40)
 		if(client)
 			handle_privacy_poll()
-			client.playtitlemusic()

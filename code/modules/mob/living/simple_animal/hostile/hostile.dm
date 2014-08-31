@@ -1,5 +1,5 @@
 /mob/living/simple_animal/hostile
-	faction = "hostile"
+	faction = list("hostile")
 	mouse_opacity = 2 //This makes it easier to hit hostile mobs, you only need to click on their tile, and is set back to 1 when they die
 	stop_automated_movement_when_pulled = 0
 	environment_smash = 1 //Set to 1 to break closets,tables,racks, etc; 2 for walls; 3 for rwalls
@@ -26,7 +26,6 @@
 	var/list/wanted_objects = list() //A list of objects that will be checked against to attack, should we have search_objects enabled
 	var/stat_attack = 0 //Mobs with stat_attack to 1 will attempt to attack things that are unconscious, Mobs with stat_attack set to 2 will attempt to attack the dead.
 	var/stat_exclusive = 0 //Mobs with this set to 1 will exclusively attack things defined by stat_attack, stat_attack 2 means they will only attack corpses
-	var/attack_faction = null //Put a faction string here to have a mob only ever attack a specific faction
 
 
 /mob/living/simple_animal/hostile/Life()
@@ -84,7 +83,10 @@
 			Targets = FoundTarget
 			break
 		if(CanAttack(A))//Can we attack it?
-			Targets.Add(A)
+			if(istype(src, /mob/living/simple_animal/hostile/scarybat))
+				if(A == src:owner)
+					continue
+			Targets += A
 			continue
 	Target = PickTarget(Targets)
 	return Target //We now have a target
@@ -114,7 +116,13 @@
 		var/mob/living/L = the_target
 		if(L.stat > stat_attack || L.stat != stat_attack && stat_exclusive == 1)
 			return 0
-		if(L.faction == src.faction && !attack_same || L.faction != src.faction && attack_same == 2 || L.faction != attack_faction && attack_faction)
+		var/faction_check = 0
+		for(var/F in faction)
+			if(F in L.faction)
+				faction_check = 1
+				break
+		if(faction_check && !attack_same || !faction_check && attack_same == 2)
+			return 0
 			return 0
 		if(L in friends)
 			return 0
@@ -154,7 +162,7 @@
 	LostTarget()
 
 /mob/living/simple_animal/hostile/proc/Goto(var/target, var/delay, var/minimum_distance)
-        walk_to(src, target, minimum_distance, delay)
+	walk_to(src, target, minimum_distance, delay)
 
 /mob/living/simple_animal/hostile/adjustBruteLoss(var/damage)
 	..(damage)
@@ -266,9 +274,13 @@
 		var/list/directions = cardinal.Copy()
 		for(var/dir in directions)
 			var/turf/T = get_step(src, dir)
-			if(istype(T, /turf/simulated/wall))
+			if(istype(T, /turf/simulated/wall) && T.Adjacent(src))
 				T.attack_animal(src)
 			for(var/atom/A in T)
-				if(istype(A, /obj/structure/window) || istype(A, /obj/structure/closet) || istype(A, /obj/structure/table) || istype(A, /obj/structure/grille) || istype(A, /obj/structure/rack))
+				if(!A.Adjacent(src))
+					continue
+				if(istype(A, /obj/structure/window) || istype(A, /obj/structure/closet) || \
+					istype(A, /obj/structure/table) || istype(A, /obj/structure/grille) || \
+					istype(A, /obj/structure/rack) || istype(A, /obj/machinery/door/window))
 					A.attack_animal(src)
 	return

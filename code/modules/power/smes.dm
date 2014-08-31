@@ -30,6 +30,9 @@
 /obj/machinery/power/smes/New()
 	..()
 	spawn(5)
+		if(!powernet)
+			connect_to_network()
+		
 		dir_loop:
 			for(var/d in cardinal)
 				var/turf/T = get_step(src, d)
@@ -41,6 +44,8 @@
 			stat |= BROKEN
 			return
 		terminal.master = src
+		if(!terminal.powernet)
+			terminal.connect_to_network()
 		updateicon()
 	return
 
@@ -187,7 +192,9 @@
 	ui_interact(user)
 
 
-/obj/machinery/power/smes/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null)
+
+/obj/machinery/power/smes/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
+
 	if(stat & BROKEN)
 		return
 
@@ -205,7 +212,7 @@
 	data["outputLoad"] = round(loaddemand)
 
 	// update the ui if it exists, returns null if no ui is passed/found
-	ui = nanomanager.try_update_ui(user, src, ui_key, ui, data)
+	ui = nanomanager.try_update_ui(user, src, ui_key, ui, data, force_open)
 	if (!ui)
 		// the ui does not exist, so we'll create a new() one
         // for a list of parameters and their descriptions see the code docs in \code\modules\nano\nanoui.dm
@@ -321,13 +328,12 @@
 		charge = INFINITY
 		..()
 
-
-
 /proc/rate_control(var/S, var/V, var/C, var/Min=1, var/Max=5, var/Limit=null)
 	var/href = "<A href='?src=\ref[S];rate control=1;[V]"
 	var/rate = "[href]=-[Max]'>-</A>[href]=-[Min]'>-</A> [(C?C : 0)] [href]=[Min]'>+</A>[href]=[Max]'>+</A>"
 	if(Limit) return "[href]=-[Limit]'>-</A>"+rate+"[href]=[Limit]'>+</A>"
 	return rate
+
 
 
 #undef SMESRATE

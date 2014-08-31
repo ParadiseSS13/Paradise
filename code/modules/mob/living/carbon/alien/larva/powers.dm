@@ -48,7 +48,10 @@
 				new_xeno = new /mob/living/carbon/alien/humanoid/sentinel(loc)
 			if("Drone")
 				new_xeno = new /mob/living/carbon/alien/humanoid/drone(loc)
-		if(mind)	mind.transfer_to(new_xeno)
+		if(mind)
+			mind.transfer_to(new_xeno)
+		else
+			new_xeno.key = key
 		del(src)
 		return
 	else

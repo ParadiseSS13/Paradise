@@ -5,69 +5,71 @@
 	voice_name = "unknown"
 	icon = 'icons/mob/human.dmi'
 	icon_state = "body_m_s"
-	var/list/hud_list = list()
+	var/list/hud_list[10]
 	var/datum/species/species //Contains icon generation and language information, set during New().
+	var/embedded_flag	  //To check if we've need to roll for damage on movement while an item is imbedded in us.
 
 /mob/living/carbon/human/dummy
 	real_name = "Test Dummy"
 	status_flags = GODMODE|CANPUSH
 
-/mob/living/carbon/human/skrell/New()
+/mob/living/carbon/human/skrell/New(var/new_loc)
 	h_style = "Skrell Male Tentacles"
-	set_species("Skrell")
-	..()
+	..(new_loc, "Skrell")
 
-/mob/living/carbon/human/tajaran/New()
+/mob/living/carbon/human/tajaran/New(var/new_loc)
 	h_style = "Tajaran Ears"
-	set_species("Tajaran")
-	..()
+	..(new_loc, "Tajaran")
 
-/mob/living/carbon/human/unathi/New()
+/mob/living/carbon/human/unathi/New(var/new_loc)
 	h_style = "Unathi Horns"
-	set_species("Unathi")
-	..()
+	..(new_loc, "Unathi")
 
-/mob/living/carbon/human/vox/New()
+/mob/living/carbon/human/vox/New(var/new_loc)
 	h_style = "Short Vox Quills"
-	set_species("Vox")
-	..()
+	..(new_loc, "Vox")
 
-/mob/living/carbon/human/skellington/New()
+/mob/living/carbon/human/voxarmalis/New(var/new_loc)
 	h_style = "Bald"
-	set_species("Skellington")
-	..()
+	..(new_loc, "Vox Armalis")
 
-/mob/living/carbon/human/diona/New()
-	species = new /datum/species/diona(src)
-	..()
+/mob/living/carbon/human/skellington/New(var/new_loc)
+	h_style = "Bald"
+	..(new_loc, "Skellington")
 
-/mob/living/carbon/human/kidan/New()
-	species = new /datum/species/kidan(src)
-	..()
+/mob/living/carbon/human/kidan/New(var/new_loc)
+	..(new_loc, "Kidan")
 
-/mob/living/carbon/human/slime/New()
-	species = new /datum/species/slime(src)
-	dna = new /datum/dna(null)
-	dna.mutantrace = "slime"
-	..()
+/mob/living/carbon/human/plasma/New(var/new_loc)
+	h_style = "Bald"
+	..(new_loc, "Plasmaman")
 
-/mob/living/carbon/human/machine/New()
-	species = new /datum/species/machine(src)
-	..()
+/mob/living/carbon/human/slime/New(var/new_loc)
+	..(new_loc, "Slime People")
+	verbs += /mob/living/carbon/human/slime/proc/slimepeople_ventcrawl
 
-/mob/living/carbon/human/grey/New()
-	set_species("Grey")
-	mutations.Add(M_REMOTE_TALK)
-	verbs += /mob/living/carbon/human/proc/remotesay
-	..()
+/mob/living/carbon/human/grey/New(var/new_loc)
+	..(new_loc, "Grey")
+	spell_list += new /obj/effect/proc_holder/spell/wizard/targeted/remotetalk
 
-/mob/living/carbon/human/human/New()
-	species = new /datum/species/human(src)
-	..()
 
-/mob/living/carbon/human/New()
+/mob/living/carbon/human/human/New(var/new_loc)
+	..(new_loc, "Human")
+
+/mob/living/carbon/human/diona/New(var/new_loc)
+	h_style = "Bald"
+	..(new_loc, "Diona")
+
+/mob/living/carbon/human/machine/New(var/new_loc)
+	h_style = "blue IPC screen"
+	..(new_loc, "Machine")
+
+/mob/living/carbon/human/New(var/new_loc, var/new_species = null, var/delay_ready_dna=0)
 	if(!species)
-		set_species()
+		if(new_species)
+			set_species(new_species,null,1)
+		else
+			set_species()
 
 	if(species.language)
 		var/datum/language/L = all_languages[species.language]
@@ -82,8 +84,16 @@
 		dna = new /datum/dna(null)
 		dna.species=species.name
 
-	for(var/i=0;i<7;i++) // 2 for medHUDs and 5 for secHUDs
-		hud_list += image('icons/mob/hud.dmi', src, "hudunknown")
+	hud_list[HEALTH_HUD]      = image('icons/mob/hud.dmi', src, "hudhealth100")
+	hud_list[STATUS_HUD]      = image('icons/mob/hud.dmi', src, "hudhealthy")
+	hud_list[ID_HUD]          = image('icons/mob/hud.dmi', src, "hudunknown")
+	hud_list[WANTED_HUD]      = image('icons/mob/hud.dmi', src, "hudblank")
+	hud_list[IMPLOYAL_HUD]    = image('icons/mob/hud.dmi', src, "hudblank")
+	hud_list[IMPCHEM_HUD]     = image('icons/mob/hud.dmi', src, "hudblank")
+	hud_list[IMPTRACK_HUD]    = image('icons/mob/hud.dmi', src, "hudblank")
+	hud_list[SPECIALROLE_HUD] = image('icons/mob/hud.dmi', src, "hudblank")
+	hud_list[STATUS_HUD_OOC]  = image('icons/mob/hud.dmi', src, "hudhealthy")
+	hud_list[NATIONS_HUD] = image('icons/mob/hud.dmi', src, "hudblank")
 
 	..()
 
@@ -91,8 +101,11 @@
 		dna.real_name = real_name
 
 	prev_gender = gender // Debug for plural genders
-	make_organs()
 	make_blood()
+
+	// Set up DNA.
+	if(!delay_ready_dna)
+		dna.ready_dna(src)
 
 
 /mob/living/carbon/human/Bump(atom/movable/AM as mob|obj, yes)
@@ -120,8 +133,20 @@
 					now_pushing = 0
 					return
 
+		//Leaping mobs just land on the tile, no pushing, no anything.
+		if(status_flags & LEAPING)
+			loc = tmob.loc
+			status_flags &= ~LEAPING
+			now_pushing = 0
+			return
+
+		if(istype(tmob,/mob/living/silicon/robot/drone)) //I have no idea why the hell this isn't already happening. How do mice do it?
+			loc = tmob.loc
+			now_pushing = 0
+			return
+
 		//BubbleWrap: people in handcuffs are always switched around as if they were on 'help' intent to prevent a person being pulled from being seperated from their puller
-		if((tmob.a_intent == "help" || tmob.restrained()) && (a_intent == "help" || src.restrained()) && tmob.canmove && canmove) // mutual brohugs all around!
+		if((tmob.a_intent == "help" || tmob.restrained()) && (a_intent == "help" || src.restrained()) && tmob.canmove && !tmob.buckled && canmove) // mutual brohugs all around!
 			var/turf/oldloc = loc
 			loc = tmob.loc
 			tmob.loc = oldloc
@@ -160,11 +185,10 @@
 
 			if (!AM.anchored)
 				var/t = get_dir(src, AM)
-				if (istype(AM, /obj/structure/window))
-					if(AM:ini_dir == NORTHWEST || AM:ini_dir == NORTHEAST || AM:ini_dir == SOUTHWEST || AM:ini_dir == SOUTHEAST)
-						for(var/obj/structure/window/win in get_step(AM,t))
-							now_pushing = 0
-							return
+				if (istype(AM, /obj/structure/window/full))
+					for(var/obj/structure/window/win in get_step(AM,t))
+						now_pushing = 0
+						return
 				step(AM, t)
 			now_pushing = 0
 		return
@@ -180,10 +204,9 @@
 		if(ticker.mode:malf_mode_declared)
 			stat(null, "Time left: [max(ticker.mode:AI_win_timeleft/(ticker.mode:apcs/3), 0)]")
 	if(emergency_shuttle)
-		if(emergency_shuttle.online && emergency_shuttle.location < 2)
-			var/timeleft = emergency_shuttle.timeleft()
-			if (timeleft)
-				stat(null, "ETA-[(timeleft / 60) % 60]:[add_zero(num2text(timeleft % 60), 2)]")
+		var/eta_status = emergency_shuttle.get_status_panel_eta()
+		if(eta_status)
+			stat(null, eta_status)
 
 	if (client.statpanel == "Status")
 		if (internal)
@@ -200,6 +223,10 @@
 		if (istype(wear_suit, /obj/item/clothing/suit/space/space_ninja)&&wear_suit:s_initialized)
 			stat("Energy Charge", (wear_suit:cell:charge))
 
+	if(istype(loc, /obj/spacepod)) // Spacdpods!
+		var/obj/spacepod/S = loc
+		stat("Spacepod Charge", "[istype(S.battery) ? "[(S.battery.charge / S.battery.maxcharge) * 100]" : "No cell detected"]")
+		stat("Spacepod Integrity", "[!S.health ? "0" : "[(S.health / initial(S.health)) * 100]"]%")
 
 /mob/living/carbon/human/ex_act(severity)
 	if(!blinded)
@@ -345,7 +372,7 @@
 
 		var/damage = rand(1, 3)
 
-		if(istype(M, /mob/living/carbon/slime/adult))
+		if(M.is_adult)
 			damage = rand(10, 35)
 		else
 			damage = rand(5, 25)
@@ -435,6 +462,7 @@
 	<BR><B>(Exo)Suit:</B> <A href='?src=\ref[src];item=suit'>[(wear_suit ? wear_suit : "Nothing")]</A>
 	<BR><B>Back:</B> <A href='?src=\ref[src];item=back'>[(back ? back : "Nothing")]</A> [((istype(wear_mask, /obj/item/clothing/mask) && istype(back, /obj/item/weapon/tank) && !( internal )) ? text(" <A href='?src=\ref[];item=internal'>Set Internal</A>", src) : "")]
 	<BR><B>ID:</B> <A href='?src=\ref[src];item=id'>[(wear_id ? wear_id : "Nothing")]</A>
+	<BR><B>PDA:</B> <A href='?src=\ref[src];item=pda'>[(wear_pda ? wear_pda : "Nothing")]</A>
 	<BR><B>Suit Storage:</B> <A href='?src=\ref[src];item=s_store'>[(s_store ? s_store : "Nothing")]</A>
 	<BR>[(handcuffed ? text("<A href='?src=\ref[src];item=handcuff'>Handcuffed</A>") : text("<A href='?src=\ref[src];item=handcuff'>Not Handcuffed</A>"))]
 	<BR>[(legcuffed ? text("<A href='?src=\ref[src];item=legcuff'>Legcuffed</A>") : text(""))]
@@ -450,11 +478,16 @@
 	return
 
 // called when something steps onto a human
-// this could be made more general, but for now just handle mulebot
+// this handles mulebots and vehicles
 /mob/living/carbon/human/Crossed(var/atom/movable/AM)
-	var/obj/machinery/bot/mulebot/MB = AM
-	if(istype(MB))
+	if(istype(AM, /obj/machinery/bot/mulebot))
+		var/obj/machinery/bot/mulebot/MB = AM
 		MB.RunOver(src)
+
+	if(istype(AM, /obj/vehicle))
+		var/obj/vehicle/V = AM
+		V.RunOver(src)
+
 
 //gets assignment from ID or ID inside PDA or PDA itself
 //Useful when player do something with computers
@@ -528,21 +561,26 @@
 	if (istype(id))
 		return id
 
-//Added a safety check in case you want to shock a human mob directly through electrocute_act.
-/mob/living/carbon/human/electrocute_act(var/shock_damage, var/obj/source, var/siemens_coeff = 1.0, var/safety = 0)
-	if(!safety)
-		if(gloves)
-			var/obj/item/clothing/gloves/G = gloves
-			siemens_coeff = G.siemens_coefficient
-	//If they have shock immunity mutation
-	if(M_NO_SHOCK in src.mutations)
-		siemens_coeff = 0
-	return ..(shock_damage,source,siemens_coeff)
+//Removed the horrible safety parameter. It was only being used by ninja code anyways.
+//Now checks siemens_coefficient of the affected area by default
+/mob/living/carbon/human/electrocute_act(var/shock_damage, var/obj/source, var/base_siemens_coeff = 1.0, var/def_zone = null)
+	if(status_flags & GODMODE)	return 0	//godmode
+
+	if (!def_zone)
+		def_zone = pick("l_hand", "r_hand")
+
+	var/datum/organ/external/affected_organ = get_organ(check_zone(def_zone))
+	var/siemens_coeff = base_siemens_coeff * get_siemens_coefficient_organ(affected_organ)
+
+	return ..(shock_damage, source, siemens_coeff, def_zone)
 
 
 /mob/living/carbon/human/Topic(href, href_list)
 	var/pickpocket = 0
+
 	if(!usr.stat && usr.canmove && !usr.restrained() && in_range(src, usr))
+
+		// if looting pockets with gloves, do it quietly
 		if(href_list["pockets"])
 			if(usr:gloves)
 				var/obj/item/clothing/gloves/G = usr:gloves
@@ -578,6 +616,47 @@
 				// Display a warning if the user mocks up
 				src << "<span class='warning'>You feel your [pocket_side] pocket being fumbled with!</span>"
 
+
+		// if looting id with gloves, do it quietly - this allows pickpocket gloves to take/place id stealthily - Bone White
+		if(href_list["item"])
+			var/itemTarget = href_list["item"]
+			if(itemTarget == "id")
+				if(usr:gloves)
+					var/obj/item/clothing/gloves/G = usr:gloves
+					pickpocket = G.pickpocket
+				if(pickpocket)
+					var/obj/item/worn_id = src.wear_id
+					var/obj/item/place_item = usr.get_active_hand() // Item to place in the pocket, if it's empty
+
+					if(worn_id)
+						usr << "<span class='notice'>You try to remove [src]'s ID.</span>"
+					else if(place_item && place_item.mob_can_equip(src, slot_wear_id, 1))
+						usr << "<span class='notice'>You try to place [place_item] onto [src].</span>"
+					else
+						return
+
+					if(do_mob(usr, src, STRIP_DELAY))
+						if(worn_id)
+							u_equip(worn_id)
+							usr.put_in_hands(worn_id)
+						else
+							if(place_item)
+								usr.u_equip(place_item)
+							equip_to_slot_if_possible(place_item, slot_wear_id, 0, 1)
+
+						// Update strip window
+						if(usr.machine == src && in_range(src, usr))
+							show_inv(usr)
+
+
+
+					else if(!pickpocket)
+						// Display a warning if the user mocks up
+						src << "<span class='warning'>You feel your ID slot being fumbled with!</span>"
+
+
+
+
 	if (href_list["refresh"])
 		if((machine)&&(in_range(src, usr)))
 			show_inv(machine)
@@ -592,17 +671,18 @@
 		if(ishuman(usr) && usr:gloves)
 			var/obj/item/clothing/gloves/G = usr:gloves
 			pickpocket = G.pickpocket
-		O.source = usr
-		O.target = src
-		O.item = usr.get_active_hand()
-		O.s_loc = usr.loc
-		O.t_loc = loc
-		O.place = href_list["item"]
-		O.pickpocket = pickpocket //Stealthy
-		requests += O
-		spawn( 0 )
-			O.process()
-			return
+		if(!pickpocket || href_list["item"] != "id")  // Stop the non-stealthy verbose strip if pickpocketing id.
+			O.source = usr
+			O.target = src
+			O.item = usr.get_active_hand()
+			O.s_loc = usr.loc
+			O.t_loc = loc
+			O.place = href_list["item"]
+			O.pickpocket = pickpocket //Stealthy
+			requests += O
+			spawn( 0 )
+				O.process()
+				return
 
 	if (href_list["criminal"])
 		if(hasHUD(usr,"security"))
@@ -632,6 +712,7 @@
 										modified = 1
 
 										spawn()
+											hud_updateflag |= 1 << WANTED_HUD
 											if(istype(usr,/mob/living/carbon/human))
 												var/mob/living/carbon/human/U = usr
 												U.handle_regular_hud_updates()
@@ -726,10 +807,10 @@
 									counter++
 								if(istype(usr,/mob/living/carbon/human))
 									var/mob/living/carbon/human/U = usr
-									R.fields[text("com_[counter]")] = text("Made by [U.get_authentification_name()] ([U.get_assignment()]) on [time2text(world.realtime, "DDD MMM DD hh:mm:ss")], 2557<BR>[t1]")
+									R.fields[text("com_[counter]")] = text("Made by [U.get_authentification_name()] ([U.get_assignment()]) on [time2text(world.realtime, "DDD MMM DD hh:mm:ss")], [game_year]<BR>[t1]")
 								if(istype(usr,/mob/living/silicon/robot))
 									var/mob/living/silicon/robot/U = usr
-									R.fields[text("com_[counter]")] = text("Made by [U.name] ([U.braintype]) on [time2text(world.realtime, "DDD MMM DD hh:mm:ss")], 2557<BR>[t1]")
+									R.fields[text("com_[counter]")] = text("Made by [U.name] ([U.modtype] [U.braintype]) on [time2text(world.realtime, "DDD MMM DD hh:mm:ss")], [game_year]<BR>[t1]")
 
 	if (href_list["medical"])
 		if(hasHUD(usr,"medical"))
@@ -756,6 +837,8 @@
 								if(setmedical != "Cancel")
 									R.fields["p_stat"] = setmedical
 									modified = 1
+									if(PDA_Manifest.len)
+										PDA_Manifest.Cut()
 
 									spawn()
 										if(istype(usr,/mob/living/carbon/human))
@@ -853,10 +936,18 @@
 									counter++
 								if(istype(usr,/mob/living/carbon/human))
 									var/mob/living/carbon/human/U = usr
-									R.fields[text("com_[counter]")] = text("Made by [U.get_authentification_name()] ([U.get_assignment()]) on [time2text(world.realtime, "DDD MMM DD hh:mm:ss")], 2557<BR>[t1]")
+									R.fields[text("com_[counter]")] = text("Made by [U.get_authentification_name()] ([U.get_assignment()]) on [time2text(world.realtime, "DDD MMM DD hh:mm:ss")], [game_year]<BR>[t1]")
 								if(istype(usr,/mob/living/silicon/robot))
 									var/mob/living/silicon/robot/U = usr
-									R.fields[text("com_[counter]")] = text("Made by [U.name] ([U.braintype]) on [time2text(world.realtime, "DDD MMM DD hh:mm:ss")], 2557<BR>[t1]")
+									R.fields[text("com_[counter]")] = text("Made by [U.name] ([U.modtype] [U.braintype]) on [time2text(world.realtime, "DDD MMM DD hh:mm:ss")], [game_year]<BR>[t1]")
+
+	if (href_list["lookitem"])
+		var/obj/item/I = locate(href_list["lookitem"])
+		I.examine()
+
+	if (href_list["lookmob"])
+		var/mob/M = locate(href_list["lookmob"])
+		M.examine()
 	..()
 	return
 
@@ -873,6 +964,8 @@
 	if(istype(src.glasses, /obj/item/clothing/glasses/thermal))
 		number -= 1
 	if(istype(src.glasses, /obj/item/clothing/glasses/sunglasses))
+		number += 1
+	if(istype(src.glasses, /obj/item/clothing/glasses/hud/health_advanced)) // New blueshield / brig phys no flash medi hud
 		number += 1
 	if(istype(src.glasses, /obj/item/clothing/glasses/welding))
 		var/obj/item/clothing/glasses/welding/W = src.glasses
@@ -919,8 +1012,13 @@
 			xylophone=0
 	return
 
+
 /mob/living/carbon/human/proc/vomit(hairball=0)
 	if(stat==2)return
+
+	if(species.flags & IS_SYNTHETIC)
+		return //Machines don't throw up.
+
 	if(!lastpuke)
 		lastpuke = 1
 		src << "<spawn class='warning'>You feel nauseous..."
@@ -953,157 +1051,6 @@
 				spawn(350)	//wait 35 seconds before next volley
 					lastpuke = 0
 
-/mob/living/carbon/human/proc/morph()
-	set name = "Morph"
-	set category = "Superpower"
-
-	if(stat!=CONSCIOUS)
-		reset_view(0)
-		remoteview_target = null
-		return
-
-	if(!(M_MORPH in mutations))
-		src.verbs -= /mob/living/carbon/human/proc/morph
-		return
-
-	var/new_facial = input("Please select facial hair color.", "Character Generation",rgb(r_facial,g_facial,b_facial)) as color
-	if(new_facial)
-		r_facial = hex2num(copytext(new_facial, 2, 4))
-		g_facial = hex2num(copytext(new_facial, 4, 6))
-		b_facial = hex2num(copytext(new_facial, 6, 8))
-
-	var/new_hair = input("Please select hair color.", "Character Generation",rgb(r_hair,g_hair,b_hair)) as color
-	if(new_facial)
-		r_hair = hex2num(copytext(new_hair, 2, 4))
-		g_hair = hex2num(copytext(new_hair, 4, 6))
-		b_hair = hex2num(copytext(new_hair, 6, 8))
-
-	var/new_eyes = input("Please select eye color.", "Character Generation",rgb(r_eyes,g_eyes,b_eyes)) as color
-	if(new_eyes)
-		r_eyes = hex2num(copytext(new_eyes, 2, 4))
-		g_eyes = hex2num(copytext(new_eyes, 4, 6))
-		b_eyes = hex2num(copytext(new_eyes, 6, 8))
-
-	var/new_tone = input("Please select skin tone level: 1-220 (1=albino, 35=caucasian, 150=black, 220='very' black)", "Character Generation", "[35-s_tone]")  as text
-
-	if (!new_tone)
-		new_tone = 35
-	s_tone = max(min(round(text2num(new_tone)), 220), 1)
-	s_tone =  -s_tone + 35
-
-	// hair
-	var/list/all_hairs = typesof(/datum/sprite_accessory/hair) - /datum/sprite_accessory/hair
-	var/list/hairs = list()
-
-	// loop through potential hairs
-	for(var/x in all_hairs)
-		var/datum/sprite_accessory/hair/H = new x // create new hair datum based on type x
-		hairs.Add(H.name) // add hair name to hairs
-		del(H) // delete the hair after it's all done
-
-	var/new_style = input("Please select hair style", "Character Generation",h_style)  as null|anything in hairs
-
-	// if new style selected (not cancel)
-	if (new_style)
-		h_style = new_style
-
-	// facial hair
-	var/list/all_fhairs = typesof(/datum/sprite_accessory/facial_hair) - /datum/sprite_accessory/facial_hair
-	var/list/fhairs = list()
-
-	for(var/x in all_fhairs)
-		var/datum/sprite_accessory/facial_hair/H = new x
-		fhairs.Add(H.name)
-		del(H)
-
-	new_style = input("Please select facial style", "Character Generation",f_style)  as null|anything in fhairs
-
-	if(new_style)
-		f_style = new_style
-
-	var/new_gender = alert(usr, "Please select gender.", "Character Generation", "Male", "Female")
-	if (new_gender)
-		if(new_gender == "Male")
-			gender = MALE
-		else
-			gender = FEMALE
-	regenerate_icons()
-	check_dna()
-
-	visible_message("\blue \The [src] morphs and changes [get_visible_gender() == MALE ? "his" : get_visible_gender() == FEMALE ? "her" : "their"] appearance!", "\blue You change your appearance!", "\red Oh, god!  What the hell was that?  It sounded like flesh getting squished and bone ground into a different shape!")
-
-/mob/living/carbon/human/proc/remotesay()
-	set name = "Project mind"
-	set category = "Superpower"
-
-	if(stat!=CONSCIOUS)
-		reset_view(0)
-		remoteview_target = null
-		return
-
-	if(!(M_REMOTE_TALK in src.mutations))
-		src.verbs -= /mob/living/carbon/human/proc/remotesay
-		return
-	var/list/creatures = list()
-	for(var/mob/living/carbon/h in world)
-		creatures += h
-	var/mob/target = input ("Who do you want to project your mind to ?") as null|anything in creatures
-	if (isnull(target))
-		return
-
-	var/say = input ("What do you wish to say")
-	if(M_REMOTE_TALK in target.mutations)
-		target.show_message("\blue You hear [src.real_name]'s voice: [say]")
-	else
-		target.show_message("\blue You hear a voice that seems to echo around the room: [say]")
-	usr.show_message("\blue You project your mind into [target.real_name]: [say]")
-	for(var/mob/dead/observer/G in world)
-		G.show_message("<i>Telepathic message from <b>[src]</b> to <b>[target]</b>: [say]</i>")
-
-/mob/living/carbon/human/proc/remoteobserve()
-	set name = "Remote View"
-	set category = "Superpower"
-
-	if(stat!=CONSCIOUS)
-		remoteview_target = null
-		reset_view(0)
-		return
-
-	if(!(M_REMOTE_VIEW in src.mutations))
-		remoteview_target = null
-		reset_view(0)
-		src.verbs -= /mob/living/carbon/human/proc/remoteobserve
-		return
-
-	if(istype(l_hand, /obj/item/tk_grab) || istype(r_hand, /obj/item/tk_grab/))
-		src << "\red Your mind is too busy with that telekinetic grab."
-		remoteview_target = null
-		reset_view(0)
-		return
-
-	if(client.eye != client.mob)
-		remoteview_target = null
-		reset_view(0)
-		return
-
-	var/list/mob/creatures = list()
-
-	for(var/mob/living/carbon/h in world)
-		var/turf/temp_turf = get_turf(h)
-		if((temp_turf.z != 1 && temp_turf.z != 5) || h.stat!=CONSCIOUS) //Not on mining or the station. Or dead
-			continue
-		if(M_PSY_RESIST in h.mutations)
-			continue
-		creatures += h
-
-	var/mob/target = input ("Who do you want to project your mind to ?") as mob in creatures
-
-	if (target)
-		remoteview_target = target
-		reset_view(target)
-	else
-		remoteview_target = null
-		reset_view(0)
 
 /mob/living/carbon/human/proc/get_visible_gender()
 	if(wear_suit && wear_suit.flags_inv & HIDEJUMPSUIT && ((head && head.flags_inv & HIDEMASK) || wear_mask))
@@ -1125,6 +1072,7 @@
 		O.status &= ~ORGAN_ATTACHABLE
 		if (!O.amputated)
 			O.status &= ~ORGAN_DESTROYED
+			O.destspawn = 0
 		O.wounds.Cut()
 		O.heal_damage(1000,1000,1,1)
 
@@ -1142,12 +1090,10 @@
 					H.brainmob.mind.transfer_to(src)
 					del(H)
 
-	for(var/E in internal_organs)
-		var/datum/organ/internal/I = internal_organs[E]
+	for(var/name in internal_organs_by_name)
+		var/datum/organ/internal/I = internal_organs_by_name[name]
 		I.damage = 0
 
-	for (var/datum/disease/virus in viruses)
-		virus.cure()
 	for (var/ID in virus2)
 		var/datum/disease2/disease/V = virus2[ID]
 		V.cure(src)
@@ -1155,16 +1101,36 @@
 	..()
 
 /mob/living/carbon/human/proc/is_lung_ruptured()
-	var/datum/organ/internal/lungs/L = internal_organs["lungs"]
+	var/datum/organ/internal/lungs/L = internal_organs_by_name["lungs"]
 	return L.is_bruised()
 
 /mob/living/carbon/human/proc/rupture_lung()
-	var/datum/organ/internal/lungs/L = internal_organs["lungs"]
+	var/datum/organ/internal/lungs/L = internal_organs_by_name["lungs"]
 
 	if(!L.is_bruised())
 		src.custom_pain("You feel a stabbing pain in your chest!", 1)
 		L.damage = L.min_bruised_damage
 
+//Gave the rupture_lung() call it's own proc to have much more control over it.
+/mob/living/carbon/human/proc/try_lung_rupture(argBreath)
+	var/datum/gas_mixture/environment = loc.return_air()
+	var/datum/gas_mixture/breath = argBreath	
+	var/pressure = environment.return_pressure()
+	var/adjusted_pressure = calculate_affecting_pressure(pressure)
+	
+	//High kPa
+	if(!is_lung_ruptured() && breath.total_moles > BREATH_MOLES * 5)
+		if(prob(5))
+			rupture_lung()
+		return
+	//Low kPa
+	else if(!is_lung_ruptured() && internal && adjusted_pressure <= species.hazard_low_pressure)
+		if(internal.distribute_pressure >= species.warning_low_pressure)
+			if(prob(33))
+				rupture_lung()
+			return
+	else
+		return
 /*
 /mob/living/carbon/human/verb/simulate()
 	set name = "sim"
@@ -1211,97 +1177,27 @@
 	verbs += /mob/living/carbon/human/proc/bloody_doodle
 	return 1 //we applied blood to the item
 
-/mob/living/carbon/human/clean_blood()
+/mob/living/carbon/human/clean_blood(var/clean_feet)
 	.=..()
-	if(istype(feet_blood_DNA, /list) && feet_blood_DNA.len)
+	if(clean_feet && !shoes && istype(feet_blood_DNA, /list) && feet_blood_DNA.len)
 		del(feet_blood_DNA)
+		update_inv_shoes(1)
 		return 1
 
-mob/living/carbon/human/yank_out_object()
-	set category = "Object"
-	set name = "Yank out object"
-	set desc = "Remove an embedded item at the cost of bleeding and pain."
-	set src in view(1)
-
-	if(!isliving(usr) || usr.next_move > world.time)
-		return
-	usr.next_move = world.time + 20
-
-	if(usr.stat == 1)
-		usr << "You are unconcious and cannot do that!"
-		return
-
-	if(usr.restrained())
-		usr << "You are restrained and cannot do that!"
-		return
-
-	var/list/valid_objects = list()
-	var/datum/organ/external/affected = null
-	var/mob/living/carbon/human/S = src
-	var/mob/living/carbon/human/U = usr
-	var/self = null
-
-	if(S == U)
-		self = 1 // Removing object from yourself.
-
-	valid_objects = get_visible_implants(1)
-
-	if(!valid_objects.len)
-		if(self)
-			src << "You have nothing stuck in your wounds that is large enough to remove without surgery."
-		else
-			U << "[src] has nothing stuck in their wounds that is large enough to remove without surgery."
-		return
-
-	var/obj/item/weapon/selection = input("What do you want to yank out?", "Embedded objects") in valid_objects
-
-	for(var/datum/organ/external/organ in organs) //Grab the organ holding the implant.
-		for(var/obj/item/weapon/O in organ.implants)
-			if(O == selection)
-				affected = organ
-	if(self)
-		src << "<span class='warning'>You attempt to get a good grip on the [selection] in your [affected.display_name] with bloody fingers.</span>"
-	else
-		U << "<span class='warning'>You attempt to get a good grip on the [selection] in [S]'s [affected.display_name] with bloody fingers.</span>"
-
-	if(istype(U,/mob/living/carbon/human/)) U.bloody_hands(S)
-
-	if(!do_after(U, 80))
-		return
-
-	if(!selection || !affected || !S || !U)
-		return
-
-	if(self)
-		visible_message("<span class='warning'><b>[src] rips [selection] out of their [affected.display_name] in a welter of blood.</b></span>","<span class='warning'><b>You rip [selection] out of your [affected] in a welter of blood.</b></span>")
-	else
-		visible_message("<span class='warning'><b>[usr] rips [selection] out of [src]'s [affected.display_name] in a welter of blood.</b></span>","<span class='warning'><b>[usr] rips [selection] out of your [affected] in a welter of blood.</b></span>")
-
-	selection.loc = get_turf(src)
-	affected.implants -= selection
-	shock_stage+=10
-
-	for(var/obj/item/weapon/O in pinned)
-		if(O == selection)
-			pinned -= O
-		if(!pinned.len)
-			anchored = 0
-
-	if(prob(10)) //I'M SO ANEMIC I COULD JUST -DIE-.
-		var/datum/wound/internal_bleeding/I = new (15)
-		affected.wounds += I
-		custom_pain("Something tears wetly in your [affected] as [selection] is pulled free!", 1)
-	return 1
-
-/mob/living/carbon/human/proc/get_visible_implants(var/class = 0)
+/mob/living/carbon/human/get_visible_implants(var/class = 0)
 
 	var/list/visible_implants = list()
 	for(var/datum/organ/external/organ in src.organs)
 		for(var/obj/item/weapon/O in organ.implants)
-			if(!istype(O,/obj/item/weapon/implant) && O.w_class > class)
+			if(!istype(O,/obj/item/weapon/implant) && (O.w_class > class) && !istype(O,/obj/item/weapon/shard/shrapnel))
 				visible_implants += O
 
 	return(visible_implants)
+
+/mob/living/carbon/human/generate_name()
+	name = species.makeName(gender,src)
+	real_name = name
+	return name
 
 /mob/living/carbon/human/proc/handle_embedded_objects()
 
@@ -1327,7 +1223,7 @@ mob/living/carbon/human/yank_out_object()
 					src.adjustToxLoss(rand(1,3))
 
 /mob/living/carbon/human/verb/check_pulse()
-	set category = "Object"
+	set category = null
 	set name = "Check pulse"
 	set desc = "Approximately count somebody's pulse. Requires you to stand still at least 6 seconds."
 	set src in view(1)
@@ -1351,14 +1247,14 @@ mob/living/carbon/human/yank_out_object()
 		return
 
 	usr << "Don't move until counting is finished."
-	var/time = world.timeofday
+	var/time = world.time
 	sleep(60)
 	if(usr.l_move_time >= time)	//checks if our mob has moved during the sleep()
 		usr << "You moved while counting. Try again."
 	else
 		usr << "\blue [self ? "Your" : "[src]'s"] pulse is [src.get_pulse(GETPULSE_HAND)]."
 
-/mob/living/carbon/human/proc/set_species(var/new_species,var/on_spawn=0)
+/mob/living/carbon/human/proc/set_species(var/new_species, var/force_organs, var/default_colour)
 
 	if(!dna)
 		if(!new_species)
@@ -1377,6 +1273,9 @@ mob/living/carbon/human/yank_out_object()
 
 	species = all_species[new_species]
 
+	if(force_organs || !organs || !organs.len)
+		species.create_organs(src)
+
 	if(species.language)
 		add_language(species.language)
 
@@ -1386,17 +1285,28 @@ mob/living/carbon/human/yank_out_object()
 	else
 		see_invisible = SEE_INVISIBLE_LIVING
 
-	if(species.name=="Slime People")
-		dna.mutantrace = "slime"
-
 	if(species.default_mutations.len>0 || species.default_blocks.len>0)
 		do_deferred_species_setup=1
 
 	spawn(0)
 		update_icons()
 
+	if(species.base_color && default_colour)
+		//Apply colour.
+		r_skin = hex2num(copytext(species.base_color,2,4))
+		g_skin = hex2num(copytext(species.base_color,4,6))
+		b_skin = hex2num(copytext(species.base_color,6,8))
+	else
+		r_skin = 0
+		g_skin = 0
+		b_skin = 0
+
+	species.handle_post_spawn(src)
+
+	spawn(0)
+		update_icons()
+
 	if(species)
-		species.handle_post_spawn(src)
 		return 1
 	else
 		return 0
@@ -1460,6 +1370,14 @@ mob/living/carbon/human/yank_out_object()
 		update_hair()
 		update_body()
 
+/mob/living/carbon/human/proc/unexpose_brain()
+	var/datum/organ/external/head/H = get_organ("head")
+	if(H)
+		H.brained=0
+		update_hair()
+		update_body()
+
+
 /mob/living/carbon/human/canSingulothPull(var/obj/machinery/singularity/singulo)
 	if(!..())
 		return 0
@@ -1470,3 +1388,191 @@ mob/living/carbon/human/yank_out_object()
 			return 0
 	return 1
 
+
+//Putting a couple of procs here that I don't know where else to dump.
+//Mostly going to be used for Vox and Vox Armalis, but other human mobs might like them (for adminbuse).
+
+/mob/living/carbon/human/proc/leap()
+	set category = "Abilities"
+	set name = "Leap"
+	set desc = "Leap at a target and grab them aggressively."
+
+	if(last_special > world.time)
+		return
+
+	if(stat || paralysis || stunned || weakened || lying || restrained() || buckled)
+		src << "You cannot leap in your current state."
+		return
+
+	var/list/choices = list()
+	for(var/mob/living/M in view(6,src))
+		if(!istype(M,/mob/living/silicon))
+			choices += M
+	choices -= src
+
+	var/mob/living/T = input(src,"Who do you wish to leap at?") as null|anything in choices
+
+	if(!T || !src || src.stat) return
+
+	if(get_dist(get_turf(T), get_turf(src)) > 6) return
+
+	if(last_special > world.time)
+		return
+
+	if(stat || paralysis || stunned || weakened || lying || restrained() || buckled)
+		src << "You cannot leap in your current state."
+		return
+
+	last_special = world.time + 75
+	status_flags |= LEAPING
+
+	src.visible_message("<span class='warning'><b>\The [src]</b> leaps at [T]!</span>")
+	src.throw_at(get_step(get_turf(T),get_turf(src)), 5, 1, src)
+	playsound(src.loc, 'sound/voice/shriek1.ogg', 50, 1)
+
+	sleep(5)
+
+	if(status_flags & LEAPING) status_flags &= ~LEAPING
+
+	if(!src.Adjacent(T))
+		src << "\red You miss!"
+		return
+
+	T.Weaken(5)
+
+	//Only official raider vox get the grab and no self-prone."
+	if(src.mind && src.mind.special_role != "Vox Raider")
+		src.Weaken(5)
+		return
+
+	var/use_hand = "left"
+	if(l_hand)
+		if(r_hand)
+			src << "\red You need to have one hand free to grab someone."
+			return
+		else
+			use_hand = "right"
+
+	src.visible_message("<span class='warning'><b>\The [src]</b> seizes [T] aggressively!</span>")
+
+	var/obj/item/weapon/grab/G = new(src,T)
+	if(use_hand == "left")
+		l_hand = G
+	else
+		r_hand = G
+
+	G.state = GRAB_AGGRESSIVE
+	G.icon_state = "grabbed1"
+	G.synch()
+
+/mob/living/carbon/human/proc/gut()
+	set category = "Abilities"
+	set name = "Gut"
+	set desc = "While grabbing someone aggressively, rip their guts out or tear them apart."
+
+	if(last_special > world.time)
+		return
+
+	if(stat || paralysis || stunned || weakened || lying)
+		src << "\red You cannot do that in your current state."
+		return
+
+	var/obj/item/weapon/grab/G = locate() in src
+	if(!G || !istype(G))
+		src << "\red You are not grabbing anyone."
+		return
+
+	if(G.state < GRAB_AGGRESSIVE)
+		src << "\red You must have an aggressive grab to gut your prey!"
+		return
+
+	last_special = world.time + 50
+
+	visible_message("<span class='warning'><b>\The [src]</b> rips viciously at \the [G.affecting]'s body with its claws!</span>")
+
+	if(istype(G.affecting,/mob/living/carbon/human))
+		var/mob/living/carbon/human/H = G.affecting
+		H.apply_damage(50,BRUTE)
+		if(H.stat == 2)
+			H.gib()
+	else
+		var/mob/living/M = G.affecting
+		if(!istype(M)) return //wut
+		M.apply_damage(50,BRUTE)
+		if(M.stat == 2)
+			M.gib()
+
+/mob/living/carbon/human/assess_threat(var/obj/machinery/bot/secbot/judgebot, var/lasercolor)
+	if(judgebot.emagged == 2)
+		return 10 //Everyone is a criminal!
+
+	var/threatcount = 0
+
+	//Lasertag bullshit
+	if(lasercolor)
+		if(lasercolor == "b")//Lasertag turrets target the opposing team, how great is that? -Sieve
+			if(istype(wear_suit, /obj/item/clothing/suit/redtag))
+				threatcount += 4
+			if((istype(r_hand,/obj/item/weapon/gun/energy/laser/redtag)) || (istype(l_hand,/obj/item/weapon/gun/energy/laser/redtag)))
+				threatcount += 4
+			if(istype(belt, /obj/item/weapon/gun/energy/laser/redtag))
+				threatcount += 2
+
+		if(lasercolor == "r")
+			if(istype(wear_suit, /obj/item/clothing/suit/bluetag))
+				threatcount += 4
+			if((istype(r_hand,/obj/item/weapon/gun/energy/laser/bluetag)) || (istype(l_hand,/obj/item/weapon/gun/energy/laser/bluetag)))
+				threatcount += 4
+			if(istype(belt, /obj/item/weapon/gun/energy/laser/bluetag))
+				threatcount += 2
+
+		return threatcount
+
+	//Check for ID
+	var/obj/item/weapon/card/id/idcard = get_idcard()
+	if(judgebot.idcheck && !idcard)
+		threatcount += 4
+
+	//Check for weapons
+	if(judgebot.weaponscheck)
+		if(!idcard || !(access_weapons in idcard.access))
+			if(judgebot.check_for_weapons(l_hand))
+				threatcount += 4
+			if(judgebot.check_for_weapons(r_hand))
+				threatcount += 4
+			if(judgebot.check_for_weapons(belt))
+				threatcount += 2
+
+	//Check for arrest warrant
+	if(judgebot.check_records)
+		var/perpname = get_face_name(get_id_name())
+		var/datum/data/record/R = find_record("name", perpname, data_core.security)
+		if(R && R.fields["criminal"])
+			switch(R.fields["criminal"])
+				if("*Arrest*")
+					threatcount += 5
+				if("Incarcerated")
+					threatcount += 2
+				if("Parolled")
+					threatcount += 2
+
+	//Check for dresscode violations
+	if(istype(head, /obj/item/clothing/head/wizard) || istype(head, /obj/item/clothing/head/helmet/space/rig/wizard))
+		threatcount += 2
+
+	//Check for nonhuman scum
+	if(dna && dna.mutantrace && dna.mutantrace != "none")
+		threatcount += 1
+
+	//Loyalty implants imply trustworthyness
+	if(isloyal(src))
+		threatcount -= 1
+
+	//Agent cards lower threatlevel.
+	if(istype(idcard, /obj/item/weapon/card/id/syndicate))
+		threatcount -= 2
+
+	return threatcount
+
+/mob/living/carbon/human/canBeHandcuffed()
+	return 1

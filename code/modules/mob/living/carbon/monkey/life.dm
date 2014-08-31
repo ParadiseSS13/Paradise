@@ -22,15 +22,16 @@
 	if(loc)
 		environment = loc.return_air()
 
-	if (stat != DEAD && !istype(src,/mob/living/carbon/monkey/diona)) //still breathing
-		//First, resolve location and get a breath
-		if(air_master.current_cycle%4==2)
-			//Only try to take a breath every 4 seconds, unless suffocating
-			breathe()
-		else //Still give containing object the chance to interact
-			if(istype(loc, /obj/))
-				var/obj/location_as_object = loc
-				location_as_object.handle_internal_lifeform(src, 0)
+	if (stat != DEAD)
+		if(!istype(src,/mob/living/carbon/monkey/diona)) //still breathing
+			//First, resolve location and get a breath
+			if(air_master.current_cycle%4==2)
+				//Only try to take a breath every 4 seconds, unless suffocating
+				breathe()
+			else //Still give containing object the chance to interact
+				if(istype(loc, /obj/))
+					var/obj/location_as_object = loc
+					location_as_object.handle_internal_lifeform(src, 0)
 
 
 		//Updates the number of stored chemicals for powers
@@ -77,6 +78,8 @@
 			step(src, pick(cardinal))
 		if(prob(1))
 			emote(pick("scratch","jump","roll","tail"))
+	updatehealth()
+
 
 /mob/living/carbon/monkey/calculate_affecting_pressure(var/pressure)
 	..()
@@ -131,21 +134,20 @@
 				heal_overall_damage(rads,rads)
 				adjustOxyLoss(-(rads))
 				adjustToxLoss(-(rads))
-				updatehealth()
 				return
 
 			if (radiation > 100)
 				radiation = 100
 				Weaken(10)
-				src << "\red You feel weak."
-				emote("collapse")
+				if(!lying)
+					src << "\red You feel weak."
+					emote("collapse")
 
 			switch(radiation)
 				if(1 to 49)
 					radiation--
 					if(prob(25))
 						adjustToxLoss(1)
-						updatehealth()
 
 				if(50 to 74)
 					radiation -= 2
@@ -153,9 +155,9 @@
 					if(prob(5))
 						radiation -= 5
 						Weaken(3)
-						src << "\red You feel weak."
-						emote("collapse")
-					updatehealth()
+						if(!lying)
+							src << "\red You feel weak."
+							emote("collapse")
 
 				if(75 to 100)
 					radiation -= 3
@@ -165,7 +167,6 @@
 						randmutb(src)
 						domutcheck(src,null)
 						emote("gasp")
-					updatehealth()
 
 	// Separate proc so we can jump out of it when we've succeeded in spreading disease.
 	proc/findAirborneVirii()
@@ -195,8 +196,6 @@
 	proc/handle_virus_updates()
 		if(status_flags & GODMODE)	return 0	//godmode
 		if(bodytemperature > 406)
-			for(var/datum/disease/D in viruses)
-				D.cure()
 			for (var/ID in virus2)
 				var/datum/disease2/disease/V = virus2[ID]
 				V.cure(src)
@@ -215,7 +214,6 @@
 			// check if we're immune
 			if(V.antigen & src.antibodies)
 				V.dead = 1
-
 		return
 
 	proc/breathe()
@@ -307,6 +305,7 @@
 		//var/safe_oxygen_max = 140 // Maximum safe partial pressure of O2, in kPa (Not used for now)
 		var/safe_co2_max = 10 // Yes it's an arbitrary value who cares?
 		var/safe_toxins_max = 0.5
+		var/safe_toxins_mask = 5
 		var/SA_para_min = 0.5
 		var/SA_sleep_min = 5
 		var/oxygen_used = 0
@@ -359,9 +358,16 @@
 		if(Toxins_pp > safe_toxins_max) // Too much toxins
 			var/ratio = (breath.toxins/safe_toxins_max) * 10
 			//adjustToxLoss(Clamp(ratio, MIN_PLASMA_DAMAGE, MAX_PLASMA_DAMAGE))	//Limit amount of damage toxin exposure can do per second
-			if(reagents)
-				reagents.add_reagent("plasma", Clamp(ratio, MIN_PLASMA_DAMAGE, MAX_PLASMA_DAMAGE))
-			toxins_alert = max(toxins_alert, 1)
+			if(wear_mask)
+				if(wear_mask.flags & BLOCK_GAS_SMOKE_EFFECT)
+					if(breath.toxins > safe_toxins_mask)
+						ratio = (breath.toxins/safe_toxins_mask) * 10
+					else
+						ratio = 0
+			if(ratio)
+				if(reagents)
+					reagents.add_reagent("plasma", Clamp(ratio, MIN_PLASMA_DAMAGE, MAX_PLASMA_DAMAGE))
+				toxins_alert = max(toxins_alert, 1)
 		else
 			toxins_alert = 0
 
@@ -392,6 +398,19 @@
 	proc/handle_environment(datum/gas_mixture/environment)
 		if(!environment)
 			return
+
+		//Moved these vars here for use in the fuck-it-skip-processing check.
+		var/pressure = environment.return_pressure()
+		var/adjusted_pressure = calculate_affecting_pressure(pressure) //Returns how much pressure actually affects the mob.
+
+		if(adjusted_pressure < WARNING_HIGH_PRESSURE && adjusted_pressure > WARNING_LOW_PRESSURE && abs(environment.temperature - 293.15) < 20 && abs(bodytemperature - 310.14) < 0.5 && environment.toxins < MOLES_PLASMA_VISIBLE)
+
+			//Hopefully should fix the walk-inside-still-pressure-warning issue.
+			if(pressure_alert)
+				pressure_alert = 0
+
+			return // Temperatures are within normal ranges, fuck all this processing. ~Ccomp
+
 		var/environment_heat_capacity = environment.heat_capacity()
 		if(istype(get_turf(src), /turf/space))
 			var/turf/heat_turf = get_turf(src)
@@ -407,9 +426,6 @@
 			bodytemperature += 0.1*(environment.temperature - bodytemperature)*environment_heat_capacity/(environment_heat_capacity + 270000)
 
 		//Account for massive pressure differences
-
-		var/pressure = environment.return_pressure()
-		var/adjusted_pressure = calculate_affecting_pressure(pressure) //Returns how much pressure actually affects the mob.
 		switch(adjusted_pressure)
 			if(HAZARD_HIGH_PRESSURE to INFINITY)
 				adjustBruteLoss( min( ( (adjusted_pressure / HAZARD_HIGH_PRESSURE) -1 )*PRESSURE_DAMAGE_COEFFICIENT , MAX_HIGH_PRESSURE_DAMAGE) )
@@ -461,7 +477,8 @@
 				adjustToxLoss(-1)
 				adjustOxyLoss(-1)
 
-		if(reagents) reagents.metabolize(src)
+		if(reagents && reagents.reagent_list.len)
+			reagents.metabolize(src,alien)
 
 		if (drowsyness)
 			drowsyness--
@@ -470,24 +487,23 @@
 				sleeping += 1
 				Paralyse(5)
 
-		confused = max(0, confused - 1)
-		// decrement dizziness counter, clamped to 0
+		if(confused)
+			confused = max(0, confused - 1)
+
 		if(resting)
 			dizziness = max(0, dizziness - 5)
 		else
 			dizziness = max(0, dizziness - 1)
 
-		updatehealth()
-
 		return //TODO: DEFERRED
 
 	proc/handle_regular_status_updates()
-		updatehealth()
 
 		if(stat == DEAD)	//DEAD. BROWN BREAD. SWIMMING WITH THE SPESS CARP
 			blinded = 1
 			silent = 0
 		else				//ALIVE. LIGHTS ARE ON
+			updatehealth()
 			if(health < config.health_threshold_dead || brain_op_stage == 4.0)
 				death()
 				blinded = 1
@@ -552,20 +568,7 @@
 				ear_damage = max(ear_damage-0.05, 0)
 
 			//Other
-			if(stunned)
-				AdjustStunned(-1)
-
-			if(weakened)
-				weakened = max(weakened-1,0)	//before you get mad Rockdtben: I done this so update_canmove isn't called multiple times
-
-			if(stuttering)
-				stuttering = max(stuttering-1, 0)
-
-			if(silent)
-				silent = max(silent-1, 0)
-
-			if(druggy)
-				druggy = max(druggy-1, 0)
+			handle_statuses()
 		return 1
 
 

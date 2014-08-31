@@ -48,15 +48,10 @@
 		..()
 		var/datum/reagent/R = pick(chemical_reagents_list)
 		var/global/list/rare_chems = list("minttoxin","nanites","xenomicrobes","adminordrazine")
-		if(R == "blood" && prob(50)) // in contrast to pills, it is entirely reasonable to have vials of virus-free blood lying around.
-			var/datum/disease/advance/F = new(0) // By entirely reasonable I mean even odds.  Let's not get crazy, here.
-			var/list/data = list("viruses"= list(F))
-			reagents.add_reagent(R,volume,data)
+		if(rare_chems.Find(R))
+			reagents.add_reagent(R,10)
 		else
-			if(rare_chems.Find(R))
-				reagents.add_reagent(R,10)
-			else
-				reagents.add_reagent(R,rand(2,3)*10)
+			reagents.add_reagent(R,rand(2,3)*10)
 		pixel_x = rand(-10,10)
 		pixel_y = rand(-10,10)
 
@@ -70,15 +65,10 @@
 		var/global/list/rare_chems = list("minttoxin","nanites","xenomicrobes","adminordrazine")
 
 		var/datum/reagent/R = pick(chems_only + rare_chems)
-		if(R == "blood" && prob(50))
-			var/datum/disease/advance/F = new(0)
-			var/list/data = list("viruses"= list(F))
-			reagents.add_reagent(R,volume,data)
+		if(rare_chems.Find(R))
+			reagents.add_reagent(R,10)
 		else
-			if(rare_chems.Find(R))
-				reagents.add_reagent(R,10)
-			else
-				reagents.add_reagent(R,rand(2,3)*10)
+			reagents.add_reagent(R,rand(2,3)*10)
 		name = "unlabelled bottle"
 		pixel_x = rand(-10,10)
 		pixel_y = rand(-10,10)
@@ -104,12 +94,7 @@
 			drinks_only += list("chloralhydrate","adminordrazine","mindbreaker","tricordrazine","blood")
 
 		var/datum/reagent/R = pick(drinks_only)
-		if(R == "blood" && prob(40)) // it's entirely natural for you to have blood in drinking bottles.
-			var/datum/disease/advance/F = new(0) // it only rarely has to do with diseases.
-			var/list/data = list("viruses"= list(F))
-			reagents.add_reagent(R,volume,data)
-		else
-			reagents.add_reagent(R,volume)
+		reagents.add_reagent(R,volume)
 		name = "unlabelled bottle"
 		icon_state = pick("alco-white","alco-green","alco-blue","alco-clear","alco-red")
 		pixel_x = rand(-5,5)
@@ -121,15 +106,10 @@
 		..()
 		var/datum/reagent/R = pick(chemical_reagents_list)
 		var/global/list/rare_chems = list("minttoxin","nanites","xenomicrobes","adminordrazine")
-		if(R == "blood" && prob(50))
-			var/datum/disease/advance/F = new(0)
-			var/list/data = list("viruses"= list(F))
-			reagents.add_reagent(R,volume,data)
+		if(rare_chems.Find(R))
+			reagents.add_reagent(R,10)
 		else
-			if(rare_chems.Find(R))
-				reagents.add_reagent(R,10)
-			else
-				reagents.add_reagent(R,rand(3,10)*10)
+			reagents.add_reagent(R,rand(3,10)*10)
 		name = "unlabelled bottle"
 		icon_state = pick("alco-white","alco-green","alco-blue","alco-clear","alco-red")
 		pixel_x = rand(-5,5)
@@ -155,15 +135,11 @@
 			else
 				R = pick(meds_only)
 			var/obj/item/weapon/reagent_containers/pill/P = new(src)
-			if(R == "blood") // 100% disease chance.  Why else would you make a blood pill?  I can think of nothing.
-				var/datum/disease/advance/F = new(0)  // okay maybe vampires but that's about it
-				var/list/data = list("viruses"= list(F))
-				P.reagents.add_reagent(R,P.volume,data)
+
+			if(rare_meds.Find(R))
+				P.reagents.add_reagent(R,10)
 			else
-				if(rare_meds.Find(R))
-					P.reagents.add_reagent(R,10)
-				else
-					P.reagents.add_reagent(R,rand(2,5)*10)
+				P.reagents.add_reagent(R,rand(2,5)*10)
 			P.name = "Unlabelled Pill"
 			P.desc = "Something about this pill entices you to try it, against your better judgement."
 			i++

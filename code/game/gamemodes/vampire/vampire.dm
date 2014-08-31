@@ -7,7 +7,7 @@
 /datum/game_mode/vampire
 	name = "vampire"
 	config_tag = "vampire"
-	restricted_jobs = list("AI", "Cyborg", "Mobile MMI", "Security Officer", "Warden", "Detective", "Head of Security", "Captain", "Chaplain") //Consistent screening has filtered all infiltration attempts on high value jobs
+	restricted_jobs = list("AI", "Cyborg", "Mobile MMI", "Security Officer", "Warden", "Detective", "Head of Security", "Captain", "Chaplain", "Security Pod Pilot", "Nanotrasen Recruiter", "Magistrate") //Consistent screening has filtered all infiltration attempts on high value jobs
 	protected_jobs = list()
 	required_players = 1
 	required_players_secret = 15
@@ -129,15 +129,15 @@
 /datum/game_mode/proc/auto_declare_completion_enthralled()
 	if(enthralled.len)
 		var/text = "<FONT size = 2><B>The Enthralled were:</B></FONT>"
-		for(var/datum/mind/enthralled in enthralled)
-			text += "<br>[enthralled.key] was [enthralled.name] ("
-			if(enthralled.current)
-				if(enthralled.current.stat == DEAD)
+		for(var/datum/mind/Mind in enthralled)
+			text += "<br>[Mind.key] was [Mind.name] ("
+			if(Mind.current)
+				if(Mind.current.stat == DEAD)
 					text += "died"
 				else
 					text += "survived"
-				if(enthralled.current.real_name != enthralled.name)
-					text += " as [enthralled.current.real_name]"
+				if(Mind.current.real_name != Mind.name)
+					text += " as [Mind.current.real_name]"
 			else
 				text += "body destroyed"
 			text += ")"
@@ -282,7 +282,7 @@ You are weak to holy things and starlight. Don't go into space and avoid the Cha
 			blood = min(10, H.vessel.get_reagent_amount("blood"))// if they have less than 10 blood, give them the remnant else they get 10 blood
 			src.mind.vampire.bloodtotal += blood
 			src.mind.vampire.bloodusable += blood
-			H.adjustCloneLoss(5) // beep boop 10 damage
+			H.adjustCloneLoss(10) // beep boop 10 damage
 		else
 			blood = min(5, H.vessel.get_reagent_amount("blood"))// The dead only give 5 bloods
 			src.mind.vampire.bloodtotal += blood
@@ -486,7 +486,7 @@ You are weak to holy things and starlight. Don't go into space and avoid the Cha
 	if(hud_used)
 		if(!hud_used.vampire_blood_display)
 			hud_used.vampire_hud()
-			//hud_used.human_hud(hud_used.ui_style)
+			hud_used.human_hud('icons/mob/screen1_Vampire.dmi')
 		hud_used.vampire_blood_display.maptext_width = 64
 		hud_used.vampire_blood_display.maptext_height = 26
 		hud_used.vampire_blood_display.maptext = "<div align='left' valign='top' style='position:relative; top:0px; left:6px'> U:<font color='#33FF33' size='1'>[mind.vampire.bloodusable]</font><br> T:<font color='#FFFF00' size='1'>[mind.vampire.bloodtotal]</font></div>"

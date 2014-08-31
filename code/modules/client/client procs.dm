@@ -42,61 +42,207 @@
 		if(ismob(C)) 		//Old stuff can feed-in mobs instead of clients
 			var/mob/M = C
 			C = M.client
-		cmd_admin_pm(C,null)
+		cmd_admin_pm(C,null, href_list["type"])
 		return
+
+	if(href_list["irc_msg"])
+		if(!holder && received_irc_pm < world.time - 6000) //Worse they can do is spam IRC for 10 minutes
+			usr << "<span class='warning'>You are no longer able to use this, it's been more then 10 minutes since an admin on IRC has responded to you</span>"
+			return
+		if(mute_irc)
+			usr << "<span class='warning'You cannot use this as your client has been muted from sending messages to the admins on IRC</span>"
+			return
+		cmd_admin_irc_pm()
+		return
+
+
 
 	//Logs all hrefs
 	if(config && config.log_hrefs && href_logfile)
 		href_logfile << "<small>[time2text(world.timeofday,"hh:mm")] [src] (usr:[usr])</small> || [hsrc ? "[hsrc] " : ""][href]<br>"
 
-	if(href_list["KarmaBuy"])
-		var/karma=verify_karma()
-		switch(href_list["KarmaBuy"])
-			if("1")
-				if(karma <5)
-					usr << "You do not have enough karma!"
-				else
-					src.DB_job_unlock("Barber",5)
-			if("2")
-				if(karma <15)
-					usr << "You do not have enough karma!"
-				else
-					src.DB_job_unlock("Nanotrasen Representative",15)
-			if("3")
-				if(karma <30)
-					usr << "You do not have enough karma!"
-				else
-					src.DB_job_unlock("Customs Officer",30)
-			if("4")
-				if(karma <30)
-					usr << "You do not have enough karma!"
-				else
-					src.DB_job_unlock("Blueshield",30)
-			if("5")
-				if(karma <15)
-					usr << "You do not have enough karma!"
-				else
-					src.DB_species_unlock("Machine",15)
-			if("6")
-				if(karma <30)
-					usr << "You do not have enough karma!"
-				else
-					src.DB_species_unlock("Kidan",30)
-			if("7")
-				if(karma <30)
-					usr << "You do not have enough karma!"
-				else
-					src.DB_species_unlock("Grey",30)
-			if("8")
-				if(karma <45)
-					usr << "You do not have enough karma!"
-				else
-					src.DB_species_unlock("Vox",45)
-			if("9")
-				if(karma <45)
-					usr << "You do not have enough karma!"
-				else
-					src.DB_species_unlock("Slime People",45)
+	switch(href_list["karmashop"])
+		if("tab")
+			karma_tab = text2num(href_list["tab"])
+			karmashopmenu()
+			return
+		if("shop")
+			if(href_list["KarmaBuy"])
+				var/karma=verify_karma()
+				switch(href_list["KarmaBuy"])
+					if("1")
+						if(karma <5)
+							usr << "You do not have enough karma!"
+							return
+						else
+							src.DB_job_unlock("Barber",5)
+							return
+					if("2")
+						if(karma <5)
+							usr << "You do not have enough karma!"
+							return
+						else
+							src.DB_job_unlock("Brig Physician",5)
+							return
+					if("3")
+						if(karma <30)
+							usr << "You do not have enough karma!"
+							return
+						else
+							src.DB_job_unlock("Nanotrasen Representative",30)
+							return
+					if("4")
+						if(karma <30)
+							usr << "You do not have enough karma!"
+							return
+						else
+							src.DB_job_unlock("Customs Officer",30)
+							return
+					if("5")
+						if(karma <30)
+							usr << "You do not have enough karma!"
+							return
+						else
+							src.DB_job_unlock("Blueshield",30)
+							return
+					if("6")
+						if(karma <30)
+							usr << "You do not have enough karma!"
+							return
+						else
+							src.DB_job_unlock("Mechanic",30)
+							return
+					if("7")
+						if(karma <45)
+							usr << "You do not have enough karma!"
+							return
+						else
+							src.DB_job_unlock("Magistrate",45)
+							return
+					if("8")
+						if(karma <10)
+							usr << "You do not have enough karma!"
+							return
+						else
+							src.DB_job_unlock("Nanotrasen Recruiter",10)
+							return
+					if("9")
+						if(karma <30)
+							usr << "You do not have enough karma!"
+							return
+						else
+							src.DB_job_unlock("Security Pod Pilot",30)
+							return
+			if(href_list["KarmaBuy2"])
+				var/karma=verify_karma()
+				switch(href_list["KarmaBuy2"])
+					if("1")
+						if(karma <15)
+							usr << "You do not have enough karma!"
+							return
+						else
+							src.DB_species_unlock("Machine",15)
+							return
+					if("2")
+						if(karma <30)
+							usr << "You do not have enough karma!"
+							return
+						else
+							src.DB_species_unlock("Kidan",30)
+							return
+					if("3")
+						if(karma <30)
+							usr << "You do not have enough karma!"
+							return
+						else
+							src.DB_species_unlock("Grey",30)
+							return
+					if("4")
+						if(karma <45)
+							usr << "You do not have enough karma!"
+							return
+						else
+							src.DB_species_unlock("Vox",45)
+							return
+					if("5")
+						if(karma <45)
+							usr << "You do not have enough karma!"
+							return
+						else
+							src.DB_species_unlock("Slime People",45)
+							return
+			if(href_list["KarmaBuy3"])
+				var/karma=verify_karma()
+				switch(href_list["KarmaBuy3"])
+					if("1")
+						if(karma <30)
+							usr << "You do not have enough karma!"
+							return
+						else
+							src.DB_job_unlock("Tajaran Ambassador",30)
+							return
+					if("2")
+						if(karma <30)
+							usr << "You do not have enough karma!"
+							return
+						else
+							src.DB_job_unlock("Unathi Ambassador",30)
+							return
+					if("3")
+						if(karma <30)
+							usr << "You do not have enough karma!"
+							return
+						else
+							src.DB_job_unlock("Skrell Ambassador",30)
+							return
+					if("4")
+						if(karma <30)
+							usr << "You do not have enough karma!"
+							return
+						else
+							src.DB_job_unlock("Diona Ambassador",30)
+							return
+					if("5")
+						if(!is_alien_whitelisted(usr,"Kidan"))
+							usr << "You need to have unlocked Kidan first!"
+							return
+						if(karma <30)
+							usr << "You do not have enough karma!"
+							return
+						else
+							src.DB_job_unlock("Kidan Ambassador",30)
+							return
+					if("6")
+						if(!is_alien_whitelisted(usr,"Slime People"))
+							usr << "You need to have unlocked Slime People first!"
+							return
+						if(karma <30)
+							usr << "You do not have enough karma!"
+							return
+						else
+							src.DB_job_unlock("Slime People Ambassador",30)
+							return
+					if("7")
+						if(!is_alien_whitelisted(usr,"Grey"))
+							usr << "You need to have unlocked Grey first!"
+							return
+						if(karma <30)
+							usr << "You do not have enough karma!"
+							return
+						else
+							src.DB_job_unlock("Grey Ambassador",30)
+							return
+					if("8")
+						if(!is_alien_whitelisted(usr,"Vox"))
+							usr << "You need to have unlocked Vox first!"
+							return
+						if(karma <30)
+							usr << "You do not have enough karma!"
+							return
+						else
+							src.DB_job_unlock("Vox Ambassador",30)
+							return
+
 
 	switch(href_list["_src_"])
 		if("holder")	hsrc = holder
@@ -197,9 +343,7 @@
 
 	send_resources()
 
-	if(prefs.lastchangelog != changelog_hash) //bolds the changelog button on the interface so we know there are updates.
-		winset(src, "rpane.changelog", "background-color=#eaeaea;font-style=bold")
-
+	nanomanager.send_resources(src)
 
 	//////////////
 	//DISCONNECT//
@@ -228,6 +372,7 @@
 	var/DBQuery/query = dbcon.NewQuery("SELECT id, datediff(Now(),firstseen) as age FROM erro_player WHERE ckey = '[sql_ckey]'")
 	query.Execute()
 	var/sql_id = 0
+	player_age = 0	// New players won't have an entry so knowing we have a connection we set this to zero to be updated if their is a record.
 	while(query.NextRow())
 		sql_id = query.item[1]
 		player_age = text2num(query.item[2])
@@ -292,12 +437,11 @@
 /client/proc/send_resources()
 //	preload_vox() //Causes long delays with initial start window and subsequent windows when first logged in.
 
-	// Send NanoUI resources to this client
-	nanomanager.send_resources(src)
-
 	getFiles(
 		'html/search.js',
 		'html/panels.css',
+		'html/painew.png',
+		'html/loading.gif',
 		'icons/pda_icons/pda_atmos.png',
 		'icons/pda_icons/pda_back.png',
 		'icons/pda_icons/pda_bell.png',

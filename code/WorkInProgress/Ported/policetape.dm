@@ -97,8 +97,8 @@
 	//is_blocked_turf(var/turf/T)
 		usr << "\blue You finish placing the [src]."	//Git Test
 
-/obj/item/taperoll/afterattack(var/atom/A, mob/user as mob)
-	if (istype(A, /obj/machinery/door/airlock))
+/obj/item/taperoll/afterattack(var/atom/A, mob/user as mob, proximity)
+	if (proximity && istype(A, /obj/machinery/door/airlock))
 		var/turf/T = get_turf(A)
 		var/obj/item/tape/P = new tape_type(T.x,T.y,T.z)
 		P.loc = locate(T.x,T.y,T.z)
@@ -130,13 +130,13 @@
 		spawn(200)
 			src.density = 1
 	else
-		breaktape(null, user)
+		breaktape(/obj/item/weapon/soap, user)//cant be null, and can't be sharp.
 
 /obj/item/tape/attack_paw(mob/user as mob)
 	breaktape(/obj/item/weapon/wirecutters,user)
 
 /obj/item/tape/proc/breaktape(obj/item/weapon/W as obj, mob/user as mob)
-	if(user.a_intent == "help" && ((!is_sharp(W) && src.allowed(user))))
+	if(user.a_intent == "help" && ((!can_puncture(W) && src.allowed(user))))
 		user << "You can't break the [src] with that!"
 		return
 	user.show_viewers("\blue [user] breaks the [src]!")

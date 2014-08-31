@@ -21,7 +21,7 @@
 	speed = 0
 	stop_automated_movement = 0
 	status_flags = 0
-	faction = "cult"
+	faction = list("pony")
 	status_flags = CANPUSH
 	universal_speak = 1
 
@@ -86,4 +86,64 @@ mob/living/simple_animal/pony/applejack
 	real_name = "Applejack"
 	icon_state = "applejack"
 	icon_living = "applejack"
+
+mob/living/simple_animal/pony/luna
+	name = "Luna"
+	real_name = "Luna"
+	icon_state = "luna"
+	icon_living = "luna"
+
+mob/living/simple_animal/pony/clownie
+	name = "Clownie"
+	real_name = "Clownie"
+	icon_state = "clownie"
+	icon_living = "clownie"
+
+mob/living/simple_animal/pony/tia
+	name = "Tia"
+	real_name = "Tia"
+	icon_state = "tia"
+	icon_living = "tia"
+
+mob/living/simple_animal/pony/trixie
+	name = "Trixie"
+	real_name = "Trixie"
+	icon_state = "trixie_a_full"
+	icon_living = "trixing_a_full"
+
+mob/living/simple_animal/pony/lyra
+	name = "Lyra"
+	real_name = "Lyra"
+	icon_state = "lyra"
+	icon_living = "lyra"
+
+mob/living/simple_animal/pony/vinyl
+	name = "Vinyl"
+	real_name = "Vinyl"
+	icon_state = "vinyl"
+	icon_living = "vinyl"
+
+mob/living/simple_animal/pony/rarity
+	name = "Rarity"
+	real_name = "Rarity"
+	icon_state = "rarity"
+	icon_living = "rarity"
+
+mob/living/simple_animal/pony/whooves
+	name = "Whooves"
+	real_name = "Whooves"
+	icon_state = "whooves"
+	icon_living = "whooves"
+
+mob/living/simple_animal/pony/fleur
+	name = "Fleur"
+	real_name = "Fleur"
+	icon_state = "fleur"
+	icon_living = "fleur"
+
+mob/living/simple_animal/pony/mac
+	name = "Mac"
+	real_name = "Mac"
+	icon_state = "mac"
+	icon_living = "mac"
 

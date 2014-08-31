@@ -45,6 +45,7 @@
 	// Misc & special purpose
 	var/obj/item/part/computer/ai_holder/cradle				= null
 	var/obj/item/part/computer/toybox/toybox				= null
+	var/mob/living/silicon/ai/occupant						= null
 
 
 	// Legacy variables
@@ -74,6 +75,15 @@
 		set name = "Reset Computer"
 		set category = "Object"
 		set src in view(1)
+		
+		if(usr.stat || usr.restrained() || usr.lying || !istype(usr, /mob/living))
+			usr << "\red You can't do that."
+			return
+		
+		if(!Adjacent(usr))
+			usr << "You can't reach it."
+			return
+		
 		Reset()
 
 	New(var/L, var/built = 0)
@@ -124,6 +134,11 @@
 		if(program)
 			program.execute(os)
 		update_icon()
+
+
+	proc/update_spawn_files()
+		for(var/typekey in spawn_files)
+			hdd.addfile(new typekey,1)
 
 	proc/spawn_parts()
 		for(var/typekey in spawn_parts)
@@ -191,9 +206,6 @@
 		for(var/x in verbs)
 			verbs -= x
 		set_broken()
-		var/datum/effect/effect/system/harmless_smoke_spread/smoke = new /datum/effect/effect/system/harmless_smoke_spread()
-		smoke.set_up(5, 0, src)
-		smoke.start()
 		return
 
 
@@ -315,7 +327,7 @@
 			|IMPORTANT| If you add a peripheral, put it in this list
 			+++++++++++ --------------------------------------------
 		*/
-		var/list/peripherals = list(hdd,floppy,radio,camnet,net,cardslot,cradle,toybox)
+		var/list/peripherals = list(hdd,floppy,radio,net,cardslot,cradle) //camnet, toybox removed
 
 		var/list/p_list = list()
 		for(var/obj/item/part/computer/C in peripherals)
@@ -436,6 +448,16 @@
 			if(show_keyboard)
 				overlays += kb
 			name = initial(name) + " (orange screen of death)"
+
+	//Returns percentage of battery charge remaining. Returns -1 if no battery is installed.
+	proc/check_battery_status()
+		if (battery)
+			var/obj/item/weapon/cell/B = battery
+			return round(B.charge / (B.maxcharge / 100))
+		else
+			return -1
+
+
 
 /obj/machinery/computer3/wall_comp
 	name			= "terminal"

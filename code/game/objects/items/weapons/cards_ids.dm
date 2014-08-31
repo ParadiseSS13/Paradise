@@ -99,7 +99,8 @@
 		/obj/machinery/bot,
 		/obj/machinery/door,
 		/obj/machinery/telecomms,
-		/obj/machinery/mecha_part_fabricator
+		/obj/machinery/mecha_part_fabricator,
+		/obj/vehicle
 		)
 
 
@@ -125,8 +126,9 @@
 	desc = "A card used to provide ID and determine access across the station."
 	icon_state = "id"
 	item_state = "card-id"
-	var/list/access = list()
-	var/registered_name = null // The name registered_name on the card
+	var/mining_points = 0 //For redeeming at mining equipment lockers
+	var/access = list()
+	var/registered_name = "Unknown" // The name registered_name on the card
 	slot_flags = SLOT_ID
 
 	var/blood_type = "\[UNSET\]"
@@ -190,7 +192,8 @@
 /obj/item/weapon/card/id/attack_self(mob/user as mob)
 	for(var/mob/O in viewers(user, null))
 		O.show_message(text("[] shows you: \icon[] []: assignment: []", user, src, src.name, src.assignment), 1)
-
+	if(mining_points)
+		user << "There's [mining_points] mining equipment redemption points loaded onto this card."
 	src.add_fingerprint(user)
 	return
 
@@ -248,6 +251,16 @@
 	name = "agent card"
 	access = list(access_maint_tunnels, access_syndicate)
 	origin_tech = "syndicate=3"
+	var/registered_user=null
+
+/obj/item/weapon/card/id/syndicate/New(mob/user as mob)
+	..()
+	if(!isnull(user)) // Runtime prevention on laggy starts or where users log out because of lag at round start.
+		registered_name = ishuman(user) ? user.real_name : user.name
+	else
+		registered_name = "Agent Card"
+	assignment = "Agent"
+	name = "[registered_name]'s ID Card ([assignment])"
 
 /obj/item/weapon/card/id/syndicate/afterattack(var/obj/item/weapon/O as obj, mob/user as mob, proximity)
 	if(!proximity) return
@@ -258,7 +271,6 @@
 			if(user.mind.special_role)
 				usr << "\blue The card's microscanners activate as you pass it over the ID, copying its access."
 
-/obj/item/weapon/card/id/syndicate/var/mob/registered_user = null
 /obj/item/weapon/card/id/syndicate/attack_self(mob/user as mob)
 	if(!src.registered_name)
 		//Stop giving the players unsanitized unputs! You are giving ways for players to intentionally crash clients! -Nodrak
@@ -268,7 +280,7 @@
 			return
 		src.registered_name = t
 
-		var u = copytext(sanitize(input(user, "What occupation would you like to put on this card?\nNote: This will not grant any access levels other than Maintenance.", "Agent card job assignment", "Assistant")),1,MAX_MESSAGE_LEN)
+		var u = copytext(sanitize(input(user, "What occupation would you like to put on this card?\nNote: This will not grant any access levels other than Maintenance.", "Agent card job assignment", "Civilian")),1,MAX_MESSAGE_LEN)
 		if(!u)
 			alert("Invalid assignment.")
 			src.registered_name = ""
@@ -277,7 +289,10 @@
 		src.name = "[src.registered_name]'s ID Card ([src.assignment])"
 		user << "\blue You successfully forge the ID card."
 		registered_user = user
-	else if(registered_user == user)
+	else if(!registered_user || registered_user == user)
+
+		if(!registered_user) registered_user = user  //
+
 		switch(alert("Would you like to display the ID, or retitle it?","Choose.","Rename","Show"))
 			if("Rename")
 				var t = copytext(sanitize(input(user, "What name would you like to put on this card?", "Agent card name", ishuman(user) ? user.real_name : user.name)),1,26)
@@ -286,7 +301,7 @@
 					return
 				src.registered_name = t
 
-				var u = copytext(sanitize(input(user, "What occupation would you like to put on this card?\nNote: This will not grant any access levels other than Maintenance.", "Agent card job assignment", "Assistant")),1,MAX_MESSAGE_LEN)
+				var u = copytext(sanitize(input(user, "What occupation would you like to put on this card?\nNote: This will not grant any access levels other than Maintenance.", "Agent card job assignment", "Civilian")),1,MAX_MESSAGE_LEN)
 				if(!u)
 					alert("Invalid assignment.")
 					src.registered_name = ""
@@ -369,3 +384,11 @@
 /obj/item/weapon/card/id/prisoner/seven
 	name = "Prisoner #13-007"
 	registered_name = "Prisoner #13-007"
+
+/obj/item/weapon/card/id/salvage_captain
+	name = "Captain's ID"
+	registered_name = "Captain"
+	icon_state = "centcom"
+	desc = "Finders, keepers."
+	access = list(access_salvage_captain)
+

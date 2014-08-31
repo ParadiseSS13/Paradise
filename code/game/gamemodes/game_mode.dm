@@ -29,6 +29,7 @@
 	var/recommended_players = 0
 	var/recommended_enemies = 0
 	var/newscaster_announcements = null
+	var/ert_disabled = 0
 	var/uplink_welcome = "Syndicate Uplink Console:"
 	var/uplink_uses = 10
 	var/uplink_items = {"Highly Visible and Dangerous Weapons;
@@ -91,6 +92,9 @@ Implants;
 			return 1
 	return 0
 
+//pre_pre_setup() For when you really don't want certain jobs ingame.
+/datum/game_mode/proc/pre_pre_setup()
+	return 1
 
 ///pre_setup()
 ///Attempts to select players for special roles the mode might have.
@@ -185,10 +189,12 @@ Implants;
 					break
 
 /datum/game_mode/proc/check_finished() //to be called by ticker
-	if(emergency_shuttle.location==2 || station_was_nuked)
+	if(emergency_shuttle.returned() || station_was_nuked)
 		return 1
 	return 0
 
+/datum/game_mode/proc/cleanup()	//This is called when the round has ended but not the game, if any cleanup would be necessary in that case.
+	return
 
 /datum/game_mode/proc/declare_completion()
 	var/clients = 0
@@ -467,6 +473,9 @@ Implants;
 		if(player.mind && (player.mind.assigned_role in command_positions))
 			heads += player.mind
 	return heads
+
+/datum/game_mode/proc/check_antagonists_topic(href, href_list[])
+	return 0
 
 /datum/game_mode/New()
 	newscaster_announcements = pick(newscaster_standard_feeds)

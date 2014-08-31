@@ -73,7 +73,7 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 	flags |= NOREACT // so it doesn't react until you light it
 	create_reagents(chem_volume) // making the cigarrete a chemical holder with a maximum volume of 15
 
-/obj/item/clothing/mask/cigarette/Del()
+/obj/item/clothing/mask/cigarette/Destroy()
 	..()
 	del(reagents)
 
@@ -166,6 +166,10 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 		location.hotspot_expose(700, 5)
 	if(reagents && reagents.total_volume)	//	check if it has any reagents at all
 		if(iscarbon(loc) && (src == loc:wear_mask)) // if it's in the human/monkey mouth, transfer reagents to the mob
+			if(istype(loc, /mob/living/carbon/human))
+				var/mob/living/carbon/human/H = loc
+				if(H.species.flags & IS_SYNTHETIC)
+					return
 			var/mob/living/carbon/C = loc
 			if(prob(15)) // so it's not an instarape in case of acid
 				reagents.reaction(C, INGEST)
@@ -394,6 +398,7 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 			item_state = icon_on
 			if(istype(src, /obj/item/weapon/lighter/zippo) )
 				user.visible_message("<span class='rose'>Without even breaking stride, [user] flips open and lights [src] in one smooth movement.</span>")
+				playsound(src.loc, 'sound/items/ZippoLight.ogg', 25, 1)
 			else
 				if(prob(75))
 					user.visible_message("<span class='notice'>After a few attempts, [user] manages to light the [src].</span>")
@@ -410,6 +415,7 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 			item_state = icon_off
 			if(istype(src, /obj/item/weapon/lighter/zippo) )
 				user.visible_message("<span class='rose'>You hear a quiet click, as [user] shuts off [src] without even looking at what they're doing. Wow.")
+				playsound(src.loc, 'sound/items/ZippoClose.ogg', 25, 1)
 			else
 				user.visible_message("<span class='notice'>[user] quietly shuts off the [src].")
 

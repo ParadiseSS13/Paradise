@@ -29,7 +29,7 @@ var/list/admin_ranks = list()								//list of all ranks with associated rights
 				if("buildmode","build")			rights |= R_BUILDMODE
 				if("admin")						rights |= R_ADMIN
 				if("ban")						rights |= R_BAN
-				if("fun")						rights |= R_FUN
+				if("event")						rights |= R_EVENT
 				if("server")					rights |= R_SERVER
 				if("debug")						rights |= R_DEBUG
 				if("permissions","rights")		rights |= R_PERMISSIONS
@@ -52,12 +52,14 @@ var/list/admin_ranks = list()								//list of all ranks with associated rights
 	testing(msg)
 	#endif
 
+/hook/startup/proc/loadAdmins()
+	load_admins()
+	return 1
 
 /proc/load_admins()
 	//clear the datums references
 	admin_datums.Cut()
 	for(var/client/C in admins)
-		C.remove_admin_verbs()
 		C.holder = null
 	admins.Cut()
 

@@ -48,7 +48,7 @@
 /mob/proc/vampire_can_reach(mob/M as mob, active_range = 1)
 	if(M.loc == src.loc) return 1 //target and source are in the same thing
 	if(!isturf(src.loc) || !isturf(M.loc)) return 0 //One is inside, the other is outside something.
-	if(AStar(src.loc, M.loc, /turf/proc/AdjacentTurfs, /turf/proc/Distance, active_range)) //If a path exists, good!
+	if(Adjacent(M))//if(AStar(src.loc, M.loc, /turf/proc/AdjacentTurfs, /turf/proc/Distance, active_range)) //If a path exists, good!
 		return 1
 	return 0
 
@@ -58,7 +58,7 @@
 	var/datum/vampire/vampire = mind.vampire
 	if(!vampire) return
 	var/list/victims = list()
-	for(var/mob/living/carbon/C in oview(active_range))
+	for(var/mob/living/carbon/C in view(active_range))
 		victims += C
 	var/mob/living/carbon/T = input(src, "Victim?") as null|anything in victims
 
@@ -69,7 +69,7 @@
 	return T
 
 /client/vampire/proc/vampire_rejuvinate()
-	set category = "Vampire"
+	set category = "Abilities"
 	set name = "Rejuvinate "
 	set desc= "Flush your system with spare blood to remove any incapacitating effects"
 	var/datum/mind/M = usr.mind
@@ -93,7 +93,7 @@
 			M.current.verbs += /client/vampire/proc/vampire_rejuvinate
 
 /client/vampire/proc/vampire_hypnotise()
-	set category = "Vampire"
+	set category = "Abilities"
 	set name = "Hypnotise (20)"
 	set desc= "A piercing stare that incapacitates your victim for a good length of time."
 	var/datum/mind/M = usr.mind
@@ -123,7 +123,7 @@
 		return
 
 /client/vampire/proc/vampire_disease()
-	set category = "Vampire"
+	set category = "Abilities"
 	set name = "Diseased Touch (100)"
 	set desc = "Touches your victim with infected blood giving them the Shutdown Syndrome which quickly shutsdown their major organs resulting in a quick painful death."
 	var/datum/mind/M = usr.mind
@@ -166,7 +166,7 @@
 	spawn(1800) M.current.verbs += /client/vampire/proc/vampire_disease
 
 /client/vampire/proc/vampire_glare()
-	set category = "Vampire"
+	set category = "Abilities"
 	set name = "Glare"
 	set desc= "A scary glare that incapacitates people for a short while around you."
 	var/datum/mind/M = usr.mind
@@ -180,7 +180,7 @@
 		if(istype(M.current:glasses, /obj/item/clothing/glasses/sunglasses/blindfold))
 			M.current << "<span class='warning'>You're blindfolded!</span>"
 			return
-		for(var/mob/living/carbon/C in oview(1))
+		for(var/mob/living/carbon/C in view(1))
 			if(!C.vampire_affected(M)) continue
 			if(!M.current.vampire_can_reach(C, 1)) continue
 			C.Stun(8)
@@ -189,14 +189,14 @@
 			C << "\red You are blinded by [M.current]'s glare"
 
 /client/vampire/proc/vampire_shapeshift()
-	set category = "Vampire"
+	set category = "Abilities"
 	set name = "Shapeshift (50)"
 	set desc = "Changes your name and appearance at the cost of 50 blood and has a cooldown of 3 minutes."
 	var/datum/mind/M = usr.mind
 	if(!M) return
 	if(M.current.vampire_power(50, 0))
-		M.current.visible_message("<span class='warning'>[M.current] transforms!</span>")
-		M.current.client.prefs.real_name = random_name(M.current.gender)
+		M.current.visible_message("<span class='warning'>[M.current.name] transforms!</span>")
+		M.current.client.prefs.real_name = M.current.generate_name() //random_name(M.current.gender)
 		M.current.client.prefs.randomize_appearance_for(M.current)
 		M.current.regenerate_icons()
 		M.current.remove_vampire_blood(50)
@@ -204,14 +204,14 @@
 		spawn(1800) M.current.verbs += /client/vampire/proc/vampire_shapeshift
 
 /client/vampire/proc/vampire_screech()
-	set category = "Vampire"
+	set category = "Abilities"
 	set name = "Chiroptean Screech (30)"
 	set desc = "An extremely loud shriek that stuns nearby humans and breaks windows as well."
 	var/datum/mind/M = usr.mind
 	if(!M) return
 	if(M.current.vampire_power(30, 0))
 		M.current.visible_message("\red [M.current.name] lets out an ear piercing shriek!", "\red You let out a loud shriek.", "\red You hear a loud painful shriek!")
-		for(var/mob/living/carbon/C in ohearers(4, M.current))
+		for(var/mob/living/carbon/C in hearers(4, M.current))
 			if(C == M.current) continue
 			if(ishuman(C) && (C:l_ear || C:r_ear) && istype((C:l_ear || C:r_ear), /obj/item/clothing/ears/earmuffs)) continue
 			if(!C.vampire_affected(M)) continue
@@ -220,18 +220,16 @@
 			C.ear_deaf = 20
 			C.stuttering = 20
 			C.Stun(8)
-			C.make_jittery(150)
-		for(var/obj/structure/window/W in oview(3))
-			new W.shardtype(W.loc)
-			if(W.reinf) new /obj/item/stack/rods(W.loc)
-			del(W)
+			C.Jitter(150)
+		for(var/obj/structure/window/W in view(4))
+			W.destroy()
 		playsound(M.current.loc, 'sound/effects/creepyshriek.ogg', 100, 1)
 		M.current.remove_vampire_blood(30)
 		M.current.verbs -= /client/vampire/proc/vampire_screech
 		spawn(1800) M.current.verbs += /client/vampire/proc/vampire_screech
 
 /client/vampire/proc/vampire_enthrall()
-	set category = "Vampire"
+	set category = "Abilities"
 	set name = "Enthrall (300)"
 	set desc = "You use a large portion of your power to sway those loyal to none to be loyal to you only."
 	var/datum/mind/M = usr.mind
@@ -257,7 +255,7 @@
 
 
 /client/vampire/proc/vampire_cloak()
-	set category = "Vampire"
+	set category = "Abilities"
 	set name = "Cloak of Darkness (toggle)"
 	set desc = "Toggles whether you are currently cloaking yourself in darkness."
 	var/datum/mind/M = usr.mind
@@ -285,13 +283,22 @@
 		alpha = round((255 * 0.80))
 
 /mob/proc/can_enthrall(mob/living/carbon/C)
+	var/enthrall_safe = 0
+	for(var/obj/item/weapon/implant/loyalty/L in C)
+		if(L && L.implanted)
+			enthrall_safe = 1
+			break
+	for(var/obj/item/weapon/implant/traitor/T in C)
+		if(T && T.implanted)
+			enthrall_safe = 1
+			break
 	if(!C)
 		world.log << "something bad happened on enthralling a mob src is [src] [src.key] \ref[src]"
 		return 0
 	if(!C.mind)
 		src << "\red [C.name]'s mind is not there for you to enthrall."
 		return 0
-	if((/obj/item/weapon/implant/traitor in C.contents) || (/obj/item/weapon/implant/loyalty in C.contents )||( C.mind in ticker.mode.vampires )||( C.mind.vampire )||( C.mind in ticker.mode.enthralled ))
+	if(enthrall_safe || ( C.mind in ticker.mode.vampires )||( C.mind.vampire )||( C.mind in ticker.mode.enthralled ))
 		C.visible_message("\red [C] seems to resist the takeover!", "\blue You feel a familiar sensation in your skull that quickly dissipates.")
 		return 0
 	if(!C.vampire_affected(mind))
@@ -320,7 +327,7 @@
 	log_admin("[ckey(src.key)] has mind-slaved [ckey(H.key)].")
 
 /client/vampire/proc/vampire_bats()
-	set category = "Vampire"
+	set category = "Abilities"
 	set name = "Summon Bats (75)"
 	set desc = "You summon a pair of space bats who attack nearby targets until they or their target is dead."
 	var/datum/mind/M = usr.mind
@@ -349,7 +356,7 @@
 
 /client/vampire/proc/vampire_jaunt()
 	//AHOY COPY PASTE INCOMING
-	set category = "Vampire"
+	set category = "Abilities"
 	set name = "Mist Form (30)"
 	set desc = "You take on the form of mist for a short period of time."
 	var/jaunt_duration = 50 //in deciseconds
@@ -407,7 +414,7 @@
 // Blink for vamps
 // Less smoke spam.
 /client/vampire/proc/vampire_shadowstep()
-	set category = "Vampire"
+	set category = "Abilities"
 	set name = "Shadowstep (30)"
 	set desc = "Vanish into the shadows."
 	var/datum/mind/M = usr.mind

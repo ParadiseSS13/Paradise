@@ -78,7 +78,7 @@ obj/machinery/atmospherics/tvalve
 
 		return null
 
-	Del()
+	Destroy()
 		loc = null
 
 		if(node1)

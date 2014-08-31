@@ -8,7 +8,7 @@
 	name = "traitor"
 	config_tag = "traitor"
 	restricted_jobs = list("Cyborg")//They are part of the AI if he is traitor so are they, they use to get double chances
-	protected_jobs = list("Security Officer", "Warden", "Detective", "Head of Security", "Captain", "Head of Personnel", "Blueshield", "Nanotrasen Representative")//AI", Currently out of the list as malf does not work for shit
+	protected_jobs = list("Security Officer", "Warden", "Detective", "Head of Security", "Internal Affairs Agent", "Captain", "Head of Personnel", "Blueshield", "Nanotrasen Representative", "Security Pod Pilot", "Nanotrasen Recruiter", "Magistrate")//AI", Currently out of the list as malf does not work for shit
 	required_players = 0
 	required_enemies = 1
 	recommended_enemies = 4
@@ -96,16 +96,23 @@
 
 	else
 		switch(rand(1,100))
-			if(1 to 33)
+			if(1 to 30)
 				var/datum/objective/assassinate/kill_objective = new
 				kill_objective.owner = traitor
 				kill_objective.find_target()
 				traitor.objectives += kill_objective
-			if(34 to 50)
-				var/datum/objective/brig/brig_objective = new
-				brig_objective.owner = traitor
-				brig_objective.find_target()
-				traitor.objectives += brig_objective
+			if(31 to 40)
+				var/datum/objective/debrain/debrain_objective = new
+				debrain_objective.owner = traitor
+				debrain_objective.find_target()
+				traitor.objectives += debrain_objective
+			if(41 to 50)
+				var/datum/objective/protect/protect_objective = new
+				protect_objective.owner = traitor
+				protect_objective.find_target_with_special_role(null,0)
+				if (!protect_objective.target)
+					protect_objective.find_target()					//We could not find any traitors, protect somebody
+				traitor.objectives += protect_objective
 			if(51 to 66)
 				var/datum/objective/harm/harm_objective = new
 				harm_objective.owner = traitor
@@ -118,10 +125,27 @@
 				traitor.objectives += steal_objective
 		switch(rand(1,100))
 			if(1 to 30) // Die glorious death
-				if (!(locate(/datum/objective/die) in traitor.objectives))
+				if (!(locate(/datum/objective/die) in traitor.objectives) && !(locate(/datum/objective/steal) in traitor.objectives))
 					var/datum/objective/die/die_objective = new
 					die_objective.owner = traitor
 					traitor.objectives += die_objective
+				else
+					if(prob(85))
+						if (!(locate(/datum/objective/escape) in traitor.objectives))
+							var/datum/objective/escape/escape_objective = new
+							escape_objective.owner = traitor
+							traitor.objectives += escape_objective
+					else
+						if(prob(50))
+							if (!(locate(/datum/objective/hijack) in traitor.objectives))
+								var/datum/objective/hijack/hijack_objective = new
+								hijack_objective.owner = traitor
+								traitor.objectives += hijack_objective
+						else
+							if (!(locate(/datum/objective/minimize_casualties) in traitor.objectives))
+								var/datum/objective/minimize_casualties/escape_objective = new
+								escape_objective.owner = traitor
+								traitor.objectives += escape_objective
 			if(31 to 90)
 				if (!(locate(/datum/objective/escape) in traitor.objectives))
 					var/datum/objective/escape/escape_objective = new
@@ -134,10 +158,11 @@
 						hijack_objective.owner = traitor
 						traitor.objectives += hijack_objective
 				else // Honk
-					if (!(locate(/datum/objective/minimize_casualties) in traitor.objectives))
-						var/datum/objective/minimize_casualties/escape_objective = new
-						escape_objective.owner = traitor
-						traitor.objectives += escape_objective
+					if (!(locate(/datum/objective/speciesist) in traitor.objectives))
+						var/datum/objective/speciesist/speciesist_objective = new
+						speciesist_objective.owner = traitor
+						speciesist_objective.find_target()
+						traitor.objectives += speciesist_objective
 	return
 
 
@@ -170,27 +195,24 @@
 			objective.check_completion()
 	return 0
 
+/datum/game_mode/proc/give_codewords(mob/living/traitor_mob)
+	traitor_mob << "<U><B>The Syndicate provided you with the following information on how to identify their agents:</B></U>"
+	traitor_mob << "<B>Code Phrase</B>: <span class='danger'>[syndicate_code_phrase]</span>"
+	traitor_mob << "<B>Code Response</B>: <span class='danger'>[syndicate_code_response]</span>"
+
+	traitor_mob.mind.store_memory("<b>Code Phrase</b>: [syndicate_code_phrase]")
+	traitor_mob.mind.store_memory("<b>Code Response</b>: [syndicate_code_response]")
+
+	traitor_mob << "Use the code words in the order provided, during regular conversation, to identify other agents. Proceed with caution, however, as everyone is a potential foe."
+
+
 /datum/game_mode/proc/add_law_zero(mob/living/silicon/ai/killer)
 	var/law = "Accomplish your objectives at all costs."
 	var/law_borg = "Accomplish your AI's objectives at all costs."
 	killer << "<b>Your laws have been changed!</b>"
 	killer.set_zeroth_law(law, law_borg)
 	killer << "New law: 0. [law]"
-
-	//Begin code phrase.
-	killer << "The Syndicate provided you with the following information on how to identify their agents:"
-	if(prob(80))
-		killer << "\red Code Phrase: \black [syndicate_code_phrase]"
-		killer.mind.store_memory("<b>Code Phrase</b>: [syndicate_code_phrase]")
-	else
-		killer << "Unfortunately, the Syndicate did not provide you with a code phrase."
-	if(prob(80))
-		killer << "\red Code Response: \black [syndicate_code_response]"
-		killer.mind.store_memory("<b>Code Response</b>: [syndicate_code_response]")
-	else
-		killer << "Unfortunately, the Syndicate did not provide you with a code response."
-	killer << "Use the code words in the order provided, during regular conversation, to identify other agents. Proceed with caution, however, as everyone is a potential foe."
-	//End code phrase.
+	give_codewords(killer)
 
 
 /datum/game_mode/proc/auto_declare_completion_traitor()
@@ -211,6 +233,19 @@
 				text += "body destroyed"
 			text += ")"
 
+
+			var/TC_uses = 0
+			var/uplink_true = 0
+			var/purchases = ""
+			for(var/obj/item/device/uplink/H in world_uplinks)
+				if(H && H.uplink_owner && H.uplink_owner==traitor.name)
+					TC_uses += H.used_TC
+					uplink_true=1
+					purchases += H.purchase_log
+
+			if(uplink_true) text += " (used [TC_uses] TC) [purchases]"
+
+
 			if(traitor.objectives.len)//If the traitor had no objectives, don't need to process this.
 				var/count = 1
 				for(var/datum/objective/objective in traitor.objectives)
@@ -229,12 +264,14 @@
 			else
 				special_role_text = "antagonist"
 
+
 			if(traitorwin)
 				text += "<br><font color='green'><B>The [special_role_text] was successful!</B></font>"
 				feedback_add_details("traitor_success","SUCCESS")
 			else
 				text += "<br><font color='red'><B>The [special_role_text] has failed!</B></font>"
 				feedback_add_details("traitor_success","FAIL")
+
 
 		world << text
 	return 1
@@ -274,6 +311,7 @@
 
 			var/obj/item/device/uplink/hidden/T = new(R)
 			target_radio.hidden_uplink = T
+			T.uplink_owner = "[traitor_mob]"
 			target_radio.traitor_frequency = freq
 			traitor_mob << "The Syndicate have cunningly disguised a Syndicate Uplink as your [R.name] [loc]. Simply dial the frequency [format_frequency(freq)] to unlock its hidden features."
 			traitor_mob.mind.store_memory("<B>Radio Freq:</B> [format_frequency(freq)] ([R.name] [loc]).")
@@ -283,26 +321,14 @@
 
 			var/obj/item/device/uplink/hidden/T = new(R)
 			R.hidden_uplink = T
+			T.uplink_owner = "[traitor_mob]"
 			var/obj/item/device/pda/P = R
 			P.lock_code = pda_pass
 
 			traitor_mob << "The Syndicate have cunningly disguised a Syndicate Uplink as your [R.name] [loc]. Simply enter the code \"[pda_pass]\" into the ringtone select to unlock its hidden features."
 			traitor_mob.mind.store_memory("<B>Uplink Passcode:</B> [pda_pass] ([R.name] [loc]).")
-	//Begin code phrase.
 	if(!safety)//If they are not a rev. Can be added on to.
-		traitor_mob << "The Syndicate provided you with the following information on how to identify other agents:"
-		if(prob(80))
-			traitor_mob << "\red Code Phrase: \black [syndicate_code_phrase]"
-			traitor_mob.mind.store_memory("<b>Code Phrase</b>: [syndicate_code_phrase]")
-		else
-			traitor_mob << "Unfortunetly, the Syndicate did not provide you with a code phrase."
-		if(prob(80))
-			traitor_mob << "\red Code Response: \black [syndicate_code_response]"
-			traitor_mob.mind.store_memory("<b>Code Response</b>: [syndicate_code_response]")
-		else
-			traitor_mob << "Unfortunately, the Syndicate did not provide you with a code response."
-		traitor_mob << "Use the code words in the order provided, during regular conversation, to identify other agents. Proceed with caution, however, as everyone is a potential foe."
-	//End code phrase.
+		give_codewords(traitor_mob)
 
 	// Tell them about people they might want to contact.
 	var/mob/living/carbon/human/M = get_nt_opposed()

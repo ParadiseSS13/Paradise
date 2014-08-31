@@ -126,15 +126,18 @@
 	if(href_list["select_field"])
 		field_type = href_list["select_field"]
 	else if(href_list["insertcard"])
-		var/obj/item/I = usr.get_active_hand()
-		if (istype(I, /obj/item/weapon/card))
-			usr.drop_item()
-			I.loc = src
-			auth_card = I
-			if(attempt_unlock(I))
-				usr << "<span class='info'>You insert [I], the console flashes \'<i>Access granted.</a>\'</span>"
-			else
-				usr << "<span class='warning'>You insert [I], the console flashes \'<i>Access denied.</a>\'</span>"
+		if (istype(usr, /mob/living/silicon))
+			locked = 0
+		else
+			var/obj/item/I = usr.get_active_hand()
+			if (istype(I, /obj/item/weapon/card))
+				usr.drop_item()
+				I.loc = src
+				auth_card = I
+				if(attempt_unlock(I))
+					usr << "<span class='info'>You insert [I], the console flashes \'<i>Access granted.</a>\'</span>"
+				else
+					usr << "<span class='warning'>You insert [I], the console flashes \'<i>Access denied.</a>\'</span>"
 	else if(href_list["ejectcard"])
 		if(auth_card)
 			if(ishuman(usr))
@@ -309,20 +312,30 @@
 	del(suspension_field)
 	icon_state = "suspension2"
 
-/obj/machinery/suspension_gen/Del()
+/obj/machinery/suspension_gen/Destroy()
 	//safety checks: clear the field and drop anything it's holding
 	deactivate()
 	..()
 
-/obj/machinery/suspension_gen/verb/toggle()
+/obj/machinery/suspension_gen/verb/rotate_ccw()
 	set src in view(1)
-	set name = "Rotate suspension gen (clockwise)"
-	set category = "IC"
+	set name = "Rotate suspension gen (counter-clockwise)"
+	set category = "Object"
 
 	if(anchored)
 		usr << "\red You cannot rotate [src], it has been firmly fixed to the floor."
 	else
 		dir = turn(dir, 90)
+
+/obj/machinery/suspension_gen/verb/rotate_cw()
+	set src in view(1)
+	set name = "Rotate suspension gen (clockwise)"
+	set category = "Object"
+
+	if(anchored)
+		usr << "\red You cannot rotate [src], it has been firmly fixed to the floor."
+	else
+		dir = turn(dir, -90)
 
 /obj/effect/suspension_field
 	name = "energy field"
@@ -331,7 +344,7 @@
 	density = 1
 	var/field_type = "chlorine"
 
-/obj/effect/suspension_field/Del()
+/obj/effect/suspension_field/Destroy()
 	for(var/obj/I in src)
 		I.loc = src.loc
 	..()

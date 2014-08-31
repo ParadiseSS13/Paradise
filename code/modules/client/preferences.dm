@@ -13,25 +13,26 @@ var/global/list/special_roles = list( //keep synced with the defines BE_* in set
 	"alien candidate" = 1, //always show                 // 6
 	"pAI candidate" = 1, // -- TLE                       // 7
 	"cultist" = IS_MODE_COMPILED("cult"),                // 8
-	"infested monkey" = IS_MODE_COMPILED("monkey"),      // 9
+	"plant" = 1,										// 9
 	"ninja" = "true",									 // 10
 	"vox raider" = IS_MODE_COMPILED("heist"),			 // 11
 	"slime" = 1,                                         // 12
-	"vampire" = IS_MODE_COMPILED("vampire")				 // 13
+	"vampire" = IS_MODE_COMPILED("vampire"),				 // 13
+	"mutineer" = IS_MODE_COMPILED("mutiny")             // 14
 )
 
 var/const/MAX_SAVE_SLOTS = 10
 
 //used for alternate_option
 #define GET_RANDOM_JOB 0
-#define BE_ASSISTANT 1
+#define BE_CIVILIAN 1
 #define RETURN_TO_LOBBY 2
 
 datum/preferences
 	//doohickeys for savefiles
-	var/path
+//	var/path
 	var/default_slot = 1				//Holder so it doesn't default to slot 1, rather the last one used
-	var/savefile_version = 0
+//	var/savefile_version = 0
 
 	//non-preference stuff
 	var/warns = 0
@@ -40,7 +41,7 @@ datum/preferences
 	var/last_id
 
 	//game-preferences
-	var/lastchangelog = ""				//Saved changlog filesize to detect if there was a change
+//	var/lastchangelog = ""				//Saved changlog filesize to detect if there was a change
 	var/ooccolor = "#b82e00"
 	var/be_special = 0					//Special role selection
 	var/UI_style = "Midnight"
@@ -57,6 +58,7 @@ datum/preferences
 	var/age = 30						//age of character
 	var/b_type = "A+"					//blood type (not-chooseable)
 	var/underwear = 1					//underwear type
+	var/undershirt = 1					//undershirt type
 	var/backbag = 2						//backpack type
 	var/h_style = "Bald"				//Hair type
 	var/r_hair = 0						//Hair color
@@ -66,7 +68,10 @@ datum/preferences
 	var/r_facial = 0					//Face hair color
 	var/g_facial = 0					//Face hair color
 	var/b_facial = 0					//Face hair color
-	var/s_tone = 0						//Skin color
+	var/s_tone = 0						//Skin tone
+	var/r_skin = 0						//Skin color
+	var/g_skin = 0						//Skin color
+	var/b_skin = 0						//Skin color
 	var/r_eyes = 0						//Eye color
 	var/g_eyes = 0						//Eye color
 	var/b_eyes = 0						//Eye color
@@ -79,9 +84,9 @@ datum/preferences
 	var/icon/preview_icon_side = null
 
 		//Jobs, uses bitflags
-	var/job_civilian_high = 0
-	var/job_civilian_med = 0
-	var/job_civilian_low = 0
+	var/job_support_high = 0
+	var/job_support_med = 0
+	var/job_support_low = 0
 
 	var/job_medsci_high = 0
 	var/job_medsci_med = 0
@@ -103,10 +108,10 @@ datum/preferences
 	var/list/organ_data = list()
 
 	var/list/player_alt_titles = new()		// the default name of a job like "Medical Doctor"
-	var/accent = "en-us"
-	var/voice = "m1"
-	var/pitch = 50
-	var/talkspeed = 175
+//	var/accent = "en-us"
+//	var/voice = "m1"
+//	var/pitch = 50
+//	var/talkspeed = 175
 	var/flavor_text = ""
 	var/med_record = ""
 	var/sec_record = ""
@@ -125,13 +130,15 @@ datum/preferences
 	// Whether or not to use randomized character slots
 	var/randomslot = 0
 
+	// jukebox volume
+	var/volume = 100
 /datum/preferences/New(client/C)
 	b_type = pick(4;"O-", 36;"O+", 3;"A-", 28;"A+", 1;"B-", 20;"B+", 1;"AB-", 5;"AB+")
 	if(istype(C))
 		if(!IsGuestKey(C.key))
-			load_path(C.ckey)
-			if(load_preferences())
-				if(load_character())
+//			load_path(C.ckey)
+			if(load_preferences(C))
+				if(load_character(C))
 					return
 	gender = pick(MALE, FEMALE)
 	real_name = random_name(gender)
@@ -146,22 +153,17 @@ datum/preferences
 
 		dat += "<a href='?_src_=prefs;preference=tab;tab=0' [current_tab == 0 ? "class='linkOn'" : ""]>Character Settings</a>"
 		dat += "<a href='?_src_=prefs;preference=tab;tab=1' [current_tab == 1 ? "class='linkOn'" : ""]>Game Preferences</a>"
-		if(!path)
-			dat += "Please create an account to save your preferences."
-
-
 		dat += "</center>"
 		dat += "<HR>"
 
 		switch(current_tab)
 			if (0) // Character Settings#
-				if(path)
-					dat += "<center>"
-					dat += "Slot <b>[slot_name]</b> - "
-					dat += "<a href=\"byond://?src=\ref[user];preference=open_load_dialog\">Load slot</a> - "
-					dat += "<a href=\"byond://?src=\ref[user];preference=save\">Save slot</a> - "
-					dat += "<a href=\"byond://?src=\ref[user];preference=reload\">Reload slot</a>"
-					dat += "</center>"
+				dat += "<center>"
+				dat += "Slot <b>[slot_name]</b> - "
+				dat += "<a href=\"byond://?src=\ref[user];preference=open_load_dialog\">Load slot</a> - "
+				dat += "<a href=\"byond://?src=\ref[user];preference=save\">Save slot</a> - "
+				dat += "<a href=\"byond://?src=\ref[user];preference=reload\">Reload slot</a>"
+				dat += "</center>"
 				dat += "<center><h2>Occupation Choices</h2>"
 				dat += "<a href='?_src_=prefs;preference=job;task=menu'>Set Occupation Preferences</a><br></center>"
 				dat += "<h2>Identity</h2>"
@@ -180,17 +182,15 @@ datum/preferences
 				dat += "<br>"
 				dat += "Species: <a href='?_src_=prefs;preference=species;task=input'>[species]</a><br>"
 				dat += "Secondary Language:<br><a href='?_src_=prefs;preference=language;task=input'>[language]</a><br>"
-				dat += "Accent: <a href='?_src_=prefs;preference=accent;task=input'>[accent]</a><br>"
-				dat += "Voice: <a href='?_src_=prefs;preference=voice;task=input'>[voice]</a><br>"
-				dat += "Pitch: <a href='?_src_=prefs;preference=pitch;task=input'>[pitch]</a><br>"
-				dat += "Talking Speed: <a href='?_src_=prefs;preference=talkspeed;task=input'>[talkspeed]</a><br>"
 				dat += "Blood Type: <a href='?_src_=prefs;preference=b_type;task=input'>[b_type]</a><br>"
-				dat += "Skin Tone: <a href='?_src_=prefs;preference=s_tone;task=input'>[-s_tone + 35]/220<br></a>"
+				if(species == "Human")
+					dat += "Skin Tone: <a href='?_src_=prefs;preference=s_tone;task=input'>[-s_tone + 35]/220<br></a>"
 		//		dat += "Skin pattern: <a href='byond://?src=\ref[user];preference=skin_style;task=input'>Adjust</a><br>"
 				dat += "<br><b>Handicaps</b><br>"
 				dat += "\t<a href='?_src_=prefs;preference=disabilities'><b>\[Set Disabilities\]</b></a><br>"
 				dat += "Limbs: <a href='?_src_=prefs;preference=limbs;task=input'>Adjust</a><br>"
-				dat += "Internal Organs: <a href='?_src_=prefs;preference=organs;task=input'>Adjust</a><br>"
+				if(species != "Slime People" && species != "Machine")
+					dat += "Internal Organs: <a href='?_src_=prefs;preference=organs;task=input'>Adjust</a><br>"
 
 				//display limbs below
 				var/ind = 0
@@ -265,6 +265,7 @@ datum/preferences
 					dat += "Underwear: <a href ='?_src_=prefs;preference=underwear;task=input'><b>[underwear_m[underwear]]</b></a><br>"
 				else
 					dat += "Underwear: <a href ='?_src_=prefs;preference=underwear;task=input'><b>[underwear_f[underwear]]</b></a><br>"
+				dat += "Undershirt: <a href='?_src_=prefs;preference=undershirt;task=input'><b>[undershirt_t[undershirt]]</b></a><br>"
 				dat += "Backpack Type:<br><a href ='?_src_=prefs;preference=bag;task=input'><b>[backbaglist[backbag]]</b></a><br>"
 				dat += "Nanotrasen Relation:<br><a href ='?_src_=prefs;preference=nt_relation;task=input'><b>[nanotrasen_relation]</b></a><br>"
 				dat += "</td><td><b>Preview</b><br><img src=previewicon.png height=64 width=64><img src=previewicon2.png height=64 width=64></td></tr></table>"
@@ -293,7 +294,11 @@ datum/preferences
 				dat += " Style: <a href='?_src_=prefs;preference=f_style;task=input'>[f_style]</a><br>"
 
 				dat += "<br><b>Eyes</b><br>"
-				dat += "<a href='?_src_=prefs;preference=eyes;task=input'>Change Color</a> <font face='fixedsys' size='3' color='#[num2hex(r_eyes, 2)][num2hex(g_eyes, 2)][num2hex(b_eyes, 2)]'><table  style='display:inline;' bgcolor='#[num2hex(r_eyes, 2)][num2hex(g_eyes, 2)][num2hex(b_eyes)]'><tr><td>__</td></tr></table></font>"
+				dat += "<a href='?_src_=prefs;preference=eyes;task=input'>Change Color</a> <font face='fixedsys' size='3' color='#[num2hex(r_eyes, 2)][num2hex(g_eyes, 2)][num2hex(b_eyes, 2)]'><table  style='display:inline;' bgcolor='#[num2hex(r_eyes, 2)][num2hex(g_eyes, 2)][num2hex(b_eyes)]'><tr><td>__</td></tr></table></font><br>"
+
+				if(species == "Unathi" || species == "Tajaran" || species == "Skrell")
+					dat += "<br><b>Body Color</b><br>"
+					dat += "<a href='?_src_=prefs;preference=skin;task=input'>Change Color</a> <font face='fixedsys' size='3' color='#[num2hex(r_skin, 2)][num2hex(g_skin, 2)][num2hex(b_skin, 2)]'><table style='display:inline;' bgcolor='#[num2hex(r_skin, 2)][num2hex(g_skin, 2)][num2hex(b_skin)]'><tr><td>__</td></tr></table></font>"
 
 				dat += "</td></tr></table><hr><center>"
 
@@ -305,8 +310,6 @@ datum/preferences
 				dat += "-Color: <a href='?_src_=prefs;preference=UIcolor'><b>[UI_style_color]</b></a> <table style='display:inline;' bgcolor='[UI_style_color]'><tr><td>__</td></tr></table><br>"
 				dat += "-Alpha(transparence): <a href='?_src_=prefs;preference=UIalpha'><b>[UI_style_alpha]</b></a><br>"
 				dat += "<b>Play admin midis:</b> <a href='?_src_=prefs;preference=hear_midis'><b>[(sound & SOUND_MIDI) ? "Yes" : "No"]</b></a><br>"
-				dat += "<b>Play lobby music:</b> <a href='?_src_=prefs;preference=lobby_music'><b>[(sound & SOUND_LOBBY) ? "Yes" : "No"]</b></a><br>"
-				dat += "<b>Hear player voices:</b> <a href='?_src_=prefs;preference=player_voices'><b>[(sound & SOUND_VOICES) ? "Yes" : "No"]</b></a><br>"
 				dat += "<b>Randomized Character Slot:</b> <a href='?_src_=prefs;preference=randomslot'><b>[randomslot ? "Yes" : "No"]</b></a><br>"
 				dat += "<b>Ghost ears:</b> <a href='?_src_=prefs;preference=ghost_ears'><b>[(toggles & CHAT_GHOSTEARS) ? "Nearest Creatures" : "All Speech"]</b></a><br>"
 				dat += "<b>Ghost sight:</b> <a href='?_src_=prefs;preference=ghost_sight'><b>[(toggles & CHAT_GHOSTSIGHT) ? "Nearest Creatures" : "All Emotes"]</b></a><br>"
@@ -348,7 +351,7 @@ datum/preferences
 		popup.set_content(dat)
 		popup.open(0)
 
-	proc/SetChoices(mob/user, limit = 14, list/splitJobs = list("Chief Engineer","Head of Security"), width = 610, height = 650)
+	proc/SetChoices(mob/user, limit = 14, list/splitJobs = list("Chief Engineer","Research Director","Captain"), width = 1025, height = 800)
 		if(!job_master)
 			return
 
@@ -360,6 +363,7 @@ datum/preferences
 
 		var/HTML = "<body>"
 		HTML += "<tt><center>"
+		HTML += "<b>Choose occupation chances</b><br>Unavailable occupations are crossed out.<br><br>"
 		HTML += "<center><a href='?_src_=prefs;preference=job;task=close'>\[Done\]</a></center><br>" // Easier to press up here.
 		HTML += "<div align='center'>Left-click to raise an occupation preference, right-click to lower it.<br></div>"
 		HTML += "<script type='text/javascript'>function setJobPrefRedirect(level, rank) { window.location.href='?_src_=prefs;preference=job;task=setJobLevel;level=' + level + ';text=' + encodeURIComponent(rank); return false; }</script>"
@@ -390,13 +394,13 @@ datum/preferences
 				HTML += "<font color=red>[rank]</font></td><td><font color=red><b> \[KARMA]</b></font></td></tr>"
 				continue
 			if(jobban_isbanned(user, rank))
-				HTML += "<font color=red>[rank]</font></td><td><font color=red><b> \[BANNED]</b></font></td></tr>"
+				HTML += "<del>[rank]</del></td><td><b> \[BANNED]</b></td></tr>"
 				continue
 			if(!job.player_old_enough(user.client))
 				var/available_in_days = job.available_in_days(user.client)
-				HTML += "<font color=red>[rank]</font></td><td><font color=red> \[IN [(available_in_days)] DAYS]</font></td></tr>"
+				HTML += "<del>[rank]</del></td><td> \[IN [(available_in_days)] DAYS]</td></tr>"
 				continue
-			if((job_civilian_low & ASSISTANT) && (rank != "Assistant"))
+			if((job_support_low & CIVILIAN) && (rank != "Civilian"))
 				HTML += "<font color=orange>[rank]</font></td><td></td></tr>"
 				continue
 			if((rank in command_positions) || (rank == "AI"))//Bold head jobs
@@ -437,8 +441,8 @@ datum/preferences
 
 //			HTML += "<a href='?_src_=prefs;preference=job;task=input;text=[rank]'>"
 
-			if(rank == "Assistant")//Assistant is special
-				if(job_civilian_low & ASSISTANT)
+			if(rank == "Civilian")//Civilian is special
+				if(job_support_low & CIVILIAN)
 					HTML += " <font color=green>\[Yes]</font>"
 				else
 					HTML += " <font color=red>\[No]</font>"
@@ -472,10 +476,10 @@ datum/preferences
 		switch(alternate_option)
 			if(GET_RANDOM_JOB)
 				HTML += "<center><br><u><a href='?_src_=prefs;preference=job;task=random'><font color=white>Get random job if preferences unavailable</font></a></u></center><br>"
-			if(BE_ASSISTANT)
-				HTML += "<center><br><u><a href='?_src_=prefs;preference=job;task=random'><font color=white>Be assistant if preference unavailable</font></a></u></center><br>"
+			if(BE_CIVILIAN)
+				HTML += "<center><br><u><a href='?_src_=prefs;preference=job;task=random'><font color=white>Be a civilian if preferences unavailable</font></a></u></center><br>"
 			if(RETURN_TO_LOBBY)
-				HTML += "<center><br><u><a href='?_src_=prefs;preference=job;task=random'><font color=white>Return to lobby if preference unavailable</font></a></u></center><br>"
+				HTML += "<center><br><u><a href='?_src_=prefs;preference=job;task=random'><font color=white>Return to lobby if preferences unavailable</font></a></u></center><br>"
 
 		HTML += "<center><a href='?_src_=prefs;preference=job;task=reset'>\[Reset\]</a></center>"
 		HTML += "</tt>"
@@ -494,27 +498,27 @@ datum/preferences
 
 		if (level == 1) // to high
 			// remove any other job(s) set to high
-			job_civilian_med |= job_civilian_high
+			job_support_med |= job_support_high
 			job_engsec_med |= job_engsec_high
 			job_medsci_med |= job_medsci_high
 			job_karma_med |= job_karma_high
-			job_civilian_high = 0
+			job_support_high = 0
 			job_engsec_high = 0
 			job_medsci_high = 0
 			job_karma_high = 0
 
-		if (job.department_flag == CIVILIAN)
-			job_civilian_low &= ~job.flag
-			job_civilian_med &= ~job.flag
-			job_civilian_high &= ~job.flag
+		if (job.department_flag == SUPPORT)
+			job_support_low &= ~job.flag
+			job_support_med &= ~job.flag
+			job_support_high &= ~job.flag
 
 			switch(level)
 				if (1)
-					job_civilian_high |= job.flag
+					job_support_high |= job.flag
 				if (2)
-					job_civilian_med |= job.flag
+					job_support_med |= job.flag
 				if (3)
-					job_civilian_low |= job.flag
+					job_support_low |= job.flag
 
 			return 1
 		else if (job.department_flag == ENGSEC)
@@ -575,11 +579,11 @@ datum/preferences
 			ShowChoices(user)
 			return
 
-		if(role == "Assistant")
-			if(job_civilian_low & job.flag)
-				job_civilian_low &= ~job.flag
+		if(role == "Civilian")
+			if(job_support_low & job.flag)
+				job_support_low &= ~job.flag
 			else
-				job_civilian_low |= job.flag
+				job_support_low |= job.flag
 			SetChoices(user)
 			return 1
 
@@ -672,11 +676,11 @@ datum/preferences
 			ShowChoices(user)
 			return
 
-		if(role == "Assistant")
-			if(job_civilian_low & job.flag)
-				job_civilian_low &= ~job.flag
+		if(role == "Civilian")
+			if(job_support_low & job.flag)
+				job_support_low &= ~job.flag
 			else
-				job_civilian_low |= job.flag
+				job_support_low |= job.flag
 			SetChoices(user)
 			return 1
 
@@ -693,9 +697,9 @@ datum/preferences
 		return 1
 
 	proc/ResetJobs()
-		job_civilian_high = 0
-		job_civilian_med = 0
-		job_civilian_low = 0
+		job_support_high = 0
+		job_support_med = 0
+		job_support_low = 0
 
 		job_medsci_high = 0
 		job_medsci_med = 0
@@ -713,14 +717,14 @@ datum/preferences
 	proc/GetJobDepartment(var/datum/job/job, var/level)
 		if(!job || !level)	return 0
 		switch(job.department_flag)
-			if(CIVILIAN)
+			if(SUPPORT)
 				switch(level)
 					if(1)
-						return job_civilian_high
+						return job_support_high
 					if(2)
-						return job_civilian_med
+						return job_support_med
 					if(3)
-						return job_civilian_low
+						return job_support_low
 			if(MEDSCI)
 				switch(level)
 					if(1)
@@ -751,32 +755,32 @@ datum/preferences
 		if(!job || !level)	return 0
 		switch(level)
 			if(1)//Only one of these should ever be active at once so clear them all here
-				job_civilian_high = 0
+				job_support_high = 0
 				job_medsci_high = 0
 				job_engsec_high = 0
 				job_karma_high = 0
 				return 1
 			if(2)//Set current highs to med, then reset them
-				job_civilian_med |= job_civilian_high
+				job_support_med |= job_support_high
 				job_medsci_med |= job_medsci_high
 				job_engsec_med |= job_engsec_high
 				job_karma_med |= job_karma_high
-				job_civilian_high = 0
+				job_support_high = 0
 				job_medsci_high = 0
 				job_engsec_high = 0
 				job_karma_high = 0
 
 		switch(job.department_flag)
-			if(CIVILIAN)
+			if(SUPPORT)
 				switch(level)
 					if(2)
-						job_civilian_high = job.flag
-						job_civilian_med &= ~job.flag
+						job_support_high = job.flag
+						job_support_med &= ~job.flag
 					if(3)
-						job_civilian_med |= job.flag
-						job_civilian_low &= ~job.flag
+						job_support_med |= job.flag
+						job_support_low &= ~job.flag
 					else
-						job_civilian_low |= job.flag
+						job_support_low |= job.flag
 			if(MEDSCI)
 				switch(level)
 					if(2)
@@ -822,7 +826,7 @@ datum/preferences
 					ResetJobs()
 					SetChoices(user)
 				if("random")
-					if(alternate_option == GET_RANDOM_JOB || alternate_option == BE_ASSISTANT)
+					if(alternate_option == GET_RANDOM_JOB || alternate_option == BE_CIVILIAN)
 						alternate_option += 1
 					else if(alternate_option == RETURN_TO_LOBBY)
 						alternate_option = 0
@@ -902,7 +906,7 @@ datum/preferences
 			if("random")
 				switch(href_list["preference"])
 					if("name")
-						real_name = random_name(gender)
+						real_name = random_name(gender,species)
 					if("age")
 						age = rand(AGE_MIN, AGE_MAX)
 					if("hair")
@@ -920,12 +924,19 @@ datum/preferences
 					if("underwear")
 						underwear = rand(1,underwear_m.len)
 						ShowChoices(user)
+					if("undershirt")
+						undershirt = rand(1,undershirt_t.len)
+						ShowChoices(user)
 					if("eyes")
 						r_eyes = rand(0,255)
 						g_eyes = rand(0,255)
 						b_eyes = rand(0,255)
 					if("s_tone")
 						s_tone = random_skin_tone()
+					if("s_color")
+						r_skin = rand(0,255)
+						g_skin = rand(0,255)
+						b_skin = rand(0,255)
 					if("bag")
 						backbag = rand(1,4)
 					/*if("skin_style")
@@ -935,11 +946,13 @@ datum/preferences
 			if("input")
 				switch(href_list["preference"])
 					if("name")
-						var/new_name = reject_bad_name( input(user, "Choose your character's name:", "Character Preference")  as text|null )
-						if(new_name)
-							real_name = new_name
-						else
-							user << "<font color='red'>Invalid name. Your name should be at least 2 and at most [MAX_NAME_LEN] characters long. It may only contain the characters A-Z, a-z, -, ' and .</font>"
+						var/raw_name = input(user, "Choose your character's name:", "Character Preference")  as text|null
+						if (!isnull(raw_name)) // Check to ensure that the user entered text (rather than cancel.)
+							var/new_name = reject_bad_name(raw_name)
+							if(new_name)
+								real_name = new_name
+							else
+								user << "<font color='red'>Invalid name. Your name should be at least 2 and at most [MAX_NAME_LEN] characters long. It may only contain the characters A-Z, a-z, -, ' and .</font>"
 
 					if("age")
 						var/new_age = input(user, "Choose your character's age:\n([AGE_MIN]-[AGE_MAX])", "Character Preference") as num|null
@@ -1097,22 +1110,14 @@ datum/preferences
 							underwear = underwear_options.Find(new_underwear)
 						ShowChoices(user)
 
-					if("accent")
-						var/new_accent = input(user, "Choose your accent. en-us:American, en:British, en-sc:Scottish, mb-de4-en:German, mb-fr1-en:French", "Character Preference") as null|anything in list("en-us", "en", "en-sc","mb-de4-en","mb-fr1-en")
-						if(new_accent)
-							accent = new_accent
-					if("voice")
-						var/new_voice = input(user, "Choose your voice. f:Female, m:Male", "Character Preference") as null|anything in list("f1","m1","f2","m2","f3","m3","f4","m4","f5","m5","m6","m7")
-						if(new_voice)
-							voice = new_voice
-					if("pitch")
-						var/new_pitch = input(user, "Choose your character's voice pitch:\n(0-99) Default is 50.", "Character Preference") as num|null
-						if(new_pitch)
-							pitch = max(min( round(text2num(new_pitch)), 99),0)
-					if("talkspeed")
-						var/new_talkspeed = input(user, "Choose your character's voice talk speed:\n(140-240) Default is 175.", "Character Preference") as num|null
-						if(new_talkspeed)
-							talkspeed = max(min( round(text2num(new_talkspeed)), 240),140)
+					if("undershirt")
+						var/list/undershirt_options
+						undershirt_options = undershirt_t
+
+						var/new_undershirt = input(user, "Choose your character's undershirt:", "Character Preference") as null|anything in undershirt_options
+						if (new_undershirt)
+							undershirt = undershirt_options.Find(new_undershirt)
+						ShowChoices(user)
 
 					if("eyes")
 						var/new_eyes = input(user, "Choose your character's eye colour:", "Character Preference") as color|null
@@ -1127,6 +1132,14 @@ datum/preferences
 						var/new_s_tone = input(user, "Choose your character's skin-tone:\n(Light 1 - 220 Dark)", "Character Preference")  as num|null
 						if(new_s_tone)
 							s_tone = 35 - max(min( round(new_s_tone), 220),1)
+
+					if("skin")
+						if(species == "Unathi" || species == "Tajaran" || species == "Skrell")
+							var/new_skin = input(user, "Choose your character's skin colour: ", "Character Preference") as color|null
+							if(new_skin)
+								r_skin = hex2num(copytext(new_skin, 2, 4))
+								g_skin = hex2num(copytext(new_skin, 4, 6))
+								b_skin = hex2num(copytext(new_skin, 6, 8))
 
 					if("ooccolor")
 						var/new_ooccolor = input(user, "Choose your OOC colour:", "Game Preference") as color|null
@@ -1278,13 +1291,6 @@ datum/preferences
 					if("hear_midis")
 						sound ^= SOUND_MIDI
 
-					if("lobby_music")
-						sound ^= SOUND_LOBBY
-						if(sound & SOUND_LOBBY)
-							user << sound(ticker.login_music, repeat = 0, wait = 0, volume = 85, channel = 1)
-						else
-							user << sound(null, repeat = 0, wait = 0, volume = 85, channel = 1)
-
 					if("ghost_ears")
 						toggles ^= CHAT_GHOSTEARS
 
@@ -1294,16 +1300,16 @@ datum/preferences
 					if("ghost_radio")
 						toggles ^= CHAT_GHOSTRADIO
 
-					if("player_voices")
-						sound ^= SOUND_VOICES
+					if("ghost_radio")
+						toggles ^= CHAT_GHOSTRADIO
 
 					if("save")
-						save_preferences()
-						save_character()
+						save_preferences(user)
+						save_character(user)
 
 					if("reload")
-						load_preferences()
-						load_character()
+						load_preferences(user)
+						load_character(user)
 
 					if("open_load_dialog")
 						if(!IsGuestKey(user.key))
@@ -1313,7 +1319,7 @@ datum/preferences
 						close_load_dialog(user)
 
 					if("changeslot")
-						load_character(text2num(href_list["num"]))
+						load_character(user,text2num(href_list["num"]))
 						close_load_dialog(user)
 
 					if("tab")
@@ -1325,7 +1331,7 @@ datum/preferences
 
 	proc/copy_to(mob/living/carbon/human/character, safety = 0)
 		if(be_random_name)
-			real_name = random_name(gender)
+			real_name = random_name(gender,species)
 
 		if(config.humans_need_surnames)
 			var/firstspace = findtext(real_name, " ")
@@ -1360,6 +1366,10 @@ datum/preferences
 		character.r_facial = r_facial
 		character.g_facial = g_facial
 		character.b_facial = b_facial
+
+		character.r_skin = r_skin
+		character.g_skin = g_skin
+		character.b_skin = b_skin
 
 		character.s_tone = s_tone
 
@@ -1399,9 +1409,24 @@ datum/preferences
 		if(disabilities & DISABILITY_FLAG_DEAF)
 			character.sdisabilities|=DEAF
 
+		// Wheelchair necessary?
+		var/datum/organ/external/l_foot = character.get_organ("l_foot")
+		var/datum/organ/external/r_foot = character.get_organ("r_foot")
+		if((!l_foot || l_foot.status & ORGAN_DESTROYED) && (!r_foot || r_foot.status & ORGAN_DESTROYED))
+			var/obj/structure/stool/bed/chair/wheelchair/W = new /obj/structure/stool/bed/chair/wheelchair (character.loc)
+			character.buckled = W
+			character.update_canmove()
+			W.dir = character.dir
+			W.buckled_mob = character
+			W.add_fingerprint(character)
+
 		if(underwear > underwear_m.len || underwear < 1)
 			underwear = 0 //I'm sure this is 100% unnecessary, but I'm paranoid... sue me. //HAH NOW NO MORE MAGIC CLONING UNDIES
 		character.underwear = underwear
+
+		if(undershirt > undershirt_t.len || undershirt < 1)
+			undershirt = 0
+		character.undershirt = undershirt
 
 		if(backbag > 4 || backbag < 1)
 			backbag = 1 //Same as above
@@ -1414,25 +1439,35 @@ datum/preferences
 				character.gender = MALE
 
 	proc/open_load_dialog(mob/user)
+
+		var/DBQuery/query = dbcon.NewQuery("SELECT slot,real_name FROM characters WHERE ckey='[user.ckey]' ORDER BY slot")
+
 		var/dat = "<body>"
 		dat += "<tt><center>"
+		dat += "<b>Select a character slot to load</b><hr>"
+		var/name
 
-		var/savefile/S = new /savefile(path)
-		if(S)
-			dat += "<b>Select a character slot to load</b><hr>"
-			var/name
-			for(var/i=1, i<=MAX_SAVE_SLOTS, i++)
-				S.cd = "/character[i]"
-				S["real_name"] >> name
-				if(!name)	name = "Character[i]"
-				if(i==default_slot)
-					name = "<b>[name]</b>"
-				dat += "<a href='?_src_=prefs;preference=changeslot;num=[i];'>[name]</a><br>"
+		for(var/i=1, i<=MAX_SAVE_SLOTS, i++)
+			if(!query.Execute())
+				var/err = query.ErrorMsg()
+				log_game("SQL ERROR during character slot loading. Error : \[[err]\]\n")
+				message_admins("SQL ERROR during character slot loading. Error : \[[err]\]\n")
+				return
+			while(query.NextRow())
+				if(i==text2num(query.item[1]))
+					name =  query.item[2]
+			if(!name)	name = "Character[i]"
+			if(i==default_slot)
+				name = "<b>[name]</b>"
+			dat += "<a href='?_src_=prefs;preference=changeslot;num=[i];'>[name]</a><br>"
+			name = null
 
 		dat += "<hr>"
 		dat += "<a href='byond://?src=\ref[user];preference=close_load_dialog'>Close</a><br>"
 		dat += "</center></tt>"
-		user << browse(dat, "window=saves;size=300x390")
-
+//		user << browse(dat, "window=saves;size=300x390")
+		var/datum/browser/popup = new(user, "saves", "<div align='center'>Character Saves</div>", 300, 390)
+		popup.set_content(dat)
+		popup.open(0)
 	proc/close_load_dialog(mob/user)
 		user << browse(null, "window=saves")

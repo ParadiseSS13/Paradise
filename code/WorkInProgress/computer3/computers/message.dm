@@ -2,6 +2,9 @@
 	default_prog = /datum/file/program/message_mon
 	spawn_parts = list(/obj/item/part/computer/storage/hdd,/obj/item/part/computer/networking/prox)
 
+
+//BROKEN AS HELL, DON'T USE UNTIL FIXED
+
 /datum/file/program/message_mon
 	name = "Message Monitor Console"
 	desc = "Used to Monitor the crew's messages, that are sent via PDA. Can also be used to view Request Console messages."
@@ -35,6 +38,13 @@
 	var/custommessage 	= "This is a test, please ignore."
 
 
+	procinitialize()
+		if(!linkedServer)
+			if(message_servers && message_servers.len > 0)
+				linkedServer = message_servers[1]
+		return
+
+
 	update_icon()
 		if(emag || hacking)
 			overlay.icon_state = hack_icon
@@ -45,12 +55,12 @@
 	interact()
 		if(!interactable())
 			return
-
 		//If the computer is being hacked or is emagged, display the reboot message.
 		if(hacking || emag)
 			message = rebootmsg
-
-		var/dat = "<center><font color='blue'[message]</font>/</center>"
+		var/dat = "<head><title>Message Monitor Console</title></head><body>"
+		dat += "<center><h2>Message Monitor Console</h2></center><hr>"
+		dat += "<center><h4><font color='blue'[message]</h5></center>"
 
 		if(auth)
 			dat += "<h4><dd><A href='?src=\ref[src];auth=1'>&#09;<font color='green'>\[Authenticated\]</font></a>&#09;/"
@@ -61,12 +71,9 @@
 
 		if(hacking || emag)
 			screen = 2
-		else
-			if(!auth)
-				screen = 0
-			if( !linkedServer || (linkedServer.stat & (NOPOWER|BROKEN)) )
-				message = noserver
-				screen = 0
+		else if(!auth || !linkedServer || (linkedServer.stat & (NOPOWER|BROKEN)))
+			if(!linkedServer || (linkedServer.stat & (NOPOWER|BROKEN))) message = noserver
+			screen = 0
 
 		switch(screen)
 			//Main menu
@@ -87,7 +94,7 @@
 				else
 					for(var/n = ++i; n <= optioncount; n++)
 						dat += "<dd><font color='blue'>&#09;[n]. ---------------</font><br></dd>"
-				if((istype(user, /mob/living/silicon/ai) || istype(user, /mob/living/silicon/robot)) && (user.mind.special_role && user.mind.original == user))
+				if((istype(usr, /mob/living/silicon/ai) || istype(usr, /mob/living/silicon/robot)) && (usr.mind.special_role && usr.mind.original == usr))
 					//Malf/Traitor AIs can bruteforce into the system to gain the Key.
 					dat += "<dd><A href='?src=\ref[src];hack=1'><i><font color='Red'>*&@#. Bruteforce Key</font></i></font></a><br></dd>"
 				else
@@ -117,7 +124,7 @@
 				dat += "</table>"
 			//Hacking screen.
 			if(2)
-				if(istype(user, /mob/living/silicon/ai) || istype(user, /mob/living/silicon/robot))
+				if(istype(usr, /mob/living/silicon/ai) || istype(usr, /mob/living/silicon/robot))
 					dat += "Brute-forcing for server key.<br> It will take 20 seconds for every character that the password has."
 					dat += "In the meantime, this console can reveal your true intentions if you let someone access it. Make sure no humans enter the room during that time."
 				else
@@ -202,25 +209,27 @@
 					<td width='15%'>[rc.rec_dpt]</td><td width='300px'>[rc.message]</td><td width='15%'>[rc.stamp]</td><td width='15%'>[rc.id_auth]</td><td width='15%'>[rc.priority]</td></tr>"}
 				dat += "</table>"
 
-		message = defaultmsg
 
+		popup.width = 700
+		popup.height = 700
 		popup.set_content(dat)
+		popup.set_title_image(usr.browse_rsc_icon(computer.icon, computer.icon_state))
 		popup.open()
 		return
 
 
-	proc/BruteForce(mob/user as mob)
+	proc/BruteForce(mob/usr as mob)
 		if(isnull(linkedServer))
-			user << "<span class='warning'>Could not complete brute-force: Linked Server Disconnected!</span>"
+			usr << "<span class='warning'>Could not complete brute-force: Linked Server Disconnected!</span>"
 		else
 			var/currentKey = src.linkedServer.decryptkey
-			user << "<span class='warning'>Brute-force completed! The key is '[currentKey]'.</span>"
+			usr << "<span class='warning'>Brute-force completed! The key is '[currentKey]'.</span>"
 		src.hacking = 0
-		src.icon_state = normal_icon
+		src.active_state = normal_icon
 		src.screen = 0 // Return the screen back to normal
 
 	proc/UnmagConsole()
-		src.icon_state = normal_icon
+		src.active_state = normal_icon
 		src.emag = 0
 
 	proc/ResetMessage()
@@ -308,7 +317,7 @@
 			if((istype(usr, /mob/living/silicon/ai) || istype(usr, /mob/living/silicon/robot)) && (usr.mind.special_role && usr.mind.original == usr))
 				src.hacking = 1
 				src.screen = 2
-				src.icon_state = hack_icon
+				src.active_state = hack_icon
 				//Time it takes to bruteforce is dependant on the password length.
 				spawn(100*length(src.linkedServer.decryptkey))
 					if(src && src.linkedServer && usr)
@@ -357,11 +366,15 @@
 					//Select Receiver
 					if("Recepient")
 						//Get out list of viable PDAs
-						var/list/obj/item/device/pda/sendPDAs = get_viewable_pdas()
+						var/list/obj/item/device/pda/sendPDAs = list()
+						for(var/obj/item/device/pda/P in PDAs)
+							if(!P.owner || P.toff || P.hidden) continue
+							sendPDAs += P
 						if(PDAs && PDAs.len > 0)
 							customrecepient = input(usr, "Select a PDA from the list.") as null|anything in sortAtom(sendPDAs)
 						else
 							customrecepient = null
+
 
 					//Enter custom job
 					if("RecJob")
@@ -387,7 +400,8 @@
 							return src.attack_hand(usr)
 
 						var/obj/item/device/pda/PDARec = null
-						for (var/obj/item/device/pda/P in get_viewable_pdas())
+						for (var/obj/item/device/pda/P in PDAs)
+							if (!P.owner || P.toff || P.hidden)	continue
 							if(P.owner == customsender)
 								PDARec = P
 						//Sender isn't faking as someone who exists

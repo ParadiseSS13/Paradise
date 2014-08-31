@@ -48,6 +48,25 @@
 		if(animation)	del(animation)
 		if(src)			del(src)
 
+/mob/living/carbon/human/melt()
+	death(1)
+	var/atom/movable/overlay/animation = null
+	monkeyizing = 1
+	canmove = 0
+	icon = null
+	invisibility = 101
+
+	animation = new(loc)
+	animation.icon_state = "blank"
+	animation.icon = 'icons/mob/mob.dmi'
+	animation.master = src
+
+	flick("liquify", animation)
+	//new /obj/effect/decal/remains/human(loc)
+
+	spawn(15)
+		if(animation)	del(animation)
+		if(src)			del(src)
 
 /mob/living/carbon/human/death(gibbed)
 	if(stat == DEAD)	return
@@ -57,6 +76,11 @@
 	dizziness = 0
 	jitteriness = 0
 
+	hud_updateflag |= 1 << HEALTH_HUD
+	hud_updateflag |= 1 << STATUS_HUD
+
+	handle_hud_list()
+
 	//Handle species-specific deaths.
 	if(species) species.handle_death(src)
 
@@ -64,9 +88,10 @@
 	var/datum/organ/external/head = get_organ("head")
 	var/mob/living/simple_animal/borer/B
 
-	for(var/I in head.implants)
-		if(istype(I,/mob/living/simple_animal/borer))
-			B = I
+	if(istype(head))
+		for(var/I in head.implants)
+			if(istype(I,/mob/living/simple_animal/borer))
+				B = I
 	if(B)
 		if(!B.ckey && ckey && B.controlling)
 			B.ckey = ckey
@@ -78,6 +103,8 @@
 			B.host_brain.real_name = "host brain"
 
 		verbs -= /mob/living/carbon/proc/release_control
+
+	callHook("death", list(src, gibbed))
 
 	//Check for heist mode kill count.
 	if(ticker.mode && ( istype( ticker.mode,/datum/game_mode/vox/heist) || istype( ticker.mode,/datum/game_mode/vox/trade) ) )
@@ -105,8 +132,6 @@
 		sql_report_death(src)
 		ticker.mode.check_win()		//Calls the rounds wincheck, mainly for wizard, malf, and changeling now
 	return ..(gibbed)
-
-
 
 /mob/living/carbon/human/proc/makeSkeleton()
 	if(SKELETON in src.mutations)	return

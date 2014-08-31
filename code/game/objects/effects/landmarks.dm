@@ -56,6 +56,9 @@
 			tdomeadmin	+= loc
 		if("tdomeobserve")
 			tdomeobserve += loc
+		if("aroomwarp")
+			aroomwarp += loc
+
 		//not prisoners
 		if("prisonsecuritywarp")
 			prisonsecuritywarp += loc
@@ -79,9 +82,22 @@
 	landmarks_list += src
 	return 1
 
-/obj/effect/landmark/Del()
+/obj/effect/landmark/Destroy()
 	landmarks_list -= src
 	..()
+
+/obj/effect/landmark/nations
+	name = "nations"
+	icon = 'icons/mob/screen1.dmi'
+	icon_state = "x"
+	anchored = 1.0
+
+/obj/effect/landmark/nations/New()
+	..()
+	tag = "nations*[name]"
+	invisibility = 101
+
+	return 1
 
 /obj/effect/landmark/start
 	name = "start"
@@ -165,7 +181,7 @@
 /obj/effect/landmark/costume/prig/New()
 	new /obj/item/clothing/suit/wcoat(src.loc)
 	new /obj/item/clothing/glasses/monocle(src.loc)
-	var/CHOICE= pick( /obj/item/clothing/head/bowler, /obj/item/clothing/head/that)
+	var/CHOICE= pick( /obj/item/clothing/head/bowlerhat, /obj/item/clothing/head/that)
 	new CHOICE(src.loc)
 	new /obj/item/clothing/shoes/black(src.loc)
 	new /obj/item/weapon/cane(src.loc)

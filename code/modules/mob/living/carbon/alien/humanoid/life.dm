@@ -359,22 +359,7 @@
 				ear_damage = max(ear_damage-0.05, 0)
 
 			//Other
-			if(stunned)
-				AdjustStunned(-1)
-				if(!stunned)
-					update_icons()
-
-			if(weakened)
-				weakened = max(weakened-1,0)	//before you get mad Rockdtben: I done this so update_canmove isn't called multiple times
-
-			if(stuttering)
-				stuttering = max(stuttering-1, 0)
-
-			if(silent)
-				silent = max(silent-1, 0)
-
-			if(druggy)
-				druggy = max(druggy-1, 0)
+			handle_statuses()
 		return 1
 
 
@@ -385,13 +370,13 @@
 			sight |= SEE_MOBS
 			sight |= SEE_OBJS
 			see_in_dark = 8
-			see_invisible = SEE_INVISIBLE_LEVEL_TWO
+			see_invisible = SEE_INVISIBLE_OBSERVER_NOLIGHTING
 		else if (stat != 2)
 			sight |= SEE_MOBS
 			sight &= ~SEE_TURFS
 			sight &= ~SEE_OBJS
 			see_in_dark = 4
-			see_invisible = SEE_INVISIBLE_LEVEL_TWO
+			see_invisible = SEE_INVISIBLE_OBSERVER_NOLIGHTING
 
 		if (healths)
 			if (stat != 2)
@@ -463,3 +448,8 @@
 						if(!(status_flags & GODMODE))
 							M.adjustBruteLoss(5)
 						nutrition += 10
+
+/mob/living/carbon/alien/humanoid/handle_stunned()
+	if(stunned && !..())
+		update_icons()
+	return stunned

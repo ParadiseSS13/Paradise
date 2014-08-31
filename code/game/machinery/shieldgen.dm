@@ -15,7 +15,7 @@
 	..()
 	update_nearby_tiles(need_rebuild=1)
 
-/obj/machinery/shield/Del()
+/obj/machinery/shield/Destroy()
 	opacity = 0
 	density = 0
 	update_nearby_tiles()
@@ -29,17 +29,7 @@
 /obj/machinery/shield/proc/update_nearby_tiles(need_rebuild)
 	if(!air_master) return 0
 
-	var/turf/simulated/source = get_turf(src)
-	var/turf/simulated/north = get_step(source,NORTH)
-	var/turf/simulated/south = get_step(source,SOUTH)
-	var/turf/simulated/east = get_step(source,EAST)
-	var/turf/simulated/west = get_step(source,WEST)
-
-	if(istype(source)) air_master.tiles_to_update |= source
-	if(istype(north)) air_master.tiles_to_update |= north
-	if(istype(south)) air_master.tiles_to_update |= south
-	if(istype(east)) air_master.tiles_to_update |= east
-	if(istype(west)) air_master.tiles_to_update |= west
+	air_master.mark_for_update(get_turf(src))
 
 	return 1
 
@@ -162,7 +152,7 @@
 		var/is_open = 0 //Whether or not the wires are exposed
 		var/locked = 0
 
-/obj/machinery/shieldgen/Del()
+/obj/machinery/shieldgen/Destroy()
 	for(var/obj/machinery/shield/shield_tile in deployed_shields)
 		qdel(shield_tile)
 	..()
@@ -393,7 +383,7 @@
 		user.visible_message("[user] turned the shield generator off.", \
 			"You turn off the shield generator.", \
 			"You hear heavy droning fade out.")
-		src.cleanup()
+		for(var/dir in list(1,2,4,8)) src.cleanup(dir)
 	else
 		src.active = 1
 		icon_state = "Shield_Gen +a"
@@ -433,14 +423,7 @@
 				"You hear heavy droning fade out")
 			icon_state = "Shield_Gen"
 			src.active = 0
-			spawn(1)
-				src.cleanup(1)
-			spawn(1)
-				src.cleanup(2)
-			spawn(1)
-				src.cleanup(4)
-			spawn(1)
-				src.cleanup(8)
+			for(var/dir in list(1,2,4,8)) src.cleanup(dir)
 
 /obj/machinery/shieldwallgen/proc/setup_field(var/NSEW = 0)
 	var/turf/T = src.loc
@@ -536,7 +519,7 @@
 			if(!G.active)
 				break
 
-/obj/machinery/shieldwallgen/Del()
+/obj/machinery/shieldwallgen/Destroy()
 	src.cleanup(1)
 	src.cleanup(2)
 	src.cleanup(4)

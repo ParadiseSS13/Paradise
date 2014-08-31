@@ -224,7 +224,7 @@
 				if(istype(Proj, /obj/item/projectile/energy))
 					unbuckle()
 			return
-		if(istype(Proj, /obj/item/projectile/energy/electrode))
+		if(istype(Proj, /obj/item/projectile/energy/electrode) || istype(Proj, /obj/item/projectile/beam/stun))
 			if(prob(25))
 				unbuckle()
 				visible_message("<span class='warning'>The [src.name] absorbs the [Proj]")

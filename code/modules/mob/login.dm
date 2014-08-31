@@ -55,3 +55,6 @@
 		var/mob/living/carbon/human/H = src
 		if(H.species && H.species.abilities)
 			client.verbs |= H.species.abilities
+
+	CallHook("Login", list("client" = src.client, "mob" = src))
+

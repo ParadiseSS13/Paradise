@@ -37,12 +37,6 @@ var/intercom_range_display_status = 0
 /obj/effect/debugging/marker/Move()
 	return 0
 
-/client/proc/do_not_use_these()
-	set category = "Mapping"
-	set name = "-None of these are for ingame use!!"
-
-	..()
-
 /client/proc/camera_view()
 	set category = "Mapping"
 	set name = "Camera Range Display"
@@ -58,7 +52,7 @@ var/intercom_range_display_status = 0
 		del(C)
 
 	if(camera_range_display_status)
-		for(var/obj/machinery/camera/C in cameranet.cameras)
+		for(var/obj/machinery/camera/C in cameranet.viewpoints)
 			new/obj/effect/debugging/camera_range(C.loc)
 	feedback_add_details("admin_verb","mCRD") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
@@ -74,11 +68,11 @@ var/intercom_range_display_status = 0
 
 	var/list/obj/machinery/camera/CL = list()
 
-	for(var/obj/machinery/camera/C in cameranet.cameras)
+	for(var/obj/machinery/camera/C in cameranet.viewpoints)
 		CL += C
 
-	var/output = {"<B>CAMERA ANNOMALITIES REPORT</B><HR>
-<B>The following annomalities have been detected. The ones in red need immediate attention: Some of those in black may be intentional.</B><BR><ul>"}
+	var/output = {"<B>CAMERA ANOMALIES REPORT</B><HR>
+<B>The following anomalies have been detected. The ones in red need immediate attention: Some of those in black may be intentional.</B><BR><ul>"}
 
 	for(var/obj/machinery/camera/C1 in CL)
 		for(var/obj/machinery/camera/C2 in CL)
@@ -94,7 +88,7 @@ var/intercom_range_display_status = 0
 			if(!(locate(/obj/structure/grille,T)))
 				var/window_check = 0
 				for(var/obj/structure/window/W in T)
-					if (W.dir == turn(C1.dir,180) || W.dir in list(5,6,9,10) )
+					if (W.dir == turn(C1.dir,180) || W.is_fulltile() )
 						window_check = 1
 						break
 				if(!window_check)
@@ -130,37 +124,29 @@ var/intercom_range_display_status = 0
 
 	if(!check_rights(R_DEBUG)) return
 
-	src.verbs += /client/proc/do_not_use_these 			//-errorage
 	src.verbs += /client/proc/camera_view 				//-errorage
 	src.verbs += /client/proc/sec_camera_report 		//-errorage
 	src.verbs += /client/proc/intercom_view 			//-errorage
-	src.verbs += /client/proc/air_status //Air things
 	src.verbs += /client/proc/Cell //More air things
 	src.verbs += /client/proc/atmosscan //check plumbing
 	src.verbs += /client/proc/powerdebug //check power
 	src.verbs += /client/proc/count_objects_on_z_level
 	src.verbs += /client/proc/count_objects_all
 	src.verbs += /client/proc/cmd_assume_direct_control	//-errorage
-	src.verbs += /client/proc/jump_to_dead_group
 	src.verbs += /client/proc/startSinglo
-	src.verbs += /client/proc/ticklag	//allows you to set the ticklag.
 	src.verbs += /client/proc/cmd_admin_grantfullaccess
 	src.verbs += /client/proc/kaboom
-	src.verbs += /client/proc/splash
+//	src.verbs += /client/proc/splash
 	src.verbs += /client/proc/cmd_admin_areatest
 	src.verbs += /client/proc/cmd_admin_rejuvenate
 	src.verbs += /datum/admins/proc/show_traitor_panel
 	src.verbs += /client/proc/print_jobban_old
 	src.verbs += /client/proc/print_jobban_old_filter
 	src.verbs += /client/proc/forceEvent
-	src.verbs += /client/proc/break_all_air_groups
-	src.verbs += /client/proc/regroup_all_air_groups
-	src.verbs += /client/proc/kill_pipe_processing
-	src.verbs += /client/proc/kill_air_processing
-	src.verbs += /client/proc/disable_communication
-	src.verbs += /client/proc/disable_movement
 	src.verbs += /client/proc/Zone_Info
 	src.verbs += /client/proc/Test_ZAS_Connection
+	src.verbs += /client/proc/ZoneTick
+	//src.verbs += /client/proc/TestZASRebuild
 	//src.verbs += /client/proc/cmd_admin_rejuvenate
 
 	feedback_add_details("admin_verb","mDV") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
@@ -234,80 +220,3 @@ var/intercom_range_display_status = 0
 
 	world << "There are [count] objects of type [type_path] in the game world"
 	feedback_add_details("admin_verb","mOBJ") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
-
-
-var/global/prevent_airgroup_regroup = 0
-
-/client/proc/break_all_air_groups()
-	set category = "Mapping"
-	set name = "Break All Airgroups"
-
-	/*prevent_airgroup_regroup = 1
-	for(var/datum/air_group/AG in air_master.air_groups)
-		AG.suspend_group_processing()
-	message_admins("[src.ckey] used 'Break All Airgroups'")*/
-
-/client/proc/regroup_all_air_groups()
-	set category = "Mapping"
-	set name = "Regroup All Airgroups Attempt"
-
-	usr << "\red Proc disabled."
-
-	/*prevent_airgroup_regroup = 0
-	for(var/datum/air_group/AG in air_master.air_groups)
-		AG.check_regroup()
-	message_admins("[src.ckey] used 'Regroup All Airgroups Attempt'")*/
-
-/client/proc/kill_pipe_processing()
-	set category = "Mapping"
-	set name = "Kill pipe processing"
-
-	usr << "\red Proc disabled."
-
-	/*pipe_processing_killed = !pipe_processing_killed
-	if(pipe_processing_killed)
-		message_admins("[src.ckey] used 'kill pipe processing', stopping all pipe processing.")
-	else
-		message_admins("[src.ckey] used 'kill pipe processing', restoring all pipe processing.")*/
-
-/client/proc/kill_air_processing()
-	set category = "Mapping"
-	set name = "Kill air processing"
-
-	usr << "\red Proc disabled."
-
-	/*air_processing_killed = !air_processing_killed
-	if(air_processing_killed)
-		message_admins("[src.ckey] used 'kill air processing', stopping all air processing.")
-	else
-		message_admins("[src.ckey] used 'kill air processing', restoring all air processing.")*/
-
-//This proc is intended to detect lag problems relating to communication procs
-var/global/say_disabled = 0
-/client/proc/disable_communication()
-	set category = "Mapping"
-	set name = "Disable all communication verbs"
-
-	usr << "\red Proc disabled."
-
-	/*say_disabled = !say_disabled
-	if(say_disabled)
-		message_admins("[src.ckey] used 'Disable all communication verbs', killing all communication methods.")
-	else
-		message_admins("[src.ckey] used 'Disable all communication verbs', restoring all communication methods.")*/
-
-//This proc is intended to detect lag problems relating to movement
-var/global/movement_disabled = 0
-var/global/movement_disabled_exception //This is the client that calls the proc, so he can continue to run around to gauge any change to lag.
-/client/proc/disable_movement()
-	set category = "Mapping"
-	set name = "Disable all movement"
-
-	usr << "\red Proc disabled."
-
-	/*movement_disabled = !movement_disabled
-	if(movement_disabled)
-		message_admins("[src.ckey] used 'Disable all movement', killing all movement.")
-		movement_disabled_exception = usr.ckey
-	else
-		message_admins("[src.ckey] used 'Disable all movement', restoring all movement.")*/

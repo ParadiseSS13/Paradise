@@ -1,7 +1,7 @@
 #define SYNDICATE_SHUTTLE_MOVE_TIME 240
 #define SYNDICATE_SHUTTLE_COOLDOWN 200
 
-/obj/machinery/computer/syndicate_station
+/obj/machinery/computer3/syndicate_station
 	name = "syndicate shuttle terminal"
 	icon = 'icons/obj/computer.dmi'
 	icon_state = "syndishuttle"
@@ -11,11 +11,11 @@
 	var/lastMove = 0
 
 
-/obj/machinery/computer/syndicate_station/New()
+/obj/machinery/computer3/syndicate_station/New()
 	curr_location= locate(/area/syndicate_station/start)
 
 
-/obj/machinery/computer/syndicate_station/proc/syndicate_move_to(area/destination as area)
+/obj/machinery/computer3/syndicate_station/proc/syndicate_move_to(area/destination as area)
 	if(moving)	return
 	if(lastMove + SYNDICATE_SHUTTLE_COOLDOWN > world.time)	return
 	var/area/dest_location = locate(destination)
@@ -36,16 +36,16 @@
 	return 1
 
 
-/obj/machinery/computer/syndicate_station/attackby(obj/item/I as obj, mob/user as mob)
+/obj/machinery/computer3/syndicate_station/attackby(obj/item/I as obj, mob/user as mob)
 	return attack_hand(user)
 
-/obj/machinery/computer/syndicate_station/attack_ai(mob/user as mob)
+/obj/machinery/computer3/syndicate_station/attack_ai(mob/user as mob)
 	return attack_hand(user)
 
-/obj/machinery/computer/syndicate_station/attack_paw(mob/user as mob)
+/obj/machinery/computer3/syndicate_station/attack_paw(mob/user as mob)
 	return attack_hand(user)
 
-/obj/machinery/computer/syndicate_station/attack_hand(mob/user as mob)
+/obj/machinery/computer3/syndicate_station/attack_hand(mob/user as mob)
 	if(!allowed(user))
 		user << "\red Access Denied"
 		return
@@ -69,7 +69,7 @@
 	return
 
 
-/obj/machinery/computer/syndicate_station/Topic(href, href_list)
+/obj/machinery/computer3/syndicate_station/Topic(href, href_list)
 	if(!isliving(usr))	return
 	var/mob/living/user = usr
 
@@ -99,5 +99,5 @@
 	updateUsrDialog()
 	return
 
-/obj/machinery/computer/syndicate_station/bullet_act(var/obj/item/projectile/Proj)
+/obj/machinery/computer3/syndicate_station/bullet_act(var/obj/item/projectile/Proj)
 	visible_message("[Proj] ricochets off [src]!")	//let's not let them fuck themselves in the rear

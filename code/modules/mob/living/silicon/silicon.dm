@@ -7,9 +7,10 @@
 	var/list/alarms_to_show = list()
 	var/list/alarms_to_clear = list()
 	immune_to_ssd = 1
-
+	var/list/hud_list[10]
 	var/list/alarm_types_show = list("Motion" = 0, "Fire" = 0, "Atmosphere" = 0, "Power" = 0, "Camera" = 0)
 	var/list/alarm_types_clear = list("Motion" = 0, "Fire" = 0, "Atmosphere" = 0, "Power" = 0, "Camera" = 0)
+	var/obj/item/device/camera/siliconcam/aiCamera = null //photography
 
 /mob/living/silicon/proc/cancelAlarm()
 	return
@@ -106,6 +107,9 @@
 	src << "\red Warning: Electromagnetic pulse detected."
 	..()
 
+/mob/living/silicon/stun_effect_act(var/stun_amount, var/agony_amount)
+	return	//immune
+
 /mob/living/silicon/proc/damage_mob(var/brute = 0, var/fire = 0, var/tox = 0)
 	return
 
@@ -113,8 +117,17 @@
 	return 1
 
 /mob/living/silicon/bullet_act(var/obj/item/projectile/Proj)
-	if(!Proj.nodamage)	adjustBruteLoss(Proj.damage)
+
+
+	if(!Proj.nodamage)
+		switch(Proj.damage_type)
+			if(BRUTE)
+				adjustBruteLoss(Proj.damage)
+			if(BURN)
+				adjustFireLoss(Proj.damage)
+
 	Proj.on_hit(src,2)
+
 	return 2
 
 /mob/living/silicon/apply_effect(var/effect = 0,var/effecttype = STUN, var/blocked = 0)
@@ -150,7 +163,7 @@
 // this function shows the health of the pAI in the Status panel
 /mob/living/silicon/proc/show_system_integrity()
 	if(!src.stat)
-		stat(null, text("System integrity: [(src.health+100)/2]%"))
+		stat(null, text("System integrity: [round((health/maxHealth)*100)]%"))
 	else
 		stat(null, text("Systems nonfunctional"))
 
@@ -167,10 +180,10 @@
 
 // this function displays the shuttles ETA in the status panel if the shuttle has been called
 /mob/living/silicon/proc/show_emergency_shuttle_eta()
-	if(emergency_shuttle.online && emergency_shuttle.location < 2)
-		var/timeleft = emergency_shuttle.timeleft()
-		if (timeleft)
-			stat(null, "ETA-[(timeleft / 60) % 60]:[add_zero(num2text(timeleft % 60), 2)]")
+	if(emergency_shuttle)
+		var/eta_status = emergency_shuttle.get_status_panel_eta()
+		if(eta_status)
+			stat(null, eta_status)
 
 
 
@@ -193,7 +206,6 @@
 	dat += "<br>"
 	src << browse(dat, "window=airoster")
 	onclose(src, "airoster")
-
 
 /mob/living/silicon/Bump(atom/movable/AM as mob|obj, yes)  //Allows the AI to bump into mobs if it's itself pushed
         if ((!( yes ) || now_pushing))
@@ -219,4 +231,5 @@
                                                 return
                         step(AM, t)
                 now_pushing = null
+
 

@@ -92,8 +92,8 @@
 			src.fire_delay = rand(20,100)
 			src.shot_number = 0
 		use_power(1000)
-		var/obj/item/projectile/beam/emitter/A = new /obj/item/projectile/beam/emitter( src.loc )
-		playsound(src.loc, 'sound/weapons/emitter.ogg', 25, 1)
+		var/obj/item/projectile/beam/emitter/A = new /obj/item/projectile/beam/emitter(src.loc)
+		playsound(get_turf(src), 'sound/weapons/emitter.ogg', 25, 1)
 		if(prob(35))
 			var/datum/effect/effect/system/spark_spread/s = new /datum/effect/effect/system/spark_spread
 			s.set_up(5, 1, src)

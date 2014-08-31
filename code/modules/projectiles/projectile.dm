@@ -52,6 +52,7 @@
 	var/agony = 0
 	var/embed = 0 // whether or not the projectile can embed itself in the mob
 
+
 	proc/delete()
 		// Garbage collect the projectiles
 		loc = null
@@ -122,14 +123,16 @@
 				if(istype(firer, /mob))
 					M.attack_log += "\[[time_stamp()]\] <b>[firer]/[firer.ckey]</b> shot <b>[M]/[M.ckey]</b> with a <b>[src.type]</b>"
 					firer.attack_log += "\[[time_stamp()]\] <b>[firer]/[firer.ckey]</b> shot <b>[M]/[M.ckey]</b> with a <b>[src.type]</b>"
-					msg_admin_attack("[firer] ([firer.ckey]) shot [M] ([M.ckey]) with a [src] (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[firer.x];Y=[firer.y];Z=[firer.z]'>JMP</a>)") //BS12 EDIT ALG
+					if(M.ckey)
+						msg_admin_attack("[firer] ([firer.ckey]) shot [M] ([M.ckey]) with a [src] (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[firer.x];Y=[firer.y];Z=[firer.z]'>JMP</a>)") //BS12 EDIT ALG
 					if(!iscarbon(firer))
 						M.LAssailant = null
 					else
 						M.LAssailant = firer
 				else
 					M.attack_log += "\[[time_stamp()]\] <b>UNKNOWN SUBJECT (No longer exists)</b> shot <b>[M]/[M.ckey]</b> with a <b>[src]</b>"
-					msg_admin_attack("UNKNOWN shot [M] ([M.ckey]) with a [src] (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[firer.x];Y=[firer.y];Z=[firer.z]'>JMP</a>)") //BS12 EDIT ALG
+					if(M.ckey)
+						msg_admin_attack("UNKNOWN shot [M] ([M.ckey]) with a [src] (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[firer.x];Y=[firer.y];Z=[firer.z]'>JMP</a>)") //BS12 EDIT ALG
 
 		if(A)
 			if (!forcedodge)
@@ -147,8 +150,9 @@
 					O.bullet_act(src)
 				for(var/mob/M in A)
 					M.bullet_act(src, def_zone)
-			density = 0
-			invisibility = 101
+			if(!istype(src, /obj/item/projectile/beam/lightning))
+				density = 0
+				invisibility = 101
 			del(src)
 		return 1
 
@@ -165,6 +169,7 @@
 	process()
 		if(kill_count < 1)
 			del(src)
+			return
 		kill_count--
 		spawn while(src)
 			if((!( current ) || loc == current))
@@ -180,6 +185,22 @@
 						Bump(original)
 						sleep(1)
 			Range()
+		return
+	proc/dumbfire(var/dir) // for spacepods, go snowflake go
+		if(!dir)
+			del(src)
+		if(kill_count < 1)
+			del(src)
+		kill_count--
+		spawn while(src)
+			var/turf/T = get_step(src, dir)
+			step_towards(src, T)
+			sleep(1)
+			if(!bumped && !isturf(original))
+				if(loc == get_turf(original))
+					if(!(original in permutated))
+						Bump(original)
+						sleep(1)
 		return
 
 

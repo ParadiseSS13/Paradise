@@ -142,19 +142,53 @@ You've gained <b>[totalkarma]</b> total karma in your time here.<br>"}
 
 
 /client/proc/karmashopmenu()
-	var/dat = {"<B>Karma Shop</B><br>
-		<a href='?src=\ref[src];KarmaBuy=1'>Unlock Barber -- 5KP</a><br>
-		<a href='?src=\ref[src];KarmaBuy=2'>Unlock Nanotrasen Representative -- 15KP</a><br>
-		<a href='?src=\ref[src];KarmaBuy=3'>Unlock Customs Officer -- 30KP</a><br>
-		<a href='?src=\ref[src];KarmaBuy=4'>Unlock BlueShield -- 30KP</a><br>
-		<br>
-		<a href='?src=\ref[src];KarmaBuy=5'>Unlock Machine People -- 15KP</a><br>
-		<a href='?src=\ref[src];KarmaBuy=6'>Unlock Kidan -- 30KP</a><br>
-		<a href='?src=\ref[src];KarmaBuy=7'>Unlock Grey -- 30KP</a><br>
-		<a href='?src=\ref[src];KarmaBuy=8'>Unlock Vox -- 45KP</a><br>
-		<a href='?src=\ref[src];KarmaBuy=9'>Unlock Slime People -- 45KP</a><br>
-		<B>PLEASE NOTE THAT PEOPLE WHO TRY TO GAME THE KARMA SYSTEM WILL END UP ON THE WALL OF SHAME. THIS INCLUDES BUT IS NOT LIMITED TO TRADES, OOC KARMA BEGGING, CODE EXPLOITS, ETC.</B>
-		"}
+
+	var/dat = "<html><body><center>"
+	dat += "<a href='?src=\ref[src];karmashop=tab;tab=0' [karma_tab == 0 ? "class='linkOn'" : ""]>Job Unlocks</a>"
+	dat += "<a href='?src=\ref[src];karmashop=tab;tab=1' [karma_tab == 1 ? "class='linkOn'" : ""]>Species Unlocks</a>"
+	dat += "<a href='?src=\ref[src];karmashop=tab;tab=2' [karma_tab == 2 ? "class='linkOn'" : ""]>Ambassador Unlocks</a>"
+	dat += "</center>"
+	dat += "<HR>"
+
+	switch(karma_tab)
+		if (0) // Job Unlocks
+			dat += {"
+			<a href='?src=\ref[src];karmashop=shop;KarmaBuy=1'>Unlock Barber -- 5KP</a><br>
+			<a href='?src=\ref[src];karmashop=shop;KarmaBuy=2'>Unlock Brig Physician -- 5KP</a><br>
+			<a href='?src=\ref[src];karmashop=shop;KarmaBuy=8'>Unlock Nanotrasen Recruiter -- 10KP</a><br>
+			<a href='?src=\ref[src];karmashop=shop;KarmaBuy=3'>Unlock Nanotrasen Representative -- 30KP</a><br>
+			<a href='?src=\ref[src];karmashop=shop;KarmaBuy=4'>Unlock Customs Officer -- 30P</a><br>
+			<a href='?src=\ref[src];karmashop=shop;KarmaBuy=5'>Unlock Blueshield -- 30KP</a><br>
+			<a href='?src=\ref[src];karmashop=shop;KarmaBuy=9'>Unlock Security Pod Pilot -- 30KP</a><br>
+			<a href='?src=\ref[src];karmashop=shop;KarmaBuy=6'>Unlock Mechanic -- 30KP</a><br>
+			<a href='?src=\ref[src];karmashop=shop;KarmaBuy=7'>Unlock Magistrate -- 45KP</a><br>
+			"}
+
+		if (1) // Species Unlocks
+			dat += {"
+			<a href='?src=\ref[src];karmashop=shop;KarmaBuy2=1'>Unlock Machine People -- 15KP</a><br>
+			<a href='?src=\ref[src];karmashop=shop;KarmaBuy2=2'>Unlock Kidan -- 30KP</a><br>
+			<a href='?src=\ref[src];karmashop=shop;KarmaBuy2=3'>Unlock Grey -- 30KP</a><br>
+			<a href='?src=\ref[src];karmashop=shop;KarmaBuy2=4'>Unlock Vox -- 45KP</a><br>
+			<a href='?src=\ref[src];karmashop=shop;KarmaBuy2=5'>Unlock Slime People -- 45KP</a><br>
+			"}
+
+		if (2) // Ambassador Unlocks
+			dat += {"
+			<a href='?src=\ref[src];karmashop=shop;KarmaBuy3=1'>Unlock Tajaran Ambassador -- 30KP</a><br>
+			<a href='?src=\ref[src];karmashop=shop;KarmaBuy3=2'>Unlock Unathi Ambassador -- 30KP</a><br>
+			<a href='?src=\ref[src];karmashop=shop;KarmaBuy3=3'>Unlock Skrell Ambassador -- 30KP</a><br>
+			<a href='?src=\ref[src];karmashop=shop;KarmaBuy3=4'>Unlock Diona Ambassador -- 30KP</a><br>
+			<a href='?src=\ref[src];karmashop=shop;KarmaBuy3=5'>Unlock Kidan Ambassador -- 30KP</a><br>
+			<a href='?src=\ref[src];karmashop=shop;KarmaBuy3=6'>Unlock Slime People Ambassador -- 30KP</a><br>
+			<a href='?src=\ref[src];karmashop=shop;KarmaBuy3=7'>Unlock Grey Ambassador -- 30KP</a><br>
+			<a href='?src=\ref[src];karmashop=shop;KarmaBuy3=8'>Unlock Vox Ambassador -- 30KP</a><br>
+			<B> You need to have unlocked the relevant species before being able to purchase this job. </B><br><br>
+			<span class='danger'>Ambassadors can be bought but are not yet spawnable in-game. Soon!</span><br><br>
+			"}
+
+	dat += "<B>PLEASE NOTE THAT PEOPLE WHO TRY TO GAME THE KARMA SYSTEM WILL END UP ON THE WALL OF SHAME. THIS INCLUDES BUT IS NOT LIMITED TO TRADES, OOC KARMA BEGGING, CODE EXPLOITS, ETC.</B>"
+	dat += "</center></body></html>"
 
 	var/datum/browser/popup = new(usr, "karmashop", "<div align='center'>Karma Shop</div>", 400, 400)
 	popup.set_content(dat)

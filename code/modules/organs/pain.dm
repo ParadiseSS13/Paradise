@@ -9,6 +9,8 @@ mob/var/next_pain_time = 0
 // amount is a num from 1 to 100
 mob/living/carbon/proc/pain(var/partname, var/amount, var/force, var/burning = 0)
 	if(stat >= 2) return
+	if(reagents.has_reagent("paracetamol"))
+		return
 	if(reagents.has_reagent("tramadol"))
 		return
 	if(reagents.has_reagent("oxycodone"))
@@ -89,7 +91,7 @@ mob/living/carbon/human/proc/handle_pain()
 	for(var/datum/organ/external/E in organs)
 		// amputated limbs don't cause pain
 		if(E.amputated) continue
-		if(E.status & ORGAN_DEAD) continue
+		if(E.status & ORGAN_DEAD|ORGAN_ROBOT) continue
 		var/dam = E.get_damage()
 		// make the choice of the organ depend on damage,
 		// but also sometimes use one of the less damaged ones
@@ -100,8 +102,8 @@ mob/living/carbon/human/proc/handle_pain()
 		pain(damaged_organ.display_name, maxdam, 0)
 
 	// Damage to internal organs hurts a lot.
-	for(var/organ_name in internal_organs)
-		var/datum/organ/internal/I = internal_organs[organ_name]
+	for(var/n in internal_organs_by_name)
+		var/datum/organ/internal/I = internal_organs_by_name[n]
 		if(I.damage > 2) if(prob(2))
 			var/datum/organ/external/parent = get_organ(I.parent_organ)
 			src.custom_pain("You feel a sharp pain in your [parent.display_name]", 1)

@@ -20,6 +20,10 @@
 /mob/living/carbon/human/RestrainedClickOn(var/atom/A)
 	return
 
+
+
+// Commented out to prevent overwriting RangedAttack in click.dm ~ Bone White
+/*
 /mob/living/carbon/human/RangedAttack(var/atom/A)
 	if(!gloves && !mutations.len) return
 	var/obj/item/clothing/gloves/G = gloves
@@ -40,6 +44,7 @@
 			if(16 to 128)
 				return
 		A.attack_tk(src)
+*/
 
 /*
 	Animals & All Unspecified
@@ -78,10 +83,6 @@
 		for(var/mob/O in viewers(ML, null))
 			O.show_message("\red <B>[name] has bit [ML]!</B>", 1)
 		if(armor >= 2) return
-		if(ismonkey(ML))
-			for(var/datum/disease/D in viruses)
-				if(istype(D, /datum/disease/jungle_fever))
-					ML.contract_disease(D,1,0)
 	else
 		for(var/mob/O in viewers(ML, null))
 			O.show_message("\red <B>[src] has attempted to bite [ML]!</B>", 1)
@@ -126,7 +127,7 @@
 	NT.xo = U.x - T.x
 	spawn( 1)
 		NT.process()
-	next_attack = world.time + 50
+	next_attack = world.time + 100
 
 /mob/living/carbon/alien/humanoid/proc/NeuroAOE(atom/A)
 	if(world.time < next_attack)
@@ -145,7 +146,7 @@
 			D.color = "#00FF21"
 			var/turf/my_target = pick(the_targets)
 			for(var/b=0, b<5, b++)
-				step_towards(D,my_target)
+				if(!step_towards(D,my_target))	return
 				if(!D) return
 //				D.reagents.reaction(get_turf(D))
 				for(var/atom/atm in get_turf(D))
@@ -154,13 +155,18 @@
 						return
 					if(istype(atm, /mob/living/carbon))
 						var/mob/living/carbon/C = atm
-						C.Weaken(5)
-						C.take_overall_damage(20)
-						C << "You were drenched with neurotoxin!"
+						if(ishuman(C))
+							var/mob/living/carbon/human/H = C
+							if(istype(H.wear_suit, /obj/item/clothing/suit/space) && istype(H.head, /obj/item/clothing/head/helmet/space))
+								return
+						else
+							C.Weaken(5)
+							C.adjustToxLoss(20)
+							C << "You were drenched with neurotoxin!"
 //					D.reagents.reaction(atm, TOUCH)                      // Touch, since we sprayed it.
 				if(D.loc == my_target) break
 				sleep(2)
-	next_attack = world.time + 50
+	next_attack = world.time + 100
 
 
 // Babby aliens

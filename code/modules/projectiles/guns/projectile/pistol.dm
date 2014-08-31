@@ -75,7 +75,7 @@
 
 /obj/item/weapon/gun/projectile/automatic/pistol
 	name = "\improper Stechtkin pistol"
-	desc = "A small, easily concealable gun. Uses 9mm rounds."
+	desc = "A small, easily concealable gun. Uses 10mm rounds."
 	icon_state = "pistol"
 	w_class = 2
 	silenced = 0
@@ -90,6 +90,8 @@
 				return
 			user << "<span class='notice'>You unscrew [silenced] from [src].</span>"
 			user.put_in_hands(silenced)
+			var/obj/item/weapon/silencer/S = silenced
+			fire_sound = S.oldsound
 			silenced = 0
 			w_class = 2
 			update_icon()
@@ -105,6 +107,9 @@
 		user.drop_item()
 		user << "<span class='notice'>You screw [I] onto [src].</span>"
 		silenced = I	//dodgy?
+		var/obj/item/weapon/silencer/S = I
+		S.oldsound = fire_sound
+		fire_sound = 'sound/weapons/Gunshot_silenced.ogg'
 		w_class = 3
 		I.loc = src		//put the silencer into the gun
 		update_icon()
@@ -116,10 +121,10 @@
 	icon_state = "[initial(icon_state)][silenced ? "-silencer" : ""][chambered ? "" : "-e"]"
 	return
 
-
 /obj/item/weapon/silencer
 	name = "silencer"
 	desc = "a silencer"
 	icon = 'icons/obj/gun.dmi'
 	icon_state = "silencer"
 	w_class = 2
+	var/oldsound = 0 //Stores the true sound the gun made before it was silenced

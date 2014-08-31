@@ -1,10 +1,6 @@
 //Lallander was here
 /mob/living/carbon/human/whisper(message as text)
 
-	if(say_disabled)	//This is here to try to identify lag problems
-		usr << "\red Speech is currently admin-disabled."
-		return
-
 	message = trim(copytext(strip_html_simple(message), 1, MAX_MESSAGE_LEN))
 
 	if (!message || silent || miming)
@@ -34,6 +30,9 @@
 	// Mute disability
 	if (src.sdisabilities & MUTE)
 		return
+
+	if(M_WHISPER in src.mutations)
+		src.say(message)
 
 	if (istype(src.wear_mask, /obj/item/clothing/mask/muzzle))
 		return

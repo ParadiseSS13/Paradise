@@ -3,6 +3,7 @@
  * 		Twohanded
  *		Fireaxe
  *		Double-Bladed Energy Swords
+ *		Spears
  */
 
 /*##################################################################
@@ -94,12 +95,48 @@
 	w_class = 5.0
 	icon_state = "offhand"
 	name = "offhand"
+	//flags = ABSTRACT
 
-	unwield()
-		del(src)
+/obj/item/weapon/twohanded/offhand/unwield()
+	del(src)
 
-	wield()
-		del(src)
+/obj/item/weapon/twohanded/offhand/wield()
+	del(src)
+
+/obj/item/weapon/twohanded/offhand/IsShield()//if the actual twohanded weapon is a shield, we count as a shield too!
+	var/mob/user = loc
+	if(!istype(user)) return 0
+	var/obj/item/I = user.get_active_hand()
+	if(I == src) I = user.get_inactive_hand()
+	if(!I) return 0
+	return I.IsShield()
+
+///////////Two hand required objects///////////////
+//This is for objects that require two hands to even pick up
+/obj/item/weapon/twohanded/required/
+	w_class = 5.0
+
+/obj/item/weapon/twohanded/required/attack_self()
+	return
+
+/obj/item/weapon/twohanded/required/mob_can_equip(M as mob, slot)
+	if(wielded)
+		M << "<span class='warning'>[src.name] is too cumbersome to carry with anything but your hands!</span>"
+		return 0
+	return ..()
+
+/obj/item/weapon/twohanded/required/attack_hand(mob/user)//Can't even pick it up without both hands empty
+	var/obj/item/weapon/twohanded/required/H = user.get_inactive_hand()
+	if(H != null)
+		user.visible_message("<span class='notice'>[src.name] is too cumbersome to carry in one hand!</span>")
+		return
+	var/obj/item/weapon/twohanded/offhand/O = new(user)
+	user.put_in_inactive_hand(O)
+	..()
+	wielded = 1
+
+
+obj/item/weapon/twohanded/
 
 /*
  * Fireaxe
@@ -109,6 +146,8 @@
 	name = "fire axe"
 	desc = "Truly, the weapon of a madman. Who would think to fight fire with an axe?"
 	force = 5
+	sharp = 1
+	edge = 1
 	w_class = 4.0
 	slot_flags = SLOT_BACK
 	force_unwielded = 10
@@ -124,16 +163,16 @@
 	if(!proximity) return
 	..()
 	if(A && wielded && (istype(A,/obj/structure/window) || istype(A,/obj/structure/grille))) //destroys windows and grilles in one hit
-		if(istype(A,/obj/structure/window)) //should just make a window.Break() proc but couldn't bother with it
+
+		if(istype(A,/obj/structure/window))
+			var/pdiff=performWallPressureCheck(A.loc)
+			if(pdiff>0)
+				message_admins("[A] with pdiff [pdiff] fire-axed by [user.real_name] ([formatPlayerPanel(user,user.ckey)]) at [formatJumpTo(A.loc)]!")
+				log_admin("[A] with pdiff [pdiff] fire-axed by [user.real_name] ([user.ckey]) at [A.loc]!")
 			var/obj/structure/window/W = A
-
-			new /obj/item/weapon/shard( W.loc )
-			if(W.reinf) new /obj/item/stack/rods( W.loc)
-
-			if (W.dir == SOUTHWEST)
-				new /obj/item/weapon/shard( W.loc )
-				if(W.reinf) new /obj/item/stack/rods( W.loc)
-		del(A)
+			W.destroy()
+		else
+			del(A)
 
 
 /*
@@ -155,6 +194,8 @@
 	flags = FPRINT | TABLEPASS | NOSHIELD
 	origin_tech = "magnets=3;syndicate=4"
 	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
+	sharp = 1
+	edge = 1
 
 /obj/item/weapon/twohanded/dualsaber/update_icon()
 	icon_state = "dualsaber[wielded]"
@@ -208,3 +249,8 @@
 /obj/item/weapon/twohanded/spear/attack(mob/living/carbon/M as mob, mob/living/carbon/user as mob)
 	playsound(loc, 'sound/weapons/bladeslice.ogg', 50, 1, -1)
 	return ..()
+
+/obj/item/weapon/twohanded/spear/kidan
+	icon_state = "kidanspear0"
+	name = "Kidan spear"
+	desc = "A spear brought over from the Kidan homeworld."

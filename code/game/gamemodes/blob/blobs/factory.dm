@@ -41,7 +41,7 @@
 	attack_sound = 'sound/weapons/genhit1.ogg'
 	var/obj/effect/blob/factory/factory = null
 	var/is_zombie = 0
-	faction = "blob"
+	faction = list("blob")
 	min_oxy = 0
 	max_oxy = 0
 	min_tox = 0
@@ -107,8 +107,10 @@
 	var/turf/location = get_turf(src)
 
 	// Create the reagents to put into the air, s-acid is yellow and stings a little
-	create_reagents(25)
-	reagents.add_reagent("spore", 25)
+	create_reagents(50)
+	reagents.add_reagent("condensedcapsaicin", 10)
+	reagents.add_reagent("zombiepowder", 25)
+	reagents.add_reagent("impedrezene", 15)
 
 	// Attach the smoke spreader and setup/start it.
 	S.attach(location)
@@ -118,7 +120,7 @@
 	del(src)
 
 
-/mob/living/simple_animal/hostile/blobspore/Del()
+/mob/living/simple_animal/hostile/blobspore/Destroy()
 	if(factory)
 		factory.spores -= src
 	if(contents)

@@ -5,6 +5,9 @@
 	opacity = 1
 	density = 1
 
+	damage_cap = 200
+	max_temperature = 6000
+
 	walltype = "rwall"
 
 	var/d_state = 0
@@ -80,6 +83,19 @@
 	else if(istype(W, /obj/item/weapon/melee/energy/blade))
 		user << "<span class='notice'>This wall is too thick to slice through. You will need to find a different path.</span>"
 		return
+
+	if(damage && istype(W, /obj/item/weapon/weldingtool))
+		var/obj/item/weapon/weldingtool/WT = W
+		if(WT.remove_fuel(0,user))
+			user << "<span class='notice'>You start repairing the damage to [src].</span>"
+			playsound(src, 'sound/items/Welder.ogg', 100, 1)
+			if(do_after(user, max(5, damage / 5)) && WT && WT.isOn())
+				user << "<span class='notice'>You finish repairing the damage to [src].</span>"
+				take_damage(-damage)
+			return
+		else
+			user << "<span class='warning'>You need more welding fuel to complete this task.</span>"
+			return
 
 	var/turf/T = user.loc	//get user's location for delay checks
 
@@ -293,6 +309,43 @@
 	//Poster stuff
 	else if(istype(W,/obj/item/weapon/contraband/poster))
 		place_poster(W,user)
+		return
+
+	//Bone White - Place pipes on walls
+	else if(istype(W,/obj/item/pipe))
+		var/obj/item/pipe/V = W
+		if(V.pipe_type != -1) // ANY PIPE
+			var/obj/item/pipe/P = W
+
+			playsound(get_turf(src), 'sound/weapons/circsawhit.ogg', 50, 1)
+			user.visible_message( \
+				"[user] starts drilling a hole in \the [src].", \
+				"\blue You start drilling a hole in \the [src]. This is going to take a while.", \
+				"You hear ratchet.")
+			if (do_after(user, 160))
+				user.visible_message( \
+					"[user] drills a hole in \the [src] and pushes \a [P] into the void", \
+					"\blue You have finished drilling in \the [src] and push the [P] into the void.", \
+					"You hear ratchet.")
+
+				user.drop_item()
+				if (P.pipe_type in list (1,3,12))  // bent pipe rotation fix see construction.dm
+					P.dir = 5
+					if (user.dir == 1)
+						P.dir = 6
+					if (user.dir == 2)
+						P.dir = 9
+					if (user.dir == 4)
+						P.dir = 10
+					if (user.dir == 5)
+						P.dir = 8
+				else
+					P.dir = user.dir
+				P.x = src.x
+				P.y = src.y
+				P.z = src.z
+				P.loc = src
+				P.level = 2
 		return
 
 	//Finally, CHECKING FOR FALSE WALLS if it isn't damaged

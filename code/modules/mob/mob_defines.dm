@@ -99,8 +99,6 @@
 	var/bodytemperature = 310.055	//98.7 F
 	var/drowsyness = 0.0//Carbon
 	var/dizziness = 0//Carbon
-	var/is_dizzy = 0
-	var/is_jittery = 0
 	var/jitteriness = 0//Carbon
 	var/charges = 0.0
 	var/nutrition = 400.0//Carbon
@@ -156,7 +154,7 @@
 
 	var/voice_name = "unidentifiable voice"
 
-	var/faction = "neutral" //Used for checking whether hostile simple animals will attack you, possibly more stuff later
+	var/list/faction = list("neutral") //Used for checking whether hostile simple animals will attack you, possibly more stuff later
 
 	var/move_on_shuttle = 1 // Can move on the shuttle.
 
@@ -179,7 +177,7 @@
 	var/mob/living/carbon/LAssailant = null
 
 //Wizard mode, but can be used in other modes thanks to the brand new "Give Spell" badmin button
-	var/obj/effect/proc_holder/spell/list/spell_list = list()
+	var/obj/effect/proc_holder/spell/wizard/list/spell_list = list()
 
 //Changlings, but can be used in other modes
 //	var/obj/effect/proc_holder/changpower/list/power_list = list()
@@ -188,9 +186,6 @@
 
 	var/viruses = list() // replaces var/datum/disease/virus
 
-//Monkey/infected mode
-	var/list/resistances = list()
-	var/datum/disease/virus = null
 
 	mouse_drag_pointer = MOUSE_ACTIVE_POINTER
 
@@ -207,6 +202,7 @@
 
 
 	var/obj/control_object //Used by admins to possess objects. All mobs should have this var
+	var/datum/visibility_interface/visibility_interface = null // used by the visibility system to provide an interface for the visibility networks
 
 	//Whether or not mobs can understand other mobtypes. These stay in /mob so that ghosts can hear everything.
 	var/universal_speak = 0 // Set to 1 to enable the mob to speak to everyone -- TLE

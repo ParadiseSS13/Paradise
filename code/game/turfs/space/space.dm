@@ -50,7 +50,7 @@
 				return
 
 		user << "\blue Constructing support lattice ..."
-		playsound(src.loc, 'sound/weapons/Genhit.ogg', 50, 1)
+		playsound(src, 'sound/weapons/Genhit.ogg', 50, 1)
 		ReplaceWithLattice()
 		R.use(1)
 		return
@@ -60,7 +60,7 @@
 		if(L)
 			var/obj/item/stack/tile/plasteel/S = C
 			del(L)
-			playsound(src.loc, 'sound/weapons/Genhit.ogg', 50, 1)
+			playsound(src, 'sound/weapons/Genhit.ogg', 50, 1)
 			S.build(src)
 			S.use(1)
 			return
@@ -72,9 +72,6 @@
 // Ported from unstable r355
 
 /turf/space/Entered(atom/movable/A as mob|obj)
-	if(movement_disabled)
-		usr << "\red Movement is admin-disabled." //This is to identify lag problems
-		return
 	..()
 	if ((!(A) || src != A.loc))	return
 
@@ -91,15 +88,24 @@
 				return
 
 			if(istype(A, /obj/item/weapon/disk/nuclear)) // Don't let nuke disks travel Z levels  ... And moving this shit down here so it only fires when they're actually trying to change z-level.
-				del(A) //The disk's Del() proc ensures a new one is created
+				del(A) //The disk's Destroy() proc ensures a new one is created
 				return
-
-			var/list/disk_search = A.search_contents_for(/obj/item/weapon/disk/nuclear)
-			if(!isemptylist(disk_search))
-				if(istype(A, /mob/living))
-					var/mob/living/MM = A
+			if(istype(A, /obj/item/flag/nation)) // Don't letflags travel Z levels  ... And moving this shit down here so it only fires when they're actually trying to change z-level.
+				var/obj/item/flag/nation/N = A
+				N.loc = N.startloc //The flag returns to base.
+				return
+			var/mob/living/MM = null
+			var/fukkendisk = A.GetTypeInAllContents(/obj/item/weapon/disk/nuclear)
+			var/obj/item/flag/nation/fukkenflag = A.GetTypeInAllContents(/obj/item/flag/nation)
+			if(fukkenflag)
+				fukkenflag.loc = fukkenflag.startloc
+				if(isliving(A))
+					A << "<span class='warning'>The flag you were carrying was just returned to it's base. Nice try.</span>"
+			if(fukkendisk)
+				if(isliving(A))
+					MM = A
 					if(MM.client && !MM.stat)
-						MM << "\red Something you are carrying is preventing you from leaving. Don't play stupid; you know exactly what it is."
+						MM << "<span class='warning'>Something you are carrying is preventing you from leaving. Don't play stupid; you know exactly what it is.</span>"
 						if(MM.x <= TRANSITIONEDGE)
 							MM.inertia_dir = 4
 						else if(MM.x >= world.maxx -TRANSITIONEDGE)
@@ -109,12 +115,32 @@
 						else if(MM.y >= world.maxy -TRANSITIONEDGE)
 							MM.inertia_dir = 2
 					else
-						for(var/obj/item/weapon/disk/nuclear/N in disk_search)
-							del(N)//Make the disk respawn it is on a clientless mob or corpse
+						qdel(fukkendisk)//Make the disk respawn if it is on a clientless mob or corpse
 				else
-					for(var/obj/item/weapon/disk/nuclear/N in disk_search)
-						del(N)//Make the disk respawn if it is floating on its own
+					qdel(fukkendisk)//Make the disk respawn if it is floating on its own
 				return
+
+
+			//Check if it's a mob pulling an object. Have the object transition with the mob if it's not the nuke disk
+			var/obj/was_pulling = null
+			if(isliving(A))
+				MM = A
+				if(MM.pulling)
+					//Check for that fucking disk
+					if(istype(MM.pulling, /obj/item/weapon/disk/nuclear))
+						qdel(MM.pulling)
+					else
+						was_pulling = MM.pulling
+						fukkenflag = null
+						fukkendisk = was_pulling.GetTypeInAllContents(/obj/item/weapon/disk/nuclear)
+						fukkenflag = was_pulling.GetTypeInAllContents(/obj/item/flag/nation)
+						if(fukkenflag)
+							fukkenflag.loc = fukkenflag.startloc
+							if(isliving(A))
+								A << "<span class='warning'>The flag you were carrying was just returned to it's base. Nice try.</span>"
+						if(fukkendisk)
+							MM << "<span class='warning'>You think you saw something slip out of [was_pulling], but you couldn't tell where it went...</span>"
+							qdel(fukkendisk)
 
 			var/move_to_z = src.z
 			var/safety = 1
@@ -147,10 +173,11 @@
 				A.y = TRANSITIONEDGE + 1
 				A.x = rand(TRANSITIONEDGE + 2, world.maxx - TRANSITIONEDGE - 2)
 
-
-
-
 			spawn (0)
+				if(was_pulling && MM)
+					was_pulling.loc = MM.loc
+					MM.pulling = was_pulling
+					was_pulling.pulledby = MM
 				if ((A && A.loc))
 					A.loc.Entered(A)
 

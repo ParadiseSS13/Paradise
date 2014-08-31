@@ -10,7 +10,7 @@ var/specops_shuttle_can_send = 1
 var/specops_shuttle_time = 0
 var/specops_shuttle_timeleft = 0
 
-/obj/machinery/computer/specops_shuttle
+/obj/machinery/computer3/specops_shuttle
 	name = "Spec. Ops. Shuttle Console"
 	icon = 'icons/obj/computer.dmi'
 	icon_state = "shuttle"
@@ -159,22 +159,22 @@ var/specops_shuttle_timeleft = 0
 	if(specops_shuttle_moving_to_station || specops_shuttle_moving_to_centcom) return 0
 	else return 1
 
-/obj/machinery/computer/specops_shuttle/attackby(I as obj, user as mob)
+/obj/machinery/computer3/specops_shuttle/attackby(I as obj, user as mob)
 	return attack_hand(user)
 
-/obj/machinery/computer/specops_shuttle/attack_ai(var/mob/user as mob)
+/obj/machinery/computer3/specops_shuttle/attack_ai(var/mob/user as mob)
 	return attack_hand(user)
 
-/obj/machinery/computer/specops_shuttle/attack_paw(var/mob/user as mob)
+/obj/machinery/computer3/specops_shuttle/attack_paw(var/mob/user as mob)
 	return attack_hand(user)
 
-/obj/machinery/computer/specops_shuttle/attackby(I as obj, user as mob)
+/obj/machinery/computer3/specops_shuttle/attackby(I as obj, user as mob)
 	if(istype(I,/obj/item/card/emag))
 		user << "\blue The electronic systems in this console are far too advanced for your primitive hacking peripherals."
 	else
 		return attack_hand(user)
 
-/obj/machinery/computer/specops_shuttle/attack_hand(var/mob/user as mob)
+/obj/machinery/computer3/specops_shuttle/attack_hand(var/mob/user as mob)
 	if(!allowed(user))
 		user << "\red Access Denied."
 		return
@@ -204,7 +204,7 @@ var/specops_shuttle_timeleft = 0
 	popup.open()
 	return
 
-/obj/machinery/computer/specops_shuttle/Topic(href, href_list)
+/obj/machinery/computer3/specops_shuttle/Topic(href, href_list)
 	if(..())
 		return
 

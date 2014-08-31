@@ -296,30 +296,31 @@
 						movement_target = S
 						break
 			if(movement_target)
-				stop_automated_movement = 1
-				step_to(src,movement_target,1)
-				sleep(3)
-				step_to(src,movement_target,1)
-				sleep(3)
-				step_to(src,movement_target,1)
+				spawn(0)
+					stop_automated_movement = 1
+					step_to(src,movement_target,1)
+					sleep(3)
+					step_to(src,movement_target,1)
+					sleep(3)
+					step_to(src,movement_target,1)
 
-				if(movement_target)		//Not redundant due to sleeps, Item can be gone in 6 decisecomds
-					if (movement_target.loc.x < src.x)
-						dir = WEST
-					else if (movement_target.loc.x > src.x)
-						dir = EAST
-					else if (movement_target.loc.y < src.y)
-						dir = SOUTH
-					else if (movement_target.loc.y > src.y)
-						dir = NORTH
-					else
-						dir = SOUTH
+					if(movement_target)		//Not redundant due to sleeps, Item can be gone in 6 decisecomds
+						if (movement_target.loc.x < src.x)
+							dir = WEST
+						else if (movement_target.loc.x > src.x)
+							dir = EAST
+						else if (movement_target.loc.y < src.y)
+							dir = SOUTH
+						else if (movement_target.loc.y > src.y)
+							dir = NORTH
+						else
+							dir = SOUTH
 
-					if(isturf(movement_target.loc) )
-						movement_target.attack_animal(src)
-					else if(ishuman(movement_target.loc) )
-						if(prob(20))
-							emote("stares at the [movement_target] that [movement_target.loc] has with a sad puppy-face")
+						if(isturf(movement_target.loc) )
+							movement_target.attack_animal(src)
+						else if(ishuman(movement_target.loc) )
+							if(prob(20))
+								emote("stares at [movement_target.loc]'s [movement_target] with a sad puppy-face")
 
 		if(prob(1))
 			emote(pick("dances around","chases its tail"))
@@ -358,11 +359,10 @@
 			now_pushing = 1
 			if (!( AM.anchored ))
 				var/t = get_dir(src, AM)
-				if (istype(AM, /obj/structure/window))
-					if(AM:ini_dir == NORTHWEST || AM:ini_dir == NORTHEAST || AM:ini_dir == SOUTHWEST || AM:ini_dir == SOUTHEAST)
-						for(var/obj/structure/window/win in get_step(AM,t))
-							now_pushing = 0
-							return
+				if (istype(AM, /obj/structure/window/full))
+					for(var/obj/structure/window/win in get_step(AM,t))
+						now_pushing = 0
+						return
 				step(AM, t)
 			now_pushing = null
 		return
@@ -469,10 +469,47 @@
 	desc = "It's a borgi."
 	icon_state = "borgi"
 	icon_living = "borgi"
+	var/emagged = 0
 
+/mob/living/simple_animal/corgi/Ian/borgi/attackby(var/obj/item/O as obj, var/mob/user as mob)
+	if (istype(O, /obj/item/weapon/card/emag) && !emagged)
+		emagged = 1
+		visible_message("<span class='warning'>[user] swipes a card through [src].</span>", "<span class='notice'>You overload [src]s internal reactor.</span>")
+		spawn (1000)
+			src.explode()
+		return
+	..()
+
+/mob/living/simple_animal/corgi/Ian/borgi/proc/explode()
+	for(var/mob/M in viewers(src, null))
+		if (M.client)
+			M.show_message("\red [src] makes an odd whining noise.")
+	sleep(10)
+	explosion(get_turf(src), 0, 1, 4, 7)
+	Die()
+
+/mob/living/simple_animal/corgi/Ian/borgi/proc/shootAt(var/atom/movable/target)
+	var/turf/T = get_turf(src)
+	var/turf/U = get_turf(target)
+	if (!T || !U)
+		return
+	var/obj/item/projectile/beam/A = new /obj/item/projectile/beam(loc)
+	A.icon = 'icons/effects/genetics.dmi'
+	A.icon_state = "eyelasers"
+	playsound(src.loc, 'sound/weapons/taser2.ogg', 75, 1)
+	A.current = T
+	A.yo = U.y - T.y
+	A.xo = U.x - T.x
+	spawn( 0 )
+		A.process()
+	return
 
 /mob/living/simple_animal/corgi/Ian/borgi/Life()
 	..()
+	if(emagged && prob(25))
+		var/mob/living/carbon/target = locate() in view(10,src)
+		if (target)
+			shootAt(target)
 
 	//spark for no reason
 	if(prob(5))

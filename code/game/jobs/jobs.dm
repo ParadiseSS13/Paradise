@@ -28,7 +28,7 @@ var/const/XENOBIOLOGIST		=(1<<9)
 var/const/PARAMEDIC			=(1<<10)
 
 
-var/const/CIVILIAN			=(1<<2)
+var/const/SUPPORT			=(1<<2)
 
 var/const/HOP				=(1<<0)
 var/const/BARTENDER			=(1<<1)
@@ -43,7 +43,7 @@ var/const/LAWYER			=(1<<9)
 var/const/CHAPLAIN			=(1<<10)
 var/const/CLOWN				=(1<<11)
 var/const/MIME				=(1<<12)
-var/const/ASSISTANT			=(1<<13)
+var/const/CIVILIAN			=(1<<13)
 
 
 var/const/KARMA				=(1<<3)
@@ -52,7 +52,11 @@ var/const/NANO				=(1<<0)
 var/const/BLUESHIELD		=(1<<1)
 var/const/CUSTOMS			=(1<<2)
 var/const/BARBER			=(1<<3)
-
+var/const/MECHANIC			=(1<<4)
+var/const/BRIGDOC			=(1<<5)
+var/const/JUDGE				=(1<<6)
+var/const/PILOT				=(1<<7)
+var/const/NANOREC			=(1<<8)
 
 var/list/assistant_occupations = list(
 )
@@ -71,7 +75,8 @@ var/list/command_positions = list(
 var/list/engineering_positions = list(
 	"Chief Engineer",
 	"Station Engineer",
-	"Atmospheric Technician",
+	"Life Support Specialist",
+	"Mechanic"
 )
 
 
@@ -95,7 +100,7 @@ var/list/science_positions = list(
 )
 
 //BS12 EDIT
-var/list/civilian_positions = list(
+var/list/support_positions = list(
 	"Head of Personnel",
 	"Bartender",
 	"Botanist",
@@ -105,12 +110,14 @@ var/list/civilian_positions = list(
 	"Quartermaster",
 	"Cargo Technician",
 	"Shaft Miner",
-	"Lawyer",
+	"Internal Affairs Agent",
 	"Chaplain",
-	"Assistant",
 	"Clown",
-	"Mime"
-
+	"Mime",
+	"Barber",
+	"Magistrate",
+	"Nanotrasen Representative",
+	"Nanotrasen Recruiter"
 )
 
 
@@ -119,8 +126,16 @@ var/list/security_positions = list(
 	"Warden",
 	"Detective",
 	"Security Officer",
+	"Customs Officer",
+	"Blueshield",
+	"Brig Physician",
+	"Security Pod Pilot"
 )
 
+
+var/list/civilian_positions = list(
+	"Civilian"
+)
 
 var/list/nonhuman_positions = list(
 	"AI",
@@ -132,8 +147,14 @@ var/list/whitelisted_positions = list(
 	"Blueshield",
 	"Customs Officer",
 	"Nanotrasen Representative",
-	"Barber"
+	"Barber",
+	"Mechanic",
+	"Brig Physician",
+	"Magistrate",
+	"Security Pod Pilot",
+	"Nanotrasen Recruiter"
 )
+
 
 /proc/guest_jobbans(var/job)
 	return (job in whitelisted_positions)

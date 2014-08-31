@@ -186,12 +186,12 @@
 		msg += "[t_He] [t_is] wearing \icon[wear_id] \a [wear_id].\n"
 
 	//Jitters
-	if(is_jittery)
-		if(jitteriness >= 300)
+	switch(jitteriness)
+		if(300 to INFINITY)
 			msg += "<span class='warning'><B>[t_He] [t_is] convulsing violently!</B></span>\n"
-		else if(jitteriness >= 200)
+		if(200 to 300)
 			msg += "<span class='warning'>[t_He] [t_is] extremely jittery.</span>\n"
-		else if(jitteriness >= 100)
+		if(100 to 200)
 			msg += "<span class='warning'>[t_He] [t_is] twitching ever so slightly.</span>\n"
 
 	//splints
@@ -240,13 +240,11 @@
 
 	msg += "</span>"
 
-	if(stat == UNCONSCIOUS)
-		msg += "[t_He] [t_is]n't responding to anything around [t_him] and seems to be asleep.\n"
-	else if(getBrainLoss() >= 60)
+	if(getBrainLoss() >= 60)
 		msg += "[t_He] [t_has] a stupid expression on [t_his] face.\n"
 
 	if(!key && brain_op_stage != 4 && stat != DEAD)
-		msg += "<span class='deadsay'>[t_He] [t_is] totally catatonic. The stresses of life in deep-space must have been too much for [t_him]. Any recovery is unlikely</span>\n"
+		msg += "<span class='deadsay'>[t_He] [t_is] fast asleep. It doesn't look like they are waking up anytime soon.</span>\n"
 	else if(!client && brain_op_stage != 4 && stat != DEAD)
 		msg += "[t_He] [t_has] suddenly fallen asleep.\n"
 
@@ -261,10 +259,11 @@
 				continue
 			if(temp.status & ORGAN_ROBOT)
 				if(!(temp.brute_dam + temp.burn_dam))
-					wound_flavor_text["[temp.display_name]"] = "<span class='warning'>[t_He] has a robot [temp.display_name]!</span>\n"
-					continue
+					if(!species.flags & IS_SYNTHETIC)
+						wound_flavor_text["[temp.display_name]"] = "<span class='warning'>[t_He] has a robot [temp.display_name]!</span>\n"
+						continue
 				else
-					wound_flavor_text["[temp.display_name]"] = "<span class='warning'>[t_He] has a robot [temp.display_name], it has"
+					wound_flavor_text["[temp.display_name]"] = "<span class='warning'>[t_He] has a robot [temp.display_name]. It has"
 				if(temp.brute_dam) switch(temp.brute_dam)
 					if(0 to 20)
 						wound_flavor_text["[temp.display_name]"] += " some dents"
@@ -277,16 +276,18 @@
 						wound_flavor_text["[temp.display_name]"] += " some burns"
 					if(21 to INFINITY)
 						wound_flavor_text["[temp.display_name]"] += pick(" a lot of burns"," severe melting")
-				wound_flavor_text["[temp.display_name]"] += "!</span>\n"
+				if(wound_flavor_text["[temp.display_name]"])
+					wound_flavor_text["[temp.display_name]"] += "!</span>\n"
 			else if(temp.wounds.len > 0)
 				var/list/wound_descriptors = list()
 				for(var/datum/wound/W in temp.wounds)
 					if(W.internal && !temp.open) continue // can't see internal wounds
 					var/this_wound_desc = W.desc
+					if(W.damage_type == BURN && W.salved) this_wound_desc = "salved [this_wound_desc]"
 					if(W.bleeding()) this_wound_desc = "bleeding [this_wound_desc]"
 					else if(W.bandaged) this_wound_desc = "bandaged [this_wound_desc]"
-					if(W.germ_level > 1000) this_wound_desc = "badly infected [this_wound_desc]"
-					else if(W.germ_level > 100) this_wound_desc = "lightly infected [this_wound_desc]"
+					if(W.germ_level > 600) this_wound_desc = "badly infected [this_wound_desc]"
+					else if(W.germ_level > 330) this_wound_desc = "lightly infected [this_wound_desc]"
 					if(this_wound_desc in wound_descriptors)
 						wound_descriptors[this_wound_desc] += W.amount
 						continue
@@ -393,8 +394,8 @@
 	if(H && H.brained)
 		msg += "<span class='warning'><b>[src]'s skull is crushed and the brain is exposed to the air!</b></span>\n"
 
-	for(var/implant in get_visible_implants(1))
-		msg += "<span class='warning'><b>[src] has \a [implant] sticking out of their flesh!</span>\n"
+	for(var/implant in get_visible_implants(0))
+		msg += "<span class='warning'><b>[src] has \a [implant] sticking out of [t_his] flesh!</span>\n"
 	if(digitalcamo)
 		msg += "[t_He] [t_is] repulsively uncanny!\n"
 	if(decaylevel == 1)
@@ -470,7 +471,7 @@
 			if("security")
 				return istype(H.glasses, /obj/item/clothing/glasses/hud/security) || istype(H.glasses, /obj/item/clothing/glasses/sunglasses/sechud)
 			if("medical")
-				return istype(H.glasses, /obj/item/clothing/glasses/hud/health)
+				return istype(H.glasses, /obj/item/clothing/glasses/hud/health) || istype(H.glasses, /obj/item/clothing/glasses/hud/health_advanced)
 			else
 				return 0
 	else if(istype(M, /mob/living/silicon/robot))

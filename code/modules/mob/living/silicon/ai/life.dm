@@ -35,6 +35,9 @@
 			// Gain Power
 			adjustOxyLoss(-1)
 
+		// Handle EMP-stun
+		handle_stunned()
+
 		//stage = 1
 		//if (istype(src, /mob/living/silicon/ai)) // Are we not sure what we are?
 		var/blind = 0
@@ -58,10 +61,20 @@
 			src.see_in_dark = 8
 			src.see_invisible = SEE_INVISIBLE_LEVEL_TWO
 
+
+			//Congratulations!  You've found a way for AI's to run without using power!
+			//Todo:  Without snowflaking up master_controller procs find a way to make AI use_power but only when APC's clear the area usage the tick prior
+			//       since mobs are in master_controller before machinery.  We also have to do it in a manner where we don't reset the entire area's need to update
+			//	 the power usage.
+			//
+			//	 We can probably create a new machine that resides inside of the AI contents that uses power using the idle_usage of 1000 and nothing else and
+			//       be fine.
+/*
 			var/area/home = get_area(src)
 			if(!home)	return//something to do with malf fucking things up I guess. <-- aisat is gone. is this still necessary? ~Carn
 			if(home.powered(EQUIP))
 				home.use_power(1000, EQUIP)
+*/
 
 			if (src:aiRestorePowerRoutine==2)
 				src << "Alert cancelled. Power has been restored without our assistance."

@@ -10,12 +10,7 @@
 
 
 /obj/item/weapon/storage/belt/proc/can_use()
-	if(!ismob(loc)) return 0
-	var/mob/M = loc
-	if(src in M.get_equipped_items())
-		return 1
-	else
-		return 0
+	return is_equipped()
 
 
 /obj/item/weapon/storage/belt/MouseDrop(obj/over_object as obj, src_location, over_location)
@@ -77,6 +72,7 @@
 
 
 /obj/item/weapon/storage/belt/medical
+	use_to_pickup = 1 //Allow medical belt to pick up medicine
 	name = "medical belt"
 	desc = "Can hold various medical equipment."
 	icon_state = "medicalbelt"
@@ -129,7 +125,8 @@
 		"/obj/item/device/radio/headset",
 		"/obj/item/weapon/melee",
 		"/obj/item/taperoll/police",
-		"/obj/item/weapon/gun/energy/taser"
+		"/obj/item/weapon/gun/energy/taser",
+		"/obj/item/weapon/gun/energy/stunrevolver"
 		)
 
 /obj/item/weapon/storage/belt/soulstone

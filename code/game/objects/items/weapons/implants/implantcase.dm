@@ -91,7 +91,17 @@
 		..()
 		return
 
+/obj/item/weapon/implantcase/dexplosive
+	name = "Glass Case- 'Death Explosive'"
+	desc = "A case containing an explosive implant."
+	icon = 'icons/obj/items.dmi'
+	icon_state = "implantcase-r"
 
+
+	New()
+		src.imp = new /obj/item/weapon/implant/dexplosive( src )
+		..()
+		return
 
 /obj/item/weapon/implantcase/chem
 	name = "Glass Case- 'Chem'"

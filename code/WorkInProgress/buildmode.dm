@@ -54,8 +54,8 @@
 			if(SOUTH)
 				dir = WEST
 			if(WEST)
-				dir = NORTHWEST
-			if(NORTHWEST)
+				dir = SOUTHWEST
+			if(SOUTHWEST)
 				dir = NORTH
 		return 1
 
@@ -120,7 +120,7 @@
 	screen_loc = "NORTH,WEST+2"
 	var/varholder = "name"
 	var/valueholder = "derp"
-	var/objholder = "/obj/structure/closet"
+	var/objholder = /obj/structure/closet
 
 	Click(location, control, params)
 		var/list/pa = params2list(params)
@@ -145,13 +145,13 @@
 				if(1)
 					return 1
 				if(2)
-					objholder = input(usr,"Enter typepath:" ,"Typepath","/obj/structure/closet")
-					var/list/removed_paths = list("/obj/effect/bhole")
-					if(objholder in removed_paths)
+					objholder = text2path(input(usr,"Enter typepath:" ,"Typepath","/obj/structure/closet"))
+					if(!ispath(objholder))
+						objholder = /obj/structure/closet
 						alert("That path is not allowed.")
-						objholder = "/obj/structure/closet"
-					else if (dd_hasprefix(objholder, "/mob") && !check_rights(R_DEBUG,0))
-						objholder = "/obj/structure/closet"
+					else
+						if(ispath(objholder,/mob) && !check_rights(R_DEBUG,0))
+							objholder = /obj/structure/closet
 				if(3)
 					var/list/locked = list("vars", "key", "ckey", "client", "firemut", "ishulk", "telekinesis", "xray", "virus", "viruses", "cuffed", "ka", "last_eaten", "urine")
 
@@ -171,7 +171,8 @@
 							master.buildmode.valueholder = input(usr,"Enter variable value:" ,"Value") as obj in world
 						if("turf-reference")
 							master.buildmode.valueholder = input(usr,"Enter variable value:" ,"Value") as turf in world
-			return 1
+    	return 1
+
 
 /proc/build_click(var/mob/user, buildmode, params, var/obj/object)
 	var/obj/effect/bmode/buildholder/holder = null
@@ -229,13 +230,16 @@
 					if(WEST)
 						var/obj/structure/window/reinforced/WIN = new/obj/structure/window/reinforced(get_turf(object))
 						WIN.dir = WEST
-					if(NORTHWEST)
-						var/obj/structure/window/reinforced/WIN = new/obj/structure/window/reinforced(get_turf(object))
-						WIN.dir = NORTHWEST
+					if(SOUTHWEST)
+						new/obj/structure/window/full/reinforced(get_turf(object))
 		if(2)
 			if(pa.Find("left"))
-				var/obj/A = new holder.buildmode.objholder (get_turf(object))
-				A.dir = holder.builddir.dir
+				if(ispath(holder.buildmode.objholder,/turf))
+					var/turf/T = get_turf(object)
+					T.ChangeTurf(holder.buildmode.objholder)
+				else
+					var/obj/A = new holder.buildmode.objholder (get_turf(object))
+					A.dir = holder.builddir.dir
 			else if(pa.Find("right"))
 				if(isobj(object)) del(object)
 

@@ -11,6 +11,8 @@
 		return
 
 /obj/effect/datacore/proc/manifest_modify(var/name, var/assignment)
+	if(PDA_Manifest.len)
+		PDA_Manifest.Cut()
 	var/datum/data/record/foundrecord
 	var/real_title = assignment
 
@@ -34,6 +36,9 @@
 		foundrecord.fields["real_rank"] = real_title
 
 /obj/effect/datacore/proc/manifest_inject(var/mob/living/carbon/human/H)
+	if(PDA_Manifest.len)
+		PDA_Manifest.Cut()
+
 	if(H.mind && (H.mind.assigned_role != "MODE"))
 		var/assignment
 		if(H.mind.role_alt_title)
@@ -114,7 +119,7 @@
 		L.fields["b_dna"]		= H.dna.unique_enzymes
 		L.fields["enzymes"]		= H.dna.SE // Used in respawning
 		L.fields["identity"]	= H.dna.UI // "
-		L.fields["image"]		= getFlatIcon(H,0)	//This is god-awful
+		L.fields["image"]		= getFlatIcon(H)	//This is god-awful
 		locked += L
 	return
 
@@ -144,13 +149,23 @@ proc/get_id_photo(var/mob/living/carbon/human/H)
 		if(E.status & ORGAN_ROBOT)
 			temp.MapColors(rgb(77,77,77), rgb(150,150,150), rgb(28,28,28), rgb(0,0,0))
 		preview_icon.Blend(temp, ICON_OVERLAY)
+	
+	//Tail
+	if(H.species.tail && H.species.flags & HAS_TAIL)
+		temp = new/icon("icon" = 'icons/effects/species.dmi', "icon_state" = "[H.species.tail]_s")
+		preview_icon.Blend(temp, ICON_OVERLAY)
 
 	// Skin tone
-	if(H.species.flags & HAS_SKIN_TONE)
+	if(H.species.bodyflags & HAS_SKIN_TONE)
 		if (H.s_tone >= 0)
 			preview_icon.Blend(rgb(H.s_tone, H.s_tone, H.s_tone), ICON_ADD)
 		else
 			preview_icon.Blend(rgb(-H.s_tone,  -H.s_tone,  -H.s_tone), ICON_SUBTRACT)
+
+	// Skin color
+	if(H.species.flags & HAS_SKIN_TONE)
+		if(!H.species || H.species.flags & HAS_SKIN_COLOR)
+			preview_icon.Blend(rgb(H.r_skin, H.g_skin, H.b_skin), ICON_ADD)
 
 	var/icon/eyes_s = new/icon("icon" = 'icons/mob/human_face.dmi', "icon_state" = H.species ? H.species.eyes : "eyes_s")
 
@@ -255,7 +270,7 @@ proc/get_id_photo(var/mob/living/carbon/human/H)
 			clothes_s = new /icon('icons/mob/uniform.dmi', "engine_s")
 			clothes_s.Blend(new /icon('icons/mob/feet.dmi', "orange"), ICON_UNDERLAY)
 			clothes_s.Blend(new /icon('icons/mob/belt.dmi', "utility"), ICON_OVERLAY)
-		if("Atmospheric Technician")
+		if("Life Support Specialist")
 			clothes_s = new /icon('icons/mob/uniform.dmi', "atmos_s")
 			clothes_s.Blend(new /icon('icons/mob/feet.dmi', "black"), ICON_UNDERLAY)
 			clothes_s.Blend(new /icon('icons/mob/belt.dmi', "utility"), ICON_OVERLAY)

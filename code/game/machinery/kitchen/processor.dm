@@ -29,18 +29,6 @@
 		input = /obj/item/weapon/reagent_containers/food/snacks/meat
 		output = /obj/item/weapon/reagent_containers/food/snacks/meatball
 
-	meat2
-		input = /obj/item/weapon/syntiflesh
-		output = /obj/item/weapon/reagent_containers/food/snacks/meatball
-/*
-	monkeymeat
-		input = /obj/item/weapon/reagent_containers/food/snacks/meat/monkey
-		output = /obj/item/weapon/reagent_containers/food/snacks/meatball
-
-	humanmeat
-		input = /obj/item/weapon/reagent_containers/food/snacks/meat/human
-		output = /obj/item/weapon/reagent_containers/food/snacks/meatball
-*/
 	potato
 		input = /obj/item/weapon/reagent_containers/food/snacks/grown/potato
 		output = /obj/item/weapon/reagent_containers/food/snacks/fries
@@ -86,14 +74,7 @@
 				B.volume = 70
 				//set reagent data
 				B.data["donor"] = O
-
-				for(var/datum/disease/D in O.viruses)
-					if(D.spread_type != SPECIAL)
-						B.data["viruses"] += D.Copy()
-
 				B.data["blood_DNA"] = copytext(O.dna.unique_enzymes,1,0)
-				if(O.resistances&&O.resistances.len)
-					B.data["resistances"] = O.resistances.Copy()
 				bucket_of_blood.reagents.reagent_list += B
 				bucket_of_blood.reagents.update_total()
 				bucket_of_blood.on_reagent_change()

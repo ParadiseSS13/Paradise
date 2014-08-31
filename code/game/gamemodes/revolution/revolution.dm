@@ -14,7 +14,8 @@
 /datum/game_mode/revolution
 	name = "revolution"
 	config_tag = "revolution"
-	restricted_jobs = list("Security Officer", "Warden", "Detective", "AI", "Cyborg","Captain", "Head of Personnel", "Head of Security", "Chief Engineer", "Research Director", "Chief Medical Officer", "Blueshield", "Nanotrasen Representative")
+	restricted_jobs = list("Lawyer", "AI", "Cyborg","Captain", "Head of Personnel", "Head of Security", "Chief Engineer", "Research Director", "Chief Medical Officer", "Blueshield", "Nanotrasen Representative")
+	protected_jobs = list("Security Officer", "Warden", "Detective")
 	required_players = 4
 	required_players_secret = 15
 	required_enemies = 3
@@ -91,7 +92,7 @@
 		greet_revolutionary(rev_mind)
 	modePlayer += head_revolutionaries
 	if(emergency_shuttle)
-		emergency_shuttle.always_fake_recall = 1
+		emergency_shuttle.auto_recall = 1
 	spawn (rand(waittime_l, waittime_h))
 		send_intercept()
 	..()
@@ -171,7 +172,7 @@
 	if(config.continous_rounds)
 		if(finished != 0)
 			if(emergency_shuttle)
-				emergency_shuttle.always_fake_recall = 0
+				emergency_shuttle.auto_recall = 0
 		return ..()
 	if(finished != 0)
 		return 1
@@ -202,6 +203,7 @@
 	if(rev_mind in revolutionaries)
 		revolutionaries -= rev_mind
 		rev_mind.special_role = null
+		rev_mind.current.hud_updateflag |= 1 << SPECIALROLE_HUD
 
 		if(beingborged)
 			rev_mind.current << "\red <FONT size = 3><B>The frame's firmware detects and deletes your neural reprogramming!  You remember nothing from the moment you were flashed until now.</B></FONT>"

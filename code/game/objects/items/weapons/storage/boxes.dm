@@ -26,6 +26,9 @@
 	item_state = "syringe_kit"
 	foldable = /obj/item/stack/sheet/cardboard	//BubbleWrap
 
+	autoignition_temperature = 522 // Kelvin
+
+
 /obj/item/weapon/storage/box/large
 	name = "large box"
 	desc = "You could build a fort with this."
@@ -36,8 +39,10 @@
 	storage_slots = 21
 	max_combined_w_class = 42 // 21*2
 
+	autoignition_temperature = 530 // Kelvin
 
-/obj/item/weapon/storage/box/surveillance/
+
+/obj/item/weapon/storage/box/surveillance
 	name = "\improper DromedaryCo packet"
 	desc = "A packet of six imported DromedaryCo cancer sticks. A label on the packaging reads, \"Wouldn't a slow death make a change?\""
 	icon = 'icons/obj/cigarettes.dmi'
@@ -52,7 +57,7 @@
 		for(var/i = 1 to 5)
 			new /obj/item/device/camera_bug(src)
 
-/obj/item/weapon/storage/box/survival/
+/obj/item/weapon/storage/box/survival
 	New()
 		..()
 		contents = list()
@@ -74,6 +79,8 @@
 /obj/item/weapon/storage/box/gloves
 	name = "box of latex gloves"
 	desc = "Contains white gloves."
+	icon_state = "latex"
+
 	New()
 		..()
 		new /obj/item/clothing/gloves/latex(src)
@@ -340,11 +347,11 @@
 	icon = 'icons/obj/food.dmi'
 	icon_state = "monkeycubebox"
 	storage_slots = 7
-	can_hold = list("/obj/item/weapon/reagent_containers/food/snacks/farwacube")
+	can_hold = list("/obj/item/weapon/reagent_containers/food/snacks/monkeycube/wrapped/farwacube")
 	New()
 		..()
 		for(var/i = 1; i <= 5; i++)
-			new /obj/item/weapon/reagent_containers/food/snacks/farwacube/wrapped(src)
+			new /obj/item/weapon/reagent_containers/food/snacks/monkeycube/wrapped/farwacube(src)
 
 /obj/item/weapon/storage/box/stokcubes
 	name = "stok cube box"
@@ -352,11 +359,11 @@
 	icon = 'icons/obj/food.dmi'
 	icon_state = "monkeycubebox"
 	storage_slots = 7
-	can_hold = list("/obj/item/weapon/reagent_containers/food/snacks/stokcube")
+	can_hold = list("/item/weapon/reagent_containers/food/snacks/monkeycube/wrapped/stokcube")
 	New()
 		..()
 		for(var/i = 1; i <= 5; i++)
-			new /obj/item/weapon/reagent_containers/food/snacks/stokcube/wrapped(src)
+			new /obj/item/weapon/reagent_containers/food/snacks/monkeycube/wrapped/stokcube(src)
 
 /obj/item/weapon/storage/box/neaeracubes
 	name = "neaera cube box"
@@ -364,11 +371,11 @@
 	icon = 'icons/obj/food.dmi'
 	icon_state = "monkeycubebox"
 	storage_slots = 7
-	can_hold = list("/obj/item/weapon/reagent_containers/food/snacks/stokcube")
+	can_hold = list("/obj/item/weapon/reagent_containers/food/snacks/monkeycube/wrapped/neaeracube")
 	New()
 		..()
 		for(var/i = 1; i <= 5; i++)
-			new /obj/item/weapon/reagent_containers/food/snacks/neaeracube/wrapped(src)
+			new /obj/item/weapon/reagent_containers/food/snacks/monkeycube/wrapped/neaeracube(src)
 
 /obj/item/weapon/storage/box/ids
 	name = "spare IDs"
@@ -432,8 +439,8 @@
 		new /obj/item/weapon/handcuffs(src)
 
 /obj/item/weapon/storage/box/mousetraps
-	name = "box of Pest-B-Gon Mousetraps"
-	desc = "<B><FONT=red>WARNING:</FONT></B> <I>Keep out of reach of children</I>."
+	name = "box of Pest-B-Gon mousetraps"
+	desc = "<B><FONT color='red'>WARNING:</FONT></B> <I>Keep out of reach of children</I>."
 	icon_state = "mousetraps"
 
 	New()

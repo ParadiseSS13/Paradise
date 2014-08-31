@@ -28,7 +28,7 @@
 	user.visible_message("\blue [user] scans [A], the air around them humming gently.")
 	if(istype(A,/turf/simulated/mineral))
 		var/turf/simulated/mineral/M = A
-		if(M.finds.len || M.artifact_find)
+		if((M.finds && M.finds.len) || M.artifact_find)
 
 			//create a new scanlog entry
 			var/datum/depth_scan/D = new()

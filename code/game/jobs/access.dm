@@ -68,6 +68,12 @@
 /var/const/access_paramedic = 66
 /var/const/access_blueshield = 67
 /var/const/access_customs = 68
+/var/const/access_salvage_captain = 69 // Salvage ship captain's quarters
+/var/const/access_mechanic = 70
+/var/const/access_pilot = 71
+
+
+/var/const/access_weapons = 99 //Weapon authorization for secbots
 
 	//BEGIN CENTCOM ACCESS
 	/*Should leave plenty of room if we need to add more access levels.
@@ -82,6 +88,17 @@
 /var/const/access_cent_creed = 108//Creed's office.
 /var/const/access_cent_captain = 109//Captain's office/ID comp/AI.
 
+	//EMBASSIES
+
+/var/const/embassy_tajaran = 120
+/var/const/embassy_skrell = 121
+/var/const/embassy_unathi = 122
+/var/const/embassy_diona = 123
+/var/const/embassy_kidan = 124
+/var/const/embassy_slime = 125
+/var/const/embassy_grey = 126
+/var/const/embassy_vox = 127
+
 	//The Syndicate
 /var/const/access_syndicate = 150//General Syndicate Access
 
@@ -92,29 +109,6 @@
 /obj/var/req_access_txt = "0"
 /obj/var/list/req_one_access = null
 /obj/var/req_one_access_txt = "0"
-
-/obj/New()
-	..()
-	//NOTE: If a room requires more than one access (IE: Morgue + medbay) set the req_acesss_txt to "5;6" if it requires 5 and 6
-	if(src.req_access_txt)
-		var/list/req_access_str = text2list(req_access_txt,";")
-		if(!req_access)
-			req_access = list()
-		for(var/x in req_access_str)
-			var/n = text2num(x)
-			if(n)
-				req_access += n
-
-	if(src.req_one_access_txt)
-		var/list/req_one_access_str = text2list(req_one_access_txt,";")
-		if(!req_one_access)
-			req_one_access = list()
-		for(var/x in req_one_access_str)
-			var/n = text2num(x)
-			if(n)
-				req_one_access += n
-
-
 
 //returns 1 if this mob has sufficient access to use this object
 /obj/proc/allowed(mob/M)
@@ -143,9 +137,25 @@
 	return null
 
 /obj/proc/check_access(obj/item/I)
+	//These generations have been moved out of /obj/New() because they were slowing down the creation of objects that never even used the access system.
+	if(!src.req_access)
+		src.req_access = list()
+		if(src.req_access_txt)
+			var/list/req_access_str = text2list(req_access_txt,";")
+			for(var/x in req_access_str)
+				var/n = text2num(x)
+				if(n)
+					req_access += n
 
-	if(!src.req_access && !src.req_one_access) //no requirements
-		return 1
+	if(!src.req_one_access)
+		src.req_one_access = list()
+		if(src.req_one_access_txt)
+			var/list/req_one_access_str = text2list(req_one_access_txt,";")
+			for(var/x in req_one_access_str)
+				var/n = text2num(x)
+				if(n)
+					req_one_access += n
+
 	if(!istype(src.req_access, /list)) //something's very wrong
 		return 1
 
@@ -213,7 +223,8 @@
 	            access_hydroponics, access_library, access_lawyer, access_virology, access_psychiatrist, access_cmo, access_qm, access_clown, access_mime, access_surgery,
 	            access_theatre, access_research, access_mining, access_mailsorting,
 	            access_heads_vault, access_mining_station, access_xenobiology, access_ce, access_hop, access_hos, access_RC_announce,
-	            access_keycard_auth, access_tcomsat, access_gateway, access_xenoarch, access_paramedic, access_blueshield, access_customs)
+	            access_keycard_auth, access_tcomsat, access_gateway, access_xenoarch, access_paramedic, access_blueshield, access_customs, access_mechanic,access_weapons,
+	            access_pilot)
 
 /proc/get_all_centcom_access()
 	return list(access_cent_general, access_cent_thunder, access_cent_specops, access_cent_medical, access_cent_living, access_cent_storage, access_cent_teleporter, access_cent_creed, access_cent_captain)
@@ -232,7 +243,7 @@
 		if(3) //research
 			return list(access_research, access_tox, access_tox_storage, access_robotics, access_xenobiology, access_xenoarch, access_rd)
 		if(4) //engineering and maintenance
-			return list(access_construction, access_maint_tunnels, access_engine, access_engine_equip, access_external_airlocks, access_tech_storage, access_atmospherics, access_ce)
+			return list(access_construction, access_maint_tunnels, access_engine, access_engine_equip, access_external_airlocks, access_tech_storage, access_atmospherics, access_ce, access_mechanic)
 		if(5) //command
 			return list(access_heads, access_RC_announce, access_keycard_auth, access_change_ids, access_ai_upload, access_teleporter, access_eva, access_tcomsat, access_gateway, access_all_personal_lockers, access_heads_vault, access_hop, access_captain, access_blueshield, access_customs)
 		if(6) //station general
@@ -398,6 +409,10 @@
 			return "Paramedic"
 		if(access_customs)
 			return "Customs"
+		if(access_mechanic)
+			return "Mechanic Workshop"
+		if(access_weapons)
+			return "Weapon Permit"
 
 /proc/get_centcom_access_desc(A)
 	switch(A)
@@ -449,10 +464,10 @@
 		rank = src:rank
 		assignment = src:assignment
 
-	if( rank in get_all_jobs() )
+	if( rank in joblist )
 		return rank
 
-	if( assignment in get_all_jobs() )
+	if( assignment in joblist )
 		return assignment
 
 	return "Unknown"
@@ -505,7 +520,7 @@ proc/FindNameFromID(var/mob/living/carbon/human/H)
 			return ID.registered_name
 
 proc/get_all_job_icons() //For all existing HUD icons
-	return get_all_jobs() + list("Prisoner")
+	return joblist + list("Prisoner")
 
 /obj/proc/GetJobName() //Used in secHUD icon generation
 	if (!istype(src, /obj/item/device/pda) && !istype(src,/obj/item/weapon/card/id))

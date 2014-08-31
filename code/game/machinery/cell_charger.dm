@@ -92,7 +92,7 @@
 		if(!charging || (stat & (BROKEN|NOPOWER)) || !anchored)
 			return
 
-		use_power(200)		//this used to use CELLRATE, but CELLRATE is fucking awful. feel free to fix this properly!
-		charging.give(175)	//inefficiency.
+		use_power(2000)		//this used to use CELLRATE, but CELLRATE is fucking awful. feel free to fix this properly!
+		charging.give(1750)	//inefficiency.
 
 		updateicon()

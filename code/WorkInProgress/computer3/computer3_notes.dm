@@ -27,7 +27,7 @@
 	*	Communications terminal printing - move it to a printer of some sort?  Make a printer peripheral--but then which ones print the comms?
 	*	Remove the partially transparent border on program screens, as it clashes with some frames
 	*	Chop the corners on program screens now that screen sizes are standard
-	*	NTOS:
+	*	ntos:
 		*	Needs a text editor/viewer
 		*	Needs file copy and file move - I think I know how I'm gonna do it
 		*	Needs a peripheral view (eject disks and cards, network actions, ???)

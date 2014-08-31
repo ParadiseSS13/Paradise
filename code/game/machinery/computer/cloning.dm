@@ -14,6 +14,8 @@
 	var/obj/item/weapon/disk/data/diskette = null //Mostly so the geneticist can steal everything.
 	var/loading = 0 // Nice loading text
 
+	l_color = "#0000FF"
+
 /obj/machinery/computer/cloning/New()
 	..()
 	spawn(5)
@@ -341,7 +343,7 @@
 	return
 
 /obj/machinery/computer/cloning/proc/scan_mob(mob/living/carbon/human/subject as mob)
-	if ((isnull(subject)) || (!(ishuman(subject))) || (!subject.dna))
+	if ((isnull(subject)) || (!(ishuman(subject))) || (!subject.dna) || (subject.species.flags & NO_SCAN))
 		scantemp = "Error: Unable to locate valid genetic data."
 		return
 	if (subject.brain_op_stage == 4.0)
@@ -368,6 +370,7 @@
 	R.id= copytext(md5(subject.real_name), 2, 6)
 	R.name=R.dna.real_name
 	R.types=DNA2_BUF_UI|DNA2_BUF_UE|DNA2_BUF_SE
+	R.languages=subject.languages
 
 	//Add an implant if needed
 	var/obj/item/weapon/implant/health/imp = locate(/obj/item/weapon/implant/health, subject)

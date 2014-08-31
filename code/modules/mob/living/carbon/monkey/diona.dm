@@ -2,45 +2,6 @@
   Tiny babby plant critter plus procs.
 */
 
-//Helper object for picking dionaea (and other creatures) up.
-/obj/item/weapon/holder
-	name = "holder"
-	desc = "You shouldn't ever see this."
-
-/obj/item/weapon/holder/diona
-
-	name = "diona nymph"
-	desc = "It's a tiny plant critter."
-	icon = 'icons/obj/objects.dmi'
-	icon_state = "nymph"
-	slot_flags = SLOT_HEAD
-	origin_tech = "magnets=3;biotech=5"
-
-/obj/item/weapon/holder/New()
-	..()
-	processing_objects.Add(src)
-
-/obj/item/weapon/holder/Del()
-	//Hopefully this will stop the icon from remaining on human mobs.
-	if(istype(loc,/mob/living))
-		var/mob/living/A = src.loc
-		src.loc = null
-		A.update_icons()
-	processing_objects.Remove(src)
-	..()
-
-/obj/item/weapon/holder/process()
-	if(!loc) del(src)
-
-	if(istype(loc,/turf) || !(contents.len))
-		for(var/mob/M in contents)
-			M.loc = get_turf(src)
-		del(src)
-
-/obj/item/weapon/holder/attackby(obj/item/weapon/W as obj, mob/user as mob)
-	for(var/mob/M in src.contents)
-		M.attackby(W,user)
-
 //Mob defines.
 /mob/living/carbon/monkey/diona
 	name = "diona nymph"
@@ -76,6 +37,7 @@
 			D.attack_hand(M)
 			M << "You scoop up [src]."
 			src << "[M] scoops you up."
+		M.status_flags |= PASSEMOTES
 		return
 
 	..()
@@ -123,6 +85,8 @@
 
 	if(istype(M,/mob/living/carbon/human))
 		M << "You feel your being twine with that of [src] as it merges with your biomass."
+		M.status_flags |= PASSEMOTES
+
 		src << "You feel your being twine with that of [M] as you merge with its biomass."
 		src.loc = M
 		src.verbs += /mob/living/carbon/monkey/diona/proc/split
@@ -142,9 +106,18 @@
 
 	src.loc << "You feel a pang of loss as [src] splits away from your biomass."
 	src << "You wiggle out of the depths of [src.loc]'s biomass and plop to the ground."
+
+	var/mob/living/M = src.loc
+
 	src.loc = get_turf(src)
 	src.verbs -= /mob/living/carbon/monkey/diona/proc/split
 	src.verbs += /mob/living/carbon/monkey/diona/proc/merge
+
+	if(istype(M))
+		for(var/atom/A in M.contents)
+			if(istype(A,/mob/living/simple_animal/borer) || istype(A,/obj/item/weapon/holder))
+				return
+	M.status_flags &= ~PASSEMOTES
 
 /mob/living/carbon/monkey/diona/verb/fertilize_plant()
 
@@ -153,11 +126,11 @@
 	set desc = "Turn your food into nutrients for plants."
 
 	var/list/trays = list()
-	for(var/obj/machinery/hydroponics/tray in range(1))
+	for(var/obj/machinery/portable_atmospherics/hydroponics/tray in range(1))
 		if(tray.nutrilevel < 10)
 			trays += tray
 
-	var/obj/machinery/hydroponics/target = input("Select a tray:") as null|anything in trays
+	var/obj/machinery/portable_atmospherics/hydroponics/target = input("Select a tray:") as null|anything in trays
 
 	if(!src || !target || target.nutrilevel == 10) return //Sanity check.
 
@@ -172,11 +145,11 @@
 	set desc = "Clean the weeds out of soil or a hydroponics tray."
 
 	var/list/trays = list()
-	for(var/obj/machinery/hydroponics/tray in range(1))
+	for(var/obj/machinery/portable_atmospherics/hydroponics/tray in range(1))
 		if(tray.weedlevel > 0)
 			trays += tray
 
-	var/obj/machinery/hydroponics/target = input("Select a tray:") as null|anything in trays
+	var/obj/machinery/portable_atmospherics/hydroponics/target = input("Select a tray:") as null|anything in trays
 
 	if(!src || !target || target.weedlevel == 0) return //Sanity check.
 
@@ -191,16 +164,17 @@
 	set desc = "Grow to a more complex form."
 
 	if(donors.len < 5)
-		src << "You are not yet ready for your growth..."
+		src << "You need more blood in order to ascend to a new state of consciousness..."
 		return
 
-	if(reagents.get_reagent_amount("nutriment") < 5)
-		src << "You have not yet consumed enough to grow..."
+	if(nutrition < 500)
+		src << "You need to binge on weeds in order to have the energy to grow..."
 		return
 
 	src.split()
-	src.visible_message("\red [src] begins to shift and quiver, and erupts in a shower of shed bark and twigs!","\red You begin to shift and quiver, then erupt in a shower of shed bark and twigs, attaining your adult form!")
-	var/mob/living/carbon/human/diona/adult = new(loc)
+	src.visible_message("\red [src] begins to shift and quiver, and erupts in a shower of shed bark as it splits into a tangle of nearly a dozen new dionaea.","\red You begin to shift and quiver, feeling your awareness splinter. All at once, we consume our stored nutrients to surge with growth, splitting into a tangle of at least a dozen new dionaea. We have attained our gestalt form.")
+
+	var/mob/living/carbon/human/diona/adult = new(get_turf(src.loc))
 	adult.set_species("Diona")
 
 	if(istype(loc,/obj/item/weapon/holder/diona))
@@ -229,13 +203,16 @@
 	set desc = "Take a blood sample from a suitable donor."
 
 	var/list/choices = list()
-	for(var/mob/living/C in view(1,src))
-		if(C.real_name != real_name)
-			choices += C
+	for(var/mob/living/carbon/human/H in oview(1,src))
+		choices += H
 
-	var/mob/living/M = input(src,"Who do you wish to take a sample from?") in null|choices
+	var/mob/living/carbon/human/M = input(src,"Who do you wish to take a sample from?") in null|choices
 
 	if(!M || !src) return
+
+	if(M.species.flags & NO_BLOOD)
+		src << "\red That donor has no blood to take."
+		return
 
 	if(donors.Find(M.real_name))
 		src << "\red That donor offers you nothing new."
@@ -244,7 +221,7 @@
 	src.visible_message("\red [src] flicks out a feeler and neatly steals a sample of [M]'s blood.","\red You flick out a feeler and neatly steal a sample of [M]'s blood.")
 	donors += M.real_name
 	for(var/datum/language/L in M.languages)
-		languages += L
+		languages |= L
 
 	spawn(25)
 		update_progression()
@@ -262,3 +239,13 @@
 		src << "\green You feel your awareness expand, and realize you know how to understand the creatures around you."
 	else
 		src << "\green The blood seeps into your small form, and you draw out the echoes of memories and personality from it, working them into your budding mind."
+
+
+/mob/living/carbon/monkey/diona/put_in_hands(obj/item/W)
+	W.loc = get_turf(src)
+	W.layer = initial(W.layer)
+	W.dropped()
+
+/mob/living/carbon/monkey/diona/put_in_active_hand(obj/item/W)
+	src << "\red You don't have any hands!"
+	return

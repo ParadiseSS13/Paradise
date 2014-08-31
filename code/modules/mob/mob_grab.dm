@@ -207,6 +207,6 @@
 	del(src)
 
 
-/obj/item/weapon/grab/Del()
+/obj/item/weapon/grab/Destroy()
 	del(hud)
 	..()

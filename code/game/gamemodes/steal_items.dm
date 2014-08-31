@@ -56,7 +56,7 @@
 /datum/theft_objective/magboots
 	name = "a pair of magboots"
 	typepath = /obj/item/clothing/shoes/magboots
-	protected_jobs = list("Station Engineer", "Atmospheric Technician", "Chief Engineer")
+	protected_jobs = list("Station Engineer", "Life Support Specialist", "Chief Engineer")
 
 /datum/theft_objective/blueprints
 	name = "the station blueprints"

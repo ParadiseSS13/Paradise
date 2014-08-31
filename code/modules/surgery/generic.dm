@@ -15,6 +15,8 @@
 			return 0
 		if (affected.status & ORGAN_DESTROYED)
 			return 0
+		if (target_zone == "head" && target.species && (target.species.flags & IS_SYNTHETIC))
+			return 1
 		if (affected.status & ORGAN_ROBOT)
 			return 0
 		return 1
@@ -144,7 +146,7 @@
 			msg = "\red [user]'s hand slips, damaging several organs [target]'s lower abdomen with \the [tool]"
 			self_msg = "\red Your hand slips, damaging several organs [target]'s lower abdomen with \the [tool]!"
 		user.visible_message(msg, self_msg)
-		target.apply_damage(12, BRUTE, affected)
+		target.apply_damage(12, BRUTE, affected, sharp=1)
 
 /datum/surgery_step/generic/cauterize
 	allowed_tools = list(
@@ -218,7 +220,7 @@
 
 	fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
 		var/datum/organ/external/affected = target.get_organ(target_zone)
-		user.visible_message("\red [user]'s hand slips, sawwing through the bone in [target]'s [affected.display_name] with \the [tool]!", \
-		"\red Your hand slips, sawwing through the bone in [target]'s [affected.display_name] with \the [tool]!")
+		user.visible_message("\red [user]'s hand slips, sawing through the bone in [target]'s [affected.display_name] with \the [tool]!", \
+		"\red Your hand slips, sawing through the bone in [target]'s [affected.display_name] with \the [tool]!")
 		affected.createwound(CUT, 30)
 		affected.fracture()

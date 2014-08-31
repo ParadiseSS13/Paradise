@@ -227,7 +227,7 @@ Alien plants should do something if theres a lot of poison
 		del(src)
 
 
-/obj/effect/alien/flesh/weeds/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
+/obj/effect/alien/flesh/weeds/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume)
 	if(exposed_temperature > 300)
 		health -= 5
 		healthcheck()

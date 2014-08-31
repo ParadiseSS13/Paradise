@@ -49,7 +49,6 @@
 //	M << "\red You feel a tiny prick!" //That's a whole lot of meta!
 	M.attack_log += text("\[[time_stamp()]\] <font color='orange'>Has been stabbed with [name]  by [user.name] ([user.ckey])</font>")
 	user.attack_log += text("\[[time_stamp()]\] <font color='red'>Used the [name] to stab [M.name] ([M.ckey])</font>")
-	msg_admin_attack("[user.name] ([user.ckey]) Used the [name] to stab [M.name] ([M.ckey]) (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[user.x];Y=[user.y];Z=[user.z]'>JMP</a>)")
 	if(!iscarbon(user))
 		M.LAssailant = null
 	else
@@ -76,9 +75,10 @@
 
 
 /obj/item/weapon/pen/sleepypen/attack(mob/M as mob, mob/user as mob)
-	if(!(istype(M,/mob)))
+	if(!ismob(M))
 		return
 	..()
+	msg_admin_attack("[user.name] ([user.ckey]) Used the [name] to stab [M.name] ([M.ckey]) (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[user.x];Y=[user.y];Z=[user.z]'>JMP</a>)")
 	if(reagents.total_volume)
 		if(M.reagents) reagents.trans_to(M, 50) //used to be 150
 	return
@@ -93,9 +93,10 @@
 
 
 /obj/item/weapon/pen/paralysis/attack(mob/M as mob, mob/user as mob)
-	if(!(istype(M,/mob)))
+	if(!ismob(M))
 		return
 	..()
+	msg_admin_attack("[user.name] ([user.ckey]) Used the [name] to stab [M.name] ([M.ckey]) (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[user.x];Y=[user.y];Z=[user.z]'>JMP</a>)")
 	if(reagents.total_volume)
 		if(M.reagents) reagents.trans_to(M, 50)
 	return
@@ -106,7 +107,6 @@
 	reagents = R
 	R.my_atom = src
 	R.add_reagent("zombiepowder", 10)
-	R.add_reagent("impedrezene", 25)
 	R.add_reagent("cryptobiolin", 15)
 	..()
 	return

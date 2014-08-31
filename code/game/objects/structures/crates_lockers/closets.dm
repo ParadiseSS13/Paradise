@@ -24,7 +24,7 @@
 				I.loc = src
 
 // Fix for #383 - C4 deleting fridges with corpses
-/obj/structure/closet/Del()
+/obj/structure/closet/Destroy()
 	dump_contents()
 	..()
 
@@ -129,8 +129,9 @@
 	return 1
 
 /obj/structure/closet/proc/toggle(mob/user as mob)
+	var/orig = src.opened
 	. = src.opened ? src.close() : src.open()
-	if(!.)
+	if(. == orig)
 		user << "<span class='notice'>It won't budge!</span>"
 	return
 
@@ -285,6 +286,7 @@
 	return
 
 /obj/structure/closet/MouseDrop_T(atom/movable/O as mob|obj, mob/user as mob)
+	..()
 	if(istype(O, /obj/screen))	//fix for HUD elements making their way into the world	-Pete
 		return
 	if(O.loc == user)
@@ -336,7 +338,7 @@
 
 /obj/structure/closet/verb/verb_toggleopen()
 	set src in oview(1)
-	set category = "Object"
+	set category = null
 	set name = "Toggle Open"
 
 	if(!usr.canmove || usr.stat || usr.restrained())

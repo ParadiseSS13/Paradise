@@ -182,55 +182,49 @@
 	item_state = "bandana"
 	loose = 0
 
-/obj/item/clothing/head/bowler
-	name = "bowler-hat"
-	desc = "Gentleman, elite aboard!"
-	icon_state = "bowler"
-	item_state = "bowler"
-	flags = FPRINT | TABLEPASS
-
 //stylish bs12 hats
 
 /obj/item/clothing/head/bowlerhat
 	name = "bowler hat"
 	icon_state = "bowler_hat"
 	item_state = "bowler_hat"
-	desc = "For the gentleman of distinction."
+	desc = "For that industrial age look."
 	flags = FPRINT|TABLEPASS
 
 /obj/item/clothing/head/beaverhat
 	name = "beaver hat"
 	icon_state = "beaver_hat"
 	item_state = "beaver_hat"
-	desc = "Soft felt makes this hat both comfortable and elegant."
+	desc = "Like a top hat, but made of beavers."
 	flags = FPRINT|TABLEPASS
 
 /obj/item/clothing/head/boaterhat
 	name = "boater hat"
 	icon_state = "boater_hat"
 	item_state = "boater_hat"
-	desc = "The ultimate in summer fashion."
+	desc = "Goes well with celery."
 	flags = FPRINT|TABLEPASS
 
 /obj/item/clothing/head/fedora
 	name = "\improper fedora"
 	icon_state = "fedora"
 	item_state = "fedora"
-	desc = "A sharp, stylish hat."
+	desc = "A great hat ruined by being within fifty yards of you."
 	flags = FPRINT|TABLEPASS
 
-/obj/item/clothing/head/feathertrilby
-	name = "\improper feather trilby"
-	icon_state = "feather_trilby"
-	item_state = "feather_trilby"
-	desc = "A sharp, stylish hat with a feather."
-	flags = FPRINT|TABLEPASS
+//TIPS FEDORA
+/obj/item/clothing/head/fedora/verb/tip_fedora()
+	set name = "Tip Fedora"
+	set category = "Object"
+	set desc = "Show that CIS SCUM who's boss."
+
+	usr << "You tip your fedora"
 
 /obj/item/clothing/head/fez
 	name = "\improper fez"
 	icon_state = "fez"
 	item_state = "fez"
-	desc = "You should wear a fez. Fezzes are cool."
+	desc = "Put it on your monkey, make lots of cash money."
 	flags = FPRINT|TABLEPASS
 
 //end bs12 hats
@@ -299,3 +293,33 @@
 	name = "brown fedora"
 	icon_state = "bfedora"
 	loose = 35
+
+/obj/item/clothing/head/stalhelm
+	name = "Clown Stalhelm"
+	desc = "The typical clown soldier's helmet."
+	icon_state = "stalhelm"
+	item_state = "stalhelm"
+	flags = FPRINT | TABLEPASS | BLOCKHAIR
+	flags_inv = HIDEEARS
+
+/obj/item/clothing/head/panzer
+	name = "Clown HONKMech Cap"
+	desc = "The softcap worn by HONK Mech pilots."
+	icon_state = "panzercap"
+	item_state = "panzercap"
+	flags = FPRINT | TABLEPASS | BLOCKHAIR
+
+/obj/item/clothing/head/naziofficer
+	name = "Clown Officer Cap"
+	desc = "The peaked clown officer's cap, disturbingly similar to the warden's."
+	icon_state = "officercap"
+	item_state = "officercap"
+	flags = FPRINT | TABLEPASS | BLOCKHAIR
+	flags_inv = HIDEEARS
+
+/obj/item/clothing/head/beret/purple
+	name = "Pierson Family Beret"
+	desc = " A purple beret, with a small golden crescent moon sewn onto it."
+	icon_state = "purpleberet"
+	item_state = "purpleberet"
+	flags = FPRINT | TABLEPASS

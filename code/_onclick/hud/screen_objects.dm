@@ -41,6 +41,11 @@
 			S.close(usr)
 	return 1
 
+/obj/screen/power_action
+	var/obj/effect/proc_holder/spell/wizard/owner
+
+/obj/screen/power_action/Click()
+	owner.Click()
 
 /obj/screen/item_action
 	var/obj/item/owner
@@ -55,8 +60,10 @@
 	if(usr.stat || usr.restrained() || usr.stunned || usr.lying)
 		return 1
 
-	if(!(owner in usr))
+
+	if(!(owner in usr) && !(owner.loc.loc == usr))
 		return 1
+
 
 	owner.ui_action_click()
 	return 1
@@ -64,7 +71,6 @@
 //This is the proc used to update all the action buttons. It just returns for all mob types except humans.
 /mob/proc/update_action_buttons()
 	return
-
 
 /obj/screen/grab
 	name = "grab"
@@ -276,37 +282,86 @@
 							C << "<span class='notice'>You are not wearing a mask.</span>"
 							return 1
 						else
-							if(istype(C.l_hand, /obj/item/weapon/tank))
-								C << "<span class='notice'>You are now running on internals from the [C.l_hand] on your left hand.</span>"
-								C.internal = C.l_hand
-							else if(istype(C.r_hand, /obj/item/weapon/tank))
-								C << "<span class='notice'>You are now running on internals from the [C.r_hand] on your right hand.</span>"
-								C.internal = C.r_hand
-							else if(ishuman(C))
-								var/mob/living/carbon/human/H = C
-								if(istype(H.s_store, /obj/item/weapon/tank))
-									H << "<span class='notice'>You are now running on internals from the [H.s_store] on your [H.wear_suit].</span>"
-									H.internal = H.s_store
-								else if(istype(H.belt, /obj/item/weapon/tank))
-									H << "<span class='notice'>You are now running on internals from the [H.belt] on your belt.</span>"
-									H.internal = H.belt
-								else if(istype(H.l_store, /obj/item/weapon/tank))
-									H << "<span class='notice'>You are now running on internals from the [H.l_store] in your left pocket.</span>"
-									H.internal = H.l_store
-								else if(istype(H.r_store, /obj/item/weapon/tank))
-									H << "<span class='notice'>You are now running on internals from the [H.r_store] in your right pocket.</span>"
-									H.internal = H.r_store
+							var/list/nicename = null
+							var/list/tankcheck = null
+							var/breathes = "oxygen"    //default, we'll check later
+							var/list/contents = list()
 
-							//Seperate so CO2 jetpacks are a little less cumbersome.
-							if(!C.internal && istype(C.back, /obj/item/weapon/tank))
-								C << "<span class='notice'>You are now running on internals from the [C.back] on your back.</span>"
-								C.internal = C.back
+							if(ishuman(C))
+								var/mob/living/carbon/human/H = C
+								breathes = H.species.breath_type
+								nicename = list ("suit", "back", "belt", "right hand", "left hand", "left pocket", "right pocket")
+								tankcheck = list (H.s_store, C.back, H.belt, C.r_hand, C.l_hand, H.l_store, H.r_store)
+
+							else
+
+								nicename = list("Right Hand", "Left Hand", "Back")
+								tankcheck = list(C.r_hand, C.l_hand, C.back)
+
+							for(var/i=1, i<tankcheck.len+1, ++i)
+								if(istype(tankcheck[i], /obj/item/weapon/tank))
+									var/obj/item/weapon/tank/t = tankcheck[i]
+/*									if (!isnull(t.manipulated_by) && t.manipulated_by != C.real_name && findtext(t.desc,breathes))
+										contents.Add(t.air_contents.total_moles)	Someone messed with the tank and put unknown gasses
+										continue					in it, so we're going to believe the tank is what it says it is*/
+									switch(breathes)
+																		//These tanks we're sure of their contents
+										if("nitrogen") 							//So we're a bit more picky about them.
+
+											if(t.air_contents.nitrogen && !t.air_contents.oxygen)
+												contents.Add(t.air_contents.nitrogen)
+											else
+												contents.Add(0)
+
+										if ("oxygen")
+											if(t.air_contents.oxygen && !t.air_contents.toxins)
+												contents.Add(t.air_contents.oxygen)
+											else
+												contents.Add(0)
+
+										// No races breath this, but never know about downstream servers.
+										if ("carbon dioxide")
+											if(t.air_contents.carbon_dioxide && !t.air_contents.toxins)
+												contents.Add(t.air_contents.carbon_dioxide)
+											else
+												contents.Add(0)
+
+										// ACK ACK ACK Plasmen
+										if ("plasma")
+											if(t.air_contents.toxins)
+												contents.Add(t.air_contents.toxins)
+											else
+												contents.Add(0)
+
+
+								else
+									//no tank so we set contents to 0
+									contents.Add(0)
+
+							//Alright now we know the contents of the tanks so we have to pick the best one.
+
+							var/best = 0
+							var/bestcontents = 0
+							for(var/i=1, i <  contents.len + 1 , ++i)
+								if(!contents[i])
+									continue
+								if(contents[i] > bestcontents)
+									best = i
+									bestcontents = contents[i]
+
+
+							//We've determined the best container now we set it as our internals
+
+							if(best)
+								C << "<span class='notice'>You are now running on internals from [tankcheck[best]] on your [nicename[best]].</span>"
+								C.internal = tankcheck[best]
+
 
 							if(C.internal)
 								if(C.internals)
 									C.internals.icon_state = "internal1"
 							else
-								C << "<span class='notice'>You don't have an oxygen tank.</span>"
+								C << "<span class='notice'>You don't have a[breathes=="oxygen" ? "n oxygen" : addtext(" ",breathes)] tank.</span>"
 		if("act_intent")
 			usr.a_intent_change("right")
 		if("help")
@@ -420,6 +475,79 @@
 
 		if("Toggle Gun Mode")
 			usr.client.ToggleGunMode()
+
+		if("AI Core")
+			if(isAI(usr))
+				var/mob/living/silicon/ai/AI = usr
+				AI.view_core()
+
+		if("Show Camera List")
+			if(isAI(usr))
+				var/mob/living/silicon/ai/AI = usr
+				var/camera = input(AI) in AI.get_camera_list()
+				AI.ai_camera_list(camera)
+
+		if("Track With Camera")
+			if(isAI(usr))
+				var/mob/living/silicon/ai/AI = usr
+				var/target_name = input(AI) in AI.trackable_mobs()
+				AI.ai_camera_track(target_name)
+
+		if("Toggle Camera Light")
+			if(isAI(usr))
+				var/mob/living/silicon/ai/AI = usr
+				AI.toggle_camera_light()
+
+		if("Crew Monitorting")
+			if(isAI(usr))
+				var/mob/living/silicon/ai/AI = usr
+				var/obj/machinery/computer/crew/C = locate(/obj/machinery/computer/crew)
+				C.attack_ai(AI)
+
+		if("Show Crew Manifest")
+			if(isAI(usr))
+				var/mob/living/silicon/ai/AI = usr
+				AI.ai_roster()
+
+		if("Show Alerts")
+			if(isAI(usr))
+				var/mob/living/silicon/ai/AI = usr
+				AI.ai_alerts()
+
+		if("Announcement")
+			if(isAI(usr))
+				var/mob/living/silicon/ai/AI = usr
+				AI.announcement()
+
+		if("Call Emergency Shuttle")
+			if(isAI(usr))
+				var/mob/living/silicon/ai/AI = usr
+				AI.ai_call_shuttle()
+
+		if("State Laws")
+			if(isAI(usr))
+				var/mob/living/silicon/ai/AI = usr
+				AI.checklaws()
+
+		if("PDA - Send Message")
+			if(isAI(usr))
+				var/mob/living/silicon/ai/AI = usr
+				AI.cmd_send_pdamesg(usr)
+
+		if("PDA - Show Message Log")
+			if(isAI(usr))
+				var/mob/living/silicon/ai/AI = usr
+				AI.cmd_show_message_log(usr)
+
+		if("Take Image")
+			if(isAI(usr))
+				var/mob/living/silicon/ai/AI = usr
+				AI.aiCamera.toggle_camera_mode()
+
+		if("View Images")
+			if(isAI(usr))
+				var/mob/living/silicon/ai/AI = usr
+				AI.aiCamera.viewpictures()
 
 		else
 			return 0

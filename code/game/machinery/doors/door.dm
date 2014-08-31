@@ -47,7 +47,7 @@
 	return
 
 
-/obj/machinery/door/Del()
+/obj/machinery/door/Destroy()
 	density = 0
 	update_nearby_tiles()
 	..()
@@ -81,6 +81,14 @@
 			else
 				flick("door_deny", src)
 		return
+	if(istype(AM, /obj/structure/stool/bed/chair/wheelchair))
+		var/obj/structure/stool/bed/chair/wheelchair/wheel = AM
+		if(density)
+			if(wheel.pulling && (src.allowed(wheel.pulling)))
+				open()
+			else
+				flick("door_deny", src)
+		return
 	return
 
 
@@ -90,6 +98,10 @@
 		return !opacity
 	return !density
 
+
+//used in the AStar algorithm to determinate if the turf the door is on is passable
+/obj/machinery/door/proc/CanAStarPass(var/obj/item/weapon/card/id/ID)
+	return !density || check_access(ID)
 
 /obj/machinery/door/proc/bumpopen(mob/user as mob)
 	if(operating)	return
@@ -246,7 +258,7 @@
 	door_animate("closing")
 	src.density = 1
 	explosion_resistance = initial(explosion_resistance)
-	src.layer = 3.1
+	src.layer = 3.0
 	sleep(10)
 	update_icon()
 	if(visible && !glass)
@@ -263,39 +275,6 @@
 /obj/machinery/door/proc/requiresID()
 	return 1
 
-/obj/machinery/door/proc/update_nearby_tiles(need_rebuild)
-	if(!air_master) return 0
-
-	var/turf/simulated/source = loc
-	var/turf/simulated/north = get_step(source,NORTH)
-	var/turf/simulated/south = get_step(source,SOUTH)
-	var/turf/simulated/east = get_step(source,EAST)
-	var/turf/simulated/west = get_step(source,WEST)
-
-	update_heat_protection(loc)
-
-	if(istype(source)) air_master.tiles_to_update += source
-	if(istype(north)) air_master.tiles_to_update += north
-	if(istype(south)) air_master.tiles_to_update += south
-	if(istype(east)) air_master.tiles_to_update += east
-	if(istype(west)) air_master.tiles_to_update += west
-
-	if(width > 1)
-		var/turf/simulated/next_turf = src
-		var/step_dir = turn(dir, 180)
-		for(var/current_step = 2, current_step <= width, current_step++)
-			next_turf = get_step(src, step_dir)
-			north = get_step(next_turf, step_dir)
-			east = get_step(next_turf, turn(step_dir, 90))
-			south = get_step(next_turf, turn(step_dir, -90))
-
-			update_heat_protection(next_turf)
-
-			if(istype(north)) air_master.tiles_to_update |= north
-			if(istype(south)) air_master.tiles_to_update |= south
-			if(istype(east)) air_master.tiles_to_update |= east
-
-	return 1
 
 /obj/machinery/door/proc/update_heat_protection(var/turf/simulated/source)
 	if(istype(source))

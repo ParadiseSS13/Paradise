@@ -23,7 +23,7 @@
 			if(t == src.door_tag)
 				src.release_door = d
 		if (machine && release_door)
-			machine.CONSOLE = src
+			machine.console = src
 		else
 			del(src)
 
@@ -104,12 +104,20 @@
 
 /obj/machinery/mineral/stacking_machine/laborstacker
 	var/points = 0 //The unclaimed value of ore stacked.  Value for each ore loosely relative to its rarity.  Iron = 1; Diamond = 25.
-	var/list/ore_values = list(("metal" = 1), ("diamond" = 25), ("solid plasma" = 2), ("gold" = 5), ("silver" = 5), ("bananium" = 9999), ("uranium" = 5), ("glass" = 1), ("reinforced glass" = 2), ("plasteel" = 3))
+	var/list/ore_values = list(("iron" = 1), ("diamond" = 25), ("solid plasma" = 2), ("gold" = 5), ("silver" = 5), ("bananium" = 9999), ("uranium" = 5), ("glass" = 1), ("reinforced glass" = 2), ("plasteel" = 3))
 
-/obj/machinery/mineral/stacking_machine/laborstacker/process_sheet(obj/item/stack/sheet/inp)
-	if(istype(inp))
-		var/n = inp.name
-		var/a = inp.amount
-		if(n in ore_values)
-			points += ore_values[n] * a
-	..()
+
+/obj/machinery/mineral/stacking_machine/laborstacker/process()
+	if (src.output && src.input)
+		var/turf/T = get_turf(input)
+		for(var/obj/item/O in T.contents)
+			if(!O) return
+			if(istype(O,/obj/item/stack))
+				var/obj/item/stack/S = O
+				if(S.name in ore_values)
+					points += ore_values[S.name] * S.amount
+					S.loc = null
+				else
+					S.loc = output.loc
+			else
+				O.loc = output.loc

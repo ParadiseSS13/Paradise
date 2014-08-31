@@ -167,7 +167,7 @@
 	playsound(src.loc, 'sound/weapons/empty.ogg', 50, 1)
 	add_fingerprint(user)
 	if (!blood_DNA) return
-	if(blood_overlay && (blood_DNA.len >= 1))							//updates blood overlay, if any
+	if(blood_overlay && (blood_DNA.len >= 1)) //updates blood overlay, if any
 		overlays.Cut()//this might delete other item overlays as well but eeeeeeeh
 
 		var/icon/I = new /icon(src.icon, src.icon_state)
@@ -194,7 +194,6 @@
 			if(!..()) return
 			if(!isrobot(target))
 				playsound(src.loc, "swing_hit", 50, 1, -1)
-				//target.Stun(4)	//naaah
 				target.Weaken(4)
 		else
 			playsound(src.loc, 'sound/weapons/Genhit.ogg', 50, 1, -1)
@@ -243,8 +242,6 @@
 /*
  * Energy Axe
  */
-/obj/item/weapon/melee/energy/axe/attack(target as mob, mob/user as mob)
-	..()
 
 /obj/item/weapon/melee/energy/axe/attack_self(mob/user as mob)
 	src.active = !( src.active )

@@ -130,7 +130,7 @@
 				observer.alpha = 127
 
 				if(client.prefs.be_random_name)
-					client.prefs.real_name = random_name(client.prefs.gender)
+					client.prefs.real_name = random_name(client.prefs.gender,client.prefs.species)
 				observer.real_name = client.prefs.real_name
 				observer.name = observer.real_name
 				if(!client.holder && !config.antag_hud_allowed)           // For new ghosts we remove the verb from even showing up if it's not allowed.
@@ -277,7 +277,7 @@
 		if(!is_job_whitelisted(src, rank))	 return 0
 		if(!job.player_old_enough(src.client))	return 0
 		if(config.assistantlimit)
-			if(job.title == "Assistant")
+			if(job.title == "Civilian")
 				var/count = 0
 				var/datum/job/officer = job_master.GetJob("Security Officer")
 				var/datum/job/warden = job_master.GetJob("Warden")
@@ -311,6 +311,10 @@
 		EquipCustomItems(character)
 		character.loc = pick(latejoin)
 		character.lastarea = get_area(loc)
+		// Moving wheelchair if they have one
+		if(character.buckled && istype(character.buckled, /obj/structure/stool/bed/chair/wheelchair))
+			character.buckled.loc = character.loc
+			character.buckled.dir = character.dir
 
 		ticker.mode.latespawn(character)
 
@@ -318,10 +322,11 @@
 			data_core.manifest_inject(character)
 			ticker.minds += character.mind//Cyborgs and AIs handle this in the transform proc.	//TODO!!!!! ~Carn
 			AnnounceArrival(character, rank)
-
+			callHook("latespawn", list(character))
 		else
 			character.Robotize()
 		del(src)
+
 
 	proc/AnnounceArrival(var/mob/living/carbon/human/character, var/rank)
 		if (ticker.current_state == GAME_STATE_PLAYING)
@@ -341,12 +346,13 @@
 		dat += "Round Duration: [round(hours)]h [round(mins)]m<br>"
 
 		if(emergency_shuttle) //In case Nanotrasen decides reposess CentComm's shuttles.
-			if(emergency_shuttle.direction == 2) //Shuttle is going to centcomm, not recalled
+			if(emergency_shuttle.going_to_centcom()) //Shuttle is going to centcomm, not recalled
 				dat += "<font color='red'><b>The station has been evacuated.</b></font><br>"
-			if(emergency_shuttle.direction == 1 && emergency_shuttle.timeleft() < 300 && emergency_shuttle.alert == 0) // Emergency shuttle is past the point of no recall
-				dat += "<font color='red'>The station is currently undergoing evacuation procedures.</font><br>"
-			if(emergency_shuttle.direction == 1 && emergency_shuttle.alert == 1) // Crew transfer initiated
-				dat += "<font color='red'>The station is currently undergoing crew transfer procedures.</font><br>"
+			if(emergency_shuttle.online())
+				if (emergency_shuttle.evac)	// Emergency shuttle is past the point of no recall
+					dat += "<font color='red'>The station is currently undergoing evacuation procedures.</font><br>"
+				else						// Crew transfer initiated
+					dat += "<font color='red'>The station is currently undergoing crew transfer procedures.</font><br>"
 
 		dat += "Choose from the following open positions:<br>"
 		for(var/datum/job/job in job_master.occupations)
@@ -374,7 +380,8 @@
 		if(client.prefs.species)
 			chosen_species = all_species[client.prefs.species]
 		if(chosen_species)
-			if(is_alien_whitelisted(src, client.prefs.species) || !config.usealienwhitelist || !(chosen_species.flags & IS_WHITELISTED) || (client.holder.rights & R_ADMIN) )// Have to recheck admin due to no usr at roundstart. Latejoins are fine though.
+			// Have to recheck admin due to no usr at roundstart. Latejoins are fine though.
+			if(is_species_whitelisted(chosen_species) || has_admin_rights())
 				switch(chosen_species.name)
 					if("Slime People")
 						new_character = new /mob/living/carbon/human/slime(loc)
@@ -388,12 +395,16 @@
 						new_character = new /mob/living/carbon/human/diona(loc)
 					if("Vox")
 						new_character = new /mob/living/carbon/human/vox(loc)
+					if("Vox Armalis")
+						new_character = new /mob/living/carbon/human/voxarmalis(loc)
 					if("Kidan")
 						new_character = new /mob/living/carbon/human/kidan(loc)
 					if("Grey")
 						new_character = new /mob/living/carbon/human/grey(loc)
 					if("Machine")
 						new_character = new /mob/living/carbon/human/machine(loc)
+					if("Plasmaman")
+						new_character = new /mob/living/carbon/human/plasma(loc)
 					if("Human")
 						new_character = new /mob/living/carbon/human/human(loc)
 //				new_character.set_species(client.prefs.species)
@@ -406,11 +417,10 @@
 
 		var/datum/language/chosen_language
 		if(client.prefs.language)
-			chosen_language = all_languages["[client.prefs.language]"]
+			chosen_language = all_languages[client.prefs.language]
 		if(chosen_language)
 			if(is_alien_whitelisted(src, client.prefs.language) || !config.usealienwhitelist || !(chosen_language.flags & WHITELISTED))
-				new_character.add_language("[client.prefs.language]")
-
+				new_character.add_language(client.prefs.language)
 		if(ticker.random_players || appearance_isbanned(new_character))
 			new_character.gender = pick(MALE, FEMALE)
 			client.prefs.real_name = random_name(new_character.gender)
@@ -476,3 +486,31 @@
 		src << browse(null, "window=preferences") //closes job selection
 		src << browse(null, "window=mob_occupation")
 		src << browse(null, "window=latechoices") //closes late job selection
+
+
+	proc/has_admin_rights()
+		return client.holder.rights & R_ADMIN
+
+	proc/is_species_whitelisted(datum/species/S)
+		if(!S) return 1
+		return is_alien_whitelisted(src, S.name) || !config.usealienwhitelist || !(S.flags & IS_WHITELISTED)
+
+/mob/new_player/get_species()
+	var/datum/species/chosen_species
+	if(client.prefs.species)
+		chosen_species = all_species[client.prefs.species]
+
+	if(!chosen_species)
+		return "Human"
+
+	if(is_species_whitelisted(chosen_species) || has_admin_rights())
+		return chosen_species.name
+
+	return "Human"
+
+/mob/new_player/get_gender()
+	if(!client || !client.prefs) ..()
+	return client.prefs.gender
+
+/mob/new_player/is_ready()
+	return ready && ..()

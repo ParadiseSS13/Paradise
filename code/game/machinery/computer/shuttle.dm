@@ -5,10 +5,12 @@
 	var/auth_need = 3.0
 	var/list/authorized = list(  )
 
+	l_color = "#7BF9FF"
+
 
 	attackby(var/obj/item/weapon/card/W as obj, var/mob/user as mob)
 		if(stat & (BROKEN|NOPOWER))	return
-		if ((!( istype(W, /obj/item/weapon/card) ) || !( ticker ) || emergency_shuttle.location != 1 || !( user )))	return
+		if ((!( istype(W, /obj/item/weapon/card) ) || !( ticker ) || emergency_shuttle.location() || !( user )))	return
 		if (istype(W, /obj/item/weapon/card/id)||istype(W, /obj/item/device/pda))
 			if (istype(W, /obj/item/device/pda))
 				var/obj/item/device/pda/pda = W
@@ -27,7 +29,7 @@
 				return 0
 
 			var/choice = alert(user, text("Would you like to (un)authorize a shortened launch time? [] authorization\s are still needed. Use abort to cancel all authorizations.", src.auth_need - src.authorized.len), "Shuttle Launch", "Authorize", "Repeal", "Abort")
-			if(emergency_shuttle.location != 1 && user.get_active_hand() != W)
+			if(emergency_shuttle.location() && user.get_active_hand() != W)
 				return 0
 			switch(choice)
 				if("Authorize")
@@ -41,8 +43,7 @@
 						message_admins("[key_name_admin(user)] has launched the shuttle")
 						log_game("[user.ckey] has launched the shuttle early")
 						world << "\blue <B>Alert: Shuttle launch time shortened to 10 seconds!</B>"
-						emergency_shuttle.online = 1
-						emergency_shuttle.settimeleft(10)
+						emergency_shuttle.set_launch_countdown(10)
 						//src.authorized = null
 						del(src.authorized)
 						src.authorized = list(  )
@@ -59,11 +60,11 @@
 		else if (istype(W, /obj/item/weapon/card/emag) && !emagged)
 			var/choice = alert(user, "Would you like to launch the shuttle?","Shuttle control", "Launch", "Cancel")
 
-			if(!emagged && emergency_shuttle.location == 1 && user.get_active_hand() == W)
+			if(!emagged && !emergency_shuttle.location() && user.get_active_hand() == W)
 				switch(choice)
 					if("Launch")
 						world << "\blue <B>Alert: Shuttle launch time shortened to 10 seconds!</B>"
-						emergency_shuttle.settimeleft( 10 )
+						emergency_shuttle.set_launch_countdown(10)
 						emagged = 1
 					if("Cancel")
 						return

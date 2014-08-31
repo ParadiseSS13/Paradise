@@ -12,6 +12,10 @@ var/global/Holiday = null
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
 //																							~Carn
 
+/hook/startup/proc/updateHoliday()
+	Get_Holiday()
+	return 1
+
 //sets up the Holiday global variable. Shouldbe called on game configuration or something.
 /proc/Get_Holiday()
 	if(!Holiday)	return		// Holiday stuff was not enabled in the config!
@@ -117,7 +121,7 @@ var/global/Holiday = null
 //Allows GA and GM to set the Holiday variable
 /client/proc/Set_Holiday(T as text|null)
 	set name = ".Set Holiday"
-	set category = "Fun"
+	set category = "Event"
 	set desc = "Force-set the Holiday variable to make the game think it's a certain day."
 	if(!check_rights(R_SERVER))	return
 

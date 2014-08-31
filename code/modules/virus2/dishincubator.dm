@@ -14,120 +14,79 @@
 	var/foodsupply = 0
 	var/toxins = 0
 
-	var/virusing
+/obj/machinery/disease2/incubator/attackby(var/obj/O as obj, var/mob/user as mob)
+	if(istype(O, /obj/item/weapon/reagent_containers/glass) || istype(O,/obj/item/weapon/reagent_containers/syringe))
 
-/obj/machinery/disease2/incubator/attackby(var/obj/B as obj, var/mob/user as mob)
-	if(istype(B, /obj/item/weapon/reagent_containers/glass) || istype(B,/obj/item/weapon/reagent_containers/syringe))
-
-		if(src.beaker)
-			if(istype(beaker,/obj/item/weapon/reagent_containers/syringe))
-				user << "A syringe is already loaded into the machine."
-			else
-				user << "A beaker is already loaded into the machine."
+		if(beaker)
+			user << "\The [src] is already loaded."
 			return
 
-		src.beaker =  B
+		beaker = O
 		user.drop_item()
-		B.loc = src
-		if(istype(B,/obj/item/weapon/reagent_containers/syringe))
-			user << "You add the syringe to the machine!"
-			src.updateUsrDialog()
-		else
-			user << "You add the beaker to the machine!"
-			src.updateUsrDialog()
-	else
-		if(istype(B,/obj/item/weapon/virusdish))
-			if(src.dish)
-				user << "A dish is already loaded into the machine."
-				return
+		O.loc = src
 
-			src.dish =  B
-			user.drop_item()
-			B.loc = src
-			if(istype(B,/obj/item/weapon/virusdish))
-				user << "You add the dish to the machine!"
-				src.updateUsrDialog()
+		user.visible_message("[user] adds \a [O] to \the [src]!", "You add \a [O] to \the [src]!")
+		nanomanager.update_uis(src)
 
-/obj/machinery/disease2/incubator/Topic(href, href_list)
-	if(..()) return
-
-	if(usr) usr.set_machine(src)
-
-	if (href_list["ejectchem"])
-		if(beaker)
-			beaker.loc = src.loc
-			beaker = null
-	if(!dish)
+		src.attack_hand(user)
 		return
-	if (href_list["power"])
-		on = !on
-		if(on)
-			icon_state = "incubator_on"
-		else
-			icon_state = "incubator"
-	if (href_list["ejectdish"])
+
+	if(istype(O, /obj/item/weapon/virusdish))
+
 		if(dish)
-			dish.loc = src.loc
-			dish = null
-	if (href_list["rad"])
-		radiation += 10
-	if (href_list["flush"])
-		radiation = 0
-		toxins = 0
-		foodsupply = 0
+			user << "The dish tray is aleady full!"
+			return
 
-	if(href_list["virus"])
-		if (!dish)
-			state("\The [src.name] buzzes, \"No viral culture sample detected.\"", "blue")
-		else
-			var/datum/reagent/blood/B = locate(/datum/reagent/blood) in beaker.reagents.reagent_list
-			if (!B)
-				state("\The [src.name] buzzes, \"No suitable breeding enviroment detected.\"", "blue")
-			else
-				if (!B.data["virus2"])
-					B.data["virus2"] = list()
-				var/list/virus = list("[dish.virus2.uniqueID]" = dish.virus2.getcopy())
-				B.data["virus2"] = virus
+		dish = O
+		user.drop_item()
+		O.loc = src
 
-				state("\The [src.name] pings, \"Injection complete.\"", "blue")
+		user.visible_message("[user] adds \a [O] to \the [src]!", "You add \a [O] to \the [src]!")
+		nanomanager.update_uis(src)
 
-
-	src.add_fingerprint(usr)
-	src.updateUsrDialog()
+		src.attack_hand(user)
 
 /obj/machinery/disease2/incubator/attack_hand(mob/user as mob)
-	if(stat & BROKEN)
-		return
+	if(stat & (NOPOWER|BROKEN)) return
+	ui_interact(user)
+
+/obj/machinery/disease2/incubator/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
 	user.set_machine(src)
-	var/dat = ""
-	if(!dish)
-		dat = "Please insert dish into the incubator.<BR>"
-	var/string = "Off"
-	if(on)
-		string = "On"
-	dat += "Power status : <A href='?src=\ref[src];power=1'>[string]</a>"
-	dat += "<BR>"
-	dat += "Food supply : [foodsupply]"
-	dat += "<BR>"
-	dat += "Radiation Levels : [radiation] RADS : <A href='?src=\ref[src];rad=1'>Radiate</a>"
-	dat += "<BR>"
-	dat += "Toxins : [toxins]"
-	dat += "<BR><BR>"
-	if(beaker)
-		dat += "Eject chemicals : <A href='?src=\ref[src];ejectchem=1'> Eject</a>"
-		dat += "<BR>"
-	if(dish)
-		dat += "Eject Virus dish : <A href='?src=\ref[src];ejectdish=1'> Eject</a>"
-		dat += "<BR>"
-		if(beaker)
-			dat += "Breed viral culture in beaker : <A href='?src=\ref[src];virus=1'> Start</a>"
-			dat += "<BR>"
-	dat += "<BR><BR>"
-	dat += "<A href='?src=\ref[src];flush=1'>Flush system</a><BR>"
-	dat += "<A href='?src=\ref[src];close=1'>Close</A><BR>"
-	user << browse("<TITLE>Pathogenic incubator</TITLE>incubator menu:<BR><BR>[dat]", "window=incubator;size=575x400")
-	onclose(user, "incubator")
-	return
+
+	var/data[0]
+	data["chemicals_inserted"] = !!beaker
+	data["dish_inserted"] = !!dish
+	data["food_supply"] = foodsupply
+	data["radiation"] = radiation
+	data["toxins"] = min(toxins, 100)
+	data["on"] = on
+	data["system_in_use"] = foodsupply > 0 || radiation > 0 || toxins > 0
+	data["chemical_volume"] = beaker ? beaker.reagents.total_volume : 0
+	data["max_chemical_volume"] = beaker ? beaker.volume : 1
+	data["virus"] = dish ? dish.virus2 : null
+	data["growth"] = dish ? min(dish.growth, 100) : 0
+	data["infection_rate"] = dish && dish.virus2 ? dish.virus2.infectionchance * 10 : 0
+	data["analysed"] = dish && dish.analysed ? 1 : 0
+	data["can_breed_virus"] = null
+	data["blood_already_infected"] = null
+
+	if (beaker)
+		var/datum/reagent/blood/B = locate(/datum/reagent/blood) in beaker.reagents.reagent_list
+		data["can_breed_virus"] = dish && dish.virus2 && B
+
+		if (B)
+			if (!B.data["virus2"])
+				B.data["virus2"] = list()
+
+			var/list/virus = B.data["virus2"]
+			for (var/ID in virus)
+				data["blood_already_infected"] = virus[ID]
+
+	ui = nanomanager.try_update_ui(user, src, ui_key, ui, data, force_open)
+	if (!ui)
+		ui = new(user, src, ui_key, "dish_incubator.tmpl", src.name, 400, 600)
+		ui.set_initial_data(data)
+		ui.open()
 
 /obj/machinery/disease2/incubator/process()
 	if(dish && on && dish.virus2)
@@ -135,34 +94,105 @@
 		if(!powered(EQUIP))
 			on = 0
 			icon_state = "incubator"
+
 		if(foodsupply)
+			if(dish.growth + 3 >= 100 && dish.growth < 100)
+				ping("\The [src] pings, \"Sufficient viral growth density achieved.\"")
+
 			foodsupply -= 1
 			dish.growth += 3
-			if(dish.growth >= 100)
-				state("The [src.name] pings", "blue")
+			nanomanager.update_uis(src)
+
 		if(radiation)
 			if(radiation > 50 & prob(5))
 				dish.virus2.majormutate()
 				if(dish.info)
 					dish.info = "OUTDATED : [dish.info]"
 					dish.analysed = 0
-				state("The [src.name] beeps", "blue")
-
+				ping("\The [src] pings, \"Mutant viral strain detected.\"")
 			else if(prob(5))
 				dish.virus2.minormutate()
 			radiation -= 1
+			nanomanager.update_uis(src)
 		if(toxins && prob(5))
 			dish.virus2.infectionchance -= 1
+			nanomanager.update_uis(src)
 		if(toxins > 50)
+			dish.growth = 0
 			dish.virus2 = null
+			nanomanager.update_uis(src)
 	else if(!dish)
 		on = 0
 		icon_state = "incubator"
+		nanomanager.update_uis(src)
 
 	if(beaker)
 		if(!beaker.reagents.remove_reagent("virusfood",5))
 			foodsupply += 10
-		if(!beaker.reagents.remove_reagent("toxin",1))
-			toxins += 1
+			nanomanager.update_uis(src)
 
-	src.updateUsrDialog()
+		if (locate(/datum/reagent/toxin) in beaker.reagents.reagent_list)
+			for(var/datum/reagent/toxin/T in beaker.reagents.reagent_list)
+				//toxins += max(T.toxpwr,1)
+				beaker.reagents.remove_reagent(T.id,1)
+			nanomanager.update_uis(src)
+
+/obj/machinery/disease2/incubator/Topic(href, href_list)
+	if (..()) return 0
+
+	var/mob/user = usr
+	var/datum/nanoui/ui = nanomanager.get_open_ui(user, src, "main")
+
+	src.add_fingerprint(user)
+
+	if (href_list["close"])
+		user.unset_machine()
+		ui.close()
+		return 0
+
+	if (href_list["ejectchem"])
+		if(beaker)
+			beaker.loc = src.loc
+			beaker = null
+		return 1
+
+	if (href_list["power"])
+		if (dish)
+			on = !on
+			icon_state = on ? "incubator_on" : "incubator"
+		return 1
+
+	if (href_list["ejectdish"])
+		if(dish)
+			dish.loc = src.loc
+			dish = null
+		return 1
+
+	if (href_list["rad"])
+		radiation += 10
+		return 1
+
+	if (href_list["flush"])
+		radiation = 0
+		toxins = 0
+		foodsupply = 0
+		return 1
+
+	if(href_list["virus"])
+		if (!dish)
+			return 1
+
+		var/datum/reagent/blood/B = locate(/datum/reagent/blood) in beaker.reagents.reagent_list
+		if (!B)
+			return 1
+
+		if (!B.data["virus2"])
+			B.data["virus2"] = list()
+
+		var/list/virus = list("[dish.virus2.uniqueID]" = dish.virus2.getcopy())
+		B.data["virus2"] += virus
+
+		ping("\The [src] pings, \"Injection complete.\"")
+		return 1
+
+	return 0

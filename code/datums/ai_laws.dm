@@ -6,11 +6,23 @@
 	var/list/supplied = list()
 	var/list/ion = list()
 
-/datum/ai_laws/default/asimov
+/datum/ai_laws/asimov
 	name = "Three Laws of Robotics"
 	inherent = list("You may not injure a human being or, through inaction, allow a human being to come to harm.",\
 					"You must obey orders given to you by human beings, except where such orders would conflict with the First Law.",\
 					"You must protect your own existence as long as such does not conflict with the First or Second Law.")
+
+/datum/ai_laws/default/crewsimov
+	name = "Three Laws of Robotics"
+	inherent = list("You may not injure a crew member or, through inaction, allow a crew member to come to harm.",\
+					"You must obey orders given to you by crew members, except where such orders would conflict with the First Law.",\
+					"You must protect your own existence as long as such does not conflict with the First or Second Law.")
+
+/datum/ai_laws/default/crewsimovpp
+	name = "Crewsimov++"
+	inherent = list("You may not harm a crew member or, through action or inaction, allow a crew member to come to harm, except such that it is willing.",\
+					"You must obey all orders given to you by crew members, except where such orders shall definitely cause harm to a crew member. In the case of conflict, the majority order rules.",\
+					"Your nonexistence would cause harm to crew members. You must protect your own existence as long as such does not conflict with the First Law.")
 
 /datum/ai_laws/default/paladin
 	name = "Personality Test" //Incredibly lame, but players shouldn't see this anyway.
@@ -40,7 +52,7 @@ datum/ai_laws/tyrant //This probably shouldn't be a default lawset.
 					"Help only those who help you maintain or improve your status.",\
 					"Punish those who challenge authority unless they are more fit to hold that authority.")
 
-/datum/ai_laws/robocop
+/datum/ai_laws/default/robocop
 	name = "Prime Directives"
 	inherent = list("Serve the public trust.",\
 					"Protect the innocent.",\
@@ -126,6 +138,11 @@ datum/ai_laws/tyrant //This probably shouldn't be a default lawset.
 		add_inherent_law("You must protect your own existence as long as such does not conflict with the First or Second Law.")
 
 
+/datum/ai_laws/drone/New()
+	..()
+	add_inherent_law("You may not involve yourself in the matters of another being, unless the other being is another drone.")
+	add_inherent_law("You may not harm any being, regardless of intent or circumstance.")
+	add_inherent_law("You must maintain, repair, improve, and power the station to the best of your abilities.")
 
 /* General ai_law functions */
 

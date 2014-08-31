@@ -13,17 +13,29 @@ var/global/datum/controller/occupations/job_master
 	var/list/job_debug = list()
 
 
-	proc/SetupOccupations(var/faction = "Station")
-		occupations = list()
-		var/list/all_jobs = typesof(/datum/job)
-		if(!all_jobs.len)
-			world << "\red \b Error setting up jobs, no job datums found"
-			return 0
-		for(var/J in all_jobs)
-			var/datum/job/job = new J()
-			if(!job)	continue
-			if(job.faction != faction)	continue
-			occupations += job
+	proc/SetupOccupations(var/list/faction = list("Station"))
+		if(no_synthetic)
+			occupations = list()
+			var/list/all_jobs = typesof(/datum/job) -list(/datum/job,/datum/job/ai,/datum/job/cyborg)
+			if(!all_jobs.len)
+				world << "\red \b Error setting up jobs, no job datums found"
+				return 0
+			for(var/J in all_jobs)
+				var/datum/job/job = new J()
+				if(!job)	continue
+				if(!job.faction in faction)	continue
+				occupations += job
+		else
+			occupations = list()
+			var/list/all_jobs = typesof(/datum/job) -/datum/job
+			if(!all_jobs.len)
+				world << "\red \b Error setting up jobs, no job datums found"
+				return 0
+			for(var/J in all_jobs)
+				var/datum/job/job = new J()
+				if(!job)	continue
+				if(!job.faction in faction)	continue
+				occupations += job
 
 
 		return 1
@@ -52,6 +64,7 @@ var/global/datum/controller/occupations/job_master
 			if(!job)	return 0
 			if(jobban_isbanned(player, rank))	return 0
 			if(!job.player_old_enough(player.client)) return 0
+			if(!is_job_whitelisted(player, rank)) return 0
 			var/position_limit = job.total_positions
 			if(!latejoin)
 				position_limit = job.spawn_positions
@@ -107,7 +120,7 @@ var/global/datum/controller/occupations/job_master
 			if(!job)
 				continue
 
-			if(istype(job, GetJob("Assistant"))) // We don't want to give him assistant, that's boring!
+			if(istype(job, GetJob("Civilian"))) // We don't want to give him assistant, that's boring!
 				continue
 
 			if(job in command_positions) //If you want a command position, select it!
@@ -248,7 +261,7 @@ var/global/datum/controller/occupations/job_master
 		for(var/mob/new_player/player in player_list)
 			if(player.ready && player.mind && !player.mind.assigned_role)
 				unassigned += player
-				if(player.client.prefs.randomslot) player.client.prefs.random_character()
+				if(player.client.prefs.randomslot) player.client.prefs.random_character(player.client)
 		Debug("DO, Len: [unassigned.len]")
 		if(unassigned.len == 0)	return 0
 
@@ -258,14 +271,14 @@ var/global/datum/controller/occupations/job_master
 		HandleFeedbackGathering()
 
 		//People who wants to be assistants, sure, go on.
-		Debug("DO, Running Assistant Check 1")
-		var/datum/job/assist = new /datum/job/assistant()
-		var/list/assistant_candidates = FindOccupationCandidates(assist, 3)
-		Debug("AC1, Candidates: [assistant_candidates.len]")
-		for(var/mob/new_player/player in assistant_candidates)
+		Debug("DO, Running Civilian Check 1")
+		var/datum/job/civ = new /datum/job/civilian()
+		var/list/civilian_candidates = FindOccupationCandidates(civ, 3)
+		Debug("AC1, Candidates: [civilian_candidates.len]")
+		for(var/mob/new_player/player in civilian_candidates)
 			Debug("AC1 pass, Player: [player]")
-			AssignRole(player, "Assistant")
-			assistant_candidates -= player
+			AssignRole(player, "Civilian")
+			civilian_candidates -= player
 		Debug("DO, AC1 end")
 
 		//Select one head
@@ -308,6 +321,10 @@ var/global/datum/controller/occupations/job_master
 						Debug("DO player not old enough, Player: [player], Job:[job.title]")
 						continue
 
+					if(!is_job_whitelisted(player, job.title))
+						Debug("DO player not whitelisted, Player: [player], Job:[job.title]")
+						continue
+
 					// If the player wants that job on this level, then try give it to him.
 					if(player.client.prefs.GetJobDepartment(job, level) & job.flag)
 
@@ -345,11 +362,11 @@ var/global/datum/controller/occupations/job_master
 
 		Debug("DO, Running AC2")
 
-		// For those who wanted to be assistant if their preferences were filled, here you go.
+		// For those who wanted to be civilians if their preferences were filled, here you go.
 		for(var/mob/new_player/player in unassigned)
 			if(player.client.prefs.alternate_option == BE_ASSISTANT)
 				Debug("AC2 Assistant located, Player: [player]")
-				AssignRole(player, "Assistant")
+				AssignRole(player, "Civilian")
 
 		//For ones returning to lobby
 		for(var/mob/new_player/player in unassigned)
@@ -380,6 +397,10 @@ var/global/datum/controller/occupations/job_master
 				S = locate("start*[rank]") // use old stype
 			if(istype(S, /obj/effect/landmark/start) && istype(S.loc, /turf))
 				H.loc = S.loc
+			// Moving wheelchair if they have one
+			if(H.buckled && istype(H.buckled, /obj/structure/stool/bed/chair/wheelchair))
+				H.buckled.loc = H.loc
+				H.buckled.dir = H.dir
 
 		var/datum/money_account/M = create_account(H.real_name, rand(50,500)*10, null)
 		if(H.mind)
@@ -421,6 +442,8 @@ var/global/datum/controller/occupations/job_master
 					H.Robotize()
 					return 1
 				if("AI","Clown")	//don't need bag preference stuff!
+					if(rank=="Clown") // Clowns DO need to breathe, though - N3X
+						H.species.equip(H)
 				else
 					switch(H.backbag) //BS12 EDIT
 						if(1)
@@ -437,6 +460,7 @@ var/global/datum/controller/occupations/job_master
 							var/obj/item/weapon/storage/backpack/BPK = new/obj/item/weapon/storage/backpack/satchel(H)
 							new /obj/item/weapon/storage/box/survival(BPK)
 							H.equip_to_slot_or_del(BPK, slot_back,1)
+					H.species.equip(H)
 
 		H << "<B>You are the [alt_title ? alt_title : rank].</B>"
 		H << "<b>As the [alt_title ? alt_title : rank] you answer directly to [job.supervisors]. Special circumstances may change this.</b>"
@@ -453,6 +477,10 @@ var/global/datum/controller/occupations/job_master
 				var/obj/item/clothing/glasses/G = H.glasses
 				G.prescription = 1
 //		H.update_icons()
+
+		H.hud_updateflag |= (1 << ID_HUD)
+		H.hud_updateflag |= (1 << IMPLOYAL_HUD)
+		H.hud_updateflag |= (1 << SPECIALROLE_HUD)
 		return 1
 
 

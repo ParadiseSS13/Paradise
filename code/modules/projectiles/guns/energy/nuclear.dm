@@ -5,8 +5,7 @@
 	item_state = null	//so the human update icon uses the icon_state instead.
 	fire_sound = 'sound/weapons/Taser.ogg'
 
-	charge_cost = 100 //How much energy is needed to fire.
-	projectile_type = "/obj/item/projectile/energy/electrode"
+	projectile_type = "/obj/item/projectile/beam/stun"
 	origin_tech = "combat=3;magnets=2"
 	modifystate = "energystun"
 
@@ -17,19 +16,24 @@
 		switch(mode)
 			if(0)
 				mode = 1
-				charge_cost = 100
+				charge_cost = 1000
 				fire_sound = 'sound/weapons/Laser.ogg'
 				user << "\red [src.name] is now set to kill."
 				projectile_type = "/obj/item/projectile/beam"
 				modifystate = "energykill"
 			if(1)
 				mode = 0
-				charge_cost = 100
+				charge_cost = 1000
 				fire_sound = 'sound/weapons/Taser.ogg'
 				user << "\red [src.name] is now set to stun."
-				projectile_type = "/obj/item/projectile/energy/electrode"
+				projectile_type = "/obj/item/projectile/beam/stun"
 				modifystate = "energystun"
 		update_icon()
+		if(user.l_hand == src)
+			user.update_inv_l_hand()
+		else
+			user.update_inv_r_hand()
+
 
 
 
@@ -46,7 +50,7 @@
 		processing_objects.Add(src)
 
 
-	Del()
+	Destroy()
 		processing_objects.Remove(src)
 		..()
 
@@ -58,7 +62,7 @@
 		if(!power_supply) return 0
 		if((power_supply.charge / power_supply.maxcharge) != 1)
 			if(!failcheck())	return 0
-			power_supply.give(100)
+			power_supply.give(1000)
 			update_icon()
 		return 1
 

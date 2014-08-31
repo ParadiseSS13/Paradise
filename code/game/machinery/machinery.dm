@@ -49,7 +49,7 @@ Class Variables:
 Class Procs:
    New()                     'game/machinery/machine.dm'
 
-   Del()                     'game/machinery/machine.dm'
+   Destroy()                     'game/machinery/machine.dm'
 
    auto_use_power()            'game/machinery/machine.dm'
       This proc determines how power mode power is deducted by the machine.
@@ -67,8 +67,10 @@ Class Procs:
       Checks to see if area that contains the object has power available for power
       channel given in 'chan'.
 
-   use_power(amount, chan=EQUIP)   'modules/power/power.dm'
+   use_power(amount, chan=EQUIP, autocalled)   'modules/power/power.dm'
       Deducts 'amount' from the power channel 'chan' of the area that contains the object.
+      If it's autocalled then everything is normal, if something else calls use_power we are going to
+      need to recalculate the power two ticks in a row.
 
    power_change()               'modules/power/power.dm'
       Called by the area that contains the object when ever that area under goes a
@@ -102,24 +104,39 @@ Class Procs:
 		//2 = run auto, use active
 	var/idle_power_usage = 0
 	var/active_power_usage = 0
-	var/power_channel = EQUIP
-		//EQUIP,ENVIRON or LIGHT
+	var/power_channel = EQUIP //EQUIP,ENVIRON or LIGHT
 	var/list/component_parts = null //list of all the parts used to build it, if made from certain kinds of frames.
 	var/uid
 	var/manual = 0
 	var/global/gl_uid = 1
 	var/custom_aghost_alerts=0
 	var/panel_open = 0
+	var/area/myArea
+	var/interact_offline = 0 // Can the machine be interacted with while de-powered.
 
 /obj/machinery/New()
-	..()
+	addAtProcessing()
+	return ..()
+
+/obj/machinery/proc/addAtProcessing()
+	if (use_power)
+		myArea = get_area_master(src)
+
 	machines += src
 
-/obj/machinery/Del()
+/obj/machinery/proc/removeAtProcessing()
+	if (myArea)
+		myArea = null
+
 	machines -= src
+
+/obj/machinery/Destroy()
+	if (src in machines)
+		removeAtProcessing()
+
 	..()
 
-/obj/machinery/process()//If you dont use process or power why are you here
+/obj/machinery/process() // If you dont use process or power why are you here
 	return PROCESS_KILL
 
 /obj/machinery/emp_act(severity)
@@ -161,14 +178,14 @@ Class Procs:
 	if(!powered(power_channel))
 		return 0
 	if(src.use_power == 1)
-		use_power(idle_power_usage,power_channel)
+		use_power(idle_power_usage,power_channel, 1)
 	else if(src.use_power >= 2)
-		use_power(active_power_usage,power_channel)
+		use_power(active_power_usage,power_channel, 1)
 	return 1
 
 /obj/machinery/Topic(href, href_list)
 	..()
-	if(stat & (NOPOWER|BROKEN))
+	if(!interact_offline && stat & (NOPOWER|BROKEN))
 		return 1
 	if(usr.restrained() || usr.lying || usr.stat)
 		return 1
@@ -191,9 +208,16 @@ Class Procs:
 			return 1
 
 	src.add_fingerprint(usr)
+
+	var/area/A = get_area(src)
+	A.powerupdate = 1
+
 	return 0
 
-/obj/machinery/attack_ai(mob/user as mob)
+/obj/machinery/attack_ai(var/mob/user as mob)
+	if(isAI(user))
+		var/mob/living/silicon/ai/A = user
+		if(A.alienAI) return
 	if(isrobot(user))
 		// For some reason attack_robot doesn't work
 		// This is to stop robots from using cameras to remotely control machines.
@@ -206,7 +230,7 @@ Class Procs:
 	return src.attack_hand(user)
 
 /obj/machinery/attack_hand(mob/user as mob)
-	if(stat & (NOPOWER|BROKEN|MAINT))
+	if(!interact_offline && stat & (NOPOWER|BROKEN|MAINT))
 		return 1
 	if(user.lying || user.stat)
 		return 1
@@ -230,6 +254,10 @@ Class Procs:
 			return 1
 
 	src.add_fingerprint(user)
+
+	var/area/A = get_area(src)
+	A.powerupdate = 1
+
 	return 0
 
 /obj/machinery/CheckParts()
@@ -264,3 +292,55 @@ Class Procs:
 		panel_open = 0
 		icon_state = icon_state_closed
 		user << "<span class='notice'>You close the maintenance hatch of [src].</span>"
+
+/obj/machinery/proc/state(var/msg)
+  for(var/mob/O in hearers(src, null))
+    O.show_message("\icon[src] <span class = 'notice'>[msg]</span>", 2)
+
+/obj/machinery/proc/ping(text=null)
+  if (!text)
+    text = "\The [src] pings."
+
+  state(text, "blue")
+  playsound(src.loc, 'sound/machines/ping.ogg', 50, 0)
+
+/obj/machinery/proc/exchange_parts(mob/user, obj/item/weapon/storage/part_replacer/W)
+	if(istype(W) && component_parts)
+		if(panel_open)
+			var/obj/item/weapon/circuitboard/CB = locate(/obj/item/weapon/circuitboard) in component_parts
+			var/P
+			for(var/obj/item/weapon/stock_parts/A in component_parts)
+				for(var/D in CB.req_components)
+					if(ispath(A.type, text2path(D)))
+						P = text2path(D)
+						break
+				for(var/obj/item/weapon/stock_parts/B in W.contents)
+					if(istype(B, P) && istype(A, P))
+						if(B.rating > A.rating)
+							W.remove_from_storage(B, src)
+							W.handle_item_insertion(A, 1)
+							component_parts -= A
+							component_parts += B
+							B.loc = null
+							user << "<span class='notice'>[A.name] replaced with [B.name].</span>"
+							break
+			RefreshParts()
+		else
+			user << "<span class='notice'>Following parts detected in the machine:</span>"
+			for(var/var/obj/item/C in component_parts)
+				user << "<span class='notice'>    [C.name]</span>"
+		return 1
+	else
+		return 0
+
+/obj/machinery/proc/dismantle()
+	playsound(loc, 'sound/items/Crowbar.ogg', 50, 1)
+	var/obj/machinery/constructable_frame/machine_frame/M = new /obj/machinery/constructable_frame/machine_frame(loc)
+	M.state = 2
+	M.icon_state = "box_1"
+	for(var/obj/I in component_parts)
+		if(I.reliability != 100 && crit_fail)
+			I.crit_fail = 1
+		I.loc = loc
+	del(src)
+	return 1
