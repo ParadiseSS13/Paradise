@@ -113,8 +113,11 @@
 		var/turf/T = get_turf(R)
 		if (!T)
 			continue
-		if(T.z == 2 || T.z > 7)
-			continue
+		if(T.z == 2 || T.z > 6)
+			if (T.z == 7 & src.emagged == 1)
+				// This should be empty, allows for it to continue if the z-level is 7 and the machine.
+			else
+				continue
 		var/tmpname = T.loc.name
 		if(areaindex[tmpname])
 			tmpname = "[tmpname] ([++areaindex[tmpname]])"
@@ -401,3 +404,14 @@
 
 /atom/proc/laserhit(L as obj)
 	return 1
+
+
+/obj/machinery/computer/teleporter/attackby(I as obj, user as mob)		//Emagging.
+	if(istype(I,/obj/item/weapon/card/emag))
+		if (src.emagged == 0)
+			user << "\blue You scramble the Teleporter's circuits. You should be able to teleport to more places now!"
+			src.emagged = 1
+		else
+			user << "\red The machine seems unaffected by the card swipe..."
+	else
+		return attack_hand(user)

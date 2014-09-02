@@ -76,3 +76,13 @@
 	icon_living = "kitten"
 	icon_dead = "kitten_dead"
 	gender = NEUTER
+
+/mob/living/simple_animal/cat/Syndi
+	name = "SyndiCat"
+	desc = "It's a SyndiCat droid."
+	icon_state = "Syndicat"
+	icon_living = "Syndicat"
+	icon_dead = "Syndicat_dead"
+	gender = FEMALE
+	var/turns_since_scan = 0
+	var/mob/living/simple_animal/mouse/movement_target
