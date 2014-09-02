@@ -316,3 +316,10 @@
 	item_state = "officercap"
 	flags = FPRINT | TABLEPASS | BLOCKHAIR
 	flags_inv = HIDEEARS
+
+/obj/item/clothing/head/beret/purple
+	name = "Pierson Family Beret"
+	desc = " A purple beret, with a small golden crescent moon sewn onto it."
+	icon_state = "purpleberet"
+	item_state = "purpleberet"
+	flags = FPRINT | TABLEPASS

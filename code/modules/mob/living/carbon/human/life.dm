@@ -36,6 +36,7 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 	var/do_deferred_species_setup=0
 	var/exposedtimenow = 0
 	var/firstexposed = 0
+	var/last_message = 0
 
 // Doing this during species init breaks shit.
 /mob/living/carbon/human/proc/DeferredSpeciesSetup()
@@ -276,6 +277,35 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 			// as cloneloss
 			adjustCloneLoss(0.1)
 
+	//Makes Space a little more evil, simulates that space is full of errent high energy particles waiting to tear you up.
+	proc/cosmic_radiation()
+		var/ax = x
+		var/ay = y
+		
+		if(istype(loc, /turf/space))
+			if(!(getarmor("chest", "rad") > 0))
+				if(prob(33))
+					apply_effect((rand(3,7)),IRRADIATE,0)
+			//Thank you to whoever wrote the vampire's sun code.
+			if(!(wear_suit && (wear_suit.flags & STOPSPRESSUREDMAGE)) && !(species.flags & RAD_ABSORB))
+				for(var/i = 1 to 20)
+					ax += sun.dx
+					ay += sun.dy
+
+					var/turf/T = locate( round(ax,0.5),round(ay,0.5),z)
+
+					if(T.x == 1 || T.x==world.maxx || T.y==1 || T.y==world.maxy)
+						break
+
+					if(T.density)
+						return
+						
+				var/datum/organ/external/O = pick(organs)
+				apply_damage(3, BURN, O)  
+				if(world.time - last_message > 5)
+					src << "\red You feel the intense heat of the sun giving you a harsh sunburn."
+					last_message = world.time
+			
 	proc/handle_mutations_and_radiation()
 
 		if(species.flags & IS_SYNTHETIC) //Robots don't suffer from mutations or radloss.
@@ -285,6 +315,7 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 			if((M_RESIST_HEAT in mutations) || (prob(1)))
 				heal_organ_damage(0,1)
 
+		cosmic_radiation()
 
 		for(var/datum/dna/gene/gene in dna_genes)
 			if(!gene.block)
@@ -364,7 +395,7 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 				if(damage && organs.len)
 					var/datum/organ/external/O = pick(organs)
 					if(istype(O)) O.add_autopsy_data("Radiation Poisoning", damage)
-
+	
 	proc/breathe()
 		if(reagents.has_reagent("lexorin")) return
 		if(M_NO_BREATH in mutations) return // No breath mutation means no breathing.
@@ -388,6 +419,8 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 		else
 			//First, check for air from internal atmosphere (using an air tank and mask generally)
 			breath = get_breath_from_internal(BREATH_VOLUME) // Super hacky -- TLE
+			if(breath)
+				try_lung_rupture(breath)
 			//breath = get_breath_from_internal(0.5) // Manually setting to old BREATH_VOLUME amount -- TLE
 
 			//No breath from internal atmosphere so get breath from location
@@ -405,12 +438,9 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 					breath_moles = environment.total_moles()*BREATH_PERCENTAGE
 
 					breath = loc.remove_air(breath_moles)
-
-					if(!is_lung_ruptured())
-						if(!breath || breath.total_moles < BREATH_MOLES / 5 || breath.total_moles > BREATH_MOLES * 5)
-							if(prob(5))
-								rupture_lung()
-
+					
+					try_lung_rupture(breath)			
+					
 					// Handle chem smoke effect  -- Doohl
 					var/block = 0
 					if(wear_mask)
@@ -600,7 +630,8 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 			pressure_alert = -1
 		else
 			if( !(M_RESIST_COLD in mutations))
-				take_overall_damage(brute=LOW_PRESSURE_DAMAGE, used_weapon = "Low Pressure")
+				//Low pressure really cant deal much pysical damage but would be pretty painful. -IndexLP
+				apply_damage(LOW_PRESSURE_DAMAGE+1, HALLOSS)
 				pressure_alert = -2
 			else
 				pressure_alert = -1
@@ -1043,12 +1074,16 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 				for(var/atom/a in hallucinations)
 					del a
 
-				if(halloss > 100)
+				if(halloss > 100 && pressure_alert != -2)
 					src << "<span class='notice'>You're in too much pain to keep going...</span>"
 					for(var/mob/O in oviewers(src, null))
 						O.show_message("<B>[src]</B> slumps to the ground, too weak to continue fighting.", 1)
 					Paralyse(10)
 					setHalLoss(99)
+				if(halloss > 100 && pressure_alert == -2)
+					src << "<span class='notice'>You're in too much pain to keep going...</span>"
+					Paralyse(10)
+					setHalLoss(95)
 
 			if(paralysis)
 				AdjustParalysis(-1)
