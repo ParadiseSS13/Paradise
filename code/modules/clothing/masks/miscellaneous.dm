@@ -143,3 +143,11 @@
 	item_state = "fawkes"
 	flags_inv = HIDEFACE
 	w_class = 2
+
+/obj/item/clothing/mask/gas/clown_hat/pennywise
+	name = "Pennywise Mask"
+	desc = "It's the eater of worlds, and of children."
+	icon_state = "pennywise_mask"
+	item_state = "pennywise_mask"
+	species_fit = list("Vox")
+	flags = FPRINT | TABLEPASS | MASKCOVERSMOUTH | MASKCOVERSEYES | BLOCK_GAS_SMOKE_EFFECT | MASKINTERNALS | BLOCKHAIR
