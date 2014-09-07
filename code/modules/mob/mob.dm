@@ -109,14 +109,17 @@
 	//	equip_to_slot_if_possible(W, slot)
 
 	if(istype(W))
-
-		if(W:rig_restrict_helmet)
-			src << "\red You must fasten the helmet to a hardsuit first. (Target the head)" // Stop eva helms equipping.
-		else
-			if(W:equip_time > 0)
-				delay_clothing_equip_to_slot_if_possible(W, slot)
+		if (istype(W, /obj/item/clothing))
+			var/obj/item/clothing/C = W
+			if(C.rig_restrict_helmet)
+				src << "\red You must fasten the helmet to a hardsuit first. (Target the head)" // Stop eva helms equipping.
 			else
-				equip_to_slot_if_possible(W, slot)
+				if(C.equip_time > 0)
+					delay_clothing_equip_to_slot_if_possible(C, slot)
+				else
+					equip_to_slot_if_possible(C, slot)
+		else
+			equip_to_slot_if_possible(W, slot)
 
 	if(ishuman(src) && W == src:head)
 		src:update_hair()
