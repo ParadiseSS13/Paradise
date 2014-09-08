@@ -519,10 +519,9 @@
 	_color = "soldieruniform"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO
 
-/obj/item/clothing/under/sexyclown
-	name = "sexy-clown suit"
-	desc = "It makes you look HONKable!"
+/obj/item/clothing/under/pennywise
+	name = "Pennywise Costume"
+	desc = "It's everything you ever were afraid of."
 	icon_state = "pennywise"
-	item_state = "pennywise"
 	_color = "pennywise"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO
