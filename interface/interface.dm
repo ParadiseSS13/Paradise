@@ -13,7 +13,7 @@
 		src << "<span class='danger'>The wiki URL is not set in the server configuration.</span>"
 	return
 
-#define CHANGELOG "http://80.244.78.90/phpBB3/viewtopic.php?f=10&t=36"
+#define CHANGELOG "http://nanotrasen.se/phpBB3/viewtopic.php?f=10&t=36"
 /client/verb/changes()
 	set name = "Changelog"
 	set desc = "Visit the forum to check out the changelog."
@@ -45,7 +45,7 @@
 	src << browse(file(RULES_FILE), "window=rules;size=480x320")
 #undef RULES_FILE
 
-#define DONATE "http://80.244.78.90/phpBB3/donate.php"
+#define DONATE "http://nanotrasen.se/phpBB3/donate.php"
 /client/verb/donate()
 	set name = "Donate"
 	set desc = "Donate to help with development costs."
