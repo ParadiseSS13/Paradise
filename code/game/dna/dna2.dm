@@ -67,6 +67,10 @@ var/global/list/bad_blocks[0]
 	var/struc_enzymes="" // Encoded SE
 	var/unique_enzymes="" // MD5 of player name
 
+	// Original Encoded SE, for use with Ryetalin
+	var/struc_enzymes_original="" // Encoded SE
+	var/list/SE_original[DNA_SE_LENGTH]
+
 	// Internal dirtiness checks
 	var/dirtyUI=0
 	var/dirtySE=0
@@ -89,6 +93,7 @@ var/global/list/bad_blocks[0]
 /datum/dna/proc/Clone()
 	var/datum/dna/new_dna = new()
 	new_dna.unique_enzymes=unique_enzymes
+	new_dna.struc_enzymes_original=struc_enzymes_original // will make clone's SE the same as the original, do we want this?
 	new_dna.b_type=b_type
 	new_dna.mutantrace=mutantrace
 	new_dna.real_name=real_name
@@ -362,10 +367,16 @@ var/global/list/bad_blocks[0]
 
 // BACK-COMPAT!
 //  Initial DNA setup.  I'm kind of wondering why the hell this doesn't just call the above.
+//    ready_dna is (hopefully) only used on mob creation, and sets the struc_enzymes_original and SE_original only once - Bone White
+
 /datum/dna/proc/ready_dna(mob/living/carbon/human/character)
+
 	ResetUIFrom(character)
 
 	ResetSE()
+
+	struc_enzymes_original = struc_enzymes // sets the original struc_enzymes when ready_dna is called
+	SE_original = SE
 
 	unique_enzymes = md5(character.real_name)
 	reg_dna[unique_enzymes] = character.real_name
