@@ -68,6 +68,68 @@
 	return 1
 
 /obj/structure/closet/crate/attackby(obj/item/weapon/W as obj, mob/user as mob)
+	if(istype(W, /obj/item/weapon/rcs) && !src.opened)
+		var/obj/item/weapon/rcs/E = W
+		if(E.rcharges != 0)
+			if(E.mode == 0)
+				if(!E.teleporting)
+					var/list/L = list()
+					var/list/areaindex = list()
+					for(var/obj/machinery/telepad_cargo/R in world)
+						if(R.stage == 0)
+							var/turf/T = get_turf(R)
+							var/tmpname = T.loc.name
+							if(areaindex[tmpname])
+								tmpname = "[tmpname] ([++areaindex[tmpname]])"
+							else
+								areaindex[tmpname] = 1
+							L[tmpname] = R
+					var/desc = input("Please select a telepad.", "RCS") in L
+					E.pad = L[desc]
+					playsound(E.loc, 'sound/machines/click.ogg', 50, 1)
+					user << "\blue Teleporting [src.name]..."
+					E.teleporting = 1
+					sleep(50)
+					E.teleporting = 0
+					var/datum/effect/effect/system/spark_spread/s = new /datum/effect/effect/system/spark_spread
+					s.set_up(5, 1, src)
+					s.start()
+					do_teleport(src, E.pad, 0)
+					E.rcharges--
+					if(E.rcharges != 1)
+						user << "\blue Teleport successful. [E.rcharges] charges left."
+						E.desc = "Use this to send crates and closets to cargo telepads. There are [E.rcharges] charges left."
+						return
+					else
+						user << "\blue Teleport successful. [E.rcharges] charge left."
+						E.desc = "Use this to send crates and closets to cargo telepads. There is [E.rcharges] charge left."
+					return
+			else
+				E.rand_x = rand(50,200)
+				E.rand_y = rand(50,200)
+				var/L = locate(E.rand_x, E.rand_y, 6)
+				playsound(E.loc, 'sound/machines/click.ogg', 50, 1)
+				user << "\blue Teleporting [src.name]..."
+				E.teleporting = 1
+				sleep(50)
+				E.teleporting = 0
+				var/datum/effect/effect/system/spark_spread/s = new /datum/effect/effect/system/spark_spread
+				s.set_up(5, 1, src)
+				s.start()
+				do_teleport(src, L)
+				E.rcharges--
+				if(E.rcharges != 1)
+					user << "\blue Teleport successful. [E.rcharges] charges left."
+					E.desc = "Use this to send crates and closets to cargo telepads. There are [E.rcharges] charges left."
+					return
+				else
+					user << "\blue Teleport successful. [E.rcharges] charge left."
+					E.desc = "Use this to send crates and closets to cargo telepads. There is [E.rcharges] charge left."
+					return
+		else
+			user << "\red Out of charges."
+			return
+
 	if(opened)
 		if(isrobot(user))
 			return
