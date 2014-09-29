@@ -176,6 +176,17 @@
 		"Vox" = 'icons/mob/species/vox/uniform.dmi'
 		)
 
+/obj/item/clothing/under/rank/medical/mortician
+	name = "mortician's scrubs"
+	desc = "It's made of a special fiber that provides minor protection against biohazards. This one is as dark as an emo's poetry."
+	icon_state = "scrubsblack"
+	_color = "scrubsblack"
+	flags = FPRINT | TABLEPASS | ONESIZEFITSALL
+	species_fit = list("Vox")
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/species/vox/uniform.dmi'
+		)
+
 //paramedic
 /obj/item/clothing/under/rank/medical/paramedic
 	desc = "It's made of a special fiber that provides minor protection against biohazards and radiation. It has a cross on the chest denoting that the wearer is trained medical personnel."

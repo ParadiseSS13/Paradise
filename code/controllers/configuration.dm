@@ -79,7 +79,7 @@
 	var/wikiurl = "http://baystation12.net/wiki"
 	var/forumurl = "http://baystation12.net/forums/"
 
-	var/media_base_url = "http://80.244.78.90/media" // http://ss13.nexisonline.net/media
+	var/media_base_url = "http://nanotrasen.se/media" // http://ss13.nexisonline.net/media
 
 	//Alert level description
 	var/alert_desc_green = "All threats to the station have passed. Security may not have weapons visible, privacy laws are once again fully enforced."

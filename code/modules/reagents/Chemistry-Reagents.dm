@@ -1115,11 +1115,25 @@ datum
 			on_mob_life(var/mob/living/M as mob)
 				if(!M) M = holder.my_atom
 
-				var/needs_update = M.mutations.len > 0
+				var/needs_update = 1 //M.mutations.len > 0
 
+				//Ryetalyn now cures by a random chance per on_mob_life call - Bone White
+				// 1 volume = ~2% chance
+				// 10 volume = ~17% chance
+				// 30 volume = ~38% chance
+				if (rand(0, 50+volume) > 50 && ishuman(M))
+					for(var/block=1;block<=DNA_SE_LENGTH;block++)
+						M.dna.SetSEState(block,0)
+						genemutcheck(M,block,null,MUTCHK_FORCED)
+						M.update_mutations()
+
+					M.dna.struc_enzymes = M.dna.struc_enzymes_original
+
+				/* Old Code (non-functional)
 				M.mutations = list()
 				M.disabilities = 0
 				M.sdisabilities = 0
+				*/
 
 				// Might need to update appearance for hulk etc.
 				if(needs_update && ishuman(M))
