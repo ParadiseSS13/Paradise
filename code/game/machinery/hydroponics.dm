@@ -374,6 +374,10 @@
 		return
 
 	seed.harvest(user,yield_mod)
+	//Increases harvest count for round-end score
+	//Currently per-plant (not per-item) harvested
+	// --FalseIncarnate
+	score_stuffharvested++
 
 	// Reset values.
 	harvest = 0
@@ -538,9 +542,79 @@
 
 /obj/machinery/portable_atmospherics/hydroponics/attackby(var/obj/item/O as obj, var/mob/user as mob)
 
+	//--FalseIncarnate
+	//Check if held item is an open container
 	if (O.is_open_container())
-		return 0
+		//Check if container is of the "glass" subtype (includes buckets, beakers, vials)
+		if(istype(O, /obj/item/weapon/reagent_containers/glass))
+			var/obj/item/weapon/reagent_containers/glass/C = O
+			//Check if container is empty
+			if(!C.reagents.total_volume)
+				user << "\red [C] is empty."
+				return
+			//Container not empty, transfer contents to tray
+			var/trans = C.reagents.trans_to(src, C.amount_per_transfer_from_this)
+			user << "\blue You transfer [trans] units of the solution to [src]."
 
+			check_level_sanity()
+			process_reagents()
+			update_icon()
+
+		//Check if container is one of the botany sprays (defined in hydro_tools.dm)
+		else if(istype(O, /obj/item/weapon/plantspray))
+			//Check if spray is pest-spray
+			if(istype(O, /obj/item/weapon/plantspray/pests))
+				var/obj/item/weapon/plantspray/P = O
+				user.drop_item(O)
+				toxins += P.toxicity
+				pestlevel -= P.pest_kill_str
+				weedlevel -= P.weed_kill_str
+				user << "You spray [src] with [O]."
+				playsound(loc, 'sound/effects/spray3.ogg', 50, 1, -6)
+				del(O)
+
+				check_level_sanity()
+				update_icon()
+
+			//Check if spray is weed-spray (un-obtainable, fixed for possible repurposing?)
+			else if(istype(O, /obj/item/weapon/plantspray/weeds))
+				var/obj/item/weapon/plantspray/W = O
+				user.drop_item(O)
+				toxins += W.toxicity
+				pestlevel -= W.pest_kill_str
+				weedlevel -= W.weed_kill_str
+				user << "You spray [src] with [O]."
+				playsound(loc, 'sound/effects/spray3.ogg', 50, 1, -6)
+				del(O)
+
+				check_level_sanity()
+				update_icon()
+
+		//Check if container is Plant-B-Gone spray (doesn't work with other sprays, may add in future)
+		else if (istype(O, /obj/item/weapon/reagent_containers/spray/plantbgone))
+			//Check if there is a plant in the tray
+			if(seed)
+				health -= rand(5,20)
+
+				if(pestlevel > 0)
+					pestlevel -= 2
+
+				if(weedlevel > 0)
+					weedlevel -= 3
+
+				toxins += 4
+
+				check_level_sanity()
+
+				visible_message("\red <B>\The [src] has been sprayed with \the [O][(user ? " by [user]." : ".")]")
+				playsound(loc, 'sound/effects/spray3.ogg', 50, 1, -6)
+				update_icon()
+			else
+				user << "There's nothing in [src] to spray!"
+
+	//--FalseIncarnate
+
+	//Held item is not an open container, check to see if it can be used (this code was already here) --FalseIncarnate
 	if(istype(O, /obj/item/weapon/wirecutters) || istype(O, /obj/item/weapon/scalpel))
 
 		if(!seed)
@@ -615,26 +689,6 @@
 		else
 			user << "\red \The [src] already has seeds in it!"
 
-	else if (istype(O, /obj/item/weapon/reagent_containers/spray/plantbgone))
-		if(seed)
-			health -= rand(5,20)
-
-			if(pestlevel > 0)
-				pestlevel -= 2
-
-			if(weedlevel > 0)
-				weedlevel -= 3
-
-			toxins += 4
-
-			check_level_sanity()
-
-			visible_message("\red <B>\The [src] has been sprayed with \the [O][(user ? " by [user]." : ".")]")
-			playsound(loc, 'sound/effects/spray3.ogg', 50, 1, -6)
-			update_icon()
-		else
-			user << "There's nothing in [src] to spray!"
-
 	else if (istype(O, /obj/item/weapon/minihoe))  // The minihoe
 		//var/deweeding
 		if(weedlevel > 0)
@@ -653,20 +707,6 @@
 			if(!S.can_be_inserted(G))
 				return
 			S.handle_item_insertion(G, 1)
-
-	else if ( istype(O, /obj/item/weapon/plantspray) )
-
-		var/obj/item/weapon/plantspray/spray = O
-		user.drop_item(O)
-		toxins += spray.toxicity
-		pestlevel -= spray.pest_kill_str
-		weedlevel -= spray.weed_kill_str
-		user << "You spray [src] with [O]."
-		playsound(loc, 'sound/effects/spray3.ogg', 50, 1, -6)
-		del(O)
-
-		check_level_sanity()
-		update_icon()
 
 	else if(istype(O, /obj/item/weapon/wrench))
 
