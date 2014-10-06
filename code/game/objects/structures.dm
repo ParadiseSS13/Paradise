@@ -50,6 +50,14 @@
 	if (!can_touch(user) || !climbable)
 		return
 
+	for(var/obj/O in range(0, src))
+		if(O.density == 1)
+			user << "\red You cannot climb a [src] blocked by a solid object!"
+			return
+	for(var/turf/T in range(0, src))
+		if(T.density == 1)
+			user << "\red You cannot climb a [src] blocked by a solid object!"
+			return
 	var/turf/T = src.loc
 	if(!T || !istype(T)) return
 
