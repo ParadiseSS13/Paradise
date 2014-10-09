@@ -174,7 +174,11 @@
 			return min(rand(20,80),rand(20,80))
 		if (100 to 250-1)
 			return min(rand(20,65),rand(20,65))*/
-		if (1000000 to INFINITY)
+		if (5000000 to INFINITY)
+			return min(rand(200,300),rand(200,300))
+		if (4000000 to 5000000-1)
+			return min(rand(80,180),rand(80,180))
+		if (1000000 to 4000000-1)
 			return min(rand(50,160),rand(50,160))
 		if (200000 to 1000000-1)
 			return min(rand(25,80),rand(25,80))
