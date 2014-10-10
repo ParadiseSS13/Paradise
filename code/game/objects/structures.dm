@@ -51,7 +51,7 @@
 		return
 
 	for(var/obj/O in range(0, src))
-		if(O.density == 1)
+		if(O.density == 1 && O != src)
 			user << "\red You cannot climb a [src] blocked by a solid object!"
 			return
 	for(var/turf/T in range(0, src))
