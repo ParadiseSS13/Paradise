@@ -527,6 +527,23 @@
 				else
 					message = "<B>[src]</B> sadly can't find anybody to give daps to, and daps \himself. Shameful."
 
+		if("slap")
+			m_type = 1
+			if (!src.restrained())
+				var/M = null
+				if (param)
+					for (var/mob/A in view(1, null))
+						if (param == A.name)
+							M = A
+							break
+				if (M)
+					message = "\red <B>[src]</B> slaps [M] across the face. Ouch!"
+					playsound(src.loc, 'sound/effects/snap.ogg', 50, 1)
+				else
+					message = "\red <B>[src]</B> slaps \himself!"
+					playsound(src.loc, 'sound/effects/snap.ogg', 50, 1)
+					src.adjustFireLoss(4)
+
 		if ("scream")
 			if (miming)
 				message = "<B>[src]</B> acts out a scream!"

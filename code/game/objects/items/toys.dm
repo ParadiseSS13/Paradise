@@ -424,7 +424,7 @@
 	desc = "Your palm is oozing this stuff!"
 	icon = 'icons/mob/slimes.dmi'
 	icon_state = "red slime extract"
-	throwforce = 30.0
+	throwforce = 5.0
 	throw_speed = 10
 	throw_range = 30
 	w_class = 1

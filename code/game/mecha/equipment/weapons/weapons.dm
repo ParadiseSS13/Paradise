@@ -52,10 +52,10 @@
 	fire_sound = 'sound/weapons/Laser.ogg'
 
 /obj/item/mecha_parts/mecha_equipment/weapon/energy/laser/heavy
-	equip_cooldown = 15
+	equip_cooldown = 10
 	name = "CH-LC \"Solaris\" Laser Cannon"
 	icon_state = "mecha_laser"
-	energy_drain = 50
+	energy_drain = 40
 	projectile = /obj/item/projectile/beam/heavylaser
 	fire_sound = 'sound/weapons/lasercannonfire.ogg'
 
