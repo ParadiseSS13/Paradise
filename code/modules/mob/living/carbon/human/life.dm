@@ -242,11 +242,13 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 					if(3)
 						emote("drool")
 
+        /*
 		if(species.name == "Tajaran")
 			if(prob(1))
 				if(prob(1))
 					vomit(1) // Hairball
 
+        */
 
 		if(stat != 2)
 			var/rn = rand(0, 200)
@@ -290,8 +292,8 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 			if(!gene.block)
 				continue
 			if(gene.is_active(src))
-				if (prob(10) && prob(gene.instability))
-					adjustCloneLoss(1)
+			/*	if (prob(10) && prob(gene.instability))
+					adjustCloneLoss(1) */
 				gene.OnMobLife(src)
 
 		if (radiation)
