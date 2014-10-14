@@ -3838,7 +3838,7 @@
 "bvP" = (/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,/obj/structure/disposalpipe/segment{dir = 4},/turf/simulated/floor,/area/crew_quarters/heads)
 "bvQ" = (/obj/structure/disposalpipe/segment{dir = 8; icon_state = "pipe-c"},/turf/simulated/floor/carpet,/area/crew_quarters/heads)
 "bvR" = (/obj/machinery/atmospherics/pipe/simple/supply/hidden,/turf/simulated/floor/carpet,/area/crew_quarters/heads)
-"bvS" = (/obj/structure/disposalpipe/segment,/obj/structure/cable{d1 = 1; d2 = 2; icon_state = "1-2"; tag = ""},/obj/machinery/computer/guestpass{step_x = 28; step_y = 1},/turf/simulated/floor,/area/crew_quarters/heads)
+"bvS" = (/obj/structure/disposalpipe/segment,/obj/structure/cable{d1 = 1; d2 = 2; icon_state = "1-2"; tag = ""},/turf/simulated/floor,/area/crew_quarters/heads)
 "bvT" = (/obj/structure/sign/kiddieplaque,/turf/simulated/wall/r_wall,/area)
 "bvU" = (/obj/structure/table,/obj/item/weapon/aiModule/reset,/obj/machinery/camera{c_tag = "AI Upload Chamber"; dir = 4; network = list("SS13")},/turf/simulated/floor/bluegrid,/area/turret_protected/ai_upload)
 "bvV" = (/obj/structure/cable{d1 = 1; d2 = 2; icon_state = "1-2"; tag = ""},/turf/simulated/floor{icon_state = "dark"},/area/turret_protected/ai_upload)
