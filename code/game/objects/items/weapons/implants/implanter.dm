@@ -54,8 +54,8 @@
 
 
 /obj/item/weapon/implanter/traitor
-	name = "implanter-greytide"
-	desc = "Greytide Stationwide."
+	name = "implanter-mindslave"
+	desc = "Divide and Conquer."
 
 	New()
 		src.imp = new /obj/item/weapon/implant/traitor(src)

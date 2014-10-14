@@ -369,7 +369,8 @@
 
 */
 
-/datum/disease2/effect/orbweapon
+/*
+/datum/disease2/effect/orbweapon         //peopel are just griefing the shit out of each other with this..and with a constantly regenerating weapon that has a throwforce of 30? I can see why.
 	name = "Biolobulin Effect"
 	stage = 4
 	activate(var/mob/living/carbon/mob,var/multiplier)
@@ -388,7 +389,7 @@
 		if (slot == slot_l_hand)
 			canremove = 1		//curses!
 		..()
-
+*/
 
 /datum/disease2/effect/plasma
 	name = "Toxin Sublimation"
