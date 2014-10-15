@@ -105,6 +105,13 @@ datum
 			required_reagents = list("inaprovaline" = 1, "ethanol" = 1, "oxygen" = 1)
 			result_amount = 3
 
+		paracetamol
+			name = "Paracetamol"
+			id = "paracetamol"
+			result = "paracetamol"
+			required_reagents = list("tramadol" = 1, "sugar" = 1, "water" = 1)
+			result_amount = 3
+
 		oxycodone
 			name = "Oxycodone"
 			id = "oxycodone"
@@ -493,6 +500,13 @@ datum
 			result = "zombiepowder"
 			required_reagents = list("carpotoxin" = 1, "stoxin" = 1, "copper" = 1)
 			result_amount = 3
+
+		mutetoxin
+			name = "Mute toxin"
+			id = "mutetoxin"
+			result = "mutetoxin"
+			required_reagents = list("uranium" = 2, "water" = 1, "carbon" = 1)
+			result_amount = 2
 
 		rezadone
 			name = "Rezadone"

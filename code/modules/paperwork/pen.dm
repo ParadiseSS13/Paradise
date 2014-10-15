@@ -106,7 +106,21 @@
 	var/datum/reagents/R = new/datum/reagents(50)
 	reagents = R
 	R.my_atom = src
-	R.add_reagent("zombiepowder", 10)
-	R.add_reagent("cryptobiolin", 15)
+	R.add_reagent("stoxin", 30)
+	R.add_reagent("mutetoxin", 15)
 	..()
 	return
+
+/obj/item/weapon/pen/paralysis/attackby(var/obj/item/O as obj, var/mob/user as mob) //courtesy of FalseIncarnate!
+
+	if (O.is_open_container())
+		//Check if container is of the "glass" subtype (includes buckets, beakers, vials)
+		if(istype(O, /obj/item/weapon/reagent_containers/glass))
+			var/obj/item/weapon/reagent_containers/glass/C = O
+			//Check if container is empty
+			if(!C.reagents.total_volume)
+				user << "\red [C] is empty."
+				return
+			//Container not empty, transfer contents to tray
+			var/trans = C.reagents.trans_to(src, C.amount_per_transfer_from_this)
+			user << "\blue You transfer [trans] units of the solution to [src]."
