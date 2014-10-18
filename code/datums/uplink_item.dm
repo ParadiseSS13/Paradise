@@ -154,12 +154,13 @@ var/list/uplink_items = list()
 	cost = 3
 	job = list("Civilian")
 
+/*
 /datum/uplink_item/jobspecific/greytide
 	name = "Greytide Implant"
 	desc = "A box containing an implanter filled with a greytide implant when injected into another person makes them loyal to the greytide and your cause, unless of course they're already implanted by someone else. Loyalty ends if the implant is no longer in their system."
 	item = /obj/item/weapon/storage/box/syndie_kit/greytide
 	cost = 7
-	job = list("Civilian")
+	job = list("Civilian") */
 //Bartender
 
 /datum/uplink_item/jobspecific/drunkbullets
@@ -257,9 +258,9 @@ var/list/uplink_items = list()
 
 /datum/uplink_item/stealthy_weapons/para_pen
 	name = "Paralysis Pen"
-	desc = "A syringe disguised as a functional pen, filled with a neuromuscular-blocking drug that renders a target immobile on injection and makes them seem dead to observers. Side effects of the drug include noticeable drooling. The pen holds one dose of paralyzing agent, and cannot be refilled."
+	desc = "A syringe disguised as a functional pen, filled with a neuromuscular-blocking drug that renders a target mute on injection that will eventually cause them to pass out. The pen holds one dose of paralyzing agent,though it can be refilled."
 	item = /obj/item/weapon/pen/paralysis
-	cost = 3
+	cost = 4
 
 /datum/uplink_item/stealthy_weapons/soap
 	name = "Syndicate Soap"
@@ -317,6 +318,11 @@ var/list/uplink_items = list()
 	item = /obj/item/device/chameleon
 	cost = 4
 
+/datum/uplink_item/stealthy_tools/mindslave
+	name = "Mindslave Implant"
+	desc = "A box containing an implanter filled with a mindslave implant that when injected into another person makes them loyal to you and your cause, unless of course they're already implanted by someone else. Loyalty ends if the implant is no longer in their system."
+	item = /obj/item/weapon/storage/box/syndie_kit/mindslave
+	cost = 5
 
 // DEVICE AND TOOLS
 

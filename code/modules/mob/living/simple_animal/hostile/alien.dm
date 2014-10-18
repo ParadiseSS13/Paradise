@@ -27,6 +27,7 @@
 	max_co2 = 0
 	min_n2 = 0
 	max_n2 = 0
+	var/dead = 0
 	unsuitable_atoms_damage = 15
 	faction = list("alien")
 	status_flags = CANPUSH
@@ -92,5 +93,7 @@
 
 /mob/living/simple_animal/hostile/alien/Die()
 	..()
-	visible_message("[src] lets out a waning guttural screech, green blood bubbling from its maw...")
-	playsound(src, 'sound/voice/hiss6.ogg', 100, 1)
+	if(dead == 0)
+		dead = 1
+		visible_message("[src] lets out a waning guttural screech, green blood bubbling from its maw...")
+		playsound(src, 'sound/voice/hiss6.ogg', 100, 1)

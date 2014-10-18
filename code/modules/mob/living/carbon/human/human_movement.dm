@@ -1,44 +1,19 @@
 /mob/living/carbon/human/movement_delay()
 	var/tally = 0
 
-	if(wear_suit)
-		if(wear_suit.slowdown > 0)
-			var/datum/gas_mixture/environment = loc.return_air()
-			var/local_pressure = environment.return_pressure()
-			switch (local_pressure)
-				if(20 to 40)
-					tally = min(1,wear_suit.slowdown)
-				if(40 to 60)
-					tally = min(2,wear_suit.slowdown)
-				if(60 to 80)
-					tally = min(3,wear_suit.slowdown)
-				if(80 to INFINITY)
-					tally = min(4,wear_suit.slowdown)
-
-		tally = min(wear_suit.slowdown, tally)  // Initial slow will never get more powerful than the slowdown on the suit.
-
-	if(species && species.flags & IS_SLOW) //Bone White - added additional slow for wearing a rig suit.  Species who have IS_SLOW (Diona) do not gain a speed buff now
+	if(species && species.flags & IS_SLOW)
 		tally = 5
-
-	//if(wear_suit)  // These two lines are now redundant due to comment above
-	//	tally += wear_suit.slowdown
 
 	if (istype(loc, /turf/space)) return -1 // It's hard to be slowed down in space by... anything
 
 	if(embedded_flag)
 		handle_embedded_objects() //Moving with objects stuck in you can cause bad times.
 
-	var/hyperizine = reagents.has_reagent("hyperizine")
-	if(hyperizine && dna.mutantrace == "slime")
-		tally *= 2
-	else if(hyperizine || M_RUN in mutations || istype(loc, /turf/space))
-		return -1
+	if(reagents.has_reagent("hyperzine")) return -1
 
 	if(reagents.has_reagent("nuka_cola")) return -1
 
 	if((M_RUN in mutations)) return -1
-
-	if (istype(loc, /turf/space)) return -1 // It's hard to be slowed down in space by... anything
 
 	var/health_deficiency = (100 - health)
 
@@ -49,6 +24,8 @@
 	var/hungry = (500 - nutrition)/5 // So overeat would be 100 and default level would be 80
 	if (hungry >= 70) tally += hungry/50
 
+	if(wear_suit)
+		tally += wear_suit.slowdown
 
 	if(!buckled || (buckled && !istype(buckled, /obj/structure/stool/bed/chair/wheelchair)))
 		if(shoes)

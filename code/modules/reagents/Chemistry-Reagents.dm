@@ -510,8 +510,8 @@ datum
 			description = "An effective hypnotic used to treat insomnia."
 			reagent_state = LIQUID
 			color = "#E895CC" // rgb: 232, 149, 204
-			toxod = 40
-			oxyod = 40
+			oxyod = 100
+			toxod = 100
 
 			on_mob_life(var/mob/living/M as mob)
 				if(!M) M = holder.my_atom
@@ -522,7 +522,7 @@ datum
 					if(15 to 25)
 						M.drowsyness  = max(M.drowsyness, 20)
 					if(25 to INFINITY)
-						M.Weaken(20)
+						M.Paralyse(20)
 						M.drowsyness  = max(M.drowsyness, 30)
 				data++
 				..()
@@ -1111,15 +1111,31 @@ datum
 			reagent_state = SOLID
 			color = "#C8A5DC" // rgb: 200, 165, 220
 			toxod = OVERDOSE/3
+			scannable = 1
 
 			on_mob_life(var/mob/living/M as mob)
 				if(!M) M = holder.my_atom
 
-				var/needs_update = M.mutations.len > 0
+				var/needs_update = 1 //M.mutations.len > 0
 
+				//Ryetalyn now cures by a random chance per on_mob_life call - Bone White
+				// 1 volume = ~2% chance
+				// 10 volume = ~17% chance
+				// 30 volume = ~38% chance
+				//if (rand(0, 50+volume) > 50 && ishuman(M))
+				if (volume >= 1 && ishuman(M))
+					for(var/block=1;block<=DNA_SE_LENGTH;block++)
+						M.dna.SetSEState(block,0)
+						genemutcheck(M,block,null,MUTCHK_FORCED)
+						M.update_mutations()
+
+					M.dna.struc_enzymes = M.dna.struc_enzymes_original
+
+				/* Old Code (non-functional)
 				M.mutations = list()
 				M.disabilities = 0
 				M.sdisabilities = 0
+				*/
 
 				// Might need to update appearance for hulk etc.
 				if(needs_update && ishuman(M))
@@ -1226,6 +1242,7 @@ datum
 			toxod = OVERDOSE/4.5
 			oxyod = OVERDOSE/4.5
 			custom_metabolism = 0.25 // Lasts 10 minutes for 15 units
+			scannable = 1
 
 			on_mob_life(var/mob/living/M as mob)
 				if (volume > overdose)
@@ -1434,14 +1451,17 @@ datum
 					return
 
 		plantbgone
-			scannable = 1
 			name = "Plant-B-Gone"
 			id = "plantbgone"
 			description = "A harmful toxic mixture to kill plantlife. Do not ingest!"
 			reagent_state = LIQUID
 			color = "#49002E" // rgb: 73, 0, 46
-			toxod = OVERDOSE/3
-			burnod = OVERDOSE/3
+
+			on_mob_life(var/mob/living/M as mob)
+				if(!M) M = holder.my_atom
+				M.adjustToxLoss(2)
+				..()
+				return
 
 			// Clear off wallrot fungi
 			reaction_turf(var/turf/T, var/volume)
@@ -1486,7 +1506,6 @@ datum
 			reagent_state = LIQUID
 			color = "#C8A5DC" // rgb: 200, 165, 220
 			toxod = OVERDOSE
-			scannable = 1
 
 			on_mob_life(var/mob/living/M as mob)
 				if(!M) M = holder.my_atom
@@ -1532,6 +1551,7 @@ datum
 			color = "#E9D66B" // rgb: 233, 214, 107
 			toxod = OVERDOSE/1.5
 			burnod = OVERDOSE/1.5
+			scannable = 1
 
 			on_mob_life(var/mob/living/M as mob)
 				if(!M) M = holder.my_atom
@@ -1585,6 +1605,7 @@ datum
 			color = "#ECD540" // rgb: 236, 213, 64
 			toxod = OVERDOSE
 			bruteod = OVERDOSE
+			scannable = 1
 
 			on_mob_life(var/mob/living/M as mob)
 				if(M.stat == 2.0)
@@ -1683,7 +1704,7 @@ datum
 					return
 				if(!M) M = holder.my_atom
 				if(!alien || alien != IS_DIONA)
-					if(M.getOxyLoss()) M.adjustOxyLoss(-1*REM)
+					if(M.getOxyLoss() && prob(80)) M.adjustOxyLoss(-1*REM)
 					if(M.getBruteLoss() && prob(80)) M.heal_organ_damage(1*REM,0)
 					if(M.getFireLoss() && prob(80)) M.heal_organ_damage(0,1*REM)
 					if(M.getToxLoss() && prob(80)) M.adjustToxLoss(-1*REM)
@@ -1778,11 +1799,11 @@ datum
 		synaptizine
 			name = "Synaptizine"
 			id = "synaptizine"
-			description = "Synaptizine is used to treat various diseases."
+			description = "Synaptizine is a synaptic stimulant that can also be used to treat certain diseases."
 			reagent_state = LIQUID
 			color = "#C8A5DC" // rgb: 200, 165, 220
-			custom_metabolism = 0.01
-			toxod = OVERDOSE
+			custom_metabolism = 0.1
+			toxod = OVERDOSE/4.5
 			scannable = 1
 
 			on_mob_life(var/mob/living/M as mob)
@@ -1794,7 +1815,6 @@ datum
 				if(holder.has_reagent("mindbreaker"))
 					holder.remove_reagent("mindbreaker", 5)
 				M.hallucination = max(0, M.hallucination - 10)
-				if(prob(60))	M.adjustToxLoss(1)
 				..()
 				return
 
@@ -1840,6 +1860,7 @@ datum
 			color = "#BFFF00" // rgb: 191, 255, 0
 			toxod = OVERDOSE/1.5
 			burnod = OVERDOSE/1.5
+			scannable = 1
 
 			on_mob_life(var/mob/living/M as mob)
 				if(M.stat == 2.0)
@@ -2068,6 +2089,18 @@ datum
 					M.status_flags &= ~FAKEDEATH
 				..()8*/
 
+		mutetoxin
+			name = "Mute Toxin"
+			id = "mutetoxin"
+			description = "A toxin that temporarily paralyzes the vocal cords."
+			reagent_state = LIQUID
+			color = "#F0F8FF" // rgb: 240, 248, 255
+
+			on_mob_life(var/mob/living/M)
+				if(!M) M = holder.my_atom
+				M.silent += REM + 1
+				..()
+
 		mindbreaker
 			name = "Mindbreaker Toxin"
 			id = "mindbreaker"
@@ -2232,6 +2265,7 @@ datum
 			description = "A powerful oxidizer that reacts with ethanol."
 			reagent_state = SOLID
 			color = "#605048" // rgb: 96, 80, 72
+			scannable = 1
 
 			on_mob_life(var/mob/living/M as mob)
 				if(!M) M = holder.my_atom
@@ -2370,6 +2404,7 @@ datum
 			nutriment_factor = 10 * REAGENTS_METABOLISM
 			color = "#BBEDA4" // rgb: 187, 237, 164
 			toxod = OVERDOSE/2
+			scannable = 1
 
 			on_mob_life(var/mob/living/M as mob)
 				if(!M) M = holder.my_atom
@@ -3401,12 +3436,6 @@ datum
 
 			rum
 				name = "Rum"
-				id = "rum"
-				description = "Yohoho and all that."
-				color = "#664300" // rgb: 102, 67, 0
-
-			deadrum
-				name = "Deadrum"
 				id = "rum"
 				description = "Popular with the sailors. Not very popular with everyone else."
 				color = "#664300" // rgb: 102, 67, 0

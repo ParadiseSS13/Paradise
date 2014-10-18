@@ -116,6 +116,10 @@
 					icon_state  = "chocolateglass"
 					name = "Glass of chocolate"
 					desc = "Tasty"
+				if("hot_coco")
+					icon_state  = "hot_coco"
+					name = "Glass of hot coco"
+					desc = "Delicious and cozy"
 				if("lemonjuice")
 					icon_state  = "lemonglass"
 					name = "Glass of lemonjuice"
@@ -192,6 +196,10 @@
 					icon_state = "rumglass"
 					name = "Glass of Rum"
 					desc = "Now you want to Pray for a pirate suit, don't you?"
+				if("absinthe")
+					icon_state = "absinthebottle"
+					name = "Glass of Absinthe"
+					desc = "The green fairy is going to get you now!"
 				if("gintonic")
 					icon_state = "gintonicglass"
 					name = "Gin and Tonic"
@@ -356,6 +364,10 @@
 					icon_state = "carrotjuice"
 					name = "Glass of  carrot juice"
 					desc = "It is just like a carrot but without crunching."
+				if("potato")
+					icon_state = "glass_brown"
+					name = "Glass of  potato juice"
+					desc = "Who in the hell requests this? Gross!"
 				if("banana")
 					icon_state = "banana"
 					name = "Glass of banana juice"

@@ -457,10 +457,10 @@
 		return 1
 
 //Antag Creatures!
-	if(ispath(MP, /mob/living/simple_animal/hostile/carp))
+/*	if(ispath(MP, /mob/living/simple_animal/hostile/carp))
 		return 1
 	if(ispath(MP, /mob/living/simple_animal/hostile/giant_spider))
-		return 1
+		return 1 */
 	if(ispath(MP, /mob/living/simple_animal/borer))
 		return 1
 	if(ispath(MP, /mob/living/carbon/alien))

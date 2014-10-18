@@ -135,8 +135,8 @@
 	new /obj/item/ammo_box/a357(src)
 	return
 
-/obj/item/weapon/storage/box/syndie_kit/greytide
-	name = "box (GT)"
+/obj/item/weapon/storage/box/syndie_kit/mindslave
+	name = "box (MS)"
 
 	New()
 		..()

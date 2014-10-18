@@ -1,7 +1,7 @@
 
 
 /datum/event/anomaly/anomaly_vortex
-	startWhen = 10
+	startWhen = 20
 	announceWhen = 3
 	endWhen = 80
 
