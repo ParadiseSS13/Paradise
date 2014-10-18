@@ -363,7 +363,7 @@
 	breath_type = "nitrogen"
 	poison_type = "oxygen"
 
-	flags = NO_SCAN | IS_WHITELISTED | NO_BLOOD
+	flags = NO_SCAN | IS_WHITELISTED
 
 	flesh_color = "#808D11"
 
@@ -522,7 +522,7 @@
 	heat_level_2 = 350
 	heat_level_3 = 700
 
-	flags = NO_BREATHE | REQUIRE_LIGHT | NO_SCAN | IS_PLANT | RAD_ABSORB | NO_BLOOD | IS_SLOW | NO_PAIN
+	flags = NO_BREATHE | REQUIRE_LIGHT | IS_PLANT | RAD_ABSORB | NO_BLOOD | IS_SLOW | NO_PAIN
 
 	body_temperature = T0C + 15		//make the plant people have a bit lower body temperature, why not
 
@@ -536,6 +536,7 @@
 
 	return ..()
 
+/*        //overpowered and dumb as hell; they get cloning back, though.
 /datum/species/diona/handle_death(var/mob/living/carbon/human/H)
 
 	var/mob/living/carbon/monkey/diona/S = new(get_turf(H))
@@ -551,7 +552,7 @@
 		else
 			del(D)
 
-	H.visible_message("\red[H] splits apart with a wet slithering noise!")
+	H.visible_message("\red[H] splits apart with a wet slithering noise!") */
 
 /datum/species/machine
 	name = "Machine"

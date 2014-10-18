@@ -3,7 +3,7 @@
 /datum/event/anomaly/anomaly_grav
 	startWhen = 3
 	announceWhen = 20
-	endWhen = 50
+	endWhen = 70
 
 
 /datum/event/anomaly/anomaly_grav/announce()
