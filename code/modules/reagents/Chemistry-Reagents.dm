@@ -1122,7 +1122,8 @@ datum
 				// 1 volume = ~2% chance
 				// 10 volume = ~17% chance
 				// 30 volume = ~38% chance
-				if (rand(0, 50+volume) > 50 && ishuman(M))
+				//if (rand(0, 50+volume) > 50 && ishuman(M))
+				if (volume >= 1 && ishuman(M))
 					for(var/block=1;block<=DNA_SE_LENGTH;block++)
 						M.dna.SetSEState(block,0)
 						genemutcheck(M,block,null,MUTCHK_FORCED)
