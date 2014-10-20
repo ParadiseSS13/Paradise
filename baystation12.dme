@@ -1361,6 +1361,7 @@
 #include "code\modules\reagents\Chemistry-Machinery.dm"
 #include "code\modules\reagents\Chemistry-Readme.dm"
 #include "code\modules\reagents\Chemistry-Reagents-Antidepressants.dm"
+#include "code\modules\reagents\Chemistry-Reagents-Recreational.dm"
 #include "code\modules\reagents\Chemistry-Reagents.dm"
 #include "code\modules\reagents\Chemistry-Recipes.dm"
 #include "code\modules\reagents\dartgun.dm"
