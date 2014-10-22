@@ -692,16 +692,6 @@ It can still be worn/put on as normal.
 			slot_to_process = slot_handcuffed
 			if (target.handcuffed)
 				strip_item = target.handcuffed
-			else if (source != target && ishuman(source))
-				//check that we are still grabbing them
-				var/grabbing = 0
-				for (var/obj/item/weapon/grab/G in target.grabbed_by)
-					if (G.loc == source && G.state >= GRAB_AGGRESSIVE)
-						grabbing = 1
-				if (!grabbing)
-					slot_to_process = null
-					source << "\red Your grasp was broken before you could restrain [target]!"
-
 		if("legcuff")
 			slot_to_process = slot_legcuffed
 			if (target.legcuffed)

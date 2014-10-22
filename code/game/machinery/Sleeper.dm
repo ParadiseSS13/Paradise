@@ -320,13 +320,21 @@
 
 
 	proc/inject_chemical(mob/living/user as mob, chemical, amount)
-		if(src.occupant && src.occupant.reagents)
-			if(src.occupant.reagents.get_reagent_amount(chemical) + amount <= 40)
-				src.occupant.reagents.add_reagent(chemical, amount)
-				user << "Occupant now has [src.occupant.reagents.get_reagent_amount(chemical)] units of [available_chemicals[chemical]] in his/her bloodstream."
+		if(src.occupant)
+			if(src.occupant.reagents)
+				if(src.occupant.reagents.get_reagent_amount(chemical) + amount <= 40)
+					src.occupant.reagents.add_reagent(chemical, amount)
+					user << "Occupant now has [src.occupant.reagents.get_reagent_amount(chemical)] units of [available_chemicals[chemical]] in his/her bloodstream."
+					return
+				else
+					user << "Medical overdose safeties restrict you injecting any more of this chemical."
+					return
+			else
+				user << "The patient rejects the chemicals!"
 				return
-		user << "There's no occupant in the sleeper or the subject rejects the chemicals!"
-		return
+		else
+			user << "There's no occupant in the sleeper!"
+			return
 
 
 	proc/check(mob/living/user as mob)
