@@ -165,16 +165,17 @@
 			m_type = 1
 
 		if ("cough")
-			if(miming)
-				message = "<B>[src]</B> appears to cough!"
-				m_type = 1
-			else
-				if (!muzzled)
-					message = "<B>[src]</B> coughs!"
-					m_type = 2
+			if(!reagents.has_reagent("dextromethorphan"))
+				if(miming)
+					message = "<B>[src]</B> appears to cough!"
+					m_type = 1
 				else
-					message = "<B>[src]</B> makes a strong noise."
-					m_type = 2
+					if (!muzzled)
+						message = "<B>[src]</B> coughs!"
+						m_type = 2
+					else
+						message = "<B>[src]</B> makes a strong noise."
+						m_type = 2
 
 		if ("frown")
 			message = "<B>[src]</B> frowns."
