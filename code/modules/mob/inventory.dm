@@ -146,28 +146,6 @@
 	update_icons()
 	return
 
-/mob/proc/delay_clothing_u_equip(obj/item/clothing/X as obj) // Bone White - delays unequipping by parameter.  Requires W to be /obj/item/clothing/
-
-	if(!istype(X)) return 0
-
-	if(X.equipping == 1) return 0 // Item is already being (un)equipped
-
-	var/tempX = usr.x
-	var/tempY = usr.y
-	usr << "\blue You start unequipping the [X]."
-	X.equipping = 1
-	var/equip_time = round(X.equip_time/10)
-	var/i
-	for(i=1; i<=equip_time; i++)
-		sleep (10) // Check if they've moved every 10 time units
-		if ((tempX != usr.x) || (tempY != usr.y))
-			src << "\red \The [X] is too fiddly to unequip whilst moving."
-			X.equipping = 0
-			return 0
-	u_equip(X)
-	usr << "\blue You have finished unequipping the [X]."
-	X.equipping = 0
-
 /mob/proc/u_equip(W as obj)
 	if (W == r_hand)
 		r_hand = null
