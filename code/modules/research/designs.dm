@@ -1443,33 +1443,43 @@ datum/design/noreactbeaker
 	build_path = "/obj/item/weapon/reagent_containers/glass/beaker/noreact"
 	category = "Misc"
 
+datum/design/implanter
+	name = "Implanter"
+	desc = "A basic implanter for injecting implants"
+	id = "implanter"
+	req_tech = list("materials" = 2, "biotech" = 3)
+	build_type = PROTOLATHE
+	materials = list("$metal" = 50, "$glass" = 50)
+	build_path = "/obj/item/weapon/implanter"
+
+
 datum/design/implant_free
-	name = "freedom implant"
+	name = "Freedom Implant"
 	desc = "Use this to escape from those evil Red Shirts."
 	id = "implant_free"
 	req_tech = list("syndicate" = 2, "biotech" = 3)
 	build_type = PROTOLATHE
 	materials = list("$metal" = 50, "$glass" = 50)
-	build_path = "/obj/item/weapon/implant/freedom"
+	build_path = "/obj/item/weapon/implantcase/freedom"
 
 datum/design/implant_chem
-	name = "chemical implant"
+	name = "Chemical Implant"
 	desc = "Injects things."
 	id = "implant_chem"
 	req_tech = list("materials" = 2, "biotech" = 3)
 	build_type = PROTOLATHE
 	materials = list("$metal" = 50, "$glass" = 50)
-	build_path = "/obj/item/weapon/implant/chem"
+	build_path = "/obj/item/weapon/implantcase/chem"
 	locked = 1
 
 datum/design/implant_loyal
-	name = "loyalty implant"
+	name = "Loyalty Implant"
 	desc = "Makes you loyal or such."
 	id = "implant_loyal"
 	req_tech = list("materials" = 2, "biotech" = 3)
 	build_type = PROTOLATHE
 	materials = list("$metal" = 7000, "$glass" = 7000)
-	build_path = "/obj/item/weapon/implant/loyalty"
+	build_path = "/obj/item/weapon/implantcase/loyalty"
 	locked = 1
 
 
