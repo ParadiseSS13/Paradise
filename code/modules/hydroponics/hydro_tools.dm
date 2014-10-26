@@ -319,6 +319,7 @@
 	throw_range = 4
 	sharp = 1
 	edge = 1
+	m_amt = 10000
 	origin_tech = "materials=2;combat=1"
 	attack_verb = list("chopped", "torn", "cut")
 
