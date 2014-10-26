@@ -138,3 +138,14 @@
 		src.imp = new /obj/item/weapon/implant/death_alarm( src )
 		..()
 		return
+
+/obj/item/weapon/implantcase/freedom
+	name = "Glass Case- 'Freedom'"
+	desc = "A case containing a freedom implant."
+	icon = 'icons/obj/items.dmi'
+	icon_state = "implantcase-b"
+
+	New()
+		src.imp = new /obj/item/weapon/implant/freedom( src )
+		..()
+		return

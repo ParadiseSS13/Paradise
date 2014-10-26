@@ -167,6 +167,21 @@
 		new /obj/item/ammo_casing/shotgun/birdshot(src)
 
 
+/obj/item/weapon/storage/box/gauge
+	name = "box of 12 gauge slugs"
+	desc = "It has a picture of a gun and several warning symbols on the front."
+	m_amt = 50000
+
+	New()
+		..()
+		new /obj/item/ammo_casing/shotgun(src)
+		new /obj/item/ammo_casing/shotgun(src)
+		new /obj/item/ammo_casing/shotgun(src)
+		new /obj/item/ammo_casing/shotgun(src)
+		new /obj/item/ammo_casing/shotgun(src)
+		new /obj/item/ammo_casing/shotgun(src)
+		new /obj/item/ammo_casing/shotgun(src)
+
 
 /obj/item/weapon/storage/box/flashbangs
 	name = "box of flashbangs (WARNING)"

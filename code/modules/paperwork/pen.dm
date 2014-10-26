@@ -87,19 +87,9 @@
 /*
  * Parapens
  */
- /obj/item/weapon/pen/paralysis
+/obj/item/weapon/pen/paralysis
 	flags = FPRINT | TABLEPASS | OPENCONTAINER
 	origin_tech = "materials=2;syndicate=5"
-
-
-/obj/item/weapon/pen/paralysis/attack(mob/M as mob, mob/user as mob)
-	if(!ismob(M))
-		return
-	..()
-	msg_admin_attack("[user.name] ([user.ckey]) Used the [name] to stab [M.name] ([M.ckey]) (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[user.x];Y=[user.y];Z=[user.z]'>JMP</a>)")
-	if(reagents.total_volume)
-		if(M.reagents) reagents.trans_to(M, 50)
-	return
 
 
 /obj/item/weapon/pen/paralysis/New()
@@ -111,16 +101,12 @@
 	..()
 	return
 
-/obj/item/weapon/pen/paralysis/attackby(var/obj/item/O as obj, var/mob/user as mob) //courtesy of FalseIncarnate!
 
-	if (O.is_open_container())
-		//Check if container is of the "glass" subtype (includes buckets, beakers, vials)
-		if(istype(O, /obj/item/weapon/reagent_containers/glass))
-			var/obj/item/weapon/reagent_containers/glass/C = O
-			//Check if container is empty
-			if(!C.reagents.total_volume)
-				user << "\red [C] is empty."
-				return
-			//Container not empty, transfer contents to tray
-			var/trans = C.reagents.trans_to(src, C.amount_per_transfer_from_this)
-			user << "\blue You transfer [trans] units of the solution to [src]."
+/obj/item/weapon/pen/paralysis/attack(mob/M as mob, mob/user as mob)
+	if(!ismob(M))
+		return
+	..()
+	msg_admin_attack("[user.name] ([user.ckey]) Used the [name] to stab [M.name] ([M.ckey]) (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[user.x];Y=[user.y];Z=[user.z]'>JMP</a>)")
+	if(reagents.total_volume)
+		if(M.reagents) reagents.trans_to(M, 50) //used to be 150
+	return

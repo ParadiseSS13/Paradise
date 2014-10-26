@@ -391,10 +391,10 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 								new_item.investigate_log("built by [key]","singulo")
 							new_item.reliability = being_built.reliability
 							if(linked_lathe.hacked) being_built.reliability = max((reliability / 2), 0)
-/*							if(being_built.locked)
+							if(being_built.locked)
 								var/obj/item/weapon/storage/lockbox/L = new/obj/item/weapon/storage/lockbox(linked_lathe.loc)
 								new_item.loc = L
-								L.name += " ([new_item.name])"*/
+								L.name += " ([new_item.name])"
 							else
 								new_item.loc = linked_lathe.loc
 							linked_lathe.busy = 0
