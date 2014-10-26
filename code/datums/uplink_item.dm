@@ -144,6 +144,23 @@ var/list/uplink_items = list()
 	cost = 2
 	job = list("Janitor")
 
+//Medical
+
+
+/datum/uplink_item/jobspecific/rad_laser
+	name = "Radiation Laser"
+	desc = "A radiation laser concealed inside of a Health Analyser,  After a moderate delay, causes temporary collapse and radiation.  Has adjustable controls, but will not function as a regular health analyzer, only appears like one.  May not function correctly on radiation resistent humanoids!"
+	item = /obj/item/device/rad_laser
+	cost = 3
+	job = list(
+		"Chief Medical Officer",
+		"Medical Doctor",
+		//"Geneticist",
+		//"Psychiatrist",
+		//"Chemist",
+		//"Paramedic",
+		"Virologist"
+	)
 
 //Assistant
 
