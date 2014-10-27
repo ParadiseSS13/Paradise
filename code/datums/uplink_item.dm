@@ -155,11 +155,12 @@ var/list/uplink_items = list()
 	job = list(
 		"Chief Medical Officer",
 		"Medical Doctor",
-		//"Geneticist",
-		//"Psychiatrist",
-		//"Chemist",
-		//"Paramedic",
-		"Virologist"
+		"Geneticist",
+		"Psychiatrist",
+		"Chemist",
+		"Paramedic",
+		"Virologist",
+		"Brig Physician"
 	)
 
 //Assistant
