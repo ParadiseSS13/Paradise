@@ -113,7 +113,7 @@ var/global/datum/controller/occupations/job_master
 			if(player.client.prefs.GetJobDepartment(job, level) & job.flag)
 				Debug("FOC pass, Player: [player], Level:[level]")
 				candidates += player
-			if(job.flag == CIVILIAN)
+			else if(job.flag == CIVILIAN)
 				Debug("FOC pass, Player: [player], Level: **Civilian Autopass**")
 				candidates += player
 		return candidates
