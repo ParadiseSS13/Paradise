@@ -100,6 +100,7 @@ var/global/datum/controller/occupations/job_master
 		Debug("Running FOC, Job: [job], Level: [level], Flag: [flag]")
 		var/list/candidates = list()
 		for(var/mob/new_player/player in unassigned)
+			//Debug("Banned: [jobban_isbanned(player, job.title)] Old Enough: [!job.player_old_enough(player.client)] Flag && Special: [flag && (!player.client.prefs.be_special & flag)] Job Department: [player.client.prefs.GetJobDepartment(job, level)] Job Flag: [job.flag] Job Department Flag = [job.department_flag]")
 			if(jobban_isbanned(player, job.title))
 				Debug("FOC isbanned failed, Player: [player]")
 				continue
@@ -111,6 +112,9 @@ var/global/datum/controller/occupations/job_master
 				continue
 			if(player.client.prefs.GetJobDepartment(job, level) & job.flag)
 				Debug("FOC pass, Player: [player], Level:[level]")
+				candidates += player
+			else if(job.flag == CIVILIAN)
+				Debug("FOC pass, Player: [player], Level: **Civilian Autopass**")
 				candidates += player
 		return candidates
 
