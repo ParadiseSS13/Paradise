@@ -1,7 +1,7 @@
 /datum/job/civilian
 	title = "Civilian"
 	flag = CIVILIAN
-	department_flag = CIVILIAN
+	department_flag = SUPPORT
 	total_positions = -1
 	spawn_positions = -1
 	supervisors = "absolutely everyone"
