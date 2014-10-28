@@ -21,7 +21,6 @@
 	new /obj/item/weapon/cell/high(src)
 	new /obj/item/weapon/card/id/syndicate(src)
 	new /obj/item/device/multitool(src)
-	new /obj/item/weapon/shield/energy(src)
 	new /obj/item/clothing/shoes/magboots(src)
 
 
