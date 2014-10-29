@@ -209,7 +209,7 @@
 		B.loc = src
 		user << "You set [B] on the machine."
 		nanomanager.update_uis(src) // update all UIs attached to src
-		icon_state = "[icon_state]2"
+		icon_state = "[initial(icon_state)]2"
 		return
 
 /obj/machinery/chem_dispenser/attackby(var/obj/item/weapon/B as obj, var/mob/user as mob)
