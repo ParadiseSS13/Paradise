@@ -45,7 +45,7 @@ var/global/list/autolathe_recipes = list( \
 		new /obj/item/weapon/rcd_ammo(), \
 		new /obj/item/ammo_casing/shotgun/beanbag(), \
 		new /obj/item/weapon/storage/box/blanks(), \
-		new /obj/item/ammo_casing/shotgun(), \
+		new /obj/item/weapon/storage/box/gauge(), \
 		new /obj/item/ammo_casing/shotgun/incendiary(), \
 		new /obj/item/ammo_box/c38(), \
 		new /obj/item/ammo_box/a357(), \
@@ -63,6 +63,7 @@ var/global/list/autolathe_recipes_hidden = list( \
 		new /obj/item/device/radio/electropack(), \
 		new /obj/item/weapon/weldingtool/largetank(), \
 		new /obj/item/weapon/handcuffs(), \
+		new /obj/item/weapon/hatchet(), \
 		/*new /obj/item/ammo_casing/shotgun/dart(), \
 		new /obj/item/weapon/shield/riot(), */ \
 	)

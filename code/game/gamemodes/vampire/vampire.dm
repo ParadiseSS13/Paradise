@@ -279,12 +279,12 @@ You are weak to holy things and starlight. Don't go into space and avoid the Cha
 			src << "\red They've got no blood left to give."
 			break
 		if(H.stat < 2) //alive
-			blood = min(10, H.vessel.get_reagent_amount("blood"))// if they have less than 10 blood, give them the remnant else they get 10 blood
-			src.mind.vampire.bloodtotal += blood
-			src.mind.vampire.bloodusable += blood
-			H.adjustCloneLoss(10) // beep boop 10 damage
+			blood = min(20, H.vessel.get_reagent_amount("blood"))	// if they have less than 20 blood, give them the remnant else they get 20 blood
+			src.mind.vampire.bloodtotal += blood/2	//divide by 2 to counted the double suction since removing cloneloss -Melandor0
+			src.mind.vampire.bloodusable += blood/2
+			//H.adjust CloneLoss(10)	No cloneloss -Melandor0
 		else
-			blood = min(5, H.vessel.get_reagent_amount("blood"))// The dead only give 5 bloods
+			blood = min(5, H.vessel.get_reagent_amount("blood"))	// The dead only give 5 bloods
 			src.mind.vampire.bloodtotal += blood
 		if(bloodtotal != src.mind.vampire.bloodtotal)
 			src << "\blue <b>You have accumulated [src.mind.vampire.bloodtotal] [src.mind.vampire.bloodtotal > 1 ? "units" : "unit"] of blood[src.mind.vampire.bloodusable != bloodusable ?", and have [src.mind.vampire.bloodusable] left to use" : "."]"

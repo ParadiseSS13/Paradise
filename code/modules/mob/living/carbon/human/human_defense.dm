@@ -191,7 +191,7 @@ emp_act
 
 	if(user == src) // Attacking yourself can't miss
 		target_zone = user.zone_sel.selecting
-	if(!target_zone && !src.stat)
+	if(!target_zone && !src.stat && !I.discrete)
 		visible_message("\red <B>[user] misses [src] with \the [I]!")
 		return 0
 
@@ -239,11 +239,11 @@ emp_act
 			emag.uses--
 			affecting.sabotaged = 1
 		return 1
-
-	if(I.attack_verb.len)
-		visible_message("\red <B>[src] has been [pick(I.attack_verb)] in the [hit_area] with [I.name] by [user]!</B>")
-	else
-		visible_message("\red <B>[src] has been attacked in the [hit_area] with [I.name] by [user]!</B>")
+	if(! I.discrete)
+		if(I.attack_verb.len)
+			visible_message("\red <B>[src] has been [pick(I.attack_verb)] in the [hit_area] with [I.name] by [user]!</B>")
+		else
+			visible_message("\red <B>[src] has been attacked in the [hit_area] with [I.name] by [user]!</B>")
 
 	var/armor = run_armor_check(affecting, "melee", "Your armor has protected your [hit_area].", "Your armor has softened hit to your [hit_area].")
 	var/weapon_sharp = is_sharp(I)

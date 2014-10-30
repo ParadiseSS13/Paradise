@@ -1122,7 +1122,8 @@ datum
 				// 1 volume = ~2% chance
 				// 10 volume = ~17% chance
 				// 30 volume = ~38% chance
-				if (rand(0, 50+volume) > 50 && ishuman(M))
+				//if (rand(0, 50+volume) > 50 && ishuman(M))
+				if (volume >= 1 && ishuman(M))
 					for(var/block=1;block<=DNA_SE_LENGTH;block++)
 						M.dna.SetSEState(block,0)
 						genemutcheck(M,block,null,MUTCHK_FORCED)
@@ -2275,6 +2276,21 @@ datum
 				..()
 				return
 
+		Spores
+			name = "Spores"
+			id = "spores"
+			description = "A toxic spore cloud which blocks vision when ingested."
+			reagent_state = LIQUID
+			color = "#9ACD32" // rgb: 0, 51, 51
+
+			on_mob_life(var/mob/living/M as mob)
+				if(!M) M = holder.my_atom
+				M.adjustToxLoss(0.5*REM)
+				..()
+				M.damageoverlaytemp = 60
+				M.eye_blurry = max(M.eye_blurry, 3)
+				return
+
 		chloralhydrate							//Otherwise known as a "Mickey Finn"
 			name = "Chloral Hydrate"
 			id = "chloralhydrate"
@@ -2287,10 +2303,10 @@ datum
 				if(!data) data = 1
 				data++
 				switch(data)
-					if(1)
+					if(1 to 10)
 						M.confused += 2
 						M.drowsyness += 2
-					if(2 to 50)
+					if(10 to 50)
 						M.sleeping += 1
 					if(51 to INFINITY)
 						M.sleeping += 1

@@ -201,7 +201,7 @@ var/list/adminlog = list()
 var/list/powernets = list()
 
 var/Debug = 0	// global debug switch
-var/Debug2 = 0
+var/Debug2 = 1   // enables detailed job debug file in secrets
 
 var/datum/debug/debugobj
 

@@ -206,8 +206,19 @@
 			icon_state = "crossbow-nocked"
 			return
 
-		else
-			..()
+		else if (istype(W,/obj/item/weapon/arrow))
+			user.visible_message("\The [src] only takes baguettes.")
+			return
+		else if(istype(W,/obj/item/stack/rods))
+			user.visible_message("\The [src] only takes baguettes.")
+			return
+
+	if(istype(W, /obj/item/weapon/cell))
+		user.visible_message("The [src] is too simple be adapted with a cell.")
+		return
+
+	else
+		..()
 
 /obj/item/weapon/gun/launcher/crossbow/french/increase_tension(var/mob/user as mob)
 

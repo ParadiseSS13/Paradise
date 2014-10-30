@@ -116,7 +116,6 @@ var/list/support_positions = list(
 	"Mime",
 	"Barber",
 	"Magistrate",
-	"Nanotrasen Representative",
 	"Nanotrasen Recruiter"
 )
 

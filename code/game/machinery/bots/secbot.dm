@@ -782,5 +782,5 @@ Auto Patrol: []"},
 /obj/machinery/bot/secbot/proc/declare_arrest()
 	var/area/location = get_area(src)
 	for(var/mob/living/carbon/human/human in world)
-		if((human.z == src.z) && istype(human.glasses, /obj/item/clothing/glasses/hud/security) && !human.blinded)
+		if((human.z == src.z) && istype(human.glasses, /obj/item/clothing/glasses/hud/security) || istype(human.glasses, /obj/item/clothing/glasses/sunglasses/sechud) && !human.blinded)
 			human << "<span class='info'>\icon[human.glasses] [src.name] is [arrest_type ? "detaining" : "arresting"] level [threatlevel] <b>[target]</b> in <b>[location]</b></span>"

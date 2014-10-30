@@ -10,17 +10,6 @@
 			H << "<span class='notice'>You are not holding anything to equip.</span>"
 			return
 
-		if(istype(I, /obj/item/clothing/head/helmet/space/rig)) // If the item to be equipped is a rigid suit helmet
-			src << "\red You must fasten the helmet to a hardsuit first. (Target the head)" // Stop eva helms equipping.
-			return 0
-
-
-		if(istype(I, /obj/item/clothing/suit/space/rig)) // If the item to be equipped is a rigid suit
-			var/obj/item/clothing/suit/space/rig/J = I
-			if(J.equip_time > 0)
-				delay_clothing_equip_to_slot_if_possible(J, 13)  // 13 = suit slot
-				return 0
-
 		if(H.equip_to_appropriate_slot(I))
 			if(hand)
 				update_inv_l_hand(0)
@@ -703,16 +692,6 @@ It can still be worn/put on as normal.
 			slot_to_process = slot_handcuffed
 			if (target.handcuffed)
 				strip_item = target.handcuffed
-			else if (source != target && ishuman(source))
-				//check that we are still grabbing them
-				var/grabbing = 0
-				for (var/obj/item/weapon/grab/G in target.grabbed_by)
-					if (G.loc == source && G.state >= GRAB_AGGRESSIVE)
-						grabbing = 1
-				if (!grabbing)
-					slot_to_process = null
-					source << "\red Your grasp was broken before you could restrain [target]!"
-
 		if("legcuff")
 			slot_to_process = slot_legcuffed
 			if (target.legcuffed)

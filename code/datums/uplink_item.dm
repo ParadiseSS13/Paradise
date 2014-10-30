@@ -144,6 +144,24 @@ var/list/uplink_items = list()
 	cost = 2
 	job = list("Janitor")
 
+//Medical
+
+
+/datum/uplink_item/jobspecific/rad_laser
+	name = "Radiation Laser"
+	desc = "A radiation laser concealed inside of a Health Analyser,  After a moderate delay, causes temporary collapse and radiation.  Has adjustable controls, but will not function as a regular health analyzer, only appears like one.  May not function correctly on radiation resistent humanoids!"
+	item = /obj/item/device/rad_laser
+	cost = 3
+	job = list(
+		"Chief Medical Officer",
+		"Medical Doctor",
+		"Geneticist",
+		"Psychiatrist",
+		"Chemist",
+		"Paramedic",
+		"Virologist",
+		"Brig Physician"
+	)
 
 //Assistant
 
@@ -190,18 +208,24 @@ var/list/uplink_items = list()
 	item = /obj/item/weapon/gun/projectile/revolver
 	cost = 6
 
+/datum/uplink_item/dangerous/pistol
+	name = "Stechkin Pistol"
+	desc = "A small, easily concealable handgun that uses 10mm magazines and is compatible with suppressors."
+	item = /obj/item/weapon/gun/projectile/automatic/pistol
+	cost = 4
+
 /datum/uplink_item/dangerous/smg
 	name = "C-20r Submachine Gun"
 	desc = "A fully-loaded Scarborough Arms-developed submachine gun that fires 12mm automatic rounds with a 20-round magazine."
 	item = /obj/item/weapon/gun/projectile/automatic/c20r
-	cost = 6
+	cost = 7
 	gamemodes = list("nuclear emergency")
 
 /datum/uplink_item/dangerous/machinegun
 	name = "L6 Squad Automatic Weapon"
 	desc = "A traditionally constructed machine gun made by AA-2531. This deadly weapon has a massive 50-round magazine of 7.62×51mm ammunition."
 	item = /obj/item/weapon/gun/projectile/automatic/l6_saw
-	cost = 10
+	cost = 20
 	gamemodes = list("nuclear emergency")
 
 
@@ -211,6 +235,12 @@ var/list/uplink_items = list()
 	item = /obj/item/ammo_box/a357
 	cost = 2
 
+/datum/uplink_item/dangerous/ammo/pistol
+	name = "Ammo-10mm"
+	desc = "An additional 8-round 10mm magazine for use in the Stetchkin pistol."
+	item = /obj/item/ammo_box/magazine/m10mm
+	cost = 1
+
 /datum/uplink_item/ammo/smg
 	name = "Ammo-12mm"
 	desc = "A 20-round 12mm magazine for use in the C-20r submachine gun."
@@ -218,19 +248,18 @@ var/list/uplink_items = list()
 	cost = 1
 	gamemodes = list("nuclear emergency")
 
-
 /datum/uplink_item/ammo/machinegun
 	name = "Ammo-7.62×51mm"
 	desc = "A 50-round magazine of 7.62×51mm ammunition for use in the L6 SAW machinegun. By the time you need to use this, you'll already be on a pile of corpses."
 	item = /obj/item/ammo_box/magazine/m762
-	cost = 3
+	cost = 6
 	gamemodes = list("nuclear emergency")
 
 /datum/uplink_item/dangerous/crossbow
 	name = "Energy Crossbow"
 	desc = "A miniature energy crossbow that is small enough both to fit into a pocket and to slip into a backpack unnoticed by observers. Fires bolts tipped with toxin, a poisonous substance that is the product of a living organism. Stuns enemies for a short period of time. Recharges automatically."
 	item = /obj/item/weapon/gun/energy/crossbow
-	cost = 7
+	cost = 5
 
 /datum/uplink_item/dangerous/sword
 	name = "Energy Sword"
@@ -239,15 +268,30 @@ var/list/uplink_items = list()
 	cost = 4
 
 /datum/uplink_item/dangerous/manhacks
-	name = "Manhack Delivery Grenade"
-	desc = "The manhack grenade is a highly specialized grenades that, once thrown, will deploy a swarm of Viscerators to attack any nearby crewmembers. WARNING: Viscerator progrmaming does not include safeties. They may turn on you!"
+	name = "Viscerator Delivery Grenade"
+	desc = "A unique grenade that deploys a swarm of viscerators upon activation, which will chase down and shred any non-operatives in the area."
 	item = /obj/item/weapon/grenade/spawnergrenade/manhacks
-	cost = 7
+	cost = 4
+	gamemodes = list("nuclear emergency")
+
+/datum/uplink_item/dangerous/bioterror
+	name = "Biohazardous Chemical Sprayer"
+	desc = "A chemical sprayer that allows a wide dispersal of selected chemicals. Especially tailored by the Tiger Cooperative, the deadly blend it comes stocked with will disorient, damage, and disable your foes... \
+	Use with extreme caution, to prevent exposure to yourself and your fellow operatives."
+	item = /obj/item/weapon/reagent_containers/spray/chemsprayer/bioterror
+	cost = 10
+	gamemodes = list("nuclear emergency")
 
 /datum/uplink_item/dangerous/emp
 	name = "5 EMP Grenades"
 	desc = "A box that contains 5 EMP grenades. Useful to disrupt communication and silicon lifeforms."
 	item = /obj/item/weapon/storage/box/emps
+	cost = 3
+
+/datum/uplink_item/dangerous/syndicate_minibomb
+	name = "Syndicate Minibomb"
+	desc = "The Minibomb is a grenade with a five-second fuse."
+	item = /obj/item/weapon/grenade/syndieminibomb
 	cost = 3
 
 
@@ -280,8 +324,7 @@ var/list/uplink_items = list()
 	name = "Stetchkin Silencer"
 	desc = "Fitted for use on the Stetchkin pistol, this silencer will make its shots quieter when equipped onto it."
 	item = /obj/item/weapon/silencer
-	cost = 1
-	gamemodes = list("nuclear emergency")
+	cost = 2
 
 // STEALTHY TOOLS
 
@@ -293,6 +336,13 @@ var/list/uplink_items = list()
 	desc = "A jumpsuit used to imitate the uniforms of Nanotrasen crewmembers."
 	item = /obj/item/clothing/under/chameleon
 	cost = 3
+
+/datum/uplink_item/stealthy_tools/chameleon_stamp
+	name = "Chameleon Stamp"
+	desc = "A stamp that can be activated to imitate an official Nanotrasen Stamp™. The disguised stamp will work exactly like the real stamp and will allow you to forge false documents to gain access or equipment; \
+	it can also be used in a washing machine to forge clothing."
+	item = /obj/item/weapon/stamp/chameleon
+	cost = 1
 
 /datum/uplink_item/stealthy_tools/syndigolashes
 	name = "No-Slip Syndicate Shoes"
@@ -317,6 +367,12 @@ var/list/uplink_items = list()
 	desc = "Projects an image across a user, disguising them as an object scanned with it, as long as they don't move the projector from their hand. The disguised user cannot run and rojectiles pass over them."
 	item = /obj/item/device/chameleon
 	cost = 4
+
+/datum/uplink_item/stealthy_tools/dnascrambler
+	name = "DNA Scrambler"
+	desc = "A syringe with one injection that randomizes appearance and name upon use. A cheaper but less versatile alternative to an agent card and voice changer."
+	item = /obj/item/weapon/dnascrambler
+	cost = 2
 
 /datum/uplink_item/stealthy_tools/mindslave
 	name = "Mindslave Implant"
@@ -411,6 +467,27 @@ var/list/uplink_items = list()
 	item = /obj/item/device/radio/beacon/syndicate
 	cost = 7
 
+/datum/uplink_item/device_tools/syndicate_bomb
+	name = "Syndicate Bomb"
+	desc = "The Syndicate Bomb has an adjustable timer with a minimum setting of 60 seconds. Ordering the bomb sends you a small beacon, which will teleport the explosive to your location when you activate it. \
+	You can wrench the bomb down to prevent removal. The crew may attempt to defuse the bomb."
+	item = /obj/item/device/radio/beacon/syndicate/bomb
+	cost = 6
+
+/datum/uplink_item/device_tools/syndicate_detonator
+	name = "Syndicate Detonator"
+	desc = "The Syndicate Detonator is a companion device to the Syndicate Bomb. Simply press the included button and an encrypted radio frequency will instruct all live syndicate bombs to detonate. \
+	Useful for when speed matters or you wish to synchronize multiple bomb blasts. Be sure to stand clear of the blast radius before using the detonator."
+	item = /obj/item/device/syndicatedetonator
+	cost = 1
+	gamemodes = list("nuclear emergency")
+
+/datum/uplink_item/device_tools/pdapinpointer
+	name = "PDA Pinpointer"
+	desc = "A pinpointer that tracks any PDA on the station. Useful for locating assassination targets or other high-value targets that you can't find. WARNING: Can only set once."
+	item = /obj/item/weapon/pinpointer/pdapinpointer
+	cost = 2
+
 /datum/uplink_item/device_tools/teleporter
 	name = "Teleporter Circuit Board"
 	desc = "A printed circuit board that completes the teleporter onboard the mothership. Advise you test fire the teleporter before entering it, as malfunctions can occur."
@@ -418,6 +495,12 @@ var/list/uplink_items = list()
 	cost = 20
 	gamemodes = list("nuclear emergency")
 
+/datum/uplink_item/device_tools/shield
+	name = "Energy Shield"
+	desc = "An incredibly useful personal shield projector, capable of reflecting energy projectiles and defending against other attacks."
+	item = /obj/item/weapon/shield/energy
+	cost = 8
+	gamemodes = list("nuclear emergency")
 
 // IMPLANTS
 
