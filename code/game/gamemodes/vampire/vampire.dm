@@ -8,7 +8,7 @@
 	name = "vampire"
 	config_tag = "vampire"
 	restricted_jobs = list("AI", "Cyborg")
-	protected_jobs = list("Security Officer", "Warden", "Detective", "Head of Security", "Captain", "Head of Personnel", "Blueshield", "Nanotrasen Representative", "Security Pod Pilot", "Nanotrasen Recruiter", "Magistrate")
+	protected_jobs = list("Security Officer", "Warden", "Detective", "Head of Security", "Captain", "Head of Personnel", "Blueshield", "Nanotrasen Representative", "Security Pod Pilot", "Nanotrasen Recruiter", "Magistrate", "Chaplain")
 	required_players = 2
 	required_players_secret = 10
 	required_enemies = 1
