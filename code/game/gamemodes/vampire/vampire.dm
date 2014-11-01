@@ -7,12 +7,12 @@
 /datum/game_mode/vampire
 	name = "vampire"
 	config_tag = "vampire"
-	restricted_jobs = list("AI", "Cyborg", "Mobile MMI", "Security Officer", "Warden", "Detective", "Head of Security", "Captain", "Chaplain", "Security Pod Pilot", "Nanotrasen Recruiter", "Magistrate") //Consistent screening has filtered all infiltration attempts on high value jobs
-	protected_jobs = list()
-	required_players = 1
-	required_players_secret = 15
+	restricted_jobs = list("AI", "Cyborg")
+	protected_jobs = list("Security Officer", "Warden", "Detective", "Head of Security", "Captain", "Head of Personnel", "Blueshield", "Nanotrasen Representative", "Security Pod Pilot", "Nanotrasen Recruiter", "Magistrate", "Chaplain")
+	required_players = 2
+	required_players_secret = 10
 	required_enemies = 1
-	recommended_enemies = 4
+	recommended_enemies = 2
 
 	uplink_welcome = "Syndicate Uplink Console:"
 	uplink_uses = 10
@@ -56,7 +56,7 @@
 			if(player.assigned_role == job)
 				possible_vampires -= player
 
-	vampire_amount = max(1,round(num_players() / 10)) //1 + round(num_players() / 10)
+	vampire_amount = 1 + round(num_players() / 10)
 
 	if(possible_vampires.len>0)
 		for(var/i = 0, i < vampire_amount, i++)
