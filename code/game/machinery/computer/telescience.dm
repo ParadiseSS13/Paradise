@@ -73,7 +73,7 @@
 			s.start()
 		if(2)
 			for(var/mob/living/carbon/human/M in viewers(telepad, null))
-				if(M.loc.loc == telepad.loc.loc)   //stops the geneticists with xray vision getting irradiated
+				if(M.loc.loc == telepad.loc.loc) // Stops the geneticists with X-Ray vision getting irradiated
 					M.apply_effect((rand(50, 100)), IRRADIATE, 0)
 					M << "\red You feel irradiated."
 		if(3)
@@ -184,13 +184,13 @@
 
 /obj/machinery/computer/telescience/proc/checkFail()
 	var/fail = 0
-	if(x_co == "")
+	if(x_co == "" || x_co == "Unset")
 		usr << "\red Error: set X coordinate."
 		fail = 1
-	if(y_co == "")
+	if(y_co == "" || y_co == "Unset")
 		usr << "\red Error: set Y coordinate."
 		fail = 1
-	if(z_co == "")
+	if(z_co == "" || z_co == "Unset")
 		usr << "\red Error: set Z coordinate."
 		fail = 1
 	if(x_co < 11 || x_co > 245)
@@ -246,7 +246,8 @@
 		if(telepad == null)
 			for(var/obj/machinery/telepad/T in range(src,10))
 				telepad = T
-		if(!telepad)	return
+		if(!telepad)	
+			return
 		var/teleturf = get_turf(telepad)
 		teles_left = rand(8,12)
 		x_off = rand(-10,10)
@@ -258,7 +259,7 @@
 		nanomanager.update_uis(src)
 		return
 
-/obj/machinery/computer/telescience/attackby(I as obj, user as mob)		//Emagging.
+/obj/machinery/computer/telescience/attackby(I as obj, user as mob) // Emagging
 	if(istype(I,/obj/item/weapon/card/emag))
 		if (src.emagged == 0)
 			user << "\blue You scramble the Telescience authentication key to an unknown signal. You should be able to teleport to more places now!"
