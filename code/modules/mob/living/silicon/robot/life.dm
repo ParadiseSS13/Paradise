@@ -37,7 +37,8 @@
 	if (is_component_functioning("power cell") && cell)
 		if(src.cell.charge <= 0)
 			uneq_all()
-			src.stat = 1
+			src.stat = 1		
+			Paralyse(3)
 		else
 			if(src.module_state_1)
 				src.cell.use(3)
@@ -56,7 +57,8 @@
 			src.stat = 0
 	else
 		uneq_all()
-		src.stat = 1
+		src.stat = 1	
+		Paralyse(3)
 
 
 /mob/living/silicon/robot/proc/handle_regular_status_updates()
@@ -129,12 +131,12 @@
 	if (src.stat != 0)
 		uneq_all()
 
-	if(!is_component_functioning("radio"))
+	if(!is_component_functioning("radio") || src.stat == 1)
 		radio.on = 0
 	else
 		radio.on = 1
 
-	if(is_component_functioning("camera"))
+	if(is_component_functioning("camera") && src.stat == 0)
 		src.blinded = 0
 	else
 		src.blinded = 1
