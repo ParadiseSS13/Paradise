@@ -897,6 +897,7 @@ var/list/slot_equipment_priority = list( \
 				if("holdervar")
 					statpanel(S.panel,"[S.holder_var_type] [S.holder_var_amount]",S)
 
+	/* // Why have a duplicate set of turfs in the stat panel?
 	if(listed_turf)
 		if(get_dist(listed_turf,src) > 1)
 			listed_turf = null
@@ -906,7 +907,7 @@ var/list/slot_equipment_priority = list( \
 				if(A.invisibility > see_invisible)
 					continue
 				statpanel(listed_turf.name,A.name,A)
-
+	*/
 
 
 // facing verbs
