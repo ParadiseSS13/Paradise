@@ -201,13 +201,45 @@
 		return
 
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/carbine
-	name = "\improper FNX-66 Carbine"
+	name = "FNX-66 Carbine"
 	icon_state = "mecha_carbine"
 	equip_cooldown = 5
-	projectile = /obj/item/projectile/bullet/incendiary/mech
-	projectiles = 12
+	projectile = /obj/item/projectile/bullet/incendiary/shell/dragonsbreath
+	fire_sound = 'sound/weapons/Gunshot.ogg'
+	projectiles = 24
 	projectile_energy_cost = 15
+	var/projectiles_per_shot = 1
+	var/deviation = 0.0
 
+	action(atom/target)
+		if(!action_checks(target)) return
+		var/turf/targloc = get_turf(target)
+		var/target_x = targloc.x
+		var/target_y = targloc.y
+		var/target_z = targloc.z
+		targloc = null
+		spawn	for(var/i=1 to min(projectiles, projectiles_per_shot))
+			if(!chassis) break
+			var/turf/curloc = get_turf(chassis)
+			targloc = locate(target_x+GaussRandRound(deviation,1),target_y+GaussRandRound(deviation,1),target_z)
+			if (!targloc || !curloc)
+				continue
+			if (targloc == curloc)
+				continue
+
+			playsound(chassis, fire_sound, 50, 1)
+			var/obj/item/projectile/A = new projectile(curloc)
+			src.projectiles--
+			A.original = target
+			A.current = curloc
+			A.yo = targloc.y - curloc.y
+			A.xo = targloc.x - curloc.x
+			A.process()
+			sleep(2)
+		set_ready_state(0)
+		log_message("Fired from [src.name], targeting [target].")
+		do_after_cooldown()
+		return
 
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/silenced
 	name = "\improper S.H.H. \"Quietus\" Carbine"
@@ -222,7 +254,7 @@
 	name = "LBX AC 10 \"Scattershot\""
 	icon_state = "mecha_scatter"
 	equip_cooldown = 20
-	projectile = /obj/item/projectile/bullet/midbullet10
+	projectile = /obj/item/projectile/bullet/midbullet12
 	fire_sound = 'sound/weapons/Gunshot.ogg'
 	projectiles = 40
 	projectile_energy_cost = 25
@@ -263,7 +295,7 @@
 	equip_cooldown = 10
 	projectile = /obj/item/projectile/bullet/weakbullet
 	fire_sound = 'sound/weapons/Gunshot.ogg'
-	projectiles = 50
+	projectiles = 300
 	projectile_energy_cost = 20
 	var/projectiles_per_shot = 3
 	var/deviation = 0.3
@@ -299,11 +331,11 @@
 		return
 
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack
-	name = "SRM-4 Missile Rack"
+	name = "SRM-8 Missile Rack"
 	icon_state = "mecha_missilerack"
 	projectile = /obj/item/missile
 	fire_sound = 'sound/effects/bang.ogg'
-	projectiles = 4
+	projectiles = 8
 	projectile_energy_cost = 1000
 	equip_cooldown = 60
 	var/missile_speed = 2
@@ -331,7 +363,7 @@
 
 	throw_impact(atom/hit_atom)
 		if(primed)
-			explosion(hit_atom,1,2,2)
+			explosion(hit_atom, 0, 0, 2, 4)
 			del(src)
 		else
 			..()
@@ -345,7 +377,7 @@
 	projectiles = 6
 	missile_speed = 1.5
 	projectile_energy_cost = 800
-	equip_cooldown = 150
+	equip_cooldown = 60
 	var/det_time = 20
 	size=1
 	action(target)

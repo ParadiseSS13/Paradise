@@ -198,6 +198,21 @@
 		new /obj/item/weapon/grenade/flashbang(src)
 		new /obj/item/weapon/grenade/flashbang(src)
 
+/obj/item/weapon/storage/box/teargas
+	name = "box of tear gas grenades (WARNING)"
+	desc = "<B>WARNING: These devices are extremely dangerous and can cause blindness and skin irritation.</B>"
+	icon_state = "flashbang"
+
+/obj/item/weapon/storage/box/teargas/New()
+	..()
+	new /obj/item/weapon/grenade/chem_grenade/teargas(src)
+	new /obj/item/weapon/grenade/chem_grenade/teargas(src)
+	new /obj/item/weapon/grenade/chem_grenade/teargas(src)
+	new /obj/item/weapon/grenade/chem_grenade/teargas(src)
+	new /obj/item/weapon/grenade/chem_grenade/teargas(src)
+	new /obj/item/weapon/grenade/chem_grenade/teargas(src)
+	new /obj/item/weapon/grenade/chem_grenade/teargas(src)
+
 /obj/item/weapon/storage/box/emps
 	name = "emp grenades"
 	desc = "A box with 5 emp grenades."
