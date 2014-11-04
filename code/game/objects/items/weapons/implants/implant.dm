@@ -405,7 +405,7 @@ the implant may become unstable and either pre-maturely inject the subject or si
 /obj/item/weapon/implant/adrenalin
 	name = "adrenalin"
 	desc = "Removes all stuns and knockdowns."
-	var/uses
+	var/uses = 3
 
 	get_data()
 		var/dat = {"
@@ -414,8 +414,8 @@ the implant may become unstable and either pre-maturely inject the subject or si
 <b>Life:</b> Five days.<BR>
 <b>Important Notes:</b> <font color='red'>Illegal</font><BR>
 <HR>
-<b>Implant Details:</b> Subjects injected with implant can activate a massive injection of adrenalin.<BR>
-<b>Function:</b> Contains nanobots to stimulate body to mass-produce Adrenalin.<BR>
+<b>Implant Details:</b> Subjects injected with implant can activate an injection of medical cocktails.<BR>
+<b>Function:</b> Removes stuns, increases speed, and has a mild healing effect.<BR>
 <b>Special Features:</b> Will prevent and cure most forms of brainwashing.<BR>
 <b>Integrity:</b> Implant can only be used three times before the nanobots are depleted."}
 		return dat
@@ -429,6 +429,12 @@ the implant may become unstable and either pre-maturely inject the subject or si
 			source.SetStunned(0)
 			source.SetWeakened(0)
 			source.SetParalysis(0)
+			source.lying = 0
+			source.update_canmove()
+
+			source.reagents.add_reagent("synaptizine", 10)
+			source.reagents.add_reagent("tricordrazine", 10)
+			source.reagents.add_reagent("hyperzine", 10)
 
 		return
 

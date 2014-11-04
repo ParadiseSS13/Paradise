@@ -927,9 +927,9 @@ obj/item/toy/cards/deck/syndicate
 	desc = "A deck of space-grade playing cards. They seem unusually rigid."
 	deckstyle = "syndicate"
 	card_hitsound = 'sound/weapons/bladeslice.ogg'
-	card_force = 15
-	card_throwforce = 15
-	card_throw_speed = 6
+	card_force = 5
+	card_throwforce = 10
+	card_throw_speed = 3
 	card_throw_range = 20
 	card_attack_verb = list("attacked", "sliced", "diced", "slashed", "cut")
 
@@ -952,13 +952,18 @@ obj/item/toy/cards/deck/syndicate/black
 
 /obj/item/toy/nuke/attack_self(mob/user)
 	if (cooldown < world.time)
-		cooldown = world.time + 3000 //5 minutes
+		cooldown = world.time + 1800 //3 minutes
 		user.visible_message("<span class='warning'>[user] presses a button on [src]</span>", "<span class='notice'>You activate [src], it plays a loud noise!</span>", "<span class='notice'>You hear the click of a button.</span>")
 		spawn(5) //gia said so
 			icon_state = "nuketoy"
-			playsound(src, 'sound/machines/Alarm.ogg', 100, 0, surround = 0)
+			playsound(src, 'sound/machines/Alarm.ogg', 100, 0, 0)
 			sleep(135)
+			icon_state = "nuketoycool"
+			sleep(cooldown - world.time)
 			icon_state = "nuketoyidle"
+	else
+		var/timeleft = (cooldown - world.time)
+		user << "<span class='alert'>Nothing happens, and '</span>[round(timeleft/10)]<span class='alert'>' appears on a small display.</span>"
 
 
 /obj/item/toy/therapy_red

@@ -66,9 +66,9 @@
 	name = "buckshot shell"
 	desc = "A 12 gauge buckshot shell."
 	icon_state = "gshell"
-	projectile_type = /obj/item/projectile/bullet/buck
-	buck = 4
-	deviation = 1
+	projectile_type = "/obj/item/projectile/bullet/buck"
+	buck = 5
+	deviation = 0.8
 
 /obj/item/ammo_casing/shotgun/birdshot
 	name = "birdshot shell"
@@ -98,7 +98,7 @@
 	name = "stun shell"
 	desc = "A stunning shell."
 	icon_state = "stunshell"
-	projectile_type = "/obj/item/projectile/bullet/stunshot"
+	projectile_type = "/obj/item/projectile/bullet/stunslug"
 	m_amt = 2500
 
 
@@ -106,7 +106,7 @@
 	name = "incendiary shell"
 	desc = "An incendiary shell"
 	icon_state = "ishell"
-	projectile_type = /obj/item/projectile/bullet/incendiary/shell
+	projectile_type = "/obj/item/projectile/bullet/incendiary/shell"
 	m_amt = 12500
 
 
