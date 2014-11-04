@@ -13,7 +13,7 @@ proc/issyndicate(mob/living/M as mob)
 	recommended_enemies = 4
 
 	uplink_welcome = "Corporate Backed Uplink Console:"
-	uplink_uses = 40
+	uplink_uses = 55
 
 	var/const/agents_possible = 5 //If we ever need more syndicate agents.
 	var/const/waittime_l = 600 //lower bound on time before intercept arrives (in tenths of seconds)
@@ -210,7 +210,7 @@ proc/issyndicate(mob/living/M as mob)
 
 	synd_mob.equip_to_slot_or_del(new /obj/item/clothing/under/syndicate(synd_mob), slot_w_uniform)
 	synd_mob.equip_to_slot_or_del(new /obj/item/clothing/shoes/black(synd_mob), slot_shoes)
-	synd_mob.equip_to_slot_or_del(new /obj/item/clothing/gloves/swat(synd_mob), slot_gloves)
+	synd_mob.equip_or_collect(new /obj/item/clothing/gloves/combat(synd_mob), slot_gloves)
 	synd_mob.equip_to_slot_or_del(new /obj/item/weapon/card/id/syndicate(synd_mob), slot_wear_id)
 	if(synd_mob.backbag == 2) synd_mob.equip_to_slot_or_del(new /obj/item/weapon/storage/backpack(synd_mob), slot_back)
 	if(synd_mob.backbag == 3) synd_mob.equip_to_slot_or_del(new /obj/item/weapon/storage/backpack/satchel_norm(synd_mob), slot_back)
@@ -232,10 +232,13 @@ proc/issyndicate(mob/living/M as mob)
 		switch(race)
 			if("Unathi")
 				new_suit.species_restricted = list("Unathi")
+				new_helmet.species_restricted = list("Unathi")
 			if("Tajaran")
 				new_suit.species_restricted = list("Tajaran")
+				new_helmet.species_restricted = list("Tajaran")
 			if("Skrell")
 				new_suit.species_restricted = list("Skrell")
+				new_helmet.species_restricted = list("Skrell")
 			if("Vox" || "Vox Armalis")
 				synd_mob.equip_to_slot_or_del(new /obj/item/clothing/mask/breath(synd_mob), slot_wear_mask)
 				synd_mob.equip_to_slot_or_del(new /obj/item/weapon/tank/nitrogen(synd_mob), slot_l_hand)
@@ -243,6 +246,7 @@ proc/issyndicate(mob/living/M as mob)
 				if (synd_mob.internals)
 					synd_mob.internals.icon_state = "internal1"
 				new_suit.species_restricted = list ("Vox", "Vox Armalis")
+				new_helmet.species_restricted = list ("Vox", "Vox Armalis")
 
 
 	synd_mob.equip_to_slot_or_del(new_suit, slot_wear_suit)
@@ -252,6 +256,7 @@ proc/issyndicate(mob/living/M as mob)
 	var/obj/item/weapon/implant/dexplosive/E = new/obj/item/weapon/implant/dexplosive(synd_mob)
 	E.imp_in = synd_mob
 	E.implanted = 1
+	synd_mob.faction |= "syndicate"
 	synd_mob.update_icons()
 	return 1
 

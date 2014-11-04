@@ -228,33 +228,6 @@ var/list/uplink_items = list()
 	cost = 20
 	gamemodes = list("nuclear emergency")
 
-
-/datum/uplink_item/dangerous/ammo
-	name = "Ammo-357"
-	desc = "Seven additional rounds for the revolver. Reports indicate the presence of machinery aboard Nanotrasen space stations suitable for producing extra .357 cartridges."
-	item = /obj/item/ammo_box/a357
-	cost = 2
-
-/datum/uplink_item/dangerous/ammo/pistol
-	name = "Ammo-10mm"
-	desc = "An additional 8-round 10mm magazine for use in the Stetchkin pistol."
-	item = /obj/item/ammo_box/magazine/m10mm
-	cost = 1
-
-/datum/uplink_item/ammo/smg
-	name = "Ammo-12mm"
-	desc = "A 20-round 12mm magazine for use in the C-20r submachine gun."
-	item = /obj/item/ammo_box/magazine/m12mm
-	cost = 1
-	gamemodes = list("nuclear emergency")
-
-/datum/uplink_item/ammo/machinegun
-	name = "Ammo-7.62×51mm"
-	desc = "A 50-round magazine of 7.62×51mm ammunition for use in the L6 SAW machinegun. By the time you need to use this, you'll already be on a pile of corpses."
-	item = /obj/item/ammo_box/magazine/m762
-	cost = 6
-	gamemodes = list("nuclear emergency")
-
 /datum/uplink_item/dangerous/crossbow
 	name = "Energy Crossbow"
 	desc = "A miniature energy crossbow that is small enough both to fit into a pocket and to slip into a backpack unnoticed by observers. Fires bolts tipped with toxin, a poisonous substance that is the product of a living organism. Stuns enemies for a short period of time. Recharges automatically."
@@ -293,6 +266,52 @@ var/list/uplink_items = list()
 	desc = "The Minibomb is a grenade with a five-second fuse."
 	item = /obj/item/weapon/grenade/syndieminibomb
 	cost = 3
+
+/datum/uplink_item/dangerous/gygax
+	name = "Gygax Exosuit"
+	desc = "A lightweight exosuit, painted in a dark scheme. Its speed and equipment selection make it excellent for hit-and-run style attacks. \
+	This model lacks a method of space propulsion, and therefore it is advised to repair the mothership's teleporter if you wish to make use of it."
+	item = /obj/mecha/combat/gygax/dark/loaded
+	cost = 45
+	gamemodes = list("nuclear emergency")
+
+/datum/uplink_item/dangerous/mauler
+	name = "Mauler Exosuit"
+	desc = "A massive and incredibly deadly Syndicate exosuit. Features long-range targetting, thrust vectoring, and deployable smoke."
+	item = /obj/mecha/combat/marauder/mauler/loaded
+	cost = 70
+	gamemodes = list("nuclear emergency")
+
+// Ammunition
+
+/datum/uplink_item/ammo
+	category = "Ammunition"
+
+/datum/uplink_item/ammo/revolver
+	name = "Ammo-357"
+	desc = "A box that contains seven additional rounds for the revolver, made using an automatic lathe."
+	item = /obj/item/ammo_box/a357
+	cost = 2
+
+/datum/uplink_item/ammo/pistol
+	name = "Ammo-10mm"
+	desc = "An additional 8-round 10mm magazine for use in the Stetchkin pistol."
+	item = /obj/item/ammo_box/magazine/m10mm
+	cost = 1
+
+/datum/uplink_item/ammo/smg
+	name = "Ammo-12mm"
+	desc = "A 20-round 12mm magazine for use in the C-20r submachine gun."
+	item = /obj/item/ammo_box/magazine/m12mm
+	cost = 1
+	gamemodes = list("nuclear emergency")
+
+/datum/uplink_item/ammo/machinegun
+	name = "Ammo-7.62×51mm"
+	desc = "A 50-round magazine of 7.62×51mm ammunition for use in the L6 SAW machinegun. By the time you need to use this, you'll already be on a pile of corpses."
+	item = /obj/item/ammo_box/magazine/m762
+	cost = 6
+	gamemodes = list("nuclear emergency")
 
 
 // STEALTHY WEAPONS
@@ -373,12 +392,6 @@ var/list/uplink_items = list()
 	desc = "A syringe with one injection that randomizes appearance and name upon use. A cheaper but less versatile alternative to an agent card and voice changer."
 	item = /obj/item/weapon/dnascrambler
 	cost = 2
-
-/datum/uplink_item/stealthy_tools/mindslave
-	name = "Mindslave Implant"
-	desc = "A box containing an implanter filled with a mindslave implant that when injected into another person makes them loyal to you and your cause, unless of course they're already implanted by someone else. Loyalty ends if the implant is no longer in their system."
-	item = /obj/item/weapon/storage/box/syndie_kit/mindslave
-	cost = 5
 
 // DEVICE AND TOOLS
 
@@ -531,6 +544,17 @@ var/list/uplink_items = list()
 	item = /obj/item/weapon/storage/box/syndie_kit/imp_compress
 	cost = 4
 
+/datum/uplink_item/implants/mindslave
+	name = "Mindslave Implant"
+	desc = "A box containing an implanter filled with a mindslave implant that when injected into another person makes them loyal to you and your cause, unless of course they're already implanted by someone else. Loyalty ends if the implant is no longer in their system."
+	item = /obj/item/weapon/storage/box/syndie_kit/mindslave
+	cost = 5
+
+/datum/uplink_item/implants/adrenal
+	name = "Adrenal Implant"
+	desc = "An implant injected into the body, and later activated using a bodily gesture to inject a chemical cocktail, which has a mild healing effect along with removing all stuns and increasing his speed."
+	item = /obj/item/weapon/storage/box/syndie_kit/imp_adrenal
+	cost = 4
 
 // POINTLESS BADASSERY
 
@@ -548,7 +572,7 @@ var/list/uplink_items = list()
 	desc = "A special deck of space-grade playing cards with a mono-molecular edge and metal reinforcement, making them lethal weapons both when wielded as a blade and when thrown. \
 	You can also play card games with them."
 	item = /obj/item/toy/cards/deck/syndicate
-	cost = 2
+	cost = 1
 
 /datum/uplink_item/badass/balloon
 	name = "For showing that you are The Boss"

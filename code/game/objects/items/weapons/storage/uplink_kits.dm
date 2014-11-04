@@ -135,6 +135,15 @@
 	new /obj/item/ammo_box/a357(src)
 	return
 
+/obj/item/weapon/storage/box/syndie_kit/imp_adrenal
+	name = "boxed adrenal implant (with injector)"
+
+	New()
+		..()
+		var/obj/item/weapon/implanter/O = new(src)
+		O.imp = new /obj/item/weapon/implant/adrenalin(O)
+		O.update()
+
 /obj/item/weapon/storage/box/syndie_kit/mindslave
 	name = "box (MS)"
 
