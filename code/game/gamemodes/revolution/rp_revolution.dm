@@ -9,7 +9,7 @@
 	recommended_enemies = 3
 
 	uplink_welcome = "Revolutionary Uplink Console:"
-	uplink_uses = 5
+	uplink_uses = 10
 
 	newscaster_announcements = /datum/news_announcement/revolution_inciting_event
 

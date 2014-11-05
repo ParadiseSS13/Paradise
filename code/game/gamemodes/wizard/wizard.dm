@@ -10,7 +10,7 @@
 	recommended_enemies = 1
 
 	uplink_welcome = "Wizardly Uplink Console:"
-	uplink_uses = 10
+	uplink_uses = 20
 
 	var/finished = 0
 

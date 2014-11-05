@@ -20,7 +20,12 @@
 	desc = "A heads-up display that scans the humans in view and provides accurate data about their health status.  Includes anti-flash filter."
 	icon_state = "advmedhud"
 
-
+/obj/item/clothing/glasses/hud/health/night
+	name = "Night Vision Health Scanner HUD"
+	desc = "An advanced medical head-up display that allows doctors to find patients in complete darkness."
+	icon_state = "healthhudnight"
+	item_state = "glasses"
+	darkness_view = 8
 
 /obj/item/clothing/glasses/hud/health/process_hud(var/mob/M)
 	if(!M)	return
@@ -56,6 +61,12 @@
 	item_state = "jensenshades"
 	vision_flags = SEE_MOBS
 	invisa_view = 2
+
+/obj/item/clothing/glasses/hud/security/night
+	name = "Night Vision Security HUD"
+	desc = "An advanced heads-up display which provides id data and vision in complete darkness."
+	icon_state = "securityhudnight"
+	darkness_view = 8
 
 /obj/item/clothing/glasses/hud/security/process_hud(var/mob/M)
 
