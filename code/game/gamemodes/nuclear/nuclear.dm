@@ -8,12 +8,12 @@ proc/issyndicate(mob/living/M as mob)
 	name = "nuclear emergency"
 	config_tag = "nuclear"
 	required_players = 6
-	required_players_secret = 15 // 25 players - 5 players to be the nuke ops = 20 players remaining
-	required_enemies = 3
-	recommended_enemies = 4
+	required_players_secret = 20 // 20 players - 5 players to be the nuke ops = 15 players remaining
+	required_enemies = 5
+	recommended_enemies = 5
 
 	uplink_welcome = "Corporate Backed Uplink Console:"
-	uplink_uses = 55
+	uplink_uses = 120
 
 	var/const/agents_possible = 5 //If we ever need more syndicate agents.
 	var/const/waittime_l = 600 //lower bound on time before intercept arrives (in tenths of seconds)

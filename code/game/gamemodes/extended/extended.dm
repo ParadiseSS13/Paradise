@@ -4,7 +4,7 @@
 	required_players = 0
 
 	uplink_welcome = "Syndicate Uplink Console:"
-	uplink_uses = 10
+	uplink_uses = 20
 
 	var/const/waittime_l = 600 //lower bound on time before intercept arrives (in tenths of seconds)
 	var/const/waittime_h = 1800

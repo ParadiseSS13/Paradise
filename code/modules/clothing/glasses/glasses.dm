@@ -49,8 +49,7 @@
 	icon_state = "night"
 	item_state = "glasses"
 	origin_tech = "magnets=2"
-	vision_flags = SEE_TURFS
-	darkness_view = 3
+	darkness_view = 8
 	species_fit = list("Vox")
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/eyes.dmi'

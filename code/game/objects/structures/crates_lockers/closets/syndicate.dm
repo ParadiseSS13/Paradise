@@ -47,7 +47,7 @@
 	new /obj/item/weapon/pinpointer/nukeop(src)
 	new /obj/item/device/pda/syndicate(src)
 	var/obj/item/device/radio/uplink/U = new(src)
-	U.hidden_uplink.uses = 55
+	U.hidden_uplink.uses = 120
 	return
 
 /obj/structure/closet/syndicate/resources/
