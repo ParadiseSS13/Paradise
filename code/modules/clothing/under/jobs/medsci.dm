@@ -176,6 +176,17 @@
 		"Vox" = 'icons/mob/species/vox/uniform.dmi'
 		)
 
+/obj/item/clothing/under/rank/medical/mortician
+	name = "mortician's scrubs"
+	desc = "It's made of a special fiber that provides minor protection against biohazards. This one is as dark as an emo's poetry."
+	icon_state = "scrubsblack"
+	_color = "scrubsblack"
+	flags = FPRINT | TABLEPASS | ONESIZEFITSALL
+	species_fit = list("Vox")
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/species/vox/uniform.dmi'
+		)
+
 //paramedic
 /obj/item/clothing/under/rank/medical/paramedic
 	desc = "It's made of a special fiber that provides minor protection against biohazards and radiation. It has a cross on the chest denoting that the wearer is trained medical personnel."
@@ -191,7 +202,21 @@
 		"Vox" = 'icons/mob/species/vox/uniform.dmi'
 		)
 
+/obj/item/clothing/under/rank/psych
+	desc = "A basic white jumpsuit. It has turqouise markings that denote the wearer as a psychiatrist."
+	name = "psychiatrist's jumpsuit"
+	icon_state = "psych"
+	item_state = "w_suit"
+	_color = "psych"
+	flags = FPRINT | TABLEPASS
 
+/obj/item/clothing/under/rank/psych/turtleneck
+	desc = "A turqouise turtleneck and a pair of dark blue slacks, belonging to a psychologist."
+	name = "psychologist's turtleneck"
+	icon_state = "psychturtle"
+	item_state = "b_suit"
+	_color = "psychturtle"
+	flags = FPRINT | TABLEPASS
 
 
 /*

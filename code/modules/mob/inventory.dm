@@ -138,14 +138,6 @@
 	if(hand)	return drop_l_hand(Target)
 	else		return drop_r_hand(Target)
 
-
-
-
-
-
-
-
-
 //TODO: phase out this proc
 /mob/proc/before_take_item(var/obj/item/W)	//TODO: what is this?
 	W.loc = null
@@ -153,7 +145,6 @@
 	u_equip(W)
 	update_icons()
 	return
-
 
 /mob/proc/u_equip(W as obj)
 	if (W == r_hand)

@@ -533,7 +533,13 @@ var/list/sacrificed = list()
 			return 0
 
 	// record this
-	cult_log("[key_name(usr,0)] says : [input]")
+	//cult_log("[key_name(usr,0)] says : [input]")
+
+
+	var/F = investigate_subject2file("cult")
+	if(!F)
+		return 0
+	F << "<small>[time2text(world.timeofday,"hh:mm")] \ref[usr] ([usr.x],[usr.y],[usr.z])</small> || [usr] communicates: [input]<br>"
 
 	var/obj/cult_viewpoint/vp = getCultViewpoint(usr)
 	if (!vp)

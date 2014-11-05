@@ -108,7 +108,10 @@
 
 	var/mob/living/carbon/human/O
 	if(Mo.greaterform)
-		O = new(src, Mo.greaterform)
+		var/greatform = lowertext(Mo.greaterform)
+		var/typepath = "/mob/living/carbon/human/"
+		typepath += greatform
+		O = new typepath(src, greatform)
 	else
 		O = new(src)
 
@@ -152,6 +155,7 @@
 			continue
 		else
 			O.real_name = randomname
+			O.dna.real_name = randomname
 			i++
 	O.UpdateAppearance()
 	O.take_overall_damage(M.getBruteLoss(), M.getFireLoss())

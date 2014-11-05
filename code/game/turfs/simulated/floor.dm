@@ -583,3 +583,30 @@ turf/simulated/floor/proc/update_icon()
 					broken = 0
 				else
 					user << "\blue You need more welding fuel to complete this task."
+
+	if(istype(C,/obj/item/pipe))
+		var/obj/item/pipe/V = C
+		if(V.pipe_type != -1) // ANY PIPE
+			var/obj/item/pipe/P = C
+
+			user.visible_message( \
+				"[user] starts sliding [P] along \the [src].", \
+				"\blue You slide [P] along \the [src].", \
+				"You hear the scrape of metal against something.")
+			user.drop_item()
+			if (P.pipe_type in list (1,3,12))  // bent pipe rotation fix see construction.dm
+				P.dir = 5
+				if (user.dir == 1)
+					P.dir = 6
+				if (user.dir == 2)
+					P.dir = 9
+				if (user.dir == 4)
+					P.dir = 10
+				if (user.dir == 5)
+					P.dir = 8
+			else
+				P.dir = user.dir
+			P.x = src.x
+			P.y = src.y
+			P.z = src.z
+			P.loc = src

@@ -35,7 +35,13 @@
 	if(istype(I,/obj/item/weapon/modkit/tajaran))
 		user.drop_item()
 		playsound(src.loc, 'sound/items/Screwdriver.ogg', 100, 1)
-		user << "\red You painstakingly modify [src] to make it more suitable for a Tajaran user."
+		if(helmet)
+			helmet.loc = get_turf(src)
+			src.helmet = null
+			user << "\red You painstakingly modify [src] to make it more suitable for a Tajaran user.  You pop the helmet on the floor"
+		else
+			user << "\red You painstakingly modify [src] to make it more suitable for a Tajaran user."
+
 		new /obj/item/clothing/suit/space/rig/tajara(user.loc)
 		del(I)
 		del(src)
@@ -43,7 +49,13 @@
 	if(istype(I,/obj/item/weapon/modkit/unathi))
 		user.drop_item()
 		playsound(src.loc, 'sound/items/Screwdriver.ogg', 100, 1)
-		user << "\red You painstakingly modify [src] to make it more suitable for a Tajaran user."
+		if(helmet)
+			helmet.loc = get_turf(src)
+			src.helmet = null
+			user << "\red You painstakingly modify [src] to make it more suitable for a Unathi user.  You pop the helmet on the floor"
+		else
+			user << "\red You painstakingly modify [src] to make it more suitable for a Unathi user."
+
 		new /obj/item/clothing/suit/space/rig/unathi(user.loc)
 		del(I)
 		del(src)

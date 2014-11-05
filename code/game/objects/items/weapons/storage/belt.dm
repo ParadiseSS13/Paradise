@@ -72,6 +72,7 @@
 
 
 /obj/item/weapon/storage/belt/medical
+	use_to_pickup = 1 //Allow medical belt to pick up medicine
 	name = "medical belt"
 	desc = "Can hold various medical equipment."
 	icon_state = "medicalbelt"
@@ -124,7 +125,8 @@
 		"/obj/item/device/radio/headset",
 		"/obj/item/weapon/melee",
 		"/obj/item/taperoll/police",
-		"/obj/item/weapon/gun/energy/taser"
+		"/obj/item/weapon/gun/energy/taser",
+		"/obj/item/weapon/gun/energy/stunrevolver"
 		)
 
 /obj/item/weapon/storage/belt/soulstone

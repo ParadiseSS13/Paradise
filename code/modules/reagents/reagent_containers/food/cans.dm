@@ -201,7 +201,8 @@
 	icon_state = "thirteen_loko"
 	New()
 		..()
-		reagents.add_reagent("thirteenloko", 30)
+		reagents.add_reagent("thirteenloko", 25)
+		reagents.add_reagent("psilocybin", 5)
 		src.pixel_x = rand(-10.0, 10)
 		src.pixel_y = rand(-10.0, 10)
 
@@ -221,8 +222,7 @@
 	icon_state = "starkist"
 	New()
 		..()
-		reagents.add_reagent("cola", 15)
-		reagents.add_reagent("orangejuice", 15)
+		reagents.add_reagent("brownstar", 30)
 		src.pixel_x = rand(-10.0, 10)
 		src.pixel_y = rand(-10.0, 10)
 

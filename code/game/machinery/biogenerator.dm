@@ -19,14 +19,6 @@
 		R.my_atom = src
 		beaker = new /obj/item/weapon/reagent_containers/glass/beaker/large(src)
 
-	l_color = "#7BF9FF"
-	power_change()
-		..()
-		if(!(stat & (BROKEN|NOPOWER)))
-			SetLuminosity(2)
-		else
-			SetLuminosity(0)
-
 	on_reagent_change()			//When the reagents change, change the icon as well.
 		update_icon()
 
@@ -108,6 +100,7 @@
 					dat += "<A href='?src=\ref[src];action=create;item=gloves;cost=250'>Botanical gloves</A> <FONT COLOR=blue>(250)</FONT><BR>"
 					dat += "<A href='?src=\ref[src];action=create;item=tbelt;cost=300'>Utility belt</A> <FONT COLOR=blue>(300)</FONT><BR>"
 					dat += "<A href='?src=\ref[src];action=create;item=satchel;cost=400'>Leather Satchel</A> <FONT COLOR=blue>(400)</FONT><BR>"
+					dat += "<A href='?src=\ref[src];action=create;item=cashbag;cost=400'>Cash Bag</A> <FONT COLOR=blue>(400)</FONT><BR>"
 					//dat += "Other<BR>"
 					//dat += "<A href='?src=\ref[src];action=create;item=monkey;cost=500'>Monkey</A> <FONT COLOR=blue>(500)</FONT><BR>"
 				else
@@ -147,7 +140,7 @@
 		processing = 1
 		update_icon()
 		updateUsrDialog()
-		playsound(get_turf(src), 'sound/machines/blender.ogg', 50, 1)
+		playsound(src.loc, 'sound/machines/blender.ogg', 50, 1)
 		use_power(S*30)
 		sleep(S+15)
 		processing = 0
@@ -171,29 +164,29 @@
 		if("meat")
 			new/obj/item/weapon/reagent_containers/food/snacks/meat(src.loc)
 		if("ez")
-			new/obj/item/nutrient/ez(src.loc)
+			new/obj/item/weapon/reagent_containers/glass/fertilizer/ez(src.loc)
 		if("l4z")
-			new/obj/item/nutrient/l4z(src.loc)
+			new/obj/item/weapon/reagent_containers/glass/fertilizer/l4z(src.loc)
 		if("rh")
-			new/obj/item/nutrient/rh(src.loc)
+			new/obj/item/weapon/reagent_containers/glass/fertilizer/rh(src.loc)
 		if("ez5") //It's not an elegant method, but it's safe and easy. -Cheridan
-			new/obj/item/nutrient/ez(src.loc)
-			new/obj/item/nutrient/ez(src.loc)
-			new/obj/item/nutrient/ez(src.loc)
-			new/obj/item/nutrient/ez(src.loc)
-			new/obj/item/nutrient/ez(src.loc)
+			new/obj/item/weapon/reagent_containers/glass/fertilizer/ez(src.loc)
+			new/obj/item/weapon/reagent_containers/glass/fertilizer/ez(src.loc)
+			new/obj/item/weapon/reagent_containers/glass/fertilizer/ez(src.loc)
+			new/obj/item/weapon/reagent_containers/glass/fertilizer/ez(src.loc)
+			new/obj/item/weapon/reagent_containers/glass/fertilizer/ez(src.loc)
 		if("l4z5")
-			new/obj/item/nutrient/l4z(src.loc)
-			new/obj/item/nutrient/l4z(src.loc)
-			new/obj/item/nutrient/l4z(src.loc)
-			new/obj/item/nutrient/l4z(src.loc)
-			new/obj/item/nutrient/l4z(src.loc)
+			new/obj/item/weapon/reagent_containers/glass/fertilizer/l4z(src.loc)
+			new/obj/item/weapon/reagent_containers/glass/fertilizer/l4z(src.loc)
+			new/obj/item/weapon/reagent_containers/glass/fertilizer/l4z(src.loc)
+			new/obj/item/weapon/reagent_containers/glass/fertilizer/l4z(src.loc)
+			new/obj/item/weapon/reagent_containers/glass/fertilizer/l4z(src.loc)
 		if("rh5")
-			new/obj/item/nutrient/rh(src.loc)
-			new/obj/item/nutrient/rh(src.loc)
-			new/obj/item/nutrient/rh(src.loc)
-			new/obj/item/nutrient/rh(src.loc)
-			new/obj/item/nutrient/rh(src.loc)
+			new/obj/item/weapon/reagent_containers/glass/fertilizer/rh(src.loc)
+			new/obj/item/weapon/reagent_containers/glass/fertilizer/rh(src.loc)
+			new/obj/item/weapon/reagent_containers/glass/fertilizer/rh(src.loc)
+			new/obj/item/weapon/reagent_containers/glass/fertilizer/rh(src.loc)
+			new/obj/item/weapon/reagent_containers/glass/fertilizer/rh(src.loc)
 		if("wallet")
 			new/obj/item/weapon/storage/wallet(src.loc)
 		if("gloves")
@@ -202,6 +195,8 @@
 			new/obj/item/weapon/storage/belt/utility(src.loc)
 		if("satchel")
 			new/obj/item/weapon/storage/backpack/satchel(src.loc)
+		if("cashbag")
+			new/obj/item/weapon/storage/bag/cash(src.loc)
 		if("monkey")
 			new/mob/living/carbon/monkey(src.loc)
 	processing = 0

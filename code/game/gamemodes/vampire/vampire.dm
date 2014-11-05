@@ -7,12 +7,12 @@
 /datum/game_mode/vampire
 	name = "vampire"
 	config_tag = "vampire"
-	restricted_jobs = list("AI", "Cyborg", "Mobile MMI", "Security Officer", "Warden", "Detective", "Head of Security", "Captain", "Chaplain", "Security Pod Pilot", "Nanotrasen Recruiter", "Magistrate") //Consistent screening has filtered all infiltration attempts on high value jobs
-	protected_jobs = list()
-	required_players = 1
-	required_players_secret = 15
+	restricted_jobs = list("AI", "Cyborg")
+	protected_jobs = list("Security Officer", "Warden", "Detective", "Head of Security", "Captain", "Head of Personnel", "Blueshield", "Nanotrasen Representative", "Security Pod Pilot", "Nanotrasen Recruiter", "Magistrate", "Chaplain")
+	required_players = 2
+	required_players_secret = 10
 	required_enemies = 1
-	recommended_enemies = 4
+	recommended_enemies = 2
 
 	uplink_welcome = "Syndicate Uplink Console:"
 	uplink_uses = 10
@@ -56,7 +56,7 @@
 			if(player.assigned_role == job)
 				possible_vampires -= player
 
-	vampire_amount = max(1,round(num_players() / 10)) //1 + round(num_players() / 10)
+	vampire_amount = 1 + round(num_players() / 10)
 
 	if(possible_vampires.len>0)
 		for(var/i = 0, i < vampire_amount, i++)
@@ -279,12 +279,12 @@ You are weak to holy things and starlight. Don't go into space and avoid the Cha
 			src << "\red They've got no blood left to give."
 			break
 		if(H.stat < 2) //alive
-			blood = min(10, H.vessel.get_reagent_amount("blood"))// if they have less than 10 blood, give them the remnant else they get 10 blood
-			src.mind.vampire.bloodtotal += blood
-			src.mind.vampire.bloodusable += blood
-			H.adjustCloneLoss(10) // beep boop 10 damage
+			blood = min(20, H.vessel.get_reagent_amount("blood"))	// if they have less than 20 blood, give them the remnant else they get 20 blood
+			src.mind.vampire.bloodtotal += blood/2	//divide by 2 to counted the double suction since removing cloneloss -Melandor0
+			src.mind.vampire.bloodusable += blood/2
+			//H.adjust CloneLoss(10)	No cloneloss -Melandor0
 		else
-			blood = min(5, H.vessel.get_reagent_amount("blood"))// The dead only give 5 bloods
+			blood = min(5, H.vessel.get_reagent_amount("blood"))	// The dead only give 5 bloods
 			src.mind.vampire.bloodtotal += blood
 		if(bloodtotal != src.mind.vampire.bloodtotal)
 			src << "\blue <b>You have accumulated [src.mind.vampire.bloodtotal] [src.mind.vampire.bloodtotal > 1 ? "units" : "unit"] of blood[src.mind.vampire.bloodusable != bloodusable ?", and have [src.mind.vampire.bloodusable] left to use" : "."]"
@@ -486,7 +486,7 @@ You are weak to holy things and starlight. Don't go into space and avoid the Cha
 	if(hud_used)
 		if(!hud_used.vampire_blood_display)
 			hud_used.vampire_hud()
-			//hud_used.human_hud(hud_used.ui_style)
+			hud_used.human_hud('icons/mob/screen1_Vampire.dmi')
 		hud_used.vampire_blood_display.maptext_width = 64
 		hud_used.vampire_blood_display.maptext_height = 26
 		hud_used.vampire_blood_display.maptext = "<div align='left' valign='top' style='position:relative; top:0px; left:6px'> U:<font color='#33FF33' size='1'>[mind.vampire.bloodusable]</font><br> T:<font color='#FFFF00' size='1'>[mind.vampire.bloodtotal]</font></div>"

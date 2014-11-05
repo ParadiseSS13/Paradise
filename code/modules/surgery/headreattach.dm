@@ -183,6 +183,7 @@
 		target.update_body()
 		target.updatehealth()
 		target.UpdateDamageIcon()
+
 		del(B)
 
 	fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool)

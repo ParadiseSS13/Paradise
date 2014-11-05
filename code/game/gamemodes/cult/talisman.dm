@@ -86,35 +86,173 @@
 		if (usr.stat || usr.restrained() || !in_range(src, usr))	return
 
 		if (href_list["rune"])
-			switch(href_list["rune"])
-				if("newtome")
-					var/obj/item/weapon/paper/talisman/T = new /obj/item/weapon/paper/talisman(get_turf(usr))
-					T.imbue = "newtome"
-				if("teleport")
-					var/obj/item/weapon/paper/talisman/T = new /obj/item/weapon/paper/talisman(get_turf(usr))
-					T.imbue = "[pick("ire", "ego", "nahlizet", "certum", "veri", "jatkaa", "balaq", "mgar", "karazet", "geeri", "orkan", "allaq")]"
-					T.info = "[T.imbue]"
-				if("emp")
-					var/obj/item/weapon/paper/talisman/T = new /obj/item/weapon/paper/talisman(get_turf(usr))
-					T.imbue = "emp"
-				if("conceal")
-					var/obj/item/weapon/paper/talisman/T = new /obj/item/weapon/paper/talisman(get_turf(usr))
-					T.imbue = "conceal"
-				if("communicate")
-					var/obj/item/weapon/paper/talisman/T = new /obj/item/weapon/paper/talisman(get_turf(usr))
-					T.imbue = "communicate"
-				if("runestun")
-					var/obj/item/weapon/paper/talisman/T = new /obj/item/weapon/paper/talisman(get_turf(usr))
-					T.imbue = "runestun"
-				if("armor")
-					var/obj/item/weapon/paper/talisman/T = new /obj/item/weapon/paper/talisman(get_turf(usr))
-					T.imbue = "armor"
-				if("soulstone")
-					new /obj/item/device/soulstone(get_turf(usr))
-				if("construct")
-					new /obj/structure/constructshell(get_turf(usr))
-			src.uses--
-			supply()
+			if (istype(usr, /mob/living/carbon/human))
+				var/mob/living/carbon/human/M = usr
+
+				switch(href_list["rune"])
+					if("newtome")
+
+						var/obj/item/weapon/paper/talisman/T = new(M)
+						T.imbue = "newtome"
+
+						var/list/slots = list (
+							"backpack" = slot_in_backpack,
+							"left pocket" = slot_l_store,
+							"right pocket" = slot_r_store,
+							"left hand" = slot_l_hand,
+							"right hand" = slot_r_hand,
+						)
+
+						var/where = M.equip_in_one_of_slots(T, slots)
+						if (!where)
+							M << "You need a space in your backpack, pocket or hand for the new paper."
+						else
+							M << "The [href_list["rune"]] talisman in your [where]"
+							M.update_icons()
+							src.uses--
+							supply()
+
+
+					if("teleport")
+						var/obj/item/weapon/paper/talisman/T = new(M)
+						T.imbue = "[pick("ire", "ego", "nahlizet", "certum", "veri", "jatkaa", "balaq", "mgar", "karazet", "geeri", "orkan", "allaq")]"
+						T.info = "[T.imbue]"
+
+						var/list/slots = list (
+							"backpack" = slot_in_backpack,
+							"left pocket" = slot_l_store,
+							"right pocket" = slot_r_store,
+							"left hand" = slot_l_hand,
+							"right hand" = slot_r_hand,
+						)
+
+						var/where = M.equip_in_one_of_slots(T, slots)
+						if (!where)
+							M << "You need a space in your backpack, pocket or hand for the new paper."
+						else
+							M << "The [href_list["rune"]] talisman in your [where]"
+							M.update_icons()
+							src.uses--
+							supply()
+
+					if("emp")
+						var/obj/item/weapon/paper/talisman/T = new(M)
+						T.imbue = "emp"
+
+						var/list/slots = list (
+							"backpack" = slot_in_backpack,
+							"left pocket" = slot_l_store,
+							"right pocket" = slot_r_store,
+							"left hand" = slot_l_hand,
+							"right hand" = slot_r_hand,
+						)
+
+						var/where = M.equip_in_one_of_slots(T, slots)
+						if (!where)
+							M << "You need a space in your backpack, pocket or hand for the new paper."
+						else
+							M << "The [href_list["rune"]] talisman in your [where]"
+							M.update_icons()
+							src.uses--
+							supply()
+
+					if("conceal")
+						var/obj/item/weapon/paper/talisman/T = new(M)
+						T.imbue = "conceal"
+
+						var/list/slots = list (
+							"backpack" = slot_in_backpack,
+							"left pocket" = slot_l_store,
+							"right pocket" = slot_r_store,
+							"left hand" = slot_l_hand,
+							"right hand" = slot_r_hand,
+						)
+
+						var/where = M.equip_in_one_of_slots(T, slots)
+						if (!where)
+							M << "You need a space in your backpack, pocket or hand for the new paper."
+						else
+							M << "The [href_list["rune"]] talisman in your [where]"
+							M.update_icons()
+							src.uses--
+							supply()
+
+					if("communicate")
+						var/obj/item/weapon/paper/talisman/T = new(M)
+						T.imbue = "communicate"
+
+						var/list/slots = list (
+							"backpack" = slot_in_backpack,
+							"left pocket" = slot_l_store,
+							"right pocket" = slot_r_store,
+							"left hand" = slot_l_hand,
+							"right hand" = slot_r_hand,
+						)
+
+						var/where = M.equip_in_one_of_slots(T, slots)
+						if (!where)
+							M << "You need a space in your backpack, pocket or hand for the new paper."
+						else
+							M << "The [href_list["rune"]] talisman in your [where]"
+							M.update_icons()
+							src.uses--
+							supply()
+
+					if("runestun")
+						var/obj/item/weapon/paper/talisman/T = new(M)
+						T.imbue = "runestun"
+
+						var/list/slots = list (
+							"backpack" = slot_in_backpack,
+							"left pocket" = slot_l_store,
+							"right pocket" = slot_r_store,
+							"left hand" = slot_l_hand,
+							"right hand" = slot_r_hand,
+						)
+
+						var/where = M.equip_in_one_of_slots(T, slots)
+						if (!where)
+							M << "You need a space in your backpack, pocket or hand for the new paper."
+						else
+							M << "The [href_list["rune"]] talisman in your [where]"
+							M.update_icons()
+							src.uses--
+							supply()
+
+					if("armor")
+						var/obj/item/weapon/paper/talisman/T = new(M)
+						T.imbue = "armor"
+
+						var/list/slots = list (
+							"backpack" = slot_in_backpack,
+							"left pocket" = slot_l_store,
+							"right pocket" = slot_r_store,
+							"left hand" = slot_l_hand,
+							"right hand" = slot_r_hand,
+						)
+
+						var/where = M.equip_in_one_of_slots(T, slots)
+						if (!where)
+							M << "You need a space in your backpack, pocket or hand for the new paper."
+						else
+							M << "The [href_list["rune"]] talisman in your [where]"
+							M.update_icons()
+							src.uses--
+							supply()
+
+					if("soulstone")
+						new /obj/item/device/soulstone(get_turf(usr))
+						src.uses--
+						supply()
+					if("construct")
+						new /obj/structure/constructshell(get_turf(usr))
+						src.uses--
+						supply()
+			else
+				return
+
+
+
 		return
 
 

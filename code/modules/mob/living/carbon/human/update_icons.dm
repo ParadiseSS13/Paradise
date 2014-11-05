@@ -131,11 +131,12 @@ Please contact me on #coderbus IRC. ~Carn x
 #define FIRE_LAYER				24    //If you're on fire
 #define TOTAL_LAYERS			24
 
+
+
 /mob/living/carbon/human
 	var/list/overlays_standing[TOTAL_LAYERS]
 	var/previous_damage_appearance // store what the body last looked like, so we only have to update it if something changed
-	var/icon/race_icon
-	var/icon/deform_icon
+	var/icon/skeleton
 
 
 /mob/living/carbon/human/proc/apply_overlay(cache_index)
@@ -238,7 +239,6 @@ proc/get_damage_icon_part(damage_state, body_part)
 	var/husk = (M_HUSK in src.mutations)  //100% unnecessary -Agouri	//nope, do you really want to iterate through src.mutations repeatedly? -Pete
 	var/fat = (M_FAT in src.mutations)
 	var/hulk = (M_HULK in src.mutations)
-	var/skeleton = (SKELETON in src.mutations)
 
 	var/g = (gender == FEMALE ? "f" : "m")
 	var/has_head = 0
@@ -351,7 +351,7 @@ proc/get_damage_icon_part(damage_state, body_part)
 		//Handle husk overlay.
 		if(husk)
 			var/icon/mask = new(base_icon)
-			var/icon/husk_over = new(race_icon,"overlay_husk")
+			var/icon/husk_over = new(species.icobase,"overlay_husk")
 			mask.MapColors(0,0,0,1, 0,0,0,1, 0,0,0,1, 0,0,0,1, 0,0,0,0)
 			husk_over.Blend(mask, ICON_ADD)
 			base_icon.Blend(husk_over, ICON_OVERLAY)
@@ -432,8 +432,9 @@ proc/get_damage_icon_part(damage_state, body_part)
 			var/icon/facial_s = new/icon("icon" = facial_hair_style.icon, "icon_state" = "[facial_hair_style.icon_state]_s")
 			if(facial_hair_style.do_colouration)
 				facial_s.Blend(rgb(r_facial, g_facial, b_facial), ICON_ADD)
-
 			face_standing.Blend(facial_s, ICON_OVERLAY)
+		else
+			warning("Invalid f_style for [species.name]: [f_style]")
 
 	if(h_style && !(head && (head.flags & BLOCKHEADHAIR)))
 		var/datum/sprite_accessory/hair_style = hair_styles_list[h_style]
@@ -443,6 +444,8 @@ proc/get_damage_icon_part(damage_state, body_part)
 				hair_s.Blend(rgb(r_hair, g_hair, b_hair), ICON_ADD)
 
 			face_standing.Blend(hair_s, ICON_OVERLAY)
+		else
+			warning("Invalid h_style for [species.name]: [h_style]")
 
 	overlays_standing[HAIR_LAYER]	= image(face_standing)
 
@@ -506,13 +509,11 @@ proc/get_damage_icon_part(damage_state, body_part)
 //	var/g = "m"
 //	if (gender == FEMALE)	g = "f"
 //BS12 EDIT
-	var/skeleton = (SKELETON in src.mutations)
-	if(skeleton)
-		race_icon = 'icons/mob/human_races/r_skeleton.dmi'
+	var/skel = (SKELETON in src.mutations)
+	if(skel)
+		skeleton = 'icons/mob/human_races/r_skeleton.dmi'
 	else
-		//Icon data is kept in species datums within the mob.
-		race_icon = species.icobase
-		deform_icon = species.deform
+		skeleton = null
 
 	if(dna)
 		switch(dna.mutantrace)
@@ -543,7 +544,7 @@ proc/get_damage_icon_part(damage_state, body_part)
 
 	remove_overlay(FIRE_LAYER)
 	if(on_fire)
-		overlays_standing[FIRE_LAYER] = image("icon"='icons/mob/OnFire.dmi', "icon_state"="Standing", "layer"=-FIRE_LAYER)
+		overlays_standing[FIRE_LAYER] = image("icon"=fire_dmi, "icon_state"=fire_sprite, "layer"=-FIRE_LAYER)
 	else
 		overlays_standing[FIRE_LAYER] = null
 

@@ -1806,6 +1806,47 @@ var/list/ghostteleportlocs = list()
 	icon_state = "dancebar"
 
 
+//Traitor Station
+/area/traitor/rnd
+	name = "\improper Syndicate Research and Development"
+	icon_state = "syndie_rnd"
+
+/area/traitor/chem
+	name = "\improper Syndicate Chemistry"
+	icon_state = "syndie_chem"
+
+/area/traitor/tox
+	name = "\improper Syndicate Toxins"
+	icon_state = "syndie_tox"
+
+/area/traitor/atmos
+	name = "\improper Syndicate Atmos"
+	icon_state = "syndie_atmo"
+
+/area/traitor/inter
+	name = "\improper Syndicate Interrogation"
+	icon_state = "syndie_inter"
+
+/area/traitor/radio
+	name = "\improper Syndicate Eavesdropping Booth"
+	icon_state = "syndie_radio"
+
+/area/traitor/surgery
+	name = "\improper Syndicate Surgery Theatre"
+	icon_state = "syndie_surgery"
+
+/area/traitor/hall
+	name = "\improper Syndicate Station"
+	icon_state = "syndie_hall"
+
+/area/traitor/kitchen
+	name = "\improper Syndicate Kitchen"
+	icon_state = "syndie_kitchen"
+
+/area/traitor/empty
+	name = "\improper Syndicate Project Room"
+	icon_state = "syndie_empty"
+
 
 //AI
 

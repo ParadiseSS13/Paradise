@@ -9,6 +9,7 @@
 		if(!I)
 			H << "<span class='notice'>You are not holding anything to equip.</span>"
 			return
+
 		if(H.equip_to_appropriate_slot(I))
 			if(hand)
 				update_inv_l_hand(0)
@@ -568,6 +569,10 @@
 				message = "\red <B>[source] is trying to take off [target.wear_id] from [target]'s uniform!</B>"
 			else
 				source << "\blue You try to take off [target.wear_id] from [target]'s uniform!"
+		if("pda")
+			target.attack_log += text("\[[time_stamp()]\] <font color='orange'>Has had their PDA ([target.wear_pda]) removed by [source.name] ([source.ckey])</font>")
+			source.attack_log += text("\[[time_stamp()]\] <font color='red'>Attempted to remove [target.name]'s ([target.ckey]) PDA ([target.wear_pda])</font>")
+			message = "\red <B>[source] is trying to take off [target.wear_pda] from [target]'s uniform!</B>"
 		if("internal")
 			target.attack_log += text("\[[time_stamp()]\] <font color='orange'>Has had their internals toggled by [source.name] ([source.ckey])</font>")
 			source.attack_log += text("\[[time_stamp()]\] <font color='red'>Attempted to toggle [target.name]'s ([target.ckey]) internals</font>")

@@ -165,16 +165,17 @@
 			m_type = 1
 
 		if ("cough")
-			if(miming)
-				message = "<B>[src]</B> appears to cough!"
-				m_type = 1
-			else
-				if (!muzzled)
-					message = "<B>[src]</B> coughs!"
-					m_type = 2
+			if(!reagents.has_reagent("dextromethorphan"))
+				if(miming)
+					message = "<B>[src]</B> appears to cough!"
+					m_type = 1
 				else
-					message = "<B>[src]</B> makes a strong noise."
-					m_type = 2
+					if (!muzzled)
+						message = "<B>[src]</B> coughs!"
+						m_type = 2
+					else
+						message = "<B>[src]</B> makes a strong noise."
+						m_type = 2
 
 		if ("frown")
 			message = "<B>[src]</B> frowns."
@@ -527,18 +528,41 @@
 				else
 					message = "<B>[src]</B> sadly can't find anybody to give daps to, and daps \himself. Shameful."
 
+		if("slap")
+			m_type = 1
+			if (!src.restrained())
+				var/M = null
+				if (param)
+					for (var/mob/A in view(1, null))
+						if (param == A.name)
+							M = A
+							break
+				if (M)
+					message = "\red <B>[src]</B> slaps [M] across the face. Ouch!"
+					playsound(src.loc, 'sound/effects/snap.ogg', 50, 1)
+				else
+					message = "\red <B>[src]</B> slaps \himself!"
+					playsound(src.loc, 'sound/effects/snap.ogg', 50, 1)
+					src.adjustFireLoss(4)
+
 		if ("scream")
 			if (miming)
 				message = "<B>[src]</B> acts out a scream!"
 				m_type = 1
 			else
 				if (!muzzled)
-					message = "<B>[src]</B> screams!"
-					m_type = 2
-					if (prob(5))
-						playsound(src.loc, 'sound/voice/WilhelmScream.ogg', 100, 1, 10)
+					if (!(species.name == "Vox" || species.name == "Vox Armalis"))
+						message = "<B>[src]</B> screams!"
+						m_type = 2
+						if (prob(5))
+							playsound(src.loc, 'sound/voice/WilhelmScream.ogg', 100, 1, 10)
+						else
+							playsound(src.loc, 'sound/voice/scream2.ogg', 100, 1, 10)
 					else
-						playsound(src.loc, 'sound/voice/scream2.ogg', 100, 1, 10)
+						message = "<B>[src]</B> shrieks!"
+						m_type = 2
+						playsound(src.loc, 'sound/voice/shriek1.ogg', 100, 1, 10)
+
 				else
 					message = "<B>[src]</B> makes a very loud noise."
 					m_type = 2

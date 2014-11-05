@@ -311,6 +311,43 @@
 		place_poster(W,user)
 		return
 
+	//Bone White - Place pipes on walls
+	else if(istype(W,/obj/item/pipe))
+		var/obj/item/pipe/V = W
+		if(V.pipe_type != -1) // ANY PIPE
+			var/obj/item/pipe/P = W
+
+			playsound(get_turf(src), 'sound/weapons/circsawhit.ogg', 50, 1)
+			user.visible_message( \
+				"[user] starts drilling a hole in \the [src].", \
+				"\blue You start drilling a hole in \the [src]. This is going to take a while.", \
+				"You hear ratchet.")
+			if (do_after(user, 160))
+				user.visible_message( \
+					"[user] drills a hole in \the [src] and pushes \a [P] into the void", \
+					"\blue You have finished drilling in \the [src] and push the [P] into the void.", \
+					"You hear ratchet.")
+
+				user.drop_item()
+				if (P.pipe_type in list (1,3,12))  // bent pipe rotation fix see construction.dm
+					P.dir = 5
+					if (user.dir == 1)
+						P.dir = 6
+					if (user.dir == 2)
+						P.dir = 9
+					if (user.dir == 4)
+						P.dir = 10
+					if (user.dir == 5)
+						P.dir = 8
+				else
+					P.dir = user.dir
+				P.x = src.x
+				P.y = src.y
+				P.z = src.z
+				P.loc = src
+				P.level = 2
+		return
+
 	//Finally, CHECKING FOR FALSE WALLS if it isn't damaged
 	else if(!d_state)
 		return attack_hand(user)

@@ -20,10 +20,10 @@
 //Germs
 /datum/organ/proc/handle_antibiotics()
 	var/antibiotics = owner.reagents.get_reagent_amount("spaceacillin")
-	
+
 	if (!germ_level || antibiotics < 5)
 		return
-		
+
 	if (germ_level < INFECTION_LEVEL_ONE)
 		germ_level = 0	//cure instantly
 	else if (germ_level < INFECTION_LEVEL_TWO)
@@ -69,8 +69,19 @@
 			bad_external_organs += Ex
 
 	//processing internal organs is pretty cheap, do that first.
-	for(var/datum/organ/internal/I in internal_organs)
+	for(var/name in internal_organs_by_name)
+		var/datum/organ/internal/I = internal_organs_by_name[name]
 		I.process()
+
+	//Check arms and legs for existence
+	can_stand = 2 //can stand on both legs
+	var/datum/organ/external/F = organs_by_name["l_foot"]
+	if(F.status & ORGAN_DESTROYED)
+		can_stand--
+
+	F = organs_by_name["r_foot"]
+	if(F.status & ORGAN_DESTROYED)
+		can_stand--
 
 	if(!force_process && !bad_external_organs.len)
 		return
@@ -109,12 +120,4 @@
 		emote("collapse")
 		paralysis = 10
 
-	//Check arms and legs for existence
-	can_stand = 2 //can stand on both legs
-	var/datum/organ/external/E = organs_by_name["l_foot"]
-	if(E.status & ORGAN_DESTROYED)
-		can_stand--
 
-	E = organs_by_name["r_foot"]
-	if(E.status & ORGAN_DESTROYED)
-		can_stand--

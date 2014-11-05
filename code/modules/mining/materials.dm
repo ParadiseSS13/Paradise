@@ -137,3 +137,11 @@
 	oretype=null
 	sheettype=/obj/item/stack/sheet/mineral/plastic
 	cointype=null
+
+/datum/material/fabric
+	name="Fabric"
+	id="fabric"
+	value=20
+	oretype=/obj/item/weapon/ore/fabric
+	sheettype=null
+	cointype=null

@@ -107,6 +107,9 @@
 	src << "\red Warning: Electromagnetic pulse detected."
 	..()
 
+/mob/living/silicon/stun_effect_act(var/stun_amount, var/agony_amount)
+	return	//immune
+
 /mob/living/silicon/proc/damage_mob(var/brute = 0, var/fire = 0, var/tox = 0)
 	return
 

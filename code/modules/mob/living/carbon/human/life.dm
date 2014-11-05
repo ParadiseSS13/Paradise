@@ -242,11 +242,13 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 					if(3)
 						emote("drool")
 
+        /*
 		if(species.name == "Tajaran")
 			if(prob(1))
 				if(prob(1))
 					vomit(1) // Hairball
 
+        */
 
 		if(stat != 2)
 			var/rn = rand(0, 200)
@@ -290,8 +292,8 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 			if(!gene.block)
 				continue
 			if(gene.is_active(src))
-				if (prob(10) && prob(gene.instability))
-					adjustCloneLoss(1)
+			/*	if (prob(10) && prob(gene.instability))
+					adjustCloneLoss(1) */
 				gene.OnMobLife(src)
 
 		if (radiation)
@@ -446,7 +448,11 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 			if (!istype(wear_suit,/obj/item/clothing/suit/space/plasmaman) || !istype(head,/obj/item/clothing/head/helmet/space/plasmaman))
 				//testing("Plasmaman [src] leakin'.  coverflags=[cover_flags]")
 				// OH FUCK HE LEAKIN'.
-				environment.adjust(tx = environment.total_moles()*BREATH_PERCENTAGE) // About one breath's worth. (I know we aren't breathing it out, but this should be about the right amount)
+				// This was OP.
+				//environment.adjust(tx = environment.total_moles()*BREATH_PERCENTAGE) // About one breath's worth. (I know we aren't breathing it out, but this should be about the right amount)
+				src << "<span class='warning'>Your body reacts with the atmosphere and bursts into flame!</span>"
+				adjust_fire_stacks(0.5)
+				IgniteMob()
 
 		if(breath)
 			loc.assume_air(breath)
@@ -640,9 +646,9 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 			var/obj/item/device/suit_cooling_unit/CU = s_store
 			CU.cool_mob(src)
 
-		if (species.flags & IS_SYNTHETIC)
-			bodytemperature += species.synth_temp_gain		//that CPU/posibrain just keeps putting out heat.
-			return
+//		if (species.flags & IS_SYNTHETIC)
+//			bodytemperature += species.synth_temp_gain		//that CPU/posibrain just keeps putting out heat.		// commented out as making synthetics unplayable until cooling system sorted out
+//			return
 
 		var/body_temperature_difference = species.body_temperature - bodytemperature
 
@@ -994,7 +1000,7 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 
 			// Sobering multiplier.
 			// Sober block grants quadruple the alcohol metabolism.
-			var/sober_str=!(M_SOBER in mutations)?1:4
+//			var/sober_str=!(M_SOBER in mutations)?1:4
 
 			updatehealth()	//TODO
 			if(!in_stasis)
@@ -1153,23 +1159,7 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 				jitteriness = max(jitteriness-1, 0)
 
 			//Other
-			if(stunned)
-				AdjustStunned(-1)
-
-			if(weakened)
-				weakened = max(weakened-1,0)	//before you get mad Rockdtben: I done this so update_canmove isn't called multiple times
-
-			if(stuttering)
-				stuttering = max(stuttering-1, 0)
-
-			if (slurring)
-				slurring = max(slurring-(1*sober_str), 0)
-
-			if(silent)
-				silent = max(silent-1, 0)
-
-			if(druggy)
-				druggy = max(druggy-1, 0)
+			handle_statuses()
 
 			// If you're dirty, your gloves will become dirty, too.
 			if(gloves && germ_level > gloves.germ_level && prob(10))
@@ -1877,9 +1867,8 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 					holder.icon_state = "hudscientopia"
 
 			hud_list[NATIONS_HUD] = holder
-
+	update_power_buttons()
 	hud_updateflag = 0
-
 
 /mob/living/carbon/human/proc/process_nations()
 	var/client/C = client

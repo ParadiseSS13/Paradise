@@ -107,6 +107,7 @@
 
 	if(istype(W))
 		equip_to_slot_if_possible(W, slot)
+
 	if(ishuman(src) && W == src:head)
 		src:update_hair()
 
@@ -117,7 +118,9 @@
 		return 1
 	return 0
 
-//This is a SAFE proc. Use this instead of equip_to_splot()!
+
+
+//This is a SAFE proc. Use this instead of equip_to_slot()!
 //set del_on_fail to have it delete W if it fails to equip
 //set disable_warning to disable the 'you are unable to equip that' warning.
 //unset redraw_mob to prevent the mob from being redrawn at the end.
@@ -147,22 +150,25 @@
 // Convinience proc.  Collects crap that fails to equip either onto the mob's back, or drops it.
 // Used in job equipping so shit doesn't pile up at the start loc.
 /mob/living/carbon/human/proc/equip_or_collect(var/obj/item/W, var/slot)
-	if(!equip_to_slot_or_del(W, slot))
+	if(W.mob_can_equip(src, slot, 1))
+		//Mob can equip.  Equip it.
+		equip_to_slot_or_del(W, slot)
+	else
+		//Mob can't equip it.  Put it in a bag B.
 		// Do I have a backpack?
 		var/obj/item/weapon/storage/B
 		if(istype(back,/obj/item/weapon/storage))
+			//Mob is wearing backpack
 			B = back
-			// Do I have a plastic bag?
 		else
+			//not wearing backpack.  Check if player holding plastic bag
 			B=is_in_hands(/obj/item/weapon/storage/bag/plasticbag)
-
-			if(!B)
-				// Gimme one.
+			if(!B) //If not holding plastic bag, give plastic bag
 				B=new /obj/item/weapon/storage/bag/plasticbag(null) // Null in case of failed equip.
-				if(!put_in_hands(B,slot_back))
-					return // Fuck it
+				if(!put_in_hands(B))
+					return // Bag could not be placed in players hands.  I don't know what to do here...
+		//Now, B represents a container we can insert W into.
 		B.handle_item_insertion(W,1)
-
 
 //The list of slots by priority. equip_to_appropriate_slot() uses this list. Doesn't matter if a mob type doesn't have a slot.
 var/list/slot_equipment_priority = list( \
@@ -812,6 +818,25 @@ var/list/slot_equipment_priority = list( \
 /mob/proc/is_ready()
 	return client && !!mind
 
+/mob/proc/is_in_brig()
+	if(!loc || !loc.loc)
+		return 0
+
+	// They should be in a cell or the Brig portion of the shuttle.
+	var/area/A = loc.loc
+	if(!istype(A, /area/security/prison) && !istype(A, /area/prison))
+		if(!istype(A, /area/shuttle/escape) || loc.name != "Brig floor")
+			return 0
+
+	// If they still have their ID they're not brigged.
+	for(var/obj/item/weapon/card/id/card in src)
+		return 0
+	for(var/obj/item/device/pda/P in src)
+		if(P.id)
+			return 0
+
+	return 1
+
 /mob/proc/get_gender()
 	return gender
 
@@ -872,6 +897,7 @@ var/list/slot_equipment_priority = list( \
 				if("holdervar")
 					statpanel(S.panel,"[S.holder_var_type] [S.holder_var_amount]",S)
 
+	/* // Why have a duplicate set of turfs in the stat panel?
 	if(listed_turf)
 		if(get_dist(listed_turf,src) > 1)
 			listed_turf = null
@@ -881,7 +907,7 @@ var/list/slot_equipment_priority = list( \
 				if(A.invisibility > see_invisible)
 					continue
 				statpanel(listed_turf.name,A.name,A)
-
+	*/
 
 
 // facing verbs
@@ -914,17 +940,21 @@ var/list/slot_equipment_priority = list( \
 	if(buckled && istype(buckled))
 		is_movable = buckled.movable
 
-	if(buckled && !is_movable)
+	if(istype(buckled, /obj/vehicle))
+		var/obj/vehicle/V = buckled
+		if(stat || weakened || paralysis || resting || sleeping || (status_flags & FAKEDEATH))
+			lying = 1
+			canmove = 0
+			pixel_y = V.mob_offset_y - 5
+		else
+			lying = 0
+			canmove = 1
+			pixel_y = V.mob_offset_y
+	else if(buckled && (!buckled.movable))
 		anchored = 1
 		canmove = 0
 		if( istype(buckled,/obj/structure/stool/bed/chair) )
 			lying = 0
-		else if(istype(buckled, /obj/vehicle))
-			var/obj/vehicle/V = buckled
-			if(V.standing_mob)
-				lying = 0
-			else
-				lying = 1
 		else
 			lying = 1
 	else if(buckled && is_movable)
@@ -1145,7 +1175,7 @@ mob/proc/yank_out_object()
 	if(valid_objects.len == 1) //Yanking out last object - removing verb.
 		src.verbs -= /mob/proc/yank_out_object
 
-	if(istype(src,/mob/living/carbon/human))
+	if(ishuman(src))
 
 		var/mob/living/carbon/human/H = src
 		var/datum/organ/external/affected
@@ -1157,12 +1187,15 @@ mob/proc/yank_out_object()
 
 		affected.implants -= selection
 		H.shock_stage+=10
-		H.bloody_hands(S)
 
 		if(prob(10)) //I'M SO ANEMIC I COULD JUST -DIE-.
 			var/datum/wound/internal_bleeding/I = new (15)
 			affected.wounds += I
 			H.custom_pain("Something tears wetly in your [affected] as [selection] is pulled free!", 1)
+
+		if (ishuman(U))
+			var/mob/living/carbon/human/human_user = U
+			human_user.bloody_hands(H)
 
 	selection.loc = get_turf(src)
 
@@ -1230,3 +1263,46 @@ mob/proc/yank_out_object()
 	if(host)
 		host.ckey = src.ckey
 		host << "<span class='info'>You are now a mouse. Try to avoid interaction with players, and do not give hints away that you are more than a simple rodent.</span>"
+
+/mob/living/proc/handle_statuses()
+	handle_stunned()
+	handle_weakened()
+	handle_stuttering()
+	handle_silent()
+	handle_drugged()
+	handle_slurring()
+
+/mob/living/proc/handle_stunned()
+	if(stunned)
+		AdjustStunned(-1)
+	return stunned
+
+/mob/living/proc/handle_weakened()
+	if(weakened)
+		weakened = max(weakened-1,0)	//before you get mad Rockdtben: I done this so update_canmove isn't called multiple times
+	return weakened
+
+/mob/living/proc/handle_stuttering()
+	if(stuttering)
+		stuttering = max(stuttering-1, 0)
+	return stuttering
+
+/mob/living/proc/handle_silent()
+	if(silent)
+		silent = max(silent-1, 0)
+	return silent
+
+/mob/living/proc/handle_drugged()
+	if(druggy)
+		druggy = max(druggy-1, 0)
+	return druggy
+
+/mob/living/proc/handle_slurring()
+	if(slurring)
+		slurring = max(slurring-1, 0)
+	return slurring
+
+/mob/living/proc/handle_paralysed() // Currently only used by simple_animal.dm, treated as a special case in other mobs
+	if(paralysis)
+		AdjustParalysis(-1)
+	return paralysis

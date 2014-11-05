@@ -1243,7 +1243,8 @@
 	icon_state = "chinese2"
 	New()
 		..()
-		reagents.add_reagent("nutriment", 6)
+		reagents.add_reagent("nutriment", 5)
+		reagents.add_reagent("carpotoxin", 1)
 		bitesize = 2
 
 /obj/item/weapon/reagent_containers/food/snacks/chinese/newdles
@@ -1261,7 +1262,8 @@
 	icon_state = "chinese4"
 	New()
 		..()
-		reagents.add_reagent("nutriment", 6)
+		reagents.add_reagent("nutriment", 3)
+		reagents.add_reagent("rice", 3)
 		bitesize = 2
 
 /obj/item/weapon/reagent_containers/food/snacks/syndicake

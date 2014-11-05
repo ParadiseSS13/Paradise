@@ -35,7 +35,7 @@
 /obj/item/weapon/grenade/spawnergrenade/manhacks
 	name = "manhack delivery grenade"
 	spawner_type = /mob/living/simple_animal/hostile/viscerator
-	deliveryamt = 3
+	deliveryamt = 5
 	origin_tech = "materials=3;magnets=4;syndicate=4"
 
 /obj/item/weapon/grenade/spawnergrenade/spesscarp

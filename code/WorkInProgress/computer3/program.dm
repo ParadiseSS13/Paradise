@@ -239,7 +239,7 @@ Programs are a file that can be executed
 	//
 	if("runfile" in href_list)
 		var/datum/file/F = locate(href_list["runfile"])
-		if(F && F.computer == computer)
+		if(istype(F) && F.computer == computer)
 			F.execute(src)
 		return 1
 

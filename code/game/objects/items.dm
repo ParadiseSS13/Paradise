@@ -1,6 +1,7 @@
 /obj/item
 	name = "item"
 	icon = 'icons/obj/items.dmi'
+	var/discrete = 0 // used in item_attack.dm to make an item not show an attack message to viewers
 	var/icon/blood_overlay = null //this saves our blood splatter overlay, which will be processed not to go over the edges of the sprite
 	var/blood_overlay_color = null
 	var/abstract = 0
@@ -153,10 +154,12 @@
 			return 0
 		else
 			user.u_equip(src)
+
 	else
 		if(isliving(src.loc))
 			return 0
 		user.next_move = max(user.next_move+2,world.time + 2)
+
 	src.pickup(user)
 	add_fingerprint(user)
 	user.put_in_active_hand(src)
@@ -616,10 +619,10 @@
 		var/datum/organ/internal/eyes/eyes = H.internal_organs_by_name["eyes"]
 		if(!eyes)
 			return
-		eyes.damage += rand(3,4)
+		eyes.take_damage(rand(3,4), 1)
 		if(eyes.damage >= eyes.min_bruised_damage)
 			if(M.stat != 2)
-				if(eyes.robotic <= 1) //robot eyes bleeding might be a bit silly
+				if(!(istype(eyes, /datum/organ/internal/eyes/robotic)) || istype(eyes, /datum/organ/internal/eyes/assisted)) //robot eyes bleeding might be a bit silly
 					M << "\red Your eyes start to bleed profusely!"
 			if(prob(50))
 				if(M.stat != 2)

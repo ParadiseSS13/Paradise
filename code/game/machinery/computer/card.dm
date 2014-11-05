@@ -107,6 +107,7 @@
 	data["science_jobs"] = format_jobs(science_positions)
 	data["security_jobs"] = format_jobs(security_positions)
 	data["support_jobs"] = format_jobs(support_positions)
+	data["civilian_jobs"] = format_jobs(civilian_positions)
 	data["special_jobs"] = format_jobs(whitelisted_positions)
 	data["centcom_jobs"] = format_jobs(get_all_centcom_jobs())
 

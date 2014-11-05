@@ -73,8 +73,8 @@ obj/item/weapon/gun/energy/laser/retro
 	fire_sound = 'sound/weapons/lasercannonfire.ogg'
 	origin_tech = "combat=4;materials=3;powerstorage=3"
 	projectile_type = "/obj/item/projectile/beam/heavylaser"
-
-	fire_delay = 20
+	charge_cost = 1250
+	fire_delay = 10
 
 	isHandgun()
 		return 0

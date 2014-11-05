@@ -320,7 +320,11 @@
 	icon_power_button = "genetic_incendiary"
 
 /obj/effect/proc_holder/spell/wizard/targeted/immolate/cast(list/targets)
-	var/mob/living/L = usr
+	if(!targets.len)
+		usr << "<span class='notice'>No target found in range.</span>"
+		return
+
+	var/mob/living/carbon/L = targets[1]
 
 	L.adjust_fire_stacks(0.5) // Same as walking into fire. Was 100 (goon fire)
 	L.visible_message("\red <b>[L.name]</b> suddenly bursts into flames!")

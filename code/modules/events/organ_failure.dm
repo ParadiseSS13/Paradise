@@ -13,7 +13,7 @@ datum/event/organ_failure/announce()
 datum/event/organ_failure/start()
 	var/list/candidates = list()	//list of candidate keys
 	for(var/mob/living/carbon/human/G in player_list)
-		if(G.mind && G.mind.current && G.mind.current.stat != DEAD && G.health > 70 && G.internal_organs)
+		if(G.mind && G.mind.current && G.mind.current.stat != DEAD && G.health > 70 && G.internal_organs_by_name)
 			candidates += G
 	if(!candidates.len)	return
 	candidates = shuffle(candidates)//Incorporating Donkie's list shuffle
@@ -24,7 +24,8 @@ datum/event/organ_failure/start()
 		var/acute = prob(15)
 		if (prob(75))
 			//internal organ infection
-			var/datum/organ/internal/I = pick(C.internal_organs)
+			var/org = pick(C.internal_organs_by_name)
+			var/datum/organ/internal/I = C.internal_organs_by_name[org]
 
 			if (acute)
 				I.germ_level = max(INFECTION_LEVEL_TWO, I.germ_level)

@@ -553,8 +553,11 @@ ________________________________________________________________________________
 			var/damage = min(cell.charge, rand(50,150))//Uses either the current energy left over or between 50 and 150.
 			if(damage>1)//So they don't spam it when energy is a factor.
 				spark_system.start()//SPARKS THERE SHALL BE SPARKS
-				U.electrocute_act(damage, src,0.1,1)//The last argument is a safety for the human proc that checks for gloves.
-				cell.charge -= damage
+				U.electrocute_act(damage, src, 0.1)
+				if(cell.charge < damage)
+					cell.use(cell.charge)
+				else
+					cell.use(damage)
 			else
 				A << "\red <b>ERROR</b>: \black Not enough energy remaining."
 

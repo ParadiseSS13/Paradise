@@ -515,6 +515,15 @@ datum/design/custom_module
 	materials = list("$glass" = 2000, "sacid" = 20, "$diamond" = 100)
 	build_path = /obj/item/weapon/aiModule/core/full/custom
 
+datum/design/antimov_module
+	name = "Core Module Design (Antimov)"
+	desc = "Allows for the construction of a Antimov AI Core Module."
+	id = "antimov_module"
+	req_tech = list("programming" = 4, "materials" = 6, "syndicate" = 2)
+	build_type = IMPRINTER
+	materials = list("$glass" = 2000, "sacid" = 20, "$diamond" = 100)
+	build_path = /obj/item/weapon/aiModule/core/full/antimov
+
 ///////////////////////////////////
 /////Subspace Telecomms////////////
 ///////////////////////////////////
@@ -1433,6 +1442,47 @@ datum/design/noreactbeaker
 	reliability_base = 76
 	build_path = "/obj/item/weapon/reagent_containers/glass/beaker/noreact"
 	category = "Misc"
+
+datum/design/implanter
+	name = "Implanter"
+	desc = "A basic implanter for injecting implants"
+	id = "implanter"
+	req_tech = list("materials" = 2, "biotech" = 3)
+	build_type = PROTOLATHE
+	materials = list("$metal" = 50, "$glass" = 50)
+	build_path = "/obj/item/weapon/implanter"
+
+
+datum/design/implant_free
+	name = "Freedom Implant"
+	desc = "Use this to escape from those evil Red Shirts."
+	id = "implant_free"
+	req_tech = list("syndicate" = 2, "biotech" = 3)
+	build_type = PROTOLATHE
+	materials = list("$metal" = 50, "$glass" = 50)
+	build_path = "/obj/item/weapon/implantcase/freedom"
+
+datum/design/implant_chem
+	name = "Chemical Implant"
+	desc = "Injects things."
+	id = "implant_chem"
+	req_tech = list("materials" = 2, "biotech" = 3)
+	build_type = PROTOLATHE
+	materials = list("$metal" = 50, "$glass" = 50)
+	build_path = "/obj/item/weapon/implantcase/chem"
+	locked = 1
+
+datum/design/implant_loyal
+	name = "Loyalty Implant"
+	desc = "Makes you loyal or such."
+	id = "implant_loyal"
+	req_tech = list("materials" = 2, "biotech" = 3)
+	build_type = PROTOLATHE
+	materials = list("$metal" = 7000, "$glass" = 7000)
+	build_path = "/obj/item/weapon/implantcase/loyalty"
+	locked = 1
+
+
 /////////////////////////////////////////
 /////////////////Weapons/////////////////
 /////////////////////////////////////////
@@ -1496,6 +1546,7 @@ datum/design/rapidsyringe
 	build_type = PROTOLATHE
 	materials = list("$metal" = 5000, "$glass" = 1000)
 	build_path = "/obj/item/weapon/gun/syringe/rapidsyringe"
+	locked = 1
 
 datum/design/largecrossbow
 	name = "Energy Crossbow"
@@ -1508,7 +1559,7 @@ datum/design/largecrossbow
 
 datum/design/temp_gun
 	name = "Temperature Gun"
-	desc = "A gun that shoots temperature bullet energythings to change temperature."//Change it if you want
+	desc = "A gun that shoots temperature bullet energy things to change temperature."//Change it if you want
 	id = "temp_gun"
 	req_tech = list("combat" = 3, "materials" = 4, "powerstorage" = 3, "magnets" = 2)
 	build_type = PROTOLATHE
@@ -1524,15 +1575,6 @@ datum/design/flora_gun
 	build_type = PROTOLATHE
 	materials = list("$metal" = 2000, "$glass" = 500, "mutagen" = 50)
 	build_path = "/obj/item/weapon/gun/energy/floragun"
-
-datum/design/portaseed
-	name = "Portaseeder"
-	desc = "An advanced hydroponics tool used for harvesting produce and extracting seeds."
-	id = "portaseed"
-	req_tech = list("materials" = 2, "biotech" = 3, "powerstorage" = 2)
-	build_type = PROTOLATHE
-	materials = list("$metal" = 500, "$glass" = 500)
-	build_path = "/obj/item/weapon/storage/bag/plants/portaseeder"
 
 datum/design/large_grenade
 	name = "Large Grenade"
@@ -1609,6 +1651,7 @@ datum/design/plasmapistol
 	build_type = PROTOLATHE
 	materials = list("$metal" = 5000, "$glass" = 1000, "$plasma" = 3000)
 	build_path = "/obj/item/weapon/gun/energy/toxgun"
+	locked = 1
 
 /////////////////////////////////////////
 /////////////////Armor///////////////////
@@ -1622,6 +1665,7 @@ datum/design/powerarmor
 	build_type = PROTOLATHE
 	materials = list("$metal" = 7500, "$plasteel" = 4000)
 	build_path = /obj/item/clothing/suit/space/powered
+	locked = 1
 
 datum/design/powerarmor_helmet
 	name = "Powered armor helmet"
@@ -1631,6 +1675,7 @@ datum/design/powerarmor_helmet
 	build_type = PROTOLATHE
 	materials = list("$metal" = 3750, "$glass" = 3750, "$plasteel" = 2000)
 	build_path = /obj/item/clothing/head/space/powered
+	locked = 1
 
 datum/design/powerarmor_gloves
 	name = "Powered armor gloves"
@@ -1640,6 +1685,7 @@ datum/design/powerarmor_gloves
 	build_type = PROTOLATHE
 	materials = list("$metal" = 7500, "$plasteel" = 2000)
 	build_path = /obj/item/clothing/gloves/powered
+	locked = 1
 
 datum/design/powerarmor_boots
 	name = "Powered armor boots"
@@ -1649,6 +1695,7 @@ datum/design/powerarmor_boots
 	build_type = PROTOLATHE
 	materials = list("$metal" = 7500, "$plasteel" = 2000)
 	build_path = /obj/item/clothing/shoes/powered
+	locked = 1
 
 datum/design/powerarmor_plasma
 	name = "Powered armor miniaturized plasma generator"
@@ -1658,6 +1705,7 @@ datum/design/powerarmor_plasma
 	build_type = PROTOLATHE
 	materials = list("$metal" = 7500, "$plasma" = 4000)
 	build_path = /obj/item/powerarmor/power/plasma
+	locked = 1
 
 datum/design/powerarmor_cell
 	name = "Powered armor powercell interface"
@@ -1667,6 +1715,7 @@ datum/design/powerarmor_cell
 	build_type = PROTOLATHE
 	materials = list("$metal" = 7500, "$silver" = 4000)
 	build_path = /obj/item/powerarmor/power/powercell
+	locked = 1
 
 datum/design/powerarmor_nuclear
 	name = "Powered armor miniaturized nuclear generator"
@@ -1676,6 +1725,7 @@ datum/design/powerarmor_nuclear
 	build_type = PROTOLATHE
 	materials = list("$metal" = 7500, "$uranium" = 4000)
 	build_path = /obj/item/powerarmor/power/nuclear
+	locked = 1
 
 datum/design/powerarmor_reactive
 	name = "Powered armor reactive plating"
@@ -1685,6 +1735,7 @@ datum/design/powerarmor_reactive
 	build_type = PROTOLATHE
 	materials = list("$metal" = 7500, "$diamond" = 4000)
 	build_path = /obj/item/powerarmor/reactive
+	locked = 1
 
 datum/design/powerarmor_servos
 	name = "Powered armor servos"
@@ -1694,6 +1745,7 @@ datum/design/powerarmor_servos
 	build_type = PROTOLATHE
 	materials = list("$metal" = 7500, "$plasteel" = 4000)
 	build_path = /obj/item/powerarmor/servos
+	locked = 1
 
 datum/design/powerarmor_atmoseal
 	name = "Powered armor atmospheric seal"
@@ -1703,6 +1755,7 @@ datum/design/powerarmor_atmoseal
 	build_type = PROTOLATHE
 	materials = list("$metal" = 7500, "$plasteel" = 4000)
 	build_path = /obj/item/powerarmor/atmoseal
+	locked = 1
 
 /////////////////////////////////////////
 /////////////////Mining//////////////////
@@ -1764,6 +1817,33 @@ datum/design/mesons
 	materials = list("$metal" = 50, "$glass" = 50)
 	build_path = "/obj/item/clothing/glasses/meson"
 
+datum/design/miningblueprint1
+	name = "Mining Schematic Disk Version 1"
+	desc = "Contains the schematics for a new range of Pickaxes."
+	id = "miningblueprint1"
+	req_tech = list("materials" = 3)
+	build_type = PROTOLATHE
+	materials = list("$metal" = 50, "$glass" = 50)
+	build_path = "/obj/item/weapon/disk/data/schematic/mining1"
+
+datum/design/miningblueprint2
+	name = "Mining Schematic Disk Version 2"
+	desc = "Contains the schematics for a new line of drills. And a Plasma Cutter. Has the previous level as well."
+	id = "miningblueprint2"
+	req_tech = list("materials" = 5)
+	build_type = PROTOLATHE
+	materials = list("$metal" = 50, "$glass" = 50)
+	build_path = "/obj/item/weapon/disk/data/schematic/mining2"
+
+datum/design/miningblueprint3
+	name = "Mining Schematic Disk Version 3"
+	desc = "Contains the schematics for a new type of Spacesuit, and schematics for a Jetpack. Has the previous levels as well."
+	id = "miningblueprint3"
+	req_tech = list("materials" = 6)
+	build_type = PROTOLATHE
+	materials = list("$metal" = 50, "$glass" = 50)
+	build_path = "/obj/item/weapon/disk/data/schematic/mining3"
+
 /////////////////////////////////////////
 //////////////Blue Space/////////////////
 /////////////////////////////////////////
@@ -1818,7 +1898,6 @@ datum/design/security_hud
 	build_type = PROTOLATHE
 	materials = list("$metal" = 50, "$glass" = 50)
 	build_path = "/obj/item/clothing/glasses/hud/security"
-	locked = 1
 
 /////////////////////////////////////////
 //////////////////Test///////////////////

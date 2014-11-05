@@ -373,7 +373,9 @@
 			return min(rand(20,65),rand(20,65))
 		if (1000 to 10000-1)
 			return min(rand(10,20),rand(10,20))*/
-		if (4000000 to INFINITY)
+		if (5000000 to INFINITY)
+			return min(rand(200,300),rand(200,300))
+		if (4000000 to 5000000)
 			return min(rand(80,180),rand(80,180))
 		if (1000000 to 4000000)
 			return min(rand(50,160),rand(50,160))
@@ -455,6 +457,9 @@
 //No animations will be performed by this proc.
 /proc/electrocute_mob(mob/living/carbon/M as mob, var/power_source, var/obj/source, var/siemens_coeff = 1.0)
 	if(istype(M.loc,/obj/mecha))	return 0	//feckin mechs are dumb
+
+	//This is for performance optimization only.
+	//DO NOT modify siemens_coeff here. That is checked in human/electrocute_act()
 	if(istype(M,/mob/living/carbon/human))
 		var/mob/living/carbon/human/H = M
 		if(H.gloves)

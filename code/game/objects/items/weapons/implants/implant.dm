@@ -343,20 +343,20 @@ the implant may become unstable and either pre-maturely inject the subject or si
 		return 1
 
 /obj/item/weapon/implant/traitor
-	name = "Greytide Implant"
-	desc = "Greytide Station wide"
+	name = "Mindslave Implant"
+	desc = "Divide and Conquer"
 	icon_state = "implant_evil"
 
 	get_data()
 		var/dat = {"
 <b>Implant Specifications:</b><BR>
-<b>Name:</b> Greytide Mind-Slave Implant<BR>
+<b>Name:</b> Mind-Slave Implant<BR>
 <b>Life:</b> ??? <BR>
-<b>Important Notes:</b> Any humanoid injected with this implant will become loyal to the injector and the greytide, unless of course the host is already loyal to someone else.<BR>
+<b>Important Notes:</b> Any humanoid injected with this implant will become loyal to the injector, unless of course the host is already loyal to someone else.<BR>
 <HR>
 <b>Implant Details:</b><BR>
 <b>Function:</b> Contains a small pod of nanobots that manipulate the host's mental functions.<BR>
-<b>Special Features:</b> Glory to the Greytide!<BR>
+<b>Special Features:</b> Diplomacy was never so easy.<BR>
 <b>Integrity:</b> Implant will last so long as the nanobots are inside the bloodstream."}
 		return dat
 
@@ -367,9 +367,9 @@ the implant may become unstable and either pre-maturely inject the subject or si
 		if(!M.mind) return 0
 		var/mob/living/carbon/human/H = M
 		if(M == user)
-			user << "<span class='notice'>You feel quite stupid for doing that.</span>"
+			user << "<span class='notice'>Making yourself loyal to yourself was a great idea! Perhaps the best idea, ever! Actually, you just feel like an idiot.</span>"
 			if(isliving(user))
-				user:brainloss += 10
+				user:brainloss += 20
 			return
 		if(locate(/obj/item/weapon/implant/traitor) in H.contents || locate(/obj/item/weapon/implant/traitor) in H.contents)
 			H.visible_message("[H] seems to resist the implant!", "You feel a strange sensation in your head that quickly dissipates.")
@@ -389,7 +389,7 @@ the implant may become unstable and either pre-maturely inject the subject or si
 		ticker.mode:implanter[ref] = implanters
 		ticker.mode.traitors += H.mind
 		H.mind.special_role = "traitor"
-		H << "<B>\red You've been shown the Greytide by [user.name]!</B> You now must lay down your life to protect them and assist in their goals at any cost."
+		H << "<B>\red You're now completely loyal to [user.name]!</B> You now must lay down your life to protect them and assist in their goals at any cost."
 		var/datum/objective/protect/p = new
 		p.owner = H.mind
 		p.target = user:mind
@@ -405,7 +405,7 @@ the implant may become unstable and either pre-maturely inject the subject or si
 /obj/item/weapon/implant/adrenalin
 	name = "adrenalin"
 	desc = "Removes all stuns and knockdowns."
-	var/uses
+	var/uses = 3
 
 	get_data()
 		var/dat = {"
@@ -414,8 +414,8 @@ the implant may become unstable and either pre-maturely inject the subject or si
 <b>Life:</b> Five days.<BR>
 <b>Important Notes:</b> <font color='red'>Illegal</font><BR>
 <HR>
-<b>Implant Details:</b> Subjects injected with implant can activate a massive injection of adrenalin.<BR>
-<b>Function:</b> Contains nanobots to stimulate body to mass-produce Adrenalin.<BR>
+<b>Implant Details:</b> Subjects injected with implant can activate an injection of medical cocktails.<BR>
+<b>Function:</b> Removes stuns, increases speed, and has a mild healing effect.<BR>
 <b>Special Features:</b> Will prevent and cure most forms of brainwashing.<BR>
 <b>Integrity:</b> Implant can only be used three times before the nanobots are depleted."}
 		return dat
@@ -429,6 +429,12 @@ the implant may become unstable and either pre-maturely inject the subject or si
 			source.SetStunned(0)
 			source.SetWeakened(0)
 			source.SetParalysis(0)
+			source.lying = 0
+			source.update_canmove()
+
+			source.reagents.add_reagent("synaptizine", 10)
+			source.reagents.add_reagent("tricordrazine", 10)
+			source.reagents.add_reagent("hyperzine", 10)
 
 		return
 

@@ -232,7 +232,7 @@
 		src.modules += new /obj/item/device/flash(src)
 		src.modules += new /obj/item/borg/sight/hud/sec(src)
 		src.modules += new /obj/item/weapon/handcuffs/cyborg(src)
-		src.modules += new /obj/item/weapon/melee/baton/loaded(src)
+		src.modules += new /obj/item/weapon/melee/baton/robot(src)
 		src.modules += new /obj/item/weapon/gun/energy/taser/cyborg(src)
 		src.modules += new /obj/item/taperoll/police(src)
 		src.emag = new /obj/item/weapon/gun/energy/laser/cyborg(src)
@@ -372,14 +372,14 @@
 /obj/item/weapon/robot_module/drone
 	name = "drone module"
 	stacktypes = list(
-		/obj/item/stack/sheet/wood/cyborg = 1,
-		/obj/item/stack/sheet/mineral/plastic/cyborg = 1,
-		/obj/item/stack/sheet/rglass/cyborg = 5,
+		/obj/item/stack/sheet/wood = 1,
+		/obj/item/stack/sheet/mineral/plastic = 1,
+		/obj/item/stack/sheet/rglass = 5,
 		/obj/item/stack/tile/wood = 5,
 		/obj/item/stack/rods = 15,
 		/obj/item/stack/tile/plasteel = 15,
-		/obj/item/stack/sheet/metal/cyborg = 20,
-		/obj/item/stack/sheet/glass/cyborg = 20,
+		/obj/item/stack/sheet/metal = 20,
+		/obj/item/stack/sheet/glass = 20,
 		/obj/item/stack/cable_coil = 30
 		)
 

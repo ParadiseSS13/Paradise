@@ -304,11 +304,11 @@ var/list/beam_master = list()
 	flag = "laser"
 	eyeblur = 2
 
-
+//Heavy lasers now deal slightly more damage, but have a slower firing rate; overall DPS still identical to lasers.
 /obj/item/projectile/beam/heavylaser
 	name = "heavy laser"
 	icon_state = "heavylaser"
-	damage = 45
+	damage = 50
 
 /obj/item/projectile/beam/xray
 	name = "xray beam"

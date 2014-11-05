@@ -257,7 +257,7 @@ var/list/all_supply_groups = list("Operations","Security","Hospitality","Enginee
 /datum/supply_packs/cargotrain
 	name = "Cargo Train Tug"
 	contains = list(/obj/vehicle/train/cargo/engine)
-	cost = 30
+	cost = 45
 	containertype = /obj/structure/largecrate
 	containername = "Cargo Train Tug Crate"
 	group = "Operations"
@@ -265,7 +265,7 @@ var/list/all_supply_groups = list("Operations","Security","Hospitality","Enginee
 /datum/supply_packs/cargotrailer
 	name = "Cargo Train Trolley"
 	contains = list(/obj/vehicle/train/cargo/trolley)
-	cost = 20
+	cost = 15
 	containertype = /obj/structure/largecrate
 	containername = "Cargo Train Trolley Crate"
 	group = "Operations"
@@ -1094,4 +1094,31 @@ var/list/all_supply_groups = list("Operations","Security","Hospitality","Enginee
 	cost = 15
 	containertype = /obj/structure/closet/crate
 	containername = "mafia supply crate"
+	group = "Operations"
+
+/datum/supply_packs/fabric
+	name = "Fabric crate"
+	contains  = list(/obj/item/weapon/ore/fabric,
+					/obj/item/weapon/ore/fabric,
+					/obj/item/weapon/ore/fabric,
+					/obj/item/weapon/ore/fabric,
+					/obj/item/weapon/ore/fabric,
+					/obj/item/weapon/ore/fabric,
+					/obj/item/weapon/ore/fabric,
+					/obj/item/weapon/ore/fabric,
+					/obj/item/weapon/ore/fabric,
+					/obj/item/weapon/ore/fabric,
+					/obj/item/weapon/ore/fabric,
+					/obj/item/weapon/ore/fabric,
+					/obj/item/weapon/ore/fabric,
+					/obj/item/weapon/ore/fabric,
+					/obj/item/weapon/ore/fabric,
+					/obj/item/weapon/ore/fabric,
+					/obj/item/weapon/ore/fabric,
+					/obj/item/weapon/ore/fabric,
+					/obj/item/weapon/ore/fabric,
+					/obj/item/weapon/ore/fabric)
+	cost = 30
+	containertype = /obj/structure/closet/crate
+	containername = "Fabric crate"
 	group = "Operations"
