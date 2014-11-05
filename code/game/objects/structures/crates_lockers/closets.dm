@@ -272,6 +272,9 @@
 		return
 	else if(istype(W, /obj/item/weapon/weldingtool))
 		var/obj/item/weapon/weldingtool/WT = W
+		if(src == user.loc)
+			user << "<span class='notice'>You can not [welded?"unweld":"weld"] the locker from inside.</span>"			
+			return
 		if(!WT.remove_fuel(0,user))
 			user << "<span class='notice'>You need more welding fuel to complete this task.</span>"
 			return
