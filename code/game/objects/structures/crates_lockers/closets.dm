@@ -42,7 +42,7 @@
 
 /obj/structure/closet/proc/can_close()
 	for(var/obj/structure/closet/closet in get_turf(src))
-		if(closet != src)
+		if(closet != src && closet.anchored != 1)
 			return 0
 	return 1
 
