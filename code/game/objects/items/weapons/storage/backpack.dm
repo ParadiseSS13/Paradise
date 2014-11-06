@@ -181,3 +181,28 @@
 	desc = "An exclusive satchel for Nanotrasen officers."
 	icon_state = "satchel-cap"
 	item_state = "captainpack"
+
+/obj/item/weapon/storage/backpack/satchel_flat
+	name = "smuggler's satchel"
+	desc = "A very slim satchel that can easily fit into tight spaces."
+	icon_state = "satchel-flat"
+	w_class = 3 //Can fit in backpacks itself.
+	storage_slots = 5
+	max_combined_w_class = 15
+	level = 1
+	cant_hold = list(/obj/item/weapon/storage/backpack/satchel_flat) //muh recursive backpacks
+
+/obj/item/weapon/storage/backpack/satchel_flat/hide(var/intact)
+	if(intact)
+		invisibility = 101
+		anchored = 1 //otherwise you can start pulling, cover it, and drag around an invisible backpack.
+		icon_state = "[initial(icon_state)]2"
+	else
+		invisibility = initial(invisibility)
+		anchored = 0
+		icon_state = initial(icon_state)
+
+/obj/item/weapon/storage/backpack/satchel_flat/New()
+	..()
+	new /obj/item/stack/tile/plasteel(src)
+	new /obj/item/weapon/crowbar(src)

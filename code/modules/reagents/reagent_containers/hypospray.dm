@@ -54,6 +54,20 @@
 
 	return
 
+/obj/item/weapon/reagent_containers/hypospray/combat
+	name = "combat stimulant injector"
+	desc = "A modified air-needle autoinjector, used by support operatives to quickly heal injuries in combat."
+	amount_per_transfer_from_this = 10
+	possible_transfer_amounts = list(10)
+	icon_state = "combat_hypo"
+	volume = 60
+
+/obj/item/weapon/reagent_containers/hypospray/combat/New()
+	..()
+	reagents.remove_reagent("tricordrazine", 30)
+	reagents.add_reagent("synaptizine", 30)
+
+
 /obj/item/weapon/reagent_containers/hypospray/autoinjector
 	name = "emergency autoinjector"
 	desc = "A potent mix of pain killers and muscle stimulants."

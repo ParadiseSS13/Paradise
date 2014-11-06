@@ -477,6 +477,7 @@
 #include "code\game\machinery\computer\station_alert.dm"
 #include "code\game\machinery\computer\store.dm"
 #include "code\game\machinery\computer\syndicate_specops_shuttle.dm"
+#include "code\game\machinery\computer\telecrystalconsoles.dm"
 #include "code\game\machinery\computer\telescience.dm"
 #include "code\game\machinery\computer\xenos_shuttle.dm"
 #include "code\game\machinery\doors\airlock.dm"

@@ -12,42 +12,48 @@
 /obj/structure/closet/syndicate/personal/New()
 	..()
 	sleep(2)
+	new /obj/item/clothing/under/syndicate(src)
+	new /obj/item/clothing/suit/armor/vest(src)
+	new /obj/item/clothing/head/helmet/swat(src)
+	new /obj/item/ammo_box/magazine/m10mm(src)
+	new /obj/item/weapon/storage/belt/military(src)
+	new /obj/item/weapon/crowbar/red(src)
+	new /obj/item/clothing/glasses/night(src)
+
+/obj/structure/closet/syndicate/suits
+	desc = "It's a storage unit for operative space gear. Not fancy..."
+
+/obj/structure/closet/syndicate/suits/New()
+	..()
+	sleep(2)
 	new /obj/item/weapon/tank/jetpack/oxygen(src)
 	new /obj/item/clothing/mask/gas/syndicate(src)
-	new /obj/item/clothing/under/syndicate(src)
-	new /obj/item/clothing/head/helmet/space/rig/syndi(src)
-	new /obj/item/clothing/suit/space/rig/syndi(src)
-	new /obj/item/weapon/crowbar/red(src)
-	new /obj/item/weapon/cell/high(src)
-	new /obj/item/weapon/card/id/syndicate(src)
-	new /obj/item/device/multitool(src)
 	new /obj/item/clothing/shoes/magboots(src)
 
-
 /obj/structure/closet/syndicate/nuclear
-	desc = "It's a storage unit for nuclear-operative gear."
+	desc = "It's a storage unit for a Syndicate boarding party.."
 
 /obj/structure/closet/syndicate/nuclear/New()
 	..()
 	sleep(2)
-	new /obj/item/ammo_box/magazine/m12mm(src)
-	new /obj/item/ammo_box/magazine/m12mm(src)
-	new /obj/item/weapon/storage/box/handcuffs(src)
+	new /obj/item/ammo_box/magazine/m10mm(src)
+	new /obj/item/ammo_box/magazine/m10mm(src)
+	new /obj/item/ammo_box/magazine/m10mm(src)
+	new /obj/item/ammo_box/magazine/m10mm(src)
+	new /obj/item/ammo_box/magazine/m10mm(src)
 	new /obj/item/weapon/storage/box/teargas(src)
 	new /obj/item/weapon/storage/box/flashbangs(src)
-	new /obj/item/weapon/gun/energy/gun(src)
-	new /obj/item/weapon/gun/energy/gun(src)
-	new /obj/item/weapon/gun/energy/gun(src)
-	new /obj/item/weapon/gun/energy/gun(src)
-	new /obj/item/weapon/gun/energy/gun(src)
+	new /obj/item/weapon/gun/projectile/automatic/bulldog(src)
+	new /obj/item/weapon/gun/projectile/automatic/bulldog(src)
+	new /obj/item/weapon/gun/projectile/automatic/bulldog(src)
+	new /obj/item/weapon/gun/projectile/automatic/bulldog(src)
+	new /obj/item/weapon/gun/projectile/automatic/bulldog(src)
 	new /obj/item/weapon/pinpointer/nukeop(src)
 	new /obj/item/weapon/pinpointer/nukeop(src)
 	new /obj/item/weapon/pinpointer/nukeop(src)
 	new /obj/item/weapon/pinpointer/nukeop(src)
 	new /obj/item/weapon/pinpointer/nukeop(src)
 	new /obj/item/device/pda/syndicate(src)
-	var/obj/item/device/radio/uplink/U = new(src)
-	U.hidden_uplink.uses = 55
 	return
 
 /obj/structure/closet/syndicate/resources/

@@ -109,12 +109,14 @@
 	return
 
 /obj/item/weapon/storage/box/syndie_kit/space
-	name = "Space Suit and Helmet"
+	name = "Boxed Space Suit and Helmet"
+	can_hold = list(/obj/item/clothing/suit/space/syndicate/black/red, /obj/item/clothing/head/helmet/space/syndicate/black/red)
+	max_w_class = 3
 
 /obj/item/weapon/storage/box/syndie_kit/space/New()
 	..()
-	new /obj/item/clothing/suit/space/syndicate(src)
-	new /obj/item/clothing/head/helmet/space/syndicate(src)
+	new /obj/item/clothing/suit/space/syndicate/black/red(src)
+	new /obj/item/clothing/head/helmet/space/syndicate/black/red(src)
 	return
 
 /obj/item/weapon/storage/box/syndie_kit/surveillance
