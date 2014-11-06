@@ -8,13 +8,17 @@
 	embed = 1
 	sharp = 1
 
-	on_hit(var/atom/target, var/blocked = 0)
+/*	on_hit(var/atom/target, var/blocked = 0)
 		if (..(target, blocked))
 			var/mob/living/L = target
 			shake_camera(L, 3, 2)
 			return 1
-		return 0
+		return 0 */
 
+/obj/item/projectile/bullet/weakbullet
+	damage = 5
+	stun = 5
+	weaken = 5
 
 /obj/item/projectile/bullet/slug
 	name = "slug"
@@ -49,7 +53,7 @@
 
 
 /obj/item/projectile/bullet/midbullet12
-	damage = 25
+	damage = 20
 	stun = 5
 	weaken = 5
 
@@ -90,13 +94,21 @@
 	embed = 0
 	edge = 1
 
-
 /obj/item/projectile/bullet/stunshot
 	name = "stunshot"
 	damage = 5
-	stun = 10
-	weaken = 10
-	stutter = 10
+	stun = 5
+	weaken = 5
+	stutter = 5
+	embed = 0
+	sharp = 0
+
+/obj/item/projectile/bullet/stunslug
+	name = "stunslug"
+	damage = 5
+	stun = 5
+	weaken = 5
+	stutter = 5
 	embed = 0
 	sharp = 0
 
@@ -107,15 +119,23 @@
 /obj/item/projectile/bullet/incendiary
 
 /obj/item/projectile/bullet/incendiary/on_hit(var/atom/target, var/blocked = 0)
+	..()
 	if(istype(target, /mob/living/carbon))
 		var/mob/living/carbon/M = target
 		M.adjust_fire_stacks(1)
 		M.IgniteMob()
 
 /obj/item/projectile/bullet/incendiary/shell
+	name = "incendiary slug"
 	damage = 20
 
-/obj/item/projectile/bullet/incendiary/mech
+/obj/item/projectile/bullet/incendiary/shell/Move()
+	..()
+	var/turf/location = get_turf(src)
+	location.hotspot_expose(700, 50, 1)
+
+/obj/item/projectile/bullet/incendiary/shell/dragonsbreath
+	name = "dragonsbreath round"
 	damage = 5
 
 /obj/item/projectile/bullet/mime

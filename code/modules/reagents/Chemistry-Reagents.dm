@@ -408,8 +408,8 @@ datum
 
 			on_mob_life(var/mob/living/M as mob)
 				if(!M) M = holder.my_atom
-				M.adjustToxLoss(4)
-				M.adjustOxyLoss(4)
+				M.adjustToxLoss(3)
+				M.adjustOxyLoss(3)
 				M.sleeping += 1
 				..()
 				return
@@ -510,14 +510,14 @@ datum
 			description = "An effective hypnotic used to treat insomnia."
 			reagent_state = LIQUID
 			color = "#E895CC" // rgb: 232, 149, 204
-			oxyod = 100
-			toxod = 100
 
 			on_mob_life(var/mob/living/M as mob)
 				if(!M) M = holder.my_atom
 				if(!data) data = 1
 				switch(data)
-					if(1 to 15)
+					if(1 to 12)
+						if(prob(5))	M.emote("yawn")
+					if(12 to 15)
 						M.eye_blurry = max(M.eye_blurry, 10)
 					if(15 to 25)
 						M.drowsyness  = max(M.drowsyness, 20)
@@ -2077,8 +2077,8 @@ datum
 					M.status_flags &= ~FAKEDEATH
 				M.adjustOxyLoss(0.5*REM)
 				M.adjustToxLoss(0.5*REM)
-				M.Weaken(10)
-				M.silent = max(M.silent, 10)
+				M.Weaken(5)
+				M.silent = max(M.silent, 5)
 				M.tod = worldtime2text()
 				..()
 				return
@@ -2107,7 +2107,6 @@ datum
 			description = "A powerful hallucinogen. Not a thing to be messed with."
 			reagent_state = LIQUID
 			color = "#B31008" // rgb: 139, 166, 233
-			custom_metabolism = 0.05
 			addictiveness = 15
 
 			on_mob_life(var/mob/living/M)
@@ -2276,6 +2275,21 @@ datum
 				..()
 				return
 
+		Spores
+			name = "Spores"
+			id = "spores"
+			description = "A toxic spore cloud which blocks vision when ingested."
+			reagent_state = LIQUID
+			color = "#9ACD32" // rgb: 0, 51, 51
+
+			on_mob_life(var/mob/living/M as mob)
+				if(!M) M = holder.my_atom
+				M.adjustToxLoss(0.5*REM)
+				..()
+				M.damageoverlaytemp = 60
+				M.eye_blurry = max(M.eye_blurry, 3)
+				return
+
 		chloralhydrate							//Otherwise known as a "Mickey Finn"
 			name = "Chloral Hydrate"
 			id = "chloralhydrate"
@@ -2288,10 +2302,10 @@ datum
 				if(!data) data = 1
 				data++
 				switch(data)
-					if(1)
+					if(1 to 10)
 						M.confused += 2
 						M.drowsyness += 2
-					if(2 to 50)
+					if(10 to 50)
 						M.sleeping += 1
 					if(51 to INFINITY)
 						M.sleeping += 1

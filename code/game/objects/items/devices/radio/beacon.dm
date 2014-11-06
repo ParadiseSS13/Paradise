@@ -48,6 +48,18 @@
 		del(src)
 	return
 
+/obj/item/device/radio/beacon/syndicate/bomb
+	name = "suspicious beacon"
+	desc = "A label on it reads: <i>Warning: Activating this device will send a high-ordinance explosive to your location</i>."
+	origin_tech = "bluespace=1;syndicate=7"
+
+/obj/item/device/radio/beacon/syndicate/bomb/attack_self(mob/user as mob)
+	if(user)
+		user << "\blue Locked In"
+		new /obj/machinery/syndicatebomb( user.loc )
+		playsound(src, 'sound/effects/pop.ogg', 100, 1, 1)
+		del(src)
+	return
 
 
 /obj/item/device/telepad_beacon

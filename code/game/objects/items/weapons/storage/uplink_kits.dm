@@ -109,12 +109,14 @@
 	return
 
 /obj/item/weapon/storage/box/syndie_kit/space
-	name = "Space Suit and Helmet"
+	name = "Boxed Space Suit and Helmet"
+	can_hold = list(/obj/item/clothing/suit/space/syndicate/black/red, /obj/item/clothing/head/helmet/space/syndicate/black/red)
+	max_w_class = 3
 
 /obj/item/weapon/storage/box/syndie_kit/space/New()
 	..()
-	new /obj/item/clothing/suit/space/syndicate(src)
-	new /obj/item/clothing/head/helmet/space/syndicate(src)
+	new /obj/item/clothing/suit/space/syndicate/black/red(src)
+	new /obj/item/clothing/head/helmet/space/syndicate/black/red(src)
 	return
 
 /obj/item/weapon/storage/box/syndie_kit/surveillance
@@ -134,6 +136,15 @@
 	new /obj/item/weapon/conversion_kit(src)
 	new /obj/item/ammo_box/a357(src)
 	return
+
+/obj/item/weapon/storage/box/syndie_kit/imp_adrenal
+	name = "boxed adrenal implant (with injector)"
+
+	New()
+		..()
+		var/obj/item/weapon/implanter/O = new(src)
+		O.imp = new /obj/item/weapon/implant/adrenalin(O)
+		O.update()
 
 /obj/item/weapon/storage/box/syndie_kit/mindslave
 	name = "box (MS)"

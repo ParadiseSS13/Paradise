@@ -191,7 +191,7 @@ emp_act
 
 	if(user == src) // Attacking yourself can't miss
 		target_zone = user.zone_sel.selecting
-	if(!target_zone && !src.stat)
+	if(!target_zone && !src.stat && !I.discrete)
 		visible_message("\red <B>[user] misses [src] with \the [I]!")
 		return 0
 

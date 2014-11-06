@@ -8,12 +8,12 @@ proc/issyndicate(mob/living/M as mob)
 	name = "nuclear emergency"
 	config_tag = "nuclear"
 	required_players = 6
-	required_players_secret = 15 // 25 players - 5 players to be the nuke ops = 20 players remaining
-	required_enemies = 3
-	recommended_enemies = 4
+	required_players_secret = 20 // 20 players - 5 players to be the nuke ops = 15 players remaining
+	required_enemies = 5
+	recommended_enemies = 5
 
 	uplink_welcome = "Corporate Backed Uplink Console:"
-	uplink_uses = 40
+	uplink_uses = 120
 
 	var/const/agents_possible = 5 //If we ever need more syndicate agents.
 	var/const/waittime_l = 600 //lower bound on time before intercept arrives (in tenths of seconds)
@@ -128,7 +128,7 @@ proc/issyndicate(mob/living/M as mob)
 
 	for(var/datum/mind/synd_mind in syndicates)
 		if(spawnpos > synd_spawn.len)
-			spawnpos = 1
+			spawnpos = 2
 		synd_mind.current.loc = synd_spawn[spawnpos]
 
 		forge_syndicate_objectives(synd_mind)
@@ -162,6 +162,18 @@ proc/issyndicate(mob/living/M as mob)
 	spawn(1)
 //		NukeNameAssign(nukelastname(synd_mind.current),syndicates) //allows time for the rest of the syndies to be chosen
 	synd_mind.current.real_name = "[pick(first_names_male)] [pick(last_names)]"
+	synd_mind.current << "<B>You are the Syndicate leader for this mission. You are responsible for the distribution of telecrystals and your ID is the only one who can open the launch bay doors.</B>"
+	synd_mind.current << "<B>If you feel you are not up to this task, give your ID to another operative.</B>"
+
+	var/list/foundIDs = synd_mind.current.search_contents_for(/obj/item/weapon/card/id)
+
+	if(foundIDs.len)
+		for(var/obj/item/weapon/card/id/ID in foundIDs)
+			ID.name = "lead agent card"
+			ID.access += access_syndicate_leader
+	else
+		message_admins("Warning: Nuke Ops spawned without access to leave their spawn area!")
+
 	if (nuke_code)
 		synd_mind.store_memory("<B>Syndicate Nuclear Bomb Code</B>: [nuke_code]", 0, 0)
 		synd_mind.current << "The nuclear authorization code is: <B>[nuke_code]</B>"
@@ -210,17 +222,19 @@ proc/issyndicate(mob/living/M as mob)
 
 	synd_mob.equip_to_slot_or_del(new /obj/item/clothing/under/syndicate(synd_mob), slot_w_uniform)
 	synd_mob.equip_to_slot_or_del(new /obj/item/clothing/shoes/black(synd_mob), slot_shoes)
-	synd_mob.equip_to_slot_or_del(new /obj/item/clothing/gloves/swat(synd_mob), slot_gloves)
+	synd_mob.equip_or_collect(new /obj/item/clothing/gloves/combat(synd_mob), slot_gloves)
 	synd_mob.equip_to_slot_or_del(new /obj/item/weapon/card/id/syndicate(synd_mob), slot_wear_id)
 	if(synd_mob.backbag == 2) synd_mob.equip_to_slot_or_del(new /obj/item/weapon/storage/backpack(synd_mob), slot_back)
 	if(synd_mob.backbag == 3) synd_mob.equip_to_slot_or_del(new /obj/item/weapon/storage/backpack/satchel_norm(synd_mob), slot_back)
 	if(synd_mob.backbag == 4) synd_mob.equip_to_slot_or_del(new /obj/item/weapon/storage/backpack/satchel(synd_mob), slot_back)
-	synd_mob.equip_to_slot_or_del(new /obj/item/ammo_box/magazine/m10mm(synd_mob), slot_in_backpack)
-	synd_mob.equip_to_slot_or_del(new /obj/item/ammo_box/magazine/m10mm(synd_mob), slot_in_backpack)
-	synd_mob.equip_to_slot_or_del(new /obj/item/ammo_box/magazine/m10mm(synd_mob), slot_in_backpack)
 	synd_mob.equip_to_slot_or_del(new /obj/item/weapon/reagent_containers/pill/cyanide(synd_mob), slot_in_backpack)
 	synd_mob.equip_to_slot_or_del(new /obj/item/weapon/gun/projectile/automatic/pistol(synd_mob), slot_belt)
 	synd_mob.equip_to_slot_or_del(new /obj/item/weapon/storage/box/engineer(synd_mob.back), slot_in_backpack)
+
+	var/obj/item/device/radio/uplink/U = new /obj/item/device/radio/uplink(synd_mob)
+	U.hidden_uplink.uplink_owner="[synd_mob.key]"
+	U.hidden_uplink.uses = 20
+	synd_mob.equip_to_slot_or_del(U, slot_in_backpack)
 
 	var/obj/item/clothing/suit/space/rig/syndi/new_suit = new(synd_mob)
 	var/obj/item/clothing/head/helmet/space/rig/syndi/new_helmet = new(synd_mob)
@@ -232,10 +246,13 @@ proc/issyndicate(mob/living/M as mob)
 		switch(race)
 			if("Unathi")
 				new_suit.species_restricted = list("Unathi")
+				new_helmet.species_restricted = list("Unathi")
 			if("Tajaran")
 				new_suit.species_restricted = list("Tajaran")
+				new_helmet.species_restricted = list("Tajaran")
 			if("Skrell")
 				new_suit.species_restricted = list("Skrell")
+				new_helmet.species_restricted = list("Skrell")
 			if("Vox" || "Vox Armalis")
 				synd_mob.equip_to_slot_or_del(new /obj/item/clothing/mask/breath(synd_mob), slot_wear_mask)
 				synd_mob.equip_to_slot_or_del(new /obj/item/weapon/tank/nitrogen(synd_mob), slot_l_hand)
@@ -243,6 +260,7 @@ proc/issyndicate(mob/living/M as mob)
 				if (synd_mob.internals)
 					synd_mob.internals.icon_state = "internal1"
 				new_suit.species_restricted = list ("Vox", "Vox Armalis")
+				new_helmet.species_restricted = list ("Vox", "Vox Armalis")
 
 
 	synd_mob.equip_to_slot_or_del(new_suit, slot_wear_suit)
@@ -252,6 +270,7 @@ proc/issyndicate(mob/living/M as mob)
 	var/obj/item/weapon/implant/dexplosive/E = new/obj/item/weapon/implant/dexplosive(synd_mob)
 	E.imp_in = synd_mob
 	E.implanted = 1
+	synd_mob.faction |= "syndicate"
 	synd_mob.update_icons()
 	return 1
 
@@ -364,6 +383,9 @@ proc/issyndicate(mob/living/M as mob)
 
 
 		text += "(Syndicates used [TC_uses] TC) [purchases]"
+
+		if(TC_uses==0 && station_was_nuked && !is_operatives_are_dead())
+			text += "<BIG><IMG CLASS=icon SRC=\ref['icons/BadAss.dmi'] ICONSTATE='badass'></BIG>"
 
 		world << text
 	return 1

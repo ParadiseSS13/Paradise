@@ -295,9 +295,9 @@ Implants;
 			// If they're a traitor or likewise, give them extra TC in exchange.
 			var/obj/item/device/uplink/hidden/suplink = man.mind.find_syndicate_uplink()
 			if(suplink)
-				var/extra = 4
+				var/extra = 0 //was 4; with the TC rebalance, this isn't really needed, anymore
 				suplink.uses += extra
-				man << "\red We have received notice that enemy intelligence suspects you to be linked with us. We have thus invested significant resources to increase your uplink's capacity."
+				man << "\red We have received notice that enemy intelligence suspects you to be linked with us. We recommend adjusting your plans and equipment accordingly."
 			else
 				// Give them a warning!
 				man << "\red They are on to you!"

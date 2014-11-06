@@ -55,6 +55,8 @@
 
 /obj/item/weapon/plastique/attack_self(mob/user as mob)
 	var/newtime = input(usr, "Please set the timer.", "Timer", 10) as num
+	if(newtime < 10)
+		newtime = 10
 	if(newtime > 60000)
 		newtime = 60000
 	timer = newtime
@@ -64,16 +66,9 @@
 /obj/item/weapon/plastique/afterattack(atom/target as obj|turf, mob/user as mob, flag)
 	if (!flag)
 		return
-	if (istype(target, /turf/unsimulated) || istype(target, /turf/simulated/shuttle) || istype(target, /obj/item/weapon/storage/) || istype(target, /obj/machinery/door/airlock/hatch/gamma))
+	if (ismob(target) || istype(target, /turf/unsimulated) || istype(target, /turf/simulated/shuttle) || istype(target, /obj/item/weapon/storage/) ||  istype(target, /obj/machinery/door/airlock/hatch/gamma))
 		return
 	user << "Planting explosives..."
-	if(ismob(target))
-		user.attack_log += "\[[time_stamp()]\] <font color='red'> [user.real_name] tried planting [name] on [target:real_name] ([target:ckey])</font>"
-		if(target:ckey)
-			msg_admin_attack("[user.real_name] ([user.ckey]) tried planting [name] on [target:real_name] ([target:ckey]) (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[user.x];Y=[user.y];Z=[user.z]'>JMP</a>)")
-
-		user.visible_message("\red [user.name] is trying to plant some kind of explosive on [target.name]!")
-
 
 	if(do_after(user, 50) && in_range(user, target))
 		user.drop_item()
@@ -102,11 +97,12 @@
 	if(!target)
 		target = src
 	if(location)
-		explosion(location, 0, 1, 3, 6)
+		explosion(location, -1, -1, 4, 4)
 
 	if(target)
 		if (istype(target, /turf/simulated/wall))
-			target:dismantle_wall(1)
+			var/turf/simulated/wall/W = target
+			W.dismantle_wall(1)
 		else
 			target.ex_act(1)
 		if (isobj(target))
