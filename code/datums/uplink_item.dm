@@ -15,6 +15,8 @@ var/list/uplink_items = list()
 				continue
 			if(I.gamemodes.len && ticker && !(ticker.mode.name in I.gamemodes))
 				continue
+			if(I.excludefrom.len && ticker && (ticker.mode.name in I.excludefrom))
+				continue
 			if(I.last)
 				last += I
 				continue
@@ -44,6 +46,7 @@ var/list/uplink_items = list()
 	var/last = 0 // Appear last
 	var/abstract = 0
 	var/list/gamemodes = list() // Empty list means it is in all the gamemodes. Otherwise place the gamemode name here.
+	var/list/excludefrom = list() //Empty list does nothing. Place the name of gamemode you don't want this item to be available in here. This is so you dont have to list EVERY mode to exclude something.
 	var/list/job = null
 
 /datum/uplink_item/proc/spawn_item(var/turf/loc, var/obj/item/device/uplink/U)
@@ -233,6 +236,7 @@ var/list/uplink_items = list()
 	desc = "A miniature energy crossbow that is small enough both to fit into a pocket and to slip into a backpack unnoticed by observers. Fires bolts tipped with toxin, a poisonous substance that is the product of a living organism. Stuns enemies for a short period of time. Recharges automatically."
 	item = /obj/item/weapon/gun/energy/crossbow
 	cost = 12
+	excludefrom = list("nuclear emergency")
 
 /datum/uplink_item/dangerous/sword
 	name = "Energy Sword"
@@ -345,6 +349,7 @@ var/list/uplink_items = list()
 	desc = "A syringe disguised as a functional pen, filled with a neuromuscular-blocking drug that renders a target mute on injection that will eventually cause them to pass out. The pen holds one dose of paralyzing agent,though it can be refilled."
 	item = /obj/item/weapon/pen/paralysis
 	cost = 8
+	excludefrom = list("nuclear emergency")
 
 /datum/uplink_item/stealthy_weapons/soap
 	name = "Syndicate Soap"
@@ -449,7 +454,7 @@ var/list/uplink_items = list()
 
 /datum/uplink_item/device_tools/space_suit
 	name = "Space Suit"
-	desc = "The red syndicate space suit is less encumbering than Nanotrasen variants, fits inside bags, and has a weapon slot. Nanotrasen crewmembers are trained to report red space suit sightings."
+	desc = "The red and black syndicate space suit is less encumbering than Nanotrasen variants, fits inside bags, and has a weapon slot. Nanotrasen crewmembers are trained to report red space suit sightings."
 	item = /obj/item/weapon/storage/box/syndie_kit/space
 	cost = 5
 
@@ -475,7 +480,7 @@ var/list/uplink_items = list()
 	name = "Binary Translator Key"
 	desc = "A key, that when inserted into a radio headset, allows you to listen to and talk with artificial intelligences and cybernetic organisms in binary."
 	item = /obj/item/device/encryptionkey/binary
-	cost = 6
+	cost = 5
 
 /datum/uplink_item/device_tools/cipherkey
 	name = "Centcomm Encryption Key"
@@ -491,7 +496,7 @@ var/list/uplink_items = list()
 
 /datum/uplink_item/device_tools/plastic_explosives
 	name = "Composition C-4"
-	desc = "C-4 is plastic explosive of the common variety Composition C. You can use it to breach walls, attach it to organisms to destroy them, or connect a signaler to its wiring to make it remotely detonable. It has a modifiable timer with a minimum setting of 10 seconds."
+	desc = "C-4 is plastic explosive of the common variety Composition C. You can use it to breach walls or connect a signaler to its wiring to make it remotely detonable. It has a modifiable timer with a minimum setting of 10 seconds."
 	item = /obj/item/weapon/plastique
 	cost = 1
 
@@ -599,6 +604,7 @@ var/list/uplink_items = list()
 	desc = "Syndicate Bundles are specialised groups of items that arrive in a plain box. These items are collectively worth more than 10 telecrystals, but you do not know which specialisation you will receive."
 	item = /obj/item/weapon/storage/box/syndicate
 	cost = 20
+	excludefrom = list(/datum/game_mode/nuclear)
 
 /datum/uplink_item/badass/syndiecards
 	name = "Syndicate Playing Cards"
@@ -606,6 +612,7 @@ var/list/uplink_items = list()
 	You can also play card games with them."
 	item = /obj/item/toy/cards/deck/syndicate
 	cost = 1
+	excludefrom = list(/datum/game_mode/nuclear)
 
 /datum/uplink_item/badass/balloon
 	name = "For showing that you are The Boss"
