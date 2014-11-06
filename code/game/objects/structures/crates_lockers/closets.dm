@@ -42,7 +42,7 @@
 
 /obj/structure/closet/proc/can_close()
 	for(var/obj/structure/closet/closet in get_turf(src))
-		if(closet != src)
+		if(closet != src && closet.anchored != 1)
 			return 0
 	return 1
 
@@ -129,9 +129,7 @@
 	return 1
 
 /obj/structure/closet/proc/toggle(mob/user as mob)
-	var/orig = src.opened
-	. = src.opened ? src.close() : src.open()
-	if(. == orig)
+	if(!(src.opened ? src.close() : src.open()))
 		user << "<span class='notice'>It won't budge!</span>"
 	return
 
@@ -274,6 +272,9 @@
 		return
 	else if(istype(W, /obj/item/weapon/weldingtool))
 		var/obj/item/weapon/weldingtool/WT = W
+		if(src == user.loc)
+			user << "<span class='notice'>You can not [welded?"unweld":"weld"] the locker from inside.</span>"			
+			return
 		if(!WT.remove_fuel(0,user))
 			user << "<span class='notice'>You need more welding fuel to complete this task.</span>"
 			return

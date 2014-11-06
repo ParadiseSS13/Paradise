@@ -1,5 +1,5 @@
 /obj/structure/closet/secure_closet/personal
-	desc = "It's a secure locker for personell. The first card swiped gains control."
+	desc = "It's a secure locker for personnel. The first card swiped gains control."
 	name = "personal closet"
 	req_access = list(access_all_personal_lockers)
 	var/registered_name = null
@@ -68,7 +68,9 @@
 			return
 		var/obj/item/weapon/card/id/I = W
 		if(!I || !I.registered_name)	return
-		if(src.allowed(user) || !src.registered_name || (istype(I) && (src.registered_name == I.registered_name)))
+		if(src == user.loc)
+			user << "<span class='notice'>You can't reach the lock from inside.</span>"
+		else if(src.allowed(user) || !src.registered_name || (istype(I) && (src.registered_name == I.registered_name)))
 			//they can open all lockers, or nobody owns this, or they own this locker
 			src.locked = !( src.locked )
 			if(src.locked)	src.icon_state = src.icon_locked
