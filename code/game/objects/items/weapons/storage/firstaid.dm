@@ -110,6 +110,25 @@
 	new /obj/item/stack/medical/advanced/ointment(src)
 	new /obj/item/stack/medical/splint(src)
 	return
+
+/obj/item/weapon/storage/firstaid/tactical
+	name = "first-aid kit"
+	icon_state = "bezerk"
+	desc = "I hope you've got insurance."
+	max_w_class = 3
+
+/obj/item/weapon/storage/firstaid/tactical/New()
+	..()
+	if (empty) return
+	new /obj/item/clothing/tie/stethoscope( src )
+	new /obj/item/weapon/surgicaldrill(src)
+	new /obj/item/weapon/reagent_containers/hypospray/combat(src)
+	new /obj/item/weapon/reagent_containers/pill/bicaridine(src)
+	new /obj/item/weapon/reagent_containers/pill/dermaline(src)
+	new /obj/item/weapon/reagent_containers/ld50_syringe(src)
+	new /obj/item/clothing/glasses/hud/health/night(src)
+	return
+
 /*
  * Pill Bottles
  */

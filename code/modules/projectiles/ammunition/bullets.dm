@@ -101,7 +101,6 @@
 	projectile_type = "/obj/item/projectile/bullet/stunslug"
 	m_amt = 2500
 
-
 /obj/item/ammo_casing/shotgun/incendiary
 	name = "incendiary shell"
 	desc = "An incendiary shell"
@@ -109,6 +108,13 @@
 	projectile_type = "/obj/item/projectile/bullet/incendiary/shell"
 	m_amt = 12500
 
+/obj/item/ammo_casing/shotgun/incendiary/dragonsbreath
+	name = "dragonsbreath shell"
+	desc = "A shotgun shell which fires a spread of incendiary pellets."
+	icon_state = "ishell2"
+	projectile_type = "/obj/item/projectile/bullet/incendiary/shell/dragonsbreath"
+	buck = 4
+	deviation = 0.9
 
 /obj/item/ammo_casing/shotgun/dart
 	name = "shotgun dart"

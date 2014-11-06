@@ -277,4 +277,4 @@ var/list/world_uplinks = list()
 /obj/item/device/radio/headset/uplink/New()
 	..()
 	hidden_uplink = new(src)
-	hidden_uplink.uses = 10
+	hidden_uplink.uses = 20

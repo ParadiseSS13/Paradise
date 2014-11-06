@@ -34,23 +34,33 @@
 	src.attack_hand()
 
 /obj/machinery/computer/telescience/attack_hand(mob/user)
+	ui_interact(user)
+	
+/obj/machinery/computer/telescience/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
 	if(..())
 		return
 	if(stat & (NOPOWER|BROKEN))
 		return
-	var/t = ""
-	t += "<A href='?src=\ref[src];setx=1'>Set X</A>"
-	t += "<A href='?src=\ref[src];sety=1'>Set Y</A>"
-	t += "<A href='?src=\ref[src];setz=1'>Set Z</A>"
-	t += "<BR><BR>Current set coordinates:"
-	t += "([x_co], [y_co], [z_co])"
-	t += "<BR><BR><A href='?src=\ref[src];send=1'>Send</A>"
-	t += " <A href='?src=\ref[src];receive=1'>Receive</A>"
-	t += "<BR><BR><A href='?src=\ref[src];recal=1'>Recalibrate</A>"
-	var/datum/browser/popup = new(user, "telesci", name, 640, 480)
-	popup.set_content(t)
-	popup.open()
-	return
+	
+	// On first use, the coordinates are null. Rather than displaying null, we'll set them to unset.
+	if(!x_co)
+		x_co = "Unset"
+	if(!y_co)
+		y_co = "Unset"
+	if(!z_co)
+		z_co = "Unset"
+	
+	var/data[0]
+	data["coordx"] = x_co
+	data["coordy"] = y_co
+	data["coordz"] = z_co
+	
+	// Set up the Nano UI
+	ui = nanomanager.try_update_ui(user, src, ui_key, ui, data, force_open)
+	if (!ui)
+		ui = new(user, src, ui_key, "telescience_console.tmpl", "Telescience Console UI", 640, 480)
+		ui.set_initial_data(data)		
+		ui.open()		
 
 /obj/machinery/computer/telescience/proc/telefail(var/level)
 	var/teleturf = get_turf(telepad)
@@ -63,7 +73,7 @@
 			s.start()
 		if(2)
 			for(var/mob/living/carbon/human/M in viewers(telepad, null))
-				if(M.loc.loc == telepad.loc.loc)   //stops the geneticists with xray vision getting irradiated
+				if(M.loc.loc == telepad.loc.loc) // Stops the geneticists with X-Ray vision getting irradiated
 					M.apply_effect((rand(50, 100)), IRRADIATE, 0)
 					M << "\red You feel irradiated."
 		if(3)
@@ -174,14 +184,14 @@
 
 /obj/machinery/computer/telescience/proc/checkFail()
 	var/fail = 0
-	if(x_co == "")
-		usr << "\red Error: set X coordinates."
+	if(x_co == "" || x_co == "Unset")
+		usr << "\red Error: set X coordinate."
 		fail = 1
-	if(y_co == "")
-		usr << "\red Error: set Y coordinates."
+	if(y_co == "" || y_co == "Unset")
+		usr << "\red Error: set Y coordinate."
 		fail = 1
-	if(z_co == "")
-		usr << "\red Error: set Z coordinates."
+	if(z_co == "" || z_co == "Unset")
+		usr << "\red Error: set Z coordinate."
 		fail = 1
 	if(x_co < 11 || x_co > 245)
 		usr << "\red Error: X is less than 11 or greater than 245."
@@ -208,30 +218,36 @@
 		a = copytext(sanitize(a), 1, 20)
 		x_co = a
 		x_co = text2num(x_co)
+		nanomanager.update_uis(src)
 		return
 	if(href_list["sety"])
 		var/b = input("Please input desired Y coordinate.", name, y_co) as num
 		b = copytext(sanitize(b), 1, 20)
 		y_co = b
 		y_co = text2num(y_co)
+		nanomanager.update_uis(src)
 		return
 	if(href_list["setz"])
 		var/c = input("Please input desired Z coordinate.", name, z_co) as num
 		c = copytext(sanitize(c), 1, 20)
 		z_co = c
 		z_co = text2num(z_co)
+		nanomanager.update_uis(src)
 		return
 	if(href_list["send"])
 		teleprep(0)
+		nanomanager.update_uis(src)
 		return
 	if(href_list["receive"])
 		teleprep(1)
+		nanomanager.update_uis(src)
 		return
 	if(href_list["recal"])
 		if(telepad == null)
 			for(var/obj/machinery/telepad/T in range(src,10))
 				telepad = T
-		if(!telepad)	return
+		if(!telepad)	
+			return
 		var/teleturf = get_turf(telepad)
 		teles_left = rand(8,12)
 		x_off = rand(-10,10)
@@ -240,12 +256,13 @@
 		s.set_up(5, 1, teleturf)
 		s.start()
 		usr << "\blue Calibration successful."
+		nanomanager.update_uis(src)
 		return
 
-/obj/machinery/computer/telescience/attackby(I as obj, user as mob)		//Emagging.
+/obj/machinery/computer/telescience/attackby(I as obj, user as mob) // Emagging
 	if(istype(I,/obj/item/weapon/card/emag))
 		if (src.emagged == 0)
-			user << "\blue You scramble the Telescience authentication key to an unknown signal, you should be able to teleport to more places now!"
+			user << "\blue You scramble the Telescience authentication key to an unknown signal. You should be able to teleport to more places now!"
 			src.emagged = 1
 		else
 			user << "\red The machine seems unaffected by the card swipe..."

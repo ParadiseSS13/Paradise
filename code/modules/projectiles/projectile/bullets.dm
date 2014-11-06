@@ -8,12 +8,12 @@
 	embed = 1
 	sharp = 1
 
-	on_hit(var/atom/target, var/blocked = 0)
+/*	on_hit(var/atom/target, var/blocked = 0)
 		if (..(target, blocked))
 			var/mob/living/L = target
 			shake_camera(L, 3, 2)
 			return 1
-		return 0
+		return 0 */
 
 /obj/item/projectile/bullet/weakbullet
 	damage = 5
