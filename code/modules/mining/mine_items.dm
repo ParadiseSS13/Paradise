@@ -131,6 +131,13 @@
 		origin_tech = "materials=6;powerstorage=4;engineering=5"
 		desc = "Yours is the drill that will pierce the heavens!"
 
+		traitor //Pocket-sized traitor diamond drill.
+			name = "supermatter drill"
+			icon_state = "smdrill"
+			origin_tech = "materials=6;powerstorage=4;engineering=5;syndicate=3"
+			desc = "Microscopic supermatter crystals cover the head of this tiny drill."
+			w_class = 2.0
+
 	borgdrill
 		name = "cyborg mining drill"
 		icon_state = "diamonddrill"

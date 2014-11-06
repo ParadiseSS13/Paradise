@@ -425,6 +425,12 @@ var/list/uplink_items = list()
 	item = /obj/item/weapon/storage/backpack/satchel_flat
 	cost = 2
 
+/datum/uplink_item/stealthy_tools/smdrill
+	name = "Supermatter Drill"
+	desc = "A pocket-sized drill tipped with nanoscopic supermatter crystals, able to cut through reinforced walls."
+	item = /obj/item/weapon/pickaxe/diamonddrill/traitor
+	cost = 6
+
 // DEVICE AND TOOLS
 
 /datum/uplink_item/device_tools
