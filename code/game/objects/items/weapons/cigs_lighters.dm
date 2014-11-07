@@ -474,7 +474,7 @@ obj/item/weapon/rollingpaper
 	name = "rolling paper"
 	desc = "A thin piece of paper used to make fine smokeables."
 	icon = 'icons/obj/cigarettes.dmi'
-	icon_state = "cig_paper"
+	icon_state = "cig paper"
 	w_class = 1
 
 
