@@ -210,6 +210,13 @@
 	item_state = "pirate"
 	_color = "pirate"
 
+/obj/item/clothing/under/pirate_rags
+	name = "pirate rags"
+	desc = "an old ragged set of clothing"
+	icon_state = "piraterags"
+	item_state = "piraterags"
+	_color = "piraterags"
+
 /obj/item/clothing/under/soviet
 	name = "soviet uniform"
 	desc = "For the Motherland!"
