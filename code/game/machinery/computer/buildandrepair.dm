@@ -34,13 +34,10 @@
 	name = "Circuit board (Message Monitor)"
 	build_path = "/obj/machinery/computer/message_monitor"
 	origin_tech = "programming=3"
-/obj/item/weapon/circuitboard/security
-	name = "Circuit board (Security)"
+/obj/item/weapon/circuitboard/camera
+	name = "Circuit board (Camera Monitor)"
 	build_path = "/obj/machinery/computer/security"
-	var/network = list("SS13")
-	req_access = list(access_security)
-	var/locked = 1
-	var/emagged = 0
+	origin_tech = "programming=2"
 /obj/item/weapon/circuitboard/aicore
 	name = "Circuit board (AI core)"
 	origin_tech = "programming=4;biotech=2"
@@ -257,40 +254,6 @@
 				user << "DERP! BUG! Report this (And what you were doing to cause it) to Agouri"
 	return
 
-/obj/item/weapon/circuitboard/security/attackby(obj/item/I as obj, mob/user as mob)
-	if(istype(I,/obj/item/weapon/card/emag))
-		if(emagged)
-			user << "Circuit lock is already removed."
-			return
-		user << "\blue You override the circuit lock and open controls."
-		emagged = 1
-		locked = 0
-	else if(istype(I,/obj/item/weapon/card/id))
-		if(emagged)
-			user << "\red Circuit lock does not respond."
-			return
-		if(check_access(I))
-			locked = !locked
-			user << "\blue You [locked ? "" : "un"]lock the circuit controls."
-		else
-			user << "\red Access denied."
-	else if(istype(I,/obj/item/device/multitool))
-		if(locked)
-			user << "\red Circuit controls are locked."
-			return
-		var/existing_networks = list2text(network,",")
-		var/input = strip_html(input(usr, "Which networks would you like to connect this camera console circuit to? Seperate networks with a comma. No Spaces!\nFor example: SS13,Security,Secret ", "Multitool-Circuitboard interface", existing_networks))
-		if(!input)
-			usr << "No input found please hang up and try your call again."
-			return
-		var/list/tempnetwork = text2list(input, ",")
-		tempnetwork = difflist(tempnetwork,RESTRICTED_CAMERA_NETWORKS,1)
-		if(tempnetwork.len < 1)
-			usr << "No network found please hang up and try your call again."
-			return
-		network = tempnetwork
-	return
-
 /obj/item/weapon/circuitboard/rdconsole/attackby(obj/item/I as obj, mob/user as mob)
 	if(istype(I,/obj/item/weapon/screwdriver))
 		user.visible_message("\blue \the [user] adjusts the jumper on the [src]'s access protocol pins.", "\blue You adjust the jumper on the access protocol pins.")
@@ -407,10 +370,6 @@
 					var/obj/machinery/computer/supplycomp/SC = B
 					var/obj/item/weapon/circuitboard/supplycomp/C = circuit
 					SC.can_order_contraband = C.contraband_enabled
-				if(istype(circuit,/obj/item/weapon/circuitboard/security))
-					var/obj/machinery/computer/security/C = B
-					var/obj/item/weapon/circuitboard/security/CB = circuit
-					C.network = CB.network
 				del(src)
 
 
