@@ -54,3 +54,8 @@ obj/item/weapon/mop/proc/clean(turf/simulated/A as turf)
 			reagents.clear_reagents()
 			mopcount = 0
 	return
+
+/obj/item/weapon/mop/proc/janicart_insert(mob/user, obj/structure/janitorialcart/J)
+	J.put_in_cart(src, user)
+	J.mymop=src
+	J.update_icon()
