@@ -31,8 +31,15 @@
 /*
  * Costume
  */
-/obj/item/clothing/suit/pirate
-	name = "pirate coat"
+/obj/item/clothing/suit/pirate_brown
+	name = "brown pirate coat"
+	desc = "Yarr."
+	icon_state = "pirate_old"
+	item_state = "pirate_old"
+	flags = FPRINT | TABLEPASS
+
+/obj/item/clothing/suit/pirate_black
+	name = "black pirate coat"
 	desc = "Yarr."
 	icon_state = "pirate"
 	item_state = "pirate"
