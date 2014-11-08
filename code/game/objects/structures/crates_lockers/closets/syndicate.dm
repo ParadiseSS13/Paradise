@@ -26,7 +26,7 @@
 /obj/structure/closet/syndicate/suits/New()
 	..()
 	sleep(2)
-	new /obj/item/weapon/tank/jetpack/oxygen(src)
+	new /obj/item/weapon/tank/jetpack/oxygen/harness(src)
 	new /obj/item/clothing/mask/gas/syndicate(src)
 	new /obj/item/clothing/shoes/magboots(src)
 
