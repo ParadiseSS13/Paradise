@@ -10,6 +10,8 @@
 	cell_type = "/obj/item/weapon/cell/super"
 	var/mode = 2
 	fire_delay = 15
+	slot_flags = SLOT_BACK
+	w_class = 4.0
 
 	attack_self(mob/living/user as mob)
 		switch(mode)
