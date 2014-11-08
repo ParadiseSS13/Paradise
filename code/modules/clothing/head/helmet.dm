@@ -77,6 +77,12 @@
 	min_cold_protection_temperature = SPACE_HELMET_MIN_COLD_PROTECITON_TEMPERATURE
 	siemens_coefficient = 0.5
 
+/obj/item/clothing/head/helmet/swat/syndicate
+	name = "blood-red helmet"
+	desc = "An extremely robust, space-worthy helmet without a visor to allow for goggle usage underneath. Property of Gorlex Marauders."
+	icon_state = "helmetsyndi"
+	item_state = "helmet"
+
 /obj/item/clothing/head/helmet/thunderdome
 	name = "\improper Thunderdome helmet"
 	desc = "<i>'Let the battle commence!'</i>"
