@@ -5707,7 +5707,7 @@
 "cfM" = (/obj/structure/cable{d1 = 1; d2 = 2; icon_state = "1-2"; tag = ""},/turf/simulated/floor,/area/storage/tech)
 "cfN" = (/obj/structure/table,/obj/item/weapon/screwdriver{pixel_y = 16},/obj/item/weapon/wirecutters,/turf/simulated/floor/plating,/area/storage/tech)
 "cfO" = (/obj/structure/rack{dir = 8; layer = 2.9},/obj/item/weapon/circuitboard/cloning{pixel_x = 0},/obj/item/weapon/circuitboard/med_data{pixel_x = 3; pixel_y = -3},/obj/item/weapon/circuitboard/clonescanner,/obj/item/weapon/circuitboard/clonepod,/obj/item/weapon/circuitboard/scan_consolenew,/turf/simulated/floor/plating,/area/storage/tech)
-"cfP" = (/obj/structure/rack{dir = 8; layer = 2.9},/obj/item/weapon/circuitboard/secure_data{pixel_x = -2; pixel_y = 2},/obj/item/weapon/circuitboard/camera{pixel_x = 1; pixel_y = -1},/turf/simulated/floor/plating,/area/storage/tech)
+"cfP" = (/obj/structure/rack{dir = 8; layer = 2.9},/obj/item/weapon/circuitboard/secure_data{pixel_x = -2; pixel_y = 2},/obj/item/weapon/circuitboard/security{pixel_x = 1; pixel_y = -1},/turf/simulated/floor/plating,/area/storage/tech)
 "cfQ" = (/obj/structure/rack{dir = 8; layer = 2.9},/obj/item/weapon/circuitboard/powermonitor{pixel_x = -2; pixel_y = 2},/obj/item/weapon/circuitboard/stationalert{pixel_x = 1; pixel_y = -1},/obj/item/weapon/circuitboard/atmos_alert{pixel_x = 3; pixel_y = -3},/turf/simulated/floor/plating,/area/storage/tech)
 "cfR" = (/obj/machinery/light_switch{pixel_x = 27},/turf/simulated/floor/plating,/area/storage/tech)
 "cfS" = (/obj/structure/closet/emcloset,/turf/simulated/floor{icon_state = "caution"; dir = 4},/area/hallway/secondary/construction{name = "\improper Engineering Training"})
