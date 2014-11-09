@@ -47,6 +47,11 @@
 		icon_state = "trashbag2"
 	else icon_state = "trashbag3"
 
+/obj/item/weapon/storage/bag/trash/proc/janicart_insert(mob/user, obj/structure/janitorialcart/J)
+	J.put_in_cart(src, user)
+	J.mybag=src
+	J.update_icon()
+
 
 // -----------------------------
 //        Plastic Bag

@@ -39,6 +39,7 @@
 			icon_state = "sword[_color]"
 		w_class = 4
 		playsound(user, 'sound/weapons/saberon.ogg', 50, 1)
+		hitsound = 'sound/weapons/blade1.ogg'
 		user << "\blue [src] is now active."
 	else
 		force = 3
@@ -48,6 +49,7 @@
 			icon_state = "sword0"
 		w_class = 2
 		playsound(user, 'sound/weapons/saberoff.ogg', 50, 1)
+		hitsound = "swing_hit"
 		user << "\blue [src] can now be concealed."
 	if(istype(user,/mob/living/carbon/human))
 		var/mob/living/carbon/human/H = user
@@ -250,11 +252,13 @@
 		src.force = 150
 		src.icon_state = "axe1"
 		src.w_class = 5
+		hitsound = 'sound/weapons/blade1.ogg'
 	else
 		user << "\blue The axe can now be concealed."
 		src.force = 40
 		src.icon_state = "axe0"
 		src.w_class = 5
+		hitsound = "swing_hit"
 	src.add_fingerprint(user)
 	return
 

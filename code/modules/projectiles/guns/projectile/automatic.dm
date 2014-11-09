@@ -118,7 +118,7 @@
 	name = "\improper Bulldog shotgun"
 	desc = "A compact, mag-fed semi-automatic shotgun for combat in narrow corridors. Compatible only with specialized magazines."
 	icon_state = "bulldog"
-	item_state = "bulldog"
+	item_state = "c20r"
 	w_class = 3.0
 	origin_tech = "combat=5;materials=4;syndicate=6"
 	mag_type = "/obj/item/ammo_box/magazine/m12g"
