@@ -1,0 +1,18 @@
+<!-- 
+Title: Camera Monitor UI 
+Used In File(s): \code\game\machinery\computer\camera.dm
+ -->
+<div class="item">
+	<h2>Networks</h2>
+	Please select the networks you'd like this console to monitor.
+	{{if data.emagged}}
+		<div class="bad">WARNING: Unauthorized access detected.</div>
+	{{/if}}
+	<div class="item">
+		{{for data.networks}}
+			{{:helper.link(value.name, value.active ? 'minus' : 'plus', { 'activate' : value.name, 'active' : value.active }, '', value.active ? 'linkOn' : '')}}
+		{{empty}}
+			<div class="bad">No accessible networks were found. Please make sure your ID has sufficient access.</div>
+		{{/for}}
+	</div>
+</div>

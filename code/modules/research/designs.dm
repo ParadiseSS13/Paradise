@@ -70,13 +70,13 @@ datum/design/proc/CalcReliability(var/list/temp_techs)
 ///////////////////Computer Boards///////////////////////////////////
 
 datum/design/seccamera
-	name = "Circuit Design (Security)"
-	desc = "Allows for the construction of circuit boards used to build security camera computers."
+	name = "Circuit Design (Camera Monitor)"
+	desc = "Allows for the construction of circuit boards used to build camera monitors."
 	id = "seccamera"
 	req_tech = list("programming" = 2)
 	build_type = IMPRINTER
 	materials = list("$glass" = 2000, "sacid" = 20)
-	build_path = "/obj/item/weapon/circuitboard/security"
+	build_path = "/obj/item/weapon/circuitboard/camera"
 
 datum/design/aicore
 	name = "Circuit Design (AI Core)"

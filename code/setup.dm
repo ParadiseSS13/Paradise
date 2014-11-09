@@ -784,9 +784,9 @@ var/list/cheartstopper = list("potassium_chloride") //this stops the heart when 
 #define GETPULSE_TOOL	1	//more accurate (med scanner, sleeper, etc)
 
 var/list/RESTRICTED_CAMERA_NETWORKS = list( //Those networks can only be accessed by preexisting terminals. AIs and new terminals can't use them.
-	"thunder",
-	"ERT",
-	"NUKE"
+	"CentCom",
+	"Thunderdome",
+	"Xeno"
 	)
 
 //Species flags.

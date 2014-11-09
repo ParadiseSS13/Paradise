@@ -52,6 +52,9 @@
 		stat |= NOPOWER
 
 /obj/machinery/keycard_auth/attack_hand(mob/user as mob)
+	ui_interact(user)
+	
+/obj/machinery/keycard_auth/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
 	if(user.stat || stat & (NOPOWER|BROKEN))
 		user << "This device is not powered."
 		return
@@ -60,30 +63,21 @@
 		return
 
 	user.set_machine(src)
-
-	var/dat = "<h1>Keycard Authentication Device</h1>"
-
-	dat += "This device is used to trigger some high security events. It requires the simultaneous swipe of two high-level ID cards."
-	dat += "<br><hr><br>"
-
-	if(screen == 1)
-		dat += "Select an event to trigger:<ul>"
-		dat += "<li><A href='?src=\ref[src];triggerevent=Red alert'>Red alert</A></li>"
-		dat += "<li><A href='?src=\ref[src];triggerevent=Emergency Response Team'>Emergency Response Team</A></li>"
-
-		dat += "<li><A href='?src=\ref[src];triggerevent=Grant Emergency Maintenance Access'>Grant Emergency Maintenance Access</A></li>"
-		dat += "<li><A href='?src=\ref[src];triggerevent=Revoke Emergency Maintenance Access'>Revoke Emergency Maintenance Access</A></li>"
-		dat += "</ul>"
-		user << browse(dat, "window=keycard_auth;size=500x250")
-	if(screen == 2)
-		dat += "Please swipe your card to authorize the following event: <b>[event]</b>"
-		dat += "<p><A href='?src=\ref[src];reset=1'>Back</A>"
-		user << browse(dat, "window=keycard_auth;size=500x250")
-	return
-
+	
+	var/data[0]
+	data["screen"] = screen
+	data["event"] = event
+	data["src"] = "\ref[src]"
+	
+	ui = nanomanager.try_update_ui(user, src, ui_key, ui, data, force_open)	
+	if (!ui)
+		ui = new(user, src, ui_key, "keycard_auth.tmpl", "Keycard Authentication Device UI", 520, 260)
+		ui.set_initial_data(data)		
+		ui.open()	
 
 /obj/machinery/keycard_auth/Topic(href, href_list)
-	..()
+	if(..())
+		return
 	if(busy)
 		usr << "This device is busy."
 		return
@@ -96,7 +90,7 @@
 	if(href_list["reset"])
 		reset()
 
-	updateUsrDialog()
+	nanomanager.update_uis(src)
 	add_fingerprint(usr)
 	return
 
@@ -143,7 +137,7 @@
 
 /obj/machinery/keycard_auth/proc/trigger_event()
 	switch(event)
-		if("Red alert")
+		if("Red Alert")
 			set_security_level(SEC_LEVEL_RED)
 			feedback_inc("alert_keycard_auth_red",1)
 		if("Grant Emergency Maintenance Access")
