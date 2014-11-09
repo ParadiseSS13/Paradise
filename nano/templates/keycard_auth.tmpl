@@ -18,7 +18,7 @@ Used In File(s): \code\modules\security_levels\keycard_authentication.dm
 			</div>
 		{{else data.screen == 2}}
 			<h2>Please swipe your card to authorize the following event:</h2>
-			<div style="text-align: center; font-size: 16px;">{{:data.event}}</div>
+			<div style="text-align: center; font-size: 16px; font-weight: bold;">{{:data.event}}</div>
 			{{:helper.link('Back', 'close', { 'reset' : 1 })}}
 		{{/if}}
 	</div>
