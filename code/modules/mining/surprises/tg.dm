@@ -15,7 +15,7 @@
 	spawntypes = list(
 		/obj/item/device/mass_spectrometer/adv=1,
 		/obj/item/clothing/glasses/hud/health=1,
-		/obj/machinery/bot/medbot/mysterious=1
+		/obj/machinery/bot/medbot/syndicate=1
 	)
 	fluffitems = list(
 		/obj/effect/decal/cleanable/blood=5,

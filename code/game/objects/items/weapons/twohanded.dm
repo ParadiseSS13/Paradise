@@ -196,6 +196,7 @@ obj/item/weapon/twohanded/
 	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
 	sharp = 1
 	edge = 1
+	no_embed = 1 // Like with the single-handed esword, this shouldn't be embedding in people.
 
 /obj/item/weapon/twohanded/dualsaber/update_icon()
 	icon_state = "dualsaber[wielded]"
@@ -227,6 +228,13 @@ obj/item/weapon/twohanded/
 	New()
 		color = "red"
 
+/obj/item/weapon/twohanded/dualsaber/unwield()
+	..()
+	hitsound = "swing_hit"
+
+/obj/item/weapon/twohanded/dualsaber/wield()
+	..()
+	hitsound = 'sound/weapons/blade1.ogg'
 
 //spears
 /obj/item/weapon/twohanded/spear

@@ -158,9 +158,9 @@ proc/issyndicate(mob/living/M as mob)
 
 
 /datum/game_mode/proc/prepare_syndicate_leader(var/datum/mind/synd_mind, var/nuke_code)
-//	var/leader_title = pick("Czar", "Boss", "Commander", "Chief", "Kingpin", "Director", "Overlord")
+	//var/leader_title = pick("Czar", "Boss", "Commander", "Chief", "Kingpin", "Director", "Overlord")
 	spawn(1)
-//		NukeNameAssign(nukelastname(synd_mind.current),syndicates) //allows time for the rest of the syndies to be chosen
+		NukeNameAssign(nukelastname(synd_mind.current),syndicates) //allows time for the rest of the syndies to be chosen
 	synd_mind.current.real_name = "[pick(first_names_male)] [pick(last_names)]"
 	synd_mind.current << "<B>You are the Syndicate leader for this mission. You are responsible for the distribution of telecrystals and your ID is the only one who can open the launch bay doors.</B>"
 	synd_mind.current << "<B>If you feel you are not up to this task, give your ID to another operative.</B>"
@@ -240,6 +240,13 @@ proc/issyndicate(mob/living/M as mob)
 	var/obj/item/clothing/head/helmet/space/rig/syndi/new_helmet = new(synd_mob)
 
 	if(synd_mob.species)
+
+		/*
+		Incase anyone ever gets the burning desire to have nukeops with randomized apperances. -- Dave
+		synd_mob.gender = pick(MALE, FEMALE) // Randomized appearances for the nukeops.
+		var/datum/preferences/pref = new()
+		A.randomize_appearance_for(synd_mob)
+		*/
 
 		var/race = synd_mob.species.name
 
@@ -391,7 +398,7 @@ proc/issyndicate(mob/living/M as mob)
 	return 1
 
 
-/*/proc/nukelastname(var/mob/M as mob) //--All praise goes to NEO|Phyte, all blame goes to DH, and it was Cindi-Kate's idea. Also praise Urist for copypasta ho.
+/proc/nukelastname(var/mob/M as mob) //--All praise goes to NEO|Phyte, all blame goes to DH, and it was Cindi-Kate's idea. Also praise Urist for copypasta ho.
 	var/randomname = pick(last_names)
 	var/newname = copytext(sanitize(input(M,"You are the nuke operative [pick("Czar", "Boss", "Commander", "Chief", "Kingpin", "Director", "Overlord")]. Please choose a last name for your family.", "Name change",randomname)),1,MAX_NAME_LEN)
 
@@ -404,7 +411,7 @@ proc/issyndicate(mob/living/M as mob)
 			return nukelastname(M)
 
 	return newname
-*/
+
 /proc/NukeNameAssign(var/lastname,var/list/syndicates)
 	for(var/datum/mind/synd_mind in syndicates)
 		switch(synd_mind.current.gender)

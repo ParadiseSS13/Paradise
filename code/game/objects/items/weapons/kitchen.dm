@@ -194,6 +194,7 @@
 	desc = "A huge thing used for chopping and chopping up meat. This includes clowns and clown-by-products."
 	force = 25.0
 	throwforce = 15.0
+	no_embed = 1
 
 /obj/item/weapon/butch/attack(mob/living/carbon/M as mob, mob/living/carbon/user as mob)
 	playsound(loc, 'sound/weapons/bladeslice.ogg', 50, 1, -1)
