@@ -22,6 +22,7 @@ var/bomb_set
 	var/safety_wire
 	var/timing_wire
 	var/removal_stage = 0 // 0 is no removal, 1 is covers removed, 2 is covers open, 3 is sealant open, 4 is unwrenched, 5 is removed from bolts.
+	var/lastentered
 	var/data[0]	
 	var/uiwidth
 	var/uiheight
@@ -321,9 +322,15 @@ obj/machinery/nuclearbomb/proc/nukehack_win(mob/user as mob)
 						src.yes_code = 0
 						src.code = null
 					else
-						src.code += text("[]", href_list["type"])
-						if (length(src.code) > 5)
-							src.code = "ERROR"
+						lastentered = text("[]", href_list["type"])
+						if (text2num(lastentered) == null)
+							var/turf/LOC = get_turf(usr)
+							message_admins("[key_name_admin(usr)] tried to exploit a nuclear bomb by entering non-numerical codes: <a href='?_src_=vars;Vars=\ref[src]'>[lastentered]</a> ! ([LOC ? "<a href='?_src_=holder;adminplayerobservecoodjump=1;X=[LOC.x];Y=[LOC.y];Z=[LOC.z]'>JMP</a>" : "null"])", 0)
+							log_admin("EXPLOIT : [key_name(usr)] tried to exploit a nuclear bomb by entering non-numerical codes: [lastentered] !")
+						else
+							src.code += lastentered
+							if (length(src.code) > 5)
+								src.code = "ERROR"
 			if (src.yes_code)
 				if (href_list["time"])
 					var/time = text2num(href_list["time"])
