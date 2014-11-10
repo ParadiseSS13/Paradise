@@ -135,6 +135,7 @@
 	icon = 'icons/obj/weapons.dmi'
 	icon_state = "telebaton_0"
 	item_state = "telebaton_0"
+	flags = FPRINT | TABLEPASS
 	slot_flags = SLOT_BELT
 	w_class = 2
 	force = 3
