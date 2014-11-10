@@ -194,17 +194,14 @@ obj/machinery/nuclearbomb/proc/nukehack_win(mob/user as mob)
 		if (src.auth)
 			if (src.yes_code)
 				data["authstatus"] = src.timing ? "Functional/Set" : "Functional"
-				data["safe"] = src.safety ? "Safe" : "Engaged"
 			else
 				data["authstatus"] = "Auth. S2"
-				data["safe"] = src.safety ? "Safe" : "Engaged"
 		else
 			if (src.timing)	
 				data["authstatus"] = "Set"
-				data["safe"] = src.safety ? "Safe" : "Engaged"
 			else
 				data["authstatus"] = "Auth. S1"
-				data["safe"] = src.safety ? "Safe" : "Engaged"			
+		data["safe"] = src.safety ? "Safe" : "Engaged"			
 		data["time"] = src.timeleft	
 		data["timer"] = src.timing
 		data["safety"] = src.safety
