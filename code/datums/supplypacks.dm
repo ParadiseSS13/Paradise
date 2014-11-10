@@ -198,12 +198,19 @@ var/list/all_supply_groups = list("Operations","Security","Hospitality","Enginee
 					/obj/item/weapon/reagent_containers/glass/rag,
 					/obj/item/weapon/grenade/chem_grenade/cleaner,
 					/obj/item/weapon/grenade/chem_grenade/cleaner,
-					/obj/item/weapon/grenade/chem_grenade/cleaner,
-					/obj/structure/mopbucket)
+					/obj/item/weapon/grenade/chem_grenade/cleaner)
 	cost = 10
 	containertype = /obj/structure/closet/crate
 	containername = "Janitorial supplies"
 	group = "Operations"
+
+/datum/supply_packs/janicart
+	name = "Janitorial Cart and Galoshes crate"
+	contains = list(/obj/structure/janitorialcart,
+					/obj/item/clothing/shoes/galoshes)
+	cost = 10
+	containertype = /obj/structure/largecrate
+	containername = "janitorial cart crate"
 
 /datum/supply_packs/lightbulbs
 	name = "Replacement lights"

@@ -13,7 +13,7 @@
 	anchored = 0
 	health = 20
 	maxhealth = 20
-	req_access =list(access_medical)
+	req_access =list(access_medical, access_robotics)
 	var/stunned = 0 //It can be stunned by tasers. Delicate circuits.
 //var/emagged = 0
 	var/list/botcard_access = list(access_medical)

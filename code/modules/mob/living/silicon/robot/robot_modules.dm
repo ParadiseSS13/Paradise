@@ -250,6 +250,7 @@
 		src.modules += new /obj/item/weapon/storage/bag/trash(src)
 		src.modules += new /obj/item/weapon/mop(src)
 		src.modules += new /obj/item/device/lightreplacer(src)
+		src.modules += new /obj/item/weapon/holosign_creator(src)
 		src.emag = new /obj/item/weapon/reagent_containers/spray(src)
 
 		src.emag.reagents.add_reagent("lube", 250)
