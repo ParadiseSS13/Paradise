@@ -24,7 +24,6 @@
 			return 1
 	return 0
 
-
 /datum/theft_objective/antique_laser_gun
 	name = "the captain's antique laser gun"
 	typepath = /obj/item/weapon/gun/energy/laser/captain
@@ -54,9 +53,9 @@
 	typepath = /obj/item/device/aicard
 
 /datum/theft_objective/magboots
-	name = "a pair of magboots"
-	typepath = /obj/item/clothing/shoes/magboots
-	protected_jobs = list("Station Engineer", "Life Support Specialist", "Chief Engineer")
+	name = "the chief engineer's advanced magnetic boots"
+	typepath = /obj/item/clothing/shoes/magboots/advance
+	protected_jobs = list("Chief Engineer")
 
 /datum/theft_objective/blueprints
 	name = "the station blueprints"
@@ -75,6 +74,21 @@
 /datum/theft_objective/corgi
 	name = "a piece of corgi meat"
 	typepath = /obj/item/weapon/reagent_containers/food/snacks/meat/corgi
+
+/datum/theft_objective/capmedal
+	name = "the medal of captaincy"
+	typepath = /obj/item/clothing/tie/medal/gold/captain
+	protected_jobs = list("Captain")
+
+/datum/theft_objective/nukedisc
+	name = "the nuclear authentication disk"
+	typepath = /obj/item/weapon/disk/nuclear
+	protected_jobs = list("Captain")
+
+/datum/theft_objective/reactive
+	name = "the reactive teleport armor"
+	typepath = /obj/item/clothing/suit/armor/reactive
+	protected_jobs = list("Research Director")
 
 /datum/theft_objective/rd_jumpsuit
 	name = "the research director's jumpsuit"
