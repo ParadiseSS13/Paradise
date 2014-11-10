@@ -213,6 +213,22 @@
 					icon_state = "reinf_tabledir2"
 				if(6)
 					icon_state = "reinf_tabledir3"
+		else if(istype(src,/obj/structure/table/woodentable/poker))
+			switch(table_type)
+				if(0)
+					icon_state = "pokertable_table"
+				if(1)
+					icon_state = "pokertable_1tileendtable"
+				if(2)
+					icon_state = "pokertable_1tilethick"
+				if(3)
+					icon_state = "pokertable_tabledir"
+				if(4)
+					icon_state = "pokertable_middle"
+				if(5)
+					icon_state = "pokertable_tabledir2"
+				if(6)
+					icon_state = "pokertable_tabledir3"
 		else if(istype(src,/obj/structure/table/woodentable))
 			switch(table_type)
 				if(0)
