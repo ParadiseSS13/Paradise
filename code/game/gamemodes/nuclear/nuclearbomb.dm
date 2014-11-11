@@ -21,17 +21,18 @@ var/bomb_set
 	var/light_wire
 	var/safety_wire
 	var/timing_wire
-	var/removal_stage = 0 // 0 is no removal, 1 is covers removed, 2 is covers open,
-	                      // 3 is sealant open, 4 is unwrenched, 5 is removed from bolts.
+	var/removal_stage = 0 // 0 is no removal, 1 is covers removed, 2 is covers open, 3 is sealant open, 4 is unwrenched, 5 is removed from bolts.
+	var/lastentered
+	var/data[0]	
+	var/uiwidth
+	var/uiheight
+	var/uititle
 	flags = FPRINT
 	use_power = 0
-
-
 
 /obj/machinery/nuclearbomb/New()
 	..()
 	r_code = "[rand(10000, 99999.0)]"//Creates a random code upon object spawn.
-
 	src.wires["Red"] = 0
 	src.wires["Blue"] = 0
 	src.wires["Green"] = 0
@@ -55,11 +56,10 @@ var/bomb_set
 			explode()
 		for(var/mob/M in viewers(1, src))
 			if ((M.client && M.machine == src))
-				src.attack_hand(M)
+				nanomanager.update_uis(src)
 	return
 
 /obj/machinery/nuclearbomb/attackby(obj/item/weapon/O as obj, mob/user as mob)
-
 	if (istype(O, /obj/item/weapon/screwdriver))
 		src.add_fingerprint(user)
 		if (src.auth)
@@ -67,35 +67,37 @@ var/bomb_set
 				src.opened = 1
 				overlays += image(icon, "npanel_open")
 				user << "You unscrew the control panel of [src]."
-
 			else
 				src.opened = 0
 				overlays -= image(icon, "npanel_open")
 				user << "You screw the control panel of [src] back on."
 		else
 			if (src.opened == 0)
-				user << "The [src] emits a buzzing noise, the panel staying locked in."
+				user << "[src] emits a buzzing noise, the panel staying locked in."
 			if (src.opened == 1)
 				src.opened = 0
 				overlays -= image(icon, "npanel_open")
 				user << "You screw the control panel of [src] back on."
 			flick("nuclearbombc", src)
-
+		ui_interact(user)
 		return
 
+	if (istype(O, /obj/item/device/multitool) || istype(O, /obj/item/weapon/wirecutters))
+		ui_interact(user)
+		
 	if (src.extended)
 		if (istype(O, /obj/item/weapon/disk/nuclear))
 			usr.drop_item()
 			O.loc = src
 			src.auth = O
 			src.add_fingerprint(user)
+			nanomanager.update_uis(src)
 			return
 
 	if (src.anchored)
 		switch(removal_stage)
 			if(0)
 				if(istype(O,/obj/item/weapon/weldingtool))
-
 					var/obj/item/weapon/weldingtool/WT = O
 					if(!WT.isOn()) return
 					if (WT.get_fuel() < 5) // uses up 5 fuel.
@@ -169,25 +171,7 @@ var/bomb_set
 		if (src.opened)
 			nukehack_win(user,50)
 		user.set_machine(src)
-		var/dat = text("<TT><B>Nuclear Fission Explosive</B><BR>\nAuth. Disk: <A href='?src=\ref[];auth=1'>[]</A><HR>", src, (src.auth ? "++++++++++" : "----------"))
-		if (src.auth)
-			if (src.yes_code)
-				dat += text("\n<B>Status</B>: []-[]<BR>\n<B>Timer</B>: []<BR>\n<BR>\nTimer: [] <A href='?src=\ref[];timer=1'>Toggle</A><BR>\nTime: <A href='?src=\ref[];time=-10'>-</A> <A href='?src=\ref[];time=-1'>-</A> [] <A href='?src=\ref[];time=1'>+</A> <A href='?src=\ref[];time=10'>+</A><BR>\n<BR>\nSafety: [] <A href='?src=\ref[];safety=1'>Toggle</A><BR>\nAnchor: [] <A href='?src=\ref[];anchor=1'>Toggle</A><BR>\n", (src.timing ? "Func/Set" : "Functional"), (src.safety ? "Safe" : "Engaged"), src.timeleft, (src.timing ? "On" : "Off"), src, src, src, src.timeleft, src, src, (src.safety ? "On" : "Off"), src, (src.anchored ? "Engaged" : "Off"), src)
-			else
-				dat += text("\n<B>Status</B>: Auth. S2-[]<BR>\n<B>Timer</B>: []<BR>\n<BR>\nTimer: [] Toggle<BR>\nTime: - - [] + +<BR>\n<BR>\n[] Safety: Toggle<BR>\nAnchor: [] Toggle<BR>\n", (src.safety ? "Safe" : "Engaged"), src.timeleft, (src.timing ? "On" : "Off"), src.timeleft, (src.safety ? "On" : "Off"), (src.anchored ? "Engaged" : "Off"))
-		else
-			if (src.timing)
-				dat += text("\n<B>Status</B>: Set-[]<BR>\n<B>Timer</B>: []<BR>\n<BR>\nTimer: [] Toggle<BR>\nTime: - - [] + +<BR>\n<BR>\nSafety: [] Toggle<BR>\nAnchor: [] Toggle<BR>\n", (src.safety ? "Safe" : "Engaged"), src.timeleft, (src.timing ? "On" : "Off"), src.timeleft, (src.safety ? "On" : "Off"), (src.anchored ? "Engaged" : "Off"))
-			else
-				dat += text("\n<B>Status</B>: Auth. S1-[]<BR>\n<B>Timer</B>: []<BR>\n<BR>\nTimer: [] Toggle<BR>\nTime: - - [] + +<BR>\n<BR>\nSafety: [] Toggle<BR>\nAnchor: [] Toggle<BR>\n", (src.safety ? "Safe" : "Engaged"), src.timeleft, (src.timing ? "On" : "Off"), src.timeleft, (src.safety ? "On" : "Off"), (src.anchored ? "Engaged" : "Off"))
-		var/message = "AUTH"
-		if (src.auth)
-			message = text("[]", src.code)
-			if (src.yes_code)
-				message = "*****"
-		dat += text("<HR>\n>[]<BR>\n<A href='?src=\ref[];type=1'>1</A>-<A href='?src=\ref[];type=2'>2</A>-<A href='?src=\ref[];type=3'>3</A><BR>\n<A href='?src=\ref[];type=4'>4</A>-<A href='?src=\ref[];type=5'>5</A>-<A href='?src=\ref[];type=6'>6</A><BR>\n<A href='?src=\ref[];type=7'>7</A>-<A href='?src=\ref[];type=8'>8</A>-<A href='?src=\ref[];type=9'>9</A><BR>\n<A href='?src=\ref[];type=R'>R</A>-<A href='?src=\ref[];type=0'>0</A>-<A href='?src=\ref[];type=E'>E</A><BR>\n</TT>", message, src, src, src, src, src, src, src, src, src, src, src, src)
-		user << browse(dat, "window=nuclearbomb;size=300x400")
-		onclose(user, "nuclearbomb")
+		ui_interact(user)
 	else if (src.deployable)
 		if(removal_stage < 5)
 			src.anchored = 1
@@ -201,15 +185,53 @@ var/bomb_set
 	return
 
 obj/machinery/nuclearbomb/proc/nukehack_win(mob/user as mob)
-	var/dat as text
-	dat += "<TT><B>Nuclear Fission Explosive</B><BR>\nNuclear Device Wires:</A><HR>"
-	for(var/wire in src.wires)
-		dat += text("[wire] Wire: <A href='?src=\ref[src];wire=[wire];act=wire'>[src.wires[wire] ? "Mend" : "Cut"]</A> <A href='?src=\ref[src];wire=[wire];act=pulse'>Pulse</A><BR>")
-	dat += text("<HR>The device is [src.timing ? "shaking!" : "still"]<BR>")
-	dat += text("The device is [src.safety ? "quiet" : "whirring"].<BR>")
-	dat += text("The lights are [src.lighthack ? "static" : "functional"].<BR>")
-	user << browse("<HTML><HEAD><TITLE>Bomb Defusion</TITLE></HEAD><BODY>[dat]</BODY></HTML>","window=nukebomb_hack")
-	onclose(user, "nukebomb_hack")
+	ui_interact(user)
+	
+/obj/machinery/nuclearbomb/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
+	if(!src.opened)
+		data["hacking"] = 0
+		data["auth"] = src.auth
+		if (src.auth)
+			if (src.yes_code)
+				data["authstatus"] = src.timing ? "Functional/Set" : "Functional"
+			else
+				data["authstatus"] = "Auth. S2"
+		else
+			if (src.timing)	
+				data["authstatus"] = "Set"
+			else
+				data["authstatus"] = "Auth. S1"
+		data["safe"] = src.safety ? "Safe" : "Engaged"			
+		data["time"] = src.timeleft	
+		data["timer"] = src.timing
+		data["safety"] = src.safety
+		data["anchored"] = src.anchored
+		data["yescode"] = src.yes_code
+		data["message"] = "AUTH"
+		if (src.auth)
+			data["message"] = src.code
+			if (src.yes_code)
+				data["message"] = "*****"
+		uiwidth = 300
+		uiheight = 510
+		uititle = "Nuke Control Panel"
+	else
+		data["hacking"] = 1
+		var/list/tempwires[0] 
+		for(var/wire in src.wires)
+			tempwires.Add(list(list("name" = wire, "cut" = src.wires[wire])))
+		data["wires"] = tempwires
+		data["timing"] = src.timing
+		data["safety"] = src.safety
+		data["lighthack"] = src.lighthack
+		uiwidth = 420
+		uiheight = 440
+		uititle = "Nuclear Bomb Defusion"
+	ui = nanomanager.try_update_ui(user, src, ui_key, ui, data, force_open)	
+	if (!ui)
+		ui = new(user, src, ui_key, "nuclear_bomb.tmpl", uititle, uiwidth, uiheight)
+		ui.set_initial_data(data)		
+		ui.open()
 
 /obj/machinery/nuclearbomb/verb/make_deployable()
 	set category = "Object"
@@ -224,9 +246,9 @@ obj/machinery/nuclearbomb/proc/nukehack_win(mob/user as mob)
 		src.deployable = 1
 	return
 
-
 /obj/machinery/nuclearbomb/Topic(href, href_list)
-	..()
+	if(..())
+		return
 	if (!usr.canmove || usr.stat || usr.restrained())
 		return
 	if ((usr.contents.Find(src) || (in_range(src, usr) && istype(src.loc, /turf))))
@@ -297,9 +319,15 @@ obj/machinery/nuclearbomb/proc/nukehack_win(mob/user as mob)
 						src.yes_code = 0
 						src.code = null
 					else
-						src.code += text("[]", href_list["type"])
-						if (length(src.code) > 5)
-							src.code = "ERROR"
+						lastentered = text("[]", href_list["type"])
+						if (text2num(lastentered) == null)
+							var/turf/LOC = get_turf(usr)
+							message_admins("[key_name_admin(usr)] tried to exploit a nuclear bomb by entering non-numerical codes: <a href='?_src_=vars;Vars=\ref[src]'>[lastentered]</a>! ([LOC ? "<a href='?_src_=holder;adminplayerobservecoodjump=1;X=[LOC.x];Y=[LOC.y];Z=[LOC.z]'>JMP</a>" : "null"])", 0)
+							log_admin("EXPLOIT : [key_name(usr)] tried to exploit a nuclear bomb by entering non-numerical codes: [lastentered]!")
+						else
+							src.code += lastentered
+							if (length(src.code) > 5)
+								src.code = "ERROR"
 			if (src.yes_code)
 				if (href_list["time"])
 					var/time = text2num(href_list["time"])
@@ -309,7 +337,8 @@ obj/machinery/nuclearbomb/proc/nukehack_win(mob/user as mob)
 					if (src.timing == -1.0)
 						return
 					if (src.safety)
-						usr << "\red The safety is still on."
+						usr << "\red The safety is still on."	
+						nanomanager.update_uis(src)						
 						return
 					src.timing = !( src.timing )
 					if (src.timing)
@@ -329,7 +358,6 @@ obj/machinery/nuclearbomb/proc/nukehack_win(mob/user as mob)
 						src.timing = 0
 						bomb_set = 0
 				if (href_list["anchor"])
-
 					if(removal_stage == 5)
 						src.anchored = 0
 						visible_message("\red \The [src] makes a highly unpleasant crunching noise. It looks like the anchoring bolts have been cut.")
@@ -344,9 +372,8 @@ obj/machinery/nuclearbomb/proc/nukehack_win(mob/user as mob)
 		src.add_fingerprint(usr)
 		for(var/mob/M in viewers(1, src))
 			if ((M.client && M.machine == src))
-				src.attack_hand(M)
+				nanomanager.update_uis(src)
 	else
-		usr << browse(null, "window=nuclearbomb")
 		return
 	return
 
@@ -398,8 +425,12 @@ obj/machinery/nuclearbomb/proc/nukehack_win(mob/user as mob)
 			ticker.mode.explosion_in_progress = 0
 			if(ticker.mode.name == "nuclear emergency")
 				ticker.mode:nukes_left --
+			else if(off_station == 1)
+				world << "<b>A nuclear device was set off, but the explosion was out of reach of the station!</b>"				
+			else if(off_station == 2)
+				world << "<b>A nuclear device was set off, but the device was not on the station!</b>"
 			else
-				world << "<B>The station was destoyed by the nuclear blast!</B>"
+				world << "<b>The station was destoyed by the nuclear blast!</b>"
 
 			ticker.mode.station_was_nuked = (off_station<2)	//offstation==1 is a draw. the station becomes irradiated and needs to be evacuated.
 															//kinda shit but I couldn't  get permission to do what I wanted to do.
@@ -412,7 +443,7 @@ obj/machinery/nuclearbomb/proc/nukehack_win(mob/user as mob)
 				if(blackbox)
 					blackbox.save_all_data_to_sql()
 				sleep(300)
-				log_game("Rebooting due to nuclear detonation")
+				log_game("Rebooting due to nuclear detonation.")
 				world.Reboot()
 				return
 	return
