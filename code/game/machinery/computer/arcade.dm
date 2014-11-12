@@ -8,7 +8,7 @@
 	var/list/prizes = list(	/obj/item/weapon/storage/box/snappops			= 2,
 							/obj/item/clothing/under/syndicate/tacticool	= 2,
 							/obj/item/toy/blink								= 2,
-							/obj/item/clothing/suit/syndicatefake			= 2,
+							/obj/item/weapon/storage/box/fakesyndiesuit		= 2,
 							/obj/item/toy/sword								= 2,
 							/obj/item/toy/gun								= 2,
 							/obj/item/toy/crossbow							= 2,
@@ -26,7 +26,10 @@
 							/obj/item/toy/prize/mauler						= 1,
 							/obj/item/toy/prize/odysseus					= 1,
 							/obj/item/toy/prize/phazon						= 1,
-							/obj/item/toy/nuke								= 2
+							/obj/item/toy/nuke								= 2,
+							/obj/item/toy/cards/deck						= 2,
+							/obj/item/toy/carpplushie						= 2,
+							/obj/item/toy/minimeteor						= 2,
 							)
 
 /obj/machinery/computer/arcade/power_change()

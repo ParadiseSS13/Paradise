@@ -378,6 +378,41 @@
 		src.add_fingerprint(user)
 		return
 
+// Copied from /obj/item/weapon/melee/energy/sword/attackby
+/obj/item/toy/sword/attackby(obj/item/weapon/W, mob/living/user)
+	..()
+	if(istype(W, /obj/item/toy/sword))
+		if(W == src)
+			user << "<span class='notice'>You try to attach the end of the plastic sword to... itself. You're not very smart, are you?</span>"
+			if(ishuman(user))
+				user.adjustBrainLoss(10)
+		else
+			user << "<span class='notice'>You attach the ends of the two plastic swords, making a single double-bladed toy! You're fake-cool.</span>"
+			new /obj/item/weapon/twohanded/dualsaber/toy(user.loc)
+			del(W)
+			del(src)
+
+/*
+ * Subtype of Double-Bladed Energy Swords
+ */
+/obj/item/weapon/twohanded/dualsaber/toy
+	name = "double-bladed toy sword"
+	desc = "A cheap, plastic replica of TWO energy swords.  Double the fun!"
+	force = 0
+	throwforce = 0
+	throw_speed = 3
+	throw_range = 5
+	force_unwielded = 0
+	force_wielded = 0
+	origin_tech = null
+	attack_verb = list("attacked", "struck", "hit")
+
+/obj/item/weapon/twohanded/dualsaber/toy/IsShield()
+	return 0
+/*
+/obj/item/weapon/twohanded/dualsaber/toy/IsReflect()//Stops Toy Dualsabers from reflecting energy projectiles
+	return 0 */  //uncomment this once reflecting is ported
+
 /obj/item/toy/katana
 	name = "replica katana"
 	desc = "Woefully underpowered in D20."
@@ -1033,3 +1068,35 @@ obj/item/toy/cards/deck/syndicate/black
 	flags = FPRINT | TABLEPASS
 	icon = 'icons/obj/clothing/belts.dmi'
 	slot_flags = SLOT_BELT
+
+/*
+ * Fake meteor
+ */
+
+/obj/item/toy/minimeteor
+	name = "Mini-Meteor"
+	desc = "Relive the excitement of a meteor shower! SweetMeat-eor. Co is not responsible for any injuries, headaches or hearing loss caused by Mini-Meteor™"
+	icon = 'icons/obj/toy.dmi'
+	icon_state = "minimeteor"
+	flags = FPRINT | TABLEPASS
+	w_class = 2.0
+
+/obj/item/toy/minimeteor/throw_impact(atom/hit_atom)
+	..()
+	playsound(src, 'sound/effects/meteorimpact.ogg', 40, 1)
+	for(var/mob/M in range(10, src))
+		if(!M.stat && !istype(M, /mob/living/silicon/ai))\
+			shake_camera(M, 3, 1)
+	del(src)
+
+/*
+ * Carp plushie
+ */
+
+/obj/item/toy/carpplushie
+	name = "space carp plushie"
+	desc = "An adorable stuffed toy that resembles a space carp."
+	icon = 'icons/obj/toy.dmi'
+	icon_state = "carpplushie"
+	w_class = 2.0
+	flags = FPRINT | TABLEPASS
