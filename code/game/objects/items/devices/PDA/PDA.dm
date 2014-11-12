@@ -358,7 +358,12 @@ var/global/list/obj/item/device/pda/PDAs = list()
 	if(cartridge)
 		var/cartdata[0]
 
-		cartdata["access"] = list(\
+		if(mode in cartmodes)
+			data["records"] = cartridge.create_NanoUI_values()
+
+		if(mode == 0)
+			cartdata["name"] = cartridge.name
+			cartdata["access"] = list(\
 					"access_security" = cartridge.access_security,\
 					"access_engine" = cartridge.access_engine,\
 					"access_atmos" = cartridge.access_atmos,\
@@ -370,15 +375,8 @@ var/global/list/obj/item/device/pda/PDAs = list()
 					"access_hydroponics" = cartridge.access_hydroponics,\
 					"access_reagent_scanner" = cartridge.access_reagent_scanner,\
 					"access_remote_door" = cartridge.access_remote_door,\
-					"access_status_display" = cartridge.access_status_display,\
-					"access_detonate_pda" = cartridge.access_detonate_pda\
+					"access_status_display" = cartridge.access_status_display\
 			)
-
-		if(mode in cartmodes)
-			data["records"] = cartridge.create_NanoUI_values()
-
-		if(mode == 0)
-			cartdata["name"] = cartridge.name
 			if(isnull(cartridge.radio))
 				cartdata["radio"] = 0
 			else
@@ -390,6 +388,7 @@ var/global/list/obj/item/device/pda/PDAs = list()
 					cartdata["radio"] = 3
 
 		if(mode == 2)
+			cartdata["type"] = cartridge.type
 			cartdata["charges"] = cartridge.charges ? cartridge.charges : 0
 		data["cartridge"] = cartdata
 	data["stationTime"] = worldtime2text()
