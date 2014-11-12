@@ -191,6 +191,9 @@ obj/item/weapon/twohanded/
  * Double-Bladed Energy Swords - Cheridan
  */
 /obj/item/weapon/twohanded/dualsaber
+	var/hacked = 0
+	var/blade_color
+	icon_override = 'icons/mob/in-hand/swords.dmi'
 	icon_state = "dualsaber0"
 	name = "double-bladed energy sword"
 	desc = "Handle with care."
@@ -210,20 +213,14 @@ obj/item/weapon/twohanded/
 	edge = 1
 	no_embed = 1 // Like with the single-handed esword, this shouldn't be embedding in people.
 
-/* Here for when we can add items to left and right hands again, but currently this cannot be done due to the lack of in-hand icons for dual eswords aside from the green one.
 /obj/item/weapon/twohanded/dualsaber/New()
-	item_color = pick("red", "blue", "green", "purple")
+	blade_color = pick("red", "blue", "green", "purple")
 
 /obj/item/weapon/twohanded/dualsaber/update_icon()
 	if(wielded)
-		icon_state = "dualsaber[item_color][wielded]"
+		icon_state = "dualsaber[blade_color][wielded]"
 	else
 		icon_state = "dualsaber0"
-*/
-
-/obj/item/weapon/twohanded/dualsaber/update_icon()
-	icon_state = "dualsaber[wielded]"
-	return
 
 /obj/item/weapon/twohanded/dualsaber/attack(target as mob, mob/living/user as mob)
 	..()
@@ -245,11 +242,19 @@ obj/item/weapon/twohanded/
 
 /obj/item/weapon/twohanded/dualsaber/green
 	New()
-		color = "green"
+		blade_color = "green"
 
 /obj/item/weapon/twohanded/dualsaber/red
 	New()
-		color = "red"
+		blade_color = "red"
+
+/obj/item/weapon/twohanded/dualsaber/purple
+	New()
+		blade_color = "purple"
+
+/obj/item/weapon/twohanded/dualsaber/blue
+	New()
+		blade_color = "blue"
 
 /obj/item/weapon/twohanded/dualsaber/unwield()
 	..()
@@ -258,6 +263,18 @@ obj/item/weapon/twohanded/
 /obj/item/weapon/twohanded/dualsaber/wield()
 	..()
 	hitsound = 'sound/weapons/blade1.ogg'
+
+/obj/item/weapon/twohanded/dualsaber/attackby(obj/item/weapon/W as obj, mob/user as mob)
+	..()
+	if(istype(W, /obj/item/device/multitool))
+		if(hacked == 0)
+			hacked = 1
+			user << "<span class='warning'>2XRNBW_ENGAGE</span>"
+			blade_color = "rainbow"
+			update_icon()
+		else
+			user << "<span class='warning'>It's starting to look like a triple rainbow - no, nevermind.</span>"
+
 
 //spears
 /obj/item/weapon/twohanded/spear
