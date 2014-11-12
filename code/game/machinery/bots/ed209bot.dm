@@ -52,7 +52,8 @@
 	var/safe_weapons = list(\
 		/obj/item/weapon/gun/energy/laser/bluetag,\
 		/obj/item/weapon/gun/energy/laser/redtag,\
-		/obj/item/weapon/gun/energy/laser/practice)
+		/obj/item/weapon/gun/energy/laser/practice,\
+		/obj/item/weapon/melee/telebaton)
 
 	var/turf/patrol_target	// this is turf to navigate to (location of beacon)
 	var/new_destination		// pending new destination (waiting for beacon response)
