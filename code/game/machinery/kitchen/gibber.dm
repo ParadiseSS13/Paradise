@@ -162,6 +162,7 @@
 	else
 		src.occupant.LAssailant = user
 
+	src.occupant.emote("scream")
 	src.occupant.death(1)
 	src.occupant.ghostize()
 	del(src.occupant)
