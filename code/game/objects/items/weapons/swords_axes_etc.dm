@@ -299,6 +299,7 @@
 	active = !active
 	if (active)
 		force = 10
+		reflect_chance = 80
 		icon_state = "eshield[active]"
 		w_class = 4
 		playsound(user, 'sound/weapons/saberon.ogg', 50, 1)
@@ -307,6 +308,7 @@
 		force = 3
 		icon_state = "eshield[active]"
 		w_class = 1
+		reflect_chance = 0
 		playsound(user, 'sound/weapons/saberoff.ogg', 50, 1)
 		user << "\blue [src] can now be concealed."
 	if(istype(user,/mob/living/carbon/human))
