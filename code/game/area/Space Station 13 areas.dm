@@ -2245,7 +2245,7 @@ var/list/the_station_areas = list (
 	/area/lawoffice,
 	/area/magistrateoffice,
 	/area/clownoffice,
-	/area/mimeofifce,
+	/area/mimeoffice,
 	/area/engine,
 	/area/solar,
 	/area/assembly,

@@ -18,18 +18,21 @@
 		networks["SS13"] = list(access_hos,access_captain)
 		networks["Telecomms"] = list(access_hos,access_captain)
 		networks["Research Outpost"] = list(access_rd,access_hos,access_captain)
-		networks["Mining Outpost"] = list(access_qm,access_hop,access_hos,access_captain)	
+		networks["Mining Outpost"] = list(access_qm,access_hop,access_hos,access_captain)
 		networks["Research"] = list(access_rd,access_hos,access_captain)
 		networks["Prison"] = list(access_hos,access_captain)
-		networks["Interrogation"] = list(access_hos,access_captain)		
+		networks["Interrogation"] = list(access_hos,access_captain)	
+		networks["Atmosphere Alarms"] = list(access_ce,access_hos,access_captain)
+		networks["Fire Alarms"] = list(access_ce,access_hos,access_captain)	
+		networks["Power Alarms"] = list(access_ce,access_hos,access_captain)
 		networks["Supermatter"] = list(access_ce,access_hos,access_captain)	
-		networks["Singularity"] = list(access_ce,access_hos,access_captain)		
+		networks["Singularity"] = list(access_ce,access_hos,access_captain)	
 		networks["Anomaly Isolation"] = list(access_rd,access_hos,access_captain)
 		networks["Toxins"] = list(access_rd,access_hos,access_captain)
 		networks["Telepad"] = list(access_rd,access_hos,access_captain)
 		networks["ERT"] = list(access_cent_teleporter,access_cent_captain)		
 		networks["CentCom"] = list(access_cent_captain)
-		networks["Thunderdome"] = list(access_cent_captain)	
+		networks["Thunderdome"] = list(access_cent_captain)
 		
 	attack_ai(var/mob/user as mob)
 		if(isAI(user))
@@ -265,4 +268,4 @@
 	name = "Engineering Camera Monitor"
 	desc = "Used to monitor fires and breaches."
 	icon_state = "engineeringcameras"
-	network = list("Engineering","Power Alarms","Atmosphere Alarms","Fire Alarms")
+	network = list("Power Alarms","Atmosphere Alarms","Fire Alarms")
