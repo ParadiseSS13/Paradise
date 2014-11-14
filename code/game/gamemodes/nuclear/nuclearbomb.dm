@@ -91,7 +91,7 @@ var/bomb_set
 			O.loc = src
 			src.auth = O
 			src.add_fingerprint(user)
-			nanomanager.update_uis(src)
+			ui_interact(user)
 			return
 
 	if (src.anchored)
