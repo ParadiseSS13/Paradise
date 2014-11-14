@@ -738,6 +738,36 @@
 	prices = list(/obj/item/weapon/storage/fancy/cigarettes = 60,/obj/item/weapon/storage/box/matches = 10,/obj/item/weapon/lighter/random = 60, /obj/item/weapon/rollingpaperpack = 20)
 	refill_canister = /obj/item/weapon/vending_refill/cigarette
 
+/obj/machinery/vending/syndicigs
+	name = "Suspicious Cigarette Machine"
+	desc = "Smoke 'em if you've got 'em."
+	product_slogans = "Space cigs taste good like a cigarette should.;I'd rather toolbox than switch.;Smoke!;Don't believe the reports - smoke today!"
+	product_ads = "Probably not bad for you!;Don't believe the scientists!;It's good for you!;Don't quit, buy more!;Smoke!;Nicotine heaven.;Best cigarettes since 2150.;Award-winning cigs."
+	vend_delay = 34
+	icon_state = "cigs"
+	products = list(/obj/item/weapon/storage/fancy/cigarettes/syndicate = 10,/obj/item/weapon/lighter/random = 5)
+
+/obj/machinery/vending/syndisnack
+	name = "Getmore Chocolate Corp"
+	desc = "A modified snack machine courtesy of the Getmore Chocolate Corporation, based out of Mars"
+	product_slogans = "Try our new nougat bar!;Twice the calories for half the price!"
+	product_ads = "The healthiest!;Award-winning chocolate bars!;Mmm! So good!;Oh my god it's so juicy!;Have a snack.;Snacks are good for you!;Have some more Getmore!;Best quality snacks straight from mars.;We love chocolate!;Try our new jerky!"
+	icon_state = "snack"
+	products = list(/obj/item/weapon/reagent_containers/food/snacks/chips =6,/obj/item/weapon/reagent_containers/food/snacks/sosjerky = 6,
+					/obj/item/weapon/reagent_containers/food/snacks/syndicake = 6, /obj/item/weapon/reagent_containers/food/snacks/cheesiehonkers = 6)
+	refill_canister = /obj/item/weapon/vending_refill/snack
+
+/obj/machinery/vending/cola
+	name = "Robust Softdrinks"
+	desc = "A modified softdrink vendor provided by Robust Industries, LLC."
+	icon_state = "Cola_Machine"
+	product_slogans = "Robust Softdrinks: More robust than a toolbox to the head!"
+	product_ads = "Refreshing!;Hope you're thirsty!;Over 1 million drinks sold!;Thirsty? Why not cola?;Please, have a drink!;Drink up!;The best drinks in space."
+	products = list(/obj/item/weapon/reagent_containers/food/drinks/cans/cola = 10,/obj/item/weapon/reagent_containers/food/drinks/cans/space_mountain_wind = 10,
+					/obj/item/weapon/reagent_containers/food/drinks/cans/dr_gibb = 10,/obj/item/weapon/reagent_containers/food/drinks/cans/starkist = 10,
+					/obj/item/weapon/reagent_containers/food/drinks/cans/space_up = 10)
+	refill_canister = /obj/item/weapon/vending_refill/cola
+
 /obj/machinery/vending/medical
 	name = "NanoMed Plus"
 	desc = "Medical drug dispenser."
@@ -751,7 +781,6 @@
 					/obj/item/device/healthanalyzer = 5,/obj/item/weapon/reagent_containers/glass/beaker = 4, /obj/item/weapon/reagent_containers/dropper = 2,
 					/obj/item/stack/medical/advanced/bruise_pack = 3, /obj/item/stack/medical/advanced/ointment = 3, /obj/item/stack/medical/splint = 2)
 	contraband = list(/obj/item/weapon/reagent_containers/pill/tox = 3,/obj/item/weapon/reagent_containers/pill/stox = 4,/obj/item/weapon/reagent_containers/pill/antitox = 6)
-
 
 //This one's from bay12
 /obj/machinery/vending/plasmaresearch
@@ -782,6 +811,16 @@
 	products = list(/obj/item/weapon/reagent_containers/hypospray/autoinjector = 5,/obj/item/weapon/reagent_containers/syringe/antitoxin = 3,/obj/item/stack/medical/bruise_pack = 3,
 					/obj/item/stack/medical/ointment =3,/obj/item/device/healthanalyzer = 3)
 	contraband = list(/obj/item/weapon/reagent_containers/pill/tox = 3)
+
+/obj/machinery/vending/wallmed1/syndicate
+	name = "SyndiMed Plus"
+	desc = "<b>EVIL</b> wall-mounted Medical Equipment dispenser."
+	icon_state = "syndimed"
+	icon_deny = "syndimed-deny"
+	product_ads = "Go end some lives!;The best stuff for your ship.;Only the finest tools.;Natural chemicals!;This stuff saves lives.;Don't you want some?;Ping!"
+	req_access_txt = "150"
+	products = list(/obj/item/stack/medical/bruise_pack = 2,/obj/item/stack/medical/ointment = 2,/obj/item/weapon/reagent_containers/hypospray/autoinjector = 4,/obj/item/device/healthanalyzer = 1)
+	contraband = list(/obj/item/weapon/reagent_containers/syringe/antitoxin = 4,/obj/item/weapon/reagent_containers/syringe/antiviral = 4,/obj/item/weapon/reagent_containers/pill/tox = 1)
 
 /obj/machinery/vending/security
 	name = "SecTech"
