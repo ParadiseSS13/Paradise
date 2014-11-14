@@ -163,6 +163,7 @@
 		src.occupant.LAssailant = user
 
 	src.occupant.emote("scream")
+	playsound(src.loc, 'sound/effects/gib.ogg', 50, 1)
 	src.occupant.death(1)
 	src.occupant.ghostize()
 	del(src.occupant)
