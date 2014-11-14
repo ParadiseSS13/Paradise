@@ -27,11 +27,15 @@
 		networks["Anomaly Isolation"] = list(access_rd,access_hos,access_captain)
 		networks["Toxins"] = list(access_rd,access_hos,access_captain)
 		networks["Telepad"] = list(access_rd,access_hos,access_captain)
+		networks["ERT"] = list(access_cent_teleporter,access_cent_captain)		
 		networks["CentCom"] = list(access_cent_captain)
 		networks["Thunderdome"] = list(access_cent_captain)	
 		
 	attack_ai(var/mob/user as mob)
-		return ui_interact(user) 
+		if(isAI(user))
+			return ui_interact(user) 
+		else
+			return attack_hand(user)
 
 	attack_paw(var/mob/user as mob)
 		return attack_hand(user)

@@ -19,7 +19,7 @@ var/list/ai_list = list()
 	anchored = 1 // -- TLE
 	density = 1
 	status_flags = CANSTUN|CANPARALYSE|CANPUSH
-	var/list/network = list("SS13")
+	var/list/network = list("SS13","Telecomms")
 	var/obj/machinery/camera/current = null
 	var/list/connected_robots = list()
 	var/aiRestorePowerRoutine = 0
@@ -34,7 +34,7 @@ var/list/ai_list = list()
 	var/custom_sprite = 0 //For our custom sprites
 	var/alienAI = 0
 
-	var/obj/item/device/radio/headset/heads/ai_integrated/radio = null
+	var/obj/item/device/radio/headset/heads/ai_integrated/aiRadio = null
 
 	//MALFUNCTION
 	var/datum/module_picker/malf_picker
@@ -91,15 +91,15 @@ var/list/ai_list = list()
 	aiPDA.name = name + " (" + aiPDA.ownjob + ")"
 
 	aiMulti = new(src)
-	radio = new(src)
-	radio.myAi = src
+	aiRadio = new(src)
+	aiRadio.myAi = src
 
 	aiCamera = new/obj/item/device/camera/siliconcam/ai_camera(src)
 
 	if (istype(loc, /turf))
 		verbs.Add(/mob/living/silicon/ai/proc/ai_network_change, \
 		/mob/living/silicon/ai/proc/ai_statuschange, /mob/living/silicon/ai/proc/ai_hologram_change, \
-		/mob/living/silicon/ai/proc/toggle_camera_light, /mob/living/silicon/ai/proc/control_integrateed_radio)
+		/mob/living/silicon/ai/proc/toggle_camera_light, /mob/living/silicon/ai/proc/control_integrated_radio)
 
 	if(!safety)//Only used by AIize() to successfully spawn an AI.
 		if (!B)//If there is no player/brain inside.
@@ -786,11 +786,11 @@ var/list/ai_list = list()
 		return ..()
 
 
-/mob/living/silicon/ai/proc/control_integrateed_radio()
+/mob/living/silicon/ai/proc/control_integrated_radio()
 	set name = "Radio Settings"
 	set desc = "Allows you to change settings of your radio."
 	set category = "AI Commands"
 
 	src << "Accessing Subspace Transceiver control..."
-	if (src.radio)
-		src.radio.interact(src)
+	if (src.aiRadio)
+		src.aiRadio.interact(src)
