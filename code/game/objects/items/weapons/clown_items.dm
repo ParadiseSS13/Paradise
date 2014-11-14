@@ -44,16 +44,22 @@
 	if(user.client && (target in user.client.screen))
 		user << "<span class='notice'>You need to take that [target.name] off before cleaning it.</span>"
 	else if(istype(target,/obj/effect/decal/cleanable))
-		user << "<span class='notice'>You scrub \the [target.name] out.</span>"
-		del(target)
+		user.visible_message("<span class='warning'>[user] begins to scrub \the [target.name] out with [src].</span>")
+		if(do_after(user, src.cleanspeed))
+			user << "<span class='notice'>You scrub \the [target.name] out.</span>"
+			del(target)
 	else
-		user << "<span class='notice'>You clean \the [target.name].</span>"
-		target.clean_blood()
+		user.visible_message("<span class='warning'>[user] begins to clean \the [target.name] with [src].</span>")
+		if(do_after(user, src.cleanspeed))
+			user << "<span class='notice'>You clean \the [target.name].</span>"
+			var/obj/effect/decal/cleanable/C = locate() in target
+			del(C)
+			target.clean_blood()
 	return
 
 /obj/item/weapon/soap/attack(mob/target as mob, mob/user as mob)
 	if(target && user && ishuman(target) && ishuman(user) && !target.stat && !user.stat && user.zone_sel &&user.zone_sel.selecting == "mouth" )
-		user.visible_message("\red \the [user] washes \the [target]'s mouth out with soap!")
+		user.visible_message("\red \the [user] washes \the [target]'s mouth out with [src.name]!")
 		return
 	..()
 

@@ -73,6 +73,12 @@
 		var/obj/item/weapon/twohanded/offhand/O = user.get_inactive_hand()
 		if(O && istype(O))
 			O.unwield()
+
+		if(istype(user,/mob/living/carbon/human))
+			var/mob/living/carbon/human/H = user
+			H.update_inv_l_hand()
+			H.update_inv_r_hand()
+			add_fingerprint(user)
 		return
 
 	else //Trying to wield it
@@ -88,6 +94,12 @@
 		O.name = "[initial(name)] - offhand"
 		O.desc = "Your second grip on the [initial(name)]"
 		user.put_in_inactive_hand(O)
+
+		if(istype(user,/mob/living/carbon/human))
+			var/mob/living/carbon/human/H = user
+			H.update_inv_l_hand()
+			H.update_inv_r_hand()
+			add_fingerprint(user)
 		return
 
 ///////////OFFHAND///////////////
@@ -197,6 +209,17 @@ obj/item/weapon/twohanded/
 	sharp = 1
 	edge = 1
 	no_embed = 1 // Like with the single-handed esword, this shouldn't be embedding in people.
+
+/* Here for when we can add items to left and right hands again, but currently this cannot be done due to the lack of in-hand icons for dual eswords aside from the green one.
+/obj/item/weapon/twohanded/dualsaber/New()
+	item_color = pick("red", "blue", "green", "purple")
+
+/obj/item/weapon/twohanded/dualsaber/update_icon()
+	if(wielded)
+		icon_state = "dualsaber[item_color][wielded]"
+	else
+		icon_state = "dualsaber0"
+*/
 
 /obj/item/weapon/twohanded/dualsaber/update_icon()
 	icon_state = "dualsaber[wielded]"

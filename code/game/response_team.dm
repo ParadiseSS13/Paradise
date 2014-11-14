@@ -329,6 +329,11 @@ proc/trigger_armed_response_team(var/force = 0)
 	if (leader_selected)
 		W.access += access_cent_teleporter
 	equip_to_slot_or_del(W, slot_wear_id)
+	
+	// Loyalty implant
+	var/obj/item/weapon/implant/loyalty/L = new/obj/item/weapon/implant/loyalty(src)
+	L.imp_in = src
+	L.implanted = 1
 
 	return 1
 

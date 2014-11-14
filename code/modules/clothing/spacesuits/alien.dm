@@ -172,6 +172,7 @@
 /obj/item/clothing/shoes/magboots/vox/attack_self(mob/user)
 	if(src.magpulse)
 		flags &= ~NOSLIP
+		slowdown = SHOES_SLOWDOWN
 		magpulse = 0
 		canremove = 1
 		user << "You relax your deathgrip on the flooring."
@@ -183,6 +184,7 @@
 
 
 		flags |= NOSLIP
+		slowdown = 2
 		magpulse = 1
 		canremove = 0	//kinda hard to take off magclaws when you are gripping them tightly.
 		user << "You dig your claws deeply into the flooring, bracing yourself."
