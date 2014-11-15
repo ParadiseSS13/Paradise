@@ -50,18 +50,28 @@
 
 			alien_talk(message)
 		else if (department_radio_keys[prefix] == "department")
-			if(isAI(src)&&client)//For patching directly into AI holopads.
+			if(isAI(src)&&client) //For patching directly into AI holopads.
 				var/mob/living/silicon/ai/U = src
 				message = copytext(message, 3)
 				message = trim(copytext(sanitize(message), 1, MAX_MESSAGE_LEN))
 				U.holopad_talk(message)
-			else//Will not allow anyone by an active AI to use this function.
+			else //Will not allow anyone by an active AI to use this function.
 				src << "This function is not available to you."
 				return
 		else
-			return ..(message)
+			var/mob/living/silicon/ai/AI = src
+			if (isAI(src) && AI.aiRadio.disabledAi)
+				src << "\red System Error - Transceiver Disabled"
+				return
+			else
+				return ..(message)
 	else
-		return ..(message)
+		var/mob/living/silicon/ai/AI = src
+		if (isAI(src) && AI.aiRadio.disabledAi)
+			src << "\red System Error - Transceiver Disabled"
+			return
+		else
+			return ..(message)
 
 //For holopads only. Usable by AI.
 /mob/living/silicon/ai/proc/holopad_talk(var/message)

@@ -416,8 +416,7 @@ div.notice {
     float: right;
 }
 
-/* Used in PDA */
-
+/* PDA styling */
 .wholeScreen {
     position: absolute;
     color: #517087;
@@ -431,8 +430,7 @@ div.notice {
     white-space: nowrap;
 }
 
-/* DNA Modifier UI (dna_modifier.tmpl) */
-
+/* DNA Modifier styling */
 .dnaBlock {
     float: left;
     width: 90px;
@@ -475,7 +473,7 @@ div.notice {
     text-align: center;
 }
 
-/* Table stuffs for power monitor */
+/* Table styling for the power monitor */
 table.pmon {
     border: 2px solid RoyalBlue;
 }
@@ -485,8 +483,7 @@ table.pmon td, table.pmon th {
     padding: 0px 5px 0px 5px;
 }
 
-/* Table Stuffs for manifest*/
-
+/* Table styling for the crew manifest */
 th.command {
     background: #3333FF;
     font-weight: bold;
@@ -530,7 +527,6 @@ th.misc {
 }
 
 /* Damage colors for crew monitoring computer */
-
 .burn {
     color: orange;
 }
@@ -553,4 +549,33 @@ th.misc {
 
 .oxyloss_light {
     color: #6698FF;
+}
+
+/* Wire colors for nuclear bomb defusion */
+.Red {
+    color: #FF0000;
+}
+
+.Blue {
+    color: #0000FF;
+}
+
+.Green {
+    color: #00FF00;
+}
+
+.Marigold {
+    color: #FDA505;
+}
+
+.Fuschia {
+    color: #FF0080;
+}
+
+.Black {
+    color: #000000;
+}
+
+.Pearl {
+    color: #C6CACB;
 }

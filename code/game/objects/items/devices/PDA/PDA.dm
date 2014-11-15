@@ -219,7 +219,50 @@ var/global/list/obj/item/device/pda/PDAs = list()
 			return
 		var/selected = plist[c]
 		aiPDA.create_message(user, selected)
+		
+/mob/living/silicon/ai/proc/cmd_show_message_log(mob/user as mob)
+	if(user.stat == 2)
+		user << "You can't do that because you are dead!"
+		return
+	var/HTML = "<html><head><title>AI PDA Message Log</title></head><body>"
+	for(var/index in aiPDA.tnote)
+		if(index["sent"])
+			HTML += addtext("<i><b>&rarr; To <a href='byond://?src=\ref[src];choice=Message;target=",index["src"],"'>", index["owner"],"</a>:</b></i><br>", index["message"], "<br>")
+		else
+			HTML += addtext("<i><b>&larr; From <a href='byond://?src=\ref[src];choice=Message;target=",index["target"],"'>", index["owner"],"</a>:</b></i><br>", index["message"], "<br>")
+	HTML +="</body></html>"
+	user << browse(HTML, "window=log;size=400x444;border=1;can_resize=1;can_close=1;can_minimize=0")
 
+/obj/item/device/pda/ai/verb/cmd_send_pdamesg()
+	set category = "AI IM"
+	set name = "Send PDA Message"
+	set src in usr
+	if(usr.stat == 2)
+		usr << "You can't send PDA messages because you are dead!"
+		return
+	var/list/plist = available_pdas()
+	if (plist)
+		var/c = input(usr, "Please select a PDA") as null|anything in sortList(plist)
+		if (!c) // if the user hasn't selected a PDA file we can't send a message
+			return
+		var/selected = plist[c]
+		create_message(usr, selected)
+		
+/obj/item/device/pda/ai/verb/cmd_show_message_log()
+	set category = "AI IM"
+	set name = "Show Message Log"
+	set src in usr
+	if(usr.stat == 2)
+		usr << "You can't do that because you are dead!"
+		return
+	var/HTML = "<html><head><title>AI PDA Message Log</title></head><body>"
+	for(var/index in tnote)
+		if(index["sent"])
+			HTML += addtext("<i><b>&rarr; To <a href='byond://?src=\ref[src];choice=Message;target=",index["src"],"'>", index["owner"],"</a>:</b></i><br>", index["message"], "<br>")
+		else
+			HTML += addtext("<i><b>&larr; From <a href='byond://?src=\ref[src];choice=Message;target=",index["target"],"'>", index["owner"],"</a>:</b></i><br>", index["message"], "<br>")
+	HTML +="</body></html>"
+	usr << browse(HTML, "window=log;size=400x444;border=1;can_resize=1;can_close=1;can_minimize=0")
 
 /obj/item/device/pda/ai/verb/cmd_toggle_pda_receiver()
 	set category = "AI IM"
@@ -241,21 +284,6 @@ var/global/list/obj/item/device/pda/PDAs = list()
 		return
 	silent=!silent
 	usr << "<span class='notice'>PDA ringer toggled [(silent ? "Off" : "On")]!</span>"
-
-
-/mob/living/silicon/ai/proc/cmd_show_message_log(mob/user as mob)
-	if(user.stat == 2)
-		user << "You can't do that because you are dead!"
-		return
-	var/HTML = "<html><head><title>AI PDA Message Log</title></head><body>"
-	for(var/index in aiPDA.tnote)
-		if(index["sent"])
-			HTML += addtext("<i><b>&rarr; To <a href='byond://?src=\ref[src];choice=Message;target=",index["src"],"'>", index["owner"],"</a>:</b></i><br>", index["message"], "<br>")
-		else
-			HTML += addtext("<i><b>&larr; From <a href='byond://?src=\ref[src];choice=Message;target=",index["target"],"'>", index["owner"],"</a>:</b></i><br>", index["message"], "<br>")
-	HTML +="</body></html>"
-	user << browse(HTML, "window=log;size=400x444;border=1;can_resize=1;can_close=1;can_minimize=0")
-
 
 /obj/item/device/pda/ai/can_use()
 	return 1
@@ -358,12 +386,7 @@ var/global/list/obj/item/device/pda/PDAs = list()
 	if(cartridge)
 		var/cartdata[0]
 
-		if(mode in cartmodes)
-			data["records"] = cartridge.create_NanoUI_values()
-
-		if(mode == 0)
-			cartdata["name"] = cartridge.name
-			cartdata["access"] = list(\
+		cartdata["access"] = list(\
 					"access_security" = cartridge.access_security,\
 					"access_engine" = cartridge.access_engine,\
 					"access_atmos" = cartridge.access_atmos,\
@@ -375,8 +398,15 @@ var/global/list/obj/item/device/pda/PDAs = list()
 					"access_hydroponics" = cartridge.access_hydroponics,\
 					"access_reagent_scanner" = cartridge.access_reagent_scanner,\
 					"access_remote_door" = cartridge.access_remote_door,\
-					"access_status_display" = cartridge.access_status_display\
+					"access_status_display" = cartridge.access_status_display,\
+					"access_detonate_pda" = cartridge.access_detonate_pda\
 			)
+
+		if(mode in cartmodes)
+			data["records"] = cartridge.create_NanoUI_values()
+
+		if(mode == 0)
+			cartdata["name"] = cartridge.name
 			if(isnull(cartridge.radio))
 				cartdata["radio"] = 0
 			else
@@ -388,7 +418,6 @@ var/global/list/obj/item/device/pda/PDAs = list()
 					cartdata["radio"] = 3
 
 		if(mode == 2)
-			cartdata["type"] = cartridge.type
 			cartdata["charges"] = cartridge.charges ? cartridge.charges : 0
 		data["cartridge"] = cartdata
 	data["stationTime"] = worldtime2text()

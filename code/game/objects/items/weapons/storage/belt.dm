@@ -164,3 +164,19 @@
 	desc = "A syndicate belt designed to be used by boarding parties.  Its style is modeled after the hardsuits they wear."
 	icon_state = "militarybelt"
 	item_state = "military"
+
+/obj/item/weapon/storage/belt/janitor
+	name = "janibelt"
+	desc = "A belt used to hold most janitorial supplies."
+	icon_state = "janibelt"
+	item_state = "janibelt"
+	storage_slots = 6
+	max_w_class = 4 // Set to this so the  light replacer can fit.
+	can_hold = list(
+		"/obj/item/weapon/grenade/chem_grenade/cleaner",
+		"/obj/item/device/lightreplacer",
+		"/obj/item/device/flashlight",
+		"/obj/item/weapon/reagent_containers/spray",
+		"/obj/item/weapon/soap",
+		"/obj/item/weapon/holosign_creator"
+		)

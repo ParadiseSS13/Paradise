@@ -36,6 +36,7 @@
 			H.equip_or_collect(new /obj/item/weapon/storage/box/engineer(H), slot_r_hand)
 		else
 			H.equip_or_collect(new /obj/item/weapon/storage/box/engineer(H.back), slot_in_backpack)
+			H.equip_or_collect(new /obj/item/weapon/melee/telebaton(H.back), slot_in_backpack)
 		return 1
 
 
@@ -83,7 +84,7 @@
 	supervisors = "the chief engineer"
 	selection_color = "#fff5cc"
 	access = list(access_eva, access_engine, access_engine_equip, access_tech_storage, access_maint_tunnels, access_external_airlocks, access_construction, access_atmospherics)
-	minimal_access = list(access_eva, access_atmospherics, access_maint_tunnels, access_emergency_storage, access_construction)
+	minimal_access = list(access_eva, access_atmospherics, access_maint_tunnels, access_external_airlocks, access_emergency_storage, access_construction)
 	alt_titles = list("Atmospheric Technician")
 	minimal_player_age = 7
 
