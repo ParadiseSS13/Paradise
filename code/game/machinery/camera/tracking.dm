@@ -1,5 +1,4 @@
 /mob/living/silicon/ai/proc/get_camera_list()
-
 	if(src.stat == 2)
 		return
 
@@ -15,12 +14,10 @@
 		var/list/tempnetwork = C.network&src.network
 		if (tempnetwork.len)
 			T[text("[][]", C.c_tag, (C.can_use() ? null : " (Deactivated)"))] = C
-		else return
 
 	track = new()
 	track.cameras = T
 	return T
-
 
 /mob/living/silicon/ai/proc/ai_camera_list(var/camera in get_camera_list())
 	if(src.stat == 2)
@@ -29,7 +26,7 @@
 
 	if (!camera || camera == "Cancel")
 		return 0
-
+		
 	var/obj/machinery/camera/C = track.cameras[camera]
 	track = null
 	src.eyeobj.setLoc(C)

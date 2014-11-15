@@ -543,39 +543,39 @@ var/list/ghostteleportlocs = list()
 	icon_state = "yellow"
 
 /area/syndicate_station/southwest
-	name = "\improper south-west of SS13"
+	name = "\improper South-West of SS13"
 	icon_state = "southwest"
 
 /area/syndicate_station/northwest
-	name = "\improper north-west of SS13"
+	name = "\improper North-West of SS13"
 	icon_state = "northwest"
 
 /area/syndicate_station/northeast
-	name = "\improper north-east of SS13"
+	name = "\improper North-East of SS13"
 	icon_state = "northeast"
 
 /area/syndicate_station/southeast
-	name = "\improper south-east of SS13"
+	name = "\improper South-East of SS13"
 	icon_state = "southeast"
 
 /area/syndicate_station/north
-	name = "\improper north of SS13"
+	name = "\improper North of SS13"
 	icon_state = "north"
 
 /area/syndicate_station/south
-	name = "\improper south of SS13"
+	name = "\improper South of SS13"
 	icon_state = "south"
 
 /area/syndicate_station/commssat
-	name = "\improper south of the communication satellite"
+	name = "\improper South of the Communication Satellite"
 	icon_state = "south"
 
 /area/syndicate_station/mining
-	name = "\improper north east of the mining asteroid"
+	name = "\improper North-East of the Mining Asteroid"
 	icon_state = "north"
 
 /area/syndicate_station/transit
-	name = "\improper hyperspace"
+	name = "\improper Hyperspace"
 	icon_state = "shuttle"
 
 /area/wizard_station
@@ -596,66 +596,66 @@ var/list/ghostteleportlocs = list()
 
 
 /area/vox_station/transit
-	name = "\improper hyperspace"
+	name = "\improper Hyperspace"
 	icon_state = "shuttle"
 	requires_power = 0
 
 /area/vox_station/southwest_solars
-	name = "\improper aft port solars"
+	name = "\improper Aft Port Solars"
 	icon_state = "southwest"
 	requires_power = 0
 
 /area/vox_station/northwest_solars
-	name = "\improper fore port solars"
+	name = "\improper Fore Port Solars"
 	icon_state = "northwest"
 	requires_power = 0
 
 /area/vox_station/northeast_solars
-	name = "\improper fore starboard solars"
+	name = "\improper Fore Starboard Solars"
 	icon_state = "northeast"
 	requires_power = 0
 
 /area/vox_station/southeast_solars
-	name = "\improper aft starboard solars"
+	name = "\improper Aft Starboard Solars"
 	icon_state = "southeast"
 	requires_power = 0
 
 /area/vox_station/mining
-	name = "\improper nearby mining asteroid"
+	name = "\improper Nearby Mining Asteroid"
 	icon_state = "north"
 	requires_power = 0
 
 /area/xenos_station/start
-	name = "\improper start area"
+	name = "\improper Start Area"
 	icon_state = "north"
 
 /area/xenos_station/transit
-	name = "\improper hyperspace"
+	name = "\improper Hyperspace"
 	icon_state = "shuttle"
 
 /area/xenos_station/southwest
-	name = "\improper aft port solars"
+	name = "\improper Aft Port Solars"
 	icon_state = "southwest"
 
 /area/xenos_station/northwest
-	name = "\improper fore port solars"
+	name = "\improper Fore Port Solars"
 	icon_state = "northwest"
 
 /area/xenos_station/northeast
-	name = "\improper fore starboard solars"
+	name = "\improper Fore Starboard Solars"
 	icon_state = "northeast"
 	requires_power = 0
 
 /area/xenos_station/southeast
-	name = "\improper aft starboard solars"
+	name = "\improper Aft Starboard Solars"
 	icon_state = "southeast"
 
 /area/xenos_station/north
-	name = "\improper west landing area"
+	name = "\improper West Landing Area"
 	icon_state = "north"
 
 /area/xenos_station/south
-	name = "\improper east landing area"
+	name = "\improper East Landing Area"
 	icon_state = "south"
 
 //PRISON
@@ -1023,11 +1023,27 @@ var/list/ghostteleportlocs = list()
 /area/chapel/office
 	name = "\improper Chapel Office"
 	icon_state = "chapeloffice"
+	
+/area/escapepodbay
+	name = "Escape Shuttle Hallway Podbay"
+	icon_state = "escape"
 
 /area/lawoffice
 	name = "\improper Law Office"
 	icon_state = "law"
-
+	
+/area/magistrateoffice
+	name = "\improper Magistrate's Office"
+	icon_state = "law"
+	
+area/clownoffice
+	name = "\improper Clown's Office"
+	icon_state = "dk_yellow"
+	
+area/mimeoffice	
+	name = "\improper Mime's Office"
+	icon_state = "dk_yellow"
+	
 /area/civilian/barber
 	name = "\improper Barber Shop"
 	icon_state = "barber"
@@ -1188,19 +1204,19 @@ var/list/ghostteleportlocs = list()
 		icon_state = "panelsP"
 
 /area/maintenance/auxsolarport
-	name = "Fore Port Solar Maintenance"
+	name = "\improper Fore Port Solar Maintenance"
 	icon_state = "SolarcontrolA"
 
 /area/maintenance/starboardsolar
-	name = "Aft Starboard Solar Maintenance"
+	name = "\improper Aft Starboard Solar Maintenance"
 	icon_state = "SolarcontrolS"
 
 /area/maintenance/portsolar
-	name = "Aft Port Solar Maintenance"
+	name = "\improper Aft Port Solar Maintenance"
 	icon_state = "SolarcontrolP"
 
 /area/maintenance/auxsolarstarboard
-	name = "Fore Starboard Solar Maintenance"
+	name = "\improper Fore Starboard Solar Maintenance"
 	icon_state = "SolarcontrolA"
 
 
@@ -1334,6 +1350,10 @@ var/list/ghostteleportlocs = list()
 /area/medical/virology
 	name = "\improper Virology"
 	icon_state = "virology"
+	
+/area/medical/virology/lab
+	name = "\improper Virology Laboratory"
+	icon_state = "virology"
 
 /area/medical/morgue
 	name = "\improper Morgue"
@@ -1370,6 +1390,10 @@ var/list/ghostteleportlocs = list()
 /area/medical/sleeper
 	name = "\improper Medical Treatment Center"
 	icon_state = "exam_room"
+	
+/area/medical/paramedic
+	name = "\improper Paramedic"
+	icon_state = "medbay"
 
 //Security
 
@@ -1378,7 +1402,7 @@ var/list/ghostteleportlocs = list()
 	icon_state = "security"
 
 /area/security/lobby
-	name = "\improper Security lobby"
+	name = "\improper Security Lobby"
 	icon_state = "security"
 
 /area/security/brig
@@ -1388,11 +1412,31 @@ var/list/ghostteleportlocs = list()
 /area/security/prison
 	name = "\improper Prison Wing"
 	icon_state = "sec_prison"
+	
+/area/security/prison/cell_block/A
+	name = "Prison Cell Block A"
+	icon_state = "brig"
 
+/area/security/prison/cell_block/B
+	name = "Prison Cell Block B"
+	icon_state = "brig"
+
+/area/security/prison/cell_block/C
+	name = "Prison Cell Block C"
+	icon_state = "brig"
+
+/area/security/medbay
+	name = "\improper Security Medbay"
+	icon_state = "brig"	
+	
 /area/security/processing
 	name = "\improper Prisoner Processing"
 	icon_state = "sec_prison"
 
+/area/security/warden
+	name = "\improper Security Medbay"
+	icon_state = "Warden"	
+	
 /area/security/warden
 	name = "\improper Warden"
 	icon_state = "Warden"
@@ -1400,13 +1444,27 @@ var/list/ghostteleportlocs = list()
 /area/security/armoury
 	name = "\improper Armory"
 	icon_state = "Warden"
+	
+/area/security/securearmoury
+	name = "\improper Secure Armory"
+	icon_state = "Warden"	
+	
 /area/security/armoury/gamma
 	name = "\improper Gamma Armory"
 	icon_state = "Warden"
 	requires_power = 0
+	
+/area/security/securehallway 
+	name = "\improper Security Secure Hallway"
+	icon_state = "security"
+	
 /area/security/hos
 	name = "\improper Head of Security's Office"
 	icon_state = "sec_hos"
+	
+area/security/podbay
+	name = "\improper Security Podbay"
+	icon_state = "security"
 
 /area/security/detectives_office
 	name = "\improper Detective's Office"
@@ -1510,7 +1568,7 @@ var/list/ghostteleportlocs = list()
 	icon_state = "janitor"
 
 /area/hydroponics
-	name = "Hydroponics"
+	name = "\improper Hydroponics"
 	icon_state = "hydro"
 
 //Toxins
@@ -1533,6 +1591,10 @@ var/list/ghostteleportlocs = list()
 
 /area/toxins/xenobiology
 	name = "\improper Xenobiology Lab"
+	icon_state = "toxlab"
+	
+/area/toxins/xenobiology/flora
+	name = "\improper Xenobiology Flora Lab"
 	icon_state = "toxlab"
 
 /area/toxins/storage
@@ -2183,7 +2245,11 @@ var/list/the_station_areas = list (
 	/area/holodeck,
 	/area/library,
 	/area/chapel,
+	/area/escapepodbay,
 	/area/lawoffice,
+	/area/magistrateoffice,
+	/area/clownoffice,
+	/area/mimeoffice,
 	/area/engine,
 	/area/solar,
 	/area/assembly,

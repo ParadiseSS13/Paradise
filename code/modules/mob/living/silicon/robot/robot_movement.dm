@@ -23,9 +23,4 @@
 	return tally+config.robot_delay
 
 /mob/living/silicon/robot/Move()
-	if (!is_component_functioning("actuator") || !is_component_functioning("power cell") || !cell)
-		return
-	
-	else 
-		if (src.cell.charge > 0)
-			..()	
+	..()	

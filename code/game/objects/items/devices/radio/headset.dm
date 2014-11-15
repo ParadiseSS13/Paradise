@@ -171,7 +171,8 @@
 /obj/item/device/radio/headset/heads/ai_integrated //No need to care about icons, it should be hidden inside the AI anyway.
 	name = "AI Subspace Transceiver"
 	desc = "Integrated AI radio transceiver."
-	icon_state = "ai_radio"
+	icon = 'icons/obj/robot_component.dmi'
+	icon_state = "radio"
 	item_state = "headset"
 	keyslot2 = new /obj/item/device/encryptionkey/heads/ai_integrated
 	var/myAi = null // Atlantis: Reference back to the AI which has this radio.
