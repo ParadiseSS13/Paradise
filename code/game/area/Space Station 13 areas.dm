@@ -1390,6 +1390,10 @@ area/mimeoffice
 /area/medical/sleeper
 	name = "\improper Medical Treatment Center"
 	icon_state = "exam_room"
+	
+/area/medical/paramedic
+	name = "\improper Paramedic"
+	icon_state = "medbay"
 
 //Security
 
