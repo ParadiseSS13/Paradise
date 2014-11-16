@@ -240,7 +240,7 @@ obj/machinery/computer/cryopod/Topic(href, href_list)
 					current_mode.possible_traitors.Remove(occupant)
 
 			// Delete them from datacore.
-			
+
 			if(PDA_Manifest.len)
 				PDA_Manifest.Cut()
 			for(var/datum/data/record/R in data_core.medical)
@@ -327,6 +327,82 @@ obj/machinery/computer/cryopod/Topic(href, href_list)
 
 			//Despawning occurs when process() is called with an occupant without a client.
 			src.add_fingerprint(M)
+
+/obj/machinery/cryopod/MouseDrop_T(atom/movable/O as mob|obj, mob/user as mob)
+
+	if(O.loc == user) //no you can't pull things out of your ass
+		return
+	if(user.restrained() || user.stat || user.weakened || user.stunned || user.paralysis || user.resting) //are you cuffed, dying, lying, stunned or other
+		return
+	if(O.anchored || get_dist(user, src) > 1 || get_dist(user, O) > 1 || user.contents.Find(src)) // is the mob anchored, too far away from you, or are you too far away from the source
+		return
+	if(!ismob(O)) //humans only
+		return
+	if(istype(O, /mob/living/simple_animal) || istype(O, /mob/living/silicon)) //animals and robutts dont fit
+		return
+	if(!ishuman(user) && !isrobot(user)) //No ghosts or mice putting people into the sleeper
+		return
+	if(user.loc==null) // just in case someone manages to get a closet into the blue light dimension, as unlikely as that seems
+		return
+	if(!istype(user.loc, /turf) || !istype(O.loc, /turf)) // are you in a container/closet/pod/etc?
+		return
+	if(occupant)
+		user << "\blue <B>The cryo pod is already occupied!</B>"
+		return
+
+
+	var/mob/living/L = O
+	if(!istype(L) || L.buckled)
+		return
+	for(var/mob/living/carbon/slime/M in range(1,L))
+		if(M.Victim == L)
+			usr << "[L.name] will not fit into the cryo pod because they have a slime latched onto their head."
+			return
+
+
+	var/willing = null //We don't want to allow people to be forced into despawning.
+
+	if(L.client)
+		if(alert(L,"Would you like to enter cryosleep?",,"Yes","No") == "Yes")
+			if(!L) return
+			willing = 1
+	else
+		willing = 1
+
+	if(willing)
+		if(L == user)
+			visible_message("[user] starts climbing into the cryo pod.", 3)
+		else
+			visible_message("[user] starts putting [L] into the cryo pod.", 3)
+
+		if(do_after(user, 20))
+			if(!L) return
+
+			L.loc = src
+
+			if(L.client)
+				L.client.perspective = EYE_PERSPECTIVE
+				L.client.eye = src
+
+		if(orient_right)
+			icon_state = "body_scanner_1-r"
+		else
+			icon_state = "body_scanner_1"
+
+			L << "\blue You feel cool air surround you. You go numb as your senses turn inward."
+			L << "\blue <b>If you ghost, log out or close your client now, your character will shortly be permanently removed from the round.</b>"
+			occupant = L
+			time_entered = world.time
+
+			// Book keeping!
+			log_admin("[key_name_admin(L)] has entered a stasis pod.")
+			message_admins("\blue [key_name_admin(L)] has entered a stasis pod.")
+
+			//Despawning occurs when process() is called with an occupant without a client.
+			src.add_fingerprint(L)
+
+	return
+
 
 /obj/machinery/cryopod/verb/eject()
 	set name = "Eject Pod"
