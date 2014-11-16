@@ -40,7 +40,7 @@
 	return temps
 
 #define FIREDOOR_MAX_PRESSURE_DIFF 25 // kPa
-#define FIREDOOR_MAX_TEMP 50 // °C
+#define FIREDOOR_MAX_TEMP 50 // Celsius
 #define FIREDOOR_MIN_TEMP 0
 
 // Bitflags
@@ -129,7 +129,7 @@
 			o += "<span class='warning'>"
 		else
 			o += "<span style='color:blue'>"
-		o += "[celsius]°C</span> "
+		o += "[celsius]Celsius</span> "
 		o += "<span style='color:blue'>"
 		o += "[pressure]kPa</span></li>"
 		usr << o
