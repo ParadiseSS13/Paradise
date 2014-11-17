@@ -91,7 +91,7 @@ var/bomb_set
 			O.loc = src
 			src.auth = O
 			src.add_fingerprint(user)
-			nanomanager.update_uis(src)
+			ui_interact(user)
 			return
 
 	if (src.anchored)
@@ -323,7 +323,7 @@ obj/machinery/nuclearbomb/proc/nukehack_win(mob/user as mob)
 						if (text2num(lastentered) == null)
 							var/turf/LOC = get_turf(usr)
 							message_admins("[key_name_admin(usr)] tried to exploit a nuclear bomb by entering non-numerical codes: <a href='?_src_=vars;Vars=\ref[src]'>[lastentered]</a>! ([LOC ? "<a href='?_src_=holder;adminplayerobservecoodjump=1;X=[LOC.x];Y=[LOC.y];Z=[LOC.z]'>JMP</a>" : "null"])", 0)
-							log_admin("EXPLOIT : [key_name(usr)] tried to exploit a nuclear bomb by entering non-numerical codes: [lastentered]!")
+							log_admin("EXPLOIT: [key_name(usr)] tried to exploit a nuclear bomb by entering non-numerical codes: [lastentered]!")
 						else
 							src.code += lastentered
 							if (length(src.code) > 5)

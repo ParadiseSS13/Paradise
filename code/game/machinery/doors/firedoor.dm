@@ -25,7 +25,10 @@
 		if(T && istype(T) && T.zone)
 			var/datum/gas_mixture/environment = T.return_air()
 			for(var/i=1;i<=stats.len;i++)
-				rstats[i] = environment.vars[stats[i]]
+				if(stats[i] == "pressure")
+					rstats[i] = environment.return_pressure()
+				else
+					rstats[i] = environment.vars[stats[i]]
 		else if(istype(T, /turf/simulated))
 			rstats = null // Exclude zone (wall, door, etc).
 		else if(istype(T, /turf))
@@ -37,7 +40,7 @@
 	return temps
 
 #define FIREDOOR_MAX_PRESSURE_DIFF 25 // kPa
-#define FIREDOOR_MAX_TEMP 50 // °C
+#define FIREDOOR_MAX_TEMP 50 // Celsius
 #define FIREDOOR_MIN_TEMP 0
 
 // Bitflags
@@ -100,6 +103,7 @@
 /obj/machinery/door/firedoor/examine()
 	set src in view()
 	. = ..()
+	
 	if(pdiff >= FIREDOOR_MAX_PRESSURE_DIFF)
 		usr << "<span class='warning'>WARNING: Current pressure differential is [pdiff]kPa! Opening door may result in injury!</span>"
 
@@ -125,7 +129,7 @@
 			o += "<span class='warning'>"
 		else
 			o += "<span style='color:blue'>"
-		o += "[celsius]?C</span> "
+		o += "[celsius]Celsius</span> "
 		o += "<span style='color:blue'>"
 		o += "[pressure]kPa</span></li>"
 		usr << o
@@ -158,7 +162,6 @@
 	else
 		stat |= NOPOWER
 	return
-
 
 /obj/machinery/door/firedoor/attack_hand(mob/user as mob)
 	return attackby(null, user)
@@ -279,8 +282,42 @@
 			if(alarmed)
 				nextstate = CLOSED
 
+/obj/machinery/door/firedoor/attack_ai(mob/user as mob)
+	if(operating)
+		return //Already doing something.	
 
+	if(blocked)
+		user << "\red \The [src] is welded solid!"
+		return
 
+	var/area/A = get_area_master(src)
+	ASSERT(istype(A)) // This worries me.
+	var/alarmed = A.air_doors_activated || A.fire	
+
+	var/access_granted = 0
+	if(isAI(user) || isrobot(user))
+		access_granted = 1	
+
+	if(access_granted == 1)
+		user.visible_message("\blue \The [src] [density ? "open" : "close"]s for \the [user].",\
+		"\The [src] [density ? "open" : "close"]s.",\
+		"You hear a beep, and a door opening.")
+
+	var/needs_to_close = 0
+	if(density)
+		if(alarmed)
+			needs_to_close = 1
+		spawn()
+			open()
+	else
+		spawn()
+			close()
+
+	if(needs_to_close)
+		spawn(50)
+			if(alarmed)
+				nextstate = CLOSED
+		
 	// CHECK PRESSURE
 /obj/machinery/door/firedoor/process()
 	..()

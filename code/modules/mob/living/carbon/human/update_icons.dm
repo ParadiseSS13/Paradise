@@ -428,24 +428,26 @@ proc/get_damage_icon_part(damage_state, body_part)
 
 	if(f_style)
 		var/datum/sprite_accessory/facial_hair_style = facial_hair_styles_list[f_style]
-		if(facial_hair_style && src.species.name in facial_hair_style.species_allowed)
-			var/icon/facial_s = new/icon("icon" = facial_hair_style.icon, "icon_state" = "[facial_hair_style.icon_state]_s")
-			if(facial_hair_style.do_colouration)
-				facial_s.Blend(rgb(r_facial, g_facial, b_facial), ICON_ADD)
-			face_standing.Blend(facial_s, ICON_OVERLAY)
+		if(facial_hair_style && facial_hair_style.species_allowed)
+			if(src.species.name in facial_hair_style.species_allowed)
+				var/icon/facial_s = new/icon("icon" = facial_hair_style.icon, "icon_state" = "[facial_hair_style.icon_state]_s")
+				if(facial_hair_style.do_colouration)
+					facial_s.Blend(rgb(r_facial, g_facial, b_facial), ICON_ADD)
+				face_standing.Blend(facial_s, ICON_OVERLAY)
 		else
-			warning("Invalid f_style for [species.name]: [f_style]")
+			//warning("Invalid f_style for [species.name]: [f_style]")
 
 	if(h_style && !(head && (head.flags & BLOCKHEADHAIR)))
 		var/datum/sprite_accessory/hair_style = hair_styles_list[h_style]
-		if(hair_style && src.species.name in hair_style.species_allowed)
-			var/icon/hair_s = new/icon("icon" = hair_style.icon, "icon_state" = "[hair_style.icon_state]_s")
-			if(hair_style.do_colouration)
-				hair_s.Blend(rgb(r_hair, g_hair, b_hair), ICON_ADD)
+		if(hair_style && hair_style.species_allowed)
+			if(src.species.name in hair_style.species_allowed)
+				var/icon/hair_s = new/icon("icon" = hair_style.icon, "icon_state" = "[hair_style.icon_state]_s")
+				if(hair_style.do_colouration)
+					hair_s.Blend(rgb(r_hair, g_hair, b_hair), ICON_ADD)
 
-			face_standing.Blend(hair_s, ICON_OVERLAY)
+				face_standing.Blend(hair_s, ICON_OVERLAY)
 		else
-			warning("Invalid h_style for [species.name]: [h_style]")
+			//warning("Invalid h_style for [species.name]: [h_style]")
 
 	overlays_standing[HAIR_LAYER]	= image(face_standing)
 
