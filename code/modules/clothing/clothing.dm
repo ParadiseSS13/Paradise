@@ -217,7 +217,7 @@ BLIND     // can't see anything
 	min_cold_protection_temperature = SPACE_HELMET_MIN_COLD_PROTECITON_TEMPERATURE
 	siemens_coefficient = 0.9
 	species_restricted = list("exclude","Diona","Vox")
-	loose = 1 // very rarely falls off
+	loose = 0 // What kind of idiot designs a pressurized suit where the helmet can fall off?
 
 /obj/item/clothing/suit/space
 	name = "Space suit"
