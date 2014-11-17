@@ -260,6 +260,33 @@ datum/design/clonescanner
 	materials = list("$glass" = 2000, "sacid" = 20)
 	build_path = "/obj/item/weapon/circuitboard/clonescanner"
 
+datum/design/telepad
+	name = "Circuit Design (Telepad Board)"
+	desc = "The circuit board for a telescience telepad."
+	id = "telepad"
+	req_tech = list("programming" = 4, "bluespace" = 4, "materials" = 3, "engineering" = 3)
+	build_type = IMPRINTER
+	materials = list("$glass" = 1000, "sacid" = 20)
+	build_path = "/obj/item/weapon/circuitboard/telesci_pad"	
+	
+datum/design/sleeper
+	name = "Circuit Design (Sleeper Board)"
+	desc = "Allows for the construction of circuit boards used to build a Sleeper."
+	id = "sleeper"
+	req_tech = list("programming" = 3, "biotech" = 2, "materials" = 3, "engineering" = 3)
+	build_type = IMPRINTER
+	materials = list("$glass" = 1000, "sacid" = 20)
+	build_path = "/obj/item/weapon/circuitboard/sleeper"
+	
+datum/design/cryotube
+	name = "Circuit Design (Cryotube Board)"
+	desc = "Allows for the construction of circuit boards used to build a Cryotube."
+	id = "cryotube"
+	req_tech = list("programming" = 4, "biotech" = 3, "engineering" = 4)
+	build_type = IMPRINTER
+	materials = list("$glass" = 1000, "sacid" = 20)
+	build_path = "/obj/item/weapon/circuitboard/cryo_tube"
+
 datum/design/arcadebattle
 	name = "Circuit Design (Battle Arcade Machine)"
 	desc = "Allows for the construction of circuit boards used to build a new arcade machine."
@@ -377,6 +404,24 @@ datum/design/message_monitor
 	materials = list("$glass" = 2000, "sacid" = 20)
 	build_path = "/obj/item/weapon/circuitboard/message_monitor"
 
+datum/design/comm_traffic
+	name = "Circuit Design (Telecommunications Traffic Control Console)"
+	desc = "Allows for the construction of circuit boards used to build a telecommunications traffic control console."
+	id = "comm_traffic"
+	req_tech = list("programming" = 3)
+	build_type = IMPRINTER
+	materials = list("$glass" = 1000, "sacid" = 20)
+	build_path = "/obj/item/weapon/circuitboard/comm_traffic"	
+	
+datum/design/telesci_console
+	name = "Computer Design (Telepad Control Console Board)"
+	desc = "Allows for the construction of circuit boards used to build a telescience console."
+	id = "telesci_console"
+	req_tech = list("programming" = 3, "bluespace" = 2)
+	build_type = IMPRINTER
+	materials = list("$glass" = 1000, "sacid" = 20)
+	build_path = "/obj/item/weapon/circuitboard/telesci_console"
+	
 datum/design/aifixer
 	name = "Circuit Design (AI Integrity Restorer)"
 	desc = "Allows for the construction of circuit boards used to build an AI Integrity Restorer."
@@ -1235,6 +1280,41 @@ datum/design/light_replacer
 ////////////////////////////////////////
 //////////////MISC Boards///////////////
 ////////////////////////////////////////
+datum/design/biogenerator
+	name = "Machine Design (Biogenerator Board)"
+	desc = "The circuit board for a biogenerator."
+	id = "biogenerator"
+	req_tech = list("programming" = 3, "biotech" = 2, "materials" = 3)
+	build_type = IMPRINTER
+	materials = list("$glass" = 1000, "sacid" = 20)
+	build_path = /obj/item/weapon/circuitboard/biogenerator
+	
+datum/design/hydroponics
+	name = "Machine Design (Hydroponics Tray Board)"
+	desc = "The circuit board for a hydroponics tray."
+	id = "hydro_tray"
+	req_tech = list("programming" = 1, "biotech" = 1)
+	build_type = IMPRINTER
+	materials = list("$glass" = 1000, "sacid" = 20)
+	build_path = /obj/item/weapon/circuitboard/hydroponics
+	
+datum/design/microwave
+	name = "Machine Design (Microwave Board)"
+	desc = "The circuit board for a microwave."
+	id = "microwave"
+	req_tech = list("programming" = 1)
+	build_type = IMPRINTER
+	materials = list("$glass" = 1000, "sacid" = 20)
+	build_path = "/obj/item/weapon/circuitboard/microwave"
+
+datum/design/chem_dispenser
+	name = "Machine Design (Portable Chem Dispenser Board)"
+	desc = "The circuit board for a portable chem dispenser."
+	id = "chem_dispenser"
+	req_tech = list("programming" = 4, "biotech" = 3, "engineering" = 4, "materials" = 4, "plasmatech" = 3)
+	build_type = IMPRINTER
+	materials = list("$glass" = 1000, "sacid" = 20)
+	build_path = "/obj/item/weapon/circuitboard/chem_dispenser"
 
 datum/design/destructive_analyzer
 	name = "Destructive Analyzer Board"
@@ -1299,7 +1379,15 @@ datum/design/mechfab
 	materials = list("$glass" = 2000, "sacid" = 20)
 	build_path = "/obj/item/weapon/circuitboard/mechfab"
 
-
+datum/design/cyborgrecharger
+	name = "Cyborg Recharger Board"
+	desc = "The circuit board for a Cyborg Recharger."
+	id = "cyborgrecharger"
+	req_tech = list("powerstorage" = 3, "engineering" = 3)
+	build_type = IMPRINTER
+	materials = list("$glass" = 1000, "sacid" = 20)
+	build_path = "/obj/item/weapon/circuitboard/cyborgrecharger"
+	
 /////////////////////////////////////////
 ////////////Power Stuff//////////////////
 /////////////////////////////////////////
@@ -1865,8 +1953,7 @@ datum/design/telepad_beacon
 	build_type = PROTOLATHE
 	materials = list ("$metal" = 2000, "$glass" = 1750, "$silver" = 500)
 	build_path = "/obj/item/device/telepad_beacon"
-
-
+	
 datum/design/bag_holding
 	name = "Bag of Holding"
 	desc = "A backpack that opens into a localized pocket of Blue Space."
@@ -1876,6 +1963,25 @@ datum/design/bag_holding
 	materials = list("$gold" = 3000, "$diamond" = 1500, "$uranium" = 250)
 	reliability_base = 80
 	build_path = "/obj/item/weapon/storage/backpack/holding"
+	
+datum/design/bluespace_crystal
+	name = "Artificial Bluespace Crystal"
+	desc = "A small blue crystal with mystical properties."
+	id = "bluespace_crystal"
+	req_tech = list("bluespace" = 4, "materials" = 6)
+	build_type = PROTOLATHE
+	materials = list("$gold" = 1500, "$diamond" = 3000, "$plasma" = 1500)
+	reliability_base = 100
+	build_path = "/obj/item/bluespace_crystal/artificial"
+	
+datum/design/telesci_gps
+	name = "GPS Device"
+	desc = "A device that can track its position at all times."
+	id = "telesci_gps"
+	req_tech = list("materials" = 2, "magnets" = 3, "bluespace" = 3)
+	build_type = PROTOLATHE
+	materials = list("$metal" = 500, "$glass" = 1000)
+	build_path = /obj/item/device/gps
 
 /////////////////////////////////////////
 /////////////////HUDs////////////////////

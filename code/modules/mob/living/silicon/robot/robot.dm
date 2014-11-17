@@ -565,7 +565,11 @@
 		..()
 		if (istype(AM, /obj/machinery/recharge_station))
 			var/obj/machinery/recharge_station/F = AM
-			F.move_inside()
+			if(F.panel_open)
+				usr << "\blue <b>Close the maintenance panel first.</b>"
+				return
+			else
+				F.move_inside()
 		if (!istype(AM, /atom/movable))
 			return
 		if (!now_pushing)

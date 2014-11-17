@@ -19,8 +19,8 @@
 	component_parts = list()
 	component_parts += new /obj/item/weapon/circuitboard/rdserver(src)
 	component_parts += new /obj/item/weapon/stock_parts/scanning_module(src)
-	component_parts += new /obj/item/stack/cable_coil(src)
-	component_parts += new /obj/item/stack/cable_coil(src)
+	component_parts += new /obj/item/stack/cable_coil(src,1)
+	component_parts += new /obj/item/stack/cable_coil(src,1)
 	RefreshParts()
 	src.initialize(); //Agouri
 
@@ -89,9 +89,7 @@
 	griefProtection()
 	..()
 
-
-
-//Backup files to centcomm to help admins recover data after greifer attacks
+// Backup files to CentComm to help admins recover data after griefer attacks
 /obj/machinery/r_n_d/server/proc/griefProtection()
 	for(var/obj/machinery/r_n_d/server/centcom/C in machines)
 		for(var/datum/tech/T in files.known_tech)
@@ -101,7 +99,7 @@
 		C.files.RefreshResearch()
 
 /obj/machinery/r_n_d/server/proc/produce_heat(heat_amt)
-	if(!(stat & (NOPOWER|BROKEN))) //Blatently stolen from space heater.
+	if(!(stat & (NOPOWER|BROKEN))) // Blatantly stolen from space heater.
 		var/turf/simulated/L = loc
 		if(istype(L))
 			var/datum/gas_mixture/env = L.return_air()
@@ -121,49 +119,35 @@
 				env.merge(removed)
 
 /obj/machinery/r_n_d/server/attackby(var/obj/item/O as obj, var/mob/user as mob)
-	if(exchange_parts(user, O))
-		return
 	if (disabled)
 		return
+		
 	if (shocked)
 		shock(user,50)
-	if (istype(O, /obj/item/weapon/screwdriver))
-		if (!opened)
-			opened = 1
-			icon_state = "server_o"
-			user << "You open the maintenance hatch of [src]."
-		else
-			opened = 0
-			icon_state = "server"
-			user << "You close the maintenance hatch of [src]."
-		return
-	if (opened)
+	
+	if(istype(O, /obj/item/weapon/screwdriver))	
+		default_deconstruction_screwdriver(user, "server_o", "server")
+		return 1
+		
+	if(exchange_parts(user, O))
+		return 1
+		
+	if (panel_open)
 		if(istype(O, /obj/item/weapon/crowbar))
 			griefProtection()
-			playsound(src.loc, 'sound/items/Crowbar.ogg', 50, 1)
-			var/obj/machinery/constructable_frame/machine_frame/M = new /obj/machinery/constructable_frame/machine_frame(src.loc)
-			M.state = 2
-			M.icon_state = "box_1"
-			for(var/obj/I in component_parts)
-				if(I.reliability != 100 && crit_fail)
-					I.crit_fail = 1
-				I.loc = src.loc
-			del(src)
+			default_deconstruction_crowbar(O)
 			return 1
 
 /obj/machinery/r_n_d/server/attack_hand(mob/user as mob)
 	if (disabled)
 		return
+		
 	if (shocked)
 		shock(user,50)
-
 	return
 
-
-
-
 /obj/machinery/r_n_d/server/centcom
-	name = "Centcom Central R&D Database"
+	name = "CentComm. Central R&D Database"
 	server_id = -1
 
 /obj/machinery/r_n_d/server/centcom/initialize()

@@ -17,6 +17,7 @@
 	var/global/list/acceptable_items // List of the items you can put in
 	var/global/list/acceptable_reagents // List of the reagents you can put in
 	var/global/max_n_of_items = 0
+	var/efficiency
 
 
 // see code/modules/food/recipes_microwave.dm for recipes
@@ -43,11 +44,44 @@
 			if (recipe.items)
 				max_n_of_items = max(max_n_of_items,recipe.items.len)
 
+	component_parts = list()
+	component_parts += new /obj/item/weapon/circuitboard/microwave(null)
+	component_parts += new /obj/item/weapon/stock_parts/micro_laser(null)
+	component_parts += new /obj/item/weapon/stock_parts/console_screen(null)
+	component_parts += new /obj/item/stack/cable_coil(null, 2)
+	RefreshParts()			
+
+/obj/machinery/microwave/RefreshParts()
+	var/E
+	for(var/obj/item/weapon/stock_parts/micro_laser/M in component_parts)
+		E += M.rating
+	efficiency = E	
+				
 /*******************
 *   Item Adding
 ********************/
 
 /obj/machinery/microwave/attackby(var/obj/item/O as obj, var/mob/user as mob)
+	if(operating)
+		return
+	if(!broken && dirty < 100)
+		if(default_deconstruction_screwdriver(user, "mw-o", "mw", O))
+			return
+		if(exchange_parts(user, O))
+			return
+	if(istype(O, /obj/item/weapon/wrench))
+		playsound(src, 'sound/items/Ratchet.ogg', 50, 1)
+		if(anchored)
+			anchored = 0
+			user << "<span class='caution'>The [src] can now be moved.</span>"
+			return
+		else if(!anchored)
+			anchored = 1
+			user << "<span class='caution'>The [src] is now secured.</span>"			
+			return
+		
+	default_deconstruction_crowbar(O)
+	
 	if(src.broken > 0)
 		if(src.broken == 2 && istype(O, /obj/item/weapon/screwdriver)) // If it's broken and they're using a screwdriver
 			user.visible_message( \
@@ -147,6 +181,8 @@
 ********************/
 
 /obj/machinery/microwave/interact(mob/user as mob) // The microwave Menu
+	if(panel_open || !anchored)
+		return
 	var/dat = ""
 	if(src.broken > 0)
 		dat = {"<TT>Bzzzzttttt</TT>"}
@@ -269,7 +305,8 @@
 		stop()
 		if(cooked)
 			cooked.loc = src.loc
-		score_meals++
+		for(var/i=1,i<efficiency,i++)
+			cooked = new cooked.type(loc)
 		return
 
 /obj/machinery/microwave/proc/wzhzhzh(var/seconds as num)
@@ -355,7 +392,7 @@
 	return ffuu
 
 /obj/machinery/microwave/Topic(href, href_list)
-	if(..())
+	if(..() || panel_open)
 		return
 
 	usr.set_machine(src)

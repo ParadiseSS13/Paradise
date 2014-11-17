@@ -2,8 +2,7 @@
 	name = "Telepad Control Console"
 	desc = "Used to teleport objects to and from the telescience telepad."
 	icon_state = "teleport-sci"
-
-	// VARIABLES //
+	circuit = "/obj/item/weapon/circuitboard/telesci_console"
 	var/teles_left	// How many teleports left until it becomes uncalibrated
 	var/x_off	// X offset
 	var/y_off	// Y offset
@@ -12,7 +11,7 @@
 	var/z_co	// Z coordinate
 	var/trueX	// X + offset
 	var/trueY	// Y + offset
-	var/obj/machinery/telepad
+	var/obj/machinery/telepad/telepad
 	var/tele_id = "Telesci"
 
 /obj/machinery/computer/telescience/update_icon()
@@ -58,7 +57,7 @@
 	// Set up the Nano UI
 	ui = nanomanager.try_update_ui(user, src, ui_key, ui, data, force_open)
 	if (!ui)
-		ui = new(user, src, ui_key, "telescience_console.tmpl", "Telescience Console UI", 640, 480)
+		ui = new(user, src, ui_key, "telescience_console.tmpl", "Telescience Console UI", 640, 300)
 		ui.set_initial_data(data)		
 		ui.open()		
 
@@ -110,7 +109,10 @@
 
 /obj/machinery/computer/telescience/proc/teleprep(var/type)
 	if(!telepad)
-		usr << "\red Error: no associated telepad. Please recalibrate and try again."
+		usr << "\red Error: No associated telepad. Please recalibrate and try again."
+		return
+	if(telepad.panel_open)
+		usr << "\red Error: The telepad can not be used while in maintenance mode."
 		return
 	var/numpick
 	var/failure = checkFail()
@@ -119,7 +121,7 @@
 		telefail(numpick)
 		return
 	if(teles_left > 0)
-		if(prob(75))
+		if(prob(70 + (5 * telepad.efficiency)))
 			teles_left -= 1
 			tele(type)
 			if(teles_left == 0)
@@ -127,7 +129,7 @@
 					O.show_message("\red The telepad has become uncalibrated.", 2)
 			return
 	else
-		if(prob(35))
+		if(prob(25 + (10 * telepad.efficiency)))
 			tele(type)
 		else
 			numpick = pick(1,1,1,2,2,3,4)
@@ -187,27 +189,34 @@
 	if(x_co == "" || x_co == "Unset")
 		usr << "\red Error: set X coordinate."
 		fail = 1
+		return fail
 	if(y_co == "" || y_co == "Unset")
 		usr << "\red Error: set Y coordinate."
 		fail = 1
+		return fail
 	if(z_co == "" || z_co == "Unset")
 		usr << "\red Error: set Z coordinate."
 		fail = 1
+		return fail
 	if(x_co < 11 || x_co > 245)
 		usr << "\red Error: X is less than 11 or greater than 245."
 		fail = 1
+		return fail
 	if(y_co < 11 || y_co > 245)
 		usr << "\red Error: Y is less than 11 or greater than 245."
 		fail = 1
+		return fail
 	if(z_co == 2 || z_co < 1 || z_co > 6)
 		if (z_co == 7 & src.emagged == 1)
 		// This should be empty, allows for it to continue if the z-level is 7 and the machine is emagged.
 		else
 			usr << "\red Error: Z is less than 1, greater than [src.emagged ? "7" : "6"], or equal to 2."
 			fail = 1
+			return fail
 	if(istype(get_area(locate(x_co,y_co,z_co)), /area/security/armoury/gamma))
 		usr << "\red Error: Attempting to access telescience-protected area."
 		fail = 1
+		return fail
 	return fail
 
 /obj/machinery/computer/telescience/Topic(href, href_list)
@@ -247,6 +256,8 @@
 			for(var/obj/machinery/telepad/T in range(src,10))
 				telepad = T
 		if(!telepad)	
+			usr << "\red Error: No telepads in range were found."
+			nanomanager.update_uis(src)
 			return
 		var/teleturf = get_turf(telepad)
 		teles_left = rand(8,12)

@@ -589,7 +589,7 @@
 	icon_state = "RPED"
 	item_state = "RPED"
 	w_class = 5
-	can_hold = list("/obj/item/weapon/stock_parts")
+	can_hold = list("/obj/item/weapon/stock_parts","/obj/item/weapon/cell")
 	storage_slots = 14
 	use_to_pickup = 1
 	allow_quick_gather = 1
@@ -598,7 +598,10 @@
 	max_w_class = 3
 	max_combined_w_class = 28
 
-
+/obj/item/weapon/storage/part_replacer/proc/play_rped_sound()
+	//Plays the sound for RPED exhanging or installing parts.
+	playsound(src, 'sound/items/rped.ogg', 40, 1)
+	
 /obj/item/weapon/stock_parts
 	name = "stock part"
 	desc = "What?"

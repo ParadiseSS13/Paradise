@@ -5,11 +5,12 @@
 /obj/machinery/sleep_console
 	name = "Sleeper Console"
 	icon = 'icons/obj/Cryogenic2.dmi'
-	icon_state = "sleeperconsole"
+	icon_state = "console"
 	var/obj/machinery/sleeper/connected = null
 	anchored = 1 //About time someone fixed this.
 	density = 1
 	var/orient = "LEFT" // "RIGHT" changes the dir suffix to "-r"
+	dir = 4
 
 	l_color = "#7BF9FF"
 	power_change()
@@ -42,12 +43,12 @@
 /obj/machinery/sleep_console/New()
 	..()
 	spawn( 5 )
-		if(orient == "RIGHT")
-			icon_state = "sleeperconsole-r"
-			src.connected = locate(/obj/machinery/sleeper, get_step(src, EAST))
-		else
-			src.connected = locate(/obj/machinery/sleeper, get_step(src, WEST))
-
+		var/obj/machinery/sleeper/sleepernew = null
+		// Loop through every direction
+		for(dir in list(NORTH,EAST,SOUTH,WEST))
+			// Try to find a scanner in that direction
+			sleepernew = locate(/obj/machinery/sleeper, get_step(src, dir))
+		src.connected = sleepernew
 		return
 	return
 
@@ -60,6 +61,13 @@
 /obj/machinery/sleep_console/attack_hand(mob/user as mob)
 	if(..())
 		return
+	if (!src.connected)
+		var/obj/machinery/sleeper/sleepernew = null
+		// Loop through every direction
+		for(dir in list(NORTH,EAST,SOUTH,WEST))
+			// Try to find a scanner in that direction
+			sleepernew = locate(/obj/machinery/sleeper, get_step(src, dir))
+		src.connected = sleepernew
 	if (src.connected)
 		var/mob/living/occupant = src.connected.occupant
 		var/dat = "<font color='blue'><B>Occupant Statistics:</B></FONT><BR>"
@@ -83,8 +91,9 @@
 			dat += text("[]\t-Burn Severity %: []</FONT><BR>", (occupant.getFireLoss() < 60 ? "<font color='blue'>" : "<font color='red'>"), occupant.getFireLoss())
 			dat += text("<HR>Paralysis Summary %: [] ([] seconds left!)<BR>", occupant.paralysis, round(occupant.paralysis / 4))
 			if(occupant.reagents)
-				for(var/chemical in connected.available_chemicals)
-					dat += "[connected.available_chemicals[chemical]]: [occupant.reagents.get_reagent_amount(chemical)] units<br>"
+				for(var/chemical in connected.injection_chems)
+					var/datum/reagent/C = chemical_reagents_list[chemical]
+					dat += "[C.name]: [occupant.reagents.get_reagent_amount(chemical)] units<br>"
 			dat += "<A href='?src=\ref[src];refresh=1'>Refresh Meter Readings</A><BR>"
 			if(src.connected.beaker)
 				dat += "<HR><A href='?src=\ref[src];removebeaker=1'>Remove Beaker</A><BR>"
@@ -96,8 +105,9 @@
 					dat += text("Output Beaker has [] units of free space remaining<BR><HR>", src.connected.beaker.reagents.maximum_volume - src.connected.beaker.reagents.total_volume)
 			else
 				dat += "<HR>No Dialysis Output Beaker is present.<BR><HR>"
-			for(var/chemical in connected.available_chemicals)
-				dat += "Inject [connected.available_chemicals[chemical]]: "
+			for(var/chemical in connected.injection_chems)
+				var/datum/reagent/C = chemical_reagents_list[chemical]
+				dat += "Inject [C.name]: "
 				for(var/amount in connected.amounts)
 					dat += "<a href ='?src=\ref[src];chemical=[chemical];amount=[amount]'>[amount] units</a><br> "
 			dat += "<HR><A href='?src=\ref[src];ejectify=1'>Eject Patient</A>"
@@ -118,7 +128,7 @@
 				if (src.connected.occupant)
 					if (src.connected.occupant.stat == DEAD)
 						usr << "\red \b This person has no life for to preserve anymore. Take them to a department capable of reanimating them."
-					else if(src.connected.occupant.health > 0 || href_list["chemical"] == "inaprovaline")
+					else if(src.connected.occupant.health > src.connected.min_health || href_list["chemical"] == "inaprovaline")
 						src.connected.inject_chemical(usr,href_list["chemical"],text2num(href_list["amount"]))
 					else
 						usr << "\red \b This person is not in good enough condition for sleepers to be effective! Use another means of treatment, such as cryogenics!"
@@ -142,12 +152,6 @@
 	return
 	// no change - sleeper works without power (you just can't inject more)
 
-
-
-
-
-
-
 /////////////////////////////////////////
 // THE SLEEPER ITSELF
 /////////////////////////////////////////
@@ -155,25 +159,51 @@
 /obj/machinery/sleeper
 	name = "Sleeper"
 	icon = 'icons/obj/Cryogenic2.dmi'
-	icon_state = "sleeper_0"
+	icon_state = "sleeper-open"
 	density = 1
 	anchored = 1
 	var/orient = "LEFT" // "RIGHT" changes the dir suffix to "-r"
 	var/mob/living/carbon/human/occupant = null
-	var/available_chemicals = list("inaprovaline" = "Inaprovaline", "stoxin" = "Soporific", "paracetamol" = "Paracetamol", "anti_toxin" = "Dylovene", "dexalin" = "Dexalin")
+	var/possible_chems = list(list("inaprovaline", "stoxin", "dexalin", "bicaridine", "kelotane"),
+								   list("inaprovaline", "stoxin", "dexalinp", "bicaridine", "dermaline", "kelotane", "imidazoline"),
+								   list("inaprovaline", "stoxin", "dexalinp", "bicaridine", "dermaline", "kelotane", "imidazoline", "anti_toxin", "ryetalyn", "alkysine", "arithrazine"))
 	var/amounts = list(5, 10)
 	var/obj/item/weapon/reagent_containers/glass/beaker = null
 	var/filtering = 0
+	var/efficiency
+	var/initial_bin_rating = 1
+	var/min_health = 25
+	var/injection_chems = list()
+	dir = 4
 
 	New()
 		..()
-		beaker = new /obj/item/weapon/reagent_containers/glass/beaker/large()
-		spawn( 5 )
-			if(orient == "RIGHT")
-				icon_state = "sleeper_0-r"
-			return
-		return
+		component_parts = list()
+		component_parts += new /obj/item/weapon/circuitboard/sleeper(src)
 
+		// Customizable bin rating, used by the labor camp to stop people filling themselves with chemicals and escaping.
+		var/obj/item/weapon/stock_parts/matter_bin/B = new(src)
+		B.rating = initial_bin_rating
+		component_parts += B
+
+		component_parts += new /obj/item/weapon/stock_parts/manipulator(src)
+		component_parts += new /obj/item/weapon/stock_parts/console_screen(src)
+		component_parts += new /obj/item/weapon/stock_parts/console_screen(src)
+		component_parts += new /obj/item/stack/cable_coil(src, 1)
+		RefreshParts()
+
+	RefreshParts()
+		var/E
+		var/I
+		for(var/obj/item/weapon/stock_parts/matter_bin/B in component_parts)
+			E += B.rating
+		for(var/obj/item/weapon/stock_parts/manipulator/M in component_parts)
+			I += M.rating
+
+		injection_chems = possible_chems[I]
+		efficiency = E
+		min_health = -E * 25		
+		
 	process()
 		if(filtering > 0)
 			if(beaker)
@@ -208,8 +238,38 @@
 			else
 				user << "\red The sleeper has a beaker already."
 				return
+				
+		if (istype(G, /obj/item/weapon/screwdriver))
+			if(src.occupant)
+				user << "<span class='notice'>The maintenance panel is locked.</span>"
+				return	
+			default_deconstruction_screwdriver(user, "sleeper-o", "sleeper-open", G)
+			return		
+		
+		if (istype(G, /obj/item/weapon/wrench))
+			if(src.occupant)
+				user << "<span class='notice'>The scanner is occupied.</span>"
+				return	
+			if(panel_open)
+				user << "<span class='notice'>Close the maintenance panel first.</span>"
+				return	
+			if(dir == 4)
+				orient = "LEFT"
+				dir = 8
+			else
+				orient = "RIGHT"
+				dir = 4
+			playsound(src.loc, 'sound/items/Ratchet.ogg', 50, 1)
+			
+		if(exchange_parts(user, G))
+			return
 
-		else if(istype(G, /obj/item/weapon/grab))
+		default_deconstruction_crowbar(G)	
+				
+		if(istype(G, /obj/item/weapon/grab))
+			if(panel_open)
+				user << "\blue <b>Close the maintenance panel first.</b>"
+				return			
 			if(!ismob(G:affecting))
 				return
 			if(src.occupant)
@@ -236,7 +296,6 @@
 				src.icon_state = "sleeper_1"
 				if(orient == "RIGHT")
 					icon_state = "sleeper_1-r"
-
 				M << "\blue <b>You feel cool air surround you. You go numb as your senses turn inward.</b>"
 
 				src.add_fingerprint(user)
@@ -322,12 +381,12 @@
 	proc/inject_chemical(mob/living/user as mob, chemical, amount)
 		if(src.occupant)
 			if(src.occupant.reagents)
-				if(src.occupant.reagents.get_reagent_amount(chemical) + amount <= 40)
+				if(src.occupant.reagents.get_reagent_amount(chemical) + amount <= 20 * efficiency)
 					src.occupant.reagents.add_reagent(chemical, amount)
-					user << "Occupant now has [src.occupant.reagents.get_reagent_amount(chemical)] units of [available_chemicals[chemical]] in his/her bloodstream."
+					user << "Occupant now has [src.occupant.reagents.get_reagent_amount(chemical)] units of [chemical] in his/her bloodstream."
 					return
 				else
-					user << "Medical overdose safeties restrict you injecting any more of this chemical."
+					user << "You can not inject any more of this chemical."
 					return
 			else
 				user << "The patient rejects the chemicals!"
@@ -372,9 +431,7 @@
 		set src in oview(1)
 		if(usr.stat != 0)
 			return
-		if(orient == "RIGHT")
-			icon_state = "sleeper_0-r"
-		src.icon_state = "sleeper_0"
+		src.icon_state = "sleeper-open"
 		src.go_out()
 		add_fingerprint(usr)
 		return
@@ -401,7 +458,7 @@
 		return
 	if(!ismob(O)) //humans only
 		return
-	if(istype(O, /mob/living/simple_animal) || istype(O, /mob/living/silicon)) //animals and robutts dont fit
+	if(istype(O, /mob/living/simple_animal) || istype(O, /mob/living/silicon)) //animals and robots dont fit
 		return
 	if(!ishuman(user) && !isrobot(user)) //No ghosts or mice putting people into the sleeper
 		return
@@ -409,6 +466,9 @@
 		return
 	if(!istype(user.loc, /turf) || !istype(O.loc, /turf)) // are you in a container/closet/pod/etc?
 		return
+	if(panel_open)
+		user << "\blue <B>Close the maintenance panel first.</B>"
+		return	
 	if(occupant)
 		user << "\blue <B>The sleeper is already occupied!</B>"
 		return
@@ -446,8 +506,6 @@
 		if(orient == "RIGHT")
 			icon_state = "sleeper_1-r"
 		L << "\blue <b>You feel cool air surround you. You go numb as your senses turn inward.</b>"
-		for(var/obj/OO in src)
-			OO.loc = src.loc
 		src.add_fingerprint(user)
 		if(user.pulling == L)
 			user.pulling = null
@@ -483,9 +541,7 @@
 		usr.client.eye = src
 		usr.loc = src
 		src.occupant = usr
-		src.icon_state = "sleeper_1"
-		if(orient == "RIGHT")
-			icon_state = "sleeper_1-r"
+		src.icon_state = "sleeper"
 
 		for(var/obj/O in src)
 			del(O)

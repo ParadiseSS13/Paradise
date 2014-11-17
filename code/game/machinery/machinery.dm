@@ -272,26 +272,31 @@ Class Procs:
 	uid = gl_uid
 	gl_uid++
 
-/obj/machinery/proc/default_deconstruction_crowbar()
-	playsound(src.loc, 'sound/items/Crowbar.ogg', 50, 1)
-	var/obj/machinery/constructable_frame/machine_frame/M = new /obj/machinery/constructable_frame/machine_frame(src.loc)
-	M.state = 2
-	M.icon_state = "box_1"
-	for(var/obj/I in component_parts)
-		if(I.reliability != 100 && crit_fail)
-			I.crit_fail = 1
-		I.loc = src.loc
-	del(src)
+/obj/machinery/proc/default_deconstruction_crowbar(var/obj/item/weapon/crowbar/C, var/ignore_panel = 0)
+	if(istype(C) && (panel_open || ignore_panel))
+		playsound(src.loc, 'sound/items/Crowbar.ogg', 50, 1)
+		var/obj/machinery/constructable_frame/machine_frame/M = new /obj/machinery/constructable_frame/machine_frame(src.loc)
+		M.state = 2
+		M.icon_state = "box_1"
+		for(var/obj/item/I in component_parts)
+			if(I.reliability != 100 && crit_fail)
+				I.crit_fail = 1
+			I.loc = src.loc
+		qdel(src)
 
-/obj/machinery/proc/default_deconstruction_screwdriver(var/mob/user, var/icon_state_open, var/icon_state_closed)
-	if (!panel_open)
-		panel_open = 1
-		icon_state = icon_state_open
-		user << "<span class='notice'>You open the maintenance hatch of [src].</span>"
-	else
-		panel_open = 0
-		icon_state = icon_state_closed
-		user << "<span class='notice'>You close the maintenance hatch of [src].</span>"
+/obj/machinery/proc/default_deconstruction_screwdriver(var/mob/user, var/icon_state_open, var/icon_state_closed, var/obj/item/weapon/screwdriver/S)
+	if(istype(S))
+		playsound(src.loc, 'sound/items/Screwdriver.ogg', 50, 1)
+		if(!panel_open)
+			panel_open = 1
+			icon_state = icon_state_open
+			user << "<span class='notice'>You open the maintenance hatch of [src].</span>"
+		else
+			panel_open = 0
+			icon_state = icon_state_closed
+			user << "<span class='notice'>You close the maintenance hatch of [src].</span>"
+		return 1
+	return 0
 
 /obj/machinery/proc/state(var/msg)
   for(var/mob/O in hearers(src, null))
@@ -304,7 +309,8 @@ Class Procs:
   state(text, "blue")
   playsound(src.loc, 'sound/machines/ping.ogg', 50, 0)
 
-/obj/machinery/proc/exchange_parts(mob/user, obj/item/weapon/storage/part_replacer/W)
+/obj/machinery/proc/exchange_parts(mob/user, obj/item/weapon/storage/part_replacer/W)	
+	var/shouldplaysound = 0
 	if(istype(W) && component_parts)
 		if(panel_open)
 			var/obj/item/weapon/circuitboard/CB = locate(/obj/item/weapon/circuitboard) in component_parts
@@ -323,12 +329,31 @@ Class Procs:
 							component_parts += B
 							B.loc = null
 							user << "<span class='notice'>[A.name] replaced with [B.name].</span>"
+							shouldplaysound = 1
 							break
+			// Power cell snowflake
+			for(var/obj/item/weapon/cell/A in component_parts)
+				for(var/D in CB.req_components)
+					if(ispath(A.type, text2path(D)))
+						P = text2path(D)
+						break
+				for(var/obj/item/weapon/cell/B in W.contents)
+					if(istype(B, P) && istype(A, P))
+						if(B.rating > A.rating)
+							W.remove_from_storage(B, src)
+							W.handle_item_insertion(A, 1)
+							component_parts -= A
+							component_parts += B
+							B.loc = null
+							user << "<span class='notice'>[A.name] replaced with [B.name].</span>"
+							break							
 			RefreshParts()
 		else
 			user << "<span class='notice'>Following parts detected in the machine:</span>"
 			for(var/var/obj/item/C in component_parts)
 				user << "<span class='notice'>    [C.name]</span>"
+		if(shouldplaysound)
+			W.play_rped_sound()
 		return 1
 	else
 		return 0
