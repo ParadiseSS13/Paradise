@@ -142,7 +142,7 @@ datum/design/scan_console
 	build_path = "/obj/item/weapon/circuitboard/scan_consolenew"
 
 datum/design/comconsole
-	name = "Circuit Design (Communications)"
+	name = "Circuit Design (Communications Console)"
 	desc = "Allows for the construction of circuit boards used to build a communications console."
 	id = "comconsole"
 	req_tech = list("programming" = 2, "magnets" = 2)
@@ -160,7 +160,7 @@ datum/design/idcardconsole
 	build_path = "/obj/item/weapon/circuitboard/card"
 
 datum/design/crewconsole
-	name = "Circuit Design (Crew monitoring computer)"
+	name = "Circuit Design (Crew Monitoring Computer)"
 	desc = "Allows for the construction of circuit boards used to build a Crew monitoring computer."
 	id = "crewconsole"
 	req_tech = list("programming" = 3, "magnets" = 2, "biotech" = 2)
@@ -243,7 +243,7 @@ datum/design/clonecontrol
 	build_path = "/obj/item/weapon/circuitboard/cloning"
 
 datum/design/clonepod
-	name = "Circuit Design (Clone Pod)"
+	name = "Circuit Design (Cloning Pod)"
 	desc = "Allows for the construction of circuit boards used to build a Cloning Pod."
 	id = "clonepod"
 	req_tech = list("programming" = 3, "biotech" = 3)
@@ -335,7 +335,7 @@ datum/design/cryotube
 datum/design/arcadebattle
 	name = "Circuit Design (Battle Arcade Machine)"
 	desc = "Allows for the construction of circuit boards used to build a new arcade machine."
-	id = "arcademachine"
+	id = "arcademachinebattle"
 	req_tech = list("programming" = 1)
 	build_type = IMPRINTER
 	materials = list("$glass" = 2000, "sacid" = 20)
@@ -344,7 +344,7 @@ datum/design/arcadebattle
 datum/design/orion_trail
 	name = "Circuit Design (Orion Trail Arcade Machine)"
 	desc = "Allows for the construction of circuit boards used to build a new Orion Trail machine."
-	id = "arcademachine"
+	id = "arcademachineonion"
 	req_tech = list("programming" = 2)
 	build_type = IMPRINTER
 	materials = list("$glass" = 2000, "sacid" = 20)
@@ -405,8 +405,8 @@ datum/design/rdconsole
 	build_path = "/obj/item/weapon/circuitboard/rdconsole"
 
 datum/design/ordercomp
-	name = "Circuit Design (Supply ordering console)"
-	desc = "Allows for the construction of circuit boards used to build a Supply ordering console."
+	name = "Circuit Design (Supply Ordering Console)"
+	desc = "Allows for the construction of circuit boards used to build a supply ordering console."
 	id = "ordercomp"
 	req_tech = list("programming" = 2)
 	build_type = IMPRINTER
@@ -414,8 +414,8 @@ datum/design/ordercomp
 	build_path = "/obj/item/weapon/circuitboard/ordercomp"
 
 datum/design/supplycomp
-	name = "Circuit Design (Supply shuttle console)"
-	desc = "Allows for the construction of circuit boards used to build a Supply shuttle console."
+	name = "Circuit Design (Supply Shuttle Console)"
+	desc = "Allows for the construction of circuit boards used to build a supply shuttle console."
 	id = "supplycomp"
 	req_tech = list("programming" = 3)
 	build_type = IMPRINTER
@@ -1443,8 +1443,8 @@ datum/design/cyborgrecharger
 	build_path = "/obj/item/weapon/circuitboard/cyborgrecharger"
 	
 datum/design/mech_recharger
-	name = "Mechbay Recharger Board"
-	desc = "The circuit board for a Mechbay Recharger."
+	name = "Mech Bay Recharger Board"
+	desc = "The circuit board for a Mech Bay Recharger."
 	id = "mech_recharger"
 	req_tech = list("programming" = 3, "powerstorage" = 4, "engineering" = 4)
 	build_type = IMPRINTER

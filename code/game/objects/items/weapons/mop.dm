@@ -20,8 +20,8 @@
 	create_reagents(mopcap)
 
 
-obj/item/weapon/mop/proc/clean(turf/simulated/A)
-	if(reagents.has_reagent("water", 1) || reagents.has_reagent("holywater", 1))
+/obj/item/weapon/mop/proc/clean(turf/simulated/A)
+	if(reagents.has_reagent("water", 1) || reagents.has_reagent("cleaner", 1) || reagents.has_reagent("holywater", 1))
 		A.clean_blood()
 		for(var/obj/effect/O in A)
 			if(istype(O,/obj/effect/decal/cleanable) || istype(O,/obj/effect/overlay) || istype(O,/obj/effect/rune))

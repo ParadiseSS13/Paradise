@@ -350,7 +350,7 @@ obj/item/weapon/circuitboard/rdserver
 							"/obj/item/stack/cable_coil" = 2,)
 
 /obj/item/weapon/circuitboard/mech_recharger
-	name = "circuit board (Mechbay Recharger)"
+	name = "circuit board (Mech Bay Recharger)"
 	build_path = /obj/machinery/mech_bay_recharge_port
 	board_type = "machine"
 	origin_tech = "programming=3;powerstorage=4;engineering=4"

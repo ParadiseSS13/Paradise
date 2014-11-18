@@ -42,8 +42,20 @@
 
 	default_deconstruction_crowbar(I)
 
-	if(default_change_direction_wrench(user, I))
-		return
+	if (istype(I, /obj/item/weapon/wrench))
+		if(!panel_open)
+			user << "<span class='notice'>Open the maintenance panel first.</span>"
+			return	
+		playsound(src.loc, 'sound/items/Ratchet.ogg', 50, 1)
+		dir = pick(WEST,EAST,SOUTH,NORTH)
+		var/node_connect = dir
+
+		for(var/obj/machinery/atmospherics/target in get_step(src,node_connect))
+			if(target.initialize_directions & get_dir(target,src))
+				node = target
+				break
+
+		update_icon()
 
 /obj/machinery/atmospherics/unary/cold_sink/freezer/update_icon()
 	if(panel_open)
@@ -165,8 +177,20 @@
 
 	default_deconstruction_crowbar(I)
 
-	if(default_change_direction_wrench(user, I))
-		return
+	if (istype(I, /obj/item/weapon/wrench))
+		if(!panel_open)
+			user << "<span class='notice'>Open the maintenance panel first.</span>"
+			return	
+		playsound(src.loc, 'sound/items/Ratchet.ogg', 50, 1)
+		dir = pick(WEST,EAST,SOUTH,NORTH)
+		var/node_connect = dir
+
+		for(var/obj/machinery/atmospherics/target in get_step(src,node_connect))
+			if(target.initialize_directions & get_dir(target,src))
+				node = target
+				break
+
+		update_icon()
 
 /obj/machinery/atmospherics/unary/heat_reservoir/heater/update_icon()
 	if(panel_open)
