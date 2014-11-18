@@ -254,10 +254,9 @@
 			stored_comms["wood"]++
 			stored_comms["wood"]++
 		else if(istype(W,/obj/item/weapon/broken_bottle))
-			stored_comms["wood"]++
-			stored_comms["wood"]++
-			stored_comms["wood"]++
-			stored_comms["wood"]++
+			stored_comms["glass"]++
+			stored_comms["glass"]++
+			stored_comms["glass"]++
 		else
 			continue
 
