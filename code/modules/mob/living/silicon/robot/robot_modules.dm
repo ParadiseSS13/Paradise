@@ -395,6 +395,7 @@
 		src.modules += new /obj/item/weapon/gripper(src)
 		src.modules += new /obj/item/weapon/matter_decompiler(src)
 		src.modules += new /obj/item/weapon/reagent_containers/spray/cleaner/drone(src)
+		src.modules += new /obj/item/weapon/soap(src)
 
 		src.emag = new /obj/item/weapon/pickaxe/plasmacutter(src)
 		src.emag.name = "Plasma Cutter"

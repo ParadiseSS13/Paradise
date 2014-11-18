@@ -260,9 +260,27 @@ datum/design/clonescanner
 	materials = list("$glass" = 2000, "sacid" = 20)
 	build_path = "/obj/item/weapon/circuitboard/clonescanner"
 
+datum/design/teleport_station
+	name = "Circuit Design (Teleportation Station Board)"
+	desc = "Allows for the construction of circuit boards used to build a Teleporter Station."
+	id = "tele_station"
+	req_tech = list("programming" = 4, "bluespace" = 4, "engineering" = 4)
+	build_type = IMPRINTER
+	materials = list("$glass" = 1000, "sacid" = 20)
+	build_path = /obj/item/weapon/circuitboard/teleporter_station
+
+datum/design/teleport_hub
+	name = "Circuit Design (Teleportation Hub Board)"
+	desc = "Allows for the construction of circuit boards used to build a Teleportation Hub."
+	id = "tele_hub"
+	req_tech = list("programming" = 3, "bluespace" = 5, "materials" = 4, "engineering" = 5)
+	build_type = IMPRINTER
+	materials = list("$glass" = 1000, "sacid" = 20)
+	build_path = /obj/item/weapon/circuitboard/teleporter_hub	
+	
 datum/design/telepad
 	name = "Circuit Design (Telepad Board)"
-	desc = "The circuit board for a telescience telepad."
+	desc = "Allows for the construction of circuit boards used to build a Telepad."
 	id = "telepad"
 	req_tech = list("programming" = 4, "bluespace" = 4, "materials" = 3, "engineering" = 3)
 	build_type = IMPRINTER
@@ -278,6 +296,33 @@ datum/design/sleeper
 	materials = list("$glass" = 1000, "sacid" = 20)
 	build_path = "/obj/item/weapon/circuitboard/sleeper"
 	
+datum/design/sleep_console
+	name = "Circuit Design (Sleeper Console)"
+	desc = "Allows for the construction of circuit boards used to build a Sleeper Console."
+	id = "sleeper"
+	req_tech = list("programming" = 3, "biotech" = 2, "materials" = 3, "engineering" = 3)
+	build_type = IMPRINTER
+	materials = list("$glass" = 1000, "sacid" = 20)
+	build_path = "/obj/item/weapon/circuitboard/sleep_console"
+	
+datum/design/bodyscanner
+	name = "Circuit Design (Body Scanner Board)"
+	desc = "Allows for the construction of circuit boards used to build a Body Scanner."
+	id = "sleeper"
+	req_tech = list("programming" = 3, "biotech" = 2, "materials" = 3, "engineering" = 3)
+	build_type = IMPRINTER
+	materials = list("$glass" = 1000, "sacid" = 20)
+	build_path = "/obj/item/weapon/circuitboard/bodyscanner"
+	
+datum/design/sleep_console
+	name = "Circuit Design (Body Scanner Console)"
+	desc = "Allows for the construction of circuit boards used to build a Body Scanner Console."
+	id = "sleeper"
+	req_tech = list("programming" = 3, "biotech" = 2, "materials" = 3, "engineering" = 3)
+	build_type = IMPRINTER
+	materials = list("$glass" = 1000, "sacid" = 20)
+	build_path = "/obj/item/weapon/circuitboard/bodyscanner_console"
+		
 datum/design/cryotube
 	name = "Circuit Design (Cryotube Board)"
 	desc = "Allows for the construction of circuit boards used to build a Cryotube."
@@ -414,7 +459,7 @@ datum/design/comm_traffic
 	build_path = "/obj/item/weapon/circuitboard/comm_traffic"	
 	
 datum/design/telesci_console
-	name = "Computer Design (Telepad Control Console Board)"
+	name = "Circuit Design (Telepad Control Console Board)"
 	desc = "Allows for the construction of circuit boards used to build a telescience console."
 	id = "telesci_console"
 	req_tech = list("programming" = 3, "bluespace" = 2)
@@ -1280,6 +1325,15 @@ datum/design/light_replacer
 ////////////////////////////////////////
 //////////////MISC Boards///////////////
 ////////////////////////////////////////
+datum/design/thermomachine
+	name = "Machine Design (Freezer/Heater Board)"
+	desc = "The circuit board for a freezer/heater."
+	id = "thermomachine"
+	req_tech = list("programming" = 3, "plasmatech" = 3)
+	build_type = IMPRINTER
+	materials = list("$glass" = 1000, "sacid" = 20)
+	build_path = /obj/item/weapon/circuitboard/thermomachine
+
 datum/design/biogenerator
 	name = "Machine Design (Biogenerator Board)"
 	desc = "The circuit board for a biogenerator."
@@ -1388,6 +1442,15 @@ datum/design/cyborgrecharger
 	materials = list("$glass" = 1000, "sacid" = 20)
 	build_path = "/obj/item/weapon/circuitboard/cyborgrecharger"
 	
+datum/design/mech_recharger
+	name = "Mechbay Recharger Board"
+	desc = "The circuit board for a Mechbay Recharger."
+	id = "mech_recharger"
+	req_tech = list("programming" = 3, "powerstorage" = 4, "engineering" = 4)
+	build_type = IMPRINTER
+	materials = list("$glass" = 1000, "sacid" = 20)
+	build_path = "/obj/item/weapon/circuitboard/mech_recharger"
+	
 /////////////////////////////////////////
 ////////////Power Stuff//////////////////
 /////////////////////////////////////////
@@ -1421,7 +1484,6 @@ datum/design/mrspacman
 	reliability_base = 74
 	materials = list("$glass" = 2000, "sacid" = 20)
 	build_path = "/obj/item/weapon/circuitboard/pacman/mrs"
-
 
 /////////////////////////////////////////
 ////////////Medical Tools////////////////
@@ -1974,14 +2036,14 @@ datum/design/bluespace_crystal
 	reliability_base = 100
 	build_path = "/obj/item/bluespace_crystal/artificial"
 	
-datum/design/telesci_gps
-	name = "GPS Device"
+datum/design/telesci_sps
+	name = "SPS Device"
 	desc = "A device that can track its position at all times."
-	id = "telesci_gps"
+	id = "telesci_sps"
 	req_tech = list("materials" = 2, "magnets" = 3, "bluespace" = 3)
 	build_type = PROTOLATHE
 	materials = list("$metal" = 500, "$glass" = 1000)
-	build_path = /obj/item/device/gps
+	build_path = /obj/item/device/sps
 
 /////////////////////////////////////////
 /////////////////HUDs////////////////////

@@ -1,47 +1,69 @@
 /obj/machinery/atmospherics/unary/cold_sink/freezer
-	name = "gas cooling system"
+	name = "freezer"
 	icon = 'icons/obj/Cryogenic2.dmi'
-	icon_state = "freezer_0"
+	icon_state = "freezer"
 	density = 1
-
+	var/min_temperature = 0
 	anchored = 1.0
-
+	use_power = 1
 	current_heat_capacity = 1000
 
 /obj/machinery/atmospherics/unary/cold_sink/freezer/New()
 	..()
 	initialize_directions = dir
+	component_parts = list()
+	component_parts += new /obj/item/weapon/circuitboard/thermomachine(src)
+	component_parts += new /obj/item/weapon/stock_parts/matter_bin(src)
+	component_parts += new /obj/item/weapon/stock_parts/matter_bin(src)
+	component_parts += new /obj/item/weapon/stock_parts/micro_laser(src)
+	component_parts += new /obj/item/weapon/stock_parts/micro_laser(src)
+	component_parts += new /obj/item/weapon/stock_parts/console_screen(src)
+	component_parts += new /obj/item/stack/cable_coil(src, 1)
+	RefreshParts()
 
-/obj/machinery/atmospherics/unary/cold_sink/freezer/initialize()
-	if(node) return
+/obj/machinery/atmospherics/unary/cold_sink/freezer/RefreshParts()
+	var/H
+	var/T
+	for(var/obj/item/weapon/stock_parts/matter_bin/M in component_parts)
+		H += M.rating
+	for(var/obj/item/weapon/stock_parts/micro_laser/M in component_parts)
+		T += M.rating
+	min_temperature = T0C - (170 + (T*15))
+	current_heat_capacity = 1000 * ((H - 1) ** 2)
 
-	var/node_connect = dir
+/obj/machinery/atmospherics/unary/cold_sink/freezer/attackby(obj/item/I, mob/user)
+	if(default_deconstruction_screwdriver(user, "freezer-o", "freezer", I))
+		on = 0
+		update_icon()
+		return
 
-	for(var/obj/machinery/atmospherics/target in get_step(src,node_connect))
-		if(target.initialize_directions & get_dir(target,src))
-			node = target
-			break
+	if(exchange_parts(user, I))
+		return
 
-	update_icon()
+	default_deconstruction_crowbar(I)
 
+	if(default_change_direction_wrench(user, I))
+		return
 
 /obj/machinery/atmospherics/unary/cold_sink/freezer/update_icon()
-	if(src.node)
-		if(src.on)
-			icon_state = "freezer_1"
-		else
-			icon_state = "freezer"
+	if(panel_open)
+		icon_state = "freezer-o"
+	else if(src.on)
+		icon_state = "freezer_1"
 	else
-		icon_state = "freezer_0"
+		icon_state = "freezer"
 	return
 
 /obj/machinery/atmospherics/unary/cold_sink/freezer/attack_ai(mob/user as mob)
-	src.ui_interact(user)
+	src.attack_hand(user)
 
 /obj/machinery/atmospherics/unary/cold_sink/freezer/attack_paw(mob/user as mob)
-	src.ui_interact(user)
+	src.attack_hand(user)
 
 /obj/machinery/atmospherics/unary/cold_sink/freezer/attack_hand(mob/user as mob)
+	if(panel_open)
+		user << "<span class='notice'>Close the maintenance panel first.</span>"
+		return	
 	src.ui_interact(user)
 
 /obj/machinery/atmospherics/unary/cold_sink/freezer/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
@@ -50,7 +72,7 @@
 	data["on"] = on ? 1 : 0
 	data["gasPressure"] = round(air_contents.return_pressure())
 	data["gasTemperature"] = round(air_contents.temperature)
-	data["minGasTemperature"] = round(T0C - 200)
+	data["minGasTemperature"] = round(min_temperature)
 	data["maxGasTemperature"] = round(T20C)
 	data["targetGasTemperature"] = round(current_temperature)
 	
@@ -74,7 +96,7 @@
 		// auto update every Master Controller tick
 		ui.set_auto_update(1)
 
-/obj/machinery/atmospherics/unary/cold_sink/freezer/Topic(href, href_list)	
+/obj/machinery/atmospherics/unary/cold_sink/freezer/Topic(href, href_list)
 	if (href_list["toggleStatus"])
 		src.on = !src.on
 		update_icon()
@@ -83,20 +105,25 @@
 		if(amount > 0)
 			src.current_temperature = min(T20C, src.current_temperature+amount)
 		else
-			src.current_temperature = max((T0C - 200), src.current_temperature+amount)
-
+			src.current_temperature = max(min_temperature, src.current_temperature+amount)
 	src.add_fingerprint(usr)
 	return 1
 
 /obj/machinery/atmospherics/unary/cold_sink/freezer/process()
 	..()
 
-/obj/machinery/atmospherics/unary/heat_reservoir/heater
-	name = "gas heating system"
-	icon = 'icons/obj/Cryogenic2.dmi'
-	icon_state = "freezer_0"
-	density = 1
+/obj/machinery/atmospherics/unary/cold_sink/freezer/power_change()
+	..()
+	if(stat & NOPOWER)
+		on = 0
+		update_icon()
 
+/obj/machinery/atmospherics/unary/heat_reservoir/heater/
+	name = "heater"
+	icon = 'icons/obj/Cryogenic2.dmi'
+	icon_state = "heater"
+	density = 1
+	var/max_temperature = 0
 	anchored = 1.0
 
 	current_heat_capacity = 1000
@@ -104,39 +131,64 @@
 /obj/machinery/atmospherics/unary/heat_reservoir/heater/New()
 	..()
 	initialize_directions = dir
+	var/obj/item/weapon/circuitboard/thermomachine/H = new /obj/item/weapon/circuitboard/thermomachine(null)
+	H.build_path = /obj/machinery/atmospherics/unary/heat_reservoir/heater
+	H.name = "circuit board (Heater)"
+	component_parts = list()
+	component_parts += H
+	component_parts += new /obj/item/weapon/stock_parts/matter_bin(src)
+	component_parts += new /obj/item/weapon/stock_parts/matter_bin(src)
+	component_parts += new /obj/item/weapon/stock_parts/micro_laser(src)
+	component_parts += new /obj/item/weapon/stock_parts/micro_laser(src)
+	component_parts += new /obj/item/weapon/stock_parts/console_screen(src)
+	component_parts += new /obj/item/stack/cable_coil(src, 1)
+	RefreshParts()
 
-/obj/machinery/atmospherics/unary/heat_reservoir/heater/initialize()
-	if(node) return
+/obj/machinery/atmospherics/unary/heat_reservoir/heater/RefreshParts()
+	var/H
+	var/T
+	for(var/obj/item/weapon/stock_parts/matter_bin/M in component_parts)
+		H += M.rating
+	for(var/obj/item/weapon/stock_parts/micro_laser/M in component_parts)
+		T += M.rating
+	max_temperature = T20C + (140 * T)
+	current_heat_capacity = 1000 * ((H - 1) ** 2)
 
-	var/node_connect = dir
+/obj/machinery/atmospherics/unary/heat_reservoir/heater/attackby(obj/item/I, mob/user)
+	if(default_deconstruction_screwdriver(user, "heater-o", "heater", I))
+		on = 0
+		update_icon()
+		return
 
-	for(var/obj/machinery/atmospherics/target in get_step(src,node_connect))
-		if(target.initialize_directions & get_dir(target,src))
-			node = target
-			break
+	if(exchange_parts(user, I))
+		return
 
-	update_icon()
+	default_deconstruction_crowbar(I)
 
+	if(default_change_direction_wrench(user, I))
+		return
 
 /obj/machinery/atmospherics/unary/heat_reservoir/heater/update_icon()
-	if(src.node)
-		if(src.on)
-			icon_state = "heater_1"
-		else
-			icon_state = "heater"
+	if(panel_open)
+		icon_state = "heater-o"
+	else if(src.on)
+		icon_state = "heater_1"
 	else
-		icon_state = "heater_0"
+		icon_state = "heater"
 	return
 
 /obj/machinery/atmospherics/unary/heat_reservoir/heater/attack_ai(mob/user as mob)
-	src.ui_interact(user)
+	src.attack_hand(user)
 
 /obj/machinery/atmospherics/unary/heat_reservoir/heater/attack_paw(mob/user as mob)
-	src.ui_interact(user)
+	src.attack_hand(user)
 
 /obj/machinery/atmospherics/unary/heat_reservoir/heater/attack_hand(mob/user as mob)
+	if(panel_open)
+		user << "<span class='notice'>Close the maintenance panel first.</span>"
+		return	
 	src.ui_interact(user)
-	
+
 /obj/machinery/atmospherics/unary/heat_reservoir/heater/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
 	// this is the data which will be sent to the ui
 	var/data[0]
@@ -144,7 +196,7 @@
 	data["gasPressure"] = round(air_contents.return_pressure())
 	data["gasTemperature"] = round(air_contents.temperature)
 	data["minGasTemperature"] = round(T20C)
-	data["maxGasTemperature"] = round(T20C+280)
+	data["maxGasTemperature"] = round(T20C+max_temperature)
 	data["targetGasTemperature"] = round(current_temperature)
 	
 	var/temp_class = "normal"
@@ -172,12 +224,17 @@
 	if(href_list["temp"])
 		var/amount = text2num(href_list["temp"])
 		if(amount > 0)
-			src.current_temperature = min((T20C+280), src.current_temperature+amount)
+			src.current_temperature = min((T20C+max_temperature), src.current_temperature+amount)
 		else
 			src.current_temperature = max(T20C, src.current_temperature+amount)
-	
 	src.add_fingerprint(usr)
 	return 1
 
 /obj/machinery/atmospherics/unary/heat_reservoir/heater/process()
 	..()
+
+/obj/machinery/atmospherics/unary/heat_reservoir/heater/power_change()
+	..()
+	if(stat & NOPOWER)
+		on = 0
+		update_icon()

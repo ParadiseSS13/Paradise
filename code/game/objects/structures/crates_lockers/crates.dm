@@ -41,7 +41,7 @@
 	if(climbable)
 		structure_shaken()
 
-	return
+	return 1
 
 /obj/structure/closet/crate/close()
 	if(!src.opened)

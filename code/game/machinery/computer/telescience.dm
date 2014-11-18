@@ -13,6 +13,8 @@
 	var/trueY	// Y + offset
 	var/obj/machinery/telepad/telepad
 	var/tele_id = "Telesci"
+	var/obj/item/device/sps/inserted_sps
+	var/last_target
 
 /obj/machinery/computer/telescience/update_icon()
 	if(stat & BROKEN)
@@ -24,6 +26,12 @@
 		else
 			icon_state = initial(icon_state)
 			stat &= ~NOPOWER
+			
+/obj/machinery/computer/telescience/Destroy()
+	if(inserted_sps)
+		inserted_sps.loc = loc
+		inserted_sps = null
+	..()
 
 /obj/machinery/computer/telescience/attack_paw(mob/user)
 	usr << "You are too primitive to use this computer."
@@ -53,6 +61,7 @@
 	data["coordx"] = x_co
 	data["coordy"] = y_co
 	data["coordz"] = z_co
+	data["sps"] = inserted_sps
 	
 	// Set up the Nano UI
 	ui = nanomanager.try_update_ui(user, src, ui_key, ui, data, force_open)
@@ -144,6 +153,7 @@
 	trueX = (x_co + x_off)
 	trueY = (y_co + y_off)
 	var/target = locate(trueX, trueY, z_co)
+	last_target = target
 	var/datum/effect/effect/system/spark_spread/s = new /datum/effect/effect/system/spark_spread
 	s.set_up(5, 1, tele)
 	s.start()
@@ -222,6 +232,17 @@
 /obj/machinery/computer/telescience/Topic(href, href_list)
 	if(..())
 		return
+	if(href_list["ejectSPS"])
+		inserted_sps.loc = loc
+		inserted_sps = null	
+		nanomanager.update_uis(src)		
+	if(href_list["setMemory"])
+		if(last_target)
+			inserted_sps.locked_location = last_target
+			usr << "\blue Location saved."			
+		else
+			usr << "\red Error: No data stored."	
+		nanomanager.update_uis(src)
 	if(href_list["setx"])
 		var/a = input("Please input desired X coordinate.", name, x_co) as num
 		a = copytext(sanitize(a), 1, 20)
@@ -270,12 +291,25 @@
 		nanomanager.update_uis(src)
 		return
 
-/obj/machinery/computer/telescience/attackby(I as obj, user as mob) // Emagging
+/obj/machinery/computer/telescience/attackby(I as obj, var/mob/user as mob) // Emagging
 	if(istype(I,/obj/item/weapon/card/emag))
 		if (src.emagged == 0)
 			user << "\blue You scramble the Telescience authentication key to an unknown signal. You should be able to teleport to more places now!"
 			src.emagged = 1
 		else
 			user << "\red The machine seems unaffected by the card swipe..."
+	else if(istype(I, /obj/item/device/sps))
+		if(!inserted_sps)
+			inserted_sps = I
+			user.before_take_item(I)
+			inserted_sps.loc = src
+			user.visible_message("<span class='notice'>You insert [I] into the SPS device slot.</span>")
+			attack_hand(user)
+	else if(istype(I, /obj/item/device/multitool))
+		var/obj/item/device/multitool/M = I
+		if(M.buffer && istype(M.buffer, /obj/machinery/telepad))
+			telepad = M.buffer
+			M.buffer = null
+			user << "<span class='caution'>You upload the data from [I]'s buffer.</span>"
 	else
-		return attack_hand(user)
+		..()

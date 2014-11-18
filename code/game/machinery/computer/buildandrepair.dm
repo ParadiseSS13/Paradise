@@ -75,7 +75,7 @@
 //	name = "Circuit board (Shield Control)"
 //	build_path = "/obj/machinery/computer/stationshield"
 /obj/item/weapon/circuitboard/teleporter
-	name = "Circuit board (Teleporter)"
+	name = "Circuit board (Teleporter Console)"
 	build_path = "/obj/machinery/computer/teleporter"
 	origin_tech = "programming=2;bluespace=2"
 /obj/item/weapon/circuitboard/secure_data
@@ -222,6 +222,10 @@
 	name = "Circuit board (Prison Shuttle)"
 	build_path = "/obj/machinery/computer/prison_shuttle"
 	origin_tech = "programming=2"
+/obj/item/weapon/circuitboard/telesci_console
+	name = "Circuit board (Telepad Control Console)"
+	build_path = "/obj/machinery/computer/telescience"
+	origin_tech = "programming=3;bluespace=2"
 
 /obj/item/weapon/circuitboard/HONKputer
 	name = "Circuit board (HONKputer)"

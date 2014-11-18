@@ -94,7 +94,7 @@
 				user << "<span class='notice'>You remove the cables.</span>"
 				state = 1
 				icon_state = "box_0"
-				var/obj/item/stack/cable_coil/A = new /obj/item/stack/cable_coil( src.loc )
+				var/obj/item/stack/cable_coil/A = new /obj/item/stack/cable_coil(src.loc,5)
 				A.amount = 5
 
 		if(3)
@@ -138,6 +138,7 @@
 				for(var/I in req_components)
 					if(istype(P, text2path(I)) && (req_components[I] > 0))
 						success=1
+						playsound(src.loc, 'sound/items/Deconstruct.ogg', 50, 1)
 						if(istype(P, /obj/item/stack/cable_coil))
 							var/obj/item/stack/cable_coil/CP = P
 							var/camt = min(CP.amount, req_components[I])
@@ -165,6 +166,29 @@ micro-manipulator, console screen, beaker, Microlaser, matter bin, power cells.
 Note: Once everything is added to the public areas, will add m_amt and g_amt to circuit boards since autolathe won't be able
 to destroy them and players will be able to make replacements.
 */
+/obj/item/weapon/circuitboard/thermomachine
+	name = "circuit board (Freezer)"
+	desc = "Use screwdriver to switch between heating and cooling modes."
+	build_path = /obj/machinery/atmospherics/unary/cold_sink/freezer
+	board_type = "machine"
+	origin_tech = "programming=3;plasmatech=3"
+	req_components = list(
+							"/obj/item/weapon/stock_parts/matter_bin" = 2,
+							"/obj/item/weapon/stock_parts/micro_laser" = 2,
+							"/obj/item/stack/cable_coil" = 1,
+							"/obj/item/weapon/stock_parts/console_screen" = 1)
+
+/obj/item/weapon/circuitboard/thermomachine/attackby(obj/item/I, mob/user)
+	if(istype(I, /obj/item/weapon/screwdriver))
+		if(build_path == /obj/machinery/atmospherics/unary/cold_sink/freezer)
+			build_path = /obj/machinery/atmospherics/unary/heat_reservoir/heater
+			name = "circuit board (Heater)"
+			user << "<span class='notice'>You set the board to heating.</span>"
+		else
+			build_path = /obj/machinery/atmospherics/unary/cold_sink/freezer
+			name = "circuit board (Freezer)"
+			user << "<span class='notice'>You set the board to cooling.</span>"
+
 /obj/item/weapon/circuitboard/biogenerator
 	name = "circuit board (Biogenerator)"
 	build_path = /obj/machinery/biogenerator
@@ -325,6 +349,37 @@ obj/item/weapon/circuitboard/rdserver
 							"/obj/item/weapon/stock_parts/console_screen" = 1,
 							"/obj/item/stack/cable_coil" = 2,)
 
+/obj/item/weapon/circuitboard/mech_recharger
+	name = "circuit board (Mechbay Recharger)"
+	build_path = /obj/machinery/mech_bay_recharge_port
+	board_type = "machine"
+	origin_tech = "programming=3;powerstorage=4;engineering=4"
+	frame_desc = "Requires 1 piece of cable and 5 Capacitors."
+	req_components = list(
+							"/obj/item/stack/cable_coil" = 1,
+							"/obj/item/weapon/stock_parts/capacitor" = 5)							
+							
+/obj/item/weapon/circuitboard/teleporter_hub
+	name = "circuit board (Teleporter Hub)"
+	build_path = /obj/machinery/teleport/hub
+	board_type = "machine"
+	origin_tech = "programming=3;engineering=5;bluespace=5;materials=4"
+	frame_desc = "Requires 3 Bluespace Crystals and 1 Matter Bin."
+	req_components = list(
+							"/obj/item/bluespace_crystal" = 3,
+							"/obj/item/weapon/stock_parts/matter_bin" = 1)
+
+/obj/item/weapon/circuitboard/teleporter_station
+	name = "circuit board (Teleporter Station)"
+	build_path = /obj/machinery/teleport/station
+	board_type = "machine"
+	origin_tech = "programming=4;engineering=4;bluespace=4"
+	frame_desc = "Requires 2 Bluespace Crystals, 2 Capacitors and 1 Console Screen."
+	req_components = list(
+							"/obj/item/bluespace_crystal" = 2,
+							"/obj/item/weapon/stock_parts/capacitor" = 2,
+							"/obj/item/weapon/stock_parts/console_screen" = 1)							
+							
 /obj/item/weapon/circuitboard/telesci_pad
 	name = "Circuit board (Telepad)"
 	build_path = /obj/machinery/telepad
@@ -343,11 +398,42 @@ obj/item/weapon/circuitboard/rdserver
 	build_path = /obj/machinery/sleeper
 	board_type = "machine"
 	origin_tech = "programming=3;biotech=2;engineering=3;materials=3"
-	frame_desc = "Requires 1 Matter Bin, 1 Manipulator, 1 piece of cable and 1 Console Screen."
+	frame_desc = "Requires 1 Matter Bin, 1 Manipulator, 1 piece of cable and 2 Console Screens."
 	req_components = list(
 							"/obj/item/weapon/stock_parts/matter_bin" = 1,
 							"/obj/item/weapon/stock_parts/manipulator" = 1,
 							"/obj/item/stack/cable_coil" = 1,
+							"/obj/item/weapon/stock_parts/console_screen" = 2)
+							
+/obj/item/weapon/circuitboard/sleep_console
+	name = "circuit board (Sleeper Console)"
+	build_path = /obj/machinery/sleep_console
+	board_type = "machine"
+	origin_tech = "programming=3;biotech=2;engineering=3;materials=3"
+	frame_desc = "Requires 2 pieces of cable and 2 Console Screens."
+	req_components = list(
+							"/obj/item/stack/cable_coil" = 2,
+							"/obj/item/weapon/stock_parts/console_screen" = 2)
+							
+/obj/item/weapon/circuitboard/bodyscanner
+	name = "circuit board (Body Scanner)"
+	build_path = /obj/machinery/bodyscanner
+	board_type = "machine"
+	origin_tech = "programming=3;biotech=2;engineering=3;materials=3"
+	frame_desc = "Requires 1 Scanning Module, 2 pieces of cable and 2 Console Screens."
+	req_components = list(
+							"/obj/item/weapon/stock_parts/scanning_module" = 1,
+							"/obj/item/stack/cable_coil" = 2,
+							"/obj/item/weapon/stock_parts/console_screen" = 2)
+							
+/obj/item/weapon/circuitboard/bodyscanner_console
+	name = "circuit board (Body Scanner Console)"
+	build_path = /obj/machinery/body_scanconsole
+	board_type = "machine"
+	origin_tech = "programming=3;biotech=2;engineering=3;materials=3"
+	frame_desc = "Requires 2 pieces of cable and 2 Console Screens."
+	req_components = list(
+							"/obj/item/stack/cable_coil" = 2,
 							"/obj/item/weapon/stock_parts/console_screen" = 2)
 
 /obj/item/weapon/circuitboard/cryo_tube
@@ -375,7 +461,7 @@ obj/item/weapon/circuitboard/rdserver
 // Telecomms circuit boards:
 /obj/item/weapon/circuitboard/telecomms/receiver
 	name = "Circuit Board (Subspace Receiver)"
-	build_path = "/obj/machinery/telecomms/receiver"
+	build_path = /obj/machinery/telecomms/receiver
 	board_type = "machine"
 	origin_tech = "programming=4;engineering=3;bluespace=2"
 	frame_desc = "Requires 1 Subspace Ansible, 1 Hyperwave Filter, 2 Manipulators, and 1 Micro-Laser."
@@ -387,7 +473,7 @@ obj/item/weapon/circuitboard/rdserver
 
 /obj/item/weapon/circuitboard/telecomms/hub
 	name = "Circuit Board (Hub Mainframe)"
-	build_path = "/obj/machinery/telecomms/hub"
+	build_path = /obj/machinery/telecomms/hub
 	board_type = "machine"
 	origin_tech = "programming=4;engineering=4"
 	frame_desc = "Requires 2 Manipulators, 2 Cable Coil and 2 Hyperwave Filter."
@@ -398,7 +484,7 @@ obj/item/weapon/circuitboard/rdserver
 
 /obj/item/weapon/circuitboard/telecomms/relay
 	name = "Circuit Board (Relay Mainframe)"
-	build_path = "/obj/machinery/telecomms/relay"
+	build_path = /obj/machinery/telecomms/relay
 	board_type = "machine"
 	origin_tech = "programming=3;engineering=4;bluespace=3"
 	frame_desc = "Requires 2 Manipulators, 2 Cable Coil and 2 Hyperwave Filters."
@@ -409,7 +495,7 @@ obj/item/weapon/circuitboard/rdserver
 
 /obj/item/weapon/circuitboard/telecomms/bus
 	name = "Circuit Board (Bus Mainframe)"
-	build_path = "/obj/machinery/telecomms/bus"
+	build_path = /obj/machinery/telecomms/bus
 	board_type = "machine"
 	origin_tech = "programming=4;engineering=4"
 	frame_desc = "Requires 2 Manipulators, 1 Cable Coil and 1 Hyperwave Filter."
@@ -420,7 +506,7 @@ obj/item/weapon/circuitboard/rdserver
 
 /obj/item/weapon/circuitboard/telecomms/processor
 	name = "Circuit Board (Processor Unit)"
-	build_path = "/obj/machinery/telecomms/processor"
+	build_path = /obj/machinery/telecomms/processor
 	board_type = "machine"
 	origin_tech = "programming=4;engineering=4"
 	frame_desc = "Requires 3 Manipulators, 1 Hyperwave Filter, 2 Treatment Disks, 1 Wavelength Analyzer, 2 Cable Coils and 1 Subspace Amplifier."
@@ -434,7 +520,7 @@ obj/item/weapon/circuitboard/rdserver
 
 /obj/item/weapon/circuitboard/telecomms/server
 	name = "Circuit Board (Telecommunication Server)"
-	build_path = "/obj/machinery/telecomms/server"
+	build_path = /obj/machinery/telecomms/server
 	board_type = "machine"
 	origin_tech = "programming=4;engineering=4"
 	frame_desc = "Requires 2 Manipulators, 1 Cable Coil and 1 Hyperwave Filter."
@@ -445,7 +531,7 @@ obj/item/weapon/circuitboard/rdserver
 
 /obj/item/weapon/circuitboard/telecomms/broadcaster
 	name = "Circuit Board (Subspace Broadcaster)"
-	build_path = "/obj/machinery/telecomms/broadcaster"
+	build_path = /obj/machinery/telecomms/broadcaster
 	board_type = "machine"
 	origin_tech = "programming=4;engineering=4;bluespace=2"
 	frame_desc = "Requires 2 Manipulators, 1 Cable Coil, 1 Hyperwave Filter, 1 Ansible Crystal and 2 High-Powered Micro-Lasers. "
