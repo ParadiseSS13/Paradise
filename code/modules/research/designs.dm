@@ -1325,8 +1325,17 @@ datum/design/light_replacer
 ////////////////////////////////////////
 //////////////MISC Boards///////////////
 ////////////////////////////////////////
+datum/design/smes
+	name = "SMES Board"
+	desc = "The circuit board for a SMES."
+	id = "smes"
+	req_tech = list("programming" = 4, "power" = 5, "engineering" = 4)
+	build_type = IMPRINTER
+	materials = list("$glass" = 1000, "sacid" = 20)
+	build_path = /obj/item/weapon/circuitboard/smes
+	
 datum/design/thermomachine
-	name = "Machine Design (Freezer/Heater Board)"
+	name = "Freezer/Heater Board"
 	desc = "The circuit board for a freezer/heater."
 	id = "thermomachine"
 	req_tech = list("programming" = 3, "plasmatech" = 3)
@@ -1335,7 +1344,7 @@ datum/design/thermomachine
 	build_path = /obj/item/weapon/circuitboard/thermomachine
 
 datum/design/biogenerator
-	name = "Machine Design (Biogenerator Board)"
+	name = "Biogenerator Board"
 	desc = "The circuit board for a biogenerator."
 	id = "biogenerator"
 	req_tech = list("programming" = 3, "biotech" = 2, "materials" = 3)
@@ -1344,7 +1353,7 @@ datum/design/biogenerator
 	build_path = /obj/item/weapon/circuitboard/biogenerator
 	
 datum/design/hydroponics
-	name = "Machine Design (Hydroponics Tray Board)"
+	name = "Hydroponics Tray Board"
 	desc = "The circuit board for a hydroponics tray."
 	id = "hydro_tray"
 	req_tech = list("programming" = 1, "biotech" = 1)
@@ -1353,7 +1362,7 @@ datum/design/hydroponics
 	build_path = /obj/item/weapon/circuitboard/hydroponics
 	
 datum/design/microwave
-	name = "Machine Design (Microwave Board)"
+	name = "Microwave Board"
 	desc = "The circuit board for a microwave."
 	id = "microwave"
 	req_tech = list("programming" = 1)
@@ -1362,7 +1371,7 @@ datum/design/microwave
 	build_path = "/obj/item/weapon/circuitboard/microwave"
 
 datum/design/chem_dispenser
-	name = "Machine Design (Portable Chem Dispenser Board)"
+	name = "Portable Chem Dispenser Board"
 	desc = "The circuit board for a portable chem dispenser."
 	id = "chem_dispenser"
 	req_tech = list("programming" = 4, "biotech" = 3, "engineering" = 4, "materials" = 4, "plasmatech" = 3)
@@ -1450,6 +1459,15 @@ datum/design/mech_recharger
 	build_type = IMPRINTER
 	materials = list("$glass" = 1000, "sacid" = 20)
 	build_path = "/obj/item/weapon/circuitboard/mech_recharger"
+	
+datum/design/vendor
+	name = "Vendor Board"
+	desc = "The circuit board for a Vendor."
+	id = "vendor"
+	req_tech = list("programming" = 1)
+	build_type = IMPRINTER
+	materials = list("$glass" = 1000, "sacid" = 20)
+	build_path = "/obj/item/weapon/circuitboard/vendor"
 	
 /////////////////////////////////////////
 ////////////Power Stuff//////////////////
