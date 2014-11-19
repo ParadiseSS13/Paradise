@@ -1025,7 +1025,7 @@ var/list/ghostteleportlocs = list()
 	icon_state = "chapeloffice"
 	
 /area/escapepodbay
-	name = "Escape Shuttle Hallway Podbay"
+	name = "\improper Escape Shuttle Hallway Podbay"
 	icon_state = "escape"
 
 /area/lawoffice
