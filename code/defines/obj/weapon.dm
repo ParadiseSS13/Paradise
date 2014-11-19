@@ -229,6 +229,7 @@
 		var/obj/effect/overlay/holograph/H = locate() in T
 		if(H)
 			user << "<span class='notice'>You use [src] to destroy [H].</span>"
+			signs -= H
 			del(H)
 		else
 			if(signs.len < max_signs)
@@ -599,9 +600,9 @@
 	max_combined_w_class = 28
 
 /obj/item/weapon/storage/part_replacer/proc/play_rped_sound()
-	//Plays the sound for RPED exhanging or installing parts.
+	//Plays the sound for RPED exchanging or installing parts.
 	playsound(src, 'sound/items/rped.ogg', 40, 1)
-	
+
 /obj/item/weapon/stock_parts
 	name = "stock part"
 	desc = "What?"

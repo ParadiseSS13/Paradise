@@ -123,7 +123,7 @@
 	var/mob/living/L = M
 
 	var/target_zone = check_zone(user.zone_sel.selecting)
-	if(user.a_intent == "hurt")
+	if(user.a_intent == "harm")
 		if (!..())	//item/attack() does it's own messaging and logs
 			return 0	// item/attack() will return 1 if they hit, 0 if they missed.
 		agony *= 0.5	//whacking someone causes a much poorer contact than prodding them.
