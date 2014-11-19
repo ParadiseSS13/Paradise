@@ -4,7 +4,7 @@
 	icon = 'icons/obj/doors/windoor.dmi'
 	icon_state = "left"
 	var/base_state = "left"
-	var/health = 150.0 //If you change this, consiter changing ../door/window/brigdoor/ health at the bottom of this .dm file
+	var/health = 150.0 //If you change this, consider changing ../door/window/brigdoor/ health at the bottom of this .dm file
 	visible = 0.0
 	use_power = 0
 	flags = ON_BORDER
@@ -28,7 +28,7 @@
 		src.icon_state = "[src.icon_state]"
 		src.base_state = src.icon_state
 
-	color = color_windows()
+	color = color_windows(src)
 	return
 
 /obj/machinery/door/window/Destroy()

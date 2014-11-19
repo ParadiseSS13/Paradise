@@ -726,19 +726,23 @@ var/list/ghostteleportlocs = list()
 	icon_state = "dk_yellow"
 
 /area/prison/solitary
-	name = "Solitary Confinement"
+	name = "\improper Solitary Confinement"
 	icon_state = "brig"
 
+/area/prison/cell_block
+	name = "\improper Prison Cell Block"
+	icon_state = "brig"	
+	
 /area/prison/cell_block/A
-	name = "Prison Cell Block A"
+	name = "\improper Prison Cell Block A"
 	icon_state = "brig"
 
 /area/prison/cell_block/B
-	name = "Prison Cell Block B"
+	name = "\improper Prison Cell Block B"
 	icon_state = "brig"
 
 /area/prison/cell_block/C
-	name = "Prison Cell Block C"
+	name = "\improper Prison Cell Block C"
 	icon_state = "brig"
 
 //STATION13
@@ -1036,11 +1040,11 @@ var/list/ghostteleportlocs = list()
 	name = "\improper Magistrate's Office"
 	icon_state = "law"
 	
-area/clownoffice
+/area/clownoffice
 	name = "\improper Clown's Office"
 	icon_state = "dk_yellow"
 	
-area/mimeoffice	
+/area/mimeoffice	
 	name = "\improper Mime's Office"
 	icon_state = "dk_yellow"
 	
@@ -1408,35 +1412,59 @@ area/mimeoffice
 /area/security/brig
 	name = "\improper Brig"
 	icon_state = "brig"
-
+	
+/area/security/permabrig
+	name = "\improper Prison Wing"
+	icon_state = "sec_prison"	
+	
 /area/security/prison
 	name = "\improper Prison Wing"
-	icon_state = "sec_prison"
+	icon_state = "sec_prison"	
+	
+/area/security/prison/cell_block
+	name = "\improper Prison Cell Block"
+	icon_state = "brig"	
 	
 /area/security/prison/cell_block/A
-	name = "Prison Cell Block A"
+	name = "\improper Prison Cell Block A"
 	icon_state = "brig"
 
 /area/security/prison/cell_block/B
-	name = "Prison Cell Block B"
+	name = "\improper Prison Cell Block B"
 	icon_state = "brig"
 
 /area/security/prison/cell_block/C
-	name = "Prison Cell Block C"
+	name = "\improper Prison Cell Block C"
 	icon_state = "brig"
+	
+/area/security/execution
+	name = "\improper Execution"
+	icon_state = "security"	
+	
+/area/security/processing
+	name = "\improper Prisoner Processing"
+	icon_state = "security"	
+	
+/area/security/interrogation
+	name = "\improper Interrogation"
+	icon_state = "security"	
+
+/area/security/interrogationobs
+	name = "\improper Interrogation Observation"
+	icon_state = "security"	
+
+/area/security/evidence
+	name = "\improper Evidence Room"
+	icon_state = "security"		
+	
+/area/security/prisonlockers
+	name = "\improper Prisoner Lockers"
+	icon_state = "sec_prison"	
 
 /area/security/medbay
 	name = "\improper Security Medbay"
 	icon_state = "brig"	
-	
-/area/security/processing
-	name = "\improper Prisoner Processing"
-	icon_state = "sec_prison"
 
-/area/security/warden
-	name = "\improper Security Medbay"
-	icon_state = "Warden"	
-	
 /area/security/warden
 	name = "\improper Warden"
 	icon_state = "Warden"
