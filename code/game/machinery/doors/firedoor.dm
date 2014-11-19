@@ -129,7 +129,7 @@
 			o += "<span class='warning'>"
 		else
 			o += "<span style='color:blue'>"
-		o += "[celsius]Celsius</span> "
+		o += "[celsius]�C</span> "
 		o += "<span style='color:blue'>"
 		o += "[pressure]kPa</span></li>"
 		usr << o
