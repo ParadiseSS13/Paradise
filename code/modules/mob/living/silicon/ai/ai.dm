@@ -56,6 +56,7 @@ var/list/ai_list = list()
 	var/last_announcement = ""
 
 /mob/living/silicon/ai/New(loc, var/datum/ai_laws/L, var/obj/item/device/mmi/B, var/safety = 0)
+	testing("Spawning new AI.")
 	var/list/possibleNames = ai_names
 
 	var/pickedName = null
@@ -84,7 +85,7 @@ var/list/ai_list = list()
 		make_laws()
 
 	verbs += /mob/living/silicon/ai/proc/show_laws_verb
-
+	testing("Spawning new AI, stage 2.")
 	aiPDA = new/obj/item/device/pda/ai(src)
 	aiPDA.owner = name
 	aiPDA.ownjob = "AI"
@@ -95,7 +96,7 @@ var/list/ai_list = list()
 	aiRadio.myAi = src
 
 	aiCamera = new/obj/item/device/camera/siliconcam/ai_camera(src)
-
+	testing("Spawning new AI, stage 3.")
 	if (istype(loc, /turf))
 		verbs.Add(/mob/living/silicon/ai/proc/ai_network_change, \
 		/mob/living/silicon/ai/proc/ai_statuschange, /mob/living/silicon/ai/proc/ai_hologram_change, \
@@ -147,7 +148,7 @@ var/list/ai_list = list()
 	ai_list += src
 	..()
 	return
-
+	testing("Spawning new AI, done.")
 /mob/living/silicon/ai/Destroy()
 	ai_list -= src
 	..()
