@@ -56,6 +56,7 @@ display round(lastgen) and plasmatank amount
 	var/open = 0
 	var/recent_fault = 0
 	var/power_output = 1
+	var/consumption = 0
 
 /obj/machinery/power/port_gen/proc/HasFuel() //Placeholder for fuel check.
 	return 1
@@ -101,7 +102,7 @@ display round(lastgen) and plasmatank amount
 	var/sheet_path = /obj/item/stack/sheet/mineral/plasma
 	var/board_path = "/obj/item/weapon/circuitboard/pacman"
 	var/sheet_left = 0 // How much is left of the sheet
-	var/time_per_sheet = 40
+	var/time_per_sheet = 260
 	var/heat = 0
 
 /obj/machinery/power/port_gen/pacman/initialize()
@@ -114,8 +115,8 @@ display round(lastgen) and plasmatank amount
 	component_parts = list()
 	component_parts += new /obj/item/weapon/stock_parts/matter_bin(src)
 	component_parts += new /obj/item/weapon/stock_parts/micro_laser(src)
-	component_parts += new /obj/item/stack/cable_coil(src)
-	component_parts += new /obj/item/stack/cable_coil(src)
+	component_parts += new /obj/item/stack/cable_coil(src, 1)
+	component_parts += new /obj/item/stack/cable_coil(src, 1)
 	component_parts += new /obj/item/weapon/stock_parts/capacitor(src)
 	component_parts += new board_path(src)
 	var/obj/sheet = new sheet_path(null)
@@ -128,16 +129,16 @@ display round(lastgen) and plasmatank amount
 
 /obj/machinery/power/port_gen/pacman/RefreshParts()
 	var/temp_rating = 0
-	var/temp_reliability = 0
+	var/consumption_coeff = 0
 	for(var/obj/item/weapon/stock_parts/SP in component_parts)
 		if(istype(SP, /obj/item/weapon/stock_parts/matter_bin))
 			max_sheets = SP.rating * SP.rating * 50
-		else if(istype(SP, /obj/item/weapon/stock_parts/micro_laser) || istype(SP, /obj/item/weapon/stock_parts/capacitor))
+		else if(istype(SP, /obj/item/weapon/stock_parts/capacitor))
 			temp_rating += SP.rating
-	for(var/obj/item/weapon/CP in component_parts)
-		temp_reliability += CP.reliability
-	reliability = min(round(temp_reliability / 4), 100)
-	power_gen = round(initial(power_gen) * (max(2, temp_rating) / 2))
+		else
+			consumption_coeff += SP.rating
+	power_gen = round(initial(power_gen) * temp_rating * 2)
+	consumption = consumption_coeff
 
 /obj/machinery/power/port_gen/pacman/examine()
 	..()
@@ -160,7 +161,7 @@ display round(lastgen) and plasmatank amount
 			sheets -= amount
 
 /obj/machinery/power/port_gen/pacman/UseFuel()
-	var/needed_sheets = 1 / (time_per_sheet / power_output)
+	var/needed_sheets = 1 / (time_per_sheet * consumption / power_output)
 	var/temp = min(needed_sheets, sheet_left)
 	needed_sheets -= temp
 	sheet_left -= temp
@@ -175,9 +176,9 @@ display round(lastgen) and plasmatank amount
 	var/bias = 0
 	if (power_output > 4)
 		upper_limit = 400
-		bias = power_output * 3
+		bias = power_output - consumption * (4 - consumption)
 	if (heat < lower_limit)
-		heat += 3
+		heat += 4 - consumption
 	else
 		heat += rand(-7 + bias, 7 + bias)
 		if (heat < lower_limit)
@@ -191,7 +192,6 @@ display round(lastgen) and plasmatank amount
 	return
 
 /obj/machinery/power/port_gen/pacman/handleInactive()
-
 	if (heat > 0)
 		heat = max(heat - 2, 0)
 		src.updateDialog()
@@ -215,45 +215,29 @@ display round(lastgen) and plasmatank amount
 		emagged = 1
 		emp_act(1)
 	else if(!active)
-
 		if(istype(O, /obj/item/weapon/wrench))
-
-			if(!anchored)
+			if(!anchored  && !isinspace())
 				connect_to_network()
 				user << "\blue You secure the generator to the floor."
+				anchored = 1
 			else
 				disconnect_from_network()
 				user << "\blue You unsecure the generator from the floor."
+				anchored = 0
 
 			playsound(src.loc, 'sound/items/Deconstruct.ogg', 50, 1)
-			anchored = !anchored
-
 		else if(istype(O, /obj/item/weapon/screwdriver))
-			open = !open
+			panel_open = !panel_open
 			playsound(src.loc, 'sound/items/Screwdriver.ogg', 50, 1)
-			if(open)
-				user << "\blue You open the access panel."
+			if(panel_open)
+				user << "<span class='notice'>You open the access panel.</span>"
 			else
-				user << "\blue You close the access panel."
-		else if(istype(O, /obj/item/weapon/crowbar) && open)
-			var/obj/machinery/constructable_frame/machine_frame/new_frame = new /obj/machinery/constructable_frame/machine_frame(src.loc)
-			for(var/obj/item/I in component_parts)
-				if(I.reliability < 100)
-					I.crit_fail = 1
-				I.loc = src.loc
-			while ( sheets > 0 )
-				var/obj/item/stack/sheet/G = new sheet_path(src.loc)
-
-				if ( sheets > 50 )
-					G.amount = 50
-				else
-					G.amount = sheets
-
-				sheets -= G.amount
-
-			new_frame.state = 2
-			new_frame.icon_state = "box_1"
-			del(src)
+				user << "<span class='notice'>You close the access panel.</span>"				
+		else if(istype(O, /obj/item/weapon/storage/part_replacer) && panel_open)
+			exchange_parts(user, O)
+			return
+		else if(istype(O, /obj/item/weapon/crowbar) && panel_open)
+			default_deconstruction_crowbar(O)
 
 /obj/machinery/power/port_gen/pacman/attack_hand(mob/user as mob)
 	..()

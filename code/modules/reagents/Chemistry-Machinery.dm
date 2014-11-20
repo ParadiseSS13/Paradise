@@ -25,6 +25,7 @@
 	var/unhack_message = "You re-enable the safety safeguards, enabling the \"NT Standard\" mode."
 	var/list/broken_requirements = list()
 	var/broken_on_spawn = 0
+	var/recharge_delay = 15
 
 
 /obj/machinery/chem_dispenser/proc/recharge()
@@ -48,7 +49,7 @@
 
 	if(recharged < 0)
 		recharge()
-		recharged = 15
+		recharged = recharge_delay
 	else
 		recharged -= 1
 
@@ -180,7 +181,8 @@
 			var/obj/item/weapon/reagent_containers/glass/B = beaker
 			B.loc = loc
 			beaker = null
-			icon_state = initial(icon_state)
+			if(!panel_open)
+				icon_state = initial(icon_state)
 	add_fingerprint(usr)
 	return 1 // update UIs attached to this object
 
@@ -262,6 +264,84 @@
 	hack_message = "You disable the 'nanotrasen-are-cheap-bastards' lock, enabling hidden and very expensive boozes."
 	unhack_message = "You re-enable the 'nanotrasen-are-cheap-bastards' lock, disabling hidden and very expensive boozes."
 	hacked_reagents = list("goldschlager","patron", "absinthe", "ethanol", "nothing")
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+/obj/machinery/chem_dispenser/constructable
+	name = "portable chem dispenser"
+	icon = 'icons/obj/chemical.dmi'
+	icon_state = "minidispenser"
+	energy = 5
+	max_energy = 5
+	amount = 5
+	recharge_delay = 30
+	dispensable_reagents = list()
+	var/list/special_reagents = list(list("hydrogen", "oxygen", "silicon", "phosphorus", "sulfur", "carbon", "nitrogen"),
+						 		list("lithium", "sugar", "sacid", "water", "copper", "mercury", "sodium"),
+								list("ethanol", "chlorine", "potassium", "aluminium", "radium", "fluorine", "iron"))
+
+/obj/machinery/chem_dispenser/constructable/New()
+	..()
+	component_parts = list()
+	component_parts += new /obj/item/weapon/circuitboard/chem_dispenser(src)
+	component_parts += new /obj/item/weapon/stock_parts/matter_bin(src)
+	component_parts += new /obj/item/weapon/stock_parts/matter_bin(src)
+	component_parts += new /obj/item/weapon/stock_parts/manipulator(src)
+	component_parts += new /obj/item/weapon/stock_parts/capacitor(src)
+	component_parts += new /obj/item/weapon/stock_parts/console_screen(src)
+	component_parts += new /obj/item/weapon/cell/super(src)
+	RefreshParts()
+
+/obj/machinery/chem_dispenser/constructable/RefreshParts()
+	var/time = 0
+	var/temp_energy = 0
+	var/i
+	for(var/obj/item/weapon/stock_parts/matter_bin/M in component_parts)
+		temp_energy += M.rating
+	temp_energy--
+	max_energy = temp_energy * 5  //max energy = (bin1.rating + bin2.rating - 1) * 5, 5 on lowest 25 on highest
+	for(var/obj/item/weapon/stock_parts/capacitor/C in component_parts)
+		time += C.rating
+	for(var/obj/item/weapon/cell/P in component_parts)
+		time += round(P.maxcharge, 10000) / 10000
+	recharge_delay /= time/2         //delay between recharges, double the usual time on lowest 50% less than usual on highest
+	for(var/obj/item/weapon/stock_parts/manipulator/M in component_parts)
+		for(i=1, i<=M.rating, i++)
+			dispensable_reagents = sortList(dispensable_reagents | special_reagents[i])
+
+/obj/machinery/chem_dispenser/constructable/attackby(var/obj/item/I, var/mob/user)
+	if(istype(I, /obj/item/weapon/reagent_containers/glass))
+		if(panel_open)
+			user << "<span class='notice'>Close the maintenance panel first.</span>"
+			return
+		..()
+	else
+		..()
+		
+	if(default_deconstruction_screwdriver(user, "minidispenser-o", "minidispenser", I))
+		return
+
+	if(exchange_parts(user, I))
+		return
+					
+	if(istype(I, /obj/item/weapon/wrench))
+		playsound(src, 'sound/items/Ratchet.ogg', 50, 1)
+		if(anchored)
+			anchored = 0
+			user << "<span class='caution'>The [src] can now be moved.</span>"
+		else if(!anchored)
+			anchored = 1
+			user << "<span class='caution'>The [src] is now secured.</span>"		
+		
+	if(panel_open)
+		if(istype(I, /obj/item/weapon/crowbar))
+			if(beaker)
+				var/obj/item/weapon/reagent_containers/glass/B = beaker
+				B.loc = loc
+				beaker = null
+			default_deconstruction_crowbar(I)
+			return 1
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

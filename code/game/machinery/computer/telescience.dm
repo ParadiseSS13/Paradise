@@ -2,8 +2,7 @@
 	name = "Telepad Control Console"
 	desc = "Used to teleport objects to and from the telescience telepad."
 	icon_state = "teleport-sci"
-
-	// VARIABLES //
+	circuit = "/obj/item/weapon/circuitboard/telesci_console"
 	var/teles_left	// How many teleports left until it becomes uncalibrated
 	var/x_off	// X offset
 	var/y_off	// Y offset
@@ -12,8 +11,10 @@
 	var/z_co	// Z coordinate
 	var/trueX	// X + offset
 	var/trueY	// Y + offset
-	var/obj/machinery/telepad
+	var/obj/machinery/telepad/telepad
 	var/tele_id = "Telesci"
+	var/obj/item/device/sps/inserted_sps
+	var/last_target
 
 /obj/machinery/computer/telescience/update_icon()
 	if(stat & BROKEN)
@@ -25,6 +26,12 @@
 		else
 			icon_state = initial(icon_state)
 			stat &= ~NOPOWER
+			
+/obj/machinery/computer/telescience/Destroy()
+	if(inserted_sps)
+		inserted_sps.loc = loc
+		inserted_sps = null
+	..()
 
 /obj/machinery/computer/telescience/attack_paw(mob/user)
 	usr << "You are too primitive to use this computer."
@@ -54,11 +61,12 @@
 	data["coordx"] = x_co
 	data["coordy"] = y_co
 	data["coordz"] = z_co
+	data["sps"] = inserted_sps
 	
 	// Set up the Nano UI
 	ui = nanomanager.try_update_ui(user, src, ui_key, ui, data, force_open)
 	if (!ui)
-		ui = new(user, src, ui_key, "telescience_console.tmpl", "Telescience Console UI", 640, 480)
+		ui = new(user, src, ui_key, "telescience_console.tmpl", "Telescience Console UI", 640, 300)
 		ui.set_initial_data(data)		
 		ui.open()		
 
@@ -110,7 +118,10 @@
 
 /obj/machinery/computer/telescience/proc/teleprep(var/type)
 	if(!telepad)
-		usr << "\red Error: no associated telepad. Please recalibrate and try again."
+		usr << "\red Error: No associated telepad. Please recalibrate and try again."
+		return
+	if(telepad.panel_open)
+		usr << "\red Error: The telepad can not be used while in maintenance mode."
 		return
 	var/numpick
 	var/failure = checkFail()
@@ -119,7 +130,7 @@
 		telefail(numpick)
 		return
 	if(teles_left > 0)
-		if(prob(75))
+		if(prob(70 + (5 * telepad.efficiency)))
 			teles_left -= 1
 			tele(type)
 			if(teles_left == 0)
@@ -127,7 +138,7 @@
 					O.show_message("\red The telepad has become uncalibrated.", 2)
 			return
 	else
-		if(prob(35))
+		if(prob(25 + (10 * telepad.efficiency)))
 			tele(type)
 		else
 			numpick = pick(1,1,1,2,2,3,4)
@@ -142,6 +153,7 @@
 	trueX = (x_co + x_off)
 	trueY = (y_co + y_off)
 	var/target = locate(trueX, trueY, z_co)
+	last_target = target
 	var/datum/effect/effect/system/spark_spread/s = new /datum/effect/effect/system/spark_spread
 	s.set_up(5, 1, tele)
 	s.start()
@@ -187,32 +199,50 @@
 	if(x_co == "" || x_co == "Unset")
 		usr << "\red Error: set X coordinate."
 		fail = 1
+		return fail
 	if(y_co == "" || y_co == "Unset")
 		usr << "\red Error: set Y coordinate."
 		fail = 1
+		return fail
 	if(z_co == "" || z_co == "Unset")
 		usr << "\red Error: set Z coordinate."
 		fail = 1
+		return fail
 	if(x_co < 11 || x_co > 245)
 		usr << "\red Error: X is less than 11 or greater than 245."
 		fail = 1
+		return fail
 	if(y_co < 11 || y_co > 245)
 		usr << "\red Error: Y is less than 11 or greater than 245."
 		fail = 1
+		return fail
 	if(z_co == 2 || z_co < 1 || z_co > 6)
 		if (z_co == 7 & src.emagged == 1)
 		// This should be empty, allows for it to continue if the z-level is 7 and the machine is emagged.
 		else
 			usr << "\red Error: Z is less than 1, greater than [src.emagged ? "7" : "6"], or equal to 2."
 			fail = 1
+			return fail
 	if(istype(get_area(locate(x_co,y_co,z_co)), /area/security/armoury/gamma))
 		usr << "\red Error: Attempting to access telescience-protected area."
 		fail = 1
+		return fail
 	return fail
 
 /obj/machinery/computer/telescience/Topic(href, href_list)
 	if(..())
 		return
+	if(href_list["ejectSPS"])
+		inserted_sps.loc = loc
+		inserted_sps = null	
+		nanomanager.update_uis(src)		
+	if(href_list["setMemory"])
+		if(last_target)
+			inserted_sps.locked_location = last_target
+			usr << "\blue Location saved."			
+		else
+			usr << "\red Error: No data stored."	
+		nanomanager.update_uis(src)
 	if(href_list["setx"])
 		var/a = input("Please input desired X coordinate.", name, x_co) as num
 		a = copytext(sanitize(a), 1, 20)
@@ -247,6 +277,8 @@
 			for(var/obj/machinery/telepad/T in range(src,10))
 				telepad = T
 		if(!telepad)	
+			usr << "\red Error: No telepads in range were found."
+			nanomanager.update_uis(src)
 			return
 		var/teleturf = get_turf(telepad)
 		teles_left = rand(8,12)
@@ -259,12 +291,25 @@
 		nanomanager.update_uis(src)
 		return
 
-/obj/machinery/computer/telescience/attackby(I as obj, user as mob) // Emagging
+/obj/machinery/computer/telescience/attackby(I as obj, var/mob/user as mob) // Emagging
 	if(istype(I,/obj/item/weapon/card/emag))
 		if (src.emagged == 0)
 			user << "\blue You scramble the Telescience authentication key to an unknown signal. You should be able to teleport to more places now!"
 			src.emagged = 1
 		else
 			user << "\red The machine seems unaffected by the card swipe..."
+	else if(istype(I, /obj/item/device/sps))
+		if(!inserted_sps)
+			inserted_sps = I
+			user.before_take_item(I)
+			inserted_sps.loc = src
+			user.visible_message("<span class='notice'>You insert [I] into the SPS device slot.</span>")
+			attack_hand(user)
+	else if(istype(I, /obj/item/device/multitool))
+		var/obj/item/device/multitool/M = I
+		if(M.buffer && istype(M.buffer, /obj/machinery/telepad))
+			telepad = M.buffer
+			M.buffer = null
+			user << "<span class='caution'>You upload the data from [I]'s buffer.</span>"
 	else
-		return attack_hand(user)
+		..()
