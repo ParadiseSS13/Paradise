@@ -1,3 +1,41 @@
+//This proc is called in master-controller, and updates the color of all windows and windoors on the map
+var/global/wcBar
+var/global/wcBrig
+var/global/wcCommon
+var/global/wcColored
+/proc/color_windows_init()
+	var/list/bar = list("#0d8395", "#58b5c3", "#58c366", "#90d79a", "#ffffff")
+	var/list/brig = list("#aa0808", "#7f0606", "#ff0000")
+	var/list/common = list("#379963", "#0d8395", "#58b5c3", "#49e46e", "#8fcf44", "#ffffff")
+
+	wcBar = pick(bar)	
+	wcBrig = pick(brig)
+	wcCommon = pick(common)
+	
+/obj/proc/color_windows(var/obj/W as obj)
+	if(!wcColored)
+		sleep(50) // Sleeping to make sure the glass has initialized on the map
+		wcColored = 1
+		
+	var/list/wcBarAreas = list(/area/crew_quarters/bar)
+	var/list/wcBrigAreas = list(/area/security,/area/security/main,/area/security/lobby,/area/security/brig,/area/security/permabrig,/area/security/prison,/area/security/prison/cell_block/A,/area/security/prison/cell_block/B,/area/security/prison/cell_block/C,/area/security/execution,/area/security/processing,/area/security/interrogation,/area/security/interrogationobs,/area/security/evidence,/area/security/prisonlockers,/area/security/medbay,/area/security/processing,/area/security/warden,/area/security/armoury,/area/security/securearmoury,/area/security/armoury/gamma,/area/security/securehallway,/area/security/hos,/area/security/podbay,/area/security/detectives_office,/area/security/range,/area/security/nuke_storage,/area/security/checkpoint,/area/security/checkpoint2,/area/security/checkpoint2,/area/security/checkpoint/supply,/area/security/checkpoint/engineering,/area/security/checkpoint/medical,/area/security/checkpoint/science,/area/security/vacantoffice,/area/security/vacantoffice2,/area/prison,/area/prison/arrival_airlock,/area/prison/control,/area/prison/crew_quarters,/area/prison/rec_room,/area/prison/closet,/area/prison/hallway/fore,/area/prison/hallway/aft,/area/prison/hallway/port,/area/prison/hallway/starboard,/area/prison/morgue,/area/prison/medical_research,/area/prison/medical,/area/prison/solar,/area/prison/podbay,/area/prison/solar_control,/area/prison/solitary,/area/prison/cell_block,/area/prison/cell_block/A,/area/prison/cell_block/B,/area/prison/cell_block/C)
+	
+	var/newcolor
+	for(var/A in wcBarAreas)
+		if(W.areaMaster == locate(A))
+			newcolor = wcBar
+			break
+	
+	for(var/A in wcBrigAreas)
+		if(W.areaMaster == locate(A))
+			newcolor = wcBrig
+			break
+			
+	if(!newcolor)	
+		newcolor = wcCommon
+		
+	return newcolor
+
 /obj/structure/window
 	name = "window"
 	desc = "A window."
@@ -18,9 +56,8 @@
 	var/sheets = 1 // Number of sheets needed to build this window (determines how much shit is spawned by destroy())
 //	var/silicate = 0 // number of units of silicate
 //	var/icon/silicateIcon = null // the silicated icon
-
+	
 /obj/structure/window/bullet_act(var/obj/item/projectile/Proj)
-
 	//Tasers and the like should not damage windows.
 	if(Proj.damage_type == HALLOSS)
 		return
@@ -338,30 +375,13 @@
 		silicateIcon = I
 */
 
-
 /obj/structure/window/New(Loc,re=0)
 	..()
-
-//	if(re)	reinf = re
-
 	ini_dir = dir
-/*	if(reinf)
-		icon_state = "rwindow"
-		desc = "A reinforced window."
-		name = "reinforced window"
-		state = 2*anchored
-		health = 40
-		if(opacity)
-			icon_state = "twindow"
-	else
-		icon_state = "window"*/
-
-	color = color_windows()
+	color = color_windows(src)
 	update_nearby_tiles(need_rebuild=1)
 	update_nearby_icons()
-
 	return
-
 
 /obj/structure/window/Destroy()
 	density = 0
@@ -480,5 +500,3 @@
 	icon_state = "fwindow"
 	basestate = "fwindow"
 	health = 30
-
-

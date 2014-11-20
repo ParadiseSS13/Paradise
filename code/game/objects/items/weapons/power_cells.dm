@@ -13,6 +13,7 @@
 	w_class = 3.0
 	var/charge = 0	// note %age conveted to actual charge in New
 	var/maxcharge = 10000
+	var/rating = 1
 	m_amt = 700
 	g_amt = 50
 	var/rigged = 0		// true if rigged to explode
@@ -29,6 +30,7 @@
 	desc = "You can't top the plasma top." //TOTALLY TRADEMARK INFRINGEMENT
 	origin_tech = "powerstorage=0"
 	maxcharge = 5000
+	rating = 2
 	g_amt = 40
 
 /obj/item/weapon/cell/crap/empty/New()
@@ -39,6 +41,7 @@
 	name = "\improper Security borg rechargable D battery"
 	origin_tech = "powerstorage=0"
 	maxcharge = 6000	//6000 max charge / 1000 charge per shot = six shots
+	rating = 2.5
 	g_amt = 40
 
 /obj/item/weapon/cell/secborg/empty/New()
@@ -50,6 +53,7 @@
 	origin_tech = "powerstorage=2"
 	icon_state = "hcell"
 	maxcharge = 15000
+	rating = 3
 	g_amt = 60
 
 /obj/item/weapon/cell/high/empty/New()
@@ -62,6 +66,7 @@
 	icon_state = "scell"
 	maxcharge = 20000
 	g_amt = 70
+	rating = 4
 	construction_cost = list("metal"=750,"glass"=100)
 
 /obj/item/weapon/cell/super/empty/New()
@@ -73,6 +78,7 @@
 	origin_tech = "powerstorage=6"
 	icon_state = "hpcell"
 	maxcharge = 30000
+	rating = 5
 	g_amt = 80
 	construction_cost = list("metal"=500,"glass"=150,"gold"=200,"silver"=200)
 
@@ -85,6 +91,7 @@
 	icon_state = "icell"
 	origin_tech =  null
 	maxcharge = 30000
+	rating = 6
 	g_amt = 80
 	use()
 		return 1
@@ -97,6 +104,7 @@
 	icon_state = "potato_cell" //"potato_battery"
 	charge = 100
 	maxcharge = 3000
+	rating = 1
 	m_amt = 0
 	g_amt = 0
 	minor_fault = 1
@@ -109,6 +117,6 @@
 	icon = 'icons/mob/slimes.dmi' //'icons/obj/harvest.dmi'
 	icon_state = "yellow slime extract" //"potato_battery"
 	maxcharge = 10000
-	maxcharge = 10000
+	rating = 3
 	m_amt = 0
 	g_amt = 0

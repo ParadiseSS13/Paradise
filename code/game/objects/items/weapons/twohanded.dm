@@ -191,9 +191,6 @@ obj/item/weapon/twohanded/
  * Double-Bladed Energy Swords - Cheridan
  */
 /obj/item/weapon/twohanded/dualsaber
-	var/hacked = 0
-	var/blade_color
-	icon_override = 'icons/mob/in-hand/swords.dmi'
 	icon_state = "dualsaber0"
 	name = "double-bladed energy sword"
 	desc = "Handle with care."
@@ -213,16 +210,20 @@ obj/item/weapon/twohanded/
 	edge = 1
 	no_embed = 1 // Like with the single-handed esword, this shouldn't be embedding in people.
 
+/* Here for when we can add items to left and right hands again, but currently this cannot be done due to the lack of in-hand icons for dual eswords aside from the green one.
 /obj/item/weapon/twohanded/dualsaber/New()
-	blade_color = pick("red", "blue", "green", "purple")
+	item_color = pick("red", "blue", "green", "purple")
 
 /obj/item/weapon/twohanded/dualsaber/update_icon()
 	if(wielded)
-		icon_state = "dualsaber[blade_color][wielded]"
-		reflect_chance = 80
+		icon_state = "dualsaber[item_color][wielded]"
 	else
 		icon_state = "dualsaber0"
-		reflect_chance = 0
+*/
+
+/obj/item/weapon/twohanded/dualsaber/update_icon()
+	icon_state = "dualsaber[wielded]"
+	return
 
 /obj/item/weapon/twohanded/dualsaber/attack(target as mob, mob/living/user as mob)
 	..()
@@ -244,19 +245,11 @@ obj/item/weapon/twohanded/
 
 /obj/item/weapon/twohanded/dualsaber/green
 	New()
-		blade_color = "green"
+		color = "green"
 
 /obj/item/weapon/twohanded/dualsaber/red
 	New()
-		blade_color = "red"
-
-/obj/item/weapon/twohanded/dualsaber/purple
-	New()
-		blade_color = "purple"
-
-/obj/item/weapon/twohanded/dualsaber/blue
-	New()
-		blade_color = "blue"
+		color = "red"
 
 /obj/item/weapon/twohanded/dualsaber/unwield()
 	..()
@@ -265,18 +258,6 @@ obj/item/weapon/twohanded/
 /obj/item/weapon/twohanded/dualsaber/wield()
 	..()
 	hitsound = 'sound/weapons/blade1.ogg'
-
-/obj/item/weapon/twohanded/dualsaber/attackby(obj/item/weapon/W as obj, mob/user as mob)
-	..()
-	if(istype(W, /obj/item/device/multitool))
-		if(hacked == 0)
-			hacked = 1
-			user << "<span class='warning'>2XRNBW_ENGAGE</span>"
-			blade_color = "rainbow"
-			update_icon()
-		else
-			user << "<span class='warning'>It's starting to look like a triple rainbow - no, nevermind.</span>"
-
 
 //spears
 /obj/item/weapon/twohanded/spear
@@ -304,198 +285,3 @@ obj/item/weapon/twohanded/
 	icon_state = "kidanspear0"
 	name = "Kidan spear"
 	desc = "A spear brought over from the Kidan homeworld."
-
-
-// SINGULOHAMMER
-
-/obj/item/weapon/twohanded/singularityhammer
-	name = "singularity hammer"
-	desc = "The pinnacle of close combat technology, the hammer harnesses the power of a miniaturized singularity to deal crushing blows."
-
-	icon_override = 'icons/mob/in-hand/swords.dmi'
-	icon_state = "mjollnir0"
-	flags = CONDUCT
-	slot_flags = SLOT_BACK
-	no_embed = 1
-	force = 5
-	force_unwielded = 5
-	force_wielded = 20
-	throwforce = 15
-	throw_range = 1
-	w_class = 5
-	var/charged = 5
-	origin_tech = "combat=5;bluespace=4"
-
-
-
-/obj/item/weapon/twohanded/singularityhammer/New()
-	..()
-	processing_objects.Add(src)
-
-
-/obj/item/weapon/twohanded/singularityhammer/Destroy()
-	processing_objects.Remove(src)
-	..()
-
-
-/obj/item/weapon/twohanded/singularityhammer/process()
-	if(charged < 5)
-		charged++
-	return
-
-/obj/item/weapon/twohanded/singularityhammer/update_icon()  //Currently only here to fuck with the on-mob icons.
-	icon_state = "mjollnir[wielded]"
-	return
-
-
-/obj/item/weapon/twohanded/singularityhammer/proc/vortex(var/turf/pull as turf, mob/wielder as mob)
-	for(var/atom/X in orange(5,pull))
-		if(istype(X, /atom/movable))
-			if(X == wielder) continue
-			if((X) &&(!X:anchored) && (!istype(X,/mob/living/carbon/human)))
-				step_towards(X,pull)
-				step_towards(X,pull)
-				step_towards(X,pull)
-			else if(istype(X,/mob/living/carbon/human))
-				var/mob/living/carbon/human/H = X
-				if(istype(H.shoes,/obj/item/clothing/shoes/magboots))
-					var/obj/item/clothing/shoes/magboots/M = H.shoes
-					if(M.magpulse)
-						continue
-				H.apply_effect(1, WEAKEN, 0)
-				step_towards(H,pull)
-				step_towards(H,pull)
-				step_towards(H,pull)
-	return
-
-
-
-/obj/item/weapon/twohanded/singularityhammer/afterattack(atom/A as mob|obj|turf|area, mob/user as mob, proximity)
-	if(!proximity) return
-	if(wielded)
-		if(charged == 5)
-			charged = 0
-			if(istype(A, /mob/living/))
-				var/mob/living/Z = A
-				Z.take_organ_damage(20,0)
-			playsound(user, 'sound/weapons/marauder.ogg', 50, 1)
-			var/turf/target = get_turf(A)
-			vortex(target,user)
-
-
-/obj/item/weapon/twohanded/mjollnir
-	name = "Mjollnir"
-	desc = "A weapon worthy of a god, able to strike with the force of a lightning bolt. It crackles with barely contained energy."
-	icon_override = 'icons/mob/in-hand/swords.dmi'
-	icon_state = "mjollnir0"
-	flags = CONDUCT
-	slot_flags = SLOT_BACK
-	no_embed = 1
-	force = 5
-	force_unwielded = 5
-	force_wielded = 20
-	throwforce = 30
-	throw_range = 7
-	w_class = 5
-	//var/charged = 5
-	origin_tech = "combat=5;powerstorage=5"
-
-/obj/item/weapon/twohanded/mjollnir/proc/shock(mob/living/target as mob)
-	var/datum/effect/effect/system/spark_spread/s = new /datum/effect/effect/system/spark_spread()
-	s.set_up(5, 1, target.loc)
-	s.start()
-	target.take_organ_damage(0,30)
-	target.visible_message("<span class='danger'>[target.name] was shocked by the [src.name]!</span>", \
-		"<span class='userdanger'>You feel a powerful shock course through your body sending you flying!</span>", \
-		"<span class='danger'>You hear a heavy electrical crack.</span>")
-	var/atom/throw_target = get_edge_target_turf(target, get_dir(src, get_step_away(target, src)))
-	target.throw_at(throw_target, 200, 4)
-	return
-
-
-/obj/item/weapon/twohanded/mjollnir/attack(mob/M as mob, mob/user as mob)
-	..()
-	spawn(0)
-	if(wielded)
-		//if(charged == 5)
-		//charged = 0
-		playsound(src.loc, "sparks", 50, 1)
-		if(istype(M, /mob/living))
-			M.Stun(10)
-			shock(M)
-
-
-/obj/item/weapon/twohanded/mjollnir/update_icon()  //Currently only here to fuck with the on-mob icons.
-	icon_state = "mjollnir[wielded]"
-	return
-
-
-
-/obj/item/weapon/twohanded/knighthammer
-	name = "singuloth knight's hammer"
-	desc = "A hammer made of sturdy metal with a golden skull adorned with wings on either side of the head. <br>This weapon causes devastating damage to those it hits due to a power field sustained by a mini-singularity inside of the hammer."
-
-	icon_override = 'icons/mob/in-hand/swords.dmi'
-	icon_state = "adrhammer0"
-	flags = CONDUCT
-	slot_flags = SLOT_BACK
-	no_embed = 1
-	force = 5
-	force_unwielded = 5
-	force_wielded = 20
-	throwforce = 15
-	throw_range = 1
-	w_class = 5
-	var/charged = 5
-	origin_tech = "combat=5;bluespace=4"
-
-
-
-/obj/item/weapon/twohanded/knighthammer/New()
-	..()
-	processing_objects.Add(src)
-
-
-/obj/item/weapon/twohanded/knighthammer/Destroy()
-	processing_objects.Remove(src)
-	..()
-
-
-/obj/item/weapon/twohanded/knighthammer/process()
-	if(charged < 5)
-		charged++
-	return
-
-/obj/item/weapon/twohanded/knighthammer/update_icon()  //Currently only here to fuck with the on-mob icons.
-	icon_state = "adrhammer[wielded]"
-	return
-
-
-/obj/item/weapon/twohanded/knighthammer/afterattack(atom/A as mob|obj|turf|area, mob/user as mob, proximity)
-	if(!proximity) return
-	if(wielded)
-		if(charged == 5)
-			charged = 0
-			if(istype(A, /mob/living/))
-				var/mob/living/Z = A
-				if(Z.health < 1)
-					Z.visible_message("<span class='danger'>[Z.name] was blown to peices by the power of [src.name]!</span>", \
-						"<span class='userdanger'>You feel a powerful blow rip you apart!</span>", \
-						"<span class='danger'>You hear a heavy impact and the sound of ripping flesh!.</span>")
-					Z.gib()
-				else
-					Z.take_organ_damage(0,30)
-					Z.visible_message("<span class='danger'>[Z.name] was sent flying by a blow from the [src.name]!</span>", \
-						"<span class='userdanger'>You feel a powerful blow connect with your body and send you flying!</span>", \
-						"<span class='danger'>You hear something heavy impact flesh!.</span>")
-					var/atom/throw_target = get_edge_target_turf(Z, get_dir(src, get_step_away(Z, src)))
-					Z.throw_at(throw_target, 200, 4)
-			else if(istype(A, /turf/simulated/wall))
-				var/turf/simulated/wall/Z = A
-				Z.ex_act(2)
-				charged = 3
-			else if (istype(A, /obj/structure) || istype(A, /obj/mecha/))
-				var/obj/Z = A
-				Z.ex_act(2)
-				charged = 3
-			playsound(user, 'sound/weapons/marauder.ogg', 50, 1)

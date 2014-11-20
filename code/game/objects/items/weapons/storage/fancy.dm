@@ -203,17 +203,6 @@
 	item_state = "Dpacket"
 
 
-/obj/item/weapon/storage/fancy/cigarettes/syndicate
-	name = "\improper Syndicate Cigarettes"
-	desc = "A packet of six evil-looking cigarettes, A label on the packaging reads, \"Donk Co\""
-	icon_state = "robustpacket"
-	item_state = "robustpacket"
-
-/obj/item/weapon/storage/fancy/cigarettes/syndicate/New()
-	..()
-	var/new_name = pick("evil", "suspicious", "ominous", "donk-flavored", "robust", "sneaky")
-	name = "[new_name] cigarette packet"
-
 /*
  * Vial Box
  */
