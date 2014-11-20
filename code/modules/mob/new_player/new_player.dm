@@ -291,6 +291,7 @@
 
 
 	proc/AttemptLateSpawn(rank)
+		testing("Attempting late spawn of [src], [usr]")
 		if (src != usr)
 			return 0
 		if(!ticker || ticker.current_state != GAME_STATE_PLAYING)
@@ -329,7 +330,9 @@
 
 
 	proc/AnnounceArrival(var/mob/living/carbon/human/character, var/rank)
+		testing("Announcing arrival.")
 		if (ticker.current_state == GAME_STATE_PLAYING)
+			testing("Announcing arrival of [character.real_name].")
 			var/obj/item/device/radio/intercom/a = new /obj/item/device/radio/intercom(null)// BS12 EDIT Arrivals Announcement Computer, rather than the AI.
 			if(character.mind.role_alt_title)
 				rank = character.mind.role_alt_title
