@@ -210,7 +210,6 @@ var/GLOBAL_RADIO_TYPE = 1 // radio type to use
 		return
 	if (!connection)
 		return
-
 	var/mob/living/silicon/ai/A = new /mob/living/silicon/ai(src, null, null, 1)
 	Broadcast_Message(connection, A,
 						0, "*garbled automated announcement*", src,

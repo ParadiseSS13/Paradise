@@ -30,9 +30,9 @@ var/list/department_radio_keys = list(
 	  ":A" = "alientalk",	"#A" = "alientalk",		".A" = "alientalk",
 	  ":T" = "Syndicate",	"#T" = "Syndicate",		".T" = "Syndicate",
 	  ":U" = "Supply",		"#U" = "Supply",		".U" = "Supply",
-	  ":G" = "changeling",	"#G" = "changeling",	".G" = "changeling"
+	  ":G" = "changeling",	"#G" = "changeling",	".G" = "changeling",
 	  
-	/* //kinda localization -- rastaf0
+	//kinda localization -- rastaf0
 	//same keys as above, but on russian keyboard layout. This file uses cp1251 as encoding.
 	  ":ê" = "right hand",	"#ê" = "right hand",    ".ê" = "right hand",
 	  ":ä" = "left hand",   "#ä" = "left hand",     ".ä" = "left hand",
@@ -48,7 +48,7 @@ var/list/department_radio_keys = list(
 	  ":ô" = "alientalk",   "#ô" = "alientalk",     ".ô" = "alientalk",
 	  ":å" = "Syndicate",   "#å" = "Syndicate",     ".å" = "Syndicate",
 	  ":é" = "Supply",      "#é" = "Supply",        ".é" = "Supply",
-	  ":ï" = "changeling",  "#ï" = "changeling",    ".ï" = "changeling" */
+	  ":ï" = "changeling",  "#ï" = "changeling",    ".ï" = "changeling"
 )
 
 /mob/living/proc/binarycheck()

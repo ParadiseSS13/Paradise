@@ -57,6 +57,7 @@ var/list/ai_list = list()
 	var/last_announcement = ""
 
 /mob/living/silicon/ai/New(loc, var/datum/ai_laws/L, var/obj/item/device/mmi/B, var/safety = 0)
+
 	var/list/possibleNames = ai_names
 
 	var/pickedName = null
