@@ -24,7 +24,7 @@
 	if(istype(I,/obj/item/weapon/modkit/unathi))
 		user.drop_item()
 		playsound(src.loc, 'sound/items/Screwdriver.ogg', 100, 1)
-		user << "\red You painstakingly modify [src] to make it more suitable for a Tajaran user."
+		user << "\red You painstakingly modify [src] to make it more suitable for a Unathi user."
 		new /obj/item/clothing/head/helmet/space/rig/unathi(user.loc)
 		del(I)
 		del(src)

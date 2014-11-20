@@ -1,0 +1,124 @@
+<!-- 
+Title: Cloning Console UI 
+Used In File(s): \code\game\machinery\computer\cloning.dm
+-->
+<div class="block">
+	<div class="item">
+		<div class="itemLabelNarrow">Menu</div>
+		<div class="itemContentWide">
+			{{:helper.link('Main', 'home', {'menu' : 1}, data.menu == 1 ? 'selected' : '')}}{{:helper.link('Records', 'document', {'menu' : 2}, data.menu == 2 ? 'selected' : '')}}
+		</div>
+	</div>
+	<div class="item">
+		<div class="itemLabelNarrow">Refresh</div>
+		<div class="itemContentWide">
+			{{:helper.link('Refresh', 'arrowrefresh-1-e', {'refresh' : 1})}}
+		</div>
+	</div>
+	<div class="item">
+		<div class="itemLabelNarrow">Autoprocessing</div>
+		<div class="itemContentWide">
+			{{if data.autoallowed}}
+				{{:helper.link('Enabled', 'check', {'task' : 'autoprocess'}, data.autoprocess ? 'selected' : '')}}{{:helper.link('Disabled', 'closethick', {'task' : 'stopautoprocess'}, !data.autoprocess ? 'selected' : '')}}
+			{{else}}
+				{{:helper.link('Enabled', 'check', null, 'disabled')}}{{:helper.link('Disabled', 'closethick', null, 'selected')}}
+			{{/if}}
+		</div>
+	</div>
+	{{if data.disk}}
+		<div class="item">
+			<div class="itemLabelNarrow">Disk</div>
+			<div class="itemContentWide">{{:helper.link('Eject', 'eject', {'disk' : 'eject'})}}</div>
+		</div>
+	{{/if}}
+</div>
+{{if data.menu == 1}}
+	<h2>Modules</h2>
+	<div class="item">
+		<div class="itemLabelNarrow">Scanner</div>
+		<div class="itemContentWide{{if data.scanner}} good{{else}} bad{{/if}}">
+			{{if data.scanner}} Found!{{else}} Error: Not detected!{{/if}}
+		</div>
+	</div>
+	<div class="item">
+		<div class="itemLabelNarrow">Pod</div>
+		<div class="itemContentWide{{if data.pod}} good{{else}} bad{{/if}}">
+			{{if data.pod}} Found!{{else}} Error: Not detected!{{/if}}
+		</div>
+	</div>
+	{{if data.scanner}}
+	<h2>Scanner Functions</h2>
+	{{if data.loading}}
+		<b>Scanning...</b>
+	{{else}}	
+		<b>{{:data.scantemp}}</b>
+	{{/if}}
+	<div class="item">
+		<div class="itemLabelNarrow">Scan Occupant</div>
+		<div class="itemContentWide">{{:helper.link('Scan', 'search', {'scan' : 1}, !data.occupant ? 'disabled' : '')}}</div>
+	</div>		
+	<div class="item">
+		<div class="itemLabelNarrow">Scanner Lock</div>
+		<div class="itemContentWide">{{if data.occupant}}{{:helper.link('Engaged', 'locked', {'lock' : 1}, data.locked ? 'selected' : '')}}{{else}} {{:helper.link('Engaged', 'locked', null, 'disabled')}}{{/if}}{{:helper.link('Disengaged', 'unlocked', {'lock' : 1}, !data.locked ? 'selected' : '')}}</div>
+	</div>	
+	<div class="item">
+		<div class="itemLabelNarrow">Biomass</div>
+		<div class="itemContentWide">{{:data.biomass}}</div>
+	</div>	
+	{{/if}}
+{{/if}}
+{{if data.menu == 2}}
+	<h2>Current Records</h2>
+	{{if data.temp}}
+		<div class="item">
+			{{:data.temp}}
+		</div>
+	{{/if}}
+	{{for data.records}}
+		<div>{{:helper.link(value.realname, 'arrowthickstop-1-s', {'view_rec' : value.record})}}</div>
+	{{empty}}
+		No records found!
+	{{/for}}
+{{/if}}
+{{if data.menu == 3}}
+	<h2>Selected Record</h2>
+	{{if data.temp}}
+		<div class="item">
+			{{:data.temp}}
+		</div>
+	{{/if}}
+	{{if !data.activerecord}}
+		<div class="bad">Error: Record not found!</div>
+	{{else}}	
+		<div class="item">
+			<b>Real Name:</b> {{:data.realname}}<br />
+			<b>Health:</b> {{:data.health}} (<span class="oxyloss_light">OXY</span> - <span class="burn">BURN</span> - <span class="toxin_light">TOX</span> - <span class="brute">BRUTE</span>)
+		</div>
+		<div class="item">
+			<b>UI:</b> {{:data.unidentity}}<br />
+			<b>SE:</b> {{:data.strucenzymes}}
+		</div>
+		{{if data.disk}}
+			<div class="item">
+				<div class="itemLabelNarrow">Disk</div>
+				<div class="itemContentWide">{{:helper.link('Load from Disk', 'disk', {'disk' : 'load'})}}{{:helper.link('Save UI + UE', 'arrowthickstop-1-n', {'save_disk' : 'ue'})}}{{:helper.link('Save UI', 'arrowthickstop-1-n', {'save_disk' : 'ui'})}}{{:helper.link('Save SE', 'arrowthickstop-1-n', {'save_disk' : 'se'})}}</div>
+			</div>		
+		{{/if}}
+		<div class="item">
+			<div class="itemLabelNarrow">Actions</div>
+			<div class="itemContentWide">{{:helper.link('Clone', 'arrowreturnthick-1-e', {'clone' : data.activerecord}, !data.enoughbiomass ? 'disabled' : '')}}{{:helper.link('Delete', 'trash', {'del_rec' : 1})}}</div>
+		</div>
+	{{/if}}
+{{/if}}
+{{if data.menu == 4}}
+	<h2>Confirm Record Deletion</h2>
+	{{if data.temp}}
+		<div class="item">
+			{{:data.temp}}
+		</div>
+	{{/if}}
+	<div class="item">
+		{{:helper.link('Scan Card and Confirm', 'trash', {'del_rec' : 1})}}{{:helper.link('Cancel', 'closethick', {'menu' : 3})}}
+	</div>
+{{/if}}
+	

@@ -39,7 +39,7 @@
 	name = "\improper DNA modifier"
 	desc = "It scans DNA structures."
 	icon = 'icons/obj/Cryogenic2.dmi'
-	icon_state = "scanner_0"
+	icon_state = "scanner_open"
 	density = 1
 	anchored = 1.0
 	use_power = 1
@@ -49,6 +49,9 @@
 	var/mob/living/carbon/occupant = null
 	var/obj/item/weapon/reagent_containers/glass/beaker = null
 	var/opened = 0
+	var/damage_coeff
+	var/scan_level
+	var/precision_coeff
 
 /obj/machinery/dna_scannernew/New()
 	..()
@@ -58,10 +61,21 @@
 	component_parts += new /obj/item/weapon/stock_parts/manipulator(src)
 	component_parts += new /obj/item/weapon/stock_parts/micro_laser(src)
 	component_parts += new /obj/item/weapon/stock_parts/console_screen(src)
-	component_parts += new /obj/item/stack/cable_coil(src)
-	component_parts += new /obj/item/stack/cable_coil(src)
+	component_parts += new /obj/item/stack/cable_coil(src, 1)
+	component_parts += new /obj/item/stack/cable_coil(src, 1)
 	RefreshParts()
 
+/obj/machinery/dna_scannernew/RefreshParts()
+	scan_level = 0
+	damage_coeff = 0
+	precision_coeff = 0
+	for(var/obj/item/weapon/stock_parts/scanning_module/P in component_parts)
+		scan_level += P.rating
+	for(var/obj/item/weapon/stock_parts/manipulator/P in component_parts)
+		precision_coeff = P.rating
+	for(var/obj/item/weapon/stock_parts/micro_laser/P in component_parts)
+		damage_coeff = P.rating	
+	
 /obj/machinery/dna_scannernew/allow_drop()
 	return 0
 
@@ -119,7 +133,7 @@
 	usr.client.eye = src
 	usr.loc = src
 	src.occupant = usr
-	src.icon_state = "scanner_1"
+	src.icon_state = "scanner_occupied"
 	src.add_fingerprint(usr)
 	return
 
@@ -165,31 +179,21 @@
 		user.pulling = null
 
 /obj/machinery/dna_scannernew/attackby(var/obj/item/weapon/item as obj, var/mob/user as mob)
-	if (istype(item, /obj/item/weapon/screwdriver))
-		if (!opened)
-			src.opened = 1
-			user << "You open the maintenance hatch of [src]."
-			//src.icon_state = "autolathe_t"
-		else
-			src.opened = 0
-			user << "You close the maintenance hatch of [src]."
-			//src.icon_state = "autolathe"
-			return 1
-	else if(istype(item, /obj/item/weapon/crowbar))
-		if (occupant)
-			user << "\red You cannot disassemble this [src], it's occupado."
-			return 1
-		if (opened)
-			playsound(get_turf(src), 'sound/items/Crowbar.ogg', 50, 1)
-			var/obj/machinery/constructable_frame/machine_frame/M = new /obj/machinery/constructable_frame/machine_frame(src.loc)
-			M.state = 2
-			M.icon_state = "box_1"
-			for(var/obj/I in component_parts)
-				if(I.reliability != 100 && crit_fail)
-					I.crit_fail = 1
-				I.loc = src.loc
-			del(src)
+	if(istype(item, /obj/item/weapon/screwdriver))
+		if(occupant)
+			user << "<span class='notice'>The maintenance panel is locked.</span>"
 			return
+		default_deconstruction_screwdriver(user, "[icon_state]_maintenance", "[initial(icon_state)]", item)
+
+	if(exchange_parts(user, item))
+		return		
+		
+	if(istype(item, /obj/item/weapon/crowbar))
+		if(panel_open)
+			for(var/obj/I in contents) // in case there is something in the scanner
+				I.loc = src.loc
+			default_deconstruction_crowbar(item)
+		return
 	else if(istype(item, /obj/item/weapon/reagent_containers/glass))
 		if(beaker)
 			user << "\red A beaker is already loaded into the machine."
@@ -206,10 +210,13 @@
 	if (!ismob(G.affecting))
 		return
 	if (src.occupant)
-		user << "\blue <B>The scanner is already occupied!</B>"
+		user << "\blue <b>The scanner is already occupied!</b>"
 		return
 	if (G.affecting.abiotic())
-		user << "\blue <B>Subject cannot have abiotic items on.</B>"
+		user << "\blue <b>Subject cannot have abiotic items on.</b>"
+		return
+	if(panel_open)
+		usr << "\blue <b>Close the maintenance panel first.</b>"
 		return
 	put_in(G.affecting)
 	src.add_fingerprint(user)
@@ -222,7 +229,7 @@
 		M.client.eye = src
 	M.loc = src
 	src.occupant = M
-	src.icon_state = "scanner_1"
+	src.icon_state = "scanner_occupied"
 
 	// search for ghosts, if the corpse is empty and the scanner is connected to a cloner
 	if(locate(/obj/machinery/computer/cloning, get_step(src, NORTH)) \
@@ -238,14 +245,20 @@
 	return
 
 /obj/machinery/dna_scannernew/proc/go_out()
-	if ((!( src.occupant ) || src.locked))
+	if (!src.occupant)
+		usr << "<span class=\"warning\">The scanner is empty!</span>"
 		return
+		
+	if (src.locked)
+		usr << "<span class=\"warning\">The scanner is locked!</span>"
+		return
+		
 	if (src.occupant.client)
 		src.occupant.client.eye = src.occupant.client.mob
 		src.occupant.client.perspective = MOB_PERSPECTIVE
 	src.occupant.loc = src.loc
 	src.occupant = null
-	src.icon_state = "scanner_0"
+	src.icon_state = "scanner_open"
 	return
 
 /obj/machinery/dna_scannernew/ex_act(severity)
@@ -288,7 +301,7 @@
 
 /obj/machinery/computer/scan_consolenew
 	name = "DNA Modifier Access Console"
-	desc = "Scand DNA."
+	desc = "Allows you to scan and modify DNA."
 	icon = 'icons/obj/computer.dmi'
 	icon_state = "scanner"
 	density = 1
@@ -327,7 +340,6 @@
 	return
 
 /obj/machinery/computer/scan_consolenew/ex_act(severity)
-
 	switch(severity)
 		if(1.0)
 			//SN src = null
@@ -342,7 +354,6 @@
 	return
 
 /obj/machinery/computer/scan_consolenew/blob_act()
-
 	if(prob(75))
 		del(src)
 
@@ -395,14 +406,20 @@
 	return
 */
 /obj/machinery/computer/scan_consolenew/attack_paw(user as mob)
-	ui_interact(user)
+	attack_hand(user)
 
 /obj/machinery/computer/scan_consolenew/attack_ai(user as mob)
 	src.add_hiddenprint(user)
-	ui_interact(user)
+	attack_hand(user)
 
 /obj/machinery/computer/scan_consolenew/attack_hand(user as mob)
-	if(!..())
+	if(isnull(connected))
+		for(dir in list(NORTH,EAST,SOUTH,WEST))
+			connected = locate(/obj/machinery/dna_scannernew, get_step(src, dir))
+			if(!isnull(connected))
+				attack_hand(user)
+				break
+	else if(!..())
 		ui_interact(user)
 
  /**
@@ -475,7 +492,7 @@
 		occupantData["name"] = connected.occupant.name
 		occupantData["stat"] = connected.occupant.stat
 		occupantData["isViableSubject"] = 1
-		if (M_NOCLONE in connected.occupant.mutations || !src.connected.occupant.dna)
+		if ((M_NOCLONE in connected.occupant.mutations && connected.scan_level < 3) || !src.connected.occupant.dna)
 			occupantData["isViableSubject"] = 0
 		occupantData["health"] = connected.occupant.health
 		occupantData["maxHealth"] = connected.occupant.maxHealth
@@ -553,7 +570,7 @@
 			else
 				randmuti(src.connected.occupant)
 
-		src.connected.occupant.radiation += ((src.radiation_intensity*3)+src.radiation_duration*3)
+		src.connected.occupant.radiation += (((src.radiation_intensity*3)+src.radiation_duration*3) / connected.damage_coeff)
 		src.connected.locked = lock_state
 		return 1 // return 1 forces an update to all Nano uis attached to src
 
@@ -649,7 +666,7 @@
 			src.connected.occupant.UpdateAppearance()
 			src.connected.occupant.radiation += (src.radiation_intensity+src.radiation_duration)
 		else
-			if	(prob(20+src.radiation_intensity))
+			if (prob(20+src.radiation_intensity))
 				randmutb(src.connected.occupant)
 				domutcheck(src.connected.occupant,src.connected)
 			else
@@ -700,7 +717,7 @@
 		irradiating = 0
 
 		if(src.connected.occupant)
-			if (prob((80 + (src.radiation_duration / 2))))
+			if (prob((80 + ((src.radiation_duration / 2) + (connected.precision_coeff ** 3)))))
 				// FIXME: Find out what these corresponded to and change them to the WHATEVERBLOCK they need to be.
 				//if ((src.selected_se_block != 2 || src.selected_se_block != 12 || src.selected_se_block != 8 || src.selected_se_block || 10) && prob (20))
 				var/real_SE_block=selected_se_block
@@ -713,11 +730,11 @@
 
 				//testing("Irradiated SE block [real_SE_block]:[src.selected_se_subblock] ([original_block] now [block]) [(real_SE_block!=selected_se_block) ? "(SHIFTED)":""]!")
 				connected.occupant.dna.SetSESubBlock(real_SE_block,selected_se_subblock,block)
-				src.connected.occupant.radiation += (src.radiation_intensity+src.radiation_duration)
+				src.connected.occupant.radiation += ((src.radiation_intensity+src.radiation_duration) / connected.damage_coeff)
 				domutcheck(src.connected.occupant,src.connected)
 			else
-				src.connected.occupant.radiation += ((src.radiation_intensity*2)+src.radiation_duration)
-				if	(prob(80-src.radiation_duration))
+				src.connected.occupant.radiation += (((src.radiation_intensity*2)+src.radiation_duration) / connected.damage_coeff)
+				if (prob(80-src.radiation_duration))
 					//testing("Random bad mut!")
 					randmutb(src.connected.occupant)
 					domutcheck(src.connected.occupant,src.connected)
@@ -814,7 +831,7 @@
 			return 1
 
 		if (bufferOption == "transfer")
-			if (!src.connected.occupant || (M_NOCLONE in src.connected.occupant.mutations) || !src.connected.occupant.dna)
+			if (!src.connected.occupant || (M_NOCLONE in src.connected.occupant.mutations && connected.scan_level < 3) || !src.connected.occupant.dna)
 				return
 
 			irradiating = 2
@@ -838,7 +855,7 @@
 				src.connected.occupant.dna.SE = buf.dna.SE
 				src.connected.occupant.dna.UpdateSE()
 				domutcheck(src.connected.occupant,src.connected)
-			src.connected.occupant.radiation += rand(20,50)
+			src.connected.occupant.radiation += (rand(20,50) / connected.damage_coeff)
 			return 1
 
 		if (bufferOption == "createInjector")

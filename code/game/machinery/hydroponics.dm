@@ -12,7 +12,9 @@
 
 	// Plant maintenance vars.
 	var/waterlevel = 100       // Water level (max 100)
+	var/maxwater = 100
 	var/nutrilevel = 10        // Nutrient level (max 10)
+	var/maxnutri = 10
 	var/pestlevel = 0          // Pests (max 10)
 	var/weedlevel = 0          // Weeds (max 10)s
 
@@ -37,6 +39,9 @@
 	// Seed details/line data.
 	var/datum/seed/seed = null // The currently planted seed
 
+	// Construction
+	var/unwrenchable = 1
+	
 	// Reagent information for process(), consider moving this to a controller along
 	// with cycle information under 'mechanical concerns' at some point.
 	var/global/list/toxic_reagents = list(
@@ -120,12 +125,29 @@
 
 /obj/machinery/portable_atmospherics/hydroponics/New()
 	..()
+	
+	component_parts = list()
+	component_parts += new /obj/item/weapon/circuitboard/hydroponics(src)
+	component_parts += new /obj/item/weapon/stock_parts/matter_bin(src)
+	component_parts += new /obj/item/weapon/stock_parts/matter_bin(src)
+	component_parts += new /obj/item/weapon/stock_parts/console_screen(src)
+	RefreshParts()
+	
 	create_reagents(200)
 	connect()
 	update_icon()
 	if(closed_system)
 		flags &= ~OPENCONTAINER
 
+/obj/machinery/portable_atmospherics/hydroponics/RefreshParts()
+	var/tmp_capacity = 0
+	for (var/obj/item/weapon/stock_parts/matter_bin/M in component_parts)
+		tmp_capacity += M.rating
+	maxwater = tmp_capacity * 50 // Up to 300
+	maxnutri = tmp_capacity * 5 // Up to 30
+	waterlevel = maxwater
+	nutrilevel = 3		
+		
 /obj/machinery/portable_atmospherics/hydroponics/bullet_act(var/obj/item/projectile/Proj)
 
 	//Don't act on seeds like dionaea that shouldn't change.
@@ -512,8 +534,10 @@
 		health = 0
 		dead = 0
 
-	nutrilevel = max(0,min(nutrilevel,10))
-	waterlevel = max(0,min(waterlevel,100))
+	nutrilevel = max(nutrilevel, 0)
+	nutrilevel = min(nutrilevel, maxnutri)
+	waterlevel = max(waterlevel, 0)
+	waterlevel = min(waterlevel, maxwater)
 	pestlevel =  max(0,min(pestlevel,10))
 	weedlevel =  max(0,min(weedlevel,10))
 	toxins =     max(0,min(toxins,10))
@@ -541,7 +565,15 @@
 	return
 
 /obj/machinery/portable_atmospherics/hydroponics/attackby(var/obj/item/O as obj, var/mob/user as mob)
+	if(exchange_parts(user, O))
+		return
 
+	if(istype(O, /obj/item/weapon/crowbar))
+		if(anchored==2)
+			user << "Unscrew the hoses first!"
+			return
+		default_deconstruction_crowbar(O, 1)
+		
 	//--FalseIncarnate
 	//Check if held item is an open container
 	if (O.is_open_container())
@@ -611,8 +643,38 @@
 				update_icon()
 			else
 				user << "There's nothing in [src] to spray!"
+				
+	else if(istype(O, /obj/item/weapon/wrench) && unwrenchable)
+		if(anchored == 2)
+			user << "Unscrew the hoses first!"
+			return
 
-	//--FalseIncarnate
+		if(!anchored && !isinspace())
+			playsound(loc, 'sound/items/Ratchet.ogg', 50, 1)
+			anchored = 1
+			user << "You wrench [src] in place."
+		else if(anchored)
+			playsound(loc, 'sound/items/Ratchet.ogg', 50, 1)
+			anchored = 0
+			user << "You unwrench [src]."
+
+	else if(istype(O, /obj/item/weapon/screwdriver) && unwrenchable) //THIS NEED TO BE DONE DIFFERENTLY, SOMEONE REFACTOR THE TRAY CODE ALREADY
+		if(anchored)
+			if(anchored == 2)
+				playsound(src.loc, 'sound/items/Screwdriver.ogg', 50, 1)
+				anchored = 1
+				user << "You unscrew the [src]'s hoses."
+				panel_open = 0
+
+			else if(anchored == 1)
+				playsound(src.loc, 'sound/items/Screwdriver.ogg', 50, 1)
+				anchored = 2
+				user << "You screw in the [src]'s hoses."
+				panel_open = 1
+
+			for(var/obj/machinery/portable_atmospherics/hydroponics/h in range(1,src))
+				spawn()
+					h.update_icon()
 
 	//Held item is not an open container, check to see if it can be used (this code was already here) --FalseIncarnate
 	if(istype(O, /obj/item/weapon/wirecutters) || istype(O, /obj/item/weapon/scalpel))

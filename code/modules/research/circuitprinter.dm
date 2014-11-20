@@ -14,6 +14,7 @@ using metal and glass, it uses glass and reagents (usually sulfuric acis).
 	var/diamond_amount = 0
 	var/uranium_amount = 0
 	var/max_material_amount = 75000.0
+	var/efficiency_coeff
 
 	New()
 		..()
@@ -36,7 +37,10 @@ using metal and glass, it uses glass and reagents (usually sulfuric acis).
 		for(var/obj/item/weapon/stock_parts/matter_bin/M in component_parts)
 			T += M.rating
 		max_material_amount = T * 75000.0
-
+		T = 0
+		for(var/obj/item/weapon/stock_parts/manipulator/M in component_parts)
+			T += M.rating
+		efficiency_coeff = 2 ** (T - 1) //Only 1 manipulator here, you're making runtimes Razharas
 
 	blob_act()
 		if (prob(50))
@@ -52,33 +56,19 @@ using metal and glass, it uses glass and reagents (usually sulfuric acis).
 	attackby(var/obj/item/O as obj, var/mob/user as mob)
 		if(exchange_parts(user, O))
 			return
+			
 		if (shocked)
 			shock(user,50)
+			
 		if (istype(O, /obj/item/weapon/screwdriver))
-			if (!opened)
-				opened = 1
+			if (default_deconstruction_screwdriver(user, "circuit_imprinter_t", "circuit_imprinter", O))
 				if(linked_console)
 					linked_console.linked_imprinter = null
 					linked_console = null
-				icon_state = "circuit_imprinter_t"
-				user << "You open the maintenance hatch of [src]."
-			else
-				opened = 0
-				icon_state = "circuit_imprinter"
-				user << "You close the maintenance hatch of [src]."
 			return
-		if (opened)
+			
+		if (panel_open)
 			if(istype(O, /obj/item/weapon/crowbar))
-				playsound(src.loc, 'sound/items/Crowbar.ogg', 50, 1)
-				var/obj/machinery/constructable_frame/machine_frame/M = new /obj/machinery/constructable_frame/machine_frame(src.loc)
-				M.state = 2
-				M.icon_state = "box_1"
-				for(var/obj/I in component_parts)
-					if(istype(I, /obj/item/weapon/reagent_containers/glass/beaker))
-						reagents.trans_to(I, reagents.total_volume)
-					if(I.reliability != 100 && crit_fail)
-						I.crit_fail = 1
-					I.loc = src.loc
 				if(g_amount >= 3750)
 					var/obj/item/stack/sheet/glass/G = new /obj/item/stack/sheet/glass(src.loc)
 					G.amount = round(g_amount / 3750)
@@ -91,7 +81,7 @@ using metal and glass, it uses glass and reagents (usually sulfuric acis).
 				if(uranium_amount >= 2000)
 					var/obj/item/stack/sheet/mineral/uranium/G = new /obj/item/stack/sheet/mineral/uranium(src.loc)
 					G.amount = round(uranium_amount / 2000)
-				del(src)
+				default_deconstruction_crowbar(O)
 				return 1
 			else
 				user << "\red You can't load the [src.name] while it's opened."
