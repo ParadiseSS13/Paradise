@@ -186,7 +186,7 @@ var/global/list/autolathe_recipes_hidden = list( \
 	if (src.shocked)
 		src.shock(user,50)
 		
-	if (src.opened)
+	if (src.panel_open)
 		wires_win(user,50)
 		return
 		
