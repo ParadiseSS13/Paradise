@@ -130,8 +130,8 @@
 	data["records"] = temprecords
 	
 	if(src.menu == 3)
-		data["activerecord"] = src.active_record
 		if (src.active_record)
+			data["activerecord"] = "\ref[src.active_record]"
 			var/obj/item/weapon/implant/health/H = null
 			if(src.active_record.implant)
 				H = locate(src.active_record.implant)
@@ -267,8 +267,8 @@
 	else if (href_list["refresh"])
 		nanomanager.update_uis(src)
 
-	else if (href_list["clone"])
-		var/datum/dna2/record/C = href_list["clone"]
+	else if (href_list["clone"])		
+		var/datum/dna2/record/C = locate(href_list["clone"])
 		//Look for that player! They better be dead!
 		if(C)
 			//Can't clone without someone to clone.  Or a pod.  Or if the pod is busy. Or full of gibs.
@@ -282,7 +282,6 @@
 				temp = "<span class=\"bad\">Error: The cloning pod is malfunctioning.</span>"
 			else if(!config.revival_cloning)
 				temp = "<span class=\"bad\">Error: Unable to initiate cloning cycle.</span>"
-
 			else if(pod1.growclone(C))
 				temp = "Initiating cloning cycle..."
 				records.Remove(C)

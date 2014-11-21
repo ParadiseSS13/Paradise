@@ -4,12 +4,13 @@
 *.rsc
 *.dmb
 *.lk
-<<<<<<< HEAD
 
 #ignore any files in config/, except those in subdirectories.
 /config/*
 !/config/*/*
-=======
+
+#ignore other, specific files and folers
 data/
->>>>>>> 16f787a... Virology - NanoUI, gameplay tweaks, bugfixes
+maps/backup/*
 maps/cyberiad.dmm.backup
+nano/debug.html

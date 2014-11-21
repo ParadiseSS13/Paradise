@@ -750,6 +750,10 @@ var/list/ghostteleportlocs = list()
 /area/atmos
  	name = "Atmospherics"
  	icon_state = "atmos"
+	
+/area/atmos/control
+ 	name = "Atmospherics Control Room"
+ 	icon_state = "atmos"
 
 //Maintenance
 
@@ -1154,27 +1158,42 @@ var/list/ghostteleportlocs = list()
 
 //Engineering
 
-/area/engine
-	engine_smes
-		name = "\improper Engineering SMES"
-		icon_state = "engine_smes"
-		requires_power = 0//This area only covers the batteries and they deal with their own power
+/area/engine/engine_smes
+	name = "\improper Engineering SMES"
+	icon_state = "engine_smes"
+	requires_power = 0//This area only covers the batteries and they deal with their own power
 
-	engineering
-		name = "Engineering"
-		icon_state = "engine_smes"
+/area/engine/engineering
+	name = "Engineering"
+	icon_state = "engine_smes"
 
-	break_room
-		name = "\improper Engineering Foyer"
-		icon_state = "engine"
+/area/engine/break_room
+	name = "\improper Engineering Foyer"
+	icon_state = "engine"
+	
+/area/engine/equipmentstorage
+	name = "\improper Engineering Equipment Storage"
+	icon_state = "storage"
+		
+/area/engine/hardsuitstorage
+	name = "\improper Engineering Equipment Storage"
+	icon_state = "storage"
+	
+/area/engine/controlroom
+	name = "\improper Engineering Control Room"
+	icon_state = "engine_control"
 
-	chiefs_office
-		name = "\improper Chief Engineer's office"
-		icon_state = "engine_control"
+/area/engine/gravitygenerator
+	name = "\improper Gravity Generator"
+	icon_state = "engine"	
+	
+/area/engine/chiefs_office
+	name = "\improper Chief Engineer's office"
+	icon_state = "engine_control"
 
-	mechanic_workshop
-		name = "\improper Mechanic Workshop"
-		icon_state = "engine"
+/area/engine/mechanic_workshop
+	name = "\improper Mechanic Workshop"
+	icon_state = "engine"
 
 //Solars
 
@@ -1464,6 +1483,10 @@ var/list/ghostteleportlocs = list()
 /area/security/medbay
 	name = "\improper Security Medbay"
 	icon_state = "brig"	
+	
+/area/security/prisonershuttle
+	name = "\improper Security Prisoner Shuttle"
+	icon_state = "security"	
 
 /area/security/warden
 	name = "\improper Warden"
