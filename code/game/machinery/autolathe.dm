@@ -160,8 +160,6 @@ var/global/list/autolathe_recipes_hidden = list( \
 				dat += " <A href='?src=\ref[src];make=\ref[t];multiplier=[25]'>x[25]</A>"
 			if (max_multiplier>1)
 				dat += " <A href='?src=\ref[src];make=\ref[t];multiplier=[max_multiplier]'>x[max_multiplier]</A>"
-		else
-			dat += " [t.m_amt/coeff] m / [t.g_amt/coeff] g / [t.f_amt/coeff] f"
 		dat += "<br>"
 	user << browse("<HTML><HEAD><TITLE>Autolathe Control Panel</TITLE></HEAD><BODY><TT>[dat]</TT></BODY></HTML>", "window=autolathe_regular")
 	onclose(user, "autolathe_regular")
