@@ -333,7 +333,7 @@
 
 /obj/machinery/teleport/station
 	name = "station"
-	desc = "The power control station for a bluespace teleporter. Used for toggling power, and can activate a test-fire to prevent malfunctions."
+	desc = "The power control station for a bluespace teleporter."
 	icon_state = "controller"
 	var/engaged = 0
 	use_power = 1
