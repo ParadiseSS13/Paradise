@@ -1117,7 +1117,7 @@ datum/design/adv_capacitor
 	build_path = "/obj/item/weapon/stock_parts/capacitor/adv"
 
 datum/design/adv_sensor
-	name = "Advanced Sensor Module"
+	name = "Advanced Scanning Module"
 	desc = "A stock part used in the construction of various devices."
 	id = "adv_sensor"
 	req_tech = list("magnets" = 3)
@@ -1163,7 +1163,7 @@ datum/design/super_capacitor
 	build_path = "/obj/item/weapon/stock_parts/capacitor/super"
 
 datum/design/phasic_sensor
-	name = "Phasic Sensor Module"
+	name = "Phasic Scanning Module"
 	desc = "A stock part used in the construction of various devices."
 	id = "phasic_sensor"
 	req_tech = list("magnets" = 5, "materials" = 3)
