@@ -2,6 +2,7 @@
 Title: Telescience Control UI 
 Used In File(s): \code\game\machinery\computer\telescience.dm
 -->
+<h1>Telescience Console</h1>
 <div class="item">
 	<div class="itemLabel">Coordinates:</div>
 	<div class="itemContent">
@@ -18,3 +19,13 @@ Used In File(s): \code\game\machinery\computer\telescience.dm
 		{{:helper.link('Recalibrate', 'gear', {'recal': 1})}}
 	</div>
 </div>
+{{if data.sps}}
+<h2>Space Positioning System</h2>
+<div class="item">
+	<div class="itemLabel">Options:</div>
+	<div class="itemContent">
+		{{:helper.link('Eject SPS', 'eject', {'ejectSPS': 1})}}
+		{{:helper.link('Set SPS Memory', 'arrowstop-1-n', {'setMemory': 1})}}
+	</div>
+</div>
+{{/if}}

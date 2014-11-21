@@ -17,6 +17,7 @@
 	l_color = "#50AB00"
 
 	req_access = list(access_tcomsat)
+	circuit = "/obj/item/weapon/circuitboard/comm_traffic"	
 
 
 	proc/update_ide()

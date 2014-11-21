@@ -197,7 +197,6 @@ var/GLOBAL_RADIO_TYPE = 1 // radio type to use
 	return wires.IsIndexCut(index)
 
 /obj/item/device/radio/proc/autosay(var/message, var/from, var/channel) //BS12 EDIT
-	testing("Autosaying.")
 	var/datum/radio_frequency/connection = null
 	if(channel && channels && channels.len > 0)
 		if (channel == "department")
@@ -211,7 +210,7 @@ var/GLOBAL_RADIO_TYPE = 1 // radio type to use
 		return
 	if (!connection)
 		return
-	testing("Generating new AI for autosay.")
+
 	var/mob/living/silicon/ai/A = new /mob/living/silicon/ai(src, null, null, 1)
 	Broadcast_Message(connection, A,
 						0, "*garbled automated announcement*", src,

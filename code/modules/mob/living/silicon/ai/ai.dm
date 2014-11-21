@@ -28,6 +28,7 @@ var/list/ai_list = list()
 	var/viewalerts = 0
 	var/lawcheck[1]
 	var/ioncheck[1]
+	var/lawchannel = "Common" // Default channel on which to state laws
 	var/icon/holo_icon//Default is assigned when AI is created.
 	var/obj/item/device/pda/ai/aiPDA = null
 	var/obj/item/device/multitool/aiMulti = null
@@ -56,7 +57,6 @@ var/list/ai_list = list()
 	var/last_announcement = ""
 
 /mob/living/silicon/ai/New(loc, var/datum/ai_laws/L, var/obj/item/device/mmi/B, var/safety = 0)
-	testing("Spawning new AI.")
 	var/list/possibleNames = ai_names
 
 	var/pickedName = null
@@ -85,7 +85,7 @@ var/list/ai_list = list()
 		make_laws()
 
 	verbs += /mob/living/silicon/ai/proc/show_laws_verb
-	testing("Spawning new AI, stage 2.")
+
 	aiPDA = new/obj/item/device/pda/ai(src)
 	aiPDA.owner = name
 	aiPDA.ownjob = "AI"
@@ -96,7 +96,7 @@ var/list/ai_list = list()
 	aiRadio.myAi = src
 
 	aiCamera = new/obj/item/device/camera/siliconcam/ai_camera(src)
-	testing("Spawning new AI, stage 3.")
+
 	if (istype(loc, /turf))
 		verbs.Add(/mob/living/silicon/ai/proc/ai_network_change, \
 		/mob/living/silicon/ai/proc/ai_statuschange, /mob/living/silicon/ai/proc/ai_hologram_change, \
@@ -148,7 +148,7 @@ var/list/ai_list = list()
 	ai_list += src
 	..()
 	return
-	testing("Spawning new AI, done.")
+
 /mob/living/silicon/ai/Destroy()
 	ai_list -= src
 	..()
@@ -414,9 +414,12 @@ var/list/ai_list = list()
 //		src << text ("Switching Law [L]'s report status to []", lawcheck[L+1])
 		checklaws()
 
-	if(href_list["say_word"])
-		play_vox_word(href_list["say_word"], null, src)
-		return
+	if (href_list["lawr"]) // Selects on which channel to state laws
+		var/setchannel = input(usr, "Specify channel.", "Channel selection") in list("State","Common","Science","Command","Medical","Engineering","Security","Supply","Binary","Holopad", "Cancel")
+		if(setchannel == "Cancel")
+			return
+		lawchannel = setchannel
+		checklaws()
 
 	if (href_list["lawi"]) // Toggling whether or not a law gets stated by the State Laws verb --NeoFite
 		var/L = text2num(href_list["lawi"])
@@ -428,7 +431,11 @@ var/list/ai_list = list()
 
 	if (href_list["laws"]) // With how my law selection code works, I changed statelaws from a verb to a proc, and call it through my law selection panel. --NeoFite
 		statelaws()
-
+		
+	if(href_list["say_word"])
+		play_vox_word(href_list["say_word"], null, src)
+		return
+		
 	if (href_list["track"])
 		var/mob/target = locate(href_list["track"]) in mob_list
 		var/mob/living/silicon/ai/A = locate(href_list["track2"]) in mob_list
