@@ -1764,16 +1764,6 @@ datum/design/smg
 	build_path = "/obj/item/weapon/gun/projectile/automatic"
 	locked = 1
 
-datum/design/decloner
-	name = "Decloner"
-	desc = "Your opponent will bubble into a messy pile of goop."
-	id = "decloner"
-	req_tech = list("combat" = 8, "materials" = 7, "biotech" = 5, "powerstorage" = 6)
-	build_type = PROTOLATHE
-	materials = list("$gold" = 5000,"$uranium" = 10000, "mutagen" = 40)
-	build_path = /obj/item/weapon/gun/energy/decloner
-	locked = 1
-	
 datum/design/ionrifle
 	name = "Ion Rifle"
 	desc = "How to dismantle a cyborg : The gun."
