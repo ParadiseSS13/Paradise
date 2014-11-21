@@ -1464,6 +1464,10 @@ var/list/ghostteleportlocs = list()
 /area/security/medbay
 	name = "\improper Security Medbay"
 	icon_state = "brig"	
+	
+/area/security/prisonershuttle
+	name = "\improper Security Prisoner Shuttle"
+	icon_state = "security"	
 
 /area/security/warden
 	name = "\improper Warden"
