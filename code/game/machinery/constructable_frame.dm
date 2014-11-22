@@ -67,6 +67,17 @@
 				else
 					user << "<span class='warning'>You need five length of cable to wire the frame.</span>"
 					return
+			else if(istype(P, /obj/item/stack/sheet/glass))
+				var/obj/item/stack/sheet/glass/G = P
+				if(G.amount<5)
+					user << "\red You do not have enough glass to build a display case."
+					return
+				G.use(5)
+				user << "\blue You add the glass to the frame."
+				playsound(get_turf(src), 'sound/items/Deconstruct.ogg', 50, 1)
+				new /obj/structure/displaycase_frame(src.loc)
+				del(src)
+				return
 			if(istype(P, /obj/item/weapon/wrench))
 				playsound(src.loc, 'sound/items/Ratchet.ogg', 75, 1)
 				user << "<span class='notice'>You dismantle the frame.</span>"

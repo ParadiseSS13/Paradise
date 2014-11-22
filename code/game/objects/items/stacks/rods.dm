@@ -61,8 +61,8 @@
 		if (!do_after(usr, 10))
 			return
 
-		var /obj/structure/grille/Grille = getFromPool(/obj/structure/grille, usr.loc)
+		var /obj/structure/grille/F = new /obj/structure/grille/ ( usr.loc )
 		usr << "\blue You assemble a grille"
-		Grille.add_fingerprint(usr)
+		F.add_fingerprint(usr)
 		use(2)
 	return

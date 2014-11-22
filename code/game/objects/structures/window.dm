@@ -313,6 +313,11 @@ var/global/wcColored
 		..()
 	return
 
+
+/obj/structure/window/mech_melee_attack(obj/mecha/M)
+	if(..())
+		hit(M.force, 1)	
+	
 /obj/structure/window/proc/hit(var/damage, var/sound_effect = 1)
 	if(reinf) damage *= 0.5
 	health = max(0, health - damage)

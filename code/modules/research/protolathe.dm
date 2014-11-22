@@ -57,14 +57,11 @@ Note: Must be placed west/left of and R&D console to function.
 	efficiency_coeff = max(T, 1)
 
 /obj/machinery/r_n_d/protolathe/attackby(var/obj/item/O as obj, var/mob/user as mob)
-	if (shocked)
-		shock(user,50)	
-
 	if(exchange_parts(user, O))
 		return 1
-			
-	if (O.is_open_container())
-		return 1
+
+	if (shocked)
+		shock(user,50)	
 		
 	if (istype(O, /obj/item/weapon/screwdriver))
 		if (default_deconstruction_screwdriver(user, "protolathe_t", "protolathe", O))
@@ -118,6 +115,8 @@ Note: Must be placed west/left of and R&D console to function.
 	if (!linked_console)
 		user << "\The protolathe must be linked to an R&D console first!"
 		return 1
+	if (O.is_open_container())
+		return
 	if (busy)
 		user << "\red The protolathe is busy. Please wait for completion of previous operation."
 		return 1
@@ -181,3 +180,4 @@ Note: Must be placed west/left of and R&D console to function.
 	busy = 0
 	src.updateUsrDialog()
 	return
+	

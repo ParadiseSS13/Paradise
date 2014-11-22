@@ -1,6 +1,6 @@
 /*///////////////Circuit Imprinter (By Darem)////////////////////////
 	Used to print new circuit boards (for computers and similar systems) and AI modules. Each circuit board pattern are stored in
-a /datum/desgin on the linked R&D console. You can then print them out in a fasion similar to a regular lathe. However, instead of
+a /datum/design on the linked R&D console. You can then print them out in a fasion similar to a regular lathe. However, instead of
 using metal and glass, it uses glass and reagents (usually sulfuric acis).
 
 */
@@ -69,6 +69,12 @@ using metal and glass, it uses glass and reagents (usually sulfuric acis).
 			
 		if (panel_open)
 			if(istype(O, /obj/item/weapon/crowbar))
+				for(var/obj/I in component_parts)
+					if(istype(I, /obj/item/weapon/reagent_containers/glass/beaker))
+						reagents.trans_to(I, reagents.total_volume)
+					if(I.reliability != 100 && crit_fail)
+						I.crit_fail = 1
+					I.loc = src.loc
 				if(g_amount >= 3750)
 					var/obj/item/stack/sheet/glass/G = new /obj/item/stack/sheet/glass(src.loc)
 					G.amount = round(g_amount / 3750)

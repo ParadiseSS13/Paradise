@@ -716,6 +716,7 @@ datum/design/posibrain
 //////////Mecha Module Disks///////
 ///////////////////////////////////
 
+// Ripley
 datum/design/ripley_main
 	name = "Circuit Design (APLU \"Ripley\" Central Control module)"
 	desc = "Allows for the construction of a \"Ripley\" Central Control module."
@@ -734,6 +735,7 @@ datum/design/ripley_peri
 	materials = list("$glass" = 2000, "sacid" = 20)
 	build_path = "/obj/item/weapon/circuitboard/mecha/ripley/peripherals"
 
+// Odysseus	
 datum/design/odysseus_main
 	name = "Circuit Design (\"Odysseus\" Central Control module)"
 	desc = "Allows for the construction of a \"Odysseus\" Central Control module."
@@ -752,6 +754,7 @@ datum/design/odysseus_peri
 	materials = list("$glass" = 2000, "sacid" = 20)
 	build_path = "/obj/item/weapon/circuitboard/mecha/odysseus/peripherals"
 
+// Gygax	
 datum/design/gygax_main
 	name = "Circuit Design (\"Gygax\" Central Control module)"
 	desc = "Allows for the construction of a \"Gygax\" Central Control module."
@@ -779,6 +782,7 @@ datum/design/gygax_targ
 	materials = list("$glass" = 2000, "sacid" = 20)
 	build_path = "/obj/item/weapon/circuitboard/mecha/gygax/targeting"
 
+// Durand	
 datum/design/durand_main
 	name = "Circuit Design (\"Durand\" Central Control module)"
 	desc = "Allows for the construction of a \"Durand\" Central Control module."
@@ -806,6 +810,35 @@ datum/design/durand_targ
 	materials = list("$glass" = 2000, "sacid" = 20)
 	build_path = "/obj/item/weapon/circuitboard/mecha/durand/targeting"
 
+// Phazon	
+datum/design/phazon_main
+	name = "Exosuit Design (\"Phazon\" Central Control module)"
+	desc = "Allows for the construction of a \"Phazon\" Central Control module."
+	id = "phazon_main"
+	req_tech = list("programming" = 5, "materials" = 7, "powerstorage" = 6)
+	build_type = IMPRINTER
+	materials = list("$glass" = 1000, "sacid" = 20)
+	build_path = /obj/item/weapon/circuitboard/mecha/phazon/main
+
+datum/design/phazon_peri
+	name = "Exosuit Design (\"Phazon\" Peripherals Control module)"
+	desc = "Allows for the construction of a \"Phazon\" Peripheral Control module."
+	id = "phazon_peri"
+	req_tech = list("programming" = 5, "bluespace" = 6)
+	build_type = IMPRINTER
+	materials = list("$glass" = 1000, "sacid" = 20)
+	build_path = /obj/item/weapon/circuitboard/mecha/phazon/peripherals
+
+datum/design/phazon_targ
+	name = "Exosuit Design (\"Phazon\" Weapons & Targeting Control module)"
+	desc = "Allows for the construction of a \"Phazon\" Weapons & Targeting Control module."
+	id = "phazon_targ"
+	req_tech = list("programming" = 5, "magnets" = 6)
+	build_type = IMPRINTER
+	materials = list("$glass" = 1000, "sacid" = 20)
+	build_path = /obj/item/weapon/circuitboard/mecha/phazon/targeting		
+	
+// H.O.N.K.	
 datum/design/honker_main
 	name = "Circuit Design (\"H.O.N.K\" Central Control module)"
 	desc = "Allows for the construction of a \"H.O.N.K\" Central Control module."
@@ -832,7 +865,8 @@ datum/design/honker_targ
 	build_type = IMPRINTER
 	materials = list("$glass" = 2000, "sacid" = 20)
 	build_path = "/obj/item/weapon/circuitboard/mecha/honker/targeting"
-
+	
+// Space pod	
 /datum/design/spacepod_main
 	name = "Circuit Design (Space Pod Mainboard)"
 	desc = "Allows for the construction of a Space Pod mainboard."
@@ -840,8 +874,8 @@ datum/design/honker_targ
 	req_tech = list("programming" = 4)
 	build_type = IMPRINTER
 	materials = list("$glass" = 2000, "sacid" = 20)
-	build_path = /obj/item/weapon/circuitboard/mecha/pod
-
+	build_path = /obj/item/weapon/circuitboard/mecha/pod	
+	
 ////////////////////////////////////////
 /////////// Mecha Equpment /////////////
 ////////////////////////////////////////
@@ -1117,7 +1151,7 @@ datum/design/adv_capacitor
 	build_path = "/obj/item/weapon/stock_parts/capacitor/adv"
 
 datum/design/adv_sensor
-	name = "Advanced Sensor Module"
+	name = "Advanced Scanning Module"
 	desc = "A stock part used in the construction of various devices."
 	id = "adv_sensor"
 	req_tech = list("magnets" = 3)
@@ -1163,7 +1197,7 @@ datum/design/super_capacitor
 	build_path = "/obj/item/weapon/stock_parts/capacitor/super"
 
 datum/design/phasic_sensor
-	name = "Phasic Sensor Module"
+	name = "Phasic Scanning Module"
 	desc = "A stock part used in the construction of various devices."
 	id = "phasic_sensor"
 	req_tech = list("magnets" = 5, "materials" = 3)
@@ -1985,6 +2019,24 @@ datum/design/mesons
 	materials = list("$metal" = 50, "$glass" = 50)
 	build_path = "/obj/item/clothing/glasses/meson"
 
+datum/design/night_vision_goggles
+	name = "Night Vision Goggles"
+	desc = "Goggles that let you see through darkness unhindered."
+	id = "night_visision_goggles"
+	req_tech = list("magnets" = 4)
+	build_type = PROTOLATHE
+	materials = list("$metal" = 100, "$glass" = 100, "$uranium" = 1000)
+	build_path = /obj/item/clothing/glasses/night
+
+datum/design/magboots
+	name = "Magnetic Boots"
+	desc = "Magnetic boots, often used during extravehicular activity to ensure the user remains safely attached to the vehicle."
+	id = "magboots"
+	req_tech = list("materials" = 4, "magnets" = 4, "engineering" = 5)
+	build_type = PROTOLATHE
+	materials = list("$metal" = 4500, "$silver" = 1500, "$gold" = 2500)
+	build_path = /obj/item/clothing/shoes/magboots	
+	
 datum/design/miningblueprint1
 	name = "Mining Schematic Disk Version 1"
 	desc = "Contains the schematics for a new range of Pickaxes."
@@ -2076,6 +2128,15 @@ datum/design/health_hud
 	materials = list("$metal" = 50, "$glass" = 50)
 	build_path = "/obj/item/clothing/glasses/hud/health"
 
+datum/design/health_hud_night
+	name = "Night Vision Health Scanner HUD"
+	desc = "An advanced medical head-up display that allows doctors to find patients in complete darkness."
+	id = "health_hud_night"
+	req_tech = list("biotech" = 4, "magnets" = 5)
+	build_type = PROTOLATHE
+	materials = list("$metal" = 200, "$glass" = 200, "$uranium" = 1000, "$silver" = 250)
+	build_path = /obj/item/clothing/glasses/hud/health/night	
+	
 datum/design/security_hud
 	name = "Security HUD"
 	desc = "A heads-up display that scans the humans in view and provides accurate data about their ID status."
@@ -2085,6 +2146,15 @@ datum/design/security_hud
 	materials = list("$metal" = 50, "$glass" = 50)
 	build_path = "/obj/item/clothing/glasses/hud/security"
 
+datum/design/security_hud_night
+	name = "Night Vision Security HUD"
+	desc = "A heads-up display which provides id data and vision in complete darkness."
+	id = "security_hud_night"
+	req_tech = list("magnets" = 5, "combat" = 4)
+	build_type = PROTOLATHE
+	materials = list("$metal" = 200, "$glass" = 200, "$uranium" = 1000, "$gold" = 350)
+	build_path = /obj/item/clothing/glasses/hud/security/night
+	
 /////////////////////////////////////////
 //////////////////Test///////////////////
 /////////////////////////////////////////
@@ -2134,7 +2204,7 @@ datum/design/borg_syndicate_module
 /////////////PDA and Radio stuff/////////
 /////////////////////////////////////////
 datum/design/binaryencrypt
-	name = "Binary Encrpytion Key"
+	name = "Binary Encryption Key"
 	desc = "An encyption key for a radio headset.  Contains cypherkeys."
 	id = "binaryencrypt"
 	req_tech = list("syndicate" = 2)
