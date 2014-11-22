@@ -824,7 +824,7 @@ datum/design/phazon_peri
 	name = "Exosuit Design (\"Phazon\" Peripherals Control module)"
 	desc = "Allows for the construction of a \"Phazon\" Peripheral Control module."
 	id = "phazon_peri"
-	req_tech = list("programming" = 5, "bluespace" = 4)
+	req_tech = list("programming" = 5, "bluespace" = 6)
 	build_type = IMPRINTER
 	materials = list("$glass" = 1000, "sacid" = 20)
 	build_path = /obj/item/weapon/circuitboard/mecha/phazon/peripherals
@@ -833,7 +833,7 @@ datum/design/phazon_targ
 	name = "Exosuit Design (\"Phazon\" Weapons & Targeting Control module)"
 	desc = "Allows for the construction of a \"Phazon\" Weapons & Targeting Control module."
 	id = "phazon_targ"
-	req_tech = list("programming" = 5, "magnets" = 5)
+	req_tech = list("programming" = 5, "magnets" = 6)
 	build_type = IMPRINTER
 	materials = list("$glass" = 1000, "sacid" = 20)
 	build_path = /obj/item/weapon/circuitboard/mecha/phazon/targeting		
