@@ -1176,7 +1176,7 @@ var/list/ghostteleportlocs = list()
 	icon_state = "storage"
 		
 /area/engine/hardsuitstorage
-	name = "\improper Engineering Equipment Storage"
+	name = "\improper Engineering Hardsuit Storage"
 	icon_state = "storage"
 	
 /area/engine/controlroom
