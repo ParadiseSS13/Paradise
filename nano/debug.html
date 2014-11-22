@@ -1,31 +1,31 @@
 
-	<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 	<head>
 		<script type='text/javascript'>
 			function receiveUpdateData(jsonString)
 			{
-				// We need both jQuery and NanoUpdate to be able to recieve data
+				// We need both jQuery and NanoStateManager to be able to recieve data
 				// At the moment any data received before those libraries are loaded will be lost
-				if (typeof NanoUpdate != 'undefined' && typeof jQuery != 'undefined')
+				if (typeof NanoStateManager != 'undefined' && typeof jQuery != 'undefined')
 				{
-					NanoUpdate.receiveUpdateData(jsonString);
+					NanoStateManager.receiveUpdateData(jsonString);
 				}
 			}
 		</script>
-		<script type='text/javascript' src='libraries.min.js'></script> <script type='text/javascript' src='nano_config.js'></script> <script type='text/javascript' src='nano_update.js'></script> <script type='text/javascript' src='nano_base_helpers.js'></script> <link rel='stylesheet' type='text/css' href='shared.css'> <link rel='stylesheet' type='text/css' href='icons.css'> 
+		<script type='text/javascript' src='libraries.min.js'></script> <script type='text/javascript' src='nano_utility.js'></script> <script type='text/javascript' src='nano_template.js'></script> <script type='text/javascript' src='nano_state_manager.js'></script> <script type='text/javascript' src='nano_state.js'></script> <script type='text/javascript' src='nano_state_default.js'></script> <script type='text/javascript' src='nano_base_callbacks.js'></script> <script type='text/javascript' src='nano_base_helpers.js'></script> <link rel='stylesheet' type='text/css' href='shared.css'> <link rel='stylesheet' type='text/css' href='icons.css'> <link rel='stylesheet' type='text/css' href='layout_default.css'> 
 	</head>
-	<body scroll=auto data-url-parameters='{"src":"[0x21013192]"}' data-template-data='{"main":"smes.tmpl"}' data-initial-data='{"nameTag":null,"storedCapacity":17.30000114440918,"charging":0,"chargeMode":0,"chargeLevel":50000,"chargeMax":200000,"outputOnline":1,"outputLevel":50000,"outputMax":200000,"outputLoad":7101,"ui":{"status":2,"user":{"name":"Captain"}}}'>
-		<div id='uiWrapper'>
-			<div id='uiTitleWrapper'><div id='uiStatusIcon' class='icon24 uiStatusGood'></div><div id='uiTitle'>SMES Power Storage Unit</div><div id='uiTitleFluff'></div></div>
-			<div id='uiContent'>
-				<noscript><div id='uiNoJavaScript'>Your browser does not have JavaScript enabled. Please enable JavaScript, then restart SS13.</div></noscript>
-	
-	<div id='mainTemplate'></div>
-	
-			</div>
+	<body scroll=auto data-template-data='{"main":"dna_modifier.tmpl","layout":"layout_default.tmpl"}' data-url-parameters='{"src":"[0x2100a837]"}' data-initial-data='{"config":{"title":"DNA Modifier Console","srcObject":{"name":"DNA Modifier Access Console"},"stateKey":"default","status":2,"autoUpdateLayout":0,"autoUpdateContent":1,"showMap":0,"mapZLevel":1,"user":{"name":"unknown"}},"data":{"selectedMenuKey":null,"locked":0,"hasOccupant":0,"isInjectorReady":1,"hasDisk":0,"disk":{"data":null,"owner":null,"label":null,"type":null,"ue":null},"buffers":[{"data":null,"owner":null,"label":null,"type":null,"ue":0},{"data":null,"owner":null,"label":null,"type":null,"ue":0},{"data":null,"owner":null,"label":null,"type":null,"ue":0}],"radiationIntensity":1,"radiationDuration":2,"irradiating":0,"dnaBlockSize":3,"selectedUIBlock":1,"selectedUISubBlock":1,"selectedSEBlock":1,"selectedSESubBlock":1,"selectedUITarget":1,"selectedUITargetHex":1,"occupant":{"name":null,"stat":null,"isViableSubject":null,"health":null,"maxHealth":null,"minHealth":null,"uniqueEnzymes":null,"uniqueIdentity":null,"structuralEnzymes":null,"radiationLevel":null},"isBeakerLoaded":0,"beakerLabel":null,"beakerVolume":0}}'>
+		<div id='uiLayout'>
 		</div>
+		<noscript>
+			<div id='uiNoScript'>
+				<h2>JAVASCRIPT REQUIRED</h2>
+				<p>Your Internet Explorer's Javascript is disabled (or broken).<br/>
+				Enable Javascript and then open this UI again.</p>
+			</div>
+		</noscript>
 	</body>
 </html>
 	

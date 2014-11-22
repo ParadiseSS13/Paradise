@@ -18,7 +18,8 @@
 	var/network = "NULL"		// the network to probe
 
 	var/temp = ""				// temporary feedback messages
-
+	circuit = "/obj/item/weapon/circuitboard/comm_monitor"
+	
 	l_color = "#50AB00"
 
 	attack_hand(mob/user as mob)
