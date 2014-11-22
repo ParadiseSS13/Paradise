@@ -16,7 +16,6 @@
 	internal_damage_threshold = 35
 	max_equip = 3
 	maxsize = 2
-	force = 10
 	step_energy_drain = 3
 
 /obj/mecha/combat/gygax/loaded/New()

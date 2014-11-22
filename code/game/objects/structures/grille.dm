@@ -110,7 +110,12 @@
 	health -= M.melee_damage_upper
 	healthcheck()
 	return
-
+	
+/obj/structure/grille/mech_melee_attack(obj/mecha/M)
+	if(..())
+		playsound(loc, 'sound/effects/grillehit.ogg', 80, 1)
+		health -= M.force * 0.5
+		healthcheck()
 
 /obj/structure/grille/CanPass(atom/movable/mover, turf/target, height=0, air_group=0)
 	if(air_group || (height==0)) return 1

@@ -2100,7 +2100,7 @@ datum/design/bluespace_crystal
 	name = "Artificial Bluespace Crystal"
 	desc = "A small blue crystal with mystical properties."
 	id = "bluespace_crystal"
-	req_tech = list("bluespace" = 3, "materials" = 5)
+	req_tech = list("bluespace" = 4, "materials" = 6)
 	build_type = PROTOLATHE
 	materials = list("$gold" = 1500, "$diamond" = 3000, "$plasma" = 1500)
 	reliability_base = 100
