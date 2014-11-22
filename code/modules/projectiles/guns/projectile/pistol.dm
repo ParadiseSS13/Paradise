@@ -75,7 +75,7 @@
 
 /obj/item/weapon/gun/projectile/automatic/pistol
 	name = "\improper Stechtkin pistol"
-	desc = "A small, easily concealable gun. Uses 10mm rounds."
+	desc = "A small, easily concealable gun. Uses 10mm rounds and has a threaded barrel for suppressors."
 	icon_state = "pistol"
 	w_class = 2
 	silenced = 0
@@ -122,8 +122,8 @@
 	return
 
 /obj/item/weapon/silencer
-	name = "silencer"
-	desc = "a silencer"
+	name = "supressor"
+	desc = "A universal syndicate small-arms suppressor."
 	icon = 'icons/obj/gun.dmi'
 	icon_state = "silencer"
 	w_class = 2
