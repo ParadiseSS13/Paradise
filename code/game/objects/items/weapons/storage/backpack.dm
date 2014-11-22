@@ -238,11 +238,6 @@
 	icon_state = "duffel-captain"
 	item_state = "duffel-captain"
 
-/obj/item/weapon/storage/backpack/duffel/captain
-	name = "captain's duffelbag"
-	desc = "A duffelbag designed to hold large quantities of condoms."
-	icon_state = "duffel-captain"
-	item_state = "duffel-captain"
 
 /obj/item/weapon/storage/backpack/duffel/security
 	name = "security duffelbag"
@@ -251,7 +246,7 @@
 	item_state = "duffel-security"
 
 /obj/item/weapon/storage/backpack/duffel/virology
-	name = "captain's duffelbag"
+	name = "virology duffelbag"
 	desc = "A white duffelbag designed to contain biohazards."
 	icon_state = "duffel-viro"
 	item_state = "duffel-viro"
