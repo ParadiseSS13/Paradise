@@ -9,6 +9,7 @@
 	anchored = 1
 	use_power = 1
 	idle_power_usage = 0
+	var/syndicate = 0
 	var/obj/item/device/radio/beacon/Beacon
 
 	New()
@@ -17,6 +18,7 @@
 		Beacon = new /obj/item/device/radio/beacon
 		Beacon.invisibility = INVISIBILITY_MAXIMUM
 		Beacon.loc = T
+		Beacon.syndicate = syndicate
 
 		hide(T.intact)
 

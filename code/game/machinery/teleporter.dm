@@ -31,7 +31,16 @@
 	return power_station
 
 /obj/machinery/computer/teleporter/attackby(I as obj, mob/living/user as mob)
-	if(istype(I, /obj/item/device/sps))
+	if(istype(I,/obj/item/weapon/card/emag)) // If hit by an emag.
+		var/obj/item/weapon/card/emag/E = I
+		if(!emagged)
+			if(E.uses)
+				E.uses--
+				emagged = 1
+				user << "\blue The teleporter can now lock on to Syndicate beacons!"
+		else
+			ui_interact(user)
+	else if(istype(I, /obj/item/device/sps))
 		var/obj/item/device/sps/L = I
 		if(L.locked_location && !(stat & (NOPOWER|BROKEN)))
 			user.before_take_item(L)
@@ -171,6 +180,8 @@
 			if (!T)
 				continue
 			if(T.z == 2 || T.z > 7)
+				continue
+			if(R.syndicate == 1 && emagged == 0)
 				continue
 			var/tmpname = T.loc.name
 			if(areaindex[tmpname])
@@ -329,7 +340,6 @@
 	..()
 	component_parts += new /obj/item/weapon/stock_parts/matter_bin/super(null)
 	RefreshParts()
-
 
 /obj/machinery/teleport/station
 	name = "station"
