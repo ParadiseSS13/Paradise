@@ -581,6 +581,7 @@
 						var/obj/machinery/bot/medbot/syndicate/S = new /obj/machinery/bot/medbot/syndicate(T)
 						S.skin = src.skin
 						S.name = src.created_name
+						S.req_access = list("150")
 
 					else
 						var/obj/machinery/bot/medbot/S = new /obj/machinery/bot/medbot(T)
