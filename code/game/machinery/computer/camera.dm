@@ -12,7 +12,6 @@
 	var/list/tempnets[0]
 	var/list/data[0]
 	var/list/access[0]
-	var/emag = 0
 
 	New() // Lists existing networks and their required access. Format: networks[<name>] = list(<access>)
 		networks["SS13"] = list(access_hos,access_captain)
@@ -53,10 +52,10 @@
 	attackby(I as obj, user as mob)
 		if(istype(I,/obj/item/weapon/card/emag)) // If hit by an emag.
 			var/obj/item/weapon/card/emag/E = I
-			if(!emag)
+			if(!emagged)
 				if(E.uses)
 					E.uses--
-					emag = 1
+					emagged = 1
 					user << "\blue You have authorized full network access!"
 					ui_interact(user)
 				else
@@ -78,7 +77,7 @@
 		
 		data.Cut()
 		tempnets.Cut()
-		if(emag)
+		if(emagged)
 			access = list(access_captain) // Assume captain level access when emagged
 			data["emagged"] = 1
 		if(isAI(user))
