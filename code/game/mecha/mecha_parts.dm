@@ -293,14 +293,14 @@
 	icon_state = "phazon_harness"
 	construction_time = 300
 	construction_cost = list("metal"=35000,"glass"=10000,"plasma"=20000)
-	origin_tech = "programming=5;materials=7;bluespace=6;powerstorage=6"
+	origin_tech = "programming=5;materials=7;bluespace=4;powerstorage=6"
 
 /obj/item/mecha_parts/part/phazon_head
 	name="Phazon Head"
 	icon_state = "phazon_head"
 	construction_time = 200
 	construction_cost = list("metal"=15000,"glass"=5000,"plasma"=10000)
-	origin_tech = "programming=4;materials=5;magnets=6"
+	origin_tech = "programming=4;materials=5;magnets=5"
 
 /obj/item/mecha_parts/part/phazon_left_arm
 	name="Phazon Left Arm"
@@ -330,9 +330,15 @@
 	construction_cost = list("metal"=20000,"plasma"=10000)
 	origin_tech = "materials=5;bluespace=3;magnets=3"
 
+/obj/item/mecha_parts/part/phazon_armor
+	name="Phazon armor"
+	desc="Phazon armor plates. They are layered with plasma to protect the pilot from the stress of phasing and have unusual properties."
+	icon_state = "phazon_armor"
+	construction_time = 300
+	construction_cost = list("metal"=45000,"plasma"=30000)
+	origin_tech = "materials=6;bluespace=4;magnets=5"	
+	
 ///////// Odysseus
-
-
 /obj/item/mecha_parts/chassis/odysseus
 	name = "Odysseus Chassis"
 
@@ -451,6 +457,22 @@
 
 	durand/main
 		name = "Circuit board (Durand Central Control module)"
+		icon_state = "mainboard"
+		
+	phazon
+		origin_tech = "programming=4"
+
+	phazon/peripherals
+		name = "Circuit board (Phazon Peripherals Control module)"
+		icon_state = "mcontroller"
+
+	phazon/targeting
+		name = "Circuit board (Phazon Weapon Control and Targeting module)"
+		icon_state = "mcontroller"
+		origin_tech = "programming=4;combat=4"
+
+	phazon/main
+		name = "Circuit board (Phazon Central Control module)"
 		icon_state = "mainboard"
 
 	honker
