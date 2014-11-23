@@ -37,7 +37,7 @@
 		return
 	else
 		var/possibleborg = pick(possiblecandidates)
-		var/input = alert(possibleborg,"Do you want to spawn in as a cyborg for the Syndicate operatives?","Syndicate Cyborg","Yes","No")
+		var/input = alert(possibleborg,"Do you want to spawn in as a cyborg for the Syndicate operatives?","Syndicate Cyborg","No","Yes")
 		if(input == "Yes" && used == 0)
 			possiblecandidates -= possibleborg
 			used = 1
