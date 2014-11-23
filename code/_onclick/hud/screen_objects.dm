@@ -498,7 +498,7 @@
 				var/mob/living/silicon/ai/AI = usr
 				AI.toggle_camera_light()
 
-		if("Crew Monitorting")
+		if("Crew Monitoring")
 			if(isAI(usr))
 				var/mob/living/silicon/ai/AI = usr
 				var/obj/machinery/computer/crew/C = locate(/obj/machinery/computer/crew)

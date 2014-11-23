@@ -223,6 +223,7 @@
 
 	O.loc = loc
 	O.job = "Cyborg"
+	O.notify_ai(1)
 
 	if(O.mind.assigned_role == "Cyborg")
 		if(O.mind.role_alt_title == "Android")

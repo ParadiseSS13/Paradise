@@ -39,6 +39,7 @@
 			uneq_all()
 			src.stat = 1		
 			Paralyse(3)
+			has_power = 0
 		else
 			if(src.module_state_1)
 				src.cell.use(3)
@@ -55,6 +56,7 @@
 				Paralyse(3)
 
 			src.stat = 0
+			has_power = 1
 	else
 		uneq_all()
 		src.stat = 1	

@@ -285,6 +285,19 @@ var/list/uplink_items = list()
 	item = /obj/mecha/combat/marauder/mauler/loaded
 	cost = 140
 	gamemodes = list("nuclear emergency")
+	
+/datum/uplink_item/dangerous/syndieborg
+	name = "Syndicate Cyborg"
+	desc = "A cyborg designed and programmed for systematic extermination of non-Syndicate personnel."
+	item = /obj/item/weapon/antag_spawner/borg_tele
+	cost = 50
+	gamemodes = list("nuclear emergency")
+
+//for refunding the syndieborg teleporter
+/datum/uplink_item/dangerous/syndieborg/spawn_item()
+	var/obj/item/weapon/antag_spawner/borg_tele/T = ..()
+	if(istype(T))
+		T.TC_cost = cost
 
 // Ammunition
 
