@@ -200,6 +200,10 @@
 			return list(access_cent_general, access_cent_living, access_cent_storage)
 		if("Thunderdome Overseer")
 			return list(access_cent_general, access_cent_thunder)
+		if("Emergency Response Team")
+			return list(access_cent_general, access_cent_living, access_cent_storage)
+		if("Emergency Response Team Leader")
+			return list(access_cent_general, access_cent_living, access_cent_storage, access_cent_teleporter)
 		if("Intel Officer")
 			return list(access_cent_general, access_cent_living)
 		if("Medical Officer")
@@ -210,6 +214,12 @@
 			return list(access_cent_general, access_cent_specops, access_cent_medical, access_cent_teleporter, access_cent_storage)
 		if("BlackOps Commander")
 			return list(access_cent_general, access_cent_thunder, access_cent_specops, access_cent_living, access_cent_storage, access_cent_creed)
+		if("Special Operations Officer")
+			return get_all_centcom_access()
+		if("NanoTrasen Navy Officer")
+			return get_all_centcom_access()
+		if("NanoTrasen Navy Captain")
+			return get_all_centcom_access()
 		if("Supreme Commander")
 			return get_all_centcom_access()
 
@@ -447,7 +457,7 @@
 	return all_jobs
 
 /proc/get_all_centcom_jobs()
-	return list("VIP Guest","Custodian","Thunderdome Overseer","Intel Officer","Medical Officer","Death Commando","Research Officer","BlackOps Commander","Supreme Commander","Emergency Response Team","Emergency Response Team Leader")
+	return list("VIP Guest","Custodian","Thunderdome Overseer","Emergency Response Team","Emergency Response Team Leader","Intel Officer","Medical Officer","Death Commando","Research Officer","BlackOps Commander","Special Operations Officer","NanoTrasen Navy Officer","NanoTrasen Navy Captain","Supreme Commander")
 
 //gets the actual job rank (ignoring alt titles)
 //this is used solely for sechuds
