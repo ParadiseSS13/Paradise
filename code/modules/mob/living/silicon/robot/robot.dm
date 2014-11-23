@@ -170,6 +170,8 @@
 	if (!rbPDA)
 		rbPDA = new/obj/item/device/pda/ai(src)
 	rbPDA.set_name_and_job(custom_name,braintype)
+	if(syndicateborg)
+		rbPDA.hidden = 1
 
 //If there's an MMI in the robot, have it ejected when the mob goes away. --NEO
 //Improved /N
@@ -1412,7 +1414,6 @@
 	designation = "Syndicate"
 	req_access = list(access_syndicate)
 	
-
 /mob/living/silicon/robot/syndicate/New(loc)
 	..()
 	cell.maxcharge = 25000
@@ -1422,6 +1423,7 @@
 	laws = new /datum/ai_laws/syndicate_override()		
 	
 	Namepick()
+	
 	
 /mob/living/silicon/robot/proc/notify_ai(var/notifytype, var/oldname, var/newname)
 	if(!connected_ai)
