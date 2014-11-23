@@ -211,7 +211,8 @@
 			O.invisibility = 0
 			O.custom_name = created_name
 			O.updatename("Default")
-
+			if(O.connected_ai)
+				O.notify_ai(1)
 			M.brainmob.mind.transfer_to(O)
 
 			if(O.mind && O.mind.special_role)

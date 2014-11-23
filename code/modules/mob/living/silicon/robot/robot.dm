@@ -72,6 +72,7 @@
 	var/pose
 	var/base_icon = ""
 	var/crisis = 0
+	var/syndicateborg = 0
 
 /mob/living/silicon/robot/New(loc,var/syndie = 0,var/unfinished = 0, var/alien = 0)
 	spark_system = new /datum/effect/effect/system/spark_spread()
@@ -143,6 +144,9 @@
 	hud_list[NATIONS_HUD] = image('icons/mob/hud.dmi', src, "hudblank")
 
 /mob/living/silicon/robot/proc/init(var/alien=0)
+	if(syndicateborg)
+		playsound(loc, 'sound/voice/liveagain.ogg', 75, 1)
+		return
 	aiCamera = new/obj/item/device/camera/siliconcam/robot_camera(src)
 	if(mmi.alien || alien)
 		laws = new /datum/ai_laws/alienmov()
@@ -187,7 +191,7 @@
 	if(mmi != null && mmi.alien)
 		modules="Hunter"
 	modtype = input("Please, select a module!", "Robot", null, null) in modules
-
+	designation = modtype
 	var/module_sprites[0] //Used to store the associations between sprite names and sprite index.
 	var/channels = list()
 
@@ -306,6 +310,7 @@
 
 	choose_icon(6,module_sprites)
 	radio.config(channels)
+	notify_ai(2)
 
 /mob/living/silicon/robot/proc/updatename(var/prefix as text)
 	if(prefix)
@@ -359,6 +364,7 @@
 		var/newname
 		newname = copytext(sanitize(input(src,"You are a robot. Enter a name, or leave blank for the default name.", "Name change","") as text),1,MAX_NAME_LEN)
 		if (newname != "")
+			notify_ai(3, name, newname)
 			custom_name = newname
 
 		updatename()
@@ -1395,3 +1401,35 @@
 			return
 	else
 		src << "Your icon has been set. You now require a module reset to change it."
+
+/mob/living/silicon/robot/syndicate
+	icon_state = "syndie_bloodhound"
+	lawupdate = 0
+	scrambledcodes = 1
+	syndicateborg = 1
+	modtype = "Synd"
+	faction = list("syndicate")
+	designation = "Syndicate"
+	req_access = list(access_syndicate)
+	
+
+/mob/living/silicon/robot/syndicate/New(loc)
+	..()
+	cell.maxcharge = 25000
+	cell.charge = 25000
+	radio = new /obj/item/device/radio/borg/syndicate(src)
+	module = new /obj/item/weapon/robot_module/syndicate(src)
+	laws = new /datum/ai_laws/syndicate_override()		
+	
+	Namepick()
+	
+/mob/living/silicon/robot/proc/notify_ai(var/notifytype, var/oldname, var/newname)
+	if(!connected_ai)
+		return
+	switch(notifytype)
+		if(1) //New Cyborg
+			connected_ai << "<br><br><span class='notice'>NOTICE - New cyborg connection detected: <a href='byond://?src=\ref[connected_ai];track2=\ref[connected_ai];track=\ref[src]'>[name]</a></span><br>"
+		if(2) //New Module
+			connected_ai << "<br><br><span class='notice'>NOTICE - Cyborg module change detected: [name] has loaded the [designation] module.</span><br>"
+		if(3) //New Name
+			connected_ai << "<br><br><span class='notice'>NOTICE - Cyborg reclassification detected: [oldname] is now designated as [newname].</span><br>"

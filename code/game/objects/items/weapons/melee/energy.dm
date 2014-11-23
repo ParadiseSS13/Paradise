@@ -49,6 +49,20 @@
 	sharp = 1
 	edge = 1
 
+/obj/item/weapon/melee/energy/sword/cyborg
+	var/hitcost = 500	
+	
+/obj/item/weapon/melee/energy/sword/cyborg/attack(mob/M, var/mob/living/silicon/robot/R)
+	if(R.cell)
+		var/obj/item/weapon/cell/C = R.cell
+		if(active && !(C.use(hitcost)))
+			attack_self()
+			R << "<span class='notice'>It's out of charge!</span>"
+			return
+		C.use(hitcost)
+		..()
+	return
+	
 /obj/item/weapon/melee/energy/sword/pirate
 	name = "energy cutlass"
 	desc = "Arrrr matey."

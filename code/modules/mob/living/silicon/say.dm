@@ -111,21 +111,31 @@
 
 	log_say("[key_name(src)] : [message]")
 
+	var/desig = "Unknown" //ezmode for taters
+	if(isrobot(src))
+		var/mob/living/silicon/S = src
+		if(S.designation)
+			desig = trim_left(S.designation)	
+		else
+			desig = "Default"
+	else if(isAI(src))
+		desig = "AI"
+	
 	message = trim(message)
 
 	if (!message)
 		return
 
 	var/message_a = say_quote(message)
-	var/rendered = "<i><span class='game say'>Robotic Talk, <span class='name'>[name]</span> <span class='message'>[message_a]</span></span></i>"
+	var/rendered = "<i><span class='game say'>Robotic Talk, <span class='name'>[name] ([desig])</span> <span class='message'>[message_a]</span></span></i>"
 
 	for (var/mob/living/S in living_mob_list)
 		if(S.robot_talk_understand && (S.robot_talk_understand == robot_talk_understand)) // This SHOULD catch everything caught by the one below, but I'm not going to change it.
 			if(istype(S , /mob/living/silicon/ai))
-				var/renderedAI = "<i><span class='game say'>Robotic Talk, <a href='byond://?src=\ref[S];track2=\ref[S];track=\ref[src]'><span class='name'>[name]</span></a> <span class='message'>[message_a]</span></span></i>"
+				var/renderedAI = "<i><span class='game say'>Robotic Talk, <a href='byond://?src=\ref[S];track2=\ref[S];track=\ref[src]'><span class='name'>[name] ([desig])</span></a> <span class='message'>[message_a]</span></span></i>"
 				S.show_message(renderedAI, 2)
 			else if(istype(S , /mob/dead/observer) && S.stat == DEAD)
-				var/rendered2 = "<i><span class='game say'>Robotic Talk, <span class='name'>[name]</span> <a href='byond://?src=\ref[S];follow2=\ref[S];follow=\ref[src]'>(Follow)</a> <span class='message'>[message_a]</span></span></i>"
+				var/rendered2 = "<i><span class='game say'>Robotic Talk, <span class='name'>[name] ([desig])</span> <a href='byond://?src=\ref[S];follow2=\ref[S];follow=\ref[src]'>(Follow)</a> <span class='message'>[message_a]</span></span></i>"
 				S.show_message(rendered2, 2)
 			else
 				S.show_message(rendered, 2)

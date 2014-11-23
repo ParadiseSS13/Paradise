@@ -371,7 +371,7 @@ the implant may become unstable and either pre-maturely inject the subject or si
 			if(isliving(user))
 				user:brainloss += 20
 			return
-		if(locate(/obj/item/weapon/implant/traitor) in H.contents || locate(/obj/item/weapon/implant/traitor) in H.contents)
+		if(locate(/obj/item/weapon/implant/traitor) in H.contents || locate(/obj/item/weapon/implant/loyalty) in H.contents)
 			H.visible_message("[H] seems to resist the implant!", "You feel a strange sensation in your head that quickly dissipates.")
 			return 0
 		else if(H.mind in ticker.mode.traitors)
