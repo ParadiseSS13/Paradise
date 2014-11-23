@@ -81,6 +81,7 @@
 	silenced = 0
 	origin_tech = "combat=2;materials=2;syndicate=2"
 	mag_type = "/obj/item/ammo_box/magazine/m10mm"
+	fire_sound = 'sound/weapons/Gunshot2.ogg'
 
 /obj/item/weapon/gun/projectile/automatic/pistol/attack_hand(mob/user as mob)
 	if(loc == user)
