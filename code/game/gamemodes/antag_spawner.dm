@@ -25,6 +25,7 @@
 		return
 	if(!checking)
 		checking = 1
+		user << "<span class='notice'>The device is now checking for possible candidates.</span>"
 		get_candidate_answer(user, get_candidates(BE_OPERATIVE))
 	else
 		user << "<span class='notice'>The device is already checking for possible candidates.</span>"
@@ -37,7 +38,7 @@
 		return
 	else
 		var/possibleborg = pick(possiblecandidates)
-		var/input = alert(possibleborg,"Do you want to spawn in as a cyborg for the Syndicate operatives?","Syndicate Cyborg","Yes","No")
+		var/input = alert(possibleborg,"Do you want to spawn in as a cyborg for the Syndicate operatives?","Syndicate Cyborg","No","Yes")
 		if(input == "Yes" && used == 0)
 			possiblecandidates -= possibleborg
 			used = 1
