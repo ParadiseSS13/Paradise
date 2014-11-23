@@ -25,6 +25,7 @@
 		return
 	if(!checking)
 		checking = 1
+		user << "<span class='notice'>The device is now checking for possible candidates.</span>"
 		get_candidate_answer(user, get_candidates(BE_OPERATIVE))
 	else
 		user << "<span class='notice'>The device is already checking for possible candidates.</span>"
