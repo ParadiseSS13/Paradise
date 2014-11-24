@@ -472,3 +472,21 @@
 	item_state = "atmos_hardsuit"
 	armor = list(melee = 40, bullet = 5, laser = 20,energy = 5, bomb = 35, bio = 100, rad = 50)
 	max_heat_protection_temperature = FIRESUIT_MAX_HEAT_PROTECTION_TEMPERATURE
+
+//Singuloth armor
+/obj/item/clothing/head/helmet/space/rig/singuloth
+	name = "singuloth knight's helmet"
+	desc = "This is an adamantium helmet from the chapter of the Singuloth Knights. It shines with a holy aura."
+	icon_state = "rig0-singuloth"
+	item_state = "singuloth_helm"
+	_color = "singuloth"
+	armor = list(melee = 40, bullet = 5, laser = 20,energy = 5, bomb = 25, bio = 100, rad = 80)
+
+/obj/item/clothing/suit/space/rig/singuloth
+	icon_state = "rig-singuloth"
+	name = "singuloth knight's armor"
+	desc = "This is a ceremonial armor from the chapter of the Singuloth Knights. It's made of pure forged adamantium."
+	item_state = "singuloth_hardsuit"
+	flags = FPRINT | TABLEPASS | STOPSPRESSUREDMAGE
+	armor = list(melee = 40, bullet = 5, laser = 20,energy = 5, bomb = 25, bio = 100, rad = 80)
+	
