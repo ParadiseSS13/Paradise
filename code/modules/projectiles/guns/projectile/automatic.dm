@@ -67,7 +67,7 @@
 	slot_flags = 0
 	origin_tech = "combat=5;materials=1;syndicate=2"
 	mag_type = "/obj/item/ammo_box/magazine/m762"
-	fire_sound = 'sound/weapons/Gunshot_smg.ogg'
+	fire_sound = 'sound/weapons/Gunshot3.ogg'
 
 	var/cover_open = 0
 
@@ -123,7 +123,7 @@
 	w_class = 3.0
 	origin_tech = "combat=5;materials=4;syndicate=6"
 	mag_type = "/obj/item/ammo_box/magazine/m12g"
-	fire_sound = 'sound/weapons/Gunshot.ogg'
+	fire_sound = 'sound/weapons/Gunshot4.ogg'
 
 /obj/item/weapon/gun/projectile/automatic/bulldog/New()
 	..()

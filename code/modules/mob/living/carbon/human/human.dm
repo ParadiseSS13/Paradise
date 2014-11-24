@@ -244,6 +244,17 @@
 			else
 				var/atom/target = get_edge_target_turf(src, get_dir(src, get_step_away(src, src)))
 				throw_at(target, 200, 4)
+
+				var/limbs_affected = pick(2,3,4)
+				var/datum/organ/external/processing_dismember
+
+				while(limbs_affected != 0)
+					processing_dismember = pick(organs)
+					if(processing_dismember.name != "chest" && processing_dismember.name != "groin")
+						processing_dismember.dismember_limb()
+						limbs_affected -= 1
+
+
 			//return
 //				var/atom/target = get_edge_target_turf(user, get_dir(src, get_step_away(user, src)))
 				//user.throw_at(target, 200, 4)
@@ -258,6 +269,25 @@
 				b_loss = b_loss/1.5
 				f_loss = f_loss/1.5
 
+				var/limbs_affected = pick(0, 1, 2)
+				var/datum/organ/external/processing_dismember
+
+				while(limbs_affected != 0)
+					processing_dismember = pick(organs)
+					if(processing_dismember.name != "chest" && processing_dismember.name != "groin" && processing_dismember.name != "head")
+						processing_dismember.dismember_limb()
+						limbs_affected -= 1
+
+			else
+				var/limbs_affected = pick(1, 2, 3)
+				var/datum/organ/external/processing_dismember
+
+				while(limbs_affected != 0)
+					processing_dismember = pick(organs)
+					if(processing_dismember.name != "chest" && processing_dismember.name != "groin")
+						processing_dismember.dismember_limb()
+						limbs_affected -= 1
+
 			if (!istype(l_ear, /obj/item/clothing/ears/earmuffs) && !istype(r_ear, /obj/item/clothing/ears/earmuffs))
 				ear_damage += 30
 				ear_deaf += 120
@@ -268,6 +298,18 @@
 			b_loss += 30
 			if (prob(getarmor(null, "bomb")))
 				b_loss = b_loss/2
+
+			else
+
+				var/limbs_affected = pick(0, 1)
+				var/datum/organ/external/processing_dismember
+
+				while(limbs_affected != 0)
+					processing_dismember = pick(organs)
+					if(processing_dismember.name != "chest" && processing_dismember.name != "groin" && processing_dismember.name != "head")
+						processing_dismember.dismember_limb()
+						limbs_affected -= 1
+
 			if (!istype(l_ear, /obj/item/clothing/ears/earmuffs) && !istype(r_ear, /obj/item/clothing/ears/earmuffs))
 				ear_damage += 15
 				ear_deaf += 60
