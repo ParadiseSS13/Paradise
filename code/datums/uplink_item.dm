@@ -285,7 +285,7 @@ var/list/uplink_items = list()
 	item = /obj/mecha/combat/marauder/mauler/loaded
 	cost = 140
 	gamemodes = list("nuclear emergency")
-	
+
 /datum/uplink_item/dangerous/syndieborg
 	name = "Syndicate Cyborg"
 	desc = "A cyborg designed and programmed for systematic extermination of non-Syndicate personnel."
@@ -438,11 +438,13 @@ var/list/uplink_items = list()
 	item = /obj/item/weapon/storage/backpack/satchel_flat
 	cost = 2
 
+/* Commented out until a balance fix is found -Mel
 /datum/uplink_item/stealthy_tools/smdrill
 	name = "Supermatter Drill"
 	desc = "A pocket-sized drill tipped with nanoscopic supermatter crystals, able to cut through reinforced walls."
 	item = /obj/item/weapon/pickaxe/diamonddrill/traitor
 	cost = 6
+*/
 
 // DEVICE AND TOOLS
 
