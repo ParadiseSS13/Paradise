@@ -180,6 +180,17 @@
 /turf/simulated/wall/blob_act()
 	take_damage(rand(75, 125))
 	return
+	
+/turf/simulated/wall/mech_melee_attack(obj/mecha/M)
+	if(M.damtype == "brute")
+		playsound(src, 'sound/weapons/punch4.ogg', 50, 1)
+		M.occupant_message("<span class='danger'>You hit [src].</span>")
+		visible_message("<span class='danger'>[src] has been hit by [M.name].</span>")
+		if(prob(5) && M.force > 20)
+			dismantle_wall(1)
+			M.occupant_message("<span class='warning'>You smash through the wall.</span>")
+			visible_message("<span class='warning'>[src.name] smashes through the wall!</span>")
+			playsound(src, 'sound/effects/meteorimpact.ogg', 100, 1)	
 
 // Wall-rot effect, a nasty fungus that destroys walls.
 /turf/simulated/wall/proc/rot()
@@ -265,8 +276,8 @@
 /turf/simulated/wall/attack_hand(mob/user as mob)
 	if (M_HULK in user.mutations)
 		if (prob(40) || rotting)
-			usr << text("\blue You smash through the wall.")
-			usr.say(pick(";RAAAAAAAARGH!", ";HNNNNNNNNNGGGGGGH!", ";GWAAAAAAAARRRHHH!", "NNNNNNNNGGGGGGGGHH!", ";AAAAAAARRRGH!" ))
+			user << text("\blue You smash through the wall.")
+			user.say(pick(";RAAAAAAAARGH!", ";HNNNNNNNNNGGGGGGH!", ";GWAAAAAAAARRRHHH!", "NNNNNNNNGGGGGGGGHH!", ";AAAAAAARRRGH!" ))
 			dismantle_wall(1)
 			return
 		else

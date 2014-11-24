@@ -6,9 +6,9 @@
 	species_fit = list("Vox")
 
 	cold_protection = FEET
-	min_cold_protection_temperature = SHOE_MIN_COLD_PROTECITON_TEMPERATURE
+	min_cold_protection_temperature = SHOE_MIN_COLD_PROTECTION_TEMPERATURE
 	heat_protection = FEET
-	max_heat_protection_temperature = SHOE_MAX_HEAT_PROTECITON_TEMPERATURE
+	max_heat_protection_temperature = SHOE_MAX_HEAT_PROTECTION_TEMPERATURE
 
 	redcoat
 		_color = "redcoat"	//Exists for washing machines. Is not different from black shoes in any way.

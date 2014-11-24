@@ -12,6 +12,7 @@
 	var/obj/item/weapon/reagent_containers/glass/beaker = null
 
 	var/current_heat_capacity = 50
+	var/efficiency
 
 	l_color = "#00FF00"
 	power_change()
@@ -24,7 +25,23 @@
 /obj/machinery/atmospherics/unary/cryo_cell/New()
 	..()
 	initialize_directions = dir
+	initialize()
+	component_parts = list()
+	component_parts += new /obj/item/weapon/circuitboard/cryo_tube(src)
+	component_parts += new /obj/item/weapon/stock_parts/matter_bin(src)
+	component_parts += new /obj/item/weapon/stock_parts/console_screen(src)
+	component_parts += new /obj/item/weapon/stock_parts/console_screen(src)
+	component_parts += new /obj/item/weapon/stock_parts/console_screen(src)
+	component_parts += new /obj/item/weapon/stock_parts/console_screen(src)
+	component_parts += new /obj/item/stack/cable_coil(src, 1)
+	RefreshParts()
 
+/obj/machinery/atmospherics/unary/cryo_cell/RefreshParts()
+	var/C
+	for(var/obj/item/weapon/stock_parts/matter_bin/M in component_parts)
+		C += M.rating
+	current_heat_capacity = 50 * C
+	efficiency = C			
 
 /obj/machinery/atmospherics/unary/cryo_cell/initialize()
 	if(node) return
@@ -35,7 +52,8 @@
 			break
 
 /obj/machinery/atmospherics/unary/cryo_cell/Destroy()
-	go_out()
+	var/turf/T = loc
+	T.contents += contents
 	var/obj/item/weapon/reagent_containers/glass/B = beaker
 	if(beaker)
 		B.loc = get_step(loc, SOUTH) //Beaker is carefully ejected from the wreckage of the cryotube
@@ -118,7 +136,12 @@
 	return
 
 /obj/machinery/atmospherics/unary/cryo_cell/attack_hand(mob/user)
+	if(panel_open)
+		usr << "\blue <b>Close the maintenance panel first.</b>"
+		return
+
 	ui_interact(user)
+		
 
  /**
   * The ui_interact proc is used to open and update Nano UIs
@@ -229,7 +252,23 @@
 		user.drop_item()
 		G.loc = src
 		user.visible_message("[user] adds \a [G] to \the [src]!", "You add \a [G] to \the [src]!")
-	else if(istype(G, /obj/item/weapon/grab))
+
+	if (istype(G, /obj/item/weapon/screwdriver))
+		if(occupant || on)
+			user << "<span class='notice'>The maintenance panel is locked.</span>"
+			return	
+		default_deconstruction_screwdriver(user, "cell-o", "cell-off", G)
+		return		
+		
+	if(exchange_parts(user, G))
+		return
+
+	default_deconstruction_crowbar(G)
+		
+	if(istype(G, /obj/item/weapon/grab))
+		if(panel_open)
+			user << "\blue <b>Close the maintenance panel first.</b>"
+			return
 		if(!ismob(G:affecting))
 			return
 		for(var/mob/living/carbon/slime/M in range(1,G:affecting))
@@ -261,8 +300,8 @@
 		occupant.bodytemperature = max(occupant.bodytemperature, air_contents.temperature) // this is so ugly i'm sorry for doing it i'll fix it later i promise
 		occupant.stat = 1
 		if(occupant.bodytemperature < T0C)
-			occupant.sleeping = max(5, (1/occupant.bodytemperature)*2000)
-			occupant.Paralyse(max(5, (1/occupant.bodytemperature)*3000))
+			occupant.sleeping = max(5/efficiency, (1/occupant.bodytemperature)*2000/efficiency)
+			occupant.Paralyse(max(5/efficiency, (1/occupant.bodytemperature)*3000/efficiency))
 			if(air_contents.oxygen > 2)
 				if(occupant.getOxyLoss()) occupant.adjustOxyLoss(-1)
 			else
@@ -270,9 +309,9 @@
 			//severe damage should heal waaay slower without proper chemicals
 			if(occupant.bodytemperature < 225)
 				if (occupant.getToxLoss())
-					occupant.adjustToxLoss(max(-1, -20/occupant.getToxLoss()))
-				var/heal_brute = occupant.getBruteLoss() ? min(1, 20/occupant.getBruteLoss()) : 0
-				var/heal_fire = occupant.getFireLoss() ? min(1, 20/occupant.getFireLoss()) : 0
+					occupant.adjustToxLoss(max(-efficiency, (-20*(efficiency ** 2)) / occupant.getToxLoss()))
+				var/heal_brute = occupant.getBruteLoss() ? min(efficiency, 20*(efficiency**2) / occupant.getBruteLoss()) : 0
+				var/heal_fire = occupant.getFireLoss() ? min(efficiency, 20*(efficiency**2) / occupant.getFireLoss()) : 0
 				occupant.heal_organ_damage(heal_brute,heal_fire)
 		var/has_cryo = occupant.reagents.get_reagent_amount("cryoxadone") >= 1
 		var/has_clonexa = occupant.reagents.get_reagent_amount("clonexadone") >= 1

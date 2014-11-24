@@ -24,7 +24,7 @@
 	return 0
 
 /obj/item/weapon/melee/energy/sword/New()
-	_color = pick("red","blue","green","purple")
+	blade_color = pick("red","blue","green","purple")
 
 /obj/item/weapon/melee/energy/sword/attack_self(mob/living/user as mob)
 	if ((M_CLUMSY in user.mutations) && prob(50))
@@ -36,9 +36,10 @@
 		if(istype(src,/obj/item/weapon/melee/energy/sword/pirate))
 			icon_state = "cutlass1"
 		else
-			icon_state = "sword[_color]"
+			icon_state = "sword[blade_color]"
 		w_class = 4
 		playsound(user, 'sound/weapons/saberon.ogg', 50, 1)
+		hitsound = 'sound/weapons/blade1.ogg'
 		user << "\blue [src] is now active."
 	else
 		force = 3
@@ -48,6 +49,7 @@
 			icon_state = "sword0"
 		w_class = 2
 		playsound(user, 'sound/weapons/saberoff.ogg', 50, 1)
+		hitsound = "swing_hit"
 		user << "\blue [src] can now be concealed."
 	if(istype(user,/mob/living/carbon/human))
 		var/mob/living/carbon/human/H = user
@@ -65,9 +67,29 @@
 				user.adjustBrainLoss(10)
 		else
 			user << "<span class='notice'>You attach the ends of the two energy swords, making a single double-bladed weapon! You're cool.</span>"
-			new /obj/item/weapon/twohanded/dualsaber(user.loc)
+			var/obj/item/weapon/twohanded/dualsaber/newSaber = new /obj/item/weapon/twohanded/dualsaber(user.loc)
+			if(src.hacked) // That's right, we'll only check the "original" esword.
+				newSaber.hacked = 1
+				newSaber.blade_color = "rainbow"
 			del(W)
 			del(src)
+
+	else if(istype(W, /obj/item/device/multitool))
+		if(hacked == 0)
+			hacked = 1
+			blade_color = "rainbow"
+			user << "<span class='warning'>RNBW_ENGAGE</span>"
+
+			if(active)
+				icon_state = "swordrainbow"
+				// Updating overlays, copied from welder code.
+				// I tried calling attack_self twice, which looked cool, except it somehow didn't update the overlays!!
+				if(user.r_hand == src)
+					user.update_inv_r_hand(0)
+				else if(user.l_hand == src)
+					user.update_inv_l_hand(0)
+		else
+			user << "<span class='warning'>It's already fabulous!</span>"
 /*
  * Classic Baton
  */
@@ -137,34 +159,31 @@
 	slot_flags = SLOT_BELT
 	w_class = 2
 	force = 3
+	var/cooldown = 0
 	var/on = 0
-
 
 /obj/item/weapon/melee/telebaton/attack_self(mob/user as mob)
 	on = !on
 	if(on)
-		user.visible_message("\red With a flick of their wrist, [user] extends their telescopic baton.",\
-		"\red You extend the baton.",\
-		"You hear an ominous click.")
+		user << "<span class ='warning'>You extend the baton.</span>"
 		icon_state = "telebaton_1"
-		item_state = "telebaton_1"
-		w_class = 3
-		force = 15//quite robust
-		attack_verb = list("smacked", "struck", "slapped")
+		item_state = "nullrod"
+		w_class = 4 //doesnt fit in backpack when its on for balance
+		force = 10 //seclite damage
+		attack_verb = list("smacked", "struck", "cracked", "beaten")
 	else
-		user.visible_message("\blue [user] collapses their telescopic baton.",\
-		"\blue You collapse the baton.",\
-		"You hear a click.")
+		user << "<span class ='notice'>You collapse the baton.</span>"
 		icon_state = "telebaton_0"
-		item_state = "telebaton_0"
+		item_state = "telebaton_0" //no sprite in other words
+		slot_flags = SLOT_BELT
 		w_class = 2
-		force = 3//not so robust now
-		attack_verb = list("hit", "punched")
+		force = 3 //not so robust now
+		attack_verb = list("hit", "poked")
 	if(istype(user,/mob/living/carbon/human))
 		var/mob/living/carbon/human/H = user
 		H.update_inv_l_hand()
 		H.update_inv_r_hand()
-	playsound(src.loc, 'sound/weapons/empty.ogg', 50, 1)
+	playsound(src.loc, 'sound/weapons/batonextend.ogg', 50, 1)
 	add_fingerprint(user)
 	if (!blood_DNA) return
 	if(blood_overlay && (blood_DNA.len >= 1)) //updates blood overlay, if any
@@ -181,8 +200,9 @@
 
 /obj/item/weapon/melee/telebaton/attack(mob/target as mob, mob/living/user as mob)
 	if(on)
-		if ((M_CLUMSY in user.mutations) && prob(50))
-			user << "\red You club yourself over the head."
+		add_fingerprint(user)
+		if((M_CLUMSY in user.mutations) && prob(50))
+			user << "<span class ='danger'>You club yourself over the head.</span>"
 			user.Weaken(3 * force)
 			if(ishuman(user))
 				var/mob/living/carbon/human/H = user
@@ -190,28 +210,32 @@
 			else
 				user.take_organ_damage(2*force)
 			return
+		if(isrobot(target))
+			..()
+			return
+		if(!isliving(target))
+			return
 		if (user.a_intent == "harm")
 			if(!..()) return
-			if(!isrobot(target))
-				playsound(src.loc, "swing_hit", 50, 1, -1)
-				target.Weaken(4)
+			if(!isrobot(target)) return
 		else
-			playsound(src.loc, 'sound/weapons/Genhit.ogg', 50, 1, -1)
-			target.Weaken(2)
-			target.attack_log += text("\[[time_stamp()]\] <font color='orange'>Has been attacked with [src.name] by [user.name] ([user.ckey])</font>")
-			user.attack_log += text("\[[time_stamp()]\] <font color='red'>Used the [src.name] to attack [target.name] ([target.ckey])</font>")
-			log_attack("<font color='red'>[user.name] ([user.ckey]) attacked [target.name] ([target.ckey]) with [src.name] (INTENT: [uppertext(user.a_intent)])</font>")
-			src.add_fingerprint(user)
-			target.visible_message("\red <B>[target] has been stunned with \the [src] by [user]!</B>")
-			if(!iscarbon(user))
-				target.LAssailant = null
-			else
-				target.LAssailant = user
+			if(cooldown <= 0)
+				playsound(get_turf(src), 'sound/effects/woodhit.ogg', 75, 1, -1)
+				target.Weaken(3)
+				add_logs(user, target, "stunned", object="telescopic baton")
+				src.add_fingerprint(user)
+				target.visible_message("<span class ='danger'>[target] has been knocked down with \the [src] by [user]!</span>")
+				if(!iscarbon(user))
+					target.LAssailant = null
+				else
+					target.LAssailant = user
+				cooldown = 1
+				spawn(40)
+					cooldown = 0
 		return
 	else
 		return ..()
-
-
+		
 /*
  *Energy Blade
  */
@@ -250,11 +274,13 @@
 		src.force = 150
 		src.icon_state = "axe1"
 		src.w_class = 5
+		hitsound = 'sound/weapons/blade1.ogg'
 	else
 		user << "\blue The axe can now be concealed."
 		src.force = 40
 		src.icon_state = "axe0"
 		src.w_class = 5
+		hitsound = "swing_hit"
 	src.add_fingerprint(user)
 	return
 
@@ -275,6 +301,7 @@
 	active = !active
 	if (active)
 		force = 10
+		reflect_chance = 80
 		icon_state = "eshield[active]"
 		w_class = 4
 		playsound(user, 'sound/weapons/saberon.ogg', 50, 1)
@@ -283,6 +310,7 @@
 		force = 3
 		icon_state = "eshield[active]"
 		w_class = 1
+		reflect_chance = 0
 		playsound(user, 'sound/weapons/saberoff.ogg', 50, 1)
 		user << "\blue [src] can now be concealed."
 	if(istype(user,/mob/living/carbon/human))

@@ -12,35 +12,31 @@ emp_act
 
 	var/datum/organ/external/organ = get_organ(check_zone(def_zone))
 
+	if(istype(P, /obj/item/projectile/energy) || istype(P, /obj/item/projectile/beam))
+		if(check_reflect(def_zone)) // Checks if you've passed a reflection% check
+			visible_message("<span class='danger'>The [P.name] gets reflected by [src]!</span>", \
+							"<span class='userdanger'>The [P.name] gets reflected by [src]!</span>")
+			// Find a turf near or on the original location to bounce to
+			if(P.starting)
+				var/new_x = P.starting.x + pick(0, 0, 0, 0, 0, -1, 1, -2, 2)
+				var/new_y = P.starting.y + pick(0, 0, 0, 0, 0, -1, 1, -2, 2)
+				var/turf/curloc = get_turf(src)
+
+				// redirect the projectile
+				P.original = locate(new_x, new_y, P.z)
+				P.starting = curloc
+				P.current = curloc
+				P.firer = src
+				P.yo = new_y - curloc.y
+				P.xo = new_x - curloc.x
+
+			return -1 // complete projectile permutation
+
 	//Shields
 	if(check_shields(P.damage, "the [P.name]"))
 		P.on_hit(src, 2, def_zone)
 		return 2
 
-	//Laserproof armour
-	if(wear_suit && istype(wear_suit, /obj/item/clothing/suit/armor/laserproof))
-		if(istype(P, /obj/item/projectile/energy) || istype(P, /obj/item/projectile/beam))
-			var/reflectchance = 40 - round(P.damage/3)
-			if(!(def_zone in list("chest", "groin")))
-				reflectchance /= 2
-			if(prob(reflectchance))
-				visible_message("\red <B>The [P.name] gets reflected by [src]'s [wear_suit.name]!</B>")
-
-				// Find a turf near or on the original location to bounce to
-				if(P.starting)
-					var/new_x = P.starting.x + pick(0, 0, 0, 0, 0, -1, 1, -2, 2)
-					var/new_y = P.starting.y + pick(0, 0, 0, 0, 0, -1, 1, -2, 2)
-					var/turf/curloc = get_turf(src)
-
-					// redirect the projectile
-					P.original = locate(new_x, new_y, P.z)
-					P.starting = curloc
-					P.current = curloc
-					P.firer = src
-					P.yo = new_y - curloc.y
-					P.xo = new_x - curloc.x
-
-				return -1 // complete projectile permutation
 
 	//Shrapnel
 	if (P.damage_type == BRUTE)
@@ -138,6 +134,20 @@ emp_act
 				return 1
 	return 0
 
+/mob/living/carbon/human/proc/check_reflect(var/def_zone) //Reflection checks for anything in your l_hand, r_hand, or wear_suit based on reflect_chance var of the object
+	if(wear_suit && istype(wear_suit, /obj/item/))
+		var/obj/item/I = wear_suit
+		if(I.IsReflect(def_zone) == 1)
+			return 1
+	if(l_hand && istype(l_hand, /obj/item/))
+		var/obj/item/I = l_hand
+		if(I.IsReflect(def_zone) == 1)
+			return 1
+	if(r_hand && istype(r_hand, /obj/item/))
+		var/obj/item/I = r_hand
+		if(I.IsReflect(def_zone) == 1)
+			return 1
+	return 0
 
 /mob/living/carbon/human/proc/check_shields(var/damage = 0, var/attack_text = "the attack")
 	if(l_hand && istype(l_hand, /obj/item/weapon))//Current base is the prob(50-d/3)
@@ -254,7 +264,8 @@ emp_act
 
 	if(armor >= 2)	return 0
 	if(!I.force)	return 0
-
+	var/Iforce = I.force //to avoid runtimes on the forcesay checks at the bottom. Some items might delete themselves if you drop them. (stunning yourself, ninja swords)
+	
 	apply_damage(I.force, I.damtype, affecting, armor, sharp=weapon_sharp, edge=weapon_edge, used_weapon=I)
 
 	var/bloody = 0
@@ -300,6 +311,10 @@ emp_act
 				if(bloody)
 					bloody_body(src)
 
+
+	if(Iforce > 10 || Iforce >= 5 && prob(33))
+		forcesay(hit_appends)	//forcesay checks stat already					
+					
 	//Melee weapon embedded object code.
 	if (I.damtype == BRUTE && !I.is_robot_module())
 		var/damage = I.force
@@ -311,7 +326,7 @@ emp_act
 		var/embed_threshold = weapon_sharp? 5*I.w_class : 15*I.w_class
 
 		//Sharp objects will always embed if they do enough damage.
-		if((weapon_sharp && damage > (10*I.w_class)) || (damage > embed_threshold && prob(embed_chance)))
+		if(((weapon_sharp && damage > (10*I.w_class)) || (damage > embed_threshold && prob(embed_chance))) && (I.no_embed == 0) )
 			affecting.embed(I)
 	return 1
 
@@ -381,7 +396,7 @@ emp_act
 
 				//Sharp objects will always embed if they do enough damage.
 				//Thrown sharp objects have some momentum already and have a small chance to embed even if the damage is below the threshold
-				if((sharp && prob(damage/(10*I.w_class)*100)) || (damage > embed_threshold && prob(embed_chance)))
+				if(((sharp && prob(damage/(10*I.w_class)*100)) || (damage > embed_threshold && prob(embed_chance))) && (I.no_embed == 0))
 					affecting.embed(I)
 
 		// Begin BS12 momentum-transfer code.
@@ -450,3 +465,35 @@ emp_act
 	var/penetrated_dam = max(0,(damage - max(0,(SS.breach_threshold - SS.damage))))
 
 	if(penetrated_dam) SS.create_breaches(damtype, penetrated_dam)
+	
+/mob/living/carbon/human/mech_melee_attack(obj/mecha/M)
+	if(M.occupant.a_intent == "harm")
+		if(M.damtype == "brute")
+			step_away(src,M,15)
+		var/datum/organ/external/affecting = get_organ(pick("chest", "chest", "chest", "head"))
+		if(affecting)
+			var/update = 0
+			switch(M.damtype)
+				if("brute")
+					if(M.force > 20)
+						Paralyse(1)
+					update |= affecting.take_damage(rand(M.force/2, M.force), 0)
+					playsound(src, 'sound/weapons/punch4.ogg', 50, 1)
+				if("fire")
+					update |= affecting.take_damage(0, rand(M.force/2, M.force))
+					playsound(src, 'sound/items/Welder.ogg', 50, 1)
+				if("tox")
+					M.mech_toxin_damage(src)
+				else
+					return
+			updatehealth()
+
+		M.occupant_message("<span class='danger'>You hit [src].</span>")
+		visible_message("<span class='danger'>[src] has been hit by [M.name].</span>", \
+								"<span class='userdanger'>[src] has been hit by [M.name].</span>")
+		add_logs(M.occupant, src, "attacked", object=M, addition="(INTENT: [uppertext(M.occupant.a_intent)]) (DAMTYPE: [uppertext(M.damtype)])")
+
+	else
+		..()
+
+	return

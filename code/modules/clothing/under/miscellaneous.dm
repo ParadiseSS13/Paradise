@@ -88,7 +88,7 @@
 	flags = FPRINT | TABLEPASS
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
 	cold_protection = UPPER_TORSO | LOWER_TORSO | LEGS | ARMS //Needs gloves and shoes with cold protection to be fully protected.
-	min_cold_protection_temperature = SPACE_SUIT_MIN_COLD_PROTECITON_TEMPERATURE
+	min_cold_protection_temperature = SPACE_SUIT_MIN_COLD_PROTECTION_TEMPERATURE
 
 /obj/item/clothing/under/acj
 	name = "administrative cybernetic jumpsuit"
@@ -102,7 +102,7 @@
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
 	armor = list(melee = 100, bullet = 100, laser = 100,energy = 100, bomb = 100, bio = 100, rad = 100)
 	cold_protection = UPPER_TORSO | LOWER_TORSO | LEGS | FEET | ARMS | HANDS
-	min_cold_protection_temperature = SPACE_SUIT_MIN_COLD_PROTECITON_TEMPERATURE
+	min_cold_protection_temperature = SPACE_SUIT_MIN_COLD_PROTECTION_TEMPERATURE
 	siemens_coefficient = 0
 
 /obj/item/clothing/under/owl
@@ -209,6 +209,13 @@
 	icon_state = "pirate"
 	item_state = "pirate"
 	_color = "pirate"
+
+/obj/item/clothing/under/pirate_rags
+	name = "pirate rags"
+	desc = "an old ragged set of clothing"
+	icon_state = "piraterags"
+	item_state = "piraterags"
+	_color = "piraterags"
 
 /obj/item/clothing/under/soviet
 	name = "soviet uniform"

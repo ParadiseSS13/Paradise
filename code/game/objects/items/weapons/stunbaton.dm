@@ -16,6 +16,7 @@
 	var/obj/item/weapon/cell/high/bcell = null
 	var/mob/foundmob = "" //Used in throwing proc.
 	var/hitcost = 1500	//oh god why do power cells carry so much charge? We probably need to make a distinction between "industrial" sized power cells for APCs and power cells for everything else.
+	var/allowharm = 1 // Allow or disallow harming with the stunbaton
 
 /obj/item/weapon/melee/baton/suicide_act(mob/user)
 	user.visible_message("<span class='suicide'>[user] is putting the live [name] in \his mouth! It looks like \he's trying to commit suicide.</span>")
@@ -113,7 +114,6 @@
 		deductcharge(hitcost)
 		return
 
-
 	if(isrobot(M))
 		..()
 		return
@@ -123,7 +123,7 @@
 	var/mob/living/L = M
 
 	var/target_zone = check_zone(user.zone_sel.selecting)
-	if(user.a_intent == "hurt")
+	if(user.a_intent == "harm" && allowharm == 1)
 		if (!..())	//item/attack() does it's own messaging and logs
 			return 0	// item/attack() will return 1 if they hit, 0 if they missed.
 		agony *= 0.5	//whacking someone causes a much poorer contact than prodding them.
@@ -164,6 +164,10 @@
 	msg_admin_attack("[key_name(user)] stunned [key_name(L)] with the [src].")
 
 	deductcharge(hitcost)
+	
+	if(ishuman(L))
+		var/mob/living/carbon/human/H = L
+		H.forcesay(hit_appends)
 
 	return 1
 

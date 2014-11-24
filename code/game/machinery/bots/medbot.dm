@@ -13,7 +13,7 @@
 	anchored = 0
 	health = 20
 	maxhealth = 20
-	req_access =list(access_medical)
+	req_access =list(access_medical, access_robotics)
 	var/stunned = 0 //It can be stunned by tasers. Delicate circuits.
 //var/emagged = 0
 	var/list/botcard_access = list(access_medical)
@@ -38,11 +38,11 @@
 	var/treatment_virus = "spaceacillin"
 	var/shut_up = 0 //self explanatory :)
 
-/obj/machinery/bot/medbot/mysterious
-	name = "Mysterious Medibot"
-	desc = "International Medibot of mystery."
+/obj/machinery/bot/medbot/syndicate
+	name = "Suspicious Medibot"
+	desc = "You'd better have insurance!"
 	skin = "bezerk"
-	treatment_oxy = "dexalinp"
+	treatment_oxy = "dexalin"
 	treatment_brute = "bicaridine"
 	treatment_fire = "kelotane"
 	treatment_tox = "anti_toxin"
@@ -62,6 +62,8 @@
 		spawn(5)
 			if(src.skin)
 				src.overlays += image('icons/obj/aibots.dmi', "kit_skin_[src.skin]")
+				if(src.skin == "bezerk")
+					created_name = "Suspicious Medibot"
 
 
 /obj/machinery/bot/medbot/New()
@@ -333,6 +335,9 @@
 	if(src.emagged == 2) //Everyone needs our medicine. (Our medicine is toxins)
 		return 1
 
+	if((skin == "bezerk") && (!("syndicate" in C.faction))) // No healing non-operatives as a SyndiBot.
+		return 0
+
 	//If they're injured, we're using a beaker, and don't have one of our WONDERCHEMS.
 	if((src.reagent_glass) && (src.use_beaker) && ((C.getBruteLoss() >= heal_threshold) || (C.getToxLoss() >= heal_threshold) || (C.getToxLoss() >= heal_threshold) || (C.getOxyLoss() >= (heal_threshold + 15))))
 		for(var/datum/reagent/R in src.reagent_glass.reagents.reagent_list)
@@ -534,6 +539,8 @@
 		A.skin = "tox"
 	else if(istype(src,/obj/item/weapon/storage/firstaid/o2))
 		A.skin = "o2"
+	else if(istype(src,/obj/item/weapon/storage/firstaid/tactical))
+		A.skin = "bezerk"
 
 	del(S)
 	user.put_in_hands(A)
@@ -569,9 +576,18 @@
 					src.build_step++
 					user << "<span class='notice'>You complete the Medibot! Beep boop.</span>"
 					var/turf/T = get_turf(src)
-					var/obj/machinery/bot/medbot/S = new /obj/machinery/bot/medbot(T)
-					S.skin = src.skin
-					S.name = src.created_name
+
+					if (src.skin == "bezerk")
+						var/obj/machinery/bot/medbot/syndicate/S = new /obj/machinery/bot/medbot/syndicate(T)
+						S.skin = src.skin
+						S.name = src.created_name
+						S.req_access = list("150")
+
+					else
+						var/obj/machinery/bot/medbot/S = new /obj/machinery/bot/medbot(T)
+						S.skin = src.skin
+						S.name = src.created_name
+
 					user.drop_from_inventory(src)
 					del(src)
 

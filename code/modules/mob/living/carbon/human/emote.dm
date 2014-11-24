@@ -19,6 +19,69 @@
 	if(src.stat == 2.0 && (act != "deathgasp"))
 		return
 	switch(act)
+		if("ping")
+			if (species.name == "Machine")
+				var/M = null
+				if(param)
+					for (var/mob/A in view(null, null))
+						if (param == A.name)
+							M = A
+							break
+				if(!M)
+					param = null
+
+				if (param)
+					message = "<B>[src]</B> pings at [param]."
+				else
+					message = "<B>[src]</B> pings."
+				playsound(src.loc, 'sound/machines/ping.ogg', 50, 0)
+				m_type = 1
+			else
+				if (!species.name == "Machine")
+					return
+
+		if("buzz")
+			if (species.name == "Machine")
+				var/M = null
+				if(param)
+					for (var/mob/A in view(null, null))
+						if (param == A.name)
+							M = A
+							break
+				if(!M)
+					param = null
+
+				if (param)
+					message = "<B>[src]</B> buzzes at [param]."
+				else
+					message = "<B>[src]</B> buzzes."
+				playsound(src.loc, 'sound/machines/buzz-sigh.ogg', 50, 0)
+				m_type = 1
+			else
+				if (!species.name == "Machine")
+					return
+
+		if("beep")
+			if(species.name == "Machine")
+				var/M = null
+				if(param)
+					for (var/mob/A in view(null, null))
+						if (param == A.name)
+							M = A
+							break
+				if(!M)
+					param = null
+
+				if (param)
+					message = "<B>[src]</B> beeps at [param]."
+				else
+					message = "<B>[src]</B> beeps."
+				playsound(src.loc, 'sound/machines/twobeep.ogg', 50, 0)
+				m_type = 1
+			else
+				if (!species.name == "Machine")
+					return
+
 		if ("airguitar")
 			if (!src.restrained())
 				message = "<B>[src]</B> is strumming the air and headbanging like a safari chimp."
@@ -566,6 +629,8 @@
 				else
 					message = "<B>[src]</B> makes a very loud noise."
 					m_type = 2
+
+
 
 		// Needed for M_TOXIC_FART
 		if("fart")

@@ -34,7 +34,7 @@
 
 	w_class = 4
 	max_w_class = 2
-	storage_slots = 21
+	storage_slots = 30
 	can_hold = list() // any
 	cant_hold = list("/obj/item/weapon/disk/nuclear","/obj/item/flag/nation")
 
@@ -46,6 +46,11 @@
 	else if(contents.len < 21)
 		icon_state = "trashbag2"
 	else icon_state = "trashbag3"
+
+/obj/item/weapon/storage/bag/trash/proc/janicart_insert(mob/user, obj/structure/janitorialcart/J)
+	J.put_in_cart(src, user)
+	J.mybag=src
+	J.update_icon()
 
 
 // -----------------------------

@@ -221,14 +221,20 @@ Obviously, requires DNA2.
 
 /obj/effect/proc_holder/spell/wizard/targeted/remotetalk/choose_targets(mob/user = usr)
 	var/list/targets = new /list()
-	targets += input("Choose the target to talk to.", "Targeting") as mob in living_mob_list
+	var/list/validtargets = new /list()
+	for(var/mob/M in view(usr))	
+		validtargets += M
+	if(!validtargets.len || validtargets.len == 1)
+		usr << "<span class='warning'>There are no valid targets in range!</span>"
+		start_recharge()
+		return
+	targets += input("Choose the target to talk to.", "Targeting") as mob in validtargets
 
 	perform(targets)
 
 /obj/effect/proc_holder/spell/wizard/targeted/remotetalk/cast(list/targets)
 	if(!ishuman(usr))	return
-
-	var/say = input ("What do you wish to say")
+	var/say = input("What do you wish to say")
 
 	for(var/mob/living/target in targets)
 		if(M_REMOTE_TALK in target.mutations)
@@ -267,8 +273,16 @@ Obviously, requires DNA2.
 	icon_power_button = "genetic_view"
 
 /obj/effect/proc_holder/spell/wizard/targeted/remoteview/choose_targets(mob/user = usr)
-	var/list/targets = new /list()
-	targets += input("Choose the target to spy on.", "Targeting") as mob in living_mob_list
+	var/list/targets = living_mob_list 
+	var/list/remoteviewers = new /list()
+	for(var/mob/M in targets)
+		if(M_REMOTE_VIEW in M.mutations)
+			remoteviewers += M
+	if(!remoteviewers.len || remoteviewers.len == 1)
+		usr << "<span class='warning'>No valid targets with remote view were found!</span>"
+		start_recharge()
+		return
+	targets += input("Choose the target to spy on.", "Targeting") as mob in remoteviewers
 
 	perform(targets)
 

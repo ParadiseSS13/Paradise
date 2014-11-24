@@ -1,0 +1,25 @@
+<!-- 
+Title: Keycard Authentication Device UI
+Used In File(s): \code\modules\security_levels\keycard_authentication.dm
+-->
+<div class="item">
+	<h1>Keycard Authentication Device</h1>
+	This device is used to trigger certain high security events. It requires the simultaneous swipe of two high-level ID cards.
+	<div class="item">
+		{{if data.screen == 1}}
+			<h2>Trigger Event</h2>
+			<div class="itemContents">
+				{{:helper.link('Red Alert', 'alert', { 'triggerevent' : 'Red Alert', 'source' : data.src })}}
+				{{:helper.link('Emergency Response Team', 'alert', { 'triggerevent' : 'Emergency Response Team', 'source' : data.src })}}
+			</div>
+			<div style="margin-top: 10px;" class="itemContents">
+				{{:helper.link('Grant Emergency Maintenance Access', 'unlocked', { 'triggerevent' : 'Grant Emergency Maintenance Access', 'source' : data.src })}}
+				{{:helper.link('Revoke Emergency Maintenance Access', 'locked', { 'triggerevent' : 'Revoke Emergency Maintenance Access', 'source' : data.src })}}
+			</div>
+		{{else data.screen == 2}}
+			<h2>Please swipe your card to authorize the following event:</h2>
+			<div style="text-align: center; font-size: 16px; font-weight: bold;">{{:data.event}}</div>
+			{{:helper.link('Back', 'close', { 'reset' : 1 })}}
+		{{/if}}
+	</div>
+</div>

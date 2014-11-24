@@ -133,7 +133,7 @@ obj/item/weapon/gun/energy/laser/retro
 		if(charge_tick < 4) return 0
 		charge_tick = 0
 		if(!power_supply) return 0
-		power_supply.give(100)
+		power_supply.give(1000)
 		update_icon()
 		return 1
 
@@ -170,6 +170,6 @@ obj/item/weapon/gun/energy/laser/retro
 		if(charge_tick < 4) return 0
 		charge_tick = 0
 		if(!power_supply) return 0
-		power_supply.give(100)
+		power_supply.give(1000)
 		update_icon()
 		return 1

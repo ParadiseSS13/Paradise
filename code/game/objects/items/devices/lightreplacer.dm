@@ -188,6 +188,11 @@
 
 //Can you use it?
 
+/obj/item/device/lightreplacer/proc/janicart_insert(mob/user, obj/structure/janitorialcart/J)
+	J.put_in_cart(src, user)
+	J.myreplacer = src
+	J.update_icon()
+
 /obj/item/device/lightreplacer/proc/CanUse(var/mob/living/user)
 	src.add_fingerprint(user)
 	//Not sure what else to check for. Maybe if clumsy?

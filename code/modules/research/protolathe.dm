@@ -22,6 +22,7 @@ Note: Must be placed west/left of and R&D console to function.
 	var/uranium_amount = 0.0
 	var/diamond_amount = 0.0
 	var/clown_amount = 0.0
+	var/efficiency_coeff
 
 
 /obj/machinery/r_n_d/protolathe/New()
@@ -50,33 +51,27 @@ Note: Must be placed west/left of and R&D console to function.
 	for(var/obj/item/weapon/stock_parts/matter_bin/M in component_parts)
 		T += M.rating
 	max_material_storage = T * 75000
+	T = 0
+	for(var/obj/item/weapon/stock_parts/manipulator/M in component_parts)
+		T += (M.rating/3)
+	efficiency_coeff = max(T, 1)
 
 /obj/machinery/r_n_d/protolathe/attackby(var/obj/item/O as obj, var/mob/user as mob)
 	if(exchange_parts(user, O))
-		return
+		return 1
+
 	if (shocked)
-		shock(user,50)
-	if (O.is_open_container())
-		return
+		shock(user,50)	
+		
 	if (istype(O, /obj/item/weapon/screwdriver))
-		if (!opened)
-			opened = 1
+		if (default_deconstruction_screwdriver(user, "protolathe_t", "protolathe", O))
 			if(linked_console)
-				linked_console.linked_lathe = null
+				linked_console.linked_imprinter = null
 				linked_console = null
-			icon_state = "protolathe_t"
-			user << "You open the maintenance hatch of [src]."
-		else
-			opened = 0
-			icon_state = "protolathe"
-			user << "You close the maintenance hatch of [src]."
-		return
-	if (opened)
+		return 1
+			
+	if (panel_open)
 		if(istype(O, /obj/item/weapon/crowbar))
-			playsound(src.loc, 'sound/items/Crowbar.ogg', 50, 1)
-			var/obj/machinery/constructable_frame/machine_frame/M = new /obj/machinery/constructable_frame/machine_frame(src.loc)
-			M.state = 2
-			M.icon_state = "box_1"
 			for(var/obj/I in component_parts)
 				if(istype(I, /obj/item/weapon/reagent_containers/glass/beaker))
 					reagents.trans_to(I, reagents.total_volume)
@@ -110,7 +105,7 @@ Note: Must be placed west/left of and R&D console to function.
 			if(clown_amount >= 2000)
 				var/obj/item/stack/sheet/mineral/clown/G = new /obj/item/stack/sheet/mineral/clown(src.loc)
 				G.amount = round(clown_amount / G.perunit)
-			del(src)
+			default_deconstruction_crowbar(O)
 			return 1
 		else
 			user << "\red You can't load the [src.name] while it's opened."
@@ -120,6 +115,8 @@ Note: Must be placed west/left of and R&D console to function.
 	if (!linked_console)
 		user << "\The protolathe must be linked to an R&D console first!"
 		return 1
+	if (O.is_open_container())
+		return
 	if (busy)
 		user << "\red The protolathe is busy. Please wait for completion of previous operation."
 		return 1
@@ -183,3 +180,4 @@ Note: Must be placed west/left of and R&D console to function.
 	busy = 0
 	src.updateUsrDialog()
 	return
+	

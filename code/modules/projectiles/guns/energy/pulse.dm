@@ -10,6 +10,8 @@
 	cell_type = "/obj/item/weapon/cell/super"
 	var/mode = 2
 	fire_delay = 15
+	slot_flags = SLOT_BACK
+	w_class = 4.0
 
 	attack_self(mob/living/user as mob)
 		switch(mode)
@@ -66,6 +68,7 @@
 	desc = "It's not the size of the gun, it's the size of the hole it puts through people."
 	icon_state = "m1911-p"
 	cell_type = "/obj/item/weapon/cell/infinite"
-
+	w_class = 3.0
+	slot_flags = SLOT_BELT
 	isHandgun()
 		return 1

@@ -12,7 +12,7 @@
 	required_players = 2
 	required_players_secret = 10
 	required_enemies = 1
-	recommended_enemies = 2
+	recommended_enemies = 4
 
 	uplink_welcome = "Syndicate Uplink Console:"
 	uplink_uses = 20

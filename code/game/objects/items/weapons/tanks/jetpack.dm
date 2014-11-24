@@ -96,6 +96,15 @@
 		air_contents.adjust((6*ONE_ATMOSPHERE)*volume/(R_IDEAL_GAS_EQUATION*T20C))
 		return
 
+/obj/item/weapon/tank/jetpack/oxygen/harness
+	name = "jet harness (oxygen)"
+	desc = "A lightweight tactical harness, used by those who don't want to be weighed down by traditional jetpacks."
+	icon_state = "jetpack-mini"
+	item_state = "jetpack-mini"
+	volume = 40
+	throw_range = 8
+	w_class = 3
+
 /obj/item/weapon/tank/jetpack/oxygenblack
 	name = "Jetpack (Oxygen)"
 	desc = "A black tank of compressed oxygen for use as propulsion in zero-gravity areas. Use with caution."

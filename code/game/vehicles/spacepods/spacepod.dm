@@ -1,4 +1,3 @@
-// honk
 #define DAMAGE			1
 #define FIRE			2
 
@@ -368,6 +367,26 @@
 	src.occupant.loc = src.loc
 	src.occupant = null
 	usr << "<span class='notice'>You climb out of the pod</span>"
+	return
+	
+/obj/spacepod/verb/toggleDoors()
+	set name = "Toggle Nearby Pod Doors"
+	set category = "Spacepod"
+	set src = usr.loc
+	
+	for(var/obj/machinery/door/poddoor/P in oview(3,src))
+		if(istype(P, /obj/machinery/door/poddoor/three_tile_hor) || istype(P, /obj/machinery/door/poddoor/three_tile_ver) || istype(P, /obj/machinery/door/poddoor/four_tile_hor) || istype(P, /obj/machinery/door/poddoor/four_tile_ver))
+			var/mob/living/carbon/human/L = usr
+			if(P.check_access(L.get_active_hand()) || P.check_access(L.wear_id))
+				if(P.density)
+					P.open()
+					return 1
+				else
+					P.close()
+					return 1
+			usr << "<span class='warning'>Access denied.</span>" 
+			return
+	usr << "<span class='warning'>You are not close to any pod doors.</span>" 
 	return
 
 /obj/spacepod/proc/enter_after(delay as num, var/mob/user as mob, var/numticks = 5)

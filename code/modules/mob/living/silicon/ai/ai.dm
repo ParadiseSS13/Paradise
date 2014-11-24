@@ -19,7 +19,7 @@ var/list/ai_list = list()
 	anchored = 1 // -- TLE
 	density = 1
 	status_flags = CANSTUN|CANPARALYSE|CANPUSH
-	var/list/network = list("SS13")
+	var/list/network = list("SS13","Telecomms","Research Outpost","Mining Outpost")
 	var/obj/machinery/camera/current = null
 	var/list/connected_robots = list()
 	var/aiRestorePowerRoutine = 0
@@ -28,13 +28,14 @@ var/list/ai_list = list()
 	var/viewalerts = 0
 	var/lawcheck[1]
 	var/ioncheck[1]
+	var/lawchannel = "Common" // Default channel on which to state laws
 	var/icon/holo_icon//Default is assigned when AI is created.
 	var/obj/item/device/pda/ai/aiPDA = null
 	var/obj/item/device/multitool/aiMulti = null
 	var/custom_sprite = 0 //For our custom sprites
 	var/alienAI = 0
 
-	var/obj/item/device/radio/headset/heads/ai_integrated/radio = null
+	var/obj/item/device/radio/headset/heads/ai_integrated/aiRadio = null
 
 	//MALFUNCTION
 	var/datum/module_picker/malf_picker
@@ -91,15 +92,15 @@ var/list/ai_list = list()
 	aiPDA.name = name + " (" + aiPDA.ownjob + ")"
 
 	aiMulti = new(src)
-	radio = new(src)
-	radio.myAi = src
+	aiRadio = new(src)
+	aiRadio.myAi = src
 
 	aiCamera = new/obj/item/device/camera/siliconcam/ai_camera(src)
 
 	if (istype(loc, /turf))
 		verbs.Add(/mob/living/silicon/ai/proc/ai_network_change, \
 		/mob/living/silicon/ai/proc/ai_statuschange, /mob/living/silicon/ai/proc/ai_hologram_change, \
-		/mob/living/silicon/ai/proc/toggle_camera_light, /mob/living/silicon/ai/proc/control_integrateed_radio)
+		/mob/living/silicon/ai/proc/toggle_camera_light, /mob/living/silicon/ai/proc/control_integrated_radio)
 
 	if(!safety)//Only used by AIize() to successfully spawn an AI.
 		if (!B)//If there is no player/brain inside.
@@ -413,9 +414,12 @@ var/list/ai_list = list()
 //		src << text ("Switching Law [L]'s report status to []", lawcheck[L+1])
 		checklaws()
 
-	if(href_list["say_word"])
-		play_vox_word(href_list["say_word"], null, src)
-		return
+	if (href_list["lawr"]) // Selects on which channel to state laws
+		var/setchannel = input(usr, "Specify channel.", "Channel selection") in list("State","Common","Science","Command","Medical","Engineering","Security","Supply","Binary","Holopad", "Cancel")
+		if(setchannel == "Cancel")
+			return
+		lawchannel = setchannel
+		checklaws()
 
 	if (href_list["lawi"]) // Toggling whether or not a law gets stated by the State Laws verb --NeoFite
 		var/L = text2num(href_list["lawi"])
@@ -427,7 +431,11 @@ var/list/ai_list = list()
 
 	if (href_list["laws"]) // With how my law selection code works, I changed statelaws from a verb to a proc, and call it through my law selection panel. --NeoFite
 		statelaws()
-
+		
+	if(href_list["say_word"])
+		play_vox_word(href_list["say_word"], null, src)
+		return
+		
 	if (href_list["track"])
 		var/mob/target = locate(href_list["track"]) in mob_list
 		var/mob/living/silicon/ai/A = locate(href_list["track2"]) in mob_list
@@ -786,11 +794,11 @@ var/list/ai_list = list()
 		return ..()
 
 
-/mob/living/silicon/ai/proc/control_integrateed_radio()
+/mob/living/silicon/ai/proc/control_integrated_radio()
 	set name = "Radio Settings"
 	set desc = "Allows you to change settings of your radio."
 	set category = "AI Commands"
 
 	src << "Accessing Subspace Transceiver control..."
-	if (src.radio)
-		src.radio.interact(src)
+	if (src.aiRadio)
+		src.aiRadio.interact(src)

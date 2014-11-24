@@ -285,6 +285,19 @@ var/list/uplink_items = list()
 	item = /obj/mecha/combat/marauder/mauler/loaded
 	cost = 140
 	gamemodes = list("nuclear emergency")
+	
+/datum/uplink_item/dangerous/syndieborg
+	name = "Syndicate Cyborg"
+	desc = "A cyborg designed and programmed for systematic extermination of non-Syndicate personnel."
+	item = /obj/item/weapon/antag_spawner/borg_tele
+	cost = 50
+	gamemodes = list("nuclear emergency")
+
+//for refunding the syndieborg teleporter
+/datum/uplink_item/dangerous/syndieborg/spawn_item()
+	var/obj/item/weapon/antag_spawner/borg_tele/T = ..()
+	if(istype(T))
+		T.TC_cost = cost
 
 // Ammunition
 
@@ -357,11 +370,11 @@ var/list/uplink_items = list()
 	item = /obj/item/weapon/soap/syndie
 	cost = 1
 
-/*/datum/uplink_item/stealthy_weapons/detomatix
+/datum/uplink_item/stealthy_weapons/detomatix
 	name = "Detomatix PDA Cartridge"
 	desc = "When inserted into a personal digital assistant, this cartridge gives you five opportunities to detonate PDAs of crewmembers who have their message feature enabled. The concussive effect from the explosion will knock the recipient out for a short period, and deafen them for longer. It has a chance to detonate your PDA."
 	item = /obj/item/weapon/cartridge/syndicate
-	cost = 6 */
+	cost = 6
 
 // Commented out until a fix can be found, currently doesn't work with the PDA NanoUI and people keep wasting Telecrystals on it. -- Dave
 

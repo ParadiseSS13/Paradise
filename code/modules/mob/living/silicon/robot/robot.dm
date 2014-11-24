@@ -63,6 +63,8 @@
 	var/weapon_lock = 0
 	var/weaponlock_time = 120
 	var/lawupdate = 1 //Cyborgs will sync their laws with their AI by default
+	var/lawcheck[1] //For stating laws.
+	var/ioncheck[1] //Ditto.
 	var/lockcharge //Used when locking down a borg to preserve cell charge
 	var/speed = 0 //Cause sec borgs gotta go fast //No they dont!
 	var/scrambledcodes = 0 // Used to determine if a borg shows up on the robotics console.  Setting to one hides them.
@@ -70,6 +72,7 @@
 	var/pose
 	var/base_icon = ""
 	var/crisis = 0
+	var/syndicateborg = 0
 
 /mob/living/silicon/robot/New(loc,var/syndie = 0,var/unfinished = 0, var/alien = 0)
 	spark_system = new /datum/effect/effect/system/spark_spread()
@@ -141,6 +144,9 @@
 	hud_list[NATIONS_HUD] = image('icons/mob/hud.dmi', src, "hudblank")
 
 /mob/living/silicon/robot/proc/init(var/alien=0)
+	if(syndicateborg)
+		playsound(loc, 'sound/voice/liveagain.ogg', 75, 1)
+		return
 	aiCamera = new/obj/item/device/camera/siliconcam/robot_camera(src)
 	if(mmi.alien || alien)
 		laws = new /datum/ai_laws/alienmov()
@@ -164,6 +170,8 @@
 	if (!rbPDA)
 		rbPDA = new/obj/item/device/pda/ai(src)
 	rbPDA.set_name_and_job(custom_name,braintype)
+	if(syndicateborg)
+		rbPDA.hidden = 1
 
 //If there's an MMI in the robot, have it ejected when the mob goes away. --NEO
 //Improved /N
@@ -185,7 +193,7 @@
 	if(mmi != null && mmi.alien)
 		modules="Hunter"
 	modtype = input("Please, select a module!", "Robot", null, null) in modules
-
+	designation = modtype
 	var/module_sprites[0] //Used to store the associations between sprite names and sprite index.
 	var/channels = list()
 
@@ -304,6 +312,7 @@
 
 	choose_icon(6,module_sprites)
 	radio.config(channels)
+	notify_ai(2)
 
 /mob/living/silicon/robot/proc/updatename(var/prefix as text)
 	if(prefix)
@@ -357,6 +366,7 @@
 		var/newname
 		newname = copytext(sanitize(input(src,"You are a robot. Enter a name, or leave blank for the default name.", "Name change","") as text),1,MAX_NAME_LEN)
 		if (newname != "")
+			notify_ai(3, name, newname)
 			custom_name = newname
 
 		updatename()
@@ -565,7 +575,11 @@
 		..()
 		if (istype(AM, /obj/machinery/recharge_station))
 			var/obj/machinery/recharge_station/F = AM
-			F.move_inside()
+			if(F.panel_open)
+				usr << "\blue <b>Close the maintenance panel first.</b>"
+				return
+			else
+				F.move_inside()
 		if (!istype(AM, /atom/movable))
 			return
 		if (!now_pushing)
@@ -1228,6 +1242,25 @@
 		else
 			src << "Module isn't activated"
 		installed_modules()
+		
+	if (href_list["lawc"]) // Toggling whether or not a law gets stated by the State Laws verb --NeoFite
+		var/L = text2num(href_list["lawc"])
+		switch(lawcheck[L+1])
+			if ("Yes") lawcheck[L+1] = "No"
+			if ("No") lawcheck[L+1] = "Yes"
+//		src << text ("Switching Law [L]'s report status to []", lawcheck[L+1])
+		checklaws()
+
+	if (href_list["lawi"]) // Toggling whether or not a law gets stated by the State Laws verb --NeoFite
+		var/L = text2num(href_list["lawi"])
+		switch(ioncheck[L])
+			if ("Yes") ioncheck[L] = "No"
+			if ("No") ioncheck[L] = "Yes"
+//		src << text ("Switching Law [L]'s report status to []", lawcheck[L+1])
+		checklaws()
+
+	if (href_list["laws"]) // With how my law selection code works, I changed statelaws from a verb to a proc, and call it through my law selection panel. --NeoFite
+		statelaws()
 	return
 
 /mob/living/silicon/robot/proc/radio_menu()
@@ -1370,3 +1403,35 @@
 			return
 	else
 		src << "Your icon has been set. You now require a module reset to change it."
+
+/mob/living/silicon/robot/syndicate
+	icon_state = "syndie_bloodhound"
+	lawupdate = 0
+	scrambledcodes = 1
+	syndicateborg = 1
+	modtype = "Synd"
+	faction = list("syndicate")
+	designation = "Syndicate"
+	req_access = list(access_syndicate)
+	
+/mob/living/silicon/robot/syndicate/New(loc)
+	..()
+	cell.maxcharge = 25000
+	cell.charge = 25000
+	radio = new /obj/item/device/radio/borg/syndicate(src)
+	module = new /obj/item/weapon/robot_module/syndicate(src)
+	laws = new /datum/ai_laws/syndicate_override()		
+	
+	Namepick()
+	
+	
+/mob/living/silicon/robot/proc/notify_ai(var/notifytype, var/oldname, var/newname)
+	if(!connected_ai)
+		return
+	switch(notifytype)
+		if(1) //New Cyborg
+			connected_ai << "<br><br><span class='notice'>NOTICE - New cyborg connection detected: <a href='byond://?src=\ref[connected_ai];track2=\ref[connected_ai];track=\ref[src]'>[name]</a></span><br>"
+		if(2) //New Module
+			connected_ai << "<br><br><span class='notice'>NOTICE - Cyborg module change detected: [name] has loaded the [designation] module.</span><br>"
+		if(3) //New Name
+			connected_ai << "<br><br><span class='notice'>NOTICE - Cyborg reclassification detected: [oldname] is now designated as [newname].</span><br>"
