@@ -243,7 +243,6 @@ proc/issyndicate(mob/living/M as mob)
 
 	var/obj/item/device/radio/uplink/U = new /obj/item/device/radio/uplink(synd_mob)
 	U.hidden_uplink.uplink_owner="[synd_mob.key]"
-	world << synd_mob.key
 	U.hidden_uplink.uses = 20
 	synd_mob.equip_to_slot_or_del(U, slot_in_backpack)
 
@@ -393,7 +392,6 @@ proc/issyndicate(mob/living/M as mob)
 			else
 				text += "body destroyed"
 			text += ")"
-			world << syndicate.key
 			for(var/obj/item/device/uplink/H in world_uplinks)
 				if(H && H.uplink_owner && H.uplink_owner==syndicate.key)
 					TC_uses += H.used_TC
