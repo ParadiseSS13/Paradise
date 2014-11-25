@@ -201,27 +201,27 @@
 		if("Thunderdome Overseer")
 			return list(access_cent_general, access_cent_thunder)
 		if("Emergency Response Team")
-			return list(access_cent_general, access_cent_living, access_cent_storage)
+			return list(access_cent_general, access_cent_living, access_cent_storage) + get_all_accesses()
 		if("Emergency Response Team Leader")
-			return list(access_cent_general, access_cent_living, access_cent_storage, access_cent_teleporter)
+			return list(access_cent_general, access_cent_living, access_cent_storage, access_cent_teleporter) + get_all_accesses()
 		if("Intel Officer")
-			return list(access_cent_general, access_cent_living)
+			return list(access_cent_general, access_cent_living) + get_all_accesses()
 		if("Medical Officer")
-			return list(access_cent_general, access_cent_living, access_cent_medical)
+			return list(access_cent_general, access_cent_living, access_cent_medical) + get_all_accesses()
 		if("Death Commando")
-			return list(access_cent_general, access_cent_specops, access_cent_living, access_cent_storage)
+			return list(access_cent_general, access_cent_specops, access_cent_living, access_cent_storage) + get_all_accesses()
 		if("Research Officer")
-			return list(access_cent_general, access_cent_specops, access_cent_medical, access_cent_teleporter, access_cent_storage)
+			return list(access_cent_general, access_cent_specops, access_cent_medical, access_cent_teleporter, access_cent_storage) + get_all_accesses()
 		if("BlackOps Commander")
-			return list(access_cent_general, access_cent_thunder, access_cent_specops, access_cent_living, access_cent_storage, access_cent_creed)
+			return list(access_cent_general, access_cent_thunder, access_cent_specops, access_cent_living, access_cent_storage, access_cent_creed) + get_all_accesses()
 		if("Special Operations Officer")
-			return get_all_centcom_access()
+			return get_all_centcom_access() + get_all_accesses()
 		if("NanoTrasen Navy Officer")
-			return get_all_centcom_access()
+			return get_all_centcom_access() + get_all_accesses()
 		if("NanoTrasen Navy Captain")
-			return get_all_centcom_access()
+			return get_all_centcom_access() + get_all_accesses()
 		if("Supreme Commander")
-			return get_all_centcom_access()
+			return get_all_centcom_access() + get_all_accesses()
 
 /proc/get_all_accesses()
 	return list(access_security, access_sec_doors, access_brig, access_armory, access_forensics_lockers, access_court,
@@ -369,9 +369,9 @@
 		if(access_qm)
 			return "Quartermaster"
 		if(access_clown)
-			return "HONK! Access"
+			return "Clown's Office"
 		if(access_mime)
-			return "Silent Access"
+			return "Mime's Office"
 		if(access_surgery)
 			return "Surgery"
 		if(access_theatre)

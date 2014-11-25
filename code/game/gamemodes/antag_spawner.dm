@@ -32,21 +32,33 @@
 		return
 
 /obj/item/weapon/antag_spawner/borg_tele/proc/get_candidate_answer(mob/user as mob, var/list/possiblecandidates = list())
+	var/time_passed = world.time
 	if(possiblecandidates.len <= 0)
 		checking = 0
 		user << "<span class='notice'>Unable to connect to Syndicate Command. Please wait and try again later or use the teleporter on your uplink to get your points refunded.</span>"
 		return
 	else
 		var/possibleborg = pick(possiblecandidates)
-		var/input = alert(possibleborg,"Do you want to spawn in as a cyborg for the Syndicate operatives?","Syndicate Cyborg","No","Yes")
-		if(input == "Yes" && used == 0)
-			possiblecandidates -= possibleborg
-			used = 1
-			checking = 0
-			spawn_antag(possibleborg, get_turf(src.loc), "syndieborg")
-		else
-			possiblecandidates -= possibleborg		
+		spawn(0)
+			var/input = alert(possibleborg,"Do you want to spawn in as a cyborg for the Syndicate operatives?","Please answer in thirty seconds!","Yes","No")
+			if(input == "Yes" && used == 0)
+				if((world.time-time_passed)>300)
+					return
+				possiblecandidates -= possibleborg
+				used = 1
+				checking = 0
+				spawn_antag(possibleborg, get_turf(src.loc), "syndieborg")
+			else
+				possiblecandidates -= possibleborg		
+				get_candidate_answer(user, possiblecandidates)
+				return
+				
+		sleep(300)
+		if(checking)
+			possiblecandidates -= possibleborg	
 			get_candidate_answer(user, possiblecandidates)
+			return				
+			
 
 /obj/item/weapon/antag_spawner/borg_tele/spawn_antag(var/client/C, var/turf/T, var/type = "")
 	var/datum/effect/effect/system/spark_spread/S = new /datum/effect/effect/system/spark_spread

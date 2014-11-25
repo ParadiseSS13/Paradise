@@ -19,18 +19,18 @@
 		</div>
 		<div class="itemContent" style="padding-top: 2px; width: 100%">
 		{{if data.interior_status.state == "open"}}
-			{{:helper.link('Force exterior door', 'alert', {'command' : 'force_ext'}, null, 'redBackground')}}
+			{{:helper.link('Force exterior door', 'alert', {'command' : 'force_ext'}, null, 'redButton')}}
 		{{else}}
-			{{:helper.link('Force exterior door', 'alert', {'command' : 'force_ext'}, null, data.processing ? 'yellowBackground' : null)}}
+			{{:helper.link('Force exterior door', 'alert', {'command' : 'force_ext'}, null, data.processing ? 'yellowButton' : null)}}
 		{{/if}}
 		{{if data.exterior_status.state == "open"}}
-			{{:helper.link('Force interior door', 'alert', {'command' : 'force_int'}, null, 'redBackground')}}
+			{{:helper.link('Force interior door', 'alert', {'command' : 'force_int'}, null, 'redButton')}}
 		{{else}}
-			{{:helper.link('Force interior door', 'alert', {'command' : 'force_int'}, null, data.processing ? 'yellowBackground' : null)}}
+			{{:helper.link('Force interior door', 'alert', {'command' : 'force_int'}, null, data.processing ? 'yellowButton' : null)}}
 		{{/if}}
 		</div>
 	</div>
 	<div class="item" style="padding-top: 10px; width: 100%">
-			{{:helper.link('Abort', 'cancel', {'command' : 'abort'}, data.processing ? null : 'disabled', data.processing ? 'redBackground' : null)}}
+			{{:helper.link('Abort', 'cancel', {'command' : 'abort'}, data.processing ? null : 'disabled', data.processing ? 'redButton' : null)}}
 	</div>
 </div>

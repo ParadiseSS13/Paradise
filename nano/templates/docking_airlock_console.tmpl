@@ -11,7 +11,7 @@
 					<span class="bad" style="float:left">DOCKED-OVERRIDE ENABLED</span>
 				{{/if}}
 				<span style="float:right">
-					{{:helper.link('Override', 'alert', {'command' : 'toggle_override'}, null, data.override_enabled ? 'redBackground' : null)}}
+					{{:helper.link('Override', 'alert', {'command' : 'toggle_override'}, null, data.override_enabled ? 'redButton' : null)}}
 				</span>
 			</div>
 		{{else data.docking_status == "docking"}}
@@ -22,7 +22,7 @@
 					<span class="bad" style="float:left">DOCKING-OVERRIDE ENABLED</span>
 				{{/if}}
 				<span style="float:right">
-					{{:helper.link('Override', 'alert', {'command' : 'toggle_override'}, null, data.override_enabled ? 'redBackground' : null)}}
+					{{:helper.link('Override', 'alert', {'command' : 'toggle_override'}, null, data.override_enabled ? 'redButton' : null)}}
 				</span>
 			</div>
 		{{else data.docking_status == "undocking"}}
@@ -33,7 +33,7 @@
 					<span class="bad" style="float:left">UNDOCKING-OVERRIDE ENABLED</span>
 				{{/if}}
 				<span style="float:right">
-					{{:helper.link('Override', 'alert', {'command' : 'toggle_override'}, null, data.override_enabled ? 'redBackground' : null)}}
+					{{:helper.link('Override', 'alert', {'command' : 'toggle_override'}, null, data.override_enabled ? 'redButton' : null)}}
 				</span>
 			</div>
 		{{else data.docking_status == "undocked"}}
@@ -44,12 +44,12 @@
 					<span class="bad" style="float:left">OVERRIDE ENABLED</span>
 				{{/if}}
 				<span style="float:right">
-					{{:helper.link('Override', 'alert', {'command' : 'toggle_override'}, null, data.override_enabled ? 'redBackground' : null)}}
+					{{:helper.link('Override', 'alert', {'command' : 'toggle_override'}, null, data.override_enabled ? 'redButton' : null)}}
 				</span>
 			</div>
 		{{else}}
 			<span class="bad">ERROR</span>
-			{{:helper.link('Override', 'alert', {'command' : 'toggle_override'}, null, data.override_enabled ? 'redBackground' : null)}}
+			{{:helper.link('Override', 'alert', {'command' : 'toggle_override'}, null, data.override_enabled ? 'redButton' : null)}}
 		{{/if}}
 	</div>
 </div>
@@ -78,19 +78,19 @@
 			{{:helper.link('Force interior door', 'alert', {'command' : 'force_int'}, 'disabled', null)}}
 		{{else}}
 			{{if data.interior_status.state == "open"}}
-				{{:helper.link('Force exterior door', 'alert', {'command' : 'force_ext'}, null, 'redBackground')}}
+				{{:helper.link('Force exterior door', 'alert', {'command' : 'force_ext'}, null, 'redButton')}}
 			{{else}}
-				{{:helper.link('Force exterior door', 'alert', {'command' : 'force_ext'}, null, data.processing ? 'yellowBackground' : null)}}
+				{{:helper.link('Force exterior door', 'alert', {'command' : 'force_ext'}, null, data.processing ? 'yellowButton' : null)}}
 			{{/if}}
 			{{if data.exterior_status.state == "open"}}
-				{{:helper.link('Force interior door', 'alert', {'command' : 'force_int'}, null, 'redBackground')}}
+				{{:helper.link('Force interior door', 'alert', {'command' : 'force_int'}, null, 'redButton')}}
 			{{else}}
-				{{:helper.link('Force interior door', 'alert', {'command' : 'force_int'}, null, data.processing ? 'yellowBackground' : null)}}
+				{{:helper.link('Force interior door', 'alert', {'command' : 'force_int'}, null, data.processing ? 'yellowButton' : null)}}
 			{{/if}}
 		{{/if}}
 		</div>
 	</div>
 	<div class="item" style="padding-top: 10px; width: 100%">
-			{{:helper.link('Abort', 'cancel', {'command' : 'abort'}, (data.processing && !data.airlock_disabled) ? null : 'disabled', (data.processing && !data.airlock_disabled) ? 'redBackground' : null)}}
+			{{:helper.link('Abort', 'cancel', {'command' : 'abort'}, (data.processing && !data.airlock_disabled) ? null : 'disabled', (data.processing && !data.airlock_disabled) ? 'redButton' : null)}}
 	</div>
 </div>

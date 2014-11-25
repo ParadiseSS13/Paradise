@@ -13,7 +13,7 @@
  */
 /obj/item/weapon/card
 	name = "card"
-	desc = "Does card things."
+	desc = "A card."
 	icon = 'icons/obj/card.dmi'
 	w_class = 1.0
 	var/associated_account_number = 0
@@ -22,7 +22,7 @@
 
 /obj/item/weapon/card/data
 	name = "data card"
-	desc = "A disk of data."
+	desc = "A disk containing data."
 	icon_state = "data"
 	var/function = "storage"
 	var/data = "null"
@@ -191,7 +191,7 @@
 
 /obj/item/weapon/card/id/attack_self(mob/user as mob)
 	for(var/mob/O in viewers(user, null))
-		O.show_message(text("[] shows you: \icon[] []: assignment: []", user, src, src.name, src.assignment), 1)
+		O.show_message(text("[] shows you: \icon[] []. The assignment on the card: []", user, src, src.name, src.assignment), 1)
 	if(mining_points)
 		user << "There's [mining_points] mining equipment redemption points loaded onto this card."
 	src.add_fingerprint(user)
@@ -324,7 +324,7 @@
 
 /obj/item/weapon/card/id/captains_spare
 	name = "captain's spare ID"
-	desc = "The spare ID of the High Lord himself."
+	desc = "The spare ID of the captain."
 	icon_state = "gold"
 	item_state = "gold_id"
 	registered_name = "Captain"
@@ -335,8 +335,8 @@
 		..()
 
 /obj/item/weapon/card/id/centcom
-	name = "\improper CentCom. ID"
-	desc = "An ID straight from Cent. Com."
+	name = "central command ID card"
+	desc = "An ID straight from Central Command."
 	icon_state = "centcom"
 	registered_name = "Central Command"
 	assignment = "General"
