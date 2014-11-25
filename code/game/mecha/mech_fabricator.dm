@@ -13,8 +13,10 @@
 	idle_power_usage = 20
 	active_power_usage = 5000
 	req_access = list(access_robotics)
-	var/time_coeff = 1.5 //can be upgraded with research
-	var/resource_coeff = 1.5 //can be upgraded with research
+	var/time_coeff = 1
+	var/resource_coeff = 1
+	var/time_coeff_tech = 1
+	var/resource_coeff_tech = 1
 	var/list/resources = list(
 										"metal"=0,
 										"glass"=0,
@@ -93,6 +95,16 @@
 						/obj/item/mecha_parts/part/durand_right_leg,
 						/obj/item/mecha_parts/part/durand_armor
 					),
+	"Phazon"=list(
+						/obj/item/mecha_parts/chassis/phazon,
+						/obj/item/mecha_parts/part/phazon_torso,
+						/obj/item/mecha_parts/part/phazon_head,
+						/obj/item/mecha_parts/part/phazon_left_arm,
+						/obj/item/mecha_parts/part/phazon_right_arm,
+						/obj/item/mecha_parts/part/phazon_left_leg,
+						/obj/item/mecha_parts/part/phazon_right_leg,
+						/obj/item/mecha_parts/part/phazon_armor
+					),
 	"H.O.N.K"=list(
 						/obj/item/mecha_parts/chassis/honker,
 						/obj/item/mecha_parts/part/honker_torso,
@@ -101,7 +113,7 @@
 						/obj/item/mecha_parts/part/honker_right_arm,
 						/obj/item/mecha_parts/part/honker_left_leg,
 						/obj/item/mecha_parts/part/honker_right_leg
-						),
+					),
 	"Exosuit Equipment"=list(
 						/obj/item/mecha_parts/mecha_equipment/tool/hydraulic_clamp,
 						/obj/item/mecha_parts/mecha_equipment/tool/drill,
@@ -171,18 +183,16 @@
 	T = 0
 	for(var/obj/item/weapon/stock_parts/micro_laser/Ma in component_parts)
 		T += Ma.rating
-	if(T >= 1)
-		T -= 1
+	T -= 1
 	var/diff
-	diff = round(initial(resource_coeff) - (initial(resource_coeff)*(T))/25,0.01)
+	diff = round(initial(resource_coeff) - (initial(resource_coeff)*(T))/8,0.01)
 	if(resource_coeff!=diff)
 		resource_coeff = diff
 	T = 0
 	for(var/obj/item/weapon/stock_parts/manipulator/Ml in component_parts)
 		T += Ml.rating
-	if(T>= 2)
-		T -= 2
-	diff = round(initial(time_coeff) - (initial(time_coeff)*(T))/25,0.01)
+	T -= 1
+	diff = round(initial(time_coeff) - (initial(time_coeff)*(T))/5,0.01)
 	if(time_coeff!=diff)
 		time_coeff = diff
 
@@ -447,20 +457,20 @@
 						pmat += Ml.rating
 					if(pmat >= 1)
 						pmat -= 1//So the equations don't have to be reworked, upgrading a single part from T1 to T2 is == to 1 tech level
-					diff = round(initial(resource_coeff) - (initial(resource_coeff)*(T.level+pmat))/25,0.01)
-					if(resource_coeff!=diff)
-						resource_coeff = diff
-						output+="Production efficiency increased.<br>"
+					diff = round(initial(resource_coeff_tech) - (initial(resource_coeff_tech)*(T.level+pmat))/30,0.01)
+					if(resource_coeff_tech > diff)
+						resource_coeff_tech = diff
+						output += "Production efficiency increased.<br>"
 				if("programming")
 					var/ptime = 0
 					for(var/obj/item/weapon/stock_parts/manipulator/Ma in component_parts)
 						ptime += Ma.rating
 					if(ptime >= 2)
 						ptime -= 2
-					diff = round(initial(time_coeff) - (initial(time_coeff)*(T.level+ptime))/25,0.1)
-					if(time_coeff!=diff)
-						time_coeff = diff
-						output+="Production routines updated.<br>"
+					diff = round(initial(time_coeff_tech) - (initial(time_coeff_tech)*(T.level+ptime))/25,0.1)
+					if(time_coeff_tech > diff)
+						time_coeff_tech = diff
+						output += "Production routines updated.<br>"
 	return output
 
 
@@ -492,14 +502,14 @@
 	if(part.vars.Find("construction_time") && part.vars.Find("construction_cost"))
 		if (resource=="iron" && !("iron" in part:construction_cost))
 			resource="metal"
-		return round(part:construction_cost[resource]*resource_coeff, roundto)
+		return round(part:construction_cost[resource]*resource_coeff*resource_coeff_tech, roundto)
 	else
 		return 0
 
 /obj/machinery/mecha_part_fabricator/proc/get_construction_time_w_coeff(var/obj/item/part as obj, var/roundto=1)
 //Be SURE to add any new equipment to this switch, but don't be suprised if it spits out children objects
 	if(part.vars.Find("construction_time") && part.vars.Find("construction_cost"))
-		return round(part:construction_time*time_coeff, roundto)
+		return round(part:construction_time*time_coeff*time_coeff_tech, roundto)
 	else
 		return 0
 
@@ -702,53 +712,44 @@
 
 /obj/machinery/mecha_part_fabricator/attackby(obj/W as obj, mob/user as mob)
 	if(exchange_parts(user, W))
-		return
-	if(istype(W,/obj/item/weapon/screwdriver))
-		if (!opened)
-			opened = 1
-			icon_state = "fab-o"
-			user << "You open the maintenance hatch of [src]."
-		else
-			opened = 0
-			icon_state = "fab-idle"
-			user << "You close the maintenance hatch of [src]."
-		return
-	if (opened)
+		return 1
+		
+	if(istype(W, /obj/item/weapon/screwdriver))	
+		default_deconstruction_screwdriver(user, "fab-o", "fab-idle", W)
+		return 1
+		
+	if (panel_open)
 		if(istype(W, /obj/item/weapon/crowbar))
-			playsound(src.loc, 'sound/items/Crowbar.ogg', 50, 1)
-			var/obj/machinery/constructable_frame/machine_frame/M = new /obj/machinery/constructable_frame/machine_frame(src.loc)
-			M.state = 2
-			M.icon_state = "box_1"
 			for(var/obj/I in component_parts)
 				if(I.reliability != 100 && crit_fail)
 					I.crit_fail = 1
-				I.loc = src.loc
-			if(src.resources["metal"] >= 3750)
-				var/obj/item/stack/sheet/metal/G = new /obj/item/stack/sheet/metal(src.loc)
-				G.amount = round(src.resources["metal"] / G.perunit)
-			if(src.resources["glass"] >= 3750)
-				var/obj/item/stack/sheet/glass/G = new /obj/item/stack/sheet/glass(src.loc)
-				G.amount = round(src.resources["glass"] / G.perunit)
-			if(src.resources["plasma"] >= 2000)
-				var/obj/item/stack/sheet/mineral/plasma/G = new /obj/item/stack/sheet/mineral/plasma(src.loc)
-				G.amount = round(src.resources["plasma"] / G.perunit)
-			if(src.resources["silver"] >= 2000)
-				var/obj/item/stack/sheet/mineral/silver/G = new /obj/item/stack/sheet/mineral/silver(src.loc)
-				G.amount = round(src.resources["silver"] / G.perunit)
-			if(src.resources["gold"] >= 2000)
-				var/obj/item/stack/sheet/mineral/gold/G = new /obj/item/stack/sheet/mineral/gold(src.loc)
-				G.amount = round(src.resources["gold"] / G.perunit)
-			if(src.resources["uranium"] >= 2000)
-				var/obj/item/stack/sheet/mineral/uranium/G = new /obj/item/stack/sheet/mineral/uranium(src.loc)
-				G.amount = round(src.resources["uranium"] / G.perunit)
-			if(src.resources["diamond"] >= 2000)
-				var/obj/item/stack/sheet/mineral/diamond/G = new /obj/item/stack/sheet/mineral/diamond(src.loc)
-				G.amount = round(src.resources["diamond"] / G.perunit)
-			if(src.resources["bananium"] >= 2000)
-				var/obj/item/stack/sheet/mineral/clown/G = new /obj/item/stack/sheet/mineral/clown(src.loc)
-				G.amount = round(src.resources["bananium"] / G.perunit)
-			del(src)
-			return 1
+					I.loc = src.loc
+				if(src.resources["metal"] >= 3750)
+					var/obj/item/stack/sheet/metal/G = new /obj/item/stack/sheet/metal(src.loc)
+					G.amount = round(src.resources["metal"] / G.perunit)
+				if(src.resources["glass"] >= 3750)
+					var/obj/item/stack/sheet/glass/G = new /obj/item/stack/sheet/glass(src.loc)
+					G.amount = round(src.resources["glass"] / G.perunit)
+				if(src.resources["plasma"] >= 2000)
+					var/obj/item/stack/sheet/mineral/plasma/G = new /obj/item/stack/sheet/mineral/plasma(src.loc)
+					G.amount = round(src.resources["plasma"] / G.perunit)
+				if(src.resources["silver"] >= 2000)
+					var/obj/item/stack/sheet/mineral/silver/G = new /obj/item/stack/sheet/mineral/silver(src.loc)
+					G.amount = round(src.resources["silver"] / G.perunit)
+				if(src.resources["gold"] >= 2000)
+					var/obj/item/stack/sheet/mineral/gold/G = new /obj/item/stack/sheet/mineral/gold(src.loc)
+					G.amount = round(src.resources["gold"] / G.perunit)
+				if(src.resources["uranium"] >= 2000)
+					var/obj/item/stack/sheet/mineral/uranium/G = new /obj/item/stack/sheet/mineral/uranium(src.loc)
+					G.amount = round(src.resources["uranium"] / G.perunit)
+				if(src.resources["diamond"] >= 2000)
+					var/obj/item/stack/sheet/mineral/diamond/G = new /obj/item/stack/sheet/mineral/diamond(src.loc)
+					G.amount = round(src.resources["diamond"] / G.perunit)
+				if(src.resources["bananium"] >= 2000)
+					var/obj/item/stack/sheet/mineral/clown/G = new /obj/item/stack/sheet/mineral/clown(src.loc)
+					G.amount = round(src.resources["bananium"] / G.perunit)
+				default_deconstruction_crowbar(W)
+				return 1
 		else
 			user << "\red You can't load the [src.name] while it's opened."
 			return 1

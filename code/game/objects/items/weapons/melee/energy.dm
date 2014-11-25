@@ -30,10 +30,13 @@
 		return (BRUTELOSS|FIRELOSS)
 
 /obj/item/weapon/melee/energy/sword
+	var/hacked = 0
+	var/blade_color
 	color
 	name = "energy sword"
 	desc = "May the force be within you."
 	icon_state = "sword0"
+	icon_override = 'icons/mob/in-hand/swords.dmi'
 	force = 3.0
 	throwforce = 5.0
 	throw_speed = 1
@@ -46,6 +49,20 @@
 	sharp = 1
 	edge = 1
 
+/obj/item/weapon/melee/energy/sword/cyborg
+	var/hitcost = 500	
+	
+/obj/item/weapon/melee/energy/sword/cyborg/attack(mob/M, var/mob/living/silicon/robot/R)
+	if(R.cell)
+		var/obj/item/weapon/cell/C = R.cell
+		if(active && !(C.use(hitcost)))
+			attack_self()
+			R << "<span class='notice'>It's out of charge!</span>"
+			return
+		C.use(hitcost)
+		..()
+	return
+	
 /obj/item/weapon/melee/energy/sword/pirate
 	name = "energy cutlass"
 	desc = "Arrrr matey."

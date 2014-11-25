@@ -21,6 +21,8 @@
 	var/attempting = 0 //One clone attempt at a time thanks
 	var/eject_wait = 0 //Don't eject them as soon as they are created fuckkk
 	var/biomass = CLONE_BIOMASS // * 3 - N3X
+	var/speed_coeff
+	var/efficiency
 
 	l_color = "#00FF00"
 	power_change()
@@ -30,7 +32,28 @@
 		else
 			SetLuminosity(0)
 
+/obj/machinery/clonepod/New()
+	..()
+	component_parts = list()
+	component_parts += new /obj/item/weapon/circuitboard/clonepod(src)
+	component_parts += new /obj/item/weapon/stock_parts/scanning_module(src)
+	component_parts += new /obj/item/weapon/stock_parts/scanning_module(src)
+	component_parts += new /obj/item/weapon/stock_parts/manipulator(src)
+	component_parts += new /obj/item/weapon/stock_parts/manipulator(src)
+	component_parts += new /obj/item/weapon/stock_parts/console_screen(src)
+	component_parts += new /obj/item/stack/cable_coil(src, 1)
+	component_parts += new /obj/item/stack/cable_coil(src, 1)
+	RefreshParts()
 
+/obj/machinery/clonepod/RefreshParts()
+	speed_coeff = 0
+	efficiency = 0
+	for(var/obj/item/weapon/stock_parts/scanning_module/S in component_parts)
+		efficiency += S.rating
+	for(var/obj/item/weapon/stock_parts/manipulator/P in component_parts)
+		speed_coeff += P.rating
+	heal_level = (efficiency * 15) + 10
+	
 //The return of data disks?? Just for transferring between genetics machine/cloning machine.
 //TO-DO: Make the genetics machine accept them.
 /obj/item/weapon/disk/data
@@ -143,7 +166,7 @@
 
 //Start growing a human clone in the pod!
 /obj/machinery/clonepod/proc/growclone(var/datum/dna2/record/R)
-	if(mess || attempting)
+	if(mess || attempting || panel_open)
 		return 0
 	var/datum/mind/clonemind = locate(R.mind)
 	if(!istype(clonemind))	//not a mind
@@ -165,7 +188,6 @@
 						break
 				return 0
 
-	src.heal_level = rand(10,40) //Randomizes what health the clone is when ejected
 	src.attempting = 1 //One at a time!!
 	src.locked = 1
 
@@ -182,8 +204,8 @@
 
 	src.icon_state = "pod_1"
 	//Get the clone body ready
-	H.adjustCloneLoss(150) //new damage var so you can't eject a clone early then stab them to abuse the current damage system --NeoFite
-	H.adjustBrainLoss(src.heal_level + 50 + rand(10, 30)) // The rand(10, 30) will come out as extra brain damage
+	H.adjustCloneLoss(190) //new damage var so you can't eject a clone early then stab them to abuse the current damage system --NeoFite
+	H.adjustBrainLoss(190) // The rand(10, 30) will come out as extra brain damage
 	H.Paralyse(4)
 
 	//Here let's calculate their health so the pod doesn't immediately eject them!!!
@@ -217,7 +239,12 @@
 	else
 		H.dna=R.dna
 	H.UpdateAppearance()
-	randmutb(H) //Sometimes the clones come out wrong.
+	if(efficiency > 2 && efficiency < 5 && prob(25))
+		randmutb(H)
+	if(efficiency > 5 && prob(20))
+		randmutg(H)
+	if(efficiency < 3 && prob(50))
+		randmutb(H)
 	H.dna.UpdateSE()
 	H.dna.UpdateUI()
 
@@ -250,14 +277,14 @@
 			src.connected_message("Clone Rejected: Deceased.")
 			return
 
-		else if(src.occupant.health < src.heal_level)
+		else if(src.occupant.cloneloss > (100 - src.heal_level))
 			src.occupant.Paralyse(4)
 
 			 //Slowly get that clone healed and finished.
-			src.occupant.adjustCloneLoss(-2)
+			src.occupant.adjustCloneLoss(-((speed_coeff/2)))
 
 			//Premature clones may have brain damage.
-			src.occupant.adjustBrainLoss(-1)
+			src.occupant.adjustBrainLoss(-((speed_coeff/2)))
 
 			//So clones don't die of oxyloss in a running pod.
 			if (src.occupant.reagents.get_reagent_amount("inaprovaline") < 30)
@@ -269,7 +296,7 @@
 			use_power(7500) //This might need tweaking.
 			return
 
-		else if((src.occupant.health >= src.heal_level) && (!src.eject_wait))
+		else if((src.occupant.cloneloss <= (100 - src.heal_level)) && (!src.eject_wait))
 			src.connected_message("Cloning Process Complete.")
 			src.locked = 0
 			src.go_out()
@@ -279,7 +306,7 @@
 		src.occupant = null
 		if (src.locked)
 			src.locked = 0
-		if (!src.mess)
+		if (!src.mess && !panel_open)
 			icon_state = "pod_0"
 		//use_power(200)
 		return
@@ -288,6 +315,20 @@
 
 //Let's unlock this early I guess.  Might be too early, needs tweaking.
 /obj/machinery/clonepod/attackby(obj/item/weapon/W as obj, mob/user as mob)
+	if (istype(W, /obj/item/weapon/screwdriver))
+		if(occupant || mess || locked)
+			user << "<span class='notice'>The maintenance panel is locked.</span>"
+			return
+		default_deconstruction_screwdriver(user, "[icon_state]_maintenance", "[initial(icon_state)]", W)
+		return
+
+	if(exchange_parts(user, W))
+		return		
+		
+	if(istype(W, /obj/item/weapon/crowbar))
+		if(panel_open)
+			default_deconstruction_crowbar(W)
+		return
 	if (istype(W, /obj/item/weapon/card/id)||istype(W, /obj/item/device/pda))
 		if (!src.check_access(W))
 			user << "\red Access Denied."
@@ -348,17 +389,16 @@
 	set name = "Eject Cloner"
 	set category = "Object"
 	set src in oview(1)
-
+	
+	if(!usr)
+		return
 	if (usr.stat != 0)
 		return
-	src.go_out()
+	src.go_out(usr)
 	add_fingerprint(usr)
 	return
 
-/obj/machinery/clonepod/proc/go_out()
-	if (src.locked)
-		return
-
+/obj/machinery/clonepod/proc/go_out(user)
 	if (src.mess) //Clean that mess and dump those gibs!
 		src.mess = 0
 		gibs(src.loc)
@@ -371,8 +411,12 @@
 		return
 
 	if (!(src.occupant))
+		user << "<span class=\"warning\">The cloning pod is empty!</span>"
 		return
 
+	if (src.locked)
+		user << "<span class=\"warning\">The cloning pod is locked!</span>"
+		return	
 	/*
 	for(var/obj/O in src)
 		O.loc = src.loc
@@ -409,7 +453,7 @@
 	return
 
 /obj/machinery/clonepod/emp_act(severity)
-	if(prob(100/severity)) malfunction()
+	if(prob(100/(severity*efficiency))) malfunction()
 	..()
 
 /obj/machinery/clonepod/ex_act(severity)

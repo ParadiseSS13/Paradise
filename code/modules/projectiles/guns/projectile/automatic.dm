@@ -37,7 +37,7 @@
 
 /obj/item/weapon/gun/projectile/automatic/c20r
 	name = "\improper C-20r SMG"
-	desc = "A lightweight, fast firing gun, for when you REALLY need someone dead. Uses 12mm rounds. Has a 'Scarborough Arms - Per falcis, per pravitas' buttstamp"
+	desc = "A lightweight, compact bullpup SMG. Uses .45 rounds in medium-capacity magazines and has a 'Scarborough Arms - Per falcis, per pravitas' buttstamp."
 	icon_state = "c20r"
 	item_state = "c20r"
 	w_class = 3.0
@@ -60,14 +60,14 @@
 
 /obj/item/weapon/gun/projectile/automatic/l6_saw
 	name = "\improper L6 SAW"
-	desc = "A rather traditionally made medium machine gun with a pleasantly lacquered wooden pistol grip. Has 'Aussec Armoury- 2531' engraved on the reciever"
+	desc = "A heavily modified light machine gun with a tactical plasteel frame resting on a rather traditionally-made belt-fed ballistic weapon. Has 'Aussec Armoury - 2531' engraved on the reciever."
 	icon_state = "l6closed100"
 	item_state = "l6closedmag"
 	w_class = 4
 	slot_flags = 0
 	origin_tech = "combat=5;materials=1;syndicate=2"
 	mag_type = "/obj/item/ammo_box/magazine/m762"
-	fire_sound = 'sound/weapons/Gunshot_smg.ogg'
+	fire_sound = 'sound/weapons/Gunshot3.ogg'
 
 	var/cover_open = 0
 
@@ -118,11 +118,12 @@
 	name = "\improper Bulldog shotgun"
 	desc = "A compact, mag-fed semi-automatic shotgun for combat in narrow corridors. Compatible only with specialized magazines."
 	icon_state = "bulldog"
-	item_state = "c20r"
+	item_state = "bulldog"
+	icon_override = 'icons/mob/in-hand/guns.dmi'
 	w_class = 3.0
 	origin_tech = "combat=5;materials=4;syndicate=6"
 	mag_type = "/obj/item/ammo_box/magazine/m12g"
-	fire_sound = 'sound/weapons/Gunshot.ogg'
+	fire_sound = 'sound/weapons/Gunshot4.ogg'
 
 /obj/item/weapon/gun/projectile/automatic/bulldog/New()
 	..()

@@ -188,7 +188,14 @@
 		..()
 		reagents.add_reagent("citalopram", 15)
 
-
+/obj/item/weapon/reagent_containers/pill/paroxetine
+	name = "Paroxetine pill"
+	desc = "Heavy anti-depressant."
+	icon_state = "pill8"
+	New()
+		..()
+		reagents.add_reagent("paroxetine", 15)
+		
 /obj/item/weapon/reagent_containers/pill/inaprovaline
 	name = "Inaprovaline pill"
 	desc = "Used to stabilize patients."

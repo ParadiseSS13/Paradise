@@ -102,7 +102,37 @@
 		new /obj/item/weapon/storage/belt/medical(src)
 		return
 
+// Psychiatrist's pill bottle
+/obj/item/weapon/storage/pill_bottle/psychiatrist
+	name = "psychiatrist's pill bottle"
+	desc = "Contains various pills to calm or sedate patients."
+	
+/obj/item/weapon/storage/pill_bottle/psychiatrist/New()
+	..()
+	new /obj/item/weapon/reagent_containers/pill/citalopram(src)
+	new /obj/item/weapon/reagent_containers/pill/citalopram(src)
+	new /obj/item/weapon/reagent_containers/pill/methylphenidate(src)
+	new /obj/item/weapon/reagent_containers/pill/methylphenidate(src)
+		
+/obj/structure/closet/secure_closet/psychiatrist
+	name = "Psychiatrist's Locker"
+	req_access = list(access_psychiatrist)
+	icon_state = "securemed1"
+	icon_closed = "securemed"
+	icon_locked = "securemed1"
+	icon_opened = "securemedopen"
+	icon_broken = "securemedbroken"
+	icon_off = "securemedoff"
 
+	New()
+		..()
+		sleep(2)
+		new /obj/item/clothing/suit/straight_jacket(src)
+		new /obj/item/weapon/reagent_containers/syringe(src)
+		new /obj/item/weapon/reagent_containers/glass/bottle/stoxin(src)
+		new /obj/item/weapon/storage/pill_bottle/psychiatrist(src)
+
+		return
 
 /obj/structure/closet/secure_closet/CMO
 	name = "Chief Medical Officer's Locker"

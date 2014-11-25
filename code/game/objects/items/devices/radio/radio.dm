@@ -21,9 +21,9 @@ var/GLOBAL_RADIO_TYPE = 1 // radio type to use
 	var/broadcasting = 0
 	var/listening = 1
 	var/freerange = 0 // 0 - Sanitize frequencies, 1 - Full range
-	var/list/channels = list() //see communications.dm for full list. First channes is a "default" for :h
+	var/list/channels = list() //see communications.dm for full list. First channels is a "default" for :h
 	var/subspace_transmission = 0
-	var/syndie = 0//Holder to see if it's a syndicate encrpyed radio
+	var/syndie = 0//Holder to see if it's a syndicate encrypted radio
 	var/maxf = 1499
 //			"Example" = FREQ_LISTENING|FREQ_BROADCASTING
 	flags = FPRINT | CONDUCT | TABLEPASS
@@ -296,7 +296,8 @@ var/GLOBAL_RADIO_TYPE = 1 // radio type to use
 
 		// --- Cyborg ---
 		else if (isrobot(M))
-			jobname = "Cyborg"
+			var/mob/living/silicon/robot/B = M
+			jobname = "[B.designation] Cyborg"
 
 		// --- Personal AI (pAI) ---
 		else if (istype(M, /mob/living/silicon/pai))
@@ -698,6 +699,13 @@ var/GLOBAL_RADIO_TYPE = 1 // radio type to use
 /obj/item/device/radio/borg
 	var/obj/item/device/encryptionkey/keyslot = null//Borg radios can handle a single encryption key
 
+/obj/item/device/radio/borg/syndicate
+	syndie = 1
+	keyslot = new /obj/item/device/encryptionkey/syndicate
+/obj/item/device/radio/borg/syndicate/New()
+	..()
+	set_frequency(SYND_FREQ)	
+	
 /obj/item/device/radio/borg/attackby(obj/item/weapon/W as obj, mob/user as mob)
 //	..()
 	user.set_machine(src)

@@ -12,26 +12,32 @@
 	var/list/tempnets[0]
 	var/list/data[0]
 	var/list/access[0]
-	var/emag = 0
 
 	New() // Lists existing networks and their required access. Format: networks[<name>] = list(<access>)
 		networks["SS13"] = list(access_hos,access_captain)
 		networks["Telecomms"] = list(access_hos,access_captain)
 		networks["Research Outpost"] = list(access_rd,access_hos,access_captain)
-		networks["Mining Outpost"] = list(access_qm,access_hop,access_hos,access_captain)	
+		networks["Mining Outpost"] = list(access_qm,access_hop,access_hos,access_captain)
 		networks["Research"] = list(access_rd,access_hos,access_captain)
 		networks["Prison"] = list(access_hos,access_captain)
-		networks["Interrogation"] = list(access_hos,access_captain)		
+		networks["Interrogation"] = list(access_hos,access_captain)	
+		networks["Atmosphere Alarms"] = list(access_ce,access_hos,access_captain)
+		networks["Fire Alarms"] = list(access_ce,access_hos,access_captain)	
+		networks["Power Alarms"] = list(access_ce,access_hos,access_captain)
 		networks["Supermatter"] = list(access_ce,access_hos,access_captain)	
-		networks["Singularity"] = list(access_ce,access_hos,access_captain)		
+		networks["Singularity"] = list(access_ce,access_hos,access_captain)	
 		networks["Anomaly Isolation"] = list(access_rd,access_hos,access_captain)
 		networks["Toxins"] = list(access_rd,access_hos,access_captain)
 		networks["Telepad"] = list(access_rd,access_hos,access_captain)
+		networks["ERT"] = list(access_cent_teleporter,access_cent_captain)		
 		networks["CentCom"] = list(access_cent_captain)
-		networks["Thunderdome"] = list(access_cent_captain)	
+		networks["Thunderdome"] = list(access_cent_captain)
 		
 	attack_ai(var/mob/user as mob)
-		return ui_interact(user) 
+		if(isAI(user))
+			return ui_interact(user) 
+		else
+			return attack_hand(user)
 
 	attack_paw(var/mob/user as mob)
 		return attack_hand(user)
@@ -46,10 +52,10 @@
 	attackby(I as obj, user as mob)
 		if(istype(I,/obj/item/weapon/card/emag)) // If hit by an emag.
 			var/obj/item/weapon/card/emag/E = I
-			if(!emag)
+			if(!emagged)
 				if(E.uses)
 					E.uses--
-					emag = 1
+					emagged = 1
 					user << "\blue You have authorized full network access!"
 					ui_interact(user)
 				else
@@ -71,7 +77,7 @@
 		
 		data.Cut()
 		tempnets.Cut()
-		if(emag)
+		if(emagged)
 			access = list(access_captain) // Assume captain level access when emagged
 			data["emagged"] = 1
 		if(isAI(user))
@@ -261,4 +267,4 @@
 	name = "Engineering Camera Monitor"
 	desc = "Used to monitor fires and breaches."
 	icon_state = "engineeringcameras"
-	network = list("Engineering","Power Alarms","Atmosphere Alarms","Fire Alarms")
+	network = list("Power Alarms","Atmosphere Alarms","Fire Alarms")

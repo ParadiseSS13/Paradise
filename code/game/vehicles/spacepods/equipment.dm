@@ -83,7 +83,7 @@
 /obj/item/device/spacepod_equipment/weaponry/taser/proc/fire_weapon_system()
 	set category = "Spacepod"
 	set name = "Fire Taser System"
-	set desc = "Fire ze tasers!"
+	set desc = "Fire the tasers."
 	set src = usr.loc
 
 	fire_weapons()
@@ -107,7 +107,7 @@
 /obj/item/device/spacepod_equipment/weaponry/laser/proc/fire_weapon_system()
 	set category = "Spacepod"
 	set name = "Fire Laser System"
-	set desc = "Fire ze lasers!"
+	set desc = "Fire the lasers."
 	set src = usr.loc
 
 	fire_weapons()

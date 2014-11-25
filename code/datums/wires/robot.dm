@@ -66,6 +66,7 @@ var/const/BORG_WIRE_LAWCHECK    = 16 // Not used on MoMMIs
 		if (BORG_WIRE_AI_CONTROL) //pulse the AI wire to make the borg reselect an AI
 			if(!R.emagged)
 				R.connected_ai = select_active_ai()
+				R.notify_ai(1)
 
 		if (BORG_WIRE_CAMERA)
 			if(!isnull(R.camera) && R.camera.can_use() && !R.scrambledcodes)

@@ -100,7 +100,7 @@
 	if(myyellowtoolbox)
 		dat += "<a href='?src=\ref[src];yellowtoolbox=1'>[myyellowtoolbox.name]</a><br>"
 	if(myengitape)
-		dat += "<a href='?src=\ref[src];myengitape=1'>[myengitape.name]</a><br>"
+		dat += "<a href='?src=\ref[src];engitape=1'>[myengitape.name]</a><br>"
 	var/datum/browser/popup = new(user, "engicart", name, 240, 160)
 	popup.set_content(dat)
 	popup.open()

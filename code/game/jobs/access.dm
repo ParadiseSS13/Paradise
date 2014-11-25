@@ -200,6 +200,10 @@
 			return list(access_cent_general, access_cent_living, access_cent_storage)
 		if("Thunderdome Overseer")
 			return list(access_cent_general, access_cent_thunder)
+		if("Emergency Response Team")
+			return list(access_cent_general, access_cent_living, access_cent_storage)
+		if("Emergency Response Team Leader")
+			return list(access_cent_general, access_cent_living, access_cent_storage, access_cent_teleporter)
 		if("Intel Officer")
 			return list(access_cent_general, access_cent_living)
 		if("Medical Officer")
@@ -210,6 +214,12 @@
 			return list(access_cent_general, access_cent_specops, access_cent_medical, access_cent_teleporter, access_cent_storage)
 		if("BlackOps Commander")
 			return list(access_cent_general, access_cent_thunder, access_cent_specops, access_cent_living, access_cent_storage, access_cent_creed)
+		if("Special Operations Officer")
+			return get_all_centcom_access()
+		if("NanoTrasen Navy Officer")
+			return get_all_centcom_access()
+		if("NanoTrasen Navy Captain")
+			return get_all_centcom_access()
 		if("Supreme Commander")
 			return get_all_centcom_access()
 
@@ -447,7 +457,7 @@
 	return all_jobs
 
 /proc/get_all_centcom_jobs()
-	return list("VIP Guest","Custodian","Thunderdome Overseer","Intel Officer","Medical Officer","Death Commando","Research Officer","BlackOps Commander","Supreme Commander")
+	return list("VIP Guest","Custodian","Thunderdome Overseer","Emergency Response Team","Emergency Response Team Leader","Intel Officer","Medical Officer","Death Commando","Research Officer","BlackOps Commander","Special Operations Officer","NanoTrasen Navy Officer","NanoTrasen Navy Captain","Supreme Commander")
 
 //gets the actual job rank (ignoring alt titles)
 //this is used solely for sechuds
@@ -524,20 +534,28 @@ proc/get_all_job_icons() //For all existing HUD icons
 	return joblist + list("Prisoner")
 
 /obj/proc/GetJobName() //Used in secHUD icon generation
-	if (!istype(src, /obj/item/device/pda) && !istype(src,/obj/item/weapon/card/id))
+	var/obj/item/weapon/card/id/I
+	if(istype(src, /obj/item/device/pda))
+		var/obj/item/device/pda/P = src
+		I = P.id
+	else if(istype(src, /obj/item/weapon/card/id))
+		I = src
+
+	if(I)
+		var/job_icons = get_all_job_icons()
+		var/centcom = get_all_centcom_jobs()
+
+		if(I.assignment	in job_icons) //Check if the job has a hud icon
+			return I.assignment
+		if(I.rank in job_icons)
+			return I.rank
+
+		if(I.assignment	in centcom) //Return with the NT logo if it is a Centcom job
+			return "Centcom"
+		if(I.rank in centcom)
+			return "Centcom"
+	else
 		return
 
-	var/jobName
-
-	if(istype(src, /obj/item/device/pda))
-		if(src:id)
-			jobName = src:id:assignment
-	if(istype(src, /obj/item/weapon/card/id))
-		jobName = src:assignment
-
-	if(jobName in get_all_job_icons()) //Check if the job has a hud icon
-		return jobName
-	if(jobName in get_all_centcom_jobs()) //Return with the NT logo if it is a Centcom job
-		return "Centcom"
 	return "Unknown" //Return unknown if none of the above apply
 

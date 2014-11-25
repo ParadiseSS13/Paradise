@@ -75,12 +75,13 @@
 
 /obj/item/weapon/gun/projectile/automatic/pistol
 	name = "\improper Stechtkin pistol"
-	desc = "A small, easily concealable gun. Uses 10mm rounds."
+	desc = "A small, easily concealable gun. Uses 10mm rounds and has a threaded barrel for suppressors."
 	icon_state = "pistol"
 	w_class = 2
 	silenced = 0
 	origin_tech = "combat=2;materials=2;syndicate=2"
 	mag_type = "/obj/item/ammo_box/magazine/m10mm"
+	fire_sound = 'sound/weapons/Gunshot2.ogg'
 
 /obj/item/weapon/gun/projectile/automatic/pistol/attack_hand(mob/user as mob)
 	if(loc == user)
@@ -122,8 +123,8 @@
 	return
 
 /obj/item/weapon/silencer
-	name = "silencer"
-	desc = "a silencer"
+	name = "supressor"
+	desc = "A universal syndicate small-arms suppressor."
 	icon = 'icons/obj/gun.dmi'
 	icon_state = "silencer"
 	w_class = 2

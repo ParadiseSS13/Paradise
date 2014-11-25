@@ -184,23 +184,23 @@
 				parent.helm.gas_transfer_coefficient = 0.01
 				parent.helm.permeability_coefficient = 0.02
 				parent.helm.cold_protection = HEAD
-				parent.helm.min_cold_protection_temperature = SPACE_HELMET_MIN_COLD_PROTECITON_TEMPERATURE
+				parent.helm.min_cold_protection_temperature = SPACE_HELMET_MIN_COLD_PROTECTION_TEMPERATURE
 				parent.helm.heat_protection = HEAD
-				parent.helm.max_heat_protection_temperature = SPACE_HELMET_MAX_HEAT_PROTECITON_TEMPERATURE
+				parent.helm.max_heat_protection_temperature = SPACE_HELMET_MAX_HEAT_PROTECTION_TEMPERATURE
 			if(parent.glovesrequired)
 				parent.gloves.gas_transfer_coefficient = 0.01
 				parent.gloves.permeability_coefficient = 0.02
 				parent.gloves.cold_protection = HANDS
-				parent.gloves.min_cold_protection_temperature = SPACE_SUIT_MIN_COLD_PROTECITON_TEMPERATURE
+				parent.gloves.min_cold_protection_temperature = SPACE_SUIT_MIN_COLD_PROTECTION_TEMPERATURE
 				parent.gloves.heat_protection = HANDS
-				parent.gloves.max_heat_protection_temperature = SPACE_SUIT_MAX_HEAT_PROTECITON_TEMPERATURE
+				parent.gloves.max_heat_protection_temperature = SPACE_SUIT_MAX_HEAT_PROTECTION_TEMPERATURE
 			if(parent.shoesrequired)
 				parent.shoes.gas_transfer_coefficient = 0.01
 				parent.shoes.permeability_coefficient = 0.02
 				parent.shoes.cold_protection = FEET
-				parent.shoes.min_cold_protection_temperature = SPACE_SUIT_MIN_COLD_PROTECITON_TEMPERATURE
+				parent.shoes.min_cold_protection_temperature = SPACE_SUIT_MIN_COLD_PROTECTION_TEMPERATURE
 				parent.shoes.heat_protection = FEET
-				parent.shoes.max_heat_protection_temperature = SPACE_SUIT_MAX_HEAT_PROTECITON_TEMPERATURE
+				parent.shoes.max_heat_protection_temperature = SPACE_SUIT_MAX_HEAT_PROTECTION_TEMPERATURE
 			sealed = 1
 
 /obj/item/powerarmor/atmoseal/optional
@@ -226,9 +226,9 @@
 			parent.helm.gas_transfer_coefficient = 0.01
 			parent.helm.permeability_coefficient = 0.02
 			parent.helm.cold_protection = HEAD
-			parent.helm.min_cold_protection_temperature = SPACE_HELMET_MIN_COLD_PROTECITON_TEMPERATURE
+			parent.helm.min_cold_protection_temperature = SPACE_HELMET_MIN_COLD_PROTECTION_TEMPERATURE
 			parent.helm.heat_protection = HEAD
-			parent.helm.max_heat_protection_temperature = SPACE_HELMET_MAX_HEAT_PROTECITON_TEMPERATURE
+			parent.helm.max_heat_protection_temperature = SPACE_HELMET_MAX_HEAT_PROTECTION_TEMPERATURE
 
 			user << "<span class='notice'>Helmet atmospheric seals engaged.</span>"
 			if(manual)

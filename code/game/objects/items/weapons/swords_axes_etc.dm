@@ -24,7 +24,7 @@
 	return 0
 
 /obj/item/weapon/melee/energy/sword/New()
-	_color = pick("red","blue","green","purple")
+	blade_color = pick("red","blue","green","purple")
 
 /obj/item/weapon/melee/energy/sword/attack_self(mob/living/user as mob)
 	if ((M_CLUMSY in user.mutations) && prob(50))
@@ -36,7 +36,7 @@
 		if(istype(src,/obj/item/weapon/melee/energy/sword/pirate))
 			icon_state = "cutlass1"
 		else
-			icon_state = "sword[_color]"
+			icon_state = "sword[blade_color]"
 		w_class = 4
 		playsound(user, 'sound/weapons/saberon.ogg', 50, 1)
 		hitsound = 'sound/weapons/blade1.ogg'
@@ -67,9 +67,29 @@
 				user.adjustBrainLoss(10)
 		else
 			user << "<span class='notice'>You attach the ends of the two energy swords, making a single double-bladed weapon! You're cool.</span>"
-			new /obj/item/weapon/twohanded/dualsaber(user.loc)
+			var/obj/item/weapon/twohanded/dualsaber/newSaber = new /obj/item/weapon/twohanded/dualsaber(user.loc)
+			if(src.hacked) // That's right, we'll only check the "original" esword.
+				newSaber.hacked = 1
+				newSaber.blade_color = "rainbow"
 			del(W)
 			del(src)
+
+	else if(istype(W, /obj/item/device/multitool))
+		if(hacked == 0)
+			hacked = 1
+			blade_color = "rainbow"
+			user << "<span class='warning'>RNBW_ENGAGE</span>"
+
+			if(active)
+				icon_state = "swordrainbow"
+				// Updating overlays, copied from welder code.
+				// I tried calling attack_self twice, which looked cool, except it somehow didn't update the overlays!!
+				if(user.r_hand == src)
+					user.update_inv_r_hand(0)
+				else if(user.l_hand == src)
+					user.update_inv_l_hand(0)
+		else
+			user << "<span class='warning'>It's already fabulous!</span>"
 /*
  * Classic Baton
  */
@@ -215,8 +235,7 @@
 		return
 	else
 		return ..()
-
-
+		
 /*
  *Energy Blade
  */
@@ -282,6 +301,7 @@
 	active = !active
 	if (active)
 		force = 10
+		reflect_chance = 80
 		icon_state = "eshield[active]"
 		w_class = 4
 		playsound(user, 'sound/weapons/saberon.ogg', 50, 1)
@@ -290,6 +310,7 @@
 		force = 3
 		icon_state = "eshield[active]"
 		w_class = 1
+		reflect_chance = 0
 		playsound(user, 'sound/weapons/saberoff.ogg', 50, 1)
 		user << "\blue [src] can now be concealed."
 	if(istype(user,/mob/living/carbon/human))

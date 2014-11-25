@@ -49,21 +49,21 @@
 #define BODYTEMP_HEAT_DAMAGE_LIMIT 360.15 // The limit the human body can take before it starts taking damage from heat.
 #define BODYTEMP_COLD_DAMAGE_LIMIT 260.15 // The limit the human body can take before it starts taking damage from coldness.
 
-#define SPACE_HELMET_MIN_COLD_PROTECITON_TEMPERATURE 2.0 //what min_cold_protection_temperature is set to for space-helmet quality headwear. MUST NOT BE 0.
-#define SPACE_HELMET_MAX_HEAT_PROTECITON_TEMPERATURE 10000
-#define SPACE_SUIT_MIN_COLD_PROTECITON_TEMPERATURE 2.0 //what min_cold_protection_temperature is set to for space-suit quality jumpsuits or suits. MUST NOT BE 0.
-#define SPACE_SUIT_MAX_HEAT_PROTECITON_TEMPERATURE 10000	//These need better heat protect
-#define FIRESUIT_MAX_HEAT_PROTECITON_TEMPERATURE 30000 //what max_heat_protection_temperature is set to for firesuit quality headwear. MUST NOT BE 0.
-#define FIRE_HELMET_MAX_HEAT_PROTECITON_TEMPERATURE 30000 //for fire helmet quality items (red and white hardhats)
-#define HELMET_MIN_COLD_PROTECITON_TEMPERATURE 160	//For normal helmets
-#define HELMET_MAX_HEAT_PROTECITON_TEMPERATURE 600	//For normal helmets
-#define ARMOR_MIN_COLD_PROTECITON_TEMPERATURE 160	//For armor
-#define ARMOR_MAX_HEAT_PROTECITON_TEMPERATURE 600	//For armor
+#define SPACE_HELMET_MIN_COLD_PROTECTION_TEMPERATURE 2.0 //what min_cold_protection_temperature is set to for space-helmet quality headwear. MUST NOT BE 0.
+#define SPACE_HELMET_MAX_HEAT_PROTECTION_TEMPERATURE 10000
+#define SPACE_SUIT_MIN_COLD_PROTECTION_TEMPERATURE 2.0 //what min_cold_protection_temperature is set to for space-suit quality jumpsuits or suits. MUST NOT BE 0.
+#define SPACE_SUIT_MAX_HEAT_PROTECTION_TEMPERATURE 10000	//These need better heat protect
+#define FIRESUIT_MAX_HEAT_PROTECTION_TEMPERATURE 30000 //what max_heat_protection_temperature is set to for firesuit quality headwear. MUST NOT BE 0.
+#define FIRE_HELMET_MAX_HEAT_PROTECTION_TEMPERATURE 30000 //for fire helmet quality items (red and white hardhats)
+#define HELMET_MIN_COLD_PROTECTION_TEMPERATURE 160	//For normal helmets
+#define HELMET_MAX_HEAT_PROTECTION_TEMPERATURE 600	//For normal helmets
+#define ARMOR_MIN_COLD_PROTECTION_TEMPERATURE 160	//For armor
+#define ARMOR_MAX_HEAT_PROTECTION_TEMPERATURE 600	//For armor
 
-#define GLOVES_MIN_COLD_PROTECITON_TEMPERATURE 2.0	//For some gloves (black and)
-#define GLOVES_MAX_HEAT_PROTECITON_TEMPERATURE 1500		//For some gloves
-#define SHOE_MIN_COLD_PROTECITON_TEMPERATURE 2.0	//For gloves
-#define SHOE_MAX_HEAT_PROTECITON_TEMPERATURE 1500		//For gloves
+#define GLOVES_MIN_COLD_PROTECTION_TEMPERATURE 2.0	//For some gloves (black and)
+#define GLOVES_MAX_HEAT_PROTECTION_TEMPERATURE 1500		//For some gloves
+#define SHOE_MIN_COLD_PROTECTION_TEMPERATURE 2.0	//For gloves
+#define SHOE_MAX_HEAT_PROTECTION_TEMPERATURE 1500		//For gloves
 
 
 #define PRESSURE_DAMAGE_COEFFICIENT 4 //The amount of pressure damage someone takes is equal to (pressure / HAZARD_HIGH_PRESSURE)*PRESSURE_DAMAGE_COEFFICIENT, with the maximum of MAX_PRESSURE_DAMAGE
@@ -785,6 +785,7 @@ var/list/cheartstopper = list("potassium_chloride") //this stops the heart when 
 
 var/list/RESTRICTED_CAMERA_NETWORKS = list( //Those networks can only be accessed by preexisting terminals. AIs and new terminals can't use them.
 	"CentCom",
+	"ERT",
 	"Thunderdome",
 	"Xeno"
 	)
@@ -911,3 +912,4 @@ var/list/RESTRICTED_CAMERA_NETWORKS = list( //Those networks can only be accesse
 #define IS_SKRELL 3
 #define IS_UNATHI 4
 
+var/list/hit_appends = list("-OOF", "-ACK", "-UGH", "-HRNK", "-HURGH", "-GLORF")
