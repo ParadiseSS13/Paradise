@@ -108,11 +108,8 @@
 	The following criminally helpful code is just the previous code cleaned up;
 	I have no idea why it was in atoms.dm instead of respective files.
 */
-///mob/proc/AICtrlShiftClick(var/atom/A)
-//	A.AICtrlShiftClick(src)
-//	return
 
-/atom/proc/AICtrlShiftClick(var/mob/user)  // Sets/Unsets Emergency Access Override
+/atom/proc/AICtrlShiftClick(var/mob/user)  // Examines
 	if(user.client && user.client.eye == user)
 		examine()
 	return

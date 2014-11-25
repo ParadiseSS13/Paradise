@@ -115,11 +115,7 @@
 /mob/living/silicon/robot/AltClickOn(var/atom/A)
 	A.BorgAltClick(src)
 
-///mob/proc/BorgCtrlShiftClick(var/atom/A) 
-//	A.BorgCtrlShiftClick(src)
-//	return
-
-/atom/proc/BorgCtrlShiftClick(var/mob/user) 
+/atom/proc/BorgCtrlShiftClick(var/mob/user) // Examines
 	if(user.client && user.client.eye == user)
 		examine()
 		user.face_atom(src)
