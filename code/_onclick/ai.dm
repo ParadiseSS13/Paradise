@@ -39,6 +39,9 @@
 		return
 
 	var/list/modifiers = params2list(params)
+	if(modifiers["shift"] && modifiers["ctrl"])
+		CtrlShiftClickOn(A)
+		return
 	if(modifiers["middle"])
 		MiddleClickOn(A)
 		return
@@ -90,6 +93,8 @@
 	for AI shift, ctrl, and alt clicking.
 */
 
+/mob/living/silicon/ai/CtrlShiftClickOn(var/atom/A)
+	A.AICtrlShiftClick(src)
 /mob/living/silicon/ai/ShiftClickOn(var/atom/A)
 	A.AIShiftClick(src)
 /mob/living/silicon/ai/CtrlClickOn(var/atom/A)
@@ -103,7 +108,15 @@
 	The following criminally helpful code is just the previous code cleaned up;
 	I have no idea why it was in atoms.dm instead of respective files.
 */
+///mob/proc/AICtrlShiftClick(var/atom/A)
+//	A.AICtrlShiftClick(src)
+//	return
 
+/atom/proc/AICtrlShiftClick(var/mob/user)  // Sets/Unsets Emergency Access Override
+	if(user.client && user.client.eye == user)
+		examine()
+	return
+	
 /atom/proc/AIShiftClick()
 	return
 

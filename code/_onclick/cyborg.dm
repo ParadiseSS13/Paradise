@@ -16,6 +16,9 @@
 		return
 
 	var/list/modifiers = params2list(params)
+	if(modifiers["shift"] && modifiers["ctrl"])
+		CtrlShiftClickOn(A)
+		return
 	if(modifiers["middle"])
 		MiddleClickOn(A)
 		return
@@ -103,6 +106,8 @@
 
 //Give cyborgs hotkey clicks without breaking existing uses of hotkey clicks
 // for non-doors/apcs
+/mob/living/silicon/robot/CtrlShiftClickOn(var/atom/A)
+	A.BorgCtrlShiftClick(src)
 /mob/living/silicon/robot/ShiftClickOn(var/atom/A)
 	A.BorgShiftClick(src)
 /mob/living/silicon/robot/CtrlClickOn(var/atom/A)
@@ -110,6 +115,16 @@
 /mob/living/silicon/robot/AltClickOn(var/atom/A)
 	A.BorgAltClick(src)
 
+///mob/proc/BorgCtrlShiftClick(var/atom/A) 
+//	A.BorgCtrlShiftClick(src)
+//	return
+
+/atom/proc/BorgCtrlShiftClick(var/mob/user) 
+	if(user.client && user.client.eye == user)
+		examine()
+		user.face_atom(src)
+	return
+	
 /atom/proc/BorgShiftClick()
 	return	
 	
