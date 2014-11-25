@@ -786,6 +786,7 @@ var/list/cheartstopper = list("potassium_chloride") //this stops the heart when 
 var/list/RESTRICTED_CAMERA_NETWORKS = list( //Those networks can only be accessed by preexisting terminals. AIs and new terminals can't use them.
 	"CentCom",
 	"ERT",
+	"NukeOps",
 	"Thunderdome",
 	"Xeno"
 	)

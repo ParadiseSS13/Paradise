@@ -189,7 +189,7 @@
 		objects += O
 
 	for(var/client/C in clients)
-		if(!istype(C) || !C.eye)
+		if(!istype(C) || !C.eye || istype(C.eye, /mob/aiEye))
 			continue   			//I have no idea when this client check would be needed, but if this runtimes people won't hear anything
 							//So kinda paranoid about runtime avoidance.
 		if(istype(C.eye, /obj/machinery/camera))

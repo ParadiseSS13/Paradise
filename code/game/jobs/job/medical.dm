@@ -132,7 +132,7 @@
 	department_flag = MEDSCI
 	total_positions = 2
 	spawn_positions = 2
-	supervisors = "the chief medical officer and research director"
+	supervisors = "the chief medical officer and the research director"
 	selection_color = "#ffeef0"
 	access = list(access_medical, access_morgue, access_surgery, access_chemistry, access_virology, access_genetics, access_research)
 	minimal_access = list(access_medical, access_morgue, access_genetics, access_research, access_maint_tunnels)

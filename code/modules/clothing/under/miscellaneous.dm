@@ -180,6 +180,7 @@
 	item_state = "r_suit"
 	_color = "red_suit"
 	species_fit = list("Vox")
+	flags = ONESIZEFITSALL
 
 /obj/item/clothing/under/blackskirt
 	name = "black skirt"

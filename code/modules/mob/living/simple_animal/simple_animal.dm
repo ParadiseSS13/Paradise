@@ -161,7 +161,7 @@
 
 			if( abs(Environment.temperature - bodytemperature) > 40 )
 				bodytemperature += ((Environment.temperature - bodytemperature) / 5)
-
+			
 			if(min_oxy)
 				if(Environment.oxygen < min_oxy)
 					atmos_suitable = 0
@@ -186,7 +186,9 @@
 			if(max_co2)
 				if(Environment.carbon_dioxide > max_co2)
 					atmos_suitable = 0
-
+			if(flags & NO_BREATHE || flags & IS_SYNTHETIC)
+				atmos_suitable = 1
+				
 	//Atmos effect
 	if(bodytemperature < minbodytemp)
 		adjustBruteLoss(cold_damage_per_tick)
