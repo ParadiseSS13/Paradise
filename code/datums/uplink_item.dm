@@ -286,6 +286,19 @@ var/list/uplink_items = list()
 	cost = 140
 	gamemodes = list("nuclear emergency")
 
+/datum/uplink_item/dangerous/syndieborg
+	name = "Syndicate Cyborg"
+	desc = "A cyborg designed and programmed for systematic extermination of non-Syndicate personnel."
+	item = /obj/item/weapon/antag_spawner/borg_tele
+	cost = 50
+	gamemodes = list("nuclear emergency")
+
+//for refunding the syndieborg teleporter
+/datum/uplink_item/dangerous/syndieborg/spawn_item()
+	var/obj/item/weapon/antag_spawner/borg_tele/T = ..()
+	if(istype(T))
+		T.TC_cost = cost
+
 // Ammunition
 
 /datum/uplink_item/ammo
@@ -424,6 +437,14 @@ var/list/uplink_items = list()
 	desc = "This satchel is thin enough to be hidden in the gap between plating and tiling, great for stashing your stolen goods. Comes with a crowbar and a floor tile inside."
 	item = /obj/item/weapon/storage/backpack/satchel_flat
 	cost = 2
+
+/* Commented out until a balance fix is found -Mel
+/datum/uplink_item/stealthy_tools/smdrill
+	name = "Supermatter Drill"
+	desc = "A pocket-sized drill tipped with nanoscopic supermatter crystals, able to cut through reinforced walls."
+	item = /obj/item/weapon/pickaxe/diamonddrill/traitor
+	cost = 6
+*/
 
 // DEVICE AND TOOLS
 

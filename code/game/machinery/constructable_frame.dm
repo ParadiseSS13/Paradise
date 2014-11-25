@@ -12,6 +12,10 @@
 	var/list/req_components = null
 	var/list/req_component_names = null // user-friendly names of components
 	var/state = 1
+	
+	// For pods
+	var/list/connected_parts = list()
+	var/pattern_idx=0
 
 // unfortunately, we have to instance the objects really quickly to get the names
 // fortunately, this is only called once when the board is added and the items are immediately GC'd
@@ -26,6 +30,47 @@
 		var/obj/O = new path()
 		req_component_names[tname] = O.name
 
+/obj/machinery/constructable_frame/proc/find_square()
+	// This is fucking stupid but what the hell.
+
+	// This corresponds to indicies from alldirs.
+	//                         1      2      3     4     5          6          7          8
+	// var/list/alldirs = list(NORTH, SOUTH, EAST, WEST, NORTHEAST, NORTHWEST, SOUTHEAST, SOUTHWEST)
+	var/valid_patterns=list(
+		list(1,3,5), //SW - NORTH,EAST,NORTHEAST
+		list(2,3,7), //NW - SOUTH,EAST,SOUTHEAST
+		list(1,4,6), //SE - NORTH,WEST,NORTHWEST
+		list(2,4,8)  //NE - SOUTH,WEST,SOUTHWEST
+	)
+	var/detected_parts[8]
+	var/tally=0
+	var/turf/T
+	var/obj/machinery/constructable_frame/machine_frame/friend
+	for(var/i=1;i<=8;i++)
+		T=get_step(src.loc,alldirs[i])
+		friend = locate() in T
+		if(friend)
+			detected_parts[i]=friend
+			tally++
+	// Need at least 3 connections to make a square
+	if(tally<3)
+		return
+	// Find stuff in the patterns indicated
+	for(var/i=1;i<=4;i++)
+		var/list/scanidxs=valid_patterns[i]
+		var/list/new_connected=list()
+		var/allfound=1
+		for(var/diridx in scanidxs)
+			if(detected_parts[diridx]==null)
+				allfound=0
+				break
+			new_connected.Add(detected_parts[diridx])
+		if(allfound)
+			connected_parts=new_connected
+			pattern_idx=i
+			return 1
+	return 0
+		
 // update description of required components remaining
 /obj/machinery/constructable_frame/proc/update_req_desc()
 	if(!req_components || !req_component_names)
@@ -77,6 +122,35 @@
 				playsound(get_turf(src), 'sound/items/Deconstruct.ogg', 50, 1)
 				new /obj/structure/displaycase_frame(src.loc)
 				del(src)
+				return
+			else if(istype(P, /obj/item/stack/rods))
+				var/obj/item/stack/rods/R=P
+				if(R.amount<10)
+					user << "\red You need 10 rods to assemble a pod frame."
+					return
+				if(!find_square())
+					user << "\red You cannot assemble a pod frame without a 2x2 square of machine frames."
+					return
+
+				R.use(10)
+
+				for(var/obj/machinery/constructable_frame/machine_frame/F in connected_parts)
+					qdel(F)
+
+				var/turf/T=get_turf(src)
+				// Offset frame (if needed) so it doesn't look wonky when it spawns.
+				switch(pattern_idx)
+					if(2)
+						T=get_step(T,SOUTH)
+					if(3)
+						T=get_step(T,WEST)
+					if(4)
+						T=get_step(T,SOUTHWEST)
+
+				new /obj/structure/spacepod_frame(T)
+				user << "\blue You assemble the pod frame."
+				playsound(get_turf(src), 'sound/items/Deconstruct.ogg', 50, 1)
+				qdel(src)
 				return
 			if(istype(P, /obj/item/weapon/wrench))
 				playsound(src.loc, 'sound/items/Ratchet.ogg', 75, 1)

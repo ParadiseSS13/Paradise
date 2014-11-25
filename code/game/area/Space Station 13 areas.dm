@@ -754,6 +754,10 @@ var/list/ghostteleportlocs = list()
 /area/atmos/control
  	name = "Atmospherics Control Room"
  	icon_state = "atmos"
+	
+/area/atmos/distribution
+ 	name = "Atmospherics Distribution Loop"
+ 	icon_state = "atmos"
 
 //Maintenance
 

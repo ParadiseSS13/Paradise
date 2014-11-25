@@ -304,7 +304,7 @@ var/list/admin_verbs_mod = list(
 
 /client/proc/colorooc()
 	set category = "Admin"
-	set name = "OOC Text Color"
+	set name = "Personal OOC Text Color"
 	if(!holder)	return
 	var/new_ooccolor = input(src, "Please select your OOC colour.", "OOC colour") as color|null
 	if(new_ooccolor)

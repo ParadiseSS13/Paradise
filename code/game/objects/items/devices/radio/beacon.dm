@@ -5,7 +5,19 @@
 	item_state = "signaler"
 	var/code = "electronic"
 	origin_tech = "bluespace=1"
+	var/emagged = 0
+	var/syndicate = 0
 
+/obj/item/device/radio/beacon/attackby(I as obj, mob/living/user as mob)
+	if(istype(I,/obj/item/weapon/card/emag)) // If hit by an emag.
+		var/obj/item/weapon/card/emag/E = I
+		if(!emagged)
+			if(E.uses)
+				E.uses--
+				emagged = 1
+				syndicate = 1
+				user << "\blue The This beacon now only be locked on to by emagged teleporters!"
+	
 /obj/item/device/radio/beacon/hear_talk()
 	return
 
@@ -39,6 +51,7 @@
 	name = "suspicious beacon"
 	desc = "A label on it reads: <i>Activate to have a singularity beacon teleported to your location</i>."
 	origin_tech = "bluespace=1;syndicate=7"
+	syndicate = 1
 
 /obj/item/device/radio/beacon/syndicate/attack_self(mob/user as mob)
 	if(user)
@@ -64,7 +77,7 @@
 
 /obj/item/device/telepad_beacon
 	name = "Telepad Beacon"
-	desc = "Use to warp in a cargo telepad."
+	desc = "Used to warp in a cargo telepad."
 	icon = 'icons/obj/radio.dmi'
 	icon_state = "beacon"
 	item_state = "signaler"

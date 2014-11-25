@@ -73,6 +73,7 @@
 		sleep(30)
 		if(R)
 			R.lockcharge = !R.lockcharge
+			R.notify_ai(1)
 
 	// Activate the cooldown
 	cooldown = 1

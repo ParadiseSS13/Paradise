@@ -912,3 +912,4 @@ var/list/RESTRICTED_CAMERA_NETWORKS = list( //Those networks can only be accesse
 #define IS_SKRELL 3
 #define IS_UNATHI 4
 
+var/list/hit_appends = list("-OOF", "-ACK", "-UGH", "-HRNK", "-HURGH", "-GLORF")

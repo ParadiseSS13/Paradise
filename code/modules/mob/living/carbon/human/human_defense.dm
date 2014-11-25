@@ -264,6 +264,7 @@ emp_act
 
 	if(armor >= 2)	return 0
 	if(!I.force)	return 0
+	var/Iforce = I.force //to avoid runtimes on the forcesay checks at the bottom. Some items might delete themselves if you drop them. (stunning yourself, ninja swords)
 
 	apply_damage(I.force, I.damtype, affecting, armor, sharp=weapon_sharp, edge=weapon_edge, used_weapon=I)
 
@@ -309,6 +310,15 @@ emp_act
 
 				if(bloody)
 					bloody_body(src)
+
+
+	if(Iforce > 10 || Iforce >= 5 && prob(33))
+		forcesay(hit_appends)	//forcesay checks stat already
+
+	if (I.damtype == BRUTE)
+		if((I.edge && prob(2 * I.force)) || (I.force > 20 && prob(I.force)))
+			if(affecting.brute_dam >= affecting.max_damage * config.organ_health_multiplier)
+				affecting.dismember_limb()
 
 	//Melee weapon embedded object code.
 	if (I.damtype == BRUTE && !I.is_robot_module())
@@ -460,7 +470,7 @@ emp_act
 	var/penetrated_dam = max(0,(damage - max(0,(SS.breach_threshold - SS.damage))))
 
 	if(penetrated_dam) SS.create_breaches(damtype, penetrated_dam)
-	
+
 /mob/living/carbon/human/mech_melee_attack(obj/mecha/M)
 	if(M.occupant.a_intent == "harm")
 		if(M.damtype == "brute")
