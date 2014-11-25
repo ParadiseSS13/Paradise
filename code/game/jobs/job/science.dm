@@ -117,7 +117,7 @@
 	department_flag = MEDSCI
 	total_positions = 2
 	spawn_positions = 2
-	supervisors = "research director"
+	supervisors = "the research director"
 	selection_color = "#ffeeff"
 	access = list(access_robotics, access_tox, access_tox_storage, access_tech_storage, access_morgue, access_research) //As a job that handles so many corpses, it makes sense for them to have morgue access.
 	minimal_access = list(access_robotics, access_tech_storage, access_morgue, access_research, access_maint_tunnels) //As a job that handles so many corpses, it makes sense for them to have morgue access.

@@ -40,8 +40,8 @@
 			{{:helper.link('Cycle to Interior', 'arrowthickstop-1-e', {'command' : 'cycle_int'}, data.processing ? 'disabled' : null)}}
 		</div>
 		<div class="itemContent" style="padding-top: 2px">
-			{{:helper.link('Force exterior door', 'alert', {'command' : 'force_ext'}, null, data.processing ? 'yellowBackground' : null)}}
-			{{:helper.link('Force interior door', 'alert', {'command' : 'force_int'}, null, data.processing ? 'yellowBackground' : null)}}
+			{{:helper.link('Force exterior door', 'alert', {'command' : 'force_ext'}, null, data.processing ? 'yellowButton' : null)}}
+			{{:helper.link('Force interior door', 'alert', {'command' : 'force_int'}, null, data.processing ? 'yellowButton' : null)}}
 		</div>
 	</div>
 	<div style="padding-left: 10px; width: 80px; float: left">
@@ -55,6 +55,6 @@
 		</div>
 	</div>
 	<div class="item" style="padding-top: 10px">
-			{{:helper.link('Abort', 'cancel', {'command' : 'abort'}, data.processing ? null : 'disabled', data.processing ? 'redBackground' : null)}}
+			{{:helper.link('Abort', 'cancel', {'command' : 'abort'}, data.processing ? null : 'disabled', data.processing ? 'redButton' : null)}}
 	</div>
 </div>
