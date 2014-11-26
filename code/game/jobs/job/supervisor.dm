@@ -4,7 +4,7 @@
 	department_flag = ENGSEC
 	total_positions = 1
 	spawn_positions = 1
-	supervisors = "Nanotrasen officials and Space law"
+	supervisors = "NanoTrasen officials"
 	selection_color = "#ccccff"
 	idtype = /obj/item/weapon/card/id/gold
 	req_admin_notify = 1
@@ -96,12 +96,12 @@
 
 
 /datum/job/nanotrasenrep
-	title = "Nanotrasen Representative"
-	flag =  NANO
+	title = "NanoTrasen Representative"
+	flag = NANO
 	department_flag = KARMA
 	total_positions = 1
 	spawn_positions = 1
-	supervisors = "Nanotrasen Board of Directors"
+	supervisors = "the NanoTrasen Board of Directors"
 	selection_color = "#ddddff"
 	idtype = /obj/item/weapon/card/id/centcom
 	req_admin_notify = 1
@@ -141,12 +141,12 @@
 		return 1
 
 /datum/job/nanotrasenrec
-	title = "Nanotrasen Recruiter"
-	flag =  NANOREC
+	title = "NanoTrasen Recruiter"
+	flag = NANOREC
 	department_flag = KARMA
 	total_positions = 1
 	spawn_positions = 1
-	supervisors = "Nanotrasen Board of Directors"
+	supervisors = "the NanoTrasen Board of Directors"
 	selection_color = "#ddddff"
 	idtype = /obj/item/weapon/card/id/centcom
 	req_admin_notify = 1
@@ -186,11 +186,11 @@
 
 /datum/job/blueshield
 	title = "Blueshield"
-	flag =  BLUESHIELD
+	flag = BLUESHIELD
 	department_flag = KARMA
 	total_positions = 1
 	spawn_positions = 1
-	supervisors = "Whichever head your protect, and ultimately the Captain"
+	supervisors = "the captain"
 	selection_color = "#ddddff"
 	idtype = /obj/item/weapon/card/id/centcom
 	req_admin_notify = 1
@@ -236,11 +236,11 @@
 
 /datum/job/judge
 	title = "Magistrate"
-	flag =  JUDGE
+	flag = JUDGE
 	department_flag = KARMA
 	total_positions = 1
 	spawn_positions = 1
-	supervisors = "Centcom High Court"
+	supervisors = "the NanoTrasen Supreme Court"
 	selection_color = "#ddddff"
 	idtype = /obj/item/weapon/card/id/centcom
 	req_admin_notify = 1

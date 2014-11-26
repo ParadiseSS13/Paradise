@@ -1684,6 +1684,7 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 
 		if(decaytime > 18000 && decaytime <= 27000)//45 minutes for decaylevel4 -- skeleton
 			decaylevel = 3
+			
 		if(decaytime > 27000)
 			decaylevel = 4
 			makeSkeleton()
@@ -1693,9 +1694,11 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 		for(var/mob/living/carbon/human/H in range(decaylevel, src))
 			if(prob(5))
 				if(airborne_can_reach(get_turf(src), get_turf(H)))
-					if(istype(loc,/obj/item/bodybag)) return
-					if(H.wear_mask && istype(H.wear_mask,/obj/item/clothing/mask/surgical)) return
-					if(H.wear_mask && istype(H.wear_mask,/obj/item/clothing/mask/breath/medical)) return
+					if(istype(loc,/obj/item/bodybag)) 
+						return
+					var/obj/item/clothing/mask/M = H.wear_mask
+					if(M && (M.flags & MASKCOVERSMOUTH))
+						return
 					H << "<spawn class='warning'>You smell something foul..."
 					H.vomit()
 

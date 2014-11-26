@@ -567,3 +567,28 @@ the implant may become unstable and either pre-maturely inject the subject or si
 	name = "cortical stack"
 	desc = "A fist-sized mass of biocircuits and chips."
 	icon_state = "implant_evil"
+
+
+/obj/item/weapon/implant/emp
+	name = "emp implant"
+	desc = "Triggers an EMP."
+
+	var/activation_emote = "chuckle"
+	var/uses = 2
+
+/obj/item/weapon/implant/emp/New()
+	activation_emote = pick("blink", "blink_r", "eyebrow", "chuckle", "twitch_s", "frown", "nod", "blush", "giggle", "grin", "groan", "smile", "pale", "sniff", "whimper", "wink")
+	..()
+	return
+
+/obj/item/weapon/implant/emp/trigger(emote, mob/living/carbon/source as mob)
+	if (src.uses < 1)	return 0
+	if (emote == src.activation_emote)
+		src.uses--
+		empulse(source, 3, 5)
+	return
+
+/obj/item/weapon/implant/emp/implanted(mob/living/carbon/source)
+		source.mind.store_memory("EMP implant can be activated [uses] time\s by using the [src.activation_emote] emote, <B>say *[src.activation_emote]</B> to attempt to activate.", 0, 0)
+		source << "The implanted EMP implant can be activated [uses] time\s by using the [src.activation_emote] emote, <B>say *[src.activation_emote]</B> to attempt to activate."
+		return 1

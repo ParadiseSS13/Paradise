@@ -409,9 +409,9 @@
 
 /obj/item/weapon/twohanded/dualsaber/toy/IsShield()
 	return 0
-/*
+
 /obj/item/weapon/twohanded/dualsaber/toy/IsReflect()//Stops Toy Dualsabers from reflecting energy projectiles
-	return 0 */  //uncomment this once reflecting is ported
+	return 0
 
 /obj/item/toy/katana
 	name = "replica katana"

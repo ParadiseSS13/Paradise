@@ -207,7 +207,7 @@ datum/tech/bluespace
 	name = "'Blue-space' Research"
 	desc = "Research into the sub-reality known as 'blue-space'"
 	id = "bluespace"
-	max_level=4
+	max_level=6
 
 datum/tech/biotech
 	name = "Biological Technology"

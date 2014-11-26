@@ -319,6 +319,13 @@ datum
 			required_reagents = list("carbon" = 1, "hydrogen" = 1, "anti_toxin" = 1)
 			result_amount = 2
 
+		inacusiate
+			name = "inacusiate"
+			id = "inacusiate"
+			result = "inacusiate"
+			required_reagents = list("water" = 1, "carbon" = 1, "anti_toxin" = 1)
+			result_amount = 2
+
 		ethylredoxrazine
 			name = "Ethylredoxrazine"
 			id = "ethylredoxrazine"
@@ -1397,6 +1404,78 @@ datum
 				var/obj/effect/golem_rune/Z = new /obj/effect/golem_rune
 				Z.loc = get_turf(holder.my_atom)
 				Z.announce_to_ghosts()
+//Bluespace
+		slimecrystal
+			name = "Slime Crystal"
+			id = "m_crystal"
+			result = null
+			required_reagents = list("blood" = 1)
+			result_amount = 1
+			required_container = /obj/item/slime_extract/bluespace
+			required_other = 1
+			on_reaction(var/datum/reagents/holder, var/created_volume)
+				feedback_add_details("slime_cores_used","[replacetext(name," ","_")]")
+				if(holder.my_atom)
+					var/obj/item/bluespace_crystal/BC = new(get_turf(holder.my_atom))
+					BC.visible_message("<span class='notice'>The [BC.name] appears out of thin air!</span>")
+//Cerulean
+		slimepsteroid2
+			name = "Slime Steroid 2"
+			id = "m_steroid2"
+			result = null
+			required_reagents = list("plasma" = 1)
+			result_amount = 1
+			required_container = /obj/item/slime_extract/cerulean
+			required_other = 1
+			on_reaction(var/datum/reagents/holder)
+				feedback_add_details("slime_cores_used","[replacetext(name," ","_")]")
+				var/obj/item/weapon/slimesteroid2/P = new /obj/item/weapon/slimesteroid2
+				P.loc = get_turf(holder.my_atom)
+//Sepia
+		slimecamera
+			name = "Slime Camera"
+			id = "m_camera"
+			result = null
+			required_reagents = list("plasma" = 1)
+			result_amount = 1
+			required_container = /obj/item/slime_extract/sepia
+			required_other = 1
+			on_reaction(var/datum/reagents/holder)
+				feedback_add_details("slime_cores_used","[replacetext(name," ","_")]")
+				var/obj/item/device/camera/P = new /obj/item/device/camera
+				P.loc = get_turf(holder.my_atom)
+
+
+		slimefilm
+			name = "Slime Film"
+			id = "m_film"
+			result = null
+			required_reagents = list("blood" = 1)
+			result_amount = 1
+			required_container = /obj/item/slime_extract/sepia
+			required_other = 1
+			on_reaction(var/datum/reagents/holder)
+				feedback_add_details("slime_cores_used","[replacetext(name," ","_")]")
+				var/obj/item/device/camera_film/P = new /obj/item/device/camera_film
+				P.loc = get_turf(holder.my_atom)
+//Pyrite
+		slimepaint
+			name = "Slime Paint"
+			id = "s_paint"
+			result = null
+			required_reagents = list("plasma" = 1)
+			result_amount = 1
+			required_container = /obj/item/slime_extract/pyrite
+			required_other = 1
+			on_reaction(var/datum/reagents/holder)
+				feedback_add_details("slime_cores_used","[replacetext(name," ","_")]")
+				var/list/paints = typesof(/obj/item/weapon/reagent_containers/glass/paint) - /obj/item/weapon/reagent_containers/glass/paint
+				var/chosen = pick(paints)
+				var/obj/P = new chosen
+				if(P)
+					P.loc = get_turf(holder.my_atom)
+
+
 //////////////////////////////////////////FOOD MIXTURES////////////////////////////////////
 
 		tofu
@@ -1697,7 +1776,7 @@ datum
 			name = "The Doctor's Delight"
 			id = "doctordelight"
 			result = "doctorsdelight"
-			required_reagents = list("limejuice" = 1, "tomatojuice" = 1, "orangejuice" = 1, "cream" = 1)
+			required_reagents = list("limejuice" = 1, "tomatojuice" = 1, "orangejuice" = 1, "cream" = 1, "tricordrazine" = 1)
 			result_amount = 5
 
 		irish_cream
