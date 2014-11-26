@@ -24,7 +24,7 @@
 		var/list/gunk = list("water","carbon","flour","radium","toxin","cleaner","nutriment","condensedcapsaicin","psilocybin","lube",
 							"plantbgone","banana","anti_toxin","space_drugs","hyperzine","holywater","ethanol","hot_coco","pacid",
 							"blood","stoxin","fluorine","ryetalyn","mutagen","oxycodone","fuel","cryptobiolin",
-							"impedrezene","mindbreaker","nanites","xenomicrobes","lipozine","frostoil","alchdranine","beepskysmash",
+							"impedrezene","mindbreaker","nanites","xenomicrobes","lipozine","frostoil","doctorsdelight","beepskysmash",
 							"tricordrazine", "amatoxin", "adminordrazine", "neurotoxin", "zombiepowder", "synaptizine")
 		var/datum/reagents/R = new/datum/reagents(50)
 		R.my_atom = vent

@@ -214,6 +214,17 @@
 	var/new_name = pick("evil", "suspicious", "ominous", "donk-flavored", "robust", "sneaky")
 	name = "[new_name] cigarette packet"
 
+/obj/item/weapon/storage/fancy/cigarettes/cigpack_syndicate
+	name = "cigarette packet"
+	desc = "An obscure brand of cigarettes."
+	icon_state = "syndiepacket"
+	item_state = "syndiepacket"
+
+/obj/item/weapon/storage/fancy/cigarettes/cigpack_syndicate/New()
+	..()
+	for(var/i = 1 to storage_slots)
+		reagents.add_reagent("doctorsdelight",15)
+
 /*
  * Vial Box
  */
