@@ -99,17 +99,14 @@
 
 				if(findtext(temp, "*", 1, 2))	//emotes
 					return
-				world << "Text after stuff is [temp]"
 				temp = copytext(trim_left(temp), 1, rand(5,8))
-				world << "Text after trimming is [temp]"
-
 				var/trimmed = trim_left(temp)
 				if(length(trimmed))
 					if(append)
 						temp += pick(append)
 
 					say(temp)
-				winset(client, "input", "text=[null]")	
+				winset(client, "input", "text=[null]")
 
 /mob/living/carbon/human/say_understands(var/other,var/datum/language/speaking = null)
 
