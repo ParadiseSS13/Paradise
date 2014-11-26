@@ -97,7 +97,7 @@
 
 /datum/job/nanotrasenrep
 	title = "NanoTrasen Representative"
-	flag =  NANO
+	flag = NANO
 	department_flag = KARMA
 	total_positions = 1
 	spawn_positions = 1
@@ -142,7 +142,7 @@
 
 /datum/job/nanotrasenrec
 	title = "NanoTrasen Recruiter"
-	flag =  NANOREC
+	flag = NANOREC
 	department_flag = KARMA
 	total_positions = 1
 	spawn_positions = 1
@@ -186,7 +186,7 @@
 
 /datum/job/blueshield
 	title = "Blueshield"
-	flag =  BLUESHIELD
+	flag = BLUESHIELD
 	department_flag = KARMA
 	total_positions = 1
 	spawn_positions = 1
@@ -236,7 +236,7 @@
 
 /datum/job/judge
 	title = "Magistrate"
-	flag =  JUDGE
+	flag = JUDGE
 	department_flag = KARMA
 	total_positions = 1
 	spawn_positions = 1
