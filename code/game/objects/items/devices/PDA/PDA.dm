@@ -219,7 +219,7 @@ var/global/list/obj/item/device/pda/PDAs = list()
 			return
 		var/selected = plist[c]
 		aiPDA.create_message(user, selected)
-		
+
 /mob/living/silicon/ai/proc/cmd_show_message_log(mob/user as mob)
 	if(user.stat == 2)
 		user << "You can't do that because you are dead!"
@@ -247,7 +247,7 @@ var/global/list/obj/item/device/pda/PDAs = list()
 			return
 		var/selected = plist[c]
 		create_message(usr, selected)
-		
+
 /obj/item/device/pda/ai/verb/cmd_show_message_log()
 	set category = "AI IM"
 	set name = "Show Message Log"
@@ -918,18 +918,18 @@ var/global/list/obj/item/device/pda/PDAs = list()
 		useMS.send_pda_message("[P.owner]","[owner]","[t]")
 		tnote.Add(list(list("sent" = 1, "owner" = "[P.owner]", "job" = "[P.ownjob]", "message" = "[t]", "target" = "\ref[P]")))
 		P.tnote.Add(list(list("sent" = 0, "owner" = "[owner]", "job" = "[ownjob]", "message" = "[t]", "target" = "\ref[src]")))
-		for(var/mob/M in player_list)
+/*		for(var/mob/M in player_list)
 			if(M.stat == DEAD && M.client && (M.client.prefs.toggles & CHAT_GHOSTEARS)) // src.client is so that ghosts don't have to listen to mice
 				if(istype(M, /mob/new_player))
 					continue
-				M.show_message("<span class='game say'>PDA Message - <span class='name'>[owner]</span> -> <span class='name'>[P.owner]</span>: <span class='message'>[t]</span></span>")
+				M.show_message("<span class='game say'>PDA Message - <span class='name'>[owner]</span> -> <span class='name'>[P.owner]</span>: <span class='message'>[t]</span></span>") */
 		investigate_log("<span class='game say'>PDA Message - <span class='name'>[U.key] - [owner]</span> -> <span class='name'>[P.owner]</span>: <span class='message'>[t]</span></span>", "pda")
 		if(!conversations.Find("\ref[P]"))
 			conversations.Add("\ref[P]")
 		if(!P.conversations.Find("\ref[src]"))
 			P.conversations.Add("\ref[src]")
 
-
+/*
 		if (prob(15)) //Give the AI a chance of intercepting the message
 			var/who = src.owner
 			if(prob(50))
@@ -938,7 +938,7 @@ var/global/list/obj/item/device/pda/PDAs = list()
 				// Allows other AIs to intercept the message but the AI won't intercept their own message.
 				if(ai.aiPDA != P && ai.aiPDA != src)
 					ai.show_message("<i>Intercepted message from <b>[who]</b>: [t]</i>")
-
+*/
 
 		if (!P.silent)
 			playsound(P.loc, 'sound/machines/twobeep.ogg', 50, 1)

@@ -170,3 +170,12 @@
 		..()
 		update()
 		return
+
+/obj/item/weapon/implanter/emp
+	name = "implanter-EMP"
+
+	New()
+		src.imp = new /obj/item/weapon/implant/emp(src)
+		..()
+		update()
+		return
