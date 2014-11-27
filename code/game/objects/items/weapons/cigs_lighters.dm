@@ -396,6 +396,7 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 	if(user.r_hand == src || user.l_hand == src)
 		if(!lit)
 			lit = 1
+			w_class = 4
 			icon_state = icon_on
 			item_state = icon_on
 			if(istype(src, /obj/item/weapon/lighter/zippo) )
@@ -413,6 +414,7 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 			processing_objects.Add(src)
 		else
 			lit = 0
+			w_class = 1
 			icon_state = icon_off
 			item_state = icon_off
 			if(istype(src, /obj/item/weapon/lighter/zippo) )

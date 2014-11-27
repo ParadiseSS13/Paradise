@@ -64,7 +64,7 @@
 	icon_state = "plasticbag"
 	item_state = "plasticbag"
 	slot_flags = SLOT_HEAD|SLOT_BELT
-
+	throwforce = 0
 	w_class = 4
 	max_w_class = 2
 	storage_slots = 21
@@ -91,6 +91,8 @@
 	if(is_equipped() && head)
 		if(ishuman(loc))
 			var/mob/living/carbon/human/H = loc
+			if(H.internal)
+				return
 			H.losebreath += 1
 	else
 		head = 0

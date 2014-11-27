@@ -489,7 +489,7 @@
 			return
 
 	//resisting grabs (as if it helps anyone...)
-	if ((!( L.stat ) && L.canmove && !( L.restrained() )))
+	if ((!( L.stat ) && !( L.restrained() )))
 		var/resisting = 0
 		for(var/obj/O in L.requests)
 			L.requests.Remove(O)

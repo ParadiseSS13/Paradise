@@ -112,6 +112,25 @@ var/last_chew = 0
 
 /obj/item/weapon/handcuffs/cyborg
 	dispenser = 1
+	
+/obj/item/weapon/handcuffs/cyborg/attack(mob/living/carbon/C as mob, mob/user as mob)
+	if(!C.handcuffed)
+		var/turf/p_loc = user.loc
+		var/turf/p_loc_m = C.loc
+		playsound(src.loc, 'sound/weapons/handcuffs.ogg', 30, 1, -2)
+		user.visible_message("\red <B>[user] is trying to put handcuffs on [C]!</B>")
+		
+		if (ishuman(C))
+			var/mob/living/carbon/human/H = C
+			if (!H.has_organ_for_slot(slot_handcuffed))
+				user << "\red \The [H] needs at least two wrists before you can cuff them together!"
+				return
+		
+		spawn(30)
+			if(!C)	return
+			if(p_loc == user.loc && p_loc_m == C.loc)
+				C.handcuffed = new /obj/item/weapon/handcuffs(C)
+				C.update_inv_handcuffed()
 
 /obj/item/weapon/handcuffs/pinkcuffs
 	name = "fluffy pink handcuffs"

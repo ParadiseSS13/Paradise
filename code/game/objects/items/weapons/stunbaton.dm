@@ -15,7 +15,7 @@
 	var/status = 0		//whether the thing is on or not
 	var/obj/item/weapon/cell/high/bcell = null
 	var/mob/foundmob = "" //Used in throwing proc.
-	var/hitcost = 1500	//oh god why do power cells carry so much charge? We probably need to make a distinction between "industrial" sized power cells for APCs and power cells for everything else.
+	var/hitcost = 1000	//oh god why do power cells carry so much charge? We probably need to make a distinction between "industrial" sized power cells for APCs and power cells for everything else.
 	var/allowharm = 1 // Allow or disallow harming with the stunbaton
 
 /obj/item/weapon/melee/baton/suicide_act(mob/user)
@@ -219,6 +219,9 @@
 	..()
 
 //secborg stun baton module
+/obj/item/weapon/melee/baton/robot
+	hitcost = 500	
+
 /obj/item/weapon/melee/baton/robot/attack_self(mob/user)
 	//try to find our power cell
 	var/mob/living/silicon/robot/R = loc

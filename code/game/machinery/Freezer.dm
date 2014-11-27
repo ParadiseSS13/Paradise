@@ -49,12 +49,12 @@
 		playsound(src.loc, 'sound/items/Ratchet.ogg', 50, 1)
 		dir = pick(WEST,EAST,SOUTH,NORTH)
 		var/node_connect = dir
-
+		initialize_directions = dir
 		for(var/obj/machinery/atmospherics/target in get_step(src,node_connect))
 			if(target.initialize_directions & get_dir(target,src))
 				node = target
 				break
-
+		build_network()
 		update_icon()
 
 /obj/machinery/atmospherics/unary/cold_sink/freezer/update_icon()
@@ -184,12 +184,12 @@
 		playsound(src.loc, 'sound/items/Ratchet.ogg', 50, 1)
 		dir = pick(WEST,EAST,SOUTH,NORTH)
 		var/node_connect = dir
-
+		initialize_directions = dir
 		for(var/obj/machinery/atmospherics/target in get_step(src,node_connect))
 			if(target.initialize_directions & get_dir(target,src))
 				node = target
 				break
-
+		build_network()
 		update_icon()
 
 /obj/machinery/atmospherics/unary/heat_reservoir/heater/update_icon()

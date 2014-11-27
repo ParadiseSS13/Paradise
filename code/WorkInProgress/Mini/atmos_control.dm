@@ -64,6 +64,8 @@
 	for(var/obj/machinery/alarm/alarm in sortAtom(alarm_list))
 		if(!is_in_filter(alarm.alarm_area.type))
 			continue // NO ACCESS 4 U
+		if(!alarm.remote_control)
+			continue
 		var/turf/pos = get_turf(alarm)
 		var/list/alarm_data=list()
 		alarm_data["ID"]="\ref[alarm]"
