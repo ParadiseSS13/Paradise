@@ -1413,7 +1413,7 @@
 	modtype = "Commando"
 	faction = list("nanotrasen")
 	designation = "NT Combat Cyborg"
-	req_access = list(access_syndicate)
+	req_access = list(access_cent_specops)
 
 /mob/living/silicon/robot/deathsquad/New(loc)
 	..()
