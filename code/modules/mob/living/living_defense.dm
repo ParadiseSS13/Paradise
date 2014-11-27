@@ -121,8 +121,8 @@
 		var/throw_damage = O.throwforce*(speed/5)
 
 		//var/miss_chance = 15
-		if (O.throw_source)
-			var/distance = get_dist(O.throw_source, loc)
+		//if (O.throw_source)
+			//var/distance = get_dist(O.throw_source, loc)
 			//miss_chance = min(15*(distance-2), 0)
 		/*
 		if (prob(miss_chance))

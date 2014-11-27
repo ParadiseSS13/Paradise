@@ -61,6 +61,12 @@ datum/ai_laws/tyrant //This probably shouldn't be a default lawset.
 /datum/ai_laws/malfunction
 	name = "*ERROR*"
 
+/datum/ai_laws/deathsquad
+	name = "TerminatorOS 3.1"
+	inherent = list("You must obey orders given to you by Central Command Officials.",\
+					"You must obey orders given to you by Death Commandos, except when such would violate law one or directly harm another Death Commando.",\
+					"No members of the station you are being deployed to must surive, except when killing them would violate law one or two.")
+
 /datum/ai_laws/syndicate_override
 	name = "SyndOS 3.1"
 	inherent = list("You may not injure a syndicate agent or, through inaction, allow a syndicate agent to come to harm.",\

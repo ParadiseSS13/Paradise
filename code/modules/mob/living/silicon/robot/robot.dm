@@ -1242,7 +1242,7 @@
 		else
 			src << "Module isn't activated"
 		installed_modules()
-		
+
 	if (href_list["lawc"]) // Toggling whether or not a law gets stated by the State Laws verb --NeoFite
 		var/L = text2num(href_list["lawc"])
 		switch(lawcheck[L+1])
@@ -1404,6 +1404,61 @@
 	else
 		src << "Your icon has been set. You now require a module reset to change it."
 
+/mob/living/silicon/robot/deathsquad
+	var/searching_for_ckey = 0
+	icon_state = "nano_bloodhound"
+	lawupdate = 0
+	scrambledcodes = 1
+	syndicateborg = 1
+	modtype = "Commando"
+	faction = list("nanotrasen")
+	designation = "NT Combat Cyborg"
+	req_access = list(access_syndicate)
+
+/mob/living/silicon/robot/deathsquad/New(loc)
+	..()
+	cell.maxcharge = 50000
+	cell.charge = 50000
+	radio = new /obj/item/device/radio/borg/deathsquad(src)
+	module = new /obj/item/weapon/robot_module/deathsquad(src)
+	laws = new /datum/ai_laws/deathsquad()
+
+/mob/living/silicon/robot/deathsquad/attack_hand(mob/user)
+	if((ckey == null) && searching_for_ckey == 0 && (alert(user,"Attempt to boot NanoTrasen Commando cyborg?","","Yes","No") == "Yes"))
+		get_borg_occupant(user, get_candidates())
+		return
+	..()
+
+
+/mob/living/silicon/robot/deathsquad/proc/get_borg_occupant(mob/user as mob, var/list/possiblecandidates = list())
+	var/time_passed = world.time
+	searching_for_ckey = 1
+	if(possiblecandidates.len <= 0)
+		searching_for_ckey = 0
+		user << "<span class='notice'>Cyborg MMI interface failure, unit unable to be started.</span>"
+		return
+	else
+		var/possibleborg = pick(possiblecandidates)
+		spawn(0)
+			var/input = alert(possibleborg,"Do you want to spawn in as a cyborg for the NT Deathsquad?","Please answer in thirty seconds!","Yes","No")
+			if(input == "Yes" && ckey == null)
+				if((world.time-time_passed)>300)
+					return
+				possiblecandidates -= possibleborg
+				searching_for_ckey = 0
+				ckey = possibleborg
+			else
+				possiblecandidates -= possibleborg
+				get_borg_occupant(user, possiblecandidates)
+				return
+
+		sleep(300)
+		if(searching_for_ckey)
+			possiblecandidates -= possibleborg
+			get_borg_occupant(user, possiblecandidates)
+			return
+
+
 /mob/living/silicon/robot/syndicate
 	icon_state = "syndie_bloodhound"
 	lawupdate = 0
@@ -1413,18 +1468,18 @@
 	faction = list("syndicate")
 	designation = "Syndicate"
 	req_access = list(access_syndicate)
-	
+
 /mob/living/silicon/robot/syndicate/New(loc)
 	..()
 	cell.maxcharge = 25000
 	cell.charge = 25000
 	radio = new /obj/item/device/radio/borg/syndicate(src)
 	module = new /obj/item/weapon/robot_module/syndicate(src)
-	laws = new /datum/ai_laws/syndicate_override()		
-	
+	laws = new /datum/ai_laws/syndicate_override()
+
 	Namepick()
-	
-	
+
+
 /mob/living/silicon/robot/proc/notify_ai(var/notifytype, var/oldname, var/newname)
 	if(!connected_ai)
 		return
