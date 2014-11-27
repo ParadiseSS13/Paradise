@@ -20,8 +20,14 @@
 	hitsound = 'sound/weapons/tase.ogg'
 	//Damage will be handled on the MOB side, to prevent window shattering.
 
+	on_hit(var/atom/target, var/blocked = 0)
+		if(!ismob(target) || blocked >= 2) //Fully blocked by mob or collided with dense object - burst into sparks!
+			var/datum/effect/effect/system/spark_spread/sparks = new /datum/effect/effect/system/spark_spread
+			sparks.set_up(1, 1, src)
+			sparks.start()
 
-/obj/item/projectile/energy/electroderevolver
+
+/obj/item/projectile/energy/electrode/revolver
 	name = "electrode"
 	icon_state = "spark"
 	nodamage = 1

@@ -5,7 +5,7 @@
 	item_state = null	//so the human update icon uses the icon_state instead.
 	fire_sound = 'sound/weapons/Taser.ogg'
 
-	projectile_type = "/obj/item/projectile/beam/stun"
+	projectile_type = "/obj/item/projectile/energy/electrode"
 	origin_tech = "combat=3;magnets=2"
 	modifystate = "energystun"
 
@@ -26,7 +26,7 @@
 				charge_cost = 1000
 				fire_sound = 'sound/weapons/Taser.ogg'
 				user << "\red [src.name] is now set to stun."
-				projectile_type = "/obj/item/projectile/beam/stun"
+				projectile_type = "/obj/item/projectile/energy/electrode"
 				modifystate = "energystun"
 		update_icon()
 		if(user.l_hand == src)

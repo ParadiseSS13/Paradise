@@ -10,8 +10,6 @@ emp_act
 
 /mob/living/carbon/human/bullet_act(var/obj/item/projectile/P, var/def_zone)
 
-	var/datum/organ/external/organ = get_organ(check_zone(def_zone))
-
 	if(istype(P, /obj/item/projectile/energy) || istype(P, /obj/item/projectile/beam))
 		if(check_reflect(def_zone)) // Checks if you've passed a reflection% check
 			visible_message("<span class='danger'>The [P.name] gets reflected by [src]!</span>", \
@@ -40,6 +38,7 @@ emp_act
 
 	//Shrapnel
 	if (P.damage_type == BRUTE)
+		var/datum/organ/external/organ = get_organ(check_zone(def_zone))
 		var/armor = getarmor_organ(organ, "bullet")
 		if((P.embed && prob(20 + max(P.damage - armor, -10))))
 			var/obj/item/weapon/shard/shrapnel/SP = new()
@@ -358,11 +357,11 @@ emp_act
 			zone = get_zone_with_miss_chance(zone, src, min(15*(distance-2), 0))
 		else
 			zone = get_zone_with_miss_chance(zone, src, 15)
-
+		/*
 		if(!zone)
 			visible_message("\blue \The [O] misses [src] narrowly!")
 			return
-
+		*/
 		O.throwing = 0		//it hit, so stop moving
 
 		if ((O.thrower != src) && check_shields(throw_damage, "[O]"))
