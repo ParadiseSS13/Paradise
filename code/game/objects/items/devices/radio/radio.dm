@@ -702,10 +702,17 @@ var/GLOBAL_RADIO_TYPE = 1 // radio type to use
 /obj/item/device/radio/borg/syndicate
 	syndie = 1
 	keyslot = new /obj/item/device/encryptionkey/syndicate
+
 /obj/item/device/radio/borg/syndicate/New()
 	..()
-	set_frequency(SYND_FREQ)	
-	
+	set_frequency(SYND_FREQ)
+
+/obj/item/device/radio/borg/deathsquad
+
+/obj/item/device/radio/borg/deathsquad/New()
+	..()
+	set_frequency(1441)
+
 /obj/item/device/radio/borg/attackby(obj/item/weapon/W as obj, mob/user as mob)
 //	..()
 	user.set_machine(src)
