@@ -9,7 +9,6 @@
 	projectile_type = "/obj/item/projectile/beam/pulse"
 	cell_type = "/obj/item/weapon/cell/super"
 	var/mode = 2
-	fire_delay = 15
 	slot_flags = SLOT_BACK
 	w_class = 4.0
 
@@ -18,21 +17,18 @@
 			if(2)
 				mode = 0
 				charge_cost = 100
-				fire_delay = 5
 				fire_sound = 'sound/weapons/Taser.ogg'
 				user << "\red [src.name] is now set to stun."
-				projectile_type = "/obj/item/projectile/beam/stun"
+				projectile_type = "/obj/item/projectile/energy/electrode/revolver"
 			if(0)
 				mode = 1
 				charge_cost = 100
-				fire_delay = 8
 				fire_sound = 'sound/weapons/Laser.ogg'
 				user << "\red [src.name] is now set to kill."
 				projectile_type = "/obj/item/projectile/beam"
 			if(1)
 				mode = 2
 				charge_cost = 200
-				fire_delay = 15
 				fire_sound = 'sound/weapons/pulse.ogg'
 				user << "\red [src.name] is now set to DESTROY."
 				projectile_type = "/obj/item/projectile/beam/pulse"

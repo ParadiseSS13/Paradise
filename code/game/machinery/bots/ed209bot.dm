@@ -776,18 +776,18 @@ Auto Patrol: []"},
 			if (src.emagged == 2)
 				projectile = /obj/item/projectile/beam
 			else
-				projectile = /obj/item/projectile/beam/stun
+				projectile = /obj/item/projectile/energy/electrode
 				shoot_sound = 'sound/weapons/Taser.ogg'
 		else if(lasercolor == "b")
 			if (src.emagged == 2)
-				projectile = /obj/item/projectile/beam/lastertag/omni
+				projectile = /obj/item/projectile/lasertag/omni
 			else
-				projectile = /obj/item/projectile/beam/lastertag/blue
+				projectile = /obj/item/projectile/lasertag/blue
 		else if(lasercolor == "r")
 			if (src.emagged == 2)
-				projectile = /obj/item/projectile/beam/lastertag/omni
+				projectile = /obj/item/projectile/lasertag/omni
 			else
-				projectile = /obj/item/projectile/beam/lastertag/red
+				projectile = /obj/item/projectile/lasertag/red
 
 	if (!( istype(U, /turf) ))
 		return
@@ -972,7 +972,7 @@ Auto Patrol: []"},
 
 /obj/machinery/bot/ed209/bullet_act(var/obj/item/projectile/Proj)
 	if((src.lasercolor == "b") && (src.disabled == 0))
-		if(istype(Proj, /obj/item/projectile/beam/lastertag/red))
+		if(istype(Proj, /obj/item/projectile/lasertag/red))
 			src.disabled = 1
 			del (Proj)
 			sleep(100)
@@ -980,7 +980,7 @@ Auto Patrol: []"},
 		else
 			..()
 	else if((src.lasercolor == "r") && (src.disabled == 0))
-		if(istype(Proj, /obj/item/projectile/beam/lastertag/blue))
+		if(istype(Proj, /obj/item/projectile/lasertag/blue))
 			src.disabled = 1
 			del (Proj)
 			sleep(100)

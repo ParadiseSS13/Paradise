@@ -12,7 +12,7 @@
 /obj/item/weapon/gun/energy/laser/practice
 	name = "practice laser gun"
 	desc = "A modified version of the basic laser gun, this one fires less concentrated energy bolts designed for target practice."
-	projectile_type = "/obj/item/projectile/beam/practice"
+	projectile_type = "/obj/item/projectile/practice"
 	clumsy_check = 0
 
 obj/item/weapon/gun/energy/laser/retro
@@ -58,7 +58,6 @@ obj/item/weapon/gun/energy/laser/retro
 		if(R && R.cell)
 			R.cell.use(500)
 			in_chamber = new/obj/item/projectile/beam(src)
-			fire_delay = 12
 			return 1
 	return 0
 
@@ -74,7 +73,6 @@ obj/item/weapon/gun/energy/laser/retro
 	origin_tech = "combat=4;materials=3;powerstorage=3"
 	projectile_type = "/obj/item/projectile/beam/heavylaser"
 	charge_cost = 1250
-	fire_delay = 10
 
 	isHandgun()
 		return 0
@@ -106,7 +104,7 @@ obj/item/weapon/gun/energy/laser/retro
 	name = "laser tag gun"
 	icon_state = "bluetag"
 	desc = "Standard issue weapon of the Imperial Guard"
-	projectile_type = "/obj/item/projectile/beam/lastertag/blue"
+	projectile_type = "/obj/item/projectile/lastertag/blue"
 	origin_tech = "combat=1;magnets=2"
 	clumsy_check = 0
 	var/charge_tick = 0
@@ -143,7 +141,7 @@ obj/item/weapon/gun/energy/laser/retro
 	name = "laser tag gun"
 	icon_state = "redtag"
 	desc = "Standard issue weapon of the Imperial Guard"
-	projectile_type = "/obj/item/projectile/beam/lastertag/red"
+	projectile_type = "/obj/item/projectile/lastertag/red"
 	origin_tech = "combat=1;magnets=2"
 	clumsy_check = 0
 	var/charge_tick = 0
