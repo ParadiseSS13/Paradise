@@ -63,10 +63,10 @@
 			if("labgreen")
 				src.icon_state = "labgreen_open"
 				usr << "You unbutton the labcoat."
-			if("labmort_open")
+			if("labcoat_mort_open")
 				src.icon_state = "labcoat_mort"
 				usr << "You button up the labcoat."
-			if("labgreen")
+			if("labcoat_mort")
 				src.icon_state = "labcoat_mort_open"
 				usr << "You unbutton the labcoat."
 			else
