@@ -325,10 +325,10 @@
 		scantemp = "<span class=\"bad\">Error: Subject's brain is not responding to scanning stimuli.</span>"
 		nanomanager.update_uis(src)
 		return
-	//if ((!subject.ckey) || (!subject.client))
-		//scantemp = "<span class=\"bad\">Error: Mental interface failure.</span>"
-		//nanomanager.update_uis(src)
-		//return
+	if ((!subject.ckey) || (!subject.client))
+		scantemp = "<span class=\"bad\">Error: Mental interface failure.</span>"
+		nanomanager.update_uis(src)
+		return
 	if ((M_NOCLONE in subject.mutations) && src.scanner.scan_level < 2)
 		scantemp = "<span class=\"bad\">Error: Mental interface failure.</span>"
 		nanomanager.update_uis(src)
