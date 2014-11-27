@@ -219,7 +219,7 @@ obj/item/weapon/twohanded/
 /obj/item/weapon/twohanded/dualsaber/update_icon()
 	if(wielded)
 		icon_state = "dualsaber[blade_color][wielded]"
-		reflect_chance = 80
+		reflect_chance = 100
 	else
 		icon_state = "dualsaber0"
 		reflect_chance = 0

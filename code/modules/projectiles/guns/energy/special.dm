@@ -179,7 +179,7 @@ obj/item/weapon/gun/energy/staff/focus
 	projectile_type = "/obj/item/projectile/beam/sniper"
 	slot_flags = SLOT_BACK
 	charge_cost = 2500
-	fire_delay = 35
+	fire_delay = 10
 	w_class = 4.0
 	var/zoom = 0
 
@@ -227,7 +227,6 @@ modules/mob/living/carbon/human/life.dm if you die, you will be zoomed out.
 	projectile_type = "/obj/item/projectile/kinetic"
 	cell_type = "/obj/item/weapon/cell/crap"
 	charge_cost = 5000
-	fire_delay = 20
 
 /obj/item/weapon/gun/energy/kinetic_accelerator/attack_self(var/mob/living/user/L)
 	power_supply.give(5000)

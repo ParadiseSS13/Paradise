@@ -10,8 +10,6 @@ emp_act
 
 /mob/living/carbon/human/bullet_act(var/obj/item/projectile/P, var/def_zone)
 
-	var/datum/organ/external/organ = get_organ(check_zone(def_zone))
-
 	if(istype(P, /obj/item/projectile/energy) || istype(P, /obj/item/projectile/beam))
 		if(check_reflect(def_zone)) // Checks if you've passed a reflection% check
 			visible_message("<span class='danger'>The [P.name] gets reflected by [src]!</span>", \
@@ -40,6 +38,7 @@ emp_act
 
 	//Shrapnel
 	if (P.damage_type == BRUTE)
+		var/datum/organ/external/organ = get_organ(check_zone(def_zone))
 		var/armor = getarmor_organ(organ, "bullet")
 		if((P.embed && prob(20 + max(P.damage - armor, -10))))
 			var/obj/item/weapon/shard/shrapnel/SP = new()
@@ -265,7 +264,7 @@ emp_act
 	if(armor >= 2)	return 0
 	if(!I.force)	return 0
 	var/Iforce = I.force //to avoid runtimes on the forcesay checks at the bottom. Some items might delete themselves if you drop them. (stunning yourself, ninja swords)
-	
+
 	apply_damage(I.force, I.damtype, affecting, armor, sharp=weapon_sharp, edge=weapon_edge, used_weapon=I)
 
 	var/bloody = 0
@@ -313,8 +312,13 @@ emp_act
 
 
 	if(Iforce > 10 || Iforce >= 5 && prob(33))
-		forcesay(hit_appends)	//forcesay checks stat already					
-					
+		forcesay(hit_appends)	//forcesay checks stat already
+
+	if (I.damtype == BRUTE)
+		if((I.edge && prob(2 * I.force)) || (I.force > 20 && prob(I.force)))
+			if(affecting.brute_dam >= affecting.max_damage * config.organ_health_multiplier)
+				affecting.dismember_limb()
+
 	//Melee weapon embedded object code.
 	if (I.damtype == BRUTE && !I.is_robot_module())
 		var/damage = I.force
@@ -353,11 +357,11 @@ emp_act
 			zone = get_zone_with_miss_chance(zone, src, min(15*(distance-2), 0))
 		else
 			zone = get_zone_with_miss_chance(zone, src, 15)
-
+		/*
 		if(!zone)
 			visible_message("\blue \The [O] misses [src] narrowly!")
 			return
-
+		*/
 		O.throwing = 0		//it hit, so stop moving
 
 		if ((O.thrower != src) && check_shields(throw_damage, "[O]"))
@@ -465,7 +469,7 @@ emp_act
 	var/penetrated_dam = max(0,(damage - max(0,(SS.breach_threshold - SS.damage))))
 
 	if(penetrated_dam) SS.create_breaches(damtype, penetrated_dam)
-	
+
 /mob/living/carbon/human/mech_melee_attack(obj/mecha/M)
 	if(M.occupant.a_intent == "harm")
 		if(M.damtype == "brute")

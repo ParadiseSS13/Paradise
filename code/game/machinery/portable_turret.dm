@@ -66,7 +66,7 @@
 		spark_system.attach(src)
 		sleep(10)
 		if(!installation)// if for some reason the turret has no gun (ie, admin spawned) it resorts to basic taser shots
-			projectile = /obj/item/projectile/beam/stun//holder for the projectile, here it is being set
+			projectile = /obj/item/projectile/energy/electrode//holder for the projectile, here it is being set
 			eprojectile = /obj/item/projectile/beam//holder for the projectile when emagged, if it is different
 			reqpower = 200
 			sound = 1
@@ -76,8 +76,8 @@
 					// All energy-based weapons are applicable
 			switch(E.type)
 				if(/obj/item/weapon/gun/energy/laser/bluetag)
-					projectile = /obj/item/projectile/beam/lastertag/blue
-					eprojectile = /obj/item/projectile/beam/lastertag/omni//This bolt will stun ERRYONE with a vest
+					projectile = /obj/item/projectile/lasertag/blue
+					eprojectile = /obj/item/projectile/lasertag/omni//This bolt will stun ERRYONE with a vest
 					iconholder = null
 					reqpower = 100
 					lasercolor = "b"
@@ -90,8 +90,8 @@
 					shot_delay = 30
 
 				if(/obj/item/weapon/gun/energy/laser/redtag)
-					projectile = /obj/item/projectile/beam/lastertag/red
-					eprojectile = /obj/item/projectile/beam/lastertag/omni
+					projectile = /obj/item/projectile/lasertag/red
+					eprojectile = /obj/item/projectile/lasertag/omni
 					iconholder = null
 					reqpower = 100
 					lasercolor = "r"
@@ -104,7 +104,7 @@
 					shot_delay = 30
 
 				if(/obj/item/weapon/gun/energy/laser/practice)
-					projectile = /obj/item/projectile/beam/practice
+					projectile = /obj/item/projectile/practice
 					eprojectile = /obj/item/projectile/beam
 					iconholder = null
 					reqpower = 100
@@ -128,7 +128,7 @@
 					reqpower = 700
 
 				if(/obj/item/weapon/gun/energy/taser)
-					projectile = /obj/item/projectile/beam/stun
+					projectile = /obj/item/projectile/energy/electrode
 					eprojectile = projectile
 					iconholder = 1
 					reqpower = 200
@@ -170,7 +170,7 @@
 					reqpower = 500
 
 				else // Energy gun shots
-					projectile = /obj/item/projectile/beam/stun// if it hasn't been emagged, it uses normal taser shots
+					projectile = /obj/item/projectile/energy/electrode// if it hasn't been emagged, it uses normal taser shots
 					eprojectile = /obj/item/projectile/beam//If it has, going to kill mode
 					iconholder = 1
 					egun = 1
@@ -375,13 +375,13 @@ Status: []<BR>"},
 	if (src.health <= 0)
 		src.die() // the death process :(
 	if((src.lasercolor == "b") && (src.disabled == 0))
-		if(istype(Proj, /obj/item/projectile/beam/lastertag/red))
+		if(istype(Proj, /obj/item/projectile/lasertag/red))
 			src.disabled = 1
 			del (Proj)
 			sleep(100)
 			src.disabled = 0
 	if((src.lasercolor == "r") && (src.disabled == 0))
-		if(istype(Proj, /obj/item/projectile/beam/lastertag/blue))
+		if(istype(Proj, /obj/item/projectile/lasertag/blue))
 			src.disabled = 1
 			del (Proj)
 			sleep(100)

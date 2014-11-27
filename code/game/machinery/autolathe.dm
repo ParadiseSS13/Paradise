@@ -38,6 +38,7 @@ var/global/list/autolathe_recipes = list( \
 		new /obj/item/device/radio/off(), \
 		new /obj/item/device/assembly/infra(), \
 		new /obj/item/device/assembly/timer(), \
+		new /obj/item/device/assembly/prox_sensor(), \
 		new /obj/item/device/assembly/voice(), \
 		new /obj/item/weapon/light/tube(), \
 		new /obj/item/weapon/light/bulb(), \
@@ -45,10 +46,7 @@ var/global/list/autolathe_recipes = list( \
 		new /obj/item/weapon/rcd_ammo(), \
 		new /obj/item/ammo_casing/shotgun/beanbag(), \
 		new /obj/item/weapon/storage/box/blanks(), \
-		new /obj/item/weapon/storage/box/gauge(), \
-		new /obj/item/ammo_casing/shotgun/incendiary(), \
 		new /obj/item/ammo_box/c38(), \
-		new /obj/item/ammo_box/a357(), \
 		new /obj/item/clothing/ears/earmuffs/tribblemuffs(), \
 		new /obj/item/clothing/gloves/furgloves(), \
 		new /obj/item/clothing/head/furcap(), \
@@ -64,6 +62,10 @@ var/global/list/autolathe_recipes_hidden = list( \
 		new /obj/item/weapon/weldingtool/largetank(), \
 		new /obj/item/weapon/handcuffs(), \
 		new /obj/item/weapon/hatchet(), \
+		new /obj/item/ammo_box/a357(), \
+		new /obj/item/ammo_casing/shotgun(), \
+		new /obj/item/ammo_casing/shotgun/buck(), \
+		new /obj/item/ammo_casing/shotgun/incendiary(), \
 		/*new /obj/item/ammo_casing/shotgun/dart(), \
 		new /obj/item/weapon/shield/riot(), */ \
 	)
@@ -107,7 +109,7 @@ var/global/list/autolathe_recipes_hidden = list( \
 			SetLuminosity(2)
 		else
 			SetLuminosity(0)
-			
+
 /obj/machinery/autolathe/New()
 	..()
 	component_parts = list()
@@ -122,7 +124,7 @@ var/global/list/autolathe_recipes_hidden = list( \
 	wires = new(src)
 	src.L = autolathe_recipes
 	src.LL = autolathe_recipes_hidden
-	
+
 /obj/machinery/autolathe/proc/wires_win(mob/user as mob)
 	var/dat as text
 	dat += "Autolathe Wires:<BR>"
@@ -180,36 +182,36 @@ var/global/list/autolathe_recipes_hidden = list( \
 /obj/machinery/autolathe/interact(mob/user as mob)
 	if(..())
 		return
-		
+
 	if (src.shocked)
 		src.shock(user,50)
-		
+
 	if (src.panel_open)
 		wires_win(user,50)
 		return
-		
+
 	if (src.disabled)
 		user << "\red You press the button, but nothing happens."
 		return
-		
+
 	regular_win(user)
 	return
 
 /obj/machinery/autolathe/attackby(var/obj/item/O as obj, var/mob/user as mob)
 	if (stat)
 		return 1
-		
+
 	if (busy)
 		user << "\red The autolathe is busy. Please wait for completion of previous operation."
 		return 1
-		
+
 	if (istype(O, /obj/item/weapon/screwdriver))
 		default_deconstruction_screwdriver(user, "autolathe_t", "autolathe", O)
 		return 1
-		
+
 	if(exchange_parts(user, O))
-		return		
-		
+		return
+
 	if (panel_open)
 		//Don't eat multitools or wirecutters used on an open lathe.
 		if(istype(O, /obj/item/device/multitool) || istype(O, /obj/item/weapon/wirecutters))
@@ -304,7 +306,7 @@ var/global/list/autolathe_recipes_hidden = list( \
 	usr.set_machine(src)
 	src.add_fingerprint(usr)
 	if (!busy)
-		if(href_list["make"])	
+		if(href_list["make"])
 			var/coeff = 2 ** prod_coeff
 			var/turf/T = get_step(src.loc, get_dir(src,usr))
 
@@ -355,7 +357,7 @@ var/global/list/autolathe_recipes_hidden = list( \
 						src.m_amount -= template.m_amt*multiplier
 						src.g_amount -= template.g_amt*multiplier
 						src.f_amount -= template.f_amt*multiplier
-						var/obj/new_item = new template.type(T)	
+						var/obj/new_item = new template.type(T)
 						var/obj/item/stack/S = new_item
 						S.amount = multiplier
 					else
@@ -364,16 +366,16 @@ var/global/list/autolathe_recipes_hidden = list( \
 						src.f_amount -= template.f_amt/coeff
 						var/obj/item/new_item = new template.type(T)
 						new_item.m_amt /= coeff
-						new_item.g_amt /= coeff					
-						new_item.f_amt /= coeff						
+						new_item.g_amt /= coeff
+						new_item.f_amt /= coeff
 					if(src.m_amount < 0)
 						src.m_amount = 0
 					if(src.g_amount < 0)
 						src.g_amount = 0
 					if(src.f_amount < 0)
 						src.f_amount = 0
-					busy = 0	
-	
+					busy = 0
+
 		if(href_list["act"])
 			var/temp_wire = href_list["wire"]
 			if(href_list["act"] == "pulse")
@@ -422,8 +424,8 @@ var/global/list/autolathe_recipes_hidden = list( \
 	max_g_amount = tot_rating
 	max_f_amount = tot_rating
 	for(var/obj/item/weapon/stock_parts/manipulator/M in component_parts)
-		prod_coeff += M.rating - 1	
-	
+		prod_coeff += M.rating - 1
+
 /obj/machinery/autolathe/RefreshParts()
 	..()
 	var/tot_rating = 0

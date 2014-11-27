@@ -109,7 +109,7 @@
 	icon_state = "mecha_taser"
 	energy_drain = 20
 	equip_cooldown = 8
-	projectile = /obj/item/projectile/beam/stun
+	projectile = /obj/item/projectile/energy/electrode/revolver
 	fire_sound = 'sound/weapons/Taser.ogg'
 	size = 1
 

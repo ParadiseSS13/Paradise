@@ -1717,8 +1717,6 @@ datum
 			description = "Alchdranine is an extremely strange chemical substance that can be used to treat almost any injury with a high level of effectiveness "
 			reagent_state = LIQUID
 			color = "#07a4d1" // rgb: 7, 164, 209
-			toxod = OVERDOSE/3
-			burnod = OVERDOSE/3
 
 			on_mob_life(var/mob/living/M as mob, var/alien)
 				if(M.stat == 2.0)
@@ -1913,6 +1911,21 @@ datum
 				..()
 				return
 
+		inacusiate
+			name = "Inacusiate"
+			id = "inacusiate"
+			description = "Heals ear damage."
+			reagent_state = LIQUID
+			color = "#6600FF" // rgb: 100, 165, 255
+			toxod = OVERDOSE
+			scannable = 1
+
+			on_mob_life(var/mob/living/M as mob)
+				if(!M) M = holder.my_atom
+				M.ear_damage = 0
+				M.ear_deaf = 0
+				..()
+				return
 
 		peridaxon
 			name = "Peridaxon"
@@ -1986,9 +1999,9 @@ datum
 				if(!M) M = holder.my_atom
 				if(M.bodytemperature < 170)
 					M.adjustCloneLoss(-1)
-					M.adjustOxyLoss(-2)
-					M.heal_organ_damage(2,2)
-					M.adjustToxLoss(-2)
+					M.adjustOxyLoss(-3)
+					M.heal_organ_damage(3,3)
+					M.adjustToxLoss(-3)
 				..()
 				return
 
@@ -2003,7 +2016,11 @@ datum
 			on_mob_life(var/mob/living/M as mob)
 				if(!M) M = holder.my_atom
 				if(M.bodytemperature < 170)
-					M.adjustCloneLoss(-4)
+					M.adjustCloneLoss(-3)
+					M.adjustOxyLoss(-3)
+					M.heal_organ_damage(3,3)
+					M.adjustToxLoss(-3)
+					M.status_flags &= ~DISFIGURED
 				..()
 				return
 
@@ -2272,6 +2289,7 @@ datum
 				M.drowsyness = 0
 				M.stuttering = 0
 				M.confused = 0
+				M.reagents.remove_all_type(/datum/reagent/ethanol, 1*REM, 0, 1)
 				..()
 				return
 
@@ -2309,9 +2327,9 @@ datum
 						M.sleeping += 1
 					if(51 to INFINITY)
 						M.sleeping += 1
-						M:toxloss += (data - 50)
+						M.adjustToxLoss((data - 50)*REM)
+				holder.remove_reagent(src.id, 0.5 * REAGENTS_METABOLISM)
 				..()
-
 				return
 
 		beer2							//copypasta of chloral hydrate, disguised as normal beer for use by emagged brobots
@@ -2515,27 +2533,37 @@ datum
 							return
 						else if ( mouth_covered )	// Reduced effects if partially protected
 							victim << "\red Your [safe_thing] protect you from most of the pepperspray!"
-							victim.eye_blurry = max(M.eye_blurry, 15)
-							victim.eye_blind = max(M.eye_blind, 5)
-							victim.Stun(5)
-							victim.Weaken(5)
-							//victim.Paralyse(10)
-							//victim.drop_item()
+							if(prob(5))
+								victim.emote("scream")
+							victim.eye_blurry = max(M.eye_blurry, 3)
+							victim.eye_blind = max(M.eye_blind, 1)
+							victim.confused = max(M.confused, 3)
+							victim.damageoverlaytemp = 60
+							victim.Weaken(3)
+							victim.drop_item()
 							return
 						else if ( eyes_covered ) // Eye cover is better than mouth cover
 							victim << "\red Your [safe_thing] protects your eyes from the pepperspray!"
-							victim.emote("scream")
-							victim.eye_blurry = max(M.eye_blurry, 5)
+							victim.eye_blurry = max(M.eye_blurry, 3)
+							victim.damageoverlaytemp = 30
 							return
 						else // Oh dear :D
-							victim.emote("scream")
+							if(prob(5))
+								victim.emote("scream")
 							victim << "\red You're sprayed directly in the eyes with pepperspray!"
-							victim.eye_blurry = max(M.eye_blurry, 25)
-							victim.eye_blind = max(M.eye_blind, 10)
-							victim.Stun(5)
+							victim.eye_blurry = max(M.eye_blurry, 5)
+							victim.eye_blind = max(M.eye_blind, 2)
+							victim.confused = max(M.confused, 6)
+							victim.damageoverlaytemp = 75
 							victim.Weaken(5)
-							//victim.Paralyse(10)
-							//victim.drop_item()
+							victim.drop_item()
+
+			on_mob_life(var/mob/living/M as mob)
+				if(!M) M = holder.my_atom
+				if(prob(5))
+					M.visible_message("<span class='warning'>[M] [pick("dry heaves!","coughs!","splutters!")]</span>")
+				..()
+				return
 
 		frostoil
 			name = "Frost Oil"
@@ -2917,7 +2945,7 @@ datum
 
 				on_mob_life(var/mob/living/M as mob)
 					..()
-					if(M.getToxLoss() && prob(20)) M.adjustToxLoss(-1*REM)
+					if(M.getOxyLoss() && prob(30)) M.adjustOxyLoss(-1*REM)
 					return
 
 			tomatojuice
@@ -2967,15 +2995,16 @@ datum
 				id = "doctorsdelight"
 				description = "A gulp a day keeps the MediBot away. That's probably for the best."
 				reagent_state = LIQUID
-				nutriment_factor = 1 * FOOD_METABOLISM
-				color = "#664300" // rgb: 102, 67, 0
+				color = "#FF8CFF" // rgb: 255, 140, 255
 
 				on_mob_life(var/mob/living/M as mob)
-					M:nutrition += nutriment_factor
-					holder.remove_reagent(src.id, FOOD_METABOLISM)
 					if(!M) M = holder.my_atom
-					if(M:getToxLoss() && prob(80)) M:adjustToxLoss(-1)
-
+					if(M.getOxyLoss() && prob(80)) M.adjustOxyLoss(-2)
+					if(M.getBruteLoss() && prob(80)) M.heal_organ_damage(2,0)
+					if(M.getFireLoss() && prob(80)) M.heal_organ_damage(0,2)
+					if(M.getToxLoss() && prob(80)) M.adjustToxLoss(-2)
+					if(M.dizziness !=0) M.dizziness = max(0,M.dizziness-15)
+					if(M.confused !=0) M.confused = max(0,M.confused - 5)
 					..()
 					return
 
@@ -3014,10 +3043,30 @@ datum
 				description = "The raw essence of a banana."
 				color = "#863333" // rgb: 175, 175, 0
 
+				on_mob_life(var/mob/living/M as mob)
+					M.nutrition += nutriment_factor
+					if(istype(M, /mob/living/carbon/human) && M.job in list("Clown"))
+						if(!M) M = holder.my_atom
+						M.heal_organ_damage(1,1)
+						M.nutrition += nutriment_factor
+						..()
+						return
+					..()
+
 			nothing
 				name = "Nothing"
 				id = "nothing"
 				description = "Absolutely nothing."
+
+				on_mob_life(var/mob/living/M as mob)
+					M.nutrition += nutriment_factor
+					if(istype(M, /mob/living/carbon/human) && M.job in list("Mime"))
+						if(!M) M = holder.my_atom
+						M.heal_organ_damage(1,1)
+						M.nutrition += nutriment_factor
+						..()
+						return
+					..()
 
 			potato_juice
 				name = "Potato Juice"
@@ -3938,12 +3987,32 @@ datum
 				nutriment_factor = 1 * FOOD_METABOLISM
 				color = "#664300" // rgb: 102, 67, 0
 
+				on_mob_life(var/mob/living/M as mob)
+					M.nutrition += nutriment_factor
+					if(istype(M, /mob/living/carbon/human) && M.job in list("Clown"))
+						if(!M) M = holder.my_atom
+						M.heal_organ_damage(1,1)
+						M.nutrition += nutriment_factor
+						..()
+						return
+					..()
+
 			silencer
 				name = "Silencer"
 				id = "silencer"
 				description = "A drink from Mime Heaven."
 				nutriment_factor = 1 * FOOD_METABOLISM
 				color = "#664300" // rgb: 102, 67, 0
+
+				on_mob_life(var/mob/living/M as mob)
+					M.nutrition += nutriment_factor
+					if(istype(M, /mob/living/carbon/human) && M.job in list("Mime"))
+						if(!M) M = holder.my_atom
+						M.heal_organ_damage(1,1)
+						M.nutrition += nutriment_factor
+						..()
+						return
+					..()
 
 			changelingsting
 				name = "Changeling Sting"

@@ -50,6 +50,11 @@
 	icon_state = "grey"
 	_color = "grey"
 	can_label = 0
+/obj/machinery/portable_atmospherics/canister/custom_mix
+	name = "Canister \[Custom\]"
+	icon_state = "whiters"
+	_color = "whiters"
+	can_label = 0
 
 /obj/machinery/portable_atmospherics/canister/proc/check_change()
 	var/old_flag = update_flag
@@ -332,6 +337,7 @@ update_flag
 				"\[CO2\]" = "black", \
 				"\[Air\]" = "grey", \
 				"\[CAUTION\]" = "yellow", \
+				"\[Custom\]" = "whiters",\
 			)
 			var/label = input("Choose canister label", "Gas canister") as null|anything in colors
 			if (label)
@@ -419,6 +425,12 @@ update_flag
 	air_contents.update_values()
 
 	src.update_icon()
+	return 1
+
+/obj/machinery/portable_atmospherics/canister/custom_mix/New()
+	..()
+
+	src.update_icon() // Otherwise new canisters do not have their icon updated with the pressure light, likely want to add this to the canister class constructor, avoiding at current time to refrain from screwing up code for other canisters. --DZD
 	return 1
 
 /obj/machinery/portable_atmospherics/canister/proc/weld(var/obj/item/weapon/weldingtool/WT, var/mob/user)

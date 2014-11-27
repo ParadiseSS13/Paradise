@@ -18,6 +18,17 @@
 
 	var/datum/seed/grown_seed
 	var/datum/reagents/grown_reagents
+
+	//--FalseIncarnate
+	var/IS_TRAY = 0			//used to track if the target is a hydroponics tray or soil. 1 if true, otherwise 0
+	var/tray_age			//age of the plant in the tray
+	var/tray_weed_level		//weed level of tray
+	var/tray_pest_level		//pest level of tray
+	var/tray_toxins			//toxicity of the tray
+	var/tray_yield_mod		//yield modifier of the tray
+	var/tray_mutation_mod	//mutation modifier of the tray
+	//--FalseIncarnate
+
 	if(istype(target,/obj/item/weapon/reagent_containers/food/snacks/grown))
 
 		var/obj/item/weapon/reagent_containers/food/snacks/grown/G = target
@@ -38,6 +49,19 @@
 	else if(istype(target,/obj/machinery/portable_atmospherics/hydroponics))
 
 		var/obj/machinery/portable_atmospherics/hydroponics/H = target
+
+		//--FalseIncarnate
+		//Flag the target as a tray for showing tray-specific stats
+		IS_TRAY = 1
+		//Save tray data to matching variables
+		tray_age			= H.age
+		tray_weed_level		= H.weedlevel
+		tray_pest_level		= H.pestlevel
+		tray_toxins			= H.toxins
+		tray_yield_mod		= H.yield_mod
+		tray_mutation_mod	= H.mutation_mod
+		//--FalseIncarnate
+
 		grown_seed = H.seed
 		grown_reagents = H.reagents
 
@@ -57,6 +81,19 @@
 	dat += "<tr><td><b>Maturation time</b></td><td>[grown_seed.maturation]</td></tr>"
 	dat += "<tr><td><b>Production time</b></td><td>[grown_seed.production]</td></tr>"
 	dat += "<tr><td><b>Potency</b></td><td>[grown_seed.potency]</td></tr>"
+
+	//--FalseIncarnate
+	//Tray-specific stats like Age and Mutation Modifier, not shown if target was not a hydroponics tray or soil
+	if(IS_TRAY == 1)
+		dat += "<tr><td></td></tr>"
+		dat += "<tr><td><b>Age</b></td><td>[tray_age]</td></tr>"
+		dat += "<tr><td><b>Weed Level</b></td><td>[tray_weed_level]</td></tr>"
+		dat += "<tr><td><b>Pest Level</b></td><td>[tray_pest_level]</td></tr>"
+		dat += "<tr><td><b>Toxins</b></td><td>[tray_toxins]</td></tr>"
+		dat += "<tr><td><b>Yield Modifier</b></td><td>[tray_yield_mod]</td></tr>"
+		dat += "<tr><td><b>Mutation Modifier</b></td><td>[tray_mutation_mod]</td></tr>"
+	//--FalseIncarnate
+
 	dat += "</table>"
 
 	if(grown_reagents && grown_reagents.reagent_list && grown_reagents.reagent_list.len)

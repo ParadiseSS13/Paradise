@@ -260,9 +260,9 @@ var/list/uplink_items = list()
 	gamemodes = list("nuclear emergency")
 
 /datum/uplink_item/dangerous/emp
-	name = "5 EMP Grenades"
-	desc = "A box that contains 5 EMP grenades. Useful to disrupt communication and silicon lifeforms."
-	item = /obj/item/weapon/storage/box/emps
+	name = "EMP Kit"
+	desc = "A box that contains two EMP grenades, an EMP implant and a short ranged recharging device disguised as a flashlight. Useful to disrupt communication and silicon lifeforms."
+	item = /obj/item/weapon/storage/box/syndie_kit/emp
 	cost = 5
 
 /datum/uplink_item/dangerous/syndicate_minibomb
@@ -285,7 +285,7 @@ var/list/uplink_items = list()
 	item = /obj/mecha/combat/marauder/mauler/loaded
 	cost = 140
 	gamemodes = list("nuclear emergency")
-	
+
 /datum/uplink_item/dangerous/syndieborg
 	name = "Syndicate Cyborg"
 	desc = "A cyborg designed and programmed for systematic extermination of non-Syndicate personnel."
@@ -438,6 +438,14 @@ var/list/uplink_items = list()
 	item = /obj/item/weapon/storage/backpack/satchel_flat
 	cost = 2
 
+/* Commented out until a balance fix is found -Mel
+/datum/uplink_item/stealthy_tools/smdrill
+	name = "Supermatter Drill"
+	desc = "A pocket-sized drill tipped with nanoscopic supermatter crystals, able to cut through reinforced walls."
+	item = /obj/item/weapon/pickaxe/diamonddrill/traitor
+	cost = 6
+*/
+
 // DEVICE AND TOOLS
 
 /datum/uplink_item/device_tools
@@ -465,6 +473,12 @@ var/list/uplink_items = list()
 	cost = 9
 	gamemodes = list("nuclear emergency")
 
+/datum/uplink_item/badass/syndiecigs
+	name = "Syndicate Smokes"
+	desc = "Strong flavor, dense smoke, infused with Doctor's Delight."
+	item = /obj/item/weapon/storage/fancy/cigarettes/cigpack_syndicate
+	cost = 4
+
 /datum/uplink_item/device_tools/space_suit
 	name = "Space Suit"
 	desc = "The red and black syndicate space suit is less encumbering than Nanotrasen variants, fits inside bags, and has a weapon slot. Nanotrasen crewmembers are trained to report red space suit sightings."
@@ -477,6 +491,7 @@ var/list/uplink_items = list()
 	item = /obj/item/clothing/glasses/thermal/syndi
 	cost = 6
 
+/*
 /datum/uplink_item/device_tools/surveillance
 	name = "Camera Surveillance Kit"
 	desc = "This kit contains 5 Camera bugs and one mobile receiver. Attach camera bugs to a camera to enable remote viewing."
@@ -488,6 +503,7 @@ var/list/uplink_items = list()
 	desc = "This is a Camera bug resupply giving you 5 more camera bugs."
 	item = /obj/item/weapon/storage/box/surveillance
 	cost = 4
+*/   //commented out until porting over TG's camera bug
 
 /datum/uplink_item/device_tools/binary
 	name = "Binary Translator Key"
@@ -496,10 +512,10 @@ var/list/uplink_items = list()
 	cost = 5
 
 /datum/uplink_item/device_tools/cipherkey
-	name = "Centcomm Encryption Key"
-	desc = "A key, that when inserted into a radio headset, allows you to listen to and talk on all known radio channels."
-	item = /obj/item/device/encryptionkey/syndicate/hacked
-	cost = 4
+	name = "Syndicate Encryption Key"
+	desc = "A key, that when inserted into a radio headset, allows you to listen to all station department channels as well as talk on an encrypted Syndicate channel."
+	item = /obj/item/device/encryptionkey/syndicate
+	cost = 5
 
 /datum/uplink_item/device_tools/hacked_module
 	name = "Hacked AI Upload Module"
@@ -614,7 +630,7 @@ var/list/uplink_items = list()
 
 /datum/uplink_item/badass/bundle
 	name = "Syndicate Bundle"
-	desc = "Syndicate Bundles are specialised groups of items that arrive in a plain box. These items are collectively worth more than 10 telecrystals, but you do not know which specialisation you will receive."
+	desc = "Syndicate Bundles are specialised groups of items that arrive in a plain box. These items are collectively worth more than 20 telecrystals, but you do not know which specialisation you will receive."
 	item = /obj/item/weapon/storage/box/syndicate
 	cost = 20
 	excludefrom = list("nuclear emergency")

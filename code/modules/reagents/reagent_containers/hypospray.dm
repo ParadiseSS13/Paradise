@@ -20,7 +20,7 @@
 
 /obj/item/weapon/reagent_containers/hypospray/New() //comment this to make hypos start off empty
 	..()
-	reagents.add_reagent("tricordrazine", 30)
+	reagents.add_reagent("doctorsdelight", 30)
 	return
 
 /obj/item/weapon/reagent_containers/hypospray/attack(mob/M as mob, mob/user as mob)
@@ -64,7 +64,7 @@
 
 /obj/item/weapon/reagent_containers/hypospray/combat/New()
 	..()
-	reagents.remove_reagent("tricordrazine", 30)
+	reagents.remove_reagent("doctorsdelight", 30)
 	reagents.add_reagent("synaptizine", 30)
 
 
@@ -76,10 +76,11 @@
 	amount_per_transfer_from_this = 5
 	possible_transfer_amounts = list(5)
 	volume = 5
+	var/emagged = 0
 
 /obj/item/weapon/reagent_containers/hypospray/autoinjector/New()
 	..()
-	reagents.remove_reagent("tricordrazine", 30)
+	reagents.remove_reagent("doctorsdelight", 30)
 	reagents.add_reagent("tramadol", 4)
 	reagents.add_reagent("hyperzine", 1)
 	update_icon()
@@ -87,8 +88,9 @@
 
 /obj/item/weapon/reagent_containers/hypospray/autoinjector/attack(mob/M as mob, mob/user as mob)
 	..()
-	if(reagents.total_volume <= 0) //Prevents autoinjectors to be refilled.
-		flags &= ~OPENCONTAINER
+	if(!emagged)
+		if(reagents.total_volume <= 0) //Prevents autoinjectors to be refilled.
+			flags &= ~OPENCONTAINER
 	update_icon()
 	return
 
@@ -105,6 +107,13 @@
 	else
 		usr << "\blue It is spent."
 
+/obj/item/weapon/reagent_containers/hypospray/autoinjector/attackby(var/obj/item/weapon/D as obj, var/mob/user as mob)
+	if(istype(D, /obj/item/weapon/card/emag) && !emagged)
+		emagged = 1
+		user << "<span class='notice'>You bypass the electronic child-safety lock on the reagent storage.</span>"
+	else
+		..()
+	return
 
 /obj/item/weapon/reagent_containers/hypospray/hyperzine
 	name = "emergency stimulant autoinjector"

@@ -42,6 +42,12 @@
 	has_sensor = 1 // Just to make sure it has a sensor
 	armor = list(melee = 0, bullet = 0, laser = 0,energy = 0, bomb = 0, bio = 0, rad = 0) // Standar Jumpsuit stats
 
+/obj/item/clothing/head/fluff/sparkyninja_beret //Sparkyninja: Neil Wilkinson
+	name = "royal marines commando beret"
+	desc = "Dark Green beret with an old insignia on it."
+	icon_state = "sparkyninja_beret"
+	flags = FPRINT | TABLEPASS
+
 //////////////////////////////////
 ////////// Fluff Items ///////////
 //////////////////////////////////
