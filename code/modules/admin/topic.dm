@@ -1600,45 +1600,89 @@
 		log_admin("[src.owner] replied to [key_name(H)]'s HONKplanet message with the message [input].")
 		H << "You hear something crackle in your headset for a moment before a voice speaks.  \"Please stand by for a message from your HONKbrothers.  Message as follows, HONK. [input].  Message ends, HONK.\""
 
-	else if(href_list["CentcommFaxView"])
-		var/info = locate(href_list["CentcommFaxView"])
+	else if(href_list["AdminFaxView"])
+		var/obj/item/fax = locate(href_list["AdminFaxView"])
+		if (istype(fax, /obj/item/weapon/paper))
+			var/obj/item/weapon/paper/P = fax
+			P.show_content(usr)
+		else if (istype(fax, /obj/item/weapon/photo))
+			var/obj/item/weapon/photo/H = fax
+			H.show(usr)
+		else if (istype(fax, /obj/item/weapon/paper_bundle))
+			//having multiple people turning pages on a paper_bundle can cause issues
+			//open a browse window listing the contents instead
+			var/data = ""
+			var/obj/item/weapon/paper_bundle/B = fax
+			
+			for (var/page = 1, page <= B.amount + 1, page++)
+				var/obj/pageobj = B.contents[page]
+				data += "<A href='?src=\ref[src];AdminFaxViewPage=[page];paper_bundle=\ref[B]'>Page [page] - [pageobj.name]</A><BR>"
+			
+			world << data
+			world << "Sent by: [usr]"
+			
+			usr << browse(data, "window=[B.name]")
+		else
+			usr << "\red The faxed item is not viewable. This is probably a bug, and should be reported on the tracker: [fax.type]"
 
-		usr << browse("<HTML><HEAD><TITLE>Centcomm Fax Message</TITLE></HEAD><BODY>[info]</BODY></HTML>", "window=Centcomm Fax Message")
-
+	else if (href_list["AdminFaxViewPage"])
+		var/page = text2num(href_list["AdminFaxViewPage"])
+		var/obj/item/weapon/paper_bundle/bundle = locate(href_list["paper_bundle"])
+		
+		if (!bundle) return
+		
+		if (istype(bundle.contents[page], /obj/item/weapon/paper))
+			var/obj/item/weapon/paper/P = bundle.contents[page]
+			P.show_content(src.owner, 1)
+		else if (istype(bundle.contents[page], /obj/item/weapon/photo))
+			var/obj/item/weapon/photo/H = bundle.contents[page]
+			H.show(src.owner)
+		return
+		
 	else if(href_list["CentcommFaxReply"])
-		var/mob/living/carbon/human/H = locate(href_list["CentcommFaxReply"])
+		var/mob/sender = locate(href_list["CentcommFaxReply"])
+		var/obj/machinery/photocopier/faxmachine/fax = locate(href_list["originfax"])
 
-		var/input = input(src.owner, "Please enter a message to reply to [key_name(H)] via secure connection. NOTE: BBCode does not work, but HTML tags do! Use <br> for line breaks.", "Outgoing message from Centcomm", "") as message|null
-		if(!input)  return
+		var/input = input(src.owner, "Please enter a message to reply to [key_name(sender)] via secure connection. NOTE: BBCode does not work, but HTML tags do! Use <br> for line breaks.", "Outgoing message from Centcomm", "") as message|null
+		if(!input)	return
 
 		var/customname = input(src.owner, "Pick a title for the report", "Title") as text|null
+		
+		// Create the reply message
+		var/obj/item/weapon/paper/P = new /obj/item/weapon/paper( null ) //hopefully the null loc won't cause trouble for us
+		P.name = "[command_name()]- [customname]"
+		P.info = input
+		P.update_icon()
+		P.stamps += "<HR><i>This paper has been stamped by the Central Command Quantum Relay.</i>"	
+		var/image/stampoverlay = image('icons/obj/bureaucracy.dmi')
+		P.x = rand(-2, 0)
+		P.y = rand(-1, 2)	
+		P.offset_x += P.x
+		P.offset_y += P.y
+		stampoverlay.pixel_x = P.x
+		stampoverlay.pixel_y = P.y
+		
+		if(!P.ico)
+			P.ico = new
+		P.ico += "paper_stamp_cent"
+		stampoverlay.icon_state = "paper_stamp_cent"
+		
+		// Stamps
+		if(!P.stamped)
+			P.stamped = new
+		P.stamped += /obj/item/weapon/stamp/centcom
+		P.overlays += stampoverlay
 
-		for(var/obj/machinery/faxmachine/F in machines)
-			if(! (F.stat & (BROKEN|NOPOWER) ) )
-				// animate! it's alive!
-				flick("faxreceive", F)
-
-				// give the sprite some time to flick
-				spawn(20)
-					var/obj/item/weapon/paper/P = new /obj/item/weapon/paper( F.loc )
-					P.name = "[command_name()]- [customname]"
-					P.info = input
-					P.update_icon()
-
-					playsound(F.loc, "sound/items/polaroid1.ogg", 50, 1)
-
-					// Stamps
-					var/image/stampoverlay = image('icons/obj/bureaucracy.dmi')
-					stampoverlay.icon_state = "paper_stamp-cent"
-					if(!P.stamped)
-						P.stamped = new
-					P.stamped += /obj/item/weapon/stamp
-					P.overlays += stampoverlay
-					P.stamps += "<HR><i>This paper has been stamped by the Central Command Quantum Relay.</i>"
-
-		src.owner << "Message reply to transmitted successfully."
-		log_admin("[key_name(src.owner)] replied to a fax message from [key_name(H)]: [input]")
-		message_admins("[key_name_admin(src.owner)] replied to a fax message from [key_name_admin(H)]", 1)
+		if(fax.recievefax(P))
+			src.owner << "\blue Message reply to transmitted successfully."
+			log_admin("[key_name(src.owner)] replied to a fax message from [key_name(sender)]: [input]")
+			message_admins("[key_name_admin(src.owner)] replied to a fax message from [key_name_admin(sender)]", 1)
+		else
+			src.owner << "\red Message reply failed."
+		
+		spawn(100)
+			del(P)
+		return
 
 	else if(href_list["jumpto"])
 		if(!check_rights(R_ADMIN))	return

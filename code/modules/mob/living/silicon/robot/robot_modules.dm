@@ -275,11 +275,7 @@
 		src.modules += M
 
 		src.modules += new /obj/item/weapon/reagent_containers/robodropper(src)
-
-		var/obj/item/weapon/lighter/zippo/L = new /obj/item/weapon/lighter/zippo(src)
-		L.lit = 1
-		src.modules += L
-
+		src.modules += new /obj/item/weapon/lighter/zippo(src)
 		src.modules += new /obj/item/weapon/tray/robotray(src)
 		src.modules += new /obj/item/weapon/reagent_containers/food/drinks/shaker(src)
 		src.emag = new /obj/item/weapon/reagent_containers/food/drinks/cans/beer(src)

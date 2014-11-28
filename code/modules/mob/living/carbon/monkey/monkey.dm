@@ -82,6 +82,7 @@
 	..()
 	dna.mutantrace = "lizard"
 	greaterform = "Unathi"
+	dna.species = "Unathi"
 	add_language("Sinta'unathi")
 
 /mob/living/carbon/monkey/skrell/New()
@@ -89,6 +90,7 @@
 	..()
 	dna.mutantrace = "skrell"
 	greaterform = "Skrell"
+	dna.species = "Skrell"
 	add_language("Skrellian")
 
 /mob/living/carbon/monkey/tajara/New()
@@ -96,6 +98,7 @@
 	..()
 	dna.mutantrace = "tajaran"
 	greaterform = "Tajaran"
+	dna.species = "Tajaran"
 	add_language("Siik'tajr")
 
 /mob/living/carbon/monkey/diona/New()
@@ -105,6 +108,7 @@
 	gender = NEUTER
 	dna.mutantrace = "plant"
 	greaterform = "Diona"
+	dna.species = "Diona"
 	add_language("Rootspeak")
 
 /mob/living/carbon/monkey/movement_delay()

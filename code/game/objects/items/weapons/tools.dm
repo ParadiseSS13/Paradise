@@ -339,6 +339,7 @@
 	if (src.welding)
 		if (remove_fuel(1))
 			usr << "\blue You switch the [src] on."
+			src.w_class = 4
 			src.force = 15
 			src.damtype = "fire"
 			src.icon_state = "welder1"
@@ -352,6 +353,7 @@
 			usr << "\blue You switch the [src] off."
 		else
 			usr << "\blue The [src] shuts off!"
+		src.w_class = 2
 		src.force = 3
 		src.damtype = "brute"
 		src.icon_state = "welder"

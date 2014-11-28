@@ -35,7 +35,10 @@
 /obj/structure/transit_tube/station/Bumped(mob/AM as mob|obj)
 	if(!pod_moving && icon_state == "open" && istype(AM, /mob))
 		for(var/obj/structure/transit_tube_pod/pod in loc)
-			if(!pod.moving && pod.dir in directions())
+			if(pod.contents.len)
+				AM << "<span class=The pod is already occupied.</span>"
+				return
+			else if(!pod.moving && pod.dir in directions())
 				AM.loc = pod
 				return
 
@@ -96,19 +99,29 @@
 
 
 /obj/structure/transit_tube/station/proc/launch_pod()
-	if(launch_cooldown >= world.time)
-		return
 	for(var/obj/structure/transit_tube_pod/pod in loc)
-		if(!pod.moving && turn(pod.dir, (reverse_launch ? 180 : 0)) in directions())
-			spawn(0)
+		if(!pod.moving && pod.dir in directions())
+			spawn(5)
 				pod_moving = 1
 				close_animation()
 				sleep(CLOSE_DURATION + 2)
+
+				//reverse directions for automated cycling
+				var/turf/next_loc = get_step(loc, pod.dir)
+				var/obj/structure/transit_tube/nexttube
+				for(var/obj/structure/transit_tube/tube in next_loc)
+					if(tube.has_entrance(pod.dir))
+						nexttube = tube
+						break
+				if(!nexttube)
+					pod.dir = turn(pod.dir, 180)
+
 				if(icon_state == "closed" && pod)
-					pod.follow_tube(reverse_launch)
+					pod.follow_tube()
+
 				pod_moving = 0
-			return 1
-	return 0
+
+			return
 
 /obj/structure/transit_tube/station/process()
 	if(!pod_moving)
