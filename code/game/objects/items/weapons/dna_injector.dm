@@ -20,6 +20,10 @@
 
 /obj/item/weapon/dnainjector/New()
 	if(datatype && block)
+		buf=new
+		buf.dna=new
+		buf.types = datatype
+		buf.dna.ResetSE()
 		SetValue(value)
 
 /obj/item/weapon/dnainjector/attack_paw(mob/user as mob)
