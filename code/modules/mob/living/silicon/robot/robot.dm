@@ -1427,6 +1427,7 @@
 
 /mob/living/silicon/robot/deathsquad/attack_hand(mob/user)
 	if((ckey == null) && searching_for_ckey == 0)
+		user << "<span class='notice'>Now checking for possible candidates.</span>"
 		var/list/ghosts = list()
 		for(var/mob/dead/observer/G in player_list)
 			ghosts += G
@@ -1455,6 +1456,7 @@
 				C.mind.special_role = "Death Commando"
 				ticker.mode.traitors |= C.mind // Adds them to current traitor list. Which is really the extra antagonist list.
 				src.key = C.key
+				Namepick()
 			else
 				possiblecandidates -= possibleborg
 				get_borg_occupant(user, possiblecandidates)
