@@ -267,6 +267,11 @@
 		block = TELEBLOCK
 		..()
 
+/obj/item/weapon/dnainjector/telemut/darkbundle
+	name = "DNA injector"
+	desc = "Good. Let the hate flow through you."
+
+
 /obj/item/weapon/dnainjector/antitele
 	name = "DNA-Injector (Anti-Tele.)"
 	desc = "Will make you not able to control your mind."

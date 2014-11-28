@@ -57,8 +57,15 @@
 			signaler.signal()
 */
 
-	//Stun Beams
+/*
+	//Stun Beams -- These were commented out, making appropriate changes here. - Dave
 	if(istype(P, /obj/item/projectile/beam/stun) || istype(P, /obj/item/projectile/bullet/stunshot))
+		stun_effect_act(0, P.agony, def_zone, P)
+		src <<"\red You have been hit by [P]!"
+		del P
+		return
+*/
+	if(istype(P, /obj/item/projectile/energy/electrode) || istype(P, /obj/item/projectile/bullet/stunshot))
 		stun_effect_act(0, P.agony, def_zone, P)
 		src <<"\red You have been hit by [P]!"
 		del P
@@ -119,15 +126,15 @@
 
 		var/throw_damage = O.throwforce*(speed/5)
 
-		var/miss_chance = 15
-		if (O.throw_source)
-			var/distance = get_dist(O.throw_source, loc)
-			miss_chance = min(15*(distance-2), 0)
-
+		//var/miss_chance = 15
+		//if (O.throw_source)
+			//var/distance = get_dist(O.throw_source, loc)
+			//miss_chance = min(15*(distance-2), 0)
+		/*
 		if (prob(miss_chance))
 			visible_message("\blue \The [O] misses [src] narrowly!")
 			return
-
+		*/
 		src.visible_message("\red [src] has been hit by [O].")
 		var/armor = run_armor_check(null, "melee")
 
@@ -168,7 +175,7 @@
 					visible_message("<span class='warning'>[src] is pinned to the wall by [O]!</span>","<span class='warning'>You are pinned to the wall by [O]!</span>")
 					src.anchored = 1
 					src.pinned += O
-					
+
 /mob/living/mech_melee_attack(obj/mecha/M)
 	if(M.occupant.a_intent == "harm")
 		if(M.damtype == "brute")

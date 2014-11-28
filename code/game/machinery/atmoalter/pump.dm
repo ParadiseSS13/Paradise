@@ -106,8 +106,9 @@
 		holding_text = {"<BR><B>Tank Pressure</B>: [holding.air_contents.return_pressure()] KPa<BR>
 <A href='?src=\ref[src];remove_tank=1'>Remove Tank</A><BR>
 "}
+	var/pumppressure = max(0,air_contents.return_pressure())
 	var/output_text = {"<TT><B>[name]</B><BR>
-Pressure: [air_contents.return_pressure()] KPa<BR>
+Pressure: [pumppressure] KPa<BR>
 Port Status: [(connected_port)?("Connected"):("Disconnected")]
 [holding_text]
 <BR>

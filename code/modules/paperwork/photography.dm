@@ -30,9 +30,10 @@
 	var/icon/img	//Big photo image
 	var/scribble	//Scribble on the back.
 	var/icon/tiny
+	var/photo_size = 3
 
 /obj/item/weapon/photo/attack_self(mob/user as mob)
-	examine()
+	src.examine(user)
 
 /obj/item/weapon/photo/attackby(obj/item/weapon/P as obj, mob/user as mob)
 	if(istype(P, /obj/item/weapon/pen) || istype(P, /obj/item/toy/crayon))
@@ -42,22 +43,21 @@
 			scribble = txt
 	..()
 
-/obj/item/weapon/photo/examine()
-	set src in oview(1)
-	if(in_range(usr, src))
-		show(usr)
-		usr << desc
+/obj/item/weapon/photo/examine(mob/user)
+	if(in_range(user, src))
+		show(user)
+		user << desc
 	else
-		usr << "<span class='notice'>It is too far away.</span>"
+		user << "<span class='notice'>It is too far away.</span>"
 
 /obj/item/weapon/photo/proc/show(mob/user as mob)
 	user << browse_rsc(img, "tmp_photo.png")
 	user << browse("<html><head><title>[name]</title></head>" \
-		+ "<body style='overflow:hidden'>" \
-		+ "<div> <img src='tmp_photo.png' width = '180'" \
-		+ "[scribble ? "<div> Written on the back:<br><i>[scribble]</i>" : ]"\
-		+ "</body></html>", "window=book;size=200x[scribble ? 400 : 200]")
-	onclose(user, "[name]")
+		+ "<body style='overflow:hidden;margin:0;text-align:center'>" \
+		+ "<img src='tmp_photo.png' width='[64*photo_size]' style='-ms-interpolation-mode:nearest-neighbor' />" \
+		+ "[scribble ? "<br>Written on the back:<br><i>[scribble]</i>" : ""]"\
+		+ "</body></html>", "window=book;size=[64*photo_size]x[scribble ? 400 : 64*photo_size]")
+	onclose(usr, "[name]")
 	return
 
 /obj/item/weapon/photo/verb/rename()
@@ -119,13 +119,21 @@
 	w_class = 2.0
 	flags = FPRINT | CONDUCT | TABLEPASS
 	slot_flags = SLOT_BELT
-//	matter = list("metal" = 2000)
+	var/list/matter = list("metal" = 2000)
 	var/pictures_max = 10
 	var/pictures_left = 10
 	var/on = 1
 	var/icon_on = "camera"
 	var/icon_off = "camera_off"
+	var/size = 3
 
+/obj/item/device/camera/verb/change_size()
+	set name = "Set Photo Focus"
+	set category = "Object"
+	var/nsize = input("Photo Size","Pick a size of resulting photo.") as null|anything in list(1,3,5,7)
+	if(nsize)
+		size = nsize
+		usr << "<span class='notice'>Camera will now take [size]x[size] photos.</span>"
 
 /obj/item/device/camera/attack(mob/living/carbon/human/M as mob, mob/user as mob)
 	return
@@ -152,41 +160,52 @@
 	..()
 
 
-/obj/item/device/camera/proc/get_icon(turf/the_turf as turf)
+/obj/item/device/camera/proc/get_icon(list/turfs, turf/center)
+
 	//Bigger icon base to capture those icons that were shifted to the next tile
 	//i.e. pretty much all wall-mounted machinery
 	var/icon/res = icon('icons/effects/96x96.dmi', "")
-
-	var/icon/turficon = build_composite_icon(the_turf)
-	res.Blend(turficon, ICON_OVERLAY, 33, 33)
+	res.Scale(size*32, size*32)
+	// Initialize the photograph to black.
+	res.Blend("#000", ICON_OVERLAY)
 
 	var/atoms[] = list()
-	for(var/atom/A in the_turf)
-		if(A.invisibility) continue
-		atoms.Add(A)
+	for(var/turf/the_turf in turfs)
+		// Add outselves to the list of stuff to draw
+		atoms.Add(the_turf);
+		// As well as anything that isn't invisible.
+		for(var/atom/A in the_turf)
+			if(A.invisibility) continue
+			atoms.Add(A)
 
-	//Sorting icons based on levels
-	var/gap = atoms.len
-	var/swapped = 1
-	while (gap > 1 || swapped)
-		swapped = 0
-		if(gap > 1)
-			gap = round(gap / 1.247330950103979)
-		if(gap < 1)
-			gap = 1
-		for(var/i = 1; gap + i <= atoms.len; i++)
-			var/atom/l = atoms[i]		//Fucking hate
-			var/atom/r = atoms[gap+i]	//how lists work here
-			if(l.layer > r.layer)		//no "atoms[i].layer" for me
-				atoms.Swap(i, gap + i)
-				swapped = 1
-
-	for(var/i; i <= atoms.len; i++)
-		var/atom/A = atoms[i]
+	// Sort the atoms into their layers
+	var/list/sorted = sort_atoms_by_layer(atoms)
+	var/center_offset = (size-1)/2 * 32 + 1
+	for(var/i; i <= sorted.len; i++)
+		var/atom/A = sorted[i]
 		if(A)
-			var/icon/img = getFlatIcon(A, A.dir)//build_composite_icon(A)
+			var/icon/img = getFlatIcon(A)//build_composite_icon(A)
+
+			// If what we got back is actually a picture, draw it.
 			if(istype(img, /icon))
-				res.Blend(new/icon(img, "", A.dir), ICON_OVERLAY, 33 + A.pixel_x, 33 + A.pixel_y)
+				// Check if we're looking at a mob that's lying down
+				if(istype(A, /mob/living) && A:lying)
+					// If they are, apply that effect to their picture.
+					img.BecomeLying()
+				// Calculate where we are relative to the center of the photo
+				var/xoff = (A.x - center.x) * 32 + center_offset
+				var/yoff = (A.y - center.y) * 32 + center_offset
+				if (istype(A,/atom/movable))
+					xoff+=A:step_x
+					yoff+=A:step_y
+				res.Blend(img, blendMode2iconMode(A.blend_mode),  A.pixel_x + xoff, A.pixel_y + yoff)
+
+	// Lastly, render any contained effects on top.
+	for(var/turf/the_turf in turfs)
+		// Calculate where we are relative to the center of the photo
+		var/xoff = (the_turf.x - center.x) * 32 + center_offset
+		var/yoff = (the_turf.y - center.y) * 32 + center_offset
+		res.Blend(getFlatIcon(the_turf.loc), blendMode2iconMode(the_turf.blend_mode),xoff,yoff)
 	return res
 
 
@@ -236,31 +255,29 @@
 	return can_see
 
 /obj/item/device/camera/proc/captureimage(atom/target, mob/user, flag)
-	var/x_c = target.x - 1
-	var/y_c = target.y + 1
+	var/x_c = target.x - (size-1)/2
+	var/y_c = target.y + (size-1)/2
 	var/z_c	= target.z
-
-	var/icon/temp = icon('icons/effects/96x96.dmi',"")
-	var/icon/black = icon('icons/turf/space.dmi', "black")
+	var/list/turfs = list()
 	var/mobs = ""
-	for(var/i = 1; i <= 3; i++)
-		for(var/j = 1; j <= 3; j++)
+	for(var/i = 1; i <= size; i++)
+		for(var/j = 1; j <= size; j++)
 			var/turf/T = locate(x_c, y_c, z_c)
 			if(can_capture_turf(T, user))
-				temp.Blend(get_icon(T), ICON_OVERLAY, 32 * (j-1-1), 32 - 32 * (i-1))
-				mobs += get_mobs(T, user)
-			else
-				temp.Blend(black, ICON_OVERLAY, 32 * (j-1), 64 - 32 * (i-1))
+				turfs.Add(T)
+				mobs += get_mobs(T)
 			x_c++
 		y_c--
-		x_c = x_c - 3
+		x_c = x_c - size
 
-	var/datum/picture/P = createpicture(user, temp, mobs, flag)
+	var/datum/picture/P = createpicture(target, user, turfs, mobs, flag)
 	printpicture(user, P)
 
-/obj/item/device/camera/proc/createpicture(mob/user, icon/temp, mobs, flag)
-	var/icon/small_img = icon(temp)
-	var/icon/tiny_img = icon(temp)
+/obj/item/device/camera/proc/createpicture(atom/target, mob/user, list/turfs, mobs, flag)
+	var/icon/photoimage = get_icon(turfs, target)
+
+	var/icon/small_img = icon(photoimage)
+	var/icon/tiny_img = icon(photoimage)
 	var/icon/ic = icon('icons/obj/items.dmi',"photo")
 	var/icon/pc = icon('icons/obj/bureaucracy.dmi', "photo")
 	small_img.Scale(8, 8)
@@ -269,13 +286,14 @@
 	pc.Blend(tiny_img,ICON_OVERLAY, 12, 19)
 
 	var/datum/picture/P = new()
-	P.fields["author"] = user
+	P.fields["name"] = "photo"
 	P.fields["icon"] = ic
 	P.fields["tiny"] = pc
-	P.fields["img"] = temp
+	P.fields["img"] = photoimage
 	P.fields["desc"] = mobs
 	P.fields["pixel_x"] = rand(-10, 10)
 	P.fields["pixel_y"] = rand(-10, 10)
+	P.fields["size"] = size
 
 	return P
 
@@ -287,12 +305,27 @@
 	Photo.construct(P)
 
 /obj/item/weapon/photo/proc/construct(var/datum/picture/P)
+	name = P.fields["name"]
 	icon = P.fields["icon"]
 	tiny = P.fields["tiny"]
 	img = P.fields["img"]
 	desc = P.fields["desc"]
 	pixel_x = P.fields["pixel_x"]
 	pixel_y = P.fields["pixel_y"]
+	photo_size = P.fields["size"]
+
+/obj/item/weapon/photo/proc/copy()
+	var/obj/item/weapon/photo/p = new/obj/item/weapon/photo()
+
+	p.icon = icon(icon, icon_state)
+	p.img = icon(img)
+	p.tiny = icon(tiny)
+	p.name = name
+	p.desc = desc
+	p.scribble = scribble
+
+	return p
+
 
 /**************
 *video camera *
@@ -345,4 +378,4 @@
 		if(get_dist(src, M) <= canhear_range)
 			talk_into(M, msg)
 		for(var/mob/living/carbon/human/H in watcherslist)
-			H.show_message(text("\blue (Newscaster) [] says, '[]'",M,msg), 1)
+			H.show_message(text("\blue (Newscaster) [] says, '[]'",M,msg), 1)	

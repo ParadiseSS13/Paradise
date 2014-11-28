@@ -155,8 +155,8 @@ You've gained <b>[totalkarma]</b> total karma in your time here.<br>"}
 			dat += {"
 			<a href='?src=\ref[src];karmashop=shop;KarmaBuy=1'>Unlock Barber -- 5KP</a><br>
 			<a href='?src=\ref[src];karmashop=shop;KarmaBuy=2'>Unlock Brig Physician -- 5KP</a><br>
-			<a href='?src=\ref[src];karmashop=shop;KarmaBuy=8'>Unlock Nanotrasen Recruiter -- 10KP</a><br>
-			<a href='?src=\ref[src];karmashop=shop;KarmaBuy=3'>Unlock Nanotrasen Representative -- 30KP</a><br>
+			<a href='?src=\ref[src];karmashop=shop;KarmaBuy=8'>Unlock NanoTrasen Recruiter -- 10KP</a><br>
+			<a href='?src=\ref[src];karmashop=shop;KarmaBuy=3'>Unlock NanoTrasen Representative -- 30KP</a><br>
 			<a href='?src=\ref[src];karmashop=shop;KarmaBuy=4'>Unlock Customs Officer -- 30P</a><br>
 			<a href='?src=\ref[src];karmashop=shop;KarmaBuy=5'>Unlock Blueshield -- 30KP</a><br>
 			<a href='?src=\ref[src];karmashop=shop;KarmaBuy=9'>Unlock Security Pod Pilot -- 30KP</a><br>

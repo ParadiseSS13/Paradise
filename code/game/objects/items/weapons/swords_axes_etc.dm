@@ -235,7 +235,7 @@
 		return
 	else
 		return ..()
-		
+
 /*
  *Energy Blade
  */
@@ -301,7 +301,7 @@
 	active = !active
 	if (active)
 		force = 10
-		reflect_chance = 80
+		reflect_chance = 100
 		icon_state = "eshield[active]"
 		w_class = 4
 		playsound(user, 'sound/weapons/saberon.ogg', 50, 1)

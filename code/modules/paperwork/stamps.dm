@@ -65,7 +65,7 @@
 	_color = "clown"
 
 /obj/item/weapon/stamp/centcom
-	name = "Nanotrasen representative's rubber stamp"
+	name = "NanoTrasen Representative's rubber stamp"
 	icon_state = "stamp-cent"
 	_color = "centcom"
 

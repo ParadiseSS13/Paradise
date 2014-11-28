@@ -153,6 +153,6 @@
 	for(counter=0, counter<=powerlevel, counter++)
 		var/obj/item/weapon/reagent_containers/food/snacks/hugemushroomslice/S = new /obj/item/weapon/reagent_containers/food/snacks/hugemushroomslice(src.loc)
 		S.reagents.add_reagent("mushroomhallucinogen", powerlevel)
-		S.reagents.add_reagent("alchdranine", powerlevel)
+		S.reagents.add_reagent("doctorsdelight", powerlevel)
 		S.reagents.add_reagent("synaptizine", powerlevel)
 	del(src)

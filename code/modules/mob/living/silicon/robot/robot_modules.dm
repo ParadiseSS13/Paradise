@@ -275,11 +275,7 @@
 		src.modules += M
 
 		src.modules += new /obj/item/weapon/reagent_containers/robodropper(src)
-
-		var/obj/item/weapon/lighter/zippo/L = new /obj/item/weapon/lighter/zippo(src)
-		L.lit = 1
-		src.modules += L
-
+		src.modules += new /obj/item/weapon/lighter/zippo(src)
 		src.modules += new /obj/item/weapon/tray/robotray(src)
 		src.modules += new /obj/item/weapon/reagent_containers/food/drinks/shaker(src)
 		src.emag = new /obj/item/weapon/reagent_containers/food/drinks/cans/beer(src)
@@ -327,6 +323,20 @@
 		src.modules += new /obj/item/weapon/storage/bag/sheetsnatcher/borg(src)
 		src.emag = new /obj/item/weapon/pickaxe/plasmacutter(src)
 		return
+
+/obj/item/weapon/robot_module/deathsquad
+	name = "NT advanced combat module"
+
+/obj/item/weapon/robot_module/deathsquad/New()
+	src.modules += new /obj/item/device/flash(src)
+	src.modules += new /obj/item/device/flashlight(src)
+	src.modules += new /obj/item/borg/sight/thermal(src)
+	src.modules += new /obj/item/weapon/melee/energy/sword/cyborg(src)
+	src.modules += new /obj/item/weapon/gun/energy/pulse_rifle/cyborg(src)
+	src.modules += new /obj/item/weapon/tank/jetpack/carbondioxide(src)
+	src.modules += new /obj/item/weapon/crowbar(src)
+	src.emag = null
+	return
 
 /obj/item/weapon/robot_module/syndicate
 	name = "syndicate robot module"

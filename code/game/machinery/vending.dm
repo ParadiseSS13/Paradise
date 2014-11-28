@@ -354,7 +354,8 @@
 	if (src.product_records.len == 0)
 		dat += "<font color = 'red'>No product loaded!</font>"
 	else
-		var/list/display_records = src.product_records
+		var/list/display_records = list()
+		display_records += src.product_records
 
 		if(src.extended_inventory)
 			display_records += src.hidden_records

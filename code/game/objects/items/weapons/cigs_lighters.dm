@@ -326,6 +326,18 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 		return
 	if(location)
 		location.hotspot_expose(700, 5)
+	if(reagents && reagents.total_volume)	//	check if it has any reagents at all
+		if(iscarbon(loc) && (src == loc:wear_mask)) // if it's in the human/monkey mouth, transfer reagents to the mob
+			if(istype(loc, /mob/living/carbon/human))
+				var/mob/living/carbon/human/H = loc
+				if(H.species.flags & IS_SYNTHETIC)
+					return
+			var/mob/living/carbon/C = loc
+			if(prob(15)) // so it's not an instarape in case of acid
+				reagents.reaction(C, INGEST)
+			reagents.trans_to(C, REAGENTS_METABOLISM)
+		else // else just remove some of the reagents
+			reagents.remove_any(REAGENTS_METABOLISM)
 	return
 
 /obj/item/clothing/mask/cigarette/pipe/attack_self(mob/user as mob) //Refills the pipe. Can be changed to an attackby later, if loose tobacco is added to vendors or something.
@@ -393,9 +405,10 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 		icon_state = icon_off
 
 /obj/item/weapon/lighter/attack_self(mob/living/user)
-	if(user.r_hand == src || user.l_hand == src)
+	if(user.r_hand == src || user.l_hand == src || isrobot(user))
 		if(!lit)
 			lit = 1
+			w_class = 4
 			icon_state = icon_on
 			item_state = icon_on
 			if(istype(src, /obj/item/weapon/lighter/zippo) )
@@ -413,6 +426,7 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 			processing_objects.Add(src)
 		else
 			lit = 0
+			w_class = 1
 			icon_state = icon_off
 			item_state = icon_off
 			if(istype(src, /obj/item/weapon/lighter/zippo) )

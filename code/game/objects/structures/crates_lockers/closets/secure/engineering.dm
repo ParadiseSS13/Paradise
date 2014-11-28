@@ -145,6 +145,7 @@
 		else
 			new /obj/item/clothing/tie/storage/webbing(src)
 		new /obj/item/clothing/suit/fire/firefighter(src)
+		new /obj/item/clothing/head/hardhat/red(src)
 		new /obj/item/device/flashlight(src)
 		new /obj/item/weapon/extinguisher(src)
 		new /obj/item/device/radio/headset/headset_eng(src)

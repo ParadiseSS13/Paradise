@@ -63,6 +63,12 @@
 			if("labgreen")
 				src.icon_state = "labgreen_open"
 				usr << "You unbutton the labcoat."
+			if("labcoat_mort_open")
+				src.icon_state = "labcoat_mort"
+				usr << "You button up the labcoat."
+			if("labcoat_mort")
+				src.icon_state = "labcoat_mort_open"
+				usr << "You unbutton the labcoat."
 			else
 				usr << "You attempt to button-up the velcro on your [src], before promptly realising how retarded you are."
 				return
@@ -120,6 +126,15 @@
 	name = "Scientist Labcoat"
 	desc = "A suit that protects against minor chemical spills. Has a purple stripe on the shoulder."
 	icon_state = "labcoat_tox_open"
+	species_fit = list("Vox")
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/species/vox/suit.dmi'
+		)
+		
+/obj/item/clothing/suit/storage/labcoat/mortician
+	name = "Mortician Labcoat"
+	desc = "A suit that protects against minor chemical spills. Has a black stripe on the shoulder."
+	icon_state = "labcoat_mort_open"
 	species_fit = list("Vox")
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/suit.dmi'

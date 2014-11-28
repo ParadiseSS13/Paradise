@@ -109,30 +109,31 @@
 					f.hotspot_expose(1000,CELL_VOLUME)
 			else
 				def_zone = get_zone_with_miss_chance(def_zone, M, miss_modifier + 8*distance)
-
+			/*
 			if(!def_zone)
 				visible_message("\blue \The [src] misses [M] narrowly!")
 				forcedodge = -1
 			else
-				if(silenced)
-					playsound(loc, hitsound, 5, 1, -1)
-					M << "\red You've been shot in the [parse_zone(def_zone)] by the [src.name]!"
+			*/
+			if(silenced)
+				playsound(loc, hitsound, 5, 1, -1)
+				M << "\red You've been shot in the [parse_zone(def_zone)] by the [src.name]!"
+			else
+				playsound(loc, hitsound, 20, 1, -1)
+				visible_message("\red [A.name] is hit by the [src.name] in the [parse_zone(def_zone)]!")//X has fired Y is now given by the guns so you cant tell who shot you if you could not see the shooter
+			if(istype(firer, /mob))
+				M.attack_log += "\[[time_stamp()]\] <b>[firer]/[firer.ckey]</b> shot <b>[M]/[M.ckey]</b> with a <b>[src.type]</b>"
+				firer.attack_log += "\[[time_stamp()]\] <b>[firer]/[firer.ckey]</b> shot <b>[M]/[M.ckey]</b> with a <b>[src.type]</b>"
+				if(M.ckey)
+					msg_admin_attack("[firer] ([firer.ckey]) shot [M] ([M.ckey]) with a [src] (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[firer.x];Y=[firer.y];Z=[firer.z]'>JMP</a>)") //BS12 EDIT ALG
+				if(!iscarbon(firer))
+					M.LAssailant = null
 				else
-					playsound(loc, hitsound, 20, 1, -1)
-					visible_message("\red [A.name] is hit by the [src.name] in the [parse_zone(def_zone)]!")//X has fired Y is now given by the guns so you cant tell who shot you if you could not see the shooter
-				if(istype(firer, /mob))
-					M.attack_log += "\[[time_stamp()]\] <b>[firer]/[firer.ckey]</b> shot <b>[M]/[M.ckey]</b> with a <b>[src.type]</b>"
-					firer.attack_log += "\[[time_stamp()]\] <b>[firer]/[firer.ckey]</b> shot <b>[M]/[M.ckey]</b> with a <b>[src.type]</b>"
-					if(M.ckey)
-						msg_admin_attack("[firer] ([firer.ckey]) shot [M] ([M.ckey]) with a [src] (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[firer.x];Y=[firer.y];Z=[firer.z]'>JMP</a>)") //BS12 EDIT ALG
-					if(!iscarbon(firer))
-						M.LAssailant = null
-					else
-						M.LAssailant = firer
-				else
-					M.attack_log += "\[[time_stamp()]\] <b>UNKNOWN SUBJECT (No longer exists)</b> shot <b>[M]/[M.ckey]</b> with a <b>[src]</b>"
-					if(M.ckey)
-						msg_admin_attack("UNKNOWN shot [M] ([M.ckey]) with a [src] (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[firer.x];Y=[firer.y];Z=[firer.z]'>JMP</a>)") //BS12 EDIT ALG
+					M.LAssailant = firer
+			else
+				M.attack_log += "\[[time_stamp()]\] <b>UNKNOWN SUBJECT (No longer exists)</b> shot <b>[M]/[M.ckey]</b> with a <b>[src]</b>"
+				if(M.ckey)
+					msg_admin_attack("UNKNOWN shot [M] ([M.ckey]) with a [src] (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[firer.x];Y=[firer.y];Z=[firer.z]'>JMP</a>)") //BS12 EDIT ALG
 
 		if(A)
 			if (!forcedodge)

@@ -319,6 +319,13 @@ datum
 			required_reagents = list("carbon" = 1, "hydrogen" = 1, "anti_toxin" = 1)
 			result_amount = 2
 
+		inacusiate
+			name = "inacusiate"
+			id = "inacusiate"
+			result = "inacusiate"
+			required_reagents = list("water" = 1, "carbon" = 1, "anti_toxin" = 1)
+			result_amount = 2
+
 		ethylredoxrazine
 			name = "Ethylredoxrazine"
 			id = "ethylredoxrazine"
@@ -1769,7 +1776,7 @@ datum
 			name = "The Doctor's Delight"
 			id = "doctordelight"
 			result = "doctorsdelight"
-			required_reagents = list("limejuice" = 1, "tomatojuice" = 1, "orangejuice" = 1, "cream" = 1)
+			required_reagents = list("limejuice" = 1, "tomatojuice" = 1, "orangejuice" = 1, "cream" = 1, "tricordrazine" = 1)
 			result_amount = 5
 
 		irish_cream
