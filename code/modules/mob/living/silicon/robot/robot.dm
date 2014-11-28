@@ -72,7 +72,7 @@
 	var/pose
 	var/base_icon = ""
 	var/crisis = 0
-	var/syndicateborg = 0
+	var/hiddenborg = 0
 
 /mob/living/silicon/robot/New(loc,var/syndie = 0,var/unfinished = 0, var/alien = 0)
 	spark_system = new /datum/effect/effect/system/spark_spread()
@@ -144,7 +144,7 @@
 	hud_list[NATIONS_HUD] = image('icons/mob/hud.dmi', src, "hudblank")
 
 /mob/living/silicon/robot/proc/init(var/alien=0)
-	if(syndicateborg)
+	if(hiddenborg)
 		playsound(loc, 'sound/voice/liveagain.ogg', 75, 1)
 		return
 	aiCamera = new/obj/item/device/camera/siliconcam/robot_camera(src)
@@ -170,7 +170,7 @@
 	if (!rbPDA)
 		rbPDA = new/obj/item/device/pda/ai(src)
 	rbPDA.set_name_and_job(custom_name,braintype)
-	if(syndicateborg)
+	if(hiddenborg)
 		rbPDA.hidden = 1
 
 //If there's an MMI in the robot, have it ejected when the mob goes away. --NEO
@@ -1409,7 +1409,7 @@
 	icon_state = "nano_bloodhound"
 	lawupdate = 0
 	scrambledcodes = 1
-	syndicateborg = 1
+	hiddenborg = 1
 	modtype = "Commando"
 	faction = list("nanotrasen")
 	designation = "NT Combat Cyborg"
@@ -1422,14 +1422,17 @@
 	radio = new /obj/item/device/radio/borg/deathsquad(src)
 	module = new /obj/item/weapon/robot_module/deathsquad(src)
 	laws = new /datum/ai_laws/deathsquad()
+	
+	Namepick()
 
 /mob/living/silicon/robot/deathsquad/attack_hand(mob/user)
-	if((ckey == null) && searching_for_ckey == 0 && (alert(user,"Attempt to boot NanoTrasen Commando cyborg?","","Yes","No") == "Yes"))
-		get_borg_occupant(user, get_candidates())
+	if((ckey == null) && searching_for_ckey == 0)
+		var/list/ghosts = list()
+		for(var/mob/dead/observer/G in player_list)
+			ghosts += G
+		get_borg_occupant(user, ghosts)
 		return
-	..()
-
-
+	
 /mob/living/silicon/robot/deathsquad/proc/get_borg_occupant(mob/user as mob, var/list/possiblecandidates = list())
 	var/time_passed = world.time
 	searching_for_ckey = 1
@@ -1441,12 +1444,17 @@
 		var/possibleborg = pick(possiblecandidates)
 		spawn(0)
 			var/input = alert(possibleborg,"Do you want to spawn in as a cyborg for the NT Deathsquad?","Please answer in thirty seconds!","Yes","No")
-			if(input == "Yes" && ckey == null)
+			var/mob/dead/observer/C = possibleborg
+			if(input == "Yes" && ckey == null && C.client)
 				if((world.time-time_passed)>300)
 					return
 				possiblecandidates -= possibleborg
 				searching_for_ckey = 0
-				ckey = possibleborg
+				C.mind.transfer_to(src)
+				C.mind.assigned_role = "MODE"
+				C.mind.special_role = "Death Commando"
+				ticker.mode.traitors |= C.mind // Adds them to current traitor list. Which is really the extra antagonist list.
+				src.key = C.key
 			else
 				possiblecandidates -= possibleborg
 				get_borg_occupant(user, possiblecandidates)
@@ -1463,7 +1471,7 @@
 	icon_state = "syndie_bloodhound"
 	lawupdate = 0
 	scrambledcodes = 1
-	syndicateborg = 1
+	hiddenborg = 1
 	modtype = "Synd"
 	faction = list("syndicate")
 	designation = "Syndicate"
@@ -1479,7 +1487,6 @@
 	laws = new /datum/ai_laws/syndicate_override()
 
 	Namepick()
-
 
 /mob/living/silicon/robot/proc/notify_ai(var/notifytype, var/oldname, var/newname)
 	if(!connected_ai)
