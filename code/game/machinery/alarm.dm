@@ -1027,7 +1027,7 @@ FIRE ALARM
 */
 /obj/machinery/firealarm
 	name = "fire alarm"
-	desc = "<i>\"Pull this in case of emergency\"<i>. Thus, keep pulling it forever."
+	desc = "<i>\"Pull this in case of emergency\"</i>. Thus, keep pulling it forever."
 	icon = 'icons/obj/monitors.dmi'
 	icon_state = "fire0"
 	var/detecting = 1.0
@@ -1293,7 +1293,7 @@ FIRE ALARM
 		pixel_x = (dir & 3)? 0 : (dir == 4 ? -24 : 24)
 		pixel_y = (dir & 3)? (dir ==1 ? -24 : 24) : 0
 
-	if(z == 1)
+	if(z == 1 || z == 5)
 		if(security_level)
 			src.overlays += image('icons/obj/monitors.dmi', "overlay_[get_security_level()]")
 		else

@@ -154,9 +154,9 @@
 	set category = "Malfunction"
 	set name = "System Override"
 	set desc = "Start the victory timer"
-	if (!istype(ticker.mode,/datum/game_mode/malfunction))
-		usr << "You cannot begin a takeover in this round type!."
-		return
+	//if (!istype(ticker.mode,/datum/game_mode/malfunction))
+		//usr << "You cannot begin a takeover in this round type!."
+		//return
 	if (ticker.mode:malf_mode_declared)
 		usr << "You've already begun your takeover."
 		return

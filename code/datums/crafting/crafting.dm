@@ -108,11 +108,12 @@ var/global/datum/crafting_controller/crafting_master
 	location.craft_holder = src
 	holder = location
 	spawn(50)
-		crafting_master.all_crafting_points |= src
-		if(family_name)
-			family = crafting_master.get_family_by_name(family_name)
-		if(family)
-			recipes = family.recipes
+		if(crafting_master)
+			crafting_master.all_crafting_points |= src
+			if(family_name)
+				family = crafting_master.get_family_by_name(family_name)
+			if(family)
+				recipes = family.recipes
 
 /datum/crafting_holder/proc/add_recipe(recipe)
 	recipes |= recipe
