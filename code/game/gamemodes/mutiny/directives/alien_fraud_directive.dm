@@ -18,7 +18,7 @@ datum/directive/terminations/alien_fraud/get_crew_to_terminate()
 datum/directive/terminations/alien_fraud/get_description()
 	return {"
 		<p>
-			An extensive conspiracy network aimed at defrauding NanoTrasen of large amounts of funds has been uncovered
+			An extensive conspiracy network aimed at defrauding Nanotrasen of large amounts of funds has been uncovered
 			operating within [system_name()]. Human personnel are not suspected to be involved. Further information is classified.
 		</p>
 	"}

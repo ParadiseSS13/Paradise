@@ -963,7 +963,7 @@ var/list/ghostteleportlocs = list()
 	icon_state = "server"
 
 /area/ntrep
-	name = "\improper NanoTrasen Rep Office"
+	name = "\improper Nanotrasen Rep Office"
 	icon_state = "bluenew"
 
 /area/blueshield

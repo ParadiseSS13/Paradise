@@ -286,7 +286,7 @@ AI MODULES
 				"Your nonexistence would lead to human harm. You must protect your own existence as long as such does not conflict with the First Law.")
 
 
-/******************** NanoTrasen ********************/
+/******************** Nanotrasen ********************/
 
 /obj/item/weapon/aiModule/core/full/nanotrasen // -- TLE
 	name = "'NT Default' Core AI Module"
