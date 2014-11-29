@@ -102,11 +102,11 @@
 	desc = "Can hold security gear like handcuffs and flashes."
 	icon_state = "securitybelt"
 	item_state = "security"//Could likely use a better one.
-	storage_slots = 7
+	storage_slots = 5
 	max_w_class = 3
-	max_combined_w_class = 21
 	can_hold = list(
 		"/obj/item/weapon/grenade/flashbang",
+		"/obj/item/weapon/grenade/chem_grenade/teargas",
 		"/obj/item/weapon/reagent_containers/spray/pepper",
 		"/obj/item/weapon/handcuffs",
 		"/obj/item/device/flash",
@@ -116,18 +116,15 @@
 		"/obj/item/weapon/reagent_containers/food/snacks/donut/normal",
 		"/obj/item/weapon/reagent_containers/food/snacks/donut/jelly",
 		"/obj/item/weapon/melee/baton",
-		"/obj/item/weapon/gun/energy/taser",
-		"/obj/item/weapon/lighter/zippo",
-		"/obj/item/weapon/cigpacket",
-		"/obj/item/clothing/glasses/hud/security",
-		"/obj/item/device/flashlight",
-		"/obj/item/device/pda",
-		"/obj/item/device/radio/headset",
-		"/obj/item/weapon/melee",
+		"/obj/item/weapon/melee/classic_baton",
+		"/obj/item/device/flashlight/seclite",
 		"/obj/item/taperoll/police",
-		"/obj/item/weapon/gun/energy/taser",
-		"/obj/item/weapon/gun/energy/stunrevolver"
+		"/obj/item/weapon/melee/telebaton"
 		)
+
+/obj/item/weapon/storage/belt/security/New()
+	..()
+	new /obj/item/device/flashlight/seclite(src)
 
 /obj/item/weapon/storage/belt/soulstone
 	name = "soul stone belt"

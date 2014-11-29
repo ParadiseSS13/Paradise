@@ -21,7 +21,7 @@ emp_act
 				var/turf/curloc = get_turf(src)
 
 				// redirect the projectile
-				P.firer = src				
+				P.firer = src
 				P.original = locate(new_x, new_y, P.z)
 				P.starting = curloc
 				P.current = curloc
@@ -173,6 +173,8 @@ emp_act
 			if(!turfs.len) turfs += pick(/turf in orange(6))
 			var/turf/picked = pick(turfs)
 			if(!isturf(picked)) return
+			if(buckled)
+				buckled.unbuckle()
 			src.loc = picked
 			return 1
 	if(species.flags & HAS_CHITTIN && (prob(50 - round(damage / 3))))

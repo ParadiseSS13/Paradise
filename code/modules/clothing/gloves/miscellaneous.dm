@@ -4,6 +4,8 @@
 	icon_state = "captain"
 	item_state = "egloves"
 	_color = "captain"
+	siemens_coefficient = 0
+	permeability_coefficient = 0.05
 	cold_protection = HANDS
 	min_cold_protection_temperature = GLOVES_MIN_COLD_PROTECTION_TEMPERATURE
 	heat_protection = HANDS

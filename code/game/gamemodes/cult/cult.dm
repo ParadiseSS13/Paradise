@@ -21,8 +21,8 @@
 /datum/game_mode/cult
 	name = "cult"
 	config_tag = "cult"
-	restricted_jobs = list("Chaplain","AI", "Cyborg", "Lawyer", "Head of Security", "Captain", "Head of Personnel", "Blueshield", "Nanotrasen Representative", "Nanotrasen Recruiter", "Magistrate")
-	protected_jobs = list("Security Officer", "Warden", "Detective", "Security Pod Pilot")
+	restricted_jobs = list("Chaplain","AI", "Cyborg", "Internal Affairs Agent", "Security Officer", "Warden", "Detective", "Security Pod Pilot", "Head of Security", "Captain", "Head of Personnel", "Blueshield", "Nanotrasen Representative", "Nanotrasen Recruiter", "Magistrate", "Brig Physician", "Customs Officer")
+	protected_jobs = list()
 	required_players = 5
 	required_players_secret = 15
 	required_enemies = 3
