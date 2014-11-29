@@ -13,7 +13,7 @@ var/list/department_radio_keys = list(
 	  ":a" = "alientalk",	"#a" = "alientalk",		".a" = "alientalk",
 	  ":t" = "Syndicate",	"#t" = "Syndicate",		".t" = "Syndicate",
 	  ":u" = "Supply",		"#u" = "Supply",		".u" = "Supply",
-	  ":v" = "Service",		"#v" = "Service",		".v" = "Service",	  
+	  ":z" = "Service",		"#z" = "Service",		".z" = "Service",	  
 	  ":g" = "changeling",	"#g" = "changeling",	".g" = "changeling",
 
 
@@ -31,7 +31,7 @@ var/list/department_radio_keys = list(
 	  ":A" = "alientalk",	"#A" = "alientalk",		".A" = "alientalk",
 	  ":T" = "Syndicate",	"#T" = "Syndicate",		".T" = "Syndicate",
 	  ":U" = "Supply",		"#U" = "Supply",		".U" = "Supply",
-	  ":V" = "Service",		"#V" = "Service",		".V" = "Service",
+	  ":Z" = "Service",		"#Z" = "Service",		".Z" = "Service",
 	  ":G" = "changeling",	"#G" = "changeling",	".G" = "changeling"
 	  
 	/* //kinda localization -- rastaf0
