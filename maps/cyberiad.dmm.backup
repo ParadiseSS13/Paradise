@@ -8241,7 +8241,7 @@
 "dcy" = (/obj/machinery/firealarm{dir = 1; pixel_y = -24},/turf/simulated/floor{icon_state = "dark"},/area/shuttle/gamma/space)
 "dcz" = (/obj/machinery/atmospherics/binary/pump{dir = 1; icon_state = "intact_off"; name = "Unfiltered to Mix"; on = 0},/obj/machinery/atmospherics/pipe/simple{_color = "green"; dir = 4; icon_state = "intact-g"; initialize_directions = 12; level = 2},/turf/simulated/floor,/area/atmos/distribution)
 "dcA" = (/obj/machinery/mech_bay_recharge_port,/obj/structure/cable,/turf/simulated/floor,/area/shuttle/gamma/space)
-"dcB" = (/obj/mecha/combat/durand/loaded{req_access_txt = "1"},/obj/machinery/light,/turf/simulated/floor/mech_bay_recharge_floor,/area/shuttle/gamma/space)
+"dcB" = (/obj/mecha/combat/durand/loaded{operation_req_access = list(1)},/obj/machinery/light,/turf/simulated/floor/mech_bay_recharge_floor,/area/shuttle/gamma/space)
 "dcC" = (/obj/machinery/computer/mech_bay_power_console,/obj/machinery/camera{c_tag = "Gamma Armory Mech Bay"; dir = 1; network = list("SS13")},/obj/structure/cable,/turf/simulated/floor,/area/shuttle/gamma/space)
 "dcD" = (/obj/structure/cable{d1 = 1; d2 = 2; icon_state = "1-2"; tag = ""},/turf/simulated/floor{tag = "icon-stage_stairs"; icon_state = "stage_stairs"},/area/shuttle/gamma/space)
 "dcE" = (/turf/unsimulated/wall,/area/centcom/control)
