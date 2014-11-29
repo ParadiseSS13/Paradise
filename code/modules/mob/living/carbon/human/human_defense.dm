@@ -21,10 +21,10 @@ emp_act
 				var/turf/curloc = get_turf(src)
 
 				// redirect the projectile
+				P.firer = src				
 				P.original = locate(new_x, new_y, P.z)
 				P.starting = curloc
 				P.current = curloc
-				P.firer = src
 				P.yo = new_y - curloc.y
 				P.xo = new_x - curloc.x
 

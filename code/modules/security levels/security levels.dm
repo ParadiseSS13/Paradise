@@ -27,76 +27,108 @@
 	if(level >= SEC_LEVEL_GREEN && level <= SEC_LEVEL_DELTA && level != security_level)
 		switch(level)
 			if(SEC_LEVEL_GREEN)
-				world << "<font size=4 color='red'>Attention! Security level lowered to green</font>"
-				world << "<font color='red'>[config.alert_desc_green]</font>"
+				world << "<font size=4 color='red'>Attention! Security level lowered to green.</font>"
+				world << "<font color='red'>All threats to the station have passed. All weapons need to be holstered and privacy laws are once again fully enforced.</font>"
 				security_level = SEC_LEVEL_GREEN
-				for(var/obj/machinery/firealarm/FA in machines)
-					if(FA.z == 1)
+				
+				for(var/obj/machinery/firealarm/FA in world)
+					if(FA.z == 1 || FA.z == 5)
 						FA.overlays = list()
-						FA.overlays += image('icons/obj/monitors.dmi', "overlay_green")
+						FA.overlays += image('icons/obj/monitors.dmi', "overlay_green")					
+						
 			if(SEC_LEVEL_BLUE)
 				if(security_level < SEC_LEVEL_BLUE)
-					world << "<font size=4 color='red'>Attention! Security level elevated to blue</font>"
-					world << "<font color='red'>[config.alert_desc_blue_upto]</font>"
+					world << "<font size=4 color='red'>Attention! Security level elevated to blue.</font>"
+					world << "<font color='red'>The station has received reliable information about possible hostile activity on the station. Security staff may have weapons visible and random searches are permitted.</font>"
 				else
-					world << "<font size=4 color='red'>Attention! Security level lowered to blue</font>"
-					world << "<font color='red'>[config.alert_desc_blue_downto]</font>"
+					world << "<font size=4 color='red'>Attention! Security level lowered to blue.</font>"
+					world << "<font color='red'>The immediate threat has passed. Security may no longer have weapons drawn at all times, but may continue to have them visible. Random searches are still allowed.</font>"
 				security_level = SEC_LEVEL_BLUE
-				for(var/obj/machinery/firealarm/FA in machines)
-					if(FA.z == 1)
+				
+				for(var/obj/machinery/firealarm/FA in world)
+					if(FA.z == 1 || FA.z == 5)
 						FA.overlays = list()
 						FA.overlays += image('icons/obj/monitors.dmi', "overlay_blue")
+						
 			if(SEC_LEVEL_RED)
 				if(security_level < SEC_LEVEL_RED)
-					world << "<font size=4 color='red'>Attention! Code red!</font>"
-					world << "<font color='red'>[config.alert_desc_red_upto]</font>"
+					world << "<font size=4 color='red'>Attention! Code Red!</font>"
+					world << "<font color='red'>There is an immediate and serious threat to the station. Security may have weapons unholstered at all times. Random searches are allowed and advised. The station's secure armory has been unlocked and is ready for use.</font>"
 				else
-					world << "<font size=4 color='red'>Attention! Code red!</font>"
-					world << "<font color='red'>[config.alert_desc_red_downto]</font>"
+					world << "<font size=4 color='red'>Attention! Code Red!</font>"
+					world << "<font color='red'>The station's self-destruct mechanism has been deactivated, but there is still an immediate and serious threat to the station. Security may have weapons unholstered at all times. Random searches are allowed and advised.</font>"
 				security_level = SEC_LEVEL_RED
+				
 				var/obj/machinery/door/airlock/highsecurity/red/R = locate(/obj/machinery/door/airlock/highsecurity/red) in world
-				message_admins("Found [R]")
 				if(R && R.z == 1)
 					R.locked = 0
 					R.update_icon()
-				/*	- At the time of commit, setting status displays didn't work properly
+					
 				var/obj/machinery/computer/communications/CC = locate(/obj/machinery/computer/communications,world)
 				if(CC)
-					CC.post_status("alert", "redalert")*/
+					CC.post_status("alert", "redalert")
 
-				for(var/obj/machinery/firealarm/FA in machines)
-					if(FA.z == 1)
+				for(var/obj/machinery/firealarm/FA in world)
+					if(FA.z == 1 || FA.z == 5)
 						FA.overlays = list()
 						FA.overlays += image('icons/obj/monitors.dmi', "overlay_red")
-
+						
 			if(SEC_LEVEL_GAMMA)
-				world << "<font size=4 color='red'>Attention! GAMMA security level activated!</font>"
-				world << "<font color='red'>[config.alert_desc_gamma]</font>"
+				world << "<font size=4 color='red'>Attention! Gamma security level activated!</font>"
+				world << "<font color='red'>Central Command has ordered the Gamma security level on the station. Security is to have weapons equipped at all times, and all civilians are to immediately seek their nearest head for transportation to a secure location. The station's Gamma armory has been unlocked and is ready for use.</font>"
+				security_level = SEC_LEVEL_GAMMA
+				
 				move_gamma_ship()
+				
 				if(security_level < SEC_LEVEL_RED)
 					for(var/obj/machinery/door/airlock/highsecurity/red/R in world)
 						if(R.z == 1)
 							R.locked = 0
 							R.update_icon()
+							
 				for(var/obj/machinery/door/airlock/hatch/gamma/H in world)
 					if(H.z == 1)
 						H.locked = 0
 						H.update_icon()
+						
+				var/obj/machinery/computer/communications/CC = locate(/obj/machinery/computer/communications,world)
+				if(CC)
+					CC.post_status("alert", "redalert")
 
-				security_level = SEC_LEVEL_GAMMA
+				for(var/obj/machinery/firealarm/FA in world)
+					if(FA.z == 1 || FA.z == 5)
+						FA.overlays = list()
+						FA.overlays += image('icons/obj/monitors.dmi', "overlay_gamma")
+						FA.update_icon()
+
 			if(SEC_LEVEL_EPSILON)
-				world << "<font size=4 color='red'>Attention! EPSILON security level activated!</font>"
-				world << "<font color='red'>[config.alert_desc_epsilon]</font>"
+				world << "<font size=4 color='red'>Attention! Epsilon security level activated!</font>"
+				world << "<font color='red'>Central Command has ordered the Epsilon security level on the station. Consider all contracts terminated.</font>"
 				security_level = SEC_LEVEL_EPSILON
+				
+				var/obj/machinery/computer/communications/CC = locate(/obj/machinery/computer/communications,world)
+				if(CC)
+					CC.post_status("alert", "redalert")
+
+				for(var/obj/machinery/firealarm/FA in world)
+					if(FA.z == 1 || FA.z == 5)
+						FA.overlays = list()
+						FA.overlays += image('icons/obj/monitors.dmi', "overlay_epsilon")
 
 			if(SEC_LEVEL_DELTA)
 				world << "<font size=4 color='red'>Attention! Delta security level reached!</font>"
-				world << "<font color='red'>[config.alert_desc_delta]</font>"
+				world << "<font color='red'>The station's self-destruct mechanism has been engaged. All crew are instructed to obey all instructions given by heads of staff. Any violations of these orders can be punished by death. This is not a drill.</font>"
 				security_level = SEC_LEVEL_DELTA
-				for(var/obj/machinery/firealarm/FA in machines)
-					if(FA.z == 1)
+				
+				var/obj/machinery/computer/communications/CC = locate(/obj/machinery/computer/communications,world)
+				if(CC)
+					CC.post_status("alert", "redalert")	
+					
+				for(var/obj/machinery/firealarm/FA in world)
+					if(FA.z == 1 || FA.z == 5)
 						FA.overlays = list()
 						FA.overlays += image('icons/obj/monitors.dmi', "overlay_delta")
+						
 	else
 		return
 

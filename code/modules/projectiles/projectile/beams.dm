@@ -29,6 +29,14 @@
 	icon_state = "heavylaser"
 	damage = 40
 
+/obj/item/projectile/beam/sniper
+	name = "sniper beam"
+	icon_state = "sniperlaser"
+	damage = 60
+	stun = 5
+	weaken = 5
+	stutter = 5	
+	
 /obj/item/projectile/beam/xray
 	name = "xray beam"
 	icon_state = "xray"
@@ -628,14 +636,6 @@ var/list/beam_master = list()
 			if((istype(M.wear_suit, /obj/item/clothing/suit/bluetag))||(istype(M.wear_suit, /obj/item/clothing/suit/redtag)))
 				M.Weaken(5)
 		return 1
-
-/obj/item/projectile/beam/sniper
-	name = "sniper beam"
-	icon_state = "sniperlaser"
-	damage = 60
-	stun = 5
-	weaken = 5
-	stutter = 5
 
 
 /obj/item/projectile/beam/stun
