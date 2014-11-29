@@ -43,6 +43,14 @@ var/list/all_supply_groups = list("Operations","Security","Hospitality","Enginee
 	group = "Security"
 	hidden = 1
 
+/datum/supply_packs/syndicate
+	name = "ERROR_NULL_ENTRY"
+	contains = list(/obj/item/weapon/storage/box/syndicate)
+	cost = 140
+	containertype = /obj/structure/closet/crate
+	containername = "crate"
+	hidden = 1
+
 /datum/supply_packs/food
 	name = "Food crate"
 	contains = list(/obj/item/weapon/reagent_containers/food/snacks/flour,

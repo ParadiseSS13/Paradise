@@ -27,8 +27,10 @@
 		H.equip_or_collect(new /obj/item/device/radio/headset/heads/hos(H), slot_l_ear)
 		H.equip_or_collect(new /obj/item/clothing/under/rank/head_of_security(H), slot_w_uniform)
 		H.equip_or_collect(new /obj/item/clothing/shoes/jackboots(H), slot_shoes)
+		H.equip_or_collect(new /obj/item/clothing/suit/armor/hos(H), slot_wear_suit)
 		H.equip_or_collect(new /obj/item/device/pda/heads/hos(H), slot_wear_pda)
 		H.equip_or_collect(new /obj/item/clothing/gloves/black(H), slot_gloves)
+		H.equip_or_collect(new /obj/item/clothing/head/helmet/HoS(H), slot_head)
 //		H.equip_or_collect(new /obj/item/clothing/mask/gas(H), slot_wear_mask) //Grab one from the armory you donk
 		H.equip_or_collect(new /obj/item/clothing/glasses/sunglasses/sechud(H), slot_glasses)
 		H.equip_or_collect(new /obj/item/weapon/gun/energy/gun(H), slot_s_store)
@@ -81,6 +83,12 @@
 		else
 			H.equip_or_collect(new /obj/item/weapon/storage/box/survival(H.back), slot_in_backpack)
 			H.equip_or_collect(new /obj/item/weapon/handcuffs(H), slot_in_backpack)
+		var/obj/item/weapon/implant/loyalty/L = new/obj/item/weapon/implant/loyalty(H)
+		L.imp_in = H
+		L.implanted = 1
+		var/datum/organ/external/affected = H.organs_by_name["head"]
+		affected.implants += L
+		L.part = affected
 		return 1
 
 
@@ -128,10 +136,12 @@
 			H.equip_or_collect(new /obj/item/weapon/storage/box/survival(H.back), slot_in_backpack)
 			H.equip_or_collect(new /obj/item/weapon/storage/box/evidence(H), slot_in_backpack)
 			H.equip_or_collect(new /obj/item/device/detective_scanner(H), slot_in_backpack)
-
 		var/obj/item/weapon/implant/loyalty/L = new/obj/item/weapon/implant/loyalty(H)
 		L.imp_in = H
 		L.implanted = 1
+		var/datum/organ/external/affected = H.organs_by_name["head"]
+		affected.implants += L
+		L.part = affected
 
 		H.dna.SetSEState(SOBERBLOCK,1)
 		H.mutations += M_SOBER
@@ -169,6 +179,12 @@
 		else
 			H.equip_or_collect(new /obj/item/weapon/storage/box/survival(H.back), slot_in_backpack)
 			H.equip_or_collect(new /obj/item/weapon/handcuffs(H), slot_in_backpack)
+		var/obj/item/weapon/implant/loyalty/L = new/obj/item/weapon/implant/loyalty(H)
+		L.imp_in = H
+		L.implanted = 1
+		var/datum/organ/external/affected = H.organs_by_name["head"]
+		affected.implants += L
+		L.part = affected
 		return 1
 
 
@@ -199,6 +215,12 @@
 		H.equip_or_collect(new /obj/item/weapon/storage/box/survival(H.back), slot_in_backpack)
 		H.equip_or_collect(new /obj/item/weapon/stamp(H), slot_in_backpack)
 		H.equip_or_collect(new /obj/item/weapon/stamp/denied(H), slot_in_backpack)
+		var/obj/item/weapon/implant/loyalty/L = new/obj/item/weapon/implant/loyalty(H)
+		L.imp_in = H
+		L.implanted = 1
+		var/datum/organ/external/affected = H.organs_by_name["head"]
+		affected.implants += L
+		L.part = affected
 		return 1
 
 /datum/job/brigdoc
@@ -230,6 +252,12 @@
 			H.equip_or_collect(new /obj/item/weapon/storage/box/survival(H), slot_r_hand)
 		else
 			H.equip_or_collect(new /obj/item/weapon/storage/box/survival(H.back), slot_in_backpack)
+		var/obj/item/weapon/implant/loyalty/L = new/obj/item/weapon/implant/loyalty(H)
+		L.imp_in = H
+		L.implanted = 1
+		var/datum/organ/external/affected = H.organs_by_name["head"]
+		affected.implants += L
+		L.part = affected
 		return 1
 
 /datum/job/pilot
@@ -262,4 +290,10 @@
 		else
 			H.equip_or_collect(new /obj/item/weapon/storage/box/survival(H.back), slot_in_backpack)
 			H.equip_or_collect(new /obj/item/weapon/handcuffs(H), slot_in_backpack)
+		var/obj/item/weapon/implant/loyalty/L = new/obj/item/weapon/implant/loyalty(H)
+		L.imp_in = H
+		L.implanted = 1
+		var/datum/organ/external/affected = H.organs_by_name["head"]
+		affected.implants += L
+		L.part = affected
 		return 1
