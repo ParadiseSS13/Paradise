@@ -401,7 +401,7 @@ As such, it's hard-coded for now. No reason for it not to be, really.
 		if(4)
 			directive += "The Spider Clan absolutely cannot be linked to this operation. Eliminate witnesses at your discretion."
 		if(5)
-			directive += "We are currently negotiating with NanoTrasen Central Command. Prioritize saving human lives over ending them."
+			directive += "We are currently negotiating with Nanotrasen Central Command. Prioritize saving human lives over ending them."
 		if(6)
 			directive += "We are engaged in a legal dispute over [station_name]. If a laywer is present on board, force their cooperation in the matter."
 		if(7)
@@ -417,14 +417,14 @@ As such, it's hard-coded for now. No reason for it not to be, really.
 		if(12)
 			directive += "We are currently negotiating with a Syndicate leader. Disguise assassinations as suicide or other natural causes."
 		if(13)
-			directive += "Some disgruntled NanoTrasen employees have been supportive of our operations. Be wary of any mistreatment by command staff."
+			directive += "Some disgruntled Nanotrasen employees have been supportive of our operations. Be wary of any mistreatment by command staff."
 		if(14)
 			var/xenorace = pick("Unathi","Tajaran", "Skrellian")
 			directive += "A group of [xenorace] radicals have been loyal supporters of the Spider Clan. Favor [xenorace] crew whenever possible."
 		if(15)
 			directive += "The Spider Clan has recently been accused of religious insensitivity. Attempt to speak with the Chaplain and prove these accusations false."
 		if(16)
-			directive += "The Spider Clan has been bargaining with a competing prosthetics manufacturer. Try to shine NanoTrasen prosthetics in a bad light."
+			directive += "The Spider Clan has been bargaining with a competing prosthetics manufacturer. Try to shine Nanotrasen prosthetics in a bad light."
 		if(17)
 			directive += "The Spider Clan has recently begun recruiting outsiders. Consider suitable candidates and assess their behavior amongst the crew."
 		if(18)

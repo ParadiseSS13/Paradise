@@ -78,7 +78,7 @@
 
 /obj/item/clothing/under/rank/centcom/officer
 	desc = "Gold trim on space-black cloth, this uniform displays the rank of \"Lieutenant Commander\" and bears \"N.C.V. Fearless CV-286\" on the left shounder."
-	name = "\improper NanoTrasen Officers Uniform"
+	name = "\improper Nanotrasen Officers Uniform"
 	icon_state = "officer"
 	item_state = "g_suit"
 	_color = "officer"
@@ -87,7 +87,7 @@
 	
 /obj/item/clothing/under/rank/centcom/captain
 	desc = "Gold trim on space-black cloth, this uniform displays the rank of \"Captain\" and bears \"N.C.V. Fearless CV-286\" on the left shounder."
-	name = "\improper NanoTrasen Captains Uniform"
+	name = "\improper Nanotrasen Captains Uniform"
 	icon_state = "centcom"
 	item_state = "dg_suit"
 	_color = "centcom"
@@ -95,7 +95,7 @@
 	
 /obj/item/clothing/under/rank/centcom/representative
 	desc = "Gold trim on space-black cloth, this uniform displays the rank of \"Ensign\" and bears \"N.C.V. Fearless CV-286\" on the left shounder."
-	name = "\improper NanoTrasen Navy Uniform"
+	name = "\improper Nanotrasen Navy Uniform"
 	icon_state = "officer"
 	item_state = "g_suit"
 	_color = "officer"

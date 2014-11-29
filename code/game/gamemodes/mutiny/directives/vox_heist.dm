@@ -21,7 +21,7 @@ datum/directive/vox_heist
 
   proc/get_weight(mob/M)
     // You will have a high chance of being regarded as a vox sympathizer if your
-    // relationship with NanoTrasen is negative. Otherwise, command and security
+    // relationship with Nanotrasen is negative. Otherwise, command and security
     // staff are pretty well trusted and maltreated alien races are easy suspects.
     var/relation = M.client.prefs.nanotrasen_relation
     if(relation == "Opposed")
@@ -40,7 +40,7 @@ datum/directive/vox_heist
 datum/directive/vox_heist/get_description()
   return {"
     <p>
-      A vox warship has commandeered a NanoTrasen transport carrying 2,500 cubic meters of liquid plasma.
+      A vox warship has commandeered a Nanotrasen transport carrying 2,500 cubic meters of liquid plasma.
       The raiders are willing to return the stolen cargo in exchange for the capture or execution of so-called "vox pariah" that are stationed aboard [station_name()].
       If the transport is not recovered, the estimated loss of profits is a threat to the solvency of the company.
       Predictive analysis has identified certain members of the crew as sympathetic to the vox pariah. Detain the sympathizers to guarantee a successful exchange.
