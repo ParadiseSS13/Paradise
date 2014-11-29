@@ -391,7 +391,10 @@
 		var/dam_zone = pick("chest", "l_hand", "r_hand", "l_leg", "r_leg")
 		var/datum/organ/external/affecting = get_organ(ran_zone(dam_zone))
 		var/armor = run_armor_check(affecting, "melee")
-		apply_damage(damage, BRUTE, affecting, armor)
+		
+		var/datum/organ/external/affected = src.get_organ(dam_zone)
+		affected.add_autopsy_data(M.name, damage) // Add the mob's name to the autopsy data
+		apply_damage(damage, BRUTE, affecting, armor, M.name)
 		if(armor >= 2)	return
 
 
