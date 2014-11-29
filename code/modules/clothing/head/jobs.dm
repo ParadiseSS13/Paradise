@@ -10,7 +10,7 @@
 	siemens_coefficient = 0.9
 	loose = 35 // why-a do people always push-a me over
 
-//Captain: This probably shouldn't be space-worthy
+//Captain
 /obj/item/clothing/head/caphat
 	name = "captain's hat"
 	icon_state = "captain"
@@ -18,7 +18,14 @@
 	flags = FPRINT|TABLEPASS
 	item_state = "caphat"
 	siemens_coefficient = 0.9
+	armor = list(melee = 50, bullet = 15, laser = 50, energy = 10, bomb = 25, bio = 0, rad = 0)
 	loose = 43 // not the answer
+
+//Captain: no longer space-worthy
+/obj/item/clothing/head/caphat/parade
+	name = "captain's parade cap"
+	desc = "Worn only by Captains with an abundance of class."
+	icon_state = "capcap"
 
 //Captain: This probably shouldn't be space-worthy
 /obj/item/clothing/head/helmet/cap
@@ -31,6 +38,16 @@
 	min_cold_protection_temperature = SPACE_HELMET_MIN_COLD_PROTECTION_TEMPERATURE
 	siemens_coefficient = 0.9
 	loose = 17
+
+//Head of Personnel
+/obj/item/clothing/head/hopcap
+	name = "head of personnel's cap"
+	icon_state = "hopcap"
+	desc = "The symbol of true bureaucratic micromanagement."
+	flags = FPRINT|TABLEPASS
+	siemens_coefficient = 0.9
+	armor = list(melee = 50, bullet = 15, laser = 50, energy = 10, bomb = 25, bio = 0, rad = 0)
+	loose = 43 // not the answer
 
 //Chaplain
 /obj/item/clothing/head/chaplain_hood
