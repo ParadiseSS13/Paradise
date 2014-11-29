@@ -71,7 +71,7 @@
 				for(var/obj/machinery/firealarm/FA in world)
 					if(FA.z == 1 || FA.z == 5)
 						FA.overlays = list()
-						FA.overlays += icon('icons/obj/monitors.dmi', "overlay_red")
+						FA.overlays += image('icons/obj/monitors.dmi', "overlay_red")
 						
 			if(SEC_LEVEL_GAMMA)
 				world << "<font size=4 color='red'>Attention! Gamma security level activated!</font>"
