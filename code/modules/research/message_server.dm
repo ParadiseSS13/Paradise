@@ -185,6 +185,7 @@ var/obj/machinery/blackbox_recorder/blackbox
 	var/list/msg_syndicate = list()
 	var/list/msg_mining = list()
 	var/list/msg_cargo = list()
+	var/list/msg_service = list()	
 
 	var/list/datum/feedback_variable/feedback = new()
 
@@ -210,6 +211,7 @@ var/obj/machinery/blackbox_recorder/blackbox
 		BR.msg_syndicate = msg_syndicate
 		BR.msg_mining = msg_mining
 		BR.msg_cargo = msg_cargo
+		BR.msg_service = msg_service
 		BR.feedback = feedback
 		BR.messages = messages
 		BR.messages_admin = messages_admin
@@ -251,6 +253,7 @@ var/obj/machinery/blackbox_recorder/blackbox
 	feedback_add_details("radio_usage","SYN-[msg_syndicate.len]")
 	feedback_add_details("radio_usage","MIN-[msg_mining.len]")
 	feedback_add_details("radio_usage","CAR-[msg_cargo.len]")
+	feedback_add_details("radio_usage","SRV-[msg_service.len]")
 	feedback_add_details("radio_usage","OTH-[messages.len]")
 	feedback_add_details("radio_usage","PDA-[pda_msg_amt]")
 	feedback_add_details("radio_usage","RC-[rc_msg_amt]")

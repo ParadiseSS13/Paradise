@@ -203,12 +203,14 @@
 	switch(modtype)
 		if("Standard")
 			module = new /obj/item/weapon/robot_module/standard(src)
+			channels = list("Service" = 1)
 			module_sprites["Basic"] = "robot_old"
 			module_sprites["Android"] = "droid"
 			module_sprites["Default"] = "robot"
 
 		if("Service")
 			module = new /obj/item/weapon/robot_module/butler(src)
+			channels = list("Service" = 1)
 			module_sprites["Waitress"] = "Service"
 			module_sprites["Kent"] = "toiletbot"
 			module_sprites["Bro"] = "Brobot"
@@ -217,6 +219,7 @@
 
 		if("Clerical")
 			module = new /obj/item/weapon/robot_module/clerical(src)
+			channels = list("Service" = 1)
 			module_sprites["Waitress"] = "Service"
 			module_sprites["Kent"] = "toiletbot"
 			module_sprites["Bro"] = "Brobot"

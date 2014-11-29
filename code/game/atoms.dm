@@ -272,7 +272,7 @@ its easier to just keep the beam vertical.
 			src.fingerprintslast = M.key
 	return
 
-/atom/proc/add_fingerprint(mob/living/M as mob)
+/atom/proc/add_fingerprint(mob/living/M as mob, ignoregloves = 0)
 	if(isnull(M)) return
 	if(isAI(M)) return
 	if(isnull(M.key)) return
@@ -308,11 +308,12 @@ its easier to just keep the beam vertical.
 			H.gloves.add_fingerprint(M)
 
 		//Deal with gloves the pass finger/palm prints.
-		if(H.gloves != src)
-			if(prob(75) && istype(H.gloves, /obj/item/clothing/gloves/latex))
-				return 0
-			else if(H.gloves && !istype(H.gloves, /obj/item/clothing/gloves/latex))
-				return 0
+		if(!ignoregloves)
+			if(H.gloves != src)
+				if(prob(75) && istype(H.gloves, /obj/item/clothing/gloves/latex))
+					return 0
+				else if(H.gloves && !istype(H.gloves, /obj/item/clothing/gloves/latex))
+					return 0
 
 		//More adminstuffz
 		if(fingerprintslast != H.key)

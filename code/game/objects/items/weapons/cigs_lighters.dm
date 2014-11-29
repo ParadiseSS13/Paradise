@@ -494,7 +494,7 @@ obj/item/weapon/rollingpaper
 
 obj/item/weapon/rollingpaperpack
 	name = "rolling paper pack"
-	desc = "A pack of NanoTrasen brand rolling papers."
+	desc = "A pack of Nanotrasen brand rolling papers."
 	icon = 'icons/obj/cigarettes.dmi'
 	icon_state = "cig_paper_pack"
 	w_class = 1

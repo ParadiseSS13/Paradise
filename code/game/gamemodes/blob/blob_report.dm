@@ -9,10 +9,10 @@
 			return
 		if(1)
 			interceptname = "Biohazard Alert"
-			intercepttext += "<FONT size = 3><B>NanoTrasen Update</B>: Biohazard Alert.</FONT><HR>"
+			intercepttext += "<FONT size = 3><B>Nanotrasen Update</B>: Biohazard Alert.</FONT><HR>"
 			intercepttext += "Reports indicate the probable transfer of a biohazardous agent onto [station_name()] during the last crew deployment cycle.<BR>"
 			intercepttext += "Preliminary analysis of the organism classifies it as a level 7 biohazard. Its origin is unknown.<BR>"
-			intercepttext += "NanoTrasen has issued a directive 7-10 for [station_name()]. The station is to be considered quarantined.<BR>"
+			intercepttext += "Nanotrasen has issued a directive 7-10 for [station_name()]. The station is to be considered quarantined.<BR>"
 			intercepttext += "Orders for all [station_name()] personnel follows:<BR>"
 			intercepttext += " 1. Do not leave the quarantine area.<BR>"
 			intercepttext += " 2. Locate any outbreaks of the organism on the station.<BR>"
@@ -22,7 +22,7 @@
 			intercepttext += "Message ends."
 		if(2)
 			interceptname = "Directive 7-12"
-			intercepttext += "<FONT size = 3><B>NanoTrasen Update</B>: Biohazard Alert.</FONT><HR>"
+			intercepttext += "<FONT size = 3><B>Nanotrasen Update</B>: Biohazard Alert.</FONT><HR>"
 			intercepttext += "Directive 7-12 has been issued for [station_name()].<BR>"
 			intercepttext += "The biohazard has grown out of control and will soon reach critical mass.<BR>"
 			intercepttext += "Your orders are as follows:<BR>"

@@ -25,7 +25,7 @@ datum/directive/research_to_ripleys
 datum/directive/research_to_ripleys/get_description()
 	return {"
 		<p>
-			The NanoTrasen [system_name()] Manufactory faces an ore deficit. Financial crisis imminent. [station_name()] has been reassigned as a mining platform.
+			The Nanotrasen [system_name()] Manufactory faces an ore deficit. Financial crisis imminent. [station_name()] has been reassigned as a mining platform.
 			The Research Director is to assist the Head of Personnel in coordinating assets.
 			Weapons department reports solid sales. Further information is classified.
 		</p>

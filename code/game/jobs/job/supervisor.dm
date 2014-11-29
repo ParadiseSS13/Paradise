@@ -4,7 +4,7 @@
 	department_flag = ENGSEC
 	total_positions = 1
 	spawn_positions = 1
-	supervisors = "NanoTrasen officials"
+	supervisors = "Nanotrasen officials"
 	selection_color = "#ccccff"
 	idtype = /obj/item/weapon/card/id/gold
 	req_admin_notify = 1
@@ -92,12 +92,12 @@
 
 
 /datum/job/nanotrasenrep
-	title = "NanoTrasen Representative"
+	title = "Nanotrasen Representative"
 	flag = NANO
 	department_flag = KARMA
 	total_positions = 1
 	spawn_positions = 1
-	supervisors = "the NanoTrasen Board of Directors"
+	supervisors = "the Nanotrasen Board of Directors"
 	selection_color = "#ddddff"
 	idtype = /obj/item/weapon/card/id/centcom
 	req_admin_notify = 1
@@ -137,12 +137,12 @@
 		return 1
 
 /datum/job/nanotrasenrec
-	title = "NanoTrasen Recruiter"
+	title = "Nanotrasen Recruiter"
 	flag = NANOREC
 	department_flag = KARMA
 	total_positions = 1
 	spawn_positions = 1
-	supervisors = "the NanoTrasen Board of Directors"
+	supervisors = "the Nanotrasen Board of Directors"
 	selection_color = "#ddddff"
 	idtype = /obj/item/weapon/card/id/centcom
 	req_admin_notify = 1
@@ -236,7 +236,7 @@
 	department_flag = KARMA
 	total_positions = 1
 	spawn_positions = 1
-	supervisors = "the NanoTrasen Supreme Court"
+	supervisors = "the Nanotrasen Supreme Court"
 	selection_color = "#ddddff"
 	idtype = /obj/item/weapon/card/id/centcom
 	req_admin_notify = 1

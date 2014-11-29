@@ -81,12 +81,11 @@
 		var/traitorcount = 0
 		var/possible_traitors[0]
 		for(var/mob/living/player in mob_list)
-
 			if (player.client && player.stat != 2)
 				playercount += 1
 			if (player.client && player.mind && player.mind.special_role && player.stat != 2)
 				traitorcount += 1
-			if (player.client && player.mind && !player.mind.special_role && player.stat != 2 && (player.client && player.client.prefs.be_special & BE_TRAITOR) && !jobban_isbanned(player, "Syndicate"))
+			if (player.client && player.mind && !player.mind.special_role && player.stat != 2 && ishuman(player) && (player.client && player.client.prefs.be_special & BE_TRAITOR) && !jobban_isbanned(player, "Syndicate"))
 				possible_traitors += player
 		for(var/datum/mind/player in possible_traitors)
 			for(var/job in restricted_jobs)
@@ -159,14 +158,13 @@
 		var/playercount = 0
 		var/traitorcount = 0
 		for(var/mob/living/player in mob_list)
-
 			if (player.client && player.stat != 2)
 				playercount += 1
 			if (player.client && player.mind && player.mind.special_role && player.stat != 2)
 				traitorcount += 1
 		//message_admins("Live Players: [playercount]")
 		//message_admins("Live Traitors: [traitorcount]")
-
+		
 		//var/r = rand(5)
 		//var/target_traitors = 1
 		var/max_traitors = 2
@@ -179,6 +177,9 @@
 		//target_traitors = max(1, min(round((playercount + r) / 10, 1), traitors_possible))
 		//message_admins("Target Traitor Count is: [target_traitors]")
 		if (traitorcount < max_traitors)
+			for(var/job in restricted_jobs)
+				if(character.mind.assigned_role == job || !ishuman(character))
+					return	
 			//message_admins("Number of Traitors is below maximum.  Rolling for New Arrival Traitor.")
 			//message_admins("The probability of a new traitor is [traitor_prob]%")
 			if(prob(traitor_prob))

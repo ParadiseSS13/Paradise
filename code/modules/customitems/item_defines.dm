@@ -61,7 +61,7 @@
 
 	info = "<B>Organic Carrier AIA and Standard Cyborgification Agreement</B><BR>\n<BR>\nUnder the authority of Nanotrasen Synthetic Intelligence Division, this document hereby authorizes an accredited Roboticist of the NSS Exodus or a deputized authority to perform a regulation lobotomisation upon the person of one '<I>Sue Donem</I>' (hereafter referred to as the Subject) with intent to enact a live Artificial Intelligence Assimilation (AIA) or live Cyborgification proceedure.<BR>\n<BR>\nNo further station authorization is required, and the Subject waives all rights as a human under Nanotrasen internal and external legal protocol. This document is subject to amendment under Nanotrasen internal protocol \[REDACTED\].<BR>\n<BR>\nSigned: <I>Sue Donem</I><BR>\n"
 
-	stamps = (stamps=="" ? "<HR>" : "<BR>") + "<i>This paper has been stamped with the NanoTrasen Synthetic Intelligence Division rubber stamp.</i>"
+	stamps = (stamps=="" ? "<HR>" : "<BR>") + "<i>This paper has been stamped with the Nanotrasen Synthetic Intelligence Division rubber stamp.</i>"
 
 	var/image/stampoverlay = image('icons/obj/bureaucracy.dmi')
 	stampoverlay.pixel_x = rand(-2, 2)
@@ -158,7 +158,7 @@
 
 /obj/item/weapon/pen/fluff/eugene_bissegger_1 //metamorp: eugene bisseger
 	name = "Gilded Pen"
-	desc = "A golden pen that is gilded with a meager amount of gold material. The word 'NanoTrasen' is etched on the clip of the pen."
+	desc = "A golden pen that is gilded with a meager amount of gold material. The word 'Nanotrasen' is etched on the clip of the pen."
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "eugene_pen"
 
@@ -170,7 +170,7 @@
 
 /obj/item/fluff/victor_kaminsky_1 //chinsky: Victor Kaminski
 	name = "golden detective's badge"
-	desc = "NanoTrasen Security Department detective's badge, made from gold. Badge number is 564."
+	desc = "Nanotrasen Security Department detective's badge, made from gold. Badge number is 564."
 	icon_state = "victor_kaminsky_1"
 
 /obj/item/fluff/victor_kaminsky_1/attack_self(mob/user as mob)
@@ -344,7 +344,7 @@
 
 /obj/item/weapon/card/id/fluff/lifetime	//fastler: Fastler Greay; it seemed like something multiple people would have
 	name = "Lifetime ID Card"
-	desc = "A modified ID card given only to those people who have devoted their lives to the better interests of NanoTrasen. It sparkles blue."
+	desc = "A modified ID card given only to those people who have devoted their lives to the better interests of Nanotrasen. It sparkles blue."
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "lifetimeid"
 
@@ -666,8 +666,8 @@
 	_color = "leatherjack"
 
 /obj/item/clothing/suit/armor/vest/fluff/deus_blueshield //deusdactyl
-	name = "blue shield security armor"
-	desc = "An armored vest with the badge of a Blue Shield Security lieutenant."
+	name = "blueshield security armor"
+	desc = "An armored vest with the badge of a Blueshield Lieutenant."
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "deus_blueshield"
 	item_state = "deus_blueshield"
@@ -770,7 +770,7 @@
 
 /obj/item/clothing/under/fluff/jane_sidsuit
 	name = "NT-SID jumpsuit"
-	desc = "A NanoTrasen Synthetic Intelligence Division jumpsuit, issued to 'volunteers'. On other people it looks fine, but right here a scientist has noted: on you it looks stupid."
+	desc = "A Nanotrasen Synthetic Intelligence Division jumpsuit, issued to 'volunteers'. On other people it looks fine, but right here a scientist has noted: on you it looks stupid."
 
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "jane_sid_suit"

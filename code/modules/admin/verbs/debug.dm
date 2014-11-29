@@ -793,7 +793,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 
 			var/obj/item/device/pda/heads/pda = new(M)
 			pda.owner = M.real_name
-			pda.ownjob = "NanoTrasen Navy Representative"
+			pda.ownjob = "Nanotrasen Navy Representative"
 			pda.name = "PDA-[M.real_name] ([pda.ownjob])"
 
 			M.equip_if_possible(pda, slot_r_store)
@@ -806,7 +806,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 			W.item_state = "id_inv"
 			W.access = get_all_accesses()
 			W.access += list("VIP Guest","Custodian","Thunderdome Overseer","Intel Officer","Medical Officer","Death Commando","Research Officer")
-			W.assignment = "NanoTrasen Navy Representative"
+			W.assignment = "Nanotrasen Navy Representative"
 			W.registered_name = M.real_name
 			M.equip_if_possible(W, slot_wear_id)
 
@@ -819,7 +819,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 
 			var/obj/item/device/pda/heads/pda = new(M)
 			pda.owner = M.real_name
-			pda.ownjob = "NanoTrasen Navy Officer"
+			pda.ownjob = "Nanotrasen Navy Officer"
 			pda.name = "PDA-[M.real_name] ([pda.ownjob])"
 
 			M.equip_if_possible(pda, slot_r_store)
@@ -830,7 +830,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 			W.name = "[M.real_name]'s ID Card"
 			W.access = get_all_accesses()
 			W.access += get_all_centcom_access()
-			W.assignment = "NanoTrasen Navy Officer"
+			W.assignment = "Nanotrasen Navy Officer"
 			W.registered_name = M.real_name
 			M.equip_if_possible(W, slot_wear_id)
 
@@ -844,7 +844,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 
 			var/obj/item/device/pda/heads/pda = new(M)
 			pda.owner = M.real_name
-			pda.ownjob = "NanoTrasen Navy Captain"
+			pda.ownjob = "Nanotrasen Navy Captain"
 			pda.name = "PDA-[M.real_name] ([pda.ownjob])"
 
 			M.equip_if_possible(pda, slot_r_store)
@@ -855,7 +855,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 			W.name = "[M.real_name]'s ID Card"
 			W.access = get_all_accesses()
 			W.access += get_all_centcom_access()
-			W.assignment = "NanoTrasen Navy Captain"
+			W.assignment = "Nanotrasen Navy Captain"
 			W.registered_name = M.real_name
 			M.equip_if_possible(W, slot_wear_id)
 

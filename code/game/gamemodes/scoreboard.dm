@@ -347,7 +347,7 @@
 		if(1000 to 4999) score_rating = "Promotions for Everyone"
 		if(5000 to 9999) score_rating = "Ambassadors of Discovery"
 		if(10000 to 49999) score_rating = "The Pride of Science Itself"
-		if(50000 to INFINITY) score_rating = "NanoTrasen's Finest"
+		if(50000 to INFINITY) score_rating = "Nanotrasen's Finest"
 	dat += "<B><U>RATING:</U></B> [score_rating]"
 	src << browse(dat, "window=roundstats;size=500x600")
 	return
