@@ -23,6 +23,7 @@
 		U.hastie = new /obj/item/clothing/tie/medal/gold/captain(U)
 		H.equip_or_collect(U, slot_w_uniform)
 		H.equip_or_collect(new /obj/item/device/pda/captain(H), slot_wear_pda)
+		H.equip_or_collect(new /obj/item/clothing/suit/armor/vest/capcarapace(H), slot_wear_suit)
 		H.equip_or_collect(new /obj/item/clothing/shoes/brown(H), slot_shoes)
 		H.equip_or_collect(new /obj/item/clothing/head/caphat(H), slot_head)
 		H.equip_or_collect(new /obj/item/clothing/glasses/sunglasses(H), slot_glasses)
@@ -34,7 +35,7 @@
 		var/obj/item/weapon/implant/loyalty/L = new/obj/item/weapon/implant/loyalty(H)
 		L.imp_in = H
 		L.implanted = 1
-		world << "<b>[H.real_name] is the captain!</b>"
+		world << "<b>Captain [H.real_name] on deck!</b>"
 		var/datum/organ/external/affected = H.organs_by_name["head"]
 		affected.implants += L
 		L.part = affected
@@ -79,6 +80,7 @@
 			if(4) H.equip_or_collect(new /obj/item/weapon/storage/backpack/satchel(H), slot_back)
 		H.equip_or_collect(new /obj/item/weapon/storage/box/survival(H.back), slot_in_backpack)
 		H.equip_or_collect(new /obj/item/clothing/under/rank/head_of_personnel(H), slot_w_uniform)
+		H.equip_or_collect(new /obj/item/clothing/head/hopcap(H), slot_head)
 		H.equip_or_collect(new /obj/item/clothing/shoes/brown(H), slot_shoes)
 		H.equip_or_collect(new /obj/item/device/pda/heads/hop(H), slot_wear_pda)
 		if(H.backbag == 1)
@@ -86,12 +88,6 @@
 		else
 			H.equip_or_collect(new /obj/item/weapon/storage/box/ids(H.back), slot_in_backpack)
 			H.equip_or_collect(new /obj/item/weapon/melee/telebaton(H.back), slot_in_backpack)
-		var/obj/item/weapon/implant/loyalty/L = new/obj/item/weapon/implant/loyalty(H)
-		L.imp_in = H
-		L.implanted = 1
-		var/datum/organ/external/affected = H.organs_by_name["head"]
-		affected.implants += L
-		L.part = affected
 		return 1
 
 

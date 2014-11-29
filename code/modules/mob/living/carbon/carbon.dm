@@ -221,7 +221,6 @@
 				)
 			if(prob(10))
 				src.emote("fart")
-			reagents.add_reagent("paracetamol", 1)
 
 
 /mob/living/carbon/proc/eyecheck()

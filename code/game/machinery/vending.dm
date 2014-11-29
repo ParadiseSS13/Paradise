@@ -86,8 +86,8 @@
 	wires = null
 	del(coin)
 	coin = null
-	..()	
-	
+	..()
+
 /obj/machinery/vending/ex_act(severity)
 	switch(severity)
 		if(1.0)
@@ -108,7 +108,7 @@
 		build_inventory(premium, 0, 1, 1)
 		for(var/obj/item/weapon/vending_refill/VR in component_parts)
 			refill_inventory(VR, product_records)
-				
+
 /obj/machinery/vending/blob_act()
 	if(prob(75))
 		malfunction()
@@ -200,7 +200,7 @@
 		user << "You short out the product lock on [src]"
 		return
 	else if(istype(W, /obj/item/weapon/screwdriver) && anchored)
-		playsound(src.loc, 'sound/items/Screwdriver.ogg', 50, 1)	
+		playsound(src.loc, 'sound/items/Screwdriver.ogg', 50, 1)
 		panel_open = !panel_open
 		user << "You [panel_open ? "open" : "close"] the maintenance panel."
 		overlays.Cut()
@@ -679,8 +679,8 @@
 	component_parts += V
 	component_parts += new /obj/item/weapon/vending_refill/boozeomat(0)
 	component_parts += new /obj/item/weapon/vending_refill/boozeomat(0)
-	component_parts += new /obj/item/weapon/vending_refill/boozeomat(0)	
-	
+	component_parts += new /obj/item/weapon/vending_refill/boozeomat(0)
+
 /obj/machinery/vending/coffee
 	name = "Hot Drinks machine"
 	desc = "A vending machine which dispenses hot drinks."
@@ -735,8 +735,8 @@
 	component_parts += V
 	component_parts += new /obj/item/weapon/vending_refill/snack(0)
 	component_parts += new /obj/item/weapon/vending_refill/snack(0)
-	component_parts += new /obj/item/weapon/vending_refill/snack(0)					
-					
+	component_parts += new /obj/item/weapon/vending_refill/snack(0)
+
 /obj/machinery/vending/cola
 	name = "Robust Softdrinks"
 	desc = "A softdrink vendor provided by Robust Industries, LLC."
@@ -771,7 +771,7 @@
 	component_parts += new /obj/item/weapon/vending_refill/cola(0)
 	component_parts += new /obj/item/weapon/vending_refill/cola(0)
 	component_parts += new /obj/item/weapon/vending_refill/cola(0)
-					
+
 /obj/machinery/vending/cigarette
 	name = "Cigarette machine" //OCD had to be uppercase to look nice with the new formating
 	desc = "If you want to get cancer, might as well do it in style"
@@ -793,8 +793,8 @@
 	component_parts += V
 	component_parts += new /obj/item/weapon/vending_refill/cigarette(0)
 	component_parts += new /obj/item/weapon/vending_refill/cigarette(0)
-	component_parts += new /obj/item/weapon/vending_refill/cigarette(0)	
-	
+	component_parts += new /obj/item/weapon/vending_refill/cigarette(0)
+
 /obj/machinery/vending/medical
 	name = "NanoMed Plus"
 	desc = "Medical drug dispenser."
@@ -848,8 +848,8 @@
 	product_ads = "Go end some lives!;The best stuff for your ship.;Only the finest tools.;Natural chemicals!;This stuff saves lives.;Don't you want some?;Ping!"
 	req_access_txt = "150"
 	products = list(/obj/item/stack/medical/bruise_pack = 2,/obj/item/stack/medical/ointment = 2,/obj/item/weapon/reagent_containers/hypospray/autoinjector = 4,/obj/item/device/healthanalyzer = 1)
-	contraband = list(/obj/item/weapon/reagent_containers/syringe/antitoxin = 4,/obj/item/weapon/reagent_containers/syringe/antiviral = 4,/obj/item/weapon/reagent_containers/pill/tox = 1)	
-	
+	contraband = list(/obj/item/weapon/reagent_containers/syringe/antitoxin = 4,/obj/item/weapon/reagent_containers/syringe/antiviral = 4,/obj/item/weapon/reagent_containers/pill/tox = 1)
+
 /obj/machinery/vending/security
 	name = "SecTech"
 	desc = "A security equipment vendor"
@@ -858,7 +858,7 @@
 	icon_deny = "sec-deny"
 	req_access_txt = "1"
 	products = list(/obj/item/weapon/handcuffs = 8,/obj/item/weapon/grenade/flashbang = 4,/obj/item/device/flash = 5,
-					/obj/item/weapon/reagent_containers/food/snacks/donut/normal = 12,/obj/item/weapon/storage/box/evidence = 6)
+					/obj/item/weapon/reagent_containers/food/snacks/donut/normal = 12,/obj/item/weapon/storage/box/evidence = 6,/obj/item/device/flashlight/seclite = 4)
 	contraband = list(/obj/item/clothing/glasses/sunglasses = 2,/obj/item/weapon/storage/fancy/donut_box = 2)
 
 /obj/machinery/vending/hydronutrients
@@ -931,7 +931,7 @@
 	contraband = list(/obj/item/clothing/suit/cardborg = 1,/obj/item/clothing/head/cardborg = 1,/obj/item/clothing/suit/judgerobe = 1,/obj/item/clothing/head/powdered_wig = 1,/obj/item/weapon/gun/magic/wand = 1)
 	premium = list(/obj/item/clothing/suit/hgpirate = 1, /obj/item/clothing/head/hgpiratecap = 1, /obj/item/clothing/head/helmet/roman = 1, /obj/item/clothing/head/helmet/roman/legionaire = 1, /obj/item/clothing/under/roman = 1, /obj/item/clothing/shoes/roman = 1)
 	refill_canister = /obj/item/weapon/vending_refill/autodrobe
-	
+
 /obj/machinery/vending/cigarette/New()
 	..()
 	component_parts = list()
