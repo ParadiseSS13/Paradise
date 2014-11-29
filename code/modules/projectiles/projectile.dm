@@ -135,8 +135,9 @@
 				if(M.ckey)
 					msg_admin_attack("UNKNOWN shot [M] ([M.ckey]) with a [src] (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[firer.x];Y=[firer.y];Z=[firer.z]'>JMP</a>)") //BS12 EDIT ALG
 
+		spawn(0)
 		if(A)
-			if (!forcedodge)
+			if(!forcedodge)
 				forcedodge = A.bullet_act(src, def_zone) // searches for return value
 			if(forcedodge == -1) // the bullet passes through a dense object!
 				bumped = 0 // reset bumped variable!
