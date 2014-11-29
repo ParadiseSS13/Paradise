@@ -378,11 +378,11 @@
 			i++
 			newname += pick(vox_name_syllables)
 		return capitalize(newname)
-
+/*
 /datum/species/vox/handle_post_spawn(var/mob/living/carbon/human/H)
 
 	H.verbs += /mob/living/carbon/human/proc/leap
-	..()
+	..() */
 
 /datum/species/vox/armalis/handle_post_spawn(var/mob/living/carbon/human/H)
 
@@ -473,8 +473,6 @@
 
 	flags = IS_WHITELISTED | NO_BREATHE | HAS_LIPS | NO_INTORGANS | NO_SCAN
 	bloodflags = BLOOD_SLIME
-	bodyflags = FEET_NOSLIP
-	abilities = list(/mob/living/carbon/human/slime/proc/slimepeople_ventcrawl)
 
 /datum/species/slime/handle_post_spawn(var/mob/living/carbon/human/H)
 	H.dna = new /datum/dna(null)

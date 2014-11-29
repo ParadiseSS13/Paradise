@@ -24,11 +24,17 @@
 	name = "slug"
 
 
-/obj/item/projectile/bullet/rubberbullet  //  Bone White - Rubber bullets cause agony (halloss) instead of stun = 5, weakened = 5
-	damage = 10
-	stun = 0
-	weaken = 0
-	agony = 60
+/obj/item/projectile/bullet/rubberbullet  //  Back to insta-stun bullets.
+	damage = 5
+	stun = 5
+	weaken = 5
+	embed = 0
+	sharp = 0
+
+/obj/item/projectile/bullet/c38 //replacement for detective's ammo
+	damage = 15
+	stun = 5
+	weaken = 5
 	embed = 0
 	sharp = 0
 

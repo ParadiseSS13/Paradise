@@ -29,7 +29,7 @@
 /obj/item/ammo_casing/c38
 	desc = "A .38 bullet casing."
 	caliber = "38"
-	projectile_type = "/obj/item/projectile/bullet/rubberbullet"
+	projectile_type = "/obj/item/projectile/bullet/c38"
 
 
 /obj/item/ammo_casing/c9mm
@@ -60,7 +60,7 @@
 	icon_state = "slshell"
 	caliber = "shotgun"
 	projectile_type = "/obj/item/projectile/bullet/slug"
-	m_amt = 12500
+	m_amt = 4000
 
 /obj/item/ammo_casing/shotgun/buck
 	name = "buckshot shell"
@@ -85,28 +85,26 @@
 	desc = "A weak beanbag shell."
 	icon_state = "bshell"
 	projectile_type = "/obj/item/projectile/bullet/rubberbullet"
-	m_amt = 500
+	m_amt = 250
 
 /obj/item/ammo_casing/shotgun/fakebeanbag
 	name = "beanbag shell"
 	desc = "A weak beanbag shell."
 	icon_state = "bshell"
-	projectile_type = "/obj/item/projectile/bullet/rubberbullet/booze"
-	m_amt = 12500
+	projectile_type = "/obj/item/projectile/bullet/weakbullet/booze"
 
 /obj/item/ammo_casing/shotgun/stunshell
 	name = "stun shell"
 	desc = "A stunning shell."
 	icon_state = "stunshell"
 	projectile_type = "/obj/item/projectile/bullet/stunslug"
-	m_amt = 2500
+	m_amt = 250
 
 /obj/item/ammo_casing/shotgun/incendiary
 	name = "incendiary shell"
 	desc = "An incendiary shell"
 	icon_state = "ishell"
 	projectile_type = "/obj/item/projectile/bullet/incendiary/shell"
-	m_amt = 12500
 
 /obj/item/ammo_casing/shotgun/incendiary/dragonsbreath
 	name = "dragonsbreath shell"

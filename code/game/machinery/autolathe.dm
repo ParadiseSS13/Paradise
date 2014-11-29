@@ -45,7 +45,6 @@ var/global/list/autolathe_recipes = list( \
 		new /obj/item/weapon/camera_assembly(), \
 		new /obj/item/weapon/rcd_ammo(), \
 		new /obj/item/ammo_casing/shotgun/beanbag(), \
-		new /obj/item/weapon/storage/box/blanks(), \
 		new /obj/item/ammo_box/c38(), \
 		new /obj/item/clothing/ears/earmuffs/tribblemuffs(), \
 		new /obj/item/clothing/gloves/furgloves(), \
