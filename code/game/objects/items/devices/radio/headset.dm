@@ -98,7 +98,7 @@
 
 /obj/item/device/radio/headset/heads/captain
 	name = "captain's headset"
-	desc = "The headset of the boss. Channels are as follows: :c - command, :s - security, :e - engineering, :u - supply, :m - medical, :n - science."
+	desc = "The headset of the boss. Channels are as follows: :c - command, :s - security, :e - engineering, :u - supply, :v - service, :m - medical, :n - science."
 	icon_state = "com_headset"
 	item_state = "headset"
 	keyslot2 = new /obj/item/device/encryptionkey/heads/captain
@@ -133,7 +133,7 @@
 
 /obj/item/device/radio/headset/heads/hop
 	name = "head of personnel's headset"
-	desc = "The headset of the guy who will one day be captain. Channels are as follows: :u - supply, :c - command, :s - security"
+	desc = "The headset of the guy who will one day be captain. Channels are as follows: :u - supply, :v - service, :c - command, :s - security"
 	icon_state = "com_headset"
 	item_state = "headset"
 	keyslot2 = new /obj/item/device/encryptionkey/heads/hop
@@ -158,10 +158,17 @@
 	icon_state = "cargo_headset"
 	item_state = "headset"
 	keyslot2 = new /obj/item/device/encryptionkey/headset_cargo
+	
+/obj/item/device/radio/headset/headset_service
+	name = "service radio headset"
+	desc = "Headset used by the service staff, tasked with keeping the station full, happy and clean. To access the service channel, use :v."
+	icon_state = "srv_headset"
+	item_state = "headset"
+	keyslot2 = new /obj/item/device/encryptionkey/headset_service
 
 /obj/item/device/radio/headset/ert
 	name = "CentCom Response Team headset"
-	desc = "The headset of the boss's boss. Channels are as follows: :h - Response Team :c - command, :s - security, :e - engineering, :d - mining, :q - cargo, :m - medical, :n - science."
+	desc = "The headset of the boss's boss. Channels are as follows: :h - Response Team :c - command, :s - security, :e - engineering, :d - mining, :u - cargo, :v - service, :m - medical, :n - science."
 	icon_state = "com_headset"
 	item_state = "headset"
 	freerange = 1

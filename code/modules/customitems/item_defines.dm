@@ -666,8 +666,8 @@
 	_color = "leatherjack"
 
 /obj/item/clothing/suit/armor/vest/fluff/deus_blueshield //deusdactyl
-	name = "blue shield security armor"
-	desc = "An armored vest with the badge of a Blue Shield Security lieutenant."
+	name = "blueshield security armor"
+	desc = "An armored vest with the badge of a Blueshield Lieutenant."
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "deus_blueshield"
 	item_state = "deus_blueshield"
