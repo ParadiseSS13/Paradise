@@ -25,7 +25,7 @@
 			var/datum/effect/effect/system/spark_spread/sparks = new /datum/effect/effect/system/spark_spread
 			sparks.set_up(1, 1, src)
 			sparks.start()
-
+		..()
 
 /obj/item/projectile/energy/electrode/revolver
 	name = "electrode"
@@ -61,19 +61,12 @@
 	damage = 10
 	damage_type = TOX
 	nodamage = 0
-	weaken = 10
-	stutter = 10
-
+	weaken = 5
+	stutter = 5
 
 /obj/item/projectile/energy/bolt/large
 	name = "largebolt"
 	damage = 20
-
-
-
-
-
-
 
 /obj/item/projectile/energy/plasma
 	name = "plasma bolt"

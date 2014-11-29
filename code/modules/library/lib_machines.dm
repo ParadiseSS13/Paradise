@@ -355,10 +355,10 @@ datum/borrowbook // Datum used to keep track of who has borrowed what when and f
 		establish_old_db_connection()
 		if(!dbcon_old.IsConnected())
 			alert("Connection to Archive has been severed. Aborting.")
-		if(bibledelay)
-			for (var/mob/V in hearers(src))
-				V.show_message("<b>[src]</b>'s monitor flashes, \"Printer unavailable. Please allow a short time before attempting to print.\"")
-		else
+		
+// reused working printing call from bible code.. needs testing ((Lazureus))
+		
+		if(!bibledelay)
 			bibledelay = 1
 			spawn(60)
 				bibledelay = 0
@@ -377,6 +377,10 @@ datum/borrowbook // Datum used to keep track of who has borrowed what when and f
 				B.icon_state = "book[rand(1,7)]"
 				src.visible_message("[src]'s printer hums as it produces a completely bound book. How did it do that?")
 				break
+		else
+			for (var/mob/V in hearers(src))
+				V.show_message("<b>[src]</b>'s monitor flashes, \"Printer unavailable. Please allow a short time before attempting to print.\"")
+
 	if(href_list["orderbyid"])
 		var/orderid = input("Enter your order:") as num|null
 		if(orderid)

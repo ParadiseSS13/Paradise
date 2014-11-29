@@ -60,6 +60,7 @@
 	name = "emitter beam"
 	icon_state = "emitter"
 	damage = 30
+
 /obj/item/projectile/lasertag
 	name = "laser tag beam"
 	icon_state = "omnilaser"
