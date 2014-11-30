@@ -318,13 +318,13 @@
 		..()
 	else
 		..()
-		
+
 	if(default_deconstruction_screwdriver(user, "minidispenser-o", "minidispenser", I))
 		return
 
 	if(exchange_parts(user, I))
 		return
-					
+
 	if(istype(I, /obj/item/weapon/wrench))
 		playsound(src, 'sound/items/Ratchet.ogg', 50, 1)
 		if(anchored)
@@ -332,8 +332,8 @@
 			user << "<span class='caution'>The [src] can now be moved.</span>"
 		else if(!anchored)
 			anchored = 1
-			user << "<span class='caution'>The [src] is now secured.</span>"		
-		
+			user << "<span class='caution'>The [src] is now secured.</span>"
+
 	if(panel_open)
 		if(istype(I, /obj/item/weapon/crowbar))
 			if(beaker)
@@ -368,6 +368,7 @@
 	var/datum/reagents/R = new/datum/reagents(100)
 	reagents = R
 	R.my_atom = src
+	overlays += "waitlight"
 
 /obj/machinery/chem_master/ex_act(severity)
 	switch(severity)
