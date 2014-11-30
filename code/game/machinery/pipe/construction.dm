@@ -23,6 +23,7 @@ Buildable meters
 #define PIPE_MTVALVE			18
 #define PIPE_MANIFOLD4W			19
 #define PIPE_CAP				20
+#define PIPE_INJECTOR    		21
 
 /obj/item/pipe
 	name = "pipe"
@@ -84,6 +85,8 @@ Buildable meters
 			src.pipe_type = PIPE_MANIFOLD4W
 		else if(istype(make_from, /obj/machinery/atmospherics/pipe/cap))
 			src.pipe_type = PIPE_CAP
+		else if(istype(make_from, /obj/machinery/atmospherics/unary/outlet_injector))
+			src.pipe_type = PIPE_INJECTOR
 	else
 		src.pipe_type = pipe_type
 		src.dir = dir
@@ -115,6 +118,7 @@ var/global/list/pipeID2State = list(
 	"mtvalve", \
 	"manifold4w", \
 	"cap", \
+	"injector", \
 )
 
 /obj/item/pipe/proc/update()
@@ -140,6 +144,8 @@ var/global/list/pipeID2State = list(
 		"t-valve", \
 		"4-way manifold", \
 		"pipe cap", \
+		"air injector", \
+
 	)
 	name = nlist[pipe_type+1] + " fitting"
 	icon_state = pipeID2State[pipe_type + 1]
@@ -593,6 +599,20 @@ var/global/list/pipeID2State = list(
 			if (C.node)
 				C.node.initialize()
 				C.node.build_network()
+		if(PIPE_INJECTOR)		// air injector
+			var/obj/machinery/atmospherics/unary/outlet_injector/P = new( src.loc )
+			P.dir = dir
+			P.initialize_directions = get_pipe_dir()
+			if (pipename)
+				name = pipename
+			var/turf/T = loc
+			P.level = T.intact ? 2 : 1
+			P.initialize()
+			P.build_network()
+			if (P.node)
+				P.node.initialize()
+				P.node.build_network()
+
 
 	playsound(src.loc, 'sound/items/Ratchet.ogg', 50, 1)
 	user.visible_message( \
@@ -628,6 +648,24 @@ var/global/list/pipeID2State = list(
 	new/obj/machinery/meter( src.loc )
 	playsound(src.loc, 'sound/items/Ratchet.ogg', 50, 1)
 	user << "\blue You have fastened the meter to the pipe"
+	del(src)
+
+/obj/item/pipe_gsensor
+	name = "gas sensor"
+	desc = "A sensor that can be hooked to a computer"
+	icon = 'icons/obj/stationobjs.dmi'
+	icon_state = "gsensor0"
+	item_state = "buildpipe"
+	flags = TABLEPASS|FPRINT
+	w_class = 4
+
+/obj/item/pipe_gsensor/attackby(var/obj/item/weapon/W as obj, var/mob/user as mob)
+	..()
+	if (!istype(W, /obj/item/weapon/wrench))
+		return ..()
+	new/obj/machinery/air_sensor( src.loc )
+	playsound(get_turf(src), 'sound/items/Ratchet.ogg', 50, 1)
+	user << "\blue You have fastened the gas sensor"
 	del(src)
 //not sure why these are necessary
 #undef PIPE_SIMPLE_STRAIGHT

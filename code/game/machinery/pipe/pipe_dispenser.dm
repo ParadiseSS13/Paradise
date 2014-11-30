@@ -30,8 +30,10 @@
 <A href='?src=\ref[src];make=16;dir=1'>Volume Pump</A><BR>
 <A href='?src=\ref[src];make=10;dir=1'>Scrubber</A><BR>
 <A href='?src=\ref[src];makemeter=1'>Meter</A><BR>
+<A href='?src=\ref[src];makegsensor=1'>Gas Sensor</A><BR>
 <A href='?src=\ref[src];make=13;dir=1'>Gas Filter</A><BR>
 <A href='?src=\ref[src];make=14;dir=1'>Gas Mixer</A><BR>
+<A href='?src=\ref[src];make=21;dir=1'>Air Injector</A><BR>
 <b>Heat exchange:</b><BR>
 <A href='?src=\ref[src];make=2;dir=1'>Pipe</A><BR>
 <A href='?src=\ref[src];make=3;dir=5'>Bent Pipe</A><BR>
@@ -69,6 +71,12 @@
 	if(href_list["makemeter"])
 		if(!wait)
 			new /obj/item/pipe_meter(/*usr.loc*/ src.loc)
+			wait = 1
+			spawn(15)
+				wait = 0
+	if(href_list["makegsensor"])
+		if(!wait)
+			new /obj/item/pipe_gsensor(/*usr.loc*/ src.loc)
 			wait = 1
 			spawn(15)
 				wait = 0
