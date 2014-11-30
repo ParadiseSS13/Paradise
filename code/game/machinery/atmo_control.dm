@@ -25,6 +25,21 @@ obj/machinery/air_sensor
 	update_icon()
 		icon_state = "gsensor[on]"
 
+	multitool_menu(var/mob/user, var/obj/item/device/multitool/P)
+		return {"
+		<b>Main</b>
+		<ul>
+			<li><b>Frequency:</b> <a href="?src=\ref[src];set_freq=-1">[format_frequency(frequency)] GHz</a> (<a href="?src=\ref[src];set_freq=[initial(frequency)]">Reset</a>)</li>
+			<li>[format_tag("ID Tag","id_tag")]</li>
+		</ul>"}
+
+	attackby(var/obj/item/W as obj, var/mob/user as mob)
+		if(istype(W, /obj/item/device/multitool))
+			update_multitool_menu(user)
+			return 1
+		if(..())
+			return 1
+
 	process()
 		if(on)
 			var/datum/signal/signal = new
