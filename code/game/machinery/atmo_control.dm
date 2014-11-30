@@ -117,6 +117,9 @@ obj/machinery/air_sensor
 		src.updateUsrDialog()
 
 	attackby(I as obj, user as mob)
+		if(istype(I, /obj/item/device/multitool))
+			update_multitool_menu(user)
+
 		if(istype(I, /obj/item/weapon/screwdriver))
 			playsound(get_turf(src), 'sound/items/Screwdriver.ogg', 50, 1)
 			if(do_after(user, 20))
@@ -246,6 +249,82 @@ legend {
 	initialize()
 		set_frequency(frequency)
 
+	multitool_menu(var/mob/user, var/obj/item/device/multitool/P)
+		var/dat= {"
+		<b>Main</b>
+		<ul>
+			<li><b>Frequency:</b> <a href="?src=\ref[src];set_freq=-1">[format_frequency(frequency)] GHz</a> (<a href="?src=\ref[src];set_freq=[initial(frequency)]">Reset</a>)</li>
+		</ul>
+		<b>Sensors:</b>
+		<ul>"}
+		for(var/id_tag in sensors)
+			dat += {"<li><a href="?src=\ref[src];edit_sensor=[id_tag]">[sensors[id_tag]]</a></li>"}
+		dat += {"<li><a href="?src=\ref[src];add_sensor=1">\[+\]</a></li></ul>"}
+		return dat
+
+	multitool_topic(var/mob/user,var/list/href_list,var/obj/O)
+		. = ..()
+		if(.) return .
+		if("add_sensor" in href_list)
+
+			// Make a list of all available sensors on the same frequency
+			var/list/sensor_list = list()
+			for(var/obj/machinery/air_sensor/G in machines)
+				if(!isnull(G.id_tag) && G.frequency == frequency)
+					sensor_list|=G.id_tag
+			if(!sensor_list.len)
+				user << "<span class=\"warning\">No sensors on this frequency.</span>"
+				return MT_ERROR
+
+			// Have the user pick one of them and name its label
+			var/sensor = input(user, "Select a sensor:", "Sensor Data") as null|anything in sensor_list
+			if(!sensor)
+				return MT_ERROR
+			var/label = reject_bad_name( input(user, "Choose a sensor label:", "Sensor Label")  as text|null, allow_numbers=1)
+			if(!label)
+				return MT_ERROR
+
+			// Add the sensor's information to general_air_controler
+			sensors[sensor] = label
+			return MT_UPDATE
+
+		if("edit_sensor" in href_list)
+			var/list/sensor_list = list()
+			for(var/obj/machinery/air_sensor/G in machines)
+				if(!isnull(G.id_tag) && G.frequency == frequency)
+					sensor_list|=G.id_tag
+			if(!sensor_list.len)
+				user << "<span class=\"warning\">No sensors on this frequency.</span>"
+				return MT_ERROR
+			var/label = sensors[href_list["edit_sensor"]]
+			var/sensor = input(user, "Select a sensor:", "Sensor Data", href_list["edit_sensor"]) as null|anything in sensor_list
+			if(!sensor)
+				return MT_ERROR
+			sensors.Remove(href_list["edit_sensor"])
+			sensors[sensor] = label
+			return MT_UPDATE
+
+	unlinkFrom(var/mob/user, var/obj/O)
+		..()
+		if("id_tag" in O.vars && istype(O,/obj/machinery/air_sensor))
+			sensors.Remove(O:id_tag)
+			return 1
+		return 0
+
+	linkMenu(var/obj/O)
+		var/dat=""
+		if(istype(O,/obj/machinery/air_sensor) && !isLinkedWith(O))
+			dat += " <a href='?src=\ref[src];link=1'>\[New Sensor\]</a> "
+		return dat
+
+	canLink(var/obj/O, var/list/context)
+		if(istype(O,/obj/machinery/air_sensor))
+			return O:id_tag
+
+	isLinkedWith(var/obj/O)
+		if(istype(O,/obj/machinery/air_sensor))
+			return O:id_tag in sensors
+
 	large_tank_control
 		icon = 'icons/obj/computer.dmi'
 		icon_state = "tank"
@@ -256,7 +335,80 @@ legend {
 		var/list/input_info
 		var/list/output_info
 
+		var/list/input_linkable=list(
+			/obj/machinery/atmospherics/unary/outlet_injector,
+			/obj/machinery/atmospherics/unary/vent_pump
+		)
+
+		var/list/output_linkable=list(
+			/obj/machinery/atmospherics/unary/vent_pump
+		)
+
 		var/pressure_setting = ONE_ATMOSPHERE * 45
+
+		multitool_menu(var/mob/user, var/obj/item/device/multitool/P)
+			var/dat= {"
+			<ul>
+				<li><b>Frequency:</b> <a href="?src=\ref[src];set_freq=-1">[format_frequency(frequency)] GHz</a> (<a href="?src=\ref[src];set_freq=[initial(frequency)]">Reset</a>)</li>
+				<li>[format_tag("Input","input_tag")]</li>
+				<li>[format_tag("Output","output_tag")]</li>
+			</ul>
+			<b>Sensors:</b>
+			<ul>"}
+			for(var/id_tag in sensors)
+				dat += {"<li><a href="?src=\ref[src];edit_sensor=[id_tag]">[sensors[id_tag]]</a></li>"}
+			dat += {"<li><a href="?src=\ref[src];add_sensor=1">\[+\]</a></li></ul>"}
+			return dat
+
+
+		linkWith(var/mob/user, var/obj/O, var/list/context)
+			if(context["slot"]=="input" && is_type_in_list(O,input_linkable))
+				input_tag = O:id_tag
+				input_info = null
+				if(istype(O,/obj/machinery/atmospherics/unary/vent_pump))
+					send_signal("tag"=input_tag,
+						"direction"=1, // Release
+						"checks"   =0  // No pressure checks.
+						)
+			if(context["slot"]=="output" && is_type_in_list(O,output_linkable))
+				output_tag = O:id_tag
+				output_info = null
+				if(istype(O,/obj/machinery/atmospherics/unary/vent_pump))
+					send_signal("tag"=output_tag,
+						"direction"=0, // Siphon
+						"checks"   =2  // Internal pressure checks.
+						)
+
+		unlinkFrom(var/mob/user, var/obj/O)
+			if("id_tag" in O.vars)
+				if(O:id_tag == input_tag)
+					input_tag=null
+					input_info=null
+					return 1
+				if(O:id_tag == output_tag)
+					output_tag=null
+					output_info=null
+					return 1
+			return 0
+
+		linkMenu(var/obj/O)
+			var/dat=""
+			if(canLink(O,list("slot"="input")))
+				dat += " <a href='?src=\ref[src];link=1'>\[Link @ Input\]</a> "
+			if(canLink(O,list("slot"="output")))
+				dat += " <a href='?src=\ref[src];link=1'>\[Link @ Output\]</a> "
+			return dat
+
+		canLink(var/obj/O, var/list/context)
+			return (context["slot"]=="input" && is_type_in_list(O,input_linkable)) || (context["slot"]=="output" && is_type_in_list(O,output_linkable))
+
+		isLinkedWith(var/obj/O)
+			if(O:id_tag == input_tag)
+				return 1
+			if(O:id_tag == output_tag)
+				return 1
+			return 0
+
 
 		process()
 			..()
