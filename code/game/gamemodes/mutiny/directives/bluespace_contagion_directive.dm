@@ -13,7 +13,7 @@ datum/directive/bluespace_contagion
 datum/directive/bluespace_contagion/get_description()
 	return {"
 		<p>
-			A manufactured and near-undetectable virus is spreading on NanoTrasen stations.
+			A manufactured and near-undetectable virus is spreading on Nanotrasen stations.
 			The pathogen travels by bluespace after maturing for one day and meets the Sol Health Organisation standards for a class X biological threat, warranting use of lethal force to contain an outbreak.
 			No treatment has yet been discovered. Personnel onboard [station_name()] have been infected. Further information is classified.
 		</p>

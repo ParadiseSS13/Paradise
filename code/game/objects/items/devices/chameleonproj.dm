@@ -21,6 +21,9 @@
 
 	afterattack(atom/target, mob/user, proximity)
 		if(!proximity) return
+		if(istype(target,/obj/item/toy/cards/singlecard))
+			user << "\red Unable to scan [target]."
+			return
 		if(istype(target,/obj/item))
 			playsound(src, 'sound/weapons/flash.ogg', 100, 1, 1)
 			user << "\blue Scanned [target]."

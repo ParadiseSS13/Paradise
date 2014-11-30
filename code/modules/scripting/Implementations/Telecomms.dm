@@ -69,7 +69,8 @@
 		interpreter.SetVar("$engineering",1357)
 		interpreter.SetVar("$security",	1359)
 		interpreter.SetVar("$supply",	1347)
-
+		interpreter.SetVar("$service",	1349)
+		
 		// Signal data
 
 		interpreter.SetVar("$content", 	signal.data["message"])

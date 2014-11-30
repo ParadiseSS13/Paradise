@@ -10,7 +10,7 @@ log transactions
 */
 
 /obj/machinery/atm
-	name = "\improper NanoTrasen Automatic Teller Machine"
+	name = "\improper Nanotrasen Automatic Teller Machine"
 	desc = "For all your monetary needs!"
 	icon = 'icons/obj/terminals.dmi'
 	icon_state = "atm"
@@ -66,7 +66,7 @@ log transactions
 
 	attack_hand(var/mob/user)
 		if(istype(user, /mob/living/silicon))
-			user << "\red Artificial unit recognized. Artificial units do not currently receive monetary compensation, as per NanoTrasen regulation #1005."
+			user << "\red Artificial unit recognized. Artificial units do not currently receive monetary compensation, as per Nanotrasen regulation #1005."
 			return
 
 		if(!(stat && NOPOWER) && ishuman(user))
@@ -80,7 +80,7 @@ log transactions
 //						usr << sound('nya.mp3')
 			else
 				dat = null
-				dat += "<h1>NanoTrasen Automatic Teller Machine</h1><br/>"
+				dat += "<h1>Nanotrasen Automatic Teller Machine</h1><br/>"
 				dat += "For all your monetary needs!<br/><br/>"
 				dat += "Welcome, [card.registered_name]. You have [card.money] credits deposited.<br>"
 				dat += "Current inserted item value: [inserted] credits.<br><br>"

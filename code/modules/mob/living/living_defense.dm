@@ -81,6 +81,7 @@
 
 	if(!P.nodamage)
 		apply_damage(P.damage, P.damage_type, def_zone, absorb, 0, P, sharp=proj_sharp, edge=proj_edge)
+			
 	P.on_hit(src, absorb, def_zone)
 	if(istype(P, /obj/item/projectile/beam/lightning))
 		if(P.damage >= 200)

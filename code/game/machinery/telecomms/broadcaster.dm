@@ -344,6 +344,8 @@ var/message_delay = 0 // To make sure restarting the recentmessages list is kept
 				freq_text = "Security"
 			if(1347)
 				freq_text = "Supply"
+			if(1349)
+				freq_text = "Service"
 			if(1441)
 				freq_text = "Special Ops"
 			if(1443)
@@ -397,7 +399,9 @@ var/message_delay = 0 // To make sure restarting the recentmessages list is kept
 
 		else if (display_freq == SUP_FREQ) // cargo
 			part_a = "<span class='supradio'><span class='name'>"
-
+			
+		else if (display_freq == SRV_FREQ) // cargo
+			part_a = "<span class='srvradio'><span class='name'>"			
 		// If all else fails and it's a dept_freq, color me purple!
 		else if (display_freq in DEPT_FREQS)
 			part_a = "<span class='deptradio'><span class='name'>"
@@ -438,6 +442,8 @@ var/message_delay = 0 // To make sure restarting the recentmessages list is kept
 					blackbox.msg_syndicate += blackbox_msg
 				if(1347)
 					blackbox.msg_cargo += blackbox_msg
+				if(1349)
+					blackbox.msg_service += blackbox_msg
 				else
 					blackbox.messages += blackbox_msg
 
@@ -661,6 +667,8 @@ var/message_delay = 0 // To make sure restarting the recentmessages list is kept
 				freq_text = "Security"
 			if(1347)
 				freq_text = "Supply"
+			if(1349)
+				freq_text = "Service"				
 		//There's probably a way to use the list var of channels in code\game\communications.dm to make the dept channels non-hardcoded, but I wasn't in an experimentive mood. --NEO
 
 
@@ -715,6 +723,8 @@ var/message_delay = 0 // To make sure restarting the recentmessages list is kept
 					blackbox.msg_syndicate += blackbox_msg
 				if(1347)
 					blackbox.msg_cargo += blackbox_msg
+				if(1349)
+					blackbox.msg_service += blackbox_msg
 				else
 					blackbox.messages += blackbox_msg
 

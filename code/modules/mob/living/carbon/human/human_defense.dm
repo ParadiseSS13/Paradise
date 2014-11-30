@@ -46,10 +46,14 @@ emp_act
 			(SP.desc) = "[SP.desc] It looks like it was fired from [P.shot_from]."
 			(SP.loc) = organ
 			organ.embed(SP)
+			
+	var/mob/living/carbon/human/M = src	
+	var/datum/organ/external/affected = M.get_organ(def_zone)
+	affected.add_autopsy_data(P.name, P.damage) // Add the bullet's name to the autopsy data	
 
 	return (..(P , def_zone))
 
-/mob/living/carbon/human/stun_effect_act(var/stun_amount, var/agony_amount, var/def_zone)
+/mob/living/carbon/human/stun_effect_act(var/stun_amount, var/agony_amount, var/def_zone, var/used_weapon = null)
 	var/datum/organ/external/affected = get_organ(check_zone(def_zone))
 	var/siemens_coeff = get_siemens_coefficient_organ(affected)
 	stun_amount *= siemens_coeff
@@ -75,7 +79,11 @@ emp_act
 					var/emote_scream = pick("screams in pain and", "lets out a sharp cry and", "cries out and")
 					emote("me", 1, "[(species && species.flags & NO_PAIN) ? "" : emote_scream ] drops what they were holding in their [affected.display_name]!")
 
-	..(stun_amount, agony_amount, def_zone)
+	if(used_weapon)
+		var/obj/item/W = used_weapon
+		affected.add_autopsy_data(W.name, agony_amount) // Add the weapon's name to the autopsy data						
+					
+	..(stun_amount, agony_amount, def_zone, used_weapon)
 
 /mob/living/carbon/human/getarmor(var/def_zone, var/type)
 	var/armorval = 0
