@@ -1381,6 +1381,7 @@ datum
 				if(method == TOUCH)
 					M.adjust_fire_stacks(volume / 10)
 				return
+			/*
 			reaction_obj(var/obj/O, var/volume)
 				var/turf/the_turf = get_turf(O)
 				if(!the_turf)
@@ -1389,6 +1390,7 @@ datum
 			reaction_turf(var/turf/T, var/volume)
 				new /obj/effect/decal/cleanable/liquid_fuel(T, volume)
 				return
+			*/
 			on_mob_life(var/mob/living/M as mob)
 				if(!M) M = holder.my_atom
 				M.adjustToxLoss(1)
