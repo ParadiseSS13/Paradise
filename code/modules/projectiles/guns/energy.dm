@@ -7,7 +7,7 @@
 	var/obj/item/weapon/cell/power_supply //What type of power cell this uses
 	var/charge_cost = 1000 //How much energy is needed to fire.
 	var/cell_type = "/obj/item/weapon/cell"
-	var/projectile_type = "/obj/item/projectile/beam/practice"
+	var/projectile_type = "/obj/item/projectile/beam"
 	var/modifystate
 
 	emp_act(severity)
