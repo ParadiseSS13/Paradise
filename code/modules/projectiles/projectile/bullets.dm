@@ -144,6 +144,28 @@
 	name = "dragonsbreath round"
 	damage = 5
 
+/obj/item/projectile/bullet/meteorshot
+	name = "meteor"
+	icon = 'icons/obj/meteor.dmi'
+	icon_state = "dust"
+	damage = 30
+	weaken = 8
+	stun = 8
+	hitsound = 'sound/effects/meteorimpact.ogg'
+
+/obj/item/projectile/bullet/meteorshot/on_hit(var/atom/target, var/blocked = 0)
+	..()
+	if(istype(target, /atom/movable))
+		var/atom/movable/M = target
+		var/atom/throw_target = get_edge_target_turf(M, get_dir(src, get_step_away(M, src)))
+		M.throw_at(throw_target, 3, 2)
+
+/obj/item/projectile/bullet/meteorshot/New()
+	..()
+	SpinAnimation()
+
+
+
 /obj/item/projectile/bullet/mime
 	damage = 20
 
