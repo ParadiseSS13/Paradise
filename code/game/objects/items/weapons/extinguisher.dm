@@ -10,7 +10,7 @@
 	throwforce = 10
 	w_class = 3.0
 	throw_speed = 2
-	throw_range = 10
+	throw_range = 7
 	force = 10
 	m_amt = 90
 	attack_verb = list("slammed", "whacked", "bashed", "thunked", "battered", "bludgeoned", "thrashed")
@@ -20,7 +20,6 @@
 	var/sprite_name = "fire_extinguisher"
 
 	reagents_to_log=list(
-		"fuel"  =  "welder fuel",
 		"plasma"=  "plasma",
 		"pacid" =  "polytrinic acid",
 		"sacid" =  "sulphuric acid"
@@ -65,6 +64,7 @@
 	user << "The safety is [safety ? "on" : "off"]."
 	return
 
+/*
 /obj/item/weapon/extinguisher/attackby(obj/item/W, mob/user)
 	if(user.stat || user.restrained() || user.lying)  return
 
@@ -94,6 +94,7 @@
 		W.loc=src
 		user << "You cram \the [W] into the nozzle of \the [src]."
 		msg_admin_attack("[user]/[user.ckey] has crammed \a [W] into a [src].")
+		*/
 
 
 /obj/item/weapon/extinguisher/afterattack(atom/target, mob/user , flag)
