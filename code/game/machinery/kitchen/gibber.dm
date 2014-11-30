@@ -10,6 +10,7 @@
 	var/dirty = 0 // Does it need cleaning?
 	var/gibtime = 40 // Time from starting until meat appears
 	var/mob/living/occupant // Mob who has been put inside
+	var/dramatic = 1
 	use_power = 1
 	idle_power_usage = 2
 	active_power_usage = 500
@@ -134,7 +135,6 @@
 		visible_message("\red You hear a loud metallic grinding sound.")
 		return
 	use_power(1000)
-	visible_message("\red You hear a loud squelchy grinding sound.")
 	src.operating = 1
 	update_icon()
 	var/sourcename = src.occupant.real_name
@@ -161,23 +161,55 @@
 		src.occupant.LAssailant = null
 	else
 		src.occupant.LAssailant = user
-
-	src.occupant.emote("scream")
-	playsound(src.loc, 'sound/effects/gib.ogg', 50, 1)
-	src.occupant.death(1)
-	src.occupant.ghostize()
-	del(src.occupant)
-	spawn(src.gibtime)
-		playsound(src.loc, 'sound/effects/splat.ogg', 50, 1)
-		operating = 0
-		for (var/i=1 to totalslabs)
-			var/obj/item/meatslab = allmeat[i]
-			var/turf/Tx = locate(src.x - i, src.y, src.z)
-			meatslab.loc = src.loc
-			meatslab.throw_at(Tx,i,3,src)
-			if (!Tx.density)
-				new /obj/effect/decal/cleanable/blood/gibs(Tx,i)
-		src.operating = 0
-		update_icon()
+	if(src.dramatic)
+		visible_message("\red The hatch closes and locks.")
+		src.occupant.visible_message("\red The hatch closes and locks behind you.")
+		sleep(20)
+		visible_message("\red <b>The Gibber</b> states 'Deploying Grinders.'")
+		src.occupant.visible_message("\blue You hear a faint voice. \red <b>The Gibber</b> states 'Deploying Grinders.'")
+		src.occupant.visible_message("\red You feel a panel open underneath you.")
+		sleep(10)
+		src.occupant.visible_message("\red A number of sharp points press into your back.")
+		sleep(20)
+		visible_message("\red <b>The Gibber</b> states 'Engaging Grinders.'")
+		src.occupant.visible_message("\blue You hear a faint voice. \red <b>The Gibber</b> states 'Engaging Grinders.'")
+		src.occupant.visible_message("\red The blades start tearing at your flesh! AHHHHH!")
+		src.occupant.emote("scream")
+		visible_message("\red You hear a loud squelchy grinding sound.")
+		sleep(20)
+		playsound(src.loc, 'sound/effects/gib.ogg', 50, 1)
+		src.occupant.death(1)
+		src.occupant.ghostize()
+		del(src.occupant)
+		spawn(src.gibtime)
+			playsound(src.loc, 'sound/effects/splat.ogg', 50, 1)
+			operating = 0
+			for (var/i=1 to totalslabs)
+				var/obj/item/meatslab = allmeat[i]
+				var/turf/Tx = locate(src.x - i, src.y, src.z)
+				meatslab.loc = src.loc
+				meatslab.throw_at(Tx,i,3,src)
+				if (!Tx.density)
+					new /obj/effect/decal/cleanable/blood/gibs(Tx,i)
+			src.operating = 0
+			update_icon()
+	else
+		src.occupant.emote("scream")
+		playsound(src.loc, 'sound/effects/gib.ogg', 50, 1)
+		src.occupant.death(1)
+		src.occupant.ghostize()
+		del(src.occupant)
+		spawn(src.gibtime)
+			playsound(src.loc, 'sound/effects/splat.ogg', 50, 1)
+			operating = 0
+			for (var/i=1 to totalslabs)
+				var/obj/item/meatslab = allmeat[i]
+				var/turf/Tx = locate(src.x - i, src.y, src.z)
+				meatslab.loc = src.loc
+				meatslab.throw_at(Tx,i,3,src)
+				if (!Tx.density)
+					new /obj/effect/decal/cleanable/blood/gibs(Tx,i)
+			src.operating = 0
+			update_icon()
 
 
