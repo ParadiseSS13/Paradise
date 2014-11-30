@@ -914,3 +914,8 @@ var/list/RESTRICTED_CAMERA_NETWORKS = list( //Those networks can only be accesse
 #define IS_UNATHI 4
 
 var/list/hit_appends = list("-OOF", "-ACK", "-UGH", "-HRNK", "-HURGH", "-GLORF")
+
+// multitool_topic() shit
+#define MT_ERROR  -1
+#define MT_UPDATE 1
+#define MT_REINIT 2

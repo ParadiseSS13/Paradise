@@ -295,6 +295,11 @@
 			else
 				user << "\blue You need more welding fuel to complete this task."
 				return 1
+
+		if(istype(W, /obj/item/device/multitool))
+			update_multitool_menu(user)
+			return 1
+
 	examine()
 		set src in oview(1)
 		..()
@@ -307,6 +312,17 @@
 		else
 			stat |= NOPOWER
 		update_icon()
+
+	interact(mob/user as mob)
+		update_multitool_menu(user)
+
+	multitool_menu(var/mob/user,var/obj/item/device/multitool/P)
+		return {"
+		<ul>
+			<li><b>Frequency:</b> <a href="?src=\ref[src];set_freq=-1">[format_frequency(frequency)] GHz</a> (<a href="?src=\ref[src];set_freq=[1439]">Reset</a>)</li>
+			<li>[format_tag("ID Tag","id_tag","set_id")]</li>
+		</ul>
+		"}
 
 	attackby(var/obj/item/weapon/W as obj, var/mob/user as mob)
 		if (!istype(W, /obj/item/weapon/wrench))
