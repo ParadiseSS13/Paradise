@@ -94,7 +94,7 @@
 				user << "\red You must hold \the [P] steady to burn \the [src]."
 
 /obj/item/weapon/paper_bundle/examine(mob/user)
-	if(in_range(usr, src))
+	if(in_range(usr, src) || istype(usr, /mob/dead/observer))
 		src.show_content(usr)
 	else
 		usr << "<span class='notice'>It is too far away.</span>"

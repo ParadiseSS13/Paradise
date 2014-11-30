@@ -44,7 +44,7 @@
 	..()
 
 /obj/item/weapon/photo/examine(mob/user)
-	if(in_range(usr, src))
+	if(in_range(usr, src) || istype(usr, /mob/dead/observer))
 		show(usr)
 	else
 		usr << "<span class='notice'>It is too far away.</span>"
