@@ -12,7 +12,7 @@
 	var/volume_rate = 50
 
 	var/frequency = 0
-	var/id = null
+	var/id_tag = null
 	var/datum/radio_frequency/radio_connection
 
 	level = 1
@@ -89,7 +89,7 @@
 			signal.source = src
 
 			signal.data = list(
-				"tag" = id,
+				"tag" = id_tag,
 				"device" = "AO",
 				"power" = on,
 				"volume_rate" = volume_rate,
@@ -107,7 +107,7 @@
 		set_frequency(frequency)
 
 	receive_signal(datum/signal/signal)
-		if(!signal.data["tag"] || (signal.data["tag"] != id) || (signal.data["sigtype"]!="command"))
+		if(!signal.data["tag"] || (signal.data["tag"] != id_tag) || (signal.data["sigtype"]!="command"))
 			return 0
 
 		if("power" in signal.data)
@@ -145,3 +145,19 @@
 			icon_state = "[i == 1 && istype(loc, /turf/simulated) ? "h" : "" ]exposed"
 			on = 0
 		return
+
+	multitool_menu(var/mob/user,var/obj/item/device/multitool/P)
+		return {"
+		<ul>
+			<li><b>Frequency:</b> <a href="?src=\ref[src];set_freq=-1">[format_frequency(frequency)] GHz</a> (<a href="?src=\ref[src];set_freq=[1439]">Reset</a>)</li>
+			<li>[format_tag("ID Tag","id_tag","set_id")]</a></li>
+		</ul>
+"}
+
+	attackby(var/obj/item/weapon/W as obj, var/mob/user as mob)
+		if(istype(W, /obj/item/device/multitool))
+			interact(user)
+			return 1
+
+	interact(mob/user as mob)
+		update_multitool_menu(user)
