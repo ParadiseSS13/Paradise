@@ -306,7 +306,7 @@
 /obj/machinery/turretid
 	name = "turret deactivation control"
 	icon = 'icons/obj/device.dmi'
-	icon_state = "motion3"
+	icon_state = "control_stun"
 	anchored = 1
 	density = 0
 	var/enabled = 1
@@ -457,11 +457,11 @@
 /obj/machinery/turretid/proc/update_icons()
 	if (src.enabled)
 		if (src.lethal)
-			icon_state = "motion1"
+			icon_state = "control_kill"
 		else
-			icon_state = "motion3"
+			icon_state = "control_stun"
 	else
-		icon_state = "motion0"
+		icon_state = "control_standby"
 																				//CODE FIXED BUT REMOVED
 //	if(control_area)															//USE: updates other controls in the area
 //		for (var/obj/machinery/turretid/Turret_Control in world)				//I'm not sure if this is what it was
