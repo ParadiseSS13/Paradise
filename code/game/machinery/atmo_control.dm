@@ -96,6 +96,7 @@ obj/machinery/air_sensor
 	name = "Computer"
 
 	var/frequency = 1439
+	var/show_sensors=1
 	var/list/sensors = list()
 
 	var/list/sensor_information = list()
