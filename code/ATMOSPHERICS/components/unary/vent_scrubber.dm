@@ -266,6 +266,9 @@
 		update_icon()
 
 	attackby(var/obj/item/weapon/W as obj, var/mob/user as mob)
+		if(istype(W, /obj/item/device/multitool))
+			update_multitool_menu(user)
+			return 1
 		if (!istype(W, /obj/item/weapon/wrench))
 			return ..()
 		if (!(stat & NOPOWER) && on)
@@ -290,6 +293,14 @@
 				"You hear ratchet.")
 			new /obj/item/pipe(loc, make_from=src)
 			del(src)
+
+	multitool_menu(var/mob/user,var/obj/item/device/multitool/P)
+		return {"
+		<ul>
+			<li><b>Frequency:</b> <a href="?src=\ref[src];set_freq=-1">[format_frequency(frequency)] GHz</a> (<a href="?src=\ref[src];set_freq=[1439]">Reset</a>)</li>
+			<li>[format_tag("ID Tag","id_tag")]</li>
+		</ul>
+		"}
 
 /obj/machinery/atmospherics/unary/vent_scrubber/Destroy()
 	if(initial_loc)
