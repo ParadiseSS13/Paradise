@@ -375,7 +375,7 @@
 		if ( !issilicon(user) )
 			user << "<span class='notice'>You are too far away.</span>"
 			user.unset_machine()
-			user << browse(null, "window=turretid")
+			user << browse(null, "window=turretid;size=500x250")
 			return
 
 	user.set_machine(src)
@@ -396,7 +396,7 @@
 		t += text("Turrets [] - <A href='?src=\ref[];toggleOn=1'>[]?</a><br>\n", src.enabled?"activated":"deactivated", src, src.enabled?"Disable":"Enable")
 		t += text("Currently set for [] - <A href='?src=\ref[];toggleLethal=1'>Change to []?</a><br>\n", src.lethal?"lethal":"stun repeatedly", src,  src.lethal?"Stun repeatedly":"Lethal")
 
-	//user << browse(t, "window=turretid")
+	//user << browse(t, "window=turretid;size=500x250")
 	//onclose(user, "turretid")
 	var/datum/browser/popup = new(user, "turretid", "Turret Control Panel ([area.name])")
 	popup.set_content(t)

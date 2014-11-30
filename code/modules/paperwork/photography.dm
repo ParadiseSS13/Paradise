@@ -44,15 +44,14 @@
 	..()
 
 /obj/item/weapon/photo/examine(mob/user)
-	if(in_range(user, src))
-		show(user)
-		user << desc
+	if(in_range(usr, src))
+		show(usr)
 	else
-		user << "<span class='notice'>It is too far away.</span>"
+		usr << "<span class='notice'>It is too far away.</span>"
 
 /obj/item/weapon/photo/proc/show(mob/user as mob)
-	user << browse_rsc(img, "tmp_photo.png")
-	user << browse("<html><head><title>[name]</title></head>" \
+	usr << browse_rsc(img, "tmp_photo.png")
+	usr << browse("<html><head><title>[name]</title></head>" \
 		+ "<body style='overflow:hidden;margin:0;text-align:center'>" \
 		+ "<img src='tmp_photo.png' width='[64*photo_size]' style='-ms-interpolation-mode:nearest-neighbor' />" \
 		+ "[scribble ? "<br>Written on the back:<br><i>[scribble]</i>" : ""]"\
