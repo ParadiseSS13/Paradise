@@ -456,13 +456,14 @@ var/list/intents = list("help","disarm","grab","harm")
 	src << "\blue You are now [resting ? "resting" : "getting up"]"
 
 /proc/get_multitool(mob/user as mob)
-	// Check distance for those that need it.
-	if(!isAI(user))
-		if(!in_range(user, src))
-			return null
-
 	// Get tool
-	var/obj/item/device/multitool/P = user.get_multitool()
+	var/obj/item/device/multitool/P
+	if(isrobot(user) || ishuman(user))
+		P = user.get_active_hand()
+	else if(isAI(user))
+		var/mob/living/silicon/ai/AI=user
+		P = AI.aiMulti
+
 	if(!istype(P))
 		return null
 	return P

@@ -139,3 +139,81 @@
 		mo.show_message(rendered, 2)
 		*/
 	return
+
+/obj/proc/multitool_menu(var/mob/user,var/obj/item/device/multitool/P)
+	return "<b>NO MULTITOOL_MENU!</b>"
+
+/obj/proc/linkWith(var/mob/user, var/obj/buffer, var/link/context)
+	return 0
+
+/obj/proc/unlinkFrom(var/mob/user, var/obj/buffer)
+	return 0
+
+/obj/proc/canLink(var/obj/O, var/link/context)
+	return 0
+
+/obj/proc/isLinkedWith(var/obj/O)
+	return 0
+
+/obj/proc/getLink(var/idx)
+	return null
+
+/obj/proc/linkMenu(var/obj/O)
+	var/dat=""
+	if(canLink(O, list()))
+		dat += " <a href='?src=\ref[src];link=1'>\[Link\]</a> "
+	return dat
+
+/obj/proc/format_tag(var/label,var/varname, var/act="set_tag")
+	var/value = vars[varname]
+	if(!value || value=="")
+		value="-----"
+	return "<b>[label]:</b> <a href=\"?src=\ref[src];[act]=[varname]\">[value]</a>"
+
+
+/obj/proc/update_multitool_menu(mob/user as mob)
+	var/obj/item/device/multitool/P = get_multitool(user)
+
+	if(!istype(P))
+		return 0
+	var/dat = {"<html>
+	<head>
+		<title>[name] Configuration</title>
+		<style type="text/css">
+html,body {
+	font-family:courier;
+	background:#999999;
+	color:#333333;
+}
+
+a {
+	color:#000000;
+	text-decoration:none;
+	border-bottom:1px solid black;
+}
+		</style>
+	</head>
+	<body>
+		<h3>[name]</h3>
+"}
+	dat += multitool_menu(user,P)
+	if(P)
+		if(P.buffer)
+			var/id="???"
+			if(istype(P.buffer, /obj/machinery/telecomms))
+				id=P.buffer:id
+			else
+				id=P.buffer:id_tag
+			dat += "<p><b>MULTITOOL BUFFER:</b> [P.buffer] ([id])"
+
+			dat += linkMenu(P.buffer)
+
+			if(P.buffer)
+				dat += "<a href='?src=\ref[src];flush=1'>\[Flush\]</a>"
+			dat += "</p>"
+		else
+			dat += "<p><b>MULTITOOL BUFFER:</b> <a href='?src=\ref[src];buffer=1'>\[Add Machine\]</a></p>"
+	dat += "</body></html>"
+	user << browse(dat, "window=mtcomputer")
+	user.set_machine(src)
+	onclose(user, "mtcomputer")
