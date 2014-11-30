@@ -21,7 +21,7 @@
 
 	afterattack(atom/target, mob/user, proximity)
 		if(!proximity) return
-		if(istype(target,/obj/item/toy/cards/singlecard) || istype(target,/obj/item/toy/cards/)
+		if(istype(target,/obj/item/toy/cards/singlecard))
 			user << "\red Unable to scan [target]."
 			return
 		if(istype(target,/obj/item))
