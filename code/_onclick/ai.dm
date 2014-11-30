@@ -110,7 +110,7 @@
 */
 
 /atom/proc/AICtrlShiftClick(var/mob/user)  // Examines
-	if(user.client && user.client.eye == user)
+	if(user.client)
 		examine()
 	return
 	
