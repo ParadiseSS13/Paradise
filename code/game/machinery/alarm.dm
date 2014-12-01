@@ -245,11 +245,11 @@
 			remote_control = 0
 		if(RCON_AUTO)
 			if(local_danger_level == 2)
-				remote_control = 1
+				remote_control = 2
 			else
-				remote_control = 0
+				remote_control = 1
 		if(RCON_YES)
-			remote_control = 1
+			remote_control = 3
 	if(screen == AALARM_SCREEN_MAIN)
 		updateDialog()
 	return

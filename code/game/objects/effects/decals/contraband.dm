@@ -32,7 +32,7 @@ obj/structure/sign/poster
 	anchored = 1
 	var/serial_number	//Will hold the value of src.loc if nobody initialises it
 	var/ruined = 0
-
+	var/checking = 0
 
 obj/structure/sign/poster/New(var/serial)
 
@@ -64,19 +64,23 @@ obj/structure/sign/poster/attackby(obj/item/weapon/W as obj, mob/user as mob)
 	if(ruined)
 		return
 	var/temp_loc = user.loc
-	switch(alert("Do I want to rip the poster from the wall?","You think...","Yes","No"))
-		if("Yes")
-			if(user.loc != temp_loc)
+	if(!checking)
+		checking = 1
+		switch(alert("Do I want to rip the poster from the wall?","You think...","Yes","No"))
+			if("Yes")
+				if(user.loc != temp_loc)
+					return
+				visible_message("<span class='warning'>[user] rips [src] in a single, decisive motion!</span>" )
+				playsound(src.loc, 'sound/items/poster_ripped.ogg', 100, 1)
+				ruined = 1
+				icon_state = "poster_ripped"
+				name = "ripped poster"
+				desc = "You can't make out anything from the poster's original print. It's ruined."
+				add_fingerprint(user)
+				checking = 0
+			if("No")
+				checking = 0
 				return
-			visible_message("<span class='warning'>[user] rips [src] in a single, decisive motion!</span>" )
-			playsound(src.loc, 'sound/items/poster_ripped.ogg', 100, 1)
-			ruined = 1
-			icon_state = "poster_ripped"
-			name = "ripped poster"
-			desc = "You can't make out anything from the poster's original print. It's ruined."
-			add_fingerprint(user)
-		if("No")
-			return
 
 /obj/structure/sign/poster/proc/roll_and_drop(turf/newloc)
 	var/obj/item/weapon/contraband/poster/P = new(src, serial_number)
