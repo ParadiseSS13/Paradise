@@ -82,28 +82,6 @@
 				if (!species.name == "Machine")
 					return
 
-		if("squish")
-			if(species.name == "Slime People")
-				var/M = null
-				if(param)
-					for (var/mob/A in view(null, null))
-						if (param == A.name)
-							M = A
-							break
-				if(!M)
-					param = null
-
-				if (param)
-					message = "<B>[src]</B> squishes at [param]."
-				else
-					message = "<B>[src]</B> squishes."
-				playsound(src.loc, 'sound/effects/squelch1.ogg', 50, 0)
-				m_type = 1
-			else
-				if(!species.name == "Slime People")
-					return
-
-
 		if ("airguitar")
 			if (!src.restrained())
 				message = "<B>[src]</B> is strumming the air and headbanging like a safari chimp."
