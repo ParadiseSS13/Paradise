@@ -10,7 +10,6 @@
 	var/dirty = 0 // Does it need cleaning?
 	var/gibtime = 40 // Time from starting until meat appears
 	var/mob/living/occupant // Mob who has been put inside
-	var/dramatic = 1
 	use_power = 1
 	idle_power_usage = 2
 	active_power_usage = 500
@@ -135,6 +134,7 @@
 		visible_message("\red You hear a loud metallic grinding sound.")
 		return
 	use_power(1000)
+	visible_message("\red You hear a loud squelchy grinding sound.")
 	src.operating = 1
 	update_icon()
 	var/sourcename = src.occupant.real_name
@@ -161,6 +161,7 @@
 		src.occupant.LAssailant = null
 	else
 		src.occupant.LAssailant = user
+<<<<<<< HEAD
 	if(src.dramatic)
 		visible_message("\red The hatch closes and locks.")
 		src.occupant.visible_message("\red The hatch closes and locks behind you.")
@@ -212,5 +213,25 @@
 					new /obj/effect/decal/cleanable/blood/gibs(Tx,i)
 			src.operating = 0
 			update_icon()
+=======
+
+	src.occupant.emote("scream")
+	playsound(src.loc, 'sound/effects/gib.ogg', 50, 1)
+	src.occupant.death(1)
+	src.occupant.ghostize()
+	del(src.occupant)
+	spawn(src.gibtime)
+		playsound(src.loc, 'sound/effects/splat.ogg', 50, 1)
+		operating = 0
+		for (var/i=1 to totalslabs)
+			var/obj/item/meatslab = allmeat[i]
+			var/turf/Tx = locate(src.x - i, src.y, src.z)
+			meatslab.loc = src.loc
+			meatslab.throw_at(Tx,i,3,src)
+			if (!Tx.density)
+				new /obj/effect/decal/cleanable/blood/gibs(Tx,i)
+		src.operating = 0
+		update_icon()
+>>>>>>> parent of 0e99339... Makes the gibber Ultra-Dramatic. Can be toggled on and off via the
 
 
