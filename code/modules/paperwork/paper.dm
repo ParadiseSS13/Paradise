@@ -62,19 +62,20 @@
 		return
 	icon_state = "paper"
 
-/obj/item/weapon/paper/examine(mob/user)
-	if(in_range(user, src) || istype(user, /mob/dead/observer))
+/obj/item/weapon/paper/examine()
+	if(in_range(usr, src) || istype(usr, /mob/dead/observer))
 		show_content(usr)
 	else
-		user << "<span class='notice'>You have to go closer if you want to read it.</span>"
+		usr << "<span class='notice'>You have to go closer if you want to read it.</span>"
 	return
 
 /obj/item/weapon/paper/proc/show_content(var/mob/user, var/forceshow=0)
-	if(!(istype(user, /mob/living/carbon/human) || istype(user, /mob/dead/observer) || istype(user, /mob/living/silicon)) && !forceshow)
-		user << browse("<HTML><HEAD><TITLE>[name]</TITLE></HEAD><BODY>[stars(info)][stamps]</BODY></HTML>", "window=[name]")
+	set src in oview(1)
+	if(!(istype(usr, /mob/living/carbon/human) || istype(usr, /mob/dead/observer) || istype(usr, /mob/living/silicon)) && !forceshow)
+		usr << browse("<HTML><HEAD><TITLE>[name]</TITLE></HEAD><BODY>[stars(info)][stamps]</BODY></HTML>", "window=[name]")
 		onclose(usr, "[name]")
 	else
-		user << browse("<HTML><HEAD><TITLE>[name]</TITLE></HEAD><BODY>[info][stamps]</BODY></HTML>", "window=[name]")
+		usr << browse("<HTML><HEAD><TITLE>[name]</TITLE></HEAD><BODY>[info][stamps]</BODY></HTML>", "window=[name]")
 		onclose(usr, "[name]")
 
 /obj/item/weapon/paper/verb/rename()
