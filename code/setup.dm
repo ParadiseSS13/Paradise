@@ -914,3 +914,5 @@ var/list/RESTRICTED_CAMERA_NETWORKS = list( //Those networks can only be accesse
 #define IS_UNATHI 4
 
 var/list/hit_appends = list("-OOF", "-ACK", "-UGH", "-HRNK", "-HURGH", "-GLORF")
+
+#define BACKGROUND_ENABLED 0 // The default value for all uses of set background. Set background can cause gradual lag and is recommended you only turn this on if necessary.

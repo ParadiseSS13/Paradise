@@ -283,6 +283,7 @@
 					// Vend the item
 					src.vend(src.currently_vending, usr)
 					currently_vending = null
+					src.updateUsrDialog()
 				else
 					usr << "\icon[src]<span class='warning'>You don't have that much money!</span>"
 			else

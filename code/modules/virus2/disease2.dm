@@ -66,7 +66,7 @@
 	//Space antibiotics stop disease completely
 	if(mob.reagents.has_reagent("spaceacillin"))
 		if(stage == 1 && prob(20))
-			src.cure()
+			src.cure(mob)
 		return
 
 	//Virus food speeds up disease progress

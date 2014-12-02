@@ -61,6 +61,33 @@
 
 */
 
+/*	the radio controller is a confusing piece of shit and didnt work
+	so i made radios not use the radio controller.
+*/
+var/list/all_radios = list()
+
+/proc/add_radio(var/obj/item/radio, freq)
+	if(!freq || !radio)
+		return
+	if(!all_radios["[freq]"])
+		all_radios["[freq]"] = list(radio)
+		return freq
+
+	all_radios["[freq]"] |= radio
+	return freq
+
+/proc/remove_radio(var/obj/item/radio, freq)
+	if(!freq || !radio)
+		return
+	if(!all_radios["[freq]"])
+		return
+
+	all_radios["[freq]"] -= radio
+
+/proc/remove_radio_all(var/obj/item/radio)
+	for(var/freq in all_radios)
+		all_radios["[freq]"] -= radio
+
 /*
 Frequency range: 1200 to 1600
 Radiochat range: 1441 to 1489 (most devices refuse to be tune to other frequency, even during mapmaking)
@@ -108,7 +135,8 @@ var/list/radiochannels = list(
 	"Deathsquad" = 1441,
 	"Syndicate" = 1213,
 	"Supply" = 1347,
-	"Service" = 1349
+	"Service" = 1349,
+	"AI Private" = 1447
 )
 //depenging helpers
 var/list/DEPT_FREQS = list(1351, 1355, 1357, 1359, 1213, 1443, 1441, 1347, 1349)
@@ -127,6 +155,9 @@ var/const/MED_FREQ = 1355
 var/const/SUP_FREQ = 1347
 var/const/SRV_FREQ = 1349
 
+// other channels
+var/const/AIPRIV_FREQ = 1447
+
 #define TRANSMISSION_WIRE	0
 #define TRANSMISSION_RADIO	1
 
@@ -140,6 +171,9 @@ var/const/RADIO_AIRLOCK = "6"
 var/const/RADIO_SECBOT = "7"
 var/const/RADIO_MULEBOT = "8"
 var/const/RADIO_MAGNETS = "9"
+var/const/RADIO_CLEANBOT = "10"
+var/const/RADIO_FLOORBOT = "11"
+var/const/RADIO_MEDBOT = "12"
 
 var/global/datum/controller/radio/radio_controller
 
@@ -150,7 +184,7 @@ var/global/datum/controller/radio/radio_controller
 datum/controller/radio
 	var/list/datum/radio_frequency/frequencies = list()
 
-	proc/add_object(obj/device as obj, var/new_frequency as num, var/filter = null as text|null)
+	proc/add_object(obj/device as obj, var/new_frequency as num, var/filter = null as text|null)	
 		var/f_text = num2text(new_frequency)
 		var/datum/radio_frequency/frequency = frequencies[f_text]
 

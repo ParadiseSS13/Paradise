@@ -869,6 +869,7 @@ var/list/slot_equipment_priority = list( \
 				stat(null, "Mob-[master_controller.mobs_cost]\t#[mob_list.len]")
 				stat(null, "Dis-[master_controller.diseases_cost]\t#[active_diseases.len]")
 				stat(null, "Mch-[master_controller.machines_cost]\t#[machines.len]")
+				stat(null, "Bots-[master_controller.aibots_cost]\t#[aibots.len]")
 				stat(null, "Obj-[master_controller.objects_cost]\t#[processing_objects.len]")
 				stat(null, "PiNet-[master_controller.networks_cost]\t#[pipe_networks.len]")
 				stat(null, "Ponet-[master_controller.powernets_cost]\t#[powernets.len]")
@@ -1308,3 +1309,6 @@ mob/proc/yank_out_object()
 	if(paralysis)
 		AdjustParalysis(-1)
 	return paralysis
+	
+/mob/proc/assess_threat() //For sec bot threat assessment
+	return

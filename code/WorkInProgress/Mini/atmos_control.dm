@@ -66,6 +66,8 @@
 			continue 
 		if(!alarm.remote_control)
 			continue
+		if(alarm.hidden)
+			continue
 		var/turf/pos = get_turf(alarm)
 		var/list/alarm_data=list()
 		alarm_data["ID"]="\ref[alarm]"
