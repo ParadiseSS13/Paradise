@@ -92,6 +92,7 @@ obj/machinery/air_sensor
 /obj/machinery/computer/general_air_control
 	icon = 'icons/obj/computer.dmi'
 	icon_state = "tank"
+	circuit = "/obj/item/weapon/circuitboard/air_management"
 
 	name = "Computer"
 
@@ -120,38 +121,9 @@ obj/machinery/air_sensor
 	attackby(I as obj, user as mob)
 		if(istype(I, /obj/item/device/multitool))
 			update_multitool_menu(user)
+		if(..())
+			return 1
 
-		if(istype(I, /obj/item/weapon/screwdriver))
-			playsound(get_turf(src), 'sound/items/Screwdriver.ogg', 50, 1)
-			if(do_after(user, 20))
-				if (src.stat & BROKEN)
-					user << "\blue The broken glass falls out."
-					var/obj/structure/computerframe/A = new /obj/structure/computerframe( src.loc )
-					getFromPool(/obj/item/weapon/shard, loc)
-					var/obj/item/weapon/circuitboard/air_management/M = new /obj/item/weapon/circuitboard/air_management( A )
-					for (var/obj/C in src)
-						C.loc = src.loc
-					M.frequency = src.frequency
-					A.circuit = M
-					A.state = 3
-					A.icon_state = "3"
-					A.anchored = 1
-					del(src)
-				else
-					user << "\blue You disconnect the monitor."
-					var/obj/structure/computerframe/A = new /obj/structure/computerframe( src.loc )
-					var/obj/item/weapon/circuitboard/air_management/M = new /obj/item/weapon/circuitboard/air_management( A )
-					for (var/obj/C in src)
-						C.loc = src.loc
-					M.frequency = src.frequency
-					A.circuit = M
-					A.state = 4
-					A.icon_state = "4"
-					A.anchored = 1
-					del(src)
-		else
-			src.attack_hand(user)
-		return
 
 	receive_signal(datum/signal/signal)
 		if(!signal || signal.encryption) return
@@ -329,6 +301,7 @@ legend {
 	large_tank_control
 		icon = 'icons/obj/computer.dmi'
 		icon_state = "tank"
+		circuit = "/obj/item/weapon/circuitboard/large_tank_control"
 
 		var/input_tag
 		var/output_tag
@@ -346,6 +319,13 @@ legend {
 		)
 
 		var/pressure_setting = ONE_ATMOSPHERE * 45
+
+		attackby(I as obj, user as mob)
+			if(istype(I, /obj/item/device/multitool))
+				update_multitool_menu(user)
+			if(..())
+				return 1
+
 
 		multitool_menu(var/mob/user, var/obj/item/device/multitool/P)
 			var/dat= {"
@@ -541,6 +521,7 @@ legend {
 	fuel_injection
 		icon = 'icons/obj/computer.dmi'
 		icon_state = "atmos"
+		circuit = "/obj/item/weapon/circuitboard/injector_control"
 
 		var/device_tag
 		var/list/device_info
@@ -551,37 +532,10 @@ legend {
 		var/on_temperature = 1200
 
 		attackby(I as obj, user as mob)
-			if(istype(I, /obj/item/weapon/screwdriver))
-				playsound(get_turf(src), 'sound/items/Screwdriver.ogg', 50, 1)
-				if(do_after(user, 20))
-					if (src.stat & BROKEN)
-						user << "\blue The broken glass falls out."
-						var/obj/structure/computerframe/A = new /obj/structure/computerframe( src.loc )
-						getFromPool(/obj/item/weapon/shard, loc)
-						var/obj/item/weapon/circuitboard/injector_control/M = new /obj/item/weapon/circuitboard/injector_control( A )
-						for (var/obj/C in src)
-							C.loc = src.loc
-						M.frequency = src.frequency
-						A.circuit = M
-						A.state = 3
-						A.icon_state = "3"
-						A.anchored = 1
-						del(src)
-					else
-						user << "\blue You disconnect the monitor."
-						var/obj/structure/computerframe/A = new /obj/structure/computerframe( src.loc )
-						var/obj/item/weapon/circuitboard/injector_control/M = new /obj/item/weapon/circuitboard/injector_control( A )
-						for (var/obj/C in src)
-							C.loc = src.loc
-						M.frequency = src.frequency
-						A.circuit = M
-						A.state = 4
-						A.icon_state = "4"
-						A.anchored = 1
-						del(src)
-			else
-				src.attack_hand(user)
-			return
+			if(istype(I, /obj/item/device/multitool))
+				update_multitool_menu(user)
+			if(..())
+				return 1
 
 		process()
 			if(automation)

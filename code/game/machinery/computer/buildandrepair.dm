@@ -123,11 +123,11 @@
 	name = "Circuit board (Turbine Control)"
 	build_path = "/obj/machinery/computer/turbine_computer"
 /obj/item/weapon/circuitboard/solar_control
-	name = "Circuit board (Solar Control)"  
+	name = "Circuit board (Solar Control)"
 	build_path = "/obj/machinery/power/solar_control"
 	origin_tech = "programming=2;powerstorage=2"
 /obj/item/weapon/circuitboard/powermonitor
-	name = "Circuit board (Power Monitor)"  
+	name = "Circuit board (Power Monitor)"
 	build_path = "/obj/machinery/power/monitor"
 /obj/item/weapon/circuitboard/olddoor
 	name = "Circuit board (DoorMex)"
@@ -203,7 +203,7 @@
 	name = "Circuit board (Research Shuttle)"
 	build_path = "/obj/machinery/computer/shuttle_control/research"
 	origin_tech = "programming=2"
-/obj/item/weapon/circuitboard/HolodeckControl 
+/obj/item/weapon/circuitboard/HolodeckControl
 	name = "Circuit board (Holodeck Control)"
 	build_path = "/obj/machinery/computer/HolodeckControl"
 	origin_tech = "programming=4"
@@ -223,6 +223,13 @@
 	name = "Circuit board (Telepad Control Console)"
 	build_path = "/obj/machinery/computer/telescience"
 	origin_tech = "programming=3;bluespace=2"
+
+/obj/item/weapon/circuitboard/atmos_automation
+	name = "Circuit board (Atmospherics Automation)"
+	build_path = "/obj/machinery/computer/general_air_control/atmos_automation"
+/obj/item/weapon/circuitboard/large_tank_control
+	name = "Circuit board (Atmospheric Tank Control)"
+	build_path = "/obj/machinery/computer/general_air_control/large_tank_control"
 
 /obj/item/weapon/circuitboard/HONKputer
 	name = "Circuit board (HONKputer)"

@@ -10,6 +10,13 @@
 
 	var/list/datum/automation/automations=list()
 
+	attackby(I as obj, user as mob)
+		if(istype(I, /obj/item/device/multitool))
+			update_multitool_menu(user)
+		if(..())
+			return 1
+
+
 	receive_signal(datum/signal/signal)
 		if(!signal || signal.encryption) return
 

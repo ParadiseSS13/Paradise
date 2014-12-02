@@ -209,7 +209,7 @@ var/global/list/pipeID2State = list(
 			return dir|flip
 		if(PIPE_SIMPLE_BENT, PIPE_INSULATED_BENT, PIPE_HE_BENT)
 			return dir //dir|acw
-		if(PIPE_CONNECTOR,PIPE_UVENT,PIPE_SCRUBBER,PIPE_HEAT_EXCHANGE)
+		if(PIPE_CONNECTOR,PIPE_UVENT,PIPE_SCRUBBER,PIPE_HEAT_EXCHANGE, PIPE_INJECTOR)
 			return dir
 		if(PIPE_MANIFOLD4W)
 			return dir|flip|cw|acw
