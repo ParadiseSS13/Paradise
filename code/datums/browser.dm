@@ -152,7 +152,7 @@
 
 	winset(user, windowid, "on-close=\".windowclose [param]\"")
 
-	//world << "OnClose [user]: [windowid] : ["on-close=\".windowclose [param]\""]"
+	world << "OnClose [user]: [windowid] : ["on-close=\".windowclose [param]\""]"
 
 
 // the on-close client verb
@@ -160,11 +160,11 @@
 // if a valid atom reference is supplied, call the atom's Topic() with "close=1"
 // otherwise, just reset the client mob's machine var.
 //
-/client/verb/windowclosed(var/atomref as text)
+/client/verb/windowclose(var/atomref as text)
 	set hidden = 1						// hide this verb from the user's panel
 	set name = ".windowclose"			// no autocomplete on cmd line
 
-	//world << "windowclose: [atomref]"
+	world << "windowclose: [atomref]"
 	if(atomref!="null")				// if passed a real atomref
 		var/hsrc = locate(atomref)	// find the reffed atom
 		if(hsrc)
@@ -176,6 +176,6 @@
 	// no atomref specified (or not found)
 	// so just reset the user mob's machine var
 	if(src && src.mob)
-		//world << "[src] was [src.mob.machine], setting to null"
+		world << "[src] was [src.mob.machine], setting to null"
 		src.mob.unset_machine()
 	return

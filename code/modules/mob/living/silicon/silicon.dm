@@ -12,6 +12,11 @@
 	var/list/alarm_types_clear = list("Motion" = 0, "Fire" = 0, "Atmosphere" = 0, "Power" = 0, "Camera" = 0)
 	var/designation = ""
 	var/obj/item/device/camera/siliconcam/aiCamera = null //photography
+//Used in say.dm, allows for pAIs to have different say flavor text, as well as silicons, although the latter is not implemented.
+	var/speak_statement = "states"
+	var/speak_exclamation = "declares"
+	var/speak_query = "queries"
+	var/pose //Yes, now AIs can pose too.
 
 /mob/living/silicon/proc/cancelAlarm()
 	return
@@ -235,3 +240,17 @@
 
 /mob/living/silicon/assess_threat() //Secbots won't hunt silicon units
 	return -10
+
+/mob/living/silicon/verb/pose()
+	set name = "Set Pose"
+	set desc = "Sets a description which will be shown when someone examines you."
+	set category = "IC"
+
+	pose =  copytext(sanitize(input(usr, "This is [src]. It is...", "Pose", null)  as text), 1, MAX_MESSAGE_LEN)
+
+/mob/living/silicon/verb/set_flavor()
+	set name = "Set Flavour Text"
+	set desc = "Sets an extended description of your character's features."
+	set category = "IC"
+
+	flavor_text =  copytext(sanitize(input(usr, "Please enter your new flavour text.", "Flavour text", null)  as text), 1)

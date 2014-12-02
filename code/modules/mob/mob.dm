@@ -761,6 +761,7 @@ var/list/slot_equipment_priority = list( \
 /mob/MouseDrop(mob/M as mob)
 	..()
 	if(M != usr) return
+	if(M.small) return // Stops pAI drones and small mobs (borers, parrots, crabs) from stripping people. --DZD
 	if(usr == src) return
 	if(!Adjacent(usr)) return
 	if(istype(M,/mob/living/silicon/ai)) return
@@ -1309,6 +1310,6 @@ mob/proc/yank_out_object()
 	if(paralysis)
 		AdjustParalysis(-1)
 	return paralysis
-	
+
 /mob/proc/assess_threat() //For sec bot threat assessment
 	return

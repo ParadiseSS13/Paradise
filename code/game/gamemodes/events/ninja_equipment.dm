@@ -682,17 +682,24 @@ ________________________________________________________________________________
 			pai.attack_self(U)
 
 		if("Eject pAI")
-			var/turf/T = get_turf(loc)
-			if(!U.get_active_hand())
-				U.put_in_hands(pai)
-				pai.add_fingerprint(U)
+		if("Eject pAI")
+			if(pai)
 				pai = null
 			else
-				if(T)
-					pai.loc = T
+				if(pai.loc != src)
 					pai = null
 				else
-					U << "\red <b>ERROR<b>: \black Could not eject pAI card."
+					var/turf/T = get_turf(loc)
+					if(!U.get_active_hand())
+						U.put_in_hands(pai)
+						pai.add_fingerprint(U)
+						pai = null
+					else
+						if(T)
+							pai.loc = T
+							pai = null
+						else
+							U << "\red <b>ERROR<b>: \black Could not eject pAI card."
 
 		if("Override AI Laws")
 			var/law_zero = A.laws.zeroth//Remembers law zero, if there is one.

@@ -331,8 +331,8 @@ Turf and target are seperate in case you want to teleport some distance from a t
 		if(oldname != real_name)
 			R.notify_ai(3, oldname, newname)
 		if(R.camera)
-			R.camera.c_tag = real_name		
-		
+			R.camera.c_tag = real_name
+
 	if(oldname)
 		//update the datacore records! This is goig to be a bit costly.
 		for(var/list/L in list(data_core.general,data_core.medical,data_core.security,data_core.locked))
@@ -639,6 +639,7 @@ var/list/sortMobsOrder = list(	"/mob/living/silicon/ai",
 // if a valid atom reference is supplied, call the atom's Topic() with "close=1"
 // otherwise, just reset the client mob's machine var.
 //
+/*
 /client/verb/windowclose(var/atomref as text)
 	set hidden = 1						// hide this verb from the user's panel
 	set name = ".windowclose"			// no autocomplete on cmd line
@@ -658,7 +659,7 @@ var/list/sortMobsOrder = list(	"/mob/living/silicon/ai",
 	if(src && src.mob)
 		//world << "[src] was [src.mob.machine], setting to null"
 		src.mob.unset_machine()
-	return
+	return */
 
 //Will return the location of the turf an atom is ultimatly sitting on
 /proc/get_turf_loc(var/atom/movable/M) //gets the location of the turf that the atom is on, or what the atom is in is on, etc

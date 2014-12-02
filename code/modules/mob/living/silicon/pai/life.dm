@@ -25,4 +25,6 @@
 		stat = CONSCIOUS
 	else
 		health = 100 - getBruteLoss() - getFireLoss()
+	if(health <= 0)
+		death(0)
 
