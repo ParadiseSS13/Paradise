@@ -37,7 +37,7 @@
 	var/treatment_fire = "tricordrazine"
 	var/treatment_tox = "tricordrazine"
 	var/treatment_virus = "spaceacillin"
-	var/treat_virus = 0 //If on, the bot will attempt to treat viral infections, curing them if possible.
+	var/treat_virus = 1 //If on, the bot will attempt to treat viral infections, curing them if possible.
 	var/shut_up = 0 //self explanatory :)
 	bot_type = MED_BOT
 	bot_filter = RADIO_MEDBOT
@@ -393,6 +393,10 @@
 	if((C.getToxLoss() >= heal_threshold) && (!C.reagents.has_reagent(treatment_tox)))
 		return 1
 
+	if((C.virus2.len) && (!C.reagents.has_reagent(treatment_virus)))		
+		for (var/ID in C.virus2)
+			if (ID in virusDB) // If the virus is known, the medbot is aware of it
+				return 1
 	return 0
 
 /obj/machinery/bot/medbot/proc/medicate_patient(mob/living/carbon/C as mob)
@@ -420,6 +424,17 @@
 	if(emagged == 2) //Emagged! Time to poison everybody.
 		reagent_id = "toxin"
 
+	if(treat_virus)
+		var/virus = 0
+		if(C:virus2.len)		
+			for (var/ID in C.virus2)
+				if (ID in virusDB) // If the virus is known, the medbot is aware of it and will try to cure it
+					virus = 1	
+					
+		if (!reagent_id && (virus))
+			if(!C.reagents.has_reagent(treatment_virus))
+				reagent_id = treatment_virus		
+		
 	else
 		if (!reagent_id && (C.getBruteLoss() >= heal_threshold))
 			if(!C.reagents.has_reagent(treatment_brute))

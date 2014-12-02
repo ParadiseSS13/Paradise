@@ -33,12 +33,13 @@
 		/obj/item/weapon/gun/energy/laser/redtag,\
 		/obj/item/weapon/gun/energy/laser/practice,\
 		/obj/item/weapon/melee/telebaton,\
-		/obj/item/weapon/gun/energy/kinetic_accelerator)
+		/obj/item/weapon/gun/energy/kinetic_accelerator,\
+		/obj/item/weapon/melee/baton/loaded/ntcane)
 
 
 /obj/machinery/bot/secbot/beepsky
-	name = "Officer Beep O'sky"
-	desc = "It's Officer Beep O'sky! Powered by a potato and a shot of whiskey."
+	name = "Officer Beepsky"
+	desc = "It's Officer Beepsky! Powered by a potato and a shot of whiskey."
 	idcheck = 0
 	weaponscheck = 0
 	auto_patrol = 1
