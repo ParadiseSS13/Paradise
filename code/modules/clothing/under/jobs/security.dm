@@ -110,13 +110,30 @@
 
 /obj/item/clothing/suit/armor/hos
 	name = "armored coat"
-	desc = "A greatcoat enhanced with a special alloy for some protection and style."
+	desc = "A trench coat enhanced with a special alloy for some protection and style."
 	icon_state = "hos"
 	item_state = "hos"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS|LEGS
 	armor = list(melee = 65, bullet = 30, laser = 50, energy = 10, bomb = 25, bio = 0, rad = 0)
 	flags_inv = HIDEJUMPSUIT
 	siemens_coefficient = 0.6
+
+	verb/toggle()
+		set name = "Toggle Trenchcoat Buttons"
+		set category = "Object"
+
+		if(!usr.canmove || usr.stat || usr.restrained())
+			return 0
+		if(icon_state == "hos")
+			icon_state = "jensencoat"
+			item_state = "jensencoat"
+			usr<< "You unbutton the [src]."
+		else
+			icon_state = "hos"
+			item_state = "hos"
+			usr<< "You button the [src]."
+
+		usr.update_inv_wear_suit()
 
 
 /obj/item/clothing/head/helmet/HoS/dermal

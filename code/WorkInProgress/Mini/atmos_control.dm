@@ -63,7 +63,7 @@
 		alarm_list+=alarm
 	for(var/obj/machinery/alarm/alarm in sortAtom(alarm_list))
 		if(!is_in_filter(alarm.alarm_area.type))
-			continue // NO ACCESS 4 U
+			continue 
 		if(!alarm.remote_control)
 			continue
 		var/turf/pos = get_turf(alarm)
