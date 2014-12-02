@@ -870,6 +870,7 @@ var/list/all_supply_groups = list("Operations","Security","Hospitality","Enginee
 					/obj/item/weapon/storage/pill_bottle/happy,
 					/obj/item/weapon/storage/pill_bottle/random_drug_bottle,
 					/obj/item/weapon/storage/fancy/cigarettes/dromedaryco,
+					/obj/item/weapon/storage/fancy/cigarettes/cigpack_shadyjims,
 					/obj/item/weapon/grenade/smokebomb,
 					/obj/item/clothing/mask/cigarette/cigar/cohiba,
 					/obj/item/weapon/reagent_containers/food/drinks/cans/ale,

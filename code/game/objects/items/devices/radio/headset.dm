@@ -78,14 +78,14 @@
 /obj/item/device/radio/headset/headset_sci
 	name = "science radio headset"
 	desc = "A sciency headset. Like usual. To access the science channel, use :n."
-	icon_state = "com_headset"
+	icon_state = "sci_headset"
 	item_state = "headset"
 	keyslot2 = new /obj/item/device/encryptionkey/headset_sci
 
 /obj/item/device/radio/headset/headset_medsci
 	name = "medical research radio headset"
 	desc = "A headset that is a result of the mating between medical and science. To access the medical channel, use :m. For science, use :n."
-	icon_state = "med_headset"
+	icon_state = "medsci_headset"
 	item_state = "headset"
 	keyslot2 = new /obj/item/device/encryptionkey/headset_medsci
 
@@ -158,7 +158,7 @@
 	icon_state = "cargo_headset"
 	item_state = "headset"
 	keyslot2 = new /obj/item/device/encryptionkey/headset_cargo
-	
+
 /obj/item/device/radio/headset/headset_service
 	name = "service radio headset"
 	desc = "Headset used by the service staff, tasked with keeping the station full, happy and clean. To access the service channel, use :z."
