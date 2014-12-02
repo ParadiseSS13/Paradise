@@ -82,7 +82,7 @@
 	var/datum/radio_frequency/radio_connection
 
 	var/list/TLV = list()
-
+	var/hidden = 0
 
 /obj/machinery/alarm/server
 	preset = AALARM_PRESET_SERVER
@@ -626,6 +626,8 @@
 	//   Not sent from atmos console AND
 	//   Not silicon AND locked.
 	data["locked"]=!fromAtmosConsole && (!(istype(user, /mob/living/silicon)) && locked)
+	if(fromAtmosConsole && remote_control < 2)
+		data["locked"] = 1
 	data["rcon"]=rcon_setting
 	data["target_temp"] = target_temperature - T0C
 	data["atmos_alarm"] = alarm_area.atmosalm
