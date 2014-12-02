@@ -343,6 +343,7 @@
 			src.w_class = 4
 			src.force = 15
 			src.damtype = "fire"
+			hitsound = "sound/items/welder.ogg"
 			src.icon_state = "welder1"
 			processing_objects.Add(src)
 		else
@@ -357,6 +358,7 @@
 		src.w_class = 2
 		src.force = 3
 		src.damtype = "brute"
+		hitsound = "swing_hit"
 		src.icon_state = "welder"
 		src.welding = 0
 
