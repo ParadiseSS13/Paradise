@@ -106,10 +106,11 @@
 
 /obj/item/weapon/gun/energy/crossbow/largecrossbow
 	name = "Energy Crossbow"
-	desc = "A weapon favored by syndicate infiltration teams."
-	w_class = 4.0
+	desc = "A weapon favored by syndicate carp hunters."
+	icon_state = "crossbowlarge"
+	w_class = 3.0
 	force = 10
-	m_amt = 200000
+	m_amt = 4000
 	projectile_type = "/obj/item/projectile/energy/bolt/large"
 
 

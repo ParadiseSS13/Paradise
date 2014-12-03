@@ -250,6 +250,7 @@
 	icon = 'icons/obj/status_display.dmi'
 	icon_state = "entertainment"
 	network = list("news")
+	luminosity = 0
 
 /obj/machinery/computer/security/wooden_tv
 	name = "Security Camera Monitor"

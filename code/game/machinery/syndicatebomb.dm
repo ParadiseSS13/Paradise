@@ -106,7 +106,7 @@
 	return
 
 /obj/machinery/syndicatebomb/interact(var/mob/user)
-	if(wires)
+	if(wires && open_panel)
 		wires.Interact(user)
 	if(!open_panel)
 		if(!active)

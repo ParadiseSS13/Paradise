@@ -64,6 +64,10 @@
 		aiCamera.captureimage(A, usr)
 		return
 
+	if(waypoint_mode)
+		set_waypoint(A)
+		waypoint_mode = 0
+		return		
 	/*
 		AI restrained() currently does nothing
 	if(restrained())
@@ -110,7 +114,7 @@
 */
 
 /atom/proc/AICtrlShiftClick(var/mob/user)  // Examines
-	if(user.client && user.client.eye == user)
+	if(user.client)
 		examine()
 	return
 	

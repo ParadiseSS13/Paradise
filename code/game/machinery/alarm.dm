@@ -82,7 +82,7 @@
 	var/datum/radio_frequency/radio_connection
 
 	var/list/TLV = list()
-
+	var/hidden = 0
 
 /obj/machinery/alarm/server
 	preset = AALARM_PRESET_SERVER
@@ -245,11 +245,11 @@
 			remote_control = 0
 		if(RCON_AUTO)
 			if(local_danger_level == 2)
-				remote_control = 1
+				remote_control = 2
 			else
-				remote_control = 0
+				remote_control = 1
 		if(RCON_YES)
-			remote_control = 1
+			remote_control = 3
 	if(screen == AALARM_SCREEN_MAIN)
 		updateDialog()
 	return
@@ -626,6 +626,8 @@
 	//   Not sent from atmos console AND
 	//   Not silicon AND locked.
 	data["locked"]=!fromAtmosConsole && (!(istype(user, /mob/living/silicon)) && locked)
+	if(fromAtmosConsole && remote_control < 2)
+		data["locked"] = 1
 	data["rcon"]=rcon_setting
 	data["target_temp"] = target_temperature - T0C
 	data["atmos_alarm"] = alarm_area.atmosalm

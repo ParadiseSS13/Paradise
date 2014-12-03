@@ -572,8 +572,5 @@
 		src << "You do not have enough chemicals stored to reproduce."
 		return
 
-/mob/living/carbon/proc/assess_threat()
-	return
-
 /mob/living/carbon/proc/canBeHandcuffed()
 	return 0

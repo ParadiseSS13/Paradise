@@ -102,12 +102,13 @@
 	flags = FPRINT | TABLEPASS| CONDUCT
 	slot_flags = SLOT_BELT
 	force = 6.0
-	throw_speed = 2
-	throw_range = 9
+	throw_speed = 3
+	throw_range = 7
 	w_class = 2.0
 	m_amt = 80
 	origin_tech = "materials=1;engineering=1"
 	attack_verb = list("pinched", "nipped")
+	hitsound = "sound/items/Wirecutter.ogg"
 	sharp = 1
 	edge = 1
 
@@ -140,7 +141,7 @@
 	//Amount of OUCH when it's thrown
 	force = 3.0
 	throwforce = 5.0
-	throw_speed = 1
+	throw_speed = 3
 	throw_range = 5
 	w_class = 2.0
 
@@ -342,6 +343,7 @@
 			src.w_class = 4
 			src.force = 15
 			src.damtype = "fire"
+			hitsound = "sound/items/welder.ogg"
 			src.icon_state = "welder1"
 			processing_objects.Add(src)
 		else
@@ -356,6 +358,7 @@
 		src.w_class = 2
 		src.force = 3
 		src.damtype = "brute"
+		hitsound = "swing_hit"
 		src.icon_state = "welder"
 		src.welding = 0
 

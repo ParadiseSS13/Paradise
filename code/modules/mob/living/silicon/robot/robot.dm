@@ -1459,7 +1459,6 @@
 				C.mind.special_role = "Death Commando"
 				ticker.mode.traitors |= C.mind // Adds them to current traitor list. Which is really the extra antagonist list.
 				src.key = C.key
-				Namepick()
 			else
 				possiblecandidates -= possibleborg
 				get_borg_occupant(user, possiblecandidates)

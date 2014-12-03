@@ -83,8 +83,9 @@
 	)
 
 /obj/structure/falsewall/New()
-	relativewall_neighbours()
 	..()
+	relativewall()
+	relativewall_neighbours()
 
 /obj/structure/falsewall/Destroy()
 
@@ -108,7 +109,7 @@
 		icon_state = "[mineral]fwall_open"
 		return
 
-	var/junction=findSmoothingNeighbors(check_minerals=1)
+	var/junction=findSmoothingNeighbors()
 	icon_state = "[mineral][junction]"
 
 

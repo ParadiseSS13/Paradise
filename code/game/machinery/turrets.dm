@@ -306,7 +306,7 @@
 /obj/machinery/turretid
 	name = "turret deactivation control"
 	icon = 'icons/obj/device.dmi'
-	icon_state = "motion3"
+	icon_state = "control_stun"
 	anchored = 1
 	density = 0
 	var/enabled = 1
@@ -375,7 +375,7 @@
 		if ( !issilicon(user) )
 			user << "<span class='notice'>You are too far away.</span>"
 			user.unset_machine()
-			user << browse(null, "window=turretid")
+			user << browse(null, "window=turretid;size=500x250")
 			return
 
 	user.set_machine(src)
@@ -396,7 +396,7 @@
 		t += text("Turrets [] - <A href='?src=\ref[];toggleOn=1'>[]?</a><br>\n", src.enabled?"activated":"deactivated", src, src.enabled?"Disable":"Enable")
 		t += text("Currently set for [] - <A href='?src=\ref[];toggleLethal=1'>Change to []?</a><br>\n", src.lethal?"lethal":"stun repeatedly", src,  src.lethal?"Stun repeatedly":"Lethal")
 
-	//user << browse(t, "window=turretid")
+	//user << browse(t, "window=turretid;size=500x250")
 	//onclose(user, "turretid")
 	var/datum/browser/popup = new(user, "turretid", "Turret Control Panel ([area.name])")
 	popup.set_content(t)
@@ -457,11 +457,11 @@
 /obj/machinery/turretid/proc/update_icons()
 	if (src.enabled)
 		if (src.lethal)
-			icon_state = "motion1"
+			icon_state = "control_kill"
 		else
-			icon_state = "motion3"
+			icon_state = "control_stun"
 	else
-		icon_state = "motion0"
+		icon_state = "control_standby"
 																				//CODE FIXED BUT REMOVED
 //	if(control_area)															//USE: updates other controls in the area
 //		for (var/obj/machinery/turretid/Turret_Control in world)				//I'm not sure if this is what it was
