@@ -3353,7 +3353,7 @@
 "bmy" = (/obj/structure/cable{d1 = 2; d2 = 4; icon_state = "2-4"; tag = ""},/turf/simulated/floor{icon_state = "dark"},/area/turret_protected/ai)
 "bmz" = (/obj/structure/cable{d1 = 4; d2 = 8; icon_state = "4-8"; tag = ""},/obj/machinery/door/window{base_state = "right"; dir = 8; icon_state = "right"; name = "AI Core Door"; req_access_txt = "16"},/turf/simulated/floor/bluegrid,/area/turret_protected/ai)
 "bmA" = (/obj/structure/cable{d2 = 8; icon_state = "0-8"},/obj/effect/landmark{name = "tripai"},/obj/item/device/radio/intercom{anyai = 1; freerange = 1; listening = 0; name = "Custom Channel"; pixel_x = 0; pixel_y = 19},/obj/item/device/radio/intercom{anyai = 1; broadcasting = 0; freerange = 1; frequency = 1447; name = "Private Channel"; pixel_x = 0; pixel_y = -26},/obj/item/device/radio/intercom{anyai = 1; broadcasting = 0; freerange = 1; listening = 1; name = "Common Channel"; pixel_x = 27; pixel_y = -3},/turf/simulated/floor/bluegrid,/area/turret_protected/ai)
-"bmB" = (/obj/machinery/light{dir = 8},/turf/simulated/floor/wood,/area/crew_quarters/captain)
+"bmB" = (/obj/machinery/light{dir = 8},/obj/machinery/photocopier,/turf/simulated/floor/wood,/area/crew_quarters/captain)
 "bmC" = (/obj/machinery/atmospherics/unary/vent_scrubber{on = 1; scrub_N2O = 1; scrub_Toxins = 1},/turf/simulated/floor/wood,/area/crew_quarters/captain)
 "bmD" = (/obj/structure/stool/bed/chair,/turf/simulated/floor/wood,/area/crew_quarters/captain)
 "bmE" = (/turf/simulated/floor/carpet,/area/crew_quarters/captain)
