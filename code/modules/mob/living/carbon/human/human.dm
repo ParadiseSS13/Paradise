@@ -1555,7 +1555,7 @@
 
 	//Check for ID
 	var/obj/item/weapon/card/id/idcard = get_idcard()
-	if(judgebot.idcheck && !idcard)
+	if(judgebot.idcheck && !idcard && name=="Unknown")
 		threatcount += 4
 
 	//Check for weapons
@@ -1595,7 +1595,7 @@
 
 	//Agent cards lower threatlevel.
 	if(istype(idcard, /obj/item/weapon/card/id/syndicate))
-		threatcount -= 2
+		threatcount -= 5
 
 	return threatcount
 

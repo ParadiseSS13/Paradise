@@ -233,4 +233,5 @@
                         step(AM, t)
                 now_pushing = null
 
-
+/mob/living/silicon/assess_threat() //Secbots won't hunt silicon units
+	return -10

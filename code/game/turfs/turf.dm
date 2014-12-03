@@ -218,7 +218,7 @@
 		return
 
 	var/old_lumcount = lighting_lumcount - initial(lighting_lumcount)
-
+	var/old_opacity = opacity
 	//world << "Replacing [src.type] with [N]"
 
 	if(connections) connections.erase_all()
@@ -246,6 +246,11 @@
 			W.lighting_changed = 1
 			lighting_controller.changed_turfs += W
 
+
+		if(old_opacity != W.opacity)			//opacity has changed. Need to update surrounding lights
+			if(W.lighting_lumcount)				//unless we're being illuminated, don't bother (may be buggy, hard to test)
+				W.UpdateAffectingLights()			
+			
 		if (istype(W,/turf/simulated/floor))
 			W.RemoveLattice()
 

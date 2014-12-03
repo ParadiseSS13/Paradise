@@ -200,14 +200,14 @@
 	name = "\improper DromedaryCo packet"
 	desc = "A packet of six imported DromedaryCo cancer sticks. A label on the packaging reads, \"Wouldn't a slow death make a change?\""
 	icon_state = "Dpacket"
-	item_state = "Dpacket"
+	item_state = "cigpacket"
 
 
 /obj/item/weapon/storage/fancy/cigarettes/syndicate
 	name = "\improper Syndicate Cigarettes"
 	desc = "A packet of six evil-looking cigarettes, A label on the packaging reads, \"Donk Co\""
 	icon_state = "robustpacket"
-	item_state = "robustpacket"
+	item_state = "cigpacket"
 
 /obj/item/weapon/storage/fancy/cigarettes/syndicate/New()
 	..()
@@ -218,12 +218,61 @@
 	name = "cigarette packet"
 	desc = "An obscure brand of cigarettes."
 	icon_state = "syndiepacket"
-	item_state = "syndiepacket"
+	item_state = "cigpacket"
 
 /obj/item/weapon/storage/fancy/cigarettes/cigpack_syndicate/New()
 	..()
 	for(var/i = 1 to storage_slots)
 		reagents.add_reagent("doctorsdelight",15)
+
+/obj/item/weapon/storage/fancy/cigarettes/cigpack_uplift
+	name = "\improper Uplift Smooth packet"
+	desc = "Your favorite brand, now menthol flavored."
+	icon_state = "upliftpacket"
+	item_state = "cigpacket"
+
+/obj/item/weapon/storage/fancy/cigarettes/cigpack_robust
+	name = "\improper Robust packet"
+	desc = "Smoked by the robust."
+	icon_state = "robustpacket"
+	item_state = "cigpacket"
+
+/obj/item/weapon/storage/fancy/cigarettes/cigpack_robustgold
+	name = "\improper Robust Gold packet"
+	desc = "Smoked by the truly robust."
+	icon_state = "robustgpacket"
+	item_state = "cigpacket"
+
+/obj/item/weapon/storage/fancy/cigarettes/cigpack_robustgold/New()
+	..()
+	for(var/i = 1 to storage_slots)
+		reagents.add_reagent("gold",1)
+
+/obj/item/weapon/storage/fancy/cigarettes/cigpack_carp
+	name = "\improper Carp Classic packet"
+	desc = "Since 2313."
+	icon_state = "carppacket"
+	item_state = "cigpacket"
+
+/obj/item/weapon/storage/fancy/cigarettes/cigpack_midori
+	name = "\improper Midori Tabako packet"
+	desc = "You can't understand the runes, but the packet smells funny."
+	icon_state = "midoripacket"
+	item_state = "cigpacket"
+
+/obj/item/weapon/storage/fancy/cigarettes/cigpack_shadyjims
+	name ="\improper Shady Jim's Super Slims"
+	desc = "Is your weight slowing you down? Having trouble running away from gravitational singularities? Can't stop stuffing your mouth? Smoke Shady Jim's Super Slims and watch all that fat burn away. Guaranteed results!"
+	icon_state = "shadyjimpacket"
+	item_state = "cigpacket"
+
+/obj/item/weapon/storage/fancy/cigarettes/cigpack_shadyjims/New()
+	..()
+	for(var/i = 1 to storage_slots)
+		reagents.add_reagent("lipozine",4)
+		reagents.add_reagent("ammonia",2)
+		reagents.add_reagent("plantbgone",1)
+		reagents.add_reagent("toxin",1.5)
 
 /*
  * Vial Box
