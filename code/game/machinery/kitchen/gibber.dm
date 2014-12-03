@@ -1,4 +1,3 @@
-
 /obj/machinery/gibber
 	name = "Gibber"
 	desc = "The name isn't descriptive enough?"
@@ -10,7 +9,7 @@
 	var/dirty = 0 // Does it need cleaning?
 	var/gibtime = 40 // Time from starting until meat appears
 	var/mob/living/occupant // Mob who has been put inside
-	var/dramatic = 1
+	var/dramatic = 1 //Do we use dramatic code or quick-code?
 	use_power = 1
 	idle_power_usage = 2
 	active_power_usage = 500
@@ -164,6 +163,9 @@
 	if(src.dramatic)
 		visible_message("\red The hatch closes and locks.")
 		src.occupant.visible_message("\red The hatch closes and locks behind you.")
+		sleep(10)
+		visible_message("\red <b>The Gibber</b> states, 'Readying subject.'")
+		src.occupant.visible_message("\red A pair of rollers rolls you onto your back.")
 		sleep(20)
 		visible_message("\red <b>The Gibber</b> states 'Deploying Grinders.'")
 		src.occupant.visible_message("\blue You hear a faint voice. \red <b>The Gibber</b> states 'Deploying Grinders.'")
