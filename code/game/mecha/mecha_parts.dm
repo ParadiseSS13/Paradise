@@ -6,7 +6,7 @@
 	name = "mecha part"
 	icon = 'icons/mecha/mech_construct.dmi'
 	icon_state = "blank"
-	w_class = 20
+	w_class = 6
 	flags = FPRINT | TABLEPASS | CONDUCT
 	origin_tech = "programming=2;materials=2"
 	var/construction_time = 100
@@ -43,7 +43,7 @@
 	icon_state = "ripley_harness"
 	origin_tech = "programming=2;materials=2;biotech=2;engineering=2"
 	construction_time = 200
-	construction_cost = list("metal"=40000,"glass"=15000)
+	construction_cost = list("metal"=20000,"glass"=7500)
 
 /obj/item/mecha_parts/part/ripley_left_arm
 	name="Ripley Left Arm"
@@ -51,7 +51,7 @@
 	icon_state = "ripley_l_arm"
 	origin_tech = "programming=2;materials=2;engineering=2"
 	construction_time = 150
-	construction_cost = list("metal"=25000)
+	construction_cost = list("metal"=15000)
 
 /obj/item/mecha_parts/part/ripley_right_arm
 	name="Ripley Right Arm"
@@ -59,7 +59,7 @@
 	icon_state = "ripley_r_arm"
 	origin_tech = "programming=2;materials=2;engineering=2"
 	construction_time = 150
-	construction_cost = list("metal"=25000)
+	construction_cost = list("metal"=15000)
 
 /obj/item/mecha_parts/part/ripley_left_leg
 	name="Ripley Left Leg"
@@ -67,7 +67,7 @@
 	icon_state = "ripley_l_leg"
 	origin_tech = "programming=2;materials=2;engineering=2"
 	construction_time = 150
-	construction_cost = list("metal"=30000)
+	construction_cost = list("metal"=15000)
 
 /obj/item/mecha_parts/part/ripley_right_leg
 	name="Ripley Right Leg"
@@ -75,13 +75,13 @@
 	icon_state = "ripley_r_leg"
 	origin_tech = "programming=2;materials=2;engineering=2"
 	construction_time = 150
-	construction_cost = list("metal"=30000)
+	construction_cost = list("metal"=15000)
 
 ///////// Gygax
 
 /obj/item/mecha_parts/chassis/gygax
 	name = "Gygax Chassis"
-	construction_cost = list("metal"=25000)
+	construction_cost = list("metal"=20000)
 
 	New()
 		..()
@@ -93,7 +93,7 @@
 	icon_state = "gygax_harness"
 	origin_tech = "programming=2;materials=2;biotech=3;engineering=3"
 	construction_time = 300
-	construction_cost = list("metal"=50000,"glass"=20000)
+	construction_cost = list("metal"=20000,"glass"=10000,"diamond"=2000)
 
 /obj/item/mecha_parts/part/gygax_head
 	name="Gygax Head"
@@ -101,7 +101,7 @@
 	icon_state = "gygax_head"
 	origin_tech = "programming=2;materials=2;magnets=3;engineering=3"
 	construction_time = 200
-	construction_cost = list("metal"=20000,"glass"=10000)
+	construction_cost = list("metal"=10000,"glass"=5000, "diamond"=2000)
 
 /obj/item/mecha_parts/part/gygax_left_arm
 	name="Gygax Left Arm"
@@ -109,7 +109,7 @@
 	icon_state = "gygax_l_arm"
 	origin_tech = "programming=2;materials=2;engineering=3"
 	construction_time = 200
-	construction_cost = list("metal"=30000)
+	construction_cost = list("metal"=15000, "diamond"=1000)
 
 /obj/item/mecha_parts/part/gygax_right_arm
 	name="Gygax Right Arm"
@@ -117,28 +117,28 @@
 	icon_state = "gygax_r_arm"
 	origin_tech = "programming=2;materials=2;engineering=3"
 	construction_time = 200
-	construction_cost = list("metal"=30000)
+	construction_cost = list("metal"=15000, "diamond"=1000)
 
 /obj/item/mecha_parts/part/gygax_left_leg
 	name="Gygax Left Leg"
 	icon_state = "gygax_l_leg"
 	origin_tech = "programming=2;materials=2;engineering=3"
 	construction_time = 200
-	construction_cost = list("metal"=35000)
+	construction_cost = list("metal"=15000, "diamond"=2000)
 
 /obj/item/mecha_parts/part/gygax_right_leg
 	name="Gygax Right Leg"
 	icon_state = "gygax_r_leg"
 	origin_tech = "programming=2;materials=2;engineering=3"
 	construction_time = 200
-	construction_cost = list("metal"=35000)
+	construction_cost = list("metal"=15000, "diamond"=2000)
 
 /obj/item/mecha_parts/part/gygax_armour
 	name="Gygax Armour Plates"
 	icon_state = "gygax_armour"
 	origin_tech = "materials=6;combat=4;engineering=5"
 	construction_time = 600
-	construction_cost = list("metal"=50000,"diamond"=10000)
+	construction_cost = list("metal"=25000,"diamond"=10000)
 
 
 //////////// Durand
@@ -156,49 +156,49 @@
 	icon_state = "durand_harness"
 	origin_tech = "programming=2;materials=3;biotech=3;engineering=3"
 	construction_time = 300
-	construction_cost = list("metal"=55000,"glass"=20000,"silver"=10000)
+	construction_cost = list("metal"=25000,"glass"=10000,"silver"=10000)
 
 /obj/item/mecha_parts/part/durand_head
 	name="Durand Head"
 	icon_state = "durand_head"
 	origin_tech = "programming=2;materials=3;magnets=3;engineering=3"
 	construction_time = 200
-	construction_cost = list("metal"=25000,"glass"=10000,"silver"=3000)
+	construction_cost = list("metal"=10000,"glass"=15000,"silver"=2000)
 
 /obj/item/mecha_parts/part/durand_left_arm
 	name="Durand Left Arm"
 	icon_state = "durand_l_arm"
 	origin_tech = "programming=2;materials=3;engineering=3"
 	construction_time = 200
-	construction_cost = list("metal"=35000,"silver"=3000)
+	construction_cost = list("metal"=10000,"silver"=4000)
 
 /obj/item/mecha_parts/part/durand_right_arm
 	name="Durand Right Arm"
 	icon_state = "durand_r_arm"
 	origin_tech = "programming=2;materials=3;engineering=3"
 	construction_time = 200
-	construction_cost = list("metal"=35000,"silver"=3000)
+	construction_cost = list("metal"=10000,"silver"=4000)
 
 /obj/item/mecha_parts/part/durand_left_leg
 	name="Durand Left Leg"
 	icon_state = "durand_l_leg"
 	origin_tech = "programming=2;materials=3;engineering=3"
 	construction_time = 200
-	construction_cost = list("metal"=40000,"silver"=3000)
+	construction_cost = list("metal"=15000,"silver"=4000)
 
 /obj/item/mecha_parts/part/durand_right_leg
 	name="Durand Right Leg"
 	icon_state = "durand_r_leg"
 	origin_tech = "programming=2;materials=3;engineering=3"
 	construction_time = 200
-	construction_cost = list("metal"=40000,"silver"=3000)
+	construction_cost = list("metal"=15000,"silver"=4000)
 
 /obj/item/mecha_parts/part/durand_armor
 	name="Durand Armour Plates"
 	icon_state = "durand_armor"
 	origin_tech = "materials=5;combat=4;engineering=5"
 	construction_time = 600
-	construction_cost = list("metal"=50000,"uranium"=10000)
+	construction_cost = list("metal"=50000,"uranium"=30000)
 
 
 
@@ -245,25 +245,25 @@
 	name="H.O.N.K Torso"
 	icon_state = "honker_harness"
 	construction_time = 300
-	construction_cost = list("metal"=35000,"glass"=10000,"bananium"=10000)
+	construction_cost = list("metal"=20000,"glass"=10000,"bananium"=10000)
 
 /obj/item/mecha_parts/part/honker_head
 	name="H.O.N.K Head"
 	icon_state = "honker_head"
 	construction_time = 200
-	construction_cost = list("metal"=15000,"glass"=5000,"bananium"=5000)
+	construction_cost = list("metal"=10000,"glass"=5000,"bananium"=5000)
 
 /obj/item/mecha_parts/part/honker_left_arm
 	name="H.O.N.K Left Arm"
 	icon_state = "honker_l_arm"
 	construction_time = 200
-	construction_cost = list("metal"=20000,"bananium"=5000)
+	construction_cost = list("metal"=15000,"bananium"=5000)
 
 /obj/item/mecha_parts/part/honker_right_arm
 	name="H.O.N.K Right Arm"
 	icon_state = "honker_r_arm"
 	construction_time = 200
-	construction_cost = list("metal"=20000,"bananium"=5000)
+	construction_cost = list("metal"=15000,"bananium"=5000)
 
 /obj/item/mecha_parts/part/honker_left_leg
 	name="H.O.N.K Left Leg"
@@ -282,7 +282,7 @@
 
 /obj/item/mecha_parts/chassis/phazon
 	name = "Phazon Chassis"
-	origin_tech = "materials=7"
+	origin_tech = "materials=6"
 
 	New()
 		..()
@@ -336,8 +336,8 @@
 	icon_state = "phazon_armor"
 	construction_time = 300
 	construction_cost = list("metal"=45000,"plasma"=30000)
-	origin_tech = "materials=6;bluespace=5;magnets=5"	
-	
+	origin_tech = "materials=6;bluespace=5;magnets=5"
+
 ///////// Odysseus
 /obj/item/mecha_parts/chassis/odysseus
 	name = "Odysseus Chassis"
@@ -350,7 +350,7 @@
 	name="Odysseus Head"
 	icon_state = "odysseus_head"
 	construction_time = 100
-	construction_cost = list("metal"=2000,"glass"=10000)
+	construction_cost = list("metal"=6000,"glass"=10000)
 	origin_tech = "programming=3;materials=2"
 
 /obj/item/mecha_parts/part/odysseus_torso
@@ -359,7 +359,7 @@
 	icon_state = "odysseus_torso"
 	origin_tech = "programming=2;materials=2;biotech=2;engineering=2"
 	construction_time = 180
-	construction_cost = list("metal"=25000)
+	construction_cost = list("metal"=12000)
 
 /obj/item/mecha_parts/part/odysseus_left_arm
 	name="Odysseus Left Arm"
@@ -367,7 +367,7 @@
 	icon_state = "odysseus_l_arm"
 	origin_tech = "programming=2;materials=2;engineering=2"
 	construction_time = 120
-	construction_cost = list("metal"=10000)
+	construction_cost = list("metal"=6000)
 
 /obj/item/mecha_parts/part/odysseus_right_arm
 	name="Odysseus Right Arm"
@@ -375,7 +375,7 @@
 	icon_state = "odysseus_r_arm"
 	origin_tech = "programming=2;materials=2;engineering=2"
 	construction_time = 120
-	construction_cost = list("metal"=10000)
+	construction_cost = list("metal"=6000)
 
 /obj/item/mecha_parts/part/odysseus_left_leg
 	name="Odysseus Left Leg"
@@ -383,7 +383,7 @@
 	icon_state = "odysseus_l_leg"
 	origin_tech = "programming=2;materials=2;engineering=2"
 	construction_time = 130
-	construction_cost = list("metal"=15000)
+	construction_cost = list("metal"=7000)
 
 /obj/item/mecha_parts/part/odysseus_right_leg
 	name="Odysseus Right Leg"
@@ -391,7 +391,7 @@
 	icon_state = "odysseus_r_leg"
 	origin_tech = "programming=2;materials=2;engineering=2"
 	construction_time = 130
-	construction_cost = list("metal"=15000)
+	construction_cost = list("metal"=7000)
 
 /*/obj/item/mecha_parts/part/odysseus_armour
 	name="Odysseus Carapace"
@@ -458,7 +458,7 @@
 	durand/main
 		name = "Circuit board (Durand Central Control module)"
 		icon_state = "mainboard"
-		
+
 	phazon
 		origin_tech = "programming=4"
 
