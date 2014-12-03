@@ -852,21 +852,21 @@
 					 //6
 					 list("key"=/obj/item/stack/sheet/metal,
 					 		"backkey"=/obj/item/weapon/screwdriver,
-					 		"desc"="Advanced capacitor is secured"),
+					 		"desc"="super capacitor is secured"),
 					 //7
 					 list("key"=/obj/item/weapon/screwdriver,
 					 		"backkey"=/obj/item/weapon/crowbar,
-					 		"desc"="Advanced capacitor is installed"),
+					 		"desc"="super capacitor is installed"),
 					 //8
-					 list("key"=/obj/item/weapon/stock_parts/capacitor/adv,
+					 list("key"=/obj/item/weapon/stock_parts/capacitor/super,
 					 		"backkey"=/obj/item/weapon/screwdriver,
-					 		"desc"="Advanced scanner module is secured"),
+					 		"desc"="phasic scanner module is secured"),
 					 //9
 					 list("key"=/obj/item/weapon/screwdriver,
 					 		"backkey"=/obj/item/weapon/crowbar,
-					 		"desc"="Advanced scanner module is installed"),
+					 		"desc"="phasic scanner module is installed"),
 					 //10
-					 list("key"=/obj/item/weapon/stock_parts/scanning_module/adv,
+					 list("key"=/obj/item/weapon/stock_parts/scanning_module/phasic,
 					 		"backkey"=/obj/item/weapon/screwdriver,
 					 		"desc"="Targeting module is secured"),
 					 //11
@@ -996,7 +996,7 @@
 					holder.icon_state = "durand8"
 			if(10)
 				if(diff==FORWARD)
-					user.visible_message("[user] installs advanced scanner module to [holder].", "You install advanced scanner module to [holder].")
+					user.visible_message("[user] installs phasic scanner module to [holder].", "You install phasic scanner module to [holder].")
 					del used_atom
 					holder.icon_state = "durand11"
 				else
@@ -1004,27 +1004,27 @@
 					holder.icon_state = "durand9"
 			if(9)
 				if(diff==FORWARD)
-					user.visible_message("[user] secures the advanced scanner module.", "You secure the advanced scanner module.")
+					user.visible_message("[user] secures the phasic scanner module.", "You secure the phasic scanner module.")
 					holder.icon_state = "durand12"
 				else
-					user.visible_message("[user] removes the advanced scanner module from [holder].", "You remove the advanced scanner module from [holder].")
-					new /obj/item/weapon/stock_parts/scanning_module/adv(get_turf(holder))
+					user.visible_message("[user] removes the phasic scanner module from [holder].", "You remove the phasic scanner module from [holder].")
+					new /obj/item/weapon/stock_parts/scanning_module/phasic(get_turf(holder))
 					holder.icon_state = "durand10"
 			if(8)
 				if(diff==FORWARD)
-					user.visible_message("[user] installs advanced capacitor to [holder].", "You install advanced capacitor to [holder].")
+					user.visible_message("[user] installs super capacitor to [holder].", "You install super capacitor to [holder].")
 					del used_atom
 					holder.icon_state = "durand13"
 				else
-					user.visible_message("[user] unfastens the advanced scanner module.", "You unfasten the advanced scanner module.")
+					user.visible_message("[user] unfastens the phasic scanner module.", "You unfasten the phasic scanner module.")
 					holder.icon_state = "durand11"
 			if(7)
 				if(diff==FORWARD)
-					user.visible_message("[user] secures the advanced capacitor.", "You secure the advanced capacitor.")
+					user.visible_message("[user] secures the super capacitor.", "You secure the super capacitor.")
 					holder.icon_state = "durand14"
 				else
-					user.visible_message("[user] removes the advanced capacitor from [holder].", "You remove the advanced capacitor from [holder].")
-					new /obj/item/weapon/stock_parts/capacitor/adv(get_turf(holder))
+					user.visible_message("[user] removes the super capacitor from [holder].", "You remove the super capacitor from [holder].")
+					new /obj/item/weapon/stock_parts/capacitor/super(get_turf(holder))
 					holder.icon_state = "durand12"
 			if(6)
 				if(diff==FORWARD)
