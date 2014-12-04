@@ -548,6 +548,11 @@
 			if(isAI(usr))
 				var/mob/living/silicon/ai/AI = usr
 				AI.aiCamera.viewpictures()
+				
+		if("Toggle Sensors")
+			if(isAI(usr))
+				var/mob/living/silicon/ai/AI = usr
+				AI.control_hud()
 
 		else
 			return 0
