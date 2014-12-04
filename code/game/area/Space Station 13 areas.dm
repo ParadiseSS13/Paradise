@@ -1731,14 +1731,24 @@ area/security/podbay
 	name = "\improper Test Room"
 	icon_state = "storage"
 
+// ENGIE OUTPOST
+
+/area/engiestation
+	name = "\improper Engineering Outpost"
+	icon_state = "construction"
+
+/area/engiestation/solars
+	name = "\improper Engineering Outpost Solars"
+	icon_state = "panelsP"
+
 //DJSTATION
 
 /area/djstation
-	name = "\improper Listening Post"
+	name = "\improper Ruskie DJ Station"
 	icon_state = "DJ"
 
 /area/djstation/solars
-	name = "\improper Listening Post Solars"
+	name = "\improper Ruskie DJ Station Solars"
 	icon_state = "DJ"
 
 //DERELICT
