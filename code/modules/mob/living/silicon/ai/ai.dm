@@ -58,6 +58,9 @@ var/list/ai_list = list()
 	var/obj/machinery/bot/Bot
 	var/turf/waypoint //Holds the turf of the currently selected waypoint.
 	var/waypoint_mode = 0 //Waypoint mode is for selecting a turf via clicking.
+	
+	var/obj/item/borg/sight/hud/sec/sechud = null
+	var/obj/item/borg/sight/hud/med/healthhud = null
 
 /mob/living/silicon/ai/New(loc, var/datum/ai_laws/L, var/obj/item/device/mmi/B, var/safety = 0)
 	var/list/possibleNames = ai_names
@@ -99,11 +102,13 @@ var/list/ai_list = list()
 	aiRadio.myAi = src
 
 	aiCamera = new/obj/item/device/camera/siliconcam/ai_camera(src)
+	
+	
 
 	if (istype(loc, /turf))
 		verbs.Add(/mob/living/silicon/ai/proc/ai_network_change, \
 		/mob/living/silicon/ai/proc/ai_statuschange, /mob/living/silicon/ai/proc/ai_hologram_change, \
-		/mob/living/silicon/ai/proc/toggle_camera_light, /mob/living/silicon/ai/proc/botcall, /mob/living/silicon/ai/proc/control_integrated_radio)
+		/mob/living/silicon/ai/proc/toggle_camera_light, /mob/living/silicon/ai/proc/botcall, /mob/living/silicon/ai/proc/control_integrated_radio, /mob/living/silicon/ai/proc/control_hud)
 
 	if(!safety)//Only used by AIize() to successfully spawn an AI.
 		if (!B)//If there is no player/brain inside.
@@ -118,7 +123,7 @@ var/list/ai_list = list()
 					verbs.Remove(,/mob/living/silicon/ai/proc/ai_call_shuttle,/mob/living/silicon/ai/proc/ai_camera_track, \
 					/mob/living/silicon/ai/proc/ai_camera_list, /mob/living/silicon/ai/proc/ai_network_change, \
 					/mob/living/silicon/ai/proc/ai_statuschange, /mob/living/silicon/ai/proc/ai_hologram_change, \
-					/mob/living/silicon/ai/proc/toggle_camera_light,/mob/living/silicon/ai/verb/pick_icon)
+					/mob/living/silicon/ai/proc/toggle_camera_light,/mob/living/silicon/ai/verb/pick_icon,/mob/living/silicon/ai/proc/control_hud)
 					laws = new /datum/ai_laws/alienmov
 				else
 					B.brainmob.mind.transfer_to(src)
@@ -808,6 +813,10 @@ var/list/ai_list = list()
 
 //Toggles the luminosity and applies it by re-entereing the camera.
 /mob/living/silicon/ai/proc/toggle_camera_light()
+	set name = "Toggle Camera Lights"
+	set desc = "Toggles the lights on the cameras throughout the station."
+	set category = "AI Commands"
+	
 	if(stat != CONSCIOUS)
 		return
 
@@ -820,8 +829,25 @@ var/list/ai_list = list()
 	else
 		lightNearbyCamera()
 
+/mob/living/silicon/ai/proc/control_hud()
+	set name = "Toggle Sensors"
+	set desc = "Toggles your sensors to display security records, medical records or nothing."
+	set category = "AI Commands"
+	
+	if(stat != 0)
+		return
 
-
+	var/hud = input("Please select a sensor module!", "Toggle Sensors", "None", null) in list("None","Security","Medical")
+	for(var/obj/item/borg/sight/hud/H in contents)
+		del(H)
+	switch(hud)
+		if("Security")
+			sechud = new/obj/item/borg/sight/hud/sec(src)
+		if("Medical")
+			healthhud = new/obj/item/borg/sight/hud/med(src)
+		else
+			return
+					
 // Handled camera lighting, when toggled.
 // It will get the nearest camera from the eyeobj, lighting it.
 

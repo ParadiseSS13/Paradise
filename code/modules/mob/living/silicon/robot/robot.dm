@@ -73,6 +73,9 @@
 	var/base_icon = ""
 	var/crisis = 0
 	var/hiddenborg = 0
+	
+	var/obj/item/borg/sight/hud/sec/sechud = null
+	var/obj/item/borg/sight/hud/med/healthhud = null
 
 /mob/living/silicon/robot/New(loc,var/syndie = 0,var/unfinished = 0, var/alien = 0)
 	spark_system = new /datum/effect/effect/system/spark_spread()
@@ -456,6 +459,25 @@
 	else
 		C.toggled = 1
 		src << "\red You enable [C.name]."
+		
+/mob/living/silicon/robot/verb/control_hud()
+	set name = "Toggle Sensors"
+	set desc = "Toggles your sensors to display security records, medical records or nothing."
+	set category = "Robot Commands"
+	
+	if(stat != 0)
+		return
+
+	var/hud = input("Please select a sensor module!", "Toggle Sensors", "None", null) in list("None","Security","Medical")
+	for(var/obj/item/borg/sight/hud/H in contents)
+		del(H)
+	switch(hud)
+		if("Security")
+			sechud = new/obj/item/borg/sight/hud/sec(src)
+		if("Medical")
+			healthhud = new/obj/item/borg/sight/hud/med(src)
+		else
+			return
 
 /mob/living/silicon/robot/blob_act()
 	if (stat != 2)
