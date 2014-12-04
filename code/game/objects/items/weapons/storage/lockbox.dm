@@ -103,7 +103,10 @@
 
 	New()
 		..()
+		new /obj/item/clothing/tie/medal/gold/heroism(src)
+		new /obj/item/clothing/tie/medal/silver/security(src)
 		new /obj/item/clothing/tie/medal/silver/valor(src)
+		new /obj/item/clothing/tie/medal/nobel_science(src)
 		new /obj/item/clothing/tie/medal/bronze_heart(src)
 		new /obj/item/clothing/tie/medal/conduct(src)
 		new /obj/item/clothing/tie/medal/conduct(src)
