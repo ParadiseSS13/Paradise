@@ -828,6 +828,9 @@ var/list/ghostteleportlocs = list()
 /area/maintenance/abandonedbar
 	name = "Maintenance Bar"
 	icon_state = "yellow"
+	power_equip = 0
+	power_light = 0
+	power_environ = 0
 
 
 //Hallway
