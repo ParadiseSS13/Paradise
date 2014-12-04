@@ -1,11 +1,14 @@
 /obj/mecha/working/ripley
-	desc = "Autonomous Power Loader Unit. The workhorse of the exosuit world."
+	desc = "Autonomous Power Loader Unit. This newer model is refitted with powerful armour against the dangers of the EVA mining process."
 	name = "APLU \"Ripley\""
 	icon_state = "ripley"
 	initial_icon = "ripley"
-	step_in = 6
+	step_in = 5
 	max_temperature = 20000
 	health = 200
+	lights_power = 7
+	deflect_chance = 15
+	damage_absorption = list("brute"=0.6,"bomb"=0.2)
 	wreckage = /obj/effect/decal/mecha_wreckage/ripley
 	var/list/cargo = new
 	var/cargo_capacity = 15
@@ -23,7 +26,7 @@
 	initial_icon = "firefighter"
 	max_temperature = 65000
 	health = 250
-	lights_power = 8
+	lights_power = 7
 	damage_absorption = list("fire"=0.5,"bullet"=0.8,"bomb"=0.5)
 	wreckage = /obj/effect/decal/mecha_wreckage/ripley/firefighter
 
@@ -33,7 +36,7 @@
 	icon_state = "deathripley"
 	step_in = 2
 	opacity=0
-	lights_power = 60
+	lights_power = 7
 	wreckage = /obj/effect/decal/mecha_wreckage/ripley/deathripley
 	step_energy_drain = 0
 
