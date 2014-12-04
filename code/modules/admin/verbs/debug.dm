@@ -539,6 +539,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 		"soviet admiral",
 		"tunnel clown",
 		"masked killer",
+		"dark lord",
 		"assassin",
 		"death commando",
 		"syndicate commando",
@@ -743,6 +744,30 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 			for(var/obj/item/carried_item in M.contents)
 				if(!istype(carried_item, /obj/item/weapon/implant))//If it's not an implant.
 					carried_item.add_blood(M)//Oh yes, there will be blood...
+
+		if("dark lord")
+			M.equip_to_slot_or_del(new /obj/item/clothing/under/color/black(M), slot_w_uniform)
+			M.equip_to_slot_or_del(new /obj/item/clothing/shoes/black(M), slot_shoes)
+			M.equip_to_slot_or_del(new /obj/item/clothing/gloves/black(M), slot_gloves)
+			M.equip_to_slot_or_del(new /obj/item/device/radio/headset(M), slot_l_ear)
+			M.equip_to_slot_or_del(new /obj/item/weapon/twohanded/dualsaber/red(M), slot_l_hand)
+
+			var/obj/item/clothing/head/chaplain_hood/hood = new(M)
+			hood.name = "dark lord hood"
+			M.equip_to_slot_or_del(hood, slot_head)
+
+			var/obj/item/clothing/suit/chaplain_hoodie/robe = new(M)
+			robe.name = "dark lord robes"
+			M.equip_to_slot_or_del(robe, slot_wear_suit)
+
+			var/obj/item/weapon/card/id/syndicate/W = new(M)
+			W.name = "[M.real_name]'s ID Card"
+			W.access = get_all_accesses()
+			W.assignment = "Dark Lord"
+			W.registered_name = M.real_name
+			M.equip_to_slot_or_del(W, slot_wear_id)
+
+			cmd_admin_toggle_block(M,"TELE")
 
 		if("assassin")
 			M.equip_to_slot_or_del(new /obj/item/clothing/under/suit_jacket(M), slot_w_uniform)
