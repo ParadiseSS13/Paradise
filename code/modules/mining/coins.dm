@@ -2,85 +2,115 @@
 
 /obj/item/weapon/coin
 	icon = 'icons/obj/items.dmi'
-	name = "Coin"
-	icon_state = "coin"
-	flags = FPRINT | TABLEPASS| CONDUCT
-	force = 0.0
-	throwforce = 0.0
+	name = "coin"
+	icon_state = "coin__heads"
+	flags = CONDUCT
+	force = 1
+	throwforce = 2
 	w_class = 1.0
 	var/string_attached
-	var/material="iron" // Ore ID, used with coinbags.
-	var/credits = 0 // How many credits is this coin worth?
+	var/list/sideslist = list("heads","tails")
+	var/cmineral = null
+	var/cooldown = 0
+	var/credits = 10
 
 /obj/item/weapon/coin/New()
 	pixel_x = rand(0,16)-8
 	pixel_y = rand(0,8)-8
 
+	icon_state = "coin_[cmineral]_heads"
+	if(cmineral)
+		name = "[cmineral] coin"
+
 /obj/item/weapon/coin/gold
-	name = "Gold coin"
-	icon_state = "coin_gold"
-	credits = 10
+	cmineral = "gold"
+	icon_state = "coin_gold_heads"
+	credits = 160
 
 /obj/item/weapon/coin/silver
-	name = "Silver coin"
-	icon_state = "coin_silver"
-	credits = 5
+	cmineral = "silver"
+	icon_state = "coin_silver_heads"
+	credits = 40
 
 /obj/item/weapon/coin/diamond
-	name = "Diamond coin"
-	icon_state = "coin_diamond"
-	credits = 25
+	cmineral = "diamond"
+	icon_state = "coin_diamond_heads"
+	credits = 120
 
 /obj/item/weapon/coin/iron
-	name = "Iron coin"
-	icon_state = "coin_iron"
-	credits = 1
+	cmineral = "iron"
+	icon_state = "coin_iron_heads"
+	credits = 20
 
 /obj/item/weapon/coin/plasma
-	name = "Solid plasma coin"
-	icon_state = "coin_plasma"
-	credits = 5
+	cmineral = "plasma"
+	icon_state = "coin_plasma_heads"
+	credits = 80
 
 /obj/item/weapon/coin/uranium
-	name = "Uranium coin"
-	icon_state = "coin_uranium"
-	credits = 25
+	cmineral = "uranium"
+	icon_state = "coin_uranium_heads"
+	credits = 160
 
 /obj/item/weapon/coin/clown
-	name = "Bananaium coin"
-	icon_state = "coin_clown"
-	credits = 1000
+	cmineral = "bananium"
+	icon_state = "coin_bananium_heads"
+	credits = 600 //makes the clown cri
 
+/obj/item/weapon/coin/adamantine
+	cmineral = "adamantine"
+	icon_state = "coin_adamantine_heads"
+	credits = 400
 
-/obj/item/weapon/coin/platinum
-	name = "platinum coin"
-	icon_state = "coin_adamantine"
+/obj/item/weapon/coin/mythril
+	cmineral = "mythril"
+	icon_state = "coin_mythril_heads"
+	credits = 400
+
+/obj/item/weapon/coin/twoheaded
+	cmineral = "iron"
+	icon_state = "coin_iron_heads"
+	desc = "Hey, this coin's the same on both sides!"
+	sideslist = list("heads")
+	credits = 20
+
 
 /obj/item/weapon/coin/attackby(obj/item/weapon/W as obj, mob/user as mob)
-	if(istype(W,/obj/item/stack/cable_coil) )
+	if(istype(W, /obj/item/stack/cable_coil))
 		var/obj/item/stack/cable_coil/CC = W
 		if(string_attached)
-			user << "\blue There already is a string attached to this coin."
+			user << "<span class='notice'>There already is a string attached to this coin.</span>"
 			return
 
-		if(CC.amount <= 0)
-			user << "\blue This cable coil appears to be empty."
-			del(CC)
+		if (CC.use(1))
+			overlays += image('icons/obj/items.dmi',"coin_string_overlay")
+			string_attached = 1
+			user << "<span class='notice'>You attach a string to the coin.</span>"
+		else
+			user << "<span class='warning'>You need one length of cable to attach a string to the coin.</span>"
 			return
 
-		overlays += image('icons/obj/items.dmi',"coin_string_overlay")
-		string_attached = 1
-		user << "\blue You attach a string to the coin."
-		CC.use(1)
-	else if(istype(W,/obj/item/weapon/wirecutters) )
+	else if(istype(W,/obj/item/weapon/wirecutters))
 		if(!string_attached)
 			..()
 			return
 
 		var/obj/item/stack/cable_coil/CC = new/obj/item/stack/cable_coil(user.loc)
 		CC.amount = 1
-//		CC.updateicon()
+		CC.update_icon()
 		overlays = list()
 		string_attached = null
-		user << "\blue You detach the string from the coin."
+		user << "<span class='notice'>You detach the string from the coin.</span>"
 	else ..()
+
+/obj/item/weapon/coin/attack_self(mob/user as mob)
+	if(cooldown < world.time - 15)
+		var/coinflip = pick(sideslist)
+		cooldown = world.time
+		flick("coin_[cmineral]_flip", src)
+		icon_state = "coin_[cmineral]_[coinflip]"
+		playsound(user.loc, 'sound/items/coinflip.ogg', 50, 1)
+		if(do_after(user, 15))
+			user.visible_message("<span class='notice'>[user] has flipped [src]. It lands on [coinflip].</span>", \
+								 "<span class='notice'>You flip [src]. It lands on [coinflip].</span>", \
+								 "<span class='notice'>You hear the clattering of loose change.</span>")

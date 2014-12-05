@@ -29,33 +29,38 @@ obj/item/weapon/gun/energy/laser/retro
 	var/charge_tick = 0
 
 
-	New()
-		..()
-		processing_objects.Add(src)
+/obj/item/weapon/gun/energy/laser/captain/New()
+	..()
+	processing_objects.Add(src)
+
+/obj/item/weapon/gun/energy/laser/captain/Destroy()
+	processing_objects.Remove(src)
+	..()
+
+/obj/item/weapon/gun/energy/laser/captain/process()
+	charge_tick++
+	if(charge_tick < 4) 
+		return 0
+	charge_tick = 0
+	if(!power_supply) 
+		return 0
+	power_supply.give(1000)
+	update_icon()
+	return 1
 
 
-	Destroy()
-		processing_objects.Remove(src)
-		..()
+/obj/item/weapon/gun/energy/laser/cyborg
+	desc = "An energy-based laser gun that draws power from the cyborg's internal energy cell directly. So this is what freedom looks like?"
 
-
-	process()
-		charge_tick++
-		if(charge_tick < 4) return 0
-		charge_tick = 0
-		if(!power_supply) return 0
-		power_supply.give(1000)
-		update_icon()
-		return 1
-
-
+/obj/item/weapon/gun/energy/laser/cyborg/process()
+	return 1		
 
 /obj/item/weapon/gun/energy/laser/cyborg/process_chambered()
 	if(in_chamber)
 		return 1
 	if(isrobot(src.loc))
 		var/mob/living/silicon/robot/R = src.loc
-		if(R && R.cell)
+		if(R && R.cell && R.cell.charge >= 500)
 			R.cell.use(500)
 			in_chamber = new/obj/item/projectile/beam(src)
 			return 1

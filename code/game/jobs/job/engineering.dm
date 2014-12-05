@@ -113,8 +113,8 @@
 	spawn_positions = 1
 	supervisors = "the chief engineer"
 	selection_color = "#fff5cc"
-	access = list(access_engine, access_engine_equip, access_tech_storage, access_maint_tunnels, access_mechanic)
-	minimal_access = list(access_maint_tunnels, access_emergency_storage, access_mechanic)
+	access = list(access_engine, access_engine_equip, access_tech_storage, access_maint_tunnels, access_mechanic, access_external_airlocks)
+	minimal_access = list(access_maint_tunnels, access_emergency_storage, access_mechanic, access_external_airlocks)
 
 
 	equip(var/mob/living/carbon/human/H)

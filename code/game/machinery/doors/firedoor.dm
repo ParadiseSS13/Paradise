@@ -35,7 +35,10 @@
 			// Should still work.  (/turf/return_air())
 			var/datum/gas_mixture/environment = T.return_air()
 			for(var/i=1;i<=stats.len;i++)
-				rstats[i] = environment.vars[stats[i]]
+				if(stats[i] == "pressure")
+					continue
+				else
+					rstats[i] = environment.vars[stats[i]]
 		temps[direction] = rstats
 	return temps
 
