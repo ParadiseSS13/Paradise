@@ -168,7 +168,7 @@
 
 /obj/item/weapon/legcuffs/beartrap
 	name = "bear trap"
-	throw_speed = 2
+	throw_speed = 1
 	throw_range = 1
 	icon_state = "beartrap0"
 	desc = "A trap used to catch bears and other legged creatures."
@@ -185,26 +185,31 @@
 		icon_state = "beartrap[armed]"
 		user << "<span class='notice'>[src] is now [armed ? "armed" : "disarmed"]</span>"
 
+
 /obj/item/weapon/legcuffs/beartrap/Crossed(AM as mob|obj)
-	if(armed)
-		if(ishuman(AM))
-			if(isturf(src.loc))
+	if(armed && isturf(src.loc))
+		if( (iscarbon(AM) || isanimal(AM)) && !istype(AM, /mob/living/simple_animal/parrot) && !istype(AM, /mob/living/simple_animal/construct) && !istype(AM, /mob/living/simple_animal/shade) && !istype(AM, /mob/living/simple_animal/hostile/viscerator))
+			var/mob/living/L = AM
+			armed = 0
+			icon_state = "beartrap0"
+			playsound(src.loc, 'sound/effects/snap.ogg', 50, 1)
+			L.visible_message("<span class='danger'>[L] triggers \the [src].</span>", \
+					"<span class='userdanger'>You trigger \the [src]!</span>")
+
+			if(ishuman(AM))
 				var/mob/living/carbon/H = AM
-				if(H.m_intent == "run")
-					armed = 0
+				if(H.lying)
+					H.apply_damage(20,BRUTE,"chest")
+				else
+					H.apply_damage(20,BRUTE,(pick("l_leg", "r_leg")))
+				if(!H.legcuffed) //beartrap can't cuff you leg if there's already a beartrap or legcuffs.
 					H.legcuffed = src
 					src.loc = H
-					H.update_inv_legcuffed()
-					H << "\red <B>You step on \the [src]!</B>"
+					H.update_inv_legcuffed(0)
 					feedback_add_details("handcuffs","B") //Yes, I know they're legcuffs. Don't change this, no need for an extra variable. The "B" is used to tell them apart.
-					for(var/mob/O in viewers(H, null))
-						if(O == H)
-							continue
-						O.show_message("\red <B>[H] steps on \the [src].</B>", 1)
-		if(isanimal(AM) && !istype(AM, /mob/living/simple_animal/parrot) && !istype(AM, /mob/living/simple_animal/construct) && !istype(AM, /mob/living/simple_animal/shade) && !istype(AM, /mob/living/simple_animal/hostile/viscerator))
-			armed = 0
-			var/mob/living/simple_animal/SA = AM
-			SA.health -= 20
+
+			else
+				L.apply_damage(20,BRUTE)
 	..()
 
 
@@ -591,13 +596,13 @@
 	item_state = "RPED"
 	w_class = 5
 	can_hold = list("/obj/item/weapon/stock_parts","/obj/item/weapon/cell")
-	storage_slots = 14
+	storage_slots = 50
 	use_to_pickup = 1
 	allow_quick_gather = 1
 	allow_quick_empty = 1
 	collection_mode = 1
 	max_w_class = 3
-	max_combined_w_class = 28
+	max_combined_w_class = 100
 
 /obj/item/weapon/storage/part_replacer/proc/play_rped_sound()
 	//Plays the sound for RPED exchanging or installing parts.

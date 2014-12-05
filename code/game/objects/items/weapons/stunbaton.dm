@@ -164,7 +164,7 @@
 	msg_admin_attack("[key_name(user)] stunned [key_name(L)] with the [src].")
 
 	deductcharge(hitcost)
-	
+
 	if(ishuman(L))
 		var/mob/living/carbon/human/H = L
 		H.forcesay(hit_appends)
@@ -220,7 +220,7 @@
 
 //secborg stun baton module
 /obj/item/weapon/melee/baton/robot
-	hitcost = 500	
+	hitcost = 500
 
 /obj/item/weapon/melee/baton/robot/attack_self(mob/user)
 	//try to find our power cell
@@ -247,8 +247,8 @@
 	force = 3
 	throwforce = 5
 	stunforce = 0
-	agonyforce = 60	//same force as a stunbaton, but uses way more charge.
-	hitcost = 2500
+	agonyforce = 42	//less than a stunbaton and uses way more charge.
+	hitcost = 3750
 	attack_verb = list("poked")
 	slot_flags = null
 
