@@ -35,8 +35,8 @@
 	damage = 60
 	stun = 5
 	weaken = 5
-	stutter = 5	
-	
+	stutter = 5
+
 /obj/item/projectile/beam/xray
 	name = "xray beam"
 	icon_state = "xray"
@@ -75,7 +75,7 @@
 		var/mob/living/carbon/human/M = target
 		if(istype(M.wear_suit))
 			if(M.wear_suit.type in suit_types)
-				M.Weaken(34)
+				M.adjustHalLoss(34)
 	return 1
 
 /obj/item/projectile/lasertag/omni
