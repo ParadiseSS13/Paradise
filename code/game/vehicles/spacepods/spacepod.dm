@@ -24,7 +24,7 @@
 	var/hatch_open = 0
 	var/next_firetime = 0
 	var/list/pod_overlays
-	var/health = 200
+	var/health = 100
 	var/lights = 0
 	var/lights_power = 6
 
@@ -204,7 +204,7 @@
 
 /obj/spacepod/sec
 	name = "\improper security spacepod"
-	desc = "An armed security spacepod."
+	desc = "An armed security spacepod with reinforced armor plating."
 	icon_state = "pod_mil"
 	health = 150
 
