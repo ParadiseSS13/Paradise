@@ -635,7 +635,7 @@
 		// Needed for M_TOXIC_FART
 		if("fart")
 			if(world.time-lastFart >= 600)
-//				playsound(src.loc, 'sound/effects/fart.ogg', 50, 1, -3) //Admins voted no to fun
+				playsound(src.loc, 'sound/effects/fart.ogg', 50, 1, -3) //Admins voted no to fun
 				message = "<b>[src]</b> [pick("passes wind","farts")]."
 				m_type = 2
 

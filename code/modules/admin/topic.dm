@@ -1653,7 +1653,7 @@
 		P.name = "[command_name()]- [customname]"
 		P.info = input
 		P.update_icon()
-		P.stamps += "<HR><i>This paper has been stamped by the Central Command Quantum Relay.</i>"	
+		P.stamps += "<HR><img src=large_stamp-cent.png>"	
 		var/image/stampoverlay = image('icons/obj/bureaucracy.dmi')
 		P.x = rand(-2, 0)
 		P.y = rand(-1, 2)	
@@ -1664,8 +1664,8 @@
 		
 		if(!P.ico)
 			P.ico = new
-		P.ico += "paper_stamp_cent"
-		stampoverlay.icon_state = "paper_stamp_cent"
+		P.ico += "paper_stamp-cent"
+		stampoverlay.icon_state = "paper_stamp-cent"
 		
 		// Stamps
 		if(!P.stamped)

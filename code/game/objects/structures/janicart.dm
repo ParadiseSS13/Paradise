@@ -445,50 +445,53 @@
 /obj/structure/janitorialcart/attackby(obj/item/I, mob/user)
 	var/fail_msg = "<span class='notice'>There is already one of those in [src].</span>"
 
-	if(istype(I, /obj/item/weapon/mop))
-		var/obj/item/weapon/mop/m=I
-		if(m.reagents.total_volume < m.reagents.maximum_volume)
-			wet_mop(m, user)
-			return
-		if(!mymop)
-			m.janicart_insert(user, src)
-		else
-			user << fail_msg
+	if(!I.is_robot_module())
+		if(istype(I, /obj/item/weapon/mop))
+			var/obj/item/weapon/mop/m=I
+			if(m.reagents.total_volume < m.reagents.maximum_volume)
+				wet_mop(m, user)
+				return
+			if(!mymop)
+				m.janicart_insert(user, src)
+			else
+				user << fail_msg
 
-	else if(istype(I, /obj/item/weapon/storage/bag/trash))
-		if(!mybag)
-			var/obj/item/weapon/storage/bag/trash/t=I
-			t.janicart_insert(user, src)
-		else
-			user <<  fail_msg
-	else if(istype(I, /obj/item/weapon/reagent_containers/spray/cleaner))
-		if(!myspray)
-			put_in_cart(I, user)
-			myspray=I
-			update_icon()
-		else
-			user << fail_msg
-	else if(istype(I, /obj/item/device/lightreplacer))
-		if(!myreplacer)
-			var/obj/item/device/lightreplacer/l=I
-			l.janicart_insert(user,src)
-		else
-			user << fail_msg
-	else if(istype(I, /obj/item/weapon/caution))
-		if(signs < max_signs)
-			put_in_cart(I, user)
-			signs++
-			update_icon()
-		else
-			user << "<span class='notice'>[src] can't hold any more signs.</span>"
-	else if(mybag)
-		mybag.attackby(I, user)
-	else if(istype(I, /obj/item/weapon/crowbar))
-		user.visible_message("<span class='warning'>[user] begins to empty the contents of [src].</span>")
-		if(do_after(user, 30))
-			usr << "<span class='notice'>You empty the contents of [src]'s bucket onto the floor.</span>"
-			reagents.reaction(src.loc)
-			src.reagents.clear_reagents()
+		else if(istype(I, /obj/item/weapon/storage/bag/trash))
+			if(!mybag)
+				var/obj/item/weapon/storage/bag/trash/t=I
+				t.janicart_insert(user, src)
+			else
+				user <<  fail_msg
+		else if(istype(I, /obj/item/weapon/reagent_containers/spray/cleaner))
+			if(!myspray)
+				put_in_cart(I, user)
+				myspray=I
+				update_icon()
+			else
+				user << fail_msg
+		else if(istype(I, /obj/item/device/lightreplacer))
+			if(!myreplacer)
+				var/obj/item/device/lightreplacer/l=I
+				l.janicart_insert(user,src)
+			else
+				user << fail_msg
+		else if(istype(I, /obj/item/weapon/caution))
+			if(signs < max_signs)
+				put_in_cart(I, user)
+				signs++
+				update_icon()
+			else
+				user << "<span class='notice'>[src] can't hold any more signs.</span>"
+		else if(mybag)
+			mybag.attackby(I, user)
+		else if(istype(I, /obj/item/weapon/crowbar))
+			user.visible_message("<span class='warning'>[user] begins to empty the contents of [src].</span>")
+			if(do_after(user, 30))
+				usr << "<span class='notice'>You empty the contents of [src]'s bucket onto the floor.</span>"
+				reagents.reaction(src.loc)
+				src.reagents.clear_reagents()
+	else
+		usr << "<span class='warning'>You cannot interface your modules [src]!</span>"
 
 /obj/structure/janitorialcart/attack_hand(mob/user)
 	user.set_machine(src)

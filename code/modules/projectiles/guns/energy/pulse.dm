@@ -5,7 +5,7 @@
 	item_state = null	//so the human update icon uses the icon_state instead.
 	force = 10
 	fire_sound = 'sound/weapons/pulse.ogg'
-	charge_cost = 2000
+	charge_cost = 200
 	projectile_type = "/obj/item/projectile/beam/pulse"
 	cell_type = "/obj/item/weapon/cell/super"
 	var/mode = 2

@@ -211,7 +211,7 @@
  * Duffelbags - My thanks to MrSnapWalk for the original icon and Neinhaus for the job variants - Dave.
  */
 
- /obj/item/weapon/storage/backpack/duffel
+/obj/item/weapon/storage/backpack/duffel
 	name = "duffelbag"
 	desc = "A large grey duffelbag designed to hold more items than a regular bag."
 	icon_override = 'icons/mob/in-hand/duffelbag.dmi'

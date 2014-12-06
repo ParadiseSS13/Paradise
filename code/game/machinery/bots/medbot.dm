@@ -594,7 +594,14 @@
 /obj/machinery/bot/medbot/proc/declare_critical(var/crit_patient)
 	var/area/location = get_area(src)	
 	for(var/mob/living/carbon/human/human in world)
-		if((human.z == src.z) && istype(human.glasses, /obj/item/clothing/glasses/hud/health) | istype(human.glasses, /obj/item/clothing/glasses/hud/health_advanced) && !human.blinded)
+		if((human.z == src.z) && istype(human.glasses, /obj/item/clothing/glasses/hud/health) || istype(human.glasses, /obj/item/clothing/glasses/hud/health_advanced) && !human.blinded)
 			if((skin == "bezerk") && (!("syndicate" in human.faction)))
 				continue
 			human << "<span class='info'>\icon[human.glasses] Medical emergency! [crit_patient ? "<b>[crit_patient]</b>" : "A patient"] is in critical condition at [location]!"
+	for(var/mob/living/silicon/robot in world)
+		if((robot.z == src.z) && !robot.blinded)
+			if((skin == "bezerk") && (!("syndicate" in robot.faction)))
+				continue
+			for(var/obj/I in robot.contents) 
+				if(istype(I, /obj/item/borg/sight/hud/med))
+					robot << "<span class='info'>\icon[I] Medical emergency! [crit_patient ? "<b>[crit_patient]</b>" : "A patient"] is in critical condition at [location]!"

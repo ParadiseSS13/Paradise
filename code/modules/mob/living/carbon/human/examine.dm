@@ -478,9 +478,26 @@
 		var/mob/living/silicon/robot/R = M
 		switch(hudtype)
 			if("security")
-				return istype(R.module_state_1, /obj/item/borg/sight/hud/sec) || istype(R.module_state_2, /obj/item/borg/sight/hud/sec) || istype(R.module_state_3, /obj/item/borg/sight/hud/sec)
+				for(var/obj/I in R.contents) 
+					if(istype(I, /obj/item/borg/sight/hud/sec))
+						return 1
 			if("medical")
-				return istype(R.module_state_1, /obj/item/borg/sight/hud/med) || istype(R.module_state_2, /obj/item/borg/sight/hud/med) || istype(R.module_state_3, /obj/item/borg/sight/hud/med)
+				for(var/obj/I in R.contents) 
+					if(istype(I, /obj/item/borg/sight/hud/med))
+						return 1
+			else
+				return 0
+	else if(istype(M, /mob/living/silicon/ai))
+		var/mob/living/silicon/ai/A = M	
+		switch(hudtype)
+			if("security")
+				for(var/obj/I in A.contents) 
+					if(istype(I, /obj/item/borg/sight/hud/sec))
+						return 1
+			if("medical")
+				for(var/obj/I in A.contents) 
+					if(istype(I, /obj/item/borg/sight/hud/med))
+						return 1
 			else
 				return 0
 	else

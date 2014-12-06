@@ -482,3 +482,8 @@ Auto Patrol: []"},
 	for(var/mob/living/carbon/human/human in world)
 		if((human.z == src.z) && istype(human.glasses, /obj/item/clothing/glasses/hud/security) || istype(human.glasses, /obj/item/clothing/glasses/sunglasses/sechud) && !human.blinded)
 			human << "<span class='info'>\icon[human.glasses] [src.name] is [arrest_type ? "detaining" : "arresting"] level [threatlevel] threat <b>[target]</b> in <b>[location]</b></span>"
+	for(var/mob/living/silicon/robot in world)
+		if((robot.z == src.z) && !robot.blinded)
+			for(var/obj/I in robot.contents) 
+				if(istype(I, /obj/item/borg/sight/hud/sec))
+					robot << "<span class='info'>\icon[I] [src.name] is [arrest_type ? "detaining" : "arresting"] level [threatlevel] threat <b>[target]</b> in <b>[location]</b></span>"
