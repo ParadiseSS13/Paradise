@@ -8398,7 +8398,7 @@
 "dfz" = (/turf/simulated/shuttle/plating{name = "Vox plating"; nitrogen = 100; oxygen = 0},/turf/simulated/shuttle/wall{dir = 1; icon_state = "diagonalWall3"},/area/shuttle/vox/station)
 "dfA" = (/obj/structure/closet{name = "Loot Closet"},/turf/simulated/shuttle/plating{name = "Vox plating"; nitrogen = 100; oxygen = 0},/area/shuttle/vox/station)
 "dfB" = (/turf/simulated/shuttle/plating{name = "Vox plating"; nitrogen = 100; oxygen = 0},/turf/simulated/shuttle/wall{dir = 8; icon_state = "diagonalWall3"},/area/shuttle/vox/station)
-"dfC" = (/obj/effect/landmark/start,/obj/machinery/media/jukebox/lobby,/turf/unsimulated/floor,/area/start)
+"dfC" = (/obj/effect/landmark/start,/turf/unsimulated/floor,/area/start)
 "dfD" = (/turf/unsimulated/wall/splashscreen,/area/start)
 "dfE" = (/obj/structure/table/reinforced,/obj/item/weapon/grenade/flashbang/clusterbang,/turf/simulated/floor/engine,/area/shuttle/gamma/space)
 "dfF" = (/obj/structure/table/reinforced,/obj/item/weapon/grenade/chem_grenade/incendiary{name = "Incendiary Grenade"},/obj/machinery/light{dir = 1},/obj/machinery/status_display{density = 0; layer = 4; pixel_x = 0; pixel_y = 32},/turf/simulated/floor/engine,/area/shuttle/gamma/space)
