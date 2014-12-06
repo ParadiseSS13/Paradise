@@ -639,27 +639,6 @@ var/list/sortMobsOrder = list(	"/mob/living/silicon/ai",
 // if a valid atom reference is supplied, call the atom's Topic() with "close=1"
 // otherwise, just reset the client mob's machine var.
 //
-/*
-/client/verb/windowclose(var/atomref as text)
-	set hidden = 1						// hide this verb from the user's panel
-	set name = ".windowclose"			// no autocomplete on cmd line
-
-	//world << "windowclose: [atomref]"
-	if(atomref!="null")				// if passed a real atomref
-		var/hsrc = locate(atomref)	// find the reffed atom
-		var/href = "close=1"
-		if(hsrc)
-			//world << "[src] Topic [href] [hsrc]"
-			usr = src.mob
-			src.Topic(href, params2list(href), hsrc)	// this will direct to the atom's
-			return										// Topic() proc via client.Topic()
-
-	// no atomref specified (or not found)
-	// so just reset the user mob's machine var
-	if(src && src.mob)
-		//world << "[src] was [src.mob.machine], setting to null"
-		src.mob.unset_machine()
-	return */
 
 //Will return the location of the turf an atom is ultimatly sitting on
 /proc/get_turf_loc(var/atom/movable/M) //gets the location of the turf that the atom is on, or what the atom is in is on, etc
