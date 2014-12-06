@@ -1555,7 +1555,7 @@
 
 	//Check for ID
 	var/obj/item/weapon/card/id/idcard = get_idcard()
-	if(judgebot.idcheck && !idcard && name=="Unknown")
+	if(judgebot.idcheck && !idcard)
 		threatcount += 4
 
 	//Check for weapons

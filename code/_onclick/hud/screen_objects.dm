@@ -406,6 +406,11 @@
 				R.uneq_active()
 				R.hud_used.update_robot_modules_display()
 
+		if("Toggle Sensor Augmentation")
+			if(isrobot(usr))
+				var/mob/living/silicon/robot/R = usr
+				R.control_hud()				
+				
 		if("module1")
 			if(istype(usr, /mob/living/silicon/robot))
 				usr:toggle_module(1)
@@ -549,7 +554,7 @@
 				var/mob/living/silicon/ai/AI = usr
 				AI.aiCamera.viewpictures()
 				
-		if("Toggle Sensors")
+		if("Set Sensor Augmentation")
 			if(isAI(usr))
 				var/mob/living/silicon/ai/AI = usr
 				AI.control_hud()

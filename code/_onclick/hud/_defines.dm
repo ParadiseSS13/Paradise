@@ -60,6 +60,7 @@
 #define ui_alien_head "4:12,1:5"	//aliens
 #define ui_alien_oclothing "5:14,1:5"	//aliens
 
+#define ui_borg_sensor "5:16,1:5"			//borgs
 #define ui_inv1 "6:16,1:5"			//borgs
 #define ui_inv2 "7:16,1:5"			//borgs
 #define ui_inv3 "8:16,1:5"			//borgs

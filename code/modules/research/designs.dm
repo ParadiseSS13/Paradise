@@ -1579,6 +1579,16 @@ datum/design/adv_reagent_scanner
 	reliability_base = 74
 	build_path = "/obj/item/device/reagent_scanner/adv"
 
+datum/design/cyborg_analyzer
+	name = "Cyborg Analyzer"
+	desc = "A hand-held scanner able to diagnose robotic injuries."
+	id = "cyborg_analyzer"
+	req_tech = list("programming" = 2, "biotech" = 2, "magnets" = 2)
+	build_type = PROTOLATHE
+	materials = list("$metal" = 30, "$glass" = 20)
+	reliability_base = 74
+	build_path = "/obj/item/device/robotanalyzer"	
+
 datum/design/mmi
 	name = "Man-Machine Interface"
 	desc = "The Warrior's bland acronym, MMI, obscures the true horror of this monstrosity."
