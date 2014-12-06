@@ -474,30 +474,15 @@
 				return istype(H.glasses, /obj/item/clothing/glasses/hud/health) || istype(H.glasses, /obj/item/clothing/glasses/hud/health_advanced)
 			else
 				return 0
-	else if(istype(M, /mob/living/silicon/robot))
-		var/mob/living/silicon/robot/R = M
+	else if(istype(M, /mob/living/silicon))
+		var/mob/living/silicon/R = M
 		switch(hudtype)
 			if("security")
-				for(var/obj/I in R.contents) 
-					if(istype(I, /obj/item/borg/sight/hud/sec))
-						return 1
+				if(R.sensor_mode == 1)
+					return 1
 			if("medical")
-				for(var/obj/I in R.contents) 
-					if(istype(I, /obj/item/borg/sight/hud/med))
-						return 1
-			else
-				return 0
-	else if(istype(M, /mob/living/silicon/ai))
-		var/mob/living/silicon/ai/A = M	
-		switch(hudtype)
-			if("security")
-				for(var/obj/I in A.contents) 
-					if(istype(I, /obj/item/borg/sight/hud/sec))
-						return 1
-			if("medical")
-				for(var/obj/I in A.contents) 
-					if(istype(I, /obj/item/borg/sight/hud/med))
-						return 1
+				if(R.sensor_mode == 2)
+					return 1
 			else
 				return 0
 	else

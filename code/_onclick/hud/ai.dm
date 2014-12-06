@@ -132,7 +132,7 @@
 	
 //Medical/Security sensors
 	using = new /obj/screen()
-	using.name = "Toggle Sensors"
+	using.name = "Set Sensor Augmentation"
 	using.icon = 'icons/mob/screen_ai.dmi'
 	using.icon_state = "ai_sensor"	
 	using.screen_loc = ui_ai_sensor
@@ -140,8 +140,4 @@
 	adding += using
 
 	mymob.client.screen += adding + other
-	return
-
-	mymob.client.screen += adding + other
-
 	return

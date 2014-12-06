@@ -1,7 +1,4 @@
 /mob/living/silicon/ai/Life()
-	if(client)
-		handle_regular_hud_updates()
-			
 	if (src.stat == 2)
 		return
 	else //I'm not removing that shitton of tabs, unneeded as they are. -- Urist
@@ -176,6 +173,13 @@
 							sleep(50)
 							theAPC = null
 
+	regular_hud_updates()
+	switch(src.sensor_mode)
+		if (SEC_HUD)
+			process_sec_hud(src,1,src.eyeobj)
+		if (MED_HUD)
+			process_med_hud(src,1,src.eyeobj)
+
 /mob/living/silicon/ai/updatehealth()
 	if(status_flags & GODMODE)
 		health = 100
@@ -185,11 +189,3 @@
 			health = 100 - getOxyLoss() - getToxLoss() - getBruteLoss()
 		else
 			health = 100 - getOxyLoss() - getToxLoss() - getFireLoss() - getBruteLoss()
-
-/mob/living/silicon/ai/proc/handle_regular_hud_updates()			
-	for(var/image/hud in client.images)  //COPIED FROM the human handle_regular_hud_updates() proc
-		if(copytext(hud.icon_state,1,4) == "hud") //ugly, but icon comparison is worse, I believe
-			client.images.Remove(hud)
-
-	var/obj/item/borg/sight/hud/hud = (locate(/obj/item/borg/sight/hud) in src)
-	if(hud && hud.hud)	hud.hud.process_hud(src)

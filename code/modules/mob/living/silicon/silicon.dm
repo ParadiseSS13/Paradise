@@ -12,6 +12,10 @@
 	var/list/alarm_types_clear = list("Motion" = 0, "Fire" = 0, "Atmosphere" = 0, "Power" = 0, "Camera" = 0)
 	var/designation = ""
 	var/obj/item/device/camera/siliconcam/aiCamera = null //photography
+	
+	var/sensor_mode = 0 //Determines the current HUD.
+	#define SEC_HUD 1 //Security HUD mode
+	#define MED_HUD 2 //Medical HUD mode
 
 /mob/living/silicon/proc/cancelAlarm()
 	return
@@ -235,3 +239,16 @@
 
 /mob/living/silicon/assess_threat() //Secbots won't hunt silicon units
 	return -10
+	
+/mob/living/silicon/proc/toggle_sensor_mode()
+	var/sensor_type = input("Please select sensor type.", "Sensor Integration", null) in list("Security", "Medical","Disable")
+	switch(sensor_type)
+		if ("Security")
+			sensor_mode = SEC_HUD
+			src << "<span class='notice'>Security records overlay enabled.</span>"
+		if ("Medical")
+			sensor_mode = MED_HUD
+			src << "<span class='notice'>Life signs monitor overlay enabled.</span>"
+		if ("Disable")
+			sensor_mode = 0
+			src << "Sensor augmentations disabled."	
