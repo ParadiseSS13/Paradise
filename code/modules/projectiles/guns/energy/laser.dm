@@ -4,6 +4,7 @@
 	icon_state = "laser"
 	item_state = "laser"
 	fire_sound = 'sound/weapons/Laser.ogg'
+	charge_cost = 830
 	w_class = 3.0
 	m_amt = 2000
 	origin_tech = "combat=3;magnets=2"
@@ -39,10 +40,10 @@ obj/item/weapon/gun/energy/laser/retro
 
 /obj/item/weapon/gun/energy/laser/captain/process()
 	charge_tick++
-	if(charge_tick < 4) 
+	if(charge_tick < 4)
 		return 0
 	charge_tick = 0
-	if(!power_supply) 
+	if(!power_supply)
 		return 0
 	power_supply.give(1000)
 	update_icon()
@@ -53,7 +54,7 @@ obj/item/weapon/gun/energy/laser/retro
 	desc = "An energy-based laser gun that draws power from the cyborg's internal energy cell directly. So this is what freedom looks like?"
 
 /obj/item/weapon/gun/energy/laser/cyborg/process()
-	return 1		
+	return 1
 
 /obj/item/weapon/gun/energy/laser/cyborg/process_chambered()
 	if(in_chamber)
@@ -77,7 +78,6 @@ obj/item/weapon/gun/energy/laser/retro
 	fire_sound = 'sound/weapons/lasercannonfire.ogg'
 	origin_tech = "combat=4;materials=3;powerstorage=3"
 	projectile_type = "/obj/item/projectile/beam/heavylaser"
-	charge_cost = 1250
 
 	isHandgun()
 		return 0
@@ -109,7 +109,7 @@ obj/item/weapon/gun/energy/laser/retro
 	name = "laser tag gun"
 	icon_state = "bluetag"
 	desc = "Standard issue weapon of the Imperial Guard"
-	projectile_type = "/obj/item/projectile/lastertag/blue"
+	projectile_type = "/obj/item/projectile/lasertag/blue"
 	origin_tech = "combat=1;magnets=2"
 	clumsy_check = 0
 	var/charge_tick = 0
@@ -146,7 +146,7 @@ obj/item/weapon/gun/energy/laser/retro
 	name = "laser tag gun"
 	icon_state = "redtag"
 	desc = "Standard issue weapon of the Imperial Guard"
-	projectile_type = "/obj/item/projectile/lastertag/red"
+	projectile_type = "/obj/item/projectile/lasertag/red"
 	origin_tech = "combat=1;magnets=2"
 	clumsy_check = 0
 	var/charge_tick = 0
