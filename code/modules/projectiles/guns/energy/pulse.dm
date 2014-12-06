@@ -5,7 +5,7 @@
 	item_state = null	//so the human update icon uses the icon_state instead.
 	force = 10
 	fire_sound = 'sound/weapons/pulse.ogg'
-	charge_cost = 2000
+	charge_cost = 200
 	projectile_type = "/obj/item/projectile/beam/pulse"
 	cell_type = "/obj/item/weapon/cell/super"
 	var/mode = 2
@@ -19,7 +19,7 @@
 				charge_cost = 100
 				fire_sound = 'sound/weapons/Taser.ogg'
 				user << "\red [src.name] is now set to stun."
-				projectile_type = "/obj/item/projectile/energy/electrode/revolver"
+				projectile_type = "/obj/item/projectile/energy/electrode"
 			if(0)
 				mode = 1
 				charge_cost = 100

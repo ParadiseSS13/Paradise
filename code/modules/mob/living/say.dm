@@ -10,11 +10,11 @@ var/list/department_radio_keys = list(
 	  ":s" = "Security",	"#s" = "Security",		".s" = "Security",
 	  ":w" = "whisper",		"#w" = "whisper",		".w" = "whisper",
 	  ":b" = "binary",		"#b" = "binary",		".b" = "binary",
-	  ":d" = "drone",		"#d" = "drone",			".d" = "drone",	  
+	  ":d" = "drone",		"#d" = "drone",			".d" = "drone",
 	  ":a" = "alientalk",	"#a" = "alientalk",		".a" = "alientalk",
 	  ":t" = "Syndicate",	"#t" = "Syndicate",		".t" = "Syndicate",
 	  ":u" = "Supply",		"#u" = "Supply",		".u" = "Supply",
-	  ":z" = "Service",		"#z" = "Service",		".z" = "Service",	  
+	  ":z" = "Service",		"#z" = "Service",		".z" = "Service",
 	  ":g" = "changeling",	"#g" = "changeling",	".g" = "changeling",
 
 
@@ -28,14 +28,14 @@ var/list/department_radio_keys = list(
 	  ":E" = "Engineering",	"#E" = "Engineering",	".E" = "Engineering",
 	  ":S" = "Security",	"#S" = "Security",		".S" = "Security",
 	  ":W" = "whisper",		"#W" = "whisper",		".W" = "whisper",
-	  ":D" = "drone",		"#D" = "drone",			".D" = "drone",	  
+	  ":D" = "drone",		"#D" = "drone",			".D" = "drone",
 	  ":B" = "binary",		"#B" = "binary",		".B" = "binary",
 	  ":A" = "alientalk",	"#A" = "alientalk",		".A" = "alientalk",
 	  ":T" = "Syndicate",	"#T" = "Syndicate",		".T" = "Syndicate",
 	  ":U" = "Supply",		"#U" = "Supply",		".U" = "Supply",
 	  ":Z" = "Service",		"#Z" = "Service",		".Z" = "Service",
 	  ":G" = "changeling",	"#G" = "changeling",	".G" = "changeling"
-	  
+
 	/* //kinda localization -- rastaf0
 	//same keys as above, but on russian keyboard layout. This file uses cp1251 as encoding.
 	  ":ê" = "right hand",	"#ê" = "right hand",    ".ê" = "right hand",
@@ -185,8 +185,8 @@ var/list/department_radio_keys = list(
 			if (!(istype(src,/mob/living/carbon/human) && !isAI(src) && !isrobot(src) || istype(src,/mob/living/carbon/monkey) || istype(src, /mob/living/simple_animal/parrot) || isrobot(src) && (message_mode=="department") || isAI(src) && (message_mode=="department") || (message_mode in radiochannels)))
 				message_mode = null //only humans can use headsets
 
-	if(src.stunned > 2 || (traumatic_shock > 61 && prob(50)))
-		message_mode = null //Stunned people shouldn't be able to physically turn on their radio/hold down the button to speak into it
+	if(traumatic_shock > 61 && prob(50))
+		message_mode = null //people in shock will have a high chance of not being able to speak on radio; needed since people don't instantly pass out at 100 damage.
 
 	message = capitalize(message)
 

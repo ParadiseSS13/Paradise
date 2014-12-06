@@ -73,6 +73,9 @@
 	var/base_icon = ""
 	var/crisis = 0
 	var/hiddenborg = 0
+	
+	var/obj/item/borg/sight/hud/sec/sechud = null
+	var/obj/item/borg/sight/hud/med/healthhud = null
 
 /mob/living/silicon/robot/New(loc,var/syndie = 0,var/unfinished = 0, var/alien = 0)
 	spark_system = new /datum/effect/effect/system/spark_spread()
@@ -456,6 +459,12 @@
 	else
 		C.toggled = 1
 		src << "\red You enable [C.name]."
+		
+/mob/living/silicon/robot/verb/control_hud()
+	set name = "Set Sensor Augmentation"
+	set desc = "Augment visual feed with internal sensor overlays."
+	set category = "Robot Commands"
+	toggle_sensor_mode()	
 
 /mob/living/silicon/robot/blob_act()
 	if (stat != 2)

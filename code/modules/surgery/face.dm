@@ -128,6 +128,8 @@
 		if (target.op_stage.face == 3)
 			var/datum/organ/external/head/h = affected
 			h.disfigured = 0
+			h.update_icon()
+			target.regenerate_icons()
 		target.op_stage.face = 0
 
 	fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool)

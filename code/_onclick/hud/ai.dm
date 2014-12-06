@@ -129,7 +129,15 @@
 	using.screen_loc = ui_ai_view_images
 	using.layer = 20
 	adding += using
+	
+//Medical/Security sensors
+	using = new /obj/screen()
+	using.name = "Set Sensor Augmentation"
+	using.icon = 'icons/mob/screen_ai.dmi'
+	using.icon_state = "ai_sensor"	
+	using.screen_loc = ui_ai_sensor
+	using.layer = 20	
+	adding += using
 
 	mymob.client.screen += adding + other
-
 	return

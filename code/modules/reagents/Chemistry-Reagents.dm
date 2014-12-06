@@ -2079,6 +2079,19 @@ datum
 				M.silent += REM + 1
 				..()
 
+		staminatoxin
+			name = "Tirizene"
+			id = "tirizene"
+			description = "A toxin that affects the stamina of a person when injected into the bloodstream."
+			reagent_state = LIQUID
+			color = "#6E2828"
+			data = 13
+
+			on_mob_life(var/mob/living/M)
+				M.adjustHalLoss(REM * data)
+				data = max(data - 1, 3)
+				..()
+
 		mindbreaker
 			name = "Mindbreaker Toxin"
 			id = "mindbreaker"
