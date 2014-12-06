@@ -682,10 +682,7 @@ ________________________________________________________________________________
 			pai.attack_self(U)
 
 		if("Eject pAI")
-		if("Eject pAI")
 			if(pai)
-				pai = null
-			else
 				if(pai.loc != src)
 					pai = null
 				else
