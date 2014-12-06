@@ -8,7 +8,7 @@
 		if (M.internals)
 			M.internals.icon_state = "internal1"
 
-		M.generate_name()
+		//M.generate_name()
 
 	if( M.species.name=="Tajaran" || M.species.name=="Unathi" )
 		if(M.mind.assigned_role == "Cyborg" || M.mind.assigned_role == "Clown")

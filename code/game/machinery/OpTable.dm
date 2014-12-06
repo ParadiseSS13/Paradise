@@ -20,11 +20,8 @@
 		if (computer)
 			computer.table = src
 			break
-//	spawn(100) //Wont the MC just call this process() before and at the 10 second mark anyway?
-//		process()
 
 /obj/machinery/optable/ex_act(severity)
-
 	switch(severity)
 		if(1.0)
 			//SN src = null
@@ -76,41 +73,17 @@
 
 
 /obj/machinery/optable/MouseDrop_T(atom/movable/O as mob|obj, mob/user as mob)
-
-	if(O.loc == user) //no you can't pull things out of your ass
+	if(usr.stat || !ishuman(usr) || usr.restrained() || !check_table(usr))
 		return
-	if(user.restrained() || user.stat || user.weakened || user.stunned || user.paralysis || user.resting) //are you cuffed, dying, lying, stunned or other
-		return
-	if(O.anchored || get_dist(user, src) > 1 || get_dist(user, O) > 1 || user.contents.Find(src)) // is the mob anchored, too far away from you, or are you too far away from the source
-		return
-	if(!ismob(O)) //humans only
-		return
-	if(istype(O, /mob/living/simple_animal) || istype(O, /mob/living/silicon)) //animals and robutts dont fit
-		return
-	if(!ishuman(user) && !isrobot(user)) //No ghosts or mice putting people into the sleeper
-		return
-	if(user.loc==null) // just in case someone manages to get a closet into the blue light dimension, as unlikely as that seems
-		return
-	if(!istype(user.loc, /turf) || !istype(O.loc, /turf)) // are you in a container/closet/pod/etc?
-		return
+		
 	var/mob/living/L = O
-	if(!istype(L) || L.buckled)
-		return
-	for(var/mob/living/carbon/slime/M in range(1,L))
-		if(M.Victim == L)
-			usr << "[L.name] cannot be operated on while they have \a [M] attached to their head!"
-			return
-	if(src.victim)
-		usr << "\blue <B>The table is already occupied!</B>"
-		return
-
-	take_victim(L, user)
+	take_victim(L,usr)
 	return
 
 /obj/machinery/optable/proc/check_victim()
 	if(locate(/mob/living/carbon/human, src.loc))
 		var/mob/living/carbon/human/M = locate(/mob/living/carbon/human, src.loc)
-		if(M.resting)
+		if(M.lying)
 			src.victim = M
 			icon_state = M.pulse ? "table2-active" : "table2-idle"
 			return 1
@@ -146,11 +119,7 @@
 	set category = "Object"
 	set src in oview(1)
 
-	if(usr.stat || !ishuman(usr) || usr.buckled || usr.restrained())
-		return
-
-	if(src.victim)
-		usr << "\blue <B>The table is already occupied!</B>"
+	if(usr.stat || !ishuman(usr) || usr.restrained() || !check_table(usr))
 		return
 
 	take_victim(usr,usr)
@@ -162,5 +131,14 @@
 			del(W)
 			return
 
-/obj/machinery/optable/slime
-	icon_state = "table-slime"
+
+/obj/machinery/optable/proc/check_table(mob/living/carbon/patient as mob)
+	if(src.victim)
+		usr << "\blue <B>The table is already occupied!</B>"
+		return 0
+
+	if(patient.buckled)
+		usr << "\blue <B>Unbuckle first!</B>"
+		return 0
+
+	return 1

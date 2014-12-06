@@ -264,7 +264,7 @@ Auto Patrol: []"},
 						playsound(loc, 'sound/weapons/handcuffs.ogg', 30, 1, -2)
 						target.visible_message("<span class='danger'>[src] is trying to put handcuffs on [target]!</span>",\
 											"<span class='userdanger'>[src] is trying to put handcuffs on [target]!</span>")
-						spawn(80)
+						spawn(60)
 							if( !Adjacent(target) || !isturf(target.loc) ) //if he's in a closet or not adjacent, we cancel cuffing.
 								return
 							if(!target.handcuffed)
@@ -483,7 +483,5 @@ Auto Patrol: []"},
 		if((human.z == src.z) && istype(human.glasses, /obj/item/clothing/glasses/hud/security) || istype(human.glasses, /obj/item/clothing/glasses/sunglasses/sechud) && !human.blinded)
 			human << "<span class='info'>\icon[human.glasses] [src.name] is [arrest_type ? "detaining" : "arresting"] level [threatlevel] threat <b>[target]</b> in <b>[location]</b></span>"
 	for(var/mob/living/silicon/robot in world)
-		if((robot.z == src.z) && !robot.blinded)
-			for(var/obj/I in robot.contents) 
-				if(istype(I, /obj/item/borg/sight/hud/sec))
-					robot << "<span class='info'>\icon[I] [src.name] is [arrest_type ? "detaining" : "arresting"] level [threatlevel] threat <b>[target]</b> in <b>[location]</b></span>"
+		if((robot.z == src.z) && !robot.blinded && robot.sensor_mode == 1)
+			robot << "<span class='info'>[src.name] is [arrest_type ? "detaining" : "arresting"] level [threatlevel] threat <b>[target]</b> in <b>[location]</b></span>"

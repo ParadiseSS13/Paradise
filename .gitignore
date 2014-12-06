@@ -11,6 +11,6 @@
 
 #ignore other, specific files and folers
 data/
-maps/backup/*
-maps/cyberiad.dmm.backup
-nano/debug.html
+/maps/backup/*
+/maps/cyberiad.dmm.backup
+/nano/debug.html

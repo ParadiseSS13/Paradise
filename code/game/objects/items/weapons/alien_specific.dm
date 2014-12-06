@@ -56,7 +56,7 @@
 
 //SKREEEEEEEEEEEE tool
 
-/obj/item/device/flash/alien
+/obj/item/device/flash/cyborg/alien
 	name = "eye flash"
 	desc = "Useful for taking pictures, making friends and flash-frying chips."
 	icon = 'icons/mob/alien.dmi'

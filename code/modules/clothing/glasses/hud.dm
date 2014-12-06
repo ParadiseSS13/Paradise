@@ -28,24 +28,10 @@
 	darkness_view = 8
 
 /obj/item/clothing/glasses/hud/health/process_hud(var/mob/M)
-	if(!M)	return
-	if(!M.client)	return
-	var/client/C = M.client
-	for(var/mob/living/carbon/human/patient in view(get_turf(M)))
-		if(M.see_invisible < patient.invisibility)
-			continue
-		C.images += patient.hud_list[HEALTH_HUD]
-		C.images += patient.hud_list[STATUS_HUD]
+	process_med_hud(M,1)
 
 /obj/item/clothing/glasses/hud/health_advanced/process_hud(var/mob/M)
-	if(!M)	return
-	if(!M.client)	return
-	var/client/C = M.client
-	for(var/mob/living/carbon/human/patient in view(get_turf(M)))
-		if(M.see_invisible < patient.invisibility)
-			continue
-		C.images += patient.hud_list[HEALTH_HUD]
-		C.images += patient.hud_list[STATUS_HUD]
+	process_sec_hud(M,1)
 
 
 /obj/item/clothing/glasses/hud/security

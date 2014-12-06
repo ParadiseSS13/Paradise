@@ -602,6 +602,5 @@
 		if((robot.z == src.z) && !robot.blinded)
 			if((skin == "bezerk") && (!("syndicate" in robot.faction)))
 				continue
-			for(var/obj/I in robot.contents) 
-				if(istype(I, /obj/item/borg/sight/hud/med))
-					robot << "<span class='info'>\icon[I] Medical emergency! [crit_patient ? "<b>[crit_patient]</b>" : "A patient"] is in critical condition at [location]!"
+			if(robot.sensor_mode == 2)
+				robot << "<span class='info'>Medical emergency! [crit_patient ? "<b>[crit_patient]</b>" : "A patient"] is in critical condition at [location]!"

@@ -398,7 +398,7 @@
 
 	//user << browse(t, "window=turretid;size=500x250")
 	//onclose(user, "turretid")
-	var/datum/browser/popup = new(user, "turretid", "Turret Control Panel ([area.name])")
+	var/datum/browser/popup = new(user, "turretid", "Turret Control Panel ([area.name])", 500, 250)
 	popup.set_content(t)
 	popup.set_title_image(user.browse_rsc_icon(src.icon, src.icon_state))
 	popup.open()
