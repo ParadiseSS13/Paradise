@@ -93,6 +93,10 @@ var/const/FALLOFF_SOUNDS = 0.5
 		S.environment = 2
 	src << S
 
+/client/proc/playtitlemusic()
+	if(!ticker || !ticker.login_music) return
+	if(prefs.sound & SOUND_LOBBY)
+		src << sound(ticker.login_music, repeat = 0, wait = 0, volume = 85, channel = 1) // MAD JAMS
 
 /proc/get_rand_frequency()
 	return rand(32000, 55000) //Frequency stuff only works with 45kbps oggs.
