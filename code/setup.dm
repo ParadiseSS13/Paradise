@@ -698,7 +698,7 @@ var/list/TAGGERLOCATIONS = list("Disposals",
 #define SOUND_ADMINHELP	1
 #define SOUND_MIDI		2
 #define SOUND_AMBIENCE	4
-#define SOUND_LOBBY		8 //Removed, can be replaced with any other sound bitflag as needed.
+#define SOUND_LOBBY		8
 #define SOUND_STREAMING	16
 
 #define SOUND_DEFAULT (SOUND_ADMINHELP|SOUND_MIDI|SOUND_AMBIENCE|SOUND_LOBBY|SOUND_STREAMING)
