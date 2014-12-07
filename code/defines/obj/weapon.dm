@@ -168,7 +168,7 @@
 
 /obj/item/weapon/legcuffs/beartrap
 	name = "bear trap"
-	throw_speed = 2
+	throw_speed = 1
 	throw_range = 1
 	icon_state = "beartrap0"
 	desc = "A trap used to catch bears and other legged creatures."
@@ -185,26 +185,31 @@
 		icon_state = "beartrap[armed]"
 		user << "<span class='notice'>[src] is now [armed ? "armed" : "disarmed"]</span>"
 
+
 /obj/item/weapon/legcuffs/beartrap/Crossed(AM as mob|obj)
-	if(armed)
-		if(ishuman(AM))
-			if(isturf(src.loc))
+	if(armed && isturf(src.loc))
+		if( (iscarbon(AM) || isanimal(AM)) && !istype(AM, /mob/living/simple_animal/parrot) && !istype(AM, /mob/living/simple_animal/construct) && !istype(AM, /mob/living/simple_animal/shade) && !istype(AM, /mob/living/simple_animal/hostile/viscerator))
+			var/mob/living/L = AM
+			armed = 0
+			icon_state = "beartrap0"
+			playsound(src.loc, 'sound/effects/snap.ogg', 50, 1)
+			L.visible_message("<span class='danger'>[L] triggers \the [src].</span>", \
+					"<span class='userdanger'>You trigger \the [src]!</span>")
+
+			if(ishuman(AM))
 				var/mob/living/carbon/H = AM
-				if(H.m_intent == "run")
-					armed = 0
+				if(H.lying)
+					H.apply_damage(20,BRUTE,"chest")
+				else
+					H.apply_damage(20,BRUTE,(pick("l_leg", "r_leg")))
+				if(!H.legcuffed) //beartrap can't cuff you leg if there's already a beartrap or legcuffs.
 					H.legcuffed = src
 					src.loc = H
-					H.update_inv_legcuffed()
-					H << "\red <B>You step on \the [src]!</B>"
+					H.update_inv_legcuffed(0)
 					feedback_add_details("handcuffs","B") //Yes, I know they're legcuffs. Don't change this, no need for an extra variable. The "B" is used to tell them apart.
-					for(var/mob/O in viewers(H, null))
-						if(O == H)
-							continue
-						O.show_message("\red <B>[H] steps on \the [src].</B>", 1)
-		if(isanimal(AM) && !istype(AM, /mob/living/simple_animal/parrot) && !istype(AM, /mob/living/simple_animal/construct) && !istype(AM, /mob/living/simple_animal/shade) && !istype(AM, /mob/living/simple_animal/hostile/viscerator))
-			armed = 0
-			var/mob/living/simple_animal/SA = AM
-			SA.health -= 20
+
+			else
+				L.apply_damage(20,BRUTE)
 	..()
 
 
@@ -591,13 +596,13 @@
 	item_state = "RPED"
 	w_class = 5
 	can_hold = list("/obj/item/weapon/stock_parts","/obj/item/weapon/cell")
-	storage_slots = 14
+	storage_slots = 50
 	use_to_pickup = 1
 	allow_quick_gather = 1
 	allow_quick_empty = 1
 	collection_mode = 1
 	max_w_class = 3
-	max_combined_w_class = 28
+	max_combined_w_class = 100
 
 /obj/item/weapon/storage/part_replacer/proc/play_rped_sound()
 	//Plays the sound for RPED exchanging or installing parts.
@@ -754,7 +759,7 @@
 	name = "subspace ansible"
 	icon_state = "subspace_ansible"
 	desc = "A compact module capable of sensing extradimensional activity."
-	origin_tech = "programming=3;magnets=5;materials=4;bluespace=2"
+	origin_tech = "programming=2;magnets=3;materials=2;bluespace=1"
 	m_amt = 30
 	g_amt = 10
 
@@ -762,7 +767,7 @@
 	name = "hyperwave filter"
 	icon_state = "hyperwave_filter"
 	desc = "A tiny device capable of filtering and converting super-intense radiowaves."
-	origin_tech = "programming=4;magnets=2"
+	origin_tech = "programming=2;magnets=1"
 	m_amt = 30
 	g_amt = 10
 
@@ -770,7 +775,7 @@
 	name = "subspace amplifier"
 	icon_state = "subspace_amplifier"
 	desc = "A compact micro-machine capable of amplifying weak subspace transmissions."
-	origin_tech = "programming=3;magnets=4;materials=4;bluespace=2"
+	origin_tech = "programming=2;magnets=2;materials=1;bluespace=1"
 	m_amt = 30
 	g_amt = 10
 
@@ -778,7 +783,7 @@
 	name = "subspace treatment disk"
 	icon_state = "treatment_disk"
 	desc = "A compact micro-machine capable of stretching out hyper-compressed radio waves."
-	origin_tech = "programming=3;magnets=2;materials=5;bluespace=2"
+	origin_tech = "programming=2;magnets=1;materials=3;bluespace=1"
 	m_amt = 30
 	g_amt = 10
 
@@ -786,7 +791,7 @@
 	name = "subspace wavelength analyzer"
 	icon_state = "wavelength_analyzer"
 	desc = "A sophisticated analyzer capable of analyzing cryptic subspace wavelengths."
-	origin_tech = "programming=3;magnets=4;materials=4;bluespace=2"
+	origin_tech = "programming=2;magnets=2;materials=2;bluespace=1"
 	m_amt = 30
 	g_amt = 10
 
@@ -794,14 +799,14 @@
 	name = "ansible crystal"
 	icon_state = "ansible_crystal"
 	desc = "A crystal made from pure glass used to transmit laser databursts to subspace."
-	origin_tech = "magnets=4;materials=4;bluespace=2"
+	origin_tech = "magnets=2;materials=2;bluespace=1"
 	g_amt = 50
 
 /obj/item/weapon/stock_parts/subspace/transmitter
 	name = "subspace transmitter"
 	icon_state = "subspace_transmitter"
 	desc = "A large piece of equipment used to open a window into the subspace dimension."
-	origin_tech = "magnets=5;materials=5;bluespace=3"
+	origin_tech = "magnets=3;materials=3;bluespace=2"
 	m_amt = 50
 
 /obj/item/weapon/ectoplasm

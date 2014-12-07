@@ -317,6 +317,7 @@
 			if(STATE_CANCELSHUTTLE)
 				dat = confirm_menu("cancel the shuttle","cancelshuttle2")
 			if(STATE_MESSAGELIST)
+				dat += "\[ <A HREF='?src=\ref[src];main'>Back</A> \]<BR>"
 				dat += "Messages:"
 				for(var/i = 1; i<=messagetitle.len; i++)
 					dat += "<BR><A HREF='?src=\ref[src];viewmessage;message-num=[i]'>[messagetitle[i]]</A>"

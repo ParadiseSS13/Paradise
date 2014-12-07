@@ -219,8 +219,6 @@
 				"\blue [M] gives [src] a [pick("hug","warm embrace")].", \
 				"\blue You hug [src].", \
 				)
-			if(prob(10))
-				src.emote("fart")
 
 
 /mob/living/carbon/proc/eyecheck()

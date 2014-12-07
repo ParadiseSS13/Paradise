@@ -93,11 +93,12 @@
 
 
 /obj/item/weapon/pen/paralysis/New()
-	var/datum/reagents/R = new/datum/reagents(50)
+	var/datum/reagents/R = new/datum/reagents(55)
 	reagents = R
 	R.my_atom = src
 	R.add_reagent("stoxin", 30)
 	R.add_reagent("mutetoxin", 15)
+	R.add_reagent("tirizene", 10)
 	..()
 	return
 
@@ -108,5 +109,5 @@
 	..()
 	msg_admin_attack("[user.name] ([user.ckey]) Used the [name] to stab [M.name] ([M.ckey]) (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[user.x];Y=[user.y];Z=[user.z]'>JMP</a>)")
 	if(reagents.total_volume)
-		if(M.reagents) reagents.trans_to(M, 50) //used to be 150
+		if(M.reagents) reagents.trans_to(M, 55) //used to be 150
 	return

@@ -64,12 +64,13 @@
 		src <<"\red You have been hit by [P]!"
 		del P
 		return
-*/
+
 	if(istype(P, /obj/item/projectile/energy/electrode) || istype(P, /obj/item/projectile/bullet/stunshot))
 		stun_effect_act(0, P.agony, def_zone, P)
 		src <<"\red You have been hit by [P]!"
 		del P
 		return
+*/
 
 	//Armor
 	var/absorb = run_armor_check(def_zone, P.flag)
@@ -81,7 +82,7 @@
 
 	if(!P.nodamage)
 		apply_damage(P.damage, P.damage_type, def_zone, absorb, 0, P, sharp=proj_sharp, edge=proj_edge)
-			
+
 	P.on_hit(src, absorb, def_zone)
 	if(istype(P, /obj/item/projectile/beam/lightning))
 		if(P.damage >= 200)

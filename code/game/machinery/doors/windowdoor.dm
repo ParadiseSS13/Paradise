@@ -17,7 +17,7 @@
 	if (src.req_access && src.req_access.len)
 		src.icon_state = "[src.icon_state]"
 		src.base_state = src.icon_state
-		
+
 	color = color_windows(src)
 	return
 
@@ -56,7 +56,7 @@
 	if (!( ticker ))
 		return
 	var/mob/M = AM
-	if(!M.restrained())
+	if(!M.restrained() && !M.small)
 		bumpopen(M)
 	return
 
@@ -187,7 +187,7 @@
 		visible_message("<span class='danger'>[src] has been hit by [M.name].</span>")
 		take_damage(M.force)
 	return
-	
+
 /obj/machinery/door/window/attack_ai(mob/user as mob)
 	return src.attack_hand(user)
 

@@ -13,7 +13,7 @@
 	m_amt = 500
 	origin_tech = "materials=1"
 	var/dispenser = 0
-	var/breakouttime = 1200 //Deciseconds = 120s = 2 minutes
+	var/breakouttime = 600 //Deciseconds = 60s = 1 minutes
 
 /obj/item/weapon/handcuffs/attack(mob/living/carbon/C, mob/user)
 	if(M_CLUMSY in user.mutations && prob(50))

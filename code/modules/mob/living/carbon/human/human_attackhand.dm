@@ -154,44 +154,13 @@
 			if(w_uniform)
 				w_uniform.add_fingerprint(M)
 			var/datum/organ/external/affecting = get_organ(ran_zone(M.zone_sel.selecting))
-
-			if (istype(r_hand,/obj/item/weapon/gun) || istype(l_hand,/obj/item/weapon/gun))
-				var/obj/item/weapon/gun/W = null
-				var/chance = 0
-
-				if (istype(l_hand,/obj/item/weapon/gun))
-					W = l_hand
-					chance = hand ? 40 : 20
-
-				if (istype(r_hand,/obj/item/weapon/gun))
-					W = r_hand
-					chance = !hand ? 40 : 20
-
-				if (prob(chance))
-					visible_message("<spawn class=danger>[src]'s [W] goes off during struggle!")
-					var/list/turfs = list()
-					for(var/turf/T in view())
-						turfs += T
-					var/turf/target = pick(turfs)
-					return W.afterattack(target,src)
-
 			var/randn = rand(1, 100)
-
-			if(!src.handcuffed)  // Bone White - disarm knockdown only occurs if you have an aggressive grab on the target,  Longer duration (8) to allow handcuffing.
-				//check for an aggressive grab
-				for (var/obj/item/weapon/grab/G in src.grabbed_by)
-					if (G.assailant == M && G.state >= GRAB_AGGRESSIVE)
-						randn -= 30  // this value is the % chance of knockdown if you disarm someone whilst you have an aggressive grab.
-			else
-			//if target is handcuffed, always push them over
-				randn = 0
-
-			if (randn <= 0)
-				apply_effect(4, WEAKEN, run_armor_check(affecting, "melee")) // first var here is the length of the knockdown
+			if (randn <= 25)
+				apply_effect(2, WEAKEN, run_armor_check(affecting, "melee"))
 				playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
-				visible_message("\red <B>[M] has floored [src]!</B>")
-				M.attack_log += text("\[[time_stamp()]\] <font color='red'>Floored [src.name] ([src.ckey])</font>")
-				src.attack_log += text("\[[time_stamp()]\] <font color='orange'>Has been floored by [M.name] ([M.ckey])</font>")
+				visible_message("\red <B>[M] has pushed [src]!</B>")
+				M.attack_log += text("\[[time_stamp()]\] <font color='red'>Pushed [src.name] ([src.ckey])</font>")
+				src.attack_log += text("\[[time_stamp()]\] <font color='orange'>Has been pushed by [M.name] ([M.ckey])</font>")
 				if(!iscarbon(M))
 					LAssailant = null
 				else
@@ -199,6 +168,7 @@
 
 				log_attack("[M.name] ([M.ckey]) pushed [src.name] ([src.ckey])")
 				return
+
 			if(randn <= 45 && !lying)
 				if(head)
 					var/obj/item/clothing/head/H = head

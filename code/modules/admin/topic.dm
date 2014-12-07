@@ -1618,9 +1618,6 @@
 				var/obj/pageobj = B.contents[page]
 				data += "<A href='?src=\ref[src];AdminFaxViewPage=[page];paper_bundle=\ref[B]'>Page [page] - [pageobj.name]</A><BR>"
 			
-			world << data
-			world << "Sent by: [usr]"
-			
 			usr << browse(data, "window=[B.name]")
 		else
 			usr << "\red The faxed item is not viewable. This is probably a bug, and should be reported on the tracker: [fax.type]"
@@ -1653,7 +1650,7 @@
 		P.name = "[command_name()]- [customname]"
 		P.info = input
 		P.update_icon()
-		P.stamps += "<HR><i>This paper has been stamped by the Central Command Quantum Relay.</i>"	
+		P.stamps += "<HR><img src=large_stamp-cent.png>"	
 		var/image/stampoverlay = image('icons/obj/bureaucracy.dmi')
 		P.x = rand(-2, 0)
 		P.y = rand(-1, 2)	
@@ -1664,8 +1661,8 @@
 		
 		if(!P.ico)
 			P.ico = new
-		P.ico += "paper_stamp_cent"
-		stampoverlay.icon_state = "paper_stamp_cent"
+		P.ico += "paper_stamp-cent"
+		stampoverlay.icon_state = "paper_stamp-cent"
 		
 		// Stamps
 		if(!P.stamped)

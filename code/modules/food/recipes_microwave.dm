@@ -147,8 +147,8 @@
 	result = /obj/item/weapon/reagent_containers/food/snacks/brainburger
 
 /datum/recipe/roburger
-	reagents = list("flour" = 5)
 	items = list(
+		/obj/item/weapon/reagent_containers/food/snacks/bun,
 		/obj/item/robot_parts/head
 	)
 	result = /obj/item/weapon/reagent_containers/food/snacks/roburger
@@ -1240,17 +1240,10 @@
 	)
 	result = /obj/item/weapon/reagent_containers/food/snacks/benedict
 
-/datum/recipe/hotdog
-	reagents = list("ketchup" = 5)
-	items = list(
-		/obj/item/weapon/reagent_containers/food/snacks/breadslice,
-		/obj/item/weapon/reagent_containers/food/snacks/sausage,
-	)
-	result = /obj/item/weapon/reagent_containers/food/snacks/hotdog
-
 /datum/recipe/meatbun
-	reagents = list("soysauce" = 5, "flour" = 5)
+	reagents = list("soysauce" = 5)
 	items = list(
+		/obj/item/weapon/reagent_containers/food/snacks/dough,
 		/obj/item/weapon/reagent_containers/food/snacks/meatball,
 		/obj/item/weapon/reagent_containers/food/snacks/grown/cabbage,
 	)
@@ -1272,18 +1265,20 @@
 	result = /obj/item/weapon/reagent_containers/food/snacks/notasandwich
 
 /datum/recipe/sugarcookie
-	reagents = list("flour" = 5, "sugar" = 5)
+	reagents = list("sugar" = 5)
 	items = list(
+		/obj/item/weapon/reagent_containers/food/snacks/dough,
 		/obj/item/weapon/reagent_containers/food/snacks/egg,
 	)
 	result = /obj/item/weapon/reagent_containers/food/snacks/sugarcookie
 
 /datum/recipe/friedbanana
 	items = list(
+		/obj/item/weapon/reagent_containers/food/snacks/dough,
 		/obj/item/weapon/reagent_containers/food/snacks/grown/banana
 	)
 	/obj/item/weapon/
-	reagents = list("flour" = 10, "sugar" = 10, "cornoil" = 5)
+	reagents = list("sugar" = 10, "cornoil" = 5)
 	result = /obj/item/weapon/reagent_containers/food/snacks/friedbanana
 
 /datum/recipe/stuffing
