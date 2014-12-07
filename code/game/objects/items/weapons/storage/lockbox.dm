@@ -95,7 +95,8 @@
 	item_state = "syringe_kit"
 	w_class = 3
 	max_w_class = 2
-	storage_slots = 6
+	max_combined_w_class = 20 
+	storage_slots = 12
 	req_access = list(access_captain)
 	icon_locked = "medalbox+l"
 	icon_closed = "medalbox"
