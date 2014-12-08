@@ -424,7 +424,7 @@
 /mob/living/silicon/pai/proc/close_up()
 
 	last_special = world.time + 200
-
+	resting = 0
 	if(src.loc == card)
 		return
 
