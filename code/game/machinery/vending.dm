@@ -718,6 +718,17 @@
 					/obj/item/weapon/reagent_containers/food/snacks/sosjerky = 30,/obj/item/weapon/reagent_containers/food/snacks/no_raisin = 20,/obj/item/weapon/reagent_containers/food/snacks/spacetwinkie = 30,
 					/obj/item/weapon/reagent_containers/food/snacks/cheesiehonkers = 25)
 	refill_canister = /obj/item/weapon/vending_refill/snack
+	
+/obj/machinery/vending/snack/New()
+	..()
+	component_parts = list()
+	var/obj/item/weapon/circuitboard/vendor/V = new(null)
+	V.set_type(type)
+	component_parts += V
+	component_parts += new /obj/item/weapon/vending_refill/snack(0)
+	component_parts += new /obj/item/weapon/vending_refill/snack(0)
+	component_parts += new /obj/item/weapon/vending_refill/snack(0)	
+	
 /obj/machinery/vending/chinese
 	name = "Mr. Chang"
 	desc = "A self-serving chinese food machine, for all your chinese food needs."
@@ -727,16 +738,6 @@
 					/obj/item/weapon/reagent_containers/food/snacks/chinese/rice = 5, /obj/item/weapon/reagent_containers/food/snacks/wingfangchu = 5)
 	prices = list(/obj/item/weapon/reagent_containers/food/snacks/chinese/chowmein = 50, /obj/item/weapon/reagent_containers/food/snacks/chinese/tao = 50, /obj/item/weapon/reagent_containers/food/snacks/chinese/newdles = 50,
 					/obj/item/weapon/reagent_containers/food/snacks/chinese/rice = 50, /obj/item/weapon/reagent_containers/food/snacks/wingfangchu = 50)
-
-/obj/machinery/vending/snack/New()
-	..()
-	component_parts = list()
-	var/obj/item/weapon/circuitboard/vendor/V = new(null)
-	V.set_type(type)
-	component_parts += V
-	component_parts += new /obj/item/weapon/vending_refill/snack(0)
-	component_parts += new /obj/item/weapon/vending_refill/snack(0)
-	component_parts += new /obj/item/weapon/vending_refill/snack(0)
 
 /obj/machinery/vending/cola
 	name = "Robust Softdrinks"
@@ -752,6 +753,17 @@
 					/obj/item/weapon/reagent_containers/food/drinks/cans/dr_gibb = 20,/obj/item/weapon/reagent_containers/food/drinks/cans/starkist = 20,
 					/obj/item/weapon/reagent_containers/food/drinks/cans/space_up = 20)
 	refill_canister = /obj/item/weapon/vending_refill/cola
+	
+/obj/machinery/vending/cola/New()
+	..()
+	component_parts = list()
+	var/obj/item/weapon/circuitboard/vendor/V = new(null)
+	V.set_type(type)
+	component_parts += V
+	component_parts += new /obj/item/weapon/vending_refill/cola(0)
+	component_parts += new /obj/item/weapon/vending_refill/cola(0)
+	component_parts += new /obj/item/weapon/vending_refill/cola(0)
+	
 //This one's from bay12
 /obj/machinery/vending/cart
 	name = "PTech"
@@ -762,16 +774,6 @@
 	products = list(/obj/item/weapon/cartridge/medical = 10,/obj/item/weapon/cartridge/engineering = 10,/obj/item/weapon/cartridge/security = 10,
 					/obj/item/weapon/cartridge/janitor = 10,/obj/item/weapon/cartridge/signal/toxins = 10,/obj/item/device/pda/heads = 10,
 					/obj/item/weapon/cartridge/captain = 3,/obj/item/weapon/cartridge/quartermaster = 10)
-
-/obj/machinery/vending/cola/New()
-	..()
-	component_parts = list()
-	var/obj/item/weapon/circuitboard/vendor/V = new(null)
-	V.set_type(type)
-	component_parts += V
-	component_parts += new /obj/item/weapon/vending_refill/cola(0)
-	component_parts += new /obj/item/weapon/vending_refill/cola(0)
-	component_parts += new /obj/item/weapon/vending_refill/cola(0)
 
 /obj/machinery/vending/cigarette
 	name = "Cigarette machine" //OCD had to be uppercase to look nice with the new formating
@@ -933,16 +935,6 @@
 	premium = list(/obj/item/clothing/suit/hgpirate = 1, /obj/item/clothing/head/hgpiratecap = 1, /obj/item/clothing/head/helmet/roman = 1, /obj/item/clothing/head/helmet/roman/legionaire = 1, /obj/item/clothing/under/roman = 1, /obj/item/clothing/shoes/roman = 1)
 	refill_canister = /obj/item/weapon/vending_refill/autodrobe
 
-/obj/machinery/vending/cigarette/New()
-	..()
-	component_parts = list()
-	var/obj/item/weapon/circuitboard/vendor/V = new(null)
-	V.set_type(type)
-	component_parts += V
-	component_parts += new /obj/item/weapon/vending_refill/cigarette(0)
-	component_parts += new /obj/item/weapon/vending_refill/cigarette(0)
-	component_parts += new /obj/item/weapon/vending_refill/cigarette(0)
-
 /obj/machinery/vending/dinnerware
 	name = "Dinnerware"
 	desc = "A kitchen and restaurant equipment vendor"
@@ -1036,6 +1028,7 @@
 	products = list(/obj/item/clothing/head/bowlerhat = 10,/obj/item/clothing/head/beaverhat = 10,/obj/item/clothing/head/boaterhat = 10,/obj/item/clothing/head/fedora = 10,/obj/item/clothing/head/fez = 10)
 	contraband = list(/obj/item/clothing/head/bearpelt = 5)
 	premium = list(/obj/item/clothing/head/soft/rainbow = 1)
+	refill_canister = /obj/item/weapon/vending_refill/hatdispenser
 
 /obj/machinery/vending/suitdispenser
 	name = "Suitlord 9000"
@@ -1047,6 +1040,7 @@
 					/obj/item/clothing/under/lightblue = 10,/obj/item/clothing/under/lightbrown = 10,/obj/item/clothing/under/brown = 10,/obj/item/clothing/under/yellowgreen = 10,/obj/item/clothing/under/darkblue = 10,/obj/item/clothing/under/lightred = 10, /obj/item/clothing/under/darkred = 10)
 	contraband = list(/obj/item/clothing/under/syndicate/tacticool = 5,/obj/item/clothing/under/color/orange = 5,/obj/item/clothing/under/psyche = 5)
 	premium = list(/obj/item/clothing/under/rainbow = 1)
+	refill_canister = /obj/item/weapon/vending_refill/suitdispenser
 
 /obj/machinery/vending/shoedispenser
 	name = "Shoelord 9000"
@@ -1056,6 +1050,7 @@
 	products = list(/obj/item/clothing/shoes/black = 10,/obj/item/clothing/shoes/brown = 10,/obj/item/clothing/shoes/blue = 10,/obj/item/clothing/shoes/green = 10,/obj/item/clothing/shoes/yellow = 10,/obj/item/clothing/shoes/purple = 10,/obj/item/clothing/shoes/red = 10,/obj/item/clothing/shoes/white = 10)
 	contraband = list(/obj/item/clothing/shoes/jackboots = 5,/obj/item/clothing/shoes/orange = 5)
 	premium = list(/obj/item/clothing/shoes/rainbow = 1)
+	refill_canister = /obj/item/weapon/vending_refill/shoedispenser
 
 /obj/machinery/vending/syndicigs
 	name = "Suspicious Cigarette Machine"

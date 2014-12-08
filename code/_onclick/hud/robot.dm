@@ -50,6 +50,15 @@
 
 //End of module select
 
+//Sec/Med HUDs
+	using = new /obj/screen()
+	using.name = "Toggle Sensor Augmentation"
+	using.icon = 'icons/mob/screen_ai.dmi'
+	using.icon_state = "ai_sensor"
+	using.screen_loc = ui_borg_sensor
+	using.layer = 20
+	adding += using
+
 //Intent
 	using = new /obj/screen()
 	using.name = "act_intent"

@@ -830,23 +830,10 @@ var/list/ai_list = list()
 		lightNearbyCamera()
 
 /mob/living/silicon/ai/proc/control_hud()
-	set name = "Toggle Sensors"
-	set desc = "Toggles your sensors to display security records, medical records or nothing."
+	set name = "Set Sensor Augmentation"
+	set desc = "Augment visual feed with internal sensor overlays."
 	set category = "AI Commands"
-	
-	if(stat != 0)
-		return
-
-	var/hud = input("Please select a sensor module!", "Toggle Sensors", "None", null) in list("None","Security","Medical")
-	for(var/obj/item/borg/sight/hud/H in contents)
-		del(H)
-	switch(hud)
-		if("Security")
-			sechud = new/obj/item/borg/sight/hud/sec(src)
-		if("Medical")
-			healthhud = new/obj/item/borg/sight/hud/med(src)
-		else
-			return
+	toggle_sensor_mode()
 					
 // Handled camera lighting, when toggled.
 // It will get the nearest camera from the eyeobj, lighting it.

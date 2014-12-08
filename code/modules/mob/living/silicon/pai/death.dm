@@ -1,5 +1,13 @@
 /mob/living/silicon/pai/death(gibbed)
 	if(stat == DEAD)	return
+	var/turf/T = get_turf_or_move(loc)
+	for (var/mob/M in viewers(T))
+		M.show_message("\red A shower of sparks spray from [src]'s inner workings.", 3, "\red You hear and smell the ozone hiss of electrical sparks being expelled violently.", 2)
+	var/obj/effect/decal/cleanable/deadpai = new /obj/effect/decal/cleanable/robot_debris(loc)
+	if(canmove || resting)
+		deadpai.icon = 'icons/mob/pai.dmi'
+		deadpai.icon_state = "[chassis]_dead"
+	del(src)
 	stat = DEAD
 	canmove = 0
 	if(blind)	blind.layer = 0
@@ -15,4 +23,3 @@
 	if(mind)	del(mind)
 	living_mob_list -= src
 	ghostize()
-	del(src)

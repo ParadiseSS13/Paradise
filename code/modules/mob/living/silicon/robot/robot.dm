@@ -69,7 +69,6 @@
 	var/speed = 0 //Cause sec borgs gotta go fast //No they dont!
 	var/scrambledcodes = 0 // Used to determine if a borg shows up on the robotics console.  Setting to one hides them.
 	var/braintype = "Cyborg"
-	var/pose
 	var/base_icon = ""
 	var/crisis = 0
 	var/hiddenborg = 0
@@ -461,23 +460,10 @@
 		src << "\red You enable [C.name]."
 		
 /mob/living/silicon/robot/verb/control_hud()
-	set name = "Toggle Sensors"
-	set desc = "Toggles your sensors to display security records, medical records or nothing."
+	set name = "Set Sensor Augmentation"
+	set desc = "Augment visual feed with internal sensor overlays."
 	set category = "Robot Commands"
-	
-	if(stat != 0)
-		return
-
-	var/hud = input("Please select a sensor module!", "Toggle Sensors", "None", null) in list("None","Security","Medical")
-	for(var/obj/item/borg/sight/hud/H in contents)
-		del(H)
-	switch(hud)
-		if("Security")
-			sechud = new/obj/item/borg/sight/hud/sec(src)
-		if("Medical")
-			healthhud = new/obj/item/borg/sight/hud/med(src)
-		else
-			return
+	toggle_sensor_mode()	
 
 /mob/living/silicon/robot/blob_act()
 	if (stat != 2)
@@ -1377,20 +1363,6 @@
 	lockcharge = state
 	update_canmove()
 
-/mob/living/silicon/robot/verb/pose()
-	set name = "Set Pose"
-	set desc = "Sets a description which will be shown when someone examines you."
-	set category = "IC"
-
-	pose =  copytext(sanitize(input(usr, "This is [src]. It is...", "Pose", null)  as text), 1, MAX_MESSAGE_LEN)
-
-/mob/living/silicon/robot/verb/set_flavor()
-	set name = "Set Flavour Text"
-	set desc = "Sets an extended description of your character's features."
-	set category = "IC"
-
-	flavor_text =  copytext(sanitize(input(usr, "Please enter your new flavour text.", "Flavour text", null)  as text), 1)
-
 /mob/living/silicon/robot/proc/choose_icon(var/triesleft, var/list/module_sprites)
 
 	if(triesleft<1 || !module_sprites.len)
@@ -1447,7 +1419,7 @@
 	radio = new /obj/item/device/radio/borg/deathsquad(src)
 	module = new /obj/item/weapon/robot_module/deathsquad(src)
 	laws = new /datum/ai_laws/deathsquad()
-	
+
 	Namepick()
 
 /mob/living/silicon/robot/deathsquad/attack_hand(mob/user)
@@ -1458,7 +1430,7 @@
 			ghosts += G
 		get_borg_occupant(user, ghosts)
 		return
-	
+
 /mob/living/silicon/robot/deathsquad/proc/get_borg_occupant(mob/user as mob, var/list/possiblecandidates = list())
 	var/time_passed = world.time
 	searching_for_ckey = 1
