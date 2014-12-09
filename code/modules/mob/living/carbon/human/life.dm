@@ -377,7 +377,7 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 		var/datum/gas_mixture/breath
 
 		// HACK NEED CHANGING LATER
-		if(health < config.health_threshold_crit && !reagents.has_reagent("inaprovaline"))
+		if(health < config.health_threshold_crit)
 			losebreath++
 
 		if(losebreath>0) //Suffocating so do not take a breath
@@ -487,6 +487,8 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 			return 0
 
 		if(!breath || (breath.total_moles() == 0) || suiciding)
+			if(reagents.has_reagent("inaprovaline"))
+				return
 			if(suiciding)
 				adjustOxyLoss(2)//If you are suiciding, you should die a little bit faster
 				failed_last_breath = 1
@@ -1672,7 +1674,7 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 
 	proc/handle_decay()
 		var/decaytime = world.time - timeofdeath
-		
+
 		if(species.flags & IS_SYNTHETIC)
 			return
 
@@ -1687,7 +1689,7 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 
 		if(decaytime > 18000 && decaytime <= 27000)//45 minutes for decaylevel4 -- skeleton
 			decaylevel = 3
-			
+
 		if(decaytime > 27000)
 			decaylevel = 4
 			makeSkeleton()
@@ -1697,7 +1699,7 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 		for(var/mob/living/carbon/human/H in range(decaylevel, src))
 			if(prob(5))
 				if(airborne_can_reach(get_turf(src), get_turf(H)))
-					if(istype(loc,/obj/item/bodybag)) 
+					if(istype(loc,/obj/item/bodybag))
 						return
 					var/obj/item/clothing/mask/M = H.wear_mask
 					if(M && (M.flags & MASKCOVERSMOUTH))
