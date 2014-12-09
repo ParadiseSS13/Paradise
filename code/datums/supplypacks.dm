@@ -667,6 +667,17 @@ var/list/all_supply_groups = list("Operations","Security","Hospitality","Enginee
 	access = access_security
 	group = "Security"
 
+/datum/supply_packs/disabler
+	name = "Disabler Crate"
+	contains = list(/obj/item/weapon/gun/energy/disabler,
+					/obj/item/weapon/gun/energy/disabler,
+					/obj/item/weapon/gun/energy/disabler)
+	cost = 10
+	containertype = /obj/structure/closet/crate/secure/weapon
+	containername = "disabler crate"
+	access = access_security
+	group = "Security"
+
 /datum/supply_packs/eweapons
 	name = "Experimental weapons crate"
 	contains = list(/obj/item/weapon/flamethrower/full,

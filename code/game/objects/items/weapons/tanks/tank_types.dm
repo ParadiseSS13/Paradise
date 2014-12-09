@@ -145,7 +145,7 @@
 	w_class = 2.0
 	force = 4.0
 	distribute_pressure = ONE_ATMOSPHERE*O2STANDARD
-	volume = 2 //Tiny. Real life equivalents only have 21 breaths of oxygen in them. They're EMERGENCY tanks anyway -errorage (dangercon 2011)
+	volume = 3 //Tiny. Real life equivalents only have 21 breaths of oxygen in them. They're EMERGENCY tanks anyway -errorage (dangercon 2011)
 
 
 	New()
@@ -198,3 +198,22 @@
 	if(air_contents.nitrogen < 10)
 		usr << text("\red <B>The meter on the [src.name] indicates you are almost out of air!</B>")
 		//playsound(usr, 'sound/effects/alert.ogg', 50, 1)
+
+
+/obj/item/weapon/tank/emergency_oxygen/vox
+	name = "vox specialized nitrogen tank"
+	desc = "A high-tech nitrogen tank designed specifically for Vox."
+	icon_state = "emergency_vox"
+	item_state = "emergency_vox"
+	icon_override = 'icons/mob/in-hand/tools.dmi'
+	volume = 25
+
+
+	New()
+		..()
+		src.air_contents.oxygen -= (3*ONE_ATMOSPHERE)*volume/(R_IDEAL_GAS_EQUATION*T20C)
+		src.air_contents.nitrogen = (10*ONE_ATMOSPHERE)*volume/(R_IDEAL_GAS_EQUATION*T20C)
+		//
+		src.air_contents.update_values()
+
+		return

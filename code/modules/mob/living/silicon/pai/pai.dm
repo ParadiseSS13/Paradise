@@ -1,10 +1,13 @@
 /mob/living/silicon/pai
 	name = "pAI"
-	icon = 'icons/mob/mob.dmi'//
-	icon_state = "shadow"
+	icon = 'icons/mob/pai.dmi'//
+	icon_state = "repairbot"
 
 	robot_talk_understand = 0
 	emote_type = 2		// pAIs emotes are heard, not seen, so they can be seen through a container (eg. person)
+	small = 1
+	pass_flags = 1
+	density = 0
 
 	var/network = "SS13"
 	var/obj/machinery/camera/current = null
@@ -15,9 +18,22 @@
 	var/obj/item/device/paicard/card	// The card we inhabit
 	var/obj/item/device/radio/radio		// Our primary radio
 
-	var/speakStatement = "states"
-	var/speakExclamation = "declares"
-	var/speakQuery = "queries"
+	var/chassis = "repairbot"   // A record of your chosen chassis.
+	var/global/list/possible_chassis = list(
+		"Drone" = "repairbot",
+		"Cat" = "cat",
+		"Mouse" = "mouse",
+		"Monkey" = "monkey"
+		)
+
+	var/global/list/possible_say_verbs = list(
+		"Robotic" = list("states","declares","queries"),
+		"Natural" = list("says","yells","asks"),
+		"Beep" = list("beeps","beeps loudly","boops"),
+		"Chirp" = list("chirps","chirrups","cheeps"),
+		"Feline" = list("purrs","yowls","meows")
+		)
+
 
 
 	var/obj/item/weapon/pai_cable/cable		// The cable we produce and use when door or camera jacking
@@ -63,6 +79,10 @@
 			card.radio = new /obj/item/device/radio(src.card)
 		radio = card.radio
 
+	//Verbs for pAI mobile form, chassis and Say flavor text
+	verbs += /mob/living/silicon/pai/proc/choose_chassis
+	verbs += /mob/living/silicon/pai/proc/choose_verbs
+
 	//PDA
 	pda = new(src)
 	spawn(5)
@@ -76,20 +96,20 @@
 	..()
 	usr << browse_rsc('html/paigrid.png')			// Go ahead and cache the interface resources as early as possible
 
-	
+
 // this function shows the information about being silenced as a pAI in the Status panel
 /mob/living/silicon/pai/proc/show_silenced()
 	if(src.silence_time)
 		var/timeleft = round((silence_time - world.timeofday)/10 ,1)
 		stat(null, "Communications system reboot in -[(timeleft / 60) % 60]:[add_zero(num2text(timeleft % 60), 2)]")
-		
-		
+
+
 /mob/living/silicon/pai/Stat()
 	..()
 	statpanel("Status")
 	if (src.client.statpanel == "Status")
 		show_silenced()
-		
+
 	if (proc_holder_list.len)//Generic list for proc_holder objects.
 		for(var/obj/effect/proc_holder/P in proc_holder_list)
 			statpanel("[P.panel]","",P)
@@ -108,7 +128,12 @@
 	return 0
 
 /mob/living/silicon/pai/restrained()
-	return 0
+	if(istype(src.loc,/obj/item/device/paicard))
+		return 0
+	..()
+
+/mob/living/silicon/pai/MouseDrop(atom/over_object)
+	return
 
 /mob/living/silicon/pai/emp_act(severity)
 	// Silence for 2 minutes
@@ -270,3 +295,188 @@
 	card.setPersonality(pai)
 
 */
+
+// Procs/code after this point is used to convert the stationary pai item into a
+// mobile pai mob. This also includes handling some of the general shit that can occur
+// to it. Really this deserves its own file, but for the moment it can sit here. ~ Z
+
+/mob/living/silicon/pai/verb/fold_out()
+	set category = "pAI Commands"
+	set name = "Unfold Chassis"
+
+	if(stat || sleeping || paralysis || weakened)
+		return
+
+	if(src.loc != card)
+		src << "\red You are already in your mobile form!"
+		return
+
+	if(world.time <= last_special)
+		src << "\red You must wait before folding your chassis out again!"
+		return
+
+	last_special = world.time + 200
+
+	canmove = 1
+
+	//I'm not sure how much of this is necessary, but I would rather avoid issues.
+	if(istype(card.loc,/mob))
+		var/mob/holder = card.loc
+		holder.drop_from_inventory(card)
+	else if(istype(card.loc,/obj/item/clothing/suit/space/space_ninja))
+		var/obj/item/clothing/suit/space/space_ninja/holder = card.loc
+		holder.pai = null
+	else if(istype(card.loc,/obj/item/device/pda))
+		var/obj/item/device/pda/holder = card.loc
+		holder.pai = null
+
+
+	src.client.perspective = EYE_PERSPECTIVE
+	src.client.eye = src
+	src.forceMove(get_turf(card))
+
+	card.forceMove(src)
+	card.screen_loc = null
+
+	var/turf/T = get_turf(src)
+	if(istype(T)) T.visible_message("<b>[src]</b> folds outwards, expanding into a mobile form.")
+
+/mob/living/silicon/pai/verb/fold_up()
+	set category = "pAI Commands"
+	set name = "Collapse Chassis"
+
+	if(stat || sleeping || paralysis || weakened)
+		return
+
+	if(src.loc == card)
+		src << "\red You are already in your card form!"
+		return
+
+	if(world.time <= last_special)
+		src << "\red You must wait before returning to your card form!"
+		return
+
+	close_up()
+
+/mob/living/silicon/pai/proc/choose_chassis()
+	set category = "pAI Commands"
+	set name = "Choose Chassis"
+
+	var/choice
+	var/finalized = "No"
+	while(finalized == "No" && src.client)
+
+		choice = input(usr,"What would you like to use for your mobile chassis icon? This decision can only be made once.") as null|anything in possible_chassis
+		if(!choice) return
+
+		icon_state = possible_chassis[choice]
+		finalized = alert("Look at your sprite. Is this what you wish to use?",,"No","Yes")
+
+	chassis = possible_chassis[choice]
+	verbs -= /mob/living/silicon/pai/proc/choose_chassis
+
+/mob/living/silicon/pai/proc/choose_verbs()
+	set category = "pAI Commands"
+	set name = "Choose Speech Verbs"
+
+	var/choice = input(usr,"What theme would you like to use for your speech verbs? This decision can only be made once.") as null|anything in possible_say_verbs
+	if(!choice) return
+
+	var/list/sayverbs = possible_say_verbs[choice]
+	speak_statement = sayverbs[1]
+	speak_exclamation = sayverbs[(sayverbs.len>1 ? 2 : sayverbs.len)]
+	speak_query = sayverbs[(sayverbs.len>2 ? 3 : sayverbs.len)]
+
+	verbs -= /mob/living/silicon/pai/proc/choose_verbs
+
+/mob/living/silicon/pai/lay_down()
+	set name = "Rest"
+	set category = "IC"
+
+	if(istype(src.loc,/obj/item/device/paicard))
+		resting = 0
+	else
+		resting = !resting
+		icon_state = resting ? "[chassis]_rest" : "[chassis]"
+		src << "\blue You are now [resting ? "resting" : "getting up"]"
+
+	canmove = !resting
+
+//Overriding this will stop a number of headaches down the track.
+/mob/living/silicon/pai/attackby(obj/item/weapon/W as obj, mob/user as mob)
+	if(W.force)
+		visible_message("<span class='danger'>[user.name] attacks [src] with [W]!</span>")
+		src.adjustBruteLoss(W.force)
+		src.updatehealth()
+	else
+		visible_message("<span class='warning'>[user.name] bonks [src] harmlessly with [W].</span>")
+	if(stat != 2) close_up()
+	return
+
+/mob/living/silicon/pai/attack_hand(mob/user as mob)
+	if(stat == 2) return
+	visible_message("<span class='danger'>[user.name] boops [src] on the head.</span>")
+	close_up()
+
+//I'm not sure how much of this is necessary, but I would rather avoid issues.
+/mob/living/silicon/pai/proc/close_up()
+
+	last_special = world.time + 200
+
+	if(src.loc == card)
+		return
+
+	var/turf/T = get_turf(src)
+	if(istype(T)) T.visible_message("<b>[src]</b> neatly folds inwards, compacting down to a rectangular card.")
+
+	src.stop_pulling()
+	src.client.perspective = EYE_PERSPECTIVE
+	src.client.eye = card
+
+	//This seems redundant but not including the forced loc setting messes the behavior up.
+	src.loc = card
+	card.loc = get_turf(card)
+	src.forceMove(card)
+	card.forceMove(card.loc)
+	canmove = 0
+	icon_state = "[chassis]"
+
+/mob/living/silicon/pai/start_pulling(var/atom/movable/AM)
+
+	if(istype(AM,/obj/item))
+		src << "<span class='warning'>You are far too small to pull anything!</span>"
+
+/mob/living/silicon/pai/examine()
+
+	set src in oview()
+
+	if(!usr || !src)	return
+	if( (usr.sdisabilities & BLIND || usr.blinded || usr.stat) && !istype(usr,/mob/dead/observer) )
+		usr << "<span class='notice'>Something is there but you can't see it.</span>"
+		return
+
+	var/msg = "<span class='info'>*---------*\nThis is \icon[src][name], a personal AI!"
+
+	switch(src.stat)
+		if(CONSCIOUS)
+			if(!src.client)	msg += "\nIt appears to be in stand-by mode." //afk
+		if(UNCONSCIOUS)		msg += "\n<span class='warning'>It doesn't seem to be responding.</span>"
+		if(DEAD)			msg += "\n<span class='deadsay'>It looks completely unsalvageable.</span>"
+	msg += "\n*---------*</span>"
+
+	if(print_flavor_text()) msg += "\n[print_flavor_text()]\n"
+
+	if (pose)
+		if( findtext(pose,".",lentext(pose)) == 0 && findtext(pose,"!",lentext(pose)) == 0 && findtext(pose,"?",lentext(pose)) == 0 )
+			pose = addtext(pose,".") //Makes sure all emotes end with a period.
+		msg += "\nIt is [pose]"
+
+	usr << msg
+
+/mob/living/silicon/pai/bullet_act(var/obj/item/projectile/Proj)
+	..(Proj)
+	updatehealth()
+	if (stat != 2)
+		close_up()
+	return 2
+

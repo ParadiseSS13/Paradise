@@ -1,3 +1,15 @@
+/obj/item/clothing/under/color
+	desc = "A standard issue colored jumpsuit. Variety is the spice of life!"
+
+/obj/item/clothing/under/color/random/New()
+	..()
+	var/list/excluded = list(/obj/item/clothing/under/color/random, /obj/item/clothing/under/color, /obj/item/clothing/under/color/blackf, /obj/item/clothing/under/color/blue/dodgeball, /obj/item/clothing/under/color/orange/prison, /obj/item/clothing/under/color/red/dodgeball)
+	var/obj/item/clothing/under/color/C = pick(typesof(/obj/item/clothing/under/color) - excluded)
+	name = initial(C.name)
+	icon_state = initial(C.icon_state)
+	item_state = initial(C.item_state)
+	_color = initial(C._color)
+
 /obj/item/clothing/under/color/black
 	name = "black jumpsuit"
 	icon_state = "black"
@@ -31,6 +43,7 @@
 
 /obj/item/clothing/under/color/grey
 	name = "grey jumpsuit"
+	desc = "A tasteful grey jumpsuit that reminds you of the good old days."
 	icon_state = "grey"
 	item_state = "gy_suit"
 	_color = "grey"
@@ -38,6 +51,14 @@
 	species_fit = list("Vox")
 
 /obj/item/clothing/under/color/orange
+	name = "orange jumpsuit"
+	desc = "Don't wear this near paranoid security officers"
+	icon_state = "orange"
+	item_state = "o_suit"
+	_color = "orange"
+	flags = FPRINT | TABLEPASS | ONESIZEFITSALL
+
+/obj/item/clothing/under/color/orange/prison
 	name = "orange jumpsuit"
 	desc = "It's standardised Nanotrasen prisoner-wear. Its suit sensors are stuck in the \"Fully On\" position."
 	icon_state = "orange"
@@ -49,6 +70,7 @@
 
 /obj/item/clothing/under/color/pink
 	name = "pink jumpsuit"
+	desc = "Just looking at this makes you feel <i>fabulous</i>."
 	icon_state = "pink"
 	item_state = "p_suit"
 	_color = "pink"
@@ -84,78 +106,78 @@
 	icon_state = "psyche"
 	_color = "psyche"
 
-/obj/item/clothing/under/lightblue
+/obj/item/clothing/under/color/lightblue
 	name = "lightblue"
 	desc = "lightblue"
 	icon_state = "lightblue"
 	_color = "lightblue"
 
-/obj/item/clothing/under/aqua
+/obj/item/clothing/under/color/aqua
 	name = "aqua"
 	desc = "aqua"
 	icon_state = "aqua"
 	_color = "aqua"
 	flags = FPRINT | TABLEPASS | ONESIZEFITSALL
 
-/obj/item/clothing/under/purple
+/obj/item/clothing/under/color/purple
 	name = "purple"
 	desc = "purple"
 	icon_state = "purple"
 	item_state = "p_suit"
 	_color = "purple"
 
-/obj/item/clothing/under/lightpurple
+/obj/item/clothing/under/color/lightpurple
 	name = "lightpurple"
 	desc = "lightpurple"
 	icon_state = "lightpurple"
 	_color = "lightpurple"
 
-/obj/item/clothing/under/lightgreen
+/obj/item/clothing/under/color/lightgreen
 	name = "lightgreen"
 	desc = "lightgreen"
 	icon_state = "lightgreen"
 	_color = "lightgreen"
 
-/obj/item/clothing/under/lightblue
+/obj/item/clothing/under/color/lightblue
 	name = "lightblue"
 	desc = "lightblue"
 	icon_state = "lightblue"
 	_color = "lightblue"
 
-/obj/item/clothing/under/lightbrown
+/obj/item/clothing/under/color/lightbrown
 	name = "lightbrown"
 	desc = "lightbrown"
 	icon_state = "lightbrown"
 	_color = "lightbrown"
 	flags = FPRINT | TABLEPASS | ONESIZEFITSALL
 
-/obj/item/clothing/under/brown
+/obj/item/clothing/under/color/brown
 	name = "brown"
 	desc = "brown"
 	icon_state = "brown"
 	_color = "brown"
 	flags = FPRINT | TABLEPASS
 
-/obj/item/clothing/under/yellowgreen
+/obj/item/clothing/under/color/yellowgreen
 	name = "yellowgreen"
 	desc = "yellowgreen"
 	icon_state = "yellowgreen"
 	_color = "yellowgreen"
 
-/obj/item/clothing/under/darkblue
+/obj/item/clothing/under/color/darkblue
 	name = "darkblue"
 	desc = "darkblue"
 	icon_state = "darkblue"
 	_color = "darkblue"
 	flags = FPRINT | TABLEPASS | ONESIZEFITSALL
 
-/obj/item/clothing/under/lightred
+/obj/item/clothing/under/color/lightred
 	name = "lightred"
 	desc = "lightred"
 	icon_state = "lightred"
 	_color = "lightred"
 
-/obj/item/clothing/under/darkred
+/obj/item/clothing/under/color/darkred
 	name = "darkred"
 	desc = "darkred"
 	icon_state = "darkred"
