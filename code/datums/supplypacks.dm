@@ -667,6 +667,17 @@ var/list/all_supply_groups = list("Operations","Security","Hospitality","Enginee
 	access = access_security
 	group = "Security"
 
+/datum/supply_packs/disabler
+	name = "Disabler Crate"
+	contains = list(/obj/item/weapon/gun/energy/disabler,
+					/obj/item/weapon/gun/energy/disabler,
+					/obj/item/weapon/gun/energy/disabler)
+	cost = 10
+	containertype = /obj/structure/closet/crate/secure/weapon
+	containername = "disabler crate"
+	access = access_security
+	group = "Security"
+
 /datum/supply_packs/eweapons
 	name = "Experimental weapons crate"
 	contains = list(/obj/item/weapon/flamethrower/full,
@@ -1103,10 +1114,27 @@ var/list/all_supply_groups = list("Operations","Security","Hospitality","Enginee
 /datum/supply_packs/autodrobe
 	name = "Autodrobe Supply crate"
 	contains = list(/obj/item/weapon/vending_refill/autodrobe,
+					/obj/item/weapon/vending_refill/autodrobe,
 					/obj/item/weapon/vending_refill/autodrobe)
 	cost = 15
 	containertype = /obj/structure/closet/crate
 	containername = "autodrobe supply crate"
+	group = "Operations"
+	
+/datum/supply_packs/clothingvendor
+	name = "Clothing Vendor Supply crate"
+	contains = list(/obj/item/weapon/vending_refill/hatdispenser,
+					/obj/item/weapon/vending_refill/hatdispenser,
+					/obj/item/weapon/vending_refill/hatdispenser,
+					/obj/item/weapon/vending_refill/suitdispenser,
+					/obj/item/weapon/vending_refill/suitdispenser,
+					/obj/item/weapon/vending_refill/suitdispenser,
+					/obj/item/weapon/vending_refill/shoedispenser,
+					/obj/item/weapon/vending_refill/shoedispenser,
+					/obj/item/weapon/vending_refill/shoedispenser)
+	cost = 30
+	containertype = /obj/structure/closet/crate
+	containername = "clothing vendor supply crate"
 	group = "Operations"
 
 /datum/supply_packs/mafia

@@ -24,7 +24,9 @@
 	var/hatch_open = 0
 	var/next_firetime = 0
 	var/list/pod_overlays
-	var/health = 400
+	var/health = 100
+	var/lights = 0
+	var/lights_power = 6
 
 /obj/spacepod/New()
 	. = ..()
@@ -140,9 +142,6 @@
 				W.loc = equipment_system
 				equipment_system.weapon_system = W
 				equipment_system.weapon_system.my_atom = src
-				var/path = text2path("[W.type]/proc/fire_weapon_system")
-				if(path)
-					verbs += path//obj/spacepod/proc/fire_weapons
 				return
 
 
@@ -205,18 +204,16 @@
 
 /obj/spacepod/sec
 	name = "\improper security spacepod"
-	desc = "An armed security spacepod."
+	desc = "An armed security spacepod with reinforced armor plating."
 	icon_state = "pod_mil"
+	health = 150
 
 /obj/spacepod/sec/New()
 	..()
-	var/obj/item/device/spacepod_equipment/weaponry/taser/burst/T = new /obj/item/device/spacepod_equipment/weaponry/taser/burst
+	var/obj/item/device/spacepod_equipment/weaponry/taser/T = new /obj/item/device/spacepod_equipment/weaponry/taser
 	T.loc = equipment_system
 	equipment_system.weapon_system = T
-	equipment_system.weapon_system.my_atom = T
-	var/path = text2path("[T.type]/proc/fire_weapon_system")
-	if(path)
-		verbs += path//obj/spacepod/proc/fire_weapons
+	equipment_system.weapon_system.my_atom = src
 	return
 
 /obj/spacepod/random/New()
@@ -368,12 +365,12 @@
 	src.occupant = null
 	usr << "<span class='notice'>You climb out of the pod</span>"
 	return
-	
+
 /obj/spacepod/verb/toggleDoors()
 	set name = "Toggle Nearby Pod Doors"
 	set category = "Spacepod"
 	set src = usr.loc
-	
+
 	for(var/obj/machinery/door/poddoor/P in oview(3,src))
 		if(istype(P, /obj/machinery/door/poddoor/three_tile_hor) || istype(P, /obj/machinery/door/poddoor/three_tile_ver) || istype(P, /obj/machinery/door/poddoor/four_tile_hor) || istype(P, /obj/machinery/door/poddoor/four_tile_ver))
 			var/mob/living/carbon/human/L = usr
@@ -384,9 +381,30 @@
 				else
 					P.close()
 					return 1
-			usr << "<span class='warning'>Access denied.</span>" 
+			usr << "<span class='warning'>Access denied.</span>"
 			return
-	usr << "<span class='warning'>You are not close to any pod doors.</span>" 
+	usr << "<span class='warning'>You are not close to any pod doors.</span>"
+	return
+
+/obj/spacepod/verb/fireWeapon()
+	set name = "Fire Pod Weapons"
+	set desc = "Fire the weapons."
+	set category = "Spacepod"
+	set src = usr.loc
+	equipment_system.weapon_system.fire_weapons()
+
+obj/spacepod/verb/toggleLights()
+	set name = "Toggle Lights"
+	set category = "Spacepod"
+	set src = usr.loc
+	if (usr != occupant)
+		return
+	lights = !lights
+	if(lights)
+		SetLuminosity(luminosity + lights_power)
+	else
+		SetLuminosity(luminosity - lights_power)
+	occupant << "Toggled lights [lights?"on":"off"]."
 	return
 
 /obj/spacepod/proc/enter_after(delay as num, var/mob/user as mob, var/numticks = 5)

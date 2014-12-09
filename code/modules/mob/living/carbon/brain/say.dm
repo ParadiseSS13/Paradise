@@ -1,6 +1,9 @@
 /mob/living/carbon/brain/say(var/message)
 	if (silent)
 		return
+		
+	if (stat == 2) // Dead.
+		return say_dead(message)
 
 	if(!(container && (istype(container, /obj/item/device/mmi) || istype(container, /obj/item/device/mmi/posibrain))))
 		return //No MMI, can't speak, bucko./N

@@ -12,7 +12,7 @@
 	var/list/req_components = null
 	var/list/req_component_names = null // user-friendly names of components
 	var/state = 1
-	
+
 	// For pods
 	var/list/connected_parts = list()
 	var/pattern_idx=0
@@ -70,7 +70,7 @@
 			pattern_idx=i
 			return 1
 	return 0
-		
+
 // update description of required components remaining
 /obj/machinery/constructable_frame/proc/update_req_desc()
 	if(!req_components || !req_component_names)
@@ -244,7 +244,7 @@
 				if(!success)
 					user << "<span class='danger'>You cannot add that to the machine!</span>"
 					return 0
-					
+
 //Machine Frame Circuit Boards
 /*Common Parts: Parts List: Ignitor, Timer, Infra-red laser, Infra-red sensor, t_scanner, Capacitor, Valve, sensor unit,
 micro-manipulator, console screen, beaker, Microlaser, matter bin, power cells.
@@ -265,7 +265,10 @@ to destroy them and players will be able to make replacements.
 							/obj/machinery/vending/snack = "Getmore Chocolate Corp",
 							/obj/machinery/vending/cola = "Robust Softdrinks",
 							/obj/machinery/vending/cigarette = "ShadyCigs Deluxe",
-							/obj/machinery/vending/autodrobe = "AutoDrobe")
+							/obj/machinery/vending/autodrobe = "AutoDrobe",
+							/obj/machinery/vending/hatdispenser = "Hatlord 9000",
+							/obj/machinery/vending/suitdispenser = "Suitlord 9000",
+							/obj/machinery/vending/shoedispenser = "Shoelord 9000")
 
 /obj/item/weapon/circuitboard/vendor/attackby(obj/item/I, mob/user)
 	if(istype(I, /obj/item/weapon/screwdriver))
@@ -276,7 +279,7 @@ to destroy them and players will be able to make replacements.
 		build_path = typepath
 		name = "circuit board ([names_paths[build_path]] Vendor)"
 		user << "<span class='notice'>You set the board to [names_paths[build_path]].</span>"
-		req_components = list(text2path("/obj/item/weapon/vending_refill/[copytext("[build_path]", 24)]") = 3)       
+		req_components = list(text2path("/obj/item/weapon/vending_refill/[copytext("[build_path]", 24)]") = 3)
 
 /obj/item/weapon/circuitboard/smes
 	name = "circuit board (SMES)"
@@ -289,7 +292,7 @@ to destroy them and players will be able to make replacements.
 							/obj/item/weapon/cell = 5,
 							/obj/item/weapon/stock_parts/capacitor = 1)
 
-		
+
 /obj/item/weapon/circuitboard/thermomachine
 	name = "circuit board (Freezer)"
 	desc = "Use screwdriver to switch between heating and cooling modes."
@@ -482,8 +485,8 @@ obj/item/weapon/circuitboard/rdserver
 	frame_desc = "Requires 1 piece of cable and 5 Capacitors."
 	req_components = list(
 							/obj/item/stack/cable_coil = 1,
-							/obj/item/weapon/stock_parts/capacitor = 5)							
-							
+							/obj/item/weapon/stock_parts/capacitor = 5)
+
 /obj/item/weapon/circuitboard/teleporter_hub
 	name = "circuit board (Teleporter Hub)"
 	build_path = /obj/machinery/teleport/hub
@@ -503,8 +506,8 @@ obj/item/weapon/circuitboard/rdserver
 	req_components = list(
 							/obj/item/bluespace_crystal = 2,
 							/obj/item/weapon/stock_parts/capacitor = 2,
-							/obj/item/weapon/stock_parts/console_screen = 1)							
-							
+							/obj/item/weapon/stock_parts/console_screen = 1)
+
 /obj/item/weapon/circuitboard/telesci_pad
 	name = "Circuit board (Telepad)"
 	build_path = /obj/machinery/telepad
@@ -529,7 +532,7 @@ obj/item/weapon/circuitboard/rdserver
 							/obj/item/weapon/stock_parts/manipulator = 1,
 							/obj/item/stack/cable_coil = 1,
 							/obj/item/weapon/stock_parts/console_screen = 2)
-							
+
 /obj/item/weapon/circuitboard/sleep_console
 	name = "circuit board (Sleeper Console)"
 	build_path = /obj/machinery/sleep_console
@@ -539,7 +542,7 @@ obj/item/weapon/circuitboard/rdserver
 	req_components = list(
 							/obj/item/stack/cable_coil = 2,
 							/obj/item/weapon/stock_parts/console_screen = 2)
-							
+
 /obj/item/weapon/circuitboard/bodyscanner
 	name = "circuit board (Body Scanner)"
 	build_path = /obj/machinery/bodyscanner
@@ -550,7 +553,7 @@ obj/item/weapon/circuitboard/rdserver
 							/obj/item/weapon/stock_parts/scanning_module = 1,
 							/obj/item/stack/cable_coil = 2,
 							/obj/item/weapon/stock_parts/console_screen = 2)
-							
+
 /obj/item/weapon/circuitboard/bodyscanner_console
 	name = "circuit board (Body Scanner Console)"
 	build_path = /obj/machinery/body_scanconsole
@@ -582,13 +585,13 @@ obj/item/weapon/circuitboard/rdserver
 							/obj/item/weapon/stock_parts/capacitor = 2,
 							/obj/item/weapon/cell = 1,
 							/obj/item/weapon/stock_parts/manipulator = 1)
-							
+
 // Telecomms circuit boards:
 /obj/item/weapon/circuitboard/telecomms/receiver
 	name = "Circuit Board (Subspace Receiver)"
 	build_path = /obj/machinery/telecomms/receiver
 	board_type = "machine"
-	origin_tech = "programming=4;engineering=3;bluespace=2"
+	origin_tech = "programming=2;engineering=2;bluespace=1"
 	frame_desc = "Requires 1 Subspace Ansible, 1 Hyperwave Filter, 2 Manipulators, and 1 Micro-Laser."
 	req_components = list(
 							/obj/item/weapon/stock_parts/subspace/ansible = 1,
@@ -600,7 +603,7 @@ obj/item/weapon/circuitboard/rdserver
 	name = "Circuit Board (Hub Mainframe)"
 	build_path = /obj/machinery/telecomms/hub
 	board_type = "machine"
-	origin_tech = "programming=4;engineering=4"
+	origin_tech = "programming=2;engineering=2"
 	frame_desc = "Requires 2 Manipulators, 2 Cable Coil and 2 Hyperwave Filter."
 	req_components = list(
 							/obj/item/weapon/stock_parts/manipulator = 2,
@@ -611,7 +614,7 @@ obj/item/weapon/circuitboard/rdserver
 	name = "Circuit Board (Relay Mainframe)"
 	build_path = /obj/machinery/telecomms/relay
 	board_type = "machine"
-	origin_tech = "programming=3;engineering=4;bluespace=3"
+	origin_tech = "programming=2;engineering=2;bluespace=2"
 	frame_desc = "Requires 2 Manipulators, 2 Cable Coil and 2 Hyperwave Filters."
 	req_components = list(
 							/obj/item/weapon/stock_parts/manipulator = 2,
@@ -622,7 +625,7 @@ obj/item/weapon/circuitboard/rdserver
 	name = "Circuit Board (Bus Mainframe)"
 	build_path = /obj/machinery/telecomms/bus
 	board_type = "machine"
-	origin_tech = "programming=4;engineering=4"
+	origin_tech = "programming=2;engineering=2"
 	frame_desc = "Requires 2 Manipulators, 1 Cable Coil and 1 Hyperwave Filter."
 	req_components = list(
 							/obj/item/weapon/stock_parts/manipulator = 2,
@@ -633,7 +636,7 @@ obj/item/weapon/circuitboard/rdserver
 	name = "Circuit Board (Processor Unit)"
 	build_path = /obj/machinery/telecomms/processor
 	board_type = "machine"
-	origin_tech = "programming=4;engineering=4"
+	origin_tech = "programming=2;engineering=2"
 	frame_desc = "Requires 3 Manipulators, 1 Hyperwave Filter, 2 Treatment Disks, 1 Wavelength Analyzer, 2 Cable Coils and 1 Subspace Amplifier."
 	req_components = list(
 							/obj/item/weapon/stock_parts/manipulator = 3,
@@ -647,7 +650,7 @@ obj/item/weapon/circuitboard/rdserver
 	name = "Circuit Board (Telecommunication Server)"
 	build_path = /obj/machinery/telecomms/server
 	board_type = "machine"
-	origin_tech = "programming=4;engineering=4"
+	origin_tech = "programming=2;engineering=2"
 	frame_desc = "Requires 2 Manipulators, 1 Cable Coil and 1 Hyperwave Filter."
 	req_components = list(
 							/obj/item/weapon/stock_parts/manipulator = 2,
@@ -658,7 +661,7 @@ obj/item/weapon/circuitboard/rdserver
 	name = "Circuit Board (Subspace Broadcaster)"
 	build_path = /obj/machinery/telecomms/broadcaster
 	board_type = "machine"
-	origin_tech = "programming=4;engineering=4;bluespace=2"
+	origin_tech = "programming=2;engineering=2;bluespace=1"
 	frame_desc = "Requires 2 Manipulators, 1 Cable Coil, 1 Hyperwave Filter, 1 Ansible Crystal and 2 High-Powered Micro-Lasers. "
 	req_components = list(
 							/obj/item/weapon/stock_parts/manipulator = 2,

@@ -26,20 +26,28 @@
 
 	min_duration = 80
 	max_duration = 100
-
+	
 	can_use(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
 		var/datum/organ/external/affected = target.get_organ(target_zone)
 		return ..() && !(affected.status & ORGAN_CUT_AWAY)
 
 	begin_step(mob/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
-		user.visible_message("[user] starts peeling back tattered flesh where [target]'s head used to be with \the [tool].", \
-		"You start peeling back tattered flesh where [target]'s head used to be with \the [tool].")
+		if(!(target.species.flags & IS_SYNTHETIC))
+			user.visible_message("[user] starts peeling back tattered flesh where [target]'s head used to be with \the [tool].", \
+			"You start peeling back tattered flesh where [target]'s head used to be with \the [tool].")
+		else
+			user.visible_message("[user] starts peeling back metal where [target]'s head used to be with \the [tool].", \
+			"You start peeling back metal where [target]'s head used to be with \the [tool].")		
 		..()
 
 	end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
 		var/datum/organ/external/affected = target.get_organ(target_zone)
-		user.visible_message("\blue [user] peels back tattered flesh where [target]'s head used to be with \the [tool].",	\
-		"\blue You peel back tattered flesh where [target]'s head used to be with \the [tool].")
+		if(!(target.species.flags & IS_SYNTHETIC))
+			user.visible_message("\blue [user] peels back tattered flesh where [target]'s head used to be with \the [tool].",	\
+			"\blue You peel back tattered flesh where [target]'s head used to be with \the [tool].")
+		else
+			user.visible_message("\blue [user] peels back metal where [target]'s head used to be with \the [tool].",	\
+			"\blue You peel back metal where [target]'s head used to be with \the [tool].")
 		affected.status |= ORGAN_CUT_AWAY
 
 	fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
@@ -47,7 +55,7 @@
 		if (affected.parent)
 			affected = affected.parent
 			user.visible_message("\red [user]'s hand slips, ripping [target]'s [affected.display_name] open!", \
-			"\red Your hand slips,  ripping [target]'s [affected.display_name] open!")
+			"\red Your hand slips, ripping [target]'s [affected.display_name] open!")
 			affected.createwound(CUT, 10)
 
 
@@ -72,16 +80,25 @@
 		..()
 
 	end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
-		user.visible_message("\blue [user] has finished repositioning flesh and tissue to something anatomically recognizable where [target]'s head used to be with \the [tool].",	\
-		"\blue You have finished repositioning flesh and tissue to something anatomically recognizable where [target]'s head used to be with \the [tool].")
+		if(!(target.species.flags & IS_SYNTHETIC))
+			user.visible_message("\blue [user] has finished repositioning flesh and tissue to something anatomically recognizable where [target]'s head used to be with \the [tool].",	\
+			"\blue You have finished repositioning flesh and tissue to something anatomically recognizable where [target]'s head used to be with \the [tool].")
+		else
+			user.visible_message("\blue [user] has finished repositioning metal to something recognizable where [target]'s head used to be with \the [tool].",	\
+			"\blue You have finished repositioning metal to something anatomically recognizable where [target]'s head used to be with \the [tool].")
+
 		target.op_stage.head_reattach = 1
 
 	fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
 		var/datum/organ/external/affected = target.get_organ(target_zone)
 		if (affected.parent)
 			affected = affected.parent
+		if(!(target.species.flags & IS_SYNTHETIC))		
 			user.visible_message("\red [user]'s hand slips, further rending flesh on [target]'s neck!", \
 			"\red Your hand slips, further rending flesh on [target]'s neck!")
+		else
+			user.visible_message("\red [user]'s hand slips, further rending metal on [target]'s neck!", \
+			"\red Your hand slips, further rending metal on [target]'s neck!")
 			target.apply_damage(10, BRUTE, affected)
 
 /datum/surgery_step/head/suture
@@ -99,8 +116,12 @@
 
 	begin_step(mob/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
 //		var/datum/organ/external/affected = target.get_organ(target_zone)
-		user.visible_message("[user] is stapling and suturing flesh into place in [target]'s esophagal and vocal region with \the [tool].", \
-		"You start to staple and suture flesh into place in [target]'s esophagal and vocal region with \the [tool].")
+		if(!(target.species.flags & IS_SYNTHETIC))		
+			user.visible_message("[user] is stapling and suturing flesh into place in [target]'s esophagal and vocal region with \the [tool].", \
+			"You start to staple and suture flesh into place in [target]'s esophagal and vocal region with \the [tool].")
+		else
+			user.visible_message("[user] is stapling and suturing metal into place in [target]'s esophagal and vocal region with \the [tool].", \
+			"You start to staple and suture metal into place in [target]'s esophagal and vocal region with \the [tool].")		
 		..()
 
 	end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
@@ -175,15 +196,19 @@
 		user.visible_message("\blue [user] has attached [target]'s head to the body.",	\
 		"\blue You have attached [target]'s head to the body.")
 		affected.status = 0
+		if(istype(target,/mob/living/carbon/human/machine))
+			affected.status = 128
 		affected.amputated = 0
 		affected.destspawn = 0
 		var/obj/item/weapon/organ/head/B = tool
 		if (B.brainmob.mind)
 			B.brainmob.mind.transfer_to(target)
+		affected.setAmputatedTree()
+		target.handle_organs()
 		target.update_body()
-		target.updatehealth()
 		target.UpdateDamageIcon()
-
+		target.regenerate_icons()
+		target.updatehealth()
 		del(B)
 
 	fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool)

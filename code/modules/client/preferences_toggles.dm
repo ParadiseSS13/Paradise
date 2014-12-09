@@ -59,6 +59,21 @@
 	src << "You will [(prefs.toggles & CHAT_PRAYER) ? "now" : "no longer"] see prayerchat."
 	feedback_add_details("admin_verb","TP") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
+/client/verb/toggletitlemusic()
+	set name = "Hear/Silence LobbyMusic"
+	set category = "Preferences"
+	set desc = "Toggles hearing the GameLobby music"
+	prefs.sound ^= SOUND_LOBBY
+	prefs.save_preferences(src)
+	if(prefs.sound & SOUND_LOBBY)
+		src << "You will now hear music in the game lobby."
+		if(istype(mob, /mob/new_player))
+			playtitlemusic()
+	else
+		src << "You will no longer hear music in the game lobby."
+		if(istype(mob, /mob/new_player))
+			src << sound(null, repeat = 0, wait = 0, volume = 85, channel = 1) // stop the jamsz
+	feedback_add_details("admin_verb","TLobby") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /client/verb/togglemidis()
 	set name = "Hear/Silence Midis"

@@ -1672,6 +1672,9 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 
 	proc/handle_decay()
 		var/decaytime = world.time - timeofdeath
+		
+		if(species.flags & IS_SYNTHETIC)
+			return
 
 		if(decaytime <= 6000) //10 minutes for decaylevel1 -- stinky
 			return

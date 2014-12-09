@@ -52,6 +52,59 @@
 
 /obj/effect/decal/warning_stripes/New()
 	. = ..()
-
 	loc.overlays += src
 	del src
+
+// Credit to Neinhaus for making these into individual decals.
+
+/obj/effect/decal/warning_stripes/arrow
+	icon_state = "4"
+
+/obj/effect/decal/warning_stripes/yellow
+	icon_state = "5"
+
+/obj/effect/decal/warning_stripes/yellow/partial
+	icon_state = "3"
+
+/obj/effect/decal/warning_stripes/yellow/hollow
+	icon_state = "6"
+
+
+/obj/effect/decal/warning_stripes/red
+	icon_state = "8"
+
+/obj/effect/decal/warning_stripes/red/partial
+	icon_state = "7"
+
+/obj/effect/decal/warning_stripes/red/hollow
+	icon_state = "9"
+
+
+/obj/effect/decal/warning_stripes/green
+	icon_state = "11"
+
+/obj/effect/decal/warning_stripes/green/partial
+	icon_state = "10"
+
+/obj/effect/decal/warning_stripes/green/hollow
+	icon_state = "12"
+
+
+/obj/effect/decal/warning_stripes/white
+	icon_state = "14"
+
+/obj/effect/decal/warning_stripes/white/partial
+	icon_state = "13"
+
+/obj/effect/decal/warning_stripes/white/hollow
+	icon_state = "15"
+
+
+/obj/effect/decal/warning_stripes/blue
+	icon_state = "17"
+
+/obj/effect/decal/warning_stripes/blue/partial
+	icon_state = "16"
+
+/obj/effect/decal/warning_stripes/blue/hollow
+	icon_state = "18"

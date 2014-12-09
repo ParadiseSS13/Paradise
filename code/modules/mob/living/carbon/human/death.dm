@@ -5,13 +5,13 @@
 	canmove = 0
 	icon = null
 	invisibility = 101
+	if(!(species.flags & IS_SYNTHETIC))
+		animation = new(loc)
+		animation.icon_state = "blank"
+		animation.icon = 'icons/mob/mob.dmi'
+		animation.master = src
 
-	animation = new(loc)
-	animation.icon_state = "blank"
-	animation.icon = 'icons/mob/mob.dmi'
-	animation.master = src
-
-	playsound(src.loc, 'sound/effects/gib.ogg', 100, 1, 10)
+		playsound(src.loc, 'sound/effects/gib.ogg', 100, 1, 10)
 
 	for(var/datum/organ/external/E in src.organs)
 		if(istype(E, /datum/organ/external/chest))
@@ -20,9 +20,15 @@
 		if(prob(100 - E.get_damage()))
 			// Override the current limb status and don't cause an explosion
 			E.droplimb(1,1)
-
-	flick("gibbed-h", animation)
-	hgibs(loc, viruses, dna)
+			
+	if(!(species.flags & IS_SYNTHETIC))
+		flick("gibbed-h", animation)
+		hgibs(loc, viruses, dna)
+	else
+		new /obj/effect/decal/cleanable/robot_debris(src.loc)
+		var/datum/effect/effect/system/spark_spread/s = new /datum/effect/effect/system/spark_spread
+		s.set_up(3, 1, src)
+		s.start()
 
 	spawn(15)
 		if(animation)	del(animation)
