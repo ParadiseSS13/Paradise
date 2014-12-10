@@ -23,7 +23,8 @@
 		"Drone" = "repairbot",
 		"Cat" = "cat",
 		"Mouse" = "mouse",
-		"Monkey" = "monkey"
+		"Monkey" = "monkey",
+		"Fox" = "fox"
 		)
 
 	var/global/list/possible_say_verbs = list(
@@ -31,7 +32,8 @@
 		"Natural" = list("says","yells","asks"),
 		"Beep" = list("beeps","beeps loudly","boops"),
 		"Chirp" = list("chirps","chirrups","cheeps"),
-		"Feline" = list("purrs","yowls","meows")
+		"Feline" = list("purrs","yowls","meows"),
+		"Canine" = list("yaps","barks","growls")
 		)
 
 
