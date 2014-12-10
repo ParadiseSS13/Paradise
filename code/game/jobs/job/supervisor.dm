@@ -107,13 +107,13 @@
 			            access_all_personal_lockers, access_maint_tunnels, access_bar, access_janitor, access_construction, access_morgue,
 			            access_crematorium, access_kitchen, access_cargo, access_cargo_bot, access_mailsorting, access_qm, access_hydroponics, access_lawyer,
 			            access_theatre, access_chapel_office, access_library, access_research, access_mining, access_heads_vault, access_mining_station,
-			            access_clown, access_mime, access_hop, access_RC_announce, access_keycard_auth, access_gateway)
+			            access_clown, access_mime, access_hop, access_RC_announce, access_keycard_auth, access_gateway, access_ntrep)
 	minimal_access = list(access_security, access_sec_doors, access_brig, access_court, access_forensics_lockers,
 			            access_medical, access_engine, access_ai_upload, access_eva, access_heads,
 			            access_all_personal_lockers, access_maint_tunnels, access_bar, access_janitor, access_construction, access_morgue,
 			            access_crematorium, access_kitchen, access_cargo, access_cargo_bot, access_mailsorting, access_qm, access_hydroponics, access_lawyer,
 			            access_theatre, access_chapel_office, access_library, access_research, access_mining, access_heads_vault, access_mining_station,
-			            access_clown, access_mime, access_hop, access_RC_announce, access_keycard_auth, access_gateway)
+			            access_clown, access_mime, access_hop, access_RC_announce, access_keycard_auth, access_gateway, access_ntrep)
 
 	equip(var/mob/living/carbon/human/H)
 		if(!H)	return 0
@@ -152,13 +152,13 @@
 			            access_all_personal_lockers, access_maint_tunnels, access_bar, access_janitor, access_construction, access_morgue,
 			            access_crematorium, access_kitchen, access_cargo, access_cargo_bot, access_mailsorting, access_qm, access_hydroponics, access_lawyer,
 			            access_theatre, access_chapel_office, access_library, access_research, access_mining, access_heads_vault, access_mining_station,
-			            access_clown, access_mime, access_hop, access_RC_announce, access_keycard_auth, access_gateway)
+			            access_clown, access_mime, access_hop, access_RC_announce, access_keycard_auth, access_gateway, access_ntrec)
 	minimal_access = list(access_security, access_sec_doors, access_brig, access_court, access_forensics_lockers,
 			            access_medical, access_engine, access_ai_upload, access_eva, access_heads, access_change_ids,
 			            access_all_personal_lockers, access_maint_tunnels, access_bar, access_janitor, access_construction, access_morgue,
 			            access_crematorium, access_kitchen, access_cargo, access_cargo_bot, access_mailsorting, access_qm, access_hydroponics, access_lawyer,
 			            access_theatre, access_chapel_office, access_library, access_research, access_mining, access_heads_vault, access_mining_station,
-			            access_clown, access_mime, access_hop, access_RC_announce, access_keycard_auth, access_gateway)
+			            access_clown, access_mime, access_hop, access_RC_announce, access_keycard_auth, access_gateway, access_ntrec)
 
 	equip(var/mob/living/carbon/human/H)
 		if(!H)	return 0
@@ -215,7 +215,7 @@
 		H.equip_or_collect(new /obj/item/clothing/gloves/combat(H), slot_gloves)
 		H.equip_or_collect(new /obj/item/clothing/shoes/jackboots(H), slot_shoes)
 		H.equip_or_collect(new /obj/item/clothing/glasses/hud/health_advanced, slot_glasses)
-		H.equip_if_possible(new /obj/item/clothing/under/rank/centcom/representative(H), slot_w_uniform)
+		H.equip_if_possible(new /obj/item/clothing/under/rank/centcom/blueshield(H), slot_w_uniform)
 		H.equip_if_possible(new /obj/item/clothing/suit/armor/vest/fluff/deus_blueshield(H), slot_wear_suit)
 		H.equip_or_collect(new /obj/item/device/pda/heads/hop(H), slot_wear_pda)
 		if(H.backbag == 1)

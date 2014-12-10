@@ -48,7 +48,7 @@
 		new /obj/item/weapon/cartridge/hop(src)
 		new /obj/item/device/radio/headset/heads/hop(src)
 		new /obj/item/weapon/storage/box/ids(src)
-		new /obj/item/weapon/storage/box/ids( src )
+		new /obj/item/weapon/storage/box/PDAs(src)
 		new /obj/item/clothing/suit/armor/vest(src)
 		new /obj/item/weapon/gun/energy/gun(src)
 		new /obj/item/device/flash(src)
@@ -189,7 +189,7 @@
 		return
 
 /obj/structure/closet/secure_closet/blueshield
-	name = "Blueshield Locker"
+	name = "Blueshield's Locker"
 	req_access = list(access_blueshield)
 	icon_state = "bssecure1"
 	icon_closed = "bssecure"
@@ -201,18 +201,74 @@
 	New()
 		..()
 		sleep(2)
+		new /obj/item/weapon/storage/briefcase(src)
 		new	/obj/item/weapon/storage/firstaid/adv(src)
 		new /obj/item/weapon/gun/projectile/revolver/detective(src)
 		new /obj/item/weapon/storage/belt/security(src)
 		new /obj/item/weapon/grenade/flashbang(src)
+		new /obj/item/device/flash(src)
+		new /obj/item/weapon/handcuffs(src)
 		new /obj/item/weapon/melee/baton/loaded(src)
 		new /obj/item/weapon/gun/energy/taser(src)
 		new /obj/item/clothing/glasses/sunglasses(src)
-		new /obj/item/clothing/under/rank/centcom_officer(src)
-		new /obj/item/device/flash(src)
-		new /obj/item/weapon/handcuffs(src)
 		new /obj/item/clothing/glasses/hud/health_advanced
+		new /obj/item/clothing/head/beret/centcom/officer(src)
+		new /obj/item/clothing/under/rank/centcom_officer(src)
+		new /obj/item/clothing/suit/armor/vest/fluff/deus_blueshield(src)
+		new /obj/item/clothing/shoes/centcom(src)
+		new /obj/item/clothing/tie/blue(src)
 		return
+		
+/obj/structure/closet/secure_closet/ntrep
+	name = "Nanotrasen Representative's Locker"
+	req_access = list(access_ntrep)
+	icon_state = "ntsecure1"
+	icon_closed = "ntsecure"
+	icon_locked = "ntsecure1"
+	icon_opened = "ntsecureopen"
+	icon_broken = "ntsecurebroken"
+	icon_off = "ntsecureoff"
+
+	New()
+		..()
+		sleep(2)
+		new /obj/item/weapon/storage/briefcase(src)
+		new /obj/item/device/paicard(src)
+		new /obj/item/device/flash(src)
+		new /obj/item/clothing/glasses/sunglasses(src)
+		new /obj/item/clothing/under/rank/centcom_officer(src)
+		new /obj/item/clothing/gloves/white(src)
+		new /obj/item/clothing/shoes/centcom(src)
+		new /obj/item/clothing/under/lawyer/oldman(src)
+		new /obj/item/clothing/under/lawyer/black(src)
+		new /obj/item/clothing/under/lawyer/female(src)
+		return
+		
+/obj/structure/closet/secure_closet/ntrec
+	name = "Nanotrasen Recruiter's Locker"
+	req_access = list(access_ntrec)
+	icon_state = "ntsecure1"
+	icon_closed = "ntsecure"
+	icon_locked = "ntsecure1"
+	icon_opened = "ntsecureopen"
+	icon_broken = "ntsecurebroken"
+	icon_off = "ntsecureoff"
+
+	New()
+		..()
+		sleep(2)
+		new /obj/item/weapon/storage/briefcase(src)
+		new /obj/item/weapon/storage/box/ids(src)
+		new /obj/item/weapon/storage/box/PDAs(src)
+		new /obj/item/device/flash(src)
+		new /obj/item/clothing/glasses/sunglasses(src)
+		new /obj/item/clothing/under/rank/centcom_officer(src)
+		new /obj/item/clothing/gloves/white(src)
+		new /obj/item/clothing/shoes/centcom(src)
+		new /obj/item/clothing/under/lawyer/oldman(src)
+		new /obj/item/clothing/under/lawyer/black(src)
+		new /obj/item/clothing/under/lawyer/female(src)
+		return		
 
 
 /obj/structure/closet/secure_closet/security/cargo

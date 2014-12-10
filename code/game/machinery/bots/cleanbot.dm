@@ -39,6 +39,7 @@
 	var/next_dest
 	var/next_dest_loc
 	radio_frequency = SRV_FREQ //Service
+	radio_name = "Service"
 	bot_type = CLEAN_BOT
 	bot_filter = RADIO_CLEANBOT
 
@@ -120,6 +121,7 @@ text("<A href='?src=\ref[src];power=1'>[on ? "On" : "Off"]</A>"))
 		if(allowed(usr) && !open && !emagged)
 			locked = !locked
 			user << "<span class='notice'>You [ locked ? "lock" : "unlock"] the [src] behaviour controls.</span>"
+			updateUsrDialog()
 		else
 			if(emagged)
 				user << "<span class='warning'>ERROR</span>"

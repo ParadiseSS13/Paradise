@@ -4,7 +4,7 @@
 /obj/machinery/computer3/card/hop
 	default_prog = /datum/file/program/card_comp
 	spawn_parts = list(/obj/item/part/computer/storage/hdd,/obj/item/part/computer/cardslot/dual)
-	spawn_files = list(/datum/file/program/arcade, /datum/file/program/security, /datum/file/camnet_key/mining, /datum/file/camnet_key/entertainment,/datum/file/camnet_key/prison)
+	spawn_files = list(/datum/file/program/arcade, /datum/file/program/security, /datum/file/camnet_key/miningoutpost, /datum/file/camnet_key/entertainment,/datum/file/camnet_key/prison)
 
 
 /obj/machinery/computer3/card/centcom

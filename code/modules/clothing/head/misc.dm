@@ -277,7 +277,7 @@
 	icon_state = "crown"
 	item_state = "crown"
 	desc = "A gliterring bananium crown with spessjewels in it. Swaggy."
-	flags = FPRINT | TABLEPASS | BLOCKHAIR
+	flags = FPRINT | TABLEPASS
 
 
 /obj/item/clothing/head/fedora
