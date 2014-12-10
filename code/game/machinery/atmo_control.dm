@@ -510,9 +510,9 @@ legend {
 			else if(href_list["out_set_pressure"])
 				output_info = null
 				signal.data = list ("tag" = output_tag, "set_internal_pressure" = "[pressure_setting]")
-			else
+			/*else
 				testing("Bad Topic() to GAC \"[src.name]\": [href]")
-				return // NOPE.
+				return*/ // NOPE. // disabling because it spams when multitool menus are used
 
 			signal.data["sigtype"]="command"
 			radio_connection.post_signal(src, signal, filter = RADIO_ATMOSIA)
