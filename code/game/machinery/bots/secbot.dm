@@ -24,6 +24,7 @@
 	var/check_records = 1 //Does it check security records?
 	var/arrest_type = 0 //If true, don't handcuff
 	radio_frequency = SEC_FREQ //Security channel
+	radio_name = "Security"
 	bot_type = SEC_BOT
 	bot_filter = RADIO_SECBOT
 
@@ -41,7 +42,7 @@
 	name = "Officer Beepsky"
 	desc = "It's Officer Beepsky! Powered by a potato and a shot of whiskey."
 	idcheck = 0
-	weaponscheck = 0
+	weaponscheck = 1
 	auto_patrol = 1
 
 /obj/machinery/bot/secbot/pingsky
@@ -230,8 +231,8 @@ Auto Patrol: []"},
 						M.Stun(5)
 
 					if(declare_arrests)
-						//var/area/location = get_area(src)
-						declare_arrest()
+						var/area/location = get_area(src)
+						speak("[arrest_type ? "Detaining" : "Arresting"] level [threatlevel] scumbag <b>[target]</b> in [location].",radio_frequency, radio_name)
 					target.visible_message("<span class='danger'>[target] has been stunned by [src]!</span>",\
 											"<span class='userdanger'>[target] has been stunned by [src]!</span>")
 
@@ -476,12 +477,3 @@ Auto Patrol: []"},
 			new /obj/item/robot_parts/l_arm(get_turf(src))
 			user << "<span class='notice'>You remove the robot arm from [src].</span>"
 			build_step--
-			
-/obj/machinery/bot/secbot/proc/declare_arrest()	
-	var/area/location = get_area(src)
-	for(var/mob/living/carbon/human/human in world)
-		if((human.z == src.z) && istype(human.glasses, /obj/item/clothing/glasses/hud/security) || istype(human.glasses, /obj/item/clothing/glasses/sunglasses/sechud) && !human.blinded)
-			human << "<span class='info'>\icon[human.glasses] [src.name] is [arrest_type ? "detaining" : "arresting"] level [threatlevel] threat <b>[target]</b> in <b>[location]</b></span>"
-	for(var/mob/living/silicon/robot in world)
-		if((robot.z == src.z) && !robot.blinded && robot.sensor_mode == 1)
-			robot << "<span class='info'>[src.name] is [arrest_type ? "detaining" : "arresting"] level [threatlevel] threat <b>[target]</b> in <b>[location]</b></span>"

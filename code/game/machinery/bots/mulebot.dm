@@ -94,7 +94,7 @@ var/global/mulebot_count = 0
 	else if(istype(I, /obj/item/weapon/card/id) || istype(I, /obj/item/device/pda))
 		if(toggle_lock(user))
 			user << "<span class='notice'>Controls [(locked ? "locked" : "unlocked")].</span>"
-
+			updateUsrDialog()
 	else if(istype(I,/obj/item/weapon/cell) && open && !cell)
 		var/obj/item/weapon/cell/C = I
 		user.drop_item()
@@ -237,7 +237,7 @@ var/global/mulebot_count = 0
 
 	//user << browse("<HEAD><TITLE>M.U.L.E. Mk. III [suffix ? "([suffix])" : ""]</TITLE></HEAD>[dat]", "window=mulebot;size=350x500")
 	//onclose(user, "mulebot")
-	var/datum/browser/popup = new(user, "mulebot", "M.U.L.E. Mk. V [suffix ? "([suffix])" : ""]", 350, 500)
+	var/datum/browser/popup = new(user, "mulebot", "M.U.L.E. Mk. V [suffix ? "([suffix])" : ""]", 350, 535)
 	popup.set_content(dat)
 	popup.set_title_image(user.browse_rsc_icon(icon, icon_state))
 	popup.open()
@@ -683,6 +683,8 @@ var/global/mulebot_count = 0
 /obj/machinery/bot/mulebot/proc/at_target()
 	if(!reached_target)
 		radio_frequency = SUP_FREQ //Supply channel
+		radio_name = "Supply"
+		Radio.config(list("[radio_name]" = 0))
 		visible_message("[src] makes a chiming sound!", "You hear a chime.")
 		playsound(loc, 'sound/machines/chime.ogg', 50, 0)
 		reached_target = 1
@@ -694,9 +696,11 @@ var/global/mulebot_count = 0
 				playsound(calling_ai, 'sound/machines/chime.ogg',40, 0)
 				calling_ai = null
 				radio_frequency = AIPRIV_FREQ //Report on AI Private instead if the AI is controlling us.
+				radio_name = "AI Private"
+				Radio.config(list("[radio_name]" = 0))
 
 		if(load)		// if loaded, unload at target
-			speak("Destination <b>[destination]</b> reached. Unloading [load]."/*,radio_frequency*/)
+			speak("Destination <b>[destination]</b> reached. Unloading [load].", radio_frequency, radio_name)
 			unload(loaddir)
 		else
 			// not loaded
@@ -712,7 +716,7 @@ var/global/mulebot_count = 0
 				if(AM)
 					load(AM)
 					if(report_delivery)
-						speak("Now loading [load] at <b>[get_area(src)]</b>."/*,radio_frequency*/)
+						speak("Now loading [load] at <b>[get_area(src)]</b>.", radio_frequency, radio_name)
 		// whatever happened, check to see if we return home
 
 		if(auto_return && destination != home_destination)

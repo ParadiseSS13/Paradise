@@ -34,6 +34,7 @@
 	var/projectile = /obj/item/projectile/energy/electrode //Holder for projectile type
 	var/shoot_sound = 'sound/weapons/Taser.ogg'
 	radio_frequency = SEC_FREQ
+	radio_name = "Security"
 	bot_type = SEC_BOT
 	bot_filter = RADIO_SECBOT
 
@@ -267,8 +268,8 @@ Auto Patrol[]"},
 						M.Stun(5)
 
 					if(declare_arrests)
-						//var/area/location = get_area(src)
-						declare_arrest()
+						var/area/location = get_area(src)
+						speak("[arrest_type ? "Detaining" : "Arresting"] level [threatlevel] scumbag <b>[target]</b> in [location].",radio_frequency, radio_name)
 					target.visible_message("<span class='danger'>[target] has been stunned by [src]!</span>",\
 											"<span class='userdanger'>[target] has been stunned by [src]!</span></span>")
 
@@ -726,9 +727,3 @@ Auto Patrol[]"},
 /obj/machinery/bot/ed209/redtag/New()
 	new /obj/machinery/bot/ed209(get_turf(src),null,"r")
 	qdel(src)
-
-/obj/machinery/bot/ed209/proc/declare_arrest()
-	var/area/location = get_area(src)	
-	for(var/mob/living/carbon/human/human in world)
-		if((human.z == src.z) && istype(human.glasses, /obj/item/clothing/glasses/hud/security) || istype(human.glasses, /obj/item/clothing/glasses/sunglasses/sechud) && !human.blinded)
-			human << "<span class='info'>\icon[human.glasses] [src.name] is [arrest_type ? "detaining" : "arresting"] level [threatlevel] threat <b>[target]</b> in <b>[location]</b></span>"

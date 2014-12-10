@@ -34,6 +34,7 @@
 	else
 		on = 1
 		icon_state = "echair1"
+		shock()
 	usr << "<span class='notice'>You switch [on ? "on" : "off"] [src].</span>"
 	return
 
@@ -70,8 +71,10 @@
 		sleep(1)
 		buckled_mob.burn_skin(85)
 		buckled_mob.Stun(600)
+	on = 0
 	visible_message("<span class='danger'>The electric chair went off!</span>", "<span class='danger'>You hear a deep sharp shock!</span>")
 
 	A.power_light = light
 	A.updateicon()
 	return
+	

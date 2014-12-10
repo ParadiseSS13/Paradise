@@ -50,6 +50,7 @@
 	req_one_access = list(access_construction, access_robotics)
 	var/targetdirection
 	radio_frequency = ENG_FREQ //Engineering channel
+	radio_name = "Engineering"
 	bot_type = FLOOR_BOT
 	bot_filter = RADIO_FLOORBOT
 	var/process_type //Determines what to do when process_scan() recieves a target. See process_scan() for details.
@@ -150,6 +151,7 @@
 		if(allowed(user) && !open && !emagged)
 			locked = !locked
 			user << "<span class='notice'>You [locked ? "lock" : "unlock"] \the [src] behaviour controls.</span>"
+			updateUsrDialog()
 		else
 			if(emagged)
 				user << "<span class='warning'>ERROR</span>"
@@ -314,7 +316,8 @@
 
 /obj/machinery/bot/floorbot/proc/nag() //Annoy everyone on the channel to refill us!
 	if(!nagged)
-		speak("Requesting refill at <b>[get_area(src)]</b>!"/*, radio_frequency*/)
+		var/area/location = get_area(src)
+		speak("Requesting refill at <b>[location]</b>!", radio_frequency, radio_name)
 		nagged = 1
 
 /obj/machinery/bot/floorbot/proc/is_hull_breach(var/turf/t) //Ignore space tiles not considered part of a structure, also ignores shuttle docking areas.
