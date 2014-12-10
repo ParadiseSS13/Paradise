@@ -225,7 +225,7 @@
 
 /obj/item/device/paicard/Topic(href, href_list)
 
-	if(!usr || usr.stat)
+	if(!usr || usr.stat || src.loc != usr.loc || pai.canmove || pai.resting)
 		return
 
 	if(href_list["setdna"])

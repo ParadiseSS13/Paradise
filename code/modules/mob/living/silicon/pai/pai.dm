@@ -450,7 +450,10 @@
 	return
 
 /mob/living/silicon/pai/start_pulling(var/atom/movable/AM)
-	src << "<span class='warning'>You are far too small to pull anything!</span>"
+	if(stat || sleeping || paralysis || weakened)
+		return
+	if(istype(AM,/obj/item))
+		src << "<span class='warning'>You are far too small to pull anything!</span>"
 	return
 
 /mob/living/silicon/pai/examine()
