@@ -421,7 +421,7 @@
 		if(access_ntrec)
 			return "Nanotrasen Recruiter"
 		if(access_ntrep)
-			return "Nanotrasen Representative"
+			return "Nanotrasen Rep."
 		if(access_paramedic)
 			return "Paramedic"
 		if(access_customs)
