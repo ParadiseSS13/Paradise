@@ -71,6 +71,8 @@
 /var/const/access_salvage_captain = 69 // Salvage ship captain's quarters
 /var/const/access_mechanic = 70
 /var/const/access_pilot = 71
+/var/const/access_ntrec = 72
+/var/const/access_ntrep = 73
 
 
 /var/const/access_weapons = 99 //Weapon authorization for secbots
