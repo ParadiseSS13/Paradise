@@ -70,19 +70,18 @@
 
 /obj/item/weapon/reagent_containers/hypospray/autoinjector
 	name = "emergency autoinjector"
-	desc = "A potent mix of pain killers and muscle stimulants."
+	desc = "A rapid and safe way to stabilize patients in critical condition for personnel without advanced medical knowledge."
 	icon_state = "autoinjector"
 	item_state = "autoinjector"
-	amount_per_transfer_from_this = 5
-	possible_transfer_amounts = list(5)
-	volume = 5
+	amount_per_transfer_from_this = 10
+	possible_transfer_amounts = list(10)
+	volume = 10
 	var/emagged = 0
 
 /obj/item/weapon/reagent_containers/hypospray/autoinjector/New()
 	..()
 	reagents.remove_reagent("doctorsdelight", 30)
-	reagents.add_reagent("tramadol", 4)
-	reagents.add_reagent("hyperzine", 1)
+	reagents.add_reagent("inaprovaline", 10)
 	update_icon()
 	return
 

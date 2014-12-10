@@ -12,7 +12,7 @@
 
 /datum/job/civilian/equip(var/mob/living/carbon/human/H)
 	if(!H)	return 0
-	H.equip_or_collect(new /obj/item/clothing/under/color/grey(H), slot_w_uniform)
+	H.equip_or_collect(new /obj/item/clothing/under/color/random(H), slot_w_uniform)
 	H.equip_or_collect(new /obj/item/clothing/shoes/black(H), slot_shoes)
 	if(H.backbag == 1)
 		H.equip_or_collect(new /obj/item/weapon/storage/box/survival(H), slot_r_hand)

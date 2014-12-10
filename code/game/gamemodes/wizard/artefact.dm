@@ -78,7 +78,7 @@
 						M << "<B>Your service has not gone unrewarded, however. Studying under [H.real_name], you have learned stealthy, robeless spells. You are able to cast knock and mindswap."
 				M.update_power_buttons()
 				M.equip_to_slot_or_del(new /obj/item/device/radio/headset(M), slot_l_ear)
-				M.equip_to_slot_or_del(new /obj/item/clothing/under/lightpurple(M), slot_w_uniform)
+				M.equip_to_slot_or_del(new /obj/item/clothing/under/color/lightpurple(M), slot_w_uniform)
 				M.equip_to_slot_or_del(new /obj/item/clothing/shoes/sandal(M), slot_shoes)
 				M.equip_to_slot_or_del(new /obj/item/clothing/suit/wizrobe(M), slot_wear_suit)
 				M.equip_to_slot_or_del(new /obj/item/clothing/head/wizard(M), slot_head)

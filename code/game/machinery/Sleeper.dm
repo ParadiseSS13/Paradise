@@ -13,7 +13,7 @@
 	dir = 8
 	idle_power_usage = 250
 	active_power_usage = 500
-	
+
 /obj/machinery/sleep_console/power_change()
 	if(stat & BROKEN)
 		icon_state = "console-p"
@@ -24,7 +24,7 @@
 		spawn(rand(0, 15))
 			src.icon_state = "console-p"
 			stat |= NOPOWER
-			
+
 /obj/machinery/sleep_console/New()
 	..()
 	component_parts = list()
@@ -35,8 +35,8 @@
 	RefreshParts()
 	findsleeper()
 
-/obj/machinery/sleep_console/RefreshParts()			
-			
+/obj/machinery/sleep_console/RefreshParts()
+
 /obj/machinery/sleep_console/process()
 	if(stat & (NOPOWER|BROKEN))
 		return
@@ -67,16 +67,16 @@
 		src.connected = sleepernew
 		return
 	return
-	
+
 /obj/machinery/sleep_console/attackby(var/obj/item/weapon/G as obj, var/mob/user as mob)
 	if (istype(G, /obj/item/weapon/screwdriver))
 		default_deconstruction_screwdriver(user, "console-p", "console", G)
-		return		
-	
+		return
+
 	if (istype(G, /obj/item/weapon/wrench))
 		if(panel_open)
 			user << "<span class='notice'>Close the maintenance panel first.</span>"
-			return	
+			return
 		if(dir == 4)
 			orient = "LEFT"
 			dir = 8
@@ -84,11 +84,11 @@
 			orient = "RIGHT"
 			dir = 4
 		playsound(src.loc, 'sound/items/Ratchet.ogg', 50, 1)
-		
+
 	if(exchange_parts(user, G))
 		return
 
-	default_deconstruction_crowbar(G)	
+	default_deconstruction_crowbar(G)
 
 /obj/machinery/sleep_console/attack_ai(mob/user as mob)
 	return src.attack_hand(user)
@@ -102,7 +102,7 @@
 	if(stat & (NOPOWER|BROKEN))
 		return
 	if (panel_open)
-		user << "<span class='notice'>Close the maintenance panel first.</span>"	
+		user << "<span class='notice'>Close the maintenance panel first.</span>"
 		return
 	if (!src.connected)
 		findsleeper()
@@ -213,9 +213,9 @@
 	var/injection_chems = list()
 	idle_power_usage = 1250
 	active_power_usage = 2500
-	
+
 	l_color = "#7BF9FF"
-	
+
 	power_change()
 		..()
 		if(!(stat & (BROKEN|NOPOWER)))
@@ -249,8 +249,8 @@
 
 	injection_chems = possible_chems[I]
 	efficiency = E
-	min_health = -E * 25		
-		
+	min_health = -E * 25
+
 /obj/machinery/sleeper/process()
 	if(filtering > 0)
 		if(beaker)
@@ -285,21 +285,21 @@
 		else
 			user << "\red The sleeper has a beaker already."
 			return
-			
+
 	if (istype(G, /obj/item/weapon/screwdriver))
 		if(src.occupant)
 			user << "<span class='notice'>The maintenance panel is locked.</span>"
-			return	
+			return
 		default_deconstruction_screwdriver(user, "sleeper-o", "sleeper-open", G)
-		return		
-	
+		return
+
 	if (istype(G, /obj/item/weapon/wrench))
 		if(src.occupant)
 			user << "<span class='notice'>The scanner is occupied.</span>"
-			return	
+			return
 		if(panel_open)
 			user << "<span class='notice'>Close the maintenance panel first.</span>"
-			return	
+			return
 		if(dir == 4)
 			orient = "LEFT"
 			dir = 8
@@ -307,16 +307,16 @@
 			orient = "RIGHT"
 			dir = 4
 		playsound(src.loc, 'sound/items/Ratchet.ogg', 50, 1)
-		
+
 	if(exchange_parts(user, G))
 		return
 
-	default_deconstruction_crowbar(G)	
-			
+	default_deconstruction_crowbar(G)
+
 	if(istype(G, /obj/item/weapon/grab))
 		if(panel_open)
 			user << "\blue <b>Close the maintenance panel first.</b>"
-			return			
+			return
 		if(!ismob(G:affecting))
 			return
 		if(src.occupant)
@@ -374,7 +374,7 @@
 				qdel(src)
 				return
 	return
-	
+
 /obj/machinery/sleeper/emp_act(severity)
 	if(filtering)
 		toggle_filter()
@@ -396,9 +396,6 @@
 	M.AdjustParalysis(-4)
 	M.AdjustWeakened(-4)
 	M.AdjustStunned(-4)
-	M.Paralyse(1)
-	M.Weaken(1)
-	M.Stun(1)
 	if (M:reagents.get_reagent_amount("inaprovaline") < 5)
 		M:reagents.add_reagent("inaprovaline", 5)
 	return
@@ -512,7 +509,7 @@
 		return
 	if(panel_open)
 		user << "\blue <B>Close the maintenance panel first.</B>"
-		return	
+		return
 	if(occupant)
 		user << "\blue <B>The sleeper is already occupied!</B>"
 		return
