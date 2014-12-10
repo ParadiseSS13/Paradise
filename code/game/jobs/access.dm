@@ -428,6 +428,8 @@
 			return "Customs"
 		if(access_mechanic)
 			return "Mechanic Workshop"
+		if(access_pilot)
+			return "Security Pod Pilot"
 		if(access_weapons)
 			return "Weapon Permit"
 
