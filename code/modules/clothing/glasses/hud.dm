@@ -31,7 +31,7 @@
 	process_med_hud(M,1)
 
 /obj/item/clothing/glasses/hud/health_advanced/process_hud(var/mob/M)
-	process_sec_hud(M,1)
+	process_med_hud(M,1)
 
 
 /obj/item/clothing/glasses/hud/security

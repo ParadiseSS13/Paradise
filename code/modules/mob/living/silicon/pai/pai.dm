@@ -24,7 +24,8 @@
 		"Cat" = "cat",
 		"Mouse" = "mouse",
 		"Monkey" = "monkey",
-		"Corgi" = "corgi"
+		"Corgi" = "corgi",
+		"Fox" = "fox"
 		)
 
 	var/global/list/possible_say_verbs = list(
@@ -33,7 +34,7 @@
 		"Beep" = list("beeps","beeps loudly","boops"),
 		"Chirp" = list("chirps","chirrups","cheeps"),
 		"Feline" = list("purrs","yowls","meows"),
-		"Canine" = list("barks","growls","whines")
+		"Canine" = list("yaps","barks","growls")
 		)
 
 
