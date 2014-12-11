@@ -4,8 +4,8 @@ Creature-level abilities.
 
 /var/global/list/ability_verbs = list(	)
 
-
-/mob/living/carbon/human/slime/proc/slimepeople_ventcrawl()
+/*
+/mob/living/carbon/human/slime/proc/slimepeople_ventcrawl()  // Slime people ventcrawling commented out
 
 	set category = "Abilities"
 	set name = "Ventcrawl (Slime People)"
@@ -35,3 +35,4 @@ Creature-level abilities.
 		M.handle_ventcrawl()
 	else
 		src << "This should not be happening. At all."
+*/
