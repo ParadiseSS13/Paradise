@@ -51,6 +51,7 @@
 	var/drowsy = 0
 	var/agony = 0
 	var/embed = 0 // whether or not the projectile can embed itself in the mob
+	var/forcedodge = 0
 
 
 	proc/delete()
@@ -82,9 +83,8 @@
 			loc = A.loc
 			return 0 //cannot shoot yourself
 
-		if(bumped)	return 0
-		var/forcedodge = 0 // force the projectile to pass
-
+		if(bumped)	
+			return 1
 		bumped = 1
 		if(firer && istype(A, /mob))
 			var/mob/M = A
@@ -137,9 +137,8 @@
 
 		spawn(0)
 		if(A)
-			if(!forcedodge)
-				forcedodge = A.bullet_act(src, def_zone) // searches for return value
-			if(forcedodge == -1) // the bullet passes through a dense object!
+			var/permutation = A.bullet_act(src, def_zone) // searches for return value, could be deleted after run so check A isn't null
+			if(permutation == -1 || forcedodge)// the bullet passes through a dense object!
 				bumped = 0 // reset bumped variable!
 				if(istype(A, /turf))
 					loc = A

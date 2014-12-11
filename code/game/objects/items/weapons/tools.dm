@@ -487,12 +487,6 @@
 				if(istype(M,/mob/living/carbon/human))
 					var/mob/living/carbon/human/H = M
 					H.updatehealth()
-					if(istype(M,/mob/living/carbon/human/machine) && M.stat == 0) // If an IPC is brought back to life by welding it, which is possible, update the mob list
-						if(M in dead_mob_list)
-							dead_mob_list -= M
-							respawnable_list -= M
-							living_mob_list += M
-							mob_list += M
 				return
 			else
 				user << "\red You need more welding fuel to complete this task."

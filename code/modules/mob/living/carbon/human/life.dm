@@ -1292,7 +1292,9 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 					see_invisible = SEE_INVISIBLE_LIVING
 					seer = 0
 
+			var/tmp/has_ninja_mask = 0
 			if(istype(wear_mask, /obj/item/clothing/mask/gas/voice/space_ninja))
+				has_ninja_mask = 1
 				var/obj/item/clothing/mask/gas/voice/space_ninja/O = wear_mask
 				switch(O.mode)
 					if(0)
@@ -1305,7 +1307,7 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 						if(!druggy)		see_invisible = SEE_INVISIBLE_LIVING
 					if(1)
 						see_in_dark = 5
-						if(!druggy)		see_invisible = SEE_INVISIBLE_LIVING
+						if(!druggy)		see_invisible = SEE_INVISIBLE_MINIMUM
 					if(2)
 						sight |= SEE_MOBS
 						if(!druggy)		see_invisible = SEE_INVISIBLE_LEVEL_TWO
@@ -1340,7 +1342,7 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 						see_invisible = SEE_INVISIBLE_LIVING
 					if(istype(O,/obj/item/clothing/glasses/hud/security/night) || istype(O,/obj/item/clothing/glasses/hud/health/night))
 						see_invisible = SEE_INVISIBLE_MINIMUM
-			else if(!seer)
+			else if(!seer && !has_ninja_mask)
 				see_in_dark = species.darksight
 				see_invisible = SEE_INVISIBLE_LIVING
 

@@ -423,20 +423,20 @@
 	var/reagent_id = null
 
 	if(emagged == 2) //Emagged! Time to poison everybody.
-		reagent_id = "toxin"
-
-	if(treat_virus)
-		var/virus = 0
-		if(C:virus2.len)		
-			for (var/ID in C.virus2)
-				if (ID in virusDB) // If the virus is known, the medbot is aware of it and will try to cure it
-					virus = 1	
-					
-		if (!reagent_id && (virus))
-			if(!C.reagents.has_reagent(treatment_virus))
-				reagent_id = treatment_virus		
+		reagent_id = "toxin"	
 		
 	else
+		if(treat_virus)
+			var/virus = 0
+			if(C:virus2.len)		
+				for (var/ID in C.virus2)
+					if (ID in virusDB) // If the virus is known, the medbot is aware of it and will try to cure it
+						virus = 1	
+						
+			if (!reagent_id && (virus))
+				if(!C.reagents.has_reagent(treatment_virus))
+					reagent_id = treatment_virus	
+				
 		if (!reagent_id && (C.getBruteLoss() >= heal_threshold))
 			if(!C.reagents.has_reagent(treatment_brute))
 				reagent_id = treatment_brute
