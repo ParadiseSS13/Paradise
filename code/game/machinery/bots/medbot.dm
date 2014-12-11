@@ -31,6 +31,7 @@
 	var/declare_cooldown = 0 //Prevents spam of critical patient alerts.
 	var/stationary_mode = 0 //If enabled, the Medibot will not move automatically.
 	radio_frequency = MED_FREQ //Medical frequency
+	radio_name = "Medical"
 	//Setting which reagents to use to treat what by default. By id.
 	var/treatment_brute = "tricordrazine"
 	var/treatment_oxy = "tricordrazine"
@@ -522,8 +523,10 @@
 /obj/machinery/bot/medbot/proc/declare(var/crit_patient)
 	if(declare_cooldown)
 		return
-	//var/area/location = get_area(src)
-	declare_critical(crit_patient)
+	if((skin == "bezerk"))
+		return
+	var/area/location = get_area(src)
+	speak("Medical emergency! [crit_patient ? "<b>[crit_patient]</b>" : "A patient"] is in critical condition at [location]!",radio_frequency, radio_name)
 	declare_cooldown = 1
 	spawn(200) //Twenty seconds
 	declare_cooldown = 0
@@ -590,17 +593,3 @@
 					S.name = created_name
 					user.before_take_item(src, 1)
 					qdel(src)
-
-/obj/machinery/bot/medbot/proc/declare_critical(var/crit_patient)
-	var/area/location = get_area(src)	
-	for(var/mob/living/carbon/human/human in world)
-		if((human.z == src.z) && istype(human.glasses, /obj/item/clothing/glasses/hud/health) || istype(human.glasses, /obj/item/clothing/glasses/hud/health_advanced) && !human.blinded)
-			if((skin == "bezerk") && (!("syndicate" in human.faction)))
-				continue
-			human << "<span class='info'>\icon[human.glasses] Medical emergency! [crit_patient ? "<b>[crit_patient]</b>" : "A patient"] is in critical condition at [location]!"
-	for(var/mob/living/silicon/robot in world)
-		if((robot.z == src.z) && !robot.blinded)
-			if((skin == "bezerk") && (!("syndicate" in robot.faction)))
-				continue
-			if(robot.sensor_mode == 2)
-				robot << "<span class='info'>Medical emergency! [crit_patient ? "<b>[crit_patient]</b>" : "A patient"] is in critical condition at [location]!"

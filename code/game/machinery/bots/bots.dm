@@ -30,6 +30,7 @@
 	var/mob/living/silicon/ai/calling_ai //Links a bot to the AI calling it.
 	var/obj/item/device/radio/Radio //The bot's radio, for speaking to people.
 	var/radio_frequency //The bot's default radio speaking freqency. Recommended to be on a department frequency.
+	var/radio_name = "Common"
 	//var/emagged = 0 //Urist: Moving that var to the general /bot tree as it's used by most bots
 	var/auto_patrol = 0// set to make bot automatically patrol
 	var/turf/patrol_target	// this is turf to navigate to (location of beacon)
@@ -101,6 +102,7 @@
 	set_custom_texts()
 	Radio = new /obj/item/device/radio(src)
 	Radio.listening = 0 //Makes bot radios transmit only so no one hears things while adjacent to one.
+	Radio.config(list("[radio_name]" = 0))
 
 
 /obj/machinery/bot/proc/add_to_beacons(bot_filter) //Master filter control for bots. Must be placed in the bot's local New() to support map spawned bots.
@@ -335,14 +337,13 @@
 /obj/machinery/bot/attack_ai(mob/user as mob)
 	attack_hand(user)
 
-/obj/machinery/bot/proc/speak(var/message, freq) //Pass a message to have the bot say() it. Pass a frequency to say it on the radio.
+/obj/machinery/bot/proc/speak(var/message, freq, var/freqname = null) //Pass a message to have the bot say() it. Pass a frequency to say it on the radio.
 	if((!on) || (!message))
 		return
 	if(freq)
-		return
-		// Commenting out the radio code until our say code's compatible with /tg/'s
-		/* Radio.set_frequency(radio_frequency)
-		Radio.talk_into_atom(src, message, radio_frequency) */ 
+		Radio.set_frequency(radio_frequency)
+	if(freqname)
+		Radio.autosay(message, src.name, freqname, list(src.z)) 
 	else
 		for(var/mob/O in hearers(src, null))
 			O.show_message("<span class='game say'><span class='name'>[src]</span> beeps, \"[message]\"</span>",2)
@@ -651,7 +652,7 @@ obj/machinery/bot/proc/start_patrol()
 					botcard.access = user_access + prev_access //Adds the user's access, if any.
 				mode = BOT_SUMMON
 				calc_summon_path()
-				speak("Responding."/*, radio_frequency*/)
+				speak("Responding.", radio_frequency, radio_name)
 				return
 
 	// receive response from beacon
@@ -738,7 +739,7 @@ obj/machinery/bot/proc/bot_summon()
 	check_bot_access()
 	path = AStar(loc, summon_target, /turf/proc/CardinalTurfsWithAccess, /turf/proc/Distance_cardinal, 0, 150, id=botcard, exclude=avoid)
 	if(!path || tries >= 5) //Cannot reach target. Give up and announce the issue.
-		speak("Summon command failed, destination unreachable."/*,radio_frequency*/)
+		speak("Summon command failed, destination unreachable.", radio_frequency, radio_name)
 		bot_reset()
 
 /obj/machinery/bot/proc/summon_step()
