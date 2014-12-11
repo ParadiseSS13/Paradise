@@ -137,13 +137,11 @@
 
 		spawn(0)
 		if(A)
+			var/turf/new_loc = get_turf(A)
 			var/permutation = A.bullet_act(src, def_zone) // searches for return value, could be deleted after run so check A isn't null
 			if(permutation == -1 || forcedodge)// the bullet passes through a dense object!
 				bumped = 0 // reset bumped variable!
-				if(istype(A, /turf))
-					loc = A
-				else
-					loc = A.loc
+				loc = new_loc
 				permutated.Add(A)
 				return 0
 			if(istype(A,/turf))
