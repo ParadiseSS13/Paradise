@@ -2088,7 +2088,7 @@ datum
 			data = 13
 
 			on_mob_life(var/mob/living/M)
-				M.adjustHalLoss(REM * data)
+				M.adjustStaminaLoss(REM * data)
 				data = max(data - 1, 3)
 				..()
 
