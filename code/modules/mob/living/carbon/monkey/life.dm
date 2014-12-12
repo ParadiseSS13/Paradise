@@ -569,6 +569,9 @@
 
 			//Other
 			handle_statuses()
+
+			CheckStamina()
+
 		return 1
 
 

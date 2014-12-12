@@ -110,7 +110,7 @@
 	health -= M.melee_damage_upper
 	healthcheck()
 	return
-	
+
 /obj/structure/grille/mech_melee_attack(obj/mecha/M)
 	if(..())
 		playsound(loc, 'sound/effects/grillehit.ogg', 80, 1)
@@ -132,7 +132,7 @@
 	if(!Proj)	return
 
 	//Tasers and the like should not damage grilles.
-	if(Proj.damage_type == HALLOSS)
+	if(Proj.damage_type == STAMINA)
 		return
 
 	src.health -= Proj.damage*0.2

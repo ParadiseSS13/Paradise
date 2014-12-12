@@ -33,7 +33,7 @@
 
 			visible_message("\red <B>[M] has punched [src]!</B>")
 
-			apply_damage(damage, HALLOSS, affecting, armor_block)
+			apply_damage(damage, STAMINA, affecting, armor_block)
 			if(damage >= 9)
 				visible_message("\red <B>[M] has weakened [src]!</B>")
 				apply_effect(4, WEAKEN, armor_block)

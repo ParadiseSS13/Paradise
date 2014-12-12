@@ -15,7 +15,7 @@
 
 	if((M_RUN in mutations)) return -1
 
-	var/health_deficiency = (100 - health)
+	var/health_deficiency = (100 - health + staminaloss)
 
 	if(health_deficiency >= 40) tally += (health_deficiency / 25)
 
