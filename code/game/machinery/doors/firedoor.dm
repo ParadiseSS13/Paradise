@@ -132,9 +132,9 @@
 			o += "<span class='warning'>"
 		else
 			o += "<span style='color:blue'>"
-		o += "[celsius]Celsius</span> "
+		o += "[celsius] Celsius</span> "
 		o += "<span style='color:blue'>"
-		o += "[pressure]kPa</span></li>"
+		o += "[pressure] kPa</span></li>"
 		usr << o
 
 	if( islist(users_to_open) && users_to_open.len)
