@@ -153,6 +153,17 @@
 	if(status_flags & GODMODE)	return 0	//godmode
 	brainloss = amount
 
+/mob/living/proc/getStaminaLoss()
+	return staminaloss
+
+/mob/living/proc/adjustStaminaLoss(var/amount)
+	if(status_flags & GODMODE)	return 0
+	staminaloss = min(max(staminaloss + amount, 0),(maxHealth*2))
+
+/mob/living/proc/setStaminaLoss(var/amount)
+	if(status_flags & GODMODE)	return 0
+	staminaloss = amount
+
 /mob/living/proc/getHalLoss()
 	return halloss
 
@@ -291,6 +302,8 @@
 	setOxyLoss(0)
 	setCloneLoss(0)
 	setBrainLoss(0)
+	setStaminaLoss(0)
+	setHalLoss(0)
 	SetParalysis(0)
 	SetStunned(0)
 	SetWeakened(0)
@@ -611,9 +624,11 @@
 		var/mob/living/carbon/CM = L
 		if(CM.on_fire && CM.canmove)
 			CM.fire_stacks -= 5
-			CM.weakened = 5
+			CM.Weaken(3)
+			CM.spin(32,2)
 			CM.visible_message("<span class='danger'>[CM] rolls on the floor, trying to put themselves out!</span>", \
 				"<span class='notice'>You stop, drop, and roll!</span>")
+			sleep(30)
 			if(fire_stacks <= 0)
 				CM.visible_message("<span class='danger'>[CM] has successfully extinguished themselves!</span>", \
 					"<span class='notice'>You extinguish yourself.</span>")
@@ -694,6 +709,37 @@
 						CM.drop_from_inventory(CM.legcuffed)
 						CM.legcuffed = null
 						CM.update_inv_legcuffed()
+
+/mob/living/carbon/proc/spin(spintime, speed)
+	spawn()
+		var/D = dir
+		while(spintime >= speed)
+			sleep(speed)
+			switch(D)
+				if(NORTH)
+					D = EAST
+				if(SOUTH)
+					D = WEST
+				if(EAST)
+					D = SOUTH
+				if(WEST)
+					D = NORTH
+			dir = D
+			spintime -= speed
+	return
+
+/mob/living/proc/CheckStamina()
+	if(staminaloss)
+		var/total_health = (health - staminaloss)
+		if(total_health <= config.health_threshold_softcrit && !stat)
+			Exhaust()
+			setStaminaLoss(health - 2)
+			return
+		setStaminaLoss(max((staminaloss - 2), 0))
+
+/mob/living/proc/Exhaust()
+	src << "<span class='notice'>You're too exhausted to keep going...</span>"
+	Weaken(5)
 
 /mob/living/update_gravity(has_gravity)
 	if(!ticker)

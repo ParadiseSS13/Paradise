@@ -1062,6 +1062,7 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 					adjustHalLoss(-3)
 			else if(sleeping)
 				handle_dreams()
+				adjustStaminaLoss(-10)
 				adjustHalLoss(-3)
 				if (mind)
 					if((mind.active && client != null) || immune_to_ssd) //This also checks whether a client is connected, if not, sleep is not reduced.
@@ -1166,6 +1167,8 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 			// If you're dirty, your gloves will become dirty, too.
 			if(gloves && germ_level > gloves.germ_level && prob(10))
 				gloves.germ_level += 1
+
+			CheckStamina()
 
 		return 1
 
@@ -1358,7 +1361,7 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 						if(2)	healths.icon_state = "health7"
 						else
 							//switch(health - halloss)
-							switch(100 - ((species && species.flags & NO_PAIN) ? 0 : traumatic_shock))
+							switch(100 - ((species && species.flags & NO_PAIN) ? 0 : traumatic_shock) - staminaloss)
 								if(100 to INFINITY)		healths.icon_state = "health0"
 								if(80 to 100)			healths.icon_state = "health1"
 								if(60 to 80)			healths.icon_state = "health2"

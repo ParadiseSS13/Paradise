@@ -75,7 +75,7 @@
 	name = "disabler beam"
 	icon_state = "omnilaser"
 	damage = 34
-	damage_type = HALLOSS
+	damage_type = STAMINA
 	var/range = 8
 
 /obj/item/projectile/energy/disabler/Range()
