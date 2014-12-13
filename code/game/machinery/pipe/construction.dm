@@ -25,6 +25,8 @@ Buildable meters
 #define PIPE_CAP				20
 #define PIPE_INJECTOR    		21
 #define PIPE_DVALVE             22
+#define PIPE_DP_VENT    		23
+#define PIPE_PASV_VENT			24
 
 /obj/item/pipe
 	name = "pipe"
@@ -90,6 +92,11 @@ Buildable meters
 			src.pipe_type = PIPE_CAP
 		else if(istype(make_from, /obj/machinery/atmospherics/unary/outlet_injector))
 			src.pipe_type = PIPE_INJECTOR
+		else if(istype(make_from, /obj/machinery/atmospherics/binary/dp_vent_pump))
+			src.pipe_type = PIPE_DP_VENT
+		else if(istype(make_from, /obj/machinery/atmospherics/pipe/vent))
+			src.pipe_type = PIPE_PASV_VENT
+
 	else
 		src.pipe_type = pipe_type
 		src.dir = dir
@@ -123,6 +130,8 @@ var/global/list/pipeID2State = list(
 	"cap", \
 	"injector", \
 	"dvalve", \
+	"binary vent", \
+	"passive vent", \
 )
 
 /obj/item/pipe/proc/update()
@@ -150,6 +159,8 @@ var/global/list/pipeID2State = list(
 		"pipe cap", \
 		"air injector", \
 		"Digital Valve", \
+		"dual-port vent", \
+		"passive vent", \
 	)
 	name = nlist[pipe_type+1] + " fitting"
 	icon_state = pipeID2State[pipe_type + 1]
@@ -209,7 +220,8 @@ var/global/list/pipeID2State = list(
 			PIPE_VOLUME_PUMP ,\
 			PIPE_PASSIVE_GATE ,\
 			PIPE_MVALVE, \
-			PIPE_DVALVE \
+			PIPE_DVALVE, \
+			PIPE_DP_VENT \
 		)
 			return dir|flip
 		if(PIPE_SIMPLE_BENT, PIPE_INSULATED_BENT, PIPE_HE_BENT)
@@ -635,7 +647,22 @@ var/global/list/pipeID2State = list(
 //					world << "[V.node2.name] is connected to valve, forcing it to update its nodes."
 				V.node2.initialize()
 				V.node2.build_network()
-
+		if(PIPE_DP_VENT)
+			var/obj/machinery/atmospherics/binary/dp_vent_pump/P = new(src.loc)
+			P.dir = dir
+			P.initialize_directions = pipe_dir
+			if (pipename)
+				P.name = pipename
+			var/turf/T = P.loc
+			P.level = T.intact ? 2 : 1
+			P.initialize()
+			P.build_network()
+			if (P.node1)
+				P.node1.initialize()
+				P.node1.build_network()
+			if (P.node2)
+				P.node2.initialize()
+				P.node2.build_network()
 	playsound(src.loc, 'sound/items/Ratchet.ogg', 50, 1)
 	user.visible_message( \
 		"[user] fastens the [src].", \
@@ -690,7 +717,8 @@ var/global/list/pipeID2State = list(
 	user << "\blue You have fastened the gas sensor"
 	del(src)
 //not sure why these are necessary
-#undef PIPE_SIMPLE_STRAIGHT
+//they're not, that's why
+/*#undef PIPE_SIMPLE_STRAIGHT
 #undef PIPE_SIMPLE_BENT
 #undef PIPE_HE_STRAIGHT
 #undef PIPE_HE_BENT
@@ -710,3 +738,4 @@ var/global/list/pipeID2State = list(
 #undef PIPE_OUTLET_INJECT
 #undef PIPE_MTVALVE
 //#undef PIPE_MANIFOLD4W
+*/

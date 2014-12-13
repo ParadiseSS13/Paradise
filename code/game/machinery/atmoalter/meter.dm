@@ -7,7 +7,7 @@
 	anchored = 1.0
 	power_channel = ENVIRON
 	var/frequency = 0
-	var/id
+	var/id_tag
 	use_power = 1
 	idle_power_usage = 2
 	active_power_usage = 5
@@ -67,11 +67,24 @@
 		signal.source = src
 		signal.transmission_method = 1
 		signal.data = list(
-			"tag" = id,
+			"tag" = id_tag,
 			"device" = "AM",
 			"pressure" = round(env_pressure),
 			"sigtype" = "status"
 		)
+
+		var/total_moles = environment.total_moles()
+		if(total_moles > 0)
+			signal.data["oxygen"] = round(100*environment.oxygen/total_moles,0.1)
+			signal.data["toxins"] = round(100*environment.toxins/total_moles,0.1)
+			signal.data["nitrogen"] = round(100*environment.nitrogen/total_moles,0.1)
+			signal.data["carbon_dioxide"] = round(100*environment.carbon_dioxide/total_moles,0.1)
+		else
+			signal.data["oxygen"] = 0
+			signal.data["toxins"] = 0
+			signal.data["nitrogen"] = 0
+			signal.data["carbon_dioxide"] = 0
+
 		radio_connection.post_signal(src, signal)
 
 /obj/machinery/meter/proc/status()
@@ -110,7 +123,19 @@
 	usr << t
 	return 1
 
+/obj/machinery/meter/multitool_menu(var/mob/user, var/obj/item/device/multitool/P)
+	return {"
+	<b>Main</b>
+	<ul>
+		<li><b>Frequency:</b> <a href="?src=\ref[src];set_freq=-1">[format_frequency(frequency)] GHz</a> (<a href="?src=\ref[src];set_freq=[initial(frequency)]">Reset</a>)</li>
+		<li>[format_tag("ID Tag","id_tag")]</li>
+	</ul>"}
+
 /obj/machinery/meter/attackby(var/obj/item/weapon/W as obj, var/mob/user as mob)
+	if(istype(W, /obj/item/device/multitool))
+		update_multitool_menu(user)
+		return 1
+
 	if (!istype(W, /obj/item/weapon/wrench))
 		return ..()
 	playsound(src.loc, 'sound/items/Ratchet.ogg', 50, 1)
