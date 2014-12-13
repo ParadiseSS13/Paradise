@@ -95,7 +95,7 @@
 			return 1
 	return 0
 
-/obj/item/ammo_box/attackby(var/obj/item/A as obj, mob/user as mob)
+/obj/item/ammo_box/attackby(var/obj/item/A as obj, mob/user as mob, var/silent = 0)
 	var/num_loaded = 0
 	if(istype(A, /obj/item/ammo_box))
 		var/obj/item/ammo_box/AM = A
@@ -113,8 +113,16 @@
 			AC.loc = src
 			num_loaded++
 	if(num_loaded)
-		user << "<span class='notice'>You load [num_loaded] shell\s into \the [src]!</span>"
+		if(!silent)
+			user << "<span class='notice'>You load [num_loaded] shell\s into \the [src]!</span>"
 		A.update_icon()
+		update_icon()
+
+/obj/item/ammo_box/attack_self(mob/user as mob)
+	var/obj/item/ammo_casing/A = get_round()
+	if(A)
+		user.put_in_hands(A)
+		user << "<span class='notice'>You remove a round from \the [src]!</span>"
 		update_icon()
 
 /obj/item/ammo_box/update_icon()
@@ -123,7 +131,7 @@
 			icon_state = "[initial(icon_state)]-[stored_ammo.len]"
 		if(2)
 			icon_state = "[initial(icon_state)]-[stored_ammo.len ? "[max_ammo]" : "0"]"
-	desc = "There are [stored_ammo.len] shell\s left!"
+	desc = "[initial(desc)] There are [stored_ammo.len] shell\s left!"
 
 //Behavior for magazines
 /obj/item/ammo_box/magazine/proc/ammo_count()
