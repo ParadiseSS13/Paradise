@@ -246,7 +246,8 @@ var/specops_shuttle_timeleft = 0
 	return 1
 
 /obj/machinery/computer/specops_shuttle/attack_ai(var/mob/user as mob)
-	return attack_hand(user)
+	user << "\red Access Denied."
+	return 1
 
 /obj/machinery/computer/specops_shuttle/attack_paw(var/mob/user as mob)
 	return attack_hand(user)

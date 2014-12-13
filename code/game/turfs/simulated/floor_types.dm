@@ -120,7 +120,17 @@
 /turf/simulated/floor/greengrid
 	icon = 'icons/turf/floors.dmi'
 	icon_state = "gcircuit"
+	
+/turf/simulated/floor/greengrid/airless
+	icon_state = "gcircuit"
+	name = "airless floor"
+	oxygen = 0.01
+	nitrogen = 0.01
+	temperature = TCMB
 
+	New()
+		..()
+		name = "floor"
 
 /turf/simulated/shuttle
 	name = "shuttle"

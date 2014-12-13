@@ -299,7 +299,7 @@
 		return
 		
 /obj/machinery/door/airlock/alien/attackby(C as obj, mob/user as mob)
-	if(istype(user,/mob/living/carbon/alien) || isrobot(user) || isAI(user))
+	if(isalien(user) || isrobot(user) || isAI(user))
 		..(C, user)	
 	else
 		user << "You do not know how to operate this airlock's mechanism."

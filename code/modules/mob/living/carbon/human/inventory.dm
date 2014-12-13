@@ -695,6 +695,17 @@ It can still be worn/put on as normal.
 			slot_to_process = slot_wear_suit
 			if (target.wear_suit && target.wear_suit.canremove)
 				strip_item = target.wear_suit
+		if("tie")
+			var/obj/item/clothing/under/suit = target.w_uniform
+			var/obj/item/clothing/tie/tie = suit.hastie
+			if(tie)
+				if (istype(tie,/obj/item/clothing/tie/storage))
+					var/obj/item/clothing/tie/storage/W = tie
+					if (W.hold)
+						W.hold.close(usr)
+				usr.put_in_hands(tie)
+				suit.hastie = null
+			target.update_inv_w_uniform()
 		if("id")
 			slot_to_process = slot_wear_id
 			if (target.wear_id)
@@ -752,6 +763,13 @@ It can still be worn/put on as normal.
 		if("pockets")
 			slot_to_process = slot_l_store
 			strip_item = target.l_store		//We'll do both
+		if("sensor")
+			var/obj/item/clothing/under/suit = target.w_uniform
+			if (suit)
+				if(suit.has_sensor >= 2)
+					source << "The controls are locked."
+				else
+					suit.set_sensors(source)
 		if("internal")
 			if (target.internal)
 				target.internal.add_fingerprint(source)

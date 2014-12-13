@@ -2634,12 +2634,12 @@ datum
 				if (istype(holder.my_atom,/mob/living))
 					var/mob/living/M as mob
 					var/to_remove = 0
-					if(!M) M = holder.my_atom
 					if (holder.has_reagent("anti_toxin"))
 						to_remove = min(holder.get_reagent_amount("anti_toxin"),data)
 						holder.remove_reagent("anti_toxin", to_remove, 0)
 						data -= to_remove
-					M.adjustToxLoss((data-1)*rand(2,4))
+					if(M)
+						M.adjustToxLoss((data-1)*rand(2,4))
 				..()
 
 		psilocybin

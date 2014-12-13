@@ -25,7 +25,7 @@
 	var/list/power_options = list(5, 10, 20, 25, 30, 40, 50, 80, 100)
 	var/teleporting = 0
 	var/starting_crystals = 0
-	var/max_crystals = 4
+	var/max_crystals = 7
 	var/list/crystals = list()
 	var/obj/item/device/gps/inserted_gps
 
