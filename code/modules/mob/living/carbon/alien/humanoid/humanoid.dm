@@ -9,14 +9,16 @@
 	var/caste = ""
 	var/next_attack = 0
 	update_icon = 1
+	var/leap_on_click = 0
+	var/constructing = 0
 
 //This is fine right now, if we're adding organ specific damage this needs to be updated
 /mob/living/carbon/alien/humanoid/New()
 	var/datum/reagents/R = new/datum/reagents(100)
 	reagents = R
 	R.my_atom = src
-//	if(name == "alien")
-//		name = text("alien ([rand(1, 1000)])")
+	if(name == "alien")
+		name = text("alien ([rand(1, 1000)])")
 	real_name = name
 	..()
 
@@ -58,6 +60,9 @@
 	if (istype(src, /mob/living/carbon/alien/humanoid/hunter))
 		tally = -1 // hunters go supersuperfast
 	return (tally + move_delay_add + config.alien_delay)
+	
+/mob/living/carbon/alien/humanoid/Process_Spacemove(var/check_drift = 0)
+	return 1
 
 ///mob/living/carbon/alien/humanoid/bullet_act(var/obj/item/projectile/Proj) taken care of in living
 
@@ -116,11 +121,8 @@
 
 
 	show_message("\red The blob attacks!")
-
 	adjustFireLoss(damage)
-
 	return
-
 
 /mob/living/carbon/alien/humanoid/meteorhit(O as obj)
 	for(var/mob/M in viewers(src, null))
@@ -132,35 +134,6 @@
 
 		updatehealth()
 	return
-
-/mob/living/carbon/alien/humanoid/attack_paw(mob/living/carbon/monkey/M as mob)
-	if(!ismonkey(M))	return//Fix for aliens receiving double messages when attacking other aliens.
-
-	if (!ticker)
-		M << "You cannot attack people before the game has started."
-		return
-
-	if (istype(loc, /turf) && istype(loc.loc, /area/start))
-		M << "No attacking people at spawn, you jackass."
-		return
-	..()
-
-	switch(M.a_intent)
-
-		if ("help")
-			help_shake_act(M)
-		else
-			if (istype(wear_mask, /obj/item/clothing/mask/muzzle))
-				return
-			if (health > 0)
-				playsound(loc, 'sound/weapons/bite.ogg', 50, 1, -1)
-				for(var/mob/O in viewers(src, null))
-					if ((O.client && !( O.blinded )))
-						O.show_message(text("\red <B>[M.name] has bit [src]!</B>"), 1)
-				adjustBruteLoss(rand(1, 3))
-				updatehealth()
-	return
-
 
 /mob/living/carbon/alien/humanoid/attack_slime(mob/living/carbon/slime/M as mob)
 	if (!ticker)
@@ -221,18 +194,6 @@
 		updatehealth()
 
 	return
-
-/mob/living/carbon/alien/humanoid/attack_animal(mob/living/simple_animal/M as mob)
-	if(M.melee_damage_upper == 0)
-		M.emote("[M.friendly] [src]")
-	else
-		if(M.attack_sound)
-			playsound(loc, M.attack_sound, 50, 1, 1)
-		for(var/mob/O in viewers(src, null))
-			O.show_message("\red <B>[M]</B> [M.attacktext] [src]!", 1)
-		var/damage = rand(M.melee_damage_lower, M.melee_damage_upper)
-		adjustBruteLoss(damage)
-		updatehealth()
 
 /mob/living/carbon/alien/humanoid/attack_hand(mob/living/carbon/human/M as mob)
 	if (!ticker)
@@ -331,48 +292,6 @@
 							if ((O.client && !( O.blinded )))
 								O.show_message(text("\red <B>[] has attempted to disarm []!</B>", M, src), 1)
 	return
-
-/*Code for aliens attacking aliens. Because aliens act on a hivemind, I don't see them as very aggressive with each other.
-As such, they can either help or harm other aliens. Help works like the human help command while harm is a simple nibble.
-In all, this is a lot like the monkey code. /N
-*/
-
-/mob/living/carbon/alien/humanoid/attack_alien(mob/living/carbon/alien/humanoid/M as mob)
-	if (!ticker)
-		M << "You cannot attack people before the game has started."
-		return
-
-	if (istype(loc, /turf) && istype(loc.loc, /area/start))
-		M << "No attacking people at spawn, you jackass."
-		return
-
-	..()
-
-	switch(M.a_intent)
-
-		if ("help")
-			sleeping = max(0,sleeping-5)
-			resting = 0
-			AdjustParalysis(-3)
-			AdjustStunned(-3)
-			AdjustWeakened(-3)
-			for(var/mob/O in viewers(src, null))
-				if ((O.client && !( O.blinded )))
-					O.show_message(text("\blue [M.name] nuzzles [] trying to wake it up!", src), 1)
-
-		else
-			if (health > 0)
-				playsound(loc, 'sound/weapons/bite.ogg', 50, 1, -1)
-				var/damage = rand(1, 3)
-				for(var/mob/O in viewers(src, null))
-					if ((O.client && !( O.blinded )))
-						O.show_message(text("\red <B>[M.name] has bit []!</B>", src), 1)
-				adjustBruteLoss(damage)
-				updatehealth()
-			else
-				M << "\green <B>[name] is too injured for that.</B>"
-	return
-
 
 /mob/living/carbon/alien/humanoid/restrained()
 	if (handcuffed)

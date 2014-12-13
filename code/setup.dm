@@ -719,6 +719,7 @@ var/list/TAGGERLOCATIONS = list("Disposals",
 #define BE_SLIME		4096
 #define BE_VAMPIRE		8192
 #define BE_MUTINEER		16384
+#define BE_BLOB			32768
 
 var/list/be_special_flags = list(
 	"Traitor" = BE_TRAITOR,
@@ -735,7 +736,8 @@ var/list/be_special_flags = list(
 	"Vox" = BE_VOX,
 	"Slime" = BE_SLIME,
 	"Vampire" = BE_VAMPIRE,
-	"Mutineer" = BE_MUTINEER
+	"Mutineer" = BE_MUTINEER,
+	"Blob" = BE_BLOB
 	)
 
 #define AGE_MIN 17			//youngest a character can be

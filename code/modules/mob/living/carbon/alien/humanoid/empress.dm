@@ -1,18 +1,22 @@
-/mob/living/carbon/alien/humanoid/empress/large
+/mob/living/carbon/alien/humanoid/empress
 	name = "alien empress"
-	caste = "e"
+	caste = "q"
 	maxHealth = 700
 	health = 700
-	icon_state = "empress_s"
+	icon_state = "alienq_s"
 	status_flags = CANPARALYSE
 	heal_rate = 5
 	plasma_rate = 20
+	move_delay_add = 3
+	max_plasma = 1000
+	large = 1
+
+/mob/living/carbon/alien/humanoid/empress/large
+	name = "alien empress"
+	caste = "e"
 	icon = 'icons/mob/alienhuge.dmi'
 	icon_state = "empress_s"
 	pixel_x = -32
-	move_delay_add = 3
-	large = 1
-	max_plasma = 1000
 
 /mob/living/carbon/alien/humanoid/empress/large/update_icons()
 	lying_prev = lying	//so we don't update overlays for lying/standing unless our stance changes again
@@ -27,7 +31,6 @@
 		icon_state = "empress_s"
 		for(var/image/I in overlays_standing)
 			overlays += I
-
 
 /mob/living/carbon/alien/humanoid/empress/New()
 	var/datum/reagents/R = new/datum/reagents(100)
@@ -72,18 +75,28 @@
 				src.healths.icon_state = "health6"
 
 /mob/living/carbon/alien/humanoid/empress/verb/lay_egg()
-
 	set name = "Lay Egg (250)"
 	set desc = "Lay an egg to produce huggers to impregnate prey with."
-	set category = "Alien"
-
+	set category = "Alien"	
+	
 	if(locate(/obj/effect/alien/egg) in get_turf(src))
 		src << "There's already an egg here."
 		return
-
+		
+	if(constructing)
+		src << "<span class='noticealien'>You are already constructing something.</span>"
+		return
+		
 	if(powerc(250,1))//Can't plant eggs on spess tiles. That's silly.
-		adjustToxLoss(-250)
-		for(var/mob/O in viewers(src, null))
-			O.show_message(text("\green <B>[src] has laid an egg!</B>"), 1)
-		new /obj/effect/alien/egg(loc)
+		constructing = 1
+		stunned = 5
+		src << "<span class='noticealien'>You start laying an egg.</span>"
+		spawn(30)
+			adjustToxLoss(-250)
+			for(var/mob/O in viewers(src, null))
+				O.show_message(text("\green <B>[src] has laid an egg!</B>"), 1)
+			new /obj/effect/alien/egg(loc)
+			constructing = 0
+			stunned = 0
 	return
+	

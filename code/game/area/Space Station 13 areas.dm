@@ -626,8 +626,9 @@ var/list/ghostteleportlocs = list()
 	requires_power = 0
 
 /area/xenos_station/start
-	name = "\improper Start Area"
+	name = "\improper Alien Shuttle"
 	icon_state = "north"
+	requires_power = 0
 
 /area/xenos_station/transit
 	name = "\improper Hyperspace"

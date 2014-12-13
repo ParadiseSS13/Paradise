@@ -464,19 +464,6 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 					for(var/mob/living/carbon/M in view(1,src))
 						src.spread_disease_to(M)
 
-
-	proc/get_breath_from_internal(volume_needed)
-		if(internal)
-			if (!contents.Find(internal))
-				internal = null
-			if (!wear_mask || !(wear_mask.flags & MASKINTERNALS) )
-				internal = null
-			if(internal)
-				return internal.remove_air_volume(volume_needed)
-			else if(internals)
-				internals.icon_state = "internal0"
-		return null
-
 // USED IN DEATHWHISPERS
 	proc/isInCrit()
 		// Health is in deep shit and we're not already dead
