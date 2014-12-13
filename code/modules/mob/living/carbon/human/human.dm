@@ -46,7 +46,6 @@
 
 /mob/living/carbon/human/slime/New(var/new_loc)
 	..(new_loc, "Slime People")
-	verbs += /mob/living/carbon/human/slime/proc/slimepeople_ventcrawl
 
 /mob/living/carbon/human/grey/New(var/new_loc)
 	..(new_loc, "Grey")
@@ -391,7 +390,7 @@
 		var/dam_zone = pick("chest", "l_hand", "r_hand", "l_leg", "r_leg")
 		var/datum/organ/external/affecting = get_organ(ran_zone(dam_zone))
 		var/armor = run_armor_check(affecting, "melee")
-		
+
 		var/datum/organ/external/affected = src.get_organ(dam_zone)
 		affected.add_autopsy_data(M.name, damage) // Add the mob's name to the autopsy data
 		apply_damage(damage, BRUTE, affecting, armor, M.name)

@@ -1948,7 +1948,9 @@ datum
 			on_mob_life(var/mob/living/M as mob)
 				if(!M) M = holder.my_atom
 				if(prob(5)) M.emote(pick("twitch","blink_r","shiver"))
-				..()
+				M.status_flags |= GOTTAGOFAST
+				holder.remove_reagent(src.id, 0.5 * REAGENTS_METABOLISM)
+			//	..()
 				return
 
 		cryoxadone
@@ -2088,7 +2090,7 @@ datum
 			data = 13
 
 			on_mob_life(var/mob/living/M)
-				M.adjustHalLoss(REM * data)
+				M.adjustStaminaLoss(REM * data)
 				data = max(data - 1, 3)
 				..()
 
@@ -3219,6 +3221,7 @@ datum
 						M.druggy = max(M.druggy, 30)
 						M.dizziness +=5
 						M.drowsyness = 0
+						M.status_flags |= GOTTAGOFAST
 						..()
 						return
 

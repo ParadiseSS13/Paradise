@@ -67,6 +67,7 @@
 	icon_state = "omnilaser"
 	hitsound = null
 	damage = 0
+	damage_type = STAMINA
 	flag = "laser"
 	pass_flags = PASSTABLE | PASSGLASS | PASSGRILLE
 	var/suit_types = list(/obj/item/clothing/suit/redtag, /obj/item/clothing/suit/bluetag)
@@ -76,7 +77,7 @@
 		var/mob/living/carbon/human/M = target
 		if(istype(M.wear_suit))
 			if(M.wear_suit.type in suit_types)
-				M.adjustHalLoss(34)
+				M.adjustStaminaLoss(34)
 	return 1
 
 /obj/item/projectile/lasertag/omni
