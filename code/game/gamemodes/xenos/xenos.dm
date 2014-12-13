@@ -8,7 +8,7 @@
 	required_players = 0
 	recommended_players = 30
 	required_players_secret = 20
-	required_enemies = 1//5
+	required_enemies = 5
 	recommended_enemies = 8
 	var/result = 0
 	var/checkwin_counter = 0
