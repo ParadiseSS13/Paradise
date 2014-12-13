@@ -12,7 +12,7 @@
 
 
 /obj/machinery/computer/xenos_station/New()
-	curr_location= locate(/area/xenos_station/start)
+	curr_location = locate(/area/xenos_station/start)
 
 
 /obj/machinery/computer/xenos_station/proc/xenos_move_to(area/destination as area)
@@ -23,13 +23,25 @@
 
 	moving = 1
 	lastMove = world.time
-
+					
+	for(var/obj/machinery/door/airlock/alien/A in world)
+		A.close()
+		if(dest_location == locate(/area/xenos_station/start))	
+			A.locked = 1
+			A.update_icon()		
+	
 	if(curr_location.z != dest_location.z)
 		var/area/transit_location = locate(/area/xenos_station/transit)
 		curr_location.move_contents_to(transit_location)
 		curr_location = transit_location
 		sleep(XENOS_SHUTTLE_MOVE_TIME)
-
+					
+	for(var/obj/machinery/door/airlock/alien/A in world)
+		A.close()
+		if(dest_location != locate(/area/xenos_station/start))	
+			A.locked = 0
+			A.update_icon()	
+		
 	curr_location.move_contents_to(dest_location)
 	curr_location = dest_location
 	moving = 0
@@ -47,7 +59,11 @@
 
 /obj/machinery/computer/xenos_station/attack_hand(mob/user as mob)
 	if(!allowed(user))
-		user << "\red Access Denied"
+		user << "\red Access denied."
+		return
+		
+	if(!istype(user,/mob/living/carbon/alien) && !isrobot(user) && !isAI(user))
+		user << "You do not know how to operate this computer."
 		return
 
 	user.set_machine(src)

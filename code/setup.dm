@@ -498,6 +498,7 @@ var/list/global_mutations = list() // list of hidden mutation things
 #define CANPUSH		8
 #define LEAPING		16
 #define PASSEMOTES	32      //Mob has a cortical borer or holders inside of it that need to see emotes.
+#define GOTTAGOFAST	64
 #define GODMODE		4096
 #define FAKEDEATH	8192	//Replaces stuff like changeling.changeling_fakedeath
 #define DISFIGURED	16384	//I'll probably move this elsewhere if I ever get wround to writing a bitflag mob-damage system
@@ -721,6 +722,7 @@ var/list/TAGGERLOCATIONS = list("Disposals",
 #define BE_SLIME		4096
 #define BE_VAMPIRE		8192
 #define BE_MUTINEER		16384
+#define BE_BLOB			32768
 
 var/list/be_special_flags = list(
 	"Traitor" = BE_TRAITOR,
@@ -737,7 +739,8 @@ var/list/be_special_flags = list(
 	"Vox" = BE_VOX,
 	"Slime" = BE_SLIME,
 	"Vampire" = BE_VAMPIRE,
-	"Mutineer" = BE_MUTINEER
+	"Mutineer" = BE_MUTINEER,
+	"Blob" = BE_BLOB
 	)
 
 #define AGE_MIN 17			//youngest a character can be

@@ -223,9 +223,4 @@
 /obj/item/projectile/bullet/neurotoxin/on_hit(var/atom/target, var/blocked = 0)
 	if(isalien(target))
 		return 0
-	if(ishuman(target))
-		var/mob/living/carbon/human/H = target
-		if(prob(H.getarmor(def_zone, "melee")))
-			H.visible_message("\red The [src.name] splatters uselessly on the armor!")
-			return 0
 	..() // Execute the rest of the code.

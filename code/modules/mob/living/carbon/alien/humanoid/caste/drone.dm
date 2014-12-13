@@ -10,8 +10,8 @@
 	var/datum/reagents/R = new/datum/reagents(100)
 	reagents = R
 	R.my_atom = src
-//	if(src.name == "alien drone")
-//		src.name = text("alien drone ([rand(1, 1000)])")
+	if(src.name == "alien drone")
+		src.name = text("alien drone ([rand(1, 1000)])")
 	src.real_name = src.name
 	verbs.Add(/mob/living/carbon/alien/humanoid/proc/resin,/mob/living/carbon/alien/humanoid/proc/corrosive_acid)
 	..()
@@ -36,10 +36,10 @@
 			return
 		if(no_queen)
 			adjustToxLoss(-500)
-			src << "\green You begin to evolve!"
+			src << "<span class='noticealien'>You begin to evolve!</span>"
 			for(var/mob/O in viewers(src, null))
-				O.show_message(text("\green <B>[src] begins to twist and contort!</B>"), 1)
-			var/mob/living/carbon/alien/humanoid/queen/large/new_xeno = new (loc)
+				O.show_message(text("<span class='alertalien'>[src] begins to twist and contort!</span>"), 1)
+			var/mob/living/carbon/alien/humanoid/queen/new_xeno = new (loc)
 			mind.transfer_to(new_xeno)
 			del(src)
 		else

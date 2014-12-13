@@ -558,7 +558,17 @@
 			if(isAI(usr))
 				var/mob/living/silicon/ai/AI = usr
 				AI.control_hud()
-
+				
+		// Alien
+		if("night vision")
+			var/mob/living/carbon/alien/humanoid/A = usr
+			A.nightvisiontoggle()
+			
+		if("toggle leap")
+			if(istype(usr, /mob/living/carbon/alien/humanoid))
+				var/mob/living/carbon/alien/humanoid/hunter/AH = usr
+				AH.toggle_leap()
+			
 		else
 			return 0
 	return 1

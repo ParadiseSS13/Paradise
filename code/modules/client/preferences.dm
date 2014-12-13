@@ -13,12 +13,13 @@ var/global/list/special_roles = list( //keep synced with the defines BE_* in set
 	"alien candidate" = 1, //always show                 // 6
 	"pAI candidate" = 1, // -- TLE                       // 7
 	"cultist" = IS_MODE_COMPILED("cult"),                // 8
-	"plant" = 1,										// 9
+	"plant" = 1,										 // 9
 	"ninja" = "true",									 // 10
 	"vox raider" = IS_MODE_COMPILED("heist"),			 // 11
 	"slime" = 1,                                         // 12
-	"vampire" = IS_MODE_COMPILED("vampire"),				 // 13
-	"mutineer" = IS_MODE_COMPILED("mutiny")             // 14
+	"vampire" = IS_MODE_COMPILED("vampire"),			 // 13
+	"mutineer" = IS_MODE_COMPILED("mutiny"),             // 14
+	"blob" = IS_MODE_COMPILED("blob")          		     // 15	
 )
 
 var/const/MAX_SAVE_SLOTS = 10
