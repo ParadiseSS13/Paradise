@@ -546,6 +546,17 @@
 				return
 			else
 				message = "\red <B>[source] is trying to take off \a [target.w_uniform] from [target]'s body!</B>"
+		if("tie")
+			var/obj/item/clothing/under/suit = target.w_uniform
+			target.attack_log += text("\[[time_stamp()]\] <font color='orange'>Has had their accessory ([suit.hastie]) removed by [source.name] ([source.ckey])</font>")
+			source.attack_log += text("\[[time_stamp()]\] <font color='red'>Attempted to remove [target.name]'s ([target.ckey]) accessory ([suit.hastie])</font>")
+			if(istype(suit.hastie, /obj/item/clothing/tie/holobadge) || istype(suit.hastie, /obj/item/clothing/tie/medal))
+				for(var/mob/M in viewers(target, null))
+					M.show_message("\red <B>[source] tears off \the [suit.hastie] from [target]'s suit!</B>" , 1)
+				done()
+				return
+			else
+				message = "\red <B>[source] is trying to take off \a [suit.hastie] from [target]'s suit!</B>"
 		if("s_store")
 			target.attack_log += text("\[[time_stamp()]\] <font color='orange'>Has had their suit storage item ([target.s_store]) removed by [source.name] ([source.ckey])</font>")
 			source.attack_log += text("\[[time_stamp()]\] <font color='red'>Attempted to remove [target.name]'s ([target.ckey]) suit storage item ([target.s_store])</font>")
@@ -582,6 +593,14 @@
 				message = "\red <B>[source] is trying to set on [target]'s internals.</B>"
 		if("splints")
 			message = "\red <B>[source] is trying to remove [target]'s splints!</B>"
+		if("sensor")
+			target.attack_log += text("\[[time_stamp()]\] <font color='orange'>Has had their sensors toggled by [source.name] ([source.ckey])</font>")
+			source.attack_log += text("\[[time_stamp()]\] <font color='red'>Attempted to toggle [target.name]'s ([target.ckey]) sensors</font>")
+			var/obj/item/clothing/under/suit = target.w_uniform
+			if (suit.has_sensor >= 2)
+				source << "The controls are locked."
+				return
+			message = "\red <B>[source] is trying to set [target]'s suit sensors!</B>"
 
 	for(var/mob/M in viewers(target, null))
 		if(findtext(message, "is trying to take off  from", 1, 0) > 0 || message == null)

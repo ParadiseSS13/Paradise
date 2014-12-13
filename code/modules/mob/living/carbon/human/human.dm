@@ -482,12 +482,16 @@
 
 
 /mob/living/carbon/human/show_inv(mob/user as mob)
+	var/obj/item/clothing/under/suit = null
+	if (istype(w_uniform, /obj/item/clothing/under))
+		suit = w_uniform
+
 	var/obj/item/clothing/gloves/G
-	var/pickpocket = 0
+	//var/pickpocket = 0
 	if(ishuman(user))
 		if(user:gloves)
 			G = user:gloves
-			pickpocket = G.pickpocket
+			//pickpocket = G.pickpocket
 	user.set_machine(src)
 	var/dat = {"
 	<B><HR><FONT size=3>[name]</FONT></B>
@@ -501,8 +505,8 @@
 	<BR><B>Right Ear:</B> <A href='?src=\ref[src];item=r_ear'>[(r_ear ? r_ear : "Nothing")]</A>
 	<BR><B>Head:</B> <A href='?src=\ref[src];item=head'>[(head ? head : "Nothing")]</A>
 	<BR><B>Shoes:</B> <A href='?src=\ref[src];item=shoes'>[(shoes ? shoes : "Nothing")]</A>
-	<BR><B>Belt:</B> <A href='?src=\ref[src];item=belt'>[(belt ? belt : "Nothing")]</A>
-	<BR><B>Uniform:</B> <A href='?src=\ref[src];item=uniform'>[(w_uniform ? w_uniform : "Nothing")]</A>
+	<BR><B>Belt:</B> <A href='?src=\ref[src];item=belt'>[(belt ? belt : "Nothing")]</A> [((istype(wear_mask, /obj/item/clothing/mask) && istype(belt, /obj/item/weapon/tank) && !( internal )) ? text(" <A href='?src=\ref[];item=internal'>Set Internal</A>", src) : "")]
+	<BR><B>Uniform:</B> <A href='?src=\ref[src];item=uniform'>[(w_uniform ? w_uniform : "Nothing")]</A> [(suit) ? ((suit.has_sensor == 1) ? text(" <A href='?src=\ref[];item=sensor'>Sensors</A>", src) : "") :]
 	<BR><B>(Exo)Suit:</B> <A href='?src=\ref[src];item=suit'>[(wear_suit ? wear_suit : "Nothing")]</A>
 	<BR><B>Back:</B> <A href='?src=\ref[src];item=back'>[(back ? back : "Nothing")]</A> [((istype(wear_mask, /obj/item/clothing/mask) && istype(back, /obj/item/weapon/tank) && !( internal )) ? text(" <A href='?src=\ref[];item=internal'>Set Internal</A>", src) : "")]
 	<BR><B>ID:</B> <A href='?src=\ref[src];item=id'>[(wear_id ? wear_id : "Nothing")]</A>
@@ -510,10 +514,10 @@
 	<BR><B>Suit Storage:</B> <A href='?src=\ref[src];item=s_store'>[(s_store ? s_store : "Nothing")]</A>
 	<BR>[(handcuffed ? text("<A href='?src=\ref[src];item=handcuff'>Handcuffed</A>") : text("<A href='?src=\ref[src];item=handcuff'>Not Handcuffed</A>"))]
 	<BR>[(legcuffed ? text("<A href='?src=\ref[src];item=legcuff'>Legcuffed</A>") : text(""))]
+	<BR>[(suit) ? ((suit.hastie) ? text(" <A href='?src=\ref[];item=tie'>Remove Accessory</A>", src) : "") :]
 	<BR>[(internal ? text("<A href='?src=\ref[src];item=internal'>Remove Internal</A>") : "")]
 	<BR><A href='?src=\ref[src];item=splints'>Remove Splints</A>
-	<BR><BR><A href='?src=\ref[src];pockets=left'>Left Pocket ([l_store ? (pickpocket ? l_store.name : "Full") : "Empty"])</A>
-	<BR><A href='?src=\ref[src];pockets=right'>Right Pocket ([r_store ? (pickpocket ? r_store.name : "Full") : "Empty"])</A>
+	<BR><A href='?src=\ref[src];item=pockets'>Empty Pockets</A>
 	<BR><A href='?src=\ref[user];refresh=1'>Refresh</A>
 	<BR><A href='?src=\ref[user];mach_close=mob\ref[src]'>Close</A>
 	<BR>"}
