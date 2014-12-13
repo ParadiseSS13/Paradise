@@ -34,8 +34,7 @@
 		/obj/item/weapon/gun/energy/laser/redtag,\
 		/obj/item/weapon/gun/energy/laser/practice,\
 		/obj/item/weapon/melee/telebaton,\
-		/obj/item/weapon/gun/energy/kinetic_accelerator,\
-		/obj/item/weapon/melee/baton/loaded/ntcane)
+		/obj/item/weapon/gun/energy/kinetic_accelerator)
 
 
 /obj/machinery/bot/secbot/beepsky

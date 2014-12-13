@@ -73,7 +73,7 @@
 /var/const/access_pilot = 71
 /var/const/access_ntrec = 72
 /var/const/access_ntrep = 73
-
+/var/const/access_magistrate = 74
 
 /var/const/access_weapons = 99 //Weapon authorization for secbots
 
@@ -237,7 +237,7 @@
 	            access_theatre, access_research, access_mining, access_mailsorting,
 	            access_heads_vault, access_mining_station, access_xenobiology, access_ce, access_hop, access_hos, access_RC_announce,
 	            access_keycard_auth, access_tcomsat, access_gateway, access_xenoarch, access_paramedic, access_blueshield, access_customs, access_mechanic,access_weapons,
-	            access_pilot, access_ntrec, access_ntrep)
+	            access_pilot, access_ntrec, access_ntrep, access_magistrate)
 
 /proc/get_all_centcom_access()
 	return list(access_cent_general, access_cent_thunder, access_cent_specops, access_cent_medical, access_cent_living, access_cent_storage, access_cent_teleporter, access_cent_creed, access_cent_captain)
@@ -260,7 +260,7 @@
 		if(5) //command
 			return list(access_heads, access_RC_announce, access_keycard_auth, access_change_ids, access_ai_upload, access_teleporter, access_eva, access_tcomsat, access_gateway, access_all_personal_lockers, access_heads_vault, access_blueshield, access_ntrec, access_ntrep, access_hop, access_captain)
 		if(6) //station general
-			return list(access_kitchen,access_bar, access_hydroponics, access_janitor, access_chapel_office, access_crematorium, access_library, access_theatre, access_lawyer, access_clown, access_mime)
+			return list(access_kitchen,access_bar, access_hydroponics, access_janitor, access_chapel_office, access_crematorium, access_library, access_theatre, access_lawyer, access_magistrate, access_clown, access_mime)
 		if(7) //supply
 			return list(access_mailsorting, access_mining, access_mining_station, access_cargo, access_qm)
 
@@ -430,6 +430,8 @@
 			return "Mechanic Workshop"
 		if(access_pilot)
 			return "Security Pod Pilot"
+		if(access_magistrate)
+			return "Magistrate"
 		if(access_weapons)
 			return "Weapon Permit"
 
