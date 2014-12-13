@@ -1,5 +1,4 @@
 /datum/hud/proc/larva_hud()
-
 	src.adding = list()
 	src.other = list()
 
@@ -50,6 +49,12 @@
 	mymob.healths.icon_state = "health0"
 	mymob.healths.name = "health"
 	mymob.healths.screen_loc = ui_alien_health
+	
+	nightvisionicon = new /obj/screen()
+	nightvisionicon.icon = 'icons/mob/screen1_alien.dmi'
+	nightvisionicon.icon_state = "nightvision1"
+	nightvisionicon.name = "night vision"
+	nightvisionicon.screen_loc = ui_alien_nightvision	
 
 	mymob.pullin = new /obj/screen()
 	mymob.pullin.icon = 'icons/mob/screen1_alien.dmi'
@@ -72,10 +77,11 @@
 	mymob.flash.layer = 17
 
 	mymob.zone_sel = new /obj/screen/zone_sel()
+	mymob.zone_sel.icon = 'icons/mob/screen1_alien.dmi'
 	mymob.zone_sel.overlays.Cut()
 	mymob.zone_sel.overlays += image("icon" = 'icons/mob/zone_sel.dmi', "icon_state" = text("[]", mymob.zone_sel.selecting))
 
 	mymob.client.screen = null
 
-	mymob.client.screen += list( mymob.zone_sel, mymob.oxygen, mymob.toxin, mymob.fire, mymob.healths, mymob.pullin, mymob.blind, mymob.flash) //, mymob.rest, mymob.sleep, mymob.mach )
+	mymob.client.screen += list( mymob.zone_sel, mymob.oxygen, mymob.toxin, mymob.fire, mymob.healths, nightvisionicon, mymob.pullin, mymob.blind, mymob.flash) //, mymob.rest, mymob.sleep, mymob.mach )
 	mymob.client.screen += src.adding + src.other

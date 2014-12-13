@@ -64,6 +64,8 @@ h1.alert, h2.alert		{color: #000000;}
 .adminmod				{color: #402A14;	font-weight: bold;}
 
 .alien					{color: #543354;}
+.noticealien			{color: #00c000;}
+.alertalien				{color: #00c000; font-weight: bold;}
 .tajaran				{color: #803B56;}
 .skrell					{color: #00CED1;}
 .soghun					{color: #228B22;}

@@ -571,6 +571,7 @@ var/list/beam_master = list()
 	icon_state = "xray"
 	damage = 15
 	irradiate = 30
+	kill_count = 50
 
 
 /obj/item/projectile/beam/pulse

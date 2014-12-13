@@ -43,3 +43,4 @@
 	var/implanting = 0 //Used for the mind-slave implant
 	var/silent = null 		//Can't talk. Value goes down every life proc.
 	var/floating = 0
+	var/nightvision = 0

@@ -23,26 +23,17 @@ Doesn't work on other aliens/AI.*/
 	set desc = "Plants some alien weeds"
 	set category = "Alien"
 
+	if(locate(/obj/effect/alien/weeds/node) in get_turf(src))
+		src << "There's already a weed node here."
+		return	
+	
 	if(powerc(50,1))
 		adjustToxLoss(-50)
 		for(var/mob/O in viewers(src, null))
-			O.show_message(text("\green <B>[src] has planted some alien weeds!</B>"), 1)
+			O.show_message(text("<span class='alertalien'>[src] has planted some alien weeds!</span>"), 1)
 		new /obj/effect/alien/weeds/node(loc)
 	return
 
-/*
-/mob/living/carbon/alien/humanoid/verb/ActivateHuggers()
-	set name = "Activate facehuggers (5)"
-	set desc = "Makes all nearby facehuggers activate"
-	set category = "Alien"
-
-	if(powerc(5))
-		adjustToxLoss(-5)
-		for(var/obj/item/clothing/mask/facehugger/F in range(8,src))
-			F.GoActive()
-		emote("roar")
-	return
-*/
 /mob/living/carbon/alien/humanoid/verb/whisp(mob/M as mob in oview())
 	set name = "Whisper (10)"
 	set desc = "Whisper to someone"
@@ -53,8 +44,8 @@ Doesn't work on other aliens/AI.*/
 		var/msg = sanitize(input("Message:", "Alien Whisper") as text|null)
 		if(msg)
 			log_say("AlienWhisper: [key_name(src)]->[M.key] : [msg]")
-			M << "\green You hear a strange, alien voice in your head... \italic [msg]"
-			src << {"\green You said: "[msg]" to [M]"}
+			M << "<span class='noticealien'>You hear a strange, alien voice in your head...<span class='noticealien'>[msg]"
+			src << {"<span class='noticealien'>You said: "[msg]" to [M]</span>"}
 	return
 
 /mob/living/carbon/alien/humanoid/verb/transfer_plasma(mob/living/carbon/alien/M as mob in oview())
@@ -70,10 +61,10 @@ Doesn't work on other aliens/AI.*/
 				if (get_dist(src,M) <= 1)
 					M.adjustToxLoss(amount)
 					adjustToxLoss(-amount)
-					M << "\green [src] has transfered [amount] plasma to you."
-					src << {"\green You have trasferred [amount] plasma to [M]"}
+					M << "<span class='noticealien'>[src] has transfered [amount] plasma to you.</span>"
+					src << {"<span class='noticealien'>You have trasferred [amount] plasma to [M]</span>"}
 				else
-					src << "\green You need to be closer."
+					src << "<span class='noticealien'>You need to be closer.</span>"
 	return
 
 
@@ -88,30 +79,51 @@ Doesn't work on other aliens/AI.*/
 			if(isobj(O))
 				var/obj/I = O
 				if(I.unacidable)	//So the aliens don't destroy energy fields/singularies/other aliens/etc with their acid.
-					src << "\green You cannot dissolve this object."
+					src << "<span class='noticealien'>You cannot dissolve this object.</span>"
 					return
 			// TURF CHECK
 			else if(istype(O, /turf/simulated))
 				var/turf/T = O
 				// R WALL
 				if(istype(T, /turf/simulated/wall/r_wall))
-					src << "\green You cannot dissolve this object."
+					src << "<span class='noticealien'>You cannot dissolve this object.</span>"
 					return
 				// R FLOOR
 				if(istype(T, /turf/simulated/floor/engine))
-					src << "\green You cannot dissolve this object."
+					src << "<span class='noticealien'>You cannot dissolve this object.</span>"
 					return
 			else// Not a type we can acid.
 				return
 
 			adjustToxLoss(-200)
 			new /obj/effect/alien/acid(get_turf(O), O)
-			visible_message("\green <B>[src] vomits globs of vile stuff all over [O]. It begins to sizzle and melt under the bubbling mess of acid!</B>")
+			visible_message("<span class='alertalien'>[src] vomits globs of vile stuff all over [O]. It begins to sizzle and melt under the bubbling mess of acid!</span>")
 		else
-			src << "\green Target is too far away."
+			src << "<span class='noticealien'>Target is too far away.</span>"
 	return
 
+/mob/living/carbon/alien/humanoid/proc/neurotoxin() // ok
+	set name = "Spit Neurotoxin (50)"
+	set desc = "Spits neurotoxin at someone, paralyzing them for a short time."
+	set category = "Alien"
 
+	if(powerc(50))
+		adjustToxLoss(-50)
+		src.visible_message("<span class='danger'>[src] spits neurotoxin!", "<span class='alertalien'>You spit neurotoxin.</span>")
+
+		var/turf/T = loc
+		var/turf/U = get_step(src, dir) // Get the tile infront of the move, based on their direction
+		if(!isturf(U) || !isturf(T))
+			return
+
+		var/obj/item/projectile/bullet/neurotoxin/A = new /obj/item/projectile/bullet/neurotoxin(usr.loc)
+		A.current = U
+		A.firer = src
+		A.yo = U.y - T.y
+		A.xo = U.x - T.x
+		spawn(1)
+			A.process()
+	return
 
 /mob/living/carbon/alien/humanoid/proc/resin() // -- TLE
 	set name = "Secrete Resin (75)"
@@ -119,21 +131,32 @@ Doesn't work on other aliens/AI.*/
 	set category = "Alien"
 
 	if(powerc(75))
+		if(constructing)
+			src << "<span class='noticealien'>You are already constructing something.</span>"
+			return
 		var/choice = input("Choose what you wish to shape.","Resin building") as null|anything in list("resin door","resin wall","resin membrane","resin nest") //would do it through typesof but then the player choice would have the type path and we don't want the internal workings to be exposed ICly - Urist
-		if(!choice || !powerc(75))	return
-		adjustToxLoss(-75)
-		src << "\green You shape a [choice]."
-		for(var/mob/O in viewers(src, null))
-			O.show_message(text("\red <B>[src] vomits up a thick purple substance and begins to shape it!</B>"), 1)
-		switch(choice)
-			if("resin door")
-				new /obj/structure/mineral_door/resin(loc)
-			if("resin wall")
-				new /obj/effect/alien/resin/wall(loc)
-			if("resin membrane")
-				new /obj/effect/alien/resin/membrane(loc)
-			if("resin nest")
-				new /obj/structure/stool/bed/nest(loc)
+		
+		if(!choice || !powerc(75))	
+			return
+			
+		constructing = 1
+		stunned = 5
+		src << "<span class='noticealien'>You start shaping a [choice].</span>"			
+		spawn(60)
+			adjustToxLoss(-75)
+			for(var/mob/O in viewers(src, null))
+				O.show_message(text("<span class='noticealien'>[src] vomits up a thick purple substance and shapes it!</span>"), 1)
+			switch(choice)
+				if("resin door")
+					new /obj/structure/mineral_door/resin(loc)
+				if("resin wall")
+					new /obj/effect/alien/resin/wall(loc)
+				if("resin membrane")
+					new /obj/effect/alien/resin/membrane(loc)
+				if("resin nest")
+					new /obj/structure/stool/bed/nest(loc)
+			constructing = 0
+			stunned = 0
 	return
 
 /mob/living/carbon/alien/humanoid/verb/regurgitate()
@@ -148,5 +171,5 @@ Doesn't work on other aliens/AI.*/
 					stomach_contents.Remove(M)
 					M.loc = loc
 					//Paralyse(10)
-			src.visible_message("\green <B>[src] hurls out the contents of their stomach!</B>")
+			src.visible_message("<span class='alertalien'><B>[src] hurls out the contents of their stomach!</span>")
 	return
