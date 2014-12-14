@@ -69,7 +69,7 @@
 
 /obj/structure/closet/secure_closet/engineering_welding
 	name = "Welding Supplies"
-	req_access = list(access_construction)
+	req_access = list(access_engine_equip)
 	icon_state = "secureengweld1"
 	icon_closed = "secureengweld"
 	icon_locked = "secureengweld1"
