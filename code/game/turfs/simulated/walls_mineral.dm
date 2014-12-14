@@ -78,7 +78,7 @@
 
 /turf/simulated/wall/mineral/plasma
 	name = "plasma wall"
-	desc = "A wall with plasma plating. This is definately a bad idea."
+	desc = "A wall with plasma plating. This is definitely a bad idea."
 	icon_state = "plasma0"
 	walltype = "plasma"
 	mineral = "plasma"
@@ -144,3 +144,10 @@
 		if(shocked)
 			shock()
 */
+
+/turf/simulated/wall/mineral/alien
+	name = "alien wall"
+	desc = "An strange-looking alien wall."
+	icon_state = "plasma0"
+	walltype = "plasma"
+	mineral = "plasma"

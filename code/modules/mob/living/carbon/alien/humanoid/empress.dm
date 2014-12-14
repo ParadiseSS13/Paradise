@@ -80,7 +80,7 @@
 	set category = "Alien"	
 	
 	if(locate(/obj/effect/alien/egg) in get_turf(src))
-		src << "There's already an egg here."
+		src << "<span class='noticealien'>There's already an egg here.</span>"
 		return
 		
 	if(constructing)

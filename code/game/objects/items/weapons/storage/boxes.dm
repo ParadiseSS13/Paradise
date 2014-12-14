@@ -152,23 +152,6 @@
 		new /obj/item/weapon/dnainjector/m2h(src)
 		new /obj/item/weapon/dnainjector/m2h(src)
 
-
-/obj/item/weapon/storage/box/blanks
-	name = "box of birdshot shells"
-	desc = "It has a picture of a gun and several warning symbols on the front."
-	m_amt = 41000
-
-	New()
-		..()
-		new /obj/item/ammo_casing/shotgun/birdshot(src)
-		new /obj/item/ammo_casing/shotgun/birdshot(src)
-		new /obj/item/ammo_casing/shotgun/birdshot(src)
-		new /obj/item/ammo_casing/shotgun/birdshot(src)
-		new /obj/item/ammo_casing/shotgun/birdshot(src)
-		new /obj/item/ammo_casing/shotgun/birdshot(src)
-		new /obj/item/ammo_casing/shotgun/birdshot(src)
-
-
 /obj/item/weapon/storage/box/gauge
 	name = "box of 12 gauge slugs"
 	desc = "It has a picture of a gun and several warning symbols on the front."

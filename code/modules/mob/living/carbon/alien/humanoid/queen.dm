@@ -62,7 +62,7 @@
 	set desc = "Lay an egg to produce huggers to impregnate prey with."
 	set category = "Alien"
 	if(locate(/obj/effect/alien/egg) in get_turf(src))
-		src << "There's already an egg here."
+		src << "<span class='noticealien'>There's already an egg here.</span>"
 		return
 		
 	if(constructing)
@@ -120,7 +120,7 @@
 
 		if(no_queen)
 			adjustToxLoss(-1000)
-			src << "\green You begin to evolve!"
+			src << "<span class='noticealien'>You begin to evolve!</span>"
 			for(var/mob/O in viewers(src, null))
 				O.show_message(text("\green <B>[src] begins to twist and contort!</B>"), 1)
 			var/mob/living/carbon/alien/humanoid/empress/new_xeno = new (loc)

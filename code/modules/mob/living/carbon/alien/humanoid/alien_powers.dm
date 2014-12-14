@@ -24,14 +24,24 @@ Doesn't work on other aliens/AI.*/
 	set category = "Alien"
 
 	if(locate(/obj/effect/alien/weeds/node) in get_turf(src))
-		src << "There's already a weed node here."
+		src << "<span class='noticealien'>There's already a weed node here.</span>"
 		return	
+		
+	if(constructing)
+		src << "<span class='noticealien'>You are already constructing something.</span>"
+		return
 	
 	if(powerc(50,1))
-		adjustToxLoss(-50)
-		for(var/mob/O in viewers(src, null))
-			O.show_message(text("<span class='alertalien'>[src] has planted some alien weeds!</span>"), 1)
-		new /obj/effect/alien/weeds/node(loc)
+		constructing = 1
+		stunned = 5
+		src << "<span class='noticealien'>You start planting a weed node.</span>"			
+		spawn(30)
+			adjustToxLoss(-50)
+			for(var/mob/O in viewers(src, null))
+				O.show_message(text("<span class='alertalien'>[src] has planted some alien weeds!</span>"), 1)
+			new /obj/effect/alien/weeds/node(loc)
+			constructing = 0
+			stunned = 0
 	return
 
 /mob/living/carbon/alien/humanoid/verb/whisp(mob/M as mob in oview())

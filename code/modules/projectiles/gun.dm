@@ -20,6 +20,7 @@
 	var/silenced = 0
 	var/ghettomodded = 0
 	var/recoil = 0
+	var/can_suppress = 0
 	var/clumsy_check = 1
 	var/sawn_desc = null
 	var/obj/item/ammo_casing/chambered = null // The round (not bullet) that is in the chamber. THIS MISPLACED ITEM BROUGHT TO YOU BY HACKY BUCKSHOT.
