@@ -50,8 +50,8 @@
 	treatment_oxy = "dexalin"
 	treatment_brute = "bicaridine"
 	treatment_fire = "kelotane"
-	treatment_tox = "anti_toxin"	
-	
+	treatment_tox = "anti_toxin"
+
 /obj/machinery/bot/medbot/mysterious
 	name = "\improper Mysterious Medibot"
 	desc = "International Medibot of mystery."
@@ -327,12 +327,17 @@
 		return
 
 	//Patient has moved away from us!
-	else if(patient && path && path.len && (get_dist(patient,path[path.len]) > 2))
+	else if(patient && path.len && (get_dist(patient,path[path.len]) > 2))
 		path = list()
 		mode = BOT_IDLE
 		last_found = world.time
 
-	if(!stationary_mode && patient && path.len == 0 && (get_dist(src,patient) > 1))
+	else if(stationary_mode && patient)
+		patient = null
+		mode = BOT_IDLE
+		last_found = world.time
+		return
+	if(patient && path.len == 0 && (get_dist(src,patient) > 1))
 		spawn(0)
 			path = AStar(loc, get_turf(patient), /turf/proc/CardinalTurfsWithAccess, /turf/proc/Distance_cardinal, 0, 30,id=botcard)
 			if(!path)
@@ -368,10 +373,10 @@
 
 	if(emagged == 2) //Everyone needs our medicine. (Our medicine is toxins)
 		return 1
-		
+
 	if((skin == "bezerk") && (!("syndicate" in C.faction)))
 		return 0
-		
+
 	if(declare_crit && C.health <= 0) //Critical condition! Call for help!
 		declare(C)
 
@@ -394,7 +399,7 @@
 	if((C.getToxLoss() >= heal_threshold) && (!C.reagents.has_reagent(treatment_tox)))
 		return 1
 
-	if((C.virus2.len) && (!C.reagents.has_reagent(treatment_virus)))		
+	if((C.virus2.len) && (!C.reagents.has_reagent(treatment_virus)))
 		for (var/ID in C.virus2)
 			if (ID in virusDB) // If the virus is known, the medbot is aware of it
 				return 1
@@ -423,20 +428,20 @@
 	var/reagent_id = null
 
 	if(emagged == 2) //Emagged! Time to poison everybody.
-		reagent_id = "toxin"	
-		
+		reagent_id = "toxin"
+
 	else
 		if(treat_virus)
 			var/virus = 0
-			if(C:virus2.len)		
+			if(C:virus2.len)
 				for (var/ID in C.virus2)
 					if (ID in virusDB) // If the virus is known, the medbot is aware of it and will try to cure it
-						virus = 1	
-						
+						virus = 1
+
 			if (!reagent_id && (virus))
 				if(!C.reagents.has_reagent(treatment_virus))
-					reagent_id = treatment_virus	
-				
+					reagent_id = treatment_virus
+
 		if (!reagent_id && (C.getBruteLoss() >= heal_threshold))
 			if(!C.reagents.has_reagent(treatment_brute))
 				reagent_id = treatment_brute
@@ -529,7 +534,7 @@
 	speak("Medical emergency! [crit_patient ? "<b>[crit_patient]</b>" : "A patient"] is in critical condition at [location]!",radio_frequency, radio_name)
 	declare_cooldown = 1
 	spawn(200) //Twenty seconds
-	declare_cooldown = 0
+		declare_cooldown = 0
 
 /*
  *	Medbot Assembly -- Can be made out of all three medkits.

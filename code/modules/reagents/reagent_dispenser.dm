@@ -185,7 +185,7 @@
 
 	amount = min(amount, reagents.total_volume)
 	reagents.remove_reagent("fuel",amount)
-	new /obj/effect/decal/cleanable/liquid_fuel(src.loc, amount)
+//	new /obj/effect/decal/cleanable/liquid_fuel(src.loc, amount)
 
 /obj/structure/reagent_dispensers/fueltank/HasProximity(atom/movable/AM)
 	if(rig)

@@ -136,6 +136,8 @@
 
 		src.emag.reagents.add_reagent("pacid", 250)
 		src.emag.name = "Polyacid spray"
+		var/obj/item/weapon/reagent_containers/spray/S = emag
+		S.banned_reagents = list()
 		return
 
 /obj/item/weapon/robot_module/crisis/respawn_consumable(var/mob/living/silicon/robot/R)
