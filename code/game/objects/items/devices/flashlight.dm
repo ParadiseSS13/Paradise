@@ -114,7 +114,8 @@
 	name = "seclite"
 	desc = "A robust flashlight used by security."
 	icon_state = "seclite"
-	item_state = "flashlight" //only temporary change this to 'seclite' once we get the proper left/right hand sprites.
+	item_state = "seclite"
+	icon_override = 'icons/mob/in-hand/tools.dmi'
 	force = 9 // Not as good as a stun baton.
 	brightness_on = 5 // A little better than the standard flashlight.
 	hitsound = 'sound/weapons/genhit1.ogg'

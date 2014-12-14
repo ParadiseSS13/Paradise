@@ -60,6 +60,7 @@
 #define ui_alien_head "4:12,1:5"	//aliens
 #define ui_alien_oclothing "5:14,1:5"	//aliens
 
+#define ui_borg_sensor "5:16,1:5"			//borgs
 #define ui_inv1 "6:16,1:5"			//borgs
 #define ui_inv2 "7:16,1:5"			//borgs
 #define ui_inv3 "8:16,1:5"			//borgs
@@ -69,6 +70,9 @@
 
 #define ui_monkey_mask "5:14,1:5"	//monkey
 #define ui_monkey_back "6:14,1:5"	//monkey
+
+#define ui_alien_storage_l "CENTER-2:14,SOUTH:5"//alien
+#define ui_alien_storage_r "CENTER+1:18,SOUTH:5"//alien
 
 //Lower right, persistant menu
 //#define ui_dropbutton "11:22,1:5"
@@ -98,6 +102,7 @@
 #define ui_alien_toxin "16:28,13:25"
 #define ui_alien_fire "16:28,12:25"
 #define ui_alien_oxygen "16:28,11:25"
+#define ui_alien_nightvision "16:28,10:25"
 
 //Middle right (status indicators)
 #define ui_nutrition "16:28,5:11"
@@ -158,3 +163,4 @@
 #define ui_ai_pda_log "SOUTH:6,WEST+11:16"
 #define ui_ai_take_picture "SOUTH:6,WEST+12:16"
 #define ui_ai_view_images "SOUTH:6,WEST+13:16"
+#define ui_ai_sensor "SOUTH:6,WEST+14:16"

@@ -59,7 +59,7 @@
 			attack_self()
 			R << "<span class='notice'>It's out of charge!</span>"
 			return
-		C.use(hitcost)
+		//C.use(hitcost)
 		..()
 	return
 	

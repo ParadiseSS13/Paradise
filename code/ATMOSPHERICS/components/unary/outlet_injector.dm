@@ -12,10 +12,16 @@
 	var/volume_rate = 50
 
 	var/frequency = 0
+	var/id
 	var/id_tag = null
 	var/datum/radio_frequency/radio_connection
 
 	level = 1
+
+	New()
+		..()
+		if(id && !id_tag)//I'm not dealing with any more merge conflicts
+			id_tag = id
 
 	update_icon()
 		if(node)

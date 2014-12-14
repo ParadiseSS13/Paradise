@@ -31,6 +31,9 @@
 
 /obj/effect/portal/Destroy()
 	portals -= src
+	if(istype(creator, /obj/item/weapon/hand_tele))
+		var/obj/item/weapon/hand_tele/O = creator
+		O.active_portals--
 	return ..()
 
 /obj/effect/portal/proc/teleport(atom/movable/M as mob|obj)

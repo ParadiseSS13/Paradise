@@ -13,7 +13,7 @@
 	m_amt = 500
 	origin_tech = "materials=1"
 	var/dispenser = 0
-	var/breakouttime = 1200 //Deciseconds = 120s = 2 minutes
+	var/breakouttime = 600 //Deciseconds = 60s = 1 minutes
 
 /obj/item/weapon/handcuffs/attack(mob/living/carbon/C, mob/user)
 	if(M_CLUMSY in user.mutations && prob(50))
@@ -50,7 +50,7 @@
 			else
 				feedback_add_details("handcuffs","H")
 
-			add_logs(user, C, "handcuffed")
+			add_logs(C, user, "handcuffed")
 
 var/last_chew = 0
 /mob/living/carbon/human/RestrainedClickOn(var/atom/A)
@@ -112,20 +112,20 @@ var/last_chew = 0
 
 /obj/item/weapon/handcuffs/cyborg
 	dispenser = 1
-	
+
 /obj/item/weapon/handcuffs/cyborg/attack(mob/living/carbon/C as mob, mob/user as mob)
 	if(!C.handcuffed)
 		var/turf/p_loc = user.loc
 		var/turf/p_loc_m = C.loc
 		playsound(src.loc, 'sound/weapons/handcuffs.ogg', 30, 1, -2)
 		user.visible_message("\red <B>[user] is trying to put handcuffs on [C]!</B>")
-		
+
 		if (ishuman(C))
 			var/mob/living/carbon/human/H = C
 			if (!H.has_organ_for_slot(slot_handcuffed))
 				user << "\red \The [H] needs at least two wrists before you can cuff them together!"
 				return
-		
+
 		spawn(30)
 			if(!C)	return
 			if(p_loc == user.loc && p_loc_m == C.loc)

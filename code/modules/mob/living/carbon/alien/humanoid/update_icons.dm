@@ -13,31 +13,43 @@
 	var/list/overlays_standing[X_TOTAL_LAYERS]
 
 /mob/living/carbon/alien/humanoid/update_icons()
-	lying_prev = lying	//so we don't update overlays for lying/standing unless our stance changes again
 	update_hud()		//TODO: remove the need for this to be here
 	overlays.Cut()
+	for(var/image/I in overlays_standing)
+		overlays += I
+
+
 	if(stat == DEAD)
 		//If we mostly took damage from fire
 		if(fireloss > 125)
 			icon_state = "alien[caste]_husked"
+			pixel_y = 0
 		else
 			icon_state = "alien[caste]_dead"
-		for(var/image/I in overlays_lying)
-			overlays += I
-	else if(lying)
-		if(resting)
-			icon_state = "alien[caste]_sleep"
-		else if(stat == UNCONSCIOUS)
-			icon_state = "alien[caste]_unconscious"
-		else
-			icon_state = "alien[caste]_l"
-		for(var/image/I in overlays_lying)
-			overlays += I
+			pixel_y = 0
+
+	else if(stat == UNCONSCIOUS || weakened)
+		icon_state = "alien[caste]_unconscious"
+		pixel_y = 0
+	else if(leap_on_click)
+		icon_state = "alien[caste]_pounce"
+
+	else if(lying || resting)
+		icon_state = "alien[caste]_sleep"
+	else if(m_intent == "run")
+		icon_state = "alien[caste]_running"
 	else
-		if(m_intent == "run")		icon_state = "alien[caste]_running"
-		else						icon_state = "alien[caste]_s"
-		for(var/image/I in overlays_standing)
-			overlays += I
+		icon_state = "alien[caste]_s"
+
+	if(leaping)
+		icon = 'icons/mob/alienleap.dmi'
+		icon_state = "alien[caste]_leap"
+		pixel_x = -32
+		pixel_y = -32
+	else
+		icon = initial(icon)
+		pixel_x = initial(pixel_x)
+		pixel_y = initial(pixel_y)
 
 /mob/living/carbon/alien/humanoid/regenerate_icons()
 	..()

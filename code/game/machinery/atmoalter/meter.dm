@@ -7,6 +7,7 @@
 	anchored = 1.0
 	power_channel = ENVIRON
 	var/frequency = 0
+	var/id
 	var/id_tag
 	use_power = 1
 	idle_power_usage = 2
@@ -15,6 +16,8 @@
 /obj/machinery/meter/New()
 	..()
 	src.target = locate(/obj/machinery/atmospherics/pipe) in loc
+	if(id && !id_tag)//i'm not dealing with further merge conflicts, fuck it
+		id_tag = id
 	return 1
 
 /obj/machinery/meter/initialize()

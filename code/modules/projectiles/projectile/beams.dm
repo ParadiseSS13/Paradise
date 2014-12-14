@@ -35,13 +35,14 @@
 	damage = 60
 	stun = 5
 	weaken = 5
-	stutter = 5	
-	
+	stutter = 5
+
 /obj/item/projectile/beam/xray
 	name = "xray beam"
 	icon_state = "xray"
 	damage = 15
 	irradiate = 30
+	forcedodge = 1
 
 /obj/item/projectile/beam/pulse
 	name = "pulse"
@@ -66,6 +67,7 @@
 	icon_state = "omnilaser"
 	hitsound = null
 	damage = 0
+	damage_type = STAMINA
 	flag = "laser"
 	pass_flags = PASSTABLE | PASSGLASS | PASSGRILLE
 	var/suit_types = list(/obj/item/clothing/suit/redtag, /obj/item/clothing/suit/bluetag)
@@ -75,7 +77,7 @@
 		var/mob/living/carbon/human/M = target
 		if(istype(M.wear_suit))
 			if(M.wear_suit.type in suit_types)
-				M.Weaken(34)
+				M.adjustStaminaLoss(34)
 	return 1
 
 /obj/item/projectile/lasertag/omni
@@ -569,6 +571,7 @@ var/list/beam_master = list()
 	icon_state = "xray"
 	damage = 15
 	irradiate = 30
+	kill_count = 50
 
 
 /obj/item/projectile/beam/pulse

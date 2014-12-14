@@ -406,6 +406,11 @@
 				R.uneq_active()
 				R.hud_used.update_robot_modules_display()
 
+		if("Toggle Sensor Augmentation")
+			if(isrobot(usr))
+				var/mob/living/silicon/robot/R = usr
+				R.control_hud()				
+				
 		if("module1")
 			if(istype(usr, /mob/living/silicon/robot))
 				usr:toggle_module(1)
@@ -548,7 +553,22 @@
 			if(isAI(usr))
 				var/mob/living/silicon/ai/AI = usr
 				AI.aiCamera.viewpictures()
-
+				
+		if("Set Sensor Augmentation")
+			if(isAI(usr))
+				var/mob/living/silicon/ai/AI = usr
+				AI.control_hud()
+				
+		// Alien
+		if("night vision")
+			var/mob/living/carbon/alien/humanoid/A = usr
+			A.nightvisiontoggle()
+			
+		if("toggle leap")
+			if(istype(usr, /mob/living/carbon/alien/humanoid))
+				var/mob/living/carbon/alien/humanoid/hunter/AH = usr
+				AH.toggle_leap()
+			
 		else
 			return 0
 	return 1

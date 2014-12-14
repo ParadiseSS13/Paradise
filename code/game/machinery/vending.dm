@@ -283,6 +283,7 @@
 					// Vend the item
 					src.vend(src.currently_vending, usr)
 					currently_vending = null
+					src.updateUsrDialog()
 				else
 					usr << "\icon[src]<span class='warning'>You don't have that much money!</span>"
 			else
@@ -717,15 +718,6 @@
 					/obj/item/weapon/reagent_containers/food/snacks/sosjerky = 30,/obj/item/weapon/reagent_containers/food/snacks/no_raisin = 20,/obj/item/weapon/reagent_containers/food/snacks/spacetwinkie = 30,
 					/obj/item/weapon/reagent_containers/food/snacks/cheesiehonkers = 25)
 	refill_canister = /obj/item/weapon/vending_refill/snack
-/obj/machinery/vending/chinese
-	name = "Mr. Chang"
-	desc = "A self-serving chinese food machine, for all your chinese food needs."
-	product_slogans = "Taste 5000 years of culture!"
-	icon_state = "snack"
-	products = list(/obj/item/weapon/reagent_containers/food/snacks/chinese/chowmein = 5, /obj/item/weapon/reagent_containers/food/snacks/chinese/tao = 5, /obj/item/weapon/reagent_containers/food/snacks/chinese/newdles = 5,
-					/obj/item/weapon/reagent_containers/food/snacks/chinese/rice = 5, /obj/item/weapon/reagent_containers/food/snacks/wingfangchu = 5)
-	prices = list(/obj/item/weapon/reagent_containers/food/snacks/chinese/chowmein = 50, /obj/item/weapon/reagent_containers/food/snacks/chinese/tao = 50, /obj/item/weapon/reagent_containers/food/snacks/chinese/newdles = 50,
-					/obj/item/weapon/reagent_containers/food/snacks/chinese/rice = 50, /obj/item/weapon/reagent_containers/food/snacks/wingfangchu = 50)
 
 /obj/machinery/vending/snack/New()
 	..()
@@ -736,6 +728,16 @@
 	component_parts += new /obj/item/weapon/vending_refill/snack(0)
 	component_parts += new /obj/item/weapon/vending_refill/snack(0)
 	component_parts += new /obj/item/weapon/vending_refill/snack(0)
+
+/obj/machinery/vending/chinese
+	name = "Mr. Chang"
+	desc = "A self-serving chinese food machine, for all your chinese food needs."
+	product_slogans = "Taste 5000 years of culture!"
+	icon_state = "snack"
+	products = list(/obj/item/weapon/reagent_containers/food/snacks/chinese/chowmein = 5, /obj/item/weapon/reagent_containers/food/snacks/chinese/tao = 5, /obj/item/weapon/reagent_containers/food/snacks/chinese/newdles = 5,
+					/obj/item/weapon/reagent_containers/food/snacks/chinese/rice = 5, /obj/item/weapon/reagent_containers/food/snacks/wingfangchu = 5)
+	prices = list(/obj/item/weapon/reagent_containers/food/snacks/chinese/chowmein = 50, /obj/item/weapon/reagent_containers/food/snacks/chinese/tao = 50, /obj/item/weapon/reagent_containers/food/snacks/chinese/newdles = 50,
+					/obj/item/weapon/reagent_containers/food/snacks/chinese/rice = 50, /obj/item/weapon/reagent_containers/food/snacks/wingfangchu = 50)
 
 /obj/machinery/vending/cola
 	name = "Robust Softdrinks"
@@ -751,16 +753,6 @@
 					/obj/item/weapon/reagent_containers/food/drinks/cans/dr_gibb = 20,/obj/item/weapon/reagent_containers/food/drinks/cans/starkist = 20,
 					/obj/item/weapon/reagent_containers/food/drinks/cans/space_up = 20)
 	refill_canister = /obj/item/weapon/vending_refill/cola
-//This one's from bay12
-/obj/machinery/vending/cart
-	name = "PTech"
-	desc = "Cartridges for PDAs"
-	product_slogans = "Carts to go!"
-	icon_state = "cart"
-	icon_deny = "cart-deny"
-	products = list(/obj/item/weapon/cartridge/medical = 10,/obj/item/weapon/cartridge/engineering = 10,/obj/item/weapon/cartridge/security = 10,
-					/obj/item/weapon/cartridge/janitor = 10,/obj/item/weapon/cartridge/signal/toxins = 10,/obj/item/device/pda/heads = 10,
-					/obj/item/weapon/cartridge/captain = 3,/obj/item/weapon/cartridge/quartermaster = 10)
 
 /obj/machinery/vending/cola/New()
 	..()
@@ -772,6 +764,17 @@
 	component_parts += new /obj/item/weapon/vending_refill/cola(0)
 	component_parts += new /obj/item/weapon/vending_refill/cola(0)
 
+//This one's from bay12
+/obj/machinery/vending/cart
+	name = "PTech"
+	desc = "Cartridges for PDAs"
+	product_slogans = "Carts to go!"
+	icon_state = "cart"
+	icon_deny = "cart-deny"
+	products = list(/obj/item/weapon/cartridge/medical = 10,/obj/item/weapon/cartridge/engineering = 10,/obj/item/weapon/cartridge/security = 10,
+					/obj/item/weapon/cartridge/janitor = 10,/obj/item/weapon/cartridge/signal/toxins = 10,/obj/item/device/pda/heads = 10,
+					/obj/item/weapon/cartridge/captain = 3,/obj/item/weapon/cartridge/quartermaster = 10)
+
 /obj/machinery/vending/cigarette
 	name = "Cigarette machine" //OCD had to be uppercase to look nice with the new formating
 	desc = "If you want to get cancer, might as well do it in style"
@@ -779,10 +782,10 @@
 	product_ads = "Probably not bad for you!;Don't believe the scientists!;It's good for you!;Don't quit, buy more!;Smoke!;Nicotine heaven.;Best cigarettes since 2150.;Award-winning cigs."
 	vend_delay = 34
 	icon_state = "cigs"
-	products = list(/obj/item/weapon/storage/fancy/cigarettes = 10,/obj/item/weapon/storage/box/matches = 10,/obj/item/weapon/lighter/random = 4,/obj/item/weapon/rollingpaperpack = 5)
+	products = list(/obj/item/weapon/storage/fancy/cigarettes = 5,/obj/item/weapon/storage/fancy/cigarettes/cigpack_uplift = 3,/obj/item/weapon/storage/fancy/cigarettes/cigpack_robust = 2,/obj/item/weapon/storage/fancy/cigarettes/cigpack_carp = 3,/obj/item/weapon/storage/fancy/cigarettes/cigpack_midori = 1,/obj/item/weapon/storage/box/matches = 10,/obj/item/weapon/lighter/random = 4,/obj/item/weapon/rollingpaperpack = 5)
 	contraband = list(/obj/item/weapon/lighter/zippo = 4)
-	premium = list(/obj/item/clothing/mask/cigarette/cigar/havana = 2)
-	prices = list(/obj/item/weapon/storage/fancy/cigarettes = 60,/obj/item/weapon/storage/box/matches = 10,/obj/item/weapon/lighter/random = 60, /obj/item/weapon/rollingpaperpack = 20)
+	premium = list(/obj/item/clothing/mask/cigarette/cigar/havana = 2,/obj/item/weapon/storage/fancy/cigarettes/cigpack_robustgold = 1)
+	prices = list(/obj/item/weapon/storage/fancy/cigarettes = 60,/obj/item/weapon/storage/fancy/cigarettes/cigpack_uplift = 60,/obj/item/weapon/storage/fancy/cigarettes/cigpack_robust = 60,/obj/item/weapon/storage/fancy/cigarettes/cigpack_carp = 60,/obj/item/weapon/storage/fancy/cigarettes/cigpack_midori = 60,/obj/item/weapon/storage/box/matches = 10,/obj/item/weapon/lighter/random = 60, /obj/item/weapon/rollingpaperpack = 20)
 	refill_canister = /obj/item/weapon/vending_refill/cigarette
 
 /obj/machinery/vending/cigarette/New()
@@ -932,16 +935,6 @@
 	premium = list(/obj/item/clothing/suit/hgpirate = 1, /obj/item/clothing/head/hgpiratecap = 1, /obj/item/clothing/head/helmet/roman = 1, /obj/item/clothing/head/helmet/roman/legionaire = 1, /obj/item/clothing/under/roman = 1, /obj/item/clothing/shoes/roman = 1)
 	refill_canister = /obj/item/weapon/vending_refill/autodrobe
 
-/obj/machinery/vending/cigarette/New()
-	..()
-	component_parts = list()
-	var/obj/item/weapon/circuitboard/vendor/V = new(null)
-	V.set_type(type)
-	component_parts += V
-	component_parts += new /obj/item/weapon/vending_refill/cigarette(0)
-	component_parts += new /obj/item/weapon/vending_refill/cigarette(0)
-	component_parts += new /obj/item/weapon/vending_refill/cigarette(0)
-
 /obj/machinery/vending/dinnerware
 	name = "Dinnerware"
 	desc = "A kitchen and restaurant equipment vendor"
@@ -1035,6 +1028,7 @@
 	products = list(/obj/item/clothing/head/bowlerhat = 10,/obj/item/clothing/head/beaverhat = 10,/obj/item/clothing/head/boaterhat = 10,/obj/item/clothing/head/fedora = 10,/obj/item/clothing/head/fez = 10)
 	contraband = list(/obj/item/clothing/head/bearpelt = 5)
 	premium = list(/obj/item/clothing/head/soft/rainbow = 1)
+	refill_canister = /obj/item/weapon/vending_refill/hatdispenser
 
 /obj/machinery/vending/suitdispenser
 	name = "Suitlord 9000"
@@ -1042,10 +1036,11 @@
 	icon_state = "suits"
 	product_ads = "Pre-Ironed, Pre-Washed, Pre-Wor-*BZZT*;Blood of your enemys washes right out!;Who are YOU wearing?;Look dapper! Look like an idiot!;Dont carry your size? How about you shave off some pounds you fat lazy- *BZZT*"
 	products = list(/obj/item/clothing/under/color/black = 10,/obj/item/clothing/under/color/blue = 10,/obj/item/clothing/under/color/green = 10,/obj/item/clothing/under/color/grey = 10,/obj/item/clothing/under/color/pink = 10,/obj/item/clothing/under/color/red = 10,
-					/obj/item/clothing/under/color/white = 10, /obj/item/clothing/under/color/yellow = 10,/obj/item/clothing/under/lightblue = 10,/obj/item/clothing/under/aqua = 10,/obj/item/clothing/under/purple = 10,/obj/item/clothing/under/lightgreen = 10,
-					/obj/item/clothing/under/lightblue = 10,/obj/item/clothing/under/lightbrown = 10,/obj/item/clothing/under/brown = 10,/obj/item/clothing/under/yellowgreen = 10,/obj/item/clothing/under/darkblue = 10,/obj/item/clothing/under/lightred = 10, /obj/item/clothing/under/darkred = 10)
+					/obj/item/clothing/under/color/white = 10, /obj/item/clothing/under/color/yellow = 10,/obj/item/clothing/under/color/lightblue = 10,/obj/item/clothing/under/color/aqua = 10,/obj/item/clothing/under/color/purple = 10,/obj/item/clothing/under/color/lightgreen = 10,
+					/obj/item/clothing/under/color/lightblue = 10,/obj/item/clothing/under/color/lightbrown = 10,/obj/item/clothing/under/color/brown = 10,/obj/item/clothing/under/color/yellowgreen = 10,/obj/item/clothing/under/color/darkblue = 10,/obj/item/clothing/under/color/lightred = 10, /obj/item/clothing/under/color/darkred = 10)
 	contraband = list(/obj/item/clothing/under/syndicate/tacticool = 5,/obj/item/clothing/under/color/orange = 5,/obj/item/clothing/under/psyche = 5)
 	premium = list(/obj/item/clothing/under/rainbow = 1)
+	refill_canister = /obj/item/weapon/vending_refill/suitdispenser
 
 /obj/machinery/vending/shoedispenser
 	name = "Shoelord 9000"
@@ -1055,6 +1050,7 @@
 	products = list(/obj/item/clothing/shoes/black = 10,/obj/item/clothing/shoes/brown = 10,/obj/item/clothing/shoes/blue = 10,/obj/item/clothing/shoes/green = 10,/obj/item/clothing/shoes/yellow = 10,/obj/item/clothing/shoes/purple = 10,/obj/item/clothing/shoes/red = 10,/obj/item/clothing/shoes/white = 10)
 	contraband = list(/obj/item/clothing/shoes/jackboots = 5,/obj/item/clothing/shoes/orange = 5)
 	premium = list(/obj/item/clothing/shoes/rainbow = 1)
+	refill_canister = /obj/item/weapon/vending_refill/shoedispenser
 
 /obj/machinery/vending/syndicigs
 	name = "Suspicious Cigarette Machine"

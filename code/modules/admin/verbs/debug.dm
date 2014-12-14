@@ -539,6 +539,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 		"soviet admiral",
 		"tunnel clown",
 		"masked killer",
+		"dark lord",
 		"assassin",
 		"death commando",
 		"syndicate commando",
@@ -744,6 +745,28 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 				if(!istype(carried_item, /obj/item/weapon/implant))//If it's not an implant.
 					carried_item.add_blood(M)//Oh yes, there will be blood...
 
+		if("dark lord")
+			M.equip_to_slot_or_del(new /obj/item/clothing/under/color/black(M), slot_w_uniform)
+			M.equip_to_slot_or_del(new /obj/item/clothing/shoes/black(M), slot_shoes)
+			M.equip_to_slot_or_del(new /obj/item/clothing/gloves/black(M), slot_gloves)
+			M.equip_to_slot_or_del(new /obj/item/device/radio/headset(M), slot_l_ear)
+			M.equip_to_slot_or_del(new /obj/item/weapon/twohanded/dualsaber/red(M), slot_l_hand)
+
+			var/obj/item/clothing/head/chaplain_hood/hood = new(M)
+			hood.name = "dark lord hood"
+			M.equip_to_slot_or_del(hood, slot_head)
+
+			var/obj/item/clothing/suit/chaplain_hoodie/robe = new(M)
+			robe.name = "dark lord robes"
+			M.equip_to_slot_or_del(robe, slot_wear_suit)
+
+			var/obj/item/weapon/card/id/syndicate/W = new(M)
+			W.name = "[M.real_name]'s ID Card"
+			W.access = get_all_accesses()
+			W.assignment = "Dark Lord"
+			W.registered_name = M.real_name
+			M.equip_to_slot_or_del(W, slot_wear_id)
+
 		if("assassin")
 			M.equip_to_slot_or_del(new /obj/item/clothing/under/suit_jacket(M), slot_w_uniform)
 			M.equip_to_slot_or_del(new /obj/item/clothing/shoes/black(M), slot_shoes)
@@ -849,7 +872,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 
 			M.equip_if_possible(pda, slot_r_store)
 			M.equip_if_possible(new /obj/item/clothing/glasses/sunglasses(M), slot_l_store)
-			M.equip_if_possible(new /obj/item/weapon/gun/energy(M), slot_belt)
+			M.equip_if_possible(new /obj/item/weapon/gun/energy/pulse_rifle/M1911(M), slot_belt)
 
 			var/obj/item/weapon/card/id/centcom/W = new(M)
 			W.name = "[M.real_name]'s ID Card"
@@ -1002,7 +1025,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 			M.equip_to_slot_or_del(W, slot_wear_id)
 
 		if("blue wizard")
-			M.equip_to_slot_or_del(new /obj/item/clothing/under/lightpurple(M), slot_w_uniform)
+			M.equip_to_slot_or_del(new /obj/item/clothing/under/color/lightpurple(M), slot_w_uniform)
 			M.equip_to_slot_or_del(new /obj/item/clothing/suit/wizrobe(M), slot_wear_suit)
 			M.equip_to_slot_or_del(new /obj/item/clothing/shoes/sandal(M), slot_shoes)
 			M.equip_to_slot_or_del(new /obj/item/device/radio/headset(M), slot_l_ear)
@@ -1014,7 +1037,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 			M.equip_to_slot_or_del(new /obj/item/weapon/storage/box(M), slot_in_backpack)
 
 		if("red wizard")
-			M.equip_to_slot_or_del(new /obj/item/clothing/under/lightpurple(M), slot_w_uniform)
+			M.equip_to_slot_or_del(new /obj/item/clothing/under/color/lightpurple(M), slot_w_uniform)
 			M.equip_to_slot_or_del(new /obj/item/clothing/suit/wizrobe/red(M), slot_wear_suit)
 			M.equip_to_slot_or_del(new /obj/item/clothing/shoes/sandal(M), slot_shoes)
 			M.equip_to_slot_or_del(new /obj/item/device/radio/headset(M), slot_l_ear)
@@ -1026,7 +1049,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 			M.equip_to_slot_or_del(new /obj/item/weapon/storage/box(M), slot_in_backpack)
 
 		if("marisa wizard")
-			M.equip_to_slot_or_del(new /obj/item/clothing/under/lightpurple(M), slot_w_uniform)
+			M.equip_to_slot_or_del(new /obj/item/clothing/under/color/lightpurple(M), slot_w_uniform)
 			M.equip_to_slot_or_del(new /obj/item/clothing/suit/wizrobe/marisa(M), slot_wear_suit)
 			M.equip_to_slot_or_del(new /obj/item/clothing/shoes/sandal/marisa(M), slot_shoes)
 			M.equip_to_slot_or_del(new /obj/item/device/radio/headset(M), slot_l_ear)

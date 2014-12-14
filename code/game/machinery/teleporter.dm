@@ -3,7 +3,7 @@
 	desc = "Used to control a linked teleportation Hub and Station."
 	icon_state = "teleport"
 	circuit = "/obj/item/weapon/circuitboard/teleporter"
-	var/obj/item/device/sps/locked = null
+	var/obj/item/device/gps/locked = null
 	var/regime_set = "Teleporter"
 	var/id = null
 	var/obj/machinery/teleport/station/power_station
@@ -40,16 +40,16 @@
 				user << "\blue The teleporter can now lock on to Syndicate beacons!"
 		else
 			ui_interact(user)
-	else if(istype(I, /obj/item/device/sps))
-		var/obj/item/device/sps/L = I
+	else if(istype(I, /obj/item/device/gps))
+		var/obj/item/device/gps/L = I
 		if(L.locked_location && !(stat & (NOPOWER|BROKEN)))
 			user.before_take_item(L)
 			L.loc = src
 			locked = L
-			user << "<span class='caution'>You insert the SPS device into the [name]'s slot.</span>"
+			user << "<span class='caution'>You insert the GPS device into the [name]'s slot.</span>"
 			src.attack_hand(user)
 		else
-			user << "<span class='warning'>No useable data was found on te SPS device.</span>"
+			user << "<span class='warning'>No useable data was found on te GPS device.</span>"
 	else
 		..()
 	return
@@ -69,7 +69,7 @@
 		return
 	if(stat & (NOPOWER|BROKEN))
 		return
-	
+
 	data["powerstation"] = power_station
 	if(power_station)
 		data["teleporterhub"] = power_station.teleporter_hub
@@ -88,8 +88,8 @@
 	ui = nanomanager.try_update_ui(user, src, ui_key, ui, data, force_open)
 	if (!ui)
 		ui = new(user, src, ui_key, "teleporter_console.tmpl", "Teleporter Console UI", 400, 400)
-		ui.set_initial_data(data)		
-		ui.open()	
+		ui.set_initial_data(data)
+		ui.open()
 
 /obj/machinery/computer/teleporter/Topic(href, href_list)
 	if(..())
@@ -250,8 +250,8 @@
 	while(!istype(T, /turf))
 		T = T.loc
 		if(!T || istype(T, /area))	return null
-	return T	
-	
+	return T
+
 /obj/machinery/teleport
 	name = "teleport"
 	icon = 'icons/obj/stationobjs.dmi'
@@ -300,8 +300,22 @@
 
 /obj/machinery/teleport/hub/Bumped(M as mob|obj)
 	if(power_station && power_station.engaged && !panel_open)
-		teleport(M)
-		use_power(5000)
+		//--FalseIncarnate
+		//Prevents AI cores from using the teleporter, prints out failure messages for clarity
+		if(istype(M, /mob/living/silicon/ai) || istype(M, /obj/structure/AIcore))
+			visible_message("\red The teleporter rejects the AI unit.")
+			if(istype(M, /mob/living/silicon/ai))
+				var/mob/living/silicon/ai/T = M
+				var/list/TPError = list("\red Firmware instructions dictate you must remain on your assigned station!",
+				"\red You cannot interface with this technology and get rejected!",
+				"\red External firewalls prevent you from utilizing this machine!",
+				"\red Your AI core's anti-bluespace failsafes trigger and prevent teleportation!")
+				T<< "[pick(TPError)]"
+			return
+		else
+			teleport(M)
+			use_power(5000)
+		//--FalseIncarnate
 	return
 
 /obj/machinery/teleport/hub/attackby(obj/item/W, mob/user)
@@ -323,7 +337,7 @@
 	if (istype(M, /atom/movable))
 		if(!calibrated && prob(25 - ((accurate) * 10))) //oh dear a problem
 			do_teleport(M, locate(rand((2*TRANSITIONEDGE), world.maxx - (2*TRANSITIONEDGE)), rand((2*TRANSITIONEDGE), world.maxy - (2*TRANSITIONEDGE)), 3), 2)
-		else 
+		else
 			do_teleport(M, com.target)
 		calibrated = 0
 	return
@@ -439,7 +453,7 @@
 	if (stat & (BROKEN|NOPOWER) || !teleporter_hub || !teleporter_console)
 		return
 	if (teleporter_hub.panel_open)
-		user << "<span class='notice'>Close the hub's maintenance panel first.</span>"		
+		user << "<span class='notice'>Close the hub's maintenance panel first.</span>"
 		return
 	if (teleporter_console.target)
 		src.engaged = !src.engaged

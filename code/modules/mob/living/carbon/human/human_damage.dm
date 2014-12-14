@@ -18,8 +18,11 @@
 		if (!H.amputated)
 			if ((health >= (config.health_threshold_dead/100*75)) && stat == DEAD)  //need to get them 25% away from death point before reviving them
 				dead_mob_list -= src
+				respawnable_list -= src
 				living_mob_list += src
+				mob_list += src
 				stat = CONSCIOUS
+				ear_deaf = 0
 	return
 
 /mob/living/carbon/human/getBrainLoss()

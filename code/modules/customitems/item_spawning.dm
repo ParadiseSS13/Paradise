@@ -1,14 +1,13 @@
 /proc/EquipRacialItems(mob/living/carbon/human/M)
 	if(M.species.name == "Vox" || M.species.name == "Vox Armalis")
-		M.equip_to_slot_or_del(new /obj/item/clothing/shoes/magboots/vox(M), slot_shoes) // REPLACE THESE WITH CODED VOX ALTERNATIVES.
 		M.equip_to_slot_or_del(new /obj/item/clothing/mask/breath(M), slot_wear_mask)
-		M.equip_to_slot_or_del(new /obj/item/weapon/tank/nitrogen(M), slot_back)
-		M << "\blue You are now running on nitrogen internals from the [M.back] in your suit storage. Your species finds oxygen toxic, so you must breathe nitrogen only."
-		M.internal = M.back
+		M.equip_to_slot_or_del(new /obj/item/weapon/tank/emergency_oxygen/vox(M), slot_l_hand)
+		M << "\blue You are now running on nitrogen internals from your [M.l_hand]. Your species finds oxygen toxic, so you must breathe nitrogen only."
+		M.internal = M.l_hand
 		if (M.internals)
 			M.internals.icon_state = "internal1"
 
-		M.generate_name()
+		//M.generate_name()
 
 	if( M.species.name=="Tajaran" || M.species.name=="Unathi" )
 		if(M.mind.assigned_role == "Cyborg" || M.mind.assigned_role == "Clown")

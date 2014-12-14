@@ -44,15 +44,14 @@
 	..()
 
 /obj/item/weapon/photo/examine(mob/user)
-	if(in_range(user, src))
-		show(user)
-		user << desc
+	if(in_range(usr, src) || istype(usr, /mob/dead/observer))
+		show(usr)
 	else
-		user << "<span class='notice'>It is too far away.</span>"
+		usr << "<span class='notice'>It is too far away.</span>"
 
 /obj/item/weapon/photo/proc/show(mob/user as mob)
-	user << browse_rsc(img, "tmp_photo.png")
-	user << browse("<html><head><title>[name]</title></head>" \
+	usr << browse_rsc(img, "tmp_photo.png")
+	usr << browse("<html><head><title>[name]</title></head>" \
 		+ "<body style='overflow:hidden;margin:0;text-align:center'>" \
 		+ "<img src='tmp_photo.png' width='[64*photo_size]' style='-ms-interpolation-mode:nearest-neighbor' />" \
 		+ "[scribble ? "<br>Written on the back:<br><i>[scribble]</i>" : ""]"\
@@ -65,7 +64,7 @@
 	set category = "Object"
 	set src in usr
 
-	var/n_name = copytext(sanitize(input(usr, "What would you like to label the photo?", "Photo Labelling", null)  as text), 1, MAX_NAME_LEN)
+	var/n_name = copytext(sanitize(input(usr, "What would you like to label the photo?", "Photo Labelling", null)  as text), 1, MAX_MESSAGE_LEN)
 	//loc.loc check is for making possible renaming photos in clipboards
 	if(( (loc == usr || (loc.loc && loc.loc == usr)) && usr.stat == 0))
 		name = "[(n_name ? text("[n_name]") : "photo")]"

@@ -474,6 +474,7 @@ var/list/global_mutations = list() // list of hidden mutation things
 #define OXY			"oxy"
 #define CLONE		"clone"
 #define HALLOSS		"halloss"
+#define STAMINA 	"stamina"
 
 #define STUN		"stun"
 #define WEAKEN		"weaken"
@@ -497,6 +498,7 @@ var/list/global_mutations = list() // list of hidden mutation things
 #define CANPUSH		8
 #define LEAPING		16
 #define PASSEMOTES	32      //Mob has a cortical borer or holders inside of it that need to see emotes.
+#define GOTTAGOFAST	64
 #define GODMODE		4096
 #define FAKEDEATH	8192	//Replaces stuff like changeling.changeling_fakedeath
 #define DISFIGURED	16384	//I'll probably move this elsewhere if I ever get wround to writing a bitflag mob-damage system
@@ -633,6 +635,7 @@ var/list/TAGGERLOCATIONS = list("Disposals",
 #define OXY			"oxy"
 #define CLONE		"clone"
 #define HALLOSS		"halloss"
+#define STAMINA 	"stamina"
 
 #define STUN		"stun"
 #define WEAKEN		"weaken"
@@ -698,7 +701,7 @@ var/list/TAGGERLOCATIONS = list("Disposals",
 #define SOUND_ADMINHELP	1
 #define SOUND_MIDI		2
 #define SOUND_AMBIENCE	4
-#define SOUND_LOBBY		8 //Removed, can be replaced with any other sound bitflag as needed.
+#define SOUND_LOBBY		8
 #define SOUND_STREAMING	16
 
 #define SOUND_DEFAULT (SOUND_ADMINHELP|SOUND_MIDI|SOUND_AMBIENCE|SOUND_LOBBY|SOUND_STREAMING)
@@ -719,6 +722,7 @@ var/list/TAGGERLOCATIONS = list("Disposals",
 #define BE_SLIME		4096
 #define BE_VAMPIRE		8192
 #define BE_MUTINEER		16384
+#define BE_BLOB			32768
 
 var/list/be_special_flags = list(
 	"Traitor" = BE_TRAITOR,
@@ -735,7 +739,8 @@ var/list/be_special_flags = list(
 	"Vox" = BE_VOX,
 	"Slime" = BE_SLIME,
 	"Vampire" = BE_VAMPIRE,
-	"Mutineer" = BE_MUTINEER
+	"Mutineer" = BE_MUTINEER,
+	"Blob" = BE_BLOB
 	)
 
 #define AGE_MIN 17			//youngest a character can be
@@ -915,7 +920,11 @@ var/list/RESTRICTED_CAMERA_NETWORKS = list( //Those networks can only be accesse
 
 var/list/hit_appends = list("-OOF", "-ACK", "-UGH", "-HRNK", "-HURGH", "-GLORF")
 
+
 // multitool_topic() shit
 #define MT_ERROR  -1
 #define MT_UPDATE 1
 #define MT_REINIT 2
+
+#define BACKGROUND_ENABLED 0 // The default value for all uses of set background. Set background can cause gradual lag and is recommended you only turn this on if necessary.
+

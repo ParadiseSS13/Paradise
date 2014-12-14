@@ -208,9 +208,9 @@
 	range = MELEE|RANGED
 
 	New()
-		reagents = new/datum/reagents(200)
+		reagents = new/datum/reagents(1000)
 		reagents.my_atom = src
-		reagents.add_reagent("water", 200)
+		reagents.add_reagent("water", 1000)
 		..()
 		return
 
@@ -221,7 +221,7 @@
 		if(do_after_cooldown(target))
 			if(istype(target, /obj/structure/reagent_dispensers/watertank) && get_dist(chassis,target) <= 1)
 				var/obj/o = target
-				o.reagents.trans_to(src, 200)
+				o.reagents.trans_to(src, 1000)
 				occupant_message("\blue Extinguisher refilled")
 				playsound(chassis, 'sound/effects/refill.ogg', 50, 1, -6)
 			else
@@ -732,7 +732,7 @@
 	name = "Energy Relay"
 	desc = "Wirelessly drains energy from any available power channel in area. The performance index is quite low."
 	icon_state = "tesla"
-	origin_tech = "magnets=4;syndicate=2"
+	origin_tech = "magnets=4;powerstorage=3"
 	equip_cooldown = 10
 	energy_drain = 0
 	range = 0
@@ -853,8 +853,8 @@
 	var/coeff = 100
 	var/obj/item/stack/sheet/fuel
 	var/max_fuel = 150000
-	var/fuel_per_cycle_idle = 100
-	var/fuel_per_cycle_active = 500
+	var/fuel_per_cycle_idle = 25
+	var/fuel_per_cycle_active = 200
 	var/power_per_cycle = 20
 	reliability = 1000
 

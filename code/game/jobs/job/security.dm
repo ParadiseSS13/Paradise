@@ -9,13 +9,13 @@
 	idtype = /obj/item/weapon/card/id/silver
 	req_admin_notify = 1
 	access = list(access_security, access_sec_doors, access_brig, access_armory, access_court,
-			            access_forensics_lockers, access_morgue, access_maint_tunnels, access_all_personal_lockers,
+			            access_forensics_lockers, access_customs, access_pilot, access_morgue, access_maint_tunnels, access_all_personal_lockers,
 			            access_research, access_engine, access_mining, access_medical, access_construction, access_mailsorting,
 			            access_heads, access_hos, access_RC_announce, access_keycard_auth, access_gateway, access_weapons)
 	minimal_access = list(access_eva, access_security, access_sec_doors, access_brig, access_armory, access_court,
 			            access_forensics_lockers, access_morgue, access_maint_tunnels, access_all_personal_lockers,
 			            access_research, access_engine, access_mining, access_medical, access_construction, access_mailsorting,
-			            access_heads, access_hos, access_RC_announce, access_keycard_auth, access_gateway, access_customs,access_weapons)
+			            access_heads, access_hos, access_RC_announce, access_keycard_auth, access_gateway, access_customs, access_pilot, access_weapons)
 	minimal_player_age = 21
 
 	equip(var/mob/living/carbon/human/H)
@@ -268,8 +268,8 @@
 	spawn_positions = 1
 	supervisors = "the head of security"
 	selection_color = "#ffeeee"
-	access = list(access_security, access_sec_doors, access_brig, access_court, access_maint_tunnels, access_morgue, access_weapons, access_pilot)
-	minimal_access = list(access_security, access_sec_doors, access_brig, access_court, access_maint_tunnels, access_weapons, access_pilot)
+	access = list(access_security, access_sec_doors, access_brig, access_court, access_maint_tunnels, access_morgue, access_weapons, access_pilot, access_external_airlocks)
+	minimal_access = list(access_security, access_sec_doors, access_brig, access_court, access_maint_tunnels, access_weapons, access_pilot, access_external_airlocks)
 	minimal_player_age = 7
 	equip(var/mob/living/carbon/human/H)
 		if(!H)	return 0

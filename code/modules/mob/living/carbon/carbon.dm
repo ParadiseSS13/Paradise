@@ -187,6 +187,11 @@
 				if(status == "")
 					status = "OK"
 				src.show_message(text("\t []My [] is [].",status=="OK"?"\blue ":"\red ",org.display_name,status),1)
+			if(staminaloss)
+				if(staminaloss > 30)
+					src << "<span class='info'>You're completely exhausted.</span>"
+				else
+					src << "<span class='info'>You feel fatigued.</span>"
 			if((SKELETON in H.mutations) && (!H.w_uniform) && (!H.wear_suit))
 				H.play_xylophone()
 		else if(lying) // /vg/: For hugs. This is how update_icon figgers it out, anyway.  - N3X15
@@ -219,8 +224,6 @@
 				"\blue [M] gives [src] a [pick("hug","warm embrace")].", \
 				"\blue You hug [src].", \
 				)
-			if(prob(10))
-				src.emote("fart")
 
 
 /mob/living/carbon/proc/eyecheck()
@@ -571,9 +574,6 @@
 	else
 		src << "You do not have enough chemicals stored to reproduce."
 		return
-
-/mob/living/carbon/proc/assess_threat()
-	return
 
 /mob/living/carbon/proc/canBeHandcuffed()
 	return 0

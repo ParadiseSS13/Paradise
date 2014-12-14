@@ -20,6 +20,7 @@
 	var/silenced = 0
 	var/ghettomodded = 0
 	var/recoil = 0
+	var/can_suppress = 0
 	var/clumsy_check = 1
 	var/sawn_desc = null
 	var/obj/item/ammo_casing/chambered = null // The round (not bullet) that is in the chamber. THIS MISPLACED ITEM BROUGHT TO YOU BY HACKY BUCKSHOT.
@@ -245,7 +246,7 @@
 				mouthshoot = 0
 				return
 			in_chamber.on_hit(M)
-			if (in_chamber.damage_type != HALLOSS)
+			if (in_chamber.damage_type != STAMINA)
 				user.apply_damage(in_chamber.damage*2.5, in_chamber.damage_type, "head", used_weapon = "Point blank shot in the mouth with \a [in_chamber]", sharp=1)
 				user.death()
 			else

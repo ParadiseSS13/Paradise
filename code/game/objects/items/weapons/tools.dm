@@ -102,12 +102,13 @@
 	flags = FPRINT | TABLEPASS| CONDUCT
 	slot_flags = SLOT_BELT
 	force = 6.0
-	throw_speed = 2
-	throw_range = 9
+	throw_speed = 3
+	throw_range = 7
 	w_class = 2.0
 	m_amt = 80
 	origin_tech = "materials=1;engineering=1"
 	attack_verb = list("pinched", "nipped")
+	hitsound = "sound/items/Wirecutter.ogg"
 	sharp = 1
 	edge = 1
 
@@ -140,7 +141,7 @@
 	//Amount of OUCH when it's thrown
 	force = 3.0
 	throwforce = 5.0
-	throw_speed = 1
+	throw_speed = 3
 	throw_range = 5
 	w_class = 2.0
 
@@ -342,6 +343,7 @@
 			src.w_class = 4
 			src.force = 15
 			src.damtype = "fire"
+			hitsound = "sound/items/welder.ogg"
 			src.icon_state = "welder1"
 			processing_objects.Add(src)
 		else
@@ -356,6 +358,7 @@
 		src.w_class = 2
 		src.force = 3
 		src.damtype = "brute"
+		hitsound = "swing_hit"
 		src.icon_state = "welder"
 		src.welding = 0
 
@@ -460,7 +463,6 @@
 	item_state = "crowbar_red"
 
 /obj/item/weapon/weldingtool/attack(mob/M as mob, mob/user as mob)
-
 	if(hasorgans(M))
 
 		var/datum/organ/external/S = M:organs_by_name[user.zone_sel.selecting]
@@ -477,14 +479,21 @@
 					return
 
 		if(S.brute_dam)
-			S.heal_damage(15,0,0,1)
-			user.visible_message("\red \The [user] patches some dents on \the [M]'s [S.display_name] with \the [src].")
-			if(istype(M,/mob/living/carbon/human))
-				var/mob/living/carbon/human/H = M
-				H.updatehealth()
-			return
+			var/obj/item/weapon/weldingtool/WT = src
+			if (WT.remove_fuel(0,user))
+				playsound(src.loc, 'sound/items/Welder2.ogg', 50, 1)
+				S.heal_damage(15,0,0,1)
+				user.visible_message("\red \The [user] patches some dents on \the [M]'s [S.display_name] with \the [src].")
+				if(istype(M,/mob/living/carbon/human))
+					var/mob/living/carbon/human/H = M
+					H.updatehealth()
+				return
+			else
+				user << "\red You need more welding fuel to complete this task."
+				return
 		else
 			user << "Nothing to fix!"
+			return
 
 	else
 		return ..()

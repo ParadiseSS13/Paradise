@@ -10,13 +10,9 @@
 	name = "electrode"
 	icon_state = "spark"
 	nodamage = 1
-	/*
-	stun = 10
-	weaken = 10
-	stutter = 10
-	*/
-	agony = 40
-	damage_type = HALLOSS
+	stun = 5
+	weaken = 5
+	stutter = 5
 	hitsound = 'sound/weapons/tase.ogg'
 	//Damage will be handled on the MOB side, to prevent window shattering.
 
@@ -74,3 +70,15 @@
 	damage = 20
 	damage_type = TOX
 	irradiate = 20
+
+/obj/item/projectile/energy/disabler
+	name = "disabler beam"
+	icon_state = "omnilaser"
+	damage = 34
+	damage_type = STAMINA
+	var/range = 8
+
+/obj/item/projectile/energy/disabler/Range()
+	range--
+	if(range <= 0)
+		del(src)

@@ -22,6 +22,14 @@
 	component_parts += new /obj/item/weapon/cell/high(src)
 	RefreshParts()
 	build_icon()
+	
+/obj/machinery/recharge_station/upgraded/New()
+	..()
+	component_parts += new /obj/item/weapon/stock_parts/capacitor/super(src)
+	component_parts += new /obj/item/weapon/stock_parts/capacitor/super(src)
+	component_parts += new /obj/item/weapon/stock_parts/manipulator/pico(src)
+	component_parts += new /obj/item/weapon/cell/hyper(src) 
+	RefreshParts()
 
 /obj/machinery/recharge_station/RefreshParts()
 	recharge_speed = 0

@@ -9,7 +9,6 @@
 	throw_speed = 2
 	throw_range = 5
 	w_class = 3.0
-	flags = TABLEPASS
 	var/created_name = "Floorbot"
 
 /obj/item/weapon/toolbox_tiles_sensor
@@ -22,15 +21,11 @@
 	throw_speed = 2
 	throw_range = 5
 	w_class = 3.0
-	flags = TABLEPASS
 	var/created_name = "Floorbot"
-
-// Tell other floorbots what we're fucking with so two floorbots don't dick with the same tile.
-var/global/list/floorbot_targets=list()
 
 //Floorbot
 /obj/machinery/bot/floorbot
-	name = "Floorbot"
+	name = "\improper Floorbot"
 	desc = "A little floor repairing robot, he looks so excited!"
 	icon = 'icons/obj/aibots.dmi'
 	icon_state = "floorbot0"
@@ -40,61 +35,66 @@ var/global/list/floorbot_targets=list()
 	health = 25
 	maxhealth = 25
 	//weight = 1.0E7
-	var/mode = 0
-#define FLOORBOT_IDLE 		    0		// idle
-#define FLOORBOT_FIXING_SHIT    1
-#define FLOORBOT_START_PATROL	2		// start patrol
-#define FLOORBOT_PATROL		    3		// patrolling
-
-	var/auto_patrol = 0		// set to make bot automatically patrol
 	var/amount = 10
-	var/repairing = 0
-	var/improvefloors = 0
+	var/replacetiles = 0
 	var/eattiles = 0
 	var/maketiles = 0
+	var/fixfloors = 0
+	var/autotile = 0
+	var/nag_on_empty = 1
+	var/nagged = 0 //Prevents the Floorbot nagging more than once per refill.
+	var/max_targets = 50
 	var/turf/target
 	var/turf/oldtarget
 	var/oldloc = null
-	req_access = list(access_construction)
-	var/path[] = new()
+	req_one_access = list(access_construction, access_robotics)
 	var/targetdirection
-	var/beacon_freq = 1445		// navigation beacon frequency
-
-
-	var/turf/patrol_target	// this is turf to navigate to (location of beacon)
-	var/new_destination		// pending new destination (waiting for beacon response)
-	var/destination			// destination description tag
-	var/next_destination	// the next destination in the patrol route
-	var/list/patpath = new				// list of path turfs
-
-	var/blockcount = 0		//number of times retried a blocked path
-	var/awaiting_beacon	= 0	// count of pticks awaiting a beacon response
-
-	var/nearest_beacon			// the nearest beacon's tag
-	var/turf/nearest_beacon_loc	// the nearest beacon's location
-
+	radio_frequency = ENG_FREQ //Engineering channel
+	radio_name = "Engineering"
+	bot_type = FLOOR_BOT
+	bot_filter = RADIO_FLOORBOT
+	var/process_type //Determines what to do when process_scan() recieves a target. See process_scan() for details.
+	#define HULL_BREACH		1
+	#define BRIDGE_MODE		2
+	#define FIX_TILE		3
+	#define AUTO_TILE		4
+	#define REPLACE_TILE	5
+	#define TILE_EMAG		6
 
 /obj/machinery/bot/floorbot/New()
 	..()
-	src.updateicon()
+	updateicon()
+	var/datum/job/engineer/J = new/datum/job/engineer
+	botcard.access = J.get_access()
+	prev_access = botcard.access
+
+	spawn(5)
+		add_to_beacons(bot_filter)
 
 /obj/machinery/bot/floorbot/turn_on()
 	. = ..()
-	src.updateicon()
-	src.updateUsrDialog()
+	updateicon()
+	updateUsrDialog()
 
 /obj/machinery/bot/floorbot/turn_off()
 	..()
-	if(!isnull(src.target))
-		floorbot_targets -= src.target
-	src.target = null
-	src.oldtarget = null
-	src.oldloc = null
-	src.updateicon()
-	src.path = new()
-	src.patpath = new()
-	src.updateUsrDialog()
-	src.mode=FLOORBOT_IDLE
+	updateicon()
+	updateUsrDialog()
+
+/obj/machinery/bot/floorbot/bot_reset()
+	..()
+	target = null
+	oldtarget = null
+	oldloc = null
+	ignore_list = list()
+	nagged = 0
+	anchored = 0
+	update_icon()
+
+/obj/machinery/bot/floorbot/set_custom_texts()
+	text_hack = "You corrupt [name]'s construction protocols."
+	text_dehack = "You detect errors in [name] and reset his programming."
+	text_dehack_fail = "[name] is not responding to reset commands!"
 
 /obj/machinery/bot/floorbot/attack_hand(mob/user as mob)
 	. = ..()
@@ -105,36 +105,53 @@ var/global/list/floorbot_targets=list()
 
 /obj/machinery/bot/floorbot/interact(mob/user as mob)
 	var/dat
-	dat += "<TT><B>Automatic Station Floor Repairer v1.0</B></TT><BR><BR>"
-	dat += "Status: <A href='?src=\ref[src];operation=start'>[src.on ? "On" : "Off"]</A><BR>"
-	dat += "Maintenance panel panel is [src.open ? "opened" : "closed"]<BR>"
-	dat += "Tiles left: [src.amount]<BR>"
-	dat += "Behvaiour controls are [src.locked ? "locked" : "unlocked"]<BR>"
-	if(!src.locked || issilicon(user))
-		dat += "Improves floors: <A href='?src=\ref[src];operation=improve'>[src.improvefloors ? "Yes" : "No"]</A><BR>"
-		dat += "Finds tiles: <A href='?src=\ref[src];operation=tiles'>[src.eattiles ? "Yes" : "No"]</A><BR>"
-		dat += "Make single pieces of metal into tiles when empty: <A href='?src=\ref[src];operation=make'>[src.maketiles ? "Yes" : "No"]</A><BR>"
+	dat += hack(user)
+	dat += "<TT><B>Floor Repairer Controls v1.1</B></TT><BR><BR>"
+	dat += "Status: <A href='?src=\ref[src];power=1'>[on ? "On" : "Off"]</A><BR>"
+	dat += "Maintenance panel panel is [open ? "opened" : "closed"]<BR>"
+	dat += "Tiles left: [amount]<BR>"
+	dat += "Behaviour controls are [locked ? "locked" : "unlocked"]<BR>"
+	if(!locked || issilicon(user))
+		dat += "Add tiles to new hull plating: <A href='?src=\ref[src];operation=autotile'>[autotile ? "Yes" : "No"]</A><BR>"
+		dat += "Replace floor tiles: <A href='?src=\ref[src];operation=replace'>[replacetiles ? "Yes" : "No"]</A><BR>"
+		dat += "Finds tiles: <A href='?src=\ref[src];operation=tiles'>[eattiles ? "Yes" : "No"]</A><BR>"
+		dat += "Make pieces of metal into tiles when empty: <A href='?src=\ref[src];operation=make'>[maketiles ? "Yes" : "No"]</A><BR>"
+		dat += "Transmit notice when empty: <A href='?src=\ref[src];operation=emptynag'>[nag_on_empty ? "Yes" : "No"]</A><BR>"
+		dat += "Repair damaged tiles and platings: <A href='?src=\ref[src];operation=fix'>[fixfloors ? "Yes" : "No"]</A><BR>"
+		dat += "Traction Magnets: <A href='?src=\ref[src];operation=anchor'>[anchored ? "Engaged" : "Disengaged"]</A><BR>"
+		dat += "Patrol Station: <A href='?src=\ref[src];operation=patrol'>[auto_patrol ? "Yes" : "No"]</A><BR>"
+		var/bmode
+		if (targetdirection)
+			bmode = dir2text(targetdirection)
+		else
+			bmode = "disabled"
+		dat += "Bridge Mode : <A href='?src=\ref[src];operation=bridgemode'>[bmode]</A><BR>"
 
-	user << browse("<HEAD><TITLE>Repairbot v1.0 controls</TITLE></HEAD>[dat]", "window=autorepair")
-	onclose(user, "autorepair")
+	var/datum/browser/popup = new(user, "autofloor", "Automatic Station Floor Repairer v1.1")
+	popup.set_content(dat)
+	popup.open()
 	return
-
 
 
 /obj/machinery/bot/floorbot/attackby(var/obj/item/W , mob/user as mob)
 	if(istype(W, /obj/item/stack/tile/plasteel))
 		var/obj/item/stack/tile/plasteel/T = W
-		if(src.amount >= 50)
+		if(amount >= 50)
 			return
-		var/loaded = min(50-src.amount, T.amount)
+		var/loaded = min(50-amount, T.amount)
 		T.use(loaded)
-		src.amount += loaded
-		user << "<span class='notice'>You load [loaded] tiles into the floorbot. He now contains [src.amount] tiles.</span>"
-		src.updateicon()
+		amount += loaded
+		if (loaded > 0)
+			user << "<span class='notice'>You load [loaded] tiles into the floorbot. He now contains [amount] tiles.</span>"
+			nagged = 0
+			updateicon()
+		else
+			user << "<span class='warning'>You need at least one floor tile to put into [src]</span>"
 	else if(istype(W, /obj/item/weapon/card/id)||istype(W, /obj/item/device/pda))
-		if(src.allowed(usr) && !open && !emagged)
-			src.locked = !src.locked
-			user << "<span class='notice'>You [src.locked ? "lock" : "unlock"] the [src] behaviour controls.</span>"
+		if(allowed(user) && !open && !emagged)
+			locked = !locked
+			user << "<span class='notice'>You [locked ? "lock" : "unlock"] \the [src] behaviour controls.</span>"
+			updateUsrDialog()
 		else
 			if(emagged)
 				user << "<span class='warning'>ERROR</span>"
@@ -142,528 +159,312 @@ var/global/list/floorbot_targets=list()
 				user << "<span class='warning'>Please close the access panel before locking it.</span>"
 			else
 				user << "<span class='warning'>Access denied.</span>"
-		src.updateUsrDialog()
+		updateUsrDialog()
 	else
 		..()
 
 /obj/machinery/bot/floorbot/Emag(mob/user as mob)
 	..()
-	if((!locked && open) || !user)
-		if(user) user << "<span class='notice'>The [src] buzzes and beeps.</span>"
+	if(emagged == 2)
+		if(user)
+			user << "<span class='danger'>[src] buzzes and beeps.</span>"
 
 /obj/machinery/bot/floorbot/Topic(href, href_list)
-	if(..())
-		return
-	usr.set_machine(src)
-	src.add_fingerprint(usr)
+	..()
 	switch(href_list["operation"])
-		if("start")
-			if (src.on)
-				turn_off()
-			else
-				turn_on()
-		if("improve")
-			src.improvefloors = !src.improvefloors
-			src.updateUsrDialog()
+		if("replace")
+			replacetiles = !replacetiles
 		if("tiles")
-			src.eattiles = !src.eattiles
-			src.updateUsrDialog()
+			eattiles = !eattiles
 		if("make")
-			src.maketiles = !src.maketiles
-			src.updateUsrDialog()
+			maketiles = !maketiles
+		if("fix")
+			fixfloors = !fixfloors
+		if("autotile")
+			autotile = !autotile
+		if("emptynag")
+			nag_on_empty = !nag_on_empty
+		if("anchor")
+			anchored = !anchored
 
-/obj/machinery/bot/floorbot/proc/is_obj_valid_target(var/atom/T,var/list/floorbottargets)
-	if(T in floorbottargets)
-		return 0
-	if(T == src.oldtarget)
-		return 0
-	if(istype(T.loc, /turf/simulated/wall))
-		return 0
-	if(!T.loc.Enter(src))
-		return 0
-	return 1
+		if("bridgemode")
+			var/setdir = input("Select construction direction:") as null|anything in list("north","east","south","west","disable")
+			switch(setdir)
+				if("north")
+					targetdirection = 1
+				if("south")
+					targetdirection = 2
+				if("east")
+					targetdirection = 4
+				if("west")
+					targetdirection = 8
+				if("disable")
+					targetdirection = null
+	updateUsrDialog()
 
-/obj/machinery/bot/floorbot/proc/hunt_for_tiles(var/list/shit_in_view, var/list/floorbottargets)
-	for(var/obj/item/stack/tile/plasteel/T in shit_in_view)
-		if(!(T in floorbot_targets) && src.is_obj_valid_target(T,floorbottargets))
-			src.oldtarget = T
-			src.target = T
-			floorbot_targets +=T
-			mode=FLOORBOT_FIXING_SHIT
-			return
-
-/obj/machinery/bot/floorbot/proc/hunt_for_metal(var/list/shit_in_view, var/list/floorbottargets)
-	for(var/obj/item/stack/sheet/metal/M in shit_in_view)
-		if(!(M in floorbot_targets) && src.is_obj_valid_target(M) && M.amount == 1)
-			src.oldtarget = M
-			src.target = M
-			floorbot_targets += M
-			mode=FLOORBOT_FIXING_SHIT
-			return
-
-/obj/machinery/bot/floorbot/proc/have_target()
-	return (src.target != null)
-
-/obj/machinery/bot/floorbot/process()
-	//set background = 1
-
-	if(!src.on)
-		return
-	if(src.repairing)
+/obj/machinery/bot/floorbot/bot_process()
+	if (!..())
 		return
 
-	switch(mode)
-		if(FLOORBOT_IDLE)		// idle
-			walk_to(src,0)
-			if(checkforwork())	// see if any criminals are in range
-				return
-			if(!mode && auto_patrol)	// still idle, and set to patrol
-				mode = FLOORBOT_START_PATROL	// switch to patrol mode
-		if(FLOORBOT_FIXING_SHIT)
-			src.fix_shit()
+	if(mode == BOT_REPAIRING)
+		return
+
+	if(amount <= 0 && !target) //Out of tiles! We must refill!
+		if(eattiles) //Configured to find and consume floortiles!
+			target = scan(/obj/item/stack/tile/plasteel, oldtarget)
+			process_type = null
+
+		if(!target && maketiles) //We did not manage to find any floor tiles! Scan for metal stacks and make our own!
+			target = scan(/obj/item/stack/sheet/metal, oldtarget)
+			process_type = null
 			return
-		if(FLOORBOT_START_PATROL)	// start a patrol
-			if(patpath.len > 0 && patrol_target)	// have a valid path, so just resume
-				mode = FLOORBOT_PATROL
-				return
-
-			else if(patrol_target)		// has patrol target already
-				spawn(0)
-					calc_path()		// so just find a route to it
-					if(patpath.len == 0)
-						patrol_target = 0
-						return
-					mode = FLOORBOT_PATROL
-
-
-			else					// no patrol target, so need a new one
-				find_patrol_target()
-				speak("That's done, what's next?")
-
-
-		if(FLOORBOT_PATROL)		// patrol mode
-			patrol_step()
-			spawn(5)
-				if(mode == FLOORBOT_PATROL)
-					patrol_step()
-
-/obj/machinery/bot/floorbot/proc/fix_shit()
-	if(!src.have_target())
-		if(src.loc != src.oldloc)
-			src.oldtarget = null
-		return 0
-	if(!src.path)
-		src.path = new()
-	if(src.target && (src.target != null) && src.path.len == 0)
-		spawn(0)
-			if(!istype(src.target, /turf/))
-				src.path = AStar(src.loc, src.target.loc, /turf/proc/AdjacentTurfsSpace, /turf/proc/Distance, 0, 30, id=botcard)
-			else
-				src.path = AStar(src.loc, src.target, /turf/proc/AdjacentTurfsSpace, /turf/proc/Distance, 0, 30, id=botcard)
-			if (!src.path) src.path = list()
-			if(src.path.len == 0)
-				src.oldtarget = src.target
-				floorbot_targets -= src.target
-				src.target = null
-		return 1
-	if(src.path.len > 0 && src.target && (src.target != null))
-		step_to(src, src.path[1])
-		src.path -= src.path[1]
-	else if(src.path.len == 1)
-		step_to(src, target)
-		src.path = new()
-
-	if(src.loc == src.target || src.loc == src.target.loc)
-		if(istype(src.target, /obj/item/stack/tile/plasteel))
-			src.eattile(src.target)
-			mode=FLOORBOT_IDLE
-		else if(istype(src.target, /obj/item/stack/sheet/metal))
-			src.maketile(src.target)
-			mode=FLOORBOT_IDLE
-		//else if(istype(src.target, /turf/) && emagged < 2)
-		else if((src.target.is_plating() || istype(src.target,/turf/space/)) && emagged < 2)
-			repair(src.target)
-			mode=FLOORBOT_IDLE
-		else if(src.target.is_plasteel_floor() && (src.target:broken || src.target:burnt) && emagged < 2)
-			var/turf/simulated/floor/F = src.target
-			src.anchored = 1
-			src.repairing = 1
-			F.break_tile_to_plating()
-			spawn(50)
-				src.anchored = 0
-				src.repairing = 0
-				src.target = null
-				floorbot_targets -= src.target
-			mode=FLOORBOT_IDLE
-		else if(src.target.is_plating() && emagged == 2)
-			var/turf/simulated/floor/F = src.target
-			src.anchored = 1
-			src.repairing = 1
-			if(prob(90))
-				F.break_tile_to_plating()
-			else
-				F.ReplaceWithLattice()
-			visible_message("\red [src] makes an excited booping sound.")
-			spawn(50)
-				src.amount ++
-				src.anchored = 0
-				src.repairing = 0
-				src.target = null
-				floorbot_targets -= src.target
-			mode=FLOORBOT_IDLE
-		src.path = new()
-		mode=FLOORBOT_IDLE
-		return 1
-
-	src.oldloc = src.loc
-	return 1
-
-/obj/machinery/bot/floorbot/proc/checkforwork()
-	if(src.have_target())
-		return 0
-	var/list/floorbottargets = list()
-
-	// Needed because we used to look this up 15 goddamn times per process. - Nexypoo
-	var/list/shitICanSee = view(7, src)
-
-	if(src.amount <= 0 && !src.have_target())
-		if(src.eattiles)
-			if(src.hunt_for_tiles(shitICanSee, floorbottargets))
-				return 1
-		if(src.maketiles && !src.have_target())
-			if(src.hunt_for_metal(shitICanSee, floorbottargets))
-				return 1
 		else
-			return 0
+			if(nag_on_empty) //Floorbot is empty and cannot acquire more tiles, nag the engineers for more!
+				nag()
 
 	if(prob(5))
 		visible_message("[src] makes an excited booping beeping sound!")
 
-	if(!src.have_target() && emagged < 2)
-		if(targetdirection != null)
-			/*
-			for (var/turf/space/D in shitICanSee)
-				if(!(D in floorbottargets) && D != src.oldtarget)			// Added for bridging mode -- TLE
-					if(get_dir(src, D) == targetdirection)
-						src.oldtarget = D
-						src.target = D
-						break
-			*/
+	//Normal scanning procedure. We have tiles loaded, are not emagged.
+	if(!target && emagged < 2 && amount > 0)
+		if(targetdirection != null) //The bot is in bridge mode.
+			//Try to find a space tile immediately in our selected direction.
 			var/turf/T = get_step(src, targetdirection)
-			if(istype(T, /turf/space) && !(T in floorbot_targets))
-				src.oldtarget = T
-				src.target = T
-				floorbot_targets+=T
-				mode=FLOORBOT_FIXING_SHIT
-				return 1
-		if(!src.have_target())
-			for (var/turf/space/D in shitICanSee)
-				if(!(D in floorbottargets) && D != src.oldtarget && (D.loc.name != "Space") && !(D in floorbot_targets))
-					src.oldtarget = D
-					src.target = D
-					floorbot_targets += D
-					mode=FLOORBOT_FIXING_SHIT
-					return 1
-		if((!src.target || src.target == null ) && src.improvefloors)
-			for (var/turf/simulated/floor/F in shitICanSee)
-			    // So, what the dick are we doing, here?
-			    // ORIGINAL: if(!(F in floorbottargets) && F != src.oldtarget && F.icon_state == "Floor1" && !(istype(F, /turf/simulated/floor/plating)))
-			    // Using new erro flags:
-				if(!(F in floorbottargets) && F != src.oldtarget && F.is_plating() && !(istype(F, /turf/simulated/wall)) && !(F in floorbot_targets))
-					if(!F.broken && !F.burnt)
-						src.oldtarget = F
-						src.target = F
-						floorbot_targets += F
-						mode=FLOORBOT_FIXING_SHIT
-						return 1
-				if(!(F in floorbottargets) && !(F in floorbot_targets) && F != src.oldtarget && F.is_plasteel_floor() && (F.broken||F.burnt))
-					src.oldtarget = F
-					src.target = F
-					floorbot_targets += F
-					mode=FLOORBOT_FIXING_SHIT
-					return 1
+			if(istype(T, /turf/space))
+				target = T
 
-	if(!src.have_target() && emagged == 2)
-		for (var/turf/simulated/floor/D in shitICanSee)
-			//if(!(D in floorbottargets) && D != src.oldtarget && D.floor_tile)
-			if(!(D in floorbottargets) && D != src.oldtarget && D.is_plasteel_floor() && !(D in floorbot_targets))
-				src.oldtarget = D
-				src.target = D
-				floorbot_targets += D
-				mode=FLOORBOT_FIXING_SHIT
-				return 1
-	return 0
+			else //Find a space tile farther way!
+				target = scan(/turf/space, oldtarget)
+			process_type = BRIDGE_MODE
 
-/obj/machinery/bot/floorbot/proc/repair(var/turf/target)
-	if(istype(target, /turf/space/))
-		if(target.loc.name == "Space")
+		if(!target)
+			process_type = HULL_BREACH //Ensures the floorbot does not try to "fix" space areas or shuttle docking zones.
+			target = scan(/turf/space, oldtarget)
+
+		if(!target && replacetiles) //Finds a floor without a tile and gives it one.
+			process_type = REPLACE_TILE //The target must be the floor and not a tile. The floor must not already have a floortile.
+			target = scan(/turf/simulated/floor, oldtarget)
+
+		if(!target && fixfloors) //Repairs damaged floors and tiles.
+			process_type = FIX_TILE
+			target = scan(/turf/simulated/floor, oldtarget)
+
+	if(!target && emagged == 2) //We are emagged! Time to rip up the floors!
+		process_type = TILE_EMAG
+		target = scan(/turf/simulated/floor, oldtarget)
+
+
+	if(!target)
+
+		if(auto_patrol)
+			if(mode == BOT_IDLE || mode == BOT_START_PATROL)
+				start_patrol()
+
+			if(mode == BOT_PATROL)
+				bot_patrol()
+
+	if(!target)
+		if(loc != oldloc)
+			oldtarget = null
+		return
+
+	if(target)
+		if(path.len == 0)
+			if(!istype(target, /turf/))
+				var/turf/TL = get_turf(target)
+				path = AStar(loc, TL, /turf/proc/AdjacentTurfsSpace, /turf/proc/Distance, 0, 30, id=botcard)
+			else
+				path = AStar(loc, target, /turf/proc/AdjacentTurfsSpace, /turf/proc/Distance, 0, 30, id=botcard)
+
+			if(!bot_move(target))
+				add_to_ignore(target)
+				oldtarget = target
+				target = null
+				mode = BOT_IDLE
+				return
+		else if( !bot_move(target) )
+			oldtarget = target
+			target = null
+			mode = BOT_IDLE
 			return
-	else if(!istype(target, /turf/simulated/floor))
-		return
-	if(src.amount <= 0)
-		return
-	src.anchored = 1
-	src.icon_state = "floorbot-c"
-	if(istype(target, /turf/space/))
-		visible_message("\red [src] begins to repair the hole")
-		var/obj/item/stack/tile/plasteel/T = new /obj/item/stack/tile/plasteel
-		src.repairing = 1
-		spawn(50)
-			T.build(src.loc)
-			src.repairing = 0
-			src.amount -= 1
-			src.updateicon()
-			src.anchored = 0
-			floorbot_targets -= src.target
-			src.target = null
+
+		if(loc == target || loc == target.loc)
+			if(istype(target, /obj/item/stack/tile/plasteel))
+				eattile(target)
+			else if(istype(target, /obj/item/stack/sheet/metal))
+				maketile(target)
+			else if(istype(target, /turf/) && emagged < 2)
+				repair(target)
+			else if(emagged == 2 && istype(target,/turf/simulated/floor))
+				var/turf/simulated/floor/F = target
+				anchored = 1
+				mode = BOT_REPAIRING
+				if(prob(90))
+					F.break_tile_to_plating()
+				else
+					F.ReplaceWithLattice()
+				visible_message("<span class='danger'>[src] makes an excited booping sound.</span>")
+				spawn(50)
+					amount ++
+					anchored = 0
+					mode = BOT_IDLE
+					target = null
+			path = new()
+			return
+
+	oldloc = loc
+
+/obj/machinery/bot/floorbot/proc/nag() //Annoy everyone on the channel to refill us!
+	if(!nagged)
+		var/area/location = get_area(src)
+		speak("Requesting refill at <b>[location]</b>!", radio_frequency, radio_name)
+		nagged = 1
+
+/obj/machinery/bot/floorbot/proc/is_hull_breach(var/turf/t) //Ignore space tiles not considered part of a structure, also ignores shuttle docking areas.
+	var/area/t_area = get_area(t)
+	if (t_area && (t_area.name == "Space" || findtext(t_area.name, "huttle")))
+		return 0
 	else
-		var/turf/simulated/floor/F = src.loc
-		if(!F.broken && !F.burnt)
-			visible_message("\red [src] begins to improve the floor.")
-			src.repairing = 1
+		return 1
+
+//Floorbots, having several functions, need sort out special conditions here.
+obj/machinery/bot/floorbot/process_scan(var/scan_target)
+	var/result
+	var/turf/simulated/floor/F
+	switch(process_type)
+		if(HULL_BREACH) //The most common job, patching breaches in the station's hull.
+			if(is_hull_breach(scan_target)) //Ensure that the targeted space turf is actually part of the station, and not random space.
+				result = scan_target
+				anchored = 1 //Prevent the floorbot being blown off-course while trying to reach a hull breach.
+		if(BRIDGE_MODE) //Only space turfs in our chosen direction are considered.
+			if(get_dir(src, scan_target) == targetdirection)
+				result = scan_target
+				anchored = 1
+		if(REPLACE_TILE)
+			F = scan_target
+			if(istype(F, /turf/simulated/floor/plating)) //The floor must not already have a tile.
+				result = F
+		if(FIX_TILE)	//Selects only damaged floors.
+			F = scan_target
+			if(istype(F, /turf))
+				if(F.broken || F.burnt)
+					result = F
+		if(TILE_EMAG) //Emag mode! Rip up the floor and cause breaches to space!
+			F = scan_target
+			if(!istype(F, /turf/simulated/floor/plating))
+				result = F
+		else //If no special processing is needed, simply return the result.
+			result = scan_target
+	return result
+
+/obj/machinery/bot/floorbot/proc/repair(var/turf/target_turf)
+
+	if(istype(target_turf, /turf/space/))
+		 //Must be a hull breach or in bridge mode to continue.
+		if(!is_hull_breach(target_turf) && !targetdirection)
+			target = null
+			return
+	else if(!istype(target_turf, /turf/simulated/floor))
+		return
+	if(amount <= 0)
+		mode = BOT_IDLE
+		target = null
+		return
+	anchored = 1
+	icon_state = "floorbot-c"
+	if(istype(target_turf, /turf/space/)) //If we are fixing an area not part of pure space, it is
+		visible_message("<span class='notice'> [targetdirection ? "[src] begins installing a bridge plating." : "[src] begins to repair the hole."] </span>")
+		mode = BOT_REPAIRING
+		spawn(50)
+			if(mode == BOT_REPAIRING)
+				if(autotile) //Build the floor and include a tile.
+					target_turf.ChangeTurf(/turf/simulated/floor)
+				else //Build a hull plating without a floor tile.
+					target_turf.ChangeTurf(/turf/simulated/floor/plating)
+				mode = BOT_IDLE
+				amount -= 1
+				updateicon()
+				anchored = 0
+				target = null
+	else
+		var/turf/simulated/floor/F = target_turf
+		if(F.burnt || F.broken)
+			mode = BOT_REPAIRING
+			visible_message("<span class='notice'> [src] begins repairing the floor.</span>")
 			spawn(50)
-				F.make_plasteel_floor()
-				src.repairing = 0
-				src.amount -= 1
-				src.updateicon()
-				src.anchored = 0
-				floorbot_targets -= src.target
-				src.target = null
-		else
-			if(F.is_plating())
-				visible_message("\red [src] begins to fix dents in the floor.")
-				src.repairing = 1
-				spawn(20)
-					src.repairing = 0
-					// Cheap, and does the job.
-					F.icon_state = "plating"
+				if(mode == BOT_REPAIRING)
 					F.burnt = 0
 					F.broken = 0
-					floorbot_targets -= src.target
-					src.target = null
+					F.icon_state = "floor"
+					mode = BOT_IDLE
+					amount -= 1
+					updateicon()
+					anchored = 0
+					target = null
+		else
+			mode = BOT_REPAIRING
+			visible_message("<span class='notice'> [src] begins repairing the floor.</span>")
+			spawn(50)
+				if(mode == BOT_REPAIRING)
+					F.burnt = 0
+					F.broken = 0
+					target_turf.ChangeTurf(/turf/simulated/floor)
+					mode = BOT_IDLE
+					amount -= 1
+					updateicon()
+					anchored = 0
+					target = null
 
 /obj/machinery/bot/floorbot/proc/eattile(var/obj/item/stack/tile/plasteel/T)
 	if(!istype(T, /obj/item/stack/tile/plasteel))
 		return
-	visible_message("\red [src] begins to collect tiles.")
-	src.repairing = 1
+	visible_message("<span class='notice'> [src] begins to collect tiles.</span>")
+	mode = BOT_REPAIRING
 	spawn(20)
 		if(isnull(T))
-			src.target = null
-			src.repairing = 0
+			target = null
+			mode = BOT_IDLE
 			return
-		if(src.amount + T.amount > 50)
-			var/i = 50 - src.amount
-			src.amount += i
+		if(amount + T.amount > 50)
+			var/i = 50 - amount
+			amount += i
 			T.amount -= i
 		else
-			src.amount += T.amount
-			del(T)
-		src.updateicon()
-		floorbot_targets -= src.target
-		src.target = null
-		src.repairing = 0
+			amount += T.amount
+			qdel(T)
+		updateicon()
+		target = null
+		mode = BOT_IDLE
 
 /obj/machinery/bot/floorbot/proc/maketile(var/obj/item/stack/sheet/metal/M)
 	if(!istype(M, /obj/item/stack/sheet/metal))
 		return
-	if(M.amount > 1)
-		return
-	visible_message("\red [src] begins to create tiles.")
-	src.repairing = 1
+	visible_message("<span class='notice'> [src] begins to create tiles.</span>")
+	mode = BOT_REPAIRING
 	spawn(20)
 		if(isnull(M))
-			src.target = null
-			src.repairing = 0
+			target = null
+			mode = BOT_IDLE
 			return
 		var/obj/item/stack/tile/plasteel/T = new /obj/item/stack/tile/plasteel
 		T.amount = 4
 		T.loc = M.loc
-		if(M.amount==1)
-			del(M)
-		else
+		if(M.amount > 1)
 			M.amount--
-		floorbot_targets -= src.target
-		src.target = null
-		src.repairing = 0
+		else
+			qdel(M)
+		target = null
+		mode = BOT_IDLE
 
 /obj/machinery/bot/floorbot/proc/updateicon()
-	if(src.amount > 0)
-		src.icon_state = "floorbot[src.on]"
+	if(amount > 0)
+		icon_state = "floorbot[on]"
 	else
-		src.icon_state = "floorbot[src.on]e"
-
-
-/obj/machinery/bot/floorbot/proc/calc_path(var/turf/avoid = null)
-	src.path = AStar(src.loc, patrol_target, /turf/proc/CardinalTurfsWithAccess, /turf/proc/Distance, 0, 120, id=botcard, exclude=avoid)
-	src.path = reverselist(src.path)
-
-// perform a single patrol step
-
-/obj/machinery/bot/floorbot/proc/patrol_step()
-
-	if(loc == patrol_target)		// reached target
-		at_patrol_target()
-		return
-
-	else if(patpath.len > 0 && patrol_target)		// valid path
-
-		var/turf/next = patpath[1]
-		if(next == loc)
-			patpath -= next
-			return
-
-
-		if(istype( next, /turf/simulated))
-
-			var/moved = step_towards(src, next)	// attempt to move
-			if(moved)	// successful move
-				blockcount = 0
-				patpath -= loc
-
-				checkforwork()
-			else		// failed to move
-
-				blockcount++
-
-				if(blockcount > 5)	// attempt 5 times before recomputing
-					// find new path excluding blocked turf
-
-					spawn(2)
-						calc_path(next)
-						if(patpath.len == 0)
-							find_patrol_target()
-						else
-							blockcount = 0
-
-					return
-
-				return
-
-		else	// not a valid turf
-			mode = FLOORBOT_IDLE
-			return
-
-	else	// no path, so calculate new one
-		mode = FLOORBOT_START_PATROL
-
-
-// finds a new patrol target
-/obj/machinery/bot/floorbot/proc/find_patrol_target()
-//	send_status()
-	if(awaiting_beacon)			// awaiting beacon response
-		awaiting_beacon++
-		if(awaiting_beacon > 5)	// wait 5 secs for beacon response
-			find_nearest_beacon()	// then go to nearest instead
-		return
-
-	if(next_destination)
-		set_destination(next_destination)
-	else
-		find_nearest_beacon()
-	return
-
-
-// finds the nearest beacon to self
-// signals all beacons matching the patrol code
-/obj/machinery/bot/floorbot/proc/find_nearest_beacon()
-	nearest_beacon = null
-	new_destination = "__nearest__"
-	post_signal(beacon_freq, "findbeacon", "patrol")
-	awaiting_beacon = 1
-	spawn(10)
-		awaiting_beacon = 0
-		if(nearest_beacon)
-			set_destination(nearest_beacon)
-		else
-			auto_patrol = 0
-			mode = FLOORBOT_IDLE
-			speak("Disengaging patrol mode.")
-			//send_status()
-
-
-/obj/machinery/bot/floorbot/proc/at_patrol_target()
-	find_patrol_target()
-	return
-
-/obj/machinery/bot/floorbot/Bump(M as mob|obj) //Leave no door unopened!
-	if((istype(M, /obj/machinery/door)) && (!isnull(src.botcard)))
-		var/obj/machinery/door/D = M
-		if(!istype(D, /obj/machinery/door/firedoor) && D.check_access(src.botcard))
-			D.open()
-	return
-
-/obj/machinery/bot/floorbot/receive_signal(datum/signal/signal)
-	//log_admin("DEBUG \[[world.timeofday]\]: /obj/machinery/bot/secbot/receive_signal([signal.debug_print()])")
-	if(!on)
-		return
-
-	var/recv = signal.data["command"]
-
-	// receive response from beacon
-	recv = signal.data["beacon"]
-	var/valid = signal.data["patrol"]
-	if(!recv || !valid)
-		return
-
-	if(recv == new_destination)	// if the recvd beacon location matches the set destination
-								// the we will navigate there
-		destination = new_destination
-		patrol_target = signal.source.loc
-		next_destination = signal.data["next_patrol"]
-		awaiting_beacon = 0
-
-	// if looking for nearest beacon
-	else if(new_destination == "__nearest__")
-		var/dist = get_dist(src,signal.source.loc)
-		if(nearest_beacon)
-
-			// note we ignore the beacon we are located at
-			if(dist>1 && dist<get_dist(src,nearest_beacon_loc))
-				nearest_beacon = recv
-				nearest_beacon_loc = signal.source.loc
-				return
-			else
-				return
-		else if(dist > 1)
-			nearest_beacon = recv
-			nearest_beacon_loc = signal.source.loc
-	return
-
-// send a radio signal with a single data key/value pair
-/obj/machinery/bot/floorbot/proc/post_signal(var/freq, var/key, var/value)
-	post_signal_multiple(freq, list("[key]" = value) )
-
-// send a radio signal with multiple data key/values
-/obj/machinery/bot/floorbot/proc/post_signal_multiple(var/freq, var/list/keyval)
-
-	var/datum/radio_frequency/frequency = radio_controller.return_frequency(freq)
-
-	if(!frequency) return
-
-	var/datum/signal/signal = new()
-	signal.source = src
-	signal.transmission_method = 1
-	//for(var/key in keyval)
-	//	signal.data[key] = keyval[key]
-	signal.data = keyval
-		//world << "sent [key],[keyval[key]] on [freq]"
-	if(signal.data["findbeacon"])
-		frequency.post_signal(src, signal, filter = RADIO_NAVBEACONS)
-	else
-		frequency.post_signal(src, signal)
-
-// sets the current destination
-// signals all beacons matching the patrol code
-// beacons will return a signal giving their locations
-/obj/machinery/bot/floorbot/proc/set_destination(var/new_dest)
-	new_destination = new_dest
-	post_signal(beacon_freq, "findbeacon", "patrol")
-	awaiting_beacon = 1
+		icon_state = "floorbot[on]e"
 
 /obj/machinery/bot/floorbot/explode()
-	src.on = 0
-	src.visible_message("\red <B>[src] blows apart!</B>", 1)
+	on = 0
+	visible_message("<span class='userdanger'>[src] blows apart!</span>")
 	var/turf/Tsec = get_turf(src)
 
 	var/obj/item/weapon/storage/toolbox/mechanical/N = new /obj/item/weapon/storage/toolbox/mechanical(Tsec)
@@ -674,9 +475,6 @@ var/global/list/floorbot_targets=list()
 	if (prob(50))
 		new /obj/item/robot_parts/l_arm(Tsec)
 
-	if(src.target)
-		floorbot_targets -= src.target
-
 	while (amount)//Dumps the tiles into the appropriate sized stacks
 		if(amount >= 16)
 			var/obj/item/stack/tile/plasteel/T = new (Tsec)
@@ -684,13 +482,13 @@ var/global/list/floorbot_targets=list()
 			amount -= 16
 		else
 			var/obj/item/stack/tile/plasteel/T = new (Tsec)
-			T.amount = src.amount
+			T.amount = amount
 			amount = 0
 
 	var/datum/effect/effect/system/spark_spread/s = new /datum/effect/effect/system/spark_spread
 	s.set_up(3, 1, src)
 	s.start()
-	del(src)
+	qdel(src)
 	return
 
 
@@ -698,54 +496,56 @@ var/global/list/floorbot_targets=list()
 	if(!istype(T, /obj/item/stack/tile/plasteel))
 		..()
 		return
-	if(src.contents.len >= 1)
-		user << "<span class='notice'>They wont fit in as there is already stuff inside.</span>"
+	if(contents.len >= 1)
+		user << "<span class='alert'>They won't fit in, as there is already stuff inside.</span>"
 		return
-	if(user.s_active)
-		user.s_active.close(user)
-	del(T)
-	var/obj/item/weapon/toolbox_tiles/B = new /obj/item/weapon/toolbox_tiles
-	user.put_in_hands(B)
-	user << "<span class='notice'>You add the tiles into the empty toolbox. They protrude from the top.</span>"
-	user.drop_from_inventory(src)
-	del(src)
+	if(T.use(10))
+		if(user.s_active)
+			user.s_active.close(user)
+		var/obj/item/weapon/toolbox_tiles/B = new /obj/item/weapon/toolbox_tiles
+		user.put_in_hands(B)
+		user << "<span class='notice'>You add the tiles into the empty toolbox. They protrude from the top.</span>"
+		user.before_take_item(src, 1)
+		qdel(src)
+	else
+		user << "<span class='alert'>You need 10 floor tiles to start building a floorbot.</span>"
+		return
 
 /obj/item/weapon/toolbox_tiles/attackby(var/obj/item/W, mob/user as mob)
 	..()
 	if(isprox(W))
-		del(W)
+		qdel(W)
 		var/obj/item/weapon/toolbox_tiles_sensor/B = new /obj/item/weapon/toolbox_tiles_sensor()
-		B.created_name = src.created_name
+		B.created_name = created_name
 		user.put_in_hands(B)
 		user << "<span class='notice'>You add the sensor to the toolbox and tiles!</span>"
-		user.drop_from_inventory(src)
-		del(src)
+		user.before_take_item(src, 1)
+		qdel(src)
 
 	else if (istype(W, /obj/item/weapon/pen))
-		var/t = copytext(stripped_input(user, "Enter new robot name", src.name, src.created_name),1,MAX_NAME_LEN)
+		var/t = stripped_input(user, "Enter new robot name", name, created_name,MAX_NAME_LEN)
 		if (!t)
 			return
-		if (!in_range(src, usr) && src.loc != usr)
+		if (!in_range(src, usr) && loc != usr)
 			return
 
-		src.created_name = t
+		created_name = t
 
 /obj/item/weapon/toolbox_tiles_sensor/attackby(var/obj/item/W, mob/user as mob)
 	..()
 	if(istype(W, /obj/item/robot_parts/l_arm) || istype(W, /obj/item/robot_parts/r_arm))
-		del(W)
+		qdel(W)
 		var/turf/T = get_turf(user.loc)
 		var/obj/machinery/bot/floorbot/A = new /obj/machinery/bot/floorbot(T)
-		A.name = src.created_name
+		A.name = created_name
 		user << "<span class='notice'>You add the robot arm to the odd looking toolbox assembly! Boop beep!</span>"
-		user.drop_from_inventory(src)
-		del(src)
+		user.before_take_item(src, 1)
+		qdel(src)
 	else if (istype(W, /obj/item/weapon/pen))
-		var/t = stripped_input(user, "Enter new robot name", src.name, src.created_name)
-
+		var/t = stripped_input(user, "Enter new robot name", name, created_name,MAX_NAME_LEN)
 		if (!t)
 			return
-		if (!in_range(src, usr) && src.loc != usr)
+		if (!in_range(src, usr) && loc != usr)
 			return
 
-		src.created_name = t
+		created_name = t

@@ -12,6 +12,8 @@ var/global/list/machines = list()
 var/global/list/processing_objects = list()
 var/global/list/active_diseases = list()
 var/global/list/events = list()
+var/global/list/med_hud_users = list()
+var/global/list/sec_hud_users = list()
 		//items that ask to be called every cycle
 
 var/global/defer_powernet_rebuild = 0		// true if net rebuild will be called manually after an event
@@ -319,3 +321,6 @@ var/recall_time_limit=72000
 
 //added for Xenoarchaeology, might be useful for other stuff
 var/global/list/alphabet_uppercase = list("A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z")
+
+// AI controlled bots
+var/global/list/aibots = list()

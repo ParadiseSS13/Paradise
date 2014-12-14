@@ -2,11 +2,11 @@
 	var/ending = copytext(text, length(text))
 
 	if (ending == "?")
-		return "queries, \"[text]\"";
+		return "[speak_query], \"[text]\"";
 	else if (ending == "!")
-		return "declares, \"[text]\"";
+		return "[speak_exclamation], \"[text]\"";
 
-	return "states, \"[text]\"";
+	return "[speak_statement], \"[text]\"";
 
 /mob/living/silicon/say(var/message)
 	if (!message)
@@ -115,12 +115,12 @@
 	if(isrobot(src))
 		var/mob/living/silicon/S = src
 		if(S.designation)
-			desig = trim_left(S.designation)	
+			desig = trim_left(S.designation)
 		else
 			desig = "Default"
 	else if(isAI(src))
 		desig = "AI"
-	
+
 	message = trim(message)
 
 	if (!message)

@@ -26,15 +26,22 @@
 	new /obj/item/clothing/under/rank/security2(src)
 	new /obj/item/clothing/under/rank/security2(src)
 	new /obj/item/clothing/under/rank/security2(src)
+	new /obj/item/clothing/under/rank/security/corp(src)
+	new /obj/item/clothing/under/rank/security/corp(src)
+	new /obj/item/clothing/under/rank/security/corp(src)
 	new /obj/item/clothing/shoes/jackboots(src)
 	new /obj/item/clothing/shoes/jackboots(src)
 	new /obj/item/clothing/shoes/jackboots(src)
 	new /obj/item/clothing/head/soft/sec(src)
 	new /obj/item/clothing/head/soft/sec(src)
 	new /obj/item/clothing/head/soft/sec(src)
+	new /obj/item/clothing/head/soft/sec/corp(src)
+	new /obj/item/clothing/head/soft/sec/corp(src)
+	new /obj/item/clothing/head/soft/sec/corp(src)
 	new /obj/item/clothing/head/beret/sec(src)
 	new /obj/item/clothing/head/beret/sec(src)
 	new /obj/item/clothing/head/beret/sec(src)
+
 	return
 
 
@@ -129,9 +136,9 @@
 	icon_closed = "orange"
 
 /obj/structure/closet/wardrobe/orange/New()
-	new /obj/item/clothing/under/color/orange(src)
-	new /obj/item/clothing/under/color/orange(src)
-	new /obj/item/clothing/under/color/orange(src)
+	new /obj/item/clothing/under/color/orange/prison(src)
+	new /obj/item/clothing/under/color/orange/prison(src)
+	new /obj/item/clothing/under/color/orange/prison(src)
 	new /obj/item/clothing/shoes/orange(src)
 	new /obj/item/clothing/shoes/orange(src)
 	new /obj/item/clothing/shoes/orange(src)

@@ -109,7 +109,7 @@
 	icon_state = "mecha_taser"
 	energy_drain = 20
 	equip_cooldown = 8
-	projectile = /obj/item/projectile/energy/electrode/revolver
+	projectile = /obj/item/projectile/energy/electrode
 	fire_sound = 'sound/weapons/Taser.ogg'
 	size = 1
 
@@ -254,7 +254,7 @@
 	name = "LBX AC 10 \"Scattershot\""
 	icon_state = "mecha_scatter"
 	equip_cooldown = 20
-	projectile = /obj/item/projectile/bullet/midbullet12
+	projectile = /obj/item/projectile/bullet/midbullet
 	fire_sound = 'sound/weapons/Gunshot.ogg'
 	projectiles = 40
 	projectile_energy_cost = 25
@@ -394,10 +394,15 @@
 		return
 
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/flashbang/clusterbang//Because I am a heartless bastard -Sieve
-	name = "SOP-6 Grenade Launcher"
+	name = "SOB-3 Grenade Launcher"
+	desc = "A weapon for combat exosuits. Launches primed clusterbangs. You monster."
+	projectiles = 3
 	projectile = /obj/item/weapon/grenade/flashbang/clusterbang
-	construction_cost = list("metal"=20000,"gold"=6000,"uranium"=6000)
+	projectile_energy_cost = 1600 //getting off cheap seeing as this is 3 times the flashbangs held in the grenade launcher.
+	equip_cooldown = 90
+	construction_cost = list("metal"=20000,"gold"=10000,"uranium"=10000) //now as expensive as a Honkblast.
 	size=1
+
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/flashbang/clusterbang/limited/get_equip_info()//Limited version of the clusterbang launcher that can't reload
 	return "<span style=\"color:[equip_ready?"#0f0":"#f00"];\">*</span>&nbsp;[chassis.selected==src?"<b>":"<a href='?src=\ref[chassis];select_equip=\ref[src]'>"][src.name][chassis.selected==src?"</b>":"</a>"]\[[src.projectiles]\]"
 

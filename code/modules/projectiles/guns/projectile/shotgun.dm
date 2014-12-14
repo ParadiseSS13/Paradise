@@ -1,6 +1,6 @@
 /obj/item/weapon/gun/projectile/shotgun
 	name = "shotgun"
-	desc = "Useful for sweeping alleys."
+	desc = "A traditional shotgun with wood furniture and a four-shell capacity underneath."
 	icon_state = "shotgun"
 	item_state = "shotgun"
 	w_class = 4.0
@@ -83,6 +83,7 @@
 
 /obj/item/weapon/gun/projectile/shotgun/combat
 	name = "combat shotgun"
+	desc = "A traditional shotgun with tactical furniture and an eight-shell capacity underneath."
 	icon_state = "cshotgun"
 	origin_tech = "combat=5;materials=2"
 	mag_type = "/obj/item/ammo_box/magazine/internal/shotcom"
@@ -152,3 +153,30 @@
 		user << "<span class = 'notice'>You break open \the [src] and unload [num_unloaded] shell\s.</span>"
 	else
 		user << "<span class='notice'>[src] is empty.</span>"
+
+// IMPROVISED SHOTGUN //
+
+/obj/item/weapon/gun/projectile/revolver/doublebarrel/improvised
+	name = "improvised shotgun"
+	desc = "Essentially a tube that aims shotgun shells."
+	icon_state = "ishotgun"
+	item_state = "shotgun"
+	w_class = 4.0
+	force = 10
+	origin_tech = "combat=2;materials=2"
+	mag_type = "/obj/item/ammo_box/magazine/internal/cylinder/improvised"
+	sawn_desc = "I'm just here for the gasoline."
+
+/obj/item/weapon/gun/projectile/revolver/doublebarrel/improvised/attackby(var/obj/item/A as obj, mob/user as mob)
+	..()
+	if(istype(A, /obj/item/stack/cable_coil))
+		var/obj/item/stack/cable_coil/C = A
+		if(C.use(10))
+			flags =  CONDUCT
+			slot_flags = SLOT_BACK
+			icon_state = "ishotgunsling"
+			user << "<span class='notice'>You tie the lengths of cable to the shotgun, making a sling.</span>"
+			update_icon()
+		else
+			user << "<span class='warning'>You need at least ten lengths of cable if you want to make a sling.</span>"
+			return

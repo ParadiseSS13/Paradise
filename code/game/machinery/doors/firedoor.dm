@@ -35,7 +35,10 @@
 			// Should still work.  (/turf/return_air())
 			var/datum/gas_mixture/environment = T.return_air()
 			for(var/i=1;i<=stats.len;i++)
-				rstats[i] = environment.vars[stats[i]]
+				if(stats[i] == "pressure")
+					continue
+				else
+					rstats[i] = environment.vars[stats[i]]
 		temps[direction] = rstats
 	return temps
 
@@ -53,7 +56,7 @@
 	desc = "Emergency air-tight shutter, capable of sealing off breached areas."
 	icon = 'icons/obj/doors/DoorHazard.dmi'
 	icon_state = "door_open"
-	req_one_access = list(access_atmospherics, access_engine_equip)
+	req_one_access = list(access_atmospherics, access_engine)
 	opacity = 0
 	density = 0
 
@@ -129,9 +132,9 @@
 			o += "<span class='warning'>"
 		else
 			o += "<span style='color:blue'>"
-		o += "[celsius]Celsius</span> "
+		o += "[celsius] Celsius</span> "
 		o += "<span style='color:blue'>"
-		o += "[pressure]kPa</span></li>"
+		o += "[pressure] kPa</span></li>"
 		usr << o
 
 	if( islist(users_to_open) && users_to_open.len)

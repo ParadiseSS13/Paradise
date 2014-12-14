@@ -30,7 +30,7 @@ var/list/blob_nodes = list()
 
 /datum/game_mode/blob/pre_setup()
 
-	var/list/possible_blobs = get_players_for_role(BE_ALIEN)
+	var/list/possible_blobs = get_players_for_role(BE_BLOB)
 
 	// stop setup if no possible traitors
 	if(!possible_blobs.len)
@@ -184,6 +184,10 @@ var/list/blob_nodes = list()
 		if (2)
 			command_alert("The biohazard has grown out of control and will soon reach critical mass. Activate the nuclear failsafe to mantain quarantine. The Nuclear Authentication Code is [get_nuke_code()] ", "Biohazard Alert")
 			set_security_level("gamma")
+			var/obj/machinery/door/airlock/vault/V = locate(/obj/machinery/door/airlock/vault) in world
+			if(V && V.z == 1)
+				V.locked = 0
+				V.update_icon()
 			send_intercept(2)
 			spawn(10)	world << sound('sound/effects/siren.ogg')
 			return

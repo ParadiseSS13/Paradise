@@ -78,14 +78,14 @@
 /obj/item/device/radio/headset/headset_sci
 	name = "science radio headset"
 	desc = "A sciency headset. Like usual. To access the science channel, use :n."
-	icon_state = "com_headset"
+	icon_state = "sci_headset"
 	item_state = "headset"
 	keyslot2 = new /obj/item/device/encryptionkey/headset_sci
 
 /obj/item/device/radio/headset/headset_medsci
 	name = "medical research radio headset"
 	desc = "A headset that is a result of the mating between medical and science. To access the medical channel, use :m. For science, use :n."
-	icon_state = "med_headset"
+	icon_state = "medsci_headset"
 	item_state = "headset"
 	keyslot2 = new /obj/item/device/encryptionkey/headset_medsci
 
@@ -133,7 +133,7 @@
 
 /obj/item/device/radio/headset/heads/hop
 	name = "head of personnel's headset"
-	desc = "The headset of the guy who will one day be captain. Channels are as follows: :u - supply, :z - service, :c - command, :s - security"
+	desc = "The headset of the guy who will one day be captain. Channels are as follows: :u - supply, :z - service, :s - security, :c - command."
 	icon_state = "com_headset"
 	item_state = "headset"
 	keyslot2 = new /obj/item/device/encryptionkey/heads/hop
@@ -154,17 +154,45 @@
 */
 /obj/item/device/radio/headset/headset_cargo
 	name = "supply radio headset"
-	desc = "A headset used by the QM and his slaves. To access the supply channel, use :u."
+	desc = "A headset used by the cargo department. To access the supply channel, use :u."
 	icon_state = "cargo_headset"
 	item_state = "headset"
 	keyslot2 = new /obj/item/device/encryptionkey/headset_cargo
-	
+
 /obj/item/device/radio/headset/headset_service
 	name = "service radio headset"
 	desc = "Headset used by the service staff, tasked with keeping the station full, happy and clean. To access the service channel, use :z."
 	icon_state = "srv_headset"
 	item_state = "headset"
 	keyslot2 = new /obj/item/device/encryptionkey/headset_service
+	
+/obj/item/device/radio/headset/heads/ntrep
+	name = "nanotrasen representative's headset"
+	desc = "The headset of the Nanotrasen Representative. Channels are as follows: :c - command, :s - security, :e - engineering, :u - supply, :z - service, :m - medical, :n - science."
+	icon_state = "com_headset"
+	item_state = "headset"
+	keyslot2 = new /obj/item/device/encryptionkey/heads/ntrep
+	
+/obj/item/device/radio/headset/heads/ntrec
+	name = "nanotrasen recruiter's headset"
+	desc = "The headset of the Nanotrasen Recruiter. Channels are as follows: :c - command, :s - security."
+	icon_state = "com_headset"
+	item_state = "headset"
+	keyslot2 = new /obj/item/device/encryptionkey/heads/ntrec
+	
+/obj/item/device/radio/headset/heads/magistrate
+	name = "magistrate's headset"
+	desc = "The headset of the Magistrate. Channels are as follows: :c - command, :s - security."
+	icon_state = "com_headset"
+	item_state = "headset"
+	keyslot2 = new /obj/item/device/encryptionkey/heads/magistrate	
+	
+/obj/item/device/radio/headset/heads/blueshield
+	name = "blueshield's headset"
+	desc = "The headset of the Blueshield. Channels are as follows: :c - command, :s - security."
+	icon_state = "com_headset"
+	item_state = "headset"
+	keyslot2 = new /obj/item/device/encryptionkey/heads/blueshield
 
 /obj/item/device/radio/headset/ert
 	name = "CentCom Response Team headset"

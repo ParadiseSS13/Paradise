@@ -2,71 +2,21 @@
 	return
 
 /datum/hud/proc/alien_hud()
-
-	src.adding = list(  )
-	src.other = list(  )
+	src.adding = list()
+	src.other = list()
 
 	var/obj/screen/using
 	var/obj/screen/inventory/inv_box
-
+	
 	using = new /obj/screen()
 	using.name = "act_intent"
 	using.dir = SOUTHWEST
 	using.icon = 'icons/mob/screen1_alien.dmi'
-	using.icon_state = (mymob.a_intent == "harm" ? "harm" : mymob.a_intent)
+	using.icon_state = (mymob.a_intent == "hurt" ? "harm" : mymob.a_intent)
 	using.screen_loc = ui_acti
 	using.layer = 20
 	src.adding += using
-	action_intent = using
-
-//intent small hud objects
-	var/icon/ico
-
-	ico = new('icons/mob/screen1_alien.dmi', "black")
-	ico.MapColors(0,0,0,0, 0,0,0,0, 0,0,0,0, 0,0,0,0, -1,-1,-1,-1)
-	ico.DrawBox(rgb(255,255,255,1),1,ico.Height()/2,ico.Width()/2,ico.Height())
-	using = new /obj/screen( src )
-	using.name = "help"
-	using.icon = ico
-	using.screen_loc = ui_acti
-	using.layer = 21
-	src.adding += using
-	help_intent = using
-
-	ico = new('icons/mob/screen1_alien.dmi', "black")
-	ico.MapColors(0,0,0,0, 0,0,0,0, 0,0,0,0, 0,0,0,0, -1,-1,-1,-1)
-	ico.DrawBox(rgb(255,255,255,1),ico.Width()/2,ico.Height()/2,ico.Width(),ico.Height())
-	using = new /obj/screen( src )
-	using.name = "disarm"
-	using.icon = ico
-	using.screen_loc = ui_acti
-	using.layer = 21
-	src.adding += using
-	disarm_intent = using
-
-	ico = new('icons/mob/screen1_alien.dmi', "black")
-	ico.MapColors(0,0,0,0, 0,0,0,0, 0,0,0,0, 0,0,0,0, -1,-1,-1,-1)
-	ico.DrawBox(rgb(255,255,255,1),ico.Width()/2,1,ico.Width(),ico.Height()/2)
-	using = new /obj/screen( src )
-	using.name = "grab"
-	using.icon = ico
-	using.screen_loc = ui_acti
-	using.layer = 21
-	src.adding += using
-	grab_intent = using
-
-	ico = new('icons/mob/screen1_alien.dmi', "black")
-	ico.MapColors(0,0,0,0, 0,0,0,0, 0,0,0,0, 0,0,0,0, -1,-1,-1,-1)
-	ico.DrawBox(rgb(255,255,255,1),1,1,ico.Width()/2,ico.Height()/2)
-	using = new /obj/screen( src )
-	using.name = "harm"
-	using.icon = ico
-	using.screen_loc = ui_acti
-	using.layer = 21
-	src.adding += using
-	hurt_intent = using
-
-//end intent small hud objects
+	action_intent = using	
 
 	using = new /obj/screen()
 	using.name = "mov_intent"
@@ -76,35 +26,24 @@
 	using.screen_loc = ui_movi
 	using.layer = 20
 	src.adding += using
-	move_intent = using
-
-	using = new /obj/screen()
-	using.name = "drop"
-	using.icon = 'icons/mob/screen1_alien.dmi'
-	using.icon_state = "act_drop"
-	using.screen_loc = ui_drop_throw
-	using.layer = 19
-	src.adding += using
-
+	move_intent = using	
+	
+	if(istype(mymob, /mob/living/carbon/alien/humanoid/hunter))
+		mymob.leap_icon = new /obj/screen()
+		mymob.leap_icon.icon = 'icons/mob/screen1_alien.dmi'
+		mymob.leap_icon.name = "toggle leap"
+		mymob.leap_icon.icon_state = "leap_off"
+		mymob.leap_icon.screen_loc = ui_alien_storage_r
+		src.adding += mymob.leap_icon
+		
 //equippable shit
-	//suit
-	inv_box = new /obj/screen/inventory()
-	inv_box.name = "o_clothing"
-	inv_box.dir = SOUTH
-	inv_box.icon = 'icons/mob/screen1_alien.dmi'
-	inv_box.icon_state = "equip"
-	inv_box.screen_loc = ui_alien_oclothing
-	inv_box.slot_id = slot_wear_suit
-	inv_box.layer = 19
-	src.adding += inv_box
-
 	inv_box = new /obj/screen/inventory()
 	inv_box.name = "r_hand"
 	inv_box.dir = WEST
 	inv_box.icon = 'icons/mob/screen1_alien.dmi'
 	inv_box.icon_state = "hand_inactive"
 	if(mymob && !mymob.hand)	//This being 0 or null means the right hand is in use
-		using.icon_state = "hand_active"
+		inv_box.icon_state = "hand_active"
 	inv_box.screen_loc = ui_rhand
 	inv_box.layer = 19
 	src.r_hand_hud_object = inv_box
@@ -142,46 +81,23 @@
 	using.layer = 19
 	src.adding += using
 
-	//pocket 1
-	inv_box = new /obj/screen/inventory()
-	inv_box.name = "storage1"
-	inv_box.icon = 'icons/mob/screen1_alien.dmi'
-	inv_box.icon_state = "pocket"
-	inv_box.screen_loc = ui_storage1
-	inv_box.slot_id = slot_l_store
-	inv_box.layer = 19
-	src.adding += inv_box
-
-	//pocket 2
-	inv_box = new /obj/screen/inventory()
-	inv_box.name = "storage2"
-	inv_box.icon = 'icons/mob/screen1_alien.dmi'
-	inv_box.icon_state = "pocket"
-	inv_box.screen_loc = ui_storage2
-	inv_box.slot_id = slot_r_store
-	inv_box.layer = 19
-	src.adding += inv_box
-
-	//head
-	inv_box = new /obj/screen/inventory()
-	inv_box.name = "head"
-	inv_box.icon = 'icons/mob/screen1_alien.dmi'
-	inv_box.icon_state = "hair"
-	inv_box.screen_loc = ui_alien_head
-	inv_box.slot_id = slot_head
-	inv_box.layer = 19
-	src.adding += inv_box
 //end of equippable shit
 
-/*
 	using = new /obj/screen()
 	using.name = "resist"
 	using.icon = 'icons/mob/screen1_alien.dmi'
 	using.icon_state = "act_resist"
-	using.screen_loc = ui_resist
+	using.screen_loc = ui_pull_resist
 	using.layer = 19
 	src.adding += using
-*/
+	
+	using = new /obj/screen()
+	using.name = "drop"
+	using.icon = 'icons/mob/screen1_alien.dmi'
+	using.icon_state = "act_drop"
+	using.screen_loc = ui_drop_throw
+	using.layer = 19
+	src.adding += using
 
 	mymob.throw_icon = new /obj/screen()
 	mymob.throw_icon.icon = 'icons/mob/screen1_alien.dmi'
@@ -213,6 +129,12 @@
 	mymob.healths.name = "health"
 	mymob.healths.screen_loc = ui_alien_health
 
+	nightvisionicon = new /obj/screen()
+	nightvisionicon.icon = 'icons/mob/screen1_alien.dmi'
+	nightvisionicon.icon_state = "nightvision1"
+	nightvisionicon.name = "night vision"
+	nightvisionicon.screen_loc = ui_alien_nightvision	
+	
 	mymob.pullin = new /obj/screen()
 	mymob.pullin.icon = 'icons/mob/screen1_alien.dmi'
 	mymob.pullin.icon_state = "pull0"
@@ -246,5 +168,5 @@
 
 	mymob.client.screen = null
 
-	mymob.client.screen += list( mymob.throw_icon, mymob.zone_sel, mymob.oxygen, mymob.toxin, mymob.fire, mymob.healths, mymob.pullin, alien_plasma_display, mymob.blind, mymob.flash) //, mymob.hands, mymob.rest, mymob.sleep, mymob.mach )
+	mymob.client.screen += list( mymob.throw_icon, mymob.zone_sel, mymob.oxygen, mymob.toxin, mymob.fire, mymob.healths, nightvisionicon, mymob.pullin, alien_plasma_display, mymob.pullin, mymob.blind, mymob.flash) //, mymob.hands, mymob.rest, mymob.sleep, mymob.mach )
 	mymob.client.screen += src.adding + src.other

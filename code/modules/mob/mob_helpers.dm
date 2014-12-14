@@ -31,12 +31,12 @@
 	return 0
 
 proc/isfacehugger(A)
-	if(istype(A, /mob/living/carbon/alien/facehugger))
+	if(istype(A, /obj/item/clothing/mask/facehugger))
 		return 1
 	return 0
 
 proc/isembryo(A)
-	if(istype(A, /mob/living/carbon/alien/embryo))
+	if(istype(A, /obj/item/alien_embryo))
 		return 1
 	return 0
 

@@ -129,6 +129,22 @@ var/global/list/obj/item/device/pda/PDAs = list()
 	icon_state = "pda-captain"
 	detonate = 0
 	//toff = 1
+	
+/obj/item/device/pda/heads/ntrep
+	default_cartridge = /obj/item/weapon/cartridge/supervisor
+	icon_state = "pda-h"
+	
+/obj/item/device/pda/heads/ntrec
+	default_cartridge = /obj/item/weapon/cartridge/supervisor
+	icon_state = "pda-h"
+	
+/obj/item/device/pda/heads/magistrate
+	default_cartridge = /obj/item/weapon/cartridge/supervisor
+	icon_state = "pda-h"
+	
+/obj/item/device/pda/heads/blueshield
+	default_cartridge = /obj/item/weapon/cartridge/hos
+	icon_state = "pda-h"
 
 /obj/item/device/pda/cargo
 	default_cartridge = /obj/item/weapon/cartridge/quartermaster
@@ -162,7 +178,7 @@ var/global/list/obj/item/device/pda/PDAs = list()
 	icon_state = "pda-hydro"
 
 /obj/item/device/pda/roboticist
-	icon_state = "pda-robot"
+	icon_state = "pda-roboticist"
 
 /obj/item/device/pda/librarian
 	icon_state = "pda-library"
@@ -768,14 +784,18 @@ var/global/list/obj/item/device/pda/PDAs = list()
 
 //pAI FUNCTIONS===================================
 		if("pai")
-			switch(href_list["option"])
-				if("1")		// Configure pAI device
-					pai.attack_self(U)
-				if("2")		// Eject pAI device
-					var/turf/T = get_turf_or_move(src.loc)
-					if(T)
-						pai.loc = T
-						pai = null
+			if(pai)
+				if(pai.loc != src)
+					pai = null
+				else
+					switch(href_list["option"])
+						if("1")		// Configure pAI device
+							pai.attack_self(U)
+						if("2")		// Eject pAI device
+							var/turf/T = get_turf_or_move(src.loc)
+							if(T)
+								pai.loc = T
+								pai = null
 
 		else
 			mode = text2num(href_list["choice"])

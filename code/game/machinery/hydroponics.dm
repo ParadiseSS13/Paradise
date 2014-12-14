@@ -735,20 +735,6 @@
 			else
 				user << "There's nothing in [src] to spray!"
 
-	else if(istype(O, /obj/item/weapon/wrench) && unwrenchable)
-		if(anchored == 2)
-			user << "Unscrew the hoses first!"
-			return
-
-		if(!anchored && !isinspace())
-			playsound(loc, 'sound/items/Ratchet.ogg', 50, 1)
-			anchored = 1
-			user << "You wrench [src] in place."
-		else if(anchored)
-			playsound(loc, 'sound/items/Ratchet.ogg', 50, 1)
-			anchored = 0
-			user << "You unwrench [src]."
-
 	else if(istype(O, /obj/item/weapon/screwdriver) && unwrenchable) //THIS NEED TO BE DONE DIFFERENTLY, SOMEONE REFACTOR THE TRAY CODE ALREADY
 		if(anchored)
 			if(anchored == 2)

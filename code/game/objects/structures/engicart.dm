@@ -25,62 +25,65 @@
 	return
 /obj/structure/engineeringcart/attackby(obj/item/I, mob/user)
 	var/fail_msg = "<span class='notice'>There is already one of those in [src].</span>"
-	if(istype(I, /obj/item/stack/sheet/glass))
-		if(!myglass)
-			put_in_cart(I, user)
-			myglass=I
-			update_icon()
-		else
-			user << fail_msg
-	else if(istype(I, /obj/item/stack/sheet/metal))
-		if(!mymetal)
-			put_in_cart(I, user)
-			mymetal=I
-			update_icon()
-		else
-			user << fail_msg
-	else if(istype(I, /obj/item/stack/sheet/plasteel))
-		if(!myplasteel)
-			put_in_cart(I, user)
-			myplasteel=I
-			update_icon()
-		else
-			user << fail_msg
-	else if(istype(I, /obj/item/device/flashlight))
-		if(!myflashlight)
-			put_in_cart(I, user)
-			myflashlight=I
-			update_icon()
-		else
-			user << fail_msg
-	else if(istype(I, /obj/item/weapon/storage/toolbox/mechanical))
-		if(!mybluetoolbox)
-			put_in_cart(I, user)
-			mybluetoolbox=I
-			update_icon()
-		else
-			user << fail_msg
-	else if(istype(I, /obj/item/weapon/storage/toolbox/electrical))
-		if(!myyellowtoolbox)
-			put_in_cart(I, user)
-			myyellowtoolbox=I
-			update_icon()
-		else
-			user << fail_msg
-	else if(istype(I, /obj/item/weapon/storage/toolbox))
-		if(!myredtoolbox)
-			put_in_cart(I, user)
-			myredtoolbox=I
-			update_icon()
-		else
-			user << fail_msg
-	else if(istype(I, /obj/item/taperoll/engineering/))
-		if(!myengitape)
-			put_in_cart(I, user)
-			myengitape=I
-			update_icon()
-		else
-			user << fail_msg
+	if(!I.is_robot_module())
+		if(istype(I, /obj/item/stack/sheet/glass))
+			if(!myglass)
+				put_in_cart(I, user)
+				myglass=I
+				update_icon()
+			else
+				user << fail_msg
+		else if(istype(I, /obj/item/stack/sheet/metal))
+			if(!mymetal)
+				put_in_cart(I, user)
+				mymetal=I
+				update_icon()
+			else
+				user << fail_msg
+		else if(istype(I, /obj/item/stack/sheet/plasteel))
+			if(!myplasteel)
+				put_in_cart(I, user)
+				myplasteel=I
+				update_icon()
+			else
+				user << fail_msg
+		else if(istype(I, /obj/item/device/flashlight))
+			if(!myflashlight)
+				put_in_cart(I, user)
+				myflashlight=I
+				update_icon()
+			else
+				user << fail_msg
+		else if(istype(I, /obj/item/weapon/storage/toolbox/mechanical))
+			if(!mybluetoolbox)
+				put_in_cart(I, user)
+				mybluetoolbox=I
+				update_icon()
+			else
+				user << fail_msg
+		else if(istype(I, /obj/item/weapon/storage/toolbox/electrical))
+			if(!myyellowtoolbox)
+				put_in_cart(I, user)
+				myyellowtoolbox=I
+				update_icon()
+			else
+				user << fail_msg
+		else if(istype(I, /obj/item/weapon/storage/toolbox))
+			if(!myredtoolbox)
+				put_in_cart(I, user)
+				myredtoolbox=I
+				update_icon()
+			else
+				user << fail_msg
+		else if(istype(I, /obj/item/taperoll/engineering/))
+			if(!myengitape)
+				put_in_cart(I, user)
+				myengitape=I
+				update_icon()
+			else
+				user << fail_msg
+	else
+		usr << "<span class='warning'>You cannot interface your modules [src]!</span>"
 
 /obj/structure/engineeringcart/attack_hand(mob/user)
 	user.set_machine(src)
