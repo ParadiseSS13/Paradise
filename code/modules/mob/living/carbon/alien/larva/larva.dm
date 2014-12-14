@@ -4,8 +4,8 @@
 	icon_state = "larva0"
 	pass_flags = PASSTABLE
 
-	maxHealth = 25
-	health = 25
+	maxHealth = 30
+	health = 30
 	storedPlasma = 50
 	max_plasma = 50
 	density = 0
