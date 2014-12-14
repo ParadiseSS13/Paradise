@@ -122,6 +122,7 @@
 		new /obj/item/weapon/cartridge/engineering(src)
 		new /obj/item/taperoll/engineering(src)
 		return
+		
 /obj/structure/closet/secure_closet/atmos_personal
 	name = "Technician's Locker"
 	req_access = list(access_atmospherics)
@@ -154,4 +155,5 @@
 		new /obj/item/clothing/glasses/meson(src)
 		new /obj/item/weapon/cartridge/atmos(src)
 		new /obj/item/taperoll/engineering(src)
+		new /obj/item/weapon/storage/toolbox/mechanical(src)
 		return
