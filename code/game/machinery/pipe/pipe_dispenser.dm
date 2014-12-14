@@ -36,6 +36,7 @@
 <A href='?src=\ref[src];make=[PIPE_GAS_MIXER];dir=1'>Gas Mixer</A><BR>
 <A href='?src=\ref[src];make=[PIPE_INJECTOR];dir=1'>Air Injector</A><BR>
 <A href='?src=\ref[src];make=[PIPE_DP_VENT];dir=1'>Dual-Port Vent Pump</A><BR>
+<A href='?src=\ref[src];make=[PIPE_PASV_VENT];dir=1'>Passive Vent</A><BR>
 <b>Heat exchange:</b><BR>
 <A href='?src=\ref[src];make=[PIPE_HE_STRAIGHT];dir=1'>Pipe</A><BR>
 <A href='?src=\ref[src];make=[PIPE_HE_BENT];dir=5'>Bent Pipe</A><BR>

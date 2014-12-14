@@ -111,7 +111,7 @@
 
 
 
-/obj/machinery/meter/Click()
+/obj/machinery/meter/attack_hand(var/mob/user) // somebody tell me WHO THE FUCK MADE THIS CLICK(), DON'T YOU REALISE YOU STILL NEED ..() FOR ATTACKBY?
 
 	if(stat & (NOPOWER|BROKEN))
 		return 1

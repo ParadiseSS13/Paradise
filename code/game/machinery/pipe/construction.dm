@@ -130,7 +130,7 @@ var/global/list/pipeID2State = list(
 	"cap", \
 	"injector", \
 	"dvalve", \
-	"binary vent", \
+	"dual-port vent", \
 	"passive vent", \
 )
 
@@ -226,7 +226,7 @@ var/global/list/pipeID2State = list(
 			return dir|flip
 		if(PIPE_SIMPLE_BENT, PIPE_INSULATED_BENT, PIPE_HE_BENT)
 			return dir //dir|acw
-		if(PIPE_CONNECTOR,PIPE_UVENT,PIPE_SCRUBBER,PIPE_HEAT_EXCHANGE, PIPE_INJECTOR)
+		if(PIPE_CONNECTOR,PIPE_UVENT,PIPE_PASV_VENT,PIPE_SCRUBBER,PIPE_HEAT_EXCHANGE, PIPE_INJECTOR)
 			return dir
 		if(PIPE_MANIFOLD4W)
 			return dir|flip|cw|acw
@@ -663,6 +663,20 @@ var/global/list/pipeID2State = list(
 			if (P.node2)
 				P.node2.initialize()
 				P.node2.build_network()
+		if(PIPE_PASV_VENT)
+			var/obj/machinery/atmospherics/pipe/vent/P = new(src.loc)
+			P.dir = dir
+			P.initialize_directions = get_pipe_dir()
+			if (pipename)
+				name = pipename
+			var/turf/T = loc
+			level = T.intact ? 2 : 1
+			initialize()
+			P.build_network()
+			if (P.node1)
+				P.node1.initialize()
+				P.node1.build_network()
+
 	playsound(src.loc, 'sound/items/Ratchet.ogg', 50, 1)
 	user.visible_message( \
 		"[user] fastens the [src].", \
