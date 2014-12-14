@@ -12,6 +12,7 @@
 	use_power = 1
 	idle_power_usage = 2
 	active_power_usage = 5
+	req_one_access_txt = "24;10"
 
 /obj/machinery/meter/New()
 	..()
@@ -127,6 +128,8 @@
 	return 1
 
 /obj/machinery/meter/multitool_menu(var/mob/user, var/obj/item/device/multitool/P)
+	if(!allowed(user))
+		return "<b>ACCESS DENIED</b>"
 	return {"
 	<b>Main</b>
 	<ul>

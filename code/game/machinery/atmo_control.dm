@@ -2,6 +2,7 @@ obj/machinery/air_sensor
 	icon = 'icons/obj/stationobjs.dmi'
 	icon_state = "gsensor1"
 	name = "Gas Sensor"
+	req_one_access_txt = "24;10"
 
 	anchored = 1
 	var/state = 0
@@ -26,6 +27,8 @@ obj/machinery/air_sensor
 		icon_state = "gsensor[on]"
 
 	multitool_menu(var/mob/user, var/obj/item/device/multitool/P)
+		if(!allowed(user))
+			return "<b>ACCESS DENIED</b>"
 		return {"
 		<b>Main</b>
 		<ul>
@@ -93,6 +96,7 @@ obj/machinery/air_sensor
 	icon = 'icons/obj/computer.dmi'
 	icon_state = "tank"
 	circuit = "/obj/item/weapon/circuitboard/air_management"
+	req_one_access_txt = "24;10"
 
 	name = "Computer"
 
@@ -223,10 +227,12 @@ legend {
 		set_frequency(frequency)
 
 	multitool_menu(var/mob/user, var/obj/item/device/multitool/P)
+		if(!allowed(user))
+			return "<b>ACCESS DENIED</b>"
 		var/dat= {"
 		<b>Main</b>
 		<ul>
-			<li><b>Frequency:</b> <a href="?src=\ref[src];set_freq=-1">[format_frequency(frequency)] GHz</a> (<a href="?src=\ref[src];set_freq=[initial(frequency)]">Reset</a>)</li>
+		<li><b>Frequency:</b> <a href="?src=\ref[src];set_freq=-1">[format_frequency(frequency)] GHz</a> (<a href="?src=\ref[src];set_freq=[initial(frequency)]">Reset</a>)</li>
 		</ul>
 		<b>Sensors:</b>
 		<ul>"}
@@ -302,6 +308,7 @@ legend {
 		icon = 'icons/obj/computer.dmi'
 		icon_state = "tank"
 		circuit = "/obj/item/weapon/circuitboard/large_tank_control"
+		req_one_access_txt = "24;10"
 
 		var/input_tag
 		var/output_tag

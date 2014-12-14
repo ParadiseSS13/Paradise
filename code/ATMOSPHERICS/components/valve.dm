@@ -17,6 +17,8 @@ obj/machinery/atmospherics/valve
 	var/datum/pipe_network/network_node1
 	var/datum/pipe_network/network_node2
 
+	req_one_access_txt = "24;10"
+
 	open
 		open = 1
 		icon_state = "valve1"
@@ -294,6 +296,8 @@ obj/machinery/atmospherics/valve
 				set_frequency(frequency)
 
 		multitool_menu(var/mob/user,var/obj/item/device/multitool/P)
+			if(!allowed(user))
+				return "<b>ACCESS DENIED</b>"
 			return {"
 			<ul>
 				<li><b>Frequency:</b> <a href="?src=\ref[src];set_freq=-1">[format_frequency(frequency)] GHz</a> (<a href="?src=\ref[src];set_freq=[1439]">Reset</a>)</li>
