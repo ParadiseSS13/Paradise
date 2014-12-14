@@ -25,4 +25,5 @@
 	if(mind)	del(mind)
 	living_mob_list -= src
 	ghostize()
-	del(src)
+	if(icon_state != "[chassis]_dead")
+		del(src)

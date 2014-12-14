@@ -225,8 +225,16 @@
 
 /obj/item/device/paicard/Topic(href, href_list)
 
-	if(!usr || usr.stat || src.loc != usr.loc || pai.canmove || pai.resting)
+	var/mob/U = usr
+
+	if(!usr || usr.stat)
 		return
+
+	if(pai)
+		if(!in_range(src, U) || pai.canmove || pai.resting)
+			U << browse(null, "window=paicard")
+			usr.unset_machine()
+			return
 
 	if(href_list["setdna"])
 		if(pai.master_dna)
