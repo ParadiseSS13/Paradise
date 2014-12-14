@@ -46,10 +46,10 @@ emp_act
 			(SP.desc) = "[SP.desc] It looks like it was fired from [P.shot_from]."
 			(SP.loc) = organ
 			organ.embed(SP)
-			
-	var/mob/living/carbon/human/M = src	
+
+	var/mob/living/carbon/human/M = src
 	var/datum/organ/external/affected = M.get_organ(def_zone)
-	affected.add_autopsy_data(P.name, P.damage) // Add the bullet's name to the autopsy data	
+	affected.add_autopsy_data(P.name, P.damage) // Add the bullet's name to the autopsy data
 
 	return (..(P , def_zone))
 
@@ -81,8 +81,8 @@ emp_act
 
 	if(used_weapon)
 		var/obj/item/W = used_weapon
-		affected.add_autopsy_data(W.name, agony_amount) // Add the weapon's name to the autopsy data						
-					
+		affected.add_autopsy_data(W.name, agony_amount) // Add the weapon's name to the autopsy data
+
 	..(stun_amount, agony_amount, def_zone, used_weapon)
 
 /mob/living/carbon/human/getarmor(var/def_zone, var/type)
@@ -329,7 +329,7 @@ emp_act
 			if(affecting.brute_dam >= affecting.max_damage * config.organ_health_multiplier)
 				affecting.dismember_limb()
 
-	//Melee weapon embedded object code.
+/*	//Melee weapon embedded object code. Commented out, as most people on the forums seem to find this annoying and think it does not contribute to general gameplay. - Dave
 	if (I.damtype == BRUTE && !I.is_robot_module())
 		var/damage = I.force
 		if (armor)
@@ -342,7 +342,7 @@ emp_act
 		//Sharp objects will always embed if they do enough damage.
 		if(((weapon_sharp && damage > (10*I.w_class)) || (damage > embed_threshold && prob(embed_chance))) && (I.no_embed == 0) )
 			affecting.embed(I)
-	return 1
+	return 1*/
 
 //this proc handles being hit by a thrown atom
 /mob/living/carbon/human/hitby(atom/movable/AM as mob|obj,var/speed = 5)
