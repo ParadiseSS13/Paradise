@@ -136,7 +136,7 @@
 				var/mob/living/carbon/M = target
 				M.silent = max(M.silent, 10)
 
-/*
+
 
 
 /obj/item/projectile/bullet/dart
@@ -161,7 +161,7 @@
 		flags &= ~NOREACT
 		reagents.handle_reactions()
 		return 1
-*/
+
 /obj/item/projectile/bullet/dart/metalfoam
 	New()
 		..()

@@ -109,12 +109,12 @@
 	desc = "A high-tech shotgun shell which can be loaded with materials to produce unique effects."
 	icon_state = "cshell"
 	projectile_type = null
-/*
+
 /obj/item/ammo_casing/shotgun/dart
 	name = "shotgun dart"
 	desc = "A dart for use in shotguns. Can be injected with up to 30 units of any chemical."
 	icon_state = "cshell"
-	projectile_type = /obj/item/projectile/bullet/dart
+	projectile_type = "/obj/item/projectile/bullet/dart"
 
 /obj/item/ammo_casing/shotgun/dart/New()
 	..()
@@ -124,7 +124,6 @@
 
 /obj/item/ammo_casing/shotgun/dart/attackby()
 	return
-*/
 
 /obj/item/ammo_casing/shotgun/fakebeanbag
 	name = "beanbag shell"
