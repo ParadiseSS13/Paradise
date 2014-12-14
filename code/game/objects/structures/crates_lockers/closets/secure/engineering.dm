@@ -147,13 +147,17 @@
 			new /obj/item/clothing/tie/storage/webbing(src)
 		new /obj/item/clothing/suit/fire/firefighter(src)
 		new /obj/item/clothing/head/hardhat/red(src)
+		new /obj/item/clothing/gloves/black(src)
+		new /obj/item/weapon/storage/belt/utility(src)
 		new /obj/item/device/flashlight(src)
 		new /obj/item/weapon/extinguisher(src)
 		new /obj/item/device/radio/headset/headset_eng(src)
 		new /obj/item/clothing/suit/storage/hazardvest(src)
+		new /obj/item/weapon/storage/belt/utility(src)
 		new /obj/item/clothing/mask/gas(src)
 		new /obj/item/clothing/glasses/meson(src)
 		new /obj/item/weapon/cartridge/atmos(src)
 		new /obj/item/taperoll/engineering(src)
 		new /obj/item/weapon/storage/toolbox/mechanical(src)
+		
 		return
