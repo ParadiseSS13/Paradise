@@ -3,6 +3,7 @@
 	desc = "Used to teleport objects to and from the telescience telepad."
 	icon_state = "teleport"
 	circuit = /obj/item/weapon/circuitboard/telesci_console
+	req_access = list(access_research)
 	var/sending = 1
 	var/obj/machinery/telepad/telepad = null
 	var/temp_msg = "Telescience control console initialized.<BR>Welcome."

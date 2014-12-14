@@ -633,14 +633,17 @@ var/list/ghostteleportlocs = list()
 /area/xenos_station/transit
 	name = "\improper Hyperspace"
 	icon_state = "shuttle"
+	requires_power = 0
 
 /area/xenos_station/southwest
 	name = "\improper Aft Port Solars"
 	icon_state = "southwest"
+	requires_power = 0
 
 /area/xenos_station/northwest
 	name = "\improper Fore Port Solars"
 	icon_state = "northwest"
+	requires_power = 0
 
 /area/xenos_station/northeast
 	name = "\improper Fore Starboard Solars"
@@ -650,15 +653,18 @@ var/list/ghostteleportlocs = list()
 /area/xenos_station/southeast
 	name = "\improper Aft Starboard Solars"
 	icon_state = "southeast"
-
+	requires_power = 0
+	
 /area/xenos_station/north
 	name = "\improper West Landing Area"
 	icon_state = "north"
-
+	requires_power = 0
+	
 /area/xenos_station/south
 	name = "\improper East Landing Area"
 	icon_state = "south"
-
+	requires_power = 0
+	
 //PRISON
 /area/prison
 	name = "\improper Prison Station"

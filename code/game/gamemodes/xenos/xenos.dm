@@ -217,7 +217,7 @@
 /datum/game_mode/xenos/declare_completion()
 	if(result == 1)
 		feedback_set_details("round_end_result","win - xenos killed")
-		world << "<FONT size = 3><B>Crew Major Victory</B></FONT>"
+		world << "<FONT size = 3><B>Crew Victory</B></FONT>"
 		world << "<B>The aliens did not succeed and were exterminated by the crew!</B>"				
 	else if(result == 2)
 		feedback_set_details("round_end_result","win - crew killed")

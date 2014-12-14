@@ -196,6 +196,17 @@
 	access_reagent_scanner = 1
 	access_status_display = 1
 	access_atmos = 1
+	
+/obj/item/weapon/cartridge/captain/New()
+	..()
+	spawn(5)
+		radio = new /obj/item/radio/integrated/beepsky(src)
+		
+/obj/item/weapon/cartridge/supervisor
+	name = "Easy-Record DELUXE"
+	icon_state = "cart-h"
+	access_status_display = 1
+	access_security = 1
 
 /obj/item/weapon/cartridge/syndicate
 	name = "Detomatix Cartridge"
