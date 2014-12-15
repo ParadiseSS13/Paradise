@@ -417,7 +417,7 @@
 		B1.reagents.add_reagent("fuel",20)
 		B2.reagents.add_reagent("plasma", 15)
 		B2.reagents.add_reagent("sacid", 15)
-		B1.reagents.add_reagent("fuel",20)
+		B1.reagents.add_reagent("incendiaryfuel",20)
 
 		beakers += B1
 		beakers += B2
