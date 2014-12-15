@@ -61,7 +61,7 @@
 	if(O.force)
 		if(prob(80))
 			var/damage = O.force
-			if (O.damtype == HALLOSS)
+			if (O.damtype == STAMINA)
 				damage = 0
 			health -= damage
 			visible_message("\red \b [src] has been attacked with the [O] by [user]. ")
@@ -107,9 +107,9 @@
 	minimum_distance = 5
 	icon_state = "syndicateranged"
 	icon_living = "syndicateranged"
-	casingtype = /obj/item/ammo_casing/a12mm
+	casingtype = /obj/item/ammo_casing/c45
 	projectilesound = 'sound/weapons/Gunshot_smg.ogg'
-	projectiletype = /obj/item/projectile/bullet/midbullet12
+	projectiletype = /obj/item/projectile/bullet/midbullet2
 
 	weapon1 = /obj/item/weapon/gun/projectile/automatic/c20r
 

@@ -10,18 +10,21 @@
 	required_players_secret = 20
 	required_enemies = 5
 	recommended_enemies = 8
+	var/result = 0
+	var/checkwin_counter = 0
+	var/xenos_list = list()
 
 	var/const/waittime_l = 600 //lower bound on time before intercept arrives (in tenths of seconds)
 	var/const/waittime_h = 1800 //upper bound on time before intercept arrives (in tenths of seconds)
-
-	var/list/raid_objectives = list()     //Raid objectives.
+	
+	var/xenoai = 0 //Should the Xenos have their own AI?
+	var/xenoborg = 0 //Should the Xenos have their own borg?
 
 /datum/game_mode/xenos/announce()
 	world << "<B>The current game mode is - Xenos!</B>"
-	world << "<B>There is a \red Xenos Attack\black on the station. You can't let them take over!</B>"
+	world << "<B>There is an Xenomorph attack on the station.<BR>Aliens - Kill or infect the crew. Protect the Queen. <BR>Crew - Protect the station. Exterminate all aliens.</B>"
 
 /datum/game_mode/xenos/can_start()
-
 	if(!..())
 		return 0
 
@@ -31,7 +34,6 @@
 	for(var/mob/new_player/player in player_list)
 		if((player.client)&&(player.ready))
 			playersready += 1
-
 
 	//Check that we have enough alien candidates
 	if(candidates.len < required_enemies)
@@ -67,15 +69,15 @@
 			continue
 
 	var/xenoai_selected = 0
-	var/xenoborg_selected=0
-	var/xenoqueen_selected=0
+	var/xenoborg_selected = 0
+	var/xenoqueen_selected = 0
 	var/spawnpos = 1
 
 	for(var/datum/mind/xeno_mind in xenos)
 		if(spawnpos > xenos_spawn.len)
 			spawnpos = 1
-//XenoAI selection
-		if(!xenoai_selected)
+		//XenoAI selection
+		if(xenoai && !xenoai_selected)
 			var/mob/living/silicon/ai/O = new(xenos_spawn[spawnpos],,,1)//No MMI but safety is in effect.
 			O.invisibility = 0
 			O.aiRestorePowerRoutine = 0
@@ -85,7 +87,7 @@
 				O.mind.original = O
 			else
 				O.key = xeno_mind.current.key
-			del(xeno_mind)
+			//del(xeno_mind)
 			var/obj/loc_landmark
 			for(var/obj/effect/landmark/start/sloc in landmarks_list)
 				if (sloc.name == "XenoAI")
@@ -106,31 +108,30 @@
 			xenoai_selected = 1
 			spawnpos++
 			continue
-//XenoQueen Selection
+		//XenoQueen Selection
 		if(!xenoqueen_selected)
-			var/mob/living/carbon/alien/humanoid/queen/large/O = new(xenos_spawn[spawnpos])
+			var/mob/living/carbon/alien/humanoid/queen/O = new(xenos_spawn[spawnpos])
 			if(xeno_mind.current)
 				xeno_mind.transfer_to(O)
 			else
 				O.key = xeno_mind.current.key
-			del(xeno_mind)
+			//del(xeno_mind)
 			xenoqueen_selected = 1
 			spawnpos++
 			continue
-//XenoBorg Selection
-		if(!xenoborg_selected)
+		//XenoBorg Selection
+		if(xenoborg && !xenoborg_selected)
 			var/mob/living/silicon/robot/O = new(xenos_spawn[spawnpos],0,0,1)
 			O.mmi = new /obj/item/device/mmi(O)
 			O.mmi.alien = 1
 			O.mmi.transfer_identity(xeno_mind.current)//Does not transfer key/client.
 			O.cell = new(O)
-			O.cell.maxcharge = 15000
-			O.cell.charge = 15000
+			O.cell.maxcharge = 25000
+			O.cell.charge = 25000
 			O.gender = xeno_mind.current.gender
 			O.invisibility = 0
-
 			O.key = xeno_mind.current.key
-			del(xeno_mind)
+			//del(xeno_mind)
 			O.job = "Alien Cyborg"
 			O.name = "Alien Cyborg"
 			O.real_name = name
@@ -142,24 +143,106 @@
 			O.connected_ai = select_active_alien_ai()
 			O.laws = new /datum/ai_laws/alienmov()
 			O.scrambledcodes = 1
+			O.hiddenborg = 1
 			O.alien_talk_understand = 1
 			feedback_inc("xeborg_hunter",1)
-
-
 			xenoborg_selected = 1
 			spawnpos++
 			continue
-//Additional larvas if playercount > 20
+		//Additional larvas if playercount > 20
 		else
 			var/mob/living/carbon/alien/larva/O = new(xenos_spawn[spawnpos])
 			if(xeno_mind.current)
 				xeno_mind.transfer_to(O)
 			else
 				O.key = xeno_mind.current.key
-			del(xeno_mind)
+			//del(xeno_mind)
 		spawnpos++
 
 	spawn (rand(waittime_l, waittime_h))
 		send_intercept()
 
 	return ..()
+	
+/datum/game_mode/xenos/process()
+	checkwin_counter++
+	if(checkwin_counter >= 5)
+		if(!result)
+			ticker.mode.check_win()
+		checkwin_counter = 0
+	return 0
+
+/datum/game_mode/xenos/check_win()
+	var/xenosalive = xenos_alive()
+	var/playersalive = players_alive()
+	if(emergency_shuttle && (emergency_shuttle.returned() || emergency_shuttle.departed))
+		return ..()
+	if(!xenosalive)
+		result = 1
+		return 1
+	else if(!playersalive)
+		result = 2
+		return 1
+	else
+		return ..()
+		
+/datum/game_mode/xenos/check_finished()
+	if(config.continous_rounds)
+		if(result)
+			return ..()
+	if(emergency_shuttle && (emergency_shuttle.returned() || emergency_shuttle.departed))
+		return ..()
+	if(result)
+		return 1
+	else
+		return 0
+		
+/datum/game_mode/xenos/proc/xenos_alive()
+	var/list/livingxenos = list()
+	for(var/datum/mind/xeno in xenos)
+		if((xeno) && (xeno.current) && (xeno.current.stat != 2) && (xeno.current.client))
+			if(istype(xeno.current,/mob/living/carbon/alien) || (xenoborg && isrobot(xeno.current)) || (xenoai && isAI(xeno.current)))
+				livingxenos += xeno
+	return livingxenos.len
+	
+/datum/game_mode/xenos/proc/players_alive()	
+	var/list/livingplayers = list()
+	for(var/mob/M in player_list)
+		var/turf/T = get_turf(M)
+		if((M) && (M.stat != 2) && M.client && T && (T.z == 1))
+			if(ishuman(M))
+				livingplayers += 1
+	return livingplayers.len
+	
+/datum/game_mode/xenos/declare_completion()
+	if(result == 1)
+		feedback_set_details("round_end_result","win - xenos killed")
+		world << "<FONT size = 3><B>Crew Victory</B></FONT>"
+		world << "<B>The aliens did not succeed and were exterminated by the crew!</B>"				
+	else if(result == 2)
+		feedback_set_details("round_end_result","win - crew killed")
+		world << "<FONT size = 3><B>Alien Victory</B></FONT>"
+		world << "<B>The aliens were successful and slaughtered the crew!</B>"
+	else
+		feedback_set_details("round_end_result","win - crew escaped")	
+		world << "<FONT size = 3><B>Draw</B></FONT>"		
+		world << "<B>The crew has escaped from the aliens but did not exterminate them, allowing them to overrun the station.</B>"	
+		
+	var/text = "<br><FONT size=3><B>There were [xenos.len] aliens.</B></FONT>"
+	text += "<br><FONT size=3><B>The aliens were:</B></FONT>"
+	for(var/datum/mind/xeno in xenos)
+		text += "<br><b>[xeno.key]</b> was <b>[xeno.current.name]</b> ("
+		if(xeno.current)
+			if(xeno.current.stat == DEAD)
+				text += "died"
+			else if(!xeno.current.client)
+				text += "SSD"
+			else
+				text += "survived"
+		else
+			text += "body destroyed"
+		text += ")"
+	world << text
+		
+	..()
+	return 1

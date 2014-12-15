@@ -146,7 +146,7 @@
 			owner.drip(10)
 		if(prob(4))
 			spawn owner.emote("me", 1, "gasps for air!")
-			owner.losebreath += 15
+			owner.losebreath += 5
 
 /datum/organ/internal/lungs/robotic
 	damagelevel = 0.8

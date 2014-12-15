@@ -71,6 +71,9 @@
 #define ui_monkey_mask "5:14,1:5"	//monkey
 #define ui_monkey_back "6:14,1:5"	//monkey
 
+#define ui_alien_storage_l "CENTER-2:14,SOUTH:5"//alien
+#define ui_alien_storage_r "CENTER+1:18,SOUTH:5"//alien
+
 //Lower right, persistant menu
 //#define ui_dropbutton "11:22,1:5"
 #define ui_drop_throw "16:28,2:7"
@@ -99,12 +102,14 @@
 #define ui_alien_toxin "16:28,13:25"
 #define ui_alien_fire "16:28,12:25"
 #define ui_alien_oxygen "16:28,11:25"
+#define ui_alien_nightvision "16:28,10:25"
 
 //Middle right (status indicators)
 #define ui_nutrition "16:28,5:11"
 #define ui_temp "16:28,6:13"
-#define ui_health "16:28,7:15"
-#define ui_internal "16:28,8:17"
+#define ui_healthdoll "16:28,7:15"
+#define ui_health "16:28,8:17"
+#define ui_internal "16:28,9:19"
 									//borgs
 #define ui_borg_health "16:28,6:13" //borgs have the health display where humans have the pressure damage indicator.
 #define ui_alien_health "16:28,6:13" //aliens have the health display where humans have the pressure damage indicator.

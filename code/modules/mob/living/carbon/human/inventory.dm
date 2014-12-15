@@ -546,6 +546,17 @@
 				return
 			else
 				message = "\red <B>[source] is trying to take off \a [target.w_uniform] from [target]'s body!</B>"
+		if("tie")
+			var/obj/item/clothing/under/suit = target.w_uniform
+			target.attack_log += text("\[[time_stamp()]\] <font color='orange'>Has had their accessory ([suit.hastie]) removed by [source.name] ([source.ckey])</font>")
+			source.attack_log += text("\[[time_stamp()]\] <font color='red'>Attempted to remove [target.name]'s ([target.ckey]) accessory ([suit.hastie])</font>")
+			if(istype(suit.hastie, /obj/item/clothing/tie/holobadge) || istype(suit.hastie, /obj/item/clothing/tie/medal))
+				for(var/mob/M in viewers(target, null))
+					M.show_message("\red <B>[source] tears off \the [suit.hastie] from [target]'s suit!</B>" , 1)
+				done()
+				return
+			else
+				message = "\red <B>[source] is trying to take off \a [suit.hastie] from [target]'s suit!</B>"
 		if("s_store")
 			target.attack_log += text("\[[time_stamp()]\] <font color='orange'>Has had their suit storage item ([target.s_store]) removed by [source.name] ([source.ckey])</font>")
 			source.attack_log += text("\[[time_stamp()]\] <font color='red'>Attempted to remove [target.name]'s ([target.ckey]) suit storage item ([target.s_store])</font>")
@@ -582,6 +593,14 @@
 				message = "\red <B>[source] is trying to set on [target]'s internals.</B>"
 		if("splints")
 			message = "\red <B>[source] is trying to remove [target]'s splints!</B>"
+		if("sensor")
+			target.attack_log += text("\[[time_stamp()]\] <font color='orange'>Has had their sensors toggled by [source.name] ([source.ckey])</font>")
+			source.attack_log += text("\[[time_stamp()]\] <font color='red'>Attempted to toggle [target.name]'s ([target.ckey]) sensors</font>")
+			var/obj/item/clothing/under/suit = target.w_uniform
+			if (suit.has_sensor >= 2)
+				source << "The controls are locked."
+				return
+			message = "\red <B>[source] is trying to set [target]'s suit sensors!</B>"
 
 	for(var/mob/M in viewers(target, null))
 		if(findtext(message, "is trying to take off  from", 1, 0) > 0 || message == null)
@@ -676,6 +695,17 @@ It can still be worn/put on as normal.
 			slot_to_process = slot_wear_suit
 			if (target.wear_suit && target.wear_suit.canremove)
 				strip_item = target.wear_suit
+		if("tie")
+			var/obj/item/clothing/under/suit = target.w_uniform
+			var/obj/item/clothing/tie/tie = suit.hastie
+			if(tie)
+				if (istype(tie,/obj/item/clothing/tie/storage))
+					var/obj/item/clothing/tie/storage/W = tie
+					if (W.hold)
+						W.hold.close(usr)
+				usr.put_in_hands(tie)
+				suit.hastie = null
+			target.update_inv_w_uniform()
 		if("id")
 			slot_to_process = slot_wear_id
 			if (target.wear_id)
@@ -733,6 +763,13 @@ It can still be worn/put on as normal.
 		if("pockets")
 			slot_to_process = slot_l_store
 			strip_item = target.l_store		//We'll do both
+		if("sensor")
+			var/obj/item/clothing/under/suit = target.w_uniform
+			if (suit)
+				if(suit.has_sensor >= 2)
+					source << "The controls are locked."
+				else
+					suit.set_sensors(source)
 		if("internal")
 			if (target.internal)
 				target.internal.add_fingerprint(source)

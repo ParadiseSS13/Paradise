@@ -6,7 +6,7 @@
 	default_prog		= /datum/file/program/communications
 	spawn_parts			= list(/obj/item/part/computer/storage/hdd,/obj/item/part/computer/networking/radio/subspace,/obj/item/part/computer/cardslot/dual)
 	spawn_files			= list(/datum/file/program/card_comp, /datum/file/program/security, /datum/file/program/crew, /datum/file/program/arcade,
-							/datum/file/camnet_key, /datum/file/camnet_key/entertainment, /datum/file/camnet_key/singulo)
+							/datum/file/camnet_key, /datum/file/camnet_key/entertainment, /datum/file/camnet_key/singularity)
 
 
 /datum/file/program/communications

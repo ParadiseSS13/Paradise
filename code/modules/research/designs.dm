@@ -1587,7 +1587,7 @@ datum/design/cyborg_analyzer
 	build_type = PROTOLATHE
 	materials = list("$metal" = 30, "$glass" = 20)
 	reliability_base = 74
-	build_path = "/obj/item/device/robotanalyzer"	
+	build_path = "/obj/item/device/robotanalyzer"
 
 datum/design/mmi
 	name = "Man-Machine Interface"
@@ -1710,7 +1710,7 @@ datum/design/nuclear_gun
 
 datum/design/stunrevolver
 	name = "Stun Revolver"
-	desc = "The prize of the Head of Security."
+	desc = "A high-tech revolver that fires internal, reusable stun cartidges in a revolving cylinder. The stun cartridges can be recharged using a conventional energy weapon recharger."
 	id = "stunrevolver"
 	req_tech = list("combat" = 3, "materials" = 3, "powerstorage" = 2)
 	build_type = PROTOLATHE
@@ -1737,7 +1737,7 @@ datum/design/decloner
 	materials = list("$gold" = 5000,"$uranium" = 10000, "mutagen" = 40)
 	build_path = "/obj/item/weapon/gun/energy/decloner"
 	locked = 1
-
+/*
 datum/design/chemsprayer
 	name = "Chem Sprayer"
 	desc = "An advanced chem spraying device."
@@ -1747,7 +1747,7 @@ datum/design/chemsprayer
 	materials = list("$metal" = 5000, "$glass" = 1000)
 	reliability_base = 100
 	build_path = "/obj/item/weapon/reagent_containers/spray/chemsprayer"
-
+*/
 datum/design/rapidsyringe
 	name = "Rapid Syringe Gun"
 	desc = "A gun that fires many syringes."
@@ -1766,6 +1766,7 @@ datum/design/largecrossbow
 	build_type = PROTOLATHE
 	materials = list("$metal" = 5000, "$glass" = 1500, "$uranium" = 1500, "$silver" = 1500)
 	build_path = "/obj/item/weapon/gun/energy/crossbow/largecrossbow"
+	locked = 1
 
 datum/design/temp_gun
 	name = "Temperature Gun"
@@ -1797,14 +1798,24 @@ datum/design/large_grenade
 	build_path = "/obj/item/weapon/grenade/chem_grenade/large"
 
 datum/design/smg
-	name = "Submachine Gun"
-	desc = "A lightweight, fast firing gun."
+	name = "Prototype Submachine Gun"
+	desc = "A prototype weapon made using lightweight materials on a traditional frame, designed to fire standard 9mm rounds."
 	id = "smg"
 	req_tech = list("combat" = 4, "materials" = 3)
 	build_type = PROTOLATHE
 	materials = list("$metal" = 8000, "$silver" = 2000, "$diamond" = 1000)
 	build_path = "/obj/item/weapon/gun/projectile/automatic"
 	locked = 1
+
+datum/design/mag_smg
+	name = "Submachine Gun Magazine (9mm)"
+	desc = "A 20-round magazine for the prototype submachine gun."
+	id = "mag_smg"
+	req_tech = list("combat" = 4, "materials" = 3)
+	build_type = PROTOLATHE
+	materials = list("$metal" = 2000)
+	build_path = /obj/item/ammo_box/magazine/smgm9mm
+
 
 datum/design/ionrifle
 	name = "Ion Rifle"
@@ -1816,24 +1827,6 @@ datum/design/ionrifle
 	build_path = /obj/item/weapon/gun/energy/ionrifle
 	locked = 1
 
-datum/design/ammo_9mm
-	name = "Ammunition Box (9mm)"
-	desc = "A box of prototype 9mm ammunition."
-	id = "ammo_9mm"
-	req_tech = list("combat" = 4, "materials" = 3)
-	build_type = PROTOLATHE
-	materials = list("$metal" = 2000)
-	build_path = "/obj/item/ammo_box/c9mm"
-
-datum/design/mag_smg
-	name = "Submachine Gun Magazine (9mm)"
-	desc = "A prototype magazine for the submachine gun."
-	id = "mag_smg"
-	req_tech = list("combat" = 4, "materials" = 3)
-	build_type = PROTOLATHE
-	materials = list("$metal" = 2000)
-	build_path = "/obj/item/ammo_box/magazine/msmg9mm"
-
 datum/design/stunshell
 	name = "Stun Shell"
 	desc = "A stunning shell for a shotgun."
@@ -1841,7 +1834,7 @@ datum/design/stunshell
 	req_tech = list("combat" = 3, "materials" = 3)
 	build_type = PROTOLATHE
 	materials = list("$metal" = 200)
-	build_path = "/obj/item/ammo_casing/shotgun/stunshell"
+	build_path = "/obj/item/ammo_casing/shotgun/stunslug"
 
 datum/design/techshell
 	name = "Unloaded Technological Shotshell"
@@ -1851,6 +1844,15 @@ datum/design/techshell
 	build_type = PROTOLATHE
 	materials = list("$metal" = 1000, "$glass" = 200, "$silver" = 300)
 	build_path = "/obj/item/ammo_casing/shotgun/techshell"
+
+datum/design/suppressor
+	name = "Universal Suppressor"
+	desc = "A reverse-engineered universal suppressor that fits on most small arms with threaded barrels."
+	id = "suppressor"
+	req_tech = list("combat" = 6, "engineering" = 5, "syndicate" = 3)
+	build_type = PROTOLATHE
+	materials = list("$metal" = 2000, "$silver" = 500)
+	build_path = /obj/item/weapon/suppressor
 
 datum/design/xray
 	name = "Xray Laser Gun"
@@ -2123,14 +2125,14 @@ datum/design/bluespace_crystal
 	reliability_base = 100
 	build_path = "/obj/item/bluespace_crystal/artificial"
 
-datum/design/telesci_sps
-	name = "SPS Device"
+datum/design/telesci_gps
+	name = "GPS Device"
 	desc = "A device that can track its position at all times."
-	id = "telesci_sps"
+	id = "telesci_Gps"
 	req_tech = list("materials" = 2, "magnets" = 3, "bluespace" = 3)
 	build_type = PROTOLATHE
 	materials = list("$metal" = 500, "$glass" = 1000)
-	build_path = /obj/item/device/sps
+	build_path = /obj/item/device/gps
 
 /////////////////////////////////////////
 /////////////////HUDs////////////////////

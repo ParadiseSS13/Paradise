@@ -9,6 +9,7 @@
 	plasma_rate = 20
 	move_delay_add = 2
 	max_plasma = 1000
+	large = 1
 
 /mob/living/carbon/alien/humanoid/queen/New()
 	var/datum/reagents/R = new/datum/reagents(100)
@@ -24,7 +25,7 @@
 			break
 
 	real_name = src.name
-	verbs.Add(/mob/living/carbon/alien/humanoid/proc/corrosive_acid,/mob/living/carbon/alien/humanoid/proc/resin)
+	verbs.Add(/mob/living/carbon/alien/humanoid/proc/corrosive_acid,/mob/living/carbon/alien/humanoid/proc/neurotoxin,/mob/living/carbon/alien/humanoid/proc/resin)
 	verbs -= /mob/living/carbon/alien/verb/alien_ventcrawl
 	..()
 
@@ -60,17 +61,26 @@
 	set name = "Lay Egg (250)"
 	set desc = "Lay an egg to produce huggers to impregnate prey with."
 	set category = "Alien"
-
 	if(locate(/obj/effect/alien/egg) in get_turf(src))
-		src << "There's already an egg here."
+		src << "<span class='noticealien'>There's already an egg here.</span>"
 		return
-
+		
+	if(constructing)
+		src << "<span class='noticealien'>You are already constructing something.</span>"
+		return
+		
 	if(powerc(250,1))//Can't plant eggs on spess tiles. That's silly.
-		adjustToxLoss(-250)
-		for(var/mob/O in viewers(src, null))
-			O.show_message(text("\green <B>[src] has laid an egg!</B>"), 1)
-		new /obj/effect/alien/egg(loc)
-	return
+		constructing = 1
+		stunned = 5
+		src << "<span class='noticealien'>You start laying an egg.</span>"
+		spawn(60)
+			adjustToxLoss(-250)
+			for(var/mob/O in viewers(src, null))
+				O.show_message(text("<span class='alertalien'>[src] has laid an egg!</span>"), 1)
+			new /obj/effect/alien/egg(loc)
+			constructing = 0
+			stunned = 0
+		return
 
 
 /mob/living/carbon/alien/humanoid/queen/large
@@ -110,10 +120,10 @@
 
 		if(no_queen)
 			adjustToxLoss(-1000)
-			src << "\green You begin to evolve!"
+			src << "<span class='noticealien'>You begin to evolve!</span>"
 			for(var/mob/O in viewers(src, null))
 				O.show_message(text("\green <B>[src] begins to twist and contort!</B>"), 1)
-			var/mob/living/carbon/alien/humanoid/empress/large/new_xeno = new (loc)
+			var/mob/living/carbon/alien/humanoid/empress/new_xeno = new (loc)
 			if(mind)
 				mind.transfer_to(new_xeno)
 			else

@@ -718,7 +718,7 @@
 					/obj/item/weapon/reagent_containers/food/snacks/sosjerky = 30,/obj/item/weapon/reagent_containers/food/snacks/no_raisin = 20,/obj/item/weapon/reagent_containers/food/snacks/spacetwinkie = 30,
 					/obj/item/weapon/reagent_containers/food/snacks/cheesiehonkers = 25)
 	refill_canister = /obj/item/weapon/vending_refill/snack
-	
+
 /obj/machinery/vending/snack/New()
 	..()
 	component_parts = list()
@@ -727,8 +727,8 @@
 	component_parts += V
 	component_parts += new /obj/item/weapon/vending_refill/snack(0)
 	component_parts += new /obj/item/weapon/vending_refill/snack(0)
-	component_parts += new /obj/item/weapon/vending_refill/snack(0)	
-	
+	component_parts += new /obj/item/weapon/vending_refill/snack(0)
+
 /obj/machinery/vending/chinese
 	name = "Mr. Chang"
 	desc = "A self-serving chinese food machine, for all your chinese food needs."
@@ -753,7 +753,7 @@
 					/obj/item/weapon/reagent_containers/food/drinks/cans/dr_gibb = 20,/obj/item/weapon/reagent_containers/food/drinks/cans/starkist = 20,
 					/obj/item/weapon/reagent_containers/food/drinks/cans/space_up = 20)
 	refill_canister = /obj/item/weapon/vending_refill/cola
-	
+
 /obj/machinery/vending/cola/New()
 	..()
 	component_parts = list()
@@ -763,7 +763,7 @@
 	component_parts += new /obj/item/weapon/vending_refill/cola(0)
 	component_parts += new /obj/item/weapon/vending_refill/cola(0)
 	component_parts += new /obj/item/weapon/vending_refill/cola(0)
-	
+
 //This one's from bay12
 /obj/machinery/vending/cart
 	name = "PTech"
@@ -1036,8 +1036,8 @@
 	icon_state = "suits"
 	product_ads = "Pre-Ironed, Pre-Washed, Pre-Wor-*BZZT*;Blood of your enemys washes right out!;Who are YOU wearing?;Look dapper! Look like an idiot!;Dont carry your size? How about you shave off some pounds you fat lazy- *BZZT*"
 	products = list(/obj/item/clothing/under/color/black = 10,/obj/item/clothing/under/color/blue = 10,/obj/item/clothing/under/color/green = 10,/obj/item/clothing/under/color/grey = 10,/obj/item/clothing/under/color/pink = 10,/obj/item/clothing/under/color/red = 10,
-					/obj/item/clothing/under/color/white = 10, /obj/item/clothing/under/color/yellow = 10,/obj/item/clothing/under/lightblue = 10,/obj/item/clothing/under/aqua = 10,/obj/item/clothing/under/purple = 10,/obj/item/clothing/under/lightgreen = 10,
-					/obj/item/clothing/under/lightblue = 10,/obj/item/clothing/under/lightbrown = 10,/obj/item/clothing/under/brown = 10,/obj/item/clothing/under/yellowgreen = 10,/obj/item/clothing/under/darkblue = 10,/obj/item/clothing/under/lightred = 10, /obj/item/clothing/under/darkred = 10)
+					/obj/item/clothing/under/color/white = 10, /obj/item/clothing/under/color/yellow = 10,/obj/item/clothing/under/color/lightblue = 10,/obj/item/clothing/under/color/aqua = 10,/obj/item/clothing/under/color/purple = 10,/obj/item/clothing/under/color/lightgreen = 10,
+					/obj/item/clothing/under/color/lightblue = 10,/obj/item/clothing/under/color/lightbrown = 10,/obj/item/clothing/under/color/brown = 10,/obj/item/clothing/under/color/yellowgreen = 10,/obj/item/clothing/under/color/darkblue = 10,/obj/item/clothing/under/color/lightred = 10, /obj/item/clothing/under/color/darkred = 10)
 	contraband = list(/obj/item/clothing/under/syndicate/tacticool = 5,/obj/item/clothing/under/color/orange = 5,/obj/item/clothing/under/psyche = 5)
 	premium = list(/obj/item/clothing/under/rainbow = 1)
 	refill_canister = /obj/item/weapon/vending_refill/suitdispenser

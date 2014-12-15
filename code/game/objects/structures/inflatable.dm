@@ -297,6 +297,7 @@
 	icon_state = "inf_box"
 	item_state = "syringe_kit"
 	max_combined_w_class = 21
+	w_class = 3
 
 	New()
 		..()

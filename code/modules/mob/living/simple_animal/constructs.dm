@@ -112,7 +112,7 @@
 /mob/living/simple_animal/construct/attackby(var/obj/item/O as obj, var/mob/user as mob)
 	if(O.force)
 		var/damage = O.force
-		if (O.damtype == HALLOSS)
+		if (O.damtype == STAMINA)
 			damage = 0
 		adjustBruteLoss(damage)
 		for(var/mob/M in viewers(src, null))
@@ -154,7 +154,7 @@
 	if(O.force)
 		if(O.force >= 11)
 			var/damage = O.force
-			if (O.damtype == HALLOSS)
+			if (O.damtype == STAMINA)
 				damage = 0
 			adjustBruteLoss(damage)
 			for(var/mob/M in viewers(src, null))
@@ -282,7 +282,7 @@
 	if(O.force)
 		if(O.force >= 11)
 			var/damage = O.force
-			if (O.damtype == HALLOSS)
+			if (O.damtype == STAMINA)
 				damage = 0
 			adjustBruteLoss(damage)
 			for(var/mob/M in viewers(src, null))

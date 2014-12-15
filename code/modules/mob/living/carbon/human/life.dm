@@ -377,7 +377,7 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 		var/datum/gas_mixture/breath
 
 		// HACK NEED CHANGING LATER
-		if(health < config.health_threshold_crit && !reagents.has_reagent("inaprovaline"))
+		if(health < config.health_threshold_crit)
 			losebreath++
 
 		if(losebreath>0) //Suffocating so do not take a breath
@@ -464,19 +464,6 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 					for(var/mob/living/carbon/M in view(1,src))
 						src.spread_disease_to(M)
 
-
-	proc/get_breath_from_internal(volume_needed)
-		if(internal)
-			if (!contents.Find(internal))
-				internal = null
-			if (!wear_mask || !(wear_mask.flags & MASKINTERNALS) )
-				internal = null
-			if(internal)
-				return internal.remove_air_volume(volume_needed)
-			else if(internals)
-				internals.icon_state = "internal0"
-		return null
-
 // USED IN DEATHWHISPERS
 	proc/isInCrit()
 		// Health is in deep shit and we're not already dead
@@ -487,6 +474,8 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 			return 0
 
 		if(!breath || (breath.total_moles() == 0) || suiciding)
+			if(reagents.has_reagent("inaprovaline"))
+				return
 			if(suiciding)
 				adjustOxyLoss(2)//If you are suiciding, you should die a little bit faster
 				failed_last_breath = 1
@@ -1060,6 +1049,7 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 					adjustHalLoss(-3)
 			else if(sleeping)
 				handle_dreams()
+				adjustStaminaLoss(-10)
 				adjustHalLoss(-3)
 				if (mind)
 					if((mind.active && client != null) || immune_to_ssd) //This also checks whether a client is connected, if not, sleep is not reduced.
@@ -1164,6 +1154,8 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 			// If you're dirty, your gloves will become dirty, too.
 			if(gloves && germ_level > gloves.germ_level && prob(10))
 				gloves.germ_level += 1
+
+			CheckStamina()
 
 		return 1
 
@@ -1290,7 +1282,9 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 					see_invisible = SEE_INVISIBLE_LIVING
 					seer = 0
 
+			var/tmp/has_ninja_mask = 0
 			if(istype(wear_mask, /obj/item/clothing/mask/gas/voice/space_ninja))
+				has_ninja_mask = 1
 				var/obj/item/clothing/mask/gas/voice/space_ninja/O = wear_mask
 				switch(O.mode)
 					if(0)
@@ -1303,7 +1297,7 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 						if(!druggy)		see_invisible = SEE_INVISIBLE_LIVING
 					if(1)
 						see_in_dark = 5
-						if(!druggy)		see_invisible = SEE_INVISIBLE_LIVING
+						if(!druggy)		see_invisible = SEE_INVISIBLE_MINIMUM
 					if(2)
 						sight |= SEE_MOBS
 						if(!druggy)		see_invisible = SEE_INVISIBLE_LEVEL_TWO
@@ -1338,7 +1332,7 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 						see_invisible = SEE_INVISIBLE_LIVING
 					if(istype(O,/obj/item/clothing/glasses/hud/security/night) || istype(O,/obj/item/clothing/glasses/hud/health/night))
 						see_invisible = SEE_INVISIBLE_MINIMUM
-			else if(!seer)
+			else if(!seer && !has_ninja_mask)
 				see_in_dark = species.darksight
 				see_invisible = SEE_INVISIBLE_LIVING
 
@@ -1354,7 +1348,7 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 						if(2)	healths.icon_state = "health7"
 						else
 							//switch(health - halloss)
-							switch(100 - ((species && species.flags & NO_PAIN) ? 0 : traumatic_shock))
+							switch(100 - ((species && species.flags & NO_PAIN) ? 0 : traumatic_shock) - staminaloss)
 								if(100 to INFINITY)		healths.icon_state = "health0"
 								if(80 to 100)			healths.icon_state = "health1"
 								if(60 to 80)			healths.icon_state = "health2"
@@ -1362,6 +1356,29 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 								if(20 to 40)			healths.icon_state = "health4"
 								if(0 to 20)				healths.icon_state = "health5"
 								else					healths.icon_state = "health6"
+
+			if(healthdoll)
+				healthdoll.overlays.Cut()
+				if(stat == DEAD)
+					healthdoll.icon_state = "healthdoll_DEAD"
+				else
+					healthdoll.icon_state = "healthdoll_OVERLAY"
+					for(var/datum/organ/external/O in organs)
+						var/damage = O.burn_dam + O.brute_dam
+						var/comparison = (O.max_damage/5)
+						var/icon_num = 0
+						if(damage)
+							icon_num = 1
+						if(damage > (comparison))
+							icon_num = 2
+						if(damage > (comparison*2))
+							icon_num = 3
+						if(damage > (comparison*3))
+							icon_num = 4
+						if(damage > (comparison*4))
+							icon_num = 5
+						if(icon_num)
+							healthdoll.overlays += image('icons/mob/screen_gen.dmi',"[O.name][icon_num]")
 
 			if(nutrition_icon)
 				switch(nutrition)
@@ -1672,7 +1689,7 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 
 	proc/handle_decay()
 		var/decaytime = world.time - timeofdeath
-		
+
 		if(species.flags & IS_SYNTHETIC)
 			return
 
@@ -1687,7 +1704,7 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 
 		if(decaytime > 18000 && decaytime <= 27000)//45 minutes for decaylevel4 -- skeleton
 			decaylevel = 3
-			
+
 		if(decaytime > 27000)
 			decaylevel = 4
 			makeSkeleton()
@@ -1697,7 +1714,7 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 		for(var/mob/living/carbon/human/H in range(decaylevel, src))
 			if(prob(5))
 				if(airborne_can_reach(get_turf(src), get_turf(H)))
-					if(istype(loc,/obj/item/bodybag)) 
+					if(istype(loc,/obj/item/bodybag))
 						return
 					var/obj/item/clothing/mask/M = H.wear_mask
 					if(M && (M.flags & MASKCOVERSMOUTH))

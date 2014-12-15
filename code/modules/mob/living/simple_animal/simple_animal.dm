@@ -161,7 +161,7 @@
 
 			if( abs(Environment.temperature - bodytemperature) > 40 )
 				bodytemperature += ((Environment.temperature - bodytemperature) / 5)
-			
+
 			if(min_oxy)
 				if(Environment.oxygen < min_oxy)
 					atmos_suitable = 0
@@ -188,7 +188,7 @@
 					atmos_suitable = 0
 			if(flags & NO_BREATHE || flags & IS_SYNTHETIC)
 				atmos_suitable = 1
-				
+
 	//Atmos effect
 	if(bodytemperature < minbodytemp)
 		adjustBruteLoss(cold_damage_per_tick)
@@ -398,7 +398,7 @@
 	else
 		if(O.force)
 			var/damage = O.force
-			if (O.damtype == HALLOSS)
+			if (O.damtype == STAMINA)
 				damage = 0
 			adjustBruteLoss(damage)
 			for(var/mob/M in viewers(src, null))

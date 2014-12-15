@@ -32,7 +32,7 @@
 /obj/machinery/computer3/security/mining
 	name = "Outpost Cameras"
 	desc = "Used to access the various cameras on the outpost."
-	spawn_files 		= list(/datum/file/camnet_key/mining)
+	spawn_files 		= list(/datum/file/camnet_key/miningoutpost)
 
 /*
 	Camera monitoring computers, wall-mounted
@@ -43,7 +43,7 @@
 	spawn_files 		= list(/datum/file/camnet_key)
 
 /obj/machinery/computer3/wall_comp/telescreen/entertainment
-	desc = "Damn, they better have /tg/thechannel on these things."
+	desc = "Damn, they better have Paradise Channel on these things."
 	spawn_files 		= list(/datum/file/camnet_key/entertainment)
 
 
@@ -76,53 +76,96 @@
 						return
 		computer.Crash(MISSING_PROGRAM)
 
-/datum/file/camnet_key/mining
-	name = "Mining Camera Network Key"
-	title = "mining station"
-	desc = "Connects to mining security cameras."
-	networks = list("MINE")
+/datum/file/camnet_key/telecomms
+	name = "Telecomms Network Key"
+	title = "telecommunications satellite"
+	desc = "Connects to telecommunications satellite security cameras."
+	networks = list("Telecomms")		
+		
+/datum/file/camnet_key/researchoutpost
+	name = "Research Outpost Network Key"
+	title = "research outpost"
+	desc = "Connects to research outpost security cameras."
+	networks = list("Research Outpost")
+		
+/datum/file/camnet_key/miningoutpost
+	name = "Mining Outpost Network Key"
+	title = "mining outpost"
+	desc = "Connects to mining outpost security cameras."
+	networks = list("Mining Outpost")
 	screen = "miningcameras"
 
 /datum/file/camnet_key/research
-	name = "Research Camera Network Key"
+	name = "Research Network Key"
 	title = "research"
-	networks = list("RD")
-
-/datum/file/camnet_key/bombrange
-	name = "R&D Bomb Range Camera Network Key"
-	title = "bomb range"
-	desc = "Monitors the bomb range."
-	networks = list("Toxins")
-
-/datum/file/camnet_key/xeno
-	name = "R&D Misc. Research Camera Network Key"
-	title = "special research"
-	networks = list("Misc")
-
-/datum/file/camnet_key/singulo
-	name = "Singularity Camera Network Key"
-	title = "singularity"
-	networks = list("Singularity")
-
-/datum/file/camnet_key/entertainment
-	name = "Entertainment Channel Encryption Key"
-	title = "entertainment"
-	desc = "Damn, I hope they have /tg/thechannel on here."
-	networks = list("thunder")
-	screen = "entertainment"
-
-/datum/file/camnet_key/creed
-	name = "Special Ops Camera Encryption Key"
-	title = "special ops"
-	desc = "Connects to special ops secure camera feeds."
-	networks = list("CREED")
-
+	desc = "Connects to research security cameras."
+	networks = list("Research")
+	
 /datum/file/camnet_key/prison
-	name = "Prison Camera Network Key"
+	name = "Prison Network Key"
 	title = "prison"
-	desc = "Monitors the prison."
+	desc = "Connects to prison security cameras."
 	networks = list("Prison")
-
+	
+/datum/file/camnet_key/interrogation
+	name = "Interrogation Network Key"
+	title = "interrogation"
+	desc = "Connects to interrogation security cameras."
+	networks = list("Interrogation")
+	
+/datum/file/camnet_key/supermatter
+	name = "Supermatter Network Key"
+	title = "supermatter"
+	desc = "Connects to supermatter security cameras."
+	networks = list("Supermatter")
+	
+/datum/file/camnet_key/singularity
+	name = "Singularity Network Key"
+	title = "singularity"
+	desc = "Connects to singularity security cameras."
+	networks = list("Singularity")
+	
+/datum/file/camnet_key/anomalyisolation
+	name = "Anomaly Isolation Network Key"
+	title = "anomalyisolation"
+	desc = "Connects to interrogation security cameras."
+	networks = list("Anomaly Isolation")
+	
+/datum/file/camnet_key/toxins
+	name = "Toxins Network Key"
+	title = "toxins"
+	desc = "Connects to toxins security cameras."
+	networks = list("Toxins")
+	
+/datum/file/camnet_key/telepad
+	name = "Telepad Network Key"
+	title = "telepad"
+	desc = "Connects to telepad security cameras."
+	networks = list("Telepad")
+	
+/datum/file/camnet_key/ert
+	name = "Emergency Response Team Network Key"
+	title = "emergency response team"
+	desc = "Connects to emergency response team security cameras."
+	networks = list("ERT")
+	
+/datum/file/camnet_key/centcom
+	name = "Central Command Network Key"
+	title = "central command"
+	desc = "Connects to central command security cameras."
+	networks = list("CentCom")
+	
+/datum/file/camnet_key/thunderdome
+	name = "Thunderdome Network Key"
+	title = "thunderdome"
+	desc = "Connects to thunderdome security cameras."
+	networks = list("Thunderdome")
+	
+/datum/file/camnet_key/entertainment
+	name = "Entertainment Network Key"
+	title = "entertainment"
+	desc = "Connects to entertainment security cameras."
+	networks = list("news")
 
 
 /*
@@ -147,7 +190,7 @@
 			if(temp.len)
 				L.Add(C)
 
-		//camera_sort(L)
+		camera_sort(L)
 
 		return L
 	verify_machine(var/obj/machinery/camera/C,var/datum/file/camnet_key/key = null)

@@ -338,6 +338,19 @@ proc/isInSight(var/atom/A, var/atom/B)
 						candidates += G.key
 		i++
 	return candidates
+	
+/proc/get_blob_candidates()
+
+	var/list/candidates = list() //List of candidate KEYS to assume control of the new blob core ~Carn
+	var/i = 0
+	while(candidates.len <= 0 && i < 5)
+		for(var/mob/G in respawnable_list)
+			if( G.client && G.client.prefs.be_special & BE_BLOB)
+				if(((G.client.inactivity/10)/60) <= ALIEN_SELECT_AFK_BUFFER + i) // the most active players are more likely to become an alien
+					if(!(G.mind && G.mind.current && G.mind.current.stat != DEAD))
+						candidates += G.key
+		i++
+	return candidates	
 
 /proc/get_slime_candidates()
 
@@ -355,9 +368,10 @@ proc/isInSight(var/atom/A, var/atom/B)
 proc/get_candidates(be_special_flag=0)
 	. = list()
 	for(var/mob/G in respawnable_list)
-		if(!(G.mind && G.mind.current && G.mind.current.stat != DEAD))
-			if(!G.client.is_afk() && (G.client.prefs.be_special & be_special_flag))
-				. += G.client
+		if(G)
+			if(!(G.mind && G.mind.current && G.mind.current.stat != DEAD))
+				if(!G.client.is_afk() && (G.client.prefs.be_special & be_special_flag))
+					. += G.client
 
 /proc/ScreenText(obj/O, maptext="", screen_loc="CENTER-7,CENTER-7", maptext_height=480, maptext_width=480)
 	if(!isobj(O))	O = new /obj/screen/text()

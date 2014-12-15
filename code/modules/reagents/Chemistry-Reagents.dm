@@ -1398,6 +1398,35 @@ datum
 				return
 
 
+		incendiary_fuel //copy-pasta of welding fuel; allow incendiary grenades to function better without the headache of people spraying fuel everywhere with regular welding fuel.
+			name = "Incendiary fuel"
+			id = "incendiaryfuel"
+			description = "A highly flammable compound used in incendiary grenades."
+			reagent_state = LIQUID
+			color = "#660000" // rgb: 102, 0, 0
+
+			reaction_mob(var/mob/living/M, var/method=TOUCH, var/volume)//Splashing people with welding fuel to make them easy to ignite!
+				if(!istype(M, /mob/living))
+					return
+				if(method == TOUCH)
+					M.adjust_fire_stacks(volume / 10)
+				return
+
+			reaction_obj(var/obj/O, var/volume)
+				var/turf/the_turf = get_turf(O)
+				if(!the_turf)
+					return //No sense trying to start a fire if you don't have a turf to set on fire. --NEO
+				new /obj/effect/decal/cleanable/liquid_fuel(the_turf, volume)
+			reaction_turf(var/turf/T, var/volume)
+				new /obj/effect/decal/cleanable/liquid_fuel(T, volume)
+				return
+
+			on_mob_life(var/mob/living/M as mob)
+				if(!M) M = holder.my_atom
+				M.adjustToxLoss(1)
+				..()
+				return
+
 		space_cleaner
 			name = "Space cleaner"
 			id = "cleaner"
@@ -1948,7 +1977,9 @@ datum
 			on_mob_life(var/mob/living/M as mob)
 				if(!M) M = holder.my_atom
 				if(prob(5)) M.emote(pick("twitch","blink_r","shiver"))
-				..()
+				M.status_flags |= GOTTAGOFAST
+				holder.remove_reagent(src.id, 0.5 * REAGENTS_METABOLISM)
+			//	..()
 				return
 
 		cryoxadone
@@ -2088,7 +2119,7 @@ datum
 			data = 13
 
 			on_mob_life(var/mob/living/M)
-				M.adjustHalLoss(REM * data)
+				M.adjustStaminaLoss(REM * data)
 				data = max(data - 1, 3)
 				..()
 
@@ -2632,12 +2663,12 @@ datum
 				if (istype(holder.my_atom,/mob/living))
 					var/mob/living/M as mob
 					var/to_remove = 0
-					if(!M) M = holder.my_atom
 					if (holder.has_reagent("anti_toxin"))
 						to_remove = min(holder.get_reagent_amount("anti_toxin"),data)
 						holder.remove_reagent("anti_toxin", to_remove, 0)
 						data -= to_remove
-					M.adjustToxLoss((data-1)*rand(2,4))
+					if(M)
+						M.adjustToxLoss((data-1)*rand(2,4))
 				..()
 
 		psilocybin
@@ -3219,6 +3250,7 @@ datum
 						M.druggy = max(M.druggy, 30)
 						M.dizziness +=5
 						M.drowsyness = 0
+						M.status_flags |= GOTTAGOFAST
 						..()
 						return
 

@@ -7,7 +7,7 @@
 	var/slowdown_active = 2
 	action_button_name = "Toggle Magboots"
 	icon_action_button = "action_magboots"
-	species_restricted = list("Skrell","Human","Unathi","Tajaran","Machine","Slime People","Kidan","Grey","Diona") //Vox get their own booties doubt they'd fix on talons anyway.
+	species_restricted = null
 
 /obj/item/clothing/shoes/magboots/attack_self(mob/user)
 	if(src.magpulse)

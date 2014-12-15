@@ -36,7 +36,7 @@
 	if(O.force)
 		if(O.force >= 25)
 			var/damage = O.force
-			if (O.damtype == HALLOSS)
+			if (O.damtype == STAMINA)
 				damage = 0
 			health -= damage
 			for(var/mob/M in viewers(src, null))
@@ -147,8 +147,8 @@
 	name = "strange armour"
 	desc = "Hulking reinforced armour for something huge."
 	icon = 'icons/obj/clothing/suits.dmi'
-	icon_state = "armalis_armour"
-	item_state = "armalis_armour"
+	icon_state = "armour-armalis"
+	item_state = "armour-armalis"
 
 /obj/item/vox/armalis_amp
 

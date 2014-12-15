@@ -98,6 +98,7 @@ var/datum/global_hud/global_hud = new()
 	var/obj/screen/blobhealthdisplay
 	var/obj/screen/vampire_blood_display
 	var/obj/screen/alien_plasma_display
+	var/obj/screen/nightvisionicon
 	var/obj/screen/r_hand_hud_object
 	var/obj/screen/l_hand_hud_object
 	var/obj/screen/action_intent
@@ -228,6 +229,7 @@ datum/hud/New(mob/owner)
 				else
 					src.client.screen -= src.healths
 					src.client.screen -= src.internals
+					src.client.screen  -= src.healthdoll
 					src.client.screen -= src.gun_setting_icon
 
 				//These ones are not a part of 'adding', 'other' or 'hotkeybuttons' but we want them gone.
@@ -243,6 +245,8 @@ datum/hud/New(mob/owner)
 					src.client.screen += src.hud_used.hotkeybuttons
 				if(src.healths)
 					src.client.screen |= src.healths
+				if(src.healthdoll)
+					src.client.screen |= src.healthdoll
 				if(src.internals)
 					src.client.screen |= src.internals
 				if(src.gun_setting_icon)
