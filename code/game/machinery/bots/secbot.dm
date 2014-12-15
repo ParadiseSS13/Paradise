@@ -48,6 +48,14 @@
 	name = "Officer Pingsky"
 	desc = "It's Officer Pingsky! Delegated to satellite guard duty for harbouring anti-human sentiment."
 	radio_frequency = AIPRIV_FREQ
+	radio_name = "AI Private"
+
+/obj/machinery/bot/secbot/buzzsky
+	name = "Officer Buzzsky"
+	desc = "It's Officer Buzzsky! Rusted and falling apart, he seems less than thrilled with the crew for leaving him in his current state."
+	radio_frequency = 0
+	radio_name = ""
+	emagged = 2
 
 /obj/item/weapon/secbot_assembly
 	name = "incomplete securitron assembly"
