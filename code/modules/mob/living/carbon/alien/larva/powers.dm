@@ -52,6 +52,7 @@
 			mind.transfer_to(new_xeno)
 		else
 			new_xeno.key = key
+		new_xeno.mind.name = new_xeno.name
 		del(src)
 		return
 	else

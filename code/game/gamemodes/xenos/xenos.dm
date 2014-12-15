@@ -13,12 +13,14 @@
 	var/result = 0
 	var/checkwin_counter = 0
 	var/xenos_list = list()
+	var/gammacalled = 0
 
 	var/const/waittime_l = 600 //lower bound on time before intercept arrives (in tenths of seconds)
 	var/const/waittime_h = 1800 //upper bound on time before intercept arrives (in tenths of seconds)
 	
 	var/xenoai = 0 //Should the Xenos have their own AI?
 	var/xenoborg = 0 //Should the Xenos have their own borg?
+	var/gammaratio = 3 //At what alien to human ratio will the Gamma security level be called and the nuke be made available?
 
 /datum/game_mode/xenos/announce()
 	world << "<B>The current game mode is - Xenos!</B>"
@@ -87,6 +89,7 @@
 				O.mind.original = O
 			else
 				O.key = xeno_mind.current.key
+
 			//del(xeno_mind)
 			var/obj/loc_landmark
 			for(var/obj/effect/landmark/start/sloc in landmarks_list)
@@ -101,6 +104,7 @@
 			O.laws = new /datum/ai_laws/alienmov
 			O.name = "Alien AI"
 			O.real_name = name
+			xeno_mind.name = O.name
 			O.alienAI = 1
 			O.network = list("SS13","Xeno")
 			O.holo_icon = getHologramIcon(icon('icons/mob/AI.dmi',"holo3"))
@@ -115,6 +119,7 @@
 				xeno_mind.transfer_to(O)
 			else
 				O.key = xeno_mind.current.key
+			xeno_mind.name = O.name
 			//del(xeno_mind)
 			xenoqueen_selected = 1
 			spawnpos++
@@ -135,6 +140,7 @@
 			O.job = "Alien Cyborg"
 			O.name = "Alien Cyborg"
 			O.real_name = name
+			xeno_mind.name = O.name
 			O.module = new /obj/item/weapon/robot_module/alien/hunter(src)
 			O.hands.icon_state = "standard"
 			O.icon = 'icons/mob/alien.dmi'
@@ -156,6 +162,7 @@
 				xeno_mind.transfer_to(O)
 			else
 				O.key = xeno_mind.current.key
+			xeno_mind.name = O.name
 			//del(xeno_mind)
 		spawnpos++
 
@@ -171,11 +178,13 @@
 			ticker.mode.check_win()
 		checkwin_counter = 0
 	return 0
+	
 
 /datum/game_mode/xenos/check_win()
 	var/xenosalive = xenos_alive()
 	var/playersalive = players_alive()
-	if(emergency_shuttle && (emergency_shuttle.returned() || emergency_shuttle.departed))
+	var/playeralienratio = player_alien_ratio()
+	if(emergency_shuttle && emergency_shuttle.returned())
 		return ..()
 	if(!xenosalive)
 		result = 1
@@ -183,19 +192,37 @@
 	else if(!playersalive)
 		result = 2
 		return 1
+	else if(station_was_nuked)
+		result = 3
+		return 1
 	else
+		if(playeralienratio >= gammaratio && !gammacalled)
+			gammacalled = 1
+			command_alert("The aliens have nearly succeeded in capturing the station and exterminating the crew. Activate the nuclear failsafe to stop the alien threat once and for all. The Nuclear Authentication Code is [get_nuke_code()] ", "Alien Lifeform Alert")
+			set_security_level("gamma")
+			var/obj/machinery/door/airlock/vault/V = locate(/obj/machinery/door/airlock/vault) in world
+			if(V && V.z == 1)
+				V.locked = 0
+				V.update_icon()
 		return ..()
 		
 /datum/game_mode/xenos/check_finished()
 	if(config.continous_rounds)
 		if(result)
 			return ..()
-	if(emergency_shuttle && (emergency_shuttle.returned() || emergency_shuttle.departed))
+	if(emergency_shuttle && emergency_shuttle.returned())
 		return ..()
-	if(result)
+	if(result || station_was_nuked)
 		return 1
 	else
 		return 0
+		
+/datum/game_mode/xenos/proc/get_nuke_code()
+	var/nukecode = "ERROR"
+	for(var/obj/machinery/nuclearbomb/bomb in world)
+		if(bomb && bomb.r_code && bomb.z == 1)
+			nukecode = bomb.r_code
+	return nukecode		
 		
 /datum/game_mode/xenos/proc/xenos_alive()
 	var/list/livingxenos = list()
@@ -209,12 +236,30 @@
 	var/list/livingplayers = list()
 	for(var/mob/M in player_list)
 		var/turf/T = get_turf(M)
-		if((M) && (M.stat != 2) && M.client && T && (T.z == 1))
+		if((M) && (M.stat != 2) && M.client && T && (T.z == 1 || emergency_shuttle.departed && (T.z == 1 || T.z == 2)))
 			if(ishuman(M))
 				livingplayers += 1
 	return livingplayers.len
+
+/datum/game_mode/xenos/proc/player_alien_ratio()	
+	var/list/livingplayers = list()
+	var/list/livingxenos = list()
+	for(var/mob/M in player_list)
+		if((M) && (M.stat != 2) && M.client)
+			if(ishuman(M))
+				livingplayers += 1
+	for(var/datum/mind/xeno in xenos)
+		if((xeno) && (xeno.current) && (xeno.current.stat != 2) && (xeno.current.client))
+			if(istype(xeno.current,/mob/living/carbon/alien) || (xenoborg && isrobot(xeno.current)) || (xenoai && isAI(xeno.current)))
+				livingxenos += xeno				
 	
-/datum/game_mode/xenos/declare_completion()
+	if(!livingxenos.len || !livingplayers.len)
+		return 0
+		
+	var/ratio = livingxenos.len / livingplayers.len
+	return ratio		
+	
+/datum/game_mode/xenos/declare_completion()		
 	if(result == 1)
 		feedback_set_details("round_end_result","win - xenos killed")
 		world << "<FONT size = 3><B>Crew Victory</B></FONT>"
@@ -223,6 +268,10 @@
 		feedback_set_details("round_end_result","win - crew killed")
 		world << "<FONT size = 3><B>Alien Victory</B></FONT>"
 		world << "<B>The aliens were successful and slaughtered the crew!</B>"
+	else if(station_was_nuked)
+		feedback_set_details("round_end_result","win - xenos nuked")
+		world << "<FONT size = 3><B>Crew Victory</B></FONT>"
+		world << "<B>The station was destroyed in a nuclear explosion, preventing the aliens from overrunning it!</B>"	
 	else
 		feedback_set_details("round_end_result","win - crew escaped")	
 		world << "<FONT size = 3><B>Draw</B></FONT>"		
@@ -231,7 +280,7 @@
 	var/text = "<br><FONT size=3><B>There were [xenos.len] aliens.</B></FONT>"
 	text += "<br><FONT size=3><B>The aliens were:</B></FONT>"
 	for(var/datum/mind/xeno in xenos)
-		text += "<br><b>[xeno.key]</b> was <b>[xeno.current.name]</b> ("
+		text += "<br><b>[xeno.key]</b> was <b>[xeno.name]</b> ("
 		if(xeno.current)
 			if(xeno.current.stat == DEAD)
 				text += "died"

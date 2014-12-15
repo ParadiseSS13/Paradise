@@ -166,6 +166,21 @@
 	connected_weeds = new()
 	..(src.loc, src)
 	
+/obj/effect/alien/weeds/node/Destroy()
+	for(var/obj/effect/alien/weeds/W in connected_weeds)
+		processing_objects.Add(W) // Start processing the weeds so they lose health when there's no connected node
+	..()
+	
+/obj/effect/alien/weeds/process()
+	if(!linked_node || (get_dist(linked_node, src) > linked_node.node_range))
+		if(prob(50))
+			health -= 1
+		else if(prob(50))
+			health -= 2
+		else if(prob(25))
+			health -= 3
+		healthcheck()		
+	
 /obj/effect/alien/weeds/New(pos, var/obj/effect/alien/weeds/node/N)
 	..()
 
@@ -187,6 +202,7 @@
 	if(linked_node)
 		linked_node.connected_weeds.Remove(src)
 		linked_node = null
+	processing_objects.Remove(src)
 	..()
 	
 /obj/effect/alien/weeds/proc/Life()	

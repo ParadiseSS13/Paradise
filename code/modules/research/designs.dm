@@ -1106,7 +1106,7 @@ datum/design/basic_capacitor
 	build_path = "/obj/item/weapon/stock_parts/capacitor"
 
 datum/design/basic_sensor
-	name = "Basic Sensor Module"
+	name = "Basic Scanning Module"
 	desc = "A stock part used in the construction of various devices."
 	id = "basic_sensor"
 	req_tech = list("magnets" = 1)

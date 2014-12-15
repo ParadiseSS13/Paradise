@@ -39,8 +39,9 @@
 			src << "<span class='noticealien'>You begin to evolve!</span>"
 			for(var/mob/O in viewers(src, null))
 				O.show_message(text("<span class='alertalien'>[src] begins to twist and contort!</span>"), 1)
-			var/mob/living/carbon/alien/humanoid/queen/new_xeno = new (loc)
+			var/mob/living/carbon/alien/humanoid/queen/new_xeno = new(loc)
 			mind.transfer_to(new_xeno)
+			new_xeno.mind.name = new_xeno.name
 			del(src)
 		else
 			src << "<span class='notice'>We already have an alive queen.</span>"

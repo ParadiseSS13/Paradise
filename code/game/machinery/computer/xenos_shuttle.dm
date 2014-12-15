@@ -9,6 +9,7 @@
 	var/area/curr_location
 	var/moving = 0
 	var/lastMove = 0
+	unacidable = 1
 
 
 /obj/machinery/computer/xenos_station/New()
@@ -26,9 +27,8 @@
 					
 	for(var/obj/machinery/door/airlock/alien/A in world)
 		A.close()
-		if(dest_location == locate(/area/xenos_station/start))	
-			A.locked = 1
-			A.update_icon()	
+		A.locked = 1
+		A.update_icon()	
 
 	for(var/mob/M in curr_location)
 		if(M.client)
@@ -109,11 +109,12 @@
 	Ready to move[max(lastMove + XENOS_SHUTTLE_COOLDOWN - world.time, 0) ? " in [max(round((lastMove + XENOS_SHUTTLE_COOLDOWN - world.time) * 0.1), 0)] seconds" : ": now"]<br>
 	<a href='?src=\ref[src];xenos=1'>Alien Space</a><br>
 	<a href='?src=\ref[src];station_nw=1'>North-West of SS13</a> |
-	<a href='?src=\ref[src];station_n=1'>North of SS13</a> |
 	<a href='?src=\ref[src];station_ne=1'>North-East of SS13</a><br>
+	<a href='?src=\ref[src];station_e=1'>East of SS13</a> <br>
 	<a href='?src=\ref[src];station_sw=1'>South-West of SS13</a> |
-	<a href='?src=\ref[src];station_s=1'>South of SS13</a> |
 	<a href='?src=\ref[src];station_se=1'>South-East of SS13</a><br>
+	<a href='?src=\ref[src];station_west=1'>West of SS13</a><br>
+	<a href='?src=\ref[src];station_ro=1'>North of Research Outpost</a><br>
 	<a href='?src=\ref[user];mach_close=computer'>Close</a>"}
 
 	user << browse(dat, "window=computer;size=575x450")
@@ -132,17 +133,18 @@
 		xenos_move_to(/area/xenos_station/start)
 	else if(href_list["station_nw"])
 		xenos_move_to(/area/xenos_station/northwest)
-	else if(href_list["station_n"])
-		xenos_move_to(/area/xenos_station/north)
 	else if(href_list["station_ne"])
 		xenos_move_to(/area/xenos_station/northeast)
+	else if(href_list["station_e"])
+		xenos_move_to(/area/xenos_station/east)		
 	else if(href_list["station_sw"])
 		xenos_move_to(/area/xenos_station/southwest)
-	else if(href_list["station_s"])
-		xenos_move_to(/area/xenos_station/south)
 	else if(href_list["station_se"])
 		xenos_move_to(/area/xenos_station/southeast)
-
+	else if(href_list["station_w"])
+		xenos_move_to(/area/xenos_station/west)
+	else if(href_list["station_ro"])
+		xenos_move_to(/area/xenos_station/researchoutpost)
 
 	add_fingerprint(usr)
 	updateUsrDialog()
