@@ -107,8 +107,9 @@
 //Middle right (status indicators)
 #define ui_nutrition "16:28,5:11"
 #define ui_temp "16:28,6:13"
-#define ui_health "16:28,7:15"
-#define ui_internal "16:28,8:17"
+#define ui_healthdoll "16:28,7:15"
+#define ui_health "16:28,8:17"
+#define ui_internal "16:28,9:19"
 									//borgs
 #define ui_borg_health "16:28,6:13" //borgs have the health display where humans have the pressure damage indicator.
 #define ui_alien_health "16:28,6:13" //aliens have the health display where humans have the pressure damage indicator.

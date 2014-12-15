@@ -1133,7 +1133,7 @@ datum/design/basic_capacitor
 	build_path = "/obj/item/weapon/stock_parts/capacitor"
 
 datum/design/basic_sensor
-	name = "Basic Sensor Module"
+	name = "Basic Scanning Module"
 	desc = "A stock part used in the construction of various devices."
 	id = "basic_sensor"
 	req_tech = list("magnets" = 1)
@@ -1678,6 +1678,17 @@ datum/design/noreactbeaker
 	materials = list("$metal" = 3000)
 	reliability_base = 76
 	build_path = "/obj/item/weapon/reagent_containers/glass/beaker/noreact"
+	category = "Misc"
+
+datum/design/defib
+	name = "Defibrillator"
+	desc = "A device that delivers powerful shocks to detachable paddles that resuscitate incapacitated patients."
+	id = "defib"
+	req_tech = list("materials" = 7, "biotech" = 5, "powerstorage" = 5)
+	build_type = PROTOLATHE
+	materials = list("$metal" = 5000, "$glass" = 2000, "$silver" = 1000)
+	reliability = 76
+	build_path = "/obj/item/weapon/defibrillator"
 	category = "Misc"
 
 datum/design/implanter
