@@ -12,6 +12,7 @@
 	layer = 3.9
 	infra_luminosity = 15
 	var/mob/living/carbon/occupant
+	var/mob/living/carbon/occupant2 //two seaters
 	var/datum/spacepod/equipment/equipment_system
 	var/obj/item/weapon/cell/high/battery
 	var/datum/gas_mixture/cabin_air
@@ -27,6 +28,7 @@
 	var/health = 100
 	var/lights = 0
 	var/lights_power = 6
+	var/allow2eject = 1
 
 /obj/spacepod/New()
 	. = ..()
@@ -77,12 +79,16 @@
 		S.channel = 0 //Any channel
 		S.volume = 50
 		occupant << S
+		if(occupant2)
+			occupant2 << S
 	if(occupant && oldhealth > health && !health)
 		var/sound/S = sound('sound/effects/engine_alert1.ogg')
 		S.wait = 0
 		S.channel = 0
 		S.volume = 50
 		occupant << S
+		if(occupant2)
+			occupant2 << S
 	if(!health)
 		spawn(0)
 			if(occupant)
@@ -90,6 +96,8 @@
 				for(var/i = 10, i >= 0; --i)
 					if(occupant)
 						occupant << "<span class='warning'>[i]</span>"
+					if(occupant2)
+						occupant2 << "<span class='warning'>[i]</span>"
 					if(i == 0)
 						explosion(loc, 2, 4, 8)
 					sleep(10)
@@ -100,10 +108,15 @@
 	switch(severity)
 		if(1)
 			var/mob/living/carbon/human/H = occupant
+			var/mob/living/carbon/human/H2 = occupant2
 			if(H)
 				H.loc = get_turf(src)
 				H.ex_act(severity + 1)
 				H << "<span class='warning'>You are forcefully thrown from \the [src]!</span>"
+			if(H2)
+				H2.loc = get_turf(src)
+				H2.ex_act(severity + 1)
+				H2 << "<span class='warning'>You are forcefully thrown from \the [src]!</span>"
 			del(ion_trail)
 			del(src)
 		if(2)
@@ -298,26 +311,59 @@
 
 /obj/spacepod/proc/moved_inside(var/mob/living/carbon/human/H as mob)
 	if(H && H.client && H in range(1))
-		H.reset_view(src)
-		/*
-		H.client.perspective = EYE_PERSPECTIVE
-		H.client.eye = src
-		*/
-		H.stop_pulling()
-		H.forceMove(src)
-		src.occupant = H
-		src.add_fingerprint(H)
-		src.forceMove(src.loc)
-		//dir = dir_in
-		playsound(src, 'sound/machines/windowdoor.ogg', 50, 1)
-		return 1
+		if(src.occupant)
+			H.reset_view(src)
+			/*
+			H.client.perspective = EYE_PERSPECTIVE
+			H.client.eye = src
+			*/
+			H.stop_pulling()
+			H.forceMove(src)
+			src.occupant2 = H
+			src.add_fingerprint(H)
+			src.forceMove(src.loc)
+			//dir = dir_in
+			playsound(src, 'sound/machines/windowdoor.ogg', 50, 1)
+			return 1
+
+		else
+			H.reset_view(src)
+			/*
+			H.client.perspective = EYE_PERSPECTIVE
+			H.client.eye = src
+			*/
+			H.stop_pulling()
+			H.forceMove(src)
+			src.occupant = H
+			src.add_fingerprint(H)
+			src.forceMove(src.loc)
+			//dir = dir_in
+			playsound(src, 'sound/machines/windowdoor.ogg', 50, 1)
+			return 1
 	else
 		return 0
 
+/obj/spacepod/proc/moved_other_inside(var/mob/living/carbon/human/H as mob)
+	H.reset_view(src)
+	H.stop_pulling()
+	H.forceMove(src)
+	src.occupant2 = H
+	src.forceMove(src.loc)
+	playsound(src, 'sound/machines/windowdoor.ogg', 50, 1)
+	return 1
+
+
+
 /obj/spacepod/MouseDrop_T(mob/M as mob, mob/user as mob)
 	if(M != user)
-		return
-	move_inside(M, user)
+		user << "<span class='notice'>You start putting [M.name] into the pod's second seat.</span>"
+		if(enter_after(40,usr))
+			moved_other_inside(M)
+		else
+			usr << "You stop moving [M.name] into the spacepod."
+	else
+		move_inside(M, user)
+
 
 /obj/spacepod/verb/move_inside()
 	set category = "Object"
@@ -329,7 +375,13 @@
 	if (usr.stat || !ishuman(usr))
 		return
 	if (src.occupant)
-		usr << "\blue <B>The [src.name] is already occupied!</B>"
+		usr << "\blue <B>You starts climbing into the secondary seat.</B>"
+		visible_message("\blue [usr] starts to climb into [src.name]")
+		if(enter_after(40,usr))
+			moved_inside(usr)
+
+		else
+			usr << "You stop entering the spacepod."
 		return
 /*
 	if (usr.abiotic())
@@ -359,53 +411,162 @@
 	set src = usr.loc
 
 	if(usr != src.occupant)
+		if(src.occupant2)
+			if(usr != src.occupant2)
+				return
+			else
+				if(src.allow2eject)
+					inertia_dir = 0 // engage reverse thruster and power down pod
+					src.occupant2.loc = src.loc
+					src.occupant2 = null
+					usr << "<span class='notice'>You climb out of the pod</span>"
+				else
+					usr << "<span class='notice'>The secondary door is locked.</span>"
+					return
+		else
+			return
+	else
+		inertia_dir = 0 // engage reverse thruster and power down pod
+		src.occupant.loc = src.loc
+		src.occupant = null
+		usr << "<span class='notice'>You climb out of the pod</span>"
 		return
-	inertia_dir = 0 // engage reverse thruster and power down pod
-	src.occupant.loc = src.loc
-	src.occupant = null
-	usr << "<span class='notice'>You climb out of the pod</span>"
-	return
+
+/obj/spacepod/verb/exit_pod2()
+	if(!src.occupant2)
+		set hidden = 1
+		return
+	else
+		set name = "Eject Secondary Seat"
+		set category = "Spacepod"
+		set src = usr.loc
+		set hidden = 0
+
+		if(usr.ckey == src.occupant2.ckey)
+			usr << "<span class='notice'>Use 'Exit Pod'</span>"
+			return
+		else
+			usr << "<span class='notice'>You eject [src.occupant2.name].</span>"
+			src.occupant2.visible_message("You were ejected from the pod!")
+			inertia_dir = 0 // engage reverse thruster and power down pod
+			src.occupant2.loc = src.loc
+			src.occupant2 = null
+
+
+/obj/spacepod/verb/locksecondseat()
+	if(!src.occupant2)
+		usr << "<span class='notice'>No point locking that door. </span>"
+		return
+	else
+		set name = "Lock Second Seat"
+		set category = "Spacepod"
+		set src in oview(1)
+
+		if(usr.ckey == src.occupant2.ckey)
+			if(!allow2eject)
+				usr << "<span class='notice'>You can't unlock the door from your seat. </span>"
+				return
+			else
+				usr << "<span class='notice'>You can't lock the door from your seat. </span>"
+				return
+		else
+			if(src.allow2eject)
+				src.allow2eject = 0
+				usr << "<span class='notice'>You lock the secondary door.</span>"
+			else
+				src.allow2eject = 1
+				usr << "<span class='notice'>You unlock the secondary door.</span>"
 
 /obj/spacepod/verb/toggleDoors()
-	set name = "Toggle Nearby Pod Doors"
-	set category = "Spacepod"
-	set src = usr.loc
+	if(src.occupant2)
+		if(usr.ckey != src.occupant2.ckey)
+			set name = "Toggle Nearby Pod Doors"
+			set category = "Spacepod"
+			set src = usr.loc
 
-	for(var/obj/machinery/door/poddoor/P in oview(3,src))
-		if(istype(P, /obj/machinery/door/poddoor/three_tile_hor) || istype(P, /obj/machinery/door/poddoor/three_tile_ver) || istype(P, /obj/machinery/door/poddoor/four_tile_hor) || istype(P, /obj/machinery/door/poddoor/four_tile_ver))
-			var/mob/living/carbon/human/L = usr
-			if(P.check_access(L.get_active_hand()) || P.check_access(L.wear_id))
-				if(P.density)
-					P.open()
-					return 1
-				else
-					P.close()
-					return 1
-			usr << "<span class='warning'>Access denied.</span>"
+			for(var/obj/machinery/door/poddoor/P in oview(3,src))
+				if(istype(P, /obj/machinery/door/poddoor/three_tile_hor) || istype(P, /obj/machinery/door/poddoor/three_tile_ver) || istype(P, /obj/machinery/door/poddoor/four_tile_hor) || istype(P, /obj/machinery/door/poddoor/four_tile_ver))
+					var/mob/living/carbon/human/L = usr
+					if(P.check_access(L.get_active_hand()) || P.check_access(L.wear_id))
+						if(P.density)
+							P.open()
+							return 1
+						else
+							P.close()
+							return 1
+					usr << "<span class='warning'>Access denied.</span>"
+					return
+			usr << "<span class='warning'>You are not close to any pod doors.</span>"
 			return
-	usr << "<span class='warning'>You are not close to any pod doors.</span>"
-	return
+		else
+			return
+	else
+		set name = "Toggle Nearby Pod Doors"
+		set category = "Spacepod"
+		set src = usr.loc
+
+		for(var/obj/machinery/door/poddoor/P in oview(3,src))
+			if(istype(P, /obj/machinery/door/poddoor/three_tile_hor) || istype(P, /obj/machinery/door/poddoor/three_tile_ver) || istype(P, /obj/machinery/door/poddoor/four_tile_hor) || istype(P, /obj/machinery/door/poddoor/four_tile_ver))
+				var/mob/living/carbon/human/L = usr
+				if(P.check_access(L.get_active_hand()) || P.check_access(L.wear_id))
+					if(P.density)
+						P.open()
+						return 1
+					else
+						P.close()
+						return 1
+				usr << "<span class='warning'>Access denied.</span>"
+				return
+		usr << "<span class='warning'>You are not close to any pod doors.</span>"
+		return
 
 /obj/spacepod/verb/fireWeapon()
-	set name = "Fire Pod Weapons"
-	set desc = "Fire the weapons."
-	set category = "Spacepod"
-	set src = usr.loc
-	equipment_system.weapon_system.fire_weapons()
+	if(src.occupant2)
+		if(usr.ckey != src.occupant2.ckey)
+			set name = "Fire Pod Weapons"
+			set desc = "Fire the weapons."
+			set category = "Spacepod"
+			set src = usr.loc
+			equipment_system.weapon_system.fire_weapons()
+		else
+			return
+	else
+		set name = "Fire Pod Weapons"
+		set desc = "Fire the weapons."
+		set category = "Spacepod"
+		set src = usr.loc
+		equipment_system.weapon_system.fire_weapons()
 
 obj/spacepod/verb/toggleLights()
-	set name = "Toggle Lights"
-	set category = "Spacepod"
-	set src = usr.loc
-	if (usr != occupant)
-		return
-	lights = !lights
-	if(lights)
-		SetLuminosity(luminosity + lights_power)
+	if(src.occupant2)
+		if(usr.ckey != src.occupant2.ckey)
+			set name = "Toggle Lights"
+			set category = "Spacepod"
+			set src = usr.loc
+			if (usr != occupant)
+				return
+			lights = !lights
+			if(lights)
+				SetLuminosity(luminosity + lights_power)
+			else
+				SetLuminosity(luminosity - lights_power)
+			occupant << "Toggled lights [lights?"on":"off"]."
+			return
+		else
+			return
 	else
-		SetLuminosity(luminosity - lights_power)
-	occupant << "Toggled lights [lights?"on":"off"]."
-	return
+		set name = "Toggle Lights"
+		set category = "Spacepod"
+		set src = usr.loc
+		if (usr != occupant)
+			return
+		lights = !lights
+		if(lights)
+			SetLuminosity(luminosity + lights_power)
+		else
+			SetLuminosity(luminosity - lights_power)
+		occupant << "Toggled lights [lights?"on":"off"]."
+		return
 
 /obj/spacepod/proc/enter_after(delay as num, var/mob/user as mob, var/numticks = 5)
 	var/delayfraction = delay/numticks
@@ -480,41 +641,82 @@ obj/spacepod/verb/toggleLights()
 	return 1
 
 /obj/spacepod/relaymove(mob/user, direction)
-	var/moveship = 1
-	if(battery && battery.charge >= 3 && health)
-		src.dir = direction
-		switch(direction)
-			if(1)
-				if(inertia_dir == 2)
-					inertia_dir = 0
-					moveship = 0
-			if(2)
-				if(inertia_dir == 1)
-					inertia_dir = 0
-					moveship = 0
-			if(4)
-				if(inertia_dir == 8)
-					inertia_dir = 0
-					moveship = 0
-			if(8)
-				if(inertia_dir == 4)
-					inertia_dir = 0
-					moveship = 0
-		if(moveship)
-			step(src, direction)
-			if(istype(src.loc, /turf/space))
-				inertia_dir = direction
-	else
-		if(!battery)
-			user << "<span class='warning'>No energy cell detected.</span>"
-		else if(battery.charge < 3)
-			user << "<span class='warning'>Not enough charge left.</span>"
-		else if(!health)
-			user << "<span class='warning'>She's dead, Jim</span>"
+	if(src.occupant2)
+		if(user.ckey != src.occupant2.ckey)
+			var/moveship = 1
+			if(battery && battery.charge >= 3 && health)
+				src.dir = direction
+				switch(direction)
+					if(1)
+						if(inertia_dir == 2)
+							inertia_dir = 0
+							moveship = 0
+					if(2)
+						if(inertia_dir == 1)
+							inertia_dir = 0
+							moveship = 0
+					if(4)
+						if(inertia_dir == 8)
+							inertia_dir = 0
+							moveship = 0
+					if(8)
+						if(inertia_dir == 4)
+							inertia_dir = 0
+							moveship = 0
+				if(moveship)
+					step(src, direction)
+					if(istype(src.loc, /turf/space))
+						inertia_dir = direction
+			else
+				if(!battery)
+					user << "<span class='warning'>No energy cell detected.</span>"
+				else if(battery.charge < 3)
+					user << "<span class='warning'>Not enough charge left.</span>"
+				else if(!health)
+					user << "<span class='warning'>She's dead, Jim</span>"
+				else
+					user << "<span class='warning'>Unknown error has occurred, yell at pomf.</span>"
+				return 0
+			battery.charge = max(0, battery.charge - 3)
 		else
-			user << "<span class='warning'>Unknown error has occurred, yell at pomf.</span>"
-		return 0
-	battery.charge = max(0, battery.charge - 3)
+			return
+
+	else
+		var/moveship = 1
+		if(battery && battery.charge >= 3 && health)
+			src.dir = direction
+			switch(direction)
+				if(1)
+					if(inertia_dir == 2)
+						inertia_dir = 0
+						moveship = 0
+				if(2)
+					if(inertia_dir == 1)
+						inertia_dir = 0
+						moveship = 0
+				if(4)
+					if(inertia_dir == 8)
+						inertia_dir = 0
+						moveship = 0
+				if(8)
+					if(inertia_dir == 4)
+						inertia_dir = 0
+						moveship = 0
+			if(moveship)
+				step(src, direction)
+				if(istype(src.loc, /turf/space))
+					inertia_dir = direction
+		else
+			if(!battery)
+				user << "<span class='warning'>No energy cell detected.</span>"
+			else if(battery.charge < 3)
+				user << "<span class='warning'>Not enough charge left.</span>"
+			else if(!health)
+				user << "<span class='warning'>She's dead, Jim</span>"
+			else
+				user << "<span class='warning'>Unknown error has occurred, yell at pomf.</span>"
+			return 0
+		battery.charge = max(0, battery.charge - 3)
 
 /obj/effect/landmark/spacepod/random
 	name = "spacepod spawner"
