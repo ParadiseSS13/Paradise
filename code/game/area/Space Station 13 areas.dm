@@ -994,6 +994,10 @@ var/list/ghostteleportlocs = list()
 /area/blueshield
 	name = "\improper Blueshield's Office"
 	icon_state = "blueold"
+	
+/area/centcomdocks
+	name = "\improper Central Command Docks"
+	icon_state = "centcom"
 
 //Crew
 
