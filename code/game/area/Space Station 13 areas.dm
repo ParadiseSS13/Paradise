@@ -636,34 +636,44 @@ var/list/ghostteleportlocs = list()
 	requires_power = 0
 
 /area/xenos_station/southwest
-	name = "\improper Aft Port Solars"
+	name = "\improper Aft Port Solars Landing Area"
 	icon_state = "southwest"
 	requires_power = 0
 
 /area/xenos_station/northwest
-	name = "\improper Fore Port Solars"
+	name = "\improper Fore Port Solars Landing Area"
 	icon_state = "northwest"
 	requires_power = 0
 
 /area/xenos_station/northeast
-	name = "\improper Fore Starboard Solars"
+	name = "\improper Fore Starboard Solars Landing Area"
 	icon_state = "northeast"
 	requires_power = 0
 
 /area/xenos_station/southeast
-	name = "\improper Aft Starboard Solars"
+	name = "\improper Aft Starboard Solars Landing Area"
 	icon_state = "southeast"
 	requires_power = 0
 	
-/area/xenos_station/north
+/area/xenos_station/east
+	name = "\improper East Landing Area"
+	icon_state = "east"
+	requires_power = 0
+	
+/area/xenos_station/west
 	name = "\improper West Landing Area"
+	icon_state = "west"
+	requires_power = 0
+	
+/area/xenos_station/researchoutpost
+	name = "\improper Research Outpost Landing Area"
 	icon_state = "north"
 	requires_power = 0
 	
-/area/xenos_station/south
-	name = "\improper East Landing Area"
+/area/xenos_station/miningoutpost
+	name = "\improper Mining Outpost Landing Area"
 	icon_state = "south"
-	requires_power = 0
+	requires_power = 0	
 	
 //PRISON
 /area/prison
