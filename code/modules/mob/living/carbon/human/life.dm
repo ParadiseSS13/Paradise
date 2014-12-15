@@ -1357,6 +1357,29 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 								if(0 to 20)				healths.icon_state = "health5"
 								else					healths.icon_state = "health6"
 
+			if(healthdoll)
+				healthdoll.overlays.Cut()
+				if(stat == DEAD)
+					healthdoll.icon_state = "healthdoll_DEAD"
+				else
+					healthdoll.icon_state = "healthdoll_OVERLAY"
+					for(var/datum/organ/external/O in organs)
+						var/damage = O.burn_dam + O.brute_dam
+						var/comparison = (O.max_damage/5)
+						var/icon_num = 0
+						if(damage)
+							icon_num = 1
+						if(damage > (comparison))
+							icon_num = 2
+						if(damage > (comparison*2))
+							icon_num = 3
+						if(damage > (comparison*3))
+							icon_num = 4
+						if(damage > (comparison*4))
+							icon_num = 5
+						if(icon_num)
+							healthdoll.overlays += image('icons/mob/screen_gen.dmi',"[O.name][icon_num]")
+
 			if(nutrition_icon)
 				switch(nutrition)
 					if(450 to INFINITY)				nutrition_icon.icon_state = "nutrition0"
