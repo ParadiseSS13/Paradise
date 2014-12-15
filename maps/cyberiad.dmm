@@ -5238,7 +5238,7 @@
 "bWL" = (/obj/structure/table,/obj/item/weapon/clipboard,/obj/item/bluespace_crystal/artificial{pixel_x = -2; pixel_y = -3},/obj/item/bluespace_crystal/artificial{pixel_x = 4},/obj/item/bluespace_crystal/artificial{pixel_y = 3},/turf/simulated/floor{tag = "icon-whitepurple (NORTHEAST)"; icon_state = "whitepurple"; dir = 5},/area/toxins/telesci)
 "bWM" = (/obj/machinery/atmospherics/pipe/simple/supply/hidden,/obj/structure/closet/l3closet/scientist,/turf/simulated/floor{tag = "icon-whitepurple (NORTHWEST)"; icon_state = "whitepurple"; dir = 9},/area/toxins/telesci)
 "bWN" = (/obj/structure/closet/emcloset,/obj/machinery/status_display{layer = 4; pixel_x = 0; pixel_y = 32},/turf/simulated/floor{tag = "icon-whitepurple (NORTHEAST)"; icon_state = "whitepurple"; dir = 5},/area/toxins/telesci)
-"bWO" = (/obj/structure/table/reinforced,/obj/item/weapon/pinpointer,/obj/item/weapon/storage/lockbox/loyalty,/turf/unsimulated/floor{icon_state = "vault"; dir = 8},/area/centcom/specops)
+"bWO" = (/obj/structure/table/reinforced,/obj/item/weapon/storage/lockbox/loyalty,/turf/unsimulated/floor{icon_state = "vault"; dir = 8},/area/centcom/specops)
 "bWQ" = (/obj/machinery/firealarm{dir = 8; pixel_x = -24},/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,/turf/simulated/floor{dir = 5; icon_state = "whitehall"},/area/medical/research{name = "Research Division"})
 "bWR" = (/obj/structure/sign/fire{pixel_x = 32; pixel_y = 0},/turf/simulated/floor{dir = 9; icon_state = "whitehall"},/area/medical/research{name = "Research Division"})
 "bWS" = (/obj/effect/decal/warning_stripes/northwestcorner,/turf/simulated/floor{icon_state = "floorgrime"},/area/toxins/mixing)
