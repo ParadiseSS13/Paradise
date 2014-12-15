@@ -52,6 +52,11 @@
 	name = "a functional AI"
 	typepath = /obj/item/device/aicard
 
+/datum/theft_objective/defib
+	name = "a defibrillator"
+	typepath = /obj/item/weapon/defibrillator
+	protected_jobs = list("Chief Medical Officer", "Medical Doctor", "Chemist", "Geneticist", "Virologist", "Psychiatrist", "Paramedic", "Brig Physician")
+
 /datum/theft_objective/magboots
 	name = "the chief engineer's advanced magnetic boots"
 	typepath = /obj/item/clothing/shoes/magboots/advance
