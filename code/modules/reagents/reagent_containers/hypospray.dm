@@ -8,6 +8,7 @@
 	icon = 'icons/obj/syringe.dmi'
 	item_state = "hypo"
 	icon_state = "hypo"
+	icon_override = 'icons/mob/in-hand/tools.dmi'
 	amount_per_transfer_from_this = 5
 	volume = 30
 	possible_transfer_amounts = list(1,2,3,4,5,10,15,20,25,30)
