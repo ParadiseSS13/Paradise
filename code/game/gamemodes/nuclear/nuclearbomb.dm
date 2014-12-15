@@ -29,6 +29,7 @@ var/bomb_set
 	var/uititle
 	flags = FPRINT
 	use_power = 0
+	unacidable = 1
 
 /obj/machinery/nuclearbomb/New()
 	..()

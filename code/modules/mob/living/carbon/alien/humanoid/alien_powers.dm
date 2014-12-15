@@ -8,13 +8,13 @@ Doesn't work on other aliens/AI.*/
 
 /mob/living/carbon/alien/proc/powerc(X, Y)//Y is optional, checks for weed planting. X can be null.
 	if(stat)
-		src << "\green You must be conscious to do this."
+		src << "<span class='noticealien'>You must be conscious to do this.</span>"
 		return 0
 	else if(X && getPlasma() < X)
-		src << "\green Not enough plasma stored."
+		src << "<span class='noticealien'>Not enough plasma stored.</span>"
 		return 0
 	else if(Y && (!isturf(src.loc) || istype(src.loc, /turf/space)))
-		src << "\green Bad place for a garden!"
+		src << "<span class='noticealien'>You can't place that here!</span>"
 		return 0
 	else	return 1
 
@@ -155,7 +155,7 @@ Doesn't work on other aliens/AI.*/
 		spawn(60)
 			adjustToxLoss(-75)
 			for(var/mob/O in viewers(src, null))
-				O.show_message(text("<span class='noticealien'>[src] vomits up a thick purple substance and shapes it!</span>"), 1)
+				O.show_message(text("<span class='alertalien'>[src] vomits up a thick purple substance and shapes it!</span>"), 1)
 			switch(choice)
 				if("resin door")
 					new /obj/structure/mineral_door/resin(loc)
