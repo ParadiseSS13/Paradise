@@ -74,8 +74,8 @@
 	for(var/obj/item/weapon/stock_parts/manipulator/P in component_parts)
 		precision_coeff = P.rating
 	for(var/obj/item/weapon/stock_parts/micro_laser/P in component_parts)
-		damage_coeff = P.rating	
-	
+		damage_coeff = P.rating
+
 /obj/machinery/dna_scannernew/allow_drop()
 	return 0
 
@@ -186,8 +186,8 @@
 		default_deconstruction_screwdriver(user, "[icon_state]_maintenance", "[initial(icon_state)]", item)
 
 	if(exchange_parts(user, item))
-		return		
-		
+		return
+
 	if(istype(item, /obj/item/weapon/crowbar))
 		if(panel_open)
 			for(var/obj/I in contents) // in case there is something in the scanner
@@ -237,22 +237,21 @@
 		|| locate(/obj/machinery/computer/cloning, get_step(src, EAST)) \
 		|| locate(/obj/machinery/computer/cloning, get_step(src, WEST)))
 
-		if(!M.client && M.mind)
-			for(var/mob/dead/observer/ghost in player_list)
-				if(ghost.mind == M.mind)
-					ghost << "<b><font color = #330033><font size = 3>Your corpse has been placed into a cloning scanner. Return to your body if you want to be resurrected/cloned!</b> (Verbs -> Ghost -> Re-enter corpse)</font color>"
-					break
+		var/mob/dead/observer/ghost = occupant.get_ghost()
+		if(ghost)
+			ghost << "<span class='ghostalert'>Your corpse has been placed into a cloning scanner. Return to your body if you want to be cloned!</span> (Verbs -> Ghost -> Re-enter corpse)"
+			ghost << sound('sound/effects/genetics.ogg')
 	return
 
 /obj/machinery/dna_scannernew/proc/go_out()
 	if (!src.occupant)
 		usr << "<span class=\"warning\">The scanner is empty!</span>"
 		return
-		
+
 	if (src.locked)
 		usr << "<span class=\"warning\">The scanner is locked!</span>"
 		return
-		
+
 	if (src.occupant.client)
 		src.occupant.client.eye = src.occupant.client.mob
 		src.occupant.client.perspective = MOB_PERSPECTIVE

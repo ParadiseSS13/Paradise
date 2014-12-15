@@ -69,51 +69,28 @@
 			new /obj/item/weapon/storage/backpack/medic(src)
 		else
 			new /obj/item/weapon/storage/backpack/satchel_med(src)
-		new /obj/item/clothing/under/rank/nursesuit (src)
-		new /obj/item/clothing/head/nursehat (src)
-		switch(pick("blue", "green", "purple"))
-			if ("blue")
-				new /obj/item/clothing/under/rank/medical/blue(src)
-				new /obj/item/clothing/head/surgery/blue(src)
-			if ("green")
-				new /obj/item/clothing/under/rank/medical/green(src)
-				new /obj/item/clothing/head/surgery/green(src)
-			if ("purple")
-				new /obj/item/clothing/under/rank/medical/purple(src)
-				new /obj/item/clothing/head/surgery/purple(src)
-		switch(pick("blue", "green", "purple"))
-			if ("blue")
-				new /obj/item/clothing/under/rank/medical/blue(src)
-				new /obj/item/clothing/head/surgery/blue(src)
-			if ("green")
-				new /obj/item/clothing/under/rank/medical/green(src)
-				new /obj/item/clothing/head/surgery/green(src)
-			if ("purple")
-				new /obj/item/clothing/under/rank/medical/purple(src)
-				new /obj/item/clothing/head/surgery/purple(src)
 		new /obj/item/clothing/under/rank/medical(src)
-		new /obj/item/clothing/under/rank/nurse(src)
-		new /obj/item/clothing/under/rank/orderly(src)
 		new /obj/item/clothing/suit/storage/labcoat(src)
-		new /obj/item/clothing/suit/storage/fr_jacket(src)
 		new /obj/item/clothing/shoes/white(src)
-//		new /obj/item/weapon/cartridge/medical(src)
 		new /obj/item/device/radio/headset/headset_med(src)
+		new /obj/item/clothing/gloves/latex(src)
+		new /obj/item/weapon/defibrillator/loaded(src)
 		new /obj/item/weapon/storage/belt/medical(src)
+		new /obj/item/clothing/glasses/hud/health(src)
 		return
 
 // Psychiatrist's pill bottle
 /obj/item/weapon/storage/pill_bottle/psychiatrist
 	name = "psychiatrist's pill bottle"
 	desc = "Contains various pills to calm or sedate patients."
-	
+
 /obj/item/weapon/storage/pill_bottle/psychiatrist/New()
 	..()
 	new /obj/item/weapon/reagent_containers/pill/citalopram(src)
 	new /obj/item/weapon/reagent_containers/pill/citalopram(src)
 	new /obj/item/weapon/reagent_containers/pill/methylphenidate(src)
 	new /obj/item/weapon/reagent_containers/pill/methylphenidate(src)
-		
+
 /obj/structure/closet/secure_closet/psychiatrist
 	name = "Psychiatrist's Locker"
 	req_access = list(access_psychiatrist)
@@ -164,12 +141,13 @@
 			if ("purple")
 				new /obj/item/clothing/under/rank/medical/purple(src)
 				new /obj/item/clothing/head/surgery/purple(src)
-		new /obj/item/clothing/under/rank/chief_medical_officer(src)
 		new /obj/item/clothing/suit/storage/labcoat/cmo(src)
-		new /obj/item/weapon/cartridge/cmo(src)
-		new /obj/item/clothing/gloves/latex(src)
+		new /obj/item/clothing/under/rank/chief_medical_officer(src)
 		new /obj/item/clothing/shoes/brown	(src)
+		new /obj/item/clothing/gloves/latex(src)
 		new /obj/item/device/radio/headset/heads/cmo(src)
+		new /obj/item/clothing/gloves/latex(src)
+		new /obj/item/weapon/defibrillator(src)
 		new /obj/item/weapon/storage/belt/medical(src)
 		new /obj/item/device/flash(src)
 		new /obj/item/weapon/reagent_containers/hypospray(src)
