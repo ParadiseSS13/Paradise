@@ -514,11 +514,11 @@
 	<BR><B>Suit Storage:</B> <A href='?src=\ref[src];item=s_store'>[(s_store ? s_store : "Nothing")]</A>
 	<BR><BR><A href='?src=\ref[src];pockets=left'>Left Pocket ([l_store ? (pickpocket ? l_store.name : "Full") : "Empty"])</A>
 	<BR><A href='?src=\ref[src];pockets=right'>Right Pocket ([r_store ? (pickpocket ? r_store.name : "Full") : "Empty"])</A>
-	<BR><A href='?src=\ref[src];item=pockets'>Empty Both Pockets</A>		
+	<BR><A href='?src=\ref[src];item=pockets'>Empty Both Pockets</A>
 	<BR><BR>[(handcuffed ? text("<A href='?src=\ref[src];item=handcuff'>Handcuffed</A>") : text("<A href='?src=\ref[src];item=handcuff'>Not Handcuffed</A>"))]
 	<BR>[(legcuffed ? text("<A href='?src=\ref[src];item=legcuff'>Legcuffed</A>") : text(""))]
 	[(suit) ? ((suit.hastie) ? text("<BR><A href='?src=\ref[];item=tie'>Remove Accessory</A>", src) : "") :]
-	[(internal ? text("<BR><A href='?src=\ref[src];item=internal'>Remove Internal</A>") : "")]	
+	[(internal ? text("<BR><A href='?src=\ref[src];item=internal'>Remove Internal</A>") : "")]
 	<BR><A href='?src=\ref[src];item=splints'>Remove Splints</A>
 	<BR><A href='?src=\ref[user];refresh=1'>Refresh</A>
 	<BR><A href='?src=\ref[user];mach_close=mob\ref[src]'>Close</A>
@@ -1601,6 +1601,10 @@
 	//Agent cards lower threatlevel.
 	if(istype(idcard, /obj/item/weapon/card/id/syndicate))
 		threatcount -= 5
+
+	// Pingsky now actually harbors anti-human sentiment! -Dave
+	if(istype(judgebot, /obj/machinery/bot/secbot/pingsky) && istype(src, /mob/living/carbon/human/human/))
+		threatcount += 1
 
 	return threatcount
 
