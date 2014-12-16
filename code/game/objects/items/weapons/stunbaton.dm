@@ -197,3 +197,11 @@
 	stunforce = 5
 	hitcost = 3750
 	slot_flags = null
+
+/obj/item/weapon/melee/baton/cattleprod/update_icon()
+	if(status)
+		icon_state = "stunprod_active"
+	else if(!bcell)
+		icon_state = "stunprod_nocell"
+	else
+		icon_state = "stunprod"
