@@ -24,6 +24,7 @@
 	var/check_records = 1 //Does it check security records?
 	var/arrest_type = 0 //If true, don't handcuff
 	var/harmbaton = 0
+	var/base_icon = "secbot"
 	radio_frequency = SEC_FREQ //Security channel
 	radio_name = "Security"
 	bot_type = SEC_BOT
@@ -54,6 +55,8 @@
 /obj/machinery/bot/secbot/buzzsky
 	name = "Officer Buzzsky"
 	desc = "It's Officer Buzzsky! Rusted and falling apart, he seems less than thrilled with the crew for leaving him in his current state."
+	base_icon = "rustbot"
+	icon_state = "rustbot0"
 	declare_arrests = 0
 	arrest_type = 1
 	harmbaton = 1
@@ -72,7 +75,7 @@
 
 /obj/machinery/bot/secbot/New()
 	..()
-	icon_state = "secbot[on]"
+	icon_state = "[base_icon][on]"
 	spawn(3)
 
 		var/datum/job/detective/J = new/datum/job/detective
@@ -83,12 +86,12 @@
 
 /obj/machinery/bot/secbot/turn_on()
 	..()
-	icon_state = "secbot[on]"
+	icon_state = "[base_icon][on]"
 	updateUsrDialog()
 
 /obj/machinery/bot/secbot/turn_off()
 	..()
-	icon_state = "secbot[on]"
+	icon_state = "[base_icon][on]"
 	updateUsrDialog()
 
 /obj/machinery/bot/secbot/bot_reset()
@@ -199,7 +202,7 @@ Auto Patrol: []"},
 			oldtarget_name = user.name
 		visible_message("<span class='danger'>[src] buzzes oddly!</span>")
 		declare_arrests = 0
-		icon_state = "secbot[on]"
+		icon_state = "[base_icon][on]"
 
 /obj/machinery/bot/secbot/bot_process()
 	if (!..())
@@ -227,9 +230,9 @@ Auto Patrol: []"},
 					playsound(loc, 'sound/weapons/Egloves.ogg', 50, 1, -1)
 					if(harmbaton)
 						playsound(loc, 'sound/weapons/genhit1.ogg', 50, 1, -1)
-					icon_state = "secbot-c"
+					icon_state = "[base_icon]-c"
 					spawn(2)
-						icon_state = "secbot[on]"
+						icon_state = "[base_icon][on]"
 					var/mob/living/carbon/M = target
 					if(istype(M, /mob/living/carbon/human))
 						if( M.stuttering < 5 && !(M_HULK in M.mutations) )
