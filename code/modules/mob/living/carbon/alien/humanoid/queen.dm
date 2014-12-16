@@ -122,12 +122,13 @@
 			adjustToxLoss(-1000)
 			src << "<span class='noticealien'>You begin to evolve!</span>"
 			for(var/mob/O in viewers(src, null))
-				O.show_message(text("\green <B>[src] begins to twist and contort!</B>"), 1)
-			var/mob/living/carbon/alien/humanoid/empress/new_xeno = new (loc)
+				O.show_message(text("<span class='alertalien'>[src] begins to twist and contort!</span>"), 1)
+			var/mob/living/carbon/alien/humanoid/empress/new_xeno = new(loc)
 			if(mind)
 				mind.transfer_to(new_xeno)
 			else
 				new_xeno.key = key
+			new_xeno.mind.name = new_xeno.name
 			del(src)
 		else
 			src << "<span class='notice'>We already have an alive empress.</span>"

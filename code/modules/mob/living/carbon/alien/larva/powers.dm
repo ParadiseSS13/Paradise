@@ -9,7 +9,7 @@
 
 	if (layer != TURF_LAYER+0.2)
 		layer = TURF_LAYER+0.2
-		src << text("\green You are now hiding.")
+		src << text("<span class='noticealien'>You are now hiding.</span>")
 		for(var/mob/O in oviewers(src, null))
 			if ((O.client && !( O.blinded )))
 				O << text("<B>[] scurries to the ground!</B>", src)
@@ -52,8 +52,9 @@
 			mind.transfer_to(new_xeno)
 		else
 			new_xeno.key = key
+		new_xeno.mind.name = new_xeno.name
 		del(src)
 		return
 	else
-		src << "\red You are not fully grown."
+		src << "<span class='warning'>You are not fully grown.</span>"
 		return

@@ -141,9 +141,12 @@ var/last_chew = 0
 	..()
 	if(istype(I, /obj/item/stack/rods))
 		var/obj/item/stack/rods/R = I
-		var/obj/item/weapon/wirerod/W = new /obj/item/weapon/wirerod
-		R.use(1)
-		user.put_in_hands(W)
-		user << "<span class='notice'>You wrap the cable restraint around the top of the rod.</span>"
-		del(src)
-
+		if (R.use(1))
+			var/obj/item/weapon/wirerod/W = new /obj/item/weapon/wirerod
+			user.u_equip(src)
+			user.put_in_hands(W)
+			user << "<span class='notice'>You wrap the cable restraint around the top of the rod.</span>"
+			del(src)
+		else
+			user << "<span class='warning'>You need one rod to make a wired rod.</span>"
+			return

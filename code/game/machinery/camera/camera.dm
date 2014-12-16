@@ -28,6 +28,7 @@
 	var/light_disabled = 0
 	var/alarm_on = 0
 	var/busy = 0
+	var/indestructible = 0 // If set, prevents aliens from destroying it
 
 /obj/machinery/camera/New()
 	wires = new(src)
@@ -96,6 +97,8 @@
 
 /obj/machinery/camera/attack_paw(mob/living/carbon/alien/humanoid/user as mob)
 	if(!istype(user))
+		return
+	if(indestructible)
 		return
 	status = 0
 	visible_message("<span class='warning'>\The [user] slashes at [src]!</span>")
