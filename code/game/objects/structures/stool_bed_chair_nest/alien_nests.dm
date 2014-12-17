@@ -22,7 +22,7 @@
 					"<span class='warning'>[buckled_mob.name] struggles to break free of the gelatinous resin...</span>",\
 					"<span class='warning'>You struggle to break free from the gelatinous resin...</span>",\
 					"<span class='notice'>You hear squelching...</span>")
-				spawn(1200)
+				spawn(600)
 					if(user && buckled_mob && user.buckled == src)
 						buckled_mob.pixel_y = 0
 						unbuckle()
@@ -51,10 +51,20 @@
 	M.loc = src.loc
 	M.dir = src.dir
 	M.update_canmove()
-	M.pixel_y = 6
+	M.pixel_y += 1
+	M.pixel_x += 2
+	M.anchored = anchored
 	src.buckled_mob = M
 	src.add_fingerprint(user)
+	src.overlays += image('icons/mob/alien.dmi', "nestoverlay", layer=6)
 	return
+
+/obj/structure/stool/bed/nest/unbuckle()
+	if(buckled_mob)
+		buckled_mob.pixel_y -= 1
+		buckled_mob.pixel_x -= 2
+	overlays.Cut()
+	..()
 
 /obj/structure/stool/bed/nest/attackby(obj/item/weapon/W as obj, mob/user as mob)
 	var/aforce = W.force
