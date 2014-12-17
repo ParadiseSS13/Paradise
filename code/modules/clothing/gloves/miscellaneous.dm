@@ -63,6 +63,7 @@
 	siemens_coefficient = 0.30
 	permeability_coefficient = 0.01
 	_color="white"
+	transfer_prints = TRUE
 	species_fit = list("Vox")
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/mask.dmi'
