@@ -10,9 +10,11 @@
 	name = "electrode"
 	icon_state = "spark"
 	nodamage = 1
-	stun = 5
+	/*stun = 5
 	weaken = 5
-	stutter = 5
+	stutter = 5*/
+	agony = 40
+	damage_type = HALLOSS
 	hitsound = 'sound/weapons/tase.ogg'
 	//Damage will be handled on the MOB side, to prevent window shattering.
 
