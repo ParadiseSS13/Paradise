@@ -187,6 +187,7 @@ var/list/department_radio_keys = list(
 
 	if(traumatic_shock > 61 && prob(50))
 		message_mode = null //people in shock will have a high chance of not being able to speak on radio; needed since people don't instantly pass out at 100 damage.
+		src << "<span class='warning'>You try to use your radio, but you are in too much pain.</span>"
 
 	message = capitalize(message)
 
