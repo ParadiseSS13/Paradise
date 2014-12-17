@@ -1505,8 +1505,8 @@ datum
 							O.show_message(text("\blue The fungi are completely dissolved by the solution!"), 1)
 
 			reaction_obj(var/obj/O, var/volume)
-				if(istype(O,/obj/effect/alien/weeds/))
-					var/obj/effect/alien/weeds/alien_weeds = O
+				if(istype(O,/obj/structure/alien/weeds/))
+					var/obj/structure/alien/weeds/alien_weeds = O
 					alien_weeds.health -= rand(15,35) // Kills alien weeds pretty fast
 					alien_weeds.healthcheck()
 				else if(istype(O,/obj/effect/glowshroom)) //even a small amount is enough to kill it

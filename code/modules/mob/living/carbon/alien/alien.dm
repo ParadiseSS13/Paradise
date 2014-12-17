@@ -1,5 +1,5 @@
 #define HEAT_DAMAGE_LEVEL_1 2 //Amount of damage applied when your body temperature just passes the 360.15k safety point
-#define HEAT_DAMAGE_LEVEL_2 4 //Amount of damage applied when your body temperature passes the 400K point
+#define HEAT_DAMAGE_LEVEL_2 3 //Amount of damage applied when your body temperature passes the 400K point
 #define HEAT_DAMAGE_LEVEL_3 8 //Amount of damage applied when your body temperature passes the 1000K point
 
 /mob/living/carbon/alien
@@ -16,7 +16,7 @@
 	alien_talk_understand = 1
 
 	nightvision = 1
-	
+
 	var/obj/item/weapon/card/id/wear_id = null // Fix for station bounced radios -- Skie
 	var/has_fine_manipulation = 0
 
@@ -29,7 +29,7 @@
 	var/oxygen_alert = 0
 	var/toxins_alert = 0
 	var/fire_alert = 0
-	
+
 	var/large = 0
 	var/heat_protection = 0.5
 	var/leaping = 0
@@ -39,8 +39,8 @@
 	verbs += /mob/living/verb/lay_down
 	internal_organs += new /obj/item/brain/alien
 
-	..()	
-	
+	..()
+
 /mob/living/carbon/alien/adjustToxLoss(amount)
 	storedPlasma = min(max(storedPlasma + amount,0),max_plasma) //upper limit of max_plasma, lower limit of 0
 	updatePlasmaDisplay()
@@ -69,7 +69,7 @@
 /mob/living/carbon/alien/proc/handle_environment(var/datum/gas_mixture/environment)
 
 	//If there are alien weeds on the ground then heal if needed or give some toxins
-	if(locate(/obj/effect/alien/weeds) in loc)
+	if(locate(/obj/structure/alien/weeds) in loc)
 		if(health >= maxHealth - getCloneLoss())
 			adjustToxLoss(plasma_rate)
 		else
@@ -79,7 +79,7 @@
 
 	if(!environment)
 		return
-		
+
 	var/loc_temp = T0C
 	if(istype(loc, /obj/mecha))
 		var/obj/mecha/M = loc
@@ -193,7 +193,7 @@
 
 /mob/living/carbon/alien/setDNA()
 	return
-	
+
 /mob/living/carbon/alien/verb/nightvisiontoggle()
 	set name = "Toggle Night Vision"
 	set category = "Alien"
@@ -243,7 +243,7 @@ Des: Removes all infected images from the alien.
 
 /mob/living/carbon/alien/larva/updatePlasmaDisplay()
 	return
-	
+
 #undef HEAT_DAMAGE_LEVEL_1
 #undef HEAT_DAMAGE_LEVEL_2
 #undef HEAT_DAMAGE_LEVEL_3

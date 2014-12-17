@@ -108,14 +108,6 @@ var/list/uplink_items = list()
 	cost = 8
 	job = list("Clown")
 
-//Detective
-/datum/uplink_item/jobspecific/evidenceforger
-	name = "Evidence Forger"
-	desc = "An evidence scanner that allows you forge evidence by setting the output before scanning the item."
-	item = /obj/item/device/detective_scanner/forger
-	cost = 6
-	job = list("Detective")
-
 /datum/uplink_item/jobspecific/conversionkit
 	name = "Conversion Kit Bundle"
 	desc = "A bundle that comes with a professional revolver conversion kit and 1 box of .357 ammo. The kit allows you to convert your revolver to fire lethal rounds or vice versa, modification is nearly perfect and will not result in catastrophic failure."
