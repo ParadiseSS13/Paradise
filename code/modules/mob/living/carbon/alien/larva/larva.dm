@@ -2,7 +2,7 @@
 	name = "alien larva"
 	real_name = "alien larva"
 	icon_state = "larva0"
-	pass_flags = PASSTABLE
+	pass_flags = PASSTABLE | PASSMOB
 
 	maxHealth = 30
 	health = 30

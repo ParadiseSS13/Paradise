@@ -10,11 +10,10 @@
 	var/next_attack = 0
 	update_icon = 1
 	var/leap_on_click = 0
-	var/constructing = 0
 
 //This is fine right now, if we're adding organ specific damage this needs to be updated
 /mob/living/carbon/alien/humanoid/New()
-	var/datum/reagents/R = new/datum/reagents(100)
+	var/datum/reagents/R = new/datum/reagents(1000)
 	reagents = R
 	R.my_atom = src
 	if(name == "alien")
@@ -52,15 +51,15 @@
 /mob/living/carbon/alien/humanoid/movement_delay()
 	var/tally = 0
 	if (istype(src, /mob/living/carbon/alien/humanoid/queen))
-		tally += 5
+		tally += 4
 	if (istype(src, /mob/living/carbon/alien/humanoid/drone))
-		tally += 2
+		tally += 0
 	if (istype(src, /mob/living/carbon/alien/humanoid/sentinel))
-		tally += 1
+		tally += 0
 	if (istype(src, /mob/living/carbon/alien/humanoid/hunter))
-		tally = -1 // hunters go supersuperfast
+		tally = -2 // hunters go supersuperfast
 	return (tally + move_delay_add + config.alien_delay)
-	
+
 /mob/living/carbon/alien/humanoid/Process_Spacemove(var/check_drift = 0)
 	return 1
 
@@ -250,7 +249,7 @@
 				if (M_HULK in M.mutations)//M_HULK SMASH
 					damage += 14
 					spawn(0)
-						Weaken(damage) // Why can a hulk knock an alien out but not knock out a human? Damage is robust enough.
+						Paralyse(1)
 						step_away(src,M,15)
 						sleep(3)
 						step_away(src,M,15)
@@ -259,7 +258,7 @@
 					if ((O.client && !( O.blinded )))
 						O.show_message(text("\red <B>[] has punched []!</B>", M, src), 1)
 				if (damage > 9||prob(5))//Regular humans have a very small chance of weakening an alien.
-					Weaken(1,5)
+					Paralyse(2)
 					for(var/mob/O in viewers(M, null))
 						if ((O.client && !( O.blinded )))
 							O.show_message(text("\red <B>[] has weakened []!</B>", M, src), 1, "\red You hear someone fall.", 2)
@@ -274,7 +273,7 @@
 		if ("disarm")
 			if (!lying)
 				if (prob(5))//Very small chance to push an alien down.
-					Weaken(2)
+					Paralyse(2)
 					playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
 					for(var/mob/O in viewers(src, null))
 						if ((O.client && !( O.blinded )))
