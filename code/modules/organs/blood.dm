@@ -73,7 +73,7 @@ var/const/BLOOD_VOLUME_SURVIVE = 122
 		// Damaged heart virtually reduces the blood volume, as the blood isn't
 		// being pumped properly anymore.
 		var/datum/organ/internal/heart/heart = internal_organs_by_name["heart"]
-		
+
 		if(heart)
 			if(heart.damage > 1 && heart.damage < heart.min_bruised_damage)
 				blood_volume *= 0.8
@@ -314,13 +314,13 @@ var/const/BLOOD_VOLUME_SURVIVE = 122
 					return D
 	return res
 
-proc/blood_incompatible(donor,receiver)
-	if(!donor || !receiver) return 0
-	var
-		donor_antigen = copytext(donor,1,lentext(donor))
-		receiver_antigen = copytext(receiver,1,lentext(receiver))
-		donor_rh = (findtext(donor,"+")>0)
-		receiver_rh = (findtext(receiver,"+")>0)
+/proc/blood_incompatible(donor,receiver)
+
+	var/donor_antigen = copytext(donor,1,lentext(donor))
+	var/receiver_antigen = copytext(receiver,1,lentext(receiver))
+	var/donor_rh = findtext("+",donor)
+	var/receiver_rh = findtext("+",receiver)
+
 	if(donor_rh && !receiver_rh) return 1
 	switch(receiver_antigen)
 		if("A")

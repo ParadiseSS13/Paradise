@@ -9,7 +9,7 @@
 		while sprite_sheets should be used for "flexible" clothing items that do not need to be refitted (e.g. vox wearing jumpsuits).
 	*/
 	var/list/sprite_sheets_refit = null
-	
+
 //BS12: Species-restricted clothing check.
 /obj/item/clothing/mob_can_equip(M as mob, slot)
 
@@ -53,12 +53,12 @@
 		icon_override = sprite_sheets[target_species]
 	else
 		icon_override = initial(icon_override)
-		
+
 	if (sprite_sheets_obj && (target_species in sprite_sheets_obj))
 		icon = sprite_sheets_obj[target_species]
 	else
 		icon = initial(icon)
-	
+
 //Ears: currently only used for headsets and earmuffs
 /obj/item/clothing/ears
 	name = "ears"
@@ -153,6 +153,7 @@ BLIND     // can't see anything
 	body_parts_covered = HANDS
 	slot_flags = SLOT_GLOVES
 	attack_verb = list("challenged")
+	var/transfer_prints = FALSE
 	var/pickpocket = 0 //Master pickpocket?
 	var/clipped = 0
 	species_restricted = list("exclude","Unathi","Tajaran")
@@ -181,7 +182,7 @@ BLIND     // can't see anything
 	set src in usr
 	..()
 	return
-	
+
 /obj/item/clothing/under/proc/set_sensors(mob/usr as mob)
 	var/mob/M = usr
 	if (istype(M, /mob/dead/)) return
