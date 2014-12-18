@@ -373,7 +373,7 @@
 
 /obj/item/weapon/spellbook/oneuse/fireball/recoil(mob/user as mob)
 	..()
-	explosion(user.loc, -1, 0, 2, 3, 0, flame_range = 2)
+	explosion(user.loc, -1, 0, 2, 3, 0)
 	del(src)
 
 /obj/item/weapon/spellbook/oneuse/smoke

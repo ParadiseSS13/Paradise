@@ -158,12 +158,13 @@ obj/item/weapon/twohanded/
 	name = "fire axe"
 	desc = "Truly, the weapon of a madman. Who would think to fight fire with an axe?"
 	force = 5
+	throwforce = 15
 	sharp = 1
 	edge = 1
 	w_class = 4.0
 	slot_flags = SLOT_BACK
-	force_unwielded = 10
-	force_wielded = 40
+	force_unwielded = 5
+	force_wielded = 24
 	attack_verb = list("attacked", "chopped", "cleaved", "torn", "cut")
 	hitsound = 'sound/weapons/bladeslice.ogg'
 
@@ -203,7 +204,7 @@ obj/item/weapon/twohanded/
 	throw_range = 5
 	w_class = 2.0
 	force_unwielded = 3
-	force_wielded = 30
+	force_wielded = 34
 	wieldsound = 'sound/weapons/saberon.ogg'
 	unwieldsound = 'sound/weapons/saberoff.ogg'
 	flags = FPRINT | TABLEPASS | NOSHIELD
@@ -287,8 +288,9 @@ obj/item/weapon/twohanded/
 	w_class = 4.0
 	slot_flags = SLOT_BACK
 	force_unwielded = 10
-	force_wielded = 13
-	throwforce = 15
+	force_wielded = 18 // Was 13, Buffed - RR
+	throwforce = 20
+	throw_speed = 3
 	flags = FPRINT | TABLEPASS | NOSHIELD
 	attack_verb = list("attacked", "poked", "jabbed", "torn", "gored")
 
