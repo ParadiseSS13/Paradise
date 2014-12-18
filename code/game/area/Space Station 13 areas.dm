@@ -1583,6 +1583,14 @@ area/security/podbay
 	name = "\improper Vault"
 	icon_state = "nuke_storage"
 
+/area/security/customs
+	name = "\improper Customs"
+	icon_state = "checkpoint1"
+
+/area/security/customs2
+	name = "\improper Customs"
+	icon_state = "security"	
+	
 /area/security/checkpoint
 	name = "\improper Security Checkpoint"
 	icon_state = "checkpoint1"

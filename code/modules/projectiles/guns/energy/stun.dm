@@ -6,7 +6,7 @@
 	item_state = null	//so the human update icon uses the icon_state instead.
 	fire_sound = 'sound/weapons/Taser.ogg'
 	projectile_type = "/obj/item/projectile/energy/electrode"
-	cell_type = "/obj/item/weapon/cell/crap"
+	cell_type = "/obj/item/weapon/cell"
 
 /obj/item/weapon/gun/energy/taser/cyborg
 	name = "taser gun"
@@ -29,7 +29,7 @@
 
 /obj/item/weapon/gun/energy/taser/cyborg/process() //Every [recharge_time] ticks, recharge a shot for the cyborg
 	return 1
-
+	
 /obj/item/weapon/gun/energy/taser/cyborg/process_chambered()
 	if(in_chamber)
 		return 1
@@ -44,11 +44,11 @@
 
 /obj/item/weapon/gun/energy/stunrevolver
 	name = "stun revolver"
-	desc = "A high-tech revolver that fires internal, reusable stun cartidges in a revolving cylinder."
+	desc = "A high-tech revolver that fires stun cartridges. The stun cartridges can be recharged using a conventional energy weapon recharger."
 	icon_state = "stunrevolver"
-	fire_sound = "sound/weapons/gunshot.ogg"
+	fire_sound = 'sound/weapons/Taser.ogg'
 	origin_tech = "combat=3;materials=3;powerstorage=2"
-	projectile_type = "/obj/item/projectile/energy/electrode"
+	projectile_type = "/obj/item/projectile/energy/electrode/revolver"
 	cell_type = "/obj/item/weapon/cell"
 
 
@@ -77,10 +77,10 @@
 
 /obj/item/weapon/gun/energy/crossbow/process()
 	charge_tick++
-	if(charge_tick < 4)
+	if(charge_tick < 4) 
 		return 0
 	charge_tick = 0
-	if(!power_supply)
+	if(!power_supply) 
 		return 0
 	power_supply.give(1000)
 	return 1
@@ -92,8 +92,8 @@
 	desc = "An energy-based crossbow that draws power from the cyborg's internal energy cell directly."
 
 /obj/item/weapon/gun/energy/crossbow/cyborg/process()
-	return 1
-
+	return 1	
+	
 /obj/item/weapon/gun/energy/crossbow/cyborg/process_chambered()
 	if(in_chamber)
 		return 1

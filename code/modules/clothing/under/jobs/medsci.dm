@@ -177,7 +177,7 @@
 		)
 
 /obj/item/clothing/under/rank/medical/mortician
-	name = "mortician's scrubs"
+	name = "coroner's scrubs"
 	desc = "It's made of a special fiber that provides minor protection against biohazards. This one is as dark as an emo's poetry."
 	icon_state = "scrubsblack"
 	_color = "scrubsblack"

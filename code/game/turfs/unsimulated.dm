@@ -15,7 +15,6 @@
 	icon = 'icons/turf/floors.dmi'
 	icon_state = "concrete"
 
-
 /turf/unsimulated/floor/plating/snow/ex_act(severity)
 	return
 
