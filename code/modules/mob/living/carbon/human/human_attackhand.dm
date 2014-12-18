@@ -139,13 +139,16 @@
 			playsound(loc, attack.attack_sound, 25, 1, -1)
 
 			visible_message("\red <B>[M] [pick(attack.attack_verb)]ed [src]!</B>")
-			//Rearranged, so claws don't increase weaken chance.
-			if(damage >= 5 && prob(50))
-				visible_message("\red <B>[M] has weakened [src]!</B>")
-				apply_effect(2, WEAKEN, armor_block)
 
 			damage += attack.damage
-			apply_damage(damage, BRUTE, affecting, armor_block, sharp=attack.sharp, edge=attack.edge)
+			apply_damage(damage, BRUTE, affecting, armor_block, sharp=attack.sharp, edge=attack.edge) //moving this back here means Armalis are going to knock you down  70% of the time, but they're pure adminbus anyway.
+			if((stat != DEAD) && damage >= 9)
+				visible_message("<span class='danger'>[M] has weakened [src]!</span>", \
+								"<span class='userdanger'>[M] has weakened [src]!</span>")
+				apply_effect(4, WEAKEN, armor_block)
+				forcesay(hit_appends)
+			else if(lying)
+				forcesay(hit_appends)
 
 
 		if("disarm")

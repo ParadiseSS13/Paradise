@@ -550,7 +550,7 @@
 	throwforce = 5.0
 	sharp = 1
 	edge = 1
-	throw_speed = 1
+	throw_speed = 2
 	throw_range = 3
 	w_class = 4.0
 	flags = FPRINT | TABLEPASS | NOSHIELD
@@ -594,6 +594,7 @@
 	desc = "Special mechanical module made to store, sort, and apply standard machine parts."
 	icon_state = "RPED"
 	item_state = "RPED"
+	icon_override = 'icons/mob/in-hand/tools.dmi'
 	w_class = 5
 	can_hold = list("/obj/item/weapon/stock_parts","/obj/item/weapon/cell")
 	storage_slots = 50
