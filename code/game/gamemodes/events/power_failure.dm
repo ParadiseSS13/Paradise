@@ -5,7 +5,7 @@
 		for(var/mob/M in player_list)
 			M << sound('sound/AI/poweroff.ogg')
 
-	var/list/skipped_areas = list(/area/turret_protected/ai)
+	var/list/skipped_areas = list(/area/turret_protected/ai,/area/engine/engineering)
 
 	for(var/obj/machinery/power/smes/S in machines)
 		var/area/current_area = get_area(S)
@@ -23,7 +23,7 @@
 			C.cell.charge = 0
 
 /proc/power_restore(var/announce = 1)
-	var/list/skipped_areas = list(/area/turret_protected/ai)
+	var/list/skipped_areas = list(/area/turret_protected/ai,/area/engine/engineering)
 
 	if(announce)
 		command_alert("Power has been restored to [station_name()]. We apologize for the inconvenience.", "Power Systems Nominal")
