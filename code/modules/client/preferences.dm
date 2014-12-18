@@ -185,7 +185,7 @@ datum/preferences
 				dat += "<br>"
 				dat += "Species: <a href='?_src_=prefs;preference=species;task=input'>[species]</a><br>"
 				if(species == "Vox")//oldvox code, sucks I know
-					dat += "Old vox? <a href='?_src_=prefs;preference=speciesprefs;task=input'>[speciesprefs ? "Yes(Big N2 tank w/ magclaws)" : "No(Vox-special N2 tank w/o magclaws)"]</a><br>"
+					dat += "Old vox? <a href='?_src_=prefs;preference=speciesprefs;task=input'>[speciesprefs ? "Yes(Big N2 tank)" : "No(Vox-special N2 tank)"]</a><br>"
 				dat += "Secondary Language:<br><a href='?_src_=prefs;preference=language;task=input'>[language]</a><br>"
 				dat += "Blood Type: <a href='?_src_=prefs;preference=b_type;task=input'>[b_type]</a><br>"
 				if(species == "Human")
