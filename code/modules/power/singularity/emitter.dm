@@ -52,6 +52,8 @@
 	if(frequency)
 		set_frequency(frequency)
 /obj/machinery/power/emitter/multitool_menu(var/mob/user,var/obj/item/device/multitool/P)
+	if(!allowed(user))
+		return "ACCESS DENIED"
 	return {"
 	<ul>
 		<li><b>Frequency:</b> <a href="?src=\ref[src];set_freq=-1">[format_frequency(frequency)] GHz</a> (<a href="?src=\ref[src];set_freq=[1439]">Reset</a>)</li>

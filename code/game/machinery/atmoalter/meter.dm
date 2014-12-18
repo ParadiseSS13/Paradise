@@ -13,6 +13,7 @@
 	idle_power_usage = 2
 	active_power_usage = 5
 	req_one_access_txt = "24;10"
+	Mtoollink = 1
 
 /obj/machinery/meter/New()
 	..()
