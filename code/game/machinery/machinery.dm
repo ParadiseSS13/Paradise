@@ -253,7 +253,7 @@ Class Procs:
 				return 1
 
 			if(linkWith(usr, O, href_list))
-				usr << "\blue A green light flashes on \the [P], confirming the link was added."
+				usr << "\blue A green light flashes on \the [P], confirming the link was removed."
 			else
 				usr << "\red A red light flashes on \the [P].  It appears something went wrong when linking the two devices."
 			update_mt_menu=1

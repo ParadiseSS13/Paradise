@@ -9,7 +9,6 @@ obj/machinery/air_sensor
 
 	var/id_tag
 	var/frequency = 1439
-	Mtoollink = 1
 
 	var/on = 1
 	var/output = 3
@@ -104,7 +103,6 @@ obj/machinery/air_sensor
 	var/frequency = 1439
 	var/show_sensors=1
 	var/list/sensors = list()
-	Mtoollink = 1
 
 	var/list/sensor_information = list()
 	var/datum/radio_frequency/radio_connection
@@ -287,32 +285,24 @@ legend {
 
 	unlinkFrom(var/mob/user, var/obj/O)
 		..()
-		if("id_tag" in O.vars && (istype(O,/obj/machinery/air_sensor) || istype(O, /obj/machinery/meter)))
+		if("id_tag" in O.vars && istype(O,/obj/machinery/air_sensor))
 			sensors.Remove(O:id_tag)
 			return 1
 		return 0
 
 	linkMenu(var/obj/O)
-		if(isLinkedWith(O))
-			return
-
 		var/dat=""
-
-		if(istype(O,/obj/machinery/air_sensor) || istype(O, /obj/machinery/meter))
+		if(istype(O,/obj/machinery/air_sensor) && !isLinkedWith(O))
 			dat += " <a href='?src=\ref[src];link=1'>\[New Sensor\]</a> "
 		return dat
 
 	canLink(var/obj/O, var/list/context)
-		if(istype(O,/obj/machinery/air_sensor) || istype(O, /obj/machinery/meter))
+		if(istype(O,/obj/machinery/air_sensor))
 			return O:id_tag
 
 	isLinkedWith(var/obj/O)
-		if(istype(O,/obj/machinery/air_sensor) || istype(O, /obj/machinery/meter))
+		if(istype(O,/obj/machinery/air_sensor))
 			return O:id_tag in sensors
-
-	linkWith(var/mob/user, var/obj/O, var/link/context)
-		sensors[O:id_tag] = reject_bad_name(input(user, "Choose a sensor label:", "Sensor Label") as text|null, allow_numbers=1)
-		return 1
 
 	large_tank_control
 		icon = 'icons/obj/computer.dmi'
@@ -364,20 +354,18 @@ legend {
 				input_tag = O:id_tag
 				input_info = null
 				if(istype(O,/obj/machinery/atmospherics/unary/vent_pump))
-					send_signal(list("tag"=input_tag,
+					send_signal("tag"=input_tag,
 						"direction"=1, // Release
 						"checks"   =0  // No pressure checks.
-						))
-				return 1
+						)
 			if(context["slot"]=="output" && is_type_in_list(O,output_linkable))
 				output_tag = O:id_tag
 				output_info = null
 				if(istype(O,/obj/machinery/atmospherics/unary/vent_pump))
-					send_signal(list("tag"=output_tag,
+					send_signal("tag"=output_tag,
 						"direction"=0, // Siphon
 						"checks"   =2  // Internal pressure checks.
-						))
-				return 1
+						)
 
 		unlinkFrom(var/mob/user, var/obj/O)
 			if("id_tag" in O.vars)
@@ -394,9 +382,9 @@ legend {
 		linkMenu(var/obj/O)
 			var/dat=""
 			if(canLink(O,list("slot"="input")))
-				dat += " <a href='?src=\ref[src];link=1;slot=input'>\[Link @ Input\]</a> "
+				dat += " <a href='?src=\ref[src];link=1'>\[Link @ Input\]</a> "
 			if(canLink(O,list("slot"="output")))
-				dat += " <a href='?src=\ref[src];link=1;slot=output'>\[Link @ Output\]</a> "
+				dat += " <a href='?src=\ref[src];link=1'>\[Link @ Output\]</a> "
 			return dat
 
 		canLink(var/obj/O, var/list/context)
