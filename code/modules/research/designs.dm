@@ -1588,26 +1588,6 @@ datum/design/cyborg_analyzer
 	materials = list("$metal" = 30, "$glass" = 20)
 	reliability_base = 74
 	build_path = "/obj/item/device/robotanalyzer"
-	
-datum/design/autopsy_scanner
-	name = "Autopsy Scanner"
-	desc = "A hand-held scanner able to extracts information from wounds."
-	id = "autopsy_scanner"
-	req_tech = list("programming" = 2, "biotech" = 2, "magnets" = 2)
-	build_type = PROTOLATHE
-	materials = list("$metal" = 30, "$glass" = 20)
-	reliability_base = 74
-	build_path = "/obj/item/device/autopsy_scanner"
-	
-datum/design/detective_scanner
-	name = "Forensic Scanner"
-	desc = "A hand-held scanner able to remotely scan objects and biomass for DNA and fingerprints."
-	id = "detective_scanner"
-	req_tech = list("programming" = 4, "biotech" = 3, "magnets" = 4)
-	build_type = PROTOLATHE
-	materials = list("$metal" = 30, "$glass" = 20)
-	reliability_base = 74
-	build_path = "/obj/item/device/detective_scanner"
 
 datum/design/mmi
 	name = "Man-Machine Interface"
