@@ -17,6 +17,8 @@
 	var/damtype = "brute"
 	var/force = 0
 
+	var/Mtoollink = 0 // variable to decide if an object should show the multitool menu linking menu, not all objects use it(most don't, at the time of writing)
+
 	// What reagents should be logged when transferred TO this object?
 	// Reagent ID => friendly name
 	var/list/reagents_to_log=list()
@@ -197,22 +199,23 @@ a {
 		<h3>[name]</h3>
 "}
 	dat += multitool_menu(user,P)
-	if(P)
-		if(P.buffer)
-			var/id="???"
-			if(istype(P.buffer, /obj/machinery/telecomms))
-				id=P.buffer:id
-			else
-				id=P.buffer:id_tag
-			dat += "<p><b>MULTITOOL BUFFER:</b> [P.buffer] ([id])"
-
-			dat += linkMenu(P.buffer)
-
+	if(Mtoollink)
+		if(P)
 			if(P.buffer)
-				dat += "<a href='?src=\ref[src];flush=1'>\[Flush\]</a>"
-			dat += "</p>"
-		else
-			dat += "<p><b>MULTITOOL BUFFER:</b> <a href='?src=\ref[src];buffer=1'>\[Add Machine\]</a></p>"
+				var/id="???"
+				if(istype(P.buffer, /obj/machinery/telecomms))
+					id=P.buffer:id
+				else
+					id=P.buffer:id_tag
+				dat += "<p><b>MULTITOOL BUFFER:</b> [P.buffer] ([id])"
+
+				dat += linkMenu(P.buffer)
+
+				if(P.buffer)
+					dat += "<a href='?src=\ref[src];flush=1'>\[Flush\]</a>"
+				dat += "</p>"
+			else
+				dat += "<p><b>MULTITOOL BUFFER:</b> <a href='?src=\ref[src];buffer=1'>\[Add Machine\]</a></p>"
 	dat += "</body></html>"
 	user << browse(dat, "window=mtcomputer")
 	user.set_machine(src)

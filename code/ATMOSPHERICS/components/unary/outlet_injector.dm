@@ -17,6 +17,7 @@
 	var/id
 	var/id_tag = null
 	var/datum/radio_frequency/radio_connection
+	Mtoollink = 1
 
 	level = 1
 
