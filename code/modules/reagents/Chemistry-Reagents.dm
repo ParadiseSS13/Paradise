@@ -495,6 +495,9 @@ datum
 					var/mob/living/carbon/human/human = M
 					if(human.dna.mutantrace == null)
 						M << "\red Your flesh rapidly mutates!"
+						M << "<b>You are now a Shadow Person, a mutant race of darkness-dwelling humanoids.</b>"
+						M << "\red Your body reacts violently to light. \green However, it naturally heals in darkness."
+						M << "Aside from your new traits, you are mentally unchanged and retain your prior obligations."
 						human.dna.mutantrace = "shadow"
 						human.update_mutantrace()
 				..()

@@ -33,22 +33,24 @@
 	active = !active
 	if (active)
 		force = 30
+		throwforce = 20
 		if(istype(src,/obj/item/weapon/melee/energy/sword/pirate))
 			icon_state = "cutlass1"
 		else
 			icon_state = "sword[blade_color]"
 		w_class = 4
-		playsound(user, 'sound/weapons/saberon.ogg', 50, 1)
+		playsound(user, 'sound/weapons/saberon.ogg', 35, 1)
 		hitsound = 'sound/weapons/blade1.ogg'
 		user << "\blue [src] is now active."
 	else
 		force = 3
+		throwforce = 5.0
 		if(istype(src,/obj/item/weapon/melee/energy/sword/pirate))
 			icon_state = "cutlass0"
 		else
 			icon_state = "sword0"
 		w_class = 2
-		playsound(user, 'sound/weapons/saberoff.ogg', 50, 1)
+		playsound(user, 'sound/weapons/saberoff.ogg', 35, 1)
 		hitsound = "swing_hit"
 		user << "\blue [src] can now be concealed."
 	if(istype(user,/mob/living/carbon/human))
