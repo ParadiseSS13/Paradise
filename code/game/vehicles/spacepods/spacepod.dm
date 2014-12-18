@@ -363,7 +363,10 @@
 
 /obj/spacepod/MouseDrop_T(mob/M as mob, mob/user as mob)
 	if(M != user)
-		return
+		if(M.stat != 0)
+			move_inside(M, user)
+		else
+			return
 	else
 		move_inside(M, user)
 
