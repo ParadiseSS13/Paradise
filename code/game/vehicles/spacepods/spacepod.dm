@@ -28,7 +28,7 @@
 	var/health = 100
 	var/lights = 0
 	var/lights_power = 6
-	var/allow2eject = 1
+	var/allow2enter = 1
 
 /obj/spacepod/New()
 	. = ..()
@@ -92,6 +92,8 @@
 	if(!health)
 		spawn(0)
 			if(occupant)
+				if(occupant2)
+					occupant2 << "<big><span class='warning'>Critical damage to the vessel detected, core explosion imminent!</span></big>"
 				occupant << "<big><span class='warning'>Critical damage to the vessel detected, core explosion imminent!</span></big>"
 				for(var/i = 10, i >= 0; --i)
 					if(occupant)
@@ -310,6 +312,11 @@
 	return
 
 /obj/spacepod/proc/moved_inside(var/mob/living/carbon/human/H as mob)
+	var/fukkendisk = usr.GetTypeInAllContents(/obj/item/weapon/disk/nuclear)
+	if(fukkendisk)
+		usr << "\red <B>The nuke-disk locks the door as you try to get in. You evil person.</b>"
+		return
+
 	if(H && H.client && H in range(1))
 		if(src.occupant)
 			H.reset_view(src)
@@ -356,11 +363,7 @@
 
 /obj/spacepod/MouseDrop_T(mob/M as mob, mob/user as mob)
 	if(M != user)
-		user << "<span class='notice'>You start putting [M.name] into the pod's second seat.</span>"
-		if(enter_after(40,usr))
-			moved_other_inside(M)
-		else
-			usr << "You stop moving [M.name] into the spacepod."
+		return
 	else
 		move_inside(M, user)
 
@@ -369,20 +372,28 @@
 	set category = "Object"
 	set name = "Enter Pod"
 	set src in oview(1)
+	var/fukkendisk = usr.GetTypeInAllContents(/obj/item/weapon/disk/nuclear)
+
+	if(fukkendisk)
+		usr << "\red <B>The nuke-disk is locking the door every time you try to open it. You get the feeling that it doesn't want to go into the spacepod.</b>"
+		return
 
 	if(usr.restrained() || usr.stat || usr.weakened || usr.stunned || usr.paralysis || usr.resting) //are you cuffed, dying, lying, stunned or other
 		return
 	if (usr.stat || !ishuman(usr))
 		return
 	if (src.occupant)
-		usr << "\blue <B>You starts climbing into the secondary seat.</B>"
-		visible_message("\blue [usr] starts to climb into [src.name]")
-		if(enter_after(40,usr))
-			moved_inside(usr)
-
+		if(allow2enter)
+			usr << "\blue <B>You starts climbing into the secondary seat.</B>"
+			visible_message("\blue [usr] starts to climb into [src.name]")
+			if(enter_after(40,usr))
+				moved_inside(usr)
+			else
+				usr << "You stop entering the spacepod."
+			return
 		else
-			usr << "You stop entering the spacepod."
-		return
+			usr << "\red <B>The [src.name]'s doors are locked.</B>"
+			return
 /*
 	if (usr.abiotic())
 		usr << "\blue <B>Subject cannot have abiotic items on.</B>"
@@ -415,14 +426,11 @@
 			if(usr != src.occupant2)
 				return
 			else
-				if(src.allow2eject)
-					inertia_dir = 0 // engage reverse thruster and power down pod
-					src.occupant2.loc = src.loc
-					src.occupant2 = null
-					usr << "<span class='notice'>You climb out of the pod</span>"
-				else
-					usr << "<span class='notice'>The secondary door is locked.</span>"
-					return
+				inertia_dir = 0 // engage reverse thruster and power down pod
+				src.occupant2.loc = src.loc
+				src.occupant2 = null
+				usr << "<span class='notice'>You climb out of the pod</span>"
+
 		else
 			return
 	else
@@ -454,28 +462,24 @@
 
 
 /obj/spacepod/verb/locksecondseat()
-	if(!src.occupant2)
-		usr << "<span class='notice'>No point locking that door. </span>"
-		return
-	else
-		set name = "Lock Second Seat"
-		set category = "Spacepod"
-		set src in oview(1)
+	set name = "Lock Doors"
+	set category = "Spacepod"
+	set src = usr.loc
 
-		if(usr.ckey == src.occupant2.ckey)
-			if(!allow2eject)
-				usr << "<span class='notice'>You can't unlock the door from your seat. </span>"
-				return
-			else
-				usr << "<span class='notice'>You can't lock the door from your seat. </span>"
-				return
+	if(usr.ckey == src.occupant2.ckey)
+		if(!allow2enter)
+			usr << "<span class='notice'>You can't unlock the doors from your seat. </span>"
+			return
 		else
-			if(src.allow2eject)
-				src.allow2eject = 0
-				usr << "<span class='notice'>You lock the secondary door.</span>"
-			else
-				src.allow2eject = 1
-				usr << "<span class='notice'>You unlock the secondary door.</span>"
+			usr << "<span class='notice'>You can't lock the doors from your seat. </span>"
+			return
+	else
+		if(src.allow2enter)
+			src.allow2enter = 0
+			usr << "<span class='notice'>You lock the doors.</span>"
+		else
+			src.allow2enter = 1
+			usr << "<span class='notice'>You unlock the doors.</span>"
 
 /obj/spacepod/verb/toggleDoors()
 	if(src.occupant2)
