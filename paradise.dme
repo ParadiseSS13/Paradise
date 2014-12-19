@@ -945,7 +945,6 @@
 #include "code\modules\DetectiveWork\detective_work.dm"
 #include "code\modules\DetectiveWork\evidence.dm"
 #include "code\modules\DetectiveWork\footprints_and_rag.dm"
-#include "code\modules\DetectiveWork\scanner.dm"
 #include "code\modules\economy\Accounts.dm"
 #include "code\modules\economy\Accounts_DB.dm"
 #include "code\modules\economy\ATM.dm"
