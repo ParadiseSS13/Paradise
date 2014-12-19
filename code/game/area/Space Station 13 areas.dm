@@ -240,14 +240,14 @@ var/list/ghostteleportlocs = list()
 /area/shuttle/gamma/space
 	icon_state = "shuttle"
 	name = "\improper Gamma Shuttle Space"
-	requires_power = 1
+	requires_power = 0
 	luminosity = 0
 	lighting_use_dynamic = 1
 
 /area/shuttle/gamma/station
 	icon_state = "shuttle"
 	name = "\improper Gamma Shuttle Station"
-	requires_power = 1
+	requires_power = 0
 	luminosity = 0
 	lighting_use_dynamic = 1
 
@@ -1591,6 +1591,14 @@ area/security/podbay
 	name = "\improper Vault"
 	icon_state = "nuke_storage"
 
+/area/security/customs
+	name = "\improper Customs"
+	icon_state = "checkpoint1"
+
+/area/security/customs2
+	name = "\improper Customs"
+	icon_state = "security"	
+	
 /area/security/checkpoint
 	name = "\improper Security Checkpoint"
 	icon_state = "checkpoint1"

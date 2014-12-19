@@ -397,6 +397,10 @@
 		else
 			usr << "\red <B>The [src.name]'s doors are locked.</B>"
 			return
+
+	if(src.occupant2)
+		usr << "\red <B>The spacepod is full! Are you going to sit on [src.occupant2.name]'s lap?</b>"
+		return
 /*
 	if (usr.abiotic())
 		usr << "\blue <B>Subject cannot have abiotic items on.</B>"

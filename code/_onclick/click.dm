@@ -46,6 +46,9 @@
 	if(modifiers["shift"] && modifiers["ctrl"])
 		CtrlShiftClickOn(A)
 		return
+	if(modifiers["shift"] && modifiers["alt"])
+		AltShiftClickOn(A)
+		return
 	if(modifiers["middle"])
 		MiddleClickOn(A)
 		return
@@ -262,7 +265,7 @@
 	return T.Adjacent(src)
 
 /*
-	Control+Shift click
+	Control+Shift/Alt+Shift click
 	Unused except for AI
 */
 /mob/proc/CtrlShiftClickOn(var/atom/A)
@@ -271,6 +274,14 @@
 
 /atom/proc/CtrlShiftClick(var/mob/user)
 	return	
+
+/mob/proc/AltShiftClickOn(var/atom/A)
+	A.AltShiftClick(src)
+	return
+
+/atom/proc/AltShiftClick(var/mob/user)
+	return	
+	
 	
 /*
 	Misc helpers

@@ -136,6 +136,7 @@
 	. = ..()
 	if (.)
 		return
+	usr.set_machine(src)
 	var/dat
 	dat += hack(user)
 	dat += "<TT><B>Medical Unit Controls v1.1</B></TT><BR><BR>"

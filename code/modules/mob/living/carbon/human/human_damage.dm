@@ -20,7 +20,6 @@
 				dead_mob_list -= src
 				respawnable_list -= src
 				living_mob_list += src
-				mob_list += src
 				stat = CONSCIOUS
 				ear_deaf = 0
 	return

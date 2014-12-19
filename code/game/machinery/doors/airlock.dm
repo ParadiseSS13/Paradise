@@ -435,13 +435,14 @@ About the new airlock wires panel:
 
 /obj/machinery/door/airlock/update_icon()
 	if(overlays) overlays.Cut()
+	overlays = list()
+	if(emergency) overlays += image('icons/obj/doors/doorint.dmi', "elights")
 	if(density)
 		if(locked && lights)
 			icon_state = "door_locked"
 		else
 			icon_state = "door_closed"
 		if(p_open || welded || frozen)
-			overlays = list()
 			if(p_open)
 				overlays += image(icon, "panel_open")
 			if(welded)
@@ -508,6 +509,11 @@ About the new airlock wires panel:
 	else
 		t1 += text("IdScan enabled. <A href='?src=\ref[];aiDisable=1'>Disable?</a><br>\n", src)
 
+	if(src.emergency)
+		t1 += text("Emergency Access Override is enabled. <A href='?src=\ref[];aiDisable=11'>Disable?</a><br>\n", src)
+	else
+		t1 += text("Emergency Access Override is disabled. <A href='?src=\ref[];aiEnable=11'>Enable?</a><br>\n", src)		
+		
 	if(src.isWireCut(AIRLOCK_WIRE_MAIN_POWER1))
 		t1 += text("Main Power Input wire is cut.<br>\n")
 	if(src.isWireCut(AIRLOCK_WIRE_MAIN_POWER2))
@@ -686,8 +692,9 @@ About the new airlock wires panel:
 	return 1
 
 /obj/machinery/door/airlock/Topic(href, href_list, var/nowindow = 0)
-	// If you add an if(..()) check you must first remove the var/nowindow parameter.
-	// Otherwise it will runtime with this kind of error: null.Topic()
+		//AI
+		//aiDisable - 1 idscan, 2 disrupt main power, 3 disrupt backup power, 4 drop door bolts, 5 un-electrify door, 7 close door, 8 door safties, 9 door speed, 11 emergency access
+		//aiEnable - 1 idscan, 4 raise door bolts, 5 electrify door for 30 seconds, 6 electrify door indefinitely, 7 open door,  8 door safties, 9 door speed, 11 emergency access
 	if(!nowindow)
 		..()
 	if(usr.stat || usr.restrained()|| usr.small)
@@ -826,6 +833,13 @@ About the new airlock wires panel:
 						usr << "The door bolt lights have been disabled."
 					else
 						usr << "The door bolt lights are already disabled!"
+				if(11)
+					// Emergency access
+					if (src.emergency)
+						emergency = 0
+					else
+						usr << text("Emergency access is already disabled!")
+
 
 		else if(href_list["aiEnable"])
 			var/code = text2num(href_list["aiEnable"])
@@ -917,6 +931,13 @@ About the new airlock wires panel:
 						usr << "The door bolt lights have been enabled"
 					else
 						usr << "The door bolt lights are already enabled!"
+				if(11)
+					// Emergency access
+					if (!src.emergency)
+						emergency = 1
+					else
+						usr << text("Emergency access is already enabled!")
+
 
 	add_fingerprint(usr)
 	update_icon()
@@ -1209,3 +1230,8 @@ About the new airlock wires panel:
 			return
 		else
 			return
+			
+
+/obj/machinery/door/airlock/CanAStarPass(var/obj/item/weapon/card/id/ID)
+//Airlock is passable if it is open (!density), bot has access, and is not bolted shut)
+	return !density || (check_access(ID) && !locked)
