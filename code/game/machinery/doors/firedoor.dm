@@ -468,7 +468,3 @@
 /obj/machinery/door/firedoor/multi_tile/triple
 	icon = 'icons/obj/doors/DoorHazard3x1.dmi'
 	width = 3
-
-//used in the AStar algorithm to determinate if the turf the door is on is passable
-/obj/machinery/door/firedoor/CanAStarPass()
-	return !density

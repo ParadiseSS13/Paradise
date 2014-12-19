@@ -257,6 +257,8 @@
 			stored_comms["glass"]++
 			stored_comms["glass"]++
 			stored_comms["glass"]++
+		else if (istype(W,/obj/item/weapon/light/tube) || istype(W,/obj/item/weapon/light/bulb))
+			stored_comms["glass"]++
 		else
 			continue
 

@@ -117,5 +117,5 @@
 	icon_state = "surgcap_green"
 
 /obj/item/clothing/head/surgery/black
-	desc = "A cap morticians wear during autopsies. Keeps their hair from falling into the cadavers.  It is as dark than the mortician's humor."
+	desc = "A cap coroners wear during autopsies. Keeps their hair from falling into the cadavers.  It is as dark than the coroner's humor."
 	icon_state = "surgcap_black"
