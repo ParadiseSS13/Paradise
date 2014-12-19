@@ -1597,8 +1597,8 @@ area/security/podbay
 
 /area/security/customs2
 	name = "\improper Customs"
-	icon_state = "security"	
-	
+	icon_state = "security"
+
 /area/security/checkpoint
 	name = "\improper Security Checkpoint"
 	icon_state = "checkpoint1"
@@ -1697,8 +1697,12 @@ area/security/podbay
 	name = "\improper Xenobiology Lab"
 	icon_state = "toxlab"
 
-/area/toxins/xenobiology/flora
-	name = "\improper Xenobiology Flora Lab"
+/area/rnd/xenobiology/xenoflora_storage
+	name = "\improper Xenoflora Storage"
+	icon_state = "toxlab"
+
+/area/rnd/xenobiology/xenoflora
+	name = "\improper Xenoflora Lab"
 	icon_state = "toxlab"
 
 /area/toxins/storage
