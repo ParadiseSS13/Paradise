@@ -63,7 +63,9 @@ var/list/admin_verbs_admin = list(
 	/client/proc/toggledrones,
 	/client/proc/man_up,
 	/client/proc/global_man_up,
-	/client/proc/delbook
+	/client/proc/delbook,
+	/client/proc/freeze, //Freeze's mob via right-click: Ported from NSS Pheonix
+	/client/proc/freezemecha //Freeze's mech via right-click: Ported from NSS Pheonix
 )
 var/list/admin_verbs_ban = list(
 	/client/proc/unban_panel,
