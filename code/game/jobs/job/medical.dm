@@ -48,7 +48,7 @@
 	selection_color = "#ffeef0"
 	access = list(access_medical, access_morgue, access_surgery, access_chemistry, access_virology, access_genetics)
 	minimal_access = list(access_medical, access_morgue, access_surgery, access_maint_tunnels)
-	alt_titles = list("Surgeon","Nurse","Mortician")
+	alt_titles = list("Surgeon","Nurse","Coroner")
 	minimal_player_age = 3
 
 	equip(var/mob/living/carbon/human/H)
@@ -60,10 +60,11 @@
 			if(4) H.equip_or_collect(new /obj/item/weapon/storage/backpack/satchel(H), slot_back)
 		if (H.mind.role_alt_title)
 			switch(H.mind.role_alt_title)
-				if("Mortician")
+				if("Coroner")
 					H.equip_or_collect(new /obj/item/clothing/under/rank/medical/mortician(H), slot_w_uniform)
 					H.equip_or_collect(new /obj/item/clothing/suit/storage/labcoat/mortician(H), slot_wear_suit)
 					if(H.backbag != 1)
+						H.equip_or_collect(new /obj/item/clothing/head/surgery/black(H.back), slot_in_backpack)					
 						H.equip_or_collect(new /obj/item/weapon/autopsy_scanner(H.back), slot_in_backpack)
 						H.equip_or_collect(new /obj/item/device/mass_spectrometer(H.back), slot_in_backpack)
 						H.equip_or_collect(new /obj/item/weapon/storage/box/bodybags(H.back), slot_in_backpack)

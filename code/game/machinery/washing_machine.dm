@@ -263,6 +263,9 @@
 		if ( istype(W,/obj/item/clothing/head/helmet ) )
 			user << "This item does not fit."
 			return
+		if ( istype(W,/obj/item/clothing/gloves/furgloves ) )
+			user << "This item does not fit."
+			return			
 
 		if(contents.len < 5)
 			if ( state in list(1, 3) )

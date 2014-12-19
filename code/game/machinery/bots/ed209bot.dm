@@ -113,6 +113,7 @@
 	. = ..()
 	if (.)
 		return
+	usr.set_machine(src)
 	var/dat
 	dat += hack(user)
 	dat += text({"
@@ -399,25 +400,6 @@ Auto Patrol[]"},
 		if(!(slot_item.type in safe_weapons))
 			return 1
 	return 0
-
-/obj/machinery/bot/ed209/Bump(M as mob|obj) //Leave no door unopened!
-	if ((istype(M, /obj/machinery/door)) && (!isnull(botcard)))
-		var/obj/machinery/door/D = M
-		if (!istype(D, /obj/machinery/door/firedoor) && D.check_access(botcard))
-			D.open()
-			frustration = 0
-	else if ((istype(M, /mob/living/)) && (!anchored))
-		loc = M:loc
-		frustration = 0
-	return
-
-/* terrible
-/obj/machinery/bot/ed209/Bumped(atom/movable/M as mob|obj)
-	spawn(0)
-		if (M)
-			var/turf/T = get_turf(src)
-			M:loc = T
-*/
 
 /obj/machinery/bot/ed209/explode()
 	walk_to(src,0)

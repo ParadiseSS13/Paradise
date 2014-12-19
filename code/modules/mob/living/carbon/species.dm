@@ -42,7 +42,7 @@
 	var/burn_mod = null     // Burn damage reduction/malus.
 
 	// For grays
-	var/max_hurt_damage = 5 // Max melee damage dealt + 5 if hulk
+	var/max_hurt_damage = 9 // Max melee damage dealt + 5 if hulk
 	var/list/default_mutations = list()
 	var/list/default_blocks = list() // Don't touch.
 	var/list/default_block_names = list() // Use this instead, using the names from setupgame.dm
@@ -636,16 +636,14 @@
 
 /datum/unarmed_attack/diona
 	attack_verb = list("lash", "bludgeon")
-	damage = 5
 
 /datum/unarmed_attack/claws
 	attack_verb = list("scratch", "claw")
 	attack_sound = 'sound/weapons/slice.ogg'
 	miss_sound = 'sound/weapons/slashmiss.ogg'
-	damage = 5
 	sharp = 1
 	edge = 1
 
 /datum/unarmed_attack/claws/armalis
 	attack_verb = list("slash", "claw")
-	damage = 10	//they're huge! they should do a little more damage, i'd even go for 15-20 maybe...
+	damage = 6	//they're huge! they should do a little more damage, i'd even go for 15-20 maybe...

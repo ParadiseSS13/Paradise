@@ -322,6 +322,7 @@
 	on_fire = 0
 	suiciding = 0
 	buckled = initial(src.buckled)
+	
 	if(iscarbon(src))
 		var/mob/living/carbon/C = src
 		C.handcuffed = initial(C.handcuffed)
@@ -335,6 +336,9 @@
 	if(stat == 2)
 		dead_mob_list -= src
 		living_mob_list += src
+		tod = null
+		timeofdeath = 0
+
 	stat = CONSCIOUS
 	update_fire()
 	regenerate_icons()
