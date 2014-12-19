@@ -7,8 +7,6 @@
 	status_flags = CANPARALYSE
 	heal_rate = 5
 	plasma_rate = 20
-	move_delay_add = 2
-	max_plasma = 1000
 	large = 1
 
 /mob/living/carbon/alien/humanoid/queen/New()
@@ -58,29 +56,19 @@
 //Queen verbs
 /mob/living/carbon/alien/humanoid/queen/verb/lay_egg()
 
-	set name = "Lay Egg (250)"
+	set name = "Lay Egg (75)"
 	set desc = "Lay an egg to produce huggers to impregnate prey with."
 	set category = "Alien"
-	if(locate(/obj/effect/alien/egg) in get_turf(src))
+	if(locate(/obj/structure/alien/egg) in get_turf(src))
 		src << "<span class='noticealien'>There's already an egg here.</span>"
 		return
-		
-	if(constructing)
-		src << "<span class='noticealien'>You are already constructing something.</span>"
-		return
-		
-	if(powerc(250,1))//Can't plant eggs on spess tiles. That's silly.
-		constructing = 1
-		stunned = 5
-		src << "<span class='noticealien'>You start laying an egg.</span>"
-		spawn(60)
-			adjustToxLoss(-250)
-			for(var/mob/O in viewers(src, null))
-				O.show_message(text("<span class='alertalien'>[src] has laid an egg!</span>"), 1)
-			new /obj/effect/alien/egg(loc)
-			constructing = 0
-			stunned = 0
-		return
+
+	if(powerc(75,1))//Can't plant eggs on spess tiles. That's silly.
+		adjustToxLoss(-75)
+		for(var/mob/O in viewers(src, null))
+			O.show_message(text("<span class='alertalien'>[src] has laid an egg!</span>"), 1)
+		new /obj/structure/alien/egg(loc)
+	return
 
 
 /mob/living/carbon/alien/humanoid/queen/large
@@ -104,7 +92,7 @@
 			overlays += I
 
 
-
+/*
 /mob/living/carbon/alien/humanoid/queen/verb/evolve() // -- TLE
 	set name = "Evolve (1000)"
 	set desc = "The ultimate transformation. Become an alien Empress. Only one empress can exist at a time."
@@ -122,7 +110,7 @@
 			adjustToxLoss(-1000)
 			src << "<span class='noticealien'>You begin to evolve!</span>"
 			for(var/mob/O in viewers(src, null))
-				O.show_message(text("\green <B>[src] begins to twist and contort!</B>"), 1)
+				O.show_message(text("<span class='alertalien'>[src] begins to twist and contort!</span>"), 1)
 			var/mob/living/carbon/alien/humanoid/empress/new_xeno = new(loc)
 			if(mind)
 				mind.transfer_to(new_xeno)
@@ -134,3 +122,4 @@
 			src << "<span class='notice'>We already have an alive empress.</span>"
 	return
 
+*/

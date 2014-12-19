@@ -84,9 +84,9 @@
 
 		if(istype(owner,/mob/living/carbon/human))
 			var/mob/living/carbon/human/H = owner
-			if(H.species && H.species.flags & IS_SYNTHETIC)
-				brmod = H.species.brute_mod
-				bumod = H.species.burn_mod
+			if(H.species && H.species.flags & IS_SYNTHETIC) // No need for this - the modifer is being applied in the species' code already. Leaving it in, in case it ever changes.
+				brmod = 1 //H.species.brute_mod
+				bumod = 1 //H.species.burn_mod
 
 		brute *= brmod //~2/3 damage for ROBOLIMBS
 		burn *= bumod //~2/3 damage for ROBOLIMBS
@@ -137,9 +137,8 @@
 				burn = max(0, burn - can_inflict)
 		//If there are still hurties to dispense
 		if (burn || brute)
-			if (status & ORGAN_ROBOT)
-				if(body_part != UPPER_TORSO && body_part != LOWER_TORSO)          // as below, getting hit on the chest shouldn't gib you even if you've got a robotic chest
-					droplimb(1) //Robot limbs just kinda fail at full damage.
+			if (status & ORGAN_ROBOT && body_part != UPPER_TORSO && body_part != LOWER_TORSO)
+				droplimb(1) //Robot limbs just kinda fail at full damage.
 			else
 				//List organs we can pass it to
 				var/list/datum/organ/external/possible_points = list()

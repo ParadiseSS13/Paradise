@@ -414,13 +414,13 @@ obj/machinery/bot/proc/bot_move(var/dest, var/move_speed)
 
 obj/machinery/bot/proc/bot_step(var/dest)
 	if(path && path.len > 1)
-		step_to(src, path[1])
+		step_towards(src, path[1])
 		if(get_turf(src) == path[1]) //Successful move
 			path -= path[1]
 		else
 			return 0
 	else if(path.len == 1)
-		step_to(src, dest)
+		step_towards(src, dest)
 		path = list()
 	return 1
 
@@ -777,7 +777,7 @@ obj/machinery/bot/proc/bot_summon()
 
 
 /obj/machinery/bot/Bump(M as mob|obj) //Leave no door unopened!
-	if((istype(M, /obj/machinery/door/airlock) ||  istype(M, /obj/machinery/door/window)) && (!isnull(botcard)))
+	if((istype(M, /obj/machinery/door/airlock) || istype(M, /obj/machinery/door/window)) && (!isnull(botcard)))
 		var/obj/machinery/door/D = M
 		if(D.check_access(botcard))
 			D.open()
@@ -787,3 +787,4 @@ obj/machinery/bot/proc/bot_summon()
 		loc = Mb.loc
 		frustration = 0
 	return
+	

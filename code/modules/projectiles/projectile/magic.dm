@@ -24,7 +24,7 @@
 
 /obj/item/projectile/magic/fireball/on_hit(var/target)
 	var/turf/T = get_turf(target)
-	explosion(T, -1, 0, 2, 3, 0, flame_range = 2)
+	explosion(T, -1, 0, 2, 3, 0)
 
 /obj/item/projectile/magic/resurrection
 	name = "bolt of resurrection"

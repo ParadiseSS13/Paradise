@@ -7,7 +7,7 @@
 	max_plasma = 250
 	icon_state = "aliens_s"
 	plasma_rate = 10
-	
+
 /mob/living/carbon/alien/humanoid/sentinel/large
 	name = "alien praetorian"
 	icon = 'icons/mob/alienlarge.dmi'
@@ -23,8 +23,8 @@
 	maxHealth = 200
 	health = 200
 	move_delay_add = 1
-	large = 1	
-	
+	large = 1
+
 /mob/living/carbon/alien/humanoid/sentinel/large/update_icons()
 	lying_prev = lying	//so we don't update overlays for lying/standing unless our stance changes again
 	update_hud()		//TODO: remove the need for this to be here
@@ -38,7 +38,7 @@
 		icon_state = "prat_s"
 		for(var/image/I in overlays_standing)
 			overlays += I
-			
+
 /mob/living/carbon/alien/humanoid/sentinel/New()
 	var/datum/reagents/R = new/datum/reagents(100)
 	reagents = R
@@ -70,7 +70,7 @@
 		else
 			healths.icon_state = "health6"
 
-
+/*
 /mob/living/carbon/alien/humanoid/sentinel/verb/evolve() // -- TLE
 	set name = "Evolve (250)"
 	set desc = "Become a Praetorian, Royal Guard to the Queen."
@@ -80,7 +80,7 @@
 		adjustToxLoss(-250)
 		src << "\green You begin to evolve!"
 		for(var/mob/O in viewers(src, null))
-			O.show_message(text("\green <B>[src] begins to twist and contort!</B>"), 1)
+			O.show_message(text("<span class='alertalien'>[src] begins to twist and contort!</span>"), 1)
 		var/mob/living/carbon/alien/humanoid/sentinel/praetorian/new_xeno = new(loc)
 		if(mind)
 			mind.transfer_to(new_xeno)
@@ -89,4 +89,4 @@
 		new_xeno.mind.name = new_xeno.name
 		del(src)
 	return
-	
+*/

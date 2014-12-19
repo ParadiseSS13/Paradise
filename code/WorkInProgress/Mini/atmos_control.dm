@@ -68,6 +68,8 @@
 			continue
 		if(alarm.hidden)
 			continue
+		if(alarm.z != z)
+			continue
 		var/turf/pos = get_turf(alarm)
 		var/list/alarm_data=list()
 		alarm_data["ID"]="\ref[alarm]"
