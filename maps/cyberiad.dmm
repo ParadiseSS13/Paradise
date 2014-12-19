@@ -6534,13 +6534,10 @@
 "cvH" = (/obj/machinery/computer/operating{icon_state = "operatingb"; name = "Robotics Operating Computer"; stat = 1},/turf/simulated/floor{icon_state = "white"},/area/assembly/assembly_line)
 "cvI" = (/obj/structure/cable{d1 = 1; d2 = 2; icon_state = "1-2"; tag = ""},/turf/simulated/floor/plating,/area/maintenance/aft)
 "cvJ" = (/obj/machinery/door/airlock/glass_command{name = "Chief Engineer"; req_access_txt = "56"},/turf/simulated/floor{dir = 8; icon_state = "neutralfull"},/area/engine/chiefs_office)
-<<<<<<< HEAD
 "cvK" = (/obj/structure/stool/bed/chair{dir = 4},/turf/simulated/floor{icon_state = "dark"},/area/syndicate_depot)
 "cvL" = (/turf/simulated/floor{icon_state = "dark"},/area/syndicate_depot)
-=======
 "cvK" = (/obj/machinery/atmospherics/pipe/simple/supply/hidden,/obj/machinery/atm{pixel_x = 32; pixel_y = 0},/obj/machinery/hologram/holopad,/turf/simulated/floor,/area/hallway/primary/aft)
 "cvL" = (/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{dir = 4},/obj/structure/snowman,/turf/simulated/floor/snow,/area/hallway/primary/aft)
->>>>>>> 817204dd958d257863ebb0184ec7ff2c396f1242
 "cvM" = (/obj/structure/cable{d1 = 1; d2 = 2; icon_state = "1-2"; tag = ""},/turf/simulated/floor,/area/engine/equipmentstorage)
 "cvN" = (/obj/machinery/atmospherics/unary/vent_scrubber{dir = 4; icon_state = "off"; on = 1; scrub_N2O = 1; scrub_Toxins = 1},/obj/machinery/camera{c_tag = "Engineering Equipment East"; dir = 8; network = list("SS13")},/obj/machinery/light{icon_state = "tube1"; dir = 4},/obj/item/device/radio/intercom{name = "Station Intercom (General)"; pixel_x = 30; pixel_y = 0},/obj/machinery/atmospherics/pipe/simple{_color = "blue"; icon_state = "intact-b-f"; level = 1; name = "pipe"},/obj/structure/engineeringcart,/turf/simulated/floor,/area/engine/equipmentstorage)
 "cvO" = (/obj/machinery/atmospherics/portables_connector{dir = 4},/obj/machinery/portable_atmospherics/canister/air,/obj/item/device/radio/intercom{dir = 8; name = "Station Intercom (General)"; pixel_x = -28},/turf/simulated/floor,/area/atmos)
