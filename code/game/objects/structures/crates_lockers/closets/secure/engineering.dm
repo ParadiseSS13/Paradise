@@ -23,7 +23,7 @@
 		new /obj/item/blueprints(src)
 		new /obj/item/clothing/under/rank/chief_engineer(src)
 		new /obj/item/clothing/head/hardhat/white(src)
-		new /obj/item/clothing/head/welding(src)
+		new /obj/item/clothing/glasses/welding/superior(src)
 		new /obj/item/clothing/gloves/yellow(src)
 		new /obj/item/clothing/shoes/brown(src)
 		new /obj/item/weapon/cartridge/ce(src)

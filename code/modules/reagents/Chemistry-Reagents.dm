@@ -495,6 +495,9 @@ datum
 					var/mob/living/carbon/human/human = M
 					if(human.dna.mutantrace == null)
 						M << "\red Your flesh rapidly mutates!"
+						M << "<b>You are now a Shadow Person, a mutant race of darkness-dwelling humanoids.</b>"
+						M << "\red Your body reacts violently to light. \green However, it naturally heals in darkness."
+						M << "Aside from your new traits, you are mentally unchanged and retain your prior obligations."
 						human.dna.mutantrace = "shadow"
 						human.update_mutantrace()
 				..()
@@ -1505,8 +1508,8 @@ datum
 							O.show_message(text("\blue The fungi are completely dissolved by the solution!"), 1)
 
 			reaction_obj(var/obj/O, var/volume)
-				if(istype(O,/obj/effect/alien/weeds/))
-					var/obj/effect/alien/weeds/alien_weeds = O
+				if(istype(O,/obj/structure/alien/weeds/))
+					var/obj/structure/alien/weeds/alien_weeds = O
 					alien_weeds.health -= rand(15,35) // Kills alien weeds pretty fast
 					alien_weeds.healthcheck()
 				else if(istype(O,/obj/effect/glowshroom)) //even a small amount is enough to kill it

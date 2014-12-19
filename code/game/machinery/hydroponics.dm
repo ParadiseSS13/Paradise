@@ -713,24 +713,19 @@
 				check_level_sanity()
 				update_icon()
 
-		//Check if container is Plant-B-Gone spray (doesn't work with other sprays, may add in future)
-		else if (istype(O, /obj/item/weapon/reagent_containers/spray/plantbgone))
+		//Check if container is any spray container
+		else if (istype(O, /obj/item/weapon/reagent_containers/spray))
+			var/obj/item/weapon/reagent_containers/spray/S = O
 			//Check if there is a plant in the tray
 			if(seed)
-				health -= rand(5,20)
-
-				if(pestlevel > 0)
-					pestlevel -= 2
-
-				if(weedlevel > 0)
-					weedlevel -= 3
-
-				toxins += 4
-
-				check_level_sanity()
-
+				if(!S.reagents.total_volume)
+					user << "\red [S] is empty."
+					return
+				//Container not empty, transfer contents to tray
+				S.reagents.trans_to(src, S.amount_per_transfer_from_this)
 				visible_message("\red <B>\The [src] has been sprayed with \the [O][(user ? " by [user]." : ".")]")
 				playsound(loc, 'sound/effects/spray3.ogg', 50, 1, -6)
+				check_level_sanity()
 				update_icon()
 			else
 				user << "There's nothing in [src] to spray!"

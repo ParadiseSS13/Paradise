@@ -297,6 +297,21 @@
 			telefail()
 			temp_msg = "ERROR! Sector is less than 1, <BR>greater than [src.emagged ? "7" : "6"], or equal to 2."
 			return
+
+
+	var/truePower = Clamp(power + power_off, 1, 1000)
+	var/trueRotation = rotation + rotation_off
+	var/trueAngle = Clamp(angle, 1, 90)
+
+	var/datum/projectile_data/proj_data = projectile_trajectory(telepad.x, telepad.y, trueRotation, trueAngle, truePower)
+	var/turf/target = locate(Clamp(round(proj_data.dest_x, 1), 1, world.maxx), Clamp(round(proj_data.dest_y, 1), 1, world.maxy), z_co)
+	var/area/A = get_area(target)
+
+	if(A.tele_proof == 1)
+		telefail()
+		temp_msg = "ERROR! Target destination unreachable due to interference."
+		return
+
 	if(teles_left > 0)
 		doteleport(user)
 	else

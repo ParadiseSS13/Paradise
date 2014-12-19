@@ -160,16 +160,19 @@
 var/global/maint_all_access = 0
 
 /proc/make_maint_all_access()
-	maint_all_access = 1
+	for(var/area/maintenance/A in world)
+		for(var/obj/machinery/door/airlock/D in A)
+			D.emergency = 1
+			D.update_icon(0)
 	world << "<font size=4 color='red'>Attention!</font>"
 	world << "<font color='red'>The maintenance access requirement has been revoked on all airlocks.</font>"
-
+	maint_all_access = 1
+	
 /proc/revoke_maint_all_access()
-	maint_all_access = 0
+	for(var/area/maintenance/A in world)
+		for(var/obj/machinery/door/airlock/D in A)
+			D.emergency = 0
+			D.update_icon(0)
 	world << "<font size=4 color='red'>Attention!</font>"
 	world << "<font color='red'>The maintenance access requirement has been readded on all maintenance airlocks.</font>"
-
-/obj/machinery/door/airlock/allowed(mob/M)
-	if(maint_all_access && src.check_access_list(list(access_maint_tunnels)))
-		return 1
-	return ..(M)
+	maint_all_access = 0
