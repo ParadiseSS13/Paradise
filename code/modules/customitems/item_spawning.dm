@@ -2,7 +2,7 @@
 	if(M.species.name == "Vox" || M.species.name == "Vox Armalis")
 		M.equip_to_slot_or_del(new /obj/item/clothing/mask/breath(M), slot_wear_mask)
 		if(M.client.prefs.speciesprefs)//Diseasel, here you go
-			M.equip_to_slot_or_del(new /obj/item/weapon/tank/nitrogen(M), slot_back)
+			M.equip_to_slot_or_del(new /obj/item/weapon/tank/nitrogen(M), slot_l_hand)
 		else
 			M.equip_to_slot_or_del(new /obj/item/weapon/tank/emergency_oxygen/vox(M), slot_l_hand)
 		M << "\blue You are now running on nitrogen internals from your [M.l_hand]. Your species finds oxygen toxic, so you must breathe nitrogen only."
