@@ -56,6 +56,8 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	var/list/all_doors = list()		//Added by Strumpetplaya - Alarm Change - Contains a list of doors adjacent to this area
 	var/air_doors_activated = 0
 
+	var/tele_proof = 0
+
 /*Adding a wizard area teleport list because motherfucking lag -- Urist*/
 /*I am far too lazy to make it a proper list of areas so I'll just make it run the usual telepot routine at the start of the game*/
 var/list/teleportlocs = list()
@@ -468,6 +470,12 @@ var/list/ghostteleportlocs = list()
 	name = "\improper Syndicate Elite Squad"
 	icon_state = "syndie-elite"
 
+/area/syndicate_depot
+	name = "\improper Suspicious Supply Depot"
+	icon_state = "red"
+	tele_proof = 1
+	requires_power = 0
+
 //EXTRA
 
 /area/asteroid					// -- TLE
@@ -654,27 +662,27 @@ var/list/ghostteleportlocs = list()
 	name = "\improper Aft Starboard Solars Landing Area"
 	icon_state = "southeast"
 	requires_power = 0
-	
+
 /area/xenos_station/east
 	name = "\improper East Landing Area"
 	icon_state = "east"
 	requires_power = 0
-	
+
 /area/xenos_station/west
 	name = "\improper West Landing Area"
 	icon_state = "west"
 	requires_power = 0
-	
+
 /area/xenos_station/researchoutpost
 	name = "\improper Research Outpost Landing Area"
 	icon_state = "north"
 	requires_power = 0
-	
+
 /area/xenos_station/miningoutpost
 	name = "\improper Mining Outpost Landing Area"
 	icon_state = "south"
-	requires_power = 0	
-	
+	requires_power = 0
+
 //PRISON
 /area/prison
 	name = "\improper Prison Station"
@@ -994,7 +1002,7 @@ var/list/ghostteleportlocs = list()
 /area/blueshield
 	name = "\improper Blueshield's Office"
 	icon_state = "blueold"
-	
+
 /area/centcomdocks
 	name = "\improper Central Command Docks"
 	icon_state = "centcom"
@@ -1589,8 +1597,8 @@ area/security/podbay
 
 /area/security/customs2
 	name = "\improper Customs"
-	icon_state = "security"	
-	
+	icon_state = "security"
+
 /area/security/checkpoint
 	name = "\improper Security Checkpoint"
 	icon_state = "checkpoint1"
@@ -1689,8 +1697,12 @@ area/security/podbay
 	name = "\improper Xenobiology Lab"
 	icon_state = "toxlab"
 
-/area/toxins/xenobiology/flora
-	name = "\improper Xenobiology Flora Lab"
+/area/rnd/xenobiology/xenoflora_storage
+	name = "\improper Xenoflora Storage"
+	icon_state = "toxlab"
+
+/area/rnd/xenobiology/xenoflora
+	name = "\improper Xenoflora Lab"
 	icon_state = "toxlab"
 
 /area/toxins/storage
