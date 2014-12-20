@@ -20,6 +20,15 @@
 	flags = FPRINT | TABLEPASS | ONESIZEFITSALL
 	armor = list(melee = 50, bullet = 15, laser = 50, energy = 10, bomb = 25, bio = 0, rad = 0)
 
+/obj/item/clothing/suit/armor/vest/combat
+	name = "combat vest"
+	desc = "An armored vest that protects against some damage."
+	icon_state = "armor-combat"
+	item_state = "bulletproof"
+	blood_overlay_type = "armor"
+	flags = FPRINT | TABLEPASS | ONESIZEFITSALL
+	armor = list(melee = 50, bullet = 15, laser = 50, energy = 10, bomb = 25, bio = 0, rad = 0)
+
 /obj/item/clothing/suit/armor/vest/security
 	name = "security armor"
 	desc = "An armored vest that protects against some damage. This one has Nanotrasen corporate badge."
