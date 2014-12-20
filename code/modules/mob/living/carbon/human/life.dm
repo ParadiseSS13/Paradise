@@ -1017,7 +1017,7 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 				if(!reagents.has_reagent("inaprovaline"))
 					adjustOxyLoss(1)*/
 
-			if(hallucination)
+			if(hallucination && !(species.flags & IS_SYNTHETIC))
 				if(hallucination >= 20)
 					if(prob(3))
 						fake_attack(src)
