@@ -41,6 +41,8 @@
 
 		for(var/i = 0, i < 10, i++)
 			for(var/mob/living/carbon/human/H in living_mob_list)
+				if(H.species.flags & IS_SYNTHETIC) // Leave synthetics completely unaffected
+					return
 				var/turf/T = get_turf(H)
 				if(!T)
 					continue
