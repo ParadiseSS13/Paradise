@@ -41,6 +41,7 @@
 	var/treat_virus = 1 //If on, the bot will attempt to treat viral infections, curing them if possible.
 	var/shut_up = 0 //self explanatory :)
 	bot_type = MED_BOT
+	bot_type_name = "Medbot"
 	bot_filter = RADIO_MEDBOT
 
 /obj/machinery/bot/medbot/syndicate

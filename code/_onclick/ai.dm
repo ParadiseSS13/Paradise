@@ -145,7 +145,10 @@
 		Topic("aiDisable=7", list("aiDisable"="7"), 1)
 	return
 
-/atom/proc/AICtrlClick()
+/atom/proc/AICtrlClick(var/mob/living/silicon/ai/user)
+	if(user.holo)
+		var/obj/machinery/hologram/holopad/H = user.holo
+		H.face_atom(src)	
 	return
 
 /obj/machinery/door/airlock/AICtrlClick() // Bolts doors
