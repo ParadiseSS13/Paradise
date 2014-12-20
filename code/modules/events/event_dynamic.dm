@@ -102,14 +102,14 @@ var/global/list/possibleEvents = list()
 		possibleEvents[/datum/event/organ_failure] = active_with_role["Medical"] * 50
 		possibleEvents[/datum/event/viral_infection] = 25 + active_with_role["Medical"] * 50
 
-	possibleEvents[/datum/event/prison_break] = active_with_role["Security"] * 50
+	possibleEvents[/datum/event/prison_break] = active_with_role["Security"] * 30
 	if(active_with_role["Security"] > 0)
 		if(aliens_allowed && !sent_aliens_to_station)
 			possibleEvents[/datum/event/alien_infestation] = max(active_with_role["Security"], 5) + 2.5
 		if(!sent_ninja_to_station && toggle_space_ninja)
 			possibleEvents[/datum/event/space_ninja] = active_with_role["Security"] * 5
-	possibleEvents[/datum/event/undead] = active_with_role["Security"] * 15
-	possibleEvents[/datum/event/ghosts] = active_with_role["Security"] * 25
+	//possibleEvents[/datum/event/undead] = active_with_role["Security"] * 15
+	//possibleEvents[/datum/event/ghosts] = active_with_role["Security"] * 25
 	possibleEvents[/datum/event/tear] = active_with_role["Security"] * 25
 
 	for(var/event_type in event_last_fired) if(possibleEvents[event_type])
