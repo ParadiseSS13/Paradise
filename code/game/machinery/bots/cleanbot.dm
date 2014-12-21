@@ -41,6 +41,7 @@
 	radio_frequency = SRV_FREQ //Service
 	radio_name = "Service"
 	bot_type = CLEAN_BOT
+	bot_type_name = "Cleanbot"
 	bot_filter = RADIO_CLEANBOT
 
 /obj/machinery/bot/cleanbot/New()
@@ -236,7 +237,7 @@ text("<A href='?src=\ref[src];power=1'>[on ? "On" : "Off"]</A>"))
 	icon_state = "cleanbot-c"
 	visible_message("<span class='notice'>[src] begins to clean up [target]</span>")
 	mode = BOT_CLEANING
-	spawn(50)
+	spawn(25)
 		if(mode == BOT_CLEANING)
 			qdel(target)
 			anchored = 0

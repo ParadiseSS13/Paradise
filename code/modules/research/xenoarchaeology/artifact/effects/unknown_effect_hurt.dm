@@ -14,7 +14,7 @@
 			C.adjustBruteLoss(rand(5,25) * weakness)
 			C.adjustFireLoss(rand(5,25) * weakness)
 			C.adjustBrainLoss(rand(5,25) * weakness)
-			C.radiation += 25 * weakness
+			C.apply_effect(25 * weakness,IRRADIATE,0)
 			C.nutrition -= min(50 * weakness, C.nutrition)
 			C.Dizzy(6 * weakness)
 			C.weakened += 6 * weakness

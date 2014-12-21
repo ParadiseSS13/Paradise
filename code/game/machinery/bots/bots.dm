@@ -56,6 +56,7 @@
 	#define FLOOR_BOT			3	// Floorbots
 	#define CLEAN_BOT			4	// Cleanbots
 	#define MED_BOT				5	// Medibots
+	var/bot_type_name = "Bot"
 
 	#define DEFAULT_SCAN_RANGE		7	//default view range for finding targets.
 

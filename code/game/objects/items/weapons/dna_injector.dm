@@ -63,9 +63,9 @@
 	else
 		return buf.dna.SetUIValue(real_block,val)
 
-/obj/item/weapon/dnainjector/proc/inject(mob/M as mob, mob/user as mob)
+/obj/item/weapon/dnainjector/proc/inject(mob/living/M as mob, mob/user as mob)
 	if(istype(M,/mob/living))
-		M.radiation += rand(5,20)
+		M.apply_effect(rand(5,20),IRRADIATE,0)
 
 	if (!(M_NOCLONE in M.mutations)) // prevents drained people from having their DNA changed
 		// UI in syringe.
