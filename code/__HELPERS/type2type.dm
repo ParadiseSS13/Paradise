@@ -82,7 +82,6 @@
 		hex = text("0[]", hex)
 	return hex
 
-
 // Concatenates a list of strings into a single string.  A seperator may optionally be provided.
 /proc/list2text(list/ls, sep)
 	if(ls.len <= 1) // Early-out code for empty or singleton lists.
@@ -170,13 +169,37 @@
 		#undef S1
 
 //slower then list2text, but correctly processes associative lists.
-proc/tg_list2text(list/list, glue=",")
+proc/tg_list2text(list/list, glue=",", assocglue=";")
 	if(!istype(list) || !list.len)
 		return
 	var/output
 	for(var/i=1 to list.len)
-		output += (i!=1? glue : null)+(!isnull(list["[list[i]]"])?"[list["[list[i]]"]]":"[list[i]]")
+		if(!isnull(list["[list[i]]"]))
+			output += (i!=1? glue : null)+ "[list[i]]"+(i!=1? assocglue : null)+"[list["[list[i]]"]]"
+		else
+			output += (i!=1? glue : null)+ "[list[i]]"
 	return output
+
+proc/tg_text2list(text, glue=",", assocglue=";")
+	var/length = length(glue)
+	if(length < 1) return list(text)
+	. = list()
+	var/lastglue_found = 1
+	var/foundglue
+	var/foundassocglue
+	var/searchtext
+	do
+		foundglue = findtext(text, glue, lastglue_found, 0)
+		searchtext = copytext(text, lastglue_found, foundglue)
+		foundassocglue = findtext(searchtext, assocglue, 1, 0)
+		if(foundassocglue)
+			var/sublist = copytext(searchtext, 1, foundassocglue)
+			sublist[1] = copytext(searchtext, foundassocglue, 0)
+			. += sublist
+		else
+			. += copytext(text, lastglue_found, foundglue)
+		lastglue_found = foundglue + length
+	while(foundglue)
 
 
 //Converts a string into a list by splitting the string at each delimiter found. (discarding the seperator)
