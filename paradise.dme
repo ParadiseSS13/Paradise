@@ -1,4 +1,4 @@
-// DM Environment file for baystation12.dme.
+// DM Environment file for paradise.dme.
 // All manual changes should be made outside the BEGIN_ and END_ blocks.
  // New source code should be placed in .dm files: choose File/New --> Code File.
 // BEGIN_INTERNALS
@@ -1022,6 +1022,7 @@
 #include "code\modules\hydroponics\seed_mobs.dm"
 #include "code\modules\hydroponics\seeds.dm"
 #include "code\modules\hydroponics\vines.dm"
+#include "code\modules\karma\karma.dm"
 #include "code\modules\library\lib_items.dm"
 #include "code\modules\library\lib_machines.dm"
 #include "code\modules\library\lib_readme.dm"
@@ -1615,7 +1616,6 @@
 #include "code\WorkInProgress\Sayu\programmable.dm"
 #include "code\WorkInProgress\Sayu\random_items.dm"
 #include "code\WorkInProgress\SkyMarshal\Ultralight_procs.dm"
-#include "code\WorkInProgress\ZomgPonies\karma.dm"
 #include "code\WorkInProgress\ZomgPonies\clothing\civilian.dm"
 #include "code\WorkInProgress\ZomgPonies\mobs\pony.dm"
 #include "code\WorkInProgress\ZomgPonies\oldcode\turntable.dm"

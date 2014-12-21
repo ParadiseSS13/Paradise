@@ -101,9 +101,9 @@ var/list/karma_spenders = list()
 		if(a == src.key)
 			usr << "\red You've already spent your karma for the round."
 			return
-	//if(M.key == src.key)
-		//usr << "\red You can't spend karma on yourself!"
-		//return
+	if(M.key == src.key)
+		usr << "\red You can't spend karma on yourself!"
+		return
 	if(M.client.address == src.client.address)
 		message_admins("\red Illegal karma spending detected from [src.key] to [M.key]. Using the same IP!")
 		log_game("\red Illegal karma spending detected from [src.key] to [M.key]. Using the same IP!")
@@ -318,6 +318,12 @@ You've gained <b>[totalkarma]</b> total karma in your time here.<br>"}
 			return
 					
 /client/proc/karmarefund(var/type,var/name,var/cost)
+	/*if(name == "Barber")
+		cost = 5
+	else*/
+	usr << "\red That job is not refundable."	
+	return
+	
 	var/DBQuery/query = dbcon.NewQuery("SELECT * FROM whitelist WHERE ckey='[usr.key]'")
 	query.Execute()
 	

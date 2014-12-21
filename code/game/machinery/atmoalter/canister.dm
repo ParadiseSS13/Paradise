@@ -253,7 +253,7 @@ update_flag
 /obj/machinery/portable_atmospherics/canister/attack_paw(var/mob/user as mob)
 	return src.attack_hand(user)
 	
-/obj/machinery/power/smes/attack_alien(mob/living/carbon/alien/humanoid/user)
+/obj/machinery/portable_atmospherics/canister/attack_alien(mob/living/carbon/alien/humanoid/user)
 	return
 
 /obj/machinery/portable_atmospherics/canister/attack_hand(var/mob/user as mob)
