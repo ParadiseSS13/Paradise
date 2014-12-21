@@ -239,14 +239,14 @@ var/list/ghostteleportlocs = list()
 
 /area/shuttle/gamma/space
 	icon_state = "shuttle"
-	name = "\improper Gamma Shuttle Space"
+	name = "\improper Gamma Armory"
 	requires_power = 0
 	luminosity = 0
 	lighting_use_dynamic = 1
 
 /area/shuttle/gamma/station
 	icon_state = "shuttle"
-	name = "\improper Gamma Shuttle Station"
+	name = "\improper Gamma Armory Station"
 	requires_power = 0
 	luminosity = 0
 	lighting_use_dynamic = 1
