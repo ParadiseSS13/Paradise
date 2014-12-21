@@ -425,5 +425,6 @@
 		'icons/stamp_icons/large_stamp-cap.png',
 		'icons/stamp_icons/large_stamp-qm.png',
 		'icons/stamp_icons/large_stamp-law.png',
-		'icons/stamp_icons/large_stamp-cent.png'
+		'icons/stamp_icons/large_stamp-cent.png',
+		'html/talisman.png'
 		)

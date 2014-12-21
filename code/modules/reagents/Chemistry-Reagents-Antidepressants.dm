@@ -27,9 +27,6 @@
 	result = "methylphenidate"
 	required_reagents = list("mindbreaker" = 1, "hydrogen" = 1)
 	result_amount = 3
-	
-/datum/chemical_reaction/methylphenidate/proc/see_in_dark()
-	return
 
 /datum/reagent/antidepressant/citalopram
 	name = "Citalopram"

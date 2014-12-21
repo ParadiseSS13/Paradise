@@ -301,7 +301,6 @@ What a mess.*/
 //RECORD FUNCTIONS
 			if("Search Records")
 				var/t1 = input("Search String: (Partial Name or ID or Fingerprints or Rank)", "Secure. records", null, null)  as text
-				world << "input [t1]"
 				if ((!( t1 ) || usr.stat || !( authenticated ) || usr.restrained() || !interactable()))
 					return
 				Perp = new/list()
