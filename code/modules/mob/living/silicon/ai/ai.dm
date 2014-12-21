@@ -451,6 +451,13 @@ var/list/ai_list = list()
 			A.ai_actual_track(target)
 		return
 		
+	if (href_list["trackbot"])
+		var/obj/machinery/bot/target = locate(href_list["trackbot"]) in aibots
+		var/mob/living/silicon/ai/A = locate(href_list["track2"]) in mob_list
+		if(A && target)
+			A.ai_actual_track(target)
+		return
+				
 	if (href_list["callbot"]) //Command a bot to move to a selected location.
 		Bot = locate(href_list["callbot"]) in aibots
 		if(!Bot || Bot.remote_disabled || src.control_disabled)
@@ -578,17 +585,18 @@ var/list/ai_list = list()
 	var/d
 	var/area/bot_area
 	d += "<A HREF=?src=\ref[src];botrefresh=\ref[Bot]>Query network status</A><br>"
-	d += "<table width='100%'><tr><td width='40%'><h3>Name</h3></td><td width='30%'><h3>Status</h3></td><td width='30%'><h3>Location</h3></td><td width='10%'><h3>Control</h3></td></tr>"
+	d += "<table width='100%'><tr><td width='40%'><h3>Name</h3></td><td width='20%'><h3>Status</h3></td><td width='30%'><h3>Location</h3></td><td width='10%'><h3>Control</h3></td></tr>"
 
 	for (Bot in aibots)
 		if(Bot.z == ai_Zlevel && !Bot.remote_disabled) //Only non-emagged bots on the same Z-level are detected!
 			bot_area = get_area(Bot)
-			d += "<tr><td width='30%'>[Bot.hacked ? "<span class='bad'>(!) </span>[Bot.name]" : Bot.name]</td>"
+			d += "<tr><td width='30%'>[Bot.hacked ? "<span class='bad'>(!) </span>[Bot.name]" : Bot.name] ([Bot.bot_type_name])</td>"
 			//If the bot is on, it will display the bot's current mode status. If the bot is not mode, it will just report "Idle". "Inactive if it is not on at all.
-			d += "<td width='30%'>[Bot.on ? "[Bot.mode ? "<span class='average'>[ Bot.mode_name[Bot.mode] ]</span>": "<span class='good'>Idle</span>"]" : "<span class='bad'>Inactive</span>"]</td>"
+			d += "<td width='20%'>[Bot.on ? "[Bot.mode ? "<span class='average'>[ Bot.mode_name[Bot.mode] ]</span>": "<span class='good'>Idle</span>"]" : "<span class='bad'>Inactive</span>"]</td>"
 			d += "<td width='30%'>[bot_area.name]</td>"
 			d += "<td width='10%'><A HREF=?src=\ref[src];interface=\ref[Bot]>Interface</A></td>"
 			d += "<td width='10%'><A HREF=?src=\ref[src];callbot=\ref[Bot]>Call</A></td>"
+			d += "<td width='10%'><a href='byond://?src=\ref[src];track2=\ref[src];trackbot=\ref[Bot]'>Track</A></td>"
 			d += "</tr>"
 			d = format_text(d)
 

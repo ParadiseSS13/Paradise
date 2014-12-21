@@ -36,6 +36,7 @@
 	radio_frequency = SEC_FREQ
 	radio_name = "Security"
 	bot_type = SEC_BOT
+	bot_type_name = "ED-209"
 	bot_filter = RADIO_SECBOT
 
 	//List of weapons that secbots will not arrest for

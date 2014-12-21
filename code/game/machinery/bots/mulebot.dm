@@ -23,6 +23,7 @@ var/global/mulebot_count = 0
 	beacon_freq = 1400
 	control_freq = 1447
 	bot_type = MULE_BOT
+	bot_type_name = "MULEbot"
 	bot_filter = RADIO_MULEBOT
 
 	suffix = ""
