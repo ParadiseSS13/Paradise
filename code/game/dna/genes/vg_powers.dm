@@ -222,8 +222,13 @@ Obviously, requires DNA2.
 /obj/effect/proc_holder/spell/wizard/targeted/remotetalk/choose_targets(mob/user = usr)
 	var/list/targets = new /list()
 	var/list/validtargets = new /list()
-	for(var/mob/M in view(usr))	
+	for(var/mob/M in living_mob_list)	
+		var/special_role = M.mind.special_role
+		if (special_role == "Wizard" || special_role == "Ninja" || special_role == "Syndicate" || special_role == "Syndicate Commando" || special_role == "Vox Raider" || special_role == "Alien")
+			continue
+			
 		validtargets += M
+		
 	if(!validtargets.len || validtargets.len == 1)
 		usr << "<span class='warning'>There are no valid targets in range!</span>"
 		start_recharge()
@@ -234,7 +239,7 @@ Obviously, requires DNA2.
 
 /obj/effect/proc_holder/spell/wizard/targeted/remotetalk/cast(list/targets)
 	if(!ishuman(usr))	return
-	var/say = input("What do you wish to say")
+	var/say = strip_html(input("What do you wish to say"))
 
 	for(var/mob/living/target in targets)
 		if(M_REMOTE_TALK in target.mutations)

@@ -1096,7 +1096,7 @@ datum
 							var/datum/disease2/disease/V = C.virus2[ID]
 							if(prob(5))
 								if(prob(50))
-									M.radiation += 50 // curing it that way may kill you instead
+									M.apply_effect(50,IRRADIATE,0) // curing it that way may kill you instead
 									M.adjustToxLoss(100)
 								M:antibodies |= V.antigen
 				..()
@@ -1299,7 +1299,7 @@ datum
 				return
 			on_mob_life(var/mob/living/M as mob)
 				if(!M) M = holder.my_atom
-					M.radiation += 3
+					M.apply_effect(3,IRRADIATE,0)
 					..()
 					return
 	*/
@@ -1857,7 +1857,7 @@ datum
 
 			on_mob_life(var/mob/living/M as mob)
 				if(!M) M = holder.my_atom
-				M.radiation = max(M.radiation-3*REM,0)
+				M.apply_effect(max(M.radiation-3*REM,0),IRRADIATE,0)
 				..()
 				return
 
@@ -1873,7 +1873,7 @@ datum
 				if(M.stat == 2.0)
 					return  //See above, down and around. --Agouri
 				if(!M) M = holder.my_atom
-				M.radiation = max(M.radiation-7*REM,0)
+				M.radiation = M.apply_effect(max(M.radiation-7*REM,0),IRRADIATE,0)
 				M.adjustToxLoss(-1*REM)
 				if(prob(15))
 					M.take_organ_damage(1, 0)

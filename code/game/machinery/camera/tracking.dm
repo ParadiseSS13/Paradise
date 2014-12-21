@@ -155,7 +155,7 @@
 		else
 			src << "\red You've failed to open an airlock for [target]"
 		return
-/mob/living/silicon/ai/proc/ai_actual_track(mob/living/target as mob)
+/mob/living/silicon/ai/proc/ai_actual_track(atom/target as mob|obj)
 	if(!istype(target))	return
 	var/mob/living/silicon/ai/U = usr
 
