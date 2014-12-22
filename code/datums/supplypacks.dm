@@ -341,6 +341,12 @@ var/list/all_supply_groups = list("Operations","Security","Hospitality","Enginee
 	containername = "cat crate"
 	group = "Organic"
 
+/datum/supply_packs/organic/fox
+	name = "Fox Crate"
+	cost = 55 //Foxes are cool.
+	containertype = /obj/structure/closet/critter/fox
+	containername = "fox crate"
+
 /datum/supply_packs/seeds
 	name = "Seeds Crate"
 	contains = list(/obj/item/seeds/chiliseed,
@@ -1120,7 +1126,7 @@ var/list/all_supply_groups = list("Operations","Security","Hospitality","Enginee
 	containertype = /obj/structure/closet/crate
 	containername = "autodrobe supply crate"
 	group = "Operations"
-	
+
 /datum/supply_packs/clothingvendor
 	name = "Clothing Vendor Supply crate"
 	contains = list(/obj/item/weapon/vending_refill/hatdispenser,

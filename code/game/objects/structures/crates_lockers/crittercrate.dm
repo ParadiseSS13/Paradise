@@ -70,3 +70,7 @@
 /obj/structure/closet/critter/cat
 	name = "cat crate"
 	content_mob = /mob/living/simple_animal/cat
+
+/obj/structure/closet/critter/fox
+	name = "fox crate"
+	content_mob = /mob/living/simple_animal/fox
