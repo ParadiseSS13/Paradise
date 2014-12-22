@@ -838,7 +838,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 				else
 					dat += "<span class='linkOff'>[D.name]</span>[temp_material]"
 				if(D.locked)
-					dat += " <span class='bad'>(LOCKED)</span>"
+					dat += " | <span class='bad'>LOCKED</span>"
 				dat += "<BR>"
 			dat += "</div>"
 
@@ -944,7 +944,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 				else
 					dat += "<span class='linkOff'>[D.name]</span>[temp_materials]<BR>"
 				if(D.locked)
-					dat += " <span class='bad'>(LOCKED)</span>"
+					dat += " | <span class='bad'>LOCKED</span>"
 			dat += "</div>"
 
 		if(4.2)
