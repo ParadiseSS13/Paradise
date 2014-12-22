@@ -95,12 +95,13 @@
 
 		if(istype(I, /obj/item/weapon/storage/bag/trash))
 			var/obj/item/weapon/storage/bag/trash/T = I
-			user << "\blue You empty the bag."
-			for(var/obj/item/O in T.contents)
-				T.remove_from_storage(O,src)
-			T.update_icon()
-			update()
-			return
+			if(T.contents.len)
+				user << "\blue You empty the bag."
+				for(var/obj/item/O in T.contents)
+					T.remove_from_storage(O,src)
+				T.update_icon()
+				update()
+				return
 			
 		if(istype(I, /obj/item/weapon/storage/part_replacer))
 			var/obj/item/weapon/storage/part_replacer/P = I
