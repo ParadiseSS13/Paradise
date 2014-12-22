@@ -20,7 +20,7 @@
 	
 	var/xenoai = 0 //Should the Xenos have their own AI?
 	var/xenoborg = 0 //Should the Xenos have their own borg?
-	var/gammaratio = 3 //At what alien to human ratio will the Gamma security level be called and the nuke be made available?
+	var/gammaratio = 4 //At what alien to human ratio will the Gamma security level be called and the nuke be made available?
 
 /datum/game_mode/xenos/announce()
 	world << "<B>The current game mode is - Xenos!</B>"
@@ -183,7 +183,9 @@
 /datum/game_mode/xenos/check_win()
 	var/xenosalive = xenos_alive()
 	var/playersalive = players_alive()
-	var/playeralienratio = player_alien_ratio()
+	var/playeralienratio = 0
+	if(playersalive)
+		playeralienratio = xenosalive / playersalive
 	if(emergency_shuttle && emergency_shuttle.returned())
 		return ..()
 	if(!xenosalive)
@@ -240,24 +242,6 @@
 			if(ishuman(M))
 				livingplayers += 1
 	return livingplayers.len
-
-/datum/game_mode/xenos/proc/player_alien_ratio()	
-	var/list/livingplayers = list()
-	var/list/livingxenos = list()
-	for(var/mob/M in player_list)
-		if((M) && (M.stat != 2) && M.client)
-			if(ishuman(M))
-				livingplayers += 1
-	for(var/datum/mind/xeno in xenos)
-		if((xeno) && (xeno.current) && (xeno.current.stat != 2) && (xeno.current.client))
-			if(istype(xeno.current,/mob/living/carbon/alien) || (xenoborg && isrobot(xeno.current)) || (xenoai && isAI(xeno.current)))
-				livingxenos += xeno				
-	
-	if(!livingxenos.len || !livingplayers.len)
-		return 0
-		
-	var/ratio = livingxenos.len / livingplayers.len
-	return ratio		
 	
 /datum/game_mode/xenos/declare_completion()		
 	if(result == 1)

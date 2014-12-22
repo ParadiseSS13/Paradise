@@ -1605,10 +1605,6 @@
 	if(istype(idcard, /obj/item/weapon/card/id/syndicate))
 		threatcount -= 5
 
-	// Pingsky now actually harbors anti-human sentiment! -Dave
-	if(istype(judgebot, /obj/machinery/bot/secbot/pingsky) && istype(src, /mob/living/carbon/human/human/))
-		threatcount += 1
-
 	return threatcount
 
 /mob/living/carbon/human/canBeHandcuffed()

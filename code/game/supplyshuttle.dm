@@ -92,7 +92,7 @@ var/list/mechtoys = list(
 		..()
 
 /obj/machinery/computer/supplycomp
-	name = "Supply shuttle console"
+	name = "Supply Shuttle Console"
 	icon = 'icons/obj/computer.dmi'
 	icon_state = "supply"
 	req_access = list(access_cargo)
@@ -104,7 +104,7 @@ var/list/mechtoys = list(
 	var/last_viewed_group = "categories"
 
 /obj/machinery/computer/ordercomp
-	name = "Supply ordering console"
+	name = "Supply Ordering Console"
 	icon = 'icons/obj/computer.dmi'
 	icon_state = "request"
 	circuit = "/obj/item/weapon/circuitboard/ordercomp"

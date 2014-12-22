@@ -95,13 +95,23 @@
 
 		if(istype(I, /obj/item/weapon/storage/bag/trash))
 			var/obj/item/weapon/storage/bag/trash/T = I
-			user << "\blue You empty the bag."
-			for(var/obj/item/O in T.contents)
-				T.remove_from_storage(O,src)
-			T.update_icon()
-			update()
-			return
-
+			if(T.contents.len)
+				user << "\blue You empty the bag."
+				for(var/obj/item/O in T.contents)
+					T.remove_from_storage(O,src)
+				T.update_icon()
+				update()
+				return
+			
+		if(istype(I, /obj/item/weapon/storage/part_replacer))
+			var/obj/item/weapon/storage/part_replacer/P = I
+			if(P.contents.len)
+				user << "\blue You empty the RPED's contents."
+				for(var/obj/item/O in P.contents)
+					P.remove_from_storage(O,src)
+				update()
+				return
+				
 		var/obj/item/weapon/grab/G = I
 		if(istype(G))	// handle grabbed mob
 			if(ismob(G.affecting))

@@ -61,18 +61,21 @@ var/list/karma_spenders = list()
 		usr << "\red You can't award karma until the game has started."
 		return	
 
-	var/list/karma_list = list()
+	var/list/karma_list = list("Cancel")
 	for(var/mob/M in player_list) if(M.client && M.mind)	
 		var/special_role = M.mind.special_role
 		if (special_role == "Wizard" || special_role == "Ninja" || special_role == "Syndicate" || special_role == "Syndicate Commando" || special_role == "Vox Raider" || special_role == "Alien") // Don't include special roles, because players use it to meta
 			continue
 		karma_list += M
 		
-	if(!karma_list.len)
+	if(!karma_list.len || karma_list.len == 1)
 		usr << "\red There's no-one to spend your karma on."
 		return
 		
-	var/pickedmob = input("Who would you like to award Karma to?", "Award Karma", null) as mob in karma_list
+	var/pickedmob = input("Who would you like to award Karma to?", "Award Karma", "Cancel") as null|mob in karma_list
+	
+	if(isnull(pickedmob))
+		return
 	
 	if(!istype(pickedmob, /mob))
 		usr << "\red That's not a mob."
@@ -201,9 +204,33 @@ You've gained <b>[totalkarma]</b> total karma in your time here.<br>"}
 			
 		if (2) // Karma Refunds
 			var/list/refundable = list()
-			/*if(checkpurchased("Barber"))
-				refundable += "Barber"
-				dat += "<a href='?src=\ref[src];karmashop=shop;KarmaRefund=Barber;KarmaRefundType=job;KarmaRefundCost=5'>Refund Barber -- 5KP</a><br>"*/	
+			if(checkpurchased("Tajaran Ambassador"))
+				refundable += "Tajaran Ambassador"
+				dat += "<a href='?src=\ref[src];karmashop=shop;KarmaRefund=Tajaran Ambassador;KarmaRefundType=job;KarmaRefundCost=30'>Refund Tajaran Ambassador -- 30KP</a><br>"
+			if(checkpurchased("Unathi Ambassador"))
+				refundable += "Unathi Ambassador"
+				dat += "<a href='?src=\ref[src];karmashop=shop;KarmaRefund=Unathi Ambassador;KarmaRefundType=job;KarmaRefundCost=30'>Refund Unathi Ambassador -- 30KP</a><br>"	
+			if(checkpurchased("Skrell Ambassador"))
+				refundable += "Skrell Ambassador"
+				dat += "<a href='?src=\ref[src];karmashop=shop;KarmaRefund=Skrell Ambassador;KarmaRefundType=job;KarmaRefundCost=30'>Refund Skrell Ambassador -- 30KP</a><br>"	
+			if(checkpurchased("Diona Ambassador"))
+				refundable += "Diona Ambassador"
+				dat += "<a href='?src=\ref[src];karmashop=shop;KarmaRefund=Diona Ambassador;KarmaRefundType=job;KarmaRefundCost=30'>Refund Diona Ambassador -- 30KP</a><br>"	
+			if(checkpurchased("Kidan Ambassador"))
+				refundable += "Kidan Ambassador"
+				dat += "<a href='?src=\ref[src];karmashop=shop;KarmaRefund=Kidan Ambassador;KarmaRefundType=job;KarmaRefundCost=30'>Refund Kidan Ambassador -- 30KP</a><br>"	
+			if(checkpurchased("Kidan Ambassador"))
+				refundable += "Kidan Ambassador"
+				dat += "<a href='?src=\ref[src];karmashop=shop;KarmaRefund=Kidan Ambassador;KarmaRefundType=job;KarmaRefundCost=30'>Refund Kidan Ambassador -- 30KP</a><br>"	
+			if(checkpurchased("Slime People Ambassador"))
+				refundable += "Slime People Ambassador"
+				dat += "<a href='?src=\ref[src];karmashop=shop;KarmaRefund=Slime People Ambassador;KarmaRefundType=job;KarmaRefundCost=30'>Refund Slime People Ambassador -- 30KP</a><br>"	
+			if(checkpurchased("Grey Ambassador"))
+				refundable += "Grey Ambassador"
+				dat += "<a href='?src=\ref[src];karmashop=shop;KarmaRefund=Grey Ambassador;KarmaRefundType=job;KarmaRefundCost=30'>Refund Grey Ambassador -- 30KP</a><br>"	
+			if(checkpurchased("Vox Ambassador"))
+				refundable += "Vox Ambassador"
+				dat += "<a href='?src=\ref[src];karmashop=shop;KarmaRefund=Vox Ambassador;KarmaRefundType=job;KarmaRefundCost=30'>Refund Vox Ambassador -- 30KP</a><br>"				
 
 			if(!refundable.len)
 				dat += "You do not have any refundable karma purchases.<br>"
@@ -303,9 +330,9 @@ You've gained <b>[totalkarma]</b> total karma in your time here.<br>"}
 	while(query.NextRow())
 		var/spent = text2num(query.item[4])
 		if(refund)
-			spent += cost
-		else
 			spent -= cost
+		else
+			spent += cost
 		query = dbcon.NewQuery("UPDATE karmatotals SET karmaspent=[spent] WHERE byondkey='[usr.key]'")
 		if(!query.Execute())
 			var/err = query.ErrorMsg()
@@ -318,11 +345,25 @@ You've gained <b>[totalkarma]</b> total karma in your time here.<br>"}
 			return
 					
 /client/proc/karmarefund(var/type,var/name,var/cost)
-	/*if(name == "Barber")
-		cost = 5
-	else*/
-	usr << "\red That job is not refundable."	
-	return
+	if(name == "Tajaran Ambassador")
+		cost = 30
+	else if(name == "Unathi Ambassador")
+		cost = 30
+	else if(name == "Skrell Ambassador")
+		cost = 30
+	else if(name == "Diona Ambassador")
+		cost = 30
+	else if(name == "Kidan Ambassador")
+		cost = 30
+	else if(name == "Slime People Ambassador")
+		cost = 30
+	else if(name == "Grey Ambassador")
+		cost = 30
+	else if(name == "Vox Ambassador")
+		cost = 30
+	else
+		usr << "\red That job is not refundable."	
+		return
 	
 	var/DBQuery/query = dbcon.NewQuery("SELECT * FROM whitelist WHERE ckey='[usr.key]'")
 	query.Execute()
