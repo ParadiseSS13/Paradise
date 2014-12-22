@@ -330,9 +330,9 @@ You've gained <b>[totalkarma]</b> total karma in your time here.<br>"}
 	while(query.NextRow())
 		var/spent = text2num(query.item[4])
 		if(refund)
-			spent += cost
-		else
 			spent -= cost
+		else
+			spent += cost
 		query = dbcon.NewQuery("UPDATE karmatotals SET karmaspent=[spent] WHERE byondkey='[usr.key]'")
 		if(!query.Execute())
 			var/err = query.ErrorMsg()
