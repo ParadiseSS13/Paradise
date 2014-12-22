@@ -34,7 +34,7 @@ other types of metals and chemistry for reagents).
 
 */
 
-datum/design						//Datum for object designs, used in construction
+/datum/design						//Datum for object designs, used in construction
 	var/name = "Name"					//Name of the created object.
 	var/desc = "Desc"					//Description of the created object.
 	var/id = "id"						//ID of the created object for easy refernece. Alphanumeric, lower-case, no symbols
@@ -52,7 +52,7 @@ datum/design						//Datum for object designs, used in construction
 
 //A proc to calculate the reliability of a design based on tech levels and innate modifiers.
 //Input: A list of /datum/tech; Output: The new reliabilty.
-datum/design/proc/CalcReliability(var/list/temp_techs)
+/datum/design/proc/CalcReliability(var/list/temp_techs)
 	var/new_reliability
 	for(var/datum/tech/T in temp_techs)
 		if(T.id in req_tech)
@@ -61,101 +61,11 @@ datum/design/proc/CalcReliability(var/list/temp_techs)
 	reliability = new_reliability
 	return
 
-///////////////////////////////////
-/////Non-Board Computer Stuff//////
-///////////////////////////////////
-
-datum/design/intellicard
-	name = "Intellicard AI Transportation System"
-	desc = "Allows for the construction of an intellicard."
-	id = "intellicard"
-	req_tech = list("programming" = 4, "materials" = 4)
-	build_type = PROTOLATHE
-	materials = list("$glass" = 1000, "$gold" = 200)
-	build_path = /obj/item/device/aicard
-
-datum/design/paicard
-	name = "Personal Artificial Intelligence Card"
-	desc = "Allows for the construction of a pAI Card"
-	id = "paicard"
-	req_tech = list("programming" = 2)
-	build_type = PROTOLATHE
-	materials = list("$glass" = 500, "$metal" = 500)
-	build_path = /obj/item/device/paicard
-
-datum/design/posibrain
-	name = "Positronic Brain"
-	desc = "Allows for the construction of a positronic brain"
-	id = "posibrain"
-	req_tech = list("engineering" = 4, "materials" = 6, "bluespace" = 2, "programming" = 4)
-	build_type = PROTOLATHE
-	materials = list("$metal" = 2000, "$glass" = 1000, "$silver" = 1000, "$gold" = 500, "$plasma" = 500, "$diamond" = 100)
-	build_path = /obj/item/device/mmi/posibrain
-	
-////////////////////////////////////////
-//////////Disk Construction Disks///////
-////////////////////////////////////////
-
-datum/design/design_disk
-	name = "Design Storage Disk"
-	desc = "Produce additional disks for storing device designs."
-	id = "design_disk"
-	req_tech = list("programming" = 1)
-	build_type = PROTOLATHE | AUTOLATHE
-	materials = list("$metal" = 30, "$glass" = 10)
-	build_path = /obj/item/weapon/disk/design_disk
-
-datum/design/tech_disk
-	name = "Technology Data Storage Disk"
-	desc = "Produce additional disks for storing technology data."
-	id = "tech_disk"
-	req_tech = list("programming" = 1)
-	build_type = PROTOLATHE | AUTOLATHE
-	materials = list("$metal" = 30, "$glass" = 10)
-	build_path = /obj/item/weapon/disk/tech_disk
-
 /////////////////////////////////////////
 /////////////////Mining//////////////////
 /////////////////////////////////////////
 
-datum/design/jackhammer
-	name = "Sonic Jackhammer"
-	desc = "Cracks rocks with sonic blasts, perfect for killing cave lizards."
-	id = "jackhammer"
-	req_tech = list("materials" = 3, "powerstorage" = 2, "engineering" = 2)
-	build_type = PROTOLATHE
-	materials = list("$metal" = 2000, "$glass" = 500, "$silver" = 500)
-	build_path = /obj/item/weapon/pickaxe/jackhammer
-
-datum/design/drill
-	name = "Mining Drill"
-	desc = "Yours is the drill that will pierce through the rock walls."
-	id = "drill"
-	req_tech = list("materials" = 2, "powerstorage" = 3, "engineering" = 2)
-	build_type = PROTOLATHE
-	materials = list("$metal" = 6000, "$glass" = 1000)
-	build_path = /obj/item/weapon/pickaxe/drill
-
-datum/design/plasmacutter
-	name = "Plasma Cutter"
-	desc = "You could use it to cut limbs off of xenos! Or, you know, mine stuff."
-	id = "plasmacutter"
-	req_tech = list("materials" = 4, "plasmatech" = 3, "engineering" = 3)
-	build_type = PROTOLATHE
-	materials = list("$metal" = 1500, "$glass" = 500, "$gold" = 500, "$plasma" = 500)
-	reliability_base = 79
-	build_path = /obj/item/weapon/pickaxe/plasmacutter
-
-datum/design/pick_diamond
-	name = "Diamond Pickaxe"
-	desc = "A pickaxe with a diamond pick head, this is just like minecraft."
-	id = "pick_diamond"
-	req_tech = list("materials" = 6)
-	build_type = PROTOLATHE
-	materials = list("$diamond" = 3000)
-	build_path = /obj/item/weapon/pickaxe/diamond
-
-datum/design/drill_diamond
+/datum/design/drill_diamond
 	name = "Diamond Mining Drill"
 	desc = "Yours is the drill that will pierce the heavens!"
 	id = "drill_diamond"
@@ -164,8 +74,29 @@ datum/design/drill_diamond
 	materials = list("$metal" = 3000, "$glass" = 1000, "$diamond" = 3750) //Yes, a whole diamond is needed.
 	reliability_base = 79
 	build_path = /obj/item/weapon/pickaxe/diamonddrill
+	category = list("Mining")
+	
+/datum/design/pick_diamond
+	name = "Diamond Pickaxe"
+	desc = "A pickaxe with a diamond pick head, this is just like minecraft."
+	id = "pick_diamond"
+	req_tech = list("materials" = 6)
+	build_type = PROTOLATHE
+	materials = list("$diamond" = 3000)
+	build_path = /obj/item/weapon/pickaxe/diamond
+	category = list("Mining")
 
-datum/design/mesons
+/datum/design/drill
+	name = "Mining Drill"
+	desc = "Yours is the drill that will pierce through the rock walls."
+	id = "drill"
+	req_tech = list("materials" = 2, "powerstorage" = 3, "engineering" = 2)
+	build_type = PROTOLATHE
+	materials = list("$metal" = 6000, "$glass" = 1000)
+	build_path = /obj/item/weapon/pickaxe/drill
+	category = list("Mining")	
+	
+/datum/design/mesons
 	name = "Optical Meson Scanners"
 	desc = "Used for seeing walls, floors, and stuff through anything."
 	id = "mesons"
@@ -173,62 +104,78 @@ datum/design/mesons
 	build_type = PROTOLATHE
 	materials = list("$metal" = 200, "$glass" = 300, "$plasma" = 100)
 	build_path = /obj/item/clothing/glasses/meson
+	category = list("Mining")
+	
+/datum/design/plasmacutter
+	name = "Plasma Cutter"
+	desc = "You could use it to cut limbs off of xenos! Or, you know, mine stuff."
+	id = "plasmacutter"
+	req_tech = list("materials" = 4, "plasmatech" = 3, "engineering" = 3)
+	build_type = PROTOLATHE
+	materials = list("$metal" = 1500, "$glass" = 500, "$gold" = 500, "$plasma" = 500)
+	reliability_base = 79
+	build_path = /obj/item/weapon/pickaxe/plasmacutter
+	category = list("Mining")
+	
+/datum/design/jackhammer
+	name = "Sonic Jackhammer"
+	desc = "Cracks rocks with sonic blasts, perfect for killing cave lizards."
+	id = "jackhammer"
+	req_tech = list("materials" = 3, "powerstorage" = 2, "engineering" = 2)
+	build_type = PROTOLATHE
+	materials = list("$metal" = 2000, "$glass" = 500, "$silver" = 500)
+	build_path = /obj/item/weapon/pickaxe/jackhammer
+	category = list("Mining")
 
 /////////////////////////////////////////
 /////////////////Misc Designs////////////
 /////////////////////////////////////////
 	
-datum/design/night_vision_goggles
-	name = "Night Vision Goggles"
-	desc = "Goggles that let you see through darkness unhindered."
-	id = "night_visision_goggles"
-	req_tech = list("magnets" = 4)
+/datum/design/design_disk
+	name = "Design Storage Disk"
+	desc = "Produce additional disks for storing device designs."
+	id = "design_disk"
+	req_tech = list("programming" = 1)
+	build_type = PROTOLATHE | AUTOLATHE
+	materials = list("$metal" = 30, "$glass" = 10)
+	build_path = /obj/item/weapon/disk/design_disk
+	category = list("Miscellaneous")
+	
+/datum/design/intellicard
+	name = "Intellicard"
+	desc = "Allows for the construction of an intellicard."
+	id = "intellicard"
+	req_tech = list("programming" = 4, "materials" = 4)
 	build_type = PROTOLATHE
-	materials = list("$metal" = 100, "$glass" = 100, "$uranium" = 1000)
-	build_path = /obj/item/clothing/glasses/night
+	materials = list("$glass" = 1000, "$gold" = 200)
+	build_path = /obj/item/device/aicard
+	category = list("Miscellaneous")
+	
+/datum/design/paicard
+	name = "Personal Artificial Intelligence Card"
+	desc = "Allows for the construction of a pAI Card"
+	id = "paicard"
+	req_tech = list("programming" = 2)
+	build_type = PROTOLATHE
+	materials = list("$glass" = 500, "$metal" = 500)
+	build_path = /obj/item/device/paicard
+	category = list("Miscellaneous")
 
-datum/design/magboots
-	name = "Magnetic Boots"
-	desc = "Magnetic boots, often used during extravehicular activity to ensure the user remains safely attached to the vehicle."
-	id = "magboots"
-	req_tech = list("materials" = 4, "magnets" = 4, "engineering" = 5)
-	build_type = PROTOLATHE
-	materials = list("$metal" = 4500, "$silver" = 1500, "$gold" = 2500)
-	build_path = /obj/item/clothing/shoes/magboots
+/datum/design/tech_disk
+	name = "Technology Data Storage Disk"
+	desc = "Produce additional disks for storing technology data."
+	id = "tech_disk"
+	req_tech = list("programming" = 1)
+	build_type = PROTOLATHE | AUTOLATHE
+	materials = list("$metal" = 30, "$glass" = 10)
+	build_path = /obj/item/weapon/disk/tech_disk
+	category = list("Miscellaneous")
 
 /////////////////////////////////////////
 //////////////Blue Space/////////////////
 /////////////////////////////////////////
 
-datum/design/beacon
-	name = "Tracking Beacon"
-	desc = "A blue space tracking beacon."
-	id = "beacon"
-	req_tech = list("bluespace" = 1)
-	build_type = PROTOLATHE
-	materials = list ("$metal" = 20, "$glass" = 10)
-	build_path = /obj/item/device/radio/beacon
-
-datum/design/telepad_beacon
-	name = "Telepad Beacon"
-	desc = "Use to warp in a cargo telepad."
-	id = "telepad_beacon"
-	req_tech = list("bluespace" = 3, "materials" = 4)
-	build_type = PROTOLATHE
-	materials = list ("$metal" = 2000, "$glass" = 1750, "$silver" = 500)
-	build_path = /obj/item/device/telepad_beacon
-
-datum/design/bag_holding
-	name = "Bag of Holding"
-	desc = "A backpack that opens into a localized pocket of Blue Space."
-	id = "bag_holding"
-	req_tech = list("bluespace" = 4, "materials" = 6)
-	build_type = PROTOLATHE
-	materials = list("$gold" = 3000, "$diamond" = 1500, "$uranium" = 250)
-	reliability_base = 80
-	build_path = /obj/item/weapon/storage/backpack/holding
-
-datum/design/bluespace_crystal
+/datum/design/bluespace_crystal
 	name = "Artificial Bluespace Crystal"
 	desc = "A small blue crystal with mystical properties."
 	id = "bluespace_crystal"
@@ -237,8 +184,20 @@ datum/design/bluespace_crystal
 	materials = list("$diamond" = 1500, "$plasma" = 1500)
 	reliability_base = 100
 	build_path = /obj/item/bluespace_crystal/artificial
+	category = list("Bluespace")	
+	
+/datum/design/bag_holding
+	name = "Bag of Holding"
+	desc = "A backpack that opens into a localized pocket of Blue Space."
+	id = "bag_holding"
+	req_tech = list("bluespace" = 4, "materials" = 6)
+	build_type = PROTOLATHE
+	materials = list("$gold" = 3000, "$diamond" = 1500, "$uranium" = 250)
+	reliability_base = 80
+	build_path = /obj/item/weapon/storage/backpack/holding
+	category = list("Bluespace")
 
-datum/design/telesci_gps
+/datum/design/telesci_gps
 	name = "GPS Device"
 	desc = "A device that can track its position at all times."
 	id = "telesci_Gps"
@@ -246,12 +205,33 @@ datum/design/telesci_gps
 	build_type = PROTOLATHE
 	materials = list("$metal" = 500, "$glass" = 1000)
 	build_path = /obj/item/device/gps
+	category = list("Bluespace")
+
+/datum/design/telepad_beacon
+	name = "Telepad Beacon"
+	desc = "Use to warp in a cargo telepad."
+	id = "telepad_beacon"
+	req_tech = list("bluespace" = 3, "materials" = 4)
+	build_type = PROTOLATHE
+	materials = list ("$metal" = 2000, "$glass" = 1750, "$silver" = 500)
+	build_path = /obj/item/device/telepad_beacon
+	category = list("Bluespace")
+
+/datum/design/beacon
+	name = "Tracking Beacon"
+	desc = "A blue space tracking beacon."
+	id = "beacon"
+	req_tech = list("bluespace" = 1)
+	build_type = PROTOLATHE
+	materials = list ("$metal" = 20, "$glass" = 10)
+	build_path = /obj/item/device/radio/beacon
+	category = list("Bluespace")
 
 /////////////////////////////////////////
-/////////////////HUDs////////////////////
+/////////////////Equipment///////////////
 /////////////////////////////////////////
 
-datum/design/health_hud
+/datum/design/health_hud
 	name = "Health Scanner HUD"
 	desc = "A heads-up display that scans the humans in view and provides accurate data about their health status."
 	id = "health_hud"
@@ -259,8 +239,29 @@ datum/design/health_hud
 	build_type = PROTOLATHE
 	materials = list("$metal" = 50, "$glass" = 50)
 	build_path = /obj/item/clothing/glasses/hud/health
+	category = list("Equipment")
+	
+/datum/design/magboots
+	name = "Magnetic Boots"
+	desc = "Magnetic boots, often used during extravehicular activity to ensure the user remains safely attached to the vehicle."
+	id = "magboots"
+	req_tech = list("materials" = 4, "magnets" = 4, "engineering" = 5)
+	build_type = PROTOLATHE
+	materials = list("$metal" = 4500, "$silver" = 1500, "$gold" = 2500)
+	build_path = /obj/item/clothing/shoes/magboots
+	category = list("Equipment")
+	
+/datum/design/night_vision_goggles
+	name = "Night Vision Goggles"
+	desc = "Goggles that let you see through darkness unhindered."
+	id = "night_visision_goggles"
+	req_tech = list("magnets" = 4)
+	build_type = PROTOLATHE
+	materials = list("$metal" = 100, "$glass" = 100, "$uranium" = 1000)
+	build_path = /obj/item/clothing/glasses/night
+	category = list("Equipment")
 
-datum/design/health_hud_night
+/datum/design/health_hud_night
 	name = "Night Vision Health Scanner HUD"
 	desc = "An advanced medical head-up display that allows doctors to find patients in complete darkness."
 	id = "health_hud_night"
@@ -268,17 +269,9 @@ datum/design/health_hud_night
 	build_type = PROTOLATHE
 	materials = list("$metal" = 200, "$glass" = 200, "$uranium" = 1000, "$silver" = 250)
 	build_path = /obj/item/clothing/glasses/hud/health/night
-
-datum/design/security_hud
-	name = "Security HUD"
-	desc = "A heads-up display that scans the humans in view and provides accurate data about their ID status."
-	id = "security_hud"
-	req_tech = list("magnets" = 3, "combat" = 2)
-	build_type = PROTOLATHE
-	materials = list("$metal" = 50, "$glass" = 50)
-	build_path = /obj/item/clothing/glasses/hud/security
-
-datum/design/security_hud_night
+	category = list("Equipment")
+	
+/datum/design/security_hud_night
 	name = "Night Vision Security HUD"
 	desc = "A heads-up display which provides id data and vision in complete darkness."
 	id = "security_hud_night"
@@ -286,61 +279,33 @@ datum/design/security_hud_night
 	build_type = PROTOLATHE
 	materials = list("$metal" = 200, "$glass" = 200, "$uranium" = 1000, "$gold" = 350)
 	build_path = /obj/item/clothing/glasses/hud/security/night
+	category = list("Equipment")
 
-/////////////////////////////////////////
-//////////////Borg Upgrades//////////////
-/////////////////////////////////////////
-
-datum/design/borg_syndicate_module
-	name = "Borg Illegal Weapons Upgrade"
-	desc = "Allows for the construction of illegal upgrades for cyborgs"
-	id = "borg_syndicate_module"
-	build_type = MECHFAB
-	req_tech = list("combat" = 4, "syndicate" = 3)
-	build_path = /obj/item/borg/upgrade/syndicate
-	category = "Cyborg Upgrade Modules"
+/datum/design/security_hud
+	name = "Security HUD"
+	desc = "A heads-up display that scans the humans in view and provides accurate data about their ID status."
+	id = "security_hud"
+	req_tech = list("magnets" = 3, "combat" = 2)
+	build_type = PROTOLATHE
+	materials = list("$metal" = 50, "$glass" = 50)
+	build_path = /obj/item/clothing/glasses/hud/security
+	category = list("Equipment")
 
 /////////////////////////////////////////
 /////////////PDA and Radio stuff/////////
 /////////////////////////////////////////
 
-datum/design/binaryencrypt
+/datum/design/binaryencrypt
 	name = "Binary Encryption Key"
-	desc = "An encyption key for a radio headset.  Contains cypherkeys."
+	desc = "An encyption key for a radio headset. Contains cypherkeys."
 	id = "binaryencrypt"
 	req_tech = list("syndicate" = 2)
 	build_type = PROTOLATHE
 	materials = list("$metal" = 300, "$glass" = 300)
 	build_path = /obj/item/device/encryptionkey/binary
+	category = list("Communication")
 	
-datum/design/pda
-	name = "PDA"
-	desc = "A portable microcomputer by Thinktronic Systems, LTD. Functionality determined by a preprogrammed ROM cartridge."
-	id = "pda"
-	req_tech = list("engineering" = 2, "powerstorage" = 3)
-	build_type = PROTOLATHE
-	materials = list("$metal" = 50, "$glass" = 50)
-	build_path = /obj/item/device/pda
-	
-datum/design/cart_basic
-	name = "Generic Cartridge"
-	desc = "A data cartridge for portable microcomputers."
-	id = "cart_basic"
-	req_tech = list("engineering" = 2, "powerstorage" = 3)
-	build_type = PROTOLATHE
-	materials = list("$metal" = 50, "$glass" = 50)
-	build_path = /obj/item/weapon/cartridge
-	
-datum/design/cart_engineering
-	name = "Power-ON Cartridge"
-	desc = "A data cartridge for portable microcomputers."
-	id = "cart_engineering"
-	req_tech = list("engineering" = 2, "powerstorage" = 3)
-	build_type = PROTOLATHE
-	materials = list("$metal" = 50, "$glass" = 50)
-	build_path = /obj/item/weapon/cartridge/engineering
-	
-datum/design/cart_atmos
+/datum/design/cart_atmos
 	name = "BreatheDeep Cartridge"
 	desc = "A data cartridge for portable microcomputers."
 	id = "cart_atmos"
@@ -348,17 +313,9 @@ datum/design/cart_atmos
 	build_type = PROTOLATHE
 	materials = list("$metal" = 50, "$glass" = 50)
 	build_path = /obj/item/weapon/cartridge/atmos
+	category = list("Communication")
 	
-datum/design/cart_medical
-	name = "Med-U Cartridge"
-	desc = "A data cartridge for portable microcomputers."
-	id = "cart_medical"
-	req_tech = list("engineering" = 2, "powerstorage" = 3)
-	build_type = PROTOLATHE
-	materials = list("$metal" = 50, "$glass" = 50)
-	build_path = /obj/item/weapon/cartridge/medical
-	
-datum/design/cart_chemistry
+/datum/design/cart_chemistry
 	name = "ChemWhiz Cartridge"
 	desc = "A data cartridge for portable microcomputers."
 	id = "cart_chemistry"
@@ -366,18 +323,9 @@ datum/design/cart_chemistry
 	build_type = PROTOLATHE
 	materials = list("$metal" = 50, "$glass" = 50)
 	build_path = /obj/item/weapon/cartridge/chemistry
+	category = list("Communication")
 	
-datum/design/cart_security
-	name = "R.O.B.U.S.T. Cartridge"
-	desc = "A data cartridge for portable microcomputers."
-	id = "cart_security"
-	req_tech = list("engineering" = 2, "powerstorage" = 3)
-	build_type = PROTOLATHE
-	materials = list("$metal" = 50, "$glass" = 50)
-	build_path = "/obj/item/weapon/cartridge/security"
-	locked = 1
-	
-datum/design/cart_janitor
+/datum/design/cart_janitor
 	name = "CustodiPRO Cartridge"
 	desc = "A data cartridge for portable microcomputers."
 	id = "cart_janitor"
@@ -385,17 +333,9 @@ datum/design/cart_janitor
 	build_type = PROTOLATHE
 	materials = list("$metal" = 50, "$glass" = 50)
 	build_path = /obj/item/weapon/cartridge/janitor
+	category = list("Communication")
 	
-datum/design/cart_clown
-	name = "Honkworks 5.0 Cartridge"
-	desc = "A data cartridge for portable microcomputers."
-	id = "cart_clown"
-	req_tech = list("engineering" = 2, "powerstorage" = 3)
-	build_type = PROTOLATHE
-	materials = list("$metal" = 50, "$glass" = 50)
-	build_path = /obj/item/weapon/cartridge/clown
-	
-datum/design/cart_mime
+/datum/design/cart_mime
 	name = "Gestur-O 1000 Cartridge"
 	desc = "A data cartridge for portable microcomputers."
 	id = "cart_mime"
@@ -403,27 +343,29 @@ datum/design/cart_mime
 	build_type = PROTOLATHE
 	materials = list("$metal" = 50, "$glass" = 50)
 	build_path = /obj/item/weapon/cartridge/mime
+	category = list("Communication")	
 	
-datum/design/cart_toxins
-	name = "Signal Ace 2 Cartridge"
+/datum/design/cart_basic
+	name = "Generic Cartridge"
 	desc = "A data cartridge for portable microcomputers."
-	id = "cart_toxins"
+	id = "cart_basic"
 	req_tech = list("engineering" = 2, "powerstorage" = 3)
 	build_type = PROTOLATHE
 	materials = list("$metal" = 50, "$glass" = 50)
-	build_path = /obj/item/weapon/cartridge/signal/toxins
+	build_path = /obj/item/weapon/cartridge
+	category = list("Communication")	
 	
-datum/design/cart_quartermaster
-	name = "Space Parts & Space Vendors Cartridge"
+/datum/design/cart_clown
+	name = "Honkworks 5.0 Cartridge"
 	desc = "A data cartridge for portable microcomputers."
-	id = "cart_quartermaster"
+	id = "cart_clown"
 	req_tech = list("engineering" = 2, "powerstorage" = 3)
 	build_type = PROTOLATHE
 	materials = list("$metal" = 50, "$glass" = 50)
-	build_path = /obj/item/weapon/cartridge/quartermaster
-	locked = 1
+	build_path = /obj/item/weapon/cartridge/clown
+	category = list("Communication")
 	
-datum/design/cart_hop
+/datum/design/cart_hop
 	name = "Human Resources 9001 Cartridge"
 	desc = "A data cartridge for portable microcomputers."
 	id = "cart_hop"
@@ -432,28 +374,19 @@ datum/design/cart_hop
 	materials = list("$metal" = 50, "$glass" = 50)
 	build_path = /obj/item/weapon/cartridge/hop
 	locked = 1
+	category = list("Communication")
 	
-datum/design/cart_hos
-	name = "R.O.B.U.S.T. DELUXE Cartridge"
+/datum/design/cart_medical
+	name = "Med-U Cartridge"
 	desc = "A data cartridge for portable microcomputers."
-	id = "cart_hos"
+	id = "cart_medical"
 	req_tech = list("engineering" = 2, "powerstorage" = 3)
 	build_type = PROTOLATHE
 	materials = list("$metal" = 50, "$glass" = 50)
-	build_path = /obj/item/weapon/cartridge/hos
-	locked = 1
+	build_path = /obj/item/weapon/cartridge/medical
+	category = list("Communication")	
 	
-datum/design/cart_ce
-	name = "Power-On DELUXE Cartridge"
-	desc = "A data cartridge for portable microcomputers."
-	id = "cart_ce"
-	req_tech = list("engineering" = 2, "powerstorage" = 3)
-	build_type = PROTOLATHE
-	materials = list("$metal" = 50, "$glass" = 50)
-	build_path = /obj/item/weapon/cartridge/ce
-	locked = 1
-	
-datum/design/cart_cmo
+/datum/design/cart_cmo
 	name = "Med-U DELUXE Cartridge"
 	desc = "A data cartridge for portable microcomputers."
 	id = "cart_cmo"
@@ -462,8 +395,72 @@ datum/design/cart_cmo
 	materials = list("$metal" = 50, "$glass" = 50)
 	build_path = /obj/item/weapon/cartridge/cmo
 	locked = 1
+	category = list("Communication")
 	
-datum/design/cart_rd
+/datum/design/pda
+	name = "PDA"
+	desc = "A portable microcomputer by Thinktronic Systems, LTD. Functionality determined by a preprogrammed ROM cartridge."
+	id = "pda"
+	req_tech = list("engineering" = 2, "powerstorage" = 3)
+	build_type = PROTOLATHE
+	materials = list("$metal" = 50, "$glass" = 50)
+	build_path = /obj/item/device/pda
+	category = list("Communication")
+	
+/datum/design/cart_engineering
+	name = "Power-ON Cartridge"
+	desc = "A data cartridge for portable microcomputers."
+	id = "cart_engineering"
+	req_tech = list("engineering" = 2, "powerstorage" = 3)
+	build_type = PROTOLATHE
+	materials = list("$metal" = 50, "$glass" = 50)
+	build_path = /obj/item/weapon/cartridge/engineering
+	category = list("Communication")
+	
+/datum/design/cart_ce
+	name = "Power-On DELUXE Cartridge"
+	desc = "A data cartridge for portable microcomputers."
+	id = "cart_ce"
+	req_tech = list("engineering" = 2, "powerstorage" = 3)
+	build_type = PROTOLATHE
+	materials = list("$metal" = 50, "$glass" = 50)
+	build_path = /obj/item/weapon/cartridge/ce
+	locked = 1
+	category = list("Communication")
+
+/datum/design/cart_security
+	name = "R.O.B.U.S.T. Cartridge"
+	desc = "A data cartridge for portable microcomputers."
+	id = "cart_security"
+	req_tech = list("engineering" = 2, "powerstorage" = 3)
+	build_type = PROTOLATHE
+	materials = list("$metal" = 50, "$glass" = 50)
+	build_path = "/obj/item/weapon/cartridge/security"
+	locked = 1
+	category = list("Communication")
+	
+/datum/design/cart_hos
+	name = "R.O.B.U.S.T. DELUXE Cartridge"
+	desc = "A data cartridge for portable microcomputers."
+	id = "cart_hos"
+	req_tech = list("engineering" = 2, "powerstorage" = 3)
+	build_type = PROTOLATHE
+	materials = list("$metal" = 50, "$glass" = 50)
+	build_path = /obj/item/weapon/cartridge/hos
+	locked = 1
+	category = list("Communication")
+	
+/datum/design/cart_toxins
+	name = "Signal Ace 2 Cartridge"
+	desc = "A data cartridge for portable microcomputers."
+	id = "cart_toxins"
+	req_tech = list("engineering" = 2, "powerstorage" = 3)
+	build_type = PROTOLATHE
+	materials = list("$metal" = 50, "$glass" = 50)
+	build_path = /obj/item/weapon/cartridge/signal/toxins
+	category = list("Communication")
+
+/datum/design/cart_rd
 	name = "Signal Ace DELUXE Cartridge"
 	desc = "A data cartridge for portable microcomputers."
 	id = "cart_rd"
@@ -472,8 +469,20 @@ datum/design/cart_rd
 	materials = list("$metal" = 50, "$glass" = 50)
 	build_path = /obj/item/weapon/cartridge/rd
 	locked = 1
+	category = list("Communication")
 	
-datum/design/cart_captain
+/datum/design/cart_quartermaster
+	name = "Space Parts & Space Vendors Cartridge"
+	desc = "A data cartridge for portable microcomputers."
+	id = "cart_quartermaster"
+	req_tech = list("engineering" = 2, "powerstorage" = 3)
+	build_type = PROTOLATHE
+	materials = list("$metal" = 50, "$glass" = 50)
+	build_path = /obj/item/weapon/cartridge/quartermaster
+	locked = 1
+	category = list("Communication")
+	
+/datum/design/cart_captain
 	name = "Value-PAK Cartridge"
 	desc = "A data cartridge for portable microcomputers."
 	id = "cart_captain"
@@ -482,21 +491,13 @@ datum/design/cart_captain
 	materials = list("$metal" = 50, "$glass" = 50)
 	build_path = /obj/item/weapon/cartridge/captain
 	locked = 1
+	category = list("Communication")
 
 /////////////////////////////////////////
 ////////////Janitor Designs//////////////
 /////////////////////////////////////////
-
-datum/design/light_replacer
-	name = "Light Replacer"
-	desc = "A device to automatically replace lights. Refill with working lightbulbs."
-	id = "light_replacer"
-	req_tech = list("magnets" = 3, "materials" = 4)
-	build_type = PROTOLATHE
-	materials = list("$metal" = 1500, "$silver" = 150, "$glass" = 3000)
-	build_path = /obj/item/device/lightreplacer
 	
-datum/design/advmop
+/datum/design/advmop
 	name = "Advanced Mop"
 	desc = "An upgraded mop with a large internal capacity for holding water or other cleaning chemicals."
 	id = "advmop"
@@ -504,8 +505,9 @@ datum/design/advmop
 	build_type = PROTOLATHE
 	materials = list("$metal" = 2500, "$glass" = 200)
 	build_path = /obj/item/weapon/mop/advanced
+	category = list("Janitorial")
 
-datum/design/holosign
+/datum/design/holosign
 	name = "Holographic Sign Projector"
 	desc = "A holograpic projector used to project various warning signs."
 	id = "holosign"
@@ -513,3 +515,14 @@ datum/design/holosign
 	build_type = PROTOLATHE
 	materials = list("$metal" = 2000, "$glass" = 1000)
 	build_path = /obj/item/weapon/holosign_creator
+	category = list("Janitorial")
+	
+/datum/design/light_replacer
+	name = "Light Replacer"
+	desc = "A device to automatically replace lights. Refill with working lightbulbs."
+	id = "light_replacer"
+	req_tech = list("magnets" = 3, "materials" = 4)
+	build_type = PROTOLATHE
+	materials = list("$metal" = 1500, "$silver" = 150, "$glass" = 3000)
+	build_path = /obj/item/device/lightreplacer
+	category = list("Janitorial")

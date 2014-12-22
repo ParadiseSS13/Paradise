@@ -2,17 +2,7 @@
 /////////////Stock Parts////////////////
 ////////////////////////////////////////
 
-datum/design/RPED
-	name = "Rapid Part Exchange Device"
-	desc = "Special mechanical module made to store, sort, and apply standard machine parts."
-	id = "rped"
-	req_tech = list("engineering" = 3,
-					"materials" = 3)
-	build_type = PROTOLATHE
-	materials = list("$metal" = 15000, "$glass" = 5000) //hardcore
-	build_path = /obj/item/weapon/storage/part_replacer
-
-datum/design/basic_capacitor
+/datum/design/basic_capacitor
 	name = "Basic Capacitor"
 	desc = "A stock part used in the construction of various devices."
 	id = "basic_capacitor"
@@ -20,8 +10,9 @@ datum/design/basic_capacitor
 	build_type = PROTOLATHE | AUTOLATHE
 	materials = list("$metal" = 50, "$glass" = 50)
 	build_path = /obj/item/weapon/stock_parts/capacitor
+	category = list("Stock Parts")
 
-datum/design/basic_sensor
+/datum/design/basic_sensor
 	name = "Basic Scanning Module"
 	desc = "A stock part used in the construction of various devices."
 	id = "basic_sensor"
@@ -29,8 +20,9 @@ datum/design/basic_sensor
 	build_type = PROTOLATHE | AUTOLATHE
 	materials = list("$metal" = 50, "$glass" = 20)
 	build_path = /obj/item/weapon/stock_parts/scanning_module
+	category = list("Stock Parts")
 
-datum/design/micro_mani
+/datum/design/micro_mani
 	name = "Micro Manipulator"
 	desc = "A stock part used in the construction of various devices."
 	id = "micro_mani"
@@ -38,8 +30,9 @@ datum/design/micro_mani
 	build_type = PROTOLATHE | AUTOLATHE
 	materials = list("$metal" = 30)
 	build_path = /obj/item/weapon/stock_parts/manipulator
+	category = list("Stock Parts")
 
-datum/design/basic_micro_laser
+/datum/design/basic_micro_laser
 	name = "Basic Micro-Laser"
 	desc = "A stock part used in the construction of various devices."
 	id = "basic_micro_laser"
@@ -47,8 +40,9 @@ datum/design/basic_micro_laser
 	build_type = PROTOLATHE | AUTOLATHE
 	materials = list("$metal" = 10, "$glass" = 20)
 	build_path = /obj/item/weapon/stock_parts/micro_laser
+	category = list("Stock Parts")
 
-datum/design/basic_matter_bin
+/datum/design/basic_matter_bin
 	name = "Basic Matter Bin"
 	desc = "A stock part used in the construction of various devices."
 	id = "basic_matter_bin"
@@ -56,8 +50,9 @@ datum/design/basic_matter_bin
 	build_type = PROTOLATHE | AUTOLATHE
 	materials = list("$metal" = 80)
 	build_path = /obj/item/weapon/stock_parts/matter_bin
+	category = list("Stock Parts")
 
-datum/design/adv_capacitor
+/datum/design/adv_capacitor
 	name = "Advanced Capacitor"
 	desc = "A stock part used in the construction of various devices."
 	id = "adv_capacitor"
@@ -65,8 +60,9 @@ datum/design/adv_capacitor
 	build_type = PROTOLATHE
 	materials = list("$metal" = 50, "$glass" = 50)
 	build_path = /obj/item/weapon/stock_parts/capacitor/adv
+	category = list("Stock Parts")
 
-datum/design/adv_sensor
+/datum/design/adv_sensor
 	name = "Advanced Scanning Module"
 	desc = "A stock part used in the construction of various devices."
 	id = "adv_sensor"
@@ -74,8 +70,9 @@ datum/design/adv_sensor
 	build_type = PROTOLATHE
 	materials = list("$metal" = 50, "$glass" = 20)
 	build_path = /obj/item/weapon/stock_parts/scanning_module/adv
+	category = list("Stock Parts")
 
-datum/design/nano_mani
+/datum/design/nano_mani
 	name = "Nano Manipulator"
 	desc = "A stock part used in the construction of various devices."
 	id = "nano_mani"
@@ -83,8 +80,9 @@ datum/design/nano_mani
 	build_type = PROTOLATHE
 	materials = list("$metal" = 30)
 	build_path = /obj/item/weapon/stock_parts/manipulator/nano
+	category = list("Stock Parts")
 
-datum/design/high_micro_laser
+/datum/design/high_micro_laser
 	name = "High-Power Micro-Laser"
 	desc = "A stock part used in the construction of various devices."
 	id = "high_micro_laser"
@@ -92,8 +90,9 @@ datum/design/high_micro_laser
 	build_type = PROTOLATHE
 	materials = list("$metal" = 10, "$glass" = 20)
 	build_path = /obj/item/weapon/stock_parts/micro_laser/high
+	category = list("Stock Parts")
 
-datum/design/adv_matter_bin
+/datum/design/adv_matter_bin
 	name = "Advanced Matter Bin"
 	desc = "A stock part used in the construction of various devices."
 	id = "adv_matter_bin"
@@ -101,8 +100,9 @@ datum/design/adv_matter_bin
 	build_type = PROTOLATHE
 	materials = list("$metal" = 80)
 	build_path = /obj/item/weapon/stock_parts/matter_bin/adv
+	category = list("Stock Parts")
 
-datum/design/super_capacitor
+/datum/design/super_capacitor
 	name = "Super Capacitor"
 	desc = "A stock part used in the construction of various devices."
 	id = "super_capacitor"
@@ -111,8 +111,9 @@ datum/design/super_capacitor
 	reliability_base = 71
 	materials = list("$metal" = 50, "$glass" = 50, "$gold" = 20)
 	build_path = /obj/item/weapon/stock_parts/capacitor/super
+	category = list("Stock Parts")
 
-datum/design/phasic_sensor
+/datum/design/phasic_sensor
 	name = "Phasic Scanning Module"
 	desc = "A stock part used in the construction of various devices."
 	id = "phasic_sensor"
@@ -121,8 +122,9 @@ datum/design/phasic_sensor
 	materials = list("$metal" = 50, "$glass" = 20, "$silver" = 10)
 	reliability_base = 72
 	build_path = /obj/item/weapon/stock_parts/scanning_module/phasic
+	category = list("Stock Parts")
 
-datum/design/pico_mani
+/datum/design/pico_mani
 	name = "Pico Manipulator"
 	desc = "A stock part used in the construction of various devices."
 	id = "pico_mani"
@@ -131,8 +133,9 @@ datum/design/pico_mani
 	materials = list("$metal" = 30)
 	reliability_base = 73
 	build_path = /obj/item/weapon/stock_parts/manipulator/pico
+	category = list("Stock Parts")
 
-datum/design/ultra_micro_laser
+/datum/design/ultra_micro_laser
 	name = "Ultra-High-Power Micro-Laser"
 	desc = "A stock part used in the construction of various devices."
 	id = "ultra_micro_laser"
@@ -141,8 +144,9 @@ datum/design/ultra_micro_laser
 	materials = list("$metal" = 10, "$glass" = 20, "$uranium" = 10)
 	reliability_base = 70
 	build_path = /obj/item/weapon/stock_parts/micro_laser/ultra
+	category = list("Stock Parts")
 
-datum/design/super_matter_bin
+/datum/design/super_matter_bin
 	name = "Super Matter Bin"
 	desc = "A stock part used in the construction of various devices."
 	id = "super_matter_bin"
@@ -151,3 +155,14 @@ datum/design/super_matter_bin
 	materials = list("$metal" = 80)
 	reliability_base = 75
 	build_path = /obj/item/weapon/stock_parts/matter_bin/super
+	category = list("Stock Parts")
+	
+/datum/design/RPED
+	name = "Rapid Part Exchange Device"
+	desc = "Special mechanical module made to store, sort, and apply standard machine parts."
+	id = "rped"
+	req_tech = list("engineering" = 3, "materials" = 3)
+	build_type = PROTOLATHE
+	materials = list("$metal" = 15000, "$glass" = 5000) //hardcore
+	build_path = /obj/item/weapon/storage/part_replacer
+	category = list("Stock Parts")

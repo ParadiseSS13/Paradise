@@ -15,6 +15,20 @@ using metal and glass, it uses glass and reagents (usually sulfuric acis).
 	var/diamond_amount = 0
 	var/max_material_amount = 75000.0
 	var/efficiency_coeff
+	
+	var/list/categories = list(
+								"AI Modules",
+								"Computer Boards",
+								"Engineering Machinery",
+								"Exosuit Modules",
+								"Hydroponics Machinery",			
+								"Medical Machinery",
+								"Misc. Machinery",
+								"Research Machinery",
+								"Subspace Telecomms",
+								"Teleportation Machinery"
+								)
+								
 	reagents = new()
 
 /obj/machinery/r_n_d/circuit_imprinter/New()

@@ -195,16 +195,6 @@
 	construction_time = 130
 	category = list("Odysseus")
 
-/*/datum/design/odysseus_armor
-	name = "Exosuit Armor (\"Odysseus\")"
-	id = "odysseus_armor"
-	build_type = MECHFAB
-	build_path = /obj/item/mecha_parts/part/odysseus_armor
-	materials = list("$metal"=15000)
-	construction_time = 200
-	category = list("Odysseus")
-	*/
-
 //Gygax
 /datum/design/gygax_chassis
 	name = "Exosuit Chassis (\"Gygax\")"
@@ -415,7 +405,6 @@
 	construction_time = 200
 	category = list("H.O.N.K")
 
-
 //Phazon
 /datum/design/phazon_chassis
 	name = "Exosuit Chassis (\"Phazon\")"
@@ -490,17 +479,17 @@
 	category = list("Phazon")
 
 //Exosuit Equipment
-/datum/design/mech_hydraulic_clamp
-	name = "Exosuit Engineering Equipement (Hydraulic Clamp)"
-	id = "mech_hydraulic_clamp"
+/datum/design/mech_cable_layer
+	name = "Exosuit Engineering Equipment (Cable Layer)"
+	id = "mech_cable_layer"
 	build_type = MECHFAB
-	build_path = /obj/item/mecha_parts/mecha_equipment/tool/hydraulic_clamp
+	build_path = /obj/item/mecha_parts/mecha_equipment/tool/cable_layer
 	materials = list("$metal"=10000)
 	construction_time = 100
 	category = list("Exosuit Equipment")
-
+	
 /datum/design/mech_drill
-	name = "Exosuit Engineering Equipement (Drill)"
+	name = "Exosuit Engineering Equipment (Drill)"
 	id = "mech_drill"
 	build_type = MECHFAB
 	build_path = /obj/item/mecha_parts/mecha_equipment/tool/drill
@@ -509,25 +498,25 @@
 	category = list("Exosuit Equipment")
 
 /datum/design/mech_extinguisher
-	name = "Exosuit Engineering Equipement (Extinguisher)"
+	name = "Exosuit Engineering Equipment (Extinguisher)"
 	id = "mech_extinguisher"
 	build_type = MECHFAB
 	build_path = /obj/item/mecha_parts/mecha_equipment/tool/extinguisher
 	materials = list("$metal"=10000)
 	construction_time = 100
 	category = list("Exosuit Equipment")
-
-/datum/design/mech_cable_layer
-	name = "Exosuit Engineering Equipement (Cable Layer)"
-	id = "mech_cable_layer"
+	
+/datum/design/mech_hydraulic_clamp
+	name = "Exosuit Engineering Equipment (Hydraulic Clamp)"
+	id = "mech_hydraulic_clamp"
 	build_type = MECHFAB
-	build_path = /obj/item/mecha_parts/mecha_equipment/tool/cable_layer
+	build_path = /obj/item/mecha_parts/mecha_equipment/tool/hydraulic_clamp
 	materials = list("$metal"=10000)
 	construction_time = 100
 	category = list("Exosuit Equipment")
 
 /datum/design/mech_sleeper
-	name = "Exosuit Medical Equipement (Mounted Sleeper)"
+	name = "Exosuit Medical Equipment (Mounted Sleeper)"
 	id = "mech_sleeper"
 	build_type = MECHFAB
 	build_path = /obj/item/mecha_parts/mecha_equipment/tool/sleeper
@@ -536,7 +525,7 @@
 	category = list("Exosuit Equipment")
 
 /datum/design/mech_syringe_gun
-	name = "Exosuit Medical Equipement (Syringe Gun)"
+	name = "Exosuit Medical Equipment (Syringe Gun)"
 	id = "mech_syringe_gun"
 	build_type = MECHFAB
 	build_path = /obj/item/mecha_parts/mecha_equipment/tool/syringe_gun
@@ -545,7 +534,7 @@
 	category = list("Exosuit Equipment")
 
 /datum/design/mech_generator
-	name = "Exosuit Equipement (Plasma Generator)"
+	name = "Exosuit Equipment (Plasma Generator)"
 	id = "mech_generator"
 	build_type = MECHFAB
 	build_path = /obj/item/mecha_parts/mecha_equipment/generator
@@ -571,6 +560,24 @@
 	construction_time = 100
 	category = list("Exosuit Equipment")
 
+/datum/design/mech_banana_mortar
+	name = "H.O.N.K Banana Mortar"
+	id = "mech_banana_mortar"
+	build_type = MECHFAB
+	build_path = /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/banana_mortar
+	materials = list("$metal"=20000,"$bananium"=5000)
+	construction_time = 300
+	category = list("Exosuit Equipment")
+	
+/datum/design/mech_honker
+	name = "HoNkER BlAsT 5000"
+	id = "mech_honker"
+	build_type = MECHFAB
+	build_path = /obj/item/mecha_parts/mecha_equipment/weapon/honker
+	materials = list("$metal"=20000,"$bananium"=10000)
+	construction_time = 500
+	category = list("Exosuit Equipment")
+	
 /datum/design/mech_mousetrap_mortar
 	name = "H.O.N.K Mousetrap Mortar"
 	id = "mech_mousetrap_mortar"
@@ -580,40 +587,50 @@
 	construction_time = 300
 	category = list("Exosuit Equipment")
 
-/datum/design/mech_banana_mortar
-	name = "H.O.N.K Banana Mortar"
-	id = "mech_banana_mortar"
-	build_type = MECHFAB
-	build_path = /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/banana_mortar
-	materials = list("$metal"=20000,"$bananium"=5000)
-	construction_time = 300
-	category = list("Exosuit Equipment")
-
-/datum/design/mech_honker
-	name = "HoNkER BlAsT 5000"
-	id = "mech_honker"
-	build_type = MECHFAB
-	build_path = /obj/item/mecha_parts/mecha_equipment/weapon/honker
-	materials = list("$metal"=20000,"$bananium"=10000)
-	construction_time = 500
-	category = list("Exosuit Equipment")
-
 //Cyborg Upgrade Modules
-/datum/design/borg_upgrade_reset
-	name = "Cyborg Upgrade Module (Reset Module)"
-	id = "borg_upgrade_reset"
+/datum/design/borg_syndicate_module
+	name = "Borg Illegal Weapons Upgrade"
+	desc = "Allows for the construction of illegal upgrades for cyborgs"
+	id = "borg_syndicate_module"
 	build_type = MECHFAB
-	build_path = /obj/item/borg/upgrade/reset
-	materials = list("$metal"=10000)
+	req_tech = list("combat" = 4, "syndicate" = 3)
+	build_path = /obj/item/borg/upgrade/syndicate
+	category = "Cyborg Upgrade Modules"
+	category = list("Cyborg Upgrade Modules")	
+
+/datum/design/borg_upgrade_jetpack
+	name = "Cyborg Upgrade Module (Mining Jetpack)"
+	id = "borg_upgrade_jetpack"
+	build_type = MECHFAB
+	build_path = /obj/item/borg/upgrade/jetpack
+	materials = list("$metal"=10000,"$plasma"=15000,"$uranium" = 20000)
 	construction_time = 120
 	category = list("Cyborg Upgrade Modules")
-
+	
+/datum/design/borg_upgrade_tasercooler
+	name = "Cyborg Upgrade Module (Rapid Taser Cooling Module)"
+	id = "borg_upgrade_tasercooler"
+	build_type = MECHFAB
+	build_path = /obj/item/borg/upgrade/tasercooler
+	materials = list("$metal"=80000 , "$glass"=6000 , "$gold"= 2000, "$diamond" = 500)
+	construction_time = 120
+	category = list("Cyborg Upgrade Modules")
+	
 /datum/design/borg_upgrade_rename
 	name = "Cyborg Upgrade Module (Rename Module)"
 	id = "borg_upgrade_rename"
 	build_type = MECHFAB
 	build_path = /obj/item/borg/upgrade/rename
 	materials = list("$metal"=35000)
+	construction_time = 120
+	category = list("Cyborg Upgrade Modules")
+	
+/datum/design/borg_upgrade_reset
+	name = "Cyborg Upgrade Module (Reset Module)"
+	id = "borg_upgrade_reset"
+	build_type = MECHFAB
+	build_path = /obj/item/borg/upgrade/reset
+	materials = list("$metal"=10000)
 	construction_time = 120
 	category = list("Cyborg Upgrade Modules")
 
@@ -632,24 +649,6 @@
 	build_type = MECHFAB
 	build_path = /obj/item/borg/upgrade/vtec
 	materials = list("$metal"=80000 , "$glass"=6000 , "$gold"= 5000)
-	construction_time = 120
-	category = list("Cyborg Upgrade Modules")
-
-/datum/design/borg_upgrade_tasercooler
-	name = "Cyborg Upgrade Module (Rapid Taser Cooling Module)"
-	id = "borg_upgrade_tasercooler"
-	build_type = MECHFAB
-	build_path = /obj/item/borg/upgrade/tasercooler
-	materials = list("$metal"=80000 , "$glass"=6000 , "$gold"= 2000, "$diamond" = 500)
-	construction_time = 120
-	category = list("Cyborg Upgrade Modules")
-
-/datum/design/borg_upgrade_jetpack
-	name = "Cyborg Upgrade Module (Mining Jetpack)"
-	id = "borg_upgrade_jetpack"
-	build_type = MECHFAB
-	build_path = /obj/item/borg/upgrade/jetpack
-	materials = list("$metal"=10000,"$plasma"=15000,"$uranium" = 20000)
 	construction_time = 120
 	category = list("Cyborg Upgrade Modules")
 
