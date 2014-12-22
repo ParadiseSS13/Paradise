@@ -165,6 +165,8 @@ steam.start() -- spawns the effect
 
 	if (istype(T, /turf))
 		T.hotspot_expose(1000, 100)
+	spawn (100)
+		delete()
 
 /obj/effect/effect/sparks/Destroy()
 	var/turf/T = src.loc
