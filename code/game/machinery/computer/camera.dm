@@ -25,6 +25,7 @@
 		networks["Fire Alarms"] = list(access_ce,access_hos,access_captain)	
 		networks["Power Alarms"] = list(access_ce,access_hos,access_captain)
 		networks["Supermatter"] = list(access_ce,access_hos,access_captain)	
+		networks["MiniSat"] = list(access_rd,access_hos,access_captain)	
 		networks["Singularity"] = list(access_ce,access_hos,access_captain)	
 		networks["Anomaly Isolation"] = list(access_rd,access_hos,access_captain)
 		networks["Toxins"] = list(access_rd,access_hos,access_captain)

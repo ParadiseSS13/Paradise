@@ -1,28 +1,28 @@
 /obj/machinery/computer/shuttle_control/mining
-	name = "mining shuttle console"
+	name = "Mining Shuttle Console"
 	shuttle_tag = "Mining"
 	req_access = list(access_mining)
 	circuit = /obj/item/weapon/circuitboard/mining_shuttle
 
 /obj/machinery/computer/shuttle_control/engineering
-	name = "engineering shuttle console"
+	name = "Engineering Shuttle Console"
 	shuttle_tag = "Engineering"
 	req_one_access_txt = "10;24"
 	circuit = /obj/item/weapon/circuitboard/engineering_shuttle
 
 /obj/machinery/computer/shuttle_control/research
-	name = "research shuttle console"
+	name = "Research Shuttle Console"
 	shuttle_tag = "Research"
 	req_access = list(access_xenoarch)
 	circuit = /obj/item/weapon/circuitboard/research_shuttle
 
 /obj/machinery/computer/shuttle_control/labor_camp
-	name = "labor camp shuttle console"
+	name = "Labor Camp Shuttle Console"
 	shuttle_tag = "Labor"
 	req_access = list(access_brig)
 
 /obj/machinery/computer/shuttle_control/labor_camp/one_way
-	name = "prisoner shuttle console"
+	name = "Prisoner Shuttle Console"
 	req_access = list()
 
 /obj/machinery/computer/shuttle_control/labor_camp/one_way/launch()

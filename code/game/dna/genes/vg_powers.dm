@@ -223,11 +223,12 @@ Obviously, requires DNA2.
 	var/list/targets = new /list()
 	var/list/validtargets = new /list()
 	for(var/mob/M in living_mob_list)	
-		var/special_role = M.mind.special_role
-		if (special_role == "Wizard" || special_role == "Ninja" || special_role == "Syndicate" || special_role == "Syndicate Commando" || special_role == "Vox Raider" || special_role == "Alien")
-			continue
-			
-		validtargets += M
+		if(M && M.mind)
+			var/special_role = M.mind.special_role
+			if (special_role == "Wizard" || special_role == "Ninja" || special_role == "Syndicate" || special_role == "Syndicate Commando" || special_role == "Vox Raider" || special_role == "Alien")
+				continue
+				
+			validtargets += M
 		
 	if(!validtargets.len || validtargets.len == 1)
 		usr << "<span class='warning'>There are no valid targets in range!</span>"

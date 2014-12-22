@@ -130,6 +130,9 @@
 		if("cancelshuttle" in href_list)
 			state = STATE_DEFAULT
 			if(authenticated)
+				cancel_call_proc(usr)
+				if(emergency_shuttle.online())
+					post_status("shuttle")
 				state = STATE_CANCELSHUTTLE
 		if("messagelist" in href_list)
 			currmsg = 0
@@ -286,11 +289,11 @@
 					dat += "<BR>\[ <A HREF='?src=\ref[src];RestoreBackup'>Restore Backup Routing Data</A> \]"
 
 				dat += "<BR>\[ <A HREF='?src=\ref[src];changeseclevel'>Change alert level</A> \]"
-			if(emergency_shuttle.location())
+			/*if(emergency_shuttle.location())
 				if (emergency_shuttle.online())
 					dat += "<BR>\[ <A HREF='?src=\ref[src];cancelshuttle'>Cancel Shuttle Call</A> \]"
 				else
-					dat += "<BR>\[ <A HREF='?src=\ref[src];callshuttle'>Call Emergency Shuttle</A> \]"
+					dat += "<BR>\[ <A HREF='?src=\ref[src];callshuttle'>Call Emergency Shuttle</A> \]"*/
 
 			dat += "<BR>\[ <A HREF='?src=\ref[src];status'>Set Status Display</A> \]"
 		else
