@@ -33,12 +33,6 @@ other types of metals and chemistry for reagents).
 
 
 */
-#define	IMPRINTER	1	//For circuits. Uses glass/chemicals.
-#define PROTOLATHE	2	//New stuff. Uses glass/metal/chemicals
-#define	AUTOLATHE	4	//Uses glass/metal only.
-#define CRAFTLATHE	8	//Uses fuck if I know. For use eventually.
-#define MECHFAB		16 //Remember, objects utilising this flag should have construction_time and construction_cost vars.
-//Note: More then one of these can be added to a design but imprinter and lathe designs are incompatable.
 
 datum/design						//Datum for object designs, used in construction
 	var/name = "Name"					//Name of the created object.
@@ -50,6 +44,7 @@ datum/design						//Datum for object designs, used in construction
 	var/reliability = 100				//Reliability of the device.
 	var/build_type = null				//Flag as to what kind machine the design is built in. See defines.
 	var/list/materials = list()			//List of materials. Format: "id" = amount.
+	var/construction_time				//Amount of time required for building the object
 	var/build_path = ""					//The file path of the object that gets created
 	var/locked = 0						//If true it will spawn inside a lockbox with currently sec access
 	var/category = null //Primarily used for Mech Fabricators, but can be used for anything
@@ -58,11 +53,11 @@ datum/design						//Datum for object designs, used in construction
 //A proc to calculate the reliability of a design based on tech levels and innate modifiers.
 //Input: A list of /datum/tech; Output: The new reliabilty.
 datum/design/proc/CalcReliability(var/list/temp_techs)
-	var/new_reliability = reliability_mod + reliability_base
+	var/new_reliability
 	for(var/datum/tech/T in temp_techs)
 		if(T.id in req_tech)
 			new_reliability += T.level
-	new_reliability = between(reliability_base, new_reliability, 100)
+	new_reliability = Clamp(new_reliability, reliability, 100)
 	reliability = new_reliability
 	return
 
@@ -291,25 +286,6 @@ datum/design/security_hud_night
 	build_type = PROTOLATHE
 	materials = list("$metal" = 200, "$glass" = 200, "$uranium" = 1000, "$gold" = 350)
 	build_path = /obj/item/clothing/glasses/hud/security/night
-
-////////////////////////////////////////
-//Disks for transporting design datums//
-////////////////////////////////////////
-
-/obj/item/weapon/disk/design_disk
-	name = "Component Design Disk"
-	desc = "A disk for storing device design data for construction in lathes."
-	icon = 'icons/obj/cloning.dmi'
-	icon_state = "datadisk2"
-	item_state = "card-id"
-	w_class = 1.0
-	m_amt = 30
-	g_amt = 10
-	var/datum/design/blueprint
-
-/obj/item/weapon/disk/design_disk/New()
-	src.pixel_x = rand(-5.0, 5)
-	src.pixel_y = rand(-5.0, 5)
 
 /////////////////////////////////////////
 //////////////Borg Upgrades//////////////

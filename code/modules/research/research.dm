@@ -82,34 +82,11 @@ research holder datum.
 /datum/research/proc/DesignHasReqs(var/datum/design/D)
 	if(D.req_tech.len == 0)
 		return 1
-	var/matches = 0
-	var/list/k_tech = list()
-	for(var/datum/tech/known in known_tech)
-		k_tech[known.id] = known.level
-	for(var/req in D.req_tech)
-		if(!isnull(k_tech[req]) && k_tech[req] >= D.req_tech[req])
-			matches++
-	if(matches == D.req_tech.len)
-		return 1
-	else
-		return 0
-/*
-//Checks to see if design has all the required pre-reqs.
-//Input: datum/design; Output: 0/1 (false/true)
-/datum/research/proc/DesignHasReqs(var/datum/design/D)
-	if(D.req_tech.len == 0)
-		return 1
-	var/matches = 0
-	for(var/req in D.req_tech)
-		for(var/datum/tech/known in known_tech)
-			if((req == known.id) && (known.level >= D.req_tech[req]))
-				matches++
-				break
-	if(matches == D.req_tech.len)
-		return 1
-	else
-		return 0
-*/
+	for(var/datum/tech/T in known_tech)
+		if((D.req_tech[T.id]) && (T.level < D.req_tech[T.id]))
+			return 0
+	return 1
+
 //Adds a tech to known_tech list. Checks to make sure there aren't duplicates and updates existing tech's levels if needed.
 //Input: datum/tech; Output: Null
 /datum/research/proc/AddTech2Known(var/datum/tech/T)
@@ -153,15 +130,16 @@ research holder datum.
 			if(KT.level <= level) KT.level = max((KT.level + 1), (level - 1))
 	return
 
-/datum/research/proc/UpdateDesign(var/path)
-	for(var/datum/design/KD in known_designs)
-		if(KD.build_path == path)
-			KD.reliability_mod += rand(1,2)
-			break
-	return
-
-
-
+/datum/research/proc/UpdateDesigns(var/obj/item/I, var/list/temp_tech)
+	for(var/T in temp_tech)
+		if(temp_tech[T] - 1 >= known_tech[T])
+			for(var/datum/design/D in known_designs)
+				if(D.req_tech[T])
+					D.reliability = min(100, D.reliability + 1)
+					if(D.build_path == I.type)
+						D.reliability = min(100, D.reliability + rand(1,3))
+						if(I.crit_fail)
+							D.reliability = min(100, D.reliability + rand(3, 5))
 
 /***************************************************************
 **						Technology Datums					  **
@@ -183,37 +161,37 @@ datum/tech/materials
 	name = "Materials Research"
 	desc = "Development of new and improved materials."
 	id = "materials"
-	max_level=7
+	max_level = 7
 
 datum/tech/engineering
 	name = "Engineering Research"
 	desc = "Development of new and improved engineering parts and."
 	id = "engineering"
-	max_level=5
+	max_level = 5
 
 datum/tech/plasmatech
 	name = "Plasma Research"
 	desc = "Research into the mysterious substance colloqually known as 'plasma'."
 	id = "plasmatech"
-	max_level=4
+	max_level = 4
 
 datum/tech/powerstorage
 	name = "Power Manipulation Technology"
 	desc = "The various technologies behind the storage and generation of electicity."
 	id = "powerstorage"
-	max_level=6
+	max_level = 6
 
 datum/tech/bluespace
 	name = "'Blue-space' Research"
 	desc = "Research into the sub-reality known as 'blue-space'"
 	id = "bluespace"
-	max_level=6
+	max_level = 6
 
 datum/tech/biotech
 	name = "Biological Technology"
 	desc = "Research into the deeper mysteries of life and organic substances."
 	id = "biotech"
-	max_level=5
+	max_level = 5
 
 datum/tech/combat
 	name = "Combat Systems Research"
@@ -225,19 +203,19 @@ datum/tech/magnets
 	name = "Electromagnetic Spectrum Research"
 	desc = "Research into the electromagnetic spectrum. No clue how they actually work, though."
 	id = "magnets"
-	max_level=5
+	max_level = 5
 
 datum/tech/programming
 	name = "Data Theory Research"
 	desc = "The development of new computer and artificial intelligence and data storage systems."
 	id = "programming"
-	max_level=5
+	max_level = 5
 
 datum/tech/syndicate
 	name = "Illegal Technologies Research"
 	desc = "The study of technologies that violate standard Nanotrasen regulations."
 	id = "syndicate"
-	max_level=0 // Don't count towards maxed research, since it's illegal.
+	max_level = 0 // Don't count towards maxed research, since it's illegal.
 
 /*
 datum/tech/arcane
@@ -266,7 +244,6 @@ datum/tech/robotics
 	req_tech = list("materials" = 3, "programming" = 3)
 */
 
-
 /obj/item/weapon/disk/tech_disk
 	name = "Technology Disk"
 	desc = "A disk for storing technology data for further research."
@@ -279,5 +256,20 @@ datum/tech/robotics
 	var/datum/tech/stored
 
 /obj/item/weapon/disk/tech_disk/New()
+	src.pixel_x = rand(-5.0, 5)
+	src.pixel_y = rand(-5.0, 5)
+	
+/obj/item/weapon/disk/design_disk
+	name = "Component Design Disk"
+	desc = "A disk for storing device design data for construction in lathes."
+	icon = 'icons/obj/cloning.dmi'
+	icon_state = "datadisk2"
+	item_state = "card-id"
+	w_class = 1.0
+	m_amt = 30
+	g_amt = 10
+	var/datum/design/blueprint
+
+/obj/item/weapon/disk/design_disk/New()
 	src.pixel_x = rand(-5.0, 5)
 	src.pixel_y = rand(-5.0, 5)
