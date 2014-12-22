@@ -3227,7 +3227,7 @@
 "bkc" = (/turf/simulated/floor/bluegrid,/area/turret_protected/ai)
 "bkd" = (/obj/machinery/atmospherics/pipe/simple/supply/hidden,/obj/structure/cable{d1 = 4; d2 = 8; icon_state = "4-8"; tag = ""},/obj/item/device/radio/beacon,/turf/simulated/floor,/area/bridge)
 "bke" = (/obj/machinery/computer/prisoner{req_access = null; req_access_txt = "2"},/turf/simulated/floor{icon_state = "red"; dir = 9},/area/bridge)
-"bkf" = (/obj/machinery/computer/security{network = list("SS13","Research Outpost","Mining Outpost")},/obj/machinery/camera{c_tag = "Bridge West"; dir = 2; network = list("SS13")},/turf/simulated/floor{icon_state = "red"; dir = 1},/area/bridge)
+"bkf" = (/obj/machinery/computer/security{network = list("SS13","Research Outpost","Mining Outpost","Telecomms")},/obj/machinery/camera{c_tag = "Bridge West"; dir = 2; network = list("SS13")},/turf/simulated/floor{icon_state = "red"; dir = 1},/area/bridge)
 "bkg" = (/obj/structure/table/reinforced,/obj/machinery/recharger{pixel_y = 0},/turf/simulated/floor{icon_state = "redcorner"; dir = 1},/area/bridge)
 "bkh" = (/obj/structure/filingcabinet,/obj/machinery/alarm{dir = 1; icon_state = "alarm0"; pixel_y = -22},/turf/simulated/floor{icon_state = "blue"; dir = 10},/area/bridge)
 "bki" = (/obj/machinery/disposal,/obj/structure/disposalpipe/trunk{dir = 4},/turf/simulated/floor/wood,/area/crew_quarters/captain)
