@@ -95,7 +95,7 @@
 		data["networks"] = tempnets
 		ui = nanomanager.try_update_ui(user, src, ui_key, ui, data, force_open)
 		if(!ui)
-			ui = new(user, src, ui_key, "camera_console.tmpl", "Camera Monitor UI", 660, 280)
+			ui = new(user, src, ui_key, "camera_console.tmpl", "Camera Monitor UI", 670, 280)
 			ui.set_initial_data(data)
 			ui.open()
 

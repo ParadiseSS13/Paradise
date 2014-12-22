@@ -231,9 +231,10 @@ Obviously, requires DNA2.
 			validtargets += M
 		
 	if(!validtargets.len || validtargets.len == 1)
-		usr << "<span class='warning'>There are no valid targets in range!</span>"
+		usr << "<span class='warning'>There are no valid targets!</span>"
 		start_recharge()
 		return
+		
 	targets += input("Choose the target to talk to.", "Targeting") as mob in validtargets
 
 	perform(targets)
