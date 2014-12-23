@@ -112,7 +112,7 @@
 	construction_time = 200
 	category = list("Cyborg Repair")
 	
-/datum/design/borg_camera
+/datum/design/borg_armor
 	name = "Cyborg Armor"
 	id = "borg_camera"
 	build_type = MECHFAB
