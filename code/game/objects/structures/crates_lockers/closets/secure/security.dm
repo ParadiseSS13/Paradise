@@ -179,7 +179,6 @@
 		new /obj/item/clothing/mask/gas/sechailer(src)
 		new /obj/item/device/radio/headset/headset_sec(src)
 		new /obj/item/weapon/storage/belt/security(src)
-		new /obj/item/device/flash(src)
 		new /obj/item/weapon/reagent_containers/spray/pepper(src)
 		new /obj/item/weapon/grenade/flashbang(src)
 		new /obj/item/weapon/melee/baton/loaded(src)
