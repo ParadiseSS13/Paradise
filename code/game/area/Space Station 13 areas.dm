@@ -1240,10 +1240,6 @@ var/list/ghostteleportlocs = list()
 	name = "\improper Mechanic Workshop"
 	icon_state = "engine"
 
-/area/engine/gravity_generator
-	name = "\improper Gravity Generator Room"
-	icon_state = "blue"
-
 //Solars
 
 /area/solar
@@ -2065,6 +2061,14 @@ area/security/podbay
 /area/aisat
 	name = "\improper AI Satellite Exterior"
 	icon_state = "yellow"
+	
+/area/aisat/entrance
+	name = "\improper AI Satellite Entrance"
+	icon_state = "ai_foyer"
+	
+/area/aisat/maintenance
+	name = "\improper AI Satellite Maintenance"
+	icon_state = "storage"
 
 /area/turret_protected/aisat_interior
 	name = "\improper AI Satellite Antechamber"

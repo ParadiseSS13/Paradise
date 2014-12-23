@@ -769,6 +769,12 @@ var/list/datum/dna/hivemind_bank = list()
 	if(!(T in view(changeling.sting_range))) return
 	if(!sting_can_reach(T, changeling.sting_range)) return
 	if(!changeling_power(required_chems)) return
+	
+	if(ishuman(T))
+		var/mob/living/carbon/human/H = T
+		if(H.species.flags & IS_SYNTHETIC)
+			src << "<span class='warning'>This won't work on synthetics.</span>"
+			return
 
 	changeling.chem_charges -= required_chems
 	changeling.sting_range = 1
@@ -885,7 +891,7 @@ var/list/datum/dna/hivemind_bank = list()
 
 	var/mob/living/carbon/T = changeling_sting(5,/mob/proc/changeling_unfat_sting)
 	if(!T)	return 0
-	T << "<span class='danger'>you feel a small prick as stomach churns violently and you become to feel skinnier.</span>"
+	T << "<span class='danger'>You feel a small prick as stomach churns violently and you become to feel skinnier.</span>"
 	T.overeatduration = 0
 	T.nutrition -= 100
 	feedback_add_details("changeling_powers","US")
