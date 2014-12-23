@@ -11,7 +11,7 @@
 	materials = list("$metal" = 700, "$glass" = 50)
 	build_path = /obj/item/weapon/cell
 	category = "Misc"
-	category = list("Misc","Power Designs")
+	category = list("Misc","Power Designs","Power")
 
 /datum/design/high_cell
 	name = "High-Capacity Power Cell"
@@ -21,7 +21,7 @@
 	build_type = PROTOLATHE | AUTOLATHE | MECHFAB
 	materials = list("$metal" = 700, "$glass" = 60)
 	build_path = /obj/item/weapon/cell/high
-	category = list("Misc","Power Designs")
+	category = list("Misc","Power Designs","Power")
 	
 /datum/design/hyper_cell
 	name = "Hyper-Capacity Power Cell"
@@ -32,7 +32,7 @@
 	build_type = PROTOLATHE | MECHFAB
 	materials = list("$metal" = 400, "$gold" = 150, "$silver" = 150, "$glass" = 70)
 	build_path = /obj/item/weapon/cell/hyper
-	category = list("Misc","Power Designs")
+	category = list("Misc","Power Designs","Power")
 	
 /datum/design/super_cell
 	name = "Super-Capacity Power Cell"
@@ -43,7 +43,7 @@
 	build_type = PROTOLATHE | MECHFAB
 	materials = list("$metal" = 700, "$glass" = 70)
 	build_path = /obj/item/weapon/cell/super
-	category = list("Misc","Power Designs")
+	category = list("Misc","Power Designs","Power")
 	
 /datum/design/pacman
 	name = "PACMAN-type Generator Board"
