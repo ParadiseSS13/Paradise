@@ -304,7 +304,7 @@ proc/trigger_armed_response_team(var/force = 0)
 	var/obj/item/device/pda/heads/pda = new(src)
 	pda.owner = real_name
 	pda.ownjob = "Emergency Response Team[leader_selected ? " Leader" : ""]"
-	pda.name = "PDA-[M.real_name] ([pda.ownjob])
+	pda.name = "PDA-[real_name] ([pda.ownjob])"
 	
 	if (leader_selected)
 		W.access += access_cent_teleporter
