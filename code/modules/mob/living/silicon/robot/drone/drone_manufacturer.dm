@@ -103,7 +103,7 @@
 	if(istype(src,/mob/dead/observer))
 		var/mob/dead/observer/G = src
 		if(G.has_enabled_antagHUD == 1 && config.antag_hud_restricted)
-			usr << "\blue <B>Upon using the antagHUD you forfeighted the ability to join the round.</B>"
+			usr << "\blue <B>Upon using the antagHUD you forfeited the ability to join the round.</B>"
 			return
 
 	var/deathtimeminutes = round(deathtime / 600)
