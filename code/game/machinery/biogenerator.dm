@@ -10,6 +10,7 @@
 	var/processing = 0
 	var/obj/item/weapon/reagent_containers/glass/beaker = null
 	var/points = 0
+	var/in_beaker = 1
 	var/menustat = "menu"
 	var/efficiency = 0
 	var/productivity = 0
@@ -137,11 +138,12 @@
 				menustat = "menu"
 		if(beaker)
 			dat += "<div class='statusDisplay'>Biomass: [points] units.</div><BR>"
-			dat += "<A href='?src=\ref[src];activate=1'>Activate</A><A href='?src=\ref[src];detach=1'>Detach Container</A>"
+			dat += "<A href='?src=\ref[src];activate=1'>Activate</A><A href='?src=\ref[src];detach=1'>Detach Container</A><BR>"
+			dat += "Put fertilizer in: <A href='?src=\ref[src];inbeaker=1'>[in_beaker ? "Beaker" : "Bottle"]</A>"
 			dat += "<h3>Food:</h3>"
 			dat += "<div class='statusDisplay'>"
 			dat += "10 milk: <A href='?src=\ref[src];create=milk;amount=1'>Make</A> ([20/efficiency])<BR>"
-			/*dat += "10 cream: <A href='?src=\ref[src];create=cream;amount=1'>Make</A> ([30/efficiency])<BR>"*/
+			dat += "10 cream: <A href='?src=\ref[src];create=cream;amount=1'>Make</A> ([30/efficiency])<BR>"
 			dat += "Monkey cube: <A href='?src=\ref[src];create=meat;amount=1'>Make</A> ([250/efficiency])"
 			dat += "</div>"
 			dat += "<h3>Nutrients:</h3>"
@@ -153,14 +155,14 @@
 			dat += "<h3>Leather:</h3>"
 			dat += "<div class='statusDisplay'>"
 			dat += "Wallet: <A href='?src=\ref[src];create=wallet;amount=1'>Make</A> ([100/efficiency])<BR>"
-			/*dat += "Book bag: <A href='?src=\ref[src];create=bkbag;amount=1'>Make</A> ([200/efficiency])<BR>"
+			dat += "Book bag: <A href='?src=\ref[src];create=bkbag;amount=1'>Make</A> ([200/efficiency])<BR>"
 			dat += "Plant bag: <A href='?src=\ref[src];create=ptbag;amount=1'>Make</A> ([200/efficiency])<BR>"
-			dat += "Mining satchel: <A href='?src=\ref[src];create=mnbag;amount=1'>Make</A> ([200/efficiency])<BR>"*/
+			dat += "Mining satchel: <A href='?src=\ref[src];create=mnbag;amount=1'>Make</A> ([200/efficiency])<BR>"
 			dat += "Botanical gloves: <A href='?src=\ref[src];create=gloves;amount=1'>Make</A> ([250/efficiency])<BR>"
 			dat += "Utility belt: <A href='?src=\ref[src];create=tbelt;amount=1'>Make</A> ([300/efficiency])<BR>"
 			dat += "Leather Satchel: <A href='?src=\ref[src];create=satchel;amount=1'>Make</A> ([400/efficiency])<BR>"
 			dat += "Cash Bag: <A href='?src=\ref[src];create=cashbag;amount=1'>Make</A> ([400/efficiency])<BR>"
-			/*dat += "Leather Jacket: <A href='?src=\ref[src];create=jacket;amount=1'>Make</A> ([500/efficiency])<BR>"*/
+			dat += "Leather Jacket: <A href='?src=\ref[src];create=jacket;amount=1'>Make</A> ([500/efficiency])<BR>"
 			//dat += "<h3>Other:</h3>"
 			//dat += "Monkey: <A href='?src=\ref[src];create=monkey;amount=1'>Make</A> ([400/efficiency])<BR>"
 			dat += "</div>"
@@ -225,26 +227,38 @@
 			if(check_container_volume(10)) return 0
 			else if (check_cost(20/efficiency)) return 0
 			else beaker.reagents.add_reagent("milk",10)
-		/*if("cream")
+		if("cream")
 			if(check_container_volume(10)) return 0
 			else if (check_cost(30/efficiency)) return 0
-			else beaker.reagents.add_reagent("cream",10)*/
+			else beaker.reagents.add_reagent("cream",10)
 		if("meat")
 			if (check_cost(250/efficiency)) return 0
 			else new/obj/item/weapon/reagent_containers/food/snacks/monkeycube(src.loc)
 		if("ez")
 			if (check_cost(10/efficiency)) return 0
-			else new/obj/item/weapon/reagent_containers/glass/fertilizer/ez(src.loc)
+			if(in_beaker)
+				if(check_container_volume(10)) return 0
+				else beaker.reagents.add_reagent("eznutrient",10)
+			else
+				new/obj/item/weapon/reagent_containers/glass/fertilizer/ez(src.loc)
 		if("l4z")
 			if (check_cost(20/efficiency)) return 0
-			else new/obj/item/weapon/reagent_containers/glass/fertilizer/l4z(src.loc)
+			if(in_beaker)
+				if(check_container_volume(10)) return 0
+				else beaker.reagents.add_reagent("left4zed",10)
+			else 
+				new/obj/item/weapon/reagent_containers/glass/fertilizer/l4z(src.loc)
 		if("rh")
 			if (check_cost(25/efficiency)) return 0
-			else new/obj/item/weapon/reagent_containers/glass/fertilizer/rh(src.loc)
+			if(in_beaker)
+				if(check_container_volume(10)) return 0
+				else beaker.reagents.add_reagent("robustharvest",10)
+			else 
+				new/obj/item/weapon/reagent_containers/glass/fertilizer/rh(src.loc)
 		if("wallet")
 			if (check_cost(100/efficiency)) return 0
 			else new/obj/item/weapon/storage/wallet(src.loc)
-		/*if("bkbag")
+		if("bkbag")
 			if (check_cost(200/efficiency)) return 0
 			else new/obj/item/weapon/storage/bag/books(src.loc)
 		if("ptbag")
@@ -252,7 +266,7 @@
 			else new/obj/item/weapon/storage/bag/plants(src.loc)
 		if("mnbag")
 			if (check_cost(200/efficiency)) return 0
-			else new/obj/item/weapon/storage/bag/ore(src.loc)*/
+			else new/obj/item/weapon/storage/bag/ore(src.loc)
 		if("gloves")
 			if (check_cost(250/efficiency)) return 0
 			else new/obj/item/clothing/gloves/botanic_leather(src.loc)
@@ -265,9 +279,9 @@
 		if("cashbag")
 			if (check_cost(400/efficiency)) return 0
 			else new/obj/item/weapon/storage/bag/cash(src.loc)
-		/*if("jacket")
+		if("jacket")
 			if (check_cost(500/efficiency)) return 0
-			else new/obj/item/clothing/suit/jacket/leather(src.loc)*/
+			else new/obj/item/clothing/suit/jacket/leather(src.loc)
 		//if("monkey")
 		//	if (check_cost(500)) return 0
 		//	else new/mob/living/carbon/monkey(src.loc)
@@ -309,4 +323,8 @@
 
 	else if(href_list["menu"])
 		menustat = "menu"
+		updateUsrDialog()
+		
+	else if(href_list["inbeaker"])
+		in_beaker = !in_beaker
 		updateUsrDialog()
