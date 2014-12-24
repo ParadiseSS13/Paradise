@@ -414,6 +414,11 @@
 	item_state = "bomber"
 	flags = FPRINT | TABLEPASS
 	body_parts_covered = UPPER_TORSO|ARMS
+	
+/obj/item/clothing/suit/jacket/leather
+	name = "leather jacket"
+	desc = "Pompadour not included."
+	icon_state = "leatherjacket"
 
 /obj/item/clothing/suit/officercoat
 	name = "Clown Officer's Coat"

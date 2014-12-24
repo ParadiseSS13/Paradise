@@ -685,7 +685,7 @@ var/list/datum/dna/hivemind_bank = list()
 /mob/proc/changeling_hivedownload()
 	set category = "Changeling"
 	set name = "Hive Absorb (20)"
-	set desc = "Allows you to absorb DNA that is being channeled in the airwaves."
+	set desc = "Allows you to absorb DNA that is being channelled in the airwaves."
 
 	var/datum/changeling/changeling = changeling_power(20,1)
 	if(!changeling)	return

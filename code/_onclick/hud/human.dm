@@ -517,19 +517,13 @@
 
 	hud_used.item_action_list = list()
 	for(var/obj/item/I in src)
-		if(istype(I,/obj/item/clothing/under))
-			var/obj/item/clothing/under/U = I
-			if(U.hastie)
-				I = U.hastie
 		if(I.icon_action_button)
 			var/obj/screen/item_action/A = new(hud_used)
-
+			
 			//A.icon = 'icons/mob/screen1_action.dmi'
 			//A.icon_state = I.icon_action_button
-
 			A.icon = ui_style2icon(client.prefs.UI_style)
 			A.icon_state = "template"
-
 			var/image/img = image(I.icon, A, I.icon_state)
 			img.pixel_x = 0
 			img.pixel_y = 0
@@ -540,9 +534,7 @@
 			else
 				A.name = "Use [I.name]"
 			A.owner = I
-
 			hud_used.item_action_list += A
-
 			switch(num)
 				if(1)
 					A.screen_loc = ui_action_slot1
