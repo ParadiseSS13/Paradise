@@ -66,6 +66,61 @@
 	construction_time = 200
 	category = list("Cyborg")
 
+//Robot repair	
+/datum/design/borg_binary_communication
+	name = "Cyborg Binary Communication Device"
+	id = "borg_binary_communication"
+	build_type = MECHFAB
+	build_path = /obj/item/robot_parts/robot_component/binary_communication_device
+	materials = list("$metal"=2500, "$glass"=1000)
+	construction_time = 200
+	category = list("Cyborg Repair")
+	
+/datum/design/borg_radio
+	name = "Cyborg Radio"
+	id = "borg_radio"
+	build_type = MECHFAB
+	build_path = /obj/item/robot_parts/robot_component/radio
+	materials = list("$metal"=2500, "$glass"=1000)
+	construction_time = 200
+	category = list("Cyborg Repair")
+	
+/datum/design/borg_actuator
+	name = "Cyborg Actuator"
+	id = "borg_actuator"
+	build_type = MECHFAB
+	build_path = /obj/item/robot_parts/robot_component/actuator
+	materials = list("$metal"=3500)
+	construction_time = 200
+	category = list("Cyborg Repair")
+	
+/datum/design/borg_diagnosis_unit
+	name = "Cyborg Diagnosis Unit"
+	id = "borg_diagnosis_unit"
+	build_type = MECHFAB
+	build_path = /obj/item/robot_parts/robot_component/diagnosis_unit
+	materials = list("$metal"=3000)
+	construction_time = 200
+	category = list("Cyborg Repair")
+	
+/datum/design/borg_camera
+	name = "Cyborg Camera"
+	id = "borg_camera"
+	build_type = MECHFAB
+	build_path = /obj/item/robot_parts/robot_component/camera
+	materials = list("$metal"=2500, "$glass"=1000)
+	construction_time = 200
+	category = list("Cyborg Repair")
+	
+/datum/design/borg_armor
+	name = "Cyborg Armor"
+	id = "borg_camera"
+	build_type = MECHFAB
+	build_path = /obj/item/robot_parts/robot_component/armour
+	materials = list("$metal"=5000)
+	construction_time = 200
+	category = list("Cyborg Repair")
+
 //Ripley
 /datum/design/ripley_chassis
 	name = "Exosuit Chassis (APLU \"Ripley\")"
