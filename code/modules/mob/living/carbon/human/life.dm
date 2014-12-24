@@ -379,7 +379,7 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 					if(75 to 100)
 						radiation -= 3
 						adjustToxLoss(3)
-						damage = 1
+						damage = 3
 						if(prob(1))
 							src << "\red You mutate!"
 							randmutb(src)
@@ -390,7 +390,7 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 					else
 						radiation -= 5
 						adjustToxLoss(5)
-						damage = 1
+						damage = 5
 						if(prob(1))
 							src << "\red You mutate!"
 							randmutb(src)
@@ -422,6 +422,7 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 			if(istype(loc, /obj/))
 				var/obj/location_as_object = loc
 				location_as_object.handle_internal_lifeform(src, 0)
+				
 		else
 			//First, check for air from internal atmosphere (using an air tank and mask generally)
 			breath = get_breath_from_internal(BREATH_VOLUME) // Super hacky -- TLE
@@ -509,19 +510,26 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 			return 0
 
 		if(!breath || (breath.total_moles() == 0) || suiciding)
+			var/oxyloss = 0
 			if(reagents.has_reagent("inaprovaline"))
 				return
-			if(suiciding)
-				adjustOxyLoss(2)//If you are suiciding, you should die a little bit faster
+			if(suiciding)	
+				oxyloss = 2
+				adjustOxyLoss(oxyloss)//If you are suiciding, you should die a little bit faster
 				failed_last_breath = 1
 				oxygen_alert = max(oxygen_alert, 1)
 				return 0
 			if(health > 0)
-				adjustOxyLoss(HUMAN_MAX_OXYLOSS)
+				oxyloss = HUMAN_MAX_OXYLOSS
+				adjustOxyLoss(oxyloss)
 				failed_last_breath = 1
 			else
-				adjustOxyLoss(HUMAN_CRIT_MAX_OXYLOSS)
+				oxyloss = HUMAN_CRIT_MAX_OXYLOSS
+				adjustOxyLoss(oxyloss)
 				failed_last_breath = 1
+				
+			var/datum/organ/external/affected = get_organ("chest")	
+			affected.add_autopsy_data("Suffocation", oxyloss) 
 
 			oxygen_alert = max(oxygen_alert, 1)
 

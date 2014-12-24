@@ -18,10 +18,13 @@
 		if (!H.amputated)
 			if ((health >= (config.health_threshold_dead/100*75)) && stat == DEAD)  //need to get them 25% away from death point before reviving them
 				dead_mob_list -= src
-				respawnable_list -= src
 				living_mob_list += src
 				stat = CONSCIOUS
 				ear_deaf = 0
+	if (stat == CONSCIOUS && (src in dead_mob_list)) //Defib fix
+		dead_mob_list -= src
+		living_mob_list += src	
+		ear_deaf = 0
 	return
 
 /mob/living/carbon/human/getBrainLoss()
@@ -132,6 +135,7 @@
 				var/datum/organ/external/O = pick(candidates)
 				O.mutate()
 				src << "<span class = 'notice'>Something is not right with your [O.display_name]...</span>"
+				O.add_autopsy_data("Mutation", amount)				
 				return
 	else
 		if (prob(heal_prob))
