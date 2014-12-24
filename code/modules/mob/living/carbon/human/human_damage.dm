@@ -135,6 +135,7 @@
 				var/datum/organ/external/O = pick(candidates)
 				O.mutate()
 				src << "<span class = 'notice'>Something is not right with your [O.display_name]...</span>"
+				O.add_autopsy_data("Mutation", amount)				
 				return
 	else
 		if (prob(heal_prob))
