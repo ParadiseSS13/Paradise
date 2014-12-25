@@ -5669,7 +5669,7 @@
 "cfa" = (/obj/machinery/camera{c_tag = "Cargo Mining Dock Airlock"; dir = 8; network = list("SS13")},/obj/structure/reagent_dispensers/fueltank,/obj/machinery/atmospherics/pipe/manifold{_color = "blue"; icon_state = "manifold-b-f"; level = 1; name = "pipe manifold"},/turf/simulated/floor{dir = 6; icon_state = "warning"},/area/quartermaster/miningdock)
 "cfb" = (/obj/machinery/atmospherics/portables_connector{dir = 8},/obj/machinery/portable_atmospherics/canister/air,/obj/machinery/status_display{density = 0; layer = 4; pixel_x = 0; pixel_y = -32},/turf/simulated/floor{dir = 10; icon_state = "brown"},/area/quartermaster/miningdock)
 "cfc" = (/obj/machinery/firealarm{dir = 1; pixel_y = -24},/turf/simulated/floor{dir = 2; icon_state = "brown"},/area/quartermaster/miningdock)
-"cfd" = (/obj/structure/closet/secure_closet/miner,/turf/simulated/floor{dir = 2; icon_state = "brown"},/area/quartermaster/miningdock)
+"cfd" = (/obj/structure/closet/secure_closet/miner,/obj/item/device/mining_scanner,/turf/simulated/floor{dir = 2; icon_state = "brown"},/area/quartermaster/miningdock)
 "cfe" = (/turf/simulated/floor{dir = 2; icon_state = "brown"},/area/quartermaster/miningdock)
 "cff" = (/obj/structure/rack{dir = 1},/obj/item/weapon/pickaxe{pixel_x = 5},/obj/item/weapon/shovel{pixel_x = -5},/turf/simulated/floor{tag = "icon-brown (SOUTHEAST)"; icon_state = "brown"; dir = 6},/area/quartermaster/miningdock)
 "cfg" = (/obj/machinery/programmable/unary/stacker,/turf/simulated/floor/plating,/area/maintenance/disposal)
