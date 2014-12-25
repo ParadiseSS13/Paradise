@@ -22,6 +22,7 @@ var/global/list/side_effects = list()				//list of all medical sideeffects types
 var/global/list/mechas_list = list()				//list of all mechs. Used by hostile mobs target tracking.
 var/global/list/joblist = list()					//list of all jobstypes, minus borg and AI
 var/global/list/flag_list = list()					//list of flags during Nations gamemode
+var/global/list/airlocks = list()					//list of all airlocks
 
 //Languages/species/whitelist.
 var/global/list/all_species[0]

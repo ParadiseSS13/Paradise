@@ -45,6 +45,7 @@ var/list/ai_list = list()
 
 	var/control_disabled = 0 // Set to 1 to stop AI from interacting via Click() -- TLE
 	var/malfhacking = 0 // More or less a copy of the above var, so that malf AIs can hack and still get new cyborgs -- NeoFite
+	var/malf_cooldown = 0 //Cooldown var for malf modules
 
 	var/obj/machinery/power/apc/malfhack = null
 	var/explosive = 0 //does the AI explode when it dies?
@@ -58,7 +59,7 @@ var/list/ai_list = list()
 	var/obj/machinery/bot/Bot
 	var/turf/waypoint //Holds the turf of the currently selected waypoint.
 	var/waypoint_mode = 0 //Waypoint mode is for selecting a turf via clicking.
-	
+
 	var/obj/item/borg/sight/hud/sec/sechud = null
 	var/obj/item/borg/sight/hud/med/healthhud = null
 
@@ -102,8 +103,8 @@ var/list/ai_list = list()
 	aiRadio.myAi = src
 
 	aiCamera = new/obj/item/device/camera/siliconcam/ai_camera(src)
-	
-	
+
+
 
 	if (istype(loc, /turf))
 		verbs.Add(/mob/living/silicon/ai/proc/ai_network_change, \
@@ -439,25 +440,25 @@ var/list/ai_list = list()
 
 	if (href_list["laws"]) // With how my law selection code works, I changed statelaws from a verb to a proc, and call it through my law selection panel. --NeoFite
 		statelaws()
-		
+
 	if(href_list["say_word"])
 		play_vox_word(href_list["say_word"], null, src)
 		return
-		
+
 	if (href_list["track"])
 		var/mob/target = locate(href_list["track"]) in mob_list
 		var/mob/living/silicon/ai/A = locate(href_list["track2"]) in mob_list
 		if(A && target)
 			A.ai_actual_track(target)
 		return
-		
+
 	if (href_list["trackbot"])
 		var/obj/machinery/bot/target = locate(href_list["trackbot"]) in aibots
 		var/mob/living/silicon/ai/A = locate(href_list["track2"]) in mob_list
 		if(A && target)
 			A.ai_actual_track(target)
 		return
-				
+
 	if (href_list["callbot"]) //Command a bot to move to a selected location.
 		Bot = locate(href_list["callbot"]) in aibots
 		if(!Bot || Bot.remote_disabled || src.control_disabled)
@@ -624,7 +625,7 @@ var/list/ai_list = list()
 		return
 
 	Bot.call_bot(src, waypoint)
-		
+
 /mob/living/silicon/ai/proc/switchCamera(var/obj/machinery/camera/C)
 
 	src.cameraFollow = null
@@ -824,7 +825,7 @@ var/list/ai_list = list()
 	set name = "Toggle Camera Lights"
 	set desc = "Toggles the lights on the cameras throughout the station."
 	set category = "AI Commands"
-	
+
 	if(stat != CONSCIOUS)
 		return
 
@@ -842,7 +843,7 @@ var/list/ai_list = list()
 	set desc = "Augment visual feed with internal sensor overlays."
 	set category = "AI Commands"
 	toggle_sensor_mode()
-					
+
 // Handled camera lighting, when toggled.
 // It will get the nearest camera from the eyeobj, lighting it.
 
