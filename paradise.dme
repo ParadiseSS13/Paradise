@@ -1,4 +1,4 @@
-// DM Environment file for baystation12.dme.
+// DM Environment file for paradise.dme.
 // All manual changes should be made outside the BEGIN_ and END_ blocks.
  // New source code should be placed in .dm files: choose File/New --> Code File.
 // BEGIN_INTERNALS
@@ -223,6 +223,7 @@
 #include "code\datums\wires\airlock.dm"
 #include "code\datums\wires\alarm.dm"
 #include "code\datums\wires\apc.dm"
+#include "code\datums\wires\autolathe.dm"
 #include "code\datums\wires\camera.dm"
 #include "code\datums\wires\explosive.dm"
 #include "code\datums\wires\mulebot.dm"
@@ -952,7 +953,6 @@
 #include "code\modules\DetectiveWork\detective_work.dm"
 #include "code\modules\DetectiveWork\evidence.dm"
 #include "code\modules\DetectiveWork\footprints_and_rag.dm"
-#include "code\modules\DetectiveWork\scanner.dm"
 #include "code\modules\economy\Accounts.dm"
 #include "code\modules\economy\Accounts_DB.dm"
 #include "code\modules\economy\ATM.dm"
@@ -1030,6 +1030,7 @@
 #include "code\modules\hydroponics\seed_mobs.dm"
 #include "code\modules\hydroponics\seeds.dm"
 #include "code\modules\hydroponics\vines.dm"
+#include "code\modules\karma\karma.dm"
 #include "code\modules\library\lib_items.dm"
 #include "code\modules\library\lib_machines.dm"
 #include "code\modules\library\lib_readme.dm"
@@ -1249,6 +1250,7 @@
 #include "code\modules\mob\living\simple_animal\friendly\corgi.dm"
 #include "code\modules\mob\living\simple_animal\friendly\crab.dm"
 #include "code\modules\mob\living\simple_animal\friendly\farm_animals.dm"
+#include "code\modules\mob\living\simple_animal\friendly\Fox.dm"
 #include "code\modules\mob\living\simple_animal\friendly\lizard.dm"
 #include "code\modules\mob\living\simple_animal\friendly\mouse.dm"
 #include "code\modules\mob\living\simple_animal\friendly\slime.dm"
@@ -1432,6 +1434,17 @@
 #include "code\modules\research\rdmachines.dm"
 #include "code\modules\research\research.dm"
 #include "code\modules\research\server.dm"
+#include "code\modules\research\designs\AI_module_designs.dm"
+#include "code\modules\research\designs\autolathe_designs.dm"
+#include "code\modules\research\designs\comp_board_designs.dm"
+#include "code\modules\research\designs\machine_designs.dm"
+#include "code\modules\research\designs\mecha_designs.dm"
+#include "code\modules\research\designs\mechfabricator_designs.dm"
+#include "code\modules\research\designs\medical_designs.dm"
+#include "code\modules\research\designs\power_designs.dm"
+#include "code\modules\research\designs\stock_parts_designs.dm"
+#include "code\modules\research\designs\telecomms_designs.dm"
+#include "code\modules\research\designs\weapon_designs.dm"
 #include "code\modules\research\xenoarchaeology\areas.dm"
 #include "code\modules\research\xenoarchaeology\chemistry.dm"
 #include "code\modules\research\xenoarchaeology\geosample.dm"
@@ -1623,7 +1636,6 @@
 #include "code\WorkInProgress\Sayu\programmable.dm"
 #include "code\WorkInProgress\Sayu\random_items.dm"
 #include "code\WorkInProgress\SkyMarshal\Ultralight_procs.dm"
-#include "code\WorkInProgress\ZomgPonies\karma.dm"
 #include "code\WorkInProgress\ZomgPonies\clothing\civilian.dm"
 #include "code\WorkInProgress\ZomgPonies\mobs\pony.dm"
 #include "code\WorkInProgress\ZomgPonies\oldcode\turntable.dm"

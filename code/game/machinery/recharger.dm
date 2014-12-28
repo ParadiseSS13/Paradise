@@ -81,7 +81,7 @@
 			var/obj/item/weapon/melee/baton/B = charging
 			if(B.bcell && B.bcell.charge < B.bcell.maxcharge)
 				B.bcell.charge += 1750
-				icon_state = "recharger1"
+				icon_state = icon_state_charging
 				use_power(2000)
 			else
 				icon_state = icon_state_charged

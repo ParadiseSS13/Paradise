@@ -330,11 +330,13 @@
 							user.visible_message("<span class='boldnotice'>[defib] pings: Resuscitation successful.</span>")
 							playsound(get_turf(src), 'sound/machines/ping.ogg', 50, 0)
 							H.stat = 1
-							dead_mob_list -= H
-							living_mob_list |= list(H)
+							if(H in dead_mob_list)
+								dead_mob_list -= H
+								living_mob_list += H
 							H.emote("gasp")
 							if(tplus > tloss)
 								H.setBrainLoss( max(0, min(99, ((tlimit - tplus) / tlimit * 100))))
+							H.updatehealth()
 							defib.deductcharge(revivecost)
 							add_logs(user, M, "revived", object="defibrillator")
 						else

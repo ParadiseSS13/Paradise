@@ -45,12 +45,14 @@
 			bound_height = width * world.icon_size
 
 	update_nearby_tiles(need_rebuild=1)
+	airlocks += src
 	return
 
 
 /obj/machinery/door/Destroy()
 	density = 0
 	update_nearby_tiles()
+	airlocks -= src
 	..()
 	return
 
@@ -114,9 +116,9 @@
 		user = null
 
 	if(density)
-		if(allowed(user) || src.emergency == 1)	
+		if(allowed(user) || src.emergency == 1)
 			open()
-		else				
+		else
 			flick("door_deny", src)
 	return
 

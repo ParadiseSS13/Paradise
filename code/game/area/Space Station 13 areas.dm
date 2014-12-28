@@ -239,14 +239,14 @@ var/list/ghostteleportlocs = list()
 
 /area/shuttle/gamma/space
 	icon_state = "shuttle"
-	name = "\improper Gamma Shuttle Space"
+	name = "\improper Gamma Armory"
 	requires_power = 0
 	luminosity = 0
 	lighting_use_dynamic = 1
 
 /area/shuttle/gamma/station
 	icon_state = "shuttle"
-	name = "\improper Gamma Shuttle Station"
+	name = "\improper Gamma Armory Station"
 	requires_power = 0
 	luminosity = 0
 	lighting_use_dynamic = 1
@@ -1697,11 +1697,11 @@ area/security/podbay
 	name = "\improper Xenobiology Lab"
 	icon_state = "toxlab"
 
-/area/rnd/xenobiology/xenoflora_storage
+/area/toxins/xenobiology/xenoflora_storage
 	name = "\improper Xenoflora Storage"
 	icon_state = "toxlab"
 
-/area/rnd/xenobiology/xenoflora
+/area/toxins/xenobiology/xenoflora
 	name = "\improper Xenoflora Lab"
 	icon_state = "toxlab"
 
@@ -2058,8 +2058,20 @@ area/security/podbay
 	name = "\improper AI Satellite"
 	icon_state = "ai"
 
+/area/aisat
+	name = "\improper AI Satellite Exterior"
+	icon_state = "yellow"
+	
+/area/aisat/entrance
+	name = "\improper AI Satellite Entrance"
+	icon_state = "ai_foyer"
+	
+/area/aisat/maintenance
+	name = "\improper AI Satellite Maintenance"
+	icon_state = "storage"
+
 /area/turret_protected/aisat_interior
-	name = "\improper AI Satellite"
+	name = "\improper AI Satellite Antechamber"
 	icon_state = "ai"
 
 /area/turret_protected/AIsatextFP

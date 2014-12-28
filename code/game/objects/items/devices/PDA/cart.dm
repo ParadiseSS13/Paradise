@@ -207,6 +207,24 @@
 	icon_state = "cart-h"
 	access_status_display = 1
 	access_security = 1
+	
+/obj/item/weapon/cartridge/centcom
+	name = "Value-PAK Cartridge"
+	desc = "Now with 200% more value!"
+	icon_state = "cart-c"
+	access_quartermaster = 1
+	access_janitor = 1
+	access_engine = 1
+	access_security = 1
+	access_medical = 1
+	access_reagent_scanner = 1
+	access_status_display = 1
+	access_atmos = 1
+	
+/obj/item/weapon/cartridge/centcom/New()
+	..()
+	spawn(5)
+		radio = new /obj/item/radio/integrated/beepsky(src)
 
 /obj/item/weapon/cartridge/syndicate
 	name = "Detomatix Cartridge"

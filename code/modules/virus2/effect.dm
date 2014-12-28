@@ -136,7 +136,7 @@
 	stage = 4
 	maxm = 3
 	activate(var/mob/living/carbon/mob,var/multiplier)
-		mob.radiation += (2*multiplier)
+		mob.apply_effect(2*multiplier,IRRADIATE,0)
 
 /datum/disease2/effect/deaf
 	name = "Dead Ear Syndrome"
