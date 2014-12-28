@@ -121,6 +121,8 @@ Admin:
 		src << admin
 
 
+//adv. hotkey mode verbs, vars located in /code/modules/client/client defines.dm
+
 /client/verb/hotkey_toggle()//toggles hotkey mode between on and off, respects selected type
 	set name = ".Toggle hotkey mode"
 
