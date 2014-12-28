@@ -1243,7 +1243,7 @@
 #include "code\modules\mob\living\simple_animal\friendly\corgi.dm"
 #include "code\modules\mob\living\simple_animal\friendly\crab.dm"
 #include "code\modules\mob\living\simple_animal\friendly\farm_animals.dm"
-#include "code\modules\mob\living\simple_animal\friendly\Fox.dm"
+#include "code\modules\mob\living\simple_animal\friendly\fox.dm"
 #include "code\modules\mob\living\simple_animal\friendly\lizard.dm"
 #include "code\modules\mob\living\simple_animal\friendly\mouse.dm"
 #include "code\modules\mob\living\simple_animal\friendly\slime.dm"
