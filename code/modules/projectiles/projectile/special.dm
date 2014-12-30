@@ -30,6 +30,7 @@
 	icon_state= "bolter"
 	damage = 60
 	flag = "bullet"
+	range = 7
 
 /obj/item/projectile/bullet/a40mm/on_hit(atom/target, blocked = 0)
 	explosion(target, -1, 0, 2, 1, 0)
@@ -170,7 +171,7 @@
 	damage = 15
 	damage_type = BRUTE
 	flag = "bomb"
-	var/range = 2
+	range = 3
 
 obj/item/projectile/kinetic/New()
 	var/turf/proj_turf = get_turf(src)

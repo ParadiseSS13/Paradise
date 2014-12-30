@@ -1,15 +1,15 @@
 /obj/item/weapon/gun/energy/gun
 	name = "energy gun"
-	desc = "A basic energy-based gun with two settings: Stun and kill."
+	desc = "A basic energy-based gun with two settings: Stun and disable."
 	icon_state = "energystun100"
 	item_state = null	//so the human update icon uses the icon_state instead.
-	fire_sound = 'sound/weapons/Taser.ogg'
-
-	projectile_type = "/obj/item/projectile/energy/electrode"
+	fire_sound = 'sound/weapons/Taser2.ogg'
+	charge_cost = 500
+	projectile_type = "/obj/item/projectile/beam/disabler"
 	origin_tech = "combat=3;magnets=2"
 	modifystate = "energystun"
 
-	var/mode = 0 //0 = stun, 1 = kill
+	var/mode = 0 //0 = disable, 1 = kill
 
 
 	attack_self(mob/living/user as mob)
@@ -23,10 +23,10 @@
 				modifystate = "energykill"
 			if(1)
 				mode = 0
-				charge_cost = 1000
-				fire_sound = 'sound/weapons/Taser.ogg'
-				user << "\red [src.name] is now set to stun."
-				projectile_type = "/obj/item/projectile/energy/electrode"
+				charge_cost = 500
+				fire_sound = 'sound/weapons/Taser2.ogg'
+				user << "\red [src.name] is now set to disable."
+				projectile_type = "/obj/item/projectile/beam/disabler"
 				modifystate = "energystun"
 		update_icon()
 		if(user.l_hand == src)
@@ -42,6 +42,9 @@
 	desc = "An energy gun with an experimental miniaturized reactor."
 	icon_state = "nucgun"
 	origin_tech = "combat=3;materials=5;powerstorage=3"
+	charge_cost = 1000
+	fire_sound = 'sound/weapons/Taser.ogg'
+	projectile_type = "/obj/item/projectile/energy/electrode"
 	var/lightfail = 0
 	var/charge_tick = 0
 
@@ -115,9 +118,11 @@
 		update_mode()
 			if (mode == 0)
 				overlays += "nucgun-stun"
+				charge_cost = 1000
+				fire_sound = 'sound/weapons/Taser.ogg'
+				projectile_type = "/obj/item/projectile/energy/electrode"
 			else if (mode == 1)
 				overlays += "nucgun-kill"
-
 
 	emp_act(severity)
 		..()

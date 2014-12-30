@@ -127,7 +127,7 @@
 					iconholder = 1
 					reqpower = 700
 
-				if(/obj/item/weapon/gun/energy/taser)
+				if(/obj/item/weapon/gun/energy/advtaser)
 					projectile = /obj/item/projectile/energy/electrode
 					eprojectile = projectile
 					iconholder = 1

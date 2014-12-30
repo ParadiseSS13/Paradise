@@ -50,20 +50,36 @@
 	var/eyeblur = 0
 	var/drowsy = 0
 	var/agony = 0
+	var/stamina = 0
 	var/embed = 0 // whether or not the projectile can embed itself in the mob
 	var/forcedodge = 0
+
+	var/range = 0
+	var/proj_hit = 0
 
 
 	proc/delete()
 		// Garbage collect the projectiles
 		loc = null
 
+	proc/Range()
+		if(range)
+			range--
+			if(range <= 0)
+				on_range()
+		else
+			return
+
+	proc/on_range() //if we want there to be effects when they reach the end of their range
+		proj_hit = 1
+		qdel(src)
+
 	proc/on_hit(var/atom/target, var/blocked = 0)
 		if(blocked >= 2)		return 0//Full block
 		if(!isliving(target))	return 0
 		if(isanimal(target))	return 0
 		var/mob/living/L = target
-		L.apply_effects(stun, weaken, paralyze, irradiate, stutter, eyeblur, drowsy, agony, blocked) // add in AGONY!
+		L.apply_effects(stun, weaken, paralyze, irradiate, stutter, eyeblur, drowsy, agony, blocked, stamina) // add in AGONY!
 		return 1
 
 	proc/check_fire(var/mob/living/target as mob, var/mob/living/user as mob)  //Checks if you can hit them or not.
@@ -83,7 +99,7 @@
 			loc = A.loc
 			return 0 //cannot shoot yourself
 
-		if(bumped)	
+		if(bumped)
 			return 1
 		bumped = 1
 		if(firer && istype(A, /mob))
@@ -170,7 +186,7 @@
 			if(kill_count < 1)
 				del(src)
 				return
-			kill_count--		
+			kill_count--
 			if((!( current ) || loc == current))
 				current = locate(min(max(x + xo, 1), world.maxx), min(max(y + yo, 1), world.maxy), z)
 			if((x == 1 || x == world.maxx || y == 1 || y == world.maxy))
@@ -243,7 +259,3 @@
 				M = locate() in get_step(src,target)
 				if(istype(M))
 					return 1
-
-/obj/item/projectile/proc/Range()
-	return
-
