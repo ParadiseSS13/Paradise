@@ -240,6 +240,6 @@ modules/mob/living/carbon/human/life.dm if you die, you will be zoomed out.
 	desc = "A self-defense weapon that exhausts organic targets, weakening them until they collapse."
 	icon_state = "disabler"
 	item_state = null
-	projectile_type = "/obj/item/projectile/energy/disabler"
+	projectile_type = "/obj/item/projectile/beam/disabler"
 	cell_type = "/obj/item/weapon/cell"
 	charge_cost = 500

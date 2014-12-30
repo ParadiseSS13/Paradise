@@ -76,7 +76,7 @@
 /mob/living/carbon/apply_effect(var/effect = 0,var/effecttype = STUN, var/blocked = 0)
 	return ..()
 
-/mob/living/proc/apply_effects(var/stun = 0, var/weaken = 0, var/paralyze = 0, var/irradiate = 0, var/stutter = 0, var/eyeblur = 0, var/drowsy = 0, var/agony = 0, var/blocked = 0)
+/mob/living/proc/apply_effects(var/stun = 0, var/weaken = 0, var/paralyze = 0, var/irradiate = 0, var/stutter = 0, var/eyeblur = 0, var/drowsy = 0, var/agony = 0, var/blocked = 0, var/stamina = 0)
 	if(blocked >= 2)	return 0
 	if(stun)		apply_effect(stun, STUN, blocked)
 	if(weaken)		apply_effect(weaken, WEAKEN, blocked)
@@ -86,4 +86,5 @@
 	if(eyeblur)		apply_effect(eyeblur, EYE_BLUR, blocked)
 	if(drowsy)		apply_effect(drowsy, DROWSY, blocked)
 	if(agony)		apply_effect(agony, AGONY, blocked)
+	if(stamina)		apply_damage(stamina, STAMINA, null, blocked)
 	return 1

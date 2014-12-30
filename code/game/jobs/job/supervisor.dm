@@ -217,6 +217,7 @@
 		H.equip_or_collect(new /obj/item/clothing/glasses/hud/health_advanced, slot_glasses)
 		H.equip_if_possible(new /obj/item/clothing/under/rank/centcom/blueshield(H), slot_w_uniform)
 		H.equip_if_possible(new /obj/item/clothing/suit/armor/vest/fluff/deus_blueshield(H), slot_wear_suit)
+		H.equip_or_collect(new /obj/item/weapon/gun/energy/advtaser(H), slot_s_store)
 		H.equip_or_collect(new /obj/item/device/pda/heads/blueshield(H), slot_wear_pda)
 		if(H.backbag == 1)
 			H.equip_or_collect(new /obj/item/weapon/storage/box/deathimp(H), slot_r_hand)

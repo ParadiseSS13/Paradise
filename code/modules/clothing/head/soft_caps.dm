@@ -92,6 +92,7 @@
 	desc = "It's baseball hat in tasteful red colour."
 	icon_state = "secsoft"
 	_color = "sec"
+	armor = list(melee = 30, bullet = 25, laser = 25, energy = 10, bomb = 0, bio = 0, rad = 0)
 
 /obj/item/clothing/head/soft/sec/corp
 	name = "corporate security cap"
