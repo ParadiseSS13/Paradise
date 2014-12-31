@@ -109,6 +109,7 @@
 	name = "Energy Crossbow"
 	desc = "A weapon favored by syndicate carp hunters."
 	icon_state = "crossbowlarge"
+	silenced = 0
 	w_class = 3.0
 	force = 10
 	m_amt = 4000

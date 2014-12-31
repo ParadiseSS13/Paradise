@@ -10,8 +10,7 @@
 
 /obj/item/projectile/bullet/weakbullet
 	damage = 5
-	stun = 5
-	weaken = 5
+	stamina = 33
 
 /obj/item/projectile/bullet/weakbullet/rubber //beanbag shotgun shells
 	embed = 0
@@ -19,8 +18,7 @@
 
 /obj/item/projectile/bullet/weakbullet2
 	damage = 15
-	stun = 5
-	weaken = 5
+	stamina = 75 //the detective can't shoot in bursts and will get yelled at if he sinks 50 rounds into perps to stun 'em
 
 /obj/item/projectile/bullet/weakbullet2/rubber //detective's c38 bullets
 	embed = 0
@@ -42,8 +40,7 @@
 
 /obj/item/projectile/bullet/midbullet
 	damage = 20
-	stun = 5
-	weaken = 5
+	stamina = 50
 
 /obj/item/projectile/bullet/midbullet2
 	damage = 25
@@ -58,8 +55,7 @@
 /obj/item/projectile/bullet/stunshot
 	name = "stunshot"
 	damage = 5
-	stun = 5
-	weaken = 5
+	stamina = 95
 	stutter = 5
 	embed = 0
 	sharp = 0
