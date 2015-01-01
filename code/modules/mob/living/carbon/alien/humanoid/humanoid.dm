@@ -8,6 +8,8 @@
 	var/obj/item/weapon/l_store = null
 	var/caste = ""
 	var/next_attack = 0
+	var/pounce_cooldown = 0
+	var/pounce_cooldown_time = 30
 	update_icon = 1
 	var/leap_on_click = 0
 
