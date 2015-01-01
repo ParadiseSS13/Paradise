@@ -192,6 +192,31 @@
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO
 	flags_inv = HIDEJUMPSUIT
 
+/obj/item/clothing/suit/poncho
+	name = "poncho"
+	desc = "Your classic, non-racist poncho."
+	icon_state = "classicponcho"
+	item_state = "classicponcho"
+
+/obj/item/clothing/suit/poncho/green
+	name = "green poncho"
+	desc = "Your classic, non-racist poncho. This one is green."
+	icon_state = "greenponcho"
+	item_state = "greenponcho"
+
+/obj/item/clothing/suit/poncho/red
+	name = "red poncho"
+	desc = "Your classic, non-racist poncho. This one is red."
+	icon_state = "redponcho"
+	item_state = "redponcho"
+
+/obj/item/clothing/suit/poncho/ponchoshame
+	name = "poncho of shame"
+	desc = "Forced to live on your shameful acting as a fake Mexican, you and your poncho have grown inseperable. Literally."
+	icon_state = "ponchoshame"
+	item_state = "ponchoshame"
+	canremove = 0
+
 /*
  * Misc
  */
@@ -406,15 +431,15 @@
 	siemens_coefficient = 0.9
 	loose = 7
 
-
-/obj/item/clothing/suit/bomber
-	name = "bomber jacker"
-	desc = "A well-worn WW2 leather bomber jacket."
+/obj/item/clothing/suit/jacket
+	name = "bomber jacket"
+	desc = "Aviators not included."
 	icon_state = "bomber"
 	item_state = "bomber"
-	flags = FPRINT | TABLEPASS
-	body_parts_covered = UPPER_TORSO|ARMS
-	
+	allowed = list(/obj/item/device/flashlight,/obj/item/weapon/tank/emergency_oxygen,/obj/item/toy,/obj/item/weapon/storage/fancy/cigarettes,/obj/item/weapon/lighter)
+	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
+	cold_protection = UPPER_TORSO|LOWER_TORSO|ARMS
+
 /obj/item/clothing/suit/jacket/leather
 	name = "leather jacket"
 	desc = "Pompadour not included."
