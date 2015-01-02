@@ -13,6 +13,7 @@
 	stun = 5
 	weaken = 5
 	stutter = 5
+	jitter = 20
 	hitsound = 'sound/weapons/tase.ogg'
 	range = 7
 	//Damage will be handled on the MOB side, to prevent window shattering.

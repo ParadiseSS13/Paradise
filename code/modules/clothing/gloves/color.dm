@@ -156,3 +156,54 @@
 		)
 	cargo
 		_color = "cargo"				//Exists for washing machines. Is not different from brown gloves in any way.
+
+/obj/item/clothing/gloves/color/latex
+	name = "latex gloves"
+	desc = "Cheap sterile gloves made from latex."
+	icon_state = "latex"
+	item_state = "lgloves"
+	siemens_coefficient = 0.30
+	permeability_coefficient = 0.01
+	_color="white"
+	transfer_prints = TRUE
+	species_fit = list("Vox")
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/species/vox/mask.dmi'
+		)
+	cmo
+		_color = "medical"		//Exists for washing machines. Is not different from latex gloves in any way.
+
+/obj/item/clothing/gloves/color/latex/nitrile
+	name = "nitrile gloves"
+	desc = "Pricy sterile gloves that are stronger than latex."
+	icon_state = "nitrile"
+	item_state = "nitrilegloves"
+	transfer_prints = FALSE
+
+/obj/item/clothing/gloves/color/white
+	name = "white gloves"
+	desc = "These look pretty fancy."
+	icon_state = "white"
+	item_state = "wgloves"
+	_color="mime"
+
+	redcoat
+	_color = "redcoat"		//Exists for washing machines. Is not different from white gloves in any way.
+
+
+/obj/item/clothing/gloves/color/captain
+	desc = "Regal blue gloves, with a nice gold trim. Swanky."
+	name = "captain's gloves"
+	icon_state = "captain"
+	item_state = "egloves"
+	_color = "captain"
+	siemens_coefficient = 0
+	permeability_coefficient = 0.05
+	cold_protection = HANDS
+	min_cold_protection_temperature = GLOVES_MIN_COLD_PROTECTION_TEMPERATURE
+	heat_protection = HANDS
+	max_heat_protection_temperature = GLOVES_MAX_HEAT_PROTECTION_TEMPERATURE
+	species_fit = list("Vox")
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/species/vox/mask.dmi'
+		)
