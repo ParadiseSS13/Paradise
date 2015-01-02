@@ -346,6 +346,7 @@ var/list/all_supply_groups = list("Operations","Security","Hospitality","Enginee
 	cost = 55 //Foxes are cool.
 	containertype = /obj/structure/closet/critter/fox
 	containername = "fox crate"
+	group = "Organic"
 
 /datum/supply_packs/seeds
 	name = "Seeds Crate"
@@ -1073,6 +1074,26 @@ var/list/all_supply_groups = list("Operations","Security","Hospitality","Enginee
 	access = access_hydroponics
 	group = "Hydroponics"
 
+/datum/supply_packs/misc/lasertag
+	name = "Laser Tag Crate"
+	contains = list(/obj/item/weapon/gun/energy/laser/redtag,
+					/obj/item/weapon/gun/energy/laser/redtag,
+					/obj/item/weapon/gun/energy/laser/redtag,
+					/obj/item/weapon/gun/energy/laser/bluetag,
+					/obj/item/weapon/gun/energy/laser/bluetag,
+					/obj/item/weapon/gun/energy/laser/bluetag,
+					/obj/item/clothing/suit/redtag,
+					/obj/item/clothing/suit/redtag,
+					/obj/item/clothing/suit/redtag,
+					/obj/item/clothing/suit/bluetag,
+					/obj/item/clothing/suit/bluetag,
+					/obj/item/clothing/suit/bluetag,
+					/obj/item/clothing/head/helmet/redtaghelm,
+					/obj/item/clothing/head/helmet/bluetaghelm)
+	cost = 15
+	containertype = /obj/structure/closet/crate
+	containername = "laser tag crate"
+	group = "Operations"
 
 /datum/supply_packs/vending
 	name = "Bartending Supply Crate"

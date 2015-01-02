@@ -50,11 +50,18 @@
 #define BODYTEMP_COLD_DAMAGE_LIMIT 260.15 // The limit the human body can take before it starts taking damage from coldness.
 
 #define SPACE_HELMET_MIN_COLD_PROTECTION_TEMPERATURE 2.0 //what min_cold_protection_temperature is set to for space-helmet quality headwear. MUST NOT BE 0.
-#define SPACE_HELMET_MAX_HEAT_PROTECTION_TEMPERATURE 10000
+#define SPACE_HELMET_MAX_HEAT_PROTECTION_TEMPERATURE 1500
 #define SPACE_SUIT_MIN_COLD_PROTECTION_TEMPERATURE 2.0 //what min_cold_protection_temperature is set to for space-suit quality jumpsuits or suits. MUST NOT BE 0.
-#define SPACE_SUIT_MAX_HEAT_PROTECTION_TEMPERATURE 10000	//These need better heat protect
+#define SPACE_SUIT_MAX_HEAT_PROTECTION_TEMPERATURE 1500	//These need better heat protect
+
+#define FIRESUIT_MIN_COLD_PROTECTION_TEMPERATURE 60
 #define FIRESUIT_MAX_HEAT_PROTECTION_TEMPERATURE 30000 //what max_heat_protection_temperature is set to for firesuit quality headwear. MUST NOT BE 0.
+#define FIRE_HELMET_MIN_COLD_PROTECTION_TEMPERATURE 60
 #define FIRE_HELMET_MAX_HEAT_PROTECTION_TEMPERATURE 30000 //for fire helmet quality items (red and white hardhats)
+
+#define FIRE_IMMUNITY_SUIT_MAX_TEMP_PROTECT	35000	//what max_heat_protection_temperature is set to for firesuit quality suits. MUST NOT BE 0.
+#define FIRE_IMMUNITY_HELM_MAX_TEMP_PROTECT	35000	//for fire helmet quality items (red and white hardhats)
+
 #define HELMET_MIN_COLD_PROTECTION_TEMPERATURE 160	//For normal helmets
 #define HELMET_MAX_HEAT_PROTECTION_TEMPERATURE 600	//For normal helmets
 #define ARMOR_MIN_COLD_PROTECTION_TEMPERATURE 160	//For armor
