@@ -288,7 +288,7 @@ proc/trigger_armed_response_team(var/force = 0)
 
 	//Replaced with new ERT uniform
 	equip_to_slot_or_del(new /obj/item/clothing/under/rank/centcom_officer(src), slot_w_uniform)
-	equip_to_slot_or_del(new /obj/item/clothing/shoes/swat(src), slot_shoes)
+	equip_to_slot_or_del(new /obj/item/clothing/shoes/combat(src), slot_shoes)
 	equip_to_slot_or_del(new /obj/item/device/radio/headset/ert(src), slot_l_ear)
 	equip_to_slot_or_del(new /obj/item/clothing/glasses/sunglasses(src), slot_glasses)
 	equip_to_slot_or_del(new /obj/item/weapon/storage/backpack/satchel(src), slot_back)
@@ -300,16 +300,16 @@ proc/trigger_armed_response_team(var/force = 0)
 	W.icon_state = "centcom"
 	W.access = get_all_accesses()
 	W.access += list(access_cent_general, access_cent_living, access_cent_storage)
-	
+
 	var/obj/item/device/pda/heads/pda = new(src)
 	pda.owner = real_name
 	pda.ownjob = "Emergency Response Team[leader_selected ? " Leader" : ""]"
 	pda.name = "PDA-[real_name] ([pda.ownjob])"
-	
+
 	if (leader_selected)
 		W.access += access_cent_teleporter
 	equip_to_slot_or_del(W, slot_wear_id)
-	
+
 	// Loyalty implant
 	var/obj/item/weapon/implant/loyalty/L = new/obj/item/weapon/implant/loyalty(src)
 	L.imp_in = src
