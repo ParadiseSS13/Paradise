@@ -729,7 +729,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 		if("masked killer")
 			M.equip_to_slot_or_del(new /obj/item/clothing/under/overalls(M), slot_w_uniform)
 			M.equip_to_slot_or_del(new /obj/item/clothing/shoes/white(M), slot_shoes)
-			M.equip_to_slot_or_del(new /obj/item/clothing/gloves/latex(M), slot_gloves)
+			M.equip_to_slot_or_del(new /obj/item/clothing/gloves/color/latex(M), slot_gloves)
 			M.equip_to_slot_or_del(new /obj/item/clothing/mask/surgical(M), slot_wear_mask)
 			M.equip_to_slot_or_del(new /obj/item/clothing/head/welding(M), slot_head)
 			M.equip_to_slot_or_del(new /obj/item/device/radio/headset(M), slot_l_ear)
@@ -811,7 +811,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 		if("nanotrasen representative")
 			M.equip_if_possible(new /obj/item/clothing/under/rank/centcom/representative(M), slot_w_uniform)
 			M.equip_if_possible(new /obj/item/clothing/shoes/centcom(M), slot_shoes)
-			M.equip_if_possible(new /obj/item/clothing/gloves/white(M), slot_gloves)
+			M.equip_if_possible(new /obj/item/clothing/gloves/color/white(M), slot_gloves)
 			M.equip_if_possible(new /obj/item/device/radio/headset/heads/hop(M), slot_l_ear)
 
 			var/obj/item/device/pda/heads/ntrep/pda = new(M)
@@ -836,7 +836,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 		if("nanotrasen officer")
 			M.equip_if_possible(new /obj/item/clothing/under/rank/centcom/officer(M), slot_w_uniform)
 			M.equip_if_possible(new /obj/item/clothing/shoes/centcom(M), slot_shoes)
-			M.equip_if_possible(new /obj/item/clothing/gloves/white(M), slot_gloves)
+			M.equip_if_possible(new /obj/item/clothing/gloves/color/white(M), slot_gloves)
 			M.equip_if_possible(new /obj/item/device/radio/headset/heads/captain(M), slot_l_ear)
 			M.equip_if_possible(new /obj/item/clothing/head/beret/centcom/officer(M), slot_head)
 
@@ -861,7 +861,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 		if("nanotrasen captain")
 			M.equip_if_possible(new /obj/item/clothing/under/rank/centcom/captain(M), slot_w_uniform)
 			M.equip_if_possible(new /obj/item/clothing/shoes/centcom(M), slot_shoes)
-			M.equip_if_possible(new /obj/item/clothing/gloves/white(M), slot_gloves)
+			M.equip_if_possible(new /obj/item/clothing/gloves/color/white(M), slot_gloves)
 			M.equip_if_possible(new /obj/item/device/radio/headset/heads/captain(M), slot_l_ear)
 			M.equip_if_possible(new /obj/item/clothing/head/beret/centcom/captain(M), slot_head)
 
@@ -899,12 +899,12 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 			W.assignment = "Emergency Response Team"
 			W.registered_name = M.real_name
 			M.equip_to_slot_or_del(W, slot_wear_id)
-			
+
 			var/obj/item/device/pda/centcom/pda = new(M)
 			pda.owner = M.real_name
 			pda.ownjob = "Emergency Response Team"
 			pda.name = "PDA-[M.real_name] ([pda.ownjob])"
-			
+
 		if("emergency response team leader")
 			M.equip_to_slot_or_del(new /obj/item/clothing/under/rank/centcom_officer(M), slot_w_uniform)
 			M.equip_to_slot_or_del(new /obj/item/clothing/shoes/swat(M), slot_shoes)
@@ -922,7 +922,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 			W.assignment = "Emergency Response Team Leader"
 			W.registered_name = M.real_name
 			M.equip_to_slot_or_del(W, slot_wear_id)
-			
+
 			var/obj/item/device/pda/centcom/pda = new(M)
 			pda.owner = M.real_name
 			pda.ownjob = "Emergency Response Team Leader"
@@ -962,7 +962,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 		if("special ops formal")
 			M.equip_if_possible(new /obj/item/clothing/under/rank/centcom/captain(M), slot_w_uniform)
 			M.equip_to_slot_or_del(new /obj/item/device/radio/headset/ert(src), slot_l_ear)
-			M.equip_if_possible(new /obj/item/clothing/gloves/white(M), slot_gloves)
+			M.equip_if_possible(new /obj/item/clothing/gloves/color/white(M), slot_gloves)
 			M.equip_to_slot_or_del(new /obj/item/clothing/shoes/combat(M), slot_shoes)
 			M.equip_to_slot_or_del(new /obj/item/clothing/head/helmet/space/deathsquad/beret(M), slot_head)
 			M.equip_to_slot_or_del(new /obj/item/weapon/gun/energy/pulse_rifle/M1911(M), slot_belt)
@@ -1021,7 +1021,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 			M.equip_if_possible(new /obj/item/clothing/under/rank/centcom/captain(M), slot_w_uniform)
 			M.equip_to_slot_or_del(new /obj/item/clothing/glasses/thermal/cyber(M), slot_glasses)
 			M.equip_to_slot_or_del(new /obj/item/device/radio/headset/ert(src), slot_l_ear)
-			M.equip_if_possible(new /obj/item/clothing/gloves/white(M), slot_gloves)
+			M.equip_if_possible(new /obj/item/clothing/gloves/color/white(M), slot_gloves)
 			M.equip_to_slot_or_del(new /obj/item/clothing/shoes/centcom(M), slot_shoes)
 			M.equip_to_slot_or_del(new /obj/item/clothing/head/helmet/space/deathsquad/beret(M), slot_head)
 			M.equip_to_slot_or_del(new /obj/item/weapon/gun/energy/pulse_rifle/M1911(M), slot_belt)

@@ -51,6 +51,7 @@
 	var/drowsy = 0
 	var/agony = 0
 	var/stamina = 0
+	var/jitter = 0
 	var/embed = 0 // whether or not the projectile can embed itself in the mob
 	var/forcedodge = 0
 
@@ -79,7 +80,7 @@
 		if(!isliving(target))	return 0
 		if(isanimal(target))	return 0
 		var/mob/living/L = target
-		L.apply_effects(stun, weaken, paralyze, irradiate, stutter, eyeblur, drowsy, agony, blocked, stamina) // add in AGONY!
+		L.apply_effects(stun, weaken, paralyze, irradiate, stutter, eyeblur, drowsy, agony, blocked, stamina, jitter) // add in AGONY!
 		return 1
 
 	proc/check_fire(var/mob/living/target as mob, var/mob/living/user as mob)  //Checks if you can hit them or not.

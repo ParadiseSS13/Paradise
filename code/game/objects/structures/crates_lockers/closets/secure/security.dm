@@ -24,7 +24,7 @@
 		new /obj/item/weapon/cartridge/captain(src)
 		new /obj/item/clothing/shoes/brown(src)
 		new /obj/item/device/radio/headset/heads/captain(src)
-		new /obj/item/clothing/gloves/captain(src)
+		new /obj/item/clothing/gloves/color/captain(src)
 		new /obj/item/weapon/gun/energy/gun(src)
 		return
 
@@ -234,7 +234,7 @@
 		new /obj/item/device/flash(src)
 		new /obj/item/clothing/glasses/sunglasses(src)
 		new /obj/item/clothing/under/rank/centcom_officer(src)
-		new /obj/item/clothing/gloves/white(src)
+		new /obj/item/clothing/gloves/color/white(src)
 		new /obj/item/clothing/shoes/centcom(src)
 		new /obj/item/clothing/under/lawyer/oldman(src)
 		new /obj/item/clothing/under/lawyer/black(src)
@@ -260,7 +260,7 @@
 		new /obj/item/device/flash(src)
 		new /obj/item/clothing/glasses/sunglasses(src)
 		new /obj/item/clothing/under/rank/centcom_officer(src)
-		new /obj/item/clothing/gloves/white(src)
+		new /obj/item/clothing/gloves/color/white(src)
 		new /obj/item/clothing/shoes/centcom(src)
 		new /obj/item/clothing/under/lawyer/oldman(src)
 		new /obj/item/clothing/under/lawyer/black(src)
