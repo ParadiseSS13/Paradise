@@ -884,7 +884,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 
 		if("emergency response team")
 			M.equip_to_slot_or_del(new /obj/item/clothing/under/rank/centcom_officer(M), slot_w_uniform)
-			M.equip_to_slot_or_del(new /obj/item/clothing/shoes/swat(M), slot_shoes)
+			M.equip_to_slot_or_del(new /obj/item/clothing/shoes/combat(M), slot_shoes)
 			M.equip_to_slot_or_del(new /obj/item/clothing/gloves/swat(M), slot_gloves)
 			M.equip_to_slot_or_del(new /obj/item/device/radio/headset/ert(M), slot_l_ear)
 			M.equip_to_slot_or_del(new /obj/item/weapon/gun/energy/gun(M), slot_belt)
@@ -907,7 +907,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 
 		if("emergency response team leader")
 			M.equip_to_slot_or_del(new /obj/item/clothing/under/rank/centcom_officer(M), slot_w_uniform)
-			M.equip_to_slot_or_del(new /obj/item/clothing/shoes/swat(M), slot_shoes)
+			M.equip_to_slot_or_del(new /obj/item/clothing/shoes/combat(M), slot_shoes)
 			M.equip_to_slot_or_del(new /obj/item/clothing/gloves/swat(M), slot_gloves)
 			M.equip_to_slot_or_del(new /obj/item/device/radio/headset/ert(M), slot_l_ear)
 			M.equip_to_slot_or_del(new /obj/item/weapon/gun/energy/gun(M), slot_belt)
@@ -930,7 +930,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 
 		if("special ops officer")
 			M.equip_to_slot_or_del(new /obj/item/clothing/under/syndicate/combat(M), slot_w_uniform)
-			M.equip_to_slot_or_del(new /obj/item/clothing/suit/armor/swat/officer(M), slot_wear_suit)
+			M.equip_to_slot_or_del(new /obj/item/clothing/suit/space/deathsquad/officer(M), slot_wear_suit)
 			M.equip_to_slot_or_del(new /obj/item/clothing/shoes/combat(M), slot_shoes)
 			M.equip_to_slot_or_del(new /obj/item/clothing/gloves/combat(M), slot_gloves)
 			M.equip_to_slot_or_del(new /obj/item/device/radio/headset/ert(src), slot_l_ear)
@@ -991,7 +991,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 
 		if("hawke - combat")
 			M.equip_to_slot_or_del(new /obj/item/clothing/under/syndicate/combat(M), slot_w_uniform)
-			M.equip_to_slot_or_del(new /obj/item/clothing/suit/armor/swat/officer(M), slot_wear_suit)
+			M.equip_to_slot_or_del(new /obj/item/clothing/suit/space/deathsquad/officer(M), slot_wear_suit)
 			M.equip_to_slot_or_del(new /obj/item/clothing/shoes/combat(M), slot_shoes)
 			M.equip_to_slot_or_del(new /obj/item/clothing/gloves/combat(M), slot_gloves)
 			M.equip_to_slot_or_del(new /obj/item/device/radio/headset/ert(src), slot_l_ear)

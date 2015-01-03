@@ -6,6 +6,7 @@
 	desc = "It's good to be emperor."
 	flags = FPRINT|TABLEPASS
 	item_state = "centhat"
+	armor = list(melee = 50, bullet = 15, laser = 50, energy = 10, bomb = 25, bio = 0, rad = 0)
 	siemens_coefficient = 0.9
 
 /obj/item/clothing/head/hairflower

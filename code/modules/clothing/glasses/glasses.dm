@@ -120,7 +120,7 @@
 	name = "sunglasses"
 	icon_state = "sun"
 	item_state = "sunglasses"
-	darkness_view = -1
+	darkness_view = 1
 	species_fit = list("Vox")
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/eyes.dmi'
@@ -131,7 +131,7 @@
 	name = "sunglasses"
 	icon_state = "sun"
 	item_state = "sunglasses"
-	darkness_view = -1
+	darkness_view = 1
 	species_fit = list("Vox")
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/eyes.dmi'
@@ -223,6 +223,7 @@
 	name = "HUDSunglasses"
 	desc = "Sunglasses with a HUD."
 	icon_state = "sunhud"
+	darkness_view = 1
 	var/obj/item/clothing/glasses/hud/security/hud = null
 	species_fit = list("Vox")
 	sprite_sheets = list(

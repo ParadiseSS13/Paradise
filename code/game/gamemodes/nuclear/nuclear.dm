@@ -231,7 +231,7 @@ proc/issyndicate(mob/living/M as mob)
 	synd_mob.equip_to_slot_or_del(R, slot_l_ear)
 
 	synd_mob.equip_to_slot_or_del(new /obj/item/clothing/under/syndicate(synd_mob), slot_w_uniform)
-	synd_mob.equip_to_slot_or_del(new /obj/item/clothing/shoes/black(synd_mob), slot_shoes)
+	synd_mob.equip_to_slot_or_del(new /obj/item/clothing/shoes/combat(synd_mob), slot_shoes)
 	synd_mob.equip_or_collect(new /obj/item/clothing/gloves/combat(synd_mob), slot_gloves)
 	synd_mob.equip_to_slot_or_del(new /obj/item/weapon/card/id/syndicate(synd_mob), slot_wear_id)
 	if(synd_mob.backbag == 2) synd_mob.equip_to_slot_or_del(new /obj/item/weapon/storage/backpack(synd_mob), slot_back)

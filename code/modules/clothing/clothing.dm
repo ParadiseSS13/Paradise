@@ -286,6 +286,8 @@ BLIND     // can't see anything
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE
 	cold_protection = HEAD
 	min_cold_protection_temperature = SPACE_HELMET_MIN_COLD_PROTECTION_TEMPERATURE
+	heat_protection = HEAD
+	max_heat_protection_temperature = SPACE_HELMET_MAX_HEAT_PROTECTION_TEMPERATURE
 	siemens_coefficient = 0.9
 	species_restricted = list("exclude","Diona","Vox")
 	loose = 0 // What kind of idiot designs a pressurized suit where the helmet can fall off?
@@ -301,11 +303,13 @@ BLIND     // can't see anything
 	flags = FPRINT | TABLEPASS | STOPSPRESSUREDMAGE
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
 	allowed = list(/obj/item/device/flashlight,/obj/item/weapon/tank/emergency_oxygen,/obj/item/device/suit_cooling_unit)
-	slowdown = 3
+	slowdown = 2
 	armor = list(melee = 0, bullet = 0, laser = 0,energy = 0, bomb = 0, bio = 100, rad = 50)
 	flags_inv = HIDEGLOVES|HIDESHOES|HIDEJUMPSUIT||HIDETAIL
 	cold_protection = UPPER_TORSO | LOWER_TORSO | LEGS | FEET | ARMS | HANDS
 	min_cold_protection_temperature = SPACE_SUIT_MIN_COLD_PROTECTION_TEMPERATURE
+	heat_protection = UPPER_TORSO | LOWER_TORSO | LEGS | FEET | ARMS | HANDS
+	max_heat_protection_temperature = SPACE_SUIT_MAX_HEAT_PROTECTION_TEMPERATURE
 	siemens_coefficient = 0.9
 	species_restricted = list("exclude","Diona","Vox")
 
