@@ -74,7 +74,8 @@ The SQL backend for the library and stats tracking requires a MySQL server.  You
 
 Included in the repo is an IRC bot capable of relaying adminhelps to a specified IRC channel/server (thanks to Skibiliano).  Instructions for bot setup are included in the /bot/ folder along with the bot/relay script itself.
 
-###LICENSE
+### LICENSE
 
-All code is under a GNU AGPL v3 license (http://www.gnu.org/licenses/agpl-3.0.html),
-including tools unless their readme specifies otherwise. See LICENSE.txt for more details.
+Paradise is licensed under the GNU Affero General Public License version 3 as of 5th January 2015 any new contributions are licensed under the AGPL as well, if you wish to submit code under the GPL v3 then commits and files must be marked as so in comments. If you wish to use our code in a closed source manner you may use anything before commit 445615b8439bf606ff204a42c8e7b6b69d983255 which is licensed under GPL v3. The major change here is that if you host a server using any code licensed under AGPL you are required to provide full source code for your servers users as well including addons and modifications you have made.
+
+See [this](https://www.gnu.org/licenses/why-affero-gpl.html) for more information.
