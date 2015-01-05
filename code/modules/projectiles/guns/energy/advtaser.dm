@@ -1,15 +1,16 @@
 /obj/item/weapon/gun/energy/advtaser
-	name = "advanced taser"
+	name = "hybrid taser"
 	desc = "A hybrid taser designed to fire both short-range high-power electrodes and long-range disabler beams."
 	icon_state = "advtaser"
 	item_state = null	//so the human update icon uses the icon_state instead.
 	icon_override = 'icons/mob/in-hand/guns.dmi'
-	cell_type = "/obj/item/weapon/cell/crap"
+	cell_type = "/obj/item/weapon/cell"
 	origin_tech = null
 	fire_sound = 'sound/weapons/Taser.ogg'
 	projectile_type = "/obj/item/projectile/energy/electrode"
-	charge_cost = 1000
+	charge_cost = 2000
 	modifystate = "advtaserstun"
+	can_flashlight = 1
 
 	var/mode = 0 //0 = stun, 1 = disable
 
@@ -25,7 +26,7 @@
 				modifystate = "advtaserdisable"
 			if(1)
 				mode = 0
-				charge_cost = 1000
+				charge_cost = 2000
 				fire_sound = 'sound/weapons/Taser.ogg'
 				user << "\red [src.name] is now set to stun."
 				projectile_type = "/obj/item/projectile/energy/electrode"

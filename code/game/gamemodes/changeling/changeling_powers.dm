@@ -573,6 +573,8 @@
 	C.SetParalysis(0)
 	C.SetStunned(0)
 	C.SetWeakened(0)
+	C.adjustStaminaLoss(-75)
+	C.reagents.add_reagent("synaptizine", 20)
 	C.lying = 0
 	C.update_canmove()
 
@@ -769,7 +771,7 @@ var/list/datum/dna/hivemind_bank = list()
 	if(!(T in view(changeling.sting_range))) return
 	if(!sting_can_reach(T, changeling.sting_range)) return
 	if(!changeling_power(required_chems)) return
-	
+
 	if(ishuman(T))
 		var/mob/living/carbon/human/H = T
 		if(H.species.flags & IS_SYNTHETIC)
