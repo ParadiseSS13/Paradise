@@ -8,6 +8,7 @@
 	projectile_type = "/obj/item/projectile/beam/disabler"
 	origin_tech = "combat=3;magnets=2"
 	modifystate = "energystun"
+	can_flashlight = 1
 
 	var/mode = 0 //0 = disable, 1 = kill
 
@@ -47,6 +48,7 @@
 	projectile_type = "/obj/item/projectile/energy/electrode"
 	var/lightfail = 0
 	var/charge_tick = 0
+	can_flashlight = 0
 
 	New()
 		..()
