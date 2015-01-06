@@ -305,12 +305,11 @@
 				if(user.get_inactive_hand() == src)
 					user.drop_from_inventory(src)
 
-				new /obj/effect/decal/cleanable/ash(src.loc)
+				new /obj/effect/decal/cleanable/ash(get_turf(src))
 				del(src)
 
 			else
 				user << "\red You must hold \the [P] steady to burn \the [src]."
-
 
 /obj/item/weapon/paper/Topic(href, href_list)
 	..()
@@ -564,7 +563,7 @@
 	
 /obj/item/weapon/paper/armory
 	name = "paper- 'Armory Inventory'"
-	info = "4 Deployable Barriers<br>4 Portable Flashers<br>1 Wrench<br>1 Welding Tool<br>2 Boxes of Spare Handcuffs<br>1 Box of Flashbangs<br>1 Box of Spare R.O.B.U.S.T. Cartridges<br>1 Tracking Implant Kit<br>1 Chemical Implant Kit<br>1 Box of Tear Gas Grenades<br>1 Explosive Ordnance Disposal Suit<br>1 Biohazard Suit<br>3 Gas Masks<br>1 Lockbox of Loyalty Implants<br>1 Ion Rifle<br>3 Sets of Riot Equipment<br>1 Ablative Armor Vest<br>1 Bulletproof Vest<br>2 Riot Shotguns with Ammo<br>3 Laser Guns<br>3 Energy Guns"	
+	info = "4 Deployable Barriers<br>4 Portable Flashers<br>1 Mechanical Toolbox<br>2 Boxes of Spare Handcuffs<br>1 Box of Flashbangs<br>1 Box of Spare R.O.B.U.S.T. Cartridges<br>1 Tracking Implant Kit<br>1 Chemical Implant Kit<br>1 Box of Tear Gas Grenades<br>1 Explosive Ordnance Disposal Suit<br>1 Biohazard Suit<br>3 Gas Masks<br>1 Lockbox of Loyalty Implants<br>1 Ion Rifle<br>3 Sets of Riot Equipment<br>2 Sets of Security Hardsuits<br>1 Ablative Armor Vest<br>3 Bulletproof Vests<br>3 Helmets<br><br>2 Riot Shotguns<br>2 Boxes of Beanbag Shells<br>3 Laser Guns<br>3 Energy Guns<br>3 Advanced Tasers"	
 
 /obj/item/weapon/paper/firingrange
 	name = "paper- 'Firing Range Instructions'"	

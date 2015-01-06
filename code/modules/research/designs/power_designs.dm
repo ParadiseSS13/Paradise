@@ -10,8 +10,7 @@
 	build_type = PROTOLATHE | AUTOLATHE |MECHFAB
 	materials = list("$metal" = 700, "$glass" = 50)
 	build_path = /obj/item/weapon/cell
-	category = "Misc"
-	category = list("Misc","Power Designs","Power")
+	category = list("Misc","Power")
 
 /datum/design/high_cell
 	name = "High-Capacity Power Cell"
@@ -21,7 +20,7 @@
 	build_type = PROTOLATHE | AUTOLATHE | MECHFAB
 	materials = list("$metal" = 700, "$glass" = 60)
 	build_path = /obj/item/weapon/cell/high
-	category = list("Misc","Power Designs","Power")
+	category = list("Misc","Power")
 	
 /datum/design/hyper_cell
 	name = "Hyper-Capacity Power Cell"
@@ -32,7 +31,7 @@
 	build_type = PROTOLATHE | MECHFAB
 	materials = list("$metal" = 400, "$gold" = 150, "$silver" = 150, "$glass" = 70)
 	build_path = /obj/item/weapon/cell/hyper
-	category = list("Misc","Power Designs","Power")
+	category = list("Misc","Power")
 	
 /datum/design/super_cell
 	name = "Super-Capacity Power Cell"
@@ -43,10 +42,10 @@
 	build_type = PROTOLATHE | MECHFAB
 	materials = list("$metal" = 700, "$glass" = 70)
 	build_path = /obj/item/weapon/cell/super
-	category = list("Misc","Power Designs","Power")
+	category = list("Misc","Power")
 	
 /datum/design/pacman
-	name = "PACMAN-type Generator Board"
+	name = "Machien Board (PACMAN-type Generator)"
 	desc = "The circuit board that for a PACMAN-type portable generator."
 	id = "pacman"
 	req_tech = list("programming" = 3, "plasmatech" = 3, "powerstorage" = 3, "engineering" = 3)
@@ -57,7 +56,7 @@
 	category = list("Engineering Machinery")
 	
 /datum/design/mrspacman
-	name = "MRSPACMAN-type Generator Board"
+	name = "Machine Board (MRSPACMAN-type Generator)"
 	desc = "The circuit board that for a MRSPACMAN-type portable generator."
 	id = "mrspacman"
 	req_tech = list("programming" = 3, "powerstorage" = 5, "engineering" = 5)
@@ -68,7 +67,7 @@
 	category = list("Engineering Machinery")
 
 /datum/design/superpacman
-	name = "SUPERPACMAN-type Generator Board"
+	name = "Machine Board (SUPERPACMAN-type Generator)"
 	desc = "The circuit board that for a SUPERPACMAN-type portable generator."
 	id = "superpacman"
 	req_tech = list("programming" = 3, "powerstorage" = 4, "engineering" = 4)

@@ -174,7 +174,7 @@
 	category = list("Medical")
 
 /datum/design/synthetic_flash
-	name = "Flash"
+	name = "Synthetic Flash"
 	desc = "A synthetic flash used mostly in borg construction."
 	id = "sflash"
 	req_tech = list("magnets" = 3, "combat" = 2)

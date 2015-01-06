@@ -46,7 +46,7 @@ var/global/list/skin_styles_female_list = list()		//unused
 var/global/list/underwear_m = list("White", "Grey", "Green", "Blue", "Black", "Mankini", "None") //Curse whoever made male/female underwear diffrent colours
 var/global/list/underwear_f = list("Red", "White", "Yellow", "Blue", "Black", "Thong", "None")
 	//undershirt
-var/global/list/undershirt_t = list("Black Tank top", "White Tank top", "Black shirt", "White shirt", "None")
+var/global/list/undershirt_t = list("White Shirt", "White Tank top", "Black shirt", "Black Tank top", "Grey Shirt", "Grey tank top", "Lover Shirt", "Blue Ian Shirt", "UK Shirt","I Love NT Shirt", "Peace Shirt", "Band Shirt", "PogoMan Shirt", "Matroska Shirt", "White Short-sleeved shirt", "Purple Short-sleeved shirt", "Blue Short-sleeved shirt", "Green Short-sleeved shirt", "Black Short-Sleeved shirt", "Blue T-Shirt", "Red T-Shirt", "Yellow T-Shirt", "Green T-Shirt", "Blue Polo Shirt", "Red Polo Shirt", "White Polo Shirt", "Gray-Yellow Polo Shirt", "Green Sports Shirt", "Red Sports Shirt", "Blue Sports Shirt", "SS13 Shirt", "Fire Tank Top", "Question Shirt", "Skull Shirt", "Commie Shirt", "Nanotrasen Shirt", "Striped Shirt", "Blue Shirt", "Red Shirt", "Green Shirt", "Meat Shirt", "Tie-Dye Shirt", "Red Jersey", "Blue Jersey", "None")
 	//Backpacks
 var/global/list/backbaglist = list("Nothing", "Backpack", "Satchel", "Satchel Alt")
 

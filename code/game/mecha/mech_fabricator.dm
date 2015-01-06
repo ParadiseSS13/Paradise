@@ -122,7 +122,7 @@
 	return output
 
 /obj/machinery/mecha_part_fabricator/proc/output_part_info(datum/design/D)
-	var/output = "[initial(D.name)] (Cost: [output_part_cost(D)]) [get_construction_time_w_coeff(D)/10]sec"
+	var/output = "[initial(D.name)] (Cost: [output_part_cost(D)]) [get_construction_time_w_coeff(D)/10] seconds"
 	return output
 
 /obj/machinery/mecha_part_fabricator/proc/output_part_cost(datum/design/D)
