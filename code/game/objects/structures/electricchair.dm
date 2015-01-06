@@ -1,3 +1,4 @@
+
 /obj/structure/stool/bed/chair/e_chair
 	name = "electric chair"
 	desc = "Looks absolutely SHOCKING!"
@@ -27,7 +28,8 @@
 	set name = "Toggle Electric Chair"
 	set category = "Object"
 	set src in oview(1)
-
+	if(usr.stat || !usr.canmove || usr.restrained())
+		return
 	if(on)
 		on = 0
 		icon_state = "echair0"

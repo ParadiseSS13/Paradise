@@ -254,6 +254,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 		screen = 0.0
 		if(alert("Are you sure you want to maximize research levels?","Confirmation","Yes","No")=="No") 
 			return
+		log_admin("[key_name(usr)] has maximized the research levels.")
 		message_admins("[key_name_admin(usr)] has maximized the research levels.")
 		spawn(30)
 			Maximize()

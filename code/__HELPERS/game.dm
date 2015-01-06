@@ -351,6 +351,19 @@ proc/isInSight(var/atom/A, var/atom/B)
 						candidates += G.key
 		i++
 	return candidates	
+	
+/proc/get_vox_candidates()
+
+	var/list/candidates = list() //List of candidate KEYS to assume control of the new blob core ~Carn
+	var/i = 0
+	while(candidates.len <= 0 && i < 5)
+		for(var/mob/G in respawnable_list)
+			if( G.client && G.client.prefs.be_special & BE_VOX)
+				if(((G.client.inactivity/10)/60) <= ALIEN_SELECT_AFK_BUFFER + i) // the most active players are more likely to become an alien
+					if(!(G.mind && G.mind.current && G.mind.current.stat != DEAD))
+						candidates += G.key
+		i++
+	return candidates	
 
 /proc/get_slime_candidates()
 

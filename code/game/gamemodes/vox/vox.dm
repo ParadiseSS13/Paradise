@@ -94,7 +94,7 @@ datum/objective/vox/heist/loot
 			if(2)
 				target = /obj/machinery/the_singularitygen
 				target_amount = 1
-				loot = "a gravitational generator"
+				loot = "a gravitational singularity generator"
 			if(3)
 				target = /obj/machinery/power/emitter
 				target_amount = 4
@@ -216,7 +216,7 @@ datum/objective/vox/trade/trade
 			if(2)
 				target = /obj/machinery/the_singularitygen
 				target_amount = 1
-				loot = "a gravitational generator"
+				loot = "a gravitational singularity generator"
 			if(3)
 				target = /obj/machinery/power/emitter
 				target_amount = 4
