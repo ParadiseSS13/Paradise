@@ -255,7 +255,7 @@ datum/preferences
 			underwear_s = new/icon("icon" = 'icons/mob/human.dmi', "icon_state" = "underwear[underwear]_[g]_s")
 
 		var/icon/undershirt_s = null
-		if(undershirt > 0 && undershirt < 5 && current_species.flags & HAS_UNDERWEAR)
+		if(undershirt > 0 && undershirt < 45 && current_species.flags & HAS_UNDERWEAR)
 			undershirt_s = new/icon("icon" = 'icons/mob/human.dmi', "icon_state" = "undershirt[undershirt]_s")
 
 		var/icon/clothes_s = null
@@ -788,7 +788,7 @@ datum/preferences
 							clothes_s.Blend(new /icon('icons/mob/back.dmi', "satchel-norm"), ICON_OVERLAY)
 						if(4)
 							clothes_s.Blend(new /icon('icons/mob/back.dmi', "satchel"), ICON_OVERLAY)
-							
+
 		if(disabilities & NEARSIGHTED)
 			preview_icon.Blend(new /icon('icons/mob/eyes.dmi', "glasses"), ICON_OVERLAY)
 

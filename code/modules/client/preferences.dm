@@ -15,11 +15,11 @@ var/global/list/special_roles = list( //keep synced with the defines BE_* in set
 	"cultist" = IS_MODE_COMPILED("cult"),                // 8
 	"plant" = 1,										 // 9
 	"ninja" = "true",									 // 10
-	"vox" = IS_MODE_COMPILED("vox/heist") + IS_MODE_COMPILED("vox/trade"), // 11
+	"vox" = IS_MODE_COMPILED("vox/heist") + IS_MODE_COMPILED("vox/trader"),			 // 11
 	"slime" = 1,                                         // 12
 	"vampire" = IS_MODE_COMPILED("vampire"),			 // 13
 	"mutineer" = IS_MODE_COMPILED("mutiny"),             // 14
-	"blob" = IS_MODE_COMPILED("blob")         		     // 15	
+	"blob" = IS_MODE_COMPILED("blob")          		     // 15
 )
 
 var/const/MAX_SAVE_SLOTS = 10
@@ -78,6 +78,8 @@ datum/preferences
 	var/b_eyes = 0						//Eye color
 	var/species = "Human"
 	var/language = "None"				//Secondary language
+
+	var/speciesprefs = 0//I hate having to do this, I really do (Using this for oldvox code, making names universal I guess
 
 		//Mob preview
 	var/icon/preview_icon = null
@@ -182,10 +184,13 @@ datum/preferences
 				dat += "(<a href='?_src_=prefs;preference=all;task=random'>&reg;</A>)"
 				dat += "<br>"
 				dat += "Species: <a href='?_src_=prefs;preference=species;task=input'>[species]</a><br>"
+				if(species == "Vox")//oldvox code, sucks I know
+					dat += "Old vox? <a href='?_src_=prefs;preference=speciesprefs;task=input'>[speciesprefs ? "Yes(Big N2 tank)" : "No(Vox-special N2 tank)"]</a><br>"
 				dat += "Secondary Language:<br><a href='?_src_=prefs;preference=language;task=input'>[language]</a><br>"
 				dat += "Blood Type: <a href='?_src_=prefs;preference=b_type;task=input'>[b_type]</a><br>"
 				if(species == "Human")
 					dat += "Skin Tone: <a href='?_src_=prefs;preference=s_tone;task=input'>[-s_tone + 35]/220<br></a>"
+
 		//		dat += "Skin pattern: <a href='byond://?src=\ref[user];preference=skin_style;task=input'>Adjust</a><br>"
 				dat += "<br><b>Handicaps</b><br>"
 				dat += "\t<a href='?_src_=prefs;preference=disabilities'><b>\[Set Disabilities\]</b></a><br>"
@@ -1022,6 +1027,8 @@ datum/preferences
 							b_hair = 0//hex2num(copytext(new_hair, 6, 8))
 
 							s_tone = 0
+					if("speciesprefs")//oldvox code
+						speciesprefs = !speciesprefs
 
 					if("language")
 //						var/languages_available
