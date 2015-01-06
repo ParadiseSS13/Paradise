@@ -31,7 +31,6 @@
 		H.equip_or_collect(new /obj/item/device/pda/heads/hos(H), slot_wear_pda)
 		H.equip_or_collect(new /obj/item/clothing/gloves/black(H), slot_gloves)
 		H.equip_or_collect(new /obj/item/clothing/head/HoS(H), slot_head)
-//		H.equip_or_collect(new /obj/item/clothing/mask/gas(H), slot_wear_mask) //Grab one from the armory you donk
 		H.equip_or_collect(new /obj/item/clothing/glasses/sunglasses/sechud(H), slot_glasses)
 		H.equip_or_collect(new /obj/item/weapon/gun/energy/gun(H), slot_s_store)
 		if(H.backbag == 1)

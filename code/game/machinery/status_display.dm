@@ -1,4 +1,4 @@
-#define FONT_SIZE "5pt"
+#define FONT_SIZE "4pt"
 #define FONT_COLOR "#09f"
 #define FONT_STYLE "Arial Black"
 #define SCROLL_SPEED 2

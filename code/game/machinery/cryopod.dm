@@ -266,7 +266,15 @@ obj/machinery/computer/cryopod/Topic(href, href_list)
 			//Make an announcement and log the person entering storage.
 			frozen_crew += "[occupant.real_name]"
 
-			announce.autosay("[occupant.real_name] has entered long-term storage.", "Cryogenic Oversight")
+			var/ailist[] = list()
+			for (var/mob/living/silicon/ai/A in living_mob_list)
+				ailist += A
+			if (ailist.len)
+				var/mob/living/silicon/ai/announcer = pick(ailist)
+				announcer.say(";[occupant.real_name] has entered long-term storage.")
+			else
+				announce.autosay("[occupant.real_name] has entered long-term storage.", "Cryogenic Oversight")
+				
 			visible_message("\blue The crypod hums and hisses as it moves [occupant.real_name] into storage.", 3)
 
 			// Delete the mob.

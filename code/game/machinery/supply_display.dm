@@ -1,4 +1,5 @@
 /obj/machinery/status_display/supply_display
+	name = "supply status display"
 	ignore_friendc = 1
 
 /obj/machinery/status_display/supply_display/update()
@@ -31,4 +32,4 @@
 	if(signal.data["command"] == "supply")
 		mode = STATUS_DISPLAY_CUSTOM
 	else
-		..(signal)
+		return

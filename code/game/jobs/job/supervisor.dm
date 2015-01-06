@@ -262,6 +262,7 @@
 		H.equip_if_possible(new /obj/item/clothing/suit/judgerobe(H), slot_wear_suit)
 		H.equip_if_possible(new /obj/item/clothing/shoes/centcom(H), slot_shoes)
 		H.equip_or_collect(new /obj/item/clothing/head/powdered_wig(H), slot_head)
+		H.equip_or_collect(new /obj/item/clothing/glasses/sunglasses/sechud(H), slot_glasses)
 		H.equip_or_collect(new /obj/item/device/pda/heads/magistrate(H), slot_wear_pda)
 		var/obj/item/weapon/implant/loyalty/L = new/obj/item/weapon/implant/loyalty(H)
 		L.imp_in = H
