@@ -119,17 +119,10 @@
 		pluralcheck = " [deathtimeminutes] minutes and"
 	var/deathtimeseconds = round((deathtime - deathtimeminutes * 600) / 10,1)
 
-	if (deathtime < 6000 && joinedasobserver == 0)
-		if(istype(src,/mob/dead/observer))
-			var/mob/dead/observer/O = src	
-			if(O.started_as_observer == 0)
-				usr << "You have been dead for[pluralcheck] [deathtimeseconds] seconds."
-				usr << "You must wait 10 minutes to respawn as a drone!"
-				return			
-		else
-			usr << "You have been dead for[pluralcheck] [deathtimeseconds] seconds."
-			usr << "You must wait 10 minutes to respawn as a drone!"
-			return
+	if (deathtime < 6000 && joinedasobserver == 0)	
+		usr << "You have been dead for[pluralcheck] [deathtimeseconds] seconds."
+		usr << "You must wait 10 minutes to respawn as a drone!"
+		return
 
 	for(var/obj/machinery/drone_fabricator/DF in world)
 		if(DF.stat & NOPOWER || !DF.produce_drones)
