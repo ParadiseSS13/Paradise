@@ -58,7 +58,7 @@
 #undef DONATE
 
 /client/verb/hotkeys_help()
-	set name = "hotkeys-help"
+	set name = "Hotkeys Help"
 	set category = "OOC"
 
 	var/hotkey_mode = {"<font color='purple'>
