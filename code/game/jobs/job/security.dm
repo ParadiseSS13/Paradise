@@ -106,7 +106,7 @@
 	alt_titles = list("Forensic Technician")
 
 	access = list(access_security, access_sec_doors, access_forensics_lockers, access_morgue, access_maint_tunnels, access_court, access_weapons)
-	minimal_access = list(access_security, access_sec_doors, access_forensics_lockers, access_morgue, access_maint_tunnels, access_court, access_weapons)
+	minimal_access = list(access_sec_doors, access_forensics_lockers, access_morgue, access_maint_tunnels, access_court, access_weapons)
 	alt_titles = list("Forensic Technician")
 	minimal_player_age = 14
 	equip(var/mob/living/carbon/human/H)
@@ -138,6 +138,7 @@
 			H.equip_or_collect(new /obj/item/weapon/storage/box/survival(H.back), slot_in_backpack)
 			H.equip_or_collect(new /obj/item/weapon/storage/box/evidence(H), slot_in_backpack)
 			H.equip_or_collect(new /obj/item/device/detective_scanner(H), slot_in_backpack)
+			H.equip_or_collect(new /obj/item/weapon/melee/telebaton(H.back), slot_in_backpack)
 		var/obj/item/weapon/implant/loyalty/L = new/obj/item/weapon/implant/loyalty(H)
 		L.imp_in = H
 		L.implanted = 1
