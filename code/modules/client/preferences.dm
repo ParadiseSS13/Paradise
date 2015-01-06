@@ -15,11 +15,11 @@ var/global/list/special_roles = list( //keep synced with the defines BE_* in set
 	"cultist" = IS_MODE_COMPILED("cult"),                // 8
 	"plant" = 1,										 // 9
 	"ninja" = "true",									 // 10
-	"vox raider" = IS_MODE_COMPILED("heist"),			 // 11
+	"vox" = IS_MODE_COMPILED("vox/heist") + IS_MODE_COMPILED("vox/trade"), // 11
 	"slime" = 1,                                         // 12
 	"vampire" = IS_MODE_COMPILED("vampire"),			 // 13
 	"mutineer" = IS_MODE_COMPILED("mutiny"),             // 14
-	"blob" = IS_MODE_COMPILED("blob")          		     // 15	
+	"blob" = IS_MODE_COMPILED("blob")         		     // 15	
 )
 
 var/const/MAX_SAVE_SLOTS = 10
