@@ -305,12 +305,11 @@
 				if(user.get_inactive_hand() == src)
 					user.drop_from_inventory(src)
 
-				new /obj/effect/decal/cleanable/ash(src.loc)
+				new /obj/effect/decal/cleanable/ash(get_turf(src))
 				del(src)
 
 			else
 				user << "\red You must hold \the [P] steady to burn \the [src]."
-
 
 /obj/item/weapon/paper/Topic(href, href_list)
 	..()
