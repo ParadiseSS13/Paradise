@@ -974,6 +974,8 @@
 		/obj/item/weapon/reagent_containers/food/snacks/grown/tomato = list("tomatojuice" = 0),
 		/obj/item/weapon/reagent_containers/food/snacks/grown/carrot = list("carrotjuice" = 0),
 		/obj/item/weapon/reagent_containers/food/snacks/grown/berries = list("berryjuice" = 0),
+		/obj/item/weapon/reagent_containers/food/snacks/grown/grapes = list("berryjuice" = 0),
+		/obj/item/weapon/reagent_containers/food/snacks/grown/greengrapes = list("berryjuice" = 0),
 		/obj/item/weapon/reagent_containers/food/snacks/grown/banana = list("banana" = 0),
 		/obj/item/weapon/reagent_containers/food/snacks/grown/potato = list("potato" = 0),
 		/obj/item/weapon/reagent_containers/food/snacks/grown/lemon = list("lemonjuice" = 0),
