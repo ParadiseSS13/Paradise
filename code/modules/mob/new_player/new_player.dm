@@ -330,11 +330,23 @@
 
 	proc/AnnounceArrival(var/mob/living/carbon/human/character, var/rank)
 		if (ticker.current_state == GAME_STATE_PLAYING)
-			var/obj/item/device/radio/intercom/a = new /obj/item/device/radio/intercom(null)// BS12 EDIT Arrivals Announcement Computer, rather than the AI.
-			if(character.mind.role_alt_title)
-				rank = character.mind.role_alt_title
-			a.autosay("[character.real_name],[rank ? " [rank]," : " visitor," ] has arrived on the station.", "Arrivals Announcement Computer")
-			del(a)
+			var/ailist[] = list()
+			for (var/mob/living/silicon/ai/A in living_mob_list)
+				ailist += A
+			if (ailist.len)
+				var/mob/living/silicon/ai/announcer = pick(ailist)
+				if(character.mind)
+					if((character.mind.assigned_role != "Cyborg") && (character.mind.special_role != "MODE"))
+						var/arrivalmessage = announcer.arrivalmsg
+						arrivalmessage = replacetext(arrivalmessage,"$name",character.real_name)
+						arrivalmessage = replacetext(arrivalmessage,"$rank",rank ? "[rank]" : "visitor")
+						announcer.say(";[arrivalmessage]")
+			else
+				var/obj/item/device/radio/intercom/a = new /obj/item/device/radio/intercom(null)// BS12 EDIT Arrivals Announcement Computer, rather than the AI.
+				if(character.mind.role_alt_title)
+					rank = character.mind.role_alt_title
+				a.autosay("[character.real_name],[rank ? " [rank]," : " visitor," ] has arrived on the station.", "Arrivals Announcement Computer")
+				del(a)				
 
 	proc/LateChoices()
 		var/mills = world.time // 1/10 of a second, not real milliseconds but whatever

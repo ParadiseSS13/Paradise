@@ -6,6 +6,7 @@
 	desc = "It's good to be emperor."
 	flags = FPRINT|TABLEPASS
 	item_state = "centhat"
+	armor = list(melee = 50, bullet = 15, laser = 50, energy = 10, bomb = 25, bio = 0, rad = 0)
 	siemens_coefficient = 0.9
 
 /obj/item/clothing/head/hairflower
@@ -277,7 +278,7 @@
 	icon_state = "crown"
 	item_state = "crown"
 	desc = "A gliterring bananium crown with spessjewels in it. Swaggy."
-	flags = FPRINT | TABLEPASS | BLOCKHAIR
+	flags = FPRINT | TABLEPASS
 
 
 /obj/item/clothing/head/fedora
@@ -323,7 +324,7 @@
 	icon_state = "purpleberet"
 	item_state = "purpleberet"
 	flags = FPRINT | TABLEPASS
-	
+
 /obj/item/clothing/head/beret/centcom/officer
 	name = "officers beret"
 	desc = "A black beret adorned with the shield—a silver kite shield with an engraved sword—of the Nanotrasen security forces, announcing to the world that the wearer is a defender of Nanotrasen."
@@ -335,3 +336,22 @@
 	desc = "A white beret adorned with the shield—a cobalt kite shield with an engraved sword—of the Nanotrasen security forces, worn only by those captaining a vessel of the Nanotrasen Navy."
 	icon_state = "centcomcaptain"
 	flags = FPRINT | TABLEPASS
+
+/obj/item/clothing/head/sombrero
+	name = "sombrero"
+	icon_state = "sombrero"
+	item_state = "sombrero"
+	desc = "You can practically taste the fiesta."
+
+/obj/item/clothing/head/sombrero/green
+	name = "green sombrero"
+	icon_state = "greensombrero"
+	item_state = "greensombrero"
+	desc = "As elegant as a dancing cactus."
+
+/obj/item/clothing/head/sombrero/shamebrero
+	name = "shamebrero"
+	icon_state = "shamebrero"
+	item_state = "shamebrero"
+	desc = "Once it's on, it never comes off."
+	canremove = 0

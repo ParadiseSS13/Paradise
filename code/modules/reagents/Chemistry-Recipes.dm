@@ -4,8 +4,8 @@ datum
 		var/name = null
 		var/id = null
 		var/result = null
-		var/list/required_reagents = new/list()
-		var/list/required_catalysts = new/list()
+		var/list/required_reagents = list()
+		var/list/required_catalysts = list()
 
 		// Both of these variables are mostly going to be used with slime cores - but if you want to, you can use them for other things
 		var/atom/required_container = null // the container required for the reaction to happen
@@ -402,7 +402,7 @@ datum
 
 							flick("e_flash", M.flash)
 							M.Stun(5)
-/*
+
 		napalm
 			name = "Napalm"
 			id = "napalm"
@@ -425,7 +425,7 @@ datum
 					spawn (0) target_tile.hotspot_expose(700, 400)
 				holder.del_reagent("napalm")
 				return
-*/
+
 		/*
 		smoke
 			name = "Smoke"

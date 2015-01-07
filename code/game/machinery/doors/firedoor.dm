@@ -56,7 +56,7 @@
 	desc = "Emergency air-tight shutter, capable of sealing off breached areas."
 	icon = 'icons/obj/doors/DoorHazard.dmi'
 	icon_state = "door_open"
-	req_one_access = list(access_atmospherics, access_engine_equip)
+	req_one_access = list(access_atmospherics, access_engine)
 	opacity = 0
 	density = 0
 
@@ -132,9 +132,9 @@
 			o += "<span class='warning'>"
 		else
 			o += "<span style='color:blue'>"
-		o += "[celsius]Celsius</span> "
+		o += "[celsius] Celsius</span> "
 		o += "<span style='color:blue'>"
-		o += "[pressure]kPa</span></li>"
+		o += "[pressure] kPa</span></li>"
 		usr << o
 
 	if( islist(users_to_open) && users_to_open.len)
@@ -468,7 +468,3 @@
 /obj/machinery/door/firedoor/multi_tile/triple
 	icon = 'icons/obj/doors/DoorHazard3x1.dmi'
 	width = 3
-
-//used in the AStar algorithm to determinate if the turf the door is on is passable
-/obj/machinery/door/firedoor/CanAStarPass()
-	return !density

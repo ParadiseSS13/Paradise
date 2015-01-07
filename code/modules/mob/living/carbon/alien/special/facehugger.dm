@@ -8,315 +8,248 @@ var/const/MAX_IMPREGNATION_TIME = 150
 var/const/MIN_ACTIVE_TIME = 200 //time between being dropped and going idle
 var/const/MAX_ACTIVE_TIME = 400
 
-/obj/item/weapon/holder/facehugger
-	name = "facehugger"
+/obj/item/clothing/mask/facehugger
+	name = "alien"
 	desc = "It has some sort of a tube at the end of its tail."
 	icon = 'icons/mob/alien.dmi'
 	icon_state = "facehugger"
 	item_state = "facehugger"
-	origin_tech = "magnets=3;biotech=5"
-	w_class = 1
-	flags = FPRINT | TABLEPASS | MASKCOVERSMOUTH | MASKCOVERSEYES | MASKINTERNALS
-	body_parts_covered = HEAD
-	slot_flags = SLOT_MASK
+	w_class = 1 //note: can be picked up by aliens unlike most other items of w_class below 4
+	flags = MASKCOVERSMOUTH | MASKCOVERSEYES | MASKINTERNALS
+	throw_range = 5
 
-/*
-/obj/item/weapon/holder/facehugger/throw_at(atom/target, range, speed)
+	var/stat = CONSCIOUS //UNCONSCIOUS is the idle state in this case
+
+	var/sterile = 0
+	var/real = 1 //0 for the toy, 1 for real. Sure I could istype, but fuck that.
+	var/strength = 5
+
+	var/attached = 0
+
+/obj/item/clothing/mask/facehugger/attack_alien(user as mob) //can be picked up by aliens
+	attack_hand(user)
+	return
+
+/obj/item/clothing/mask/facehugger/attack_hand(user as mob)
+	if((stat == CONSCIOUS && !sterile) && !isalien(user))
+		Attach(user)
+		return
+	else
+		..()
+		return
+
+/obj/item/clothing/mask/facehugger/attack(mob/living/M as mob, mob/user as mob)
 	..()
-	icon_state = "[initial(icon_state)]_thrown"
-	spawn(15)
-		if(icon_state == "[initial(icon_state)]_thrown")
-			icon_state = "[initial(icon_state)]"
+	user.before_take_item(src)
+	Attach(M)
 
+/obj/item/clothing/mask/facehugger/examine(mob/user)
+	..()
+	if(!real)//So that giant red text about probisci doesn't show up.
+		return
+	switch(stat)
+		if(DEAD,UNCONSCIOUS)
+			user << "<span class='userdanger'>[src] is not moving.</span>"
+		if(CONSCIOUS)
+			user << "<span class='userdanger'>[src] seems to be active!</span>"
+	if (sterile)
+		user << "<span class='userdanger'>It looks like the proboscis has been removed.</span>"
 
-/obj/item/weapon/holder/facehugger/throw_impact(atom/hit_atom)
+/obj/item/clothing/mask/facehugger/attackby(var/obj/item/O,var/mob/m)
+	if(O.force)
+		Die()
+	return
+
+/obj/item/clothing/mask/facehugger/bullet_act(var/obj/item/projectile/P)
+	if(P.damage)
+		Die()
+	return
+
+/obj/item/clothing/mask/facehugger/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume)
+	if(exposed_temperature > 300)
+		Die()
+	return
+
+/obj/item/clothing/mask/facehugger/equipped(mob/M)
+	Attach(M)
+
+/obj/item/clothing/mask/facehugger/Crossed(atom/target)
+	HasProximity(target)
+	return
+
+/obj/item/clothing/mask/facehugger/on_found(mob/finder as mob)
+	if(stat == CONSCIOUS)
+		return HasProximity(finder)
+	return 0
+
+/obj/item/clothing/mask/facehugger/HasProximity(atom/movable/AM as mob|obj)
+	if(CanHug(AM))
+		return Attach(AM)
+	return 0
+
+/obj/item/clothing/mask/facehugger/throw_at(atom/target, range, speed)
+	if(!..())
+		return
+	if(stat == CONSCIOUS)
+		icon_state = "[initial(icon_state)]_thrown"
+		spawn(15)
+			if(icon_state == "[initial(icon_state)]_thrown")
+				icon_state = "[initial(icon_state)]"
+
+/obj/item/clothing/mask/facehugger/throw_impact(atom/hit_atom)
 	..()
 	if(stat == CONSCIOUS)
 		icon_state = "[initial(icon_state)]"
 		Attach(hit_atom)
-*/
 
-
-/mob/living/carbon/alien/facehugger
-	name = "alien facehugger"
-	desc = "It has some sort of a tube at the end of its tail."
-	icon = 'icons/mob/alien.dmi'
-	icon_state = "facehugger"
-	flags = FPRINT | TABLEPASS
-	throw_range = 5
-
-	maxHealth = 5
-	health = 5
-	density = 0 // Avoiding Facehugger clusterfucks at the egg room.
-	var/strength=5
-	var/sterile = 0
-	var/attached = 0
-	var/icon_dead = "facehugger_dead"
-
-/mob/living/carbon/alien/facehugger/New()
-	if(aliens_allowed)
-//		if(name == "alien facehugger")
-//			name = "alien facehugger ([rand(1, 1000)])"
-		real_name = name
-		regenerate_icons()
-		..()
-	else
-		del(src)
-
-/mob/living/carbon/alien/facehugger/attack_hand(mob/living/carbon/M as mob)
-
-	//Let people pick the little buggers up.
-	if(istype(M,/mob/living/carbon/alien/humanoid))
-		var/mob/living/carbon/alien/humanoid/H = M
-		if(H.a_intent == "help")
-			var/obj/item/weapon/holder/facehugger/F = new(loc)
-			src.loc = F
-			F.name = loc.name
-			F.attack_hand(H)
-			H << "You scoop up [src]."
-			src << "[H] scoops you up."
-			return
-	else if(istype(M,/mob/living/carbon/human))
-		if(stat == CONSCIOUS && !sterile)
-			Attach(M)
-			return
-		else
-			..()
-			return
-	..()
-
-/mob/living/carbon/alien/facehugger/UnarmedAttack(var/atom/A)
-	return
-
-/mob/living/carbon/alien/facehugger/examine()
-	..()
-	switch(stat)
-		if(DEAD,UNCONSCIOUS)
-			usr << "\red \b [src] is not moving."
-		if(CONSCIOUS)
-			usr << "\red \b [src] seems to be active."
-	if (sterile)
-		usr << "\red \b It looks like the proboscis has been removed."
-	return
-
-/mob/living/carbon/alien/facehugger/verb/hide()
-	set name = "Hide"
-	set desc = "Allows to hide beneath tables or certain items. Toggled on or off."
-	set category = "Alien"
-
-	if(stat != CONSCIOUS)
-		return
-
-	if (layer != TURF_LAYER+0.2)
-		layer = TURF_LAYER+0.2
-		src << text("\green You are now hiding.")
-		for(var/mob/O in oviewers(src, null))
-			if ((O.client && !( O.blinded )))
-				O << text("<B>[] scurries to the ground!</B>", src)
-	else
-		layer = MOB_LAYER
-		src << text("\green You have stopped hiding.")
-		for(var/mob/O in oviewers(src, null))
-			if ((O.client && !( O.blinded )))
-				O << text("[] slowly peaks up from the ground...", src)
-
-
-/mob/living/carbon/alien/facehugger/verb/Attach()
-	set name = "Facehug"
-	set desc = "Allows you to molest someone's mouth-hole in the hope of impregnating them with an embryo."
-	set category = "Alien"
-
-	var/list/choices = list()
-	for(var/mob/living/L in view(1,src))
-		if(L.stat != 2 && !istype(L,/mob/living/carbon/alien) && src.Adjacent(L))
-			choices += L
-
-	var/mob/living/M = pick(choices)
-
-	if(!M || !src) return
-
-	if(!(src.Adjacent(M))) return
-
+/obj/item/clothing/mask/facehugger/proc/Attach(M as mob)
 	if( (!iscorgi(M) && !iscarbon(M)) || isalien(M))
-		return
+		return 0
 	if(attached)
-		return
+		return 0
+	else
+		attached++
+		spawn(MAX_IMPREGNATION_TIME)
+			attached = 0
 
-	attached++
-	spawn(MAX_IMPREGNATION_TIME)
-		attached = 0
+	var/mob/living/L = M //just so I don't need to use :
 
-	if(loc == M) return
-	if(stat != CONSCIOUS)	return
-	if(!sterile) M.take_organ_damage(strength,0) //done here so that even borgs and humans in helmets take damage
+	if(loc == L) return 0
+	if(stat != CONSCIOUS)	return 0
+	if(locate(/obj/item/alien_embryo) in L) return 0
+	if(!sterile) L.take_organ_damage(strength,0) //done here so that even borgs and humans in helmets take damage
 
-	M.visible_message("\red \b [src] leaps at [M]'s face!")
+	L.visible_message("<span class='userdanger'>[src] leaps at [L]'s face!</span>")
 
-	if(ishuman(M))
-		var/mob/living/carbon/human/H = M
+	if(ishuman(L))
+		var/mob/living/carbon/human/H = L
 		if(H.head && H.head.flags & HEADCOVERSMOUTH)
-			H.visible_message("\red \b [src] smashes against [H]'s [H.head]!")
-			death()
-			return
+			H.visible_message("<span class='userdanger'>[src] smashes against [H]'s [H.head]!</span>")
+			Die()
+			return 0
 
 	if(iscarbon(M))
-		var/mob/living/carbon/target = M
-
+		var/mob/living/carbon/target = L
 		if(target.wear_mask)
-			if(prob(20))	return
+			if(prob(20))	return 0
 			var/obj/item/clothing/W = target.wear_mask
-			if(!W.canremove)	return
-			target.drop_from_inventory(W)
+			target.before_take_item(W)
 
-			target.visible_message("\red \b [src] tears [W] off of [target]'s face!")
+			target.visible_message("<span class='danger'>[src] tears [W] off of [target]'s face!</span>", \
+									"<span class='userdanger'>[src] tears [W] off of [target]'s face!</span>")
 
-		var/obj/item/weapon/holder/facehugger/FH = new(loc)
-		src.loc = FH
-		FH.name = loc.name
-		target.equip_to_slot(FH, slot_wear_mask)
-		target.regenerate_icons()
+		src.loc = target
+		target.equip_to_slot(src, slot_wear_mask,,0)
 
-		if(!sterile) M.Paralyse(MAX_IMPREGNATION_TIME/6) //something like 25 ticks = 20 seconds with the default settings
-
+		if(!sterile) L.Paralyse(MAX_IMPREGNATION_TIME/6) //something like 25 ticks = 20 seconds with the default settings
 	else if (iscorgi(M))
 		var/mob/living/simple_animal/corgi/C = M
-		var/obj/item/weapon/holder/facehugger/FH = new(loc)
-		src.loc = FH
-		FH.name = loc.name
-		FH.loc = C
-		C.facehugger = FH
-		C.wear_mask = FH
-		C.regenerate_icons()
+		loc = C
+		C.facehugger = src
 
+	GoIdle() //so it doesn't jump the people that tear it off
 
 	spawn(rand(MIN_IMPREGNATION_TIME,MAX_IMPREGNATION_TIME))
-		Impregnate(M)
+		Impregnate(L)
 
-	return
+	return 1
 
-/mob/living/carbon/alien/facehugger/proc/Impregnate(mob/living/target as mob)
-	if(!target || !target.wear_mask || (!src in target.wear_mask.contents)  || target.stat == DEAD || target.status_flags & XENO_HOST) //was taken off or something
+/obj/item/clothing/mask/facehugger/proc/Impregnate(mob/living/target as mob)
+	if(!target || target.stat == DEAD) //was taken off or something
 		return
+
+	if(iscarbon(target))
+		var/mob/living/carbon/C = target
+		if(C.wear_mask != src)
+			return
+			
+	if(ishuman(target))
+		var/mob/living/carbon/human/H = target
+		if((H.species.flags & IS_SYNTHETIC))
+			return
 
 	if(!sterile)
 		//target.contract_disease(new /datum/disease/alien_embryo(0)) //so infection chance is same as virus infection chance
-		var/mob/living/carbon/alien/embryo/A = new /mob/living/carbon/alien/embryo(target)
-		target.status_flags |= XENO_HOST
+		target.visible_message("<span class='danger'>[src] falls limp after violating [target]'s face!</span>", \
+								"<span class='userdanger'>[src] falls limp after violating [target]'s face!</span>")
 
-		loc = get_turf(target.loc)
-		death()
+		Die()
 		icon_state = "[initial(icon_state)]_impregnated"
 
-		target.visible_message("\red \b [src] falls limp after violating [target]'s face!")
-		A.key = src.key
+		if(!(target.status_flags & XENO_HOST))
+			new /obj/item/alien_embryo(target)
+
 
 		if(iscorgi(target))
 			var/mob/living/simple_animal/corgi/C = target
 			src.loc = get_turf(C)
 			C.facehugger = null
 	else
-		target.visible_message("\red \b [src] violates [target]'s face!")
+		target.visible_message("<span class='danger'>[src] violates [target]'s face!</span>", \
+								"<span class='userdanger'>[src] violates [target]'s face!</span>")
 	return
 
+/obj/item/clothing/mask/facehugger/proc/GoActive()
+	if(stat == DEAD || stat == CONSCIOUS)
+		return
+
+	stat = CONSCIOUS
+	icon_state = "[initial(icon_state)]"
+
+/*		for(var/mob/living/carbon/alien/alien in world)
+		var/image/activeIndicator = image('icons/mob/alien.dmi', loc = src, icon_state = "facehugger_active")
+		activeIndicator.override = 1
+		if(alien && alien.client)
+			alien.client.images += activeIndicator	*/
+
+	return
+
+/obj/item/clothing/mask/facehugger/proc/GoIdle()
+	if(stat == DEAD || stat == UNCONSCIOUS)
+		return
+
+/*		RemoveActiveIndicators()	*/
+
+	stat = UNCONSCIOUS
+	icon_state = "[initial(icon_state)]_inactive"
+
+	spawn(rand(MIN_ACTIVE_TIME,MAX_ACTIVE_TIME))
+		GoActive()
+	return
+
+/obj/item/clothing/mask/facehugger/proc/Die()
+	if(stat == DEAD)
+		return
+
+/*		RemoveActiveIndicators()	*/
+
+	icon_state = "[initial(icon_state)]_dead"
+	stat = DEAD
+
+	src.visible_message("<span class='userdanger'>[src] curls up into a ball!</span>")
+
+	return
 
 /proc/CanHug(var/mob/M)
+	if(M.stat == DEAD)
+		return 0
 
-	if(iscorgi(M))
+	if(iscorgi(M) || ismonkey(M))
 		return 1
 
-	if(!iscarbon(M) || isalien(M))
-		return 0
 	var/mob/living/carbon/C = M
 	if(ishuman(C))
 		var/mob/living/carbon/human/H = C
 		if(H.head && H.head.flags & HEADCOVERSMOUTH)
 			return 0
-	return 1
+		return 1
+	return 0
 
-/mob/living/carbon/alien/facehugger/Login()
-	..()
-	sleeping = 0
+/obj/item/clothing/mask/facehugger/lamarr
+	name = "Lamarr"
+	desc = "The worst she might do is attempt to... couple with your head."//hope we don't get sued over a harmless reference, rite?
+	sterile = 1
+	gender = FEMALE
 
-/mob/living/carbon/alien/facehugger/death(gibbed)
-	icon_state = icon_dead
-	return ..(gibbed)
-
-/mob/living/carbon/alien/facehugger/Life()
-	..()
-	//Status updates, death etc.
-	handle_regular_status_updates()
-
-/mob/living/carbon/alien/facehugger/proc/handle_regular_status_updates()
-	updatehealth()
-
-	if(stat == DEAD)	//DEAD. BROWN BREAD. SWIMMING WITH THE SPESS CARP
-		blinded = 1
-		silent = 0
-	else				//ALIVE. LIGHTS ARE ON
-		if(health <= 0 || brain_op_stage == 4.0)
-			death()
-			blinded = 1
-			silent = 0
-			return 1
-
-		//UNCONSCIOUS. NO-ONE IS HOME
-		if( (getOxyLoss() > 5) || (0 > health) )
-			//if( health <= 20 && prob(1) )
-			//	spawn(0)
-			//		emote("gasp")
-			if(!reagents.has_reagent("inaprovaline"))
-				adjustOxyLoss(1)
-			Paralyse(3)
-
-		if(paralysis)
-			AdjustParalysis(-2)
-			blinded = 1
-			stat = UNCONSCIOUS
-		else if(sleeping)
-			sleeping = max(sleeping-1, 0)
-			blinded = 1
-			stat = UNCONSCIOUS
-			if( prob(10) && health )
-				spawn(0)
-					emote("hiss_")
-		//CONSCIOUS
-		else
-			stat = CONSCIOUS
-
-		/*	What in the living hell is this?*/
-		if(move_delay_add > 0)
-			move_delay_add = max(0, move_delay_add - rand(1, 2))
-
-		//Eyes
-		if(sdisabilities & BLIND)	//disabled-blind, doesn't get better on its own
-			blinded = 1
-		else if(eye_blind)			//blindness, heals slowly over time
-			eye_blind = max(eye_blind-1,0)
-			blinded = 1
-		else if(eye_blurry)	//blurry eyes heal slowly
-			eye_blurry = max(eye_blurry-1, 0)
-
-		//Ears
-		if(sdisabilities & DEAF)	//disabled-deaf, doesn't get better on its own
-			ear_deaf = max(ear_deaf, 1)
-		else if(ear_deaf)			//deafness, heals slowly over time
-			ear_deaf = max(ear_deaf-1, 0)
-		else if(ear_damage < 5)	//ear damage heals slowly under this threshold.
-			ear_damage = max(ear_damage-0.05, 0)
-
-		//Other
-		if(stunned)
-			AdjustStunned(-1)
-
-		if(weakened)
-			weakened = max(weakened-1,0)	//before you get mad Rockdtben: I done this so update_canmove isn't called multiple times
-
-		if(stuttering)
-			stuttering = max(stuttering-1, 0)
-
-		if(silent)
-			silent = max(silent-1, 0)
-
-		if(druggy)
-			druggy = max(druggy-1, 0)
-	return 1
+/obj/item/clothing/mask/facehugger/lamarr/New()//to prevent deleting it if aliums are disabled
+	return	

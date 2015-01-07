@@ -97,6 +97,7 @@
 	var/global/list/status_overlays_equipment
 	var/global/list/status_overlays_lighting
 	var/global/list/status_overlays_environ
+	var/indestructible = 0 // If set, prevents aliens from destroying it
 
 /obj/machinery/power/apc/updateDialog()
 	if (stat & (BROKEN|MAINT))
@@ -667,6 +668,8 @@
 		return
 	if(!istype(user,/mob/living/carbon/alien/humanoid))
 		return
+	if(indestructible)
+		return
 	user.visible_message("\red [user.name] slashes at the [src.name]!", "\blue You slash at the [src.name]!")
 	playsound(src.loc, 'sound/weapons/slash.ogg', 100, 1)
 
@@ -1098,7 +1101,6 @@
 			if( (cell_charge/CELLRATE+perapc) >= lastused_total)		// can we draw enough from cell+grid to cover last usage?
 
 				cell_charge = min(cell_maxcharge, cell_charge + CELLRATE * perapc)	//recharge with what we can
-				cell.charge = cell_charge
 				add_load(perapc)		// so draw what we can from the grid
 				charging = 0
 

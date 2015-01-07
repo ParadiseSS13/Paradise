@@ -167,6 +167,10 @@ obj/item/weapon/wirerod/attackby(var/obj/item/I, mob/user as mob)
 	..()
 	if(istype(I, /obj/item/weapon/shard))
 		var/obj/item/weapon/twohanded/spear/S = new /obj/item/weapon/twohanded/spear
+
+		user.u_equip(I)
+		user.u_equip(src)
+
 		user.put_in_hands(S)
 		user << "<span class='notice'>You fasten the glass shard to the top of the rod with the cable.</span>"
 		del(I)
@@ -174,6 +178,10 @@ obj/item/weapon/wirerod/attackby(var/obj/item/I, mob/user as mob)
 
 	else if(istype(I, /obj/item/weapon/wirecutters))
 		var/obj/item/weapon/melee/baton/cattleprod/P = new /obj/item/weapon/melee/baton/cattleprod
+
+		user.u_equip(I)
+		user.u_equip(src)
+
 		user.put_in_hands(P)
 		user << "<span class='notice'>You fasten the wirecutters to the top of the rod with the cable, prongs outward.</span>"
 		del(I)

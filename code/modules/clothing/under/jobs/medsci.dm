@@ -7,7 +7,7 @@
 	icon_state = "director"
 	item_state = "g_suit"
 	_color = "director"
-	armor = list(melee = 0, bullet = 0, laser = 0,energy = 0, bomb = 0, bio = 10, rad = 0)
+	armor = list(melee = 0, bullet = 0, laser = 0,energy = 0, bomb = 10, bio = 10, rad = 0)
 	flags = FPRINT | TABLEPASS | ONESIZEFITSALL
 	species_fit = list("Vox")
 	sprite_sheets = list(
@@ -177,7 +177,7 @@
 		)
 
 /obj/item/clothing/under/rank/medical/mortician
-	name = "mortician's scrubs"
+	name = "coroner's scrubs"
 	desc = "It's made of a special fiber that provides minor protection against biohazards. This one is as dark as an emo's poetry."
 	icon_state = "scrubsblack"
 	_color = "scrubsblack"

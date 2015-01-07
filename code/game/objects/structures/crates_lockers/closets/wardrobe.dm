@@ -68,6 +68,8 @@
 	new /obj/item/clothing/under/color/black(src)
 	new /obj/item/clothing/under/color/black(src)
 	new /obj/item/clothing/under/color/black(src)
+	if(prob(25))
+		new /obj/item/clothing/suit/jacket/leather(src)
 	new /obj/item/clothing/shoes/black(src)
 	new /obj/item/clothing/shoes/black(src)
 	new /obj/item/clothing/shoes/black(src)
@@ -217,6 +219,27 @@
 	new /obj/item/clothing/shoes/white(src)
 	return
 
+/obj/structure/closet/wardrobe/white/medical
+	name = "medical doctor's wardrobe"
+
+/obj/structure/closet/wardrobe/white/medical/New()
+	new /obj/item/clothing/under/rank/nursesuit (src)
+	new /obj/item/clothing/head/nursehat (src)
+	new /obj/item/clothing/under/rank/nurse(src)
+	new /obj/item/clothing/under/rank/orderly(src)
+	new /obj/item/clothing/suit/storage/fr_jacket(src)
+	new /obj/item/clothing/suit/storage/fr_jacket(src)
+	new /obj/item/clothing/suit/storage/fr_jacket(src)
+	new /obj/item/clothing/under/rank/medical/blue(src)
+	new /obj/item/clothing/head/surgery/blue(src)
+	new /obj/item/clothing/under/rank/medical/green(src)
+	new /obj/item/clothing/head/surgery/green(src)
+	new /obj/item/clothing/under/rank/medical/purple(src)
+	new /obj/item/clothing/head/surgery/purple(src)
+	new /obj/item/clothing/shoes/black(src)
+	new /obj/item/clothing/shoes/black(src)
+	new /obj/item/clothing/shoes/black(src)
+	return
 
 /obj/structure/closet/wardrobe/pjs
 	name = "Pajama wardrobe"

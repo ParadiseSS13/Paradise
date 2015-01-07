@@ -5,7 +5,7 @@
 	item_state = "labcoat"
 	blood_overlay_type = "coat"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
-	allowed = list(/obj/item/device/analyzer,/obj/item/stack/medical,/obj/item/weapon/dnainjector,/obj/item/weapon/reagent_containers/dropper,/obj/item/weapon/reagent_containers/syringe,/obj/item/weapon/reagent_containers/hypospray,/obj/item/device/healthanalyzer,/obj/item/device/flashlight/pen)
+	allowed = list(/obj/item/device/analyzer,/obj/item/stack/medical,/obj/item/weapon/dnainjector,/obj/item/weapon/reagent_containers/dropper,/obj/item/weapon/reagent_containers/syringe,/obj/item/weapon/reagent_containers/hypospray,/obj/item/device/healthanalyzer,/obj/item/device/flashlight/pen,/obj/item/weapon/reagent_containers/glass/bottle,/obj/item/weapon/reagent_containers/glass/beaker,/obj/item/weapon/reagent_containers/pill,/obj/item/weapon/storage/pill_bottle,/obj/item/weapon/paper)
 	armor = list(melee = 0, bullet = 0, laser = 0,energy = 0, bomb = 0, bio = 50, rad = 0)
 	species_fit = list("Vox")
 	sprite_sheets = list(
@@ -85,10 +85,10 @@
 		)
 
 /obj/item/clothing/suit/storage/labcoat/mad
-	name = "The Mad's labcoat"
+	name = "The Mad Scientist's labcoat"
 	desc = "It makes you look capable of konking someone on the noggin and shooting them into space."
-	icon_state = "labgreen_open"
-	item_state = "labgreen"
+	icon_state = "labcoat_green_open"
+	item_state = "labcoat_green"
 	species_fit = list("Vox")
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/suit.dmi'
@@ -116,7 +116,6 @@
 	name = "Virologist Labcoat"
 	desc = "A suit that protects against minor chemical spills. Offers slightly more protection against biohazards than the standard model. Has a green stripe on the shoulder."
 	icon_state = "labcoat_vir_open"
-	armor = list(melee = 0, bullet = 0, laser = 0,energy = 0, bomb = 0, bio = 60, rad = 0)
 	species_fit = list("Vox")
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/suit.dmi'
@@ -130,9 +129,9 @@
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/suit.dmi'
 		)
-		
+
 /obj/item/clothing/suit/storage/labcoat/mortician
-	name = "Mortician Labcoat"
+	name = "Coroner Labcoat"
 	desc = "A suit that protects against minor chemical spills. Has a black stripe on the shoulder."
 	icon_state = "labcoat_mort_open"
 	species_fit = list("Vox")

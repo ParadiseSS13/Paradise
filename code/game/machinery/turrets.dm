@@ -190,6 +190,13 @@
 						targeting_active = 1
 						target()
 						targeting_active = 0
+
+		if(prob(15))
+			if(prob(50))
+				playsound(get_turf(src), 'sound/effects/turret/move1.wav', 60, 1)
+			else
+				playsound(get_turf(src), 'sound/effects/turret/move2.wav', 60, 1)
+
 	else if(!isPopping())//else, pop down
 		if(!isDown())
 			popDown()
@@ -229,6 +236,10 @@
 	else
 		A = new /obj/item/projectile/energy/electrode( loc )
 		use_power(200)
+	if(src.lasers)
+		playsound(get_turf(src), 'sound/weapons/Laser.ogg', 60, 1)
+	else
+		playsound(get_turf(src), 'sound/weapons/Taser.ogg', 60, 1)
 	A.current = T
 	A.yo = U.y - T.y
 	A.xo = U.x - T.x
@@ -244,6 +255,7 @@
 	if ((!isPopping()) || src.popping==-1)
 		invisibility = 0
 		popping = 1
+		playsound(get_turf(src), 'sound/effects/turret/open.wav', 60, 1)
 		if (src.cover!=null)
 			flick("popup", src.cover)
 			src.cover.icon_state = "openTurretCover"
@@ -253,6 +265,7 @@
 /obj/machinery/turret/proc/popDown()
 	if ((!isPopping()) || src.popping==1)
 		popping = -1
+		playsound(get_turf(src), 'sound/effects/turret/open.wav', 60, 1)
 		if (src.cover!=null)
 			flick("popdown", src.cover)
 			src.cover.icon_state = "turretCover"
@@ -272,7 +285,7 @@
 
 /obj/machinery/turret/attackby(obj/item/weapon/W, mob/user)//I can't believe no one added this before/N
 	..()
-	playsound(src.loc, 'sound/weapons/smash.ogg', 60, 1)
+	playsound(get_turf(src), 'sound/weapons/smash.ogg', 60, 1)
 	src.spark_system.start()
 	src.health -= W.force * 0.5
 	if (src.health <= 0)
@@ -422,7 +435,7 @@
 
 /obj/machinery/turret/attack_alien(mob/living/carbon/alien/humanoid/M as mob)
 	if(!(stat & BROKEN))
-		playsound(src.loc, 'sound/weapons/slash.ogg', 25, 1, -1)
+		playsound(get_turf(src), 'sound/weapons/slash.ogg', 25, 1, -1)
 		visible_message("\red <B>[] has slashed at []!</B>", M, src)
 		src.health -= 15
 		if (src.health <= 0)
@@ -474,14 +487,15 @@
 
 /obj/machinery/gun_turret //related to turrets but work way differentely because of being mounted on a moving ship.
 	name = "machine gun turret"
-	desc = "Syndicate defense turret. It really packs a bunch."
+	desc = "Syndicate heavy defense turret. It really packs a bunch."
 	density = 1
 	anchored = 1
 	var/state = 0 //Like stat on mobs, 0 is alive, 1 is damaged, 2 is dead
-	var/list/faction = list("syndicate")
+	var/faction = "syndicate"
 	var/atom/cur_target = null
 	var/scan_range = 9 //You will never see them coming
 	var/health = 200 //Because it lacks a cover, and is mostly to keep people from touching the syndie shuttle.
+	var/bullet_type = /obj/item/projectile/bullet
 	icon = 'icons/obj/turrets.dmi'
 	icon_state = "syndieturret0"
 
@@ -609,11 +623,27 @@
 		return
 	if (targloc == curloc)
 		return
-	playsound(src, 'sound/weapons/Gunshot.ogg', 50, 1)
-	var/obj/item/projectile/A = new /obj/item/projectile/bullet(curloc)
+	playsound(get_turf(src), 'sound/weapons/Gunshot3.ogg', 60, 1)
+	var/obj/item/projectile/A = new bullet_type(curloc)
 	A.current = curloc
 	A.yo = targloc.y - curloc.y
 	A.xo = targloc.x - curloc.x
 	spawn(0)
 		A.process()
 	return
+
+
+/obj/machinery/gun_turret/interior
+	name = "machine gun turret (.45)"
+	desc = "Syndicate interior defense turret chambered for .45 rounds. Designed to down intruders without damaging the hull."
+	bullet_type = /obj/item/projectile/bullet/midbullet
+
+/obj/machinery/gun_turret/exterior
+	name = "machine gun turret (7.62)"
+	desc = "Syndicate exterior defense turret chambered for 7.62 rounds. Designed to down intruders with heavy calliber bullets."
+	bullet_type = /obj/item/projectile/bullet
+
+/obj/machinery/gun_turret/grenade
+	name = "mounted grenade launcher (40mm)"
+	desc = "Syndicate 40mm grenade launcher defense turret. If you've had this much time to look at it, you're probably already dead."
+	bullet_type = /obj/item/projectile/bullet/a40mm

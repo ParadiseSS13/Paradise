@@ -42,6 +42,9 @@
 	if(modifiers["shift"] && modifiers["ctrl"])
 		CtrlShiftClickOn(A)
 		return
+	if(modifiers["shift"] && modifiers["alt"])
+		AltShiftClickOn(A)
+		return
 	if(modifiers["middle"])
 		MiddleClickOn(A)
 		return
@@ -99,6 +102,8 @@
 
 /mob/living/silicon/ai/CtrlShiftClickOn(var/atom/A)
 	A.AICtrlShiftClick(src)
+/mob/living/silicon/ai/AltShiftClickOn(var/atom/A)
+	A.AIAltShiftClick(src)
 /mob/living/silicon/ai/ShiftClickOn(var/atom/A)
 	A.AIShiftClick(src)
 /mob/living/silicon/ai/CtrlClickOn(var/atom/A)
@@ -118,6 +123,18 @@
 		examine()
 	return
 	
+/atom/proc/AIAltShiftClick() 
+	return
+	
+/obj/machinery/door/airlock/AIAltShiftClick()  // Sets/Unsets Emergency Access Override
+	if(emagged)
+		return
+	if(!emergency)
+		Topic("aiEnable=11", list("aiEnable"="11"), 1) // 1 meaning no window (consistency!)
+	else
+		Topic("aiDisable=11", list("aiDisable"="11"), 1)
+	return
+	
 /atom/proc/AIShiftClick()
 	return
 
@@ -128,7 +145,10 @@
 		Topic("aiDisable=7", list("aiDisable"="7"), 1)
 	return
 
-/atom/proc/AICtrlClick()
+/atom/proc/AICtrlClick(var/mob/living/silicon/ai/user)
+	if(user.holo)
+		var/obj/machinery/hologram/holopad/H = user.holo
+		H.face_atom(src)	
 	return
 
 /obj/machinery/door/airlock/AICtrlClick() // Bolts doors

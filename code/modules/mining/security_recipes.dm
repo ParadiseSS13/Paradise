@@ -98,8 +98,8 @@
 	create = 1
 
 /datum/manufacture/taser
-	name = "Taser"
-	item = /obj/item/weapon/gun/energy/taser
+	name = "Advanced Taser"
+	item = /obj/item/weapon/gun/energy/advtaser
 	cost1 = /obj/item/weapon/ore/iron
 	cname1 = "Iron"
 	amount1 = 15

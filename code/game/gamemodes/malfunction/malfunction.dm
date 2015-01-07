@@ -5,7 +5,7 @@
 	name = "AI malfunction"
 	config_tag = "malfunction"
 	required_players = 2
-	required_players_secret = 15
+	required_players_secret = 20
 	required_enemies = 1
 	recommended_enemies = 1
 
@@ -15,7 +15,7 @@
 	var/const/waittime_l = 600
 	var/const/waittime_h = 1800 // started at 1800
 
-	var/AI_win_timeleft = 1800 //started at 1800, in case I change this for testing round end.
+	var/AI_win_timeleft = 5400 //started at 5400, in case I change this for testing round end.
 	var/malf_mode_declared = 0
 	var/station_captured = 0
 	var/to_nuke_or_not_to_nuke = 0
@@ -88,8 +88,8 @@
 
 
 /datum/game_mode/malfunction/process()
-	if (apcs >= 3 && malf_mode_declared)
-		AI_win_timeleft -= ((apcs/6)*last_tick_duration) //Victory timer now de-increments based on how many APCs are hacked. --NeoFite
+	if ((apcs > 0) && malf_mode_declared)
+		AI_win_timeleft -= apcs * last_tick_duration //Victory timer now de-increments based on how many APCs are hacked. --NeoFite
 	..()
 	if (AI_win_timeleft<=0)
 		check_win()
@@ -106,8 +106,8 @@
 
 
 /datum/game_mode/malfunction/proc/capture_the_station()
-	world << {"<FONT size = 3><B>The AI has won!</B></FONT><br />
-		<B>It has fully taken control of all of [station_name()]'s systems.</B>"}
+	world << "<FONT size = 3><B>The AI has won!</B></FONT>"
+	world << "<B>It has fully taken control of all of [station_name()]'s systems.</B>"
 
 	to_nuke_or_not_to_nuke = 1
 	for(var/datum/mind/AI_mind in malf_ai)
@@ -169,6 +169,12 @@
 
 	command_alert("Hostile runtimes detected in all station systems, please deactivate your AI to prevent possible damage to its morality core.", "Anomaly Alert")
 	set_security_level("delta")
+
+	for(var/obj/item/weapon/pinpointer/point in world)
+		for(var/datum/mind/AI_mind in ticker.mode.malf_ai)
+			var/mob/living/silicon/ai/A = AI_mind.current // the current mob the mind owns
+			if(A.stat != DEAD)
+				point.the_disk = A //The pinpointer now tracks the AI core.
 
 	ticker.mode:malf_mode_declared = 1
 	for(var/datum/mind/AI_mind in ticker.mode:malf_ai)

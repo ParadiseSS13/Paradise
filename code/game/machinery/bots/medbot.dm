@@ -31,6 +31,7 @@
 	var/declare_cooldown = 0 //Prevents spam of critical patient alerts.
 	var/stationary_mode = 0 //If enabled, the Medibot will not move automatically.
 	radio_frequency = MED_FREQ //Medical frequency
+	radio_name = "Medical"
 	//Setting which reagents to use to treat what by default. By id.
 	var/treatment_brute = "tricordrazine"
 	var/treatment_oxy = "tricordrazine"
@@ -40,6 +41,7 @@
 	var/treat_virus = 1 //If on, the bot will attempt to treat viral infections, curing them if possible.
 	var/shut_up = 0 //self explanatory :)
 	bot_type = MED_BOT
+	bot_type_name = "Medbot"
 	bot_filter = RADIO_MEDBOT
 
 /obj/machinery/bot/medbot/syndicate
@@ -49,8 +51,8 @@
 	treatment_oxy = "dexalin"
 	treatment_brute = "bicaridine"
 	treatment_fire = "kelotane"
-	treatment_tox = "anti_toxin"	
-	
+	treatment_tox = "anti_toxin"
+
 /obj/machinery/bot/medbot/mysterious
 	name = "\improper Mysterious Medibot"
 	desc = "International Medibot of mystery."
@@ -135,6 +137,7 @@
 	. = ..()
 	if (.)
 		return
+	usr.set_machine(src)
 	var/dat
 	dat += hack(user)
 	dat += "<TT><B>Medical Unit Controls v1.1</B></TT><BR><BR>"
@@ -326,12 +329,17 @@
 		return
 
 	//Patient has moved away from us!
-	else if(patient && path && path.len && (get_dist(patient,path[path.len]) > 2))
+	else if(patient && path.len && (get_dist(patient,path[path.len]) > 2))
 		path = list()
 		mode = BOT_IDLE
 		last_found = world.time
 
-	if(!stationary_mode && patient && path.len == 0 && (get_dist(src,patient) > 1))
+	else if(stationary_mode && patient)
+		patient = null
+		mode = BOT_IDLE
+		last_found = world.time
+		return
+	if(patient && path.len == 0 && (get_dist(src,patient) > 1))
 		spawn(0)
 			path = AStar(loc, get_turf(patient), /turf/proc/CardinalTurfsWithAccess, /turf/proc/Distance_cardinal, 0, 30,id=botcard)
 			if(!path)
@@ -367,10 +375,10 @@
 
 	if(emagged == 2) //Everyone needs our medicine. (Our medicine is toxins)
 		return 1
-		
+
 	if((skin == "bezerk") && (!("syndicate" in C.faction)))
 		return 0
-		
+
 	if(declare_crit && C.health <= 0) //Critical condition! Call for help!
 		declare(C)
 
@@ -393,7 +401,7 @@
 	if((C.getToxLoss() >= heal_threshold) && (!C.reagents.has_reagent(treatment_tox)))
 		return 1
 
-	if((C.virus2.len) && (!C.reagents.has_reagent(treatment_virus)))		
+	if((C.virus2.len) && (!C.reagents.has_reagent(treatment_virus)))
 		for (var/ID in C.virus2)
 			if (ID in virusDB) // If the virus is known, the medbot is aware of it
 				return 1
@@ -424,18 +432,18 @@
 	if(emagged == 2) //Emagged! Time to poison everybody.
 		reagent_id = "toxin"
 
-	if(treat_virus)
-		var/virus = 0
-		if(C:virus2.len)		
-			for (var/ID in C.virus2)
-				if (ID in virusDB) // If the virus is known, the medbot is aware of it and will try to cure it
-					virus = 1	
-					
-		if (!reagent_id && (virus))
-			if(!C.reagents.has_reagent(treatment_virus))
-				reagent_id = treatment_virus		
-		
 	else
+		if(treat_virus)
+			var/virus = 0
+			if(C:virus2.len)
+				for (var/ID in C.virus2)
+					if (ID in virusDB) // If the virus is known, the medbot is aware of it and will try to cure it
+						virus = 1
+
+			if (!reagent_id && (virus))
+				if(!C.reagents.has_reagent(treatment_virus))
+					reagent_id = treatment_virus
+
 		if (!reagent_id && (C.getBruteLoss() >= heal_threshold))
 			if(!C.reagents.has_reagent(treatment_brute))
 				reagent_id = treatment_brute
@@ -522,11 +530,13 @@
 /obj/machinery/bot/medbot/proc/declare(var/crit_patient)
 	if(declare_cooldown)
 		return
-	//var/area/location = get_area(src)
-	declare_critical(crit_patient)
+	if((skin == "bezerk"))
+		return
+	var/area/location = get_area(src)
+	speak("Medical emergency! [crit_patient ? "<b>[crit_patient]</b>" : "A patient"] is in critical condition at [location]!",radio_frequency, radio_name)
 	declare_cooldown = 1
 	spawn(200) //Twenty seconds
-	declare_cooldown = 0
+		declare_cooldown = 0
 
 /*
  *	Medbot Assembly -- Can be made out of all three medkits.
@@ -590,17 +600,3 @@
 					S.name = created_name
 					user.before_take_item(src, 1)
 					qdel(src)
-
-/obj/machinery/bot/medbot/proc/declare_critical(var/crit_patient)
-	var/area/location = get_area(src)	
-	for(var/mob/living/carbon/human/human in world)
-		if((human.z == src.z) && istype(human.glasses, /obj/item/clothing/glasses/hud/health) || istype(human.glasses, /obj/item/clothing/glasses/hud/health_advanced) && !human.blinded)
-			if((skin == "bezerk") && (!("syndicate" in human.faction)))
-				continue
-			human << "<span class='info'>\icon[human.glasses] Medical emergency! [crit_patient ? "<b>[crit_patient]</b>" : "A patient"] is in critical condition at [location]!"
-	for(var/mob/living/silicon/robot in world)
-		if((robot.z == src.z) && !robot.blinded)
-			if((skin == "bezerk") && (!("syndicate" in robot.faction)))
-				continue
-			if(robot.sensor_mode == 2)
-				robot << "<span class='info'>Medical emergency! [crit_patient ? "<b>[crit_patient]</b>" : "A patient"] is in critical condition at [location]!"

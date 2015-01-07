@@ -17,6 +17,11 @@
 	anchored = 1
 	layer = 50
 
+/obj/effect/decal/chempuff
+	name = "chemicals"
+	icon = 'icons/obj/chempuff.dmi'
+	pass_flags = PASSTABLE | PASSGRILLE
+
 /obj/effect/decal/snow
 	name="snow"
 	density=0

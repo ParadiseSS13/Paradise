@@ -50,7 +50,9 @@
 	req_one_access = list(access_construction, access_robotics)
 	var/targetdirection
 	radio_frequency = ENG_FREQ //Engineering channel
+	radio_name = "Engineering"
 	bot_type = FLOOR_BOT
+	bot_type_name = "Floorbot"
 	bot_filter = RADIO_FLOORBOT
 	var/process_type //Determines what to do when process_scan() recieves a target. See process_scan() for details.
 	#define HULL_BREACH		1
@@ -150,6 +152,7 @@
 		if(allowed(user) && !open && !emagged)
 			locked = !locked
 			user << "<span class='notice'>You [locked ? "lock" : "unlock"] \the [src] behaviour controls.</span>"
+			updateUsrDialog()
 		else
 			if(emagged)
 				user << "<span class='warning'>ERROR</span>"
@@ -270,9 +273,9 @@
 		if(path.len == 0)
 			if(!istype(target, /turf/))
 				var/turf/TL = get_turf(target)
-				path = AStar(loc, TL, /turf/proc/AdjacentTurfsSpace, /turf/proc/Distance, 0, 30, id=botcard)
+				path = get_path_to(loc, TL, /turf/proc/AdjacentTurfsSpace, /turf/proc/Distance, 0, 30, id=botcard)
 			else
-				path = AStar(loc, target, /turf/proc/AdjacentTurfsSpace, /turf/proc/Distance, 0, 30, id=botcard)
+				path = get_path_to(loc, target, /turf/proc/AdjacentTurfsSpace, /turf/proc/Distance, 0, 30, id=botcard)
 
 			if(!bot_move(target))
 				add_to_ignore(target)
@@ -307,14 +310,15 @@
 					anchored = 0
 					mode = BOT_IDLE
 					target = null
-			path = new()
+			path = list()
 			return
 
 	oldloc = loc
 
 /obj/machinery/bot/floorbot/proc/nag() //Annoy everyone on the channel to refill us!
 	if(!nagged)
-		speak("Requesting refill at <b>[get_area(src)]</b>!"/*, radio_frequency*/)
+		var/area/location = get_area(src)
+		speak("Requesting refill at <b>[location]</b>!", radio_frequency, radio_name)
 		nagged = 1
 
 /obj/machinery/bot/floorbot/proc/is_hull_breach(var/turf/t) //Ignore space tiles not considered part of a structure, also ignores shuttle docking areas.
@@ -343,9 +347,8 @@ obj/machinery/bot/floorbot/process_scan(var/scan_target)
 				result = F
 		if(FIX_TILE)	//Selects only damaged floors.
 			F = scan_target
-			if(istype(F, /turf))
-				if(F.broken || F.burnt)
-					result = F
+			if(istype(F) && (F.broken || F.burnt))
+				result = F
 		if(TILE_EMAG) //Emag mode! Rip up the floor and cause breaches to space!
 			F = scan_target
 			if(!istype(F, /turf/simulated/floor/plating))
@@ -370,7 +373,7 @@ obj/machinery/bot/floorbot/process_scan(var/scan_target)
 	anchored = 1
 	icon_state = "floorbot-c"
 	if(istype(target_turf, /turf/space/)) //If we are fixing an area not part of pure space, it is
-		visible_message("<span class='notice'> [targetdirection ? "[src] begins installing a bridge plating." : "[src] begins to repair the hole."] </span>")
+		visible_message("<span class='notice'>[targetdirection ? "[src] begins installing a bridge plating." : "[src] begins to repair the hole."] </span>")
 		mode = BOT_REPAIRING
 		spawn(50)
 			if(mode == BOT_REPAIRING)
@@ -385,32 +388,18 @@ obj/machinery/bot/floorbot/process_scan(var/scan_target)
 				target = null
 	else
 		var/turf/simulated/floor/F = target_turf
-		if(F.burnt || F.broken)
-			mode = BOT_REPAIRING
-			visible_message("<span class='notice'> [src] begins repairing the floor.</span>")
-			spawn(50)
-				if(mode == BOT_REPAIRING)
-					F.burnt = 0
-					F.broken = 0
-					F.icon_state = "floor"
-					mode = BOT_IDLE
-					amount -= 1
-					updateicon()
-					anchored = 0
-					target = null
-		else
-			mode = BOT_REPAIRING
-			visible_message("<span class='notice'> [src] begins repairing the floor.</span>")
-			spawn(50)
-				if(mode == BOT_REPAIRING)
-					F.burnt = 0
-					F.broken = 0
-					target_turf.ChangeTurf(/turf/simulated/floor)
-					mode = BOT_IDLE
-					amount -= 1
-					updateicon()
-					anchored = 0
-					target = null
+		mode = BOT_REPAIRING
+		visible_message("<span class='notice'>[src] begins repairing the floor.</span>")
+		spawn(50)
+			if(mode == BOT_REPAIRING)
+				F.broken = 0
+				F.burnt = 0
+				F.ChangeTurf(/turf/simulated/floor)
+				mode = BOT_IDLE
+				amount -= 1
+				updateicon()
+				anchored = 0
+				target = null
 
 /obj/machinery/bot/floorbot/proc/eattile(var/obj/item/stack/tile/plasteel/T)
 	if(!istype(T, /obj/item/stack/tile/plasteel))

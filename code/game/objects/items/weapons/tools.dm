@@ -443,8 +443,8 @@
  */
 
 /obj/item/weapon/crowbar
-	name = "crowbar"
-	desc = "Used to hit floors"
+	name = "pocket crowbar"
+	desc = "A small crowbar. This handy tool is useful for lots of things, such as prying floor tiles or opening unpowered doors."
 	icon = 'icons/obj/items.dmi'
 	icon_state = "crowbar"
 	flags = FPRINT | TABLEPASS| CONDUCT
@@ -461,6 +461,16 @@
 	icon = 'icons/obj/items.dmi'
 	icon_state = "red_crowbar"
 	item_state = "crowbar_red"
+
+/obj/item/weapon/crowbar/large
+	name = "crowbar"
+	desc = "It's a big crowbar. It doesn't fit in your pockets, because it's big."
+	force = 12
+	w_class = 3
+	throw_speed = 3
+	throw_range = 3
+	m_amt = 66
+	icon_state = "crowbar_large"
 
 /obj/item/weapon/weldingtool/attack(mob/M as mob, mob/user as mob)
 	if(hasorgans(M))
@@ -480,19 +490,13 @@
 
 		if(S.brute_dam)
 			var/obj/item/weapon/weldingtool/WT = src
-			if (WT.remove_fuel(0,user))
+			if (WT.remove_fuel(0,null))
 				playsound(src.loc, 'sound/items/Welder2.ogg', 50, 1)
 				S.heal_damage(15,0,0,1)
 				user.visible_message("\red \The [user] patches some dents on \the [M]'s [S.display_name] with \the [src].")
 				if(istype(M,/mob/living/carbon/human))
 					var/mob/living/carbon/human/H = M
 					H.updatehealth()
-					if(istype(M,/mob/living/carbon/human/machine) && M.stat == 0) // If an IPC is brought back to life by welding it, which is possible, update the mob list
-						if(M in dead_mob_list)
-							dead_mob_list -= M
-							respawnable_list -= M
-							living_mob_list += M
-							mob_list += M
 				return
 			else
 				user << "\red You need more welding fuel to complete this task."

@@ -89,16 +89,7 @@
 
 /obj/structure/lamarr/proc/Break()
 	if(occupied)
-		new /mob/living/carbon/alien/facehugger/lamarr(src.loc)
+		new /obj/item/clothing/mask/facehugger/lamarr(src.loc)
 		occupied = 0
 	update_icon()
-	return
-
-/mob/living/carbon/alien/facehugger/lamarr
-	name = "Lamarr"
-	desc = "The worst she might do is attempt to... couple with your head."//hope we don't get sued over a harmless reference, rite?
-	sterile = 1
-	gender = FEMALE
-
-/obj/item/clothing/mask/facehugger/lamarr/New()//to prevent deleting it if aliums are disabled
 	return

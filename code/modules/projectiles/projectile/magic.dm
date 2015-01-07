@@ -24,7 +24,7 @@
 
 /obj/item/projectile/magic/fireball/on_hit(var/target)
 	var/turf/T = get_turf(target)
-	explosion(T, -1, 0, 2, 3, 0, flame_range = 2)
+	explosion(T, -1, 0, 2, 3, 0)
 
 /obj/item/projectile/magic/resurrection
 	name = "bolt of resurrection"
@@ -186,7 +186,7 @@ proc/wabbajack(mob/living/M)
 							if("mushroom")	new_mob = new /mob/living/simple_animal/hostile/mushroom(M.loc)
 							if("statue")	new_mob = new /mob/living/simple_animal/hostile/statue(M.loc)
 					else
-						var/animal = pick("parrot","corgi","crab","pug","cat","tomato","mouse","chicken","cow","lizard","chick")
+						var/animal = pick("parrot","corgi","crab","pug","cat","tomato","mouse","chicken","cow","lizard","chick","fox")
 						switch(animal)
 							if("parrot")	new_mob = new /mob/living/simple_animal/parrot(M.loc)
 							if("corgi")		new_mob = new /mob/living/simple_animal/corgi(M.loc)
@@ -197,6 +197,7 @@ proc/wabbajack(mob/living/M)
 							if("chicken")	new_mob = new /mob/living/simple_animal/chicken(M.loc)
 							if("cow")		new_mob = new /mob/living/simple_animal/cow(M.loc)
 							if("lizard")	new_mob = new /mob/living/simple_animal/lizard(M.loc)
+							if("fox") 		new_mob = new /mob/living/simple_animal/fox(M.loc)
 							else			new_mob = new /mob/living/simple_animal/chick(M.loc)
 					new_mob.universal_speak = 1
 				if("human")

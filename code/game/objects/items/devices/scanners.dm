@@ -91,7 +91,8 @@ REAGENT SCANNER
 /obj/item/device/healthanalyzer
 	name = "Health Analyzer"
 	icon_state = "health"
-	item_state = "analyzer"
+	item_state = "healthanalyzer"
+	icon_override = 'icons/mob/in-hand/tools.dmi'
 	desc = "A hand-held body scanner able to distinguish vital signs of the subject."
 	flags = FPRINT | TABLEPASS | CONDUCT
 	slot_flags = SLOT_BELT
@@ -188,8 +189,10 @@ REAGENT SCANNER
 					var/datum/data/record/V = virusDB[ID]
 					user.show_message(text("\red Warning: Pathogen [V.fields["name"]] detected in subject's blood. Known antigen : [V.fields["antigen"]]"))
 //			user.show_message(text("\red Warning: Unknown pathogen detected in subject's blood."))
+	if(M.getStaminaLoss())
+		user.show_message("<span class='info'>Subject appears to be suffering from fatigue.</span>")
 	if (M.getCloneLoss())
-		user.show_message("\red Subject appears to have been imperfectly cloned.")
+		user.show_message("<span class='warning'>Subject appears to have [M.getCloneLoss() > 30 ? "severe" : "minor"] cellular damage.</span>")
 //	if (M.reagents && M.reagents.get_reagent_amount("inaprovaline"))
 //		user.show_message("\blue Bloodstream Analysis located [M.reagents:get_reagent_amount("inaprovaline")] units of rejuvenation chemicals.")
 	if (M.has_brain_worms())

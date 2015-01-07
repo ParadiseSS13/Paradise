@@ -8,32 +8,32 @@ var/global/wcColored
 	var/list/brig = list("#aa0808", "#7f0606", "#ff0000")
 	var/list/common = list("#379963", "#0d8395", "#58b5c3", "#49e46e", "#8fcf44", "#ffffff")
 
-	wcBar = pick(bar)	
+	wcBar = pick(bar)
 	wcBrig = pick(brig)
 	wcCommon = pick(common)
-	
+
 /obj/proc/color_windows(var/obj/W as obj)
 	if(!wcColored)
 		sleep(50) // Sleeping to make sure the glass has initialized on the map
 		wcColored = 1
-		
+
 	var/list/wcBarAreas = list(/area/crew_quarters/bar)
-	var/list/wcBrigAreas = list(/area/security,/area/security/main,/area/security/lobby,/area/security/brig,/area/security/permabrig,/area/security/prison,/area/security/prison/cell_block/A,/area/security/prison/cell_block/B,/area/security/prison/cell_block/C,/area/security/execution,/area/security/processing,/area/security/interrogation,/area/security/interrogationobs,/area/security/evidence,/area/security/prisonlockers,/area/security/medbay,/area/security/processing,/area/security/warden,/area/security/armoury,/area/security/securearmoury,/area/security/armoury/gamma,/area/security/securehallway,/area/security/hos,/area/security/podbay,/area/security/detectives_office,/area/security/range,/area/security/nuke_storage,/area/security/checkpoint,/area/security/checkpoint2,/area/security/checkpoint2,/area/security/checkpoint/supply,/area/security/checkpoint/engineering,/area/security/checkpoint/medical,/area/security/checkpoint/science,/area/security/vacantoffice,/area/security/vacantoffice2,/area/prison,/area/prison/arrival_airlock,/area/prison/control,/area/prison/crew_quarters,/area/prison/rec_room,/area/prison/closet,/area/prison/hallway/fore,/area/prison/hallway/aft,/area/prison/hallway/port,/area/prison/hallway/starboard,/area/prison/morgue,/area/prison/medical_research,/area/prison/medical,/area/prison/solar,/area/prison/podbay,/area/prison/solar_control,/area/prison/solitary,/area/prison/cell_block,/area/prison/cell_block/A,/area/prison/cell_block/B,/area/prison/cell_block/C,/area/shuttle/gamma/space,/area/shuttle/gamma/station)
-	
+	var/list/wcBrigAreas = list(/area/security,/area/security/main,/area/security/lobby,/area/security/brig,/area/security/permabrig,/area/security/prison,/area/security/prison/cell_block/A,/area/security/prison/cell_block/B,/area/security/prison/cell_block/C,/area/security/execution,/area/security/processing,/area/security/interrogation,/area/security/interrogationobs,/area/security/evidence,/area/security/prisonlockers,/area/security/medbay,/area/security/processing,/area/security/warden,/area/security/armoury,/area/security/securearmoury,/area/security/armoury/gamma,/area/security/securehallway,/area/security/hos,/area/security/podbay,/area/security/detectives_office,/area/security/range,/area/security/nuke_storage,/area/security/customs,/area/security/customs2,/area/security/checkpoint,/area/security/checkpoint2,/area/security/checkpoint2,/area/security/checkpoint/supply,/area/security/checkpoint/engineering,/area/security/checkpoint/medical,/area/security/checkpoint/science,/area/security/vacantoffice,/area/security/vacantoffice2,/area/prison,/area/prison/arrival_airlock,/area/prison/control,/area/prison/crew_quarters,/area/prison/rec_room,/area/prison/closet,/area/prison/hallway/fore,/area/prison/hallway/aft,/area/prison/hallway/port,/area/prison/hallway/starboard,/area/prison/morgue,/area/prison/medical_research,/area/prison/medical,/area/prison/solar,/area/prison/podbay,/area/prison/solar_control,/area/prison/solitary,/area/prison/cell_block,/area/prison/cell_block/A,/area/prison/cell_block/B,/area/prison/cell_block/C,/area/shuttle/gamma/space,/area/shuttle/gamma/station,/area/security/prisonershuttle)
+
 	var/newcolor
 	for(var/A in wcBarAreas)
 		if(W.areaMaster == locate(A))
 			newcolor = wcBar
 			break
-	
+
 	for(var/A in wcBrigAreas)
 		if(W.areaMaster == locate(A))
 			newcolor = wcBrig
 			break
-			
-	if(!newcolor)	
+
+	if(!newcolor)
 		newcolor = wcCommon
-		
+
 	return newcolor
 
 /obj/structure/window
@@ -56,10 +56,10 @@ var/global/wcColored
 	var/sheets = 1 // Number of sheets needed to build this window (determines how much shit is spawned by destroy())
 //	var/silicate = 0 // number of units of silicate
 //	var/icon/silicateIcon = null // the silicated icon
-	
+
 /obj/structure/window/bullet_act(var/obj/item/projectile/Proj)
 	//Tasers and the like should not damage windows.
-	if(Proj.damage_type == HALLOSS)
+	if(Proj.damage_type == STAMINA)
 		return
 
 	health -= Proj.damage
@@ -281,7 +281,7 @@ var/global/wcColored
 				if(G.amount>=G.max_amount)
 					continue
 				G.attackby(NG, user)
-			
+
 			if (reinf)
 				var/obj/item/stack/rods/NR = new (src.loc)
 				for (var/obj/item/stack/rods/R in src.loc)
@@ -289,7 +289,7 @@ var/global/wcColored
 						continue
 					if(R.amount>=R.max_amount)
 						continue
-					R.attackby(NR, user)			
+					R.attackby(NR, user)
 
 		user << "<span class='notice'>You have disassembled the window.</span>"
 		disassembled = 1
@@ -316,8 +316,8 @@ var/global/wcColored
 
 /obj/structure/window/mech_melee_attack(obj/mecha/M)
 	if(..())
-		hit(M.force, 1)	
-	
+		hit(M.force, 1)
+
 /obj/structure/window/proc/hit(var/damage, var/sound_effect = 1)
 	if(reinf) damage *= 0.5
 	health = max(0, health - damage)

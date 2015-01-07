@@ -74,18 +74,18 @@
 	if(!crit_fail)
 		if(prob(src.reliability)) return 1 //No failure
 		if(prob(src.reliability))
-			for (var/mob/M in range(0,src.parent)) //Only a minor failure, enjoy your radiation.
+			for (var/mob/living/M in range(0,src.parent)) //Only a minor failure, enjoy your radiation.
 				if(src.parent in M.contents)
 					M << "<span class='danger'>Your armor feels pleasantly warm for a moment.</span>"
 				else
 					M << "<span class='danger'>You feel a warm sensation.</span>"
-				M.radiation += rand(1,40)
+				M.apply_effect(-rand(1,40),IRRADIATE,0) 
 		else
-			for (var/mob/M in range(rand(1,4),src.parent)) //Big failure, TIME FOR RADIATION BITCHES
+			for (var/mob/living/M in range(rand(1,4),src.parent)) //Big failure, TIME FOR RADIATION BITCHES
 				if (src.parent in M.contents)
 					M << "<span class='danger'><B>Your armor's reactor overloads!</B></span>"
 				M << "<span class='danger'>You feel a wave of heat wash over you.</span>"
-				M.radiation += 100
+				M.apply_effect(100,IRRADIATE,0) 
 			crit_fail = 1 //broken~
 			parent.powerdown(1)
 		spawn(50)

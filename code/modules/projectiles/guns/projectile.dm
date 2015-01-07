@@ -53,6 +53,7 @@
 
 
 /obj/item/weapon/gun/projectile/attackby(var/obj/item/A as obj, mob/user as mob)
+	..()
 	if (istype(A, /obj/item/ammo_box/magazine))
 		var/obj/item/ammo_box/magazine/AM = A
 		if (!magazine && istype(AM, text2path(mag_type)))
@@ -66,10 +67,49 @@
 			return 1
 		else if (magazine)
 			user << "<span class='notice'>There's already a magazine in \the [src].</span>"
+	if(istype(A, /obj/item/weapon/suppressor))
+		var/obj/item/weapon/suppressor/S = A
+		if(can_suppress)
+			if(!silenced)
+				if(user.l_hand != src && user.r_hand != src)
+					user << "<span class='notice'>You'll need [src] in your hands to do that.</span>"
+					return
+				user.drop_item()
+				user << "<span class='notice'>You screw [S] onto [src].</span>"
+				silenced = A
+				S.oldsound = fire_sound
+				S.initial_w_class = w_class
+				fire_sound = 'sound/weapons/Gunshot_silenced.ogg'
+				w_class = 3 //so pistols do not fit in pockets when suppressed
+				A.loc = src
+				update_icon()
+				return
+			else
+				user << "<span class='warning'>[src] already has a suppressor.</span>"
+				return
+		else
+			user << "<span class='warning'>You can't seem to figure out how to fit [S] on [src].</span>"
+			return
 	return 0
 
+/obj/item/weapon/gun/projectile/attack_hand(mob/user as mob)
+	if(loc == user)
+		if(silenced)
+			var/obj/item/weapon/suppressor/S = silenced
+			if(user.l_hand != src && user.r_hand != src)
+				..()
+				return
+			user << "<span class='notice'>You unscrew [silenced] from [src].</span>"
+			user.put_in_hands(silenced)
+			fire_sound = S.oldsound
+			w_class = S.initial_w_class
+			silenced = 0
+			update_icon()
+			return
+	..()
+
 /obj/item/weapon/gun/projectile/attack_self(mob/living/user as mob)
-	if (magazine)
+	if(magazine)
 		magazine.loc = get_turf(src.loc)
 		user.put_in_hands(magazine)
 		magazine.update_icon()
@@ -92,3 +132,12 @@
 	if (magazine)
 		boolets += magazine.ammo_count()
 	return boolets
+
+/obj/item/weapon/suppressor
+	name = "suppressor"
+	desc = "A universal syndicate small-arms suppressor for maximum espionage."
+	icon = 'icons/obj/gun.dmi'
+	icon_state = "suppressor"
+	w_class = 2
+	var/oldsound = null
+	var/initial_w_class = null

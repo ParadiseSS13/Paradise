@@ -239,7 +239,7 @@ var/list/all_supply_groups = list("Operations","Security","Hospitality","Enginee
 					/obj/item/weapon/bikehorn,
 					/obj/item/clothing/under/mime,
 					/obj/item/clothing/shoes/black,
-					/obj/item/clothing/gloves/white,
+					/obj/item/clothing/gloves/color/white,
 					/obj/item/clothing/mask/gas/mime,
 					/obj/item/clothing/head/beret,
 					/obj/item/clothing/suit/suspenders,
@@ -339,6 +339,13 @@ var/list/all_supply_groups = list("Operations","Security","Hospitality","Enginee
 	cost = 50 //Cats are worth as much as corgis.
 	containertype = /obj/structure/largecrate/cat
 	containername = "cat crate"
+	group = "Organic"
+
+/datum/supply_packs/organic/fox
+	name = "Fox Crate"
+	cost = 55 //Foxes are cool.
+	containertype = /obj/structure/closet/critter/fox
+	containername = "fox crate"
 	group = "Organic"
 
 /datum/supply_packs/seeds
@@ -657,8 +664,8 @@ var/list/all_supply_groups = list("Operations","Security","Hospitality","Enginee
 					/obj/item/weapon/melee/baton/loaded,
 					/obj/item/weapon/gun/energy/laser,
 					/obj/item/weapon/gun/energy/laser,
-					/obj/item/weapon/gun/energy/taser,
-					/obj/item/weapon/gun/energy/taser,
+					/obj/item/weapon/gun/energy/advtaser,
+					/obj/item/weapon/gun/energy/advtaser,
 					/obj/item/weapon/storage/box/flashbangs,
 					/obj/item/weapon/storage/box/flashbangs)
 	cost = 30
@@ -1067,6 +1074,26 @@ var/list/all_supply_groups = list("Operations","Security","Hospitality","Enginee
 	access = access_hydroponics
 	group = "Hydroponics"
 
+/datum/supply_packs/misc/lasertag
+	name = "Laser Tag Crate"
+	contains = list(/obj/item/weapon/gun/energy/laser/redtag,
+					/obj/item/weapon/gun/energy/laser/redtag,
+					/obj/item/weapon/gun/energy/laser/redtag,
+					/obj/item/weapon/gun/energy/laser/bluetag,
+					/obj/item/weapon/gun/energy/laser/bluetag,
+					/obj/item/weapon/gun/energy/laser/bluetag,
+					/obj/item/clothing/suit/redtag,
+					/obj/item/clothing/suit/redtag,
+					/obj/item/clothing/suit/redtag,
+					/obj/item/clothing/suit/bluetag,
+					/obj/item/clothing/suit/bluetag,
+					/obj/item/clothing/suit/bluetag,
+					/obj/item/clothing/head/helmet/redtaghelm,
+					/obj/item/clothing/head/helmet/bluetaghelm)
+	cost = 15
+	containertype = /obj/structure/closet/crate
+	containername = "laser tag crate"
+	group = "Operations"
 
 /datum/supply_packs/vending
 	name = "Bartending Supply Crate"
@@ -1120,7 +1147,7 @@ var/list/all_supply_groups = list("Operations","Security","Hospitality","Enginee
 	containertype = /obj/structure/closet/crate
 	containername = "autodrobe supply crate"
 	group = "Operations"
-	
+
 /datum/supply_packs/clothingvendor
 	name = "Clothing Vendor Supply crate"
 	contains = list(/obj/item/weapon/vending_refill/hatdispenser,

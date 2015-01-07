@@ -6,7 +6,7 @@
 	default_prog		= /datum/file/program/communications
 	spawn_parts			= list(/obj/item/part/computer/storage/hdd,/obj/item/part/computer/networking/radio/subspace,/obj/item/part/computer/cardslot/dual)
 	spawn_files			= list(/datum/file/program/card_comp, /datum/file/program/security, /datum/file/program/crew, /datum/file/program/arcade,
-							/datum/file/camnet_key, /datum/file/camnet_key/entertainment, /datum/file/camnet_key/singulo)
+							/datum/file/camnet_key, /datum/file/camnet_key/entertainment, /datum/file/camnet_key/singularity)
 
 
 /datum/file/program/communications
@@ -130,6 +130,9 @@
 		if("cancelshuttle" in href_list)
 			state = STATE_DEFAULT
 			if(authenticated)
+				cancel_call_proc(usr)
+				if(emergency_shuttle.online())
+					post_status("shuttle")
 				state = STATE_CANCELSHUTTLE
 		if("messagelist" in href_list)
 			currmsg = 0
@@ -286,11 +289,11 @@
 					dat += "<BR>\[ <A HREF='?src=\ref[src];RestoreBackup'>Restore Backup Routing Data</A> \]"
 
 				dat += "<BR>\[ <A HREF='?src=\ref[src];changeseclevel'>Change alert level</A> \]"
-			if(emergency_shuttle.location())
+			/*if(emergency_shuttle.location())
 				if (emergency_shuttle.online())
 					dat += "<BR>\[ <A HREF='?src=\ref[src];cancelshuttle'>Cancel Shuttle Call</A> \]"
 				else
-					dat += "<BR>\[ <A HREF='?src=\ref[src];callshuttle'>Call Emergency Shuttle</A> \]"
+					dat += "<BR>\[ <A HREF='?src=\ref[src];callshuttle'>Call Emergency Shuttle</A> \]"*/
 
 			dat += "<BR>\[ <A HREF='?src=\ref[src];status'>Set Status Display</A> \]"
 		else

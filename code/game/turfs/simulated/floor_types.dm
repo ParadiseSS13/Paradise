@@ -120,7 +120,17 @@
 /turf/simulated/floor/greengrid
 	icon = 'icons/turf/floors.dmi'
 	icon_state = "gcircuit"
+	
+/turf/simulated/floor/greengrid/airless
+	icon_state = "gcircuit"
+	name = "airless floor"
+	oxygen = 0.01
+	nitrogen = 0.01
+	temperature = TCMB
 
+	New()
+		..()
+		name = "floor"
 
 /turf/simulated/shuttle
 	name = "shuttle"
@@ -216,17 +226,17 @@
 	name = "snow"
 	icon = 'icons/turf/snow.dmi'
 	icon_state = "snow"
-
-/turf/simulated/floor/plating/snow/concrete
-	name = "concrete"
-	icon = 'icons/turf/floors.dmi'
-	icon_state = "concrete"
-
-
-
+	
 /turf/simulated/floor/plating/snow/ex_act(severity)
 	return
+	
+/turf/simulated/floor/snow
+	name = "snow"
+	icon = 'icons/turf/snow.dmi'
+	icon_state = "snow"
 
+/turf/simulated/floor/snow/ex_act(severity)
+	return
 
 /turf/simulated/shuttle/plating/vox
 	oxygen=0 // BIRDS HATE OXYGEN FOR SOME REASON

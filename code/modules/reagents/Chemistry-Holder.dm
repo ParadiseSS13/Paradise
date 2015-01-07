@@ -37,7 +37,7 @@ datum
 					var/datum/chemical_reaction/D = new path()
 					var/list/reaction_ids = list()
 
-					if(D.required_reagents && D.required_reagents.len)
+					if(D && D.required_reagents && D.required_reagents.len)
 						for(var/reaction in D.required_reagents)
 							reaction_ids += reaction
 
@@ -391,10 +391,18 @@ datum
 						del(A)
 						update_total()
 						my_atom.on_reagent_change()
+						check_gofast(my_atom)
 						return 0
 
 
 				return 1
+
+			check_gofast(var/mob/M)
+				if(istype(M, /mob))
+					if(M.reagents.has_reagent("hyperzine")||M.reagents.has_reagent("nuka_cola"))
+						return 1
+					else
+						M.status_flags &= ~GOTTAGOFAST
 
 			update_total()
 				total_volume = 0

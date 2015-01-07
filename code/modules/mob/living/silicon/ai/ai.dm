@@ -45,6 +45,7 @@ var/list/ai_list = list()
 
 	var/control_disabled = 0 // Set to 1 to stop AI from interacting via Click() -- TLE
 	var/malfhacking = 0 // More or less a copy of the above var, so that malf AIs can hack and still get new cyborgs -- NeoFite
+	var/malf_cooldown = 0 //Cooldown var for malf modules
 
 	var/obj/machinery/power/apc/malfhack = null
 	var/explosive = 0 //does the AI explode when it dies?
@@ -58,9 +59,11 @@ var/list/ai_list = list()
 	var/obj/machinery/bot/Bot
 	var/turf/waypoint //Holds the turf of the currently selected waypoint.
 	var/waypoint_mode = 0 //Waypoint mode is for selecting a turf via clicking.
-	
+
 	var/obj/item/borg/sight/hud/sec/sechud = null
 	var/obj/item/borg/sight/hud/med/healthhud = null
+	
+	var/arrivalmsg = "$name, $rank has arrived on the station."
 
 /mob/living/silicon/ai/New(loc, var/datum/ai_laws/L, var/obj/item/device/mmi/B, var/safety = 0)
 	var/list/possibleNames = ai_names
@@ -102,13 +105,13 @@ var/list/ai_list = list()
 	aiRadio.myAi = src
 
 	aiCamera = new/obj/item/device/camera/siliconcam/ai_camera(src)
-	
-	
+
+
 
 	if (istype(loc, /turf))
 		verbs.Add(/mob/living/silicon/ai/proc/ai_network_change, \
 		/mob/living/silicon/ai/proc/ai_statuschange, /mob/living/silicon/ai/proc/ai_hologram_change, \
-		/mob/living/silicon/ai/proc/toggle_camera_light, /mob/living/silicon/ai/proc/botcall, /mob/living/silicon/ai/proc/control_integrated_radio, /mob/living/silicon/ai/proc/control_hud)
+		/mob/living/silicon/ai/proc/toggle_camera_light, /mob/living/silicon/ai/proc/botcall, /mob/living/silicon/ai/proc/control_integrated_radio, /mob/living/silicon/ai/proc/control_hud, /mob/living/silicon/ai/proc/change_arrival_message)
 
 	if(!safety)//Only used by AIize() to successfully spawn an AI.
 		if (!B)//If there is no player/brain inside.
@@ -439,18 +442,25 @@ var/list/ai_list = list()
 
 	if (href_list["laws"]) // With how my law selection code works, I changed statelaws from a verb to a proc, and call it through my law selection panel. --NeoFite
 		statelaws()
-		
+
 	if(href_list["say_word"])
 		play_vox_word(href_list["say_word"], null, src)
 		return
-		
+
 	if (href_list["track"])
 		var/mob/target = locate(href_list["track"]) in mob_list
 		var/mob/living/silicon/ai/A = locate(href_list["track2"]) in mob_list
 		if(A && target)
 			A.ai_actual_track(target)
 		return
-		
+
+	if (href_list["trackbot"])
+		var/obj/machinery/bot/target = locate(href_list["trackbot"]) in aibots
+		var/mob/living/silicon/ai/A = locate(href_list["track2"]) in mob_list
+		if(A && target)
+			A.ai_actual_track(target)
+		return
+
 	if (href_list["callbot"]) //Command a bot to move to a selected location.
 		Bot = locate(href_list["callbot"]) in aibots
 		if(!Bot || Bot.remote_disabled || src.control_disabled)
@@ -578,17 +588,18 @@ var/list/ai_list = list()
 	var/d
 	var/area/bot_area
 	d += "<A HREF=?src=\ref[src];botrefresh=\ref[Bot]>Query network status</A><br>"
-	d += "<table width='100%'><tr><td width='40%'><h3>Name</h3></td><td width='30%'><h3>Status</h3></td><td width='30%'><h3>Location</h3></td><td width='10%'><h3>Control</h3></td></tr>"
+	d += "<table width='100%'><tr><td width='40%'><h3>Name</h3></td><td width='20%'><h3>Status</h3></td><td width='30%'><h3>Location</h3></td><td width='10%'><h3>Control</h3></td></tr>"
 
 	for (Bot in aibots)
 		if(Bot.z == ai_Zlevel && !Bot.remote_disabled) //Only non-emagged bots on the same Z-level are detected!
 			bot_area = get_area(Bot)
-			d += "<tr><td width='30%'>[Bot.hacked ? "<span class='bad'>(!) </span>[Bot.name]" : Bot.name]</td>"
+			d += "<tr><td width='30%'>[Bot.hacked ? "<span class='bad'>(!) </span>[Bot.name]" : Bot.name] ([Bot.bot_type_name])</td>"
 			//If the bot is on, it will display the bot's current mode status. If the bot is not mode, it will just report "Idle". "Inactive if it is not on at all.
-			d += "<td width='30%'>[Bot.on ? "[Bot.mode ? "<span class='average'>[ Bot.mode_name[Bot.mode] ]</span>": "<span class='good'>Idle</span>"]" : "<span class='bad'>Inactive</span>"]</td>"
+			d += "<td width='20%'>[Bot.on ? "[Bot.mode ? "<span class='average'>[ Bot.mode_name[Bot.mode] ]</span>": "<span class='good'>Idle</span>"]" : "<span class='bad'>Inactive</span>"]</td>"
 			d += "<td width='30%'>[bot_area.name]</td>"
 			d += "<td width='10%'><A HREF=?src=\ref[src];interface=\ref[Bot]>Interface</A></td>"
 			d += "<td width='10%'><A HREF=?src=\ref[src];callbot=\ref[Bot]>Call</A></td>"
+			d += "<td width='10%'><a href='byond://?src=\ref[src];track2=\ref[src];trackbot=\ref[Bot]'>Track</A></td>"
 			d += "</tr>"
 			d = format_text(d)
 
@@ -616,7 +627,7 @@ var/list/ai_list = list()
 		return
 
 	Bot.call_bot(src, waypoint)
-		
+
 /mob/living/silicon/ai/proc/switchCamera(var/obj/machinery/camera/C)
 
 	src.cameraFollow = null
@@ -816,7 +827,7 @@ var/list/ai_list = list()
 	set name = "Toggle Camera Lights"
 	set desc = "Toggles the lights on the cameras throughout the station."
 	set category = "AI Commands"
-	
+
 	if(stat != CONSCIOUS)
 		return
 
@@ -834,7 +845,17 @@ var/list/ai_list = list()
 	set desc = "Augment visual feed with internal sensor overlays."
 	set category = "AI Commands"
 	toggle_sensor_mode()
-					
+	
+/mob/living/silicon/ai/proc/change_arrival_message()
+	set name = "Set Arrival Message"
+	set desc = "Change the message that's transmitted when a new crew member arrives on station."
+	set category = "AI Commands"
+	
+	var/newmsg = input("What would you like the arrival message to be? Use $name to substitute the crew member's name, and use $rank to substitute the crew member's rank.", "Change Arrival Message", arrivalmsg) as text
+	if(newmsg != arrivalmsg)
+		arrivalmsg = newmsg
+		usr << "The arrival message has been successfully changed."
+
 // Handled camera lighting, when toggled.
 // It will get the nearest camera from the eyeobj, lighting it.
 

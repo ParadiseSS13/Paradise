@@ -9,7 +9,7 @@
 		while sprite_sheets should be used for "flexible" clothing items that do not need to be refitted (e.g. vox wearing jumpsuits).
 	*/
 	var/list/sprite_sheets_refit = null
-	
+
 //BS12: Species-restricted clothing check.
 /obj/item/clothing/mob_can_equip(M as mob, slot)
 
@@ -53,12 +53,12 @@
 		icon_override = sprite_sheets[target_species]
 	else
 		icon_override = initial(icon_override)
-		
+
 	if (sprite_sheets_obj && (target_species in sprite_sheets_obj))
 		icon = sprite_sheets_obj[target_species]
 	else
 		icon = initial(icon)
-	
+
 //Ears: currently only used for headsets and earmuffs
 /obj/item/clothing/ears
 	name = "ears"
@@ -153,6 +153,7 @@ BLIND     // can't see anything
 	body_parts_covered = HANDS
 	slot_flags = SLOT_GLOVES
 	attack_verb = list("challenged")
+	var/transfer_prints = FALSE
 	var/pickpocket = 0 //Master pickpocket?
 	var/clipped = 0
 	species_restricted = list("exclude","Unathi","Tajaran")
@@ -181,6 +182,49 @@ BLIND     // can't see anything
 	set src in usr
 	..()
 	return
+
+/obj/item/clothing/under/proc/set_sensors(mob/usr as mob)
+	var/mob/M = usr
+	if (istype(M, /mob/dead/)) return
+	if (usr.stat || usr.restrained()) return
+	if(has_sensor >= 2)
+		usr << "The controls are locked."
+		return 0
+	if(has_sensor <= 0)
+		usr << "This suit does not have any sensors."
+		return 0
+
+	var/list/modes = list("Off", "Binary sensors", "Vitals tracker", "Tracking beacon")
+	var/switchMode = input("Select a sensor mode:", "Suit Sensor Mode", modes[sensor_mode + 1]) in modes
+	if(get_dist(usr, src) > 1)
+		usr << "You have moved too far away."
+		return
+	sensor_mode = modes.Find(switchMode) - 1
+
+	if (src.loc == usr)
+		switch(sensor_mode)
+			if(0)
+				usr << "You disable your suit's remote sensing equipment."
+			if(1)
+				usr << "Your suit will now report whether you are live or dead."
+			if(2)
+				usr << "Your suit will now report your vital lifesigns."
+			if(3)
+				usr << "Your suit will now report your vital lifesigns as well as your coordinate position."
+	else if (istype(src.loc, /mob))
+		switch(sensor_mode)
+			if(0)
+				for(var/mob/V in viewers(usr, 1))
+					V.show_message("\red [usr] disables [src.loc]'s remote sensing equipment.", 1)
+			if(1)
+				for(var/mob/V in viewers(usr, 1))
+					V.show_message("[usr] turns [src.loc]'s remote sensors to binary.", 1)
+			if(2)
+				for(var/mob/V in viewers(usr, 1))
+					V.show_message("[usr] sets [src.loc]'s sensors to track vitals.", 1)
+			if(3)
+				for(var/mob/V in viewers(usr, 1))
+					V.show_message("[usr] sets [src.loc]'s sensors to maximum.", 1)
 
 //Head
 /obj/item/clothing/head
@@ -242,6 +286,8 @@ BLIND     // can't see anything
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE
 	cold_protection = HEAD
 	min_cold_protection_temperature = SPACE_HELMET_MIN_COLD_PROTECTION_TEMPERATURE
+	heat_protection = HEAD
+	max_heat_protection_temperature = SPACE_HELMET_MAX_HEAT_PROTECTION_TEMPERATURE
 	siemens_coefficient = 0.9
 	species_restricted = list("exclude","Diona","Vox")
 	loose = 0 // What kind of idiot designs a pressurized suit where the helmet can fall off?
@@ -257,11 +303,13 @@ BLIND     // can't see anything
 	flags = FPRINT | TABLEPASS | STOPSPRESSUREDMAGE
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
 	allowed = list(/obj/item/device/flashlight,/obj/item/weapon/tank/emergency_oxygen,/obj/item/device/suit_cooling_unit)
-	slowdown = 3
+	slowdown = 2
 	armor = list(melee = 0, bullet = 0, laser = 0,energy = 0, bomb = 0, bio = 100, rad = 50)
 	flags_inv = HIDEGLOVES|HIDESHOES|HIDEJUMPSUIT||HIDETAIL
 	cold_protection = UPPER_TORSO | LOWER_TORSO | LEGS | FEET | ARMS | HANDS
 	min_cold_protection_temperature = SPACE_SUIT_MIN_COLD_PROTECTION_TEMPERATURE
+	heat_protection = UPPER_TORSO | LOWER_TORSO | LEGS | FEET | ARMS | HANDS
+	max_heat_protection_temperature = SPACE_SUIT_MAX_HEAT_PROTECTION_TEMPERATURE
 	siemens_coefficient = 0.9
 	species_restricted = list("exclude","Diona","Vox")
 

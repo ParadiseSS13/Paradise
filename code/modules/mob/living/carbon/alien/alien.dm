@@ -1,5 +1,5 @@
 #define HEAT_DAMAGE_LEVEL_1 2 //Amount of damage applied when your body temperature just passes the 360.15k safety point
-#define HEAT_DAMAGE_LEVEL_2 4 //Amount of damage applied when your body temperature passes the 400K point
+#define HEAT_DAMAGE_LEVEL_2 3 //Amount of damage applied when your body temperature passes the 400K point
 #define HEAT_DAMAGE_LEVEL_3 8 //Amount of damage applied when your body temperature passes the 1000K point
 
 /mob/living/carbon/alien
@@ -15,20 +15,31 @@
 
 	alien_talk_understand = 1
 
+	nightvision = 1
+
 	var/obj/item/weapon/card/id/wear_id = null // Fix for station bounced radios -- Skie
 	var/has_fine_manipulation = 0
 
 	var/move_delay_add = 0 // movement delay to add
 
 	status_flags = CANPARALYSE|CANPUSH
-	var/heal_rate = 1
+	var/heal_rate = 5
 	var/plasma_rate = 5
 
 	var/oxygen_alert = 0
 	var/toxins_alert = 0
 	var/fire_alert = 0
+
 	var/large = 0
 	var/heat_protection = 0.5
+	var/leaping = 0
+
+/mob/living/carbon/alien/New()
+	verbs += /mob/living/carbon/verb/mob_sleep
+	verbs += /mob/living/verb/lay_down
+	internal_organs += new /obj/item/brain/alien
+
+	..()
 
 /mob/living/carbon/alien/adjustToxLoss(amount)
 	storedPlasma = min(max(storedPlasma + amount,0),max_plasma) //upper limit of max_plasma, lower limit of 0
@@ -52,15 +63,13 @@
 	if(status_flags & GODMODE)
 		health = maxHealth
 		stat = CONSCIOUS
-	else
-		//oxyloss is only used for suicide
-		//toxloss isn't used for aliens, its actually used as alien powers!!
-		health = maxHealth - getOxyLoss() - getFireLoss() - getBruteLoss() - getCloneLoss()
+		return
+	health = maxHealth - getOxyLoss() - getFireLoss() - getBruteLoss() - getCloneLoss()
 
 /mob/living/carbon/alien/proc/handle_environment(var/datum/gas_mixture/environment)
 
 	//If there are alien weeds on the ground then heal if needed or give some toxins
-	if(locate(/obj/effect/alien/weeds) in loc)
+	if(locate(/obj/structure/alien/weeds) in loc)
 		if(health >= maxHealth - getCloneLoss())
 			adjustToxLoss(plasma_rate)
 		else
@@ -70,6 +79,7 @@
 
 	if(!environment)
 		return
+
 	var/loc_temp = T0C
 	if(istype(loc, /obj/mecha))
 		var/obj/mecha/M = loc
@@ -114,7 +124,6 @@
 	return
 
 /mob/living/carbon/alien/proc/handle_mutations_and_radiation()
-
 	if(getFireLoss())
 		if((M_RESIST_HEAT in mutations) || prob(5))
 			adjustFireLoss(-1)
@@ -185,6 +194,56 @@
 /mob/living/carbon/alien/setDNA()
 	return
 
+/mob/living/carbon/alien/verb/nightvisiontoggle()
+	set name = "Toggle Night Vision"
+	set category = "Alien"
+
+	if(!nightvision)
+		see_in_dark = 8
+		see_invisible = SEE_INVISIBLE_MINIMUM
+		nightvision = 1
+		usr.hud_used.nightvisionicon.icon_state = "nightvision1"
+	else if(nightvision == 1)
+		see_in_dark = 4
+		see_invisible = 45
+		nightvision = 0
+		usr.hud_used.nightvisionicon.icon_state = "nightvision0"
+		
+
+/mob/living/carbon/alien/assess_threat(var/obj/machinery/bot/secbot/judgebot, var/lasercolor)
+	if(judgebot.emagged == 2)
+		return 10 //Everyone is a criminal!
+	var/threatcount = 0
+
+	//Securitrons can't identify aliens
+	if(!lasercolor && judgebot.idcheck)
+		threatcount += 4
+
+	//Lasertag bullshit
+	if(lasercolor)
+		if(lasercolor == "b")//Lasertag turrets target the opposing team, how great is that? -Sieve
+			if((istype(r_hand,/obj/item/weapon/gun/energy/laser/redtag)) || (istype(l_hand,/obj/item/weapon/gun/energy/laser/redtag)))
+				threatcount += 4
+
+		if(lasercolor == "r")
+			if((istype(r_hand,/obj/item/weapon/gun/energy/laser/bluetag)) || (istype(l_hand,/obj/item/weapon/gun/energy/laser/bluetag)))
+				threatcount += 4
+
+		return threatcount
+
+	//Check for weapons
+	if(judgebot.weaponscheck)
+		if(judgebot.check_for_weapons(l_hand))
+			threatcount += 4
+		if(judgebot.check_for_weapons(r_hand))
+			threatcount += 4
+
+	//Loyalty implants imply trustworthyness
+	if(isloyal(src))
+		threatcount -= 1
+
+	return threatcount
+
 /*----------------------------------------
 Proc: AddInfectionImages()
 Des: Gives the client of the alien an image on each infected mob.
@@ -193,7 +252,7 @@ Des: Gives the client of the alien an image on each infected mob.
 	if (client)
 		for (var/mob/living/C in mob_list)
 			if(C.status_flags & XENO_HOST)
-				var/mob/living/carbon/alien/embryo/A = locate() in C
+				var/obj/item/alien_embryo/A = locate() in C
 				var/I = image('icons/mob/alien.dmi', loc = C, icon_state = "infected[A.stage]")
 				client.images += I
 	return
@@ -210,10 +269,8 @@ Des: Removes all infected images from the alien.
 				del(I)
 	return
 
-#undef HEAT_DAMAGE_LEVEL_1
-#undef HEAT_DAMAGE_LEVEL_2
-#undef HEAT_DAMAGE_LEVEL_3
-
+/mob/living/carbon/alien/canBeHandcuffed()
+	return 1
 
 /mob/living/carbon/alien/proc/updatePlasmaDisplay()
 	if(hud_used) //clientless aliens
@@ -221,3 +278,7 @@ Des: Removes all infected images from the alien.
 
 /mob/living/carbon/alien/larva/updatePlasmaDisplay()
 	return
+
+#undef HEAT_DAMAGE_LEVEL_1
+#undef HEAT_DAMAGE_LEVEL_2
+#undef HEAT_DAMAGE_LEVEL_3

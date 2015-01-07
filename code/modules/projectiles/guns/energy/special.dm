@@ -3,6 +3,7 @@
 	desc = "A man portable anti-armor weapon designed to disable mechanical threats"
 	icon_state = "ionrifle"
 	item_state = null	//so the human update icon uses the icon_state instead.
+	icon_override = 'icons/mob/in-hand/guns.dmi'
 	fire_sound = 'sound/weapons/Laser.ogg'
 	origin_tech = "combat=2;magnets=4"
 	w_class = 4.0
@@ -239,6 +240,6 @@ modules/mob/living/carbon/human/life.dm if you die, you will be zoomed out.
 	desc = "A self-defense weapon that exhausts organic targets, weakening them until they collapse."
 	icon_state = "disabler"
 	item_state = null
-	projectile_type = "/obj/item/projectile/energy/disabler"
+	projectile_type = "/obj/item/projectile/beam/disabler"
 	cell_type = "/obj/item/weapon/cell"
 	charge_cost = 500

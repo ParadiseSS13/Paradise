@@ -7,8 +7,7 @@
 	status_flags = CANPARALYSE
 	heal_rate = 5
 	plasma_rate = 20
-	move_delay_add = 2
-	max_plasma = 1000
+	large = 1
 
 /mob/living/carbon/alien/humanoid/queen/New()
 	var/datum/reagents/R = new/datum/reagents(100)
@@ -24,7 +23,7 @@
 			break
 
 	real_name = src.name
-	verbs.Add(/mob/living/carbon/alien/humanoid/proc/corrosive_acid,/mob/living/carbon/alien/humanoid/proc/resin)
+	verbs.Add(/mob/living/carbon/alien/humanoid/proc/corrosive_acid,/mob/living/carbon/alien/humanoid/proc/neurotoxin,/mob/living/carbon/alien/humanoid/proc/resin)
 	verbs -= /mob/living/carbon/alien/verb/alien_ventcrawl
 	..()
 
@@ -57,19 +56,18 @@
 //Queen verbs
 /mob/living/carbon/alien/humanoid/queen/verb/lay_egg()
 
-	set name = "Lay Egg (250)"
+	set name = "Lay Egg (75)"
 	set desc = "Lay an egg to produce huggers to impregnate prey with."
 	set category = "Alien"
-
-	if(locate(/obj/effect/alien/egg) in get_turf(src))
-		src << "There's already an egg here."
+	if(locate(/obj/structure/alien/egg) in get_turf(src))
+		src << "<span class='noticealien'>There's already an egg here.</span>"
 		return
 
-	if(powerc(250,1))//Can't plant eggs on spess tiles. That's silly.
-		adjustToxLoss(-250)
+	if(powerc(75,1))//Can't plant eggs on spess tiles. That's silly.
+		adjustToxLoss(-75)
 		for(var/mob/O in viewers(src, null))
-			O.show_message(text("\green <B>[src] has laid an egg!</B>"), 1)
-		new /obj/effect/alien/egg(loc)
+			O.show_message(text("<span class='alertalien'>[src] has laid an egg!</span>"), 1)
+		new /obj/structure/alien/egg(loc)
 	return
 
 
@@ -94,7 +92,7 @@
 			overlays += I
 
 
-
+/*
 /mob/living/carbon/alien/humanoid/queen/verb/evolve() // -- TLE
 	set name = "Evolve (1000)"
 	set desc = "The ultimate transformation. Become an alien Empress. Only one empress can exist at a time."
@@ -110,16 +108,18 @@
 
 		if(no_queen)
 			adjustToxLoss(-1000)
-			src << "\green You begin to evolve!"
+			src << "<span class='noticealien'>You begin to evolve!</span>"
 			for(var/mob/O in viewers(src, null))
-				O.show_message(text("\green <B>[src] begins to twist and contort!</B>"), 1)
-			var/mob/living/carbon/alien/humanoid/empress/large/new_xeno = new (loc)
+				O.show_message(text("<span class='alertalien'>[src] begins to twist and contort!</span>"), 1)
+			var/mob/living/carbon/alien/humanoid/empress/new_xeno = new(loc)
 			if(mind)
 				mind.transfer_to(new_xeno)
 			else
 				new_xeno.key = key
+			new_xeno.mind.name = new_xeno.name
 			del(src)
 		else
 			src << "<span class='notice'>We already have an alive empress.</span>"
 	return
 
+*/

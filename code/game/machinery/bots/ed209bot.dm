@@ -34,7 +34,9 @@
 	var/projectile = /obj/item/projectile/energy/electrode //Holder for projectile type
 	var/shoot_sound = 'sound/weapons/Taser.ogg'
 	radio_frequency = SEC_FREQ
+	radio_name = "Security"
 	bot_type = SEC_BOT
+	bot_type_name = "ED-209"
 	bot_filter = RADIO_SECBOT
 
 	//List of weapons that secbots will not arrest for
@@ -43,8 +45,7 @@
 		/obj/item/weapon/gun/energy/laser/redtag,\
 		/obj/item/weapon/gun/energy/laser/practice,\
 		/obj/item/weapon/melee/telebaton,\
-		/obj/item/weapon/gun/energy/kinetic_accelerator,\
-		/obj/item/weapon/melee/baton/loaded/ntcane)
+		/obj/item/weapon/gun/energy/kinetic_accelerator)
 
 
 /obj/item/weapon/ed209_assembly
@@ -113,6 +114,7 @@
 	. = ..()
 	if (.)
 		return
+	usr.set_machine(src)
 	var/dat
 	dat += hack(user)
 	dat += text({"
@@ -267,8 +269,8 @@ Auto Patrol[]"},
 						M.Stun(5)
 
 					if(declare_arrests)
-						//var/area/location = get_area(src)
-						declare_arrest()
+						var/area/location = get_area(src)
+						speak("[arrest_type ? "Detaining" : "Arresting"] level [threatlevel] scumbag <b>[target]</b> in [location].",radio_frequency, radio_name)
 					target.visible_message("<span class='danger'>[target] has been stunned by [src]!</span>",\
 											"<span class='userdanger'>[target] has been stunned by [src]!</span></span>")
 
@@ -400,25 +402,6 @@ Auto Patrol[]"},
 			return 1
 	return 0
 
-/obj/machinery/bot/ed209/Bump(M as mob|obj) //Leave no door unopened!
-	if ((istype(M, /obj/machinery/door)) && (!isnull(botcard)))
-		var/obj/machinery/door/D = M
-		if (!istype(D, /obj/machinery/door/firedoor) && D.check_access(botcard))
-			D.open()
-			frustration = 0
-	else if ((istype(M, /mob/living/)) && (!anchored))
-		loc = M:loc
-		frustration = 0
-	return
-
-/* terrible
-/obj/machinery/bot/ed209/Bumped(atom/movable/M as mob|obj)
-	spawn(0)
-		if (M)
-			var/turf/T = get_turf(src)
-			M:loc = T
-*/
-
 /obj/machinery/bot/ed209/explode()
 	walk_to(src,0)
 	visible_message("<span class='userdanger'>[src] blows apart!</span>")
@@ -431,7 +414,7 @@ Auto Patrol[]"},
 	new /obj/item/device/assembly/prox_sensor(Tsec)
 
 	if(!lasercolor)
-		var/obj/item/weapon/gun/energy/taser/G = new /obj/item/weapon/gun/energy/taser(Tsec)
+		var/obj/item/weapon/gun/energy/advtaser/G = new /obj/item/weapon/gun/energy/advtaser(Tsec)
 		G.power_supply.charge = 0
 		G.update_icon()
 	else if(lasercolor == "b")
@@ -661,7 +644,7 @@ Auto Patrol[]"},
 						return
 					name = "redtag ED-209 assembly"
 				if("")
-					if(!istype(W, /obj/item/weapon/gun/energy/taser))
+					if(!istype(W, /obj/item/weapon/gun/energy/advtaser))
 						return
 					name = "taser ED-209 assembly"
 				else
@@ -726,9 +709,3 @@ Auto Patrol[]"},
 /obj/machinery/bot/ed209/redtag/New()
 	new /obj/machinery/bot/ed209(get_turf(src),null,"r")
 	qdel(src)
-
-/obj/machinery/bot/ed209/proc/declare_arrest()
-	var/area/location = get_area(src)	
-	for(var/mob/living/carbon/human/human in world)
-		if((human.z == src.z) && istype(human.glasses, /obj/item/clothing/glasses/hud/security) || istype(human.glasses, /obj/item/clothing/glasses/sunglasses/sechud) && !human.blinded)
-			human << "<span class='info'>\icon[human.glasses] [src.name] is [arrest_type ? "detaining" : "arresting"] level [threatlevel] threat <b>[target]</b> in <b>[location]</b></span>"

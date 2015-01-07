@@ -3,7 +3,7 @@
 	desc = "Used to control a linked teleportation Hub and Station."
 	icon_state = "teleport"
 	circuit = "/obj/item/weapon/circuitboard/teleporter"
-	var/obj/item/device/sps/locked = null
+	var/obj/item/device/gps/locked = null
 	var/regime_set = "Teleporter"
 	var/id = null
 	var/obj/machinery/teleport/station/power_station
@@ -40,16 +40,16 @@
 				user << "\blue The teleporter can now lock on to Syndicate beacons!"
 		else
 			ui_interact(user)
-	else if(istype(I, /obj/item/device/sps))
-		var/obj/item/device/sps/L = I
+	else if(istype(I, /obj/item/device/gps))
+		var/obj/item/device/gps/L = I
 		if(L.locked_location && !(stat & (NOPOWER|BROKEN)))
 			user.before_take_item(L)
 			L.loc = src
 			locked = L
-			user << "<span class='caution'>You insert the SPS device into the [name]'s slot.</span>"
+			user << "<span class='caution'>You insert the GPS device into the [name]'s slot.</span>"
 			src.attack_hand(user)
 		else
-			user << "<span class='warning'>No useable data was found on te SPS device.</span>"
+			user << "<span class='warning'>No useable data was found on te GPS device.</span>"
 	else
 		..()
 	return

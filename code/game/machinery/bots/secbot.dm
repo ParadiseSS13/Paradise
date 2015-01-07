@@ -23,8 +23,12 @@
 	var/weaponscheck = 1 //If true, arrest people for weapons if they lack access
 	var/check_records = 1 //Does it check security records?
 	var/arrest_type = 0 //If true, don't handcuff
+	var/harmbaton = 0
+	var/base_icon = "secbot"
 	radio_frequency = SEC_FREQ //Security channel
+	radio_name = "Security"
 	bot_type = SEC_BOT
+	bot_type_name = "Secbot"
 	bot_filter = RADIO_SECBOT
 
 	//List of weapons that secbots will not arrest for
@@ -33,21 +37,31 @@
 		/obj/item/weapon/gun/energy/laser/redtag,\
 		/obj/item/weapon/gun/energy/laser/practice,\
 		/obj/item/weapon/melee/telebaton,\
-		/obj/item/weapon/gun/energy/kinetic_accelerator,\
-		/obj/item/weapon/melee/baton/loaded/ntcane)
+		/obj/item/weapon/gun/energy/kinetic_accelerator)
 
 
 /obj/machinery/bot/secbot/beepsky
 	name = "Officer Beepsky"
 	desc = "It's Officer Beepsky! Powered by a potato and a shot of whiskey."
 	idcheck = 0
-	weaponscheck = 0
+	weaponscheck = 1
 	auto_patrol = 1
 
 /obj/machinery/bot/secbot/pingsky
 	name = "Officer Pingsky"
 	desc = "It's Officer Pingsky! Delegated to satellite guard duty for harbouring anti-human sentiment."
 	radio_frequency = AIPRIV_FREQ
+	radio_name = "AI Private"
+
+/obj/machinery/bot/secbot/buzzsky
+	name = "Officer Buzzsky"
+	desc = "It's Officer Buzzsky! Rusted and falling apart, he seems less than thrilled with the crew for leaving him in his current state."
+	base_icon = "rustbot"
+	icon_state = "rustbot0"
+	declare_arrests = 0
+	arrest_type = 1
+	harmbaton = 1
+	emagged = 2
 
 /obj/item/weapon/secbot_assembly
 	name = "incomplete securitron assembly"
@@ -62,7 +76,7 @@
 
 /obj/machinery/bot/secbot/New()
 	..()
-	icon_state = "secbot[on]"
+	icon_state = "[base_icon][on]"
 	spawn(3)
 
 		var/datum/job/detective/J = new/datum/job/detective
@@ -73,12 +87,12 @@
 
 /obj/machinery/bot/secbot/turn_on()
 	..()
-	icon_state = "secbot[on]"
+	icon_state = "[base_icon][on]"
 	updateUsrDialog()
 
 /obj/machinery/bot/secbot/turn_off()
 	..()
-	icon_state = "secbot[on]"
+	icon_state = "[base_icon][on]"
 	updateUsrDialog()
 
 /obj/machinery/bot/secbot/bot_reset()
@@ -189,7 +203,7 @@ Auto Patrol: []"},
 			oldtarget_name = user.name
 		visible_message("<span class='danger'>[src] buzzes oddly!</span>")
 		declare_arrests = 0
-		icon_state = "secbot[on]"
+		icon_state = "[base_icon][on]"
 
 /obj/machinery/bot/secbot/bot_process()
 	if (!..())
@@ -215,13 +229,17 @@ Auto Patrol: []"},
 			if(target)		// make sure target exists
 				if(Adjacent(target) && isturf(target.loc))	// if right next to perp
 					playsound(loc, 'sound/weapons/Egloves.ogg', 50, 1, -1)
-					icon_state = "secbot-c"
+					if(harmbaton)
+						playsound(loc, 'sound/weapons/genhit1.ogg', 50, 1, -1)
+					icon_state = "[base_icon]-c"
 					spawn(2)
-						icon_state = "secbot[on]"
+						icon_state = "[base_icon][on]"
 					var/mob/living/carbon/M = target
 					if(istype(M, /mob/living/carbon/human))
 						if( M.stuttering < 5 && !(M_HULK in M.mutations) )
 							M.stuttering = 5
+						if(harmbaton) // Bots with harmbaton enabled become shitcurity. - Dave
+							M.apply_damage(10)
 						M.Stun(5)
 						M.Weaken(5)
 					else
@@ -230,10 +248,10 @@ Auto Patrol: []"},
 						M.Stun(5)
 
 					if(declare_arrests)
-						//var/area/location = get_area(src)
-						declare_arrest()
-					target.visible_message("<span class='danger'>[target] has been stunned by [src]!</span>",\
-											"<span class='userdanger'>[target] has been stunned by [src]!</span>")
+						var/area/location = get_area(src)
+						speak("[arrest_type ? "Detaining" : "Arresting"] level [threatlevel] scumbag <b>[target]</b> in [location].",radio_frequency, radio_name)
+					target.visible_message("<span class='danger'>[target] has been [harmbaton ? "beaten" : "stunned"] by [src]!</span>",\
+											"<span class='userdanger'>[target] has been [harmbaton ? "beaten" : "stunned"] by [src]!</span>")
 
 					mode = BOT_PREP_ARREST
 					anchored = 1
@@ -476,12 +494,3 @@ Auto Patrol: []"},
 			new /obj/item/robot_parts/l_arm(get_turf(src))
 			user << "<span class='notice'>You remove the robot arm from [src].</span>"
 			build_step--
-			
-/obj/machinery/bot/secbot/proc/declare_arrest()	
-	var/area/location = get_area(src)
-	for(var/mob/living/carbon/human/human in world)
-		if((human.z == src.z) && istype(human.glasses, /obj/item/clothing/glasses/hud/security) || istype(human.glasses, /obj/item/clothing/glasses/sunglasses/sechud) && !human.blinded)
-			human << "<span class='info'>\icon[human.glasses] [src.name] is [arrest_type ? "detaining" : "arresting"] level [threatlevel] threat <b>[target]</b> in <b>[location]</b></span>"
-	for(var/mob/living/silicon/robot in world)
-		if((robot.z == src.z) && !robot.blinded && robot.sensor_mode == 1)
-			robot << "<span class='info'>[src.name] is [arrest_type ? "detaining" : "arresting"] level [threatlevel] threat <b>[target]</b> in <b>[location]</b></span>"

@@ -187,6 +187,11 @@
 				if(status == "")
 					status = "OK"
 				src.show_message(text("\t []My [] is [].",status=="OK"?"\blue ":"\red ",org.display_name,status),1)
+			if(staminaloss)
+				if(staminaloss > 30)
+					src << "<span class='info'>You're completely exhausted.</span>"
+				else
+					src << "<span class='info'>You feel fatigued.</span>"
 			if((SKELETON in H.mutations) && (!H.w_uniform) && (!H.wear_suit))
 				H.play_xylophone()
 		else if(lying) // /vg/: For hugs. This is how update_icon figgers it out, anyway.  - N3X15

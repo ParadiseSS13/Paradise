@@ -129,6 +129,22 @@ var/global/list/obj/item/device/pda/PDAs = list()
 	icon_state = "pda-captain"
 	detonate = 0
 	//toff = 1
+	
+/obj/item/device/pda/heads/ntrep
+	default_cartridge = /obj/item/weapon/cartridge/supervisor
+	icon_state = "pda-h"
+	
+/obj/item/device/pda/heads/ntrec
+	default_cartridge = /obj/item/weapon/cartridge/supervisor
+	icon_state = "pda-h"
+	
+/obj/item/device/pda/heads/magistrate
+	default_cartridge = /obj/item/weapon/cartridge/supervisor
+	icon_state = "pda-h"
+	
+/obj/item/device/pda/heads/blueshield
+	default_cartridge = /obj/item/weapon/cartridge/hos
+	icon_state = "pda-h"
 
 /obj/item/device/pda/cargo
 	default_cartridge = /obj/item/weapon/cartridge/quartermaster
@@ -192,6 +208,10 @@ var/global/list/obj/item/device/pda/PDAs = list()
 /obj/item/device/pda/geneticist
 	default_cartridge = /obj/item/weapon/cartridge/medical
 	icon_state = "pda-genetics"
+	
+/obj/item/device/pda/centcom
+	default_cartridge = /obj/item/weapon/cartridge/centcom
+	icon_state = "pda-h"
 
 
 // Special AI/pAI PDAs that cannot explode.

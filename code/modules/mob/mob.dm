@@ -375,7 +375,7 @@ var/list/slot_equipment_priority = list( \
 					if(!disable_warning)
 						usr << "You somehow have a suit with no defined allowed items for suit storage, stop that."
 					return 0
-				if(src.w_class > 3)
+				if(src.w_class > 4)
 					if(!disable_warning)
 						usr << "The [name] is too big to attach."
 					return 0
@@ -1313,3 +1313,11 @@ mob/proc/yank_out_object()
 
 /mob/proc/assess_threat() //For sec bot threat assessment
 	return
+
+/mob/proc/get_ghost(even_if_they_cant_reenter = 0)
+	if(mind)
+		for(var/mob/dead/observer/G in dead_mob_list)
+			if(G.mind == mind)
+				if(G.can_reenter_corpse || even_if_they_cant_reenter)
+					return G
+				break

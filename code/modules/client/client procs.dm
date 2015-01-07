@@ -171,8 +171,13 @@
 						else
 							src.DB_species_unlock("Slime People",45)
 							return
-
-
+			if(href_list["KarmaRefund"])
+				var/type = href_list["KarmaRefundType"]
+				var/job = href_list["KarmaRefund"]
+				var/cost = href_list["KarmaRefundCost"]
+				src.karmarefund(type,job,cost)
+				return
+				
 	switch(href_list["_src_"])
 		if("holder")	hsrc = holder
 		if("usr")		hsrc = mob
@@ -420,5 +425,6 @@
 		'icons/stamp_icons/large_stamp-cap.png',
 		'icons/stamp_icons/large_stamp-qm.png',
 		'icons/stamp_icons/large_stamp-law.png',
-		'icons/stamp_icons/large_stamp-cent.png'
+		'icons/stamp_icons/large_stamp-cent.png',
+		'html/talisman.png'
 		)

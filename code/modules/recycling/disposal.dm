@@ -95,13 +95,23 @@
 
 		if(istype(I, /obj/item/weapon/storage/bag/trash))
 			var/obj/item/weapon/storage/bag/trash/T = I
-			user << "\blue You empty the bag."
-			for(var/obj/item/O in T.contents)
-				T.remove_from_storage(O,src)
-			T.update_icon()
-			update()
-			return
-
+			if(T.contents.len)
+				user << "\blue You empty the bag."
+				for(var/obj/item/O in T.contents)
+					T.remove_from_storage(O,src)
+				T.update_icon()
+				update()
+				return
+			
+		if(istype(I, /obj/item/weapon/storage/part_replacer))
+			var/obj/item/weapon/storage/part_replacer/P = I
+			if(P.contents.len)
+				user << "\blue You empty the RPED's contents."
+				for(var/obj/item/O in P.contents)
+					P.remove_from_storage(O,src)
+				update()
+				return
+				
 		var/obj/item/weapon/grab/G = I
 		if(istype(G))	// handle grabbed mob
 			if(ismob(G.affecting))
@@ -553,10 +563,10 @@
 	proc/move()
 		var/obj/structure/disposalpipe/last
 		while(active)
-			if(hasmob && prob(3))
+		/*	if(hasmob && prob(3))
 				for(var/mob/living/H in src)
 					if(!istype(H,/mob/living/silicon/robot/drone)) //Drones use the mailing code to move through the disposal system,
-						H.take_overall_damage(20, 0, "Blunt Trauma")//horribly maim any living creature jumping down disposals.  c'est la vie
+						H.take_overall_damage(20, 0, "Blunt Trauma") */ //horribly maim any living creature jumping down disposals.  c'est la vie
 
 			if(has_fat_guy && prob(2)) // chance of becoming stuck per segment if contains a fat guy
 				active = 0

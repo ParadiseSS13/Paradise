@@ -41,7 +41,33 @@
 		txt = copytext(txt, 1, 128)
 		if(loc == user && user.stat == 0)
 			scribble = txt
+	else if(istype(P, /obj/item/weapon/lighter))
+		burnphoto(P, user)
 	..()
+	
+/obj/item/weapon/photo/proc/burnphoto(obj/item/weapon/lighter/P, mob/user)
+	var/class = "<span class='warning'>"
+
+	if(P.lit && !user.restrained())
+		if(istype(P, /obj/item/weapon/lighter/zippo))
+			class = "<span class='rose'>"
+
+		user.visible_message("[class][user] holds \the [P] up to \the [src], it looks like \he's trying to burn it!", \
+		"[class]You hold \the [P] up to \the [src], burning it slowly.")
+
+		spawn(20)
+			if(get_dist(src, user) < 2 && user.get_active_hand() == P && P.lit)
+				user.visible_message("[class][user] burns right through \the [src], turning it to ash. It flutters through the air before settling on the floor in a heap.", \
+				"[class]You burn right through \the [src], turning it to ash. It flutters through the air before settling on the floor in a heap.")
+
+				if(user.get_inactive_hand() == src)
+					user.drop_from_inventory(src)
+
+				new /obj/effect/decal/cleanable/ash(get_turf(src))
+				del(src)
+
+			else
+				user << "\red You must hold \the [P] steady to burn \the [src]."
 
 /obj/item/weapon/photo/examine(mob/user)
 	if(in_range(usr, src) || istype(usr, /mob/dead/observer))

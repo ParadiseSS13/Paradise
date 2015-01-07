@@ -27,7 +27,7 @@
 	icon_power_button = "spell_missile"
 
 /obj/effect/proc_holder/spell/wizard/targeted/inflict_handler/magic_missile
-	amt_weakened = 5
+	amt_weakened = 3
 	amt_dam_fire = 10
 
 /obj/effect/proc_holder/spell/wizard/noclothes
@@ -119,7 +119,7 @@
 
 
 	smoke_spread = 1
-	smoke_amt = 10
+	smoke_amt = 1
 
 	inner_tele_radius = 0
 	outer_tele_radius = 6
@@ -268,7 +268,7 @@
 	icon_power_button = "spell_fireball"
 
 /obj/effect/proc_holder/spell/wizard/turf/fireball/cast(var/turf/T)
-	explosion(T, -1, 0, 2, 0)
+	explosion(T, -1, 0, 2, 3, 0)
 
 
 /obj/effect/proc_holder/spell/wizard/targeted/inflict_handler/fireball
@@ -277,5 +277,5 @@
 
 /obj/effect/proc_holder/spell/wizard/targeted/explosion/fireball
 	ex_severe = -1
-	ex_heavy = 0
+	ex_heavy = -1
 	ex_light = 2

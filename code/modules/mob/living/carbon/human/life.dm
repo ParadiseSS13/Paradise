@@ -182,16 +182,51 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 
 	return 1 - pressure_adjustment_coefficient	//want 0 to be bad protection, 1 to be good protection
 
+// Calculate how vulnerable the human is to under- and overpressure.
+// Returns 0 (equals 0 %) if sealed in an undamaged suit, 1 if unprotected (equals 100%).
+// Suitdamage can modifiy this in 10% steps.
+/mob/living/carbon/human/proc/get_pressure_weakness()
+
+	var/pressure_adjustment_coefficient = 1 // Assume no protection at first.
+
+	if(wear_suit && (wear_suit.flags & STOPSPRESSUREDMAGE) && head && (head.flags & STOPSPRESSUREDMAGE)) // Complete set of pressure-proof suit worn, assume fully sealed.
+		pressure_adjustment_coefficient = 0
+
+		// Handles breaches in your space suit. 10 suit damage equals a 100% loss of pressure protection.
+		if(istype(wear_suit,/obj/item/clothing/suit/space))
+			var/obj/item/clothing/suit/space/S = wear_suit
+			if(S.can_breach && S.damage)
+				pressure_adjustment_coefficient += S.damage * 0.1
+
+	pressure_adjustment_coefficient = min(1,max(pressure_adjustment_coefficient,0)) // So it isn't less than 0 or larger than 1.
+
+	return pressure_adjustment_coefficient	
+	
 /mob/living/carbon/human/calculate_affecting_pressure(var/pressure)
-	..()
-	var/pressure_difference = abs( pressure - ONE_ATMOSPHERE )
+	var/pressure_difference
 
-	pressure_difference = pressure_difference * (1 - get_pressure_protection())
+	// First get the absolute pressure difference.
+	if(pressure < ONE_ATMOSPHERE) // We are in an underpressure.
+		pressure_difference = ONE_ATMOSPHERE - pressure
 
-	if(pressure > ONE_ATMOSPHERE)
-		return ONE_ATMOSPHERE + pressure_difference
+	else //We are in an overpressure or standard atmosphere.
+		pressure_difference = pressure - ONE_ATMOSPHERE
+
+	if(pressure_difference < 5) // If the difference is small, don't bother calculating the fraction.
+		pressure_difference = 0
+
 	else
+		// Otherwise calculate how much of that absolute pressure difference affects us, can be 0 to 1 (equals 0% to 100%).
+		// This is our relative difference.
+		pressure_difference *= get_pressure_weakness()
+
+	// The difference is always positive to avoid extra calculations.
+	// Apply the relative difference on a standard atmosphere to get the final result.
+	// The return value will be the adjusted_pressure of the human that is the basis of pressure warnings and damage.
+	if(pressure < ONE_ATMOSPHERE)
 		return ONE_ATMOSPHERE - pressure_difference
+	else
+		return ONE_ATMOSPHERE + pressure_difference
 
 
 /mob/living/carbon/human
@@ -344,7 +379,7 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 					if(75 to 100)
 						radiation -= 3
 						adjustToxLoss(3)
-						damage = 1
+						damage = 3
 						if(prob(1))
 							src << "\red You mutate!"
 							randmutb(src)
@@ -355,7 +390,7 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 					else
 						radiation -= 5
 						adjustToxLoss(5)
-						damage = 1
+						damage = 5
 						if(prob(1))
 							src << "\red You mutate!"
 							randmutb(src)
@@ -387,6 +422,7 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 			if(istype(loc, /obj/))
 				var/obj/location_as_object = loc
 				location_as_object.handle_internal_lifeform(src, 0)
+				
 		else
 			//First, check for air from internal atmosphere (using an air tank and mask generally)
 			breath = get_breath_from_internal(BREATH_VOLUME) // Super hacky -- TLE
@@ -464,19 +500,6 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 					for(var/mob/living/carbon/M in view(1,src))
 						src.spread_disease_to(M)
 
-
-	proc/get_breath_from_internal(volume_needed)
-		if(internal)
-			if (!contents.Find(internal))
-				internal = null
-			if (!wear_mask || !(wear_mask.flags & MASKINTERNALS) )
-				internal = null
-			if(internal)
-				return internal.remove_air_volume(volume_needed)
-			else if(internals)
-				internals.icon_state = "internal0"
-		return null
-
 // USED IN DEATHWHISPERS
 	proc/isInCrit()
 		// Health is in deep shit and we're not already dead
@@ -487,19 +510,26 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 			return 0
 
 		if(!breath || (breath.total_moles() == 0) || suiciding)
+			var/oxyloss = 0
 			if(reagents.has_reagent("inaprovaline"))
 				return
-			if(suiciding)
-				adjustOxyLoss(2)//If you are suiciding, you should die a little bit faster
+			if(suiciding)	
+				oxyloss = 2
+				adjustOxyLoss(oxyloss)//If you are suiciding, you should die a little bit faster
 				failed_last_breath = 1
 				oxygen_alert = max(oxygen_alert, 1)
 				return 0
 			if(health > 0)
-				adjustOxyLoss(HUMAN_MAX_OXYLOSS)
+				oxyloss = HUMAN_MAX_OXYLOSS
+				adjustOxyLoss(oxyloss)
 				failed_last_breath = 1
 			else
-				adjustOxyLoss(HUMAN_CRIT_MAX_OXYLOSS)
+				oxyloss = HUMAN_CRIT_MAX_OXYLOSS
+				adjustOxyLoss(oxyloss)
 				failed_last_breath = 1
+				
+			var/datum/organ/external/affected = get_organ("chest")	
+			affected.add_autopsy_data("Suffocation", oxyloss) 
 
 			oxygen_alert = max(oxygen_alert, 1)
 
@@ -1030,7 +1060,7 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 				if(!reagents.has_reagent("inaprovaline"))
 					adjustOxyLoss(1)*/
 
-			if(hallucination)
+			if(hallucination && !(species.flags & IS_SYNTHETIC))
 				if(hallucination >= 20)
 					if(prob(3))
 						fake_attack(src)
@@ -1062,6 +1092,7 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 					adjustHalLoss(-3)
 			else if(sleeping)
 				handle_dreams()
+				adjustStaminaLoss(-10)
 				adjustHalLoss(-3)
 				if (mind)
 					if((mind.active && client != null) || immune_to_ssd) //This also checks whether a client is connected, if not, sleep is not reduced.
@@ -1166,6 +1197,8 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 			// If you're dirty, your gloves will become dirty, too.
 			if(gloves && germ_level > gloves.germ_level && prob(10))
 				gloves.germ_level += 1
+
+			CheckStamina()
 
 		return 1
 
@@ -1292,7 +1325,9 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 					see_invisible = SEE_INVISIBLE_LIVING
 					seer = 0
 
+			var/tmp/has_ninja_mask = 0
 			if(istype(wear_mask, /obj/item/clothing/mask/gas/voice/space_ninja))
+				has_ninja_mask = 1
 				var/obj/item/clothing/mask/gas/voice/space_ninja/O = wear_mask
 				switch(O.mode)
 					if(0)
@@ -1305,7 +1340,7 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 						if(!druggy)		see_invisible = SEE_INVISIBLE_LIVING
 					if(1)
 						see_in_dark = 5
-						if(!druggy)		see_invisible = SEE_INVISIBLE_LIVING
+						if(!druggy)		see_invisible = SEE_INVISIBLE_MINIMUM
 					if(2)
 						sight |= SEE_MOBS
 						if(!druggy)		see_invisible = SEE_INVISIBLE_LEVEL_TWO
@@ -1340,7 +1375,7 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 						see_invisible = SEE_INVISIBLE_LIVING
 					if(istype(O,/obj/item/clothing/glasses/hud/security/night) || istype(O,/obj/item/clothing/glasses/hud/health/night))
 						see_invisible = SEE_INVISIBLE_MINIMUM
-			else if(!seer)
+			else if(!seer && !has_ninja_mask)
 				see_in_dark = species.darksight
 				see_invisible = SEE_INVISIBLE_LIVING
 
@@ -1356,7 +1391,7 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 						if(2)	healths.icon_state = "health7"
 						else
 							//switch(health - halloss)
-							switch(100 - ((species && species.flags & NO_PAIN) ? 0 : traumatic_shock))
+							switch(100 - ((species && species.flags & NO_PAIN) ? 0 : traumatic_shock) - staminaloss)
 								if(100 to INFINITY)		healths.icon_state = "health0"
 								if(80 to 100)			healths.icon_state = "health1"
 								if(60 to 80)			healths.icon_state = "health2"
@@ -1364,6 +1399,29 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 								if(20 to 40)			healths.icon_state = "health4"
 								if(0 to 20)				healths.icon_state = "health5"
 								else					healths.icon_state = "health6"
+
+			if(healthdoll)
+				healthdoll.overlays.Cut()
+				if(stat == DEAD)
+					healthdoll.icon_state = "healthdoll_DEAD"
+				else
+					healthdoll.icon_state = "healthdoll_OVERLAY"
+					for(var/datum/organ/external/O in organs)
+						var/damage = O.burn_dam + O.brute_dam
+						var/comparison = (O.max_damage/5)
+						var/icon_num = 0
+						if(damage)
+							icon_num = 1
+						if(damage > (comparison))
+							icon_num = 2
+						if(damage > (comparison*2))
+							icon_num = 3
+						if(damage > (comparison*3))
+							icon_num = 4
+						if(damage > (comparison*4))
+							icon_num = 5
+						if(icon_num)
+							healthdoll.overlays += image('icons/mob/screen_gen.dmi',"[O.name][icon_num]")
 
 			if(nutrition_icon)
 				switch(nutrition)

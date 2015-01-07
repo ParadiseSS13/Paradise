@@ -44,7 +44,7 @@
 
 /obj/item/weapon/gun/energy/stunrevolver
 	name = "stun revolver"
-	desc = "A high-tech revolver that fires stun cartridges. The stun cartridges can be recharged using a conventional energy weapon recharger."
+	desc = "A high-tech revolver that fires internal, reusable stun cartidges in a revolving cylinder. Holds twice as much ammo as a standard taser."
 	icon_state = "stunrevolver"
 	fire_sound = "sound/weapons/gunshot.ogg"
 	origin_tech = "combat=3;materials=3;powerstorage=2"
@@ -109,6 +109,7 @@
 	name = "Energy Crossbow"
 	desc = "A weapon favored by syndicate carp hunters."
 	icon_state = "crossbowlarge"
+	silenced = 0
 	w_class = 3.0
 	force = 10
 	m_amt = 4000

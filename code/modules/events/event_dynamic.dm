@@ -75,7 +75,7 @@ var/global/list/possibleEvents = list()
 
 	possibleEvents[/datum/event/communications_blackout] = 50 + 30 * active_with_role["AI"] + active_with_role["Scientist"] * 25
 	possibleEvents[/datum/event/ionstorm] = active_with_role["AI"] * 75 + active_with_role["Cyborg"] * 25 + active_with_role["Engineer"] * 10 + active_with_role["Scientist"] * 5
-	possibleEvents[/datum/event/grid_check] = 25 + 20 * active_with_role["Engineer"]
+//	possibleEvents[/datum/event/grid_check] = 25 + 20 * active_with_role["Engineer"]
 	possibleEvents[/datum/event/electrical_storm] = 150 + 10 * active_with_role["Janitor"] + 5 * active_with_role["Engineer"]
 	possibleEvents[/datum/event/wallrot] = 30 * active_with_role["Engineer"] + 50 * active_with_role["Botanist"]
 	possibleEvents[/datum/event/spacevine] = 25 + 5 * active_with_role["Engineer"]
@@ -102,14 +102,14 @@ var/global/list/possibleEvents = list()
 		possibleEvents[/datum/event/organ_failure] = active_with_role["Medical"] * 50
 		possibleEvents[/datum/event/viral_infection] = 25 + active_with_role["Medical"] * 50
 
-	possibleEvents[/datum/event/prison_break] = active_with_role["Security"] * 50
+	possibleEvents[/datum/event/prison_break] = active_with_role["Security"] * 30
 	if(active_with_role["Security"] > 0)
 		if(aliens_allowed && !sent_aliens_to_station)
 			possibleEvents[/datum/event/alien_infestation] = max(active_with_role["Security"], 5) + 2.5
 		if(!sent_ninja_to_station && toggle_space_ninja)
 			possibleEvents[/datum/event/space_ninja] = active_with_role["Security"] * 5
-	possibleEvents[/datum/event/undead] = active_with_role["Security"] * 15
-	possibleEvents[/datum/event/ghosts] = active_with_role["Security"] * 25
+	//possibleEvents[/datum/event/undead] = active_with_role["Security"] * 15
+	//possibleEvents[/datum/event/ghosts] = active_with_role["Security"] * 25
 	possibleEvents[/datum/event/tear] = active_with_role["Security"] * 25
 
 	for(var/event_type in event_last_fired) if(possibleEvents[event_type])

@@ -161,15 +161,15 @@
 			return
 	return
 
-/obj/item/stack/proc/use(var/amount)
-	src.amount-=amount
-	if (src.amount<=0)
-		var/oldsrc = src
-		src = null //dont kill proc after del()
+/obj/item/stack/proc/use(var/used)
+	if (amount < used)
+		return 0
+	amount -= used
+	if (amount <= 0)
 		if(usr)
-			usr.before_take_item(oldsrc)
-		qdel(oldsrc)
-	return
+			usr.before_take_item(src, 1)
+		qdel(src)
+	return 1
 
 /obj/item/stack/proc/add_to_stacks(mob/usr as mob)
 	var/obj/item/stack/oldsrc = src

@@ -68,6 +68,7 @@
 	new /obj/item/weapon/crowbar(src)
 	new /obj/item/weapon/wirecutters(src)
 	new /obj/item/device/t_scanner(src)
+	new /obj/item/weapon/extinguisher/mini(src)
 
 
 
@@ -92,7 +93,7 @@
 		"/obj/item/stack/medical",
 		"/obj/item/device/flashlight/pen",
 		"/obj/item/clothing/mask/surgical",
-		"/obj/item/clothing/gloves/latex",
+		"/obj/item/clothing/gloves/color/latex",
         "/obj/item/weapon/reagent_containers/hypospray/autoinjector"
 	)
 

@@ -495,6 +495,9 @@ datum
 					var/mob/living/carbon/human/human = M
 					if(human.dna.mutantrace == null)
 						M << "\red Your flesh rapidly mutates!"
+						M << "<b>You are now a Shadow Person, a mutant race of darkness-dwelling humanoids.</b>"
+						M << "\red Your body reacts violently to light. \green However, it naturally heals in darkness."
+						M << "Aside from your new traits, you are mentally unchanged and retain your prior obligations."
 						human.dna.mutantrace = "shadow"
 						human.update_mutantrace()
 				..()
@@ -1093,7 +1096,7 @@ datum
 							var/datum/disease2/disease/V = C.virus2[ID]
 							if(prob(5))
 								if(prob(50))
-									M.radiation += 50 // curing it that way may kill you instead
+									M.apply_effect(50,IRRADIATE,0) // curing it that way may kill you instead
 									M.adjustToxLoss(100)
 								M:antibodies |= V.antigen
 				..()
@@ -1296,7 +1299,7 @@ datum
 				return
 			on_mob_life(var/mob/living/M as mob)
 				if(!M) M = holder.my_atom
-					M.radiation += 3
+					M.apply_effect(3,IRRADIATE,0)
 					..()
 					return
 	*/
@@ -1398,6 +1401,35 @@ datum
 				return
 
 
+		incendiary_fuel //copy-pasta of welding fuel; allow incendiary grenades to function better without the headache of people spraying fuel everywhere with regular welding fuel.
+			name = "Incendiary fuel"
+			id = "incendiaryfuel"
+			description = "A highly flammable compound used in incendiary grenades."
+			reagent_state = LIQUID
+			color = "#660000" // rgb: 102, 0, 0
+
+			reaction_mob(var/mob/living/M, var/method=TOUCH, var/volume)//Splashing people with welding fuel to make them easy to ignite!
+				if(!istype(M, /mob/living))
+					return
+				if(method == TOUCH)
+					M.adjust_fire_stacks(volume / 10)
+				return
+
+			reaction_obj(var/obj/O, var/volume)
+				var/turf/the_turf = get_turf(O)
+				if(!the_turf)
+					return //No sense trying to start a fire if you don't have a turf to set on fire. --NEO
+				new /obj/effect/decal/cleanable/liquid_fuel(the_turf, volume)
+			reaction_turf(var/turf/T, var/volume)
+				new /obj/effect/decal/cleanable/liquid_fuel(T, volume)
+				return
+
+			on_mob_life(var/mob/living/M as mob)
+				if(!M) M = holder.my_atom
+				M.adjustToxLoss(1)
+				..()
+				return
+
 		space_cleaner
 			name = "Space cleaner"
 			id = "cleaner"
@@ -1476,8 +1508,8 @@ datum
 							O.show_message(text("\blue The fungi are completely dissolved by the solution!"), 1)
 
 			reaction_obj(var/obj/O, var/volume)
-				if(istype(O,/obj/effect/alien/weeds/))
-					var/obj/effect/alien/weeds/alien_weeds = O
+				if(istype(O,/obj/structure/alien/weeds/))
+					var/obj/structure/alien/weeds/alien_weeds = O
 					alien_weeds.health -= rand(15,35) // Kills alien weeds pretty fast
 					alien_weeds.healthcheck()
 				else if(istype(O,/obj/effect/glowshroom)) //even a small amount is enough to kill it
@@ -1825,7 +1857,7 @@ datum
 
 			on_mob_life(var/mob/living/M as mob)
 				if(!M) M = holder.my_atom
-				M.radiation = max(M.radiation-3*REM,0)
+				M.apply_effect(max(M.radiation-3*REM,0),IRRADIATE,0)
 				..()
 				return
 
@@ -1841,7 +1873,7 @@ datum
 				if(M.stat == 2.0)
 					return  //See above, down and around. --Agouri
 				if(!M) M = holder.my_atom
-				M.radiation = max(M.radiation-7*REM,0)
+				M.radiation = M.apply_effect(max(M.radiation-7*REM,0),IRRADIATE,0)
 				M.adjustToxLoss(-1*REM)
 				if(prob(15))
 					M.take_organ_damage(1, 0)
@@ -1948,7 +1980,9 @@ datum
 			on_mob_life(var/mob/living/M as mob)
 				if(!M) M = holder.my_atom
 				if(prob(5)) M.emote(pick("twitch","blink_r","shiver"))
-				..()
+				M.status_flags |= GOTTAGOFAST
+				holder.remove_reagent(src.id, 0.5 * REAGENTS_METABOLISM)
+			//	..()
 				return
 
 		cryoxadone
@@ -2088,7 +2122,7 @@ datum
 			data = 13
 
 			on_mob_life(var/mob/living/M)
-				M.adjustHalLoss(REM * data)
+				M.adjustStaminaLoss(REM * data)
 				data = max(data - 1, 3)
 				..()
 
@@ -2632,12 +2666,12 @@ datum
 				if (istype(holder.my_atom,/mob/living))
 					var/mob/living/M as mob
 					var/to_remove = 0
-					if(!M) M = holder.my_atom
 					if (holder.has_reagent("anti_toxin"))
 						to_remove = min(holder.get_reagent_amount("anti_toxin"),data)
 						holder.remove_reagent("anti_toxin", to_remove, 0)
 						data -= to_remove
-					M.adjustToxLoss((data-1)*rand(2,4))
+					if(M)
+						M.adjustToxLoss((data-1)*rand(2,4))
 				..()
 
 		psilocybin
@@ -3219,6 +3253,7 @@ datum
 						M.druggy = max(M.druggy, 30)
 						M.dizziness +=5
 						M.drowsyness = 0
+						M.status_flags |= GOTTAGOFAST
 						..()
 						return
 

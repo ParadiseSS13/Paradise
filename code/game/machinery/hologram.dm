@@ -81,13 +81,13 @@ var/const/HOLOPAD_MODE = 0
 
 /*This is the proc for special two-way communication between AI and holopad/people talking near holopad.
 For the other part of the code, check silicon say.dm. Particularly robot talk.*/
-/obj/machinery/hologram/holopad/hear_talk(mob/living/M, text)
+/obj/machinery/hologram/holopad/hear_talk(mob/living/M, text, verb)
 	if(M&&hologram&&master)//Master is mostly a safety in case lag hits or something.
 		if(!master.say_understands(M))//The AI will be able to understand most mobs talking through the holopad.
 			text = stars(text)
 		var/name_used = M.GetVoice()
 		//This communication is imperfect because the holopad "filters" voices and is only designed to connect to the master only.
-		var/rendered = "<i><span class='game say'>Holopad received, <span class='name'>[name_used]</span> <span class='message'>[M.say_quote(text)]</span></span></i>"
+		var/rendered = "<i><span class='game say'>Holopad received, <span class='name'>[name_used]</span> [verb], <span class='message'>\"[text]\"</span></span></i>"
 		master.show_message(rendered, 2)
 	return
 
@@ -101,7 +101,7 @@ For the other part of the code, check silicon say.dm. Particularly robot talk.*/
 	hologram.SetLuminosity(2)	//hologram lighting
 	SetLuminosity(2)			//pad lighting
 	icon_state = "holopad1"
-	A.current = src
+	A.holo = src
 	master = A//AI is the master.
 	use_power = 2//Active power usage.
 	return 1
@@ -109,8 +109,8 @@ For the other part of the code, check silicon say.dm. Particularly robot talk.*/
 /obj/machinery/hologram/holopad/proc/clear_holo()
 //	hologram.SetLuminosity(0)//Clear lighting.	//handled by the lighting controller when its ower is deleted
 	del(hologram)//Get rid of hologram.
-	if(master.current == src)
-		master.current = null
+	if(master.holo == src)
+		master.holo = null
 	master = null//Null the master, since no-one is using it now.
 	SetLuminosity(0)			//pad lighting (hologram lighting will be handled automatically since its owner was deleted)
 	icon_state = "holopad0"
@@ -141,6 +141,25 @@ For the other part of the code, check silicon say.dm. Particularly robot talk.*/
 		hologram.loc = get_turf(master.eyeobj)
 
 	return 1
+	
+// Simple helper to face what you clicked on, in case it should be needed in more than one place
+/obj/machinery/hologram/holopad/proc/face_atom(var/atom/A)
+	if( !hologram || !A || !hologram.x || !hologram.y || !A.x || !A.y ) return
+	var/dx = A.x - hologram.x
+	var/dy = A.y - hologram.y
+	if(!dx && !dy) // Wall items are graphically shifted but on the floor
+		if(A.pixel_y > 16)		hologram.dir = NORTH
+		else if(A.pixel_y < -16)hologram.dir = SOUTH
+		else if(A.pixel_x > 16)	hologram.dir = EAST
+		else if(A.pixel_x < -16)hologram.dir = WEST
+		return
+
+	if(abs(dx) < abs(dy))
+		if(dy > 0)	hologram.dir = NORTH
+		else		hologram.dir = SOUTH
+	else
+		if(dx > 0)	hologram.dir = EAST
+		else		hologram.dir = WEST
 
 /*
  * Hologram
@@ -153,23 +172,17 @@ For the other part of the code, check silicon say.dm. Particularly robot talk.*/
 	active_power_usage = 100
 	var/obj/effect/overlay/hologram//The projection itself. If there is one, the instrument is on, off otherwise.
 
-/obj/machinery/hologram/power_change()
-	if (powered())
-		stat &= ~NOPOWER
-	else
-		stat |= ~NOPOWER
-
 //Destruction procs.
 /obj/machinery/hologram/ex_act(severity)
 	switch(severity)
 		if(1.0)
-			qdel(src)
+			del(src)
 		if(2.0)
 			if (prob(50))
-				qdel(src)
+				del(src)
 		if(3.0)
 			if (prob(5))
-				qdel(src)
+				del(src)
 	return
 
 /obj/machinery/hologram/blob_act()
@@ -180,7 +193,7 @@ For the other part of the code, check silicon say.dm. Particularly robot talk.*/
 	del(src)
 	return
 
-/obj/machinery/hologram/Destroy()
+/obj/machinery/hologram/Del()
 	if(hologram)
 		src:clear_holo()
 	..()

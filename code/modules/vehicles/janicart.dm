@@ -127,7 +127,8 @@
 
 /obj/vehicle/train/janitor/update_icon()
 	if(open)
-		icon_state = "mulebot-hatch"
+		//icon_state = "mulebot-hatch"
+		icon_state = initial(icon_state)
 	else
 		icon_state = initial(icon_state)
 

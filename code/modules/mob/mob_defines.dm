@@ -39,6 +39,8 @@
 	Changing this around would probably require a good look-over the pre-existing code.
 	*/
 	var/obj/screen/zone_sel/zone_sel = null
+	var/obj/screen/leap_icon = null
+	var/obj/screen/healthdoll = null
 
 	var/use_me = 1 //Allows all mobs to use the me verb by default, will have to manually specify they cannot
 	var/damageoverlaytemp = 0
@@ -123,6 +125,7 @@
 	var/obj/item/clothing/mask/wear_mask = null//Carbon
 
 	var/seer = 0 //for cult//Carbon, probably Human
+	var/see_override = 0
 
 	var/datum/hud/hud_used = null
 

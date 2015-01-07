@@ -386,7 +386,7 @@ datum/objective/silence
 
 
 datum/objective/escape
-	explanation_text = "Escape on the shuttle or an escape pod alive and free."
+	explanation_text = "Escape on the shuttle alive and free."
 
 	check_completion()
 		if(issilicon(owner.current))

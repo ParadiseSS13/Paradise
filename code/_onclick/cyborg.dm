@@ -19,6 +19,9 @@
 	if(modifiers["shift"] && modifiers["ctrl"])
 		CtrlShiftClickOn(A)
 		return
+	if(modifiers["shift"] && modifiers["alt"])
+		AltShiftClickOn(A)
+		return
 	if(modifiers["middle"])
 		MiddleClickOn(A)
 		return
@@ -117,6 +120,8 @@
 // for non-doors/apcs
 /mob/living/silicon/robot/CtrlShiftClickOn(var/atom/A)
 	A.BorgCtrlShiftClick(src)
+/mob/living/silicon/robot/AltShiftClickOn(var/atom/A)
+	A.BorgAltShiftClick(src)
 /mob/living/silicon/robot/ShiftClickOn(var/atom/A)
 	A.BorgShiftClick(src)
 /mob/living/silicon/robot/CtrlClickOn(var/atom/A)
@@ -129,9 +134,15 @@
 		examine()
 		user.face_atom(src)
 	return
+
+/atom/proc/BorgAltShiftClick()
+	return	
+	
+/obj/machinery/door/airlock/BorgAltShiftClick()  // Enables emergency override on doors! Forwards to AI code.
+	AIAltShiftClick()
 	
 /atom/proc/BorgShiftClick()
-	return	
+	return		
 	
 /obj/machinery/door/airlock/BorgShiftClick()  // Opens and closes doors! Forwards to AI code.
 	AIShiftClick()

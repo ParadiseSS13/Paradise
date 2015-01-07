@@ -186,6 +186,8 @@ var/list/department_radio_keys = list(
 				message_mode = null //only humans can use headsets
 
 	if(traumatic_shock > 61 && prob(50))
+		if(message_mode)
+			src << "<span class='warning'>You try to use your radio, but you are in too much pain.</span>"
 		message_mode = null //people in shock will have a high chance of not being able to speak on radio; needed since people don't instantly pass out at 100 damage.
 
 	message = capitalize(message)

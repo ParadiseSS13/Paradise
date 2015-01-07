@@ -573,6 +573,8 @@
 	C.SetParalysis(0)
 	C.SetStunned(0)
 	C.SetWeakened(0)
+	C.adjustStaminaLoss(-75)
+	C.reagents.add_reagent("synaptizine", 20)
 	C.lying = 0
 	C.update_canmove()
 
@@ -685,7 +687,7 @@ var/list/datum/dna/hivemind_bank = list()
 /mob/proc/changeling_hivedownload()
 	set category = "Changeling"
 	set name = "Hive Absorb (20)"
-	set desc = "Allows you to absorb DNA that is being channeled in the airwaves."
+	set desc = "Allows you to absorb DNA that is being channelled in the airwaves."
 
 	var/datum/changeling/changeling = changeling_power(20,1)
 	if(!changeling)	return
@@ -769,6 +771,12 @@ var/list/datum/dna/hivemind_bank = list()
 	if(!(T in view(changeling.sting_range))) return
 	if(!sting_can_reach(T, changeling.sting_range)) return
 	if(!changeling_power(required_chems)) return
+
+	if(ishuman(T))
+		var/mob/living/carbon/human/H = T
+		if(H.species.flags & IS_SYNTHETIC)
+			src << "<span class='warning'>This won't work on synthetics.</span>"
+			return
 
 	changeling.chem_charges -= required_chems
 	changeling.sting_range = 1
@@ -885,7 +893,7 @@ var/list/datum/dna/hivemind_bank = list()
 
 	var/mob/living/carbon/T = changeling_sting(5,/mob/proc/changeling_unfat_sting)
 	if(!T)	return 0
-	T << "<span class='danger'>you feel a small prick as stomach churns violently and you become to feel skinnier.</span>"
+	T << "<span class='danger'>You feel a small prick as stomach churns violently and you become to feel skinnier.</span>"
 	T.overeatduration = 0
 	T.nutrition -= 100
 	feedback_add_details("changeling_powers","US")

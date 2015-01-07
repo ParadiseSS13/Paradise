@@ -23,7 +23,7 @@
 		new /obj/item/blueprints(src)
 		new /obj/item/clothing/under/rank/chief_engineer(src)
 		new /obj/item/clothing/head/hardhat/white(src)
-		new /obj/item/clothing/head/welding(src)
+		new /obj/item/clothing/glasses/welding/superior(src)
 		new /obj/item/clothing/gloves/yellow(src)
 		new /obj/item/clothing/shoes/brown(src)
 		new /obj/item/weapon/cartridge/ce(src)
@@ -69,7 +69,7 @@
 
 /obj/structure/closet/secure_closet/engineering_welding
 	name = "Welding Supplies"
-	req_access = list(access_construction)
+	req_access = list(access_engine_equip)
 	icon_state = "secureengweld1"
 	icon_closed = "secureengweld"
 	icon_locked = "secureengweld1"
@@ -122,6 +122,7 @@
 		new /obj/item/weapon/cartridge/engineering(src)
 		new /obj/item/taperoll/engineering(src)
 		return
+
 /obj/structure/closet/secure_closet/atmos_personal
 	name = "Technician's Locker"
 	req_access = list(access_atmospherics)
@@ -136,6 +137,10 @@
 	New()
 		..()
 		sleep(2)
+		new /obj/item/device/radio/headset/headset_eng(src)
+		new /obj/item/weapon/cartridge/atmos(src)
+		new /obj/item/weapon/storage/toolbox/mechanical(src)
+		new /obj/item/taperoll/engineering(src)
 		if(prob(50))
 			new /obj/item/weapon/storage/backpack/industrial(src)
 		else
@@ -144,14 +149,11 @@
 			new /obj/item/clothing/tie/storage/brown_vest(src)
 		else
 			new /obj/item/clothing/tie/storage/webbing(src)
-		new /obj/item/clothing/suit/fire/firefighter(src)
-		new /obj/item/clothing/head/hardhat/red(src)
-		new /obj/item/device/flashlight(src)
 		new /obj/item/weapon/extinguisher(src)
-		new /obj/item/device/radio/headset/headset_eng(src)
 		new /obj/item/clothing/suit/storage/hazardvest(src)
 		new /obj/item/clothing/mask/gas(src)
-		new /obj/item/clothing/glasses/meson(src)
-		new /obj/item/weapon/cartridge/atmos(src)
-		new /obj/item/taperoll/engineering(src)
+		new /obj/item/weapon/tank/emergency_oxygen/engi(src)
+		new /obj/item/clothing/suit/fire/atmos(src)
+		new /obj/item/clothing/head/hardhat/atmos(src)
+
 		return

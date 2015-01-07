@@ -45,8 +45,15 @@
 				icon_state = "[initial(icon_state)][ratio]"
 		else
 			icon_state = "energy0"
+		overlays.Cut()
+		if(F)
+			if(F.on)
+				overlays += "flight-on"
+			else
+				overlays += "flight"
+		return
 
-
+/*
 	attackby(obj/item/weapon/W, mob/user)
 		if(istype(W, /obj/item/weapon/cell))
 			if(!power_supply)
@@ -73,4 +80,4 @@
 		set src in view(1)
 		..()
 		if(!power_supply)
-			usr <<"<span class='warning'>The weapon does not have a power source installed.</span>"
+			usr <<"<span class='warning'>The weapon does not have a power source installed.</span>" */

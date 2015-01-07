@@ -50,19 +50,37 @@
 	var/eyeblur = 0
 	var/drowsy = 0
 	var/agony = 0
+	var/stamina = 0
+	var/jitter = 0
 	var/embed = 0 // whether or not the projectile can embed itself in the mob
+	var/forcedodge = 0
+
+	var/range = 0
+	var/proj_hit = 0
 
 
 	proc/delete()
 		// Garbage collect the projectiles
 		loc = null
 
+	proc/Range()
+		if(range)
+			range--
+			if(range <= 0)
+				on_range()
+		else
+			return
+
+	proc/on_range() //if we want there to be effects when they reach the end of their range
+		proj_hit = 1
+		qdel(src)
+
 	proc/on_hit(var/atom/target, var/blocked = 0)
 		if(blocked >= 2)		return 0//Full block
 		if(!isliving(target))	return 0
 		if(isanimal(target))	return 0
 		var/mob/living/L = target
-		L.apply_effects(stun, weaken, paralyze, irradiate, stutter, eyeblur, drowsy, agony, blocked) // add in AGONY!
+		L.apply_effects(stun, weaken, paralyze, irradiate, stutter, eyeblur, drowsy, agony, blocked, stamina, jitter) // add in AGONY!
 		return 1
 
 	proc/check_fire(var/mob/living/target as mob, var/mob/living/user as mob)  //Checks if you can hit them or not.
@@ -82,9 +100,8 @@
 			loc = A.loc
 			return 0 //cannot shoot yourself
 
-		if(bumped)	return 0
-		var/forcedodge = 0 // force the projectile to pass
-
+		if(bumped)
+			return 1
 		bumped = 1
 		if(firer && istype(A, /mob))
 			var/mob/M = A
@@ -137,14 +154,11 @@
 
 		spawn(0)
 		if(A)
-			if(!forcedodge)
-				forcedodge = A.bullet_act(src, def_zone) // searches for return value
-			if(forcedodge == -1) // the bullet passes through a dense object!
+			var/turf/new_loc = get_turf(A)
+			var/permutation = A.bullet_act(src, def_zone) // searches for return value, could be deleted after run so check A isn't null
+			if(permutation == -1 || forcedodge)// the bullet passes through a dense object!
 				bumped = 0 // reset bumped variable!
-				if(istype(A, /turf))
-					loc = A
-				else
-					loc = A.loc
+				loc = new_loc
 				permutated.Add(A)
 				return 0
 			if(istype(A,/turf))
@@ -169,11 +183,11 @@
 
 
 	process()
-		if(kill_count < 1)
-			del(src)
-			return
-		kill_count--
 		spawn while(src)
+			if(kill_count < 1)
+				del(src)
+				return
+			kill_count--
 			if((!( current ) || loc == current))
 				current = locate(min(max(x + xo, 1), world.maxx), min(max(y + yo, 1), world.maxy), z)
 			if((x == 1 || x == world.maxx || y == 1 || y == world.maxy))
@@ -246,7 +260,3 @@
 				M = locate() in get_step(src,target)
 				if(istype(M))
 					return 1
-
-/obj/item/projectile/proc/Range()
-	return
-
