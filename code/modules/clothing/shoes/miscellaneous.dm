@@ -94,6 +94,12 @@
 	siemens_coefficient = 0.7
 	var/footstep=1
 
+/obj/item/clothing/shoes/jackboots/jacksandals
+	name = "jacksandals"
+	desc = "Nanotrasen-issue Security combat sandals for combat scenarios. They're jacksandals, however that works."
+	icon_state = "jacksandal"
+	species_restricted = null
+
 /obj/item/clothing/shoes/cult
 	name = "boots"
 	desc = "A pair of boots worn by the followers of Nar-Sie."

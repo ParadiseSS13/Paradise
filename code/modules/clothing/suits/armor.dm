@@ -53,8 +53,8 @@
 		if(!usr.canmove || usr.stat || usr.restrained())
 			return 0
 		if(icon_state == "hos")
-			icon_state = "jensencoat"
-			item_state = "jensencoat"
+			icon_state = "hostrench"
+			item_state = "hostrench"
 			usr<< "You unbutton the [src]."
 		else
 			icon_state = "hos"
@@ -72,13 +72,18 @@
 	siemens_coefficient = 0.6
 
 /obj/item/clothing/suit/armor/vest/warden
-	name = "Warden's jacket"
+	name = "Warden's armored jacket"
 	desc = "An armoured jacket with silver rank pips and livery."
 	icon_state = "warden_jacket"
 	item_state = "armor"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
 	cold_protection = UPPER_TORSO|LOWER_TORSO|HANDS
 	heat_protection = UPPER_TORSO|LOWER_TORSO|HANDS
+
+/obj/item/clothing/suit/armor/vest/warden/alt
+	name = "warden's jacket"
+	desc = "A navy-blue armored jacket with blue shoulder designations and '/Warden/' stitched into one of the chest pockets."
+	icon_state = "warden_jacket_alt"
 
 /obj/item/clothing/suit/armor/vest/capcarapace
 	name = "captain's carapace"
