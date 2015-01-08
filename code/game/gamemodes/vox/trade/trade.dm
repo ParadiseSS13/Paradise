@@ -9,9 +9,9 @@ VOX TRADE ROUNDTYPE
 /datum/game_mode/vox/trade
 	name = "trade"
 	config_tag = "trade"
-	required_players = 10
-	required_players_secret = 10
-	required_enemies = 1
+	required_players = 15
+	required_players_secret = 15
+	required_enemies = 3
 	recommended_enemies = 3
 
 	var/const/waittime_l = 600 //lower bound on time before intercept arrives (in tenths of seconds)

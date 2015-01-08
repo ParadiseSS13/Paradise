@@ -244,7 +244,11 @@
 	return livingplayers.len
 
 /datum/game_mode/xenos/declare_completion()
-	if(result == 1)
+	if(station_was_nuked)
+		feedback_set_details("round_end_result","win - xenos nuked")
+		world << "<FONT size = 3><B>Crew Victory</B></FONT>"
+		world << "<B>The station was destroyed in a nuclear explosion, preventing the aliens from overrunning it!</B>"
+	else if(result == 1)
 		feedback_set_details("round_end_result","win - xenos killed")
 		world << "<FONT size = 3><B>Crew Victory</B></FONT>"
 		world << "<B>The aliens did not succeed and were exterminated by the crew!</B>"
@@ -252,10 +256,6 @@
 		feedback_set_details("round_end_result","win - crew killed")
 		world << "<FONT size = 3><B>Alien Victory</B></FONT>"
 		world << "<B>The aliens were successful and slaughtered the crew!</B>"
-	else if(station_was_nuked)
-		feedback_set_details("round_end_result","win - xenos nuked")
-		world << "<FONT size = 3><B>Crew Victory</B></FONT>"
-		world << "<B>The station was destroyed in a nuclear explosion, preventing the aliens from overrunning it!</B>"
 	else
 		feedback_set_details("round_end_result","win - crew escaped")
 		world << "<FONT size = 3><B>Draw</B></FONT>"

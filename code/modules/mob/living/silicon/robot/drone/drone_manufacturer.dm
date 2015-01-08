@@ -100,11 +100,14 @@
 		return
 
 	var/deathtime = world.time - src.timeofdeath
+	var/joinedasobserver = 0
 	if(istype(src,/mob/dead/observer))
 		var/mob/dead/observer/G = src
 		if(G.has_enabled_antagHUD == 1 && config.antag_hud_restricted)
 			usr << "\blue <B>Upon using the antagHUD you forfeited the ability to join the round.</B>"
 			return
+		if(G.started_as_observer == 1)
+			joinedasobserver = 1
 
 	var/deathtimeminutes = round(deathtime / 600)
 	var/pluralcheck = "minute"
@@ -116,7 +119,7 @@
 		pluralcheck = " [deathtimeminutes] minutes and"
 	var/deathtimeseconds = round((deathtime - deathtimeminutes * 600) / 10,1)
 
-	if (deathtime < 6000)
+	if (deathtime < 6000 && joinedasobserver == 0)	
 		usr << "You have been dead for[pluralcheck] [deathtimeseconds] seconds."
 		usr << "You must wait 10 minutes to respawn as a drone!"
 		return

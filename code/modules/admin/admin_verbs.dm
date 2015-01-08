@@ -146,7 +146,6 @@ var/list/admin_verbs_debug = list(
 	/client/proc/cmd_debug_mob_lists,
 	/client/proc/cmd_admin_delete,
 	/client/proc/cmd_debug_del_all,
-	/client/proc/cmd_debug_tog_aliens,
 	/client/proc/reload_admins,
 	/client/proc/restart_controller,
 	/client/proc/remake_distribution_map,
