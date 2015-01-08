@@ -191,3 +191,15 @@
 		new /obj/item/weapon/grenade/empgrenade(src)
 		new /obj/item/weapon/implanter/emp/(src)
 		new /obj/item/device/flashlight/emp/(src)
+
+
+/obj/item/weapon/storage/box/syndie_kit/thrownknife
+	name = "Throwing Knife kit"
+
+	New()
+		..()
+		new /obj/item/weapon/kitchenknife/thrown(src)
+		new /obj/item/weapon/kitchenknife/thrown(src)
+		new /obj/item/weapon/kitchenknife/thrown(src)
+		new /obj/item/weapon/kitchenknife/thrown(src)
+		new /obj/item/weapon/kitchenknife/thrown(src)
