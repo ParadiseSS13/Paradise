@@ -138,41 +138,6 @@
 /obj/item/tape/proc/breaktape(obj/item/weapon/W as obj, mob/user as mob)
 	if(user.a_intent == "help" && ((!can_puncture(W) && src.allowed(user))))
 		user << "You can't break the [src] with that!"
-	else if(isalien(user))
-		user.show_viewers("\blue [user] breaks the [src]!")
-		var/dir[2]
-		var/icon_dir = src.icon_state
-		if(icon_dir == "[src.icon_base]_h")
-			dir[1] = EAST
-			dir[2] = WEST
-		if(icon_dir == "[src.icon_base]_v")
-			dir[1] = NORTH
-			dir[2] = SOUTH
-
-		for(var/i=1;i<3;i++)
-			var/N = 0
-			var/turf/cur = get_step(src,dir[i])
-			while(N != 1)
-				N = 1
-				for (var/obj/item/tape/P in cur)
-					if(P.icon_state == icon_dir)
-						N = 0
-						del(P)
-				cur = get_step(cur,dir[i])
-
-	del(src)
-	return
-	for(var/i=1;i<3;i++)
-		var/N = 0
-		var/turf/cur = get_step(src,dir[i])
-		while(N != 1)
-			N = 1
-			for (var/obj/item/tape/P in cur)
-				if(P.icon_state == icon_dir)
-					N = 0
-					del(P)
-			cur = get_step(cur,dir[i])
-		del(src)
 		return
 	user.show_viewers("\blue [user] breaks the [src]!")
 
