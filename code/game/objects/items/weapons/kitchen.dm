@@ -172,8 +172,8 @@
 	sharp = 1
 	edge = 1
 	w_class = 2.0
-	throwforce = 30.0
-	throw_speed = 7
+	throwforce = 20.0
+	throw_speed = 1
 	throw_range = 12
 	m_amt = 10000
 	g_amt = 5000
