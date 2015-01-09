@@ -492,27 +492,6 @@ var/list/ghostteleportlocs = list()
 	name = "\improper Asteroid - Artifact"
 	icon_state = "cave"
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/area/planet/clown
-	name = "\improper Clown Planet"
-	icon_state = "honk"
-	luminosity = 1
-	lighting_use_dynamic = 0
-	requires_power = 0
-
 /area/tdome
 	name = "\improper Thunderdome"
 	icon_state = "thunder"
@@ -2310,23 +2289,104 @@ area/security/podbay
 						H << S
 
 		spawn(60) .()
+	
+////////////////////////AWAY AREAS///////////////////////////////////
+	
+/area/awaycontent
+	name = "space"
 
-////////////////////////CLOWN PLANET///////////////////////////////////
+/area/awaycontent/a1
+	icon_state = "awaycontent1"
 
+/area/awaycontent/a2
+	icon_state = "awaycontent2"
 
-/area/awaymission/clownplanet/miningtown
-	name = "\improper Clown Planet - Bananium-o-Rama"
-	icon_state = "away1"
-	luminosity = 1
-	requires_power = 0
+/area/awaycontent/a3
+	icon_state = "awaycontent3"
 
-/area/awaymission/clownplanet/mine
-	name = "\improper Clown Planet - Bananium-o-Rama Mines"
-	icon_state = "away2"
-	luminosity = 1
-	requires_power = 0
+/area/awaycontent/a4
+	icon_state = "awaycontent4"
 
+/area/awaycontent/a5
+	icon_state = "awaycontent5"
 
+/area/awaycontent/a6
+	icon_state = "awaycontent6"
+
+/area/awaycontent/a7
+	icon_state = "awaycontent7"
+
+/area/awaycontent/a8
+	icon_state = "awaycontent8"
+
+/area/awaycontent/a9
+	icon_state = "awaycontent9"
+
+/area/awaycontent/a10
+	icon_state = "awaycontent10"
+
+/area/awaycontent/a11
+	icon_state = "awaycontent11"
+
+/area/awaycontent/a11
+	icon_state = "awaycontent12"
+
+/area/awaycontent/a12
+	icon_state = "awaycontent13"
+
+/area/awaycontent/a13
+	icon_state = "awaycontent14"
+
+/area/awaycontent/a14
+	icon_state = "awaycontent14"
+
+/area/awaycontent/a15
+	icon_state = "awaycontent15"
+
+/area/awaycontent/a16
+	icon_state = "awaycontent16"
+
+/area/awaycontent/a17
+	icon_state = "awaycontent17"
+
+/area/awaycontent/a18
+	icon_state = "awaycontent18"
+
+/area/awaycontent/a19
+	icon_state = "awaycontent19"
+
+/area/awaycontent/a20
+	icon_state = "awaycontent20"
+
+/area/awaycontent/a21
+	icon_state = "awaycontent21"
+
+/area/awaycontent/a22
+	icon_state = "awaycontent22"
+
+/area/awaycontent/a23
+	icon_state = "awaycontent23"
+
+/area/awaycontent/a24
+	icon_state = "awaycontent24"
+
+/area/awaycontent/a25
+	icon_state = "awaycontent25"
+
+/area/awaycontent/a26
+	icon_state = "awaycontent26"
+
+/area/awaycontent/a27
+	icon_state = "awaycontent27"
+
+/area/awaycontent/a28
+	icon_state = "awaycontent28"
+
+/area/awaycontent/a29
+	icon_state = "awaycontent29"
+
+/area/awaycontent/a30
+	icon_state = "awaycontent30"
 
 /////////////////////////////////////////////////////////////////////
 /*

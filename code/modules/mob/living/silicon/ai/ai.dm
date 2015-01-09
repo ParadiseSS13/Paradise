@@ -63,7 +63,7 @@ var/list/ai_list = list()
 	var/obj/item/borg/sight/hud/sec/sechud = null
 	var/obj/item/borg/sight/hud/med/healthhud = null
 	
-	var/arrivalmsg = "$name, $rank has arrived on the station."
+	var/arrivalmsg = "$name, $rank, has arrived on the station."
 
 /mob/living/silicon/ai/New(loc, var/datum/ai_laws/L, var/obj/item/device/mmi/B, var/safety = 0)
 	var/list/possibleNames = ai_names

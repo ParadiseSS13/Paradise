@@ -60,7 +60,7 @@
 	build_type = IMPRINTER
 	materials = list("$glass" = 1000, "sacid" = 20)
 	build_path = /obj/item/weapon/circuitboard/bodyscanner
-	category = list ("Medical Machinery")
+	category = list("Medical Machinery")
 
 /datum/design/sleep_console
 	name = "Machine Board (Body Scanner Console)"
@@ -70,7 +70,7 @@
 	build_type = IMPRINTER
 	materials = list("$glass" = 1000, "sacid" = 20)
 	build_path = /obj/item/weapon/circuitboard/bodyscanner_console
-	category = list ("Medical Machinery")
+	category = list("Medical Machinery")
 	
 /datum/design/clonepod
 	name = "Machine Board (Cloning Pod)"
@@ -80,7 +80,7 @@
 	build_type = IMPRINTER
 	materials = list("$glass" = 1000, "sacid" = 20)
 	build_path = /obj/item/weapon/circuitboard/clonepod
-	category = list ("Medical Machinery")
+	category = list("Medical Machinery")
 		
 /datum/design/clonescanner
 	name = "Machine Board (Cloning Scanner)"
@@ -90,7 +90,7 @@
 	build_type = IMPRINTER
 	materials = list("$glass" = 1000, "sacid" = 20)
 	build_path = /obj/item/weapon/circuitboard/clonescanner
-	category = list ("Medical Machinery")
+	category = list("Medical Machinery")
 	
 /datum/design/cryotube
 	name = "Machine Board (Cryotube Board)"
@@ -100,7 +100,7 @@
 	build_type = IMPRINTER
 	materials = list("$glass" = 1000, "sacid" = 20)
 	build_path = /obj/item/weapon/circuitboard/cryo_tube
-	category = list ("Medical Machinery")
+	category = list("Medical Machinery")
 	
 /datum/design/chem_dispenser
 	name = "Machine Board (Portable Chem Dispenser)"
@@ -110,7 +110,7 @@
 	build_type = IMPRINTER
 	materials = list("$glass" = 1000, "sacid" = 20)
 	build_path = /obj/item/weapon/circuitboard/chem_dispenser
-	category = list ("Medical Machinery")
+	category = list("Medical Machinery")
 	
 /datum/design/sleeper
 	name = "Machine Board (Sleeper)"
@@ -120,7 +120,7 @@
 	build_type = IMPRINTER
 	materials = list("$glass" = 1000, "sacid" = 20)
 	build_path = /obj/item/weapon/circuitboard/sleeper
-	category = list ("Medical Machinery")
+	category = list("Medical Machinery")
 
 /datum/design/sleep_console
 	name = "Machine Board (Sleeper Console)"
@@ -130,7 +130,7 @@
 	build_type = IMPRINTER
 	materials = list("$glass" = 1000, "sacid" = 20)
 	build_path = /obj/item/weapon/circuitboard/sleep_console
-	category = list ("Medical Machinery")
+	category = list("Medical Machinery")
 	
 /datum/design/biogenerator
 	name = "Machine Board (Biogenerator)"
@@ -240,7 +240,7 @@
 	build_type = IMPRINTER
 	materials = list("$glass" = 1000, "sacid" = 20)
 	build_path = /obj/item/weapon/circuitboard/arcade/battle
-	category = list ("Misc. Machinery")
+	category = list("Misc. Machinery")
 
 /datum/design/microwave
 	name = "Machine Board (Microwave)"
@@ -250,7 +250,7 @@
 	build_type = IMPRINTER
 	materials = list("$glass" = 1000, "sacid" = 20)
 	build_path = /obj/item/weapon/circuitboard/microwave
-	category = list ("Misc. Machinery")			
+	category = list("Misc. Machinery")			
 	
 /datum/design/orion_trail
 	name = "Machine Board (Orion Trail Arcade Machine)"
@@ -260,7 +260,7 @@
 	build_type = IMPRINTER
 	materials = list("$glass" = 1000, "sacid" = 20)
 	build_path = /obj/item/weapon/circuitboard/arcade/orion_trail
-	category = list ("Misc. Machinery")
+	category = list("Misc. Machinery")
 
 /datum/design/vendor
 	name = "Machine Board (Vendor)"
@@ -270,4 +270,4 @@
 	build_type = IMPRINTER
 	materials = list("$glass" = 1000, "sacid" = 20)
 	build_path = /obj/item/weapon/circuitboard/vendor
-	category = list ("Misc. Machinery")
+	category = list("Misc. Machinery")

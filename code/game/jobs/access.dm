@@ -105,6 +105,7 @@
 	//The Syndicate
 /var/const/access_syndicate = 150//General Syndicate Access
 /var/const/access_syndicate_leader = 151//Nuke Op Leader Access
+/var/const/access_vox = 152//Vox Access
 
 	//MONEY
 /var/const/access_crate_cash = 200
