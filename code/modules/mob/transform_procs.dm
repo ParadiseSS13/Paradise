@@ -432,12 +432,13 @@
 		return 1 //Parrots are no longer unfinished! -Nodrak
 	if(ispath(MP, /mob/living/simple_animal/pony))
 		return 1 // ZOMG PONIES WHEEE
+	if(ispath(MP, /mob/living/simple_animal/fox))
+		return 1 		
 	//Not in here? Must be untested!
 	return 0
 
 
 /mob/proc/safe_respawn(var/MP)
-//Bad mobs! - Remember to add a comment explaining what's wrong with the mob
 	if(!MP)
 		return 0	//Sanity, this should never happen.
 
@@ -456,6 +457,8 @@
 		return 1
 	if(ispath(MP, /mob/living/simple_animal/pony))
 		return 1
+	if(ispath(MP, /mob/living/simple_animal/fox))
+		return 1 	
 
 //Antag Creatures!
 /*	if(ispath(MP, /mob/living/simple_animal/hostile/carp))

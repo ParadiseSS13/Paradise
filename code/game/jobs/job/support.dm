@@ -22,20 +22,13 @@
 		H.equip_or_collect(new /obj/item/clothing/suit/armor/vest(H), slot_wear_suit)
 		H.equip_or_collect(new /obj/item/clothing/under/rank/bartender(H), slot_w_uniform)
 		H.equip_or_collect(new /obj/item/device/pda/bar(H), slot_wear_pda)
+		H.equip_or_collect(new /obj/item/weapon/storage/belt/bandolier/full(H), slot_belt)
 
 		if(H.backbag == 1)
 			var/obj/item/weapon/storage/box/survival/Barpack = new /obj/item/weapon/storage/box/survival(H)
 			H.equip_or_collect(Barpack, slot_r_hand)
-			new /obj/item/ammo_casing/shotgun/beanbag(Barpack)
-			new /obj/item/ammo_casing/shotgun/beanbag(Barpack)
-			new /obj/item/ammo_casing/shotgun/beanbag(Barpack)
-			new /obj/item/ammo_casing/shotgun/beanbag(Barpack)
 		else
 			H.equip_or_collect(new /obj/item/weapon/storage/box/survival(H), slot_in_backpack)
-			H.equip_or_collect(new /obj/item/ammo_casing/shotgun/beanbag(H), slot_in_backpack)
-			H.equip_or_collect(new /obj/item/ammo_casing/shotgun/beanbag(H), slot_in_backpack)
-			H.equip_or_collect(new /obj/item/ammo_casing/shotgun/beanbag(H), slot_in_backpack)
-			H.equip_or_collect(new /obj/item/ammo_casing/shotgun/beanbag(H), slot_in_backpack)
 
 		H.dna.SetSEState(SOBERBLOCK,1)
 		H.mutations += M_SOBER

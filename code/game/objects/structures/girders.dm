@@ -102,7 +102,7 @@
 						if(!pdiff)
 							S.use(2)
 							user << "\blue You create a false wall! Push on it to open or close the passage."
-							new /obj/structure/falserwall (src.loc)
+							new /obj/structure/falsewall/reinforced (src.loc)
 							del(src)
 						else
 							user << "\red There is too much air moving through the gap!  The door wouldn't stay closed if you built it."

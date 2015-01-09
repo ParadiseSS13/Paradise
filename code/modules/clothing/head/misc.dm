@@ -219,7 +219,7 @@
 	set category = "Object"
 	set desc = "Show that CIS SCUM who's boss."
 
-	usr << "You tip your fedora"
+	usr.visible_message("[usr] tips their fedora.","You tip your fedora")
 
 /obj/item/clothing/head/fez
 	name = "\improper fez"
