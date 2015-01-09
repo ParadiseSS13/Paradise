@@ -244,12 +244,6 @@ var/list/uplink_items = list()
 	cost = 8
 	gamemodes = list("nuclear emergency")
 
-/datum/uplink_item/dangerous/knifethrown
-	name = "Throwing Knife Kit"
-	desc = "A box containing 5 throwing knives."
-	item = /obj/item/weapon/storage/box/syndie_kit/thrownknife
-	cost = 8
-
 /datum/uplink_item/dangerous/bioterror
 	name = "Biohazardous Chemical Sprayer"
 	desc = "A chemical sprayer that allows a wide dispersal of selected chemicals. Especially tailored by the Tiger Cooperative, the deadly blend it comes stocked with will disorient, damage, and disable your foes... \

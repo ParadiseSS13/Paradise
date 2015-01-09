@@ -161,30 +161,6 @@
 	icon = 'icons/obj/weapons.dmi'
 	icon_state = "combatknife"
 
-/obj/item/weapon/kitchenknife/thrown
-	name = "Throwing Knife"
-	desc = "Throw it at your foes! Aim at the legs while you bring out another knife!"
-	icon = 'icons/obj/weapons.dmi'
-	icon_state = "combatknife"
-	flags = FPRINT | TABLEPASS | CONDUCT
-	slot_flags = SLOT_BELT
-	force = 10.0
-	sharp = 1
-	edge = 1
-	w_class = 2.0
-	throwforce = 20.0
-	throw_speed = 1
-	throw_range = 12
-	m_amt = 10000
-	g_amt = 5000
-	origin_tech = "materials=1;biotech=1"
-	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
-
-	suicide_act(mob/user)
-		viewers(user) << pick("\red <b>[user] is slitting \his wrists with the [src.name]! It looks like \he's trying to commit suicide.</b>", \
-							"\red <b>[user] is slitting \his throat with the [src.name]! It looks like \he's trying to commit suicide.</b>", \
-							"\red <b>[user] is slitting \his stomach open with the [src.name]! It looks like \he's trying to commit seppuku.</b>")
-		return (BRUTELOSS)
 
 
 
