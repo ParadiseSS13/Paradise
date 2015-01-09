@@ -3,6 +3,8 @@
 	name = "Skrellian helmet"
 	desc = "Smoothly contoured and polished to a shine. Still looks like a fishbowl."
 	armor = list(melee = 20, bullet = 20, laser = 50,energy = 50, bomb = 50, bio = 100, rad = 100)
+	flags = HEADCOVERSEYES|STOPSPRESSUREDMAGE|BLOCKHAIR|HEADCOVERSMOUTH
+	flags_inv = HIDEFACE
 	max_heat_protection_temperature = SPACE_SUIT_MAX_HEAT_PROTECTION_TEMPERATURE
 	species_restricted = list("Skrell","Human")
 
@@ -47,6 +49,8 @@
 	name = "NT breacher helmet"
 	desc = "Hey! Watch it with that thing! It's a knock-off of a Unathi battle-helm, and that spike could put someone's eye out."
 	icon_state = "unathi_helm_cheap"
+	flags = HEADCOVERSEYES|STOPSPRESSUREDMAGE|BLOCKHAIR|HEADCOVERSMOUTH
+	flags_inv = HIDEFACE
 	item_state = "unathi_helm_cheap"
 	_color = "unathi_helm_cheap"
 
