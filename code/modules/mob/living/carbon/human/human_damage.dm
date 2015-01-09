@@ -23,7 +23,6 @@
 				mob_list += src
 				stat = CONSCIOUS
 				ear_deaf = 0
-				deafness = 0
 				tod = 0
 	if (stat == CONSCIOUS && (src in dead_mob_list)) //Defib fix
 		mob_list -= src
@@ -31,7 +30,6 @@
 		living_mob_list += src
 		mob_list += src		
 		ear_deaf = 0
-		deafness = 0
 		tod = 0
 	return
 
