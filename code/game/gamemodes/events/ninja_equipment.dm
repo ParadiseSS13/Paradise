@@ -931,10 +931,10 @@ ________________________________________________________________________________
 		U:gloves.icon_state = "s-ninjas"
 		U:gloves.item_state = "s-ninjas"
 		U.regenerate_icons()	//update their icons
-		U << "\blue You are now invisible to normal detection."
+		U << "\blue You are now partially invisible to normal detection."
 		for(var/mob/O in oviewers(U))
 			O.show_message("[U.name] vanishes into thin air!",1)
-		U.invisibility = INVISIBILITY_OBSERVER
+		U.alpha = 7
 	else
 		U << "\red <b>ERROR</b>: \black You cannot cloak with an active energy blade."
 	return
@@ -945,7 +945,7 @@ ________________________________________________________________________________
 		anim(U.loc,U,'icons/mob/mob.dmi',,"uncloak",,U.dir)
 		s_active=!s_active
 		U << "\blue You are now visible."
-		U.invisibility = 0
+		U.alpha = 255
 		for(var/mob/O in oviewers(U))
 			O.show_message("[U.name] appears from thin air!",1)
 		icon_state = U.gender==FEMALE ? "s-ninjanf" : "s-ninjan"
@@ -990,6 +990,54 @@ ________________________________________________________________________________
 			U << "There are <B>[a_boost]</B> adrenaline boosters remaining."
 		else
 			U <<  "�rr�R �a��a�� No-�-� f��N� 3RR�r"
+
+/obj/item/clothing/suit/space/space_ninja/emp_act(severity, var/recursion_level = 0)
+	if(s_initialized && emp_proof == 0) // If the suit is initialized and vulnerable to EMP, we're in business.
+		if(s_active) // EMP will always reveal a stealthed Ninja
+			cancel_stealth()
+
+		if(istype(src.loc, /mob/living/carbon/human))
+			var/mob/living/carbon/human/U = src.loc
+
+			var/emp_result = rand(1,100)
+			switch(emp_result)
+				if(1 to 30) // Blindness, Ninja is blidned for approximately ten seconds.
+					U << "\red Your mask's visor overloads and blinds you!"
+					U.eye_blind = 3
+					U.eye_blurry = 5
+					U.disabilities |= NEARSIGHTED
+					spawn(100)
+						U.disabilities &= ~NEARSIGHTED
+					return
+
+				if(31 to 60) // Slowdown, Ninja moves at standard speeds for approximately thirty seconds.
+					U << "\red <B>Error</B>: Malfunction detected in movement enhancement systems."
+					n_shoes.slowdown = -1
+
+					spawn(300)
+						if(s_initialized) // Don't want to reset the shoes to hyperspeed if the suit is off, eh?
+							n_shoes.slowdown = -2
+					return
+
+				if(61 to 80) // Energy Loss, Ninja loses 1/5 of his energy reserves, or goes to zero if he would have negative energy.
+					U << "\red <B>Error</B>: Signifigant energy failure detected."
+
+					if (cell.charge - (cell.charge / 5) < 0) // Ensures the Ninja does not go into energy-debt.
+						cell.charge = 0
+					else
+						cell.charge -= (cell.charge / 5)
+					return
+
+				if(81 to 90) // System Shutdown, Ninja suit immediately begins shut down. Bad news.
+					U << "<B>DANGER</B>: Core system reboot forced!"
+					deinitialize()
+					return
+
+				if(91 to 100) // Double Up, Two EMP acts are proc'd instead of one.
+					if(recursion_level == 0) // The purpose of the recursion level is to stop a situation in which RNG hates the Ninja a lot, and starts calling absurd amounts of emp_act.
+						emp_act(2, 1)
+						emp_act(2, 1)
+					return
 
 /*
 ===================================================================================
@@ -1130,7 +1178,7 @@ ________________________________________________________________________________
 			spawn(0)
 				var/turf/location = get_turf(U)
 				for(var/mob/living/silicon/ai/AI in player_list)
-					AI << "\red <b>Network Alert: Hacking attempt detected[location?" in [location]":". Unable to pinpoint location"]</b>."
+					AI << "\red <b>Network Alert: Hacking attempt detected[location?" in [location.loc.name]":". Unable to pinpoint location"]</b>."
 			if(A:files&&A:files.known_tech.len)
 				for(var/datum/tech/current_data in S.stored_research)
 					U << "\blue Checking \the [current_data.name] database."
@@ -1362,33 +1410,6 @@ ________________________________________________________________________________
 	usr << "<B>[mode]</B> is active."//Leaving usr here since it may be on the floor or on a person.
 	usr << "Voice mimicking algorithm is set <B>[!vchange?"inactive":"active"]</B>."
 
-/*
-=======================================================================================
-<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<SPACE NINJA HACKBUG>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-=======================================================================================
-*/
-
-/*
-Currently WIP, once finished they will, in theory, allow the Ninja to plant bugs on Computers/APCs/SMES units.
-Possibly more later, but for now I want to get basic function working.
-*/
-
-/obj/item/weapon/hackbug
-	name = "hack-bug"
-	desc = "A strange device. Where did this even come from?"
-	gender = PLURAL
-	icon = 'icons/obj/ninjaobjects.dmi'
-	icon_state = "hackbug"
-	flags = FPRINT | TABLEPASS | USEDELAY
-	w_class = 1.0
-
-/obj/item/weapon/hackbug/attack(atom/target as obj|turf, mob/user as mob, flag)
-	if (!flag)
-		return
-	if (istype(target, /turf/unsimulated) || istype(target, /turf/simulated/shuttle) || istype(target, /obj/item/weapon/storage/) || istype(target, /obj/machinery/door/airlock/hatch/gamma))
-		return
-	user << "Planting bug..."
-	target.overlays += image('icons/obj/ninjaobjects.dmi', "compoverlay")
 
 /*
 ===================================================================================
