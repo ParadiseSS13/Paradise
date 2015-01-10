@@ -13,6 +13,7 @@
 	icon_state = "0"
 	amount_per_transfer_from_this = 5
 	possible_transfer_amounts = null //list(5,10,15)
+	slot_flags = SLOT_EARS
 	volume = 15
 	w_class = 1
 	sharp = 1

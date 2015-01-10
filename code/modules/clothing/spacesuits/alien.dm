@@ -3,6 +3,8 @@
 	name = "Skrellian helmet"
 	desc = "Smoothly contoured and polished to a shine. Still looks like a fishbowl."
 	armor = list(melee = 20, bullet = 20, laser = 50,energy = 50, bomb = 50, bio = 100, rad = 100)
+	flags = HEADCOVERSEYES|STOPSPRESSUREDMAGE|BLOCKHAIR|HEADCOVERSMOUTH
+	flags_inv = HIDEFACE
 	max_heat_protection_temperature = SPACE_SUIT_MAX_HEAT_PROTECTION_TEMPERATURE
 	species_restricted = list("Skrell","Human")
 
@@ -47,6 +49,8 @@
 	name = "NT breacher helmet"
 	desc = "Hey! Watch it with that thing! It's a knock-off of a Unathi battle-helm, and that spike could put someone's eye out."
 	icon_state = "unathi_helm_cheap"
+	flags = HEADCOVERSEYES|STOPSPRESSUREDMAGE|BLOCKHAIR|HEADCOVERSMOUTH
+	flags_inv = HIDEFACE
 	item_state = "unathi_helm_cheap"
 	_color = "unathi_helm_cheap"
 
@@ -98,7 +102,8 @@
 /obj/item/clothing/head/helmet/space/vox
 	armor = list(melee = 60, bullet = 50, laser = 30, energy = 15, bomb = 30, bio = 30, rad = 30)
 	siemens_coefficient = 0.6
-	flags = HEADCOVERSEYES|STOPSPRESSUREDMAGE
+	flags = HEADCOVERSEYES|STOPSPRESSUREDMAGE|BLOCKHAIR|HEADCOVERSMOUTH
+	flags_inv = HIDEFACE
 	species_restricted = list("Vox","Vox Armalis")
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/head.dmi',
@@ -236,7 +241,7 @@
 	..()
 	if (magpulse)
 		usr << "It would be hard to take these off without relaxing your grip first." //theoretically this message should only be seen by the wearer when the claws are equipped.
-		
+
 /obj/item/clothing/suit/space/plasmaman
 	w_class = 3
 	allowed = list(/obj/item/weapon/gun,/obj/item/ammo_box/magazine,/obj/item/ammo_casing,/obj/item/weapon/melee/baton,/obj/item/weapon/melee/energy/sword,/obj/item/weapon/handcuffs,/obj/item/weapon/tank)

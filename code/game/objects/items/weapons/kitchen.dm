@@ -162,6 +162,8 @@
 	icon_state = "combatknife"
 
 
+
+
 /obj/item/weapon/kitchenknife/ritual
 	name = "ritual knife"
 	desc = "The unearthly energies that once powered this blade are now dormant."

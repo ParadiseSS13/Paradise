@@ -63,6 +63,7 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 	var/lit = 0
 	var/icon_on = "cigon"  //Note - these are in masks.dmi not in cigarette.dmi
 	var/icon_off = "cigoff"
+	slot_flags = SLOT_EARS
 	var/type_butt = /obj/item/weapon/cigbutt
 	var/lastHolder = null
 	var/smoketime = 300
@@ -204,6 +205,7 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 	icon_state = "spliffoff"
 	icon_on = "spliffon"
 	icon_off = "spliffoff"
+	slot_flags = SLOT_EARS
 	type_butt = /obj/item/weapon/cigbutt/roach
 	throw_speed = 0.5
 	item_state = "spliffoff"
