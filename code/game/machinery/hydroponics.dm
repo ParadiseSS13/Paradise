@@ -141,6 +141,15 @@
 	update_icon()
 	if(closed_system)
 		flags &= ~OPENCONTAINER
+		
+/obj/machinery/portable_atmospherics/hydroponics/upgraded/New()
+	..()
+	component_parts = list()
+	component_parts += new /obj/item/weapon/circuitboard/hydroponics(src)
+	component_parts += new /obj/item/weapon/stock_parts/matter_bin/super(src)
+	component_parts += new /obj/item/weapon/stock_parts/matter_bin/super(src)
+	component_parts += new /obj/item/weapon/stock_parts/console_screen(src)
+	RefreshParts()
 
 /obj/machinery/portable_atmospherics/hydroponics/RefreshParts()
 	var/tmp_capacity = 0

@@ -213,7 +213,7 @@ var/global/datum/shuttle_controller/shuttle_controller
 		"Fore Port Solars" = locate(/area/vox_station/northwest_solars),
 		"Aft Starboard Solars" = locate(/area/vox_station/southeast_solars),
 		"Aft Port Solars" = locate(/area/vox_station/southwest_solars),
-		"Mining asteroid" = locate(/area/vox_station/mining)
+		"Mining Asteroid" = locate(/area/vox_station/mining)
 		)
 
 	VS.announcer = "NSV Icarus"

@@ -496,21 +496,38 @@ client/proc/one_click_antag()
 
 	var/mob/living/carbon/human/new_vox = new(spawn_location.loc, "Vox")
 
-	new_vox.gender = pick(MALE, FEMALE)
-	new_vox.h_style = "Short Vox Quills"
-	new_vox.regenerate_icons()
+	var/sounds = rand(2,8)
+	var/i = 0
+	var/newname = ""
 
+	while(i<=sounds)
+		i++
+		newname += pick(list("ti","hi","ki","ya","ta","ha","ka","ya","chi","cha","kah"))	
+	
+	new_vox.real_name = capitalize(newname)
+	new_vox.name = new_vox.real_name
 	new_vox.age = rand(12,20)
-
-	new_vox.dna.ready_dna(new_vox) // Creates DNA.
 	new_vox.dna.mutantrace = "vox"
-	new_vox.set_species("Vox") // Actually makes the vox! How about that.
-	new_vox.generate_name()
+	new_vox.set_species("Vox")
+	new_vox.languages = list() // Removing language from chargen.
+	new_vox.flavor_text = ""
 	new_vox.add_language("Vox-pidgin")
-	new_vox.mind_initialize()
-	new_vox.mind.assigned_role = "MODE"
-	new_vox.mind.special_role = "Vox Raider"
-	new_vox.mutations |= M_NOCLONE //Stops the station crew from messing around with their DNA.
+	new_vox.add_language("Galactic Common")
+	new_vox.add_language("Tradeband")
+	new_vox.h_style = "Short Vox Quills"
+	new_vox.f_style = "Shaved"
+
+	for(var/datum/organ/external/limb in new_vox.organs)
+		limb.status &= ~(ORGAN_DESTROYED | ORGAN_ROBOT)
+
+	//Now apply cortical stack.
+	var/datum/organ/external/E = new_vox.get_organ("head")	
+	var/obj/item/weapon/implant/cortical/I = new(new_vox)
+	I.imp_in = new_vox
+	I.implanted = 1
+	I.part = E
+	E.implants += I
+	cortical_stacks += I
 
 	ticker.mode.traitors += new_vox.mind
 	new_vox.equip_vox_raider()
