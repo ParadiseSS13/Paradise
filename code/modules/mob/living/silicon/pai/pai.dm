@@ -24,6 +24,7 @@
 		"Cat" = "cat",
 		"Mouse" = "mouse",
 		"Monkey" = "monkey",
+		"Corgi" = "corgi",
 		"Fox" = "fox"
 		)
 
@@ -80,7 +81,6 @@
 		if(!card.radio)
 			card.radio = new /obj/item/device/radio(src.card)
 		radio = card.radio
-
 	//Verbs for pAI mobile form, chassis and Say flavor text
 	verbs += /mob/living/silicon/pai/proc/choose_chassis
 	verbs += /mob/living/silicon/pai/proc/choose_verbs
@@ -174,16 +174,16 @@
 
 	switch(severity)
 		if(1.0)
-			if (src.stat != 2)
-				adjustBruteLoss(100)
-				adjustFireLoss(100)
+			if (src.stat != 2) //Let's not have two of these instantly kill you.
+				adjustBruteLoss(45)
+				adjustFireLoss(45)
 		if(2.0)
 			if (src.stat != 2)
-				adjustBruteLoss(60)
-				adjustFireLoss(60)
+				adjustBruteLoss(30)
+				adjustFireLoss(30)
 		if(3.0)
 			if (src.stat != 2)
-				adjustBruteLoss(30)
+				adjustBruteLoss(20)
 
 	src.updatehealth()
 
@@ -199,8 +199,6 @@
 			src.adjustFireLoss(40)
 		src.updatehealth()
 	return
-
-//mob/living/silicon/pai/bullet_act(var/obj/item/projectile/Proj)
 
 /mob/living/silicon/pai/attack_alien(mob/living/carbon/alien/humanoid/M as mob)
 	if (!ticker)
@@ -235,8 +233,6 @@
 					if ((O.client && !( O.blinded )))
 						O.show_message(text("\red <B>[] took a swipe at []!</B>", M, src), 1)
 	return
-
-///mob/living/silicon/pai/attack_hand(mob/living/carbon/M as mob)
 
 /mob/living/silicon/pai/proc/switchCamera(var/obj/machinery/camera/C)
 	usr:cameraFollow = null
@@ -412,19 +408,22 @@
 		src.updatehealth()
 	else
 		visible_message("<span class='warning'>[user.name] bonks [src] harmlessly with [W].</span>")
-	if(stat != 2) close_up()
+	spawn(1)
+		if(stat != 2)
+			close_up()
 	return
 
 /mob/living/silicon/pai/attack_hand(mob/user as mob)
 	if(stat == 2) return
 	visible_message("<span class='danger'>[user.name] boops [src] on the head.</span>")
-	close_up()
+	spawn(1)
+		close_up()
 
 //I'm not sure how much of this is necessary, but I would rather avoid issues.
 /mob/living/silicon/pai/proc/close_up()
 
 	last_special = world.time + 200
-
+	resting = 0
 	if(src.loc == card)
 		return
 
@@ -443,10 +442,18 @@
 	canmove = 0
 	icon_state = "[chassis]"
 
-/mob/living/silicon/pai/start_pulling(var/atom/movable/AM)
+/mob/living/silicon/pai/Bump(atom/movable/AM as mob|obj, yes)
+	return
 
+/mob/living/silicon/pai/Bumped(AM as mob|obj)
+	return
+
+/mob/living/silicon/pai/start_pulling(var/atom/movable/AM)
+	if(stat || sleeping || paralysis || weakened)
+		return
 	if(istype(AM,/obj/item))
 		src << "<span class='warning'>You are far too small to pull anything!</span>"
+	return
 
 /mob/living/silicon/pai/examine()
 
@@ -479,6 +486,7 @@
 	..(Proj)
 	updatehealth()
 	if (stat != 2)
-		close_up()
+		spawn(1)
+			close_up()
 	return 2
 

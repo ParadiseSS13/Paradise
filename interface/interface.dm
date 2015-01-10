@@ -136,7 +136,7 @@ Admin:
 
 	if(hotkeyon)//using an if statement because I don't want to clutter winset() with ? operators
 		winset(usr, "mainwindow.hotkey_toggle", "is-checked=true")//checks the button
-		winset(usr, "mainwindow.mapwindow", "focus=true")//sets mapwindow focus
+		winset(usr, "mapwindow.map", "focus=true")//sets mapwindow focus
 	else
 		winset(usr, "mainwindow.hotkey_toggle", "is-checked=false")//unchecks the button
 		winset(usr, "mainwindow.input", "focus=true")//sets focus

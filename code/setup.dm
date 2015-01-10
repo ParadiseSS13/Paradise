@@ -167,7 +167,7 @@ var/MAX_EXPLOSION_RANGE = 14
 
 #define FLOWFRAC 0.99				// fraction of gas transfered per process
 
-#define SHOES_SLOWDOWN -1.0			// How much shoes slow you down by default. Negative values speed you up
+#define SHOES_SLOWDOWN 0			// How much shoes slow you down by default. Negative values speed you up
 
 
 //ITEM INVENTORY SLOT BITMASKS

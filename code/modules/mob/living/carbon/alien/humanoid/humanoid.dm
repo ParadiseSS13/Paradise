@@ -53,13 +53,13 @@
 /mob/living/carbon/alien/humanoid/movement_delay()
 	var/tally = 0
 	if (istype(src, /mob/living/carbon/alien/humanoid/queen))
-		tally += 4
+		tally += 5
 	if (istype(src, /mob/living/carbon/alien/humanoid/drone))
-		tally += 0
+		tally += 1
 	if (istype(src, /mob/living/carbon/alien/humanoid/sentinel))
-		tally += 0
+		tally += 1
 	if (istype(src, /mob/living/carbon/alien/humanoid/hunter))
-		tally = -2 // hunters go supersuperfast
+		tally = -1 // hunters go supersuperfast
 	return (tally + move_delay_add + config.alien_delay)
 
 /mob/living/carbon/alien/humanoid/Process_Spacemove(var/check_drift = 0)
