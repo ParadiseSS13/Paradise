@@ -897,6 +897,7 @@ var/global/list/obj/item/device/pda/PDAs = list()
 
 	var/t = input(U, "Please enter message", name, null) as text
 	t = copytext(sanitize(t), 1, MAX_MESSAGE_LEN)
+	t = readd_quotes(t)
 	if (!t || !istype(P))
 		return
 	if (!in_range(src, U) && loc != U)
