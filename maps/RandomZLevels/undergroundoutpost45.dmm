@@ -1,4 +1,4 @@
-"aa" = (/turf/unsimulated/wall{icon_state = "rock"; name = "rock"},/area/awaycontent/a7{always_unpowered = 1; has_gravity = 1; name = "UO45 Caves"; power_environ = 0; power_equip = 0; power_light = 0; poweralm = 0})
+"aa" = (/turf/space,/area)
 "ab" = (/turf/unsimulated/wall{icon_state = "rock"; name = "rock"},/area)
 "ac" = (/turf/simulated/mineral/random/labormineral,/area/awaycontent/a7{always_unpowered = 1; has_gravity = 1; name = "UO45 Caves"; power_environ = 0; power_equip = 0; power_light = 0; poweralm = 0})
 "ad" = (/turf/simulated/wall/r_wall,/area/awaycontent/a1{has_gravity = 1; name = "UO45 Central Hall"})

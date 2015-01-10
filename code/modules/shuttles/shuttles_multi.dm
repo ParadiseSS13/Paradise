@@ -3,6 +3,7 @@
 
 	var/cloaked = 1
 	var/at_origin = 1
+	var/returned_home = 0
 	var/move_time = 240
 	var/cooldown = 20
 	var/last_move = 0	//the time at which we last moved
@@ -21,9 +22,11 @@
 	..()
 	if(origin) last_departed = origin
 
-/datum/shuttle/multi_shuttle/move()
+/datum/shuttle/multi_shuttle/move(var/area/origin, var/area/destination)
 	..()
 	last_move = world.time
+	if (destination == src.origin)
+		returned_home = 1
 
 /datum/shuttle/multi_shuttle/proc/announce_departure()
 

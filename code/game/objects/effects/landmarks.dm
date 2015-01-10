@@ -78,6 +78,9 @@
 
 		if("carpspawn")
 			carplist += loc
+			
+		if("voxstart")
+			raider_spawn += loc
 
 	landmarks_list += src
 	return 1
