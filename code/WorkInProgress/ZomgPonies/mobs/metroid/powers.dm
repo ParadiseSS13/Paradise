@@ -250,7 +250,7 @@
 
 			if(new_slime.client)
 				if(babies.len)
-					var/list/candidates = get_slime_candidates()
+					var/list/candidates = get_candidates(BE_SLIME)
 					if(candidates.len)
 						var/mob/dead/observer/picked = pick(candidates)
 						var/mob/living/carbon/slime/S = pick(babies)

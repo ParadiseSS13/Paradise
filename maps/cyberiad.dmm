@@ -153,7 +153,7 @@
 "acW" = (/obj/machinery/light/small{dir = 1},/obj/machinery/alarm{pixel_y = 23},/turf/simulated/floor{tag = "icon-vault"; icon_state = "vault"},/area/security/nuke_storage)
 "acX" = (/obj/machinery/power/apc{dir = 1; name = "Vault APC"; pixel_x = 0; pixel_y = 25},/obj/structure/cable{icon_state = "0-2"; d2 = 2},/turf/simulated/floor{tag = "icon-vault (SOUTHWEST)"; icon_state = "vault"; dir = 10},/area/security/nuke_storage)
 "acY" = (/obj/machinery/firealarm{dir = 4; pixel_x = 24},/obj/machinery/status_display{density = 0; layer = 4; pixel_x = 0; pixel_y = 32},/turf/simulated/floor{tag = "icon-vault (SOUTHWEST)"; icon_state = "vault"; dir = 10},/area/security/nuke_storage)
-"acZ" = (/obj/item/device/radio/intercom{broadcasting = 0; freerange = 0; frequency = 1475; listening = 1; name = "Station Intercom (Security)"; pixel_x = -30; pixel_y = 0},/obj/machinery/hologram/holopad,/turf/simulated/floor{icon_state = "dark"},/area/security/hos)
+"acZ" = (/obj/item/device/radio/intercom{broadcasting = 0; freerange = 0; frequency = 1475; listening = 1; name = "Station Intercom (Security)"; pixel_x = -30; pixel_y = 0},/turf/simulated/floor{icon_state = "dark"},/area/security/hos)
 "ada" = (/obj/structure/table/woodentable,/obj/item/weapon/stamp/hos,/obj/machinery/light/small/lamp/green{on = 0; pixel_x = -3; pixel_y = 8},/obj/machinery/atmospherics/unary/vent_scrubber{on = 1; scrub_N2O = 1; scrub_Toxins = 1},/turf/simulated/floor/carpet,/area/security/hos)
 "adb" = (/obj/structure/table/woodentable,/obj/machinery/atmospherics/unary/vent_pump,/obj/structure/cable{d1 = 1; d2 = 2; icon_state = "1-2"; tag = ""},/turf/simulated/floor/carpet,/area/security/hos)
 "adc" = (/obj/structure/table/woodentable,/turf/simulated/floor/carpet,/area/security/hos)
