@@ -279,6 +279,16 @@
 	component_parts += new /obj/item/bluespace_crystal/artificial(null)
 	component_parts += new /obj/item/weapon/stock_parts/matter_bin(null)
 	RefreshParts()
+	
+/obj/machinery/teleport/hub/upgraded/New()
+	..()
+	component_parts = list()
+	component_parts += new /obj/item/weapon/circuitboard/teleporter_hub(null)
+	component_parts += new /obj/item/bluespace_crystal/artificial(null)
+	component_parts += new /obj/item/bluespace_crystal/artificial(null)
+	component_parts += new /obj/item/bluespace_crystal/artificial(null)
+	component_parts += new /obj/item/weapon/stock_parts/matter_bin/super(null)
+	RefreshParts()
 
 /obj/machinery/teleport/hub/initialize()
 	link_power_station()
@@ -349,11 +359,6 @@
 		icon_state = "tele1"
 	else
 		icon_state = "tele0"
-
-/obj/machinery/teleport/hub/syndicate/New()
-	..()
-	component_parts += new /obj/item/weapon/stock_parts/matter_bin/super(null)
-	RefreshParts()
 
 /obj/machinery/teleport/station
 	name = "station"

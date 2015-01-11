@@ -1,5 +1,5 @@
 /mob/living/silicon/robot/Process_Spaceslipping(var/prob_slip)
-	if(module && (istype(module,/obj/item/weapon/robot_module/construction) || istype(module,/obj/item/weapon/robot_module/drone)))
+	if(module && (istype(module,/obj/item/weapon/robot_module/drone)))
 		return 0
 	..(prob_slip)
 
@@ -23,4 +23,4 @@
 	return tally+config.robot_delay
 
 /mob/living/silicon/robot/Move()
-	..()	
+	..()

@@ -1212,9 +1212,9 @@ mob/proc/yank_out_object()
 
 
 
-/mob/verb/respawn()
+/mob/dead/observer/verb/respawn()
 	set name = "Respawn as NPC"
-	set category = "OOC"
+	set category = "Ghost"
 
 	if((usr in respawnable_list) && (stat==2 || istype(usr,/mob/dead/observer)))
 		var/list/creatures = list("Mouse")

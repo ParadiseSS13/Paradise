@@ -345,7 +345,7 @@ Implants;
 		if(BE_REV)			roletext="revolutionary"
 		if(BE_CULTIST)		roletext="cultist"
 		if(BE_NINJA)		roletext="ninja"
-		if(BE_VOX)			roletext="vox"
+		if(BE_RAIDER)		roletext="Vox raider"
 
 	// Assemble a list of active players without jobbans.
 	for(var/mob/new_player/player in player_list)
@@ -551,3 +551,23 @@ proc/get_nt_opposed()
 				dudes += man
 	if(dudes.len == 0) return null
 	return pick(dudes)
+	
+//Announces objectives/generic antag text.
+/proc/show_generic_antag_text(var/datum/mind/player)
+	if(player.current)
+		player.current << \
+		"You are an antagonist! <font color=blue>Within the rules,</font> \
+		try to act as an opposing force to the crew. Further RP and try to make sure \
+		other players have <i>fun</i>! If you are confused or at a loss, always adminhelp, \
+		and before taking extreme actions, please try to also contact the administration! \
+		Think through your actions and make the roleplay immersive! <b>Please remember all \
+		rules aside from those without explicit exceptions apply to antagonists.</b>"	
+
+/proc/show_objectives(var/datum/mind/player)
+	if(!player || !player.current) return
+
+	var/obj_count = 1
+	player.current << "\blue Your current objectives:"
+	for(var/datum/objective/objective in player.objectives)
+		player.current << "<B>Objective #[obj_count]</B>: [objective.explanation_text]"
+		obj_count++

@@ -167,7 +167,7 @@ var/MAX_EXPLOSION_RANGE = 14
 
 #define FLOWFRAC 0.99				// fraction of gas transfered per process
 
-#define SHOES_SLOWDOWN -1.0			// How much shoes slow you down by default. Negative values speed you up
+#define SHOES_SLOWDOWN 0			// How much shoes slow you down by default. Negative values speed you up
 
 
 //ITEM INVENTORY SLOT BITMASKS
@@ -727,7 +727,7 @@ var/list/TAGGERLOCATIONS = list("Disposals",
 #define BE_CULTIST		256
 #define BE_PLANT		512
 #define BE_NINJA		1024
-#define BE_VOX			2048
+#define BE_RAIDER		2048
 #define BE_SLIME		4096
 #define BE_VAMPIRE		8192
 #define BE_MUTINEER		16384
@@ -745,7 +745,7 @@ var/list/be_special_flags = list(
 	"Cultist" = BE_CULTIST,
 	"Plant" = BE_PLANT,
 	"Ninja" = BE_NINJA,
-	"Vox" = BE_VOX,
+	"Vox Raider" = BE_RAIDER,
 	"Slime" = BE_SLIME,
 	"Vampire" = BE_VAMPIRE,
 	"Mutineer" = BE_MUTINEER,
