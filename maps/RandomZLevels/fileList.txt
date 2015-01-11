@@ -19,5 +19,5 @@ maps/RandomZLevels/moonoutpost19.dmm
 #maps/RandomZLevels/spacebattle.dmm
 #maps/RandomZLevels/spacehotel.dmm
 #maps/RandomZLevels/stationCollision.dmm
-#maps/RandomZLevels/undergroundoutpost45.dmm
+maps/RandomZLevels/undergroundoutpost45.dmm
 #maps/RandomZLevels/wildwest.dmm
