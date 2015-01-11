@@ -56,6 +56,7 @@
 		//Ability function variables.
 	var/s_bombs = 10.0//Number of starting ninja smoke bombs.
 	var/a_boost = 3.0//Number of adrenaline boosters.
+	var/emp_proof = 0 // Will the suit react to EMPs? A kind of bad workaround to make Ninjas invulnerable to their own EMPs. - Dave
 
 		//Onboard AI related variables.
 	var/mob/living/silicon/ai/AI//If there is an AI inside the suit.
