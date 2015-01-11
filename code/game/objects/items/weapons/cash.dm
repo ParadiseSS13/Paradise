@@ -60,10 +60,25 @@ var/global/list/moneytypes=list(
 	icon_state = "cash10"
 	worth = 10
 	stack_color = "#663200"
+	
+/obj/item/weapon/spacecash/c20
+	icon_state = "cash10"
+	worth = 20
+	stack_color = "#663200"
+	
+/obj/item/weapon/spacecash/c50
+	icon_state = "cash10"
+	worth = 50
+	stack_color = "#663200"
 
 /obj/item/weapon/spacecash/c100
 	icon_state = "cash100"
 	worth = 100
+	stack_color = "#663200"
+	
+/obj/item/weapon/spacecash/c200
+	icon_state = "cash100"
+	worth = 200
 	stack_color = "#663200"
 
 /obj/item/weapon/spacecash/c500

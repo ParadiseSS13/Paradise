@@ -68,12 +68,12 @@ Not sure why this would be useful (it's not) but whatever. Ninjas need their smo
 //=======//9-8 TILE TELEPORT//=======//
  //Click to to teleport 9-10 tiles in direction facing.
 /obj/item/clothing/suit/space/space_ninja/proc/ninjajaunt()
-	set name = "Phase Jaunt (500E)"
+	set name = "Phase Jaunt (750E)"
 	set desc = "Utilizes the internal VOID-shift device to rapidly transit in direction facing."
 	set category = "Ninja Ability"
 	set popup_menu = 0
 
-	var/C = 500
+	var/C = 750
 	if(!ninjacost(C,1))
 		var/mob/living/carbon/human/U = affecting
 		var/turf/destination = get_teleport_loc(U.loc,U,9,1,3,1,0,1)
@@ -108,12 +108,12 @@ Not sure why this would be useful (it's not) but whatever. Ninjas need their smo
 //=======//RIGHT CLICK TELEPORT//=======//
 //Right click to teleport somewhere, almost exactly like admin jump to turf.
 /obj/item/clothing/suit/space/space_ninja/proc/ninjashift(turf/T in oview())
-	set name = "Phase Shift (750E)"
+	set name = "Phase Shift (1500E)"
 	set desc = "Utilizes the internal VOID-shift device to rapidly transit to a destination in view."
 	set category = null//So it does not show up on the panel but can still be right-clicked.
 	set src = usr.contents//Fixes verbs not attaching properly for objects. Praise the DM reference guide!
 
-	var/C = 750
+	var/C = 1500
 	if(!ninjacost(C,1))
 		var/mob/living/carbon/human/U = affecting
 		var/turf/mobloc = get_turf(U.loc)//To make sure that certain things work properly below.
@@ -145,29 +145,33 @@ Not sure why this would be useful (it's not) but whatever. Ninjas need their smo
 //=======//EM PULSE//=======//
 //Disables nearby tech equipment.
 /obj/item/clothing/suit/space/space_ninja/proc/ninjapulse()
-	set name = "EM Burst (1,000E)"
+	set name = "EM Burst (1,500E)"
 	set desc = "Disable any nearby technology with a electro-magnetic pulse."
 	set category = "Ninja Ability"
 	set popup_menu = 0
 
-	var/C = 1000
+	var/C = 1500
 	if(!ninjacost(C, 1))
 		var/mob/living/carbon/human/U = affecting
 		playsound(U.loc, 'sound/effects/EMPulse.ogg', 60, 2)
+		emp_proof = 1 // This is a pretty crappy workaround, but the alternative was creating a special EMPulse proc just for Ninjas that doesn't trigger the act on their suits. - Dave
 		empulse(U, 4, 6) //Procs sure are nice. Slightly weaker than wizard's disable tch.
 		s_coold = 2
 		cell.charge-=(C)
+
+		spawn(3)
+			emp_proof = 0
 	return
 
 //=======//ENERGY BLADE//=======//
 //Summons a blade of energy in active hand.
 /obj/item/clothing/suit/space/space_ninja/proc/ninjablade()
-	set name = "Energy Blade (200E)"
+	set name = "Energy Blade (500E)"
 	set desc = "Create a focused beam of energy in your active hand."
 	set category = "Ninja Ability"
 	set popup_menu = 0
 
-	var/C = 200
+	var/C = 500
 	if(!ninjacost(C, 1))
 		var/mob/living/carbon/human/U = affecting
 		if(!kamikaze)
