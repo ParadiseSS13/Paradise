@@ -613,6 +613,11 @@ mob/living/carbon/slime/var/temperature_resistance = T0C+75
 			Target = null
 			++Discipline
 	return
+	
+/mob/living/carbon/slime/can_use_vents()
+	if(Victim)
+		return "You cannot ventcrawl while feeding."
+	..()
 
 /obj/item/slime_extract
 	name = "slime extract"
