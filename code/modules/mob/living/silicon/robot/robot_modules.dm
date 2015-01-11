@@ -68,7 +68,7 @@
 		src.modules += new /obj/item/weapon/wrench(src)
 		src.modules += new /obj/item/weapon/crowbar(src)
 		src.modules += new /obj/item/device/healthanalyzer(src)
-		src.emag = new /obj/item/weapon/melee/energy/sword(src)
+		src.emag = new /obj/item/weapon/melee/energy/sword/cyborg(src)
 		return
 
 /obj/item/weapon/robot_module/surgeon
@@ -155,26 +155,6 @@
 
 	..()
 
-/obj/item/weapon/robot_module/construction
-	name = "construction robot module"
-
-	stacktypes = list(
-		/obj/item/stack/sheet/metal = 50,
-		/obj/item/stack/sheet/plasteel = 10,
-		/obj/item/stack/sheet/rglass = 50
-		)
-
-	New()
-		src.modules += new /obj/item/device/flashlight(src)
-		src.modules += new /obj/item/device/flash/cyborg(src)
-		src.modules += new /obj/item/borg/sight/meson(src)
-		src.modules += new /obj/item/weapon/extinguisher(src)
-		src.modules += new /obj/item/weapon/rcd/borg(src)
-		src.modules += new /obj/item/weapon/screwdriver(src)
-		src.modules += new /obj/item/weapon/wrench(src)
-		src.modules += new /obj/item/weapon/crowbar(src)
-		src.modules += new /obj/item/weapon/pickaxe/plasmacutter(src)
-
 /obj/item/weapon/robot_module/engineering
 	name = "engineering robot module"
 
@@ -191,6 +171,7 @@
 		src.modules += new /obj/item/device/flashlight(src)
 		src.modules += new /obj/item/device/flash/cyborg(src)
 		src.modules += new /obj/item/borg/sight/meson(src)
+		src.modules += new /obj/item/weapon/rcd/borg(src)
 		src.modules += new /obj/item/weapon/extinguisher(src)
 		src.modules += new /obj/item/weapon/weldingtool/largetank(src)
 		src.modules += new /obj/item/weapon/screwdriver(src)
@@ -221,6 +202,14 @@
 		var/obj/item/stack/cable_coil/W = new /obj/item/stack/cable_coil(src)
 		W.amount = 50
 		src.modules += W
+
+		var/obj/item/stack/rods/Q = new /obj/item/stack/rods(src)
+		Q.amount = 15
+		src.modules += Q
+
+		var/obj/item/stack/tile/plasteel/F = new /obj/item/stack/tile/plasteel(src) //floor tiles not regular plasteel, calm down
+		F.amount = 15
+		src.modules += F
 
 		return
 
@@ -269,6 +258,9 @@
 		src.modules += new /obj/item/device/flash/cyborg(src)
 		src.modules += new /obj/item/weapon/reagent_containers/food/drinks/cans/beer(src)
 		src.modules += new /obj/item/weapon/reagent_containers/food/condiment/enzyme(src)
+		src.modules += new /obj/item/weapon/pen(src)
+		src.modules += new /obj/item/weapon/razor(src)
+		src.modules += new /obj/item/device/violin(src)
 
 		var/obj/item/weapon/rsf/M = new /obj/item/weapon/rsf(src)
 		M.matter = 30
@@ -287,8 +279,15 @@
 		src.emag.name = "Mickey Finn's Special Brew"
 		return
 
+/obj/item/weapon/robot_module/butler/respawn_consumable(var/mob/living/silicon/robot/R)
+	var/obj/item/weapon/reagent_containers/food/condiment/enzyme/E = locate() in src.modules
+	E.reagents.add_reagent("enzyme", 2)
+	if(src.emag)
+		var/obj/item/weapon/reagent_containers/food/drinks/cans/beer/B = src.emag
+		B.reagents.add_reagent("beer2", 2)
 
-/obj/item/weapon/robot_module/clerical
+/*
+/obj/item/weapon/robot_module/clerical //Whyyyyy?
 	name = "clerical robot module"
 
 	New()
@@ -300,20 +299,14 @@
 		src.modules += new /obj/item/weapon/gripper/paperwork(src)
 
 		src.emag = new /obj/item/weapon/stamp/denied(src)
-
-/obj/item/weapon/robot_module/butler/respawn_consumable(var/mob/living/silicon/robot/R)
-	var/obj/item/weapon/reagent_containers/food/condiment/enzyme/E = locate() in src.modules
-	E.reagents.add_reagent("enzyme", 2)
-	if(src.emag)
-		var/obj/item/weapon/reagent_containers/food/drinks/cans/beer/B = src.emag
-		B.reagents.add_reagent("beer2", 2)
+*/
 
 /obj/item/weapon/robot_module/miner
 	name = "miner robot module"
 
 
 	New()
-		src.modules += new /obj/item/device/flashlight(src)
+		src.modules += new /obj/item/device/flashlight/lantern(src)
 		src.modules += new /obj/item/device/flash/cyborg(src)
 		src.modules += new /obj/item/borg/sight/meson(src)
 		src.modules += new /obj/item/weapon/wrench(src)
@@ -321,7 +314,7 @@
 		src.modules += new /obj/item/weapon/storage/bag/ore(src)
 		src.modules += new /obj/item/weapon/pickaxe/borgdrill(src)
 		src.modules += new /obj/item/weapon/storage/bag/sheetsnatcher/borg(src)
-		src.emag = new /obj/item/weapon/pickaxe/plasmacutter(src)
+		src.emag = new /obj/item/borg/stun(src)
 		return
 
 /obj/item/weapon/robot_module/deathsquad

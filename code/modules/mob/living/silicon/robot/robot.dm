@@ -72,7 +72,7 @@
 	var/base_icon = ""
 	var/crisis = 0
 	var/hiddenborg = 0
-	
+
 	var/obj/item/borg/sight/hud/sec/sechud = null
 	var/obj/item/borg/sight/hud/med/healthhud = null
 
@@ -188,7 +188,7 @@
 /mob/living/silicon/robot/proc/pick_module()
 	if(module)
 		return
-	var/list/modules = list("Standard", "Engineering", "Construction", "Surgeon", "Crisis", "Miner", "Janitor", "Service", "Clerical", "Security")
+	var/list/modules = list("Standard", "Engineering", "Surgeon", "Crisis", "Miner", "Janitor", "Service", "Security")
 	if(security_level == (SEC_LEVEL_GAMMA || SEC_LEVEL_EPSILON) || crisis)
 		src << "\red Crisis mode active. Combat module available."
 		modules+="Combat"
@@ -218,7 +218,7 @@
 			module_sprites["Bro"] = "Brobot"
 			module_sprites["Rich"] = "maximillion"
 			module_sprites["Default"] = "Service2"
-
+/*
 		if("Clerical")
 			module = new /obj/item/weapon/robot_module/clerical(src)
 			channels = list("Service" = 1)
@@ -227,7 +227,7 @@
 			module_sprites["Bro"] = "Brobot"
 			module_sprites["Rich"] = "maximillion"
 			module_sprites["Default"] = "Service2"
-
+*/
 		if("Miner")
 			module = new /obj/item/weapon/robot_module/miner(src)
 			channels = list("Supply" = 1)
@@ -275,15 +275,6 @@
 			module_sprites["Antique"] = "engineerrobot"
 			module_sprites["Landmate"] = "landmate"
 
-		if("Construction")
-			module = new /obj/item/weapon/robot_module/construction(src)
-			channels = list("Engineering" = 1)
-			if(camera && "Robots" in camera.network)
-				camera.network.Add("Engineering")
-			module_sprites["Basic"] = "Engineering"
-			module_sprites["Antique"] = "engineerrobot"
-			module_sprites["Landmate"] = "landmate"
-
 		if("Janitor")
 			module = new /obj/item/weapon/robot_module/janitor(src)
 			module_sprites["Basic"] = "JanBot2"
@@ -294,6 +285,7 @@
 			module = new /obj/item/weapon/robot_module/combat(src)
 			module_sprites["Combat Android"] = "droid-combat"
 			channels = list("Security" = 1)
+
 		if("Hunter")
 			updatename(module)
 			module = new /obj/item/weapon/robot_module/alien/hunter(src)
@@ -458,12 +450,12 @@
 	else
 		C.toggled = 1
 		src << "\red You enable [C.name]."
-		
+
 /mob/living/silicon/robot/verb/control_hud()
 	set name = "Set Sensor Augmentation"
 	set desc = "Augment visual feed with internal sensor overlays."
 	set category = "Robot Commands"
-	toggle_sensor_mode()	
+	toggle_sensor_mode()
 
 /mob/living/silicon/robot/blob_act()
 	if (stat != 2)
