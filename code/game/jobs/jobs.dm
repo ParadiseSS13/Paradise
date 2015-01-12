@@ -50,13 +50,11 @@ var/const/KARMA				=(1<<3)
 
 var/const/NANO				=(1<<0)
 var/const/BLUESHIELD		=(1<<1)
-var/const/CUSTOMS			=(1<<2)
 var/const/BARBER			=(1<<3)
 var/const/MECHANIC			=(1<<4)
 var/const/BRIGDOC			=(1<<5)
 var/const/JUDGE				=(1<<6)
 var/const/PILOT				=(1<<7)
-var/const/NANOREC			=(1<<8)
 
 var/list/assistant_occupations = list(
 )
@@ -116,7 +114,6 @@ var/list/support_positions = list(
 	"Mime",
 	"Barber",
 	"Magistrate",
-	"Nanotrasen Recruiter"
 )
 
 
@@ -125,7 +122,6 @@ var/list/security_positions = list(
 	"Warden",
 	"Detective",
 	"Security Officer",
-	"Customs Officer",
 	"Blueshield",
 	"Brig Physician",
 	"Security Pod Pilot"
@@ -144,14 +140,12 @@ var/list/nonhuman_positions = list(
 
 var/list/whitelisted_positions = list(
 	"Blueshield",
-	"Customs Officer",
 	"Nanotrasen Representative",
 	"Barber",
 	"Mechanic",
 	"Brig Physician",
 	"Magistrate",
 	"Security Pod Pilot",
-	"Nanotrasen Recruiter"
 )
 
 

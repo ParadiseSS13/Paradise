@@ -245,32 +245,6 @@
 		new /obj/item/clothing/under/lawyer/female(src)
 		return
 
-/obj/structure/closet/secure_closet/ntrec
-	name = "Nanotrasen Recruiter's Locker"
-	req_access = list(access_ntrec)
-	icon_state = "ntsecure1"
-	icon_closed = "ntsecure"
-	icon_locked = "ntsecure1"
-	icon_opened = "ntsecureopen"
-	icon_broken = "ntsecurebroken"
-	icon_off = "ntsecureoff"
-
-	New()
-		..()
-		sleep(2)
-		new /obj/item/weapon/storage/briefcase(src)
-		new /obj/item/weapon/storage/box/ids(src)
-		new /obj/item/weapon/storage/box/PDAs(src)
-		new /obj/item/device/flash(src)
-		new /obj/item/clothing/glasses/sunglasses(src)
-		new /obj/item/clothing/under/rank/centcom_officer(src)
-		new /obj/item/clothing/gloves/color/white(src)
-		new /obj/item/clothing/shoes/centcom(src)
-		new /obj/item/clothing/under/lawyer/oldman(src)
-		new /obj/item/clothing/under/lawyer/black(src)
-		new /obj/item/clothing/under/lawyer/female(src)
-		return
-
 
 /obj/structure/closet/secure_closet/security/cargo
 
