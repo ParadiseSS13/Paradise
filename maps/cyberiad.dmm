@@ -1748,7 +1748,7 @@
 "aHF" = (/obj/machinery/power/apc{dir = 1; name = "north bump"; pixel_x = 0; pixel_y = 24},/obj/structure/cable{d2 = 8; icon_state = "0-8"},/turf/simulated/floor{icon_state = "vault"; dir = 10},/area/security/nuke_storage)
 "aHG" = (/obj/machinery/computer/secure_data/detective_computer,/obj/machinery/status_display{density = 0; layer = 4; pixel_x = 0; pixel_y = 32},/turf/simulated/floor{icon_state = "vault"; dir = 8},/area/security/nuke_storage)
 "aHH" = (/obj/machinery/gateway{dir = 10},/turf/simulated/floor{icon_state = "vault"; dir = 4},/area/gateway)
-"aHI" = (/obj/machinery/gateway,/obj/structure/cable{d2 = 2; icon_state = "0-2"},/turf/simulated/floor{icon_state = "vault"; dir = 8},/area/gateway)
+"aHI" = (/obj/machinery/gateway{density = 0},/obj/structure/cable{d2 = 2; icon_state = "0-2"},/turf/simulated/floor{icon_state = "vault"; dir = 8},/area/gateway)
 "aHJ" = (/obj/machinery/gateway{dir = 6},/turf/simulated/floor{icon_state = "vault"; dir = 1},/area/gateway)
 "aHK" = (/obj/structure/rack{dir = 8; layer = 2.9},/obj/item/weapon/tank/jetpack/carbondioxide,/turf/simulated/floor{icon_state = "dark"},/area/ai_monitored/storage/eva)
 "aHL" = (/obj/structure/cable{d1 = 4; d2 = 8; icon_state = "4-8"; pixel_x = 0; tag = ""},/obj/machinery/camera/motion{c_tag = "EVA West"; dir = 4; network = list("SS13")},/obj/structure/table/reinforced,/obj/item/device/assembly/signaler,/obj/item/device/assembly/signaler,/obj/item/weapon/storage/toolbox/electrical{pixel_x = 1; pixel_y = -1},/turf/simulated/floor{dir = 8; icon_state = "warning"},/area/ai_monitored/storage/eva)
