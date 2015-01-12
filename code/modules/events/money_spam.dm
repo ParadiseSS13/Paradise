@@ -88,15 +88,6 @@
 
 			useMS.send_pda_message("[P.owner]", sender, message)
 
-			if (prob(50)) //Give the AI an increased chance to intercept the message
-				for(var/mob/living/silicon/ai/ai in mob_list)
-					// Allows other AIs to intercept the message but the AI won't intercept their own message.
-					if(ai.aiPDA != P && ai.aiPDA != src)
-						ai.show_message("<i>Intercepted message from <b>[sender]</b></i> (Unknown / spam?) <i>to <b>[P:owner]</b>: [message]</i>")
-
-			//Commented out because we don't send messages like this anymore.  Instead it will just popup in their chat window.
-			//P.tnote += "<i><b>&larr; From [sender] (Unknown / spam?):</b></i><br>[message]<br>"
-
 			if (!P.silent)
 				playsound(P.loc, 'sound/machines/twobeep.ogg', 50, 1)
 			for (var/mob/O in hearers(3, P.loc))
