@@ -91,13 +91,6 @@
 						else
 							src.DB_job_unlock("Nanotrasen Representative",30)
 							return
-					if("4")
-						if(karma <30)
-							usr << "You do not have enough karma!"
-							return
-						else
-							src.DB_job_unlock("Customs Officer",30)
-							return
 					if("5")
 						if(karma <30)
 							usr << "You do not have enough karma!"
@@ -118,13 +111,6 @@
 							return
 						else
 							src.DB_job_unlock("Magistrate",45)
-							return
-					if("8")
-						if(karma <10)
-							usr << "You do not have enough karma!"
-							return
-						else
-							src.DB_job_unlock("Nanotrasen Recruiter",10)
 							return
 					if("9")
 						if(karma <30)
