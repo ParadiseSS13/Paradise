@@ -92,6 +92,8 @@ rcd light flash thingy on matter drain
 	for(var/obj/machinery/door/D in airlocks)
 		spawn()
 			if(istype(D, /obj/machinery/door/airlock))
+				if(D.z != 1)
+					continue
 				AL = D
 				if(AL.canAIControl() && !AL.stat) //Must be powered and have working AI wire.
 					AL.locked = 0 //For airlocks that were bolted open.
