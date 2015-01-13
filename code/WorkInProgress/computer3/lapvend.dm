@@ -293,7 +293,7 @@
 	return total
 
 /obj/machinery/lapvend/proc/choose_progs(var/obj/item/weapon/card/id/C)
-	if(access_security in C.access)
+	if(access_security in C.access || access_forensics_lockers in C.access)
 		newlap.spawn_files += (/datum/file/program/secure_data)
 		newlap.spawn_files += (/datum/file/camnet_key)
 		newlap.spawn_files += (/datum/file/camnet_key/researchoutpost)
