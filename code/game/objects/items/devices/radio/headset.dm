@@ -31,6 +31,15 @@
 
 /obj/item/device/radio/headset/syndicate
 	origin_tech = "syndicate=3"
+
+/obj/item/device/radio/headset/syndicate/alt //undisguised bowman with flash protection
+	name = "syndicate headset"
+	desc = "A syndicate headset that can be used to hear all radio frequencies. Protects ears from flashbangs. \nTo access the syndicate channel, use ; before speaking."
+	flags = EARBANGPROTECT
+	origin_tech = "syndicate=3"
+	icon_state = "syndie_headset"
+	item_state = "syndie_headset"
+
 /obj/item/device/radio/headset/syndicate/New()
 	..()
 	del(keyslot1)
@@ -52,6 +61,13 @@
 	icon_state = "sec_headset"
 	item_state = "headset"
 	keyslot1 = new /obj/item/device/encryptionkey/headset_sec
+
+/obj/item/device/radio/headset/headset_sec/alt
+	name = "security bowman headset"
+	desc = "This is used by your elite security force. Protects ears from flashbangs. \nTo access the security channel, use :s."
+	flags = EARBANGPROTECT
+	icon_state = "sec_headset_alt"
+	item_state = "sec_headset_alt"
 
 /obj/item/device/radio/headset/headset_eng
 	name = "engineering radio headset"
@@ -102,6 +118,13 @@
 	item_state = "headset"
 	keyslot1 = new /obj/item/device/encryptionkey/heads/captain
 
+/obj/item/device/radio/headset/heads/captain/alt
+	name = "\proper the captain's bowman headset"
+	desc = "The headset of the boss. Protects ears from flashbangs. \nChannels are as follows: :c - command, :s - security, :e - engineering, :u - supply, :v - service, :m - medical, :n - science."
+	flags = EARBANGPROTECT
+	icon_state = "com_headset_alt"
+	item_state = "com_headset_alt"
+
 /obj/item/device/radio/headset/heads/rd
 	name = "Research Director's headset"
 	desc = "Headset of the researching God. To access the science channel, use :n. For command, use :c."
@@ -115,6 +138,13 @@
 	icon_state = "com_headset"
 	item_state = "headset"
 	keyslot1 = new /obj/item/device/encryptionkey/heads/hos
+
+/obj/item/device/radio/headset/heads/hos/alt
+	name = "\proper the head of security's bowman headset"
+	desc = "The headset of the man in charge of keeping order and protecting the station. Protects ears from flashbangs. \nTo access the security channel, use :s. For command, use :c."
+	flags = EARBANGPROTECT
+	icon_state = "com_headset_alt"
+	item_state = "com_headset_alt"
 
 /obj/item/device/radio/headset/heads/ce
 	name = "chief engineer's headset"
