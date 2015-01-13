@@ -7,7 +7,7 @@
 	explosion_resistance = 25
 
 /obj/machinery/door/poddoor/preopen
-	icon_state = "open"
+	icon_state = "pdoor0"
 	density = 0
 	opacity = 0
 

@@ -33,13 +33,16 @@
 	adjustFireLoss(0)
 
 /mob/living/silicon/robot/proc/use_power()
-
 	if (is_component_functioning("power cell") && cell)
 		if(src.cell.charge <= 0)
 			uneq_all()
 			src.stat = 1		
-			Paralyse(3)
 			has_power = 0
+			for(var/V in components)
+				var/datum/robot_component/C = components[V]
+				if(C.name == "actuator") // Let drained robots move, disable the rest
+					continue
+				C.consume_power()
 		else
 			if(src.module_state_1)
 				src.cell.use(3)

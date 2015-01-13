@@ -229,25 +229,26 @@
 /mob/living/carbon/proc/eyecheck()
 	return 0
 
-// ++++ROCKDTBEN++++ MOB PROCS -- Ask me before touching.
-// Stop! ... Hammertime! ~Carn
-
 /mob/living/carbon/proc/getDNA()
 	return dna
 
 /mob/living/carbon/proc/setDNA(var/datum/dna/newDNA)
 	dna = newDNA
 
-// ++++ROCKDTBEN++++ MOB PROCS //END
-
-
-
-/mob/living/carbon/proc/handle_ventcrawl(var/obj/machinery/atmospherics/unary/vent_pump/vent_found = null) // -- TLE -- Merged by Carn
+/mob/living/carbon/can_use_vents()
+	return
+	
+/mob/living/proc/handle_ventcrawl(var/obj/machinery/atmospherics/unary/vent_pump/vent_found = null, var/ignore_items = 0) // -- TLE -- Merged by Carn
 	if(stat)
 		src << "You must be conscious to do this!"
 		return
 	if(lying)
 		src << "You can't vent crawl while you're stunned!"
+		return
+
+	var/special_fail_msg = can_use_vents()
+	if(special_fail_msg)
+		src << "\red [special_fail_msg]"
 		return
 
 	if(vent_found) // one was passed in, probably from vent/AltClick()
@@ -264,9 +265,11 @@
 	if(!vent_found)
 		src << "You'll need a non-welded vent to crawl into!"
 		return
+
 	if(!vent_found.network || !vent_found.network.normal_members.len)
 		src << "This vent is not connected to anything."
 		return
+
 	var/list/vents = list()
 	for(var/obj/machinery/atmospherics/unary/vent_pump/temp_vent in vent_found.network.normal_members)
 		if(temp_vent.welded)
@@ -289,16 +292,18 @@
 		return
 
 	var/obj/selection = input("Select a destination.", "Duct System") as null|anything in sortAssoc(vents)
-	if(!selection)  return
+	if(!selection)	return
 
 	if(!vent_found.Adjacent(src))
 		src << "Never mind, you left."
 		return
 
-	for(var/obj/item/carried_item in contents)//If the monkey got on objects.
-		if( !istype(carried_item, /obj/item/weapon/implant) && !istype(carried_item, /obj/item/clothing/mask/facehugger) )//If it's not an implant or a facehugger
-			src << "\red You can't be carrying items or have items equipped when vent crawling!"
-			return
+	if(!ignore_items)
+		for(var/obj/item/carried_item in contents)//If the monkey got on objects.
+			if( !istype(carried_item, /obj/item/weapon/implant) && !istype(carried_item, /obj/item/clothing/mask/facehugger) )//If it's not an implant or a facehugger
+				src << "\red You can't be carrying items or have items equipped when vent crawling!"
+				return
+
 	if(isslime(src))
 		var/mob/living/carbon/slime/S = src
 		if(S.Victim)
@@ -317,22 +322,20 @@
 
 	spawn(travel_time)
 
-		if(!target_vent)  return
+		if(!target_vent)	return
 		for(var/mob/O in hearers(target_vent,null))
 			O.show_message("You hear something squeezing through the ventilation ducts.",2)
 
 		sleep(travel_time)
 
-		if(!target_vent)  return
-		if(target_vent.welded)      //the vent can be welded while alien scrolled through the list or travelled.
-			target_vent = vent_found   //travel back. No additional time required.
+		if(!target_vent)	return
+		if(target_vent.welded)			//the vent can be welded while alien scrolled through the list or travelled.
+			target_vent = vent_found 	//travel back. No additional time required.
 			src << "\red The vent you were heading to appears to be welded."
 		loc = target_vent.loc
 		var/area/new_area = get_area(loc)
 		if(new_area)
 			new_area.Entered(src)
-
-
 
 /mob/living/carbon/clean_blood()
 	. = ..()

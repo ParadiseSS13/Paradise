@@ -278,6 +278,9 @@ Des: Removes all infected images from the alien.
 
 /mob/living/carbon/alien/larva/updatePlasmaDisplay()
 	return
+	
+/mob/living/carbon/alien/can_use_vents()
+	return
 
 #undef HEAT_DAMAGE_LEVEL_1
 #undef HEAT_DAMAGE_LEVEL_2

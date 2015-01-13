@@ -287,6 +287,11 @@
 		)
 
 /obj/machinery/alarm/proc/master_is_operating()
+
+
+	if (! alarm_area)
+		alarm_area = areaMaster
+
 	return alarm_area.master_air_alarm && !(alarm_area.master_air_alarm.stat & (NOPOWER|BROKEN))
 
 
@@ -615,7 +620,7 @@
 	data["danger"]=danger
 	return data
 
-/obj/machinery/alarm/proc/get_nano_data(mob/user, fromAtmosConsole=0)
+/obj/machinery/alarm/proc/get_nano_data(mob/user, fromAtmosConsole=0, AtmosConsoleEmagged=0)
 
 	var/data[0]
 	data["air"]=ui_air_status()
@@ -626,7 +631,7 @@
 	//   Not sent from atmos console AND
 	//   Not silicon AND locked.
 	data["locked"]=!fromAtmosConsole && (!(istype(user, /mob/living/silicon)) && locked)
-	if(fromAtmosConsole && remote_control < 2)
+	if(fromAtmosConsole && (remote_control < 2 && !AtmosConsoleEmagged))
 		data["locked"] = 1
 	data["rcon"]=rcon_setting
 	data["target_temp"] = target_temperature - T0C
@@ -892,6 +897,15 @@
 				update_icon()
 				return
 
+			if(istype(W, /obj/item/weapon/wirecutters))  // cutting the wires out
+				if (wires.wires_status == 31) // all wires cut
+					var/obj/item/stack/cable_coil/new_coil = new /obj/item/stack/cable_coil()
+					new_coil.amount = 5
+					new_coil.loc = user.loc
+					buildstage = 1
+					update_icon()
+					return
+
 			if (wiresexposed && ((istype(W, /obj/item/device/multitool) || istype(W, /obj/item/weapon/wirecutters))))
 				return attack_hand(user)
 
@@ -906,6 +920,8 @@
 						updateUsrDialog()
 					else
 						user << "\red Access denied."
+
+
 			return
 
 		if(1)

@@ -172,13 +172,6 @@
 	item_state = "headset"
 	keyslot1 = new /obj/item/device/encryptionkey/heads/ntrep
 
-/obj/item/device/radio/headset/heads/ntrec
-	name = "nanotrasen recruiter's headset"
-	desc = "The headset of the Nanotrasen Recruiter. Channels are as follows: :c - command, :s - security."
-	icon_state = "com_headset"
-	item_state = "headset"
-	keyslot1 = new /obj/item/device/encryptionkey/heads/ntrec
-
 /obj/item/device/radio/headset/heads/magistrate
 	name = "magistrate's headset"
 	desc = "The headset of the Magistrate. Channels are as follows: :c - command, :s - security."

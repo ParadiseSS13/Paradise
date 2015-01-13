@@ -159,7 +159,7 @@
 
 		if(Environment)
 
-			if( abs(Environment.temperature - bodytemperature) > 40 )
+			if( abs(Environment.temperature - bodytemperature) > 40 && !(flags & IS_SYNTHETIC))
 				bodytemperature += ((Environment.temperature - bodytemperature) / 5)
 
 			if(min_oxy)

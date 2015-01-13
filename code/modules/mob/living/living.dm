@@ -757,3 +757,6 @@
 	else if(!on && floating)
 		animate(src, pixel_y = initial(pixel_y), time = 10)
 		floating = 0
+		
+/mob/living/proc/can_use_vents()
+	return "You can't fit into that vent."
