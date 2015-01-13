@@ -5,7 +5,7 @@
 	icon_state = "separator-AO1"
 	layer = MOB_LAYER+1 // Overhead
 	anchored = 1
-	density = 0
+	density = 1
 	var/transform_dead = 0
 	var/transform_standing = 0
 	var/cooldown_duration = 600 // 1 minute
