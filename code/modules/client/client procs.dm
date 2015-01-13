@@ -163,7 +163,7 @@
 				var/cost = href_list["KarmaRefundCost"]
 				src.karmarefund(type,job,cost)
 				return
-				
+
 	switch(href_list["_src_"])
 		if("holder")	hsrc = holder
 		if("usr")		hsrc = mob
@@ -412,5 +412,6 @@
 		'icons/stamp_icons/large_stamp-qm.png',
 		'icons/stamp_icons/large_stamp-law.png',
 		'icons/stamp_icons/large_stamp-cent.png',
-		'html/talisman.png'
+		'html/talisman.png',
+		'html/images/ntlogo.png'
 		)

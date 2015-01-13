@@ -18,6 +18,7 @@
 #define FILE_DIR "code/WorkInProgress/IndexLP"
 #define FILE_DIR "code/WorkInProgress/Susan"
 #define FILE_DIR "html"
+#define FILE_DIR "html/images"
 #define FILE_DIR "icons"
 #define FILE_DIR "icons/48x48"
 #define FILE_DIR "icons/ass"
