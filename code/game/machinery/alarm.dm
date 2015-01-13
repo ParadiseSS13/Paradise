@@ -615,7 +615,7 @@
 	data["danger"]=danger
 	return data
 
-/obj/machinery/alarm/proc/get_nano_data(mob/user, fromAtmosConsole=0)
+/obj/machinery/alarm/proc/get_nano_data(mob/user, fromAtmosConsole=0, AtmosConsoleEmagged=0)
 
 	var/data[0]
 	data["air"]=ui_air_status()
@@ -626,7 +626,7 @@
 	//   Not sent from atmos console AND
 	//   Not silicon AND locked.
 	data["locked"]=!fromAtmosConsole && (!(istype(user, /mob/living/silicon)) && locked)
-	if(fromAtmosConsole && remote_control < 2)
+	if(fromAtmosConsole && (remote_control < 2 && !AtmosConsoleEmagged))
 		data["locked"] = 1
 	data["rcon"]=rcon_setting
 	data["target_temp"] = target_temperature - T0C
