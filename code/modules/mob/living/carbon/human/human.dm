@@ -1338,6 +1338,17 @@
 
 	spawn(0)
 		update_icons()
+		if(species && species.flags & NO_BLOOD) //We want the var for safety but we can do without the actual blood.
+			if(vessel.has_reagent("water") || vessel.has_reagent("blood"))
+				var/water = vessel.get_reagent_amount("water")
+				var/blood = vessel.get_reagent_amount("blood")
+				vessel.remove_reagent("water",water)
+				vessel.remove_reagent("blood",blood)
+		if(species.bloodflags & BLOOD_SLIME)
+			vessel.add_reagent("water",560-vessel.total_volume)
+		else
+			vessel.add_reagent("blood",560-vessel.total_volume)
+		fixblood()
 
 	if(species)
 		return 1

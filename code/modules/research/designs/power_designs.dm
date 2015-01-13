@@ -45,7 +45,7 @@
 	category = list("Misc","Power")
 	
 /datum/design/pacman
-	name = "Machien Board (PACMAN-type Generator)"
+	name = "Machine Board (PACMAN-type Generator)"
 	desc = "The circuit board that for a PACMAN-type portable generator."
 	id = "pacman"
 	req_tech = list("programming" = 3, "plasmatech" = 3, "powerstorage" = 3, "engineering" = 3)

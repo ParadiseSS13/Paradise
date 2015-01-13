@@ -268,6 +268,9 @@
 	src.dna = chosen_dna.Clone()
 	src.real_name = chosen_dna.real_name
 	src.flavor_text = ""
+	if(ishuman(src))
+		var/mob/living/carbon/human/H = src
+		H.set_species()
 	src.UpdateAppearance()
 	domutcheck(src, null)
 
