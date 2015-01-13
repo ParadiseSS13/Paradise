@@ -23,7 +23,7 @@
 		new /obj/item/clothing/suit/armor/vest/capcarapace(src)
 		new /obj/item/weapon/cartridge/captain(src)
 		new /obj/item/clothing/shoes/brown(src)
-		new /obj/item/device/radio/headset/heads/captain(src)
+		new /obj/item/device/radio/headset/heads/captain/alt(src)
 		new /obj/item/clothing/gloves/color/captain(src)
 		new /obj/item/weapon/gun/energy/gun(src)
 		return
@@ -101,7 +101,7 @@
 		else
 			new /obj/item/weapon/storage/backpack/satchel_sec(src)
 		new /obj/item/weapon/cartridge/hos(src)
-		new /obj/item/device/radio/headset/heads/hos(src)
+		new /obj/item/device/radio/headset/heads/hos/alt(src)
 		new /obj/item/clothing/under/rank/head_of_security(src)
 		new /obj/item/clothing/under/rank/head_of_security/formal(src)
 		new /obj/item/clothing/suit/armor/hos(src)
@@ -139,7 +139,7 @@
 			new /obj/item/weapon/storage/backpack/security(src)
 		else
 			new /obj/item/weapon/storage/backpack/satchel_sec(src)
-		new /obj/item/device/radio/headset/headset_sec(src)
+		new /obj/item/device/radio/headset/headset_sec/alt(src)
 		new /obj/item/clothing/suit/armor/vest/warden(src)
 		new /obj/item/clothing/head/warden(src)
 		new /obj/item/clothing/suit/armor/vest/warden/alt(src)
@@ -178,7 +178,7 @@
 		else
 			new /obj/item/weapon/storage/backpack/satchel_sec(src)
 		new /obj/item/clothing/suit/armor/vest/security(src)
-		new /obj/item/device/radio/headset/headset_sec(src)
+		new /obj/item/device/radio/headset/headset_sec/alt(src)
 		new /obj/item/clothing/head/beret/sec(src)
 		new /obj/item/weapon/reagent_containers/spray/pepper(src)
 		new /obj/item/device/flash(src)
@@ -301,7 +301,7 @@
 		new /obj/item/clothing/shoes/brown(src)
 		new /obj/item/weapon/storage/box/evidence(src)
 		new /obj/item/weapon/clipboard(src)
-		new /obj/item/device/radio/headset/headset_sec(src)
+		new /obj/item/device/radio/headset/headset_sec/alt(src)
 		new /obj/item/device/detective_scanner(src)
 		new /obj/item/clothing/suit/armor/vest/det_suit(src)
 		new /obj/item/ammo_box/c38(src)
