@@ -284,23 +284,23 @@
 	name = "Secure Armory Airlock"
 	hackProof = 1
 	aiControlDisabled = 1
-	
+
 /obj/machinery/door/airlock/alien
 	name = "Alien Airlock"
 	desc = "A mysterious alien airlock with a complicated opening mechanism."
 	hackProof = 1
 	icon = 'icons/obj/doors/Doorplasma.dmi'
-	
-/obj/machinery/door/airlock/alien/bumpopen(mob/living/user as mob) 
+
+/obj/machinery/door/airlock/alien/bumpopen(mob/living/user as mob)
 	if(istype(user,/mob/living/carbon/alien) || isrobot(user) || isAI(user))
 		..(user)
 	else
 		user << "You do not know how to operate this airlock's mechanism."
 		return
-		
+
 /obj/machinery/door/airlock/alien/attackby(C as obj, mob/user as mob)
 	if(isalien(user) || isrobot(user) || isAI(user))
-		..(C, user)	
+		..(C, user)
 	else
 		user << "You do not know how to operate this airlock's mechanism."
 		return
@@ -512,8 +512,8 @@ About the new airlock wires panel:
 	if(src.emergency)
 		t1 += text("Emergency Access Override is enabled. <A href='?src=\ref[];aiDisable=11'>Disable?</a><br>\n", src)
 	else
-		t1 += text("Emergency Access Override is disabled. <A href='?src=\ref[];aiEnable=11'>Enable?</a><br>\n", src)		
-		
+		t1 += text("Emergency Access Override is disabled. <A href='?src=\ref[];aiEnable=11'>Enable?</a><br>\n", src)
+
 	if(src.isWireCut(AIRLOCK_WIRE_MAIN_POWER1))
 		t1 += text("Main Power Input wire is cut.<br>\n")
 	if(src.isWireCut(AIRLOCK_WIRE_MAIN_POWER2))
@@ -1094,27 +1094,8 @@ About the new airlock wires panel:
 			if(locate(/mob/living) in turf)
 			//	playsound(src.loc, 'sound/machines/buzz-two.ogg', 50, 0)	//THE BUZZING IT NEVER STOPS	-Pete
 				spawn (60)
-					close()
+					autoclose()
 				return
-
-	for(var/turf/turf in locs)
-		for(var/mob/living/M in turf)
-			if(isrobot(M))
-				M.adjustBruteLoss(DOOR_CRUSH_DAMAGE)
-			else
-				M.adjustBruteLoss(DOOR_CRUSH_DAMAGE)
-				M.SetStunned(5)
-				M.SetWeakened(5)
-				var/obj/effect/stop/S
-				S = new /obj/effect/stop
-				S.victim = M
-				S.loc = M.loc
-				spawn(20)
-					del(S)
-				M.emote("scream")
-			var/turf/location = src.loc
-			if(istype(location, /turf/simulated))
-				location.add_blood(M)
 
 	use_power(50)
 	if(forced)
@@ -1131,7 +1112,28 @@ About the new airlock wires panel:
 		if (W)
 			W.destroy()
 
-	..()
+	if(density)
+		return 1
+	operating = 1
+	door_animate("closing")
+	src.layer = 3.1
+	sleep(5)
+	src.density = 1
+	if(!safe)
+		crush()
+	sleep(5)
+	update_icon()
+	if(visible && !glass)
+		SetOpacity(1)
+	operating = 0
+	update_nearby_tiles()
+	if(locate(/mob/living) in get_turf(src))
+		open()
+
+	//I shall not add a check every x ticks if a door has closed over some fire.
+	var/obj/fire/fire = locate() in loc
+	if(fire)
+		del fire
 	return
 
 /obj/machinery/door/airlock/proc/lock(var/forced=0)
@@ -1230,7 +1232,7 @@ About the new airlock wires panel:
 			return
 		else
 			return
-			
+
 
 /obj/machinery/door/airlock/CanAStarPass(var/obj/item/weapon/card/id/ID)
 //Airlock is passable if it is open (!density), bot has access, and is not bolted shut)
