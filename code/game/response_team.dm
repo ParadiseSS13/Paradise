@@ -310,6 +310,7 @@ proc/trigger_armed_response_team(var/force = 0)
 	pda.owner = real_name
 	pda.ownjob = "Emergency Response Team[leader_selected ? " Leader" : ""]"
 	pda.name = "PDA-[real_name] ([pda.ownjob])"
+	equip_to_slot_or_del(pda, slot_wear_pda)
 
 	if (leader_selected)
 		W.access += access_cent_teleporter
