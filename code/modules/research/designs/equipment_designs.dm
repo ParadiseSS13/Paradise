@@ -24,7 +24,7 @@
 /datum/design/night_vision_goggles
 	name = "Night Vision Goggles"
 	desc = "Goggles that let you see through darkness unhindered."
-	id = "night_visision_goggles"
+	id = "night_vision_goggles"
 	req_tech = list("magnets" = 4)
 	build_type = PROTOLATHE
 	materials = list("$metal" = 100, "$glass" = 100, "$uranium" = 1000)
