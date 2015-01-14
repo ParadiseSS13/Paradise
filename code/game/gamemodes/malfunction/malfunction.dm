@@ -15,7 +15,7 @@
 	var/const/waittime_l = 600
 	var/const/waittime_h = 1800 // started at 1800
 
-	var/AI_win_timeleft = 5400 //started at 5400, in case I change this for testing round end.
+	var/AI_win_timeleft = 2000 //started at 2000, in case I change this for testing round end.
 	var/malf_mode_declared = 0
 	var/station_captured = 0
 	var/to_nuke_or_not_to_nuke = 0
@@ -88,8 +88,8 @@
 
 
 /datum/game_mode/malfunction/process()
-	if ((apcs > 0) && malf_mode_declared)
-		AI_win_timeleft -= apcs * last_tick_duration //Victory timer now de-increments based on how many APCs are hacked. --NeoFite
+	if (apcs >= 3 && malf_mode_declared)
+		AI_win_timeleft -= ((apcs/6)*last_tick_duration) //Victory timer now de-increments based on how many APCs are hacked. --NeoFite
 	..()
 	if (AI_win_timeleft<=0)
 		check_win()
