@@ -22,7 +22,8 @@
 	var/explosion_in_progress = 0 //sit back and relax
 	var/list/datum/mind/modePlayer = new
 	var/list/restricted_jobs = list()	// Jobs it doesn't make sense to be.  I.E chaplain or AI cultist
-	var/list/protected_jobs = list()	// Jobs that can't be trators
+	var/list/protected_jobs = list()	// Jobs that can't be traitors
+	var/list/protected_species = list() // Species that can't be traitors
 	var/required_players = 0
 	var/required_players_secret = 0 //Minimum number of players for that game mode to be chose in Secret
 	var/required_enemies = 0
@@ -356,9 +357,9 @@ Implants;
 	// Shuffle the players list so that it becomes ping-independent.
 	players = shuffle(players)
 
-	// Get a list of all the people who want to be the antagonist for this round
+	// Get a list of all the people who want to be the antagonist for this round, except those with incompatible species
 	for(var/mob/new_player/player in players)
-		if(player.client.prefs.be_special & role)
+		if(player.client.prefs.be_special & role && !(player.client.prefs.species in protected_species))
 			log_debug("[player.key] had [roletext] enabled, so we are drafting them.")
 			candidates += player.mind
 			players -= player

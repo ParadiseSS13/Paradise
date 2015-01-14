@@ -66,10 +66,12 @@ var/list/teleportlocs = list()
 	for(var/area/AR in world)
 		if(istype(AR, /area/shuttle) || istype(AR, /area/syndicate_station) || istype(AR, /area/wizard_station)) continue
 		if(teleportlocs.Find(AR.name)) continue
-		var/turf/picked = pick(get_area_turfs(AR.type))
-		if (picked.z == 1)
-			teleportlocs += AR.name
-			teleportlocs[AR.name] = AR
+		var/list/turfs = get_area_turfs(AR.type)
+		if(turfs.len)
+			var/turf/picked = pick(turfs)
+			if (picked.z == 1)
+				teleportlocs += AR.name
+				teleportlocs[AR.name] = AR
 
 	teleportlocs = sortAssoc(teleportlocs)
 
@@ -83,10 +85,12 @@ var/list/ghostteleportlocs = list()
 		if(istype(AR, /area/turret_protected/aisat) || istype(AR, /area/derelict) || istype(AR, /area/tdome))
 			ghostteleportlocs += AR.name
 			ghostteleportlocs[AR.name] = AR
-		var/turf/picked = pick(get_area_turfs(AR.type))
-		if (picked.z == 1 || picked.z == 5 || picked.z == 3)
-			ghostteleportlocs += AR.name
-			ghostteleportlocs[AR.name] = AR
+		var/list/turfs = get_area_turfs(AR.type)
+		if(turfs.len)
+			var/turf/picked = pick(turfs)
+			if (picked.z == 1 || picked.z == 5 || picked.z == 3)
+				ghostteleportlocs += AR.name
+				ghostteleportlocs[AR.name] = AR
 
 	ghostteleportlocs = sortAssoc(ghostteleportlocs)
 
