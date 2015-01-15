@@ -10,6 +10,13 @@
 	var/variable_charges = 1
 	var/drained = 0
 
+/obj/item/projectile/magic/fireball/Range()
+	var/mob/living/L = locate(/mob/living) in (range(src, 1) - firer)
+	if(L && L.stat != DEAD)
+		Bump(L) //Magic Bullet #teachthecontroversy
+		return
+	..()
+
 /obj/item/weapon/gun/magic/wand/New()
 	if(prob(75) && variable_charges) //25% chance of listed max charges, 50% chance of 1/2 max charges, 25% chance of 1/3 max charges
 		if(prob(33))
