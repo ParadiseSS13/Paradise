@@ -22,6 +22,17 @@
 	reliability_base = 80
 	build_path = /obj/item/weapon/storage/backpack/holding
 	category = list("Bluespace")
+	
+/datum/design/bluespacebeaker
+	name = "bluespace beaker"
+	desc = "A bluespace beaker, powered by experimental bluespace technology and Element Cuban combined with the Compound Pete. Can hold up to 300 units."
+	id = "bluespacebeaker"
+	req_tech = list("bluespace" = 2, "materials" = 6)
+	build_type = PROTOLATHE
+	materials = list("$metal" = 3000, "$plasma" = 3000, "$diamond" = 500)
+	reliability_base = 76
+	build_path = /obj/item/weapon/reagent_containers/glass/beaker/bluespace
+	category = list("Medical")
 
 /datum/design/telesci_gps
 	name = "GPS Device"
