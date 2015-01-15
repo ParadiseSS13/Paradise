@@ -151,7 +151,10 @@ proc/wabbajack(mob/living/M)
 					new_mob = new /mob/living/carbon/monkey(M.loc)
 					new_mob.universal_speak = 1
 				if("robot")
-					new_mob = new /mob/living/silicon/robot(M.loc)
+					if(prob(30))
+						new_mob = new /mob/living/silicon/robot/syndicate(M.loc)
+					else
+						new_mob = new /mob/living/silicon/robot(M.loc)
 					new_mob.gender = M.gender
 					new_mob.invisibility = 0
 					new_mob.job = "Cyborg"
@@ -179,12 +182,14 @@ proc/wabbajack(mob/living/M)
 					new_mob.universal_speak = 1*/
 				if("animal")
 					if(prob(50))
-						var/beast = pick("carp","bear","mushroom","statue")
+						var/beast = pick("carp","bear","mushroom","statue", "bat", "goat")
 						switch(beast)
 							if("carp")		new_mob = new /mob/living/simple_animal/hostile/carp(M.loc)
 							if("bear")		new_mob = new /mob/living/simple_animal/hostile/bear(M.loc)
 							if("mushroom")	new_mob = new /mob/living/simple_animal/hostile/mushroom(M.loc)
 							if("statue")	new_mob = new /mob/living/simple_animal/hostile/statue(M.loc)
+							if("bat") 		new_mob = new /mob/living/simple_animal/hostile/scarybat(M.loc)
+							if("goat")		new_mob = new /mob/living/simple_animal/hostile/retaliate/goat(M.loc)
 					else
 						var/animal = pick("parrot","corgi","crab","pug","cat","tomato","mouse","chicken","cow","lizard","chick","fox")
 						switch(animal)
@@ -217,6 +222,9 @@ proc/wabbajack(mob/living/M)
 			for (var/obj/effect/proc_holder/spell/wizard/S in M.spell_list)
 				new_mob.spell_list += new S.type
 
+			new_mob.attack_log = M.attack_log
+			M.attack_log += text("\[[time_stamp()]\] <font color='orange'>[M.real_name] ([M.ckey]) became [new_mob.real_name].</font>")
+
 			new_mob.a_intent = "harm"
 			if(M.mind)
 				M.mind.transfer_to(new_mob)
@@ -241,15 +249,16 @@ proc/wabbajack(mob/living/M)
 	if(istype(change, /obj/item) || istype(change, /obj/structure) && !is_type_in_list(change, protected_objects))
 		if(istype(change, /obj/structure/closet/statue))
 			for(var/mob/living/carbon/human/H in change.contents)
-				var/mob/living/simple_animal/hostile/statue/S = new /mob/living/simple_animal/hostile/statue(change.loc)
+				var/mob/living/simple_animal/hostile/statue/S = new /mob/living/simple_animal/hostile/statue(change.loc, firer)
 				S.name = "statue of [H.name]"
 				S.faction = list("\ref[firer]")
 				S.icon = change.icon
 				if(H.mind)
 					H.mind.transfer_to(S)
-					S << "You are an animate statue. You cannot move when monitored, but are nearly invincible and deadly when unobserved! Do not harm [firer.name], your creator."
-				del(H)
-				del(change)
+					S << "You are an animated statue. You cannot move when monitored, but are nearly invincible and deadly when unobserved! Do not harm [firer.name], your creator."
+				H = change
+				H.loc = S
+				del(src)
 		else
 			var/obj/O = change
 			new /mob/living/simple_animal/hostile/mimic/copy(O.loc, O, firer)

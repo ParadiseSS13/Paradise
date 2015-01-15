@@ -34,3 +34,28 @@ obj/item/weapon/gun/magic/staff/healing
 	icon_state = "staffofhealing"
 	item_state = "staffofhealing"
 	max_charges = 8 //8, 4, 4, 3
+
+obj/item/weapon/gun/magic/staff/chaos
+	name = "staff of chaos"
+	desc = "An artefact that spits bolts of chaotic magic that can potentially do anything."
+	projectile_type = "/obj/item/projectile/magic"
+	icon_state = "staffofhealing"
+	item_state = "staffofhealing"
+	max_charges = 10
+	recharge_rate = 2
+
+	/obj/item/weapon/gun/magic/staff/chaos/process_chambered() //Snowflake proc, because this uses projectile_type instead of ammo_casing for whatever reason.
+		projectile_type = pick(typesof(/obj/item/projectile/magic))
+		if(in_chamber)	return 1
+		if(!charges)	return 0
+		in_chamber = new projectile_type(src)
+		return 1
+
+obj/item/weapon/gun/magic/staff/door
+	name = "staff of door creation"
+	desc = "An artefact that spits bolts of transformative magic that can create doors in walls."
+	projectile_type = "/obj/item/projectile/magic/door"
+	icon_state = "staffofhealing"
+	item_state = "staffofhealing"
+	max_charges = 10
+	recharge_rate = 2
