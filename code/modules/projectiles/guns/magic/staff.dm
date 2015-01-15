@@ -39,8 +39,9 @@ obj/item/weapon/gun/magic/staff/chaos
 	name = "staff of chaos"
 	desc = "An artefact that spits bolts of chaotic magic that can potentially do anything."
 	projectile_type = "/obj/item/projectile/magic"
-	icon_state = "staffofhealing"
-	item_state = "staffofhealing"
+	icon_state = "staffofchaos"
+	item_state = "staffofchaos"
+	icon_override = 'icons/mob/in-hand/staff.dmi'
 	max_charges = 10
 	recharge_rate = 2
 
@@ -55,7 +56,10 @@ obj/item/weapon/gun/magic/staff/door
 	name = "staff of door creation"
 	desc = "An artefact that spits bolts of transformative magic that can create doors in walls."
 	projectile_type = "/obj/item/projectile/magic/door"
-	icon_state = "staffofhealing"
-	item_state = "staffofhealing"
+	icon_state = "staffofdoor"
+	item_state = "staffofdoor"
+	icon_override = 'icons/mob/in-hand/staff.dmi'
 	max_charges = 10
 	recharge_rate = 2
+
+	no_den_usage = 1
