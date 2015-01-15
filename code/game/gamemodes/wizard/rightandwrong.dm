@@ -2,7 +2,7 @@
 
 /mob/proc/rightandwrong(var/summon_type) //0 = Summon Guns, 1 = Summon Magic
 	var/list/gunslist = list("taser","egun","laser","revolver","detective","c20r","nuclear","deagle","gyrojet","pulse","silenced","cannon","doublebarrel","shotgun","combatshotgun","bulldog","mateba","sabr","crossbow","saw","car")
-	var/list/magiclist = list("fireball","smoke","blind","mindswap","forcewall","knock","horsemask","charge","wandnothing", "wanddeath", "wandresurrection", "wandpolymorph", "wandteleport", "wanddoor", "wandfireball", "staffhealing", "armor", "scrying", "staffdoor", "special")
+	var/list/magiclist = list("fireball","smoke","blind","mindswap","forcewall","knock","horsemask","charge", "summonitem", "wandnothing", "wanddeath", "wandresurrection", "wandpolymorph", "wandteleport", "wanddoor", "wandfireball", "staffhealing", "armor", "scrying", "staffdoor", "special")
 	var/list/magicspeciallist = list("staffchange","staffanimation", "wandbelt", "contract", "staffchaos")
 	usr << "<B>You summoned [summon_type ? "magic" : "guns"]!</B>"
 	message_admins("[key_name_admin(usr, 1)] summoned [summon_type ? "magic" : "guns"]!")
@@ -100,6 +100,8 @@
 					new /obj/item/weapon/gun/magic/wand/teleport(get_turf(H))
 				if("wanddoor")
 					new /obj/item/weapon/gun/magic/wand/door(get_turf(H))
+				if("wandfireball")
+					new /obj/item/weapon/gun/magic/wand/fireball(get_turf(H))
 				if("staffhealing")
 					new /obj/item/weapon/gun/magic/staff/healing(get_turf(H))
 				if("staffdoor")

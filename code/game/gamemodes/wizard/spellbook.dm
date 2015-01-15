@@ -97,6 +97,9 @@
 		dat += "<A href='byond://?src=\ref[src];spell_choice=fleshtostone'>Flesh to Stone</A> (60)<BR>"
 		dat += "<I>This spell will curse a person to immediately turn into an unmoving statue. The effect will eventually wear off if the statue is not destroyed.</I><BR>"
 
+		dat += "<A href='byond://?src=\ref[src];spell_choice=summonitem'>Instant Summons</A> (10)<BR>"
+		dat += "<I>This spell can be used to bind a valuable item to you, bringing it to your hand at will. Using this spell while holding the bound item will allow you to unbind it. It does not require wizard garb.</I><BR>"
+
 		dat += "<HR>"
 
 		dat += "<A href='byond://?src=\ref[src];spell_choice=return'><B>Return</B></A><BR>"
@@ -197,7 +200,7 @@
 				uses--
 			/*
 			*/
-				var/list/available_spells = list(magicmissile = "Magic Missile", fireball = "Fireball", disintegrate = "Disintegrate", disabletech = "Disable Tech", smoke = "Smoke", blind = "Blind", mindswap = "Mind Transfer", forcewall = "Forcewall", blink = "Blink", teleport = "Teleport", mutate = "Mutate", etherealjaunt = "Ethereal Jaunt", knock = "Knock", horseman = "Curse of the Horseman", fleshtostone = "Flesh to Stone", summonguns = "Summon Guns", summonmagic = "Summon Magic", staffchange = "Staff of Change", soulstone = "Six Soul Stone Shards and the spell Artificer", armor = "Mastercrafted Armor Set", staffanimate = "Staff of Animation", staffchaos = "Staff of Chaos", staffdoor = "Staff of Door Creation", wands = "Wand Assortment")
+				var/list/available_spells = list(magicmissile = "Magic Missile", fireball = "Fireball", disintegrate = "Disintegrate", disabletech = "Disable Tech", smoke = "Smoke", blind = "Blind", mindswap = "Mind Transfer", forcewall = "Forcewall", blink = "Blink", teleport = "Teleport", mutate = "Mutate", etherealjaunt = "Ethereal Jaunt", knock = "Knock", horseman = "Curse of the Horseman", fleshtostone = "Flesh to Stone", summonitem = "Instant Summons", summonguns = "Summon Guns", summonmagic = "Summon Magic", staffchange = "Staff of Change", soulstone = "Six Soul Stone Shards and the spell Artificer", armor = "Mastercrafted Armor Set", staffanimate = "Staff of Animation", staffchaos = "Staff of Chaos", staffdoor = "Staff of Door Creation", wands = "Wand Assortment")
 				var/already_knows = 0
 				for(var/obj/effect/proc_holder/spell/wizard/aspell in H.spell_list)
 					if(available_spells[href_list["spell_choice"]] == initial(aspell.name))
@@ -296,24 +299,20 @@
 							feedback_add_details("wizard_spell_learned","FS") //please do not change the abbreviation to keep data processing consistent. Add a unique id to any new spells
 							H.spell_list += new /obj/effect/proc_holder/spell/wizard/targeted/inflict_handler/flesh_to_stone(H)
 							temp = "You have learned flesh to stone."
+						if("summonitem")
+							feedback_add_details("wizard_spell_learned","IS") //please do not change the abbreviation to keep data processing consistent. Add a unique id to any new spells
+							H.spell_list += new /obj/effect/proc_holder/spell/wizard/targeted/summonitem(null)
+							temp = "You have learned instant summons."
 						if("summonguns")
-							if(max_uses < 5)
-								temp = "You need 5 slots for this spell"
-								return
-							else
-								feedback_add_details("wizard_spell_learned","SG") //please do not change the abbreviation to keep data processing consistent. Add a unique id to any new spells
-								H.rightandwrong(0)
-								max_uses-=5
-								temp = "You have cast summon guns."
+							feedback_add_details("wizard_spell_learned","SG") //please do not change the abbreviation to keep data processing consistent. Add a unique id to any new spells
+							H.rightandwrong(0)
+							max_uses--
+							temp = "You have cast summon guns."
 						if("summonmagic")
-							if(max_uses < 5)
-								temp = "You need 5 slots for this spell"
-								return
-							else
-								feedback_add_details("wizard_spell_learned","SM") //please do not change the abbreviation to keep data processing consistent. Add a unique id to any new spells
-								H.rightandwrong(1)
-								max_uses-=5
-								temp = "You have cast summon magic."
+							feedback_add_details("wizard_spell_learned","SM") //please do not change the abbreviation to keep data processing consistent. Add a unique id to any new spells
+							H.rightandwrong(1)
+							max_uses--
+							temp = "You have cast summon magic."
 						if("staffchange")
 							feedback_add_details("wizard_spell_learned","ST") //please do not change the abbreviation to keep data processing consistent. Add a unique id to any new spells
 							new /obj/item/weapon/gun/magic/staff/change(get_turf(H))
@@ -568,3 +567,14 @@
 	..()
 	user <<"<span class='warning'>[src] suddenly feels very warm!</span>"
 	empulse(src, 1, 1)
+
+/obj/item/weapon/spellbook/oneuse/summonitem
+	spell = /obj/effect/proc_holder/spell/wizard/targeted/summonitem
+	spellname = "instant summons"
+	icon_state ="booksummons"
+	desc = "This book is bright and garish, very hard to miss."
+
+/obj/item/weapon/spellbook/oneuse/summonitem/recoil(mob/user as mob)
+	..()
+	user <<"<span class='warning'>[src] suddenly vanishes!</span>"
+	qdel(src)

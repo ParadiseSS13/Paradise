@@ -353,6 +353,7 @@
 #include "code\game\gamemodes\wizard\rightandwrong.dm"
 #include "code\game\gamemodes\wizard\soulstone.dm"
 #include "code\game\gamemodes\wizard\spellbook.dm"
+#include "code\game\gamemodes\wizard\summonitem.dm"
 #include "code\game\gamemodes\wizard\wizard.dm"
 #include "code\game\gamemodes\xenos\xenos.dm"
 #include "code\game\jobs\access.dm"
