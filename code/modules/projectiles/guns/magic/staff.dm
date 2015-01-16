@@ -32,6 +32,8 @@ obj/item/weapon/gun/magic/staff/chaos
 	max_charges = 10
 	recharge_rate = 2
 
+	no_den_usage = 1
+
 /obj/item/weapon/gun/magic/staff/chaos/process_chambered() //Snowflake proc, because this uses projectile_type instead of ammo_casing for whatever reason.
 	projectile_type = pick(typesof(/obj/item/projectile/magic))
 	if(in_chamber)	return 1

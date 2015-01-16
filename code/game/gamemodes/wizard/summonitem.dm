@@ -22,6 +22,8 @@
 		if(!marked_item) //linking item to the spell
 			message = "<span class='notice'>"
 			for(var/obj/item in hand_items)
+				if(istype(item, /obj/item/brain)) //Yeah, sadly this doesn't work due to the organ system.
+					break
 				marked_item = 		item
 				message += "You mark [item] for recall.</span>"
 				name = "Recall [item]"
@@ -32,7 +34,6 @@
 					message = "<span class='caution'>You aren't holding anything that can be marked for recall.</span>"
 				else
 					message = "<span class='notice'>You must hold the desired item in your hands to mark it for recall.</span>"
-
 		else if(marked_item && marked_item in hand_items) //unlinking item to the spell
 			message = "<span class='notice'>You remove the mark on [marked_item] to use elsewhere.</span>"
 			name = "Instant Summons"
@@ -60,14 +61,15 @@
 
 					M.u_equip(item_to_retrive)
 
-					if(iscarbon(M)) //Edge case housekeeping
-						var/mob/living/carbon/C = M
-						if(C.internal_organs && item_to_retrive in C.internal_organs) //KALIMA!
-							C.internal_organs -= item_to_retrive
-							if(istype(marked_item,/obj/item/brain)) //If this code ever runs I will be happy
-								var/obj/item/brain/B
+					if(ishuman(M)) //Edge case housekeeping
+						var/mob/living/carbon/human/C = M
+						/*if(C.internal_organs_by_name  && item_to_retrive in C.internal_organs_by_name ) //This won't work, as we use organ datums instead of objects. --DZD
+							C.internal_organs_by_name  -= item_to_retrive
+							if(istype(marked_item, /obj/item/brain)) //If this code ever runs I will be happy
+								var/obj/item/brain/B = new /obj/item/brain(user.loc)
 								B.transfer_identity(C)
-								add_logs(user, C, "magically debrained", addition="INTENT: [uppertext(user.a_intent)]")
+								C.death()
+								add_logs(user, C, "magically debrained", addition="INTENT: [uppertext(user.a_intent)]")*/
 						if(C.stomach_contents && item_to_retrive in C.stomach_contents)
 							C.stomach_contents -= item_to_retrive
 
