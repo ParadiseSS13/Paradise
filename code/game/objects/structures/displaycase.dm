@@ -69,16 +69,16 @@
 
 /obj/structure/displaycase/captains_laser
 	name = "captain's display case"
-	desc = "A display case for the captain's antique laser gun. It taunts you to kick it."	
+	desc = "A display case for the captain's antique laser gun. It taunts you to kick it."
 
 /obj/structure/displaycase/captains_laser/New()
 	req_access = list(access_captain)
 	occupant = new /obj/item/weapon/gun/energy/laser/captain(src)
 	locked = 1
 	update_icon()
-	
+
 /obj/structure/proc/getPrint(mob/user as mob)
-	return md5(user:dna:uni_identity)			
+	return md5(user:dna:uni_identity)
 
 /obj/structure/displaycase/examine()
 	..()
@@ -112,11 +112,11 @@
 
 
 /obj/structure/displaycase/bullet_act(var/obj/item/projectile/Proj)
-	health -= Proj.damage
+	if((Proj.damage_type == BRUTE || Proj.damage_type == BURN))
+		health -= Proj.damage
 	..()
 	src.healthcheck()
 	return
-
 
 /obj/structure/displaycase/blob_act()
 	if (prob(75))
