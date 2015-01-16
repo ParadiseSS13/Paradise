@@ -129,7 +129,7 @@ var/global/sent_syndicate_strike_team = 0
 
 /mob/living/carbon/human/proc/equip_syndicate_commando(syndicate_leader_selected = 0)
 
-	var/obj/item/device/radio/R = new /obj/item/device/radio/headset/syndicate(src)
+	var/obj/item/device/radio/R = new /obj/item/device/radio/headset/syndicate/alt(src)
 	R.set_frequency(SYND_FREQ) //Same frequency as the syndicate team in Nuke mode.
 	equip_to_slot_or_del(R, slot_l_ear)
 	equip_to_slot_or_del(new /obj/item/clothing/under/syndicate(src), slot_w_uniform)

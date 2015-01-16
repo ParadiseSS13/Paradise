@@ -227,23 +227,26 @@
 
 
 /obj/machinery/door/proc/open()
-	if(!density)		return 1
-	if(operating > 0)	return
-	if(!ticker)			return 0
+	if(!density)
+		return 1
+	if(operating > 0)
+		return
+	if(!ticker)
+		return 0
 	if(!operating)		operating = 1
 
 	door_animate("opening")
 	icon_state = "door0"
 	src.SetOpacity(0)
-	sleep(10)
-	src.layer = 2.7
+	sleep(5)
 	src.density = 0
+	sleep(5)
+	src.layer = 2.7
 	explosion_resistance = 0
 	update_icon()
 	SetOpacity(0)
+	operating = 0
 	update_nearby_tiles()
-
-	if(operating)	operating = 0
 
 	if(autoclose  && normalspeed)
 		spawn(150)
@@ -256,15 +259,18 @@
 
 
 /obj/machinery/door/proc/close()
-	if(density)	return 1
-	if(operating > 0)	return
+	if(density)
+		return 1
+	if(operating > 0)
+		return
 	operating = 1
 
 	door_animate("closing")
-	src.density = 1
 	explosion_resistance = initial(explosion_resistance)
-	src.layer = 3.0
-	sleep(10)
+	src.layer = 3.1
+	sleep(5)
+	src.density = 1
+	sleep(5)
 	update_icon()
 	if(visible && !glass)
 		SetOpacity(1)	//caaaaarn!
@@ -276,6 +282,24 @@
 	if(fire)
 		del fire
 	return
+
+/obj/machinery/door/proc/crush()
+	for(var/mob/living/L in get_turf(src))
+		if(isalien(L))  //For xenos
+			L.adjustBruteLoss(DOOR_CRUSH_DAMAGE * 1.5) //Xenos go into crit after aproximately the same amount of crushes as humans.
+			L.emote("roar")
+		else if(ishuman(L)) //For humans
+			L.adjustBruteLoss(DOOR_CRUSH_DAMAGE)
+			L.emote("scream")
+			L.Weaken(5)
+		else if(ismonkey(L)) //For monkeys
+			L.adjustBruteLoss(DOOR_CRUSH_DAMAGE)
+			L.Weaken(5)
+		else //for simple_animals & borgs
+			L.adjustBruteLoss(DOOR_CRUSH_DAMAGE)
+		var/turf/location = src.loc
+		if(istype(location, /turf/simulated)) //add_blood doesn't work for borgs/xenos, but add_blood_floor does.
+			location.add_blood(L)
 
 /obj/machinery/door/proc/requiresID()
 	return 1

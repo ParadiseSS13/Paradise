@@ -275,12 +275,13 @@
 				popping = 0
 
 /obj/machinery/turret/bullet_act(var/obj/item/projectile/Proj)
-	src.health -= Proj.damage
-	..()
-	if(prob(45) && Proj.damage > 0) src.spark_system.start()
-	del (Proj)
-	if (src.health <= 0)
-		src.die()
+	if((Proj.damage_type == BRUTE || Proj.damage_type == BURN))
+		src.health -= Proj.damage
+		..()
+		if(prob(45) && Proj.damage > 0) src.spark_system.start()
+		del(Proj)
+		if (src.health <= 0)
+			src.die()
 	return
 
 /obj/machinery/turret/attackby(obj/item/weapon/W, mob/user)//I can't believe no one added this before/N

@@ -287,6 +287,11 @@
 		)
 
 /obj/machinery/alarm/proc/master_is_operating()
+
+
+	if (! alarm_area)
+		alarm_area = areaMaster
+
 	return alarm_area.master_air_alarm && !(alarm_area.master_air_alarm.stat & (NOPOWER|BROKEN))
 
 
@@ -892,6 +897,15 @@
 				update_icon()
 				return
 
+			if(istype(W, /obj/item/weapon/wirecutters))  // cutting the wires out
+				if (wires.wires_status == 31) // all wires cut
+					var/obj/item/stack/cable_coil/new_coil = new /obj/item/stack/cable_coil()
+					new_coil.amount = 5
+					new_coil.loc = user.loc
+					buildstage = 1
+					update_icon()
+					return
+
 			if (wiresexposed && ((istype(W, /obj/item/device/multitool) || istype(W, /obj/item/weapon/wirecutters))))
 				return attack_hand(user)
 
@@ -906,6 +920,8 @@
 						updateUsrDialog()
 					else
 						user << "\red Access denied."
+
+
 			return
 
 		if(1)
