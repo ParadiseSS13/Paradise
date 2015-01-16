@@ -13,6 +13,7 @@
 	var/recharge_rate = 4
 	var/charge_tick = 0
 	var/can_charge = 1
+	var/no_den_usage
 	origin_tech = null
 	clumsy_check = 0
 
@@ -27,6 +28,13 @@
 		return 1
 
 /obj/item/weapon/gun/magic/afterattack(atom/target as mob, mob/living/user as mob, flag)
+	if(no_den_usage)
+		var/area/A = get_area(user)
+		if(istype(A, /area/wizard_station))
+			user << "<span class='warning'>You know better than to violate the security of The Den, best wait until you leave to use [src].<span>"
+			return
+		else
+			no_den_usage = 0
 	..()
 	if(charges && !in_chamber && !flag)	charges--
 
