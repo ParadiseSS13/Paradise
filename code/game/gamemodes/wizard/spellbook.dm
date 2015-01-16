@@ -129,7 +129,7 @@
 		dat += "<HR>"
 
 		dat += "<A href='byond://?src=\ref[src];spell_choice=staffchange'>Staff of Change</A><BR>"
-		dat += "<I>An artifact that spits bolts of coruscating energy which cause the target's very form to reshape itself.</I><BR>"
+		dat += "<I>An artefact that spits bolts of coruscating energy which cause the target's very form to reshape itself.</I><BR>"
 		dat += "<HR>"
 
 		dat += "<A href='byond://?src=\ref[src];spell_choice=soulstone'>Six Soul Stone Shards and the spell Artificer</A><BR>"
@@ -153,7 +153,7 @@
 		dat += "<HR>"
 
 		dat += "<A href='byond://?src=\ref[src];spell_choice=armor'>Mastercrafted Armor Set</A><BR>"
-		dat += "<I>An artifact suit of armor that allows you to cast spells while providing more protection against attacks and the void of space.</I><BR>"
+		dat += "<I>An artefact suit of armor that allows you to cast spells while providing more protection against attacks and the void of space.</I><BR>"
 		dat += "<HR>"
 
 		dat += "<A href='byond://?src=\ref[src];spell_choice=contract'>Contract of Apprenticeship</A><BR>"
