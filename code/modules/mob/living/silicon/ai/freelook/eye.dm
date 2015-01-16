@@ -11,6 +11,7 @@
 	status_flags = GODMODE  // You can't damage it.
 	mouse_opacity = 0
 	see_in_dark = 7
+	invisibility = INVISIBILITY_MAXIMUM
 
 /mob/aiEye/New()
 	..()
