@@ -286,6 +286,11 @@
 	else if( istype(W,/obj/item/apc_frame) )
 		var/obj/item/apc_frame/AH = W
 		AH.try_build(src)
+		
+	else if(istype(W,/obj/item/newscaster_frame))
+		var/obj/item/newscaster_frame/AH = W
+		AH.try_build(src)
+		return 1
 
 	else if( istype(W,/obj/item/alarm_frame) )
 		var/obj/item/alarm_frame/AH = W

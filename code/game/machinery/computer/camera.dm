@@ -20,6 +20,7 @@
 		networks["Mining Outpost"] = list(access_qm,access_hop,access_hos,access_captain)
 		networks["Research"] = list(access_rd,access_hos,access_captain)
 		networks["Prison"] = list(access_hos,access_captain)
+		networks["Labor"] = list(access_hos,access_captain)
 		networks["Interrogation"] = list(access_hos,access_captain)	
 		networks["Atmosphere Alarms"] = list(access_ce,access_hos,access_captain)
 		networks["Fire Alarms"] = list(access_ce,access_hos,access_captain)	
