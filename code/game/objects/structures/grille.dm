@@ -128,16 +128,13 @@
 			return !density
 
 /obj/structure/grille/bullet_act(var/obj/item/projectile/Proj)
-
-	if(!Proj)	return
-
-	//Tasers and the like should not damage grilles.
-	if(Proj.damage_type == STAMINA)
+	if(!Proj)
 		return
-
-	src.health -= Proj.damage*0.2
-	healthcheck()
-	return 0
+	..()
+	if((Proj.damage_type != STAMINA)) //Grilles can't be exhausted to death
+		src.health -= Proj.damage*0.3
+		healthcheck()
+	return
 
 /obj/structure/grille/attackby(obj/item/weapon/W as obj, mob/user as mob)
 	if(iswirecutter(W))

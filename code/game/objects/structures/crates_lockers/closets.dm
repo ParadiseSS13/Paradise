@@ -155,13 +155,13 @@
 				qdel(src)
 
 /obj/structure/closet/bullet_act(var/obj/item/projectile/Proj)
-	health -= Proj.damage
 	..()
-	if(health <= 0)
-		for(var/atom/movable/A as mob|obj in src)
-			A.loc = src.loc
-		del(src)
-
+	if((Proj.damage_type == BRUTE || Proj.damage_type == BURN))
+		health -= Proj.damage
+		if(health <= 0)
+			for(var/atom/movable/A as mob|obj in src)
+				A.loc = src.loc
+			del(src)
 	return
 
 /obj/structure/closet/attack_animal(mob/living/simple_animal/user as mob)
@@ -273,7 +273,7 @@
 	else if(istype(W, /obj/item/weapon/weldingtool))
 		var/obj/item/weapon/weldingtool/WT = W
 		if(src == user.loc)
-			user << "<span class='notice'>You can not [welded?"unweld":"weld"] the locker from inside.</span>"			
+			user << "<span class='notice'>You can not [welded?"unweld":"weld"] the locker from inside.</span>"
 			return
 		if(!WT.remove_fuel(0,user))
 			user << "<span class='notice'>You need more welding fuel to complete this task.</span>"

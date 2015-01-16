@@ -222,18 +222,32 @@ modules/mob/living/carbon/human/life.dm if you die, you will be zoomed out.
 
 /obj/item/weapon/gun/energy/kinetic_accelerator
 	name = "proto-kinetic accelerator"
-	desc = "According to Nanotrasen accounting, this is mining equipment. It's been modified to the legal limit on power output, and often serves as a miner's first defense against hostile alien life; it's not very powerful unless used in a low pressure environment."
-	icon_state = "freezegun"
-	item_state = "shotgun"
+	desc = "According to Nanotrasen accounting, this is mining equipment. It's been modified for extreme power output to crush rocks, but often serves as a miner's first defense against hostile alien life; it's not very powerful unless used in a low pressure environment."
+	icon_state = "kineticgun"
+	item_state = "kineticgun"
+	icon_override = 'icons/mob/in-hand/guns.dmi'
 	projectile_type = "/obj/item/projectile/kinetic"
-	cell_type = "/obj/item/weapon/cell/crap"
+	fire_sound = 'sound/weapons/Kenetic_accel.ogg'
 	charge_cost = 5000
+	cell_type = "/obj/item/weapon/cell/crap"
+	var/overheat = 0
+	var/recent_reload = 1
+
+/obj/item/weapon/gun/energy/kinetic_accelerator/Fire()
+	overheat = 1
+	spawn(20)
+		overheat = 0
+		recent_reload = 0
+	..()
 
 /obj/item/weapon/gun/energy/kinetic_accelerator/attack_self(var/mob/living/user/L)
+	if(overheat || recent_reload)
+		return
 	power_supply.give(5000)
-	playsound(src.loc, 'sound/weapons/shotgunpump.ogg', 60, 1)
+	playsound(src.loc, 'sound/weapons/kenetic_reload.ogg', 60, 1)
+	recent_reload = 1
+	update_icon()
 	return
-
 
 /obj/item/weapon/gun/energy/disabler
 	name = "disabler"

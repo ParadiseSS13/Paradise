@@ -63,9 +63,9 @@
 
 /obj/machinery/computer/bullet_act(var/obj/item/projectile/Proj)
 	if(prob(Proj.damage))
-		set_broken()
+		if((Proj.damage_type == BRUTE || Proj.damage_type == BURN))
+			set_broken()
 	..()
-
 
 /obj/machinery/computer/blob_act()
 	if (prob(75))
