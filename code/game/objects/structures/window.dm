@@ -58,11 +58,9 @@ var/global/wcColored
 //	var/icon/silicateIcon = null // the silicated icon
 
 /obj/structure/window/bullet_act(var/obj/item/projectile/Proj)
-	//Tasers and the like should not damage windows.
-	if(Proj.damage_type == STAMINA)
-		return
-
-	health -= Proj.damage
+	if((Proj.damage_type == BRUTE || Proj.damage_type == BURN))
+		health -= Proj.damage
+		update_nearby_icons()
 	..()
 	if(health <= 0)
 		var/pdiff=performWallPressureCheck(src.loc)
