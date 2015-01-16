@@ -73,6 +73,7 @@ datum/controller/game_controller/proc/setup()
 	if(!garbage)
 		garbage = new /datum/controller/garbage_collector()
 
+	color_windows_init()
 	setup_objects()
 	setupgenetics()
 	setupfactions()
@@ -81,9 +82,6 @@ datum/controller/game_controller/proc/setup()
 
 	for(var/i=0, i<max_secret_rooms, i++)
 		make_mining_asteroid_secret()
-
-	color_windows_init()
-
 
 	spawn(0)
 		if(ticker)
