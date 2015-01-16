@@ -8,9 +8,6 @@
 /datum/event/blob/announce()
 	command_alert("Confirmed outbreak of level 7 biohazard aboard [station_name()]. Nanotrasen has issued a directive 7-10. The station is to be considered quarantined.", "Biohazard Alert")
 	world << sound('sound/AI/outbreak7.ogg')
-	
-	if(emergency_shuttle)
-		emergency_shuttle.auto_recall = 1
 		
 	for (var/mob/living/silicon/ai/aiPlayer in player_list)
 		if (aiPlayer.client)
@@ -58,9 +55,6 @@
 /datum/event/blob/kill()
 	command_alert("The level 7 biohazard aboard [station_name()] has been killed. Directive 7-10 has been lifted, and the station is no longer quarantined.", "Biohazard Update")
 	
-	if(emergency_shuttle)
-		emergency_shuttle.auto_recall = 0
-		
 	for (var/mob/living/silicon/ai/aiPlayer in player_list)
 		if (aiPlayer.client)
 			var/law = ""
