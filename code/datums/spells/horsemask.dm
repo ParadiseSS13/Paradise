@@ -26,7 +26,7 @@
 	if(!target)
 		return
 
-	if((!target.type in compatible_mobs && !target.parent_type in compatible_mobs))
+	if(!(target.type in compatible_mobs))
 		user << "<span class='notice'>It'd be stupid to curse [target] with a horse's head!</span>"
 		return
 
