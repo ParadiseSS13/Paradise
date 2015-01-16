@@ -863,6 +863,7 @@
 #include "code\modules\admin\verbs\randomverbs.dm"
 #include "code\modules\admin\verbs\striketeam.dm"
 #include "code\modules\admin\verbs\striketeam_syndicate.dm"
+#include "code\modules\admin\verbs\ticklag.dm"
 #include "code\modules\admin\verbs\tripAI.dm"
 #include "code\modules\admin\verbs\vox_raiders.dm"
 #include "code\modules\assembly\assembly.dm"
