@@ -114,7 +114,7 @@ var/list/karma_spenders = list()
 	var/choice = input("Give [M.name] good karma?", "Karma") in list("Good", "Cancel")
 	if(!choice || choice == "Cancel")
 		return
-	if(choice == "Good")
+	if(choice == "Good" && !(src.client.karma_spent))
 		M.client.karma += 1
 		usr << "[choice] karma spent on [M.name]."
 		src.client.karma_spent = 1

@@ -38,8 +38,9 @@
 				var/p = inserted_id:points
 				var/g = inserted_id:goal
 				dat += text("<A href='?src=\ref[src];id=1'>[inserted_id]</A><br>")
-				dat += text("Collectd Points: [p]. <A href='?src=\ref[src];id=2'>Reset.</A><br>")
+				dat += text("Collected points: [p]. <A href='?src=\ref[src];id=2'>Reset.</A><br>")
 				dat += text("Card goal: [g].  <A href='?src=\ref[src];id=3'>Set </A><br>")
+				dat += text("Space Law recommends sentences of 100 points per minute they would normally serve in the brig.<BR>")
 			else
 				dat += text("<A href='?src=\ref[src];id=0'>Insert Prisoner ID.</A><br>")
 			dat += "<HR>Chemical Implants<BR>"

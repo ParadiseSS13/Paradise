@@ -245,14 +245,14 @@
 			if("run")
 				if(mob.drowsyness > 0)
 					move_delay += 6
-				move_delay += config.run_speed
+				move_delay += 1+config.run_speed
 			if("walk")
-				move_delay += config.walk_speed
+				move_delay += 1+config.walk_speed
 		move_delay += mob.movement_delay()
 
 		if(config.Tickcomp)
 			move_delay -= 1.3
-			var/tickcomp = (1 / (world.tick_lag)) * 1.3
+			var/tickcomp = ((1/(world.tick_lag))*1.3)
 			move_delay = move_delay + tickcomp
 
 		if(istype(mob.buckled, /obj/vehicle) || istype(mob.buckled, /obj/structure/stool/bed/chair/cart))
