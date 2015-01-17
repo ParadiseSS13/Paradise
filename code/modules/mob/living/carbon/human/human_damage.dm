@@ -22,7 +22,7 @@
 		update_revive()
 	return
 	
-/mob/living/carbon/human/proc/update_revive() // handles revival through other means that cloning or adminbus (defib, IPC repair)
+/mob/living/carbon/human/proc/update_revive() // handles revival through other means than cloning or adminbus (defib, IPC repair)
 	stat = CONSCIOUS
 	dead_mob_list -= src
 	living_mob_list |= src
