@@ -49,7 +49,7 @@
 
 		dat += "<HR>"
 
-		dat += "<A href='byond://?src=\ref[src];spell_choice=noclothes'>Remove Clothes Requirement</A>"
+		dat += "<A href='byond://?src=\ref[src];spell_choice=noclothes'>Remove Clothes Requirement</A><BR>"
 		dat += "<b>Warning: this takes away 2 spell choices.</b><BR>"
 
 		dat += "<A href='byond://?src=\ref[src];spell_choice=magicmissile'>Magic Missile</A> (15)<BR>"
