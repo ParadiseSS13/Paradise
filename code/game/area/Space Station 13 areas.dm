@@ -752,6 +752,15 @@ var/list/ghostteleportlocs = list()
 /area/prison/cell_block/C
 	name = "\improper Prison Cell Block C"
 	icon_state = "brig"
+	
+//Labor camp
+/area/mine/laborcamp
+	name = "Labor Camp"
+	icon_state = "brig"
+	
+/area/mine/laborcamp/security
+	name = "Labor Camp Security"
+	icon_state = "security"
 
 //STATION13
 

@@ -77,6 +77,7 @@
 	aggro_vision_range = 9
 	idle_vision_range = 2
 	turns_per_move = 5
+	var/droppeddiamond = 0 // Safety check to prevent diamond duplication bug
 
 /obj/item/projectile/temp/basilisk
 	name = "freezing blast"
@@ -109,10 +110,12 @@
 			adjustBruteLoss(110)
 
 /mob/living/simple_animal/hostile/asteroid/basilisk/Die()
-	var/counter
-	for(counter=0, counter<2, counter++)
-		var/obj/item/weapon/ore/diamond/D = new /obj/item/weapon/ore/diamond(src.loc)
-		D.layer = 4.1
+	if(!droppeddiamond)
+		var/counter
+		for(counter=0, counter<2, counter++)
+			var/obj/item/weapon/ore/diamond/D = new /obj/item/weapon/ore/diamond(src.loc)
+			D.layer = 4.1
+		droppeddiamond = 1
 	..()
 
 /mob/living/simple_animal/hostile/asteroid/goldgrub
