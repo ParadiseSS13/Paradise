@@ -26,9 +26,6 @@
 		Blob.process()
 
 /datum/event/blob/tick()
-	if(!Blob)
-		kill()
-		return
 	if(IsMultiple(activeFor, 3))
 		Blob.process()
 	var/blobs = 0
@@ -36,6 +33,9 @@
 		blobs++
 	if(blobs >= 3)
 		announce_nuke()
+	if(!Blob && !blobs)
+		kill()
+		return
 			
 /datum/event/blob/proc/announce_nuke()
 	var/nukecode = "ERROR"

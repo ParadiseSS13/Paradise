@@ -124,7 +124,7 @@ var/global/sent_strike_team = 0
 
 /mob/living/carbon/human/proc/equip_death_commando(leader_selected = 0)
 
-	var/obj/item/device/radio/R = new /obj/item/device/radio/headset(src)
+	var/obj/item/device/radio/R = new /obj/item/device/radio/headset/alt(src)
 	R.set_frequency(1441)
 	equip_to_slot_or_del(R, slot_l_ear)
 	if (leader_selected == 0)
