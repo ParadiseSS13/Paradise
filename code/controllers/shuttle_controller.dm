@@ -134,7 +134,7 @@ var/global/datum/shuttle_controller/shuttle_controller
 	admin_shuttle.area_offsite = locate(/area/shuttle/administration/centcom)
 	admin_shuttle.area_station = locate(/area/shuttle/administration/station)
 	admin_shuttle.docking_controller_tag = "admin_shuttle_port"
-	admin_shuttle.docking_controller_tag_station = "admin_shuttle_starboard"
+	admin_shuttle.docking_controller_tag_station = "admin_shuttle_port"
 	admin_shuttle.docking_controller_tag_offsite = "admin_shuttle_port"
 	admin_shuttle.dock_target_station = "admin_shuttle_dock_airlock"
 	admin_shuttle.dock_target_offsite = "admin_shuttle_bay"

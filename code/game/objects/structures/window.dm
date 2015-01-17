@@ -381,7 +381,8 @@ var/global/wcColored
 /obj/structure/window/New(Loc,re=0)
 	..()
 	ini_dir = dir
-	color = color_windows(src)
+	if(!color)
+		color = color_windows(src)
 	update_nearby_tiles(need_rebuild=1)
 	update_nearby_icons()
 	return
@@ -448,7 +449,6 @@ var/global/wcColored
 /obj/structure/window/plasmabasic/New(Loc,re=0)
 	..()
 	ini_dir = dir
-	color = null
 	update_nearby_tiles(need_rebuild=1)
 	update_nearby_icons()
 	return
@@ -473,7 +473,6 @@ var/global/wcColored
 /obj/structure/window/plasmareinforced/New(Loc,re=0)
 	..()
 	ini_dir = dir
-	color = null
 	update_nearby_tiles(need_rebuild=1)
 	update_nearby_icons()
 	return
