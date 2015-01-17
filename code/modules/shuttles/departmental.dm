@@ -9,6 +9,10 @@
 	shuttle_tag = "Engineering"
 	req_one_access_txt = "10;24"
 	circuit = /obj/item/weapon/circuitboard/engineering_shuttle
+	
+/obj/machinery/computer/shuttle_control/engineering/launch()
+	usr << "<span class='warning'>The engineering shuttle is currently undergoing maintenance and is therefore unavailable.</span>"
+	return
 
 /obj/machinery/computer/shuttle_control/research
 	name = "Research Shuttle Console"
