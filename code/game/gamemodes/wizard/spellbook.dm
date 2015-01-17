@@ -238,7 +238,7 @@
 							feedback_add_details("wizard_spell_learned","NC")
 							H.spell_list += new /obj/effect/proc_holder/spell/wizard/noclothes
 							temp = "This teaches you how to use your spells without your magical garb, truely you are the wizardest."
-							uses--
+							uses -= 2
 						if("magicmissile")
 							feedback_add_details("wizard_spell_learned","MM") //please do not change the abbreviation to keep data processing consistent. Add a unique id to any new spells
 							H.spell_list += new /obj/effect/proc_holder/spell/wizard/targeted/projectile/magic_missile(H)
