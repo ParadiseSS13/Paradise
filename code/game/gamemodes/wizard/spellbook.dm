@@ -49,7 +49,7 @@
 
 		dat += "<HR>"
 
-		dat += "<A href='byond://?src=\ref[src];spell_choice=noclothes'>Remove Clothes Requirement</A>"
+		dat += "<A href='byond://?src=\ref[src];spell_choice=noclothes'>Remove Clothes Requirement</A><BR>"
 		dat += "<b>Warning: this takes away 2 spell choices.</b><BR>"
 
 		dat += "<A href='byond://?src=\ref[src];spell_choice=magicmissile'>Magic Missile</A> (15)<BR>"
@@ -66,6 +66,9 @@
 
 		dat += "<A href='byond://?src=\ref[src];spell_choice=smoke'>Smoke</A> (10)<BR>"
 		dat += "<I>This spell spawns a cloud of choking smoke at your location and does not require wizard garb.</I><BR>"
+
+		dat += "<A href='byond://?src=\ref[src];spell_choice=repulse'>Repulse</A> (40)<BR>"
+		dat += "<I>This spell throws nearby objects away from you and knocks creatures down.</I><BR>"
 
 		dat += "<A href='byond://?src=\ref[src];spell_choice=blind'>Blind</A> (30)<BR>"
 		dat += "<I>This spell temporarly blinds a single person and does not require wizard garb.</I><BR>"
@@ -200,7 +203,7 @@
 				uses--
 			/*
 			*/
-				var/list/available_spells = list(magicmissile = "Magic Missile", fireball = "Fireball", disintegrate = "Disintegrate", disabletech = "Disable Tech", smoke = "Smoke", blind = "Blind", mindswap = "Mind Transfer", forcewall = "Forcewall", blink = "Blink", teleport = "Teleport", mutate = "Mutate", etherealjaunt = "Ethereal Jaunt", knock = "Knock", horseman = "Curse of the Horseman", fleshtostone = "Flesh to Stone", summonitem = "Instant Summons", summonguns = "Summon Guns", summonmagic = "Summon Magic", staffchange = "Staff of Change", soulstone = "Six Soul Stone Shards and the spell Artificer", armor = "Mastercrafted Armor Set", staffanimate = "Staff of Animation", staffchaos = "Staff of Chaos", staffdoor = "Staff of Door Creation", wands = "Wand Assortment")
+				var/list/available_spells = list(magicmissile = "Magic Missile", fireball = "Fireball", disintegrate = "Disintegrate", disabletech = "Disable Tech", repulse = "Repulse", smoke = "Smoke", blind = "Blind", mindswap = "Mind Transfer", forcewall = "Forcewall", blink = "Blink", teleport = "Teleport", mutate = "Mutate", etherealjaunt = "Ethereal Jaunt", knock = "Knock", horseman = "Curse of the Horseman", fleshtostone = "Flesh to Stone", summonitem = "Instant Summons", summonguns = "Summon Guns", summonmagic = "Summon Magic", staffchange = "Staff of Change", soulstone = "Six Soul Stone Shards and the spell Artificer", armor = "Mastercrafted Armor Set", staffanimate = "Staff of Animation", staffchaos = "Staff of Chaos", staffdoor = "Staff of Door Creation", wands = "Wand Assortment")
 				var/already_knows = 0
 				for(var/obj/effect/proc_holder/spell/wizard/aspell in H.spell_list)
 					if(available_spells[href_list["spell_choice"]] == initial(aspell.name))
@@ -238,7 +241,7 @@
 							feedback_add_details("wizard_spell_learned","NC")
 							H.spell_list += new /obj/effect/proc_holder/spell/wizard/noclothes
 							temp = "This teaches you how to use your spells without your magical garb, truely you are the wizardest."
-							uses--
+							uses -= 2
 						if("magicmissile")
 							feedback_add_details("wizard_spell_learned","MM") //please do not change the abbreviation to keep data processing consistent. Add a unique id to any new spells
 							H.spell_list += new /obj/effect/proc_holder/spell/wizard/targeted/projectile/magic_missile(H)
@@ -255,6 +258,10 @@
 							feedback_add_details("wizard_spell_learned","DT") //please do not change the abbreviation to keep data processing consistent. Add a unique id to any new spells
 							H.spell_list += new /obj/effect/proc_holder/spell/wizard/targeted/emplosion/disable_tech(H)
 							temp = "You have learned disable technology."
+						if("repulse")
+							feedback_add_details("wizard_spell_learned","RP") //please do not change the abbreviation to keep data processing consistent. Add a unique id to any new spells
+							H.spell_list += new /obj/effect/proc_holder/spell/wizard/aoe_turf/repulse(null)
+							temp = "You have learned repulse."
 						if("smoke")
 							feedback_add_details("wizard_spell_learned","SM") //please do not change the abbreviation to keep data processing consistent. Add a unique id to any new spells
 							H.spell_list += new /obj/effect/proc_holder/spell/wizard/targeted/smoke(H)

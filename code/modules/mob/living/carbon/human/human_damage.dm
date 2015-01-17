@@ -17,12 +17,12 @@
 		var/datum/organ/external/H = organs_by_name["head"]
 		if (!H.amputated)
 			if ((health >= (config.health_threshold_dead/100*75)) && stat == DEAD)  //need to get them 25% away from death point before reviving synthetics
-				revive()
+				update_revive()
 	if (stat == CONSCIOUS && (src in dead_mob_list)) //Defib fix
-		revive()
+		update_revive()
 	return
 	
-/mob/living/carbon/human/revive() // handles revival through other means that cloning (defib, IPC repair)
+/mob/living/carbon/human/proc/update_revive() // handles revival through other means than cloning or adminbus (defib, IPC repair)
 	stat = CONSCIOUS
 	dead_mob_list -= src
 	living_mob_list |= src

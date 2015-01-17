@@ -330,7 +330,7 @@
 							user.visible_message("<span class='boldnotice'>[defib] pings: Resuscitation successful.</span>")
 							playsound(get_turf(src), 'sound/machines/ping.ogg', 50, 0)
 							H.stat = 1
-							H.revive()
+							H.update_revive()
 							H.emote("gasp")
 							if(tplus > tloss)
 								H.setBrainLoss( max(0, min(99, ((tlimit - tplus) / tlimit * 100))))
