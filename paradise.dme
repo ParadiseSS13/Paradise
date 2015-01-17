@@ -557,6 +557,7 @@
 #include "code\game\objects\effects\anomalies.dm"
 #include "code\game\objects\effects\bump_teleporter.dm"
 #include "code\game\objects\effects\effect_system.dm"
+#include "code\game\objects\effects\forcefields.dm"
 #include "code\game\objects\effects\gibs.dm"
 #include "code\game\objects\effects\glowshroom.dm"
 #include "code\game\objects\effects\landmarks.dm"
