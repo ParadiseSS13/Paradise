@@ -271,7 +271,7 @@ emp_act
 		weapon_sharp = 0
 		weapon_edge = 0
 
-	if(armor >= 2)	return 0
+	if(armor >= 100)	return 0
 	if(!I.force)	return 0
 	var/Iforce = I.force //to avoid runtimes on the forcesay checks at the bottom. Some items might delete themselves if you drop them. (stunning yourself, ninja swords)
 

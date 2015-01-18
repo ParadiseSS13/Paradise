@@ -76,12 +76,10 @@
 		qdel(src)
 
 	proc/on_hit(var/atom/target, var/blocked = 0)
-		if(blocked >= 2)		return 0//Full block
 		if(!isliving(target))	return 0
 		if(isanimal(target))	return 0
 		var/mob/living/L = target
-		L.apply_effects(stun, weaken, paralyze, irradiate, stutter, eyeblur, drowsy, agony, blocked, stamina, jitter) // add in AGONY!
-		return 1
+		return L.apply_effects(stun, weaken, paralyze, irradiate, stutter, eyeblur, drowsy, agony, blocked, stamina, jitter)
 
 	proc/check_fire(var/mob/living/target as mob, var/mob/living/user as mob)  //Checks if you can hit them or not.
 		if(!istype(target) || !istype(user))
