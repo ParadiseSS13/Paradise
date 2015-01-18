@@ -457,7 +457,10 @@
 	language = "Chittin"
 	unarmed_type = /datum/unarmed_attack/claws
 
-	flags = IS_WHITELISTED | HAS_CHITTIN
+
+	brute_mod = 0.8
+
+	flags = IS_WHITELISTED
 	bloodflags = BLOOD_GREEN
 	bodyflags = FEET_CLAWS
 

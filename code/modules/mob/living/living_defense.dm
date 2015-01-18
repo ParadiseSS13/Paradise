@@ -23,7 +23,6 @@
 			src << "<span class='userdanger'>[soften_text]</span>"
 		else
 			src << "<span class='userdanger'>Your armor softens the blow!</span>"
-	world << "Armor is [armor]"
 	return armor
 
 //if null is passed for def_zone, then this should return something appropriate for all zones (e.g. area effect damage)
@@ -132,9 +131,9 @@
 			return
 		*/
 		src.visible_message("\red [src] has been hit by [O].")
-		var/armor = run_armor_check(null, "melee")
+		var/armor = run_armor_check(zone, "melee")
 
-		apply_damage(throw_damage, dtype, zone, armor, O, is_sharp(O), has_edge(O))
+		apply_damage(throw_damage, dtype, zone, armor, is_sharp(O), has_edge(O), O)
 
 		O.throwing = 0		//it hit, so stop moving
 

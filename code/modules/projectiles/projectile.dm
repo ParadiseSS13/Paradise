@@ -109,21 +109,8 @@
 
 			//Lower accurancy/longer range tradeoff. Distance matters a lot here, so at
 			// close distance, actually RAISE the chance to hit.
-			var/distance = get_dist(starting,loc)
-			var/miss_modifier = -30
-			if (istype(shot_from,/obj/item/weapon/gun))	//If you aim at someone beforehead, it'll hit more often.
-				var/obj/item/weapon/gun/daddy = shot_from //Kinda balanced by fact you need like 2 seconds to aim
-				if (daddy.target && original in daddy.target) //As opposed to no-delay pew pew
-					miss_modifier += -30
-			if(istype(src, /obj/item/projectile/beam/lightning)) //Lightning is quite accurate
-				miss_modifier += -200
-				def_zone = get_zone_with_miss_chance(def_zone, M, miss_modifier)
-				var/turf/simulated/floor/f = get_turf(A.loc)
-				if(f && istype(f))
-					f.break_tile()
-					f.hotspot_expose(1000,CELL_VOLUME)
-			else
-				def_zone = get_zone_with_miss_chance(def_zone, M, miss_modifier + 8*distance)
+			var/distance = get_dist(get_turf(A), starting) // Get the distance between the turf shot from and the mob we hit and use that for the calculations.
+			def_zone = ran_zone(def_zone, max(100-(7*distance), 5)) //Lower accurancy/longer range tradeoff. 7 is a balanced number to use.
 			/*
 			if(!def_zone)
 				visible_message("\blue \The [src] misses [M] narrowly!")
