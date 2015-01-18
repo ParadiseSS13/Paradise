@@ -111,8 +111,8 @@
 /obj/item/weapon/robot_module/crisis
 	name = "crisis robot module"
 	stacktypes = list(
-		/obj/item/stack/medical/ointment = 5,
-		/obj/item/stack/medical/bruise_pack = 5,
+		/obj/item/stack/medical/advanced/ointment = 5,
+		/obj/item/stack/medical/advanced/bruise_pack = 5,
 		/obj/item/stack/medical/splint = 5
 		)
 
