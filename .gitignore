@@ -12,6 +12,6 @@
 #ignore other, specific files and folers
 data/
 /maps/backup/*
-/maps/RandomZLevels/*
+/maps/RandomZLevels/backup/*
 /maps/cyberiad.dmm.backup
 /nano/debug.html
