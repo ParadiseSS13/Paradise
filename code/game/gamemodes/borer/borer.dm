@@ -39,7 +39,7 @@
 		return 0 // not enough candidates for borer
 
 	for(var/obj/machinery/atmospherics/unary/vent_pump/v in world)
-		if(!v.welded && v.z == STATION_Z && v.canSpawnMice==1) // No more spawning in atmos.  Assuming the mappers did their jobs, anyway.
+		if(!v.welded && v.z == STATION_Z) // No more spawning in atmos.  Assuming the mappers did their jobs, anyway.
 			found_vents.Add(v)
 
 	// for each 2 possible borers, add one borer and one host
