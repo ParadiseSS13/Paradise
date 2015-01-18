@@ -1604,7 +1604,7 @@
 		var/obj/item/fax = locate(href_list["AdminFaxView"])
 		if (istype(fax, /obj/item/weapon/paper))
 			var/obj/item/weapon/paper/P = fax
-			P.show_content(usr)
+			P.show_content(usr,1)
 		else if (istype(fax, /obj/item/weapon/photo))
 			var/obj/item/weapon/photo/H = fax
 			H.show(usr)

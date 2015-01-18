@@ -22,7 +22,18 @@
 <A href='?src=\ref[src];make=20;dir=1'>Pipe Cap</A><BR>
 <A href='?src=\ref[src];make=19;dir=1'>4-Way Manifold</A><BR>
 <A href='?src=\ref[src];make=18;dir=1'>Manual T-Valve</A><BR>
+<b>Supply pipes:</b><BR>
+<A href='?src=\ref[src];make=29;dir=1'>Pipe</A><BR>
+<A href='?src=\ref[src];make=30;dir=5'>Bent Pipe</A><BR>
+<A href='?src=\ref[src];make=33;dir=1'>Manifold</A><BR>
+<A href='?src=\ref[src];make=35;dir=1'>4-Way Manifold</A><BR>
+<b>Scrubbers pipes:</b><BR>
+<A href='?src=\ref[src];make=31;dir=1'>Pipe</A><BR>
+<A href='?src=\ref[src];make=32;dir=5'>Bent Pipe</A><BR>
+<A href='?src=\ref[src];make=34;dir=1'>Manifold</A><BR>
+<A href='?src=\ref[src];make=36;dir=1'>4-Way Manifold</A><BR>
 <b>Devices:</b><BR>
+<A href='?src=\ref[src];make=28;dir=1'>Universal Pipe Adapter</A><BR>
 <A href='?src=\ref[src];make=4;dir=1'>Connector</A><BR>
 <A href='?src=\ref[src];make=7;dir=1'>Unary Vent</A><BR>
 <A href='?src=\ref[src];make=9;dir=1'>Gas Pump</A><BR>

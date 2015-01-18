@@ -58,7 +58,6 @@
 	var/created_name = "ED-209 Security Robot" //To preserve the name if it's a unique securitron I guess
 	var/lasercolor = ""
 
-
 /obj/machinery/bot/ed209/New(loc,created_name,created_lasercolor)
 	..()
 	if(created_name)
@@ -660,8 +659,6 @@ Auto Patrol[]"},
 			if(istype(W, /obj/item/weapon/screwdriver))
 				playsound(loc, 'sound/items/Screwdriver.ogg', 100, 1)
 				var/turf/T = get_turf(user)
-				user << "<span class='notice'>Now attaching the gun to the frame...</span>"
-				sleep(40)
 				if(get_turf(user) == T)
 					build_step++
 					name = "armed [name]"

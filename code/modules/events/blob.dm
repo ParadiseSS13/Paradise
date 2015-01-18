@@ -7,7 +7,7 @@
 
 /datum/event/blob/announce()
 	command_alert("Confirmed outbreak of level 7 biohazard aboard [station_name()]. Nanotrasen has issued a directive 7-10. The station is to be considered quarantined.", "Biohazard Alert")
-	world << sound('sound/AI/outbreak7.ogg')
+	world << sound('sound/AI/blob_confirmed.ogg')
 		
 	for (var/mob/living/silicon/ai/aiPlayer in player_list)
 		if (aiPlayer.client)

@@ -21,7 +21,7 @@
 	if (stat == CONSCIOUS && (src in dead_mob_list)) //Defib fix
 		update_revive()
 	return
-	
+
 /mob/living/carbon/human/proc/update_revive() // handles revival through other means than cloning or adminbus (defib, IPC repair)
 	stat = CONSCIOUS
 	dead_mob_list -= src
@@ -29,7 +29,7 @@
 	mob_list |= src
 	ear_deaf = 0
 	tod = 0
-	timeofdeath = 0	
+	timeofdeath = 0
 
 /mob/living/carbon/human/getBrainLoss()
 	if(species && species.flags & NO_INTORGANS) return
@@ -139,7 +139,7 @@
 				var/datum/organ/external/O = pick(candidates)
 				O.mutate()
 				src << "<span class = 'notice'>Something is not right with your [O.display_name]...</span>"
-				O.add_autopsy_data("Mutation", amount)				
+				O.add_autopsy_data("Mutation", amount)
 				return
 	else
 		if (prob(heal_prob))
@@ -292,7 +292,8 @@ This function restores all organs.
 	//Handle BRUTE and BURN damage
 	handle_suit_punctures(damagetype, damage)
 
-	if(blocked >= 2)	return 0
+	blocked = (100-blocked)/100
+	if(blocked <= 0)	return 0
 
 	var/datum/organ/external/organ = null
 	if(isorgan(def_zone))
@@ -302,8 +303,7 @@ This function restores all organs.
 		organ = get_organ(check_zone(def_zone))
 	if(!organ)	return 0
 
-	if(blocked)
-		damage = (damage/(blocked+1))
+	damage = damage * blocked
 
 	switch(damagetype)
 		if(BRUTE)

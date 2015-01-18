@@ -381,7 +381,7 @@ var/global/wcColored
 /obj/structure/window/New(Loc,re=0)
 	..()
 	ini_dir = dir
-	if(!color)
+	if(!color && !istype(src,/obj/structure/window/plasmabasic) && !istype(src,/obj/structure/window/plasmareinforced))
 		color = color_windows(src)
 	update_nearby_tiles(need_rebuild=1)
 	update_nearby_icons()

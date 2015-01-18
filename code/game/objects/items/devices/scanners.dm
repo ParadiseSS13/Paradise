@@ -66,11 +66,13 @@ REAGENT SCANNER
 
 			if(O.invisibility == 101)
 				O.invisibility = 0
+				O.alpha = 128
 				spawn(pulse_duration)
 					if(O)
 						var/turf/U = O.loc
 						if(U.intact)
 							O.invisibility = 101
+							O.alpha = 255
 		for(var/mob/living/M in T.contents)
 			var/oldalpha = M.alpha
 			if(M.alpha < 255 && istype(M))

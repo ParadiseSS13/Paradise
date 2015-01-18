@@ -200,8 +200,8 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 
 	pressure_adjustment_coefficient = min(1,max(pressure_adjustment_coefficient,0)) // So it isn't less than 0 or larger than 1.
 
-	return pressure_adjustment_coefficient	
-	
+	return pressure_adjustment_coefficient
+
 /mob/living/carbon/human/calculate_affecting_pressure(var/pressure)
 	var/pressure_difference
 
@@ -422,7 +422,7 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 			if(istype(loc, /obj/))
 				var/obj/location_as_object = loc
 				location_as_object.handle_internal_lifeform(src, 0)
-				
+
 		else
 			//First, check for air from internal atmosphere (using an air tank and mask generally)
 			breath = get_breath_from_internal(BREATH_VOLUME) // Super hacky -- TLE
@@ -513,7 +513,7 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 			var/oxyloss = 0
 			if(reagents.has_reagent("inaprovaline"))
 				return
-			if(suiciding)	
+			if(suiciding)
 				oxyloss = 2
 				adjustOxyLoss(oxyloss)//If you are suiciding, you should die a little bit faster
 				failed_last_breath = 1
@@ -527,9 +527,9 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 				oxyloss = HUMAN_CRIT_MAX_OXYLOSS
 				adjustOxyLoss(oxyloss)
 				failed_last_breath = 1
-				
-			var/datum/organ/external/affected = get_organ("chest")	
-			affected.add_autopsy_data("Suffocation", oxyloss) 
+
+			var/datum/organ/external/affected = get_organ("chest")
+			affected.add_autopsy_data("Suffocation", oxyloss)
 
 			oxygen_alert = max(oxygen_alert, 1)
 
@@ -1649,7 +1649,7 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 		if(health < 0)// health 0 makes you immediately collapse
 			shock_stage = max(shock_stage, 61)
 
-		if(traumatic_shock >= 80)
+		if(traumatic_shock >= 100)
 			shock_stage += 1
 		else
 			shock_stage = min(shock_stage, 160)
@@ -1668,6 +1668,7 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 			src << "<font color='red'><b>"+pick("The pain is excrutiating!", "Please, just end the pain!", "Your whole body is going numb!")
 
 		if(shock_stage >=60)
+			if(shock_stage == 60) emote("me",1,"'s body becomes limp.")
 			if (prob(2))
 				src << "<font color='red'><b>"+pick("The pain is excrutiating!", "Please, just end the pain!", "Your whole body is going numb!")
 				Weaken(20)
