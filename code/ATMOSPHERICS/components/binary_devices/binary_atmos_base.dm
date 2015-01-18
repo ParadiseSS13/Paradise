@@ -67,16 +67,25 @@ obj/machinery/atmospherics/binary
 
 		for(var/obj/machinery/atmospherics/target in get_step(src,node1_connect))
 			if(target.initialize_directions & get_dir(target,src))
-				node1 = target
-				break
+				var/c = check_connect_types(target,src)
+				if (c)
+					target.connected_to = c
+					src.connected_to = c
+					node1 = target
+					break
 
 		for(var/obj/machinery/atmospherics/target in get_step(src,node2_connect))
 			if(target.initialize_directions & get_dir(target,src))
-				node2 = target
-				break
+				var/c = check_connect_types(target,src)
+				if (c)
+					target.connected_to = c
+					src.connected_to = c
+					node2 = target
+					break
 
 		update_icon()
-
+		update_underlays()
+		
 	build_network()
 		if(!network1 && node1)
 			network1 = new /datum/pipe_network()
@@ -126,5 +135,8 @@ obj/machinery/atmospherics/binary
 		else if(reference==node2)
 			del(network2)
 			node2 = null
+			
+		update_icon()
+		update_underlays()
 
 		return null

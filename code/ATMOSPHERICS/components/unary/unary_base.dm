@@ -46,10 +46,15 @@
 
 		for(var/obj/machinery/atmospherics/target in get_step(src,node_connect))
 			if(target.initialize_directions & get_dir(target,src))
-				node = target
-				break
+				var/c = check_connect_types(target,src)
+				if (c)
+					target.connected_to = c
+					src.connected_to = c
+					node = target
+					break
 
 		update_icon()
+		update_underlays()
 
 	build_network()
 		if(!network && node)
@@ -84,5 +89,8 @@
 		if(reference==node)
 			del(network)
 			node = null
+			
+		update_icon()
+		update_underlays()
 
 		return null
