@@ -165,41 +165,29 @@ proc/hasorgans(A)
 			zone = "head"
 		if("mouth")
 			zone = "head"
-		if("l_hand")
-			zone = "l_arm"
-		if("r_hand")
-			zone = "r_arm"
-		if("l_foot")
-			zone = "l_leg"
-		if("r_foot")
-			zone = "r_leg"
-		if("groin")
-			zone = "chest"
 	return zone
-
 
 // Returns zone with a certain probability.
 // If the probability misses, returns "chest" instead.
 // If "chest" was passed in as zone, then on a "miss" will return "head", "l_arm", or "r_arm"
 // Do not use this if someone is intentionally trying to hit a specific body part.
 // Use get_zone_with_miss_chance() for that.
-/proc/ran_zone(zone, probability = 80)
-
+/proc/ran_zone(zone, probability)
 	zone = check_zone(zone)
+	if(!probability)	probability = 90
+	if(probability == 100)	return zone
 
-	if(prob(probability))
-		return zone
+	if(zone == "chest")
+		if(prob(probability))	return "chest"
+		var/t = rand(1, 9)
+		switch(t)
+			if(1 to 3)	return "head"
+			if(4 to 6)	return "l_arm"
+			if(7 to 9)	return "r_arm"
 
-	var/t = rand(1, 18) // randomly pick a different zone, or maybe the same one
-	switch(t)
-		if(1)		 return "head"
-		if(2)		 return "chest"
-		if(3 to 6)	 return "l_arm"
-		if(7 to 10)	 return "r_arm"
-		if(11 to 14) return "l_leg"
-		if(15 to 18) return "r_leg"
+	if(prob(probability * 0.75))	return zone
+	return "chest"
 
-	return zone
 
 // Emulates targetting a specific body part, and miss chances
 // May return null if missed
