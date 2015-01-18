@@ -5,26 +5,26 @@
 /mob/living/carbon/proc/updateshock()
 	src.traumatic_shock = 			\
 	1	* src.getOxyLoss() + 		\
-	0.7	* src.getToxLoss() + 		\
-	1.5	* src.getFireLoss() + 		\
-	1.2	* src.getBruteLoss() + 		\
-	1.7	* src.getCloneLoss() + 		\
-	2	* src.halloss
+	1	* src.getToxLoss() + 		\
+	1	* src.getFireLoss() + 		\
+	1	* src.getBruteLoss() + 		\
+	1	* src.getCloneLoss() + 		\
+	1	* src.halloss
 
 	if(reagents.has_reagent("alkysine"))
-		src.traumatic_shock -= 10
+		src.traumatic_shock -= 5
 	if(reagents.has_reagent("inaprovaline"))
-		src.traumatic_shock -= 25
+		src.traumatic_shock -= 15
 	if(reagents.has_reagent("synaptizine"))
-		src.traumatic_shock -= 40
+		src.traumatic_shock -= 30
 	if(reagents.has_reagent("paracetamol"))
-		src.traumatic_shock -= 50
+		src.traumatic_shock -= 40
 	if(reagents.has_reagent("tramadol"))
-		src.traumatic_shock -= 80
+		src.traumatic_shock -= 60
 	if(reagents.has_reagent("oxycodone"))
 		src.traumatic_shock -= 200
 	if(src.slurring)
-		src.traumatic_shock -= 20
+		src.traumatic_shock -= 10
 	if(src.analgesic)
 		src.traumatic_shock = 0
 
@@ -35,11 +35,11 @@
 			if (!organ)
 				continue
 			if((organ.status & ORGAN_DESTROYED) && !organ.amputated)
-				src.traumatic_shock += 60
-			else if(organ.status & ORGAN_BROKEN || organ.open)
 				src.traumatic_shock += 30
+			else if(organ.status & ORGAN_BROKEN || organ.open)
+				src.traumatic_shock += 15
 				if(organ.status & ORGAN_SPLINTED)
-					src.traumatic_shock -= 25
+					src.traumatic_shock -= 15
 
 	if(src.traumatic_shock < 0)
 		src.traumatic_shock = 0
