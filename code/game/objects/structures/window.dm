@@ -232,6 +232,11 @@ var/global/wcColored
 					M.Weaken(5)
 					M.apply_damage(20)
 					hit(50)
+				if(4)
+					visible_message("<span class='danger'><big>[user] smashes [M] against \the [src]!</big></span>")
+					M.Weaken(5)
+					M.apply_damage(30)
+					hit(75)
 			return
 
 	if(W.flags & NOBLUDGEON) return
