@@ -930,6 +930,10 @@ var/list/datum/dna/hivemind_bank = list()
 
 	var/mob/living/carbon/human/T = changeling_sting(40, /mob/proc/changeling_extract_dna_sting)
 	if(!T)	return 0
+	if(T.species.flags & NO_SCAN) // Yeah, this needs the same protection, otherwise you can steal DNA from Slime People and then blood overdose when you turn into one.
+		src << "<span class='warning'>We do not know how to parse this creature's DNA!</span>"
+		changeling.chem_charges += 40
+		return 0
 
 	T.dna.real_name = T.real_name
 	changeling.absorbed_dna |= T.dna

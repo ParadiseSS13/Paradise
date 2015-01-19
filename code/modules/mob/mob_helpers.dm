@@ -183,10 +183,14 @@ proc/hasorgans(A)
 	switch(t)
 		if(1)		 return "head"
 		if(2)		 return "chest"
-		if(3 to 6)	 return "l_arm"
-		if(7 to 10)	 return "r_arm"
-		if(11 to 14) return "l_leg"
-		if(15 to 18) return "r_leg"
+		if(3 to 4)	 return "l_arm"
+		if(5 to 6)   return "l_hand"
+		if(7 to 8)	 return "r_arm"
+		if(9 to 10)  return "r_hand"
+		if(11 to 12) return "l_leg"
+		if(13 to 14) return "l_foot"
+		if(15 to 16) return "r_leg"
+		if(17 to 18) return "r_foot"
 
 	return zone
 

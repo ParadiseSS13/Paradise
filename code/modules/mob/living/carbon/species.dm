@@ -493,6 +493,8 @@
 	darksight = 5 // BOOSTED from 2
 	eyes = "grey_eyes_s"
 
+	brute_mod = 1.25 //greys are fragile
+
 	primitive = /mob/living/carbon/monkey // TODO
 
 	flags = IS_WHITELISTED | HAS_LIPS | HAS_UNDERWEAR | CAN_BE_FAT
