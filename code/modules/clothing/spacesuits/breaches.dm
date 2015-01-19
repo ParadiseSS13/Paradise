@@ -10,7 +10,7 @@
 
 /obj/item/clothing/suit/space
 
-	var/can_breach = 1                      // Set to 0 to disregard all breaching.
+	var/can_breach = 0                      // Set to 0 to disregard all breaching.
 	var/list/breaches = list()              // Breach datum container.
 	var/resilience = 0.2                    // Multiplier that turns damage into breach class. 1 is 100% of damage to breach, 0.1 is 10%.
 	var/breach_threshold = 3                // Min damage before a breach is possible.
