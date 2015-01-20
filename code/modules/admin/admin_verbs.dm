@@ -152,6 +152,7 @@ var/list/admin_verbs_debug = list(
 	/client/proc/show_distribution_map,
 	/client/proc/enable_debug_verbs,
 	/client/proc/callproc,
+	/client/proc/callproc_datum,
 	/client/proc/toggledebuglogs,
 	/client/proc/qdel_toggle // /vg/
 	)

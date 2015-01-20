@@ -7,6 +7,7 @@
 	required_players_secret = 10
 	required_enemies = 2
 	recommended_enemies = 3
+	var/protected_species_changeling = list("Machine")
 
 /datum/game_mode/traitor/changeling/announce()
 	world << "<B>The current game mode is - Traitor+Changeling!</B>"
@@ -23,7 +24,11 @@
 		for(var/job in restricted_jobs)//Removing robots from the list
 			if(player.assigned_role == job)
 				possible_changelings -= player
-
+	
+	for(var/mob/new_player/player in player_list)
+		if((player.mind in possible_changelings) && (player.client.prefs.species in protected_species_changeling))
+			possible_changelings -= player.mind
+			
 	if(possible_changelings.len>0)
 		var/datum/mind/changeling = pick(possible_changelings)
 		//possible_changelings-=changeling
