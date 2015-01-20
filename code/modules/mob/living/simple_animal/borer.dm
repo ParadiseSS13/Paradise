@@ -334,6 +334,7 @@
 		src << "You wiggle out of [host]'s ear and plop to the ground."
 
 		detatch()
+		leave_host()
 
 mob/living/simple_animal/borer/proc/detatch()
 
@@ -344,14 +345,10 @@ mob/living/simple_animal/borer/proc/detatch()
 		var/datum/organ/external/head = H.get_organ("head")
 		head.implants -= src
 
-	src.loc = get_turf(host)
 	controlling = 0
 
 	reset_view(null)
 	machine = null
-
-	host.reset_view(null)
-	host.machine = null
 
 	host.verbs -= /mob/living/carbon/proc/release_control
 	host.verbs -= /mob/living/carbon/proc/punish_host
@@ -390,11 +387,23 @@ mob/living/simple_animal/borer/proc/detatch()
 
 	del(host_brain)
 
+	return
+
+/mob/living/simple_animal/borer/proc/leave_host()
+
+	if(!host)	return
+
+	src.loc = get_turf(host)
+
+	reset_view(null)
+	machine = null
+
+	host.reset_view(null)
+	host.machine = null
+
 	var/mob/living/H = host
 	H.status_flags &= ~PASSEMOTES
-
 	host = null
-
 	return
 
 /mob/living/simple_animal/borer/verb/infest()
