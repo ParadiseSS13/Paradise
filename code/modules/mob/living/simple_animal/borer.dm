@@ -12,6 +12,12 @@
 			return
 
 	if(istype(src.loc,/mob/living/simple_animal/borer))
+		message = trim(copytext(sanitize(message), 1, MAX_MESSAGE_LEN))
+		if (!message)
+			return
+		log_say("[key_name(src)] : [message]")
+		if (stat == 2)
+			return say_dead(message)
 		var/mob/living/simple_animal/borer/B = src.loc
 		src << "You whisper silently, \"[message]\""
 		B.host << "The captive mind of [src] whispers, \"[message]\""
@@ -95,7 +101,6 @@
 /mob/living/simple_animal/borer/New(var/by_gamemode=0)
 	..()
 	truename = "[pick("Primary","Secondary","Tertiary","Quaternary")] [rand(1000,9999)]"
-	host_brain = new/mob/living/captive_brain(src)
 
 	if(!by_gamemode)
 		request_player()
@@ -215,10 +220,6 @@
 		src << "You cannot do that in your current state."
 		return
 
-	if(!host.internal_organs_by_name["brain"]) //this should only run in admin-weirdness situations, but it's here non the less - RR
-		src << "<span class='warning'>There is no brain here for us to command!</span>"
-		return
-
 	if(docile)
 		src << "\blue You are feeling far too docile to do that."
 		return
@@ -243,6 +244,8 @@
 			host_brain = new(src)
 
 			host_brain.ckey = host.ckey
+
+			host_brain.name = host.name
 
 			if(!host_brain.computer_id)
 				host_brain.computer_id = h2b_id
@@ -274,7 +277,7 @@
 
 /mob/living/simple_animal/borer/verb/secrete_chemicals()
 	set category = "Alien"
-	set name = "Secrete Chemicals"
+	set name = "Secrete Chemicals (50)"
 	set desc = "Push some chemicals into your host's bloodstream."
 
 	if(!host)
@@ -291,9 +294,9 @@
 	if(chemicals < 50)
 		src << "You don't have enough chemicals!"
 
-	var/chem = input("Select a chemical to secrete.", "Chemicals") in list("bicaridine","tramadol","hyperzine","alkysine")
+	var/chem = input("Select a chemical to secrete.", "Chemicals") as null|anything in list("alkysine","bicaridine","hyperzine","tramadol")
 
-	if(chemicals < 50 || !host || controlling || !src || stat) //Sanity check.
+	if(!chem || chemicals < 50 || !host || controlling || !src || stat) //Sanity check.
 		return
 
 	src << "\red <B>You squirt a measure of [chem] from your reservoirs into [host]'s bloodstream.</B>"
@@ -483,7 +486,7 @@ mob/living/simple_animal/borer/proc/detatch()
 	set desc = "Enter an air vent and crawl through the pipe system."
 	set category = "Alien"
 	handle_ventcrawl()
-	
+
 /mob/living/simple_animal/borer/can_use_vents()
 	return
 
