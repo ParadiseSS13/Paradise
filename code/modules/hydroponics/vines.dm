@@ -117,7 +117,6 @@
 		//Low-lying creepers do not block vision or grow thickly.
 		if(limited_growth)
 			energy = 2
-			layer = 2.1
 			return
 
 		src.opacity = 1
@@ -299,7 +298,6 @@
 	collapse_limit = 6
 	slowdown_limit = 3
 	limited_growth = 1
-	layer = 2.1
 
 /obj/effect/plant_controller/New()
 	if(!istype(src.loc,/turf/simulated/floor))
