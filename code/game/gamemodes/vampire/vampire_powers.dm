@@ -28,7 +28,7 @@
 		src << "<span class='warning'>You require at least [required_blood] units of usable blood to do that!</span>"
 		return 0
 	//chapel check
-	if(istype(src.loc, /area/chapel))
+	if(istype(loc.loc, /area/chapel))
 		if(!fullpower)
 			src << "<span class='warning'>Your powers are useless on this holy ground.</span>"
 			return 0
