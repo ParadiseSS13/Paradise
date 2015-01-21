@@ -1265,7 +1265,7 @@
 
 /obj/machinery/atmospherics/pipe/tank/toxins
 	name = "Pressure Tank (Toxins)"
-	icon_state = "phoron_map"
+	icon_state = "toxins_map"
 
 /obj/machinery/atmospherics/pipe/tank/toxins/New()
 	air_temporary = new
