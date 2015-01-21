@@ -26,7 +26,7 @@
 		Blob.process()
 
 /datum/event/blob/tick()
-	if(IsMultiple(activeFor, 3))
+	if(Blob && IsMultiple(activeFor, 3))
 		Blob.process()
 	var/blobs = 0
 	for(var/obj/effect/blob/core/core in world)
