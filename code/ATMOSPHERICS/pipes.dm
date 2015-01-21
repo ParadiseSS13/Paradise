@@ -78,6 +78,26 @@
 	if (level==1 && isturf(T) && T.intact)
 		user << "\red You must remove the plating first."
 		return 1
+		
+	if (istype(W, /obj/item/device/pipe_freezer))
+		if(!src.frozen) // If the pipe is not already frozen
+			user << "\red You begin to freeze the [src]"
+			if (do_after(user, 60))
+				user.visible_message( \
+					"[user] freezes \the [src].", \
+					"\blue You finished freezing \the [src].", \
+					"You hear the hiss of gas.")
+				src.frozen = 1
+				spawn (200)
+					src.frozen = 0
+					src.visible_message( \
+					"\the ice arounds the [src] melts.", \
+					"\blue Your frozen [src] has thawed.", \
+					"You hear dripping water.")
+
+		add_fingerprint(user)
+		return 1
+		
 	var/datum/gas_mixture/int_air = return_air()
 	var/datum/gas_mixture/env_air = loc.return_air()
 	if ((int_air.return_pressure()-env_air.return_pressure()) > 2*ONE_ATMOSPHERE)
@@ -100,25 +120,6 @@
 						del(meter)
 				qdel(src)
 			return 1
-		
-	if (istype(W, /obj/item/device/pipe_freezer))
-		if(!src.frozen) // If the pipe is not already frozen
-			user << "\red You begin to freeze the [src]"
-			if (do_after(user, 60))
-				user.visible_message( \
-					"[user] freezes \the [src].", \
-					"\blue You finished freezing \the [src].", \
-					"You hear the hiss of gas.")
-				src.frozen = 1
-				spawn (200)
-					src.frozen = 0
-					src.visible_message( \
-					"\the ice arounds the [src] melts.", \
-					"\blue Your frozen [src] has thawed.", \
-					"You hear dripping water.")
-
-		add_fingerprint(user)
-		return 1
 
 /obj/machinery/atmospherics/proc/change_color(var/new_color)
 	//only pass valid pipe colors please ~otherwise your pipe will turn invisible
