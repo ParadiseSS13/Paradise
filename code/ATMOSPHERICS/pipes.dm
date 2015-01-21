@@ -4,6 +4,7 @@
 	var/datum/pipeline/parent
 
 	var/volume = 0
+	var/frozen = 0 // used by the pipe freezer
 	force = 20
 
 	//layer = 2.4 //under wires with their 2.44
@@ -80,22 +81,44 @@
 	var/datum/gas_mixture/int_air = return_air()
 	var/datum/gas_mixture/env_air = loc.return_air()
 	if ((int_air.return_pressure()-env_air.return_pressure()) > 2*ONE_ATMOSPHERE)
-		user << "<span class='warning'>You cannot unwrench [src], it is too exerted due to internal pressure.</span>"
+		if (!src.frozen) // If the pipe is not frozen
+			user << "\red You cannot unwrench this [src], it too exerted due to internal pressure."
+			add_fingerprint(user)
+			return 1
+		else // If the pipe is frozen
+			playsound(src.loc, 'sound/items/Ratchet.ogg', 50, 1)
+			user << "\blue You begin to unfasten \the [src]..."
+			if (do_after(user, 40))
+				user.visible_message( \
+					"[user] unfastens \the [src].", \
+					"\blue You have unfastened \the [src].", \
+					"You hear ratchet.")
+				new /obj/item/pipe(loc, make_from=src)
+				for (var/obj/machinery/meter/meter in T)
+					if (meter.target == src)
+						new /obj/item/pipe_meter(T)
+						del(meter)
+				qdel(src)
+			return 1
+		
+	if (istype(W, /obj/item/device/pipe_freezer))
+		if(!src.frozen) // If the pipe is not already frozen
+			user << "\red You begin to freeze the [src]"
+			if (do_after(user, 60))
+				user.visible_message( \
+					"[user] freezes \the [src].", \
+					"\blue You finished freezing \the [src].", \
+					"You hear the hiss of gas.")
+				src.frozen = 1
+				spawn (200)
+					src.frozen = 0
+					src.visible_message( \
+					"\the ice arounds the [src] melts.", \
+					"\blue Your frozen [src] has thawed.", \
+					"You hear dripping water.")
+
 		add_fingerprint(user)
 		return 1
-	playsound(src.loc, 'sound/items/Ratchet.ogg', 50, 1)
-	user << "\blue You begin to unfasten \the [src]..."
-	if (do_after(user, 40))
-		user.visible_message( \
-			"[user] unfastens \the [src].", \
-			"\blue You have unfastened \the [src].", \
-			"You hear ratchet.")
-		new /obj/item/pipe(loc, make_from=src)
-		for (var/obj/machinery/meter/meter in T)
-			if (meter.target == src)
-				new /obj/item/pipe_meter(T)
-				del(meter)
-		del(src)
 
 /obj/machinery/atmospherics/proc/change_color(var/new_color)
 	//only pass valid pipe colors please ~otherwise your pipe will turn invisible
