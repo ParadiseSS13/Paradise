@@ -150,6 +150,11 @@ proc/isorgan(A)
 		if(L && L.implanted)
 			return 1
 	return 0
+	
+proc/isnewplayer(A)
+	if(istype(A, /mob/new_player))
+		return 1
+	return 0
 
 proc/hasorgans(A)
 	return ishuman(A)
