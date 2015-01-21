@@ -1,6 +1,5 @@
 /datum/event/carp_migration
 	announceWhen	= 50
-	oneShot			= 1
 	endWhen = 900
 	var/list/spawned_carp = list()
 
@@ -12,12 +11,9 @@
 	command_alert("Unknown biological entities have been detected near [station_name()], please stand-by.", "Lifesign Alert")
 
 /datum/event/carp_migration/start()
-	scaling_factor = num_players() / 25
-
 	for(var/obj/effect/landmark/C in landmarks_list)
 		if(C.name == "carpspawn")
-			if(prob(60 * scaling_factor))
-				spawned_carp.Add(new /mob/living/simple_animal/hostile/carp(C.loc))
+			spawned_carp.Add(new /mob/living/simple_animal/hostile/carp(C.loc))
 
 /datum/event/carp_migration/end()
 	for(var/mob/living/simple_animal/hostile/carp/C in spawned_carp)

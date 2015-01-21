@@ -486,6 +486,9 @@ var/global/datum/controller/gameticker/ticker
 
 	scoreboard()
 	karmareminder()
+	
+	//Ask the event manager to print round end information
+	event_manager.RoundEnd()
 
 	return 1
 

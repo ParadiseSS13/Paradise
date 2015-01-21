@@ -227,6 +227,12 @@ proc/tg_text2list(text, glue=",", assocglue=";")
 		. += copytext(text, last_found, found)
 		last_found = found + delim_len
 	while(found)
+	
+/proc/text2numlist(text, delimiter="\n")
+	var/list/num_list = list()
+	for(var/x in text2list(text, delimiter))
+		num_list += text2num(x)
+	return num_list
 
 //Splits the text of a file at seperator and returns them in a list.
 /proc/file2list(filename, seperator="\n")

@@ -45,15 +45,24 @@
 	
 	command_alert("The biohazard has grown out of control and will soon reach critical mass. Activate the nuclear failsafe to maintain quarantine. The Nuclear Authentication Code is [nukecode] ", "Biohazard Alert")
 	set_security_level("gamma")
+	
 	var/obj/machinery/door/airlock/vault/V = locate(/obj/machinery/door/airlock/vault) in world
 	if(V && V.z == 1)
 		V.locked = 0
 		V.update_icon()
+
+	for (var/mob/living/silicon/ai/aiPlayer in player_list)
+		if (aiPlayer.client)
+			var/law = "The station is under quarantine, prevent biological entities from leaving the station at all costs. The nuclear failsafe must be activated at any cost, the code is: [nukecode]."
+			aiPlayer.set_zeroth_law(law)
+			aiPlayer << "\red <b>You have detected a change in your laws information:</b>"
+			aiPlayer << "Laws Updated: [law]"
+		
 	spawn(10)	
 		world << sound('sound/effects/siren.ogg')
 		
 /datum/event/blob/kill()
-	command_alert("The level 7 biohazard aboard [station_name()] has been killed. Directive 7-10 has been lifted, and the station is no longer quarantined.", "Biohazard Update")
+	command_alert("The level 7 biohazard aboard [station_name()] has been eliminated. Directive 7-10 has been lifted, and the station is no longer quarantined.", "Biohazard Update")
 	
 	for (var/mob/living/silicon/ai/aiPlayer in player_list)
 		if (aiPlayer.client)

@@ -242,3 +242,20 @@ GHOST_INTERACTION
 ## Path to the python2 executable on the system.  Leave blank for default.
 ## Default is "python" on Windows, "/usr/bin/env python2" on UNIX.
 #PYTHON_PATH pythonw
+
+## Expected round length in minutes
+EXPECTED_ROUND_LENGTH 120
+
+## The lower delay between events in minutes.
+## Affect mundane, moderate, and major events respectively
+EVENT_DELAY_LOWER 10;30;50
+
+## The upper delay between events in minutes.
+## Affect mundane, moderate, and major events respectively
+EVENT_DELAY_UPPER 15;45;70
+
+## The delay until the first time an event of the given severity runs in minutes.
+## Unset setting use the EVENT_DELAY_LOWER and EVENT_DELAY_UPPER values instead.
+# EVENT_CUSTOM_START_MINOR 10;15
+# EVENT_CUSTOM_START_MODERATE 30;45
+EVENT_CUSTOM_START_MAJOR 80;100

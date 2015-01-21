@@ -63,7 +63,8 @@ var/list/admin_verbs_admin = list(
 	/client/proc/toggledrones,
 	/client/proc/man_up,
 	/client/proc/global_man_up,
-	/client/proc/delbook
+	/client/proc/delbook,
+	/client/proc/event_manager_panel
 )
 var/list/admin_verbs_ban = list(
 	/client/proc/unban_panel,
@@ -410,18 +411,20 @@ var/list/admin_verbs_mod = list(
 
 
 /client/proc/give_disease2(mob/T as mob in mob_list) // -- Giacom
-	set category = "Event"
+	set category = "Fun"
 	set name = "Give Disease"
 	set desc = "Gives a Disease to a mob."
 
 	var/datum/disease2/disease/D = new /datum/disease2/disease()
 
-	var/greater = ((input("Is this a lesser or greater disease?", "Give Disease") in list("Lesser", "Greater")) == "Greater")
+	var/severity = 1
+	var/greater = input("Is this a lesser, greater, or badmin disease?", "Give Disease") in list("Lesser", "Greater", "Badmin")
+	switch(greater)
+		if ("Lesser") severity = 1
+		if ("Greater") severity = 2
+		if ("Badmin") severity = 99
 
-	D.makerandom(greater)
-	if (!greater)
-		D.infectionchance = 1
-
+	D.makerandom(severity)
 	D.infectionchance = input("How virulent is this disease? (1-100)", "Give Disease", D.infectionchance) as num
 
 	if(istype(T,/mob/living/carbon/human))
@@ -434,8 +437,8 @@ var/list/admin_verbs_mod = list(
 	infect_virus2(T,D,1)
 
 	feedback_add_details("admin_verb","GD2") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
-	log_admin("[key_name(usr)] gave [key_name(T)] a [(greater)? "greater":"lesser"] disease2 with infection chance [D.infectionchance].")
-	message_admins("\blue [key_name_admin(usr)] gave [key_name(T)] a [(greater)? "greater":"lesser"] disease2 with infection chance [D.infectionchance].", 1)
+	log_admin("[key_name(usr)] gave [key_name(T)] a [greater] disease2 with infection chance [D.infectionchance].")
+	message_admins("\blue [key_name_admin(usr)] gave [key_name(T)] a [greater] disease2 with infection chance [D.infectionchance].", 1)
 
 /client/proc/make_sound(var/obj/O in world) // -- TLE
 	set category = "Event"
