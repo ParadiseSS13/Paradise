@@ -295,7 +295,7 @@
 "afI" = (/obj/machinery/atmospherics/unary/vent_pump{dir = 8; on = 1},/obj/structure/table/reinforced,/obj/item/clothing/suit/jacket,/obj/item/clothing/head/beret/sec,/obj/machinery/light_switch{pixel_x = -25},/obj/structure/cable{d1 = 4; d2 = 8; icon_state = "4-8"; pixel_x = 0; tag = ""},/turf/simulated/floor{icon_state = "dark"},/area/security/podbay)
 "afJ" = (/obj/structure/cable{d1 = 4; d2 = 8; icon_state = "4-8"; pixel_x = 0; tag = ""},/turf/simulated/floor{icon_state = "dark"},/area/security/podbay)
 "afK" = (/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{dir = 6},/obj/structure/cable{d1 = 4; d2 = 8; icon_state = "4-8"; pixel_x = 0; tag = ""},/turf/simulated/floor{icon_state = "dark"},/area/security/podbay)
-"afL" = (/obj/structure/closet/secure_closet/security,/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{dir = 9},/obj/structure/cable{d2 = 8; icon_state = "0-8"},/obj/machinery/power/apc{dir = 4; name = "Security Podbay APC"; pixel_x = 25},/turf/simulated/floor{icon_state = "dark"},/area/security/podbay)
+"afL" = (/obj/structure/closet/secure_closet/security,/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{dir = 9},/obj/structure/cable{d2 = 8; icon_state = "0-8"},/obj/machinery/power/apc{dir = 4; name = "Security Podbay APC"; pixel_x = 25},/obj/item/device/spacepod_equipment/weaponry/laser,/turf/simulated/floor{icon_state = "dark"},/area/security/podbay)
 "afM" = (/obj/effect/decal/warning_stripes/southwest,/turf/simulated/floor,/area/security/range)
 "afN" = (/obj/effect/decal/warning_stripes/southeast,/turf/simulated/floor,/area/security/range)
 "afO" = (/obj/effect/decal/warning_stripes/southwest,/turf/simulated/floor{icon_state = "floorgrime"},/area/security/range)

@@ -71,13 +71,6 @@
 
 	if(istype(W,/obj/item/device/pipe_painter))
 		return 0
-
-	if (!istype(W, /obj/item/weapon/wrench))
-		return ..()
-	var/turf/T = src.loc
-	if (level==1 && isturf(T) && T.intact)
-		user << "\red You must remove the plating first."
-		return 1
 		
 	if (istype(W, /obj/item/device/pipe_freezer))
 		if(!src.frozen) // If the pipe is not already frozen
@@ -96,6 +89,13 @@
 					"You hear dripping water.")
 
 		add_fingerprint(user)
+		return 1		
+
+	if (!istype(W, /obj/item/weapon/wrench))
+		return ..()
+	var/turf/T = src.loc
+	if (level==1 && isturf(T) && T.intact)
+		user << "\red You must remove the plating first."
 		return 1
 		
 	var/datum/gas_mixture/int_air = return_air()
@@ -105,21 +105,20 @@
 			user << "\red You cannot unwrench this [src], it too exerted due to internal pressure."
 			add_fingerprint(user)
 			return 1
-		else // If the pipe is frozen
-			playsound(src.loc, 'sound/items/Ratchet.ogg', 50, 1)
-			user << "\blue You begin to unfasten \the [src]..."
-			if (do_after(user, 40))
-				user.visible_message( \
-					"[user] unfastens \the [src].", \
-					"\blue You have unfastened \the [src].", \
-					"You hear ratchet.")
-				new /obj/item/pipe(loc, make_from=src)
-				for (var/obj/machinery/meter/meter in T)
-					if (meter.target == src)
-						new /obj/item/pipe_meter(T)
-						del(meter)
-				qdel(src)
-			return 1
+	playsound(src.loc, 'sound/items/Ratchet.ogg', 50, 1)
+	user << "\blue You begin to unfasten \the [src]..."
+	if (do_after(user, 40))
+		user.visible_message( \
+			"[user] unfastens \the [src].", \
+			"\blue You have unfastened \the [src].", \
+			"You hear ratchet.")
+		new /obj/item/pipe(loc, make_from=src)
+		for (var/obj/machinery/meter/meter in T)
+			if (meter.target == src)
+				new /obj/item/pipe_meter(T)
+				del(meter)
+		qdel(src)
+	return 1
 
 /obj/machinery/atmospherics/proc/change_color(var/new_color)
 	//only pass valid pipe colors please ~otherwise your pipe will turn invisible
