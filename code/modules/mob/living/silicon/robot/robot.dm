@@ -283,7 +283,7 @@
 
 		if("Combat")
 			module = new /obj/item/weapon/robot_module/combat(src)
-			module_sprites["Combat Android"] = "droid-combat"
+			module_sprites["Combat Android"] = "droidcombat"
 			channels = list("Security" = 1)
 
 		if("Hunter")
