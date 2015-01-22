@@ -1,11 +1,18 @@
 /datum/event/anomaly
-
 	var/obj/effect/anomaly/newAnomaly
+	announceWhen = 1
 
-
-/datum/event/anomaly/setup()
+/datum/event/anomaly/setup(loop=0)
+	var/safety_loop = loop + 1
+	if(safety_loop > 50)
+		kill()
+		end()
 	impact_area = findEventArea()
-	testing("[impact_area]")
+	if(!impact_area)
+		setup(safety_loop)
+	var/list/turf_test = get_area_turfs(impact_area)
+	if(!turf_test.len)
+		setup(safety_loop)
 
 /datum/event/anomaly/announce()
 	command_alert("Localized hyper-energetic flux wave detected on long range scanners. Expected location of impact: [impact_area.name].", "Anomaly Alert")
@@ -23,4 +30,4 @@
 
 /datum/event/anomaly/end()
 	if(newAnomaly)//Kill the anomaly if it still exists at the end.
-		del(newAnomaly)
+		qdel(newAnomaly)

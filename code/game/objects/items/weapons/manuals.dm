@@ -77,9 +77,6 @@
 	dat = {"Engineering notes on single-stage Supermatter engine,</br>
 			-Waleed Asad</br>
 
-			Station,</br>
-			Cyberiad</br>
-
 			A word of caution, do not enter the engine room, for any reason, without radiation protection and mesons on. The status of the engine may be unpredictable even when you believe it is .off.. This is an important level of personal protection.</br></br>
 
 			The engine has two basic modes of functionality. He has observed that it is capable of both a safe level of operation and a modified, high output mode.</br></br>

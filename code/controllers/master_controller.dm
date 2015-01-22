@@ -321,6 +321,7 @@ datum/controller/game_controller/proc/process()
 		powernets -= Powernet
 
 /datum/controller/game_controller/proc/processNano()
+	last_thing_processed = /datum/nanoui
 	for (var/datum/nanoui/Nanoui in nanomanager.processing_uis)
 		if (Nanoui)
 			Nanoui.process()
@@ -330,15 +331,8 @@ datum/controller/game_controller/proc/process()
 
 /datum/controller/game_controller/proc/processEvents()
 	last_thing_processed = /datum/event
+	event_manager.process()
 
-	for (var/datum/event/Event in events)
-		if (Event)
-			Event.process()
-			continue
-
-		events -= Event
-
-	checkEvent()
 
 /*
 /datum/controller/game_controller/proc/processPuddles()

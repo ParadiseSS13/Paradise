@@ -17,7 +17,7 @@
 				continue
 			del(I)
 
-		H << "<B>You are part of the Cyberiad dodgeball tournament. Throw dodgeballs at crewmembers wearing a different color than you. OOC: Use THROW on an EMPTY-HAND to catch thrown dodgeballs.</B>"
+		H << "<B>You are part of the [station_name()] dodgeball tournament. Throw dodgeballs at crewmembers wearing a different color than you. OOC: Use THROW on an EMPTY-HAND to catch thrown dodgeballs.</B>"
 
 		H.equip_to_slot_or_del(new /obj/item/device/radio/headset/heads/captain(H), slot_l_ear)
 //		H.equip_to_slot_or_del(new /obj/item/clothing/head/beret(H), slot_head)

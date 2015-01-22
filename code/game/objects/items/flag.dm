@@ -95,7 +95,7 @@
 
 /obj/item/flag/pony
 	name = "Equestria flag"
-	desc = "The flag of the independant, sovereign nation of Equestria, whatever the fuck that is."
+	desc = "The flag of the independent, sovereign nation of Equestria, whatever the fuck that is."
 	icon_state = "ponyflag"
 
 /obj/item/flag/ian
@@ -160,32 +160,32 @@
 
 /obj/item/flag/cargo
 	name = "Cargonia flag"
-	desc = "The flag of the independant, sovereign nation of Cargonia."
+	desc = "The flag of the independent, sovereign nation of Cargonia."
 	icon_state = "cargoflag"
 
 /obj/item/flag/med
 	name = "Medistan flag"
-	desc = "The flag of the independant, sovereign nation of Medistan."
+	desc = "The flag of the independent, sovereign nation of Medistan."
 	icon_state = "medflag"
 
 /obj/item/flag/sec
 	name = "Brigston flag"
-	desc = "The flag of the independant, sovereign nation of Brigston."
+	desc = "The flag of the independent, sovereign nation of Brigston."
 	icon_state = "secflag"
 
 /obj/item/flag/rnd
 	name = "Scientopia flag"
-	desc = "The flag of the independant, sovereign nation of Scientopia."
+	desc = "The flag of the independent, sovereign nation of Scientopia."
 	icon_state = "rndflag"
 
 /obj/item/flag/atmos
 	name = "Atmosia flag"
-	desc = "The flag of the independant, sovereign nation of Atmosia."
+	desc = "The flag of the independent, sovereign nation of Atmosia."
 	icon_state = "atmosflag"
 
 /obj/item/flag/command
 	name = "Command flag"
-	desc = "The flag of the independant, sovereign nation of Command."
+	desc = "The flag of the independent, sovereign nation of Command."
 	icon_state = "ntflag"
 
 //Antags

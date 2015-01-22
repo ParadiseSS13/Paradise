@@ -456,3 +456,6 @@ proc/isInSight(var/atom/A, var/atom/B)
 		if(our_area == get_area_master(C))
 			return 0
 	return 1
+	
+/proc/MinutesToTicks(var/minutes as num)
+	return minutes * 60 * 10

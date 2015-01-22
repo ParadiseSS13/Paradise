@@ -1,12 +1,9 @@
 //Cortical borer spawn event - care of RobRichards1997 with minor editing by Zuhayr.
 
 /datum/event/borer_infestation
-	oneShot = 1
-
-/datum/event/borer_infestation
 	announceWhen = 400
 
-	var/spawncount = 1
+	var/spawncount = 5
 	var/successSpawn = 0        //So we don't make a command report if nothing gets spawned.
 
 /datum/event/borer_infestation/setup()
@@ -26,7 +23,7 @@
 			if(temp_vent.network.normal_members.len > 50)
 				vents += temp_vent
 
-	var/list/candidates = get_candidates(BE_ALIEN, ALIEN_AFK_BRACKET)
+	var/list/candidates = get_candidates(BE_ALIEN)
 	while(spawncount > 0 && vents.len && candidates.len)
 		var/obj/vent = pick_n_take(vents)
 		var/client/C = pick_n_take(candidates)

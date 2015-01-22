@@ -21,8 +21,9 @@
 			*/
 
 var/list/event_last_fired = list()
-var/global/list/possibleEvents = list()
+
 //Always triggers an event when called, dynamically chooses events based on job population
+var/global/list/possibleEvents = list()
 /proc/spawn_dynamic_event()
 	if(!config.allow_random_events)
 		return
@@ -39,77 +40,66 @@ var/global/list/possibleEvents = list()
 	// Maps event names to event chances
 	// For each chance, 100 represents "normal likelihood", anything below 100 is "reduced likelihood", anything above 100 is "increased likelihood"
 	// Events have to be manually added to this proc to happen
-//	var/list/possibleEvents = list()
 
 	//see:
 	// Code/WorkInProgress/Cael_Aislinn/Economy/Economy_Events.dm
 	// Code/WorkInProgress/Cael_Aislinn/Economy/Economy_Events_Mundane.dm
-	possibleEvents[/datum/event/economic_event] = 150
-	possibleEvents[/datum/event/trivial_news] = 200
-	possibleEvents[/datum/event/mundane_news] = 150
+
+	possibleEvents[/datum/event/economic_event] = 300
+	possibleEvents[/datum/event/trivial_news] = 400
+	possibleEvents[/datum/event/mundane_news] = 300	
 
 	possibleEvents[/datum/event/cargo_bonus] = 150
 
-
-	possibleEvents[/datum/event/mass_hallucination] = 200
-	possibleEvents[/datum/event/falsealarm] = 300
-//	possibleEvents[/datum/event/immovable_rod] = 200
-	possibleEvents[/datum/event/vent_clog] = 300
-	possibleEvents[/datum/event/anomaly/anomaly_grav] = 200
-
-//	possibleEvents[/datum/event/weightless] = 150
-	possibleEvents[/datum/event/wormholes] = 150
-
 	possibleEvents[/datum/event/pda_spam] = max(min(25, player_list.len) * 4, 200)
 	possibleEvents[/datum/event/money_lotto] = max(min(5, player_list.len), 50)
-//	if(!account_hack_attempted)
-//		possibleEvents[/datum/event/money_hacker] = max(min(25, player_list.len) * 4, 200)
+	if(account_hack_attempted)
+		possibleEvents[/datum/event/money_hacker] = max(min(25, player_list.len) * 4, 200)
 
-	possibleEvents[/datum/event/carp_migration] = 50 + 25 * active_with_role["Engineer"]
+	possibleEvents[/datum/event/mass_hallucination] = 200
+	possibleEvents[/datum/event/vent_clog] = 300
+	possibleEvents[/datum/event/anomaly/anomaly_grav] = 200
+	
+	possibleEvents[/datum/event/wormholes] = 150
+
+	possibleEvents[/datum/event/carp_migration] = 20 + 10 * active_with_role["Engineer"]
+	possibleEvents[/datum/event/brand_intelligence] = 20 + 25 * active_with_role["Janitor"]
 	possibleEvents[/datum/event/dust] = 50 + 50 * active_with_role["Engineer"]
 	possibleEvents[/datum/event/dust/meaty] = 50 + 50 * active_with_role["Engineer"]
 
+	possibleEvents[/datum/event/rogue_drone] = 5 + 25 * active_with_role["Engineer"] + 25 * active_with_role["Security"]
+	possibleEvents[/datum/event/infestation] = 100 + 100 * active_with_role["Janitor"]
 
-	possibleEvents[/datum/event/rogue_drone] = 25 + 25 * active_with_role["Engineer"] + 25 * active_with_role["Security"]
-	possibleEvents[/datum/event/infestation] = 50 + 25 * active_with_role["Janitor"]
+	possibleEvents[/datum/event/communications_blackout] = 50 + 25 * active_with_role["AI"] + active_with_role["Scientist"] * 25
+	possibleEvents[/datum/event/ionstorm] = active_with_role["AI"] * 25 + active_with_role["Cyborg"] * 25 + active_with_role["Engineer"] * 10 + active_with_role["Scientist"] * 5
+	possibleEvents[/datum/event/grid_check] = 25 + 10 * active_with_role["Engineer"]
+	possibleEvents[/datum/event/electrical_storm] = 15 * active_with_role["Janitor"] + 5 * active_with_role["Engineer"]
+	possibleEvents[/datum/event/wallrot] = 30 * active_with_role["Engineer"] + 50 * active_with_role["Gardener"]
 
-	possibleEvents[/datum/event/communications_blackout] = 50 + 30 * active_with_role["AI"] + active_with_role["Scientist"] * 25
-	possibleEvents[/datum/event/ionstorm] = active_with_role["AI"] * 75 + active_with_role["Cyborg"] * 25 + active_with_role["Engineer"] * 10 + active_with_role["Scientist"] * 5
-//	possibleEvents[/datum/event/grid_check] = 25 + 20 * active_with_role["Engineer"]
-	possibleEvents[/datum/event/electrical_storm] = 150 + 10 * active_with_role["Janitor"] + 5 * active_with_role["Engineer"]
-	possibleEvents[/datum/event/wallrot] = 30 * active_with_role["Engineer"] + 50 * active_with_role["Botanist"]
-	possibleEvents[/datum/event/spacevine] = 25 + 5 * active_with_role["Engineer"]
-	possibleEvents[/datum/event/biomass] = 25 + 5 * active_with_role["Engineer"]
-
+	if(!spacevines_spawned)
+		possibleEvents[/datum/event/spacevine] = 10 + 5 * active_with_role["Engineer"]
 	if(minutes_passed >= 30) // Give engineers time to set up engine
-		possibleEvents[/datum/event/meteor_wave] = 10 * active_with_role["Engineer"]
-		possibleEvents[/datum/event/meteor_shower] = 40 * active_with_role["Engineer"]
 		possibleEvents[/datum/event/anomaly/anomaly_pyro] = 100 + 60 * active_with_role["Engineer"]
 		possibleEvents[/datum/event/anomaly/anomaly_vortex] = 50 + 25 * active_with_role["Engineer"]
 		possibleEvents[/datum/event/anomaly/anomaly_bluespace] = 50 + 25 * active_with_role["Engineer"]
-		possibleEvents[/datum/event/anomaly/anomaly_flux] = 50 + 50 * active_with_role["Engineer"]
-
-	if(minutes_passed >= 60) //Delay for potentially destructive events.
-		possibleEvents[/datum/event/blob] = 20 * active_with_role["Engineer"]
-		possibleEvents[/datum/event/brand_intelligence] = 50 + 25 * active_with_role["Engineer"]
-		possibleEvents[/datum/event/spider_infestation] = 50 + 25 * active_with_role["Security"]
-		possibleEvents[/datum/event/borer_infestation] = 50 + 25 * active_with_role["Security"]
-
+		possibleEvents[/datum/event/anomaly/anomaly_flux] = 50 + 50 * active_with_role["Engineer"]	
+	
+		possibleEvents[/datum/event/meteor_wave] = 10 * active_with_role["Engineer"]
+		possibleEvents[/datum/event/meteor_shower] = 20 * active_with_role["Engineer"]
+		possibleEvents[/datum/event/blob] = 10 * active_with_role["Engineer"]
 
 	if(active_with_role["Medical"] > 0)
-		possibleEvents[/datum/event/radiation_storm] = active_with_role["Medical"] * 50
-		possibleEvents[/datum/event/viral_outbreak] = active_with_role["Medical"] * 5
-		possibleEvents[/datum/event/organ_failure] = active_with_role["Medical"] * 50
-		possibleEvents[/datum/event/viral_infection] = 25 + active_with_role["Medical"] * 50
+		possibleEvents[/datum/event/radiation_storm] = active_with_role["Medical"] * 10
+		possibleEvents[/datum/event/viral_infection] = active_with_role["Medical"] * 10
 
-	possibleEvents[/datum/event/prison_break] = active_with_role["Security"] * 30
+	possibleEvents[/datum/event/prison_break] = active_with_role["Security"] * 50
 	if(active_with_role["Security"] > 0)
+		if(!sent_spiders_to_station)
+			possibleEvents[/datum/event/spider_infestation] = max(active_with_role["Security"], 5) + 5
 		if(aliens_allowed && !sent_aliens_to_station)
 			possibleEvents[/datum/event/alien_infestation] = max(active_with_role["Security"], 5) + 2.5
 		if(!sent_ninja_to_station && toggle_space_ninja)
-			possibleEvents[/datum/event/space_ninja] = active_with_role["Security"] * 5
-	//possibleEvents[/datum/event/undead] = active_with_role["Security"] * 15
-	//possibleEvents[/datum/event/ghosts] = active_with_role["Security"] * 25
+			possibleEvents[/datum/event/space_ninja] = max(active_with_role["Security"], 5)
 	possibleEvents[/datum/event/tear] = active_with_role["Security"] * 25
 
 	for(var/event_type in event_last_fired) if(possibleEvents[event_type])
@@ -205,7 +195,7 @@ var/global/list/possibleEvents = list()
 // Returns how many characters are currently active(not logged out, not AFK for more than 10 minutes)
 // with a specific role.
 // Note that this isn't sorted by department, because e.g. having a roboticist shouldn't make meteors spawn.
-/proc/number_active_with_role(role)
+/proc/number_active_with_role()
 	var/list/active_with_role = list()
 	active_with_role["Engineer"] = 0
 	active_with_role["Medical"] = 0
@@ -214,7 +204,8 @@ var/global/list/possibleEvents = list()
 	active_with_role["AI"] = 0
 	active_with_role["Cyborg"] = 0
 	active_with_role["Janitor"] = 0
-	active_with_role["Botanist"] = 0
+	active_with_role["Gardener"] = 0
+	active_with_role["Any"] = player_list.len
 
 	for(var/mob/M in player_list)
 		if(!M.mind || !M.client || M.client.inactivity > 10 * 10 * 60) // longer than 10 minutes AFK counts them as inactive
@@ -247,7 +238,7 @@ var/global/list/possibleEvents = list()
 		if(M.mind.assigned_role == "Janitor")
 			active_with_role["Janitor"]++
 
-		if(M.mind.assigned_role == "Botanist")
-			active_with_role["Botanist"]++
+		if(M.mind.assigned_role == "Gardener")
+			active_with_role["Gardener"]++
 
 	return active_with_role
