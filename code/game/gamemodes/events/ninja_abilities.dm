@@ -145,12 +145,12 @@ Not sure why this would be useful (it's not) but whatever. Ninjas need their smo
 //=======//EM PULSE//=======//
 //Disables nearby tech equipment.
 /obj/item/clothing/suit/space/space_ninja/proc/ninjapulse()
-	set name = "EM Burst (1,500E)"
+	set name = "EM Burst (2,000E)"
 	set desc = "Disable any nearby technology with a electro-magnetic pulse."
 	set category = "Ninja Ability"
 	set popup_menu = 0
 
-	var/C = 1500
+	var/C = 2000
 	if(!ninjacost(C, 1))
 		var/mob/living/carbon/human/U = affecting
 		playsound(U.loc, 'sound/effects/EMPulse.ogg', 60, 2)
