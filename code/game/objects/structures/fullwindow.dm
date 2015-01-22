@@ -106,3 +106,8 @@
 
 	update_icon() //icon_state has to be set manually
 		return
+
+/obj/structure/window/full/shuttle/dark
+	icon = 'icons/turf/shuttle.dmi'
+	icon_state = "window5"
+	basestate = "window5"

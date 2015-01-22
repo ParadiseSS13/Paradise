@@ -2,7 +2,6 @@
 	var/spawn_prob = 10
 	startWhen = 2
 	announceWhen = 3
-	oneShot			= 1
 	start()
 		var/datum/event/electrical_storm/RS = new
 		RS.lightsoutAmount = pick(2,2,3)

@@ -74,7 +74,7 @@
 
 	//Breach thresholds, should ideally be inherited by most (if not all) hardsuits.
 	breach_threshold = 18
-	can_breach = 1
+	can_breach = 0
 
 	//Component/device holders.
 	var/obj/item/weapon/stock_parts/gloves = null     // Basic capacitor allows insulation, upgrades allow shock gloves etc.

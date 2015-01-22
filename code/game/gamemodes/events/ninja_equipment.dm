@@ -625,7 +625,7 @@ ________________________________________________________________________________
 				A << "There are no potential [href_list["name"]=="Phase Shift"?"destinations" : "targets"] in view."
 
 		if("Unlock Kamikaze")
-			if(input(U)=="Divine Wind")
+			if(input(U)=="Divine Wind" && (k_unlock==7||!s_control))
 				if(U.loc.loc.name != "\improper SpiderClan Outpost")
 					if( !(U.stat||U.wear_suit!=src||!s_initialized))
 						if( !(cell.charge<=1||s_busy) )

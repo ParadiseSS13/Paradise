@@ -1,4 +1,3 @@
-
 /datum/event/vent_clog
 	announceWhen	= 0
 	startWhen		= 5

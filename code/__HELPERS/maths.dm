@@ -117,6 +117,10 @@ var/list/sqrtTable = list(1, 1, 1, 2, 2, 2, 2, 2, 3, 3, 3, 3, 3, 3, 3, 4, 4, 4, 
 	var/d = max - min
 	var/t = Floor((val - min) / d)
 	return val - (t * d)
+	
+/proc/RaiseToPower(num, power)
+    if(!power) return 1
+    return (power-- > 1 ? num * RaiseToPower(num, power) : num)
 
 //converts a uniform distributed random number into a normal distributed one
 //since this method produces two random numbers, one is saved for subsequent calls

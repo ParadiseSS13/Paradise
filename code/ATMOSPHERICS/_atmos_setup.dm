@@ -110,6 +110,18 @@ var/global/list/pipe_colors = list("grey" = PIPE_COLOR_GREY, "red" = PIPE_COLOR_
 			I.color = pipe_colors[pipe_color]
 			pipe_icons[state + "[pipe_colors[pipe_color]]"] = I
 
+	pipe = new ('icons/atmos/heat.dmi')
+	for(var/state in pipe.IconStates())
+		if(!state || findtext(state, "map"))
+			continue
+		pipe_icons["hepipe" + state] = image('icons/atmos/heat.dmi', icon_state = state)
+
+	pipe = new ('icons/atmos/junction.dmi')
+	for(var/state in pipe.IconStates())
+		if(!state || findtext(state, "map"))
+			continue
+		pipe_icons["hejunction" + state] = image('icons/atmos/junction.dmi', icon_state = state)
+
 /datum/pipe_icon_manager/proc/gen_manifold_icons()
 	if(!manifold_icons)
 		manifold_icons = new()
