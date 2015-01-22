@@ -74,7 +74,7 @@ var/global/list/possibleEvents = list()
 	possibleEvents[/datum/event/ionstorm] = active_with_role["AI"] * 25 + active_with_role["Cyborg"] * 25 + active_with_role["Engineer"] * 10 + active_with_role["Scientist"] * 5
 	possibleEvents[/datum/event/grid_check] = 25 + 10 * active_with_role["Engineer"]
 	possibleEvents[/datum/event/electrical_storm] = 15 * active_with_role["Janitor"] + 5 * active_with_role["Engineer"]
-	possibleEvents[/datum/event/wallrot] = 30 * active_with_role["Engineer"] + 50 * active_with_role["Gardener"]
+	possibleEvents[/datum/event/wallrot] = 30 * active_with_role["Engineer"] + 50 * active_with_role["Botanist"]
 
 	if(!spacevines_spawned)
 		possibleEvents[/datum/event/spacevine] = 10 + 5 * active_with_role["Engineer"]
@@ -204,7 +204,7 @@ var/global/list/possibleEvents = list()
 	active_with_role["AI"] = 0
 	active_with_role["Cyborg"] = 0
 	active_with_role["Janitor"] = 0
-	active_with_role["Gardener"] = 0
+	active_with_role["Botanist"] = 0
 	active_with_role["Any"] = player_list.len
 
 	for(var/mob/M in player_list)
@@ -238,7 +238,7 @@ var/global/list/possibleEvents = list()
 		if(M.mind.assigned_role == "Janitor")
 			active_with_role["Janitor"]++
 
-		if(M.mind.assigned_role == "Gardener")
-			active_with_role["Gardener"]++
+		if(M.mind.assigned_role == "Botanist")
+			active_with_role["Botanist"]++
 
 	return active_with_role
