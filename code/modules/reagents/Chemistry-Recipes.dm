@@ -1594,6 +1594,13 @@ datum
 			required_reagents = list("coffeepowder" = 1, "water" = 5)
 			result_amount = 5
 
+		coffee2
+			name = "Coffee"
+			id = "coffee2"
+			result = "coffee2"
+			required_reagents = list("coffeepowder2" = 1, "water" = 5)
+			result_amount = 5
+
 		tea
 			name = "Tea"
 			id = "tea"
@@ -1601,6 +1608,12 @@ datum
 			required_reagents = list("teapowder" = 1, "water" = 5)
 			result_amount = 5
 
+		tea2
+			name = "Tea"
+			id = "tea2"
+			result = "tea2"
+			required_reagents = list("teapowder2" = 1, "water" = 5)
+			result_amount = 5
 
 		soysauce
 			name = "Soy Sauce"
@@ -1685,11 +1698,25 @@ datum
 			required_reagents = list("ice" = 1, "tea" = 3)
 			result_amount = 4
 
+		icetea2
+			name = "Iced Tea"
+			id = "icetea"
+			result = "icetea"
+			required_reagents = list("ice" = 1, "tea2" = 3)
+			result_amount = 4
+
 		icecoffee
 			name = "Iced Coffee"
 			id = "icecoffee"
 			result = "icecoffee"
 			required_reagents = list("ice" = 1, "coffee" = 3)
+			result_amount = 4
+
+		icecoffee2
+			name = "Iced Coffee"
+			id = "icecoffee"
+			result = "icecoffee"
+			required_reagents = list("ice" = 1, "coffee2" = 3)
 			result_amount = 4
 
 		nuka_cola
@@ -1743,6 +1770,14 @@ datum
 			id = "kahlua"
 			result = "kahlua"
 			required_reagents = list("coffee" = 5, "sugar" = 5)
+			required_catalysts = list("enzyme" = 5)
+			result_amount = 5
+
+		kahlua2
+			name = "Kahlua"
+			id = "kahlua"
+			result = "kahlua"
+			required_reagents = list("coffee2" = 5, "sugar" = 5)
 			required_catalysts = list("enzyme" = 5)
 			result_amount = 5
 
@@ -1870,6 +1905,13 @@ datum
 			id = "irishcoffee"
 			result = "irishcoffee"
 			required_reagents = list("irishcream" = 1, "coffee" = 1)
+			result_amount = 2
+
+		irish_coffee2
+			name = "Irish Coffee"
+			id = "irishcoffee"
+			result = "irishcoffee"
+			required_reagents = list("irishcream" = 1, "coffee2" = 1)
 			result_amount = 2
 
 		b52
@@ -2051,11 +2093,25 @@ datum
 			required_reagents = list("coffee" = 1, "soymilk" = 1)
 			result_amount = 2
 
+		soy_latte2
+			name = "Soy Latte"
+			id = "soy_latte"
+			result = "soy_latte"
+			required_reagents = list("coffee2" = 1, "soymilk" = 1)
+			result_amount = 2
+
 		cafe_latte
 			name = "Cafe Latte"
 			id = "cafe_latte"
 			result = "cafe_latte"
 			required_reagents = list("coffee" = 1, "milk" = 1)
+			result_amount = 2
+
+		cafe_latte2
+			name = "Cafe Latte"
+			id = "cafe_latte"
+			result = "cafe_latte"
+			required_reagents = list("coffee2" = 1, "milk" = 1)
 			result_amount = 2
 
 		acidspit
@@ -2196,6 +2252,13 @@ datum
 			id = "rewriter"
 			result = "rewriter"
 			required_reagents = list("spacemountainwind" = 1, "coffee" = 1)
+			result_amount = 2
+
+		rewriter2
+			name = "Rewriter"
+			id = "rewriter"
+			result = "rewriter"
+			required_reagents = list("spacemountainwind" = 1, "coffee2" = 1)
 			result_amount = 2
 
 
