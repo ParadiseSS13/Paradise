@@ -125,6 +125,7 @@
 					if (!status)
 						message_admins("\blue [key_name_admin(usr)] has initiated the global cyborg killswitch!")
 						log_game("\blue [key_name(usr)] has initiated the global cyborg killswitch!")
+						use_log += text("\[[time_stamp()]\] <font color='red'>[usr.name] ([usr.ckey]) has initiated the global cyborg killswitch!</font>")
 						src.status = 1
 						src.start_sequence()
 						src.temp = null
@@ -170,6 +171,7 @@
 							else
 								message_admins("\blue [key_name_admin(usr)] detonated [R.name]!")
 								log_game("\blue [key_name_admin(usr)] detonated [R.name]!")
+								use_log += text("\[[time_stamp()]\] <font color='red'>[usr.name] ([usr.ckey]) detonated [R.name] ([R.ckey])!</font>")
 								R.self_destruct()
 			else
 				usr << "\red Access Denied."
