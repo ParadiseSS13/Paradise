@@ -325,19 +325,14 @@
 		usr << "<span class='notice'>No target found in range.</span>"
 		return
 
-<<<<<<< HEAD
-	var/mob/living/carbon/L = targets[1]  */
-
-	var/mob/living/carbon/L = usr
-
-=======
 	var/mob/living/carbon/L = targets[1]
 	if(L)
 		usr.attack_log += text("\[[time_stamp()]\] <font color='red'>[usr.real_name] ([usr.ckey]) cast the spell [name] on [L.real_name] ([L.ckey]).</font>")
 		L.attack_log += text("\[[time_stamp()]\] <font color='red'>[usr.real_name] ([usr.ckey]) cast the spell [name] on [L.real_name] ([L.ckey]).</font>")
-		msg_admin_attack("[usr.real_name] ([usr.ckey]) has cast the spell [name] on  [L.real_name] ([L.ckey]) (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[usr.x];Y=[usr.y];Z=[usr.z]'>JMP</a>)")
->>>>>>> 7dced99c6f4e987583e38d95ef9e253003f4e314
-	L.adjust_fire_stacks(0.5) // Same as walking into fire. Was 100 (goon fire)
+		msg_admin_attack("[usr.real_name] ([usr.ckey]) has cast the spell [name] on  [L.real_name] ([L.ckey]) (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[usr.x];Y=[usr.y];Z=[usr.z]'>JM
+*/
+	var/mob/living/carbon/L = usr
+
 	L.visible_message("\red <b>[L.name]</b> suddenly bursts into flames!")
 	L.on_fire = 1
 	L.update_icon = 1
