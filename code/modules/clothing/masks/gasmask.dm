@@ -187,6 +187,9 @@
 	var/cooldown = 0
 	var/aggressiveness = 2
 	species_fit = list()
+	action_button_name = "HALT!"
+	icon_action_button = "action_officermask"
+
 /obj/item/clothing/mask/gas/sechailer/warden
 	icon_state = "wardenmask"
 

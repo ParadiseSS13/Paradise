@@ -106,6 +106,7 @@
 		new /obj/item/clothing/under/rank/head_of_security(src)
 		new /obj/item/clothing/under/rank/head_of_security/formal(src)
 		new /obj/item/clothing/suit/armor/hos(src)
+		new /obj/item/clothing/suit/armor/hos/alt(src)
 		new /obj/item/clothing/head/HoS(src)
 		new /obj/item/clothing/head/HoS/beret(src)
 		new /obj/item/clothing/glasses/sunglasses/sechud(src)
