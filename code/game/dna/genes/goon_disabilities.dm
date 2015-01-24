@@ -320,11 +320,14 @@
 	icon_power_button = "genetic_incendiary"
 
 /obj/effect/proc_holder/spell/wizard/targeted/immolate/cast(list/targets)
-	if(!targets.len)
+
+/*	if(!targets.len) Uncomment this to allow the power to be used on targets other than yourself. That said, if you uncomment this I will find you and hurt you. Uncounterable and untracable burn damage with a 60-second cooldown is fun for exactly one person, and that's the person who is using it.
 		usr << "<span class='notice'>No target found in range.</span>"
 		return
 
-	var/mob/living/carbon/L = targets[1]
+	var/mob/living/carbon/L = targets[1]  */
+
+	var/mob/living/carbon/L = usr
 
 	L.adjust_fire_stacks(0.5) // Same as walking into fire. Was 100 (goon fire)
 	L.visible_message("\red <b>[L.name]</b> suddenly bursts into flames!")
