@@ -1,7 +1,8 @@
 
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging
-	icon = 'icons/obj/pipes/heat.dmi'
+	icon = 'icons/atmos/heat.dmi'
 	icon_state = "intact"
+	pipe_icon = "hepipe"
 	level = 2
 	var/initialize_directions_he
 	var/surface = 2
@@ -9,25 +10,25 @@
 	minimum_temperature_difference = 20
 	thermal_conductivity = OPEN_HEAT_TRANSFER_COEFFICIENT
 
-	process()
-		if(!parent)
-			..()
-		else
-			var/environment_temperature = 0
-			if(istype(loc, /turf/simulated/))
-				if(loc:blocks_air)
-					environment_temperature = loc:temperature
-				else
-					var/datum/gas_mixture/environment = loc.return_air()
-					environment_temperature = environment.temperature
-				var/datum/gas_mixture/pipe_air = return_air()
-				if(abs(environment_temperature-pipe_air.temperature) > minimum_temperature_difference)
-					parent.temperature_interact(loc, volume, thermal_conductivity)
+/obj/machinery/atmospherics/pipe/simple/heat_exchanging/process()
+	if(!parent)
+		..()
+	else
+		var/environment_temperature = 0
+		if(istype(loc, /turf/simulated/))
+			if(loc:blocks_air)
+				environment_temperature = loc:temperature
 			else
-				parent.radiate_heat(surface, 1)
+				var/datum/gas_mixture/environment = loc.return_air()
+				environment_temperature = environment.temperature
+			var/datum/gas_mixture/pipe_air = return_air()
+			if(abs(environment_temperature-pipe_air.temperature) > minimum_temperature_difference)
+				parent.temperature_interact(loc, volume, thermal_conductivity)
+		else
+			parent.radiate_heat(surface, 1)
 
 
-	// BubbleWrap
+// BubbleWrap
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging/New()
 	..()
 	initialize_directions_he = initialize_directions	// The auto-detection from /pipe is good enough for a simple HE pipe
@@ -53,6 +54,11 @@
 		if(target.initialize_directions_he & get_dir(target,src))
 			node2 = target
 			break
+			
+	if(!node1 && !node2)
+		del(src)
+		return
+		
 	update_icon()
 	return
 
@@ -65,8 +71,9 @@
 // JUNCTION
 /////////////////////////////////
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging/junction
-	icon = 'icons/obj/pipes/junction.dmi'
+	icon = 'icons/atmos/junction.dmi'
 	icon_state = "intact"
+	pipe_icon = "hejunction"
 	level = 2
 	minimum_temperature_difference = 300
 	thermal_conductivity = WALL_HEAT_TRANSFER_COEFFICIENT
@@ -89,16 +96,6 @@
 			initialize_directions_he = WEST
 	// BubbleWrap END
 
-/obj/machinery/atmospherics/pipe/simple/heat_exchanging/junction/update_icon()
-	if(node1&&node2)
-		icon_state = "intact[invisibility ? "-f" : "" ]"
-	else
-		var/have_node1 = node1?1:0
-		var/have_node2 = node2?1:0
-		icon_state = "exposed[have_node1][have_node2]"
-	if(!node1&&!node2)
-		qdel(src)
-
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging/junction/initialize()
 	for(var/obj/machinery/atmospherics/target in get_step(src,initialize_directions))
 		if(target.initialize_directions & get_dir(target,src))
@@ -108,6 +105,10 @@
 		if(target.initialize_directions_he & get_dir(target,src))
 			node2 = target
 			break
+			
+	if(!node1 && !node2)
+		del(src)
+		return			
 
 	update_icon()
 	return

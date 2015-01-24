@@ -7,12 +7,11 @@
 #define LOC_VAULT 6
 #define LOC_CONSTR 7
 #define LOC_TECH 8
+#define LOC_ARMORY 9
 
-#define VERM_MICE    0
+#define VERM_MICE 0
 #define VERM_LIZARDS 1
 #define VERM_SPIDERS 2
-#define VERM_SLIMES  3
-#define VERM_BATS    4
 
 /datum/event/infestation
 	announceWhen = 10
@@ -22,9 +21,9 @@
 	var/vermin
 	var/vermstring
 
-
 /datum/event/infestation/start()
-	location = rand(0,8)
+
+	location = rand(0,9)
 	var/list/turf/simulated/floor/turfs = list()
 	var/spawn_area_type
 	switch(location)
@@ -55,6 +54,9 @@
 		if(LOC_TECH)
 			spawn_area_type = /area/storage/tech
 			locstring = "technical storage"
+		if(LOC_ARMORY)
+			spawn_area_type = /area/security/securearmoury
+			locstring = "armory"
 
 	//world << "looking for [spawn_area_type]"
 	for(var/areapath in typesof(spawn_area_type))
@@ -67,10 +69,9 @@
 				if(!F.contents.len)
 					turfs += F
 
-
 	var/list/spawn_types = list()
 	var/max_number
-	vermin = rand(0,4)
+	vermin = rand(0,2)
 	switch(vermin)
 		if(VERM_MICE)
 			spawn_types = list(/mob/living/simple_animal/mouse/gray, /mob/living/simple_animal/mouse/brown, /mob/living/simple_animal/mouse/white)
@@ -82,13 +83,8 @@
 			vermstring = "lizards"
 		if(VERM_SPIDERS)
 			spawn_types = list(/obj/effect/spider/spiderling)
+			max_number = 3
 			vermstring = "spiders"
-		if(VERM_SLIMES)
-			spawn_types = typesof(/mob/living/carbon/slime) - /mob/living/carbon/slime
-			vermstring = "slimes"
-		if(VERM_BATS)
-			spawn_types = /mob/living/simple_animal/hostile/scarybat
-			vermstring = "bats"
 
 	spawn(0)
 		var/num = rand(2,max_number)
@@ -96,7 +92,6 @@
 			var/turf/simulated/floor/T = pick(turfs)
 			turfs.Remove(T)
 			num--
-
 
 			if(vermin == VERM_SPIDERS)
 				var/obj/effect/spider/spiderling/S = new(T)
@@ -107,7 +102,7 @@
 
 
 /datum/event/infestation/announce()
-	command_alert("Bioscans indicate that [vermstring] have been breeding in [locstring]. Clear them out, before this starts to affect productivity.", "Vermin infestation")
+	command_alert("Bioscans indicate that [vermstring] have been breeding in [locstring]. Clear them out, before this starts to affect productivity.", "Lifesign Alert")
 
 #undef LOC_KITCHEN
 #undef LOC_ATMOS
@@ -117,9 +112,8 @@
 #undef LOC_HYDRO
 #undef LOC_VAULT
 #undef LOC_TECH
+#undef LOC_TACTICAL
 
 #undef VERM_MICE
 #undef VERM_LIZARDS
 #undef VERM_SPIDERS
-#undef VERM_SLIMES
-#undef VERM_BATS

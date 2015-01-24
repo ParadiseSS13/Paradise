@@ -829,9 +829,13 @@ var/list/ghostteleportlocs = list()
 /area/maintenance/aft
 	name = "Engineering Maintenance"
 	icon_state = "amaint"
+	
+/area/maintenance/engi_shuttle
+	name = "Engineering Shuttle Access"
+	icon_state = "maint_e_shuttle"
 
 /area/maintenance/storage
-	name = "Atmospherics"
+	name = "Atmospherics Maintenance"
 	icon_state = "green"
 
 /area/maintenance/incinerator

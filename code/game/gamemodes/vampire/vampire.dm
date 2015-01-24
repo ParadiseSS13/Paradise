@@ -462,6 +462,24 @@ You are weak to holy things and starlight. Don't go into space and avoid the Cha
 
 		if(T.density)
 			return
+	vamp_burn()
+
+/mob/living/carbon/human/proc/handle_vampire()
+	if(hud_used)
+		if(!hud_used.vampire_blood_display)
+			hud_used.vampire_hud()
+			hud_used.human_hud('icons/mob/screen1_Vampire.dmi')
+		hud_used.vampire_blood_display.maptext_width = 64
+		hud_used.vampire_blood_display.maptext_height = 26
+		hud_used.vampire_blood_display.maptext = "<div align='left' valign='top' style='position:relative; top:0px; left:6px'> U:<font color='#33FF33' size='1'>[mind.vampire.bloodusable]</font><br> T:<font color='#FFFF00' size='1'>[mind.vampire.bloodtotal]</font></div>"
+	handle_vampire_cloak()
+	if(istype(loc, /turf/space))
+		check_sun()
+	if(istype(loc.loc, /area/chapel) && !(VAMP_FULL in src.mind.vampire.powers))
+		vamp_burn()
+	mind.vampire.nullified = max(0, mind.vampire.nullified - 1)
+
+mob/living/carbon/human/proc/vamp_burn()
 	if(prob(35))
 		switch(health)
 			if(80 to 100)
@@ -482,16 +500,4 @@ You are weak to holy things and starlight. Don't go into space and avoid the Cha
 				fire_stacks++
 				IgniteMob()
 	adjustFireLoss(3)
-
-/mob/living/carbon/human/proc/handle_vampire()
-	if(hud_used)
-		if(!hud_used.vampire_blood_display)
-			hud_used.vampire_hud()
-			hud_used.human_hud('icons/mob/screen1_Vampire.dmi')
-		hud_used.vampire_blood_display.maptext_width = 64
-		hud_used.vampire_blood_display.maptext_height = 26
-		hud_used.vampire_blood_display.maptext = "<div align='left' valign='top' style='position:relative; top:0px; left:6px'> U:<font color='#33FF33' size='1'>[mind.vampire.bloodusable]</font><br> T:<font color='#FFFF00' size='1'>[mind.vampire.bloodtotal]</font></div>"
-	handle_vampire_cloak()
-	if(istype(loc, /turf/space))
-		check_sun()
-	mind.vampire.nullified = max(0, mind.vampire.nullified - 1)
+	return

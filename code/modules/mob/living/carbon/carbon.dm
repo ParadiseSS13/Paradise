@@ -237,7 +237,7 @@
 
 /mob/living/carbon/can_use_vents()
 	return
-	
+
 /mob/living/proc/handle_ventcrawl(var/obj/machinery/atmospherics/unary/vent_pump/vent_found = null, var/ignore_items = 0) // -- TLE -- Merged by Carn
 	if(stat)
 		src << "You must be conscious to do this!"
@@ -557,7 +557,7 @@
 
 /mob/living/carbon/proc/spawn_larvae()
 	set category = "Alien"
-	set name = "Reproduce"
+	set name = "Reproduce (100)"
 	set desc = "Spawn several young."
 
 	var/mob/living/simple_animal/borer/B = has_brain_worms()

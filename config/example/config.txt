@@ -78,7 +78,7 @@ PROBABILITY EXTEND-A-TRAITORMONGOUS 6
 PROBABILITY TRAITORCHAN 4
 PROBABILITY BLOB 4
 PROBABILITY REVOLUTION 2
-PROBABILITY TRADE 4
+PROBABILITY HEIST 4
 PROBABILITY WIZARD 2
 PROBABILITY VAMPIRE 4
 PROBABILITY RAGINMAGES 0
@@ -87,7 +87,6 @@ PROBABILITY XENOS 2
 PROBABILITY MUTINY 1
 PROBABILITY NATIONS 0
 PROBABILITY METEOR 0
-PROBABILITY HEIST 0
 
 ## Hash out to disable random events during the round.
 ALLOW_RANDOM_EVENTS
@@ -242,3 +241,20 @@ GHOST_INTERACTION
 ## Path to the python2 executable on the system.  Leave blank for default.
 ## Default is "python" on Windows, "/usr/bin/env python2" on UNIX.
 #PYTHON_PATH pythonw
+
+## Expected round length in minutes
+EXPECTED_ROUND_LENGTH 120
+
+## The lower delay between events in minutes.
+## Affect mundane, moderate, and major events respectively
+EVENT_DELAY_LOWER 10;30;50
+
+## The upper delay between events in minutes.
+## Affect mundane, moderate, and major events respectively
+EVENT_DELAY_UPPER 15;45;70
+
+## The delay until the first time an event of the given severity runs in minutes.
+## Unset setting use the EVENT_DELAY_LOWER and EVENT_DELAY_UPPER values instead.
+# EVENT_CUSTOM_START_MINOR 10;15
+# EVENT_CUSTOM_START_MODERATE 30;45
+EVENT_CUSTOM_START_MAJOR 80;100

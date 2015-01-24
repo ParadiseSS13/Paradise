@@ -192,6 +192,11 @@
 		var/list/virus = list("[dish.virus2.uniqueID]" = dish.virus2.getcopy())
 		B.data["virus2"] += virus
 
+		var/list/virus_effects
+		for(var/datum/disease2/effectholder/symptom in dish.virus2.effects)
+			virus_effects += "\[" + symptom.effect.name + "\]"
+		use_log += text("\[[time_stamp()]\] <font color='red'>[user.name] ([user.ckey]) has transferred a virus containing [virus_effects] to a blood sample.</font>")
+
 		ping("\The [src] pings, \"Injection complete.\"")
 		return 1
 
