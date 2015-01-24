@@ -257,3 +257,43 @@ modules/mob/living/carbon/human/life.dm if you die, you will be zoomed out.
 	projectile_type = "/obj/item/projectile/beam/disabler"
 	cell_type = "/obj/item/weapon/cell"
 	charge_cost = 500
+
+
+
+/* 3d printer 'pseudo guns' for borgs */
+
+/obj/item/weapon/gun/energy/printer
+	name = "cyborg lmg"
+	desc = "A machinegun that fires 3d-printed flachettes slowly regenerated using a cyborg's internal power source."
+	icon_state = "l6closed0"
+	icon = 'icons/obj/gun.dmi'
+	fire_sound = 'sound/weapons/Gunshot_smg.ogg'
+	cell_type = "/obj/item/weapon/cell/secborg"
+	projectile_type = "/obj/item/projectile/bullet/midbullet3"
+	charge_cost = 300 //Yeah, let's NOT give them a 300 round clip that recharges, 20 is more reasonable and will actually hurt the borg's battery for overuse.
+	var/charge_tick = 0
+	var/recharge_time = 5
+
+/obj/item/weapon/gun/energy/printer/update_icon()
+	return
+
+/obj/item/weapon/gun/energy/printer/New()
+	..()
+	processing_objects.Add(src)
+
+/obj/item/weapon/gun/energy/printer/Destroy()
+	processing_objects.Remove(src)
+	..()
+
+/obj/item/weapon/gun/energy/printer/process()
+	charge_tick++
+	if(charge_tick < recharge_time) return 0
+	charge_tick = 0
+
+	if(!power_supply) return 0 //sanity
+	if(isrobot(src.loc))
+		var/mob/living/silicon/robot/R = src.loc
+		if(R && R.cell)
+			if(R.cell.use(charge_cost)) 		//Take power from the borg...
+				power_supply.give(charge_cost)	//...to recharge the shot
+	return 1
