@@ -217,20 +217,22 @@
 	icon_override = 'icons/mob/in-hand/duffelbag.dmi'
 	icon_state = "duffel"
 	item_state = "duffel"
-	storage_slots = 10 // Duffelbags can hold more items.
-	max_combined_w_class = 25
+	storage_slots = 9 // Duffelbags can hold more items.
+	slowdown = 1
 
 /obj/item/weapon/storage/backpack/duffel/syndimed
 	name = "suspicious duffelbag"
 	desc = "A black and red duffelbag with a red and white cross sewn onto it."
 	icon_state = "duffel-syndimed"
 	item_state = "duffel-syndimed"
+	slowdown = 0
 
 /obj/item/weapon/storage/backpack/duffel/syndiammo
 	name = "suspicious duffelbag"
 	desc = "A black and red duffelbag with a patch depicting shotgun shells sewn onto it."
 	icon_state = "duffel-syndiammo"
 	item_state = "duffel-syndiammo"
+	slowdown = 0
 
 /obj/item/weapon/storage/backpack/duffel/captain
 	name = "captain's duffelbag"

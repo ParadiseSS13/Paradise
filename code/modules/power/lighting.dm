@@ -516,7 +516,12 @@
 		else if(M_TK in user.mutations)
 			user << "You telekinetically remove the light [fitting]."
 		else
-			user << "You try to remove the light [fitting], but it's too hot and you don't want to burn your hand."
+			user << "You try to remove the light [fitting], but you burn your hand on it!"
+
+			var/datum/organ/external/affecting = H.get_organ("[user.hand ? "l" : "r" ]_hand")
+			if(affecting.take_damage( 0, 5 ))		// 5 burn damage
+				H.UpdateDamageIcon()
+			H.updatehealth()
 			return				// if burned, don't remove the light
 	else
 		user << "You remove the light [fitting]."

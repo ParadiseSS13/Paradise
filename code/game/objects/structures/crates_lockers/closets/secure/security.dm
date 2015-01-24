@@ -15,6 +15,7 @@
 			new /obj/item/weapon/storage/backpack/captain(src)
 		else
 			new /obj/item/weapon/storage/backpack/satchel_cap(src)
+		new /obj/item/weapon/storage/backpack/duffel/captain(src)
 		new /obj/item/clothing/suit/captunic(src)
 		new /obj/item/clothing/suit/captunic/capjacket(src)
 		new /obj/item/clothing/head/caphat/parade(src)
@@ -116,7 +117,6 @@
 		new /obj/item/weapon/gun/energy/advtaser(src)
 		new /obj/item/weapon/storage/belt/security(src)
 		new /obj/item/taperoll/police(src)
-		new /obj/item/clothing/tie/holster/armpit(src)
 		return
 
 
@@ -308,7 +308,7 @@
 		new /obj/item/ammo_box/c38(src)
 		new /obj/item/weapon/gun/projectile/revolver/detective(src)
 		new /obj/item/taperoll/police(src)
-		new /obj/item/clothing/tie/holster/armpit(src)
+		new /obj/item/weapon/storage/belt/holster(src)
 		return
 
 /obj/structure/closet/secure_closet/detective/update_icon()
