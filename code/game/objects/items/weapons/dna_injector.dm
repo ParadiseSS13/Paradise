@@ -98,7 +98,7 @@
 	return uses
 
 /obj/item/weapon/dnainjector/attack(mob/M as mob, mob/user as mob)
-	if (!istype(M, /mob))
+	if (!istype(M, /mob) || istype(M, /mob/living/carbon/human/machine)) // Would've done this via species instead of type, but the basic mob doesn't have a species, go figure.
 		return
 	if (!(istype(usr, /mob/living/carbon/human) || ticker) && ticker.mode.name != "monkey")
 		user << "\red You don't have the dexterity to do this!"
