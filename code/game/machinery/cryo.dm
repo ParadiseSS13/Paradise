@@ -35,7 +35,7 @@
 	component_parts += new /obj/item/weapon/stock_parts/console_screen(src)
 	component_parts += new /obj/item/stack/cable_coil(src, 1)
 	RefreshParts()
-	
+
 /obj/machinery/atmospherics/unary/cryo_cell/New()
 	..()
 	component_parts = list()
@@ -53,7 +53,7 @@
 	for(var/obj/item/weapon/stock_parts/matter_bin/M in component_parts)
 		C += M.rating
 	current_heat_capacity = 50 * C
-	efficiency = C			
+	efficiency = C
 
 /obj/machinery/atmospherics/unary/cryo_cell/initialize()
 	if(node) return
@@ -115,6 +115,11 @@
 
 /obj/machinery/atmospherics/unary/cryo_cell/process()
 	..()
+	if(occupant)
+		if(occupant.health >= 100)
+			on = 0
+			go_out()
+			playsound(src.loc, 'sound/machines/ding.ogg', 50, 1)
 	if(!node)
 		return
 	if(!on)
@@ -153,7 +158,7 @@
 		return
 
 	ui_interact(user)
-		
+
 
  /**
   * The ui_interact proc is used to open and update Nano UIs
@@ -268,15 +273,15 @@
 	if (istype(G, /obj/item/weapon/screwdriver))
 		if(occupant || on)
 			user << "<span class='notice'>The maintenance panel is locked.</span>"
-			return	
+			return
 		default_deconstruction_screwdriver(user, "cell-o", "cell-off", G)
-		return		
-		
+		return
+
 	if(exchange_parts(user, G))
 		return
 
 	default_deconstruction_crowbar(G)
-		
+
 	if(istype(G, /obj/item/weapon/grab))
 		if(panel_open)
 			user << "\blue <b>Close the maintenance panel first.</b>"
