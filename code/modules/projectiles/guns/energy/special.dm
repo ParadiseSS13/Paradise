@@ -270,7 +270,7 @@ modules/mob/living/carbon/human/life.dm if you die, you will be zoomed out.
 	fire_sound = 'sound/weapons/Gunshot_smg.ogg'
 	cell_type = "/obj/item/weapon/cell/secborg"
 	projectile_type = "/obj/item/projectile/bullet/midbullet3"
-	charge_cost = 400 //Yeah, let's NOT give them a 300 round clip that recharges, 15 is more reasonable and will actually hurt the borg's battery for overuse.
+	charge_cost = 300 //Yeah, let's NOT give them a 300 round clip that recharges, 20 is more reasonable and will actually hurt the borg's battery for overuse.
 	var/charge_tick = 0
 	var/recharge_time = 5
 
