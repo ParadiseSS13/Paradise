@@ -180,7 +180,7 @@
 			new /obj/item/weapon/storage/backpack/satchel_sec(src)
 		new /obj/item/clothing/suit/armor/vest/security(src)
 		new /obj/item/device/radio/headset/headset_sec/alt(src)
-		new /obj/item/clothing/head/beret/sec(src)
+		new /obj/item/clothing/head/soft/sec(src)
 		new /obj/item/weapon/reagent_containers/spray/pepper(src)
 		new /obj/item/device/flash(src)
 		new /obj/item/weapon/grenade/flashbang(src)

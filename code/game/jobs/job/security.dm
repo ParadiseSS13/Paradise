@@ -174,7 +174,7 @@
 		H.equip_or_collect(new /obj/item/clothing/under/rank/security(H), slot_w_uniform)
 		H.equip_or_collect(new /obj/item/clothing/shoes/jackboots(H), slot_shoes)
 		H.equip_or_collect(new /obj/item/clothing/suit/armor/vest/security(H), slot_wear_suit)
-		H.equip_to_slot_or_del(new /obj/item/clothing/head/soft/sec(H), slot_head)
+		H.equip_to_slot_or_del(new /obj/item/clothing/head/helmet(H), slot_head)
 		H.equip_or_collect(new /obj/item/device/pda/security(H), slot_wear_pda)
 		H.equip_or_collect(new /obj/item/weapon/gun/energy/advtaser(H), slot_s_store)
 		H.equip_or_collect(new /obj/item/device/flash(H), slot_l_store)
