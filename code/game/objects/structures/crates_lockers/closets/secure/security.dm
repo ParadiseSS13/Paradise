@@ -15,6 +15,7 @@
 			new /obj/item/weapon/storage/backpack/captain(src)
 		else
 			new /obj/item/weapon/storage/backpack/satchel_cap(src)
+		new /obj/item/weapon/storage/backpack/duffel/captain(src)
 		new /obj/item/clothing/suit/captunic(src)
 		new /obj/item/clothing/suit/captunic/capjacket(src)
 		new /obj/item/clothing/head/caphat/parade(src)
@@ -105,6 +106,7 @@
 		new /obj/item/clothing/under/rank/head_of_security(src)
 		new /obj/item/clothing/under/rank/head_of_security/formal(src)
 		new /obj/item/clothing/suit/armor/hos(src)
+		new /obj/item/clothing/suit/armor/hos/alt(src)
 		new /obj/item/clothing/head/HoS(src)
 		new /obj/item/clothing/head/HoS/beret(src)
 		new /obj/item/clothing/glasses/sunglasses/sechud(src)
@@ -116,7 +118,6 @@
 		new /obj/item/weapon/gun/energy/advtaser(src)
 		new /obj/item/weapon/storage/belt/security(src)
 		new /obj/item/taperoll/police(src)
-		new /obj/item/clothing/tie/holster/armpit(src)
 		return
 
 
@@ -188,6 +189,36 @@
 		new /obj/item/clothing/glasses/sunglasses/sechud(src)
 		new /obj/item/weapon/melee/baton/loaded(src)
 		new /obj/item/taperoll/police(src)
+		return
+
+/obj/structure/closet/secure_closet/brigdoc
+	name = "Brig Physician's Locker"
+	req_access = list(access_security)
+	icon_state = "securemed1"
+	icon_closed = "securemed"
+	icon_locked = "securemed1"
+	icon_opened = "securemedopen"
+	icon_broken = "securemedbroken"
+	icon_off = "securemedoff"
+
+	New()
+		..()
+		sleep(2)
+		if(prob(50))
+			new /obj/item/weapon/storage/backpack/medic(src)
+		else
+			new /obj/item/weapon/storage/backpack/satchel_med(src)
+		new /obj/item/weapon/reagent_containers/spray/pepper(src)
+		new /obj/item/device/flash(src)
+		new /obj/item/weapon/storage/firstaid/regular(src)
+		new /obj/item/weapon/storage/firstaid/fire(src)
+		new /obj/item/weapon/storage/firstaid/adv(src)
+		new /obj/item/weapon/storage/firstaid/o2(src)
+		new /obj/item/weapon/storage/firstaid/toxin(src)
+		new /obj/item/clothing/suit/storage/brigdoc(src)
+		new /obj/item/clothing/under/rank/medical(src)
+		new /obj/item/clothing/shoes/white(src)
+		new /obj/item/device/radio/headset/headset_sec/alt(src)
 		return
 
 /obj/structure/closet/secure_closet/blueshield
@@ -308,7 +339,7 @@
 		new /obj/item/ammo_box/c38(src)
 		new /obj/item/weapon/gun/projectile/revolver/detective(src)
 		new /obj/item/taperoll/police(src)
-		new /obj/item/clothing/tie/holster/armpit(src)
+		new /obj/item/weapon/storage/belt/holster(src)
 		return
 
 /obj/structure/closet/secure_closet/detective/update_icon()

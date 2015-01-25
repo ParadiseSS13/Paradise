@@ -48,3 +48,11 @@
 	item_state = "bulldog"
 	icon_override = 'icons/mob/in-hand/guns.dmi'
 	mag_type = "/obj/item/ammo_box/magazine/internal/cylinder/grenadelauncher/multi"
+
+/obj/item/weapon/gun/projectile/revolver/grenadelauncher/multi/cyborg
+	desc = "A 6-shot grenade launcher."
+	icon = 'icons/mecha/mecha_equipment.dmi'
+	icon_state = "mecha_grenadelnchr"
+
+/obj/item/weapon/gun/projectile/revolver/grenadelauncher/multi/cyborg/attack_self()
+	return
