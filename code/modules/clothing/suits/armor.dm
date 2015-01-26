@@ -46,20 +46,27 @@
 	heat_protection = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
 	siemens_coefficient = 0.6
 
+/obj/item/clothing/suit/armor/hos/alt
+	name = "armored trenchoat"
+	desc = "A trenchcoat enchanced with a special lightweight kevlar. The epitome of tactical plainclothes."
+	icon_state = "hostrench"
+	item_state = "hostrench"
+	flags_inv = 0
+
 	verb/toggle()
 		set name = "Toggle Trenchcoat Buttons"
 		set category = "Object"
 
 		if(!usr.canmove || usr.stat || usr.restrained())
 			return 0
-		if(icon_state == "hos")
+		if(icon_state == "hostrench")
+			icon_state = "hostrench_button"
+			item_state = "hostrench_button"
+			usr<< "You button the [src]."
+		else
 			icon_state = "hostrench"
 			item_state = "hostrench"
 			usr<< "You unbutton the [src]."
-		else
-			icon_state = "hos"
-			item_state = "hos"
-			usr<< "You button the [src]."
 
 		usr.update_inv_wear_suit()
 

@@ -14,7 +14,8 @@
 	var/mob/living/carbon/occupant
 	var/mob/living/carbon/occupant2 //two seaters
 	var/datum/spacepod/equipment/equipment_system
-	var/obj/item/weapon/cell/high/battery
+	var/battery_type = "/obj/item/weapon/cell/high"
+	var/obj/item/weapon/cell/battery
 	var/datum/gas_mixture/cabin_air
 	var/obj/machinery/portable_atmospherics/canister/internal_tank
 	var/datum/effect/effect/system/ion_trail_follow/space_trail/ion_trail
@@ -39,7 +40,7 @@
 	bound_width = 64
 	bound_height = 64
 	dir = EAST
-	battery = new()
+	battery = new battery_type(src)
 	add_cabin()
 	add_airtank()
 	src.ion_trail = new /datum/effect/effect/system/ion_trail_follow/space_trail()

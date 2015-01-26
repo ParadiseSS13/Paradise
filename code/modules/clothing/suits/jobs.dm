@@ -13,6 +13,16 @@
 		"Vox" = 'icons/mob/species/vox/suit.dmi'
 		)
 
+//Brig Physician
+/obj/item/clothing/suit/storage/brigdoc
+	name = "brig physician vest"
+	desc = "A vest often worn by doctors caring for inmates."
+	icon_state = "brigphysician-vest"
+	item_state = "brigphysician-vest"
+	allowed = list(/obj/item/stack/medical, /obj/item/weapon/reagent_containers/dropper, /obj/item/weapon/reagent_containers/hypospray, /obj/item/weapon/reagent_containers/syringe, \
+	/obj/item/device/healthanalyzer, /obj/item/device/flashlight, /obj/item/device/radio, /obj/item/weapon/tank/emergency_oxygen)
+	armor = list(melee = 10, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 10, rad = 0)
+
 //Botonist
 /obj/item/clothing/suit/apron
 	name = "apron"

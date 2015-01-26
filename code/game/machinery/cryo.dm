@@ -10,6 +10,7 @@
 	var/temperature_archived
 	var/mob/living/carbon/occupant = null
 	var/obj/item/weapon/reagent_containers/glass/beaker = null
+	var/autoeject = 0
 
 	var/current_heat_capacity = 50
 	var/efficiency
@@ -115,11 +116,12 @@
 
 /obj/machinery/atmospherics/unary/cryo_cell/process()
 	..()
-	if(occupant)
-		if(occupant.health >= 100)
-			on = 0
-			go_out()
-			playsound(src.loc, 'sound/machines/ding.ogg', 50, 1)
+	if(autoeject)
+		if(occupant)
+			if(occupant.health >= 100)
+				on = 0
+				go_out()
+				playsound(src.loc, 'sound/machines/ding.ogg', 50, 1)
 	if(!node)
 		return
 	if(!on)
@@ -245,6 +247,12 @@
 	if(href_list["switchOff"])
 		on = 0
 		update_icon()
+
+	if(href_list["autoejectOn"])
+		autoeject = 1
+
+	if(href_list["autoejectOff"])
+		autoeject = 0
 
 	if(href_list["ejectBeaker"])
 		if(beaker)

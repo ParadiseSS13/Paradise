@@ -342,7 +342,7 @@ This function restores all organs.
 	..()
 	if(forced)
 		playsound(loc, "bodyfall", 50, 1, -1)
-	if(head)
+/*	if(head)
 		var/multiplier = 1
 		if(stat || (status_flags & FAKEDEATH))
 			multiplier = 2
@@ -352,4 +352,4 @@ This function restores all organs.
 			if(prob(60))
 				step_rand(H)
 			if(!stat)
-				src << "<span class='warning'>Your [H] fell off!</span>"
+				src << "<span class='warning'>Your [H] fell off!</span>" */
