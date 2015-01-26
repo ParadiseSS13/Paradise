@@ -10,7 +10,7 @@
 	var/list/datum/disease2/effectholder/effects = list()
 	var/antigen = 0 // 16 bits describing the antigens, when one bit is set, a cure with that bit can dock here
 	var/max_stage = 4
-	var/list/affected_species = list("Human","Unathi","Skrell","Tajaran")
+	var/list/affected_species = list("Human","Unathi","Skrell","Tajaran","Vox","Kidan","Slime People","Grey","Diona")
 
 /datum/disease2/disease/New()
 	uniqueID = rand(0,10000)
@@ -56,11 +56,11 @@
 
 	if(mob.stat == 2)
 		return
-	
+
 	var/mob/living/carbon/human/MS = mob
-	if(MS && (MS.species.flags & IS_SYNTHETIC))	
+	if(MS && (MS.species.flags & IS_SYNTHETIC))
 		return
-		
+
 	if(stage <= 1 && clicks == 0) 	// with a certain chance, the mob may become immune to the disease before it starts properly
 		if(prob(5))
 			mob.antibodies |= antigen
@@ -88,7 +88,8 @@
 		clicks = 0
 	//Do nasty effects
 	for(var/datum/disease2/effectholder/e in effects)
-		e.runeffect(mob,stage)
+		if(prob(33))
+			e.runeffect(mob,stage)
 
 	//Short airborne spread
 	if(src.spreadtype == "Airborne")
