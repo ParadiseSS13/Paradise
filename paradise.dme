@@ -49,6 +49,7 @@
 #define FILE_DIR "icons/obj/clothing/species/skrell"
 #define FILE_DIR "icons/obj/clothing/species/tajaran"
 #define FILE_DIR "icons/obj/clothing/species/unathi"
+#define FILE_DIR "icons/obj/clothing/species/vox"
 #define FILE_DIR "icons/obj/doors"
 #define FILE_DIR "icons/obj/flora"
 #define FILE_DIR "icons/obj/machines"
