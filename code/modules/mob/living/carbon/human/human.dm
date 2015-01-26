@@ -1014,6 +1014,8 @@
 			number += 2
 	if(istype(src.head, /obj/item/clothing/head/helmet/space))
 		number += 2
+	if(istype(src.head, /obj/item/clothing/head/helmet/space/eva))
+		number -= 2
 	if(istype(src.glasses, /obj/item/clothing/glasses/thermal))
 		number -= 1
 	if(istype(src.glasses, /obj/item/clothing/glasses/sunglasses))

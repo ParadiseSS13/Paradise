@@ -31,8 +31,8 @@
 //The units themselves/////////////////
 
 /obj/machinery/suit_storage_unit/standard_unit
-	SUIT_TYPE = /obj/item/clothing/suit/space
-	HELMET_TYPE = /obj/item/clothing/head/helmet/space
+	SUIT_TYPE = /obj/item/clothing/suit/space/eva
+	HELMET_TYPE = /obj/item/clothing/head/helmet/space/eva
 	MASK_TYPE = /obj/item/clothing/mask/breath
 
 
