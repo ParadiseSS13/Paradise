@@ -425,6 +425,9 @@ var/list/admin_verbs_mod = list(
 		if ("Badmin") severity = 99
 
 	D.makerandom(severity)
+
+	D.spreadtype = input("What method of contagion should the disease have?", "Give Disease") in list("Airborne","Contact","Injection")
+
 	D.infectionchance = input("How virulent is this disease? (1-100)", "Give Disease", D.infectionchance) as num
 
 	if(istype(T,/mob/living/carbon/human))
