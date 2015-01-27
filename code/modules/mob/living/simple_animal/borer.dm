@@ -233,7 +233,7 @@
 		else
 			src << "\red <B>You plunge your probosci deep into the cortex of the host brain, interfacing directly with their nervous system.</B>"
 			host << "\red <B>You feel a strange shifting sensation behind your eyes as an alien consciousness displaces yours.</B>"
-
+			var/borer_key = src.key
 			host.attack_log += text("\[[time_stamp()]\] <font color='blue'>[src.name] ([src.ckey]) has assumed control of [host.name] ([host.ckey])</font>")
 			msg_admin_attack("[src.name] ([src.ckey]) has assumed control of [host.name] ([host.ckey]) (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[host.x];Y=[host.y];Z=[host.z]'>JMP</a>)")
 			// host -> brain
@@ -275,6 +275,8 @@
 			host.verbs += /mob/living/carbon/proc/punish_host
 			host.verbs += /mob/living/carbon/proc/spawn_larvae
 
+			if(src && !src.key)
+				src.key = "@[borer_key]"
 			return
 
 /mob/living/simple_animal/borer/verb/secrete_chemicals()
