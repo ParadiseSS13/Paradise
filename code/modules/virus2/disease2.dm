@@ -58,15 +58,18 @@
 		return
 
 	var/mob/living/carbon/human/MS = mob
-	if(MS && (MS.species.flags & IS_SYNTHETIC))
-		return
+	if(istype(MS))
+		if(MS.species.flags & IS_SYNTHETIC)
+			return
 
 	if(stage <= 1 && clicks == 0) 	// with a certain chance, the mob may become immune to the disease before it starts properly
 		if(prob(5))
 			mob.antibodies |= antigen
-	if(mob.radiation > 50)
-		if(prob(1))
-			majormutateinactivate(mob)
+
+//	NO MORE MUTATING IN MOBS - Bone White
+//	if(mob.radiation > 50)
+//		if(prob(1))
+//			majormutateinactivate(mob)
 
 	//Space antibiotics stop disease completely
 	if(mob.reagents.has_reagent("spaceacillin"))
