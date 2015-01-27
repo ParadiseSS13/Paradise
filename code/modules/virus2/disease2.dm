@@ -1,7 +1,7 @@
 /datum/disease2/disease
 	var/infectionchance = 70
 	var/speed = 1
-	var/spreadtype = "Contact" // Can also be "Airborne"
+	var/spreadtype = "Contact" // Can also be "Airborne" or "Injection"
 	var/stage = 1
 	var/stageprob = 10
 	var/dead = 0
@@ -16,7 +16,7 @@
 	uniqueID = rand(0,10000)
 	..()
 
-/datum/disease2/disease/proc/makerandom(var/greater=0)
+/datum/disease2/disease/proc/makerandom(var/greater=0, var/allow_injection=0)
 	for(var/i=1 ; i <= max_stage ; i++ )
 		var/datum/disease2/effectholder/holder = new /datum/disease2/effectholder
 		holder.stage = i
@@ -30,6 +30,7 @@
 	antigen |= text2num(pick(ANTIGENS))
 	antigen |= text2num(pick(ANTIGENS))
 	spreadtype = prob(70) ? "Airborne" : "Contact"
+	if(allow_injection) spreadtype = prob(20) ? spreadtype : "Injection"
 
 	if(all_species.len)
 		affected_species = get_infectable_species()
