@@ -66,10 +66,12 @@ var/list/teleportlocs = list()
 	for(var/area/AR in world)
 		if(istype(AR, /area/shuttle) || istype(AR, /area/syndicate_station) || istype(AR, /area/wizard_station)) continue
 		if(teleportlocs.Find(AR.name)) continue
-		var/turf/picked = pick(get_area_turfs(AR.type))
-		if (picked.z == 1)
-			teleportlocs += AR.name
-			teleportlocs[AR.name] = AR
+		var/list/turfs = get_area_turfs(AR.type)
+		if(turfs.len)
+			var/turf/picked = pick(turfs)
+			if (picked.z == 1)
+				teleportlocs += AR.name
+				teleportlocs[AR.name] = AR
 
 	teleportlocs = sortAssoc(teleportlocs)
 
@@ -83,10 +85,12 @@ var/list/ghostteleportlocs = list()
 		if(istype(AR, /area/turret_protected/aisat) || istype(AR, /area/derelict) || istype(AR, /area/tdome))
 			ghostteleportlocs += AR.name
 			ghostteleportlocs[AR.name] = AR
-		var/turf/picked = pick(get_area_turfs(AR.type))
-		if (picked.z == 1 || picked.z == 5 || picked.z == 3)
-			ghostteleportlocs += AR.name
-			ghostteleportlocs[AR.name] = AR
+		var/list/turfs = get_area_turfs(AR.type)
+		if(turfs.len)
+			var/turf/picked = pick(turfs)
+			if (picked.z == 1 || picked.z == 5 || picked.z == 3)
+				ghostteleportlocs += AR.name
+				ghostteleportlocs[AR.name] = AR
 
 	ghostteleportlocs = sortAssoc(ghostteleportlocs)
 
@@ -748,6 +752,15 @@ var/list/ghostteleportlocs = list()
 /area/prison/cell_block/C
 	name = "\improper Prison Cell Block C"
 	icon_state = "brig"
+	
+//Labor camp
+/area/mine/laborcamp
+	name = "Labor Camp"
+	icon_state = "brig"
+	
+/area/mine/laborcamp/security
+	name = "Labor Camp Security"
+	icon_state = "security"
 
 //STATION13
 
@@ -816,9 +829,13 @@ var/list/ghostteleportlocs = list()
 /area/maintenance/aft
 	name = "Engineering Maintenance"
 	icon_state = "amaint"
+	
+/area/maintenance/engi_shuttle
+	name = "Engineering Shuttle Access"
+	icon_state = "maint_e_shuttle"
 
 /area/maintenance/storage
-	name = "Atmospherics"
+	name = "Atmospherics Maintenance"
 	icon_state = "green"
 
 /area/maintenance/incinerator
@@ -2240,55 +2257,6 @@ area/security/podbay
 	luminosity = 1
 	lighting_use_dynamic = 0
 	requires_power = 0
-	var/sound/mysound = null
-
-	New()
-		..()
-		var/sound/S = new/sound()
-		mysound = S
-		S.file = 'sound/ambience/shore.ogg'
-		S.repeat = 1
-		S.wait = 0
-		S.channel = 123
-		S.volume = 100
-		S.priority = 255
-		S.status = SOUND_UPDATE
-		process()
-
-	Entered(atom/movable/Obj,atom/OldLoc)
-		if(ismob(Obj))
-			if(Obj:client)
-				mysound.status = SOUND_UPDATE
-				Obj << mysound
-		return
-
-	Exited(atom/movable/Obj)
-		if(ismob(Obj))
-			if(Obj:client)
-				mysound.status = SOUND_PAUSED | SOUND_UPDATE
-				Obj << mysound
-
-	proc/process()
-		//set background = 1
-
-		var/sound/S = null
-		var/sound_delay = 0
-		if(prob(25))
-			S = sound(file=pick('sound/ambience/seag1.ogg','sound/ambience/seag2.ogg','sound/ambience/seag3.ogg'), volume=100)
-			sound_delay = rand(0, 50)
-
-		for(var/mob/living/carbon/human/H in src)
-			if(H.s_tone > -55)
-				H.s_tone--
-				H.update_body()
-			if(H.client)
-				mysound.status = SOUND_UPDATE
-				H << mysound
-				if(S)
-					spawn(sound_delay)
-						H << S
-
-		spawn(60) .()
 	
 ////////////////////////AWAY AREAS///////////////////////////////////
 	

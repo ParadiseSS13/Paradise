@@ -150,6 +150,11 @@ proc/isorgan(A)
 		if(L && L.implanted)
 			return 1
 	return 0
+	
+proc/isnewplayer(A)
+	if(istype(A, /mob/new_player))
+		return 1
+	return 0
 
 proc/hasorgans(A)
 	return ishuman(A)
@@ -172,70 +177,27 @@ proc/hasorgans(A)
 // If "chest" was passed in as zone, then on a "miss" will return "head", "l_arm", or "r_arm"
 // Do not use this if someone is intentionally trying to hit a specific body part.
 // Use get_zone_with_miss_chance() for that.
-/proc/ran_zone(zone, probability)
-	zone = check_zone(zone)
-	if(!probability)	probability = 90
-	if(probability == 100)	return zone
+/proc/ran_zone(zone, probability = 80)
 
-	if(zone == "chest")
-		if(prob(probability))	return "chest"
-		var/t = rand(1, 9)
-		switch(t)
-			if(1 to 3)	return "head"
-			if(4 to 6)	return "l_arm"
-			if(7 to 9)	return "r_arm"
-
-	if(prob(probability * 0.75))	return zone
-	return "chest"
-
-// Emulates targetting a specific body part, and miss chances
-// May return null if missed
-// miss_chance_mod may be negative.
-/proc/get_zone_with_miss_chance(zone, var/mob/target, var/miss_chance_mod = 0)
 	zone = check_zone(zone)
 
-	// you can only miss if your target is standing and not restrained
-	if(!target.buckled && !target.lying)
-		var/miss_chance = 10
-		switch(zone)
-			if("head")
-				miss_chance = 40
-			if("l_leg")
-				miss_chance = 20
-			if("r_leg")
-				miss_chance = 20
-			if("l_arm")
-				miss_chance = 20
-			if("r_arm")
-				miss_chance = 20
-			if("l_hand")
-				miss_chance = 50
-			if("r_hand")
-				miss_chance = 50
-			if("l_foot")
-				miss_chance = 50
-			if("r_foot")
-				miss_chance = 50
-		miss_chance = max(miss_chance + miss_chance_mod, 0)
-		if(prob(miss_chance))
-			if(prob(70))
-				return null
-			else
-				var/t = rand(1, 10)
-				switch(t)
-					if(1)	return "head"
-					if(2)	return "l_arm"
-					if(3)	return "r_arm"
-					if(4) 	return "chest"
-					if(5) 	return "l_foot"
-					if(6)	return "r_foot"
-					if(7)	return "l_hand"
-					if(8)	return "r_hand"
-					if(9)	return "l_leg"
-					if(10)	return "r_leg"
+	if(prob(probability))
+		return zone
+
+	var/t = rand(1, 18) // randomly pick a different zone, or maybe the same one
+	switch(t)
+		if(1)		 return "head"
+		if(2)		 return "chest"
+		if(3 to 4)	 return "l_arm"
+		if(5 to 6)   return "l_hand"
+		if(7 to 8)	 return "r_arm"
+		if(9 to 10)  return "r_hand"
+		if(11 to 12) return "l_leg"
+		if(13 to 14) return "l_foot"
+		if(15 to 16) return "r_leg"
+		if(17 to 18) return "r_foot"
 
 	return zone
-
 
 /proc/stars(n, pr)
 	if (pr == null)

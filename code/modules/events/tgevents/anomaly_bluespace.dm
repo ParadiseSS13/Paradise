@@ -3,7 +3,6 @@
 	announceWhen = 10
 	endWhen = 160
 
-
 /datum/event/anomaly/anomaly_bluespace/announce()
 	command_alert("Unstable bluespace anomaly detected on long range scanners. Expected location: [impact_area.name].", "Anomaly Alert")
 
@@ -22,6 +21,8 @@
 			var/obj/item/device/radio/beacon/chosen
 			var/list/possible = list()
 			for(var/obj/item/device/radio/beacon/W in world)
+				if(W.z != 1)
+					continue
 				possible += W
 
 			if(possible.len > 0)
@@ -30,7 +31,7 @@
 			if(chosen)
 					// Calculate previous position for transition
 
-				var/turf/FROM = newAnomaly.loc // the turf of origin we're travelling FROM
+				var/turf/FROM = T // the turf of origin we're travelling FROM
 				var/turf/TO = get_turf(chosen)			 // the turf of origin we're travelling TO
 
 				playsound(TO, 'sound/effects/phasein.ogg', 100, 1)
@@ -46,10 +47,7 @@
 				var/x_distance = TO.x - FROM.x
 				for (var/atom/movable/A in range(12, FROM )) // iterate thru list of mobs in the area
 					if(istype(A, /obj/item/device/radio/beacon)) continue // don't teleport beacons because that's just insanely stupid
-					if(A.anchored && istype(A, /obj/machinery)) continue
-					if(istype(A, /obj/structure/disposalpipe )) continue
-					if(istype(A, /obj/structure/disposaloutlet)) continue
-					if(istype(A, /obj/structure/cable )) continue
+					if(A.anchored) continue
 
 					var/turf/newloc = locate(A.x + x_distance, A.y + y_distance, TO.z) // calculate the new place
 					if(!A.Move(newloc)) // if the atom, for some reason, can't move, FORCE them to move! :) We try Move() first to invoke any movement-related checks the atom needs to perform after moving
@@ -68,5 +66,5 @@
 								M.client.screen += blueeffect
 								sleep(20)
 								M.client.screen -= blueeffect
-								del(blueeffect)
-			del(newAnomaly)
+								qdel(blueeffect)
+			qdel(newAnomaly)

@@ -111,8 +111,8 @@
 /obj/item/weapon/robot_module/crisis
 	name = "crisis robot module"
 	stacktypes = list(
-		/obj/item/stack/medical/ointment = 5,
-		/obj/item/stack/medical/bruise_pack = 5,
+		/obj/item/stack/medical/advanced/ointment = 5,
+		/obj/item/stack/medical/advanced/bruise_pack = 5,
 		/obj/item/stack/medical/splint = 5
 		)
 
@@ -123,8 +123,8 @@
 		src.modules += new /obj/item/device/healthanalyzer(src)
 		src.modules += new /obj/item/device/reagent_scanner/adv(src)
 		src.modules += new /obj/item/roller_holder(src)
-		src.modules += new /obj/item/stack/medical/ointment(src)
-		src.modules += new /obj/item/stack/medical/bruise_pack(src)
+		src.modules += new /obj/item/stack/medical/advanced/ointment(src)
+		src.modules += new /obj/item/stack/medical/advanced/bruise_pack(src)
 		src.modules += new /obj/item/stack/medical/splint(src)
 		src.modules += new /obj/item/weapon/reagent_containers/borghypo/crisis(src)
 		src.modules += new /obj/item/weapon/reagent_containers/glass/beaker/large(src)
@@ -338,9 +338,9 @@
 	src.modules += new /obj/item/device/flash/cyborg(src)
 	src.modules += new /obj/item/device/flashlight(src)
 	src.modules += new /obj/item/weapon/melee/energy/sword/cyborg(src)
-	src.modules += new /obj/item/weapon/gun/energy/crossbow/cyborg(src)
+	src.modules += new /obj/item/weapon/gun/energy/printer(src)
+	src.modules += new /obj/item/weapon/gun/projectile/revolver/grenadelauncher/multi/cyborg(src)
 	src.modules += new /obj/item/weapon/card/emag(src)
-	src.modules += new /obj/item/weapon/gun/energy/laser/cyborg(src)
 	src.modules += new /obj/item/weapon/tank/jetpack/carbondioxide(src)
 	src.modules += new /obj/item/weapon/crowbar(src)
 	src.emag = null

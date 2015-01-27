@@ -57,6 +57,7 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 	icon_state = "cigoff"
 	throw_speed = 0.5
 	item_state = "cigoff"
+	slot_flags = SLOT_EARS|SLOT_MASK
 	w_class = 1
 	body_parts_covered = null
 	attack_verb = list("burnt", "singed")

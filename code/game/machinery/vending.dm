@@ -862,7 +862,7 @@
 	req_access_txt = "1"
 	products = list(/obj/item/weapon/handcuffs = 8,/obj/item/weapon/grenade/flashbang = 4,/obj/item/device/flash = 5,
 					/obj/item/weapon/reagent_containers/food/snacks/donut/normal = 12,/obj/item/weapon/storage/box/evidence = 6,/obj/item/device/flashlight/seclite = 4)
-	contraband = list(/obj/item/clothing/glasses/sunglasses = 2,/obj/item/weapon/storage/fancy/donut_box = 2)
+	contraband = list(/obj/item/clothing/glasses/sunglasses = 2,/obj/item/weapon/storage/fancy/donut_box = 2,/obj/item/device/hailer = 5)
 
 /obj/machinery/vending/hydronutrients
 	name = "NutriMax"
@@ -1017,7 +1017,7 @@
 /obj/machinery/vending/eva
 	name = "Hardsuit Kits"
 	desc = "Conversion kits for your alien hardsuit needs."
-	products = list(/obj/item/device/modkit = 6,/obj/item/device/modkit/tajaran = 6,/obj/item/device/modkit/unathi = 6)
+	products = list(/obj/item/device/modkit = 6,/obj/item/device/modkit/tajaran = 6,/obj/item/device/modkit/unathi = 6,/obj/item/device/modkit/vox = 6)
 
 
 /obj/machinery/vending/sustenance
@@ -1105,8 +1105,9 @@
 	/obj/item/clothing/under/sundress=2,/obj/item/clothing/under/stripeddress = 1, /obj/item/clothing/under/sailordress = 1, /obj/item/clothing/under/redeveninggown = 1, /obj/item/clothing/under/blacktango=1,/obj/item/clothing/suit/jacket=3,
 	/obj/item/clothing/glasses/regular=2,/obj/item/clothing/head/sombrero=1,/obj/item/clothing/suit/poncho=1,
 	/obj/item/clothing/suit/ianshirt=1,/obj/item/clothing/shoes/laceup=2,/obj/item/clothing/shoes/black=4,
-	/obj/item/clothing/shoes/sandal=1)
-	contraband = list(/obj/item/clothing/under/syndicate/tacticool=1,/obj/item/clothing/mask/balaclava=1,/obj/item/clothing/head/ushanka=1,/obj/item/clothing/under/soviet=1)
+	/obj/item/clothing/shoes/sandal=1,
+	/obj/item/weapon/storage/belt/fannypack=1, /obj/item/weapon/storage/belt/fannypack/blue=1, /obj/item/weapon/storage/belt/fannypack/red=1)
+	contraband = list(/obj/item/clothing/under/syndicate/tacticool=1,/obj/item/clothing/mask/balaclava=1,/obj/item/clothing/head/ushanka=1,/obj/item/clothing/under/soviet=1,/obj/item/weapon/storage/belt/fannypack/black=1)
 	premium = list(/obj/item/clothing/under/suit_jacket/checkered=1,/obj/item/clothing/head/mailman=1,/obj/item/clothing/under/rank/mailman=1,/obj/item/clothing/suit/jacket/leather=1,/obj/item/clothing/under/pants/mustangjeans=1)
 	refill_canister = /obj/item/weapon/vending_refill/clothing
 

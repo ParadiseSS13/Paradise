@@ -94,7 +94,7 @@
 	displays_id = 0
 
 /obj/item/clothing/under/rank/centcom/blueshield
-	desc = "Gold trim on space-black cloth, this uniform displays the rank of \"Lieutenant\" and bears \"N.C.S. Cyberiad\" on the left shounder."
+	desc = "Gold trim on space-black cloth, this uniform displays the rank of \"Lieutenant\" and bears \"N.S.S. Cyberiad\" on the left shounder."
 	name = "\improper Nanotrasen Navy Uniform"
 	icon_state = "officer"
 	item_state = "g_suit"
@@ -103,7 +103,7 @@
 	flags = FPRINT | TABLEPASS | ONESIZEFITSALL
 
 /obj/item/clothing/under/rank/centcom/representative
-	desc = "Gold trim on space-black cloth, this uniform displays the rank of \"Ensign\" and bears \"N.C.S. Cyberiad\" on the left shounder."
+	desc = "Gold trim on space-black cloth, this uniform displays the rank of \"Ensign\" and bears \"N.S.S. Cyberiad\" on the left shounder."
 	name = "\improper Nanotrasen Navy Uniform"
 	icon_state = "officer"
 	item_state = "g_suit"
@@ -433,7 +433,6 @@
 	icon_state = "roman"
 	_color = "roman"
 	item_state = "armor"
-	armor = list(melee = 25, bullet = 0, laser = 25, energy = 10, bomb = 10, bio = 0, rad = 0)
 
 /obj/item/clothing/under/maid
 	name = "maid costume"

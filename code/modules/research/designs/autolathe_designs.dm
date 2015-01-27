@@ -233,6 +233,14 @@
 	materials = list("$metal" = MINERAL_MATERIAL_AMOUNT)
 	build_path = /obj/item/stack/sheet/metal
 	category = list("initial","Construction")
+	
+/datum/design/newscaster_frame
+	name = "Newscaster Frame"
+	id = "newscaster_frame"
+	build_type = AUTOLATHE
+	materials = list("$metal" = 14000, "$glass" = 8000)
+	build_path = /obj/item/newscaster_frame
+	category = list("initial", "Construction")
 
 /datum/design/rcd_ammo
 	name = "Compressed Matter Cardridge"

@@ -7,6 +7,7 @@
 	anchored = 1.0
 	use_power = 1
 	current_heat_capacity = 1000
+	layer = 3
 
 /obj/machinery/atmospherics/unary/cold_sink/freezer/New()
 	..()
@@ -137,6 +138,7 @@
 	density = 1
 	var/max_temperature = 0
 	anchored = 1.0
+	layer = 3
 
 	current_heat_capacity = 1000
 

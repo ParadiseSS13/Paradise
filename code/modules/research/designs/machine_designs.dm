@@ -55,7 +55,7 @@
 /datum/design/bodyscanner
 	name = "Machine Board (Body Scanner)"
 	desc = "Allows for the construction of circuit boards used to build a Body Scanner."
-	id = "sleeper"
+	id = "bodyscanner"
 	req_tech = list("programming" = 3, "biotech" = 2, "materials" = 3, "engineering" = 3)
 	build_type = IMPRINTER
 	materials = list("$glass" = 1000, "sacid" = 20)
@@ -65,7 +65,7 @@
 /datum/design/sleep_console
 	name = "Machine Board (Body Scanner Console)"
 	desc = "Allows for the construction of circuit boards used to build a Body Scanner Console."
-	id = "sleeper"
+	id = "bodyscanner_console"
 	req_tech = list("programming" = 3, "biotech" = 2, "materials" = 3, "engineering" = 3)
 	build_type = IMPRINTER
 	materials = list("$glass" = 1000, "sacid" = 20)
@@ -125,7 +125,7 @@
 /datum/design/sleep_console
 	name = "Machine Board (Sleeper Console)"
 	desc = "Allows for the construction of circuit boards used to build a Sleeper Console."
-	id = "sleeper"
+	id = "sleeper_console"
 	req_tech = list("programming" = 3, "biotech" = 2, "materials" = 3, "engineering" = 3)
 	build_type = IMPRINTER
 	materials = list("$glass" = 1000, "sacid" = 20)

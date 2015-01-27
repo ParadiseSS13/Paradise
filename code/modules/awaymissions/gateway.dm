@@ -9,10 +9,11 @@
 	var/active = 0
 
 
-/obj/machinery/gateway/initialize()
-	update_icon()
-	if(dir == 2)
-		density = 0
+/obj/machinery/gateway/New()
+	spawn(25)
+		update_icon()
+		if(dir == 2)
+			density = 0
 
 
 /obj/machinery/gateway/update_icon()
@@ -35,10 +36,11 @@
 	var/wait = 0				//this just grabs world.time at world start
 	var/obj/machinery/gateway/centeraway/awaygate = null
 
-/obj/machinery/gateway/centerstation/initialize()
-	update_icon()
-	wait = world.time + config.gateway_delay	//+ thirty minutes default
-	awaygate = locate(/obj/machinery/gateway/centeraway) in world
+/obj/machinery/gateway/centerstation/New()
+	spawn(25)
+		update_icon()
+		wait = world.time + config.gateway_delay	//+ thirty minutes default
+		awaygate = locate(/obj/machinery/gateway/centeraway) in world
 
 
 /obj/machinery/gateway/centerstation/update_icon()
@@ -153,9 +155,10 @@ obj/machinery/gateway/centerstation/process()
 	var/obj/machinery/gateway/centeraway/stationgate = null
 
 
-/obj/machinery/gateway/centeraway/initialize()
-	update_icon()
-	stationgate = locate(/obj/machinery/gateway/centerstation) in world
+/obj/machinery/gateway/centeraway/New()
+	spawn(25)
+		update_icon()
+		stationgate = locate(/obj/machinery/gateway/centerstation) in world
 
 
 /obj/machinery/gateway/centeraway/update_icon()

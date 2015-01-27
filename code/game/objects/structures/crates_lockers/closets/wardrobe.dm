@@ -20,6 +20,8 @@
 	icon_closed = "red"
 
 /obj/structure/closet/wardrobe/red/New()
+	new /obj/item/weapon/storage/backpack/duffel/security(src)
+	new /obj/item/weapon/storage/backpack/duffel/security(src)
 	new /obj/item/clothing/under/rank/security(src)
 	new /obj/item/clothing/under/rank/security(src)
 	new /obj/item/clothing/under/rank/security(src)
@@ -377,6 +379,8 @@
 	new /obj/item/clothing/head/soft/grey(src)
 	new /obj/item/clothing/head/soft/grey(src)
 	new /obj/item/clothing/head/soft/grey(src)
+	if(prob(50))
+		new /obj/item/weapon/storage/backpack/duffel(src)
 	return
 
 

@@ -124,14 +124,14 @@ var/global/sent_strike_team = 0
 
 /mob/living/carbon/human/proc/equip_death_commando(leader_selected = 0)
 
-	var/obj/item/device/radio/R = new /obj/item/device/radio/headset(src)
+	var/obj/item/device/radio/R = new /obj/item/device/radio/headset/alt(src)
 	R.set_frequency(1441)
 	equip_to_slot_or_del(R, slot_l_ear)
 	if (leader_selected == 0)
 		equip_to_slot_or_del(new /obj/item/clothing/under/color/green(src), slot_w_uniform)
 	else
 		equip_to_slot_or_del(new /obj/item/clothing/under/rank/centcom_officer(src), slot_w_uniform)
-	equip_to_slot_or_del(new /obj/item/clothing/shoes/combat/swat(src), slot_shoes)
+	equip_to_slot_or_del(new /obj/item/clothing/shoes/magboots/advance(src), slot_shoes)
 	equip_to_slot_or_del(new /obj/item/clothing/suit/space/deathsquad(src), slot_wear_suit)
 	equip_to_slot_or_del(new /obj/item/clothing/gloves/swat(src), slot_gloves)
 	equip_to_slot_or_del(new /obj/item/clothing/head/helmet/space/deathsquad(src), slot_head)
@@ -153,7 +153,7 @@ var/global/sent_strike_team = 0
 
 	equip_to_slot_or_del(new /obj/item/weapon/melee/energy/sword(src), slot_l_store)
 	equip_to_slot_or_del(new /obj/item/weapon/grenade/flashbang(src), slot_r_store)
-	equip_to_slot_or_del(new /obj/item/weapon/tank/emergency_oxygen(src), slot_s_store)
+	equip_to_slot_or_del(new /obj/item/weapon/tank/emergency_oxygen/double/full(src), slot_s_store)
 	equip_to_slot_or_del(new /obj/item/weapon/gun/projectile/revolver/mateba(src), slot_belt)
 
 	equip_to_slot_or_del(new /obj/item/weapon/gun/energy/pulse_rifle(src), slot_r_hand)

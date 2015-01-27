@@ -445,3 +445,17 @@ proc/isInSight(var/atom/A, var/atom/B)
 	var/g = mixOneColor(weights, greens)
 	var/b = mixOneColor(weights, blues)
 	return rgb(r,g,b)
+
+/proc/alone_in_area(var/area/the_area, var/mob/must_be_alone, var/check_type = /mob/living/carbon)
+	var/area/our_area = get_area_master(the_area)
+	for(var/C in living_mob_list)
+		if(!istype(C, check_type))
+			continue
+		if(C == must_be_alone)
+			continue
+		if(our_area == get_area_master(C))
+			return 0
+	return 1
+	
+/proc/MinutesToTicks(var/minutes as num)
+	return minutes * 60 * 10

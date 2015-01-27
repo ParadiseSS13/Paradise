@@ -167,7 +167,7 @@ var/MAX_EXPLOSION_RANGE = 14
 
 #define FLOWFRAC 0.99				// fraction of gas transfered per process
 
-#define SHOES_SLOWDOWN 0			// How much shoes slow you down by default. Negative values speed you up
+#define SHOES_SLOWDOWN -1.0			// How much shoes slow you down by default. Negative values speed you up
 
 
 //ITEM INVENTORY SLOT BITMASKS
@@ -210,6 +210,9 @@ var/MAX_EXPLOSION_RANGE = 14
 #define HEADCOVERSEYES		1024		// feel free to realloc these numbers for other purposes
 #define MASKCOVERSMOUTH		2048		// on other items, these are just for mask/head
 #define HEADCOVERSMOUTH		2048
+
+#define HEADBANGPROTECT		4096
+#define EARBANGPROTECT		1024
 
 #define NOSLIP		1024 		//prevents from slipping on wet floors, in space etc
 

@@ -260,7 +260,7 @@
 		if(do_after(melee_cooldown))
 			melee_can_hit = 1
 	return
-	
+
 /obj/mecha/proc/mech_toxin_damage(mob/living/target)
 	playsound(src, 'sound/effects/spray2.ogg', 50, 1)
 	if(target.reagents)
@@ -554,8 +554,10 @@
 		return
 	if(istype(Proj, /obj/item/projectile/beam/pulse))
 		ignore_threshold = 1
-	src.take_damage(Proj.damage,Proj.flag)
-	src.check_for_internal_damage(list(MECHA_INT_FIRE,MECHA_INT_TEMP_CONTROL,MECHA_INT_TANK_BREACH,MECHA_INT_CONTROL_LOST,MECHA_INT_SHORT_CIRCUIT),ignore_threshold)
+	if((Proj.damage_type == BRUTE || Proj.damage_type == BURN))
+		src.take_damage(Proj.damage,Proj.flag)
+		src.visible_message("<span class='danger'>[src.name] is hit by [Proj].</span>")
+		src.check_for_internal_damage(list(MECHA_INT_FIRE,MECHA_INT_TEMP_CONTROL,MECHA_INT_TANK_BREACH,MECHA_INT_CONTROL_LOST,MECHA_INT_SHORT_CIRCUIT),ignore_threshold)
 	Proj.on_hit(src)
 	return
 

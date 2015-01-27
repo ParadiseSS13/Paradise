@@ -54,7 +54,7 @@
 	var/list/data[0]
 	data["alarm"]=null
 	if(current)
-		data += current.get_nano_data(user,TRUE)
+		data += current.get_nano_data(user,1,emagged)
 		data["alarm"] = "\ref[current]"
 
 	var/list/alarms=list()

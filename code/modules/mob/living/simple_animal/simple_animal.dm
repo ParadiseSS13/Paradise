@@ -56,7 +56,7 @@
 	var/friendly = "nuzzles" //If the mob does no damage with it's attack
 	var/environment_smash = 0 //Set to 1 to allow breaking of crates,lockers,racks,tables; 2 for walls; 3 for Rwalls
 
-	var/speed = 0 //LETS SEE IF I CAN SET SPEEDS FOR SIMPLE MOBS WITHOUT DESTROYING EVERYTHING. Higher speed is slower, negative speed is faster
+	var/speed = 1 //LETS SEE IF I CAN SET SPEEDS FOR SIMPLE MOBS WITHOUT DESTROYING EVERYTHING. Higher speed is slower, negative speed is faster
 	var/can_hide    = 0
 
 //Hot simple_animal baby making vars
@@ -159,7 +159,7 @@
 
 		if(Environment)
 
-			if( abs(Environment.temperature - bodytemperature) > 40 )
+			if( abs(Environment.temperature - bodytemperature) > 40 && !(flags & IS_SYNTHETIC))
 				bodytemperature += ((Environment.temperature - bodytemperature) / 5)
 
 			if(min_oxy)
@@ -251,8 +251,11 @@
 		adjustBruteLoss(damage)
 
 /mob/living/simple_animal/bullet_act(var/obj/item/projectile/Proj)
-	if(!Proj)	return
-	adjustBruteLoss(Proj.damage)
+	if(!Proj)
+		return
+	if((Proj.damage_type != STAMINA))
+		adjustBruteLoss(Proj.damage)
+		Proj.on_hit(src, 0)
 	return 0
 
 /mob/living/simple_animal/attack_hand(mob/living/carbon/human/M as mob)

@@ -457,7 +457,10 @@
 	language = "Chittin"
 	unarmed_type = /datum/unarmed_attack/claws
 
-	flags = IS_WHITELISTED | HAS_CHITTIN
+
+	brute_mod = 0.8
+
+	flags = IS_WHITELISTED
 	bloodflags = BLOOD_GREEN
 	bodyflags = FEET_CLAWS
 
@@ -489,6 +492,8 @@
 	unarmed_type = /datum/unarmed_attack/punch
 	darksight = 5 // BOOSTED from 2
 	eyes = "grey_eyes_s"
+
+	brute_mod = 1.25 //greys are fragile
 
 	primitive = /mob/living/carbon/monkey // TODO
 

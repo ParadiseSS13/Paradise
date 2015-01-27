@@ -436,6 +436,7 @@
 	desc = "A colourful crayon. Looks tasty. Mmmm..."
 	icon = 'icons/obj/crayons.dmi'
 	icon_state = "crayonred"
+	slot_flags = SLOT_EARS
 	w_class = 1.0
 	attack_verb = list("attacked", "coloured")
 	var/colour = "#FF0000" //RGB

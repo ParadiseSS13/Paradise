@@ -32,8 +32,8 @@
 /mob/living/simple_animal/hostile/asteroid/bullet_act(var/obj/item/projectile/P)//Reduces damage from most projectiles to curb off-screen kills
 	if(!stat)
 		Aggro()
-	if(P.damage < 30)
-		P.damage = (P.damage / 2)
+	if(P.damage < 30 && P.damage_type != BRUTE)
+		P.damage = (P.damage / 3)
 		visible_message("<span class='danger'>The [P] has a reduced effect on [src]!</span>")
 	..()
 
@@ -42,7 +42,7 @@
 		var/obj/item/T = AM
 		if(!stat)
 			Aggro()
-		if(T.throwforce <= 15)
+		if(T.throwforce <= 20)
 			visible_message("<span class='notice'>The [T.name] [src.throw_message] [src.name]!</span>")
 			return
 	..()
@@ -76,6 +76,8 @@
 	ranged_cooldown_cap = 4
 	aggro_vision_range = 9
 	idle_vision_range = 2
+	turns_per_move = 5
+	var/droppeddiamond = 0 // Safety check to prevent diamond duplication bug
 
 /obj/item/projectile/temp/basilisk
 	name = "freezing blast"
@@ -108,10 +110,12 @@
 			adjustBruteLoss(110)
 
 /mob/living/simple_animal/hostile/asteroid/basilisk/Die()
-	var/counter
-	for(counter=0, counter<2, counter++)
-		var/obj/item/weapon/ore/diamond/D = new /obj/item/weapon/ore/diamond(src.loc)
-		D.layer = 4.1
+	if(!droppeddiamond)
+		var/counter
+		for(counter=0, counter<2, counter++)
+			var/obj/item/weapon/ore/diamond/D = new /obj/item/weapon/ore/diamond(src.loc)
+			D.layer = 4.1
+		droppeddiamond = 1
 	..()
 
 /mob/living/simple_animal/hostile/asteroid/goldgrub
@@ -123,13 +127,13 @@
 	icon_aggro = "Goldgrub_alert"
 	icon_dead = "Goldgrub_dead"
 	icon_gib = "syndicate_gib"
-	vision_range = 3
+	vision_range = 2
 	aggro_vision_range = 9
-	idle_vision_range = 3
-	move_to_delay = 3
+	idle_vision_range = 2
+	move_to_delay = 5
 	friendly = "harmlessly rolls into"
-	maxHealth = 60
-	health = 60
+	maxHealth = 45
+	health = 45
 	harm_intent_damage = 5
 	melee_damage_lower = 0
 	melee_damage_upper = 0
@@ -206,6 +210,10 @@
 /mob/living/simple_animal/hostile/asteroid/goldgrub/Die()
 	alerted = 0
 	Reward()
+	..()
+
+/mob/living/simple_animal/hostile/asteroid/goldgrub/adjustBruteLoss(var/damage)
+	idle_vision_range = 9
 	..()
 
 /mob/living/simple_animal/hostile/asteroid/hivelord
@@ -293,7 +301,7 @@
 	icon_dead = "Hivelordbrood"
 	icon_gib = "syndicate_gib"
 	mouse_opacity = 2
-	move_to_delay = 0
+	move_to_delay = 1
 	friendly = "buzzes near"
 	vision_range = 10
 	speed = 3
@@ -328,9 +336,10 @@
 	mouse_opacity = 2
 	move_to_delay = 40
 	ranged = 1
+	ranged_cooldown = 2 //By default, start the Goliath with his cooldown off so that people can run away quickly on first sight
 	ranged_cooldown_cap = 8
 	friendly = "wails at"
-	vision_range = 5
+	vision_range = 4
 	speed = 3
 	maxHealth = 300
 	health = 300
@@ -341,17 +350,49 @@
 	throw_message = "does nothing to the rocky hide of the"
 	aggro_vision_range = 9
 	idle_vision_range = 5
+	anchored = 1 //Stays anchored until death as to be unpullable
+	var/pre_attack = 0
+
+/mob/living/simple_animal/hostile/asteroid/goliath/Life()
+	..()
+	handle_preattack()
+
+/mob/living/simple_animal/hostile/asteroid/goliath/proc/handle_preattack()
+	if(ranged_cooldown <= 2 && !pre_attack)
+		pre_attack++
+	if(!pre_attack || stat || stance == HOSTILE_STANCE_IDLE)
+		return
+	icon_state = "Goliath_preattack"
+
+/mob/living/simple_animal/hostile/asteroid/goliath/revive()
+	anchored = 1
+	..()
+
+/mob/living/simple_animal/hostile/asteroid/goliath/Die()
+	anchored = 0
+	..()
 
 /mob/living/simple_animal/hostile/asteroid/goliath/OpenFire()
-	visible_message("<span class='warning'>The [src.name] digs its tentacles under [target.name]!</span>")
 	var/tturf = get_turf(target)
-	new /obj/effect/goliath_tentacle/original(tturf)
-	ranged_cooldown = ranged_cooldown_cap
+	if(get_dist(src, target) <= 7)//Screen range check, so you can't get tentacle'd offscreen
+		visible_message("<span class='warning'>The [src.name] digs its tentacles under [target.name]!</span>")
+		new /obj/effect/goliath_tentacle/original(tturf)
+		ranged_cooldown = ranged_cooldown_cap
+		icon_state = icon_aggro
+		pre_attack = 0
 	return
 
 /mob/living/simple_animal/hostile/asteroid/goliath/adjustBruteLoss(var/damage)
 	ranged_cooldown--
+	handle_preattack()
 	..()
+
+/mob/living/simple_animal/hostile/asteroid/goliath/Aggro()
+	vision_range = aggro_vision_range
+	handle_preattack()
+	if(icon_state != icon_aggro)
+		icon_state = icon_aggro
+	return
 
 /obj/effect/goliath_tentacle/
 	name = "Goliath tentacle"
@@ -369,6 +410,9 @@
 /obj/effect/goliath_tentacle/original
 
 /obj/effect/goliath_tentacle/original/New()
+	for(var/obj/effect/goliath_tentacle/original/O in loc)//No more GG NO RE from 2+ goliaths simultaneously tentacling you
+		if(O != src)
+			qdel(src)
 	var/list/directions = cardinal.Copy()
 	var/counter
 	for(counter = 1, counter <= 3, counter++)
@@ -377,6 +421,7 @@
 		var/turf/T = get_step(src,spawndir)
 		new /obj/effect/goliath_tentacle(T)
 	..()
+
 
 /obj/effect/goliath_tentacle/proc/Trip()
 	for(var/mob/living/M in src.loc)
@@ -400,6 +445,7 @@
 	desc = "Pieces of a goliath's rocky hide, these might be able to make your suit a bit more durable to attack from the local fauna."
 	icon = 'icons/obj/items.dmi'
 	icon_state = "goliath_hide"
+	flags = NOBLUDGEON
 	w_class = 3
 	layer = 4
 
@@ -408,10 +454,31 @@
 		if(istype(target, /obj/item/clothing/suit/space/rig/mining) || istype(target, /obj/item/clothing/head/helmet/space/rig/mining))
 			var/obj/item/clothing/C = target
 			var/current_armor = C.armor
-			if(current_armor.["melee"] < 90)
-				current_armor.["melee"] = min(current_armor.["melee"] + 10, 90)
+			if(current_armor.["melee"] < 80)
+				current_armor.["melee"] = min(current_armor.["melee"] + 10, 80)
 				user << "<span class='info'>You strengthen [target], improving its resistance against melee attacks.</span>"
 				del(src)
 			else
 				user << "<span class='info'>You can't improve [C] any further.</span>"
-	return
+				return
+		if(istype(target, /obj/mecha/working/ripley))
+			var/obj/mecha/D = target
+			var/list/damage_absorption = D.damage_absorption
+			if(damage_absorption.["brute"] > 0.3)
+				damage_absorption.["brute"] = max(damage_absorption.["brute"] - 0.1, 0.3)
+				user << "<span class='info'>You strengthen [target], improving its resistance against melee attacks.</span>"
+				qdel(src)
+				if(D.icon_state == "ripley-open")
+					D.overlays += image("icon"="mecha.dmi", "icon_state"="ripley-g-open")
+					D.desc = "Autonomous Power Loader Unit. Its armour is enhanced with some goliath hide plates."
+				else
+					user << "<span class='info'>You can't add armour onto the mech while someone is inside!</span>"
+				if(damage_absorption.["brute"] == 0.3)
+					if(D.icon_state == "ripley-open")
+						D.overlays += image("icon"="mecha.dmi", "icon_state"="ripley-g-full-open")
+						D.desc = "Autonomous Power Loader Unit. It's wearing a fearsome carapace entirely composed of goliath hide plates - the pilot must be an experienced monster hunter."
+					else
+						user << "<span class='info'>You can't add armour onto the mech while someone is inside!</span>"
+			else
+				user << "<span class='info'>You can't improve [D] any further.</span>"
+				return

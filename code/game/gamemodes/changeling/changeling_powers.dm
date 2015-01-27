@@ -268,6 +268,9 @@
 	src.dna = chosen_dna.Clone()
 	src.real_name = chosen_dna.real_name
 	src.flavor_text = ""
+	if(ishuman(src))
+		var/mob/living/carbon/human/H = src
+		H.set_species()
 	src.UpdateAppearance()
 	domutcheck(src, null)
 
@@ -408,7 +411,7 @@
 	O.dna = C.dna.Clone()
 	C.dna = null
 	O.real_name = chosen_dna.real_name
-
+	O.set_species()
 	for(var/obj/T in C)
 		del(T)
 
@@ -729,7 +732,7 @@ var/list/datum/dna/hivemind_bank = list()
 		src << "<span class='notice'>We return our vocal glands to their original location.</span>"
 		return
 
-	var/mimic_voice = input("Enter a name to mimic.", "Mimic Voice", null) as text
+	var/mimic_voice = stripped_input(usr, "Enter a name to mimic.", "Mimic Voice", null, MAX_NAME_LEN)
 	if(!mimic_voice)
 		return
 
@@ -927,6 +930,10 @@ var/list/datum/dna/hivemind_bank = list()
 
 	var/mob/living/carbon/human/T = changeling_sting(40, /mob/proc/changeling_extract_dna_sting)
 	if(!T)	return 0
+	if(T.species.flags & NO_SCAN) // Yeah, this needs the same protection, otherwise you can steal DNA from Slime People and then blood overdose when you turn into one.
+		src << "<span class='warning'>We do not know how to parse this creature's DNA!</span>"
+		changeling.chem_charges += 40
+		return 0
 
 	T.dna.real_name = T.real_name
 	changeling.absorbed_dna |= T.dna

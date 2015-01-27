@@ -12,6 +12,12 @@
 			return
 
 	if(istype(src.loc,/mob/living/simple_animal/borer))
+		message = trim(copytext(sanitize(message), 1, MAX_MESSAGE_LEN))
+		if (!message)
+			return
+		log_say("[key_name(src)] : [message]")
+		if (stat == 2)
+			return say_dead(message)
 		var/mob/living/simple_animal/borer/B = src.loc
 		src << "You whisper silently, \"[message]\""
 		B.host << "The captive mind of [src] whispers, \"[message]\""
@@ -95,7 +101,6 @@
 /mob/living/simple_animal/borer/New(var/by_gamemode=0)
 	..()
 	truename = "[pick("Primary","Secondary","Tertiary","Quaternary")] [rand(1000,9999)]"
-	host_brain = new/mob/living/captive_brain(src)
 
 	if(!by_gamemode)
 		request_player()
@@ -215,10 +220,6 @@
 		src << "You cannot do that in your current state."
 		return
 
-	if(!host.internal_organs_by_name["brain"]) //this should only run in admin-weirdness situations, but it's here non the less - RR
-		src << "<span class='warning'>There is no brain here for us to command!</span>"
-		return
-
 	if(docile)
 		src << "\blue You are feeling far too docile to do that."
 		return
@@ -232,7 +233,9 @@
 		else
 			src << "\red <B>You plunge your probosci deep into the cortex of the host brain, interfacing directly with their nervous system.</B>"
 			host << "\red <B>You feel a strange shifting sensation behind your eyes as an alien consciousness displaces yours.</B>"
-
+			var/borer_key = src.key
+			host.attack_log += text("\[[time_stamp()]\] <font color='blue'>[src.name] ([src.ckey]) has assumed control of [host.name] ([host.ckey])</font>")
+			msg_admin_attack("[src.name] ([src.ckey]) has assumed control of [host.name] ([host.ckey]) (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[host.x];Y=[host.y];Z=[host.z]'>JMP</a>)")
 			// host -> brain
 			var/h2b_id = host.computer_id
 			var/h2b_ip= host.lastKnownIP
@@ -243,6 +246,8 @@
 			host_brain = new(src)
 
 			host_brain.ckey = host.ckey
+
+			host_brain.name = host.name
 
 			if(!host_brain.computer_id)
 				host_brain.computer_id = h2b_id
@@ -270,11 +275,13 @@
 			host.verbs += /mob/living/carbon/proc/punish_host
 			host.verbs += /mob/living/carbon/proc/spawn_larvae
 
+			if(src && !src.key)
+				src.key = "@[borer_key]"
 			return
 
 /mob/living/simple_animal/borer/verb/secrete_chemicals()
 	set category = "Alien"
-	set name = "Secrete Chemicals"
+	set name = "Secrete Chemicals (50)"
 	set desc = "Push some chemicals into your host's bloodstream."
 
 	if(!host)
@@ -291,9 +298,9 @@
 	if(chemicals < 50)
 		src << "You don't have enough chemicals!"
 
-	var/chem = input("Select a chemical to secrete.", "Chemicals") in list("bicaridine","tramadol","hyperzine","alkysine")
+	var/chem = input("Select a chemical to secrete.", "Chemicals") as null|anything in list("alkysine","bicaridine","hyperzine","tramadol")
 
-	if(chemicals < 50 || !host || controlling || !src || stat) //Sanity check.
+	if(!chem || chemicals < 50 || !host || controlling || !src || stat) //Sanity check.
 		return
 
 	src << "\red <B>You squirt a measure of [chem] from your reservoirs into [host]'s bloodstream.</B>"
@@ -331,6 +338,7 @@
 		src << "You wiggle out of [host]'s ear and plop to the ground."
 
 		detatch()
+		leave_host()
 
 mob/living/simple_animal/borer/proc/detatch()
 
@@ -341,14 +349,10 @@ mob/living/simple_animal/borer/proc/detatch()
 		var/datum/organ/external/head = H.get_organ("head")
 		head.implants -= src
 
-	src.loc = get_turf(host)
 	controlling = 0
 
 	reset_view(null)
 	machine = null
-
-	host.reset_view(null)
-	host.machine = null
 
 	host.verbs -= /mob/living/carbon/proc/release_control
 	host.verbs -= /mob/living/carbon/proc/punish_host
@@ -356,7 +360,8 @@ mob/living/simple_animal/borer/proc/detatch()
 
 
 	if(host_brain)
-
+		host.attack_log += text("\[[time_stamp()]\] <font color='blue'>[host_brain.name] ([host_brain.ckey]) has taken control back from [src.name] ([host.ckey])</font>")
+		msg_admin_attack("[host_brain.name] ([host_brain.ckey]) has taken control back from [src.name] ([host.ckey]) (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[host.x];Y=[host.y];Z=[host.z]'>JMP</a>)")
 		// host -> self
 		var/h2s_id = host.computer_id
 		var/h2s_ip= host.lastKnownIP
@@ -387,11 +392,23 @@ mob/living/simple_animal/borer/proc/detatch()
 
 	del(host_brain)
 
+	return
+
+/mob/living/simple_animal/borer/proc/leave_host()
+
+	if(!host)	return
+
+	src.loc = get_turf(host)
+
+	reset_view(null)
+	machine = null
+
+	host.reset_view(null)
+	host.machine = null
+
 	var/mob/living/H = host
 	H.status_flags &= ~PASSEMOTES
-
 	host = null
-
 	return
 
 /mob/living/simple_animal/borer/verb/infest()
@@ -483,7 +500,7 @@ mob/living/simple_animal/borer/proc/detatch()
 	set desc = "Enter an air vent and crawl through the pipe system."
 	set category = "Alien"
 	handle_ventcrawl()
-	
+
 /mob/living/simple_animal/borer/can_use_vents()
 	return
 

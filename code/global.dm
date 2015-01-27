@@ -11,7 +11,6 @@ var/global/list/all_areas = list()
 var/global/list/machines = list()
 var/global/list/processing_objects = list()
 var/global/list/active_diseases = list()
-var/global/list/events = list()
 var/global/list/med_hud_users = list()
 var/global/list/sec_hud_users = list()
 		//items that ask to be called every cycle
@@ -121,7 +120,7 @@ var/endicon = null
 var/diary = null
 var/diaryofmeanpeople = null
 var/href_logfile = null
-var/station_name = "NCS Cyberiad"
+var/station_name = "NSS Cyberiad"
 var/game_version = "Custom ParaCode"
 var/changelog_hash = ""
 var/game_year = (text2num(time2text(world.realtime, "YYYY")) + 544)
@@ -220,6 +219,9 @@ var/forceblob = 0
 // nanomanager, the manager for Nano UIs
 var/datum/nanomanager/nanomanager = new()
 
+// event manager, the manager for events
+var/datum/event_manager/event_manager = new()
+
 #define SPEED_OF_LIGHT 3e8 //not exact but hey!
 #define SPEED_OF_LIGHT_SQ 9e+16
 #define FIRE_DAMAGE_MODIFIER 0.0215 //Higher values result in more external fire damage to the skin (default 0.0215)
@@ -234,6 +236,10 @@ var/datum/nanomanager/nanomanager = new()
 
 #define shuttle_time_in_station 1800 // 3 minutes in the station
 #define shuttle_time_to_arrive 6000 // 10 minutes to arrive
+
+#define EVENT_LEVEL_MUNDANE 1
+#define EVENT_LEVEL_MODERATE 2
+#define EVENT_LEVEL_MAJOR 3
 
 	//away missions
 var/list/awaydestinations = list()	//a list of landmarks that the warpgate can take you to

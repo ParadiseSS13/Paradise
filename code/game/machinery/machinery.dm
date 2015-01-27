@@ -113,6 +113,7 @@ Class Procs:
 	var/panel_open = 0
 	var/area/myArea
 	var/interact_offline = 0 // Can the machine be interacted with while de-powered.
+	var/use_log = list()
 
 /obj/machinery/New()
 	addAtProcessing()
@@ -297,7 +298,7 @@ Class Procs:
 			user << "<span class='notice'>You close the maintenance hatch of [src].</span>"
 		return 1
 	return 0
-	
+
 /obj/machinery/proc/default_change_direction_wrench(var/mob/user, var/obj/item/weapon/wrench/W)
 	if(panel_open && istype(W))
 		playsound(src.loc, 'sound/items/Ratchet.ogg', 50, 1)
@@ -328,7 +329,7 @@ Class Procs:
   state(text, "blue")
   playsound(src.loc, 'sound/machines/ping.ogg', 50, 0)
 
-/obj/machinery/proc/exchange_parts(mob/user, obj/item/weapon/storage/part_replacer/W)	
+/obj/machinery/proc/exchange_parts(mob/user, obj/item/weapon/storage/part_replacer/W)
 	var/shouldplaysound = 0
 	if(istype(W) && component_parts)
 		if(panel_open)
@@ -365,7 +366,7 @@ Class Procs:
 							component_parts += B
 							B.loc = null
 							user << "<span class='notice'>[A.name] replaced with [B.name].</span>"
-							break							
+							break
 			RefreshParts()
 		else
 			user << "<span class='notice'>Following parts detected in the machine:</span>"

@@ -1,6 +1,6 @@
 /obj/item/device/radio/headset
 	name = "radio headset"
-	desc = "An updated, modular intercom that fits over the head. Takes encryption keys"
+	desc = "An updated, modular intercom that fits over the head. Takes encryption keys."
 	icon_state = "headset"
 	item_state = "headset"
 	g_amt = 0
@@ -28,9 +28,25 @@
 		if(H.l_ear == src || H.r_ear == src)
 			return ..(freq, level)
 	return -1
+	
+/obj/item/device/radio/headset/alt
+	name = "bowman headset"
+	desc = "An updated, modular intercom that fits over the head. Takes encryption keys. Protects ears from flashbangs."
+	flags = EARBANGPROTECT
+	icon_state = "com_headset_alt"
+	item_state = "com_headset_alt"
 
 /obj/item/device/radio/headset/syndicate
 	origin_tech = "syndicate=3"
+
+/obj/item/device/radio/headset/syndicate/alt //undisguised bowman with flash protection
+	name = "syndicate headset"
+	desc = "A syndicate headset that can be used to hear all radio frequencies. Protects ears from flashbangs. \nTo access the syndicate channel, use ; before speaking."
+	flags = EARBANGPROTECT
+	origin_tech = "syndicate=3"
+	icon_state = "syndie_headset"
+	item_state = "syndie_headset"
+
 /obj/item/device/radio/headset/syndicate/New()
 	..()
 	del(keyslot1)
@@ -52,6 +68,13 @@
 	icon_state = "sec_headset"
 	item_state = "headset"
 	keyslot1 = new /obj/item/device/encryptionkey/headset_sec
+
+/obj/item/device/radio/headset/headset_sec/alt
+	name = "security bowman headset"
+	desc = "This is used by your elite security force. Protects ears from flashbangs. \nTo access the security channel, use :s."
+	flags = EARBANGPROTECT
+	icon_state = "sec_headset_alt"
+	item_state = "sec_headset_alt"
 
 /obj/item/device/radio/headset/headset_eng
 	name = "engineering radio headset"
@@ -102,6 +125,13 @@
 	item_state = "headset"
 	keyslot1 = new /obj/item/device/encryptionkey/heads/captain
 
+/obj/item/device/radio/headset/heads/captain/alt
+	name = "\proper the captain's bowman headset"
+	desc = "The headset of the boss. Protects ears from flashbangs. \nChannels are as follows: :c - command, :s - security, :e - engineering, :u - supply, :v - service, :m - medical, :n - science."
+	flags = EARBANGPROTECT
+	icon_state = "com_headset_alt"
+	item_state = "com_headset_alt"
+
 /obj/item/device/radio/headset/heads/rd
 	name = "Research Director's headset"
 	desc = "Headset of the researching God. To access the science channel, use :n. For command, use :c."
@@ -115,6 +145,13 @@
 	icon_state = "com_headset"
 	item_state = "headset"
 	keyslot1 = new /obj/item/device/encryptionkey/heads/hos
+
+/obj/item/device/radio/headset/heads/hos/alt
+	name = "\proper the head of security's bowman headset"
+	desc = "The headset of the man in charge of keeping order and protecting the station. Protects ears from flashbangs. \nTo access the security channel, use :s. For command, use :c."
+	flags = EARBANGPROTECT
+	icon_state = "com_headset_alt"
+	item_state = "com_headset_alt"
 
 /obj/item/device/radio/headset/heads/ce
 	name = "chief engineer's headset"
@@ -172,13 +209,6 @@
 	item_state = "headset"
 	keyslot1 = new /obj/item/device/encryptionkey/heads/ntrep
 
-/obj/item/device/radio/headset/heads/ntrec
-	name = "nanotrasen recruiter's headset"
-	desc = "The headset of the Nanotrasen Recruiter. Channels are as follows: :c - command, :s - security."
-	icon_state = "com_headset"
-	item_state = "headset"
-	keyslot1 = new /obj/item/device/encryptionkey/heads/ntrec
-
 /obj/item/device/radio/headset/heads/magistrate
 	name = "magistrate's headset"
 	desc = "The headset of the Magistrate. Channels are as follows: :c - command, :s - security."
@@ -194,12 +224,19 @@
 	keyslot1 = new /obj/item/device/encryptionkey/heads/blueshield
 
 /obj/item/device/radio/headset/ert
-	name = "CentCom Response Team headset"
+	name = "emergency response team headset"
 	desc = "The headset of the boss's boss. Channels are as follows: :h - Response Team :c - command, :s - security, :e - engineering, :d - mining, :u - cargo, :z - service, :m - medical, :n - science."
 	icon_state = "com_headset"
 	item_state = "headset"
 	freerange = 1
 	keyslot1 = new /obj/item/device/encryptionkey/ert
+	
+/obj/item/device/radio/headset/ert/alt
+	name = "\proper emergency response team's bowman headset"
+	desc = "The headset of the boss. Protects ears from flashbangs. \nChannels are as follows: :h - Response Team, :c - command, :s - security, :e - engineering, :u - supply, :v - service, :m - medical, :n - science."
+	flags = EARBANGPROTECT
+	icon_state = "com_headset_alt"
+	item_state = "com_headset_alt"
 
 //The below was ported from Baystation.
 /obj/item/device/radio/headset/heads/ai_integrated //No need to care about icons, it should be hidden inside the AI anyway.

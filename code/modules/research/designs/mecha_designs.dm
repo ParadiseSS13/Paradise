@@ -168,7 +168,7 @@
 	category = list("Exosuit Modules")
 	
 // Space pod
-//datum/design/spacepod_main
+/datum/design/spacepod_main
 	name = "Exosuit Board (Space Pod Mainboard)"
 	desc = "Allows for the construction of a Space Pod mainboard."
 	id = "spacepod_main"
