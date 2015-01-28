@@ -83,7 +83,7 @@ var/list/department_radio_keys = list(
 		else
 			dongle = H.r_ear
 		if(!istype(dongle)) return
-		if(dongle.translate_binary) return 1
+		if(dongle.translate_hive) return 1
 
 /mob/living/say(var/message)
 
