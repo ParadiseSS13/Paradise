@@ -62,31 +62,28 @@
 	if(!other)
 		return 1
 	//Universal speak makes everything understandable, for obvious reasons.
-	else if(other.universal_speak || src.universal_speak || src.universal_understand)
+	if(other.universal_speak || src.universal_speak || src.universal_understand)
 		return 1
-	else if (src.stat == 2)
+	if (src.stat == 2)
 		return 1
-	else if (speaking) //Language check.
 
-		var/understood
-		for(var/datum/language/L in src.languages)
-			if(speaking.name == L.name)
-				understood = 1
-				break
-
-		if(understood || universal_speak)
+	if(!speaking) //Handle languages later
+		if(other.universal_speak || src.universal_speak)
 			return 1
-		else
-			return 0
+		if(isAI(src) && ispAI(other))
+			return 1
+		if (istype(other, src.type) || istype(src, other.type))
+			return 1
+		if (istype(other, /mob/living/carbon/human) && (istype(src, /mob/living/carbon/human) || istype(src, /mob/living/silicon/pai)))
+			return 1
+		if(istype(other, /mob/living/carbon/alien) && istype(src, /mob/living/carbon/alien))
+			return 1
+		return 0
 
-	else if(other.universal_speak || src.universal_speak)
-		return 1
-	else if(isAI(src) && ispAI(other))
-		return 1
-	else if (istype(other, src.type) || istype(src, other.type))
-		return 1
-	else if (istype(other, /mob/living/carbon/human) && istype(src, /mob/living/carbon/human))
-		return 1
+	for(var/datum/language/L in src.languages) //Handling languages
+		if(speaking.name == L.name)
+			return 1
+
 	return 0
 
 /mob/proc/say_quote(var/text,var/datum/language/speaking)
