@@ -29,6 +29,8 @@
 	syndie = 1
 
 /obj/item/device/encryptionkey/binary
+	name = "binary translator key"
+	desc = "An encryption key for a radio headset. To access the binary channel, use :b."
 	icon_state = "cypherkey"
 	translate_binary = 1
 	origin_tech = "syndicate=3"
@@ -97,27 +99,22 @@
 	name = "Head of Personnel's Encryption Key"
 	icon_state = "hop_cypherkey"
 	channels = list("Supply" = 1, "Service" = 1, "Security" = 0, "Command" = 1)
-	
+
 /obj/item/device/encryptionkey/heads/ntrep
 	name = "Nanotrasen Representative's Encryption Key"
 	icon_state = "com_cypherkey"
 	channels = list("Command" = 1, "Security" = 0, "Engineering" = 0, "Science" = 0, "Medical" = 0, "Supply" = 0, "Service" = 0)
-	
-/obj/item/device/encryptionkey/heads/ntrec
-	name = "Nanotrasen Recruiter's Encryption Key"
-	icon_state = "com_cypherkey"
-	channels = list("Command" = 1, "Security" = 0)
-	
+
 /obj/item/device/encryptionkey/heads/magistrate
 	name = "Magistrate's Encryption Key"
 	icon_state = "com_cypherkey"
-	channels = list("Command" = 1, "Security" = 1)	
-	
+	channels = list("Command" = 1, "Security" = 1)
+
 /obj/item/device/encryptionkey/heads/blueshield
 	name = "Blueshield's Encryption Key"
 	icon_state = "com_cypherkey"
 	channels = list("Command" = 1, "Security" = 1)
-	
+
 /*
 /obj/item/device/encryptionkey/headset_mine
 	name = "Mining Radio Encryption Key"
@@ -133,7 +130,7 @@
 	name = "Supply Radio Encryption Key"
 	icon_state = "cargo_cypherkey"
 	channels = list("Supply" = 1)
-	
+
 /obj/item/device/encryptionkey/headset_service
 	name = "Service Radio Encryption Key"
 	icon_state = "srv_cypherkey"

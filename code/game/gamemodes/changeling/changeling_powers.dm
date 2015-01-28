@@ -268,6 +268,9 @@
 	src.dna = chosen_dna.Clone()
 	src.real_name = chosen_dna.real_name
 	src.flavor_text = ""
+	if(ishuman(src))
+		var/mob/living/carbon/human/H = src
+		H.set_species()
 	src.UpdateAppearance()
 	domutcheck(src, null)
 
@@ -408,7 +411,7 @@
 	O.dna = C.dna.Clone()
 	C.dna = null
 	O.real_name = chosen_dna.real_name
-
+	O.set_species()
 	for(var/obj/T in C)
 		del(T)
 
@@ -573,6 +576,8 @@
 	C.SetParalysis(0)
 	C.SetStunned(0)
 	C.SetWeakened(0)
+	C.adjustStaminaLoss(-75)
+	C.reagents.add_reagent("synaptizine", 20)
 	C.lying = 0
 	C.update_canmove()
 
@@ -685,7 +690,7 @@ var/list/datum/dna/hivemind_bank = list()
 /mob/proc/changeling_hivedownload()
 	set category = "Changeling"
 	set name = "Hive Absorb (20)"
-	set desc = "Allows you to absorb DNA that is being channeled in the airwaves."
+	set desc = "Allows you to absorb DNA that is being channelled in the airwaves."
 
 	var/datum/changeling/changeling = changeling_power(20,1)
 	if(!changeling)	return
@@ -727,7 +732,7 @@ var/list/datum/dna/hivemind_bank = list()
 		src << "<span class='notice'>We return our vocal glands to their original location.</span>"
 		return
 
-	var/mimic_voice = input("Enter a name to mimic.", "Mimic Voice", null) as text
+	var/mimic_voice = stripped_input(usr, "Enter a name to mimic.", "Mimic Voice", null, MAX_NAME_LEN)
 	if(!mimic_voice)
 		return
 
@@ -769,6 +774,12 @@ var/list/datum/dna/hivemind_bank = list()
 	if(!(T in view(changeling.sting_range))) return
 	if(!sting_can_reach(T, changeling.sting_range)) return
 	if(!changeling_power(required_chems)) return
+
+	if(ishuman(T))
+		var/mob/living/carbon/human/H = T
+		if(H.species.flags & IS_SYNTHETIC)
+			src << "<span class='warning'>This won't work on synthetics.</span>"
+			return
 
 	changeling.chem_charges -= required_chems
 	changeling.sting_range = 1
@@ -885,7 +896,7 @@ var/list/datum/dna/hivemind_bank = list()
 
 	var/mob/living/carbon/T = changeling_sting(5,/mob/proc/changeling_unfat_sting)
 	if(!T)	return 0
-	T << "<span class='danger'>you feel a small prick as stomach churns violently and you become to feel skinnier.</span>"
+	T << "<span class='danger'>You feel a small prick as stomach churns violently and you become to feel skinnier.</span>"
 	T.overeatduration = 0
 	T.nutrition -= 100
 	feedback_add_details("changeling_powers","US")
@@ -919,6 +930,10 @@ var/list/datum/dna/hivemind_bank = list()
 
 	var/mob/living/carbon/human/T = changeling_sting(40, /mob/proc/changeling_extract_dna_sting)
 	if(!T)	return 0
+	if(T.species.flags & NO_SCAN) // Yeah, this needs the same protection, otherwise you can steal DNA from Slime People and then blood overdose when you turn into one.
+		src << "<span class='warning'>We do not know how to parse this creature's DNA!</span>"
+		changeling.chem_charges += 40
+		return 0
 
 	T.dna.real_name = T.real_name
 	changeling.absorbed_dna |= T.dna

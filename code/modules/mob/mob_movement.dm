@@ -247,7 +247,7 @@
 					move_delay += 6
 				move_delay += 1+config.run_speed
 			if("walk")
-				move_delay += 7+config.walk_speed
+				move_delay += 1+config.walk_speed
 		move_delay += mob.movement_delay()
 
 		if(config.Tickcomp)

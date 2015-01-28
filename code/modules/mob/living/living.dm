@@ -322,15 +322,16 @@
 	on_fire = 0
 	suiciding = 0
 	buckled = initial(src.buckled)
-	
+
 	if(iscarbon(src))
 		var/mob/living/carbon/C = src
 		C.handcuffed = initial(C.handcuffed)
 
-		// restore all of the human's blood
+		// restore all of the human's blood and reset their shock stage
 		if(ishuman(src))
 			var/mob/living/carbon/human/human_mob = src
 			human_mob.restore_blood()
+			human_mob.shock_stage = 0
 
 	restore_all_organs()
 	if(stat == 2)
@@ -757,3 +758,6 @@
 	else if(!on && floating)
 		animate(src, pixel_y = initial(pixel_y), time = 10)
 		floating = 0
+
+/mob/living/proc/can_use_vents()
+	return "You can't fit into that vent."

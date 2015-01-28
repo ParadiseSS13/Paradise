@@ -1014,6 +1014,8 @@
 			number += 2
 	if(istype(src.head, /obj/item/clothing/head/helmet/space))
 		number += 2
+	if(istype(src.head, /obj/item/clothing/head/helmet/space/eva))
+		number -= 2
 	if(istype(src.glasses, /obj/item/clothing/glasses/thermal))
 		number -= 1
 	if(istype(src.glasses, /obj/item/clothing/glasses/sunglasses))
@@ -1338,6 +1340,17 @@
 
 	spawn(0)
 		update_icons()
+		if(species && species.flags & NO_BLOOD) //We want the var for safety but we can do without the actual blood.
+			if(vessel.has_reagent("water") || vessel.has_reagent("blood"))
+				var/water = vessel.get_reagent_amount("water")
+				var/blood = vessel.get_reagent_amount("blood")
+				vessel.remove_reagent("water",water)
+				vessel.remove_reagent("blood",blood)
+		if(species.bloodflags & BLOOD_SLIME)
+			vessel.add_reagent("water",560-vessel.total_volume)
+		else
+			vessel.add_reagent("blood",560-vessel.total_volume)
+		fixblood()
 
 	if(species)
 		return 1
@@ -1604,10 +1617,6 @@
 	//Agent cards lower threatlevel.
 	if(istype(idcard, /obj/item/weapon/card/id/syndicate))
 		threatcount -= 5
-
-	// Pingsky now actually harbors anti-human sentiment! -Dave
-	if(istype(judgebot, /obj/machinery/bot/secbot/pingsky) && istype(src, /mob/living/carbon/human/human/))
-		threatcount += 1
 
 	return threatcount
 

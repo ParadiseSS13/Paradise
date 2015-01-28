@@ -36,6 +36,7 @@
 	radio_frequency = SEC_FREQ
 	radio_name = "Security"
 	bot_type = SEC_BOT
+	bot_type_name = "ED-209"
 	bot_filter = RADIO_SECBOT
 
 	//List of weapons that secbots will not arrest for
@@ -56,7 +57,6 @@
 	var/build_step = 0
 	var/created_name = "ED-209 Security Robot" //To preserve the name if it's a unique securitron I guess
 	var/lasercolor = ""
-
 
 /obj/machinery/bot/ed209/New(loc,created_name,created_lasercolor)
 	..()
@@ -413,7 +413,7 @@ Auto Patrol[]"},
 	new /obj/item/device/assembly/prox_sensor(Tsec)
 
 	if(!lasercolor)
-		var/obj/item/weapon/gun/energy/taser/G = new /obj/item/weapon/gun/energy/taser(Tsec)
+		var/obj/item/weapon/gun/energy/advtaser/G = new /obj/item/weapon/gun/energy/advtaser(Tsec)
 		G.power_supply.charge = 0
 		G.update_icon()
 	else if(lasercolor == "b")
@@ -643,7 +643,7 @@ Auto Patrol[]"},
 						return
 					name = "redtag ED-209 assembly"
 				if("")
-					if(!istype(W, /obj/item/weapon/gun/energy/taser))
+					if(!istype(W, /obj/item/weapon/gun/energy/advtaser))
 						return
 					name = "taser ED-209 assembly"
 				else
@@ -659,8 +659,6 @@ Auto Patrol[]"},
 			if(istype(W, /obj/item/weapon/screwdriver))
 				playsound(loc, 'sound/items/Screwdriver.ogg', 100, 1)
 				var/turf/T = get_turf(user)
-				user << "<span class='notice'>Now attaching the gun to the frame...</span>"
-				sleep(40)
 				if(get_turf(user) == T)
 					build_step++
 					name = "armed [name]"

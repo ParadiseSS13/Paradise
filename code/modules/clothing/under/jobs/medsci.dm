@@ -7,7 +7,7 @@
 	icon_state = "director"
 	item_state = "g_suit"
 	_color = "director"
-	armor = list(melee = 0, bullet = 0, laser = 0,energy = 0, bomb = 0, bio = 10, rad = 0)
+	armor = list(melee = 0, bullet = 0, laser = 0,energy = 0, bomb = 10, bio = 10, rad = 0)
 	flags = FPRINT | TABLEPASS | ONESIZEFITSALL
 	species_fit = list("Vox")
 	sprite_sheets = list(
@@ -208,7 +208,7 @@
 	icon_state = "psych"
 	item_state = "w_suit"
 	_color = "psych"
-	flags = FPRINT | TABLEPASS
+	flags = FPRINT | TABLEPASS | ONESIZEFITSALL
 
 /obj/item/clothing/under/rank/psych/turtleneck
 	desc = "A turqouise turtleneck and a pair of dark blue slacks, belonging to a psychologist."
@@ -216,7 +216,7 @@
 	icon_state = "psychturtle"
 	item_state = "b_suit"
 	_color = "psychturtle"
-	flags = FPRINT | TABLEPASS
+	flags = FPRINT | TABLEPASS | ONESIZEFITSALL
 
 
 /*

@@ -255,7 +255,7 @@ datum/preferences
 			underwear_s = new/icon("icon" = 'icons/mob/human.dmi', "icon_state" = "underwear[underwear]_[g]_s")
 
 		var/icon/undershirt_s = null
-		if(undershirt > 0 && undershirt < 5 && current_species.flags & HAS_UNDERWEAR)
+		if(undershirt > 0 && undershirt < 45 && current_species.flags & HAS_UNDERWEAR)
 			undershirt_s = new/icon("icon" = 'icons/mob/human.dmi', "icon_state" = "undershirt[undershirt]_s")
 
 		var/icon/clothes_s = null
@@ -711,17 +711,6 @@ datum/preferences
 							clothes_s.Blend(new /icon('icons/mob/back.dmi', "satchel-eng"), ICON_OVERLAY)
 						if(4)
 							clothes_s.Blend(new /icon('icons/mob/back.dmi', "satchel"), ICON_OVERLAY)
-				if(CUSTOMS)
-					clothes_s = new /icon(uniform_dmi, "milohachert_s")
-					clothes_s.Blend(new /icon('icons/mob/feet.dmi', "jackboots"), ICON_UNDERLAY)
-					clothes_s.Blend(new /icon('icons/mob/head.dmi', "customshelm"), ICON_OVERLAY)
-					switch(backbag)
-						if(2)
-							clothes_s.Blend(new /icon('icons/mob/back.dmi', "securitypack"), ICON_OVERLAY)
-						if(3)
-							clothes_s.Blend(new /icon('icons/mob/back.dmi', "satchel-sec"), ICON_OVERLAY)
-						if(4)
-							clothes_s.Blend(new /icon('icons/mob/back.dmi', "satchel"), ICON_OVERLAY)
 				if(PILOT)
 					clothes_s = new /icon(uniform_dmi, "secred_s")
 					clothes_s.Blend(new /icon('icons/mob/feet.dmi', "jackboots"), ICON_UNDERLAY)
@@ -745,16 +734,6 @@ datum/preferences
 						if(4)
 							clothes_s.Blend(new /icon('icons/mob/back.dmi', "satchel"), ICON_OVERLAY)
 				if(NANO)
-					clothes_s = new /icon(uniform_dmi, "officer_s")
-					clothes_s.Blend(new /icon('icons/mob/feet.dmi', "laceups"), ICON_UNDERLAY)
-					switch(backbag)
-						if(2)
-							clothes_s.Blend(new /icon('icons/mob/back.dmi', "backpack"), ICON_OVERLAY)
-						if(3)
-							clothes_s.Blend(new /icon('icons/mob/back.dmi', "satchel-norm"), ICON_OVERLAY)
-						if(4)
-							clothes_s.Blend(new /icon('icons/mob/back.dmi', "satchel"), ICON_OVERLAY)
-				if(NANOREC)
 					clothes_s = new /icon(uniform_dmi, "officer_s")
 					clothes_s.Blend(new /icon('icons/mob/feet.dmi', "laceups"), ICON_UNDERLAY)
 					switch(backbag)
@@ -788,7 +767,7 @@ datum/preferences
 							clothes_s.Blend(new /icon('icons/mob/back.dmi', "satchel-norm"), ICON_OVERLAY)
 						if(4)
 							clothes_s.Blend(new /icon('icons/mob/back.dmi', "satchel"), ICON_OVERLAY)
-							
+
 		if(disabilities & NEARSIGHTED)
 			preview_icon.Blend(new /icon('icons/mob/eyes.dmi', "glasses"), ICON_OVERLAY)
 

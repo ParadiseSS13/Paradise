@@ -225,8 +225,16 @@
 
 /obj/item/device/paicard/Topic(href, href_list)
 
+	var/mob/U = usr
+
 	if(!usr || usr.stat)
 		return
+
+	if(pai)
+		if(!in_range(src, U) || pai.canmove || pai.resting)
+			U << browse(null, "window=paicard")
+			usr.unset_machine()
+			return
 
 	if(href_list["setdna"])
 		if(pai.master_dna)
@@ -250,6 +258,10 @@
 				M << "<font color = #ff4d4d><h3>Byte by byte you lose your sense of self.</h3></font>"
 				M << "<font color = #ff8787><h4>Your mental faculties leave you.</h4></font>"
 				M << "<font color = #ffc4c4><h5>oblivion... </h5></font>"
+				var/mob/living/silicon/pai/P = M
+				if(istype(P))
+					if(P.resting || P.canmove)
+						P.close_up()
 				M.death(0)
 			removePersonality()
 	if(href_list["wires"])
@@ -302,3 +314,8 @@
 		M.emp_act(severity)
 	..()
 
+/obj/item/device/paicard/ex_act(severity)
+	if(pai)
+		pai.ex_act(severity)
+	else
+		del(src)

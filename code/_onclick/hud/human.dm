@@ -494,7 +494,7 @@
 
 /mob/living/carbon/human/verb/toggle_hotkey_verbs()
 	set category = "OOC"
-	set name = "Toggle hotkey buttons"
+	set name = "Toggle Hotkey Buttons"
 	set desc = "This disables or enables the user interface buttons which can be used with hotkeys."
 
 	if(hud_used.hotkey_ui_hidden)
@@ -523,13 +523,11 @@
 				I = U.hastie
 		if(I.icon_action_button)
 			var/obj/screen/item_action/A = new(hud_used)
-
+			
 			//A.icon = 'icons/mob/screen1_action.dmi'
 			//A.icon_state = I.icon_action_button
-
 			A.icon = ui_style2icon(client.prefs.UI_style)
 			A.icon_state = "template"
-
 			var/image/img = image(I.icon, A, I.icon_state)
 			img.pixel_x = 0
 			img.pixel_y = 0
@@ -540,9 +538,7 @@
 			else
 				A.name = "Use [I.name]"
 			A.owner = I
-
 			hud_used.item_action_list += A
-
 			switch(num)
 				if(1)
 					A.screen_loc = ui_action_slot1
@@ -554,16 +550,6 @@
 					A.screen_loc = ui_action_slot4
 				if(5)
 					A.screen_loc = ui_action_slot5
-				if(6)
-					A.screen_loc = ui_action_slot6
-				if(7)
-					A.screen_loc = ui_action_slot7
-				if(8)
-					A.screen_loc = ui_action_slot8
-				if(9)
-					A.screen_loc = ui_action_slot9
-				if(10)
-					A.screen_loc = ui_action_slot10
 					break //5 slots available, so no more can be added.
 			num++
 	src.client.screen += src.hud_used.item_action_list

@@ -18,7 +18,7 @@ var/global/wcColored
 		wcColored = 1
 
 	var/list/wcBarAreas = list(/area/crew_quarters/bar)
-	var/list/wcBrigAreas = list(/area/security,/area/security/main,/area/security/lobby,/area/security/brig,/area/security/permabrig,/area/security/prison,/area/security/prison/cell_block/A,/area/security/prison/cell_block/B,/area/security/prison/cell_block/C,/area/security/execution,/area/security/processing,/area/security/interrogation,/area/security/interrogationobs,/area/security/evidence,/area/security/prisonlockers,/area/security/medbay,/area/security/processing,/area/security/warden,/area/security/armoury,/area/security/securearmoury,/area/security/armoury/gamma,/area/security/securehallway,/area/security/hos,/area/security/podbay,/area/security/detectives_office,/area/security/range,/area/security/nuke_storage,/area/security/customs,/area/security/customs2,/area/security/checkpoint,/area/security/checkpoint2,/area/security/checkpoint2,/area/security/checkpoint/supply,/area/security/checkpoint/engineering,/area/security/checkpoint/medical,/area/security/checkpoint/science,/area/security/vacantoffice,/area/security/vacantoffice2,/area/prison,/area/prison/arrival_airlock,/area/prison/control,/area/prison/crew_quarters,/area/prison/rec_room,/area/prison/closet,/area/prison/hallway/fore,/area/prison/hallway/aft,/area/prison/hallway/port,/area/prison/hallway/starboard,/area/prison/morgue,/area/prison/medical_research,/area/prison/medical,/area/prison/solar,/area/prison/podbay,/area/prison/solar_control,/area/prison/solitary,/area/prison/cell_block,/area/prison/cell_block/A,/area/prison/cell_block/B,/area/prison/cell_block/C,/area/shuttle/gamma/space,/area/shuttle/gamma/station)
+	var/list/wcBrigAreas = list(/area/security,/area/security/main,/area/security/lobby,/area/security/brig,/area/security/permabrig,/area/security/prison,/area/security/prison/cell_block/A,/area/security/prison/cell_block/B,/area/security/prison/cell_block/C,/area/security/execution,/area/security/processing,/area/security/interrogation,/area/security/interrogationobs,/area/security/evidence,/area/security/prisonlockers,/area/security/medbay,/area/security/processing,/area/security/warden,/area/security/armoury,/area/security/securearmoury,/area/security/armoury/gamma,/area/security/securehallway,/area/security/hos,/area/security/podbay,/area/security/detectives_office,/area/security/range,/area/security/nuke_storage,/area/security/customs,/area/security/customs2,/area/security/checkpoint,/area/security/checkpoint2,/area/security/checkpoint2,/area/security/checkpoint/supply,/area/security/checkpoint/engineering,/area/security/checkpoint/medical,/area/security/checkpoint/science,/area/security/vacantoffice2,/area/prison,/area/prison/arrival_airlock,/area/prison/control,/area/prison/crew_quarters,/area/prison/rec_room,/area/prison/closet,/area/prison/hallway/fore,/area/prison/hallway/aft,/area/prison/hallway/port,/area/prison/hallway/starboard,/area/prison/morgue,/area/prison/medical_research,/area/prison/medical,/area/prison/solar,/area/prison/podbay,/area/prison/solar_control,/area/prison/solitary,/area/prison/cell_block,/area/prison/cell_block/A,/area/prison/cell_block/B,/area/prison/cell_block/C,/area/shuttle/gamma/space,/area/shuttle/gamma/station,/area/security/prisonershuttle)
 
 	var/newcolor
 	for(var/A in wcBarAreas)
@@ -58,16 +58,14 @@ var/global/wcColored
 //	var/icon/silicateIcon = null // the silicated icon
 
 /obj/structure/window/bullet_act(var/obj/item/projectile/Proj)
-	//Tasers and the like should not damage windows.
-	if(Proj.damage_type == STAMINA)
-		return
-
-	health -= Proj.damage
+	if((Proj.damage_type == BRUTE || Proj.damage_type == BURN))
+		health -= Proj.damage
+		update_nearby_icons()
 	..()
 	if(health <= 0)
 		var/pdiff=performWallPressureCheck(src.loc)
 		if(pdiff>0)
-			message_admins("Window destroyed by [Proj.firer.real_name] ([formatPlayerPanel(Proj.firer,Proj.firer.ckey)]) via \an [Proj]! pdiff = [pdiff] at [formatJumpTo(loc)]!")
+			message_admins("Window destroyed by [Proj.firer.name] ([formatPlayerPanel(Proj.firer,Proj.firer.ckey)]) via \an [Proj]! pdiff = [pdiff] at [formatJumpTo(loc)]!")
 			log_admin("Window destroyed by ([Proj.firer.ckey]) via \an [Proj]! pdiff = [pdiff] at [loc]!")
 		destroy()
 	return
@@ -212,36 +210,37 @@ var/global/wcColored
 
 /obj/structure/window/attackby(obj/item/weapon/W as obj, mob/user as mob)
 	if(!istype(W)) return//I really wish I did not need this
-	if(W.flags & NOBLUDGEON) return
-
 	if (istype(W, /obj/item/weapon/grab) && get_dist(src,user)<2)
 		var/obj/item/weapon/grab/G = W
-		if (istype(G.affecting, /mob/living))
+		if(istype(G.affecting,/mob/living))
 			var/mob/living/M = G.affecting
 			var/state = G.state
 			del(W)	//gotta delete it here because if window breaks, it won't get deleted
 			switch (state)
 				if(1)
+					M.visible_message("<span class='warning'>[user] slams [M] against \the [src]!</span>")
 					M.apply_damage(7)
 					hit(10)
-					visible_message("\red [user] slams [M] against \the [src]!")
 				if(2)
+					M.visible_message("<span class='danger'>[user] bashes [M] against \the [src]!</span>")
 					if (prob(50))
 						M.Weaken(1)
 					M.apply_damage(10)
 					hit(25)
-					visible_message("\red <b>[user] bashes [M] against \the [src]!</b>")
 				if(3)
+					M.visible_message("<span class='danger'><big>[user] crushes [M] against \the [src]!</big></span>")
 					M.Weaken(5)
 					M.apply_damage(20)
 					hit(50)
-					visible_message("\red <big><b>[user] crushes [M] against \the [src]!</b></big>")
 				if(4)
+					visible_message("<span class='danger'><big>[user] smashes [M] against \the [src]!</big></span>")
 					M.Weaken(5)
 					M.apply_damage(30)
 					hit(75)
-					visible_message("\red <big><b>[user] smashes [M] against \the [src]!</b></big>")
 			return
+
+	if(W.flags & NOBLUDGEON) return
+	
 	if(istype(W, /obj/item/weapon/screwdriver))
 		if(reinf && state >= 1)
 			state = 3 - state
@@ -383,7 +382,8 @@ var/global/wcColored
 /obj/structure/window/New(Loc,re=0)
 	..()
 	ini_dir = dir
-	color = color_windows(src)
+	if(!color && !istype(src,/obj/structure/window/plasmabasic) && !istype(src,/obj/structure/window/plasmareinforced))
+		color = color_windows(src)
 	update_nearby_tiles(need_rebuild=1)
 	update_nearby_icons()
 	return
@@ -450,7 +450,6 @@ var/global/wcColored
 /obj/structure/window/plasmabasic/New(Loc,re=0)
 	..()
 	ini_dir = dir
-	color = null
 	update_nearby_tiles(need_rebuild=1)
 	update_nearby_icons()
 	return
@@ -475,7 +474,6 @@ var/global/wcColored
 /obj/structure/window/plasmareinforced/New(Loc,re=0)
 	..()
 	ini_dir = dir
-	color = null
 	update_nearby_tiles(need_rebuild=1)
 	update_nearby_icons()
 	return

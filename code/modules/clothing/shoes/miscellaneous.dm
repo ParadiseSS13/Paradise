@@ -19,26 +19,22 @@
 	icon_state = "mime"
 	_color = "mime"
 
-/obj/item/clothing/shoes/swat
-	name = "\improper SWAT shoes"
-	desc = "When you want to turn up the heat."
-	icon_state = "swat"
-	armor = list(melee = 80, bullet = 60, laser = 50,energy = 25, bomb = 50, bio = 10, rad = 0)
-	flags = NOSLIP
-	siemens_coefficient = 0.6
 
-/obj/item/clothing/shoes/combat //Basically SWAT shoes combined with galoshes.
+/obj/item/clothing/shoes/combat //basic syndicate combat boots for nuke ops and mob corpses
 	name = "combat boots"
-	desc = "When you REALLY want to turn up the heat"
-	icon_state = "swat"
-	armor = list(melee = 80, bullet = 60, laser = 50,energy = 25, bomb = 50, bio = 10, rad = 0)
-	flags = NOSLIP
+	desc = "High speed, low drag combat boots."
+	icon_state = "jackboots"
+	item_state = "jackboots"
+	armor = list(melee = 50, bullet = 50, laser = 50, energy = 25, bomb = 50, bio = 10, rad = 0)
+	species_restricted = null //Syndicate tech means even Tajarans can kick ass with these
 	siemens_coefficient = 0.6
 
-	cold_protection = FEET
-	min_cold_protection_temperature = SHOE_MIN_COLD_PROTECTION_TEMPERATURE
-	heat_protection = FEET
-	max_heat_protection_temperature = SHOE_MAX_HEAT_PROTECTION_TEMPERATURE
+/obj/item/clothing/shoes/combat/swat //overpowered boots for death squads
+	name = "\improper SWAT shoes"
+	desc = "High speed, no drag combat boots."
+	permeability_coefficient = 0.01
+	armor = list(melee = 80, bullet = 60, laser = 50, energy = 50, bomb = 50, bio = 30, rad = 30)
+	flags = NOSLIP
 
 /obj/item/clothing/shoes/space_ninja
 	name = "ninja shoes"
@@ -67,7 +63,7 @@
 	icon_state = "black"
 
 /obj/item/clothing/shoes/galoshes
-	desc = "Rubber boots"
+	desc = "A pair of yellow rubber boots, designed to prevent slipping on wet surfaces."
 	name = "galoshes"
 	icon_state = "galoshes"
 	permeability_coefficient = 0.05
@@ -97,6 +93,13 @@
 	_color = "hosred"
 	siemens_coefficient = 0.7
 	var/footstep=1
+
+/obj/item/clothing/shoes/jackboots/jacksandals
+	name = "jacksandals"
+	desc = "Nanotrasen-issue Security combat sandals for combat scenarios. They're jacksandals, however that works."
+	icon_state = "jacksandal"
+	species_restricted = null
+
 /obj/item/clothing/shoes/cult
 	name = "boots"
 	desc = "A pair of boots worn by the followers of Nar-Sie."

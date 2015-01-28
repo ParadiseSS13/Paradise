@@ -2,7 +2,6 @@
 #define LIQUID 2
 #define GAS 3
 #define FOOD_METABOLISM 0.4
-#define OVERDOSE 30
 #define REM REAGENTS_EFFECT_MULTIPLIER
 
 //The reaction procs must ALWAYS set src = null, this detaches the proc from the object (the reagent)
@@ -23,14 +22,7 @@ datum
 		var/volume = 0
 		var/nutriment_factor = 0
 		var/custom_metabolism = REAGENTS_METABOLISM
-		var/mildly_toxic = 1
-		var/toxod = 0
-		var/bruteod = 0
-		var/burnod = 0
-		var/oxyod = 0
 		var/overdose = 0
-		var/overdose_dam = 1
-		var/addictiveness = 0 //switched to zero until time to properly overhaul addiction
 		var/scannable = 0 //shows up on health analyzers
 		//var/list/viruses = list()
 		var/color = "#000000" // rgb: 0, 0, 0 (does not support alpha channels - yet!)
@@ -97,24 +89,6 @@ datum
 				if(!istype(M, /mob/living))
 					return //Noticed runtime errors from pacid trying to damage ghosts, this should fix. --NEO
 							// Certain elements in too large amounts cause side-effects
-
-				if(mildly_toxic && istype(M, /mob/living/carbon/human/))
-					var/mob/living/carbon/human/H = M
-					if(H.side_effects.len == 0)
-						M.add_side_effect(pick("Headache", "Bad Stomach", "Itch"))
-
-					if( (toxod > 0) && (volume >= toxod))//Toxin Overdosing
-						M.adjustToxLoss(overdose_dam)
-
-					if(	(bruteod > 0) && (volume >= bruteod))//Brute Overdosing
-						M.take_overall_damage(overdose_dam, 0)
-
-					if( (burnod > 0) && (volume >= burnod))//Burn Overdosing
-						M.take_overall_damage(0, overdose_dam)
-
-					if( (oxyod > 0) && (volume >= oxyod))//Oxygen Overdosing
-						M.adjustOxyLoss(overdose_dam)
-
 				holder.remove_reagent(src.id, custom_metabolism) //By default it slowly disappears.
 				return
 
@@ -237,14 +211,6 @@ datum
 			reagent_state = LIQUID
 			color = "#0064C8" // rgb: 0, 100, 200
 
-			on_mob_life(var/mob/living/M as mob)
-				if(ishuman(M))
-					var/mob/living/carbon/human/H = M
-					if(H.species.name=="Grey")
-						if(!M) M = holder.my_atom
-						M.adjustToxLoss(1*REM)
-						M.take_organ_damage(0, 1*REM)
-				..()
 			reaction_mob(var/mob/living/M, var/method=TOUCH, var/volume)
 				if(!istype(M, /mob/living))
 					return
@@ -255,33 +221,6 @@ datum
 					if(M.fire_stacks <= 0)
 						M.ExtinguishMob()
 					return
-
-
-			// Grays treat water like acid.
-				if(ishuman(M))
-					var/mob/living/carbon/human/H = M
-					if(H.species.name=="Grey")
-						if(method == TOUCH)
-							if(H.wear_mask)
-								H << "\red Your mask protects you from the water!"
-								return
-							if(H.head)
-								H << "\red Your helmet protects you from the water!"
-								return
-							if(!M.unacidable)
-								if(prob(15) && volume >= 30)
-									var/datum/organ/external/affecting = H.get_organ("head")
-									if(affecting)
-										if(affecting.take_damage(25, 0))
-											H.UpdateDamageIcon()
-									H.status_flags |= DISFIGURED
-									H.emote("scream")
-							else
-								M.take_organ_damage(min(15, volume * 2)) // uses min() and volume to make sure they aren't being sprayed in trace amounts (1 unit != insta rape) -- Doohl
-						else
-							if(!M.unacidable)
-								M.take_organ_damage(min(15, volume * 2))
-
 
 			reaction_turf(var/turf/simulated/T, var/volume)
 				if (!istype(T)) return
@@ -314,6 +253,7 @@ datum
 					T.assume_air(lowertemp)
 					del(hotspot)
 				return
+
 			reaction_obj(var/obj/O, var/volume)
 				src = null
 				var/turf/T = get_turf(O)
@@ -621,7 +561,6 @@ datum
 			description = "An illegal chemical compound used as drug."
 			reagent_state = LIQUID
 			color = "#60A584" // rgb: 96, 165, 132
-			addictiveness = 25
 
 			on_mob_life(var/mob/living/M as mob)
 				if(!M) M = holder.my_atom
@@ -646,6 +585,7 @@ datum
 					if((M.mind in ticker.mode.cult) && prob(10))
 						M << "\blue A cooling sensation from inside you brings you an untold calmness."
 						ticker.mode.remove_cultist(M.mind)
+						ticker.mode.remove_all_cult_icons_from_client(M.client)  // fixes the deconverted's own client not removing their mob's cult icon
 						for(var/mob/O in viewers(M, null))
 							O.show_message(text("\blue []'s eyes blink and become clearer.", M), 1) // So observers know it worked.
 					// Vamps react to this like acid
@@ -942,12 +882,8 @@ datum
 							return
 
 					if(!M.unacidable)
-						if(prob(15) && istype(M, /mob/living/carbon/human/grey) && volume >= 30)
+						if(prob(15) && istype(M, /mob/living/carbon/human) && volume >= 30)
 							var/mob/living/carbon/human/H = M
-							if(H.species.name=="Grey")
-								..()
-								return // Greys lurve dem some sacid
-
 							var/datum/organ/external/affecting = H.get_organ("head")
 							if(affecting)
 								if(affecting.take_damage(25, 0))
@@ -958,11 +894,6 @@ datum
 							M.take_organ_damage(min(15, volume * 2)) // uses min() and volume to make sure they aren't being sprayed in trace amounts (1 unit != insta rape) -- Doohl
 				else
 					if(!M.unacidable)
-						if(ishuman(M))
-							var/mob/living/carbon/human/grey/H = M
-							if(H.species.name=="Grey")
-								..()
-								return // Greys lurve dem some sacid
 						M.take_organ_damage(min(15, volume * 2))
 
 			reaction_obj(var/obj/O, var/volume)
@@ -1096,7 +1027,7 @@ datum
 							var/datum/disease2/disease/V = C.virus2[ID]
 							if(prob(5))
 								if(prob(50))
-									M.radiation += 50 // curing it that way may kill you instead
+									M.apply_effect(50,IRRADIATE,0) // curing it that way may kill you instead
 									M.adjustToxLoss(100)
 								M:antibodies |= V.antigen
 				..()
@@ -1179,18 +1110,13 @@ datum
 			description = "Most probably know this as Tylenol, but this chemical is a mild, simple painkiller."
 			reagent_state = LIQUID
 			color = "#C855DC"
-			toxod = OVERDOSE
-			addictiveness = 5
 			scannable = 1
 			custom_metabolism = 0.2 // Lasts 2.5 minutes for 15 units
 
 			on_mob_life(var/mob/living/M as mob)
 				if(!M) M = holder.my_atom
 				..()
-				if (volume > OVERDOSE)
-					M.hallucination = max(M.hallucination, 2)
-					..()
-					return
+				return
 
 		mutagen
 			name = "Unstable mutagen"
@@ -1224,35 +1150,30 @@ datum
 			id = "tramadol"
 			description = "A simple, yet effective painkiller."
 			reagent_state = LIQUID
-			addictiveness = 50
 			color = "#C8A5DC"
-			toxod = OVERDOSE
 			scannable = 1
 			custom_metabolism = 0.2 // Lasts 2.5 minutes for 15 units
 
 			on_mob_life(var/mob/living/M as mob)
-				if (volume > OVERDOSE)
-					M.hallucination = max(M.hallucination, 2)
+				if(!M) M = holder.my_atom
 				..()
 				return
+
 
 		oxycodone
 			name = "Oxycodone"
 			id = "oxycodone"
 			description = "An effective and very addictive painkiller."
 			reagent_state = LIQUID
-			addictiveness = 80
 			color = "#C805DC"
-			toxod = OVERDOSE
 			custom_metabolism = 0.3 // Lasts 1.5 minutes for 15 units
 			scannable = 1
 
 			on_mob_life(var/mob/living/M as mob)
-				if (volume > OVERDOSE)
-					M.druggy = max(M.druggy, 10)
-					M.hallucination = max(M.hallucination, 3)
+				if(!M) M = holder.my_atom
 				..()
 				return
+
 
 
 		virus_food
@@ -1299,7 +1220,7 @@ datum
 				return
 			on_mob_life(var/mob/living/M as mob)
 				if(!M) M = holder.my_atom
-					M.radiation += 3
+					M.apply_effect(3,IRRADIATE,0)
 					..()
 					return
 	*/
@@ -1857,7 +1778,7 @@ datum
 
 			on_mob_life(var/mob/living/M as mob)
 				if(!M) M = holder.my_atom
-				M.radiation = max(M.radiation-3*REM,0)
+				M.apply_effect(max(M.radiation-3*REM,0),IRRADIATE,0)
 				..()
 				return
 
@@ -1873,7 +1794,7 @@ datum
 				if(M.stat == 2.0)
 					return  //See above, down and around. --Agouri
 				if(!M) M = holder.my_atom
-				M.radiation = max(M.radiation-7*REM,0)
+				M.radiation = M.apply_effect(max(M.radiation-7*REM,0),IRRADIATE,0)
 				M.adjustToxLoss(-1*REM)
 				if(prob(15))
 					M.take_organ_damage(1, 0)
@@ -1975,7 +1896,6 @@ datum
 			description = "Hyperzine is a highly effective, long lasting, muscle stimulant."
 			reagent_state = LIQUID
 			color = "#CCFF00" // rgb: 204, 255, 0
-			addictiveness = 80
 
 			on_mob_life(var/mob/living/M as mob)
 				if(!M) M = holder.my_atom
@@ -2132,7 +2052,6 @@ datum
 			description = "A powerful hallucinogen. Not a thing to be messed with."
 			reagent_state = LIQUID
 			color = "#B31008" // rgb: 139, 166, 233
-			addictiveness = 15
 
 			on_mob_life(var/mob/living/M)
 				if(!M) M = holder.my_atom
@@ -2221,7 +2140,6 @@ datum
 			description = "A highly addictive stimulant extracted from the tobacco plant."
 			reagent_state = LIQUID
 			color = "#181818" // rgb: 24, 24, 24
-			addictiveness = 90
 /*
 		ethanol
 			name = "Ethanol"
@@ -3490,6 +3408,7 @@ datum
 				id = "absinthe"
 				description = "Watch out that the Green Fairy doesn't come for you!"
 				color = "#33EE00" // rgb: lots, ??, ??
+				overdose = 30
 				dizzy_adj = 5
 				slur_start = 25
 				confused_start = 100
@@ -3500,7 +3419,7 @@ datum
 					if(!data) data = 1
 					data++
 					M:hallucination += 5
-					if(volume > OVERDOSE)
+					if(volume > overdose)
 						M:adjustToxLoss(1)
 					..()
 					return
@@ -3510,11 +3429,12 @@ datum
 				id = "rum"
 				description = "Popular with the sailors. Not very popular with everyone else."
 				color = "#664300" // rgb: 102, 67, 0
+				overdose = 30
 
 				on_mob_life(var/mob/living/M as mob)
 					..()
 					M.dizziness +=5
-					if(volume > OVERDOSE)
+					if(volume > overdose)
 						M:adjustToxLoss(1)
 					return
 

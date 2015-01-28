@@ -28,23 +28,23 @@
 	..()
 
 /obj/item/weapon/gun/energy/taser/cyborg/process() //Every [recharge_time] ticks, recharge a shot for the cyborg
-	return 1
+	charge_tick++
+	if(charge_tick < recharge_time) return 0
+	charge_tick = 0
 
-/obj/item/weapon/gun/energy/taser/cyborg/process_chambered()
-	if(in_chamber)
-		return 1
+	if(!power_supply) return 0 //sanity
 	if(isrobot(src.loc))
 		var/mob/living/silicon/robot/R = src.loc
-		if(R && R.cell && R.cell.charge >= 250)
-			R.cell.use(250)
-			in_chamber = new /obj/item/projectile/energy/electrode(src)
-			return 1
-	return 0
+		if(R && R.cell)
+			if(R.cell.use(charge_cost)) 		//Take power from the borg...
+				power_supply.give(charge_cost)	//... to recharge the shot
 
+	update_icon()
+	return 1
 
 /obj/item/weapon/gun/energy/stunrevolver
 	name = "stun revolver"
-	desc = "A high-tech revolver that fires internal, reusable stun cartidges in a revolving cylinder."
+	desc = "A high-tech revolver that fires internal, reusable stun cartidges in a revolving cylinder. Holds twice as much ammo as a standard taser."
 	icon_state = "stunrevolver"
 	fire_sound = "sound/weapons/gunshot.ogg"
 	origin_tech = "combat=3;materials=3;powerstorage=2"
@@ -87,28 +87,11 @@
 
 /obj/item/weapon/gun/energy/crossbow/update_icon()
 	return
-
-/obj/item/weapon/gun/energy/crossbow/cyborg
-	desc = "An energy-based crossbow that draws power from the cyborg's internal energy cell directly."
-
-/obj/item/weapon/gun/energy/crossbow/cyborg/process()
-	return 1
-
-/obj/item/weapon/gun/energy/crossbow/cyborg/process_chambered()
-	if(in_chamber)
-		return 1
-	if(isrobot(src.loc))
-		var/mob/living/silicon/robot/R = src.loc
-		if(R && R.cell && R.cell.charge >= 250)
-			R.cell.use(250)
-			in_chamber = new /obj/item/projectile/energy/bolt(src)
-			return 1
-	return 0
-
 /obj/item/weapon/gun/energy/crossbow/largecrossbow
 	name = "Energy Crossbow"
 	desc = "A weapon favored by syndicate carp hunters."
 	icon_state = "crossbowlarge"
+	silenced = 0
 	w_class = 3.0
 	force = 10
 	m_amt = 4000

@@ -17,8 +17,8 @@
 	icon_state = "welding"
 	flags = (FPRINT | TABLEPASS | HEADCOVERSEYES | HEADCOVERSMOUTH)
 	item_state = "welding"
-	m_amt = 3000
-	g_amt = 1000
+	m_amt = 1750
+	g_amt = 400
 	var/up = 0
 	armor = list(melee = 10, bullet = 0, laser = 0,energy = 0, bomb = 0, bio = 0, rad = 0)
 	flags_inv = (HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE)
@@ -105,6 +105,8 @@
 	icon_state = "ushankadown"
 	item_state = "ushankadown"
 	flags_inv = HIDEEARS
+	cold_protection = HEAD
+	min_cold_protection_temperature = FIRE_HELMET_MIN_COLD_PROTECTION_TEMPERATURE
 	loose = 1 // too warm, your head doesn't want to leave
 
 /obj/item/clothing/head/ushanka/attack_self(mob/user as mob)

@@ -443,10 +443,9 @@
 	affected.implants += I
 	I.part = affected
 
-	if(ticker.mode && ( istype( ticker.mode,/datum/game_mode/vox/heist ) ) )
-		var/datum/game_mode/vox/heist/M = ticker.mode
+	if(ticker.mode && ( istype( ticker.mode,/datum/game_mode/heist ) ) )
+		var/datum/game_mode/heist/M = ticker.mode
 		M.cortical_stacks += I
-		M.raiders[H.mind] = I
 
 
 
@@ -458,7 +457,10 @@
 	language = "Chittin"
 	unarmed_type = /datum/unarmed_attack/claws
 
-	flags = IS_WHITELISTED | HAS_CHITTIN
+
+	brute_mod = 0.8
+
+	flags = IS_WHITELISTED
 	bloodflags = BLOOD_GREEN
 	bodyflags = FEET_CLAWS
 
@@ -490,6 +492,8 @@
 	unarmed_type = /datum/unarmed_attack/punch
 	darksight = 5 // BOOSTED from 2
 	eyes = "grey_eyes_s"
+
+	brute_mod = 1.25 //greys are fragile
 
 	primitive = /mob/living/carbon/monkey // TODO
 

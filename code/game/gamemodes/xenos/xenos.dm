@@ -8,8 +8,8 @@
 	required_players = 0
 	recommended_players = 30
 	required_players_secret = 20
-	required_enemies = 5
-	recommended_enemies = 8
+	required_enemies = 3
+	recommended_enemies = 3
 	var/result = 0
 	var/checkwin_counter = 0
 	var/xenos_list = list()
@@ -17,10 +17,10 @@
 
 	var/const/waittime_l = 600 //lower bound on time before intercept arrives (in tenths of seconds)
 	var/const/waittime_h = 1800 //upper bound on time before intercept arrives (in tenths of seconds)
-	
+
 	var/xenoai = 0 //Should the Xenos have their own AI?
 	var/xenoborg = 0 //Should the Xenos have their own borg?
-	var/gammaratio = 3 //At what alien to human ratio will the Gamma security level be called and the nuke be made available?
+	var/gammaratio = 4 //At what alien to human ratio will the Gamma security level be called and the nuke be made available?
 
 /datum/game_mode/xenos/announce()
 	world << "<B>The current game mode is - Xenos!</B>"
@@ -170,7 +170,7 @@
 		send_intercept()
 
 	return ..()
-	
+
 /datum/game_mode/xenos/process()
 	checkwin_counter++
 	if(checkwin_counter >= 5)
@@ -178,12 +178,14 @@
 			ticker.mode.check_win()
 		checkwin_counter = 0
 	return 0
-	
+
 
 /datum/game_mode/xenos/check_win()
 	var/xenosalive = xenos_alive()
 	var/playersalive = players_alive()
-	var/playeralienratio = player_alien_ratio()
+	var/playeralienratio = 0
+	if(playersalive)
+		playeralienratio = xenosalive / playersalive
 	if(emergency_shuttle && emergency_shuttle.returned())
 		return ..()
 	if(!xenosalive)
@@ -205,7 +207,7 @@
 				V.locked = 0
 				V.update_icon()
 		return ..()
-		
+
 /datum/game_mode/xenos/check_finished()
 	if(config.continous_rounds)
 		if(result)
@@ -216,14 +218,14 @@
 		return 1
 	else
 		return 0
-		
+
 /datum/game_mode/xenos/proc/get_nuke_code()
 	var/nukecode = "ERROR"
 	for(var/obj/machinery/nuclearbomb/bomb in world)
 		if(bomb && bomb.r_code && bomb.z == 1)
 			nukecode = bomb.r_code
-	return nukecode		
-		
+	return nukecode
+
 /datum/game_mode/xenos/proc/xenos_alive()
 	var/list/livingxenos = list()
 	for(var/datum/mind/xeno in xenos)
@@ -231,8 +233,8 @@
 			if(istype(xeno.current,/mob/living/carbon/alien) || (xenoborg && isrobot(xeno.current)) || (xenoai && isAI(xeno.current)))
 				livingxenos += xeno
 	return livingxenos.len
-	
-/datum/game_mode/xenos/proc/players_alive()	
+
+/datum/game_mode/xenos/proc/players_alive()
 	var/list/livingplayers = list()
 	for(var/mob/M in player_list)
 		var/turf/T = get_turf(M)
@@ -241,42 +243,24 @@
 				livingplayers += 1
 	return livingplayers.len
 
-/datum/game_mode/xenos/proc/player_alien_ratio()	
-	var/list/livingplayers = list()
-	var/list/livingxenos = list()
-	for(var/mob/M in player_list)
-		if((M) && (M.stat != 2) && M.client)
-			if(ishuman(M))
-				livingplayers += 1
-	for(var/datum/mind/xeno in xenos)
-		if((xeno) && (xeno.current) && (xeno.current.stat != 2) && (xeno.current.client))
-			if(istype(xeno.current,/mob/living/carbon/alien) || (xenoborg && isrobot(xeno.current)) || (xenoai && isAI(xeno.current)))
-				livingxenos += xeno				
-	
-	if(!livingxenos.len || !livingplayers.len)
-		return 0
-		
-	var/ratio = livingxenos.len / livingplayers.len
-	return ratio		
-	
-/datum/game_mode/xenos/declare_completion()		
-	if(result == 1)
+/datum/game_mode/xenos/declare_completion()
+	if(station_was_nuked)
+		feedback_set_details("round_end_result","win - xenos nuked")
+		world << "<FONT size = 3><B>Crew Victory</B></FONT>"
+		world << "<B>The station was destroyed in a nuclear explosion, preventing the aliens from overrunning it!</B>"
+	else if(result == 1)
 		feedback_set_details("round_end_result","win - xenos killed")
 		world << "<FONT size = 3><B>Crew Victory</B></FONT>"
-		world << "<B>The aliens did not succeed and were exterminated by the crew!</B>"				
+		world << "<B>The aliens did not succeed and were exterminated by the crew!</B>"
 	else if(result == 2)
 		feedback_set_details("round_end_result","win - crew killed")
 		world << "<FONT size = 3><B>Alien Victory</B></FONT>"
 		world << "<B>The aliens were successful and slaughtered the crew!</B>"
-	else if(station_was_nuked)
-		feedback_set_details("round_end_result","win - xenos nuked")
-		world << "<FONT size = 3><B>Crew Victory</B></FONT>"
-		world << "<B>The station was destroyed in a nuclear explosion, preventing the aliens from overrunning it!</B>"	
 	else
-		feedback_set_details("round_end_result","win - crew escaped")	
-		world << "<FONT size = 3><B>Draw</B></FONT>"		
-		world << "<B>The crew has escaped from the aliens but did not exterminate them, allowing them to overrun the station.</B>"	
-		
+		feedback_set_details("round_end_result","win - crew escaped")
+		world << "<FONT size = 3><B>Draw</B></FONT>"
+		world << "<B>The crew has escaped from the aliens but did not exterminate them, allowing them to overrun the station.</B>"
+
 	var/text = "<br><FONT size=3><B>There were [xenos.len] aliens.</B></FONT>"
 	text += "<br><FONT size=3><B>The aliens were:</B></FONT>"
 	for(var/datum/mind/xeno in xenos)
@@ -292,6 +276,6 @@
 			text += "body destroyed"
 		text += ")"
 	world << text
-		
+
 	..()
 	return 1

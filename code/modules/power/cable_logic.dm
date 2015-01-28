@@ -85,7 +85,7 @@
 	var/dir_output = 1
 	var/obj/structure/cable/input
 	var/obj/structure/cable/output
-	icon = 'icons/obj/pipes/heat.dmi'
+	icon = 'icons/atmos/heat.dmi'
 	icon_state = "intact"
 
 /obj/machinery/logic/oneinput/process()

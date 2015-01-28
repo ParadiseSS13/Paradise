@@ -3,7 +3,6 @@
 	allowed = list(/obj/item/weapon/gun/energy,/obj/item/weapon/reagent_containers/spray/pepper,/obj/item/weapon/gun/projectile,/obj/item/ammo_box,/obj/item/ammo_casing,/obj/item/weapon/melee/baton,/obj/item/weapon/handcuffs,/obj/item/device/flashlight/seclite,/obj/item/weapon/melee/telebaton)
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO
 	flags = FPRINT | TABLEPASS
-
 	cold_protection = UPPER_TORSO|LOWER_TORSO
 	min_cold_protection_temperature = ARMOR_MIN_COLD_PROTECTION_TEMPERATURE
 	heat_protection = UPPER_TORSO|LOWER_TORSO
@@ -20,17 +19,78 @@
 	flags = FPRINT | TABLEPASS | ONESIZEFITSALL
 	armor = list(melee = 50, bullet = 15, laser = 50, energy = 10, bomb = 25, bio = 0, rad = 0)
 
+/obj/item/clothing/suit/armor/vest/combat
+	name = "combat vest"
+	desc = "An armored vest that protects against some damage."
+	icon_state = "armor-combat"
+	item_state = "bulletproof"
+	blood_overlay_type = "armor"
+	flags = FPRINT | TABLEPASS | ONESIZEFITSALL
+	armor = list(melee = 50, bullet = 15, laser = 50, energy = 10, bomb = 25, bio = 0, rad = 0)
+
 /obj/item/clothing/suit/armor/vest/security
 	name = "security armor"
 	desc = "An armored vest that protects against some damage. This one has Nanotrasen corporate badge."
 	icon_state = "armorsec"
 	item_state = "armor"
 
+/obj/item/clothing/suit/armor/hos
+	name = "armored coat"
+	desc = "A trench coat enhanced with a special alloy for some protection and style."
+	icon_state = "hos"
+	item_state = "hos"
+	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS|LEGS
+	armor = list(melee = 65, bullet = 30, laser = 50, energy = 10, bomb = 25, bio = 0, rad = 0)
+	flags_inv = HIDEJUMPSUIT
+	cold_protection = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
+	heat_protection = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
+	siemens_coefficient = 0.6
+
+/obj/item/clothing/suit/armor/hos/alt
+	name = "armored trenchoat"
+	desc = "A trenchcoat enchanced with a special lightweight kevlar. The epitome of tactical plainclothes."
+	icon_state = "hostrench"
+	item_state = "hostrench"
+	flags_inv = 0
+
+	verb/toggle()
+		set name = "Toggle Trenchcoat Buttons"
+		set category = "Object"
+
+		if(!usr.canmove || usr.stat || usr.restrained())
+			return 0
+		if(icon_state == "hostrench")
+			icon_state = "hostrench_button"
+			item_state = "hostrench_button"
+			usr<< "You button the [src]."
+		else
+			icon_state = "hostrench"
+			item_state = "hostrench"
+			usr<< "You unbutton the [src]."
+
+		usr.update_inv_wear_suit()
+
+/obj/item/clothing/suit/armor/hos/jensen
+	name = "armored trenchcoat"
+	desc = "A trenchcoat augmented with a special alloy for some protection and style."
+	icon_state = "jensencoat"
+	item_state = "jensencoat"
+	flags_inv = 0
+	siemens_coefficient = 0.6
+
 /obj/item/clothing/suit/armor/vest/warden
-	name = "Warden's jacket"
+	name = "Warden's armored jacket"
 	desc = "An armoured jacket with silver rank pips and livery."
 	icon_state = "warden_jacket"
 	item_state = "armor"
+	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
+	cold_protection = UPPER_TORSO|LOWER_TORSO|HANDS
+	heat_protection = UPPER_TORSO|LOWER_TORSO|HANDS
+
+/obj/item/clothing/suit/armor/vest/warden/alt
+	name = "warden's jacket"
+	desc = "A navy-blue armored jacket with blue shoulder designations and '/Warden/' stitched into one of the chest pockets."
+	icon_state = "warden_jacket_alt"
 
 /obj/item/clothing/suit/armor/vest/capcarapace
 	name = "captain's carapace"
@@ -46,6 +106,8 @@
 	icon_state = "riot"
 	item_state = "swat_suit"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
+	cold_protection = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
+	heat_protection = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
 	slowdown = 1
 	armor = list(melee = 80, bullet = 10, laser = 10, energy = 10, bomb = 0, bio = 0, rad = 0)
 	flags_inv = HIDEJUMPSUIT
@@ -54,11 +116,11 @@
 
 /obj/item/clothing/suit/armor/bulletproof
 	name = "Bulletproof Vest"
-	desc = "A vest that excels in protecting the wearer against high-velocity solid projectiles."
+	desc = "A bulletproof vest that excels in protecting the wearer against traditional projectile weaponry and explosives to a minor extent."
 	icon_state = "bulletproof"
 	item_state = "armor"
 	blood_overlay_type = "armor"
-	armor = list(melee = 10, bullet = 80, laser = 10, energy = 10, bomb = 0, bio = 0, rad = 0)
+	armor = list(melee = 25, bullet = 80, laser = 10, energy = 10, bomb = 40, bio = 0, rad = 0)
 	siemens_coefficient = 0.7
 
 /obj/item/clothing/suit/armor/laserproof
@@ -78,42 +140,14 @@
 	if (prob(hit_reflect_chance))
 		return 1
 
-/obj/item/clothing/suit/armor/swat
-	name = "swat suit"
-	desc = "A heavily armored suit that protects against moderate damage. Used in special operations."
-	icon_state = "deathsquad"
-	item_state = "swat_suit"
-	gas_transfer_coefficient = 0.01
-	permeability_coefficient = 0.01
-	flags = FPRINT | TABLEPASS | STOPSPRESSUREDMAGE
-	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
-	allowed = list(/obj/item/weapon/gun,/obj/item/ammo_box,/obj/item/ammo_casing,/obj/item/weapon/melee/baton,/obj/item/weapon/handcuffs,/obj/item/weapon/tank/emergency_oxygen)
-	slowdown = 1
-	armor = list(melee = 80, bullet = 60, laser = 50,energy = 25, bomb = 50, bio = 0, rad = 0)
-	flags_inv = HIDEGLOVES|HIDESHOES|HIDEJUMPSUIT
-	cold_protection = UPPER_TORSO | LOWER_TORSO | LEGS | FEET | ARMS | HANDS
-	min_cold_protection_temperature = SPACE_SUIT_MIN_COLD_PROTECTION_TEMPERATURE
-	siemens_coefficient = 0.5
-
-
-/obj/item/clothing/suit/armor/swat/officer
-	name = "officer jacket"
-	desc = "An armored jacket used in special operations."
-	icon_state = "detective"
-	item_state = "det_suit"
-	blood_overlay_type = "coat"
-	flags_inv = 0
-
-
-/obj/item/clothing/suit/armor/det_suit
+/obj/item/clothing/suit/armor/vest/det_suit
 	name = "armor"
 	desc = "An armored vest with a detective's badge on it."
 	icon_state = "detective-armor"
 	item_state = "armor"
 	blood_overlay_type = "armor"
 	flags = FPRINT | TABLEPASS | ONESIZEFITSALL
-	body_parts_covered = UPPER_TORSO|LOWER_TORSO
-	armor = list(melee = 50, bullet = 15, laser = 50, energy = 10, bomb = 25, bio = 0, rad = 0)
+	allowed = list(/obj/item/weapon/tank/emergency_oxygen,/obj/item/weapon/reagent_containers/spray/pepper,/obj/item/device/flashlight,/obj/item/weapon/gun,/obj/item/ammo_box,/obj/item/ammo_casing,/obj/item/weapon/melee/baton,/obj/item/weapon/handcuffs,/obj/item/weapon/storage/fancy/cigarettes,/obj/item/weapon/lighter,/obj/item/device/detective_scanner,/obj/item/device/taperecorder)
 
 
 //Reactive armor

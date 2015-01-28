@@ -36,7 +36,7 @@
 	_color = "blue"
 	can_label = 0
 /obj/machinery/portable_atmospherics/canister/toxins
-	name = "Canister \[Toxin (Bio)\]"
+	name = "Canister \[Toxin (Plasma)\]"
 	icon_state = "orange"
 	_color = "orange"
 	can_label = 0
@@ -202,9 +202,10 @@ update_flag
 	return
 
 /obj/machinery/portable_atmospherics/canister/bullet_act(var/obj/item/projectile/Proj)
-	if(Proj.damage)
-		src.health -= round(Proj.damage / 2)
-		healthcheck()
+	if((Proj.damage_type == BRUTE || Proj.damage_type == BURN))
+		if(Proj.damage)
+			src.health -= round(Proj.damage / 2)
+			healthcheck()
 	..()
 
 /obj/machinery/portable_atmospherics/canister/meteorhit(var/obj/O as obj)
@@ -252,6 +253,9 @@ update_flag
 
 /obj/machinery/portable_atmospherics/canister/attack_paw(var/mob/user as mob)
 	return src.attack_hand(user)
+
+/obj/machinery/portable_atmospherics/canister/attack_alien(mob/living/carbon/alien/humanoid/user)
+	return
 
 /obj/machinery/portable_atmospherics/canister/attack_hand(var/mob/user as mob)
 	return src.ui_interact(user)
@@ -333,7 +337,7 @@ update_flag
 				"\[N2O\]" = "redws", \
 				"\[N2\]" = "red", \
 				"\[O2\]" = "blue", \
-				"\[Toxin (Bio)\]" = "orange", \
+				"\[Toxin (Plasma)\]" = "orange", \
 				"\[CO2\]" = "black", \
 				"\[Air\]" = "grey", \
 				"\[CAUTION\]" = "yellow", \

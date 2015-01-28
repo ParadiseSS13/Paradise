@@ -19,9 +19,13 @@ var/const/BLOOD_VOLUME_SURVIVE = 122
 	vessel = new/datum/reagents(600)
 	vessel.my_atom = src
 
-	if(species && species.flags & NO_BLOOD) //We want the var for safety but we can do without the actual blood.
-		return
-	if(species.bloodflags &BLOOD_SLIME)
+	if(species && species.flags & NO_BLOOD) //In case of transformation to IPC
+		if(vessel.has_reagent("water") || vessel.has_reagent("blood"))
+			var/water = vessel.get_reagent_amount("water")
+			var/blood = vessel.get_reagent_amount("blood")
+			vessel.remove_reagent("water",water)
+			vessel.remove_reagent("blood",blood)
+	if(species.bloodflags & BLOOD_SLIME)
 		vessel.add_reagent("water",560)
 	else
 		vessel.add_reagent("blood",560)

@@ -63,9 +63,9 @@
 	else
 		return buf.dna.SetUIValue(real_block,val)
 
-/obj/item/weapon/dnainjector/proc/inject(mob/M as mob, mob/user as mob)
+/obj/item/weapon/dnainjector/proc/inject(mob/living/M as mob, mob/user as mob)
 	if(istype(M,/mob/living))
-		M.radiation += rand(5,20)
+		M.apply_effect(rand(5,20),IRRADIATE,0)
 
 	if (!(M_NOCLONE in M.mutations)) // prevents drained people from having their DNA changed
 		// UI in syringe.
@@ -98,8 +98,10 @@
 	return uses
 
 /obj/item/weapon/dnainjector/attack(mob/M as mob, mob/user as mob)
-	if (!istype(M, /mob))
-		return
+	if(ishuman(M)) // Would've done this via species instead of type, but the basic mob doesn't have a species, go figure.
+		var/mob/living/carbon/human/H = M
+		if(H.species.flags & IS_SYNTHETIC)
+			return
 	if (!(istype(usr, /mob/living/carbon/human) || ticker) && ticker.mode.name != "monkey")
 		user << "\red You don't have the dexterity to do this!"
 		return

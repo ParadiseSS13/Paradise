@@ -18,7 +18,8 @@
 		src.icon_state = "[src.icon_state]"
 		src.base_state = src.icon_state
 
-	color = color_windows(src)
+	if(!color)
+		color = color_windows(src)
 	return
 
 /obj/machinery/door/window/Destroy()

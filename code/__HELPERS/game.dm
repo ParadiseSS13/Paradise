@@ -311,67 +311,17 @@ proc/isInSight(var/atom/A, var/atom/B)
 			return M
 	return null
 
-// Will return a list of active candidates. It increases the buffer 5 times until it finds a candidate which is active within the buffer.
-/proc/get_active_candidates(var/buffer = 1)
-
-	var/list/candidates = list() //List of candidate KEYS to assume control of the new larva ~Carn
-	var/i = 0
-	while(candidates.len <= 0 && i < 5)
-		for(var/mob/G in respawnable_list)
-			if(((G.client.inactivity/10)/60) <= buffer + i) // the most active players are more likely to become an alien
+/proc/get_candidates(be_special_flag=0, afk_bracket=3000)
+	var/list/candidates = list()
+	// Keep looping until we find a non-afk candidate within the time bracket (we limit the bracket to 10 minutes (6000))
+	while(!candidates.len && afk_bracket < 6000)
+		for(var/mob/dead/observer/G in player_list)
+			if(G.client != null)
 				if(!(G.mind && G.mind.current && G.mind.current.stat != DEAD))
-					candidates += G.key
-		i++
+					if(!G.client.is_afk(afk_bracket) && (G.client.prefs.be_special & be_special_flag))
+						candidates += G.client
+		afk_bracket += 600 // Add a minute to the bracket, for every attempt
 	return candidates
-
-// Same as above but for alien candidates.
-
-/proc/get_alien_candidates()
-
-	var/list/candidates = list() //List of candidate KEYS to assume control of the new larva ~Carn
-	var/i = 0
-	while(candidates.len <= 0 && i < 5)
-		for(var/mob/G in respawnable_list)
-			if( G.client && G.client.prefs.be_special & BE_ALIEN)
-				if(((G.client.inactivity/10)/60) <= ALIEN_SELECT_AFK_BUFFER + i) // the most active players are more likely to become an alien
-					if(!(G.mind && G.mind.current && G.mind.current.stat != DEAD))
-						candidates += G.key
-		i++
-	return candidates
-	
-/proc/get_blob_candidates()
-
-	var/list/candidates = list() //List of candidate KEYS to assume control of the new blob core ~Carn
-	var/i = 0
-	while(candidates.len <= 0 && i < 5)
-		for(var/mob/G in respawnable_list)
-			if( G.client && G.client.prefs.be_special & BE_BLOB)
-				if(((G.client.inactivity/10)/60) <= ALIEN_SELECT_AFK_BUFFER + i) // the most active players are more likely to become an alien
-					if(!(G.mind && G.mind.current && G.mind.current.stat != DEAD))
-						candidates += G.key
-		i++
-	return candidates	
-
-/proc/get_slime_candidates()
-
-	var/list/candidates = list() //List of candidate KEYS to assume control of the new larva ~Carn
-	var/i = 0
-	while(candidates.len <= 0 && i < 5)
-		for(var/mob/G in respawnable_list)
-			if( G.client && G.client.prefs.be_special & BE_SLIME)
-				if(((G.client.inactivity/10)/60) <= ALIEN_SELECT_AFK_BUFFER + i) // the most active players are more likely to become a slime
-					if(!(G.mind && G.mind.current && G.mind.current.stat != DEAD))
-						candidates += G.key
-		i++
-	return candidates
-
-proc/get_candidates(be_special_flag=0)
-	. = list()
-	for(var/mob/G in respawnable_list)
-		if(G)
-			if(!(G.mind && G.mind.current && G.mind.current.stat != DEAD))
-				if(!G.client.is_afk() && (G.client.prefs.be_special & be_special_flag))
-					. += G.client
 
 /proc/ScreenText(obj/O, maptext="", screen_loc="CENTER-7,CENTER-7", maptext_height=480, maptext_width=480)
 	if(!isobj(O))	O = new /obj/screen/text()
@@ -495,3 +445,17 @@ proc/get_candidates(be_special_flag=0)
 	var/g = mixOneColor(weights, greens)
 	var/b = mixOneColor(weights, blues)
 	return rgb(r,g,b)
+
+/proc/alone_in_area(var/area/the_area, var/mob/must_be_alone, var/check_type = /mob/living/carbon)
+	var/area/our_area = get_area_master(the_area)
+	for(var/C in living_mob_list)
+		if(!istype(C, check_type))
+			continue
+		if(C == must_be_alone)
+			continue
+		if(our_area == get_area_master(C))
+			return 0
+	return 1
+	
+/proc/MinutesToTicks(var/minutes as num)
+	return minutes * 60 * 10

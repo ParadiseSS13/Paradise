@@ -113,6 +113,7 @@ Class Procs:
 	var/panel_open = 0
 	var/area/myArea
 	var/interact_offline = 0 // Can the machine be interacted with while de-powered.
+	var/use_log = list()
 
 /obj/machinery/New()
 	addAtProcessing()

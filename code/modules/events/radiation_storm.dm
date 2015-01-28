@@ -1,6 +1,5 @@
 /datum/event/radiation_storm
 	announceWhen	= 1
-	oneShot			= 1
 	var/safe_zones = list(
 		/area/maintenance,
 		/area/crew_quarters/sleep,
@@ -41,6 +40,8 @@
 
 		for(var/i = 0, i < 10, i++)
 			for(var/mob/living/carbon/human/H in living_mob_list)
+				if(H.species.flags & IS_SYNTHETIC) // Leave synthetics completely unaffected
+					continue
 				var/turf/T = get_turf(H)
 				if(!T)
 					continue

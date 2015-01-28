@@ -11,6 +11,7 @@
 	status_flags = GODMODE  // You can't damage it.
 	mouse_opacity = 0
 	see_in_dark = 7
+	invisibility = INVISIBILITY_MAXIMUM
 
 /mob/aiEye/New()
 	..()
@@ -49,9 +50,8 @@
 		if(ai.client)
 			ai.client.eye = src
 		//Holopad
-		if(istype(ai.current, /obj/machinery/hologram/holopad))
-			var/obj/machinery/hologram/holopad/H = ai.current
-			H.move_hologram()
+		if(ai.holo)
+			ai.holo.move_hologram()
 
 
 /mob/aiEye/Move()
@@ -66,6 +66,7 @@
 	var/sprint = 10
 	var/cooldown = 0
 	var/acceleration = 1
+	var/obj/machinery/hologram/holopad/holo = null
 
 
 // Intiliaze the eye by assigning it's "ai" variable to us. Then set it's loc to us.

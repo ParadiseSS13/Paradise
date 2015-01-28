@@ -74,11 +74,26 @@
 	icon_state = "syndicate-helm-black"
 	item_state = "syndicate-helm-black"
 
+obj/item/clothing/head/helmet/space/syndicate/black/strike
+	name = "Syndicate Strike Team commando helmet"
+	desc = "A heavily armored black helmet that is only given to high-ranking Syndicate operatives."
+	armor = list(melee = 80, bullet = 80, laser = 50, energy = 50, bomb = 100, bio = 100, rad = 100) //Matches DS gear.
+	siemens_coefficient = 0.2
+	max_heat_protection_temperature = FIRE_IMMUNITY_HELM_MAX_TEMP_PROTECT
+	unacidable = 1
+
 /obj/item/clothing/suit/space/syndicate/black
 	name = "Black Space Suit"
 	icon_state = "syndicate-black"
 	item_state = "syndicate-black"
 
+obj/item/clothing/suit/space/syndicate/black/strike
+	name = "Syndicate Strike Team commando space suit"
+	desc = "A heavily armored, black space suit that is only given to high-ranking Syndicate operatives."
+	armor = list(melee = 80, bullet = 80, laser = 50, energy = 50, bomb = 100, bio = 100, rad = 100) //Matches DS gear.
+	siemens_coefficient = 0.2
+	max_heat_protection_temperature = FIRE_IMMUNITY_HELM_MAX_TEMP_PROTECT
+	unacidable = 1
 
 //Black-green syndicate space suit
 /obj/item/clothing/head/helmet/space/syndicate/black/green
@@ -134,10 +149,26 @@
 	icon_state = "syndicate-helm-black-red"
 	item_state = "syndicate-helm-black-red"
 
+obj/item/clothing/head/helmet/space/syndicate/black/red/strike
+	name = "Syndicate Strike Team leader helmet"
+	desc = "A heavily armored, black and red space helmet that is only given to elite Syndicate operatives, it looks particularly menacing."
+	armor = list(melee = 80, bullet = 80, laser = 50, energy = 50, bomb = 100, bio = 100, rad = 100) //Matches DS gear.
+	siemens_coefficient = 0.2
+	max_heat_protection_temperature = FIRE_IMMUNITY_HELM_MAX_TEMP_PROTECT
+	unacidable = 1
+
 /obj/item/clothing/suit/space/syndicate/black/red
 	name = "Black and Red Space Suit"
 	icon_state = "syndicate-black-red"
 	item_state = "syndicate-black-red"
+
+obj/item/clothing/suit/space/syndicate/black/red/strike
+	name = "Syndicate Strike Team leader space suit"
+	desc = "A heavily armored, black and red space suit that is only given to elite Syndicate operatives, it looks particularly menacing."
+	armor = list(melee = 80, bullet = 80, laser = 50, energy = 50, bomb = 100, bio = 100, rad = 100) //Matches DS gear.
+	siemens_coefficient = 0.2
+	max_heat_protection_temperature = FIRE_IMMUNITY_HELM_MAX_TEMP_PROTECT
+	unacidable = 1
 
 
 //Black with yellow/red engineering syndicate space suit

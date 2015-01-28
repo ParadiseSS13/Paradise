@@ -71,15 +71,6 @@
 	flags = FPRINT | TABLEPASS | ONESIZEFITSALL
 	siemens_coefficient = 0.9
 
-
-/obj/item/clothing/head/det_hat
-	name = "hat"
-	desc = "Someone who wears this will look very smart."
-	icon_state = "detective"
-	allowed = list(/obj/item/weapon/reagent_containers/food/snacks/candy_corn, /obj/item/weapon/pen)
-	armor = list(melee = 50, bullet = 5, laser = 25,energy = 10, bomb = 0, bio = 0, rad = 0)
-	siemens_coefficient = 0.9
-
 /*
  * Head of Security
  */
@@ -98,51 +89,6 @@
 	item_state = "hos_corporate"
 	_color = "hos_corporate"
 
-/obj/item/clothing/head/helmet/HoS
-	name = "Head of Security Hat"
-	desc = "The hat of the Head of Security. For showing the officers who's in charge."
-	icon_state = "hoscap"
-	flags = FPRINT | TABLEPASS | HEADCOVERSEYES
-	armor = list(melee = 80, bullet = 60, laser = 50,energy = 10, bomb = 25, bio = 10, rad = 0)
-	flags_inv = 0
-	flags_inv = HIDEEARS
-	siemens_coefficient = 0.8
-
-/obj/item/clothing/suit/armor/hos
-	name = "armored coat"
-	desc = "A trench coat enhanced with a special alloy for some protection and style."
-	icon_state = "hos"
-	item_state = "hos"
-	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS|LEGS
-	armor = list(melee = 65, bullet = 30, laser = 50, energy = 10, bomb = 25, bio = 0, rad = 0)
-	flags_inv = HIDEJUMPSUIT
-	siemens_coefficient = 0.6
-
-	verb/toggle()
-		set name = "Toggle Trenchcoat Buttons"
-		set category = "Object"
-
-		if(!usr.canmove || usr.stat || usr.restrained())
-			return 0
-		if(icon_state == "hos")
-			icon_state = "jensencoat"
-			item_state = "jensencoat"
-			usr<< "You unbutton the [src]."
-		else
-			icon_state = "hos"
-			item_state = "hos"
-			usr<< "You button the [src]."
-
-		usr.update_inv_wear_suit()
-
-
-/obj/item/clothing/head/helmet/HoS/dermal
-	name = "Dermal Armour Patch"
-	desc = "You're not quite sure how you manage to take it on and off, but it implants nicely in your head."
-	icon_state = "dermal"
-	item_state = "dermal"
-	siemens_coefficient = 0.6
-
 //Jensen cosplay gear
 /obj/item/clothing/under/rank/head_of_security/jensen
 	desc = "You never asked for anything that stylish."
@@ -152,14 +98,6 @@
 	_color = "jensen"
 	siemens_coefficient = 0.6
 	flags = FPRINT | TABLEPASS | ONESIZEFITSALL
-
-/obj/item/clothing/suit/armor/hos/jensen
-	name = "armored trenchcoat"
-	desc = "A trenchcoat augmented with a special alloy for some protection and style."
-	icon_state = "jensencoat"
-	item_state = "jensencoat"
-	flags_inv = 0
-	siemens_coefficient = 0.6
 
 //Paradise Station
 
@@ -182,3 +120,26 @@
 	name = "officer's blue jacket"
 	icon_state = "officerbluejacket"
 	item_state = "officerbluejacket"
+
+//TG Station
+
+/obj/item/clothing/under/rank/security/formal
+	name = "security suit"
+	desc = "A formal security suit for officers complete with nanotrasen belt buckle."
+	icon_state = "security_formal"
+	item_state = "gy_suit"
+	_color = "security_formal"
+
+/obj/item/clothing/under/rank/warden/formal
+	name = "warden's suit"
+	desc = "A formal security suit for the warden with blue desginations and '/Warden/' stiched into the shoulders."
+	icon_state = "warden_formal"
+	item_state = "gy_suit"
+	_color = "warden_formal"
+
+/obj/item/clothing/under/rank/head_of_security/formal
+	name = "head of security's suit"
+	desc = "A security suit decorated for those few with the dedication to achieve the position of Head of Security."
+	icon_state = "hos_formal"
+	item_state = "gy_suit"
+	_color = "hos_formal"

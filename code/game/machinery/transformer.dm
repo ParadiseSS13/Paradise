@@ -8,7 +8,7 @@
 	density = 1
 	var/transform_dead = 0
 	var/transform_standing = 0
-	var/cooldown_duration = 1200 // 2 minutes
+	var/cooldown_duration = 600 // 1 minute
 	var/cooldown = 0
 	var/robot_cell_charge = 5000
 

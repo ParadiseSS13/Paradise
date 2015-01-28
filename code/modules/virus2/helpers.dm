@@ -24,6 +24,8 @@ proc/get_infection_chance(var/mob/living/carbon/M, var/vector = "Airborne")
 			if(istype(M:wear_suit, /obj/item/clothing/suit/bio_suit) && istype(M:head, /obj/item/clothing/head/bio_hood))
 				score += 15
 
+		if (vector == "Injection") score = 30  // Makes sure Injection viruses cannot be caught normally
+
 
 //  log_debug("[M]'s resistance to [vector] viruses: [score]")
 

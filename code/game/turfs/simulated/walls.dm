@@ -24,11 +24,6 @@
 	var/hardness = 40 //lower numbers are harder. Used to determine the probability of a hulk smashing through.
 	var/engraving, engraving_quality //engraving on the wall
 	var/del_suppress_resmoothing = 0 // Do not resmooth neighbors on Destroy. (smoothwall.dm)
-	canSmoothWith = list(
-		/turf/simulated/wall,
-		/obj/structure/falsewall,
-		/obj/structure/falserwall // WHY DO WE SMOOTH WITH FALSE R-WALLS WHEN WE DON'T SMOOTH WITH REAL R-WALLS.
-	)
 
 /turf/simulated/wall/Del()
 	for(var/obj/effect/E in src) if(E.name == "Wallrot") del E
@@ -456,6 +451,11 @@
 		AH.try_build(src)
 		return
 
+	else if(istype(W,/obj/item/newscaster_frame))
+		var/obj/item/newscaster_frame/AH = W
+		AH.try_build(src)
+		return 1		
+		
 	else if(istype(W,/obj/item/alarm_frame))
 		var/obj/item/alarm_frame/AH = W
 		AH.try_build(src)

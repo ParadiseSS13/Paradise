@@ -14,7 +14,8 @@
 	var/mob/living/carbon/occupant
 	var/mob/living/carbon/occupant2 //two seaters
 	var/datum/spacepod/equipment/equipment_system
-	var/obj/item/weapon/cell/high/battery
+	var/battery_type = "/obj/item/weapon/cell/high"
+	var/obj/item/weapon/cell/battery
 	var/datum/gas_mixture/cabin_air
 	var/obj/machinery/portable_atmospherics/canister/internal_tank
 	var/datum/effect/effect/system/ion_trail_follow/space_trail/ion_trail
@@ -39,7 +40,7 @@
 	bound_width = 64
 	bound_height = 64
 	dir = EAST
-	battery = new()
+	battery = new battery_type(src)
 	add_cabin()
 	add_airtank()
 	src.ion_trail = new /datum/effect/effect/system/ion_trail_follow/space_trail()
@@ -225,7 +226,7 @@
 
 /obj/spacepod/sec/New()
 	..()
-	var/obj/item/device/spacepod_equipment/weaponry/taser/T = new /obj/item/device/spacepod_equipment/weaponry/taser
+	var/obj/item/device/spacepod_equipment/weaponry/burst_taser/T = new /obj/item/device/spacepod_equipment/weaponry/taser
 	T.loc = equipment_system
 	equipment_system.weapon_system = T
 	equipment_system.weapon_system.my_atom = src
@@ -319,19 +320,36 @@
 
 	if(H && H.client && H in range(1))
 		if(src.occupant)
-			H.reset_view(src)
-			/*
-			H.client.perspective = EYE_PERSPECTIVE
-			H.client.eye = src
-			*/
-			H.stop_pulling()
-			H.forceMove(src)
-			src.occupant2 = H
-			src.add_fingerprint(H)
-			src.forceMove(src.loc)
-			//dir = dir_in
-			playsound(src, 'sound/machines/windowdoor.ogg', 50, 1)
-			return 1
+			if(src.occupant.ckey == H.ckey)
+				H.visible_message("You climb over the console and drop down into the secondary seat.")
+				H.reset_view(src)
+				/*
+				H.client.perspective = EYE_PERSPECTIVE
+				H.client.eye = src
+				*/
+				H.stop_pulling()
+				H.forceMove(src)
+				src.occupant = null
+				src.occupant2 = H
+				src.add_fingerprint(H)
+				src.forceMove(src.loc)
+				//dir = dir_in
+				playsound(src, 'sound/machines/windowdoor.ogg', 50, 1)
+				return 1
+			else
+				H.reset_view(src)
+				/*
+				H.client.perspective = EYE_PERSPECTIVE
+				H.client.eye = src
+				*/
+				H.stop_pulling()
+				H.forceMove(src)
+				src.occupant2 = H
+				src.add_fingerprint(H)
+				src.forceMove(src.loc)
+				//dir = dir_in
+				playsound(src, 'sound/machines/windowdoor.ogg', 50, 1)
+				return 1
 
 		else
 			H.reset_view(src)
@@ -364,7 +382,10 @@
 /obj/spacepod/MouseDrop_T(mob/M as mob, mob/user as mob)
 	if(M != user)
 		if(M.stat != 0)
-			move_inside(M, user)
+			if(allow2enter)
+				moved_other_inside(M)
+			else
+				return
 		else
 			return
 	else
@@ -399,8 +420,26 @@
 			return
 
 	if(src.occupant2)
-		usr << "\red <B>The spacepod is full! Are you going to sit on [src.occupant2.name]'s lap?</b>"
-		return
+		if(src.occupant)
+			usr << "\red <B>The spacepod is full! Are you going to sit on [src.occupant2.name]'s lap?</b>"
+			return
+		else
+			for(var/mob/living/carbon/slime/M in range(1,usr))
+				if(M.Victim == usr)
+					usr << "You're too busy getting your life sucked out of you."
+					return
+		//	usr << "You start climbing into [src.name]"
+
+			visible_message("\blue [usr] starts to climb into [src.name]")
+
+			if(enter_after(40,usr))
+				if(!src.occupant)
+					moved_inside(usr)
+				else if(src.occupant!=usr)
+					usr << "[src.occupant] was faster. Try better next time, loser."
+			else
+				usr << "You stop entering the exosuit."
+			return
 /*
 	if (usr.abiotic())
 		usr << "\blue <B>Subject cannot have abiotic items on.</B>"

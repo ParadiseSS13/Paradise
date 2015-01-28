@@ -50,21 +50,37 @@
 	var/eyeblur = 0
 	var/drowsy = 0
 	var/agony = 0
+	var/stamina = 0
+	var/jitter = 0
 	var/embed = 0 // whether or not the projectile can embed itself in the mob
 	var/forcedodge = 0
 
+	var/range = 0
+	var/proj_hit = 0
+
+	var/chatlog_attacks = 1
 
 	proc/delete()
 		// Garbage collect the projectiles
 		loc = null
 
+	proc/Range()
+		if(range)
+			range--
+			if(range <= 0)
+				on_range()
+		else
+			return
+
+	proc/on_range() //if we want there to be effects when they reach the end of their range
+		proj_hit = 1
+		qdel(src)
+
 	proc/on_hit(var/atom/target, var/blocked = 0)
-		if(blocked >= 2)		return 0//Full block
 		if(!isliving(target))	return 0
 		if(isanimal(target))	return 0
 		var/mob/living/L = target
-		L.apply_effects(stun, weaken, paralyze, irradiate, stutter, eyeblur, drowsy, agony, blocked) // add in AGONY!
-		return 1
+		return L.apply_effects(stun, weaken, paralyze, irradiate, stutter, eyeblur, drowsy, agony, blocked, stamina, jitter)
 
 	proc/check_fire(var/mob/living/target as mob, var/mob/living/user as mob)  //Checks if you can hit them or not.
 		if(!istype(target) || !istype(user))
@@ -83,7 +99,7 @@
 			loc = A.loc
 			return 0 //cannot shoot yourself
 
-		if(bumped)	
+		if(bumped)
 			return 1
 		bumped = 1
 		if(firer && istype(A, /mob))
@@ -94,21 +110,8 @@
 
 			//Lower accurancy/longer range tradeoff. Distance matters a lot here, so at
 			// close distance, actually RAISE the chance to hit.
-			var/distance = get_dist(starting,loc)
-			var/miss_modifier = -30
-			if (istype(shot_from,/obj/item/weapon/gun))	//If you aim at someone beforehead, it'll hit more often.
-				var/obj/item/weapon/gun/daddy = shot_from //Kinda balanced by fact you need like 2 seconds to aim
-				if (daddy.target && original in daddy.target) //As opposed to no-delay pew pew
-					miss_modifier += -30
-			if(istype(src, /obj/item/projectile/beam/lightning)) //Lightning is quite accurate
-				miss_modifier += -200
-				def_zone = get_zone_with_miss_chance(def_zone, M, miss_modifier)
-				var/turf/simulated/floor/f = get_turf(A.loc)
-				if(f && istype(f))
-					f.break_tile()
-					f.hotspot_expose(1000,CELL_VOLUME)
-			else
-				def_zone = get_zone_with_miss_chance(def_zone, M, miss_modifier + 8*distance)
+			var/distance = get_dist(get_turf(A), starting) // Get the distance between the turf shot from and the mob we hit and use that for the calculations.
+			def_zone = ran_zone(def_zone, max(100-(7*distance), 5)) //Lower accurancy/longer range tradeoff. 7 is a balanced number to use.
 			/*
 			if(!def_zone)
 				visible_message("\blue \The [src] misses [M] narrowly!")
@@ -124,7 +127,7 @@
 			if(istype(firer, /mob))
 				M.attack_log += "\[[time_stamp()]\] <b>[firer]/[firer.ckey]</b> shot <b>[M]/[M.ckey]</b> with a <b>[src.type]</b>"
 				firer.attack_log += "\[[time_stamp()]\] <b>[firer]/[firer.ckey]</b> shot <b>[M]/[M.ckey]</b> with a <b>[src.type]</b>"
-				if(M.ckey)
+				if(M.ckey && chatlog_attacks)
 					msg_admin_attack("[firer] ([firer.ckey]) shot [M] ([M.ckey]) with a [src] (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[firer.x];Y=[firer.y];Z=[firer.z]'>JMP</a>)") //BS12 EDIT ALG
 				if(!iscarbon(firer))
 					M.LAssailant = null
@@ -132,7 +135,7 @@
 					M.LAssailant = firer
 			else
 				M.attack_log += "\[[time_stamp()]\] <b>UNKNOWN SUBJECT (No longer exists)</b> shot <b>[M]/[M.ckey]</b> with a <b>[src]</b>"
-				if(M.ckey)
+				if(M.ckey  && chatlog_attacks)
 					msg_admin_attack("UNKNOWN shot [M] ([M.ckey]) with a [src] (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[firer.x];Y=[firer.y];Z=[firer.z]'>JMP</a>)") //BS12 EDIT ALG
 
 		spawn(0)
@@ -170,7 +173,7 @@
 			if(kill_count < 1)
 				del(src)
 				return
-			kill_count--		
+			kill_count--
 			if((!( current ) || loc == current))
 				current = locate(min(max(x + xo, 1), world.maxx), min(max(y + yo, 1), world.maxy), z)
 			if((x == 1 || x == world.maxx || y == 1 || y == world.maxy))
@@ -243,7 +246,3 @@
 				M = locate() in get_step(src,target)
 				if(istype(M))
 					return 1
-
-/obj/item/projectile/proc/Range()
-	return
-

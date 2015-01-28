@@ -12,13 +12,11 @@
 
 /obj/item/stack/medical/attack(mob/living/carbon/M as mob, mob/user as mob)
 	if (!istype(M))
-		user << "\red \The [src] cannot be applied to [M]!"
+		user << "<span class='danger'>\The [src] cannot be applied to [M]!</span>"
 		return 1
 
-	if ( ! (istype(user, /mob/living/carbon/human) || \
-			istype(user, /mob/living/silicon) || \
-			istype(user, /mob/living/carbon/monkey) && ticker && ticker.mode.name == "monkey") )
-		user << "\red You don't have the dexterity to do this!"
+	if (!(istype(user, /mob/living/carbon/human) || istype(user, /mob/living/silicon) || istype(user, /mob/living/carbon/monkey) && ticker && ticker.mode.name == "monkey"))
+		user << "<span class='danger'>You don't have the dexterity to do this!</span>"
 		return 1
 
 	if (istype(M, /mob/living/carbon/human))
@@ -27,33 +25,30 @@
 
 		if(affecting.display_name == "head")
 			if(H.head && istype(H.head,/obj/item/clothing/head/helmet/space))
-				user << "\red You can't apply [src] through [H.head]!"
+				user << "<span class='danger'>You can't apply [src] through [H.head]!</span>"
 				return 1
 		else
 			if(H.wear_suit && istype(H.wear_suit,/obj/item/clothing/suit/space))
-				user << "\red You can't apply [src] through [H.wear_suit]!"
+				user << "<span class='danger'>You can't apply [src] through [H.wear_suit]!</span>"
 				return 1
 
 		if(affecting.status & ORGAN_ROBOT)
-			user << "\red This isn't useful at all on a robotic limb.."
+			user << "<span class='danger'>This can't be used on a robotic limb.</span>"
 			return 1
 
 		if(affecting.status & ORGAN_PEG)
-			user << "\red This isn't useful at all on a peg limb. It's fucking wood."
+			user << "<span class='danger'>This can't be used on a peg limb.</span>"
 			return 1
 
 		H.UpdateDamageIcon()
 
 	else
-
 		M.heal_organ_damage((src.heal_brute/2), (src.heal_burn/2))
-		user.visible_message( \
-			"\blue [M] has been applied with [src] by [user].", \
-			"\blue You apply \the [src] to [M]." \
-		)
+		user.visible_message("<span class='notice'>[M] has been applied with [src] by [user].</span>","<span class='notice'>You apply \the [src] to [M].</span>")
 		use(1)
 
 	M.updatehealth()
+	
 /obj/item/stack/medical/bruise_pack
 	name = "roll of gauze"
 	singular_name = "gauze length"
@@ -80,21 +75,19 @@
 					if (W.current_stage <= W.max_bleeding_stage)
 						user.visible_message( 	"\blue [user] bandages \the [W.desc] on [M]'s [affecting.display_name].", \
 										"\blue You bandage \the [W.desc] on [M]'s [affecting.display_name]." )
-						//H.add_side_effect("Itch")
 					else if (istype(W,/datum/wound/bruise))
 						user.visible_message( 	"\blue [user] places a bruise patch over \the [W.desc] on [M]'s [affecting.display_name].", \
 										"\blue You place a bruise patch over \the [W.desc] on [M]'s [affecting.display_name]." )
 					else
 						user.visible_message( 	"\blue [user] places a bandaid over \the [W.desc] on [M]'s [affecting.display_name].", \
 										"\blue You place a bandaid over \the [W.desc] on [M]'s [affecting.display_name]." )
-				use(1)
-		else
-			if (can_operate(H))        //Checks if mob is lying down on table for surgery
-				if (do_surgery(H,user,src))
-					return
-			else
-				user << "<span class='notice'>The [affecting.display_name] is cut open, you'll need more than a bandage!</span>"
 
+					affecting.heal_damage(src.heal_brute, src.heal_burn, 0)							
+					use(1)
+		else
+			M.heal_organ_damage((src.heal_brute/2), (src.heal_burn/2))
+			use(1)
+			
 /obj/item/stack/medical/ointment
 	name = "ointment"
 	desc = "Used to treat those nasty burns."
@@ -119,6 +112,7 @@
 			else
 				user.visible_message( 	"\blue [user] salves the wounds on [M]'s [affecting.display_name].", \
 										"\blue You salve the wounds on [M]'s [affecting.display_name]." )
+				affecting.heal_damage(src.heal_brute, src.heal_burn, 0)											
 				use(1)
 		else
 			if (can_operate(H))        //Checks if mob is lying down on table for surgery

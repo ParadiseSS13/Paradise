@@ -50,11 +50,18 @@
 #define BODYTEMP_COLD_DAMAGE_LIMIT 260.15 // The limit the human body can take before it starts taking damage from coldness.
 
 #define SPACE_HELMET_MIN_COLD_PROTECTION_TEMPERATURE 2.0 //what min_cold_protection_temperature is set to for space-helmet quality headwear. MUST NOT BE 0.
-#define SPACE_HELMET_MAX_HEAT_PROTECTION_TEMPERATURE 10000
+#define SPACE_HELMET_MAX_HEAT_PROTECTION_TEMPERATURE 1500
 #define SPACE_SUIT_MIN_COLD_PROTECTION_TEMPERATURE 2.0 //what min_cold_protection_temperature is set to for space-suit quality jumpsuits or suits. MUST NOT BE 0.
-#define SPACE_SUIT_MAX_HEAT_PROTECTION_TEMPERATURE 10000	//These need better heat protect
+#define SPACE_SUIT_MAX_HEAT_PROTECTION_TEMPERATURE 1500	//These need better heat protect
+
+#define FIRESUIT_MIN_COLD_PROTECTION_TEMPERATURE 60
 #define FIRESUIT_MAX_HEAT_PROTECTION_TEMPERATURE 30000 //what max_heat_protection_temperature is set to for firesuit quality headwear. MUST NOT BE 0.
+#define FIRE_HELMET_MIN_COLD_PROTECTION_TEMPERATURE 60
 #define FIRE_HELMET_MAX_HEAT_PROTECTION_TEMPERATURE 30000 //for fire helmet quality items (red and white hardhats)
+
+#define FIRE_IMMUNITY_SUIT_MAX_TEMP_PROTECT	35000	//what max_heat_protection_temperature is set to for firesuit quality suits. MUST NOT BE 0.
+#define FIRE_IMMUNITY_HELM_MAX_TEMP_PROTECT	35000	//for fire helmet quality items (red and white hardhats)
+
 #define HELMET_MIN_COLD_PROTECTION_TEMPERATURE 160	//For normal helmets
 #define HELMET_MAX_HEAT_PROTECTION_TEMPERATURE 600	//For normal helmets
 #define ARMOR_MIN_COLD_PROTECTION_TEMPERATURE 160	//For armor
@@ -203,6 +210,9 @@ var/MAX_EXPLOSION_RANGE = 14
 #define HEADCOVERSEYES		1024		// feel free to realloc these numbers for other purposes
 #define MASKCOVERSMOUTH		2048		// on other items, these are just for mask/head
 #define HEADCOVERSMOUTH		2048
+
+#define HEADBANGPROTECT		4096
+#define EARBANGPROTECT		1024
 
 #define NOSLIP		1024 		//prevents from slipping on wet floors, in space etc
 
@@ -485,6 +495,7 @@ var/list/global_mutations = list() // list of hidden mutation things
 #define STUTTER		"stutter"
 #define EYE_BLUR	"eye_blur"
 #define DROWSY		"drowsy"
+#define JITTER		"jitter"
 
 //I hate adding defines like this but I'd much rather deal with bitflags than lists and string searches
 #define BRUTELOSS 1
@@ -719,7 +730,7 @@ var/list/TAGGERLOCATIONS = list("Disposals",
 #define BE_CULTIST		256
 #define BE_PLANT		512
 #define BE_NINJA		1024
-#define BE_VOX			2048
+#define BE_RAIDER		2048
 #define BE_SLIME		4096
 #define BE_VAMPIRE		8192
 #define BE_MUTINEER		16384
@@ -737,7 +748,7 @@ var/list/be_special_flags = list(
 	"Cultist" = BE_CULTIST,
 	"Plant" = BE_PLANT,
 	"Ninja" = BE_NINJA,
-	"Vox" = BE_VOX,
+	"Vox Raider" = BE_RAIDER,
 	"Slime" = BE_SLIME,
 	"Vampire" = BE_VAMPIRE,
 	"Mutineer" = BE_MUTINEER,
@@ -921,7 +932,6 @@ var/list/RESTRICTED_CAMERA_NETWORKS = list( //Those networks can only be accesse
 
 var/list/hit_appends = list("-OOF", "-ACK", "-UGH", "-HRNK", "-HURGH", "-GLORF")
 
-
 // multitool_topic() shit
 #define MT_ERROR  -1
 #define MT_UPDATE 1
@@ -929,3 +939,11 @@ var/list/hit_appends = list("-OOF", "-ACK", "-UGH", "-HRNK", "-HURGH", "-GLORF")
 
 #define BACKGROUND_ENABLED 0 // The default value for all uses of set background. Set background can cause gradual lag and is recommended you only turn this on if necessary.
 
+#define MINERAL_MATERIAL_AMOUNT 2000 //The amount of materials you get from a sheet of mineral like iron/diamond/glass etc
+
+#define	IMPRINTER	1	//For circuits. Uses glass/chemicals.
+#define PROTOLATHE	2	//New stuff. Uses glass/metal/chemicals
+#define	AUTOLATHE	4	//Uses glass/metal only.
+#define CRAFTLATHE	8	//Uses fuck if I know. For use eventually.
+#define MECHFAB		16 //Remember, objects utilising this flag should have construction_time and construction_cost vars.
+//Note: More then one of these can be added to a design but imprinter and lathe designs are incompatable.

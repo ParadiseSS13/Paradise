@@ -83,8 +83,8 @@
 	item_state = "g_suit"
 	_color = "officer"
 	displays_id = 0
-	flags = FPRINT | TABLEPASS | ONESIZEFITSALL	
-	
+	flags = FPRINT | TABLEPASS | ONESIZEFITSALL
+
 /obj/item/clothing/under/rank/centcom/captain
 	desc = "Gold trim on space-black cloth, this uniform displays the rank of \"Captain\" and bears \"N.C.V. Fearless CV-286\" on the left shounder."
 	name = "\improper Nanotrasen Captains Uniform"
@@ -92,18 +92,18 @@
 	item_state = "dg_suit"
 	_color = "centcom"
 	displays_id = 0
-	
+
 /obj/item/clothing/under/rank/centcom/blueshield
-	desc = "Gold trim on space-black cloth, this uniform displays the rank of \"Lieutenant\" and bears \"N.C.S. Cyberiad\" on the left shounder."
+	desc = "Gold trim on space-black cloth, this uniform displays the rank of \"Lieutenant\" and bears \"N.S.S. Cyberiad\" on the left shounder."
 	name = "\improper Nanotrasen Navy Uniform"
 	icon_state = "officer"
 	item_state = "g_suit"
 	_color = "officer"
 	displays_id = 0
-	flags = FPRINT | TABLEPASS | ONESIZEFITSALL	
-	
+	flags = FPRINT | TABLEPASS | ONESIZEFITSALL
+
 /obj/item/clothing/under/rank/centcom/representative
-	desc = "Gold trim on space-black cloth, this uniform displays the rank of \"Ensign\" and bears \"N.C.S. Cyberiad\" on the left shounder."
+	desc = "Gold trim on space-black cloth, this uniform displays the rank of \"Ensign\" and bears \"N.S.S. Cyberiad\" on the left shounder."
 	name = "\improper Nanotrasen Navy Uniform"
 	icon_state = "officer"
 	item_state = "g_suit"
@@ -124,6 +124,8 @@
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
 	cold_protection = UPPER_TORSO | LOWER_TORSO | LEGS | ARMS //Needs gloves and shoes with cold protection to be fully protected.
 	min_cold_protection_temperature = SPACE_SUIT_MIN_COLD_PROTECTION_TEMPERATURE
+	heat_protection = UPPER_TORSO | LOWER_TORSO|LEGS|FEET|ARMS|HANDS
+	max_heat_protection_temperature = SPACE_SUIT_MAX_HEAT_PROTECTION_TEMPERATURE
 
 /obj/item/clothing/under/acj
 	name = "administrative cybernetic jumpsuit"
@@ -138,6 +140,8 @@
 	armor = list(melee = 100, bullet = 100, laser = 100,energy = 100, bomb = 100, bio = 100, rad = 100)
 	cold_protection = UPPER_TORSO | LOWER_TORSO | LEGS | FEET | ARMS | HANDS
 	min_cold_protection_temperature = SPACE_SUIT_MIN_COLD_PROTECTION_TEMPERATURE
+	heat_protection = UPPER_TORSO | LOWER_TORSO|LEGS|FEET|ARMS|HANDS
+	max_heat_protection_temperature = SPACE_SUIT_MAX_HEAT_PROTECTION_TEMPERATURE
 	siemens_coefficient = 0
 
 /obj/item/clothing/under/owl
@@ -216,6 +220,13 @@
 	_color = "red_suit"
 	species_fit = list("Vox")
 	flags = ONESIZEFITSALL
+
+/obj/item/clothing/under/suit_jacket/navy
+	name = "navy suit"
+	desc = "A navy suit and red tie, intended for the station's finest."
+	icon_state = "navy_suit"
+	item_state = "navy_suit"
+	_color = "navy_suit"
 
 /obj/item/clothing/under/blackskirt
 	name = "black skirt"
@@ -422,14 +433,21 @@
 	icon_state = "roman"
 	_color = "roman"
 	item_state = "armor"
-	armor = list(melee = 25, bullet = 0, laser = 25, energy = 10, bomb = 10, bio = 0, rad = 0)
 
 /obj/item/clothing/under/maid
-	name = "maid uniform"
-	desc = "You have the urge to put this on and act submissively"
+	name = "maid costume"
+	desc = "Maid in China."
 	icon_state = "meido"
 	item_state = "meido"
 	_color = "meido"
+	body_parts_covered = UPPER_TORSO|LOWER_TORSO
+
+/obj/item/clothing/under/janimaid
+	name = "maid uniform"
+	desc = "A simple maid uniform for housekeeping."
+	icon_state = "janimaid"
+	item_state = "janimaid"
+	_color = "janimaid"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO
 
 /obj/item/clothing/under/flappers
@@ -568,3 +586,38 @@
 	icon_state = "pennywise"
 	_color = "pennywise"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO
+
+/obj/item/clothing/under/blacktango
+	name = "black tango dress"
+	desc = "Filled with Latin fire."
+	icon_state = "black_tango"
+	item_state = "wcoat"
+	_color = "black_tango"
+
+/obj/item/clothing/under/stripeddress
+	name = "striped dress"
+	desc = "Fashion in space."
+	icon_state = "striped_dress"
+	item_state = "stripeddress"
+	_color = "striped_dress"
+
+/obj/item/clothing/under/sailordress
+	name = "sailor dress"
+	desc = "Formal wear for a leading lady."
+	icon_state = "sailor_dress"
+	item_state = "sailordress"
+	_color = "sailor_dress"
+
+/obj/item/clothing/under/redeveninggown
+	name = "red evening gown"
+	desc = "Fancy dress for space bar singers."
+	icon_state = "red_evening_gown"
+	item_state = "redeveninggown"
+	_color = "red_evening_gown"
+
+/obj/item/clothing/under/suit_jacket/checkered
+	name = "checkered suit"
+	desc = "That's a very nice suit you have there. Shame if something were to happen to it, eh?"
+	icon_state = "checkered_suit"
+	item_state = "checkered_suit"
+	_color = "checkered_suit"

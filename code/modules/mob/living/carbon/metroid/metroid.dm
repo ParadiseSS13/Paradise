@@ -534,14 +534,23 @@
 	return
 
 /mob/living/carbon/slime/attackby(obj/item/W, mob/user)
-	if(W.force > 0)
+	if(istype(W,/obj/item/stack/sheet/mineral/plasma)) //Lets you feed slimes plasma.
+		if (user in Friends)
+			++Friends[user]
+		else
+			Friends[user] = 1
+		user << "You feed the slime the plasma. It chirps happily."
+		var/obj/item/stack/sheet/mineral/plasma/S = W
+		S.use(1)
+		return
+	else if(W.force > 0)
 		attacked += 10
 		if(prob(25))
 			user << "<span class='danger'>[W] passes right through [src]!</span>"
 			return
 		if(Discipline && prob(50)) // wow, buddy, why am I getting attacked??
 			Discipline = 0
-	if(W.force >= 3)
+	else if(W.force >= 3)
 		if(is_adult)
 			if(prob(5 + round(W.force/2)))
 				if(Victim || Target)
@@ -613,6 +622,11 @@ mob/living/carbon/slime/var/temperature_resistance = T0C+75
 			Target = null
 			++Discipline
 	return
+
+/mob/living/carbon/slime/can_use_vents()
+	if(Victim)
+		return "You cannot ventcrawl while feeding."
+	..()
 
 /obj/item/slime_extract
 	name = "slime extract"

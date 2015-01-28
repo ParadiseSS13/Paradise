@@ -8,6 +8,8 @@
 	..()
 	spawn(2)
 		if(prob(50))
+			new /obj/item/weapon/storage/backpack/duffel(src)
+		if(prob(50))
 			new /obj/item/weapon/storage/backpack(src)
 		else
 			new /obj/item/weapon/storage/backpack/satchel_norm(src)

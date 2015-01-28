@@ -75,7 +75,8 @@
 /mob/living/simple_animal/hostile/syndicate/melee/bullet_act(var/obj/item/projectile/Proj)
 	if(!Proj)	return
 	if(prob(65))
-		src.health -= Proj.damage
+		if((Proj.damage_type == BRUTE || Proj.damage_type == BURN))
+			src.health -= Proj.damage
 	else
 		visible_message("\red <B>[src] blocks [Proj] with its shield!</B>")
 	return 0

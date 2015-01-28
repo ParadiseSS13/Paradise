@@ -81,17 +81,6 @@
 
 	var/media_base_url = "http://nanotrasen.se/media" // http://ss13.nexisonline.net/media
 
-	//Alert level description
-	var/alert_desc_green = "All threats to the station have passed. Security may not have weapons visible, privacy laws are once again fully enforced."
-	var/alert_desc_blue_upto = "The station has received reliable information about possible hostile activity on the station. Security staff may have weapons visible, random searches are permitted."
-	var/alert_desc_blue_downto = "The immediate threat has passed. Security may no longer have weapons drawn at all times, but may continue to have them visible. Random searches are still allowed."
-	var/alert_desc_red_upto = "There is an immediate serious threat to the station. Security may have weapons unholstered at all times. Random searches are allowed and advised."
-	var/alert_desc_red_downto = "The self-destruct mechanism has been deactivated, there is still however an immediate serious threat to the station. Security may have weapons unholstered at all times, random searches are allowed and advised."
-	var/alert_desc_delta = "The station's self-destruct mechanism has been engaged. All crew are instructed to obey all instructions given by heads of staff. Any violations of these orders can be punished by death. This is not a drill."
-	var/alert_desc_epsilon = "Security level EPSILON reached. Consider all contracts terminated."
-	var/alert_desc_gamma = "GAMMA Security level has been set by Centcom, Security is to have weapons at all times, and all civilians are to seek their nearest head for transportation to a safe location. GAMMA Armory unlocked for security personnel."
-
-
 	var/forbid_singulo_possession = 0
 
 	//game_options.txt configs
@@ -132,7 +121,7 @@
 	var/use_recursive_explosions //Defines whether the server uses recursive or circular explosions.
 
 	var/assistant_maint = 0 //Do assistants get maint access?
-	var/gateway_delay = 9000 //How long the gateway takes before it activates. Default is half an hour.
+	var/gateway_delay = 6000 //How long the gateway takes before it activates. Default is half an hour.
 	var/ghost_interaction = 0
 
 	var/comms_password = ""
@@ -144,6 +133,19 @@
 	var/python_path = "" //Path to the python executable.  Defaults to "python" on windows and "/usr/bin/env python2" on unix
 
 	var/default_laws = 0 //Controls what laws the AI spawns with.
+	
+	var/const/minutes_to_ticks = 60 * 10
+	// Event settings
+	var/expected_round_length = 60 * 2 * minutes_to_ticks // 2 hours
+	// If the first delay has a custom start time
+	// No custom time, no custom time, between 80 to 100 minutes respectively.
+	var/list/event_first_run   = list(EVENT_LEVEL_MUNDANE = null, 	EVENT_LEVEL_MODERATE = null,	EVENT_LEVEL_MAJOR = list("lower" = 48000, "upper" = 60000))
+	// The lowest delay until next event
+	// 10, 30, 50 minutes respectively
+	var/list/event_delay_lower = list(EVENT_LEVEL_MUNDANE = 6000,	EVENT_LEVEL_MODERATE = 18000,	EVENT_LEVEL_MAJOR = 30000)
+	// The upper delay until next event
+	// 15, 45, 70 minutes respectively
+	var/list/event_delay_upper = list(EVENT_LEVEL_MUNDANE = 9000,	EVENT_LEVEL_MODERATE = 27000,	EVENT_LEVEL_MAJOR = 42000)
 
 /datum/configuration/New()
 	var/list/L = typesof(/datum/game_mode) - /datum/game_mode
@@ -358,30 +360,6 @@
 				if("load_jobs_from_txt")
 					load_jobs_from_txt = 1
 
-				if("alert_red_upto")
-					config.alert_desc_red_upto = value
-
-				if("alert_red_downto")
-					config.alert_desc_red_downto = value
-
-				if("alert_blue_downto")
-					config.alert_desc_blue_downto = value
-
-				if("alert_blue_upto")
-					config.alert_desc_blue_upto = value
-
-				if("alert_green")
-					config.alert_desc_green = value
-
-				if("alert_delta")
-					config.alert_desc_delta = value
-
-				if("alert_gamma")
-					config.alert_desc_gamma = value
-
-				if("alert_epsilon")
-					config.alert_desc_epsilon = value
-
 				if("forbid_singulo_possession")
 					forbid_singulo_possession = 1
 
@@ -475,6 +453,33 @@
 
 				if("max_maint_drones")
 					config.max_maint_drones = text2num(value)
+					
+				if("expected_round_length")
+					config.expected_round_length = MinutesToTicks(text2num(value))
+
+				if("event_custom_start_mundane")
+					var/values = text2numlist(value, ";")
+					config.event_first_run[EVENT_LEVEL_MUNDANE] = list("lower" = MinutesToTicks(values[1]), "upper" = MinutesToTicks(values[2]))
+
+				if("event_custom_start_moderate")
+					var/values = text2numlist(value, ";")
+					config.event_first_run[EVENT_LEVEL_MODERATE] = list("lower" = MinutesToTicks(values[1]), "upper" = MinutesToTicks(values[2]))
+
+				if("event_custom_start_major")
+					var/values = text2numlist(value, ";")
+					config.event_first_run[EVENT_LEVEL_MAJOR] = list("lower" = MinutesToTicks(values[1]), "upper" = MinutesToTicks(values[2]))
+
+				if("event_delay_lower")
+					var/values = text2numlist(value, ";")
+					config.event_delay_lower[EVENT_LEVEL_MUNDANE] = MinutesToTicks(values[1])
+					config.event_delay_lower[EVENT_LEVEL_MODERATE] = MinutesToTicks(values[2])
+					config.event_delay_lower[EVENT_LEVEL_MAJOR] = MinutesToTicks(values[3])
+
+				if("event_delay_upper")
+					var/values = text2numlist(value, ";")
+					config.event_delay_upper[EVENT_LEVEL_MUNDANE] = MinutesToTicks(values[1])
+					config.event_delay_upper[EVENT_LEVEL_MODERATE] = MinutesToTicks(values[2])
+					config.event_delay_upper[EVENT_LEVEL_MAJOR] = MinutesToTicks(values[3])
 
 				else
 					diary << "Unknown setting in configuration: '[name]'"

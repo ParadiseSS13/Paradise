@@ -61,6 +61,9 @@
 				//If something went wrong, just do normal oxyloss
 				if(!(damagetype | BRUTELOSS) && !(damagetype | FIRELOSS) && !(damagetype | TOXLOSS) && !(damagetype | OXYLOSS))
 					adjustOxyLoss(max(175 - getToxLoss() - getFireLoss() - getBruteLoss() - getOxyLoss(), 0))
+				
+				var/datum/organ/external/affected = get_organ("head")				
+				affected.add_autopsy_data("Suicide by [held_item]", 175) 
 
 				updatehealth()
 				return
@@ -71,6 +74,10 @@
 							"\red <b>[src] is twisting \his own neck! It looks like \he's trying to commit suicide.</b>", \
 							"\red <b>[src] is holding \his breath! It looks like \he's trying to commit suicide.</b>")
 		adjustOxyLoss(max(175 - getToxLoss() - getFireLoss() - getBruteLoss() - getOxyLoss(), 0))
+		
+		var/datum/organ/external/affected = get_organ("head")				
+		affected.add_autopsy_data("Suicide", 175) 
+		
 		updatehealth()
 
 /mob/living/carbon/brain/verb/suicide()
@@ -170,7 +177,7 @@
 	set name = "pAI Suicide"
 	var/answer = input("REALLY kill yourself? This action can't be undone.", "Suicide", "No") in list ("Yes", "No")
 	if(answer == "Yes")
-		if(canmove && !resting)
+		if(canmove || resting)
 			close_up()
 		var/obj/item/device/paicard/card = loc
 		card.removePersonality()

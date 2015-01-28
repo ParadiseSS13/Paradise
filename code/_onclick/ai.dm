@@ -31,11 +31,11 @@
 	if(client.buildmode) // comes after object.Click to allow buildmode gui objects to be clicked
 		build_click(src, client.buildmode, params, A)
 		return
-	
+
 	if(control_disabled || stat)
 		return
 
-	if(alienAI) 
+	if(alienAI)
 		return
 
 	var/list/modifiers = params2list(params)
@@ -58,7 +58,7 @@
 		CtrlClickOn(A)
 		return
 
-	if(world.time <= next_move) 
+	if(world.time <= next_move)
 		return
 	next_move = world.time + 9
 
@@ -70,7 +70,7 @@
 	if(waypoint_mode)
 		set_waypoint(A)
 		waypoint_mode = 0
-		return		
+		return
 	/*
 		AI restrained() currently does nothing
 	if(restrained())
@@ -122,10 +122,10 @@
 	if(user.client)
 		examine()
 	return
-	
-/atom/proc/AIAltShiftClick() 
+
+/atom/proc/AIAltShiftClick()
 	return
-	
+
 /obj/machinery/door/airlock/AIAltShiftClick()  // Sets/Unsets Emergency Access Override
 	if(emagged)
 		return
@@ -134,7 +134,7 @@
 	else
 		Topic("aiDisable=11", list("aiDisable"="11"), 1)
 	return
-	
+
 /atom/proc/AIShiftClick()
 	return
 
@@ -145,7 +145,10 @@
 		Topic("aiDisable=7", list("aiDisable"="7"), 1)
 	return
 
-/atom/proc/AICtrlClick()
+/atom/proc/AICtrlClick(var/mob/living/silicon/ai/user)
+	if(user.holo)
+		var/obj/machinery/hologram/holopad/H = user.holo
+		H.face_atom(src)
 	return
 
 /obj/machinery/door/airlock/AICtrlClick() // Bolts doors
@@ -170,9 +173,11 @@
 	if(!secondsElectrified)
 		// permanent shock
 		Topic("aiEnable=6", list("aiEnable"="6"), 1) // 1 meaning no window (consistency!)
+		use_log += text("\[[time_stamp()]\] <font color='red'>[usr.name] ([usr.ckey]) electrified [src].</font>")
 	else
 		// disable/6 is not in Topic; disable/5 disables both temporary and permanent shock
 		Topic("aiDisable=5", list("aiDisable"="5"), 1)
+		use_log += text("\[[time_stamp()]\] <font color='orange'>[usr.name] ([usr.ckey]) toggled turned off the [src]'s electrification.</font>")
 	return
 
 /obj/machinery/turretid/AIAltClick() //toggles lethal on turrets

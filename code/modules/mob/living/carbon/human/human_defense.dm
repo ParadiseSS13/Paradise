@@ -185,9 +185,6 @@ emp_act
 				buckled.unbuckle()
 			src.loc = picked
 			return 1
-	if(species.flags & HAS_CHITTIN && (prob(50 - round(damage / 3))))
-		visible_message("\red <B> The [attack_text] bounces off [src]' natural armor!</B>")
-		return 1
 	return 0
 
 /mob/living/carbon/human/emp_act(severity)
@@ -205,14 +202,6 @@ emp_act
 //Returns 1 if the attack hit, 0 if it missed.
 /mob/living/carbon/human/proc/attacked_by(var/obj/item/I, var/mob/living/user, var/def_zone)
 	if(!I || !user)	return 0
-
-	var/target_zone = def_zone? check_zone(def_zone) : get_zone_with_miss_chance(user.zone_sel.selecting, src)
-
-	if(user == src) // Attacking yourself can't miss
-		target_zone = user.zone_sel.selecting
-	if(!target_zone && !src.stat && !I.discrete)
-		visible_message("\red <B>[user] misses [src] with \the [I]!")
-		return 0
 
 	if(istype(I, /obj/item/weapon/butch/meatcleaver) && src.stat == DEAD && user.a_intent == "harm")
 		var/obj/item/weapon/reagent_containers/food/snacks/meat/human/newmeat = new /obj/item/weapon/reagent_containers/food/snacks/meat/human(get_turf(src.loc))
@@ -235,7 +224,7 @@ emp_act
 
 			del(src)
 
-	var/datum/organ/external/affecting = get_organ(target_zone)
+	var/datum/organ/external/affecting = get_organ(ran_zone(user.zone_sel.selecting))
 	if (!affecting)
 		return 0
 	if(affecting.status & ORGAN_DESTROYED)
@@ -267,11 +256,11 @@ emp_act
 	var/armor = run_armor_check(affecting, "melee", "Your armor has protected your [hit_area].", "Your armor has softened hit to your [hit_area].")
 	var/weapon_sharp = is_sharp(I)
 	var/weapon_edge = has_edge(I)
-	if ((weapon_sharp || weapon_edge) && prob(getarmor(target_zone, "melee")))
+	if ((weapon_sharp || weapon_edge) && prob(getarmor(user.zone_sel.selecting, "melee")))
 		weapon_sharp = 0
 		weapon_edge = 0
 
-	if(armor >= 2)	return 0
+	if(armor >= 100)	return 0
 	if(!I.force)	return 0
 	var/Iforce = I.force //to avoid runtimes on the forcesay checks at the bottom. Some items might delete themselves if you drop them. (stunning yourself, ninja swords)
 
@@ -348,25 +337,13 @@ emp_act
 /mob/living/carbon/human/hitby(atom/movable/AM as mob|obj,var/speed = 5)
 	if(istype(AM,/obj/))
 		var/obj/O = AM
+		var/zone = ran_zone("chest", 65)
 		var/dtype = BRUTE
 		if(istype(O,/obj/item/weapon))
 			var/obj/item/weapon/W = O
 			dtype = W.damtype
 		var/throw_damage = O.throwforce*(speed/5)
 
-		var/zone
-		if (istype(O.thrower, /mob/living))
-			var/mob/living/L = O.thrower
-			zone = check_zone(L.zone_sel.selecting)
-		else
-			zone = ran_zone("chest",75)	//Hits a random part of the body, geared towards the chest
-
-		//check if we hit
-		if (O.throw_source)
-			var/distance = get_dist(O.throw_source, loc)
-			zone = get_zone_with_miss_chance(zone, src, min(15*(distance-2), 0))
-		else
-			zone = get_zone_with_miss_chance(zone, src, 15)
 		/*
 		if(!zone)
 			visible_message("\blue \The [O] misses [src] narrowly!")
@@ -383,8 +360,8 @@ emp_act
 		src.visible_message("\red [src] has been hit in the [hit_area] by [O].")
 		var/armor = run_armor_check(affecting, "melee", "Your armor has protected your [hit_area].", "Your armor has softened hit to your [hit_area].") //I guess "melee" is the best fit here
 
-		if(armor < 2)
-			apply_damage(throw_damage, dtype, zone, armor, is_sharp(O), has_edge(O), O)
+
+		apply_damage(throw_damage, dtype, zone, armor, is_sharp(O), has_edge(O), O)
 
 		if(ismob(O.thrower))
 			var/mob/M = O.thrower

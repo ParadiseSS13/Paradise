@@ -7,14 +7,14 @@
 	explosion_resistance = 25
 
 /obj/machinery/door/poddoor/preopen
-	icon_state = "open"
+	icon_state = "pdoor0"
 	density = 0
 	opacity = 0
 
 /obj/machinery/door/poddoor/four_tile_ver/
 	name = "Large Pod Door"
 	icon = 'icons/obj/doors/1x4blast_vert.dmi'
-	
+
 /obj/machinery/door/poddoor/three_tile_ver/
 	name = "Large Pod Door"
 	icon = 'icons/obj/doors/1x3blast_vert.dmi'
@@ -51,8 +51,9 @@
 	flick("pdoorc0", src)
 	src.icon_state = "pdoor0"
 	src.SetOpacity(0)
-	sleep(10)
+	sleep(5)
 	src.density = 0
+	sleep(5)
 	update_nearby_tiles()
 
 	if(operating == 1) //emag again
@@ -68,11 +69,13 @@
 	src.operating = 1
 	flick("pdoorc1", src)
 	src.icon_state = "pdoor1"
-	src.density = 1
 	src.SetOpacity(initial(opacity))
 	update_nearby_tiles()
+	sleep(5)
+	crush()
+	src.density = 1
+	sleep(5)
 
-	sleep(10)
 	src.operating = 0
 	return
 
@@ -153,7 +156,7 @@
 		spawn(150)
 			autoclose()
 	return 1
-	
+
 /obj/machinery/door/poddoor/three_tile_hor/close()
 	if (src.operating)
 		return
@@ -332,7 +335,7 @@
 
 	sleep(10)
 	src.operating = 0
-	return	
+	return
 
 /obj/machinery/door/poddoor/four_tile_ver/open()
 	if (src.operating == 1) //doors can still open when emag-disabled
@@ -364,7 +367,7 @@
 		spawn(150)
 			autoclose()
 	return 1
-	
+
 /obj/machinery/door/poddoor/four_tile_ver/close()
 	if (src.operating)
 		return
@@ -454,7 +457,7 @@
 		del f2
 		del f3
 		..()
-		
+
 /obj/machinery/door/poddoor/three_tile_ver
 	var/obj/machinery/door/poddoor/filler_object/f1
 	var/obj/machinery/door/poddoor/filler_object/f2
@@ -477,8 +480,8 @@
 		del f1
 		del f2
 		del f3
-		..()		
-		
+		..()
+
 /obj/machinery/door/poddoor/four_tile_hor
 	var/obj/machinery/door/poddoor/filler_object/f1
 	var/obj/machinery/door/poddoor/filler_object/f2

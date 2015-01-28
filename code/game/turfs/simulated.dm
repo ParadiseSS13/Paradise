@@ -10,11 +10,11 @@
 	var/max_fire_temperature_sustained = 0 //The max temperature of the fire which it was subjected to
 	var/dirt = 0
 	var/dirtoverlay = null
-	
+
 /turf/simulated/New()
 	..()
 	levelupdate()
-	
+
 /turf/simulated/proc/MakeSlippery(var/wet_setting = 1) // 1 = Water, 2 = Lube
 	if(wet >= wet_setting)
 		return
@@ -32,7 +32,7 @@
 		if(wet > wet_setting) return
 		wet = 0
 		if(wet_overlay)
-			overlays -= wet_overlay	
+			overlays -= wet_overlay
 
 /turf/simulated/proc/AddTracks(var/typepath,var/mob,var/bloodDNA,var/comingdir,var/goingdir)
 	var/obj/effect/decal/cleanable/blood/tracks/tracks = locate(typepath) in src
@@ -45,14 +45,15 @@
 	if (istype(A,/mob/living/carbon))
 		var/mob/living/carbon/M = A
 		if(M.lying)	return
-		dirt++
-		if (dirt >= 50)
-			var/obj/effect/decal/cleanable/dirt/dirtoverlay = locate(/obj/effect/decal/cleanable/dirt, src)
-			if (!dirtoverlay)
+		if(prob(80))
+			dirt++
+		var/obj/effect/decal/cleanable/dirt/dirtoverlay = locate(/obj/effect/decal/cleanable/dirt, src)
+		if(dirt >= 100)
+			if(!dirtoverlay)
 				dirtoverlay = new/obj/effect/decal/cleanable/dirt(src)
-				dirtoverlay.alpha = 15
-			else if (dirt > 50)
-				dirtoverlay.alpha = min(dirtoverlay.alpha+5, 255)
+				dirtoverlay.alpha = 10
+			else if(dirt > 100)
+				dirtoverlay.alpha = min(dirtoverlay.alpha+10, 200)
 		if(istype(M, /mob/living/carbon/human))
 			var/mob/living/carbon/human/H = M
 			if(istype(H.shoes, /obj/item/clothing/shoes/clown_shoes))

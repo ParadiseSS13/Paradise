@@ -127,7 +127,7 @@
 					iconholder = 1
 					reqpower = 700
 
-				if(/obj/item/weapon/gun/energy/taser)
+				if(/obj/item/weapon/gun/energy/advtaser)
 					projectile = /obj/item/projectile/energy/electrode
 					eprojectile = projectile
 					iconholder = 1
@@ -369,8 +369,11 @@ Status: []<BR>"},
 				sleep(60)
 				attacked = 0
 
-	src.health -= Proj.damage
+	if((Proj.damage_type == BRUTE || Proj.damage_type == BURN))
+		health -= Proj.damage
+
 	..()
+
 	if(prob(45) && Proj.damage > 0) src.spark_system.start()
 	if (src.health <= 0)
 		src.die() // the death process :(

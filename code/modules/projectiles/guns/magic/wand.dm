@@ -8,6 +8,14 @@
 	can_charge = 0
 	max_charges = 100 //100, 50, 50, 34 (max charge distribution by 25%ths)
 	var/variable_charges = 1
+	var/drained = 0
+
+/obj/item/projectile/magic/fireball/Range()
+	var/mob/living/L = locate(/mob/living) in (range(src, 1) - firer)
+	if(L && L.stat != DEAD)
+		Bump(L) //Magic Bullet #teachthecontroversy
+		return
+	..()
 
 /obj/item/weapon/gun/magic/wand/New()
 	if(prob(75) && variable_charges) //25% chance of listed max charges, 50% chance of 1/2 max charges, 25% chance of 1/3 max charges
@@ -35,11 +43,19 @@
 	..()
 
 /obj/item/weapon/gun/magic/wand/afterattack(atom/target as mob, mob/living/user as mob)
-	if(!charges)
+	if(!charges && !drained)
 		user << "<span class='warning'>The [name] whizzles quietly.<span>"
 		icon_state = "[icon_state]-drained"
+		drained = 1
 		return
 	if(target == user)
+		if(no_den_usage)
+			var/area/A = get_area(user)
+			if(istype(A, /area/wizard_station))
+				user << "<span class='warning'>You know better than to violate the security of The Den, best wait until you leave to use [src].<span>"
+				return
+		else
+			no_den_usage = 0
 		zap_self(user)
 	else
 		..()
@@ -103,6 +119,7 @@
 	projectile_type = "/obj/item/projectile/magic/teleport"
 	icon_state = "telewand"
 	max_charges = 10 //10, 5, 5, 4
+	no_den_usage = 1
 
 /obj/item/weapon/gun/magic/wand/teleport/zap_self(mob/living/user as mob)
 	do_teleport(user, user, 10)

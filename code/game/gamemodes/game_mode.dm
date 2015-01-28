@@ -22,7 +22,8 @@
 	var/explosion_in_progress = 0 //sit back and relax
 	var/list/datum/mind/modePlayer = new
 	var/list/restricted_jobs = list()	// Jobs it doesn't make sense to be.  I.E chaplain or AI cultist
-	var/list/protected_jobs = list()	// Jobs that can't be trators
+	var/list/protected_jobs = list()	// Jobs that can't be traitors
+	var/list/protected_species = list() // Species that can't be traitors
 	var/required_players = 0
 	var/required_players_secret = 0 //Minimum number of players for that game mode to be chose in Secret
 	var/required_enemies = 0
@@ -280,7 +281,7 @@ Implants;
 	for(var/mob/living/carbon/human/man in player_list) if(man.client && man.mind)
 		// NT relation option
 		var/special_role = man.mind.special_role
-		if (special_role == "Wizard" || special_role == "Ninja" || special_role == "Syndicate")
+		if (special_role == "Wizard" || special_role == "Ninja" || special_role == "Syndicate" || special_role == "Syndicate Commando" || special_role == "Vox Raider" || special_role == "Alien")
 			continue	//NT intelligence ruled out possiblity that those are too classy to pretend to be a crew.
 		if(man.client.prefs.nanotrasen_relation == "Opposed" && prob(50) || \
 		   man.client.prefs.nanotrasen_relation == "Skeptical" && prob(20))
@@ -345,7 +346,7 @@ Implants;
 		if(BE_REV)			roletext="revolutionary"
 		if(BE_CULTIST)		roletext="cultist"
 		if(BE_NINJA)		roletext="ninja"
-		if(BE_VOX)			roletext="vox"
+		if(BE_RAIDER)		roletext="Vox raider"
 
 	// Assemble a list of active players without jobbans.
 	for(var/mob/new_player/player in player_list)
@@ -356,9 +357,9 @@ Implants;
 	// Shuffle the players list so that it becomes ping-independent.
 	players = shuffle(players)
 
-	// Get a list of all the people who want to be the antagonist for this round
+	// Get a list of all the people who want to be the antagonist for this round, except those with incompatible species
 	for(var/mob/new_player/player in players)
-		if(player.client.prefs.be_special & role)
+		if(player.client.prefs.be_special & role && !(player.client.prefs.species in protected_species))
 			log_debug("[player.key] had [roletext] enabled, so we are drafting them.")
 			candidates += player.mind
 			players -= player
@@ -551,3 +552,23 @@ proc/get_nt_opposed()
 				dudes += man
 	if(dudes.len == 0) return null
 	return pick(dudes)
+	
+//Announces objectives/generic antag text.
+/proc/show_generic_antag_text(var/datum/mind/player)
+	if(player.current)
+		player.current << \
+		"You are an antagonist! <font color=blue>Within the rules,</font> \
+		try to act as an opposing force to the crew. Further RP and try to make sure \
+		other players have <i>fun</i>! If you are confused or at a loss, always adminhelp, \
+		and before taking extreme actions, please try to also contact the administration! \
+		Think through your actions and make the roleplay immersive! <b>Please remember all \
+		rules aside from those without explicit exceptions apply to antagonists.</b>"	
+
+/proc/show_objectives(var/datum/mind/player)
+	if(!player || !player.current) return
+
+	var/obj_count = 1
+	player.current << "\blue Your current objectives:"
+	for(var/datum/objective/objective in player.objectives)
+		player.current << "<B>Objective #[obj_count]</B>: [objective.explanation_text]"
+		obj_count++

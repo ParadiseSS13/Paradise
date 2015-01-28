@@ -64,6 +64,18 @@
 	component_parts += new /obj/item/stack/cable_coil(src, 1)
 	component_parts += new /obj/item/stack/cable_coil(src, 1)
 	RefreshParts()
+	
+/obj/machinery/dna_scannernew/upgraded/New()
+	..()
+	component_parts = list()
+	component_parts += new /obj/item/weapon/circuitboard/clonescanner(src)
+	component_parts += new /obj/item/weapon/stock_parts/scanning_module/phasic(src)
+	component_parts += new /obj/item/weapon/stock_parts/manipulator/pico(src)
+	component_parts += new /obj/item/weapon/stock_parts/micro_laser/ultra(src)
+	component_parts += new /obj/item/weapon/stock_parts/console_screen(src)
+	component_parts += new /obj/item/stack/cable_coil(src, 1)
+	component_parts += new /obj/item/stack/cable_coil(src, 1)
+	RefreshParts()
 
 /obj/machinery/dna_scannernew/RefreshParts()
 	scan_level = 0
