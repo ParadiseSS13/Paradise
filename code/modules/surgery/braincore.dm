@@ -30,7 +30,6 @@
 		user.visible_message("\blue [user] has cut through [target]'s skull open with \the [tool].",		\
 		"\blue You have cut through [target]'s skull open with \the [tool].")
 		target.brain_op_stage = 2
-		target.expose_brain()
 
 	fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
 		user.visible_message("\red [user]'s hand slips, cracking [target]'s skull with \the [tool]!" , \

@@ -150,7 +150,7 @@ var/global/list/severity_to_string = list(EVENT_LEVEL_MUNDANE = "Mundane", EVENT
 		new /datum/event_meta(EVENT_LEVEL_MODERATE, "Meaty Ores",				/datum/event/dust/meaty,				0,		list(ASSIGNMENT_ENGINEER = 20)),
 		new /datum/event_meta(EVENT_LEVEL_MODERATE, "Communication Blackout",	/datum/event/communications_blackout,	500,	list(ASSIGNMENT_AI = 150, ASSIGNMENT_SECURITY = 120)),
 		new /datum/event_meta(EVENT_LEVEL_MODERATE, "Prison Break",				/datum/event/prison_break,				0,		list(ASSIGNMENT_SECURITY = 100)),
-		new /datum/event_meta(EVENT_LEVEL_MODERATE, "Grid Check",				/datum/event/grid_check, 				200,	list(ASSIGNMENT_ENGINEER = 60)),
+//		new /datum/event_meta(EVENT_LEVEL_MODERATE, "Grid Check",				/datum/event/grid_check, 				200,	list(ASSIGNMENT_ENGINEER = 60)),
 		new /datum/event_meta(EVENT_LEVEL_MODERATE, "Electrical Storm",			/datum/event/electrical_storm, 			250,	list(ASSIGNMENT_ENGINEER = 20, ASSIGNMENT_JANITOR = 150)),
 		new /datum/event_meta(EVENT_LEVEL_MODERATE, "Radiation Storm",			/datum/event/radiation_storm, 			0,		list(ASSIGNMENT_MEDICAL = 50), 1),
 		new /datum/event_meta(EVENT_LEVEL_MODERATE, "Viral Infection",			/datum/event/viral_infection, 			0,		list(ASSIGNMENT_MEDICAL = 150)),
@@ -159,15 +159,15 @@ var/global/list/severity_to_string = list(EVENT_LEVEL_MUNDANE = "Mundane", EVENT
 		new /datum/event_meta/alien(EVENT_LEVEL_MODERATE, "Alien Infestation",	/datum/event/alien_infestation, 		2.5,	list(ASSIGNMENT_SECURITY = 1), 1, 0, 5),
 		new /datum/event_meta/ninja(EVENT_LEVEL_MODERATE, "Space Ninja",		/datum/event/space_ninja, 				0,		list(ASSIGNMENT_SECURITY = 1), 1, 0, 5),
 		// NON-BAY EVENTS
-		new /datum/event_meta(EVENT_LEVEL_MODERATE, "Space Dust",						/datum/event/dust,				50,		list(ASSIGNMENT_ENGINEER = 50)),	
+		new /datum/event_meta(EVENT_LEVEL_MODERATE, "Space Dust",						/datum/event/dust,				50,		list(ASSIGNMENT_ENGINEER = 50)),
 		new /datum/event_meta(EVENT_LEVEL_MODERATE, "Dimensional Tear",			/datum/event/tear,						0,		list(ASSIGNMENT_SECURITY = 25)),
-		new /datum/event_meta(EVENT_LEVEL_MODERATE, "Wormholes",				/datum/event/wormholes,					150),	
+		new /datum/event_meta(EVENT_LEVEL_MODERATE, "Wormholes",				/datum/event/wormholes,					150),
 
-		new /datum/event_meta(EVENT_LEVEL_MODERATE, "Pyro Anomaly",				/datum/event/anomaly/anomaly_pyro,				100,	list(ASSIGNMENT_ENGINEER = 60)),	
-		new /datum/event_meta(EVENT_LEVEL_MODERATE, "Vortex Anomaly",			/datum/event/anomaly/anomaly_vortex,			50,		list(ASSIGNMENT_ENGINEER = 25)),	
-		new /datum/event_meta(EVENT_LEVEL_MODERATE, "Bluespace Anomaly",		/datum/event/anomaly/anomaly_bluespace,			50,		list(ASSIGNMENT_ENGINEER = 25)),	
-		new /datum/event_meta(EVENT_LEVEL_MODERATE, "Flux Anomaly",				/datum/event/anomaly/anomaly_flux,				50,		list(ASSIGNMENT_ENGINEER = 50)),	
-		new /datum/event_meta(EVENT_LEVEL_MODERATE, "Gravitational Anomaly",	/datum/event/anomaly/anomaly_grav,				200),			
+		new /datum/event_meta(EVENT_LEVEL_MODERATE, "Pyro Anomaly",				/datum/event/anomaly/anomaly_pyro,				100,	list(ASSIGNMENT_ENGINEER = 60)),
+		new /datum/event_meta(EVENT_LEVEL_MODERATE, "Vortex Anomaly",			/datum/event/anomaly/anomaly_vortex,			50,		list(ASSIGNMENT_ENGINEER = 25)),
+		new /datum/event_meta(EVENT_LEVEL_MODERATE, "Bluespace Anomaly",		/datum/event/anomaly/anomaly_bluespace,			50,		list(ASSIGNMENT_ENGINEER = 25)),
+		new /datum/event_meta(EVENT_LEVEL_MODERATE, "Flux Anomaly",				/datum/event/anomaly/anomaly_flux,				50,		list(ASSIGNMENT_ENGINEER = 50)),
+		new /datum/event_meta(EVENT_LEVEL_MODERATE, "Gravitational Anomaly",	/datum/event/anomaly/anomaly_grav,				200),
 	)
 
 /datum/event_container/major
