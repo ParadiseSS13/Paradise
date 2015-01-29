@@ -238,7 +238,7 @@
 		usr << "It would be hard to take these off without relaxing your grip first." //theoretically this message should only be seen by the wearer when the claws are equipped.
 
 /obj/item/clothing/suit/space/eva/vox
-	name = "Vox Space Suit"
+	name = "Vox EVA Suit"
 	icon_state = "voxspace"
 	item_state = "voxspace"
 	species_restricted = list("Vox", "Vox Armalis")
@@ -248,7 +248,7 @@
 		)
 
 /obj/item/clothing/head/helmet/space/eva/vox
-	name = "Vox Space Suit"
+	name = "Vox EVA Suit"
 	icon_state = "voxspace"
 	item_state = "voxspace"
 	species_restricted = list("Vox","Vox Armalis")
