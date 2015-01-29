@@ -363,6 +363,7 @@
 	var/bottlesprite = "1" //yes, strings
 	var/pillsprite = "1"
 	var/client/has_sprites = list()
+	var/printing = null
 
 /obj/machinery/chem_master/New()
 	var/datum/reagents/R = new/datum/reagents(100)
@@ -439,7 +440,33 @@
 		usr << browse(null, "window=chemmaster")
 		usr.unset_machine()
 		return
-
+	
+	if (href_list["print_p"])
+		if (!(src.printing))
+			src.printing = 1
+			for(var/mob/O in viewers(usr))
+				O.show_message("\blue \the [src] rattles and prints out a sheet of paper.", 1)
+			sleep(25)
+			var/obj/item/weapon/paper/P = new /obj/item/weapon/paper( src.loc )
+			P.info = "<CENTER><B>Chemical Analysis</B></CENTER><BR>"
+			P.info += "<b>Time of analysis:</b> [worldtime2text(world.time)]<br><br>"
+			P.info += "<b>Chemical name:</b> [href_list["name"]]<br>"
+			if(href_list["name"] == "Blood")
+				var/datum/reagents/R = beaker:reagents
+				var/datum/reagent/blood/G
+				for(var/datum/reagent/F in R.reagent_list)
+					if(F.name == href_list["name"])
+						G = F
+						break
+				var/B = G.data["blood_type"]
+				var/C = G.data["blood_DNA"]
+				P.info += "<b>Description:</b><br>Blood Type: [B]<br>DNA: [C]"
+			else
+				P.info += "<b>Description:</b> [href_list["desc"]]"
+			P.info += "<br><br><b>Notes:</b><br>"
+			P.name = "Chemical Analysis - [href_list["name"]]"
+			src.printing = null
+	
 	if(beaker)
 		var/datum/reagents/R = beaker:reagents
 		if (href_list["analyze"])
@@ -454,9 +481,11 @@
 					var/A = G.name
 					var/B = G.data["blood_type"]
 					var/C = G.data["blood_DNA"]
-					dat += "<TITLE>Chemmaster 3000</TITLE>Chemical infos:<BR><BR>Name:<BR>[A]<BR><BR>Description:<BR>Blood Type: [B]<br>DNA: [C]<BR><BR><BR><A href='?src=\ref[src];main=1'>(Back)</A>"
+					dat += "<TITLE>Chemmaster 3000</TITLE>Chemical infos:<BR><BR>Name:<BR>[A]<BR><BR>Description:<BR>Blood Type: [B]<br>DNA: [C]"
 				else
-					dat += "<TITLE>Chemmaster 3000</TITLE>Chemical infos:<BR><BR>Name:<BR>[href_list["name"]]<BR><BR>Description:<BR>[href_list["desc"]]<BR><BR><BR><A href='?src=\ref[src];main=1'>(Back)</A>"
+					dat += "<TITLE>Chemmaster 3000</TITLE>Chemical infos:<BR><BR>Name:<BR>[href_list["name"]]<BR><BR>Description:<BR>[href_list["desc"]]"
+				dat += "<BR><BR><A href='?src=\ref[src];print_p=1;desc=[href_list["desc"]];name=[href_list["name"]]'>(Print Analysis)</A><BR>"
+				dat += "<A href='?src=\ref[src];main=1'>(Back)</A>"
 			else
 				dat += "<TITLE>Condimaster 3000</TITLE>Condiment infos:<BR><BR>Name:<BR>[href_list["name"]]<BR><BR>Description:<BR>[href_list["desc"]]<BR><BR><BR><A href='?src=\ref[src];main=1'>(Back)</A>"
 			usr << browse(dat, "window=chem_master;size=575x400")

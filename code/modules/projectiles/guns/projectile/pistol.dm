@@ -6,6 +6,8 @@
 	origin_tech = "combat=2;materials=2;syndicate=2"
 	mag_type = "/obj/item/ammo_box/magazine/m10mm"
 	can_suppress = 1
+	isHandgun()
+		return 1
 
 /obj/item/weapon/gun/projectile/automatic/pistol/update_icon()
 	..()
@@ -19,6 +21,8 @@
 	w_class = 3.0
 	origin_tech = "combat=3;materials=2"
 	mag_type = "/obj/item/ammo_box/magazine/m45"
+	isHandgun()
+		return 1
 
 
 /obj/item/weapon/gun/projectile/automatic/m2411/update_icon()
@@ -32,6 +36,8 @@
 	icon_state = "deagle"
 	force = 14.0
 	mag_type = "/obj/item/ammo_box/magazine/m50"
+	isHandgun()
+		return 1
 
 /obj/item/weapon/gun/projectile/automatic/deagle/update_icon()
 	..()

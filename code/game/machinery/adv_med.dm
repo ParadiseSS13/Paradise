@@ -242,6 +242,8 @@
 	dir = 8
 	idle_power_usage = 250
 	active_power_usage = 500
+	var/printing = null
+	var/printing_text = null
 
 /obj/machinery/body_scanconsole/power_change()
 	if(stat & BROKEN)
@@ -506,10 +508,31 @@
 							dat += text("<font color='red'>Cataracts detected.</font><BR>")
 						if(occupant.sdisabilities & NEARSIGHTED)
 							dat += text("<font color='red'>Retinal misalignment detected.</font><BR>")
+						src.printing_text = dat
+						dat += "<BR><BR><A href='?src=\ref[src];print_p=1;name=[occupant.name]'>Print medical condition</A><BR>"
 				else
 					dat += "\The [src] is empty."
 			else
 				dat = "<font color='red'> Error: No Body Scanner connected.</font>"
-		dat += text("<BR><BR><A href='?src=\ref[];mach_close=scanconsole'>Close</A>", user)
+		dat += text("<A href='?src=\ref[];mach_close=scanconsole'>Close</A>", user)
 		user << browse(dat, "window=scanconsole;size=430x600")
 	return
+
+/obj/machinery/body_scanconsole/Topic(href, href_list)
+	if(stat & (BROKEN|NOPOWER)) return
+	if(usr.stat || usr.restrained()) return
+	
+	if (href_list["print_p"])
+		if (!(src.printing) && src.printing_text)
+			src.printing = 1
+			for(var/mob/O in viewers(usr))
+				O.show_message("\blue \the [src] rattles and prints out a sheet of paper.", 1)
+			sleep(20)
+			var/obj/item/weapon/paper/P = new /obj/item/weapon/paper( src.loc )
+			P.info = "<CENTER><B>Body Scan - [href_list["name"]]</B></CENTER><BR>"
+			P.info += "<b>Time of scan:</b> [worldtime2text(world.time)]<br><br>"
+			P.info += "[src.printing_text]"
+			P.info += "<br><br><b>Notes:</b><br>"
+			P.name = "Body Scan - [href_list["name"]]"
+			src.printing = null
+			src.printing_text = null
