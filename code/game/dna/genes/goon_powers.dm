@@ -159,11 +159,15 @@
 			if(istype(H.wear_suit, /obj/item/clothing/suit/space))
 				handle_suit = 1
 				if(H.internal)
-					H.visible_message("\red A cloud of fine ice crystals engulfs [H]!",
-										"<span class='notice'>A cloud of fine ice crystals cover your [H.head]'s visor.</span>")
+					H.visible_message("\red [usr] sprays a cloud of fine ice crystals, engulfing [H]!",
+										"<span class='notice'>[usr] sprays a cloud of fine ice crystals over your [H.head]'s visor.</span>")
+					log_admin("[ckey(usr.key)] has used cryokinesis on [ckey(C.key)], internals yes, suit yes")
+					msg_admin_attack("[usr.real_name] ([usr.ckey]) has cast cryokinesis on  [C.real_name] ([C.ckey]), (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[usr.x];Y=[usr.y];Z=[usr.z]'>)")
 				else
-					H.visible_message("\red A cloud of fine ice crystals engulfs [H]!",
-										"<span class='warning'>A cloud of fine ice crystals cover your [H.head]'s visor and make it into your air vents!.</span>")
+					H.visible_message("\red [usr] sprays a cloud of fine ice crystals engulfing, [H]!",
+										"<span class='warning'>[usr] sprays a cloud of fine ice crystals cover your [H.head]'s visor and make it into your air vents!.</span>")
+					log_admin("[usr.real_name] ([ckey(usr.key)]) has used cryokinesis on [C.real_name] ([ckey(C.key)]), (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[usr.x];Y=[usr.y];Z=[usr.z]'>)")
+					msg_admin_attack("[usr.real_name] ([usr.ckey]) has cast cryokinesis on  [C.real_name] ([C.ckey]), (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[usr.x];Y=[usr.y];Z=[usr.z]'>)")
 					H.bodytemperature = max(0, H.bodytemperature - 50)
 					H.adjustFireLoss(5)
 	if(!handle_suit)
@@ -171,8 +175,9 @@
 		C.adjustFireLoss(10)
 		C.ExtinguishMob()
 
-		C.visible_message("\red A cloud of fine ice crystals engulfs [C]!")
-		log_admin("[ckey(usr.key)] has used cryokinesis on [ckey(C.key)].")
+		C.visible_message("\red [usr] sprays a cloud of fine ice crystals, engulfing [C]!")
+		log_admin("[ckey(usr.key)] has used cryokinesis on [ckey(C.key)], internals no, suit no")
+		msg_admin_attack("[usr.real_name] ([usr.ckey]) has cast cryokinesis on  [C.real_name] ([C.ckey]), (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[usr.x];Y=[usr.y];Z=[usr.z]'>)")
 
 	//playsound(usr.loc, 'bamf.ogg', 50, 0)
 
