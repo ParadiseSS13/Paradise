@@ -13,7 +13,6 @@
 	var/turf/T = get_turf(src)
 	if(src.energy >= 200)
 		var/admin_message = "New singularity made"
-		world << "lengthy = [length(fingerprintshidden)]"
 		if(fingerprintshidden && length(fingerprintshidden))
 			admin_message +=  "touched by: "
 			if(islist(fingerprintshidden))
