@@ -16,8 +16,8 @@
 	var/obj/item/weapon/key/ambulance_train/key
 
 /obj/item/weapon/key/ambulance_train
-	name = "key"
-	desc = "A keyring with a small steel key, and a yellow fob reading \"Choo Choo!\"."
+	name = "ambulance key"
+	desc = "A keyring with a small steel key, and tag with a red cross on it."
 	icon = 'icons/obj/vehicles.dmi'
 	icon_state = "keydoc"
 	w_class = 1
