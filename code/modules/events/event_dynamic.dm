@@ -47,7 +47,7 @@ var/global/list/possibleEvents = list()
 
 	possibleEvents[/datum/event/economic_event] = 300
 	possibleEvents[/datum/event/trivial_news] = 400
-	possibleEvents[/datum/event/mundane_news] = 300	
+	possibleEvents[/datum/event/mundane_news] = 300
 
 	possibleEvents[/datum/event/cargo_bonus] = 150
 
@@ -59,7 +59,7 @@ var/global/list/possibleEvents = list()
 	possibleEvents[/datum/event/mass_hallucination] = 200
 	possibleEvents[/datum/event/vent_clog] = 300
 	possibleEvents[/datum/event/anomaly/anomaly_grav] = 200
-	
+
 	possibleEvents[/datum/event/wormholes] = 150
 
 	possibleEvents[/datum/event/carp_migration] = 20 + 10 * active_with_role["Engineer"]
@@ -72,7 +72,7 @@ var/global/list/possibleEvents = list()
 
 	possibleEvents[/datum/event/communications_blackout] = 50 + 25 * active_with_role["AI"] + active_with_role["Scientist"] * 25
 	possibleEvents[/datum/event/ionstorm] = active_with_role["AI"] * 25 + active_with_role["Cyborg"] * 25 + active_with_role["Engineer"] * 10 + active_with_role["Scientist"] * 5
-	possibleEvents[/datum/event/grid_check] = 25 + 10 * active_with_role["Engineer"]
+//	possibleEvents[/datum/event/grid_check] = 25 + 10 * active_with_role["Engineer"]
 	possibleEvents[/datum/event/electrical_storm] = 15 * active_with_role["Janitor"] + 5 * active_with_role["Engineer"]
 	possibleEvents[/datum/event/wallrot] = 30 * active_with_role["Engineer"] + 50 * active_with_role["Botanist"]
 
@@ -82,8 +82,8 @@ var/global/list/possibleEvents = list()
 		possibleEvents[/datum/event/anomaly/anomaly_pyro] = 100 + 60 * active_with_role["Engineer"]
 		possibleEvents[/datum/event/anomaly/anomaly_vortex] = 50 + 25 * active_with_role["Engineer"]
 		possibleEvents[/datum/event/anomaly/anomaly_bluespace] = 50 + 25 * active_with_role["Engineer"]
-		possibleEvents[/datum/event/anomaly/anomaly_flux] = 50 + 50 * active_with_role["Engineer"]	
-	
+		possibleEvents[/datum/event/anomaly/anomaly_flux] = 50 + 50 * active_with_role["Engineer"]
+
 		possibleEvents[/datum/event/meteor_wave] = 10 * active_with_role["Engineer"]
 		possibleEvents[/datum/event/meteor_shower] = 20 * active_with_role["Engineer"]
 		possibleEvents[/datum/event/blob] = 10 * active_with_role["Engineer"]
