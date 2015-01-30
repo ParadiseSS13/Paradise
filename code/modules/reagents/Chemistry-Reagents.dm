@@ -3132,40 +3132,41 @@ datum
 					if(adj_temp > 0 && holder.has_reagent("frostoil"))
 						holder.remove_reagent("frostoil", 10*REAGENTS_METABOLISM)
 					holder.remove_reagent(src.id, 0.1)
-			icecoffee
-				name = "Iced Coffee"
-				id = "icecoffee"
-				description = "Coffee and ice, refreshing and cool."
-				color = "#102838" // rgb: 16, 40, 56
-				adj_temp = -5
 
-			soy_latte
-				name = "Soy Latte"
-				id = "soy_latte"
-				description = "A nice and tasty beverage while you are reading your hippie books."
-				color = "#664300" // rgb: 102, 67, 0
-				adj_sleepy = 0
-				adj_temp = 5
+				icecoffee
+					name = "Iced Coffee"
+					id = "icecoffee"
+					description = "Coffee and ice, refreshing and cool."
+					color = "#102838" // rgb: 16, 40, 56
+					adj_temp = -5
 
-				on_mob_life(var/mob/living/M as mob)
-					..()
-					M.sleeping = 0
-					if(M.getBruteLoss() && prob(20)) M.heal_organ_damage(1,0)
-					return
+				soy_latte
+					name = "Soy Latte"
+					id = "soy_latte"
+					description = "A nice and tasty beverage while you are reading your hippie books."
+					color = "#664300" // rgb: 102, 67, 0
+					adj_sleepy = 0
+					adj_temp = 5
 
-			cafe_latte
-				name = "Cafe Latte"
-				id = "cafe_latte"
-				description = "A nice, strong and tasty beverage while you are reading."
-				color = "#664300" // rgb: 102, 67, 0
-				adj_sleepy = 0
-				adj_temp = 5
+					on_mob_life(var/mob/living/M as mob)
+						..()
+						M.sleeping = 0
+						if(M.getBruteLoss() && prob(20)) M.heal_organ_damage(1,0)
+						return
 
-				on_mob_life(var/mob/living/M as mob)
-					..()
-					M.sleeping = 0
-					if(M.getBruteLoss() && prob(20)) M.heal_organ_damage(1,0)
-					return
+				cafe_latte
+					name = "Cafe Latte"
+					id = "cafe_latte"
+					description = "A nice, strong and tasty beverage while you are reading."
+					color = "#664300" // rgb: 102, 67, 0
+					adj_sleepy = 0
+					adj_temp = 5
+
+					on_mob_life(var/mob/living/M as mob)
+						..()
+						M.sleeping = 0
+						if(M.getBruteLoss() && prob(20)) M.heal_organ_damage(1,0)
+						return
 
 			tea
 				name = "Tea"
@@ -3183,12 +3184,12 @@ datum
 						M.adjustToxLoss(-1)
 					return
 
-			icetea
-				name = "Iced Tea"
-				id = "icetea"
-				description = "No relation to a certain rap artist/ actor."
-				color = "#104038" // rgb: 16, 64, 56
-				adj_temp = -5
+				icetea
+					name = "Iced Tea"
+					id = "icetea"
+					description = "No relation to a certain rap artist/ actor."
+					color = "#104038" // rgb: 16, 64, 56
+					adj_temp = -5
 
 			kahlua
 				name = "Kahlua"
