@@ -1005,7 +1005,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 		if (burn_dam > 40)
 			disfigure("burn")
 	if(!brained)
-		if(brute_dam > 25)
+		if(brute_dam > 40)
 			if(prob(10))
 				breakskull()
 

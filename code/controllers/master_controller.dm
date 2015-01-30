@@ -186,7 +186,7 @@ datum/controller/game_controller/proc/process()
 				machines_cost = (world.timeofday - timer) / 10
 
 				sleep(breather_ticks)
-				
+
 				//BOTS
 				timer = world.timeofday
 				process_bots()
@@ -280,7 +280,7 @@ datum/controller/game_controller/proc/process()
 
 					continue
 
-		Machinery.removeAtProcessing()
+		if(Machinery) Machinery.removeAtProcessing()
 
 /datum/controller/game_controller/proc/process_bots()
 	for(var/obj/machinery/bot/Bot in aibots)
@@ -289,8 +289,8 @@ datum/controller/game_controller/proc/process()
 			spawn(0)
 				Bot.bot_process()
 			continue
-		aibots -= Bot		
-		
+		aibots -= Bot
+
 /datum/controller/game_controller/proc/processObjects()
 	for (var/obj/Object in processing_objects)
 		if (Object && Object.loc)

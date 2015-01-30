@@ -23,10 +23,11 @@
 	universal_speak = 1
 	var/atom/movable/following = null
 	var/medHUD = 0
+	var/secHUD = 0
 
 /mob/dead/observer/New(var/mob/body=null, var/flags=1)
 	sight |= SEE_TURFS | SEE_MOBS | SEE_OBJS | SEE_SELF
-	see_invisible = SEE_INVISIBLE_OBSERVER
+	see_invisible = SEE_INVISIBLE_OBSERVER_AI_EYE
 	see_in_dark = 100
 	verbs += /mob/dead/observer/proc/dead_tele
 
@@ -103,6 +104,8 @@ Works together with spawning an observer, noted above.
 			assess_targets(target_list, src)
 	if(medHUD)
 		process_medHUD(src)
+	if(secHUD)
+		process_secHUD(src)
 
 
 /mob/dead/proc/process_medHUD(var/mob/M)
@@ -110,6 +113,13 @@ Works together with spawning an observer, noted above.
 	for(var/mob/living/carbon/human/patient in oview(M, 14))
 		C.images += patient.hud_list[HEALTH_HUD]
 		C.images += patient.hud_list[STATUS_HUD_OOC]
+		
+/mob/dead/proc/process_secHUD(var/mob/M)
+	var/client/C = M.client
+	for(var/mob/living/carbon/human/target in oview(M, 14))
+		C.images += target.hud_list[IMPTRACK_HUD]
+		C.images += target.hud_list[IMPLOYAL_HUD]
+		C.images += target.hud_list[IMPCHEM_HUD]
 
 /mob/dead/proc/assess_targets(list/target_list, mob/dead/observer/U)
 	var/client/C = U.client
@@ -258,7 +268,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 /mob/dead/observer/verb/toggle_medHUD()
 	set category = "Ghost"
 	set name = "Toggle MedicHUD"
-	set desc = "Toggles Medical HUD allowing you to see how everyone is doing"
+	set desc = "Toggles the medical HUD."
 	if(!client)
 		return
 	if(medHUD)
@@ -450,14 +460,20 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 		src << "\blue Heat Capacity: [round(environment.heat_capacity(),0.1)]"
 
 
-/mob/dead/observer/verb/toggle_darkness()
-	set name = "Toggle Darkness"
+/mob/dead/observer/verb/toggle_sight()
+	set name = "Toggle Sight"
 	set category = "Ghost"
 
-	if (see_invisible == SEE_INVISIBLE_OBSERVER_NOLIGHTING)
-		see_invisible = SEE_INVISIBLE_OBSERVER
-	else
-		see_invisible = SEE_INVISIBLE_OBSERVER_NOLIGHTING
+	switch(see_invisible)
+		if(SEE_INVISIBLE_OBSERVER_AI_EYE)
+			see_invisible = SEE_INVISIBLE_OBSERVER_NOOBSERVERS
+			usr << "<span class='notice'>You no longer see other observers or the AI eye.</span>"
+		if(SEE_INVISIBLE_OBSERVER_NOOBSERVERS)
+			see_invisible = SEE_INVISIBLE_OBSERVER_NOLIGHTING
+			usr << "<span class='notice'>You no longer see darkness.</span>"
+		else
+			see_invisible = SEE_INVISIBLE_OBSERVER_AI_EYE
+			usr << "<span class='notice'>You again see everything.</span>"
 
 /mob/dead/observer/verb/view_manfiest()
 	set name = "View Crew Manifest"

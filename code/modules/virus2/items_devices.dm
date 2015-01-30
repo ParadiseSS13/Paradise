@@ -3,7 +3,7 @@
 /obj/item/device/antibody_scanner
 	name = "\improper Antibody Scanner"
 	desc = "Scans living beings for antibodies in their blood."
-	icon_state = "health"
+	icon_state = "antibody"
 	w_class = 2.0
 	item_state = "electronic"
 	flags = FPRINT | TABLEPASS | CONDUCT
@@ -50,7 +50,7 @@
 /obj/item/weapon/virusdish/random/New()
 	..()
 	src.virus2 = new /datum/disease2/disease
-	src.virus2.makerandom()
+	src.virus2.makerandom(0, 1) // Virus dishes get minor effects only on creation, and have a chance of being injection type
 	growth = rand(5, 50)
 
 /obj/item/weapon/virusdish/attackby(var/obj/item/weapon/W as obj,var/mob/living/carbon/user as mob)

@@ -236,7 +236,27 @@
 	..()
 	if (magpulse)
 		usr << "It would be hard to take these off without relaxing your grip first." //theoretically this message should only be seen by the wearer when the claws are equipped.
-		
+
+/obj/item/clothing/suit/space/eva/vox
+	name = "Vox EVA Suit"
+	icon_state = "voxspace"
+	item_state = "voxspace"
+	species_restricted = list("Vox", "Vox Armalis")
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/species/vox/suit.dmi',
+		"Vox Armalis" = 'icons/mob/species/armalis/suit.dmi',
+		)
+
+/obj/item/clothing/head/helmet/space/eva/vox
+	name = "Vox EVA Suit"
+	icon_state = "voxspace"
+	item_state = "voxspace"
+	species_restricted = list("Vox","Vox Armalis")
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/species/vox/head.dmi',
+		"Vox Armalis" = 'icons/mob/species/armalis/head.dmi',
+		)
+
 /obj/item/clothing/suit/space/plasmaman
 	w_class = 3
 	allowed = list(/obj/item/weapon/gun,/obj/item/ammo_box/magazine,/obj/item/ammo_casing,/obj/item/weapon/melee/baton,/obj/item/weapon/melee/energy/sword,/obj/item/weapon/handcuffs,/obj/item/weapon/tank)

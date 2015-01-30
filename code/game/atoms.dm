@@ -257,16 +257,25 @@ its easier to just keep the beam vertical.
 			return 0
 		if(H.gloves)
 			if(fingerprintslast != H.ckey)
+				//Add the list if it does not exist.
+				if(!fingerprintshidden)
+					fingerprintshidden = list()
 				fingerprintshidden += text("\[[time_stamp()]\] (Wearing gloves). Real name: [], Key: []",H.real_name, H.key)
 				fingerprintslast = H.ckey
 			return 0
 		if(!( fingerprints ))
 			if(fingerprintslast != H.ckey)
+				//Add the list if it does not exist.
+				if(!fingerprintshidden)
+					fingerprintshidden = list()
 				fingerprintshidden += text("\[[time_stamp()]\] Real name: [], Key: []",H.real_name, H.key)
 				fingerprintslast = H.ckey
 			return 1
 	else
 		if(fingerprintslast != M.ckey)
+			//Add the list if it does not exist.
+			if(!fingerprintshidden)
+				fingerprintshidden = list()
 			fingerprintshidden += text("\[[time_stamp()]\] Real name: [], Key: []",M.real_name, M.key)
 			fingerprintslast = M.ckey
 	return

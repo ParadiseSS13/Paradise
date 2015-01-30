@@ -1014,6 +1014,10 @@
 			number += 2
 	if(istype(src.head, /obj/item/clothing/head/helmet/space))
 		number += 2
+	if(istype(src.head, /obj/item/clothing/head/helmet/space/eva))
+		number -= 2
+	if(istype(src.head, /obj/item/clothing/head/helmet/space/rig/medical))
+		number -= 2
 	if(istype(src.glasses, /obj/item/clothing/glasses/thermal))
 		number -= 1
 	if(istype(src.glasses, /obj/item/clothing/glasses/sunglasses))
@@ -1410,7 +1414,6 @@
 	if(H)
 		H.brained=1
 		h_style = "Bald"
-		drop_from_inventory(head)
 		update_hair()
 		update_body()
 
