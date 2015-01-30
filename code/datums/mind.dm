@@ -177,6 +177,13 @@ datum/mind
 				text += "<a href='?src=\ref[src];revolution=clear'>employee</a>|<a href='?src=\ref[src];revolution=headrev'>headrev</a>|<b>REV</b>"
 			else
 				text += "<b>EMPLOYEE</b>|<a href='?src=\ref[src];revolution=headrev'>headrev</a>|<a href='?src=\ref[src];revolution=rev'>rev</a>"
+				
+
+			if(current && current.client && current.client.prefs.be_special & BE_REV)
+				text += "|Enabled in Prefs"
+			else
+				text += "|Disabled in Prefs"
+			
 			sections["revolution"] = text
 
 			/** CULT ***/
@@ -195,6 +202,13 @@ datum/mind
 */
 			else
 				text += "<b>EMPLOYEE</b>|<a href='?src=\ref[src];cult=cultist'>cultist</a>"
+				
+
+			if(current && current.client && current.client.prefs.be_special & BE_CULTIST)
+				text += "|Enabled in Prefs"
+			else
+				text += "|Disabled in Prefs"
+			
 			sections["cult"] = text
 
 			/** WIZARD ***/
@@ -209,6 +223,12 @@ datum/mind
 					text += "<br>Objectives are empty! <a href='?src=\ref[src];wizard=autoobjectives'>Randomize!</a>"
 			else
 				text += "<a href='?src=\ref[src];wizard=wizard'>yes</a>|<b>NO</b>"
+				
+			if(current && current.client && current.client.prefs.be_special & BE_WIZARD)
+				text += "|Enabled in Prefs"
+			else
+				text += "|Disabled in Prefs"
+			
 			sections["wizard"] = text
 
 			/** CHANGELING ***/
@@ -224,12 +244,15 @@ datum/mind
 					text += "<br><a href='?src=\ref[src];changeling=initialdna'>Transform to initial appearance.</a>"
 			else
 				text += "<a href='?src=\ref[src];changeling=changeling'>yes</a>|<b>NO</b>"
-//			var/datum/game_mode/changeling/changeling = ticker.mode
-//			if (istype(changeling) && changeling.changelingdeath)
-//				text += "<br>All the changelings are dead! Restart in [round((changeling.TIME_TO_GET_REVIVED-(world.time-changeling.changelingdeathtime))/10)] seconds."
+				
+			if(current && current.client && current.client.prefs.be_special & BE_CHANGELING)
+				text += "|Enabled in Prefs"
+			else
+				text += "|Disabled in Prefs"
+				
 			sections["changeling"] = text
 
-	/** NINJA ***/
+			/** NINJA ***/
 			text = "ninja"
 			if (ticker.mode.config_tag=="ninja")
 				text = uppertext(text)
@@ -241,26 +264,13 @@ datum/mind
 					//text += "<br>Objectives are empty! <a href='?src=\ref[src];wizard=autoobjectives'>Randomize!</a>"
 			else
 				text += "<a href='?src=\ref[src];ninja=ninja'>yes</a>|<b>NO</b>"
-			sections["ninja"] = text
-
-			/** CHANGELING ***/
-			text = "changeling"
-			if (ticker.mode.config_tag=="changeling" || ticker.mode.config_tag=="traitorchan")
-				text = uppertext(text)
-			text = "<i><b>[text]</b></i>: "
-			if (src in ticker.mode.changelings)
-				text += "<b>YES</b>|<a href='?src=\ref[src];changeling=clear'>no</a>"
-				if (objectives.len==0)
-					text += "<br>Objectives are empty! <a href='?src=\ref[src];changeling=autoobjectives'>Randomize!</a>"
-				if( changeling && changeling.absorbed_dna.len && (current.real_name != changeling.absorbed_dna[1]) )
-					text += "<br><a href='?src=\ref[src];changeling=initialdna'>Transform to initial appearance.</a>"
+				
+			if(current && current.client && current.client.prefs.be_special & BE_NINJA)
+				text += "|Enabled in Prefs"
 			else
-				text += "<a href='?src=\ref[src];changeling=changeling'>yes</a>|<b>NO</b>"
-//			var/datum/game_mode/changeling/changeling = ticker.mode
-//			if (istype(changeling) && changeling.changelingdeath)
-//				text += "<br>All the changelings are dead! Restart in [round((changeling.TIME_TO_GET_REVIVED-(world.time-changeling.changelingdeathtime))/10)] seconds."
-			sections["changeling"] = text
-
+				text += "|Disabled in Prefs"				
+				
+			sections["ninja"] = text
 
 			/** VAMPIRE ***/
 			text = "vampire"
@@ -279,6 +289,12 @@ datum/mind
 				text += " <b><font color='#FF0000'>YES</font></b> | no"
 			else
 				text += " yes | <font color='#00FF00'>NO</font></b>"
+				
+			if(current && current.client && current.client.prefs.be_special & BE_VAMPIRE)
+				text += "|Enabled in Prefs"
+			else
+				text += "|Disabled in Prefs"
+				
 			sections["vampire"] = text
 
 
@@ -299,6 +315,12 @@ datum/mind
 					text += " Code is [code]. <a href='?src=\ref[src];nuclear=tellcode'>tell the code.</a>"
 			else
 				text += "<a href='?src=\ref[src];nuclear=nuclear'>operative</a>|<b>NANOTRASEN</b>"
+				
+			if(current && current.client && current.client.prefs.be_special & BE_OPERATIVE)
+				text += "|Enabled in Prefs"
+			else
+				text += "|Disabled in Prefs"				
+				
 			sections["nuclear"] = text
 
 			/** TRAITOR ***/
@@ -315,6 +337,12 @@ datum/mind
 						text += "<br>Objectives are empty! <a href='?src=\ref[src];traitor=autoobjectives'>Randomize</a>!"
 				else
 					text += "<a href='?src=\ref[src];traitor=traitor'>traitor</a>|<b>EMPLOYEE</b>"
+					
+			if(current && current.client && current.client.prefs.be_special & BE_TRAITOR)
+				text += "|Enabled in Prefs"
+			else
+				text += "|Disabled in Prefs"					
+					
 			sections["traitor"] = text
 
 			/** MONKEY ***/
@@ -335,6 +363,12 @@ datum/mind
 
 				else
 					text += "healthy|infected|human|<b>OTHER</b>"
+					
+				/*if(current && current.client && current.client.prefs.be_special & BE_MONKEY)
+					text += "|Enabled in Prefs"
+				else
+					text += "|Disabled in Prefs"*/					
+					
 				sections["monkey"] = text
 
 
