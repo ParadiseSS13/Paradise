@@ -267,8 +267,8 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 
 /mob/dead/observer/verb/toggle_medHUD()
 	set category = "Ghost"
-	set name = "Toggle HUD"
-	set desc = "Toggles the security and medical HUD."
+	set name = "Toggle MedicHUD"
+	set desc = "Toggles the medical HUD."
 	if(!client)
 		return
 	if(medHUD)
