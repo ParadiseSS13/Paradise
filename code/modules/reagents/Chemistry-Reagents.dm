@@ -2878,30 +2878,16 @@ datum
 				return
 
 		toxin/coffeepowder
-			name = "Coffee Arabica Grounds"
+			name = "Coffee Grounds"
 			id = "coffeepowder"
-			description = "Finely ground Coffee Arabica beans, used to make coffee."
-			reagent_state = SOLID
-			color = "#5B2E0D" // rgb: 91, 46, 13
-
-		toxin/coffeepowder2
-			name = "Coffee Robusta Grounds"
-			id = "coffeepowder2"
-			description = "Finely ground Coffee Robusta beans, used to make coffee."
+			description = "Finely ground Coffee beans, used to make coffee."
 			reagent_state = SOLID
 			color = "#5B2E0D" // rgb: 91, 46, 13
 
 		toxin/teapowder
-			name = "Ground Tea Aspera Leaves"
+			name = "Ground Tea Leaves"
 			id = "teapowder"
-			description = "Finely shredded Tea Aspera leaves, used for making tea."
-			reagent_state = SOLID
-			color = "#7F8400" // rgb: 127, 132, 0
-
-		toxin/teapowder2
-			name = "Ground Tea Astra Leaves"
-			id = "teapowder2"
-			description = "Finely shredded Tea Astra leaves, used for making tea."
+			description = "Finely shredded Tea leaves, used for making tea."
 			reagent_state = SOLID
 			color = "#7F8400" // rgb: 127, 132, 0
 
@@ -3146,26 +3132,6 @@ datum
 					if(adj_temp > 0 && holder.has_reagent("frostoil"))
 						holder.remove_reagent("frostoil", 10*REAGENTS_METABOLISM)
 					holder.remove_reagent(src.id, 0.1)
-
-			coffee2
-				name = "Coffee"
-				id = "coffee2"
-				description = "Coffee is a brewed drink prepared from roasted seeds, commonly called coffee beans, of the coffee plant."
-				color = "#482000" // rgb: 72, 32, 0
-				adj_dizzy = -5
-				adj_drowsy = -3
-				adj_sleepy = -2
-				adj_temp = 25
-
-				on_mob_life(var/mob/living/M as mob)
-					..()
-					M.Jitter(5)
-					if(prob(5)) M.emote(pick("twitch","blink_r","shiver"))
-					M.status_flags |= GOTTAGOFAST
-					if(adj_temp > 0 && holder.has_reagent("frostoil"))
-						holder.remove_reagent("frostoil", 10*REAGENTS_METABOLISM)
-					holder.remove_reagent(src.id, 0.5 * REAGENTS_METABOLISM)
-
 			icecoffee
 				name = "Iced Coffee"
 				id = "icecoffee"
@@ -3204,7 +3170,7 @@ datum
 			tea
 				name = "Tea"
 				id = "tea"
-				description = "Tasty black tea, it has antioxidants, it's good for you!"
+				description = "Tasty black tea: It has antioxidants. It's good for you!"
 				color = "#101000" // rgb: 16, 16, 0
 				adj_dizzy = -2
 				adj_drowsy = -1
@@ -3215,24 +3181,6 @@ datum
 					..()
 					if(M.getToxLoss() && prob(20))
 						M.adjustToxLoss(-1)
-					return
-
-			tea2
-				name = "Tea"
-				id = "tea2"
-				description = "Tea tasty, much tasty! Tea much good for drink!"
-				color = "#101000" // rgb: 16, 16, 0
-				adj_dizzy = -2
-				adj_sleepy = -3
-				adj_temp = 20
-
-				on_mob_life(var/mob/living/M as mob)
-					if(!M) M = holder.my_atom
-					M.jitteriness = max(M.jitteriness-5,0)
-					if(prob(80)) M.adjustBrainLoss(1*REM)
-					if(prob(50)) M.drowsyness = max(M.drowsyness, 3)
-					if(prob(10)) M.emote("drool")
-					..()
 					return
 
 			icetea

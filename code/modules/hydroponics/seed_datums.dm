@@ -1122,7 +1122,7 @@ proc/populate_seed_list()
 	products = list(/obj/item/weapon/reagent_containers/food/snacks/grown/teaastra)
 	plant_icon = "teaastra"
 	harvest_repeat = 1
-	chems = list("teapowder2" = list(1,20), "impedrezene" = list(1,30))
+	chems = list("teapowder" = list(1,20), "impedrezene" = list(1,30))
 
 	lifespan = 30
 	maturation = 5
@@ -1158,7 +1158,7 @@ proc/populate_seed_list()
 	products = list(/obj/item/weapon/reagent_containers/food/snacks/grown/coffeer)
 	plant_icon = "coffeer"
 	harvest_repeat = 1
-	chems = list("coffeepowder2" = list(1,20), "synaptizine" = list(1,20), "hyperzine" = list(1,40))
+	chems = list("coffeepowder" = list(1,20), "synaptizine" = list(1,20), "hyperzine" = list(1,40))
 
 	lifespan = 30
 	maturation = 5
