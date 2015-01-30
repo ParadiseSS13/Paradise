@@ -43,7 +43,7 @@ var/global/list/facial_hair_styles_male_list = list()
 var/global/list/facial_hair_styles_female_list = list()
 var/global/list/skin_styles_female_list = list()		//unused
 	//Underwear
-var/global/list/underwear_m = list("White", "Grey", "Green", "Blue", "Black", "Mankini", "None") 
+var/global/list/underwear_m = list("White", "Grey", "Green", "Blue", "Black", "Mankini", "None")
 var/global/list/underwear_f = list("Red", "White", "Yellow", "Blue", "Black", "Thong", "None")
 var/global/list/underwear_list = underwear_m + underwear_f
 	//undershirt
@@ -51,6 +51,10 @@ var/global/list/undershirt_t = list("White Shirt", "White Tank top", "Black shir
 var/global/list/undershirt_list = undershirt_t
 	//Backpacks
 var/global/list/backbaglist = list("Nothing", "Backpack", "Satchel", "Satchel Alt")
+	//Slime Colors
+var/global/slime_colorh = list("grey", "gold", "silver", "metal", "purple", "darkpurple", "orange", "yellow", "red", "blue", "darkblue", "pink", "green", "lightpink", "black", "oil", "adamantine")
+
+
 
 //////////////////////////
 /////Initial Building/////

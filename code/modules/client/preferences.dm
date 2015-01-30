@@ -79,6 +79,9 @@ datum/preferences
 	var/species = "Human"
 	var/language = "None"				//Secondary language
 
+	var/slime_color = "blue" //need this for assigning to chars
+	var/HRslime_color = ""
+
 	var/speciesprefs = 0//I hate having to do this, I really do (Using this for oldvox code, making names universal I guess
 
 		//Mob preview
@@ -305,6 +308,11 @@ datum/preferences
 				if(species == "Unathi" || species == "Tajaran" || species == "Skrell")
 					dat += "<br><b>Body Color</b><br>"
 					dat += "<a href='?_src_=prefs;preference=skin;task=input'>Change Color</a> <font face='fixedsys' size='3' color='#[num2hex(r_skin, 2)][num2hex(g_skin, 2)][num2hex(b_skin, 2)]'><table style='display:inline;' bgcolor='#[num2hex(r_skin, 2)][num2hex(g_skin, 2)][num2hex(b_skin)]'><tr><td>__</td></tr></table></font>"
+
+				if(species == "Slime People")
+					HRslime_color = capitalize(slime_color)
+					dat += "<br><b>Slime Color</b><br>"
+					dat += "<a href='?_src_=prefs;preference=slime_color;task=input'>Change Slime Color</a> <b>[HRslime_color]</b>"
 
 				dat += "</td></tr></table><hr><center>"
 
@@ -1150,6 +1158,16 @@ datum/preferences
 								g_skin = hex2num(copytext(new_skin, 4, 6))
 								b_skin = hex2num(copytext(new_skin, 6, 8))
 
+					if("slime_color")
+						var/list/slime_colors
+						slime_colors = slime_colorh
+						if(species == "Slime People")
+							var/new_slime = input(user, "Choose your slime color: ", "Character Preference") as null|anything in slime_colors
+							if(new_slime)
+								slime_color = slime_colors[slime_colors.Find(new_slime)]
+							ShowChoices(user)
+
+
 					if("ooccolor")
 						var/new_ooccolor = input(user, "Choose your OOC colour:", "Game Preference") as color|null
 						if(new_ooccolor)
@@ -1391,6 +1409,8 @@ datum/preferences
 
 		character.h_style = h_style
 		character.f_style = f_style
+
+		character.slime_color = slime_color
 
 		// Destroy/cyborgize organs
 		for(var/name in organ_data)
