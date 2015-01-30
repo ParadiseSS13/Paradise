@@ -537,6 +537,19 @@
 		for (var/i; i < storage_slots; i++)
 			new /obj/item/weapon/reagent_containers/hypospray/autoinjector(src)
 
+/obj/item/weapon/storage/box/autoinjector/utility
+	name = "autoinjector kit"
+	desc = "A box with several utility autoinjectors for the economical miner."
+	icon_state = "syringe"
+
+	New()
+		..()
+		new /obj/item/weapon/reagent_containers/hypospray/autoinjector/leporazine(src)
+		new /obj/item/weapon/reagent_containers/hypospray/autoinjector/leporazine(src)
+		new /obj/item/weapon/reagent_containers/hypospray/autoinjector/stimpack(src)
+		new /obj/item/weapon/reagent_containers/hypospray/autoinjector/stimpack(src)
+		new /obj/item/weapon/reagent_containers/hypospray/autoinjector/stimpack(src)
+
 /obj/item/weapon/storage/box/lights
 	name = "replacement bulbs"
 	icon = 'icons/obj/storage.dmi'

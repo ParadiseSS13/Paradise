@@ -218,6 +218,7 @@
 	icon_state = "duffel"
 	item_state = "duffel"
 	storage_slots = 9 // Duffelbags can hold more items.
+	max_combined_w_class = 27
 	slowdown = 1
 
 /obj/item/weapon/storage/backpack/duffel/syndimed

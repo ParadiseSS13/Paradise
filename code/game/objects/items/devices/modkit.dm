@@ -76,6 +76,11 @@
 	desc = "A kit containing all the needed tools and parts to modify a hardsuit for another species. This one looks like it's meant for Unathi."
 	target_species = "Unathi"
 
+/obj/item/device/modkit/skrell
+	name = "Skrell hardsuit modification kit"
+	desc = "A kit containing all the needed tools and parts to modify a hardsuit for another species. This one looks like it's meant for Skrell."
+	target_species = "Skrell"
+
 /obj/item/device/modkit/vox
 	name = "Vox hardsuit modification kit"
 	desc = "A kit containing all the needed tools and parts to modify a hardsuit for another species. This one looks like it's meant for Vox."
