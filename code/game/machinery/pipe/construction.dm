@@ -709,7 +709,7 @@ Buildable meters
 				V.node2.build_network()
 
 		if(PIPE_PUMP)		//gas pump
-			var/obj/machinery/atmospherics/binary/volume_pump/P = new(src.loc)
+			var/obj/machinery/atmospherics/binary/pump/P = new(src.loc)
 			P.dir = dir
 			P.initialize_directions = pipe_dir
 			if (pipename)
