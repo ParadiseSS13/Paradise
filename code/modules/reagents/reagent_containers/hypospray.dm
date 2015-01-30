@@ -19,11 +19,6 @@
 	return src.attack_hand(user)
 
 
-/obj/item/weapon/reagent_containers/hypospray/New() //comment this to make hypos start off empty
-	..()
-	reagents.add_reagent("doctorsdelight", 30)
-	return
-
 /obj/item/weapon/reagent_containers/hypospray/attack(mob/M as mob, mob/user as mob)
 	if(!reagents.total_volume)
 		user << "\red [src] is empty."
@@ -55,6 +50,10 @@
 
 	return
 
+/obj/item/weapon/reagent_containers/hypospray/CMO/New()
+	..()
+	reagents.add_reagent("doctorsdelight", 30)
+
 /obj/item/weapon/reagent_containers/hypospray/combat
 	name = "combat stimulant injector"
 	desc = "A modified air-needle autoinjector, used by support operatives to quickly heal injuries in combat."
@@ -65,7 +64,6 @@
 
 /obj/item/weapon/reagent_containers/hypospray/combat/New()
 	..()
-	reagents.remove_reagent("doctorsdelight", 30)
 	reagents.add_reagent("synaptizine", 30)
 
 
@@ -77,20 +75,16 @@
 	amount_per_transfer_from_this = 10
 	possible_transfer_amounts = list(10)
 	volume = 10
-	var/emagged = 0
+	flags = null
 
 /obj/item/weapon/reagent_containers/hypospray/autoinjector/New()
 	..()
-	reagents.remove_reagent("doctorsdelight", 30)
 	reagents.add_reagent("inaprovaline", 10)
 	update_icon()
 	return
 
 /obj/item/weapon/reagent_containers/hypospray/autoinjector/attack(mob/M as mob, mob/user as mob)
 	..()
-	if(!emagged)
-		if(reagents.total_volume <= 0) //Prevents autoinjectors to be refilled.
-			flags &= ~OPENCONTAINER
 	update_icon()
 	return
 
@@ -107,27 +101,28 @@
 	else
 		usr << "\blue It is spent."
 
-/obj/item/weapon/reagent_containers/hypospray/autoinjector/attackby(var/obj/item/weapon/D as obj, var/mob/user as mob)
-	if(istype(D, /obj/item/weapon/card/emag) && !emagged)
-		emagged = 1
-		user << "<span class='notice'>You bypass the electronic child-safety lock on the reagent storage.</span>"
-	else
-		..()
-	return
+/obj/item/weapon/reagent_containers/hypospray/autoinjector/leporazine //basilisks
+	name = "leporazine autoinjector"
+	desc = "A rapid way to regulate your body's temperature in the event of a hardsuit malfunction at the cost of some shortness of breath."
+	icon_state = "lepopen"
 
-/obj/item/weapon/reagent_containers/hypospray/hyperzine
-	name = "emergency stimulant autoinjector"
-	desc = "A potent mix of pain killers and muscle stimulants."
-	icon_state = "autoinjector"
-	item_state = "autoinjector"
-	amount_per_transfer_from_this = 5
-	volume = 5
-
-/obj/item/weapon/reagent_containers/hypospray/hyperzine/New()
+/obj/item/weapon/reagent_containers/hypospray/autoinjector/leporazine/New()
 	..()
-	reagents.add_reagent("hyperzine", 5)
+	reagents.remove_reagent("inaprovaline", 10)
+	reagents.add_reagent("leporazine", 9)
+	reagents.add_reagent("lexorin", 1)
 	update_icon()
 	return
 
-/obj/item/weapon/reagent_containers/hypospray/hyperzine/attack(mob/M as mob, mob/user as mob)
+/obj/item/weapon/reagent_containers/hypospray/autoinjector/stimpack //goliath kiting
+	name = "stimpack autoinjector"
+	desc = "A rapid way to stimulate your body's adrenaline, allowing for freer movement in restrictive armor at the cost of some shortness of breath."
+	icon_state = "stimpen"
+
+/obj/item/weapon/reagent_containers/hypospray/autoinjector/stimpack/New()
 	..()
+	reagents.remove_reagent("inaprovaline", 10)
+	reagents.add_reagent("hyperzine", 9)
+	reagents.add_reagent("lexorin", 1)
+	update_icon()
+	return
