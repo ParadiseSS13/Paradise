@@ -104,7 +104,7 @@ Buildable meters
 			src.pipe_type = PIPE_UVENT
 		else if(istype(make_from, /obj/machinery/atmospherics/valve))
 			src.pipe_type = PIPE_MVALVE
-		else if(istype(make_from, /obj/machinery/atmospherics/binary/volume_pump))
+		else if(istype(make_from, /obj/machinery/atmospherics/binary/pump))
 			src.pipe_type = PIPE_PUMP
 		else if(istype(make_from, /obj/machinery/atmospherics/trinary/filter/m_filter))
 			src.pipe_type = PIPE_GAS_FILTER_M
@@ -709,7 +709,7 @@ Buildable meters
 				V.node2.build_network()
 
 		if(PIPE_PUMP)		//gas pump
-			var/obj/machinery/atmospherics/binary/volume_pump/P = new(src.loc)
+			var/obj/machinery/atmospherics/binary/pump/P = new(src.loc)
 			P.dir = dir
 			P.initialize_directions = pipe_dir
 			if (pipename)

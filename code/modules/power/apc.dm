@@ -1206,7 +1206,6 @@
 		update()
 	else if (last_ch != charging)
 		queue_icon_update()
-	src.updateDialog()
 
 // val 0=off, 1=off(auto) 2=on 3=on(auto)
 // on 0=off, 1=on, 2=autooff

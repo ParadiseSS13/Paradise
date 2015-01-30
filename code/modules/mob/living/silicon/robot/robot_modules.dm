@@ -343,6 +343,7 @@
 	src.modules += new /obj/item/weapon/card/emag(src)
 	src.modules += new /obj/item/weapon/tank/jetpack/carbondioxide(src)
 	src.modules += new /obj/item/weapon/crowbar(src)
+	src.modules += new /obj/item/weapon/pinpointer/operative(src)	
 	src.emag = null
 	return
 
