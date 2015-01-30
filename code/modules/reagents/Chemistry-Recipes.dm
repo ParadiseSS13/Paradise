@@ -1601,7 +1601,6 @@ datum
 			required_reagents = list("teapowder" = 1, "water" = 5)
 			result_amount = 5
 
-
 		soysauce
 			name = "Soy Sauce"
 			id = "soysauce"

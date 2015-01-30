@@ -393,36 +393,17 @@
 	name = "koibean"
 	desc = "Something about these seems fishy."
 	icon_state = "koibeans"
-	New()
-		..()
-		spawn(5)	//So potency can be set in the proc that creates these crops
-			reagents.add_reagent("nutriment", 1+round((potency / 30), 1))
-			reagents.add_reagent("carpotoxin", 1+round((potency / 20), 1))
-			bitesize = 1+round(reagents.total_volume / 2, 1)
 
 /obj/item/weapon/reagent_containers/food/snacks/grown/moonflower
 	name = "moonflower"
 	desc = "Store in a location at least 50 yards away from werewolves."
 	icon_state = "moonflower"
-	New()
-		..()
-		spawn(5)	//So potency can be set in the proc that creates these crops
-			reagents.add_reagent("nutriment", 1+round((potency / 50), 1))
-			reagents.add_reagent("moonshine", 1+round((potency / 10), 1))
-			bitesize = 1+round(reagents.total_volume / 2, 1)
 
 /obj/item/weapon/reagent_containers/food/snacks/grown/ghost_chilli
 	name = "ghost chili"
 	desc = "It seems to be vibrating gently."
 	icon_state = "ghostchilipepper"
 	var/mob/held_mob
-	New()
-		..()
-		spawn(5)	//So potency can be set in the proc that creates these crops
-			reagents.add_reagent("nutriment", 1+round((potency / 25), 1))
-			reagents.add_reagent("capsaicin", 8+round(potency / 2, 1))
-			reagents.add_reagent("condensedcapsaicin", 4+round(potency / 4, 1))
-			bitesize = 1+round(reagents.total_volume / 4, 1)
 
 /obj/item/weapon/reagent_containers/food/snacks/grown/tomato
 	name = "tomato"
@@ -643,6 +624,50 @@
 	user.SetLuminosity(round(user.luminosity - (potency/10),1))
 	SetLuminosity(round(potency/10,1))
 
+//Tobacco/varieties
+/obj/item/weapon/reagent_containers/food/snacks/grown/tobacco
+	name = "tobacco leaves"
+	desc = "It's tobacco... Put that in your pipe and smoke it."
+	icon_state = "tobacco_leaves"
+	filling_color = "#FFE991"
+	plantname = "tobacco"
+
+/obj/item/weapon/reagent_containers/food/snacks/grown/tobacco/space
+	name = "space-tobacco leaves"
+	desc = "It's tobacco... From SPACE!"
+	icon_state = "stobacco_leaves"
+	filling_color = "#FFE991"
+	plantname = "stobacco"
+
+//Tea/varieties
+/obj/item/weapon/reagent_containers/food/snacks/grown/teaaspera
+	name = "tea-aspera leaves"
+	desc = "Tea Aspera is well documented to have beneficial health effects!"
+	icon_state = "tea_aspera_leaves"
+	filling_color = "#7F8400"
+	plantname = "teaaspera"
+
+/obj/item/weapon/reagent_containers/food/snacks/grown/teaastra
+	name = "tea-astra leaves"
+	desc = "Tea Astra is well documented to have significant health effects."
+	icon_state = "tea_astra_leaves"
+	filling_color = "#7F8400"
+	plantname = "teaastra"
+
+//Coffee/varieties
+/obj/item/weapon/reagent_containers/food/snacks/grown/coffeea
+	name = "coffee-arabica beans"
+	desc = "Coffee Arabica: A great way start to your morning, or to prolong your nights."
+	icon_state = "coffee_arabica"
+	filling_color = "#5B2E0D"
+	plantname = "coffeea"
+
+/obj/item/weapon/reagent_containers/food/snacks/grown/coffeer
+	name = "coffee-robusta beans"
+	desc = "Coffee Robusta: Coffe so robust we had to put it in the name."
+	icon_state = "coffee_robusta"
+	filling_color = "#5B2E0D"
+	plantname = "coffeer"
 
 // *************************************
 // Complex Grown Object Defines -
