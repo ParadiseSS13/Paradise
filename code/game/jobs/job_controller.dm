@@ -405,7 +405,7 @@ var/global/datum/controller/occupations/job_master
 				H.buckled.loc = H.loc
 				H.buckled.dir = H.dir
 
-		var/datum/money_account/M = create_account(H.real_name, 1000, null)
+		var/datum/money_account/M = create_account(H, 1000, null)
 		if(H.mind)
 			var/remembered_info = ""
 
