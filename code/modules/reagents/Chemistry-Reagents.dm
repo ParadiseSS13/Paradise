@@ -2797,14 +2797,14 @@ datum
 		toxin/coffeepowder
 			name = "Coffee Grounds"
 			id = "coffeepowder"
-			description = "Finely ground coffee beans, used to make coffee."
+			description = "Finely ground Coffee beans, used to make coffee."
 			reagent_state = SOLID
 			color = "#5B2E0D" // rgb: 91, 46, 13
 
 		toxin/teapowder
 			name = "Ground Tea Leaves"
 			id = "teapowder"
-			description = "Finely shredded tea leaves, used for making tea."
+			description = "Finely shredded Tea leaves, used for making tea."
 			reagent_state = SOLID
 			color = "#7F8400" // rgb: 127, 132, 0
 
@@ -3048,8 +3048,8 @@ datum
 					M.Jitter(5)
 					if(adj_temp > 0 && holder.has_reagent("frostoil"))
 						holder.remove_reagent("frostoil", 10*REAGENTS_METABOLISM)
-
 					holder.remove_reagent(src.id, 0.1)
+
 				icecoffee
 					name = "Iced Coffee"
 					id = "icecoffee"
@@ -3088,7 +3088,7 @@ datum
 			tea
 				name = "Tea"
 				id = "tea"
-				description = "Tasty black tea, it has antioxidants, it's good for you!"
+				description = "Tasty black tea: It has antioxidants. It's good for you!"
 				color = "#101000" // rgb: 16, 16, 0
 				adj_dizzy = -2
 				adj_drowsy = -1
@@ -3101,13 +3101,12 @@ datum
 						M.adjustToxLoss(-1)
 					return
 
-
-			icetea
-				name = "Iced Tea"
-				id = "icetea"
-				description = "No relation to a certain rap artist/ actor."
-				color = "#104038" // rgb: 16, 64, 56
-				adj_temp = -5
+				icetea
+					name = "Iced Tea"
+					id = "icetea"
+					description = "No relation to a certain rap artist/ actor."
+					color = "#104038" // rgb: 16, 64, 56
+					adj_temp = -5
 
 			kahlua
 				name = "Kahlua"

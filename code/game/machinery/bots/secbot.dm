@@ -52,6 +52,10 @@
 	desc = "It's Officer Pingsky! Delegated to satellite guard duty for harbouring anti-human sentiment."
 	radio_frequency = AIPRIV_FREQ
 	radio_name = "AI Private"
+	
+/obj/machinery/bot/secbot/ofitser
+	name = "Prison Ofitser"
+	desc = "It's Prison Ofitser! Powered by the tears and sweat of prisoners."
 
 /obj/machinery/bot/secbot/buzzsky
 	name = "Officer Buzzsky"

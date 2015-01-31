@@ -248,48 +248,51 @@
 	if (istype(I, /obj/item/weapon/card/id))
 		var/obj/item/weapon/card/id/C = I
 		visible_message("<span class='info'>[usr] swipes a card through [src].</span>")
-		if(vendor_account)
-			var/datum/money_account/D = attempt_account_access_nosec(C.associated_account_number)
-			if(D)
-				var/transaction_amount = currently_vending.price
-				if(transaction_amount <= D.money)
+//		if(vendor_account)
+		var/datum/money_account/D = attempt_account_access_nosec(C.associated_account_number)
+		if(D)
+			var/transaction_amount = currently_vending.price
+			if(transaction_amount <= D.money)
 
-					//transfer the money
-					D.money -= transaction_amount
-					vendor_account.money += transaction_amount
+				//transfer the money
+				D.money -= transaction_amount
+				D.update_balance(D.account_number,D.money)
+				//vendor_account.money += transaction_amount
 
-					//create entries in the two account transaction logs
-					var/datum/transaction/T = new()
-					T.target_name = "[vendor_account.owner_name] (via [src.name])"
-					T.purpose = "Purchase of [currently_vending.product_name]"
-					if(transaction_amount > 0)
-						T.amount = "([transaction_amount])"
-					else
-						T.amount = "[transaction_amount]"
-					T.source_terminal = src.name
-					T.date = current_date_string
-					T.time = worldtime2text()
-					D.transaction_log.Add(T)
-					//
-					T = new()
-					T.target_name = D.owner_name
-					T.purpose = "Purchase of [currently_vending.product_name]"
-					T.amount = "[transaction_amount]"
-					T.source_terminal = src.name
-					T.date = current_date_string
-					T.time = worldtime2text()
-					vendor_account.transaction_log.Add(T)
-
-					// Vend the item
-					src.vend(src.currently_vending, usr)
-					currently_vending = null
-					src.updateUsrDialog()
+				//create entries in the two account transaction logs
+				var/datum/transaction/T = new()
+				T.target_name = "(via [src.name])"
+				T.purpose = "Purchase of [currently_vending.product_name]"
+				if(transaction_amount > 0)
+					T.amount = "([transaction_amount])"
 				else
-					usr << "\icon[src]<span class='warning'>You don't have that much money!</span>"
+					T.amount = "[transaction_amount]"
+				T.source_terminal = src.name
+				T.date = current_date_string
+				T.time = worldtime2text()
+				D.transaction_log.Add(T)
+
+/*
+				T = new()
+				T.target_name = D.owner_name
+				T.purpose = "Purchase of [currently_vending.product_name]"
+				T.amount = "[transaction_amount]"
+				T.source_terminal = src.name
+				T.date = current_date_string
+				T.time = worldtime2text()
+				vendor_account.transaction_log.Add(T)
+*/
+
+				// Vend the item
+				src.vend(src.currently_vending, usr)
+				currently_vending = null
+				src.updateUsrDialog()
 			else
-				usr << "\icon[src]<span class='warning'>Unable to access account. Check security settings and try again.</span>"
+				usr << "\icon[src]<span class='warning'>You don't have that much money!</span>"
 		else
-			usr << "\icon[src]<span class='warning'>Unable to access vendor account. Please record the machine ID and call CentComm Support.</span>"
+			usr << "\icon[src]<span class='warning'>Unable to access account. Check security settings and try again.</span>"
+//		else
+//			usr << "\icon[src]<span class='warning'>Unable to access vendor account. Please record the machine ID and call CentComm Support.</span>"
 
 /obj/machinery/vending/attack_paw(mob/user as mob)
 	return attack_hand(user)
@@ -890,7 +893,8 @@
 					/obj/item/seeds/sunflowerseed = 3,/obj/item/seeds/tomatoseed = 3,/obj/item/seeds/towermycelium = 3,/obj/item/seeds/wheatseed = 3,/obj/item/seeds/appleseed = 3,
 					/obj/item/seeds/poppyseed = 3,/obj/item/seeds/ambrosiavulgarisseed = 3,/obj/item/seeds/whitebeetseed = 3,/obj/item/seeds/watermelonseed = 3,/obj/item/seeds/limeseed = 3,
 					/obj/item/seeds/lemonseed = 3,/obj/item/seeds/orangeseed = 3,/obj/item/seeds/grassseed = 3,/obj/item/seeds/cocoapodseed = 3,
-					/obj/item/seeds/cabbageseed = 3,/obj/item/seeds/grapeseed = 3,/obj/item/seeds/pumpkinseed = 3,/obj/item/seeds/cherryseed = 3,/obj/item/seeds/plastiseed = 3,/obj/item/seeds/riceseed = 3)
+					/obj/item/seeds/cabbageseed = 3,/obj/item/seeds/grapeseed = 3,/obj/item/seeds/pumpkinseed = 3,/obj/item/seeds/cherryseed = 3,/obj/item/seeds/plastiseed = 3,/obj/item/seeds/riceseed = 3,
+					/obj/item/seeds/tobaccoseed = 3, /obj/item/seeds/coffeeaseed = 3, /obj/item/seeds/teaasperaseed = 3)
 
 	contraband = list(/obj/item/seeds/amanitamycelium = 2,/obj/item/seeds/glowshroom = 2,/obj/item/seeds/libertymycelium = 2,/obj/item/seeds/nettleseed = 2,
 						/obj/item/seeds/plumpmycelium = 2,/obj/item/seeds/reishimycelium = 2)
