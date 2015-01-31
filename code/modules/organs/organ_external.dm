@@ -567,7 +567,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 		O.setAmputatedTree()
 
 //Handles dismemberment
-/datum/organ/external/proc/droplimb(var/override = 0,var/no_explode = 0, var/spawn_limb=0)
+/datum/organ/external/proc/droplimb(var/override = 0,var/no_explode = 0,var/amputation=0, var/spawn_limb=0)
 	if(destspawn) return
 	if(override)
 		status |= ORGAN_DESTROYED
@@ -585,9 +585,13 @@ Note that amputating the affected organ does in fact remove the infection from t
 
 		germ_level = 0
 
+		// If any organs are attached to this, destroy them
+		for(var/datum/organ/external/O in children)
+			O.droplimb(1, no_explode, amputation)
+
 		//Replace all wounds on that arm with one wound on parent organ.
 		wounds.Cut()
-		if (parent)
+		if (parent && !amputation)
 			var/datum/wound/W
 			if(max_damage < 50)
 				W = new/datum/wound/lost_limb/small(max_damage)
@@ -596,10 +600,6 @@ Note that amputating the affected organ does in fact remove the infection from t
 			parent.wounds += W
 			parent.update_damages()
 		update_damages()
-
-		// If any organs are attached to this, destroy them
-		for(var/datum/organ/external/O in children)
-			O.droplimb(1)
 
 		var/obj/organ	//Dropped limb object
 
