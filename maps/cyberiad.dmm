@@ -1734,7 +1734,7 @@
 "aHr" = (/obj/machinery/atmospherics/unary/vent_scrubber{dir = 4; on = 1},/turf/simulated/floor{icon_state = "vault"; dir = 6},/area/security/nuke_storage)
 "aHs" = (/obj/machinery/light/small{dir = 1},/obj/machinery/alarm{pixel_y = 23},/obj/structure/cable{d1 = 2; d2 = 4; icon_state = "2-4"},/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{dir = 10},/turf/simulated/floor{icon_state = "vault"},/area/security/nuke_storage)
 "aHt" = (/obj/machinery/power/apc{dir = 1; name = "north bump"; pixel_x = 0; pixel_y = 24},/obj/structure/cable{d2 = 8; icon_state = "0-8"},/turf/simulated/floor{icon_state = "vault"; dir = 10},/area/security/nuke_storage)
-"aHu" = (/obj/machinery/computer/secure_data/detective_computer,/obj/machinery/status_display{density = 0; layer = 4; pixel_x = 0; pixel_y = 32},/obj/item/weapon/folder/documents,/turf/simulated/floor{icon_state = "vault"; dir = 8},/area/security/nuke_storage)
+"aHu" = (/obj/machinery/status_display{density = 0; layer = 4; pixel_x = 0; pixel_y = 32},/obj/structure/filingcabinet,/obj/item/weapon/folder/documents,/turf/simulated/floor{icon_state = "vault"; dir = 8},/area/security/nuke_storage)
 "aHv" = (/obj/machinery/gateway{dir = 10},/turf/simulated/floor{icon_state = "vault"; dir = 4},/area/gateway)
 "aHw" = (/obj/machinery/gateway{density = 0},/obj/structure/cable{d2 = 2; icon_state = "0-2"},/turf/simulated/floor{icon_state = "vault"; dir = 8},/area/gateway)
 "aHx" = (/obj/machinery/gateway{dir = 6},/turf/simulated/floor{icon_state = "vault"; dir = 1},/area/gateway)
