@@ -32,7 +32,7 @@
 	// also make sure that there's at least one borer and one host
 	recommended_enemies = max(src.num_players() / 20 * 2, 2)
 
-	var/list/datum/mind/possible_borers = get_candidates(BE_ALIEN,ALIEN_AFK_BRACKET,"alien")
+	var/list/datum/mind/possible_borers = get_players_for_role(BE_ALIEN)
 
 	if(possible_borers.len < 2)
 		log_admin("MODE FAILURE: BORER. NOT ENOUGH BORER CANDIDATES.")
