@@ -213,58 +213,61 @@
 	if (istype(I, /obj/item/weapon/card/id))
 		var/obj/item/weapon/card/id/C = I
 		visible_message("<span class='info'>[usr] swipes a card through [src].</span>")
-		if(vendor_account)
-			var/attempt_pin = input("Enter pin code", "Vendor transaction") as num
-			var/datum/money_account/D = attempt_account_access(C.associated_account_number, attempt_pin, 2)
-			if(D)
-				var/transaction_amount = total()
-				if(transaction_amount <= D.money)
+//		if(vendor_account)
+		var/attempt_pin = input("Enter pin code", "Vendor transaction") as num
+		var/datum/money_account/D = attempt_account_access(C.associated_account_number, attempt_pin, 2)
+		if(D)
+			var/transaction_amount = total()
+			if(transaction_amount <= D.money)
 
-					//transfer the money
-					D.money -= transaction_amount
-					vendor_account.money += transaction_amount
+				//transfer the money
+				D.money -= transaction_amount
+				D.update_balance(D.account_number,D.money)
+				//vendor_account.money += transaction_amount
 
-					//Transaction logs
-					var/datum/transaction/T = new()
-					T.target_name = "[vendor_account.owner_name] (via [src.name])"
-					T.purpose = "Purchase of Laptop"
-					if(transaction_amount > 0)
-						T.amount = "([transaction_amount])"
-					else
-						T.amount = "[transaction_amount]"
-					T.source_terminal = src.name
-					T.date = current_date_string
-					T.time = worldtime2text()
-					D.transaction_log.Add(T)
-					//
-					T = new()
-					T.target_name = D.owner_name
-					T.purpose = "Purchase of Laptop"
-					T.amount = "[transaction_amount]"
-					T.source_terminal = src.name
-					T.date = current_date_string
-					T.time = worldtime2text()
-					vendor_account.transaction_log.Add(T)
-
-					newlap = new /obj/machinery/computer3/laptop/vended(src.loc)
-
-					choose_progs(C)
-					vend()
-					popup.close()
-					newlap.close_computer()
-					newlap = null
-					cardreader = 0
-					floppy = 0
-					radionet = 0
-					camera = 0
-					network = 0
-					power = 0
+				//Transaction logs
+				var/datum/transaction/T = new()
+				T.target_name = "(via [src.name])"
+				T.purpose = "Purchase of Laptop"
+				if(transaction_amount > 0)
+					T.amount = "([transaction_amount])"
 				else
-					usr << "\icon[src]<span class='warning'>You don't have that much money!</span>"
+					T.amount = "[transaction_amount]"
+				T.source_terminal = src.name
+				T.date = current_date_string
+				T.time = worldtime2text()
+				D.transaction_log.Add(T)
+
+/*
+				T = new()
+				T.target_name = D.owner_name
+				T.purpose = "Purchase of Laptop"
+				T.amount = "[transaction_amount]"
+				T.source_terminal = src.name
+				T.date = current_date_string
+				T.time = worldtime2text()
+				vendor_account.transaction_log.Add(T)
+*/
+
+				newlap = new /obj/machinery/computer3/laptop/vended(src.loc)
+
+				choose_progs(C)
+				vend()
+				popup.close()
+				newlap.close_computer()
+				newlap = null
+				cardreader = 0
+				floppy = 0
+				radionet = 0
+				camera = 0
+				network = 0
+				power = 0
 			else
-				usr << "\icon[src]<span class='warning'>Unable to access account. Check security settings and try again.</span>"
+				usr << "\icon[src]<span class='warning'>You don't have that much money!</span>"
 		else
-			usr << "\icon[src]<span class='warning'>Unable to access vendor account. Please record the machine ID and call CentComm Support.</span>"
+			usr << "\icon[src]<span class='warning'>Unable to access account. Check security settings and try again.</span>"
+//		else
+//			usr << "\icon[src]<span class='warning'>Unable to access vendor account. Please record the machine ID and call CentComm Support.</span>"
 
 /obj/machinery/lapvend/proc/total()
 	var/total = 0
@@ -360,49 +363,50 @@
 	if (istype(I, /obj/item/weapon/card/id))
 		var/obj/item/weapon/card/id/C = I
 		visible_message("<span class='info'>[usr] swipes a card through [src].</span>")
-		if(vendor_account)
-			var/attempt_pin = input("Enter pin code", "Vendor transaction") as num
-			var/datum/money_account/D = attempt_account_access(C.associated_account_number, attempt_pin, 2)
-			if(D)
-				var/transaction_amount = total()
+//		if(vendor_account)
+		var/attempt_pin = input("Enter pin code", "Vendor transaction") as num
+		var/datum/money_account/D = attempt_account_access(C.associated_account_number, attempt_pin, 2)
+		if(D)
+			var/transaction_amount = total()
 
-				//transfer the money
-				D.money += transaction_amount
-				vendor_account.money -= transaction_amount
+			//transfer the money
+			D.money += transaction_amount
+			//vendor_account.money -= transaction_amount
 
-				//Transaction logs
-				var/datum/transaction/T = new()
-				T.target_name = "[vendor_account.owner_name] (via [src.name])"
-				T.purpose = "Return purchase of Laptop"
-				if(transaction_amount > 0)
-					T.amount = "([transaction_amount])"
-				else
-					T.amount = "[transaction_amount]"
-				T.source_terminal = src.name
-				T.date = current_date_string
-				T.time = worldtime2text()
-				D.transaction_log.Add(T)
-				//
-				T = new()
-				T.target_name = D.owner_name
-				T.purpose = "Return purchase of Laptop"
-				T.amount = "[transaction_amount]"
-				T.source_terminal = src.name
-				T.date = current_date_string
-				T.time = worldtime2text()
-				vendor_account.transaction_log.Add(T)
-
-				del(relap)
-
-				vendmode = 0
-				cardreader = 0
-				floppy = 0
-				radionet = 0
-				camera = 0
-				network = 0
-				power = 0
-
+			//Transaction logs
+			var/datum/transaction/T = new()
+			T.target_name = "(via [src.name])"
+			T.purpose = "Return purchase of Laptop"
+			if(transaction_amount > 0)
+				T.amount = "([transaction_amount])"
 			else
-				usr << "\icon[src]<span class='warning'>Unable to access account. Check security settings and try again.</span>"
+				T.amount = "[transaction_amount]"
+			T.source_terminal = src.name
+			T.date = current_date_string
+			T.time = worldtime2text()
+			D.transaction_log.Add(T)
+
+/*
+			T = new()
+			T.target_name = D.owner_name
+			T.purpose = "Return purchase of Laptop"
+			T.amount = "[transaction_amount]"
+			T.source_terminal = src.name
+			T.date = current_date_string
+			T.time = worldtime2text()
+			vendor_account.transaction_log.Add(T)
+*/
+			del(relap)
+
+			vendmode = 0
+			cardreader = 0
+			floppy = 0
+			radionet = 0
+			camera = 0
+			network = 0
+			power = 0
+
 		else
-			usr << "\icon[src]<span class='warning'>Unable to access vendor account. Please record the machine ID and call CentComm Support.</span>"
+			usr << "\icon[src]<span class='warning'>Unable to access account. Check security settings and try again.</span>"
+//		else
+//			usr << "\icon[src]<span class='warning'>Unable to access vendor account. Please record the machine ID and call CentComm Support.</span>"
