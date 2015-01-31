@@ -302,7 +302,7 @@
 /obj/machinery/atmospherics/valve/attackby(var/obj/item/weapon/W as obj, var/mob/user as mob)
 	if (!istype(W, /obj/item/weapon/wrench))
 		return ..()
-	if (istype(src, /obj/machinery/atmospherics/valve/digital))
+	if (istype(src, /obj/machinery/atmospherics/valve/digital) && src:frequency)
 		user << "\red You cannot unwrench this [src], it's too complicated."
 		return 1
 	var/datum/gas_mixture/int_air = return_air()
