@@ -1223,6 +1223,10 @@ mob/proc/yank_out_object()
 	set name = "Respawn as NPC"
 	set category = "Ghost"
 
+	if(jobban_isbanned(usr, "NPC"))
+		usr << "<span class='warning'>You are banned from playing as NPC's.</span>"
+		return
+	
 	if((usr in respawnable_list) && (stat==2 || istype(usr,/mob/dead/observer)))
 		var/list/creatures = list("Mouse")
 		for(var/mob/living/L in living_mob_list)

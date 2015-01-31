@@ -42,7 +42,7 @@
 /obj/item/device/mmi/posibrain/proc/check_observer(var/mob/dead/observer/O)
 	if(O.has_enabled_antagHUD == 1 && config.antag_hud_restricted)
 		return 0
-	if(jobban_isbanned(O, "pAI"))
+	if(jobban_isbanned(O, "pAI") || jobban_isbanned(O,"nonhumandept"))
 		return 0
 	if(O.client)
 		return 1
@@ -125,7 +125,7 @@
 	if(O.has_enabled_antagHUD == 1 && config.antag_hud_restricted)
 		O << "\red Upon using the antagHUD you forfeited the ability to join the round."
 		return
-	if(jobban_isbanned(O, "pAI"))
+	if(jobban_isbanned(O, "Cyborg") || jobban_isbanned(O,"nonhumandept"))
 		O << "\red You are job banned from this role."
 		return
 	O.<< "\blue You've been added to the list of ghosts that may become this [src].  Click again to unvolunteer."
