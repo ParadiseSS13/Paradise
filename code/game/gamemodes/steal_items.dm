@@ -113,6 +113,10 @@ datum/theft_objective/ai/check_special_completion(var/obj/item/device/aicard/C)
 	typepath = /obj/item/clothing/suit/armor/reactive
 	protected_jobs = list("Research Director")
 
+/datum/theft_objective/steal/documents
+	name = "any set of secret documents of any organization"
+	typepath = /obj/item/documents //Any set of secret documents. Doesn't have to be NT's
+
 /datum/theft_objective/rd_jumpsuit
 	name = "the research director's jumpsuit"
 	typepath = /obj/item/clothing/under/rank/research_director
@@ -219,6 +223,18 @@ datum/theft_objective/ai/check_special_completion(var/obj/item/device/aicard/C)
 ////////////////////////////////
 /datum/theft_objective/special
 	flags = THEFT_FLAG_SPECIAL
+
+/datum/theft_objective/unique/docs_red
+	name = "the \"Red\" secret documents"
+	typepath = /obj/item/documents/syndicate/red
+
+/datum/theft_objective/unique/docs_blue
+	name = "the \"Blue\" secret documents"
+	typepath = /obj/item/documents/syndicate/blue
+
+/datum/theft_objective/special/pinpointer
+	name = "the captain's pinpointer"
+	typepath = /obj/item/weapon/pinpointer
 
 /datum/theft_objective/special/nuke_gun
 	name = "advanced energy gun"

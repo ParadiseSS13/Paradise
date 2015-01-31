@@ -234,6 +234,31 @@ datum/objective/anti_revolution/demote
 				return 0
 		return 1
 
+datum/objective/maroon
+	find_target()
+		..()
+		if(target && target.current)
+			explanation_text = "Prevent [target.current.real_name], the [target.assigned_role] from escaping alive."
+		else
+			explanation_text = "Free Objective"
+		return target
+
+	find_target_by_role(role, role_type=0)
+		..(role, role_type)
+		if(target && target.current)
+			explanation_text = "Prevent [target.current.real_name], the [!role_type ? target.assigned_role : target.special_role] from escaping alive."
+		else
+			explanation_text = "Free Objective"
+		return target
+
+	check_completion()
+		if(target && target.current)
+			if(target.current.stat == DEAD || issilicon(target.current) || isbrain(target.current) || target.current.z > 6 || !target.current.ckey) //Borgs/brains/AIs count as dead for traitor objectives. --NeoFite
+				return 1
+			if(target.current.z == 2)
+				return 0
+		return 1
+
 datum/objective/debrain//I want braaaainssss
 	find_target()
 		..()
@@ -422,6 +447,29 @@ datum/objective/escape
 		else
 			return 0
 
+datum/objective/escape/escape_with_identity
+	var/target_real_name // Has to be stored because the target's real_name can change over the course of the round
+
+	find_target()
+		target = ..()
+		if(target && target.current)
+			target_real_name = target.current.real_name
+			explanation_text = "Escape on the shuttle or an escape pod with the identity of [target_real_name], the [target.assigned_role] while wearing their identification card."
+		else
+			explanation_text = "Free Objective."
+
+	check_completion()
+		if(!target_real_name)
+			return 1
+		if(!ishuman(owner.current))
+			return 0
+		var/mob/living/carbon/human/H = owner.current
+		if(..())
+			if(H.dna.real_name == target_real_name)
+				if(H.get_id_name()== target_real_name)
+					return 1
+		return 0
+
 datum/objective/die
 	explanation_text = "Die a glorious death."
 
@@ -575,6 +623,28 @@ datum/objective/steal
 		if(!steal_target) return 1 // Free Objective
 		return steal_target.check_completion(owner)
 
+datum/objective/steal/exchange
+
+	proc/set_faction(var/faction,var/otheragent)
+		target = otheragent
+		var/datum/theft_objective/unique/targetinfo
+		if(faction == "red")
+			targetinfo = new /datum/theft_objective/unique/docs_blue
+		else if(faction == "blue")
+			targetinfo = new /datum/theft_objective/unique/docs_red
+		explanation_text = "Acquire [targetinfo.name] held by [target.current.real_name], the [target.assigned_role] and syndicate agent"
+		steal_target = targetinfo.typepath
+
+datum/objective/steal/exchange/backstab
+
+	set_faction(var/faction)
+		var/datum/theft_objective/unique/targetinfo
+		if(faction == "red")
+			targetinfo = new /datum/theft_objective/unique/docs_red
+		else if(faction == "blue")
+			targetinfo = new /datum/theft_objective/unique/docs_blue
+		explanation_text = "Do not give up or lose [targetinfo.name]."
+		steal_target = targetinfo.typepath
 
 datum/objective/download
 	proc/gen_amount_goal()
@@ -665,7 +735,23 @@ datum/objective/absorb
 		else
 			return 0
 
+datum/objective/destroy
+	find_target()
+		var/list/possible_targets = active_ais(1)
+		var/mob/living/silicon/ai/target_ai = pick(possible_targets)
+		target = target_ai.mind
+		if(target && target.current)
+			explanation_text = "Destroy [target.name], the experimental AI."
+		else
+			explanation_text = "Free Objective"
+		return target
 
+	check_completion()
+		if(target && target.current)
+			if(target.current.stat == DEAD || target.current.z > 6 || !target.current.ckey)
+				return 1
+			return 0
+		return 1
 
 /* Isn't suited for global objectives
 /*---------CULTIST----------*/
@@ -743,7 +829,7 @@ datum/objective/minimize_casualties
 	check_completion()
 		if(owner.kills.len>5) return 0
 		return 1
-		
+
 //Vox heist objectives.
 
 datum/objective/heist
