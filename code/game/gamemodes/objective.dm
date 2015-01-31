@@ -743,7 +743,7 @@ datum/objective/minimize_casualties
 	check_completion()
 		if(owner.kills.len>5) return 0
 		return 1
-
+		
 //Vox heist objectives.
 
 datum/objective/heist
