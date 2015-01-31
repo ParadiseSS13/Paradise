@@ -593,6 +593,8 @@ datum/objective/steal
 			else
 				if(O.flags & 1) // THEFT_FLAG_SPECIAL
 					continue
+			if(O.flags & 2)
+				continue
 			steal_target=O
 			explanation_text = "Steal [O]."
 			return

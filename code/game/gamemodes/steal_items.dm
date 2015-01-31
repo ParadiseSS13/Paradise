@@ -3,6 +3,7 @@
 // Separated into datums so we can prevent roles from getting certain objectives.
 
 #define THEFT_FLAG_SPECIAL 1
+#define THEFT_FLAG_UNIQUE 2
 
 /datum/theft_objective
 	var/name=""
@@ -223,6 +224,9 @@ datum/theft_objective/ai/check_special_completion(var/obj/item/device/aicard/C)
 ////////////////////////////////
 /datum/theft_objective/special
 	flags = THEFT_FLAG_SPECIAL
+
+/datum/theft_objective/unique
+	flags = THEFT_FLAG_UNIQUE
 
 /datum/theft_objective/unique/docs_red
 	name = "the \"Red\" secret documents"
