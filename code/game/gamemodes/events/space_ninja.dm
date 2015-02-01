@@ -155,8 +155,6 @@ Malf AIs/silicons aren't added. Monkeys aren't added. Messes with objective comp
 		var/list/candidates = list()	//list of candidate keys
 		candidates = get_candidates(BE_NINJA,,"ninja","Syndicate")
 		if(!candidates.len)	return
-		candidates = shuffle(candidates)//Incorporating Donkie's list shuffle
-
 		while(!ninja_key && candidates.len)
 			candidate_mob = pick(candidates)
 			if(sd_Alert(candidate_mob, "Would you like to spawn as a space ninja?", buttons = list("Yes","No"), duration = 150) == "Yes")
