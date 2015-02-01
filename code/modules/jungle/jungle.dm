@@ -16,7 +16,7 @@
 
 /area/jungle
 	name = "jungle"
-	icon = 'code/workinprogress/cael_aislinn/jungle/jungle.dmi'
+	icon = 'code/modules/jungle/jungle.dmi'
 	icon_state = "area"
 	lighting_use_dynamic = 0
 	luminosity = 1

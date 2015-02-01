@@ -223,7 +223,7 @@ proc/cmd_admin_mute(mob/M as mob, mute_type, automute = 0)
 		for(var/mob/M in player_list)
 			if(M.stat != DEAD)		continue	//we are not dead!
 			if(!M.client.prefs.be_special & BE_ALIEN)	continue	//we don't want to be an alium
-			if(jobban_isbanned(M, "alien")) continue //we are jobbanned
+			if(jobban_isbanned(M, "alien") || jobban_isbanned(M, "Syndicate")) continue //we are jobbanned
 			if(M.client.is_afk())	continue	//we are afk
 			if(M.mind && M.mind.current && M.mind.current.stat != DEAD)	continue	//we have a live body we are tied to
 			candidates += M.ckey
@@ -937,11 +937,14 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	if(confirm != "Yes") return
 
 	var/choice
-	if(ticker.mode.name == "revolution" || ticker.mode.name == "AI malfunction" || ticker.mode.name == "confliction")
+	if(emergency_shuttle.auto_recall)
 		choice = input("The shuttle will just return if you call it. Call anyway?") in list("Confirm", "Cancel")
-		if(choice == "Confirm")
-			emergency_shuttle.auto_recall = 1	//enable auto-recall
-		else
+		if(choice != "Confirm")
+			return
+		
+	if(emergency_shuttle.no_escape)
+		choice = input("The shuttle will not be able to leave if you call it. Call anyway?") in list("Confirm", "Cancel")
+		if(choice != "Confirm")
 			return
 
 	choice = input("Is this an emergency evacuation or a crew transfer?") in list("Emergency", "Crew Transfer")

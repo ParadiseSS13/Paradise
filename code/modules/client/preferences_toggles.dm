@@ -131,6 +131,10 @@
 	set desc = "Toggles which special roles you would like to be a candidate for, during events."
 	var/role_flag = be_special_flags[role]
 	if(!role_flag)	return
+	if(!player_old_enough_antag(src,be_special_flags[role]))
+		var/available_in_days_antag = available_in_days_antag(src,be_special_flags[role])
+		src << "<span class='warning'>This role is not yet available to you. You need to wait another [available_in_days_antag] days.</span>"
+		return
 	prefs.be_special ^= role_flag
 	prefs.save_preferences(src)
 	src << "You will [(prefs.be_special & role_flag) ? "now" : "no longer"] be considered for [role] events (where possible)."

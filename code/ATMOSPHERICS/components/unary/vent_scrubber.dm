@@ -15,6 +15,8 @@
 
 	var/on = 0
 	var/scrubbing = 1 //0 = siphoning, 1 = scrubbing
+	var/scrub_O2 = 0
+	var/scrub_N2 = 0
 	var/scrub_CO2 = 1
 	var/scrub_Toxins = 0
 	var/scrub_N2O = 0
@@ -96,6 +98,8 @@
 		"power" = on,
 		"scrubbing" = scrubbing,
 		"panic" = panic,
+		"filter_o2" = scrub_O2,
+		"filter_n2" = scrub_N2,
 		"filter_co2" = scrub_CO2,
 		"filter_toxins" = scrub_Toxins,
 		"filter_n2o" = scrub_N2O,
@@ -142,6 +146,12 @@
 			//Filter it
 			var/datum/gas_mixture/filtered_out = new
 			filtered_out.temperature = removed.temperature
+			if(scrub_O2)
+				filtered_out.oxygen = removed.oxygen
+				removed.oxygen = 0
+			if(scrub_N2)
+				filtered_out.nitrogen = removed.nitrogen
+				removed.nitrogen = 0				
 			if(scrub_Toxins)
 				filtered_out.toxins = removed.toxins
 				removed.toxins = 0
@@ -219,6 +229,16 @@
 		scrubbing = text2num(signal.data["scrubbing"])
 	if(signal.data["toggle_scrubbing"])
 		scrubbing = !scrubbing
+	
+	if(signal.data["o2_scrub"] != null)
+		scrub_O2 = text2num(signal.data["o2_scrub"])
+	if(signal.data["toggle_o2_scrub"])
+		scrub_O2 = !scrub_O2
+
+	if(signal.data["n2_scrub"] != null)
+		scrub_N2 = text2num(signal.data["n2_scrub"])
+	if(signal.data["toggle_n2_scrub"])
+		scrub_N2 = !scrub_N2
 
 	if(signal.data["co2_scrub"] != null)
 		scrub_CO2 = text2num(signal.data["co2_scrub"])

@@ -1,6 +1,7 @@
 /datum/event/blob
-	announceWhen	= 12
-	endWhen			= 120
+	announceWhen	= 120
+	noAutoEnd		= 1
+	var/nuke_announced = 0
 
 	var/obj/effect/blob/core/Blob
 
@@ -28,12 +29,10 @@
 /datum/event/blob/tick()
 	if(Blob && IsMultiple(activeFor, 3))
 		Blob.process()
-	var/blobs = 0
-	for(var/obj/effect/blob/core/core in world)
-		blobs++
-	if(blobs >= 3)
+	if(blobs.len > 700*0.6 && !nuke_announced)
 		announce_nuke()
-	if(!Blob && !blobs)
+		nuke_announced = 1
+	if(!Blob && !blob_cores.len)
 		kill()
 		return
 			
@@ -62,12 +61,15 @@
 		world << sound('sound/effects/siren.ogg')
 		
 /datum/event/blob/kill()
-	command_alert("The level 7 biohazard aboard [station_name()] has been eliminated. Directive 7-10 has been lifted, and the station is no longer quarantined.", "Biohazard Update")
-	
-	for (var/mob/living/silicon/ai/aiPlayer in player_list)
-		if (aiPlayer.client)
-			var/law = ""
-			aiPlayer.set_zeroth_law(law)
-			aiPlayer << "\red <b>You have detected a change in your laws information:</b>"
-			aiPlayer << "Laws Updated: [law]"
-	..()
+	spawn(10)
+		if(Blob || blob_cores.len)
+			return
+		command_alert("The level 7 biohazard aboard [station_name()] has been eliminated. Directive 7-10 has been lifted, and the station is no longer quarantined.", "Biohazard Update")
+		
+		for (var/mob/living/silicon/ai/aiPlayer in player_list)
+			if (aiPlayer.client)
+				var/law = ""
+				aiPlayer.set_zeroth_law(law)
+				aiPlayer << "\red <b>You have detected a change in your laws information:</b>"
+				aiPlayer << "Laws Updated: [law]"
+		..()

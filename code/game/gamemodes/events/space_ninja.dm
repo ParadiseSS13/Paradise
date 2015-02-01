@@ -153,13 +153,8 @@ Malf AIs/silicons aren't added. Monkeys aren't added. Messes with objective comp
 	else
 
 		var/list/candidates = list()	//list of candidate keys
-		for(var/mob/G in respawnable_list)
-			if(G.client && !G.client.holder && !G.client.is_afk() && G.client.prefs.be_special & BE_NINJA)
-				if(!(G.mind && G.mind.current && G.mind.current.stat != DEAD))
-					candidates += G
+		candidates = get_candidates(BE_NINJA,,"ninja","Syndicate")
 		if(!candidates.len)	return
-		candidates = shuffle(candidates)//Incorporating Donkie's list shuffle
-
 		while(!ninja_key && candidates.len)
 			candidate_mob = pick(candidates)
 			if(sd_Alert(candidate_mob, "Would you like to spawn as a space ninja?", buttons = list("Yes","No"), duration = 150) == "Yes")
