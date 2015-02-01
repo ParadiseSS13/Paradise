@@ -286,8 +286,11 @@ modules/mob/living/carbon/human/life.dm if you die, you will be zoomed out.
 	..()
 
 /obj/item/weapon/gun/energy/printer/process()
+	if(power_supply.charge == power_supply.maxcharge)
+		return 0
 	charge_tick++
-	if(charge_tick < recharge_time) return 0
+	if(charge_tick < recharge_time)
+		return 0
 	charge_tick = 0
 
 	if(!power_supply) return 0 //sanity
