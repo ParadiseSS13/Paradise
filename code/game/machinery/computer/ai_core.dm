@@ -120,7 +120,7 @@
 					user << "\red Sticking a dead [P] into the frame would sort of defeat the purpose."
 					return
 
-				if(jobban_isbanned(P:brainmob, "AI"))
+				if(jobban_isbanned(P:brainmob, "AI") || jobban_isbanned(P:brainmob,"nonhumandept"))
 					user << "\red This [P] does not seem to fit."
 					return
 

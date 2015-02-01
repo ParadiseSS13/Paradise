@@ -346,13 +346,18 @@ Implants;
 		if(BE_REV)			roletext="revolutionary"
 		if(BE_CULTIST)		roletext="cultist"
 		if(BE_NINJA)		roletext="ninja"
-		if(BE_RAIDER)		roletext="Vox raider"
+		if(BE_RAIDER)		roletext="raider"
+		if(BE_VAMPIRE)		roletext="vampire"
+		if(BE_ALIEN)		roletext="alien"
+		if(BE_MUTINEER)		roletext="mutineer"
+		if(BE_BLOB)			roletext="blob"
 
 	// Assemble a list of active players without jobbans.
 	for(var/mob/new_player/player in player_list)
-		if( player.client && player.ready )
+		if(player.client && player.ready)
 			if(!jobban_isbanned(player, "Syndicate") && !jobban_isbanned(player, roletext))
-				players += player
+				if(player_old_enough_antag(player.client,role))
+					players += player
 
 	// Shuffle the players list so that it becomes ping-independent.
 	players = shuffle(players)

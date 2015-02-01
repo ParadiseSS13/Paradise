@@ -80,7 +80,6 @@
 
 
 /mob/dead/verb/join_as_drone()
-
 	set category = "Ghost"
 	set name = "Join As Drone"
 	set desc = "If there is a powered, enabled fabricator in the game world with a prepared chassis, join as a maintenance drone."
@@ -95,8 +94,8 @@
 	if (usr != src)
 		return 0 //something is terribly wrong
 
-	if(jobban_isbanned(src,"Cyborg"))
-		usr << "\red You are banned from playing synthetics and cannot spawn as a drone."
+	if(jobban_isbanned(src,"nonhumandept") || jobban_isbanned(src,"Drone"))
+		usr << "\red You are banned from playing drones and cannot spawn as a drone."
 		return
 
 	var/deathtime = world.time - src.timeofdeath

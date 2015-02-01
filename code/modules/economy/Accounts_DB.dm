@@ -179,7 +179,7 @@
 			if("finalise_create_account")
 				var/account_name = href_list["holder_name"]
 				var/starting_funds = max(text2num(href_list["starting_funds"]), 0)
-				create_account(account_name, starting_funds, src)
+				create_account(account_name, starting_funds, src) // CHANGE account_name for human mob with new econ code
 				if(starting_funds > 0)
 					//subtract the money
 					station_account.money -= starting_funds

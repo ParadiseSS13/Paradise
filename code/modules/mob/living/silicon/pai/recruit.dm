@@ -353,7 +353,7 @@ var/datum/paiController/paiController			// Global handler for pAI candidates
 					O << "\blue <b>A pAI card is looking for personalities. (<a href='?src=\ref[src];signup=\ref[O]'>Sign Up</a>)</b>"
 					//question(O.client)
 	proc/check_recruit(var/mob/dead/observer/O)
-		if(jobban_isbanned(O, "pAI"))
+		if(jobban_isbanned(O, "pAI") || jobban_isbanned(O,"nonhumandept"))
 			return 0
 		if(O.has_enabled_antagHUD == 1 && config.antag_hud_restricted)
 			return 0

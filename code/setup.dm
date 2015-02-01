@@ -731,32 +731,28 @@ var/list/TAGGERLOCATIONS = list("Disposals",
 #define BE_ALIEN		64
 #define BE_PAI			128
 #define BE_CULTIST		256
-#define BE_PLANT		512
-#define BE_NINJA		1024
-#define BE_RAIDER		2048
-#define BE_SLIME		4096
-#define BE_VAMPIRE		8192
-#define BE_MUTINEER		16384
-#define BE_BLOB			32768
+#define BE_NINJA		512
+#define BE_RAIDER		1024
+#define BE_VAMPIRE		2048 
+#define BE_MUTINEER		4096
+#define BE_BLOB			8192
 
 var/list/be_special_flags = list(
-	"Traitor" = BE_TRAITOR,
-	"Operative" = BE_OPERATIVE,
-	"Changeling" = BE_CHANGELING,
-	"Wizard" = BE_WIZARD,
-	"Malf AI" = BE_MALF,
-	"Revolutionary" = BE_REV,
-	"Xenomorph" = BE_ALIEN,
+	"traitor" = BE_TRAITOR,
+	"operative" = BE_OPERATIVE,
+	"changeling" = BE_CHANGELING,
+	"wizard" = BE_WIZARD,
+	"malf AI" = BE_MALF,
+	"revolutionary" = BE_REV,
+	"alien" = BE_ALIEN,
 	"pAI" = BE_PAI,
-	"Cultist" = BE_CULTIST,
-	"Plant" = BE_PLANT,
-	"Ninja" = BE_NINJA,
-	"Vox Raider" = BE_RAIDER,
-	"Slime" = BE_SLIME,
-	"Vampire" = BE_VAMPIRE,
-	"Mutineer" = BE_MUTINEER,
-	"Blob" = BE_BLOB
-	)
+	"cultist" = BE_CULTIST,
+	"ninja" = BE_NINJA,
+	"raider" = BE_RAIDER,
+	"vampire" = BE_VAMPIRE,
+	"mutineer" = BE_MUTINEER,
+	"blob" = BE_BLOB
+)
 
 #define AGE_MIN 17			//youngest a character can be
 #define AGE_MAX 85			//oldest a character can be

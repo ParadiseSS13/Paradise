@@ -307,15 +307,15 @@
 
 /mob/living/silicon/robot/drone/proc/request_player()
 	for(var/mob/dead/observer/O in player_list)
-		if(jobban_isbanned(O, "Cyborg"))
+		if(jobban_isbanned(O,"nonhumandept") || jobban_isbanned(O,"Drone"))
 			continue
 		if(O.client)
 			if(O.client.prefs.be_special & BE_PAI)
-				question(O.client)
+				question(O.client,O)
 
-/mob/living/silicon/robot/drone/proc/question(var/client/C)
+/mob/living/silicon/robot/drone/proc/question(var/client/C,var/mob/M)
 	spawn(0)
-		if(!C || jobban_isbanned(C,"Cyborg"))	return
+		if(!C || !M || jobban_isbanned(M,"nonhumandept") || jobban_isbanned(M,"Drone"))	return
 		var/response = alert(C, "Someone is attempting to reboot a maintenance drone. Would you like to play as one?", "Maintenance drone reboot", "Yes", "No", "Never for this round.")
 		if(!C || ckey)
 			return

@@ -23,8 +23,19 @@
 	build_path = /obj/item/weapon/storage/backpack/holding
 	category = list("Bluespace")
 	
+/datum/design/bluespace_belt
+	name = "Belt of Holding"
+	desc = "An astonishingly complex belt popularized by a rich blue-space technology magnate."
+	id = "bluespace_belt"
+	req_tech = list("bluespace" = 4, "materials" = 6)
+	build_type = PROTOLATHE
+	materials = list("$gold" = 1500, "$diamond" = 3000, "$uranium" = 1000)
+	reliability_base = 80
+	build_path = /obj/item/weapon/storage/belt/bluespace
+	category = list("Bluespace")
+	
 /datum/design/bluespacebeaker
-	name = "bluespace beaker"
+	name = "Bluespace Beaker"
 	desc = "A bluespace beaker, powered by experimental bluespace technology and Element Cuban combined with the Compound Pete. Can hold up to 300 units."
 	id = "bluespacebeaker"
 	req_tech = list("bluespace" = 2, "materials" = 6)
