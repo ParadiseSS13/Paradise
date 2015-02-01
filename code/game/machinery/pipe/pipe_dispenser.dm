@@ -26,11 +26,13 @@
 <A href='?src=\ref[src];make=29;dir=1'>Pipe</A><BR>
 <A href='?src=\ref[src];make=30;dir=5'>Bent Pipe</A><BR>
 <A href='?src=\ref[src];make=33;dir=1'>Manifold</A><BR>
+<A href='?src=\ref[src];make=37;dir=1'>Pipe Cap</A><BR>
 <A href='?src=\ref[src];make=35;dir=1'>4-Way Manifold</A><BR>
 <b>Scrubbers pipes:</b><BR>
 <A href='?src=\ref[src];make=31;dir=1'>Pipe</A><BR>
 <A href='?src=\ref[src];make=32;dir=5'>Bent Pipe</A><BR>
 <A href='?src=\ref[src];make=34;dir=1'>Manifold</A><BR>
+<A href='?src=\ref[src];make=38;dir=1'>Pipe Cap</A><BR>
 <A href='?src=\ref[src];make=36;dir=1'>4-Way Manifold</A><BR>
 <b>Devices:</b><BR>
 <A href='?src=\ref[src];make=28;dir=1'>Universal Pipe Adapter</A><BR>
