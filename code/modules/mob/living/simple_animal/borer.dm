@@ -510,7 +510,7 @@ mob/living/simple_animal/borer/proc/request_player()
 		if(jobban_isbanned(O, "Syndicate"))
 			continue
 		if(O.client)
-			if(O.client.prefs.be_special & BE_ALIEN)
+			if(O.client.prefs.be_special & BE_ALIEN && !jobban_isbanned(O, "alien"))
 				question(O.client)
 
 mob/living/simple_animal/borer/proc/question(var/client/C)

@@ -461,19 +461,19 @@
 		return 1 	
 
 //Antag Creatures!
-/*	if(ispath(MP, /mob/living/simple_animal/hostile/carp))
+/*	if(ispath(MP, /mob/living/simple_animal/hostile/carp) && !jobban_isbanned(src, "Syndicate"))
 		return 1
-	if(ispath(MP, /mob/living/simple_animal/hostile/giant_spider))
+	if(ispath(MP, /mob/living/simple_animal/hostile/giant_spider) && !jobban_isbanned(src, "Syndicate"))
 		return 1 */
-	if(ispath(MP, /mob/living/simple_animal/borer))
+	if(ispath(MP, /mob/living/simple_animal/borer) && !jobban_isbanned(src, "alien") && !jobban_isbanned(src, "Syndicate"))
 		return 1
-	if(ispath(MP, /mob/living/carbon/alien))
+	if(ispath(MP, /mob/living/carbon/alien) && !jobban_isbanned(src, "alien") && !jobban_isbanned(src, "Syndicate"))
 		return 1
-	if(ispath(MP, /mob/living/simple_animal/hostile/statue))
+	if(ispath(MP, /mob/living/simple_animal/hostile/statue) && !jobban_isbanned(src, "Syndicate"))
 		return 1
 
 //Friendly Creatures!
-	if(ispath(MP, /mob/living/carbon/monkey/diona))
+	if(ispath(MP, /mob/living/carbon/monkey/diona) && !jobban_isbanned(src, "Dionaea"))
 		return 1
 
 	//Not in here? Must be untested!
