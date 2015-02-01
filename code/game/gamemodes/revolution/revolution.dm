@@ -92,7 +92,7 @@
 		greet_revolutionary(rev_mind)
 	modePlayer += head_revolutionaries
 	if(emergency_shuttle)
-		emergency_shuttle.auto_recall = 1
+		emergency_shuttle.no_escape = 1
 	spawn (rand(waittime_l, waittime_h))
 		send_intercept()
 	..()
@@ -172,7 +172,12 @@
 	if(config.continous_rounds)
 		if(finished != 0)
 			if(emergency_shuttle)
-				emergency_shuttle.auto_recall = 0
+				if(emergency_shuttle.auto_recall)
+					emergency_shuttle.auto_recall = 0
+				else if(emergency_shuttle.is_stranded())
+					emergency_shuttle.no_escape = 0
+					emergency_shuttle.shuttle.moving_status = SHUTTLE_IDLE
+					emergency_shuttle.shuttle_arrived()
 		return ..()
 	if(finished != 0)
 		return 1

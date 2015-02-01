@@ -937,11 +937,14 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	if(confirm != "Yes") return
 
 	var/choice
-	if(ticker.mode.name == "revolution" || ticker.mode.name == "AI malfunction" || ticker.mode.name == "confliction")
+	if(emergency_shuttle.auto_recall)
 		choice = input("The shuttle will just return if you call it. Call anyway?") in list("Confirm", "Cancel")
-		if(choice == "Confirm")
-			emergency_shuttle.auto_recall = 1	//enable auto-recall
-		else
+		if(choice != "Confirm")
+			return
+		
+	if(emergency_shuttle.no_escape)
+		choice = input("The shuttle will not be able to leave if you call it. Call anyway?") in list("Confirm", "Cancel")
+		if(choice != "Confirm")
 			return
 
 	choice = input("Is this an emergency evacuation or a crew transfer?") in list("Emergency", "Crew Transfer")
