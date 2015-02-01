@@ -115,6 +115,9 @@
 /obj/item/seeds/soyaseed
 	seed_type = "soybean"
 
+/obj/item/seeds/koiseed
+	seed_type = "koibean"
+
 /obj/item/seeds/wheatseed
 	seed_type = "wheat"
 
@@ -222,3 +225,28 @@
 
 /obj/item/seeds/kudzuseed
 	seed_type = "kudzu"
+
+/obj/item/seeds/tobaccoseed
+	seed_type = "tobacco"
+
+/obj/item/seeds/stobaccoseed
+	seed_type = "stobacco"
+
+/obj/item/seeds/teaasperaseed
+	seed_type = "teaaspera"
+
+/obj/item/seeds/teaastraseed
+	seed_type = "teaastra"
+
+/obj/item/seeds/coffeeaseed
+	seed_type = "coffeea"
+
+/obj/item/seeds/coffeerseed
+	seed_type = "coffeer"
+
+/obj/item/seeds/moonflowerseed
+	seed_type = "moonflower"
+
+/obj/item/seeds/novaflowerseed
+	seed_type = "novaflower"
+

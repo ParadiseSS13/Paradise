@@ -129,7 +129,7 @@
 			"\blue You put \the [tool] inside [target]'s [get_cavity(affected)] cavity." )
 			if (tool.w_class > get_max_wclass(affected)/2 && prob(50))
 				user << "\red You tear some vessels trying to fit such big object in this cavity."
-				var/datum/wound/internal_bleeding/I = new (15)
+				var/datum/wound/internal_bleeding/I = new ()
 				affected.wounds += I
 				affected.owner.custom_pain("You feel something rip in your [affected.display_name]!", 1)
 			user.drop_item()

@@ -4,6 +4,9 @@
 	var/list/datum/mind/implanter = list()
 	var/list/datum/mind/implanted = list()
 
+	var/datum/mind/exchange_red
+	var/datum/mind/exchange_blue
+
 /datum/game_mode/traitor
 	name = "traitor"
 	config_tag = "traitor"
@@ -95,34 +98,49 @@
 			traitor.objectives += block_objective
 
 	else
-		switch(rand(1,100))
-			if(1 to 30)
-				var/datum/objective/assassinate/kill_objective = new
-				kill_objective.owner = traitor
-				kill_objective.find_target()
-				traitor.objectives += kill_objective
-			if(31 to 40)
-				var/datum/objective/debrain/debrain_objective = new
-				debrain_objective.owner = traitor
-				debrain_objective.find_target()
-				traitor.objectives += debrain_objective
-			if(41 to 50)
-				var/datum/objective/protect/protect_objective = new
-				protect_objective.owner = traitor
-				protect_objective.find_target_with_special_role(null,0)
-				if (!protect_objective.target)
-					protect_objective.find_target()					//We could not find any traitors, protect somebody
-				traitor.objectives += protect_objective
-			if(51 to 66)
-				var/datum/objective/harm/harm_objective = new
-				harm_objective.owner = traitor
-				harm_objective.find_target()
-				traitor.objectives += harm_objective
+		if(!exchange_blue && traitors.len >= 5) 	//Set up an exchange if there are enough traitors
+			if(!exchange_red)
+				exchange_red = traitor
 			else
-				var/datum/objective/steal/steal_objective = new
-				steal_objective.owner = traitor
-				steal_objective.find_target()
-				traitor.objectives += steal_objective
+				exchange_blue = traitor
+				assign_exchange_role(exchange_red)
+				assign_exchange_role(exchange_blue)
+		else
+			var/list/active_ais = active_ais()
+			if(active_ais.len && prob(100/num_players()))
+				var/datum/objective/destroy/destroy_objective = new
+				destroy_objective.owner = traitor
+				destroy_objective.find_target()
+				traitor.objectives += destroy_objective
+			else
+				switch(rand(1,100))
+					if(1 to 30)
+						var/datum/objective/assassinate/kill_objective = new
+						kill_objective.owner = traitor
+						kill_objective.find_target()
+						traitor.objectives += kill_objective
+					if(31 to 40)
+						var/datum/objective/debrain/debrain_objective = new
+						debrain_objective.owner = traitor
+						debrain_objective.find_target()
+						traitor.objectives += debrain_objective
+					if(41 to 50)
+						var/datum/objective/protect/protect_objective = new
+						protect_objective.owner = traitor
+						protect_objective.find_target_with_special_role(null,0)
+						if (!protect_objective.target)
+							protect_objective.find_target()					//We could not find any traitors, protect somebody
+						traitor.objectives += protect_objective
+					if(51 to 61)
+						var/datum/objective/harm/harm_objective = new
+						harm_objective.owner = traitor
+						harm_objective.find_target()
+						traitor.objectives += harm_objective
+					else
+						var/datum/objective/steal/steal_objective = new
+						steal_objective.owner = traitor
+						steal_objective.find_target()
+						traitor.objectives += steal_objective
 		switch(rand(1,100))
 			if(1 to 30) // Die glorious death
 				if (!(locate(/datum/objective/die) in traitor.objectives) && !(locate(/datum/objective/steal) in traitor.objectives))
@@ -204,7 +222,6 @@
 	traitor_mob.mind.store_memory("<b>Code Response</b>: [syndicate_code_response]")
 
 	traitor_mob << "Use the code words in the order provided, during regular conversation, to identify other agents. Proceed with caution, however, as everyone is a potential foe."
-
 
 /datum/game_mode/proc/add_law_zero(mob/living/silicon/ai/killer)
 	var/law = "Accomplish your objectives at all costs."
@@ -394,3 +411,45 @@
 	update_traitor_icons_removed(traitor_mind)
 	//world << "Removed [traitor_mind.current.name] from traitor shit"
 	traitor_mind.current << "\red <FONT size = 3><B>The fog clouding your mind clears. You remember nothing from the moment you were implanted until now.(You don't remember who implanted you)</B></FONT>"
+
+/datum/game_mode/proc/assign_exchange_role(var/datum/mind/owner)
+	//set faction
+	var/faction = "red"
+	if(owner == exchange_blue)
+		faction = "blue"
+
+	//Assign objectives
+	var/datum/objective/steal/exchange/exchange_objective = new
+	exchange_objective.set_faction(faction,((faction == "red") ? exchange_blue : exchange_red))
+	exchange_objective.owner = owner
+	owner.objectives += exchange_objective
+
+	if(prob(20))
+		var/datum/objective/steal/exchange/backstab/backstab_objective = new
+		backstab_objective.set_faction(faction)
+		backstab_objective.owner = owner
+		owner.objectives += backstab_objective
+
+	//Spawn and equip documents
+	var/mob/living/carbon/human/mob = owner.current
+
+	var/obj/item/weapon/folder/syndicate/folder
+	if(owner == exchange_red)
+		folder = new/obj/item/weapon/folder/syndicate/red(mob.locs)
+	else
+		folder = new/obj/item/weapon/folder/syndicate/blue(mob.locs)
+
+	var/list/slots = list (
+		"backpack" = slot_in_backpack,
+		"left pocket" = slot_l_store,
+		"right pocket" = slot_r_store,
+		"left hand" = slot_l_hand,
+		"right hand" = slot_r_hand,
+	)
+
+	var/where = "At your feet"
+	var/equipped_slot = mob.equip_in_one_of_slots(folder, slots)
+	if (equipped_slot)
+		where = "In your [equipped_slot]"
+	mob << "<BR><BR><span class='info'>[where] is a folder containing <b>secret documents</b> that another Syndicate group wants. We have set up a meeting with one of their agents on station to make an exchange. Exercise extreme caution as they cannot be trusted and may be hostile.</span><BR>"
+	mob.update_icons()
