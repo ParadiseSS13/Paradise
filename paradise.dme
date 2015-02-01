@@ -600,6 +600,7 @@
 #include "code\game\objects\items\changestone.dm"
 #include "code\game\objects\items\contraband.dm"
 #include "code\game\objects\items\crayons.dm"
+#include "code\game\objects\items\documents.dm"
 #include "code\game\objects\items\flag.dm"
 #include "code\game\objects\items\latexballoon.dm"
 #include "code\game\objects\items\policetape.dm"
