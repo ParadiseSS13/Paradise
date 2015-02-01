@@ -50,7 +50,7 @@
 /mob/living/simple_animal/hostile/panther
 	name = "panther"
 	desc = "A long sleek, black cat with sharp teeth and claws."
-	icon = 'code/WorkInProgress/Cael_Aislinn/Jungle/jungle.dmi'
+	icon = 'code/modules/jungle/jungle.dmi'
 	icon_state = "panther"
 	icon_living = "panther"
 	icon_dead = "panther_dead"
@@ -108,7 +108,7 @@
 /mob/living/simple_animal/hostile/snake
 	name = "snake"
 	desc = "A sinuously coiled, venomous looking reptile."
-	icon = 'code/WorkInProgress/Cael_Aislinn/Jungle/jungle.dmi'
+	icon = 'code/modules/jungle/jungle.dmi'
 	icon_state = "snake"
 	icon_living = "snake"
 	icon_dead = "snake_dead"

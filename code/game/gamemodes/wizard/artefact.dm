@@ -50,7 +50,7 @@
 			if (used)
 				H << "You already used this contract!"
 				return
-			var/list/candidates = get_candidates(BE_WIZARD)
+			var/list/candidates = get_candidates(BE_WIZARD,,"wizard","Syndicate")
 			if(candidates.len)
 				src.used = 1
 				var/client/C = pick(candidates)

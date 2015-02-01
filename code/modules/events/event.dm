@@ -57,6 +57,7 @@
 	var/isRunning		= 1 //If this event is currently running. You should not change this.
 	var/startedAt		= 0 //When this event started.
 	var/endedAt			= 0 //When this event ended.
+	var/noAutoEnd       = 0 //Does the event end automatically after endWhen passes?
 	var/area/impact_area    //The area the event will hit
 	var/datum/event_meta/event_meta = null
 
@@ -104,7 +105,7 @@
 //Do not override this proc, instead use the appropiate procs.
 //This proc will handle the calls to the appropiate procs.
 /datum/event/proc/process()
-	if(activeFor > startWhen && activeFor < endWhen)
+	if(activeFor > startWhen && activeFor < endWhen || noAutoEnd)
 		tick()
 
 	if(activeFor == startWhen)
@@ -114,12 +115,12 @@
 	if(activeFor == announceWhen)
 		announce()
 
-	if(activeFor == endWhen)
+	if(activeFor == endWhen && !noAutoEnd)
 		isRunning = 0
 		end()
 
 	// Everything is done, let's clean up.
-	if(activeFor >= lastProcessAt())
+	if(activeFor >= lastProcessAt() && !noAutoEnd)
 		kill()
 
 	activeFor++
