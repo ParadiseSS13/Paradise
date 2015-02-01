@@ -106,34 +106,41 @@
 				assign_exchange_role(exchange_red)
 				assign_exchange_role(exchange_blue)
 		else
-			switch(rand(1,100))
-				if(1 to 30)
-					var/datum/objective/assassinate/kill_objective = new
-					kill_objective.owner = traitor
-					kill_objective.find_target()
-					traitor.objectives += kill_objective
-				if(31 to 40)
-					var/datum/objective/debrain/debrain_objective = new
-					debrain_objective.owner = traitor
-					debrain_objective.find_target()
-					traitor.objectives += debrain_objective
-				if(41 to 50)
-					var/datum/objective/protect/protect_objective = new
-					protect_objective.owner = traitor
-					protect_objective.find_target_with_special_role(null,0)
-					if (!protect_objective.target)
-						protect_objective.find_target()					//We could not find any traitors, protect somebody
-					traitor.objectives += protect_objective
-				if(51 to 66)
-					var/datum/objective/harm/harm_objective = new
-					harm_objective.owner = traitor
-					harm_objective.find_target()
-					traitor.objectives += harm_objective
-				else
-					var/datum/objective/steal/steal_objective = new
-					steal_objective.owner = traitor
-					steal_objective.find_target()
-					traitor.objectives += steal_objective
+			var/list/active_ais = active_ais()
+			if(active_ais.len && prob(100/num_players()))
+				var/datum/objective/destroy/destroy_objective = new
+				destroy_objective.owner = traitor
+				destroy_objective.find_target()
+				traitor.objectives += destroy_objective
+			else
+				switch(rand(1,100))
+					if(1 to 30)
+						var/datum/objective/assassinate/kill_objective = new
+						kill_objective.owner = traitor
+						kill_objective.find_target()
+						traitor.objectives += kill_objective
+					if(31 to 40)
+						var/datum/objective/debrain/debrain_objective = new
+						debrain_objective.owner = traitor
+						debrain_objective.find_target()
+						traitor.objectives += debrain_objective
+					if(41 to 50)
+						var/datum/objective/protect/protect_objective = new
+						protect_objective.owner = traitor
+						protect_objective.find_target_with_special_role(null,0)
+						if (!protect_objective.target)
+							protect_objective.find_target()					//We could not find any traitors, protect somebody
+						traitor.objectives += protect_objective
+					if(51 to 61)
+						var/datum/objective/harm/harm_objective = new
+						harm_objective.owner = traitor
+						harm_objective.find_target()
+						traitor.objectives += harm_objective
+					else
+						var/datum/objective/steal/steal_objective = new
+						steal_objective.owner = traitor
+						steal_objective.find_target()
+						traitor.objectives += steal_objective
 		switch(rand(1,100))
 			if(1 to 30) // Die glorious death
 				if (!(locate(/datum/objective/die) in traitor.objectives) && !(locate(/datum/objective/steal) in traitor.objectives))
