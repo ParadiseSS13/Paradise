@@ -69,14 +69,11 @@
 	if(mages_made >= max_mages)
 		return 0
 	making_mage = 1
-	var/list/mob/dead/observer/candidates = list()
+	var/list/candidates = list()
 	var/mob/dead/observer/theghost = null
 	spawn(rand(200, 600))
 		message_admins("SWF is still pissed, sending another wizard - [max_mages - mages_made] left.")
-		for(var/mob/dead/observer/G in player_list)
-			if(G.client && !G.client.holder && !G.client.is_afk() && G.client.prefs.be_special & BE_WIZARD)
-				if(!jobban_isbanned(G, "wizard") && !jobban_isbanned(G, "Syndicate"))
-					candidates += G
+		candidates = get_candidates(BE_WIZARD,,"wizard","Syndicate")
 		if(!candidates.len)
 			message_admins("No applicable ghosts for the next ragin' mage, asking ghosts instead.")
 			var/time_passed = world.time
