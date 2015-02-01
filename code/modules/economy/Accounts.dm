@@ -60,7 +60,7 @@ var/global/list/all_money_accounts = list()
 */
 /proc/create_account(var/mob/living/carbon/human/H, var/starting_funds = 0, var/obj/machinery/account_database/source_db, )
 
-	var/DBQuery/query = dbcon.NewQuery("SELECT account_number,account_pin,account_balance FROM characters WHERE ckey='[sql_sanitize_text(H.ckey)]' AND slot='[H.client.prefs.slot_name]'")
+	var/DBQuery/query = dbcon.NewQuery("SELECT account_number,account_pin,account_balance FROM characters WHERE ckey='[sql_sanitize_text(H.ckey)]' AND slot='[H.client.prefs.default_slot]'")
 	if(!query.Execute())
 		var/err = query.ErrorMsg()
 		log_game("SQL ERROR retrieving bank account information. Error : \[[err]\]\n")
@@ -77,7 +77,7 @@ var/global/list/all_money_accounts = list()
 			M.remote_access_pin = rand(1111, 111111)
 			M.money = 1000
 			M.account_number = rand(111111, 999999)
-			var/DBQuery/query2 = dbcon.NewQuery("UPDATE characters SET account_number='[M.account_number]',account_pin='[M.remote_access_pin]', account_balance='[M.money]' WHERE ckey='[sql_sanitize_text(H.ckey)]' AND slot='[H.client.prefs.slot_name]'")
+			var/DBQuery/query2 = dbcon.NewQuery("UPDATE characters SET account_number='[M.account_number]',account_pin='[M.remote_access_pin]', account_balance='[M.money]' WHERE ckey='[sql_sanitize_text(H.ckey)]' AND slot='[H.client.prefs.default_slot]'")
 			if(!query2.Execute())
 				var/err = query2.ErrorMsg()
 				log_game("SQL ERROR creating bank account. Error : \[[err]\]\n")
