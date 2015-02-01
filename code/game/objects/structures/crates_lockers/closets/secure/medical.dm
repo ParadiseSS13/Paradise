@@ -232,6 +232,6 @@
 	New()
 		..()
 		sleep(2)
-		new /obj/item/clothing/suit/space/paramedic(src)
-		new /obj/item/clothing/head/helmet/space/paramedic(src)
+		new /obj/item/clothing/suit/space/eva/paramedic(src)
+		new /obj/item/clothing/head/helmet/space/eva/paramedic(src)
 		return
