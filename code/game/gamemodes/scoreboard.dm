@@ -211,15 +211,7 @@
 	world << "<b>The crew's final score is:</b>"
 	world << "<b><font size='4'>[score_crewscore]</font></b>"
 	for(var/mob/E in player_list)
-		if(E.client)
-			E.scorestats()
-			if(!istype(E,/mob/living/carbon/human)) continue
-			if(E.z != 2) continue
-			var/mob/living/carbon/human/H = E
-			var/datum/money_account/player_account = H.mind.initial_account
-			player_account.money += 1000
-			player_account.update_balance(player_account.account_number, player_account.money)
-			H << "You have been paid 1000 credits for having survived the shift."
+		if(E.client) E.scorestats()
 	return
 
 

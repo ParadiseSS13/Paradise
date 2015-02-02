@@ -1371,7 +1371,6 @@ datum/preferences
 
 					if("changeslot")
 						load_character(user,text2num(href_list["num"]))
-						default_slot=text2num(href_list["num"])
 						close_load_dialog(user)
 
 					if("tab")
