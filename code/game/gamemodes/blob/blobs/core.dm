@@ -72,7 +72,7 @@
 		var/list/candidates = list()
 
 		if(!new_overmind)
-			candidates = get_candidates(BE_BLOB,,"alien","Syndicate")
+			candidates = get_candidates(BE_BLOB,,"blob","Syndicate")
 			if(candidates.len)
 				C = pick(candidates)
 		else
