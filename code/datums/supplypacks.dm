@@ -1035,7 +1035,6 @@ var/list/all_supply_groups = list("Operations","Security","Hospitality","Enginee
 	group = "Engineering"
 	access = access_ce
 
-/*
 /datum/supply_packs/eftpos
 	contains = list(/obj/item/device/eftpos)
 	name = "EFTPOS scanner"
@@ -1043,7 +1042,6 @@ var/list/all_supply_groups = list("Operations","Security","Hospitality","Enginee
 	containertype = /obj/structure/closet/crate
 	containername = "EFTPOS crate"
 	group = "Operations"
-*/
 
 /datum/supply_packs/teg
 	contains = list(/obj/machinery/power/generator)
