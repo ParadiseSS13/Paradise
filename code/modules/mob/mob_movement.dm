@@ -207,6 +207,9 @@
 	if(Process_Grab())	return
 
 
+	if(mob.remote_control)					//we're controlling something, our movement is relayed to it
+		return mob.remote_control.relaymove(mob, direct)
+
 	if(!mob.canmove)
 		return
 
