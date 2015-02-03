@@ -203,6 +203,7 @@
 	var/list/radar_blips = list() // list of screen objects, radar blips
 	var/radar_open = 0 	// nonzero is radar is open
 
+	var/atom/movable/remote_control //Calls relaymove() to whatever it is
 
 	var/obj/control_object //Used by admins to possess objects. All mobs should have this var
 	var/datum/visibility_interface/visibility_interface = null // used by the visibility system to provide an interface for the visibility networks
