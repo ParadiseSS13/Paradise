@@ -56,6 +56,9 @@
 /obj/machinery/bot/secbot/ofitser
 	name = "Prison Ofitser"
 	desc = "It's Prison Ofitser! Powered by the tears and sweat of prisoners."
+	idcheck = 0
+	weaponscheck = 1
+	auto_patrol = 1
 
 /obj/machinery/bot/secbot/buzzsky
 	name = "Officer Buzzsky"

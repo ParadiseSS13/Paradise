@@ -11,6 +11,7 @@ var/global/datum/emergency_shuttle_controller/emergency_shuttle
 	var/launch_time			//the time at which the shuttle will be launched
 	var/auto_recall = 0		//if set, the shuttle will be auto-recalled
 	var/auto_recall_time	//the time at which the shuttle will be auto-recalled
+	var/no_escape = 0       //alternative to auto_recall - the shuttle will arrive, but never leave
 	var/evac = 0			//1 = emergency evacuation, 0 = crew transfer
 	var/wait_for_launch = 0	//if the shuttle is waiting to launch
 	var/autopilot = 1		//set to 0 to disable the shuttle automatically launching
@@ -27,6 +28,10 @@ var/global/datum/emergency_shuttle_controller/emergency_shuttle
 			stop_launch_countdown()
 
 			if (!shuttle.location)	//leaving from the station
+				if(is_stranded())
+					captain_announce("Hostile environment detected. Departure has been postponed indefinitely pending conflict resolution.")
+					wait_for_launch = 0
+					return			
 				//launch the pods!
 				for (var/datum/shuttle/ferry/escape_pod/pod in escape_pods)
 					if (!pod.arming_controller || pod.arming_controller.armed)
@@ -38,6 +43,8 @@ var/global/datum/emergency_shuttle_controller/emergency_shuttle
 //called when the shuttle has arrived.
 /datum/emergency_shuttle_controller/proc/shuttle_arrived()
 	if (!shuttle.location)	//at station
+		if(no_escape)
+			shuttle.moving_status = SHUTTLE_STRANDED
 		if (autopilot)
 			set_launch_countdown(SHUTTLE_LEAVETIME)	//get ready to return
 
@@ -154,7 +161,7 @@ var/global/datum/emergency_shuttle_controller/emergency_shuttle
 /datum/emergency_shuttle_controller/proc/waiting_to_leave()
 	if (shuttle.location)
 		return 0	//not at station
-	return (wait_for_launch || shuttle.moving_status != SHUTTLE_INTRANSIT)
+	return (wait_for_launch || (shuttle.moving_status != SHUTTLE_INTRANSIT && shuttle.moving_status != SHUTTLE_STRANDED))
 
 //so we don't have emergency_shuttle.shuttle.location everywhere
 /datum/emergency_shuttle_controller/proc/location()
@@ -178,7 +185,10 @@ var/global/datum/emergency_shuttle_controller/emergency_shuttle
 	return (launch_time - world.time)/10
 
 /datum/emergency_shuttle_controller/proc/has_eta()
-	return (wait_for_launch || shuttle.moving_status != SHUTTLE_IDLE)
+	return (wait_for_launch || shuttle.moving_status != SHUTTLE_IDLE && shuttle.moving_status != SHUTTLE_STRANDED)
+	
+/datum/emergency_shuttle_controller/proc/is_stranded()
+	return (shuttle.moving_status == SHUTTLE_STRANDED)
 
 //returns 1 if the shuttle has gone to the station and come back at least once,
 //used for game completion checking purposes
@@ -214,7 +224,10 @@ var/global/datum/emergency_shuttle_controller/emergency_shuttle
 
 			var/timeleft = emergency_shuttle.estimate_launch_time()
 			return "ETD-[(timeleft / 60) % 60]:[add_zero(num2text(timeleft % 60), 2)]"
-
+			
+		if (is_stranded())
+			return "ETA-ERR"
+				
 	return ""
 /*
 	Some slapped-together star effects for maximum spess immershuns. Basically consists of a

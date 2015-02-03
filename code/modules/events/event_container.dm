@@ -2,7 +2,7 @@
 #define ASSIGNMENT_AI "AI"
 #define ASSIGNMENT_CYBORG "Cyborg"
 #define ASSIGNMENT_ENGINEER "Engineer"
-#define ASSIGNMENT_GARDENER "Gardener"
+#define ASSIGNMENT_BOTANIST "Botanist"
 #define ASSIGNMENT_JANITOR "Janitor"
 #define ASSIGNMENT_MEDICAL "Medical"
 #define ASSIGNMENT_SCIENTIST "Scientist"
@@ -185,7 +185,7 @@ var/global/list/severity_to_string = list(EVENT_LEVEL_MUNDANE = "Mundane", EVENT
 #undef ASSIGNMENT_AI
 #undef ASSIGNMENT_CYBORG
 #undef ASSIGNMENT_ENGINEER
-#undef ASSIGNMENT_GARDENER
+#undef ASSIGNMENT_BOTANIST
 #undef ASSIGNMENT_JANITOR
 #undef ASSIGNMENT_MEDICAL
 #undef ASSIGNMENT_SCIENTIST

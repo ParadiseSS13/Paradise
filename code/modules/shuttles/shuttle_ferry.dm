@@ -145,7 +145,7 @@
 	return 1
 
 /datum/shuttle/ferry/proc/can_force()
-	if (moving_status == SHUTTLE_IDLE && process_state == WAIT_LAUNCH)
+	if ((moving_status == SHUTTLE_IDLE) && process_state == WAIT_LAUNCH)
 		return 1
 	return 0
 

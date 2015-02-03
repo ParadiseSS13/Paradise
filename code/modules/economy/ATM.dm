@@ -98,7 +98,6 @@ log transactions
 		if(istype(I,/obj/item/weapon/spacecash))
 			//consume the money
 			authenticated_account.money += I:worth * I:amount
-			authenticated_account.update_balance(authenticated_account.account_number,authenticated_account.money)
 			if(prob(50))
 				playsound(loc, 'sound/items/polaroid1.ogg', 50, 1)
 			else
@@ -197,7 +196,6 @@ log transactions
 						<A href='?src=\ref[src];choice=view_screen;view_screen=1'>Change account security level</a><br>
 						<A href='?src=\ref[src];choice=view_screen;view_screen=2'>Make transfer</a><br>
 						<A href='?src=\ref[src];choice=view_screen;view_screen=3'>View transaction log</a><br>
-						<A href='?src=\ref[src];choice=change_pin'>Change PIN</a><br>
 						<A href='?src=\ref[src];choice=balance_statement'>Print balance statement</a><br>
 						<A href='?src=\ref[src];choice=logout'>Logout</a><br>"}
 		else if(linked_db)
@@ -219,7 +217,6 @@ log transactions
 /obj/machinery/atm/Topic(var/href, var/href_list)
 	if(href_list["choice"])
 		switch(href_list["choice"])
-
 			if("transfer")
 				if(authenticated_account && linked_db)
 					var/transfer_amount = text2num(href_list["funds_amount"])
@@ -231,7 +228,6 @@ log transactions
 						if(linked_db.charge_to_account(target_account_number, authenticated_account.owner_name, transfer_purpose, machine_id, transfer_amount))
 							usr << "\icon[src]<span class='info'>Funds transfer successful.</span>"
 							authenticated_account.money -= transfer_amount
-							authenticated_account.update_balance(authenticated_account.account_number,authenticated_account.money)
 
 							//create an entry in the account transaction log
 							var/datum/transaction/T = new()
@@ -244,6 +240,7 @@ log transactions
 							authenticated_account.transaction_log.Add(T)
 						else
 							usr << "\icon[src]<span class='warning'>Funds transfer failed.</span>"
+
 					else
 						usr << "\icon[src]<span class='warning'>You don't have enough funds to do that!</span>"
 			if("view_screen")
@@ -315,7 +312,6 @@ log transactions
 							usr << "\blue The ATM's screen flashes, 'Maximum single withdrawl limit reached, defaulting to 10,000.'"
 							amount = 10000
 						authenticated_account.money -= amount
-						authenticated_account.update_balance(authenticated_account.account_number,authenticated_account.money)
 						withdraw_arbitrary_sum(amount)
 
 						//create an entry in the account transaction log
@@ -372,15 +368,6 @@ log transactions
 						usr.drop_item()
 						I.loc = src
 						held_card = I
-			if("change_pin")
-				if(authenticated_account)
-					var/new_pin = input(usr,"Enter new pin code", "PIN code changer") as num
-					authenticated_account.remote_access_pin = new_pin
-					var/DBQuery/query = dbcon.NewQuery("UPDATE characters SET account_pin='[new_pin]' WHERE account_number='[authenticated_account.account_number]'")
-					if(!query.Execute())
-						var/err = query.ErrorMsg()
-						log_game("SQL ERROR changing bank pin. Error : \[[err]\]\n")
-						message_admins("SQL ERROR changing bank pin. Error : \[[err]\]\n")
 			if("logout")
 				authenticated_account = null
 				//usr << browse(null,"window=atm")

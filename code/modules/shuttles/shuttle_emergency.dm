@@ -32,14 +32,17 @@
 
 	..(origin, destination)
 
-/datum/shuttle/ferry/emergency/can_launch(var/user)
+/datum/shuttle/ferry/emergency/can_launch(var/mob/user)
 	if (istype(user, /obj/machinery/computer/shuttle_control/emergency))
 		var/obj/machinery/computer/shuttle_control/emergency/C = user
 		if (!C.has_authorization())
 			return 0
+		
+		if(moving_status == SHUTTLE_STRANDED && C.has_authorization())
+			return 1
 	return ..()
 
-/datum/shuttle/ferry/emergency/can_force(var/user)
+/datum/shuttle/ferry/emergency/can_force(var/mob/user)
 	if (istype(user, /obj/machinery/computer/shuttle_control/emergency))
 		var/obj/machinery/computer/shuttle_control/emergency/C = user
 		
@@ -47,9 +50,10 @@
 		//this is so that people can force launch if the docking controller cannot safely undock without needing X heads to swipe.
 		if (process_state != WAIT_LAUNCH && !C.has_authorization())
 			return 0
+	
 	return ..()
 
-/datum/shuttle/ferry/emergency/can_cancel(var/user)
+/datum/shuttle/ferry/emergency/can_cancel(var/mob/user)
 	if (istype(user, /obj/machinery/computer/shuttle_control/emergency))
 		var/obj/machinery/computer/shuttle_control/emergency/C = user
 		if (!C.has_authorization())
@@ -58,6 +62,10 @@
 
 /datum/shuttle/ferry/emergency/launch(var/user)
 	if (!can_launch(user)) return
+	
+	if(emergency_shuttle.no_escape)
+		user << "<span class='warning'>The emergency shuttle has been disabled by Centcom.</span>"
+		return
 
 	if (istype(user, /obj/machinery/computer/shuttle_control/emergency))	//if we were given a command by an emergency shuttle console
 		if (emergency_shuttle.autopilot)
@@ -164,6 +172,7 @@
 		if(SHUTTLE_IDLE) shuttle_state = "idle"
 		if(SHUTTLE_WARMUP) shuttle_state = "warmup"
 		if(SHUTTLE_INTRANSIT) shuttle_state = "in_transit"
+		if(SHUTTLE_STRANDED) shuttle_state = "idle"
 
 	var/shuttle_status
 	switch (shuttle.process_state)
@@ -175,7 +184,7 @@
 			else
 				shuttle_status = "Standing-by at Central Command."
 		if(WAIT_LAUNCH)
-			shuttle_status = "Shuttle has recieved command and will depart shortly."
+			shuttle_status = "Shuttle has received command and will depart shortly."
 		if(WAIT_ARRIVE)
 			shuttle_status = "Proceeding to destination."
 		if(WAIT_FINISH)

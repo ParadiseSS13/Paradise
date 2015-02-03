@@ -38,8 +38,8 @@
 			if(D.remote_access_pin != attempt_pin)
 				return null
 		return D
-//	else if(issilicon(src))
-//		return station_account
+	else if(issilicon(src))
+		return station_account
 
 /datum/money_account/proc/fmtBalance()
 	return "$[num2septext(money)]"
@@ -48,7 +48,6 @@
 	if(transaction_amount <= money)
 		//transfer the money
 		money -= transaction_amount
-		update_balance(account_number,money)
 		if(dest)
 			dest.money += transaction_amount
 
@@ -85,10 +84,3 @@
 	else
 		usr << "\icon[src]<span class='warning'>You don't have that much money!</span>"
 		return 0
-
-/datum/money_account/proc/update_balance(var/account_number,var/newbalance)
-	var/DBQuery/query = dbcon.NewQuery("UPDATE characters SET account_balance='[newbalance]' WHERE account_number='[account_number]'")
-	if(!query.Execute())
-		var/err = query.ErrorMsg()
-		log_game("SQL ERROR charging bank account. Error : \[[err]\]\n")
-		message_admins("SQL ERROR charging bank account. Error : \[[err]\]\n")

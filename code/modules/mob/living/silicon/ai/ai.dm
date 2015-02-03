@@ -337,7 +337,7 @@ var/list/ai_list = list()
 
 
 /mob/living/silicon/ai/proc/ai_cancel_call()
-	set category = "AI Commands"
+	set category = "Malfunction"
 	if(src.stat == 2)
 		src << "You can't send the shuttle back because you are dead!"
 		return
