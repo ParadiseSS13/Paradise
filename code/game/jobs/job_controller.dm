@@ -443,7 +443,9 @@ var/global/datum/controller/occupations/job_master
 			switch(rank)
 				if("Cyborg")
 					return H.Robotize()
-				if("AI","Clown")	//don't need bag preference stuff!
+				if("AI")
+					return H
+				if("Clown")	//don't need bag preference stuff!
 					if(rank=="Clown") // Clowns DO need to breathe, though - N3X
 						H.species.equip(H)
 				else

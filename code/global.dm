@@ -333,3 +333,6 @@ var/global/list/alphabet_uppercase = list("A","B","C","D","E","F","G","H","I","J
 
 // AI controlled bots
 var/global/list/aibots = list()
+
+// Announcer intercom, because too much stuff creates an intercom for one message then hard del()s it.
+var/global/obj/item/device/radio/intercom/global_announcer = new(null)

@@ -69,6 +69,7 @@
 	spawn(3)
 		var/datum/job/detective/J = new/datum/job/detective
 		botcard.access = J.get_access()
+		botcard.access += 2
 		prev_access = botcard.access
 
 
