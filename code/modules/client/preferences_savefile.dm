@@ -121,6 +121,7 @@
 	S["age"]				>> age
 	S["species"]			>> species
 	S["language"]			>> language
+	S["spawnpoint"]			>> spawnpoint
 
 	//colors to be consolidated into hex strings (requires some work with dna code)
 	S["hair_red"]			>> r_hair
@@ -323,6 +324,7 @@
 	real_name		= reject_bad_name(real_name)
 	if(isnull(species)) species = "Human"
 	if(isnull(language)) language = "None"
+	if(isnull(spawnpoint)) spawnpoint = "Arrivals Shuttle"
 	if(isnull(nanotrasen_relation)) nanotrasen_relation = initial(nanotrasen_relation)
 	if(!real_name) real_name = random_name(gender)
 	be_random_name	= sanitize_integer(be_random_name, 0, 1, initial(be_random_name))

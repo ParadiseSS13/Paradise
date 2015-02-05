@@ -921,6 +921,7 @@
 #include "code\modules\client\client procs.dm"
 #include "code\modules\client\preferences.dm"
 #include "code\modules\client\preferences_mysql.dm"
+#include "code\modules\client\preferences_spawnpoints.dm"
 #include "code\modules\client\preferences_toggles.dm"
 #include "code\modules\clothing\clothing.dm"
 #include "code\modules\clothing\glasses\glasses.dm"

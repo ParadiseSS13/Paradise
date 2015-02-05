@@ -19,7 +19,7 @@
 	title = "Cyborg"
 	flag = CYBORG
 	department_flag = ENGSEC
-	total_positions = 0
+	total_positions = 1
 	spawn_positions = 1
 	supervisors = "your laws and the AI"	//Nodrak
 	selection_color = "#ddffdd"
