@@ -175,7 +175,7 @@
 	anchored = 1
 	state = 20//So it doesn't interact based on the above. Not really necessary.
 
-/obj/structure/AIcore/deactivated/attackby(var/obj/item/weapon/W, var/mob/user)
+/obj/structure/AIcore/deactivated/attackby(var/obj/item/W, var/mob/user)
 	if(istype(W, /obj/item/device/aicard))//Is it?
 		var/obj/item/device/aicard/card = W
 		card.transfer_ai("INACTIVE","AICARD",src,user)
