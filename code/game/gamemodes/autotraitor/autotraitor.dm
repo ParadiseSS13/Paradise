@@ -85,12 +85,21 @@
 				playercount += 1
 			if (player.client && player.mind && player.mind.special_role && player.stat != 2)
 				traitorcount += 1
-			if (player.client && player.mind && !player.mind.special_role && player.stat != 2 && (ishuman(player) || isrobot(player) || isAI(player)) && (player.client && player.client.prefs.be_special & BE_TRAITOR) && !jobban_isbanned(player, "traitor") && !jobban_isbanned(player, "Syndicate"))
-				possible_traitors += player
+			if (player.client && player.mind && !player.mind.special_role && player.stat != 2)
+				if (ishuman(player) || isrobot(player) || isAI(player))
+					if (player.client && player.client.prefs.be_special & BE_TRAITOR && !jobban_isbanned(player, "traitor") && !jobban_isbanned(player, "Syndicate"))
+						possible_traitors += player.mind
 		for(var/datum/mind/player in possible_traitors)
 			for(var/job in restricted_jobs)
 				if(player.assigned_role == job)
 					possible_traitors -= player
+			if(player.current) // Remove loyalty implanted mobs from the list
+				if(ishuman(player.current))
+					var/mob/living/carbon/human/H = player.current
+					for(var/obj/item/weapon/implant/loyalty/I in H.contents)
+						for(var/datum/organ/external/organs in H.organs)
+							if(I in organs.implants)
+								possible_traitors -= player
 
 		//message_admins("Live Players: [playercount]")
 		//message_admins("Live Traitors: [traitorcount]")
@@ -118,7 +127,8 @@
 					message_admins("No potential traitors.  Cancelling new traitor.")
 					traitorcheckloop()
 					return
-				var/mob/living/newtraitor = pick(possible_traitors)
+				var/datum/mind/newtraitormind = pick(possible_traitors)
+				var/mob/living/newtraitor = newtraitormind.current
 				//message_admins("[newtraitor.real_name] is the new Traitor.")
 
 				forge_traitor_objectives(newtraitor.mind)
