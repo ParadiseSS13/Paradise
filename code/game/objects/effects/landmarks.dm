@@ -39,6 +39,18 @@
 		if("JoinLate")
 			latejoin += loc
 			del(src)
+			
+		if("JoinLateGateway")
+			latejoin_gateway += loc
+			del(src)
+
+		if("JoinLateCryo")
+			latejoin_cryo += loc
+			del(src)
+			
+		if("JoinLateCyborg")
+			latejoin_cyborg += loc
+			del(src)
 
 		//prisoners
 		if("prisonwarp")

@@ -565,7 +565,7 @@ obj/machinery/bot/proc/start_patrol()
 	send_status()
 	if(awaiting_beacon)			// awaiting beacon response
 		awaiting_beacon++
-		if(awaiting_beacon > 20)	// wait 20 secs for beacon response
+		if(awaiting_beacon > 40)	// wait 40 secs for beacon response
 			find_nearest_beacon()	// then go to nearest instead
 		return
 	if(next_destination)
@@ -583,7 +583,7 @@ obj/machinery/bot/proc/start_patrol()
 	new_destination = "__nearest__"
 	post_signal(beacon_freq, "findbeacon", "patrol")
 	awaiting_beacon = 1
-	spawn(100)
+	spawn(150)
 		awaiting_beacon = 0
 		if(nearest_beacon)
 			set_destination(nearest_beacon)

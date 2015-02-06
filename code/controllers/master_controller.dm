@@ -82,6 +82,8 @@ datum/controller/game_controller/proc/setup()
 
 	for(var/i=0, i<max_secret_rooms, i++)
 		make_mining_asteroid_secret()
+		
+	populate_spawn_points()
 
 	spawn(0)
 		if(ticker)

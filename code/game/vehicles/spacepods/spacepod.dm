@@ -75,6 +75,10 @@
 	if(P.damage && !P.nodamage)
 		deal_damage(P.damage)
 		
+/obj/spacepod/blob_act()
+	deal_damage(30)
+	return
+		
 /obj/spacepod/attack_animal(mob/living/simple_animal/user as mob)
 	if(user.melee_damage_upper == 0)
 		user.emote("[user.friendly] [src]")

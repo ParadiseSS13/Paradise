@@ -156,11 +156,15 @@
 			if(istype(P, /obj/item/weapon/screwdriver))
 				playsound(loc, 'sound/items/Screwdriver.ogg', 50, 1)
 				user << "<span class='notice'>You connect the monitor.</span>"
-				if(!laws.inherent.len) //If laws isn't set to null but nobody supplied a board, the AI would normally be created lawless. We don't want that.
-					laws = null
-				var/mob/living/silicon/ai/A = new /mob/living/silicon/ai (loc, laws, brain)
-				if(A) //if there's no brain, the mob is deleted and a structure/AIcore is created
-					A.rename_self("ai", 1)
+				if(!brain)
+					var/open_for_latejoin = alert(user, "Would you like this core to be open for latejoining AIs?", "Latejoin", "Yes", "Yes", "No") == "Yes"
+					var/obj/structure/AIcore/deactivated/D = new(loc)
+					if(open_for_latejoin)
+						empty_playable_ai_cores += D
+				else
+					var/mob/living/silicon/ai/A = new /mob/living/silicon/ai ( loc, laws, brain )
+					if(A) //if there's no brain, the mob is deleted and a structure/AIcore is created
+						A.rename_self("ai", 1)
 				feedback_inc("cyborg_ais_created",1)
 				del(src)
 
@@ -171,10 +175,53 @@
 	anchored = 1
 	state = 20//So it doesn't interact based on the above. Not really necessary.
 
-	attackby(var/obj/item/device/aicard/A as obj, var/mob/user as mob)
-		if(istype(A, /obj/item/device/aicard))//Is it?
-			A.transfer_ai("INACTIVE","AICARD",src,user)
-		return
+/obj/structure/AIcore/deactivated/attackby(var/obj/item/W, var/mob/user)
+	if(istype(W, /obj/item/device/aicard))//Is it?
+		var/obj/item/device/aicard/card = W
+		card.transfer_ai("INACTIVE","AICARD",src,user)
+	else if(istype(W, /obj/item/weapon/wrench))
+		if(anchored)
+			user.visible_message("\blue \The [user] starts to unbolt \the [src] from the plating...")
+			if(!do_after(user,40))
+				user.visible_message("\blue \The [user] decides not to unbolt \the [src].")
+				return
+			user.visible_message("\blue \The [user] finishes unfastening \the [src]!")
+			anchored = 0
+			return
+		else
+			user.visible_message("\blue \The [user] starts to bolt \the [src] to the plating...")
+			if(!do_after(user,40))
+				user.visible_message("\blue \The [user] decides not to bolt \the [src].")
+				return
+			user.visible_message("\blue \The [user] finishes fastening down \the [src]!")
+			anchored = 1
+			return
+	else
+		return ..()
+		
+/client/proc/empty_ai_core_toggle_latejoin()
+	set name = "Toggle AI Core Latejoin"
+	set category = "Admin"
+
+	var/list/cores = list()
+	for(var/obj/structure/AIcore/deactivated/D in world)
+		cores["[D] ([D.loc.loc])"] = D
+		
+	if(!cores.len)
+		src << "No deactivated AI cores were found."
+
+	var/id = input("Which core?", "Toggle AI Core Latejoin", null) as null|anything in cores
+	if(!id) return
+
+	var/obj/structure/AIcore/deactivated/D = cores[id]
+	if(!D) return
+
+	if(D in empty_playable_ai_cores)
+		empty_playable_ai_cores -= D
+		src << "\The [id] is now <font color=\"#ff0000\">not available</font> for latejoining AIs."
+	else
+		empty_playable_ai_cores += D
+		src << "\The [id] is now <font color=\"#008000\">available</font> for latejoining AIs."
 
 
 /*
