@@ -8,7 +8,7 @@
 	icon_state = "paramedic-vest"
 	item_state = "paramedic-vest"
 	allowed = list(/obj/item/stack/medical, /obj/item/weapon/reagent_containers/dropper, /obj/item/weapon/reagent_containers/hypospray, /obj/item/weapon/reagent_containers/syringe, \
-	/obj/item/device/healthanalyzer, /obj/item/device/flashlight, /obj/item/device/radio, /obj/item/weapon/tank/emergency_oxygen)
+	/obj/item/device/healthanalyzer, /obj/item/device/antibody_scanner, /obj/item/device/flashlight, /obj/item/device/radio, /obj/item/weapon/tank/emergency_oxygen)
 	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 10, rad = 10)
 	species_fit = list("Vox")
 	sprite_sheets = list(
@@ -22,7 +22,8 @@
 	icon_state = "brigphysician-vest"
 	item_state = "brigphysician-vest"
 	allowed = list(/obj/item/stack/medical, /obj/item/weapon/reagent_containers/dropper, /obj/item/weapon/reagent_containers/hypospray, /obj/item/weapon/reagent_containers/syringe, \
-	/obj/item/device/healthanalyzer, /obj/item/device/flashlight, /obj/item/device/radio, /obj/item/weapon/tank/emergency_oxygen)
+	/obj/item/device/healthanalyzer, /obj/item/device/antibody_scanner, /obj/item/device/flashlight, \
+	/obj/item/device/radio, /obj/item/weapon/tank/emergency_oxygen)
 	armor = list(melee = 10, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 10, rad = 0)
 
 //Botonist
@@ -227,7 +228,7 @@
 	item_state = "fr_jacket"
 	blood_overlay_type = "armor"
 	allowed = list(/obj/item/stack/medical, /obj/item/weapon/reagent_containers/dropper, /obj/item/weapon/reagent_containers/hypospray, /obj/item/weapon/reagent_containers/syringe, \
-	/obj/item/device/healthanalyzer, /obj/item/device/flashlight, /obj/item/device/radio, /obj/item/weapon/tank/emergency_oxygen)
+	/obj/item/device/healthanalyzer, /obj/item/device/antibody_scanner, /obj/item/device/flashlight, /obj/item/device/radio, /obj/item/weapon/tank/emergency_oxygen)
 
 	verb/toggle()
 		set name = "Toggle Jacket Buttons"
