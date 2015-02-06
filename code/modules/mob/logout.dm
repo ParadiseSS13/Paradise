@@ -19,7 +19,7 @@
 			var/mob/dead/observer/G = src
 			if (G.can_reenter_corpse && G.mind.current)
 				C = G.mind.current
-		else if (istype(src,/mob/living/carbon/human)) //Aliens can't be cloned
+		else if (istype(src,/mob/living/carbon/human))
 			C = src
 		
 		if (C) //We found our corpse, is it inside a morgue?
