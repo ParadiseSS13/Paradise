@@ -32,8 +32,18 @@
 			if(M==null) M = locate() in B
 
 			if(M)
+				var/ghost_can_reenter_corpse = null
+				if (M.mind)
+					for(var/mob/dead/observer/G in player_list) //Does the corpse have a ghost?
+						if (G.mind == M.mind)
+							if (G.client && G.can_reenter_corpse)
+								ghost_can_reenter_corpse = 1
+							break
+				
 				if(M.client)
 					src.icon_state = "morgue3"
+				else if(M.mind && ghost_can_reenter_corpse) //There is a ghost and it is connected to the server
+					src.icon_state = "morgue5"
 				else
 					src.icon_state = "morgue2"
 
@@ -110,8 +120,10 @@
 		t = copytext(sanitize(t),1,MAX_MESSAGE_LEN)
 		if (t)
 			src.name = text("Morgue- '[]'", t)
+			src.overlays += image(src.icon, "morgue_label")
 		else
 			src.name = "Morgue"
+			src.overlays.Cut()
 	src.add_fingerprint(user)
 	return
 

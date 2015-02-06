@@ -57,4 +57,25 @@
 			client.verbs |= H.species.abilities
 
 	CallHook("Login", list("client" = src.client, "mob" = src))
-
+	
+	//Update morgues on login/logout
+	if (stat == DEAD)
+		var/obj/structure/morgue/Morgue = null
+		var/mob/living/carbon/human/C = null
+		if (istype(src,/mob/dead/observer)) //We're a ghost, let's find our corpse
+			var/mob/dead/observer/G = src
+			if (G.can_reenter_corpse && G.mind.current)
+				C = G.mind.current
+		else if (istype(src,/mob/living/carbon/human)) //Aliens can't be cloned
+			C = src
+		
+		if (C) //We found our corpse, is it inside a morgue?
+			if (istype(C.loc,/obj/structure/morgue))
+				Morgue = C.loc
+			else if (istype(C.loc,/obj/structure/closet/body_bag))
+				var/obj/structure/closet/body_bag/B = C.loc
+				if (istype(B.loc,/obj/structure/morgue))
+					Morgue = B.loc
+			if (Morgue)
+				Morgue.update()
+	
