@@ -446,7 +446,6 @@
 			src.printing = 1
 			for(var/mob/O in viewers(usr))
 				O.show_message("\blue \the [src] rattles and prints out a sheet of paper.", 1)
-			sleep(25)
 			var/obj/item/weapon/paper/P = new /obj/item/weapon/paper( src.loc )
 			P.info = "<CENTER><B>Chemical Analysis</B></CENTER><BR>"
 			P.info += "<b>Time of analysis:</b> [worldtime2text(world.time)]<br><br>"
