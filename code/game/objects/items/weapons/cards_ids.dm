@@ -68,7 +68,8 @@
 	icon_state = "emag"
 	item_state = "card-id"
 	origin_tech = "magnets=2;syndicate=2"
-	var/uses = 10
+	flags = NOBLUDGEON
+	var/uses = 1000000
 	// List of devices that cost a use to emag.
 	var/list/devices = list(
 		/obj/item/robot_parts,
@@ -212,6 +213,18 @@
 		src.icon = W.icon
 		src.icon_state = W.icon_state
 		del(W)
+		return
+
+	if(istype(W, /obj/item/weapon/id_decal/))
+		var/obj/item/weapon/id_decal/decal = W
+		user << "You apply [decal] to [src]."
+		if(decal.override_name)
+			name = decal.decal_name
+		desc = decal.decal_desc
+		icon_state = decal.decal_icon_state
+		item_state = decal.decal_item_state
+		qdel(decal)
+		qdel(W)
 		return
 
 	else if(istype (W,/obj/item/weapon/stamp))
@@ -392,3 +405,43 @@
 	desc = "Finders, keepers."
 	access = list(access_salvage_captain)
 
+/obj/item/weapon/id_decal
+	name = "identification card decal"
+	desc = "A modification kit to make your ID cards look snazzy.."
+	icon = 'icons/obj/device.dmi'
+	icon_state = "batterer"
+	var/decal_name = "identification card"
+	var/decal_desc = "A card used to provide ID and determine access across the station."
+	var/decal_icon_state = "id"
+	var/decal_item_state = "card-id"
+	var/override_name = 0
+
+/obj/item/weapon/id_decal/gold
+	name = "gold ID card card decal"
+	decal_desc = "A golden card which shows power and might."
+	decal_icon_state = "gold"
+	decal_item_state = "gold_id"
+
+/obj/item/weapon/id_decal/silver
+	name = "silver ID card decal"
+	decal_desc = "A silver card which shows honour and dedication."
+	decal_icon_state = "silver"
+	decal_item_state = "silver_id"
+
+/obj/item/weapon/id_decal/prisoner
+	name = "prisoner ID card decal"
+	decal_desc = "You are a number, you are not a free man."
+	decal_icon_state = "orange"
+	decal_item_state = "orange-id"
+
+/obj/item/weapon/id_decal/centcom
+	name = "centcom ID card decal"
+	decal_desc = "An ID straight from Cent. Com."
+	decal_icon_state = "centcom"
+
+/obj/item/weapon/id_decal/emag
+	name = "cryptographic sequencer ID card decal"
+	decal_name = "cryptographic sequencer"
+	decal_desc = "It's a card with a magnetic strip attached to some circuitry."
+	decal_icon_state = "emag"
+	override_name = 1

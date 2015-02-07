@@ -585,3 +585,10 @@
 	..()
 	user <<"<span class='warning'>[src] suddenly vanishes!</span>"
 	qdel(src)
+
+
+/obj/item/weapon/spellbook/oneuse/fake_gib
+	spell = /obj/effect/proc_holder/spell/wizard/targeted/fake_gib
+	spellname = "disintegrate"
+	icon_state ="bookfireball"
+	desc = "This book feels like it will rip stuff apart."
