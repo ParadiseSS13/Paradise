@@ -27,22 +27,16 @@
 		if(src.contents.len)
 
 			var/mob/living/M = locate() in contents
-
+			
 			var/obj/structure/closet/body_bag/B = locate() in contents
 			if(M==null) M = locate() in B
 
 			if(M)
-				var/ghost_can_reenter_corpse = null
-				if (M.mind)
-					for(var/mob/dead/observer/G in player_list) //Does the corpse have a ghost?
-						if (G.mind == M.mind)
-							if (G.client && G.can_reenter_corpse)
-								ghost_can_reenter_corpse = 1
-							break
+				var/mob/dead/observer/G = M.get_ghost()
 				
 				if(M.client)
 					src.icon_state = "morgue3"
-				else if(M.mind && ghost_can_reenter_corpse) //There is a ghost and it is connected to the server
+				else if(G && G.client) //There is a ghost and it is connected to the server
 					src.icon_state = "morgue5"
 				else
 					src.icon_state = "morgue2"
