@@ -23,8 +23,8 @@
 	materials = list("$gold" = 5000,"$uranium" = 10000, "mutagen" = 40)
 	build_path = /obj/item/weapon/gun/energy/decloner
 	locked = 1
-	category = list("Weapons")	
-	
+	category = list("Weapons")
+
 /datum/design/largecrossbow
 	name = "Energy Crossbow"
 	desc = "A reverse-engineered energy crossbow favored by syndicate infiltration teams and carp hunters."
@@ -32,10 +32,10 @@
 	req_tech = list("combat" = 5, "materials" = 5, "engineering" = 3, "biotech" = 4, "syndicate" = 3)
 	build_type = PROTOLATHE
 	materials = list("$metal" = 5000, "$glass" = 1500, "$uranium" = 1500, "$silver" = 1500)
-	build_path = /obj/item/weapon/gun/energy/crossbow/largecrossbow
+	build_path = /obj/item/weapon/gun/energy/kinetic_accelerator/crossbow/large
 	locked = 1
 	category = list("Weapons")
-	
+
 /datum/design/flora_gun
 	name = "Floral Somatoray"
 	desc = "A tool that discharges controlled radiation which induces mutation in plant cells. Harmless to other organic life."
@@ -45,7 +45,7 @@
 	materials = list("$metal" = 2000, "$glass" = 500, "radium" = 20)
 	build_path = /obj/item/weapon/gun/energy/floragun
 	category = list("Weapons")
-	
+
 /datum/design/ionrifle
 	name = "Ion Rifle"
 	desc = "How to dismantle a cyborg : The gun."
@@ -67,7 +67,7 @@
 	reliability_base = 79
 	build_path = /obj/item/weapon/grenade/chem_grenade/large
 	category = list("Weapons")
-	
+
 /datum/design/lasercannon
 	name = "Laser Cannon"
 	desc = "A heavy duty laser cannon."
@@ -77,8 +77,8 @@
 	materials = list("$metal" = 10000, "$glass" = 2000, "$diamond" = 2000)
 	build_path = /obj/item/weapon/gun/energy/lasercannon
 	locked = 1
-	category = list("Weapons")	
-	
+	category = list("Weapons")
+
 /datum/design/plasmapistol
 	name = "Plasma Pistol"
 	desc = "A specialized firearm designed to fire lethal bolts of toxins."
@@ -89,7 +89,7 @@
 	build_path = /obj/item/weapon/gun/energy/toxgun
 	locked = 1
 	category = list("Weapons")
-	
+
 /datum/design/smg
 	name = "Prototype Submachine Gun"
 	desc = "A prototype weapon made using lightweight materials on a traditional frame, designed to fire standard 9mm rounds."
@@ -99,8 +99,8 @@
 	materials = list("$metal" = 8000, "$silver" = 2000, "$diamond" = 1000)
 	build_path = /obj/item/weapon/gun/projectile/automatic
 	locked = 1
-	category = list("Weapons")	
-	
+	category = list("Weapons")
+
 /datum/design/mag_smg
 	name = "Prototype Submachine Gun Magazine (9mm)"
 	desc = "A 20-round magazine for the prototype submachine gun."
@@ -121,7 +121,7 @@
 	build_path = /obj/item/weapon/gun/syringe/rapidsyringe
 	locked = 1
 	category = list("Weapons")
-	
+
 /datum/design/stunshell
 	name = "Stun Shell"
 	desc = "A stunning shell for a shotgun."
@@ -130,8 +130,8 @@
 	build_type = PROTOLATHE
 	materials = list("$metal" = 200)
 	build_path = /obj/item/ammo_casing/shotgun/stunslug
-	category = list("Weapons")	
-	
+	category = list("Weapons")
+
 /datum/design/stunrevolver
 	name = "Stun Revolver"
 	desc = "A high-tech revolver that fires internal, reusable stun cartidges in a revolving cylinder. The stun cartridges can be recharged using a conventional energy weapon recharger."
@@ -162,8 +162,8 @@
 	build_type = PROTOLATHE
 	materials = list("$metal" = 2000, "$silver" = 500)
 	build_path = /obj/item/weapon/suppressor
-	category = list("Weapons")	
-	
+	category = list("Weapons")
+
 /datum/design/techshell
 	name = "Unloaded Technological Shotshell"
 	desc = "A high-tech shotgun shell which can be loaded with materials to produce unique effects."

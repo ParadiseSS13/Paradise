@@ -151,13 +151,13 @@
 					iconholder = null
 					reqpower = 600
 
-				if(/obj/item/weapon/gun/energy/crossbow/largecrossbow)
+				if(/obj/item/weapon/gun/energy/kinetic_accelerator/crossbow/large)
 					projectile = /obj/item/projectile/energy/bolt/large
 					eprojectile = projectile
 					iconholder = null
 					reqpower = 125
 
-				if(/obj/item/weapon/gun/energy/crossbow)
+				if(/obj/item/weapon/gun/energy/kinetic_accelerator/crossbow)
 					projectile = /obj/item/projectile/energy/bolt
 					eprojectile = projectile
 					iconholder = null

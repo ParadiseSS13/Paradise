@@ -86,7 +86,7 @@
 	icon_state = "[base_icon][on]"
 	spawn(3)
 
-		var/datum/job/detective/J = new/datum/job/detective
+		var/datum/job/officer/J = new/datum/job/officer
 		botcard.access = J.get_access()
 		prev_access = botcard.access
 		add_to_beacons(bot_filter)
