@@ -98,7 +98,7 @@
 			traitor.objectives += block_objective
 
 	else
-		if(!exchange_blue && traitors.len >= 5) 	//Set up an exchange if there are enough traitors
+		if(!exchange_blue && traitors.len >= 5 && name != "AutoTraitor") 	//Set up an exchange if there are enough traitors, turned off during autotraitor temporarily due to bugs.
 			if(!exchange_red)
 				exchange_red = traitor
 			else
