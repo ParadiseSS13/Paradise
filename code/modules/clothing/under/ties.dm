@@ -176,11 +176,12 @@
 	_color = "medgreen"
 
 /obj/item/clothing/tie/holster
-	name = "shoulder holster"
+	name = "large shoulder holster"
 	desc = "A handgun holster."
 	icon_state = "holster"
 	_color = "holster"
 	var/obj/item/weapon/gun/holstered = null
+	var/holster_allow = /obj/item/weapon/gun
 	icon_action_button = "action_holster"
 
 /obj/item/clothing/tie/holster/attack_self()
@@ -191,27 +192,27 @@
 	if(usr.stat) return
 
 	if(!holstered)
-		if(!istype(usr.get_active_hand(), /obj/item/weapon/gun))
-			usr << "\blue You need your gun equiped to holster it."
+		if(!istype(usr.get_active_hand(), holster_allow))
+			usr << "<span class='notice'>You can't fit that in the holster.</span>"
 			return
 		var/obj/item/weapon/gun/W = usr.get_active_hand()
 		if (!W.isHandgun())
-			usr << "\red This gun won't fit in \the [src]!"
+			usr << "<span class='warning'>This gun won't fit in \the [src]!</span>"
 			return
 		holstered = usr.get_active_hand()
 		usr.drop_item()
 		holstered.loc = src
-		usr.visible_message("\blue \The [usr] holsters \the [holstered].", "You holster \the [holstered].")
+		usr.visible_message("<span class='notice'>\The [usr] holsters \the [holstered].", "<span class='notice'>You holster \the [holstered].</span>")
 	else
 		if(istype(usr.get_active_hand(),/obj) && istype(usr.get_inactive_hand(),/obj))
-			usr << "\red You need an empty hand to draw the gun!"
+			usr << "<span class='warning'>You need an empty hand to draw the gun!</span>"
 		else
 			if(usr.a_intent == "harm")
-				usr.visible_message("\red \The [usr] draws \the [holstered], ready to shoot!", \
-				"\red You draw \the [holstered], ready to shoot!")
+				usr.visible_message("<span class='warning'>\The [usr] draws \the [holstered], ready to shoot!</span>", \
+				"<span class='warning'>You draw \the [holstered], ready to shoot!</span>")
 			else
-				usr.visible_message("\blue \The [usr] draws \the [holstered], pointing it at the ground.", \
-				"\blue You draw \the [holstered], pointing it at the ground.")
+				usr.visible_message("<span class='notice'>\The [usr] draws \the [holstered], pointing it at the ground.</span>", \
+				"<span class='notice'>You draw \the [holstered], pointing it at the ground.</span>")
 			usr.put_in_hands(holstered)
 			holstered = null
 
@@ -220,6 +221,7 @@
 	desc = "A worn-out handgun holster. Perfect for concealed carry"
 	icon_state = "holster"
 	_color = "holster"
+	holster_allow = /obj/item/weapon/gun/projectile
 
 /obj/item/clothing/tie/storage
 	name = "load bearing equipment"

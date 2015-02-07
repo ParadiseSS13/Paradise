@@ -7,16 +7,15 @@
 	var/frozen = 0 // used by the pipe freezer
 	force = 20
 
-	//layer = 2.4 //under wires with their 2.44
+	layer = 2.4 //under wires with their 2.44
 	use_power = 0
 
 	var/alert_pressure = 80*ONE_ATMOSPHERE
 		//minimum pressure before check_pressure(...) should be called
-
 /obj/machinery/atmospherics/pipe/New()
 	..()
 	//so pipes under walls are hidden
-	if(!istype(get_turf(src), /turf/simulated/floor))
+	if(istype(get_turf(src), /turf/simulated/wall) || istype(get_turf(src), /turf/simulated/shuttle/wall) || istype(get_turf(src), /turf/unsimulated/wall))
 		level = 1
 
 /obj/machinery/atmospherics/pipe/proc/pipeline_expansion()
@@ -1031,7 +1030,7 @@
 /obj/machinery/atmospherics/pipe/cap
 	name = "pipe endcap"
 	desc = "An endcap for pipes"
-	icon = 'icons/obj/pipes.dmi'
+	icon = 'icons/atmos/pipes.dmi'
 	icon_state = "cap"
 	level = 2
 	layer = 2.4 //under wires with their 2.44
@@ -1039,21 +1038,13 @@
 	volume = 35
 
 	dir = SOUTH
-	initialize_directions = NORTH
+	initialize_directions = SOUTH
 
 	var/obj/machinery/atmospherics/node
 
 /obj/machinery/atmospherics/pipe/cap/New()
 	..()
-	switch(dir)
-		if(SOUTH)
-		 initialize_directions = NORTH
-		if(NORTH)
-		 initialize_directions = SOUTH
-		if(WEST)
-		 initialize_directions = EAST
-		if(EAST)
-		 initialize_directions = WEST
+	initialize_directions = dir
 
 /obj/machinery/atmospherics/pipe/cap/hide(var/i)
 	if(level == 1 && istype(loc, /turf/simulated))
@@ -1084,11 +1075,20 @@
 
 	..()
 
-/obj/machinery/atmospherics/pipe/cap/update_icon()
-	overlays = new()
+/obj/machinery/atmospherics/pipe/cap/change_color(var/new_color)
+	..()
+	//for updating connected atmos device pipes (i.e. vents, manifolds, etc)
+	if(node)
+		node.update_underlays()
 
-	icon_state = "cap[invisibility ? "-f" : ""]"
-	return
+/obj/machinery/atmospherics/pipe/cap/update_icon(var/safety = 0)
+	if(!check_icon_cache())
+		return
+
+	alpha = 255
+
+	overlays.Cut()
+	overlays += icon_manager.get_atmos_icon("pipe", , pipe_color, "cap")
 
 /obj/machinery/atmospherics/pipe/cap/initialize()
 	for(var/obj/machinery/atmospherics/target in get_step(src, dir))
@@ -1108,10 +1108,46 @@
 	level = 2
 	icon_state = "cap"
 
+/obj/machinery/atmospherics/pipe/cap/visible/scrubbers
+	name = "scrubbers pipe endcap"
+	desc = "An endcap for scrubbers pipes"
+	icon_state = "cap-scrubbers"
+	connect_types = list(3)
+	layer = 2.38
+	icon_connect_type = "-scrubbers"
+	color = PIPE_COLOR_RED
+
+/obj/machinery/atmospherics/pipe/cap/visible/supply
+	name = "supply pipe endcap"
+	desc = "An endcap for supply pipes"
+	icon_state = "cap-supply"
+	connect_types = list(2)
+	layer = 2.39
+	icon_connect_type = "-supply"
+	color = PIPE_COLOR_BLUE
+
 /obj/machinery/atmospherics/pipe/cap/hidden
 	level = 1
-	icon_state = "cap-f"
+	icon_state = "cap"
+	alpha = 128
 
+/obj/machinery/atmospherics/pipe/cap/hidden/scrubbers
+	name = "scrubbers pipe endcap"
+	desc = "An endcap for scrubbers pipes"
+	icon_state = "cap-f-scrubbers"
+	connect_types = list(3)
+	layer = 2.38
+	icon_connect_type = "-scrubbers"
+	color = PIPE_COLOR_RED
+
+/obj/machinery/atmospherics/pipe/cap/hidden/supply
+	name = "supply pipe endcap"
+	desc = "An endcap for supply pipes"
+	icon_state = "cap-f-supply"
+	connect_types = list(2)
+	layer = 2.39
+	icon_connect_type = "-supply"
+	color = PIPE_COLOR_BLUE
 
 /obj/machinery/atmospherics/pipe/tank
 	icon = 'icons/atmos/tank.dmi'

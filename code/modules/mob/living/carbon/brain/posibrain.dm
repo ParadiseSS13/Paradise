@@ -34,7 +34,7 @@
 
 /obj/item/device/mmi/posibrain/proc/request_player()
 	for(var/mob/dead/observer/O in player_list)
-		if(O.client && O.client.prefs.be_special & BE_PAI)
+		if(O.client && O.client.prefs.be_special & BE_PAI && !jobban_isbanned(O, "Cyborg") && !jobban_isbanned(O,"nonhumandept"))
 			if(check_observer(O))
 				O << "\blue <b>\A [src] has been activated. (<a href='?src=\ref[O];jump=\ref[src]'>Teleport</a> | <a href='?src=\ref[src];signup=\ref[O]'>Sign Up</a>)"
 				//question(O.client)
@@ -42,7 +42,7 @@
 /obj/item/device/mmi/posibrain/proc/check_observer(var/mob/dead/observer/O)
 	if(O.has_enabled_antagHUD == 1 && config.antag_hud_restricted)
 		return 0
-	if(jobban_isbanned(O, "pAI"))
+	if(jobban_isbanned(O, "Cyborg") || jobban_isbanned(O,"nonhumandept"))
 		return 0
 	if(O.client)
 		return 1
@@ -125,7 +125,7 @@
 	if(O.has_enabled_antagHUD == 1 && config.antag_hud_restricted)
 		O << "\red Upon using the antagHUD you forfeited the ability to join the round."
 		return
-	if(jobban_isbanned(O, "pAI"))
+	if(jobban_isbanned(O, "Cyborg") || jobban_isbanned(O,"nonhumandept"))
 		O << "\red You are job banned from this role."
 		return
 	O.<< "\blue You've been added to the list of ghosts that may become this [src].  Click again to unvolunteer."

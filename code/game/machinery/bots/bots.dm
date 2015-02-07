@@ -511,7 +511,7 @@ obj/machinery/bot/proc/start_patrol()
 				patrol_target = 0
 				return
 			mode = BOT_PATROL
-	else					// no patrol target, so need a new one
+	else if(!awaiting_beacon) // no patrol target, so need a new one
 		find_patrol_target()
 		speak("Engaging patrol mode.")
 		tries++
@@ -565,7 +565,7 @@ obj/machinery/bot/proc/start_patrol()
 	send_status()
 	if(awaiting_beacon)			// awaiting beacon response
 		awaiting_beacon++
-		if(awaiting_beacon > 5)	// wait 5 secs for beacon response
+		if(awaiting_beacon > 40)	// wait 40 secs for beacon response
 			find_nearest_beacon()	// then go to nearest instead
 		return
 	if(next_destination)
@@ -583,7 +583,7 @@ obj/machinery/bot/proc/start_patrol()
 	new_destination = "__nearest__"
 	post_signal(beacon_freq, "findbeacon", "patrol")
 	awaiting_beacon = 1
-	spawn(10)
+	spawn(150)
 		awaiting_beacon = 0
 		if(nearest_beacon)
 			set_destination(nearest_beacon)

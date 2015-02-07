@@ -599,17 +599,18 @@
 			if(counter >= 5) //So things dont get squiiiiished!
 				jobs += "</tr><tr align='center'>"
 				counter = 0
-
-		//pAI isn't technically a job, but it goes in here.
+		
+		//Drone
+		if(jobban_isbanned(M, "Drone"))
+			jobs += "<td width='20%'><a href='?src=\ref[src];jobban3=Drone;jobban4=\ref[M]'><font color=red>Drone</font></a></td>"
+		else
+			jobs += "<td width='20%'><a href='?src=\ref[src];jobban3=Drone;jobban4=\ref[M]'>Drone</a></td>"
+		
+		//pAI
 		if(jobban_isbanned(M, "pAI"))
 			jobs += "<td width='20%'><a href='?src=\ref[src];jobban3=pAI;jobban4=\ref[M]'><font color=red>pAI</font></a></td>"
 		else
 			jobs += "<td width='20%'><a href='?src=\ref[src];jobban3=pAI;jobban4=\ref[M]'>pAI</a></td>"
-
-		if(jobban_isbanned(M, "AntagHUD"))
-			jobs += "<td width='20%'><a href='?src=\ref[src];jobban3=AntagHUD;jobban4=\ref[M]'><font color=red>AntagHUD</font></a></td>"
-		else
-			jobs += "<td width='20%'><a href='?src=\ref[src];jobban3=AntagHUD;jobban4=\ref[M]'>AntagHUD</a></td>"
 
 		jobs += "</tr></table>"
 
@@ -630,19 +631,17 @@
 		else
 			jobs += "<td width='20%'><a href='?src=\ref[src];jobban3=changeling;jobban4=\ref[M]'>[replacetext("Changeling", " ", "&nbsp")]</a></td>"
 
-		//Nuke Operative
+		//Nuclear Operative
 		if(jobban_isbanned(M, "operative") || isbanned_dept)
-			jobs += "<td width='20%'><a href='?src=\ref[src];jobban3=operative;jobban4=\ref[M]'><font color=red>[replacetext("Nuke Operative", " ", "&nbsp")]</font></a></td>"
+			jobs += "<td width='20%'><a href='?src=\ref[src];jobban3=operative;jobban4=\ref[M]'><font color=red>[replacetext("Nuclear Operative", " ", "&nbsp")]</font></a></td>"
 		else
-			jobs += "<td width='20%'><a href='?src=\ref[src];jobban3=operative;jobban4=\ref[M]'>[replacetext("Nuke Operative", " ", "&nbsp")]</a></td>"
+			jobs += "<td width='20%'><a href='?src=\ref[src];jobban3=operative;jobban4=\ref[M]'>[replacetext("Nuclear Operative", " ", "&nbsp")]</a></td>"
 
 		//Revolutionary
 		if(jobban_isbanned(M, "revolutionary") || isbanned_dept)
 			jobs += "<td width='20%'><a href='?src=\ref[src];jobban3=revolutionary;jobban4=\ref[M]'><font color=red>[replacetext("Revolutionary", " ", "&nbsp")]</font></a></td>"
 		else
 			jobs += "<td width='20%'><a href='?src=\ref[src];jobban3=revolutionary;jobban4=\ref[M]'>[replacetext("Revolutionary", " ", "&nbsp")]</a></td>"
-
-		jobs += "</tr><tr align='center'>" //Breaking it up so it fits nicer on the screen every 5 entries
 
 		//Cultist
 		if(jobban_isbanned(M, "cultist") || isbanned_dept)
@@ -656,39 +655,69 @@
 		else
 			jobs += "<td width='20%'><a href='?src=\ref[src];jobban3=wizard;jobban4=\ref[M]'>[replacetext("Wizard", " ", "&nbsp")]</a></td>"
 
-
+		jobs += "</tr><tr align='center'>" //Breaking it up so it fits nicer on the screen every 5 entries
 
 /*		//Malfunctioning AI	//Removed Malf-bans because they're a pain to impliment
 		if(jobban_isbanned(M, "malf AI") || isbanned_dept)
 			jobs += "<td width='20%'><a href='?src=\ref[src];jobban3=malf AI;jobban4=\ref[M]'><font color=red>[replacetext("Malf AI", " ", "&nbsp")]</font></a></td>"
 		else
 			jobs += "<td width='20%'><a href='?src=\ref[src];jobban3=malf AI;jobban4=\ref[M]'>[replacetext("Malf AI", " ", "&nbsp")]</a></td>"
+*/
 
 		//Alien
-		if(jobban_isbanned(M, "alien candidate") || isbanned_dept)
-			jobs += "<td width='20%'><a href='?src=\ref[src];jobban3=alien candidate;jobban4=\ref[M]'><font color=red>[replacetext("Alien", " ", "&nbsp")]</font></a></td>"
+		if(jobban_isbanned(M, "alien") || isbanned_dept)
+			jobs += "<td width='20%'><a href='?src=\ref[src];jobban3=alien;jobban4=\ref[M]'><font color=red>[replacetext("Alien", " ", "&nbsp")]</font></a></td>"
 		else
-			jobs += "<td width='20%'><a href='?src=\ref[src];jobban3=alien candidate;jobban4=\ref[M]'>[replacetext("Alien", " ", "&nbsp")]</a></td>"
+			jobs += "<td width='20%'><a href='?src=\ref[src];jobban3=alien;jobban4=\ref[M]'>[replacetext("Alien", " ", "&nbsp")]</a></td>"
 
-		//Infested Monkey
-		if(jobban_isbanned(M, "infested monkey") || isbanned_dept)
-			jobs += "<td width='20%'><a href='?src=\ref[src];jobban3=infested monkey;jobban4=\ref[M]'><font color=red>[replacetext("Infested Monkey", " ", "&nbsp")]</font></a></td>"
+		//Ninja
+		if(jobban_isbanned(M, "ninja") || isbanned_dept)
+			jobs += "<td width='20%'><a href='?src=\ref[src];jobban3=ninja;jobban4=\ref[M]'><font color=red>[replacetext("Ninja", " ", "&nbsp")]</font></a></td>"
 		else
-			jobs += "<td width='20%'><a href='?src=\ref[src];jobban3=infested monkey;jobban4=\ref[M]'>[replacetext("Infested Monkey", " ", "&nbsp")]</a></td>"
-*/
+			jobs += "<td width='20%'><a href='?src=\ref[src];jobban3=ninja;jobban4=\ref[M]'>[replacetext("Ninja", " ", "&nbsp")]</a></td>"
+			
+		//Raider
+		if(jobban_isbanned(M, "raider") || isbanned_dept)
+			jobs += "<td width='20%'><a href='?src=\ref[src];jobban3=raider;jobban4=\ref[M]'><font color=red>[replacetext("Raider", " ", "&nbsp")]</font></a></td>"
+		else
+			jobs += "<td width='20%'><a href='?src=\ref[src];jobban3=raider;jobban4=\ref[M]'>[replacetext("Raider", " ", "&nbsp")]</a></td>"
+			
+		//Mutineer
+		if(jobban_isbanned(M, "mutineer") || isbanned_dept)
+			jobs += "<td width='20%'><a href='?src=\ref[src];jobban3=mutineer;jobban4=\ref[M]'><font color=red>[replacetext("Mutineer", " ", "&nbsp")]</font></a></td>"
+		else
+			jobs += "<td width='20%'><a href='?src=\ref[src];jobban3=mutineer;jobban4=\ref[M]'>[replacetext("Mutineer", " ", "&nbsp")]</a></td>"
+			
+		//Blob
+		if(jobban_isbanned(M, "blob") || isbanned_dept)
+			jobs += "<td width='20%'><a href='?src=\ref[src];jobban3=blob;jobban4=\ref[M]'><font color=red>[replacetext("Blob", " ", "&nbsp")]</font></a></td>"
+		else
+			jobs += "<td width='20%'><a href='?src=\ref[src];jobban3=blob;jobban4=\ref[M]'>[replacetext("Blob", " ", "&nbsp")]</a></td>"
 
 		jobs += "</tr></table>"
 
 
 		//Other races  (BLUE, because I have no idea what other color to make this)
 		jobs += "<table cellpadding='1' cellspacing='0' width='100%'>"
-		jobs += "<tr bgcolor='ccccff'><th colspan='1'>Other</th></tr><tr align='center'>"
+		jobs += "<tr bgcolor='ccccff'><th colspan='4'>Other</th></tr><tr align='center'>"
 
 		//NYMPH
 		if(jobban_isbanned(M, "Dionaea"))
 			jobs += "<td width='20%'><a href='?src=\ref[src];jobban3=Dionaea;jobban4=\ref[M]'><font color=red>Dionaea Nymph</font></a></td>"
 		else
-			jobs += "<td width='20%'><a href='?src=\ref[src];jobban3=Dionaea;jobban4=\ref[M]'>Dionaea</a></td>"
+			jobs += "<td width='20%'><a href='?src=\ref[src];jobban3=Dionaea;jobban4=\ref[M]'>Dionaea Nymph</a></td>"
+			
+		//NPC
+		if(jobban_isbanned(M, "NPC"))
+			jobs += "<td width='20%'><a href='?src=\ref[src];jobban3=NPC;jobban4=\ref[M]'><font color=red>NPC</font></a></td>"
+		else
+			jobs += "<td width='20%'><a href='?src=\ref[src];jobban3=NPC;jobban4=\ref[M]'>NPC</a></td>"	
+
+		//ANTAG HUD
+		if(jobban_isbanned(M, "AntagHUD"))
+			jobs += "<td width='20%'><a href='?src=\ref[src];jobban3=AntagHUD;jobban4=\ref[M]'><font color=red>AntagHUD</font></a></td>"
+		else
+			jobs += "<td width='20%'><a href='?src=\ref[src];jobban3=AntagHUD;jobban4=\ref[M]'>AntagHUD</a></td>"
 
 		//ERT
 		if(jobban_isbanned(M, "Emergency Response Team") || isbanned_dept)
@@ -1141,6 +1170,30 @@
 		M << "\red You have been sent to the prison station!"
 		log_admin("[key_name(usr)] sent [key_name(M)] to the prison station.")
 		message_admins("\blue [key_name_admin(usr)] sent [key_name_admin(M)] to the prison station.", 1)
+		
+	else if(href_list["sendbacktolobby"])
+		if(!check_rights(R_ADMIN))
+			return
+
+		var/mob/M = locate(href_list["sendbacktolobby"])
+
+		if(!isobserver(M))
+			usr << "<span class='notice'>You can only send ghost players back to the Lobby.</span>"
+			return
+
+		if(!M.client)
+			usr << "<span class='warning'>[M] doesn't seem to have an active client.</span>"
+			return
+
+		if(alert(usr, "Send [key_name(M)] back to Lobby?", "Message", "Yes", "No") != "Yes")
+			return
+
+		log_admin("[key_name(usr)] has sent [key_name(M)] back to the Lobby.")
+		message_admins("[key_name(usr)] has sent [key_name(M)] back to the Lobby.")
+
+		var/mob/new_player/NP = new()
+		NP.ckey = M.ckey
+		qdel(M)		
 
 	else if(href_list["tdome1"])
 		if(!check_rights(R_SERVER|R_EVENT))	return

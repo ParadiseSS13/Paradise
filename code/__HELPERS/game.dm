@@ -207,6 +207,8 @@
 			hear += C.mob
 		else if(C.mob && C.mob.loc.loc in hear_and_objects)
 			hear += C.mob
+		else if(C.mob && C.mob.loc.loc.loc in hear_and_objects)
+			hear += C.mob
 	return hear
 
 
@@ -311,7 +313,7 @@ proc/isInSight(var/atom/A, var/atom/B)
 			return M
 	return null
 
-/proc/get_candidates(be_special_flag=0, afk_bracket=3000)
+/proc/get_candidates(be_special_flag=0, afk_bracket=3000, jobban=0, department_jobban=0, override_age=0)
 	var/list/candidates = list()
 	// Keep looping until we find a non-afk candidate within the time bracket (we limit the bracket to 10 minutes (6000))
 	while(!candidates.len && afk_bracket < 6000)
@@ -319,8 +321,11 @@ proc/isInSight(var/atom/A, var/atom/B)
 			if(G.client != null)
 				if(!(G.mind && G.mind.current && G.mind.current.stat != DEAD))
 					if(!G.client.is_afk(afk_bracket) && (G.client.prefs.be_special & be_special_flag))
-						candidates += G.client
+						if(!jobban && !department_jobban || !jobban_isbanned(G, jobban) && !jobban_isbanned(G,department_jobban))
+							if(override_age || player_old_enough_antag(G.client,be_special_flag))
+								candidates += G.client
 		afk_bracket += 600 // Add a minute to the bracket, for every attempt
+		
 	return candidates
 
 /proc/ScreenText(obj/O, maptext="", screen_loc="CENTER-7,CENTER-7", maptext_height=480, maptext_width=480)
@@ -456,6 +461,6 @@ proc/isInSight(var/atom/A, var/atom/B)
 		if(our_area == get_area_master(C))
 			return 0
 	return 1
-	
+
 /proc/MinutesToTicks(var/minutes as num)
 	return minutes * 60 * 10

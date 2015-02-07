@@ -516,6 +516,10 @@
 					icon_state = "brownstar"
 					name = "Brown Star"
 					desc = "Its not what it sounds like..."
+				if("tea")
+					icon_state = "glass_brown"
+					name = "Glass of Tea"
+					desc = "A glass of hot tea. Perhaps a cup with a handle would have been smarter?"
 				if("icetea")
 					icon_state = "icetea"
 					name = "Iced Tea"

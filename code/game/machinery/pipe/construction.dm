@@ -42,11 +42,14 @@ Buildable meters
 #define PIPE_SCRUBBERS_MANIFOLD		34
 #define PIPE_SUPPLY_MANIFOLD4W		35
 #define PIPE_SCRUBBERS_MANIFOLD4W	36
+#define PIPE_SUPPLY_CAP				37
+#define PIPE_SCRUBBERS_CAP			38
+
 ///// /vg/ ported stuff
-#define PIPE_INJECTOR    		37
-#define PIPE_DVALVE             38
-#define PIPE_DP_VENT    		39
-#define PIPE_PASV_VENT			40
+#define PIPE_INJECTOR    		39
+#define PIPE_DVALVE             40
+#define PIPE_DP_VENT    		41
+#define PIPE_PASV_VENT			42
 
 /obj/item/pipe
 	name = "pipe"
@@ -111,7 +114,7 @@ Buildable meters
 			src.pipe_type = PIPE_DVALVE
 		else if(istype(make_from, /obj/machinery/atmospherics/valve))
 			src.pipe_type = PIPE_MVALVE
-		else if(istype(make_from, /obj/machinery/atmospherics/binary/volume_pump))
+		else if(istype(make_from, /obj/machinery/atmospherics/binary/pump))
 			src.pipe_type = PIPE_PUMP
 		else if(istype(make_from, /obj/machinery/atmospherics/trinary/filter/m_filter))
 			src.pipe_type = PIPE_GAS_FILTER_M
@@ -143,6 +146,14 @@ Buildable meters
 			src.color = PIPE_COLOR_RED
 		else if(istype(make_from, /obj/machinery/atmospherics/pipe/manifold4w))
 			src.pipe_type = PIPE_MANIFOLD4W
+		else if(istype(make_from, /obj/machinery/atmospherics/pipe/cap/visible/supply) || istype(make_from, /obj/machinery/atmospherics/pipe/cap/hidden/supply))
+			src.pipe_type = PIPE_SUPPLY_CAP
+			connect_types = list(2)
+			src.color = PIPE_COLOR_BLUE
+		else if(istype(make_from, /obj/machinery/atmospherics/pipe/cap/visible/scrubbers) || istype(make_from, /obj/machinery/atmospherics/pipe/cap/hidden/scrubbers))
+			src.pipe_type = PIPE_SCRUBBERS_CAP
+			connect_types = list(3)
+			src.color = PIPE_COLOR_RED
 		else if(istype(make_from, /obj/machinery/atmospherics/pipe/cap))
 			src.pipe_type = PIPE_CAP
 
@@ -168,10 +179,10 @@ Buildable meters
 	else
 		src.pipe_type = pipe_type
 		src.dir = dir
-		if (pipe_type == 29 || pipe_type == 30 || pipe_type == 33 || pipe_type == 35)
+		if (pipe_type == 29 || pipe_type == 30 || pipe_type == 33 || pipe_type == 35 || pipe_type == 37)
 			connect_types = list(2)
 			src.color = PIPE_COLOR_BLUE
-		else if (pipe_type == 31 || pipe_type == 32 || pipe_type == 34 || pipe_type == 36)
+		else if (pipe_type == 31 || pipe_type == 32 || pipe_type == 34 || pipe_type == 36 || pipe_type == 38)
 			connect_types = list(3)
 			src.color = PIPE_COLOR_RED
 		else if (pipe_type == 28)
@@ -225,7 +236,9 @@ Buildable meters
 		"scrubbers manifold", \
 		"supply 4-way manifold", \
 		"scrubbers 4-way manifold", \
-// /vg/ ported stuff
+		"supply pipe cap", \
+		"scrubbers pipe cap", \
+		// /vg/ ported stuff
 		"air injector", \
 		"Digital Valve", \
 		"dual-port vent", \
@@ -273,7 +286,13 @@ Buildable meters
 		"manifold", \
 		"manifold4w", \
 		"manifold4w", \
-// /vg/ ported stuff
+		"cap", \
+		"cap", \
+		"cap", \
+		"cap", \
+		"cap", \
+		"cap", \
+		// /vg/ ported stuff
 		"injector", \
 		"dvalve", \
 		"dual-port vent", \
@@ -358,8 +377,8 @@ Buildable meters
 			return dir|flip|acw
 		if(PIPE_GAS_MIXER_T)
 			return dir|cw|acw
-		if(PIPE_CAP)
-			return flip
+		if(PIPE_CAP, PIPE_SUPPLY_CAP, PIPE_SCRUBBERS_CAP)
+			return dir
 ///// Z-Level stuff
 		if(PIPE_UP,PIPE_DOWN)
 			return dir
@@ -739,7 +758,7 @@ Buildable meters
 				V.node2.build_network()
 
 		if(PIPE_PUMP)		//gas pump
-			var/obj/machinery/atmospherics/binary/volume_pump/P = new(src.loc)
+			var/obj/machinery/atmospherics/binary/pump/P = new(src.loc)
 			P.dir = dir
 			P.initialize_directions = pipe_dir
 			if (pipename)
@@ -909,6 +928,26 @@ Buildable meters
 
 		if(PIPE_CAP)
 			var/obj/machinery/atmospherics/pipe/cap/C = new(src.loc)
+			C.dir = dir
+			C.initialize_directions = pipe_dir
+			C.initialize()
+			C.build_network()
+			if(C.node)
+				C.node.initialize()
+				C.node.build_network()
+
+		if(PIPE_SUPPLY_CAP)
+			var/obj/machinery/atmospherics/pipe/cap/hidden/supply/C = new(src.loc)
+			C.dir = dir
+			C.initialize_directions = pipe_dir
+			C.initialize()
+			C.build_network()
+			if(C.node)
+				C.node.initialize()
+				C.node.build_network()
+
+		if(PIPE_SCRUBBERS_CAP)
+			var/obj/machinery/atmospherics/pipe/cap/hidden/scrubbers/C = new(src.loc)
 			C.dir = dir
 			C.initialize_directions = pipe_dir
 			C.initialize()

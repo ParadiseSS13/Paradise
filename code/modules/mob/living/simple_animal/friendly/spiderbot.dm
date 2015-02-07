@@ -71,7 +71,7 @@
 			user << "\red [O] is dead. Sticking it into the frame would sort of defeat the purpose."
 			return
 
-		if(jobban_isbanned(B.brainmob, "Cyborg"))
+		if(jobban_isbanned(B.brainmob, "Cyborg") || jobban_isbanned(B.brainmob,"nonhumandept"))
 			user << "\red [O] does not seem to fit."
 			return
 

@@ -9,6 +9,8 @@
 	fire_sound = 'sound/effects/Explosion1.ogg'
 	origin_tech = "combat=3"
 	mag_type = "/obj/item/ammo_box/magazine/m75"
+	isHandgun()
+		return 1
 
 /obj/item/weapon/gun/projectile/automatic/gyropistol/New()
 	..()

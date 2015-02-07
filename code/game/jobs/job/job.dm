@@ -116,3 +116,6 @@
 	if(H.r_store)
 		H.r_store.add_fingerprint(H,1)
 	return 1
+	
+/datum/job/proc/is_position_available()
+	return (current_positions < total_positions) || (total_positions == -1)

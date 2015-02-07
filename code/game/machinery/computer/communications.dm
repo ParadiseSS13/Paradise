@@ -419,11 +419,7 @@ var/shuttle_call/shuttle_calls[0]
 		if(world.time < 54000) // 30 minute grace period to let the game get going
 			user << "The shuttle is refueling. Please wait another [round((54000-world.time)/60)] minutes before trying again."
 			return
-
-		if(ticker.mode.name == "revolution" || ticker.mode.name == "AI malfunction" || ticker.mode.name == "sandbox")
-			//New version pretends to call the shuttle but cause the shuttle to return after a random duration.
-			emergency_shuttle.auto_recall = 1
-
+			
 		if(ticker.mode.name == "epidemic")
 			user << "Under directive 7-10, [station_name()] is quarantined until further notice."
 			return

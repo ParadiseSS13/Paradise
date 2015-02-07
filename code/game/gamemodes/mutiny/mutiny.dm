@@ -81,9 +81,10 @@ datum/game_mode/mutiny
 		var/list/candidates[0]
 		for(var/mob/mutineer in player_list)
 			if(mutineer.client.prefs.be_special & BE_MUTINEER)
-				for(var/job in command_positions - "Captain")
-					if(mutineer.mind && mutineer.mind.assigned_role == job)
-						candidates+=mutineer.mind
+				if(!jobban_isbanned(mutineer, "mutineer") && !jobban_isbanned(mutineer,"Syndicate"))
+					for(var/job in command_positions - "Captain")
+						if(mutineer.mind && mutineer.mind.assigned_role == job)
+							candidates+=mutineer.mind
 		return candidates
 
 	proc/get_directive_candidates()

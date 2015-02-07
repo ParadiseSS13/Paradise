@@ -65,7 +65,7 @@
 				if("sabr")
 					new /obj/item/weapon/gun/projectile/automatic(get_turf(H))
 				if("crossbow")
-					new /obj/item/weapon/gun/energy/crossbow(get_turf(H))
+					new /obj/item/weapon/gun/energy/kinetic_accelerator/crossbow(get_turf(H))
 				if("saw")
 					new /obj/item/weapon/gun/projectile/automatic/l6_saw(get_turf(H))
 				if("car")

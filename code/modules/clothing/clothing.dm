@@ -1,6 +1,7 @@
 /obj/item/clothing
 	name = "clothing"
 	var/list/species_restricted = null //Only these species can wear this kit.
+	var/rig_restrict_helmet = 0 // Stops the user from equipping a rig helmet without attaching it to the suit first.
 
 	/*
 		Sprites used when the clothing item is refit. This is done by setting icon_override.
@@ -303,7 +304,7 @@ BLIND     // can't see anything
 	permeability_coefficient = 0.02
 	flags = FPRINT | TABLEPASS | STOPSPRESSUREDMAGE
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
-	allowed = list(/obj/item/device/flashlight,/obj/item/weapon/tank/emergency_oxygen,/obj/item/device/suit_cooling_unit)
+	allowed = list(/obj/item/device/flashlight,/obj/item/weapon/tank,/obj/item/device/suit_cooling_unit)
 	slowdown = 2
 	armor = list(melee = 0, bullet = 0, laser = 0,energy = 0, bomb = 0, bio = 100, rad = 50)
 	flags_inv = HIDEGLOVES|HIDESHOES|HIDEJUMPSUIT||HIDETAIL

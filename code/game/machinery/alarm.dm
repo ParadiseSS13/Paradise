@@ -691,7 +691,7 @@
 	}
 	if (!ui)
 		// the ui does not exist, so we'll create a new one
-		ui = new(user, src, ui_key, "air_alarm.tmpl", name, 550, 410)
+		ui = new(user, src, ui_key, "air_alarm.tmpl", name, 570, 410)
 		// When the UI is first opened this is the data it will use
 		ui.set_initial_data(data)
 		ui.open()
@@ -756,9 +756,11 @@
 				"co2_scrub",
 				"tox_scrub",
 				"n2o_scrub",
+				"n2_scrub",
 				"o2_scrub",
 				"panic_siphon",
-				"scrubbing")
+				"scrubbing",
+				"direction")
 				var/val
 				if(href_list["val"])
 					val=text2num(href_list["val"])

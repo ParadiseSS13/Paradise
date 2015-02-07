@@ -244,10 +244,36 @@ modules/mob/living/carbon/human/life.dm if you die, you will be zoomed out.
 	if(overheat || recent_reload)
 		return
 	power_supply.give(5000)
-	playsound(src.loc, 'sound/weapons/kenetic_reload.ogg', 60, 1)
+	if(!silenced)
+		playsound(src.loc, 'sound/weapons/kenetic_reload.ogg', 60, 1)
+	else
+		usr << "<span class='warning'>You silently charge [src].<span>"
 	recent_reload = 1
 	update_icon()
 	return
+
+/obj/item/weapon/gun/energy/kinetic_accelerator/crossbow
+	name = "mini energy crossbow"
+	desc = "A weapon favored by syndicate stealth specialists."
+	icon_state = "crossbow"
+	item_state = "crossbow"
+	w_class = 2
+	m_amt = 2000
+	origin_tech = "combat=2;magnets=2;syndicate=5"
+	silenced = 1
+	projectile_type = "/obj/item/projectile/energy/bolt"
+	fire_sound = 'sound/weapons/Genhit.ogg'
+
+/obj/item/weapon/gun/energy/kinetic_accelerator/crossbow/large
+	name = "energy crossbow"
+	desc = "A reverse engineered weapon using syndicate technology."
+	icon_state = "crossbowlarge"
+	w_class = 3
+	m_amt = 4000
+	origin_tech = "combat=2;magnets=2;syndicate=3" //can be further researched for more syndie tech
+	silenced = 0
+	projectile_type = "/obj/item/projectile/energy/bolt/large"
+
 
 /obj/item/weapon/gun/energy/disabler
 	name = "disabler"
@@ -286,8 +312,11 @@ modules/mob/living/carbon/human/life.dm if you die, you will be zoomed out.
 	..()
 
 /obj/item/weapon/gun/energy/printer/process()
+	if(power_supply.charge == power_supply.maxcharge)
+		return 0
 	charge_tick++
-	if(charge_tick < recharge_time) return 0
+	if(charge_tick < recharge_time)
+		return 0
 	charge_tick = 0
 
 	if(!power_supply) return 0 //sanity
