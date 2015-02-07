@@ -26,7 +26,7 @@
 	var/hatch_open = 0
 	var/next_firetime = 0
 	var/list/pod_overlays
-	var/health = 100
+	var/health = 250
 	var/lights = 0
 	var/lights_power = 6
 	var/allow2enter = 1
@@ -50,6 +50,11 @@
 	pr_int_temp_processor = new /datum/global_iterator/pod_preserve_temp(list(src))
 	pr_give_air = new /datum/global_iterator/pod_tank_give_air(list(src))
 	equipment_system = new(src)
+	spacepods_list += src 
+	
+/obj/spacepod/Destroy()	
+	spacepods_list -= src
+	..()
 
 /obj/spacepod/proc/update_icons()
 	if(!pod_overlays)
@@ -69,6 +74,27 @@
 /obj/spacepod/bullet_act(var/obj/item/projectile/P)
 	if(P.damage && !P.nodamage)
 		deal_damage(P.damage)
+		
+/obj/spacepod/blob_act()
+	deal_damage(30)
+	return
+		
+/obj/spacepod/attack_animal(mob/living/simple_animal/user as mob)
+	if(user.melee_damage_upper == 0)
+		user.emote("[user.friendly] [src]")
+	else
+		var/damage = rand(user.melee_damage_lower, user.melee_damage_upper)
+		deal_damage(damage)
+		visible_message("\red <B>[user]</B> [user.attacktext] [src]!")
+		user.attack_log += text("\[[time_stamp()]\] <font color='red'>attacked [src.name]</font>")
+	return
+	
+/obj/spacepod/attack_alien(mob/user as mob)
+	deal_damage(15)
+	playsound(src.loc, 'sound/weapons/slash.ogg', 50, 1, -1)
+	user << "\red You slash at the armored suit!"
+	visible_message("\red The [user] slashes at [src.name]'s armor!")
+	return
 
 /obj/spacepod/proc/deal_damage(var/damage)
 	var/oldhealth = health
@@ -160,7 +186,9 @@
 				equipment_system.weapon_system.my_atom = src
 				return
 
-
+/obj/spacepod/attack_paw(mob/user as mob)
+	return src.attack_hand(user)				
+				
 /obj/spacepod/attack_hand(mob/user as mob)
 	if(!hatch_open)
 		return ..()
@@ -222,7 +250,7 @@
 	name = "\improper security spacepod"
 	desc = "An armed security spacepod with reinforced armor plating."
 	icon_state = "pod_mil"
-	health = 150
+	health = 400
 
 /obj/spacepod/sec/New()
 	..()
@@ -512,12 +540,12 @@
 	set category = "Spacepod"
 	set src = usr.loc
 
-	if(usr.ckey == src.occupant2.ckey)
+	if(occupant2 == src)
 		if(!allow2enter)
-			usr << "<span class='notice'>You can't unlock the doors from your seat. </span>"
+			usr << "<span class='notice'>You can't unlock the doors from your seat.</span>"
 			return
 		else
-			usr << "<span class='notice'>You can't lock the doors from your seat. </span>"
+			usr << "<span class='notice'>You can't lock the doors from your seat.</span>"
 			return
 	else
 		if(src.allow2enter)

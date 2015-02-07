@@ -36,7 +36,7 @@
 	var/uplink_items = {"Highly Visible and Dangerous Weapons;
 /obj/item/weapon/gun/projectile:6:Revolver;
 /obj/item/ammo_magazine/a357:2:Ammo-357;
-/obj/item/weapon/gun/energy/crossbow:5:Energy Crossbow;
+/obj/item/weapon/gun/energy/kinetic_accelerator/crossbow:5:Energy Crossbow;
 /obj/item/weapon/melee/energy/sword:4:Energy Sword;
 /obj/item/weapon/storage/box/syndicate:10:Syndicate Bundle;
 /obj/item/weapon/storage/box/emps:3:5 EMP Grenades;
@@ -346,13 +346,18 @@ Implants;
 		if(BE_REV)			roletext="revolutionary"
 		if(BE_CULTIST)		roletext="cultist"
 		if(BE_NINJA)		roletext="ninja"
-		if(BE_RAIDER)		roletext="Vox raider"
+		if(BE_RAIDER)		roletext="raider"
+		if(BE_VAMPIRE)		roletext="vampire"
+		if(BE_ALIEN)		roletext="alien"
+		if(BE_MUTINEER)		roletext="mutineer"
+		if(BE_BLOB)			roletext="blob"
 
 	// Assemble a list of active players without jobbans.
 	for(var/mob/new_player/player in player_list)
-		if( player.client && player.ready )
+		if(player.client && player.ready)
 			if(!jobban_isbanned(player, "Syndicate") && !jobban_isbanned(player, roletext))
-				players += player
+				if(player_old_enough_antag(player.client,role))
+					players += player
 
 	// Shuffle the players list so that it becomes ping-independent.
 	players = shuffle(players)
@@ -552,7 +557,7 @@ proc/get_nt_opposed()
 				dudes += man
 	if(dudes.len == 0) return null
 	return pick(dudes)
-	
+
 //Announces objectives/generic antag text.
 /proc/show_generic_antag_text(var/datum/mind/player)
 	if(player.current)
@@ -562,7 +567,7 @@ proc/get_nt_opposed()
 		other players have <i>fun</i>! If you are confused or at a loss, always adminhelp, \
 		and before taking extreme actions, please try to also contact the administration! \
 		Think through your actions and make the roleplay immersive! <b>Please remember all \
-		rules aside from those without explicit exceptions apply to antagonists.</b>"	
+		rules aside from those without explicit exceptions apply to antagonists.</b>"
 
 /proc/show_objectives(var/datum/mind/player)
 	if(!player || !player.current) return

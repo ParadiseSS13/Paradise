@@ -466,7 +466,7 @@ proc/populate_seed_list()
 	display_name = "chili plants"
 	products = list(/obj/item/weapon/reagent_containers/food/snacks/grown/chili)
 	chems = list("capsaicin" = list(3,5), "nutriment" = list(1,25))
-	mutants = list("icechili")
+	mutants = list("icechili", "ghostchili")
 	packet_icon = "seed-chili"
 	plant_icon = "chili"
 	harvest_repeat = 1
@@ -489,6 +489,21 @@ proc/populate_seed_list()
 
 	maturation = 4
 	production = 4
+
+/datum/seed/chili/ghost
+	name = "ghostchili"
+	seed_name = "ghost chili pepper"
+	display_name = "ghost chili pepper plants"
+	mutants = null
+	products = list(/obj/item/weapon/reagent_containers/food/snacks/grown/ghost_chilli)
+	chems = list("capsaicin" = list(8,2), "condensedcapsaicin" = list(4,4), "nutriment" = list(1,25))
+	packet_icon = "seed-chilighost"
+	plant_icon = "chilighost"
+	growth_stages = 6
+
+	maturation = 10
+	production = 10
+	yield = 3
 
 // Berry plants/variants.
 /datum/seed/berry
@@ -601,7 +616,7 @@ proc/populate_seed_list()
 	seed_name = "blood tomato"
 	display_name = "blood tomato plant"
 	products = list(/obj/item/weapon/reagent_containers/food/snacks/grown/bloodtomato)
-	mutants = list("killer")
+	mutants = list("killertomato")
 	packet_icon = "seed-bloodtomato"
 	plant_icon = "bloodtomato"
 	chems = list("nutriment" = list(1,10), "blood" = list(1,5))
@@ -938,15 +953,42 @@ proc/populate_seed_list()
 	production = 6
 	yield = 6
 	growth_stages = 3
-	plant_icon = ""
 
 /datum/seed/flower/sunflower
 	name = "sunflowers"
 	seed_name = "sunflower"
 	display_name = "sunflowers"
 	packet_icon = "seed-sunflower"
+	mutants = list("moonflower", "novaflower")
 	products = list(/obj/item/weapon/grown/sunflower)
 	plant_icon = "sunflower"
+
+	lifespan = 25
+	maturation = 6
+	growth_stages = 3
+
+/datum/seed/flower/moonflower
+	name = "moonflowers"
+	seed_name = "moonflower"
+	display_name = "moonflowers"
+	packet_icon = "seed-moonflower"
+	mutants = null
+	products = list(/obj/item/weapon/reagent_containers/food/snacks/grown/moonflower)
+	plant_icon = "moonflower"
+	chems = list("nutriment" = list(1,50), "moonshine" = list(1,10))
+
+	lifespan = 25
+	maturation = 6
+	growth_stages = 3
+
+/datum/seed/flower/novaflower
+	name = "novaflowers"
+	seed_name = "novaflower"
+	display_name = "novaflowers"
+	packet_icon = "seed-novaflower"
+	mutants = null
+	products = list(/obj/item/weapon/grown/novaflower)
+	plant_icon = "novaflower"
 
 	lifespan = 25
 	maturation = 6
@@ -979,6 +1021,151 @@ proc/populate_seed_list()
 	mutants = null
 	plant_icon = "greengrape"
 	chems = list("nutriment" = list(1,10), "kelotane" = list(3,5))
+
+//Soybeans/varieties
+/datum/seed/soybean
+	name = "soybean"
+	seed_name = "soybean"
+	display_name = "soybeans"
+	packet_icon = "seed-soybean"
+	mutants = list("koibean")
+	products = list(/obj/item/weapon/reagent_containers/food/snacks/grown/soybeans)
+	plant_icon = "soybean"
+	harvest_repeat = 1
+	chems = list("nutriment" = list(1,20))
+
+	lifespan = 25
+	maturation = 4
+	production = 4
+	yield = 3
+	potency = 5
+
+/datum/seed/soybean/koi
+	name = "koibean"
+	seed_name = "koibean"
+	display_name = "koi beans"
+	packet_icon = "seed-koibean"
+	mutants = null
+	products = list(/obj/item/weapon/reagent_containers/food/snacks/grown/koibeans)
+	plant_icon = "soybean"
+	harvest_repeat = 1
+	chems = list("nutriment" = list(1,30), "carpotoxin" = list(1,20))
+
+	lifespan = 25
+	maturation = 4
+	production = 4
+	yield = 3
+	potency = 5
+
+//Tobacco/varieties
+/datum/seed/tobacco
+	name = "tobacco"
+	seed_name = "tobacco"
+	display_name = "tobacco"
+	packet_icon = "seed-tobacco"
+	mutants = list("stobacco")
+	products = list(/obj/item/weapon/reagent_containers/food/snacks/grown/tobacco)
+	plant_icon = "tobacco"
+	harvest_repeat = 1
+	chems = list("nutriment" = list(1,40), "nicotine" = list(1,40))
+
+	lifespan = 25
+	maturation = 5
+	production = 5
+	yield = 6
+	potency = 10
+	growth_stages = 3
+
+/datum/seed/tobacco/space
+	name = "stobacco"
+	seed_name = "space tobacco"
+	display_name = "space tobacco"
+	packet_icon = "seed-stobacco"
+	mutants = null
+	products = list(/obj/item/weapon/reagent_containers/food/snacks/grown/tobacco/space)
+	plant_icon = "stobacco"
+	harvest_repeat = 1
+	chems = list("nutriment" = list(1,40), "nicotine" = list(1,20), "inaprovaline" = list(1,30))
+
+	lifespan = 25
+	maturation = 5
+	production = 5
+	yield = 4
+	potency = 5
+	growth_stages = 3
+
+//Tea/varieties
+/datum/seed/teaaspera
+	name = "teaaspera"
+	seed_name = "tea aspera"
+	display_name = "tea aspera"
+	packet_icon = "seed-teaaspera"
+	mutants = list("teaastra")
+	products = list(/obj/item/weapon/reagent_containers/food/snacks/grown/teaaspera)
+	plant_icon = "teaaspera"
+	harvest_repeat = 1
+	chems = list("teapowder" = list(1,20), "anti_toxin" = list(1,30))
+
+	lifespan = 30
+	maturation = 5
+	production = 5
+	yield = 6
+	potency = 10
+	growth_stages = 5
+
+/datum/seed/teaastra
+	name = "teaastra"
+	seed_name = "tea astra"
+	display_name = "tea astra"
+	packet_icon = "seed-teaastra"
+	mutants = null
+	products = list(/obj/item/weapon/reagent_containers/food/snacks/grown/teaastra)
+	plant_icon = "teaastra"
+	harvest_repeat = 1
+	chems = list("teapowder" = list(1,20), "impedrezene" = list(1,30))
+
+	lifespan = 30
+	maturation = 5
+	production = 5
+	yield = 6
+	potency = 10
+	growth_stages = 5
+
+//Coffee/varieties
+/datum/seed/coffeea
+	name = "coffeea"
+	seed_name = "coffee arabica"
+	display_name = "coffee arabica"
+	packet_icon = "seed-coffeea"
+	mutants = list("coffeer")
+	products = list(/obj/item/weapon/reagent_containers/food/snacks/grown/coffeea)
+	plant_icon = "coffeea"
+	harvest_repeat = 1
+	chems = list("coffeepowder" = list(1,20), "synaptizine" = list(1,40))
+
+	lifespan = 30
+	maturation = 5
+	production = 5
+	yield = 6
+	potency = 10
+	growth_stages = 5
+
+/datum/seed/coffeer
+	name = "coffeer"
+	seed_name = "coffee robusta"
+	display_name = "coffee robusta"
+	mutants = null
+	products = list(/obj/item/weapon/reagent_containers/food/snacks/grown/coffeer)
+	plant_icon = "coffeer"
+	harvest_repeat = 1
+	chems = list("coffeepowder" = list(1,20), "synaptizine" = list(1,20), "hyperzine" = list(1,40))
+
+	lifespan = 30
+	maturation = 5
+	production = 5
+	yield = 4
+	potency = 10
+	growth_stages = 5
 
 //Everything else
 /datum/seed/peanuts
@@ -1092,22 +1279,6 @@ proc/populate_seed_list()
 	yield = 4
 	potency = 10
 	growth_stages = 4
-
-/datum/seed/soybean
-	name = "soybean"
-	seed_name = "soybean"
-	display_name = "soybeans"
-	packet_icon = "seed-soybean"
-	products = list(/obj/item/weapon/reagent_containers/food/snacks/grown/soybeans)
-	plant_icon = "soybean"
-	harvest_repeat = 1
-	chems = list("nutriment" = list(1,20))
-
-	lifespan = 25
-	maturation = 4
-	production = 4
-	yield = 3
-	potency = 5
 
 /datum/seed/wheat
 	name = "wheat"

@@ -97,6 +97,10 @@
 				if(length(message2) > CHARS_PER_LINE)
 					message2 = "Error"
 				update_display(message1, message2)
+			else if(emergency_shuttle.is_stranded())
+				message1 = "-ERR-"
+				message2 = "??:??"
+				update_display(message1, message2)
 			else
 				remove_display()
 			return 1

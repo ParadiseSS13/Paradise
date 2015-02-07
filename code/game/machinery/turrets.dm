@@ -22,6 +22,10 @@
 		var/obj/mecha/Mech = O
 		if( Mech.occupant )
 			turretTargets |= Mech
+	else if( istype(O, /obj/spacepod) )
+		var/obj/spacepod/Pod = O
+		if( Pod.occupant || Pod.occupant2 )
+			turretTargets |= Pod
 	else if(istype(O,/mob/living/simple_animal))
 		turretTargets |= O
 	return 1
@@ -33,6 +37,8 @@
 	if( ismob(O) && !issilicon(O) )
 		turretTargets -= O
 	else if( istype(O, /obj/mecha) )
+		turretTargets -= O
+	else if( istype(O, /obj/spacepod) )
 		turretTargets -= O
 	..()
 	return 1
@@ -139,6 +145,10 @@
 			var/obj/mecha/ME = T
 			if( ME.occupant )
 				return 1
+		else if( istype(T, /obj/spacepod) )
+			var/obj/spacepod/SP = T
+			if( SP.occupant || SP.occupant2 )
+				return 1
 		else if(istype(T,/mob/living/simple_animal))
 			var/mob/living/simple_animal/A = T
 			if( !A.stat )
@@ -154,6 +164,9 @@
 			if(!M.lying || lasers)
 				new_targets += M
 	for(var/obj/mecha/M in protected_area.turretTargets)
+		if(M.occupant)
+			new_targets += M
+	for(var/obj/spacepod/M in protected_area.turretTargets)
 		if(M.occupant)
 			new_targets += M
 	for(var/mob/living/simple_animal/M in protected_area.turretTargets)
@@ -575,6 +588,10 @@
 		var/obj/mecha/M = target
 		if(M.occupant)
 			return 1
+	else if(istype(target, /obj/spacepod))
+		var/obj/spacepod/S = target
+		if(S.occupant || S.occupant2)
+			return 1
 	return 0
 
 
@@ -604,6 +621,16 @@
 			if(faction in M.occupant.faction)
 				continue
 		if(!M.occupant)
+			continue //Don't shoot at empty mechs.
+		pos_targets += M
+	for(var/obj/spacepod/M in oview(scan_range, src))
+		if(M.occupant)
+			if(faction in M.occupant.faction)
+				continue
+		if(M.occupant2)
+			if(faction in M.occupant2.faction)
+				continue
+		if(!M.occupant && !M.occupant2)
 			continue //Don't shoot at empty mechs.
 		pos_targets += M
 	if(pos_targets.len)

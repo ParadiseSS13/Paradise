@@ -1200,7 +1200,7 @@ mob/proc/yank_out_object()
 		H.shock_stage+=10
 
 		if(prob(10)) //I'M SO ANEMIC I COULD JUST -DIE-.
-			var/datum/wound/internal_bleeding/I = new (15)
+			var/datum/wound/internal_bleeding/I = new ()
 			affected.wounds += I
 			H.custom_pain("Something tears wetly in your [affected] as [selection] is pulled free!", 1)
 
@@ -1223,6 +1223,10 @@ mob/proc/yank_out_object()
 	set name = "Respawn as NPC"
 	set category = "Ghost"
 
+	if(jobban_isbanned(usr, "NPC"))
+		usr << "<span class='warning'>You are banned from playing as NPC's.</span>"
+		return
+	
 	if((usr in respawnable_list) && (stat==2 || istype(usr,/mob/dead/observer)))
 		var/list/creatures = list("Mouse")
 		for(var/mob/living/L in living_mob_list)

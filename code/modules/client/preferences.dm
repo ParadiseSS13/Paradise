@@ -2,25 +2,59 @@
 
 var/list/preferences_datums = list()
 
-var/global/list/special_roles = list( //keep synced with the defines BE_* in setup.dm --rastaf
+var/global/list/special_roles = list( //keep synced with the defines BE_* in setup.dm
 //some autodetection here.
-	"traitor" = IS_MODE_COMPILED("traitor"),             // 0
-	"operative" = IS_MODE_COMPILED("nuclear"),           // 1
+	"pAI" = 1,                   						 // 0	
+	"traitor" = IS_MODE_COMPILED("traitor"),             // 1
 	"changeling" = IS_MODE_COMPILED("changeling"),       // 2
-	"wizard" = IS_MODE_COMPILED("wizard"),               // 3
-	"malf AI" = IS_MODE_COMPILED("malfunction"),         // 4
-	"revolutionary" = IS_MODE_COMPILED("revolution"),    // 5
-	"alien candidate" = 1, //always show                 // 6
-	"pAI candidate" = 1, // -- TLE                       // 7
-	"cultist" = IS_MODE_COMPILED("cult"),                // 8
-	"plant" = 1,										 // 9
-	"ninja" = "true",									 // 10
-	"raider" = IS_MODE_COMPILED("heist"),				 // 11
-	"slime" = 1,                                         // 12
-	"vampire" = IS_MODE_COMPILED("vampire"),			 // 13
-	"mutineer" = IS_MODE_COMPILED("mutiny"),             // 14
-	"blob" = IS_MODE_COMPILED("blob")          		     // 15
+	"vampire" = IS_MODE_COMPILED("vampire"),			 // 3	
+	"revolutionary" = IS_MODE_COMPILED("revolution"),    // 4
+	"blob" = IS_MODE_COMPILED("blob"),          	     // 5	
+	"operative" = IS_MODE_COMPILED("nuclear"),           // 6
+	"cultist" = IS_MODE_COMPILED("cult"),                // 7
+	"wizard" = IS_MODE_COMPILED("wizard"),               // 8
+	"raider" = IS_MODE_COMPILED("heist"),				 // 9
+	"alien" = 1,           							     // 10
+	"ninja" = 1,										 // 11	
+	"mutineer" = IS_MODE_COMPILED("mutiny"),             // 12
+	"malf AI" = IS_MODE_COMPILED("malfunction")	         // 13
 )
+var/global/list/special_role_times = list( //minimum age (in days) for accounts to play these roles
+	num2text(BE_TRAITOR) = 14, 
+	num2text(BE_OPERATIVE) = 21,
+	num2text(BE_CHANGELING) = 14, 
+	num2text(BE_WIZARD) = 21,
+	num2text(BE_MALF) = 30,
+	num2text(BE_REV) = 14,
+	num2text(BE_ALIEN) = 21,        							     
+	num2text(BE_PAI) = 0,                   						 
+	num2text(BE_CULTIST) = 21,
+	num2text(BE_NINJA) = 21,									 
+	num2text(BE_RAIDER) = 21,
+	num2text(BE_VAMPIRE) = 14,
+	num2text(BE_MUTINEER) = 21,
+	num2text(BE_BLOB) = 14
+)
+
+/proc/player_old_enough_antag(client/C, role)
+	if(available_in_days_antag(C, role) == 0)
+		return 1	//Available in 0 days = available right now = player is old enough to play.
+	return 0
+
+/proc/available_in_days_antag(client/C, role)
+	if(!C)
+		return 0
+	if(!role)
+		return 0
+	if(!config.use_age_restriction_for_antags)
+		return 0
+	if(!isnum(C.player_age))
+		return 0 //This is only a number if the db connection is established, otherwise it is text: "Requires database", meaning these restrictions cannot be enforced
+	var/minimal_player_age_antag = special_role_times[num2text(role)]
+	if(!isnum(minimal_player_age_antag))
+		return 0
+		
+	return max(0, minimal_player_age_antag - C.player_age)
 
 var/const/MAX_SAVE_SLOTS = 10
 
@@ -57,6 +91,7 @@ datum/preferences
 	var/be_random_name = 0				//whether we are a random name every round
 	var/gender = MALE					//gender of character (well duh)
 	var/age = 30						//age of character
+	var/spawnpoint = "Arrivals Shuttle" //where this character will spawn (0-2).
 	var/b_type = "A+"					//blood type (not-chooseable)
 	var/underwear = 1					//underwear type
 	var/undershirt = 1					//undershirt type
@@ -183,6 +218,7 @@ datum/preferences
 				dat += "<br>"
 				dat += "<b>Gender:</b> <a href='?_src_=prefs;preference=gender'><b>[gender == MALE ? "Male" : "Female"]</b></a><br>"
 				dat += "<b>Age:</b> <a href='?_src_=prefs;preference=age;task=input'>[age]</a>"
+				//dat += "<b>Spawn Point</b>: <a href='byond://?src=\ref[user];preference=spawnpoint;task=input'>[spawnpoint]</a>"
 				dat += "<br><table><tr><td><b>Body</b> "
 				dat += "(<a href='?_src_=prefs;preference=all;task=random'>&reg;</A>)"
 				dat += "<br>"
@@ -335,20 +371,21 @@ datum/preferences
 					dat += "<b>OOC Notes:</b> <a href='?_src_=prefs;preference=metadata;task=input'> Edit </a><br>"
 
 				dat += "</td><td width='300px' height='300px' valign='top'>"
-				dat += "<h2>Antagonist Settings</h2>"
+				dat += "<h2>Special Role Settings</h2>"
 //				dat += "<br><br>"
 				if(jobban_isbanned(user, "Syndicate"))
-					dat += "<b>You are banned from antagonist roles.</b>"
+					dat += "<b>You are banned from special roles.</b>"
 					src.be_special = 0
 				else
 					var/n = 0
 					for (var/i in special_roles)
 						if(special_roles[i]) //if mode is available on the server
+							var/special_role_flag = be_special_flags[i]
 							if(jobban_isbanned(user, i))
 								dat += "<b>Be [i]:</b> <font color=red><b> \[BANNED]</b></font><br>"
-							else if(i == "pai candidate")
-								if(jobban_isbanned(user, "pAI"))
-									dat += "<b>Be [i]:</b> <font color=red><b> \[BANNED]</b></font><br>"
+							else if(!player_old_enough_antag(user.client,special_role_flag))
+								var/available_in_days_antag = available_in_days_antag(user.client,special_role_flag)
+								dat += "<b>Be [i]:</b> <font color=red><b> \[IN [(available_in_days_antag)] DAYS]</b></font><br>"
 							else
 								dat += "<b>Be [i]:</b> <a href='?_src_=prefs;preference=be_special;num=[n]'><b>[src.be_special&(1<<n) ? "Yes" : "No"]</b></a><br>"
 						n++
@@ -1276,6 +1313,17 @@ datum/preferences
 						var/skin_style_name = input(user, "Select a new skin style") as null|anything in list("default1", "default2", "default3")
 						if(!skin_style_name) return
 */
+
+/*					if("spawnpoint")
+						var/list/spawnkeys = list()
+						for(var/S in spawntypes)
+							spawnkeys += S
+						var/choice = input(user, "Where would you like to spawn when latejoining?") as null|anything in spawnkeys
+						if(!choice || !spawntypes[choice])
+							spawnpoint = "Arrivals Shuttle"
+							return
+						spawnpoint = choice */
+
 			else
 				switch(href_list["preference"])
 					if("gender")

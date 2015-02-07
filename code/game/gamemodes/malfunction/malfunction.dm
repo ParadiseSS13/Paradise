@@ -136,7 +136,12 @@
 	if (is_malf_ai_dead())
 		if(config.continous_rounds)
 			if(emergency_shuttle)
-				emergency_shuttle.auto_recall = 0
+				if(emergency_shuttle.auto_recall)
+					emergency_shuttle.auto_recall = 0
+				else if(emergency_shuttle.is_stranded())
+					emergency_shuttle.no_escape = 0
+					emergency_shuttle.shuttle.moving_status = SHUTTLE_IDLE
+					emergency_shuttle.shuttle_arrived()
 			malf_mode_declared = 0
 		else
 			return 1
