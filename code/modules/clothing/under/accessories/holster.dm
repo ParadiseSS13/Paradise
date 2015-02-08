@@ -6,6 +6,7 @@
 	slot = "utility"
 	var/holster_allow = /obj/item/weapon/gun
 	var/obj/item/weapon/gun/holstered = null
+	icon_action_button = "action_holster"
 
 //subtypes can override this to specify what can be holstered
 /obj/item/clothing/accessory/holster/proc/can_holster(obj/item/weapon/gun/W)
