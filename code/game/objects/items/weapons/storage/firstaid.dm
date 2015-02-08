@@ -121,7 +121,7 @@
 /obj/item/weapon/storage/firstaid/tactical/New()
 	..()
 	if (empty) return
-	new /obj/item/clothing/tie/stethoscope( src )
+	new /obj/item/clothing/accessory/stethoscope( src )
 	new /obj/item/weapon/surgicaldrill(src)
 	new /obj/item/weapon/reagent_containers/hypospray/combat(src)
 	new /obj/item/weapon/reagent_containers/pill/bicaridine(src)
@@ -198,7 +198,7 @@
 
 /obj/item/weapon/storage/pill_bottle/inaprovaline
 	name = "Pill bottle (inaprovaline)"
-	desc = "Contains pills used to stabilize patients."
+	desc = "Contains pills used to stabilize paaccessorynts."
 
 	New()
 		..()

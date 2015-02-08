@@ -200,7 +200,7 @@
 		/obj/item/clothing/shoes/magboots,
 		/obj/item/blueprints,
 		/obj/item/clothing/head/helmet/space,
-		/obj/item/weapon/tank
+		/obj/item/weapon/storage/internal
 	)
 
 /obj/machinery/cryopod/right
