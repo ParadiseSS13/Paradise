@@ -6,6 +6,7 @@
 	slot = "utility"
 	var/slots = 3
 	var/obj/item/weapon/storage/internal/hold
+	icon_action_button = "action_storage"
 
 /obj/item/clothing/accessory/storage/New()
 	..()
@@ -39,12 +40,15 @@
 	..()
 
 /obj/item/clothing/accessory/storage/attack_self(mob/user as mob)
-	user << "<span class='notice'>You empty [src].</span>"
-	var/turf/T = get_turf(src)
-	hold.hide_from(usr)
-	for(var/obj/item/I in hold.contents)
-		hold.remove_from_storage(I, T)
-	src.add_fingerprint(user)
+	if (has_suit)	//if we are part of a suit
+		hold.open(user)
+	else
+		user << "<span class='notice'>You empty [src].</span>"
+		var/turf/T = get_turf(src)
+		hold.hide_from(usr)
+		for(var/obj/item/I in hold.contents)
+			hold.remove_from_storage(I, T)
+		src.add_fingerprint(user)
 
 /obj/item/clothing/accessory/storage/webbing
 	name = "webbing"

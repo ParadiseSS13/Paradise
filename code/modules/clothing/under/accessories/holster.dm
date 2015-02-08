@@ -16,6 +16,10 @@
 		return 0
 	else
 		return 1
+		
+/obj/item/clothing/accessory/holster/attack_self()
+	var/holsteritem = usr.get_active_hand()
+	holster(holsteritem, usr)
 
 /obj/item/clothing/accessory/holster/proc/holster(obj/item/I, mob/user as mob)
 	if(holstered)
