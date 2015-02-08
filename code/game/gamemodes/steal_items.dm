@@ -101,7 +101,7 @@ datum/theft_objective/ai/check_special_completion(var/obj/item/device/aicard/C)
 
 /datum/theft_objective/capmedal
 	name = "the medal of captaincy"
-	typepath = /obj/item/clothing/tie/medal/gold/captain
+	typepath = /obj/item/clothing/accessory/medal/gold/captain
 	protected_jobs = list("Captain")
 
 /datum/theft_objective/nukedisc

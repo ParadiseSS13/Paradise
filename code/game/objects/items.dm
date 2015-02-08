@@ -480,6 +480,19 @@
 					if(B.contents.len < B.storage_slots && w_class <= B.max_w_class)
 						return 1
 				return 0
+			if(slot_tie)
+				if(!H.w_uniform)
+					if(!disable_warning)
+						H << "<span class='warning'>You need a jumpsuit before you can attach this [name].</span>"
+					return 0
+				var/obj/item/clothing/under/uniform = H.w_uniform
+				if(uniform.accessories.len && uniform.can_attach_accessory(src))
+					if (!disable_warning)
+						H << "<span class='warning'>You already have an accessory of this type attached to your [uniform].</span>"
+					return 0
+				if( !(slot_flags & SLOT_TIE) )
+					return 0
+				return 1
 		return 0 //Unsupported slot
 		//END HUMAN
 
@@ -551,7 +564,7 @@
 	if( src in usr )
 		attack_self(usr)
 		return
-	else if(istype(src, /obj/item/clothing/tie))
+	else if(istype(src, /obj/item/clothing/accessory))
 		if(istype(src.loc,/obj/item/clothing/under))
 			attack_self(usr)
 

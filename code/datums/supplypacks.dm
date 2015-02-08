@@ -260,6 +260,18 @@ var/list/all_supply_groups = list("Operations","Security","Hospitality","Enginee
 	containertype = /obj/structure/closet/crate
 	containername = "Wizard costume crate"
 	group = "Operations"
+	
+/datum/supply_packs/randomised/webbing
+	name = "Webbing crate"
+	num_contained = 1
+	contains = list(/obj/item/clothing/accessory/holster,
+					/obj/item/clothing/accessory/storage/brown_vest,
+					/obj/item/clothing/accessory/storage/webbing,
+					/obj/item/clothing/accessory/storage)
+	cost = 15
+	containertype = /obj/structure/closet/crate
+	containername = "Webbing crate"
+	group = "Operations"
 
 /datum/supply_packs/mule
 	name = "MULEbot Crate"
