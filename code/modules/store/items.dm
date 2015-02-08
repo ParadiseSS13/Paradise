@@ -57,6 +57,12 @@
 	typepath = /obj/item/clothing/mask/cigarette/pipe
 	cost = 350
 
+/datum/storeitem/candle
+	name = "Candles"
+	desc = "A box of chandles. Use them to fool others into thinking you're out for a romantic dinner...or something."
+	typepath = /obj/item/weapon/storage/fancy/candle_box
+	cost = 200
+
 /datum/storeitem/katana
 	name = "replica katana"
 	desc = "Woefully underpowered in D20."
@@ -73,12 +79,6 @@
 	name = "Toddler"
 	desc = "This baby looks almost real. Wait, did it just burp?"
 	typepath = /obj/item/weapon/toddler
-	cost = 1000
-
-/datum/storeitem/laserpointer
-	name = "laser pointer"
-	desc = "Don't shine it in your eyes!"
-	typepath = /obj/item/device/laser_pointer
 	cost = 1000
 
 /datum/storeitem/flag/slime
