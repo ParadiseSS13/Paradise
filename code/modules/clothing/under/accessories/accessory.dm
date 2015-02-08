@@ -65,7 +65,7 @@
 	icon_state = "horribletie"
 	_color = "horribletie"
 	
-/obj/item/clothing/accessory/waistcoat
+/obj/item/clothing/accessory/waistcoat // No overlay
 	name = "waistcoat"
 	desc = "For some classy, murderous fun."
 	icon_state = "waistcoat"
@@ -241,7 +241,7 @@
 //SCARVES//
 ///////////
 
-/obj/item/clothing/accessory/scarf
+/obj/item/clothing/accessory/scarf // No overlay
 	name = "scarf"
 	desc = "A stylish scarf. The perfect winter accessory for those with a keen fashion sense, and those who just can't handle a cold breeze on their necks."
 

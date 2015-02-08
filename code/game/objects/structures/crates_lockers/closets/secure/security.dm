@@ -248,6 +248,7 @@
 		new /obj/item/clothing/under/rank/centcom_officer(src)
 		new /obj/item/clothing/suit/armor/vest/fluff/deus_blueshield(src)
 		new /obj/item/clothing/shoes/centcom(src)
+		new /obj/item/clothing/accessory/holster(src)
 		new /obj/item/clothing/accessory/blue(src)
 		return
 

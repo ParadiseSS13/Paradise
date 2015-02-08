@@ -507,7 +507,7 @@
 
 /mob/living/carbon/human/update_action_buttons()
 	var/num = 1
-	var/to_update = list()
+	var/list/to_update = list()
 	if(!hud_used) return
 	if(!client) return
 
@@ -521,11 +521,11 @@
 		if(istype(I,/obj/item/clothing/under))
 			var/obj/item/clothing/under/U = I
 			if(U.accessories)
-				for(var/obj/item/clothing/accessory/A in U.accessories)
-					if(A.icon_action_button)
-						to_update |= A
-		if(I.icon_action_button)
-			to_update |= I				
+				for(var/obj/item/clothing/accessory/AC in U.accessories)
+					if(AC.icon_action_button)
+						to_update += AC
+		if(I.icon_action_button && (!I in to_update))
+			to_update += I				
 				
 	for(var/obj/item/I in to_update)
 		var/obj/screen/item_action/A = new(hud_used)
