@@ -65,7 +65,7 @@
 	construction_time = 200
 	category = list("Cyborg")
 
-//Robot repair	
+//Robot repair
 /datum/design/borg_binary_communication
 	name = "Cyborg Binary Communication Device"
 	id = "borg_binary_communication"
@@ -74,7 +74,7 @@
 	materials = list("$metal"=2500, "$glass"=1000)
 	construction_time = 200
 	category = list("Cyborg Repair")
-	
+
 /datum/design/borg_radio
 	name = "Cyborg Radio"
 	id = "borg_radio"
@@ -83,7 +83,7 @@
 	materials = list("$metal"=2500, "$glass"=1000)
 	construction_time = 200
 	category = list("Cyborg Repair")
-	
+
 /datum/design/borg_actuator
 	name = "Cyborg Actuator"
 	id = "borg_actuator"
@@ -92,7 +92,7 @@
 	materials = list("$metal"=3500)
 	construction_time = 200
 	category = list("Cyborg Repair")
-	
+
 /datum/design/borg_diagnosis_unit
 	name = "Cyborg Diagnosis Unit"
 	id = "borg_diagnosis_unit"
@@ -101,7 +101,7 @@
 	materials = list("$metal"=3500)
 	construction_time = 200
 	category = list("Cyborg Repair")
-	
+
 /datum/design/borg_camera
 	name = "Cyborg Camera"
 	id = "borg_camera"
@@ -110,7 +110,7 @@
 	materials = list("$metal"=2500, "$glass"=1000)
 	construction_time = 200
 	category = list("Cyborg Repair")
-	
+
 /datum/design/borg_armor
 	name = "Cyborg Armor"
 	id = "borg_armor"
@@ -541,7 +541,7 @@
 	materials = list("$metal"=10000)
 	construction_time = 100
 	category = list("Exosuit Equipment")
-	
+
 /datum/design/mech_drill
 	name = "Exosuit Engineering Equipment (Drill)"
 	id = "mech_drill"
@@ -559,7 +559,7 @@
 	materials = list("$metal"=10000)
 	construction_time = 100
 	category = list("Exosuit Equipment")
-	
+
 /datum/design/mech_hydraulic_clamp
 	name = "Exosuit Engineering Equipment (Hydraulic Clamp)"
 	id = "mech_hydraulic_clamp"
@@ -622,7 +622,7 @@
 	materials = list("$metal"=20000,"$bananium"=5000)
 	construction_time = 300
 	category = list("Exosuit Equipment")
-	
+
 /datum/design/mech_honker
 	name = "HoNkER BlAsT 5000"
 	id = "mech_honker"
@@ -631,7 +631,7 @@
 	materials = list("$metal"=20000,"$bananium"=10000)
 	construction_time = 500
 	category = list("Exosuit Equipment")
-	
+
 /datum/design/mech_mousetrap_mortar
 	name = "H.O.N.K Mousetrap Mortar"
 	id = "mech_mousetrap_mortar"
@@ -640,7 +640,7 @@
 	materials = list("$metal"=20000,"$bananium"=5000)
 	construction_time = 300
 	category = list("Exosuit Equipment")
-	
+
 // Exosuit Modules
 /datum/design/mech_diamond_drill
 	name = "Exosuit Module (Diamond Mining Drill)"
@@ -652,7 +652,7 @@
 	materials = list("$metal"=10000,"$diamond"=6500)
 	construction_time = 100
 	category = list("Exosuit Equipment")
-	
+
 /datum/design/mech_generator_nuclear
 	name = "Exosuit Module (ExoNuclear Reactor)"
 	desc = "Compact nuclear reactor module."
@@ -663,7 +663,7 @@
 	materials = list("$metal"=10000,"$glass"=1000,"$silver"=500)
 	construction_time = 100
 	category = list("Exosuit Equipment")
-	
+
 /datum/design/mech_gravcatapult
 	name = "Exosuit Module (Gravitational Catapult Module)"
 	desc = "An exosuit mounted Gravitational Catapult."
@@ -685,7 +685,7 @@
 	materials = list("$metal"=10000)
 	construction_time = 100
 	category = list("Exosuit Equipment")
-	
+
 /datum/design/mech_rcd
 	name = "Exosuit Module (RCD Module)"
 	desc = "An exosuit-mounted Rapid Construction Device."
@@ -696,7 +696,7 @@
 	materials = list("$metal"=30000,"$gold"=20000,"$plasma"=25000,"$silver"=20000)
 	construction_time = 1200
 	category = list("Exosuit Equipment")
-	
+
 /datum/design/mech_ccw_armor
 	name = "Exosuit Module (Reactive Armor Booster Module)"
 	desc = "Exosuit-mounted armor booster."
@@ -707,7 +707,7 @@
 	materials = list("$metal"=20000,"$silver"=5000)
 	construction_time = 100
 	category = list("Exosuit Equipment")
-	
+
 /datum/design/mech_proj_armor
 	name = "Exosuit Module (Reflective Armor Booster Module)"
 	desc = "Exosuit-mounted armor booster."
@@ -718,7 +718,7 @@
 	materials = list("$metal"=20000,"$gold"=5000)
 	construction_time = 100
 	category = list("Exosuit Equipment")
-	
+
 /datum/design/mech_repair_droid
 	name = "Exosuit Module (Repair Droid Module)"
 	desc = "Automated Repair Droid. BEEP BOOP"
@@ -729,7 +729,7 @@
 	materials = list("$metal"=10000,"$glass"=5000,"$gold"=1000,"$silver"=2000)
 	construction_time = 100
 	category = list("Exosuit Equipment")
-	
+
 /datum/design/clusterbang_launcher
 	name = "Exosuit Module (SOB-3 Clusterbang Launcher)"
 	desc = "A weapon that violates the Geneva Convention at 3 rounds per minute"
@@ -740,7 +740,7 @@
 	materials = list("$metal"=20000,"$gold"=10000,"$uranium"=10000)
 	construction_time = 100
 	category = list("Exosuit Equipment")
-	
+
 /datum/design/mech_teleporter
 	name = "Exosuit Module (Teleporter Module)"
 	desc = "An exosuit module that allows exosuits to teleport to any position in view."
@@ -751,7 +751,7 @@
 	materials = list("$metal"=10000)
 	construction_time = 100
 	category = list("Exosuit Equipment")
-	
+
 /datum/design/mech_energy_relay
 	name = "Exosuit Module (Tesla Energy Relay)"
 	desc = "Tesla Energy Relay"
@@ -761,8 +761,8 @@
 	build_path = /obj/item/mecha_parts/mecha_equipment/tesla_energy_relay
 	materials = list("$metal"=10000,"$glass"=2000,"$gold"=2000,"$silver"=3000)
 	construction_time = 100
-	category = list("Exosuit Equipment")	
-	
+	category = list("Exosuit Equipment")
+
 // Exosuit Weapons
 /datum/design/mech_laser_heavy
 	name = "Exosuit Weapon (CH-LC \"Solaris\" Laser Cannon)"
@@ -774,7 +774,7 @@
 	materials = list("$metal"=10000)
 	construction_time = 100
 	category = list("Exosuit Equipment")
-	
+
 /datum/design/mech_laser
 	name = "Exosuit Weapon (CH-PS \"Immolator\" Laser)"
 	desc = "Allows for the construction of CH-PS Laser."
@@ -785,7 +785,7 @@
 	materials = list("$metal"=10000)
 	construction_time = 100
 	category = list("Exosuit Equipment")
-	
+
 /datum/design/mech_carbine
 	name = "Exosuit Weapon (FNX-99 \"Hades\" Carbine)"
 	desc = "Allows for the construction of FNX-99 \"Hades\" Carbine."
@@ -796,7 +796,7 @@
 	materials = list("$metal"=10000)
 	construction_time = 100
 	category = list("Exosuit Equipment")
-	
+
 /datum/design/mech_scattershot
 	name = "Exosuit Weapon (LBX AC 10 \"Scattershot\")"
 	desc = "Allows for the construction of LBX AC 10."
@@ -807,7 +807,7 @@
 	materials = list("$metal"=10000)
 	construction_time = 100
 	category = list("Exosuit Equipment")
-	
+
 /datum/design/mech_ion
 	name = "Exosuit Weapon (MKIV Ion Heavy Cannon)"
 	desc = "Allows for the construction of MKIV Ion Heavy Cannon."
@@ -850,7 +850,7 @@
 	req_tech = list("combat" = 4, "syndicate" = 3)
 	build_path = /obj/item/borg/upgrade/syndicate
 	category = "Cyborg Upgrade Modules"
-	category = list("Cyborg Upgrade Modules")	
+	category = list("Cyborg Upgrade Modules")
 
 /datum/design/borg_upgrade_jetpack
 	name = "Cyborg Upgrade Module (Mining Jetpack)"
@@ -860,16 +860,16 @@
 	materials = list("$metal"=10000,"$plasma"=15000,"$uranium" = 20000)
 	construction_time = 120
 	category = list("Cyborg Upgrade Modules")
-	
-/datum/design/borg_upgrade_tasercooler
-	name = "Cyborg Upgrade Module (Rapid Taser Cooling Module)"
-	id = "borg_upgrade_tasercooler"
+
+/datum/design/borg_upgrade_disablercooler
+	name = "Cyborg Upgrade Module (Rapid Disabler Cooling Module)"
+	id = "borg_upgrade_disablercooler"
 	build_type = MECHFAB
-	build_path = /obj/item/borg/upgrade/tasercooler
+	build_path = /obj/item/borg/upgrade/disablercooler
 	materials = list("$metal"=80000 , "$glass"=6000 , "$gold"= 2000, "$diamond" = 500)
 	construction_time = 120
 	category = list("Cyborg Upgrade Modules")
-	
+
 /datum/design/borg_upgrade_rename
 	name = "Cyborg Upgrade Module (Rename Module)"
 	id = "borg_upgrade_rename"
@@ -878,7 +878,7 @@
 	materials = list("$metal"=35000)
 	construction_time = 120
 	category = list("Cyborg Upgrade Modules")
-	
+
 /datum/design/borg_upgrade_reset
 	name = "Cyborg Upgrade Module (Reset Module)"
 	id = "borg_upgrade_reset"
