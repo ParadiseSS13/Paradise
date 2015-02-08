@@ -36,16 +36,17 @@
 /datum/theft_objective/hand_tele
 	name = "a hand teleporter"
 	typepath = /obj/item/weapon/hand_tele
-	protected_jobs = list("Captain")
+	protected_jobs = list("Captain", "Research Director")
 
 /datum/theft_objective/rcd
-	name = "an RCD"
+	name = "a rapid-construction-device"
 	typepath = /obj/item/weapon/rcd
-	protected_jobs = list("Chief Engineer")
+	protected_jobs = list("Chief Engineer", "Quartermaster", "Cargo Technician", "Research Director", "Scientist", "Roboticist")
 
 /datum/theft_objective/jetpack
 	name = "a jetpack"
 	typepath = /obj/item/weapon/tank/jetpack
+	protected_jobs = list("Chief Engineer")
 
 /datum/theft_objective/cap_jumpsuit
 	name = "the captain's jumpsuit"
@@ -64,9 +65,9 @@ datum/theft_objective/ai/check_special_completion(var/obj/item/device/aicard/C)
 	return 0
 
 /datum/theft_objective/defib
-	name = "a defibrillator"
-	typepath = /obj/item/weapon/defibrillator
-	protected_jobs = list("Chief Medical Officer", "Medical Doctor", "Chemist", "Geneticist", "Virologist", "Psychiatrist", "Paramedic", "Brig Physician")
+	name = "a compact defibrillator"
+	typepath = /obj/item/weapon/defibrillator/compact
+	protected_jobs = list("Chief Medical Officer")
 
 /datum/theft_objective/magboots
 	name = "the chief engineer's advanced magnetic boots"
@@ -97,7 +98,7 @@ datum/theft_objective/ai/check_special_completion(var/obj/item/device/aicard/C)
 /datum/theft_objective/corgi
 	name = "a piece of corgi meat"
 	typepath = /obj/item/weapon/reagent_containers/food/snacks/meat/corgi
-	protected_jobs = list("Head of Personnel")
+	protected_jobs = list("Head of Personnel", "Quartermaster", "Cargo Technician")
 
 /datum/theft_objective/capmedal
 	name = "the medal of captaincy"
@@ -254,7 +255,7 @@ datum/theft_objective/ai/check_special_completion(var/obj/item/device/aicard/C)
 
 /datum/theft_objective/special/hyper_cell
 	name = "hyper-capacity cell"
-	typepath = /obj/item/weapon/cell/hyper
+	typepath = /obj/item/weapon/stock_parts/cell/hyper
 
 /datum/theft_objective/number/special
 	flags = THEFT_FLAG_SPECIAL

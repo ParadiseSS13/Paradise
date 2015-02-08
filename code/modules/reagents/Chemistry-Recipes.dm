@@ -1323,7 +1323,7 @@ datum
 			required_container = /obj/item/slime_extract/yellow
 			required_other = 1
 			on_reaction(var/datum/reagents/holder, var/created_volume)
-				var/obj/item/weapon/cell/slime/P = new /obj/item/weapon/cell/slime
+				var/obj/item/weapon/stock_parts/cell/slime/P = new /obj/item/weapon/stock_parts/cell/slime
 				P.loc = get_turf_loc(holder.my_atom)
 
 		slimeglow

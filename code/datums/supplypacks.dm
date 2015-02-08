@@ -260,18 +260,6 @@ var/list/all_supply_groups = list("Operations","Security","Hospitality","Enginee
 	containertype = /obj/structure/closet/crate
 	containername = "Wizard costume crate"
 	group = "Operations"
-	
-/datum/supply_packs/randomised/webbing
-	name = "Webbing crate"
-	num_contained = 1
-	contains = list(/obj/item/clothing/accessory/holster,
-					/obj/item/clothing/accessory/storage/brown_vest,
-					/obj/item/clothing/accessory/storage/webbing,
-					/obj/item/clothing/accessory/storage)
-	cost = 15
-	containertype = /obj/structure/closet/crate
-	containername = "Webbing crate"
-	group = "Operations"
 
 /datum/supply_packs/mule
 	name = "MULEbot Crate"
@@ -476,10 +464,10 @@ var/list/all_supply_groups = list("Operations","Security","Hospitality","Enginee
 					/obj/item/weapon/storage/toolbox/electrical,
 					/obj/item/clothing/gloves/yellow,
 					/obj/item/clothing/gloves/yellow,
-					/obj/item/weapon/cell,
-					/obj/item/weapon/cell,
-					/obj/item/weapon/cell/high,
-					/obj/item/weapon/cell/high)
+					/obj/item/weapon/stock_parts/cell,
+					/obj/item/weapon/stock_parts/cell,
+					/obj/item/weapon/stock_parts/cell/high,
+					/obj/item/weapon/stock_parts/cell/high)
 	cost = 15
 	containertype = /obj/structure/closet/crate
 	containername = "Electrical maintenance crate"
@@ -639,8 +627,8 @@ var/list/all_supply_groups = list("Operations","Security","Hospitality","Enginee
 					/obj/item/device/flash,
 					/obj/item/device/flash,
 					/obj/item/device/flash,
-					/obj/item/weapon/cell/high,
-					/obj/item/weapon/cell/high)
+					/obj/item/weapon/stock_parts/cell/high,
+					/obj/item/weapon/stock_parts/cell/high)
 	cost = 10
 	containertype = /obj/structure/closet/crate/secure/gear
 	containername = "Robotics Assembly"

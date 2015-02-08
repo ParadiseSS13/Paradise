@@ -61,7 +61,7 @@
 	// Battery must be installed BEFORE wiring the computer.
 	// if installing it in an existing computer, you will have to
 	// get back to this state first.
-	var/obj/item/weapon/cell/battery	= null
+	var/obj/item/weapon/stock_parts/cell/battery	= null
 
 /obj/structure/computer3frame/server
 	name = "server frame"
@@ -143,7 +143,7 @@
 				else
 					user << "\red There's no battery to remove!"
 
-			if(istype(P, /obj/item/weapon/cell))
+			if(istype(P, /obj/item/weapon/stock_parts/cell))
 				if(!battery)
 					playsound(src.loc, 'sound/items/Deconstruct.ogg', 50, 1)
 					if(do_after(5))

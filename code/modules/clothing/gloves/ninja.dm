@@ -102,7 +102,7 @@
 		drain("MECHA",A,suit)
 		return 1
 		/*
-	if(istype(A,/obj/item/weapon/cell))
+	if(istype(A,/obj/item/weapon/stock_parts/cell))
 		A.add_fingerprint(H)
 		drain("CELL",A,suit)
 		return 1

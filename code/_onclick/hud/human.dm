@@ -524,8 +524,10 @@
 				for(var/obj/item/clothing/accessory/AC in U.accessories)
 					if(AC.icon_action_button)
 						to_update += AC
-		if(I.icon_action_button && (!I in to_update))
-			to_update += I				
+						continue
+		if(I.icon_action_button)
+			to_update += I
+			continue
 				
 	for(var/obj/item/I in to_update)
 		var/obj/screen/item_action/A = new(hud_used)

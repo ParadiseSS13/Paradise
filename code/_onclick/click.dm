@@ -100,7 +100,7 @@
 
 	// operate two STORAGE levels deep here (item in backpack in src; NOT item in box in backpack in src)
 	var/sdepth = A.storage_depth(src)
-	if(isturf(A) || isturf(A.loc) || (sdepth != -1 && sdepth <= 1))
+	if(A == loc || (A in loc) || (sdepth != -1 && sdepth <= 1))
 
 		// faster access to objects already on you
 		if(A in contents)
@@ -117,7 +117,7 @@
 			if(!resolved && A && W)
 				W.afterattack(A,src,1,params) // 1 indicates adjacency
 		else
-			UnarmedAttack(A)
+			UnarmedAttack(A, 1)
 		return
 
 	if(!isturf(loc)) // This is going to stop you from telekinesing from inside a closet, but I don't shed many tears for that

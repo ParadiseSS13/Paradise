@@ -387,7 +387,7 @@ BLIND     // can't see anything
 		if (!(src.loc == usr))
 			return
 
-		if (!( usr.restrained() ) && !( usr.stat ))
+		if (!( usr.restrained() ) && !( usr.stat ) && ( over_object ))
 			switch(over_object.name)
 				if("r_hand")
 					usr.u_equip(src)

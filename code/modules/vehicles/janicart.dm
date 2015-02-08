@@ -43,7 +43,7 @@
 //-------------------------------------------
 /obj/vehicle/train/janitor/engine/New()
 	..()
-	cell = new /obj/item/weapon/cell/high
+	cell = new /obj/item/weapon/stock_parts/cell/high
 	verbs -= /atom/movable/verb/pull
 	key = new()
 	var/datum/reagents/R = new/datum/reagents(100)
@@ -136,10 +136,10 @@
 	..()
 	flick("mulebot-emagged", src)
 
-/obj/vehicle/train/janitor/trolley/insert_cell(var/obj/item/weapon/cell/C, var/mob/living/carbon/human/H)
+/obj/vehicle/train/janitor/trolley/insert_cell(var/obj/item/weapon/stock_parts/cell/C, var/mob/living/carbon/human/H)
 	return
 
-/obj/vehicle/train/janitor/engine/insert_cell(var/obj/item/weapon/cell/C, var/mob/living/carbon/human/H)
+/obj/vehicle/train/janitor/engine/insert_cell(var/obj/item/weapon/stock_parts/cell/C, var/mob/living/carbon/human/H)
 	..()
 	update_stats()
 
