@@ -68,7 +68,7 @@
 	// the comms computer, solar trackers, etc, that should function when all else is off.
 	// Laptops will require batteries and have no mains power.
 
-	var/obj/item/weapon/cell/battery	= null // uninterruptible power supply aka battery
+	var/obj/item/weapon/stock_parts/cell/battery	= null // uninterruptible power supply aka battery
 
 
 	verb/ResetComputer()
@@ -185,7 +185,7 @@
 				toybox.init(src)
 				continue
 
-			if(ispath(typekey,/obj/item/weapon/cell))
+			if(ispath(typekey,/obj/item/weapon/stock_parts/cell))
 				if(battery) continue
 				battery = new typekey(src)
 				continue
@@ -452,7 +452,7 @@
 	//Returns percentage of battery charge remaining. Returns -1 if no battery is installed.
 	proc/check_battery_status()
 		if (battery)
-			var/obj/item/weapon/cell/B = battery
+			var/obj/item/weapon/stock_parts/cell/B = battery
 			return round(B.charge / (B.maxcharge / 100))
 		else
 			return -1

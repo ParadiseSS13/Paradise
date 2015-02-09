@@ -14,8 +14,8 @@
 	var/mob/living/carbon/occupant
 	var/mob/living/carbon/occupant2 //two seaters
 	var/datum/spacepod/equipment/equipment_system
-	var/battery_type = "/obj/item/weapon/cell/high"
-	var/obj/item/weapon/cell/battery
+	var/battery_type = "/obj/item/weapon/stock_parts/cell/high"
+	var/obj/item/weapon/stock_parts/cell/battery
 	var/datum/gas_mixture/cabin_air
 	var/obj/machinery/portable_atmospherics/canister/internal_tank
 	var/datum/effect/effect/system/ion_trail_follow/space_trail/ion_trail
@@ -158,7 +158,7 @@
 	if(iscrowbar(W))
 		hatch_open = !hatch_open
 		user << "<span class='notice'>You [hatch_open ? "open" : "close"] the maintenance hatch.</span>"
-	if(istype(W, /obj/item/weapon/cell))
+	if(istype(W, /obj/item/weapon/stock_parts/cell))
 		if(!hatch_open)
 			return ..()
 		if(battery)

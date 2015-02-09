@@ -16,7 +16,7 @@
 
 /obj/machinery/computer/HONKputer/Topic(href, href_list)
 	if(..())
-		return
+		return 1
 	if (src.z > 1)
 		usr << "\red <b>Unable to establish a connection</b>: \black You're too far away from the station!"
 		return

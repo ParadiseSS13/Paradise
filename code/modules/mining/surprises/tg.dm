@@ -130,7 +130,7 @@
 	spawntypes = list(
 		/obj/item/weapon/pickaxe/plasmacutter=1,
 		/obj/machinery/shieldgen=1,
-		/obj/item/weapon/cell/hyper=1
+		/obj/item/weapon/stock_parts/cell/hyper=1
 	)
 	fluffitems = list(
 		/obj/structure/table/reinforced=2,

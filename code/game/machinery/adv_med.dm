@@ -519,8 +519,8 @@
 	return
 
 /obj/machinery/body_scanconsole/Topic(href, href_list)
-	if(stat & (BROKEN|NOPOWER)) return
-	if(usr.stat || usr.restrained()) return
+	if(..())
+		return 1
 	
 	if (href_list["print_p"])
 		if (!(src.printing) && src.printing_text)

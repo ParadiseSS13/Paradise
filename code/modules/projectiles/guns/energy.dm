@@ -4,9 +4,9 @@
 	desc = "A basic energy-based gun."
 	fire_sound = 'sound/weapons/Taser.ogg'
 
-	var/obj/item/weapon/cell/power_supply //What type of power cell this uses
+	var/obj/item/weapon/stock_parts/cell/power_supply //What type of power cell this uses
 	var/charge_cost = 1000 //How much energy is needed to fire.
-	var/cell_type = "/obj/item/weapon/cell"
+	var/cell_type = "/obj/item/weapon/stock_parts/cell"
 	var/projectile_type = "/obj/item/projectile/beam"
 	var/modifystate
 
@@ -55,7 +55,7 @@
 
 /*
 	attackby(obj/item/weapon/W, mob/user)
-		if(istype(W, /obj/item/weapon/cell))
+		if(istype(W, /obj/item/weapon/stock_parts/cell))
 			if(!power_supply)
 				user.drop_item()
 				W.loc = src

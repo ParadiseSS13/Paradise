@@ -52,7 +52,7 @@
 	var/spooky=0
 	var/area/area
 	var/areastring = null
-	var/obj/item/weapon/cell/cell
+	var/obj/item/weapon/stock_parts/cell/cell
 	var/start_charge = 90				// initial cell charge %
 	var/cell_type = 2500				// 0=no cell, 1=regular, 2=high-cap (x5) <- old, now it's just 0=no cell, otherwise dictate cellcapacity by changing this value. 1 used to be 1000, 2 was 2500
 	var/opened = 0 //0=closed, 1=opened, 2=cover removed
@@ -142,7 +142,7 @@
 	has_electronics = 2 //installed and secured
 	// is starting with a power cell installed, create it and set its charge level
 	if(cell_type)
-		src.cell = new/obj/item/weapon/cell(src)
+		src.cell = new/obj/item/weapon/stock_parts/cell(src)
 		cell.maxcharge = cell_type	// cell_type is maximum charge (old default was 1000 or 2500 (values one and two respectively)
 		cell.charge = start_charge * cell.maxcharge / 100.0 		// (convert percentage to actual value)
 
@@ -399,7 +399,7 @@
 		else
 			opened = 1
 			update_icon()
-	else if	(istype(W, /obj/item/weapon/cell) && opened)	// trying to put a cell inside
+	else if	(istype(W, /obj/item/weapon/stock_parts/cell) && opened)	// trying to put a cell inside
 		if(cell)
 			user << "There is a power cell already installed."
 			return
@@ -805,6 +805,8 @@
 	if (user.stat && !isobserver(user))
 		user << "\red You must be conscious to use this [src]!"
 		return 0
+	if(stat & (NOPOWER|BROKEN))
+		return 0
 	if(!user.client)
 		return 0
 	if ( ! (istype(user, /mob/living/carbon/human) || \
@@ -849,36 +851,63 @@
 			user << "\red You momentarily forget how to use [src]."
 			return 0
 	return 1
+	
+/obj/machinery/power/apc/proc/is_authenticated(mob/user as mob)
+	if(isAI(user) || isrobot(user))
+		return 1
+	else
+		return !locked
 
 /obj/machinery/power/apc/Topic(href, href_list, var/usingUI = 1)
+	if(..())
+		return 1
+		
 	if(!can_use(usr, 1))
-		return 0
+		return 1
 
 	if (href_list["lock"])
+		if(!is_authenticated(usr))
+			return
+			
 		coverlocked = !coverlocked
 
 	else if (href_list["breaker"])
+		if(!is_authenticated(usr))
+			return
+			
 		toggle_breaker()
 
 	else if (href_list["cmode"])
+		if(!is_authenticated(usr))
+			return
+			
 		chargemode = !chargemode
 		if(!chargemode)
 			charging = 0
 			update_icon()
 
 	else if (href_list["eqp"])
+		if(!is_authenticated(usr))
+			return
+			
 		var/val = text2num(href_list["eqp"])
 		equipment = setsubsystem(val)
 		update_icon()
 		update()
 
 	else if (href_list["lgt"])
+		if(!is_authenticated(usr))
+			return
+			
 		var/val = text2num(href_list["lgt"])
 		lighting = setsubsystem(val)
 		update_icon()
 		update()
 
 	else if (href_list["env"])
+		if(!is_authenticated(usr))
+			return
+			
 		var/val = text2num(href_list["env"])
 		environ = setsubsystem(val)
 		update_icon()
@@ -893,7 +922,7 @@
 		return 0
 
 	else if (href_list["overload"])
-		if(istype(usr, /mob/living/silicon))
+		if(istype(usr, /mob/living/silicon) && !aidisabled)
 			src.overload_lighting()
 
 	else if (href_list["malfhack"])
@@ -931,13 +960,13 @@
 
 	else if (href_list["toggleaccess"])
 		if(istype(usr, /mob/living/silicon))
-			if(emagged || (stat & (BROKEN|MAINT)))
+			if(emagged || aidisabled || (stat & (BROKEN|MAINT)))
 				usr << "The APC does not respond to the command."
 			else
 				locked = !locked
 				update_icon()
 
-	return 1
+	return 0
 
 /obj/machinery/power/apc/proc/toggle_breaker()
 	operating = !operating

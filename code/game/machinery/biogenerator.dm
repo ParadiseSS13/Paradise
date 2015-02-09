@@ -298,7 +298,7 @@
 
 /obj/machinery/biogenerator/Topic(href, href_list)
 	if(..() || panel_open)
-		return
+		return 1
 
 	usr.set_machine(src)
 

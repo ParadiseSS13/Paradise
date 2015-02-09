@@ -220,7 +220,7 @@ var/syndicate_elite_shuttle_timeleft = 0
 
 /obj/machinery/computer/syndicate_elite_shuttle/Topic(href, href_list)
 	if(..())
-		return
+		return 1
 
 	if ((usr.contents.Find(src) || (in_range(src, usr) && istype(loc, /turf))) || (istype(usr, /mob/living/silicon)))
 		usr.set_machine(src)

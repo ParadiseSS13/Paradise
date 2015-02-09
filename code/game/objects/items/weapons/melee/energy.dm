@@ -54,7 +54,7 @@
 
 /obj/item/weapon/melee/energy/sword/cyborg/attack(mob/M, var/mob/living/silicon/robot/R)
 	if(R.cell)
-		var/obj/item/weapon/cell/C = R.cell
+		var/obj/item/weapon/stock_parts/cell/C = R.cell
 		if(active && !(C.use(hitcost)))
 			attack_self()
 			R << "<span class='notice'>It's out of charge!</span>"

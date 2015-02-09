@@ -186,6 +186,7 @@ var/MAX_EXPLOSION_RANGE = 14
 #define SLOT_DENYPOCKET 4096	//this is to deny items with a w_class of 2 or 1 to fit in pockets.
 #define SLOT_TWOEARS 8192
 #define SLOT_PDA 16384
+#define SLOT_TIE 32768
 
 
 //FLAGS BITMASK
@@ -271,6 +272,7 @@ var/MAX_EXPLOSION_RANGE = 14
 #define slot_legcuffed 19
 #define slot_r_ear 20
 #define slot_wear_pda 21
+#define slot_tie 22
 
 //Cant seem to find a mob bitflags area other than the powers one
 

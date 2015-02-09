@@ -20,6 +20,12 @@
 	// What reagents should be logged when transferred TO this object?
 	// Reagent ID => friendly name
 	var/list/reagents_to_log=list()
+	
+/obj/Topic(href, href_list, var/nowindow = 0)
+	// Calling Topic without a corresponding window open causes runtime errors
+	if(nowindow)
+		return 0
+	return ..()
 
 /obj/Destroy()
 	machines -= src

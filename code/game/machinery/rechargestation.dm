@@ -19,17 +19,20 @@
 	component_parts += new /obj/item/weapon/stock_parts/capacitor(src)
 	component_parts += new /obj/item/weapon/stock_parts/capacitor(src)
 	component_parts += new /obj/item/weapon/stock_parts/manipulator(src)
-	component_parts += new /obj/item/weapon/cell/high(src)
+	component_parts += new /obj/item/weapon/stock_parts/cell/high(src)
 	RefreshParts()
 	build_icon()
 
 /obj/machinery/recharge_station/upgraded/New()
 	..()
+	component_parts = list()
+	component_parts += new /obj/item/weapon/circuitboard/cyborgrecharger(src)
 	component_parts += new /obj/item/weapon/stock_parts/capacitor/super(src)
 	component_parts += new /obj/item/weapon/stock_parts/capacitor/super(src)
 	component_parts += new /obj/item/weapon/stock_parts/manipulator/pico(src)
-	component_parts += new /obj/item/weapon/cell/hyper(src)
+	component_parts += new /obj/item/weapon/stock_parts/cell/hyper(src)
 	RefreshParts()
+	build_icon()
 
 /obj/machinery/recharge_station/RefreshParts()
 	recharge_speed = 0
@@ -38,7 +41,7 @@
 		recharge_speed += C.rating * 100
 	for(var/obj/item/weapon/stock_parts/manipulator/M in component_parts)
 		repairs += M.rating - 1
-	for(var/obj/item/weapon/cell/C in component_parts)
+	for(var/obj/item/weapon/stock_parts/cell/C in component_parts)
 		recharge_speed *= C.maxcharge / 10000
 
 /obj/machinery/recharge_station/process()

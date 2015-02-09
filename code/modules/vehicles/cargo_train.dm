@@ -40,7 +40,7 @@
 //-------------------------------------------
 /obj/vehicle/train/cargo/engine/New()
 	..()
-	cell = new /obj/item/weapon/cell/high
+	cell = new /obj/item/weapon/stock_parts/cell/high
 	verbs -= /atom/movable/verb/pull
 	key = new()
 	var/image/I = new(icon = 'icons/obj/vehicles.dmi', icon_state = "cargo_engine_overlay", layer = src.layer + 0.2) //over mobs
@@ -82,10 +82,10 @@
 	else
 		icon_state = initial(icon_state)
 
-/obj/vehicle/train/cargo/trolley/insert_cell(var/obj/item/weapon/cell/C, var/mob/living/carbon/human/H)
+/obj/vehicle/train/cargo/trolley/insert_cell(var/obj/item/weapon/stock_parts/cell/C, var/mob/living/carbon/human/H)
 	return
 
-/obj/vehicle/train/cargo/engine/insert_cell(var/obj/item/weapon/cell/C, var/mob/living/carbon/human/H)
+/obj/vehicle/train/cargo/engine/insert_cell(var/obj/item/weapon/stock_parts/cell/C, var/mob/living/carbon/human/H)
 	..()
 	update_stats()
 

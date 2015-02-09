@@ -50,14 +50,14 @@
 	..(severity)
 
 /obj/machinery/space_heater/air_conditioner/attackby(obj/item/I, mob/user)
-	if(istype(I, /obj/item/weapon/cell))
+	if(istype(I, /obj/item/weapon/stock_parts/cell))
 		if(open)
 			if(cell)
 				user << "There is already a power cell inside."
 				return
 			else
 				// insert cell
-				var/obj/item/weapon/cell/C = usr.get_active_hand()
+				var/obj/item/weapon/stock_parts/cell/C = usr.get_active_hand()
 				if(istype(C))
 					user.drop_item()
 					cell = C
@@ -138,7 +138,7 @@
 
 			if("cellinstall")
 				if(open && !cell)
-					var/obj/item/weapon/cell/C = usr.get_active_hand()
+					var/obj/item/weapon/stock_parts/cell/C = usr.get_active_hand()
 					if(istype(C))
 						usr.drop_item()
 						cell = C

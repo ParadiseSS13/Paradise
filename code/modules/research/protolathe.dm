@@ -199,8 +199,9 @@ Note: Must be placed west/left of and R&D console to function.
 	busy = 0
 	src.updateUsrDialog()
 
-	src.overlays += "protolathe_[stack.name]"
-	sleep(10)
-	src.overlays -= "protolathe_[stack.name]"
+	if(stack)
+		src.overlays += "protolathe_[stack.name]"
+		sleep(10)
+		src.overlays -= "protolathe_[stack.name]"
 
 	return

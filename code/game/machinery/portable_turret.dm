@@ -233,7 +233,7 @@ Status: []<BR>"},
 
 /obj/machinery/porta_turret/Topic(href, href_list)
 	if (..())
-		return
+		return 1
 	usr.set_machine(src)
 	src.add_fingerprint(usr)
 	if ((href_list["power"]) && (src.allowed(usr)))

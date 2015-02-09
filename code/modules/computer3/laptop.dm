@@ -122,7 +122,7 @@
 
 	New(var/L, var/built = 0)
 		if(!built && !battery)
-			battery = new /obj/item/weapon/cell(src)
+			battery = new /obj/item/weapon/stock_parts/cell(src)
 		..(L,built)
 
 	verb/close_computer()
