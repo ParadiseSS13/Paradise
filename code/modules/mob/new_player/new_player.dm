@@ -529,7 +529,8 @@
 		if(client.prefs.disabilities & DISABILITY_FLAG_DEAF)
 			new_character.dna.SetSEState(DEAFBLOCK,1,1)
 			new_character.sdisabilities |= DEAF
-
+			
+		domutcheck(new_character)
 		new_character.dna.UpdateSE()
 
 

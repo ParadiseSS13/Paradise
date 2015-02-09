@@ -28,8 +28,11 @@
 	..()
 
 /obj/item/weapon/gun/energy/taser/cyborg/process() //Every [recharge_time] ticks, recharge a shot for the cyborg
+	if(power_supply.charge == power_supply.maxcharge)
+		return 0
 	charge_tick++
-	if(charge_tick < recharge_time) return 0
+	if(charge_tick < recharge_time)
+		return 0
 	charge_tick = 0
 
 	if(!power_supply) return 0 //sanity

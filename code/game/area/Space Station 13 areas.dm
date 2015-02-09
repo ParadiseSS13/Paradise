@@ -752,12 +752,12 @@ var/list/ghostteleportlocs = list()
 /area/prison/cell_block/C
 	name = "\improper Prison Cell Block C"
 	icon_state = "brig"
-	
+
 //Labor camp
 /area/mine/laborcamp
 	name = "Labor Camp"
 	icon_state = "brig"
-	
+
 /area/mine/laborcamp/security
 	name = "Labor Camp Security"
 	icon_state = "security"
@@ -829,7 +829,7 @@ var/list/ghostteleportlocs = list()
 /area/maintenance/aft
 	name = "Engineering Maintenance"
 	icon_state = "amaint"
-	
+
 /area/maintenance/engi_shuttle
 	name = "Engineering Shuttle Access"
 	icon_state = "maint_e_shuttle"
@@ -1316,7 +1316,7 @@ var/list/ghostteleportlocs = list()
 	music = "signal"
 
 /area/AIsattele
-	name = "\improper AI Satellite Teleporter Room"
+	name = "\improper Abandoned Teleporter"
 	icon_state = "teleporter"
 	music = "signal"
 
@@ -2057,11 +2057,11 @@ area/security/podbay
 /area/aisat
 	name = "\improper AI Satellite Exterior"
 	icon_state = "yellow"
-	
+
 /area/aisat/entrance
 	name = "\improper AI Satellite Entrance"
 	icon_state = "ai_foyer"
-	
+
 /area/aisat/maintenance
 	name = "\improper AI Satellite Maintenance"
 	icon_state = "storage"
@@ -2257,9 +2257,9 @@ area/security/podbay
 	luminosity = 1
 	lighting_use_dynamic = 0
 	requires_power = 0
-	
+
 ////////////////////////AWAY AREAS///////////////////////////////////
-	
+
 /area/awaycontent
 	name = "space"
 

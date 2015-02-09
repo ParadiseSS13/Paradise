@@ -192,7 +192,7 @@
 				var/area/wizard_station/A = locate()
 				if(usr in A.contents)
 					uses = max_uses
-					H.spellremove(usr)
+					H.spellremove(usr,0)
 					temp = "All spells have been removed. You may now memorize a new set of spells."
 					feedback_add_details("wizard_spell_learned","UM") //please do not change the abbreviation to keep data processing consistent. Add a unique id to any new spells
 				else
@@ -585,3 +585,10 @@
 	..()
 	user <<"<span class='warning'>[src] suddenly vanishes!</span>"
 	qdel(src)
+
+
+/obj/item/weapon/spellbook/oneuse/fake_gib
+	spell = /obj/effect/proc_holder/spell/wizard/targeted/fake_gib
+	spellname = "disintegrate"
+	icon_state ="bookfireball"
+	desc = "This book feels like it will rip stuff apart."

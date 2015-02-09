@@ -227,7 +227,7 @@ var/list/uplink_items = list()
 /datum/uplink_item/dangerous/crossbow
 	name = "Energy Crossbow"
 	desc = "A miniature energy crossbow that is small enough both to fit into a pocket and to slip into a backpack unnoticed by observers. Fires bolts tipped with toxin, a poisonous substance that is the product of a living organism. Stuns enemies for a short period of time. Recharges automatically."
-	item = /obj/item/weapon/gun/energy/crossbow
+	item = /obj/item/weapon/gun/energy/kinetic_accelerator/crossbow
 	cost = 12
 	excludefrom = list("nuclear emergency")
 
