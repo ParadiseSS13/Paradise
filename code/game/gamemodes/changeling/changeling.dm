@@ -105,7 +105,7 @@ var/list/possible_changeling_IDs = list("Alpha","Beta","Gamma","Delta","Epsilon"
 		changeling.objectives += debrain_objective
 
 	var/list/active_ais = active_ais()
-	if(active_ais.len && prob(100/(num_players()*3)))
+	if(active_ais.len && prob(10)) // num_players() proc is designed for roundstart, changed to fixed value to prevent problems with mid-round objective randomization.
 		var/datum/objective/destroy/destroy_objective = new
 		destroy_objective.owner = changeling
 		destroy_objective.find_target()
