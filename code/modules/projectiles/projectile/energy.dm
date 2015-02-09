@@ -72,7 +72,6 @@
 	nodamage = 0
 	weaken = 5
 	stutter = 5
-	range = 10
 
 /obj/item/projectile/energy/bolt/large
 	name = "largebolt"

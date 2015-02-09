@@ -527,7 +527,6 @@
 			src.printing = 1
 			for(var/mob/O in viewers(usr))
 				O.show_message("\blue \the [src] rattles and prints out a sheet of paper.", 1)
-			sleep(20)
 			var/obj/item/weapon/paper/P = new /obj/item/weapon/paper( src.loc )
 			P.info = "<CENTER><B>Body Scan - [href_list["name"]]</B></CENTER><BR>"
 			P.info += "<b>Time of scan:</b> [worldtime2text(world.time)]<br><br>"

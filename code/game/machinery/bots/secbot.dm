@@ -52,6 +52,13 @@
 	desc = "It's Officer Pingsky! Delegated to satellite guard duty for harbouring anti-human sentiment."
 	radio_frequency = AIPRIV_FREQ
 	radio_name = "AI Private"
+	
+/obj/machinery/bot/secbot/ofitser
+	name = "Prison Ofitser"
+	desc = "It's Prison Ofitser! Powered by the tears and sweat of prisoners."
+	idcheck = 0
+	weaponscheck = 1
+	auto_patrol = 1
 
 /obj/machinery/bot/secbot/buzzsky
 	name = "Officer Buzzsky"
@@ -79,7 +86,7 @@
 	icon_state = "[base_icon][on]"
 	spawn(3)
 
-		var/datum/job/detective/J = new/datum/job/detective
+		var/datum/job/officer/J = new/datum/job/officer
 		botcard.access = J.get_access()
 		prev_access = botcard.access
 		add_to_beacons(bot_filter)

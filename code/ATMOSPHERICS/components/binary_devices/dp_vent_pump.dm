@@ -10,6 +10,8 @@
 
 	level = 1
 
+	connect_types = list(1,2,3) //connects to regular, supply and scrubbers pipes	
+	
 	var/on = 0
 	var/pump_direction = 1 //0 = siphoning, 1 = releasing
 
@@ -69,8 +71,14 @@
 		if(T.intact && node1 && node2 && node1.level == 1 && node2.level == 1 && istype(node1, /obj/machinery/atmospherics/pipe) && istype(node2, /obj/machinery/atmospherics/pipe))
 			return
 		else
-			add_underlay(T, node1, turn(dir, -180))
-			add_underlay(T, node2, dir)
+			if (node1)
+				add_underlay(T, node1, turn(dir, -180), node1.icon_connect_type)
+			else
+				add_underlay(T, node1, turn(dir, -180))
+			if (node2)
+				add_underlay(T, node2, dir, node2.icon_connect_type)
+			else
+				add_underlay(T, node2, dir)
 
 /obj/machinery/atmospherics/binary/dp_vent_pump/hide(var/i)
 	update_icon()

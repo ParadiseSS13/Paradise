@@ -27,13 +27,17 @@
 		if(src.contents.len)
 
 			var/mob/living/M = locate() in contents
-
+			
 			var/obj/structure/closet/body_bag/B = locate() in contents
 			if(M==null) M = locate() in B
 
 			if(M)
+				var/mob/dead/observer/G = M.get_ghost()
+				
 				if(M.client)
 					src.icon_state = "morgue3"
+				else if(G && G.client) //There is a ghost and it is connected to the server
+					src.icon_state = "morgue5"
 				else
 					src.icon_state = "morgue2"
 
@@ -110,8 +114,10 @@
 		t = copytext(sanitize(t),1,MAX_MESSAGE_LEN)
 		if (t)
 			src.name = text("Morgue- '[]'", t)
+			src.overlays += image(src.icon, "morgue_label")
 		else
 			src.name = "Morgue"
+			src.overlays.Cut()
 	src.add_fingerprint(user)
 	return
 

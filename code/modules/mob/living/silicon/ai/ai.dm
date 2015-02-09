@@ -115,7 +115,7 @@ var/list/ai_list = list()
 
 	if(!safety)//Only used by AIize() to successfully spawn an AI.
 		if (!B)//If there is no player/brain inside.
-			new/obj/structure/AIcore/deactivated(loc)//New empty terminal.
+			empty_playable_ai_cores += new/obj/structure/AIcore/deactivated(loc)//New empty terminal.
 			del(src)//Delete AI.
 			return
 		else
@@ -337,7 +337,7 @@ var/list/ai_list = list()
 
 
 /mob/living/silicon/ai/proc/ai_cancel_call()
-	set category = "AI Commands"
+	set category = "Malfunction"
 	if(src.stat == 2)
 		src << "You can't send the shuttle back because you are dead!"
 		return

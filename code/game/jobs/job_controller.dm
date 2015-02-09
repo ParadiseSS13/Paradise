@@ -379,7 +379,7 @@ var/global/datum/controller/occupations/job_master
 
 
 	proc/EquipRank(var/mob/living/carbon/human/H, var/rank, var/joined_late = 0)
-		if(!H)	return 0
+		if(!H)	return null
 		var/datum/job/job = GetJob(rank)
 		if(job)
 			job.equip(H)
@@ -442,9 +442,10 @@ var/global/datum/controller/occupations/job_master
 
 			switch(rank)
 				if("Cyborg")
-					H.Robotize()
-					return 1
-				if("AI","Clown")	//don't need bag preference stuff!
+					return H.Robotize()
+				if("AI")
+					return H
+				if("Clown")	//don't need bag preference stuff!
 					if(rank=="Clown") // Clowns DO need to breathe, though - N3X
 						H.species.equip(H)
 				else
@@ -484,7 +485,7 @@ var/global/datum/controller/occupations/job_master
 		H.hud_updateflag |= (1 << ID_HUD)
 		H.hud_updateflag |= (1 << IMPLOYAL_HUD)
 		H.hud_updateflag |= (1 << SPECIALROLE_HUD)
-		return 1
+		return H
 
 
 	proc/spawnId(var/mob/living/carbon/human/H, rank, title)

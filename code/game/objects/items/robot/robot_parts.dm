@@ -194,7 +194,7 @@
 				user << "\red The frame's firmware lets out a shrill sound, and flashes 'Abnormal Memory Engram'. It refuses to accept the [W]."
 				return
 
-			if(jobban_isbanned(M.brainmob, "Cyborg"))
+			if(jobban_isbanned(M.brainmob, "Cyborg") || jobban_isbanned(M.brainmob,"nonhumandept"))
 				user << "\red This [W] does not seem to fit."
 				return
 

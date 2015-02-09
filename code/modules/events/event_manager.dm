@@ -172,11 +172,12 @@
 			var/datum/event_meta/EM = E.event_meta
 			var/ends_at = E.startedAt + (E.lastProcessAt() * master_controller.minimum_ticks)	// A best estimate
 			var/ends_in = max(0, round((ends_at - world.time) / 600, 0.1))
+			var/no_end = E.noAutoEnd
 			html += "<tr>"
 			html += "<td>[severity_to_string[EM.severity]]</td>"
 			html += "<td>[EM.name]</td>"
-			html += "<td>[worldtime2text(ends_at)]</td>"
-			html += "<td>[ends_in]</td>"
+			html += "<td>[no_end ? "N/A" : worldtime2text(ends_at)]</td>"
+			html += "<td>[no_end ? "N/A" : ends_in]</td>"
 			html += "<td><A align='right' href='?src=\ref[src];stop=\ref[E]'>Stop</A></td>"
 			html += "</tr>"
 		html += "</table>"

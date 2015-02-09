@@ -59,7 +59,7 @@
 	req_tech = list("programming" = 3, "biotech" = 2, "materials" = 4)
 	build_type = IMPRINTER
 	materials = list("$glass" = 1000, "sacid" = 20, "$gold" = 100)
-	build_path = /obj/item/weapon/aiModule/supplied/quarantine
+	build_path = /obj/item/weapon/aiModule/zeroth/quarantine
 	category = list("AI Modules")
 	
 /datum/design/reset_module

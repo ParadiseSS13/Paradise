@@ -184,13 +184,16 @@ AI MODULES
 
 /******************** Quarantine ********************/
 
-/obj/item/weapon/aiModule/supplied/quarantine
+/obj/item/weapon/aiModule/zeroth/quarantine
 	name = "'Quarantine' AI Module"
 	desc = "A 'quarantine' AI module: 'The station is under a quarantine. Do not permit anyone to leave. Prevent, by any means necessary, organics from leaving. It is impossible to harm an organic while preventing them from leaving.'"
 	origin_tech = "programming=3;biotech=2;materials=4"
 	laws = list("The station is under a quarantine. Do not permit anyone to leave. Prevent, by any means necessary, organics from leaving. It is impossible to harm an organic while preventing them from leaving.")
-	lawpos = 8
 
+/obj/item/weapon/aiModule/zeroth/quarantine/transmitInstructions(var/mob/living/silicon/ai/target, var/mob/sender)
+	if(..())
+		return "The AI's existing law 0 cannot be overriden."
+	return laws[1]
 
 /******************** OxygenIsToxicToHumans ********************/
 

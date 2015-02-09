@@ -314,8 +314,8 @@ emp_act
 		forcesay(hit_appends)	//forcesay checks stat already
 
 	if (I.damtype == BRUTE)
-		if((I.edge && prob(2 * I.force)) || (I.force > 20 && prob(I.force)))
-			if(affecting.brute_dam >= affecting.max_damage * config.organ_health_multiplier)
+		if((affecting.brute_dam + I.force) >= affecting.max_damage * config.organ_health_multiplier)
+			if(I.edge && prob(I.force))
 				affecting.dismember_limb()
 
 /*	//Melee weapon embedded object code. Commented out, as most people on the forums seem to find this annoying and think it does not contribute to general gameplay. - Dave

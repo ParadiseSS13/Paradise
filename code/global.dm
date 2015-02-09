@@ -167,6 +167,9 @@ var/list/monkeystart = list()
 var/list/wizardstart = list()
 var/list/newplayer_start = list()
 var/list/latejoin = list()
+var/list/latejoin_gateway = list()
+var/list/latejoin_cryo = list()
+var/list/latejoin_cyborg = list()
 var/list/prisonwarp = list()	//prisoners go to these
 var/list/holdingfacility = list()	//captured people go here
 var/list/xeno_spawn = list()//Aliens spawn at these.
@@ -330,3 +333,6 @@ var/global/list/alphabet_uppercase = list("A","B","C","D","E","F","G","H","I","J
 
 // AI controlled bots
 var/global/list/aibots = list()
+
+// Announcer intercom, because too much stuff creates an intercom for one message then hard del()s it.
+var/global/obj/item/device/radio/intercom/global_announcer = new(null)
