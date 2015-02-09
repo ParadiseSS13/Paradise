@@ -37,6 +37,8 @@
 		if(H.species.flags & IS_SYNTHETIC)
 			user << "<span class='warning'>This won't work on synthetics.</span>"
 			return
+		if(H.species.flags & NO_SCAN) //Prevents transforming slimes and killing them instantly
+			user << "<span class='warning'>This won't work on a creature with abnormal genetic material.</span>"
 	if(!isturf(user.loc))
 		return
 	if(get_dist(user, target) > (user.mind.changeling.sting_range))
