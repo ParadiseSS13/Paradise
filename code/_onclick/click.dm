@@ -209,6 +209,13 @@
 	A.point()
 	return
 
+/mob/living/carbon/MiddleClickOn(var/atom/A)
+	if(!src.stat && src.mind && src.mind.changeling && src.mind.changeling.chosen_sting && (istype(A, /mob/living/carbon)) && (A != src))
+		next_click = world.time + 5
+		mind.changeling.chosen_sting.try_to_sting(src, A)
+	else
+		A.point()
+
 // In case of use break glass
 /*
 /atom/proc/MiddleClick(var/mob/M as mob)
@@ -251,6 +258,13 @@
 	A.AltClick(src)
 	return
 
+/mob/living/carbon/AltClickOn(var/atom/A)
+	if(!src.stat && src.mind && src.mind.changeling && src.mind.changeling.chosen_sting && (istype(A, /mob/living/carbon)) && (A != src))
+		next_click = world.time + 5
+		mind.changeling.chosen_sting.try_to_sting(src, A)
+	else
+		..()
+
 /atom/proc/AltClick(var/mob/user)
 	var/turf/T = get_turf(src)
 	if(T && user.TurfAdjacent(T))
@@ -273,16 +287,16 @@
 	return
 
 /atom/proc/CtrlShiftClick(var/mob/user)
-	return	
+	return
 
 /mob/proc/AltShiftClickOn(var/atom/A)
 	A.AltShiftClick(src)
 	return
 
 /atom/proc/AltShiftClick(var/mob/user)
-	return	
-	
-	
+	return
+
+
 /*
 	Misc helpers
 

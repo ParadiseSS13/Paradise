@@ -163,7 +163,7 @@ var/global/list/bad_blocks[0]
 // Set a DNA UI block's raw value.
 /datum/dna/proc/SetUIValue(var/block,var/value,var/defer=0)
 	if (block<=0) return
-	ASSERT(value>=0)
+	ASSERT(value>0)
 	ASSERT(value<=4095)
 	UI[block]=value
 	dirtyUI=1
@@ -178,7 +178,10 @@ var/global/list/bad_blocks[0]
 // Set a DNA UI block's value, given a value and a max possible value.
 // Used in hair and facial styles (value being the index and maxvalue being the len of the hairstyle list)
 /datum/dna/proc/SetUIValueRange(var/block,var/value,var/maxvalue,var/defer=0)
-	if (block<=0) return
+	if (block<=0)
+		return
+	if(value == 0)
+		value = 1
 	ASSERT(maxvalue<=4095)
 	var/range = (4095 / maxvalue)
 	if(value)
