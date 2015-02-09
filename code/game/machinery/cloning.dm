@@ -44,7 +44,7 @@
 	component_parts += new /obj/item/stack/cable_coil(src, 1)
 	component_parts += new /obj/item/stack/cable_coil(src, 1)
 	RefreshParts()
-	
+
 /obj/machinery/clonepod/upgraded/New()
 	..()
 	component_parts = list()
@@ -66,7 +66,7 @@
 	for(var/obj/item/weapon/stock_parts/manipulator/P in component_parts)
 		speed_coeff += P.rating
 	heal_level = (efficiency * 15) + 10
-	
+
 //The return of data disks?? Just for transferring between genetics machine/cloning machine.
 //TO-DO: Make the genetics machine accept them.
 /obj/item/weapon/disk/data
@@ -261,9 +261,10 @@
 	H.dna.UpdateSE()
 	H.dna.UpdateUI()
 
+/* //let's not make people waste even more time after being cloned.
 	H.f_style = "Shaved"
 	if(R.dna.species == "Human") //no more xenos losing ears/tentacles
-		H.h_style = pick("Bedhead", "Bedhead 2", "Bedhead 3")
+		H.h_style = pick("Bedhead", "Bedhead 2", "Bedhead 3") */
 
 	H.set_species(R.dna.species)
 
@@ -336,8 +337,8 @@
 		return
 
 	if(exchange_parts(user, W))
-		return		
-		
+		return
+
 	if(istype(W, /obj/item/weapon/crowbar))
 		if(panel_open)
 			default_deconstruction_crowbar(W)
@@ -402,7 +403,7 @@
 	set name = "Eject Cloner"
 	set category = "Object"
 	set src in oview(1)
-	
+
 	if(!usr)
 		return
 	if (usr.stat != 0)
@@ -429,7 +430,7 @@
 
 	if (src.locked)
 		user << "<span class=\"warning\">The cloning pod is locked!</span>"
-		return	
+		return
 	/*
 	for(var/obj/O in src)
 		O.loc = src.loc
