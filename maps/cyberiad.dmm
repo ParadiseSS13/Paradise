@@ -5806,7 +5806,7 @@
 "chH" = (/obj/machinery/atmospherics/pipe/manifold/hidden/supply{dir = 4; initialize_directions = 11; level = 1},/obj/machinery/door/poddoor{density = 0; icon_state = "pdoor0"; id = "Biohazard"; name = "Biohazard Shutter"; opacity = 0},/turf/simulated/floor{icon_state = "white"},/area/toxins/xenobiology)
 "chI" = (/obj/structure/grille,/obj/structure/window/reinforced{dir = 1},/obj/structure/window/reinforced{dir = 4},/obj/structure/window/reinforced{dir = 8},/obj/structure/window/reinforced,/obj/machinery/door/firedoor/border_only,/turf/simulated/floor/plating,/area/toxins/xenobiology/xenoflora)
 "chJ" = (/obj/structure/cable{d1 = 1; d2 = 2; icon_state = "1-2"; tag = ""},/obj/structure/disposalpipe/segment,/turf/simulated/floor{dir = 10; icon_state = "whitegreen"},/area/toxins/xenobiology/xenoflora)
-"chK" = (/obj/machinery/atmospherics/pipe/simple/visible{dir = 4},/turf/simulated/floor{dir = 2; icon_state = "whitegreen"},/area/toxins/xenobiology/xenoflora)
+"chK" = (/obj/machinery/atmospherics/pipe/simple/visible{dir = 5},/turf/simulated/floor{dir = 2; icon_state = "whitegreen"},/area/toxins/xenobiology/xenoflora)
 "chL" = (/obj/machinery/atmospherics/pipe/manifold/visible,/turf/simulated/floor{dir = 2; icon_state = "whitegreen"},/area/toxins/xenobiology/xenoflora)
 "chM" = (/obj/machinery/atmospherics/pipe/manifold/visible{dir = 4; initialize_directions = 11; level = 2},/turf/simulated/floor{dir = 6; icon_state = "whitegreen"},/area/toxins/xenobiology/xenoflora)
 "chN" = (/turf/simulated/floor,/area/toxins/xenobiology/xenoflora)
