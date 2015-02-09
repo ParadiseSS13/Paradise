@@ -351,22 +351,6 @@ Class Procs:
 							user << "<span class='notice'>[A.name] replaced with [B.name].</span>"
 							shouldplaysound = 1
 							break
-			// Power cell snowflake
-			for(var/obj/item/weapon/cell/A in component_parts)
-				for(var/D in CB.req_components)
-					if(ispath(A.type, D))
-						P = D
-						break
-				for(var/obj/item/weapon/cell/B in W.contents)
-					if(istype(B, P) && istype(A, P))
-						if(B.rating > A.rating)
-							W.remove_from_storage(B, src)
-							W.handle_item_insertion(A, 1)
-							component_parts -= A
-							component_parts += B
-							B.loc = null
-							user << "<span class='notice'>[A.name] replaced with [B.name].</span>"
-							break
 			RefreshParts()
 		else
 			user << "<span class='notice'>Following parts detected in the machine:</span>"

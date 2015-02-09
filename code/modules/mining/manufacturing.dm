@@ -814,7 +814,7 @@
 
 /datum/manufacture/powercell
 	name = "Power Cell"
-	item = /obj/item/weapon/cell
+	item = /obj/item/weapon/stock_parts/cell
 	cost1 = /obj/item/weapon/ore/iron
 	cname1 = "Iron"
 	amount1 = 4

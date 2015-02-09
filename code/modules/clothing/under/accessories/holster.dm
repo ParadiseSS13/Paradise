@@ -20,7 +20,10 @@
 		
 /obj/item/clothing/accessory/holster/attack_self()
 	var/holsteritem = usr.get_active_hand()
-	holster(holsteritem, usr)
+	if(!holstered)
+		holster(holsteritem, usr)
+	else
+		unholster(usr)
 
 /obj/item/clothing/accessory/holster/proc/holster(obj/item/I, mob/user as mob)
 	if(holstered)

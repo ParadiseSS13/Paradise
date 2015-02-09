@@ -7,7 +7,7 @@
 	fire_sound = 'sound/weapons/pulse.ogg'
 	charge_cost = 200
 	projectile_type = "/obj/item/projectile/beam/pulse"
-	cell_type = "/obj/item/weapon/cell/super"
+	cell_type = "/obj/item/weapon/stock_parts/cell/super"
 	var/mode = 2
 	slot_flags = SLOT_BACK
 	w_class = 4.0
@@ -52,7 +52,7 @@
 /obj/item/weapon/gun/energy/pulse_rifle/destroyer
 	name = "pulse destroyer"
 	desc = "A heavy-duty, pulse-based energy weapon."
-	cell_type = "/obj/item/weapon/cell/infinite"
+	cell_type = "/obj/item/weapon/stock_parts/cell/infinite"
 
 	attack_self(mob/living/user as mob)
 		user << "\red [src.name] has three settings, and they are all DESTROY."
@@ -63,7 +63,7 @@
 	name = "m1911-P"
 	desc = "It's not the size of the gun, it's the size of the hole it puts through people."
 	icon_state = "m1911-p"
-	cell_type = "/obj/item/weapon/cell/infinite"
+	cell_type = "/obj/item/weapon/stock_parts/cell/infinite"
 	w_class = 3.0
 	slot_flags = SLOT_BELT
 	isHandgun()

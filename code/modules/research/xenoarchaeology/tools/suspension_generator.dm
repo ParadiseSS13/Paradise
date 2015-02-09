@@ -5,7 +5,7 @@
 	icon_state = "suspension2"
 	density = 1
 	req_access = list(access_research)
-	var/obj/item/weapon/cell/cell
+	var/obj/item/weapon/stock_parts/cell/cell
 	var/obj/item/weapon/card/id/auth_card
 	var/locked = 1
 	var/open = 0
@@ -16,7 +16,7 @@
 	var/list/secured_mobs = list()
 
 /obj/machinery/suspension_gen/New()
-	src.cell = new/obj/item/weapon/cell/high(src)
+	src.cell = new/obj/item/weapon/stock_parts/cell/high(src)
 	..()
 
 /obj/machinery/suspension_gen/process()
@@ -205,7 +205,7 @@
 				desc = "It has stubby legs bolted up against it's body for stabilising."
 		else
 			user << "<span class='warning'>You are unable to secure [src] while it is active!</span>"
-	else if (istype(W, /obj/item/weapon/cell))
+	else if (istype(W, /obj/item/weapon/stock_parts/cell))
 		if(open)
 			if(cell)
 				user << "<span class='warning'>There is a power cell already installed.</span>"

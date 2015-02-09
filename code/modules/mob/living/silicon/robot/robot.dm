@@ -30,7 +30,7 @@
 
 	var/obj/item/device/radio/borg/radio = null
 	var/mob/living/silicon/ai/connected_ai = null
-	var/obj/item/weapon/cell/cell = null
+	var/obj/item/weapon/stock_parts/cell/cell = null
 	var/obj/machinery/camera/camera = null
 
 	// Components are basically robot organs.
@@ -95,7 +95,7 @@
 		mmi.icon_state="posibrain-occupied"
 	if(syndie)
 		if(!cell)
-			cell = new /obj/item/weapon/cell(src)
+			cell = new /obj/item/weapon/stock_parts/cell(src)
 			laws = new /datum/ai_laws/antimov()
 		lawupdate = 0
 		scrambledcodes = 1
@@ -124,7 +124,7 @@
 		C.wrapped = new C.external_type
 
 	if(!cell)
-		cell = new /obj/item/weapon/cell(src)
+		cell = new /obj/item/weapon/stock_parts/cell(src)
 		cell.maxcharge = 7500
 		cell.charge = 7500
 
@@ -752,7 +752,7 @@
 				opened = 1
 				updateicon()
 
-	else if (istype(W, /obj/item/weapon/cell) && opened)	// trying to put a cell inside
+	else if (istype(W, /obj/item/weapon/stock_parts/cell) && opened)	// trying to put a cell inside
 		var/datum/robot_component/C = components["power cell"]
 		if(wiresexposed)
 			user << "Close the panel first."

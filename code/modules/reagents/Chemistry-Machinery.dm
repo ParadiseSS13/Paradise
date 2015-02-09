@@ -65,7 +65,7 @@
 		options[/obj/item/weapon/stock_parts/console_screen] = "Replace the console screen to fix it."
 		options[/obj/item/weapon/stock_parts/manipulator/pico] = "Upgrade to a pico manipulator to fix it."
 		options[/obj/item/weapon/stock_parts/matter_bin/super] = "Give it a super matter bin to fix it."
-		options[/obj/item/weapon/cell/super] = "Replace the reagent synthesizer with a super capacity cell to fix it."
+		options[/obj/item/weapon/stock_parts/cell/super] = "Replace the reagent synthesizer with a super capacity cell to fix it."
 		options[/obj/item/device/mass_spectrometer/adv] = "Replace the reagent scanner with an advanced mass spectrometer to fix it"
 		options[/obj/item/weapon/stock_parts/micro_laser/high] = "Repair the reagent synthesizer with an high-power micro-laser to fix it"
 		options[/obj/item/device/reagent_scanner/adv] = "Replace the reagent scanner with an advanced reagent scanner to fix it"
@@ -290,7 +290,7 @@
 	component_parts += new /obj/item/weapon/stock_parts/manipulator(src)
 	component_parts += new /obj/item/weapon/stock_parts/capacitor(src)
 	component_parts += new /obj/item/weapon/stock_parts/console_screen(src)
-	component_parts += new /obj/item/weapon/cell/super(src)
+	component_parts += new /obj/item/weapon/stock_parts/cell/super(src)
 	RefreshParts()
 
 /obj/machinery/chem_dispenser/constructable/RefreshParts()
@@ -303,7 +303,7 @@
 	max_energy = temp_energy * 5  //max energy = (bin1.rating + bin2.rating - 1) * 5, 5 on lowest 25 on highest
 	for(var/obj/item/weapon/stock_parts/capacitor/C in component_parts)
 		time += C.rating
-	for(var/obj/item/weapon/cell/P in component_parts)
+	for(var/obj/item/weapon/stock_parts/cell/P in component_parts)
 		time += round(P.maxcharge, 10000) / 10000
 	recharge_delay /= time/2         //delay between recharges, double the usual time on lowest 50% less than usual on highest
 	for(var/obj/item/weapon/stock_parts/manipulator/M in component_parts)

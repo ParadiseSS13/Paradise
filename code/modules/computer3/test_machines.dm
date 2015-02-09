@@ -12,7 +12,7 @@
 						/obj/item/part/computer/cardslot/dual,/obj/item/part/computer/networking/area)
 	New(var/L,var/built=0)
 		if(!built && !battery)
-			battery = new /obj/item/weapon/cell(src)
+			battery = new /obj/item/weapon/stock_parts/cell(src)
 		..(L,built)
 
 /obj/machinery/computer3/laptop/testing
@@ -28,7 +28,7 @@
 						/obj/item/part/computer/cardslot/dual,/obj/item/part/computer/networking/area)
 	New(var/L,var/built=0)
 		if(!built && !battery)
-			battery = new /obj/item/weapon/cell/super(src)
+			battery = new /obj/item/weapon/stock_parts/cell/super(src)
 		..(L,built)
 
 /obj/machinery/computer3/wall_comp/testing
@@ -44,7 +44,7 @@
 						/obj/item/part/computer/cardslot/dual,/obj/item/part/computer/networking/area)
 	New(var/L,var/built=0)
 		if(!built && !battery)
-			battery = new /obj/item/weapon/cell(src)
+			battery = new /obj/item/weapon/stock_parts/cell(src)
 		..(L,built)
 
 /obj/machinery/computer3/server/testing
@@ -60,7 +60,7 @@
 						/obj/item/part/computer/cardslot/dual,/obj/item/part/computer/networking/area)
 	New(var/L,var/built=0)
 		if(!built && !battery)
-			battery = new /obj/item/weapon/cell(src)
+			battery = new /obj/item/weapon/stock_parts/cell(src)
 		..(L,built)
 
 /obj/machinery/computer3/server/rack/testing
@@ -76,7 +76,7 @@
 						/obj/item/part/computer/cardslot/dual,/obj/item/part/computer/networking/area)
 	New(var/L,var/built=0)
 		if(!built && !battery)
-			battery = new /obj/item/weapon/cell(src)
+			battery = new /obj/item/weapon/stock_parts/cell(src)
 		..(L,built)
 
 /obj/item/weapon/storage/box/testing_disks
