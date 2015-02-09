@@ -284,6 +284,38 @@ modules/mob/living/carbon/human/life.dm if you die, you will be zoomed out.
 	cell_type = "/obj/item/weapon/cell"
 	charge_cost = 500
 
+/obj/item/weapon/gun/energy/disabler/cyborg
+	name = "cyborg disabler"
+	desc = "An integrated disabler that draws from a cyborg's power cell. This weapon contains a limiter to prevent the cyborg's power cell from overheating."
+	var/charge_tick = 0
+	var/recharge_time = 2.5
+
+/obj/item/weapon/gun/energy/disabler/cyborg/New()
+	..()
+	processing_objects.Add(src)
+
+
+/obj/item/weapon/gun/energy/disabler/cyborg/Destroy()
+	processing_objects.Remove(src)
+	..()
+
+/obj/item/weapon/gun/energy/disabler/cyborg/process() //Every [recharge_time] ticks, recharge a shot for the cyborg
+	if(power_supply.charge == power_supply.maxcharge)
+		return 0
+	charge_tick++
+	if(charge_tick < recharge_time)
+		return 0
+	charge_tick = 0
+
+	if(!power_supply) return 0 //sanity
+	if(isrobot(src.loc))
+		var/mob/living/silicon/robot/R = src.loc
+		if(R && R.cell)
+			if(R.cell.use(charge_cost)) 		//Take power from the borg...
+				power_supply.give(charge_cost)	//... to recharge the shot
+
+	update_icon()
+	return 1
 
 
 /* 3d printer 'pseudo guns' for borgs */

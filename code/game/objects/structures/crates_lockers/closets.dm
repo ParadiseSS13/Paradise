@@ -12,6 +12,7 @@
 	var/wall_mounted = 0 //never solid (You can always pass over it)
 	var/health = 100
 	var/lastbang
+	var/sound = 'sound/machines/click.ogg'
 	var/storage_capacity = 30 //This is so that someone can't pack hundreds of items in a locker/crate
 							  //then open it in a populated area to crash clients.
 
@@ -71,10 +72,8 @@
 
 	src.icon_state = src.icon_opened
 	src.opened = 1
-	if(istype(src, /obj/structure/closet/body_bag))
-		playsound(src.loc, 'sound/items/zip.ogg', 15, 1, -3)
-	if(istype(src,/obj/structure/closet/coffin/sarcophagus))
-		playsound(src.loc, 'sound/effects/stonedoor_openclose.ogg', 15, 1, -3)
+	if(sound)
+		playsound(src.loc, src.sound, 15, 1, -3)
 	else
 		playsound(src.loc, 'sound/machines/click.ogg', 15, 1, -3)
 	density = 0
@@ -119,10 +118,8 @@
 
 	src.icon_state = src.icon_closed
 	src.opened = 0
-	if(istype(src, /obj/structure/closet/body_bag))
-		playsound(src.loc, 'sound/items/zip.ogg', 15, 1, -3)
-	if(istype(src,/obj/structure/closet/coffin/sarcophagus))
-		playsound(src.loc, 'sound/effects/stonedoor_openclose.ogg', 15, 1, -3)
+	if(sound)
+		playsound(src.loc, src.sound, 15, 1, -3)
 	else
 		playsound(src.loc, 'sound/machines/click.ogg', 15, 1, -3)
 	density = 1

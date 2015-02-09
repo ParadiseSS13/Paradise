@@ -49,7 +49,6 @@
 	NERVOUSBLOCK       = getAssignedBlock("NERVOUS",       numsToAssign)
 
 	// Bay muts
-	HEADACHEBLOCK      = getAssignedBlock("HEADACHE",      numsToAssign)
 	NOBREATHBLOCK      = getAssignedBlock("NOBREATH",      numsToAssign, DNA_HARD_BOUNDS, good=1)
 	REMOTEVIEWBLOCK    = getAssignedBlock("REMOTEVIEW",    numsToAssign, DNA_HARDER_BOUNDS, good=1)
 	REGENERATEBLOCK    = getAssignedBlock("REGENERATE",    numsToAssign, DNA_HARDER_BOUNDS, good=1)
