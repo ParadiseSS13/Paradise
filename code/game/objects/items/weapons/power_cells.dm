@@ -1,4 +1,4 @@
-/obj/item/weapon/cell
+/obj/item/weapon/stock_parts/cell
 	name = "power cell"
 	desc = "A rechargable electrochemical power cell."
 	icon = 'icons/obj/power.dmi'
@@ -13,7 +13,7 @@
 	w_class = 3.0
 	var/charge = 0	// note %age conveted to actual charge in New
 	var/maxcharge = 10000
-	var/rating = 1
+	rating = 1
 	m_amt = 700
 	g_amt = 50
 	var/rigged = 0		// true if rigged to explode
@@ -25,7 +25,7 @@
 		viewers(user) << "<span class='suicide'>[user] is licking the electrodes of the [src.name]! It looks like \he's trying to commit suicide.</span>"
 		return (FIRELOSS)
 
-/obj/item/weapon/cell/crap
+/obj/item/weapon/stock_parts/cell/crap
 	name = "\improper Nanotrasen brand rechargable AA battery"
 	desc = "You can't top the plasma top." //TOTALLY TRADEMARK INFRINGEMENT
 	origin_tech = "powerstorage=0"
@@ -33,22 +33,22 @@
 	rating = 2
 	g_amt = 40
 
-/obj/item/weapon/cell/crap/empty/New()
+/obj/item/weapon/stock_parts/cell/crap/empty/New()
 	..()
 	charge = 0
 
-/obj/item/weapon/cell/secborg
+/obj/item/weapon/stock_parts/cell/secborg
 	name = "\improper Security borg rechargable D battery"
 	origin_tech = "powerstorage=0"
 	maxcharge = 6000	//6000 max charge / 1000 charge per shot = six shots
 	rating = 2.5
 	g_amt = 40
 
-/obj/item/weapon/cell/secborg/empty/New()
+/obj/item/weapon/stock_parts/cell/secborg/empty/New()
 	..()
 	charge = 0
 
-/obj/item/weapon/cell/high
+/obj/item/weapon/stock_parts/cell/high
 	name = "high-capacity power cell"
 	origin_tech = "powerstorage=2"
 	icon_state = "hcell"
@@ -56,11 +56,11 @@
 	rating = 3
 	g_amt = 60
 
-/obj/item/weapon/cell/high/empty/New()
+/obj/item/weapon/stock_parts/cell/high/empty/New()
 	..()
 	charge = 0
 
-/obj/item/weapon/cell/super
+/obj/item/weapon/stock_parts/cell/super
 	name = "super-capacity power cell"
 	origin_tech = "powerstorage=5"
 	icon_state = "scell"
@@ -69,11 +69,11 @@
 	rating = 4
 	construction_cost = list("metal"=750,"glass"=100)
 
-/obj/item/weapon/cell/super/empty/New()
+/obj/item/weapon/stock_parts/cell/super/empty/New()
 	..()
 	charge = 0
 
-/obj/item/weapon/cell/hyper
+/obj/item/weapon/stock_parts/cell/hyper
 	name = "hyper-capacity power cell"
 	origin_tech = "powerstorage=6"
 	icon_state = "hpcell"
@@ -82,11 +82,11 @@
 	g_amt = 80
 	construction_cost = list("metal"=500,"glass"=150,"gold"=200,"silver"=200)
 
-/obj/item/weapon/cell/hyper/empty/New()
+/obj/item/weapon/stock_parts/cell/hyper/empty/New()
 	..()
 	charge = 0
 
-/obj/item/weapon/cell/infinite
+/obj/item/weapon/stock_parts/cell/infinite
 	name = "infinite-capacity power cell!"
 	icon_state = "icell"
 	origin_tech =  null
@@ -96,7 +96,7 @@
 	use()
 		return 1
 
-/obj/item/weapon/cell/potato
+/obj/item/weapon/stock_parts/cell/potato
 	name = "potato battery"
 	desc = "A rechargable starch based power cell."
 	origin_tech = "powerstorage=1"
@@ -110,7 +110,7 @@
 	minor_fault = 1
 
 
-/obj/item/weapon/cell/slime
+/obj/item/weapon/stock_parts/cell/slime
 	name = "charged slime core"
 	desc = "A yellow slime core infused with plasma, it crackles with power."
 	origin_tech = "powerstorage=2;biotech=4"

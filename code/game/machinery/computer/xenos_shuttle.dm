@@ -123,6 +123,9 @@
 
 
 /obj/machinery/computer/xenos_station/Topic(href, href_list)
+	if(..())
+		return 1
+		
 	if(!isliving(usr))	return
 	var/mob/living/user = usr
 

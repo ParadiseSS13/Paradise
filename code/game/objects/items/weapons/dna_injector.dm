@@ -476,7 +476,7 @@
 	value = 0xFFF
 	//block = 3
 	New()
-		block = HEADACHEBLOCK
+		block = EPILEPSYBLOCK
 		..()
 
 /obj/item/weapon/dnainjector/antiepi
@@ -486,7 +486,7 @@
 	value = 0x001
 	//block = 3
 	New()
-		block = HEADACHEBLOCK
+		block = EPILEPSYBLOCK
 		..()
 
 /obj/item/weapon/dnainjector/anticough

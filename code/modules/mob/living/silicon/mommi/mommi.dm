@@ -40,7 +40,7 @@ They can only use one tool at a time, they can't choose modules, and they have 1
 	updateicon()
 
 	if(!cell)
-		cell = new /obj/item/weapon/cell(src)
+		cell = new /obj/item/weapon/stock_parts/cell(src)
 		cell.maxcharge = 7500
 		cell.charge = 7500
 	..()
@@ -190,7 +190,7 @@ They can only use one tool at a time, they can't choose modules, and they have 1
 				opened = 1
 				updateicon()
 
-	else if (istype(W, /obj/item/weapon/cell) && opened)	// trying to put a cell inside
+	else if (istype(W, /obj/item/weapon/stock_parts/cell) && opened)	// trying to put a cell inside
 		if(wiresexposed)
 			user << "Close the panel first."
 		else if(cell)

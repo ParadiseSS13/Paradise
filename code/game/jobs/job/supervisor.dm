@@ -20,7 +20,7 @@
 			if(4) H.equip_or_collect(new /obj/item/weapon/storage/backpack/satchel(H), slot_back)
 		H.equip_or_collect(new /obj/item/weapon/storage/box/survival(H.back), slot_in_backpack)
 		var/obj/item/clothing/under/U = new /obj/item/clothing/under/rank/captain(H)
-		U.hastie = new /obj/item/clothing/tie/medal/gold/captain(U)
+		U.accessories += new /obj/item/clothing/accessory/medal/gold/captain(U)
 		H.equip_or_collect(U, slot_w_uniform)
 		H.equip_or_collect(new /obj/item/device/pda/captain(H), slot_wear_pda)
 		H.equip_or_collect(new /obj/item/clothing/suit/armor/vest/capcarapace(H), slot_wear_suit)

@@ -12,7 +12,7 @@
 	attack_verb = list("beaten")
 	var/stunforce = 7
 	var/status = 0
-	var/obj/item/weapon/cell/high/bcell = null
+	var/obj/item/weapon/stock_parts/cell/high/bcell = null
 	var/hitcost = 1500
 
 /obj/item/weapon/melee/baton/suicide_act(mob/user)
@@ -25,7 +25,7 @@
 	return
 
 /obj/item/weapon/melee/baton/CheckParts()
-	bcell = locate(/obj/item/weapon/cell) in contents
+	bcell = locate(/obj/item/weapon/stock_parts/cell) in contents
 	update_icon()
 
 /obj/item/weapon/melee/baton/loaded/New() //this one starts with a cell pre-installed.
@@ -61,8 +61,8 @@
 		user <<"<span class='warning'>The baton does not have a power source installed.</span>"
 
 /obj/item/weapon/melee/baton/attackby(obj/item/weapon/W, mob/user)
-	if(istype(W, /obj/item/weapon/cell))
-		var/obj/item/weapon/cell/C = W
+	if(istype(W, /obj/item/weapon/stock_parts/cell))
+		var/obj/item/weapon/stock_parts/cell/C = W
 		if(bcell)
 			user << "<span class='notice'>[src] already has a cell.</span>"
 		else

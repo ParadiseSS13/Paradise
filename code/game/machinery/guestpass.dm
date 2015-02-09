@@ -105,7 +105,7 @@
 
 /obj/machinery/computer/guestpass/Topic(href, href_list)
 	if(..())
-		return
+		return 1
 	usr.set_machine(src)
 	if (href_list["mode"])
 		mode = text2num(href_list["mode"])

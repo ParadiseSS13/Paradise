@@ -727,8 +727,40 @@
 		wires.Interact(user)
 	if(!shorted)
 		ui_interact(user)
+		
+/obj/machinery/alarm/proc/can_use(mob/user as mob)
+	if (user.stat && !isobserver(user))
+		user << "\red You must be conscious to use this [src]!"
+		return 0
+		
+	if(stat & (NOPOWER|BROKEN))
+		return 0
+		
+	if(buildstage != 2)
+		return 0
+
+	if((get_dist(src, user) > 1) && !istype(user, /mob/living/silicon))
+		return 0
+
+	if(istype(user, /mob/living/silicon) && aidisabled)
+		user << "AI control for this air alarm interface has been disabled."
+		return 0
+
+	return 1
+	
+/obj/machinery/alarm/proc/is_authenticated(mob/user as mob)
+	if(isAI(user) || isrobot(user))
+		return 1
+	else
+		return !locked
 
 /obj/machinery/alarm/Topic(href, href_list)
+	if(..())
+		return 1
+		
+	if(!can_use(usr))
+		return 1
+
 	var/changed=0
 
 	if(href_list["rcon"])
@@ -747,6 +779,9 @@
 
 	//testing(href)
 	if(href_list["command"])
+		if(!is_authenticated(usr))
+			return
+			
 		var/device_id = href_list["id_tag"]
 		switch(href_list["command"])
 			if( "power",
@@ -832,11 +867,17 @@
 				return 1
 
 	if(href_list["screen"])
+		if(!is_authenticated(usr))
+			return
+			
 		screen = text2num(href_list["screen"])
 		ui_interact(usr)
 		return 1
 
 	if(href_list["atmos_alarm"])
+		if(!is_authenticated(usr))
+			return
+			
 		alarmActivated=1
 		alarm_area.updateDangerLevel()
 		update_icon()
@@ -844,6 +885,9 @@
 		return 1
 
 	if(href_list["atmos_reset"])
+		if(!is_authenticated(usr))
+			return
+			
 		alarmActivated=0
 		alarm_area.updateDangerLevel()
 		update_icon()
@@ -851,12 +895,18 @@
 		return 1
 
 	if(href_list["mode"])
+		if(!is_authenticated(usr))
+			return
+			
 		mode = text2num(href_list["mode"])
 		apply_mode()
 		ui_interact(usr)
 		return 1
 
 	if(href_list["preset"])
+		if(!is_authenticated(usr))
+			return
+			
 		preset = text2num(href_list["preset"])
 		apply_preset()
 		ui_interact(usr)
@@ -968,7 +1018,7 @@
 				playsound(get_turf(src), 'sound/items/Ratchet.ogg', 50, 1)
 				del(src)
 
-	return ..()
+	return 0
 
 /obj/machinery/alarm/power_change()
 	if(powered(power_channel))

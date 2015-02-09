@@ -22,6 +22,7 @@
 	var/allow_quick_gather	//Set this variable to allow the object to have the 'toggle mode' verb, which quickly collects all items from a tile.
 	var/collection_mode = 1;  //0 = pick one at a time, 1 = pick all on tile
 	var/foldable = null	// BubbleWrap - if set, can be folded (when empty) into a sheet of cardboard
+	var/use_sound = "rustle"	//sound played when used. null for no sound.
 
 /obj/item/weapon/storage/MouseDrop(obj/over_object as obj)
 	if (ishuman(usr) || ismonkey(usr)) //so monkeys can take off their backpacks -- Urist
@@ -100,6 +101,15 @@
 	if(user.s_active == src)
 		user.s_active = null
 	return
+	
+/obj/item/weapon/storage/proc/open(mob/user as mob)
+	if (src.use_sound)
+		playsound(src.loc, src.use_sound, 50, 1, -5)
+
+	orient2hud(user)
+	if (user.s_active)
+		user.s_active.close(user)
+	show_to(user)
 
 /obj/item/weapon/storage/proc/close(mob/user as mob)
 
@@ -450,6 +460,39 @@
 	del(src)
 //BubbleWrap END
 
+//Returns the storage depth of an atom. This is the number of storage items the atom is contained in before reaching toplevel (the area).
+//Returns -1 if the atom was not found on container.
+/atom/proc/storage_depth(atom/container)
+	var/depth = 0
+	var/atom/cur_atom = src
+	
+	while (cur_atom && !(cur_atom in container.contents))
+		if (isarea(cur_atom))
+			return -1
+		if (istype(cur_atom.loc, /obj/item/weapon/storage))
+			depth++
+		cur_atom = cur_atom.loc
+	
+	if (!cur_atom)
+		return -1	//inside something with a null loc.
+	
+	return depth
 
-
-
+//Like storage depth, but returns the depth to the nearest turf
+//Returns -1 if no top level turf (a loc was null somewhere, or a non-turf atom's loc was an area somehow).
+/atom/proc/storage_depth_turf()
+	var/depth = 0
+	var/atom/cur_atom = src
+	
+	while (cur_atom && !isturf(cur_atom))
+		if (isarea(cur_atom))
+			return -1
+		if (istype(cur_atom.loc, /obj/item/weapon/storage))
+			depth++
+		cur_atom = cur_atom.loc
+	
+	if (!cur_atom)
+		return -1	//inside something with a null loc.
+	
+	return depth
+	

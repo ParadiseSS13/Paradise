@@ -144,7 +144,7 @@
 
 /obj/machinery/programmable/Topic(href, href_list)
 	if(..())
-		return
+		return 1
 	usr.set_machine(src)
 	add_fingerprint(usr)
 	switch(href_list["operation"])

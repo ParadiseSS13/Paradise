@@ -98,7 +98,7 @@
 
 /obj/machinery/computer/atmos_alert/Topic(href, href_list)
 	if(..())
-		return
+		return 1
 
 	if(href_list["priority_clear"])
 		var/removing_zone = href_list["priority_clear"]
