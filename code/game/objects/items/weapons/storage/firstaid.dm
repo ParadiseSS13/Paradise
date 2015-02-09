@@ -198,7 +198,7 @@
 
 /obj/item/weapon/storage/pill_bottle/inaprovaline
 	name = "Pill bottle (inaprovaline)"
-	desc = "Contains pills used to stabilize paaccessorynts."
+	desc = "Contains pills used to stabilize patients."
 
 	New()
 		..()
