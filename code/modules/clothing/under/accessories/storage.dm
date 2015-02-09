@@ -7,6 +7,7 @@
 	var/slots = 3
 	var/obj/item/weapon/storage/internal/hold
 	icon_action_button = "action_storage"
+	w_class = 3.0 // so it doesn't fit in pockets
 
 /obj/item/clothing/accessory/storage/New()
 	..()
@@ -52,7 +53,7 @@
 
 /obj/item/clothing/accessory/storage/webbing
 	name = "webbing"
-	desc = "Strudy mess of synthcotton belts and buckles, ready to share your burden."
+	desc = "Sturdy mess of synthcotton belts and buckles, ready to share your burden."
 	icon_state = "webbing"
 	_color = "webbing"
 
