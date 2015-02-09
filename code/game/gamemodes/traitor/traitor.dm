@@ -107,7 +107,7 @@
 				assign_exchange_role(exchange_blue)
 		else
 			var/list/active_ais = active_ais()
-			if(active_ais.len && prob(100/num_players()))
+			if(active_ais.len && prob(100/(num_players()*3)))
 				var/datum/objective/destroy/destroy_objective = new
 				destroy_objective.owner = traitor
 				destroy_objective.find_target()
