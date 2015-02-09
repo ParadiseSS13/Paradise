@@ -544,12 +544,14 @@
 
 		if(talkative)
 			new_item.talking_atom = new()
-			talking_atom.holder_atom = new_item
-			talking_atom.init()
+			if(talking_atom)
+				talking_atom.holder_atom = new_item
+				talking_atom.init()
 
 		del(src)
 
 	else if(talkative)
 		src.talking_atom = new()
-		talking_atom.holder_atom = src
-		talking_atom.init()
+		if(talking_atom)
+			talking_atom.holder_atom = src
+			talking_atom.init()
