@@ -122,7 +122,7 @@
 	..()
 	if (empty) return
 	new /obj/item/clothing/accessory/stethoscope( src )
-	new /obj/item/weapon/surgicaldrill(src)
+	new /obj/item/weapon/defibrillator/compact/combat/loaded(src)
 	new /obj/item/weapon/reagent_containers/hypospray/combat(src)
 	new /obj/item/weapon/reagent_containers/pill/bicaridine(src)
 	new /obj/item/weapon/reagent_containers/pill/dermaline(src)
