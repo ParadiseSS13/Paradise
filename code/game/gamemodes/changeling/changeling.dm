@@ -105,7 +105,7 @@ var/list/possible_changeling_IDs = list("Alpha","Beta","Gamma","Delta","Epsilon"
 		changeling.objectives += debrain_objective
 
 	var/list/active_ais = active_ais()
-	if(active_ais.len && prob(100/num_players()))
+	if(active_ais.len && prob(100/(num_players()*3)))
 		var/datum/objective/destroy/destroy_objective = new
 		destroy_objective.owner = changeling
 		destroy_objective.find_target()
