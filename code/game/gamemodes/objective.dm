@@ -743,7 +743,7 @@ datum/objective/destroy
 		var/mob/living/silicon/ai/target_ai = pick(possible_targets)
 		target = target_ai.mind
 		if(target && target.current)
-			explanation_text = "Destroy [target.name], the experimental AI."
+			explanation_text = "Destroy [target.current.real_name], the experimental AI."
 		else
 			explanation_text = "Free Objective"
 		return target
