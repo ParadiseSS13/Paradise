@@ -37,7 +37,7 @@ var/global/datum/controller/gameticker/ticker
 
 	var/triai = 0//Global holder for Triumvirate
 	var/initialtpass = 0 //holder for inital autotransfer vote timer
-	
+
 	var/round_end_announced = 0 // Spam Prevention. Announce round end only once.
 
 /datum/controller/gameticker/proc/pregame()
@@ -155,7 +155,7 @@ var/global/datum/controller/gameticker/ticker
 				del(R)
 
 		world << "<FONT color='blue'><B>Enjoy the game!</B></FONT>"
-		world << sound('sound/AI/welcome.ogg') // Skie
+		world << sound('sound/AI/welcomeold.ogg') // Skie
 		//Holiday Round-start stuff	~Carn
 		Holiday_Game_Start()
 
@@ -486,7 +486,7 @@ var/global/datum/controller/gameticker/ticker
 
 	scoreboard()
 	karmareminder()
-	
+
 	//Ask the event manager to print round end information
 	event_manager.RoundEnd()
 

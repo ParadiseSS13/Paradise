@@ -13,10 +13,10 @@
 		src << "<span class='danger'>The wiki URL is not set in the server configuration.</span>"
 	return
 
-#define CHANGELOG "http://nanotrasen.se/phpBB3/viewtopic.php?f=10&t=36"
+#define CHANGELOG "https://github.com/ParadiseSS13/Paradise/commits/master"
 /client/verb/changes()
 	set name = "Changelog"
-	set desc = "Visit the forum to check out the changelog."
+	set desc = "Visit Github to check out commits."
 	set hidden = 1
 
 	if(alert("This will open the changelog in your browser. Are you sure?",,"Yes","No")=="No")
