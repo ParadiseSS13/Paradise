@@ -192,7 +192,7 @@
 				var/area/wizard_station/A = locate()
 				if(usr in A.contents)
 					uses = max_uses
-					H.spellremove(usr)
+					H.spellremove(usr,0)
 					temp = "All spells have been removed. You may now memorize a new set of spells."
 					feedback_add_details("wizard_spell_learned","UM") //please do not change the abbreviation to keep data processing consistent. Add a unique id to any new spells
 				else

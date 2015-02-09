@@ -273,8 +273,9 @@
 //OTHER PROCS
 
 //To batch-remove wizard spells. Linked to mind.dm.
-/mob/proc/spellremove(var/mob/M as mob)
+/mob/proc/spellremove(var/mob/M as mob, var/removeallspells=1)
 	for(var/obj/effect/proc_holder/spell/wizard/spell_to_remove in src.spell_list)
+		if (spell_to_remove.name == "Artificer" && !removeallspells) continue
 		del(spell_to_remove)
 		update_power_buttons()
 
