@@ -22,14 +22,17 @@
 	component_parts += new /obj/item/weapon/stock_parts/cell/high(src)
 	RefreshParts()
 	build_icon()
-	
+
 /obj/machinery/recharge_station/upgraded/New()
 	..()
+	component_parts = list()
+	component_parts += new /obj/item/weapon/circuitboard/cyborgrecharger(src)
 	component_parts += new /obj/item/weapon/stock_parts/capacitor/super(src)
 	component_parts += new /obj/item/weapon/stock_parts/capacitor/super(src)
 	component_parts += new /obj/item/weapon/stock_parts/manipulator/pico(src)
-	component_parts += new /obj/item/weapon/stock_parts/cell/hyper(src) 
+	component_parts += new /obj/item/weapon/stock_parts/cell/hyper(src)
 	RefreshParts()
+	build_icon()
 
 /obj/machinery/recharge_station/RefreshParts()
 	recharge_speed = 0
@@ -39,8 +42,8 @@
 	for(var/obj/item/weapon/stock_parts/manipulator/M in component_parts)
 		repairs += M.rating - 1
 	for(var/obj/item/weapon/stock_parts/cell/C in component_parts)
-		recharge_speed *= C.maxcharge / 10000		
-		
+		recharge_speed *= C.maxcharge / 10000
+
 /obj/machinery/recharge_station/process()
 	if(!(NOPOWER|BROKEN))
 		return
@@ -65,8 +68,8 @@
 	if(occupant)
 		occupant.emp_act(severity)
 		go_out()
-	..(severity)	
-	
+	..(severity)
+
 /obj/machinery/recharge_station/proc/build_icon()
 	if(NOPOWER|BROKEN)
 		if(src.occupant)
@@ -80,15 +83,15 @@
 	if (istype(P, /obj/item/weapon/screwdriver))
 		if(src.occupant)
 			user << "<span class='notice'>The maintenance panel is locked.</span>"
-			return	
+			return
 		default_deconstruction_screwdriver(user, "borgdecon2", "borgcharger0", P)
-		return		
+		return
 
 	if(exchange_parts(user, P))
-		return		
-		
-	default_deconstruction_crowbar(P)				
-		
+		return
+
+	default_deconstruction_crowbar(P)
+
 /obj/machinery/recharge_station/proc/process_occupant()
 	if(src.occupant)
 		if (istype(occupant, /mob/living/silicon/robot))
@@ -137,7 +140,7 @@
 							O:broken = 0
 							O:times_used = 0
 							O:icon_state = "flash"
-					if(istype(O,/obj/item/weapon/gun/energy/taser/cyborg))
+					if(istype(O,/obj/item/weapon/gun/energy/disabler/cyborg))
 						if(O:power_supply.charge < O:power_supply.maxcharge)
 							O:power_supply.give(O:charge_cost)
 							O:update_icon()
