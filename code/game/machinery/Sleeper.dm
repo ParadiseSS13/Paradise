@@ -13,6 +13,7 @@
 	dir = 8
 	idle_power_usage = 250
 	active_power_usage = 500
+	interact_offline = 1
 
 /obj/machinery/sleep_console/power_change()
 	if(stat & BROKEN)

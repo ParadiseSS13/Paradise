@@ -859,8 +859,11 @@
 		return !locked
 
 /obj/machinery/power/apc/Topic(href, href_list, var/usingUI = 1)
+	if(..())
+		return 1
+		
 	if(!can_use(usr, 1))
-		return 0	
+		return 1
 
 	if (href_list["lock"])
 		if(!is_authenticated(usr))
@@ -963,7 +966,7 @@
 				locked = !locked
 				update_icon()
 
-	return 1
+	return 0
 
 /obj/machinery/power/apc/proc/toggle_breaker()
 	operating = !operating

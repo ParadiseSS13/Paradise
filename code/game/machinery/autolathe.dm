@@ -175,7 +175,7 @@
 
 /obj/machinery/autolathe/Topic(href, href_list)
 	if(..())
-		return
+		return 1
 	if (!busy)
 		if(href_list["menu"])
 			screen = text2num(href_list["menu"])

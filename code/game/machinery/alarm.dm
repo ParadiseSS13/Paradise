@@ -755,8 +755,11 @@
 		return !locked
 
 /obj/machinery/alarm/Topic(href, href_list)
+	if(..())
+		return 1
+		
 	if(!can_use(usr))
-		return 0
+		return 1
 
 	var/changed=0
 
@@ -1015,7 +1018,7 @@
 				playsound(get_turf(src), 'sound/items/Ratchet.ogg', 50, 1)
 				del(src)
 
-	return ..()
+	return 0
 
 /obj/machinery/alarm/power_change()
 	if(powered(power_channel))

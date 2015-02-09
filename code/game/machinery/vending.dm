@@ -397,7 +397,7 @@
 
 /obj/machinery/vending/Topic(href, href_list)
 	if(..())
-		return
+		return 1
 
 	if(istype(usr,/mob/living/silicon))
 		if(istype(usr,/mob/living/silicon/robot))

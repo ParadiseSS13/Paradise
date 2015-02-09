@@ -144,7 +144,7 @@
 
 /obj/machinery/computer/arcade/battle/Topic(href, href_list)
 	if(..())
-		return
+		return 1
 
 	if (!src.blocked && !src.gameover)
 		if (href_list["attack"])
@@ -405,7 +405,7 @@
 
 /obj/machinery/computer/arcade/orion_trail/Topic(href, href_list)
 	if(..())
-		return
+		return 1
 	if(href_list["close"])
 		usr.unset_machine()
 		usr << browse(null, "window=arcade")

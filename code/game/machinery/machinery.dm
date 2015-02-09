@@ -184,36 +184,64 @@ Class Procs:
 		use_power(active_power_usage,power_channel, 1)
 	return 1
 
-/obj/machinery/Topic(href, href_list)
-	..()
-	if(!interact_offline && stat & (NOPOWER|BROKEN))
+/obj/machinery/Topic(href, href_list, var/nowindow = 0, var/checkrange = 1)
+	if(..())
 		return 1
-	if(usr.restrained() || usr.lying || usr.stat)
+	if(!can_be_used_by(usr, be_close = checkrange))
 		return 1
-	if ( ! (istype(usr, /mob/living/carbon/human) || \
-			istype(usr, /mob/living/silicon) || \
-			istype(usr, /mob/living/carbon/monkey) && ticker && ticker.mode.name == "monkey") )
-		usr << "\red You don't have the dexterity to do this!"
-		return 1
-
-	var/norange = 0
-	if(istype(usr, /mob/living/carbon/human))
-		var/mob/living/carbon/human/H = usr
-		if(istype(H.l_hand, /obj/item/tk_grab))
-			norange = 1
-		else if(istype(H.r_hand, /obj/item/tk_grab))
-			norange = 1
-
-	if(!norange)
-		if ((!in_range(src, usr) || !istype(src.loc, /turf)) && !istype(usr, /mob/living/silicon))
-			return 1
-
-	src.add_fingerprint(usr)
-
-	var/area/A = get_area(src)
-	A.powerupdate = 1
-
+	add_fingerprint(usr)
 	return 0
+
+/obj/machinery/proc/can_be_used_by(mob/user, be_close = 1)
+	if(!interact_offline && stat & (NOPOWER|BROKEN))
+		return 0
+	if(!user.canUseTopic(src, be_close))
+		return 0
+	return 1
+	
+////////////////////////////////////////////////////////////////////////////////////////////
+
+/mob/proc/canUseTopic(atom/movable/M, be_close = 1)
+	return
+
+/mob/dead/observer/canUseTopic(atom/movable/M, be_close = 1)
+	if(check_rights(R_ADMIN, 0))
+		return
+
+/mob/living/canUseTopic(atom/movable/M, be_close = 1, no_dextery = 0)
+	if(no_dextery)
+		src << "<span class='notice'>You don't have the dexterity to do this!</span>"
+		return 0
+	return be_close && !in_range(M, src)
+
+/mob/living/carbon/human/canUseTopic(atom/movable/M, be_close = 1)
+	if(restrained() || lying || stat || stunned || weakened)
+		return
+	if(be_close && !in_range(M, src))
+		if(M_TK in mutations)
+			var/mob/living/carbon/human/H = M
+			if(istype(H.l_hand, /obj/item/tk_grab) || istype(H.r_hand, /obj/item/tk_grab))
+				return 1
+		return
+	if(!isturf(M.loc) && M.loc != src)
+		return
+	return 1
+
+/mob/living/silicon/ai/canUseTopic(atom/movable/M)
+	if(stat)
+		return
+	//stop AIs from leaving windows open and using then after they lose vision
+	//apc_override is needed here because AIs use their own APC when powerless
+	if(cameranet && !cameranet.checkTurfVis(get_turf(M)) && !apc_override)
+		return
+	return 1
+
+/mob/living/silicon/robot/canUseTopic(atom/movable/M)
+	if(stat || lockcharge || stunned || weakened)
+		return
+	return 1
+
+////////////////////////////////////////////////////////////////////////////////////////////
 
 /obj/machinery/attack_ai(var/mob/user as mob)
 	if(isAI(user))
