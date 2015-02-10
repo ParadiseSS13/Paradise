@@ -9,7 +9,7 @@ var/list/possible_changeling_IDs = list("Alpha","Beta","Gamma","Delta","Epsilon"
 	config_tag = "changeling"
 	restricted_jobs = list("AI", "Cyborg")
 	protected_jobs = list("Security Officer", "Warden", "Detective", "Head of Security", "Captain", "Blueshield", "Nanotrasen Representative", "Security Pod Pilot", "Magistrate", "Brig Physician", "Internal Affairs Agent")
-	protected_species = list("Machine")
+	protected_species = list("Machine", "Slime People")
 	required_players = 2
 	required_players_secret = 10
 	required_enemies = 1
@@ -90,31 +90,53 @@ var/list/possible_changeling_IDs = list("Alpha","Beta","Gamma","Delta","Epsilon"
 
 	var/datum/objective/absorb/absorb_objective = new
 	absorb_objective.owner = changeling
-	absorb_objective.gen_amount_goal(2, 3)
+	absorb_objective.gen_amount_goal(6, 8)
 	changeling.objectives += absorb_objective
 
-	var/datum/objective/assassinate/kill_objective = new
-	kill_objective.owner = changeling
-	kill_objective.find_target()
-	changeling.objectives += kill_objective
+	if(prob(60))
+		var/datum/objective/steal/steal_objective = new
+		steal_objective.owner = changeling
+		steal_objective.find_target()
+		changeling.objectives += steal_objective
+	else
+		var/datum/objective/debrain/debrain_objective = new
+		debrain_objective.owner = changeling
+		debrain_objective.find_target()
+		changeling.objectives += debrain_objective
 
-	var/datum/objective/steal/steal_objective = new
-	steal_objective.owner = changeling
-	steal_objective.find_target()
-	changeling.objectives += steal_objective
+	var/list/active_ais = active_ais()
+	if(active_ais.len && prob(10)) // num_players() proc is designed for roundstart, changed to fixed value to prevent problems with mid-round objective randomization.
+		var/datum/objective/destroy/destroy_objective = new
+		destroy_objective.owner = changeling
+		destroy_objective.find_target()
+		changeling.objectives += destroy_objective
+	else
+		var/datum/objective/assassinate/kill_objective = new
+		kill_objective.owner = changeling
+		kill_objective.find_target()
+		changeling.objectives += kill_objective
 
+		if (!(locate(/datum/objective/escape) in changeling.objectives))
+			var/datum/objective/escape/escape_with_identity/identity_theft = new
+			identity_theft.owner = changeling
+			identity_theft.target = kill_objective.target
+			if(identity_theft.target && identity_theft.target.current)
+				var/target_real_name = identity_theft.target.current.real_name
+				identity_theft.explanation_text = "Escape on the shuttle or an escape pod with the identity of [target_real_name], the [identity_theft.target.assigned_role] while wearing their identification card."
+			else
+				identity_theft.explanation_text = "Free objective"
+			changeling.objectives += identity_theft
 
-	switch(rand(1,100))
-		if(1 to 80)
-			if (!(locate(/datum/objective/escape) in changeling.objectives))
-				var/datum/objective/escape/escape_objective = new
-				escape_objective.owner = changeling
-				changeling.objectives += escape_objective
+	if (!(locate(/datum/objective/escape) in changeling.objectives))
+		if(prob(70))
+			var/datum/objective/escape/escape_objective = new
+			escape_objective.owner = changeling
+			changeling.objectives += escape_objective
 		else
-			if (!(locate(/datum/objective/survive) in changeling.objectives))
-				var/datum/objective/survive/survive_objective = new
-				survive_objective.owner = changeling
-				changeling.objectives += survive_objective
+			var/datum/objective/escape/escape_with_identity/identity_theft = new
+			identity_theft.owner = changeling
+			identity_theft.find_target()
+			changeling.objectives += identity_theft
 	return
 
 /datum/game_mode/proc/greet_changeling(var/datum/mind/changeling, var/you_are=1)
@@ -162,7 +184,7 @@ var/list/possible_changeling_IDs = list("Alpha","Beta","Gamma","Delta","Epsilon"
 
 /datum/game_mode/proc/auto_declare_completion_changeling()
 	if(changelings.len)
-		var/text = "<FONT size = 2><B>The changelings were:</B></FONT>"
+		var/text = "<FONT size = 3><B>The changelings were:</B></FONT>"
 		for(var/datum/mind/changeling in changelings)
 			var/changelingwin = 1
 
@@ -181,7 +203,7 @@ var/list/possible_changeling_IDs = list("Alpha","Beta","Gamma","Delta","Epsilon"
 
 			//Removed sanity if(changeling) because we -want- a runtime to inform us that the changelings list is incorrect and needs to be fixed.
 			text += "<br><b>Changeling ID:</b> [changeling.changeling.changelingID]."
-			text += "<br><b>Genomes Absorbed:</b> [changeling.changeling.absorbedcount]"
+			text += "<br><b>Genomes Extracted:</b> [changeling.changeling.absorbedcount]"
 
 			if(changeling.objectives.len)
 				var/count = 1
@@ -209,19 +231,25 @@ var/list/possible_changeling_IDs = list("Alpha","Beta","Gamma","Delta","Epsilon"
 
 /datum/changeling //stores changeling powers, changeling recharge thingie, changeling absorbed DNA and changeling ID (for changeling hivemind)
 	var/list/absorbed_dna = list()
-	var/list/absorbed_species = list()
 	var/list/absorbed_languages = list()
-	var/absorbedcount = 0
+	var/list/protected_dna = list() //DNA that is not lost when capacity is otherwise full.
+	var/dna_max = 4 //How many extra DNA strands the changeling can store for transformation.
+	var/absorbedcount = 1 //Would require at least 1 sample to take on the form of a human
 	var/chem_charges = 20
 	var/chem_recharge_rate = 0.5
+	var/chem_recharge_slowdown = 0
 	var/chem_storage = 50
-	var/sting_range = 1
+	var/sting_range = 2
 	var/changelingID = "Changeling"
 	var/geneticdamage = 0
 	var/isabsorbing = 0
-	var/geneticpoints = 5
+	var/geneticpoints = 10
 	var/purchasedpowers = list()
 	var/mimicing = ""
+	var/canrespec = 0
+	var/changeling_speak = 0
+	var/datum/dna/chosen_dna
+	var/obj/effect/proc_holder/changeling/sting/chosen_sting
 
 /datum/changeling/New(var/gender=FEMALE)
 	..()
@@ -234,16 +262,61 @@ var/list/possible_changeling_IDs = list("Alpha","Beta","Gamma","Delta","Epsilon"
 		changelingID = "[honorific] [changelingID]"
 	else
 		changelingID = "[honorific] [rand(1,999)]"
+	absorbed_dna.len = dna_max
 
 /datum/changeling/proc/regenerate()
-	chem_charges = min(max(0, chem_charges+chem_recharge_rate), chem_storage)
+	chem_charges = min(max(0, chem_charges + chem_recharge_rate - chem_recharge_slowdown), chem_storage)
 	geneticdamage = max(0, geneticdamage-1)
 
 
 /datum/changeling/proc/GetDNA(var/dna_owner)
-	var/datum/dna/chosen_dna
-	for(var/datum/dna/DNA in absorbed_dna)
+	for(var/datum/dna/DNA in (absorbed_dna + protected_dna))
 		if(dna_owner == DNA.real_name)
-			chosen_dna = DNA
-			break
-	return chosen_dna
+			return DNA
+
+/datum/changeling/proc/has_dna(var/datum/dna/tDNA)
+	for(var/datum/dna/D in (absorbed_dna + protected_dna))
+		if(tDNA.unique_enzymes == D.unique_enzymes && tDNA.uni_identity == D.uni_identity && tDNA.species == D.species)
+			return 1
+	return 0
+
+/datum/changeling/proc/can_absorb_dna(var/mob/living/carbon/user, var/mob/living/carbon/target)
+	if(absorbed_dna[1] == user.dna)//If our current DNA is the stalest, we gotta ditch it.
+		user << "<span class='warning'>We have reached our capacity to store genetic information! We must transform before absorbing more.</span>"
+		return
+
+	if(!target || !target.dna)
+		user << "<span class='warning'>This creature does not have any DNA.</span>"
+		return
+
+	var/mob/living/carbon/human/T = target
+	if(!istype(T))
+		user << "<span class='warning'>[T] is not compatible with our biology.</span>"
+		return
+
+	if((M_NOCLONE || SKELETON || M_HUSK) in T.mutations)
+		user << "<span class='warning'>DNA of [target] is ruined beyond usability!</span>"
+		return
+
+	if(T.species.flags & IS_SYNTHETIC)
+		user << "<span class='warning'>This creature does not have DNA!</span>"
+		return
+
+	if(T.species.flags & NO_SCAN)
+		user << "<span class='warning'>We do not know how to parse this creature's DNA!</span>"
+		return
+
+	if(has_dna(target.dna))
+		user << "<span class='warning'>We already have this DNA in storage!</span>"
+
+	return 1
+
+//More snowflake stuff, but for languages.
+/datum/changeling/proc/changeling_update_languages(var/updated_languages, var/mob/living/carbon/user)
+	if(!istype(user) || !user)
+		return
+	user.languages = list()
+	for(var/language in updated_languages)
+		user.languages += language
+
+	return
