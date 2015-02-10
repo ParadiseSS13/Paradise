@@ -39,20 +39,10 @@
 	..()
 	pixel_y = rand(-8, 8)
 	pixel_x = rand(-9, 9)
-	stamps = ""
-
-	if(name != "paper")
-		desc = "This is a paper titled '" + name + "'."
-
-	if(info != initial(info))
-		info = html_encode(info)
-		info = replacetext(info, "\n", "<BR>")
-		info = parsepencode(info)
-
+	
 	spawn(2)
 		update_icon()
 		updateinfolinks()
-		return
 
 /obj/item/weapon/paper/update_icon()
 	if(icon_state == "paper_talisman")
