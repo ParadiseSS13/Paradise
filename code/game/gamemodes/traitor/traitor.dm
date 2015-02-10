@@ -107,7 +107,7 @@
 				assign_exchange_role(exchange_blue)
 		else
 			var/list/active_ais = active_ais()
-			if(active_ais.len && prob(10)) // Leaving this at a flat chance for now, problems with the num_players() proc.
+			if(active_ais.len && prob(4)) // Leaving this at a flat chance for now, problems with the num_players() proc due to latejoin antags.
 				var/datum/objective/destroy/destroy_objective = new
 				destroy_objective.owner = traitor
 				destroy_objective.find_target()
