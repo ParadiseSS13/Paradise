@@ -964,6 +964,14 @@ var/list/all_supply_groups = list("Operations","Security","Hospitality","Enginee
 	containername = "Pizza crate"
 	group = "Hospitality"
 
+/datum/supply_packs/foodcart
+	name = "Food Cart crate"
+	contains = list(/obj/structure/foodcart)
+	cost = 10
+	containertype = /obj/structure/largecrate
+	containername = "food cart crate"
+	group = "Hospitality"
+
 /datum/supply_packs/formal_wear
 	contains = list(/obj/item/clothing/head/that,
 					/obj/item/clothing/suit/storage/lawyer/bluejacket,
