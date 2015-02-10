@@ -585,14 +585,14 @@ var/list/ai_list = list()
 		src << "Wireless communication is disabled."
 		return
 	var/turf/ai_current_turf = get_turf(src)
-	var/ai_Zlevel = ai_current_turf.z
+	var/ai_allowed_Zlevel = list(1,3,5)
 	var/d
 	var/area/bot_area
 	d += "<A HREF=?src=\ref[src];botrefresh=\ref[Bot]>Query network status</A><br>"
 	d += "<table width='100%'><tr><td width='40%'><h3>Name</h3></td><td width='20%'><h3>Status</h3></td><td width='30%'><h3>Location</h3></td><td width='10%'><h3>Control</h3></td></tr>"
 
 	for (Bot in aibots)
-		if(Bot.z == ai_Zlevel && !Bot.remote_disabled) //Only non-emagged bots on the same Z-level are detected!
+		if((Bot.z in ai_allowed_Zlevel) && !Bot.remote_disabled) //Only non-emagged bots on the allowed Z-level are detected!
 			bot_area = get_area(Bot)
 			d += "<tr><td width='30%'>[Bot.hacked ? "<span class='bad'>(!) </span>[Bot.name]" : Bot.name] ([Bot.bot_type_name])</td>"
 			//If the bot is on, it will display the bot's current mode status. If the bot is not mode, it will just report "Idle". "Inactive if it is not on at all.

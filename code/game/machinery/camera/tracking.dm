@@ -175,7 +175,7 @@
 	src << "Follow camera mode [forced ? "terminated" : "ended"]."
 	cameraFollow = null
 
-/mob/living/silicon/ai/proc/ai_actual_track(mob/living/target as mob)
+/mob/living/silicon/ai/proc/ai_actual_track(atom/movable/target as mob|obj)
 	if(!istype(target))	return
 	var/mob/living/silicon/ai/U = usr
 
@@ -222,9 +222,9 @@
 		return 0
 	return 1
 
-/proc/trackable(var/mob/living/M)
+/proc/trackable(atom/movable/M)
 	var/turf/T = get_turf(M)
-	if(T && (T.z == 1) && hassensorlevel(M, SUIT_SENSOR_TRACKING))
+	if(T && (T.z == 1 || T.z == 3 || T.z == 5))
 		return 1
 
 	return near_camera(M)
