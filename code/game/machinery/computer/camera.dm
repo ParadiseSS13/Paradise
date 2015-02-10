@@ -87,7 +87,7 @@
 			cameranet.process_sort()
 
 			var/cameras[0]
-			for(var/obj/machinery/camera/C in cameranet.viewpoints)
+			for(var/obj/machinery/camera/C in cameranet.cameras)
 				var/cam[0]
 				cam["name"] = C.c_tag
 				cam["deact"] = !C.can_use()
@@ -155,7 +155,7 @@
 		if(href_list["switchTo"])
 			if(src.z>6 || stat&(NOPOWER|BROKEN)) return
 			if(usr.stat || ((get_dist(usr, src) > 1 || !( usr.canmove ) || usr.blinded) && !istype(usr, /mob/living/silicon))) return
-			var/obj/machinery/camera/C = locate(href_list["switchTo"]) in cameranet.viewpoints
+			var/obj/machinery/camera/C = locate(href_list["switchTo"]) in cameranet.cameras
 			if(!C) return
 
 			switch_to_camera(usr, C)
