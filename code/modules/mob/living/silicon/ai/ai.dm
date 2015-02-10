@@ -584,7 +584,6 @@ var/list/ai_list = list()
 	if(control_disabled)
 		src << "Wireless communication is disabled."
 		return
-	var/turf/ai_current_turf = get_turf(src)
 	var/ai_allowed_Zlevel = list(1,3,5)
 	var/d
 	var/area/bot_area
