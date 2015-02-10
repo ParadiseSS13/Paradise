@@ -112,7 +112,7 @@ var/list/ai_list = list()
 	if (istype(loc, /turf))
 		verbs.Add(/mob/living/silicon/ai/proc/ai_network_change, \
 		/mob/living/silicon/ai/proc/ai_statuschange, /mob/living/silicon/ai/proc/ai_hologram_change, \
-		/mob/living/silicon/ai/proc/toggle_camera_light, /mob/living/silicon/ai/proc/botcall, /mob/living/silicon/ai/proc/control_integrated_radio, /mob/living/silicon/ai/proc/control_hud, /mob/living/silicon/ai/proc/change_arrival_message)
+		/mob/living/silicon/ai/proc/toggle_camera_light, /mob/living/silicon/ai/proc/botcall, /mob/living/silicon/ai/proc/control_integrated_radio, /mob/living/silicon/ai/proc/control_hud, /mob/living/silicon/ai/proc/change_arrival_message, /mob/living/silicon/ai/proc/ai_store_location, /mob/living/silicon/ai/proc/ai_goto_location, /mob/living/silicon/ai/proc/ai_remove_location)
 
 	if(!safety)//Only used by AIize() to successfully spawn an AI.
 		if (!B)//If there is no player/brain inside.
@@ -127,7 +127,7 @@ var/list/ai_list = list()
 					verbs.Remove(,/mob/living/silicon/ai/proc/ai_call_shuttle,/mob/living/silicon/ai/proc/ai_camera_track, \
 					/mob/living/silicon/ai/proc/ai_camera_list, /mob/living/silicon/ai/proc/ai_network_change, \
 					/mob/living/silicon/ai/proc/ai_statuschange, /mob/living/silicon/ai/proc/ai_hologram_change, \
-					/mob/living/silicon/ai/proc/toggle_camera_light,/mob/living/silicon/ai/verb/pick_icon,/mob/living/silicon/ai/proc/control_hud)
+					/mob/living/silicon/ai/proc/toggle_camera_light,/mob/living/silicon/ai/verb/pick_icon,/mob/living/silicon/ai/proc/control_hud, /mob/living/silicon/ai/proc/change_arrival_message)
 					laws = new /datum/ai_laws/alienmov
 				else
 					B.brainmob.mind.transfer_to(src)
@@ -631,8 +631,6 @@ var/list/ai_list = list()
 
 /mob/living/silicon/ai/proc/switchCamera(var/obj/machinery/camera/C)
 
-	src.cameraFollow = null
-
 	if (!C || stat == 2) //C.can_use())
 		return 0
 
@@ -706,7 +704,6 @@ var/list/ai_list = list()
 	set category = "AI Commands"
 	set name = "Jump To Network"
 	unset_machine()
-	src.cameraFollow = null
 	var/cameralist[0]
 
 	if(usr.stat == 2)
@@ -912,3 +909,52 @@ var/list/ai_list = list()
 	src << "Accessing Subspace Transceiver control..."
 	if (src.aiRadio)
 		src.aiRadio.interact(src)
+
+
+/mob/living/silicon/ai/proc/open_nearest_door(mob/living/target as mob)
+	if(!istype(target)) return
+	spawn(0)
+		if(istype(target, /mob/living/carbon/human))
+			var/mob/living/carbon/human/H = target
+			if(H.wear_id && istype(H.wear_id.GetID(), /obj/item/weapon/card/id/syndicate))
+				src << "Unable to locate an airlock"
+				return
+			if(H.wear_id && istype(H.wear_id.GetID(), /obj/item/weapon/card/id/syndicate))
+				src << "Unable to locate an airlock"
+				return
+			if(istype(H.head, /obj/item/clothing/head/helmet/space/space_ninja) && !H.head.canremove)
+				src << "Unable to locate an airlock"
+				return
+			if(H.digitalcamo)
+				src << "Unable to locate an airlock"
+				return
+		if (!near_camera(target))
+			src << "Target is not near any active cameras."
+			return
+		var/obj/machinery/door/airlock/tobeopened
+		var/dist = -1
+		for(var/obj/machinery/door/airlock/D in range(3,target))
+			if(!D.density) continue
+			if(dist < 0)
+				dist = get_dist(D, target)
+				//world << dist
+				tobeopened = D
+			else
+				if(dist > get_dist(D, target))
+					dist = get_dist(D, target)
+					//world << dist
+					tobeopened = D
+					//world << "found [tobeopened.name] closer"
+				else
+					//world << "[D.name] not close enough | [get_dist(D, target)] | [dist]"
+		if(tobeopened)
+			switch(alert(src, "Do you want to open \the [tobeopened] for [target]?","Doorknob_v2a.exe","Yes","No"))
+				if("Yes")
+					var/nhref = "src=\ref[tobeopened];aiEnable=7"
+					tobeopened.Topic(nhref, params2list(nhref), tobeopened, 1)
+					src << "\blue You've opened \the [tobeopened] for [target]."
+				if("No")
+					src << "\red You deny the request."
+		else
+			src << "\red You've failed to open an airlock for [target]"
+		return

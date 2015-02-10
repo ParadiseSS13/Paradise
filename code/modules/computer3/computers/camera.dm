@@ -190,7 +190,7 @@
 			if(temp.len)
 				L.Add(C)
 
-		camera_sort(L)
+		cameranet.process_sort()
 
 		return L
 	verify_machine(var/obj/machinery/camera/C,var/datum/file/camnet_key/key = null)

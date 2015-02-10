@@ -1,6 +1,6 @@
 /datum/visibility_network
 	var/list/viewpoints = list()
-
+	var/cameras_unsorted = 1
 	// the type of chunk used by this network
 	var/datum/visibility_chunk/ChunkType = /datum/visibility_chunk
 
@@ -8,6 +8,12 @@
 	var/list/chunks = list()
 
 	var/ready = 0
+	
+
+/datum/visibility_network/proc/process_sort()
+	if(cameras_unsorted)
+		viewpoints = dd_sortedObjectList(viewpoints)
+		cameras_unsorted = 0
 
 
 // Creates a chunk key string from x,y,z coordinates

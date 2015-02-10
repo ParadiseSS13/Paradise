@@ -1,16 +1,15 @@
 /obj/item/weapon/camera_assembly
 	name = "camera assembly"
-	desc = "The basic construction for Nanotrasen-Always-Watching-You cameras."
+	desc = "A pre-fabricated security camera kit, ready to be assembled and mounted to a surface."
 	icon = 'icons/obj/monitors.dmi'
 	icon_state = "cameracase"
 	w_class = 2
 	anchored = 0
-
 	m_amt = 700
 	g_amt = 300
 
 	//	Motion, EMP-Proof, X-Ray
-	var/list/obj/item/possible_upgrades = list(/obj/item/device/assembly/prox_sensor, /obj/item/stack/sheet/mineral/plasma, /obj/item/weapon/reagent_containers/food/snacks/grown/carrot)
+	var/list/obj/item/possible_upgrades = list(/obj/item/device/assembly/prox_sensor, /obj/item/stack/sheet/mineral/osmium, /obj/item/weapon/stock_parts/scanning_module)
 	var/list/upgrades = list()
 	var/state = 0
 	var/busy = 0
@@ -59,8 +58,10 @@
 			if(iscoil(W))
 				var/obj/item/stack/cable_coil/C = W
 				if(C.use(2))
-					user << "You add wires to the assembly."
+					user << "<span class='notice'>You add wires to the assembly.</span>"
 					state = 3
+				else
+					user << "<span class='warning'>You need 2 coils of wire to wire the assembly.</span>"
 				return
 
 			else if(iswelder(W))
@@ -87,7 +88,8 @@
 					usr << "No network found please hang up and try your call again."
 					return
 
-				var/temptag = "[get_area(src)] ([rand(1, 999)])"
+				var/area/camera_area = get_area(src)
+				var/temptag = "[sanitize(camera_area.name)] ([rand(1, 999)])"
 				input = strip_html(input(usr, "How would you like to name the camera?", "Set Camera Name", temptag))
 
 				state = 4
@@ -124,7 +126,7 @@
 
 	// Upgrades!
 	if(is_type_in_list(W, possible_upgrades) && !is_type_in_list(W, upgrades)) // Is a possible upgrade and isn't in the camera already.
-		user << "You attach the [W] into the assembly inner circuits."
+		user << "You attach \the [W] into the assembly inner circuits."
 		upgrades += W
 		user.drop_item(W)
 		W.loc = src

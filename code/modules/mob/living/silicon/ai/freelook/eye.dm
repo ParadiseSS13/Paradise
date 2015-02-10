@@ -54,6 +54,14 @@
 		//Holopad
 		if(ai.holo)
 			ai.holo.move_hologram()
+		
+
+/mob/aiEye/proc/getLoc()
+
+	if(ai)
+		if(!isturf(ai.loc) || !ai.client)
+			return
+		return ai.eyeobj.loc
 
 
 /mob/aiEye/Move()
