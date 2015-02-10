@@ -4,7 +4,6 @@
 	icon_state = "stunbaton"
 	item_state = "baton"
 	slot_flags = SLOT_BELT
-	flags = FPRINT | TABLEPASS
 	force = 10
 	throwforce = 7
 	w_class = 3

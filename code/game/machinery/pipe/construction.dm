@@ -56,7 +56,6 @@ Buildable meters
 	icon = 'icons/obj/pipe-item.dmi'
 	icon_state = "simple"
 	item_state = "buildpipe"
-	flags = TABLEPASS|FPRINT
 	w_class = 3
 	level = 2
 
@@ -432,7 +431,7 @@ Buildable meters
 			if (P.node2)
 				P.node2.initialize()
 				P.node2.build_network()
-	
+
 		if(PIPE_SUPPLY_STRAIGHT, PIPE_SUPPLY_BENT)
 			var/obj/machinery/atmospherics/pipe/simple/hidden/supply/P = new( src.loc )
 			P.color = color
@@ -546,7 +545,7 @@ Buildable meters
 			if (M.node3)
 				M.node3.initialize()
 				M.node3.build_network()
-				
+
 		if(PIPE_SUPPLY_MANIFOLD)		//manifold
 			var/obj/machinery/atmospherics/pipe/manifold/hidden/supply/M = new( src.loc )
 			M.color = color
@@ -618,7 +617,7 @@ Buildable meters
 			if (M.node4)
 				M.node4.initialize()
 				M.node4.build_network()
-				
+
 		if(PIPE_SUPPLY_MANIFOLD4W)		//4-way manifold
 			var/obj/machinery/atmospherics/pipe/manifold4w/hidden/supply/M = new( src.loc )
 			M.color = color
@@ -904,7 +903,7 @@ Buildable meters
 			if(C.node)
 				C.node.initialize()
 				C.node.build_network()
-				
+
 		if(PIPE_SUPPLY_CAP)
 			var/obj/machinery/atmospherics/pipe/cap/hidden/supply/C = new(src.loc)
 			C.dir = dir
@@ -1039,7 +1038,6 @@ Buildable meters
 	icon = 'icons/obj/pipe-item.dmi'
 	icon_state = "meter"
 	item_state = "buildpipe"
-	flags = TABLEPASS|FPRINT
 	w_class = 4
 
 /obj/item/pipe_meter/attackby(var/obj/item/weapon/W as obj, var/mob/user as mob)

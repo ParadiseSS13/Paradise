@@ -207,7 +207,7 @@ obj/item/weapon/twohanded/
 	force_wielded = 34
 	wieldsound = 'sound/weapons/saberon.ogg'
 	unwieldsound = 'sound/weapons/saberoff.ogg'
-	flags = FPRINT | TABLEPASS | NOSHIELD
+	flags = NOSHIELD
 	origin_tech = "magnets=3;syndicate=4"
 	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
 	sharp = 1
@@ -291,7 +291,7 @@ obj/item/weapon/twohanded/
 	force_wielded = 18 // Was 13, Buffed - RR
 	throwforce = 20
 	throw_speed = 3
-	flags = FPRINT | TABLEPASS | NOSHIELD
+	flags = NOSHIELD
 	attack_verb = list("attacked", "poked", "jabbed", "torn", "gored")
 
 /obj/item/weapon/twohanded/spear/update_icon()

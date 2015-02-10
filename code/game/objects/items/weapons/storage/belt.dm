@@ -4,7 +4,6 @@
 	icon = 'icons/obj/clothing/belts.dmi'
 	icon_state = "utilitybelt"
 	item_state = "utility"
-	flags = FPRINT | TABLEPASS
 	slot_flags = SLOT_BELT
 	attack_verb = list("whipped", "lashed", "disciplined")
 
@@ -291,7 +290,7 @@
 	name = "yellow fannypack"
 	icon_state = "fannypack_yellow"
 	item_state = "fannypack_yellow"
-	
+
 // -------------------------------------
 //     Bluespace Belt
 // -------------------------------------
@@ -444,4 +443,3 @@
 
 		new /obj/item/device/analyzer(src)
 		new /obj/item/device/healthanalyzer(src)
-		

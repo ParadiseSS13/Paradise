@@ -203,7 +203,7 @@
 /obj/item/weapon/plantspray
 	icon = 'icons/obj/hydroponics.dmi'
 	item_state = "spray"
-	flags = TABLEPASS | OPENCONTAINER | FPRINT | NOBLUDGEON
+	flags = OPENCONTAINER | NOBLUDGEON
 	slot_flags = SLOT_BELT
 	throwforce = 4
 	w_class = 2.0
@@ -255,7 +255,7 @@
 	icon = 'icons/obj/weapons.dmi'
 	icon_state = "hoe"
 	item_state = "hoe"
-	flags = FPRINT | TABLEPASS | CONDUCT | NOBLUDGEON
+	flags = CONDUCT | NOBLUDGEON
 	force = 5.0
 	throwforce = 7.0
 	w_class = 2.0
@@ -270,7 +270,6 @@
 	name = "bottle of weedkiller"
 	icon = 'icons/obj/chemical.dmi'
 	icon_state = "bottle16"
-	flags = FPRINT |  TABLEPASS
 	var/toxicity = 0
 	var/weed_kill_str = 0
 
@@ -278,7 +277,6 @@
 	name = "bottle of glyphosate"
 	icon = 'icons/obj/chemical.dmi'
 	icon_state = "bottle16"
-	flags = FPRINT |  TABLEPASS
 	toxicity = 4
 	weed_kill_str = 2
 
@@ -286,7 +284,6 @@
 	name = "bottle of triclopyr"
 	icon = 'icons/obj/chemical.dmi'
 	icon_state = "bottle18"
-	flags = FPRINT |  TABLEPASS
 	toxicity = 6
 	weed_kill_str = 4
 
@@ -294,7 +291,6 @@
 	name = "bottle of 2,4-D"
 	icon = 'icons/obj/chemical.dmi'
 	icon_state = "bottle15"
-	flags = FPRINT |  TABLEPASS
 	toxicity = 8
 	weed_kill_str = 7
 
@@ -308,7 +304,7 @@
 	desc = "A small glass bottle. Can hold up to 10 units."
 	icon = 'icons/obj/chemical.dmi'
 	icon_state = "bottle16"
-	flags = FPRINT |  TABLEPASS | OPENCONTAINER
+	flags = OPENCONTAINER
 	possible_transfer_amounts = null
 	w_class = 2.0
 
@@ -348,7 +344,7 @@
 	desc = "A very sharp axe blade upon a short fibremetal handle. It has a long history of chopping things, but now it is used for chopping wood."
 	icon = 'icons/obj/weapons.dmi'
 	icon_state = "hatchet"
-	flags = FPRINT | TABLEPASS | CONDUCT
+	flags = CONDUCT
 	force = 12.0
 	w_class = 2.0
 	throwforce = 15.0
@@ -381,7 +377,7 @@
 	throw_speed = 1
 	throw_range = 3
 	w_class = 4.0
-	flags = FPRINT | TABLEPASS | NOSHIELD
+	flags = NOSHIELD
 	slot_flags = SLOT_BACK
 	origin_tech = "materials=2;combat=2"
 	attack_verb = list("chopped", "sliced", "cut", "reaped")

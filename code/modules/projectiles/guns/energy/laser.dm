@@ -78,7 +78,7 @@ obj/item/weapon/gun/energy/laser/retro
 	item_state = "laser"
 	w_class = 4.0
 	force = 10
-	flags =  FPRINT | TABLEPASS | CONDUCT
+	flags =  CONDUCT
 	slot_flags = SLOT_BACK
 	fire_sound = 'sound/weapons/lasercannonfire.ogg'
 	origin_tech = "combat=4;materials=3;powerstorage=3"

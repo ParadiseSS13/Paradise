@@ -133,7 +133,7 @@
 	icon = 'icons/obj/gun.dmi'
 	icon_state = "revolver"
 	item_state = "gun"
-	flags =  FPRINT | TABLEPASS | CONDUCT
+	flags = CONDUCT
 	slot_flags = SLOT_BELT
 	w_class = 3.0
 	g_amt = 10
@@ -190,7 +190,7 @@
 	desc = "There are 7 caps left! Make sure to recyle the box in an autolathe when it gets empty."
 	icon = 'icons/obj/ammo.dmi'
 	icon_state = "357-7"
-	flags = FPRINT | TABLEPASS| CONDUCT
+	flags = CONDUCT
 	w_class = 1.0
 	g_amt = 10
 	m_amt = 10
@@ -211,7 +211,6 @@
 	icon = 'icons/obj/gun.dmi'
 	icon_state = "crossbow"
 	item_state = "crossbow"
-	flags = FPRINT | TABLEPASS
 	w_class = 2.0
 	attack_verb = list("attacked", "struck", "hit")
 	var/bullets = 5
@@ -306,7 +305,6 @@
 	desc = "Its nerf or nothing! Ages 8 and up."
 	icon = 'icons/obj/toy.dmi'
 	icon_state = "foamdart"
-	flags = FPRINT | TABLEPASS
 	w_class = 1.0
 
 /obj/effect/foam_dart_dummy
@@ -327,7 +325,7 @@
     desc = "Looks almost like the real thing! Great for practicing Drive-bys"
     icon_state = "tommy"
     item_state = "tommy"
-    flags = FPRINT | TABLEPASS| CONDUCT
+    flags = CONDUCT
     w_class = 1.0
     attack_verb = list("struck", "hammered", "hit", "bashed")
     bullets = 20.0
@@ -353,7 +351,7 @@
 	item_state = "sword0"
 	var/active = 0.0
 	w_class = 2.0
-	flags = FPRINT | TABLEPASS | NOSHIELD
+	flags = NOSHIELD
 	attack_verb = list("attacked", "struck", "hit")
 
 	attack_self(mob/user as mob)
@@ -419,7 +417,7 @@
 	icon = 'icons/obj/weapons.dmi'
 	icon_state = "katana"
 	item_state = "katana"
-	flags = FPRINT | TABLEPASS | CONDUCT
+	flags = CONDUCT
 	slot_flags = SLOT_BELT | SLOT_BACK
 	force = 5
 	throwforce = 5
@@ -604,7 +602,7 @@
 	icon = 'icons/obj/weapons.dmi'
 	icon_state = "katana"
 	item_state = "katana"
-	flags = FPRINT | TABLEPASS | CONDUCT
+	flags = CONDUCT
 	slot_flags = SLOT_BELT | SLOT_BACK
 	force = 5
 	throwforce = 5
@@ -1066,7 +1064,6 @@ obj/item/toy/cards/deck/syndicate/black
 	desc = "No bother to sink or swim when you can just float!"
 	icon_state = "inflatable"
 	item_state = "inflatable"
-	flags = FPRINT | TABLEPASS
 	icon = 'icons/obj/clothing/belts.dmi'
 	slot_flags = SLOT_BELT
 
@@ -1079,7 +1076,6 @@ obj/item/toy/cards/deck/syndicate/black
 	desc = "Relive the excitement of a meteor shower! SweetMeat-eor. Co is not responsible for any injuries, headaches or hearing loss caused by Mini-Meteor™"
 	icon = 'icons/obj/toy.dmi'
 	icon_state = "minimeteor"
-	flags = FPRINT | TABLEPASS
 	w_class = 2.0
 
 /obj/item/toy/minimeteor/throw_impact(atom/hit_atom)
@@ -1100,7 +1096,6 @@ obj/item/toy/cards/deck/syndicate/black
 	icon = 'icons/obj/toy.dmi'
 	icon_state = "carpplushie"
 	w_class = 2.0
-	flags = FPRINT | TABLEPASS
 
 /*
  * Toy big red button

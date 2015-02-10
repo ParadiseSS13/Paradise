@@ -1,7 +1,7 @@
 /atom
 	layer = 2
 	var/level = 2
-	var/flags = FPRINT
+	var/flags = 0
 	var/list/fingerprints
 	var/list/fingerprintshidden
 	var/fingerprintslast = null
@@ -378,8 +378,6 @@ its easier to just keep the beam vertical.
 		M.dna = new /datum/dna(null)
 		M.dna.real_name = M.real_name
 	M.check_dna()
-	if (!( src.flags ) & FPRINT)
-		return 0
 	if(!blood_DNA || !istype(blood_DNA, /list))	//if our list of DNA doesn't exist yet (or isn't a list) initialise it.
 		blood_DNA = list()
 

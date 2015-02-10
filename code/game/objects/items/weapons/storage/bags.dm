@@ -21,7 +21,6 @@
 	display_contents_with_number = 0 // UNStABLE AS FuCK, turn on when it stops crashing clients
 	use_to_pickup = 1
 	slot_flags = SLOT_BELT
-	flags = FPRINT | TABLEPASS
 
 // -----------------------------
 //          Trash bag
@@ -308,7 +307,7 @@
 	w_class = 1
 
 	can_hold = list("/obj/item/weapon/coin","/obj/item/weapon/spacecash")
-	
+
 // -----------------------------
 //           Book bag
 // -----------------------------

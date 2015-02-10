@@ -44,7 +44,7 @@
 	else if(istype(P, /obj/item/weapon/lighter))
 		burnphoto(P, user)
 	..()
-	
+
 /obj/item/weapon/photo/proc/burnphoto(obj/item/weapon/lighter/P, mob/user)
 	var/class = "<span class='warning'>"
 
@@ -142,7 +142,6 @@
 	icon_state = "camera"
 	item_state = "electropack"
 	w_class = 2.0
-	flags = FPRINT | CONDUCT | TABLEPASS
 	slot_flags = SLOT_BELT
 	var/list/matter = list("metal" = 2000)
 	var/pictures_max = 10
@@ -363,7 +362,6 @@
 	icon_state = "videocam"
 	item_state = "videocam"
 	w_class = 2.0
-	flags = FPRINT | CONDUCT | TABLEPASS
 	slot_flags = SLOT_BELT
 	m_amt = 2000
 	var/on = 0
@@ -403,4 +401,4 @@
 		if(get_dist(src, M) <= canhear_range)
 			talk_into(M, msg)
 		for(var/mob/living/carbon/human/H in watcherslist)
-			H.show_message(text("\blue (Newscaster) [] says, '[]'",M,msg), 1)	
+			H.show_message(text("\blue (Newscaster) [] says, '[]'",M,msg), 1)

@@ -18,7 +18,6 @@
 	icon= 'icons/obj/clothing/hats.dmi'
 	icon_state = "hairflowerp"
 	item_state = "hairflowerp"
-	flags = FPRINT|TABLEPASS
 
 /obj/item/clothing/under/fluff/WornTurtleneck // DaveTheHeadcrab: Makkota Atani
 	name = "Worn Combat Turtleneck"
@@ -46,7 +45,6 @@
 	name = "royal marines commando beret"
 	desc = "Dark Green beret with an old insignia on it."
 	icon_state = "sparkyninja_beret"
-	flags = FPRINT | TABLEPASS
 
 //////////////////////////////////
 ////////// Fluff Items ///////////
@@ -413,7 +411,6 @@
 	item_state = "ciglit"
 	w_class = 1
 	body_parts_covered = null
-	flags = FPRINT|TABLEPASS
 
 //Strange penlight, Nerezza: Asher Spock
 
@@ -777,7 +774,6 @@
 	_color = "jane_sid_suit"
 	has_sensor = 2
 	sensor_mode = 3
-	flags = FPRINT | TABLEPASS
 
 //Suit roll-down toggle.
 /obj/item/clothing/under/fluff/jane_sidsuit/verb/toggle_zipper()
@@ -818,7 +814,7 @@
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "flagmask"
 	item_state = "flagmask"
-	flags = FPRINT|TABLEPASS|MASKCOVERSMOUTH
+	flags = MASKCOVERSMOUTH
 	w_class = 2
 	gas_transfer_coefficient = 0.90
 */
@@ -828,7 +824,6 @@
 	desc = "A silver and emerald shamrock pendant. It has the initials \"M.K.\" engraved on the back."
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "mara_kilpatrick_1"
-	flags = FPRINT|TABLEPASS
 	w_class = 1
 
 ////// Small locket - Altair An-Nasaqan - Serithi
@@ -841,7 +836,6 @@
 	item_state = "altair_locket"
 	_color = "altair_locket"
 	slot_flags = 0
-	flags = FPRINT|TABLEPASS
 	w_class = 1
 	slot_flags = SLOT_MASK
 
@@ -855,7 +849,6 @@
 	item_state = "konaahirano"
 	_color = "konaahirano"
 	slot_flags = 0
-	flags = FPRINT|TABLEPASS
 	w_class = 1
 	slot_flags = SLOT_MASK
 	var/obj/item/held //Item inside locket.
@@ -885,7 +878,6 @@
 	desc = "This silvered medallion bears the symbol of the Hadii Clan of the Tajaran."
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "nasir_khayyam_1"
-	flags = FPRINT|TABLEPASS
 	w_class = 1
 	slot_flags = SLOT_MASK
 
@@ -897,7 +889,6 @@
 	desc = "A shiny black medallion made of something that looks like the Earth's obsidian, but it is harder than anything ever seen yet. On the front there seems to be a standing unathi chiseled in it, on the back the name of Lin Chang with the title of the Assassin Archmage."
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "nasir_khayyam_1"
-	flags = FPRINT|TABLEPASS
 	w_class = 1
 	slot_flags = SLOT_MASK
 
@@ -908,7 +899,6 @@
 	desc = "A brass necklace with a green emerald placed at the end. It has a small inscription on the top of the chain, saying \'Foster\'"
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "ty_foster"
-	flags = FPRINT|TABLEPASS
 	w_class = 1
 
 //////////// Shoes ////////////

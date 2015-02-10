@@ -20,7 +20,7 @@
 	desc = "A wrench with common uses. Can be found in your hand."
 	icon = 'icons/obj/items.dmi'
 	icon_state = "wrench"
-	flags = FPRINT | TABLEPASS| CONDUCT
+	flags = CONDUCT
 	slot_flags = SLOT_BELT
 	force = 5.0
 	throwforce = 7.0
@@ -38,7 +38,7 @@
 	desc = "You can be totally screwwy with this."
 	icon = 'icons/obj/items.dmi'
 	icon_state = "screwdriver"
-	flags = FPRINT | TABLEPASS| CONDUCT
+	flags = CONDUCT
 	slot_flags = SLOT_BELT
 	force = 5.0
 	w_class = 1.0
@@ -99,7 +99,7 @@
 	desc = "This cuts wires."
 	icon = 'icons/obj/items.dmi'
 	icon_state = "cutters"
-	flags = FPRINT | TABLEPASS| CONDUCT
+	flags = CONDUCT
 	slot_flags = SLOT_BELT
 	force = 6.0
 	throw_speed = 3
@@ -135,7 +135,7 @@
 	name = "welding tool"
 	icon = 'icons/obj/items.dmi'
 	icon_state = "welder"
-	flags = FPRINT | TABLEPASS| CONDUCT
+	flags = CONDUCT
 	slot_flags = SLOT_BELT
 
 	//Amount of OUCH when it's thrown
@@ -447,7 +447,7 @@
 	desc = "A small crowbar. This handy tool is useful for lots of things, such as prying floor tiles or opening unpowered doors."
 	icon = 'icons/obj/items.dmi'
 	icon_state = "crowbar"
-	flags = FPRINT | TABLEPASS| CONDUCT
+	flags = CONDUCT
 	slot_flags = SLOT_BELT
 	force = 5.0
 	throwforce = 7.0
@@ -514,7 +514,7 @@
 	desc = "A professional conversion kit used to convert any knock off revolver into the real deal capable of shooting lethal .357 rounds without the possibility of catastrophic failure"
 	icon = 'icons/obj/weapons.dmi'
 	icon_state = "kit"
-	flags = FPRINT | TABLEPASS | CONDUCT
+	flags = CONDUCT
 	w_class = 2.0
 	origin_tech = "combat=2"
 	var/open = 0

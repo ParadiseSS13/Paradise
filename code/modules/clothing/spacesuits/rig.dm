@@ -508,5 +508,5 @@
 	name = "singuloth knight's armor"
 	desc = "This is a ceremonial armor from the chapter of the Singuloth Knights. It's made of pure forged adamantium."
 	item_state = "singuloth_hardsuit"
-	flags = FPRINT | TABLEPASS | STOPSPRESSUREDMAGE
+	flags = STOPSPRESSUREDMAGE
 	armor = list(melee = 40, bullet = 5, laser = 20,energy = 5, bomb = 25, bio = 100, rad = 100)
