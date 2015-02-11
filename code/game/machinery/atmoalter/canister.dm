@@ -67,7 +67,7 @@
 /obj/machinery/portable_atmospherics/canister/sleeping_agent
 	name = "Canister: \[N2O\]"
 	icon_state = "redws"
-	_color = list("redsw", null, null, null)
+	_color = list("redws", null, null, null)
 	can_label = 0
 /obj/machinery/portable_atmospherics/canister/nitrogen
 	name = "Canister: \[N2\]"
