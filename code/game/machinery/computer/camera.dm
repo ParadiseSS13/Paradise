@@ -1,3 +1,7 @@
+/proc/invalidateCameraCache()
+	for(var/obj/machinery/computer/security/s in world)
+		s.camera_cache = null
+	
 /obj/machinery/computer/security
 	name = "Camera Monitor"
 	desc = "Used to access the various cameras networks on the station."
@@ -12,6 +16,7 @@
 	var/list/tempnets[0]
 	var/list/data[0]
 	var/list/access[0]
+	var/camera_cache = null
 
 	New() // Lists existing networks and their required access. Format: networks[<name>] = list(<access>)
 		networks["SS13"] = list(access_hos,access_captain)
@@ -78,29 +83,38 @@
 
 		data["current"] = null
 
-		var/list/L = list()
-		for (var/obj/machinery/camera/C in cameranet.viewpoints)
-			if(can_access_camera(C))
-				L.Add(C)
+		if(isnull(camera_cache))
+			cameranet.process_sort()
 
-		camera_sort(L)
+			var/cameras[0]
+			for(var/obj/machinery/camera/C in cameranet.cameras)
+				var/cam[0]
+				cam["name"] = C.c_tag
+				cam["deact"] = !C.can_use()
+				cam["camera"] = "\ref[C]"
+				cam["x"] = C.x
+				cam["y"] = C.y
+				cam["z"] = C.z
 
-		var/cameras[0]
-		for(var/obj/machinery/camera/C in L)
-			var/cam[0]
-			cam["name"] = C.c_tag
-			cam["deact"] = !C.can_use()
-			cam["camera"] = "\ref[C]"
-			cam["x"] = C.x
-			cam["y"] = C.y
-			cam["z"] = C.z
+				cameras[++cameras.len] = cam
 
-			cameras[++cameras.len] = cam
+				if(C == current)
+					data["current"] = cam
 
-			if(C == current)
+				var/list/camera_list = list("cameras" = cameras)
+				camera_cache=list2json(camera_list)
+
+		else
+			if(current)
+				var/cam[0]
+				cam["name"] = current.c_tag
+				cam["deact"] = !current.can_use()
+				cam["camera"] = "\ref[current]"
+				cam["x"] = current.x
+				cam["y"] = current.y
+				cam["z"] = current.z
+
 				data["current"] = cam
-
-		data["cameras"] = cameras
 		
 		tempnets.Cut()
 		if(emagged)
@@ -119,6 +133,9 @@
 						tempnets.Add(list(list("name" = l, "active" = 0)))	
 					break
 		data["networks"] = tempnets
+		
+		if(ui)
+			ui.load_cached_data(camera_cache)
 
 		ui = nanomanager.try_update_ui(user, src, ui_key, ui, data, force_open)
 		if (!ui)
@@ -128,7 +145,8 @@
 			ui.add_template("mapContent", "sec_camera_map_content.tmpl")
 			// adding a template with the key "mapHeader" replaces the map header content
 			ui.add_template("mapHeader", "sec_camera_map_header.tmpl")
-
+			
+			ui.load_cached_data(camera_cache)
 			ui.set_initial_data(data)
 			ui.open()
 			ui.set_auto_update(1)
@@ -137,7 +155,7 @@
 		if(href_list["switchTo"])
 			if(src.z>6 || stat&(NOPOWER|BROKEN)) return
 			if(usr.stat || ((get_dist(usr, src) > 1 || !( usr.canmove ) || usr.blinded) && !istype(usr, /mob/living/silicon))) return
-			var/obj/machinery/camera/C = locate(href_list["switchTo"]) in cameranet.viewpoints
+			var/obj/machinery/camera/C = locate(href_list["switchTo"]) in cameranet.cameras
 			if(!C) return
 
 			switch_to_camera(usr, C)

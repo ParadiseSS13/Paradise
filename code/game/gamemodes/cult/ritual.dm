@@ -72,13 +72,11 @@ var/engwords = list("travel", "blood", "join", "hell", "destroy", "technology", 
 	blood.override = 1
 	for(var/mob/living/silicon/ai/AI in player_list)
 		AI.client.images += blood
-	cultNetwork.viewpoints+=src
-	cultNetwork.addViewpoint(src)
+	cult_viewpoints += src
 
 /obj/effect/rune/Del()
 	..()
-	cultNetwork.viewpoints-=src
-	cultNetwork.removeViewpoint(src)
+	cult_viewpoints -= src
 
 /obj/effect/rune/examine()
 	set src in view(2)

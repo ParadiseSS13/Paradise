@@ -1,7 +1,7 @@
 
 json_writer
 	proc
-		WriteObject(list/L)
+		WriteObject(list/L, cached_data = null)
 			. = "{"
 			var/i = 1
 			for(var/k in L)
@@ -9,6 +9,8 @@ json_writer
 				. += {"\"[k]\":[write(val)]"}
 				if(i++ < L.len)
 					. += ","
+			if(cached_data)
+				. = copytext(., 1, lentext(.)) + ",\"cached\":[cached_data]}"
 			.+= "}"
 
 		write(val)

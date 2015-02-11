@@ -179,6 +179,11 @@ datum/ai_laws/tyrant //This probably shouldn't be a default lawset.
 
 /datum/ai_laws/proc/clear_ion_laws()
 	src.ion = list()
+	
+/datum/ai_laws/proc/clear_zeroth_law(var/law_borg = null)
+	src.zeroth = null
+	if(law_borg)
+		src.zeroth_borg = null
 
 /datum/ai_laws/proc/show_laws(var/who)
 

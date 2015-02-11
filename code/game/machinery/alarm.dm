@@ -458,6 +458,7 @@
 	alert_signal.transmission_method = 1
 	alert_signal.data["zone"] = alarm_area.name
 	alert_signal.data["type"] = "Atmospheric"
+	alert_signal.data["hidden"] = hidden
 
 	if(alert_level==2)
 		alert_signal.data["alert"] = "severe"

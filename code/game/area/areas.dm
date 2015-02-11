@@ -52,25 +52,32 @@
 	InitializeLighting()
 
 
-/area/proc/poweralert(var/state, var/obj/source as obj)
+/area/proc/poweralert(var/state, var/obj/source as obj)		
 	if (state != poweralm)
 		poweralm = state
 		if(istype(source))	//Only report power alarms on the z-level where the source is located.
 			var/list/cameras = list()
 			for (var/area/RA in related)
 				for (var/obj/machinery/camera/C in RA)
+					if(!report_alerts)
+						break
 					cameras += C
 					if(state == 1)
+
 						C.network.Remove("Power Alarms")
 					else
 						C.network.Add("Power Alarms")
 			for (var/mob/living/silicon/aiPlayer in player_list)
+				if(!report_alerts)
+					break
 				if(aiPlayer.z == source.z)
 					if (state == 1)
 						aiPlayer.cancelAlarm("Power", src, source)
 					else
 						aiPlayer.triggerAlarm("Power", src, cameras, source)
 			for(var/obj/machinery/computer/station_alert/a in machines)
+				if(!report_alerts)
+					break
 				if(a.z == source.z)
 					if(state == 1)
 						a.cancelAlarm("Power", src, source)
@@ -107,11 +114,17 @@
 			for(var/area/RA in related)
 				//updateicon()
 				for(var/obj/machinery/camera/C in RA)
+					if(!report_alerts)
+						break
 					cameras += C
 					C.network.Add("Atmosphere Alarms")
 			for(var/mob/living/silicon/aiPlayer in player_list)
+				if(!report_alerts)
+					break
 				aiPlayer.triggerAlarm("Atmosphere", src, cameras, src)
 			for(var/obj/machinery/computer/station_alert/a in machines)
+				if(!report_alerts)
+					break
 				a.triggerAlarm("Atmosphere", src, cameras, src)
 			air_doors_activated=1
 			CloseFirelocks()
@@ -119,10 +132,16 @@
 		else if (atmosalm == 2)
 			for(var/area/RA in related)
 				for(var/obj/machinery/camera/C in RA)
+					if(!report_alerts)
+						break
 					C.network.Remove("Atmosphere Alarms")
 			for(var/mob/living/silicon/aiPlayer in player_list)
+				if(!report_alerts)
+					break
 				aiPlayer.cancelAlarm("Atmosphere", src, src)
 			for(var/obj/machinery/computer/station_alert/a in machines)
+				if(!report_alerts)
+					break
 				a.cancelAlarm("Atmosphere", src, src)
 			air_doors_activated=0
 			OpenFirelocks()
@@ -162,11 +181,17 @@
 		var/list/cameras = list()
 		for(var/area/RA in related)
 			for (var/obj/machinery/camera/C in RA)
+				if(!report_alerts)
+					continue
 				cameras.Add(C)
 				C.network.Add("Fire Alarms")
 		for (var/mob/living/silicon/ai/aiPlayer in player_list)
+			if(!report_alerts)
+				continue
 			aiPlayer.triggerAlarm("Fire", src, cameras, src)
 		for (var/obj/machinery/computer/station_alert/a in machines)
+			if(!report_alerts)
+				continue
 			a.triggerAlarm("Fire", src, cameras, src)
 
 /area/proc/firereset()
@@ -176,10 +201,16 @@
 		updateicon()
 		for(var/area/RA in related)
 			for (var/obj/machinery/camera/C in RA)
+				if(!report_alerts)
+					continue
 				C.network.Remove("Fire Alarms")
 		for (var/mob/living/silicon/ai/aiPlayer in player_list)
+			if(!report_alerts)
+				continue
 			aiPlayer.cancelAlarm("Fire", src, src)
 		for (var/obj/machinery/computer/station_alert/a in machines)
+			if(!report_alerts)
+				continue
 			a.cancelAlarm("Fire", src, src)
 		OpenFirelocks()
 
