@@ -79,6 +79,21 @@
 				update_icon()
 			else
 				user << fail_msg
+		else if(istype(I, /obj/item/weapon/wrench))
+			if (!anchored && !isinspace())
+				playsound(src.loc, 'sound/items/Ratchet.ogg', 50, 1)
+				user.visible_message( \
+					"[user] tightens \the [src]'s casters.", \
+					"<span class='notice'> You have tightened \the [src]'s casters.</span>", \
+					"You hear ratchet.")
+				anchored = 1
+			else if(anchored)
+				playsound(src.loc, 'sound/items/Ratchet.ogg', 50, 1)
+				user.visible_message( \
+					"[user] loosens \the [src]'s casters.", \
+					"<span class='notice'> You have loosened \the [src]'s casters.</span>", \
+					"You hear ratchet.")
+				anchored = 0
 	else
 		usr << "<span class='warning'>You cannot interface your modules [src]!</span>"
 
