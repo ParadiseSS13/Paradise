@@ -15,7 +15,7 @@
 		user << "<span class='notice'>We feel a minute twitch in our eyes, and darkness creeps away.</span>"
 	else
 		user << "<span class='notice'>Our vision dulls. Shadows gather.</span>"
-		user.sight -= SEE_MOBS
+		user.sight &= ~SEE_MOBS
 	while(active)
 		user.see_in_dark = 8
 		user.see_invisible = 2
