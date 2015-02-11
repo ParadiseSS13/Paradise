@@ -40,6 +40,20 @@
 	hold.hear_talk(M, msg, verb, speaking)
 	..()
 
+/obj/item/clothing/accessory/storage/proc/return_inv()
+
+	var/list/L = list(  )
+
+	L += src.contents
+
+	for(var/obj/item/weapon/storage/S in src)
+		L += S.return_inv()
+	for(var/obj/item/weapon/gift/G in src)
+		L += G.gift
+		if (istype(G.gift, /obj/item/weapon/storage))
+			L += G.gift:return_inv()
+	return L
+
 /obj/item/clothing/accessory/storage/attack_self(mob/user as mob)
 	if (has_suit)	//if we are part of a suit
 		hold.open(user)
