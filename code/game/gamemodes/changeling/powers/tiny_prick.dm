@@ -37,8 +37,6 @@
 		if(H.species.flags & IS_SYNTHETIC)
 			user << "<span class='warning'>This won't work on synthetics.</span>"
 			return
-		if(H.species.flags & NO_SCAN) //Prevents transforming slimes and killing them instantly
-			user << "<span class='warning'>This won't work on a creature with abnormal genetic material.</span>"
 	if(!isturf(user.loc))
 		return
 	if(get_dist(user, target) > (user.mind.changeling.sting_range))
@@ -87,6 +85,11 @@
 	if((M_HUSK in target.mutations) || (!ishuman(target) && !ismonkey(target)))
 		user << "<span class='warning'>Our sting appears ineffective against its DNA.</span>"
 		return 0
+	if(ishuman(target))
+		var/mob/living/carbon/human/H = target
+		if(H.species.flags & NO_SCAN) //Prevents transforming slimes and killing them instantly
+			user << "<span class='warning'>This won't work on a creature with abnormal genetic material.</span>"
+			return 0
 	return 1
 
 /obj/effect/proc_holder/changeling/sting/transformation/sting_action(var/mob/user, var/mob/target)
