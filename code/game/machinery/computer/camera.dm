@@ -81,46 +81,38 @@
 		
 		var/data[0]
 
+
 		data["current"] = null
 
-		if(isnull(camera_cache))
-			cameranet.process_sort()
+		var/list/L = list()
+		for (var/obj/machinery/camera/C in cameranet.cameras)
+			if(can_access_camera(C))
+				L.Add(C)
 
-			var/cameras[0]
-			for(var/obj/machinery/camera/C in cameranet.cameras)
-				var/cam[0]
-				cam["name"] = C.c_tag
-				cam["deact"] = !C.can_use()
-				cam["camera"] = "\ref[C]"
-				cam["x"] = C.x
-				cam["y"] = C.y
-				cam["z"] = C.z
+		cameranet.process_sort()
 
-				cameras[++cameras.len] = cam
+		var/cameras[0]
+		for(var/obj/machinery/camera/C in L)
+			var/cam[0]
+			cam["name"] = C.c_tag
+			cam["deact"] = !C.can_use()
+			cam["camera"] = "\ref[C]"
+			cam["x"] = C.x
+			cam["y"] = C.y
+			cam["z"] = C.z
 
-				if(C == current)
-					data["current"] = cam
+			cameras[++cameras.len] = cam
 
-				var/list/camera_list = list("cameras" = cameras)
-				camera_cache=list2json(camera_list)
-
-		else
-			if(current)
-				var/cam[0]
-				cam["name"] = current.c_tag
-				cam["deact"] = !current.can_use()
-				cam["camera"] = "\ref[current]"
-				cam["x"] = current.x
-				cam["y"] = current.y
-				cam["z"] = current.z
-
+			if(C == current)
 				data["current"] = cam
+
+		data["cameras"] = cameras
 		
 		tempnets.Cut()
 		if(emagged)
 			access = list(access_captain) // Assume captain level access when emagged
 			data["emagged"] = 1
-		if(isAI(user) || isrobot (user))
+		if(isAI(user) || isrobot(user))
 			access = list(access_captain) // Assume captain level access when AI
 			
 		// Loop through the ID's permission, and check which networks the ID has access to.
@@ -145,8 +137,7 @@
 			ui.add_template("mapContent", "sec_camera_map_content.tmpl")
 			// adding a template with the key "mapHeader" replaces the map header content
 			ui.add_template("mapHeader", "sec_camera_map_header.tmpl")
-			
-			ui.load_cached_data(camera_cache)
+
 			ui.set_initial_data(data)
 			ui.open()
 			ui.set_auto_update(1)

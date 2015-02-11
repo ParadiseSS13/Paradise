@@ -39,7 +39,7 @@
 	assembly = new(src)
 	assembly.state = 4
 
-	invalidateCameraCache()
+	//invalidateCameraCache()
 
 	/* // Use this to look for cameras that have the same c_tag.
 	for(var/obj/machinery/camera/C in cameranet.cameras)
@@ -66,7 +66,7 @@
 /obj/machinery/camera/emp_act(severity)
 	if(!isEmpProof())
 		if(prob(100/severity))
-			invalidateCameraCache()
+			//invalidateCameraCache()
 			stat |= EMPED
 			SetLuminosity(0)
 			kick_viewers()
@@ -77,7 +77,7 @@
 				stat &= ~EMPED
 				cancelCameraAlarm()
 				update_icon()
-				invalidateCameraCache()
+				//invalidateCameraCache()
 			..()
 
 /obj/machinery/camera/bullet_act(var/obj/item/projectile/P)
@@ -123,7 +123,7 @@
 	cameranet.updateVisibility(src, 0)
 
 /obj/machinery/camera/attackby(obj/W as obj, mob/living/user as mob)
-	invalidateCameraCache()
+	//invalidateCameraCache()
 	// DECONSTRUCTION
 	if(isscrewdriver(W))
 		//user << "<span class='notice'>You start to [panel_open ? "close" : "open"] the camera's panel.</span>"
@@ -215,7 +215,7 @@
 		//legacy support, if choice is != 1 then just kick viewers without changing status
 		kick_viewers()
 	else
-		invalidateCameraCache()
+		//invalidateCameraCache()
 		set_status( !src.status )
 		if (!(src.status))
 			visible_message("\red [user] has deactivated [src]!")
@@ -235,7 +235,7 @@
 
 //Used when someone breaks a camera 
 /obj/machinery/camera/proc/destroy()
-	invalidateCameraCache()
+	//invalidateCameraCache()
 	stat |= BROKEN
 	kick_viewers()
 	triggerCameraAlarm()
@@ -250,7 +250,7 @@
 /obj/machinery/camera/proc/set_status(var/newstatus)
 	if (status != newstatus)
 		status = newstatus
-		invalidateCameraCache()
+		//invalidateCameraCache()
 		// now disconnect anyone using the camera
 		//Apparently, this will disconnect anyone even if the camera was re-activated.
 		//I guess that doesn't matter since they couldn't use it anyway?
