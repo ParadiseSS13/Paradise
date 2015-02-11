@@ -12,7 +12,7 @@ Used In File(s): \code\game\machinery\computer\camera.dm
 		<div class='itemContent'>None</div>
 	{{/if}}
 </div>
-{{for data.cached.cameras}}
+{{for data.cameras}}
 	{{if data.current && value.name == data.current.name}}
 		{{:helper.link(value.name, '', {'switchTo' : value.camera}, 'selected')}}
 	{{else value.deact}}
