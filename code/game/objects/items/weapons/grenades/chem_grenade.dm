@@ -96,7 +96,7 @@
 		else if(clown_check(user))
 			// This used to go before the assembly check, but that has absolutely zero to do with priming the damn thing.  You could spam the admins with it.
 			var/log_str = "[key_name(usr)]<A HREF='?_src_=holder;adminmoreinfo=\ref[usr]'>?</A> has primed a [name] for detonation at <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[bombturf.x];Y=[bombturf.y];Z=[bombturf.z]'>[A.name] (JMP)</a>."
-			message_admins(log_str)
+			msg_admin_attack(log_str)
 			log_game(log_str)
 			bombers += "[log_str]"
 			user << "<span class='warning'>You prime the [name]! [det_time / 10] second\s!</span>"
@@ -144,7 +144,7 @@
 				var/turf/bombturf = get_turf(loc)
 				var/area/A = bombturf.loc
 				var/log_str = "[key_name(usr)]<A HREF='?_src_=holder;adminmoreinfo=\ref[usr]'>?</A> has completed [name] at <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[bombturf.x];Y=[bombturf.y];Z=[bombturf.z]'>[A.name] (JMP)</a> [contained]."
-				message_admins(log_str)
+				msg_admin_attack(log_str)
 				log_game(log_str)
 			else
 				user << "<span class='notice'>You need to add at least one beaker before locking the assembly.</span>"
