@@ -52,7 +52,6 @@ mob/spirit/proc/Spirit_Move(direct)
 mob/spirit/setLoc(var/T)
 	T = get_turf(T)
 	loc = T
-	cultNetwork.visibility(src)
 
 mob/spirit/verb/toggle_acceleration()
 	set category = "Spirit"

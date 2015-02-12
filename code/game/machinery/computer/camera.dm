@@ -1,3 +1,7 @@
+/proc/invalidateCameraCache()
+	for(var/obj/machinery/computer/security/s in world)
+		s.camera_cache = null
+	
 /obj/machinery/computer/security
 	name = "Camera Monitor"
 	desc = "Used to access the various cameras networks on the station."
@@ -12,6 +16,7 @@
 	var/list/tempnets[0]
 	var/list/data[0]
 	var/list/access[0]
+	var/camera_cache = null
 
 	New() // Lists existing networks and their required access. Format: networks[<name>] = list(<access>)
 		networks["SS13"] = list(access_hos,access_captain)
@@ -76,14 +81,15 @@
 		
 		var/data[0]
 
+
 		data["current"] = null
 
 		var/list/L = list()
-		for (var/obj/machinery/camera/C in cameranet.viewpoints)
+		for (var/obj/machinery/camera/C in cameranet.cameras)
 			if(can_access_camera(C))
 				L.Add(C)
 
-		camera_sort(L)
+		cameranet.process_sort()
 
 		var/cameras[0]
 		for(var/obj/machinery/camera/C in L)
@@ -106,7 +112,7 @@
 		if(emagged)
 			access = list(access_captain) // Assume captain level access when emagged
 			data["emagged"] = 1
-		if(isAI(user) || isrobot (user))
+		if(isAI(user) || isrobot(user))
 			access = list(access_captain) // Assume captain level access when AI
 			
 		// Loop through the ID's permission, and check which networks the ID has access to.
@@ -119,6 +125,9 @@
 						tempnets.Add(list(list("name" = l, "active" = 0)))	
 					break
 		data["networks"] = tempnets
+		
+		if(ui)
+			ui.load_cached_data(camera_cache)
 
 		ui = nanomanager.try_update_ui(user, src, ui_key, ui, data, force_open)
 		if (!ui)
@@ -137,7 +146,7 @@
 		if(href_list["switchTo"])
 			if(src.z>6 || stat&(NOPOWER|BROKEN)) return
 			if(usr.stat || ((get_dist(usr, src) > 1 || !( usr.canmove ) || usr.blinded) && !istype(usr, /mob/living/silicon))) return
-			var/obj/machinery/camera/C = locate(href_list["switchTo"]) in cameranet.viewpoints
+			var/obj/machinery/camera/C = locate(href_list["switchTo"]) in cameranet.cameras
 			if(!C) return
 
 			switch_to_camera(usr, C)

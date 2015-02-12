@@ -193,6 +193,7 @@ var/list/slot_equipment_priority = list( \
 		slot_glasses,\
 		slot_belt,\
 		slot_s_store,\
+		slot_tie,\
 		slot_l_store,\
 		slot_r_store\
 	)
@@ -898,6 +899,9 @@ var/list/slot_equipment_priority = list( \
 					continue
 				statpanel(listed_turf.name, null, A)
 
+	if(mind && mind.changeling)
+		add_stings_to_statpanel(mind.changeling.purchasedpowers)
+
 	if(spell_list && spell_list.len)
 		for(var/obj/effect/proc_holder/spell/wizard/S in spell_list)
 			switch(S.charge_type)
@@ -908,6 +912,11 @@ var/list/slot_equipment_priority = list( \
 				if("holdervar")
 					statpanel(S.panel,"[S.holder_var_type] [S.holder_var_amount]",S)
 
+
+/mob/proc/add_stings_to_statpanel(var/list/stings)
+	for(var/obj/effect/proc_holder/changeling/S in stings)
+		if(S.chemical_cost >=0 && S.can_be_used_by(src))
+			statpanel("[S.panel]",((S.chemical_cost > 0) ? "[S.chemical_cost]" : ""),S)
 	/* // Why have a duplicate set of turfs in the stat panel?
 	if(listed_turf)
 		if(get_dist(listed_turf,src) > 1)

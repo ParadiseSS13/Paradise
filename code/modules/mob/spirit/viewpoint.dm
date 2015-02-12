@@ -18,9 +18,6 @@ var/obj/cult_viewpoint/list/cult_viewpoints = list()
 /obj/cult_viewpoint/New(var/mob/target)
 	owner = target
 	//src.loc = owner
-	owner.addToVisibilityNetwork(cultNetwork)
-	cultNetwork.viewpoints+=src
-	cultNetwork.addViewpoint(src)
 	cult_viewpoints+=src
 	//handle_missing_mask()
 	..()
@@ -28,10 +25,7 @@ var/obj/cult_viewpoint/list/cult_viewpoints = list()
 
 /obj/cult_viewpoint/Del()
 	processing_objects.Remove(src)
-	cultNetwork.viewpoints-=src
-	cultNetwork.removeViewpoint(src)
 	cult_viewpoints-=src
-	owner.removeFromVisibilityNetwork(cultNetwork)
 	..()
 	return
 
@@ -134,6 +128,8 @@ var/obj/cult_viewpoint/list/cult_viewpoints = list()
 
 
 /obj/cult_viewpoint/proc/get_display_name()
+	if(istype(src,/obj/effect/rune))
+		return name
 	if (!owner)
 		return
 	if (cult_name)

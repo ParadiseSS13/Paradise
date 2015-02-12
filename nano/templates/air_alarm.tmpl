@@ -132,7 +132,7 @@ Used In File(s): /code/game/machinery/alarm.dm
 				<div class="line">
 					<div class="statusLabel">Operating:</div>
 					<div class="statusValue">
-						{{:helper.link(value.power ? 'On':'Off','power',{'id_tag':value.id_tag,'command':'power','val':value.power?0:1},null,(value.power?'linkOn':'red'))}}
+						{{:helper.link(value.power ? 'On':'Off','power',{'id_tag':value.id_tag,'command':'power','val':value.power?0:1},null)}}
 						{{if value.direction=="siphon"}}
 							{{:helper.link('Siphoning','arrowthickstop-1-s',{'id_tag':value.id_tag,'command':'direction','val':'1'})}}
 						{{else}}
@@ -170,7 +170,7 @@ Used In File(s): /code/game/machinery/alarm.dm
 				<div class="line">
 					<div class="statusLabel">Operating:</div>
 					<div class="statusValue">
-						{{:helper.link(value.power ? 'On':'Off','power',{'id_tag':value.id_tag,'command':'power','val':value.power?0:1},null,(value.power?'linkOn':'red'))}}
+						{{:helper.link(value.power ? 'On':'Off','power',{'id_tag':value.id_tag,'command':'power','val':value.power?0:1},null)}}
 					</div>
 				</div>
 				<div class="line">

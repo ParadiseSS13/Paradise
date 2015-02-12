@@ -115,7 +115,7 @@
 //a bunch of this is copied from atmos alarms
 /obj/machinery/computer/atmoscontrol/Topic(href, href_list)
 	if(..())
-		return
+		return 1
 	if(href_list["reset"])
 		current = null
 

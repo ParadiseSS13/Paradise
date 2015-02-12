@@ -730,7 +730,31 @@ datum
 			required_reagents = list("chlorine" = 1, "hydrogen" = 1, "nitrogen" = 1)
 			result_amount = 3
 
-
+///////Changeling Blood Test/////////////
+		changeling_test
+			name = "Changeling blood test"
+			id = "changelingblood"
+			result = "blood"
+			required_reagents = list("blood" = 5)
+			required_catalysts = list("fuel")
+			result_amount = 1 //Needs this in order to check the donor, as the data var in the reacted blood gets transferred.
+			on_reaction(var/datum/reagents/holder, var/created_volume)
+				if(!holder.reagent_list) //reagent_list is not null
+					return
+				var/datum/reagent/blood/B = locate() in holder.reagent_list
+				if(!B) //B is not null
+					return
+				var/mob/living/carbon/human/H = B.data["donor"]
+				if(!H) //H is not null.
+					return
+				if(H.mind && H.mind.changeling) //Checks if H, the blood donor is a ling.
+					for(var/mob/M in viewers(get_turf_loc(holder.my_atom), null))
+						M.show_message( "<span class='danger'>The blood writhes and wriggles and sizzles away from the container!</span>", 1, "<span class='warning'>You hear bubbling and sizzling.</span>", 2)
+				else
+					for(var/mob/M in viewers(get_turf_loc(holder.my_atom), null))
+						M.show_message( "<span class ='notice'>The blood seems to break apart in the fuel.</span>", 1)
+				holder.del_reagent("blood")
+				return
 /////////////////////////////////////OLD SLIME CORE REACTIONS ///////////////////////////////
 /*
 		slimepepper
@@ -1323,7 +1347,7 @@ datum
 			required_container = /obj/item/slime_extract/yellow
 			required_other = 1
 			on_reaction(var/datum/reagents/holder, var/created_volume)
-				var/obj/item/weapon/cell/slime/P = new /obj/item/weapon/cell/slime
+				var/obj/item/weapon/stock_parts/cell/slime/P = new /obj/item/weapon/stock_parts/cell/slime
 				P.loc = get_turf_loc(holder.my_atom)
 
 		slimeglow

@@ -1025,7 +1025,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 			M.equip_to_slot_or_del(new /obj/item/clothing/glasses/meson/cyber(M), slot_glasses)
 			M.equip_to_slot_or_del(new /obj/item/clothing/mask/breath(M), slot_wear_mask)
 			M.equip_to_slot_or_del(new /obj/item/clothing/head/helmet/space/rig/singuloth(M), slot_head)
-			M.equip_to_slot_or_del(new /obj/item/weapon/claymore(M), slot_belt)
+			M.equip_to_slot_or_del(new /obj/item/weapon/claymore/ceremonial(M), slot_belt)
 			M.equip_to_slot_or_del(new /obj/item/weapon/tank/oxygen(M), slot_s_store)
 			M.equip_to_slot_or_del(new /obj/item/weapon/twohanded/knighthammer(M), slot_back)
 

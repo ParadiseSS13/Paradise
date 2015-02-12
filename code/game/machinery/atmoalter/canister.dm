@@ -9,7 +9,51 @@
 	var/valve_open = 0
 	var/release_pressure = ONE_ATMOSPHERE
 
-	var/_color = "yellow"
+	var/list/_color = list("yellow", null, null, null)//variable that stores colours
+	var/list/decals = list() // var that stores the decals, NOTE: Not the actual POSSIBLE decals, but the ones currently used
+	var/list/oldcolor = list()//lists for check_change()
+	var/list/olddecals = list()
+	var/list/possibledecals = list( //var that stores all possible decals, here for adminbus I guess? NOTE: LEAVE "done" IN HERE
+		"Low temperature canister" = "cold",
+		"High temperature canister" = "hot",
+		"Plasma containing canister" = "plasma",
+		"Done" = "DONE"
+		)
+	var/list/possiblemaincolor = list( //these lists contain the possible colors of a canister, here for adminbus
+		"\[N2O\]" = "redws",
+		"\[N2\]" = "red",
+		"\[O2\]" = "blue",
+		"\[Toxin (Bio)\]" = "orange",
+		"\[CO2\]" = "black",
+		"\[Air\]" = "grey",
+		"\[CAUTION\]" = "yellow",
+		"\[SPECIAL\]" = "whiters"
+		)
+	var/list/possibleseccolor = list( // no point in having the N2O and "whiters" ones in these lists
+		"\[N2\]" = "red-c",
+		"\[O2\]" = "blue-c",
+		"\[Toxin (Bio)\]" = "orange-c",
+		"\[CO2\]" = "black-c",
+		"\[Air\]" = "grey-c",
+		"\[CAUTION\]" = "yellow-c"
+		)
+	var/list/possibletertcolor = list(
+		"\[N2\]" = "red-c-1",
+		"\[O2\]" = "blue-c-1",
+		"\[Toxin (Bio)\]" = "orange-c-1",
+		"\[CO2\]" = "black-c-1",
+		"\[Air\]" = "grey-c-1",
+		"\[CAUTION\]" = "yellow-c-1"
+		)
+	var/list/possiblequartcolor = list(
+		"\[N2\]" = "red-c-2",
+		"\[O2\]" = "blue-c-2",
+		"\[Toxin (Bio)\]" = "orange-c-2",
+		"\[CO2\]" = "black-c-2",
+		"\[Air\]" = "grey-c-2",
+		"\[CAUTION\]" = "yellow-c-2"
+		)
+
 	var/can_label = 1
 	var/filled = 0.5
 	pressure_resistance = 7*ONE_ATMOSPHERE
@@ -23,37 +67,38 @@
 /obj/machinery/portable_atmospherics/canister/sleeping_agent
 	name = "Canister: \[N2O\]"
 	icon_state = "redws"
-	_color = "redws"
+	_color = list("redws", null, null, null)
 	can_label = 0
 /obj/machinery/portable_atmospherics/canister/nitrogen
 	name = "Canister: \[N2\]"
 	icon_state = "red"
-	_color = "red"
+	_color = list("red", null, null, null)
+	decals = list("plasma")
 	can_label = 0
 /obj/machinery/portable_atmospherics/canister/oxygen
 	name = "Canister: \[O2\]"
 	icon_state = "blue"
-	_color = "blue"
+	_color = list("blue", null, null, null)
 	can_label = 0
 /obj/machinery/portable_atmospherics/canister/toxins
 	name = "Canister \[Toxin (Plasma)\]"
 	icon_state = "orange"
-	_color = "orange"
+	_color = list("orange", null, null, null)
 	can_label = 0
 /obj/machinery/portable_atmospherics/canister/carbon_dioxide
 	name = "Canister \[CO2\]"
 	icon_state = "black"
-	_color = "black"
+	_color = list("black", null, null, null)
 	can_label = 0
 /obj/machinery/portable_atmospherics/canister/air
 	name = "Canister \[Air\]"
 	icon_state = "grey"
-	_color = "grey"
+	_color = list("grey", null, null, null)
 	can_label = 0
 /obj/machinery/portable_atmospherics/canister/custom_mix
 	name = "Canister \[Custom\]"
 	icon_state = "whiters"
-	_color = "whiters"
+	_color = list("whiters", null, null, null)
 	can_label = 0
 
 /obj/machinery/portable_atmospherics/canister/proc/check_change()
@@ -74,6 +119,16 @@
 	else
 		update_flag |= 32
 
+	if(list2params(oldcolor) == list2params(_color))
+		update_flag |= 64
+	else
+		oldcolor = _color
+
+	if(list2params(olddecals) == list2params(decals))
+		update_flag |= 128
+	else
+		olddecals = decals
+
 	if(update_flag == old_flag)
 		return 1
 	else
@@ -88,19 +143,33 @@ update_flag
 8 = tank_pressure < ONE_ATMOS
 16 = tank_pressure < 15*ONE_ATMOS
 32 = tank_pressure go boom.
+64 = colors
+128 = decals
 */
 
 	if (src.destroyed)
 		src.overlays = 0
-		src.icon_state = text("[]-1", src._color)
+		src.icon_state = text("[]-1", src._color[1])//yes, I KNOW the colours don't reflect when the can's borked, whatever.
 
-	if(icon_state != "[_color]")
-		icon_state = "[_color]"
+	if(icon_state != src._color[1])
+		icon_state = src._color[1]
 
 	if(check_change()) //Returns 1 if no change needed to icons.
 		return
 
 	src.overlays = 0
+
+	if (_color[2])//COLORS!
+		overlays.Add(_color[2])
+
+	if (_color[3])
+		overlays.Add(_color[3])
+
+	if (_color[4])
+		overlays.Add(_color[4])
+
+	for(var/D in decals)
+		overlays.Add("decal-" + D)
 
 	if(update_flag & 1)
 		overlays += "can-open"
@@ -114,6 +183,7 @@ update_flag
 		overlays += "can-o2"
 	else if(update_flag & 32)
 		overlays += "can-o3"
+	check_change()//call this here to update the bitflag, incase the canister gets relabeled instantly after again
 	return
 
 /obj/machinery/portable_atmospherics/canister/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume)
@@ -333,21 +403,41 @@ update_flag
 
 	if (href_list["relabel"])
 		if (can_label)
-			var/list/colors = list(\
-				"\[N2O\]" = "redws", \
-				"\[N2\]" = "red", \
-				"\[O2\]" = "blue", \
-				"\[Toxin (Plasma)\]" = "orange", \
-				"\[CO2\]" = "black", \
-				"\[Air\]" = "grey", \
-				"\[CAUTION\]" = "yellow", \
-				"\[Custom\]" = "whiters",\
+
+			var/label1 = input("Choose canister label", "Primary color") as null|anything in possiblemaincolor
+
+			var/label2 = input("Choose canister label", "Secondary color") as null|anything in possibleseccolor
+
+			var/label3 = input("Choose canister label", "Tertiary color") as null|anything in possibletertcolor
+
+			var/label4 = input("Choose canister label", "Quaternary color") as null|anything in possiblequartcolor
+
+			decals = list()
+
+			_color = list(
+			(label1 ? possiblemaincolor[label1] : color[1]),//if the user didn't specify a primary colour, keep the current one.
+			possibleseccolor[label2],
+			possibletertcolor[label3],
+			possiblequartcolor[label4]
 			)
-			var/label = input("Choose canister label", "Gas canister") as null|anything in colors
-			if (label)
-				src._color = colors[label]
-				src.icon_state = colors[label]
-				src.name = "Canister: [label]"
+
+			decals = list()
+
+			var/list/tempposdecals = list()
+
+			for(var/d in possibledecals)//populate the temp list
+				tempposdecals.Add(d)
+				tempposdecals[d] = possibledecals[d]
+
+			while (src && !src.gc_destroyed && usr)//allow the user to select (theoretically) INFINITE DECALS!!!
+				var/newdecal = input("Choose canister label", "Decal") as anything in tempposdecals
+				if (newdecal == "Done")
+					break
+				decals.Add(tempposdecals[newdecal])
+				tempposdecals.Remove(newdecal)
+
+			src.name = (input("Choose canister label", "Name") as text) + " canister"
+
 
 	src.add_fingerprint(usr)
 	update_icon()

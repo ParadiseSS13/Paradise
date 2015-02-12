@@ -6,7 +6,7 @@
 	icon_state = "flood00"
 	density = 1
 	var/on = 0
-	var/obj/item/weapon/cell/high/cell = null
+	var/obj/item/weapon/stock_parts/cell/high/cell = null
 	var/use = 5
 	var/unlocked = 0
 	var/open = 0
@@ -83,7 +83,7 @@
 					open = 1
 					user << "You remove the battery panel."
 
-	if (istype(W, /obj/item/weapon/cell))
+	if (istype(W, /obj/item/weapon/stock_parts/cell))
 		if(open)
 			if(cell)
 				user << "There is a power cell already installed."

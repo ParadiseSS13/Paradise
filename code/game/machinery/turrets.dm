@@ -462,7 +462,7 @@
 
 /obj/machinery/turretid/Topic(href, href_list)
 	if(..())
-		return
+		return 1
 	if (src.locked)
 		if (!istype(usr, /mob/living/silicon))
 			usr << "Control panel is locked!"

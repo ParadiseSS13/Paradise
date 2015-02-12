@@ -186,6 +186,7 @@ var/MAX_EXPLOSION_RANGE = 14
 #define SLOT_DENYPOCKET 4096	//this is to deny items with a w_class of 2 or 1 to fit in pockets.
 #define SLOT_TWOEARS 8192
 #define SLOT_PDA 16384
+#define SLOT_TIE 32768
 
 
 //FLAGS BITMASK
@@ -271,6 +272,7 @@ var/MAX_EXPLOSION_RANGE = 14
 #define slot_legcuffed 19
 #define slot_r_ear 20
 #define slot_wear_pda 21
+#define slot_tie 22
 
 //Cant seem to find a mob bitflags area other than the powers one
 
@@ -799,11 +801,13 @@ var/list/cheartstopper = list("potassium_chloride") //this stops the heart when 
 #define GETPULSE_HAND	0	//less accurate (hand)
 #define GETPULSE_TOOL	1	//more accurate (med scanner, sleeper, etc)
 
-var/list/RESTRICTED_CAMERA_NETWORKS = list( //Those networks can only be accessed by preexisting terminals. AIs and new terminals can't use them.
+var/list/restricted_camera_networks = list( //Those networks can only be accessed by preexisting terminals. AIs and new terminals can't use them.
 	"CentCom",
 	"ERT",
 	"NukeOps",
 	"Thunderdome",
+	"UO45",
+	"UO45R",	
 	"Xeno"
 	)
 
@@ -942,3 +946,9 @@ var/list/hit_appends = list("-OOF", "-ACK", "-UGH", "-HRNK", "-HURGH", "-GLORF")
 #define CRAFTLATHE	8	//Uses fuck if I know. For use eventually.
 #define MECHFAB		16 //Remember, objects utilising this flag should have construction_time and construction_cost vars.
 //Note: More then one of these can be added to a design but imprinter and lathe designs are incompatable.
+
+// Suit sensor levels
+#define SUIT_SENSOR_OFF 0
+#define SUIT_SENSOR_BINARY 1
+#define SUIT_SENSOR_VITAL 2
+#define SUIT_SENSOR_TRACKING 3

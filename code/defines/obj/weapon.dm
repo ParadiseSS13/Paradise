@@ -494,7 +494,7 @@
 
 /obj/item/weapon/camera_bug/attack_self(mob/usr as mob)
 	var/list/cameras = new/list()
-	for (var/obj/machinery/camera/C in cameranet.viewpoints)
+	for (var/obj/machinery/camera/C in cameranet.cameras)
 		if (C.bugged && C.status)
 			cameras.Add(C)
 	if (length(cameras) == 0)
@@ -596,7 +596,7 @@
 	item_state = "RPED"
 	icon_override = 'icons/mob/in-hand/tools.dmi'
 	w_class = 5
-	can_hold = list("/obj/item/weapon/stock_parts","/obj/item/weapon/cell")
+	can_hold = list("/obj/item/weapon/stock_parts")
 	storage_slots = 50
 	use_to_pickup = 1
 	allow_quick_gather = 1

@@ -67,7 +67,7 @@
 	disability=EPILEPSY
 
 	New()
-		block=HEADACHEBLOCK
+		block=EPILEPSYBLOCK
 
 /datum/dna/gene/disability/cough
 	name="Coughing"

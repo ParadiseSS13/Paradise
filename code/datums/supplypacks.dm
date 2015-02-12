@@ -464,10 +464,10 @@ var/list/all_supply_groups = list("Operations","Security","Hospitality","Enginee
 					/obj/item/weapon/storage/toolbox/electrical,
 					/obj/item/clothing/gloves/yellow,
 					/obj/item/clothing/gloves/yellow,
-					/obj/item/weapon/cell,
-					/obj/item/weapon/cell,
-					/obj/item/weapon/cell/high,
-					/obj/item/weapon/cell/high)
+					/obj/item/weapon/stock_parts/cell,
+					/obj/item/weapon/stock_parts/cell,
+					/obj/item/weapon/stock_parts/cell/high,
+					/obj/item/weapon/stock_parts/cell/high)
 	cost = 15
 	containertype = /obj/structure/closet/crate
 	containername = "Electrical maintenance crate"
@@ -627,8 +627,8 @@ var/list/all_supply_groups = list("Operations","Security","Hospitality","Enginee
 					/obj/item/device/flash,
 					/obj/item/device/flash,
 					/obj/item/device/flash,
-					/obj/item/weapon/cell/high,
-					/obj/item/weapon/cell/high)
+					/obj/item/weapon/stock_parts/cell/high,
+					/obj/item/weapon/stock_parts/cell/high)
 	cost = 10
 	containertype = /obj/structure/closet/crate/secure/gear
 	containername = "Robotics Assembly"
@@ -964,6 +964,14 @@ var/list/all_supply_groups = list("Operations","Security","Hospitality","Enginee
 	containername = "Pizza crate"
 	group = "Hospitality"
 
+/datum/supply_packs/foodcart
+	name = "Food Cart crate"
+	contains = list(/obj/structure/foodcart)
+	cost = 10
+	containertype = /obj/structure/largecrate
+	containername = "food cart crate"
+	group = "Hospitality"
+
 /datum/supply_packs/formal_wear
 	contains = list(/obj/item/clothing/head/that,
 					/obj/item/clothing/suit/storage/lawyer/bluejacket,
@@ -989,7 +997,6 @@ var/list/all_supply_groups = list("Operations","Security","Hospitality","Enginee
 	containername = "RUST injector crate"
 	group = "Engineering"
 	access = access_engine
-
 /datum/supply_packs/rust_compressor
 	contains = list(/obj/item/weapon/module/rust_fuel_compressor)
 	name = "RUST fuel compressor circuitry"
@@ -998,7 +1005,6 @@ var/list/all_supply_groups = list("Operations","Security","Hospitality","Enginee
 	containername = "RUST fuel compressor circuitry"
 	group = "Engineering"
 	access = access_engine
-
 /datum/supply_packs/rust_assembly_port
 	contains = list(/obj/item/weapon/module/rust_fuel_port)
 	name = "RUST fuel assembly port circuitry"
@@ -1007,7 +1013,6 @@ var/list/all_supply_groups = list("Operations","Security","Hospitality","Enginee
 	containername = "RUST fuel assembly port circuitry"
 	group = "Engineering"
 	access = access_engine
-
 /datum/supply_packs/rust_core
 	contains = list(/obj/machinery/power/rust_core)
 	name = "RUST Tokamak Core"
