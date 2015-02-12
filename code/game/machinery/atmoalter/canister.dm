@@ -105,8 +105,6 @@
 			)
 		)
 		update_icon()
-		spawn(1)
-			update_icon()
 
 /obj/machinery/portable_atmospherics/canister/proc/check_change()
 	var/old_flag = update_flag
@@ -134,7 +132,7 @@
 		update_flag |= 128
 		olddecals = decals.Copy()
 	
-	if(update_flag == old_flag || (update_flag & 64) || (update_flag & 128))
+	if(update_flag == old_flag)
 		return 1
 	else
 		return 0
@@ -150,6 +148,7 @@ update_flag
 32 = tank_pressure go boom.
 64 = colors
 128 = decals
+(note: colors and decals has to be applied every icon update)
 */
 
 	if (src.destroyed)
@@ -188,6 +187,8 @@ update_flag
 		overlays += "can-o2"
 	else if(update_flag & 32)
 		overlays += "can-o3"
+	
+	update_flag &= ~196 //the flags 128 and 64 represent change, not states. As such, we have to reset them to be able to detect a change on the next go.
 	return
 
 /obj/machinery/portable_atmospherics/canister/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume)
@@ -414,18 +415,17 @@ update_flag
 		
 	if (href_list["rename"])
 		if (can_label)
-			var/T = input("Choose canister label", "Name", name)
+			var/T = copytext(sanitize(input("Choose canister label", "Name", name) as text|null),1,MAX_NAME_LEN)
 			if (can_label) //Exploit prevention
 				if (T)
 					name = T
 				else
-					name = "Canister"
+					name = "canister"
 			else
 				usr << "\red As you attempted to rename it the pressure rose!"
 
 	if (href_list["choice"] == "Primary color")
 		_color["prim"] = href_list["icon"]
-		update_icon()
 	if (href_list["choice"] == "Secondary color")
 		if (href_list["icon"] == "none")
 			_color["sec"] = ""
@@ -433,7 +433,6 @@ update_flag
 		else
 			_color["sec"] = href_list["icon"]
 			colorcontainer["sec"]["anycolor"] = 1
-		update_icon()
 	if (href_list["choice"] == "Tertiary color")
 		if (href_list["icon"] == "none")
 			_color["ter"] = ""
@@ -441,7 +440,6 @@ update_flag
 		else
 			_color["ter"] = href_list["icon"]
 			colorcontainer["ter"]["anycolor"] = 1
-		update_icon()
 	if (href_list["choice"] == "Quaternary color")
 		if (href_list["icon"] == "none")
 			_color["quart"] = ""
@@ -449,7 +447,6 @@ update_flag
 		else
 			_color["quart"] = href_list["icon"]
 			colorcontainer["quart"]["anycolor"] = 1
-		update_icon()
 	
 	if (href_list["choice"] == "decals")
 		switch(href_list["icon"])
@@ -470,7 +467,6 @@ update_flag
 		if (possibledecals[3]["active"])
 			if (!("plasma" in decals))
 				decals.Add("plasma")
-		update_icon()
 
 	src.add_fingerprint(usr)
 	update_icon()
