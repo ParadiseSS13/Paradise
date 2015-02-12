@@ -120,9 +120,9 @@ var/list/possible_changeling_IDs = list("Alpha","Beta","Gamma","Delta","Epsilon"
 			var/datum/objective/escape/escape_with_identity/identity_theft = new
 			identity_theft.owner = changeling
 			identity_theft.target = kill_objective.target
+			identity_theft.target_real_name = kill_objective.target.current.real_name //Whoops, forgot this.
 			if(identity_theft.target && identity_theft.target.current)
-				var/target_real_name = identity_theft.target.current.real_name
-				identity_theft.explanation_text = "Escape on the shuttle or an escape pod with the identity of [target_real_name], the [identity_theft.target.assigned_role] while wearing their identification card."
+				identity_theft.explanation_text = "Escape on the shuttle or an escape pod with the identity of [identity_theft.target_real_name], the [identity_theft.target.assigned_role] while wearing their identification card."
 			else
 				identity_theft.explanation_text = "Free objective"
 			changeling.objectives += identity_theft

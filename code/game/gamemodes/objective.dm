@@ -745,12 +745,14 @@ datum/objective/absorb
 			return 0
 
 datum/objective/destroy
+	var/target_real_name
 	find_target()
 		var/list/possible_targets = active_ais(1)
 		var/mob/living/silicon/ai/target_ai = pick(possible_targets)
 		target = target_ai.mind
 		if(target && target.current)
-			explanation_text = "Destroy [target.current.real_name], the experimental AI."
+			target_real_name = target.current.real_name
+			explanation_text = "Destroy [target_real_name], the AI."
 		else
 			explanation_text = "Free Objective"
 		return target
