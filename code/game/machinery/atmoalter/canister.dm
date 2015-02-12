@@ -211,6 +211,11 @@ update_flag
 				return 1
 	return 0
 
+/obj/machinery/portable_atmospherics/canister/proc/is_a_decal(var/inputVar)
+	for(var/list/L in possibledecals)
+		if (L["icon"] == inputVar)
+			return 1
+	return 0
 
 /obj/machinery/portable_atmospherics/canister/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume)
 	if(exposed_temperature > temperature_resistance)
@@ -471,25 +476,19 @@ update_flag
 			colorcontainer["quart"]["anycolor"] = 1
 	
 	if (href_list["choice"] == "decals")
-		switch(href_list["icon"])
-			if ("cold")
-				possibledecals[1]["active"] = (possibledecals[1]["active"] == 0)
-			if ("hot")
-				possibledecals[2]["active"] = (possibledecals[2]["active"] == 0)
-			if ("plasma")
-				possibledecals[3]["active"] = (possibledecals[3]["active"] == 0)
-		
-		decals = list()
-		if (possibledecals[1]["active"])
-			if (!("cold" in decals))
-				decals.Add("cold")
-		if (possibledecals[2]["active"])
-			if (!("hot" in decals))
-				decals.Add("hot")
-		if (possibledecals[3]["active"])
-			if (!("plasma" in decals))
-				decals.Add("plasma")
-
+		if (is_a_decal(href_list["icon"]))
+			for (var/list/L in possibledecals)
+				if (L["icon"] == href_list["icon"])
+					L["active"] = (L["active"] == 0)
+					break
+			
+			decals = list()
+			
+			for (var/list/L in possibledecals)
+				if (L["active"])
+					if (!(L["icon"] in decals))
+						decals.Add(L["icon"])
+	
 	src.add_fingerprint(usr)
 	update_icon()
 
