@@ -17,10 +17,13 @@
 /atom/proc/attack_hand(mob/user as mob)
 	return
 
-/mob/living/carbon/human/RestrainedClickOn(var/atom/A)
+/*
+/mob/living/carbon/human/RestrainedClickOn(var/atom/A) -- Handled by carbons
 	return
+*/
 
-
+/mob/living/carbon/RestrainedClickOn(var/atom/A)
+	return 0
 
 // Commented out to prevent overwriting RangedAttack in click.dm ~ Bone White
 /*
@@ -72,6 +75,8 @@
 	things considerably
 */
 /mob/living/carbon/monkey/RestrainedClickOn(var/atom/A)
+	if(..())
+		return
 	if(a_intent != "harm" || !ismob(A)) return
 	if(istype(wear_mask, /obj/item/clothing/mask/muzzle))
 		return

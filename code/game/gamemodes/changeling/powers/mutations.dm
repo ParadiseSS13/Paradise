@@ -123,11 +123,11 @@
 	icon = 'icons/obj/weapons.dmi'
 	icon_state = "arm_blade"
 	item_state = "arm_blade"
+	flags = ABSTRACT | NODROP
 	icon_override = 'icons/mob/in-hand/changeling.dmi'
 	w_class = 5.0
 	sharp = 1
 	edge = 1
-	canremove = 0
 	force = 25
 	throwforce = 0 //Just to be on the safe side
 	throw_range = 0
@@ -201,7 +201,7 @@
 /obj/item/weapon/shield/changeling
 	name = "shield-like mass"
 	desc = "A mass of tough, boney tissue. You can still see the fingers as a twisted pattern in the shield."
-	canremove = 0
+	flags = NODROP
 	icon = 'icons/obj/weapons.dmi'
 	icon_state = "ling_shield"
 	icon_override = 'icons/mob/in-hand/changeling.dmi'
@@ -256,7 +256,7 @@
 	name = "flesh mass"
 	icon_state = "lingspacesuit"
 	desc = "A huge, bulky mass of pressure and temperature-resistant organic tissue, evolved to facilitate space travel."
-	flags = STOPSPRESSUREDMAGE
+	flags = STOPSPRESSUREDMAGE | NODROP
 	allowed = list(/obj/item/device/flashlight, /obj/item/weapon/tank/emergency_oxygen, /obj/item/weapon/tank/oxygen)
 	armor = list(melee = 0, bullet = 0, laser = 0,energy = 0, bomb = 0, bio = 0, rad = 0) //No armor at all.
 	canremove = 0
@@ -279,7 +279,7 @@
 	name = "flesh mass"
 	icon_state = "lingspacehelmet"
 	desc = "A covering of pressure and temperature-resistant organic tissue with a glass-like chitin front."
-	flags = HEADCOVERSEYES | BLOCKHAIR | HEADCOVERSMOUTH | STOPSPRESSUREDMAGE
+	flags = HEADCOVERSEYES | BLOCKHAIR | HEADCOVERSMOUTH | STOPSPRESSUREDMAGE | NODROP
 	armor = list(melee = 0, bullet = 0, laser = 0,energy = 0, bomb = 0, bio = 0, rad = 0)
 	canremove = 0
 
@@ -310,6 +310,7 @@
 	name = "chitinous mass"
 	desc = "A tough, hard covering of black chitin."
 	icon_state = "lingarmor"
+	flags = NODROP
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
 	slowdown = 2
 	armor = list(melee = 65, bullet = 20, laser = 10, energy = 13, bomb = 0, bio = 0, rad = 0)
@@ -330,7 +331,7 @@
 	name = "chitinous mass"
 	desc = "A tough, hard covering of black chitin with transparent chitin in front."
 	icon_state = "lingarmorhelmet"
-	flags = HEADCOVERSEYES | BLOCKHAIR
+	flags = HEADCOVERSEYES | BLOCKHAIR | NODROP
 	armor = list(melee = 70, bullet = 15, laser = 7,energy = 10, bomb = 5, bio = 2, rad = 0)
 	canremove = 0
 	flags_inv = HIDEEARS

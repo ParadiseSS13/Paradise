@@ -438,9 +438,9 @@ var/list/slot_equipment_priority = list( \
 	<B><HR><FONT size=3>[name]</FONT></B>
 	<BR><HR>
 	<BR><B>Head(Mask):</B> <A href='?src=\ref[src];item=mask'>[(wear_mask ? wear_mask : "Nothing")]</A>
-	<BR><B>Left Hand:</B> <A href='?src=\ref[src];item=l_hand'>[(l_hand ? l_hand  : "Nothing")]</A>
-	<BR><B>Right Hand:</B> <A href='?src=\ref[src];item=r_hand'>[(r_hand ? r_hand : "Nothing")]</A>
-	<BR><B>Back:</B> <A href='?src=\ref[src];item=back'>[(back ? back : "Nothing")]</A> [((istype(wear_mask, /obj/item/clothing/mask) && istype(back, /obj/item/weapon/tank) && !( internal )) ? text(" <A href='?src=\ref[];item=internal'>Set Internal</A>", src) : "")]
+	<BR><B>Left Hand:</B> <A href='?src=\ref[src];item=l_hand'>[(l_hand && !(l_hand.flags & ABSTRACT)) ? l_hand  : "Nothing"]</A>
+	<BR><B>Right Hand:</B> <A href='?src=\ref[src];item=r_hand'>[(r_hand && !(r_hand.flags & ABSTRACT)) ? r_hand : "Nothing"]</A>
+	<BR><B>Back:</B> <A href='?src=\ref[src];item=back'>[(back && !(back.flags & ABSTRACT)) ? back : "Nothing"]</A> [((istype(wear_mask, /obj/item/clothing/mask) && istype(back, /obj/item/weapon/tank) && !( internal )) ? text(" <A href='?src=\ref[];item=internal'>Set Internal</A>", src) : "")]
 	<BR>[(internal ? text("<A href='?src=\ref[src];item=internal'>Remove Internal</A>") : "")]
 	<BR><A href='?src=\ref[src];item=pockets'>Empty Pockets</A>
 	<BR><A href='?src=\ref[user];refresh=1'>Refresh</A>
@@ -1235,7 +1235,7 @@ mob/proc/yank_out_object()
 	if(jobban_isbanned(usr, "NPC"))
 		usr << "<span class='warning'>You are banned from playing as NPC's.</span>"
 		return
-	
+
 	if((usr in respawnable_list) && (stat==2 || istype(usr,/mob/dead/observer)))
 		var/list/creatures = list("Mouse")
 		for(var/mob/living/L in living_mob_list)

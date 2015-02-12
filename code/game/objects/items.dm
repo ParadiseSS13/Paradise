@@ -5,7 +5,6 @@
 	var/no_embed = 0 // For use in item_attack.dm
 	var/icon/blood_overlay = null //this saves our blood splatter overlay, which will be processed not to go over the edges of the sprite
 	var/blood_overlay_color = null
-	var/abstract = 0
 	var/item_state = null
 	var/r_speed = 1.0
 	var/health = null

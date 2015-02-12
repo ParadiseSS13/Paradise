@@ -107,7 +107,7 @@
 	w_class = 5.0
 	icon_state = "offhand"
 	name = "offhand"
-	//flags = ABSTRACT
+	flags = ABSTRACT
 
 /obj/item/weapon/twohanded/offhand/unwield()
 	del(src)

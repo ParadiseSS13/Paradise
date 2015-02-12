@@ -897,6 +897,7 @@ mob/living/carbon/slime/var/temperature_resistance = T0C+75
 	item_state = "golem"
 	_color = "golem"
 	has_sensor = 0
+	flags = ABSTRACT
 	armor = list(melee = 10, bullet = 0, laser = 0,energy = 0, bomb = 0, bio = 0, rad = 0)
 	canremove = 0
 
@@ -911,7 +912,7 @@ mob/living/carbon/slime/var/temperature_resistance = T0C+75
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS|HEAD
 	slowdown = 1.0
 	flags_inv = HIDEGLOVES|HIDESHOES|HIDEJUMPSUIT
-	flags = ONESIZEFITSALL | STOPSPRESSUREDMAGE
+	flags = ONESIZEFITSALL | STOPSPRESSUREDMAGE | ABSTRACT
 	heat_protection = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS | HEAD
 	max_heat_protection_temperature = FIRESUIT_MAX_HEAT_PROTECTION_TEMPERATURE
 	cold_protection = UPPER_TORSO | LOWER_TORSO | LEGS | FEET | ARMS | HANDS | HEAD
@@ -923,9 +924,9 @@ mob/living/carbon/slime/var/temperature_resistance = T0C+75
 	name = "golem's feet"
 	desc = "sturdy adamantine feet"
 	icon_state = "golem"
-	item_state = null
+	item_state = "golem"
 	canremove = 0
-	flags = NOSLIP
+	flags = NOSLIP | ABSTRACT | MASKINTERNALS | MASKCOVERSMOUTH
 	slowdown = SHOES_SLOWDOWN+1
 
 
@@ -937,15 +938,7 @@ mob/living/carbon/slime/var/temperature_resistance = T0C+75
 	canremove = 0
 	siemens_coefficient = 0
 	unacidable = 1
-
-/obj/item/clothing/mask/gas/golem
-	name = "golem's face"
-	desc = "the imposing face of an adamantine golem"
-	icon_state = "golem"
-	item_state = "golem"
-	canremove = 0
-	siemens_coefficient = 0
-	unacidable = 1
+	flags = ABSTRACT
 
 
 /obj/item/clothing/gloves/golem
@@ -955,6 +948,7 @@ mob/living/carbon/slime/var/temperature_resistance = T0C+75
 	item_state = null
 	siemens_coefficient = 0
 	canremove = 0
+	flags = ABSTRACT
 
 
 /obj/item/clothing/head/space/golem
@@ -965,7 +959,7 @@ mob/living/carbon/slime/var/temperature_resistance = T0C+75
 	desc = "a golem's head"
 	canremove = 0
 	unacidable = 1
-	flags = STOPSPRESSUREDMAGE
+	flags = STOPSPRESSUREDMAGE | ABSTRACT
 	heat_protection = HEAD
 	max_heat_protection_temperature = FIRE_HELMET_MAX_HEAT_PROTECTION_TEMPERATURE
 	armor = list(melee = 80, bullet = 20, laser = 20, energy = 10, bomb = 0, bio = 0, rad = 0)

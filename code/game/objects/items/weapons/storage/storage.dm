@@ -101,7 +101,7 @@
 	if(user.s_active == src)
 		user.s_active = null
 	return
-	
+
 /obj/item/weapon/storage/proc/open(mob/user as mob)
 	if (src.use_sound)
 		playsound(src.loc, src.use_sound, 50, 1, -5)
@@ -202,7 +202,7 @@
 //This proc return 1 if the item can be picked up and 0 if it can't.
 //Set the stop_messages to stop it from printing messages
 /obj/item/weapon/storage/proc/can_be_inserted(obj/item/W as obj, stop_messages = 0)
-	if(!istype(W)) return //Not an item
+	if(!istype(W) || (W.flags & ABSTRACT)) return //Not an item
 
 	if(src.loc == W)
 		return 0 //Means the item is already in the storage item
@@ -465,17 +465,17 @@
 /atom/proc/storage_depth(atom/container)
 	var/depth = 0
 	var/atom/cur_atom = src
-	
+
 	while (cur_atom && !(cur_atom in container.contents))
 		if (isarea(cur_atom))
 			return -1
 		if (istype(cur_atom.loc, /obj/item/weapon/storage))
 			depth++
 		cur_atom = cur_atom.loc
-	
+
 	if (!cur_atom)
 		return -1	//inside something with a null loc.
-	
+
 	return depth
 
 //Like storage depth, but returns the depth to the nearest turf
@@ -483,16 +483,16 @@
 /atom/proc/storage_depth_turf()
 	var/depth = 0
 	var/atom/cur_atom = src
-	
+
 	while (cur_atom && !isturf(cur_atom))
 		if (isarea(cur_atom))
 			return -1
 		if (istype(cur_atom.loc, /obj/item/weapon/storage))
 			depth++
 		cur_atom = cur_atom.loc
-	
+
 	if (!cur_atom)
 		return -1	//inside something with a null loc.
-	
+
 	return depth
-	
+
