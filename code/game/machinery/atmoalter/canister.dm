@@ -67,7 +67,7 @@
 /obj/machinery/portable_atmospherics/canister/sleeping_agent
 	name = "Canister: \[N2O\]"
 	icon_state = "redws"
-	_color = list("redsw", null, null, null)
+	_color = list("redws", null, null, null)
 	can_label = 0
 /obj/machinery/portable_atmospherics/canister/nitrogen
 	name = "Canister: \[N2\]"
@@ -119,10 +119,15 @@
 	else
 		update_flag |= 32
 
-	if(oldcolor != _color || olddecals != decals)
+	if(list2params(oldcolor) == list2params(_color))
 		update_flag |= 64
-		olddecals = decals
+	else
 		oldcolor = _color
+
+	if(list2params(olddecals) == list2params(decals))
+		update_flag |= 128
+	else
+		olddecals = decals
 
 	if(update_flag == old_flag)
 		return 1
@@ -138,7 +143,8 @@ update_flag
 8 = tank_pressure < ONE_ATMOS
 16 = tank_pressure < 15*ONE_ATMOS
 32 = tank_pressure go boom.
-64 = decals/colors got changed
+64 = colors
+128 = decals
 */
 
 	if (src.destroyed)
@@ -177,6 +183,7 @@ update_flag
 		overlays += "can-o2"
 	else if(update_flag & 32)
 		overlays += "can-o3"
+	check_change()//call this here to update the bitflag, incase the canister gets relabeled instantly after again
 	return
 
 /obj/machinery/portable_atmospherics/canister/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume)
@@ -416,7 +423,12 @@ update_flag
 
 			decals = list()
 
-			var/list/tempposdecals = possibledecals
+			var/list/tempposdecals = list()
+
+			for(var/d in possibledecals)//populate the temp list
+				tempposdecals.Add(d)
+				tempposdecals[d] = possibledecals[d]
+
 			while (src && !src.gc_destroyed && usr)//allow the user to select (theoretically) INFINITE DECALS!!!
 				var/newdecal = input("Choose canister label", "Decal") as anything in tempposdecals
 				if (newdecal == "Done")
