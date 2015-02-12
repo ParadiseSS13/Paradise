@@ -191,6 +191,27 @@ update_flag
 	update_flag &= ~196 //the flags 128 and 64 represent change, not states. As such, we have to reset them to be able to detect a change on the next go.
 	return
 
+//template modification exploit prevention, used in Topic()
+/obj/machinery/portable_atmospherics/canister/proc/is_a_color(var/inputVar, var/checkColor = "all") 
+	if (checkColor == "prim" || checkColor == "all")
+		for(var/list/L in possiblemaincolor)
+			if (L["icon"] == inputVar)
+				return 1
+	if (checkColor == "sec" || checkColor == "all")
+		for(var/list/L in possibleseccolor)
+			if (L["icon"] == inputVar)
+				return 1
+	if (checkColor == "ter" || checkColor == "all")
+		for(var/list/L in possibletertcolor)
+			if (L["icon"] == inputVar)
+				return 1
+	if (checkColor == "quart" || checkColor == "all")
+		for(var/list/L in possiblequartcolor)
+			if (L["icon"] == inputVar)
+				return 1
+	return 0
+
+
 /obj/machinery/portable_atmospherics/canister/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume)
 	if(exposed_temperature > temperature_resistance)
 		health -= 5
@@ -425,26 +446,27 @@ update_flag
 				usr << "\red As you attempted to rename it the pressure rose!"
 
 	if (href_list["choice"] == "Primary color")
-		_color["prim"] = href_list["icon"]
+		if (is_a_color(href_list["icon"],"prim"))
+			_color["prim"] = href_list["icon"]
 	if (href_list["choice"] == "Secondary color")
 		if (href_list["icon"] == "none")
 			_color["sec"] = ""
 			colorcontainer["sec"]["anycolor"] = 0
-		else
+		else if (is_a_color(href_list["icon"],"sec"))
 			_color["sec"] = href_list["icon"]
 			colorcontainer["sec"]["anycolor"] = 1
 	if (href_list["choice"] == "Tertiary color")
 		if (href_list["icon"] == "none")
 			_color["ter"] = ""
 			colorcontainer["ter"]["anycolor"] = 0
-		else
+		else if (is_a_color(href_list["icon"],"ter"))
 			_color["ter"] = href_list["icon"]
 			colorcontainer["ter"]["anycolor"] = 1
 	if (href_list["choice"] == "Quaternary color")
 		if (href_list["icon"] == "none")
 			_color["quart"] = ""
 			colorcontainer["quart"]["anycolor"] = 0
-		else
+		else if (is_a_color(href_list["icon"],"quart"))
 			_color["quart"] = href_list["icon"]
 			colorcontainer["quart"]["anycolor"] = 1
 	
