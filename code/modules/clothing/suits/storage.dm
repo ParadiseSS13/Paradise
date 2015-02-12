@@ -27,3 +27,17 @@
 /obj/item/clothing/suit/storage/hear_talk(mob/M, var/msg)
 	pockets.hear_talk(M, msg)
 	..()
+
+/obj/item/clothing/suit/storage/proc/return_inv()
+
+	var/list/L = list(  )
+
+	L += src.contents
+
+	for(var/obj/item/weapon/storage/S in src)
+		L += S.return_inv()
+	for(var/obj/item/weapon/gift/G in src)
+		L += G.gift
+		if (istype(G.gift, /obj/item/weapon/storage))
+			L += G.gift:return_inv()
+	return L

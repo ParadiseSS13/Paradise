@@ -29,6 +29,16 @@ atom/proc/CanPass(atom/movable/mover, turf/target, height=1.5, air_group = 0)
 					return 0
 
 		return 1
+		
+//Convenience function for atoms to update turfs they occupy
+/atom/movable/proc/update_nearby_tiles(need_rebuild)
+	if(!air_master)
+		return 0
+
+	for(var/turf/simulated/turf in locs)
+		air_master.mark_for_update(turf)
+
+	return 1
 
 //Basically another way of calling CanPass(null, other, 0, 0) and CanPass(null, other, 1.5, 1).
 //Returns:

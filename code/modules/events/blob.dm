@@ -68,8 +68,7 @@
 		
 		for (var/mob/living/silicon/ai/aiPlayer in player_list)
 			if (aiPlayer.client)
-				var/law = ""
-				aiPlayer.set_zeroth_law(law)
+				aiPlayer.clear_zeroth_law()
 				aiPlayer << "\red <b>You have detected a change in your laws information:</b>"
-				aiPlayer << "Laws Updated: [law]"
+				aiPlayer << "Laws Updated: Zeroth law removed."
 		..()

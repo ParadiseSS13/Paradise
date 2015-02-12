@@ -23,8 +23,10 @@
 
 	var/zone = signal.data["zone"]
 	var/severity = signal.data["alert"]
+	var/hidden = signal.data["hidden"]
 
 	if(!zone || !severity) return
+	if(hidden) return
 
 	minor_alarms -= zone
 	priority_alarms -= zone

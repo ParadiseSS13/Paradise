@@ -27,13 +27,6 @@ obj/structure/windoor_assembly
 	var/secure = 0		//Whether or not this creates a secure windoor
 	var/state = "01"	//How far the door assembly has progressed
 
-/obj/structure/windoor_assembly/proc/update_nearby_tiles(need_rebuild)
-	if(!air_master) return 0
-
-	air_master.mark_for_update(loc)
-
-	return 1
-	
 obj/structure/windoor_assembly/New(dir=NORTH)
 	..()
 	src.ini_dir = src.dir

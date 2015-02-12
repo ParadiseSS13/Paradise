@@ -110,6 +110,11 @@
 		viewers(user) << "<span class='suicide'>[user] is falling on the [src.name]! It looks like \he's trying to commit suicide.</span>"
 		return(BRUTELOSS)
 
+/obj/item/weapon/claymore/ceremonial
+	name = "ceremonial claymore"
+	desc = "An engraved and fancy version of the claymore. It appears to be less sharp than it's more functional cousin."
+	force = 20
+
 /obj/item/weapon/katana
 	name = "katana"
 	desc = "Woefully underpowered in D20"

@@ -112,7 +112,7 @@ var/list/ai_list = list()
 	if (istype(loc, /turf))
 		verbs.Add(/mob/living/silicon/ai/proc/ai_network_change, \
 		/mob/living/silicon/ai/proc/ai_statuschange, /mob/living/silicon/ai/proc/ai_hologram_change, \
-		/mob/living/silicon/ai/proc/toggle_camera_light, /mob/living/silicon/ai/proc/botcall, /mob/living/silicon/ai/proc/control_integrated_radio, /mob/living/silicon/ai/proc/control_hud, /mob/living/silicon/ai/proc/change_arrival_message)
+		/mob/living/silicon/ai/proc/toggle_camera_light, /mob/living/silicon/ai/proc/botcall, /mob/living/silicon/ai/proc/control_integrated_radio, /mob/living/silicon/ai/proc/control_hud, /mob/living/silicon/ai/proc/change_arrival_message, /mob/living/silicon/ai/proc/ai_store_location, /mob/living/silicon/ai/proc/ai_goto_location, /mob/living/silicon/ai/proc/ai_remove_location)
 
 	if(!safety)//Only used by AIize() to successfully spawn an AI.
 		if (!B)//If there is no player/brain inside.
@@ -127,7 +127,7 @@ var/list/ai_list = list()
 					verbs.Remove(,/mob/living/silicon/ai/proc/ai_call_shuttle,/mob/living/silicon/ai/proc/ai_camera_track, \
 					/mob/living/silicon/ai/proc/ai_camera_list, /mob/living/silicon/ai/proc/ai_network_change, \
 					/mob/living/silicon/ai/proc/ai_statuschange, /mob/living/silicon/ai/proc/ai_hologram_change, \
-					/mob/living/silicon/ai/proc/toggle_camera_light,/mob/living/silicon/ai/verb/pick_icon,/mob/living/silicon/ai/proc/control_hud)
+					/mob/living/silicon/ai/proc/toggle_camera_light,/mob/living/silicon/ai/verb/pick_icon,/mob/living/silicon/ai/proc/control_hud, /mob/living/silicon/ai/proc/change_arrival_message)
 					laws = new /datum/ai_laws/alienmov
 				else
 					B.brainmob.mind.transfer_to(src)
@@ -406,7 +406,7 @@ var/list/ai_list = list()
 		unset_machine()
 		src << browse(null, t1)
 	if (href_list["switchcamera"])
-		switchCamera(locate(href_list["switchcamera"])) in cameranet.viewpoints
+		switchCamera(locate(href_list["switchcamera"])) in cameranet.cameras
 	if (href_list["showalerts"])
 		ai_alerts()
 	//Carn: holopad requests
@@ -584,15 +584,14 @@ var/list/ai_list = list()
 	if(control_disabled)
 		src << "Wireless communication is disabled."
 		return
-	var/turf/ai_current_turf = get_turf(src)
-	var/ai_Zlevel = ai_current_turf.z
+	var/ai_allowed_Zlevel = list(1,3,5)
 	var/d
 	var/area/bot_area
 	d += "<A HREF=?src=\ref[src];botrefresh=\ref[Bot]>Query network status</A><br>"
 	d += "<table width='100%'><tr><td width='40%'><h3>Name</h3></td><td width='20%'><h3>Status</h3></td><td width='30%'><h3>Location</h3></td><td width='10%'><h3>Control</h3></td></tr>"
 
 	for (Bot in aibots)
-		if(Bot.z == ai_Zlevel && !Bot.remote_disabled) //Only non-emagged bots on the same Z-level are detected!
+		if((Bot.z in ai_allowed_Zlevel) && !Bot.remote_disabled) //Only non-emagged bots on the allowed Z-level are detected!
 			bot_area = get_area(Bot)
 			d += "<tr><td width='30%'>[Bot.hacked ? "<span class='bad'>(!) </span>[Bot.name]" : Bot.name] ([Bot.bot_type_name])</td>"
 			//If the bot is on, it will display the bot's current mode status. If the bot is not mode, it will just report "Idle". "Inactive if it is not on at all.
@@ -630,8 +629,6 @@ var/list/ai_list = list()
 	Bot.call_bot(src, waypoint)
 
 /mob/living/silicon/ai/proc/switchCamera(var/obj/machinery/camera/C)
-
-	src.cameraFollow = null
 
 	if (!C || stat == 2) //C.can_use())
 		return 0
@@ -706,7 +703,6 @@ var/list/ai_list = list()
 	set category = "AI Commands"
 	set name = "Jump To Network"
 	unset_machine()
-	src.cameraFollow = null
 	var/cameralist[0]
 
 	if(usr.stat == 2)
@@ -715,11 +711,11 @@ var/list/ai_list = list()
 
 	var/mob/living/silicon/ai/U = usr
 
-	for (var/obj/machinery/camera/C in cameranet.viewpoints)
+	for (var/obj/machinery/camera/C in cameranet.cameras)
 		if(!C.can_use())
 			continue
 
-		var/list/tempnetwork = difflist(C.network,RESTRICTED_CAMERA_NETWORKS,1)
+		var/list/tempnetwork = difflist(C.network,restricted_camera_networks,1)
 		if(tempnetwork.len)
 			for(var/i in tempnetwork)
 				cameralist[i] = i
@@ -733,7 +729,7 @@ var/list/ai_list = list()
 	if(isnull(network))
 		network = old_network // If nothing is selected
 	else
-		for(var/obj/machinery/camera/C in cameranet.viewpoints)
+		for(var/obj/machinery/camera/C in cameranet.cameras)
 			if(!C.can_use())
 				continue
 			if(network in C.network)
@@ -912,3 +908,52 @@ var/list/ai_list = list()
 	src << "Accessing Subspace Transceiver control..."
 	if (src.aiRadio)
 		src.aiRadio.interact(src)
+
+
+/mob/living/silicon/ai/proc/open_nearest_door(mob/living/target as mob)
+	if(!istype(target)) return
+	spawn(0)
+		if(istype(target, /mob/living/carbon/human))
+			var/mob/living/carbon/human/H = target
+			if(H.wear_id && istype(H.wear_id.GetID(), /obj/item/weapon/card/id/syndicate))
+				src << "Unable to locate an airlock"
+				return
+			if(H.wear_id && istype(H.wear_id.GetID(), /obj/item/weapon/card/id/syndicate))
+				src << "Unable to locate an airlock"
+				return
+			if(istype(H.head, /obj/item/clothing/head/helmet/space/space_ninja) && !H.head.canremove)
+				src << "Unable to locate an airlock"
+				return
+			if(H.digitalcamo)
+				src << "Unable to locate an airlock"
+				return
+		if (!near_camera(target))
+			src << "Target is not near any active cameras."
+			return
+		var/obj/machinery/door/airlock/tobeopened
+		var/dist = -1
+		for(var/obj/machinery/door/airlock/D in range(3,target))
+			if(!D.density) continue
+			if(dist < 0)
+				dist = get_dist(D, target)
+				//world << dist
+				tobeopened = D
+			else
+				if(dist > get_dist(D, target))
+					dist = get_dist(D, target)
+					//world << dist
+					tobeopened = D
+					//world << "found [tobeopened.name] closer"
+				else
+					//world << "[D.name] not close enough | [get_dist(D, target)] | [dist]"
+		if(tobeopened)
+			switch(alert(src, "Do you want to open \the [tobeopened] for [target]?","Doorknob_v2a.exe","Yes","No"))
+				if("Yes")
+					var/nhref = "src=\ref[tobeopened];aiEnable=7"
+					tobeopened.Topic(nhref, params2list(nhref), tobeopened, 1)
+					src << "\blue You've opened \the [tobeopened] for [target]."
+				if("No")
+					src << "\red You deny the request."
+		else
+			src << "\red You've failed to open an airlock for [target]"
+		return

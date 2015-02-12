@@ -22,6 +22,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	var/poweralm = 1
 	var/party = null
 	var/radalert = 0
+	var/report_alerts = 1 // Should atmos alerts notify the AI/computers
 	level = null
 	name = "Space"
 	icon = 'icons/turf/areas.dmi'
@@ -1983,6 +1984,11 @@ area/security/podbay
 
 
 //Traitor Station
+/area/traitor
+	name = "\improper Syndicate Base"
+	icon_state = "syndie_hall"
+	report_alerts = 0
+	
 /area/traitor/rnd
 	name = "\improper Syndicate Research and Development"
 	icon_state = "syndie_rnd"

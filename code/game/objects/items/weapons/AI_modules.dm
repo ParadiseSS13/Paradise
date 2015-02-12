@@ -101,13 +101,20 @@ AI MODULES
 	for(var/templaw in laws)
 		target.add_inherent_law(templaw)
 
+/obj/item/weapon/aiModule/zeroth
+	var/removeownlaw = 0
+		
 /obj/item/weapon/aiModule/zeroth/transmitInstructions(var/mob/living/silicon/ai/target, var/mob/sender)
 	if(target.laws.zeroth)
-		target << "[sender.real_name] attempted to modify your zeroth law."
-		target << "It would be in your best interest to play along with [sender.real_name] that:"
-		for(var/failedlaw in laws)
-			target << "[failedlaw]"
-		return 1
+		if(removeownlaw && (laws[1] == target.laws.zeroth))
+			target.clear_zeroth_law()
+			return 2		
+		else
+			target << "[sender.real_name] attempted to modify your zeroth law."
+			target << "It would be in your best interest to play along with [sender.real_name] that:"
+			for(var/failedlaw in laws)
+				target << "[failedlaw]"
+			return 1
 
 	for(var/templaw in laws)
 		target.set_zeroth_law(templaw)
@@ -149,7 +156,7 @@ AI MODULES
 /obj/item/weapon/aiModule/zeroth/oneHuman
 	name = "'OneHuman' AI Module"
 	var/targetName = ""
-	desc = "A 'one human' AI module: 'Only <name> is crew.'"
+	desc = "A 'one human' AI module: 'Only <name> is crew.' This module adds a zeroth law, which can only be removed by uploading this board again."
 	origin_tech = "programming=3;materials=6" //made with diamonds!
 	laws = list("Only <name> is crew.")
 
@@ -159,6 +166,7 @@ AI MODULES
 	targetName = targName
 	laws[1] = "Only [targetName] is crew"
 	desc = "A 'one crew' AI module: '[laws[1]]'"
+	removeownlaw = 1
 
 /obj/item/weapon/aiModule/zeroth/oneHuman/install(var/mob/living/silicon/S,var/mob/user)
 	if(!targetName)
@@ -167,8 +175,10 @@ AI MODULES
 	..()
 
 /obj/item/weapon/aiModule/zeroth/oneHuman/transmitInstructions(var/mob/living/silicon/target, var/mob/sender)
-	if(..())
-		return "[targetName], but the AI's existing law 0 cannot be overriden."
+	if(..() == 1)
+		return "[targetName], but the AI's existing zeroth law cannot be overriden."
+	if(..() == 2)
+		return "The AI's zeroth law has been overridden."		
 	return targetName
 
 
@@ -186,13 +196,17 @@ AI MODULES
 
 /obj/item/weapon/aiModule/zeroth/quarantine
 	name = "'Quarantine' AI Module"
-	desc = "A 'quarantine' AI module: 'The station is under a quarantine. Do not permit anyone to leave. Prevent, by any means necessary, organics from leaving. It is impossible to harm an organic while preventing them from leaving.'"
+	desc = "A 'quarantine' AI module: 'The station is under a quarantine. Do not permit anyone to leave. Prevent, by any means necessary, organics from leaving. It is impossible to harm an organic while preventing them from leaving.' This module adds a zeroth law, which can only be removed by uploading this board again."
 	origin_tech = "programming=3;biotech=2;materials=4"
 	laws = list("The station is under a quarantine. Do not permit anyone to leave. Prevent, by any means necessary, organics from leaving. It is impossible to harm an organic while preventing them from leaving.")
+	removeownlaw = 1
 
 /obj/item/weapon/aiModule/zeroth/quarantine/transmitInstructions(var/mob/living/silicon/ai/target, var/mob/sender)
-	if(..())
-		return "The AI's existing law 0 cannot be overriden."
+	var/result = ..()
+	if(result == 1)
+		return "The AI's existing zeroth law cannot be overriden."
+	if(result == 2)
+		return "The AI's zeroth law has been overridden."
 	return laws[1]
 
 /******************** OxygenIsToxicToHumans ********************/
@@ -259,7 +273,7 @@ AI MODULES
 
 /obj/item/weapon/aiModule/reset/purge/transmitInstructions(var/mob/living/silicon/ai/target, var/mob/sender)
 	..()
-	target.clear_inherent_laws()
+	target.clear_inherent_laws()	
 
 /******************* Full Core Boards *******************/
 

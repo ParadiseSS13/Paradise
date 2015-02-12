@@ -444,7 +444,7 @@ obj/item/weapon/twohanded/
 	no_embed = 1
 	force = 5
 	force_unwielded = 5
-	force_wielded = 20
+	force_wielded = 30
 	throwforce = 15
 	throw_range = 1
 	w_class = 5
@@ -475,29 +475,31 @@ obj/item/weapon/twohanded/
 
 /obj/item/weapon/twohanded/knighthammer/afterattack(atom/A as mob|obj|turf|area, mob/user as mob, proximity)
 	if(!proximity) return
-	if(wielded)
-		if(charged == 5)
-			charged = 0
-			if(istype(A, /mob/living/))
-				var/mob/living/Z = A
-				if(Z.health < 1)
-					Z.visible_message("<span class='danger'>[Z.name] was blown to peices by the power of [src.name]!</span>", \
-						"<span class='userdanger'>You feel a powerful blow rip you apart!</span>", \
-						"<span class='danger'>You hear a heavy impact and the sound of ripping flesh!.</span>")
-					Z.gib()
-				else
-					Z.take_organ_damage(0,30)
-					Z.visible_message("<span class='danger'>[Z.name] was sent flying by a blow from the [src.name]!</span>", \
-						"<span class='userdanger'>You feel a powerful blow connect with your body and send you flying!</span>", \
-						"<span class='danger'>You hear something heavy impact flesh!.</span>")
-					var/atom/throw_target = get_edge_target_turf(Z, get_dir(src, get_step_away(Z, src)))
-					Z.throw_at(throw_target, 200, 4)
-			else if(istype(A, /turf/simulated/wall))
+	if(charged == 5)
+		charged = 0
+		if(istype(A, /mob/living/))
+			var/mob/living/Z = A
+			if(Z.health >= 1)
+				Z.visible_message("<span class='danger'>[Z.name] was sent flying by a blow from the [src.name]!</span>", \
+					"<span class='userdanger'>You feel a powerful blow connect with your body and send you flying!</span>", \
+					"<span class='danger'>You hear something heavy impact flesh!.</span>")
+				var/atom/throw_target = get_edge_target_turf(Z, get_dir(src, get_step_away(Z, src)))
+				Z.throw_at(throw_target, 200, 4)
+				playsound(user, 'sound/weapons/marauder.ogg', 50, 1)
+			else if(wielded && Z.health < 1)
+				Z.visible_message("<span class='danger'>[Z.name] was blown to peices by the power of [src.name]!</span>", \
+					"<span class='userdanger'>You feel a powerful blow rip you apart!</span>", \
+					"<span class='danger'>You hear a heavy impact and the sound of ripping flesh!.</span>")
+				Z.gib()
+				playsound(user, 'sound/weapons/marauder.ogg', 50, 1)
+		if(wielded)
+			if(istype(A, /turf/simulated/wall))
 				var/turf/simulated/wall/Z = A
 				Z.ex_act(2)
 				charged = 3
+				playsound(user, 'sound/weapons/marauder.ogg', 50, 1)
 			else if (istype(A, /obj/structure) || istype(A, /obj/mecha/))
 				var/obj/Z = A
 				Z.ex_act(2)
 				charged = 3
-			playsound(user, 'sound/weapons/marauder.ogg', 50, 1)
+				playsound(user, 'sound/weapons/marauder.ogg', 50, 1)
