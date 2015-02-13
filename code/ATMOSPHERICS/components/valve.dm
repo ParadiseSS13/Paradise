@@ -244,6 +244,7 @@
 	var/frequency = 1439
 	var/id_tag = null
 	var/datum/radio_frequency/radio_connection
+	settagwhitelist = list("id_tag")
 
 /obj/machinery/atmospherics/valve/digital/attack_ai(mob/user as mob)
 	return src.attack_hand(user)

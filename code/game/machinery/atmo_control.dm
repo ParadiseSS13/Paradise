@@ -10,6 +10,7 @@ obj/machinery/air_sensor
 	var/id_tag
 	var/frequency = 1439
 	Mtoollink = 1
+	settagwhitelist = list("id_tag")
 
 	var/on = 1
 	var/output = 3
@@ -319,6 +320,7 @@ legend {
 		icon_state = "tank"
 		circuit = "/obj/item/weapon/circuitboard/large_tank_control"
 		req_one_access_txt = "24;10"
+		settagwhitelist = list("input_tag", "output_tag")
 
 		var/input_tag
 		var/output_tag

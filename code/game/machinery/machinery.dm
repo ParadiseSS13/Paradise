@@ -114,6 +114,7 @@ Class Procs:
 	var/area/myArea
 	var/interact_offline = 0 // Can the machine be interacted with while de-powered.
 	var/use_log = list()
+	var/list/settagwhitelist = list()//WHITELIST OF VARIABLES THAT THE set_tag HREF CAN MODIFY, DON'T PUT SHIT YOU DON'T NEED ON HERE, AND IF YOU'RE GONNA USE set_tag (format_tag() proc), ADD TO THIS LIST.
 
 /obj/machinery/New()
 	addAtProcessing()
@@ -215,6 +216,9 @@ Class Procs:
 		var/update_mt_menu=0
 		var/re_init=0
 		if("set_tag" in href_list)
+			if(!(href_list["set_tag"] in settagwhitelist))//I see you're trying Href exploits, I see you're failing, I SEE ADMIN WARNING. (seriously though, this is a powerfull HREF, I originally found this loophole, I'm not leaving it in on my PR)
+				message_admins("set_tag HREF (var attempted to edit: [href_list["set_tag"]]) exploit attempted by [key_name(user, user.client)] (<A HREF='?_src_=holder;adminmoreinfo=\ref[user]'>?</A>) on [src] ([x],[y],[z] - <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)")
+				return 1
 			if(!(href_list["set_tag"] in vars))
 				usr << "\red Something went wrong: Unable to find [href_list["set_tag"]] in vars!"
 				return 1
@@ -289,7 +293,7 @@ Class Procs:
 		return 1
 	if(!can_be_used_by(usr, be_close = checkrange))
 		return 1
-	handle_multitool_topic(href,href_list,usr)	
+	handle_multitool_topic(href,href_list,usr)
 	add_fingerprint(usr)
 	return 0
 
@@ -299,7 +303,7 @@ Class Procs:
 	if(!user.canUseTopic(src, be_close))
 		return 0
 	return 1
-	
+
 ////////////////////////////////////////////////////////////////////////////////////////////
 
 /mob/proc/canUseTopic(atom/movable/M, be_close = 1)

@@ -14,6 +14,7 @@
 	var/id_tag = null
 	var/frequency = 1439
 	var/datum/radio_frequency/radio_connection
+	settagwhitelist = list("id_tag")
 
 	var/on = 0
 	var/scrubbing = 1 //0 = siphoning, 1 = scrubbing
@@ -153,7 +154,7 @@
 				removed.oxygen = 0
 			if(scrub_N2)
 				filtered_out.nitrogen = removed.nitrogen
-				removed.nitrogen = 0				
+				removed.nitrogen = 0
 			if(scrub_Toxins)
 				filtered_out.toxins = removed.toxins
 				removed.toxins = 0
@@ -231,7 +232,7 @@
 		scrubbing = text2num(signal.data["scrubbing"])
 	if(signal.data["toggle_scrubbing"])
 		scrubbing = !scrubbing
-	
+
 	if(signal.data["o2_scrub"] != null)
 		scrub_O2 = text2num(signal.data["o2_scrub"])
 	if(signal.data["toggle_o2_scrub"])

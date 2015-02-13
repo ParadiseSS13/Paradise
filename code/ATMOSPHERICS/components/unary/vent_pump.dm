@@ -39,6 +39,7 @@
 	var/frequency = 1439
 	var/datum/radio_frequency/radio_connection
 	Mtoollink = 1
+	settagwhitelist = list("id_tag")
 
 	var/radio_filter_out
 	var/radio_filter_in

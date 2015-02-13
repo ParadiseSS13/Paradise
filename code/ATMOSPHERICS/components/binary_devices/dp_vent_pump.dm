@@ -12,8 +12,8 @@
 
 	level = 1
 
-	connect_types = list(1,2,3) //connects to regular, supply and scrubbers pipes	
-	
+	connect_types = list(1,2,3) //connects to regular, supply and scrubbers pipes
+
 	var/on = 0
 	var/pump_direction = 1 //0 = siphoning, 1 = releasing
 
@@ -24,6 +24,8 @@
 	var/frequency = 1439
 	var/id_tag = null
 	var/datum/radio_frequency/radio_connection
+
+	settagwhitelist = list("id_tag")
 
 	var/pressure_checks = 1
 	//1: Do not pass external_pressure_bound

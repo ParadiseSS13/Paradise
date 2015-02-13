@@ -14,6 +14,7 @@
 	active_power_usage = 5
 	req_one_access_txt = "24;10"
 	Mtoollink = 1
+	settagwhitelist = list("id_tag")
 
 /obj/machinery/meter/New()
 	..()
