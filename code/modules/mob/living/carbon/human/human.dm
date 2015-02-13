@@ -217,8 +217,8 @@
 				stat("Distribution Pressure", internal.distribute_pressure)
 		if(mind)
 			if(mind.changeling)
-				stat("Chemical Storage", mind.changeling.chem_charges)
-				stat("Genetic Damage Time", mind.changeling.geneticdamage)
+				stat("Chemical Storage", "[mind.changeling.chem_charges]/[mind.changeling.chem_storage]")
+				stat("Absorbed DNA", mind.changeling.absorbedcount)
 		if (istype(wear_suit, /obj/item/clothing/suit/space/space_ninja)&&wear_suit:s_initialized)
 			stat("Energy Charge", (wear_suit:cell:charge))
 
@@ -1161,14 +1161,14 @@
 	var/datum/organ/internal/lungs/L = internal_organs_by_name["lungs"]
 	if(!L)
 		return 0
-		
+
 	return L.is_bruised()
 
 /mob/living/carbon/human/proc/rupture_lung()
 	var/datum/organ/internal/lungs/L = internal_organs_by_name["lungs"]
 	if(!L)
 		return 0
-	
+
 	if(!L.is_bruised())
 		src.custom_pain("You feel a stabbing pain in your chest!", 1)
 		L.damage = L.min_bruised_damage
