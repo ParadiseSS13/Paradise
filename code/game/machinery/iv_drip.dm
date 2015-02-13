@@ -37,6 +37,9 @@
 
 /obj/machinery/iv_drip/MouseDrop(over_object, src_location, over_location)
 	..()
+	
+	if(!ishuman(usr))
+		return
 
 	if(attached)
 		visible_message("[src.attached] is detached from \the [src]")
@@ -133,6 +136,7 @@
 
 /obj/machinery/iv_drip/verb/toggle_mode()
 	set name = "Toggle Mode"
+	set category = "Object"
 	set src in view(1)
 
 	if(!istype(usr, /mob/living))
