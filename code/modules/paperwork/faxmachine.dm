@@ -1,8 +1,7 @@
 var/list/obj/machinery/photocopier/faxmachine/allfaxes = list()
 var/list/admin_departments = list("Central Command")
+var/list/hidden_admin_departments = list("Syndicate")
 var/list/alldepartments = list()
-
-var/list/adminfaxes = list()	//cache for faxes that have been sent to admins
 
 /obj/machinery/photocopier/faxmachine
 	name = "fax machine"
@@ -43,6 +42,13 @@ var/list/adminfaxes = list()	//cache for faxes that have been sent to admins
 		nanomanager.update_uis(src)
 	else
 		return ..()
+		
+/obj/machinery/photocopier/faxmachine/emag_act(user as mob)
+	if(!emagged)
+		emagged = 1
+		user << "<span class='notice'>The transmitters realign to an unknown source!</span>"
+	else
+		user << "<span class='warning'>You swipe the card through [src], but nothing happens.</span>"
 	
 /obj/machinery/photocopier/faxmachine/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
 	if(scan)
@@ -55,7 +61,7 @@ var/list/adminfaxes = list()	//cache for faxes that have been sent to admins
 	else if(!emagged)
 		data["network"] = "Central Command Quantum Entanglement Network"
 	else
-		data["network"] = "ERR?*!!*"
+		data["network"] = "ERR*?*%!*"
 	if(copyitem)
 		data["paper"] = copyitem.name
 		data["paperinserted"] = 1
@@ -64,6 +70,10 @@ var/list/adminfaxes = list()	//cache for faxes that have been sent to admins
 		data["paperinserted"] = 0
 	data["destination"] = destination
 	data["cooldown"] = sendcooldown
+	if((destination in admin_departments) || (destination in hidden_admin_departments))
+		data["respectcooldown"] = 1
+	else
+		data["respectcooldown"] = 0
 
 	ui = nanomanager.try_update_ui(user, src, ui_key, ui, data, force_open)	
 	if (!ui)
@@ -77,10 +87,10 @@ var/list/adminfaxes = list()	//cache for faxes that have been sent to admins
 		
 	if(href_list["send"])
 		if(copyitem && authenticated)
-			if (destination in admin_departments)
+			if ((destination in admin_departments) || (destination in hidden_admin_departments))
 				send_admin_fax(usr, destination)
 			else
-				sendfax(destination)
+				sendfax(destination,usr)
 			
 			if (sendcooldown)
 				spawn(sendcooldown) // cooldown time
@@ -108,7 +118,10 @@ var/list/adminfaxes = list()	//cache for faxes that have been sent to admins
 	if(href_list["dept"])
 		if(authenticated)
 			var/lastdestination = destination
-			destination = input(usr, "Which department?", "Choose a department", "") as null|anything in (alldepartments + admin_departments)
+			var/list/combineddepartments = alldepartments + admin_departments
+			if(emagged)
+				combineddepartments += hidden_admin_departments
+			destination = input(usr, "To which department?", "Choose a department", "") as null|anything in combineddepartments
 			if(!destination) 
 				destination = lastdestination
 
@@ -135,7 +148,7 @@ var/list/adminfaxes = list()	//cache for faxes that have been sent to admins
 	nanomanager.update_uis(src)
 	
 /obj/machinery/photocopier/faxmachine/proc/scan(var/obj/item/weapon/card/id/card = null)
-	if (scan) // Card is in machine
+	if(scan) // Card is in machine
 		if(ishuman(usr))
 			scan.loc = usr.loc
 			if(!usr.get_active_hand())
@@ -158,7 +171,7 @@ var/list/adminfaxes = list()	//cache for faxes that have been sent to admins
 				scan = card
 	nanomanager.update_uis(src)
 
-/obj/machinery/photocopier/faxmachine/proc/sendfax(var/destination)
+/obj/machinery/photocopier/faxmachine/proc/sendfax(var/destination,var/mob/sender)
 	if(stat & (BROKEN|NOPOWER))
 		return
 	
@@ -167,15 +180,23 @@ var/list/adminfaxes = list()	//cache for faxes that have been sent to admins
 	var/success = 0
 	for(var/obj/machinery/photocopier/faxmachine/F in allfaxes)
 		if( F.department == destination )
-			success = F.recievefax(copyitem)
+			success = F.receivefax(copyitem)
 	
 	if (success)
+		var/datum/fax/F = new /datum/fax()
+		F.name = copyitem.name
+		F.from_department = department
+		F.to_department = destination
+		F.origin = src
+		F.message = copyitem
+		F.sent_by = sender
+		
 		visible_message("[src] beeps, \"Message transmitted successfully.\"")
 		//sendcooldown = 600
 	else
 		visible_message("[src] beeps, \"Error transmitting message.\"")
 
-/obj/machinery/photocopier/faxmachine/proc/recievefax(var/obj/item/incoming)
+/obj/machinery/photocopier/faxmachine/proc/receivefax(var/obj/item/incoming)
 	if(stat & (BROKEN|NOPOWER))
 		return 0
 	
@@ -218,20 +239,28 @@ var/list/adminfaxes = list()	//cache for faxes that have been sent to admins
 		return
 	
 	rcvdcopy.loc = null //hopefully this shouldn't cause trouble
-	adminfaxes += rcvdcopy
+	
+	var/datum/fax/admin/A = new /datum/fax/admin()
+	A.name = rcvdcopy.name
+	A.from_department = department
+	A.to_department = destination
+	A.origin = src
+	A.message = rcvdcopy
+	A.sent_by = sender
 	
 	//message badmins that a fax has arrived
 	switch(destination)
 		if ("Central Command")
-			message_admins(sender, "CENTCOMM FAX", rcvdcopy, "CentcommFaxReply", "#006100")
-	
+			message_admins(sender, "CENTCOM FAX", destination, rcvdcopy, "#006100")
+		if ("Syndicate")
+			message_admins(sender, "SYNDICATE FAX", destination, rcvdcopy, "#DC143C")
 	sendcooldown = 1800
 	sleep(50)
 	visible_message("[src] beeps, \"Message transmitted successfully.\"")
 	
 
-/obj/machinery/photocopier/faxmachine/proc/message_admins(var/mob/sender, var/faxname, var/obj/item/sent, var/reply_type, font_colour="#006100")
-	var/msg = "\blue <b><font color='[font_colour]'>[faxname]: </font>[key_name(sender, 1)] (<A HREF='?_src_=holder;adminplayeropts=\ref[sender]'>PP</A>) (<A HREF='?_src_=vars;Vars=\ref[sender]'>VV</A>) (<A HREF='?_src_=holder;subtlemessage=\ref[sender]'>SM</A>) (<A HREF='?_src_=holder;adminplayerobservejump=\ref[sender]'>JMP</A>) (<A HREF='?_src_=holder;secretsadmin=check_antagonist'>CA</A>) (<a href='?_src_=holder;[reply_type]=\ref[sender];originfax=\ref[src]'>REPLY</a>)</b>: Receiving '[sent.name]' via secure connection ... <a href='?_src_=holder;AdminFaxView=\ref[sent]'>view message</a>"
+/obj/machinery/photocopier/faxmachine/proc/message_admins(var/mob/sender, var/faxname, var/faxtype, var/obj/item/sent, font_colour="#006100")
+	var/msg = "\blue <b><font color='[font_colour]'>[faxname]: </font>[key_name(sender, 1)] (<A HREF='?_src_=holder;adminplayeropts=\ref[sender]'>PP</A>) (<A HREF='?_src_=vars;Vars=\ref[sender]'>VV</A>) (<A HREF='?_src_=holder;subtlemessage=\ref[sender]'>SM</A>) (<A HREF='?_src_=holder;adminplayerobservejump=\ref[sender]'>JMP</A>) (<A HREF='?_src_=holder;secretsadmin=check_antagonist'>CA</A>) (<A HREF='?_src_=holder;BlueSpaceArtillery=\ref[sender]'>BSA</A>) (<a href='?_src_=holder;AdminFaxCreate=\ref[sender];originfax=\ref[src];faxtype=[faxtype];replyto=\ref[sent]'>REPLY</a>)</b>: Receiving '[sent.name]' via secure connection... <a href='?_src_=holder;AdminFaxView=\ref[sent]'>view message</a>"
 
 	for(var/client/C in admins)
 		if(R_ADMIN & C.holder.rights)

@@ -65,7 +65,8 @@ var/list/admin_verbs_admin = list(
 	/client/proc/global_man_up,
 	/client/proc/delbook,
 	/client/proc/event_manager_panel,
-	/client/proc/empty_ai_core_toggle_latejoin
+	/client/proc/empty_ai_core_toggle_latejoin,
+	/client/proc/fax_panel
 )
 var/list/admin_verbs_ban = list(
 	/client/proc/unban_panel,
