@@ -80,7 +80,8 @@
 		data["calibrated"] = null
 		data["accurate"] = null
 	data["regime"] = regime_set
-	data["target"] = (!target) ? "None" : get_area(target)
+	var/area/targetarea = get_area(target)
+	data["target"] = (!target) ? "None" : sanitize(targetarea.name)
 	data["calibrating"] = calibrating
 	data["locked"] = locked
 
