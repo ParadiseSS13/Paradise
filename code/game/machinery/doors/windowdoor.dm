@@ -254,7 +254,7 @@
 	add_fingerprint(user)
 
 	//Ninja swords? You may pass.
-	if (density && (istype(I, /obj/item/weapon/card/emag)||istype(I, /obj/item/weapon/melee/energy/blade)))
+	if (src.density && (istype(I, /obj/item/weapon/card/emag)||istype(I, /obj/item/weapon/melee/energy/blade)))
 		emag_act(user,I)
 		return 1
 
