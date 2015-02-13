@@ -145,6 +145,9 @@
 /obj/machinery/computer/arcade/battle/Topic(href, href_list)
 	if(..())
 		return 1
+		
+	if(usr.machine != src)
+		return 0
 
 	if (!src.blocked && !src.gameover)
 		if (href_list["attack"])
@@ -406,6 +409,8 @@
 /obj/machinery/computer/arcade/orion_trail/Topic(href, href_list)
 	if(..())
 		return 1
+	if(usr.machine != src)
+		return 0
 	if(href_list["close"])
 		usr.unset_machine()
 		usr << browse(null, "window=arcade")
@@ -566,4 +571,5 @@
 
 /obj/machinery/computer/arcade/orion_trail/proc/win()
 	playing = 0
+	turns = 0
 	prizevend()
