@@ -31,16 +31,7 @@
 	return power_station
 
 /obj/machinery/computer/teleporter/attackby(I as obj, mob/living/user as mob)
-	if(istype(I,/obj/item/weapon/card/emag)) // If hit by an emag.
-		var/obj/item/weapon/card/emag/E = I
-		if(!emagged)
-			if(E.uses)
-				E.uses--
-				emagged = 1
-				user << "\blue The teleporter can now lock on to Syndicate beacons!"
-		else
-			ui_interact(user)
-	else if(istype(I, /obj/item/device/gps))
+	if(istype(I, /obj/item/device/gps))
 		var/obj/item/device/gps/L = I
 		if(L.locked_location && !(stat & (NOPOWER|BROKEN)))
 			user.before_take_item(L)
@@ -53,6 +44,13 @@
 	else
 		..()
 	return
+	
+/obj/machinery/computer/teleporter/emag_act(user as mob)
+	if(!emagged)
+		emagged = 1
+		user << "\blue The teleporter can now lock on to Syndicate beacons!"
+	else
+		ui_interact(user)
 
 /obj/machinery/computer/teleporter/attack_paw(mob/user)
 	usr << "You are too primitive to use this computer."

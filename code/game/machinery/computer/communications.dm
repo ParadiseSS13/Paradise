@@ -240,12 +240,11 @@ var/shuttle_call/shuttle_calls[0]
 
 	return 1
 
-/obj/machinery/computer/communications/attackby(var/obj/I as obj, var/mob/user as mob)
-	if(istype(I,/obj/item/weapon/card/emag/))
+/obj/machinery/computer/communications/emag_act(user as mob)
+	if(!emagged)
 		src.emagged = 1
 		user << "You scramble the communication routing circuits!"
-	..()
-
+		
 /obj/machinery/computer/communications/attack_ai(var/mob/user as mob)
 	return src.attack_hand(user)
 

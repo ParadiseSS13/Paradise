@@ -222,12 +222,14 @@
 			user << "\red Access denied."
 		return
 
-
-	if(istype(W, /obj/item/weapon/card/emag) && !emagged)
-		locked = 0
-		emagged = 1
-		user.visible_message("[user.name] emags the [src.name].","\red You short out the lock.")
-		return
-
 	..()
 	return
+	
+/obj/machinery/power/emitter/emag_act(user as mob)
+	if(!emagged)
+		if(!ishuman(user))
+			return
+		var/mob/living/carbon/human/H = user
+		locked = 0
+		emagged = 1
+		H.visible_message("[H.name] emags the [src.name].","\red You short out the lock.")

@@ -244,10 +244,6 @@
 							break
 			default_deconstruction_crowbar(W)
 
-	if(istype(W, /obj/item/weapon/card/emag))
-		emagged = 1
-		user << "You short out the product lock on [src]"
-		return
 	else if(istype(W, /obj/item/weapon/screwdriver) && anchored)
 		playsound(src.loc, 'sound/items/Screwdriver.ogg', 50, 1)
 		panel_open = !panel_open
@@ -288,6 +284,12 @@
 			user << "<span class='notice'>You should probably unscrew the service panel first.</span>"
 	else
 		..()
+		
+/obj/machinery/vending/emag_act(user as mob)
+	emagged = 1
+	user << "You short out the product lock on [src]"
+	return
+
 /**
  *  Receive payment with cashmoney.
  *
