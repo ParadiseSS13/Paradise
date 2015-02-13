@@ -337,6 +337,15 @@ emp_act
 /mob/living/carbon/human/hitby(atom/movable/AM as mob|obj,var/speed = 5)
 	if(istype(AM,/obj/))
 		var/obj/O = AM
+		
+		if(in_throw_mode && !get_active_hand() && speed <= 5)	//empty active hand and we're in throw mode
+			if(canmove && !restrained())
+				if(isturf(O.loc))
+					put_in_active_hand(O)
+					visible_message("<span class='warning'>[src] catches [O]!</span>")
+					throw_mode_off()
+					return
+					
 		var/zone = ran_zone("chest", 65)
 		var/dtype = BRUTE
 		if(istype(O,/obj/item/weapon))

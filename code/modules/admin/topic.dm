@@ -37,18 +37,10 @@
 				if(!src.makeWizard())
 					usr << "\red Unfortunately there weren't enough candidates available."
 			if("7")
-				log_admin("[key_name(usr)] has spawned a nuke team.")
-				if(!src.makeNukeTeam())
+				log_admin("[key_name(usr)] has spawned vampires.")
+				if(!src.makeVampires())
 					usr << "\red Unfortunately there weren't enough candidates available."
 			if("8")
-				log_admin("[key_name(usr)] has spawned a ninja.")
-				src.makeSpaceNinja()
-			if("9")
-				log_admin("[key_name(usr)] has spawned aliens.")
-				src.makeAliens()
-			if("10")
-				log_admin("[key_name(usr)] has spawned a death squad.")
-			if("11")
 				log_admin("[key_name(usr)] has spawned vox raiders.")
 				if(!src.makeVoxRaiders())
 					usr << "\red Unfortunately there weren't enough candidates available."
