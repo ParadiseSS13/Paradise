@@ -22,6 +22,8 @@ var/list/adminfaxes = list()	//cache for faxes that have been sent to admins
 	var/department = "Unknown" // our department
 
 	var/destination = "Central Command" // the department we're sending to
+	
+	var/data[0]
 
 /obj/machinery/photocopier/faxmachine/New()
 	..()
@@ -31,60 +33,50 @@ var/list/adminfaxes = list()	//cache for faxes that have been sent to admins
 		alldepartments |= department
 
 /obj/machinery/photocopier/faxmachine/attack_hand(mob/user as mob)
-	user.set_machine(src)
-
-	var/dat = "Fax Machine<BR>"
-
-	var/scan_name
+	ui_interact(user)
+	
+/obj/machinery/photocopier/faxmachine/attackby(obj/item/weapon/item, mob/user)
+	if(istype(item,/obj/item/weapon/card/id) && !scan)
+		scan(item)
+	else if(istype(item, /obj/item/weapon/paper) || istype(item, /obj/item/weapon/photo) || istype(item, /obj/item/weapon/paper_bundle))
+		..()
+		nanomanager.update_uis(src)
+	else
+		return ..()
+	
+/obj/machinery/photocopier/faxmachine/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
 	if(scan)
-		scan_name = scan.name
+		data["scan_name"] = scan.name
 	else
-		scan_name = "--------"
-
-	dat += "Confirm Identity: <a href='byond://?src=\ref[src];scan=1'>[scan_name]</a><br>"
-
-	if(authenticated)
-		dat += "<a href='byond://?src=\ref[src];logout=1'>{Log Out}</a>"
+		data["scan_name"] = "-----"
+	data["authenticated"] = authenticated
+	if(!authenticated)
+		data["network"] = "Disconnected"
+	else if(!emagged)
+		data["network"] = "Central Command Quantum Entanglement Network"
 	else
-		dat += "<a href='byond://?src=\ref[src];auth=1'>{Log In}</a>"
-
-	dat += "<hr>"
-
-	if(authenticated)
-		dat += "<b>Logged in to:</b> Central Command Quantum Entanglement Network<br><br>"
-
-		if(copyitem)
-			dat += "<a href='byond://?src=\ref[src];remove=1'>Remove Item</a><br><br>"
-
-			if(sendcooldown)
-				dat += "<b>Transmitter arrays realigning. Please stand by.</b><br>"
-
-			else
-				
-				dat += "<a href='byond://?src=\ref[src];send=1'>Send</a><br>"
-				dat += "<b>Currently sending:</b> [copyitem.name]<br>"
-				dat += "<b>Sending to:</b> <a href='byond://?src=\ref[src];dept=1'>[destination]</a><br>"
-
-		else
-			if(sendcooldown)
-				dat += "Please insert paper to send via secure connection.<br><br>"
-				dat += "<b>Transmitter arrays realigning. Please stand by.</b><br>"
-			else
-				dat += "Please insert paper to send via secure connection.<br><br>"
-
+		data["network"] = "ERR?*!!*"
+	if(copyitem)
+		data["paper"] = copyitem.name
+		data["paperinserted"] = 1
 	else
-		dat += "Proper authentication is required to use this device.<br><br>"
+		data["paper"] = "-----"
+		data["paperinserted"] = 0
+	data["destination"] = destination
+	data["cooldown"] = sendcooldown
 
-		if(copyitem)
-			dat += "<a href ='byond://?src=\ref[src];remove=1'>Remove Item</a><br>"
-
-	user << browse(dat, "window=copier")
-	onclose(user, "copier")
-	return
+	ui = nanomanager.try_update_ui(user, src, ui_key, ui, data, force_open)	
+	if (!ui)
+		ui = new(user, src, ui_key, "faxmachine.tmpl", "Fax Machine UI", 540, 450)
+		ui.set_initial_data(data)		
+		ui.open()
 
 /obj/machinery/photocopier/faxmachine/Topic(href, href_list)
+	if(..())
+		return 1
+		
 	if(href_list["send"])
-		if(copyitem)
+		if(copyitem && authenticated)
 			if (destination in admin_departments)
 				send_admin_fax(usr, destination)
 			else
@@ -93,47 +85,78 @@ var/list/adminfaxes = list()	//cache for faxes that have been sent to admins
 			if (sendcooldown)
 				spawn(sendcooldown) // cooldown time
 					sendcooldown = 0
+					nanomanager.update_uis(src)
 
-	else if(href_list["remove"])
+	if(href_list["paper"])
 		if(copyitem)
 			copyitem.loc = usr.loc
 			usr.put_in_hands(copyitem)
 			usr << "<span class='notice'>You take \the [copyitem] out of \the [src].</span>"
 			copyitem = null
-			updateUsrDialog()
+		else
+			var/obj/item/I = usr.get_active_hand()
+			if (istype(I, /obj/item/weapon/paper) || istype(I, /obj/item/weapon/photo) || istype(I, /obj/item/weapon/paper_bundle))
+				usr.drop_item()
+				copyitem = I
+				I.loc = src
+				usr << "<span class='notice'>You insert \the [I] into \the [src].</span>"
+				flick(insert_anim, src)
 
 	if(href_list["scan"])
-		if (scan)
-			if(ishuman(usr))
-				scan.loc = usr.loc
-				if(!usr.get_active_hand())
-					usr.put_in_hands(scan)
-				scan = null
-			else
-				scan.loc = src.loc
-				scan = null
+		scan()
+
+	if(href_list["dept"])
+		if(authenticated)
+			var/lastdestination = destination
+			destination = input(usr, "Which department?", "Choose a department", "") as null|anything in (alldepartments + admin_departments)
+			if(!destination) 
+				destination = lastdestination
+
+	if(href_list["auth"])
+		if((!authenticated) && scan)
+			if(check_access(scan))
+				authenticated = 1
+		else if(authenticated)
+			authenticated = 0
+			
+	if(href_list["rename"])
+		if(copyitem)
+			var/n_name = copytext(sanitize(input(usr, "What would you like to label the fax?", "Fax Labelling", copyitem.name)  as text), 1, MAX_MESSAGE_LEN)
+			if((copyitem && copyitem.loc == src && usr.stat == 0))
+				if (istype(copyitem, /obj/item/weapon/paper)) 
+					copyitem.name = "[(n_name ? text("[n_name]") : initial(copyitem.name))]"		
+					copyitem.desc = "This is a paper titled '" + copyitem.name + "'."					
+				else if(istype(copyitem, /obj/item/weapon/photo)) 
+					copyitem.name = "[(n_name ? text("[n_name]") : "photo")]"
+				else if(istype(copyitem, /obj/item/weapon/paper_bundle))
+					copyitem.name = "[(n_name ? text("[n_name]") : "paper")]"
+				data["name"] = copyitem.name				
+
+	nanomanager.update_uis(src)
+	
+/obj/machinery/photocopier/faxmachine/proc/scan(var/obj/item/weapon/card/id/card = null)
+	if (scan) // Card is in machine
+		if(ishuman(usr))
+			scan.loc = usr.loc
+			if(!usr.get_active_hand())
+				usr.put_in_hands(scan)
+			scan = null
 		else
+			scan.loc = src.loc
+			scan = null
+	else
+		if(!card)
 			var/obj/item/I = usr.get_active_hand()
 			if (istype(I, /obj/item/weapon/card/id))
 				usr.drop_item()
 				I.loc = src
 				scan = I
-		authenticated = 0
-
-	if(href_list["dept"])
-		var/lastdestination = destination
-		destination = input(usr, "Which department?", "Choose a department", "") as null|anything in (alldepartments + admin_departments)
-		if(!destination) destination = lastdestination
-
-	if(href_list["auth"])
-		if ( (!( authenticated ) && (scan)) )
-			if (check_access(scan))
-				authenticated = 1
-
-	if(href_list["logout"])
-		authenticated = 0
-
-	updateUsrDialog()
+		else
+			if(istype(card))
+				usr.drop_item()
+				card.loc = src
+				scan = card
+	nanomanager.update_uis(src)
 
 /obj/machinery/photocopier/faxmachine/proc/sendfax(var/destination)
 	if(stat & (BROKEN|NOPOWER))

@@ -1308,7 +1308,7 @@
 "azh" = (/obj/machinery/atmospherics/pipe/simple/hidden/supply{dir = 4},/obj/structure/cable{d1 = 4; d2 = 8; icon_state = "4-8"; pixel_x = 0; tag = ""},/turf/simulated/floor/carpet,/area/magistrateoffice)
 "azi" = (/obj/machinery/atmospherics/pipe/manifold/hidden/supply{level = 1},/obj/structure/stool/bed/chair/comfy/black,/obj/structure/cable{d1 = 4; d2 = 8; icon_state = "4-8"; pixel_x = 0; tag = ""},/turf/simulated/floor/carpet,/area/magistrateoffice)
 "azj" = (/obj/machinery/atmospherics/pipe/simple/hidden/supply{dir = 9; pixel_y = 0},/obj/structure/table/reinforced,/obj/item/device/megaphone,/obj/structure/cable{d1 = 1; d2 = 8; icon_state = "1-8"; tag = ""},/turf/simulated/floor/carpet,/area/magistrateoffice)
-"azk" = (/obj/structure/table/reinforced,/obj/machinery/photocopier/faxmachine{department = "Internal Affairs"},/turf/simulated/floor{tag = "icon-cult"; icon_state = "cult"; dir = 2},/area/lawoffice)
+"azk" = (/obj/structure/table/reinforced,/obj/machinery/photocopier/faxmachine{department = "Internal Affairs Office"},/turf/simulated/floor{tag = "icon-cult"; icon_state = "cult"; dir = 2},/area/lawoffice)
 "azl" = (/obj/machinery/atmospherics/unary/vent_pump{dir = 2; on = 1},/turf/simulated/floor{tag = "icon-cult"; icon_state = "cult"; dir = 2},/area/lawoffice)
 "azm" = (/obj/structure/stool/bed/chair/office/dark{dir = 4},/obj/effect/landmark/start{name = "Internal Affairs Agent"},/turf/simulated/floor{tag = "icon-cult"; icon_state = "cult"; dir = 2},/area/lawoffice)
 "azn" = (/obj/structure/table/reinforced,/turf/simulated/floor{tag = "icon-cult"; icon_state = "cult"; dir = 2},/area/lawoffice)
