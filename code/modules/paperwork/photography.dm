@@ -312,6 +312,7 @@
 
 	var/datum/picture/P = new()
 	P.fields["name"] = "photo"
+	P.fields["author"] = user
 	P.fields["icon"] = ic
 	P.fields["tiny"] = pc
 	P.fields["img"] = photoimage

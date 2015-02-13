@@ -126,9 +126,6 @@
 					break
 		data["networks"] = tempnets
 		
-		if(ui)
-			ui.load_cached_data(camera_cache)
-
 		ui = nanomanager.try_update_ui(user, src, ui_key, ui, data, force_open)
 		if (!ui)
 			ui = new(user, src, ui_key, "sec_camera.tmpl", "Camera Console", 900, 800)
