@@ -80,7 +80,7 @@
 		/obj/item/device/lightreplacer,
 		/obj/item/device/taperecorder,
 		/obj/item/device/hailer,
-		/obj/item/clothing/tie/holobadge,
+		/obj/item/clothing/accessory/holobadge,
 		/obj/structure/closet/crate/secure,
 		/obj/structure/closet/secure_closet,
 		/obj/machinery/librarycomp,

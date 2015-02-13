@@ -8,7 +8,7 @@
 
 	var/obj/item/device/radio/borg/radio = null
 	var/mob/living/silicon/ai/connected_ai = null
-	var/obj/item/weapon/cell/cell = null
+	var/obj/item/weapon/stock_parts/cell/cell = null
 	var/obj/machinery/camera/camera = null
 	var/obj/item/device/mmi/mmi = null
 	var/list/req_access = list(access_robotics) //Access needed to pop out the brain.

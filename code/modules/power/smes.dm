@@ -33,11 +33,11 @@
 	..()
 	component_parts = list()
 	component_parts += new /obj/item/weapon/circuitboard/smes(null)
-	component_parts += new /obj/item/weapon/cell/high(null)
-	component_parts += new /obj/item/weapon/cell/high(null)
-	component_parts += new /obj/item/weapon/cell/high(null)
-	component_parts += new /obj/item/weapon/cell/high(null)
-	component_parts += new /obj/item/weapon/cell/high(null)
+	component_parts += new /obj/item/weapon/stock_parts/cell/high(null)
+	component_parts += new /obj/item/weapon/stock_parts/cell/high(null)
+	component_parts += new /obj/item/weapon/stock_parts/cell/high(null)
+	component_parts += new /obj/item/weapon/stock_parts/cell/high(null)
+	component_parts += new /obj/item/weapon/stock_parts/cell/high(null)
 	component_parts += new /obj/item/weapon/stock_parts/capacitor(null)
 	component_parts += new /obj/item/stack/cable_coil(null, 5)
 	RefreshParts()
@@ -68,7 +68,7 @@
 		IO += CP.rating
 	input_level_max = 200000 * IO
 	output_level_max = 200000 * IO
-	for(var/obj/item/weapon/cell/PC in component_parts)
+	for(var/obj/item/weapon/stock_parts/cell/PC in component_parts)
 		C += PC.maxcharge
 	capacity = C / (15000) * 1e6
 	

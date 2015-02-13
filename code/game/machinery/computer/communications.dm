@@ -60,7 +60,7 @@ var/shuttle_call/shuttle_calls[0]
 
 /obj/machinery/computer/communications/Topic(href, href_list)
 	if(..(href, href_list))
-		return
+		return 1
 
 	if (!(src.z in list(STATION_Z,CENTCOMM_Z)))
 		usr << "\red <b>Unable to establish a connection</b>: \black You're too far away from the station!"

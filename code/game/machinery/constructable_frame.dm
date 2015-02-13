@@ -289,7 +289,7 @@ to destroy them and players will be able to make replacements.
 	frame_desc = "Requires 5 pieces of cable, 5 Power Cells and 1 Capacitor."
 	req_components = list(
 							/obj/item/stack/cable_coil = 5,
-							/obj/item/weapon/cell = 5,
+							/obj/item/weapon/stock_parts/cell = 5,
 							/obj/item/weapon/stock_parts/capacitor = 1)
 
 
@@ -361,7 +361,7 @@ to destroy them and players will be able to make replacements.
 							/obj/item/weapon/stock_parts/capacitor = 1,
 							/obj/item/weapon/stock_parts/manipulator = 1,
 							/obj/item/weapon/stock_parts/console_screen = 1,
-							/obj/item/weapon/cell = 1)
+							/obj/item/weapon/stock_parts/cell = 1)
 
 /obj/item/weapon/circuitboard/destructive_analyzer
 	name = "Circuit board (Destructive Analyzer)"
@@ -583,7 +583,7 @@ obj/item/weapon/circuitboard/rdserver
 	frame_desc = "Requires 2 Capacitors, 1 Power Cell and 1 Manipulator."
 	req_components = list(
 							/obj/item/weapon/stock_parts/capacitor = 2,
-							/obj/item/weapon/cell = 1,
+							/obj/item/weapon/stock_parts/cell = 1,
 							/obj/item/weapon/stock_parts/manipulator = 1)
 
 // Telecomms circuit boards:

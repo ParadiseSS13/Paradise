@@ -33,7 +33,7 @@
 	var/obj/item/weapon/stock_parts/matter_bin/storage
 	var/obj/item/weapon/stock_parts/micro_laser/cutter
 	var/obj/item/weapon/stock_parts/capacitor/cellmount
-	var/obj/item/weapon/cell/cell
+	var/obj/item/weapon/stock_parts/cell/cell
 
 	//Flags
 	var/need_update_field = 0
@@ -195,7 +195,7 @@
 				cellmount = W
 				user << "You install \the [W]."
 			return
-		else if(istype(W,/obj/item/weapon/cell))
+		else if(istype(W,/obj/item/weapon/stock_parts/cell))
 			if(cell)
 				user << "The drill already has a cell installed."
 			else

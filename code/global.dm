@@ -55,7 +55,6 @@ var/MONKEYBLOCK = 50 // Monkey block will always be the DNA_SE_LENGTH
 var/BLOCKADD = 0
 var/DIFFMUT = 0
 
-var/HEADACHEBLOCK = 0
 var/NOBREATHBLOCK = 0
 var/REMOTEVIEWBLOCK = 0
 var/REGENERATEBLOCK = 0

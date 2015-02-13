@@ -98,8 +98,9 @@
 
 		return
 
-	// operate two levels deep here (item in backpack in src; NOT item in box in backpack in src)
-	if(A == loc || (A in loc) || (A in contents) || (A.loc in contents))
+	// operate two STORAGE levels deep here (item in backpack in src; NOT item in box in backpack in src)
+	var/sdepth = A.storage_depth(src)
+	if(A == loc || (A in loc) || (sdepth != -1 && sdepth <= 1))
 
 		// faster access to objects already on you
 		if(A in contents)
@@ -116,14 +117,15 @@
 			if(!resolved && A && W)
 				W.afterattack(A,src,1,params) // 1 indicates adjacency
 		else
-			UnarmedAttack(A)
+			UnarmedAttack(A, 1)
 		return
 
 	if(!isturf(loc)) // This is going to stop you from telekinesing from inside a closet, but I don't shed many tears for that
 		return
 
 	// Allows you to click on a box's contents, if that box is on the ground, but no deeper than that
-	if(isturf(A) || isturf(A.loc) || (A.loc && isturf(A.loc.loc)))
+	sdepth = A.storage_depth_turf()
+	if(isturf(A) || isturf(A.loc) || (sdepth != -1 && sdepth <= 1))
 		next_move = world.time + 10
 
 		if(A.Adjacent(src)) // see adjacent.dm
@@ -209,6 +211,13 @@
 	A.point()
 	return
 
+/mob/living/carbon/MiddleClickOn(var/atom/A)
+	if(!src.stat && src.mind && src.mind.changeling && src.mind.changeling.chosen_sting && (istype(A, /mob/living/carbon)) && (A != src))
+		next_click = world.time + 5
+		mind.changeling.chosen_sting.try_to_sting(src, A)
+	else
+		A.point()
+
 // In case of use break glass
 /*
 /atom/proc/MiddleClick(var/mob/M as mob)
@@ -251,6 +260,13 @@
 	A.AltClick(src)
 	return
 
+/mob/living/carbon/AltClickOn(var/atom/A)
+	if(!src.stat && src.mind && src.mind.changeling && src.mind.changeling.chosen_sting && (istype(A, /mob/living/carbon)) && (A != src))
+		next_click = world.time + 5
+		mind.changeling.chosen_sting.try_to_sting(src, A)
+	else
+		..()
+
 /atom/proc/AltClick(var/mob/user)
 	var/turf/T = get_turf(src)
 	if(T && user.TurfAdjacent(T))
@@ -273,16 +289,16 @@
 	return
 
 /atom/proc/CtrlShiftClick(var/mob/user)
-	return	
+	return
 
 /mob/proc/AltShiftClickOn(var/atom/A)
 	A.AltShiftClick(src)
 	return
 
 /atom/proc/AltShiftClick(var/mob/user)
-	return	
-	
-	
+	return
+
+
 /*
 	Misc helpers
 

@@ -23,8 +23,10 @@
 
 	var/zone = signal.data["zone"]
 	var/severity = signal.data["alert"]
+	var/hidden = signal.data["hidden"]
 
 	if(!zone || !severity) return
+	if(hidden) return
 
 	minor_alarms -= zone
 	priority_alarms -= zone
@@ -98,7 +100,7 @@
 
 /obj/machinery/computer/atmos_alert/Topic(href, href_list)
 	if(..())
-		return
+		return 1
 
 	if(href_list["priority_clear"])
 		var/removing_zone = href_list["priority_clear"]

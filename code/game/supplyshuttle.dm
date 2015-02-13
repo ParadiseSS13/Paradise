@@ -210,15 +210,14 @@ var/list/mechtoys = list(
 						if(slip.stamped && slip.stamped.len) //yes, the clown stamp will work. clown is the highest authority on the station, it makes sense
 							points += points_per_slip
 							find_slip = 0
-						continue
 
 					// Sell phoron
-					if(istype(A, /obj/item/stack/sheet/mineral/plasma))
+					else if(istype(A, /obj/item/stack/sheet/mineral/plasma))
 						var/obj/item/stack/sheet/mineral/plasma/P = A
 						plasma_count += P.amount
 
 					// Sell platinum
-					if(istype(A, /obj/item/stack/sheet/mineral/platinum))
+					else if(istype(A, /obj/item/stack/sheet/mineral/platinum))
 						var/obj/item/stack/sheet/mineral/platinum/P = A
 						plat_count += P.amount
 

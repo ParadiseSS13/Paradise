@@ -77,6 +77,10 @@
 	laws_sanity_check()
 	laws.set_zeroth_law(law)
 
+/mob/living/silicon/robot/proc/clear_zeroth_law()
+	laws_sanity_check()
+	laws.clear_zeroth_law()
+
 /mob/living/silicon/robot/proc/add_inherent_law(var/law)
 	laws_sanity_check()
 	laws.add_inherent_law(law)

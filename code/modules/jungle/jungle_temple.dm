@@ -249,7 +249,7 @@
 					new /obj/item/weapon/storage/toolbox/electrical(C)
 
 				if(prob(25))
-					new /obj/item/weapon/cell(C)
+					new /obj/item/weapon/stock_parts/cell(C)
 
 			if("coffin")
 				new /obj/structure/closet/coffin(src.loc)

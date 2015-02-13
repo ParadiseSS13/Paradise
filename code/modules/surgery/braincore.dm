@@ -12,7 +12,8 @@
 /datum/surgery_step/brain/saw_skull
 	allowed_tools = list(
 	/obj/item/weapon/circular_saw = 100, \
-	/obj/item/weapon/hatchet = 75
+	/obj/item/weapon/hatchet = 75, \
+	/obj/item/weapon/melee/arm_blade = 60 // Dr. Chang E. Ling, MD
 	)
 
 	min_duration = 50
@@ -67,7 +68,8 @@
 /datum/surgery_step/brain/saw_spine
 	allowed_tools = list(
 	/obj/item/weapon/circular_saw = 100, \
-	/obj/item/weapon/hatchet = 75
+	/obj/item/weapon/hatchet = 75, \
+	/obj/item/weapon/melee/arm_blade = 60
 	)
 
 	min_duration = 50

@@ -208,7 +208,7 @@ I can't be bothered to look more of the actual code outside of switch but that p
 What a mess.*/
 /obj/machinery/computer/secure_data/Topic(href, href_list)
 	if(..())
-		return
+		return 1
 	if (!( data_core.general.Find(active1) ))
 		active1 = null
 	if (!( data_core.security.Find(active2) ))

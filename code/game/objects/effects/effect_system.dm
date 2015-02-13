@@ -469,10 +469,10 @@ steam.start() -- spawns the effect
 				var/more = ""
 				if(M)
 					more = "(<A HREF='?_src_=holder;adminmoreinfo=\ref[M]'>?</a>)"
-				message_admins("A chemical smoke reaction has taken place in ([whereLink])[contained]. Last associated key is [carry.my_atom.fingerprintslast][more].", 0, 1)
+				msg_admin_attack("A chemical smoke reaction has taken place in ([whereLink])[contained]. Last associated key is [carry.my_atom.fingerprintslast][more].", 0, 1)
 				log_game("A chemical smoke reaction has taken place in ([where])[contained]. Last associated key is [carry.my_atom.fingerprintslast].")
 			else
-				message_admins("A chemical smoke reaction has taken place in ([whereLink]). No associated key.", 0, 1)
+				msg_admin_attack("A chemical smoke reaction has taken place in ([whereLink]). No associated key.", 0, 1)
 				log_game("A chemical smoke reaction has taken place in ([where])[contained]. No associated key.")
 
 	start()
@@ -1108,15 +1108,6 @@ steam.start() -- spawns the effect
 	CanPass(atom/movable/mover, turf/target, height=1.5, air_group = 0)
 		if(air_group) return 0
 		return !density
-
-
-	proc/update_nearby_tiles(need_rebuild)
-		if(!air_master)
-			return 0
-
-		air_master.mark_for_update(get_turf(src))
-
-		return 1
 
 /datum/effect/effect/system/reagents_explosion
 	var/amount 						// TNT equivalent

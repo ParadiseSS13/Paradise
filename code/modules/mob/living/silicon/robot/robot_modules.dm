@@ -222,7 +222,7 @@
 		src.modules += new /obj/item/device/flash/cyborg(src)
 		src.modules += new /obj/item/weapon/handcuffs/cyborg(src)
 		src.modules += new /obj/item/weapon/melee/baton/robot(src)
-		src.modules += new /obj/item/weapon/gun/energy/taser/cyborg(src)
+		src.modules += new /obj/item/weapon/gun/energy/disabler/cyborg(src)
 		src.modules += new /obj/item/taperoll/police(src)
 		src.modules += new /obj/item/device/taperecorder(src)
 		src.emag = new /obj/item/weapon/gun/energy/laser/cyborg(src)
@@ -343,7 +343,7 @@
 	src.modules += new /obj/item/weapon/card/emag(src)
 	src.modules += new /obj/item/weapon/tank/jetpack/carbondioxide(src)
 	src.modules += new /obj/item/weapon/crowbar(src)
-	src.modules += new /obj/item/weapon/pinpointer/operative(src)	
+	src.modules += new /obj/item/weapon/pinpointer/operative(src)
 	src.emag = null
 	return
 

@@ -75,10 +75,14 @@
 		else if(src.allowed(user) || !src.registered_name || (istype(I) && (src.registered_name == I.registered_name)))
 			//they can open all lockers, or nobody owns this, or they own this locker
 			src.locked = !( src.locked )
-			if(src.locked)	src.icon_state = src.icon_locked
-			else	src.icon_state = src.icon_closed
+			if(src.locked)	
+				src.icon_state = src.icon_locked
+			else	
+				src.icon_state = src.icon_closed
+				registered_name = null
+				desc = initial(desc)
 
-			if(!src.registered_name)
+			if(!src.registered_name && src.locked)
 				src.registered_name = I.registered_name
 				src.desc = "Owned by [I.registered_name]."
 		else

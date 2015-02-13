@@ -92,7 +92,7 @@
 	item_state = "c20r"
 	w_class = 4
 	projectile_type = "/obj/item/projectile/meteor"
-	cell_type = "/obj/item/weapon/cell/potato"
+	cell_type = "/obj/item/weapon/stock_parts/cell/potato"
 	clumsy_check = 0 //Admin spawn only, might as well let clowns use it.
 	var/charge_tick = 0
 	var/recharge_time = 5 //Time it takes for shots to recharge (in ticks)
@@ -229,7 +229,7 @@ modules/mob/living/carbon/human/life.dm if you die, you will be zoomed out.
 	projectile_type = "/obj/item/projectile/kinetic"
 	fire_sound = 'sound/weapons/Kenetic_accel.ogg'
 	charge_cost = 5000
-	cell_type = "/obj/item/weapon/cell/crap"
+	cell_type = "/obj/item/weapon/stock_parts/cell/crap"
 	var/overheat = 0
 	var/recent_reload = 1
 
@@ -281,9 +281,41 @@ modules/mob/living/carbon/human/life.dm if you die, you will be zoomed out.
 	icon_state = "disabler"
 	item_state = null
 	projectile_type = "/obj/item/projectile/beam/disabler"
-	cell_type = "/obj/item/weapon/cell"
+	cell_type = "/obj/item/weapon/stock_parts/cell"
 	charge_cost = 500
 
+/obj/item/weapon/gun/energy/disabler/cyborg
+	name = "cyborg disabler"
+	desc = "An integrated disabler that draws from a cyborg's power cell. This weapon contains a limiter to prevent the cyborg's power cell from overheating."
+	var/charge_tick = 0
+	var/recharge_time = 2.5
+
+/obj/item/weapon/gun/energy/disabler/cyborg/New()
+	..()
+	processing_objects.Add(src)
+
+
+/obj/item/weapon/gun/energy/disabler/cyborg/Destroy()
+	processing_objects.Remove(src)
+	..()
+
+/obj/item/weapon/gun/energy/disabler/cyborg/process() //Every [recharge_time] ticks, recharge a shot for the cyborg
+	if(power_supply.charge == power_supply.maxcharge)
+		return 0
+	charge_tick++
+	if(charge_tick < recharge_time)
+		return 0
+	charge_tick = 0
+
+	if(!power_supply) return 0 //sanity
+	if(isrobot(src.loc))
+		var/mob/living/silicon/robot/R = src.loc
+		if(R && R.cell)
+			if(R.cell.use(charge_cost)) 		//Take power from the borg...
+				power_supply.give(charge_cost)	//... to recharge the shot
+
+	update_icon()
+	return 1
 
 
 /* 3d printer 'pseudo guns' for borgs */
@@ -294,7 +326,7 @@ modules/mob/living/carbon/human/life.dm if you die, you will be zoomed out.
 	icon_state = "l6closed0"
 	icon = 'icons/obj/gun.dmi'
 	fire_sound = 'sound/weapons/Gunshot_smg.ogg'
-	cell_type = "/obj/item/weapon/cell/secborg"
+	cell_type = "/obj/item/weapon/stock_parts/cell/secborg"
 	projectile_type = "/obj/item/projectile/bullet/midbullet3"
 	charge_cost = 300 //Yeah, let's NOT give them a 300 round clip that recharges, 20 is more reasonable and will actually hurt the borg's battery for overuse.
 	var/charge_tick = 0

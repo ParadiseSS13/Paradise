@@ -106,7 +106,7 @@
 
 /obj/machinery/computer/robotics/Topic(href, href_list)
 	if(..())
-		return
+		return 1
 	if ((usr.contents.Find(src) || (in_range(src, usr) && istype(src.loc, /turf))) || (istype(usr, /mob/living/silicon)))
 		usr.set_machine(src)
 
@@ -123,7 +123,7 @@
 			if (istype(I))
 				if(src.check_access(I))
 					if (!status)
-						message_admins("\blue [key_name_admin(usr)] has initiated the global cyborg killswitch!")
+						msg_admin_attack("\blue [key_name_admin(usr)] has initiated the global cyborg killswitch!")
 						log_game("\blue [key_name(usr)] has initiated the global cyborg killswitch!")
 						use_log += text("\[[time_stamp()]\] <font color='red'>[usr.name] ([usr.ckey]) has initiated the global cyborg killswitch!</font>")
 						src.status = 1
@@ -169,7 +169,7 @@
 								R.ResetSecurityCodes()
 
 							else
-								message_admins("\blue [key_name_admin(usr)] detonated [R.name]!")
+								msg_admin_attack("\blue [key_name_admin(usr)] detonated [R.name]!")
 								log_game("\blue [key_name_admin(usr)] detonated [R.name]!")
 								use_log += text("\[[time_stamp()]\] <font color='red'>[usr.name] ([usr.ckey]) detonated [R.name] ([R.ckey])!</font>")
 								R.self_destruct()
@@ -183,7 +183,7 @@
 					var/choice = input("Are you certain you wish to [R.canmove ? "lock down" : "release"] [R.name]?") in list("Confirm", "Abort")
 					if(choice == "Confirm")
 						if(R && istype(R))
-							message_admins("\blue [key_name_admin(usr)] [R.canmove ? "locked down" : "released"] [R.name]!")
+							msg_admin_attack("\blue [key_name_admin(usr)] [R.canmove ? "locked down" : "released"] [R.name]!")
 							log_game("[key_name(usr)] [R.canmove ? "locked down" : "released"] [R.name]!")
 							R.canmove = !R.canmove
 							if (R.lockcharge)
@@ -208,7 +208,7 @@
 					var/choice = input("Are you certain you wish to hack [R.name]?") in list("Confirm", "Abort")
 					if(choice == "Confirm")
 						if(R && istype(R))
-//							message_admins("\blue [key_name_admin(usr)] emagged [R.name] using robotic console!")
+							msg_admin_attack("\blue [key_name_admin(usr)] emagged [R.name] using robotic console!")
 							log_game("[key_name(usr)] emagged [R.name] using robotic console!")
 							R.emagged = 1
 							if(R.hud_used)

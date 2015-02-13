@@ -23,6 +23,10 @@
 /mob/living/silicon/ai/proc/set_zeroth_law(var/law, var/law_borg)
 	src.laws_sanity_check()
 	src.laws.set_zeroth_law(law, law_borg)
+	
+/mob/living/silicon/ai/proc/clear_zeroth_law(var/law_borg)
+	src.laws_sanity_check()
+	src.laws.clear_zeroth_law(law_borg)
 
 /mob/living/silicon/ai/proc/add_inherent_law(var/law)
 	src.laws_sanity_check()
