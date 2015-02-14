@@ -53,7 +53,7 @@ var/list/adminfaxes = list()
 			if(A.from_department == "Administrator")
 				html += "<td>N/A</td>"		
 			else
-				html += "<td><A align='right' href='?src=\ref[src];AdminFaxCreate=\ref[usr];originfax=\ref[A.origin];faxtype=[A.to_department];replyto=[A.message]'>Reply</A></td>"
+				html += "<td><A align='right' href='?src=\ref[src];AdminFaxCreate=\ref[A.sent_by];originfax=\ref[A.origin];faxtype=[A.to_department];replyto=\ref[A.message]'>Reply</A></td>"
 			html += "<td>N/A</td>"
 		else
 			html += "<td>N/A</td>"
@@ -61,7 +61,7 @@ var/list/adminfaxes = list()
 		html += "</tr>"	
 	html += "</table>"
 	html += "</div>"
-	
+
 	html += "<div class='block'>"
 	html += "<h2>Departmental Faxes</h2>"
 	html += "<table>"
