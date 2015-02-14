@@ -100,7 +100,7 @@
 /obj/machinery/vending/New()
 	..()
 	wires = new(src)
-	spawn(4)
+	spawn(50)
 		if(src.product_slogans)
 			src.slogan_list += text2list(src.product_slogans, ";")
 

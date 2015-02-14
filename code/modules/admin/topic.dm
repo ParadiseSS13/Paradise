@@ -1728,6 +1728,7 @@
 
 		var/customname = input(src.owner, "Pick a title for the fax.", "Fax Title") as text|null
 		
+		var/stampname
 		var/stamptype
 		var/stampvalue
 		var/sendername
@@ -1741,7 +1742,16 @@
 			if("Administrator")
 				stamptype = input(src.owner, "Pick a stamp type.", "Stamp Type") as null|anything in list("icon","text","none")
 				if(stamptype == "icon")
-					stampvalue = input(src.owner, "Pick a stamp icon.", "Stamp Icon") as null|anything in list("cent","ok","deny","clown")
+					stampname = input(src.owner, "Pick a stamp icon.", "Stamp Icon") as null|anything in list("centcom","granted","denied","clown")
+					switch(stampname)
+						if("centcom")
+							stampvalue = "cent"
+						if("granted")
+							stampvalue = "ok"
+						if("denied")
+							stampvalue = "deny"
+						if("clown")
+							stampvalue = "clown"
 				else if(stamptype == "text")
 					stampvalue = input(src.owner, "What should the stamp say?", "Stamp Text") as text|null
 				else if(stamptype == "none")
@@ -1774,8 +1784,8 @@
 		
 			if(!P.ico)
 				P.ico = new
-			P.ico += "paper_stamp-cent"
-			stampoverlay.icon_state = "paper_stamp-cent"	
+			P.ico += "paper_stamp-[stampvalue]"
+			stampoverlay.icon_state = "paper_stamp-[stampvalue]"	
 
 			if(stamptype == "icon")
 				if(!P.stamped)
@@ -1793,7 +1803,7 @@
 
 		if(destination != "All Departments")
 			if(!fax.receivefax(P))
-				src.owner << "\red Message transmittion failed."
+				src.owner << "\red Message transmission failed."
 				return
 		else
 			for(var/obj/machinery/photocopier/faxmachine/F in allfaxes)
