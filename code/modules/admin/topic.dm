@@ -1743,7 +1743,7 @@
 				if(stamptype == "icon")
 					stampvalue = input(src.owner, "Pick a stamp icon.", "Stamp Icon") as null|anything in list("cent","ok","deny","clown")
 				else if(stamptype == "text")
-					stampvalue = input(src.owner, "What should the stamp say?.", "Stamp Text") as text|null
+					stampvalue = input(src.owner, "What should the stamp say?", "Stamp Text") as text|null
 				else
 					stamptype = ""
 				sendername = input(src.owner, "What organization does the fax come from? This determines the prefix of the paper (i.e. CentCom- Title).", "Stamp Organization") as text|null
