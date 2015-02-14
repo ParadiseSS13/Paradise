@@ -272,8 +272,8 @@
 	return
 
 
-/obj/machinery/computer/arcade/battle/attackby(I as obj, user as mob)
-	if(istype(I, /obj/item/weapon/card/emag) && !emagged)
+/obj/machinery/computer/arcade/battle/emag_act(user as mob)
+	if(!emagged)
 		temp = "If you die in the game, you die for real!"
 		player_hp = 30
 		player_mp = 10
@@ -287,14 +287,7 @@
 		enemy_name = "Cuban Pete"
 		name = "Outbomb Cuban Pete"
 
-
 		src.updateUsrDialog()
-	else
-
-		..()
-
-
-
 
 /obj/machinery/computer/arcade/orion_trail
 	name = "The Orion Trail"

@@ -76,7 +76,7 @@
 	if((M_CLUMSY in usr.mutations) && prob(50))
 		usr << "<span class='warning'>You cut yourself on the paper.</span>"
 		return
-	var/n_name = copytext(sanitize(input(usr, "What would you like to label the paper?", "Paper Labelling", null)  as text), 1, MAX_MESSAGE_LEN)
+	var/n_name = copytext(sanitize(input(usr, "What would you like to label the paper?", "Paper Labelling", name)  as text), 1, MAX_MESSAGE_LEN)
 	if((loc == usr && usr.stat == 0))
 		name = "[(n_name ? text("[n_name]") : initial(name))]"
 	if(name != "paper")

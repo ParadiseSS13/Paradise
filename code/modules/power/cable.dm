@@ -270,7 +270,7 @@
 		if(src.amount <= 14)
 			usr << "\red You need at least 15 lengths to make restraints!"
 			return
-		var/obj/item/weapon/handcuffs/cable/B = new /obj/item/weapon/handcuffs/cable(usr.loc)
+		var/obj/item/weapon/restraints/handcuffs/cable/B = new /obj/item/weapon/restraints/handcuffs/cable(usr.loc)
 		B.icon_state = "cuff_[_color]"
 		usr << "\blue You wind some cable together to make some restraints."
 		src.use(15)

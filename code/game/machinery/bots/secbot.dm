@@ -286,15 +286,15 @@ Auto Patrol: []"},
 				if(!arrest_type)
 					if(!target.handcuffed)  //he's not cuffed? Try to cuff him!
 						mode = BOT_ARREST
-						playsound(loc, 'sound/weapons/handcuffs.ogg', 30, 1, -2)
-						target.visible_message("<span class='danger'>[src] is trying to put handcuffs on [target]!</span>",\
-											"<span class='userdanger'>[src] is trying to put handcuffs on [target]!</span>")
-						spawn(60)
+						playsound(loc, 'sound/weapons/cablecuff.ogg', 30, 1, -2)
+						target.visible_message("<span class='danger'>[src] is trying to put zipties on [target]!</span>",\
+											"<span class='userdanger'>[src] is trying to put zipties on [target]!</span>")
+						spawn(30)
 							if( !Adjacent(target) || !isturf(target.loc) ) //if he's in a closet or not adjacent, we cancel cuffing.
 								return
 							if(!target.handcuffed)
-								target.handcuffed = new /obj/item/weapon/handcuffs(target)
-								target.update_inv_handcuffed(0)	//update the handcuffs overlay
+								target.handcuffed = new /obj/item/weapon/restraints/handcuffs/cable/zipties/used(target)
+								target.update_inv_handcuffed(1)	//update the handcuffs overlay
 								playsound(loc, pick('sound/voice/bgod.ogg', 'sound/voice/biamthelaw.ogg', 'sound/voice/bsecureday.ogg', 'sound/voice/bradio.ogg', 'sound/voice/binsult.ogg', 'sound/voice/bcreep.ogg'), 50, 0)
 								back_to_idle()
 					else

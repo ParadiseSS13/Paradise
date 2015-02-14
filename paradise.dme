@@ -1390,6 +1390,7 @@
 #include "code\modules\organs\wound.dm"
 #include "code\modules\paperwork\carbonpaper.dm"
 #include "code\modules\paperwork\clipboard.dm"
+#include "code\modules\paperwork\fax.dm"
 #include "code\modules\paperwork\faxmachine.dm"
 #include "code\modules\paperwork\filingcabinet.dm"
 #include "code\modules\paperwork\folders.dm"

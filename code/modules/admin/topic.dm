@@ -1561,11 +1561,11 @@
 			usr << "This can only be used on instances of type /mob/living"
 			return
 
-		if(alert(src.owner, "Are you sure you wish to hit [key_name(M)] with Blue Space Artillery?",  "Confirm Firing?" , "Yes" , "No") != "Yes")
+		if(alert(src.owner, "Are you sure you wish to hit [key_name(M)] with Bluespace Artillery?",  "Confirm Firing?" , "Yes" , "No") != "Yes")
 			return
 
 		if(BSACooldown)
-			src.owner << "Standby!  Reload cycle in progress!  Gunnary crews ready in five seconds!"
+			src.owner << "Standby. Reload cycle in progress. Gunnery crews ready in five seconds!"
 			return
 
 		BSACooldown = 1
@@ -1597,6 +1597,9 @@
 			M.stuttering = 20
 
 	else if(href_list["CentcommReply"])
+		if(!check_rights(R_ADMIN))	
+			return
+			
 		var/mob/living/carbon/human/H = locate(href_list["CentcommReply"])
 		if(!istype(H))
 			usr << "This can only be used on instances of type /mob/living/carbon/human"
@@ -1614,10 +1617,16 @@
 		H << "You hear something crackle in your headset for a moment before a voice speaks.  \"Please stand by for a message from Central Command.  Message as follows. [input].  Message ends.\""
 
 	else if(href_list["SyndicateReply"])
+		if(!check_rights(R_ADMIN))	
+			return
+			
 		var/mob/living/carbon/human/H = locate(href_list["SyndicateReply"])
 		if(!istype(H))
 			usr << "This can only be used on instances of type /mob/living/carbon/human"
 			return
+		if(H.stat != 0)
+			usr << "The person you are trying to contact is not conscious."
+			return		
 		if(!istype(H.l_ear, /obj/item/device/radio/headset) && !istype(H.r_ear, /obj/item/device/radio/headset))
 			usr << "The person you are trying to contact is not wearing a headset"
 			return
@@ -1646,6 +1655,9 @@
 		H << "You hear something crackle in your headset for a moment before a voice speaks.  \"Please stand by for a message from your HONKbrothers.  Message as follows, HONK. [input].  Message ends, HONK.\""
 
 	else if(href_list["AdminFaxView"])
+		if(!check_rights(R_ADMIN))	
+			return
+			
 		var/obj/item/fax = locate(href_list["AdminFaxView"])
 		if (istype(fax, /obj/item/weapon/paper))
 			var/obj/item/weapon/paper/P = fax
@@ -1668,6 +1680,9 @@
 			usr << "\red The faxed item is not viewable. This is probably a bug, and should be reported on the tracker: [fax.type]"
 
 	else if (href_list["AdminFaxViewPage"])
+		if(!check_rights(R_ADMIN))	
+			return
+			
 		var/page = text2num(href_list["AdminFaxViewPage"])
 		var/obj/item/weapon/paper_bundle/bundle = locate(href_list["paper_bundle"])
 		
@@ -1681,50 +1696,142 @@
 			H.show(src.owner)
 		return
 		
-	else if(href_list["CentcommFaxReply"])
-		var/mob/sender = locate(href_list["CentcommFaxReply"])
+	else if(href_list["AdminFaxCreate"])
+		if(!check_rights(R_ADMIN))	
+			return
+			
+		var/mob/sender = locate(href_list["AdminFaxCreate"])
 		var/obj/machinery/photocopier/faxmachine/fax = locate(href_list["originfax"])
+		var/faxtype = href_list["faxtype"]
+		var/reply_to = locate(href_list["replyto"])
+		var/destination
+		var/notify
 
-		var/input = input(src.owner, "Please enter a message to reply to [key_name(sender)] via secure connection. NOTE: BBCode does not work, but HTML tags do! Use <br> for line breaks.", "Outgoing message from Centcomm", "") as message|null
-		if(!input)	return
+		var/obj/item/weapon/paper/P = new /obj/item/weapon/paper(null) //hopefully the null loc won't cause trouble for us
+		
+		if(!fax)
+			var/list/departmentoptions = alldepartments + "All Departments"
+			destination = input(usr, "To which department?", "Choose a department", "") as null|anything in departmentoptions
+			if(!destination)
+				del(P)
+				return
 
-		var/customname = input(src.owner, "Pick a title for the report", "Title") as text|null
+			for(var/obj/machinery/photocopier/faxmachine/F in allfaxes)
+				if(destination != "All Departments" && F.department == destination)
+					fax = F		
+
+		var/input = input(src.owner, "Please enter a message to send a fax via secure connection. Use <br> for line breaks. Both pencode and HTML work.", "Outgoing message from Centcomm", "") as message|null
+		if(!input)	
+			del(P)
+			return
+		input = P.parsepencode(input) // Encode everything from pencode to html
+
+		var/customname = input(src.owner, "Pick a title for the fax.", "Fax Title") as text|null
+		
+		var/stamptype
+		var/stampvalue
+		var/sendername
+		switch(faxtype)
+			if("Central Command")
+				stamptype = "icon"
+				stampvalue = "cent"
+				sendername = command_name()
+			if("Syndicate")
+				sendername = "UNKNOWN"
+			if("Administrator")
+				stamptype = input(src.owner, "Pick a stamp type.", "Stamp Type") as null|anything in list("icon","text","none")
+				if(stamptype == "icon")
+					stampvalue = input(src.owner, "Pick a stamp icon.", "Stamp Icon") as null|anything in list("cent","ok","deny","clown")
+				else if(stamptype == "text")
+					stampvalue = input(src.owner, "What should the stamp say?", "Stamp Text") as text|null
+				else if(stamptype == "none")
+					stamptype = ""
+				else
+					del(P)
+					return
+					
+				sendername = input(src.owner, "What organization does the fax come from? This determines the prefix of the paper (i.e. Central Command- Title). This is optional.", "Organization") as text|null
+				
+		if(sender)
+			notify = alert(src.owner, "Would you like to inform the original sender that a fax has arrived?","Notify Sender","Yes","No")
 		
 		// Create the reply message
-		var/obj/item/weapon/paper/P = new /obj/item/weapon/paper( null ) //hopefully the null loc won't cause trouble for us
-		P.name = "[command_name()]- [customname]"
+		if(sendername)
+			P.name = "[sendername]- [customname]"
+		else
+			P.name = "[customname]"
 		P.info = input
 		P.update_icon()
-		P.stamps += "<HR><img src=large_stamp-cent.png>"	
-		var/image/stampoverlay = image('icons/obj/bureaucracy.dmi')
 		P.x = rand(-2, 0)
 		P.y = rand(-1, 2)	
 		P.offset_x += P.x
 		P.offset_y += P.y
-		stampoverlay.pixel_x = P.x
-		stampoverlay.pixel_y = P.y
+			
+		if(stamptype)
+			var/image/stampoverlay = image('icons/obj/bureaucracy.dmi')
+			stampoverlay.pixel_x = P.x
+			stampoverlay.pixel_y = P.y
 		
-		if(!P.ico)
-			P.ico = new
-		P.ico += "paper_stamp-cent"
-		stampoverlay.icon_state = "paper_stamp-cent"
-		
-		// Stamps
-		if(!P.stamped)
-			P.stamped = new
-		P.stamped += /obj/item/weapon/stamp/centcom
-		P.overlays += stampoverlay
+			if(!P.ico)
+				P.ico = new
+			P.ico += "paper_stamp-cent"
+			stampoverlay.icon_state = "paper_stamp-cent"	
 
-		if(fax.recievefax(P))
-			src.owner << "\blue Message reply to transmitted successfully."
-			log_admin("[key_name(src.owner)] replied to a fax message from [key_name(sender)]: [input]")
-			message_admins("[key_name_admin(src.owner)] replied to a fax message from [key_name_admin(sender)]", 1)
+			if(stamptype == "icon")
+				if(!P.stamped)
+					P.stamped = new
+				P.stamped += /obj/item/weapon/stamp/centcom
+				P.overlays += stampoverlay
+				P.stamps += "<HR><img src=large_stamp-[stampvalue].png>"
+				
+			else if(stamptype == "text")	
+				if(!P.stamped)
+					P.stamped = new
+				P.stamped += /obj/item/weapon/stamp
+				P.overlays += stampoverlay
+				P.stamps += "<HR><i>[stampvalue]</i>"			
+
+		if(destination != "All Departments")
+			if(!fax.receivefax(P))
+				src.owner << "\red Message transmittion failed."
+				return
 		else
-			src.owner << "\red Message reply failed."
-		
-		spawn(100)
-			del(P)
+			for(var/obj/machinery/photocopier/faxmachine/F in allfaxes)
+				if(F.z == 1)
+					if(!F.receivefax(P))
+						src.owner << "\red Message transmission to [F.department] failed."
+					
+		var/datum/fax/admin/A = new /datum/fax/admin()
+		A.name = P.name
+		A.from_department = faxtype
+		if(destination != "All Departments")
+			A.to_department = fax.department
+		else
+			A.to_department = "All Departments"
+		A.origin = "Administrator"
+		A.message = P
+		A.reply_to = reply_to
+		A.sent_by = usr
+		A.sent_at = world.time
+	
+		src.owner << "\blue Message transmitted successfully."
+		if(notify == "Yes")
+			var/mob/living/carbon/human/H = sender
+			if(istype(H) && H.stat == 1 && (istype(H.l_ear, /obj/item/device/radio/headset) || istype(H.r_ear, /obj/item/device/radio/headset)))
+				sender << "Your headset pings, notifying you that a reply to your fax has arrived."
+		if(sender)
+			log_admin("[key_name(src.owner)] replied to a fax message from [key_name(sender)]: [input]")
+			message_admins("[key_name_admin(src.owner)] replied to a fax message from [key_name_admin(sender)] (<a href='?_src_=holder;AdminFaxView=\ref[P]'>VIEW</a>).", 1)	
+		else	
+			log_admin("[key_name(src.owner)] sent a fax message to [destination]: [input]")
+			message_admins("[key_name_admin(src.owner)] sent a fax message to [destination] (<a href='?_src_=holder;AdminFaxView=\ref[P]'>VIEW</a>).", 1)	
 		return
+		
+	else if(href_list["refreshfaxpanel"])
+		if(!check_rights(R_ADMIN))	
+			return
+		
+		fax_panel(usr)
 
 	else if(href_list["jumpto"])
 		if(!check_rights(R_ADMIN))	return

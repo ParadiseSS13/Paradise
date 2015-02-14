@@ -198,7 +198,17 @@ emp_act
 			I.emp_act(severity)
 	..()
 
-
+/mob/living/carbon/human/emag_act(user as mob, var/datum/organ/external/affecting)
+	if(!(affecting.status & ORGAN_ROBOT))
+		user << "\red That limb isn't robotic."
+		return
+	if(affecting.sabotaged)
+		user << "\red [src]'s [affecting.display_name] is already sabotaged!"
+	else
+		user << "\red You sneakily slide the card into the dataport on [src]'s [affecting.display_name] and short out the safeties."
+		affecting.sabotaged = 1
+	return 1
+	
 //Returns 1 if the attack hit, 0 if it missed.
 /mob/living/carbon/human/proc/attacked_by(var/obj/item/I, var/mob/living/user, var/def_zone)
 	if(!I || !user)	return 0
@@ -236,17 +246,8 @@ emp_act
 		return 0
 
 	if(istype(I,/obj/item/weapon/card/emag))
-		if(!(affecting.status & ORGAN_ROBOT))
-			user << "\red That limb isn't robotic."
-			return
-		if(affecting.sabotaged)
-			user << "\red [src]'s [affecting.display_name] is already sabotaged!"
-		else
-			user << "\red You sneakily slide [I] into the dataport on [src]'s [affecting.display_name] and short out the safeties."
-			var/obj/item/weapon/card/emag/emag = I
-			emag.uses--
-			affecting.sabotaged = 1
-		return 1
+		emag_act(user, affecting)
+		
 	if(! I.discrete)
 		if(I.attack_verb.len)
 			visible_message("\red <B>[src] has been [pick(I.attack_verb)] in the [hit_area] with [I.name] by [user]!</B>")
