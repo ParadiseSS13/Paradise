@@ -1744,16 +1744,22 @@
 					stampvalue = input(src.owner, "Pick a stamp icon.", "Stamp Icon") as null|anything in list("cent","ok","deny","clown")
 				else if(stamptype == "text")
 					stampvalue = input(src.owner, "What should the stamp say?", "Stamp Text") as text|null
-				else
+				else if(stamptype == "none")
 					stamptype = ""
-				sendername = input(src.owner, "What organization does the fax come from? This determines the prefix of the paper (i.e. Central Command- Title).", "Organization") as text|null
+				else
+					del(P)
+					return
+					
+				sendername = input(src.owner, "What organization does the fax come from? This determines the prefix of the paper (i.e. Central Command- Title). This is optional.", "Organization") as text|null
 				
 		if(sender)
 			notify = alert(src.owner, "Would you like to inform the original sender that a fax has arrived?","Notify Sender","Yes","No")
 		
 		// Create the reply message
-
-		P.name = "[sendername]- [customname]"
+		if(sendername)
+			P.name = "[sendername]- [customname]"
+		else
+			P.name = "[customname]"
 		P.info = input
 		P.update_icon()
 		P.x = rand(-2, 0)
@@ -1806,6 +1812,7 @@
 		A.message = P
 		A.reply_to = reply_to
 		A.sent_by = usr
+		A.sent_at = world.time
 	
 		src.owner << "\blue Message transmitted successfully."
 		if(notify == "Yes")

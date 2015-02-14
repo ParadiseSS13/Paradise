@@ -190,6 +190,7 @@ var/list/alldepartments = list()
 		F.origin = src
 		F.message = copyitem
 		F.sent_by = sender
+		F.sent_at = world.time
 		
 		visible_message("[src] beeps, \"Message transmitted successfully.\"")
 		//sendcooldown = 600
@@ -247,6 +248,7 @@ var/list/alldepartments = list()
 	A.origin = src
 	A.message = rcvdcopy
 	A.sent_by = sender
+	A.sent_at = world.time
 	
 	//message badmins that a fax has arrived
 	switch(destination)

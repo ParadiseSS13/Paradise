@@ -9,6 +9,7 @@ var/list/adminfaxes = list()
 	var/origin = null
 	var/message = null
 	var/sent_by = null
+	var/sent_at = null
 
 /datum/fax/New()
 	faxes += src
@@ -35,12 +36,13 @@ var/list/adminfaxes = list()
 	html += "<div class='block'>"
 	html += "<h2>Admin Faxes</h2>"
 	html += "<table>"
-	html += "<tr style='font-weight:bold;'><td width='150px'>Name</td><td width='150px'>From Department</td><td width='150px'>To Department</td><td width='150px'>Sent By</td><td width='50px'>View</td><td width='50px'>Reply</td><td width='75px'>Replied To</td></td></tr>"
+	html += "<tr style='font-weight:bold;'><td width='150px'>Name</td><td width='150px'>From Department</td><td width='150px'>To Department</td><td width='75px'>Sent At</td><td width='150px'>Sent By</td><td width='50px'>View</td><td width='50px'>Reply</td><td width='75px'>Replied To</td></td></tr>"
 	for(var/datum/fax/admin/A in adminfaxes)
 		html += "<tr>"
 		html += "<td>[A.name]</td>"
 		html += "<td>[A.from_department]</td>"
 		html += "<td>[A.to_department]</td>"
+		html += "<td>[worldtime2text(A.sent_at)]</td>"
 		if(A.sent_by)
 			var/mob/living/S = A.sent_by
 			html += "<td><A HREF='?_src_=holder;adminplayeropts=\ref[A.sent_by]'>[S.name]</A></td>"
@@ -63,12 +65,13 @@ var/list/adminfaxes = list()
 	html += "<div class='block'>"
 	html += "<h2>Departmental Faxes</h2>"
 	html += "<table>"
-	html += "<tr style='font-weight:bold;'><td width='150px'>Name</td><td width='150px'>From Department</td><td width='150px'>To Department</td><td width='150px'>Sent By</td><td width='175px'>View</td></td></tr>"
+	html += "<tr style='font-weight:bold;'><td width='150px'>Name</td><td width='150px'>From Department</td><td width='150px'>To Department</td><td width='75px'>Sent At</td><td width='150px'>Sent By</td><td width='175px'>View</td></td></tr>"
 	for(var/datum/fax/F in faxes)
 		html += "<tr>"
 		html += "<td>[F.name]</td>"
 		html += "<td>[F.from_department]</td>"
 		html += "<td>[F.to_department]</td>"
+		html += "<td>[worldtime2text(F.sent_at)]</td>"
 		if(F.sent_by)
 			var/mob/living/S = F.sent_by
 			html += "<td><A HREF='?_src_=holder;adminplayeropts=\ref[F.sent_by]'>[S.name]</A></td>"
@@ -79,7 +82,7 @@ var/list/adminfaxes = list()
 	html += "</table>"
 	html += "</div>"
 	
-	var/datum/browser/popup = new(user, "fax_panel", "Fax Panel", 900, 450)
+	var/datum/browser/popup = new(user, "fax_panel", "Fax Panel", 950, 450)
 	popup.set_content(html)
 	popup.open()
 		

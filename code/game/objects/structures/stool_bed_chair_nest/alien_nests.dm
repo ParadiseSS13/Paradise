@@ -17,7 +17,6 @@
 					"<span class='notice'>[user.name] pulls you free from the gelatinous resin.</span>",\
 					"<span class='notice'>You hear squelching...</span>")
 				buckled_mob.pixel_y = 0
-				buckled_mob.old_y = 0
 				unbuckle()
 			else
 				if(world.time <= buckled_mob.last_special+NEST_RESIST_TIME)
@@ -30,7 +29,6 @@
 					if(user && buckled_mob && user.buckled == src)
 						buckled_mob.last_special = world.time
 						buckled_mob.pixel_y = 0
-						buckled_mob.old_y = 0
 						unbuckle()
 			src.add_fingerprint(user)
 	return
