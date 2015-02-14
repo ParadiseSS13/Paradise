@@ -445,13 +445,13 @@
 
 	New()
 		..()
-		new /obj/item/weapon/handcuffs(src)
-		new /obj/item/weapon/handcuffs(src)
-		new /obj/item/weapon/handcuffs(src)
-		new /obj/item/weapon/handcuffs(src)
-		new /obj/item/weapon/handcuffs(src)
-		new /obj/item/weapon/handcuffs(src)
-		new /obj/item/weapon/handcuffs(src)
+		new /obj/item/weapon/restraints/handcuffs(src)
+		new /obj/item/weapon/restraints/handcuffs(src)
+		new /obj/item/weapon/restraints/handcuffs(src)
+		new /obj/item/weapon/restraints/handcuffs(src)
+		new /obj/item/weapon/restraints/handcuffs(src)
+		new /obj/item/weapon/restraints/handcuffs(src)
+		new /obj/item/weapon/restraints/handcuffs(src)
 
 /obj/item/weapon/storage/box/fakesyndiesuit
 	name = "boxed space suit and helmet"

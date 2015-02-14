@@ -154,65 +154,6 @@
 	item_state = "gift"
 	w_class = 4.0
 
-/obj/item/weapon/legcuffs
-	name = "legcuffs"
-	desc = "Use this to keep prisoners in line."
-	gender = PLURAL
-	icon = 'icons/obj/items.dmi'
-	icon_state = "handcuff"
-	flags = FPRINT | TABLEPASS | CONDUCT
-	throwforce = 0
-	w_class = 3.0
-	origin_tech = "materials=1"
-	var/breakouttime = 300	//Deciseconds = 30s = 0.5 minute
-
-/obj/item/weapon/legcuffs/beartrap
-	name = "bear trap"
-	throw_speed = 1
-	throw_range = 1
-	icon_state = "beartrap0"
-	desc = "A trap used to catch bears and other legged creatures."
-	var/armed = 0
-
-	suicide_act(mob/user)
-		viewers(user) << "<span class='suicide'>[user] is putting the [src.name] on \his head! It looks like \he's trying to commit suicide.</span>"
-		return (BRUTELOSS)
-
-/obj/item/weapon/legcuffs/beartrap/attack_self(mob/user as mob)
-	..()
-	if(ishuman(user) && !user.stat && !user.restrained())
-		armed = !armed
-		icon_state = "beartrap[armed]"
-		user << "<span class='notice'>[src] is now [armed ? "armed" : "disarmed"]</span>"
-
-
-/obj/item/weapon/legcuffs/beartrap/Crossed(AM as mob|obj)
-	if(armed && isturf(src.loc))
-		if( (iscarbon(AM) || isanimal(AM)) && !istype(AM, /mob/living/simple_animal/parrot) && !istype(AM, /mob/living/simple_animal/construct) && !istype(AM, /mob/living/simple_animal/shade) && !istype(AM, /mob/living/simple_animal/hostile/viscerator))
-			var/mob/living/L = AM
-			armed = 0
-			icon_state = "beartrap0"
-			playsound(src.loc, 'sound/effects/snap.ogg', 50, 1)
-			L.visible_message("<span class='danger'>[L] triggers \the [src].</span>", \
-					"<span class='userdanger'>You trigger \the [src]!</span>")
-
-			if(ishuman(AM))
-				var/mob/living/carbon/H = AM
-				if(H.lying)
-					H.apply_damage(20,BRUTE,"chest")
-				else
-					H.apply_damage(20,BRUTE,(pick("l_leg", "r_leg")))
-				if(!H.legcuffed) //beartrap can't cuff you leg if there's already a beartrap or legcuffs.
-					H.legcuffed = src
-					src.loc = H
-					H.update_inv_legcuffed(0)
-					feedback_add_details("handcuffs","B") //Yes, I know they're legcuffs. Don't change this, no need for an extra variable. The "B" is used to tell them apart.
-
-			else
-				L.apply_damage(20,BRUTE)
-	..()
-
-
 /obj/item/weapon/holosign_creator
 	name = "holographic sign projector"
 	desc = "A handy-dandy hologaphic projector that displays a janitorial sign."

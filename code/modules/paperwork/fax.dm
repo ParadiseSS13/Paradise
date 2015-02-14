@@ -35,7 +35,7 @@ var/list/adminfaxes = list()
 	html += "<div class='block'>"
 	html += "<h2>Admin Faxes</h2>"
 	html += "<table>"
-	html += "<tr><td width='150px'>Name</td><td width='150px'>From Department</td><td width='150px'>To Department</td><td width='150px'>Sent By</td><td width='50px'>View</td><td width='50px'>Reply</td><td width='50px'>Original</td></td></tr>"
+	html += "<tr style='font-weight:bold;'><td width='150px'>Name</td><td width='150px'>From Department</td><td width='150px'>To Department</td><td width='150px'>Sent By</td><td width='50px'>View</td><td width='50px'>Reply</td><td width='75px'>Replied To</td></td></tr>"
 	for(var/datum/fax/admin/A in adminfaxes)
 		html += "<tr>"
 		html += "<td>[A.name]</td>"
@@ -63,7 +63,7 @@ var/list/adminfaxes = list()
 	html += "<div class='block'>"
 	html += "<h2>Departmental Faxes</h2>"
 	html += "<table>"
-	html += "<tr><td width='150px'>Name</td><td width='150px'>From Department</td><td width='150px'>To Department</td><td width='150px'>Sent By</td><td width='150px'>View</td></td></tr>"
+	html += "<tr style='font-weight:bold;'><td width='150px'>Name</td><td width='150px'>From Department</td><td width='150px'>To Department</td><td width='150px'>Sent By</td><td width='175px'>View</td></td></tr>"
 	for(var/datum/fax/F in faxes)
 		html += "<tr>"
 		html += "<td>[F.name]</td>"

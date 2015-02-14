@@ -3,6 +3,7 @@
 	var/window_y = 600
 	var/report_at_round_end = 0
 	var/table_options = " align='center'"
+	var/head_options = " style='font-weight:bold;'"
 	var/row_options1 = " width='85px'"
 	var/row_options2 = " width='260px'"
 	var/row_options3 = " width='150px'"
@@ -87,7 +88,7 @@
 		html += "<div class='block'>"
 		html += "<h2>Available [severity_to_string[selected_event_container.severity]] Events (queued & running events will not be displayed)</h2>"
 		html += "<table[table_options]>"
-		html += "<tr><td[row_options2]>Name </td><td>Weight </td><td>MinWeight </td><td>MaxWeight </td><td>OneShot </td><td>Enabled </td><td><span class='alert'>CurrWeight </span></td><td>Remove</td></tr>"
+		html += "<tr[head_options]><td[row_options2]>Name </td><td>Weight </td><td>MinWeight </td><td>MaxWeight </td><td>OneShot </td><td>Enabled </td><td><span class='alert'>CurrWeight </span></td><td>Remove</td></tr>"
 		for(var/datum/event_meta/EM in selected_event_container.available_events)
 			html += "<tr>"
 			html += "<td>[EM.name]</td>"
@@ -105,7 +106,7 @@
 		html += "<div class='block'>"
 		html += "<h2>Add Event</h2>"
 		html += "<table[table_options]>"
-		html += "<tr><td[row_options2]>Name</td><td[row_options2]>Type</td><td[row_options1]>Weight</td><td[row_options1]>OneShot</td></tr>"
+		html += "<tr [head_options]><td[row_options2]>Name</td><td[row_options2]>Type</td><td[row_options1]>Weight</td><td[row_options1]>OneShot</td></tr>"
 		html += "<tr>"
 		html += "<td><A align='right' href='?src=\ref[src];set_name=\ref[new_event]'>[new_event.name ? new_event.name : "Enter Event"]</A></td>"
 		html += "<td><A align='right' href='?src=\ref[src];set_type=\ref[new_event]'>[new_event.event_type ? new_event.event_type : "Select Type"]</A></td>"
@@ -121,7 +122,7 @@
 		html += "<h2>Event Start</h2>"
 
 		html += "<table[table_options]>"
-		html += "<tr><td[row_options1]>Severity</td><td[row_options1]>Starts At</td><td[row_options1]>Starts In</td><td[row_options3]>Adjust Start</td><td[row_options1]>Pause</td><td[row_options1]>Interval Mod</td></tr>"
+		html += "<tr[head_options]><td[row_options1]>Severity</td><td[row_options1]>Starts At</td><td[row_options1]>Starts In</td><td[row_options3]>Adjust Start</td><td[row_options1]>Pause</td><td[row_options1]>Interval Mod</td></tr>"
 		for(var/severity = EVENT_LEVEL_MUNDANE to EVENT_LEVEL_MAJOR)
 			var/datum/event_container/EC = event_containers[severity]
 			var/next_event_at = max(0, EC.next_event_time - world.time)
@@ -148,7 +149,7 @@
 		html += "<div class='block'>"
 		html += "<h2>Next Event</h2>"
 		html += "<table[table_options]>"
-		html += "<tr><td[row_options1]>Severity</td><td[row_options2]>Name</td><td[row_options3]>Event Rotation</td><td>Clear</td></tr>"
+		html += "<tr[head_options]><td[row_options1]>Severity</td><td[row_options2]>Name</td><td[row_options3]>Event Rotation</td><td>Clear</td></tr>"
 		for(var/severity = EVENT_LEVEL_MUNDANE to EVENT_LEVEL_MAJOR)
 			var/datum/event_container/EC = event_containers[severity]
 			var/datum/event_meta/EM = EC.next_event
@@ -165,7 +166,7 @@
 		html += "<h2>Running Events</h2>"
 		html += "Estimated times, affected by master controller delays."
 		html += "<table[table_options]>"
-		html += "<tr><td[row_options1]>Severity</td><td[row_options2]>Name</td><td[row_options1]>Ends At</td><td[row_options1]>Ends In</td><td[row_options3]>Stop</td></tr>"
+		html += "<tr[head_options]><td[row_options1]>Severity</td><td[row_options2]>Name</td><td[row_options1]>Ends At</td><td[row_options1]>Ends In</td><td[row_options3]>Stop</td></tr>"
 		for(var/datum/event/E in active_events)
 			if(!E.event_meta)
 				continue

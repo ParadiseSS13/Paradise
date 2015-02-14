@@ -918,7 +918,7 @@ proc/get_damage_icon_part(damage_state, body_part)
 			var/obj/screen/inventory/L = hud_used.adding[8]
 			R.overlays += image("icon"='icons/mob/screen_gen.dmi', "icon_state"="markus")
 			L.overlays += image("icon"='icons/mob/screen_gen.dmi', "icon_state"="gabrielle")
-		if(istype(handcuffed, /obj/item/weapon/handcuffs/pinkcuffs))
+		if(istype(handcuffed, /obj/item/weapon/restraints/handcuffs/pinkcuffs))
 			overlays_standing[HANDCUFF_LAYER]	= image("icon" = 'icons/mob/mob.dmi', "icon_state" = "pinkcuff1")
 		else
 			overlays_standing[HANDCUFF_LAYER]	= image("icon" = 'icons/mob/mob.dmi', "icon_state" = "handcuff1")

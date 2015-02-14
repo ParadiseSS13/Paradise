@@ -1,4 +1,5 @@
 //Alium nests. Essentially beds with an unbuckle delay that only aliums can buckle mobs to.
+#define NEST_RESIST_TIME 1200
 
 /obj/structure/stool/bed/nest
 	name = "alien nest"
@@ -16,15 +17,20 @@
 					"<span class='notice'>[user.name] pulls you free from the gelatinous resin.</span>",\
 					"<span class='notice'>You hear squelching...</span>")
 				buckled_mob.pixel_y = 0
+				buckled_mob.old_y = 0
 				unbuckle()
 			else
+				if(world.time <= buckled_mob.last_special+NEST_RESIST_TIME)
+					return
 				buckled_mob.visible_message(\
 					"<span class='warning'>[buckled_mob.name] struggles to break free of the gelatinous resin...</span>",\
 					"<span class='warning'>You struggle to break free from the gelatinous resin...</span>",\
 					"<span class='notice'>You hear squelching...</span>")
-				spawn(600)
+				spawn(NEST_RESIST_TIME)
 					if(user && buckled_mob && user.buckled == src)
+						buckled_mob.last_special = world.time
 						buckled_mob.pixel_y = 0
+						buckled_mob.old_y = 0
 						unbuckle()
 			src.add_fingerprint(user)
 	return
@@ -70,8 +76,7 @@
 	var/aforce = W.force
 	health = max(0, health - aforce)
 	playsound(loc, 'sound/effects/attackblob.ogg', 100, 1)
-	for(var/mob/M in viewers(src, 7))
-		M.show_message("<span class='warning'>[user] hits [src] with [W]!</span>", 1)
+	visible_message("<span class='warning'>[user] hits [src] with [W]!</span>", 1)
 	healthcheck()
 
 /obj/structure/stool/bed/nest/proc/healthcheck()

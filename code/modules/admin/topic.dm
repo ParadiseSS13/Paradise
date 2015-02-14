@@ -1746,7 +1746,7 @@
 					stampvalue = input(src.owner, "What should the stamp say?", "Stamp Text") as text|null
 				else
 					stamptype = ""
-				sendername = input(src.owner, "What organization does the fax come from? This determines the prefix of the paper (i.e. CentCom- Title).", "Stamp Organization") as text|null
+				sendername = input(src.owner, "What organization does the fax come from? This determines the prefix of the paper (i.e. Central Command- Title).", "Organization") as text|null
 				
 		if(sender)
 			notify = alert(src.owner, "Would you like to inform the original sender that a fax has arrived?","Notify Sender","Yes","No")

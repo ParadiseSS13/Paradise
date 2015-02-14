@@ -38,7 +38,11 @@
 /obj/machinery/iv_drip/MouseDrop(over_object, src_location, over_location)
 	..()
 	
-	if(!ishuman(usr))
+	if(!ishuman(usr) && !isrobot(usr))
+		return
+		
+	var/turf/T = get_turf(src)
+	if(!usr in range(1, T))
 		return
 
 	if(attached)
