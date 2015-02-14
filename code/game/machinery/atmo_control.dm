@@ -6,6 +6,7 @@ obj/machinery/air_sensor
 
 	anchored = 1
 	var/state = 0
+	var/bolts = 1
 
 	var/id_tag
 	var/frequency = 1439
@@ -29,19 +30,58 @@ obj/machinery/air_sensor
 		icon_state = "gsensor[on]"
 
 	multitool_menu(var/mob/user, var/obj/item/device/multitool/P)
-		if(!allowed(user))
-			return "<b>ACCESS DENIED</b>"
 		return {"
 		<b>Main</b>
 		<ul>
 			<li><b>Frequency:</b> <a href="?src=\ref[src];set_freq=-1">[format_frequency(frequency)] GHz</a> (<a href="?src=\ref[src];set_freq=[initial(frequency)]">Reset</a>)</li>
 			<li>[format_tag("ID Tag","id_tag")]</li>
+			<li>Floor Bolts: <a href="?src=\ref[src];toggle_bolts=1">[bolts ? "Enabled" : "Disabled"]</a>
+			<li>Monitor Pressure: <a href="?src=\ref[src];toggle_out_flag=1">[output&1 ? "Yes" : "No"]</a>
+			<li>Monitor Temperature: <a href="?src=\ref[src];toggle_out_flag=2">[output&2 ? "Yes" : "No"]</a>
+			<li>Monitor Oxygen Concentration: <a href="?src=\ref[src];toggle_out_flag=4">[output&4 ? "Yes" : "No"]</a>
+			<li>Monitor Plasma Concentration: <a href="?src=\ref[src];toggle_out_flag=8">[output&8 ? "Yes" : "No"]</a>
+			<li>Monitor Nitrogen Concentration: <a href="?src=\ref[src];toggle_out_flag=16">[output&16 ? "Yes" : "No"]</a>
+			<li>Monitor Carbon Dioxide Concentration: <a href="?src=\ref[src];toggle_out_flag=32">[output&32 ? "Yes" : "No"]</a>
 		</ul>"}
+
+	multitool_topic(var/mob/user, var/list/href_list, var/obj/O)
+		. = ..()
+		if(.)
+			return .
+
+		if("toggle_out_flag" in href_list)
+			var/bitflag_value = text2num(href_list["toggle_out_flag"])//this is a string normally
+			if(!(bitflag_value in list(1, 2, 4, 8, 16, 32))) //Here to prevent breaking the sensors with HREF exploits
+				return 0
+			if(output&bitflag_value)//the bitflag is on ATM
+				output &= ~bitflag_value
+			else//can't not be off
+				output |= bitflag_value
+			return MT_UPDATE
+		if("toggle_bolts" in href_list)
+			bolts = !bolts
+			if(bolts)
+				visible_message("You hear a quite click as the [src]bolts to the floor", "You hear a quite click")
+			else
+				visible_message("You hear a quite click as the [src]'s floor bolts raise", "You hear a quite click")
+			return MT_UPDATE
+
 
 	attackby(var/obj/item/W as obj, var/mob/user as mob)
 		if(istype(W, /obj/item/device/multitool))
 			update_multitool_menu(user)
 			return 1
+		if(istype(W, /obj/item/weapon/wrench))
+			if(bolts)
+				usr << "The [src] is bolted to the floor! You can't detach it like this."
+				return 1
+			playsound(src.loc, 'sound/items/Ratchet.ogg', 50, 1)
+			user << "\blue You begin to unfasten \the [src]..."
+			if(do_after(user, 40))
+				user.visible_message("[user] unfastens \the [src].", "\blue You have unfastened \the [src].", "You hear ratchet.")
+				new /obj/item/pipe_gsensor(src.loc)
+				del(src)
+				return 1
 		if(..())
 			return 1
 
@@ -121,7 +161,7 @@ obj/machinery/air_sensor
 	process()
 		..()
 		if(!sensors)
-			warning("[src.type] at [x],[y],[z] has null sensors.  Please fix.")
+			//warning("[src.type] at [x],[y],[z] has null sensors.  Please fix.")//commenting this line out because the admins will get a warning like this every time somebody builds another GAC
 			sensors = list()
 		src.updateUsrDialog()
 
@@ -230,8 +270,6 @@ legend {
 		set_frequency(frequency)
 
 	multitool_menu(var/mob/user, var/obj/item/device/multitool/P)
-		if(!allowed(user))
-			return "<b>ACCESS DENIED</b>"
 		var/dat= {"
 		<b>Main</b>
 		<ul>

@@ -44,7 +44,7 @@
 <A href='?src=\ref[src];make=16;dir=1'>Volume Pump</A><BR>
 <A href='?src=\ref[src];make=10;dir=1'>Scrubber</A><BR>
 <A href='?src=\ref[src];makemeter=1'>Meter</A><BR>
-<A href='?src=\ref[src];makegassensor=1'>Gas Sensor</A><BR>
+<A href='?src=\ref[src];makegsensor=1'>Gas Sensor</A><BR>
 <A href='?src=\ref[src];make=13;dir=1'>Gas Filter</A><BR>
 <A href='?src=\ref[src];make=14;dir=1'>Gas Mixer</A><BR>
 <A href='?src=\ref[src];make=39;dir=1'>Air Injector</A><BR>

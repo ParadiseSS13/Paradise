@@ -130,8 +130,6 @@
 	return 1
 
 /obj/machinery/meter/multitool_menu(var/mob/user, var/obj/item/device/multitool/P)
-	if(!allowed(user))
-		return "<b>ACCESS DENIED</b>"
 	return {"
 	<b>Main</b>
 	<ul>

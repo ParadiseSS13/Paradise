@@ -288,10 +288,6 @@ Buildable meters
 		"manifold4w", \
 		"cap", \
 		"cap", \
-		"cap", \
-		"cap", \
-		"cap", \
-		"cap", \
 		// /vg/ ported stuff
 		"injector", \
 		"dvalve", \

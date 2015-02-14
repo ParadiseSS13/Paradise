@@ -42,8 +42,6 @@
 		add_underlay(T, node2, dir)
 
 /obj/machinery/atmospherics/binary/dp_vent_pump/multitool_menu(var/mob/user,var/obj/item/device/multitool/P)
-	if(!allowed(user))
-		return "<b>ACCESS DENIED</b>"
 	return {"
 	<ul>
 		<li><b>Frequency:</b> <a href="?src=\ref[src];set_freq=-1">[format_frequency(frequency)] GHz</a> (<a href="?src=\ref[src];set_freq=[1439]">Reset</a>)</li>

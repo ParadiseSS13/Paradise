@@ -22,7 +22,7 @@
 	// What reagents should be logged when transferred TO this object?
 	// Reagent ID => friendly name
 	var/list/reagents_to_log=list()
-	
+
 /obj/Topic(href, href_list, var/nowindow = 0)
 	// Calling Topic without a corresponding window open causes runtime errors
 	if(nowindow)
@@ -204,24 +204,27 @@ a {
 	<body>
 		<h3>[name]</h3>
 "}
-	dat += multitool_menu(user,P)
-	if(Mtoollink)
-		if(P)
-			if(P.buffer)
-				var/id="???"
-				if(istype(P.buffer, /obj/machinery/telecomms))
-					id=P.buffer:id
-				else
-					id=P.buffer:id_tag
-				dat += "<p><b>MULTITOOL BUFFER:</b> [P.buffer] ([id])"
-
-				dat += linkMenu(P.buffer)
-
+	if(allowed(user))//no, assistants, you're not ruining all vents on the station with just a multitool
+		dat += multitool_menu(user,P)
+		if(Mtoollink)
+			if(P)
 				if(P.buffer)
-					dat += "<a href='?src=\ref[src];flush=1'>\[Flush\]</a>"
-				dat += "</p>"
-			else
-				dat += "<p><b>MULTITOOL BUFFER:</b> <a href='?src=\ref[src];buffer=1'>\[Add Machine\]</a></p>"
+					var/id="???"
+					if(istype(P.buffer, /obj/machinery/telecomms))
+						id=P.buffer:id
+					else
+						id=P.buffer:id_tag
+					dat += "<p><b>MULTITOOL BUFFER:</b> [P.buffer] ([id])"
+
+					dat += linkMenu(P.buffer)
+
+					if(P.buffer)
+						dat += "<a href='?src=\ref[src];flush=1'>\[Flush\]</a>"
+					dat += "</p>"
+				else
+					dat += "<p><b>MULTITOOL BUFFER:</b> <a href='?src=\ref[src];buffer=1'>\[Add Machine\]</a></p>"
+	else
+		dat += "<b>ACCESS DENIED</a>"
 	dat += "</body></html>"
 	user << browse(dat, "window=mtcomputer")
 	user.set_machine(src)
