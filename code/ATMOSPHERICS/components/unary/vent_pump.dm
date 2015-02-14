@@ -15,6 +15,7 @@
 	level = 1
 	var/area_uid
 	var/id_tag = null
+	var/testvar
 
 	req_one_access_txt = "24;10"
 
@@ -40,6 +41,7 @@
 	var/datum/radio_frequency/radio_connection
 	Mtoollink = 1
 	settagwhitelist = list("id_tag")
+	var/advcontrol = 0//does this device listen to the AAC
 
 	var/radio_filter_out
 	var/radio_filter_in
@@ -228,17 +230,19 @@
 		set_frequency(frequency)
 
 /obj/machinery/atmospherics/unary/vent_pump/receive_signal(datum/signal/signal)
+	if(testvar)
+		world << list2params(signal.data)
 	if(stat & (NOPOWER|BROKEN))
 		return
 	//log_admin("DEBUG \[[world.timeofday]\]: /obj/machinery/atmospherics/unary/vent_pump/receive_signal([signal.debug_print()])")
-	if(!signal.data["tag"] || (signal.data["tag"] != id_tag) || (signal.data["sigtype"]!="command"))
+	if(!signal.data["tag"] || (signal.data["tag"] != id_tag) || (signal.data["sigtype"]!="command") || (signal.data["advcontrol"] && !advcontrol))
 		return 0
 
 	if(signal.data["purge"] != null)
 		pressure_checks &= ~1
 		pump_direction = 0
 
-	if(signal.data["stabalize"] != null)
+	if(signal.data["stabilize"] != null)
 		pressure_checks |= 1
 		pump_direction = 1
 
@@ -364,8 +368,18 @@
 	<ul>
 		<li><b>Frequency:</b> <a href="?src=\ref[src];set_freq=-1">[format_frequency(frequency)] GHz</a> (<a href="?src=\ref[src];set_freq=[1439]">Reset</a>)</li>
 		<li>[format_tag("ID Tag","id_tag","set_id")]</li>
+		<li><b>AAC Acces:</b> <a href="?src=\ref[src];toggleadvcontrol=1">[advcontrol ? "Allowed" : "Blocked"]</a>
 		</ul>
 	"}
+
+/obj/machinery/atmospherics/unary/vent_pump/multitool_topic(var/mob/user, var/list/href_list, var/obj/O)
+	. = ..()
+	if(.)
+		return .
+
+	if("toggleadvcontrol" in href_list)
+		advcontrol = !advcontrol
+		return MT_UPDATE
 
 /obj/machinery/atmospherics/unary/vent_pump/attackby(var/obj/item/weapon/W as obj, var/mob/user as mob)
 	if (istype(W, /obj/item/device/multitool))

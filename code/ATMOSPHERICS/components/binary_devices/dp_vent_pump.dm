@@ -24,6 +24,7 @@
 	var/frequency = 1439
 	var/id_tag = null
 	var/datum/radio_frequency/radio_connection
+	var/advcontrol = 0//does this device listen to the AAC
 
 	settagwhitelist = list("id_tag")
 
@@ -46,8 +47,17 @@
 	<ul>
 		<li><b>Frequency:</b> <a href="?src=\ref[src];set_freq=-1">[format_frequency(frequency)] GHz</a> (<a href="?src=\ref[src];set_freq=[1439]">Reset</a>)</li>
 		<li><b>ID Tag:</b> <a href="?src=\ref[src];set_id=1">[id_tag]</a></li>
+		<li><b>AAC Acces:</b> <a href="?src=\ref[src];toggleadvcontrol=1">[advcontrol ? "Allowed" : "Blocked"]</a></li>
 	</ul>
 	"}
+
+/obj/machinery/atmospherics/binary/dp_vent_pump/multitool_topic(var/mob/user, var/list/href_list, var/obj/O)
+	. = ..()
+	if(.)
+		return .
+	if("toggleadvcontrol" in href_list)
+		advcontrol = !advcontrol
+		return MT_UPDATE
 
 /obj/machinery/atmospherics/binary/dp_vent_pump/New()
 	..()
@@ -194,10 +204,9 @@
 		set_frequency(frequency)
 
 /obj/machinery/atmospherics/binary/dp_vent_pump/receive_signal(datum/signal/signal)
-	if(!signal.data["tag"] || (signal.data["tag"] != id_tag) || (signal.data["sigtype"]!="command"))
+	if(!signal.data["tag"] || (signal.data["tag"] != id_tag) || (signal.data["sigtype"]!="command") || (signal.data["advcontrol"] && !advcontrol))
 		return 0
 	if(signal.data["power"])
-		world << "test"
 		on = text2num(signal.data["power"])
 
 	if(signal.data["power_toggle"])

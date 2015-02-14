@@ -61,7 +61,7 @@ obj/machinery/air_sensor
 		if("toggle_bolts" in href_list)
 			bolts = !bolts
 			if(bolts)
-				visible_message("You hear a quite click as the [src]bolts to the floor", "You hear a quite click")
+				visible_message("You hear a quite click as the [src] bolts to the floor", "You hear a quite click")
 			else
 				visible_message("You hear a quite click as the [src]'s floor bolts raise", "You hear a quite click")
 			return MT_UPDATE

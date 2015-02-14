@@ -15,6 +15,7 @@
 	var/frequency = 1439
 	var/datum/radio_frequency/radio_connection
 	settagwhitelist = list("id_tag")
+	var/advcontrol = 0//does this device listen to the AAC?
 
 	var/on = 0
 	var/scrubbing = 1 //0 = siphoning, 1 = scrubbing
@@ -201,7 +202,7 @@
 /obj/machinery/atmospherics/unary/vent_scrubber/receive_signal(datum/signal/signal)
 	if(stat & (NOPOWER|BROKEN))
 		return
-	if(!signal.data["tag"] || (signal.data["tag"] != id_tag) || (signal.data["sigtype"]!="command"))
+	if(!signal.data["tag"] || (signal.data["tag"] != id_tag) || (signal.data["sigtype"]!="command") || (signal.data["advcontrol"] && !advcontrol))
 		return 0
 
 	if(signal.data["power"] != null)
@@ -284,8 +285,18 @@
 	<ul>
 		<li><b>Frequency:</b> <a href="?src=\ref[src];set_freq=-1">[format_frequency(frequency)] GHz</a> (<a href="?src=\ref[src];set_freq=[1439]">Reset</a>)</li>
 		<li>[format_tag("ID Tag","id_tag")]</li>
+		<li><b>AAC Acces:</b> <a href="?src=\ref[src];toggleadvcontrol=1">[advcontrol ? "Allowed" : "Blocked"]</a>
 	</ul>
 	"}
+
+/obj/machinery/atmospherics/unary/vent_scrubber/multitool_topic(var/mob/user, var/list/href_list, var/obj/O)
+	. = ..()
+	if(.)
+		return .
+	if("toggleadvcontrol" in href_list)
+		advcontrol = !advcontrol
+		return MT_UPDATE
+
 
 /obj/machinery/atmospherics/unary/vent_scrubber/attackby(var/obj/item/weapon/W as obj, var/mob/user as mob)
 	if(istype(W, /obj/item/device/multitool))

@@ -41,13 +41,14 @@
 	proc/request_device_refresh(var/device)
 		send_signal(list("tag"=device, "status"))
 
-	proc/send_signal(var/list/data)
+	proc/send_signal(var/list/data, var/filter = RADIO_ATMOSIA)//filter's here so the AAC can cross communicate to things like vents, which have a different filter
 		var/datum/signal/signal = new
 		signal.transmission_method = 1 //radio signal
 		signal.source = src
 		signal.data=data
 		signal.data["sigtype"]="command"
-		radio_connection.post_signal(src, signal, filter = RADIO_ATMOSIA)
+		signal.data["advcontrol"]=1//AAC balancing, you need to manually get up to the machine to make it listen to this
+		radio_connection.post_signal(src, signal, range = 8, filter = filter)
 
 	proc/selectValidChildFor(var/datum/automation/parent, var/mob/user, var/list/valid_returntypes)
 		var/list/choices=list()

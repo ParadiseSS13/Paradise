@@ -23,7 +23,8 @@
 
 	process()
 		if(vent_pump)
-			parent.send_signal(list ("tag" = vent_pump, mode))
+			var/dirvalue = (mode == "stabalize" ? 1 : mode == "purge" ? 0 : 1)
+			parent.send_signal(list ("tag" = vent_pump, "direction" = dirvalue),filter = RADIO_FROM_AIRALARM)
 		return 0
 
 	GetText()
@@ -69,7 +70,7 @@
 
 	process()
 		if(vent_pump)
-			parent.send_signal(list ("tag" = vent_pump, "power"=state))
+			parent.send_signal(list ("tag" = vent_pump, "power"=state), filter = RADIO_FROM_AIRALARM)
 
 	GetText()
 		return "Set vent pump <a href=\"?src=\ref[src];set_vent_pump=1\">[fmtString(vent_pump)]</a> power to <a href=\"?src=\ref[src];set_power=1\">[state ? "on" : "off"]</a>."
