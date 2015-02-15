@@ -638,6 +638,7 @@ var/list/admin_verbs_mod = list(
 	set category = "Preferences"
 
 	prefs.toggles ^= CHAT_ATTACKLOGS
+	prefs.save_preferences(src)
 	if (prefs.toggles & CHAT_ATTACKLOGS)
 		usr << "You now will get attack log messages"
 	else
