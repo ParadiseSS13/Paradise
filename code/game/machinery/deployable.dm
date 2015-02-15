@@ -158,7 +158,7 @@ for reference:
 		src.icon_state = "barrier[src.locked]"
 
 	attackby(obj/item/weapon/W as obj, mob/user as mob)
-		if (istype(W, /obj/item/weapon/card/id/))
+		if (istype(W, /obj/item/weapon/card/id))
 			if (src.allowed(user))
 				if	(src.emagged < 2.0)
 					src.locked = !src.locked
@@ -177,24 +177,6 @@ for reference:
 					visible_message("\red BZZzZZzZZzZT")
 					return
 			return
-		else if (istype(W, /obj/item/weapon/card/emag))
-			if (src.emagged == 0)
-				src.emagged = 1
-				src.req_access = null
-				user << "You break the ID authentication lock on the [src]."
-				var/datum/effect/effect/system/spark_spread/s = new /datum/effect/effect/system/spark_spread
-				s.set_up(2, 1, src)
-				s.start()
-				visible_message("\red BZZzZZzZZzZT")
-				return
-			else if (src.emagged == 1)
-				src.emagged = 2
-				user << "You short out the anchoring mechanism on the [src]."
-				var/datum/effect/effect/system/spark_spread/s = new /datum/effect/effect/system/spark_spread
-				s.set_up(2, 1, src)
-				s.start()
-				visible_message("\red BZZzZZzZZzZT")
-				return
 		else if (istype(W, /obj/item/weapon/wrench))
 			if (src.health < src.maxhealth)
 				src.health = src.maxhealth
@@ -218,6 +200,23 @@ for reference:
 			if (src.health <= 0)
 				src.explode()
 			..()
+		
+	emag_act(user as mob)
+		if (!emagged)
+			emagged = 1
+			req_access = null
+			user << "You break the ID authentication lock on the [src]."
+			var/datum/effect/effect/system/spark_spread/s = new /datum/effect/effect/system/spark_spread
+			s.set_up(2, 1, src)
+			s.start()
+			visible_message("\red BZZzZZzZZzZT")
+		else if (src.emagged == 1)
+			src.emagged = 2
+			user << "You short out the anchoring mechanism on the [src]."
+			var/datum/effect/effect/system/spark_spread/s = new /datum/effect/effect/system/spark_spread
+			s.set_up(2, 1, src)
+			s.start()
+			visible_message("\red BZZzZZzZZzZT")
 
 	ex_act(severity)
 		switch(severity)

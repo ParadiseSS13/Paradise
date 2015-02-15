@@ -307,20 +307,7 @@ Status: []<BR>"},
 			del(src)
 
 
-	if ((istype(W, /obj/item/weapon/card/emag)) && (!src.emagged))
-		// Emagging the turret makes it go bonkers and stun everyone. It also makes
-		// the turret shoot much, much faster.
-
-		user << "\red You short out [src]'s threat assessment circuits."
-		spawn(0)
-			for(var/mob/O in hearers(src, null))
-				O.show_message("\red [src] hums oddly...", 1)
-		emagged = 1
-		src.on = 0 // turns off the turret temporarily
-		sleep(60) // 6 seconds for the traitor to gtfo of the area before the turret decides to ruin his shit
-		on = 1 // turns it back on. The cover popUp() popDown() are automatically called in process(), no need to define it here
-
-	else if((istype(W, /obj/item/weapon/wrench)) && (!on))
+	if((istype(W, /obj/item/weapon/wrench)) && (!on))
 		if(raised) return
 		// This code handles moving the turret around. After all, it's a portable turret!
 
@@ -359,7 +346,19 @@ Status: []<BR>"},
 					attacked = 0
 		..()
 
+/obj/machinery/porta_turret/emag_act(user as mob)		
+	if(!src.emagged)
+		// Emagging the turret makes it go bonkers and stun everyone. It also makes
+		// the turret shoot much, much faster.
 
+		user << "\red You short out [src]'s threat assessment circuits."
+		spawn(0)
+			for(var/mob/O in hearers(src, null))
+				O.show_message("\red [src] hums oddly...", 1)
+		emagged = 1
+		src.on = 0 // turns off the turret temporarily
+		sleep(60) // 6 seconds for the traitor to gtfo of the area before the turret decides to ruin his shit
+		on = 1 // turns it back on. The cover popUp() popDown() are automatically called in process(), no need to define it here
 
 /obj/machinery/porta_turret/bullet_act(var/obj/item/projectile/Proj)
 	if(on)

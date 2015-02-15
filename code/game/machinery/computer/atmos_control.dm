@@ -37,15 +37,16 @@
 	return ui_interact(user)
 
 
-/obj/machinery/computer/atmoscontrol/attackby(var/obj/item/I as obj, var/mob/user as mob)
-	if(istype(I, /obj/item/weapon/card/emag) && !emagged)
-		user.visible_message("\red \The [user] swipes \a [I] through \the [src], causing the screen to flash!",\
-			"\red You swipe your [I] through \the [src], the screen flashing as you gain full control.",\
+/obj/machinery/computer/atmoscontrol/emag_act(user as mob)
+	if(!emagged)
+		if(!ishuman(user))
+			return
+		var/mob/living/carbon/human/H = user
+		H.visible_message("\red \The [user] swipes \a card through \the [src], causing the screen to flash!",\
+			"\red You swipe your card through \the [src], the screen flashing as you gain full control.",\
 			"You hear the swipe of a card through a reader, and an electronic warble.")
 		emagged = 1
 		overridden = 1
-		return
-	return ..()
 
 /obj/machinery/computer/atmoscontrol/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null)
 	if(user.stat && !isobserver(user))

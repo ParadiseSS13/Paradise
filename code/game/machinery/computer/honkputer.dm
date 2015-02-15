@@ -57,12 +57,10 @@
 
 	src.updateUsrDialog()
 
-/obj/machinery/computer/HONKputer/attackby(var/obj/I as obj, var/mob/user as mob)
-	if(istype(I,/obj/item/weapon/card/emag/))
+/obj/machinery/computer/HONKputer/emag_act(user as mob)
+	if(!emagged)
 		src.emagged = 1
 		user << "You scramble the login circuits, allowing anyone to use the console!"
-	..()
-
 
 /obj/machinery/computer/HONKputer/attack_hand(var/mob/user as mob)
 	if(..())

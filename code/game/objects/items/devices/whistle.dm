@@ -24,9 +24,8 @@
 	spawn(20)
 		spamcheck = 0
 
-/obj/item/device/hailer/attackby(obj/item/I, mob/user)
-	if(istype(I, /obj/item/weapon/card/emag) && !emagged)
+/obj/item/device/hailer/emag_act(user as mob)
+	if(!emagged)
 		user << "\red You overload \the [src]'s voice synthesizer."
 		emagged = 1
-		return
-	return
+		

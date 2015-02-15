@@ -68,9 +68,7 @@
 				authenticated = 1
 				if(access_captain in I.GetAccess())
 					authenticated = 2
-			if(istype(I,/obj/item/weapon/card/emag))
-				authenticated = 2
-				computer.emagged = 1
+				
 		if("logout" in href_list)
 			authenticated = 0
 

@@ -423,7 +423,7 @@
 		new /obj/item/weapon/card/id/prisoner/seven(src)
 
 /obj/item/weapon/storage/box/seccarts
-	name = "Spare R.O.B.U.S.T. Cartridges"
+	name = "spare R.O.B.U.S.T. Cartridges"
 	desc = "A box full of R.O.B.U.S.T. Cartridges, used by Security."
 	icon_state = "pda"
 
@@ -445,13 +445,28 @@
 
 	New()
 		..()
-		new /obj/item/weapon/handcuffs(src)
-		new /obj/item/weapon/handcuffs(src)
-		new /obj/item/weapon/handcuffs(src)
-		new /obj/item/weapon/handcuffs(src)
-		new /obj/item/weapon/handcuffs(src)
-		new /obj/item/weapon/handcuffs(src)
-		new /obj/item/weapon/handcuffs(src)
+		new /obj/item/weapon/restraints/handcuffs(src)
+		new /obj/item/weapon/restraints/handcuffs(src)
+		new /obj/item/weapon/restraints/handcuffs(src)
+		new /obj/item/weapon/restraints/handcuffs(src)
+		new /obj/item/weapon/restraints/handcuffs(src)
+		new /obj/item/weapon/restraints/handcuffs(src)
+		new /obj/item/weapon/restraints/handcuffs(src)
+		
+/obj/item/weapon/storage/box/zipties
+	name = "box of spare zipties"
+	desc = "A box full of zipties."
+	icon_state = "handcuff"
+
+	New()
+		..()
+		new /obj/item/weapon/restraints/handcuffs/cable/zipties(src)
+		new /obj/item/weapon/restraints/handcuffs/cable/zipties(src)
+		new /obj/item/weapon/restraints/handcuffs/cable/zipties(src)
+		new /obj/item/weapon/restraints/handcuffs/cable/zipties(src)
+		new /obj/item/weapon/restraints/handcuffs/cable/zipties(src)
+		new /obj/item/weapon/restraints/handcuffs/cable/zipties(src)
+		new /obj/item/weapon/restraints/handcuffs/cable/zipties(src)
 
 /obj/item/weapon/storage/box/fakesyndiesuit
 	name = "boxed space suit and helmet"

@@ -4,6 +4,7 @@
 	name = "Emergency Floodlight"
 	icon = 'icons/obj/machines/floodlight.dmi'
 	icon_state = "flood00"
+	anchored = 0
 	density = 1
 	var/on = 0
 	var/obj/item/weapon/stock_parts/cell/high/cell = null
@@ -63,6 +64,21 @@
 
 
 /obj/machinery/floodlight/attackby(obj/item/weapon/W as obj, mob/user as mob)
+	if(istype(W, /obj/item/weapon/wrench))
+		if (!anchored && !isinspace())
+			playsound(src.loc, 'sound/items/Ratchet.ogg', 50, 1)
+			user.visible_message( \
+				"[user] tightens \the [src]'s casters.", \
+				"<span class='notice'> You have tightened \the [src]'s casters.</span>", \
+				"You hear ratchet.")
+			anchored = 1
+		else if(anchored)
+			playsound(src.loc, 'sound/items/Ratchet.ogg', 50, 1)
+			user.visible_message( \
+				"[user] loosens \the [src]'s casters.", \
+				"<span class='notice'> You have loosened \the [src]'s casters.</span>", \
+				"You hear ratchet.")
+			anchored = 0
 	if (istype(W, /obj/item/weapon/screwdriver))
 		if (!open)
 			if(unlocked)

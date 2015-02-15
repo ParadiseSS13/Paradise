@@ -145,6 +145,9 @@
 /obj/machinery/computer/arcade/battle/Topic(href, href_list)
 	if(..())
 		return 1
+		
+	if(usr.machine != src)
+		return 0
 
 	if (!src.blocked && !src.gameover)
 		if (href_list["attack"])
@@ -269,8 +272,8 @@
 	return
 
 
-/obj/machinery/computer/arcade/battle/attackby(I as obj, user as mob)
-	if(istype(I, /obj/item/weapon/card/emag) && !emagged)
+/obj/machinery/computer/arcade/battle/emag_act(user as mob)
+	if(!emagged)
 		temp = "If you die in the game, you die for real!"
 		player_hp = 30
 		player_mp = 10
@@ -284,14 +287,7 @@
 		enemy_name = "Cuban Pete"
 		name = "Outbomb Cuban Pete"
 
-
 		src.updateUsrDialog()
-	else
-
-		..()
-
-
-
 
 /obj/machinery/computer/arcade/orion_trail
 	name = "The Orion Trail"
@@ -406,6 +402,8 @@
 /obj/machinery/computer/arcade/orion_trail/Topic(href, href_list)
 	if(..())
 		return 1
+	if(usr.machine != src)
+		return 0
 	if(href_list["close"])
 		usr.unset_machine()
 		usr << browse(null, "window=arcade")
@@ -566,4 +564,5 @@
 
 /obj/machinery/computer/arcade/orion_trail/proc/win()
 	playing = 0
+	turns = 0
 	prizevend()

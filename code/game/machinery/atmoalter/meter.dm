@@ -30,23 +30,15 @@
 /obj/machinery/meter/process()
 	if(!target)
 		icon_state = "meterX"
-		// Pop the meter off when the pipe we're attached to croaks.
-		new /obj/item/pipe_meter(src.loc)
-		spawn(0) del(src)
 		return 0
 
 	if(stat & (BROKEN|NOPOWER))
 		icon_state = "meter0"
 		return 0
 
-	//use_power(5)
-
 	var/datum/gas_mixture/environment = target.return_air()
 	if(!environment)
 		icon_state = "meterX"
-		// Pop the meter off when the environment we're attached to croaks.
-		new /obj/item/pipe_meter(src.loc)
-		spawn(0) del(src)
 		return 0
 
 	var/env_pressure = environment.return_pressure()
@@ -106,28 +98,31 @@
 	return t
 
 /obj/machinery/meter/examine()
-	set src in view(3)
-
 	var/t = "A gas flow meter. "
-	t += status()
-	usr << t
 
+	if(get_dist(usr, src) > 3 && !(istype(usr, /mob/living/silicon/ai) || istype(usr, /mob/dead)))
+		t += "\blue <B>You are too far away to read it.</B>"
 
+	else if(stat & (NOPOWER|BROKEN))
+		t += "\red <B>The display is off.</B>"
 
-/obj/machinery/meter/attack_hand(var/mob/user) // somebody tell me WHO THE FUCK MADE THIS CLICK(), DON'T YOU REALISE YOU STILL NEED ..() FOR ATTACKBY?
-
-	if(stat & (NOPOWER|BROKEN))
-		return 1
-
-	var/t = null
-	if (get_dist(usr, src) <= 3 || istype(usr, /mob/living/silicon/ai) || istype(usr, /mob/dead))
-		t += status()
+	else if(src.target)
+		var/datum/gas_mixture/environment = target.return_air()
+		if(environment)
+			t += "The pressure gauge reads [round(environment.return_pressure(), 0.01)] kPa; [round(environment.temperature,0.01)]K ([round(environment.temperature-T0C,0.01)]&deg;C)"
+		else
+			t += "The sensor error light is blinking."
 	else
-		usr << "\blue <B>You are too far away.</B>"
-		return 1
+		t += "The connect error light is blinking."
 
 	usr << t
-	return 1
+
+/obj/machinery/meter/Click()
+	if(istype(usr, /mob/living/silicon/ai)) // ghosts can call ..() for examine
+		usr.examine(src)
+		return 1
+
+	return ..()
 
 /obj/machinery/meter/multitool_menu(var/mob/user, var/obj/item/device/multitool/P)
 	return {"
