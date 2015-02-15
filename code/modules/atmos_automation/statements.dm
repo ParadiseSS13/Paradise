@@ -101,12 +101,16 @@ var/global/automation_types=typesof(/datum/automation) - /datum/automation
 	return str
 
 /datum/automation/Topic(href,href_list)
+	if(!parent.can_be_used_by(usr))//sanity checks, don't think I can do ..()
+		return 1
+
 	if(href_list["add"])
 		var/new_child=selectValidChildFor(usr)
 		if(!new_child) return 1
 		children += new_child
 		parent.updateUsrDialog()
 		return 1
+
 	if(href_list["remove"])
 		if(href_list["remove"]=="*")
 			var/confirm=alert("Are you sure you want to remove ALL automations?","Automations","Yes","No")
@@ -123,6 +127,7 @@ var/global/automation_types=typesof(/datum/automation) - /datum/automation
 			children.Remove(A)
 		parent.updateUsrDialog()
 		return 1
+
 	if(href_list["reset"])
 		if(href_list["reset"]=="*")
 			for(var/datum/automation/A in children)

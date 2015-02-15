@@ -15,7 +15,6 @@
 	level = 1
 	var/area_uid
 	var/id_tag = null
-	var/testvar
 
 	req_one_access_txt = "24;10"
 
@@ -230,8 +229,6 @@
 		set_frequency(frequency)
 
 /obj/machinery/atmospherics/unary/vent_pump/receive_signal(datum/signal/signal)
-	if(testvar)
-		world << list2params(signal.data)
 	if(stat & (NOPOWER|BROKEN))
 		return
 	//log_admin("DEBUG \[[world.timeofday]\]: /obj/machinery/atmospherics/unary/vent_pump/receive_signal([signal.debug_print()])")

@@ -25,6 +25,8 @@
 		return "Set digital valve <a href=\"?src=\ref[src];set_subject=1\">[fmtString(valve)]</a> to <a href=\"?src=\ref[src];set_state=1\">[state?"open":"closed"]</a>."
 
 	Topic(href,href_list)
+		if(..())
+			return 1
 		if(href_list["set_state"])
 			state=!state
 			parent.updateUsrDialog()

@@ -27,6 +27,8 @@
 		return "Set injector <a href=\"?src=\ref[src];set_injector=1\">[fmtString(injector)]</a> power to <a href=\"?src=\ref[src];toggle_state=1\">[state ? "on" : "off"]</a>."
 
 	Topic(href,href_list)
+		if(..())
+			return 1
 		if(href_list["toggle_state"])
 			state = !state
 			parent.updateUsrDialog()
@@ -65,6 +67,8 @@
 		return "Set injector <a href=\"?src=\ref[src];set_injector=1\">[fmtString(injector)]</a> transfer rate to <a href=\"?src=\ref[src];set_rate=1\">[rate]</a> L/s."
 
 	Topic(href,href_list)
+		if(..())
+			return 1
 		if(href_list["set_rate"])
 			rate = input("Set rate in L/s.", "Rate", rate) as num
 			parent.updateUsrDialog()

@@ -23,6 +23,8 @@
 		return "Set emitter <a href=\"?src=\ref[src];set_subject=1\">[fmtString(emitter)]</a> to <a href=\"?src=\ref[src];set_power=1\">[on?"on":"off"]</a>."
 
 	Topic(href,href_list)
+		if(..())
+			return 1
 		if(href_list["set_power"])
 			on=!on
 			parent.updateUsrDialog()

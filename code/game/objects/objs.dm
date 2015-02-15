@@ -17,7 +17,7 @@
 	var/damtype = "brute"
 	var/force = 0
 
-	var/Mtoollink = 0 // variable to decide if an object should show the multitool menu linking menu, not all objects use it(most don't, at the time of writing)
+	var/Mtoollink = 0 // variable to decide if an object should show the multitool menu linking menu, not all objects use it
 
 	// What reagents should be logged when transferred TO this object?
 	// Reagent ID => friendly name
@@ -209,12 +209,12 @@ a {
 		if(Mtoollink)
 			if(P)
 				if(P.buffer)
-					var/id="???"
+					var/id = null
 					if(istype(P.buffer, /obj/machinery/telecomms))
 						id=P.buffer:id
-					else
+					else if("id_tag" in P.buffer.vars)
 						id=P.buffer:id_tag
-					dat += "<p><b>MULTITOOL BUFFER:</b> [P.buffer] ([id])"
+					dat += "<p><b>MULTITOOL BUFFER:</b> [P.buffer] [id ? "([id])" : ""]"
 
 					dat += linkMenu(P.buffer)
 

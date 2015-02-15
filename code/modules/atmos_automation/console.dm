@@ -3,6 +3,7 @@
 	icon_state = "aac"
 	circuit = "/obj/item/weapon/circuitboard/atmos_automation"
 	req_one_access_txt = "24;10"
+	Mtoollink = 1
 
 	show_sensors = 0
 	var/on = 0

@@ -30,6 +30,8 @@
 		return "<a href=\"?src=\ref[src];set_field=1\">[fmtString(field)]</a> from sensor <a href=\"?src=\ref[src];set_sensor=1\">[fmtString(sensor)]</a>"
 
 	Topic(href,href_list)
+		if(..())
+			return 1
 		if(href_list["set_field"])
 			field = input("Select a sensor output:", "Sensor Data", field) as null|anything in list(
 				"temperature",
