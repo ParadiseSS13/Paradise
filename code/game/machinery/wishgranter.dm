@@ -30,8 +30,30 @@
 		insisting++
 
 	else
-		user << "You speak.  [pick("I want the station to disappear","Humanity is corrupt, mankind must be destroyed","I want to be rich", "I want to rule the world","I want immortality.")].  The Wish Granter answers."
-		user << "Your head pounds for a moment, before your vision clears.  You are the avatar of the Wish Granter, and your power is LIMITLESS!  And it's all yours.  You need to make sure no one can take it from you.  No one can know, first."
+		user << "The power of the Wish Granter have turned you into the superhero the station deserves. You are a masked vigilante, and answer to no man. Will you use your newfound strength to protect the innocent, or will you hunt the guilty?"
+
+		ticker.mode.traitors += user.mind
+		user.mind.special_role = "The Hero The Station Deserves"
+
+		var/wish = input("You want to...","Wish") as null|anything in list("Protect the innocent","Hunt the guilty")
+		switch(wish)
+			if("Protect the innocent")
+				var/datum/objective/protect/protect = new
+				protect.owner = user.mind
+				user.mind.objectives += protect
+
+			if("Hunt the guilty")
+				var/datum/objective/assassinate/assasinate = new
+				assasinate.owner = user.mind
+				user.mind.objectives += assasinate
+
+		var/obj_count = 1
+		for(var/datum/objective/OBJ in user.mind.objectives)
+			user << "<B>Objective #[obj_count]</B>: [OBJ.explanation_text]"
+			obj_count++
+
+		user << "As a superhero, you are allowed to pick an appropriate pseudonym for your new role. A costume is also strongly encouraged."
+		user.rename_self()
 
 		charges--
 		insisting = 0
@@ -57,25 +79,9 @@
 		if (!(M_TK in user.mutations))
 			user.mutations.Add(M_TK)
 
-		/* Not used
-		if(!(HEAL in user.mutations))
-			user.mutations.Add(HEAL)
-		*/
+		if(!(M_REGEN in user.mutations))
+			user.mutations.Add(M_REGEN)
 
 		user.update_mutations()
-
-		ticker.mode.traitors += user.mind
-		user.mind.special_role = "Avatar of the Wish Granter"
-
-		var/datum/objective/silence/silence = new
-		silence.owner = user.mind
-		user.mind.objectives += silence
-
-		var/obj_count = 1
-		for(var/datum/objective/OBJ in user.mind.objectives)
-			user << "<B>Objective #[obj_count]</B>: [OBJ.explanation_text]"
-			obj_count++
-
-		user << "You have a very bad feeling about this."
 
 	return
