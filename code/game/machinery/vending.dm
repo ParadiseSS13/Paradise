@@ -230,9 +230,21 @@
 			return // don't smack that machine with your 2 thalers
 			
 	if(default_unfasten_wrench(user, W, time = 60))
+		return		
+		
+	if(istype(W, /obj/item/weapon/screwdriver) && anchored)
+		playsound(src.loc, 'sound/items/Screwdriver.ogg', 50, 1)
+		panel_open = !panel_open
+		user << "You [panel_open ? "open" : "close"] the maintenance panel."
+		overlays.Cut()
+		if(panel_open)
+			overlays += image(icon, "[initial(icon_state)]-panel")
+		nanomanager.update_uis(src)  // Speaker switch is on the main UI, not wires UI
 		return
 		
 	if(panel_open)
+		if(istype(W, /obj/item/device/multitool)||istype(W, /obj/item/weapon/wirecutters))
+			return attack_hand(user)
 		if(component_parts && istype(W, /obj/item/weapon/crowbar))
 			var/datum/data/vending_product/machine = product_records
 			for(var/datum/data/vending_product/machine_content in machine)
@@ -243,21 +255,7 @@
 						if(!machine_content.amount)
 							break
 			default_deconstruction_crowbar(W)
-
-	else if(istype(W, /obj/item/weapon/screwdriver) && anchored)
-		playsound(src.loc, 'sound/items/Screwdriver.ogg', 50, 1)
-		panel_open = !panel_open
-		user << "You [panel_open ? "open" : "close"] the maintenance panel."
-		overlays.Cut()
-		if(panel_open)
-			overlays += image(icon, "[initial(icon_state)]-panel")
-		nanomanager.update_uis(src)  // Speaker switch is on the main UI, not wires UI
-		return
-	else if(istype(W, /obj/item/device/multitool)||istype(W, /obj/item/weapon/wirecutters))
-		if(panel_open)
-			attack_hand(user)
-		return
-	else if(istype(W, /obj/item/weapon/coin) && premium.len > 0)
+	if(istype(W, /obj/item/weapon/coin) && premium.len > 0)
 		user.drop_item()
 		W.loc = src
 		coin = W
@@ -477,7 +475,29 @@
 		usr << "\blue You remove the [coin] from the [src]"
 		coin = null
 		categories &= ~CAT_COIN
-
+		
+	if (href_list["pay"])
+		if(currently_vending && vendor_account && !vendor_account.suspended)
+			if(istype(usr, /mob/living/carbon/human))
+				var/paid = 0
+				var/handled = 0
+				var/mob/living/carbon/human/H = usr
+				var/obj/item/weapon/card/card = null
+				if(istype(H.wear_id,/obj/item/weapon/card))
+					card = H.wear_id
+					paid = pay_with_card(card)
+					handled = 1
+				else if(istype(H.get_active_hand(), /obj/item/weapon/card))
+					card = H.get_active_hand()
+					paid = pay_with_card(card)
+					handled = 1
+				if(paid)
+					src.vend(currently_vending, usr)
+					return
+				else if(handled)
+					nanomanager.update_uis(src)
+					return // don't smack that machine with your 2 credits
+			
 	if ((usr.contents.Find(src) || (in_range(src, usr) && istype(src.loc, /turf))))
 		if ((href_list["vend"]) && (src.vend_ready) && (!currently_vending))
 
@@ -916,7 +936,7 @@
 	icon_state = "sec"
 	icon_deny = "sec-deny"
 	req_access_txt = "1"
-	products = list(/obj/item/weapon/restraints/handcuffs = 8,/obj/item/weapon/grenade/flashbang = 4,/obj/item/device/flash = 5,
+	products = list(/obj/item/weapon/restraints/handcuffs = 8,/obj/item/weapon/restraints/handcuffs/cable/zipties = 8,/obj/item/weapon/grenade/flashbang = 4,/obj/item/device/flash = 5,
 					/obj/item/weapon/reagent_containers/food/snacks/donut/normal = 12,/obj/item/weapon/storage/box/evidence = 6,/obj/item/device/flashlight/seclite = 4)
 	contraband = list(/obj/item/clothing/glasses/sunglasses = 2,/obj/item/weapon/storage/fancy/donut_box = 2,/obj/item/device/hailer = 5)
 
