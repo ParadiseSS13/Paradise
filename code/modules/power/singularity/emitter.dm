@@ -40,7 +40,7 @@
 		src.directwired = 1
 
 /obj/machinery/power/emitter/Destroy()
-	message_admins("Emitter deleted at ([x],[y],[z] - <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)",0,1)
+	msg_admin_attack("Emitter deleted at ([x],[y],[z] - <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)",0,1)
 	log_game("Emitter deleted at ([x],[y],[z])")
 	investigate_log("<font color='red'>deleted</font> at ([x],[y],[z])","singulo")
 	..()
@@ -222,12 +222,14 @@
 			user << "\red Access denied."
 		return
 
-
-	if(istype(W, /obj/item/weapon/card/emag) && !emagged)
-		locked = 0
-		emagged = 1
-		user.visible_message("[user.name] emags the [src.name].","\red You short out the lock.")
-		return
-
 	..()
 	return
+	
+/obj/machinery/power/emitter/emag_act(user as mob)
+	if(!emagged)
+		if(!ishuman(user))
+			return
+		var/mob/living/carbon/human/H = user
+		locked = 0
+		emagged = 1
+		H.visible_message("[H.name] emags the [src.name].","\red You short out the lock.")

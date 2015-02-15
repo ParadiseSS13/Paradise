@@ -153,10 +153,7 @@
 	if(!src.requiresID())
 		user = null
 	if(src.density && (istype(I, /obj/item/weapon/card/emag)||istype(I, /obj/item/weapon/melee/energy/blade)))
-		flick("door_spark", src)
-		sleep(6)
-		open()
-		operating = -1
+		emag_act(user)
 		return 1
 	if(src.allowed(user) || src.emergency == 1)
 		if(src.density)
@@ -168,6 +165,13 @@
 		flick("door_deny", src)
 	return
 
+/obj/machinery/door/emag_act(user as mob)
+	if(density)
+		flick("door_spark", src)
+		sleep(6)
+		open()
+		operating = -1
+		return 1
 
 /obj/machinery/door/blob_act()
 	if(prob(40))

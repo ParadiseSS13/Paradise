@@ -153,13 +153,14 @@
 
 
 /obj/machinery/computer/shuttle_control/emergency/attackby(obj/item/weapon/W as obj, mob/user as mob)
-	if (istype(W, /obj/item/weapon/card/emag) && !emagged)
+	read_authorization(W)
+	..()
+	
+/obj/machinery/computer/shuttle_control/emergency/emag_act(user as mob)
+	if (!emagged)
 		user << "\blue You short out the [src]'s authorization protocols."
 		emagged = 1
 		return
-
-	read_authorization(W)
-	..()
 
 /obj/machinery/computer/shuttle_control/emergency/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
 	var/data[0]

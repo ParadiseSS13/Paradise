@@ -471,14 +471,12 @@
 	icon_living = "borgi"
 	var/emagged = 0
 
-/mob/living/simple_animal/corgi/Ian/borgi/attackby(var/obj/item/O as obj, var/mob/user as mob)
-	if (istype(O, /obj/item/weapon/card/emag) && !emagged)
+/mob/living/simple_animal/corgi/Ian/borgi/emag_act(user as mob)
+	if (!emagged)
 		emagged = 1
 		visible_message("<span class='warning'>[user] swipes a card through [src].</span>", "<span class='notice'>You overload [src]s internal reactor.</span>")
 		spawn (1000)
 			src.explode()
-		return
-	..()
 
 /mob/living/simple_animal/corgi/Ian/borgi/proc/explode()
 	for(var/mob/M in viewers(src, null))

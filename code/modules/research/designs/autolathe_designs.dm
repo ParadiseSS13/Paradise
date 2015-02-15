@@ -440,7 +440,7 @@
 	id = "handcuffs"
 	build_type = AUTOLATHE
 	materials = list("$metal" = 500)
-	build_path = /obj/item/weapon/handcuffs
+	build_path = /obj/item/weapon/restraints/handcuffs
 	category = list("hacked", "Security")
 	
 /datum/design/incendiary_slug
