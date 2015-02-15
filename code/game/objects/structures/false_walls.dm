@@ -75,11 +75,14 @@
 	icon = 'icons/turf/walls.dmi'
 	var/mineral = "metal"
 	var/walltype = "metal"
+	var/walltype2 = "rwall" // So it also connects with rwalls, like regular walls do
 	var/opening = 0
 	density = 1
 	opacity = 1
 
 /obj/structure/falsewall/New()
+	if(!walltype2)
+		walltype2 = walltype
 	relativewall_neighbours()
 	..()
 
@@ -105,11 +108,11 @@
 
 	for(var/turf/simulated/wall/W in orange(src,1))
 		if(abs(src.x-W.x)-abs(src.y-W.y)) //doesn't count diagonal walls
-			if(walltype == W.walltype)//Only 'like' walls connect -Sieve
+			if(walltype == W.walltype || walltype2 == W.walltype)//Only 'like' walls connect -Sieve
 				junction |= get_dir(src,W)
 	for(var/obj/structure/falsewall/W in orange(src,1))
 		if(abs(src.x-W.x)-abs(src.y-W.y)) //doesn't count diagonal walls
-			if(walltype == W.walltype)
+			if(walltype == W.walltype || walltype2 == W.walltype)
 				junction |= get_dir(src,W)
 	icon_state = "[walltype][junction]"
 	return
@@ -213,6 +216,8 @@
 	name = "reinforced wall"
 	desc = "A huge chunk of reinforced metal used to seperate rooms."
 	icon_state = "r_wall"
+	walltype = "rwall"
+	walltype2 = "metal"
 
 /obj/structure/falsewall/reinforced/ChangeToWall(delete = 1)
 	var/turf/T = get_turf(src)
@@ -244,11 +249,11 @@
 
 	for(var/turf/simulated/wall/W in orange(src,1))
 		if(abs(src.x-W.x)-abs(src.y-W.y)) //doesn't count diagonal walls
-			if(src.walltype == W.walltype)//Only 'like' walls connect -Sieve
+			if(src.walltype == W.walltype || walltype2 == W.walltype)//Only 'like' walls connect -Sieve
 				junction |= get_dir(src,W)
 	for(var/obj/structure/falsewall/W in orange(src,1))
 		if(abs(src.x-W.x)-abs(src.y-W.y)) //doesn't count diagonal walls
-			if(src.walltype == W.walltype)
+			if(src.walltype == W.walltype || src.walltype2 == W.walltype)
 				junction |= get_dir(src,W)
 	icon_state = "rwall[junction]"
 	return

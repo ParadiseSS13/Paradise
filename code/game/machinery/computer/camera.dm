@@ -55,24 +55,20 @@
 	// Network configuration
 	attackby(I as obj, user as mob)
 		access = list()
-		if(istype(I,/obj/item/weapon/card/emag)) // If hit by an emag.
-			var/obj/item/weapon/card/emag/E = I
-			if(!emagged)
-				if(E.uses)
-					E.uses--
-					emagged = 1
-					user << "\blue You have authorized full network access!"
-					ui_interact(user)
-				else
-					ui_interact(user)
-			else
-				ui_interact(user)
-		else if(istype(I,/obj/item/weapon/card/id)) // If hit by a regular ID card.
+		if(istype(I,/obj/item/weapon/card/id)) // If hit by a regular ID card.
 			var/obj/item/weapon/card/id/E = I	
 			access = E.access
 			ui_interact(user)
 		else
 			..()
+			
+	emag_act(user as mob)
+		if(!emagged)
+			emagged = 1
+			user << "\blue You have authorized full network access!"
+			ui_interact(user)
+		else
+			ui_interact(user)
 			
 	ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
 		if(src.z > 6) return
@@ -126,9 +122,6 @@
 					break
 		data["networks"] = tempnets
 		
-		if(ui)
-			ui.load_cached_data(camera_cache)
-
 		ui = nanomanager.try_update_ui(user, src, ui_key, ui, data, force_open)
 		if (!ui)
 			ui = new(user, src, ui_key, "sec_camera.tmpl", "Camera Console", 900, 800)

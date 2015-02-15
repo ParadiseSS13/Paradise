@@ -20,20 +20,20 @@ var/global/list/special_roles = list( //keep synced with the defines BE_* in set
 	"malf AI" = IS_MODE_COMPILED("malfunction")	         // 13
 )
 var/global/list/special_role_times = list( //minimum age (in days) for accounts to play these roles
-	num2text(BE_TRAITOR) = 14, 
-	num2text(BE_OPERATIVE) = 21,
+	num2text(BE_PAI) = 0,   
+	num2text(BE_TRAITOR) = 7, 
 	num2text(BE_CHANGELING) = 14, 
-	num2text(BE_WIZARD) = 21,
-	num2text(BE_MALF) = 30,
+	num2text(BE_WIZARD) = 14,
 	num2text(BE_REV) = 14,
-	num2text(BE_ALIEN) = 21,        							     
-	num2text(BE_PAI) = 0,                   						 
-	num2text(BE_CULTIST) = 21,
-	num2text(BE_NINJA) = 21,									 
-	num2text(BE_RAIDER) = 21,
 	num2text(BE_VAMPIRE) = 14,
+	num2text(BE_BLOB) = 14,
+	num2text(BE_OPERATIVE) = 21,
+	num2text(BE_CULTIST) = 21,
+	num2text(BE_RAIDER) = 21,
+	num2text(BE_ALIEN) = 21,        							                  						 
+	num2text(BE_NINJA) = 21,									 
 	num2text(BE_MUTINEER) = 21,
-	num2text(BE_BLOB) = 14
+	num2text(BE_MALF) = 30
 )
 
 /proc/player_old_enough_antag(client/C, role)

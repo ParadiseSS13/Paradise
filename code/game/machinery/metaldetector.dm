@@ -27,11 +27,6 @@
 	return 1
 
 /obj/machinery/metaldetector/attackby(obj/item/W as obj, mob/user as mob)
-	if(istype(W, /obj/item/weapon/card/emag))
-		if(!src.emagged)
-			src.emagged = 1
-			user << "\blue You short out the circuitry."
-			return
 	if(istype(W, /obj/item/weapon/card))
 		for(var/ID in list(user.equipped(), user:wear_id, user:belt))
 			if(src.check_access(ID,list("20")))
@@ -46,6 +41,12 @@
 			else
 				user << "\red You lack access to the control panel!"
 				return
+				
+/obj/machinery/metaldetector/emag_act(user as mob)
+	if(!emagged)
+		emagged = 1
+		user << "\blue You short out the circuitry."
+		return
 
 /obj/machinery/metaldetector/Crossed(AM as mob|obj)
 	if(emagged)

@@ -51,7 +51,7 @@
 	/obj/item/weapon/stock_parts/cell,\
 	/obj/item/weapon/circular_saw,\
 	/obj/item/weapon/hatchet,\
-	/obj/item/weapon/handcuffs,\
+	/obj/item/weapon/restraints/handcuffs,\
 	/obj/item/weapon/hemostat,\
 	/obj/item/weapon/kitchenknife,\
 	/obj/item/weapon/lighter,\
