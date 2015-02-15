@@ -18,7 +18,7 @@
 
 	process()
 		if(valve)
-			parent.send_signal(list ("tag" = valve, "command"="valve_set","state"=state))
+			parent.send_signal(list ("tag" = valve, "command"="valve_set","valve_set"=state))
 		return 0
 
 	GetText()
