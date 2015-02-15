@@ -175,6 +175,14 @@
 		)
 
 //Lawyer
+/obj/item/clothing/suit/storage/lawyer/blackjacket
+	name = "Black Suit Jacket"
+	desc = "A snappy dress jacket."
+	icon_state = "suitjacket_black_open"
+	item_state = "suitjacket_black_open"
+	blood_overlay_type = "coat"
+	body_parts_covered = UPPER_TORSO|ARMS
+
 /obj/item/clothing/suit/storage/lawyer/bluejacket
 	name = "Blue Suit Jacket"
 	desc = "A snappy dress jacket."
