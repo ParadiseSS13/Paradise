@@ -730,37 +730,10 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 	containername = "transfer valves crate"
 	access = access_rd
 
-<<<<<<< HEAD
+
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////// Organic /////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
-=======
-/datum/supply_packs/riot
-	name = "Riot gear crate"
-	contains = list(/obj/item/weapon/melee/baton/loaded,
-					/obj/item/weapon/melee/baton/loaded,
-					/obj/item/weapon/melee/baton/loaded,
-					/obj/item/weapon/shield/riot,
-					/obj/item/weapon/shield/riot,
-					/obj/item/weapon/shield/riot,
-					/obj/item/weapon/storage/box/flashbangs,
-					/obj/item/weapon/storage/box/flashbangs,
-					/obj/item/weapon/storage/box/flashbangs,
-					/obj/item/weapon/restraints/handcuffs,
-					/obj/item/weapon/restraints/handcuffs,
-					/obj/item/weapon/restraints/handcuffs,
-					/obj/item/clothing/head/helmet/riot,
-					/obj/item/clothing/suit/armor/riot,
-					/obj/item/clothing/head/helmet/riot,
-					/obj/item/clothing/suit/armor/riot,
-					/obj/item/clothing/head/helmet/riot,
-					/obj/item/clothing/suit/armor/riot)
-	cost = 60
-	containertype = /obj/structure/closet/crate/secure
-	containername = "Riot gear crate"
-	access = access_armory
-	group = "Security"
->>>>>>> upstream/master
 
 /datum/supply_packs/organic
 	name = "HEADER"
