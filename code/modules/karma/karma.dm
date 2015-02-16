@@ -52,42 +52,42 @@ var/list/karma_spenders = list()
 	set name = "Award Karma"
 	set desc = "Let the gods know whether someone's been nice. Can only be used once per round."
 	set category = "Special Verbs"
-	
+
 	if(!ticker || !player_list.len)
 		usr << "\red You can't award karma until the game has started."
 		return
-		
+
 	if(ticker.current_state == GAME_STATE_PREGAME)
 		usr << "\red You can't award karma until the game has started."
-		return	
+		return
 
 	var/list/karma_list = list("Cancel")
-	for(var/mob/M in player_list) if(M.client && M.mind)	
+	for(var/mob/M in player_list) if(M.client && M.mind)
 		var/special_role = M.mind.special_role
 		if (special_role == "Wizard" || special_role == "Ninja" || special_role == "Syndicate" || special_role == "Syndicate Commando" || special_role == "Vox Raider" || special_role == "Alien") // Don't include special roles, because players use it to meta
 			continue
 		karma_list += M
-		
+
 	if(!karma_list.len || karma_list.len == 1)
 		usr << "\red There's no-one to spend your karma on."
 		return
-		
+
 	var/pickedmob = input("Who would you like to award Karma to?", "Award Karma", "Cancel") as null|mob in karma_list
-	
+
 	if(isnull(pickedmob))
 		return
-	
+
 	if(!istype(pickedmob, /mob))
 		usr << "\red That's not a mob."
-		return	
-		
+		return
+
 	spend_karma(pickedmob)
-	
-/mob/verb/spend_karma(var/mob/M) 
+
+/mob/verb/spend_karma(var/mob/M)
 	set name = "Award Karma to Player"
 	set desc = "Let the gods know whether someone's been nice. Can only be used once per round."
 	set category = "Special Verbs"
-	
+
 	if(!M)
 		usr << "Please right click a mob to award karma directly, or use the 'Award Karma' verb to select a player from the player listing."
 		return
@@ -115,6 +115,9 @@ var/list/karma_spenders = list()
 	if(!choice || choice == "Cancel")
 		return
 	if(choice == "Good" && !(src.client.karma_spent))
+		if(src.client.karma_spent)
+			usr << "\red You've already spent your karma for the round."
+			return
 		M.client.karma += 1
 		usr << "[choice] karma spent on [M.name]."
 		src.client.karma_spent = 1
@@ -199,7 +202,7 @@ You've gained <b>[totalkarma]</b> total karma in your time here.<br>"}
 			<a href='?src=\ref[src];karmashop=shop;KarmaBuy2=4'>Unlock Vox -- 45KP</a><br>
 			<a href='?src=\ref[src];karmashop=shop;KarmaBuy2=5'>Unlock Slime People -- 45KP</a><br>
 			"}
-			
+
 		if (2) // Karma Refunds
 			var/list/refundable = list()
 			var/list/purchased = checkpurchased()
@@ -208,31 +211,31 @@ You've gained <b>[totalkarma]</b> total karma in your time here.<br>"}
 				dat += "<a href='?src=\ref[src];karmashop=shop;KarmaRefund=Tajaran Ambassador;KarmaRefundType=job;KarmaRefundCost=30'>Refund Tajaran Ambassador -- 30KP</a><br>"
 			if("Unathi Ambassador" in purchased)
 				refundable += "Unathi Ambassador"
-				dat += "<a href='?src=\ref[src];karmashop=shop;KarmaRefund=Unathi Ambassador;KarmaRefundType=job;KarmaRefundCost=30'>Refund Unathi Ambassador -- 30KP</a><br>"	
+				dat += "<a href='?src=\ref[src];karmashop=shop;KarmaRefund=Unathi Ambassador;KarmaRefundType=job;KarmaRefundCost=30'>Refund Unathi Ambassador -- 30KP</a><br>"
 			if("Skrell Ambassador" in purchased)
 				refundable += "Skrell Ambassador"
-				dat += "<a href='?src=\ref[src];karmashop=shop;KarmaRefund=Skrell Ambassador;KarmaRefundType=job;KarmaRefundCost=30'>Refund Skrell Ambassador -- 30KP</a><br>"	
+				dat += "<a href='?src=\ref[src];karmashop=shop;KarmaRefund=Skrell Ambassador;KarmaRefundType=job;KarmaRefundCost=30'>Refund Skrell Ambassador -- 30KP</a><br>"
 			if("Diona Ambassador" in purchased)
 				refundable += "Diona Ambassador"
-				dat += "<a href='?src=\ref[src];karmashop=shop;KarmaRefund=Diona Ambassador;KarmaRefundType=job;KarmaRefundCost=30'>Refund Diona Ambassador -- 30KP</a><br>"	
+				dat += "<a href='?src=\ref[src];karmashop=shop;KarmaRefund=Diona Ambassador;KarmaRefundType=job;KarmaRefundCost=30'>Refund Diona Ambassador -- 30KP</a><br>"
 			if("Kidan Ambassador" in purchased)
 				refundable += "Kidan Ambassador"
-				dat += "<a href='?src=\ref[src];karmashop=shop;KarmaRefund=Kidan Ambassador;KarmaRefundType=job;KarmaRefundCost=30'>Refund Kidan Ambassador -- 30KP</a><br>"	
+				dat += "<a href='?src=\ref[src];karmashop=shop;KarmaRefund=Kidan Ambassador;KarmaRefundType=job;KarmaRefundCost=30'>Refund Kidan Ambassador -- 30KP</a><br>"
 			if("Slime People Ambassador" in purchased)
 				refundable += "Slime People Ambassador"
-				dat += "<a href='?src=\ref[src];karmashop=shop;KarmaRefund=Slime People Ambassador;KarmaRefundType=job;KarmaRefundCost=30'>Refund Slime People Ambassador -- 30KP</a><br>"	
+				dat += "<a href='?src=\ref[src];karmashop=shop;KarmaRefund=Slime People Ambassador;KarmaRefundType=job;KarmaRefundCost=30'>Refund Slime People Ambassador -- 30KP</a><br>"
 			if("Grey Ambassador" in purchased)
 				refundable += "Grey Ambassador"
-				dat += "<a href='?src=\ref[src];karmashop=shop;KarmaRefund=Grey Ambassador;KarmaRefundType=job;KarmaRefundCost=30'>Refund Grey Ambassador -- 30KP</a><br>"	
+				dat += "<a href='?src=\ref[src];karmashop=shop;KarmaRefund=Grey Ambassador;KarmaRefundType=job;KarmaRefundCost=30'>Refund Grey Ambassador -- 30KP</a><br>"
 			if("Vox Ambassador" in purchased)
 				refundable += "Vox Ambassador"
 				dat += "<a href='?src=\ref[src];karmashop=shop;KarmaRefund=Vox Ambassador;KarmaRefundType=job;KarmaRefundCost=30'>Refund Vox Ambassador -- 30KP</a><br>"
 			if("Customs Officer" in purchased)
 				refundable += "Customs Officer"
-				dat += "<a href='?src=\ref[src];karmashop=shop;KarmaRefund=Customs Officer;KarmaRefundType=job;KarmaRefundCost=30'>Refund Customs Officer -- 30KP</a><br>"	
+				dat += "<a href='?src=\ref[src];karmashop=shop;KarmaRefund=Customs Officer;KarmaRefundType=job;KarmaRefundCost=30'>Refund Customs Officer -- 30KP</a><br>"
 			if("Nanotrasen Recruiter" in purchased)
 				refundable += "Nanotrasen Recruiter"
-				dat += "<a href='?src=\ref[src];karmashop=shop;KarmaRefund=Nanotrasen Recruiter;KarmaRefundType=job;KarmaRefundCost=10'>Refund Nanotrasen Recruiter -- 10KP</a><br>"				
+				dat += "<a href='?src=\ref[src];karmashop=shop;KarmaRefund=Nanotrasen Recruiter;KarmaRefundType=job;KarmaRefundCost=10'>Refund Nanotrasen Recruiter -- 10KP</a><br>"
 
 			if(!refundable.len)
 				dat += "You do not have any refundable karma purchases.<br>"
@@ -345,7 +348,7 @@ You've gained <b>[totalkarma]</b> total karma in your time here.<br>"}
 			usr << "You have been charged [cost] karma."
 			message_admins("[key_name(usr)] has been charged [cost] karma.")
 			return
-					
+
 /client/proc/karmarefund(var/type,var/name,var/cost)
 	if(name == "Tajaran Ambassador")
 		cost = 30
@@ -368,12 +371,12 @@ You've gained <b>[totalkarma]</b> total karma in your time here.<br>"}
 	else if(name == "Nanotrasen Recruiter")
 		cost = 10
 	else
-		usr << "\red That job is not refundable."	
+		usr << "\red That job is not refundable."
 		return
-	
+
 	var/DBQuery/query = dbcon.NewQuery("SELECT * FROM whitelist WHERE ckey='[usr.key]'")
 	query.Execute()
-	
+
 	var/dbjob
 	var/dbspecies
 	var/dbckey
@@ -381,7 +384,7 @@ You've gained <b>[totalkarma]</b> total karma in your time here.<br>"}
 		dbckey = query.item[2]
 		dbjob = query.item[3]
 		dbspecies = query.item[4]
-		
+
 	if(dbckey)
 		var/list/typelist = list()
 		if(type == "job")
@@ -389,8 +392,8 @@ You've gained <b>[totalkarma]</b> total karma in your time here.<br>"}
 		else if(type == "species")
 			typelist = text2list(dbspecies,",")
 		else
-			usr << "\red Type [type] is not a valid column."	
-		
+			usr << "\red Type [type] is not a valid column."
+
 		if(name in typelist)
 			typelist -= name
 			var/newtypelist = list2text(typelist,",")
@@ -406,14 +409,14 @@ You've gained <b>[totalkarma]</b> total karma in your time here.<br>"}
 				karmacharge(text2num(cost),1)
 		else
 			usr << "\red You have not bought [name]."
-		
+
 	else
-		usr << "\red Your ckey ([dbckey]) was not found."	
-		
+		usr << "\red Your ckey ([dbckey]) was not found."
+
 /client/proc/checkpurchased(var/name = null) // If the first parameter is null, return a full list of purchases
 	var/DBQuery/query = dbcon.NewQuery("SELECT * FROM whitelist WHERE ckey='[usr.key]'")
-	query.Execute()	
-	
+	query.Execute()
+
 	var/dbjob
 	var/dbspecies
 	var/dbckey
@@ -421,7 +424,7 @@ You've gained <b>[totalkarma]</b> total karma in your time here.<br>"}
 		dbckey = query.item[2]
 		dbjob = query.item[3]
 		dbspecies = query.item[4]
-		
+
 	if(dbckey)
 		var/list/joblist = text2list(dbjob,",")
 		var/list/specieslist = text2list(dbspecies,",")
@@ -434,4 +437,4 @@ You've gained <b>[totalkarma]</b> total karma in your time here.<br>"}
 		else
 			return combinedlist
 	else
-		return 0	
+		return 0
