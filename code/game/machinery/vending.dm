@@ -407,8 +407,8 @@
 		if(src.shock(user, 100))
 			return
 
+	ui_interact(user)		
 	wires.Interact(user)
-	ui_interact(user)
 
 /**
  *  Display the NanoUI window for the vending machine.
