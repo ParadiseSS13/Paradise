@@ -42,6 +42,12 @@
 	var/status_display_freq = "1435"
 	var/stat_msg1
 	var/stat_msg2
+	
+	var/datum/announcement/priority/crew_announcement = new
+	
+	New()
+		..()
+		crew_announcement.newscast = 1
 
 	Reset()
 		..()
@@ -68,9 +74,11 @@
 				authenticated = 1
 				if(access_captain in I.GetAccess())
 					authenticated = 2
+					crew_announcement.announcer = GetNameAndAssignmentFromId(I)
 				
 		if("logout" in href_list)
 			authenticated = 0
+			crew_announcement.announcer = ""
 
 		if("swipeidseclevel" in href_list)
 			var/mob/M = usr
@@ -102,13 +110,13 @@
 				usr << "You need to swipe your ID."
 		if("announce" in href_list)
 			if(authenticated==2)
-				if(message_cooldown)	return
-				var/input = stripped_input(usr, "Please choose a message to announce to the station crew.", "What?")
+				if(message_cooldown)
+					usr << "Please allow at least one minute to pass between announcements"
+					return
+				var/input = input(usr, "Please write a message to announce to the station crew.", "Priority Announcement")
 				if(!input || !interactable())
 					return
-				captain_announce(input)//This should really tell who is, IE HoP, CE, HoS, RD, Captain
-				log_say("[key_name(usr)] has made a captain announcement: [input]")
-				message_admins("[key_name_admin(usr)] has made a captain announcement.", 1)
+				crew_announcement.Announce(input)
 				message_cooldown = 1
 				spawn(600)//One minute cooldown
 					message_cooldown = 0

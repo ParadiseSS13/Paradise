@@ -55,6 +55,7 @@ var/list/obj/machinery/requests_console/allConsoles = list()
 	var/dpt = ""; //the department which will be receiving the message
 	var/priority = -1 ; //Priority of the message being sent
 	luminosity = 0
+	var/datum/announcement/announcement = new
 
 /obj/machinery/requests_console/power_change()
 	..()
@@ -70,6 +71,10 @@ var/list/obj/machinery/requests_console/allConsoles = list()
 
 /obj/machinery/requests_console/New()
 	..()
+	
+	announcement.title = "[department] announcement"
+	announcement.newscast = 1
+	
 	name = "[department] Requests Console"
 	allConsoles += src
 	//req_console_departments += department
@@ -189,7 +194,7 @@ var/list/obj/machinery/requests_console/allConsoles = list()
 
 			else	//main menu
 				screen = 0
-				announceAuth = 0
+				reset_announce()
 				if (newmessagepriority == 1)
 					dat += text("<FONT COLOR='RED'>There are new messages</FONT><BR>")
 				if (newmessagepriority == 2)
@@ -240,17 +245,13 @@ var/list/obj/machinery/requests_console/allConsoles = list()
 				if("2")	priority = 2
 				else	priority = -1
 		else
-			message = ""
-			announceAuth = 0
+			reset_announce()
 			screen = 0
 
 	if(href_list["sendAnnouncement"])
 		if(!announcementConsole)	return
-		for(var/mob/M in player_list)
-			if(!istype(M,/mob/new_player))
-				M << "<b><font size = 3><font color = red>[department] announcement:</font color> [message]</font size></b>"
-		announceAuth = 0
-		message = ""
+		announcement.Announce(message)
+		reset_announce()
 		screen = 0
 
 	if( href_list["department"] && message )
@@ -389,8 +390,9 @@ var/list/obj/machinery/requests_console/allConsoles = list()
 			var/obj/item/weapon/card/id/ID = O
 			if (access_RC_announce in ID.GetAccess())
 				announceAuth = 1
+				announcement.announcer = ID.assignment ? "[ID.assignment] [ID.registered_name]" : ID.registered_name
 			else
-				announceAuth = 0
+				reset_announce()
 				user << "\red You are not authorized to send announcements."
 			updateUsrDialog()
 	if (istype(O, /obj/item/weapon/stamp))
@@ -399,3 +401,8 @@ var/list/obj/machinery/requests_console/allConsoles = list()
 			msgStamped = text("<font color='blue'><b>Stamped with the [T.name]</b></font>")
 			updateUsrDialog()
 	return
+	
+/obj/machinery/requests_console/proc/reset_announce()
+	announceAuth = 0
+	message = ""
+	announcement.announcer = ""

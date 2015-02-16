@@ -21,10 +21,7 @@
 		wormholes += new /obj/effect/portal/wormhole(T, null, null, -1)
 
 /datum/event/wormholes/announce()
-	command_alert("Space-time anomalies detected on the station. There is no additional data.", "Anomaly Alert")
-	for(var/mob/M in player_list)
-		if(!istype(M, /mob/new_player))
-			M << sound('sound/AI/spanomalies.ogg')
+	command_announcement.Announce("Space-time anomalies detected on the station. There is no additional data.", "Anomaly Alert", new_sound = 'sound/AI/spanomalies.ogg')
 
 /datum/event/wormholes/tick()
 	if(activeFor % shift_frequency == 0)

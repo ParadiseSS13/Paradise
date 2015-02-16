@@ -6,7 +6,7 @@
 	var/list/vents  = list()
 
 /datum/event/vent_clog/announce()
-	command_alert("The scrubbers network is experiencing a backpressure surge.  Some ejection of contents may occur.", "Atmospherics alert")
+	command_announcement.Announce("The scrubbers network is experiencing a backpressure surge.  Some ejection of contents may occur.", "Atmospherics alert")
 
 
 /datum/event/vent_clog/setup()

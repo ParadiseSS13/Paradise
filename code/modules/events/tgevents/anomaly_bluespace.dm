@@ -4,7 +4,7 @@
 	endWhen = 160
 
 /datum/event/anomaly/anomaly_bluespace/announce()
-	command_alert("Unstable bluespace anomaly detected on long range scanners. Expected location: [impact_area.name].", "Anomaly Alert")
+	command_announcement.Announce("Unstable bluespace anomaly detected on long range scanners. Expected location: [impact_area.name].", "Anomaly Alert")
 
 
 /datum/event/anomaly/anomaly_bluespace/start()
@@ -35,7 +35,7 @@
 				var/turf/TO = get_turf(chosen)			 // the turf of origin we're travelling TO
 
 				playsound(TO, 'sound/effects/phasein.ogg', 100, 1)
-				command_alert("Massive bluespace translocation detected.", "Anomaly Alert")
+				command_announcement.Announce("Massive bluespace translocation detected.", "Anomaly Alert")
 
 				var/list/flashers = list()
 				for(var/mob/living/carbon/human/M in viewers(TO, null))

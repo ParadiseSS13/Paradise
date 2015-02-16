@@ -175,14 +175,11 @@ var/list/blob_nodes = list()
 			return
 
 		if (1)
-			command_alert("Nanotrasen has issued a directive 7-10 for [station_name()]. The station is to be considered quarantined.", "Biohazard Alert")
-			for(var/mob/M in player_list)
-				if(!istype(M,/mob/new_player))
-					M << sound('sound/AI/blob_confirmed.ogg')
+			command_announcement.Announce("Nanotrasen has issued a directive 7-10 for [station_name()]. The station is to be considered quarantined.", "Biohazard Alert", new_sound = 'sound/AI/blob_confirmed.ogg')
 			return
 
 		if (2)
-			command_alert("The biohazard has grown out of control and will soon reach critical mass. Activate the nuclear failsafe to maintain quarantine. The Nuclear Authentication Code is [get_nuke_code()] ", "Biohazard Alert")
+			command_announcement.Announce("The biohazard has grown out of control and will soon reach critical mass. Activate the nuclear failsafe to maintain quarantine. The Nuclear Authentication Code is [get_nuke_code()] ", "Biohazard Alert", new_sound = 'sound/AI/blob_confirmed.ogg')
 			set_security_level("gamma")
 			var/obj/machinery/door/airlock/vault/V = locate(/obj/machinery/door/airlock/vault) in world
 			if(V && V.z == 1)

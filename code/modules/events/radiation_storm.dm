@@ -22,8 +22,7 @@
 
 /datum/event/radiation_storm/start()
 	spawn()
-		world << sound('sound/AI/radiation.ogg')
-		command_alert("High levels of radiation detected near the station. Please evacuate into one of the shielded maintenance tunnels.", "Anomaly Alert")
+		command_announcement.Announce("High levels of radiation detected near the station. Please evacuate into one of the shielded maintenance tunnels.", "Anomaly Alert", new_sound = 'sound/AI/radiation.ogg')
 
 		for(var/area/A in world)
 			if(A.z != 1 || is_safe_zone(A))
@@ -36,7 +35,7 @@
 		sleep(600)
 
 
-		command_alert("The station has entered the radiation belt. Please remain in a sheltered area until we have passed the radiation belt.", "Anomaly Alert")
+		command_announcement.Announce("The station has entered the radiation belt. Please remain in a sheltered area until we have passed the radiation belt.", "Anomaly Alert")
 
 		for(var/i = 0, i < 10, i++)
 			for(var/mob/living/carbon/human/H in living_mob_list)
@@ -70,7 +69,7 @@
 			sleep(100)
 
 
-		command_alert("The station has passed the radiation belt. Please report to medbay if you experience any unusual symptoms. Maintenance will lose all access again shortly.", "Anomaly Alert")
+		command_announcement.Announce("The station has passed the radiation belt. Please report to medbay if you experience any unusual symptoms. Maintenance will lose all access again shortly.", "Anomaly Alert")
 
 		for(var/area/A in world)
 			if(A.z != 1 || is_safe_zone(A))

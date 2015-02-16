@@ -1,8 +1,9 @@
 // This is the window/UI manager for Nano UI
 // There should only ever be one (global) instance of nanomanger
 /datum/nanomanager
-	// the list of current open /nanoui UIs
+	// a list of current open /nanoui UIs, grouped by src_object and ui_key
 	var/open_uis[0]
+	// a list of current open /nanoui UIs, not grouped, for use in processing
 	var/list/processing_uis = list()
 	// a list of asset filenames which are to be sent to the client on user logon
 	var/list/asset_files = list()
@@ -26,7 +27,8 @@
 		filenames = flist(path)
 		for(var/filename in filenames)
 			if(copytext(filename, length(filename)) != "/") // filenames which end in "/" are actually directories, which we want to ignore
-				asset_files.Add(file(path + filename)) // add this file to asset_files for sending to clients when they connect
+				if(fexists(path + filename))
+					asset_files.Add(fcopy_rsc(path + filename)) // add this file to asset_files for sending to clients when they connect
 
 	return
 
@@ -85,7 +87,7 @@
  /**
   * Update all /nanoui uis attached to src_object
   *
-  * @param src_object /obj|/mob The obj or mob which the uis belong to
+  * @param src_object /obj|/mob The obj or mob which the uis are attached to
   *
   * @return int The number of uis updated
   */
@@ -97,7 +99,7 @@
 	var/update_count = 0
 	for (var/ui_key in open_uis[src_object_key])
 		for (var/datum/nanoui/ui in open_uis[src_object_key][ui_key])
-			if(ui && ui.src_object && ui.user)
+			if(ui && ui.src_object && ui.user && ui.src_object.nano_host())
 				ui.process(1)
 				update_count++
 	return update_count
@@ -245,4 +247,3 @@
 	for(var/file in asset_files)
 		client << browse_rsc(file)	// send the file to the client
 
-	return 1 // success

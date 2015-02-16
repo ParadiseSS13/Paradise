@@ -503,8 +503,7 @@
 		if("Crew Monitoring")
 			if(isAI(usr))
 				var/mob/living/silicon/ai/AI = usr
-				var/obj/machinery/computer/crew/C = locate(/obj/machinery/computer/crew)
-				C.attack_ai(AI)
+				AI.nano_crew_monitor()
 
 		if("Show Crew Manifest")
 			if(isAI(usr))

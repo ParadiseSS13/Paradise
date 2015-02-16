@@ -6,7 +6,7 @@
 
 /datum/event/ionstorm/announce()
 	endWhen = rand(500, 1500)
-//		command_alert("The station has entered an ion storm.  Monitor all electronic equipment for malfunctions", "Anomaly Alert")
+//		command_announcement.Announce("The station has entered an ion storm.  Monitor all electronic equipment for malfunctions", "Anomaly Alert")
 	for (var/mob/living/carbon/human/player in world)
 		if(player.client)
 			players += player.real_name
@@ -86,7 +86,7 @@
 /datum/event/ionstorm/end()
 	spawn(rand(5000,8000))
 		if(prob(50))
-			command_alert("It has come to our attention that the station passed through an ion storm.  Please monitor all electronic equipment for malfunctions.", "Anomaly Alert")
+			command_announcement.Announce("It has come to our attention that the station passed through an ion storm.  Please monitor all electronic equipment for malfunctions.", "Anomaly Alert")
 
 /*
 /proc/IonStorm(botEmagChance = 10)
