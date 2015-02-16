@@ -8,7 +8,7 @@
 
 	for(var/obj/machinery/power/smes/S in machines)
 		var/area/current_area = get_area(S)
-		if(current_area.type in skipped_areas || S.z != 1)
+		if(current_area.type in skipped_areas || !(S.z in config.station_levels))
 			continue
 		S.charge = 0
 		S.output = 0
@@ -19,7 +19,7 @@
 
 	for(var/obj/machinery/power/apc/C in world)
 		var/area/current_area = get_area(C)
-		if(current_area.type in skipped_areas_apc || C.z != 1)
+		if(current_area.type in skipped_areas_apc || !(C.z in config.station_levels))
 			continue
 		if(C.cell)
 			C.cell.charge = 0
@@ -32,13 +32,13 @@
 		command_announcement.Announce("Power has been restored to [station_name()]. We apologize for the inconvenience.", "Power Systems Nominal", new_sound = 'sound/AI/poweron.ogg')
 	for(var/obj/machinery/power/apc/C in machines)
 		var/area/current_area = get_area(C)
-		if(current_area.type in skipped_areas_apc || C.z != 1)
+		if(current_area.type in skipped_areas_apc || !(C.z in config.station_levels))
 			continue
 		if(C.cell)
 			C.cell.charge = C.cell.maxcharge
 	for(var/obj/machinery/power/smes/S in machines)
 		var/area/current_area = get_area(S)
-		if(current_area.type in skipped_areas || S.z != 1)
+		if(current_area.type in skipped_areas || !(S.z in config.station_levels))
 			continue
 		S.charge = S.capacity
 		S.output = 200000

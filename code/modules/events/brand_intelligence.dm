@@ -12,7 +12,7 @@
 
 /datum/event/brand_intelligence/start()
 	for(var/obj/machinery/vending/V in machines)
-		if(V.z != 1)	continue
+		if(!(V.z in config.station_levels))	continue
 		vendingMachines.Add(V)
 
 	if(!vendingMachines.len)

@@ -178,7 +178,7 @@
 			var/turf/T = get_turf(R)
 			if (!T)
 				continue
-			if(T.z == 2 || T.z > 7)
+			if((T.z in config.admin_levels) || T.z > 7)
 				continue
 			if(R.syndicate == 1 && emagged == 0)
 				continue
@@ -199,7 +199,7 @@
 						continue
 				var/turf/T = get_turf(M)
 				if(!T)	continue
-				if(T.z == 2)	continue
+				if((T.z in config.admin_levels))	continue
 				var/tmpname = M.real_name
 				if(areaindex[tmpname])
 					tmpname = "[tmpname] ([++areaindex[tmpname]])"
@@ -221,7 +221,7 @@
 			var/turf/T = get_turf(R)
 			if (!T || !R.teleporter_hub || !R.teleporter_console)
 				continue
-			if(T.z == 2 || T.z > 7)
+			if((T.z in config.admin_levels) || T.z > 7)
 				continue
 			var/tmpname = T.loc.name
 			if(areaindex[tmpname])

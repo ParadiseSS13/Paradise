@@ -62,7 +62,7 @@ datum/game_mode/proc/auto_declare_completion_blob()
 					if (istype(T, /turf/space))
 						numSpace += 1
 					else if(istype(T, /turf))
-						if (M.z!=1)
+						if (!(M.z in config.station_levels))
 							numOffStation += 1
 						else
 							numAlive += 1

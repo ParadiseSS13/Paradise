@@ -81,7 +81,7 @@
 	name = "Handheld Crew Monitor"
 	desc = "A device for tracking crew members on the station."
 	id = "sensor_device"
-	req_tech = list("biotech" = 4, "magnets" = 4)
+	req_tech = list("biotech" = 4, "magnets" = 3, "materials" = 3)
 	build_type = PROTOLATHE
 	materials = list("$metal" = 30, "$glass" = 20)
 	reliability_base = 76

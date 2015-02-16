@@ -1537,7 +1537,7 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 
 					// Not on the station or mining?
 					var/turf/temp_turf = get_turf(remoteview_target)
-					if((temp_turf.z != 1 && temp_turf.z != 5) || remoteview_target.stat!=CONSCIOUS)
+					if((!(temp_turf.z in config.contact_levels)) || remoteview_target.stat!=CONSCIOUS)
 						src << "\red Your psy-connection grows too faint to maintain!"
 						isRemoteObserve = 0
 				if(!isRemoteObserve && client && !client.adminobs)

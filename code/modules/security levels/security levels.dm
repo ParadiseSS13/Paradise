@@ -33,7 +33,7 @@
 				security_level = SEC_LEVEL_GREEN
 				
 				for(var/obj/machinery/firealarm/FA in world)
-					if(FA.z == 1 || FA.z == 5)
+					if((FA.z in config.contact_levels))
 						FA.overlays = list()
 						FA.overlays += image('icons/obj/monitors.dmi', "overlay_green")					
 						
@@ -45,7 +45,7 @@
 				security_level = SEC_LEVEL_BLUE
 				
 				for(var/obj/machinery/firealarm/FA in world)
-					if(FA.z == 1 || FA.z == 5)
+					if((FA.z in config.contact_levels))
 						FA.overlays = list()
 						FA.overlays += image('icons/obj/monitors.dmi', "overlay_blue")
 						
@@ -57,7 +57,7 @@
 				security_level = SEC_LEVEL_RED
 				
 				var/obj/machinery/door/airlock/highsecurity/red/R = locate(/obj/machinery/door/airlock/highsecurity/red) in world
-				if(R && R.z == 1)
+				if(R && (R.z in config.station_levels))
 					R.locked = 0
 					R.update_icon()
 					
@@ -66,7 +66,7 @@
 					CC.post_status("alert", "redalert")
 
 				for(var/obj/machinery/firealarm/FA in world)
-					if(FA.z == 1 || FA.z == 5)
+					if((FA.z in config.contact_levels))
 						FA.overlays = list()
 						FA.overlays += image('icons/obj/monitors.dmi', "overlay_red")
 						
@@ -78,12 +78,12 @@
 				
 				if(security_level < SEC_LEVEL_RED)
 					for(var/obj/machinery/door/airlock/highsecurity/red/R in world)
-						if(R.z == 1)
+						if((R.z in config.station_levels))
 							R.locked = 0
 							R.update_icon()
 							
 				for(var/obj/machinery/door/airlock/hatch/gamma/H in world)
-					if(H.z == 1)
+					if((H.z in config.station_levels))
 						H.locked = 0
 						H.update_icon()
 						
@@ -92,7 +92,7 @@
 					CC.post_status("alert", "redalert")
 
 				for(var/obj/machinery/firealarm/FA in world)
-					if(FA.z == 1 || FA.z == 5)
+					if((FA.z in config.contact_levels))
 						FA.overlays = list()
 						FA.overlays += image('icons/obj/monitors.dmi', "overlay_gamma")
 						FA.update_icon()
@@ -106,7 +106,7 @@
 					CC.post_status("alert", "redalert")
 
 				for(var/obj/machinery/firealarm/FA in world)
-					if(FA.z == 1 || FA.z == 5)
+					if((FA.z in config.contact_levels))
 						FA.overlays = list()
 						FA.overlays += image('icons/obj/monitors.dmi', "overlay_epsilon")
 
@@ -119,7 +119,7 @@
 					CC.post_status("alert", "redalert")	
 					
 				for(var/obj/machinery/firealarm/FA in world)
-					if(FA.z == 1 || FA.z == 5)
+					if((FA.z in config.contact_levels))
 						FA.overlays = list()
 						FA.overlays += image('icons/obj/monitors.dmi', "overlay_delta")
 						

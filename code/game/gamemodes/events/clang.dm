@@ -78,7 +78,7 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 		walk_towards(immrod, end,1)
 	sleep(1)
 	while (immrod)
-		if (immrod.z != 1)
+		if ((immrod.z in config.station_levels))
 			immrod.z = 1
 		if(immrod.loc == end)
 			del(immrod)

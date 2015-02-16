@@ -38,14 +38,14 @@
 /datum/event/blob/proc/announce_nuke()
 	var/nukecode = "ERROR"
 	for(var/obj/machinery/nuclearbomb/bomb in world)
-		if(bomb && bomb.r_code && bomb.z == 1)
+		if(bomb && bomb.r_code && (bomb.z in config.station_levels))
 			nukecode = bomb.r_code
 	
 	command_announcement.Announce("The biohazard has grown out of control and will soon reach critical mass. Activate the nuclear failsafe to maintain quarantine. The Nuclear Authentication Code is [nukecode] ", "Biohazard Alert")
 	set_security_level("gamma")
 	
 	var/obj/machinery/door/airlock/vault/V = locate(/obj/machinery/door/airlock/vault) in world
-	if(V && V.z == 1)
+	if(V && (V.z in config.station_levels))
 		V.locked = 0
 		V.update_icon()
 
