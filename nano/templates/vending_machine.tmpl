@@ -44,6 +44,7 @@
 		{{if data.message_err}} <span class='uiIcon16 icon-alert' ></span>{{/if}} {{:data.message}}
 	</div>
 	<div class='item'>
+		{{:helper.link('Pay', 'cart', {'pay' : 1})}}
 		{{:helper.link('Cancel', 'arrowreturn-1-w', {'cancelpurchase' : 1})}}
 	</div>
 </div>

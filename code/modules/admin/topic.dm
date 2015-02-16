@@ -1727,6 +1727,8 @@
 		input = P.parsepencode(input) // Encode everything from pencode to html
 
 		var/customname = input(src.owner, "Pick a title for the fax.", "Fax Title") as text|null
+		if(!customname)
+			customname = "paper"
 		
 		var/stampname
 		var/stamptype
