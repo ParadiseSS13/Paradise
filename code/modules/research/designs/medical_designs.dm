@@ -52,7 +52,7 @@
 	req_tech = list("programming" = 2, "biotech" = 2, "magnets" = 2)
 	build_type = PROTOLATHE
 	materials = list("$metal" = 30, "$glass" = 20)
-	reliability_base = 74
+	reliability_base = 76
 	build_path = /obj/item/device/robotanalyzer
 	category = list("Medical")
 	
@@ -75,6 +75,17 @@
 	build_type = PROTOLATHE
 	materials = list("$metal" = 50, "$glass" = 50)
 	build_path = /obj/item/weapon/implantcase/freedom
+	category = list("Medical")
+	
+/datum/design/sensor_device
+	name = "Handheld Crew Monitor"
+	desc = "A device for tracking crew members on the station."
+	id = "sensor_device"
+	req_tech = list("biotech" = 4, "magnets" = 4)
+	build_type = PROTOLATHE
+	materials = list("$metal" = 30, "$glass" = 20)
+	reliability_base = 76
+	build_path = /obj/item/device/sensor_device
 	category = list("Medical")
 	
 /datum/design/implanter
