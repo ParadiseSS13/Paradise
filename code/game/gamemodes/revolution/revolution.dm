@@ -10,6 +10,7 @@
 /datum/game_mode
 	var/list/datum/mind/head_revolutionaries = list()
 	var/list/datum/mind/revolutionaries = list()
+	var/extra_heads = 0
 
 /datum/game_mode/revolution
 	name = "revolution"
@@ -74,6 +75,9 @@
 
 /datum/game_mode/revolution/post_setup()
 	var/list/heads = get_living_heads()
+	if(num_players() >= 40)
+		heads += get_extra_living_heads()
+		extra_heads = 1
 
 	for(var/datum/mind/rev_mind in head_revolutionaries)
 		for(var/datum/mind/head_mind in heads)
@@ -109,6 +113,9 @@
 
 /datum/game_mode/proc/forge_revolutionary_objectives(var/datum/mind/rev_mind)
 	var/list/heads = get_living_heads()
+	if(num_players() >= 40)
+		heads += get_extra_living_heads()
+		extra_heads = 1
 	for(var/datum/mind/head_mind in heads)
 		var/datum/objective/mutiny/rev_obj = new
 		rev_obj.owner = rev_mind
@@ -409,6 +416,8 @@
 		var/text = "<FONT size = 2><B>The heads of staff were:</B></FONT>"
 
 		var/list/heads = get_all_heads()
+		if(extra_heads)
+			heads += get_extra_heads()
 		for(var/datum/mind/head in heads)
 			var/target = (head in targets)
 			if(target)
@@ -435,4 +444,4 @@
 	return istype(mind) && \
 		istype(mind.current, /mob/living/carbon/human) && \
 		!(mind.assigned_role in command_positions) && \
-		!(mind.assigned_role in list("Security Officer", "Detective", "Warden"))
+		!(mind.assigned_role in list("Security Officer", "Detective", "Warden", "Nanotrasen Representative"))

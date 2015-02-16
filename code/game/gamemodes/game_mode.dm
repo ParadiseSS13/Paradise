@@ -456,6 +456,13 @@ Implants;
 			heads += player.mind
 	return heads
 
+/datum/game_mode/proc/get_extra_living_heads()
+	var/list/heads = list()
+	var/list/alt_positions = list("Warden", "Magistrate", "Blueshield", "Nanotrasen Representative")
+	for(var/mob/living/carbon/human/player in mob_list)
+		if(player.stat!=2 && player.mind && (player.mind.assigned_role in alt_positions))
+			heads += player.mind
+	return heads
 
 ////////////////////////////
 //Keeps track of all heads//
@@ -464,6 +471,14 @@ Implants;
 	var/list/heads = list()
 	for(var/mob/player in mob_list)
 		if(player.mind && (player.mind.assigned_role in command_positions))
+			heads += player.mind
+	return heads
+
+/datum/game_mode/proc/get_extra_heads()
+	var/list/heads = list()
+	var/list/alt_positions = list("Warden", "Magistrate", "Blueshield", "Nanotrasen Representative")
+	for(var/mob/player in mob_list)
+		if(player.mind && (player.mind.assigned_role in alt_positions))
 			heads += player.mind
 	return heads
 
