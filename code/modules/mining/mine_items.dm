@@ -55,18 +55,21 @@
 	flags = FPRINT | TABLEPASS| CONDUCT
 	slot_flags = SLOT_BELT
 	force = 15.0
-	throwforce = 4.0
+	throwforce = 10.0
 	item_state = "pickaxe"
 	w_class = 4.0
 	m_amt = 3750 //one sheet, but where can you make them?
 	var/digspeed = 40 //moving the delay to an item var so R&D can make improved picks. --NEO
 	origin_tech = "materials=1;engineering=1"
 	attack_verb = list("hit", "pierced", "sliced", "attacked")
-	var/drill_sound = 'sound/weapons/Genhit.ogg'
+	var/list/digsound = list('sound/effects/picaxe1.ogg','sound/effects/picaxe2.ogg','sound/effects/picaxe3.ogg')
 	var/drill_verb = "picking"
 	sharp = 1
 
 	var/excavation_amount = 100
+
+	proc/playDigSound()
+		playsound(src, pick(digsound),20,1)
 
 	hammer
 		name = "sledgehammer"
@@ -86,6 +89,8 @@
 		icon_state = "handdrill"
 		item_state = "jackhammer"
 		digspeed = 30
+		hitsound = 'sound/weapons/drill.ogg'
+		digsound = list('sound/weapons/drill.ogg')
 		origin_tech = "materials=2;powerstorage=3;engineering=2"
 		desc = "Yours is the drill that will pierce through the rock walls."
 
@@ -94,6 +99,8 @@
 		icon_state = "jackhammer"
 		item_state = "jackhammer"
 		digspeed = 15 //faster than drill, but cannot dig
+		hitsound = 'sound/weapons/sonic_jackhammer.ogg'
+		digsound = list('sound/weapons/sonic_jackhammer.ogg')
 		origin_tech = "materials=3;powerstorage=2;engineering=2"
 		desc = "Cracks rocks with sonic blasts, perfect for killing cave lizards."
 
@@ -112,6 +119,8 @@
 		w_class = 3.0 //it is smaller than the pickaxe
 		damtype = "fire"
 		digspeed = 20 //Can slice though normal walls, all girders, or be used in reinforced wall deconstruction/ light thermite on fire
+		hitsound = 'sound/weapons/plasma_cutter.ogg'
+		digsound = list('sound/weapons/plasma_cutter.ogg')
 		origin_tech = "materials=4;plasmatech=3;engineering=3"
 		desc = "A rock cutter that uses bursts of hot plasma. You could use it to cut limbs off of xenos! Or, you know, mine stuff."
 
@@ -129,6 +138,8 @@
 		item_state = "jackhammer"
 		digspeed = 5 //Digs through walls, girders, and can dig up sand
 		origin_tech = "materials=6;powerstorage=4;engineering=5"
+		hitsound = 'sound/weapons/drill.ogg'
+		digsound = list('sound/weapons/drill.ogg')
 		desc = "Yours is the drill that will pierce the heavens!"
 
 		traitor //Pocket-sized traitor diamond drill.
@@ -143,6 +154,8 @@
 		icon_state = "jackhammer"
 		item_state = "jackhammer"
 		digspeed = 15
+		hitsound = 'sound/weapons/drill.ogg'
+		digsound = list('sound/weapons/drill.ogg')
 		desc = ""
 
 /*****************************Shovel********************************/

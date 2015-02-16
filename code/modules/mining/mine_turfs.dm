@@ -137,7 +137,7 @@
 				return
 			last_act = world.time
 
-			playsound(user, P.drill_sound, 20, 1)
+			P.playDigSound()
 
 			//handle any archaeological finds we might uncover
 			var/fail_message
