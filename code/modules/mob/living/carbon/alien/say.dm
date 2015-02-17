@@ -1,3 +1,4 @@
+// To-do - convert to language system
 /mob/living/carbon/alien/say(var/message)
 
 	if (silent)
@@ -67,3 +68,16 @@
 		if (M.stat > 1 && istype(M, /mob/dead/observer))
 			rendered2 = "<i><span class='game say'>Hivemind, <span class='name'>[name]</span> <a href='byond://?src=\ref[M];follow2=\ref[M];follow=\ref[src]'>(Follow)</a> <span class='message'>[message_a]</span></span></i>"
 			M.show_message(rendered2, 2)
+			
+/mob/living/proc/hivecheck()
+	if (isalien(src)) return 1
+	if (!ishuman(src)) return
+	var/mob/living/carbon/human/H = src
+	if (H.l_ear || H.r_ear)
+		var/obj/item/device/radio/headset/dongle
+		if(istype(H.l_ear,/obj/item/device/radio/headset))
+			dongle = H.l_ear
+		else
+			dongle = H.r_ear
+		if(!istype(dongle)) return
+		if(dongle.translate_hive) return 1

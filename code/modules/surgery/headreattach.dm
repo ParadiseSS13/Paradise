@@ -196,7 +196,7 @@
 		user.visible_message("\blue [user] has attached [target]'s head to the body.",	\
 		"\blue You have attached [target]'s head to the body.")
 		affected.status = 0
-		if(istype(target,/mob/living/carbon/human/machine))
+		if(target.species && (target.species.flags & IS_SYNTHETIC))
 			affected.status = 128
 		affected.amputated = 0
 		affected.destspawn = 0

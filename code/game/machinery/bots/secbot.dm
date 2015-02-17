@@ -50,7 +50,7 @@
 /obj/machinery/bot/secbot/pingsky
 	name = "Officer Pingsky"
 	desc = "It's Officer Pingsky! Delegated to satellite guard duty for harbouring anti-human sentiment."
-	radio_frequency = AIPRIV_FREQ
+	radio_frequency = AI_FREQ
 	radio_name = "AI Private"
 	
 /obj/machinery/bot/secbot/ofitser

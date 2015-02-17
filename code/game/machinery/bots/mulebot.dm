@@ -696,7 +696,7 @@ var/global/mulebot_count = 0
 				calling_ai << "<span class='notice'>\icon[src] [src] wirelessly plays a chiming sound!</span>"
 				playsound(calling_ai, 'sound/machines/chime.ogg',40, 0)
 				calling_ai = null
-				radio_frequency = AIPRIV_FREQ //Report on AI Private instead if the AI is controlling us.
+				radio_frequency = AI_FREQ //Report on AI Private instead if the AI is controlling us.
 				radio_name = "AI Private"
 				Radio.config(list("[radio_name]" = 0))
 

@@ -268,7 +268,7 @@
 				src.medHUD = !src.medHUD
 		if("translator")
 			if(href_list["toggle"])
-				src.universal_speak = !src.universal_speak
+				src.translator_toggle()
 		if("doorjack")
 			if(href_list["jack"])
 				if(src.cable && src.cable.machine)
@@ -688,3 +688,25 @@
 			dat += addtext("<tr><td class='a'><i><b>From</b></i></td><td class='a'><i><b>&rarr;</b></i></td><td><i><b><a href='byond://?src=\ref[src];software=pdamessage;target=",index["target"],"'>", index["owner"],"</a>: </b></i>", index["message"], "<br></td></tr>")
 	dat += "</table>"
 	return dat
+	
+/mob/living/silicon/pai/proc/translator_toggle()
+
+	// 	Sol Common, Tradeband and Gutter are added with New() and are therefore the current default, always active languages
+
+	if(translator_on)
+		translator_on = 0
+
+		remove_language("Sinta'unathi")
+		remove_language("Siik'tajr")
+		remove_language("Skrellian")
+
+		src << "\blue Translator Module toggled OFF."
+
+	else
+		translator_on = 1
+
+		add_language("Sinta'unathi")
+		add_language("Siik'tajr")
+		add_language("Skrellian")
+
+		src << "\blue Translator Module toggled ON."

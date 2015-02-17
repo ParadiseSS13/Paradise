@@ -10,6 +10,7 @@
 	var/obj/item/emag = null
 	var/obj/item/borg/upgrade/jetpack = null
 	var/list/stacktypes
+	var/channels = list()
 
 
 	emp_act(severity)
@@ -55,6 +56,15 @@
 	for(var/obj/O in temp_list)
 		if(O)
 			modules += O
+			
+/obj/item/weapon/robot_module/proc/add_languages(var/mob/living/silicon/robot/R)
+	//full set of languages
+	R.add_language("Sol Common", 1)
+	R.add_language("Tradeband", 1)
+	R.add_language("Sinta'unathi", 0)
+	R.add_language("Siik'tajr", 0)
+	R.add_language("Skrellian", 0)
+	R.add_language("Gutter", 0)
 
 /obj/item/weapon/robot_module/standard
 	name = "standard robot module"
@@ -248,6 +258,17 @@
 	if(src.emag)
 		var/obj/item/weapon/reagent_containers/food/drinks/cans/beer/B = src.emag
 		B.reagents.add_reagent("beer2", 2)
+		
+/obj/item/weapon/robot_module/butler/add_languages(var/mob/living/silicon/robot/R)
+	//full set of languages
+	R.add_language("Sol Common", 1)
+	R.add_language("Sinta'unathi", 1)
+	R.add_language("Siik'maas", 1)
+	R.add_language("Siik'tajr", 0)
+	R.add_language("Skrellian", 1)
+	R.add_language("Rootspeak", 1)
+	R.add_language("Tradeband", 1)
+	R.add_language("Gutter", 1)
 
 /*
 /obj/item/weapon/robot_module/clerical //Whyyyyy?
@@ -341,6 +362,10 @@
 		src.emag = new /obj/item/weapon/reagent_containers/spray/alien/acid(src)
 		src.emag.reagents.add_reagent("pacid", 125)
 		src.emag.reagents.add_reagent("sacid", 125)
+		
+/obj/item/weapon/robot_module/butler/add_languages(var/mob/living/silicon/robot/R)
+	..()
+	R.add_language("xenocommon", 1)
 
 /obj/item/weapon/robot_module/drone
 	name = "drone module"

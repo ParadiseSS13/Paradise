@@ -20,6 +20,7 @@
 	var/sensor_mode = 0 //Determines the current HUD.
 	#define SEC_HUD 1 //Security HUD mode
 	#define MED_HUD 2 //Medical HUD mode
+	var/local_transmit //If set, can only speak to others of the same type within a short range.
 
 /mob/living/silicon/proc/cancelAlarm()
 	return
