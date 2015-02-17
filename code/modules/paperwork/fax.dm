@@ -13,26 +13,26 @@ var/list/adminfaxes = list()
 
 /datum/fax/New()
 	faxes += src
-	
+
 /datum/fax/admin
 	var/list/reply_to = null
-	
+
 /datum/fax/admin/New()
 	adminfaxes += src
-	
-// Fax panel - lets admins check all faxes sent during the round	
+
+// Fax panel - lets admins check all faxes sent during the round
 /client/proc/fax_panel()
 	set name = "Fax Panel"
-	set category = "Admin"
+	set category = "Event"
 	if(holder)
 		holder.fax_panel(usr)
 	feedback_add_details("admin_verb","FXP") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 	return
-	
+
 /datum/admins/proc/fax_panel(var/mob/living/user)
 	var/html = "<A align='right' href='?src=\ref[src];refreshfaxpanel=1'>Refresh</A>"
 	html += "<A align='right' href='?src=\ref[src];AdminFaxCreate=1;faxtype=Administrator'>Create Fax</A>"
-	
+
 	html += "<div class='block'>"
 	html += "<h2>Admin Faxes</h2>"
 	html += "<table>"
@@ -51,14 +51,14 @@ var/list/adminfaxes = list()
 		html += "<td><A align='right' href='?src=\ref[src];AdminFaxView=\ref[A.message]'>View</A></td>"
 		if(!A.reply_to)
 			if(A.from_department == "Administrator")
-				html += "<td>N/A</td>"		
+				html += "<td>N/A</td>"
 			else
 				html += "<td><A align='right' href='?src=\ref[src];AdminFaxCreate=\ref[A.sent_by];originfax=\ref[A.origin];faxtype=[A.to_department];replyto=\ref[A.message]'>Reply</A></td>"
 			html += "<td>N/A</td>"
 		else
 			html += "<td>N/A</td>"
-			html += "<td><A align='right' href='?src=\ref[src];AdminFaxView=\ref[A.reply_to]'>Original</A></td>"		
-		html += "</tr>"	
+			html += "<td><A align='right' href='?src=\ref[src];AdminFaxView=\ref[A.reply_to]'>Original</A></td>"
+		html += "</tr>"
 	html += "</table>"
 	html += "</div>"
 
@@ -78,11 +78,10 @@ var/list/adminfaxes = list()
 		else
 			html += "<td>Unknown</td>"
 		html += "<td><A align='right' href='?src=\ref[src];AdminFaxView=\ref[F.message]'>View</A></td>"
-		html += "</tr>"	
+		html += "</tr>"
 	html += "</table>"
 	html += "</div>"
-	
+
 	var/datum/browser/popup = new(user, "fax_panel", "Fax Panel", 950, 450)
 	popup.set_content(html)
 	popup.open()
-		
