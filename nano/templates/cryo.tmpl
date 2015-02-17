@@ -96,3 +96,11 @@ Used In File(s): \code\game\machinery\cryo.dm
 		{{:helper.link('Eject Beaker', 'eject', {'ejectBeaker' : 1}, data.isBeakerLoaded ? null : 'disabled')}}
 	</div>
 </div>
+<div class="item">
+	<div class="itemLabel" style="width: 70%">
+		Auto-eject:
+	</div>
+	<div class="itemContent" style="width: 30%;">
+		{{:helper.link('On', 'power', {'autoejectOn' : 1}, data.autoeject ? 'selected' : null)}}{{:helper.link('Off', 'close', {'autoejectOff' : 1}, data.autoeject ? null : 'selected')}}
+	</div>
+</div>
