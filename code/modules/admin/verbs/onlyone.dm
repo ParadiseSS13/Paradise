@@ -52,4 +52,3 @@
 	message_admins("\blue [key_name_admin(usr)] used THERE CAN BE ONLY ONE! -NO ATTACK LOGS WILL BE SENT TO ADMINS FROM THIS POINT FORTH-", 1)
 	nologevent = 1
 	log_admin("[key_name(usr)] used there can be only one.")
-	world << sound('sound/music/highlander.ogg')
