@@ -183,36 +183,40 @@ steam.start() -- spawns the effect
 	return
 
 /datum/effect/effect/system/spark_spread
-	set_up(n = 3, c = 0, loca)
-		number = n > 10 ? 10 : n
-		cardinals = c
+	var/total_sparks = 0 // To stop it being spammed and lagging!
 
-		if (istype(loca, /turf/))
+	set_up(n = 3, c = 0, loca)
+		if(n > 10)
+			n = 10
+		number = n
+		cardinals = c
+		if(istype(loca, /turf/))
 			location = loca
 		else
 			location = get_turf(loca)
 
 	start()
-		for (var/i = 1 to number)
-			spawn()
-				if (holder)
-					location = get_turf(holder)
-
-				var/obj/effect/effect/sparks/sparks = getFromPool(/obj/effect/effect/sparks, location)
-				playsound(location, "sparks", 100, 1)
+		var/i = 0
+		for(i=0, i<src.number, i++)
+			if(src.total_sparks > 20)
+				return
+			spawn(0)
+				if(holder)
+					src.location = get_turf(holder)
+				var/obj/effect/effect/sparks/sparks = new /obj/effect/effect/sparks(src.location)
+				src.total_sparks++
 				var/direction
-
-				if (cardinals)
+				if(src.cardinals)
 					direction = pick(cardinal)
 				else
 					direction = pick(alldirs)
-
-				for (var/j = 0, j < pick(1, 2, 3), j++)
+				for(i=0, i<pick(1,2,3), i++)
 					sleep(5)
-					step(sparks, direction)
-
-				sleep(20)
-				returnToPool(sparks)
+					step(sparks,direction)
+				spawn(20)
+					if(sparks)
+						sparks.delete()
+					src.total_sparks--
 
 /////////////////////////////////////////////
 //// SMOKE SYSTEMS

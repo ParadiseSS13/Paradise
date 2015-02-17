@@ -95,7 +95,8 @@
 		"/obj/item/device/flashlight/pen",
 		"/obj/item/clothing/mask/surgical",
 		"/obj/item/clothing/gloves/color/latex",
-        "/obj/item/weapon/reagent_containers/hypospray/autoinjector"
+        "/obj/item/weapon/reagent_containers/hypospray/autoinjector",
+		"/obj/item/device/sensor_device"
 	)
 
 

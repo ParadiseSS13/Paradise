@@ -200,10 +200,10 @@
 	else
 		if(playeralienratio >= gammaratio && !gammacalled)
 			gammacalled = 1
-			command_alert("The aliens have nearly succeeded in capturing the station and exterminating the crew. Activate the nuclear failsafe to stop the alien threat once and for all. The Nuclear Authentication Code is [get_nuke_code()] ", "Alien Lifeform Alert")
+			command_announcement.Announce("The aliens have nearly succeeded in capturing the station and exterminating the crew. Activate the nuclear failsafe to stop the alien threat once and for all. The Nuclear Authentication Code is [get_nuke_code()] ", "Alien Lifeform Alert")
 			set_security_level("gamma")
 			var/obj/machinery/door/airlock/vault/V = locate(/obj/machinery/door/airlock/vault) in world
-			if(V && V.z == 1)
+			if(V && (V.z in config.station_levels))
 				V.locked = 0
 				V.update_icon()
 		return ..()
@@ -238,7 +238,7 @@
 	var/list/livingplayers = list()
 	for(var/mob/M in player_list)
 		var/turf/T = get_turf(M)
-		if((M) && (M.stat != 2) && M.client && T && (T.z == 1 || emergency_shuttle.departed && (T.z == 1 || T.z == 2)))
+		if((M) && (M.stat != 2) && M.client && T && ((T.z in config.station_levels) || emergency_shuttle.departed && ((T.z in config.station_levels) || (T.z in config.admin_levels))))
 			if(ishuman(M))
 				livingplayers += 1
 	return livingplayers.len

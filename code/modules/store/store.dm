@@ -48,7 +48,7 @@ var/global/datum/store/centcomm_store=new
 
 /datum/store/proc/reconnect_database()
 	for(var/obj/machinery/account_database/DB in world)
-		if(DB.z == 1)
+		if((DB.z in config.station_levels))
 			linked_db = DB
 			break
 

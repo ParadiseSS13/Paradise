@@ -90,6 +90,8 @@ rcd light flash thingy on matter drain
 
 	var/obj/machinery/door/airlock/AL
 	for(var/obj/machinery/door/D in airlocks)
+		if(!(D.z in config.contact_levels))
+			continue
 		spawn()
 			if(istype(D, /obj/machinery/door/airlock))
 				AL = D

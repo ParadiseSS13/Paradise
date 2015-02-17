@@ -881,7 +881,7 @@ var/list/slot_equipment_priority = list( \
 				stat(null, "Bots-[master_controller.aibots_cost]\t#[aibots.len]")
 				stat(null, "Obj-[master_controller.objects_cost]\t#[processing_objects.len]")
 				stat(null, "PiNet-[master_controller.networks_cost]\t#[pipe_networks.len]")
-				stat(null, "Ponet-[master_controller.powernets_cost]\t#[powernets.len]")
+				stat(null, "PoNet-[master_controller.powernets_cost]\t#[powernets.len]")
 				stat(null, "NanoUI-[master_controller.nano_cost]\t#[nanomanager.processing_uis.len]")
 				stat(null,"Events-[master_controller.events_cost]\t#[event_manager.active_events.len]")
 //				stat(null, "GC-[master_controller.gc_cost]\t#[garbage.queue.len]")

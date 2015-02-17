@@ -3,8 +3,7 @@
 	oneShot			= 1
 
 /datum/event/disease_outbreak/announce()
-	command_alert("Confirmed outbreak of level 7 viral biohazard aboard [station_name()]. All personnel must contain the outbreak.", "Biohazard Alert")
-	world << sound('sound/AI/outbreak7.ogg')
+	command_announcement.Announce("Confirmed outbreak of level 7 viral biohazard aboard [station_name()]. All personnel must contain the outbreak.", "Biohazard Alert", new_sound = 'sound/AI/outbreak7.ogg')
 
 /datum/event/disease_outbreak/setup()
 	announceWhen = rand(15, 30)
@@ -17,7 +16,7 @@
 		var/turf/T = get_turf(H)
 		if(!T)
 			continue
-		if(T.z != 1)
+		if(!(T.z in config.station_levels))
 			continue
 		for(var/datum/disease/D in H.viruses)
 			foundAlready = 1

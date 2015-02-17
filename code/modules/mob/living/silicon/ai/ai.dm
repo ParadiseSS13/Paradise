@@ -1,3 +1,6 @@
+#define AI_CHECK_WIRELESS 1
+#define AI_CHECK_RADIO 2
+
 var/list/ai_list = list()
 
 //Not sure why this is necessary...
@@ -77,8 +80,8 @@ var/list/ai_list = list()
 				possibleNames -= pickedName
 				pickedName = null
 
-	real_name = pickedName
-	name = real_name
+	aiPDA = new/obj/item/device/pda/ai(src)
+	SetName(pickedName)
 	anchored = 1
 	canmove = 0
 	density = 1
@@ -96,11 +99,6 @@ var/list/ai_list = list()
 
 	verbs += /mob/living/silicon/ai/proc/show_laws_verb
 
-	aiPDA = new/obj/item/device/pda/ai(src)
-	aiPDA.owner = name
-	aiPDA.ownjob = "AI"
-	aiPDA.name = name + " (" + aiPDA.ownjob + ")"
-
 	aiMulti = new(src)
 	aiRadio = new(src)
 	aiRadio.myAi = src
@@ -112,7 +110,7 @@ var/list/ai_list = list()
 	if (istype(loc, /turf))
 		verbs.Add(/mob/living/silicon/ai/proc/ai_network_change, \
 		/mob/living/silicon/ai/proc/ai_statuschange, /mob/living/silicon/ai/proc/ai_hologram_change, \
-		/mob/living/silicon/ai/proc/toggle_camera_light, /mob/living/silicon/ai/proc/botcall, /mob/living/silicon/ai/proc/control_integrated_radio, /mob/living/silicon/ai/proc/control_hud, /mob/living/silicon/ai/proc/change_arrival_message, /mob/living/silicon/ai/proc/ai_store_location, /mob/living/silicon/ai/proc/ai_goto_location, /mob/living/silicon/ai/proc/ai_remove_location)
+		/mob/living/silicon/ai/proc/toggle_camera_light, /mob/living/silicon/ai/proc/botcall, /mob/living/silicon/ai/proc/control_integrated_radio, /mob/living/silicon/ai/proc/control_hud, /mob/living/silicon/ai/proc/change_arrival_message, /mob/living/silicon/ai/proc/ai_store_location, /mob/living/silicon/ai/proc/ai_goto_location, /mob/living/silicon/ai/proc/ai_remove_location, /mob/living/silicon/ai/proc/nano_crew_monitor, /mob/living/silicon/ai/proc/ai_cancel_call)
 
 	if(!safety)//Only used by AIize() to successfully spawn an AI.
 		if (!B)//If there is no player/brain inside.
@@ -127,7 +125,7 @@ var/list/ai_list = list()
 					verbs.Remove(,/mob/living/silicon/ai/proc/ai_call_shuttle,/mob/living/silicon/ai/proc/ai_camera_track, \
 					/mob/living/silicon/ai/proc/ai_camera_list, /mob/living/silicon/ai/proc/ai_network_change, \
 					/mob/living/silicon/ai/proc/ai_statuschange, /mob/living/silicon/ai/proc/ai_hologram_change, \
-					/mob/living/silicon/ai/proc/toggle_camera_light,/mob/living/silicon/ai/verb/pick_icon,/mob/living/silicon/ai/proc/control_hud, /mob/living/silicon/ai/proc/change_arrival_message)
+					/mob/living/silicon/ai/proc/toggle_camera_light,/mob/living/silicon/ai/verb/pick_icon,/mob/living/silicon/ai/proc/control_hud, /mob/living/silicon/ai/proc/change_arrival_message, /mob/living/silicon/ai/proc/ai_cancel_call)
 					laws = new /datum/ai_laws/alienmov
 				else
 					B.brainmob.mind.transfer_to(src)
@@ -155,11 +153,25 @@ var/list/ai_list = list()
 	hud_list[IMPCHEM_HUD]     = image('icons/mob/hud.dmi', src, "hudblank")
 	hud_list[IMPTRACK_HUD]    = image('icons/mob/hud.dmi', src, "hudblank")
 	hud_list[SPECIALROLE_HUD] = image('icons/mob/hud.dmi', src, "hudblank")
-	hud_list[NATIONS_HUD] = image('icons/mob/hud.dmi', src, "hudblank")
+	hud_list[NATIONS_HUD]	  = image('icons/mob/hud.dmi', src, "hudblank")
 
+	init_subsystems()	
+	
 	ai_list += src
 	..()
 	return
+	
+/mob/living/silicon/ai/proc/SetName(pickedName as text)
+	real_name = pickedName
+	name = pickedName
+	if(eyeobj)
+		eyeobj.name = "[pickedName] (AI Eye)"
+
+	// Set ai pda name
+	if(aiPDA)
+		aiPDA.ownjob = "AI"
+		aiPDA.owner = pickedName
+		aiPDA.name = pickedName + " (" + aiPDA.ownjob + ")"
 
 /mob/living/silicon/ai/Destroy()
 	ai_list -= src
@@ -301,14 +313,15 @@ var/list/ai_list = list()
 	if(src.stat == 2)
 		src << "You can't call the shuttle because you are dead!"
 		return
-	if(istype(usr,/mob/living/silicon/ai))
-		var/mob/living/silicon/ai/AI = src
-		if(AI.control_disabled)
-			usr << "Wireless control is disabled!"
-			return
+		
+	if(check_unable(AI_CHECK_WIRELESS))
+		return		
 
 	var/confirm = alert("Are you sure you want to call the shuttle?", "Confirm Shuttle Call", "Yes", "No")
 
+	if(check_unable(AI_CHECK_WIRELESS))
+		return	
+	
 	if(confirm == "Yes")
 		call_shuttle_proc(src)
 
@@ -317,38 +330,57 @@ var/list/ai_list = list()
 		var/obj/machinery/computer/communications/C = locate() in machines
 		if(C)
 			C.post_status("shuttle")
-
 	return
+	
+/mob/living/silicon/ai/proc/ai_cancel_call()
+	set name = "Recall Emergency Shuttle"
+	set category = "AI Commands"
+	
+	if(src.stat == 2)
+		src << "You can't send the shuttle back because you are dead!"
+		return
+		
+	if(check_unable(AI_CHECK_WIRELESS))
+		return
+
+	var/confirm = alert("Are you sure you want to recall the shuttle?", "Confirm Shuttle Recall", "Yes", "No")		
+	
+	if(check_unable(AI_CHECK_WIRELESS))
+		return	
+	
+	if(confirm == "Yes")
+		cancel_call_proc(src)
 
 /mob/living/silicon/ai/cancel_camera()
 	src.view_core()
 
 /mob/living/silicon/ai/verb/toggle_anchor()
-        set category = "AI Commands"
-        set name = "Toggle Floor Bolts"
-        if(!isturf(loc)) // if their location isn't a turf
-                return // stop
-        anchored = !anchored // Toggles the anchor
+	set category = "AI Commands"
+	set name = "Toggle Floor Bolts"
+	
+	if(!isturf(loc)) // if their location isn't a turf
+		return // stop
+		
+	anchored = !anchored // Toggles the anchor
 
-        src << "[anchored ? "<b>You are now anchored.</b>" : "<b>You are now unanchored.</b>"]"
-        // the message in the [] will change depending whether or not the AI is anchored
+	src << "[anchored ? "<b>You are now anchored.</b>" : "<b>You are now unanchored.</b>"]"
 
 /mob/living/silicon/ai/update_canmove()
 	return 0
-
-
-/mob/living/silicon/ai/proc/ai_cancel_call()
-	set category = "Malfunction"
+		
+/mob/living/silicon/ai/proc/announcement()
+	set name = "Announcement"
+	set desc = "Create a vocal announcement by typing in the available words to create a sentence."
+	set category = "AI Commands"
+	
 	if(src.stat == 2)
-		src << "You can't send the shuttle back because you are dead!"
+		src << "You can't call make an announcement because you are dead!"
 		return
-	if(istype(usr,/mob/living/silicon/ai))
-		var/mob/living/silicon/ai/AI = src
-		if(AI.control_disabled)
-			src	 << "Wireless control is disabled!"
-			return
-	cancel_call_proc(src)
-	return
+		
+	if(check_unable(AI_CHECK_WIRELESS | AI_CHECK_RADIO))
+		return	
+		
+	ai_announcement()
 
 /mob/living/silicon/ai/check_eye(var/mob/user as mob)
 	if (!current)
@@ -581,9 +613,9 @@ var/list/ai_list = list()
 		src << "<span class='danger'>Critical error. System offline.</span>"
 		return
 
-	if(control_disabled)
-		src << "Wireless communication is disabled."
+	if(check_unable(AI_CHECK_WIRELESS | AI_CHECK_RADIO))
 		return
+		
 	var/ai_allowed_Zlevel = list(1,3,5)
 	var/d
 	var/area/bot_area
@@ -704,6 +736,9 @@ var/list/ai_list = list()
 	set name = "Jump To Network"
 	unset_machine()
 	var/cameralist[0]
+	
+	if(check_unable())
+		return
 
 	if(usr.stat == 2)
 		usr << "You can't change your camera network because you are dead!"
@@ -721,6 +756,9 @@ var/list/ai_list = list()
 				cameralist[i] = i
 	var/old_network = network
 	network = input(U, "Which network would you like to view?") as null|anything in cameralist
+	
+	if(check_unable())
+		return
 
 	if(!U.eyeobj)
 		U.view_core()
@@ -752,8 +790,16 @@ var/list/ai_list = list()
 	if(usr.stat == 2)
 		usr <<"You cannot change your emotional status because you are dead!"
 		return
+		
+	if(check_unable())
+		return		
+	
 	var/list/ai_emotions = list("Very Happy", "Happy", "Neutral", "Unsure", "Confused", "Sad", "BSOD", "Blank", "Problems?", "Awesome", "Facepalm", "Friend Computer")
 	var/emote = input("Please, select a status!", "AI Status", null, null) in ai_emotions
+	
+	if(check_unable())
+		return	
+	
 	for (var/obj/machinery/M in machines) //change status
 		if(istype(M, /obj/machinery/ai_status_display))
 			var/obj/machinery/ai_status_display/AISD = M
@@ -773,6 +819,9 @@ var/list/ai_list = list()
 	set name = "Change Hologram"
 	set desc = "Change the default hologram available to AI to something else."
 	set category = "AI Commands"
+	
+	if(check_unable())
+		return
 
 	var/input
 	if(alert("Would you like to select a hologram based on a crew member or switch to unique avatar?",,"Crew Member","Unique")=="Crew Member")
@@ -826,6 +875,9 @@ var/list/ai_list = list()
 	set category = "AI Commands"
 
 	if(stat != CONSCIOUS)
+		return
+		
+	if(check_unable())
 		return
 
 	camera_light_on = !camera_light_on
@@ -904,8 +956,11 @@ var/list/ai_list = list()
 	set name = "Radio Settings"
 	set desc = "Allows you to change settings of your radio."
 	set category = "AI Commands"
-
-	src << "Accessing Subspace Transceiver control..."
+	
+	if(check_unable(AI_CHECK_RADIO))
+		return	
+		
+	src << "Accessing Subspace Transceiver control..."	
 	if (src.aiRadio)
 		src.aiRadio.interact(src)
 
@@ -957,3 +1012,24 @@ var/list/ai_list = list()
 		else
 			src << "\red You've failed to open an airlock for [target]"
 		return
+		
+
+/mob/living/silicon/ai/proc/check_unable(var/flags = 0)
+	if(stat == DEAD)
+		usr << "\red You are dead!"
+		return 1
+
+	if((flags & AI_CHECK_WIRELESS) && src.control_disabled)
+		usr << "\red Wireless control is disabled!"
+		return 1
+	if((flags & AI_CHECK_RADIO) && src.aiRadio.disabledAi)
+		src << "\red System Error - Transceiver Disabled!"
+		return 1
+	return 0
+
+/mob/living/silicon/ai/proc/is_in_chassis()
+	return istype(loc, /turf)
+	
+#undef AI_CHECK_WIRELESS
+#undef AI_CHECK_RADIO
+	
