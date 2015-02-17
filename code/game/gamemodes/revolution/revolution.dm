@@ -75,7 +75,7 @@
 
 /datum/game_mode/revolution/post_setup()
 	var/list/heads = get_living_heads()
-	if(num_players() >= 40)
+	if(num_players_started() >= 30)
 		heads += get_extra_living_heads()
 		extra_heads = 1
 
@@ -113,7 +113,7 @@
 
 /datum/game_mode/proc/forge_revolutionary_objectives(var/datum/mind/rev_mind)
 	var/list/heads = get_living_heads()
-	if(num_players() >= 40)
+	if(num_players_started() >= 30)
 		heads += get_extra_living_heads()
 		extra_heads = 1
 	for(var/datum/mind/head_mind in heads)
