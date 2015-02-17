@@ -21,7 +21,7 @@ var/list/adminhelp_ignored_words = list("unknown","the","a","an","of","monkey","
 		src.verbs += /client/verb/adminhelp	// 2 minute cool-down for adminhelps//Go to hell
 	**/
 	var/msg
-	var/list/type = list("Player Complaint","Question","Bug Report","Event")
+	var/list/type = list("Question","Player Complaint")
 	var/selected_type = input("Pick a category.", "Admin Help", null, null) as null|anything in type
 	if(selected_type)
 		msg = input("Please enter your message.", "Admin Help", null, null) as text
@@ -100,9 +100,7 @@ var/list/adminhelp_ignored_words = list("unknown","the","a","an","of","monkey","
 	var/admin_number_afk = 0
 	var/list/modholders = list()
 	var/list/banholders = list()
-	var/list/debugholders = list()
 	var/list/adminholders = list()
-	var/list/eventholders = list()
 	for(var/client/X in admins)
 		if((R_MOD | R_MENTOR) & X.holder.rights)
 			if(X.is_afk())
@@ -114,10 +112,6 @@ var/list/adminhelp_ignored_words = list("unknown","the","a","an","of","monkey","
 			adminholders += X
 		if(R_BAN & X.holder.rights)
 			banholders += X
-		if(R_DEBUG & X.holder.rights)
-			debugholders += X
-		if(R_EVENT & X.holder.rights)
-			eventholders += X
 
 	switch(selected_type)
 		if("Question")
@@ -129,30 +123,6 @@ var/list/adminhelp_ignored_words = list("unknown","the","a","an","of","monkey","
 			else
 				if(adminholders.len)
 					for(var/client/X in adminholders)
-						if(X.prefs.sound & SOUND_ADMINHELP)
-							X << 'sound/effects/adminhelp.ogg'
-						X << msg
-		else if("Bug Report")
-			if(debugholders.len)
-				for(var/client/X in debugholders)
-					if(X.prefs.sound & SOUND_ADMINHELP)
-						X << 'sound/effects/adminhelp.ogg'
-					X << msg
-			else
-				if(adminholders.len)
-					for(var/client/X in adminholders)
-						if(X.prefs.sound & SOUND_ADMINHELP)
-							X << 'sound/effects/adminhelp.ogg'
-						X << msg
-		else if("Event")
-			if(eventholders.len)
-				for(var/client/X in eventholders)
-					if(X.prefs.sound & SOUND_ADMINHELP)
-						X << 'sound/effects/adminhelp.ogg'
-					X << msg
-			else
-				if(banholders.len)
-					for(var/client/X in banholders)
 						if(X.prefs.sound & SOUND_ADMINHELP)
 							X << 'sound/effects/adminhelp.ogg'
 						X << msg
