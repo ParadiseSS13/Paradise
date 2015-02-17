@@ -29,6 +29,7 @@
 	var/response_disarm = "shoves"
 	var/response_harm   = "hits"
 	var/harm_intent_damage = 3
+	var/force_threshold = 0 //Minimum force required to deal any damage
 
 	//Temperature effect
 	var/minbodytemp = 250
@@ -372,7 +373,6 @@
 
 /mob/living/simple_animal/attackby(var/obj/item/O as obj, var/mob/user as mob)  //Marker -Agouri
 	if(istype(O, /obj/item/stack/medical))
-
 		if(stat != DEAD)
 			var/obj/item/stack/medical/MED = O
 			if(health < maxHealth)
@@ -399,20 +399,22 @@
 		if(istype(O, /obj/item/weapon/kitchenknife) || istype(O, /obj/item/weapon/butch))
 			harvest()
 	else
+		var/damage = 0
 		if(O.force)
-			var/damage = O.force
-			if (O.damtype == STAMINA)
-				damage = 0
-			adjustBruteLoss(damage)
-			for(var/mob/M in viewers(src, null))
-				if ((M.client && !( M.blinded )))
-					M.show_message("\red \b "+"[src] has been attacked with [O] by [user]. ")
+			if(O.force >= force_threshold)
+				damage = O.force
+				if (O.damtype == STAMINA)
+					damage = 0
+				visible_message("<span class='danger'>[user] has [O.attack_verb.len ? "[pick(O.attack_verb)]": "attacked"] [src] with [O]!</span>",\
+								"<span class='userdanger'>[user] has [O.attack_verb.len ? "[pick(O.attack_verb)]": "attacked"] you with [O]!</span>")
+			else
+				visible_message("<span class='danger'>[O] bounces harmlessly off of [src].</span>",\
+								"<span class='userdanger'>[O] bounces harmlessly off of [src].</span>")
+			playsound(loc, O.hitsound, 50, 1, -1)
 		else
-			usr << "\red This weapon is ineffective, it does no damage."
-			for(var/mob/M in viewers(src, null))
-				if ((M.client && !( M.blinded )))
-					M.show_message("\red [user] gently taps [src] with [O]. ")
-
+			user.visible_message("<span class='warning'>[user] gently taps [src] with [O].</span>",\
+								"<span class='warning'>This weapon is ineffective, it does no damage.</span>")
+		adjustBruteLoss(damage)
 
 
 /mob/living/simple_animal/movement_delay()

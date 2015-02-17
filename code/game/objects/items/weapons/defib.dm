@@ -407,8 +407,8 @@
 	name = "defibrillator paddles"
 	desc = "A pair of mounted paddles with flat metal surfaces that are used to deliver powerful electric shocks."
 	icon = 'icons/obj/weapons.dmi'
-	icon_state = "defibpaddles"
-	item_state = "defibpaddles"
+	icon_state = "defibpaddles0"
+	item_state = "defibpaddles0"
 	force = 0
 	w_class = 4
 	canremove = 0

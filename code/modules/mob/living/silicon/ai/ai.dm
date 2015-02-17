@@ -110,7 +110,7 @@ var/list/ai_list = list()
 	if (istype(loc, /turf))
 		verbs.Add(/mob/living/silicon/ai/proc/ai_network_change, \
 		/mob/living/silicon/ai/proc/ai_statuschange, /mob/living/silicon/ai/proc/ai_hologram_change, \
-		/mob/living/silicon/ai/proc/toggle_camera_light, /mob/living/silicon/ai/proc/botcall, /mob/living/silicon/ai/proc/control_integrated_radio, /mob/living/silicon/ai/proc/control_hud, /mob/living/silicon/ai/proc/change_arrival_message, /mob/living/silicon/ai/proc/ai_store_location, /mob/living/silicon/ai/proc/ai_goto_location, /mob/living/silicon/ai/proc/ai_remove_location, /mob/living/silicon/ai/proc/nano_crew_monitor)
+		/mob/living/silicon/ai/proc/toggle_camera_light, /mob/living/silicon/ai/proc/botcall, /mob/living/silicon/ai/proc/control_integrated_radio, /mob/living/silicon/ai/proc/control_hud, /mob/living/silicon/ai/proc/change_arrival_message, /mob/living/silicon/ai/proc/ai_store_location, /mob/living/silicon/ai/proc/ai_goto_location, /mob/living/silicon/ai/proc/ai_remove_location, /mob/living/silicon/ai/proc/nano_crew_monitor, /mob/living/silicon/ai/proc/ai_cancel_call)
 
 	if(!safety)//Only used by AIize() to successfully spawn an AI.
 		if (!B)//If there is no player/brain inside.
@@ -125,7 +125,7 @@ var/list/ai_list = list()
 					verbs.Remove(,/mob/living/silicon/ai/proc/ai_call_shuttle,/mob/living/silicon/ai/proc/ai_camera_track, \
 					/mob/living/silicon/ai/proc/ai_camera_list, /mob/living/silicon/ai/proc/ai_network_change, \
 					/mob/living/silicon/ai/proc/ai_statuschange, /mob/living/silicon/ai/proc/ai_hologram_change, \
-					/mob/living/silicon/ai/proc/toggle_camera_light,/mob/living/silicon/ai/verb/pick_icon,/mob/living/silicon/ai/proc/control_hud, /mob/living/silicon/ai/proc/change_arrival_message)
+					/mob/living/silicon/ai/proc/toggle_camera_light,/mob/living/silicon/ai/verb/pick_icon,/mob/living/silicon/ai/proc/control_hud, /mob/living/silicon/ai/proc/change_arrival_message, /mob/living/silicon/ai/proc/ai_cancel_call)
 					laws = new /datum/ai_laws/alienmov
 				else
 					B.brainmob.mind.transfer_to(src)
@@ -330,8 +330,26 @@ var/list/ai_list = list()
 		var/obj/machinery/computer/communications/C = locate() in machines
 		if(C)
 			C.post_status("shuttle")
-
 	return
+	
+/mob/living/silicon/ai/proc/ai_cancel_call()
+	set name = "Recall Emergency Shuttle"
+	set category = "AI Commands"
+	
+	if(src.stat == 2)
+		src << "You can't send the shuttle back because you are dead!"
+		return
+		
+	if(check_unable(AI_CHECK_WIRELESS))
+		return
+
+	var/confirm = alert("Are you sure you want to recall the shuttle?", "Confirm Shuttle Recall", "Yes", "No")		
+	
+	if(check_unable(AI_CHECK_WIRELESS))
+		return	
+	
+	if(confirm == "Yes")
+		cancel_call_proc(src)
 
 /mob/living/silicon/ai/cancel_camera()
 	src.view_core()
@@ -349,25 +367,6 @@ var/list/ai_list = list()
 
 /mob/living/silicon/ai/update_canmove()
 	return 0
-
-
-/mob/living/silicon/ai/proc/ai_cancel_call()
-	set category = "Malfunction"
-	
-	if(src.stat == 2)
-		src << "You can't send the shuttle back because you are dead!"
-		return
-		
-	if(check_unable(AI_CHECK_WIRELESS))
-		return
-
-	var/confirm = alert("Are you sure you want to recall the shuttle?", "Confirm Shuttle Recall", "Yes", "No")		
-	
-	if(check_unable(AI_CHECK_WIRELESS))
-		return	
-	
-	if(confirm == "Yes")
-		cancel_call_proc(src)
 		
 /mob/living/silicon/ai/proc/announcement()
 	set name = "Announcement"
