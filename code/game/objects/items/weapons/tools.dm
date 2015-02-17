@@ -147,7 +147,7 @@
 
 	//Cost to make in the autolathe
 	m_amt = 70
-	g_amt = 30
+	g_amt = 20
 
 	//R&D tech level
 	origin_tech = "engineering=1"
