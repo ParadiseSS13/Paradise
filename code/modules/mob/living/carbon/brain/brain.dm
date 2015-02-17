@@ -58,4 +58,4 @@
 	return canmove
 	
 /mob/living/carbon/brain/binarycheck()
-	return istype(loc, /obj/item/device/mmi/digital)
+	return istype(loc, /obj/item/device/mmi/posibrain)

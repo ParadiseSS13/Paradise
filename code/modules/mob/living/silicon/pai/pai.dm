@@ -71,6 +71,7 @@
 
 	var/obj/item/radio/integrated/signal/sradio // AI's signaller
 
+	var/translator_on = 0 // keeps track of the translator module
 
 /mob/living/silicon/pai/New(var/obj/item/device/paicard)
 	canmove = 0

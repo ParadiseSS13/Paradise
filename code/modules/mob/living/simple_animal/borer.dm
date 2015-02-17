@@ -100,6 +100,7 @@
 
 /mob/living/simple_animal/borer/New(var/by_gamemode=0)
 	..()
+	add_language("Cortical Link")
 	truename = "[pick("Primary","Secondary","Tertiary","Quaternary")] [rand(1000,9999)]"
 
 	if(!by_gamemode)
@@ -108,7 +109,7 @@
 
 /mob/living/simple_animal/borer/say(var/message)
 
-	message = trim(copytext(sanitize(message), 1, MAX_MESSAGE_LEN))
+	message = trim_strip_html_properly(message)
 	message = capitalize(message)
 
 	if(!message)
@@ -130,20 +131,24 @@
 	if (copytext(message, 1, 2) == "*")
 		return emote(copytext(message, 2))
 
-	if (copytext(message, 1, 2) == ";") //Brain borer hivemind.
-		return borer_speak(message)
+	var/datum/language/L = parse_language(message)
+	if(L && L.flags & HIVEMIND)
+		L.broadcast(src,trim(copytext(message,3)),src.truename)
+		return
 
 	if(!host)
+		//TODO: have this pick a random mob within 3 tiles to speak for the borer.
 		src << "You have no host to speak to."
 		return //No host, no audible speech.
 
 	src << "You drop words into [host]'s mind: \"[message]\""
 	host << "Your own thoughts speak: \"[message]\""
 
-	for(var/mob/M in mob_list)
-		if(M.mind && (istype(M, /mob/dead/observer)))
-			M << "<i>Thought-speech, <b>[truename]</b> -> <b>[host]:</b> [copytext(message, 2)]</i>"
-
+	for (var/mob/M in player_list)
+		if (istype(M, /mob/new_player))
+			continue
+		else if(M.stat == 2 &&  M.client.prefs.toggles & CHAT_GHOSTEARS)
+			M << "[src.truename] whispers to [host], \"[message]\""
 
 /mob/living/simple_animal/borer/Stat()
 	..()
