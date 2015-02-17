@@ -104,7 +104,7 @@ var/list/adminhelp_ignored_words = list("unknown","the","a","an","of","monkey","
 	var/list/adminholders = list()
 	var/list/eventholders = list()
 	for(var/client/X in admins)
-		if(R_MOD & X.holder.rights)
+		if((R_MOD | R_MENTOR) & X.holder.rights)
 			if(X.is_afk())
 				admin_number_afk++
 			modholders += X

@@ -24,7 +24,7 @@
 	set name = "Msay"
 	set hidden = 1
 
-	if(!check_rights(R_ADMIN|R_MOD))	return
+	if(!check_rights(R_ADMIN|R_MOD|R_MENTOR))	return
 
 	msg = copytext(sanitize(msg), 1, MAX_MESSAGE_LEN)
 	log_admin("MOD: [key_name(src)] : [msg]")
@@ -36,8 +36,8 @@
 		color = "adminmod"
 
 	var/channel = "MOD:"
-	if(config.mods_are_mentors)
+	if(check_rights(R_MENTOR,0))
 		channel = "MENTOR:"
 	for(var/client/C in admins)
-		if((R_ADMIN|R_MOD) & C.holder.rights)
+		if((R_ADMIN|R_MOD|R_MENTOR) & C.holder.rights)
 			C << "<span class='[color]'><span class='prefix'>[channel]</span> <EM>[key_name(src,1)]</EM> (<A HREF='?src=\ref[C.holder];adminplayerobservejump=\ref[mob]'>JMP</A>): <span class='message'>[msg]</span></span>"

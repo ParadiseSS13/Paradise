@@ -185,6 +185,12 @@ var/list/admin_verbs_mod = list(
 //	/client/proc/cmd_admin_subtle_message 	/*send an message to somebody as a 'voice in their head'*/
 )
 
+var/list/admin_verbs_mentor = list(
+	/client/proc/cmd_admin_pm_context,	/*right-click adminPM interface*/
+	/client/proc/cmd_admin_pm_panel,	/*admin-pm list*/
+	/client/proc/cmd_admin_pm_by_key_panel,	/*admin-pm list by key*/
+	/client/proc/cmd_mod_say,
+)
 
 /client/proc/add_admin_verbs()
 	if(holder)
@@ -202,6 +208,7 @@ var/list/admin_verbs_mod = list(
 		if(holder.rights & R_SOUNDS)		verbs += admin_verbs_sounds
 		if(holder.rights & R_SPAWN)			verbs += admin_verbs_spawn
 		if(holder.rights & R_MOD)			verbs += admin_verbs_mod
+		if(holder.rights & R_MENTOR)		verbs += admin_verbs_mentor
 
 /client/proc/admin_ghost()
 	set category = "Admin"

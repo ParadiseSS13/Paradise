@@ -698,6 +698,7 @@ var/list/TAGGERLOCATIONS = list("Disposals",
 #define R_SOUNDS		2048
 #define R_SPAWN			4096
 #define R_MOD			8192
+#define R_MENTOR		16384
 
 #define R_MAXPERMISSION 8192 //This holds the maximum value for a permission. It is used in iteration, so keep it updated.
 
@@ -735,7 +736,7 @@ var/list/TAGGERLOCATIONS = list("Disposals",
 #define BE_CULTIST		256
 #define BE_NINJA		512
 #define BE_RAIDER		1024
-#define BE_VAMPIRE		2048 
+#define BE_VAMPIRE		2048
 #define BE_MUTINEER		4096
 #define BE_BLOB			8192
 
@@ -807,7 +808,7 @@ var/list/restricted_camera_networks = list( //Those networks can only be accesse
 	"NukeOps",
 	"Thunderdome",
 	"UO45",
-	"UO45R",	
+	"UO45R",
 	"Xeno"
 	)
 
