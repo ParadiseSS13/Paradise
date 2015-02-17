@@ -58,7 +58,7 @@
 						log_admin("[key_name(usr)] unfroze [key_name(M)]")
 
 
-/client/proc/freezemecha(obj/mecha/O as obj in world)
+/client/proc/freezemecha(obj/mecha/O as obj in mechas_list)
 	set category = "Special Verbs"
 	set name = "Freeze Mech"
 	if(!holder)
