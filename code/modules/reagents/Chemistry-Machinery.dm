@@ -544,7 +544,7 @@
 				if (href_list["createpill_multiple"]) count = isgoodnumber(input("Select the number of pills to make.", 10, pillamount) as num)
 				if (count > 20) count = 20	//Pevent people from creating huge stacks of pills easily. Maybe move the number to defines?
 				var/amount_per_pill = reagents.total_volume/count
-				if (amount_per_pill > 50) amount_per_pill = 50
+				if (amount_per_pill > 60) amount_per_pill = 60
 				var/name = reject_bad_text(input(usr,"Name:","Name your pill!","[reagents.get_master_reagent_name()] ([amount_per_pill] units)"))
 				while (count--)
 					var/obj/item/weapon/reagent_containers/pill/P = new/obj/item/weapon/reagent_containers/pill(src.loc)
@@ -661,7 +661,7 @@
 		else
 			dat += "Empty<BR>"
 		if(!condi)
-			dat += "<HR><BR><A href='?src=\ref[src];createpill=1'>Create pill (50 units max)</A><a href=\"?src=\ref[src]&change_pill=1\"><img src=\"pill[pillsprite].png\" /></a><BR>"
+			dat += "<HR><BR><A href='?src=\ref[src];createpill=1'>Create pill (60 units max)</A><a href=\"?src=\ref[src]&change_pill=1\"><img src=\"pill[pillsprite].png\" /></a><BR>"
 			dat += "<A href='?src=\ref[src];createpill_multiple=1'>Create multiple pills</A><BR>"
 			dat += "<A href='?src=\ref[src];createbottle=1'>Create bottle (30 units max)</A>"
 		else
