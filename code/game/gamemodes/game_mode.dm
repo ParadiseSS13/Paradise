@@ -445,7 +445,7 @@ Implants;
 /datum/game_mode/proc/num_players_started()
 	. = 0
 	for(var/mob/living/carbon/human/H in player_list)
-		if(P.client)
+		if(H.client)
 			. ++
 
 ///////////////////////////////////
