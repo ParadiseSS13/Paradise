@@ -45,6 +45,12 @@ Buildable meters
 #define PIPE_SUPPLY_CAP				37
 #define PIPE_SCRUBBERS_CAP			38
 
+///// /vg/ ported stuff
+#define PIPE_INJECTOR    		39
+#define PIPE_DVALVE             40
+#define PIPE_DP_VENT    		41
+#define PIPE_PASV_VENT			42
+
 /obj/item/pipe
 	name = "pipe"
 	desc = "A pipe"
@@ -104,6 +110,8 @@ Buildable meters
 			src.pipe_type = PIPE_MANIFOLD
 		else if(istype(make_from, /obj/machinery/atmospherics/unary/vent_pump))
 			src.pipe_type = PIPE_UVENT
+		else if(istype(make_from, /obj/machinery/atmospherics/valve/digital))
+			src.pipe_type = PIPE_DVALVE
 		else if(istype(make_from, /obj/machinery/atmospherics/valve))
 			src.pipe_type = PIPE_MVALVE
 		else if(istype(make_from, /obj/machinery/atmospherics/binary/pump))
@@ -148,6 +156,15 @@ Buildable meters
 			src.color = PIPE_COLOR_RED
 		else if(istype(make_from, /obj/machinery/atmospherics/pipe/cap))
 			src.pipe_type = PIPE_CAP
+
+		else if(istype(make_from, /obj/machinery/atmospherics/unary/outlet_injector))
+			src.pipe_type = PIPE_INJECTOR
+		else if(istype(make_from, /obj/machinery/atmospherics/binary/dp_vent_pump))
+			src.pipe_type = PIPE_DP_VENT
+		else if(istype(make_from, /obj/machinery/atmospherics/pipe/vent))
+			src.pipe_type = PIPE_PASV_VENT
+
+
 		else if(istype(make_from, /obj/machinery/atmospherics/omni/mixer))
 			src.pipe_type = PIPE_OMNI_MIXER
 		else if(istype(make_from, /obj/machinery/atmospherics/omni/filter))
@@ -158,6 +175,7 @@ Buildable meters
 		else if(istype(make_from, /obj/machinery/atmospherics/pipe/zpipe/down))
 			src.pipe_type = PIPE_DOWN*/
 ///// Z-Level stuff
+
 	else
 		src.pipe_type = pipe_type
 		src.dir = dir
@@ -220,6 +238,11 @@ Buildable meters
 		"scrubbers 4-way manifold", \
 		"supply pipe cap", \
 		"scrubbers pipe cap", \
+		// /vg/ ported stuff
+		"air injector", \
+		"Digital Valve", \
+		"dual-port vent", \
+		"passive vent", \
 	)
 	name = nlist[pipe_type+1] + " fitting"
 	var/list/islist = list( \
@@ -265,11 +288,12 @@ Buildable meters
 		"manifold4w", \
 		"cap", \
 		"cap", \
-		"cap", \
-		"cap", \
-		"cap", \
-		"cap", \
-	)
+		// /vg/ ported stuff
+		"injector", \
+		"dvalve", \
+		"dual-port vent", \
+		"passive vent", \
+		)
 	icon_state = islist[pipe_type + 1]
 
 //called when a turf is attacked with a pipe item
@@ -287,7 +311,7 @@ Buildable meters
 
 	src.dir = turn(src.dir, -90)
 
-	if (pipe_type in list (PIPE_SIMPLE_STRAIGHT, PIPE_SUPPLY_STRAIGHT, PIPE_SCRUBBERS_STRAIGHT, PIPE_UNIVERSAL, PIPE_HE_STRAIGHT, PIPE_INSULATED_STRAIGHT, PIPE_MVALVE))
+	if (pipe_type in list (PIPE_SIMPLE_STRAIGHT, PIPE_SUPPLY_STRAIGHT, PIPE_SCRUBBERS_STRAIGHT, PIPE_UNIVERSAL, PIPE_HE_STRAIGHT, PIPE_INSULATED_STRAIGHT, PIPE_MVALVE, PIPE_DVALVE))
 		if(dir==2)
 			dir = 1
 		else if(dir==8)
@@ -302,7 +326,7 @@ Buildable meters
 	if ((pipe_type in list (PIPE_SIMPLE_BENT, PIPE_SUPPLY_BENT, PIPE_SCRUBBERS_BENT, PIPE_HE_BENT, PIPE_INSULATED_BENT)) \
 		&& (src.dir in cardinal))
 		src.dir = src.dir|turn(src.dir, 90)
-	else if (pipe_type in list (PIPE_SIMPLE_STRAIGHT, PIPE_SUPPLY_STRAIGHT, PIPE_SCRUBBERS_STRAIGHT, PIPE_UNIVERSAL, PIPE_HE_STRAIGHT, PIPE_INSULATED_STRAIGHT, PIPE_MVALVE))
+	else if (pipe_type in list (PIPE_SIMPLE_STRAIGHT, PIPE_SUPPLY_STRAIGHT, PIPE_SCRUBBERS_STRAIGHT, PIPE_UNIVERSAL, PIPE_HE_STRAIGHT, PIPE_INSULATED_STRAIGHT, PIPE_MVALVE, PIPE_DVALVE))
 		if(dir==2)
 			dir = 1
 		else if(dir==8)
@@ -326,6 +350,9 @@ Buildable meters
 			PIPE_PUMP ,\
 			PIPE_VOLUME_PUMP ,\
 			PIPE_PASSIVE_GATE ,\
+			PIPE_MVALVE, \
+			PIPE_DVALVE, \
+			PIPE_DP_VENT, \
 			PIPE_MVALVE ,\
 			PIPE_SUPPLY_STRAIGHT, \
 			PIPE_SCRUBBERS_STRAIGHT, \
@@ -334,7 +361,7 @@ Buildable meters
 			return dir|flip
 		if(PIPE_SIMPLE_BENT, PIPE_INSULATED_BENT, PIPE_HE_BENT, PIPE_SUPPLY_BENT, PIPE_SCRUBBERS_BENT)
 			return dir //dir|acw
-		if(PIPE_CONNECTOR,PIPE_UVENT,PIPE_SCRUBBER,PIPE_HEAT_EXCHANGE)
+		if(PIPE_CONNECTOR,PIPE_UVENT,PIPE_PASV_VENT,PIPE_SCRUBBER,PIPE_HEAT_EXCHANGE, PIPE_INJECTOR)
 			return dir
 		if(PIPE_MANIFOLD4W, PIPE_SUPPLY_MANIFOLD4W, PIPE_SCRUBBERS_MANIFOLD4W, PIPE_OMNI_MIXER, PIPE_OMNI_FILTER)
 			return dir|flip|cw|acw
@@ -396,7 +423,7 @@ Buildable meters
 		return ..()
 	if (!isturf(src.loc))
 		return 1
-	if (pipe_type in list (PIPE_SIMPLE_STRAIGHT, PIPE_SUPPLY_STRAIGHT, PIPE_SCRUBBERS_STRAIGHT, PIPE_HE_STRAIGHT, PIPE_INSULATED_STRAIGHT, PIPE_MVALVE))
+	if (pipe_type in list (PIPE_SIMPLE_STRAIGHT, PIPE_SUPPLY_STRAIGHT, PIPE_SCRUBBERS_STRAIGHT, PIPE_HE_STRAIGHT, PIPE_INSULATED_STRAIGHT, PIPE_MVALVE, PIPE_DVALVE))
 		if(dir==2)
 			dir = 1
 		else if(dir==8)
@@ -432,7 +459,7 @@ Buildable meters
 			if (P.node2)
 				P.node2.initialize()
 				P.node2.build_network()
-	
+
 		if(PIPE_SUPPLY_STRAIGHT, PIPE_SUPPLY_BENT)
 			var/obj/machinery/atmospherics/pipe/simple/hidden/supply/P = new( src.loc )
 			P.color = color
@@ -546,7 +573,7 @@ Buildable meters
 			if (M.node3)
 				M.node3.initialize()
 				M.node3.build_network()
-				
+
 		if(PIPE_SUPPLY_MANIFOLD)		//manifold
 			var/obj/machinery/atmospherics/pipe/manifold/hidden/supply/M = new( src.loc )
 			M.color = color
@@ -618,7 +645,7 @@ Buildable meters
 			if (M.node4)
 				M.node4.initialize()
 				M.node4.build_network()
-				
+
 		if(PIPE_SUPPLY_MANIFOLD4W)		//4-way manifold
 			var/obj/machinery/atmospherics/pipe/manifold4w/hidden/supply/M = new( src.loc )
 			M.color = color
@@ -904,7 +931,7 @@ Buildable meters
 			if(C.node)
 				C.node.initialize()
 				C.node.build_network()
-				
+
 		if(PIPE_SUPPLY_CAP)
 			var/obj/machinery/atmospherics/pipe/cap/hidden/supply/C = new(src.loc)
 			C.dir = dir
@@ -972,6 +999,66 @@ Buildable meters
 			if (C.node)
 				C.node.initialize()
 				C.node.build_network()
+		if(PIPE_INJECTOR)		// air injector
+			var/obj/machinery/atmospherics/unary/outlet_injector/P = new( src.loc )
+			P.dir = dir
+			P.initialize_directions = get_pipe_dir()
+			if (pipename)
+				name = pipename
+			var/turf/T = loc
+			P.level = T.intact ? 2 : 1
+			P.initialize()
+			P.build_network()
+			if (P.node)
+				P.node.initialize()
+				P.node.build_network()
+		if(PIPE_DVALVE)
+			var/obj/machinery/atmospherics/valve/digital/V = new( src.loc )
+			V.dir = dir
+			V.initialize_directions = pipe_dir
+			if (pipename)
+				V.name = pipename
+			var/turf/T = V.loc
+			V.level = T.intact ? 2 : 1
+			V.initialize()
+			V.build_network()
+			if (V.node1)
+//					world << "[V.node1.name] is connected to valve, forcing it to update its nodes."
+				V.node1.initialize()
+				V.node1.build_network()
+			if (V.node2)
+//					world << "[V.node2.name] is connected to valve, forcing it to update its nodes."
+				V.node2.initialize()
+				V.node2.build_network()
+		if(PIPE_DP_VENT)
+			var/obj/machinery/atmospherics/binary/dp_vent_pump/P = new(src.loc)
+			P.dir = dir
+			P.initialize_directions = pipe_dir
+			if (pipename)
+				P.name = pipename
+			var/turf/T = P.loc
+			P.level = T.intact ? 2 : 1
+			P.initialize()
+			P.build_network()
+			if (P.node1)
+				P.node1.initialize()
+				P.node1.build_network()
+			if (P.node2)
+				P.node2.initialize()
+				P.node2.build_network()
+		if(PIPE_PASV_VENT)
+			var/obj/machinery/atmospherics/pipe/vent/P = new(src.loc)
+			P.dir = dir
+			P.initialize_directions = get_pipe_dir()
+			if (pipename)
+				name = pipename
+			var/turf/T = loc
+			level = T.intact ? 2 : 1
+			initialize()
+			P.build_network()
+			if (P.node1)
+				P.node1.initialize()
+				P.node1.build_network()
 ///// Z-Level stuff
 /*		if(PIPE_UP)
 			var/obj/machinery/atmospherics/pipe/zpipe/up/P = new(src.loc)
@@ -998,10 +1085,6 @@ Buildable meters
 			var/turf/T = P.loc
 			P.level = T.intact ? 2 : 1
 			P.initialize()
-			P.build_network()
-			if (P.node1)
-				P.node1.initialize()
-				P.node1.build_network()
 			if (P.node2)
 				P.node2.initialize()
 				P.node2.build_network()*/
@@ -1054,6 +1137,24 @@ Buildable meters
 	playsound(src.loc, 'sound/items/Ratchet.ogg', 50, 1)
 	user << "\blue You have fastened the meter to the pipe"
 	del(src)
+
+/obj/item/pipe_gsensor
+	name = "gas sensor"
+	desc = "A sensor that can be hooked to a computer"
+	icon = 'icons/obj/stationobjs.dmi'
+	icon_state = "gsensor0"
+	item_state = "buildpipe"
+	flags = TABLEPASS|FPRINT
+	w_class = 4
+
+/obj/item/pipe_gsensor/attackby(var/obj/item/weapon/W as obj, var/mob/user as mob)
+	..()
+	if (!istype(W, /obj/item/weapon/wrench))
+		return ..()
+	new/obj/machinery/air_sensor( src.loc )
+	playsound(get_turf(src), 'sound/items/Ratchet.ogg', 50, 1)
+	user << "\blue You have fastened the gas sensor"
+	del(src)
 //not sure why these are necessary
 #undef PIPE_SIMPLE_STRAIGHT
 #undef PIPE_SIMPLE_BENT
@@ -1084,4 +1185,8 @@ Buildable meters
 #undef PIPE_SUPPLY_MANIFOLD
 #undef PIPE_SCRUBBERS_MANIFOLD
 #undef PIPE_UNIVERSAL
+#undef PIPE_INJECTOR
+#undef PIPE_DVALVE
+#undef PIPE_DP_VENT
+#undef PIPE_PASV_VENT
 //#undef PIPE_MANIFOLD4W

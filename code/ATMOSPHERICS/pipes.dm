@@ -70,7 +70,7 @@
 
 	if(istype(W,/obj/item/device/pipe_painter))
 		return 0
-		
+
 	if (istype(W, /obj/item/device/pipe_freezer))
 		if(!src.frozen) // If the pipe is not already frozen
 			user << "\red You begin to freeze the [src]"
@@ -88,7 +88,7 @@
 					"You hear dripping water.")
 
 		add_fingerprint(user)
-		return 1		
+		return 1
 
 	if (!istype(W, /obj/item/weapon/wrench))
 		return ..()
@@ -96,7 +96,7 @@
 	if (level==1 && isturf(T) && T.intact)
 		user << "\red You must remove the plating first."
 		return 1
-		
+
 	var/datum/gas_mixture/int_air = return_air()
 	var/datum/gas_mixture/env_air = loc.return_air()
 	if ((int_air.return_pressure()-env_air.return_pressure()) > 2*ONE_ATMOSPHERE)
@@ -129,7 +129,7 @@
 
 /*
 /obj/machinery/atmospherics/pipe/add_underlay(var/obj/machinery/atmospherics/node, var/direction)
-	if(istype(src, /obj/machinery/atmospherics/pipe/tank))	//todo: move tanks to unary devices 
+	if(istype(src, /obj/machinery/atmospherics/pipe/tank))	//todo: move tanks to unary devices
 		return ..()
 
 	if(node)
@@ -182,7 +182,7 @@
 
 /obj/machinery/atmospherics/pipe/simple/New()
 	..()
-	
+
 	// Pipe colors and icon states are handled by an image cache - so color and icon should
 	//  be null. For mapping purposes color is defined in the object definitions.
 	icon = null
@@ -359,7 +359,7 @@
 	layer = 2.39
 	icon_connect_type = "-supply"
 	color = PIPE_COLOR_BLUE
-	
+
 /obj/machinery/atmospherics/pipe/simple/visible/yellow
 	color = PIPE_COLOR_YELLOW
 
@@ -394,7 +394,7 @@
 	layer = 2.39
 	icon_connect_type = "-supply"
 	color = PIPE_COLOR_BLUE
-	
+
 /obj/machinery/atmospherics/pipe/simple/visible/universal
 	name="Universal pipe adapter"
 	desc = "An adapter for regular, supply and scrubbers pipes"
@@ -626,13 +626,13 @@
 		overlays += icon_manager.get_atmos_icon("manifold", , pipe_color, "core" + icon_connect_type)
 		overlays += icon_manager.get_atmos_icon("manifold", , , "clamps" + icon_connect_type)
 		underlays.Cut()
-		
+
 		var/turf/T = get_turf(src)
 		var/list/directions = list(NORTH, SOUTH, EAST, WEST)
 		var/node1_direction = get_dir(src, node1)
 		var/node2_direction = get_dir(src, node2)
 		var/node3_direction = get_dir(src, node3)
-		
+
 		directions -= dir
 
 		directions -= add_underlay(T,node1,node1_direction,icon_connect_type)
@@ -692,7 +692,7 @@
 						break
 			if (node3)
 				break
-				
+
 	if(!node1 && !node2 && !node3)
 		del(src)
 		return
@@ -872,7 +872,7 @@
 		overlays += icon_manager.get_atmos_icon("manifold", , pipe_color, "4way" + icon_connect_type)
 		overlays += icon_manager.get_atmos_icon("manifold", , , "clamps_4way" + icon_connect_type)
 		underlays.Cut()
-		
+
 		/*
 		var/list/directions = list(NORTH, SOUTH, EAST, WEST)
 
@@ -884,7 +884,7 @@
 		for(var/D in directions)
 			add_underlay(,D)
 		*/
-		
+
 		var/turf/T = get_turf(src)
 		var/list/directions = list(NORTH, SOUTH, EAST, WEST)
 		var/node1_direction = get_dir(src, node1)
@@ -948,7 +948,7 @@
 				src.connected_to = c
 				node4 = target
 				break
-				
+
 	if(!node1 && !node2 && !node3&& !node4)
 		del(src)
 		return
@@ -1263,7 +1263,7 @@
 	air_temporary.oxygen = (25*ONE_ATMOSPHERE*O2STANDARD)*(air_temporary.volume)/(R_IDEAL_GAS_EQUATION*air_temporary.temperature)
 	air_temporary.nitrogen = (25*ONE_ATMOSPHERE*N2STANDARD)*(air_temporary.volume)/(R_IDEAL_GAS_EQUATION*air_temporary.temperature)
 
-	..()	
+	..()
 	icon_state = "air"
 
 /obj/machinery/atmospherics/pipe/tank/oxygen
@@ -1424,3 +1424,23 @@
 		dir = get_dir(src, node1)
 	else
 		icon_state = "exposed"
+
+/obj/machinery/atmospherics/pipe/vent/attackby(var/obj/item/weapon/W, var/mob/user)
+	if (!istype(W, /obj/item/weapon/wrench))
+		return ..()
+	var/turf/T = get_turf(src)
+	var/datum/gas_mixture/int_air = return_air()
+	var/datum/gas_mixture/env_air = T.return_air()
+	if ((int_air.return_pressure()-env_air.return_pressure()) > 2*ONE_ATMOSPHERE)
+		user << "\red You cannot unwrench this [src], it too exerted due to internal pressure."
+		add_fingerprint(user)
+		return 1
+	playsound(T, 'sound/items/Ratchet.ogg', 50, 1)
+	user << "\blue You begin to unfasten \the [src]..."
+	if (do_after(user, 40))
+		user.visible_message( \
+			"[user] unfastens \the [src].", \
+			"\blue You have unfastened \the [src].", \
+			"You hear ratchet.")
+		new /obj/item/pipe(T, make_from=src)
+		del(src)

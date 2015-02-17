@@ -60,4 +60,3 @@ other types of metals and chemistry for reagents).
 	new_reliability = Clamp(new_reliability, reliability, 100)
 	reliability = new_reliability
 	return
-	
