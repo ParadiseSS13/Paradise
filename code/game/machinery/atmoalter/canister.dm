@@ -73,7 +73,6 @@
 	name = "Canister: \[N2\]"
 	icon_state = "red"
 	_color = list("red", null, null, null)
-	decals = list("plasma")
 	can_label = 0
 /obj/machinery/portable_atmospherics/canister/oxygen
 	name = "Canister: \[O2\]"
@@ -84,6 +83,7 @@
 	name = "Canister \[Toxin (Plasma)\]"
 	icon_state = "orange"
 	_color = list("orange", null, null, null)
+	decals = list("plasma")
 	can_label = 0
 /obj/machinery/portable_atmospherics/canister/carbon_dioxide
 	name = "Canister \[CO2\]"
