@@ -8,7 +8,7 @@ var/global/list/special_roles = list( //keep synced with the defines BE_* in set
 	"operative" = IS_MODE_COMPILED("nuclear"),           // 2 / 2
 	"changeling" = IS_MODE_COMPILED("changeling"),       // 4 / 3
 	"wizard" = IS_MODE_COMPILED("wizard"),               // 8 / 4
-	"malf AI" = IS_MODE_COMPILED("malfunction")	         // 16 / 5
+	"malf AI" = IS_MODE_COMPILED("malfunction"),         // 16 / 5
 	"revolutionary" = IS_MODE_COMPILED("revolution"),    // 32 / 6 
 	"alien" = 1,           							     // 62 / 7
 	"pAI" = 1,                   						 // 128	/ 8
@@ -17,7 +17,7 @@ var/global/list/special_roles = list( //keep synced with the defines BE_* in set
 	"raider" = IS_MODE_COMPILED("heist"),				 // 1024 / 11
 	"vampire" = IS_MODE_COMPILED("vampire"),			 // 2048 / 12
 	"mutineer" = IS_MODE_COMPILED("mutiny"),             // 4096 / 13
-	"blob" = IS_MODE_COMPILED("blob"),          	     // 8192 / 14
+	"blob" = IS_MODE_COMPILED("blob")          	     // 8192 / 14
 )
 var/global/list/special_role_times = list( //minimum age (in days) for accounts to play these roles
 	num2text(BE_PAI) = 0,   
