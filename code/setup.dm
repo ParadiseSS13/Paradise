@@ -156,6 +156,10 @@ var/turf/space/Space_Tile = locate(/turf/space) // A space tile to reference whe
 
 //This was a define, but I changed it to a variable so it can be changed in-game.(kept the all-caps definition because... code...) -Errorage
 var/MAX_EXPLOSION_RANGE = 14
+var/MAX_EX_DEVESTATION_RANGE = 3
+var/MAX_EX_HEAVY_RANGE = 7
+var/MAX_EX_LIGHT_RANGE = 14
+var/MAX_EX_FLASH_RANGE = 14
 //#define MAX_EXPLOSION_RANGE		14					// Defaults to 12 (was 8) -- TLE
 
 #define HUMAN_STRIP_DELAY 40 //takes 40ds = 4s to strip someone.
@@ -735,7 +739,7 @@ var/list/TAGGERLOCATIONS = list("Disposals",
 #define BE_CULTIST		256
 #define BE_NINJA		512
 #define BE_RAIDER		1024
-#define BE_VAMPIRE		2048 
+#define BE_VAMPIRE		2048
 #define BE_MUTINEER		4096
 #define BE_BLOB			8192
 
@@ -807,7 +811,7 @@ var/list/restricted_camera_networks = list( //Those networks can only be accesse
 	"NukeOps",
 	"Thunderdome",
 	"UO45",
-	"UO45R",	
+	"UO45R",
 	"Xeno"
 	)
 
