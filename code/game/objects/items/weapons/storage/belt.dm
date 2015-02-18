@@ -94,7 +94,8 @@
 		"/obj/item/device/flashlight/pen",
 		"/obj/item/clothing/mask/surgical",
 		"/obj/item/clothing/gloves/color/latex",
-        "/obj/item/weapon/reagent_containers/hypospray/autoinjector"
+        "/obj/item/weapon/reagent_containers/hypospray/autoinjector",
+		"/obj/item/device/sensor_device"
 	)
 
 
@@ -109,7 +110,7 @@
 		"/obj/item/weapon/grenade/flashbang",
 		"/obj/item/weapon/grenade/chem_grenade/teargas",
 		"/obj/item/weapon/reagent_containers/spray/pepper",
-		"/obj/item/weapon/handcuffs",
+		"/obj/item/weapon/restraints/handcuffs",
 		"/obj/item/device/flash",
 		"/obj/item/clothing/glasses",
 		"/obj/item/ammo_casing/shotgun",
@@ -412,7 +413,7 @@
 		new /obj/item/device/multitool(src)
 		new /obj/item/stack/cable_coil(src)
 
-		new /obj/item/weapon/handcuffs(src)
+		new /obj/item/weapon/restraints/handcuffs(src)
 		new /obj/item/weapon/dnainjector/xraymut(src)
 		new /obj/item/weapon/dnainjector/firemut(src)
 		new /obj/item/weapon/dnainjector/telemut(src)

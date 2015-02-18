@@ -323,10 +323,7 @@ Implants;
 			comm.messagetext.Add(intercepttext)
 /*	world << sound('sound/AI/commandreport.ogg') */
 
-	command_alert("Summary downloaded and printed out at all communications consoles.", "Enemy communication intercepted. Security Level Elevated.")
-	for(var/mob/M in player_list)
-		if(!istype(M,/mob/new_player))
-			M << sound('sound/AI/intercept.ogg')
+	command_announcement.Announce("Summary downloaded and printed out at all communications consoles.", "Enemy communication intercepted. Security Level Elevated.", new_sound = 'sound/AI/intercept.ogg')
 	if(security_level < SEC_LEVEL_BLUE)
 		set_security_level(SEC_LEVEL_BLUE)
 
@@ -337,20 +334,7 @@ Implants;
 	//var/list/drafted = list()
 	//var/datum/mind/applicant = null
 
-	var/roletext
-	switch(role)
-		if(BE_CHANGELING)	roletext="changeling"
-		if(BE_TRAITOR)		roletext="traitor"
-		if(BE_OPERATIVE)	roletext="operative"
-		if(BE_WIZARD)		roletext="wizard"
-		if(BE_REV)			roletext="revolutionary"
-		if(BE_CULTIST)		roletext="cultist"
-		if(BE_NINJA)		roletext="ninja"
-		if(BE_RAIDER)		roletext="raider"
-		if(BE_VAMPIRE)		roletext="vampire"
-		if(BE_ALIEN)		roletext="alien"
-		if(BE_MUTINEER)		roletext="mutineer"
-		if(BE_BLOB)			roletext="blob"
+	var/roletext = get_roletext(role)
 
 	// Assemble a list of active players without jobbans.
 	for(var/mob/new_player/player in player_list)
@@ -458,6 +442,11 @@ Implants;
 		if(P.client && P.ready)
 			. ++
 
+/datum/game_mode/proc/num_players_started()
+	. = 0
+	for(var/mob/living/carbon/human/H in player_list)
+		if(H.client)
+			. ++
 
 ///////////////////////////////////
 //Keeps track of all living heads//
@@ -469,6 +458,13 @@ Implants;
 			heads += player.mind
 	return heads
 
+/datum/game_mode/proc/get_extra_living_heads()
+	var/list/heads = list()
+	var/list/alt_positions = list("Warden", "Magistrate", "Blueshield", "Nanotrasen Representative")
+	for(var/mob/living/carbon/human/player in mob_list)
+		if(player.stat!=2 && player.mind && (player.mind.assigned_role in alt_positions))
+			heads += player.mind
+	return heads
 
 ////////////////////////////
 //Keeps track of all heads//
@@ -477,6 +473,14 @@ Implants;
 	var/list/heads = list()
 	for(var/mob/player in mob_list)
 		if(player.mind && (player.mind.assigned_role in command_positions))
+			heads += player.mind
+	return heads
+
+/datum/game_mode/proc/get_extra_heads()
+	var/list/heads = list()
+	var/list/alt_positions = list("Warden", "Magistrate", "Blueshield", "Nanotrasen Representative")
+	for(var/mob/player in mob_list)
+		if(player.mind && (player.mind.assigned_role in alt_positions))
 			heads += player.mind
 	return heads
 
@@ -577,3 +581,20 @@ proc/get_nt_opposed()
 	for(var/datum/objective/objective in player.objectives)
 		player.current << "<B>Objective #[obj_count]</B>: [objective.explanation_text]"
 		obj_count++
+
+/proc/get_roletext(var/role)
+	var/roletext
+	switch(role)
+		if(BE_CHANGELING)	roletext="changeling"
+		if(BE_TRAITOR)		roletext="traitor"
+		if(BE_OPERATIVE)	roletext="operative"
+		if(BE_WIZARD)		roletext="wizard"
+		if(BE_REV)			roletext="revolutionary"
+		if(BE_CULTIST)		roletext="cultist"
+		if(BE_NINJA)		roletext="ninja"
+		if(BE_RAIDER)		roletext="raider"
+		if(BE_VAMPIRE)		roletext="vampire"
+		if(BE_ALIEN)		roletext="alien"
+		if(BE_MUTINEER)		roletext="mutineer"
+		if(BE_BLOB)			roletext="blob"
+	return roletext

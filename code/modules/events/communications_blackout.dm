@@ -12,7 +12,7 @@
 		A << "<br>"
 
 	if(prob(30))	//most of the time, we don't want an announcement, so as to allow AIs to fake blackouts.
-		command_alert(alert)
+		command_announcement.Announce(alert)
 
 /datum/event/communications_blackout/start()
 	for(var/obj/machinery/telecomms/T in telecomms_list)

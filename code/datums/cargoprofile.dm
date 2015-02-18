@@ -238,7 +238,7 @@
 					/obj/item/clothing/mask/facehugger) // NOT CLOTHING AT ALLLLL
 	whitelist = list(/obj/item/clothing,/obj/item/weapon/storage/belt,/obj/item/weapon/storage/backpack,
 					/obj/item/device/radio/headset,/obj/item/device/pda,/obj/item/weapon/card/id,/obj/item/weapon/tank,
-					/obj/item/weapon/handcuffs, /obj/item/weapon/legcuffs)
+					/obj/item/weapon/restraints/handcuffs, /obj/item/weapon/restraints/legcuffs)
 
 /datum/cargoprofile/trash
 	name = "Trash"

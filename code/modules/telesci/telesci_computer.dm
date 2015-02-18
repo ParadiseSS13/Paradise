@@ -55,12 +55,6 @@
 	return
 
 /obj/machinery/computer/telescience/attackby(obj/item/W, mob/user)
-	if(istype(W,/obj/item/weapon/card/emag))
-		if (emagged == 0)
-			user << "\blue You scramble the Telescience authentication key to an unknown signal. You should be able to teleport to more places now!"
-			emagged = 1
-		else
-			user << "\red The machine seems unaffected by the card swipe..."
 	if(istype(W, /obj/item/bluespace_crystal))
 		if(crystals.len >= max_crystals)
 			user << "<span class='warning'>There are not enough crystal slots.</span>"
@@ -86,6 +80,13 @@
 			updateUsrDialog()
 	else
 		..()
+		
+/obj/machinery/computer/telescience/emag_act(user as mob)
+	if (!emagged)
+		user << "\blue You scramble the Telescience authentication key to an unknown signal. You should be able to teleport to more places now!"
+		emagged = 1
+	else
+		user << "\red The machine seems unaffected by the card swipe..."
 
 /obj/machinery/computer/telescience/attack_ai(mob/user)
 	src.attack_hand(user)

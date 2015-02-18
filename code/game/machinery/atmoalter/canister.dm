@@ -528,6 +528,8 @@ update_flag
 	..()
 
 	_color["prim"] = "orange"
+	decals = list("plasma")
+	possibledecals[3]["active"] = 1
 	src.air_contents.toxins = (src.maximum_pressure*filled)*air_contents.volume/(R_IDEAL_GAS_EQUATION*air_contents.temperature)
 	air_contents.update_values()
 
@@ -575,8 +577,6 @@ update_flag
 	..()
 
 	_color["prim"] = "red"
-	decals = list("plasma")
-	possibledecals[3]["active"] = 1
 	src.air_contents.nitrogen = (src.maximum_pressure*filled)*air_contents.volume/(R_IDEAL_GAS_EQUATION*air_contents.temperature)
 	air_contents.update_values()
 

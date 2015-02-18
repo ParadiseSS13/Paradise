@@ -130,7 +130,9 @@
 
 	//handcuffed?
 	if(handcuffed)
-		if(istype(handcuffed, /obj/item/weapon/handcuffs/cable))
+		if(istype(handcuffed, /obj/item/weapon/restraints/handcuffs/cable/zipties))
+			msg += "<span class='warning'>[t_He] [t_is] \icon[handcuffed] restrained with zipties!</span>\n"
+		else if(istype(handcuffed, /obj/item/weapon/restraints/handcuffs/cable))
 			msg += "<span class='warning'>[t_He] [t_is] \icon[handcuffed] restrained with cable!</span>\n"
 		else
 			msg += "<span class='warning'>[t_He] [t_is] \icon[handcuffed] handcuffed!</span>\n"

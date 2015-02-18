@@ -130,8 +130,8 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	files.known_tech=files.possible_tech
 	for(var/datum/tech/KT in files.known_tech)
 		if(KT.level < KT.max_level)
-			KT.level=KT.max_level		
-		
+			KT.level=KT.max_level
+
 /obj/machinery/computer/rdconsole/New()
 	..()
 	files = new /datum/research(src) //Setup the research data holder.
@@ -165,15 +165,16 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 		user.drop_item()
 		D.loc = src
 		user << "<span class='notice'> You add the disk to the machine!</span>"
-	else if(istype(D,/obj/item/weapon/card/emag))
-		if(!emagged)
-			playsound(src.loc, 'sound/effects/sparks4.ogg', 75, 1)
-			emagged = 1
-			user << "<span class='notice'>You you disable the security protocols</span>"
 	else
 		..()
 	src.updateUsrDialog()
 	return
+
+/obj/machinery/computer/rdconsole/emag_act(user as mob)
+	if(!emagged)
+		playsound(src.loc, 'sound/effects/sparks4.ogg', 75, 1)
+		emagged = 1
+		user << "<span class='notice'>You disable the security protocols</span>"
 
 /obj/machinery/computer/rdconsole/Topic(href, href_list)
 	if(..())
@@ -207,7 +208,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 			t_disk = null
 		screen = 1.0
 
-	else if(href_list["copy_tech"]) //Copys some technology data from the research holder to the disk.
+	else if(href_list["copy_tech"]) //Copy some technology data from the research holder to the disk.
 		for(var/datum/tech/T in files.known_tech)
 			if(href_list["copy_tech_ID"] == T.id)
 				t_disk.stored = T
@@ -249,11 +250,12 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 				linked_destroy.loaded_item = null
 				linked_destroy.icon_state = "d_analyzer"
 				screen = 2.1
-				
+
 	else if(href_list["maxresearch"]) //Eject the item inside the destructive analyzer.
 		if(!usr.client.holder) return
+		if(usr.client.holder & R_MENTOR) return
 		screen = 0.0
-		if(alert("Are you sure you want to maximize research levels?","Confirmation","Yes","No")=="No") 
+		if(alert("Are you sure you want to maximize research levels?","Confirmation","Yes","No")=="No")
 			return
 		log_admin("[key_name(usr)] has maximized the research levels.")
 		message_admins("[key_name_admin(usr)] has maximized the research levels.")
@@ -261,7 +263,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 			Maximize()
 			screen = 1.0
 			updateUsrDialog()
-			griefProtection() //Update centcomm too			
+			griefProtection() //Update centcomm too
 
 	else if(href_list["deconstruct"]) //Deconstruct the item in the destructive analyzer and update the research holder.
 		if(linked_destroy)
@@ -371,6 +373,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 			if(being_built)
 				var/power = 2000
 				var/amount=text2num(href_list["amount"])
+				var/old_screen = screen
 				amount = max(1, min(10, amount))
 				for(var/M in being_built.materials)
 					power += round(being_built.materials[M] * amount / 5)
@@ -436,7 +439,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 								else
 									new_item.loc = linked_lathe.loc
 						linked_lathe.busy = 0
-						screen = 3.15
+						screen = old_screen
 						updateUsrDialog()
 
 	else if(href_list["imprint"]) //Causes the Circuit Imprinter to build something.
@@ -450,6 +453,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 					break
 			if(being_built)
 				var/power = 2000
+				var/old_screen = screen
 				for(var/M in being_built.materials)
 					power += round(being_built.materials[M] / 5)
 				power = max(2000, power)
@@ -488,7 +492,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 							new_item.reliability = R
 							new_item.loc = linked_imprinter.loc
 						linked_imprinter.busy = 0
-						screen = 4.1
+						screen = old_screen
 						updateUsrDialog()
 
 	else if(href_list["disposeI"] && linked_imprinter)  //Causes the circuit imprinter to dispose of a single reagent (all of it)
@@ -590,7 +594,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 			spawn(20)
 				screen = 1.6
 				updateUsrDialog()
-				
+
 	else if(href_list["search"]) //Search for designs with name matching pattern
 		var/compare
 
@@ -608,7 +612,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 				continue
 			if(findtext(D.name,href_list["to_search"]))
 				matching_designs.Add(D)
-				
+
 	updateUsrDialog()
 	return
 
@@ -870,7 +874,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 					dat += " | <span class='bad'>LOCKED</span>"
 				dat += "<BR>"
 			dat += "</div>"
-			
+
 		if(3.17) //Display search result
 			dat += "<A href='?src=\ref[src];menu=1.0'>Main Menu</A>"
 			dat += "<A href='?src=\ref[src];menu=3.1'>Protolathe Menu</A>"
@@ -978,7 +982,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 			dat += "<h3>Circuit Imprinter Menu:</h3><BR>"
 			dat += "Material Amount: [linked_imprinter.TotalMaterials()]<BR>"
 			dat += "Chemical Volume: [linked_imprinter.reagents.total_volume]<HR>"
-			
+
 			dat += "<form name='search' action='?src=\ref[src]'> \
 			<input type='hidden' name='src' value='\ref[src]'> \
 			<input type='hidden' name='search' value='to_search'> \
@@ -1016,7 +1020,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 				if(D.locked)
 					dat += " | <span class='bad'>LOCKED</span>"
 			dat += "</div>"
-			
+
 		if(4.17)
 			dat += "<A href='?src=\ref[src];menu=1.0'>Main Menu</A>"
 			dat += "<A href='?src=\ref[src];menu=4.1'>Circuit Imprinter Menu</A>"

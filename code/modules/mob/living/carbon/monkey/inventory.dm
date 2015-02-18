@@ -164,7 +164,7 @@
 					W.layer = initial(W.layer)
 				W.add_fingerprint(source)
 			else
-				if (istype(item, /obj/item/weapon/handcuffs))
+				if (istype(item, /obj/item/weapon/restraints/handcuffs))
 					source.drop_item()
 					target.handcuffed = item
 					item.loc = target

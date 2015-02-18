@@ -513,10 +513,7 @@
 			return 1
 		else
 			user << "<span class='danger'>You can't load \the [name] while it's opened.</span>"
-			return 1
-			
-	if(istype(W,/obj/item/weapon/card/emag))		
-		emag()		
+			return 1	
 
 	if(istype(W, /obj/item/stack))
 		var/material
@@ -561,6 +558,9 @@
 		else
 			user << "\The [src] cannot hold any more [sname] sheet\s."
 		return
+		
+/obj/machinery/mecha_part_fabricator/emag_act(user as mob)	
+	emag()	
 
 /obj/machinery/mecha_part_fabricator/proc/material2name(var/ID)
 	return copytext(ID,2)

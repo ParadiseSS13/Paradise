@@ -93,13 +93,13 @@
 	if (src.chained)
 		src.chained = null
 		src.slowdown = SHOES_SLOWDOWN
-		new /obj/item/weapon/handcuffs( user.loc )
+		new /obj/item/weapon/restraints/handcuffs( user.loc )
 		src.icon_state = "orange"
 	return
 
 /obj/item/clothing/shoes/orange/attackby(H as obj, loc)
 	..()
-	if ((istype(H, /obj/item/weapon/handcuffs) && !( src.chained )))
+	if ((istype(H, /obj/item/weapon/restraints/handcuffs) && !( src.chained )))
 		//H = null
 		if (src.icon_state != "orange") return
 		del(H)

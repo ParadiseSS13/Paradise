@@ -30,10 +30,7 @@
 		eventNumbersToPickFrom += 3
 	switch(pick(eventNumbersToPickFrom))
 		if(1)
-			command_alert("Meteors have been detected on collision course with the station.", "Meteor Alert")
-			for(var/mob/M in player_list)
-				if(!istype(M,/mob/new_player))
-					M << sound('sound/AI/meteors.ogg')
+			command_announcement.Announce("Meteors have been detected on collision course with the station.", "Meteor Alert", new_sound = 'sound/AI/meteors.ogg')
 			spawn(100)
 				meteor_wave()
 				spawn_meteors()
@@ -42,22 +39,18 @@
 				spawn_meteors()
 
 		if(2)
-			command_alert("Gravitational anomalies detected on the station. There is no additional data.", "Anomaly Alert")
-			for(var/mob/M in player_list)
-				if(!istype(M,/mob/new_player))
-					M << sound('sound/AI/granomalies.ogg')
+			command_announcement.Announce("Gravitational anomalies detected on the station. There is no additional data.", "Anomaly Alert", new_sound = 'sound/AI/granomalies.ogg')
 			var/turf/T = pick(blobstart)
 			var/obj/effect/bhole/bh = new /obj/effect/bhole( T.loc, 30 )
 			spawn(rand(50, 300))
 				del(bh)
 		/*
 		if(3) //Leaving the code in so someone can try and delag it, but this event can no longer occur randomly, per SoS's request. --NEO
-			command_alert("Space-time anomalies detected on the station. There is no additional data.", "Anomaly Alert")
-			world << sound('sound/AI/spanomalies.ogg')
+			command_announcement.Announce("Space-time anomalies detected on the station. There is no additional data.", "Anomaly Alert", new_sound = 'sound/AI/spanomalies.ogg')
 			var/list/turfs = new
 			var/turf/picked
 			for(var/turf/simulated/floor/T in world)
-				if(T.z == 1)
+				if((T.z in config.station_levels))
 					turfs += T
 			for(var/turf/simulated/floor/T in turfs)
 				if(prob(20))
@@ -107,8 +100,7 @@
 
 /*
 /proc/viral_outbreak(var/virus = null)
-//	command_alert("Confirmed outbreak of level 7 viral biohazard aboard [station_name()]. All personnel must contain the outbreak.", "Biohazard Alert")
-//	world << sound('sound/AI/outbreak7.ogg')
+//	command_announcement.Announce("Confirmed outbreak of level 7 viral biohazard aboard [station_name()]. All personnel must contain the outbreak.", "Biohazard Alert", new_sound = 'sound/AI/outbreak7.ogg')
 	var/virus_type
 	if(!virus)
 		virus_type = pick(/datum/disease/dnaspread,/datum/disease/advance/flu,/datum/disease/advance/cold,/datum/disease/brainrot,/datum/disease/magnitis,/datum/disease/pierrot_throat)
@@ -140,7 +132,7 @@
 		var/turf/T = get_turf(H)
 		if(!T)
 			continue
-		if(T.z != 1)
+		if(!(T.z in config.station_levels))
 			continue
 		for(var/datum/disease/D in H.viruses)
 			foundAlready = 1
@@ -167,21 +159,18 @@
 			H.viruses += D
 			break
 	spawn(rand(1500, 3000)) //Delayed announcements to keep the crew on their toes.
-		command_alert("Confirmed outbreak of level 7 viral biohazard aboard [station_name()]. All personnel must contain the outbreak.", "Biohazard Alert")
-		for(var/mob/M in player_list)
-			M << sound('sound/AI/outbreak7.ogg')
+		command_announcement.Announce("Confirmed outbreak of level 7 viral biohazard aboard [station_name()]. All personnel must contain the outbreak.", "Biohazard Alert", new_sound = 'sound/AI/outbreak7.ogg')
 */
 
 /proc/alien_infestation(var/spawncount = 1) // -- TLE
-	//command_alert("Unidentified lifesigns detected coming aboard [station_name()]. Secure any exterior access, including ducting and ventilation.", "Lifesign Alert")
-	//world << sound('sound/AI/aliens.ogg')
+	//command_announcement.Announce("Unidentified lifesigns detected coming aboard [station_name()]. Secure any exterior access, including ducting and ventilation.", "Lifesign Alert", new_sound = 'sound/AI/aliens.ogg')
 	var/list/vents = list()
 	for(var/obj/machinery/atmospherics/unary/vent_pump/temp_vent in machines)
-		if(temp_vent.loc.z == 1 && !temp_vent.welded && temp_vent.network)
+		if((temp_vent.loc.z in config.station_levels) && !temp_vent.welded && temp_vent.network)
 			if(temp_vent.network.normal_members.len > 50) // Stops Aliens getting stuck in small networks. See: Security, Virology
 				vents += temp_vent
 
-	var/list/candidates = get_candidates(BE_ALIEN,ALIEN_AFK_BRACKET,"alien","Syndicate")
+	var/list/candidates = get_candidates(BE_ALIEN,ALIEN_AFK_BRACKET)
 
 	if(prob(40)) spawncount++ //sometimes, have two larvae spawn instead of one
 	while((spawncount >= 1) && vents.len && candidates.len)
@@ -197,7 +186,7 @@
 		spawncount--
 
 	spawn(rand(5000, 6000)) //Delayed announcements to keep the crew on their toes.
-		command_alert("Unidentified lifesigns detected coming aboard [station_name()]. Secure any exterior access, including ducting and ventilation.", "Lifesign Alert")
+		command_announcement.Announce("Unidentified lifesigns detected coming aboard [station_name()]. Secure any exterior access, including ducting and ventilation.", "Lifesign Alert", new_sound = 'sound/AI/aliens.ogg')
 		for(var/mob/M in player_list)
 			M << sound('sound/AI/aliens.ogg')
 
@@ -205,7 +194,7 @@
 
 /* // Haha, this is way too laggy. I'll keep the prison break though.
 	for(var/obj/machinery/light/L in world)
-		if(L.z != 1) continue
+		if(!(L.z in config.station_levels)) continue
 		L.flicker(50)
 
 	sleep(100)
@@ -214,9 +203,11 @@
 		var/turf/T = get_turf(H)
 		if(!T)
 			continue
-		if(T.z != 1)
+		if(!(T.z in config.station_levels))
 			continue
 		if(istype(H,/mob/living/carbon/human))
+			if(H.species.flags & IS_SYNTHETIC)
+				return
 			H.apply_effect((rand(15,75)),IRRADIATE,0)
 			if (prob(5))
 				H.apply_effect((rand(90,150)),IRRADIATE,0)
@@ -231,13 +222,11 @@
 		var/turf/T = get_turf(M)
 		if(!T)
 			continue
-		if(T.z != 1)
+		if(!(T.z in config.station_levels))
 			continue
 		M.apply_effect((rand(15,75)),IRRADIATE,0)
 	sleep(100)
-	command_alert("High levels of radiation detected near the station. Please report to the Med-bay if you feel strange.", "Anomaly Alert")
-	for(var/mob/M in player_list)
-		M << sound('sound/AI/radiation.ogg')
+	command_announcement.Announce("High levels of radiation detected near the station. Please report to the Med-bay if you feel strange.", "Anomaly Alert", new_sound = 'sound/AI/radiation.ogg')
 
 
 
@@ -276,9 +265,9 @@
 				temp_timer.releasetime = 1
 
 		sleep(150)
-		command_alert("Gr3y.T1d3 virus detected in [station_name()] imprisonment subroutines. Recommend station AI involvement.", "Security Alert")
+		command_announcement.Announce("Gr3y.T1d3 virus detected in [station_name()] imprisonment subroutines. Recommend station AI involvement.", "Security Alert")
 	else
-		world.log << "ERROR: Could not initate grey-tide. Unable find prison or brig area."
+		world.log << "ERROR: Could not initate grey-tide virus. Unable find prison or brig area."
 
 /proc/carp_migration() // -- Darem
 	for(var/obj/effect/landmark/C in landmarks_list)
@@ -286,13 +275,11 @@
 			new /mob/living/simple_animal/hostile/carp(C.loc)
 	//sleep(100)
 	spawn(rand(300, 600)) //Delayed announcements to keep the crew on their toes.
-		command_alert("Unknown biological entities have been detected near [station_name()], please stand-by.", "Lifesign Alert")
-		for(var/mob/M in player_list)
-			M << sound('sound/AI/commandreport.ogg')
+		command_announcement.Announce("Unknown biological entities have been detected near [station_name()], please stand-by.", "Lifesign Alert", new_sound = 'sound/AI/commandreport.ogg')
 
 /proc/lightsout(isEvent = 0, lightsoutAmount = 1,lightsoutRange = 25) //leave lightsoutAmount as 0 to break ALL lights
 	if(isEvent)
-		command_alert("An Electrical storm has been detected in your area, please repair potential electronic overloads.","Electrical Storm Alert")
+		command_announcement.Announce("An Electrical storm has been detected in your area, please repair potential electronic overloads.","Electrical Storm Alert")
 
 	if(lightsoutAmount)
 		var/list/epicentreList = list()
@@ -442,21 +429,21 @@ Would like to add a law like "Law x is _______" where x = a number, and _____ is
 	spawn(0)
 		world << "Started processing APCs"
 		for (var/obj/machinery/power/apc/APC in world)
-			if(APC.z == 1)
+			if((APC.z in config.station_levels))
 				APC.ion_act()
 				apcnum++
 		world << "Finished processing APCs. Processed: [apcnum]"
 	spawn(0)
 		world << "Started processing SMES"
 		for (var/obj/machinery/power/smes/SMES in world)
-			if(SMES.z == 1)
+			if((SMES.z in config.station_levels))
 				SMES.ion_act()
 				smesnum++
 		world << "Finished processing SMES. Processed: [smesnum]"
 	spawn(0)
 		world << "Started processing AIRLOCKS"
 		for (var/obj/machinery/door/airlock/D in world)
-			if(D.z == 1)
+			if((D.z in config.station_levels))
 				//if(length(D.req_access) > 0 && !(12 in D.req_access)) //not counting general access and maintenance airlocks
 				airlocknum++
 				spawn(0)
@@ -465,7 +452,7 @@ Would like to add a law like "Law x is _______" where x = a number, and _____ is
 	spawn(0)
 		world << "Started processing FIREDOORS"
 		for (var/obj/machinery/door/firedoor/D in world)
-			if(D.z == 1)
+			if((D.z in config.station_levels))
 				firedoornum++;
 				spawn(0)
 					D.ion_act()

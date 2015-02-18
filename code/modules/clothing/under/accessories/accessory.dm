@@ -189,17 +189,7 @@
 		user.visible_message("\red [user] displays their NanoTrasen Internal Security Legal Authorization Badge.\nIt reads: [stored_name], NT Security.","\red You display your NanoTrasen Internal Security Legal Authorization Badge.\nIt reads: [stored_name], NT Security.")
 
 /obj/item/clothing/accessory/holobadge/attackby(var/obj/item/O as obj, var/mob/user as mob)
-
-	if (istype(O, /obj/item/weapon/card/emag))
-		if (emagged)
-			user << "\red [src] is already cracked."
-			return
-		else
-			emagged = 1
-			user << "\red You swipe [O] and crack the holobadge security checks."
-			return
-
-	else if(istype(O, /obj/item/weapon/card/id) || istype(O, /obj/item/device/pda))
+	if(istype(O, /obj/item/weapon/card/id) || istype(O, /obj/item/device/pda))
 
 		var/obj/item/weapon/card/id/id_card = null
 
@@ -218,6 +208,15 @@
 			user << "[src] rejects your insufficient access rights."
 		return
 	..()
+	
+/obj/item/clothing/accessory/holobadge/emag_act(user as mob)
+	if (emagged)
+		user << "\red [src] is already cracked."
+		return
+	else
+		emagged = 1
+		user << "\red You swipe the card and crack the holobadge security checks."
+		return
 
 /obj/item/clothing/accessory/holobadge/attack(mob/living/carbon/human/M, mob/living/user)
 	if(isliving(user))

@@ -87,8 +87,6 @@
 				user << "<span class='notice'>[src] does not need a repair.</span>"
 		else
 			user << "<span class='notice'>Unable to repair while [src] is off.</span>"
-	else if(istype(W, /obj/item/weapon/card/emag) && !emagged)
-		Emag(user)
 	else if(hasvar(W,"force") && hasvar(W,"damtype"))
 		switch(W.damtype)
 			if("fire")
@@ -99,6 +97,10 @@
 		healthcheck()
 	else
 		..()
+		
+/obj/vehicle/emag_act(user as mob)
+	if(!emagged)
+		Emag(user)
 
 /obj/vehicle/attack_animal(var/mob/living/simple_animal/M as mob)
 	if(M.melee_damage_upper == 0)	return

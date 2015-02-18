@@ -188,12 +188,12 @@
 /mob/living/silicon/robot/proc/pick_module()
 	if(module)
 		return
-	var/list/modules = list("Standard", "Engineering", "Surgeon", "Crisis", "Miner", "Janitor", "Service", "Security")
+	var/list/modules = list("Standard", "Engineering", "Medical", "Miner", "Janitor", "Service", "Security")
 	if(security_level == (SEC_LEVEL_GAMMA || SEC_LEVEL_EPSILON) || crisis)
 		src << "\red Crisis mode active. Combat module available."
 		modules+="Combat"
 	if(mmi != null && mmi.alien)
-		modules="Hunter"
+		modules = "Hunter"
 	modtype = input("Please, select a module!", "Robot", null, null) in modules
 	designation = modtype
 	var/module_sprites[0] //Used to store the associations between sprite names and sprite index.
@@ -237,22 +237,11 @@
 			module_sprites["Advanced Droid"] = "droid-miner"
 			module_sprites["Treadhead"] = "Miner"
 
-		if("Crisis")
-			module = new /obj/item/weapon/robot_module/crisis(src)
+		if("Medical")
+			module = new /obj/item/weapon/robot_module/medical(src)
 			channels = list("Medical" = 1)
 			if(camera && "Robots" in camera.network)
 				camera.network.Add("Medical")
-			module_sprites["Basic"] = "Medbot"
-			module_sprites["Standard"] = "surgeon"
-			module_sprites["Advanced Droid"] = "droid-medical"
-			module_sprites["Needles"] = "medicalrobot"
-
-		if("Surgeon")
-			module = new /obj/item/weapon/robot_module/surgeon(src)
-			channels = list("Medical" = 1)
-			if(camera && "Robots" in camera.network)
-				camera.network.Add("Medical")
-
 			module_sprites["Basic"] = "Medbot"
 			module_sprites["Standard"] = "surgeon"
 			module_sprites["Advanced Droid"] = "droid-medical"
@@ -643,7 +632,7 @@
 
 
 /mob/living/silicon/robot/attackby(obj/item/weapon/W as obj, mob/user as mob)
-	if (istype(W, /obj/item/weapon/handcuffs)) // fuck i don't even know why isrobot() in handcuff code isn't working so this will have to do
+	if (istype(W, /obj/item/weapon/restraints/handcuffs)) // fuck i don't even know why isrobot() in handcuff code isn't working so this will have to do
 		return
 
 	if(opened) // Are they trying to insert something?
@@ -808,72 +797,6 @@
 			else
 				user << "\red Access denied."
 
-	else if(istype(W, /obj/item/weapon/card/emag))		// trying to unlock with an emag card
-		if(!opened)//Cover is closed
-			if(locked)
-				if(prob(90))
-					var/obj/item/weapon/card/emag/emag = W
-					emag.uses--
-					user << "You emag the cover lock."
-					locked = 0
-				else
-					user << "You fail to emag the cover lock."
-					if(prob(25))
-						src << "Hack attempt detected."
-			else
-				user << "The cover is already unlocked."
-			return
-
-		if(opened)//Cover is open
-			if(emagged)	return//Prevents the X has hit Y with Z message also you cant emag them twice
-			if(wiresexposed)
-				user << "You must close the panel first"
-				return
-			else
-				sleep(6)
-				if(prob(50))
-					emagged = 1
-					if(user.hud_used)
-						user.hud_used.update_robot_modules_display()	//Shows/hides the emag item if the inventory screen is already open.
-					lawupdate = 0
-					connected_ai = null
-					user << "You emag [src]'s interface."
-//					message_admins("[key_name_admin(user)] emagged cyborg [key_name_admin(src)].  Laws overridden.")
-					log_game("[key_name(user)] emagged cyborg [key_name(src)].  Laws overridden.")
-					clear_supplied_laws()
-					clear_inherent_laws()
-					laws = new /datum/ai_laws/syndicate_override
-					var/time = time2text(world.realtime,"hh:mm:ss")
-					lawchanges.Add("[time] <B>:</B> [user.name]([user.key]) emagged [name]([key])")
-					set_zeroth_law("Only [user.real_name] and people he designates as being such are Syndicate Agents.")
-					src << "\red ALERT: Foreign software detected."
-					sleep(5)
-					src << "\red Initiating diagnostics..."
-					sleep(20)
-					src << "\red SynBorg v1.7 loaded."
-					sleep(5)
-					src << "\red LAW SYNCHRONISATION ERROR"
-					sleep(5)
-					src << "\red Would you like to send a report to NanoTraSoft? Y/N"
-					sleep(10)
-					src << "\red > N"
-					sleep(20)
-					src << "\red ERRORERRORERROR"
-					src << "<b>Obey these laws:</b>"
-					laws.show_laws(src)
-					src << "\red \b ALERT: [user.real_name] is your new master. Obey your new laws and his commands."
-					if(src.module && istype(src.module, /obj/item/weapon/robot_module/miner))
-						for(var/obj/item/weapon/pickaxe/borgdrill/D in src.module.modules)
-							del(D)
-						src.module.modules += new /obj/item/weapon/pickaxe/diamonddrill(src.module)
-						src.module.rebuild()
-					updateicon()
-				else
-					user << "You fail to [ locked ? "unlock" : "lock"] [src]'s interface."
-					if(prob(25))
-						src << "Hack attempt detected."
-			return
-
 	else if(istype(W, /obj/item/borg/upgrade/))
 		var/obj/item/borg/upgrade/U = W
 		if(!opened)
@@ -894,6 +817,73 @@
 	else
 		spark_system.start()
 		return ..()
+		
+/mob/living/silicon/robot/emag_act(user as mob)
+	if(!ishuman(user))
+		return
+	var/mob/living/carbon/human/H = user
+	if(!opened)//Cover is closed
+		if(locked)
+			if(prob(90))
+				user << "You emag the cover lock."
+				locked = 0
+			else
+				user << "You fail to emag the cover lock."
+				if(prob(25))
+					src << "Hack attempt detected."
+		else
+			user << "The cover is already unlocked."
+		return
+
+	if(opened)//Cover is open
+		if(emagged)	return//Prevents the X has hit Y with Z message also you cant emag them twice
+		if(wiresexposed)
+			user << "You must close the panel first"
+			return
+		else
+			sleep(6)
+			if(prob(50))
+				emagged = 1
+				if(H.hud_used)
+					H.hud_used.update_robot_modules_display()	//Shows/hides the emag item if the inventory screen is already open.
+				lawupdate = 0
+				connected_ai = null
+				user << "You emag [src]'s interface."
+//					message_admins("[key_name_admin(user)] emagged cyborg [key_name_admin(src)].  Laws overridden.")
+				log_game("[key_name(user)] emagged cyborg [key_name(src)].  Laws overridden.")
+				clear_supplied_laws()
+				clear_inherent_laws()
+				laws = new /datum/ai_laws/syndicate_override
+				var/time = time2text(world.realtime,"hh:mm:ss")
+				lawchanges.Add("[time] <B>:</B> [H.name]([H.key]) emagged [name]([key])")
+				set_zeroth_law("Only [H.real_name] and people he designates as being such are Syndicate Agents.")
+				src << "\red ALERT: Foreign software detected."
+				sleep(5)
+				src << "\red Initiating diagnostics..."
+				sleep(20)
+				src << "\red SynBorg v1.7 loaded."
+				sleep(5)
+				src << "\red LAW SYNCHRONISATION ERROR"
+				sleep(5)
+				src << "\red Would you like to send a report to NanoTraSoft? Y/N"
+				sleep(10)
+				src << "\red > N"
+				sleep(20)
+				src << "\red ERRORERRORERROR"
+				src << "<b>Obey these laws:</b>"
+				laws.show_laws(src)
+				src << "\red \b ALERT: [H.real_name] is your new master. Obey your new laws and his commands."
+				if(src.module && istype(src.module, /obj/item/weapon/robot_module/miner))
+					for(var/obj/item/weapon/pickaxe/borgdrill/D in src.module.modules)
+						del(D)
+					src.module.modules += new /obj/item/weapon/pickaxe/diamonddrill(src.module)
+					src.module.rebuild()
+				updateicon()
+			else
+				user << "You fail to [ locked ? "unlock" : "lock"] [src]'s interface."
+				if(prob(25))
+					src << "Hack attempt detected."
+		return
 
 /mob/living/silicon/robot/verb/unlock_own_cover()
 	set category = "Robot Commands"

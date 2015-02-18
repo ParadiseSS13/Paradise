@@ -118,7 +118,7 @@
 		item_state = "cutters_yellow"
 
 /obj/item/weapon/wirecutters/attack(mob/living/carbon/C as mob, mob/user as mob)
-	if((C.handcuffed) && (istype(C.handcuffed, /obj/item/weapon/handcuffs/cable)))
+	if((C.handcuffed) && (istype(C.handcuffed, /obj/item/weapon/restraints/handcuffs/cable)))
 		usr.visible_message("\The [usr] cuts \the [C]'s restraints with \the [src]!",\
 		"You cut \the [C]'s restraints with \the [src]!",\
 		"You hear cable being cut.")
@@ -147,7 +147,7 @@
 
 	//Cost to make in the autolathe
 	m_amt = 70
-	g_amt = 30
+	g_amt = 20
 
 	//R&D tech level
 	origin_tech = "engineering=1"

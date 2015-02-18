@@ -58,7 +58,6 @@
 	message_admins("\blue [key_name_admin(usr)] used DODGEBAWWWWWWWL! -NO ATTACK LOGS WILL BE SENT TO ADMINS FROM THIS POINT FORTH-", 1)
 	nologevent = 1
 	log_admin("[key_name(usr)] used dodgeball.")
-	world << sound('sound/music/nowyouman.ogg')
 
 /obj/item/weapon/beach_ball/dodgeball
 	name = "dodgeball"
@@ -71,8 +70,8 @@
 	..()
 	if((ishuman(hit_atom)))
 		var/mob/living/carbon/human/H = hit_atom
-		if(src in H.r_hand) return
-		if(src in H.l_hand) return
+		if(H.r_hand == src) return
+		if(H.l_hand == src) return
 		var/mob/A = H.LAssailant
 		if((H in team_alpha) && (A in team_alpha))
 			A << "\red He's on your team!"
@@ -85,6 +84,6 @@
 			return
 		else
 			playsound(src, 'sound/items/dodgeball.ogg', 50, 1)
-			visible_message("\red [H] HAS BEEN ELIMINATED!!", 3)
+			visible_message("\red [H] HAS BEEN ELIMINATED!", 3)
 			H.melt()
 			return

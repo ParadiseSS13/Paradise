@@ -695,8 +695,9 @@ var/list/TAGGERLOCATIONS = list("Disposals",
 #define R_SOUNDS		2048
 #define R_SPAWN			4096
 #define R_MOD			8192
+#define R_MENTOR		16384
 
-#define R_MAXPERMISSION 8192 //This holds the maximum value for a permission. It is used in iteration, so keep it updated.
+#define R_MAXPERMISSION 16384 //This holds the maximum value for a permission. It is used in iteration, so keep it updated.
 
 #define R_HOST			65535
 
@@ -804,7 +805,7 @@ var/list/restricted_camera_networks = list( //Those networks can only be accesse
 	"NukeOps",
 	"Thunderdome",
 	"UO45",
-	"UO45R",	
+	"UO45R",
 	"Xeno"
 	)
 
@@ -949,3 +950,9 @@ var/list/hit_appends = list("-OOF", "-ACK", "-UGH", "-HRNK", "-HURGH", "-GLORF")
 #define SUIT_SENSOR_BINARY 1
 #define SUIT_SENSOR_VITAL 2
 #define SUIT_SENSOR_TRACKING 3
+
+// NanoUI flags
+#define STATUS_INTERACTIVE 2 // GREEN Visability
+#define STATUS_UPDATE 1 // ORANGE Visability
+#define STATUS_DISABLED 0 // RED Visability
+#define STATUS_CLOSE -1 // Close the interface

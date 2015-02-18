@@ -2,38 +2,38 @@
 
 var/list/preferences_datums = list()
 
-var/global/list/special_roles = list( //keep synced with the defines BE_* in setup.dm
+var/global/list/special_roles = list( //keep synced with the defines BE_* in setup.dm. THE ORDER MATTERS
 //some autodetection here.
-	"pAI" = 1,                   						 // 0	
-	"traitor" = IS_MODE_COMPILED("traitor"),             // 1
-	"changeling" = IS_MODE_COMPILED("changeling"),       // 2
-	"vampire" = IS_MODE_COMPILED("vampire"),			 // 3	
-	"revolutionary" = IS_MODE_COMPILED("revolution"),    // 4
-	"blob" = IS_MODE_COMPILED("blob"),          	     // 5	
-	"operative" = IS_MODE_COMPILED("nuclear"),           // 6
-	"cultist" = IS_MODE_COMPILED("cult"),                // 7
-	"wizard" = IS_MODE_COMPILED("wizard"),               // 8
-	"raider" = IS_MODE_COMPILED("heist"),				 // 9
-	"alien" = 1,           							     // 10
-	"ninja" = 1,										 // 11	
-	"mutineer" = IS_MODE_COMPILED("mutiny"),             // 12
-	"malf AI" = IS_MODE_COMPILED("malfunction")	         // 13
+	"traitor" = IS_MODE_COMPILED("traitor"),             // 1 / 1
+	"operative" = IS_MODE_COMPILED("nuclear"),           // 2 / 2
+	"changeling" = IS_MODE_COMPILED("changeling"),       // 4 / 3
+	"wizard" = IS_MODE_COMPILED("wizard"),               // 8 / 4
+	"malf AI" = IS_MODE_COMPILED("malfunction"),         // 16 / 5
+	"revolutionary" = IS_MODE_COMPILED("revolution"),    // 32 / 6 
+	"alien" = 1,           							     // 62 / 7
+	"pAI" = 1,                   						 // 128	/ 8
+	"cultist" = IS_MODE_COMPILED("cult"),                // 256 / 9
+	"ninja" = 1,										 // 512 / 10
+	"raider" = IS_MODE_COMPILED("heist"),				 // 1024 / 11
+	"vampire" = IS_MODE_COMPILED("vampire"),			 // 2048 / 12
+	"mutineer" = IS_MODE_COMPILED("mutiny"),             // 4096 / 13
+	"blob" = IS_MODE_COMPILED("blob")          	     // 8192 / 14
 )
 var/global/list/special_role_times = list( //minimum age (in days) for accounts to play these roles
-	num2text(BE_TRAITOR) = 14, 
-	num2text(BE_OPERATIVE) = 21,
+	num2text(BE_PAI) = 0,   
+	num2text(BE_TRAITOR) = 7, 
 	num2text(BE_CHANGELING) = 14, 
-	num2text(BE_WIZARD) = 21,
-	num2text(BE_MALF) = 30,
+	num2text(BE_WIZARD) = 14,
 	num2text(BE_REV) = 14,
-	num2text(BE_ALIEN) = 21,        							     
-	num2text(BE_PAI) = 0,                   						 
-	num2text(BE_CULTIST) = 21,
-	num2text(BE_NINJA) = 21,									 
-	num2text(BE_RAIDER) = 21,
 	num2text(BE_VAMPIRE) = 14,
+	num2text(BE_BLOB) = 14,
+	num2text(BE_OPERATIVE) = 21,
+	num2text(BE_CULTIST) = 21,
+	num2text(BE_RAIDER) = 21,
+	num2text(BE_ALIEN) = 21,        							                  						 
+	num2text(BE_NINJA) = 21,									 
 	num2text(BE_MUTINEER) = 21,
-	num2text(BE_BLOB) = 14
+	num2text(BE_MALF) = 30
 )
 
 /proc/player_old_enough_antag(client/C, role)

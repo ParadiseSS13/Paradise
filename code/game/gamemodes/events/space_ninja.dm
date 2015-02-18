@@ -153,7 +153,7 @@ Malf AIs/silicons aren't added. Monkeys aren't added. Messes with objective comp
 	else
 
 		var/list/candidates = list()	//list of candidate keys
-		candidates = get_candidates(BE_NINJA,,"ninja","Syndicate")
+		candidates = get_candidates(BE_NINJA)
 		if(!candidates.len)	return
 		while(!ninja_key && candidates.len)
 			candidate_mob = pick(candidates)

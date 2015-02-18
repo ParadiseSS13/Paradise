@@ -38,17 +38,15 @@
 		storedinfo += "\[[time2text(timerecorded*10,"mm:ss")]\] [M.name] says, \"[msg]\""
 		return
 
-/obj/item/device/taperecorder/attackby(obj/item/weapon/W as obj, mob/user as mob)
-	..()
-	if(istype(W, /obj/item/weapon/card/emag))
-		if(emagged == 0)
-			emagged = 1
-			recording = 0
-			user << "<span class='warning'>PZZTTPFFFT</span>"
-			icon_state = "taperecorderidle"
-		else
-			user << "<span class='warning'>It is already emagged!</span>"
-
+/obj/item/device/taperecorder/emag_act(user as mob)			
+	if(!emagged == 0)
+		emagged = 1
+		recording = 0
+		user << "<span class='warning'>PZZTTPFFFT</span>"
+		icon_state = "taperecorderidle"
+	else
+		user << "<span class='warning'>It is already emagged!</span>"
+			
 /obj/item/device/taperecorder/proc/explode()
 	var/turf/T = get_turf(loc)
 	if(ismob(loc))

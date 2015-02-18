@@ -73,7 +73,7 @@
 	var/mob/dead/observer/theghost = null
 	spawn(rand(200, 600))
 		message_admins("SWF is still pissed, sending another wizard - [max_mages - mages_made] left.")
-		candidates = get_candidates(BE_WIZARD,,"wizard","Syndicate")
+		candidates = get_candidates(BE_WIZARD)
 		if(!candidates.len)
 			message_admins("No applicable ghosts for the next ragin' mage, asking ghosts instead.")
 			var/time_passed = world.time

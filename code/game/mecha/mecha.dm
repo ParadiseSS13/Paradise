@@ -697,17 +697,6 @@
 
 /obj/mecha/attackby(obj/item/weapon/W as obj, mob/user as mob)
 
-	if(istype(W,  /obj/item/weapon/card/emag))
-		if(istype(src,	/obj/mecha/working/ripley) && emagged == 0)
-			emagged = 1
-			usr << "\blue You slide the [W] through the [src]'s ID slot."
-			playsound(src.loc, "sparks", 100, 1)
-			src.desc += "</br><b>\red The mech's equiptment slots spark dangerously!</b>"
-		else
-			usr <<"\red The [src]'s ID slot rejects the [W]."
-		return
-
-
 	if(istype(W, /obj/item/device/mmi) || istype(W, /obj/item/device/mmi/posibrain))
 		if(mmi_move_inside(W,user))
 			user << "[src]-MMI interface initialized successfuly"
@@ -864,6 +853,15 @@
 */
 	return
 
+/obj/mecha/emag_act(user as mob)
+	if(istype(src,	/obj/mecha/working/ripley) && emagged == 0)
+		emagged = 1
+		usr << "\blue You slide the card through the [src]'s ID slot."
+		playsound(src.loc, "sparks", 100, 1)
+		src.desc += "</br><b>\red The mech's equiptment slots spark dangerously!</b>"
+	else
+		usr <<"\red The [src]'s ID slot rejects the card."
+	return
 
 
 /*

@@ -211,9 +211,6 @@ display round(lastgen) and plasmatank amount
 		addstack.use(amount)
 		updateUsrDialog()
 		return
-	else if (istype(O, /obj/item/weapon/card/emag))
-		emagged = 1
-		emp_act(1)
 	else if(!active)
 		if(istype(O, /obj/item/weapon/wrench))
 			if(!anchored  && !isinspace())
@@ -239,6 +236,10 @@ display round(lastgen) and plasmatank amount
 		else if(istype(O, /obj/item/weapon/crowbar) && panel_open)
 			default_deconstruction_crowbar(O)
 
+/obj/machinery/power/port_gen/pacman/emag_act(user as mob)
+	emagged = 1
+	emp_act(1)			
+			
 /obj/machinery/power/port_gen/pacman/attack_hand(mob/user as mob)
 	..()
 	if (!anchored)

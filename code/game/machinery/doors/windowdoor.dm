@@ -225,21 +225,13 @@
 /obj/machinery/door/window/attack_hand(mob/user as mob)
 	return src.attackby(user, user)
 
-/obj/machinery/door/window/attackby(obj/item/weapon/I as obj, mob/living/user as mob)
-
-	//If it's in the process of opening/closing, ignore the click
-	if (src.operating)
-		return
-
-	add_fingerprint(user)
-
-	//Emags and ninja swords? You may pass.
-	if (src.density && (istype(I, /obj/item/weapon/card/emag)||istype(I, /obj/item/weapon/melee/energy/blade)))
+/obj/machinery/door/window/emag_act(user as mob, weapon as obj)
+	if(density)
 		src.operating = -1
 		flick("[src.base_state]spark", src)
 		sleep(6)
 		desc += "<BR><span class='warning'>Its access panel is smoking slightly.</span>"
-		if(istype(I, /obj/item/weapon/melee/energy/blade))
+		if(istype(weapon, /obj/item/weapon/melee/energy/blade))
 			var/datum/effect/effect/system/spark_spread/spark_system = new /datum/effect/effect/system/spark_spread()
 			spark_system.set_up(5, 0, src.loc)
 			spark_system.start()
@@ -251,6 +243,19 @@
 			return 1
 		open()
 		emagged = 1
+		return 1
+	
+/obj/machinery/door/window/attackby(obj/item/weapon/I as obj, mob/living/user as mob)
+
+	//If it's in the process of opening/closing, ignore the click
+	if (src.operating)
+		return
+
+	add_fingerprint(user)
+
+	//Ninja swords? You may pass.
+	if (src.density && (istype(I, /obj/item/weapon/card/emag)||istype(I, /obj/item/weapon/melee/energy/blade)))
+		emag_act(user,I)
 		return 1
 
 	if(istype(I, /obj/item/weapon/screwdriver))

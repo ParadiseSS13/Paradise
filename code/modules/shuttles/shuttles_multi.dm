@@ -33,14 +33,14 @@
 	if(cloaked || isnull(departure_message))
 		return
 
-	command_alert(departure_message,(announcer ? announcer : "Central Command"))
+	command_announcement.Announce(departure_message,(announcer ? announcer : "Central Command"))
 
 /datum/shuttle/multi_shuttle/proc/announce_arrival()
 
 	if(cloaked || isnull(arrival_message))
 		return
 
-	command_alert(arrival_message,(announcer ? announcer : "Central Command"))
+	command_announcement.Announce(arrival_message,(announcer ? announcer : "Central Command"))
 
 /obj/machinery/computer/shuttle_control/multi
 	icon_state = "syndishuttle"

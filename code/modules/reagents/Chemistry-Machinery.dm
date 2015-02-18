@@ -26,6 +26,7 @@
 	var/list/broken_requirements = list()
 	var/broken_on_spawn = 0
 	var/recharge_delay = 15
+	var/image/icon_beaker = null //cached overlay
 
 
 /obj/machinery/chem_dispenser/proc/recharge()
@@ -59,6 +60,7 @@
 	dispensable_reagents = sortList(dispensable_reagents)
 
 	if(broken_on_spawn)
+		overlays.Cut()
 		var/amount = pick(3,3,4)
 		var/list/options = list()
 		options[/obj/item/weapon/stock_parts/capacitor/adv] = "Add an advanced capacitor to fix it."
@@ -181,8 +183,7 @@
 			var/obj/item/weapon/reagent_containers/glass/B = beaker
 			B.loc = loc
 			beaker = null
-			if(!panel_open)
-				icon_state = initial(icon_state)
+			overlays.Cut()
 	add_fingerprint(usr)
 	return 1 // update UIs attached to this object
 
@@ -211,7 +212,10 @@
 		B.loc = src
 		user << "You set [B] on the machine."
 		nanomanager.update_uis(src) // update all UIs attached to src
-		icon_state = "[initial(icon_state)]2"
+		if(!icon_beaker)
+			icon_beaker = image('icons/obj/chemical.dmi', src, "disp_beaker") //randomize beaker overlay position.
+		icon_beaker.pixel_x = rand(-10,5)
+		overlays += icon_beaker
 		return
 
 /obj/machinery/chem_dispenser/attackby(var/obj/item/weapon/B as obj, var/mob/user as mob)

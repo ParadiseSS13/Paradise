@@ -658,8 +658,8 @@
 						CM.handcuffed = null
 						CM.update_inv_handcuffed()
 			else
-				var/obj/item/weapon/handcuffs/HC = CM.handcuffed
-				var/breakouttime = 1200 //A default in case you are somehow handcuffed with something that isn't an obj/item/weapon/handcuffs type
+				var/obj/item/weapon/restraints/handcuffs/HC = CM.handcuffed
+				var/breakouttime = 1200 //A default in case you are somehow handcuffed with something that isn't an obj/item/weapon/restraints/handcuffs type
 				var/displaytime = 2 //Minutes to display in the "this will take X minutes."
 				if(istype(HC)) //If you are handcuffed with actual handcuffs... Well what do I know, maybe someone will want to handcuff you with toilet paper in the future...
 					breakouttime = HC.breakouttime
@@ -695,7 +695,7 @@
 						CM.legcuffed = null
 						CM.update_inv_legcuffed()
 			else
-				var/obj/item/weapon/legcuffs/HC = CM.legcuffed
+				var/obj/item/weapon/restraints/legcuffs/HC = CM.legcuffed
 				var/breakouttime = 1200 //A default in case you are somehow legcuffed with something that isn't an obj/item/weapon/legcuffs type
 				var/displaytime = 2 //Minutes to display in the "this will take X minutes."
 				if(istype(HC)) //If you are legcuffed with actual legcuffs... Well what do I know, maybe someone will want to legcuff you with toilet paper in the future...

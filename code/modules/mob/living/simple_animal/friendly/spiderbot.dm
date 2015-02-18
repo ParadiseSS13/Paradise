@@ -125,18 +125,6 @@
 		else
 			user << "\red You swipe your card, with no effect."
 			return 0
-	else if (istype(O, /obj/item/weapon/card/emag))
-		if (emagged)
-			user << "\red [src] is already overloaded - better run."
-			return 0
-		else
-			var/obj/item/weapon/card/emag/emag = O
-			emag.uses--
-			emagged = 1
-			user << "\blue You short out the security protocols and overload [src]'s cell, priming it to explode in a short time."
-			spawn(100)	src << "\red Your cell seems to be outputting a lot of power..."
-			spawn(200)	src << "\red Internal heat sensors are spiking! Something is badly wrong with your cell!"
-			spawn(300)	src.explode()
 
 	else
 		if(O.force)
@@ -152,6 +140,17 @@
 			for(var/mob/M in viewers(src, null))
 				if ((M.client && !( M.blinded )))
 					M.show_message("\red [user] gently taps [src] with the [O]. ")
+					
+/mob/living/simple_animal/spiderbot/emag_act(user as mob)
+	if (emagged)
+		user << "\red [src] is already overloaded - better run."
+		return 0
+	else
+		emagged = 1
+		user << "\blue You short out the security protocols and overload [src]'s cell, priming it to explode in a short time."
+		spawn(100)	src << "\red Your cell seems to be outputting a lot of power..."
+		spawn(200)	src << "\red Internal heat sensors are spiking! Something is badly wrong with your cell!"
+		spawn(300)	src.explode()
 
 /mob/living/simple_animal/spiderbot/proc/transfer_personality(var/obj/item/device/mmi/M as obj)
 
