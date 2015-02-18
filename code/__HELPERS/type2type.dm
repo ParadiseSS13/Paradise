@@ -227,7 +227,7 @@ proc/tg_text2list(text, glue=",", assocglue=";")
 		. += copytext(text, last_found, found)
 		last_found = found + delim_len
 	while(found)
-	
+
 /proc/text2numlist(text, delimiter="\n")
 	var/list/num_list = list()
 	for(var/x in text2list(text, delimiter))
@@ -347,6 +347,7 @@ proc/tg_text2list(text, glue=",", assocglue=";")
 	if(rights & R_SOUNDS)		. += "[seperator]+SOUND"
 	if(rights & R_SPAWN)		. += "[seperator]+SPAWN"
 	if(rights & R_MOD)			. += "[seperator]+MODERATOR"
+	if(rights & R_MENTOR)		. += "[seperator]+MENTOR"
 	return .
 
 /proc/ui_style2icon(ui_style)
