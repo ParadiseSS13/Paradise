@@ -564,7 +564,7 @@
 	qdel(S)
 	user.put_in_hands(A)
 	user << "<span class='notice'>You add the robot arm to the first aid kit.</span>"
-	user.before_take_item(src, 1)
+	user.unEquip(src, 1)
 	qdel(src)
 
 
@@ -598,5 +598,5 @@
 					var/obj/machinery/bot/medbot/S = new /obj/machinery/bot/medbot(T)
 					S.skin = skin
 					S.name = created_name
-					user.before_take_item(src, 1)
+					user.unEquip(src, 1)
 					qdel(src)

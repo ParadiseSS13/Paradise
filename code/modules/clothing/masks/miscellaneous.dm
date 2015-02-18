@@ -111,7 +111,7 @@
 
 
 /obj/item/clothing/mask/horsehead/equipped(mob/user, slot)
-	if(!canremove)	//cursed masks only
+	if(flags & NODROP)	//cursed masks only
 		originalname = user.real_name
 		if(!user.real_name || user.real_name == "Unknown")
 			user.real_name = "A Horse With No Name" //it felt good to be out of the rain
@@ -120,12 +120,12 @@
 		..()
 
 /obj/item/clothing/mask/horsehead/dropped() //this really shouldn't happen, but call it extreme caution
-	if(!canremove)
+	if(flags & NODROP)
 		goodbye_horses(loc)
 	..()
 
 /obj/item/clothing/mask/horsehead/Destroy()
-	if(!canremove)
+	if(flags & NODROP)
 		goodbye_horses(loc)
 	..()
 

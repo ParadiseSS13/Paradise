@@ -491,7 +491,7 @@ obj/machinery/bot/floorbot/process_scan(var/scan_target)
 		var/obj/item/weapon/toolbox_tiles/B = new /obj/item/weapon/toolbox_tiles
 		user.put_in_hands(B)
 		user << "<span class='notice'>You add the tiles into the empty toolbox. They protrude from the top.</span>"
-		user.before_take_item(src, 1)
+		user.unEquip(src, 1)
 		qdel(src)
 	else
 		user << "<span class='alert'>You need 10 floor tiles to start building a floorbot.</span>"
@@ -505,7 +505,7 @@ obj/machinery/bot/floorbot/process_scan(var/scan_target)
 		B.created_name = created_name
 		user.put_in_hands(B)
 		user << "<span class='notice'>You add the sensor to the toolbox and tiles!</span>"
-		user.before_take_item(src, 1)
+		user.unEquip(src, 1)
 		qdel(src)
 
 	else if (istype(W, /obj/item/weapon/pen))
@@ -525,7 +525,7 @@ obj/machinery/bot/floorbot/process_scan(var/scan_target)
 		var/obj/machinery/bot/floorbot/A = new /obj/machinery/bot/floorbot(T)
 		A.name = created_name
 		user << "<span class='notice'>You add the robot arm to the odd looking toolbox assembly! Boop beep!</span>"
-		user.before_take_item(src, 1)
+		user.unEquip(src, 1)
 		qdel(src)
 	else if (istype(W, /obj/item/weapon/pen))
 		var/t = stripped_input(user, "Enter new robot name", name, created_name,MAX_NAME_LEN)

@@ -32,7 +32,7 @@
 		state("The [src.name] Buzzes", "blue")
 		return
 	..()
-	return 
+	return
 
 /obj/machinery/computer/curer/attack_ai(var/mob/user as mob)
 	return src.attack_hand(user)

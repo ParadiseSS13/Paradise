@@ -230,7 +230,7 @@
 	return
 
 
-/mob/living/carbon/slime/u_equip(obj/item/W as obj)
+/mob/living/carbon/slime/unEquip(obj/item/W as obj)
 	return
 
 /mob/living/carbon/slime/attack_ui(slot)
@@ -897,9 +897,8 @@ mob/living/carbon/slime/var/temperature_resistance = T0C+75
 	item_state = "golem"
 	_color = "golem"
 	has_sensor = 0
-	flags = ABSTRACT
+	flags = ABSTRACT | NODROP
 	armor = list(melee = 10, bullet = 0, laser = 0,energy = 0, bomb = 0, bio = 0, rad = 0)
-	canremove = 0
 
 /obj/item/clothing/suit/golem
 	name = "adamantine shell"
@@ -912,12 +911,11 @@ mob/living/carbon/slime/var/temperature_resistance = T0C+75
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS|HEAD
 	slowdown = 1.0
 	flags_inv = HIDEGLOVES|HIDESHOES|HIDEJUMPSUIT
-	flags = ONESIZEFITSALL | STOPSPRESSUREDMAGE | ABSTRACT
+	flags = ONESIZEFITSALL | STOPSPRESSUREDMAGE | ABSTRACT | NODROP
 	heat_protection = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS | HEAD
 	max_heat_protection_temperature = FIRESUIT_MAX_HEAT_PROTECTION_TEMPERATURE
 	cold_protection = UPPER_TORSO | LOWER_TORSO | LEGS | FEET | ARMS | HANDS | HEAD
 	min_cold_protection_temperature = SPACE_SUIT_MIN_COLD_PROTECTION_TEMPERATURE
-	canremove = 0
 	armor = list(melee = 80, bullet = 20, laser = 20, energy = 10, bomb = 0, bio = 0, rad = 0)
 
 /obj/item/clothing/shoes/golem
@@ -925,8 +923,7 @@ mob/living/carbon/slime/var/temperature_resistance = T0C+75
 	desc = "sturdy adamantine feet"
 	icon_state = "golem"
 	item_state = "golem"
-	canremove = 0
-	flags = NOSLIP | ABSTRACT | MASKINTERNALS | MASKCOVERSMOUTH
+	flags = NOSLIP | ABSTRACT | MASKINTERNALS | MASKCOVERSMOUTH | NODROP
 	slowdown = SHOES_SLOWDOWN+1
 
 
@@ -935,10 +932,9 @@ mob/living/carbon/slime/var/temperature_resistance = T0C+75
 	desc = "the imposing face of an adamantine golem"
 	icon_state = "golem"
 	item_state = "golem"
-	canremove = 0
 	siemens_coefficient = 0
 	unacidable = 1
-	flags = ABSTRACT
+	flags = ABSTRACT | NODROP
 
 
 /obj/item/clothing/gloves/golem
@@ -947,8 +943,7 @@ mob/living/carbon/slime/var/temperature_resistance = T0C+75
 	icon_state = "golem"
 	item_state = null
 	siemens_coefficient = 0
-	canremove = 0
-	flags = ABSTRACT
+	flags = ABSTRACT | NODROP
 
 
 /obj/item/clothing/head/space/golem
@@ -957,9 +952,8 @@ mob/living/carbon/slime/var/temperature_resistance = T0C+75
 	_color = "dermal"
 	name = "golem's head"
 	desc = "a golem's head"
-	canremove = 0
 	unacidable = 1
-	flags = STOPSPRESSUREDMAGE | ABSTRACT
+	flags = STOPSPRESSUREDMAGE | ABSTRACT | NODROP
 	heat_protection = HEAD
 	max_heat_protection_temperature = FIRE_HELMET_MAX_HEAT_PROTECTION_TEMPERATURE
 	armor = list(melee = 80, bullet = 20, laser = 20, energy = 10, bomb = 0, bio = 0, rad = 0)

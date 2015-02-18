@@ -40,7 +40,7 @@ var/const/MAX_ACTIVE_TIME = 400
 
 /obj/item/clothing/mask/facehugger/attack(mob/living/M as mob, mob/user as mob)
 	..()
-	user.before_take_item(src)
+	user.unEquip(src)
 	Attach(M)
 
 /obj/item/clothing/mask/facehugger/examine(mob/user)
@@ -131,9 +131,12 @@ var/const/MAX_ACTIVE_TIME = 400
 	if(iscarbon(M))
 		var/mob/living/carbon/target = L
 		if(target.wear_mask)
-			if(prob(20))	return 0
+			if(prob(20))
+				return 0
 			var/obj/item/clothing/W = target.wear_mask
-			target.before_take_item(W)
+			if(W.flags & NODROP)
+				return 0
+			target.unEquip(W)
 
 			target.visible_message("<span class='danger'>[src] tears [W] off of [target]'s face!</span>", \
 									"<span class='userdanger'>[src] tears [W] off of [target]'s face!</span>")
@@ -162,7 +165,7 @@ var/const/MAX_ACTIVE_TIME = 400
 		var/mob/living/carbon/C = target
 		if(C.wear_mask != src)
 			return
-			
+
 	if(ishuman(target))
 		var/mob/living/carbon/human/H = target
 		if((H.species.flags & IS_SYNTHETIC))
@@ -233,7 +236,7 @@ var/const/MAX_ACTIVE_TIME = 400
 /proc/CanHug(var/mob/M)
 	if(!M || !ismob(M))
 		return 0
-	
+
 	if(M.stat == DEAD)
 		return 0
 
@@ -255,4 +258,4 @@ var/const/MAX_ACTIVE_TIME = 400
 	gender = FEMALE
 
 /obj/item/clothing/mask/facehugger/lamarr/New()//to prevent deleting it if aliums are disabled
-	return	
+	return

@@ -44,7 +44,7 @@
 							"Medical",
 							"Miscellaneous",
 							"Security",
-							"Tools"	
+							"Tools"
 							)
 
 /obj/machinery/autolathe/New()
@@ -61,7 +61,7 @@
 	wires = new(src)
 	files = new /datum/research/autolathe(src)
 	matching_designs = list()
-	
+
 /obj/machinery/autolathe/upgraded/New()
 	..()
 	component_parts = list()
@@ -72,7 +72,7 @@
 	component_parts += new /obj/item/weapon/stock_parts/manipulator/pico(null)
 	component_parts += new /obj/item/weapon/stock_parts/console_screen(null)
 	RefreshParts()
-	
+
 /obj/machinery/autolathe/interact(mob/user)
 	if(shocked && !(stat & NOPOWER))
 		shock(user,50)
@@ -151,7 +151,7 @@
 			flick("autolathe_r",src)//plays glass insertion animation
 		stack.use(amount)
 	else
-		if(!user.before_take_item(O))
+		if(!user.unEquip(O))
 			user << "<span class='notice'>/the [O] is stuck to your hand, you can't put it in \the [src]!</span>"
 		O.loc = src
 	icon_state = "autolathe"
@@ -234,14 +234,14 @@
 						g_amount = 0
 					busy = 0
 					src.updateUsrDialog()
-					
+
 		if(href_list["search"])
 			matching_designs.Cut()
 
 			for(var/datum/design/D in files.known_designs)
 				if(findtext(D.name,href_list["to_search"]))
 					matching_designs.Add(D)
-					
+
 	else
 		usr << "<span class=\"alert\">The autolathe is busy. Please wait for completion of previous operation.</span>"
 
@@ -315,7 +315,7 @@
 
 	dat += "</div>"
 	return dat
-	
+
 /obj/machinery/autolathe/proc/search_win(mob/user)
 	var/dat = "<A href='?src=\ref[src];menu=[AUTOLATHE_MAIN_MENU]'>Return to main menu</A>"
 	dat += "<div class='statusDisplay'><h3>Search results:</h3><br>"

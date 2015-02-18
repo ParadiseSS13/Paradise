@@ -373,7 +373,8 @@
 		return
 	if(isrobot(user))
 		return
-	user.drop_item()
+	if(!user.drop_item())
+		return
 	if (O.loc != src.loc)
 		step(O, get_dir(O, src))
 	return
@@ -737,7 +738,8 @@
 		return
 	if(isrobot(user))
 		return
-	user.drop_item()
+	if(!user.drop_item())
+		return
 	if (O.loc != src.loc)
 		step(O, get_dir(O, src))
 	return
@@ -750,8 +752,11 @@
 		return
 	if(isrobot(user))
 		return
-	user.drop_item()
-	if(W && W.loc)	W.loc = src.loc
+	if(!(W.flags & ABSTRACT))
+		if(user.drop_item())
+			W.Move(loc)
+	if(W && W.loc)
+		W.loc = src.loc
 	return
 
 /obj/structure/rack/meteorhit(obj/O as obj)

@@ -44,11 +44,11 @@
 	item_state = "chronogun"
 	icon_override = 'icons/mob/in-hand/guns.dmi'
 	w_class = 3.0
-	canremove = 0
 	projectile_type = "/obj/item/projectile/energy/chrono_beam"
 	fire_sound = 'sound/weapons/Laser.ogg'
 	charge_cost = 0
 	fire_delay = 50
+	flags = NODROP
 	var/obj/item/weapon/chrono_eraser/TED = null
 	var/obj/effect/chrono_field/field = null
 	var/turf/startpos = null

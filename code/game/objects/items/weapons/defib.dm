@@ -160,7 +160,7 @@
 /obj/item/weapon/defibrillator/proc/remove_paddles(mob/user)
 	var/mob/living/carbon/human/M = user
 	if(paddles in get_both_hands(M))
-		M.u_equip(paddles)
+		M.unEquip(paddles)
 	update_icon()
 	return
 
@@ -196,7 +196,7 @@
 		paddles.cooldown = 0
 		paddles.update_icon()
 		update_icon()
-		
+
 /obj/item/weapon/defibrillator/compact
 	name = "compact defibrillator"
 	desc = "A belt-equipped defibrillator that can be rapidly deployed."
@@ -292,7 +292,7 @@
 
 /obj/item/weapon/twohanded/shockpaddles/proc/check_defib_exists(mainunit, var/mob/living/carbon/human/M, var/obj/O)
 	if (!mainunit || !istype(mainunit, /obj/item/weapon/defibrillator))	//To avoid weird issues from admin spawns
-		M.u_equip(O)
+		M.unEquip(O)
 		qdel(O)
 		return 0
 	else

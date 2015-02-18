@@ -137,12 +137,18 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 			var/datum/effect/effect/system/reagents_explosion/e = new()
 			e.set_up(round(reagents.get_reagent_amount("plasma") / 2.5, 1), get_turf(src), 0, 0)
 			e.start()
+			if(ismob(loc))
+				var/mob/M = loc
+				M.unEquip(src, 1)
 			del(src)
 			return
 		if(reagents.get_reagent_amount("fuel")) // the fuel explodes, too, but much less violently
 			var/datum/effect/effect/system/reagents_explosion/e = new()
 			e.set_up(round(reagents.get_reagent_amount("fuel") / 5, 1), get_turf(src), 0, 0)
 			e.start()
+			if(ismob(loc))
+				var/mob/M = loc
+				M.unEquip(src, 1)
 			del(src)
 			return
 		flags &= ~NOREACT // allowing reagents to react after being lit
@@ -193,8 +199,7 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 	if(ismob(loc))
 		var/mob/living/M = loc
 		M << "<span class='notice'>Your [name] goes out.</span>"
-		M.u_equip(src)  //un-equip it so the overlays can update
-		M.update_inv_wear_mask(0)
+		M.unEquip(src, 1)		//Force the un-equip so the overlays update
 	processing_objects.Remove(src)
 	del(src)
 
@@ -524,10 +529,10 @@ obj/item/weapon/rollingpaperpack/attack_self(mob/user)
 	else if(istype(over_object, /obj/screen))
 		switch(over_object.name)
 			if("r_hand")
-				M.u_equip(src)
+				M.unEquip(src)
 				M.put_in_r_hand(src)
 			if("l_hand")
-				M.u_equip(src)
+				M.unEquip(src)
 				M.put_in_l_hand(src)
 
 /obj/item/weapon/rollingpaperpack/examine()

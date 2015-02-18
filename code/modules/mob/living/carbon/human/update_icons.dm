@@ -598,7 +598,7 @@ proc/get_damage_icon_part(damage_state, body_part)
 				standing.icon	= 'icons/mob/uniform_fat.dmi'
 			else
 				src << "\red You burst out of \the [w_uniform]!"
-				drop_from_inventory(w_uniform)
+				unEquip(w_uniform)
 				return
 		else
 			standing.icon	= 'icons/mob/uniform.dmi'
@@ -626,7 +626,7 @@ proc/get_damage_icon_part(damage_state, body_part)
 		// Automatically drop anything in store / id / belt if you're not wearing a uniform.	//CHECK IF NECESARRY
 		for( var/obj/item/thing in list(r_store, l_store, wear_id, wear_pda, belt) )						//
 			if(thing)																			//
-				u_equip(thing)																	//
+				unEquip(thing)																	//
 				if (client)																		//
 					client.screen -= thing														//
 																								//
@@ -819,14 +819,14 @@ proc/get_damage_icon_part(damage_state, body_part)
 				standing = image("icon" = 'icons/mob/suit_fat.dmi', "icon_state" = "[wear_suit.icon_state]")
 			else
 				src << "\red You burst out of \the [wear_suit]!"
-				drop_from_inventory(wear_suit)
+				unEquip(wear_suit)
 				return
 		else
 			standing = image("icon" = 'icons/mob/suit.dmi', "icon_state" = "[wear_suit.icon_state]")
 
 
 		if( istype(wear_suit, /obj/item/clothing/suit/straight_jacket) )
-			drop_from_inventory(handcuffed)
+			unEquip(handcuffed)
 			drop_l_hand()
 			drop_r_hand()
 

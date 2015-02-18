@@ -32,7 +32,7 @@
 	flags = ONESIZEFITSALL
 
 /obj/item/clothing/under/color/blue/dodgeball
-	canremove = 0
+	flags = ONESIZEFITSALL | NODROP
 
 /obj/item/clothing/under/color/green
 	name = "green jumpsuit"
@@ -84,7 +84,7 @@
 	flags = ONESIZEFITSALL
 
 /obj/item/clothing/under/color/red/dodgeball
-	canremove = 0
+	flags = ONESIZEFITSALL | NODROP
 
 /obj/item/clothing/under/color/white
 	name = "white jumpsuit"

@@ -599,13 +599,13 @@
 			if(counter >= 5) //So things dont get squiiiiished!
 				jobs += "</tr><tr align='center'>"
 				counter = 0
-		
+
 		//Drone
 		if(jobban_isbanned(M, "Drone"))
 			jobs += "<td width='20%'><a href='?src=\ref[src];jobban3=Drone;jobban4=\ref[M]'><font color=red>Drone</font></a></td>"
 		else
 			jobs += "<td width='20%'><a href='?src=\ref[src];jobban3=Drone;jobban4=\ref[M]'>Drone</a></td>"
-		
+
 		//pAI
 		if(jobban_isbanned(M, "pAI"))
 			jobs += "<td width='20%'><a href='?src=\ref[src];jobban3=pAI;jobban4=\ref[M]'><font color=red>pAI</font></a></td>"
@@ -675,19 +675,19 @@
 			jobs += "<td width='20%'><a href='?src=\ref[src];jobban3=ninja;jobban4=\ref[M]'><font color=red>[replacetext("Ninja", " ", "&nbsp")]</font></a></td>"
 		else
 			jobs += "<td width='20%'><a href='?src=\ref[src];jobban3=ninja;jobban4=\ref[M]'>[replacetext("Ninja", " ", "&nbsp")]</a></td>"
-			
+
 		//Raider
 		if(jobban_isbanned(M, "raider") || isbanned_dept)
 			jobs += "<td width='20%'><a href='?src=\ref[src];jobban3=raider;jobban4=\ref[M]'><font color=red>[replacetext("Raider", " ", "&nbsp")]</font></a></td>"
 		else
 			jobs += "<td width='20%'><a href='?src=\ref[src];jobban3=raider;jobban4=\ref[M]'>[replacetext("Raider", " ", "&nbsp")]</a></td>"
-			
+
 		//Mutineer
 		if(jobban_isbanned(M, "mutineer") || isbanned_dept)
 			jobs += "<td width='20%'><a href='?src=\ref[src];jobban3=mutineer;jobban4=\ref[M]'><font color=red>[replacetext("Mutineer", " ", "&nbsp")]</font></a></td>"
 		else
 			jobs += "<td width='20%'><a href='?src=\ref[src];jobban3=mutineer;jobban4=\ref[M]'>[replacetext("Mutineer", " ", "&nbsp")]</a></td>"
-			
+
 		//Blob
 		if(jobban_isbanned(M, "blob") || isbanned_dept)
 			jobs += "<td width='20%'><a href='?src=\ref[src];jobban3=blob;jobban4=\ref[M]'><font color=red>[replacetext("Blob", " ", "&nbsp")]</font></a></td>"
@@ -706,12 +706,12 @@
 			jobs += "<td width='20%'><a href='?src=\ref[src];jobban3=Dionaea;jobban4=\ref[M]'><font color=red>Dionaea Nymph</font></a></td>"
 		else
 			jobs += "<td width='20%'><a href='?src=\ref[src];jobban3=Dionaea;jobban4=\ref[M]'>Dionaea Nymph</a></td>"
-			
+
 		//NPC
 		if(jobban_isbanned(M, "NPC"))
 			jobs += "<td width='20%'><a href='?src=\ref[src];jobban3=NPC;jobban4=\ref[M]'><font color=red>NPC</font></a></td>"
 		else
-			jobs += "<td width='20%'><a href='?src=\ref[src];jobban3=NPC;jobban4=\ref[M]'>NPC</a></td>"	
+			jobs += "<td width='20%'><a href='?src=\ref[src];jobban3=NPC;jobban4=\ref[M]'>NPC</a></td>"
 
 		//ANTAG HUD
 		if(jobban_isbanned(M, "AntagHUD"))
@@ -1149,7 +1149,7 @@
 
 		//strip their stuff and stick it in the crate
 		for(var/obj/item/I in M)
-			M.u_equip(I)
+			M.unEquip(I)
 			if(I)
 				I.loc = locker
 				I.layer = initial(I.layer)
@@ -1170,7 +1170,7 @@
 		M << "\red You have been sent to the prison station!"
 		log_admin("[key_name(usr)] sent [key_name(M)] to the prison station.")
 		message_admins("\blue [key_name_admin(usr)] sent [key_name_admin(M)] to the prison station.", 1)
-		
+
 	else if(href_list["sendbacktolobby"])
 		if(!check_rights(R_ADMIN))
 			return
@@ -1193,7 +1193,7 @@
 
 		var/mob/new_player/NP = new()
 		NP.ckey = M.ckey
-		qdel(M)		
+		qdel(M)
 
 	else if(href_list["tdome1"])
 		if(!check_rights(R_SERVER|R_EVENT))	return
@@ -1210,7 +1210,7 @@
 			return
 
 		for(var/obj/item/I in M)
-			M.u_equip(I)
+			M.unEquip(I)
 			if(I)
 				I.loc = M.loc
 				I.layer = initial(I.layer)
@@ -1239,7 +1239,7 @@
 			return
 
 		for(var/obj/item/I in M)
-			M.u_equip(I)
+			M.unEquip(I)
 			if(I)
 				I.loc = M.loc
 				I.layer = initial(I.layer)
@@ -1290,7 +1290,7 @@
 			return
 
 		for(var/obj/item/I in M)
-			M.u_equip(I)
+			M.unEquip(I)
 			if(I)
 				I.loc = M.loc
 				I.layer = initial(I.layer)
@@ -1666,11 +1666,11 @@
 			//open a browse window listing the contents instead
 			var/data = ""
 			var/obj/item/weapon/paper_bundle/B = fax
-			
+
 			for (var/page = 1, page <= B.amount + 1, page++)
 				var/obj/pageobj = B.contents[page]
 				data += "<A href='?src=\ref[src];AdminFaxViewPage=[page];paper_bundle=\ref[B]'>Page [page] - [pageobj.name]</A><BR>"
-			
+
 			usr << browse(data, "window=[B.name]")
 		else
 			usr << "\red The faxed item is not viewable. This is probably a bug, and should be reported on the tracker: [fax.type]"
@@ -1678,9 +1678,9 @@
 	else if (href_list["AdminFaxViewPage"])
 		var/page = text2num(href_list["AdminFaxViewPage"])
 		var/obj/item/weapon/paper_bundle/bundle = locate(href_list["paper_bundle"])
-		
+
 		if (!bundle) return
-		
+
 		if (istype(bundle.contents[page], /obj/item/weapon/paper))
 			var/obj/item/weapon/paper/P = bundle.contents[page]
 			P.show_content(src.owner, 1)
@@ -1688,7 +1688,7 @@
 			var/obj/item/weapon/photo/H = bundle.contents[page]
 			H.show(src.owner)
 		return
-		
+
 	else if(href_list["CentcommFaxReply"])
 		var/mob/sender = locate(href_list["CentcommFaxReply"])
 		var/obj/machinery/photocopier/faxmachine/fax = locate(href_list["originfax"])
@@ -1697,26 +1697,26 @@
 		if(!input)	return
 
 		var/customname = input(src.owner, "Pick a title for the report", "Title") as text|null
-		
+
 		// Create the reply message
 		var/obj/item/weapon/paper/P = new /obj/item/weapon/paper( null ) //hopefully the null loc won't cause trouble for us
 		P.name = "[command_name()]- [customname]"
 		P.info = input
 		P.update_icon()
-		P.stamps += "<HR><img src=large_stamp-cent.png>"	
+		P.stamps += "<HR><img src=large_stamp-cent.png>"
 		var/image/stampoverlay = image('icons/obj/bureaucracy.dmi')
 		P.x = rand(-2, 0)
-		P.y = rand(-1, 2)	
+		P.y = rand(-1, 2)
 		P.offset_x += P.x
 		P.offset_y += P.y
 		stampoverlay.pixel_x = P.x
 		stampoverlay.pixel_y = P.y
-		
+
 		if(!P.ico)
 			P.ico = new
 		P.ico += "paper_stamp-cent"
 		stampoverlay.icon_state = "paper_stamp-cent"
-		
+
 		// Stamps
 		if(!P.stamped)
 			P.stamped = new
@@ -1729,7 +1729,7 @@
 			message_admins("[key_name_admin(src.owner)] replied to a fax message from [key_name_admin(sender)]", 1)
 		else
 			src.owner << "\red Message reply failed."
-		
+
 		spawn(100)
 			del(P)
 		return
@@ -2033,12 +2033,12 @@
 				feedback_inc("admin_secrets_fun_used",1)
 				feedback_add_details("admin_secrets_fun_used","BLOB")
 				message_admins("[key_name_admin(usr)] has triggered a blob.")
-				new /datum/game_mode/blob()	
+				new /datum/game_mode/blob()
 			if("aliens")
 				feedback_inc("admin_secrets_fun_used",1)
 				feedback_add_details("admin_secrets_fun_used","ALIEN")
 				message_admins("[key_name_admin(usr)] has triggered an alien infestation.")
-				new /datum/event/alien_infestation()					
+				new /datum/event/alien_infestation()
 			if("power")
 				feedback_inc("admin_secrets_fun_used",1)
 				feedback_add_details("admin_secrets_fun_used","P")
@@ -2111,7 +2111,7 @@
 							if(istype(W, /datum/organ/external))
 								continue
 								//don't strip organs
-							H.u_equip(W)
+							H.unEquip(W)
 							if (H.client)
 								H.client.screen -= W
 							if (W)

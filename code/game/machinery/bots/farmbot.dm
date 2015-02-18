@@ -544,7 +544,7 @@
 	A.loc = src.loc
 	user << "You add the robot arm to the [src]"
 	src.loc = A //Place the water tank into the assembly, it will be needed for the finished bot
-	user.u_equip(S)
+	user.unEquip(S)
 	del(S)
 
 /obj/item/weapon/farmbot_arm_assembly/attackby(obj/item/weapon/W as obj, mob/user as mob)
@@ -553,21 +553,21 @@
 		src.build_step++
 		user << "You add the plant analyzer to [src]!"
 		src.name = "farmbot assembly"
-		user.u_equip(W)
+		user.unEquip(W)
 		del(W)
 
 	else if(( istype(W, /obj/item/weapon/reagent_containers/glass/bucket)) && (src.build_step == 1))
 		src.build_step++
 		user << "You add a bucket to [src]!"
 		src.name = "farmbot assembly with bucket"
-		user.u_equip(W)
+		user.unEquip(W)
 		del(W)
 
 	else if(( istype(W, /obj/item/weapon/minihoe)) && (src.build_step == 2))
 		src.build_step++
 		user << "You add a minihoe to [src]!"
 		src.name = "farmbot assembly with bucket and minihoe"
-		user.u_equip(W)
+		user.unEquip(W)
 		del(W)
 
 	else if((isprox(W)) && (src.build_step == 3))
@@ -579,7 +579,7 @@
 			S.tank = wTank
 		S.loc = get_turf(src)
 		S.name = src.created_name
-		user.u_equip(W)
+		user.unEquip(W)
 		del(W)
 		del(src)
 

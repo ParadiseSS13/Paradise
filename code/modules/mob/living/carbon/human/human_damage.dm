@@ -348,7 +348,7 @@ This function restores all organs.
 			multiplier = 2
 		var/obj/item/clothing/head/H = head
 		if(!istype(H) || prob(H.loose * multiplier))
-			drop_from_inventory(H)
+			unEquip(H)
 			if(prob(60))
 				step_rand(H)
 			if(!stat)

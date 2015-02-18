@@ -80,98 +80,51 @@
 		return drop_item()
 	return 0
 
-
-/mob/proc/drop_from_inventory(var/obj/item/W)
-	if(W)
-		if(client)	client.screen -= W
-		u_equip(W)
-		if(!W) return 1 // self destroying objects (tk, grabs)
-		W.layer = initial(W.layer)
-		W.loc = loc
-
-		var/turf/T = get_turf(loc)
-		if(isturf(T))
-			T.Entered(W)
-
-		W.dropped(src)
-		update_icons()
-		return 1
-	return 0
-
-
 //Drops the item in our left hand
-/mob/proc/drop_l_hand(var/atom/Target)
-	if(l_hand)
-		if(client)	client.screen -= l_hand
-		l_hand.layer = initial(l_hand.layer)
-
-		if(Target)	l_hand.loc = Target.loc
-		else		l_hand.loc = loc
-
-		var/turf/T = get_turf(loc)
-		if(isturf(T))
-			T.Entered(l_hand)
-
-		l_hand.dropped(src)
-		l_hand = null
-		update_inv_l_hand()
-		return 1
-	return 0
+/mob/proc/drop_l_hand()
+	return unEquip(l_hand) //All needed checks are in unEquip
 
 //Drops the item in our right hand
-/mob/proc/drop_r_hand(var/atom/Target)
-	if(r_hand)
-		if(client)	client.screen -= r_hand
-		r_hand.layer = initial(r_hand.layer)
-
-		if(Target)	r_hand.loc = Target.loc
-		else		r_hand.loc = loc
-
-		var/turf/T = get_turf(Target)
-		if(istype(T))
-			T.Entered(r_hand)
-
-		r_hand.dropped(src)
-		r_hand = null
-		update_inv_r_hand()
-		return 1
-	return 0
+/mob/proc/drop_r_hand()
+	return unEquip(r_hand) //Why was this not calling unEquip in the first place jesus fuck.
 
 //Drops the item in our active hand.
-/mob/proc/drop_item(var/atom/Target)
-	if(hand)	return drop_l_hand(Target)
-	else		return drop_r_hand(Target)
+/mob/proc/drop_item() //THIS. DOES. NOT. NEED. AN. ARGUMENT.
+	if(hand)
+		return drop_l_hand()
+	else
+		return drop_r_hand()
 
-//TODO: phase out this proc
-/mob/proc/before_take_item(var/obj/item/W)	//TODO: what is this?
-	W.loc = null
-	W.layer = initial(W.layer)
-	u_equip(W)
-	update_icons()
-	return
+//Here lie unEquip and before_item_take, already forgotten and not missed.
 
-/mob/proc/u_equip(W as obj)
-	if (W == r_hand)
+/mob/proc/unEquip(obj/item/I, force) //Force overrides NODROP for things like wizarditis and admin undress.
+	if(!I) //If there's nothing to drop, the drop is automatically succesfull. If(unEquip) should generally be used to check for NODROP.
+		return 1
+
+	if((I.flags & NODROP) && !force)
+		return 0
+
+	if(I == r_hand)
 		r_hand = null
-		update_inv_r_hand(0)
-	else if (W == l_hand)
+		update_inv_r_hand()
+	else if(I == l_hand)
 		l_hand = null
-		update_inv_l_hand(0)
-	else if (W == back)
-		back = null
-		update_inv_back(0)
-	else if (W == wear_mask)
-		wear_mask = null
-		update_inv_wear_mask(0)
-	return
+		update_inv_l_hand()
+
+	if(I)
+		if(client)
+			client.screen -= I
+		I.loc = loc
+		I.dropped(src)
+		if(I)
+			I.layer = initial(I.layer)
+
+	return 1
 
 
 //Attemps to remove an object on a mob.  Will not move it to another area or such, just removes from the mob.
 /mob/proc/remove_from_mob(var/obj/O)
-	src.u_equip(O)
-	if (src.client)
-		src.client.screen -= O
-	O.layer = initial(O.layer)
+	unEquip(O)
 	O.screen_loc = null
 	return 1
 

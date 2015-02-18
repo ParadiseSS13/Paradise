@@ -335,4 +335,4 @@
 	icon_state = "shamebrero"
 	item_state = "shamebrero"
 	desc = "Once it's on, it never comes off."
-	canremove = 0
+	flags = NODROP

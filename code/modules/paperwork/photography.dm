@@ -61,7 +61,7 @@
 				"[class]You burn right through \the [src], turning it to ash. It flutters through the air before settling on the floor in a heap.")
 
 				if(user.get_inactive_hand() == src)
-					user.drop_from_inventory(src)
+					user.unEquip(src)
 
 				new /obj/effect/decal/cleanable/ash(get_turf(src))
 				del(src)
@@ -118,10 +118,10 @@
 		if((!( M.restrained() ) && !( M.stat ) && M.back == src))
 			switch(over_object.name)
 				if("r_hand")
-					M.u_equip(src)
+					M.unEquip(src)
 					M.put_in_r_hand(src)
 				if("l_hand")
-					M.u_equip(src)
+					M.unEquip(src)
 					M.put_in_l_hand(src)
 			add_fingerprint(usr)
 			return

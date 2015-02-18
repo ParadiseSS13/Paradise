@@ -143,7 +143,7 @@ var/last_chew = 0
 		var/obj/item/stack/rods/R = I
 		if (R.use(1))
 			var/obj/item/weapon/wirerod/W = new /obj/item/weapon/wirerod
-			user.u_equip(src)
+			user.unEquip(src)
 			user.put_in_hands(W)
 			user << "<span class='notice'>You wrap the cable restraint around the top of the rod.</span>"
 			del(src)

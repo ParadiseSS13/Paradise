@@ -374,13 +374,13 @@
 		else ..()
 
 		if (load == 1)
-			user.u_equip(W)
+			user.unEquip(W)
 			W.loc = src
 			if ((user.client && user.s_active != src))
 				user.client.screen -= W
 			W.dropped()
 		else if (load == 2)
-			user.u_equip(W)
+			user.unEquip(W)
 			W.dropped()
 			if ((user.client && user.s_active != src))
 				user.client.screen -= W

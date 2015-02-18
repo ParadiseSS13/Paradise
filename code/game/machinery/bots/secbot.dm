@@ -52,7 +52,7 @@
 	desc = "It's Officer Pingsky! Delegated to satellite guard duty for harbouring anti-human sentiment."
 	radio_frequency = AIPRIV_FREQ
 	radio_name = "AI Private"
-	
+
 /obj/machinery/bot/secbot/ofitser
 	name = "Prison Ofitser"
 	desc = "It's Prison Ofitser! Powered by the tears and sweat of prisoners."
@@ -428,7 +428,7 @@ Auto Patrol: []"},
 		var/obj/item/weapon/secbot_assembly/A = new /obj/item/weapon/secbot_assembly
 		user.put_in_hands(A)
 		user << "<span class='notice'>You add the signaler to the helmet.</span>"
-		user.before_take_item(src, 1)
+		user.unEquip(src, 1)
 		qdel(src)
 	else
 		return

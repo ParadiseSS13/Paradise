@@ -43,7 +43,9 @@
 	else if(istype(I, /obj/item/device/gps))
 		var/obj/item/device/gps/L = I
 		if(L.locked_location && !(stat & (NOPOWER|BROKEN)))
-			user.before_take_item(L)
+			if(!user.unEquip(L))
+				user << "<span class='notice'>\the [I] is stuck to your hand, you cannot put it in \the [src]</span>"
+				return
 			L.loc = src
 			locked = L
 			user << "<span class='caution'>You insert the GPS device into the [name]'s slot.</span>"
@@ -279,7 +281,7 @@
 	component_parts += new /obj/item/bluespace_crystal/artificial(null)
 	component_parts += new /obj/item/weapon/stock_parts/matter_bin(null)
 	RefreshParts()
-	
+
 /obj/machinery/teleport/hub/upgraded/New()
 	..()
 	component_parts = list()

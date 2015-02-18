@@ -207,7 +207,7 @@
 	desc = "Forced to live on your shameful acting as a fake Mexican, you and your poncho have grown inseperable. Literally."
 	icon_state = "ponchoshame"
 	item_state = "ponchoshame"
-	canremove = 0
+	flags = NODROP
 
 /*
  * Misc

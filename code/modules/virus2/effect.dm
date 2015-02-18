@@ -382,12 +382,12 @@
 /obj/item/clothing/mask/gas/virusclown_hat
 
 	dropped(mob/user as mob)
-		canremove = 1
+		flags &= ~NODROP
 		..()
 
 	equipped(var/mob/user, var/slot)
 		if (slot == slot_l_hand)
-			canremove = 1		//curses!
+			flags &= ~NODROP		//curses!
 		..()
 */
 
@@ -626,12 +626,12 @@
 /obj/item/clothing/glasses/virussunglasses
 
 	dropped(mob/user as mob)
-		canremove = 1
+		flags &= ~NODROP
 		..()
 
 	equipped(var/mob/user, var/slot)
 		if (slot == slot_glasses)
-			canremove = 0		//curses!
+			flags |= NODROP		//curses!
 		..()
 
 
@@ -650,12 +650,12 @@
 /obj/item/clothing/mask/gas/virusclown_hat
 
 	dropped(mob/user as mob)
-		canremove = 1
+		flags &= ~NODROP
 		..()
 
 	equipped(var/mob/user, var/slot)
 		if (slot == slot_wear_mask)
-			canremove = 0		//curses!
+			flags |= NODROP		//curses!
 		..()
 
 
@@ -678,12 +678,12 @@ var/list/compatible_mobs = list(/mob/living/carbon/human, /mob/living/carbon/mon
 	voicechange = 1		//NEEEEIIGHH
 
 	dropped(mob/user as mob)
-		canremove = 1
+		flags &= ~NODROP
 		..()
 
 	equipped(var/mob/user, var/slot)
 		if (slot == slot_wear_mask)
-			canremove = 0		//curses!
+			flags |= NODROP		//curses!
 		..()
 
 

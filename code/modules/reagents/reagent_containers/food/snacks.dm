@@ -22,7 +22,7 @@
 		if(M == usr)
 			usr << "<span class='notice'>You finish eating \the [src].</span>"
 		usr.visible_message("<span class='notice'>[usr] finishes eating \the [src].</span>")
-		usr.drop_from_inventory(src)	//so icons update :[
+		usr.unEquip(src)	//so icons update :[
 
 		if(trash)
 			if(ispath(trash,/obj/item))
@@ -39,7 +39,7 @@
 /obj/item/weapon/reagent_containers/food/snacks/attack(mob/M as mob, mob/user as mob, def_zone)
 	if(!reagents.total_volume)						//Shouldn't be needed but it checks to see if it has anything left in it.
 		user << "\red None of [src] left, oh no!"
-		M.drop_from_inventory(src)	//so icons update :[
+		M.unEquip(src)	//so icons update :[
 		del(src)
 		return 0
 
@@ -194,7 +194,7 @@
 		if(!iscarbon(user))
 			return 1
 		user << "\red You slip [W] inside [src]."
-		user.u_equip(W)
+		user.unEquip(W)
 		if ((user.client && user.s_active != src))
 			user.client.screen -= W
 		W.dropped(user)

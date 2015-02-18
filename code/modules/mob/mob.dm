@@ -246,7 +246,7 @@ var/list/slot_equipment_priority = list( \
 				if( !(slot_flags & SLOT_BACK) )
 					return 0
 				if(H.back)
-					if(H.back.canremove)
+					if(!(H.back.flags & NODROP))
 						return 2
 					else
 						return 0
@@ -255,7 +255,7 @@ var/list/slot_equipment_priority = list( \
 				if( !(slot_flags & SLOT_OCLOTHING) )
 					return 0
 				if(H.wear_suit)
-					if(H.wear_suit.canremove)
+					if(!(H.wear_suit.flags & NODROP))
 						return 2
 					else
 						return 0
@@ -264,7 +264,7 @@ var/list/slot_equipment_priority = list( \
 				if( !(slot_flags & SLOT_GLOVES) )
 					return 0
 				if(H.gloves)
-					if(H.gloves.canremove)
+					if(!(H.gloves.flags & NODROP))
 						return 2
 					else
 						return 0
@@ -273,7 +273,7 @@ var/list/slot_equipment_priority = list( \
 				if( !(slot_flags & SLOT_FEET) )
 					return 0
 				if(H.shoes)
-					if(H.shoes.canremove)
+					if(!(H.shoes.flags & NODROP))
 						return 2
 					else
 						return 0
@@ -286,7 +286,7 @@ var/list/slot_equipment_priority = list( \
 				if( !(slot_flags & SLOT_BELT) )
 					return 0
 				if(H.belt)
-					if(H.belt.canremove)
+					if(!(H.belt.flags & NODROP))
 						return 2
 					else
 						return 0
@@ -295,7 +295,7 @@ var/list/slot_equipment_priority = list( \
 				if( !(slot_flags & SLOT_EYES) )
 					return 0
 				if(H.glasses)
-					if(H.glasses.canremove)
+					if(!(H.glasses.flags & NODROP))
 						return 2
 					else
 						return 0
@@ -304,7 +304,7 @@ var/list/slot_equipment_priority = list( \
 				if( !(slot_flags & SLOT_HEAD) )
 					return 0
 				if(H.head)
-					if(H.head.canremove)
+					if(!(H.head.flags & NODROP))
 						return 2
 					else
 						return 0
@@ -313,7 +313,7 @@ var/list/slot_equipment_priority = list( \
 				if( !(slot_flags & slot_l_ear) )
 					return 0
 				if(H.l_ear)
-					if(H.l_ear.canremove)
+					if(!(H.l_ear.flags & NODROP))
 						return 2
 					else
 						return 0
@@ -322,7 +322,7 @@ var/list/slot_equipment_priority = list( \
 				if( !(slot_flags & slot_r_ear) )
 					return 0
 				if(H.r_ear)
-					if(H.r_ear.canremove)
+					if(!(H.r_ear.flags & NODROP))
 						return 2
 					else
 						return 0
@@ -333,7 +333,7 @@ var/list/slot_equipment_priority = list( \
 				if((M_FAT in H.mutations) && !(flags & ONESIZEFITSALL))
 					return 0
 				if(H.w_uniform)
-					if(H.w_uniform.canremove)
+					if(!(H.w_uniform.flags & NODROP))
 						return 2
 					else
 						return 0
@@ -346,7 +346,7 @@ var/list/slot_equipment_priority = list( \
 				if( !(slot_flags & SLOT_ID) )
 					return 0
 				if(H.wear_id)
-					if(H.wear_id.canremove)
+					if(!(H.wear_id.flags & NODROP))
 						return 2
 					else
 						return 0
@@ -389,7 +389,7 @@ var/list/slot_equipment_priority = list( \
 					return 0
 				if( istype(src, /obj/item/device/pda) || istype(src, /obj/item/weapon/pen) || is_type_in_list(src, H.wear_suit.allowed) )
 					if(H.s_store)
-						if(H.s_store.canremove)
+						if(!(H.s_store.flags & NODROP))
 							return 2
 						else
 							return 0

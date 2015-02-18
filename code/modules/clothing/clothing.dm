@@ -79,20 +79,20 @@
 		..()
 		return
 
-	if(!canremove)
+	if(flags & NODROP)
 		return
 
 	var/obj/item/clothing/ears/O
 	if(slot_flags & SLOT_TWOEARS )
 		O = (H.l_ear == src ? H.r_ear : H.l_ear)
-		user.u_equip(O)
+		user.unEquip(O)
 		if(!istype(src,/obj/item/clothing/ears/offear))
 			del(O)
 			O = src
 	else
 		O = src
 
-	user.u_equip(src)
+	user.unEquip(src)
 
 	if (O)
 		user.put_in_hands(O)
@@ -388,10 +388,10 @@ BLIND     // can't see anything
 		if (!( usr.restrained() ) && !( usr.stat ) && ( over_object ))
 			switch(over_object.name)
 				if("r_hand")
-					usr.u_equip(src)
+					usr.unEquip(src)
 					usr.put_in_r_hand(src)
 				if("l_hand")
-					usr.u_equip(src)
+					usr.unEquip(src)
 					usr.put_in_l_hand(src)
 			src.add_fingerprint(usr)
 			return

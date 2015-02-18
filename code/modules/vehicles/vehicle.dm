@@ -242,7 +242,7 @@
 	if(!istype(C))
 		return
 
-	H.drop_from_inventory(C)
+	H.unEquip(C)
 	C.forceMove(src)
 	cell = C
 	powercheck()

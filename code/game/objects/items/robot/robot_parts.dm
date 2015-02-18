@@ -109,7 +109,7 @@
 		user << "You armed the robot frame"
 		W:use(1)
 		if (user.get_inactive_hand()==src)
-			user.before_take_item(src)
+			user.unEquip(src)
 			user.put_in_inactive_hand(B)
 		del(src)
 	if(istype(W, /obj/item/robot_parts/l_leg))

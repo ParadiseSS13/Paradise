@@ -378,11 +378,13 @@
 	throw_mode_off()
 	if(usr.stat || !target)
 		return
-	if(target.type == /obj/screen) return
+	if(target.type == /obj/screen)
+		return
 
 	var/atom/movable/item = src.get_active_hand()
 
-	if(!item) return
+	if(!item || (item.flags & NODROP))
+		return
 
 	if (istype(item, /obj/item/weapon/grab))
 		var/obj/item/weapon/grab/G = item
@@ -404,10 +406,10 @@
 				else
 					M.LAssailant = usr
 
-	if(!item) return //Grab processing has a chance of returning null
-
-	item.layer = initial(item.layer)
-	u_equip(item)
+	if(!item)
+		return //Grab processing has a chance of returning null
+	if(!ismob(item)) //Honk mobs don't have a dropped() proc honk
+		unEquip(item)
 	update_icons()
 
 	if (istype(usr, /mob/living/carbon)) //Check if a carbon mob is throwing. Modify/remove this line as required.
@@ -419,6 +421,7 @@
 
 	//actually throw it!
 	if (item)
+		item.layer = initial(item.layer)
 		src.visible_message("\red [src] has thrown [item].")
 
 		if(!src.lastarea)
@@ -453,20 +456,25 @@
 		return 1
 	return
 
-/mob/living/carbon/u_equip(obj/item/W as obj)
-	if(!W)	return 0
+/mob/living/carbon/unEquip(obj/item/I) //THIS PROC DID NOT CALL ..()
+	. = ..() //Sets the default return value to what the parent returns.
+	if(!. || !I) //We don't want to set anything to null if the parent returned 0.
+		return
 
-	else if (W == handcuffed)
+	if(I == back)
+		back = null
+		update_inv_back(0)
+	else if(I == wear_mask)
+		if(istype(src, /mob/living/carbon/human)) //If we don't do this hair won't be properly rebuilt.
+			return
+		wear_mask = null
+		update_inv_wear_mask(0)
+	else if(I == handcuffed)
 		handcuffed = null
-		update_inv_handcuffed()
-
-	else if (W == legcuffed)
+		update_inv_handcuffed(0)
+	else if(I == legcuffed)
 		legcuffed = null
-		update_inv_legcuffed()
-	else
-	 ..()
-
-	return
+		update_inv_legcuffed(0)
 
 /mob/living/carbon/show_inv(mob/living/carbon/user as mob)
 	user.set_machine(src)

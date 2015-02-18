@@ -253,7 +253,7 @@ zone/proc/movables()
 				continue
 			. += A
 
-//ULTRALIGHT - only file where this is still used, hence why it's in here			
+//ULTRALIGHT - only file where this is still used, hence why it's in here
 #define UL_I_FALLOFF_SQUARE 0
 #define UL_I_FALLOFF_ROUND 1
 #define ul_FalloffStyle UL_I_FALLOFF_ROUND // Sets the lighting falloff to be either squared or circular.

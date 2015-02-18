@@ -44,7 +44,7 @@ var/global/list/facial_hair_styles_male_list = list()
 var/global/list/facial_hair_styles_female_list = list()
 var/global/list/skin_styles_female_list = list()		//unused
 	//Underwear
-var/global/list/underwear_m = list("White", "Grey", "Green", "Blue", "Black", "Mankini", "None") 
+var/global/list/underwear_m = list("White", "Grey", "Green", "Blue", "Black", "Mankini", "None")
 var/global/list/underwear_f = list("Red", "White", "Yellow", "Blue", "Black", "Thong", "None")
 var/global/list/underwear_list = underwear_m + underwear_f
 	//undershirt

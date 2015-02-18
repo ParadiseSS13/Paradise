@@ -63,7 +63,7 @@ var/list/ai_list = list()
 
 	var/obj/item/borg/sight/hud/sec/sechud = null
 	var/obj/item/borg/sight/hud/med/healthhud = null
-	
+
 	var/arrivalmsg = "$name, $rank, has arrived on the station."
 
 /mob/living/silicon/ai/New(loc, var/datum/ai_laws/L, var/obj/item/device/mmi/B, var/safety = 0)
@@ -842,12 +842,12 @@ var/list/ai_list = list()
 	set desc = "Augment visual feed with internal sensor overlays."
 	set category = "AI Commands"
 	toggle_sensor_mode()
-	
+
 /mob/living/silicon/ai/proc/change_arrival_message()
 	set name = "Set Arrival Message"
 	set desc = "Change the message that's transmitted when a new crew member arrives on station."
 	set category = "AI Commands"
-	
+
 	var/newmsg = input("What would you like the arrival message to be? Use $name to substitute the crew member's name, and use $rank to substitute the crew member's rank.", "Change Arrival Message", arrivalmsg) as text
 	if(newmsg != arrivalmsg)
 		arrivalmsg = newmsg
@@ -921,7 +921,7 @@ var/list/ai_list = list()
 			if(H.wear_id && istype(H.wear_id.GetID(), /obj/item/weapon/card/id/syndicate))
 				src << "Unable to locate an airlock"
 				return
-			if(istype(H.head, /obj/item/clothing/head/helmet/space/space_ninja) && !H.head.canremove)
+			if(istype(H.head, /obj/item/clothing/head/helmet/space/space_ninja) && (H.head.flags & NODROP))
 				src << "Unable to locate an airlock"
 				return
 			if(H.digitalcamo)

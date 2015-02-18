@@ -298,7 +298,7 @@
 			user << "You add [D] to [src]."
 			del(D)
 			user.put_in_hands(new /obj/item/weapon/bucket_sensor)
-			user.drop_from_inventory(src)
+			user.unEquip(src)
 			del(src)
 
 /obj/item/weapon/reagent_containers/glass/beaker/vial

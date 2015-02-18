@@ -672,7 +672,7 @@ Auto Patrol[]"},
 				new /obj/machinery/bot/ed209(T,created_name,lasercolor)
 				user.drop_item()
 				qdel(W)
-				user.before_take_item(src, 1)
+				user.unEquip(src, 1)
 				qdel(src)
 
 

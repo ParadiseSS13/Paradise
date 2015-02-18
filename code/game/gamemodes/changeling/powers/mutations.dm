@@ -34,7 +34,7 @@
 	..(user, target)
 
 /obj/effect/proc_holder/changeling/weapon/sting_action(var/mob/user)
-	if(!user.drop_item() && user.get_active_hand())
+	if(!user.drop_item())
 		user << "The [user.get_active_hand()] is stuck to your hand, you cannot grow a [weapon_name_simple] over it!"
 		return
 	var/obj/item/W = new weapon_type(user)
@@ -83,15 +83,15 @@
 	..(H, target)
 
 /obj/effect/proc_holder/changeling/suit/sting_action(var/mob/living/carbon/human/user)
-	if(user.wear_suit && !user.wear_suit.canremove)
+	if(!user.unEquip(user.wear_suit))
 		user << "\the [user.wear_suit] is stuck to your body, you cannot grow a [suit_name_simple] over it!"
 		return
-	if(user.head && !user.head.canremove)
+	if(!user.unEquip(user.head))
 		user << "\the [user.head] is stuck on your head, you cannot grow a [helmet_name_simple] over it!"
 		return
 
-	user.u_equip(user.head)
-	user.u_equip(user.wear_suit)
+	user.unEquip(user.head)
+	user.unEquip(user.wear_suit)
 
 	user.equip_to_slot_if_possible(new suit_type(user), slot_wear_suit, 1, 1, 1)
 	user.equip_to_slot_if_possible(new helmet_type(user), slot_head, 1, 1, 1)
@@ -221,7 +221,7 @@
 		if(ishuman(loc))
 			var/mob/living/carbon/human/H = loc
 			H.visible_message("<span class='warning'>With a sickening crunch, [H] reforms his shield into an arm!</span>", "<span class='notice'>We assimilate our shield into our body</span>", "<span class='warning>You hear organic matter ripping and tearing!</span>")
-			H.u_equip(src, 1)
+			H.unEquip(src, 1)
 		qdel(src)
 		return 0
 	else
@@ -259,7 +259,6 @@
 	flags = STOPSPRESSUREDMAGE | NODROP
 	allowed = list(/obj/item/device/flashlight, /obj/item/weapon/tank/emergency_oxygen, /obj/item/weapon/tank/oxygen)
 	armor = list(melee = 0, bullet = 0, laser = 0,energy = 0, bomb = 0, bio = 0, rad = 0) //No armor at all.
-	canremove = 0
 
 /obj/item/clothing/suit/space/changeling/New()
 	..()
@@ -281,7 +280,6 @@
 	desc = "A covering of pressure and temperature-resistant organic tissue with a glass-like chitin front."
 	flags = HEADCOVERSEYES | BLOCKHAIR | HEADCOVERSMOUTH | STOPSPRESSUREDMAGE | NODROP
 	armor = list(melee = 0, bullet = 0, laser = 0,energy = 0, bomb = 0, bio = 0, rad = 0)
-	canremove = 0
 
 /obj/item/clothing/head/helmet/space/changeling/dropped()
 	qdel(src)
@@ -314,7 +312,6 @@
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
 	slowdown = 2
 	armor = list(melee = 65, bullet = 20, laser = 10, energy = 13, bomb = 0, bio = 0, rad = 0)
-	canremove = 0
 	flags_inv = HIDEJUMPSUIT
 	cold_protection = 0
 	heat_protection = 0
@@ -333,7 +330,6 @@
 	icon_state = "lingarmorhelmet"
 	flags = HEADCOVERSEYES | BLOCKHAIR | NODROP
 	armor = list(melee = 70, bullet = 15, laser = 7,energy = 10, bomb = 5, bio = 2, rad = 0)
-	canremove = 0
 	flags_inv = HIDEEARS
 
 /obj/item/clothing/head/helmet/changeling/dropped()
