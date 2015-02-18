@@ -8,7 +8,7 @@
 	icon_state = null
 	item_state = "pill"
 	possible_transfer_amounts = null
-	volume = 50
+	volume = 60
 
 	New()
 		..()
