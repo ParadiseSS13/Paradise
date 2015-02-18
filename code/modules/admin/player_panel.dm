@@ -455,7 +455,7 @@
 					dat += "<td>[mob_loc.loc]</td></tr>"
 				else
 					dat += "<tr><td><i>Head not found!</i></td></tr>"
-			if(ticker.mode.num_players_started() >= 30
+			if(ticker.mode.num_players_started() >= 30)
 				for(var/datum/mind/N in ticker.mode.get_extra_living_heads())
 					var/mob/M = N.current
 					if(M)
