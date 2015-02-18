@@ -402,7 +402,7 @@
 		else
 			user << "<span class='notice'>You need to target your patient's chest with [src].</span>"
 			return
-			
+
 /obj/item/weapon/borg_defib
 	name = "defibrillator paddles"
 	desc = "A pair of mounted paddles with flat metal surfaces that are used to deliver powerful electric shocks."
@@ -411,10 +411,10 @@
 	item_state = "defibpaddles0"
 	force = 0
 	w_class = 4
-	canremove = 0
 	var/revivecost = 1000
 	var/cooldown = 0
 	var/busy = 0
+	flags = NODROP
 
 /obj/item/weapon/borg_defib/attack(mob/M, mob/user)
 	var/tobehealed
