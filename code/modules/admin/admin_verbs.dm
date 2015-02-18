@@ -44,7 +44,6 @@ var/list/admin_verbs_admin = list(
 	/client/proc/toggleprayers,			/*toggles prayers on/off*/
 //	/client/proc/toggle_hear_radio,		/*toggles whether we hear the radio*/
 	/client/proc/investigate_show,		/*various admintools for investigation. Such as a singulo grief-log*/
-	/client/proc/secrets,
 	/datum/admins/proc/toggleooc,		/*toggles ooc on/off for everyone*/
 	/datum/admins/proc/toggleoocdead,	/*toggles ooc on/off for everyone who is dead*/
 	/datum/admins/proc/toggledsay,		/*toggles dsay on/off for everyone*/
@@ -54,7 +53,6 @@ var/list/admin_verbs_admin = list(
 	/client/proc/cmd_mod_say,
 	/datum/admins/proc/show_player_info,
 	/client/proc/free_slot,			/*frees slot for chosen job*/
-	/client/proc/cmd_admin_rejuvenate,
 	/client/proc/toggleattacklogs,
 	/client/proc/toggledebuglogs,
 	/client/proc/update_mob_sprite,
@@ -62,9 +60,7 @@ var/list/admin_verbs_admin = list(
 	/client/proc/man_up,
 	/client/proc/global_man_up,
 	/client/proc/delbook,
-	/client/proc/event_manager_panel,
-	/client/proc/empty_ai_core_toggle_latejoin,
-	/client/proc/fax_panel
+	/client/proc/empty_ai_core_toggle_latejoin
 )
 var/list/admin_verbs_ban = list(
 	/client/proc/unban_panel,
@@ -97,6 +93,9 @@ var/list/admin_verbs_event = list(
 	/client/proc/cmd_admin_world_narrate,	/*sends text to all players with no padding*/
 	/client/proc/response_team, // Response Teams admin verb
 	/client/proc/cmd_admin_create_centcom_report,
+	/client/proc/fax_panel,
+	/client/proc/secrets,
+	/client/proc/event_manager_panel
 	)
 
 var/list/admin_verbs_spawn = list(
@@ -121,21 +120,7 @@ var/list/admin_verbs_server = list(
 	/client/proc/delbook,
 	/client/proc/toggle_antagHUD_use,
 	/client/proc/toggle_antagHUD_restrictions,
-	/client/proc/set_ooc,
-
-	//Doubling of certain event verbs for senior admins
-	/datum/admins/proc/access_news_network,	/*allows access of newscasters*/
-	/client/proc/cmd_admin_direct_narrate,	/*send text directly to a player with no padding. Useful for narratives and fluff-text*/
-	/client/proc/cmd_admin_world_narrate,	/*sends text to all players with no padding*/
-	/client/proc/toggle_random_events,
-	/client/proc/toggle_ert_calling,
-	/client/proc/one_click_antag,
-	/client/proc/cmd_admin_change_custom_event,
-	/client/proc/cmd_admin_create_centcom_report,
-	/client/proc/cmd_admin_dress,
-	/client/proc/editappear,
-	/client/proc/response_team, // Response Teams admin verb
-	/client/proc/nanomapgen_DumpImage
+	/client/proc/set_ooc
 	)
 var/list/admin_verbs_debug = list(
 	/client/proc/cmd_admin_list_open_jobs,
@@ -165,7 +150,8 @@ var/list/admin_verbs_permissions = list(
 	/client/proc/edit_admin_permissions
 	)
 var/list/admin_verbs_rejuv = list(
-	/client/proc/respawn_character
+	/client/proc/respawn_character,
+	/client/proc/cmd_admin_rejuvenate
 	)
 var/list/admin_verbs_mod = list(
 	/client/proc/cmd_admin_pm_context,	/*right-click adminPM interface*/
@@ -188,7 +174,6 @@ var/list/admin_verbs_mentor = list(
 	/client/proc/cmd_admin_pm_context,	/*right-click adminPM interface*/
 	/client/proc/cmd_admin_pm_panel,	/*admin-pm list*/
 	/client/proc/cmd_admin_pm_by_key_panel,	/*admin-pm list by key*/
-	/client/proc/cmd_mod_say,
 	/client/proc/cmd_mentor_check_new_players
 )
 
