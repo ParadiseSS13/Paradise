@@ -24,6 +24,7 @@
 
 	//Used for self-mailing.
 	var/mail_destination = 0
+	var/sprite[0]
 
 	//Used for pulling.
 
@@ -83,7 +84,8 @@
 		overlays -= "eyes"
 
 /mob/living/silicon/robot/drone/choose_icon()
-	return
+	..()
+
 
 /mob/living/silicon/robot/drone/pick_module()
 	return
@@ -104,32 +106,32 @@
 	if (stat == 2)
 		message = trim(copytext(sanitize(message), 1, MAX_MESSAGE_LEN))
 		return say_dead(message)
-		
+
 	//Must be concious to speak
 	if (stat)
 		return
-		
+
 	if(copytext(message,1,2) == "*")
 		return emote(copytext(message,2))
-		
-	if (length(message) >= 2)		
+
+	if (length(message) >= 2)
 		var/prefix = copytext(message, 1, 3)
 		if (department_radio_keys[prefix] == "drone")
 			message = copytext(message, 3)
-			message = trim(copytext(sanitize(message), 1, MAX_MESSAGE_LEN))		
-			
+			message = trim(copytext(sanitize(message), 1, MAX_MESSAGE_LEN))
+
 			if(istype(src, /mob/living/silicon/robot/drone))
 				var/mob/living/silicon/robot/drone/R = src
 				if(!R.is_component_functioning("comms"))
 					src << "\red Your drone communications component isn't functional."
 					return
-			drone_talk(message)		
+			drone_talk(message)
 		else
 			var/list/listeners = hearers(5,src)
 			listeners |= src
-			message = trim(copytext(sanitize(message), 1, MAX_MESSAGE_LEN))		
+			message = trim(copytext(sanitize(message), 1, MAX_MESSAGE_LEN))
 			for(var/mob/living/silicon/D in listeners)
-				if(D.client) 
+				if(D.client)
 					D << "<b>[src]</b> transmits, \"[message]\""
 
 			for (var/mob/M in player_list)
@@ -141,23 +143,23 @@
 					M << "<b>[src]</b> <a href='byond://?src=\ref[M];follow2=\ref[M];follow=\ref[src]'>(Follow)</a> transmits, \"[message]\""
 				else if(M.stat == 2 && src.client && M in listeners)
 					M << "<b>[src]</b> <a href='byond://?src=\ref[M];follow2=\ref[M];follow=\ref[src]'>(Follow)</a> transmits, \"[message]\""
-			
+
 /mob/living/proc/drone_talk(var/message)
 	log_say("[key_name(src)] : [message]")
-	message = trim(message)			
+	message = trim(message)
 
 	if (!message)
 		return
 
 	var/message_a = say_quote(message)
 	var/rendered = "<i><span class='game say'>Drone Talk, <span class='name'>[name]</span> <span class='message'>[message_a]</span></span></i>"
-	
+
 	for (var/mob/living/S in living_mob_list)
 		if(istype(S, /mob/living/silicon/robot/drone))
 			S.show_message(rendered, 2)
-	
-	for (var/mob/S in dead_mob_list)	
-		if(!istype(S,/mob/new_player) && !istype(S,/mob/living/carbon/brain))	
+
+	for (var/mob/S in dead_mob_list)
+		if(!istype(S,/mob/new_player) && !istype(S,/mob/living/carbon/brain))
 			var/rendered2 = "<i><span class='game say'>Drone Talk, <span class='name'>[name]</span> <a href='byond://?src=\ref[S];follow2=\ref[S];follow=\ref[src]'>(Follow)</a> <span class='message'>[message_a]</span></span></i>"
 			S.show_message(rendered2, 2)
 
@@ -207,12 +209,12 @@
 		return
 
 	..()
-	
+
 /mob/living/silicon/robot/drone/emag_act(user as mob)
 	if(!client || stat == 2)
 		user << "\red There's not much point subverting this heap of junk."
 		return
-		
+
 	if(!ishuman(user))
 		return
 	var/mob/living/carbon/human/H = user
@@ -342,6 +344,12 @@
 	src << "Remember,  you are <b>lawed against interference with the crew</b>. Also remember, <b>you DO NOT take orders from the AI.</b>"
 	src << "<b>Don't invade their worksites, don't steal their resources, don't tell them about the changeling in the toilets.</b>"
 	src << "<b>If a crewmember has noticed you, <i>you are probably breaking your first law</i></b>."
+
+	//var/choice = input("Pick an icon") in list("repairbot","mk2","mk3")
+	sprite["Default"] = "repairbot"
+	sprite["Mk2 Mousedrone"] = "mk2"
+	sprite["Mk3 Monkeydrone"] = "mk3"
+	choose_icon(6,sprite)
 
 /mob/living/silicon/robot/drone/Bump(atom/movable/AM as mob|obj, yes)
 	if (!yes || ( \
