@@ -304,7 +304,7 @@
 			handled = 1
 			if(prob(braindam/4))
 				message = stutter(message)
-				verb = pick("stammers", "stutters")
+				verb = pick("gibbers")
 			if(prob(braindam))
 				message = uppertext(message)
 				verb = "yells loudly"
