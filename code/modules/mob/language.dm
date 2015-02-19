@@ -141,7 +141,7 @@
 	exclaim_verb = "roars"
 	colour = "soghun"
 	key = "o"
-	flags = RESTRICTED | WHITELISTED
+	flags = RESTRICTED
 	syllables = list("ss","ss","ss","ss","skak","seeki","resh","las","esi","kor","sh")
 
 /datum/language/unathi/get_random_name()
@@ -159,7 +159,7 @@
 	exclaim_verb = "yowls"
 	colour = "tajaran"
 	key = "j"
-	flags = RESTRICTED | WHITELISTED
+	flags = RESTRICTED
 	syllables = list("rr","rr","tajr","kir","raj","kii","mir","kra","ahk","nal","vah","khaz","jri","ran","darr", \
 	"mi","jri","dynh","manq","rhe","zar","rrhaz","kal","chur","eech","thaa","dra","jurl","mah","sanu","dra","ii'r", \
 	"ka","aasi","far","wa","baq","ara","qara","zir","sam","mak","hrar","nja","rir","khan","jun","dar","rik","kah", \
@@ -182,7 +182,7 @@
 	exclaim_verb = "warbles"
 	colour = "skrell"
 	key = "k"
-	flags = RESTRICTED | WHITELISTED
+	flags = RESTRICTED
 	syllables = list("qr","qrr","xuq","qil","quum","xuqm","vol","xrim","zaoo","qu-uu","qix","qoo","zix","*","!")
 
 /datum/language/vox
@@ -192,7 +192,7 @@
 	ask_verb = "creels"
 	exclaim_verb = "SHRIEKS"
 	colour = "vox"
-	key = "5"
+	key = "v"
 	flags = RESTRICTED | WHITELISTED
 	syllables = list("ti","ti","ti","hi","hi","ki","ki","ki","ki","ya","ta","ha","ka","ya","chi","cha","kah", \
 	"SKRE","AHK","EHK","RAWK","KRA","AAA","EEE","KI","II","KRI","KA")
@@ -219,13 +219,13 @@
 /datum/language/trinary
 	name = "Trinary"
 	desc = "A modification of binary to allow fuzzy logic. 0 is no, 1 is maybe, 2 is yes. Credited with giving Machine People the ability to think creatively."
-	speech_verb = "shrieks"
+	speech_verb = "states"
 	ask_verb = "queries"
 	exclaim_verb = "exclaims"
 	colour = "trinary"
 	key = "5"
-	flags = RESTRICTED
-	syllables = list("11111","01222","10110","11210","22212","02211","21222","2022","2001","0002","0012","0012","000","120","121","201","220","10","11","0")	
+	flags = RESTRICTED | WHITELISTED
+	syllables = list("02011","01222","10100","10210","21012","02011","21200","1002","2001","0002","0012","0012","000","120","121","201","220","10","11","0")	
 	
 /datum/language/kidan
 	name = "Chittin"
@@ -235,18 +235,18 @@
 	exclaim_verb = "rubs its antennae together"
 	colour = "kidan"
 	key = "4"
-	flags = RESTRICTED
+	flags = RESTRICTED | WHITELISTED
 	syllables = list("click","clack")
 	
 /datum/language/slime
 	name = "Bubblish"
-	desc = "Language of slimes, a mixture of bubbling noises and pops. Almost impossible to speak without mechanical aid for humans."
+	desc = "The language of slimes. It's a mixture of bubbling noises and pops. Very difficult to speak without mechanical aid for humans."
 	speech_verb = "bubbles and pops"
 	ask_verb = "bubbles and pops"
 	exclaim_verb = "bubbles and pops"
 	colour = "slime"
 	key = "f"
-	flags = RESTRICTED
+	flags = RESTRICTED | WHITELISTED
 	syllables = list("blob","plop","pop","bop","boop")
 
 /datum/language/common
@@ -317,7 +317,7 @@
 	speech_verb = "hisses"
 	ask_verb = "hisses"
 	exclaim_verb = "hisses"
-	key = "4"
+	key = "6"
 	flags = RESTRICTED
 	syllables = list("sss","sSs","SSS")
 
@@ -332,7 +332,6 @@
 	flags = RESTRICTED | HIVEMIND
 
 /datum/language/xenos/check_special_condition(var/mob/other)
-
 	var/mob/living/carbon/M = other
 	if(!istype(M))
 		return 1

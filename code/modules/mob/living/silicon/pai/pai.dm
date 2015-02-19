@@ -86,7 +86,8 @@
 	//Default languages without universal translator software
 	add_language("Sol Common", 1)
 	add_language("Tradeband", 1)
-	add_language("Gutter", 1)		
+	add_language("Gutter", 1)	
+	add_language("Trinary", 1)		
 		
 	//Verbs for pAI mobile form, chassis and Say flavor text
 	verbs += /mob/living/silicon/pai/proc/choose_chassis
@@ -511,3 +512,6 @@
 			close_up()
 	return 2
 
+// No binary for pAIs.
+/mob/living/silicon/pai/binarycheck()
+	return 0

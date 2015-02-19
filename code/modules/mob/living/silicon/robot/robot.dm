@@ -176,6 +176,13 @@
 	rbPDA.set_name_and_job(custom_name,braintype)
 	if(hiddenborg)
 		rbPDA.hidden = 1
+		
+/mob/living/silicon/robot/binarycheck()
+	if(is_component_functioning("comms"))
+		var/datum/robot_component/RC = get_component("comms")
+		use_power(RC.energy_consumption)
+		return 1
+	return 0
 
 //If there's an MMI in the robot, have it ejected when the mob goes away. --NEO
 //Improved /N
@@ -1471,6 +1478,16 @@
 	laws = new /datum/ai_laws/syndicate_override()
 
 	Namepick()
+	
+/mob/living/silicon/robot/syndicate/canUseTopic(atom/movable/M)
+	if(stat || lockcharge || stunned || weakened)
+		return
+	if(z in config.admin_levels)
+		return 1
+	/*if(istype(M, /obj/machinery))
+		var/obj/machinery/Machine = M
+		return Machine.emagged*/
+	return 1
 
 /mob/living/silicon/robot/proc/notify_ai(var/notifytype, var/oldname, var/newname)
 	if(!connected_ai)

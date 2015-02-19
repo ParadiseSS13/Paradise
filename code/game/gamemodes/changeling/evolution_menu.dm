@@ -360,10 +360,11 @@ var/list/sting_paths
 		sting_paths = init_subtypes(/obj/effect/proc_holder/changeling)
 	if(mind.changeling.purchasedpowers)
 		remove_changeling_powers(1)
+		
+	add_language("Changeling")
 
 	for(var/language in languages)
-		if(!(language in mind.changeling.absorbed_languages))
-			mind.changeling.absorbed_languages += language
+		mind.changeling.absorbed_languages |= language
 
 	// purchase free powers.
 	for(var/obj/effect/proc_holder/changeling/path in sting_paths)
@@ -376,6 +377,18 @@ var/list/sting_paths
 	var/mob/living/carbon/C = src		//only carbons have dna now, so we have to typecaste
 	mind.changeling.absorbed_dna |= C.dna
 	return 1
+	
+//Used to dump the languages from the changeling datum into the actual mob.
+/mob/proc/changeling_update_languages(var/updated_languages)
+
+	languages = list()
+	for(var/language in updated_languages)
+		languages += language
+
+	//This isn't strictly necessary but just to be safe...
+	add_language("Changeling")
+
+	return
 
 /datum/changeling/proc/reset()
 	chosen_sting = null

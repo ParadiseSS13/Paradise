@@ -691,7 +691,7 @@
 	
 /mob/living/silicon/pai/proc/translator_toggle()
 
-	// 	Sol Common, Tradeband and Gutter are added with New() and are therefore the current default, always active languages
+	// 	Sol Common, Tradeband, Gutter and Trinary are added with New() and are therefore the current default, always active languages
 
 	if(translator_on)
 		translator_on = 0
@@ -699,6 +699,11 @@
 		remove_language("Sinta'unathi")
 		remove_language("Siik'tajr")
 		remove_language("Skrellian")
+		remove_language("Vox-pidgin")
+		remove_language("Rootspeak")
+		remove_language("Trinary")
+		remove_language("Chittin")
+		remove_language("Bubblish")
 
 		src << "\blue Translator Module toggled OFF."
 
@@ -708,5 +713,10 @@
 		add_language("Sinta'unathi")
 		add_language("Siik'tajr")
 		add_language("Skrellian")
+		add_language("Vox-pidgin")
+		add_language("Rootspeak")
+		add_language("Trinary")
+		add_language("Chittin")
+		add_language("Bubblish")
 
 		src << "\blue Translator Module toggled ON."

@@ -256,7 +256,7 @@
 	handle_dna(C)
 	return
 	
-/datum/species/proc/handle_dna(var/mob/living/carbon/C) //Handles DNA mutations, as that doesn't work at init.
+/datum/species/proc/handle_dna(var/mob/living/carbon/C, var/remove) //Handles DNA mutations, as that doesn't work at init.
 	return
 
 // Used for species-specific names (Vox, etc)
@@ -297,8 +297,8 @@
 	icobase = 'icons/mob/human_races/r_lizard.dmi'
 	deform = 'icons/mob/human_races/r_def_lizard.dmi'
 	path = /mob/living/carbon/human/unathi
-	default_language = "Sinta'unathi"
-	language = "Galactic Common"
+	default_language = "Galactic Common"
+	language = "Sinta'unathi"
 	tail = "sogtail"
 	unarmed_type = /datum/unarmed_attack/claws
 	primitive = /mob/living/carbon/monkey/unathi
@@ -331,8 +331,8 @@
 	icobase = 'icons/mob/human_races/r_tajaran.dmi'
 	deform = 'icons/mob/human_races/r_def_tajaran.dmi'
 	path = /mob/living/carbon/human/tajaran
-	default_language = "Siik'tajr"
-	language = "Galactic Common"
+	default_language = "Galactic Common"
+	language = "Siik'tajr"
 	tail = "tajtail"
 	unarmed_type = /datum/unarmed_attack/claws
 	darksight = 8
@@ -364,8 +364,8 @@
 	icobase = 'icons/mob/human_races/r_skrell.dmi'
 	deform = 'icons/mob/human_races/r_def_skrell.dmi'
 	path = /mob/living/carbon/human/skrell
-	default_language = "Skrellian"
-	language = "Galactic Common"
+	default_language = "Galactic Common"
+	language = "Skrellian"
 	primitive = /mob/living/carbon/monkey/skrell
 	unarmed_type = /datum/unarmed_attack/punch
 	
@@ -389,8 +389,8 @@
 	deform = 'icons/mob/human_races/r_def_vox.dmi'
 	path = /mob/living/carbon/human/vox
 	
-	default_language = "Vox-pidgin"
-	language = "Galactic Common"	
+	default_language = "Galactic Common"
+	language = "Vox-pidgin"	
 	speech_sounds = list('sound/voice/shriek1.ogg')
 	speech_chance = 20
 	
@@ -505,13 +505,11 @@
 	icobase = 'icons/mob/human_races/r_kidan.dmi'
 	deform = 'icons/mob/human_races/r_def_kidan.dmi'
 	path = /mob/living/carbon/human/kidan
-	default_language = "Chittin"
-	language = "Galactic Common"
+	default_language = "Galactic Common"
+	language = "Chittin"
 	unarmed_type = /datum/unarmed_attack/claws
 
 	brute_mod = 0.8
-	
-	blurb = "Kidan."
 
 	flags = IS_WHITELISTED
 	bloodflags = BLOOD_GREEN
@@ -519,13 +517,11 @@
 
 /datum/species/slime
 	name = "Slime People"
-	default_language = "Bubblish"
-	language = "Galactic Common"
+	default_language = "Galactic Common"
+	language = "Bubblish"
 	path = /mob/living/carbon/human/slime
 	primitive = /mob/living/carbon/slime
 	unarmed_type = /datum/unarmed_attack/punch
-	
-	blurb = "Slime."
 
 	flags = IS_WHITELISTED | NO_BREATHE | HAS_LIPS | NO_INTORGANS | NO_SCAN
 	bloodflags = BLOOD_SLIME
@@ -538,12 +534,12 @@
 
 	..()
 
-/datum/species/grey // /vg/
+/datum/species/grey
 	name = "Grey"
 	icobase = 'icons/mob/human_races/r_grey.dmi'
 	deform = 'icons/mob/human_races/r_def_grey.dmi'
-	default_language = "Grey"
-	language = "Galactic Common"
+	default_language = "Galactic Common"
+	//language = "Grey" // Perhaps if they ever get a hivemind
 	unarmed_type = /datum/unarmed_attack/punch
 	darksight = 5 // BOOSTED from 2
 	eyes = "grey_eyes_s"
@@ -551,19 +547,21 @@
 	brute_mod = 1.25 //greys are fragile
 	
 	default_genes = list(M_REMOTE_TALK)
-	
-	blurb = "Grey."
 
 	primitive = /mob/living/carbon/monkey // TODO
 
 	flags = IS_WHITELISTED | HAS_LIPS | HAS_UNDERWEAR | CAN_BE_FAT
 	
-/datum/species/grey/handle_dna(var/mob/living/carbon/C)
-	C.dna.SetSEState(REMOTETALKBLOCK,1,1)
-	C.mutations |= M_REMOTE_TALK
-	genemutcheck(C,REMOTETALKBLOCK,null,MUTCHK_FORCED)
+/datum/species/grey/handle_dna(var/mob/living/carbon/C, var/remove)
+	if(!remove)
+		C.dna.SetSEState(REMOTETALKBLOCK,1,1)
+		C.mutations |= M_REMOTE_TALK
+		genemutcheck(C,REMOTETALKBLOCK,null,MUTCHK_FORCED)
+	else
+		C.dna.SetSEState(REMOTETALKBLOCK,0,1)
+		C.mutations -= M_REMOTE_TALK
+		genemutcheck(C,REMOTETALKBLOCK,null,MUTCHK_FORCED)
 	C.update_mutations()
-	
 	..()
 
 /datum/species/diona
@@ -571,8 +569,8 @@
 	icobase = 'icons/mob/human_races/r_diona.dmi'
 	deform = 'icons/mob/human_races/r_def_plant.dmi'
 	path = /mob/living/carbon/human/diona
-	default_language = "Rootspeak"
-	language = "Galactic Common"
+	default_language = "Galactic Common"
+	language = "Rootspeak"
 	unarmed_type = /datum/unarmed_attack/diona
 	primitive = /mob/living/carbon/monkey/diona
 
@@ -638,15 +636,13 @@
 	icobase = 'icons/mob/human_races/r_machine.dmi'
 	deform = 'icons/mob/human_races/r_machine.dmi'
 	path = /mob/living/carbon/human/machine
-	default_language = "Trinary"
-	language = "Galactic Common"
+	default_language = "Galactic Common"
+	language = "Trinary"
 	unarmed_type = /datum/unarmed_attack/punch
 
 	eyes = "blank_eyes"
 	brute_mod = 1.5
 	burn_mod = 1.5
-	
-	blurb = "Machine."
 
 	cold_level_1 = 50
 	cold_level_2 = -1

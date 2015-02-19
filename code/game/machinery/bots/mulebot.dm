@@ -71,7 +71,7 @@ var/global/mulebot_count = 0
 	cell.charge = 2000
 	cell.maxcharge = 2000
 
-	spawn(5)	// must wait for map loading to finish
+	spawn(50)	// must wait for map loading to finish
 		add_to_beacons(bot_filter)
 
 		mulebot_count += 1
@@ -238,7 +238,7 @@ var/global/mulebot_count = 0
 
 	//user << browse("<HEAD><TITLE>M.U.L.E. Mk. III [suffix ? "([suffix])" : ""]</TITLE></HEAD>[dat]", "window=mulebot;size=350x500")
 	//onclose(user, "mulebot")
-	var/datum/browser/popup = new(user, "mulebot", "M.U.L.E. Mk. V [suffix ? "([suffix])" : ""]", 350, 535)
+	var/datum/browser/popup = new(user, "mulebot", "M.U.L.E. Mk. V [suffix ? "([suffix])" : ""]", 350, 620)
 	popup.set_content(dat)
 	popup.set_title_image(user.browse_rsc_icon(icon, icon_state))
 	popup.open()
@@ -313,6 +313,8 @@ var/global/mulebot_count = 0
 					updateDialog()
 
 			if("destination")
+				if(!delivery_beacons.len)
+					post_signal(beacon_freq, "findbeacon", "delivery")
 				refresh=0
 				var/new_dest = input("Select M.U.L.E. Destination", "Mulebot [suffix ? "([suffix])" : ""]", destination) as null|anything in delivery_beacons
 				refresh=1
@@ -683,7 +685,6 @@ var/global/mulebot_count = 0
 // called when bot reaches current target
 /obj/machinery/bot/mulebot/proc/at_target()
 	if(!reached_target)
-		radio_frequency = SUP_FREQ //Supply channel
 		radio_name = "Supply"
 		Radio.config(list("[radio_name]" = 0))
 		visible_message("[src] makes a chiming sound!", "You hear a chime.")
@@ -696,12 +697,11 @@ var/global/mulebot_count = 0
 				calling_ai << "<span class='notice'>\icon[src] [src] wirelessly plays a chiming sound!</span>"
 				playsound(calling_ai, 'sound/machines/chime.ogg',40, 0)
 				calling_ai = null
-				radio_frequency = AI_FREQ //Report on AI Private instead if the AI is controlling us.
 				radio_name = "AI Private"
 				Radio.config(list("[radio_name]" = 0))
 
 		if(load)		// if loaded, unload at target
-			speak("Destination <b>[destination]</b> reached. Unloading [load].", radio_frequency, radio_name)
+			speak("Destination <b>[destination]</b> reached. Unloading [load].", radio_name)
 			unload(loaddir)
 		else
 			// not loaded
@@ -717,7 +717,7 @@ var/global/mulebot_count = 0
 				if(AM)
 					load(AM)
 					if(report_delivery)
-						speak("Now loading [load] at <b>[get_area(src)]</b>.", radio_frequency, radio_name)
+						speak("Now loading [load] at <b>[get_area(src)]</b>.", radio_name)
 		// whatever happened, check to see if we return home
 
 		if(auto_return && destination != home_destination)

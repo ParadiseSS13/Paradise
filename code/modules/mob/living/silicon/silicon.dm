@@ -8,6 +8,7 @@
 	var/list/alarms_to_clear = list()
 	immune_to_ssd = 1
 	var/list/hud_list[10]
+	var/list/speech_synthesizer_langs = list()	//which languages can be vocalized by the speech synthesizer
 	var/list/alarm_types_show = list("Motion" = 0, "Fire" = 0, "Atmosphere" = 0, "Power" = 0, "Camera" = 0)
 	var/list/alarm_types_clear = list("Motion" = 0, "Fire" = 0, "Atmosphere" = 0, "Power" = 0, "Camera" = 0)
 	var/designation = ""
@@ -206,6 +207,37 @@
 		show_emergency_shuttle_eta()
 		show_system_integrity()
 		show_malf_ai()
+		
+//Silicon mob language procs
+
+/mob/living/silicon/can_speak(datum/language/speaking)
+	return universal_speak || (speaking in src.speech_synthesizer_langs)	//need speech synthesizer support to vocalize a language
+
+/mob/living/silicon/add_language(var/language, var/can_speak=1)
+	if (..(language) && can_speak)
+		speech_synthesizer_langs.Add(all_languages[language])
+		return 1
+
+/mob/living/silicon/remove_language(var/rem_language)
+	..(rem_language)
+
+	for (var/datum/language/L in speech_synthesizer_langs)
+		if (L.name == rem_language)
+			speech_synthesizer_langs -= L
+
+/mob/living/silicon/check_languages()
+	set name = "Check Known Languages"
+	set category = "IC"
+	set src = usr
+
+	var/dat = "<b><font size = 5>Known Languages</font></b><br/><br/>"
+
+	for(var/datum/language/L in languages)
+		if(!(L.flags & NONGLOBAL))
+			dat += "<b>[L.name] (:[L.key])</b><br/>Speech Synthesizer: <i>[(L in speech_synthesizer_langs)? "YES":"NOT SUPPORTED"]</i><br/>[L.desc]<br/><br/>"
+
+	src << browse(dat, "window=checklanguage")
+	return
 
 // this function displays the stations manifest in a separate window
 /mob/living/silicon/proc/show_station_manifest()
@@ -258,6 +290,9 @@
 	set category = "IC"
 
 	flavor_text =  copytext(sanitize(input(usr, "Please enter your new flavour text.", "Flavour text", null)  as text), 1)
+	
+/mob/living/silicon/binarycheck()
+	return 1
 
 /mob/living/silicon/proc/toggle_sensor_mode()
 	var/sensor_type = input("Please select sensor type.", "Sensor Integration", null) in list("Security", "Medical","Disable")

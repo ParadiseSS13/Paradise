@@ -255,9 +255,9 @@
 		verb = speaking.get_spoken_verb(ending)
 	else
 		if(ending == "!")
-			verb=pick("exclaims","shouts","yells")
+			verb = "exclaims"
 		else if(ending == "?")
-			verb="asks"
+			verb = "asks"
 
 	return verb
 
@@ -292,11 +292,11 @@
 			handled = 1
 		if(slurring)
 			message = slur(message)
-			verb = pick("slobbers","slurs")
+			verb = "slurs"
 			handled = 1
 		if(stuttering)
 			message = stutter(message)
-			verb = pick("stammers","stutters")
+			verb = "stammers"
 			handled = 1
 
 		var/braindam = getBrainLoss()
@@ -304,7 +304,7 @@
 			handled = 1
 			if(prob(braindam/4))
 				message = stutter(message)
-				verb = pick("gibbers")
+				verb = "gibbers"
 			if(prob(braindam))
 				message = uppertext(message)
 				verb = "yells loudly"

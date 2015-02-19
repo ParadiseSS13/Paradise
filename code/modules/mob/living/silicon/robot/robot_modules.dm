@@ -64,6 +64,11 @@
 	R.add_language("Sinta'unathi", 0)
 	R.add_language("Siik'tajr", 0)
 	R.add_language("Skrellian", 0)
+	R.add_language("Vox-pidgin", 0)
+	R.add_language("Rootspeak", 0)
+	R.add_language("Trinary", 1)
+	R.add_language("Chittin", 0)
+	R.add_language("Bubblish", 0)
 	R.add_language("Gutter", 0)
 
 /obj/item/weapon/robot_module/standard
@@ -262,12 +267,15 @@
 /obj/item/weapon/robot_module/butler/add_languages(var/mob/living/silicon/robot/R)
 	//full set of languages
 	R.add_language("Sol Common", 1)
-	R.add_language("Sinta'unathi", 1)
-	R.add_language("Siik'maas", 1)
-	R.add_language("Siik'tajr", 0)
-	R.add_language("Skrellian", 1)
-	R.add_language("Rootspeak", 1)
 	R.add_language("Tradeband", 1)
+	R.add_language("Sinta'unathi", 1)
+	R.add_language("Siik'tajr", 1)
+	R.add_language("Skrellian", 1)
+	R.add_language("Vox-pidgin", 1)
+	R.add_language("Rootspeak", 1)
+	R.add_language("Trinary", 1)
+	R.add_language("Chittin", 1)
+	R.add_language("Bubblish", 1)
 	R.add_language("Gutter", 1)
 
 /*

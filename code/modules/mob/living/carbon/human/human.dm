@@ -1300,6 +1300,7 @@
 
 /mob/living/carbon/human/proc/set_species(var/new_species, var/force_organs, var/default_colour)
 	
+	var/datum/species/oldspecies = species
 	if(!dna)
 		if(!new_species)
 			new_species = "Human"
@@ -1317,9 +1318,13 @@
 			remove_language(species.language)
 			
 		if(species.default_language)
-			remove_language(species.default_language)			
-
+			remove_language(species.default_language)	
+			
 	species = all_species[new_species]
+	
+	if(oldspecies)
+		if(oldspecies.default_genes.len)
+			oldspecies.handle_dna(src,1) // Remove any genes that belong to the old species
 
 	if(force_organs || !organs || !organs.len)
 		species.create_organs(src)

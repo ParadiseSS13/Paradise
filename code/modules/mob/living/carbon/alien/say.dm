@@ -1,83 +1,28 @@
-// To-do - convert to language system
 /mob/living/carbon/alien/say(var/message)
+	var/verb = "says"
+	var/message_range = world.view
 
-	if (silent)
-		return
+	if(client)
+		if(client.prefs.muted & MUTE_IC)
+			src << "\red You cannot speak in IC (Muted)."
+			return
 
-	if (length(message) >= 2)
-		if (department_radio_keys[copytext(message, 1, 3)] == "alientalk")
-			message = copytext(message, 3)
-			message = trim(copytext(sanitize(message), 1, MAX_MESSAGE_LEN))
-			if (stat == 2)
-				return say_dead(message)
-			else
-				alien_talk(message)
-		else
-			if (copytext(message, 1, 2) != "*" && !stat)
-				playsound(loc, "hiss", 25, 1, 1)//So aliens can hiss while they hiss yo/N
-			return ..(message)
-	else
+	message = trim_strip_html_properly(message)
 
-/mob/living/proc/alien_talk(var/message)
+	if(stat == 2)
+		return say_dead(message)
 
-	log_say("[key_name(src)] : [message]")
+	if(copytext(message,1,2) == "*")
+		return emote(copytext(message,2))
+
+	var/datum/language/speaking = parse_language(message)
+
+	if(speaking)
+		message = copytext(message, 2+length(speaking.key))
+
 	message = trim(message)
 
-	if (!message)
+	if(!message || stat)
 		return
 
-	var/message_a = say_quote(message)
-	var/rendered = "<i><span class='game say'>Hivemind, <span class='name'>[name]</span> <span class='message'>[message_a]</span></span></i>"
-	for (var/mob/living/S in player_list)
-		if(!S.stat)
-			if(S.alien_talk_understand)
-				if(S.alien_talk_understand == alien_talk_understand)
-					S.show_message(rendered, 2)
-			else if (S.hivecheck())
-				S.show_message(rendered, 2)
-
-	var/list/listening = hearers(1, src)
-	listening -= src
-	listening += src
-
-	var/list/heard = list()
-	for (var/mob/M in listening)
-		if(!istype(M, /mob/living/carbon/alien) && !M.alien_talk_understand)
-			heard += M
-
-
-	if (length(heard))
-		var/message_b
-
-		message_b = "hsssss"
-		message_b = say_quote(message_b)
-		message_b = "<i>[message_b]</i>"
-
-		rendered = "<i><span class='game say'><span class='name'>[voice_name]</span> <span class='message'>[message_b]</span></span></i>"
-
-		for (var/mob/M in heard)
-			M.show_message(rendered, 2)
-
-	message = say_quote(message)
-
-	rendered = "<i><span class='game say'>Hivemind, <span class='name'>[name]</span> <span class='message'>[message_a]</span></span></i>"
-	var/rendered2 = null
-	for (var/mob/M in player_list)
-		if (istype(M, /mob/new_player))
-			continue
-		if (M.stat > 1 && istype(M, /mob/dead/observer))
-			rendered2 = "<i><span class='game say'>Hivemind, <span class='name'>[name]</span> <a href='byond://?src=\ref[M];follow2=\ref[M];follow=\ref[src]'>(Follow)</a> <span class='message'>[message_a]</span></span></i>"
-			M.show_message(rendered2, 2)
-			
-/mob/living/proc/hivecheck()
-	if (isalien(src)) return 1
-	if (!ishuman(src)) return
-	var/mob/living/carbon/human/H = src
-	if (H.l_ear || H.r_ear)
-		var/obj/item/device/radio/headset/dongle
-		if(istype(H.l_ear,/obj/item/device/radio/headset))
-			dongle = H.l_ear
-		else
-			dongle = H.r_ear
-		if(!istype(dongle)) return
-		if(dongle.translate_hive) return 1
+	..(message, speaking, verb, null, null, message_range, null)

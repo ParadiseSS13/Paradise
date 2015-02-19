@@ -21,6 +21,8 @@
 	if(name == "alien")
 		name = text("alien ([rand(1, 1000)])")
 	real_name = name
+	add_language("Xenomorph")
+	add_language("Hivemind") 
 	..()
 
 //This is fine, works the same as a human

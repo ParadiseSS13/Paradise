@@ -30,6 +30,9 @@
 /mob/living/silicon/robot/drone/New()
 
 	..()
+	
+	remove_language("Robot Talk")
+	add_language("Drone Talk", 1)
 
 	if(camera && "Robots" in camera.network)
 		camera.network.Add("Engineering")
