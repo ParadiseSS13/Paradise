@@ -432,6 +432,7 @@
 
 
 /obj/spacepod/MouseDrop_T(mob/M as mob, mob/user as mob)
+	if(!isliving(M)) return
 	if(M != user)
 		if(M.stat != 0)
 			if(allow2enter)
