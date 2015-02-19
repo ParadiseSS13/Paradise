@@ -61,15 +61,13 @@
 		pod_overlays = new/list(2)
 		pod_overlays[DAMAGE] = image(icon, icon_state="pod_damage")
 		pod_overlays[FIRE] = image(icon, icon_state="pod_fire")
-
+	
+	overlays.Cut()
+	
 	if(health <= round(initial(health)/2))
 		overlays += pod_overlays[DAMAGE]
 		if(health <= round(initial(health)/4))
 			overlays += pod_overlays[FIRE]
-		else
-			overlays -= pod_overlays[FIRE]
-	else
-		overlays -= pod_overlays[DAMAGE]
 
 /obj/spacepod/bullet_act(var/obj/item/projectile/P)
 	if(P.damage && !P.nodamage)
@@ -133,6 +131,12 @@
 
 	update_icons()
 
+/obj/spacepod/proc/repair_damage(var/repair_amount)
+	if(health)
+		health = min(initial(health), health + repair_amount)
+		update_icons()
+
+
 /obj/spacepod/ex_act(severity)
 	switch(severity)
 		if(1)
@@ -185,6 +189,23 @@
 				equipment_system.weapon_system = W
 				equipment_system.weapon_system.my_atom = src
 				return
+	if(istype(W, /obj/item/weapon/weldingtool))
+		if(!hatch_open)
+			user << "\red You must open the maintenance hatch before attempting repairs."
+			return
+		var/obj/item/weapon/weldingtool/WT = W
+		if(!WT.isOn())
+			user << "\red The welder must be on for this task."
+			return
+		if (health < initial(health))
+			user << "\blue You start welding the spacepod..."
+			playsound(loc, 'sound/items/Welder.ogg', 50, 1)
+			if(do_after(user, 20))
+				if(!src || !WT.remove_fuel(3, user)) return
+				repair_damage(10)
+				user << "\blue You mend some [pick("dents","bumps","damage")] with \the [WT]"
+		else
+			user << "\blue <b>\The [src] is fully repaired!</b>"
 
 /obj/spacepod/attack_paw(mob/user as mob)
 	return src.attack_hand(user)				
