@@ -279,6 +279,7 @@
 				M.apply_effect(25, IRRADIATE)
 
 		var/turf/simulated/floor/plating/airless/asteroid/N = ChangeTurf(/turf/simulated/floor/plating/airless/asteroid)
+		playsound(src, 'sound/effects/break_stone.ogg', 50, 1) //beautiful destruction
 		N.fullUpdateMineralOverlays()
 
 		if(rand(1,750) == 1)
@@ -434,7 +435,7 @@
 			return
 
 		user << "\red You start digging."
-		playsound(loc, 'sound/effects/rustle1.ogg', 50, 1) //russle sounds sounded better
+		playsound(src, 'sound/effects/shovel_dig.ogg', 50, 1) //FUCK YO RUSTLE I GOT'S THE DIGS SOUND HERE
 
 		sleep(40)
 		if ((user.loc == T && user.get_active_hand() == W))
@@ -451,7 +452,7 @@
 			return
 
 		user << "\red You start digging."
-		playsound(loc, 'sound/effects/rustle1.ogg', 50, 1) //russle sounds sounded better
+		playsound(src, 'sound/effects/shovel_dig.ogg', 50, 1) //FUCK YO RUSTLE I GOT'S THE DIGS SOUND HERE
 
 		sleep(30)
 		if ((user.loc == T && user.get_active_hand() == W))
@@ -468,7 +469,7 @@
 			return
 
 		user << "\red You start digging."
-		playsound(loc, 'sound/effects/rustle1.ogg', 50, 1) //russle sounds sounded better
+		playsound(src, 'sound/effects/shovel_dig.ogg', 50, 1) //FUCK YO RUSTLE I GOT'S THE DIGS SOUND HERE
 
 		sleep(0)
 		if ((user.loc == T && user.get_active_hand() == W))
