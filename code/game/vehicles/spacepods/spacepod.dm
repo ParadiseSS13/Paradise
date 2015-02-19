@@ -161,10 +161,12 @@
 /obj/spacepod/attackby(obj/item/W as obj, mob/user as mob)
 	if(iscrowbar(W))
 		hatch_open = !hatch_open
+		playsound(loc, 'sound/items/Crowbar.ogg', 50, 1)
 		user << "<span class='notice'>You [hatch_open ? "open" : "close"] the maintenance hatch.</span>"
 	if(istype(W, /obj/item/weapon/stock_parts/cell))
 		if(!hatch_open)
-			return ..()
+			user << "\red The maintenance hatch is closed!"
+			return
 		if(battery)
 			user << "<span class='notice'>The pod already has a battery.</span>"
 			return
@@ -174,7 +176,8 @@
 		return
 	if(istype(W, /obj/item/device/spacepod_equipment))
 		if(!hatch_open)
-			return ..()
+			user << "\red The maintenance hatch is closed!"
+			return
 		if(!equipment_system)
 			user << "<span class='warning'>The pod has no equipment datum, yell at pomf</span>"
 			return
