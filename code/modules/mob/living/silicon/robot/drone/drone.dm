@@ -84,7 +84,7 @@
 		overlays -= "eyes"
 
 /mob/living/silicon/robot/drone/choose_icon()
-	..()
+	return
 
 
 /mob/living/silicon/robot/drone/pick_module()
@@ -345,10 +345,14 @@
 	src << "<b>Don't invade their worksites, don't steal their resources, don't tell them about the changeling in the toilets.</b>"
 	src << "<b>If a crewmember has noticed you, <i>you are probably breaking your first law</i></b>."
 
-	//var/choice = input("Pick an icon") in list("repairbot","mk2","mk3")
 	sprite["Default"] = "repairbot"
 	sprite["Mk2 Mousedrone"] = "mk2"
 	sprite["Mk3 Monkeydrone"] = "mk3"
+	var/icontype
+	icontype = input(player,"Pick an icon") in sprite
+	icon_state = sprite[icontype]
+	updateicon()
+
 	choose_icon(6,sprite)
 
 /mob/living/silicon/robot/drone/Bump(atom/movable/AM as mob|obj, yes)
