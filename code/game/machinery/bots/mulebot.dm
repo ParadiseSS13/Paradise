@@ -71,7 +71,7 @@ var/global/mulebot_count = 0
 	cell.charge = 2000
 	cell.maxcharge = 2000
 
-	spawn(50)	// must wait for map loading to finish
+	spawn(5)	// must wait for map loading to finish
 		add_to_beacons(bot_filter)
 
 		mulebot_count += 1

@@ -265,7 +265,7 @@
 	var/datum/signal/signal = new
 	signal.data["tag"] = tag
 	signal.data["command"] = command
-	post_signal(signal)
+	post_signal(signal, RADIO_AIRLOCK)
 
 /datum/computer/file/embedded_program/airlock/proc/signalPump(var/tag, var/power, var/direction, var/pressure)
 	var/datum/signal/signal = new

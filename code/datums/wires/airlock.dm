@@ -33,14 +33,16 @@ var/const/AIRLOCK_WIRE_LIGHT = 2048
 
 /datum/wires/airlock/GetInteractWindow()
 	var/obj/machinery/door/airlock/A = holder
+	var/haspower = A.arePowerSystemsOn()
 	. += ..()
-	. += text("<br>\n[]<br>\n[]<br>\n[]<br>\n[]<br>\n[]<br>\n[]<br>\n[]", (A.locked ? "The door bolts have fallen!" : "The door bolts look up."),
-	(A.lights ? "The door bolt lights are on." : "The door bolt lights are off!"),
-	((A.arePowerSystemsOn() && !(A.stat & NOPOWER)) ? "The test light is on." : "The test light is off!"),
-	(A.aiControlDisabled==0 ? "The 'AI control allowed' light is on." : "The 'AI control allowed' light is off."),
-	(A.safe==0 ? "The 'Check Wiring' light is on." : "The 'Check Wiring' light is off."),
-	(A.normalspeed==0 ? "The 'Check Timing Mechanism' light is on." : "The 'Check Timing Mechanism' light is off."),
-	(A.emergency==0 ? "The emergency lights are off." : "The emergency lights are on."))
+	. += text("<br>\n[]<br>\n[]<br>\n[]<br>\n[]<br>\n[]<br>\n[]<br>\n[]", 
+	(A.locked ? "The door bolts have fallen!" : "The door bolts look up."),
+	((A.lights && haspower) ? "The door bolt lights are on." : "The door bolt lights are off!"),
+	((haspower) ? "The test light is on." : "The test light is off!"),
+	((A.aiControlDisabled==0 && !A.emagged && haspower) ? "The 'AI control allowed' light is on." : "The 'AI control allowed' light is off."),
+	((A.safe==0 && haspower) ? "The 'Check Wiring' light is on." : "The 'Check Wiring' light is off."),
+	((A.normalspeed==0 && haspower) ? "The 'Check Timing Mechanism' light is on." : "The 'Check Timing Mechanism' light is off."),
+	((A.emergency==0 && haspower) ? "The emergency lights are off." : "The emergency lights are on."))
 
 
 /datum/wires/airlock/UpdateCut(var/index, var/mended)
@@ -125,7 +127,7 @@ var/const/AIRLOCK_WIRE_LIGHT = 2048
 	switch(index)
 		if(AIRLOCK_WIRE_IDSCAN)
 			//Sending a pulse through this disables emergency access and flashes the red light on the door (if the door has power).
-			if((A.arePowerSystemsOn()) && (!(A.stat & NOPOWER)))
+			if((A.arePowerSystemsOn()) && A.density)
 				A.door_animate("deny")
 				if(A.emergency)
 					A.emergency = 0
