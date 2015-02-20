@@ -763,6 +763,8 @@ It can still be worn/put on as normal.
 	if(slot_to_process)
 		if(strip_item) //Stripping an item from the mob
 			var/obj/item/W = strip_item
+			if((W.flags & NODROP) || (W.flags & ABSTRACT)) //Just to be sure
+				return
 			target.unEquip(W)
 			if (target.client)
 				target.client.screen -= W

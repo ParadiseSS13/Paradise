@@ -261,7 +261,8 @@
 			return
 		if(isrobot(user))
 			return
-		usr.drop_item()
+		if(!usr.drop_item())
+			return
 		if(W)
 			W.loc = src.loc
 	else if(istype(W, /obj/item/weapon/packageWrap))

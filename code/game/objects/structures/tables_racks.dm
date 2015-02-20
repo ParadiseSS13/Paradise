@@ -421,7 +421,9 @@
 			O.show_message("\blue The [src] was sliced apart by [user]!", 1, "\red You hear [src] coming apart.", 2)
 		destroy()
 
-	user.drop_item(src)
+	if(!(W.flags & ABSTRACT))
+		if(user.drop_item())
+			W.Move(loc)
 	return
 
 /obj/structure/table/proc/straight_table_check(var/direction)
@@ -584,7 +586,9 @@
 		del(src)
 		return
 
-	user.drop_item(src)
+	if(!(I.flags & ABSTRACT))
+		if(user.drop_item())
+			I.Move(loc)
 	//if(W && W.loc)	W.loc = src.loc
 	return 1
 
@@ -636,7 +640,9 @@
 		del(src)
 		return
 
-	user.drop_item(src)
+	if(!(W.flags & ABSTRACT))
+		if(user.drop_item())
+			W.Move(loc)
 	return 1
 
 
@@ -755,8 +761,6 @@
 	if(!(W.flags & ABSTRACT))
 		if(user.drop_item())
 			W.Move(loc)
-	if(W && W.loc)
-		W.loc = src.loc
 	return
 
 /obj/structure/rack/meteorhit(obj/O as obj)
