@@ -67,7 +67,7 @@
 	else if(istype(W, /obj/item/device/gps))
 		if(!inserted_gps)
 			inserted_gps = W
-			user.before_take_item(W)
+			user.unEquip(W)
 			W.loc = src
 			user.visible_message("<span class='notice'>[user] inserts [W] into \the [src]'s GPS device slot.</span>")
 			updateUsrDialog()

@@ -63,7 +63,7 @@
 /obj/item/weapon/watertank/proc/remove_noz(mob/user)
 	var/mob/living/carbon/human/M = user
 	if(noz in get_both_hands(M))
-		M.u_equip(noz)
+		M.unEquip(noz)
 	return
 
 /obj/item/weapon/watertank/Destroy()
@@ -108,7 +108,7 @@
 
 /proc/check_tank_exists(parent_tank, var/mob/living/carbon/human/M, var/obj/O)
 	if (!parent_tank || !istype(parent_tank, /obj/item/weapon/watertank))	//To avoid weird issues from admin spawns
-		M.u_equip(O)
+		M.unEquip(O)
 		qdel(0)
 		return 0
 	else

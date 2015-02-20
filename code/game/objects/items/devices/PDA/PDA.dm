@@ -11,7 +11,6 @@ var/global/list/obj/item/device/pda/PDAs = list()
 	icon_state = "pda"
 	item_state = "electronic"
 	w_class = 1.0
-	flags = FPRINT | TABLEPASS
 	slot_flags = SLOT_PDA | SLOT_BELT
 
 	//Main variables
@@ -130,15 +129,15 @@ var/global/list/obj/item/device/pda/PDAs = list()
 	icon_state = "pda-captain"
 	detonate = 0
 	//toff = 1
-	
+
 /obj/item/device/pda/heads/ntrep
 	default_cartridge = /obj/item/weapon/cartridge/supervisor
 	icon_state = "pda-h"
-	
+
 /obj/item/device/pda/heads/magistrate
 	default_cartridge = /obj/item/weapon/cartridge/supervisor
 	icon_state = "pda-h"
-	
+
 /obj/item/device/pda/heads/blueshield
 	default_cartridge = /obj/item/weapon/cartridge/hos
 	icon_state = "pda-h"
@@ -205,7 +204,7 @@ var/global/list/obj/item/device/pda/PDAs = list()
 /obj/item/device/pda/geneticist
 	default_cartridge = /obj/item/weapon/cartridge/medical
 	icon_state = "pda-genetics"
-	
+
 /obj/item/device/pda/centcom
 	default_cartridge = /obj/item/weapon/cartridge/centcom
 	icon_state = "pda-h"

@@ -46,10 +46,12 @@
 		if (!( M.restrained() ) && !( M.stat ))
 			switch(over_object.name)
 				if("r_hand")
-					M.u_equip(src)
+					if(!M.unEquip(src))
+						return
 					M.put_in_r_hand(src)
 				if("l_hand")
-					M.u_equip(src)
+					if(!M.unEquip(src))
+						return
 					M.put_in_l_hand(src)
 			src.add_fingerprint(usr)
 			return
@@ -101,7 +103,7 @@
 	if(user.s_active == src)
 		user.s_active = null
 	return
-	
+
 /obj/item/weapon/storage/proc/open(mob/user as mob)
 	if (src.use_sound)
 		playsound(src.loc, src.use_sound, 50, 1, -5)
@@ -202,7 +204,7 @@
 //This proc return 1 if the item can be picked up and 0 if it can't.
 //Set the stop_messages to stop it from printing messages
 /obj/item/weapon/storage/proc/can_be_inserted(obj/item/W as obj, stop_messages = 0)
-	if(!istype(W)) return //Not an item
+	if(!istype(W) || (W.flags & ABSTRACT)) return //Not an item
 
 	if(src.loc == W)
 		return 0 //Means the item is already in the storage item
@@ -250,15 +252,21 @@
 				usr << "<span class='notice'>[src] cannot hold [W] as it's a storage item of the same size.</span>"
 			return 0 //To prevent the stacking of same sized storage items.
 
+	if(W.flags & NODROP) //SHOULD be handled in unEquip, but better safe than sorry.
+		usr << "<span class='notice'>\the [W] is stuck to your hand, you can't put it in \the [src]</span>"
+		return 0
+
 	return 1
 
 //This proc handles items being inserted. It does not perform any checks of whether an item can or can't be inserted. That's done by can_be_inserted()
 //The stop_warning parameter will stop the insertion message from being displayed. It is intended for cases where you are inserting multiple items at once,
 //such as when picking up all the items on a tile with one click.
 /obj/item/weapon/storage/proc/handle_item_insertion(obj/item/W as obj, prevent_warning = 0)
-	if(!istype(W)) return 0
+	if(!istype(W))
+		return 0
 	if(usr)
-		usr.u_equip(W)
+		if(!usr.unEquip(W))
+			return 0
 		usr.update_icons()	//update our overlays
 	W.loc = src
 	W.on_enter_storage(src)
@@ -465,17 +473,17 @@
 /atom/proc/storage_depth(atom/container)
 	var/depth = 0
 	var/atom/cur_atom = src
-	
+
 	while (cur_atom && !(cur_atom in container.contents))
 		if (isarea(cur_atom))
 			return -1
 		if (istype(cur_atom.loc, /obj/item/weapon/storage))
 			depth++
 		cur_atom = cur_atom.loc
-	
+
 	if (!cur_atom)
 		return -1	//inside something with a null loc.
-	
+
 	return depth
 
 //Like storage depth, but returns the depth to the nearest turf
@@ -483,16 +491,16 @@
 /atom/proc/storage_depth_turf()
 	var/depth = 0
 	var/atom/cur_atom = src
-	
+
 	while (cur_atom && !isturf(cur_atom))
 		if (isarea(cur_atom))
 			return -1
 		if (istype(cur_atom.loc, /obj/item/weapon/storage))
 			depth++
 		cur_atom = cur_atom.loc
-	
+
 	if (!cur_atom)
 		return -1	//inside something with a null loc.
-	
+
 	return depth
-	
+

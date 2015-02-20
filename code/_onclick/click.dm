@@ -65,8 +65,6 @@
 	if(stat || paralysis || stunned || weakened)
 		return
 
-	face_atom(A) // change direction to face what you clicked on
-
 	if(next_move > world.time) // in the year 2000...
 		return
 

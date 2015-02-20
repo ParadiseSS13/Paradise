@@ -59,7 +59,8 @@
 		if(!wax)
 			new/obj/item/trash/candle(src.loc)
 			if(istype(src.loc, /mob))
-				src.dropped()
+				var/mob/M = src.loc
+				M.unEquip(src, 1) //src is being deleted anyway
 			del(src)
 		update_icon()
 		if(istype(loc, /turf)) //start a fire if possible

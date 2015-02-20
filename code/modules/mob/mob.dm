@@ -246,7 +246,7 @@ var/list/slot_equipment_priority = list( \
 				if( !(slot_flags & SLOT_BACK) )
 					return 0
 				if(H.back)
-					if(H.back.canremove)
+					if(!(H.back.flags & NODROP))
 						return 2
 					else
 						return 0
@@ -255,7 +255,7 @@ var/list/slot_equipment_priority = list( \
 				if( !(slot_flags & SLOT_OCLOTHING) )
 					return 0
 				if(H.wear_suit)
-					if(H.wear_suit.canremove)
+					if(!(H.wear_suit.flags & NODROP))
 						return 2
 					else
 						return 0
@@ -264,7 +264,7 @@ var/list/slot_equipment_priority = list( \
 				if( !(slot_flags & SLOT_GLOVES) )
 					return 0
 				if(H.gloves)
-					if(H.gloves.canremove)
+					if(!(H.gloves.flags & NODROP))
 						return 2
 					else
 						return 0
@@ -273,7 +273,7 @@ var/list/slot_equipment_priority = list( \
 				if( !(slot_flags & SLOT_FEET) )
 					return 0
 				if(H.shoes)
-					if(H.shoes.canremove)
+					if(!(H.shoes.flags & NODROP))
 						return 2
 					else
 						return 0
@@ -286,7 +286,7 @@ var/list/slot_equipment_priority = list( \
 				if( !(slot_flags & SLOT_BELT) )
 					return 0
 				if(H.belt)
-					if(H.belt.canremove)
+					if(!(H.belt.flags & NODROP))
 						return 2
 					else
 						return 0
@@ -295,7 +295,7 @@ var/list/slot_equipment_priority = list( \
 				if( !(slot_flags & SLOT_EYES) )
 					return 0
 				if(H.glasses)
-					if(H.glasses.canremove)
+					if(!(H.glasses.flags & NODROP))
 						return 2
 					else
 						return 0
@@ -304,7 +304,7 @@ var/list/slot_equipment_priority = list( \
 				if( !(slot_flags & SLOT_HEAD) )
 					return 0
 				if(H.head)
-					if(H.head.canremove)
+					if(!(H.head.flags & NODROP))
 						return 2
 					else
 						return 0
@@ -313,7 +313,7 @@ var/list/slot_equipment_priority = list( \
 				if( !(slot_flags & slot_l_ear) )
 					return 0
 				if(H.l_ear)
-					if(H.l_ear.canremove)
+					if(!(H.l_ear.flags & NODROP))
 						return 2
 					else
 						return 0
@@ -322,7 +322,7 @@ var/list/slot_equipment_priority = list( \
 				if( !(slot_flags & slot_r_ear) )
 					return 0
 				if(H.r_ear)
-					if(H.r_ear.canremove)
+					if(!(H.r_ear.flags & NODROP))
 						return 2
 					else
 						return 0
@@ -333,7 +333,7 @@ var/list/slot_equipment_priority = list( \
 				if((M_FAT in H.mutations) && !(flags & ONESIZEFITSALL))
 					return 0
 				if(H.w_uniform)
-					if(H.w_uniform.canremove)
+					if(!(H.w_uniform.flags & NODROP))
 						return 2
 					else
 						return 0
@@ -346,7 +346,7 @@ var/list/slot_equipment_priority = list( \
 				if( !(slot_flags & SLOT_ID) )
 					return 0
 				if(H.wear_id)
-					if(H.wear_id.canremove)
+					if(!(H.wear_id.flags & NODROP))
 						return 2
 					else
 						return 0
@@ -389,7 +389,7 @@ var/list/slot_equipment_priority = list( \
 					return 0
 				if( istype(src, /obj/item/device/pda) || istype(src, /obj/item/weapon/pen) || is_type_in_list(src, H.wear_suit.allowed) )
 					if(H.s_store)
-						if(H.s_store.canremove)
+						if(!(H.s_store.flags & NODROP))
 							return 2
 						else
 							return 0
@@ -438,9 +438,9 @@ var/list/slot_equipment_priority = list( \
 	<B><HR><FONT size=3>[name]</FONT></B>
 	<BR><HR>
 	<BR><B>Head(Mask):</B> <A href='?src=\ref[src];item=mask'>[(wear_mask ? wear_mask : "Nothing")]</A>
-	<BR><B>Left Hand:</B> <A href='?src=\ref[src];item=l_hand'>[(l_hand ? l_hand  : "Nothing")]</A>
-	<BR><B>Right Hand:</B> <A href='?src=\ref[src];item=r_hand'>[(r_hand ? r_hand : "Nothing")]</A>
-	<BR><B>Back:</B> <A href='?src=\ref[src];item=back'>[(back ? back : "Nothing")]</A> [((istype(wear_mask, /obj/item/clothing/mask) && istype(back, /obj/item/weapon/tank) && !( internal )) ? text(" <A href='?src=\ref[];item=internal'>Set Internal</A>", src) : "")]
+	<BR><B>Left Hand:</B> <A href='?src=\ref[src];item=l_hand'>[(l_hand && !(l_hand.flags & ABSTRACT)) ? l_hand  : "Nothing"]</A>
+	<BR><B>Right Hand:</B> <A href='?src=\ref[src];item=r_hand'>[(r_hand && !(r_hand.flags & ABSTRACT)) ? r_hand : "Nothing"]</A>
+	<BR><B>Back:</B> <A href='?src=\ref[src];item=back'>[(back && !(back.flags & ABSTRACT)) ? back : "Nothing"]</A> [((istype(wear_mask, /obj/item/clothing/mask) && istype(back, /obj/item/weapon/tank) && !( internal )) ? text(" <A href='?src=\ref[];item=internal'>Set Internal</A>", src) : "")]
 	<BR>[(internal ? text("<A href='?src=\ref[src];item=internal'>Remove Internal</A>") : "")]
 	<BR><A href='?src=\ref[src];item=pockets'>Empty Pockets</A>
 	<BR><A href='?src=\ref[user];refresh=1'>Refresh</A>
@@ -1236,7 +1236,7 @@ mob/proc/yank_out_object()
 	if(jobban_isbanned(usr, "NPC"))
 		usr << "<span class='warning'>You are banned from playing as NPC's.</span>"
 		return
-	
+
 	if((usr in respawnable_list) && (stat==2 || istype(usr,/mob/dead/observer)))
 		var/list/creatures = list("Mouse")
 		for(var/mob/living/L in living_mob_list)

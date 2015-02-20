@@ -55,12 +55,12 @@
 		if(beaker)
 			user << "<span class='warning'>A container is already loaded into the machine.</span>"
 		else
-			user.before_take_item(O)
+			user.unEquip(O)
 			O.loc = src
 			beaker = O
 			user << "<span class='notice'>You add the container to the machine.</span>"
 			updateUsrDialog()
-			
+
 	if(!processing)
 		if(default_deconstruction_screwdriver(user, "biogen-empty-o", "biogen-empty", O))
 			if(beaker)
@@ -72,7 +72,7 @@
 	if(exchange_parts(user, O))
 		return
 
-	else if(istype(O, /obj/item/weapon/crowbar))		
+	else if(istype(O, /obj/item/weapon/crowbar))
 	else if(panel_open)
 		user << "<span class='notice'>Close the maintenance panel first.</span>"
 	else if(processing)
@@ -105,13 +105,13 @@
 		if(i >= 10)
 			user << "<span class='warning'>The biogenerator is full! Activate it.</span>"
 		else
-			user.before_take_item(O)
+			user.unEquip(O)
 			O.loc = src
 			user << "<span class='info'>You put [O.name] in [src.name]</span>"
 
 
-	default_deconstruction_crowbar(O)			
-			
+	default_deconstruction_crowbar(O)
+
 	update_icon()
 	return
 
@@ -246,14 +246,14 @@
 			if(in_beaker)
 				if(check_container_volume(10)) return 0
 				else beaker.reagents.add_reagent("left4zed",10)
-			else 
+			else
 				new/obj/item/weapon/reagent_containers/glass/fertilizer/l4z(src.loc)
 		if("rh")
 			if (check_cost(25/efficiency)) return 0
 			if(in_beaker)
 				if(check_container_volume(10)) return 0
 				else beaker.reagents.add_reagent("robustharvest",10)
-			else 
+			else
 				new/obj/item/weapon/reagent_containers/glass/fertilizer/rh(src.loc)
 		if("wallet")
 			if (check_cost(100/efficiency)) return 0
@@ -324,7 +324,7 @@
 	else if(href_list["menu"])
 		menustat = "menu"
 		updateUsrDialog()
-		
+
 	else if(href_list["inbeaker"])
 		in_beaker = !in_beaker
 		updateUsrDialog()

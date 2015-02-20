@@ -444,7 +444,7 @@
 		usr << browse(null, "window=chemmaster")
 		usr.unset_machine()
 		return
-	
+
 	if (href_list["print_p"])
 		if (!(src.printing))
 			src.printing = 1
@@ -469,7 +469,7 @@
 			P.info += "<br><br><b>Notes:</b><br>"
 			P.name = "Chemical Analysis - [href_list["name"]]"
 			src.printing = null
-	
+
 	if(beaker)
 		var/datum/reagents/R = beaker:reagents
 		if (href_list["analyze"])
@@ -1073,7 +1073,7 @@
 		user << "Cannot refine into a reagent."
 		return 1
 
-	user.before_take_item(O)
+	user.unEquip(O)
 	O.loc = src
 	holdingitems += O
 	src.updateUsrDialog()

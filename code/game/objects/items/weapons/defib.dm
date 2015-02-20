@@ -158,7 +158,7 @@
 /obj/item/weapon/defibrillator/proc/remove_paddles(mob/user)
 	var/mob/living/carbon/human/M = user
 	if(paddles in get_both_hands(M))
-		M.u_equip(paddles)
+		M.unEquip(paddles)
 	update_icon()
 	return
 
@@ -290,7 +290,7 @@
 
 /obj/item/weapon/twohanded/shockpaddles/proc/check_defib_exists(mainunit, var/mob/living/carbon/human/M, var/obj/O)
 	if (!mainunit || !istype(mainunit, /obj/item/weapon/defibrillator))	//To avoid weird issues from admin spawns
-		M.u_equip(O)
+		M.unEquip(O)
 		qdel(O)
 		return 0
 	else
@@ -402,7 +402,7 @@
 		else
 			user << "<span class='notice'>You need to target your patient's chest with [src].</span>"
 			return
-			
+
 /obj/item/weapon/borg_defib
 	name = "defibrillator paddles"
 	desc = "A pair of mounted paddles with flat metal surfaces that are used to deliver powerful electric shocks."
@@ -411,10 +411,10 @@
 	item_state = "defibpaddles0"
 	force = 0
 	w_class = 4
-	canremove = 0
 	var/revivecost = 1000
 	var/cooldown = 0
 	var/busy = 0
+	flags = NODROP
 
 /obj/item/weapon/borg_defib/attack(mob/M, mob/user)
 	var/tobehealed

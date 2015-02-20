@@ -176,11 +176,11 @@
 				if(head)
 					var/obj/item/clothing/head/H = head
 					if(!istype(H) || prob(H.loose))
-						drop_from_inventory(H)
-						if(prob(60))
-							step_away(H,M)
-						visible_message("<span class='warning'>[M] has knocked [src]'s [H] off!</span>",
-										"<span class='warning'>[M] knocked \the [H] clean off your head!</span>") */
+						if(unEquip(H))
+							if(prob(60))
+								step_away(H,M)
+							visible_message("<span class='warning'>[M] has knocked [src]'s [H] off!</span>",
+											"<span class='warning'>[M] knocked \the [H] clean off your head!</span>") */
 
 			var/talked = 0	// BubbleWrap
 
@@ -209,8 +209,8 @@
 				//End BubbleWrap
 
 				if(!talked)	//BubbleWrap
-					drop_item()
-					visible_message("\red <B>[M] has disarmed [src]!</B>")
+					if(drop_item())
+						visible_message("\red <B>[M] has disarmed [src]!</B>")
 				playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
 				return
 

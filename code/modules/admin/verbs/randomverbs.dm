@@ -10,7 +10,7 @@
 		return
 
 	for(var/obj/item/W in M)
-		M.drop_from_inventory(W)
+		M.unEquip(W)
 
 	log_admin("[key_name(usr)] made [key_name(M)] drop everything!")
 	message_admins("[key_name_admin(usr)] made [key_name_admin(M)] drop everything!", 1)
@@ -28,7 +28,7 @@
 			return
 		//strip their stuff before they teleport into a cell :downs:
 		for(var/obj/item/W in M)
-			M.drop_from_inventory(W)
+			M.unEquip(W)
 		//teleport person to cell
 		M.Paralyse(5)
 		sleep(5)	//so they black out before warping
@@ -939,7 +939,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 		choice = input("The shuttle will just return if you call it. Call anyway?") in list("Confirm", "Cancel")
 		if(choice != "Confirm")
 			return
-		
+
 	if(emergency_shuttle.no_escape)
 		choice = input("The shuttle will not be able to leave if you call it. Call anyway?") in list("Confirm", "Cancel")
 		if(choice != "Confirm")

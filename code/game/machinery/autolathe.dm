@@ -47,7 +47,7 @@
 							"Medical",
 							"Miscellaneous",
 							"Security",
-							"Tools"	
+							"Tools"
 							)
 
 /obj/machinery/autolathe/New()
@@ -64,7 +64,7 @@
 	wires = new(src)
 	files = new /datum/research/autolathe(src)
 	matching_designs = list()
-	
+
 /obj/machinery/autolathe/upgraded/New()
 	..()
 	component_parts = list()
@@ -75,7 +75,7 @@
 	component_parts += new /obj/item/weapon/stock_parts/manipulator/pico(null)
 	component_parts += new /obj/item/weapon/stock_parts/console_screen(null)
 	RefreshParts()
-	
+
 /obj/machinery/autolathe/interact(mob/user)
 	if(shocked && !(stat & NOPOWER))
 		shock(user,50)
@@ -154,7 +154,7 @@
 			flick("autolathe_r",src)//plays glass insertion animation
 		stack.use(amount)
 	else
-		if(user.before_take_item(O))
+		if(!user.unEquip(O))
 			user << "<span class='notice'>/the [O] is stuck to your hand, you can't put it in \the [src]!</span>"
 		O.loc = src
 	icon_state = "autolathe"
@@ -179,6 +179,75 @@
 /obj/machinery/autolathe/Topic(href, href_list)
 	if(..())
 		return 1
+	if (!busy)
+		if(href_list["menu"])
+			screen = text2num(href_list["menu"])
+
+		if(href_list["category"])
+			selected_category = href_list["category"]
+
+		if(href_list["make"])
+
+			var/turf/T = get_step(src.loc, get_dir(src,usr))
+
+			/////////////////
+			//href protection
+			being_built = files.FindDesignByID(href_list["make"]) //check if it's a valid design
+			if(!being_built)
+				return
+
+			//multiplier checks : only stacks can have one and its value is 1, 10 ,25 or max_multiplier
+			var/multiplier = text2num(href_list["multiplier"])
+			var/max_multiplier = min(50, being_built.materials["$metal"] ?round(m_amount/being_built.materials["$metal"]):INFINITY,being_built.materials["$glass"]?round(g_amount/being_built.materials["$glass"]):INFINITY)
+			var/is_stack = ispath(being_built.build_path, /obj/item/stack)
+
+			if(!is_stack && (multiplier > 1))
+				return
+			if (!(multiplier in list(1,10,25,max_multiplier))) //"enough materials ?" is checked further down
+				return
+			/////////////////
+
+			var/coeff = (is_stack ? 1 : 2 ** prod_coeff) //stacks are unaffected by production coefficient
+			var/metal_cost = being_built.materials["$metal"]
+			var/glass_cost = being_built.materials["$glass"]
+
+			var/power = max(2000, (metal_cost+glass_cost)*multiplier/5)
+
+			if((m_amount >= metal_cost*multiplier/coeff) && (g_amount >= glass_cost*multiplier/coeff))
+				busy = 1
+				use_power(power)
+				icon_state = "autolathe"
+				flick("autolathe_n",src)
+				spawn(32/coeff)
+					use_power(power)
+					if(is_stack)
+						m_amount -= metal_cost*multiplier
+						g_amount -= glass_cost*multiplier
+						var/obj/item/stack/S = new being_built.build_path(T)
+						S.amount = multiplier
+					else
+						m_amount -= metal_cost/coeff
+						g_amount -= glass_cost/coeff
+						var/obj/item/new_item = new being_built.build_path(T)
+						new_item.m_amt /= coeff
+						new_item.g_amt /= coeff
+					if(m_amount < 0)
+						m_amount = 0
+					if(g_amount < 0)
+						g_amount = 0
+					busy = 0
+					src.updateUsrDialog()
+
+		if(href_list["search"])
+			matching_designs.Cut()
+
+			for(var/datum/design/D in files.known_designs)
+				if(findtext(D.name,href_list["to_search"]))
+					matching_designs.Add(D)
+
+	else
+		usr << "<span class=\"alert\">The autolathe is busy. Please wait for completion of previous operation.</span>"
+
 	if(href_list["menu"])
 		screen = text2num(href_list["menu"])
 
@@ -206,7 +275,7 @@
 		if (!(multiplier in list(1,10,25,max_multiplier))) //"enough materials ?" is checked in the build proc
 			return
 		/////////////////
-		
+
 		if(queue.len<queue_max_len)
 			add_to_queue(being_built,multiplier)
 		else
@@ -215,7 +284,7 @@
 			busy = 1
 			process_queue()
 			busy = 0
-	
+
 	if(href_list["remove_from_queue"])
 		var/index = text2num(href_list["remove_from_queue"])
 		if(isnum(index) && IsInRange(index,1,queue.len))
@@ -234,10 +303,10 @@
 		for(var/datum/design/D in files.known_designs)
 			if(findtext(D.name,href_list["to_search"]))
 				matching_designs.Add(D)
-		
-	
+
+
 	src.updateUsrDialog()
-	
+
 	return
 
 /obj/machinery/autolathe/RefreshParts()
@@ -288,7 +357,7 @@
 
 /obj/machinery/autolathe/proc/can_build(var/datum/design/D,var/multiplier=1,var/custom_metal,var/custom_glass)
 	var/coeff = get_coeff(D)
-	
+
 	var/m_amount_tmp = m_amount
 	if(custom_metal)
 		m_amount_tmp = custom_metal
@@ -333,7 +402,7 @@
 			output += "<li[!can_build(D,multiplier,temp_metal,temp_glass)?" style='color: #f00;'":null]>[initial(part.name)][is_stack?" (x[multiplier])":null] - [i>1?"<a href='?src=\ref[src];queue_move=-1;index=[i]' class='arrow'>&uarr;</a>":null] [i<queue.len?"<a href='?src=\ref[src];queue_move=+1;index=[i]' class='arrow'>&darr;</a>":null] <a href='?src=\ref[src];remove_from_queue=[i]'>Remove</a></li>"
 			temp_metal = max(temp_metal-LL[1],1)
 			temp_glass = max(temp_glass-LL[2],1)
-		
+
 		output += "</ol>"
 		output += "<a href='?src=\ref[src];clear_queue=1'>Clear queue</a>"
 	output += "</div></td>"
@@ -368,7 +437,7 @@
 			visible_message("\icon[src] <b>\The [src]</b> beeps, \"Not enough resources. Queue processing terminated.\"")
 			queue = list()
 			return 0
-		
+
 		remove_from_queue(1)
 		build_item(D,multiplier)
 		D = listgetindex(listgetindex(queue, 1),1)
@@ -440,7 +509,7 @@
 	dat += get_queue()
 	dat += "</tr></table>"
 	return dat
-	
+
 /obj/machinery/autolathe/proc/search_win(mob/user)
 	var/dat = "<table style='width:100%'><tr><td valign='top' style='margin-right: 300px'>"
 	dat += "<div class='statusDisplay'>"

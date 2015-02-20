@@ -21,7 +21,7 @@
 		if (contents.len >= max_butts)
 			user << "This ashtray is full."
 			return
-		user.u_equip(W)
+		user.unEquip(W)
 		W.loc = src
 
 		if (istype(W,/obj/item/clothing/mask/cigarette))

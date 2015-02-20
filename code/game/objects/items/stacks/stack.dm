@@ -145,7 +145,7 @@
 		if (src.amount<=0)
 			var/oldsrc = src
 			src = null //dont kill proc after del()
-			usr.before_take_item(oldsrc)
+			usr.unEquip(oldsrc, 1)
 			del(oldsrc)
 			if (istype(O,/obj/item))
 				usr.put_in_hands(O)
@@ -167,7 +167,7 @@
 	amount -= used
 	if (amount <= 0)
 		if(usr)
-			usr.before_take_item(src, 1)
+			usr.unEquip(src, 1)
 		qdel(src)
 	return 1
 
@@ -185,7 +185,7 @@
 		usr << "You add new [item.singular_name] to the stack. It now contains [item.amount] [item.singular_name]\s."
 		if(!oldsrc)
 			break
-			
+
 /obj/item/stack/proc/get_amount()
 	return amount
 

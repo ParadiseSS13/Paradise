@@ -283,7 +283,7 @@
 /obj/machinery/cryopod/robot/despawn_occupant()
 	var/mob/living/silicon/robot/R = occupant
 	if(!istype(R)) return ..()
-	
+
 	R.contents -= R.mmi
 	del(R.mmi)
 	for(var/obj/item/I in R.module) // the tools the borg has; metal, glass, guns etc
@@ -299,7 +299,7 @@
 /obj/machinery/cryopod/proc/despawn_occupant()
 	//Drop all items into the pod.
 	for(var/obj/item/W in occupant)
-		occupant.drop_from_inventory(W)
+		occupant.unEquip(W)
 		W.loc = src
 
 		if(W.contents.len) //Make sure we catch anything not handled by del() on the items.
@@ -388,7 +388,7 @@
 
 	//Make an announcement and log the person entering storage.
 	control_computer.frozen_crew += "[occupant.real_name]"
-	
+
 	var/ailist[] = list()
 	for (var/mob/living/silicon/ai/A in living_mob_list)
 		ailist += A
@@ -397,7 +397,7 @@
 		announcer.say(";[occupant.real_name] [on_store_message]")
 	else
 		announce.autosay("[occupant.real_name] [on_store_message]", "[on_store_name]")
-				
+
 	visible_message("<span class='notice'>\The [src] hums and hisses as it moves [occupant.real_name] into storage.</span>", 3)
 
 	// Delete the mob.
@@ -460,7 +460,7 @@
 
 			//Despawning occurs when process() is called with an occupant without a client.
 			src.add_fingerprint(M)
-			
+
 
 /obj/machinery/cryopod/MouseDrop_T(atom/movable/O as mob|obj, mob/user as mob)
 

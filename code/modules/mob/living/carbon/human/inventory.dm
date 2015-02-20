@@ -104,123 +104,76 @@
 		if(slot_tie)
 			return 1
 
-/mob/living/carbon/human/u_equip(obj/item/W as obj)
-	if(!W)	return 0
+/mob/living/carbon/human/unEquip(obj/item/I)
+	. = ..() //See mob.dm for an explanation on this and some rage about people copypasting instead of calling ..() like they should.
+	if(!. || !I)
+		return
 
-	var/success
 
-	if (W == wear_suit)
+	if(I == wear_suit)
 		if(s_store)
-			drop_from_inventory(s_store)
-		if(W)
-			success = 1
+			unEquip(s_store, 1) //It makes no sense for your suit storage to stay on you if you drop your suit.
 		wear_suit = null
-		update_inv_wear_suit()
-	else if (W == w_uniform)
-		if (r_store)
-			drop_from_inventory(r_store)
-		if (l_store)
-			drop_from_inventory(l_store)
-		if (wear_id)
-			drop_from_inventory(wear_id)
-		if (belt)
-			drop_from_inventory(belt)
+		if(I.flags_inv & HIDEJUMPSUIT)
+			update_inv_w_uniform()
+		update_inv_wear_suit(0)
+	else if(I == w_uniform)
+		if(r_store)
+			unEquip(r_store, 1) //Again, makes sense for pockets to drop.
+		if(l_store)
+			unEquip(l_store, 1)
+		if(wear_id)
+			unEquip(wear_id)
+		if(belt)
+			unEquip(belt)
 		w_uniform = null
-		success = 1
-		update_inv_w_uniform()
-	else if (W == gloves)
+		update_inv_w_uniform(0)
+	else if(I == gloves)
 		gloves = null
-		success = 1
-		update_inv_gloves()
-	else if (W == glasses)
+		update_inv_gloves(0)
+	else if(I == glasses)
 		glasses = null
-		success = 1
-		update_inv_glasses()
-	else if (W == head)
+		update_inv_glasses(0)
+	else if(I == head)
 		head = null
-		if((W.flags & BLOCKHAIR) || (W.flags & BLOCKHEADHAIR))
+		if(I.flags & BLOCKHAIR)
 			update_hair(0)	//rebuild hair
-		success = 1
-		update_inv_head()
-	else if (W == l_ear)
-		l_ear = null
-		success = 1
-		update_inv_ears()
-	else if (W == r_ear)
+		update_inv_head(0)
+	else if(I == r_ear)
 		r_ear = null
-		success = 1
-		update_inv_ears()
-	else if (W == shoes)
+		update_inv_ears(0)
+	else if (I == l_ear)
+		l_ear = null
+		update_inv_ears(0)
+	else if(I == shoes)
 		shoes = null
-		success = 1
-		update_inv_shoes()
-	else if (W == belt)
+		update_inv_shoes(0)
+	else if(I == belt)
 		belt = null
-		success = 1
-		update_inv_belt()
-	else if (W == wear_mask)
+		update_inv_belt(0)
+	else if(I == wear_mask)
 		wear_mask = null
-		success = 1
-		if((W.flags & BLOCKHAIR) || (W.flags & BLOCKHEADHAIR))
+		if(I.flags & BLOCKHAIR)
 			update_hair(0)	//rebuild hair
 		if(internal)
 			if(internals)
 				internals.icon_state = "internal0"
 			internal = null
-		update_inv_wear_mask()
-	else if (W == wear_id)
+		update_inv_wear_mask(0)
+	else if(I == wear_id)
 		wear_id = null
-		success = 1
-		update_inv_wear_id()
-	else if (W == wear_pda)
-		wear_pda = null
-		success = 1
-		update_inv_wear_pda()
-	else if (W == r_store)
+		update_inv_wear_id(0)
+	else if(I == r_store)
 		r_store = null
-		success = 1
-		update_inv_pockets()
-	else if (W == l_store)
+		update_inv_pockets(0)
+	else if(I == l_store)
 		l_store = null
-		success = 1
-		update_inv_pockets()
-	else if (W == s_store)
+		update_inv_pockets(0)
+	else if(I == s_store)
 		s_store = null
-		success = 1
-		update_inv_s_store()
-	else if (W == back)
-		back = null
-		success = 1
-		update_inv_back()
-	else if (W == handcuffed)
-		handcuffed = null
-		success = 1
-		update_inv_handcuffed()
-	else if (W == legcuffed)
-		legcuffed = null
-		success = 1
-		update_inv_legcuffed()
-	else if (W == r_hand)
-		r_hand = null
-		success = 1
-		update_inv_r_hand()
-	else if (W == l_hand)
-		l_hand = null
-		success = 1
-		update_inv_l_hand()
-	else
-		return 0
+		update_inv_s_store(0)
 
-	if(success)
-		if (W)
-			if (client)
-				client.screen -= W
-			W.loc = loc
-			W.dropped(src)
-			//if(W)
-				//W.layer = initial(W.layer)
 	update_action_buttons()
-	return 1
 
 
 
@@ -337,7 +290,7 @@
 			update_inv_s_store(redraw_mob)
 		if(slot_in_backpack)
 			if(src.get_active_hand() == W)
-				src.u_equip(W)
+				src.unEquip(W)
 			W.loc = src.back
 		if(slot_tie)
 			var/obj/item/clothing/under/uniform = src.w_uniform
@@ -454,7 +407,7 @@
 		if("mask")
 			target.attack_log += text("\[[time_stamp()]\] <font color='orange'>Had their mask removed by [source.name] ([source.ckey])</font>")
 			source.attack_log += text("\[[time_stamp()]\] <font color='red'>Attempted to remove [target.name]'s ([target.ckey]) mask</font>")
-			if(target.wear_mask && !target.wear_mask.canremove)
+			if(target.wear_mask && (target.wear_mask.flags & NODROP))
 				message = "\red <B>[source] fails to take off \a [target.wear_mask] from [target]'s head!</B>"
 				return
 			else if(target.wear_mask)
@@ -470,7 +423,7 @@
 		if("gloves")
 			target.attack_log += text("\[[time_stamp()]\] <font color='orange'>Has had their gloves ([target.gloves]) removed by [source.name] ([source.ckey])</font>")
 			source.attack_log += text("\[[time_stamp()]\] <font color='red'>Attempted to remove [target.name]'s ([target.ckey]) gloves ([target.gloves])</font>")
-			if(target.gloves && !target.gloves.canremove)
+			if(target.gloves && (target.gloves.flags & NODROP))
 				message = "\red <B>[source] fails to take off \a [target.gloves] from [target]'s hands!</B>"
 				return
 			else if(target.gloves)
@@ -478,7 +431,7 @@
 		if("eyes")
 			target.attack_log += text("\[[time_stamp()]\] <font color='orange'>Has had their eyewear ([target.glasses]) removed by [source.name] ([source.ckey])</font>")
 			source.attack_log += text("\[[time_stamp()]\] <font color='red'>Attempted to remove [target.name]'s ([target.ckey]) eyewear ([target.glasses])</font>")
-			if(target.glasses && !target.glasses.canremove)
+			if(target.glasses && (target.glasses.flags & NODROP))
 				message = "\red <B>[source] fails to take off \a [target.glasses] from [target]'s eyes!</B>"
 				return
 			else if(target.glasses)
@@ -486,7 +439,7 @@
 		if("l_ear")
 			target.attack_log += text("\[[time_stamp()]\] <font color='orange'>Has had their left ear item ([target.l_ear]) removed by [source.name] ([source.ckey])</font>")
 			source.attack_log += text("\[[time_stamp()]\] <font color='red'>Attempted to remove [target.name]'s ([target.ckey]) left ear item ([target.l_ear])</font>")
-			if(target.l_ear && !target.l_ear.canremove)
+			if(target.l_ear && (target.l_ear.flags & NODROP))
 				message = "\red <B>[source] fails to take off \a [target.l_ear] from [target]'s left ear!</B>"
 				return
 			else if(target.l_ear)
@@ -494,7 +447,7 @@
 		if("r_ear")
 			target.attack_log += text("\[[time_stamp()]\] <font color='orange'>Has had their right ear item ([target.r_ear]) removed by [source.name] ([source.ckey])</font>")
 			source.attack_log += text("\[[time_stamp()]\] <font color='red'>Attempted to remove [target.name]'s ([target.ckey]) right ear item ([target.r_ear])</font>")
-			if(target.r_ear && !target.r_ear.canremove)
+			if(target.r_ear && (target.r_ear.flags & NODROP))
 				message = "\red <B>[source] fails to take off \a [target.r_ear] from [target]'s right ear!</B>"
 				return
 			else if(target.r_ear)
@@ -502,7 +455,7 @@
 		if("head")
 			target.attack_log += text("\[[time_stamp()]\] <font color='orange'>Has had their hat ([target.head]) removed by [source.name] ([source.ckey])</font>")
 			source.attack_log += text("\[[time_stamp()]\] <font color='red'>Attempted to remove [target.name]'s ([target.ckey]) hat ([target.head])</font>")
-			if(target.head && !target.head.canremove)
+			if(target.head && (target.head.flags & NODROP))
 				message = "\red <B>[source] fails to take off \a [target.head] from [target]'s head!</B>"
 				return
 			else if(target.head)
@@ -510,7 +463,7 @@
 		if("shoes")
 			target.attack_log += text("\[[time_stamp()]\] <font color='orange'>Has had their shoes ([target.shoes]) removed by [source.name] ([source.ckey])</font>")
 			source.attack_log += text("\[[time_stamp()]\] <font color='red'>Attempted to remove [target.name]'s ([target.ckey]) shoes ([target.shoes])</font>")
-			if(target.shoes && !target.shoes.canremove)
+			if(target.shoes && (target.shoes.flags & NODROP))
 				message = "\red <B>[source] fails to take off \a [target.shoes] from [target]'s feet!</B>"
 				return
 			else if(target.shoes)
@@ -523,7 +476,7 @@
 		if("suit")
 			target.attack_log += text("\[[time_stamp()]\] <font color='orange'>Has had their suit ([target.wear_suit]) removed by [source.name] ([source.ckey])</font>")
 			source.attack_log += text("\[[time_stamp()]\] <font color='red'>Attempted to remove [target.name]'s ([target.ckey]) suit ([target.wear_suit])</font>")
-			if(target.wear_suit && !target.wear_suit.canremove)
+			if(target.wear_suit && (target.wear_suit.flags & NODROP))
 				message = "\red <B>[source] fails to take off \a [target.wear_suit] from [target]'s body!</B>"
 				return
 			else if(target.wear_suit)
@@ -550,7 +503,7 @@
 			for(var/obj/item/I in list(target.l_store, target.r_store))
 				if(I.on_found(source))
 					return
-			if(target.w_uniform && !target.w_uniform.canremove)
+			if(target.w_uniform && (target.w_uniform.flags & NODROP))
 				message = "\red <B>[source] fails to take off \a [target.w_uniform] from [target]'s body!</B>"
 				return
 			else
@@ -633,7 +586,7 @@ It works in conjuction with the process() above.
 This proc works for humans only. Aliens stripping humans and the like will all use this proc. Stripping monkeys or somesuch will use their version of this proc.
 The first if statement for "mask" and such refers to items that are already equipped and un-equipping them.
 The else statement is for equipping stuff to empty slots.
-!canremove refers to variable of /obj/item/clothing which either allows or disallows that item to be removed.
+The NODROP flag refers to variable of /obj/item/clothing which either allows or disallows that item to be removed.
 It can still be worn/put on as normal.
 */
 /obj/effect/equip_e/human/done()	//TODO: And rewrite this :< ~Carn
@@ -652,11 +605,11 @@ It can still be worn/put on as normal.
 	switch(place)	//here we go again...
 		if("mask")
 			slot_to_process = slot_wear_mask
-			if (target.wear_mask && target.wear_mask.canremove)
+			if (target.wear_mask && !(target.wear_mask.flags & NODROP))
 				strip_item = target.wear_mask
 		if("gloves")
 			slot_to_process = slot_gloves
-			if (target.gloves && target.gloves.canremove)
+			if (target.gloves && !(target.gloves.flags & NODROP))
 				strip_item = target.gloves
 		if("eyes")
 			slot_to_process = slot_glasses
@@ -672,7 +625,7 @@ It can still be worn/put on as normal.
 				strip_item = target.s_store
 		if("head")
 			slot_to_process = slot_head
-			if (target.head && target.head.canremove)
+			if (target.head && !(target.head.flags & NODROP))
 				strip_item = target.head
 		if("l_ear")
 			slot_to_process = slot_l_ear
@@ -684,7 +637,7 @@ It can still be worn/put on as normal.
 				strip_item = target.r_ear
 		if("shoes")
 			slot_to_process = slot_shoes
-			if (target.shoes && target.shoes.canremove)
+			if (target.shoes && !(target.shoes.flags & NODROP))
 				strip_item = target.shoes
 		if("l_hand")
 			if (istype(target, /obj/item/clothing/suit/straight_jacket))
@@ -700,11 +653,11 @@ It can still be worn/put on as normal.
 				strip_item = target.r_hand
 		if("uniform")
 			slot_to_process = slot_w_uniform
-			if(target.w_uniform && target.w_uniform.canremove)
+			if(target.w_uniform && !(target.w_uniform.flags & NODROP))
 				strip_item = target.w_uniform
 		if("suit")
 			slot_to_process = slot_wear_suit
-			if (target.wear_suit && target.wear_suit.canremove)
+			if (target.wear_suit && !(target.wear_suit.flags & NODROP))
 				strip_item = target.wear_suit
 		if("tie")
 			var/obj/item/clothing/under/suit = target.w_uniform
@@ -810,7 +763,9 @@ It can still be worn/put on as normal.
 	if(slot_to_process)
 		if(strip_item) //Stripping an item from the mob
 			var/obj/item/W = strip_item
-			target.u_equip(W)
+			if((W.flags & NODROP) || (W.flags & ABSTRACT)) //Just to be sure
+				return
+			target.unEquip(W)
 			if (target.client)
 				target.client.screen -= W
 			if (W)
@@ -820,11 +775,11 @@ It can still be worn/put on as normal.
 			W.add_fingerprint(source)
 			if(slot_to_process == slot_l_store) //pockets! Needs to process the other one too. Snowflake code, wooo! It's not like anyone will rewrite this anytime soon. If I'm wrong then... CONGRATULATIONS! ;)
 				if(target.r_store)
-					target.u_equip(target.r_store) //At this stage l_store is already processed by the code above, we only need to process r_store.
+					target.unEquip(target.r_store) //At this stage l_store is already processed by the code above, we only need to process r_store.
 		else
 			if(item && target.has_organ_for_slot(slot_to_process)) //Placing an item on the mob
 				if(item.mob_can_equip(target, slot_to_process, 0))
-					source.u_equip(item)
+					source.unEquip(item)
 					target.equip_to_slot_if_possible(item, slot_to_process, 0, 1, 1)
 					item.dropped(source)
 					source.update_icons()
@@ -843,7 +798,7 @@ It can still be worn/put on as normal.
 		if(slot_r_hand)
 			return r_hand
 	return null
-	
+
 /mob/living/carbon/get_item_by_slot(slot_id)
 	switch(slot_id)
 		if(slot_back)

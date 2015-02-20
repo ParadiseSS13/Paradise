@@ -11,7 +11,6 @@
 	var/secondary_key
 	var/activated = 0
 
-	flags = FPRINT
 	use_power = 0
 
 	New(loc, mode)

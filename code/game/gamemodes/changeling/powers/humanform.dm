@@ -31,7 +31,7 @@
 		implants += I
 
 	for(var/obj/item/W in src)
-		user.u_equip(W)
+		user.unEquip(W)
 		if (user.client)
 			user.client.screen -= W
 		if (W)

@@ -9,8 +9,6 @@
 	set_temperature = 20		// in celcius, add T0C for kelvin
 	var/cooling_power = 40000
 
-	flags = FPRINT
-
 
 /obj/machinery/space_heater/air_conditioner/New()
 	..()
@@ -96,11 +94,11 @@
 		// AUTOFIXED BY fix_string_idiocy.py
 		// C:\Users\Rob\Documents\Projects\vgstation13\code\ATMOSPHERICS\chiller.dm:95: dat += "Power Level: [cell ? round(cell.percent(),1) : 0]%<BR><BR>"
 		dat += {"Power Level: [cell ? round(cell.percent(),1) : 0]%<BR><BR>
-			Set Temperature: 
-			<A href='?src=\ref[src];op=temp;val=-5'>-</A> 
+			Set Temperature:
+			<A href='?src=\ref[src];op=temp;val=-5'>-</A>
 			<A href='?src=\ref[src];op=temp;val=-1'>-</A>
-			[temp]&deg;C 
-			<A href='?src=\ref[src];op=temp;val=1'>+</A> 
+			[temp]&deg;C
+			<A href='?src=\ref[src];op=temp;val=1'>+</A>
 			<A href='?src=\ref[src];op=temp;val=5'>+</A><BR>"}
 		// END AUTOFIX
 		user.set_machine(src)

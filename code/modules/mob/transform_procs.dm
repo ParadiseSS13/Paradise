@@ -10,7 +10,7 @@
 	for(var/obj/item/W in src)
 		if (W==w_uniform) // will be torn
 			continue
-		drop_from_inventory(W)
+		unEquip(W)
 	regenerate_icons()
 	monkeyizing = 1
 	canmove = 0
@@ -73,7 +73,7 @@
 	if (monkeyizing)
 		return
 	for(var/obj/item/W in src)
-		drop_from_inventory(W)
+		unEquip(W)
 	monkeyizing = 1
 	canmove = 0
 	icon = null
@@ -150,7 +150,7 @@
 
 	if(!should_remove_items)
 		for(var/obj/item/W in src)
-			drop_from_inventory(W)
+			unEquip(W)
 
 	var/mob/spirit/mask/new_spirit = new()
 
@@ -193,7 +193,7 @@
 	if (monkeyizing)
 		return
 	for(var/obj/item/W in src)
-		drop_from_inventory(W)
+		unEquip(W)
 	regenerate_icons()
 	monkeyizing = 1
 	canmove = 0
@@ -249,7 +249,7 @@
 	if (monkeyizing)
 		return
 	for(var/obj/item/W in src)
-		drop_from_inventory(W)
+		unEquip(W)
 	regenerate_icons()
 	monkeyizing = 1
 	canmove = 0
@@ -280,7 +280,7 @@
 	if (monkeyizing)
 		return
 	for(var/obj/item/W in src)
-		drop_from_inventory(W)
+		unEquip(W)
 	regenerate_icons()
 	monkeyizing = 1
 	canmove = 0
@@ -315,7 +315,7 @@
 	if (monkeyizing)
 		return
 	for(var/obj/item/W in src)
-		drop_from_inventory(W)
+		unEquip(W)
 	regenerate_icons()
 	monkeyizing = 1
 	canmove = 0
@@ -345,7 +345,7 @@
 	if(monkeyizing)
 		return
 	for(var/obj/item/W in src)
-		drop_from_inventory(W)
+		unEquip(W)
 
 	regenerate_icons()
 	monkeyizing = 1
@@ -434,7 +434,7 @@
 	if(ispath(MP, /mob/living/simple_animal/pony))
 		return 1 // ZOMG PONIES WHEEE
 	if(ispath(MP, /mob/living/simple_animal/fox))
-		return 1 		
+		return 1
 	//Not in here? Must be untested!
 	return 0
 
@@ -459,7 +459,7 @@
 	if(ispath(MP, /mob/living/simple_animal/pony))
 		return 1
 	if(ispath(MP, /mob/living/simple_animal/fox))
-		return 1 	
+		return 1
 
 //Antag Creatures!
 /*	if(ispath(MP, /mob/living/simple_animal/hostile/carp) && !jobban_isbanned(src, "Syndicate"))
