@@ -5,7 +5,9 @@
 
 /mob/aiEye
 	name = "Inactive AI Eye"
-	icon = 'icons/obj/status_display.dmi' // For AI friend secret shh :o
+	icon = 'icons/mob/AI.dmi'
+	icon_state = "eye"
+	alpha = 127
 	var/list/visibleCameraChunks = list()
 	var/mob/living/silicon/ai/ai = null
 	density = 0

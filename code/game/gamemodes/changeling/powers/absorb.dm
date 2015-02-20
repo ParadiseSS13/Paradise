@@ -94,7 +94,7 @@
 	for(var/language in T.languages)
 		if(!(language in absorbed_languages))
 			absorbed_languages += language
-		changeling_update_languages(absorbed_languages, user)
+		T.changeling_update_languages(absorbed_languages)
 
 	absorbedcount++
 	store_dna(new_dna, user)
