@@ -17,7 +17,7 @@
 		return 0
 	else
 		return 1
-		
+
 /obj/item/clothing/accessory/holster/attack_self()
 	var/holsteritem = usr.get_active_hand()
 	if(!holstered)
@@ -40,7 +40,7 @@
 		return
 
 	holstered = W
-	user.drop_from_inventory(holstered)
+	user.unEquip(holstered)
 	holstered.loc = src
 	holstered.add_fingerprint(user)
 	user.visible_message("<span class='notice'>[user] holsters the [holstered].</span>", "<span class='notice'>You holster the [holstered].</span>")

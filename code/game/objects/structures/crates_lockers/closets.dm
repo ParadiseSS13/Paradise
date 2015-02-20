@@ -4,7 +4,6 @@
 	icon = 'icons/obj/closet.dmi'
 	icon_state = "closed"
 	density = 1
-	flags = FPRINT
 	var/icon_closed = "closed"
 	var/icon_opened = "open"
 	var/opened = 0
@@ -262,7 +261,8 @@
 			return
 		if(isrobot(user))
 			return
-		usr.drop_item()
+		if(!usr.drop_item())
+			return
 		if(W)
 			W.loc = src.loc
 	else if(istype(W, /obj/item/weapon/packageWrap))

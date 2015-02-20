@@ -11,7 +11,6 @@
 	var/secondary_key
 	var/activated = 0
 
-	flags = FPRINT
 	use_power = 0
 
 	New(loc, mode)
@@ -42,7 +41,7 @@
 			if(emergency_shuttle.call_evac())
 				spawn(20 SECONDS)
 					var/text = "[station_name()], we have confirmed your completion of Directive X. An evacuation shuttle is en route to receive your crew for debriefing."
-					command_alert(text, "Emergency Transmission")
+					command_announcement.Announce(text, "Emergency Transmission")
 
 /obj/machinery/emergency_authentication_device/attack_hand(mob/user)
 	if(activated)

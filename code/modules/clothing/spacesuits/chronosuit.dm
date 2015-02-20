@@ -139,9 +139,9 @@
 				if(user.head && istype(user.head, /obj/item/clothing/head/helmet/space/chronos))
 					user << "\[ <span style='color: #00ff00;'>ok</span> \] Mounting /dev/helmet"
 					helmet = user.head
-					helmet.canremove = 0
+					helmet.flags |= NODROP
 					helmet.suit = src
-					src.canremove = 0
+					src.flags |= NODROP
 					user << "\[ <span style='color: #00ff00;'>ok</span> \] Starting brainwave scanner"
 					user << "\[ <span style='color: #00ff00;'>ok</span> \] Starting ui display driver"
 					user << "\[ <span style='color: #00ff00;'>ok</span> \] Initializing chronowalk4-view"
@@ -169,11 +169,11 @@
 					user << "\[ <span style='color: #ff5500;'>ok</span> \] Stopping ui display driver"
 					user << "\[ <span style='color: #ff5500;'>ok</span> \] Stopping brainwave scanner"
 					user << "\[ <span style='color: #ff5500;'>ok</span> \] Unmounting /dev/helmet"
-					helmet.canremove = 1
+					helmet.flags &= ~NODROP
 					helmet.suit = null
 					helmet = null
 				user << "logout"
-		src.canremove = 1
+		src.flags &= ~NODROP
 		cooldown = world.time + cooldowntime * 1.5
 		activated = 0
 		activating = 0

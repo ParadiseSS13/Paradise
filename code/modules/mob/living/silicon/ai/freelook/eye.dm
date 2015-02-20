@@ -134,7 +134,7 @@
 		src << "ERROR: Eyeobj not found. Creating new eye..."
 		src.eyeobj = new(src.loc)
 		src.eyeobj.ai = src
-		src.eyeobj.name = "[src.name] (AI Eye)" // Give it a name
+		src.SetName(src.name)
 
 	if(client && client.eye)
 		client.eye = src

@@ -55,14 +55,20 @@ var/shuttle_call/shuttle_calls[0]
 	var/stat_msg1
 	var/stat_msg2
 	var/display_type="blank"
+	
+	var/datum/announcement/priority/crew_announcement = new
 
 	l_color = "#0000FF"
+	
+/obj/machinery/computer/communications/New()
+	..()
+	crew_announcement.newscast = 1
 
 /obj/machinery/computer/communications/Topic(href, href_list)
 	if(..(href, href_list))
 		return 1
 
-	if (!(src.z in list(STATION_Z,CENTCOMM_Z)))
+	if ((!(src.z in config.station_levels) && !(src.z in config.admin_levels)))
 		usr << "\red <b>Unable to establish a connection</b>: \black You're too far away from the station!"
 		return
 
@@ -83,10 +89,12 @@ var/shuttle_call/shuttle_calls[0]
 			if (I && istype(I))
 				if(src.check_access(I))
 					authenticated = 1
-				if(20 in I.access)
+				if(access_captain in I.access)
 					authenticated = 2
+					crew_announcement.announcer = GetNameAndAssignmentFromId(I)
 		if("logout")
 			authenticated = 0
+			crew_announcement.announcer = ""
 			setMenuState(usr,COMM_SCREEN_MAIN)
 
 		// ALART LAVUL
@@ -127,14 +135,14 @@ var/shuttle_call/shuttle_calls[0]
 				usr << "You need to swipe your ID."
 
 		if("announce")
-			if(src.authenticated==2 && !issilicon(usr))
-				if(message_cooldown)	return
-				var/input = stripped_input(usr, "Please choose a message to announce to the station crew.", "What?")
+			if(src.authenticated==2)
+				if(message_cooldown)
+					usr << "Please allow at least one minute to pass between announcements"
+					return
+				var/input = input(usr, "Please write a message to announce to the station crew.", "Priority Announcement")
 				if(!input || !(usr in view(1,src)))
 					return
-				captain_announce(input)//This should really tell who is, IE HoP, CE, HoS, RD, Captain
-				log_say("[key_name(usr)] has made a captain announcement: [input]")
-				message_admins("[key_name_admin(usr)] has made a captain announcement.", 1)
+				crew_announcement.Announce(input)
 				message_cooldown = 1
 				spawn(600)//One minute cooldown
 					message_cooldown = 0
@@ -204,7 +212,7 @@ var/shuttle_call/shuttle_calls[0]
 				if(centcomm_message_cooldown)
 					usr << "Arrays recycling.  Please stand by."
 					return
-				var/input = stripped_input(usr, "Please choose a message to transmit to Centcomm via quantum entanglement.  Please be aware that this process is very expensive, and abuse will lead to... termination.  Transmission does not guarantee a response.", "To abort, send an empty message.", "")
+				var/input = input(usr, "Please choose a message to transmit to Centcomm via quantum entanglement.  Please be aware that this process is very expensive, and abuse will lead to... termination.  Transmission does not guarantee a response.", "To abort, send an empty message.", "")
 				if(!input || !(usr in view(1,src)))
 					return
 				Centcomm_announce(input, usr)
@@ -398,7 +406,7 @@ var/shuttle_call/shuttle_calls[0]
 		return
 
 	if(emergency_shuttle.going_to_centcom())
-		user << "The shuttle may not be called while returning to CentCom."
+		user << "The shuttle may not be called while returning to Central Command."
 		return
 
 	if(emergency_shuttle.online())
@@ -408,11 +416,11 @@ var/shuttle_call/shuttle_calls[0]
 	// if force is 0, some things may stop the shuttle call
 	if(!force)
 		if(emergency_shuttle.deny_shuttle)
-			user << "Centcom does not currently have a shuttle available in your sector. Please try again later."
+			user << "Central Command does not currently have a shuttle available in your sector. Please try again later."
 			return
 
 		if(sent_strike_team == 1)
-			user << "Centcom will not allow the shuttle to be called. Consider all contracts terminated."
+			user << "Central Command will not allow the shuttle to be called. Consider all contracts terminated."
 			return
 
 		if(world.time < 54000) // 30 minute grace period to let the game get going
@@ -426,8 +434,6 @@ var/shuttle_call/shuttle_calls[0]
 	emergency_shuttle.call_transfer()
 	log_game("[key_name(user)] has called the shuttle.")
 	message_admins("[key_name_admin(user)] has called the shuttle - [formatJumpTo(user)].", 1)
-	captain_announce("A crew transfer has been initiated. The shuttle has been called. It will arrive in [round(emergency_shuttle.estimate_arrival_time()/60)] minutes.")
-
 	return
 
 

@@ -4,7 +4,7 @@
 	icon = 'icons/obj/gun.dmi'
 	icon_state = "detective"
 	item_state = "gun"
-	flags =  FPRINT | TABLEPASS | CONDUCT
+	flags =  CONDUCT
 	slot_flags = SLOT_BELT
 	m_amt = 2000
 	w_class = 3.0
@@ -313,10 +313,10 @@
 	set name = "Toggle Gunlight"
 	set category = "Object"
 	set desc = "Click to toggle your weapon's attached flashlight."
-	
+
 	if(!F)
 		return
-	
+
 	var/mob/living/carbon/human/user = usr
 	if(!isturf(user.loc))
 		user << "You cannot turn the light on while in this [user.loc]."

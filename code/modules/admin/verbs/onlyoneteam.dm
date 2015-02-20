@@ -58,7 +58,6 @@
 	message_admins("\blue [key_name_admin(usr)] used DODGEBAWWWWWWWL! -NO ATTACK LOGS WILL BE SENT TO ADMINS FROM THIS POINT FORTH-", 1)
 	nologevent = 1
 	log_admin("[key_name(usr)] used dodgeball.")
-	world << sound('sound/music/nowyouman.ogg')
 
 /obj/item/weapon/beach_ball/dodgeball
 	name = "dodgeball"

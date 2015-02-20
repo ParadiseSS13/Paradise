@@ -1,32 +1,32 @@
 /mob/living/silicon/ai/say(var/message)
-        if(parent && istype(parent) && parent.stat != 2)
-                parent.say(message)
-                return
-                //If there is a defined "parent" AI, it is actually an AI, and it is alive, anything the AI tries to say is said by the parent instead.
-        ..(message)
+	if(parent && istype(parent) && parent.stat != 2)
+		parent.say(message) //If there is a defined "parent" AI, it is actually an AI, and it is alive, anything the AI tries to say is said by the parent instead.
+		return
+                
+	..(message)
 
 /mob/living/silicon/ai/say_understands(var/other)
-        if (istype(other, /mob/living/carbon/human))
-                return 1
-        if (istype(other, /mob/living/silicon/robot))
-                return 1
-        if (istype(other, /mob/living/silicon/decoy))
-                return 1
-        if (istype(other, /mob/living/carbon/brain))
-                return 1
-        if (istype(other, /mob/living/silicon/pai))
-                return 1
-        return ..()
+	if (istype(other, /mob/living/carbon/human))
+		return 1
+	if (istype(other, /mob/living/silicon/robot))
+		return 1
+	if (istype(other, /mob/living/silicon/decoy))
+		return 1
+	if (istype(other, /mob/living/carbon/brain))
+		return 1
+	if (istype(other, /mob/living/silicon/pai))
+		return 1
+	return ..()
 
 /mob/living/silicon/ai/say_quote(var/text)
-        var/ending = copytext(text, length(text))
+	var/ending = copytext(text, length(text))
 
-        if (ending == "?")
-                return "queries, \"[text]\"";
-        else if (ending == "!")
-                return "declares, \"[text]\"";
+	if (ending == "?")
+		return "queries, \"[text]\"";
+	else if (ending == "!")
+		return "declares, \"[text]\"";
 
-        return "states, \"[text]\"";
+	return "states, \"[text]\"";
 
 /mob/living/silicon/ai/proc/IsVocal()
 
@@ -36,44 +36,28 @@ var/const/VOX_DELAY = 100
 var/const/VOX_PATH = "sound/vox_fem/"
 
 /mob/living/silicon/ai/verb/announcement_help()
-
-        set name = "Announcement Help"
-        set desc = "Display a list of vocal words to announce to the crew."
-        set category = "AI Commands"
-
-
-        var/dat = "Here is a list of words you can type into the 'Announcement' button to create sentences to vocally announce to everyone on the same level at you.<BR> \
-        <UL><LI>You can also click on the word to preview it.</LI>\
-        <LI>You can only say 30 words for every announcement.</LI>\
-        <LI>Do not use punctuation as you would normally, if you want a pause you can use the full stop and comma characters by separating them with spaces, like so: 'Alpha . Test , Bravo'.</LI></UL>\
-        <font class='bad'>WARNING:</font><BR>Misuse of the announcement system will get you job banned.<HR>"
-
-        var/index = 0
-        for(var/word in vox_sounds)
-                index++
-                dat += "<A href='?src=\ref[src];say_word=[word]'>[capitalize(word)]</A>"
-                if(index != vox_sounds.len)
-                        dat += " / "
-
-        var/datum/browser/popup = new(src, "announce_help", "Announcement Help", 500, 400)
-        popup.set_content(dat)
-        popup.open()
-
-
-/mob/living/silicon/ai/proc/announcement()
-
-	set name = "Announcement"
-	set desc = "Create a vocal announcement by typing in the available words to create a sentence."
+	set name = "Announcement Help"
+	set desc = "Display a list of vocal words to announce to the crew."
 	set category = "AI Commands"
-	if(src.stat == 2)
-		src << "You can't call the shuttle because you are dead!"
-		return
-	if(istype(usr,/mob/living/silicon/ai))
-		var/mob/living/silicon/ai/AI = src
-		if(AI.control_disabled)
-			usr << "Wireless control is disabled!"
-			return
 
+	var/dat = "Here is a list of words you can type into the 'Announcement' button to create sentences to vocally announce to everyone on the same level at you.<BR> \
+	<UL><LI>You can also click on the word to preview it.</LI>\
+	<LI>You can only say 30 words for every announcement.</LI>\
+	<LI>Do not use punctuation as you would normally, if you want a pause you can use the full stop and comma characters by separating them with spaces, like so: 'Alpha . Test , Bravo'.</LI></UL>\
+	<font class='bad'>WARNING:</font><BR>Misuse of the announcement system will get you job banned.<HR>"
+
+	var/index = 0
+	for(var/word in vox_sounds)
+		index++
+		dat += "<A href='?src=\ref[src];say_word=[word]'>[capitalize(word)]</A>"
+		if(index != vox_sounds.len)
+			dat += " / "
+
+	var/datum/browser/popup = new(src, "announce_help", "Announcement Help", 500, 400)
+	popup.set_content(dat)
+	popup.open()
+
+/mob/living/silicon/ai/proc/ai_announcement()
 	if(announcing_vox > world.time)
 		src << "<span class='notice'>Please wait [round((announcing_vox - world.time) / 10)] seconds.</span>"
 		return
@@ -112,27 +96,24 @@ var/const/VOX_PATH = "sound/vox_fem/"
 
 
 /proc/play_vox_word(var/word, var/z_level, var/mob/only_listener)
+	word = lowertext(word)
+	if(vox_sounds[word])
+		var/sound_file = vox_sounds[word]
+		var/sound/voice = sound(sound_file, wait = 1, channel = VOX_CHANNEL)
+		voice.status = SOUND_STREAM
 
-        word = lowertext(word)
-
-        if(vox_sounds[word])
-
-                var/sound_file = vox_sounds[word]
-                var/sound/voice = sound(sound_file, wait = 1, channel = VOX_CHANNEL)
-                voice.status = SOUND_STREAM
-
-                 // If there is no single listener, broadcast to everyone in the same z level
-                if(!only_listener)
-                        // Play voice for all mobs in the z level
-                        for(var/mob/M in player_list)
-                                if(M.client)
-                                        var/turf/T = get_turf(M)
-                                        if(T.z == z_level)
-                                                M << voice
-                else
-                        only_listener << voice
-                return 1
-        return 0
+		// If there is no single listener, broadcast to everyone in the same z level
+		if(!only_listener)
+			// Play voice for all mobs in the z level
+			for(var/mob/M in player_list)
+				if(M.client)
+					var/turf/T = get_turf(M)
+					if(T.z == z_level && !isdeaf(M))
+						M << voice
+		else
+			only_listener << voice
+		return 1
+	return 0
 
 // VOX sounds moved to /code/defines/vox_sounds.dm
 

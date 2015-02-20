@@ -241,13 +241,13 @@ var/world_topic_spam_protect_time = world.timeofday
 						job_master.FreeRole(C.job)
 						message_admins("<b>[C.name]</b> ([C.ckey]), the [C.job] has been freed due to (<font color='#ffcc00'><b>Client disconnect for 10 minutes</b></font>)\n")
 						for(var/obj/item/W in C)
-							C.drop_from_inventory(W)
+							C.unEquip(W)
 						del(C)
 					else if(!C.key && C.stat != DEAD && C.brain_op_stage!=4.0)
 						job_master.FreeRole(C.job)
 						message_admins("<b>[C.name]</b> ([C.ckey]), the [C.job] has been freed due to (<font color='#ffcc00'><b>Client quit BYOND</b></font>)\n")
 						for(var/obj/item/W in C)
-							C.drop_from_inventory(W)
+							C.unEquip(W)
 						del(C)
 #undef INACTIVITY_KICK
 */

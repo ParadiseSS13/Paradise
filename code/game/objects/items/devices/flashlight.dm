@@ -5,7 +5,7 @@
 	icon_state = "flashlight"
 	item_state = "flashlight"
 	w_class = 2
-	flags = FPRINT | TABLEPASS | CONDUCT
+	flags = CONDUCT
 	slot_flags = SLOT_BELT
 	m_amt = 50
 	g_amt = 20
@@ -107,7 +107,7 @@
 	item_state = ""
 	w_class = 1
 	slot_flags = SLOT_BELT | SLOT_EARS
-	flags = FPRINT | TABLEPASS | CONDUCT
+	flags = CONDUCT
 	brightness_on = 2
 
 /obj/item/device/flashlight/seclite
@@ -125,7 +125,7 @@
 	desc = "A miniature lamp, that might be used by small robots."
 	icon_state = "penlight"
 	item_state = ""
-	flags = FPRINT | TABLEPASS | CONDUCT
+	flags = CONDUCT
 	brightness_on = 2
 	w_class = 1
 

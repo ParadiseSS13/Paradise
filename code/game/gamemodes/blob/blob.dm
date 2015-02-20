@@ -58,7 +58,7 @@ var/list/blob_nodes = list()
 /datum/game_mode/blob/proc/get_nuke_code()
 	var/nukecode = "ERROR"
 	for(var/obj/machinery/nuclearbomb/bomb in world)
-		if(bomb && bomb.r_code && bomb.z == 1)
+		if(bomb && bomb.r_code && (bomb.z in config.station_levels))
 			nukecode = bomb.r_code
 	return nukecode
 
@@ -92,7 +92,7 @@ var/list/blob_nodes = list()
 			if(directory[ckey(blob.key)])
 				blob_client = directory[ckey(blob.key)]
 				location = get_turf(C)
-				if(location.z != 1 || istype(location, /turf/space))
+				if(!(location.z in config.station_levels) || istype(location, /turf/space))
 					location = null
 				C.gib()
 
@@ -175,17 +175,14 @@ var/list/blob_nodes = list()
 			return
 
 		if (1)
-			command_alert("Nanotrasen has issued a directive 7-10 for [station_name()]. The station is to be considered quarantined.", "Biohazard Alert")
-			for(var/mob/M in player_list)
-				if(!istype(M,/mob/new_player))
-					M << sound('sound/AI/blob_confirmed.ogg')
+			command_announcement.Announce("Nanotrasen has issued a directive 7-10 for [station_name()]. The station is to be considered quarantined.", "Biohazard Alert", new_sound = 'sound/AI/blob_confirmed.ogg')
 			return
 
 		if (2)
-			command_alert("The biohazard has grown out of control and will soon reach critical mass. Activate the nuclear failsafe to maintain quarantine. The Nuclear Authentication Code is [get_nuke_code()] ", "Biohazard Alert")
+			command_announcement.Announce("The biohazard has grown out of control and will soon reach critical mass. Activate the nuclear failsafe to maintain quarantine. The Nuclear Authentication Code is [get_nuke_code()] ", "Biohazard Alert", new_sound = 'sound/AI/blob_confirmed.ogg')
 			set_security_level("gamma")
 			var/obj/machinery/door/airlock/vault/V = locate(/obj/machinery/door/airlock/vault) in world
-			if(V && V.z == 1)
+			if(V && (V.z in config.station_levels))
 				V.locked = 0
 				V.update_icon()
 			send_intercept(2)

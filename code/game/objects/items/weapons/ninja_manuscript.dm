@@ -6,7 +6,6 @@
 	throw_speed = 1
 	throw_range = 5
 	w_class = 3
-	flags = TABLEPASS
 	attack_verb = list("bashed", "whacked", "educated")
 
 	var/charges = 1

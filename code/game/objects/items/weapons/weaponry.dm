@@ -3,7 +3,6 @@
 	name = "banhammer"
 	icon = 'icons/obj/items.dmi'
 	icon_state = "toyhammer"
-	flags = FPRINT | TABLEPASS
 	slot_flags = SLOT_BELT
 	throwforce = 0
 	w_class = 1.0
@@ -21,7 +20,6 @@
 	desc = "A rod of pure obsidian, its very presence disrupts and dampens the powers of paranormal phenomenae."
 	icon_state = "nullrod"
 	item_state = "nullrod"
-	flags = FPRINT | TABLEPASS
 	slot_flags = SLOT_BELT
 	force = 15
 	throw_speed = 1
@@ -74,7 +72,6 @@
 	desc = "This thing is so unspeakably shitty you are having a hard time even holding it."
 	icon_state = "sord"
 	item_state = "sord"
-	flags = FPRINT | TABLEPASS
 	slot_flags = SLOT_BELT
 	force = 2
 	throwforce = 1
@@ -96,7 +93,7 @@
 	desc = "What are you standing around staring at this for? Get to killing!"
 	icon_state = "claymore"
 	item_state = "claymore"
-	flags = FPRINT | TABLEPASS | CONDUCT
+	flags = CONDUCT
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	slot_flags = SLOT_BELT
 	force = 40
@@ -123,7 +120,7 @@
 	desc = "Woefully underpowered in D20"
 	icon_state = "katana"
 	item_state = "katana"
-	flags = FPRINT | TABLEPASS | CONDUCT
+	flags = CONDUCT
 	slot_flags = SLOT_BELT | SLOT_BACK
 	force = 40
 	throwforce = 10
@@ -161,7 +158,7 @@ obj/item/weapon/wirerod
 	desc = "A rod with some wire wrapped around the top. It'd be easy to attach something to the top bit."
 	icon_state = "wiredrod"
 	item_state = "rods"
-	flags = FPRINT | TABLEPASS | CONDUCT
+	flags = CONDUCT
 	force = 9
 	throwforce = 10
 	w_class = 3
@@ -173,8 +170,8 @@ obj/item/weapon/wirerod/attackby(var/obj/item/I, mob/user as mob)
 	if(istype(I, /obj/item/weapon/shard))
 		var/obj/item/weapon/twohanded/spear/S = new /obj/item/weapon/twohanded/spear
 
-		user.u_equip(I)
-		user.u_equip(src)
+		user.unEquip(I)
+		user.unEquip(src)
 
 		user.put_in_hands(S)
 		user << "<span class='notice'>You fasten the glass shard to the top of the rod with the cable.</span>"
@@ -184,8 +181,8 @@ obj/item/weapon/wirerod/attackby(var/obj/item/I, mob/user as mob)
 	else if(istype(I, /obj/item/weapon/wirecutters))
 		var/obj/item/weapon/melee/baton/cattleprod/P = new /obj/item/weapon/melee/baton/cattleprod
 
-		user.u_equip(I)
-		user.u_equip(src)
+		user.unEquip(I)
+		user.unEquip(src)
 
 		user.put_in_hands(P)
 		user << "<span class='notice'>You fasten the wirecutters to the top of the rod with the cable, prongs outward.</span>"

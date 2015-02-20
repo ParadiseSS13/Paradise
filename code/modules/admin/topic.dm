@@ -286,7 +286,7 @@
 			if("sentinel")			M.change_mob_type( /mob/living/carbon/alien/humanoid/sentinel , null, null, delmob )
 			if("larva")				M.change_mob_type( /mob/living/carbon/alien/larva , null, null, delmob )
 			if("human")				M.change_mob_type( /mob/living/carbon/human/human , null, null, delmob )
-			if("slime")			M.change_mob_type( /mob/living/carbon/slime , null, null, delmob )
+			if("slime")				M.change_mob_type( /mob/living/carbon/slime , null, null, delmob )
 			if("monkey")			M.change_mob_type( /mob/living/carbon/monkey , null, null, delmob )
 			if("robot")				M.change_mob_type( /mob/living/silicon/robot , null, null, delmob )
 			if("cat")				M.change_mob_type( /mob/living/simple_animal/cat , null, null, delmob )
@@ -591,13 +591,13 @@
 			if(counter >= 5) //So things dont get squiiiiished!
 				jobs += "</tr><tr align='center'>"
 				counter = 0
-		
+
 		//Drone
 		if(jobban_isbanned(M, "Drone"))
 			jobs += "<td width='20%'><a href='?src=\ref[src];jobban3=Drone;jobban4=\ref[M]'><font color=red>Drone</font></a></td>"
 		else
 			jobs += "<td width='20%'><a href='?src=\ref[src];jobban3=Drone;jobban4=\ref[M]'>Drone</a></td>"
-		
+
 		//pAI
 		if(jobban_isbanned(M, "pAI"))
 			jobs += "<td width='20%'><a href='?src=\ref[src];jobban3=pAI;jobban4=\ref[M]'><font color=red>pAI</font></a></td>"
@@ -667,19 +667,19 @@
 			jobs += "<td width='20%'><a href='?src=\ref[src];jobban3=ninja;jobban4=\ref[M]'><font color=red>[replacetext("Ninja", " ", "&nbsp")]</font></a></td>"
 		else
 			jobs += "<td width='20%'><a href='?src=\ref[src];jobban3=ninja;jobban4=\ref[M]'>[replacetext("Ninja", " ", "&nbsp")]</a></td>"
-			
+
 		//Raider
 		if(jobban_isbanned(M, "raider") || isbanned_dept)
 			jobs += "<td width='20%'><a href='?src=\ref[src];jobban3=raider;jobban4=\ref[M]'><font color=red>[replacetext("Raider", " ", "&nbsp")]</font></a></td>"
 		else
 			jobs += "<td width='20%'><a href='?src=\ref[src];jobban3=raider;jobban4=\ref[M]'>[replacetext("Raider", " ", "&nbsp")]</a></td>"
-			
+
 		//Mutineer
 		if(jobban_isbanned(M, "mutineer") || isbanned_dept)
 			jobs += "<td width='20%'><a href='?src=\ref[src];jobban3=mutineer;jobban4=\ref[M]'><font color=red>[replacetext("Mutineer", " ", "&nbsp")]</font></a></td>"
 		else
 			jobs += "<td width='20%'><a href='?src=\ref[src];jobban3=mutineer;jobban4=\ref[M]'>[replacetext("Mutineer", " ", "&nbsp")]</a></td>"
-			
+
 		//Blob
 		if(jobban_isbanned(M, "blob") || isbanned_dept)
 			jobs += "<td width='20%'><a href='?src=\ref[src];jobban3=blob;jobban4=\ref[M]'><font color=red>[replacetext("Blob", " ", "&nbsp")]</font></a></td>"
@@ -698,12 +698,12 @@
 			jobs += "<td width='20%'><a href='?src=\ref[src];jobban3=Dionaea;jobban4=\ref[M]'><font color=red>Dionaea Nymph</font></a></td>"
 		else
 			jobs += "<td width='20%'><a href='?src=\ref[src];jobban3=Dionaea;jobban4=\ref[M]'>Dionaea Nymph</a></td>"
-			
+
 		//NPC
 		if(jobban_isbanned(M, "NPC"))
 			jobs += "<td width='20%'><a href='?src=\ref[src];jobban3=NPC;jobban4=\ref[M]'><font color=red>NPC</font></a></td>"
 		else
-			jobs += "<td width='20%'><a href='?src=\ref[src];jobban3=NPC;jobban4=\ref[M]'>NPC</a></td>"	
+			jobs += "<td width='20%'><a href='?src=\ref[src];jobban3=NPC;jobban4=\ref[M]'>NPC</a></td>"
 
 		//ANTAG HUD
 		if(jobban_isbanned(M, "AntagHUD"))
@@ -1092,6 +1092,7 @@
 		message_admins("\blue [key_name_admin(usr)] attempting to monkeyize [key_name_admin(H)]", 1)
 		H.monkeyize()
 
+
 	else if(href_list["corgione"])
 		if(!check_rights(R_SPAWN))	return
 
@@ -1141,7 +1142,7 @@
 
 		//strip their stuff and stick it in the crate
 		for(var/obj/item/I in M)
-			M.u_equip(I)
+			M.unEquip(I)
 			if(I)
 				I.loc = locker
 				I.layer = initial(I.layer)
@@ -1162,7 +1163,7 @@
 		M << "\red You have been sent to the prison station!"
 		log_admin("[key_name(usr)] sent [key_name(M)] to the prison station.")
 		message_admins("\blue [key_name_admin(usr)] sent [key_name_admin(M)] to the prison station.", 1)
-		
+
 	else if(href_list["sendbacktolobby"])
 		if(!check_rights(R_ADMIN))
 			return
@@ -1185,7 +1186,7 @@
 
 		var/mob/new_player/NP = new()
 		NP.ckey = M.ckey
-		qdel(M)		
+		qdel(M)
 
 	else if(href_list["tdome1"])
 		if(!check_rights(R_SERVER|R_EVENT))	return
@@ -1202,7 +1203,7 @@
 			return
 
 		for(var/obj/item/I in M)
-			M.u_equip(I)
+			M.unEquip(I)
 			if(I)
 				I.loc = M.loc
 				I.layer = initial(I.layer)
@@ -1231,7 +1232,7 @@
 			return
 
 		for(var/obj/item/I in M)
-			M.u_equip(I)
+			M.unEquip(I)
 			if(I)
 				I.loc = M.loc
 				I.layer = initial(I.layer)
@@ -1282,7 +1283,7 @@
 			return
 
 		for(var/obj/item/I in M)
-			M.u_equip(I)
+			M.unEquip(I)
 			if(I)
 				I.loc = M.loc
 				I.layer = initial(I.layer)
@@ -1429,7 +1430,7 @@
 						foo += text("<B>Is an AI</B> | ")
 					else
 						foo += text("<A HREF='?src=\ref[];makeai=\ref[]'>Make AI</A> | ", src, M)
-					if(M.z != 2)
+					if(!(M.z in config.admin_levels))
 						foo += text("<A HREF='?src=\ref[];sendtoprison=\ref[]'>Prison</A> | ", src, M)
 						foo += text("<A HREF='?src=\ref[];sendtomaze=\ref[]'>Maze</A> | ", src, M)
 					else
@@ -1597,9 +1598,9 @@
 			M.stuttering = 20
 
 	else if(href_list["CentcommReply"])
-		if(!check_rights(R_ADMIN))	
+		if(!check_rights(R_ADMIN))
 			return
-			
+
 		var/mob/living/carbon/human/H = locate(href_list["CentcommReply"])
 		if(!istype(H))
 			usr << "This can only be used on instances of type /mob/living/carbon/human"
@@ -1617,16 +1618,16 @@
 		H << "You hear something crackle in your headset for a moment before a voice speaks.  \"Please stand by for a message from Central Command.  Message as follows. [input].  Message ends.\""
 
 	else if(href_list["SyndicateReply"])
-		if(!check_rights(R_ADMIN))	
+		if(!check_rights(R_ADMIN))
 			return
-			
+
 		var/mob/living/carbon/human/H = locate(href_list["SyndicateReply"])
 		if(!istype(H))
 			usr << "This can only be used on instances of type /mob/living/carbon/human"
 			return
 		if(H.stat != 0)
 			usr << "The person you are trying to contact is not conscious."
-			return		
+			return
 		if(!istype(H.l_ear, /obj/item/device/radio/headset) && !istype(H.r_ear, /obj/item/device/radio/headset))
 			usr << "The person you are trying to contact is not wearing a headset"
 			return
@@ -1655,9 +1656,9 @@
 		H << "You hear something crackle in your headset for a moment before a voice speaks.  \"Please stand by for a message from your HONKbrothers.  Message as follows, HONK. [input].  Message ends, HONK.\""
 
 	else if(href_list["AdminFaxView"])
-		if(!check_rights(R_ADMIN))	
+		if(!check_rights(R_ADMIN))
 			return
-			
+
 		var/obj/item/fax = locate(href_list["AdminFaxView"])
 		if (istype(fax, /obj/item/weapon/paper))
 			var/obj/item/weapon/paper/P = fax
@@ -1670,24 +1671,24 @@
 			//open a browse window listing the contents instead
 			var/data = ""
 			var/obj/item/weapon/paper_bundle/B = fax
-			
+
 			for (var/page = 1, page <= B.amount + 1, page++)
 				var/obj/pageobj = B.contents[page]
 				data += "<A href='?src=\ref[src];AdminFaxViewPage=[page];paper_bundle=\ref[B]'>Page [page] - [pageobj.name]</A><BR>"
-			
+
 			usr << browse(data, "window=[B.name]")
 		else
 			usr << "\red The faxed item is not viewable. This is probably a bug, and should be reported on the tracker: [fax.type]"
 
 	else if (href_list["AdminFaxViewPage"])
-		if(!check_rights(R_ADMIN))	
+		if(!check_rights(R_ADMIN))
 			return
-			
+
 		var/page = text2num(href_list["AdminFaxViewPage"])
 		var/obj/item/weapon/paper_bundle/bundle = locate(href_list["paper_bundle"])
-		
+
 		if (!bundle) return
-		
+
 		if (istype(bundle.contents[page], /obj/item/weapon/paper))
 			var/obj/item/weapon/paper/P = bundle.contents[page]
 			P.show_content(src.owner, 1)
@@ -1695,11 +1696,11 @@
 			var/obj/item/weapon/photo/H = bundle.contents[page]
 			H.show(src.owner)
 		return
-		
+
 	else if(href_list["AdminFaxCreate"])
-		if(!check_rights(R_ADMIN))	
+		if(!check_rights(R_ADMIN))
 			return
-			
+
 		var/mob/sender = locate(href_list["AdminFaxCreate"])
 		var/obj/machinery/photocopier/faxmachine/fax = locate(href_list["originfax"])
 		var/faxtype = href_list["faxtype"]
@@ -1708,7 +1709,7 @@
 		var/notify
 
 		var/obj/item/weapon/paper/P = new /obj/item/weapon/paper(null) //hopefully the null loc won't cause trouble for us
-		
+
 		if(!fax)
 			var/list/departmentoptions = alldepartments + "All Departments"
 			destination = input(usr, "To which department?", "Choose a department", "") as null|anything in departmentoptions
@@ -1718,10 +1719,11 @@
 
 			for(var/obj/machinery/photocopier/faxmachine/F in allfaxes)
 				if(destination != "All Departments" && F.department == destination)
-					fax = F		
+					fax = F
+
 
 		var/input = input(src.owner, "Please enter a message to send a fax via secure connection. Use <br> for line breaks. Both pencode and HTML work.", "Outgoing message from Centcomm", "") as message|null
-		if(!input)	
+		if(!input)
 			del(P)
 			return
 		input = P.parsepencode(input) // Encode everything from pencode to html
@@ -1729,7 +1731,7 @@
 		var/customname = input(src.owner, "Pick a title for the fax.", "Fax Title") as text|null
 		if(!customname)
 			customname = "paper"
-		
+
 		var/stampname
 		var/stamptype
 		var/stampvalue
@@ -1761,12 +1763,12 @@
 				else
 					del(P)
 					return
-					
+
 				sendername = input(src.owner, "What organization does the fax come from? This determines the prefix of the paper (i.e. Central Command- Title). This is optional.", "Organization") as text|null
-				
+
 		if(sender)
 			notify = alert(src.owner, "Would you like to inform the original sender that a fax has arrived?","Notify Sender","Yes","No")
-		
+
 		// Create the reply message
 		if(sendername)
 			P.name = "[sendername]- [customname]"
@@ -1775,19 +1777,18 @@
 		P.info = input
 		P.update_icon()
 		P.x = rand(-2, 0)
-		P.y = rand(-1, 2)	
+		P.y = rand(-1, 2)
 		P.offset_x += P.x
 		P.offset_y += P.y
-			
 		if(stamptype)
 			var/image/stampoverlay = image('icons/obj/bureaucracy.dmi')
 			stampoverlay.pixel_x = P.x
 			stampoverlay.pixel_y = P.y
-		
+
 			if(!P.ico)
 				P.ico = new
 			P.ico += "paper_stamp-[stampvalue]"
-			stampoverlay.icon_state = "paper_stamp-[stampvalue]"	
+			stampoverlay.icon_state = "paper_stamp-[stampvalue]"
 
 			if(stamptype == "icon")
 				if(!P.stamped)
@@ -1795,13 +1796,13 @@
 				P.stamped += /obj/item/weapon/stamp/centcom
 				P.overlays += stampoverlay
 				P.stamps += "<HR><img src=large_stamp-[stampvalue].png>"
-				
-			else if(stamptype == "text")	
+
+			else if(stamptype == "text")
 				if(!P.stamped)
 					P.stamped = new
 				P.stamped += /obj/item/weapon/stamp
 				P.overlays += stampoverlay
-				P.stamps += "<HR><i>[stampvalue]</i>"			
+				P.stamps += "<HR><i>[stampvalue]</i>"
 
 		if(destination != "All Departments")
 			if(!fax.receivefax(P))
@@ -1809,10 +1810,10 @@
 				return
 		else
 			for(var/obj/machinery/photocopier/faxmachine/F in allfaxes)
-				if(F.z == 1)
+				if((F.z in config.station_levels))
 					if(!F.receivefax(P))
 						src.owner << "\red Message transmission to [F.department] failed."
-					
+
 		var/datum/fax/admin/A = new /datum/fax/admin()
 		A.name = P.name
 		A.from_department = faxtype
@@ -1825,7 +1826,7 @@
 		A.reply_to = reply_to
 		A.sent_by = usr
 		A.sent_at = world.time
-	
+
 		src.owner << "\blue Message transmitted successfully."
 		if(notify == "Yes")
 			var/mob/living/carbon/human/H = sender
@@ -1833,16 +1834,16 @@
 				sender << "Your headset pings, notifying you that a reply to your fax has arrived."
 		if(sender)
 			log_admin("[key_name(src.owner)] replied to a fax message from [key_name(sender)]: [input]")
-			message_admins("[key_name_admin(src.owner)] replied to a fax message from [key_name_admin(sender)] (<a href='?_src_=holder;AdminFaxView=\ref[P]'>VIEW</a>).", 1)	
-		else	
+			message_admins("[key_name_admin(src.owner)] replied to a fax message from [key_name_admin(sender)] (<a href='?_src_=holder;AdminFaxView=\ref[P]'>VIEW</a>).", 1)
+		else
 			log_admin("[key_name(src.owner)] sent a fax message to [destination]: [input]")
-			message_admins("[key_name_admin(src.owner)] sent a fax message to [destination] (<a href='?_src_=holder;AdminFaxView=\ref[P]'>VIEW</a>).", 1)	
+			message_admins("[key_name_admin(src.owner)] sent a fax message to [destination] (<a href='?_src_=holder;AdminFaxView=\ref[P]'>VIEW</a>).", 1)
 		return
-		
+
 	else if(href_list["refreshfaxpanel"])
-		if(!check_rights(R_ADMIN))	
+		if(!check_rights(R_ADMIN))
 			return
-		
+
 		fax_panel(usr)
 
 	else if(href_list["jumpto"])
@@ -2103,11 +2104,11 @@
 				if(gravity_is_on)
 					log_admin("[key_name(usr)] toggled gravity on.", 1)
 					message_admins("\blue [key_name_admin(usr)] toggled gravity on.", 1)
-					command_alert("Gravity generators are again functioning within normal parameters. Sorry for any inconvenience.")
+					command_announcement.Announce("Gravity generators are again functioning within normal parameters. Sorry for any inconvenience.")
 				else
 					log_admin("[key_name(usr)] toggled gravity off.", 1)
 					message_admins("\blue [key_name_admin(usr)] toggled gravity off.", 1)
-					command_alert("Feedback surge detected in mass-distributions systems. Artifical gravity has been disabled whilst the system reinitializes. Further failures may result in a gravitational collapse and formation of blackholes. Have a nice day.")
+					command_announcement.Announce("Feedback surge detected in mass-distributions systems. Artifical gravity has been disabled whilst the system reinitializes. Further failures may result in a gravitational collapse and formation of blackholes. Have a nice day.")
 			if("wave")
 				feedback_inc("admin_secrets_fun_used",1)
 				feedback_add_details("admin_secrets_fun_used","Meteor")
@@ -2144,12 +2145,12 @@
 				feedback_inc("admin_secrets_fun_used",1)
 				feedback_add_details("admin_secrets_fun_used","BLOB")
 				message_admins("[key_name_admin(usr)] has triggered a blob.")
-				new /datum/game_mode/blob()	
+				new /datum/game_mode/blob()
 			if("aliens")
 				feedback_inc("admin_secrets_fun_used",1)
 				feedback_add_details("admin_secrets_fun_used","ALIEN")
 				message_admins("[key_name_admin(usr)] has triggered an alien infestation.")
-				new /datum/event/alien_infestation()					
+				new /datum/event/alien_infestation()
 			if("power")
 				feedback_inc("admin_secrets_fun_used",1)
 				feedback_add_details("admin_secrets_fun_used","P")
@@ -2206,7 +2207,7 @@
 				for(var/mob/living/carbon/human/H in mob_list)
 					var/turf/loc = find_loc(H)
 					var/security = 0
-					if(loc.z > 1 || prisonwarped.Find(H))
+					if(!(loc.z in config.station_levels) || prisonwarped.Find(H))
 
 //don't warp them if they aren't ready or are already there
 						continue
@@ -2222,7 +2223,7 @@
 							if(istype(W, /datum/organ/external))
 								continue
 								//don't strip organs
-							H.u_equip(W)
+							H.unEquip(W)
 							if (H.client)
 								H.client.screen -= W
 							if (W)
@@ -2519,7 +2520,7 @@
 				message_admins("[key_name_admin(usr)] made the floor LAVA! It'll last [length] seconds and it will deal [damage] damage to everyone.", 1)
 
 				for(var/turf/simulated/floor/F in world)
-					if(F.z == 1)
+					if((F.z in config.station_levels))
 						F.name = "lava"
 						F.desc = "The floor is LAVA!"
 						F.overlays += "lava"
@@ -2544,7 +2545,7 @@
 						sleep(10)
 
 					for(var/turf/simulated/floor/F in world) // Reset everything.
-						if(F.z == 1)
+						if((F.z in config.station_levels))
 							F.name = initial(F.name)
 							F.desc = initial(F.desc)
 							F.overlays.Cut()
@@ -2592,11 +2593,10 @@
 				feedback_inc("admin_secrets_fun_used",1)
 				feedback_add_details("admin_secrets_fun_used","EgL")
 				for(var/obj/machinery/door/airlock/W in world)
-					if(W.z == 1 && !istype(get_area(W), /area/bridge) && !istype(get_area(W), /area/crew_quarters) && !istype(get_area(W), /area/security/prison))
+					if((W.z in config.station_levels) && !istype(get_area(W), /area/bridge) && !istype(get_area(W), /area/crew_quarters) && !istype(get_area(W), /area/security/prison))
 						W.req_access = list()
 				message_admins("[key_name_admin(usr)] activated Egalitarian Station mode")
-				command_alert("Centcomm airlock control override activated. Please take this time to get acquainted with your coworkers.")
-				world << sound('sound/AI/commandreport.ogg')
+				command_announcement.Announce("Centcomm airlock control override activated. Please take this time to get acquainted with your coworkers.", new_sound = 'sound/AI/commandreport.ogg')
 			if("dorf")
 				feedback_inc("admin_secrets_fun_used",1)
 				feedback_add_details("admin_secrets_fun_used","DF")
@@ -2611,8 +2611,7 @@
 				message_admins("[key_name_admin(usr)] triggered an ion storm")
 				var/show_log = alert(usr, "Show ion message?", "Message", "Yes", "No")
 				if(show_log == "Yes")
-					command_alert("Ion storm detected near the station. Please check all AI-controlled equipment for errors.", "Anomaly Alert")
-					world << sound('sound/AI/ionstorm.ogg')
+					command_announcement.Announce("Ion storm detected near the station. Please check all AI-controlled equipment for errors.", "Anomaly Alert", new_sound = 'sound/AI/ionstorm.ogg')
 			if("carp")
 				feedback_inc("admin_secrets_fun_used",1)
 				feedback_add_details("admin_secrets_fun_used","Crp")

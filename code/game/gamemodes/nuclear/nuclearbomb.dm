@@ -23,11 +23,10 @@ var/bomb_set
 	var/timing_wire
 	var/removal_stage = 0 // 0 is no removal, 1 is covers removed, 2 is covers open, 3 is sealant open, 4 is unwrenched, 5 is removed from bolts.
 	var/lastentered
-	var/data[0]	
+	var/data[0]
 	var/uiwidth
 	var/uiheight
 	var/uititle
-	flags = FPRINT
 	use_power = 0
 	unacidable = 1
 
@@ -85,7 +84,7 @@ var/bomb_set
 
 	if (istype(O, /obj/item/device/multitool) || istype(O, /obj/item/weapon/wirecutters))
 		ui_interact(user)
-		
+
 	if (src.extended)
 		if (istype(O, /obj/item/weapon/disk/nuclear))
 			usr.drop_item()
@@ -187,7 +186,7 @@ var/bomb_set
 
 obj/machinery/nuclearbomb/proc/nukehack_win(mob/user as mob)
 	ui_interact(user)
-	
+
 /obj/machinery/nuclearbomb/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
 	if(!src.opened)
 		data["hacking"] = 0
@@ -198,12 +197,12 @@ obj/machinery/nuclearbomb/proc/nukehack_win(mob/user as mob)
 			else
 				data["authstatus"] = "Auth. S2"
 		else
-			if (src.timing)	
+			if (src.timing)
 				data["authstatus"] = "Set"
 			else
 				data["authstatus"] = "Auth. S1"
-		data["safe"] = src.safety ? "Safe" : "Engaged"			
-		data["time"] = src.timeleft	
+		data["safe"] = src.safety ? "Safe" : "Engaged"
+		data["time"] = src.timeleft
 		data["timer"] = src.timing
 		data["safety"] = src.safety
 		data["anchored"] = src.anchored
@@ -218,7 +217,7 @@ obj/machinery/nuclearbomb/proc/nukehack_win(mob/user as mob)
 		uititle = "Nuke Control Panel"
 	else
 		data["hacking"] = 1
-		var/list/tempwires[0] 
+		var/list/tempwires[0]
 		for(var/wire in src.wires)
 			tempwires.Add(list(list("name" = wire, "cut" = src.wires[wire])))
 		data["wires"] = tempwires
@@ -228,10 +227,10 @@ obj/machinery/nuclearbomb/proc/nukehack_win(mob/user as mob)
 		uiwidth = 420
 		uiheight = 440
 		uititle = "Nuclear Bomb Defusion"
-	ui = nanomanager.try_update_ui(user, src, ui_key, ui, data, force_open)	
+	ui = nanomanager.try_update_ui(user, src, ui_key, ui, data, force_open)
 	if (!ui)
 		ui = new(user, src, ui_key, "nuclear_bomb.tmpl", uititle, uiwidth, uiheight)
-		ui.set_initial_data(data)		
+		ui.set_initial_data(data)
 		ui.open()
 
 /obj/machinery/nuclearbomb/verb/make_deployable()
@@ -338,8 +337,8 @@ obj/machinery/nuclearbomb/proc/nukehack_win(mob/user as mob)
 					if (src.timing == -1.0)
 						return
 					if (src.safety)
-						usr << "\red The safety is still on."	
-						nanomanager.update_uis(src)						
+						usr << "\red The safety is still on."
+						nanomanager.update_uis(src)
 						return
 					src.timing = !( src.timing )
 					if (src.timing)
@@ -409,7 +408,7 @@ obj/machinery/nuclearbomb/proc/nukehack_win(mob/user as mob)
 
 	var/off_station = 0
 	var/turf/bomb_location = get_turf(src)
-	if( bomb_location && (bomb_location.z == 1) )
+	if( bomb_location && (bomb_location.z in config.station_levels) )
 		if( (bomb_location.x < (128-NUKERANGE)) || (bomb_location.x > (128+NUKERANGE)) || (bomb_location.y < (128-NUKERANGE)) || (bomb_location.y > (128+NUKERANGE)) )
 			off_station = 1
 	else
@@ -427,7 +426,7 @@ obj/machinery/nuclearbomb/proc/nukehack_win(mob/user as mob)
 			if(ticker.mode.name == "nuclear emergency")
 				ticker.mode:nukes_left --
 			else if(off_station == 1)
-				world << "<b>A nuclear device was set off, but the explosion was out of reach of the station!</b>"				
+				world << "<b>A nuclear device was set off, but the explosion was out of reach of the station!</b>"
 			else if(off_station == 2)
 				world << "<b>A nuclear device was set off, but the device was not on the station!</b>"
 			else

@@ -27,7 +27,7 @@
 					return
 
 			M << "\blue You swallow [src]."
-			M.drop_from_inventory(src) //icon update
+			M.unEquip(src) //icon update
 			if(reagents.total_volume)
 				reagents.reaction(M, INGEST)
 				spawn(5)
@@ -49,7 +49,7 @@
 
 			if(!do_mob(user, M)) return
 
-			user.drop_from_inventory(src) //icon update
+			user.unEquip(src) //icon update
 			for(var/mob/O in viewers(world.view, user))
 				O.show_message("\red [user] forces [M] to swallow [src].", 1)
 
@@ -195,7 +195,7 @@
 	New()
 		..()
 		reagents.add_reagent("paroxetine", 15)
-		
+
 /obj/item/weapon/reagent_containers/pill/inaprovaline
 	name = "Inaprovaline pill"
 	desc = "Used to stabilize patients."

@@ -8,7 +8,6 @@
 	amount_per_transfer_from_this = 5
 	volume = 30
 	possible_transfer_amounts = null
-	flags = FPRINT
 	var/mode = 1
 	var/charge_cost = 50
 	var/charge_tick = 0
@@ -68,14 +67,14 @@
 	var/datum/reagents/R = reagent_list[reagent_list.len]
 	R.add_reagent(reagent, 30)
 
-/obj/item/weapon/reagent_containers/borghypo/attack(mob/M as mob, mob/user as mob)
+/obj/item/weapon/reagent_containers/borghypo/attack(mob/living/M as mob, mob/user as mob)
 	var/datum/reagents/R = reagent_list[mode]
 	if(!R.total_volume)
 		user << "\red The injector is empty."
 		return
-	if (!( istype(M, /mob) ))
+	if (!(istype(M)))
 		return
-	if (R.total_volume)
+	if (R.total_volume && M.can_inject(user,1))
 		user << "\blue You inject [M] with the injector."
 		M << "\red You feel a tiny prick!"
 

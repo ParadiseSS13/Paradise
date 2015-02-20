@@ -2,7 +2,7 @@
 	name = "pinpointer"
 	icon = 'icons/obj/device.dmi'
 	icon_state = "pinoff"
-	flags = FPRINT | TABLEPASS| CONDUCT
+	flags = CONDUCT
 	slot_flags = SLOT_BELT
 	w_class = 2.0
 	item_state = "electronic"
@@ -344,7 +344,7 @@
 					icon_state = "pinonfar"
 		spawn(5)
 			.()
-			
+
 /obj/item/weapon/pinpointer/operative
 	name = "operative pinpointer"
 	icon = 'icons/obj/device.dmi'
@@ -379,7 +379,7 @@
 		user << "Nearest operative: <b>[nearest_op]</b>."
 	if(nearest_op == null && active)
 		user << "No operatives detected within scanning range."
-		
+
 /obj/item/weapon/pinpointer/operative/proc/point_at(atom/target, spawnself = 1)
 	if(!active)
 		return
