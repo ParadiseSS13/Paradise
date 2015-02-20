@@ -581,7 +581,7 @@ macro "macro"
 		is-disabled = false
 	elem 
 		name = "F3"
-		command = "say"
+		command = ".say"
 		is-disabled = false
 	elem 
 		name = "F4"
