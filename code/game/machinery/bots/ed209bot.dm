@@ -33,6 +33,7 @@
 	var/arrest_type = 0 //If true, don't handcuff
 	var/projectile = /obj/item/projectile/energy/electrode //Holder for projectile type
 	var/shoot_sound = 'sound/weapons/Taser.ogg'
+	radio_frequency = SEC_FREQ
 	radio_name = "Security"
 	bot_type = SEC_BOT
 	bot_type_name = "ED-209"
@@ -268,7 +269,7 @@ Auto Patrol[]"},
 
 					if(declare_arrests)
 						var/area/location = get_area(src)
-						speak("[arrest_type ? "Detaining" : "Arresting"] level [threatlevel] scumbag <b>[target]</b> in [location].", radio_name)
+						speak("[arrest_type ? "Detaining" : "Arresting"] level [threatlevel] scumbag <b>[target]</b> in [location].",radio_frequency, radio_name)
 					target.visible_message("<span class='danger'>[target] has been stunned by [src]!</span>",\
 											"<span class='userdanger'>[target] has been stunned by [src]!</span></span>")
 

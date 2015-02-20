@@ -5,7 +5,6 @@
 // flags: See below, bitfield.
 #define MUTCHK_FORCED        1
 /proc/domutcheck(var/mob/living/M, var/connected=null, var/flags=0)
-		
 	for(var/datum/dna/gene/gene in dna_genes)
 		if(!M || !M.dna)
 			return
@@ -76,14 +75,6 @@
 	var/gene_active = (gene.flags & GENE_ALWAYS_ACTIVATE)
 	if(!gene_active)
 		gene_active = M.dna.GetSEState(gene.block)
-		
-	var/defaultgenes // Do not mutate inherent species abilities
-	if(ishuman(M))
-		var/mob/living/carbon/human/H = M
-		defaultgenes = H.species.default_genes
-		
-		if((gene in defaultgenes) && gene_active)
-			return
 
 	// Prior state
 	var/gene_prior_status = (gene.type in M.active_genes)

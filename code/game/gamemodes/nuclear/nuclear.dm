@@ -132,7 +132,6 @@ proc/issyndicate(mob/living/M as mob)
 		synd_mind.current.loc = synd_spawn[spawnpos]
 
 		forge_syndicate_objectives(synd_mind)
-		create_syndicate(synd_mind)
 		greet_syndicate(synd_mind)
 		equip_syndicate(synd_mind.current)
 
@@ -163,38 +162,7 @@ proc/issyndicate(mob/living/M as mob)
 	spawn (rand(waittime_l, waittime_h))
 		send_intercept()
 	return ..()
-	
-/datum/game_mode/proc/create_syndicate(var/datum/mind/synd_mind) // So we don't have inferior species as ops - randomize a human
-	var/mob/living/carbon/human/M = synd_mind.current
-	M.set_species("Human",1)
-	M.dna.ready_dna(M) // Quadriplegic Nuke Ops won't be participating in the paralympics
 
-	var/hair_c = pick("#8B4513","#000000","#FF4500","#FFD700") // Brown, black, red, blonde
-	var/eye_c = pick("#000000","#8B4513","1E90FF") // Black, brown, blue
-	var/skin_tone = pick(35, 60, 75, 90, 105, 120, 135, 150) // Caucasian - black
-	var/hair_style = "Bald"
-	var/facial_hair_style = "Shaved"
-	if(M.gender == MALE)
-		hair_style = pick(hair_styles_male_list)
-		facial_hair_style = pick(facial_hair_styles_list)
-	else
-		hair_style = pick(hair_styles_female_list)
-		if(prob(5))
-			facial_hair_style = pick(facial_hair_styles_list)
-
-	M.r_facial = hex2num(copytext(hair_c, 2, 4))
-	M.g_facial = hex2num(copytext(hair_c, 4, 6))
-	M.b_facial = hex2num(copytext(hair_c, 6, 8))
-	M.r_hair = hex2num(copytext(hair_c, 2, 4))
-	M.g_hair = hex2num(copytext(hair_c, 4, 6))
-	M.b_hair = hex2num(copytext(hair_c, 6, 8))
-	M.r_eyes = hex2num(copytext(eye_c, 2, 4))
-	M.g_eyes = hex2num(copytext(eye_c, 4, 6))
-	M.b_eyes = hex2num(copytext(eye_c, 6, 8))
-	M.s_tone = skin_tone + 35
-	M.s_tone = -M.s_tone + 35
-	M.h_style = hair_style
-	M.f_style = facial_hair_style
 
 /datum/game_mode/proc/prepare_syndicate_leader(var/datum/mind/synd_mind, var/nuke_code)
 	var/leader_title = pick("Czar", "Boss", "Commander", "Chief", "Kingpin", "Director", "Overlord")

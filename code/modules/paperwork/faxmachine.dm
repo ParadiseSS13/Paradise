@@ -21,6 +21,8 @@ var/list/alldepartments = list()
 	var/department = "Unknown" // our department
 
 	var/destination = "Central Command" // the department we're sending to
+	
+	var/data[0]
 
 /obj/machinery/photocopier/faxmachine/New()
 	..()
@@ -49,7 +51,6 @@ var/list/alldepartments = list()
 		user << "<span class='warning'>You swipe the card through [src], but nothing happens.</span>"
 	
 /obj/machinery/photocopier/faxmachine/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
-	var/data[0]
 	if(scan)
 		data["scan_name"] = scan.name
 	else
@@ -141,7 +142,8 @@ var/list/alldepartments = list()
 				else if(istype(copyitem, /obj/item/weapon/photo)) 
 					copyitem.name = "[(n_name ? text("[n_name]") : "photo")]"
 				else if(istype(copyitem, /obj/item/weapon/paper_bundle))
-					copyitem.name = "[(n_name ? text("[n_name]") : "paper")]"			
+					copyitem.name = "[(n_name ? text("[n_name]") : "paper")]"
+				data["name"] = copyitem.name				
 
 	nanomanager.update_uis(src)
 	

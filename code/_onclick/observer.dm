@@ -64,11 +64,10 @@
 // Now you can click through portals, wormholes, gateways, and teleporters while observing. -Sayu
 
 /obj/machinery/teleport/hub/attack_ghost(mob/user as mob)
-	var/obj/machinery/teleport/station/S = power_station
-	if(S)
-		var/obj/machinery/computer/teleporter/com = S.teleporter_console
-		if(com && com.target)
-			user.loc = get_turf(com.target)
+	var/atom/l = loc
+	var/obj/machinery/computer/teleporter/com = locate(/obj/machinery/computer/teleporter, locate(l.x - 2, l.y, l.z))
+	if(com && com.locked)
+		user.loc = get_turf(com.locked)
 
 /obj/effect/portal/attack_ghost(mob/user as mob)
 	if(target)
