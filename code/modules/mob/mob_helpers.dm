@@ -150,7 +150,7 @@ proc/isorgan(A)
 		if(L && L.implanted)
 			return 1
 	return 0
-	
+
 proc/isnewplayer(A)
 	if(istype(A, /mob/new_player))
 		return 1
@@ -159,8 +159,22 @@ proc/isnewplayer(A)
 proc/hasorgans(A)
 	return ishuman(A)
 
+proc/isdeaf(A)
+	if(istype(A, /mob))
+		var/mob/M = A
+		return (M.sdisabilities & DEAF) || M.ear_deaf
+	return 0
+
 /proc/hsl2rgb(h, s, l)
 	return
+
+proc/hassensorlevel(A, var/level)
+	var/mob/living/carbon/human/H = A
+	if(istype(H) && istype(H.w_uniform, /obj/item/clothing/under))
+		var/obj/item/clothing/under/U = H.w_uniform
+		return U.sensor_mode >= level
+	return 0
+
 
 
 /proc/check_zone(zone)
@@ -344,10 +358,10 @@ It's fairly easy to fix if dealing with single letters but not so much with comp
 
 
 /mob/proc/abiotic(var/full_body = 0)
-	if(full_body && ((src.l_hand && !( src.l_hand.abstract )) || (src.r_hand && !( src.r_hand.abstract )) || (src.back || src.wear_mask)))
+	if(full_body && ((src.l_hand && !(src.l_hand.flags & ABSTRACT)) || (src.r_hand && !(src.r_hand.flags & ABSTRACT)) || (src.back || src.wear_mask)))
 		return 1
 
-	if((src.l_hand && !( src.l_hand.abstract )) || (src.r_hand && !( src.r_hand.abstract )))
+	if((src.l_hand && !(src.l_hand.flags & ABSTRACT)) || (src.r_hand && !(src.r_hand.flags & ABSTRACT)))
 		return 1
 
 	return 0

@@ -7,7 +7,7 @@
 	w_class = 1
 	throw_speed = 3
 	throw_range = 7
-	flags = FPRINT | TABLEPASS | CONDUCT
+	flags = CONDUCT
 	origin_tech = "magnets=2;combat=1"
 
 	var/times_used = 0 //Number of times it's been used.

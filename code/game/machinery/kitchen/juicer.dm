@@ -37,7 +37,9 @@
 		if (beaker)
 			return 1
 		else
-			user.before_take_item(O)
+			if(!user.unEquip(O))
+				user << "<span class='notice'>\the [O] is stuck to your hand, you cannot put it in \the [src]</span>"
+				return 0
 			O.loc = src
 			beaker = O
 			src.verbs += /obj/machinery/juicer/verb/detach
@@ -45,9 +47,11 @@
 			src.updateUsrDialog()
 			return 0
 	if (!is_type_in_list(O, allowed_items))
-		user << "It looks as not containing any juice."
+		user << "It doesn't look like that contains any juice."
 		return 1
-	user.before_take_item(O)
+	if(!user.unEquip(O))
+		user << "<span class='notice'>\the [O] is stuck to your hand, you cannot put it in \the [src]</span>"
+		return 0
 	O.loc = src
 	src.updateUsrDialog()
 	return 0

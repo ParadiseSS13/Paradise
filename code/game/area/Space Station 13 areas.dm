@@ -22,6 +22,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	var/poweralm = 1
 	var/party = null
 	var/radalert = 0
+	var/report_alerts = 1 // Should atmos alerts notify the AI/computers
 	level = null
 	name = "Space"
 	icon = 'icons/turf/areas.dmi'
@@ -69,7 +70,7 @@ var/list/teleportlocs = list()
 		var/list/turfs = get_area_turfs(AR.type)
 		if(turfs.len)
 			var/turf/picked = pick(turfs)
-			if (picked.z == 1)
+			if ((picked.z in config.station_levels))
 				teleportlocs += AR.name
 				teleportlocs[AR.name] = AR
 
@@ -82,13 +83,13 @@ var/list/ghostteleportlocs = list()
 /hook/startup/proc/setupGhostTeleportLocs()
 	for(var/area/AR in world)
 		if(ghostteleportlocs.Find(AR.name)) continue
-		if(istype(AR, /area/turret_protected/aisat) || istype(AR, /area/derelict) || istype(AR, /area/tdome))
+		if(istype(AR, /area/tdome))
 			ghostteleportlocs += AR.name
 			ghostteleportlocs[AR.name] = AR
 		var/list/turfs = get_area_turfs(AR.type)
 		if(turfs.len)
 			var/turf/picked = pick(turfs)
-			if (picked.z == 1 || picked.z == 5 || picked.z == 3)
+			if ((picked.z in config.player_levels))
 				ghostteleportlocs += AR.name
 				ghostteleportlocs[AR.name] = AR
 
@@ -1983,6 +1984,11 @@ area/security/podbay
 
 
 //Traitor Station
+/area/traitor
+	name = "\improper Syndicate Base"
+	icon_state = "syndie_hall"
+	report_alerts = 0
+	
 /area/traitor/rnd
 	name = "\improper Syndicate Research and Development"
 	icon_state = "syndie_rnd"

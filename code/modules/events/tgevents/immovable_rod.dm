@@ -12,7 +12,7 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 	announceWhen = 5
 
 /datum/event/immovable_rod/announce()
-	command_alert("What the fuck was that?!", "General Alert")
+	command_announcement.Announce("What the fuck was that?!", "General Alert")
 
 /datum/event/immovable_rod/start()
 	var/startx = 0

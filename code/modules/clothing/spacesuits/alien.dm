@@ -83,7 +83,7 @@
 // Can't be equipped by any other species due to bone structure and vox cybernetics.
 /obj/item/clothing/suit/space/vox
 	w_class = 3
-	allowed = list(/obj/item/weapon/gun,/obj/item/ammo_box,/obj/item/ammo_casing,/obj/item/weapon/melee/baton,/obj/item/weapon/melee/energy/sword,/obj/item/weapon/handcuffs,/obj/item/weapon/tank)
+	allowed = list(/obj/item/weapon/gun,/obj/item/ammo_box,/obj/item/ammo_casing,/obj/item/weapon/melee/baton,/obj/item/weapon/melee/energy/sword,/obj/item/weapon/restraints/handcuffs,/obj/item/weapon/tank)
 	slowdown = 2
 	armor = list(melee = 60, bullet = 50, laser = 30,energy = 15, bomb = 30, bio = 30, rad = 30)
 	siemens_coefficient = 0.6
@@ -204,7 +204,7 @@
 	if(src.magpulse)
 		flags &= ~NOSLIP
 		magpulse = 0
-		canremove = 1
+		flags |= NODROP
 		user << "You relax your deathgrip on the flooring."
 	else
 		//make sure these can only be used when equipped.
@@ -218,7 +218,7 @@
 
 		flags |= NOSLIP
 		magpulse = 1
-		canremove = 0	//kinda hard to take off magclaws when you are gripping them tightly.
+		flags &= ~NODROP	//kinda hard to take off magclaws when you are gripping them tightly.
 		user << "You dig your claws deeply into the flooring, bracing yourself."
 		user << "It would be hard to take off the [src] without relaxing your grip first."
 
@@ -229,7 +229,7 @@
 		user.visible_message("The [src] go limp as they are removed from [usr]'s feet.", "The [src] go limp as they are removed from your feet.")
 		flags &= ~NOSLIP
 		magpulse = 0
-		canremove = 1
+		flags &= ~NODROP
 
 /obj/item/clothing/shoes/magboots/vox/examine()
 	set src in view()
@@ -259,7 +259,7 @@
 
 /obj/item/clothing/suit/space/plasmaman
 	w_class = 3
-	allowed = list(/obj/item/weapon/gun,/obj/item/ammo_box/magazine,/obj/item/ammo_casing,/obj/item/weapon/melee/baton,/obj/item/weapon/melee/energy/sword,/obj/item/weapon/handcuffs,/obj/item/weapon/tank)
+	allowed = list(/obj/item/weapon/gun,/obj/item/ammo_box/magazine,/obj/item/ammo_casing,/obj/item/weapon/melee/baton,/obj/item/weapon/melee/energy/sword,/obj/item/weapon/restraints/handcuffs,/obj/item/weapon/tank)
 	slowdown = 2
 	armor = list(melee = 0, bullet = 0, laser = 0,energy = 0, bomb = 0, bio = 100, rad = 0)
 	heat_protection = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
@@ -267,13 +267,13 @@
 	flags_inv = HIDEGLOVES|HIDESHOES|HIDEJUMPSUIT
 	max_heat_protection_temperature = SPACE_SUIT_MAX_HEAT_PROTECTION_TEMPERATURE
 	species_restricted = list("Plasmaman")
-	flags = FPRINT | TABLEPASS | STOPSPRESSUREDMAGE | PLASMAGUARD
+	flags = STOPSPRESSUREDMAGE | PLASMAGUARD
 
 	icon_state = "plasmaman_suit"
 	item_state = "plasmaman_suit"
 
 /obj/item/clothing/head/helmet/space/plasmaman
-	flags = FPRINT | TABLEPASS | HEADCOVERSEYES | BLOCKHAIR | STOPSPRESSUREDMAGE | PLASMAGUARD
+	flags = HEADCOVERSEYES | BLOCKHAIR | STOPSPRESSUREDMAGE | PLASMAGUARD
 	species_restricted = list("Plasmaman")
 
 	icon_state = "plasmaman_helmet0"

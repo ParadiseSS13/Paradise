@@ -3,7 +3,7 @@
 	icon = 'icons/obj/robot_parts.dmi'
 	item_state = "buildpipe"
 	icon_state = "blank"
-	flags = FPRINT | TABLEPASS | CONDUCT
+	flags = CONDUCT
 	slot_flags = SLOT_BELT
 	var/construction_time = 100
 	var/list/construction_cost = list("metal"=20000,"glass"=5000)
@@ -109,7 +109,7 @@
 		user << "You armed the robot frame"
 		W:use(1)
 		if (user.get_inactive_hand()==src)
-			user.before_take_item(src)
+			user.unEquip(src)
 			user.put_in_inactive_hand(B)
 		del(src)
 	if(istype(W, /obj/item/robot_parts/l_leg))

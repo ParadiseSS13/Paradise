@@ -8,7 +8,7 @@
 	amount_per_transfer_from_this = 2
 	possible_transfer_amounts = 2
 	volume = 10
-	flags = FPRINT | TABLEPASS | OPENCONTAINER
+	flags = OPENCONTAINER
 
 	var/label_text = ""
 

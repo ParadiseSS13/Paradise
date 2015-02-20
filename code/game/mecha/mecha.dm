@@ -697,17 +697,6 @@
 
 /obj/mecha/attackby(obj/item/weapon/W as obj, mob/user as mob)
 
-	if(istype(W,  /obj/item/weapon/card/emag))
-		if(istype(src,	/obj/mecha/working/ripley) && emagged == 0)
-			emagged = 1
-			usr << "\blue You slide the [W] through the [src]'s ID slot."
-			playsound(src.loc, "sparks", 100, 1)
-			src.desc += "</br><b>\red The mech's equiptment slots spark dangerously!</b>"
-		else
-			usr <<"\red The [src]'s ID slot rejects the [W]."
-		return
-
-
 	if(istype(W, /obj/item/device/mmi) || istype(W, /obj/item/device/mmi/posibrain))
 		if(mmi_move_inside(W,user))
 			user << "[src]-MMI interface initialized successfuly"
@@ -809,7 +798,9 @@
 		return
 
 	else if(istype(W, /obj/item/mecha_parts/mecha_tracking))
-		user.drop_from_inventory(W)
+		if(!user.unEquip(W))
+			user << "<span class='notice'>\the [W] is stuck to your hand, you cannot put it in \the [src]</span>"
+			return
 		W.forceMove(src)
 		user.visible_message("[user] attaches [W] to [src].", "You attach [W] to [src]")
 		return
@@ -862,6 +853,15 @@
 */
 	return
 
+/obj/mecha/emag_act(user as mob)
+	if(istype(src,	/obj/mecha/working/ripley) && emagged == 0)
+		emagged = 1
+		usr << "\blue You slide the card through the [src]'s ID slot."
+		playsound(src.loc, "sparks", 100, 1)
+		src.desc += "</br><b>\red The mech's equiptment slots spark dangerously!</b>"
+	else
+		usr <<"\red The [src]'s ID slot rejects the card."
+	return
 
 
 /*
@@ -1118,7 +1118,9 @@
 		else if(mmi_as_oc.brainmob.stat)
 			user << "Beta-rhythm below acceptable level."
 			return 0
-		user.drop_from_inventory(mmi_as_oc)
+		if(!user.unEquip(mmi_as_oc))
+			user << "<span class='notice'>\the [mmi_as_oc] is stuck to your hand, you cannot put it in \the [src]</span>"
+			return
 		var/mob/brainmob = mmi_as_oc.brainmob
 		brainmob.reset_view(src)
 	/*

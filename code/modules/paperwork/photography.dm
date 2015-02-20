@@ -44,7 +44,7 @@
 	else if(istype(P, /obj/item/weapon/lighter))
 		burnphoto(P, user)
 	..()
-	
+
 /obj/item/weapon/photo/proc/burnphoto(obj/item/weapon/lighter/P, mob/user)
 	var/class = "<span class='warning'>"
 
@@ -61,7 +61,7 @@
 				"[class]You burn right through \the [src], turning it to ash. It flutters through the air before settling on the floor in a heap.")
 
 				if(user.get_inactive_hand() == src)
-					user.drop_from_inventory(src)
+					user.unEquip(src)
 
 				new /obj/effect/decal/cleanable/ash(get_turf(src))
 				del(src)
@@ -90,7 +90,7 @@
 	set category = "Object"
 	set src in usr
 
-	var/n_name = copytext(sanitize(input(usr, "What would you like to label the photo?", "Photo Labelling", null)  as text), 1, MAX_MESSAGE_LEN)
+	var/n_name = copytext(sanitize(input(usr, "What would you like to label the photo?", "Photo Labelling", name)  as text), 1, MAX_MESSAGE_LEN)
 	//loc.loc check is for making possible renaming photos in clipboards
 	if(( (loc == usr || (loc.loc && loc.loc == usr)) && usr.stat == 0))
 		name = "[(n_name ? text("[n_name]") : "photo")]"
@@ -118,10 +118,10 @@
 		if((!( M.restrained() ) && !( M.stat ) && M.back == src))
 			switch(over_object.name)
 				if("r_hand")
-					M.u_equip(src)
+					M.unEquip(src)
 					M.put_in_r_hand(src)
 				if("l_hand")
-					M.u_equip(src)
+					M.unEquip(src)
 					M.put_in_l_hand(src)
 			add_fingerprint(usr)
 			return
@@ -142,7 +142,6 @@
 	icon_state = "camera"
 	item_state = "electropack"
 	w_class = 2.0
-	flags = FPRINT | CONDUCT | TABLEPASS
 	slot_flags = SLOT_BELT
 	var/list/matter = list("metal" = 2000)
 	var/pictures_max = 10
@@ -312,6 +311,7 @@
 
 	var/datum/picture/P = new()
 	P.fields["name"] = "photo"
+	P.fields["author"] = user
 	P.fields["icon"] = ic
 	P.fields["tiny"] = pc
 	P.fields["img"] = photoimage
@@ -363,7 +363,6 @@
 	icon_state = "videocam"
 	item_state = "videocam"
 	w_class = 2.0
-	flags = FPRINT | CONDUCT | TABLEPASS
 	slot_flags = SLOT_BELT
 	m_amt = 2000
 	var/on = 0
@@ -403,4 +402,4 @@
 		if(get_dist(src, M) <= canhear_range)
 			talk_into(M, msg)
 		for(var/mob/living/carbon/human/H in watcherslist)
-			H.show_message(text("\blue (Newscaster) [] says, '[]'",M,msg), 1)	
+			H.show_message(text("\blue (Newscaster) [] says, '[]'",M,msg), 1)

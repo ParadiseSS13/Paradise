@@ -5,7 +5,7 @@
 	var/obj/effect/tear/TE
 
 /datum/event/tear/announce()
-	command_alert("A tear in the fabric of space and time has opened. Expected location: [impact_area.name].", "Anomaly Alert")
+	command_announcement.Announce("A tear in the fabric of space and time has opened. Expected location: [impact_area.name].", "Anomaly Alert")
 
 
 /datum/event/tear/start()

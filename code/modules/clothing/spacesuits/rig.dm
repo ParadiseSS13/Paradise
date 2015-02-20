@@ -112,7 +112,7 @@
 			//TODO: Species check, skull damage for forcing an unfitting helmet on?
 			helmet.loc = H
 			H.equip_to_slot(helmet, slot_head)
-			helmet.canremove = 0
+			helmet.flags |= NODROP
 
 	if(attached_boots && boots)
 		if(H.shoes)
@@ -121,7 +121,7 @@
 			M << "Your suit's boots deploy with a hiss."
 			boots.loc = H
 			H.equip_to_slot(boots, slot_shoes)
-			boots.canremove = 0
+			boots.flags |= NODROP
 
 /obj/item/clothing/suit/space/rig/dropped()
 	..()
@@ -132,16 +132,16 @@
 		H = helmet.loc
 		if(istype(H))
 			if(helmet && H.head == helmet)
-				helmet.canremove = 1
-				H.drop_from_inventory(helmet)
+				helmet.flags &= ~NODROP
+				H.unEquip(helmet)
 				helmet.loc = src
 
 	if(boots)
 		H = boots.loc
 		if(istype(H))
 			if(boots && H.shoes == boots)
-				boots.canremove = 1
-				H.drop_from_inventory(boots)
+				boots.flags &= ~NODROP
+				H.unEquip(boots)
 				boots.loc = src
 
 /*
@@ -206,8 +206,8 @@
 	if(H.wear_suit != src) return
 
 	if(H.head == helmet)
-		helmet.canremove = 1
-		H.drop_from_inventory(helmet)
+		helmet.flags &= ~NODROP
+		H.unEquip(helmet)
 		helmet.loc = src
 		H << "\blue You retract your hardsuit helmet."
 	else
@@ -218,7 +218,7 @@
 		helmet.loc = H
 		helmet.pickup(H)
 		H.equip_to_slot(helmet, slot_head)
-		helmet.canremove = 0
+		helmet.flags |= NODROP
 		H << "\blue You deploy your hardsuit helmet, sealing you off from the world."
 
 /obj/item/clothing/suit/space/rig/attackby(obj/item/W as obj, mob/user as mob)
@@ -398,7 +398,7 @@
 	slowdown = 1
 	w_class = 3
 	armor = list(melee = 60, bullet = 50, laser = 30, energy = 15, bomb = 35, bio = 100, rad = 50)
-	allowed = list(/obj/item/weapon/gun,/obj/item/ammo_box/magazine,/obj/item/ammo_casing,/obj/item/weapon/melee/baton,/obj/item/weapon/melee/energy/sword,/obj/item/weapon/handcuffs,/obj/item/weapon/tank)
+	allowed = list(/obj/item/weapon/gun,/obj/item/ammo_box/magazine,/obj/item/ammo_casing,/obj/item/weapon/melee/baton,/obj/item/weapon/melee/energy/sword,/obj/item/weapon/restraints/handcuffs,/obj/item/weapon/tank)
 	siemens_coefficient = 0.6
 	species_restricted = list("exclude","Unathi","Tajaran","Skrell","Vox")
 	sprite_sheets = null
@@ -469,7 +469,7 @@
 	desc = "A special suit that protects against hazardous, low pressure environments. Has an additional layer of armor."
 	item_state = "sec_hardsuit"
 	armor = list(melee = 30, bullet = 15, laser = 30, energy = 10, bomb = 10, bio = 100, rad = 50)
-	allowed = list(/obj/item/weapon/gun,/obj/item/device/flashlight,/obj/item/weapon/tank,/obj/item/device/suit_cooling_unit,/obj/item/weapon/melee/baton,/obj/item/weapon/reagent_containers/spray/pepper,/obj/item/ammo_box,/obj/item/ammo_casing,/obj/item/weapon/handcuffs)
+	allowed = list(/obj/item/weapon/gun,/obj/item/device/flashlight,/obj/item/weapon/tank,/obj/item/device/suit_cooling_unit,/obj/item/weapon/melee/baton,/obj/item/weapon/reagent_containers/spray/pepper,/obj/item/ammo_box,/obj/item/ammo_casing,/obj/item/weapon/restraints/handcuffs)
 	siemens_coefficient = 0.7
 
 
@@ -508,5 +508,5 @@
 	name = "singuloth knight's armor"
 	desc = "This is a ceremonial armor from the chapter of the Singuloth Knights. It's made of pure forged adamantium."
 	item_state = "singuloth_hardsuit"
-	flags = FPRINT | TABLEPASS | STOPSPRESSUREDMAGE
+	flags = STOPSPRESSUREDMAGE
 	armor = list(melee = 40, bullet = 5, laser = 20,energy = 5, bomb = 25, bio = 100, rad = 100)

@@ -230,7 +230,7 @@
 	name = "Metal"
 	id = "metal"
 	build_type = AUTOLATHE
-	materials = list("$metal" = MINERAL_MATERIAL_AMOUNT)
+	materials = list("$metal" = 3750)
 	build_path = /obj/item/stack/sheet/metal
 	category = list("initial","Construction")
 	
@@ -254,7 +254,7 @@
 	name = "Reinforced Glass"
 	id = "rglass"
 	build_type = AUTOLATHE
-	materials = list("$metal" = 1000, "$glass" = MINERAL_MATERIAL_AMOUNT)
+	materials = list("$metal" = 1875, "$glass" = MINERAL_MATERIAL_AMOUNT)
 	build_path = /obj/item/stack/sheet/rglass
 	category = list("initial","Construction")
 
@@ -262,7 +262,7 @@
 	name = "Metal Rod"
 	id = "rods"
 	build_type = AUTOLATHE
-	materials = list("$metal" = 1000)
+	materials = list("$metal" = 1875)
 	build_path = /obj/item/stack/rods
 	category = list("initial","Construction")
 	
@@ -440,7 +440,7 @@
 	id = "handcuffs"
 	build_type = AUTOLATHE
 	materials = list("$metal" = 500)
-	build_path = /obj/item/weapon/handcuffs
+	build_path = /obj/item/weapon/restraints/handcuffs
 	category = list("hacked", "Security")
 	
 /datum/design/incendiary_slug

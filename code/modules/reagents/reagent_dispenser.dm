@@ -7,7 +7,6 @@
 	icon_state = "watertank"
 	density = 1
 	anchored = 0
-	flags = FPRINT
 	pressure_resistance = 2*ONE_ATMOSPHERE
 
 	var/amount_per_transfer_from_this = 10
@@ -144,7 +143,7 @@
 
 			var/obj/item/device/assembly_holder/H = W
 			if (istype(H.a_left,/obj/item/device/assembly/igniter) || istype(H.a_right,/obj/item/device/assembly/igniter))
-				message_admins("[key_name_admin(user)] rigged fueltank at ([loc.x],[loc.y],[loc.z]) for explosion.")
+				msg_admin_attack("[key_name_admin(user)] rigged fueltank at ([loc.x],[loc.y],[loc.z]) for explosion.")
 				log_game("[key_name(user)] rigged fueltank at ([loc.x],[loc.y],[loc.z]) for explosion.")
 
 				rig = W

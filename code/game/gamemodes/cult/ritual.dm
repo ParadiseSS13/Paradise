@@ -72,13 +72,11 @@ var/engwords = list("travel", "blood", "join", "hell", "destroy", "technology", 
 	blood.override = 1
 	for(var/mob/living/silicon/ai/AI in player_list)
 		AI.client.images += blood
-	cultNetwork.viewpoints+=src
-	cultNetwork.addViewpoint(src)
+	cult_viewpoints += src
 
 /obj/effect/rune/Del()
 	..()
-	cultNetwork.viewpoints-=src
-	cultNetwork.removeViewpoint(src)
+	cult_viewpoints -= src
 
 /obj/effect/rune/examine()
 	set src in view(2)
@@ -114,7 +112,7 @@ var/engwords = list("travel", "blood", "join", "hell", "destroy", "technology", 
 			return "itemport"
 	return "[rune_to_english[word1]]_[rune_to_english[word2]]_[rune_to_english[word3]]"
 
-	
+
 /obj/effect/rune
 	var/list/effect_dictionary = list(	"teleport"=/obj/effect/rune/proc/teleportRune,
 										"itemport"=/obj/effect/rune/proc/itemportRune,
@@ -152,7 +150,7 @@ var/engwords = list("travel", "blood", "join", "hell", "destroy", "technology", 
 		user << "You are unable to speak at all! You cannot say the words of the rune."
 	if(!word1 || !word2 || !word3 || prob(user.getBrainLoss()))
 		return fizzle()
-		
+
 	var/word_string = get_word_string()
 	if (word_string in effect_dictionary)
 		cult_log("of type [effect_dictionary[word_string]] activated by [key_name_admin(user)].")
@@ -178,7 +176,6 @@ var/engwords = list("travel", "blood", "join", "hell", "destroy", "technology", 
 	throw_speed = 1
 	throw_range = 5
 	w_class = 2.0
-	flags = FPRINT | TABLEPASS
 	var/notedat = ""
 	var/tomedat = ""
 	var/list/words = list("ire" = "ire", "ego" = "ego", "nahlizet" = "nahlizet", "certum" = "certum", "veri" = "veri", "jatkaa" = "jatkaa", "balaq" = "balaq", "mgar" = "mgar", "karazet" = "karazet", "geeri" = "geeri")

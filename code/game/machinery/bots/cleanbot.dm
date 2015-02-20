@@ -272,7 +272,7 @@ text("<A href='?src=\ref[src];power=1'>[on ? "On" : "Off"]</A>"))
 		var/obj/machinery/bot/cleanbot/A = new /obj/machinery/bot/cleanbot(T)
 		A.name = created_name
 		user << "<span class='notice'>You add the robot arm to the bucket and sensor assembly. Beep boop!</span>"
-		user.before_take_item(src, 1)
+		user.unEquip(src, 1)
 		qdel(src)
 
 	else if (istype(W, /obj/item/weapon/pen))

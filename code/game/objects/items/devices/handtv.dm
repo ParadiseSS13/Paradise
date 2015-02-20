@@ -7,7 +7,7 @@
 
 /obj/item/device/handtv/attack_self(mob/usr as mob)
 	var/list/cameras = new/list()
-	for (var/obj/machinery/camera/C in cameranet.viewpoints)
+	for (var/obj/machinery/camera/C in cameranet.cameras)
 		if (C.hasbug && C.status)
 			cameras.Add(C)
 	if (length(cameras) == 0)

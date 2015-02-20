@@ -72,7 +72,7 @@ emp_act
 			if(c_hand && (stun_amount || agony_amount > 10))
 				msg_admin_attack("[src.name] ([src.ckey]) was disarmed by a stun effect")
 
-				u_equip(c_hand)
+				unEquip(c_hand)
 				if (affected.status & ORGAN_ROBOT)
 					emote("me", 1, "drops what they were holding, their [affected.display_name] malfunctioning!")
 				else
@@ -198,7 +198,17 @@ emp_act
 			I.emp_act(severity)
 	..()
 
-
+/mob/living/carbon/human/emag_act(user as mob, var/datum/organ/external/affecting)
+	if(!(affecting.status & ORGAN_ROBOT))
+		user << "\red That limb isn't robotic."
+		return
+	if(affecting.sabotaged)
+		user << "\red [src]'s [affecting.display_name] is already sabotaged!"
+	else
+		user << "\red You sneakily slide the card into the dataport on [src]'s [affecting.display_name] and short out the safeties."
+		affecting.sabotaged = 1
+	return 1
+	
 //Returns 1 if the attack hit, 0 if it missed.
 /mob/living/carbon/human/proc/attacked_by(var/obj/item/I, var/mob/living/user, var/def_zone)
 	if(!I || !user)	return 0
@@ -236,17 +246,8 @@ emp_act
 		return 0
 
 	if(istype(I,/obj/item/weapon/card/emag))
-		if(!(affecting.status & ORGAN_ROBOT))
-			user << "\red That limb isn't robotic."
-			return
-		if(affecting.sabotaged)
-			user << "\red [src]'s [affecting.display_name] is already sabotaged!"
-		else
-			user << "\red You sneakily slide [I] into the dataport on [src]'s [affecting.display_name] and short out the safeties."
-			var/obj/item/weapon/card/emag/emag = I
-			emag.uses--
-			affecting.sabotaged = 1
-		return 1
+		emag_act(user, affecting)
+		
 	if(! I.discrete)
 		if(I.attack_verb.len)
 			visible_message("\red <B>[src] has been [pick(I.attack_verb)] in the [hit_area] with [I.name] by [user]!</B>")
@@ -337,6 +338,15 @@ emp_act
 /mob/living/carbon/human/hitby(atom/movable/AM as mob|obj,var/speed = 5)
 	if(istype(AM,/obj/))
 		var/obj/O = AM
+		
+		if(in_throw_mode && !get_active_hand() && speed <= 5)	//empty active hand and we're in throw mode
+			if(canmove && !restrained())
+				if(isturf(O.loc))
+					put_in_active_hand(O)
+					visible_message("<span class='warning'>[src] catches [O]!</span>")
+					throw_mode_off()
+					return
+					
 		var/zone = ran_zone("chest", 65)
 		var/dtype = BRUTE
 		if(istype(O,/obj/item/weapon))

@@ -104,7 +104,7 @@
 		//TODO
 		wear_suit.screen_loc = ui_alien_oclothing
 		if (istype(wear_suit, /obj/item/clothing/suit/straight_jacket))
-			drop_from_inventory(handcuffed)
+			unEquip(handcuffed)
 			drop_r_hand()
 			drop_l_hand()
 

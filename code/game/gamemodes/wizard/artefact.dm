@@ -9,7 +9,6 @@
 	throw_range = 5
 	w_class = 1.0
 	var/used = 0
-	flags = FPRINT | TABLEPASS
 
 
 /obj/item/weapon/contract/attack_self(mob/user as mob)
@@ -50,7 +49,7 @@
 			if (used)
 				H << "You already used this contract!"
 				return
-			var/list/candidates = get_candidates(BE_WIZARD,,"wizard","Syndicate")
+			var/list/candidates = get_candidates(BE_WIZARD)
 			if(candidates.len)
 				src.used = 1
 				var/client/C = pick(candidates)
@@ -116,7 +115,6 @@
 	icon = 'icons/obj/wizard.dmi'
 	icon_state = "render"
 	item_state = "render"
-	flags = FPRINT | TABLEPASS
 	force = 15
 	throwforce = 10
 	w_class = 3
@@ -197,7 +195,6 @@
 	throwforce = 15
 	damtype = BURN
 	force = 15
-	flags = FPRINT | TABLEPASS
 	hitsound = 'sound/items/welder2.ogg'
 
 /obj/item/weapon/scrying/attack_self(mob/user as mob)

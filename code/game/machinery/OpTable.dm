@@ -73,7 +73,7 @@
 
 
 /obj/machinery/optable/MouseDrop_T(atom/movable/O as mob|obj, mob/user as mob)
-	if(usr.stat || !ishuman(usr) || usr.restrained() || !check_table(usr) || usr.weakened || usr.stunned)
+	if(usr.stat || (!ishuman(usr) && !isrobot(usr)) || usr.restrained() || !check_table(usr) || usr.weakened || usr.stunned)
 		return
 		
 	var/mob/living/L = O

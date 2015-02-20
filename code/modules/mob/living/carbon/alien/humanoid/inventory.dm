@@ -1,23 +1,16 @@
 //unequip
-/mob/living/carbon/alien/humanoid/u_equip(obj/item/W as obj)
-	if (W == wear_suit)
-		wear_suit = null
-		update_inv_wear_suit(0,0)
-	else if (W == head)
-		head = null
-		update_inv_head(0,0)
-	else if (W == r_store)
+/mob/living/carbon/alien/humanoid/unEquip(obj/item/I as obj)
+	. = ..()
+	if(!. || !I)
+		return
+
+	if(I == r_store)
 		r_store = null
 		update_inv_pockets(0)
-	else if (W == l_store)
+
+	else if(I == l_store)
 		l_store = null
 		update_inv_pockets(0)
-	else if (W == r_hand)
-		r_hand = null
-		update_inv_r_hand(0)
-	else if (W == l_hand)
-		l_hand = null
-		update_inv_l_hand(0)
 
 /mob/living/carbon/alien/humanoid/attack_ui(slot_id)
 	var/obj/item/W = get_active_hand()
@@ -31,7 +24,7 @@
 					return
 				if(W.w_class > 3)
 					return
-				u_equip(W)
+				unEquip(W)
 				l_store = W
 				update_inv_pockets()
 			if(slot_r_store)
@@ -39,7 +32,7 @@
 					return
 				if(W.w_class > 3)
 					return
-				u_equip(W)
+				unEquip(W)
 				r_store = W
 				update_inv_pockets()
 	else

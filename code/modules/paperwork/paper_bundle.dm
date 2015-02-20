@@ -32,7 +32,7 @@
 		if(screen == 2)
 			screen = 1
 		user << "<span class='notice'>You add [(P.name == "paper") ? "the paper" : P.name] to [(src.name == "paper bundle") ? "the paper bundle" : src.name].</span>"
-		user.drop_from_inventory(P)
+		user.unEquip(P)
 		P.loc = src
 		if(istype(user,/mob/living/carbon/human))
 			user:update_inv_l_hand()
@@ -42,12 +42,12 @@
 		if(screen == 2)
 			screen = 1
 		user << "<span class='notice'>You add [(W.name == "photo") ? "the photo" : W.name] to [(src.name == "paper bundle") ? "the paper bundle" : src.name].</span>"
-		user.drop_from_inventory(W)
+		user.unEquip(W)
 		W.loc = src
 	else if(istype(W, /obj/item/weapon/lighter))
 		burnpaper(W, user)
 	else if(istype(W, /obj/item/weapon/paper_bundle))
-		user.drop_from_inventory(W)
+		user.unEquip(W)
 		for(var/obj/O in W)
 			O.loc = src
 			O.add_fingerprint(usr)
@@ -85,7 +85,7 @@
 				"[class]You burn right through \the [src], turning it to ash. It flutters through the air before settling on the floor in a heap.")
 
 				if(user.get_inactive_hand() == src)
-					user.drop_from_inventory(src)
+					user.unEquip(src)
 
 				new /obj/effect/decal/cleanable/ash(get_turf(src))
 				del(src)
@@ -166,7 +166,7 @@
 			usr << "<span class='notice'>You remove the [W.name] from the bundle.</span>"
 			if(amount == 1)
 				var/obj/item/weapon/paper/P = src[1]
-				usr.drop_from_inventory(src)
+				usr.unEquip(src)
 				usr.put_in_hands(P)
 				del(src)
 			else if(page == amount)
@@ -189,9 +189,9 @@
 	set category = "Object"
 	set src in usr
 
-	var/n_name = copytext(sanitize(input(usr, "What would you like to label the bundle?", "Bundle Labelling", null)  as text), 1, MAX_MESSAGE_LEN)
+	var/n_name = copytext(sanitize(input(usr, "What would you like to label the bundle?", "Bundle Labelling", name)  as text), 1, MAX_MESSAGE_LEN)
 	if((loc == usr && usr.stat == 0))
-		name = "[(n_name ? text("[n_name]") : "paper")]"
+		name = "[(n_name ? text("[n_name]") : "paper bundle")]"
 	add_fingerprint(usr)
 	return
 
@@ -206,7 +206,7 @@
 		O.loc = usr.loc
 		O.layer = initial(O.layer)
 		O.add_fingerprint(usr)
-	usr.drop_from_inventory(src)
+	usr.unEquip(src)
 	del(src)
 	return
 

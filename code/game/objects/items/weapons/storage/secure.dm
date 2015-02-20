@@ -34,23 +34,8 @@
 
 	attackby(obj/item/weapon/W as obj, mob/user as mob)
 		if(locked)
-			if ( (istype(W, /obj/item/weapon/card/emag)||istype(W, /obj/item/weapon/melee/energy/blade)) && (!src.emagged))
-				emagged = 1
-				src.overlays += image('icons/obj/storage.dmi', icon_sparking)
-				sleep(6)
-				src.overlays = null
-				overlays += image('icons/obj/storage.dmi', icon_locking)
-				locked = 0
-				if(istype(W, /obj/item/weapon/melee/energy/blade))
-					var/datum/effect/effect/system/spark_spread/spark_system = new /datum/effect/effect/system/spark_spread()
-					spark_system.set_up(5, 0, src.loc)
-					spark_system.start()
-					playsound(src.loc, 'sound/weapons/blade1.ogg', 50, 1)
-					playsound(src.loc, "sparks", 50, 1)
-					user << "You slice through the lock on [src]."
-				else
-					user << "You short out the lock on [src]."
-				return
+			if ((istype(W, /obj/item/weapon/melee/energy/blade)) && (!src.emagged))
+				emag_act(user, W)
 
 			if (istype(W, /obj/item/weapon/screwdriver))
 				if (do_after(user, 20))
@@ -79,6 +64,25 @@
 
 		// -> storage/attackby() what with handle insertion, etc
 		..()
+		
+	emag_act(user as mob, weapon as obj)
+		if(!emagged)
+			emagged = 1
+			src.overlays += image('icons/obj/storage.dmi', icon_sparking)
+			sleep(6)
+			src.overlays = null
+			overlays += image('icons/obj/storage.dmi', icon_locking)
+			locked = 0
+			if(istype(weapon, /obj/item/weapon/melee/energy/blade))
+				var/datum/effect/effect/system/spark_spread/spark_system = new /datum/effect/effect/system/spark_spread()
+				spark_system.set_up(5, 0, src.loc)
+				spark_system.start()
+				playsound(src.loc, 'sound/weapons/blade1.ogg', 50, 1)
+				playsound(src.loc, "sparks", 50, 1)
+				user << "You slice through the lock on [src]."
+			else
+				user << "You short out the lock on [src]."
+			return
 
 
 	MouseDrop(over_object, src_location, over_location)
@@ -146,7 +150,6 @@
 	icon_state = "secure"
 	item_state = "sec-case"
 	desc = "A large briefcase with a digital locking system."
-	flags = FPRINT | TABLEPASS
 	force = 8.0
 	throw_speed = 1
 	throw_range = 4
@@ -221,7 +224,6 @@
 	icon_opened = "safe0"
 	icon_locking = "safeb"
 	icon_sparking = "safespark"
-	flags = FPRINT | TABLEPASS
 	force = 8.0
 	w_class = 8.0
 	max_w_class = 8

@@ -60,7 +60,7 @@ var/list/spells = typesof(/obj/effect/proc_holder/spell) //needed for the badmin
 			caster.reset_view(0)
 			return 0
 
-	if(user.z == 2 && !centcom_cancast) //Certain spells are not allowed on the centcom zlevel
+	if((user.z in config.admin_levels) && !centcom_cancast) //Certain spells are not allowed on the centcom zlevel
 		return 0
 
 	if(!skipcharge)

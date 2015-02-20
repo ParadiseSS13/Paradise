@@ -25,15 +25,6 @@
 	if(!height || air_group) return 0
 	else return ..()
 
-//Looks like copy/pasted code... I doubt 'need_rebuild' is even used here - Nodrak
-/obj/machinery/shield/proc/update_nearby_tiles(need_rebuild)
-	if(!air_master) return 0
-
-	air_master.mark_for_update(get_turf(src))
-
-	return 1
-
-
 /obj/machinery/shield/attackby(obj/item/weapon/W as obj, mob/user as mob)
 	if(!istype(W)) return
 
@@ -335,7 +326,7 @@
 //		var/maxshieldload = 200
 		var/obj/structure/cable/attached		// the attached cable
 		var/storedpower = 0
-		flags = FPRINT | CONDUCT
+		flags = CONDUCT
 		use_power = 0
 
 /obj/machinery/shieldwallgen/proc/power()

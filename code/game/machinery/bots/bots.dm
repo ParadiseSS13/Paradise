@@ -237,8 +237,6 @@
 			user << "<span class='notice'>Maintenance panel is now [open ? "opened" : "closed"].</span>"
 		else
 			user << "<span class='warning'>Maintenance panel is locked.</span>"
-	else if (istype(W, /obj/item/weapon/card/emag) && emagged < 2)
-		Emag(user)
 	else
 		if(istype(W, /obj/item/weapon/weldingtool) && user.a_intent != "harm")
 			if(health >= maxhealth)
@@ -267,7 +265,10 @@
 				..()
 				healthcheck()
 
-
+/obj/machinery/bot/emag_act(user as mob)
+	if (emagged < 2)
+		Emag(user)
+				
 /obj/machinery/bot/bullet_act(var/obj/item/projectile/Proj)
 	if((Proj.damage_type == BRUTE || Proj.damage_type == BURN))
 		health -= Proj.damage
@@ -583,7 +584,7 @@ obj/machinery/bot/proc/start_patrol()
 	new_destination = "__nearest__"
 	post_signal(beacon_freq, "findbeacon", "patrol")
 	awaiting_beacon = 1
-	spawn(150)
+	spawn(200)
 		awaiting_beacon = 0
 		if(nearest_beacon)
 			set_destination(nearest_beacon)

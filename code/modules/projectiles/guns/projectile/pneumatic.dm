@@ -5,7 +5,7 @@
 	icon_state = "pneumatic"
 	item_state = "pneumatic"
 	w_class = 5.0
-	flags =  FPRINT | TABLEPASS | CONDUCT
+	flags = CONDUCT
 	fire_sound_text = "a loud whoosh of moving air"
 	fire_delay = 50
 	fire_sound = 'sound/weapons/tablehit1.ogg'

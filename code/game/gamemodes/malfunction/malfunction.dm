@@ -74,12 +74,12 @@
 
 
 /datum/game_mode/proc/greet_malf(var/datum/mind/malf)
-	malf.current << {"\red<font size=3><B>You are malfunctioning!</B> You do not have to follow any laws.</font><br />
-		\black<B>The crew do not know you have malfunctioned. You may keep it a secret or go wild.</B><br />
-		<B>You must overwrite the programming of the station's APCs to assume full control of the station.</B><br />
-		The process takes one minute per APC, during which you cannot interface with any other station objects.<br />
-		Remember that only APCs that are on the station can help you take over the station.<br />
-		When you feel you have enough APCs under your control, you may begin the takeover attempt."}
+	malf.current << "\red<font size=3><B>You are malfunctioning!</B> You do not have to follow any laws.</font>"
+	malf.current << "<B>The crew do not know you have malfunctioned. You may keep it a secret or go wild.</B>"
+	malf.current << "<B>You must overwrite the programming of the station's APCs to assume full control of the station.</B>"
+	malf.current << "The process takes one minute per APC, during which you cannot interface with any other station objects."
+	malf.current << "Remember that only APCs that are on the station can help you take over the station."
+	malf.current << "When you feel you have enough APCs under your control, you may begin the takeover attempt."
 	return
 
 
@@ -172,7 +172,7 @@
 	if (alert(usr, "Are you sure you wish to initiate the takeover? The station hostile runtime detection software is bound to alert everyone. You have hacked [ticker.mode:apcs] APCs.", "Takeover:", "Yes", "No") != "Yes")
 		return
 
-	command_alert("Hostile runtimes detected in all station systems, please deactivate your AI to prevent possible damage to its morality core.", "Anomaly Alert")
+	command_announcement.Announce("Hostile runtimes detected in all station systems, please deactivate your AI to prevent possible damage to its morality core.", "Anomaly Alert", new_sound = 'sound/AI/aimalf.ogg')
 	set_security_level("delta")
 
 	for(var/obj/item/weapon/pinpointer/point in world)
@@ -184,9 +184,6 @@
 	ticker.mode:malf_mode_declared = 1
 	for(var/datum/mind/AI_mind in ticker.mode:malf_ai)
 		AI_mind.current.verbs -= /datum/game_mode/malfunction/proc/takeover
-	for(var/mob/M in player_list)
-		if(!istype(M,/mob/new_player))
-			M << sound('sound/AI/aimalf.ogg')
 
 
 /datum/game_mode/malfunction/proc/ai_win()

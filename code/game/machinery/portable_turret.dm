@@ -307,20 +307,7 @@ Status: []<BR>"},
 			del(src)
 
 
-	if ((istype(W, /obj/item/weapon/card/emag)) && (!src.emagged))
-		// Emagging the turret makes it go bonkers and stun everyone. It also makes
-		// the turret shoot much, much faster.
-
-		user << "\red You short out [src]'s threat assessment circuits."
-		spawn(0)
-			for(var/mob/O in hearers(src, null))
-				O.show_message("\red [src] hums oddly...", 1)
-		emagged = 1
-		src.on = 0 // turns off the turret temporarily
-		sleep(60) // 6 seconds for the traitor to gtfo of the area before the turret decides to ruin his shit
-		on = 1 // turns it back on. The cover popUp() popDown() are automatically called in process(), no need to define it here
-
-	else if((istype(W, /obj/item/weapon/wrench)) && (!on))
+	if((istype(W, /obj/item/weapon/wrench)) && (!on))
 		if(raised) return
 		// This code handles moving the turret around. After all, it's a portable turret!
 
@@ -359,7 +346,19 @@ Status: []<BR>"},
 					attacked = 0
 		..()
 
+/obj/machinery/porta_turret/emag_act(user as mob)		
+	if(!src.emagged)
+		// Emagging the turret makes it go bonkers and stun everyone. It also makes
+		// the turret shoot much, much faster.
 
+		user << "\red You short out [src]'s threat assessment circuits."
+		spawn(0)
+			for(var/mob/O in hearers(src, null))
+				O.show_message("\red [src] hums oddly...", 1)
+		emagged = 1
+		src.on = 0 // turns off the turret temporarily
+		sleep(60) // 6 seconds for the traitor to gtfo of the area before the turret decides to ruin his shit
+		on = 1 // turns it back on. The cover popUp() popDown() are automatically called in process(), no need to define it here
 
 /obj/machinery/porta_turret/bullet_act(var/obj/item/projectile/Proj)
 	if(on)
@@ -714,13 +713,15 @@ Status: []<BR>"},
 
 		if(1)
 			if(istype(W, /obj/item/stack/sheet/metal))
-				if(W:amount>=2) // requires 2 metal sheets
+				var/obj/item/stack/sheet/metal/M = W
+				if(M.amount>=2) // requires 2 metal sheets
 					user << "\blue You add some metal armor to the interior frame."
 					build_step = 2
-					W:amount -= 2
+					M.amount -= 2
 					icon_state = "turret_frame2"
-					if(W:amount <= 0)
-						del(W)
+					if(M.amount <= 0)
+						user.unEquip(M, 1) //We're deleting it anyway, so no point in having NODROP fuck shit up.
+						del(M)
 					return
 
 			else if(istype(W, /obj/item/weapon/wrench))
@@ -758,6 +759,9 @@ Status: []<BR>"},
 			if(istype(W, /obj/item/weapon/gun/energy)) // the gun installation part
 
 				var/obj/item/weapon/gun/energy/E = W // typecasts the item to an energy gun
+				if(!user.unEquip(W))
+					user << "<span class='notice'>\the [W] is stuck to your hand, you cannot put it in \the [src]</span>"
+					return
 				installation = W.type // installation becomes W.type
 				gun_charge = E.power_supply.charge // the gun's charge is stored in src.gun_charge
 				user << "\blue You add \the [W] to the turret."
@@ -773,6 +777,9 @@ Status: []<BR>"},
 
 		if(4)
 			if(isprox(W))
+				if(!user.unEquip(W))
+					user << "<span class='notice'>\the [W] is stuck to your hand, you cannot put it in \the [src]</span>"
+					return
 				build_step = 5
 				user << "\blue You add the prox sensor to the turret."
 				del(W)
@@ -791,12 +798,14 @@ Status: []<BR>"},
 
 		if(6)
 			if(istype(W, /obj/item/stack/sheet/metal))
-				if(W:amount>=2)
+				var/obj/item/stack/sheet/metal/M = W
+				if(M.amount>=2)
 					user << "\blue You add some metal armor to the exterior frame."
 					build_step = 7
-					W:amount -= 2
-					if(W:amount <= 0)
-						del(W)
+					M.amount -= 2
+					if(M.amount <= 0)
+						user.unEquip(M, 1) //If we don't force-unequip, bugs happen because the item was deleted without updating the neccesary stuff
+						del(M)
 					return
 
 			else if(istype(W, /obj/item/weapon/screwdriver))

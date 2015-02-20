@@ -41,7 +41,7 @@
 		var/message = null
 		switch(place)
 			if("mask")
-				if(istype(target.wear_mask, /obj/item/clothing)&&!target.wear_mask:canremove)
+				if(istype(target.wear_mask, /obj/item/clothing)&&(target.wear_mask:flags & NODROP))
 					message = text("\red <B>[] fails to take off \a [] from []'s body!</B>", source, target.wear_mask, target)
 				else
 					message = text("\red <B>[] is trying to take off \a [] from []'s head!</B>", source, target.wear_mask, target)
@@ -76,10 +76,10 @@
 	switch(place)
 		if("mask")
 			if (target.wear_mask)
-				if(istype(target.wear_mask, /obj/item/clothing)&& !target.wear_mask:canremove)
+				if(istype(target.wear_mask, /obj/item/clothing)&& (target.wear_mask:flags & NODROP))
 					return
 				var/obj/item/W = target.wear_mask
-				target.u_equip(W)
+				target.unEquip(W)
 				if (target.client)
 					target.client.screen -= W
 				if (W)
@@ -97,7 +97,7 @@
 		if("l_hand")
 			if (target.l_hand)
 				var/obj/item/W = target.l_hand
-				target.u_equip(W)
+				target.unEquip(W)
 				if (target.client)
 					target.client.screen -= W
 				if (W)
@@ -117,7 +117,7 @@
 		if("r_hand")
 			if (target.r_hand)
 				var/obj/item/W = target.r_hand
-				target.u_equip(W)
+				target.unEquip(W)
 				if (target.client)
 					target.client.screen -= W
 				if (W)
@@ -137,7 +137,7 @@
 		if("back")
 			if (target.back)
 				var/obj/item/W = target.back
-				target.u_equip(W)
+				target.unEquip(W)
 				if (target.client)
 					target.client.screen -= W
 				if (W)
@@ -155,7 +155,7 @@
 		if("handcuff")
 			if (target.handcuffed)
 				var/obj/item/W = target.handcuffed
-				target.u_equip(W)
+				target.unEquip(W)
 				if (target.client)
 					target.client.screen -= W
 				if (W)
@@ -164,7 +164,7 @@
 					W.layer = initial(W.layer)
 				W.add_fingerprint(source)
 			else
-				if (istype(item, /obj/item/weapon/handcuffs))
+				if (istype(item, /obj/item/weapon/restraints/handcuffs))
 					source.drop_item()
 					target.handcuffed = item
 					item.loc = target
@@ -199,7 +199,7 @@
 	if(!istype(W)) return
 
 	if(W == get_active_hand())
-		u_equip(W)
+		unEquip(W)
 
 	switch(slot)
 		if(slot_back)

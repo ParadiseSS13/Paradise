@@ -90,6 +90,8 @@ rcd light flash thingy on matter drain
 
 	var/obj/machinery/door/airlock/AL
 	for(var/obj/machinery/door/D in airlocks)
+		if(!(D.z in config.contact_levels))
+			continue
 		spawn()
 			if(istype(D, /obj/machinery/door/airlock))
 				AL = D
@@ -313,7 +315,7 @@ rcd light flash thingy on matter drain
 
 	power_type = /client/proc/reactivate_camera
 
-/client/proc/reactivate_camera(obj/machinery/camera/C as obj in cameranet.viewpoints)
+/client/proc/reactivate_camera(obj/machinery/camera/C as obj in cameranet.cameras)
 	set name = "Reactivate Camera"
 	set category = "Malfunction"
 	if (istype (C, /obj/machinery/camera))
@@ -337,7 +339,7 @@ rcd light flash thingy on matter drain
 
 	power_type = /client/proc/upgrade_camera
 
-/client/proc/upgrade_camera(obj/machinery/camera/C as obj in cameranet.viewpoints)
+/client/proc/upgrade_camera(obj/machinery/camera/C as obj in cameranet.cameras)
 	set name = "Upgrade Camera"
 	set category = "Malfunction"
 	if(istype(C))

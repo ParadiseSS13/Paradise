@@ -10,6 +10,7 @@
 /datum/game_mode
 	var/list/datum/mind/head_revolutionaries = list()
 	var/list/datum/mind/revolutionaries = list()
+	var/extra_heads = 0
 
 /datum/game_mode/revolution
 	name = "revolution"
@@ -74,6 +75,9 @@
 
 /datum/game_mode/revolution/post_setup()
 	var/list/heads = get_living_heads()
+	if(num_players_started() >= 30)
+		heads += get_extra_living_heads()
+		extra_heads = 1
 
 	for(var/datum/mind/rev_mind in head_revolutionaries)
 		for(var/datum/mind/head_mind in heads)
@@ -106,9 +110,53 @@
 		checkwin_counter = 0
 	return 0
 
+/proc/get_rev_mode()
+	if(!ticker || !istype(ticker.mode, /datum/game_mode/revolution))
+		return null
+
+/**
+ * LateSpawn hook.
+ * Called in newplayer.dm when a humanoid character joins the round after it started.
+ * Parameters: var/mob/living/carbon/human, var/rank
+ */
+/hook/latespawn/proc/add_latejoiner_heads(var/mob/living/carbon/human/H)
+	var/datum/game_mode/revolution/mode = get_rev_mode()
+	if (!mode) return 1
+
+	var/list/heads = list()
+	var/list/alt_positions = list("Warden", "Magistrate", "Blueshield", "Nanotrasen Representative")
+
+	if(H.stat!=2 && H.mind && (H.mind.assigned_role in command_positions))
+		heads += H
+
+	if(mode.extra_heads)
+		if(H.stat!=2 && H.mind && (H.mind.assigned_role in alt_positions))
+			heads += H
+
+	for(var/datum/mind/rev_mind in mode.head_revolutionaries)
+		for(var/datum/mind/head_mind in heads)
+			var/datum/objective/mutiny/rev_obj = new
+			rev_obj.owner = rev_mind
+			rev_obj.target = head_mind
+			rev_obj.explanation_text = "Assassinate [head_mind.name], the [head_mind.assigned_role]."
+			rev_mind.objectives += rev_obj
+			rev_mind.current << "Additional Objective: Assassinate [head_mind.name], the [head_mind.assigned_role]."
+
+	for(var/datum/mind/rev_mind in mode.revolutionaries)
+		for(var/datum/mind/head_mind in heads)
+			var/datum/objective/mutiny/rev_obj = new
+			rev_obj.owner = rev_mind
+			rev_obj.target = head_mind
+			rev_obj.explanation_text = "Assassinate [head_mind.name], the [head_mind.assigned_role]."
+			rev_mind.objectives += rev_obj
+			rev_mind.current << "Additional Objective: Assassinate [head_mind.name], the [head_mind.assigned_role]."
+
 
 /datum/game_mode/proc/forge_revolutionary_objectives(var/datum/mind/rev_mind)
 	var/list/heads = get_living_heads()
+	if(num_players_started() >= 30)
+		heads += get_extra_living_heads()
+		extra_heads = 1
 	for(var/datum/mind/head_mind in heads)
 		var/datum/objective/mutiny/rev_obj = new
 		rev_obj.owner = rev_mind
@@ -340,7 +388,7 @@
 /datum/game_mode/revolution/proc/check_heads_victory()
 	for(var/datum/mind/rev_mind in head_revolutionaries)
 		var/turf/T = get_turf(rev_mind.current)
-		if((rev_mind) && (rev_mind.current) && (rev_mind.current.stat != 2) && rev_mind.current.client && T && (T.z == 1))
+		if((rev_mind) && (rev_mind.current) && (rev_mind.current.stat != 2) && rev_mind.current.client && T && (T.z in config.station_levels))
 			if(ishuman(rev_mind.current))
 				return 0
 	return 1
@@ -369,7 +417,7 @@
 			if(headrev.current)
 				if(headrev.current.stat == DEAD)
 					text += "died"
-				else if(headrev.current.z != 1)
+				else if(!(headrev.current.z in config.station_levels))
 					text += "fled the station"
 				else
 					text += "survived the revolution"
@@ -392,7 +440,7 @@
 			if(rev.current)
 				if(rev.current.stat == DEAD)
 					text += "died"
-				else if(rev.current.z != 1)
+				else if(!(rev.current.z in config.station_levels))
 					text += "fled the station"
 				else
 					text += "survived the revolution"
@@ -409,6 +457,8 @@
 		var/text = "<FONT size = 2><B>The heads of staff were:</B></FONT>"
 
 		var/list/heads = get_all_heads()
+		if(extra_heads)
+			heads += get_extra_heads()
 		for(var/datum/mind/head in heads)
 			var/target = (head in targets)
 			if(target)
@@ -417,7 +467,7 @@
 			if(head.current)
 				if(head.current.stat == DEAD)
 					text += "died"
-				else if(head.current.z != 1)
+				else if(!(head.current.z in config.station_levels))
 					text += "fled the station"
 				else
 					text += "survived the revolution"
@@ -435,4 +485,4 @@
 	return istype(mind) && \
 		istype(mind.current, /mob/living/carbon/human) && \
 		!(mind.assigned_role in command_positions) && \
-		!(mind.assigned_role in list("Security Officer", "Detective", "Warden"))
+		!(mind.assigned_role in list("Security Officer", "Detective", "Warden", "Nanotrasen Representative"))

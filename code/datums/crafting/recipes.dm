@@ -35,7 +35,7 @@
 /datum/crafting_recipe/table/stunprod
 	name = "Stunprod"
 	result_path = /obj/item/weapon/melee/baton/cattleprod
-	reqs = list(/obj/item/weapon/handcuffs/cable = 1,
+	reqs = list(/obj/item/weapon/restraints/handcuffs/cable = 1,
 	/obj/item/stack/rods = 1,
 	/obj/item/weapon/wirecutters = 1,
 	/obj/item/weapon/stock_parts/cell = 1)

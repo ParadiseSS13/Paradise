@@ -63,9 +63,10 @@
 /obj/machinery/mineral/labor_claim_console/attackby(obj/item/I as obj, mob/user as mob)
 	if(istype(I, /obj/item/weapon/card/id))
 		return attack_hand(user)
-	else if(istype(I, /obj/item/weapon/card/emag))
-		return emag(user)
 	..()
+	
+/obj/machinery/mineral/labor_claim_console/emag_act(user as mob)
+	emag(user)
 
 /obj/machinery/mineral/labor_claim_console/proc/emag(mob/user as mob)
 	if(!emagged)

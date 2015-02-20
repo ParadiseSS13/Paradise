@@ -458,23 +458,6 @@
 				update_icon()
 			else
 				user << "\red Access denied."
-	else if (istype(W, /obj/item/weapon/card/emag) && !(emagged || malfhack))		// trying to unlock with an emag card
-		if(opened)
-			user << "You must close the cover to swipe an ID card."
-		else if(wiresexposed)
-			user << "You must close the panel first"
-		else if(stat & (BROKEN|MAINT))
-			user << "Nothing happens."
-		else
-			flick("apc-spark", src)
-			if (do_after(user,6))
-				if(prob(50))
-					emagged = 1
-					locked = 0
-					user << "You emag the APC interface."
-					update_icon()
-				else
-					user << "You fail to [ locked ? "unlock" : "lock"] the APC interface."
 	else if (istype(W, /obj/item/stack/cable_coil) && !terminal && opened && has_electronics!=2)
 		if (src.loc:intact)
 			user << "\red You must remove the floor plating in front of the APC first."
@@ -598,8 +581,26 @@
 				"\red You hit the [src.name] with your [W.name]!", \
 				"You hear bang")
 
+/obj/machinery/power/apc/emag_act(user as mob)
+	if (!(emagged || malfhack))		// trying to unlock with an emag card
+		if(opened)
+			user << "You must close the cover to swipe an ID card."
+		else if(wiresexposed)
+			user << "You must close the panel first"
+		else if(stat & (BROKEN|MAINT))
+			user << "Nothing happens."
+		else
+			flick("apc-spark", src)
+			if (do_after(user,6))
+				if(prob(50))
+					emagged = 1
+					locked = 0
+					user << "You emag the APC interface."
+					update_icon()
+				else
+					user << "You fail to [ locked ? "unlock" : "lock"] the APC interface."				
+				
 // attack with hand - remove cell (if cover open) or interact with the APC
-
 /obj/machinery/power/apc/attack_hand(mob/user)
 //	if (!can_use(user)) This already gets called in interact() and in topic()
 //		return
@@ -941,7 +942,7 @@
 					malfai.malfhacking = 0
 					locked = 1
 					if (ticker.mode.config_tag == "malfunction")
-						if (src.z == 1) //if (is_type_in_list(get_area(src), the_station_areas))
+						if ((src.z in config.station_levels)) //if (is_type_in_list(get_area(src), the_station_areas))
 							ticker.mode:apcs++
 					if(usr:parent)
 						src.malfai = usr:parent
@@ -973,7 +974,7 @@
 
 	if(malfai)
 		if (ticker.mode.config_tag == "malfunction")
-			if (src.z == 1) //if (is_type_in_list(get_area(src), the_station_areas))
+			if ((src.z in config.station_levels)) //if (is_type_in_list(get_area(src), the_station_areas))
 				operating ? ticker.mode:apcs++ : ticker.mode:apcs--
 
 	src.update()
@@ -988,7 +989,7 @@
 	if(!malf.can_shunt)
 		malf << "<span class='warning'>You cannot shunt.</span>"
 		return
-	if(src.z != 1)
+	if(!(src.z in config.station_levels))
 		return
 	src.occupant = new /mob/living/silicon/ai(src,malf.laws,null,1)
 	src.occupant.adjustOxyLoss(malf.getOxyLoss())
@@ -1037,7 +1038,7 @@
 
 /obj/machinery/power/apc/proc/ion_act()
 	//intended to be exactly the same as an AI malf attack
-	if(!src.malfhack && src.z == 1)
+	if(!src.malfhack && (src.z in config.station_levels))
 		if(prob(3))
 			src.locked = 1
 			if (src.cell.charge > 0)
@@ -1306,7 +1307,7 @@ obj/machinery/power/apc/proc/autoset(var/val, var/on)
 /obj/machinery/power/apc/proc/set_broken()
 	if(malfai && operating)
 		if (ticker.mode.config_tag == "malfunction")
-			if (src.z == 1) //if (is_type_in_list(get_area(src), the_station_areas))
+			if ((src.z in config.station_levels)) //if (is_type_in_list(get_area(src), the_station_areas))
 				ticker.mode:apcs--
 	stat |= BROKEN
 	operating = 0
@@ -1332,7 +1333,7 @@ obj/machinery/power/apc/proc/autoset(var/val, var/on)
 /obj/machinery/power/apc/Destroy()
 	if(malfai && operating)
 		if (ticker.mode.config_tag == "malfunction")
-			if (src.z == 1) //if (is_type_in_list(get_area(src), the_station_areas))
+			if ((src.z in config.station_levels)) //if (is_type_in_list(get_area(src), the_station_areas))
 				ticker.mode:apcs--
 	area.power_light = 0
 	area.power_equip = 0

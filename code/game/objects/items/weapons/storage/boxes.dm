@@ -183,6 +183,20 @@
 		new /obj/item/weapon/grenade/flashbang(src)
 		new /obj/item/weapon/grenade/flashbang(src)
 
+/obj/item/weapon/storage/box/flashes
+	name = "box of flashbulbs"
+	desc = "<B>WARNING: Flashes can cause serious eye damage, protective eyewear is required.</B>"
+	icon_state = "flashbang"
+
+	New()
+		..()
+		new /obj/item/device/flash(src)
+		new /obj/item/device/flash(src)
+		new /obj/item/device/flash(src)
+		new /obj/item/device/flash(src)
+		new /obj/item/device/flash(src)
+		new /obj/item/device/flash(src)
+
 /obj/item/weapon/storage/box/teargas
 	name = "box of tear gas grenades (WARNING)"
 	desc = "<B>WARNING: These devices are extremely dangerous and can cause blindness and skin irritation.</B>"
@@ -241,6 +255,20 @@
 		new /obj/item/weapon/implantcase/chem(src)
 		new /obj/item/weapon/implanter(src)
 		new /obj/item/weapon/implantpad(src)
+
+/obj/item/weapon/storage/box/exileimp
+	name = "boxed exile implant kit"
+	desc = "Box of exile implants. It has a picture of a clown being booted through the Gateway."
+	icon_state = "implant"
+
+	New()
+		..()
+		new /obj/item/weapon/implantcase/exile(src)
+		new /obj/item/weapon/implantcase/exile(src)
+		new /obj/item/weapon/implantcase/exile(src)
+		new /obj/item/weapon/implantcase/exile(src)
+		new /obj/item/weapon/implantcase/exile(src)
+		new /obj/item/weapon/implanter(src)
 
 /obj/item/weapon/storage/box/deathimp
 	name = "death alarm implant kit"
@@ -423,7 +451,7 @@
 		new /obj/item/weapon/card/id/prisoner/seven(src)
 
 /obj/item/weapon/storage/box/seccarts
-	name = "Spare R.O.B.U.S.T. Cartridges"
+	name = "spare R.O.B.U.S.T. Cartridges"
 	desc = "A box full of R.O.B.U.S.T. Cartridges, used by Security."
 	icon_state = "pda"
 
@@ -445,13 +473,28 @@
 
 	New()
 		..()
-		new /obj/item/weapon/handcuffs(src)
-		new /obj/item/weapon/handcuffs(src)
-		new /obj/item/weapon/handcuffs(src)
-		new /obj/item/weapon/handcuffs(src)
-		new /obj/item/weapon/handcuffs(src)
-		new /obj/item/weapon/handcuffs(src)
-		new /obj/item/weapon/handcuffs(src)
+		new /obj/item/weapon/restraints/handcuffs(src)
+		new /obj/item/weapon/restraints/handcuffs(src)
+		new /obj/item/weapon/restraints/handcuffs(src)
+		new /obj/item/weapon/restraints/handcuffs(src)
+		new /obj/item/weapon/restraints/handcuffs(src)
+		new /obj/item/weapon/restraints/handcuffs(src)
+		new /obj/item/weapon/restraints/handcuffs(src)
+		
+/obj/item/weapon/storage/box/zipties
+	name = "box of spare zipties"
+	desc = "A box full of zipties."
+	icon_state = "handcuff"
+
+	New()
+		..()
+		new /obj/item/weapon/restraints/handcuffs/cable/zipties(src)
+		new /obj/item/weapon/restraints/handcuffs/cable/zipties(src)
+		new /obj/item/weapon/restraints/handcuffs/cable/zipties(src)
+		new /obj/item/weapon/restraints/handcuffs/cable/zipties(src)
+		new /obj/item/weapon/restraints/handcuffs/cable/zipties(src)
+		new /obj/item/weapon/restraints/handcuffs/cable/zipties(src)
+		new /obj/item/weapon/restraints/handcuffs/cable/zipties(src)
 
 /obj/item/weapon/storage/box/fakesyndiesuit
 	name = "boxed space suit and helmet"
@@ -512,7 +555,6 @@
 	item_state = "zippo"
 	storage_slots = 10
 	w_class = 1
-	flags = TABLEPASS
 	slot_flags = SLOT_BELT
 
 	New()

@@ -145,7 +145,7 @@
 			user << "\red Something is already scanned inside the implant!"
 			return
 		if(user)
-			user.u_equip(I)
+			user.unEquip(I)
 			user.update_icons()	//update our overlays
 		c.scanned = I
 		c.scanned.loc = c

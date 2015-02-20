@@ -1,10 +1,9 @@
 /obj/item/weapon/stamp
-	name = "\improper GRANTED rubber stamp"
+	name = "\improper rubber stamp"
 	desc = "A rubber stamp for stamping important documents."
 	icon = 'icons/obj/bureaucracy.dmi'
 	icon_state = "stamp-ok"
 	item_state = "stamp"
-	flags = FPRINT | TABLEPASS
 	throwforce = 0
 	w_class = 1.0
 	throw_speed = 7
@@ -54,6 +53,11 @@
 	icon_state = "stamp-cmo"
 	_color = "cmo"
 
+/obj/item/weapon/stamp/granted
+	name = "\improper GRANTED rubber stamp"
+	icon_state = "stamp-ok"
+	_color = "qm"	
+	
 /obj/item/weapon/stamp/denied
 	name = "\improper DENIED rubber stamp"
 	icon_state = "stamp-deny"

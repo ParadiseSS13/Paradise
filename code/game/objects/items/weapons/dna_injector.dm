@@ -93,7 +93,7 @@
 
 	spawn(0)//this prevents the collapse of space-time continuum
 		if (user)
-			user.drop_from_inventory(src)
+			user.unEquip(src)
 		del(src)
 	return uses
 

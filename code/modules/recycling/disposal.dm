@@ -44,7 +44,7 @@
 
 	// attack by item places it in to disposal
 	attackby(var/obj/item/I, var/mob/user)
-		if(stat & BROKEN || !I || !user)
+		if(stat & BROKEN || !I || !user || (I.flags & NODROP))
 			return
 
 		if(isrobot(user) && !istype(I, /obj/item/weapon/storage/bag/trash))
@@ -102,7 +102,7 @@
 				T.update_icon()
 				update()
 				return
-			
+
 		if(istype(I, /obj/item/weapon/storage/part_replacer))
 			var/obj/item/weapon/storage/part_replacer/P = I
 			if(P.contents.len)
@@ -111,7 +111,7 @@
 					P.remove_from_storage(O,src)
 				update()
 				return
-				
+
 		var/obj/item/weapon/grab/G = I
 		if(istype(G))	// handle grabbed mob
 			if(ismob(G.affecting))

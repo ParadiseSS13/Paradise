@@ -49,7 +49,7 @@
 	component_parts += new /obj/item/weapon/stock_parts/micro_laser(null)
 	component_parts += new /obj/item/weapon/stock_parts/console_screen(null)
 	component_parts += new /obj/item/stack/cable_coil(null, 2)
-	RefreshParts()	
+	RefreshParts()
 
 
 /obj/machinery/microwave/upgraded/New()
@@ -59,14 +59,14 @@
 	component_parts += new /obj/item/weapon/stock_parts/micro_laser/ultra(null)
 	component_parts += new /obj/item/weapon/stock_parts/console_screen(null)
 	component_parts += new /obj/item/stack/cable_coil(null, 2)
-	RefreshParts()	
+	RefreshParts()
 
 /obj/machinery/microwave/RefreshParts()
 	var/E
 	for(var/obj/item/weapon/stock_parts/micro_laser/M in component_parts)
 		E += M.rating
-	efficiency = E	
-				
+	efficiency = E
+
 /*******************
 *   Item Adding
 ********************/
@@ -87,11 +87,11 @@
 			return
 		else if(!anchored)
 			anchored = 1
-			user << "<span class='caution'>The [src] is now secured.</span>"			
+			user << "<span class='caution'>The [src] is now secured.</span>"
 			return
-		
+
 	default_deconstruction_crowbar(O)
-	
+
 	if(src.broken > 0)
 		if(src.broken == 2 && istype(O, /obj/item/weapon/screwdriver)) // If it's broken and they're using a screwdriver
 			user.visible_message( \
@@ -150,8 +150,10 @@
 				"\blue [user] has added one of [O] to \the [src].", \
 				"\blue You add one of [O] to \the [src].")
 		else
-		//	user.before_take_item(O)	//This just causes problems so far as I can tell. -Pete
-			user.drop_item()
+		//	user.unEquip(O)	//This just causes problems so far as I can tell. -Pete
+			if(!user.drop_item())
+				user << "<span class='notice'>\the [O] is stuck to your hand, you cannot put it in \the [src]</span>"
+				return 0
 			O.loc = src
 			user.visible_message( \
 				"\blue [user] has added \the [O] to \the [src].", \

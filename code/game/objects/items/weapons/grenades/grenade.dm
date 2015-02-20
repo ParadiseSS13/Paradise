@@ -7,7 +7,7 @@
 	item_state = "flashbang"
 	throw_speed = 4
 	throw_range = 20
-	flags = FPRINT  | CONDUCT
+	flags = CONDUCT
 	slot_flags = SLOT_BELT
 	var/active = 0
 	var/det_time = 50
@@ -63,7 +63,7 @@
 			var/turf/bombturf = get_turf(src)
 			var/area/A = get_area(bombturf)
 			var/log_str = "[key_name(usr)]<A HREF='?_src_=holder;adminmoreinfo=\ref[usr]'>?</A> has primed a [name] for detonation at <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[bombturf.x];Y=[bombturf.y];Z=[bombturf.z]'>[A.name] (JMP)</a>."
-			message_admins(log_str)
+			msg_admin_attack(log_str)
 			log_game(log_str)
 			bombers += "[log_str]"
 			if(iscarbon(user))
@@ -78,7 +78,7 @@
 /obj/item/weapon/grenade/proc/update_mob()
 	if(ismob(loc))
 		var/mob/M = loc
-		M.drop_from_inventory(src)
+		M.unEquip(src)
 
 
 /obj/item/weapon/grenade/attackby(obj/item/weapon/W as obj, mob/user as mob)

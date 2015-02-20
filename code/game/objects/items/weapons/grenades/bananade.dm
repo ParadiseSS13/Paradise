@@ -49,7 +49,7 @@ var/turf/T
 	if(istype(I, /obj/item/weapon/screwdriver))
 		if(fillamt)
 			var/obj/item/weapon/grenade/bananade/G = new /obj/item/weapon/grenade/bananade
-			user.before_take_item(src)
+			user.unEquip(src)
 			user.put_in_hands(G)
 			G.deliveryamt = src.fillamt
 			user << "<span  class='notice'>You lock the assembly shut, readying it for HONK.</span>"

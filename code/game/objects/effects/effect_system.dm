@@ -11,14 +11,12 @@ would spawn and follow the beaker, even if it is carried or thrown.
 	icon = 'icons/effects/effects.dmi'
 	mouse_opacity = 0
 	unacidable = 1//So effect are not targeted by alien acid.
-	flags = TABLEPASS
 
 /obj/effect/effect/water
 	name = "water"
 	icon = 'icons/effects/effects.dmi'
 	icon_state = "extinguish"
 	var/life = 15.0
-	flags = TABLEPASS
 	mouse_opacity = 0
 
 /obj/effect/effect/smoke
@@ -183,36 +181,40 @@ steam.start() -- spawns the effect
 	return
 
 /datum/effect/effect/system/spark_spread
-	set_up(n = 3, c = 0, loca)
-		number = n > 10 ? 10 : n
-		cardinals = c
+	var/total_sparks = 0 // To stop it being spammed and lagging!
 
-		if (istype(loca, /turf/))
+	set_up(n = 3, c = 0, loca)
+		if(n > 10)
+			n = 10
+		number = n
+		cardinals = c
+		if(istype(loca, /turf/))
 			location = loca
 		else
 			location = get_turf(loca)
 
 	start()
-		for (var/i = 1 to number)
-			spawn()
-				if (holder)
-					location = get_turf(holder)
-
-				var/obj/effect/effect/sparks/sparks = getFromPool(/obj/effect/effect/sparks, location)
-				playsound(location, "sparks", 100, 1)
+		var/i = 0
+		for(i=0, i<src.number, i++)
+			if(src.total_sparks > 20)
+				return
+			spawn(0)
+				if(holder)
+					src.location = get_turf(holder)
+				var/obj/effect/effect/sparks/sparks = new /obj/effect/effect/sparks(src.location)
+				src.total_sparks++
 				var/direction
-
-				if (cardinals)
+				if(src.cardinals)
 					direction = pick(cardinal)
 				else
 					direction = pick(alldirs)
-
-				for (var/j = 0, j < pick(1, 2, 3), j++)
+				for(i=0, i<pick(1,2,3), i++)
 					sleep(5)
-					step(sparks, direction)
-
-				sleep(20)
-				returnToPool(sparks)
+					step(sparks,direction)
+				spawn(20)
+					if(sparks)
+						sparks.delete()
+					src.total_sparks--
 
 /////////////////////////////////////////////
 //// SMOKE SYSTEMS
@@ -469,10 +471,10 @@ steam.start() -- spawns the effect
 				var/more = ""
 				if(M)
 					more = "(<A HREF='?_src_=holder;adminmoreinfo=\ref[M]'>?</a>)"
-				message_admins("A chemical smoke reaction has taken place in ([whereLink])[contained]. Last associated key is [carry.my_atom.fingerprintslast][more].", 0, 1)
+				msg_admin_attack("A chemical smoke reaction has taken place in ([whereLink])[contained]. Last associated key is [carry.my_atom.fingerprintslast][more].", 0, 1)
 				log_game("A chemical smoke reaction has taken place in ([where])[contained]. Last associated key is [carry.my_atom.fingerprintslast].")
 			else
-				message_admins("A chemical smoke reaction has taken place in ([whereLink]). No associated key.", 0, 1)
+				msg_admin_attack("A chemical smoke reaction has taken place in ([whereLink]). No associated key.", 0, 1)
 				log_game("A chemical smoke reaction has taken place in ([where])[contained]. No associated key.")
 
 	start()
@@ -1109,15 +1111,6 @@ steam.start() -- spawns the effect
 		if(air_group) return 0
 		return !density
 
-
-	proc/update_nearby_tiles(need_rebuild)
-		if(!air_master)
-			return 0
-
-		air_master.mark_for_update(get_turf(src))
-
-		return 1
-
 /datum/effect/effect/system/reagents_explosion
 	var/amount 						// TNT equivalent
 	var/flashing = 0			// does explosion creates flash effect?
@@ -1156,13 +1149,13 @@ steam.start() -- spawns the effect
 
 			// Clamp all values to MAX_EXPLOSION_RANGE
 			if (round(amount/12) > 0)
-				devastation = min (MAX_EXPLOSION_RANGE, devastation + round(amount/12))
+				devastation = min (MAX_EX_DEVESTATION_RANGE, devastation + round(amount/12))
 
 			if (round(amount/6) > 0)
-				heavy = min (MAX_EXPLOSION_RANGE, heavy + round(amount/6))
+				heavy = min (MAX_EX_HEAVY_RANGE, heavy + round(amount/6))
 
 			if (round(amount/3) > 0)
-				light = min (MAX_EXPLOSION_RANGE, light + round(amount/3))
+				light = min (MAX_EX_LIGHT_RANGE, light + round(amount/3))
 
 			if (flash && flashing_factor)
 				flash += (round(amount/4) * flashing_factor)

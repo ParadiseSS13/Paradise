@@ -156,6 +156,10 @@ var/turf/space/Space_Tile = locate(/turf/space) // A space tile to reference whe
 
 //This was a define, but I changed it to a variable so it can be changed in-game.(kept the all-caps definition because... code...) -Errorage
 var/MAX_EXPLOSION_RANGE = 14
+var/MAX_EX_DEVESTATION_RANGE = 3
+var/MAX_EX_HEAVY_RANGE = 7
+var/MAX_EX_LIGHT_RANGE = 14
+var/MAX_EX_FLASH_RANGE = 14
 //#define MAX_EXPLOSION_RANGE		14					// Defaults to 12 (was 8) -- TLE
 
 #define HUMAN_STRIP_DELAY 40 //takes 40ds = 4s to strip someone.
@@ -190,43 +194,40 @@ var/MAX_EXPLOSION_RANGE = 14
 
 
 //FLAGS BITMASK
-#define STOPSPRESSUREDMAGE 1	//This flag is used on the flags variable for SUIT and HEAD items which stop pressure damage. Note that the flag 1 was previous used as ONBACK, so it is possible for some code to use (flags & 1) when checking if something can be put on your back. Replace this code with (inv_flags & SLOT_BACK) if you see it anywhere
-                                //To successfully stop you taking all pressure damage you must have both a suit and head item with this flag.
-#define TABLEPASS 2			// can pass by a table or rack
+#define STOPSPRESSUREDMAGE 		1		//This flag is used on the flags variable for SUIT and HEAD items which stop pressure damage. Note that the flag 1 was previous used as ONBACK, so it is possible for some code to use (flags & 1) when checking if something can be put on your back. Replace this code with (inv_flags & SLOT_BACK) if you see it anywhere To successfully stop you taking all pressure damage you must have both a suit and head item with this flag.
+#define NODROP					2		// This flag makes it so that an item literally cannot be removed at all, or at least that's how it should be. Only deleted.
+#define NOBLUDGEON  			4		// when an item has this it produces no "X has been hit by Y with Z" message with the default handler
+#define MASKINTERNALS			8		// mask allows internals
+#define USEDELAY 				16		// 1 second extra delay on use (Can be used once every 2s)
+#define NOSHIELD				32		// weapon not affected by shield
+#define CONDUCT					64		// conducts electricity (metal etc.)
+#define ABSTRACT				128		// for all things that are technically items but used for various different stuff, made it 128 because it could conflict with other flags other way
+#define ON_BORDER				512		// item has priority to check when entering or leaving
+#define NODELAY 				32768	// 1 second attackby delay skipped (Can be used once every 0.2s). Most objects have a 1s attackby delay, which doesn't require a flag.
 
-#define MASKINTERNALS	8	// mask allows internals
-//#define SUITSPACE		8	// suit protects against space
+#define NOBLOODY				2048	// used to items if they don't want to get a blood overlay
 
-#define USEDELAY 	16		// 1 second extra delay on use (Can be used once every 2s)
-#define NODELAY 	32768	// 1 second attackby delay skipped (Can be used once every 0.2s). Most objects have a 1s attackby delay, which doesn't require a flag.
-#define NOSHIELD	32		// weapon not affected by shield
-#define CONDUCT		64		// conducts electricity (metal etc.)
-#define FPRINT		256		// takes a fingerprint
-#define ON_BORDER	512		// item has priority to check when entering or leaving
-#define NOBLUDGEON  4  // when an item has this it produces no "X has been hit by Y with Z" message with the default handler
-#define NOBLOODY	2048	// used to items if they don't want to get a blood overlay
+#define GLASSESCOVERSEYES		1024
+#define MASKCOVERSEYES			1024	// get rid of some of the other retardation in these flags
+#define HEADCOVERSEYES			1024	// feel free to realloc these numbers for other purposes
+#define MASKCOVERSMOUTH			2048	// on other items, these are just for mask/head
+#define HEADCOVERSMOUTH			2048
 
-#define GLASSESCOVERSEYES	1024
-#define MASKCOVERSEYES		1024		// get rid of some of the other retardation in these flags
-#define HEADCOVERSEYES		1024		// feel free to realloc these numbers for other purposes
-#define MASKCOVERSMOUTH		2048		// on other items, these are just for mask/head
-#define HEADCOVERSMOUTH		2048
+#define HEADBANGPROTECT			4096
+#define EARBANGPROTECT			1024
 
-#define HEADBANGPROTECT		4096
-#define EARBANGPROTECT		1024
+#define NOSLIP					1024 	//prevents from slipping on wet floors, in space etc
 
-#define NOSLIP		1024 		//prevents from slipping on wet floors, in space etc
+#define OPENCONTAINER			4096	// is an open container for chemistry purposes
 
-#define OPENCONTAINER	4096	// is an open container for chemistry purposes
+#define BLOCK_GAS_SMOKE_EFFECT	8192	// blocks the effect that chemical clouds would have on a mob --glasses, mask and helmets ONLY! (NOTE: flag shared with ONESIZEFITSALL)
+#define ONESIZEFITSALL 			8192
+#define PLASMAGUARD 			1638	//Does not get contaminated by plasma.
 
-#define BLOCK_GAS_SMOKE_EFFECT 8192	// blocks the effect that chemical clouds would have on a mob --glasses, mask and helmets ONLY! (NOTE: flag shared with ONESIZEFITSALL)
-#define ONESIZEFITSALL 8192
-#define PLASMAGUARD 16384			//Does not get contaminated by plasma.
+#define	NOREACT					16384 	//Reagents dont' react inside this container.
 
-#define	NOREACT		16384 			//Reagents dont' react inside this container.
-
-#define BLOCKHEADHAIR 4             // temporarily removes the user's hair overlay. Leaves facial hair.
-#define BLOCKHAIR	32768			// temporarily removes the user's hair, facial and otherwise.
+#define BLOCKHEADHAIR 			4		// temporarily removes the user's hair overlay. Leaves facial hair.
+#define BLOCKHAIR				32768	// temporarily removes the user's hair, facial and otherwise.
 
 //flags for pass_flags
 #define PASSTABLE	1
@@ -698,8 +699,9 @@ var/list/TAGGERLOCATIONS = list("Disposals",
 #define R_SOUNDS		2048
 #define R_SPAWN			4096
 #define R_MOD			8192
+#define R_MENTOR		16384
 
-#define R_MAXPERMISSION 8192 //This holds the maximum value for a permission. It is used in iteration, so keep it updated.
+#define R_MAXPERMISSION 16384 //This holds the maximum value for a permission. It is used in iteration, so keep it updated.
 
 #define R_HOST			65535
 
@@ -735,7 +737,7 @@ var/list/TAGGERLOCATIONS = list("Disposals",
 #define BE_CULTIST		256
 #define BE_NINJA		512
 #define BE_RAIDER		1024
-#define BE_VAMPIRE		2048 
+#define BE_VAMPIRE		2048
 #define BE_MUTINEER		4096
 #define BE_BLOB			8192
 
@@ -801,11 +803,13 @@ var/list/cheartstopper = list("potassium_chloride") //this stops the heart when 
 #define GETPULSE_HAND	0	//less accurate (hand)
 #define GETPULSE_TOOL	1	//more accurate (med scanner, sleeper, etc)
 
-var/list/RESTRICTED_CAMERA_NETWORKS = list( //Those networks can only be accessed by preexisting terminals. AIs and new terminals can't use them.
+var/list/restricted_camera_networks = list( //Those networks can only be accessed by preexisting terminals. AIs and new terminals can't use them.
 	"CentCom",
 	"ERT",
 	"NukeOps",
 	"Thunderdome",
+	"UO45",
+	"UO45R",
 	"Xeno"
 	)
 
@@ -944,3 +948,15 @@ var/list/hit_appends = list("-OOF", "-ACK", "-UGH", "-HRNK", "-HURGH", "-GLORF")
 #define CRAFTLATHE	8	//Uses fuck if I know. For use eventually.
 #define MECHFAB		16 //Remember, objects utilising this flag should have construction_time and construction_cost vars.
 //Note: More then one of these can be added to a design but imprinter and lathe designs are incompatable.
+
+// Suit sensor levels
+#define SUIT_SENSOR_OFF 0
+#define SUIT_SENSOR_BINARY 1
+#define SUIT_SENSOR_VITAL 2
+#define SUIT_SENSOR_TRACKING 3
+
+// NanoUI flags
+#define STATUS_INTERACTIVE 2 // GREEN Visability
+#define STATUS_UPDATE 1 // ORANGE Visability
+#define STATUS_DISABLED 0 // RED Visability
+#define STATUS_CLOSE -1 // Close the interface

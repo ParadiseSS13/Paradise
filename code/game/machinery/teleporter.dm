@@ -31,19 +31,12 @@
 	return power_station
 
 /obj/machinery/computer/teleporter/attackby(I as obj, mob/living/user as mob)
-	if(istype(I,/obj/item/weapon/card/emag)) // If hit by an emag.
-		var/obj/item/weapon/card/emag/E = I
-		if(!emagged)
-			if(E.uses)
-				E.uses--
-				emagged = 1
-				user << "\blue The teleporter can now lock on to Syndicate beacons!"
-		else
-			ui_interact(user)
-	else if(istype(I, /obj/item/device/gps))
+	if(istype(I, /obj/item/device/gps))
 		var/obj/item/device/gps/L = I
 		if(L.locked_location && !(stat & (NOPOWER|BROKEN)))
-			user.before_take_item(L)
+			if(!user.unEquip(L))
+				user << "<span class='notice'>\the [I] is stuck to your hand, you cannot put it in \the [src]</span>"
+				return
 			L.loc = src
 			locked = L
 			user << "<span class='caution'>You insert the GPS device into the [name]'s slot.</span>"
@@ -53,6 +46,13 @@
 	else
 		..()
 	return
+	
+/obj/machinery/computer/teleporter/emag_act(user as mob)
+	if(!emagged)
+		emagged = 1
+		user << "\blue The teleporter can now lock on to Syndicate beacons!"
+	else
+		ui_interact(user)
 
 /obj/machinery/computer/teleporter/attack_paw(mob/user)
 	usr << "You are too primitive to use this computer."
@@ -80,7 +80,8 @@
 		data["calibrated"] = null
 		data["accurate"] = null
 	data["regime"] = regime_set
-	data["target"] = (!target) ? "None" : get_area(target)
+	var/area/targetarea = get_area(target)
+	data["target"] = (!target) ? "None" : sanitize(targetarea.name)
 	data["calibrating"] = calibrating
 	data["locked"] = locked
 
@@ -179,7 +180,7 @@
 			var/turf/T = get_turf(R)
 			if (!T)
 				continue
-			if(T.z == 2 || T.z > 7)
+			if((T.z in config.admin_levels) || T.z > 7)
 				continue
 			if(R.syndicate == 1 && emagged == 0)
 				continue
@@ -200,7 +201,7 @@
 						continue
 				var/turf/T = get_turf(M)
 				if(!T)	continue
-				if(T.z == 2)	continue
+				if((T.z in config.admin_levels))	continue
 				var/tmpname = M.real_name
 				if(areaindex[tmpname])
 					tmpname = "[tmpname] ([++areaindex[tmpname]])"
@@ -222,7 +223,7 @@
 			var/turf/T = get_turf(R)
 			if (!T || !R.teleporter_hub || !R.teleporter_console)
 				continue
-			if(T.z == 2 || T.z > 7)
+			if((T.z in config.admin_levels) || T.z > 7)
 				continue
 			var/tmpname = T.loc.name
 			if(areaindex[tmpname])
@@ -279,7 +280,7 @@
 	component_parts += new /obj/item/bluespace_crystal/artificial(null)
 	component_parts += new /obj/item/weapon/stock_parts/matter_bin(null)
 	RefreshParts()
-	
+
 /obj/machinery/teleport/hub/upgraded/New()
 	..()
 	component_parts = list()

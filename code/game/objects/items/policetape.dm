@@ -3,7 +3,6 @@
 	name = "tape roll"
 	icon = 'icons/policetape.dmi'
 	icon_state = "rollstart"
-	flags = FPRINT
 	w_class = 1.0
 	var/turf/start
 	var/turf/end
@@ -27,7 +26,7 @@
 /obj/item/tape/police
 	name = "police tape"
 	desc = "A length of police tape.  Do not cross."
-	req_access = list(access_security)
+	req_one_access = list(access_security,access_forensics_lockers)
 	icon_base = "police"
 
 /obj/item/taperoll/engineering
@@ -115,7 +114,7 @@
 	if(!density) return 1
 	if(air_group || (height==0)) return 1
 
-	if ((mover.flags & 2 || istype(mover, /obj/effect/meteor) || mover.throwing == 1) )
+	if ((mover.pass_flags & PASSTABLE || istype(mover, /obj/effect/meteor) || mover.throwing == 1) )
 		return 1
 	else
 		return 0
@@ -134,9 +133,9 @@
 
 /obj/item/tape/attack_paw(mob/user as mob)
 	breaktape(/obj/item/weapon/wirecutters,user)
-	
+
 /obj/item/tape/attack_alien(mob/user as mob)
-	breaktape(/obj/item/weapon/wirecutters,user)	
+	breaktape(/obj/item/weapon/wirecutters,user)
 
 /obj/item/tape/proc/breaktape(obj/item/weapon/W as obj, mob/user as mob)
 	if(user.a_intent == "help" && ((!can_puncture(W) && src.allowed(user))))

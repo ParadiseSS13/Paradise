@@ -38,7 +38,7 @@
 
 
 	proc/authenticate()
-		if(access_security in scan.access || access_forensics_lockers in scan.access )
+		if((access_security in scan.access) || (access_forensics_lockers in scan.access) )
 			return 1
 		if(istype(usr,/mob/living/silicon/ai))
 			return 1

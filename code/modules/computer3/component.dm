@@ -85,6 +85,15 @@
 	var/dualslot = 0 // faster than typechecking
 	attackby_types = list(/obj/item/weapon/card)
 
+	emag_act(user as mob)
+		if(!writer)
+			usr << "You insert \the card, and the computer grinds, sparks, and beeps.  After a moment, the card ejects itself."
+			computer.emagged = 1
+			return 1
+		else
+			usr << "You are unable to insert \the card, as the reader slot is occupied"	
+			return 0
+
 	attackby(var/obj/item/I as obj, var/mob/user as mob)
 		if(istype(I,/obj/item/weapon/card))
 			insert(I)
@@ -101,14 +110,6 @@
 		if(slot == 2 && !dualslot)
 			usr << "This device has only one card slot"
 			return 0
-
-		if(istype(card,/obj/item/weapon/card/emag)) // emag reader slot
-			if(!writer)
-				usr << "You insert \the [card], and the computer grinds, sparks, and beeps.  After a moment, the card ejects itself."
-				computer.emagged = 1
-				return 1
-			else
-				usr << "You are unable to insert \the [card], as the reader slot is occupied"
 
 		var/mob/living/L = usr
 		switch(slot)
@@ -131,7 +132,6 @@
 					usr << "There is already something in both slots."
 				else
 					usr << "There is already something in the reader slot."
-
 
 	// Usage of insert() preferred, as it also tells result to the user.
 	proc/equip_to_reader(var/obj/item/weapon/card/card, var/mob/living/L)

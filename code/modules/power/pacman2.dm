@@ -81,14 +81,6 @@
 			user.drop_item()
 			O.loc = src
 			user << "\blue You add the plasma tank to the generator."
-		else if (istype(O, /obj/item/weapon/card/emag))
-			var/obj/item/weapon/card/emag/E = O
-			if(E.uses)
-				E.uses--
-			else
-				return
-			emagged = 1
-			emp_act(1)
 		else if(!active)
 			if(istype(O, /obj/item/weapon/wrench))
 				anchored = !anchored
@@ -114,6 +106,11 @@
 				new_frame.state = 2
 				new_frame.icon_state = "box_1"
 				del(src)
+				
+	emag_act(user as mob)
+		if(!emagged)
+			emagged = 1
+			emp_act(1)
 
 	attack_hand(mob/user as mob)
 		..()

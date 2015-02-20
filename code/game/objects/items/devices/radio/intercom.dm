@@ -5,7 +5,7 @@
 	anchored = 1
 	w_class = 4.0
 	canhear_range = 5
-	flags = FPRINT | CONDUCT | TABLEPASS | NOBLOODY
+	flags = CONDUCT | NOBLOODY
 	var/number = 0
 	var/anyai = 1
 	var/mob/living/silicon/ai/ai = list()

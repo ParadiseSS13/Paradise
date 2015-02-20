@@ -496,24 +496,24 @@
 	var/dat = {"
 	<B><HR><FONT size=3>[name]</FONT></B>
 	<BR><HR>
-	<BR><B>Head(Mask):</B> <A href='?src=\ref[src];item=mask'>[(wear_mask ? wear_mask : "Nothing")]</A>
-	<BR><B>Left Hand:</B> <A href='?src=\ref[src];item=l_hand'>[(l_hand ? l_hand  : "Nothing")]</A>
-	<BR><B>Right Hand:</B> <A href='?src=\ref[src];item=r_hand'>[(r_hand ? r_hand : "Nothing")]</A>
-	<BR><B>Gloves:</B> <A href='?src=\ref[src];item=gloves'>[(gloves ? gloves : "Nothing")]</A>
-	<BR><B>Eyes:</B> <A href='?src=\ref[src];item=eyes'>[(glasses ? glasses : "Nothing")]</A>
-	<BR><B>Left Ear:</B> <A href='?src=\ref[src];item=l_ear'>[(l_ear ? l_ear : "Nothing")]</A>
-	<BR><B>Right Ear:</B> <A href='?src=\ref[src];item=r_ear'>[(r_ear ? r_ear : "Nothing")]</A>
-	<BR><B>Head:</B> <A href='?src=\ref[src];item=head'>[(head ? head : "Nothing")]</A>
-	<BR><B>Shoes:</B> <A href='?src=\ref[src];item=shoes'>[(shoes ? shoes : "Nothing")]</A>
-	<BR><B>Belt:</B> <A href='?src=\ref[src];item=belt'>[(belt ? belt : "Nothing")]</A> [((istype(wear_mask, /obj/item/clothing/mask) && istype(belt, /obj/item/weapon/tank) && !( internal )) ? text(" <A href='?src=\ref[];item=internal'>Set Internal</A>", src) : "")]
-	<BR><B>Uniform:</B> <A href='?src=\ref[src];item=uniform'>[(w_uniform ? w_uniform : "Nothing")]</A> [(suit) ? ((suit.has_sensor == 1) ? text(" <A href='?src=\ref[];item=sensor'>Sensors</A>", src) : "") :]
-	<BR><B>(Exo)Suit:</B> <A href='?src=\ref[src];item=suit'>[(wear_suit ? wear_suit : "Nothing")]</A>
-	<BR><B>Back:</B> <A href='?src=\ref[src];item=back'>[(back ? back : "Nothing")]</A> [((istype(wear_mask, /obj/item/clothing/mask) && istype(back, /obj/item/weapon/tank) && !( internal )) ? text(" <A href='?src=\ref[];item=internal'>Set Internal</A>", src) : "")]
-	<BR><B>ID:</B> <A href='?src=\ref[src];item=id'>[(wear_id ? wear_id : "Nothing")]</A>
-	<BR><B>PDA:</B> <A href='?src=\ref[src];item=pda'>[(wear_pda ? wear_pda : "Nothing")]</A>
-	<BR><B>Suit Storage:</B> <A href='?src=\ref[src];item=s_store'>[(s_store ? s_store : "Nothing")]</A>
-	<BR><BR><A href='?src=\ref[src];pockets=left'>Left Pocket ([l_store ? (pickpocket ? l_store.name : "Full") : "Empty"])</A>
-	<BR><A href='?src=\ref[src];pockets=right'>Right Pocket ([r_store ? (pickpocket ? r_store.name : "Full") : "Empty"])</A>
+	<BR><B>Head(Mask):</B> <A href='?src=\ref[src];item=mask'>[(wear_mask && !(wear_mask.flags & ABSTRACT)) ? wear_mask : "Nothing"]</A>
+	<BR><B>Left Hand:</B> <A href='?src=\ref[src];item=l_hand'>[(l_hand && !(l_hand.flags & ABSTRACT)) ? l_hand  : "Nothing"]</A>
+	<BR><B>Right Hand:</B> <A href='?src=\ref[src];item=r_hand'>[(r_hand && !(r_hand.flags&ABSTRACT)) ? r_hand : "Nothing"]</A>
+	<BR><B>Gloves:</B> <A href='?src=\ref[src];item=gloves'>[(gloves && !(gloves.flags & ABSTRACT)) ? gloves : "Nothing"]</A>
+	<BR><B>Eyes:</B> <A href='?src=\ref[src];item=eyes'>[(glasses && !(glasses.flags & ABSTRACT)) ? glasses : "Nothing"]</A>
+	<BR><B>Left Ear:</B> <A href='?src=\ref[src];item=l_ear'>[(l_ear && !(l_ear.flags & ABSTRACT)) ? l_ear : "Nothing"]</A>
+	<BR><B>Right Ear:</B> <A href='?src=\ref[src];item=r_ear'>[(r_ear && !(r_ear.flags & ABSTRACT)) ? r_ear : "Nothing"]</A>
+	<BR><B>Head:</B> <A href='?src=\ref[src];item=head'>[(head && !(head.flags & ABSTRACT)) ? head : "Nothing"]</A>
+	<BR><B>Shoes:</B> <A href='?src=\ref[src];item=shoes'>[(shoes && !(shoes.flags & ABSTRACT)) ? shoes : "Nothing"]</A>
+	<BR><B>Belt:</B> <A href='?src=\ref[src];item=belt'>[(belt && !(belt.flags & ABSTRACT)) ? belt : "Nothing"]</A> [((istype(wear_mask, /obj/item/clothing/mask) && istype(belt, /obj/item/weapon/tank) && !( internal )) ? text(" <A href='?src=\ref[];item=internal'>Set Internal</A>", src) : "")]
+	<BR><B>Uniform:</B> <A href='?src=\ref[src];item=uniform'>[(w_uniform && !(w_uniform.flags & ABSTRACT)) ? w_uniform : "Nothing"]</A> [(suit) ? ((suit.has_sensor == 1) ? text(" <A href='?src=\ref[];item=sensor'>Sensors</A>", src) : "") :]
+	<BR><B>(Exo)Suit:</B> <A href='?src=\ref[src];item=suit'>[(wear_suit && !(wear_suit.flags & ABSTRACT)) ? wear_suit : "Nothing"]</A>
+	<BR><B>Back:</B> <A href='?src=\ref[src];item=back'>[(back && !(back.flags & ABSTRACT)) ? back : "Nothing"]</A> [((istype(wear_mask, /obj/item/clothing/mask) && istype(back, /obj/item/weapon/tank) && !( internal )) ? text(" <A href='?src=\ref[];item=internal'>Set Internal</A>", src) : "")]
+	<BR><B>ID:</B> <A href='?src=\ref[src];item=id'>[(wear_id && !(wear_id.flags & ABSTRACT)) ? wear_id : "Nothing"]</A>
+	<BR><B>PDA:</B> <A href='?src=\ref[src];item=pda'>[(wear_pda && !(wear_pda.flags & ABSTRACT)) ? wear_pda : "Nothing"]</A>
+	<BR><B>Suit Storage:</B> <A href='?src=\ref[src];item=s_store'>[(s_store && !(s_store.flags & ABSTRACT)) ? s_store : "Nothing"]</A>
+	<BR><BR><A href='?src=\ref[src];pockets=left'>Left Pocket ([(l_store && !(l_store.flags & ABSTRACT)) ? (pickpocket ? l_store.name : "Full") : "Empty"])</A>
+	<BR><A href='?src=\ref[src];pockets=right'>Right Pocket ([(r_store && !(r_store.flags & ABSTRACT)) ? (pickpocket ? r_store.name : "Full") : "Empty"])</A>
 	<BR><A href='?src=\ref[src];item=pockets'>Empty Both Pockets</A>
 	<BR><BR>[(handcuffed ? text("<A href='?src=\ref[src];item=handcuff'>Handcuffed</A>") : text("<A href='?src=\ref[src];item=handcuff'>Not Handcuffed</A>"))]
 	<BR>[(legcuffed ? text("<A href='?src=\ref[src];item=legcuff'>Legcuffed</A>") : text(""))]
@@ -538,7 +538,21 @@
 		var/obj/vehicle/V = AM
 		V.RunOver(src)
 
-
+// Get rank from ID, ID inside PDA, PDA, ID in wallet, etc.
+/mob/living/carbon/human/proc/get_authentification_rank(var/if_no_id = "No id", var/if_no_job = "No job")
+	var/obj/item/device/pda/pda = wear_id
+	if (istype(pda))
+		if (pda.id)
+			return pda.id.rank
+		else
+			return pda.ownrank
+	else
+		var/obj/item/weapon/card/id/id = get_idcard()
+		if(id)
+			return id.rank ? id.rank : if_no_job
+		else
+			return if_no_id		
+		
 //gets assignment from ID or ID inside PDA or PDA itself
 //Useful when player do something with computers
 /mob/living/carbon/human/proc/get_assignment(var/if_no_id = "No id", var/if_no_job = "No job")
@@ -640,20 +654,22 @@
 			var/obj/item/pocket_item = (pocket_id == slot_r_store ? src.r_store : src.l_store)
 			var/obj/item/place_item = usr.get_active_hand() // Item to place in the pocket, if it's empty
 
-			if(pocket_item)
+			if(pocket_item && !(pocket_item.flags & ABSTRACT))
+				if(pocket_item.flags & NODROP)
+					usr << "<span class='notice'>You try to empty [src]'s [pocket_side] pocket, it seems to be stuck!</span>"
 				usr << "<span class='notice'>You try to empty [src]'s [pocket_side] pocket.</span>"
-			else if(place_item && place_item.mob_can_equip(src, pocket_id, 1))
+			else if(place_item && place_item.mob_can_equip(src, pocket_id, 1) && !(place_item.flags & ABSTRACT))
 				usr << "<span class='notice'>You try to place [place_item] into [src]'s [pocket_side] pocket.</span>"
 			else
 				return
 
 			if(do_mob(usr, src, STRIP_DELAY))
 				if(pocket_item)
-					u_equip(pocket_item)
+					unEquip(pocket_item)
 					usr.put_in_hands(pocket_item)
 				else
 					if(place_item)
-						usr.u_equip(place_item)
+						usr.unEquip(place_item)
 					equip_to_slot_if_possible(place_item, pocket_id, 0, 1)
 
 				// Update strip window
@@ -687,11 +703,11 @@
 
 					if(do_mob(usr, src, STRIP_DELAY))
 						if(worn_id)
-							u_equip(worn_id)
+							unEquip(worn_id)
 							usr.put_in_hands(worn_id)
 						else
 							if(place_item)
-								usr.u_equip(place_item)
+								usr.unEquip(place_item)
 							equip_to_slot_if_possible(place_item, slot_wear_id, 0, 1)
 
 						// Update strip window
@@ -1036,10 +1052,10 @@
 
 
 /mob/living/carbon/human/abiotic(var/full_body = 0)
-	if(full_body && ((src.l_hand && !( src.l_hand.abstract )) || (src.r_hand && !( src.r_hand.abstract )) || (src.back || src.wear_mask || src.head || src.shoes || src.w_uniform || src.wear_suit || src.glasses || src.l_ear || src.r_ear || src.gloves)))
+	if(full_body && ((src.l_hand && !(src.l_hand.flags & ABSTRACT)) || (src.r_hand && !(src.r_hand.flags & ABSTRACT)) || (src.back || src.wear_mask || src.head || src.shoes || src.w_uniform || src.wear_suit || src.glasses || src.l_ear || src.r_ear || src.gloves)))
 		return 1
 
-	if( (src.l_hand && !src.l_hand.abstract) || (src.r_hand && !src.r_hand.abstract) )
+	if((src.l_hand && !(src.l_hand.flags & ABSTRACT)) || (src.r_hand && !(src.r_hand.flags & ABSTRACT)))
 		return 1
 
 	return 0

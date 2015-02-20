@@ -38,9 +38,6 @@ mob/spirit/New()
 
 	loc = pick(latejoin)
 	
-	// hook them to the cult visibility network
-	visibility_interface = new /datum/visibility_interface/cult(src)
-
 	// no nameless spirits
 	if (!name)
 		name = "Boogyman"

@@ -79,7 +79,7 @@ var/global/list/possibleEvents = list()
 	if(!spacevines_spawned)
 		possibleEvents[/datum/event/spacevine] = 10 + 5 * active_with_role["Engineer"]
 	if(minutes_passed >= 30) // Give engineers time to set up engine
-		possibleEvents[/datum/event/anomaly/anomaly_pyro] = 100 + 60 * active_with_role["Engineer"]
+//		possibleEvents[/datum/event/anomaly/anomaly_pyro] = 100 + 60 * active_with_role["Engineer"]
 		possibleEvents[/datum/event/anomaly/anomaly_vortex] = 50 + 25 * active_with_role["Engineer"]
 		possibleEvents[/datum/event/anomaly/anomaly_bluespace] = 50 + 25 * active_with_role["Engineer"]
 		possibleEvents[/datum/event/anomaly/anomaly_flux] = 50 + 50 * active_with_role["Engineer"]
@@ -152,10 +152,7 @@ var/global/list/possibleEvents = list()
 
 	/*switch(picked_event)
 		if("Meteor")
-			command_alert("Meteors have been detected on collision course with the station.", "Meteor Alert")
-			for(var/mob/M in player_list)
-				if(!istype(M,/mob/new_player))
-					M << sound('sound/AI/meteors.ogg')
+			command_announcement.Announce("Meteors have been detected on collision course with the station.", "Meteor Alert", new_sound = 'sound/AI/meteors.ogg')
 			spawn(100)
 				meteor_wave(10)
 				spawn_meteors()

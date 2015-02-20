@@ -31,7 +31,6 @@
 	name = "amish suit"
 	icon_state = "sl_suit"
 	_color = "sl_suit"
-	flags = FPRINT | TABLEPASS
 
 /obj/item/clothing/under/waiter
 	name = "waiter's outfit"
@@ -39,7 +38,6 @@
 	icon_state = "waiter"
 	item_state = "waiter"
 	_color = "waiter"
-	flags = FPRINT | TABLEPASS
 
 /obj/item/clothing/under/rank/mailman
 	name = "mailman's jumpsuit"
@@ -83,7 +81,7 @@
 	item_state = "g_suit"
 	_color = "officer"
 	displays_id = 0
-	flags = FPRINT | TABLEPASS | ONESIZEFITSALL
+	flags = ONESIZEFITSALL
 
 /obj/item/clothing/under/rank/centcom/captain
 	desc = "Gold trim on space-black cloth, this uniform displays the rank of \"Captain\" and bears \"N.C.V. Fearless CV-286\" on the left shounder."
@@ -100,7 +98,7 @@
 	item_state = "g_suit"
 	_color = "officer"
 	displays_id = 0
-	flags = FPRINT | TABLEPASS | ONESIZEFITSALL
+	flags = ONESIZEFITSALL
 
 /obj/item/clothing/under/rank/centcom/representative
 	desc = "Gold trim on space-black cloth, this uniform displays the rank of \"Ensign\" and bears \"N.S.S. Cyberiad\" on the left shounder."
@@ -109,7 +107,7 @@
 	item_state = "g_suit"
 	_color = "officer"
 	displays_id = 0
-	flags = FPRINT | TABLEPASS | ONESIZEFITSALL
+	flags = ONESIZEFITSALL
 
 /obj/item/clothing/under/space
 	name = "\improper NASA jumpsuit"
@@ -120,7 +118,6 @@
 	w_class = 4//bulky item
 	gas_transfer_coefficient = 0.01
 	permeability_coefficient = 0.02
-	flags = FPRINT | TABLEPASS
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
 	cold_protection = UPPER_TORSO | LOWER_TORSO | LEGS | ARMS //Needs gloves and shoes with cold protection to be fully protected.
 	min_cold_protection_temperature = SPACE_SUIT_MIN_COLD_PROTECTION_TEMPERATURE
@@ -135,7 +132,6 @@
 	desc = "it's a cybernetically enhanced jumpsuit used for administrative duties."
 	gas_transfer_coefficient = 0.01
 	permeability_coefficient = 0.01
-	flags = FPRINT | TABLEPASS
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
 	armor = list(melee = 100, bullet = 100, laser = 100,energy = 100, bomb = 100, bio = 100, rad = 100)
 	cold_protection = UPPER_TORSO | LOWER_TORSO | LEGS | FEET | ARMS | HANDS
@@ -149,7 +145,6 @@
 	desc = "A jumpsuit with owl wings. Photorealistic owl feathers! Twooooo!"
 	icon_state = "owl"
 	_color = "owl"
-	flags = FPRINT | TABLEPASS
 
 /obj/item/clothing/under/johnny
 	name = "johnny~~ jumpsuit"
@@ -227,6 +222,27 @@
 	icon_state = "navy_suit"
 	item_state = "navy_suit"
 	_color = "navy_suit"
+
+/obj/item/clothing/under/suit_jacket/tan
+	name = "tan suit"
+	desc = "A tan suit with a yellow tie. Smart, but casual."
+	icon_state = "tan_suit"
+	item_state = "tan_suit"
+	_color = "tan_suit"
+
+/obj/item/clothing/under/suit_jacket/burgundy
+	name = "burgundy suit"
+	desc = "A burgundy suit and black tie. Somewhat formal."
+	icon_state = "burgundy_suit"
+	item_state = "burgundy_suit"
+	_color = "burgundy_suit"
+
+/obj/item/clothing/under/suit_jacket/charcoal
+	name = "charcoal suit"
+	desc = "A charcoal suit and red tie. Very professional."
+	icon_state = "charcoal_suit"
+	item_state = "charcoal_suit"
+	_color = "charcoal_suit"
 
 /obj/item/clothing/under/blackskirt
 	name = "black skirt"
@@ -586,6 +602,13 @@
 	icon_state = "pennywise"
 	_color = "pennywise"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO
+
+/obj/item/clothing/under/assistantformal
+	name = "assistant's formal uniform"
+	desc = "An assistant's formal-wear. Why an assistant needs formal-wear is still unknown."
+	icon_state = "assistant_formal"
+	item_state = "gy_suit"
+	_color = "assistant_formal"
 
 /obj/item/clothing/under/blacktango
 	name = "black tango dress"

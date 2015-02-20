@@ -65,7 +65,7 @@ var/global/wcColored
 	if(health <= 0)
 		var/pdiff=performWallPressureCheck(src.loc)
 		if(pdiff>0)
-			message_admins("Window destroyed by [Proj.firer.name] ([formatPlayerPanel(Proj.firer,Proj.firer.ckey)]) via \an [Proj]! pdiff = [pdiff] at [formatJumpTo(loc)]!")
+			msg_admin_attack("Window destroyed by [Proj.firer.name] ([formatPlayerPanel(Proj.firer,Proj.firer.ckey)]) via \an [Proj]! pdiff = [pdiff] at [formatJumpTo(loc)]!")
 			log_admin("Window destroyed by ([Proj.firer.ckey]) via \an [Proj]! pdiff = [pdiff] at [loc]!")
 		destroy()
 	return
@@ -135,19 +135,19 @@ var/global/wcColored
 		var/pdiff=performWallPressureCheck(src.loc)
 		if(pdiff>0)
 			if(M)
-				message_admins("Window with pdiff [pdiff] at [formatJumpTo(loc)] deanchored by [M.real_name] ([formatPlayerPanel(M,M.ckey)])!")
+				msg_admin_attack("Window with pdiff [pdiff] at [formatJumpTo(loc)] deanchored by [M.real_name] ([formatPlayerPanel(M,M.ckey)])!")
 				log_admin("Window with pdiff [pdiff] at [loc] deanchored by [M.real_name] ([M.ckey])!")
 			else
-				message_admins("Window with pdiff [pdiff] at [formatJumpTo(loc)] deanchored by [AM]!")
+				msg_admin_attack("Window with pdiff [pdiff] at [formatJumpTo(loc)] deanchored by [AM]!")
 				log_admin("Window with pdiff [pdiff] at [loc] deanchored by [AM]!")
 	if(health <= 0)
 		var/pdiff=performWallPressureCheck(src.loc)
 		if(pdiff>0)
 			if(M)
-				message_admins("Window with pdiff [pdiff] at [formatJumpTo(loc)] destroyed by [M.real_name] ([formatPlayerPanel(M,M.ckey)])!")
+				msg_admin_attack("Window with pdiff [pdiff] at [formatJumpTo(loc)] destroyed by [M.real_name] ([formatPlayerPanel(M,M.ckey)])!")
 				log_admin("Window with pdiff [pdiff] at [loc] destroyed by [M.real_name] ([M.ckey])!")
 			else
-				message_admins("Window with pdiff [pdiff] at [formatJumpTo(loc)] destroyed by [AM]!")
+				msg_admin_attack("Window with pdiff [pdiff] at [formatJumpTo(loc)] destroyed by [AM]!")
 				log_admin("Window with pdiff [pdiff] at [loc] destroyed by [AM]!")
 		destroy()
 
@@ -158,7 +158,7 @@ var/global/wcColored
 		user.visible_message("<span class='danger'>[user] smashes through [src]!</span>")
 		var/pdiff=performWallPressureCheck(src.loc)
 		if(pdiff>0)
-			message_admins("Window destroyed by hulk [user.real_name] ([formatPlayerPanel(user,user.ckey)]) with pdiff [pdiff] at [formatJumpTo(loc)]!")
+			msg_admin_attack("Window destroyed by hulk [user.real_name] ([formatPlayerPanel(user,user.ckey)]) with pdiff [pdiff] at [formatJumpTo(loc)]!")
 			log_admin("Window destroyed by hulk [user.real_name] ([user.ckey]) with pdiff [pdiff] at [loc]!")
 		destroy()
 	else if (usr.a_intent == "harm")
@@ -183,7 +183,7 @@ var/global/wcColored
 		user.visible_message("<span class='danger'>[user] smashes through [src]!</span>")
 		var/pdiff=performWallPressureCheck(src.loc)
 		if(pdiff>0)
-			message_admins("Window destroyed by [user.real_name] ([formatPlayerPanel(user,user.ckey)]) with pdiff [pdiff] at [formatJumpTo(loc)]!")
+			msg_admin_attack("Window destroyed by [user.real_name] ([formatPlayerPanel(user,user.ckey)]) with pdiff [pdiff] at [formatJumpTo(loc)]!")
 		destroy()
 	else	//for nicer text~
 		user.visible_message("<span class='danger'>[user] smashes into [src]!</span>")
@@ -240,7 +240,7 @@ var/global/wcColored
 			return
 
 	if(W.flags & NOBLUDGEON) return
-	
+
 	if(istype(W, /obj/item/weapon/screwdriver))
 		if(reinf && state >= 1)
 			state = 3 - state
@@ -254,7 +254,7 @@ var/global/wcColored
 			if(!anchored)
 				var/pdiff=performWallPressureCheck(src.loc)
 				if(pdiff>0)
-					message_admins("Window with pdiff [pdiff] deanchored by [user.real_name] ([formatPlayerPanel(user,user.ckey)]) at [formatJumpTo(loc)]!")
+					msg_admin_attack("Window with pdiff [pdiff] deanchored by [user.real_name] ([formatPlayerPanel(user,user.ckey)]) at [formatJumpTo(loc)]!")
 					log_admin("Window with pdiff [pdiff] deanchored by [user.real_name] ([user.ckey]) at [loc]!")
 		else if(!reinf)
 			anchored = !anchored
@@ -264,7 +264,7 @@ var/global/wcColored
 			if(!anchored)
 				var/pdiff=performWallPressureCheck(src.loc)
 				if(pdiff>0)
-					message_admins("Window with pdiff [pdiff] deanchored by [user.real_name] ([formatPlayerPanel(user,user.ckey)]) at [formatJumpTo(loc)]!")
+					msg_admin_attack("Window with pdiff [pdiff] deanchored by [user.real_name] ([formatPlayerPanel(user,user.ckey)]) at [formatJumpTo(loc)]!")
 					log_admin("Window with pdiff [pdiff] deanchored by [user.real_name] ([user.ckey]) at [loc]!")
 	else if(istype(W, /obj/item/weapon/crowbar) && reinf && state <= 1)
 		state = 1 - state
@@ -305,7 +305,7 @@ var/global/wcColored
 				step(src, get_dir(user, src))
 				var/pdiff=performWallPressureCheck(src.loc)
 				if(pdiff>0)
-					message_admins("Window with pdiff [pdiff] deanchored by [user.real_name] ([formatPlayerPanel(user,user.ckey)]) at [formatJumpTo(loc)]!")
+					msg_admin_attack("Window with pdiff [pdiff] deanchored by [user.real_name] ([formatPlayerPanel(user,user.ckey)]) at [formatJumpTo(loc)]!")
 					log_admin("Window with pdiff [pdiff] deanchored by [user.real_name] ([user.ckey]) at [loc]!")
 		else
 			playsound(loc, 'sound/effects/Glasshit.ogg', 75, 1)
@@ -325,7 +325,7 @@ var/global/wcColored
 	if(health <= 0)
 		var/pdiff=performWallPressureCheck(src.loc)
 		if(pdiff>0)
-			message_admins("Window with pdiff [pdiff] broken at [formatJumpTo(loc)]!")
+			msg_admin_attack("Window with pdiff [pdiff] broken at [formatJumpTo(loc)]!")
 		destroy()
 		return
 
@@ -402,14 +402,6 @@ var/global/wcColored
 	..()
 	dir = ini_dir
 	update_nearby_tiles(need_rebuild=1)
-
-
-//This proc has to do with airgroups and atmos, it has nothing to do with smoothwindows, that's update_nearby_tiles().
-/obj/structure/window/proc/update_nearby_tiles(need_rebuild)
-	if(!air_master) return 0
-	air_master.mark_for_update(get_turf(src))
-
-	return 1
 
 //checks if this window is full-tile one
 /obj/structure/window/proc/is_fulltile()

@@ -21,7 +21,6 @@
 	display_contents_with_number = 0 // UNStABLE AS FuCK, turn on when it stops crashing clients
 	use_to_pickup = 1
 	slot_flags = SLOT_BELT
-	flags = FPRINT | TABLEPASS
 
 // -----------------------------
 //          Trash bag
@@ -209,7 +208,7 @@
 				break
 
 		if(!inserted || !S.amount)
-			usr.u_equip(S)
+			usr.unEquip(S)
 			usr.update_icons()	//update our overlays
 			if (usr.client && usr.s_active != src)
 				usr.client.screen -= S
@@ -308,7 +307,7 @@
 	w_class = 1
 
 	can_hold = list("/obj/item/weapon/coin","/obj/item/weapon/spacecash")
-	
+
 // -----------------------------
 //           Book bag
 // -----------------------------

@@ -1287,7 +1287,7 @@ ________________________________________________________________________________
 /obj/item/clothing/gloves/space_ninja/examine()
 	set src in view()
 	..()
-	if(!canremove)
+	if(flags & NODROP)
 		var/mob/living/carbon/human/U = loc
 		U << "The energy drain mechanism is: <B>[candrain?"active":"inactive"]</B>."
 
@@ -1479,7 +1479,7 @@ It is possible to destroy the net by the occupant or someone else.
 				if(istype(M,/mob/living/carbon/human))
 					if(W==M:w_uniform)	continue//So all they're left with are shoes and uniform.
 					if(W==M:shoes)	continue
-				M.drop_from_inventory(W)
+				M.unEquip(W)
 
 			spawn(0)
 				playsound(M.loc, 'sound/effects/sparks4.ogg', 50, 1)

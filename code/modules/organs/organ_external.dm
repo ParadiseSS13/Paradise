@@ -614,11 +614,11 @@ Note that amputating the affected organ does in fact remove the infection from t
 				else
 					organ= new /obj/item/weapon/organ/head(owner.loc, owner)
 					owner.death()
-				owner.u_equip(owner.glasses)
-				owner.u_equip(owner.head)
-				owner.u_equip(owner.l_ear)
-				owner.u_equip(owner.r_ear)
-				owner.u_equip(owner.wear_mask)
+				owner.unEquip(owner.glasses)
+				owner.unEquip(owner.head)
+				owner.unEquip(owner.l_ear)
+				owner.unEquip(owner.r_ear)
+				owner.unEquip(owner.wear_mask)
 			if(ARM_RIGHT)
 				if(!spawn_limb)
 					if(status & ORGAN_ROBOT)
@@ -658,7 +658,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 							organ = new /obj/item/weapon/skeleton/r_hand(owner.loc)
 						else
 							organ= new /obj/item/weapon/organ/r_hand(owner.loc, owner)
-					owner.u_equip(owner.gloves)
+					owner.unEquip(owner.gloves)
 			if(HAND_LEFT)
 				if(!spawn_limb)
 					if(!(status & ORGAN_ROBOT))
@@ -666,7 +666,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 							organ = new /obj/item/weapon/skeleton/l_hand(owner.loc)
 						else
 							organ= new /obj/item/weapon/organ/l_hand(owner.loc, owner)
-					owner.u_equip(owner.gloves)
+					owner.unEquip(owner.gloves)
 			if(FOOT_RIGHT)
 				if(!spawn_limb)
 					if(!(status & ORGAN_ROBOT))
@@ -674,7 +674,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 							organ = new /obj/item/weapon/skeleton/r_foot(owner.loc)
 						else
 							organ= new /obj/item/weapon/organ/r_foot/(owner.loc, owner)
-					owner.u_equip(owner.shoes)
+					owner.unEquip(owner.shoes)
 			if(FOOT_LEFT)
 				if(!spawn_limb)
 					if(!(status & ORGAN_ROBOT))
@@ -682,7 +682,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 							organ = new /obj/item/weapon/skeleton/l_foot(owner.loc)
 						else
 							organ = new /obj/item/weapon/organ/l_foot(owner.loc, owner)
-				owner.u_equip(owner.shoes)
+				owner.unEquip(owner.shoes)
 
 		destspawn = 1
 		//Robotic limbs explode if sabotaged.
@@ -724,14 +724,14 @@ Note that amputating the affected organ does in fact remove the infection from t
 			"\The [owner.handcuffed.name] falls off of [owner.name].",\
 			"\The [owner.handcuffed.name] falls off you.")
 
-		owner.drop_from_inventory(owner.handcuffed)
+		owner.unEquip(owner.handcuffed)
 
 	if (owner.legcuffed && body_part in list(FOOT_LEFT, FOOT_RIGHT, LEG_LEFT, LEG_RIGHT))
 		owner.visible_message(\
 			"\The [owner.legcuffed.name] falls off of [owner.name].",\
 			"\The [owner.legcuffed.name] falls off you.")
 
-		owner.drop_from_inventory(owner.legcuffed)
+		owner.unEquip(owner.legcuffed)
 
 /datum/organ/external/proc/bandage()
 	var/rval = 0
@@ -842,11 +842,11 @@ Note that amputating the affected organ does in fact remove the infection from t
 		return
 
 	if(is_broken())
-		owner.u_equip(c_hand)
+		owner.unEquip(c_hand)
 		var/emote_scream = pick("screams in pain and", "lets out a sharp cry and", "cries out and")
 		owner.emote("me", 1, "[(owner.species && owner.species.flags & NO_PAIN) ? "" : emote_scream ] drops what they were holding in their [hand_name]!")
 	if(is_malfunctioning())
-		owner.u_equip(c_hand)
+		owner.unEquip(c_hand)
 		owner.emote("me", 1, "drops what they were holding, their [hand_name] malfunctioning!")
 		var/datum/effect/effect/system/spark_spread/spark_system = new /datum/effect/effect/system/spark_spread()
 		spark_system.set_up(5, 0, owner)

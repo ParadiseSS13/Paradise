@@ -6,11 +6,6 @@ nanoui class (or whatever Byond calls classes)
 nanoui is used to open and update nano browser uis
 **********************************************************/
 
-
-#define STATUS_INTERACTIVE 2 // GREEN Visability
-#define STATUS_UPDATE 1 // ORANGE Visability
-#define STATUS_DISABLED 0 // RED Visability
-
 /datum/nanoui
 	// the user who opened this ui
 	var/mob/user
@@ -58,6 +53,9 @@ nanoui is used to open and update nano browser uis
 	var/is_auto_updating = 0
 	// the current status/visibility of the ui
 	var/status = STATUS_INTERACTIVE
+	
+	var/cached_data = null
+
 
 	// Only allow users with a certain user.stat to get updates. Defaults to 0 (concious)
 	var/allowed_user_stat = 0 // -1 = ignore, 0 = alive, 1 = unconcious or alive, 2 = dead concious or alive
@@ -140,36 +138,122 @@ nanoui is used to open and update nano browser uis
   * @return nothing
   */
 /datum/nanoui/proc/update_status(var/push_update = 0)
-	if (istype(user, /mob/living/silicon/ai))
-		set_status(STATUS_INTERACTIVE, push_update) // interactive (green visibility)
-	else if (istype(user, /mob/living/silicon/robot))
-		if (src_object in view(7, user)) // robots can see and interact with things they can see within 7 tiles
-			set_status(STATUS_INTERACTIVE, push_update) // interactive (green visibility)
-		else
-			set_status(STATUS_DISABLED, push_update) // no updates, completely disabled (red visibility)
+	var/atom/movable/host = src_object.nano_host()
+	if(!host.nano_can_update())
+		close()
+		return
+
+	var/status = user.can_interact_with_interface(host.nano_host())
+	if(status == STATUS_CLOSE)
+		close()
 	else
-		var/dist = get_dist(src_object, user)
+		set_status(status, push_update)
+		
+/*
+	Procs called by update_status()
+*/
 
-		if (dist > 4)
-			close()
-			return
+/mob/living/silicon/pai/can_interact_with_interface(src_object)
+	if(src_object == src && !stat)
+		return STATUS_INTERACTIVE
+	else
+		return ..()
 
-		if ((allowed_user_stat > -1) && (user.stat > allowed_user_stat))
-			set_status(STATUS_DISABLED, push_update) // no updates, completely disabled (red visibility)
-		else if (user.restrained() || user.lying)
-			set_status(STATUS_UPDATE, push_update) // update only (orange visibility)
-		else if (istype(src_object, /obj/item/device/uplink/hidden)) // You know what if they have the uplink open let them use the UI
-			set_status(STATUS_INTERACTIVE, push_update)	     // Will build in distance checks on the topics for sanity.
-		else if (!(src_object in view(4, user))) // If the src object is not in visable, set status to 0
-			set_status(STATUS_DISABLED, push_update) // interactive (green visibility)
-		else if (dist <= 1)
-			set_status(STATUS_INTERACTIVE, push_update) // interactive (green visibility)
-		else if (dist <= 2)
-			set_status(STATUS_UPDATE, push_update) // update only (orange visibility)
-		else if (istype(src_object, /obj/item/device/uplink/hidden)) // You know what if they have the uplink open let them use the UI
-			set_status(STATUS_INTERACTIVE, push_update)       // Will build in distance checks on the topics for sanity.
-		else if (dist <= 4)
-			set_status(STATUS_DISABLED, push_update) // no updates, completely disabled (red visibility)
+/mob/proc/can_interact_with_interface(var/src_object)
+	return STATUS_CLOSE // By default no mob can do anything with NanoUI
+
+/mob/dead/observer/can_interact_with_interface()
+	if(check_rights(R_ADMIN, 0))
+		return STATUS_INTERACTIVE				// Admins are more equal
+	return STATUS_UPDATE						// Ghosts can view updates
+
+/mob/living/silicon/robot/can_interact_with_interface(var/src_object)
+	if(stat || !client)
+		return STATUS_CLOSE
+	if(lockcharge || stunned || weakened)
+		return STATUS_DISABLED
+	if (src_object in view(client.view, src))	// robots can see and interact with things they can see within their view range
+		return STATUS_INTERACTIVE				// interactive (green visibility)
+	return STATUS_DISABLED						// no updates, completely disabled (red visibility)
+
+/mob/living/silicon/robot/syndicate/can_interact_with_interface(var/src_object)
+	. = ..()
+	if(. != STATUS_INTERACTIVE)
+		return
+
+	if(z in config.admin_levels)						// Syndicate borgs can interact with everything on the admin level
+		return STATUS_INTERACTIVE
+	if(istype(get_area(src), /area/syndicate_station) || istype(get_area(src), /area/traitor))	// If elsewhere, they can interact with everything on the syndicate shuttle and traitor station
+		return STATUS_INTERACTIVE
+	if(istype(src_object, /obj/machinery))				// And they can also interact with everything else
+		/*var/obj/machinery/Machine = src_object			
+		if(Machine.emagged)								// Uncomment so they can only interact with emagged machinery
+			return STATUS_INTERACTIVE*/
+		return STATUS_INTERACTIVE
+	return STATUS_UPDATE
+
+/mob/living/silicon/ai/can_interact_with_interface(var/src_object)
+	if(!client || check_unable(1))
+		return STATUS_CLOSE
+	// Prevents the AI from using Topic on admin levels (by for example viewing through the court/thunderdome cameras)
+	// unless it's on the same level as the object it's interacting with.
+	var/turf/T = get_turf(src_object)
+	if(!T || !(z == T.z || (T.z in config.player_levels)))
+		return STATUS_CLOSE
+
+	// If an object is in view then we can interact with it
+	if(src_object in view(client.view, src))
+		return STATUS_INTERACTIVE
+
+	// If we're installed in a chassi, rather than transfered to an inteliCard or other container, then check if we have camera view
+	if(is_in_chassis())
+		//stop AIs from leaving windows open and using then after they lose vision
+		//apc_override is needed here because AIs use their own APC when powerless
+		if(cameranet && !cameranet.checkTurfVis(get_turf(src_object)))
+			return apc_override ? STATUS_INTERACTIVE : STATUS_CLOSE
+		return STATUS_INTERACTIVE
+
+	return 	STATUS_CLOSE
+
+/mob/living/proc/shared_living_nano_interaction(var/src_object)
+	if (src.stat != CONSCIOUS)
+		return STATUS_CLOSE						// no updates, close the interface
+	else if (restrained() || lying || stat || stunned || weakened)
+		return STATUS_UPDATE					// update only (orange visibility)
+	return STATUS_INTERACTIVE
+
+/mob/living/proc/shared_living_nano_distance(var/atom/movable/src_object)
+	if(!isturf(src_object.loc))
+		if(src_object.loc == src)				// Item in the inventory
+			return STATUS_INTERACTIVE
+		if(src.contents.Find(src_object.loc))	// A hidden uplink inside an item
+			return STATUS_INTERACTIVE
+
+	if (!(src_object in view(4, src))) 	// If the src object is not in visable, disable updates
+		return STATUS_CLOSE
+
+	var/dist = get_dist(src_object, src)
+	if (dist <= 1)
+		return STATUS_INTERACTIVE	// interactive (green visibility)
+	else if (dist <= 2)
+		return STATUS_UPDATE 		// update only (orange visibility)
+	else if (dist <= 4)
+		return STATUS_DISABLED 		// no updates, completely disabled (red visibility)
+	return STATUS_CLOSE
+
+/mob/living/can_interact_with_interface(var/src_object, var/be_close = 1)
+	. = shared_living_nano_interaction(src_object)
+	if(. == STATUS_INTERACTIVE && be_close)
+		. = shared_living_nano_distance(src_object)
+	if(STATUS_INTERACTIVE)
+		return STATUS_UPDATE
+
+/mob/living/carbon/human/can_interact_with_interface(var/src_object, var/be_close = 1)
+	. = shared_living_nano_interaction(src_object)
+	if(. == STATUS_INTERACTIVE && be_close)
+		. = shared_living_nano_distance(src_object)
+		if(. == STATUS_UPDATE && (M_TK in mutations))	// If we have telekinesis and remain close enough, allow interaction.
+			return STATUS_INTERACTIVE
 
  /**
   * Set the ui to auto update (every master_controller tick)
@@ -370,7 +454,7 @@ nanoui is used to open and update nano browser uis
 		template_data_json = list2json(templates)
 
 	var/list/send_data = get_send_data(initial_data)
-	var/initial_data_json = list2json(send_data)
+	var/initial_data_json = list2json(send_data, cached_data)
 
 	var/url_parameters_json = list2json(list("src" = "\ref[src]"))
 
@@ -450,6 +534,17 @@ nanoui is used to open and update nano browser uis
 	var/params = "\ref[src]"
 
 	winset(user, window_id, "on-close=\"nanoclose [params]\"")
+	
+/**
+ * Appends already processed json txt to the list2json proc when setting initial-data and data pushes
+ * Used for data that is fucking huge like manifests and camera lists that doesn't change often.
+ * And we only want to process them when they change.
+ *
+ * @return nothing
+ */
+/datum/nanoui/proc/load_cached_data(var/data)
+	cached_data = data
+	return
 
  /**
   * Push data to an already open UI window
@@ -464,7 +559,7 @@ nanoui is used to open and update nano browser uis
 	var/list/send_data = get_send_data(data)
 
 	//user << list2json(data) // used for debugging
-	user << output(list2params(list(list2json(send_data))),"[window_id].browser:receiveUpdateData")
+	user << output(list2params(list(list2json(send_data,cached_data))),"[window_id].browser:receiveUpdateData")
 
  /**
   * This Topic() proc is called whenever a user clicks on a link within a Nano UI

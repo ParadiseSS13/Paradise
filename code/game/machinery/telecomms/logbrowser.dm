@@ -244,9 +244,11 @@
 					A.icon_state = "4"
 					A.anchored = 1
 					del(src)
-		else if(istype(D, /obj/item/weapon/card/emag) && !emagged)
+		src.updateUsrDialog()
+		return
+		
+	emag_act(user as mob)
+		if(!emagged)
 			playsound(src.loc, 'sound/effects/sparks4.ogg', 75, 1)
 			emagged = 1
 			user << "\blue You you disable the security protocols"
-		src.updateUsrDialog()
-		return
