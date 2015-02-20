@@ -48,6 +48,8 @@
 		signal.data[key4] = value4
 
 	frequency.post_signal(src, signal, filter = s_filter)
+	
+	return
 
 /obj/item/radio/integrated/receive_signal(datum/signal/signal)
 	/*var/obj/item/device/pda/P = src.loc
