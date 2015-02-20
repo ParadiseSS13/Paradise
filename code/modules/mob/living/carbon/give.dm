@@ -21,7 +21,7 @@
 	if(!I)
 		return
 	if((I.flags & NODROP) || (I.flags & ABSTRACT))
-		usr << "<span class='notice'>That's not exactly something you can give."
+		usr << "<span class='notice'>That's not exactly something you can give.</span>"
 		return
 	if(src.r_hand == null || src.l_hand == null)
 		switch(alert(src,"[usr] wants to give you \a [I]?",,"Yes","No"))
