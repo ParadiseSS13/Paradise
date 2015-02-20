@@ -80,6 +80,8 @@
 	spark_system = new /datum/effect/effect/system/spark_spread()
 	spark_system.set_up(5, 0, src)
 	spark_system.attach(src)
+	
+	add_language("Robot Talk", 1)
 
 	robot_modules_background = new()
 	robot_modules_background.icon_state = "block"
@@ -174,6 +176,13 @@
 	rbPDA.set_name_and_job(custom_name,braintype)
 	if(hiddenborg)
 		rbPDA.hidden = 1
+		
+/mob/living/silicon/robot/binarycheck()
+	if(is_component_functioning("comms"))
+		var/datum/robot_component/RC = get_component("comms")
+		use_power(RC.energy_consumption)
+		return 1
+	return 0
 
 //If there's an MMI in the robot, have it ejected when the mob goes away. --NEO
 //Improved /N
@@ -197,7 +206,6 @@
 	modtype = input("Please, select a module!", "Robot", null, null) in modules
 	designation = modtype
 	var/module_sprites[0] //Used to store the associations between sprite names and sprite index.
-	var/channels = list()
 
 	if(module)
 		return
@@ -205,14 +213,14 @@
 	switch(modtype)
 		if("Standard")
 			module = new /obj/item/weapon/robot_module/standard(src)
-			channels = list("Service" = 1)
+			module.channels = list("Service" = 1)
 			module_sprites["Basic"] = "robot_old"
 			module_sprites["Android"] = "droid"
 			module_sprites["Default"] = "robot"
 
 		if("Service")
 			module = new /obj/item/weapon/robot_module/butler(src)
-			channels = list("Service" = 1)
+			module.channels = list("Service" = 1)
 			module_sprites["Waitress"] = "Service"
 			module_sprites["Kent"] = "toiletbot"
 			module_sprites["Bro"] = "Brobot"
@@ -221,7 +229,7 @@
 /*
 		if("Clerical")
 			module = new /obj/item/weapon/robot_module/clerical(src)
-			channels = list("Service" = 1)
+			module.channels = list("Service" = 1)
 			module_sprites["Waitress"] = "Service"
 			module_sprites["Kent"] = "toiletbot"
 			module_sprites["Bro"] = "Brobot"
@@ -230,7 +238,7 @@
 */
 		if("Miner")
 			module = new /obj/item/weapon/robot_module/miner(src)
-			channels = list("Supply" = 1)
+			module.channels = list("Supply" = 1)
 			if(camera && "Robots" in camera.network)
 				camera.network.Add("MINE")
 			module_sprites["Basic"] = "Miner_old"
@@ -239,7 +247,7 @@
 
 		if("Medical")
 			module = new /obj/item/weapon/robot_module/medical(src)
-			channels = list("Medical" = 1)
+			module.channels = list("Medical" = 1)
 			if(camera && "Robots" in camera.network)
 				camera.network.Add("Medical")
 			module_sprites["Basic"] = "Medbot"
@@ -249,7 +257,7 @@
 
 		if("Security")
 			module = new /obj/item/weapon/robot_module/security(src)
-			channels = list("Security" = 1)
+			module.channels = list("Security" = 1)
 			module_sprites["Basic"] = "secborg"
 			module_sprites["Red Knight"] = "Security"
 			module_sprites["Black Knight"] = "securityrobot"
@@ -257,7 +265,7 @@
 
 		if("Engineering")
 			module = new /obj/item/weapon/robot_module/engineering(src)
-			channels = list("Engineering" = 1)
+			module.channels = list("Engineering" = 1)
 			if(camera && "Robots" in camera.network)
 				camera.network.Add("Engineering")
 			module_sprites["Basic"] = "Engineering"
@@ -266,14 +274,15 @@
 
 		if("Janitor")
 			module = new /obj/item/weapon/robot_module/janitor(src)
+			module.channels = list("Service" = 1)
 			module_sprites["Basic"] = "JanBot2"
 			module_sprites["Mopbot"]  = "janitorrobot"
 			module_sprites["Mop Gear Rex"] = "mopgearrex"
 
 		if("Combat")
 			module = new /obj/item/weapon/robot_module/combat(src)
+			module.channels = list("Security" = 1)
 			module_sprites["Combat Android"] = "droidcombat"
-			channels = list("Security" = 1)
 
 		if("Hunter")
 			updatename(module)
@@ -283,7 +292,9 @@
 			icon_state = "xenoborg-state-a"
 			modtype = "Xeno-Hu"
 			feedback_inc("xeborg_hunter",1)
-
+			
+	//languages
+	module.add_languages(src)
 
 	//Custom_sprite check and entry
 	if (custom_sprite == 1)
@@ -297,7 +308,7 @@
 		status_flags &= ~CANPUSH
 
 	choose_icon(6,module_sprites)
-	radio.config(channels)
+	radio.config(module.channels)
 	notify_ai(2)
 
 /mob/living/silicon/robot/proc/updatename(var/prefix as text)
@@ -1467,6 +1478,16 @@
 	laws = new /datum/ai_laws/syndicate_override()
 
 	Namepick()
+	
+/mob/living/silicon/robot/syndicate/canUseTopic(atom/movable/M)
+	if(stat || lockcharge || stunned || weakened)
+		return
+	if(z in config.admin_levels)
+		return 1
+	/*if(istype(M, /obj/machinery))
+		var/obj/machinery/Machine = M
+		return Machine.emagged*/
+	return 1
 
 /mob/living/silicon/robot/proc/notify_ai(var/notifytype, var/oldname, var/newname)
 	if(!connected_ai)

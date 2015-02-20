@@ -256,7 +256,7 @@ ADMIN_LEVELS 2
 CONTACT_LEVELS 1;5
 
 ## Defines all Z-levels a character can typically reach
-PLAYER_LEVELS 1;3;4;5;6
+PLAYER_LEVELS 1;3;4;5;6;7
 
 ## Expected round length in minutes
 EXPECTED_ROUND_LENGTH 120
