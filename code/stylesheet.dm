@@ -79,6 +79,7 @@ h1.alert, h2.alert		{color: #000000;}
 .slime					{color: #0077AA;}
 .rough					{font-family: "Trebuchet MS", cursive, sans-serif;}
 .say_quote				{font-family: Georgia, Verdana, sans-serif;}
+.sans					{font-family: "Comic Sans MS", cursive, sans-serif, font-weight: bold;}
 
 .say_quote				{font-family: Georgia, Verdana, sans-serif;}
 

@@ -404,6 +404,7 @@ var/MAX_EX_FLASH_RANGE = 14
 #define M_PSY_RESIST    204		// Block remoteview
 #define M_SUPER_FART    205		// Duh
 #define M_EMPATH		206		//Read minds
+#define M_COMIC			207		//Comic Sans
 
 // /vg/ muts
 #define M_LOUD		208		// CAUSES INTENSE YELLING

@@ -149,3 +149,19 @@
 
 	OnSay(var/mob/M, var/message)
 		return replacetext(message,"s","th")
+
+/datum/dna/gene/disability/comic
+	name = "Comic"
+	desc = "This will only bring death and destruction."
+	activation_message = "<span class='sans'>Uh oh!</span>"
+	deactivation_message = "Well thank god that's over with."
+	mutation=M_COMIC
+
+	New()
+		..()
+		block = COMICBLOCK
+
+	OnSay(var/mob/M, var/message)
+		if(message)
+			message = "<span class='sans'>[message]</span>"
+			return message
