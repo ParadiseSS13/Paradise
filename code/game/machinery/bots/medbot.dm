@@ -30,6 +30,7 @@
 	var/declare_crit = 1 //If active, the bot will transmit a critical patient alert to MedHUD users.
 	var/declare_cooldown = 0 //Prevents spam of critical patient alerts.
 	var/stationary_mode = 0 //If enabled, the Medibot will not move automatically.
+	radio_frequency = MED_FREQ //Medical frequency
 	radio_name = "Medical"
 	//Setting which reagents to use to treat what by default. By id.
 	var/treatment_brute = "tricordrazine"
@@ -532,7 +533,7 @@
 	if((skin == "bezerk"))
 		return
 	var/area/location = get_area(src)
-	speak("Medical emergency! [crit_patient ? "<b>[crit_patient]</b>" : "A patient"] is in critical condition at [location]!", radio_name)
+	speak("Medical emergency! [crit_patient ? "<b>[crit_patient]</b>" : "A patient"] is in critical condition at [location]!",radio_frequency, radio_name)
 	declare_cooldown = 1
 	spawn(200) //Twenty seconds
 		declare_cooldown = 0

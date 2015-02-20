@@ -310,4 +310,13 @@ var/list/possible_changeling_IDs = list("Alpha","Beta","Gamma","Delta","Epsilon"
 		user << "<span class='warning'>We already have this DNA in storage!</span>"
 
 	return 1
-	
+
+//More snowflake stuff, but for languages.
+/datum/changeling/proc/changeling_update_languages(var/updated_languages, var/mob/living/carbon/user)
+	if(!istype(user) || !user)
+		return
+	user.languages = list()
+	for(var/language in updated_languages)
+		user.languages += language
+
+	return

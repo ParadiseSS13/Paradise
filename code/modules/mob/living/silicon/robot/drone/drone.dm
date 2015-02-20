@@ -13,8 +13,7 @@
 	lawupdate = 0
 	density = 1
 	req_access = list(access_engine, access_robotics)
-	local_transmit = 1
-	
+
 	// We need to keep track of a few module items so we don't need to do list operations
 	// every time we need them. These get set in New() after the module is chosen.
 	var/obj/item/stack/sheet/metal/cyborg/stack_metal = null
@@ -26,13 +25,11 @@
 	//Used for self-mailing.
 	var/mail_destination = 0
 
+	//Used for pulling.
 
 /mob/living/silicon/robot/drone/New()
 
 	..()
-	
-	remove_language("Robot Talk")
-	add_language("Drone Talk", 1)
 
 	if(camera && "Robots" in camera.network)
 		camera.network.Add("Engineering")
@@ -90,6 +87,79 @@
 
 /mob/living/silicon/robot/drone/pick_module()
 	return
+
+//Drones can only use binary and say emotes. NOTHING else.
+//TBD, fix up boilerplate. ~ Z
+/mob/living/silicon/robot/drone/say(var/message)
+	if (!message)
+		return
+
+	if (src.client)
+		if(client.prefs.muted & MUTE_IC)
+			src << "You cannot send IC messages (muted)."
+			return
+		if (src.client.handle_spam_prevention(message,MUTE_IC))
+			return
+
+	if (stat == 2)
+		message = trim(copytext(sanitize(message), 1, MAX_MESSAGE_LEN))
+		return say_dead(message)
+		
+	//Must be concious to speak
+	if (stat)
+		return
+		
+	if(copytext(message,1,2) == "*")
+		return emote(copytext(message,2))
+		
+	if (length(message) >= 2)		
+		var/prefix = copytext(message, 1, 3)
+		if (department_radio_keys[prefix] == "drone")
+			message = copytext(message, 3)
+			message = trim(copytext(sanitize(message), 1, MAX_MESSAGE_LEN))		
+			
+			if(istype(src, /mob/living/silicon/robot/drone))
+				var/mob/living/silicon/robot/drone/R = src
+				if(!R.is_component_functioning("comms"))
+					src << "\red Your drone communications component isn't functional."
+					return
+			drone_talk(message)		
+		else
+			var/list/listeners = hearers(5,src)
+			listeners |= src
+			message = trim(copytext(sanitize(message), 1, MAX_MESSAGE_LEN))		
+			for(var/mob/living/silicon/D in listeners)
+				if(D.client) 
+					D << "<b>[src]</b> transmits, \"[message]\""
+
+			for (var/mob/M in player_list)
+				if (!M.client)
+					continue
+				if (istype(M, /mob/new_player))
+					continue
+				else if(M.stat == 2 && (M.client.prefs.toggles & CHAT_GHOSTEARS) && src.client)
+					M << "<b>[src]</b> <a href='byond://?src=\ref[M];follow2=\ref[M];follow=\ref[src]'>(Follow)</a> transmits, \"[message]\""
+				else if(M.stat == 2 && src.client && M in listeners)
+					M << "<b>[src]</b> <a href='byond://?src=\ref[M];follow2=\ref[M];follow=\ref[src]'>(Follow)</a> transmits, \"[message]\""
+			
+/mob/living/proc/drone_talk(var/message)
+	log_say("[key_name(src)] : [message]")
+	message = trim(message)			
+
+	if (!message)
+		return
+
+	var/message_a = say_quote(message)
+	var/rendered = "<i><span class='game say'>Drone Talk, <span class='name'>[name]</span> <span class='message'>[message_a]</span></span></i>"
+	
+	for (var/mob/living/S in living_mob_list)
+		if(istype(S, /mob/living/silicon/robot/drone))
+			S.show_message(rendered, 2)
+	
+	for (var/mob/S in dead_mob_list)	
+		if(!istype(S,/mob/new_player) && !istype(S,/mob/living/carbon/brain))	
+			var/rendered2 = "<i><span class='game say'>Drone Talk, <span class='name'>[name]</span> <a href='byond://?src=\ref[S];follow2=\ref[S];follow=\ref[src]'>(Follow)</a> <span class='message'>[message_a]</span></span></i>"
+			S.show_message(rendered2, 2)
 
 //Drones cannot be upgraded with borg modules so we need to catch some items before they get used in ..().
 /mob/living/silicon/robot/drone/attackby(obj/item/weapon/W as obj, mob/user as mob)

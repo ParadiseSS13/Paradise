@@ -29,6 +29,7 @@
 	var/remote_disabled = 0 //If enabled, the AI cannot *Remotely* control a bot. It can still control it through cameras.
 	var/mob/living/silicon/ai/calling_ai //Links a bot to the AI calling it.
 	var/obj/item/device/radio/Radio //The bot's radio, for speaking to people.
+	var/radio_frequency //The bot's default radio speaking freqency. Recommended to be on a department frequency.
 	var/radio_name = "Common"
 	//var/emagged = 0 //Urist: Moving that var to the general /bot tree as it's used by most bots
 	var/auto_patrol = 0// set to make bot automatically patrol
@@ -338,9 +339,11 @@
 /obj/machinery/bot/attack_ai(mob/user as mob)
 	attack_hand(user)
 
-/obj/machinery/bot/proc/speak(var/message, var/freqname = null) //Pass a message to have the bot say() it. Pass a frequency to say it on the radio.
+/obj/machinery/bot/proc/speak(var/message, freq, var/freqname = null) //Pass a message to have the bot say() it. Pass a frequency to say it on the radio.
 	if((!on) || (!message))
 		return
+	if(freq)
+		Radio.set_frequency(radio_frequency)
 	if(freqname)
 		Radio.autosay(message, src.name, freqname, list(src.z)) 
 	else
@@ -651,7 +654,7 @@ obj/machinery/bot/proc/start_patrol()
 					botcard.access = user_access + prev_access //Adds the user's access, if any.
 				mode = BOT_SUMMON
 				calc_summon_path()
-				speak("Responding.", radio_name)
+				speak("Responding.", radio_frequency, radio_name)
 				return
 
 	// receive response from beacon
@@ -738,7 +741,7 @@ obj/machinery/bot/proc/bot_summon()
 	check_bot_access()
 	path = AStar(loc, summon_target, /turf/proc/CardinalTurfsWithAccess, /turf/proc/Distance_cardinal, 0, 150, id=botcard, exclude=avoid)
 	if(!path || tries >= 5) //Cannot reach target. Give up and announce the issue.
-		speak("Summon command failed, destination unreachable.", radio_name)
+		speak("Summon command failed, destination unreachable.", radio_frequency, radio_name)
 		bot_reset()
 
 /obj/machinery/bot/proc/summon_step()

@@ -67,18 +67,9 @@ h1.alert, h2.alert		{color: #000000;}
 .noticealien			{color: #00c000;}
 .alertalien				{color: #00c000; font-weight: bold;}
 .tajaran				{color: #803B56;}
-.tajaran_signlang		{color: #941C1C;}
 .skrell					{color: #00CED1;}
 .soghun					{color: #228B22;}
-.solcom					{color: #22228B;}
-.changeling				{color: #800080;}
 .vox					{color: #AA00AA;}
-.diona					{color: #007200;}
-.trinary				{color: #727272;}
-.kidan					{color: #664205;}
-.slime					{color: #0077AA;}
-.rough					{font-family: "Trebuchet MS", cursive, sans-serif;}
-.say_quote				{font-family: Georgia, Verdana, sans-serif;}
 
 .say_quote				{font-family: Georgia, Verdana, sans-serif;}
 

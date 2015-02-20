@@ -134,6 +134,22 @@
 
 	//testing("DNA2: [numsToAssign.len] blocks are unused: [english_list(numsToAssign)]")
 
+// Run AFTER genetics setup and AFTER species setup.
+/proc/setup_species()
+	// SPECIES GENETICS FUN
+	for(var/name in all_species)
+		// I hate BYOND.  Can't just call while it's in the list.
+		var/datum/species/species = all_species[name]
+		if(species.default_block_names.len>0)
+			testing("Setting up genetics for [species.name] (needs [english_list(species.default_block_names)])")
+			species.default_blocks.Cut()
+			for(var/block=1;block<DNA_SE_LENGTH;block++)
+				if(assigned_blocks[block] in species.default_block_names)
+					testing("  Found [assigned_blocks[block]] ([block])")
+					species.default_blocks.Add(block)
+			if(species.default_blocks.len)
+				all_species[name]=species
+
 /proc/setupfactions()
 
 	// Populate the factions list:

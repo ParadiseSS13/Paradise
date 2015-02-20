@@ -345,8 +345,8 @@ You've gained <b>[totalkarma]</b> total karma in your time here.<br>"}
 			message_admins("SQL ERROR during karmaspent updating (updating existing entry). Error: \[[err]\]\n")
 			return
 		else
-			usr << "You have been [refund ? "refunded" : "charged"] [cost] karma."
-			message_admins("[key_name(usr)] has been [refund ? "refunded" : "charged"] [cost] karma.")
+			usr << "You have been charged [cost] karma."
+			message_admins("[key_name(usr)] has been charged [cost] karma.")
 			return
 
 /client/proc/karmarefund(var/type,var/name,var/cost)

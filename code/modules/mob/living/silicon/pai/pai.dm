@@ -71,7 +71,6 @@
 
 	var/obj/item/radio/integrated/signal/sradio // AI's signaller
 
-	var/translator_on = 0 // keeps track of the translator module
 
 /mob/living/silicon/pai/New(var/obj/item/device/paicard)
 	canmove = 0
@@ -82,13 +81,6 @@
 		if(!card.radio)
 			card.radio = new /obj/item/device/radio(src.card)
 		radio = card.radio
-		
-	//Default languages without universal translator software
-	add_language("Sol Common", 1)
-	add_language("Tradeband", 1)
-	add_language("Gutter", 1)	
-	add_language("Trinary", 1)		
-		
 	//Verbs for pAI mobile form, chassis and Say flavor text
 	verbs += /mob/living/silicon/pai/proc/choose_chassis
 	verbs += /mob/living/silicon/pai/proc/choose_verbs
@@ -512,6 +504,3 @@
 			close_up()
 	return 2
 
-// No binary for pAIs.
-/mob/living/silicon/pai/binarycheck()
-	return 0

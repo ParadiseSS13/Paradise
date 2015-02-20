@@ -9,40 +9,6 @@
 	var/datum/species/species //Contains icon generation and language information, set during New().
 	var/embedded_flag	  //To check if we've need to roll for damage on movement while an item is imbedded in us.
 
-/mob/living/carbon/human/New(var/new_loc, var/new_species = null, var/delay_ready_dna=0)
-	if(!species)
-		if(new_species)
-			set_species(new_species,null,1)
-		else
-			set_species()
-
-	var/datum/reagents/R = new/datum/reagents(1000)
-	reagents = R
-	R.my_atom = src
-
-	hud_list[HEALTH_HUD]      = image('icons/mob/hud.dmi', src, "hudhealth100")
-	hud_list[STATUS_HUD]      = image('icons/mob/hud.dmi', src, "hudhealthy")
-	hud_list[ID_HUD]          = image('icons/mob/hud.dmi', src, "hudunknown")
-	hud_list[WANTED_HUD]      = image('icons/mob/hud.dmi', src, "hudblank")
-	hud_list[IMPLOYAL_HUD]    = image('icons/mob/hud.dmi', src, "hudblank")
-	hud_list[IMPCHEM_HUD]     = image('icons/mob/hud.dmi', src, "hudblank")
-	hud_list[IMPTRACK_HUD]    = image('icons/mob/hud.dmi', src, "hudblank")
-	hud_list[SPECIALROLE_HUD] = image('icons/mob/hud.dmi', src, "hudblank")
-	hud_list[STATUS_HUD_OOC]  = image('icons/mob/hud.dmi', src, "hudhealthy")
-	hud_list[NATIONS_HUD]	  = image('icons/mob/hud.dmi', src, "hudblank")
-
-	..()
-
-	if(dna)
-		dna.real_name = real_name
-
-	prev_gender = gender // Debug for plural genders
-	make_blood()
-
-	// Set up DNA.
-	if(!delay_ready_dna)
-		dna.ready_dna(src)
-		
 /mob/living/carbon/human/dummy
 	real_name = "Test Dummy"
 	status_flags = GODMODE|CANPUSH
@@ -83,6 +49,8 @@
 
 /mob/living/carbon/human/grey/New(var/new_loc)
 	..(new_loc, "Grey")
+	spell_list += new /obj/effect/proc_holder/spell/wizard/targeted/remotetalk
+
 
 /mob/living/carbon/human/human/New(var/new_loc)
 	..(new_loc, "Human")
@@ -94,6 +62,50 @@
 /mob/living/carbon/human/machine/New(var/new_loc)
 	h_style = "blue IPC screen"
 	..(new_loc, "Machine")
+
+/mob/living/carbon/human/New(var/new_loc, var/new_species = null, var/delay_ready_dna=0)
+	if(!species)
+		if(new_species)
+			set_species(new_species,null,1)
+		else
+			set_species()
+
+	if(species.language)
+		var/datum/language/L = all_languages[species.language]
+		if(L)
+			languages += L
+
+	var/datum/reagents/R = new/datum/reagents(1000)
+	reagents = R
+	R.my_atom = src
+
+	if(!dna)
+		dna = new /datum/dna(null)
+		dna.species=species.name
+
+	hud_list[HEALTH_HUD]      = image('icons/mob/hud.dmi', src, "hudhealth100")
+	hud_list[STATUS_HUD]      = image('icons/mob/hud.dmi', src, "hudhealthy")
+	hud_list[ID_HUD]          = image('icons/mob/hud.dmi', src, "hudunknown")
+	hud_list[WANTED_HUD]      = image('icons/mob/hud.dmi', src, "hudblank")
+	hud_list[IMPLOYAL_HUD]    = image('icons/mob/hud.dmi', src, "hudblank")
+	hud_list[IMPCHEM_HUD]     = image('icons/mob/hud.dmi', src, "hudblank")
+	hud_list[IMPTRACK_HUD]    = image('icons/mob/hud.dmi', src, "hudblank")
+	hud_list[SPECIALROLE_HUD] = image('icons/mob/hud.dmi', src, "hudblank")
+	hud_list[STATUS_HUD_OOC]  = image('icons/mob/hud.dmi', src, "hudhealthy")
+	hud_list[NATIONS_HUD] = image('icons/mob/hud.dmi', src, "hudblank")
+
+	..()
+
+	if(dna)
+		dna.real_name = real_name
+
+	prev_gender = gender // Debug for plural genders
+	make_blood()
+
+	// Set up DNA.
+	if(!delay_ready_dna)
+		dna.ready_dna(src)
+
 
 /mob/living/carbon/human/Bump(atom/movable/AM as mob|obj, yes)
 	if ((!( yes ) || now_pushing))
@@ -1299,8 +1311,7 @@
 		usr << "\blue [self ? "Your" : "[src]'s"] pulse is [src.get_pulse(GETPULSE_HAND)]."
 
 /mob/living/carbon/human/proc/set_species(var/new_species, var/force_organs, var/default_colour)
-	
-	var/datum/species/oldspecies = species
+
 	if(!dna)
 		if(!new_species)
 			new_species = "Human"
@@ -1310,40 +1321,28 @@
 		else
 			dna.species = new_species
 
-	if(species)
-		if(species.name && species.name == new_species)
-			return
+	if(species && (species.name && species.name == new_species))
+		return
 
-		if(species.language)
-			remove_language(species.language)
-			
-		if(species.default_language)
-			remove_language(species.default_language)	
-			
+	if(species && species.language)
+		remove_language(species.language)
+
 	species = all_species[new_species]
-	
-	if(oldspecies)
-		if(oldspecies.default_genes.len)
-			oldspecies.handle_dna(src,1) // Remove any genes that belong to the old species
 
 	if(force_organs || !organs || !organs.len)
 		species.create_organs(src)
-		
-	if(vessel)
-		vessel = null
-	make_blood()
 
 	if(species.language)
 		add_language(species.language)
-		
-	if(species.default_language)
-		add_language(species.default_language)
 
 	see_in_dark = species.darksight
 	if(see_in_dark > 2)
 		see_invisible = SEE_INVISIBLE_LEVEL_ONE
 	else
 		see_invisible = SEE_INVISIBLE_LIVING
+
+	if(species.default_mutations.len>0 || species.default_blocks.len>0)
+		do_deferred_species_setup=1
 
 	spawn(0)
 		update_icons()
@@ -1357,18 +1356,21 @@
 		r_skin = 0
 		g_skin = 0
 		b_skin = 0
-		
-	if(!dna)
-		dna = new /datum/dna(null)
-		dna.species = species.name
-		dna.real_name = real_name
-	dna.mutantrace = null
 
 	species.handle_post_spawn(src)
 
 	spawn(0)
-		overlays.Cut()
-		update_mutantrace(1)
+		update_icons()
+		if(species && species.flags & NO_BLOOD) //We want the var for safety but we can do without the actual blood.
+			if(vessel.has_reagent("water") || vessel.has_reagent("blood"))
+				var/water = vessel.get_reagent_amount("water")
+				var/blood = vessel.get_reagent_amount("blood")
+				vessel.remove_reagent("water",water)
+				vessel.remove_reagent("blood",blood)
+		if(species.bloodflags & BLOOD_SLIME)
+			vessel.add_reagent("water",560-vessel.total_volume)
+		else
+			vessel.add_reagent("blood",560-vessel.total_volume)
 		fixblood()
 
 	if(species)

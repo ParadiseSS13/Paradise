@@ -25,6 +25,7 @@
 	var/arrest_type = 0 //If true, don't handcuff
 	var/harmbaton = 0
 	var/base_icon = "secbot"
+	radio_frequency = SEC_FREQ //Security channel
 	radio_name = "Security"
 	bot_type = SEC_BOT
 	bot_type_name = "Secbot"
@@ -49,6 +50,7 @@
 /obj/machinery/bot/secbot/pingsky
 	name = "Officer Pingsky"
 	desc = "It's Officer Pingsky! Delegated to satellite guard duty for harbouring anti-human sentiment."
+	radio_frequency = AIPRIV_FREQ
 	radio_name = "AI Private"
 	
 /obj/machinery/bot/secbot/ofitser
@@ -254,7 +256,7 @@ Auto Patrol: []"},
 
 					if(declare_arrests)
 						var/area/location = get_area(src)
-						speak("[arrest_type ? "Detaining" : "Arresting"] level [threatlevel] scumbag <b>[target]</b> in [location].", radio_name)
+						speak("[arrest_type ? "Detaining" : "Arresting"] level [threatlevel] scumbag <b>[target]</b> in [location].",radio_frequency, radio_name)
 					target.visible_message("<span class='danger'>[target] has been [harmbaton ? "beaten" : "stunned"] by [src]!</span>",\
 											"<span class='userdanger'>[target] has been [harmbaton ? "beaten" : "stunned"] by [src]!</span>")
 
