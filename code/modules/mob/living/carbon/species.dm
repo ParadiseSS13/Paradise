@@ -326,10 +326,6 @@
 	flesh_color = "#AFA59E"
 	base_color = "#333333"
 
-/datum/species/tajaran/handle_death(var/mob/living/carbon/human/H)
-
-	H.stop_tail_wagging(1)
-
 /datum/species/skrell
 	name = "Skrell"
 	icobase = 'icons/mob/human_races/r_skrell.dmi'
