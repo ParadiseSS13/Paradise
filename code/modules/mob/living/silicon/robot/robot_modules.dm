@@ -59,6 +59,7 @@
 			
 /obj/item/weapon/robot_module/proc/add_languages(var/mob/living/silicon/robot/R)
 	//full set of languages
+	R.add_language("Galactic Common", 1)
 	R.add_language("Sol Common", 1)
 	R.add_language("Tradeband", 1)
 	R.add_language("Sinta'unathi", 0)
@@ -266,6 +267,7 @@
 		
 /obj/item/weapon/robot_module/butler/add_languages(var/mob/living/silicon/robot/R)
 	//full set of languages
+	R.add_language("Galactic Common", 1)
 	R.add_language("Sol Common", 1)
 	R.add_language("Tradeband", 1)
 	R.add_language("Sinta'unathi", 1)
@@ -371,7 +373,7 @@
 		src.emag.reagents.add_reagent("pacid", 125)
 		src.emag.reagents.add_reagent("sacid", 125)
 		
-/obj/item/weapon/robot_module/butler/add_languages(var/mob/living/silicon/robot/R)
+/obj/item/weapon/robot_module/alien/hunter/add_languages(var/mob/living/silicon/robot/R)
 	..()
 	R.add_language("xenocommon", 1)
 

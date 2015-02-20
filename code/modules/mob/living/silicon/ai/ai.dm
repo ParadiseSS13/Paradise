@@ -114,6 +114,7 @@ var/list/ai_list = list()
 
 	//Languages
 	add_language("Robot Talk", 1)
+	add_language("Galactic Common", 1)
 	add_language("Sol Common", 1)
 	add_language("Tradeband", 1)
 	add_language("Sinta'unathi", 0)
