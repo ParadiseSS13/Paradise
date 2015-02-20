@@ -82,6 +82,23 @@
 				if (!species.name == "Machine")
 					return
 
+		if("wag")
+			if(species.bodyflags & TAIL_WAGGING)
+				if(!wear_suit || !(wear_suit.flags_inv & HIDETAIL) && !istype(wear_suit, /obj/item/clothing/suit/space))
+					message = "<B>[src]</B> starts wagging \his tail."
+					src.start_tail_wagging(1)
+				else
+					return
+			else
+				return
+
+		if("swag")
+			if(species.bodyflags & TAIL_WAGGING)
+				message = "<B>[src]</B> stops wagging \his tail."
+				src.stop_tail_wagging(1)
+			else
+				return
+
 		if ("airguitar")
 			if (!src.restrained())
 				message = "<B>[src]</B> is strumming the air and headbanging like a safari chimp."

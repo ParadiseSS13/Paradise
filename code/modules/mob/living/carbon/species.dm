@@ -321,7 +321,7 @@
 	primitive = /mob/living/carbon/monkey/tajara
 
 	flags = HAS_LIPS | HAS_UNDERWEAR | CAN_BE_FAT
-	bodyflags = FEET_PADDED | HAS_TAIL | HAS_SKIN_COLOR
+	bodyflags = FEET_PADDED | HAS_TAIL | HAS_SKIN_COLOR | TAIL_WAGGING
 
 	flesh_color = "#AFA59E"
 	base_color = "#333333"

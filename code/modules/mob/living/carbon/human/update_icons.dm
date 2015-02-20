@@ -999,6 +999,30 @@ proc/get_damage_icon_part(damage_state, body_part)
 		update_icons()
 
 
+/mob/living/carbon/human/proc/start_tail_wagging(var/update_icons=1)
+	overlays_standing[TAIL_LAYER] = null
+
+	if(species.tail && species.bodyflags & HAS_TAIL)
+		var/icon/tailw_s = new/icon("icon" = 'icons/effects/species.dmi', "icon_state" = "[species.tail]w_s")
+		tailw_s.Blend(rgb(r_skin, g_skin, b_skin), ICON_ADD)
+
+		overlays_standing[TAIL_LAYER]	= image(tailw_s)
+
+	if(update_icons)
+		update_icons()
+
+/mob/living/carbon/human/proc/stop_tail_wagging(var/update_icons=1)
+	overlays_standing[TAIL_LAYER] = null
+
+	if(species.tail && species.bodyflags & HAS_TAIL)
+		var/icon/tail_s = new/icon("icon" = 'icons/effects/species.dmi', "icon_state" = "[species.tail]_s")
+		tail_s.Blend(rgb(r_skin, g_skin, b_skin), ICON_ADD)
+
+		overlays_standing[TAIL_LAYER]	= image(tail_s)
+
+	if(update_icons)
+		update_icons()
+
 //Adds a collar overlay above the helmet layer if the suit has one
 //	Suit needs an identically named sprite in icons/mob/collar.dmi
 /mob/living/carbon/human/proc/update_collar(var/update_icons=1)
