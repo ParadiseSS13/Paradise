@@ -61,15 +61,13 @@
 		pod_overlays = new/list(2)
 		pod_overlays[DAMAGE] = image(icon, icon_state="pod_damage")
 		pod_overlays[FIRE] = image(icon, icon_state="pod_fire")
-
+	
+	overlays.Cut()
+	
 	if(health <= round(initial(health)/2))
 		overlays += pod_overlays[DAMAGE]
 		if(health <= round(initial(health)/4))
 			overlays += pod_overlays[FIRE]
-		else
-			overlays -= pod_overlays[FIRE]
-	else
-		overlays -= pod_overlays[DAMAGE]
 
 /obj/spacepod/bullet_act(var/obj/item/projectile/P)
 	if(P.damage && !P.nodamage)
@@ -133,6 +131,12 @@
 
 	update_icons()
 
+/obj/spacepod/proc/repair_damage(var/repair_amount)
+	if(health)
+		health = min(initial(health), health + repair_amount)
+		update_icons()
+
+
 /obj/spacepod/ex_act(severity)
 	switch(severity)
 		if(1)
@@ -157,10 +161,12 @@
 /obj/spacepod/attackby(obj/item/W as obj, mob/user as mob)
 	if(iscrowbar(W))
 		hatch_open = !hatch_open
+		playsound(loc, 'sound/items/Crowbar.ogg', 50, 1)
 		user << "<span class='notice'>You [hatch_open ? "open" : "close"] the maintenance hatch.</span>"
 	if(istype(W, /obj/item/weapon/stock_parts/cell))
 		if(!hatch_open)
-			return ..()
+			user << "\red The maintenance hatch is closed!"
+			return
 		if(battery)
 			user << "<span class='notice'>The pod already has a battery.</span>"
 			return
@@ -170,7 +176,8 @@
 		return
 	if(istype(W, /obj/item/device/spacepod_equipment))
 		if(!hatch_open)
-			return ..()
+			user << "\red The maintenance hatch is closed!"
+			return
 		if(!equipment_system)
 			user << "<span class='warning'>The pod has no equipment datum, yell at pomf</span>"
 			return
@@ -185,6 +192,23 @@
 				equipment_system.weapon_system = W
 				equipment_system.weapon_system.my_atom = src
 				return
+	if(istype(W, /obj/item/weapon/weldingtool))
+		if(!hatch_open)
+			user << "\red You must open the maintenance hatch before attempting repairs."
+			return
+		var/obj/item/weapon/weldingtool/WT = W
+		if(!WT.isOn())
+			user << "\red The welder must be on for this task."
+			return
+		if (health < initial(health))
+			user << "\blue You start welding the spacepod..."
+			playsound(loc, 'sound/items/Welder.ogg', 50, 1)
+			if(do_after(user, 20))
+				if(!src || !WT.remove_fuel(3, user)) return
+				repair_damage(10)
+				user << "\blue You mend some [pick("dents","bumps","damage")] with \the [WT]"
+		else
+			user << "\blue <b>\The [src] is fully repaired!</b>"
 
 /obj/spacepod/attack_paw(mob/user as mob)
 	return src.attack_hand(user)				
@@ -408,6 +432,7 @@
 
 
 /obj/spacepod/MouseDrop_T(mob/M as mob, mob/user as mob)
+	if(!isliving(M)) return
 	if(M != user)
 		if(M.stat != 0)
 			if(allow2enter)
