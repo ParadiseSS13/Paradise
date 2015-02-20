@@ -246,9 +246,6 @@ proc/issyndicate(mob/living/M as mob)
 	U.hidden_uplink.uses = 20
 	synd_mob.equip_to_slot_or_del(U, slot_in_backpack)
 
-	var/obj/item/clothing/suit/space/rig/syndi/new_suit = new(synd_mob)
-	var/obj/item/clothing/head/helmet/space/rig/syndi/new_helmet = new(synd_mob)
-
 	if(synd_mob.species)
 
 		/*
@@ -261,28 +258,12 @@ proc/issyndicate(mob/living/M as mob)
 		var/race = synd_mob.species.name
 
 		switch(race)
-			if("Unathi")
-				new_suit.species_restricted = list("Unathi")
-				new_helmet.species_restricted = list("Unathi")
-			if("Tajaran")
-				new_suit.species_restricted = list("Tajaran")
-				new_helmet.species_restricted = list("Tajaran")
-			if("Skrell")
-				new_suit.species_restricted = list("Skrell")
-				new_helmet.species_restricted = list("Skrell")
 			if("Vox" || "Vox Armalis")
-				synd_mob.equip_to_slot_or_del(new /obj/item/clothing/mask/breath(synd_mob), slot_wear_mask)
+				synd_mob.equip_to_slot_or_del(new /obj/item/clothing/mask/gas/syndicate(synd_mob), slot_wear_mask)
 				synd_mob.equip_to_slot_or_del(new /obj/item/weapon/tank/nitrogen(synd_mob), slot_l_hand)
 				synd_mob.internal = synd_mob.l_hand
 				if (synd_mob.internals)
 					synd_mob.internals.icon_state = "internal1"
-				new_suit.species_restricted = list ("Vox", "Vox Armalis")
-				new_helmet.species_restricted = list ("Vox", "Vox Armalis")
-
-
-	synd_mob.equip_to_slot_or_del(new_suit, slot_wear_suit)
-	synd_mob.equip_to_slot_or_del(new_helmet, slot_head)
-
 
 	var/obj/item/weapon/implant/dexplosive/E = new/obj/item/weapon/implant/dexplosive(synd_mob)
 	E.imp_in = synd_mob

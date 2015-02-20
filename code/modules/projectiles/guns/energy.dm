@@ -11,9 +11,8 @@
 	var/modifystate
 
 	emp_act(severity)
-		power_supply.use(round(power_supply.maxcharge / severity))
+		power_supply.use(round(power_supply.charge / severity))
 		update_icon()
-		..()
 
 
 	New()
