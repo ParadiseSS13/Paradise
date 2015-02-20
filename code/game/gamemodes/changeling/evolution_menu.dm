@@ -381,9 +381,8 @@ var/list/sting_paths
 //Used to dump the languages from the changeling datum into the actual mob.
 /mob/proc/changeling_update_languages(var/updated_languages)
 
-	languages = list()
-	for(var/language in updated_languages)
-		languages += language
+	for(var/datum/language/L in updated_languages)
+		add_language("L.name")
 
 	//This isn't strictly necessary but just to be safe...
 	add_language("Changeling")
