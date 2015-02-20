@@ -1243,8 +1243,7 @@
 	icon_state = "chinese2"
 	New()
 		..()
-		reagents.add_reagent("nutriment", 5)
-		reagents.add_reagent("carpotoxin", 1)
+		reagents.add_reagent("nutriment", 6)
 		bitesize = 2
 
 /obj/item/weapon/reagent_containers/food/snacks/chinese/newdles

@@ -59,11 +59,11 @@
 			user << "\red This syringe is broken!"
 			return
 
-		if (user.a_intent == "harm" && ismob(target))
+/*		if (user.a_intent == "harm" && ismob(target))
 			if((M_CLUMSY in user.mutations) && prob(50))
 				target = user
 			syringestab(target, user)
-			return
+			return */
 
 
 		switch(mode)

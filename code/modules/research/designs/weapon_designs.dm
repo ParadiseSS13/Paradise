@@ -119,7 +119,6 @@
 	build_type = PROTOLATHE
 	materials = list("$metal" = 5000, "$glass" = 1000)
 	build_path = /obj/item/weapon/gun/syringe/rapidsyringe
-	locked = 1
 	category = list("Weapons")
 
 /datum/design/stunshell

@@ -1,6 +1,3 @@
-
-
-
 /obj/item/weapon/gun/syringe
 	name = "syringe gun"
 	desc = "A spring loaded rifle designed to fit syringes, designed to incapacitate unruly patients from a distance."
@@ -8,12 +5,12 @@
 	icon_state = "syringegun"
 	item_state = "syringegun"
 	w_class = 3.0
-	throw_speed = 2
-	throw_range = 10
+	throw_speed = 3
+	throw_range = 7
 	force = 4.0
+	m_amt = 2000
 	var/list/syringes = new/list()
 	var/max_syringes = 1
-	m_amt = 2000
 
 /obj/item/weapon/gun/syringe/examine()
 	set src in view()
@@ -117,9 +114,9 @@
 
 /obj/item/weapon/gun/syringe/rapidsyringe
 	name = "rapid syringe gun"
-	desc = "A modification of the syringe gun design, using a rotating cylinder to store up to four syringes."
+	desc = "A modification of the syringe gun design, using a rotating cylinder to store up to six syringes."
 	icon_state = "rapidsyringegun"
-	max_syringes = 4
+	max_syringes = 6
 
 
 /obj/effect/syringe_gun_dummy
