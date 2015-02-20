@@ -395,6 +395,11 @@
 					del(src)
 
 	var/message=null
+	if(target.frozen)
+		source << "\red Do not attempt to strip frozen people."
+		return
+
+
 	switch(place)
 		if("syringe")
 			message = "\red <B>[source] is trying to inject [target]!</B>"
@@ -598,6 +603,10 @@ It can still be worn/put on as normal.
 	if (LinkBlockedUnclimbable(t_loc, s_loc)) return
 	if(item && source.get_active_hand() != item) return	//Swapped hands / removed item from the active one
 	if ((source.restrained() || source.stat)) return //Source restrained or unconscious / dead
+	if(target.frozen)
+		source << "\red Do not attempt to strip frozen people."
+		return
+
 
 	var/slot_to_process
 	var/strip_item //this will tell us which item we will be stripping - if any.

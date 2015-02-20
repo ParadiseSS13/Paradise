@@ -3,6 +3,10 @@
 		M << "No attacking people at spawn, you jackass."
 		return
 
+	if(frozen)
+		M << "\red Do not touch Admin-Frozen people."
+		return
+
 	var/datum/organ/external/temp = M:organs_by_name["r_hand"]
 	if (M.hand)
 		temp = M:organs_by_name["l_hand"]
