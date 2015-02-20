@@ -42,7 +42,7 @@
 	C.dna = null
 
 	for(var/obj/item/W in C)
-		C.drop_from_inventory(W)
+		C.unEquip(W)
 	for(var/obj/T in C)
 		del(T)
 

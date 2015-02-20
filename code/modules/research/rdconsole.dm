@@ -130,8 +130,8 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	files.known_tech=files.possible_tech
 	for(var/datum/tech/KT in files.known_tech)
 		if(KT.level < KT.max_level)
-			KT.level=KT.max_level		
-		
+			KT.level=KT.max_level
+
 /obj/machinery/computer/rdconsole/New()
 	..()
 	files = new /datum/research(src) //Setup the research data holder.
@@ -250,11 +250,12 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 				linked_destroy.loaded_item = null
 				linked_destroy.icon_state = "d_analyzer"
 				screen = 2.1
-				
+
 	else if(href_list["maxresearch"]) //Eject the item inside the destructive analyzer.
 		if(!usr.client.holder) return
+		if(usr.client.holder & R_MENTOR) return
 		screen = 0.0
-		if(alert("Are you sure you want to maximize research levels?","Confirmation","Yes","No")=="No") 
+		if(alert("Are you sure you want to maximize research levels?","Confirmation","Yes","No")=="No")
 			return
 		log_admin("[key_name(usr)] has maximized the research levels.")
 		message_admins("[key_name_admin(usr)] has maximized the research levels.")
@@ -262,7 +263,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 			Maximize()
 			screen = 1.0
 			updateUsrDialog()
-			griefProtection() //Update centcomm too			
+			griefProtection() //Update centcomm too
 
 	else if(href_list["deconstruct"]) //Deconstruct the item in the destructive analyzer and update the research holder.
 		if(linked_destroy)
@@ -593,7 +594,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 			spawn(20)
 				screen = 1.6
 				updateUsrDialog()
-				
+
 	else if(href_list["search"]) //Search for designs with name matching pattern
 		var/compare
 
@@ -611,7 +612,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 				continue
 			if(findtext(D.name,href_list["to_search"]))
 				matching_designs.Add(D)
-				
+
 	updateUsrDialog()
 	return
 
@@ -873,7 +874,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 					dat += " | <span class='bad'>LOCKED</span>"
 				dat += "<BR>"
 			dat += "</div>"
-			
+
 		if(3.17) //Display search result
 			dat += "<A href='?src=\ref[src];menu=1.0'>Main Menu</A>"
 			dat += "<A href='?src=\ref[src];menu=3.1'>Protolathe Menu</A>"
@@ -981,7 +982,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 			dat += "<h3>Circuit Imprinter Menu:</h3><BR>"
 			dat += "Material Amount: [linked_imprinter.TotalMaterials()]<BR>"
 			dat += "Chemical Volume: [linked_imprinter.reagents.total_volume]<HR>"
-			
+
 			dat += "<form name='search' action='?src=\ref[src]'> \
 			<input type='hidden' name='src' value='\ref[src]'> \
 			<input type='hidden' name='search' value='to_search'> \
@@ -1019,7 +1020,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 				if(D.locked)
 					dat += " | <span class='bad'>LOCKED</span>"
 			dat += "</div>"
-			
+
 		if(4.17)
 			dat += "<A href='?src=\ref[src];menu=1.0'>Main Menu</A>"
 			dat += "<A href='?src=\ref[src];menu=4.1'>Circuit Imprinter Menu</A>"

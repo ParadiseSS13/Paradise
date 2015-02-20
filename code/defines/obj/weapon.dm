@@ -3,7 +3,7 @@
 	desc = "Should anything ever go wrong..."
 	icon = 'icons/obj/items.dmi'
 	icon_state = "red_phone"
-	flags = FPRINT | TABLEPASS | CONDUCT
+	flags = CONDUCT
 	force = 3.0
 	throwforce = 2.0
 	throw_speed = 1
@@ -22,7 +22,6 @@
 	anchored = 0.0
 	var/matter = 0
 	var/mode = 1
-	flags = TABLEPASS
 	w_class = 3.0
 
 /obj/item/weapon/bananapeel
@@ -108,7 +107,7 @@
 	icon = 'icons/obj/weapons.dmi'
 	icon_state = "cane"
 	item_state = "stick"
-	flags = FPRINT | TABLEPASS| CONDUCT
+	flags = CONDUCT
 	force = 5.0
 	throwforce = 7.0
 	w_class = 2.0
@@ -153,6 +152,65 @@
 	var/obj/item/gift = null
 	item_state = "gift"
 	w_class = 4.0
+
+/obj/item/weapon/legcuffs
+	name = "legcuffs"
+	desc = "Use this to keep prisoners in line."
+	gender = PLURAL
+	icon = 'icons/obj/items.dmi'
+	icon_state = "handcuff"
+	flags = CONDUCT
+	throwforce = 0
+	w_class = 3.0
+	origin_tech = "materials=1"
+	var/breakouttime = 300	//Deciseconds = 30s = 0.5 minute
+
+/obj/item/weapon/legcuffs/beartrap
+	name = "bear trap"
+	throw_speed = 1
+	throw_range = 1
+	icon_state = "beartrap0"
+	desc = "A trap used to catch bears and other legged creatures."
+	var/armed = 0
+
+	suicide_act(mob/user)
+		viewers(user) << "<span class='suicide'>[user] is putting the [src.name] on \his head! It looks like \he's trying to commit suicide.</span>"
+		return (BRUTELOSS)
+
+/obj/item/weapon/legcuffs/beartrap/attack_self(mob/user as mob)
+	..()
+	if(ishuman(user) && !user.stat && !user.restrained())
+		armed = !armed
+		icon_state = "beartrap[armed]"
+		user << "<span class='notice'>[src] is now [armed ? "armed" : "disarmed"]</span>"
+
+
+/obj/item/weapon/legcuffs/beartrap/Crossed(AM as mob|obj)
+	if(armed && isturf(src.loc))
+		if( (iscarbon(AM) || isanimal(AM)) && !istype(AM, /mob/living/simple_animal/parrot) && !istype(AM, /mob/living/simple_animal/construct) && !istype(AM, /mob/living/simple_animal/shade) && !istype(AM, /mob/living/simple_animal/hostile/viscerator))
+			var/mob/living/L = AM
+			armed = 0
+			icon_state = "beartrap0"
+			playsound(src.loc, 'sound/effects/snap.ogg', 50, 1)
+			L.visible_message("<span class='danger'>[L] triggers \the [src].</span>", \
+					"<span class='userdanger'>You trigger \the [src]!</span>")
+
+			if(ishuman(AM))
+				var/mob/living/carbon/H = AM
+				if(H.lying)
+					H.apply_damage(20,BRUTE,"chest")
+				else
+					H.apply_damage(20,BRUTE,(pick("l_leg", "r_leg")))
+				if(!H.legcuffed) //beartrap can't cuff you leg if there's already a beartrap or legcuffs.
+					H.legcuffed = src
+					src.loc = H
+					H.update_inv_legcuffed(0)
+					feedback_add_details("handcuffs","B") //Yes, I know they're legcuffs. Don't change this, no need for an extra variable. The "B" is used to tell them apart.
+
+			else
+				L.apply_damage(20,BRUTE)
+	..()
+
 
 /obj/item/weapon/holosign_creator
 	name = "holographic sign projector"
@@ -213,7 +271,6 @@
 	throw_speed = 1
 	throw_range = 5
 	w_class = 2.0
-	flags = FPRINT | TABLEPASS
 	attack_verb = list("warned", "cautioned", "smashed")
 
 	proximity_sign
@@ -276,7 +333,7 @@
 	desc = "Parts of a rack."
 	icon = 'icons/obj/items.dmi'
 	icon_state = "rack_parts"
-	flags = FPRINT | TABLEPASS| CONDUCT
+	flags = CONDUCT
 	m_amt = 3750
 
 /*/obj/item/weapon/syndicate_uplink
@@ -290,7 +347,7 @@
 	var/traitor_frequency = 0.0
 	var/mob/currentUser = null
 	var/obj/item/device/radio/origradio = null
-	flags = FPRINT | TABLEPASS | CONDUCT | ONBELT
+	flags = CONDUCT | ONBELT
 	w_class = 2.0
 	item_state = "radio"
 	throw_speed = 4
@@ -308,7 +365,7 @@
 	var/selfdestruct = 0.0
 	var/traitor_frequency = 0.0
 	var/obj/item/device/radio/origradio = null
-	flags = FPRINT | TABLEPASS| CONDUCT
+	flags = CONDUCT
 	slot_flags = SLOT_BELT
 	item_state = "radio"
 	throwforce = 5
@@ -328,7 +385,7 @@
 	throw_speed = 1
 	throw_range = 5
 	w_class = 2.0
-	flags = FPRINT | TABLEPASS | NOSHIELD
+	flags = NOSHIELD
 	attack_verb = list("bludgeoned", "whacked", "disciplined")
 
 /obj/item/weapon/staff/broom
@@ -348,7 +405,7 @@
 	throw_speed = 1
 	throw_range = 5
 	w_class = 2.0
-	flags = FPRINT | TABLEPASS | NOSHIELD
+	flags = NOSHIELD
 
 /obj/item/weapon/table_parts
 	name = "table parts"
@@ -357,7 +414,7 @@
 	icon = 'icons/obj/items.dmi'
 	icon_state = "table_parts"
 	m_amt = 3750
-	flags = FPRINT | TABLEPASS| CONDUCT
+	flags = CONDUCT
 	attack_verb = list("slammed", "bashed", "battered", "bludgeoned", "thrashed", "whacked")
 
 /obj/item/weapon/table_parts/reinforced
@@ -366,7 +423,7 @@
 	icon = 'icons/obj/items.dmi'
 	icon_state = "reinf_tableparts"
 	m_amt = 7500
-	flags = FPRINT | TABLEPASS| CONDUCT
+	flags = CONDUCT
 
 /obj/item/weapon/table_parts/wood
 	name = "wooden table parts"
@@ -394,7 +451,7 @@
 	icon_state = "std_module"
 	w_class = 2.0
 	item_state = "electronic"
-	flags = FPRINT|TABLEPASS|CONDUCT
+	flags = CONDUCT
 	var/mtype = 1						// 1=electronic 2=hardware
 
 /obj/item/weapon/module/card_reader
@@ -463,7 +520,7 @@
 	desc = "A very sharp axe blade upon a short fibremetal handle. It has a long history of chopping things, but now it is used for chopping wood."
 	icon = 'icons/obj/weapons.dmi'
 	icon_state = "hatchet"
-	flags = FPRINT | TABLEPASS | CONDUCT
+	flags = CONDUCT
 	force = 12.0
 	sharp = 1
 	edge = 1
@@ -494,7 +551,7 @@
 	throw_speed = 2
 	throw_range = 3
 	w_class = 4.0
-	flags = FPRINT | TABLEPASS | NOSHIELD
+	flags = NOSHIELD
 	slot_flags = SLOT_BACK
 	origin_tech = "materials=2;combat=2"
 	attack_verb = list("chopped", "sliced", "cut", "reaped")
@@ -518,7 +575,7 @@
 	w_class = 1
 	throwforce = 2
 	var/cigarcount = 6
-	flags = ONBELT | TABLEPASS */
+	flags = ONBELT */
 
 /obj/item/weapon/pai_cable
 	desc = "A flexible coated cable with a universal jack on one end."

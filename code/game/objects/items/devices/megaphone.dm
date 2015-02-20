@@ -4,7 +4,7 @@
 	icon_state = "megaphone"
 	item_state = "radio"
 	w_class = 1.0
-	flags = FPRINT | TABLEPASS | CONDUCT
+	flags = CONDUCT
 
 	var/spamcheck = 0
 	var/emagged = 0

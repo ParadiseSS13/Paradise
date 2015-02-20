@@ -104,7 +104,7 @@ datum/objective/mutiny
 			if(target.current.stat == DEAD || !ishuman(target.current) || !target.current.ckey || !target.current.client)
 				return 1
 			var/turf/T = get_turf(target.current)
-			if(T && (T.z != 1))			//If they leave the station they count as dead for this
+			if(T && !(T.z in config.station_levels))			//If they leave the station they count as dead for this
 				return 2
 			return 0
 		return 1
@@ -139,7 +139,7 @@ datum/objective/mutiny/rp
 				if(target in ticker.mode:head_revolutionaries)
 					return 1
 			var/turf/T = get_turf(target.current)
-			if(T && (T.z != 1))			//If they leave the station they count as dead for this
+			if(T && !(T.z in config.station_levels))			//If they leave the station they count as dead for this
 				rval = 2
 			return 0
 		return rval
@@ -255,7 +255,7 @@ datum/objective/maroon
 		if(target && target.current)
 			if(target.current.stat == DEAD || issilicon(target.current) || isbrain(target.current) || target.current.z > 6 || !target.current.ckey) //Borgs/brains/AIs count as dead for traitor objectives. --NeoFite
 				return 1
-			if(target.current.z == 2)
+			if((target.current.z in config.admin_levels))
 				return 0
 		return 1
 

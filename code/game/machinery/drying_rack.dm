@@ -35,7 +35,7 @@
 	if(is_type_in_list(W,accepted))
 		if(!running)
 			if(istype(W,/obj/item/weapon/reagent_containers/food/snacks/meat))
-				user.u_equip(W)
+				user.unEquip(W)
 				del(W)
 				user << "You add the meat to the drying rack."
 				src.running = 1
@@ -48,7 +48,7 @@
 				src.running = 0
 				return
 			if(istype(W,/obj/item/weapon/reagent_containers/food/snacks/grown/grapes))
-				user.u_equip(W)
+				user.unEquip(W)
 				del(W)
 				user << "You add the grapes to the drying rack."
 				src.running = 1
@@ -61,7 +61,7 @@
 				src.running = 0
 				return
 			if(istype(W,/obj/item/weapon/reagent_containers/food/snacks/grown/greengrapes))
-				user.u_equip(W)
+				user.unEquip(W)
 				del(W)
 				user << "You add the green grapes to the drying rack."
 				src.running = 1
@@ -79,7 +79,7 @@
 					var/obj/item/weapon/reagent_containers/food/snacks/grown/B = W
 					B.reagents.trans_to(src, B.reagents.total_volume)
 					user << "You add the [W] to the drying rack."
-					user.u_equip(W)
+					user.unEquip(W)
 					del(W)
 					src.running = 1
 					use_power = 2

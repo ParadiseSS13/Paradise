@@ -4,7 +4,7 @@
 	desc = "A device that launches things."
 	icon = 'icons/obj/weapons.dmi'
 	w_class = 5.0
-	flags =  FPRINT | TABLEPASS | CONDUCT
+	flags =  CONDUCT
 	slot_flags = SLOT_BACK
 
 	var/release_force = 0

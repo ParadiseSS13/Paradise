@@ -4,7 +4,7 @@
 	icon_state = "std_module"
 	w_class = 100.0
 	item_state = "electronic"
-	flags = FPRINT|TABLEPASS | CONDUCT
+	flags = CONDUCT
 
 	var/list/modules = list()
 	var/obj/item/emag = null
@@ -71,10 +71,12 @@
 		src.emag = new /obj/item/weapon/melee/energy/sword/cyborg(src)
 		return
 
-/obj/item/weapon/robot_module/surgeon
-	name = "surgeon robot module"
+/obj/item/weapon/robot_module/medical
+	name = "medical robot module"
 	stacktypes = list(
 		/obj/item/stack/medical/advanced/bruise_pack = 5,
+		/obj/item/stack/medical/advanced/ointment = 5,
+		/obj/item/stack/medical/splint = 5,
 		/obj/item/stack/nanopaste = 5
 		)
 
@@ -82,7 +84,18 @@
 		src.modules += new /obj/item/device/flashlight(src)
 		src.modules += new /obj/item/device/flash/cyborg(src)
 		src.modules += new /obj/item/device/healthanalyzer(src)
-		src.modules += new /obj/item/weapon/reagent_containers/borghypo/surgeon(src)
+		src.modules += new /obj/item/device/reagent_scanner/adv(src)
+		src.modules += new /obj/item/weapon/borg_defib(src)
+		src.modules += new /obj/item/roller_holder(src)
+		src.modules += new /obj/item/weapon/reagent_containers/borghypo(src)
+		src.modules += new /obj/item/weapon/reagent_containers/glass/beaker/large(src)
+		src.modules += new /obj/item/weapon/reagent_containers/dropper(src)
+		src.modules += new /obj/item/weapon/reagent_containers/syringe(src)
+		src.modules += new /obj/item/weapon/extinguisher/mini(src)	
+		src.modules += new /obj/item/stack/medical/advanced/bruise_pack(src)
+		src.modules += new /obj/item/stack/medical/advanced/ointment(src)
+		src.modules += new /obj/item/stack/medical/splint(src)
+		src.modules += new /obj/item/stack/nanopaste(src)
 		src.modules += new /obj/item/weapon/scalpel(src)
 		src.modules += new /obj/item/weapon/hemostat(src)
 		src.modules += new /obj/item/weapon/retractor(src)
@@ -92,9 +105,6 @@
 		src.modules += new /obj/item/weapon/bonesetter(src)
 		src.modules += new /obj/item/weapon/circular_saw(src)
 		src.modules += new /obj/item/weapon/surgicaldrill(src)
-		src.modules += new /obj/item/weapon/extinguisher/mini(src)
-		src.modules += new /obj/item/stack/medical/advanced/bruise_pack(src)
-		src.modules += new /obj/item/stack/nanopaste(src)
 
 		src.emag = new /obj/item/weapon/reagent_containers/spray(src)
 
@@ -102,57 +112,10 @@
 		src.emag.name = "Polyacid spray"
 		return
 
-/obj/item/weapon/robot_module/surgeon/respawn_consumable(var/mob/living/silicon/robot/R)
+/obj/item/weapon/robot_module/medical/respawn_consumable(var/mob/living/silicon/robot/R)
 	if(src.emag)
 		var/obj/item/weapon/reagent_containers/spray/PS = src.emag
 		PS.reagents.add_reagent("pacid", 2)
-	..()
-
-/obj/item/weapon/robot_module/crisis
-	name = "crisis robot module"
-	stacktypes = list(
-		/obj/item/stack/medical/advanced/ointment = 5,
-		/obj/item/stack/medical/advanced/bruise_pack = 5,
-		/obj/item/stack/medical/splint = 5
-		)
-
-
-	New()
-		src.modules += new /obj/item/device/flashlight(src)
-		src.modules += new /obj/item/device/flash/cyborg(src)
-		src.modules += new /obj/item/device/healthanalyzer(src)
-		src.modules += new /obj/item/device/reagent_scanner/adv(src)
-		src.modules += new /obj/item/roller_holder(src)
-		src.modules += new /obj/item/stack/medical/advanced/ointment(src)
-		src.modules += new /obj/item/stack/medical/advanced/bruise_pack(src)
-		src.modules += new /obj/item/stack/medical/splint(src)
-		src.modules += new /obj/item/weapon/reagent_containers/borghypo/crisis(src)
-		src.modules += new /obj/item/weapon/reagent_containers/glass/beaker/large(src)
-		src.modules += new /obj/item/weapon/reagent_containers/robodropper(src)
-		src.modules += new /obj/item/weapon/reagent_containers/syringe(src)
-		src.modules += new /obj/item/weapon/extinguisher/mini(src)
-
-		src.emag = new /obj/item/weapon/reagent_containers/spray(src)
-
-		src.emag.reagents.add_reagent("pacid", 250)
-		src.emag.name = "Polyacid spray"
-		var/obj/item/weapon/reagent_containers/spray/S = emag
-		S.banned_reagents = list()
-		return
-
-/obj/item/weapon/robot_module/crisis/respawn_consumable(var/mob/living/silicon/robot/R)
-
-	var/obj/item/weapon/reagent_containers/syringe/S = locate() in src.modules
-	if(S.mode == 2)
-		S.reagents.clear_reagents()
-		S.mode = initial(S.mode)
-		S.desc = initial(S.desc)
-		S.update_icon()
-
-	if(src.emag)
-		var/obj/item/weapon/reagent_containers/spray/PS = src.emag
-		PS.reagents.add_reagent("pacid", 2)
-
 	..()
 
 /obj/item/weapon/robot_module/engineering

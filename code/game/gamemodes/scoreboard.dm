@@ -26,13 +26,13 @@
 
 	// Who is alive/dead, who escaped
 	for (var/mob/living/silicon/ai/I in mob_list)
-		if (I.stat == 2 && I.z == 1)
+		if (I.stat == 2 && (I.z in config.station_levels))
 			score_deadaipenalty = 1
 			score_deadcrew += 1
 	for (var/mob/living/carbon/human/I in mob_list)
 //		for (var/datum/ailment/disease/V in I.ailments)
 //			if (!V.vaccine && !V.spread != "Remissive") score_disease++
-		if (I.stat == 2 && I.z == 1) score_deadcrew += 1
+		if (I.stat == 2 && (I.z in config.station_levels)) score_deadcrew += 1
 		if (I.job == "Clown")
 			for(var/thing in I.attack_log)
 				if(findtext(thing, "<font color='orange'>")) score_clownabuse++
@@ -102,7 +102,7 @@
 			if (location in bad_zone1) score_disc = 0
 			if (location in bad_zone2) score_disc = 0
 			if (location in bad_zone3) score_disc = 0
-			if (A.loc.z != 1) score_disc = 0
+			if (!(A.loc.z in config.station_levels)) score_disc = 0
 */
 		if (score_nuked)
 			for (var/obj/machinery/nuclearbomb/NUKE in machines)
@@ -132,13 +132,13 @@
 
 	// Check station's power levels
 	for (var/obj/machinery/power/apc/A in machines)
-		if (A.z != 1) continue
+		if (!(A.z in config.station_levels)) continue
 		for (var/obj/item/weapon/stock_parts/cell/C in A.contents)
 			if (C.charge < 2300) score_powerloss += 1 // 200 charge leeway
 
 	// Check how much uncleaned mess is on the station
 	for (var/obj/effect/decal/cleanable/M in world)
-		if (M.z != 1) continue
+		if (!(M.z in config.station_levels)) continue
 		if (istype(M, /obj/effect/decal/cleanable/blood/gibs/)) score_mess += 3
 		if (istype(M, /obj/effect/decal/cleanable/blood/)) score_mess += 1
 //		if (istype(M, /obj/effect/decal/cleanable/greenpuke)) score_mess += 1

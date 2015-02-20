@@ -112,7 +112,7 @@
 			//TODO: Species check, skull damage for forcing an unfitting helmet on?
 			helmet.loc = H
 			H.equip_to_slot(helmet, slot_head)
-			helmet.canremove = 0
+			helmet.flags |= NODROP
 
 	if(attached_boots && boots)
 		if(H.shoes)
@@ -121,7 +121,7 @@
 			M << "Your suit's boots deploy with a hiss."
 			boots.loc = H
 			H.equip_to_slot(boots, slot_shoes)
-			boots.canremove = 0
+			boots.flags |= NODROP
 
 /obj/item/clothing/suit/space/rig/dropped()
 	..()
@@ -132,16 +132,16 @@
 		H = helmet.loc
 		if(istype(H))
 			if(helmet && H.head == helmet)
-				helmet.canremove = 1
-				H.drop_from_inventory(helmet)
+				helmet.flags &= ~NODROP
+				H.unEquip(helmet)
 				helmet.loc = src
 
 	if(boots)
 		H = boots.loc
 		if(istype(H))
 			if(boots && H.shoes == boots)
-				boots.canremove = 1
-				H.drop_from_inventory(boots)
+				boots.flags &= ~NODROP
+				H.unEquip(boots)
 				boots.loc = src
 
 /*
@@ -206,8 +206,8 @@
 	if(H.wear_suit != src) return
 
 	if(H.head == helmet)
-		helmet.canremove = 1
-		H.drop_from_inventory(helmet)
+		helmet.flags &= ~NODROP
+		H.unEquip(helmet)
 		helmet.loc = src
 		H << "\blue You retract your hardsuit helmet."
 	else
@@ -218,7 +218,7 @@
 		helmet.loc = H
 		helmet.pickup(H)
 		H.equip_to_slot(helmet, slot_head)
-		helmet.canremove = 0
+		helmet.flags |= NODROP
 		H << "\blue You deploy your hardsuit helmet, sealing you off from the world."
 
 /obj/item/clothing/suit/space/rig/attackby(obj/item/W as obj, mob/user as mob)
@@ -508,5 +508,5 @@
 	name = "singuloth knight's armor"
 	desc = "This is a ceremonial armor from the chapter of the Singuloth Knights. It's made of pure forged adamantium."
 	item_state = "singuloth_hardsuit"
-	flags = FPRINT | TABLEPASS | STOPSPRESSUREDMAGE
+	flags = STOPSPRESSUREDMAGE
 	armor = list(melee = 40, bullet = 5, laser = 20,energy = 5, bomb = 25, bio = 100, rad = 100)

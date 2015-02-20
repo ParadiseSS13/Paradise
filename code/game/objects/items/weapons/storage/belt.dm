@@ -4,7 +4,6 @@
 	icon = 'icons/obj/clothing/belts.dmi'
 	icon_state = "utilitybelt"
 	item_state = "utility"
-	flags = FPRINT | TABLEPASS
 	slot_flags = SLOT_BELT
 	attack_verb = list("whipped", "lashed", "disciplined")
 
@@ -21,10 +20,10 @@
 	if (!M.restrained() && !M.stat && can_use())
 		switch(over_object.name)
 			if("r_hand")
-				M.u_equip(src)
+				M.unEquip(src)
 				M.put_in_r_hand(src)
 			if("l_hand")
-				M.u_equip(src)
+				M.unEquip(src)
 				M.put_in_l_hand(src)
 		src.add_fingerprint(usr)
 		return
@@ -95,7 +94,8 @@
 		"/obj/item/device/flashlight/pen",
 		"/obj/item/clothing/mask/surgical",
 		"/obj/item/clothing/gloves/color/latex",
-        "/obj/item/weapon/reagent_containers/hypospray/autoinjector"
+        "/obj/item/weapon/reagent_containers/hypospray/autoinjector",
+		"/obj/item/device/sensor_device"
 	)
 
 
@@ -291,7 +291,7 @@
 	name = "yellow fannypack"
 	icon_state = "fannypack_yellow"
 	item_state = "fannypack_yellow"
-	
+
 // -------------------------------------
 //     Bluespace Belt
 // -------------------------------------
@@ -444,4 +444,3 @@
 
 		new /obj/item/device/analyzer(src)
 		new /obj/item/device/healthanalyzer(src)
-		

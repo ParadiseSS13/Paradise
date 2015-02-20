@@ -12,7 +12,7 @@
 	name = "first-aid kit"
 	desc = "It's an emergency medical kit for those serious boo-boos."
 	icon_state = "firstaid"
-	icon_override = 'icons/mob/in-hand/medkits.dmi'	
+	icon_override = 'icons/mob/in-hand/medkits.dmi'
 	throw_speed = 2
 	throw_range = 8
 	var/empty = 0
@@ -154,10 +154,10 @@
 		if ((!( M.restrained() ) && !( M.stat ) /*&& M.pocket == src*/))
 			switch(over_object.name)
 				if("r_hand")
-					M.u_equip(src)
+					M.unEquip(src)
 					M.put_in_r_hand(src)
 				if("l_hand")
-					M.u_equip(src)
+					M.unEquip(src)
 					M.put_in_l_hand(src)
 			src.add_fingerprint(usr)
 			return

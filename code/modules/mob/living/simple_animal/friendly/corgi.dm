@@ -25,7 +25,15 @@
 	var/obj/item/inventory_back
 	var/facehugger
 
-/mob/living/simple_animal/corgi/Life()
+/mob/living/simple_animal/corgi/New()
+	..()
+	regenerate_icons()
+
+/mob/living/simple_animal/corgi/Die()
+	..()
+	regenerate_icons()
+
+/mob/living/simple_animal/corgi/revive()
 	..()
 	regenerate_icons()
 
@@ -33,7 +41,7 @@
 	user.set_machine(src)
 	if(user.stat) return
 
-	var/dat = 	"<div align='center'><b>Inventory of [name]</b></div><p>"
+	var/dat = 	"<div align='center'><b>Inventory of [real_name]</b></div><p>"
 	if(inventory_head)
 		dat +=	"<br><b>Head:</b> [inventory_head] (<a href='?src=\ref[src];remove_inv=head'>Remove</a>)"
 	else
@@ -85,6 +93,7 @@
 					SetLuminosity(0)
 					inventory_head.loc = src.loc
 					inventory_head = null
+					regenerate_icons()
 				else
 					usr << "\red There is nothing to remove from its [remove_from]."
 					return
@@ -92,6 +101,7 @@
 				if(inventory_back)
 					inventory_back.loc = src.loc
 					inventory_back = null
+					regenerate_icons()
 				else
 					usr << "\red There is nothing to remove from its [remove_from]."
 					return
@@ -163,6 +173,7 @@
 					usr.drop_item()
 
 					place_on_head(item_to_add)
+					regenerate_icons()
 
 			if("back")
 				if(inventory_back)
@@ -383,7 +394,7 @@
 		..()
 
 /mob/living/simple_animal/corgi/regenerate_icons()
-	overlays = list()
+	overlays.Cut()
 
 	if(inventory_head)
 		var/head_icon_state = inventory_head.icon_state
@@ -472,7 +483,7 @@
 	var/emagged = 0
 
 /mob/living/simple_animal/corgi/Ian/borgi/emag_act(user as mob)
-	if (!emagged)
+	if(!emagged)
 		emagged = 1
 		visible_message("<span class='warning'>[user] swipes a card through [src].</span>", "<span class='notice'>You overload [src]s internal reactor.</span>")
 		spawn (1000)

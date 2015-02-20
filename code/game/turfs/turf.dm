@@ -249,8 +249,8 @@
 
 		if(old_opacity != W.opacity)			//opacity has changed. Need to update surrounding lights
 			if(W.lighting_lumcount)				//unless we're being illuminated, don't bother (may be buggy, hard to test)
-				W.UpdateAffectingLights()			
-			
+				W.UpdateAffectingLights()
+
 		if (istype(W,/turf/simulated/floor))
 			W.RemoveLattice()
 

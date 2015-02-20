@@ -4,14 +4,13 @@
 	icon_state = "yellow"
 	density = 1
 	var/health = 100.0
-	flags = FPRINT | CONDUCT
-	
+	flags = CONDUCT
+
 	var/menu = 0
 	//used by nanoui: 0 = main menu, 1 = relabel
-	
 	var/valve_open = 0
 	var/release_pressure = ONE_ATMOSPHERE
-	
+
 	var/list/_color //variable that stores colours
 	var/list/decals // list that stores the decals
 	var/list/possibledecals
@@ -22,7 +21,7 @@
 	var/list/possibletertcolor
 	var/list/possiblequartcolor
 	var/list/colorcontainer //passed to the ui to render the color lists
-	
+
 	var/can_label = 1
 	var/filled = 0.5
 	pressure_resistance = 7*ONE_ATMOSPHERE
@@ -32,7 +31,7 @@
 	var/release_log = ""
 	var/busy = 0
 	var/update_flag = 0
-	
+
 	New()
 		..()
 		_color = list(
@@ -127,11 +126,11 @@
 	if(list2params(oldcolor) != list2params(_color))
 		update_flag |= 64
 		oldcolor = _color.Copy()
-	
+
 	if(list2params(olddecals) != list2params(decals))
 		update_flag |= 128
 		olddecals = decals.Copy()
-	
+
 	if(update_flag == old_flag)
 		return 1
 	else
@@ -162,7 +161,7 @@ update_flag
 		return
 
 	src.overlays = 0
-	
+
 	if (_color["sec"])//COLORS!
 		overlays.Add(_color["sec"])
 
@@ -171,7 +170,7 @@ update_flag
 
 	if (_color["quart"])
 		overlays.Add(_color["quart"])
-			
+
 	for(var/D in decals)
 		overlays.Add("decal-" + D)
 
@@ -187,12 +186,12 @@ update_flag
 		overlays += "can-o2"
 	else if(update_flag & 32)
 		overlays += "can-o3"
-	
+
 	update_flag &= ~196 //the flags 128 and 64 represent change, not states. As such, we have to reset them to be able to detect a change on the next go.
 	return
 
 //template modification exploit prevention, used in Topic()
-/obj/machinery/portable_atmospherics/canister/proc/is_a_color(var/inputVar, var/checkColor = "all") 
+/obj/machinery/portable_atmospherics/canister/proc/is_a_color(var/inputVar, var/checkColor = "all")
 	if (checkColor == "prim" || checkColor == "all")
 		for(var/list/L in possiblemaincolor)
 			if (L["icon"] == inputVar)
@@ -407,7 +406,7 @@ update_flag
 		usr << browse(null, "window=canister")
 		onclose(usr, "canister")
 		return
-	
+
 	if (href_list["choice"] == "menu")
 		menu = text2num(href_list["mode_target"])
 
@@ -438,7 +437,7 @@ update_flag
 			release_pressure = min(10*ONE_ATMOSPHERE, release_pressure+diff)
 		else
 			release_pressure = max(ONE_ATMOSPHERE/10, release_pressure+diff)
-		
+
 	if (href_list["rename"])
 		if (can_label)
 			var/T = copytext(sanitize(input("Choose canister label", "Name", name) as text|null),1,MAX_NAME_LEN)
@@ -474,21 +473,21 @@ update_flag
 		else if (is_a_color(href_list["icon"],"quart"))
 			_color["quart"] = href_list["icon"]
 			colorcontainer["quart"]["anycolor"] = 1
-	
+
 	if (href_list["choice"] == "decals")
 		if (is_a_decal(href_list["icon"]))
 			for (var/list/L in possibledecals)
 				if (L["icon"] == href_list["icon"])
 					L["active"] = (L["active"] == 0)
 					break
-			
+
 			decals = list()
-			
+
 			for (var/list/L in possibledecals)
 				if (L["active"])
 					if (!(L["icon"] in decals))
 						decals.Add(L["icon"])
-	
+
 	src.add_fingerprint(usr)
 	update_icon()
 
@@ -527,7 +526,7 @@ update_flag
 
 /obj/machinery/portable_atmospherics/canister/toxins/New()
 	..()
-	
+
 	_color["prim"] = "orange"
 	decals = list("plasma")
 	possibledecals[3]["active"] = 1
@@ -548,7 +547,7 @@ update_flag
 
 /obj/machinery/portable_atmospherics/canister/sleeping_agent/New()
 	..()
-	
+
 	_color["prim"] = "redws"
 	var/datum/gas/sleeping_agent/trace_gas = new
 	air_contents.trace_gases += trace_gas
@@ -586,7 +585,7 @@ update_flag
 
 /obj/machinery/portable_atmospherics/canister/carbon_dioxide/New()
 	..()
-	
+
 	_color["prim"] = "black"
 	src.air_contents.carbon_dioxide = (src.maximum_pressure*filled)*air_contents.volume/(R_IDEAL_GAS_EQUATION*air_contents.temperature)
 	air_contents.update_values()
@@ -597,7 +596,7 @@ update_flag
 
 /obj/machinery/portable_atmospherics/canister/air/New()
 	..()
-	
+
 	_color["prim"] = "grey"
 	src.air_contents.oxygen = (O2STANDARD*src.maximum_pressure*filled)*air_contents.volume/(R_IDEAL_GAS_EQUATION*air_contents.temperature)
 	src.air_contents.nitrogen = (N2STANDARD*src.maximum_pressure*filled)*air_contents.volume/(R_IDEAL_GAS_EQUATION*air_contents.temperature)

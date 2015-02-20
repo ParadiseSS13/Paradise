@@ -9,7 +9,7 @@
 
 #maps/RandomZLevels/academy.dmm
 maps/RandomZLevels/beach.dmm
-maps/RandomZLevels/blackmarketpackers.dmm
+#maps/RandomZLevels/blackmarketpackers.dmm
 maps/RandomZLevels/challenge.dmm
 #maps/RandomZLevels/centcomAway.dmm
 #maps/RandomZLevels/clownplanet.dmm

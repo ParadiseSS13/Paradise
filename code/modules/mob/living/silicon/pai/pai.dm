@@ -334,7 +334,7 @@
 	//I'm not sure how much of this is necessary, but I would rather avoid issues.
 	if(istype(card.loc,/mob))
 		var/mob/holder = card.loc
-		holder.drop_from_inventory(card)
+		holder.unEquip(card)
 	else if(istype(card.loc,/obj/item/clothing/suit/space/space_ninja))
 		var/obj/item/clothing/suit/space/space_ninja/holder = card.loc
 		holder.pai = null
@@ -503,4 +503,3 @@
 		spawn(1)
 			close_up()
 	return 2
-

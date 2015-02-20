@@ -594,39 +594,39 @@ As such, it's hard-coded for now. No reason for it not to be, really.
 			U << "\red <B>ERROR</B>: 110223 \black UNABLE TO LOCATE MASK\nABORTING..."
 			return 0
 		affecting = U
-		canremove = 0
+		flags |= NODROP
 		slowdown = 0
 		n_hood = U:head
-		n_hood.canremove=0
+		n_hood.flags |= NODROP
 		n_shoes = U:shoes
-		n_shoes.canremove=0
+		n_shoes.flags |= NODROP
 		n_shoes.slowdown--
 		n_gloves = U:gloves
-		n_gloves.canremove=0
+		n_gloves.flags |= NODROP
 		n_mask = U:wear_mask
-		n_mask.canremove=0
+		n_mask.flags |= NODROP
 
 	return 1
 
 //This proc allows the suit to be taken off.
 /obj/item/clothing/suit/space/space_ninja/proc/unlock_suit()
 	affecting = null
-	canremove = 1
+	flags &= ~NODROP
 	slowdown = 1
 	icon_state = "s-ninja"
 	if(n_hood)//Should be attached, might not be attached.
-		n_hood.canremove=1
+		n_hood.flags &= ~NODROP
 	if(n_shoes)
-		n_shoes.canremove=1
+		n_shoes.flags &= ~NODROP
 		n_shoes.slowdown++
 	if(n_gloves)
 		n_gloves.icon_state = "s-ninja"
 		n_gloves.item_state = "s-ninja"
-		n_gloves.canremove=1
+		n_gloves.flags &= ~NODROP
 		n_gloves.candrain=0
 		n_gloves.draining=0
 	if(n_mask)
-		n_mask.canremove=1
+		n_mask.flags &= ~NODROP
 
 //Allows the mob to grab a stealth icon.
 /mob/proc/NinjaStealthActive(atom/A)//A is the atom which we are using as the overlay.

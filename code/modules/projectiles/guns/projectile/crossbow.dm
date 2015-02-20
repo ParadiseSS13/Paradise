@@ -7,7 +7,6 @@
 	icon = 'icons/obj/weapons.dmi'
 	icon_state = "bolt"
 	item_state = "bolt"
-	flags =  FPRINT | TABLEPASS
 	throwforce = 8
 	w_class = 3.0
 	sharp = 1

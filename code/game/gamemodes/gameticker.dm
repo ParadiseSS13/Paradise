@@ -246,12 +246,12 @@ var/global/datum/controller/gameticker/ticker
 		var/obj/structure/stool/bed/temp_buckle = new(src)
 		//Incredibly hackish. It creates a bed within the gameticker (lol) to stop mobs running around
 		if(station_missed)
-			for(var/mob/living/M in living_mob_list)
+			for(var/mob/M in living_mob_list)
 				M.buckled = temp_buckle				//buckles the mob so it can't do anything
 				if(M.client)
 					M.client.screen += cinematic	//show every client the cinematic
 		else	//nuke kills everyone on z-level 1 to prevent "hurr-durr I survived"
-			for(var/mob/living/M in living_mob_list)
+			for(var/mob/M in mob_list)
 				M.buckled = temp_buckle
 				if(M.client)
 					M.client.screen += cinematic
@@ -259,12 +259,13 @@ var/global/datum/controller/gameticker/ticker
 				switch(M.z)
 					if(0)	//inside a crate or something
 						var/turf/T = get_turf(M)
-						if(T && T.z==1)				//we don't use M.death(0) because it calls a for(/mob) loop and
-							M.health = 0
-							M.stat = DEAD
+						if(T && (T.z in config.station_levels))				
+							M.death(0)
 					if(1)	//on a z-level 1 turf.
-						M.health = 0
-						M.stat = DEAD
+						M.death(0)
+			for(var/obj/effect/blob/core in blob_cores)
+				core.health = -10
+				core.update_icon()
 
 		//Now animate the cinematic
 		switch(station_missed)
@@ -319,7 +320,7 @@ var/global/datum/controller/gameticker/ticker
 						world << sound('sound/effects/explosionfar.ogg')
 						cinematic.icon_state = "summary_selfdes"
 				for(var/mob/living/M in living_mob_list)
-					if(M.loc.z == 1)
+					if((M.loc.z in config.station_levels))
 						M.death()//No mercy
 		//If its actually the end of the round, wait for it to end.
 		//Otherwise if its a verb it will continue on afterwards.

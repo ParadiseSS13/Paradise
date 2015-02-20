@@ -18,7 +18,7 @@
 	throwforce = 1.0
 	throw_speed = 5
 	throw_range = 20
-	flags = FPRINT | TABLEPASS | CONDUCT
+	flags = CONDUCT
 	max_amount = 60
 	origin_tech = "biotech=1"
 
@@ -35,7 +35,7 @@
 	throwforce = 1.0
 	throw_speed = 5
 	throw_range = 20
-	flags = FPRINT | TABLEPASS | CONDUCT
+	flags = CONDUCT
 	max_amount = 60
 
 /*
@@ -51,5 +51,5 @@
 	throwforce = 1.0
 	throw_speed = 5
 	throw_range = 20
-	flags = FPRINT | TABLEPASS | CONDUCT
+	flags = CONDUCT
 	max_amount = 60
