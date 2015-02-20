@@ -175,6 +175,22 @@
 	else if(I == s_store)
 		s_store = null
 		update_inv_s_store(0)
+	else if(I == back)
+		back = null
+		update_inv_back(0)
+	else if(I == handcuffed)
+		handcuffed = null
+		update_inv_handcuffed(0)
+	else if(I == legcuffed)
+		legcuffed = null
+		update_inv_legcuffed(0)
+	else if(I == r_hand)
+		r_hand = null
+		update_inv_r_hand(0)
+	else if(I == l_hand)
+		l_hand = null
+		update_inv_l_hand(0)
+
 
 	update_action_buttons()
 
