@@ -480,7 +480,7 @@ As such, it's hard-coded for now. No reason for it not to be, really.
 	var/mission
 	if(alert("Would you the Ninja to have a random or preset mission?",,"Random","Preset")=="Preset")
 		while(!mission)
-			mission = copytext(sanitize(input(src, "Please specify which mission the space ninja shall undertake.", "Specify Mission", "")),1,MAX_MESSAGE_LEN)
+			mission = sanitize(copytext(input(src, "Please specify which mission the space ninja shall undertake.", "Specify Mission", ""),1,MAX_MESSAGE_LEN))
 			if(!mission)
 				if(alert("Error, no mission set. Do you want to exit the setup process?",,"Yes","No")=="Yes")
 					return

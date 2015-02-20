@@ -29,7 +29,7 @@
 				playsound(src.loc, 'sound/machines/twobeep.ogg', 100, 1)
 
 		else if(istype(W, /obj/item/weapon/pen))
-			var/str = copytext(sanitize(input(usr,"Label text?","Set label","")),1,MAX_NAME_LEN)
+			var/str = sanitize(copytext(input(usr,"Label text?","Set label",""),1,MAX_NAME_LEN))
 			if(!str || !length(str))
 				usr << "\red Invalid text."
 				return
@@ -69,7 +69,7 @@
 				playsound(src.loc, 'sound/machines/twobeep.ogg', 100, 1)
 
 		else if(istype(W, /obj/item/weapon/pen))
-			var/str = copytext(sanitize(input(usr,"Label text?","Set label","")),1,MAX_NAME_LEN)
+			var/str = sanitize(copytext(input(usr,"Label text?","Set label",""),1,MAX_NAME_LEN))
 			if(!str || !length(str))
 				usr << "\red Invalid text."
 				return

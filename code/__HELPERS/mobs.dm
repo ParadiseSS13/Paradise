@@ -132,6 +132,8 @@ Proc for attack log creation, because really why not
 
 proc/add_logs(mob/target, mob/user, what_done, var/object=null, var/addition=null)
 	var/list/ignore=list("shaked","CPRed","grabbed","punched")
+	if(!user)
+		return
 	if(ismob(user))
 		user.attack_log += text("\[[time_stamp()]\] <font color='red'>Has [what_done] [target.name][ismob(target) ? "([target.ckey])" : ""][object ? " with [object]" : " "][addition]</font>")
 	if(ismob(target))

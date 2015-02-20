@@ -2242,7 +2242,7 @@
 				if(!ticker)
 					alert("The game hasn't started yet!")
 					return
-				var/objective = copytext(sanitize(input("Enter an objective")),1,MAX_MESSAGE_LEN)
+				var/objective = sanitize(copytext(input("Enter an objective"),1,MAX_MESSAGE_LEN))
 				if(!objective)
 					return
 				feedback_inc("admin_secrets_fun_used",1)

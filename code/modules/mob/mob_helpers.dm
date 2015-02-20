@@ -278,7 +278,7 @@ proc/slur(phrase)
 						n_letter = text("[n_letter]-[n_letter]")
 		t = text("[t][n_letter]")//since the above is ran through for each letter, the text just adds up back to the original word.
 		p++//for each letter p is increased to find where the next letter will be.
-	return copytext(sanitize(t),1,MAX_MESSAGE_LEN)
+	return sanitize(copytext(t,1,MAX_MESSAGE_LEN))
 
 
 proc/Gibberish(t, p)//t is the inputted message, and any value higher than 70 for p will cause letters to be replaced instead of added
@@ -325,7 +325,7 @@ It's fairly easy to fix if dealing with single letters but not so much with comp
 			n_letter = text("[n_letter]")
 		t = text("[t][n_letter]")
 		p=p+n_mod
-	return copytext(sanitize(t),1,MAX_MESSAGE_LEN)
+	return sanitize(copytext(t,1,MAX_MESSAGE_LEN))
 
 
 /proc/shake_camera(mob/M, duration, strength=1)

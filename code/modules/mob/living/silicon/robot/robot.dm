@@ -361,7 +361,7 @@
 
 	spawn(0)
 		var/newname
-		newname = copytext(sanitize(input(src,"You are a robot. Enter a name, or leave blank for the default name.", "Name change","") as text),1,MAX_NAME_LEN)
+		newname = sanitize(copytext(input(src,"You are a robot. Enter a name, or leave blank for the default name.", "Name change","") as text,1,MAX_NAME_LEN))
 		if (newname != "")
 			notify_ai(3, name, newname)
 			custom_name = newname
