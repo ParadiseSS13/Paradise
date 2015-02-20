@@ -470,7 +470,7 @@ update_flag
 		
 	if (href_list["rename"])
 		if (can_label)
-			var/T = copytext(sanitize(input("Choose canister label", "Name", name) as text|null),1,MAX_NAME_LEN)
+			var/T = sanitize(copytext(input("Choose canister label", "Name", name) as text|null,1,MAX_NAME_LEN))
 			if (can_label) //Exploit prevention
 				if (T)
 					name = T

@@ -66,10 +66,11 @@
 		if(user && convert)
 			terrible_conversion_proc(M, user)
 			M.Stun(1)
-		user.visible_message("<span class='disarm'>[user] blinds [M] with the flash!</span>")
+			user.visible_message("<span class='disarm'>[user] blinds [M] with the flash!</span>")
 		return 1
 	else
-		user.visible_message("<span class='disarm'>[user] fails to blind [M] with the flash!</span>")
+		if(user)
+			user.visible_message("<span class='disarm'>[user] fails to blind [M] with the flash!</span>")
 		return 0
 
 /obj/item/device/flash/attack(mob/living/M, mob/user)

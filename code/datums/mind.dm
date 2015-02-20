@@ -446,7 +446,7 @@ datum/mind
 			assigned_role = new_role
 
 		else if (href_list["memory_edit"])
-			var/new_memo = copytext(sanitize(input("Write new memory", "Memory", memory) as null|message),1,MAX_MESSAGE_LEN)
+			var/new_memo = sanitize(copytext(input("Write new memory", "Memory", memory) as null|message,1,MAX_MESSAGE_LEN))
 			if (isnull(new_memo)) return
 			memory = new_memo
 
@@ -585,7 +585,7 @@ datum/mind
 					new_objective.find_target()
 
 				if ("custom")
-					var/expl = copytext(sanitize(input("Custom objective:", "Objective", objective ? objective.explanation_text : "") as text|null),1,MAX_MESSAGE_LEN)
+					var/expl = sanitize(copytext(input("Custom objective:", "Objective", objective ? objective.explanation_text : "") as text|null,1,MAX_MESSAGE_LEN))
 					if (!expl) return
 					new_objective = new /datum/objective
 					new_objective.owner = src

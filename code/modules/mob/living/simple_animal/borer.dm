@@ -12,7 +12,7 @@
 			return
 
 	if(istype(src.loc,/mob/living/simple_animal/borer))
-		message = trim(copytext(sanitize(message), 1, MAX_MESSAGE_LEN))
+		message = trim(sanitize(copytext(message, 1, MAX_MESSAGE_LEN)))
 		if (!message)
 			return
 		log_say("[key_name(src)] : [message]")
