@@ -21,6 +21,8 @@
 		user.set_species()
 	user.UpdateAppearance()
 	domutcheck(user, null)
+	
+	user.changeling_update_languages(changeling.absorbed_languages)
 
 	feedback_add_details("changeling_powers","TR")
 	return 1

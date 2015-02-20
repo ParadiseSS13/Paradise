@@ -32,9 +32,11 @@
 	R.icon_state = "robot"
 	del(R.module)
 	R.module = null
-	R.camera.network.Remove(list("Engineering","Medical","MINE"))
+	R.camera.network.Remove(list("Engineering","Medical","Mining Outpost"))
 	R.updatename("Default")
 	R.status_flags |= CANPUSH
+	R.languages = list()
+	R.speech_synthesizer_langs = list()
 	R.notify_ai(2)
 	R.updateicon()
 

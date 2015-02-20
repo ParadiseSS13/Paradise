@@ -28,6 +28,7 @@ var/global/list/airlocks = list()					//list of all airlocks
 //Languages/species/whitelist.
 var/global/list/all_species[0]
 var/global/list/all_languages[0]
+var/global/list/language_keys[0]					// Table of say codes for all languages
 var/global/list/all_nations[0]
 var/global/list/whitelisted_species = list()
 
@@ -113,6 +114,13 @@ var/global/list/backbaglist = list("Nothing", "Backpack", "Satchel", "Satchel Al
 	for(var/T in paths)
 		var/datum/language/L = new T
 		all_languages[L.name] = L
+
+	for (var/language_name in all_languages)
+		var/datum/language/L = all_languages[language_name]
+		if(!(L.flags & NONGLOBAL))
+			language_keys[":[lowertext(L.key)]"] = L
+			language_keys[".[lowertext(L.key)]"] = L
+			language_keys["#[lowertext(L.key)]"] = L
 
 	var/rkey = 0
 	paths = typesof(/datum/species)-/datum/species

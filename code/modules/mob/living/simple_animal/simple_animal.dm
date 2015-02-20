@@ -269,6 +269,7 @@
 				for(var/mob/O in viewers(src, null))
 					if ((O.client && !( O.blinded )))
 						O.show_message("\blue [M] [response_help] [src].")
+						playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
 
 		if("grab")
 			if (M == src || anchored)
@@ -288,12 +289,14 @@
 			for(var/mob/O in viewers(src, null))
 				if ((O.client && !( O.blinded )))
 					O.show_message(text("\red [] has grabbed [] passively!", M, src), 1)
+					playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
 
 		if("harm", "disarm")
 			adjustBruteLoss(harm_intent_damage)
 			for(var/mob/O in viewers(src, null))
 				if ((O.client && !( O.blinded )))
 					O.show_message("\red [M] [response_harm] [src]!")
+					playsound(loc, "punch", 25, 1, -1)
 
 	return
 
@@ -537,3 +540,22 @@
 		if (S.occupant || S.occupant2)
 			return 0
 	return 1
+	
+/mob/living/simple_animal/say(var/message)
+	if(stat)
+		return
+
+	if(copytext(message,1,2) == "*")
+		return emote(copytext(message,2))
+
+	if(stat)
+		return
+
+	var/verb = "says"
+
+	if(speak_emote.len)
+		verb = pick(speak_emote)
+
+	message = capitalize(trim_left(message))
+
+	..(message, null, verb)

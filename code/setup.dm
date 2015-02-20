@@ -156,6 +156,10 @@ var/turf/space/Space_Tile = locate(/turf/space) // A space tile to reference whe
 
 //This was a define, but I changed it to a variable so it can be changed in-game.(kept the all-caps definition because... code...) -Errorage
 var/MAX_EXPLOSION_RANGE = 14
+var/MAX_EX_DEVESTATION_RANGE = 3
+var/MAX_EX_HEAVY_RANGE = 7
+var/MAX_EX_LIGHT_RANGE = 14
+var/MAX_EX_FLASH_RANGE = 14
 //#define MAX_EXPLOSION_RANGE		14					// Defaults to 12 (was 8) -- TLE
 
 #define HUMAN_STRIP_DELAY 40 //takes 40ds = 4s to strip someone.
@@ -707,11 +711,12 @@ var/list/TAGGERLOCATIONS = list("Disposals",
 #define CHAT_GHOSTEARS	4
 #define CHAT_GHOSTSIGHT	8
 #define CHAT_PRAYER		16
-//#define CHAT_RADIO		32
+#define CHAT_RADIO		32
 #define CHAT_ATTACKLOGS	64
 #define CHAT_DEBUGLOGS	128
 #define CHAT_LOOC		256
 #define CHAT_GHOSTRADIO 512
+#define SHOW_TYPING 	1024
 
 #define SOUND_ADMINHELP	1
 #define SOUND_MIDI		2
@@ -839,12 +844,15 @@ var/list/restricted_camera_networks = list( //Those networks can only be accesse
 #define HAS_SKIN_TONE 	16
 #define HAS_SKIN_COLOR	32
 
-
 //Language flags.
-#define WHITELISTED 1  // Language is available if the speaker is whitelisted.
-#define RESTRICTED 2   // Language can only be accquired by spawning or an admin.
-#define NONVERBAL 4    // Language has a significant non-verbal component. Speech is garbled without line-of-sight
-#define SIGNLANG 8     // Language is completely non-verbal. Speech is displayed through emotes for those who can understand.
+#define WHITELISTED 1  		// Language is available if the speaker is whitelisted.
+#define RESTRICTED 2   		// Language can only be accquired by spawning or an admin.
+#define NONVERBAL 4    		// Language has a significant non-verbal component. Speech is garbled without line-of-sight
+#define SIGNLANG 8     		// Language is completely non-verbal. Speech is displayed through emotes for those who can understand.
+#define HIVEMIND 16         // Broadcast to all mobs with this language.
+#define NONGLOBAL 32		// Do not add to general languages list
+#define INNATE 64			// All mobs can be assumed to speak and understand this language (audible emotes)
+#define NO_TALK_MSG 128		// Do not show the "\The [speaker] talks into \the [radio]" message
 
 //Flags for zone sleeping
 #define ZONE_ACTIVE 1

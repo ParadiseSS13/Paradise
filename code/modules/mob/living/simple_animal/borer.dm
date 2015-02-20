@@ -100,50 +100,11 @@
 
 /mob/living/simple_animal/borer/New(var/by_gamemode=0)
 	..()
+	add_language("Cortical Link")
 	truename = "[pick("Primary","Secondary","Tertiary","Quaternary")] [rand(1000,9999)]"
 
 	if(!by_gamemode)
 		request_player()
-
-
-/mob/living/simple_animal/borer/say(var/message)
-
-	message = trim(copytext(sanitize(message), 1, MAX_MESSAGE_LEN))
-	message = capitalize(message)
-
-	if(!message)
-		return
-
-	if (stat == 2)
-		return say_dead(message)
-
-	if (stat)
-		return
-
-	if (src.client)
-		if(client.prefs.muted & MUTE_IC)
-			src << "\red You cannot speak in IC (muted)."
-			return
-		if (src.client.handle_spam_prevention(message,MUTE_IC))
-			return
-
-	if (copytext(message, 1, 2) == "*")
-		return emote(copytext(message, 2))
-
-	if (copytext(message, 1, 2) == ";") //Brain borer hivemind.
-		return borer_speak(message)
-
-	if(!host)
-		src << "You have no host to speak to."
-		return //No host, no audible speech.
-
-	src << "You drop words into [host]'s mind: \"[message]\""
-	host << "Your own thoughts speak: \"[message]\""
-
-	for(var/mob/M in mob_list)
-		if(M.mind && (istype(M, /mob/dead/observer)))
-			M << "<i>Thought-speech, <b>[truename]</b> -> <b>[host]:</b> [copytext(message, 2)]</i>"
-
 
 /mob/living/simple_animal/borer/Stat()
 	..()

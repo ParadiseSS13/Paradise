@@ -1,8 +1,3 @@
-var/GLOBAL_RADIO_TYPE = 1 // radio type to use
-	// 0 = old radios
-	// 1 = new radios (subspace technology)
-
-
 /obj/item/device/radio
 	icon = 'icons/obj/radio.dmi'
 	name = "station bounced radio"
@@ -11,19 +6,18 @@ var/GLOBAL_RADIO_TYPE = 1 // radio type to use
 	item_state = "walkietalkie"
 	var/on = 1 // 0 for off
 	var/last_transmission
-	var/frequency = 1459 //common chat
+	var/frequency = PUB_FREQ //common chat
 	var/traitor_frequency = 0 //tune to frequency to unlock traitor supplies
 	var/canhear_range = 3 // the range which mobs can hear this radio from
 	var/obj/item/device/radio/patch_link = null
 	var/datum/wires/radio/wires = null
-	var/prison_radio = 0
 	var/b_stat = 0
 	var/broadcasting = 0
 	var/listening = 1
 	var/freerange = 0 // 0 - Sanitize frequencies, 1 - Full range
-	var/list/channels = list() //see communications.dm for full list. First channels is a "default" for :h
+	var/list/channels = list() //see communications.dm for full list. First channes is a "default" for :h
 	var/subspace_transmission = 0
-	var/syndie = 0//Holder to see if it's a syndicate encrypted radio
+	var/syndie = 0//Holder to see if it's a syndicate encrpyed radio
 	var/maxf = 1499
 //			"Example" = FREQ_LISTENING|FREQ_BROADCASTING
 	flags = CONDUCT
@@ -31,32 +25,31 @@ var/GLOBAL_RADIO_TYPE = 1 // radio type to use
 	throw_speed = 2
 	throw_range = 9
 	w_class = 2
-	g_amt = 25
+
 	m_amt = 75
-
-	var/const/TRANSMISSION_DELAY = 5 // only 2/second/radio
+	g_amt = 25
 	var/const/FREQ_LISTENING = 1
-		//FREQ_BROADCASTING = 2
+	var/prison_radio = 0
 
-	var/always_talk=0 // ALWAYS catch signals. Useful for covert listening devices.
 
 /obj/item/device/radio
 	var/datum/radio_frequency/radio_connection
-	var/list/datum/radio_frequency/secure_radio_connections
+	var/list/datum/radio_frequency/secure_radio_connections = new
 
 	proc/set_frequency(new_frequency)
 		radio_controller.remove_object(src, frequency)
 		frequency = new_frequency
 		radio_connection = radio_controller.add_object(src, frequency, RADIO_CHAT)
+	
 
 /obj/item/device/radio/New()
-	wires = new(src)
-	if(prison_radio)
-		wires.CutWireIndex(WIRE_TRANSMIT)
-	secure_radio_connections = new
 	..()
+	wires = new(src)
 	if(radio_controller)
 		initialize()
+		
+	if(prison_radio)
+		wires.CutWireIndex(WIRE_TRANSMIT)
 
 
 /obj/item/device/radio/initialize()
@@ -117,8 +110,15 @@ var/GLOBAL_RADIO_TYPE = 1 // radio type to use
 /obj/item/device/radio/proc/text_sec_channel(var/chan_name, var/chan_stat)
 	var/list = !!(chan_stat&FREQ_LISTENING)!=0
 	return {"
-			<B>[chan_name]</B>: <A href='byond://?src=\ref[src];ch_name=[chan_name];listen=[!list]'>[list ? "Engaged" : "Disengaged"]</A><BR>
+			<B>[chan_name]</B><br>
+			Speaker: <A href='byond://?src=\ref[src];ch_name=[chan_name];listen=[!list]'>[list ? "Engaged" : "Disengaged"]</A><BR>
 			"}
+
+/obj/item/device/radio/proc/ToggleBroadcast()
+	broadcasting = !broadcasting && !(wires.IsIndexCut(WIRE_TRANSMIT) || wires.IsIndexCut(WIRE_SIGNAL))
+
+/obj/item/device/radio/proc/ToggleReception()
+	listening = !listening && !(wires.IsIndexCut(WIRE_RECEIVE) || wires.IsIndexCut(WIRE_SIGNAL))
 
 /obj/item/device/radio/Topic(href, href_list)
 	//..()
@@ -129,35 +129,11 @@ var/GLOBAL_RADIO_TYPE = 1 // radio type to use
 		usr << browse(null, "window=radio")
 		return
 	usr.set_machine(src)
-	if (href_list["open"])
-		var/mob/target = locate(href_list["open"])
-		var/mob/living/silicon/ai/A = locate(href_list["open2"])
-		if(A && target)
-			A.open_nearest_door(target)
-		return
-
 	if (href_list["track"])
 		var/mob/target = locate(href_list["track"])
 		var/mob/living/silicon/ai/A = locate(href_list["track2"])
 		if(A && target)
 			A.ai_actual_track(target)
-		return
-
-	else if (href_list["faketrack"])
-		var/mob/target = locate(href_list["track"])
-		var/mob/living/silicon/ai/A = locate(href_list["track2"])
-		if(A && target)
-
-			A:cameraFollow = target
-			A << text("Now tracking [] on camera.", target.name)
-			if (usr.machine == null)
-				usr.machine = usr
-
-			while (usr:cameraFollow == target)
-				usr << "Target is not on or near any active cameras on the station. We'll check again in 5 seconds (unless you use the cancel-camera verb)."
-				sleep(40)
-				continue
-
 		return
 
 	else if (href_list["freq"])
@@ -171,16 +147,17 @@ var/GLOBAL_RADIO_TYPE = 1 // radio type to use
 				return
 
 	else if (href_list["talk"])
-		broadcasting = text2num(href_list["talk"])
+		ToggleBroadcast()
 	else if (href_list["listen"])
 		var/chan_name = href_list["ch_name"]
 		if (!chan_name)
-			listening = text2num(href_list["listen"])
+			ToggleReception()
 		else
 			if (channels[chan_name] & FREQ_LISTENING)
 				channels[chan_name] &= ~FREQ_LISTENING
 			else
 				channels[chan_name] |= FREQ_LISTENING
+
 	if (!( master ))
 		if (istype(loc, /mob))
 			interact(loc)
@@ -193,10 +170,7 @@ var/GLOBAL_RADIO_TYPE = 1 // radio type to use
 			updateDialog()
 	add_fingerprint(usr)
 
-/obj/item/device/radio/proc/isWireCut(var/index)
-	return wires.IsIndexCut(index)
-
-/obj/item/device/radio/proc/autosay(var/message, var/from, var/channel, var/zlevel = list(1)) //BS12 EDIT
+/obj/item/device/radio/proc/autosay(var/message, var/from, var/channel, var/zlevel = config.contact_levels) //BS12 EDIT
 	var/datum/radio_frequency/connection = null
 	if(channel && channels && channels.len > 0)
 		if (channel == "department")
@@ -219,173 +193,115 @@ var/GLOBAL_RADIO_TYPE = 1 // radio type to use
 	del(A)
 	return
 
-/obj/item/device/radio/talk_into(mob/living/M as mob, message, channel)
-	if(!on) return // the device has to be on
+// Interprets the message mode when talking into a radio, possibly returning a connection datum
+/obj/item/device/radio/proc/handle_message_mode(mob/living/M as mob, message, message_mode)
+	// If a channel isn't specified, send to common.
+	if(!message_mode || message_mode == "headset")
+		return radio_connection
+
+	// Otherwise, if a channel is specified, look for it.
+	if(channels && channels.len > 0)
+		if (message_mode == "department") // Department radio shortcut
+			message_mode = channels[1]
+
+		if (channels[message_mode]) // only broadcast if the channel is set on
+			return secure_radio_connections[message_mode]
+
+	// If we were to send to a channel we don't have, drop it.
+	return null
+
+/obj/item/device/radio/talk_into(mob/living/M as mob, message, channel, var/verb = "says", var/datum/language/speaking = null)
+	if(!on) return 0 // the device has to be on
 	//  Fix for permacell radios, but kinda eh about actually fixing them.
-	if(!M || !message) return
+	if(!M || !message) return 0
 
 	//  Uncommenting this. To the above comment:
 	// 	The permacell radios aren't suppose to be able to transmit, this isn't a bug and this "fix" is just making radio wires useless. -Giacom
-	if(isWireCut(WIRE_TRANSMIT)) // The device has to have all its wires and shit intact
-		return
+	if(wires.IsIndexCut(WIRE_TRANSMIT)) // The device has to have all its wires and shit intact
+		return 0
+
+	M.last_target_click = world.time
+
+	/* Quick introduction:
+		This new radio system uses a very robust FTL signaling technology unoriginally
+		dubbed "subspace" which is somewhat similar to 'blue-space' but can't
+		actually transmit large mass. Headsets are the only radio devices capable
+		of sending subspace transmissions to the Communications Satellite.
+
+		A headset sends a signal to a subspace listener/reciever elsewhere in space,
+		the signal gets processed and logged, and an audible transmission gets sent
+		to each individual headset.
+	*/
+
+	//#### Grab the connection datum ####//
+	var/datum/radio_frequency/connection = handle_message_mode(M, message, channel)
+	if (!istype(connection))
+		return 0
+	if (!connection)
+		return 0
+
+	var/turf/position = get_turf(src)
+
+	//#### Tagging the signal with all appropriate identity values ####//
+
+	// ||-- The mob's name identity --||
+	var/displayname = M.name	// grab the display name (name you get when you hover over someone's icon)
+	var/real_name = M.real_name // mob's real name
+	var/mobkey = "none" // player key associated with mob
+	var/voicemask = 0 // the speaker is wearing a voice mask
+	if(M.client)
+		mobkey = M.key // assign the mob's key
 
 
-	if(GLOBAL_RADIO_TYPE == 1) // NEW RADIO SYSTEMS: By Doohl
+	var/jobname // the mob's "job"
 
-		/* Quick introduction:
-			This new radio system uses a very robust FTL signaling technology unoriginally
-			dubbed "subspace" which is somewhat similar to 'blue-space' but can't
-			actually transmit large mass. Headsets are the only radio devices capable
-			of sending subspace transmissions to the Communications Satellite.
+	// --- Human: use their actual job ---
+	if (ishuman(M))
+		var/mob/living/carbon/human/H = M
+		jobname = H.get_assignment()
 
-			A headset sends a signal to a subspace listener/reciever elsewhere in space,
-			the signal gets processed and logged, and an audible transmission gets sent
-			to each individual headset.
-		*/
+	// --- Carbon Nonhuman ---
+	else if (iscarbon(M)) // Nonhuman carbon mob
+		jobname = "No id"
 
-	   //#### Grab the connection datum ####//
-		var/datum/radio_frequency/connection = null
-		//testing("[src]: talk_into([M], [message], [channel])")
-		if(channel == "headset")
-			channel = null
-		if(channel) // If a channel is specified, look for it.
-			if(channels && channels.len > 0)
-				if (channel == "department")
-					//world << "DEBUG: channel=\"[channel]\" switching to \"[channels[1]]\""
-					channel = channels[1]
-				connection = secure_radio_connections[channel]
-				if (!channels[channel]) // if the channel is turned off, don't broadcast
-					return
-			else
-				// If we were to send to a channel we don't have, drop it.
-				return
-		else // If a channel isn't specified, send to common.
-			connection = radio_connection
-			channel = null
-		if (!istype(connection))
-			return
-		if (!connection)
-			return
+	// --- AI ---
+	else if (isAI(M))
+		jobname = "AI"
 
-		var/turf/position = get_turf(src)
+	// --- Cyborg ---
+	else if (isrobot(M))
+		jobname = "Cyborg"
 
-		//#### Tagging the signal with all appropriate identity values ####//
+	// --- Personal AI (pAI) ---
+	else if (istype(M, /mob/living/silicon/pai))
+		jobname = "Personal AI"
 
-		// ||-- The mob's name identity --||
-		var/displayname = M.name	// grab the display name (name you get when you hover over someone's icon)
-		var/real_name = M.real_name // mob's real name
-		var/mobkey = "none" // player key associated with mob
-		var/voicemask = 0 // the speaker is wearing a voice mask
-		if(M.client)
-			mobkey = M.key // assign the mob's key
+	// --- Unidentifiable mob ---
+	else
+		jobname = "Unknown"
 
 
-		var/jobname // the mob's "job"
+	// --- Modifications to the mob's identity ---
 
-		// --- Human: use their actual job ---
-		if (ishuman(M))
-			jobname = M:get_assignment()
-
-		// --- Carbon Nonhuman ---
-		else if (iscarbon(M)) // Nonhuman carbon mob
-			jobname = "No id"
-
-		// --- AI ---
-		else if (isAI(M))
-			jobname = "AI"
-
-		// --- Cyborg ---
-		else if (isrobot(M))
-			var/mob/living/silicon/robot/B = M
-			jobname = "[B.designation] Cyborg"
-
-		// --- Personal AI (pAI) ---
-		else if (istype(M, /mob/living/silicon/pai))
-			jobname = "Personal AI"
-
-		// --- Unidentifiable mob ---
-		else
-			jobname = "Unknown"
-
-
-		// --- Modifications to the mob's identity ---
-
-		// The mob is disguising their identity:
-		if (ishuman(M) && M.GetVoice() != real_name)
-			displayname = M.GetVoice()
-			jobname = "Unknown"
-			voicemask = 1
+	// The mob is disguising their identity:
+	if (ishuman(M) && M.GetVoice() != real_name)
+		displayname = M.GetVoice()
+		jobname = "Unknown"
+		voicemask = 1
 
 
 
-	  /* ###### Radio headsets can only broadcast through subspace ###### */
+  /* ###### Radio headsets can only broadcast through subspace ###### */
 
-		if(subspace_transmission)
-			// First, we want to generate a new radio signal
-			var/datum/signal/signal = new
-			signal.transmission_method = 2 // 2 would be a subspace transmission.
-										   // transmission_method could probably be enumerated through #define. Would be neater.
-
-			// --- Finally, tag the actual signal with the appropriate values ---
-			signal.data = list(
-			  // Identity-associated tags:
-				"mob" = M, // store a reference to the mob
-				"mobtype" = M.type, 	// the mob's type
-				"realname" = real_name, // the mob's real name
-				"name" = displayname,	// the mob's display name
-				"job" = jobname,		// the mob's job
-				"key" = mobkey,			// the mob's key
-				"vmessage" = pick(M.speak_emote), // the message to display if the voice wasn't understood
-				"vname" = M.voice_name, // the name to display if the voice wasn't understood
-				"vmask" = voicemask,	// 1 if the mob is using a voice gas mask
-
-				// We store things that would otherwise be kept in the actual mob
-				// so that they can be logged even AFTER the mob is deleted or something
-
-			  // Other tags:
-				"compression" = rand(45,50), // compressed radio signal
-				"message" = message, // the actual sent message
-				"connection" = connection, // the radio connection to use
-				"radio" = src, // stores the radio used for transmission
-				"slow" = 0, // how much to sleep() before broadcasting - simulates net lag
-				"traffic" = 0, // dictates the total traffic sum that the signal went through
-				"type" = 0, // determines what type of radio input it is: normal broadcast
-				"server" = null, // the last server to log this signal
-				"reject" = 0,	// if nonzero, the signal will not be accepted by any broadcasting machinery
-				"level" = position.z // The source's z level
-			)
-			signal.frequency = connection.frequency // Quick frequency set
-
-		  //#### Sending the signal to all subspace receivers ####//
-
-			for(var/obj/machinery/telecomms/receiver/R in telecomms_list)
-				R.receive_signal(signal)
-
-			// Allinone can act as receivers.
-			for(var/obj/machinery/telecomms/allinone/R in telecomms_list)
-				R.receive_signal(signal)
-
-			// Receiving code can be located in Telecommunications.dm
-			return
-
-
-	  /* ###### Intercoms and station-bounced radios ###### */
-
-		var/filter_type = 2
-
-		/* --- Intercoms can only broadcast to other intercoms, but bounced radios can broadcast to bounced radios and intercoms --- */
-		if(istype(src, /obj/item/device/radio/intercom))
-			filter_type = 1
-
-
+	if(subspace_transmission)
+		// First, we want to generate a new radio signal
 		var/datum/signal/signal = new
-		signal.transmission_method = 2
+		signal.transmission_method = 2 // 2 would be a subspace transmission.
+									   // transmission_method could probably be enumerated through #define. Would be neater.
 
-
-		/* --- Try to send a normal subspace broadcast first */
-
+		// --- Finally, tag the actual signal with the appropriate values ---
 		signal.data = list(
-
+		  // Identity-associated tags:
 			"mob" = M, // store a reference to the mob
 			"mobtype" = M.type, 	// the mob's type
 			"realname" = real_name, // the mob's real name
@@ -394,215 +310,110 @@ var/GLOBAL_RADIO_TYPE = 1 // radio type to use
 			"key" = mobkey,			// the mob's key
 			"vmessage" = pick(M.speak_emote), // the message to display if the voice wasn't understood
 			"vname" = M.voice_name, // the name to display if the voice wasn't understood
-			"vmask" = voicemask,	// 1 if the mob is using a voice gas mas
+			"vmask" = voicemask,	// 1 if the mob is using a voice gas mask
 
-			"compression" = 0, // uncompressed radio signal
+			// We store things that would otherwise be kept in the actual mob
+			// so that they can be logged even AFTER the mob is deleted or something
+
+		  // Other tags:
+			"compression" = rand(45,50), // compressed radio signal
 			"message" = message, // the actual sent message
 			"connection" = connection, // the radio connection to use
 			"radio" = src, // stores the radio used for transmission
-			"slow" = 0,
-			"traffic" = 0,
-			"type" = 0,
-			"server" = null,
-			"reject" = 0,
-			"level" = position.z
+			"slow" = 0, // how much to sleep() before broadcasting - simulates net lag
+			"traffic" = 0, // dictates the total traffic sum that the signal went through
+			"type" = 0, // determines what type of radio input it is: normal broadcast
+			"server" = null, // the last server to log this signal
+			"reject" = 0,	// if nonzero, the signal will not be accepted by any broadcasting machinery
+			"level" = position.z, // The source's z level
+			"language" = speaking,
+			"verb" = verb
 		)
 		signal.frequency = connection.frequency // Quick frequency set
+
+	  //#### Sending the signal to all subspace receivers ####//
 
 		for(var/obj/machinery/telecomms/receiver/R in telecomms_list)
 			R.receive_signal(signal)
 
+		// Allinone can act as receivers.
+		for(var/obj/machinery/telecomms/allinone/R in telecomms_list)
+			R.receive_signal(signal)
 
-		sleep(rand(10,25)) // wait a little...
-
-		if(signal.data["done"] && position.z in signal.data["level"])
-			// we're done here.
-			return
-
-	  	// Oh my god; the comms are down or something because the signal hasn't been broadcasted yet in our level.
-	  	// Send a mundane broadcast with limited targets:
-
-		//THIS IS TEMPORARY.
-		if(!connection)	return	//~Carn
-
-		Broadcast_Message(connection, M, voicemask, pick(M.speak_emote),
-						  src, message, displayname, jobname, real_name, M.voice_name,
-		                  filter_type, signal.data["compression"], list(position.z), connection.frequency)
+		// Receiving code can be located in Telecommunications.dm
+		return signal.data["done"] && position.z in signal.data["level"]
 
 
+  /* ###### Intercoms and station-bounced radios ###### */
 
-	else // OLD RADIO SYSTEMS: By Goons?
+	var/filter_type = 2
 
-		var/datum/radio_frequency/connection = null
-		if(channel && channels && channels.len > 0)
-			if (channel == "department")
-				//world << "DEBUG: channel=\"[channel]\" switching to \"[channels[1]]\""
-				channel = channels[1]
-			connection = secure_radio_connections[channel]
-		else
-			connection = radio_connection
-			channel = null
-		if (!istype(connection))
-			return
-		var/display_freq = connection.frequency
+	/* --- Intercoms can only broadcast to other intercoms, but bounced radios can broadcast to bounced radios and intercoms --- */
+	if(istype(src, /obj/item/device/radio/intercom))
+		filter_type = 1
 
-		//world << "DEBUG: used channel=\"[channel]\" frequency= \"[display_freq]\" connection.devices.len = [connection.devices.len]"
 
-		var/eqjobname
+	var/datum/signal/signal = new
+	signal.transmission_method = 2
 
-		if (ishuman(M))
-			eqjobname = M:get_assignment()
-		else if (iscarbon(M))
-			eqjobname = "No id" //only humans can wear ID
-		else if (isAI(M))
-			eqjobname = "AI"
-		else if (isrobot(M))
-			eqjobname = "Cyborg"//Androids don't really describe these too well, in my opinion.
-		else if (istype(M, /mob/living/silicon/pai))
-			eqjobname = "Personal AI"
-		else
-			eqjobname = "Unknown"
 
-		if (isWireCut(WIRE_TRANSMIT))
-			return
+	/* --- Try to send a normal subspace broadcast first */
 
-		var/list/receive = list()
+	signal.data = list(
 
-		//for (var/obj/item/device/radio/R in radio_connection.devices)
-		for (var/obj/item/device/radio/R in connection.devices["[RADIO_CHAT]"]) // Modified for security headset code -- TLE
-			//if(R.accept_rad(src, message))
-			receive |= R.send_hear(display_freq, 0)
+		"mob" = M, // store a reference to the mob
+		"mobtype" = M.type, 	// the mob's type
+		"realname" = real_name, // the mob's real name
+		"name" = displayname,	// the mob's display name
+		"job" = jobname,		// the mob's job
+		"key" = mobkey,			// the mob's key
+		"vmessage" = pick(M.speak_emote), // the message to display if the voice wasn't understood
+		"vname" = M.voice_name, // the name to display if the voice wasn't understood
+		"vmask" = voicemask,	// 1 if the mob is using a voice gas mas
 
-		//world << "DEBUG: receive.len=[receive.len]"
-		var/list/heard_masked = list() // masked name or no real name
-		var/list/heard_normal = list() // normal message
-		var/list/heard_voice = list() // voice message
-		var/list/heard_garbled = list() // garbled message
+		"compression" = 0, // uncompressed radio signal
+		"message" = message, // the actual sent message
+		"connection" = connection, // the radio connection to use
+		"radio" = src, // stores the radio used for transmission
+		"slow" = 0,
+		"traffic" = 0,
+		"type" = 0,
+		"server" = null,
+		"reject" = 0,
+		"level" = position.z,
+		"language" = speaking,
+		"verb" = verb
+	)
+	signal.frequency = connection.frequency // Quick frequency set
 
-		for (var/mob/R in receive)
-			if (R.say_understands(M))
-				if (ishuman(M) && M.GetVoice() != M.real_name)
-					heard_masked += R
-				else
-					heard_normal += R
-			else
-				heard_voice += R
+	for(var/obj/machinery/telecomms/receiver/R in telecomms_list)
+		R.receive_signal(signal)
 
-		if (length(heard_masked) || length(heard_normal) || length(heard_voice) || length(heard_garbled))
-			var/part_a = "<span class='radio'><span class='name'>"
-			//var/part_b = "</span><b> \icon[src]\[[format_frequency(frequency)]\]</b> <span class='message'>"
-			var/freq_text
-			switch(display_freq)
-				if(SYND_FREQ)
-					freq_text = "#unkn"
-				if(COMM_FREQ)
-					freq_text = "Command"
-				if(1351)
-					freq_text = "Science"
-				if(1355)
-					freq_text = "Medical"
-				if(1357)
-					freq_text = "Engineering"
-				if(1359)
-					freq_text = "Security"
-				if(1347)
-					freq_text = "Supply"
-			//There's probably a way to use the list var of channels in code\game\communications.dm to make the dept channels non-hardcoded, but I wasn't in an experimentive mood. --NEO
 
-			if(!freq_text)
-				freq_text = format_frequency(display_freq)
+	sleep(rand(10,25)) // wait a little...
 
-			var/part_b = "</span><b> \icon[src]\[[freq_text]\]</b> <span class='message'>" // Tweaked for security headsets -- TLE
-			var/part_c = "</span></span>"
+	if(signal.data["done"] && position.z in signal.data["level"])
+		// we're done here.
+		return 1
 
-			if (display_freq==SYND_FREQ)
-				part_a = "<span class='syndradio'><span class='name'>"
-			else if (display_freq==COMM_FREQ)
-				part_a = "<span class='comradio'><span class='name'>"
-			else if (display_freq in DEPT_FREQS)
-				part_a = "<span class='deptradio'><span class='name'>"
+	// Oh my god; the comms are down or something because the signal hasn't been broadcasted yet in our level.
+	// Send a mundane broadcast with limited targets:
 
-			var/quotedmsg = M.say_quote(message)
+	//THIS IS TEMPORARY. YEAH RIGHT
+	if(!connection)	return 0	//~Carn
 
-			//This following recording is intended for research and feedback in the use of department radio channels.
+	return Broadcast_Message(connection, M, voicemask, pick(M.speak_emote),
+					  src, message, displayname, jobname, real_name, M.voice_name,
+					  filter_type, signal.data["compression"], list(position.z), connection.frequency,verb,speaking)
 
-			var/part_blackbox_b = "</span><b> \[[freq_text]\]</b> <span class='message'>" // Tweaked for security headsets -- TLE
-			var/blackbox_msg = "[part_a][M.name][part_blackbox_b][quotedmsg][part_c]"
-			//var/blackbox_admin_msg = "[part_a][M.name] (Real name: [M.real_name])[part_blackbox_b][quotedmsg][part_c]"
-			if(istype(blackbox))
-				//BR.messages_admin += blackbox_admin_msg
-				switch(display_freq)
-					if(1459)
-						blackbox.msg_common += blackbox_msg
-					if(1351)
-						blackbox.msg_science += blackbox_msg
-					if(1353)
-						blackbox.msg_command += blackbox_msg
-					if(1355)
-						blackbox.msg_medical += blackbox_msg
-					if(1357)
-						blackbox.msg_engineering += blackbox_msg
-					if(1359)
-						blackbox.msg_security += blackbox_msg
-					if(1441)
-						blackbox.msg_deathsquad += blackbox_msg
-					if(1213)
-						blackbox.msg_syndicate += blackbox_msg
-					if(1347)
-						blackbox.msg_cargo += blackbox_msg
-					if(1349)
-						blackbox.msg_service += blackbox_msg
-					else
-						blackbox.messages += blackbox_msg
 
-			//End of research and feedback code.
-
-			if (length(heard_masked))
-				var/N = M.name
-				var/J = eqjobname
-				if(ishuman(M) && M.GetVoice() != M.real_name)
-					N = M.GetVoice()
-					J = "Unknown"
-				var/rendered = "[part_a][N][part_b][quotedmsg][part_c]"
-				for (var/mob/R in heard_masked)
-					if(istype(R, /mob/living/silicon/ai))
-						R.show_message("[part_a]<a href='byond://?src=\ref[src];track2=\ref[R];track=\ref[M]'>[N] ([J]) </a><a href='byond://?src=\ref[src];open2=\ref[R];open=\ref[M]'>\[OPEN\] </a> [part_b][quotedmsg][part_c]", 2)
-					else
-						R.show_message(rendered, 2)
-
-			if (length(heard_normal))
-				var/rendered = "[part_a][M.real_name][part_b][quotedmsg][part_c]"
-
-				for (var/mob/R in heard_normal)
-					if(istype(R, /mob/living/silicon/ai))
-						R.show_message("[part_a]<a href='byond://?src=\ref[src];track2=\ref[R];track=\ref[M]'>[M.real_name] ([eqjobname]) </a><a href='byond://?src=\ref[src];open2=\ref[R];open=\ref[M]'>\[OPEN\] </a>[part_b][quotedmsg][part_c]", 2)
-					else
-						R.show_message(rendered, 2)
-
-			if (length(heard_voice))
-				var/rendered = "[part_a][M.voice_name][part_b][pick(M.speak_emote)][part_c]"
-
-				for (var/mob/R in heard_voice)
-					if(istype(R, /mob/living/silicon/ai))
-						R.show_message("[part_a]<a href='byond://?src=\ref[src];track2=\ref[R];track=\ref[M]'>[M.voice_name] ([eqjobname]) </a><a href='byond://?src=\ref[src];open2=\ref[R];open=\ref[M]'>\[OPEN\] </a>[part_b][pick(M.speak_emote)][part_c]", 2)
-					else
-						R.show_message(rendered, 2)
-
-			if (length(heard_garbled))
-				quotedmsg = M.say_quote(stars(message))
-				var/rendered = "[part_a][M.voice_name][part_b][quotedmsg][part_c]"
-
-				for (var/mob/R in heard_voice)
-					if(istype(R, /mob/living/silicon/ai))
-						R.show_message("[part_a]<a href='byond://?src=\ref[src];track2=\ref[R];track=\ref[M]'>[M.voice_name]</a><a href='byond://?src=\ref[src];open2=\ref[R];open=\ref[M]'>\[OPEN\] </a>[part_b][quotedmsg][part_c]", 2)
-					else
-						R.show_message(rendered, 2)
-
-/obj/item/device/radio/hear_talk(mob/M as mob, msg)
+/obj/item/device/radio/hear_talk(mob/M as mob, msg, var/verb = "says", var/datum/language/speaking = null)
 
 	if (broadcasting)
 		if(get_dist(src, M) <= canhear_range)
-			talk_into(M, msg)
+			talk_into(M, msg,null,verb,speaking)
+
+
 /*
 /obj/item/device/radio/proc/accept_rad(obj/item/device/radio/R as obj, message)
 
@@ -621,7 +432,7 @@ var/GLOBAL_RADIO_TYPE = 1 // radio type to use
 	// what the range is in which mobs will hear the radio
 	// returns: -1 if can't receive, range otherwise
 
-	if (isWireCut(WIRE_RECEIVE))
+	if (wires.IsIndexCut(WIRE_RECEIVE))
 		return -1
 	if(!listening)
 		return -1
@@ -629,7 +440,7 @@ var/GLOBAL_RADIO_TYPE = 1 // radio type to use
 		var/turf/position = get_turf(src)
 		if(!position || !(position.z in level))
 			return -1
-	if(freq == SYND_FREQ)
+	if(freq in ANTAG_FREQS)
 		if(!(src.syndie))//Checks to see if it's allowed on that frequency, based on the encryption keys
 			return -1
 	if (!on)
@@ -656,15 +467,13 @@ var/GLOBAL_RADIO_TYPE = 1 // radio type to use
 		return get_mobs_in_view(canhear_range, src)
 
 
-/obj/item/device/radio/examine()
-	set src in view()
-
-	..()
-	if ((in_range(src, usr) || loc == usr))
+/obj/item/device/radio/examine(mob/user)
+	. = ..()
+	if ((in_range(src, user) || loc == user))
 		if (b_stat)
-			usr.show_message("\blue \the [src] can be attached and modified!")
+			user.show_message("\blue \the [src] can be attached and modified!")
 		else
-			usr.show_message("\blue \the [src] can not be modified or attached!")
+			user.show_message("\blue \the [src] can not be modified or attached!")
 	return
 
 /obj/item/device/radio/attackby(obj/item/weapon/W as obj, mob/user as mob)
@@ -697,8 +506,14 @@ var/GLOBAL_RADIO_TYPE = 1 // radio type to use
 //Giving borgs their own radio to have some more room to work with -Sieve
 
 /obj/item/device/radio/borg
+	var/mob/living/silicon/robot/myborg = null // Cyborg which owns this radio. Used for power checks
 	var/obj/item/device/encryptionkey/keyslot = null//Borg radios can handle a single encryption key
-
+	var/shut_up = 0
+	icon = 'icons/obj/robot_component.dmi' // Cyborgs radio icons should look like the component.
+	icon_state = "radio"
+	canhear_range = 3
+	subspace_transmission = 1
+	
 /obj/item/device/radio/borg/syndicate
 	syndie = 1
 	keyslot = new /obj/item/device/encryptionkey/syndicate
@@ -712,6 +527,13 @@ var/GLOBAL_RADIO_TYPE = 1 // radio type to use
 /obj/item/device/radio/borg/deathsquad/New()
 	..()
 	set_frequency(1441)
+
+/obj/item/device/radio/borg/talk_into()
+	. = ..()
+	if (isrobot(src.loc))
+		var/mob/living/silicon/robot/R = src.loc
+		var/datum/robot_component/C = R.components["radio"]
+		R.use_power(C.energy_consumption)
 
 /obj/item/device/radio/borg/attackby(obj/item/weapon/W as obj, mob/user as mob)
 //	..()
@@ -758,18 +580,25 @@ var/GLOBAL_RADIO_TYPE = 1 // radio type to use
 	src.channels = list()
 	src.syndie = 0
 
+	var/mob/living/silicon/robot/D = src.loc
+	if(D.module)
+		for(var/ch_name in D.module.channels)
+			if(ch_name in src.channels)
+				continue
+			src.channels += ch_name
+			src.channels[ch_name] += D.module.channels[ch_name]
 	if(keyslot)
 		for(var/ch_name in keyslot.channels)
 			if(ch_name in src.channels)
 				continue
 			src.channels += ch_name
-			src.channels[ch_name] = keyslot.channels[ch_name]
+			src.channels[ch_name] += keyslot.channels[ch_name]
 
 		if(keyslot.syndie)
 			src.syndie = 1
 
 
-	for (var/ch_name in channels)
+	for (var/ch_name in src.channels)
 		if(!radio_controller)
 			sleep(30) // Waiting for the radio_controller to be created.
 		if(!radio_controller)
@@ -784,12 +613,23 @@ var/GLOBAL_RADIO_TYPE = 1 // radio type to use
 	if(usr.stat || !on)
 		return
 	if (href_list["mode"])
-		subspace_transmission = !subspace_transmission
-		if(!subspace_transmission)//Simple as fuck, clears the channel list to prevent talking/listening over them if subspace transmission is disabled
+		if(subspace_transmission != 1)
+			subspace_transmission = 1
+			usr << "Subspace Transmission is enabled"
+		else
+			subspace_transmission = 0
+			usr << "Subspace Transmission is disabled"
+		if(subspace_transmission == 0)//Simple as fuck, clears the channel list to prevent talking/listening over them if subspace transmission is disabled
 			channels = list()
 		else
 			recalculateChannels()
-		usr << "Subspace Transmission is [(subspace_transmission) ? "enabled" : "disabled"]"
+	if (href_list["shutup"]) // Toggle loudspeaker mode, AKA everyone around you hearing your radio.
+		shut_up = !shut_up
+		if(shut_up)
+			canhear_range = 0
+		else
+			canhear_range = 3
+
 	..()
 
 /obj/item/device/radio/borg/interact(mob/user as mob)
@@ -806,6 +646,7 @@ var/GLOBAL_RADIO_TYPE = 1 // radio type to use
 				<A href='byond://?src=\ref[src];freq=2'>+</A>
 				<A href='byond://?src=\ref[src];freq=10'>+</A><BR>
 				<A href='byond://?src=\ref[src];mode=1'>Toggle Broadcast Mode</A><BR>
+				Loudspeaker: [shut_up ? "<A href='byond://?src=\ref[src];shutup=0'>Disengaged</A>" : "<A href='byond://?src=\ref[src];shutup=1'>Engaged</A>"]<BR>
 				"}
 
 	if(subspace_transmission)//Don't even bother if subspace isn't turned on
@@ -830,11 +671,3 @@ var/GLOBAL_RADIO_TYPE = 1 // radio type to use
 
 /obj/item/device/radio/off
 	listening = 0
-
-/obj/item/device/radio/Destroy()
-	if(radio_connection)
-		radio_connection.remove_listener(src)
-	if(isrobot(src.loc))
-		var/mob/living/silicon/robot/R = src.loc
-		R.radio = null
-	..()

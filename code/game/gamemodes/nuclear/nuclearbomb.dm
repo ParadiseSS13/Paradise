@@ -23,10 +23,6 @@ var/bomb_set
 	var/timing_wire
 	var/removal_stage = 0 // 0 is no removal, 1 is covers removed, 2 is covers open, 3 is sealant open, 4 is unwrenched, 5 is removed from bolts.
 	var/lastentered
-	var/data[0]
-	var/uiwidth
-	var/uiheight
-	var/uititle
 	use_power = 0
 	unacidable = 1
 
@@ -188,6 +184,10 @@ obj/machinery/nuclearbomb/proc/nukehack_win(mob/user as mob)
 	ui_interact(user)
 
 /obj/machinery/nuclearbomb/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
+	var/data[0]
+	var/uiwidth
+	var/uiheight
+	var/uititle
 	if(!src.opened)
 		data["hacking"] = 0
 		data["auth"] = src.auth

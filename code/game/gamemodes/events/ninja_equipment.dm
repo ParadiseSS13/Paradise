@@ -1351,21 +1351,21 @@ ________________________________________________________________________________
 		var/chance = rand(1,100)
 		switch(chance)
 			if(1 to 70)//High chance of a regular name.
-				voice = "[rand(0,1)==1?pick(first_names_female):pick(first_names_male)] [pick(last_names)]"
+				changer.voice = "[rand(0,1)==1?pick(first_names_female):pick(first_names_male)] [pick(last_names)]"
 			if(71 to 80)//Smaller chance of a clown name.
-				voice = "[pick(clown_names)]"
+				changer.voice = "[pick(clown_names)]"
 			if(81 to 90)//Small chance of a wizard name.
-				voice = "[pick(wizard_first)] [pick(wizard_second)]"
+				changer.voice = "[pick(wizard_first)] [pick(wizard_second)]"
 			if(91 to 100)//Small chance of an existing crew name.
 				var/names[] = new()
 				for(var/mob/living/carbon/human/M in player_list)
 					if(M==U||!M.client||!M.real_name)	continue
 					names.Add(M.real_name)
-				voice = !names.len ? "Cuban Pete" : pick(names)
-		U << "You are now mimicking <B>[voice]</B>."
+				changer.voice = !names.len ? "Cuban Pete" : pick(names)
+		U << "You are now mimicking <B>[changer.voice]</B>."
 	else
-		U << "The voice synthesizer is [voice!="Unknown"?"now":"already"] deactivated."
-		voice = "Unknown"
+		U << "The voice synthesizer is [changer.voice!="Unknown"?"now":"already"] deactivated."
+		changer.voice = "Unknown"
 	return
 
 /obj/item/clothing/mask/gas/voice/space_ninja/proc/switchm()
@@ -1408,7 +1408,7 @@ ________________________________________________________________________________
 		if(3)
 			mode = "Meson Scanner"
 	usr << "<B>[mode]</B> is active."//Leaving usr here since it may be on the floor or on a person.
-	usr << "Voice mimicking algorithm is set <B>[!vchange?"inactive":"active"]</B>."
+	usr << "Voice mimicking algorithm is set <B>[!changer.active?"inactive":"active"]</B>."
 
 
 /*

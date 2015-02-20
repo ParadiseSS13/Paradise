@@ -93,6 +93,7 @@
 	return 0
 
 /mob/proc/Life()
+	handle_typing_indicator()
 //	if(organStructure)
 //		organStructure.ProcessOrgans()
 	return
