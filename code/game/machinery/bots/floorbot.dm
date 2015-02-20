@@ -49,6 +49,7 @@
 	var/oldloc = null
 	req_one_access = list(access_construction, access_robotics)
 	var/targetdirection
+	radio_frequency = ENG_FREQ //Engineering channel
 	radio_name = "Engineering"
 	bot_type = FLOOR_BOT
 	bot_type_name = "Floorbot"
@@ -317,7 +318,7 @@
 /obj/machinery/bot/floorbot/proc/nag() //Annoy everyone on the channel to refill us!
 	if(!nagged)
 		var/area/location = get_area(src)
-		speak("Requesting refill at <b>[location]</b>!", radio_name)
+		speak("Requesting refill at <b>[location]</b>!", radio_frequency, radio_name)
 		nagged = 1
 
 /obj/machinery/bot/floorbot/proc/is_hull_breach(var/turf/t) //Ignore space tiles not considered part of a structure, also ignores shuttle docking areas.

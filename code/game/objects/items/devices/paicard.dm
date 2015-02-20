@@ -161,13 +161,19 @@
 				<table class="request">
 					<tr>
 						<td class="radio">Transmit:</td>
-						<td><a href='byond://?src=\ref[src];wires=4'>[radio.broadcasting ? "<font color=#55FF55>En" : "<font color=#FF5555>Dis" ]abled</font></a>
+						<td><a href='byond://?src=\ref[src];wires=[WIRE_TRANSMIT]'>[(!radio.isWireCut(WIRE_TRANSMIT)) ? "<font color=#55FF55>En" : "<font color=#FF5555>Dis" ]abled</font></a>
 
 						</td>
 					</tr>
 					<tr>
 						<td class="radio">Receive:</td>
-						<td><a href='byond://?src=\ref[src];wires=2'>[radio.listening ? "<font color=#55FF55>En" : "<font color=#FF5555>Dis" ]abled</font></a>
+						<td><a href='byond://?src=\ref[src];wires=[WIRE_RECEIVE]'>[(!radio.isWireCut(WIRE_RECEIVE)) ? "<font color=#55FF55>En" : "<font color=#FF5555>Dis" ]abled</font></a>
+
+						</td>
+					</tr>
+					<tr>
+						<td class="radio">Signal Pulser:</td>
+						<td><a href='byond://?src=\ref[src];wires=[WIRE_SIGNAL]'>[(!radio.isWireCut(WIRE_SIGNAL)) ? "<font color=#55FF55>En" : "<font color=#FF5555>Dis" ]abled</font></a>
 
 						</td>
 					</tr>
@@ -259,11 +265,8 @@
 			removePersonality()
 	if(href_list["wires"])
 		var/t1 = text2num(href_list["wires"])
-		switch(t1)
-			if(4)
-				radio.ToggleBroadcast()
-			if(2)
-				radio.ToggleReception()
+		if(radio)
+			radio.wires.CutWireIndex(t1)
 	if(href_list["setlaws"])
 		var/newlaws = copytext(sanitize(input("Enter any additional directives you would like your pAI personality to follow. Note that these directives will not override the personality's allegiance to its imprinted master. Conflicting directives will be ignored.", "pAI Directive Configuration", pai.pai_laws) as message),1,MAX_MESSAGE_LEN)
 		if(newlaws)

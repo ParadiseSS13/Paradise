@@ -290,12 +290,11 @@ proc/get_damage_icon_part(damage_state, body_part)
 		//Robotic limbs are handled in get_icon() so all we worry about are missing or dead limbs.
 		//No icon stored, so we need to start with a basic one.
 		var/datum/organ/external/chest = get_organ("chest")
-		if(chest)
-			base_icon = chest.get_icon(g,fat)
+		base_icon = chest.get_icon(g,fat)
 
-			if(chest.status & ORGAN_DEAD)
-				base_icon.ColorTone(necrosis_color_mod)
-				base_icon.SetIntensity(0.7)
+		if(chest.status & ORGAN_DEAD)
+			base_icon.ColorTone(necrosis_color_mod)
+			base_icon.SetIntensity(0.7)
 
 		for(var/datum/organ/external/part in organs)
 

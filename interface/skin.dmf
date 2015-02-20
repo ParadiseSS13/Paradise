@@ -149,11 +149,11 @@ macro "AZERTYoff"
 		is-disabled = false
 	elem 
 		name = "F3"
-		command = ".say"
+		command = "say"
 		is-disabled = false
 	elem 
 		name = "F4"
-		command = ".me"
+		command = "me"
 		is-disabled = false
 	elem 
 		name = "F5"
@@ -347,7 +347,7 @@ macro "AZERTYon"
 		is-disabled = false
 	elem 
 		name = "T"
-		command = ".say"
+		command = "say"
 		is-disabled = false
 	elem 
 		name = "W"
@@ -403,11 +403,11 @@ macro "AZERTYon"
 		is-disabled = false
 	elem 
 		name = "F3"
-		command = ".say"
+		command = "say"
 		is-disabled = false
 	elem 
 		name = "F4"
-		command = ".me"
+		command = "me"
 		is-disabled = false
 	elem 
 		name = "F5"
@@ -704,10 +704,6 @@ macro "hotkeymode"
 	elem 
 		name = "CTRL+4"
 		command = "a-intent harm"
-		is-disabled = false
-	elem 
-		name = "5"
-		command = ".me"
 		is-disabled = false
 	elem 
 		name = "A+REP"

@@ -62,7 +62,7 @@
 	build_path = /obj/item/weapon/circuitboard/bodyscanner
 	category = list("Medical Machinery")
 
-/datum/design/bodyscanner_console
+/datum/design/sleep_console
 	name = "Machine Board (Body Scanner Console)"
 	desc = "Allows for the construction of circuit boards used to build a Body Scanner Console."
 	id = "bodyscanner_console"

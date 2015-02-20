@@ -1,10 +1,5 @@
 //Challenge Areas
 
-/area/awaymission/challenge
-	name = "Challenge"
-	icon_state = "away"
-	report_alerts = 0
-
 /area/awaymission/challenge/start
 	name = "Where Am I?"
 	icon_state = "away"

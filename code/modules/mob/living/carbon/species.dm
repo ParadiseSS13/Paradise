@@ -8,10 +8,10 @@
 	var/icobase = 'icons/mob/human_races/r_human.dmi'    // Normal icon set.
 	var/deform = 'icons/mob/human_races/r_def_human.dmi' // Mutated icon set.
 	var/eyes = "eyes_s"                                  // Icon for eyes.
-	var/blurb = "A completely nondescript species."      // A brief lore summary for use in the chargen screen.
 
 	var/primitive                // Lesser form, if any (ie. monkey for humans)
 	var/tail                     // Name of tail image in species effects icon file.
+	var/language                 // Default racial language, if any.
 	var/unarmed                  //For empty hand harm-intent attack
 	var/unarmed_type = /datum/unarmed_attack
 	var/mutantrace               // Safeguard due to old code.
@@ -41,8 +41,11 @@
 	var/brute_mod = null    // Physical damage reduction/malus.
 	var/burn_mod = null     // Burn damage reduction/malus.
 
+	// For grays
 	var/max_hurt_damage = 9 // Max melee damage dealt + 5 if hulk
-	var/list/default_genes = list()
+	var/list/default_mutations = list()
+	var/list/default_blocks = list() // Don't touch.
+	var/list/default_block_names = list() // Use this instead, using the names from setupgame.dm
 
 	var/flags = 0       // Various specific features.
 	var/bloodflags=0
@@ -57,21 +60,12 @@
 	//Used in icon caching.
 	var/race_key = 0
 	var/icon/icon_template
-	
-	// Language/culture vars.
-	var/default_language = "Galactic Common" // Default language is used when 'say' is used without modifiers.
-	var/language = "Galactic Common"         // Default racial language, if any.
-	var/secondary_langs = list()             // The names of secondary languages that are available to this species.
-	var/list/speech_sounds                   // A list of sounds to potentially play when speaking.
-	var/list/speech_chance                   // The likelihood of a speech sound playing.
+
 
 /datum/species/New()
 	unarmed = new unarmed_type()
 
-/datum/species/proc/get_random_name(var/gender)
-	var/datum/language/species_language = all_languages[language]
-	return species_language.get_random_name(gender)
-	
+
 /datum/species/proc/create_organs(var/mob/living/carbon/human/H) //Handles creation of mob organs.
 	//This is a basic humanoid limb setup.
 	H.organs = list()
@@ -87,7 +81,7 @@
 	H.organs_by_name["l_foot"] = new/datum/organ/external/l_foot(H.organs_by_name["l_leg"])
 	H.organs_by_name["r_foot"] = new/datum/organ/external/r_foot(H.organs_by_name["r_leg"])
 
-	if (name != "Slime People")
+	if (name!="Slime People")
 		new/datum/organ/internal/heart(H)
 		new/datum/organ/internal/lungs(H)
 		new/datum/organ/internal/liver(H)
@@ -253,10 +247,6 @@
 	return 1
 
 /datum/species/proc/handle_post_spawn(var/mob/living/carbon/C) //Handles anything not already covered by basic species assignment.
-	handle_dna(C)
-	return
-	
-/datum/species/proc/handle_dna(var/mob/living/carbon/C, var/remove) //Handles DNA mutations, as that doesn't work at init.
 	return
 
 // Used for species-specific names (Vox, etc)
@@ -272,10 +262,6 @@
 	return message
 
 /datum/species/proc/equip(var/mob/living/carbon/human/H)
-	return
-	
-/datum/species/proc/can_understand(var/mob/other)
-	return
 
 /datum/species/human
 	name = "Human"
@@ -286,29 +272,17 @@
 	flags = HAS_LIPS | HAS_UNDERWEAR | CAN_BE_FAT
 	bodyflags = HAS_SKIN_TONE
 	unarmed_type = /datum/unarmed_attack/punch
-	blurb = "Humanity originated in the Sol system, and over the last five centuries has spread \
-	colonies across a wide swathe of space. They hold a wide range of forms and creeds.<br/><br/> \
-	While the central Sol government maintains control of its far-flung people, powerful corporate \
-	interests, rampant cyber and bio-augmentation and secretive factions make life on most human \
-	worlds tumultous at best."
 
 /datum/species/unathi
 	name = "Unathi"
 	icobase = 'icons/mob/human_races/r_lizard.dmi'
 	deform = 'icons/mob/human_races/r_def_lizard.dmi'
 	path = /mob/living/carbon/human/unathi
-	default_language = "Galactic Common"
 	language = "Sinta'unathi"
 	tail = "sogtail"
 	unarmed_type = /datum/unarmed_attack/claws
 	primitive = /mob/living/carbon/monkey/unathi
 	darksight = 3
-	
-	blurb = "A heavily reptillian species, Unathi (or 'Sinta as they call themselves) hail from the \
-	Uuosa-Eso system, which roughly translates to 'burning mother'.<br/><br/>Coming from a harsh, radioactive \
-	desert planet, they mostly hold ideals of honesty, virtue, martial combat and bravery above all \
-	else, frequently even their own lives. They prefer warmer temperatures than most species and \
-	their native tongue is a heavy hissing laungage called Sinta'Unathi."
 
 	flags = HAS_LIPS | HAS_UNDERWEAR
 	bodyflags = FEET_CLAWS | HAS_TAIL | HAS_SKIN_COLOR
@@ -331,17 +305,10 @@
 	icobase = 'icons/mob/human_races/r_tajaran.dmi'
 	deform = 'icons/mob/human_races/r_def_tajaran.dmi'
 	path = /mob/living/carbon/human/tajaran
-	default_language = "Galactic Common"
 	language = "Siik'tajr"
 	tail = "tajtail"
 	unarmed_type = /datum/unarmed_attack/claws
 	darksight = 8
-	
-	blurb = "The Tajaran race is a species of feline-like bipeds hailing from the planet of Ahdomai in the \
-	S'randarr system. They have been brought up into the space age by the Humans and Skrell, and have been \
-	influenced heavily by their long history of Slavemaster rule. They have a structured, clan-influenced way \
-	of family and politics. They prefer colder environments, and speak a variety of languages, mostly Siik'Maas, \
-	using unique inflections their mouths form."
 
 	cold_level_1 = 200
 	cold_level_2 = 140
@@ -364,16 +331,9 @@
 	icobase = 'icons/mob/human_races/r_skrell.dmi'
 	deform = 'icons/mob/human_races/r_def_skrell.dmi'
 	path = /mob/living/carbon/human/skrell
-	default_language = "Galactic Common"
 	language = "Skrellian"
 	primitive = /mob/living/carbon/monkey/skrell
 	unarmed_type = /datum/unarmed_attack/punch
-	
-	blurb = "An amphibious species, Skrell come from the star system known as Qerr'Vallis, which translates to 'Star of \
-	the royals' or 'Light of the Crown'.<br/><br/>Skrell are a highly advanced and logical race who live under the rule \
-	of the Qerr'Katish, a caste within their society which keeps the empire of the Skrell running smoothly. Skrell are \
-	herbivores on the whole and tend to be co-operative with the other species of the galaxy, although they rarely reveal \
-	the secrets of their empire to their allies."
 
 	flags = HAS_LIPS | HAS_UNDERWEAR
 	bloodflags = BLOOD_GREEN
@@ -388,20 +348,8 @@
 	icobase = 'icons/mob/human_races/r_vox.dmi'
 	deform = 'icons/mob/human_races/r_def_vox.dmi'
 	path = /mob/living/carbon/human/vox
-	
-	default_language = "Galactic Common"
-	language = "Vox-pidgin"	
-	speech_sounds = list('sound/voice/shriek1.ogg')
-	speech_chance = 20
-	
+	language = "Vox-pidgin"
 	unarmed_type = /datum/unarmed_attack/claws	//I dont think it will hurt to give vox claws too.
-	
-	blurb = "The Vox are the broken remnants of a once-proud race, now reduced to little more than \
-	scavenging vermin who prey on isolated stations, ships or planets to keep their own ancient arkships \
-	alive. They are four to five feet tall, reptillian, beaked, tailed and quilled; human crews often \
-	refer to them as 'shitbirds' for their violent and offensive nature, as well as their horrible \
-	smell.<br/><br/>Most humans will never meet a Vox raider, instead learning of this insular species through \
-	dealing with their traders and merchants; those that do rarely enjoy the experience."
 
 	warning_low_pressure = 50
 	hazard_low_pressure = 0
@@ -445,6 +393,7 @@
 	name = "Vox Armalis"
 	icobase = 'icons/mob/human_races/r_armalis.dmi'
 	deform = 'icons/mob/human_races/r_armalis.dmi'
+	language = "Vox-pidgin"
 	path = /mob/living/carbon/human/voxarmalis
 	unarmed_type = /datum/unarmed_attack/claws/armalis
 
@@ -505,9 +454,9 @@
 	icobase = 'icons/mob/human_races/r_kidan.dmi'
 	deform = 'icons/mob/human_races/r_def_kidan.dmi'
 	path = /mob/living/carbon/human/kidan
-	default_language = "Galactic Common"
 	language = "Chittin"
 	unarmed_type = /datum/unarmed_attack/claws
+
 
 	brute_mod = 0.8
 
@@ -515,9 +464,10 @@
 	bloodflags = BLOOD_GREEN
 	bodyflags = FEET_CLAWS
 
+
+
 /datum/species/slime
 	name = "Slime People"
-	default_language = "Galactic Common"
 	language = "Bubblish"
 	path = /mob/living/carbon/human/slime
 	primitive = /mob/living/carbon/slime
@@ -528,48 +478,37 @@
 
 /datum/species/slime/handle_post_spawn(var/mob/living/carbon/human/H)
 	H.dna = new /datum/dna(null)
-	H.dna.real_name = H.real_name
-	H.dna.species = H.species.name
+	H.dna.species=H.species.name
 	H.dna.mutantrace = "slime"
+	H.update_mutantrace()
 
-	..()
+	return ..()
 
-/datum/species/grey
+/datum/species/grey // /vg/
 	name = "Grey"
 	icobase = 'icons/mob/human_races/r_grey.dmi'
 	deform = 'icons/mob/human_races/r_def_grey.dmi'
-	default_language = "Galactic Common"
-	//language = "Grey" // Perhaps if they ever get a hivemind
+	language = "Grey"
 	unarmed_type = /datum/unarmed_attack/punch
 	darksight = 5 // BOOSTED from 2
 	eyes = "grey_eyes_s"
 
 	brute_mod = 1.25 //greys are fragile
-	
-	default_genes = list(M_REMOTE_TALK)
 
 	primitive = /mob/living/carbon/monkey // TODO
 
 	flags = IS_WHITELISTED | HAS_LIPS | HAS_UNDERWEAR | CAN_BE_FAT
-	
-/datum/species/grey/handle_dna(var/mob/living/carbon/C, var/remove)
-	if(!remove)
-		C.dna.SetSEState(REMOTETALKBLOCK,1,1)
-		C.mutations |= M_REMOTE_TALK
-		genemutcheck(C,REMOTETALKBLOCK,null,MUTCHK_FORCED)
-	else
-		C.dna.SetSEState(REMOTETALKBLOCK,0,1)
-		C.mutations -= M_REMOTE_TALK
-		genemutcheck(C,REMOTETALKBLOCK,null,MUTCHK_FORCED)
-	C.update_mutations()
-	..()
+
+	// Both must be set or it's only a 45% chance of manifesting.
+	default_mutations=list(M_REMOTE_TALK)
+	default_block_names=list("REMOTETALK")
+
 
 /datum/species/diona
 	name = "Diona"
 	icobase = 'icons/mob/human_races/r_diona.dmi'
 	deform = 'icons/mob/human_races/r_def_plant.dmi'
 	path = /mob/living/carbon/human/diona
-	default_language = "Galactic Common"
 	language = "Rootspeak"
 	unarmed_type = /datum/unarmed_attack/diona
 	primitive = /mob/living/carbon/monkey/diona
@@ -584,14 +523,6 @@
 	heat_level_1 = 300
 	heat_level_2 = 350
 	heat_level_3 = 700
-	
-	blurb = "Commonly referred to (erroneously) as 'plant people', the Dionaea are a strange space-dwelling collective \
-	species hailing from Epsilon Ursae Minoris. Each 'diona' is a cluster of numerous cat-sized organisms called nymphs; \
-	there is no effective upper limit to the number that can fuse in gestalt, and reports exist	of the Epsilon Ursae \
-	Minoris primary being ringed with a cloud of singing space-station-sized entities.<br/><br/>The Dionaea coexist peacefully with \
-	all known species, especially the Skrell. Their communal mind makes them slow to react, and they have difficulty understanding \
-	even the simplest concepts of other minds. Their alien physiology allows them survive happily off a diet of nothing but light, \
-	water and other radiation."
 
 	flags = NO_BREATHE | REQUIRE_LIGHT | IS_PLANT | RAD_ABSORB | NO_BLOOD | IS_SLOW | NO_PAIN
 
@@ -601,12 +532,6 @@
 	flesh_color = "#907E4A"
 
 	reagent_tag = IS_DIONA
-	
-/datum/species/diona/can_understand(var/mob/other)
-	var/mob/living/carbon/monkey/diona/D = other
-	if(istype(D))
-		return 1
-	return 0
 
 /datum/species/diona/handle_post_spawn(var/mob/living/carbon/human/H)
 	H.gender = NEUTER
@@ -636,7 +561,6 @@
 	icobase = 'icons/mob/human_races/r_machine.dmi'
 	deform = 'icons/mob/human_races/r_machine.dmi'
 	path = /mob/living/carbon/human/machine
-	default_language = "Galactic Common"
 	language = "Trinary"
 	unarmed_type = /datum/unarmed_attack/punch
 

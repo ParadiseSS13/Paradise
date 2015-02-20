@@ -65,7 +65,7 @@
 		I.implanted = O
 
 	user.mind.transfer_to(O)
-	O.changeling_update_languages(changeling.absorbed_languages)
+	O.mind.changeling.changeling_update_languages(changeling.absorbed_languages)
 	O.mind.changeling.purchasedpowers -= src
 	//O.mind.changeling.purchasedpowers += new /obj/effect/proc_holder/changeling/lesserform(null)
 	feedback_add_details("changeling_powers","LFT")

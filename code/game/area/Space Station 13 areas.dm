@@ -2268,7 +2268,6 @@ area/security/podbay
 
 /area/awaycontent
 	name = "space"
-	report_alerts = 0
 
 /area/awaycontent/a1
 	icon_state = "awaycontent1"

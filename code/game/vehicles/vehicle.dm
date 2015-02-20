@@ -182,9 +182,9 @@
 					mecha.loc.assume_air(leaked_gas)
 				else
 					del(leaked_gas)
-		/*if(mecha.hasInternalDamage(MECHA_INT_SHORT_CIRCUIT)) // LAG INDUCING - it'll keep on creating sparks
+		if(mecha.hasInternalDamage(MECHA_INT_SHORT_CIRCUIT))
 			if(mecha.get_charge())
 				mecha.spark_system.start()
 				mecha.cell.charge -= min(20,mecha.cell.charge)
-				mecha.cell.maxcharge -= min(20,mecha.cell.maxcharge) */
+				mecha.cell.maxcharge -= min(20,mecha.cell.maxcharge)
 		return
