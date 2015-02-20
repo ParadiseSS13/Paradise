@@ -27,7 +27,6 @@ var/bomb_set
 	var/uiwidth
 	var/uiheight
 	var/uititle
-	flags = FPRINT
 	use_power = 0
 	unacidable = 1
 
