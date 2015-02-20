@@ -163,6 +163,9 @@
 	else if(I == wear_id)
 		wear_id = null
 		update_inv_wear_id(0)
+	else if(I == wear_pda)
+		wear_pda = null
+		update_inv_wear_pda(0)
 	else if(I == r_store)
 		r_store = null
 		update_inv_pockets(0)
