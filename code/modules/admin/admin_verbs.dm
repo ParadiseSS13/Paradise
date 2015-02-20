@@ -60,7 +60,10 @@ var/list/admin_verbs_admin = list(
 	/client/proc/man_up,
 	/client/proc/global_man_up,
 	/client/proc/delbook,
-	/client/proc/empty_ai_core_toggle_latejoin
+	/client/proc/empty_ai_core_toggle_latejoin,
+	/client/proc/freeze,
+	/client/proc/freezemecha
+
 )
 var/list/admin_verbs_ban = list(
 	/client/proc/unban_panel,
