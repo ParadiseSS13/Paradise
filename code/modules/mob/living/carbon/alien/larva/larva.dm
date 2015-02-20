@@ -23,6 +23,8 @@
 		name = "alien larva ([rand(1, 1000)])"
 	real_name = name
 	regenerate_icons()
+	add_language("Xenomorph")
+	add_language("Hivemind") 
 	..()
 
 //This is fine, works the same as a human

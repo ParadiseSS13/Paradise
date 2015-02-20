@@ -121,6 +121,11 @@
 /mob/living/silicon/robot/proc/is_component_functioning(module_name)
 	var/datum/robot_component/C = components[module_name]
 	return C && C.installed == 1 && C.toggled && C.is_powered()
+	
+// Returns component by it's string name
+/mob/living/silicon/robot/proc/get_component(var/component_name)
+	var/datum/robot_component/C = components[component_name]
+	return C
 
 /obj/item/broken_device
 	name = "broken component"

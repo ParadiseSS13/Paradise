@@ -112,6 +112,20 @@ var/list/ai_list = list()
 		/mob/living/silicon/ai/proc/ai_statuschange, /mob/living/silicon/ai/proc/ai_hologram_change, \
 		/mob/living/silicon/ai/proc/toggle_camera_light, /mob/living/silicon/ai/proc/botcall, /mob/living/silicon/ai/proc/control_integrated_radio, /mob/living/silicon/ai/proc/control_hud, /mob/living/silicon/ai/proc/change_arrival_message, /mob/living/silicon/ai/proc/ai_store_location, /mob/living/silicon/ai/proc/ai_goto_location, /mob/living/silicon/ai/proc/ai_remove_location, /mob/living/silicon/ai/proc/nano_crew_monitor, /mob/living/silicon/ai/proc/ai_cancel_call)
 
+	//Languages
+	add_language("Robot Talk", 1)
+	add_language("Sol Common", 1)
+	add_language("Tradeband", 1)
+	add_language("Sinta'unathi", 0)
+	add_language("Siik'tajr", 0)
+	add_language("Skrellian", 0)
+	add_language("Vox-pidgin", 0)
+	add_language("Rootspeak", 0)
+	add_language("Trinary", 1)
+	add_language("Chittin", 0)
+	add_language("Bubblish", 0)
+	add_language("Gutter", 0)		
+		
 	if(!safety)//Only used by AIize() to successfully spawn an AI.
 		if (!B)//If there is no player/brain inside.
 			empty_playable_ai_cores += new/obj/structure/AIcore/deactivated(loc)//New empty terminal.
@@ -127,6 +141,7 @@ var/list/ai_list = list()
 					/mob/living/silicon/ai/proc/ai_statuschange, /mob/living/silicon/ai/proc/ai_hologram_change, \
 					/mob/living/silicon/ai/proc/toggle_camera_light,/mob/living/silicon/ai/verb/pick_icon,/mob/living/silicon/ai/proc/control_hud, /mob/living/silicon/ai/proc/change_arrival_message, /mob/living/silicon/ai/proc/ai_cancel_call)
 					laws = new /datum/ai_laws/alienmov
+					add_language("xenocommon", 1)
 				else
 					B.brainmob.mind.transfer_to(src)
 

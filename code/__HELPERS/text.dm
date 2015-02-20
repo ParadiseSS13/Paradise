@@ -342,3 +342,4 @@ proc/checkhtml(var/t)
 
 /proc/trim_strip_html_properly(var/input, var/max_length = MAX_MESSAGE_LEN)
     return trim(strip_html_properly(input, max_length))
+	

@@ -444,45 +444,21 @@
 	proc/create_character()
 		spawning = 1
 		close_spawn_windows()
+		
 		var/mob/living/carbon/human/new_character
+		
 		var/datum/species/chosen_species
 		if(client.prefs.species)
 			chosen_species = all_species[client.prefs.species]
 		if(chosen_species)
 			// Have to recheck admin due to no usr at roundstart. Latejoins are fine though.
 			if(is_species_whitelisted(chosen_species) || has_admin_rights())
-				switch(chosen_species.name)
-					if("Slime People")
-						new_character = new /mob/living/carbon/human/slime(loc)
-					if("Tajaran")
-						new_character = new /mob/living/carbon/human/tajaran(loc)
-					if("Unathi")
-						new_character = new /mob/living/carbon/human/unathi(loc)
-					if("Skrell")
-						new_character = new /mob/living/carbon/human/skrell(loc)
-					if("Diona")
-						new_character = new /mob/living/carbon/human/diona(loc)
-					if("Vox")
-						new_character = new /mob/living/carbon/human/vox(loc)
-					if("Vox Armalis")
-						new_character = new /mob/living/carbon/human/voxarmalis(loc)
-					if("Kidan")
-						new_character = new /mob/living/carbon/human/kidan(loc)
-					if("Grey")
-						new_character = new /mob/living/carbon/human/grey(loc)
-					if("Machine")
-						new_character = new /mob/living/carbon/human/machine(loc)
-					if("Plasmaman")
-						new_character = new /mob/living/carbon/human/plasma(loc)
-					if("Human")
-						new_character = new /mob/living/carbon/human/human(loc)
-//				new_character.set_species(client.prefs.species)
-				if(chosen_species.language)
-					new_character.add_language(chosen_species.language)
-		else
-			new_character = new /mob/living/carbon/human(loc)
+				new_character = new(loc, client.prefs.species)
+				
+		if(!new_character)
+			new_character = new(loc)
+			
 		new_character.lastarea = get_area(loc)
-
 
 		var/datum/language/chosen_language
 		if(client.prefs.language)
@@ -529,6 +505,8 @@
 		if(client.prefs.disabilities & DISABILITY_FLAG_DEAF)
 			new_character.dna.SetSEState(DEAFBLOCK,1,1)
 			new_character.sdisabilities |= DEAF
+					
+		chosen_species.handle_dna(new_character)
 			
 		domutcheck(new_character)
 		new_character.dna.UpdateSE()

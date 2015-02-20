@@ -144,14 +144,13 @@
 
 
 	proc/set_frequency(new_frequency)
-		if(!radio_controller)
-			sleep(20)
-		if(!radio_controller)
+		spawn(20)
+			if(!radio_controller)
+				return
+			radio_controller.remove_object(src, frequency)
+			frequency = new_frequency
+			radio_connection = radio_controller.add_object(src, frequency, RADIO_CHAT)
 			return
-		radio_controller.remove_object(src, frequency)
-		frequency = new_frequency
-		radio_connection = radio_controller.add_object(src, frequency, RADIO_CHAT)
-		return
 
 // Embedded signaller used in anomalies.
 /obj/item/device/assembly/signaler/anomaly
