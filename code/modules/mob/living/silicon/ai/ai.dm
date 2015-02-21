@@ -498,9 +498,11 @@ var/list/ai_list = list()
 
 	if (href_list["track"])
 		var/mob/target = locate(href_list["track"]) in mob_list
-		var/mob/living/silicon/ai/A = locate(href_list["track2"]) in mob_list
-		if(A && target)
-			A.ai_actual_track(target)
+
+		if(target && (!istype(target, /mob/living/carbon/human) || html_decode(href_list["trackname"]) == target:get_face_name()))
+			ai_actual_track(target)
+		else
+			src << "\red System error. Cannot locate [html_decode(href_list["trackname"])]."
 		return
 
 	if (href_list["trackbot"])
