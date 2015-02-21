@@ -358,7 +358,7 @@ About the new airlock wires panel:
 	return ((src.aiControlDisabled==1) && (!hackProof) && (!src.isAllPowerLoss()));
 
 /obj/machinery/door/airlock/proc/arePowerSystemsOn()
-	if (stat & NOPOWER)
+	if (stat & (NOPOWER|BROKEN))
 		return 0
 	return (src.secondsMainPowerLost==0 || src.secondsBackupPowerLost==0)
 
@@ -473,7 +473,8 @@ About the new airlock wires panel:
 		if("spark")
 			flick("door_spark", src)
 		if("deny")
-			flick("door_deny", src)
+			if(density && src.arePowerSystemsOn())
+				flick("door_deny", src)
 	return
 
 /obj/machinery/door/airlock/attack_ai(mob/user as mob)
@@ -1028,19 +1029,19 @@ About the new airlock wires panel:
 			if(density)
 				if(beingcrowbarred == 0) //being fireaxe'd
 					var/obj/item/weapon/twohanded/fireaxe/F = C
-					if(F:wielded)
+					if(F.wielded)
 						spawn(0)	open(1)
 					else
-						user << "\red You need to be wielding the Fire axe to do that."
+						user << "\red You need to be wielding \the [C] to do that."
 				else
 					spawn(0)	open(1)
 			else
 				if(beingcrowbarred == 0)
 					var/obj/item/weapon/twohanded/fireaxe/F = C
-					if(F:wielded)
+					if(F.wielded)
 						spawn(0)	close(1)
 					else
-						user << "\red You need to be wielding the Fire axe to do that."
+						user << "\red You need to be wielding \the [C] to do that."
 				else
 					spawn(0)	close(1)
 	else

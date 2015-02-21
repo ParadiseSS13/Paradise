@@ -278,7 +278,7 @@ proc/slur(phrase)
 						n_letter = text("[n_letter]-[n_letter]")
 		t = text("[t][n_letter]")//since the above is ran through for each letter, the text just adds up back to the original word.
 		p++//for each letter p is increased to find where the next letter will be.
-	return copytext(sanitize(t),1,MAX_MESSAGE_LEN)
+	return sanitize(copytext(t,1,MAX_MESSAGE_LEN))
 
 
 proc/Gibberish(t, p)//t is the inputted message, and any value higher than 70 for p will cause letters to be replaced instead of added
@@ -325,7 +325,7 @@ It's fairly easy to fix if dealing with single letters but not so much with comp
 			n_letter = text("[n_letter]")
 		t = text("[t][n_letter]")
 		p=p+n_mod
-	return copytext(sanitize(t),1,MAX_MESSAGE_LEN)
+	return sanitize(copytext(t,1,MAX_MESSAGE_LEN))
 
 
 /proc/shake_camera(mob/M, duration, strength=1)
@@ -446,3 +446,49 @@ var/list/intents = list("help","disarm","grab","harm")
 /proc/get_both_hands(mob/living/carbon/M)
 	var/list/hands = list(M.l_hand, M.r_hand)
 	return hands
+
+
+//Direct dead say used both by emote and say
+//It is somewhat messy. I don't know what to do.
+//I know you can't see the change, but I rewrote the name code. It is significantly less messy now
+/proc/say_dead_direct(var/message, var/mob/subject = null)
+	var/name
+	var/keyname
+	if(subject && subject.client)
+		var/client/C = subject.client
+		keyname = (C.holder && C.holder.fakekey) ? C.holder.fakekey : C.key
+		if(C.mob) //Most of the time this is the dead/observer mob; we can totally use him if there is no better name
+			var/mindname
+			var/realname = C.mob.real_name
+			if(C.mob.mind)
+				mindname = C.mob.mind.name
+				if(C.mob.mind.original && C.mob.mind.original.real_name)
+					realname = C.mob.mind.original.real_name
+			if(mindname && mindname != realname)
+				name = "[realname] died as [mindname]"
+			else
+				name = realname
+
+	for(var/mob/M in player_list)
+		if(M.client && ((!istype(M, /mob/new_player) && M.stat == DEAD) || (M.client.holder && M.client.holder.rights == R_MOD)) && (M.client.prefs.toggles & CHAT_DEAD))
+			var/follow
+			var/lname
+			if(subject)
+				if(subject != M)
+					follow = "(<a href='byond://?src=\ref[M];track=\ref[subject]'>follow</a>) "
+				if(M.stat != DEAD && M.client.holder)
+					follow = "(<a href='?src=\ref[M.client.holder];adminplayerobservejump=\ref[subject]'>JMP</a>) "
+				var/mob/dead/observer/DM
+				if(istype(subject, /mob/dead/observer))
+					DM = subject
+				if(M.client.holder) 							// What admins see
+					lname = "[keyname][(DM && DM.anonsay) ? "*" : (DM ? "" : "^")] ([name])"
+				else
+					if(DM && DM.anonsay)						// If the person is actually observer they have the option to be anonymous
+						lname = "Ghost of [name]"
+					else if(DM)									// Non-anons
+						lname = "[keyname] ([name])"
+					else										// Everyone else (dead people who didn't ghost yet, etc.)
+						lname = name
+				lname = "<span class='name'>[lname]</span> "
+			M << "<span class='deadsay'>[lname][follow][message]</span>"

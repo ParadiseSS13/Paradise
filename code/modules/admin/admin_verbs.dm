@@ -42,7 +42,7 @@ var/list/admin_verbs_admin = list(
 	/client/proc/admin_memo,			/*admin memo system. show/delete/write. +SERVER needed to delete admin memos of others*/
 	/client/proc/dsay,					/*talk in deadchat using our ckey/fakekey*/
 	/client/proc/toggleprayers,			/*toggles prayers on/off*/
-//	/client/proc/toggle_hear_radio,		/*toggles whether we hear the radio*/
+	/client/proc/toggle_hear_radio,     /*toggles whether we hear the radio*/
 	/client/proc/investigate_show,		/*various admintools for investigation. Such as a singulo grief-log*/
 	/datum/admins/proc/toggleooc,		/*toggles ooc on/off for everyone*/
 	/datum/admins/proc/toggleoocdead,	/*toggles ooc on/off for everyone who is dead*/
@@ -60,7 +60,10 @@ var/list/admin_verbs_admin = list(
 	/client/proc/man_up,
 	/client/proc/global_man_up,
 	/client/proc/delbook,
-	/client/proc/empty_ai_core_toggle_latejoin
+	/client/proc/empty_ai_core_toggle_latejoin,
+	/client/proc/freeze,
+	/client/proc/freezemecha
+
 )
 var/list/admin_verbs_ban = list(
 	/client/proc/unban_panel,

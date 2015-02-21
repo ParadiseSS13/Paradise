@@ -33,26 +33,8 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 	var/prev_gender = null // Debug for plural genders
 	var/temperature_alert = 0
 	var/in_stasis = 0
-	var/do_deferred_species_setup=0
 	var/exposedtimenow = 0
 	var/firstexposed = 0
-
-// Doing this during species init breaks shit.
-/mob/living/carbon/human/proc/DeferredSpeciesSetup()
-	var/mut_update=0
-	if(species.default_mutations.len>0)
-		for(var/mutation in species.default_mutations)
-			if(!(mutation in mutations))
-				mutations.Add(mutation)
-				mut_update=1
-	if(species.default_blocks.len>0)
-		for(var/block in species.default_blocks)
-			if(!dna.GetSEState(block))
-				dna.SetSEState(block,1)
-				mut_update=1
-	if(mut_update)
-		domutcheck(src,null,MUTCHK_FORCED)
-		update_mutations()
 
 /mob/living/carbon/human/Life()
 	set invisibility = 0
@@ -62,10 +44,6 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 	if(!loc)			return	// Fixing a null error that occurs when the mob isn't found in the world -- TLE
 
 	..()
-
-	if(do_deferred_species_setup)
-		DeferredSpeciesSetup()
-		do_deferred_species_setup=0
 
 	//Apparently, the person who wrote this code designed it so that
 	//blinded get reset each cycle and then get activated later in the
@@ -84,6 +62,8 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 
 	if(life_tick%30==15)
 		hud_updateflag = 1022
+		
+	voice = GetVoice()
 
 	//No need to update all of these procs if the guy is dead.
 	if(stat != DEAD && !in_stasis)
@@ -252,22 +232,26 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 				drop_item()
 				emote("cough")
 		if (disabilities & TOURETTES)
+			speech_problem_flag = 1
 			if ((prob(10) && paralysis <= 1))
 				Stun(10)
 				switch(rand(1, 3))
 					if(1)
 						emote("twitch")
 					if(2 to 3)
-						say("[prob(50) ? ";" : ""][pick("SHIT", "PISS", "FUCK", "CUNT", "COCKSUCKER", "MOTHERFUCKER", "TITS")]")
+						var/tourettes = pick("SHIT", "PISS", "FUCK", "CUNT", "COCKSUCKER", "MOTHERFUCKER", "TITS")
+						say("[prob(50) ? ";" : ""][tourettes]")
 				var/x_offset = pixel_x + rand(-2,2) //Should probably be moved into the twitch emote at some point.
 				var/y_offset = pixel_y + rand(-1,1)
 				animate(src, pixel_x = pixel_x + x_offset, pixel_y = pixel_y + y_offset, time = 1)
 				animate(pixel_x = pixel_x - x_offset, pixel_y = pixel_y - y_offset, time = 1)
 		if (disabilities & NERVOUS)
+			speech_problem_flag = 1
 			if (prob(10))
 				stuttering = max(10, stuttering)
 
 		if (getBrainLoss() >= 60 && stat != 2)
+			speech_problem_flag = 1
 			if (prob(3))
 				switch(pick(1,2,3))
 					if(1)
@@ -329,6 +313,7 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 			if(gene.is_active(src))
 			/*	if (prob(10) && prob(gene.instability))
 					adjustCloneLoss(1) */
+				speech_problem_flag = 1
 				gene.OnMobLife(src)
 
 		if (radiation)
@@ -1091,6 +1076,7 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 				if(halloss > 0)
 					adjustHalLoss(-3)
 			else if(sleeping)
+				speech_problem_flag = 1
 				handle_dreams()
 				adjustStaminaLoss(-10)
 				adjustHalLoss(-3)
@@ -1944,7 +1930,29 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 	var/client/C = client
 	for(var/mob/living/carbon/human/H in view(src, 14))
 		C.images += H.hud_list[NATIONS_HUD]
+		
+/mob/living/carbon/human/handle_silent()
+	if(..())
+		speech_problem_flag = 1
+	return silent
 
+/mob/living/carbon/human/handle_slurring()
+	if(..())
+		speech_problem_flag = 1
+	return slurring
+
+/mob/living/carbon/human/handle_stunned()
+	if(species.flags & NO_PAIN)
+		stunned = 0
+		return 0
+	if(..())
+		speech_problem_flag = 1
+	return stunned
+
+/mob/living/carbon/human/handle_stuttering()
+	if(..())
+		speech_problem_flag = 1
+	return stuttering
 
 // Need this in species.
 //#undef HUMAN_MAX_OXYLOSS

@@ -32,9 +32,12 @@
 	timeofdeath = 0
 
 /mob/living/carbon/human/getBrainLoss()
-	if(species && species.flags & NO_INTORGANS) return
+	if(species && species.flags & NO_INTORGANS) 
+		return
 	var/res = brainloss
 	var/datum/organ/internal/brain/sponge = internal_organs_by_name["brain"]
+	if(!sponge)
+		return
 	if (sponge.is_bruised())
 		res += 20
 	if (sponge.is_broken())
@@ -197,6 +200,7 @@
 		UpdateDamageIcon()
 		hud_updateflag |= 1 << HEALTH_HUD
 	updatehealth()
+	speech_problem_flag = 1
 
 
 //Heal MANY external organs, in random order
@@ -218,6 +222,7 @@
 		parts -= picked
 	updatehealth()
 	hud_updateflag |= 1 << HEALTH_HUD
+	speech_problem_flag = 1
 	if(update)	UpdateDamageIcon()
 
 // damage MANY external organs, in random order

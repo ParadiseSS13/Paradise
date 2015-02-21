@@ -435,6 +435,12 @@
 		return 1 // ZOMG PONIES WHEEE
 	if(ispath(MP, /mob/living/simple_animal/fox))
 		return 1
+	if(ispath(MP, /mob/living/simple_animal/chick))
+		return 1
+	if(ispath(MP, /mob/living/simple_animal/pug))
+		return 1
+	if(ispath(MP, /mob/living/simple_animal/butterfly))
+		return 1
 	//Not in here? Must be untested!
 	return 0
 
@@ -459,6 +465,12 @@
 	if(ispath(MP, /mob/living/simple_animal/pony))
 		return 1
 	if(ispath(MP, /mob/living/simple_animal/fox))
+		return 1
+	if(ispath(MP, /mob/living/simple_animal/chick))
+		return 1
+	if(ispath(MP, /mob/living/simple_animal/pug))
+		return 1
+	if(ispath(MP, /mob/living/simple_animal/butterfly))
 		return 1
 
 //Antag Creatures!
