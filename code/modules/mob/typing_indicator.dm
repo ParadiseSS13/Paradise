@@ -13,7 +13,7 @@ var/global/image/typing_indicator
 		typing_indicator = image('icons/mob/talk.dmi',null,"typing")
 
 	if(client)
-		if(client.prefs.toggles & SHOW_TYPING)
+		if((client.prefs.toggles & SHOW_TYPING) || stat != CONSCIOUS)
 			overlays -= typing_indicator
 		else
 			if(state)
