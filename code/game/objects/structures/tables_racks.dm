@@ -41,7 +41,8 @@
 	update_icon()
 	update_adjacent()
 
-	craft_holder = new /datum/crafting_holder(src, "table")
+	spawn(5)
+		craft_holder = new /datum/crafting_holder(src, "table")
 
 /obj/structure/table/Destroy()
 	update_adjacent()

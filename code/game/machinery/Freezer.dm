@@ -22,6 +22,18 @@
 	component_parts += new /obj/item/stack/cable_coil(src, 1)
 	RefreshParts()
 
+/obj/machinery/atmospherics/unary/cold_sink/freezer/upgraded/New()
+	..()
+	component_parts = list()
+	component_parts += new /obj/item/weapon/circuitboard/thermomachine(src)
+	component_parts += new /obj/item/weapon/stock_parts/matter_bin/super(src)
+	component_parts += new /obj/item/weapon/stock_parts/matter_bin/super(src)
+	component_parts += new /obj/item/weapon/stock_parts/micro_laser/ultra(src)
+	component_parts += new /obj/item/weapon/stock_parts/micro_laser/ultra(src)
+	component_parts += new /obj/item/weapon/stock_parts/console_screen(src)
+	component_parts += new /obj/item/stack/cable_coil(src, 1)
+	RefreshParts()
+	
 /obj/machinery/atmospherics/unary/cold_sink/freezer/RefreshParts()
 	var/H
 	var/T
@@ -85,9 +97,11 @@
 	data["on"] = on ? 1 : 0
 	data["gasPressure"] = round(air_contents.return_pressure())
 	data["gasTemperature"] = round(air_contents.temperature)
+	data["gasTemperatureCelsius"] = round(air_contents.temperature - T0C)
 	data["minGasTemperature"] = round(min_temperature)
 	data["maxGasTemperature"] = round(T20C)
 	data["targetGasTemperature"] = round(current_temperature)
+	data["targetGasTemperatureCelsius"] = round(current_temperature - T0C)
 	
 	var/temp_class = "good"
 	if (air_contents.temperature > (T0C - 20))
@@ -101,7 +115,7 @@
 	if (!ui)
 		// the ui does not exist, so we'll create a new() one
         // for a list of parameters and their descriptions see the code docs in \code\modules\nano\nanoui.dm
-		ui = new(user, src, ui_key, "freezer.tmpl", "Gas Cooling System", 440, 300)
+		ui = new(user, src, ui_key, "freezer.tmpl", "Gas Cooling System", 520, 300)
 		// when the ui is first opened this is the data it will use
 		ui.set_initial_data(data)
 		// open the new ui window
@@ -156,6 +170,21 @@
 	component_parts += new /obj/item/weapon/stock_parts/matter_bin(src)
 	component_parts += new /obj/item/weapon/stock_parts/micro_laser(src)
 	component_parts += new /obj/item/weapon/stock_parts/micro_laser(src)
+	component_parts += new /obj/item/weapon/stock_parts/console_screen(src)
+	component_parts += new /obj/item/stack/cable_coil(src, 1)
+	RefreshParts()
+	
+/obj/machinery/atmospherics/unary/heat_reservoir/heater/upgraded/New()
+	..()
+	var/obj/item/weapon/circuitboard/thermomachine/H = new /obj/item/weapon/circuitboard/thermomachine(null)
+	H.build_path = /obj/machinery/atmospherics/unary/heat_reservoir/heater
+	H.name = "circuit board (Heater)"
+	component_parts = list()
+	component_parts += H
+	component_parts += new /obj/item/weapon/stock_parts/matter_bin/super(src)
+	component_parts += new /obj/item/weapon/stock_parts/matter_bin/super(src)
+	component_parts += new /obj/item/weapon/stock_parts/micro_laser/ultra(src)
+	component_parts += new /obj/item/weapon/stock_parts/micro_laser/ultra(src)
 	component_parts += new /obj/item/weapon/stock_parts/console_screen(src)
 	component_parts += new /obj/item/stack/cable_coil(src, 1)
 	RefreshParts()
