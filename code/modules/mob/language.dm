@@ -315,7 +315,7 @@
 	desc = "The language of clown planet. Mother tongue of clowns throughout the Galaxy."
 	speech_verb = "honks"
 	ask_verb = "honks"
-	exclain_verb = "honks"
+	exclaim_verb = "honks"
 	colour = "clown"
 	key = "0"
 	syllables = list ("honk","squeak","bonk","toot","narf","zub","wee","wub","norf")
