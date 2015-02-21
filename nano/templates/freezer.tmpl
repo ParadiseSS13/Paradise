@@ -39,7 +39,7 @@
 			{{:helper.link('-', null, {'temp' : -100}, (data.targetGasTemperature > data.minGasTemperature) ? null : 'disabled')}}
 			{{:helper.link('-', null, {'temp' : -10}, (data.targetGasTemperature > data.minGasTemperature) ? null : 'disabled')}}
 			{{:helper.link('-', null, {'temp' : -1}, (data.targetGasTemperature > data.minGasTemperature) ? null : 'disabled')}}				
-			<div style="float: left; width: 110px; text-align: center;">{{:data.targetGasTemperature}} K  ({{:data.targetGasTemperatureCelsius}} &deg;C)</div>
+			<div style="float: left; width: 110px; text-align: center;">{{:data.targetGasTemperature}} K ({{:data.targetGasTemperatureCelsius}} &deg;C)</div>
 			{{:helper.link('+', null, {'temp' : 1}, (data.targetGasTemperature < data.maxGasTemperature) ? null : 'disabled')}}
 			{{:helper.link('+', null, {'temp' : 10}, (data.targetGasTemperature < data.maxGasTemperature) ? null : 'disabled')}}
 			{{:helper.link('+', null, {'temp' : 100}, (data.targetGasTemperature < data.maxGasTemperature) ? null : 'disabled')}}	
