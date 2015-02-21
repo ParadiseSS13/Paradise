@@ -98,7 +98,7 @@
 
 	// Disabilities
 	LOUDBLOCK      = getAssignedBlock("LOUD",       numsToAssign)
-	WHISPERBLOCK   = getAssignedBlock("WHISPER",    numsToAssign)
+	//WHISPERBLOCK   = getAssignedBlock("WHISPER",    numsToAssign) BROKEN WITH NEW SAYCODE
 	DIZZYBLOCK     = getAssignedBlock("DIZZY",      numsToAssign)
 
 

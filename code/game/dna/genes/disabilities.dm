@@ -162,6 +162,10 @@
 		block = COMICBLOCK
 
 	OnSay(var/mob/M, var/message)
+		if(ishuman(M))
+			var/mob/living/carbon/human/H = M
+			if((H.wear_id && istype(H.wear_id,/obj/item/weapon/card/id/syndicate)) && (H.wear_mask && istype(H.wear_mask,/obj/item/clothing/mask/gas/voice)))
+				return message
 		if(message)
 			message = "<span class='sans'>[message]</span>"
 			return message

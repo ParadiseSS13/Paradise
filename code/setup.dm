@@ -408,7 +408,7 @@ var/MAX_EX_FLASH_RANGE = 14
 
 // /vg/ muts
 #define M_LOUD		208		// CAUSES INTENSE YELLING
-#define M_WHISPER	209		// causes quiet whispering
+//#define M_WHISPER	209		// causes quiet whispering
 #define M_DIZZY		210		// Trippy.
 
 //disabilities
