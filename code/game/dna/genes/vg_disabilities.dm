@@ -17,7 +17,7 @@
 		message = replacetext(message,"!","!!")
 		return uppertext(message)
 
-
+/* BROKEN WITH NEW SAYCODE
 /datum/dna/gene/disability/speech/whisper
 	name = "Quiet"
 	desc = "Damages the subjects vocal cords"
@@ -36,7 +36,7 @@
 
 	OnSay(var/mob/M, var/message)
 		M.whisper(message)
-
+*/
 
 /datum/dna/gene/disability/dizzy
 	name = "Dizzy"
