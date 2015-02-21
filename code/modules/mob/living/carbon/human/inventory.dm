@@ -163,6 +163,9 @@
 	else if(I == wear_id)
 		wear_id = null
 		update_inv_wear_id(0)
+	else if(I == wear_pda)
+		wear_pda = null
+		update_inv_wear_pda(0)
 	else if(I == r_store)
 		r_store = null
 		update_inv_pockets(0)
@@ -172,6 +175,22 @@
 	else if(I == s_store)
 		s_store = null
 		update_inv_s_store(0)
+	else if(I == back)
+		back = null
+		update_inv_back(0)
+	else if(I == handcuffed)
+		handcuffed = null
+		update_inv_handcuffed(0)
+	else if(I == legcuffed)
+		legcuffed = null
+		update_inv_legcuffed(0)
+	else if(I == r_hand)
+		r_hand = null
+		update_inv_r_hand(0)
+	else if(I == l_hand)
+		l_hand = null
+		update_inv_l_hand(0)
+
 
 	update_action_buttons()
 
@@ -395,6 +414,11 @@
 					del(src)
 
 	var/message=null
+	if(target.frozen)
+		source << "\red Do not attempt to strip frozen people."
+		return
+
+
 	switch(place)
 		if("syringe")
 			message = "\red <B>[source] is trying to inject [target]!</B>"
@@ -598,6 +622,10 @@ It can still be worn/put on as normal.
 	if (LinkBlockedUnclimbable(t_loc, s_loc)) return
 	if(item && source.get_active_hand() != item) return	//Swapped hands / removed item from the active one
 	if ((source.restrained() || source.stat)) return //Source restrained or unconscious / dead
+	if(target.frozen)
+		source << "\red Do not attempt to strip frozen people."
+		return
+
 
 	var/slot_to_process
 	var/strip_item //this will tell us which item we will be stripping - if any.

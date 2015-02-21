@@ -26,7 +26,7 @@
 		user << "\red \The [src] needs to recharge!"
 		return
 
-	var/message = copytext(sanitize(input(user, "Shout a message?", "Megaphone", null)  as text),1,MAX_MESSAGE_LEN)
+	var/message = sanitize(copytext(input(user, "Shout a message?", "Megaphone", null) as text,1,MAX_MESSAGE_LEN))
 	if(!message)
 		return
 	message = capitalize(message)

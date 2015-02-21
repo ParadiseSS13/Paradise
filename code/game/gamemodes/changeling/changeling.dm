@@ -120,9 +120,9 @@ var/list/possible_changeling_IDs = list("Alpha","Beta","Gamma","Delta","Epsilon"
 			var/datum/objective/escape/escape_with_identity/identity_theft = new
 			identity_theft.owner = changeling
 			identity_theft.target = kill_objective.target
+			identity_theft.target_real_name = kill_objective.target.current.real_name //Whoops, forgot this.
 			if(identity_theft.target && identity_theft.target.current)
-				var/target_real_name = identity_theft.target.current.real_name
-				identity_theft.explanation_text = "Escape on the shuttle or an escape pod with the identity of [target_real_name], the [identity_theft.target.assigned_role] while wearing their identification card."
+				identity_theft.explanation_text = "Escape on the shuttle or an escape pod with the identity of [identity_theft.target_real_name], the [identity_theft.target.assigned_role] while wearing their identification card."
 			else
 				identity_theft.explanation_text = "Free objective"
 			changeling.objectives += identity_theft
@@ -310,13 +310,4 @@ var/list/possible_changeling_IDs = list("Alpha","Beta","Gamma","Delta","Epsilon"
 		user << "<span class='warning'>We already have this DNA in storage!</span>"
 
 	return 1
-
-//More snowflake stuff, but for languages.
-/datum/changeling/proc/changeling_update_languages(var/updated_languages, var/mob/living/carbon/user)
-	if(!istype(user) || !user)
-		return
-	user.languages = list()
-	for(var/language in updated_languages)
-		user.languages += language
-
-	return
+	

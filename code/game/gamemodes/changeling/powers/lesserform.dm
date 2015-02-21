@@ -60,7 +60,7 @@
 
 	C.mind.transfer_to(O)
 	O.mind.changeling.purchasedpowers += new /obj/effect/proc_holder/changeling/humanform(null)
-	O.mind.changeling.changeling_update_languages(changeling.absorbed_languages)
+	O.changeling_update_languages(changeling.absorbed_languages)
 
 	feedback_add_details("changeling_powers","LF")
 	qdel(C)

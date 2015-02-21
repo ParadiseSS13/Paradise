@@ -619,7 +619,7 @@ datum/objective/steal
 			var/tmp_obj = new O.typepath
 			var/custom_name = tmp_obj:name
 			del(tmp_obj)
-			O.name = copytext(sanitize(input("Enter target name:", "Objective target", custom_name) as text|null),1,MAX_NAME_LEN)
+			O.name = sanitize(copytext(input("Enter target name:", "Objective target", custom_name) as text|null,1,MAX_NAME_LEN))
 			if (!O.name) return
 			steal_target = O
 			explanation_text = "Steal [O.name]."
@@ -727,10 +727,14 @@ datum/objective/absorb
 			var/n_p = 1 //autowin
 			if (ticker.current_state == GAME_STATE_SETTING_UP)
 				for(var/mob/new_player/P in player_list)
-					if(P.client && P.ready && P.mind!=owner)
+					if(P.client && P.ready && P.mind != owner)
+						if(P.client.prefs && (P.client.prefs.species == "Vox" || P.client.prefs.species == "Slime People" || P.client.prefs.species == "Machine")) // Special check for species that can't be absorbed. No better solution.
+							continue
 						n_p ++
 			else if (ticker.current_state == GAME_STATE_PLAYING)
 				for(var/mob/living/carbon/human/P in player_list)
+					if((P.species.flags & IS_SYNTHETIC) || (P.species.flags & NO_SCAN))
+						continue
 					if(P.client && !(P.mind in ticker.mode.changelings) && P.mind!=owner)
 						n_p ++
 			target_amount = min(target_amount, n_p)
@@ -745,12 +749,14 @@ datum/objective/absorb
 			return 0
 
 datum/objective/destroy
+	var/target_real_name
 	find_target()
 		var/list/possible_targets = active_ais(1)
 		var/mob/living/silicon/ai/target_ai = pick(possible_targets)
 		target = target_ai.mind
 		if(target && target.current)
-			explanation_text = "Destroy [target.current.real_name], the experimental AI."
+			target_real_name = target.current.real_name
+			explanation_text = "Destroy [target_real_name], the AI."
 		else
 			explanation_text = "Free Objective"
 		return target

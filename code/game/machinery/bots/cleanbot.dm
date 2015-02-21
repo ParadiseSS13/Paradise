@@ -38,7 +38,6 @@
 	var/failed_steps
 	var/next_dest
 	var/next_dest_loc
-	radio_frequency = SRV_FREQ //Service
 	radio_name = "Service"
 	bot_type = CLEAN_BOT
 	bot_type_name = "Cleanbot"

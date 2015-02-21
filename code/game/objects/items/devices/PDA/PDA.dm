@@ -689,7 +689,7 @@ var/global/list/obj/item/device/pda/PDAs = list()
 						U << "The PDA softly beeps."
 						ui.close()
 					else
-						t = copytext(sanitize(t), 1, 20)
+						t = sanitize(copytext(t, 1, 20))
 						ttone = t
 			else
 				ui.close()
@@ -897,7 +897,7 @@ var/global/list/obj/item/device/pda/PDAs = list()
 /obj/item/device/pda/proc/create_message(var/mob/living/U = usr, var/obj/item/device/pda/P)
 
 	var/t = input(U, "Please enter message", name, null) as text
-	t = copytext(sanitize(t), 1, MAX_MESSAGE_LEN)
+	t = sanitize(copytext(t, 1, MAX_MESSAGE_LEN))
 	t = readd_quotes(t)
 	if (!t || !istype(P))
 		return

@@ -50,6 +50,10 @@
 
 	var/icon/stand_icon = null
 	var/icon/lying_icon = null
+	
+	var/voice = ""	//Instead of new say code calling GetVoice() over and over and over, we're just going to ask this variable, which gets updated in Life()
+	
+	var/speech_problem_flag = 0
 
 	var/miming = null //Toggle for the mime's abilities.
 	var/special_voice = "" // For changing our voice. Used by a symptom.
@@ -70,6 +74,8 @@
 	var/check_mutations=0 // Check mutations on next life tick
 
 	var/lastFart = 0 // Toxic fart cooldown.
+
+	var/frozen = 0 //used for preventing attacks on admin-frozen people
 
 	fire_dmi = 'icons/mob/OnFire.dmi'
 	fire_sprite = "Standing"
