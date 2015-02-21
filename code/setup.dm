@@ -843,6 +843,7 @@ var/list/restricted_camera_networks = list( //Those networks can only be accesse
 #define HAS_TAIL 		8
 #define HAS_SKIN_TONE 	16
 #define HAS_SKIN_COLOR	32
+#define TAIL_WAGGING    64
 
 //Language flags.
 #define WHITELISTED 1  		// Language is available if the speaker is whitelisted.

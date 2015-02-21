@@ -354,10 +354,14 @@
 	primitive = /mob/living/carbon/monkey/tajara
 
 	flags = HAS_LIPS | HAS_UNDERWEAR | CAN_BE_FAT
-	bodyflags = FEET_PADDED | HAS_TAIL | HAS_SKIN_COLOR
+	bodyflags = FEET_PADDED | HAS_TAIL | HAS_SKIN_COLOR | TAIL_WAGGING
 
 	flesh_color = "#AFA59E"
 	base_color = "#333333"
+
+/datum/species/tajaran/handle_death(var/mob/living/carbon/human/H)
+
+	H.stop_tail_wagging(1)
 
 /datum/species/skrell
 	name = "Skrell"
