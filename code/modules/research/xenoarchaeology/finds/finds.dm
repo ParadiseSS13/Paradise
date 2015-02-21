@@ -250,7 +250,7 @@
 			if(prob(75))
 				new_item = new /obj/item/weapon/pen(src.loc)
 			else
-				new_item = new /obj/item/weapon/pen/sleepypen(src.loc)
+				new_item = new /obj/item/weapon/pen/sleepy(src.loc)
 			if(prob(30))
 				apply_image_decorations = 1
 		if(16)

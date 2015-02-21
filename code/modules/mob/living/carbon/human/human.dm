@@ -42,7 +42,7 @@
 	// Set up DNA.
 	if(!delay_ready_dna)
 		dna.ready_dna(src)
-		
+
 /mob/living/carbon/human/dummy
 	real_name = "Test Dummy"
 	status_flags = GODMODE|CANPUSH
@@ -539,8 +539,8 @@
 		if(id)
 			return id.rank ? id.rank : if_no_job
 		else
-			return if_no_id		
-		
+			return if_no_id
+
 //gets assignment from ID or ID inside PDA or PDA itself
 //Useful when player do something with computers
 /mob/living/carbon/human/proc/get_assignment(var/if_no_id = "No id", var/if_no_job = "No job")
@@ -1073,6 +1073,21 @@
 			xylophone=0
 	return
 
+/mob/living/carbon/human/can_inject(var/mob/user, var/error_msg, var/target_zone)
+	. = 1 // Default to returning true.
+	if(user && !target_zone)
+		target_zone = user.zone_sel.selecting
+	// If targeting the head, see if the head item is thin enough.
+	// If targeting anything else, see if the wear suit is thin enough.
+	if(above_neck(target_zone))
+		if(head && head.flags & THICKMATERIAL)
+			. = 0
+	else
+		if(wear_suit && wear_suit.flags & THICKMATERIAL)
+			. = 0
+	if(!. && error_msg && user)
+		// Might need re-wording.
+		user << "<span class='alert'>There is no exposed flesh or thin material [target_zone == "head" ? "on their head" : "on their body"].</span>"
 
 /mob/living/carbon/human/proc/vomit(hairball=0)
 	if(stat==2)return
@@ -1301,7 +1316,7 @@
 		usr << "\blue [self ? "Your" : "[src]'s"] pulse is [src.get_pulse(GETPULSE_HAND)]."
 
 /mob/living/carbon/human/proc/set_species(var/new_species, var/force_organs, var/default_colour)
-	
+
 	var/datum/species/oldspecies = species
 	if(!dna)
 		if(!new_species)
@@ -1318,26 +1333,26 @@
 
 		if(species.language)
 			remove_language(species.language)
-			
+
 		if(species.default_language)
-			remove_language(species.default_language)	
-			
+			remove_language(species.default_language)
+
 	species = all_species[new_species]
-	
+
 	if(oldspecies)
 		if(oldspecies.default_genes.len)
 			oldspecies.handle_dna(src,1) // Remove any genes that belong to the old species
 
 	if(force_organs || !organs || !organs.len)
 		species.create_organs(src)
-		
+
 	if(vessel)
 		vessel = null
 	make_blood()
 
 	if(species.language)
 		add_language(species.language)
-		
+
 	if(species.default_language)
 		add_language(species.default_language)
 
@@ -1359,7 +1374,7 @@
 		r_skin = 0
 		g_skin = 0
 		b_skin = 0
-		
+
 	if(!dna)
 		dna = new /datum/dna(null)
 		dna.species = species.name

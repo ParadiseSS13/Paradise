@@ -216,7 +216,8 @@ var/MAX_EX_FLASH_RANGE = 14
 #define HEADBANGPROTECT			4096
 #define EARBANGPROTECT			1024
 
-#define NOSLIP					1024 	//prevents from slipping on wet floors, in space etc
+#define THICKMATERIAL 	1024			//prevents syringes, parapens and hypos if the external suit or helmet (if targeting head) has this flag. Example: space suits, biosuit, bombsuits, thick suits that cover your body. (NOTE: flag shared with NOSLIP)
+#define NOSLIP					1024 	//prevents from slipping on wet floors, in space etc (NOTE: flag shared with THICKMATERIAL for external suits and helmet)
 
 #define OPENCONTAINER			4096	// is an open container for chemistry purposes
 

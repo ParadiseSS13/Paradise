@@ -124,6 +124,11 @@
 /mob/living/silicon/proc/damage_mob(var/brute = 0, var/fire = 0, var/tox = 0)
 	return
 
+/mob/living/silicon/can_inject(var/mob/user, var/error_msg)
+	if(error_msg)
+		user << "<span class='alert'>Their outer shell is too tough.</span>"
+	return 0
+
 /mob/living/silicon/IsAdvancedToolUser()
 	return 1
 
@@ -207,7 +212,7 @@
 		show_emergency_shuttle_eta()
 		show_system_integrity()
 		show_malf_ai()
-		
+
 //Silicon mob language procs
 
 /mob/living/silicon/can_speak(datum/language/speaking)
@@ -290,7 +295,7 @@
 	set category = "IC"
 
 	flavor_text =  sanitize(copytext(input(usr, "Please enter your new flavour text.", "Flavour text", null)  as text, 1))
-	
+
 /mob/living/silicon/binarycheck()
 	return 1
 

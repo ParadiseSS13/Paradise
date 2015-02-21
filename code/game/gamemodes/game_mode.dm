@@ -42,7 +42,7 @@
 /obj/item/weapon/storage/box/emps:3:5 EMP Grenades;
 Whitespace:Seperator;
 Stealthy and Inconspicuous Weapons;
-/obj/item/weapon/pen/paralysis:3:Paralysis Pen;
+/obj/item/weapon/pen/sleepy:3:Sleepy Pen;
 /obj/item/weapon/soap/syndie:1:Syndicate Soap;
 /obj/item/weapon/cartridge/syndicate:3:Detomatix PDA Cartridge;
 Whitespace:Seperator;
