@@ -337,7 +337,7 @@
 	icon_state = "sheet-plasmarglass"
 	g_amt = MINERAL_MATERIAL_AMOUNT * 2
 	m_amt = MINERAL_MATERIAL_AMOUNT / 2
-	origin_tech = "materials=4;plasma=2"
+	origin_tech = "materials=3;plasma=2"
 	var/created_window = /obj/structure/window/plasmareinforced
 	var/full_window = /obj/structure/window/full/plasmareinforced
 

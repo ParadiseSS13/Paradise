@@ -64,11 +64,11 @@
 			user << "\red This syringe is broken!"
 			return
 
-		if (user.a_intent == "harm" && ismob(target))
+/*		if (user.a_intent == "harm" && ismob(target))
 			if((CLUMSY in user.mutations) && prob(50))
 				target = user
 			syringestab(target, user)
-			return
+			return */
 
 
 		switch(mode)
@@ -357,7 +357,7 @@
 	attack_paw()
 		return attack_hand()
 
-	attackby(obj/item/I as obj, mob/user as mob, params)
+	attackby(obj/item/I as obj, mob/user as mob)
 
 		return
 
