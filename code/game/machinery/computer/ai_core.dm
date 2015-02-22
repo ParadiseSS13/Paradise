@@ -177,6 +177,7 @@
 	
 /obj/structure/AIcore/deactivated/Destroy()
 	empty_playable_ai_cores -= src	
+	..()
 
 /obj/structure/AIcore/deactivated/attackby(var/obj/item/W, var/mob/user)
 	if(istype(W, /obj/item/device/aicard))//Is it?
