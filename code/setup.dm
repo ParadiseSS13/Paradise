@@ -735,7 +735,7 @@ var/list/TAGGERLOCATIONS = list("Disposals",
 #define BE_CULTIST		256
 #define BE_NINJA		512
 #define BE_RAIDER		1024
-#define BE_VAMPIRE		2048 
+#define BE_VAMPIRE		2048
 #define BE_MUTINEER		4096
 #define BE_BLOB			8192
 
@@ -807,7 +807,7 @@ var/list/restricted_camera_networks = list( //Those networks can only be accesse
 	"NukeOps",
 	"Thunderdome",
 	"UO45",
-	"UO45R",	
+	"UO45R",
 	"Xeno"
 	)
 
@@ -840,6 +840,7 @@ var/list/restricted_camera_networks = list( //Those networks can only be accesse
 #define HAS_TAIL 		8
 #define HAS_SKIN_TONE 	16
 #define HAS_SKIN_COLOR	32
+#define TAIL_WAGGING    64
 
 
 //Language flags.
