@@ -180,10 +180,10 @@
 	icon_state = "[initial(icon_state)]-[round(ammo_count(),10)]"
 
 /obj/item/ammo_box/magazine/m12g
-	name = "shotgun magazine (12g taser slugs)"
-	icon_state = "m12gs"
+	name = "shotgun magazine (12g buckshot)"
+	icon_state = "m12gb"
+	ammo_type = "/obj/item/ammo_casing/shotgun/buckshot"
 	origin_tech = "combat=3;syndicate=1"
-	ammo_type = "/obj/item/ammo_casing/shotgun/stunslug"
 	caliber = "shotgun"
 	max_ammo = 8
 
@@ -192,10 +192,10 @@
 	icon_state = "[initial(icon_state)]-[Ceiling(ammo_count(0)/8)*8]"
 
 
-/obj/item/ammo_box/magazine/m12g/buckshot
-	name = "shotgun magazine (12g buckshot)"
-	icon_state = "m12gb"
-	ammo_type = "/obj/item/ammo_casing/shotgun/buckshot"
+/obj/item/ammo_box/magazine/m12g/stun
+	name = "shotgun magazine (12g taser slugs)"
+	icon_state = "m12gs"
+	ammo_type = "/obj/item/ammo_casing/shotgun/stunslug"
 
 
 /obj/item/ammo_box/magazine/m12g/dragon
