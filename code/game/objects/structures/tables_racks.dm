@@ -591,8 +591,8 @@
 			I.Move(loc)
 			var/list/click_params = params2list(params)
 			//Center the icon where the user clicked.
-			W.pixel_x = (text2num(click_params["icon-x"]) - 16)
-			W.pixel_y = (text2num(click_params["icon-y"]) - 16)
+			I.pixel_x = (text2num(click_params["icon-x"]) - 16)
+			I.pixel_y = (text2num(click_params["icon-y"]) - 16)
 	//if(W && W.loc)	W.loc = src.loc
 	return 1
 
