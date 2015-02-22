@@ -97,13 +97,13 @@
 	data["on"] = on ? 1 : 0
 	data["gasPressure"] = round(air_contents.return_pressure())
 	data["gasTemperature"] = round(air_contents.temperature)
-	data["gasTemperatureCelsius"] = round(air_contents.temperature - T0C)
+	data["gasTemperatureCelsius"] = round(air_contents.temperature - T0C,1)
 	if(air_contents.total_moles == 0 && air_contents.temperature == 0)
 		data["gasTemperatureCelsius"] = 0
 	data["minGasTemperature"] = round(min_temperature)
 	data["maxGasTemperature"] = round(T20C)
 	data["targetGasTemperature"] = round(current_temperature)
-	data["targetGasTemperatureCelsius"] = round(current_temperature - T0C)
+	data["targetGasTemperatureCelsius"] = round(current_temperature - T0C,1)
 	
 	var/temp_class = "good"
 	if (air_contents.temperature > (T0C - 20))
@@ -254,13 +254,13 @@
 	data["on"] = on ? 1 : 0
 	data["gasPressure"] = round(air_contents.return_pressure())
 	data["gasTemperature"] = round(air_contents.temperature)
-	data["gasTemperatureCelsius"] = round(air_contents.temperature - T0C)
+	data["gasTemperatureCelsius"] = round(air_contents.temperature - T0C,1)
 	if(air_contents.total_moles == 0 && air_contents.temperature == 0)
 		data["gasTemperatureCelsius"] = 0
 	data["minGasTemperature"] = round(T20C)
 	data["maxGasTemperature"] = round(T20C+max_temperature)
 	data["targetGasTemperature"] = round(current_temperature)
-	data["targetGasTemperatureCelsius"] = round(current_temperature - T0C)
+	data["targetGasTemperatureCelsius"] = round(current_temperature - T0C,1)
 	
 	var/temp_class = "normal"
 	if (air_contents.temperature > (T20C+40))

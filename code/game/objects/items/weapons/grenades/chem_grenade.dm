@@ -26,15 +26,9 @@
 	update_icon()
 
 
-/obj/item/weapon/grenade/chem_grenade/examine()
-	set src in usr
-	usr << desc
-	if(stage >= WIRED)
-		if(nadeassembly)
-			usr << nadeassembly.a_left.describe()
-			usr << nadeassembly.a_right.describe()
-		else
-			usr << "The timer is set to [det_time/10] second\s."
+/obj/item/weapon/grenade/chem_grenade/examine(mob/user)
+	display_timer = (stage == READY && !nadeassembly)	//show/hide the timer based on assembly state
+	..()
 
 
 /obj/item/weapon/grenade/chem_grenade/proc/get_trigger()
