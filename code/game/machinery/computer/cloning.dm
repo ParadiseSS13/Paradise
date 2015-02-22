@@ -329,7 +329,7 @@
 		scantemp = "<span class=\"bad\">Error: Mental interface failure.</span>"
 		nanomanager.update_uis(src)
 		return
-	if ((M_NOCLONE in subject.mutations) && src.scanner.scan_level < 2)
+	if ((NOCLONE in subject.mutations) && src.scanner.scan_level < 2)
 		scantemp = "<span class=\"bad\">Error: Mental interface failure.</span>"
 		nanomanager.update_uis(src)
 		return

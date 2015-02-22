@@ -286,7 +286,7 @@
 				handled = 1
 
 	if(message != "")
-		if((M_HULK in mutations) && health >= 25 && length(message))
+		if((HULK in mutations) && health >= 25 && length(message))
 			message = "[uppertext(message)]!!!"
 			verb = pick("yells","roars","hollers")
 			handled = 1

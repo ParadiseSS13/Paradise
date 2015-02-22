@@ -208,7 +208,7 @@
 					spawn(0) H.emote(pick("giggle", "laugh"))
 			SA.moles = 0
 
-	if( (abs(310.15 - breath.temperature) > 50) && !(M_RESIST_HEAT in H.mutations)) // Hot air hurts :(
+	if( (abs(310.15 - breath.temperature) > 50) && !(RESIST_HEAT in H.mutations)) // Hot air hurts :(
 		if(H.status_flags & GODMODE)	return 1	//godmode
 		if(breath.temperature < cold_level_1)
 			if(prob(20))
@@ -546,7 +546,7 @@
 
 	brute_mod = 1.25 //greys are fragile
 	
-	default_genes = list(M_REMOTE_TALK)
+	default_genes = list(REMOTE_TALK)
 
 	primitive = /mob/living/carbon/monkey // TODO
 
@@ -555,11 +555,11 @@
 /datum/species/grey/handle_dna(var/mob/living/carbon/C, var/remove)
 	if(!remove)
 		C.dna.SetSEState(REMOTETALKBLOCK,1,1)
-		C.mutations |= M_REMOTE_TALK
+		C.mutations |= REMOTE_TALK
 		genemutcheck(C,REMOTETALKBLOCK,null,MUTCHK_FORCED)
 	else
 		C.dna.SetSEState(REMOTETALKBLOCK,0,1)
-		C.mutations -= M_REMOTE_TALK
+		C.mutations -= REMOTE_TALK
 		genemutcheck(C,REMOTETALKBLOCK,null,MUTCHK_FORCED)
 	C.update_mutations()
 	..()

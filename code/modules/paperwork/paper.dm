@@ -73,7 +73,7 @@
 	set category = "Object"
 	set src in usr
 
-	if((M_CLUMSY in usr.mutations) && prob(50))
+	if((CLUMSY in usr.mutations) && prob(50))
 		usr << "<span class='warning'>You cut yourself on the paper.</span>"
 		return
 	var/n_name = sanitize(copytext(input(usr, "What would you like to label the paper?", "Paper Labelling", name) as text, 1, MAX_MESSAGE_LEN))

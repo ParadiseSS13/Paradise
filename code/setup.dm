@@ -341,18 +341,18 @@ var/MAX_EX_FLASH_RANGE = 14
 ///////////////////////////////////////
 
 // Generic mutations:
-#define	M_TK			1
-#define M_RESIST_COLD	2
-#define M_XRAY			3
-#define M_HULK			4
-#define M_CLUMSY			5
-#define M_FAT				6
-#define M_HUSK			7
-#define M_NOCLONE			8
+#define	TK			1
+#define RESIST_COLD	2
+#define XRAY			3
+#define HULK			4
+#define CLUMSY			5
+#define FAT				6
+#define HUSK			7
+#define NOCLONE			8
 
 
 // Extra powers:
-#define M_LASER			9 	// harm intent - click anywhere to shoot lasers from eyes
+#define LASER			9 	// harm intent - click anywhere to shoot lasers from eyes
 //#define HEAL			10 	// (Not implemented) healing people with hands
 //#define SHADOW		11 	// (Not implemented) shadow teleportation (create in/out portals anywhere) (25%)
 //#define SCREAM		12 	// (Not implemented) supersonic screaming (25%)
@@ -384,31 +384,31 @@ var/MAX_EX_FLASH_RANGE = 14
 #define PLANT 30
 
 // Other Mutations:
-#define M_NO_BREATH		100 	// no need to breathe
-#define M_REMOTE_VIEW	101 	// remote viewing
-#define M_REGEN			102 	// health regen
-#define M_RUN			103 	// no slowdown
-#define M_REMOTE_TALK	104 	// remote talking
-#define M_MORPH			105 	// changing appearance
-#define M_RESIST_HEAT	106 	// heat resistance
-#define M_HALLUCINATE	107 	// hallucinations
-#define M_FINGERPRINTS	108 	// no fingerprints
-#define M_NO_SHOCK		109 	// insulated hands
-#define M_DWARF			110 	// table climbing
+#define NO_BREATH		100 	// no need to breathe
+#define REMOTE_VIEW	101 	// remote viewing
+#define REGEN			102 	// health regen
+#define RUN			103 	// no slowdown
+#define REMOTE_TALK	104 	// remote talking
+#define MORPH			105 	// changing appearance
+#define RESIST_HEAT	106 	// heat resistance
+#define HALLUCINATE	107 	// hallucinations
+#define FINGERPRINTS	108 	// no fingerprints
+#define NO_SHOCK		109 	// insulated hands
+#define DWARF			110 	// table climbing
 
 // Goon muts
-#define M_OBESITY       200		// Decreased metabolism
-#define M_TOXIC_FARTS   201		// Duh
-#define M_STRONG        202		// (Nothing)
-#define M_SOBER         203		// Increased alcohol metabolism
-#define M_PSY_RESIST    204		// Block remoteview
-#define M_SUPER_FART    205		// Duh
-#define M_EMPATH		206		//Read minds
+#define OBESITY       200		// Decreased metabolism
+#define TOXIC_FARTS   201		// Duh
+#define STRONG        202		// (Nothing)
+#define SOBER         203		// Increased alcohol metabolism
+#define PSY_RESIST    204		// Block remoteview
+#define SUPER_FART    205		// Duh
+#define EMPATH		206		//Read minds
 
 // /vg/ muts
-#define M_LOUD		208		// CAUSES INTENSE YELLING
-#define M_WHISPER	209		// causes quiet whispering
-#define M_DIZZY		210		// Trippy.
+#define LOUD		208		// CAUSES INTENSE YELLING
+#define WHISPER	209		// causes quiet whispering
+#define DIZZY		210		// Trippy.
 
 //disabilities
 #define NEARSIGHTED		1

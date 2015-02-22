@@ -257,7 +257,7 @@ Auto Patrol[]"},
 						icon_state = "[lasercolor]ed209[on]"
 					var/mob/living/carbon/M = target
 					if(istype(M, /mob/living/carbon/human))
-						if( M.stuttering < 5 && !(M_HULK in M.mutations) )
+						if( M.stuttering < 5 && !(HULK in M.mutations) )
 							M.stuttering = 5
 						M.Stun(5)
 						M.Weaken(5)

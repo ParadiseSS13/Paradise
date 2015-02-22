@@ -67,7 +67,7 @@
 
 	if(shock(user, 70))
 		return
-	if(M_HULK in user.mutations)
+	if(HULK in user.mutations)
 		health -= 5
 	else
 		health -= 1

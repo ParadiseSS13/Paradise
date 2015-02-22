@@ -110,7 +110,7 @@
 			if(!istype(T)) return
 			if(!T.dna)
 				return
-			if(M_NOCLONE in T.mutations)
+			if(NOCLONE in T.mutations)
 				return
 
 			if(T.species && T.species.flags & NO_BLOOD)

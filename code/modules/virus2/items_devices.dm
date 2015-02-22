@@ -24,7 +24,7 @@
 		report("Scan Complete: No antibodies detected.", user)
 		return
 
-	if (M_CLUMSY in user.mutations && prob(50))
+	if (CLUMSY in user.mutations && prob(50))
 		// I was tempted to be really evil and rot13 the output.
 		report("Antibodies detected: [reverse_text(antigens2string(C.antibodies))]", user)
 	else

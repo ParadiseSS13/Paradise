@@ -1469,7 +1469,7 @@ datum
 			required_other = 1
 			on_reaction(var/datum/reagents/holder)
 				feedback_add_details("slime_cores_used","[replacetext(name," ","_")]")
-				var/obj/effect/golem_rune/Z = new /obj/effect/golem_rune
+				var/obj/effect/goleRUNe/Z = new /obj/effect/goleRUNe
 				Z.loc = get_turf(holder.my_atom)
 				Z.announce_to_ghosts()
 //Bluespace

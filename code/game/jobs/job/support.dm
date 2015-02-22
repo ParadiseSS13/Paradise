@@ -31,7 +31,7 @@
 			H.equip_or_collect(new /obj/item/weapon/storage/box/survival(H), slot_in_backpack)
 
 		H.dna.SetSEState(SOBERBLOCK,1)
-		H.mutations += M_SOBER
+		H.mutations += SOBER
 		H.check_mutations = 1
 
 		return 1
@@ -226,7 +226,7 @@
 		H.equip_or_collect(new /obj/item/toy/crayon/rainbow(H), slot_in_backpack)
 		H.equip_or_collect(new /obj/item/weapon/storage/fancy/crayons(H), slot_in_backpack)
 		H.equip_or_collect(new /obj/item/weapon/reagent_containers/spray/waterflower(H), slot_in_backpack)
-		H.mutations.Add(M_CLUMSY)
+		H.mutations.Add(CLUMSY)
 		return 1
 
 

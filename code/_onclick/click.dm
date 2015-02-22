@@ -170,11 +170,11 @@
 	if(ishuman(src) && (istype(src:gloves, /obj/item/clothing/gloves/yellow/power)) && a_intent == "harm")
 		PowerGlove(A)
 	if(!mutations.len) return
-	if((M_LASER in mutations) && a_intent == "harm")
+	if((LASER in mutations) && a_intent == "harm")
 		LaserEyes(A) // moved into a proc below
 		return
 	else
-		if(M_TK in mutations)
+		if(TK in mutations)
 			A.attack_tk(src)
 /*
 	Restrained ClickOn

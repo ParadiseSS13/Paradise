@@ -205,7 +205,7 @@
 	if(suiciding)
 		msg += "<span class='warning'>[t_He] appears to have commited suicide... there is no hope of recovery.</span>\n"
 
-	if(M_DWARF in mutations)
+	if(DWARF in mutations)
 		msg += "[t_He] [t_is] a halfling!\n"
 
 	var/distance = get_dist(usr,src)

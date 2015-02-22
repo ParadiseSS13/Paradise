@@ -17,7 +17,7 @@
 	var/trashtype = null //For disposable cuffs
 
 /obj/item/weapon/restraints/handcuffs/attack(mob/living/carbon/C, mob/user)
-	if(M_CLUMSY in user.mutations && prob(50))
+	if(CLUMSY in user.mutations && prob(50))
 		user << "<span class='warning'>Uh... how do those things work?!</span>"
 		apply_cuffs(user,user)
 

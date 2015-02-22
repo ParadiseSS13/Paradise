@@ -241,7 +241,7 @@ Auto Patrol: []"},
 						icon_state = "[base_icon][on]"
 					var/mob/living/carbon/M = target
 					if(istype(M, /mob/living/carbon/human))
-						if( M.stuttering < 5 && !(M_HULK in M.mutations) )
+						if( M.stuttering < 5 && !(HULK in M.mutations) )
 							M.stuttering = 5
 						if(harmbaton) // Bots with harmbaton enabled become shitcurity. - Dave
 							M.apply_damage(10)

@@ -16,7 +16,7 @@
 
 
 /obj/item/device/flash/proc/clown_check(mob/user)
-	if(user && (M_CLUMSY in user.mutations) && prob(50))
+	if(user && (CLUMSY in user.mutations) && prob(50))
 		flash_carbon(user, user, 15, 0)
 		return 0
 	return 1

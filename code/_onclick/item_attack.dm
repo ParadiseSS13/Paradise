@@ -51,7 +51,7 @@
 	/////////////////////////
 
 	var/power = force
-	if(M_HULK in user.mutations)
+	if(HULK in user.mutations)
 		power *= 2
 
 	if(!istype(M, /mob/living/carbon/human))
@@ -160,7 +160,7 @@
 						if (istype(location, /turf/simulated))
 							location:add_blood_floor(M)
 			if("fire")
-				if (!(M_RESIST_COLD in M.mutations))
+				if (!(RESIST_COLD in M.mutations))
 					M.take_organ_damage(0, power)
 					M << "Aargh it burns!"
 		M.updatehealth()
