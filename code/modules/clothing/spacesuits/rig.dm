@@ -371,6 +371,7 @@
 	_color = "syndi"
 	armor = list(melee = 60, bullet = 50, laser = 30, energy = 15, bomb = 35, bio = 100, rad = 50)
 	on = 1
+	flags = HEADCOVERSEYES | BLOCKHAIR | HEADCOVERSMOUTH | STOPSPRESSUREDMAGE | THICKMATERIAL
 	action_button_name = "Toggle Helmet Mode"
 	icon_action_button = "Action_hardsuit1-syndi"
 	species_restricted = null
@@ -388,7 +389,7 @@
 		user << "<span class='notice'>You switch your helmet to travel mode.</span>"
 		name = "blood-red hardsuit helmet"
 		desc = "A dual-mode advanced helmet designed for work in special operations. It is in travel mode. Property of Gorlex Marauders."
-		flags = HEADCOVERSEYES | BLOCKHAIR | HEADCOVERSMOUTH | STOPSPRESSUREDMAGE
+		flags = HEADCOVERSEYES | BLOCKHAIR | HEADCOVERSMOUTH | STOPSPRESSUREDMAGE | THICKMATERIAL
 		flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE
 		cold_protection = HEAD
 		user.AddLuminosity(brightness_on)
@@ -431,7 +432,7 @@
 		name = "blood-red hardsuit helmet"
 		desc = "A dual-mode advanced hardsuit designed for work in special operations. It is in travel mode. Property of Gorlex Marauders."
 		slowdown = 1
-		flags = STOPSPRESSUREDMAGE
+		flags = STOPSPRESSUREDMAGE | THICKMATERIAL
 		flags_inv = HIDEGLOVES|HIDESHOES|HIDEJUMPSUIT
 		cold_protection = UPPER_TORSO | LOWER_TORSO | LEGS | FEET | ARMS | HANDS
 	else
