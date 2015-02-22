@@ -244,7 +244,7 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 				var/x_offset = pixel_x + rand(-2,2) //Should probably be moved into the twitch emote at some point.
 				var/y_offset = pixel_y + rand(-1,1)
 				animate(src, pixel_x = pixel_x + x_offset, pixel_y = pixel_y + y_offset, time = 1)
-				animate(pixel_x = pixel_x - x_offset, pixel_y = pixel_y - y_offset, time = 1)
+				animate(pixel_x = initial(pixel_x) , pixel_y = initial(pixel_y), time = 1)
 		if (disabilities & NERVOUS)
 			speech_problem_flag = 1
 			if (prob(10))
@@ -1046,11 +1046,7 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 					adjustOxyLoss(1)*/
 
 			if(hallucination && !(species.flags & IS_SYNTHETIC))
-				if(hallucination >= 20)
-					if(prob(3))
-						fake_attack(src)
-					if(!handling_hal)
-						spawn handle_hallucinations() //The not boring kind!
+				spawn handle_hallucinations()
 
 				if(hallucination<=2)
 					hallucination = 0
@@ -1174,7 +1170,7 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 				var/pixel_y_diff = rand(-amplitude/3, amplitude/3)
 
 				animate(src, pixel_x = pixel_x + pixel_x_diff, pixel_y = pixel_y + pixel_y_diff , time = 2, loop = 6)
-				animate(pixel_x = pixel_x - pixel_x_diff, pixel_y = pixel_y - pixel_y_diff, time = 2)
+				animate(pixel_x = initial(pixel_x) , pixel_y = initial(pixel_y) , time = 2)
 				jitteriness = max(jitteriness-1, 0)
 
 			//Other

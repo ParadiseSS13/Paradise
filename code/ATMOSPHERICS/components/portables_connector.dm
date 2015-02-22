@@ -137,7 +137,7 @@
 	if (!istype(W, /obj/item/weapon/wrench))
 		return ..()
 	if (connected_device)
-		user << "\red You cannot unwrench this [src], dettach [connected_device] first."
+		user << "\red You cannot unwrench this [src], detach [connected_device] first."
 		return 1
 	if (locate(/obj/machinery/portable_atmospherics, src.loc))
 		return 1

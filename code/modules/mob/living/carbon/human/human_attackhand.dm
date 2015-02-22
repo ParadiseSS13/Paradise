@@ -18,6 +18,7 @@
 
 	if((M != src) && check_shields(0, M.name))
 		add_logs(src, M, "attempted to touch")
+		M.do_attack_animation(src)
 		visible_message("\red <B>[M] attempted to touch [src]!</B>")
 		return 0
 
@@ -120,6 +121,7 @@
 					return
 			//end vampire codes
 
+			M.do_attack_animation(src)
 			add_logs(src, M, "[pick(attack.attack_verb)]ed")
 
 			if(!iscarbon(M))

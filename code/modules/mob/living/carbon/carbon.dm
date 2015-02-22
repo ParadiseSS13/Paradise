@@ -588,3 +588,6 @@
 
 /mob/living/carbon/proc/canBeHandcuffed()
 	return 0
+	
+/mob/living/carbon/is_muzzled()
+	return(istype(src.wear_mask, /obj/item/clothing/mask/muzzle))

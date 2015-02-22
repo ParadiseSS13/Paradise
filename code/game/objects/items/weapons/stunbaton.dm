@@ -118,6 +118,7 @@
 
 	if(user.a_intent != "harm")
 		if(status)
+			user.do_attack_animation(L)
 			baton_stun(L, user)
 		else
 			L.visible_message("<span class='warning'>[L] has been prodded with [src] by [user]. Luckily it was off.</span>", \

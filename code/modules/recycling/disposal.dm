@@ -238,6 +238,14 @@
 			return
 		*/
 		interact(user, 0)
+		
+	// hostile mob escape from disposals
+	attack_animal(var/mob/living/simple_animal/M)
+		if(M.environment_smash)
+			M.do_attack_animation(src)
+			visible_message("<span class='danger'>[M.name] smashes \the [src] apart!</span>")
+			qdel(src)
+		return
 
 	// user interaction
 	interact(mob/user, var/ai=0)

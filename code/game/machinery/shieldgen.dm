@@ -38,7 +38,7 @@
 
 
 	if (src.health <= 0)
-		visible_message("\blue The [src] dissapates")
+		visible_message("\blue The [src] dissipates")
 		del(src)
 		return
 
@@ -51,7 +51,7 @@
 	src.health -= max_health*0.75 //3/4 health as damage
 
 	if(src.health <= 0)
-		visible_message("\blue The [src] dissapates")
+		visible_message("\blue The [src] dissipates")
 		del(src)
 		return
 
@@ -63,7 +63,7 @@
 	health -= Proj.damage
 	..()
 	if(health <=0)
-		visible_message("\blue The [src] dissapates")
+		visible_message("\blue The [src] dissipates")
 		del(src)
 		return
 	opacity = 1
@@ -112,7 +112,7 @@
 
 	//Handle the destruction of the shield
 	if (src.health <= 0)
-		visible_message("\blue The [src] dissapates")
+		visible_message("\blue The [src] dissipates")
 		del(src)
 		return
 
@@ -489,8 +489,8 @@
 			user << "\red Access denied."
 
 	else
-		src.add_fingerprint(user)
-		visible_message("\red The [src.name] has been hit with the [W.name] by [user.name]!")
+		add_fingerprint(user)
+		..()
 
 /obj/machinery/shieldwallgen/proc/cleanup(var/NSEW)
 	var/obj/machinery/shieldwall/F

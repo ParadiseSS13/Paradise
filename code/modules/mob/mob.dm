@@ -855,6 +855,9 @@ var/list/slot_equipment_priority = list( \
 		return 0
 	src << message
 	return 1
+	
+/mob/proc/is_muzzled()
+	return 0
 
 /mob/proc/show_viewers(message)
 	for(var/mob/M in viewers())
