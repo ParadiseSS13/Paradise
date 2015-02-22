@@ -19,17 +19,13 @@
 		user << "<span class='danger'>You don't have the dexterity to do this!</span>"
 		return 1
 
+
 	if (istype(M, /mob/living/carbon/human))
 		var/mob/living/carbon/human/H = M
 		var/datum/organ/external/affecting = H.get_organ(user.zone_sel.selecting)
 
-		if(affecting.display_name == "head")
-			if(H.head && istype(H.head,/obj/item/clothing/head/helmet/space))
-				user << "<span class='danger'>You can't apply [src] through [H.head]!</span>"
-				return 1
-		else
-			if(H.wear_suit && istype(H.wear_suit,/obj/item/clothing/suit/space))
-				user << "<span class='danger'>You can't apply [src] through [H.wear_suit]!</span>"
+		if(isliving(M))
+			if(!M.can_inject(user, 1))
 				return 1
 
 		if(affecting.status & ORGAN_ROBOT)
@@ -48,7 +44,7 @@
 		use(1)
 
 	M.updatehealth()
-	
+
 /obj/item/stack/medical/bruise_pack
 	name = "roll of gauze"
 	singular_name = "gauze length"
@@ -82,12 +78,12 @@
 						user.visible_message( 	"\blue [user] places a bandaid over \the [W.desc] on [M]'s [affecting.display_name].", \
 										"\blue You place a bandaid over \the [W.desc] on [M]'s [affecting.display_name]." )
 
-					affecting.heal_damage(src.heal_brute, src.heal_burn, 0)							
+					affecting.heal_damage(src.heal_brute, src.heal_burn, 0)
 					use(1)
 		else
 			M.heal_organ_damage((src.heal_brute/2), (src.heal_burn/2))
 			use(1)
-			
+
 /obj/item/stack/medical/ointment
 	name = "ointment"
 	desc = "Used to treat those nasty burns."
@@ -112,7 +108,7 @@
 			else
 				user.visible_message( 	"\blue [user] salves the wounds on [M]'s [affecting.display_name].", \
 										"\blue You salve the wounds on [M]'s [affecting.display_name]." )
-				affecting.heal_damage(src.heal_brute, src.heal_burn, 0)											
+				affecting.heal_damage(src.heal_brute, src.heal_burn, 0)
 				use(1)
 		else
 			if (can_operate(H))        //Checks if mob is lying down on table for surgery
