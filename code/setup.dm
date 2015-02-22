@@ -198,7 +198,7 @@ var/MAX_EX_FLASH_RANGE = 14
 #define NODROP					2		// This flag makes it so that an item literally cannot be removed at all, or at least that's how it should be. Only deleted.
 #define NOBLUDGEON  			4		// when an item has this it produces no "X has been hit by Y with Z" message with the default handler
 #define MASKINTERNALS			8		// mask allows internals
-#define USEDELAY 				16		// 1 second extra delay on use (Can be used once every 2s)
+//#define USEDELAY 				16		// 1 second extra delay on use (Can be used once every 2s)
 #define NOSHIELD				32		// weapon not affected by shield
 #define CONDUCT					64		// conducts electricity (metal etc.)
 #define ABSTRACT				128		// for all things that are technically items but used for various different stuff, made it 128 because it could conflict with other flags other way
@@ -964,3 +964,12 @@ var/list/hit_appends = list("-OOF", "-ACK", "-UGH", "-HRNK", "-HURGH", "-GLORF")
 #define STATUS_UPDATE 1 // ORANGE Visability
 #define STATUS_DISABLED 0 // RED Visability
 #define STATUS_CLOSE -1 // Close the interface
+
+//Click cooldowns, in tenths of a second
+#define CLICK_CD_MELEE 8
+#define CLICK_CD_RANGE 4
+#define CLICK_CD_BREAKOUT 100
+#define CLICK_CD_HANDCUFFED 10
+#define CLICK_CD_TKSTRANGLE 10
+#define CLICK_CD_POINT 10
+#define CLICK_CD_RESIST 20

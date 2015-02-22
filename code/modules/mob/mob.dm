@@ -503,8 +503,6 @@ var/list/slot_equipment_priority = list( \
 		if (W)
 			W.attack_self(src)
 			update_inv_r_hand()
-	if(next_move < world.time)
-		next_move = world.time + 2
 	return
 
 /*
@@ -1151,7 +1149,7 @@ mob/proc/yank_out_object()
 
 	if(!isliving(usr) || usr.next_move > world.time)
 		return
-	usr.next_move = world.time + 20
+	usr.changeNext_move(CLICK_CD_RESIST)
 
 	if(usr.stat == 1)
 		usr << "You are unconcious and cannot do that!"

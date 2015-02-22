@@ -12,6 +12,7 @@
 
 /mob/living/attackby(obj/item/I, mob/user)
 	if(istype(I) && ismob(user))
+		user.changeNext_move(CLICK_CD_MELEE)
 		I.attack(src, user)
 
 

@@ -162,11 +162,13 @@ var/global/wcColored
 			log_admin("Window destroyed by hulk [user.real_name] ([user.ckey]) with pdiff [pdiff] at [loc]!")
 		destroy()
 	else if (usr.a_intent == "harm")
+		user.changeNext_move(CLICK_CD_MELEE)
 		playsound(get_turf(src), 'sound/effects/glassknock.ogg', 80, 1)
 		usr.visible_message("\red [usr.name] bangs against the [src.name]!", \
 							"\red You bang against the [src.name]!", \
 							"You hear a banging sound.")
 	else
+		user.changeNext_move(CLICK_CD_MELEE)
 		playsound(src.loc, 'sound/effects/glassknock.ogg', 80, 1)
 		usr.visible_message("[usr.name] knocks on the [src.name].", \
 							"You knock on the [src.name].", \
@@ -178,6 +180,7 @@ var/global/wcColored
 	return attack_hand(user)
 
 /obj/structure/window/proc/attack_generic(mob/user as mob, damage = 0)	//used by attack_alien, attack_animal, and attack_slime
+	user.changeNext_move(CLICK_CD_MELEE)
 	health -= damage
 	if(health <= 0)
 		user.visible_message("<span class='danger'>[user] smashes through [src]!</span>")
@@ -298,6 +301,7 @@ var/global/wcColored
 		del(src)
 	else
 		if(W.damtype == BRUTE || W.damtype == BURN)
+			user.changeNext_move(CLICK_CD_MELEE)
 			hit(W.force)
 			if(health <= 7)
 				anchored = 0
