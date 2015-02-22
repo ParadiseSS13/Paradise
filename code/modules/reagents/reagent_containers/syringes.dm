@@ -55,6 +55,11 @@
 		if(!proximity) return
 		if(!target.reagents) return
 
+		if(isliving(target))
+			var/mob/living/M = target
+			if(!M.can_inject(user, 1))
+				return
+
 		if(mode == SYRINGE_BROKEN)
 			user << "\red This syringe is broken!"
 			return
