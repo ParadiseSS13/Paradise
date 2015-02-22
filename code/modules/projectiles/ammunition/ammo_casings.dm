@@ -95,6 +95,12 @@
 	desc = "An incendiary-coated shotgun slug."
 	icon_state = "ishell"
 	projectile_type = "/obj/item/projectile/bullet/incendiary/shell"
+	
+/obj/item/ammo_casing/shotgun/frag12
+	name = "FRAG-12 slug"
+	desc = "A high explosive breaching round for a 12 gauge shotgun."
+	icon_state = "heshell"
+	projectile_type = /obj/item/projectile/bullet/frag12
 
 /obj/item/ammo_casing/shotgun/incendiary/dragonsbreath
 	name = "dragonsbreath shell"

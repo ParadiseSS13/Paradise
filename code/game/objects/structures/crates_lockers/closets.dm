@@ -265,7 +265,7 @@
 			return
 		if(W)
 			W.loc = src.loc
-	else if(istype(W, /obj/item/weapon/packageWrap))
+	else if(istype(W, /obj/item/stack/packageWrap))
 		return
 	else if(istype(W, /obj/item/weapon/weldingtool))
 		var/obj/item/weapon/weldingtool/WT = W

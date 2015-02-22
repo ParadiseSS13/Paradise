@@ -1114,7 +1114,7 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 	/obj/item/device/camera_film,
 	/obj/item/device/camera_film,
 	/obj/item/weapon/storage/photo_album,
-	/obj/item/weapon/packageWrap,
+	/obj/item/stack/packageWrap,
 	/obj/item/weapon/reagent_containers/glass/paint/red,
 	/obj/item/weapon/reagent_containers/glass/paint/green,
 	/obj/item/weapon/reagent_containers/glass/paint/blue,
@@ -1124,9 +1124,9 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 	/obj/item/weapon/reagent_containers/glass/paint/white,
 	/obj/item/weapon/reagent_containers/glass/paint/remover,
 	/obj/item/weapon/contraband/poster,
-	/obj/item/weapon/wrapping_paper,
-	/obj/item/weapon/wrapping_paper,
-	/obj/item/weapon/wrapping_paper)
+	/obj/item/stack/wrapping_paper,
+	/obj/item/stack/wrapping_paper,
+	/obj/item/stack/wrapping_paper)
 	cost = 10
 	containername = "Arts and Crafts crate"
 

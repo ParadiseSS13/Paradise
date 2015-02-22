@@ -24,7 +24,6 @@
 	var/parts = /obj/item/weapon/table_parts
 	var/flipped = 0
 	var/health = 100
-	var/list/table_contents = list()
 	var/busy = 0
 
 /obj/structure/table/proc/update_adjacent()
@@ -41,8 +40,6 @@
 	update_icon()
 	update_adjacent()
 
-	craft_holder = new /datum/crafting_holder(src, "table")
-
 /obj/structure/table/Destroy()
 	update_adjacent()
 	..()
@@ -51,11 +48,6 @@
 	new parts(loc)
 	density = 0
 	qdel(src)
-
-/obj/structure/table/MouseDrop(atom/over)
-	if(usr.stat || usr.lying || !Adjacent(usr) || (over != usr))
-		return
-	craft_holder.interact(usr)
 
 /obj/structure/table/update_icon()
 	if(flipped)
