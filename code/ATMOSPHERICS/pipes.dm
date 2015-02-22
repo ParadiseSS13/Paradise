@@ -313,7 +313,7 @@
 				src.connected_to = c
 				node2 = target
 				break
-
+		
 	if(!node1 && !node2)
 		del(src)
 		return

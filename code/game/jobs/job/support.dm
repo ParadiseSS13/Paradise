@@ -227,6 +227,8 @@
 		H.equip_or_collect(new /obj/item/weapon/storage/fancy/crayons(H), slot_in_backpack)
 		H.equip_or_collect(new /obj/item/weapon/reagent_containers/spray/waterflower(H), slot_in_backpack)
 		H.mutations.Add(M_CLUMSY)
+		H.dna.SetSEState(COMICBLOCK,1,1)
+		genemutcheck(H,COMICBLOCK,null,MUTCHK_FORCED)
 		return 1
 
 

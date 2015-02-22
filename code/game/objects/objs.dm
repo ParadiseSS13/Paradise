@@ -21,11 +21,6 @@
 	// Reagent ID => friendly name
 	var/list/reagents_to_log=list()
 	
-/obj/New()
-	..()
-	if(ticker && ticker.current_state == GAME_STATE_PLAYING)
-		initialize()
-	
 /obj/Topic(href, href_list, var/nowindow = 0, var/checkrange = 1)
 	// Calling Topic without a corresponding window open causes runtime errors
 	if(!nowindow && ..())

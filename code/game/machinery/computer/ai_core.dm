@@ -174,6 +174,10 @@
 	icon_state = "ai-empty"
 	anchored = 1
 	state = 20//So it doesn't interact based on the above. Not really necessary.
+	
+/obj/structure/AIcore/deactivated/Destroy()
+	empty_playable_ai_cores -= src	
+	..()
 
 /obj/structure/AIcore/deactivated/attackby(var/obj/item/W, var/mob/user)
 	if(istype(W, /obj/item/device/aicard))//Is it?
