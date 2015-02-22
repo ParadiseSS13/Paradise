@@ -247,7 +247,7 @@
 
 	equip(var/mob/living/carbon/human/H)
 		if(!H)	return 0
-		if(H.backbag == 2) H.equip_or_collect(new /obj/item/weapon/storage/backpack(H), slot_back)
+		if(H.backbag == 2) H.equip_or_collect(new /obj/item/weapon/storage/backpack/mime(H), slot_back)
 		if(H.backbag == 3) H.equip_or_collect(new /obj/item/weapon/storage/backpack/satchel_norm(H), slot_back)
 		if(H.gender == FEMALE)
 			H.equip_or_collect(new /obj/item/clothing/under/sexymime(H), slot_w_uniform)
