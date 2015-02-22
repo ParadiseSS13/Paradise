@@ -1,6 +1,6 @@
 // attach a wire to a power machine - leads from the turf you are standing on
 
-/obj/machinery/power/attackby(obj/item/weapon/W, mob/user)
+/obj/machinery/power/attackby(obj/item/weapon/W, mob/user, params)
 
 	if(istype(W, /obj/item/stack/cable_coil))
 
@@ -120,7 +120,7 @@
 /obj/structure/cable/attack_tk(mob/user)
 	return
 
-/obj/structure/cable/attackby(obj/item/W, mob/user)
+/obj/structure/cable/attackby(obj/item/W, mob/user, params)
 
 	var/turf/T = src.loc
 	if(T.intact)
@@ -278,7 +278,7 @@
 		usr << "\blue You cannot do that."
 	..()
 
-/obj/item/stack/cable_coil/attackby(obj/item/weapon/W, mob/user)
+/obj/item/stack/cable_coil/attackby(obj/item/weapon/W, mob/user, params)
 	..()
 	if( istype(W, /obj/item/weapon/wirecutters) && src.amount > 1)
 		src.amount--

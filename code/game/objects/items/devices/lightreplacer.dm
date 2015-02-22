@@ -71,7 +71,7 @@
 	..()
 	usr << "It has [uses] lights remaining."
 
-/obj/item/device/lightreplacer/attackby(obj/item/W, mob/user)
+/obj/item/device/lightreplacer/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/stack/sheet/glass))
 		var/obj/item/stack/sheet/glass/G = W
 		if(G.amount - decrement >= 0 && uses < max_uses)

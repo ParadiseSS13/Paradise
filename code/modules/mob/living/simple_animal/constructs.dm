@@ -110,7 +110,7 @@
 			var/damage = rand(M.melee_damage_lower, M.melee_damage_upper)
 			adjustBruteLoss(damage)
 
-/mob/living/simple_animal/construct/attackby(var/obj/item/O as obj, var/mob/user as mob)
+/mob/living/simple_animal/construct/attackby(var/obj/item/O as obj, var/mob/user as mob, params)
 	if(O.force)
 		var/damage = O.force
 		if (O.damtype == STAMINA)
@@ -151,7 +151,7 @@
 	status_flags = 0
 	construct_spells = list(/obj/effect/proc_holder/spell/wizard/aoe_turf/conjure/lesserforcewall)
 
-/mob/living/simple_animal/construct/armoured/attackby(var/obj/item/O as obj, var/mob/user as mob)
+/mob/living/simple_animal/construct/armoured/attackby(var/obj/item/O as obj, var/mob/user as mob, params)
 	if(O.force)
 		if(O.force >= 11)
 			var/damage = O.force
@@ -280,7 +280,7 @@
 	var/energy = 0
 	var/max_energy = 1000
 
-/mob/living/simple_animal/construct/behemoth/attackby(var/obj/item/O as obj, var/mob/user as mob)
+/mob/living/simple_animal/construct/behemoth/attackby(var/obj/item/O as obj, var/mob/user as mob, params)
 	if(O.force)
 		if(O.force >= 11)
 			var/damage = O.force

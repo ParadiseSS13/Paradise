@@ -172,7 +172,7 @@
 	return
 
 
-/obj/item/weapon/weldingtool/attackby(obj/item/W as obj, mob/user as mob)
+/obj/item/weapon/weldingtool/attackby(obj/item/W as obj, mob/user as mob, params)
 	if(istype(W,/obj/item/weapon/screwdriver))
 		if(welding)
 			user << "\red Stop welding first!"

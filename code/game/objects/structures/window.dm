@@ -212,7 +212,7 @@ var/global/wcColored
 	attack_generic(user, rand(10, 15))
 
 
-/obj/structure/window/attackby(obj/item/weapon/W as obj, mob/living/user as mob)
+/obj/structure/window/attackby(obj/item/weapon/W as obj, mob/living/user as mob, params)
 	if(!istype(W)) return//I really wish I did not need this
 	if (istype(W, /obj/item/weapon/grab) && get_dist(src,user)<2)
 		var/obj/item/weapon/grab/G = W
@@ -283,7 +283,7 @@ var/global/wcColored
 					continue
 				if(G.amount>=G.max_amount)
 					continue
-				G.attackby(NG, user)
+				G.attackby(NG, user, params)
 
 			if (reinf)
 				var/obj/item/stack/rods/NR = new (src.loc)
@@ -292,7 +292,7 @@ var/global/wcColored
 						continue
 					if(R.amount>=R.max_amount)
 						continue
-					R.attackby(NR, user)
+					R.attackby(NR, user, params)
 
 		user << "<span class='notice'>You have disassembled the window.</span>"
 		disassembled = 1

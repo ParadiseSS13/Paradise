@@ -32,7 +32,7 @@
 	src.gib()
 	return
 
-/mob/living/simple_animal/vox/armalis/attackby(var/obj/item/O as obj, var/mob/user as mob)
+/mob/living/simple_animal/vox/armalis/attackby(var/obj/item/O as obj, var/mob/user as mob, params)
 	if(O.force)
 		if(O.force >= 25)
 			var/damage = O.force
@@ -110,7 +110,7 @@
 	set name = "Shriek"
 	set desc = "Give voice to a psychic shriek."
 
-/mob/living/simple_animal/vox/armalis/attackby(var/obj/item/O as obj, var/mob/user as mob)
+/mob/living/simple_animal/vox/armalis/attackby(var/obj/item/O as obj, var/mob/user as mob, params)
 	if(istype(O,/obj/item/vox/armalis_armour))
 		user.drop_item()
 		armour = O

@@ -50,7 +50,7 @@
 			cell.emp_act(severity)
 		..(severity)
 
-	attackby(obj/item/I, mob/user)
+	attackby(obj/item/I, mob/user, params)
 		if(istype(I, /obj/item/weapon/stock_parts/cell))
 			if(open)
 				if(cell)

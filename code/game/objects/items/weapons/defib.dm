@@ -78,7 +78,7 @@
 		usr << "<span class='warning'>Put the defibrillator on your back first!</span>"
 	return
 
-/obj/item/weapon/defibrillator/attackby(obj/item/weapon/W, mob/user)
+/obj/item/weapon/defibrillator/attackby(obj/item/weapon/W, mob/user, params)
 	if(istype(W, /obj/item/weapon/stock_parts/cell))
 		var/obj/item/weapon/stock_parts/cell/C = W
 		if(bcell)
@@ -231,7 +231,7 @@
 	update_icon()
 	return
 
-/obj/item/weapon/defibrillator/compact/combat/attackby(obj/item/weapon/W, mob/user)
+/obj/item/weapon/defibrillator/compact/combat/attackby(obj/item/weapon/W, mob/user, params)
 	if(W == paddles)
 		paddles.unwield()
 		toggle_paddles()

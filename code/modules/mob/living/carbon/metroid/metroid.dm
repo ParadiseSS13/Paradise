@@ -556,7 +556,7 @@
 			updatehealth()
 	return
 
-/mob/living/carbon/slime/attackby(obj/item/W, mob/user)
+/mob/living/carbon/slime/attackby(obj/item/W, mob/user, params)
 	if(istype(W,/obj/item/stack/sheet/mineral/plasma)) //Lets you feed slimes plasma.
 		if (user in Friends)
 			++Friends[user]
@@ -666,7 +666,7 @@ mob/living/carbon/slime/var/temperature_resistance = T0C+75
 	var/Uses = 1 // uses before it goes inert
 	var/enhanced = 0 //has it been enhanced before?
 
-	attackby(obj/item/O as obj, mob/user as mob)
+	attackby(obj/item/O as obj, mob/user as mob, params)
 		if(istype(O, /obj/item/weapon/slimesteroid2))
 			if(enhanced == 1)
 				user << "<span class='warning'> This extract has already been enhanced!</span>"
@@ -1141,7 +1141,7 @@ mob/living/carbon/slime/var/temperature_resistance = T0C+75
 	if (environment.toxins > MOLES_PLASMA_VISIBLE)//plasma exposure causes the egg to hatch
 		src.Hatch()
 
-/obj/item/weapon/reagent_containers/food/snacks/egg/slime/attackby(obj/item/weapon/W as obj, mob/user as mob)
+/obj/item/weapon/reagent_containers/food/snacks/egg/slime/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
 	if(istype( W, /obj/item/toy/crayon ))
 		return
 	else

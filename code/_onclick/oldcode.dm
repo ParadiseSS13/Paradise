@@ -270,7 +270,7 @@
 				// ------- YOU HAVE AN ITEM IN YOUR HAND - HANDLE ATTACKBY AND AFTERATTACK -------
 				var/ignoreAA = 0 //Ignore afterattack(). Surgery uses this.
 				if (t5)
-					ignoreAA = src.attackby(W, usr)
+					ignoreAA = src.attackby(W, usr, params)
 				if (W && !ignoreAA)
 					W.afterattack(src, usr, (t5 ? 1 : 0), params)
 
@@ -326,7 +326,7 @@
 				// ------- YOU ARE NOT RESTRAINED -------
 				if ((W && !( istype(src, /obj/screen) )))
 					// ------- IT SHOULD NEVER GET TO HERE, DUE TO THE ISTYPE(SRC, /OBJ/SCREEN) FROM PREVIOUS IF-S - I TESTED IT WITH A DEBUG OUTPUT AND I COULDN'T GET THIST TO SHOW UP. -------
-					src.attackby(W, usr)
+					src.attackby(W, usr, params)
 					if (W)
 						W.afterattack(src, usr,, params)
 				else

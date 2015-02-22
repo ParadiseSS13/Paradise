@@ -160,7 +160,7 @@ BLIND     // can't see anything
 	var/clipped = 0
 	species_restricted = list("exclude","Unathi","Tajaran")
 
-/obj/item/clothing/gloves/attackby(obj/item/weapon/W, mob/user)
+/obj/item/clothing/gloves/attackby(obj/item/weapon/W, mob/user, params)
 	if(istype(W, /obj/item/weapon/wirecutters))
 		if(clipped == 0)
 			playsound(src.loc, 'sound/items/Wirecutter.ogg', 100, 1)
@@ -344,7 +344,7 @@ BLIND     // can't see anything
 			if (AC.slot == A.slot)
 				return 0
 
-/obj/item/clothing/under/attackby(obj/item/I, mob/user)
+/obj/item/clothing/under/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/clothing/accessory))
 		var/obj/item/clothing/accessory/A = I
 		if(can_attach_accessory(A))
@@ -362,7 +362,7 @@ BLIND     // can't see anything
 
 	if(accessories.len)
 		for(var/obj/item/clothing/accessory/A in accessories)
-			A.attackby(I, user)
+			A.attackby(I, user, params)
 		return
 
 	..()

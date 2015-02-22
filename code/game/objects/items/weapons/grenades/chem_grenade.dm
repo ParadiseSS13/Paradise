@@ -103,7 +103,7 @@
 				prime()
 
 
-/obj/item/weapon/grenade/chem_grenade/attackby(obj/item/I, mob/user)
+/obj/item/weapon/grenade/chem_grenade/attackby(obj/item/I, mob/user, params)
 	if(istype(I,/obj/item/weapon/hand_labeler))
 		var/obj/item/weapon/hand_labeler/HL = I
 		if(length(HL.label))
@@ -368,7 +368,7 @@
 	//I tried to just put it in the allowed_containers list but
 	//if you do that it must have reagents.  If you're going to
 	//make a special case you might as well do it explicitly. -Sayu
-/obj/item/weapon/grenade/chem_grenade/large/attackby(obj/item/I, mob/user)
+/obj/item/weapon/grenade/chem_grenade/large/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/slime_extract) && stage == WIRED)
 		user << "<span class='notice'>You add [I] to the assembly.</span>"
 		user.drop_item()

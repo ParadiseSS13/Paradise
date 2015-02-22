@@ -376,7 +376,7 @@
 	return
 
 
-/obj/structure/table/attackby(obj/item/W as obj, mob/user as mob)
+/obj/structure/table/attackby(obj/item/W as obj, mob/user as mob, params)
 	if (istype(W, /obj/item/weapon/grab) && get_dist(src,user)<2)
 		var/obj/item/weapon/grab/G = W
 		if (istype(G.affecting, /mob/living))
@@ -420,6 +420,10 @@
 	if(!(W.flags & ABSTRACT))
 		if(user.drop_item())
 			W.Move(loc)
+			var/list/click_params = params2list(params)
+			//Center the icon where the user clicked.
+			W.pixel_x = (text2num(click_params["icon-x"]) - 16)
+			W.pixel_y = (text2num(click_params["icon-y"]) - 16)
 	return
 
 /obj/structure/table/proc/straight_table_check(var/direction)
@@ -535,7 +539,7 @@
 	health = 50
 	autoignition_temperature = AUTOIGNITION_WOOD // TODO:  Special ash subtype that looks like charred table legs.
 
-/obj/structure/table/woodentable/attackby(obj/item/I as obj, mob/user as mob)
+/obj/structure/table/woodentable/attackby(obj/item/I as obj, mob/user as mob, params)
 
 	if (istype(I, /obj/item/stack/tile/grass))
 		del(I)
@@ -585,6 +589,10 @@
 	if(!(I.flags & ABSTRACT))
 		if(user.drop_item())
 			I.Move(loc)
+			var/list/click_params = params2list(params)
+			//Center the icon where the user clicked.
+			W.pixel_x = (text2num(click_params["icon-x"]) - 16)
+			W.pixel_y = (text2num(click_params["icon-y"]) - 16)
 	//if(W && W.loc)	W.loc = src.loc
 	return 1
 
@@ -594,7 +602,7 @@
 	icon_state = "pokertable"
 
 
-/obj/structure/table/woodentable/poker/attackby(obj/item/weapon/W as obj, mob/user as mob)
+/obj/structure/table/woodentable/poker/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
 
 	if (istype(W, /obj/item/weapon/grab))
 		var/obj/item/weapon/grab/G = W
@@ -639,6 +647,10 @@
 	if(!(W.flags & ABSTRACT))
 		if(user.drop_item())
 			W.Move(loc)
+			var/list/click_params = params2list(params)
+			//Center the icon where the user clicked.
+			W.pixel_x = (text2num(click_params["icon-x"]) - 16)
+			W.pixel_y = (text2num(click_params["icon-y"]) - 16)
 	return 1
 
 
@@ -659,7 +671,7 @@
 	else
 		return ..()
 
-/obj/structure/table/reinforced/attackby(obj/item/weapon/W as obj, mob/user as mob)
+/obj/structure/table/reinforced/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
 	if (istype(W, /obj/item/weapon/weldingtool))
 		var/obj/item/weapon/weldingtool/WT = W
 		if(WT.remove_fuel(0, user))
@@ -746,7 +758,7 @@
 		step(O, get_dir(O, src))
 	return
 
-/obj/structure/rack/attackby(obj/item/weapon/W as obj, mob/user as mob)
+/obj/structure/rack/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
 	if (istype(W, /obj/item/weapon/wrench))
 		new /obj/item/weapon/rack_parts( src.loc )
 		playsound(src.loc, 'sound/items/Ratchet.ogg', 50, 1)

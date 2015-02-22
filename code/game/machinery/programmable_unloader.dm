@@ -195,7 +195,7 @@
 			updateUsrDialog()
 			return
 
-/obj/machinery/programmable/attackby(obj/item/I as obj, mob/user as mob)
+/obj/machinery/programmable/attackby(obj/item/I as obj, mob/user as mob, params)
 	if(istype(I,/obj/item/weapon/wrench)) // code borrowed from pipe dispenser
 		if (unwrenched==0)
 			playsound(src.loc, 'sound/items/Ratchet.ogg', 50, 1)
@@ -580,7 +580,7 @@
 		..()
 		resetlists()
 
-	attackby(obj/item/I as obj, mob/user as mob)
+	attackby(obj/item/I as obj, mob/user as mob, params)
 		if(istype(I,/obj/item/device/multitool))
 			hacking = (hacking?0:1)
 			if(hacking)

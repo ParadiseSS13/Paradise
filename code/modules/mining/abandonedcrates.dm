@@ -91,7 +91,7 @@
 	else
 		return ..()
 
-/obj/structure/closet/crate/secure/loot/attackby(obj/item/weapon/W as obj, mob/user as mob)
+/obj/structure/closet/crate/secure/loot/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
 	if(locked)
 		if (istype(W, /obj/item/weapon/card/emag))
 			user << "<span class='notice'>The crate unlocks!</span>"

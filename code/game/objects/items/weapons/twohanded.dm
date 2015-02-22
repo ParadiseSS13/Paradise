@@ -267,7 +267,7 @@ obj/item/weapon/twohanded/
 	..()
 	hitsound = 'sound/weapons/blade1.ogg'
 
-/obj/item/weapon/twohanded/dualsaber/attackby(obj/item/weapon/W as obj, mob/user as mob)
+/obj/item/weapon/twohanded/dualsaber/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
 	..()
 	if(istype(W, /obj/item/device/multitool))
 		if(hacked == 0)

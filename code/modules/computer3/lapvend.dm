@@ -37,7 +37,7 @@
 	return
 
 
-/obj/machinery/lapvend/attackby(obj/item/weapon/W as obj, mob/user as mob)
+/obj/machinery/lapvend/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
 	if(vendmode == 1)
 		if(istype(W, /obj/item/weapon/card))
 			var/obj/item/weapon/card/I = W

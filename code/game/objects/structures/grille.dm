@@ -142,7 +142,7 @@
 		healthcheck()
 	return
 
-/obj/structure/grille/attackby(obj/item/weapon/W as obj, mob/user as mob)
+/obj/structure/grille/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
 	user.changeNext_move(CLICK_CD_MELEE)
 	if(iswirecutter(W))
 		if(!shock(user, 100))

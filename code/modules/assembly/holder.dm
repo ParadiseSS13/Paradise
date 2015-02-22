@@ -130,7 +130,7 @@
 		return
 
 
-	attackby(obj/item/weapon/W as obj, mob/user as mob)
+	attackby(obj/item/weapon/W as obj, mob/user as mob, params)
 		if(istype(W, /obj/item/weapon/screwdriver))
 			if(!a_left || !a_right)
 				user << "\red BUG:Assembly part missing, please report this!"

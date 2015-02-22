@@ -328,7 +328,7 @@
 	return
 
 //Let's unlock this early I guess.  Might be too early, needs tweaking.
-/obj/machinery/clonepod/attackby(obj/item/weapon/W as obj, mob/user as mob)
+/obj/machinery/clonepod/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
 	if (istype(W, /obj/item/weapon/screwdriver))
 		if(occupant || mess || locked)
 			user << "<span class='notice'>The maintenance panel is locked.</span>"

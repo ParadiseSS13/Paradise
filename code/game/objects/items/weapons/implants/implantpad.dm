@@ -38,7 +38,7 @@
 		return
 
 
-	attackby(obj/item/weapon/implantcase/C as obj, mob/user as mob)
+	attackby(obj/item/weapon/implantcase/C as obj, mob/user as mob, params)
 		..()
 		if(istype(C, /obj/item/weapon/implantcase))
 			if(!( src.case ))

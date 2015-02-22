@@ -51,7 +51,7 @@
 	thermal_conductivity = 0.025
 	heat_capacity = 325000
 
-/turf/simulated/floor/engine/attackby(obj/item/weapon/C as obj, mob/user as mob)
+/turf/simulated/floor/engine/attackby(obj/item/weapon/C as obj, mob/user as mob, params)
 	if(!C)
 		return
 	if(!user)

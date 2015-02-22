@@ -60,7 +60,7 @@
 	add_fingerprint(user)
 	return
 
-/obj/item/weapon/melee/energy/sword/attackby(obj/item/weapon/W, mob/living/user)
+/obj/item/weapon/melee/energy/sword/attackby(obj/item/weapon/W, mob/living/user, params)
 	..()
 	if(istype(W, /obj/item/weapon/melee/energy/sword))
 		if(W == src)

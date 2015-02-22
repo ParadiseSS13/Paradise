@@ -34,7 +34,7 @@
 /obj/item/stack/sheet/glass/attack_self(mob/user as mob)
 	construct_window(user)
 
-/obj/item/stack/sheet/glass/attackby(obj/item/W, mob/user)
+/obj/item/stack/sheet/glass/attackby(obj/item/W, mob/user, params)
 	..()
 	if(istype(W,/obj/item/stack/cable_coil))
 		var/obj/item/stack/cable_coil/CC = W
@@ -255,7 +255,7 @@
 /obj/item/stack/sheet/plasmaglass/attack_self(mob/user as mob)
 	construct_window(user)
 
-/obj/item/stack/sheet/plasmaglass/attackby(obj/item/W, mob/user)
+/obj/item/stack/sheet/plasmaglass/attackby(obj/item/W, mob/user, params)
 	..()
 	if( istype(W, /obj/item/stack/rods) )
 		var/obj/item/stack/rods/V  = W

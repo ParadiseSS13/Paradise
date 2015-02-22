@@ -123,7 +123,7 @@
 	src.view_range = num
 	cameranet.updateVisibility(src, 0)
 
-/obj/machinery/camera/attackby(obj/W as obj, mob/living/user as mob)
+/obj/machinery/camera/attackby(obj/W as obj, mob/living/user as mob, params)
 	//invalidateCameraCache()
 	// DECONSTRUCTION
 	if(isscrewdriver(W))

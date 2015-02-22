@@ -29,7 +29,7 @@
 		new /obj/machinery/singularity/(T, 50)
 		if(src) del(src)
 
-/obj/machinery/the_singularitygen/attackby(obj/item/W, mob/user)
+/obj/machinery/the_singularitygen/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/weapon/wrench))
 		anchored = !anchored
 		playsound(src.loc, 'sound/items/Ratchet.ogg', 75, 1)

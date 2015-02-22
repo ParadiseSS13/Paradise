@@ -56,7 +56,7 @@ var/const/tk_maxrange = 15
 	TK Grab Item (the workhorse of old TK)
 
 	* If you have not grabbed something, do a normal tk attack
-	* If you have something, throw it at the target.  If it is already adjacent, do a normal attackby()
+	* If you have something, throw it at the target.  If it is already adjacent, do a normal attackby(, params)
 	* If you click what you are holding, or attack_self(), do an attack_self_tk() on it.
 	* Deletes itself if it is ever not in your hand, or if you should have no access to TK.
 */
@@ -95,7 +95,7 @@ var/const/tk_maxrange = 15
 		if(focus)
 			focus.attack_self_tk(user)
 
-	afterattack(atom/target as mob|obj|turf|area, mob/living/user as mob|obj, proximity)//TODO: go over this
+	afterattack(atom/target as mob|obj|turf|area, mob/living/user as mob|obj, proximity, params)//TODO: go over this
 		if(!target || !user)	return
 		if(last_throw+3 > world.time)	return
 		if(!host || host != user)
@@ -125,7 +125,7 @@ var/const/tk_maxrange = 15
 
 		if(!istype(target, /turf) && istype(focus,/obj/item) && target.Adjacent(focus))
 			var/obj/item/I = focus
-			var/resolved = target.attackby(I, user, user:get_organ_target())
+			var/resolved = target.attackby(I, user, params)
 			if(!resolved && target && I)
 				I.afterattack(target,user,1) // for splashing with beakers
 

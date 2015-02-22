@@ -58,14 +58,14 @@
 
 	return ..()
 
-/obj/vehicle/train/ambulance/trolley/attackby(obj/item/weapon/W as obj, mob/user as mob)
+/obj/vehicle/train/ambulance/trolley/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
 	if(open && istype(W, /obj/item/weapon/wirecutters))
 		passenger_allowed = !passenger_allowed
 		user.visible_message("<span class='notice'>[user] [passenger_allowed ? "cuts" : "mends"] a cable in [src].</span>","<span class='notice'>You [passenger_allowed ? "cut" : "mend"] the load limiter cable.</span>")
 	else
 		..()
 
-/obj/vehicle/train/ambulance/engine/attackby(obj/item/weapon/W as obj, mob/user as mob)
+/obj/vehicle/train/ambulance/engine/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
 	if(istype(W, /obj/item/weapon/key/ambulance_train))
 		if(!key)
 			user.drop_item()

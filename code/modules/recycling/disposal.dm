@@ -43,7 +43,7 @@
 
 
 	// attack by item places it in to disposal
-	attackby(var/obj/item/I, var/mob/user)
+	attackby(var/obj/item/I, var/mob/user, params)
 		if(stat & BROKEN || !I || !user || (I.flags & NODROP))
 			return
 
@@ -869,7 +869,7 @@
 	//attack by item
 	//weldingtool: unfasten and convert to obj/disposalconstruct
 
-	attackby(var/obj/item/I, var/mob/user)
+	attackby(var/obj/item/I, var/mob/user, params)
 
 		var/turf/T = src.loc
 		if(T.intact)
@@ -1023,7 +1023,7 @@
 		update()
 		return
 
-	attackby(var/obj/item/I, var/mob/user)
+	attackby(var/obj/item/I, var/mob/user, params)
 		if(..())
 			return
 
@@ -1170,7 +1170,7 @@
 	return
 
 	// Override attackby so we disallow trunkremoval when somethings ontop
-/obj/structure/disposalpipe/trunk/attackby(var/obj/item/I, var/mob/user)
+/obj/structure/disposalpipe/trunk/attackby(var/obj/item/I, var/mob/user, params)
 
 	//Disposal bins or chutes
 	/*
@@ -1308,7 +1308,7 @@
 
 		return
 
-	attackby(var/obj/item/I, var/mob/user)
+	attackby(var/obj/item/I, var/mob/user, params)
 		if(!I || !user)
 			return
 		src.add_fingerprint(user)

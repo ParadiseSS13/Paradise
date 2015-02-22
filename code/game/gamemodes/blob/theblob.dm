@@ -129,7 +129,7 @@
 		return 0
 
 
-	attackby(var/obj/item/weapon/W, var/mob/living/user)
+	attackby(var/obj/item/weapon/W, var/mob/living/user, params)
 		user.changeNext_move(CLICK_CD_MELEE)
 		user.do_attack_animation(src)
 		playsound(get_turf(src), 'sound/effects/attackblob.ogg', 50, 1)

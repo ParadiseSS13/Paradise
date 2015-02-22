@@ -22,7 +22,7 @@
 	if (!(usr in view(2)) && usr!=src.loc) return
 	usr << "\blue [rockets.len] / [max_rockets] rockets."
 
-/obj/item/weapon/gun/rocketlauncher/attackby(obj/item/I as obj, mob/user as mob)
+/obj/item/weapon/gun/rocketlauncher/attackby(obj/item/I as obj, mob/user as mob, params)
 	if(istype(I, /obj/item/ammo_casing/rocket))
 		if(rockets.len < max_rockets)
 			user.drop_item()

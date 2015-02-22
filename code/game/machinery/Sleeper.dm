@@ -76,7 +76,7 @@
 		qdel(src)
 	return
 
-/obj/machinery/sleep_console/attackby(var/obj/item/weapon/G as obj, var/mob/user as mob)
+/obj/machinery/sleep_console/attackby(var/obj/item/weapon/G as obj, var/mob/user as mob, params)
 	if (istype(G, /obj/item/weapon/screwdriver))
 		default_deconstruction_screwdriver(user, "console-p", "console", G)
 		return
@@ -292,7 +292,7 @@
 	return
 
 
-/obj/machinery/sleeper/attackby(var/obj/item/weapon/G as obj, var/mob/user as mob)
+/obj/machinery/sleeper/attackby(var/obj/item/weapon/G as obj, var/mob/user as mob, params)
 	if(istype(G, /obj/item/weapon/reagent_containers/glass))
 		if(!beaker)
 			beaker = G

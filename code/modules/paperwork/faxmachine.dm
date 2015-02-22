@@ -32,7 +32,7 @@ var/list/alldepartments = list()
 /obj/machinery/photocopier/faxmachine/attack_hand(mob/user as mob)
 	ui_interact(user)
 
-/obj/machinery/photocopier/faxmachine/attackby(obj/item/weapon/item, mob/user)
+/obj/machinery/photocopier/faxmachine/attackby(obj/item/weapon/item, mob/user, params)
 	if(istype(item,/obj/item/weapon/card/id) && !scan)
 		scan(item)
 	else if(istype(item, /obj/item/weapon/paper) || istype(item, /obj/item/weapon/photo) || istype(item, /obj/item/weapon/paper_bundle))

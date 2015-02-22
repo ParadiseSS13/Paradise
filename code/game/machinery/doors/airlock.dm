@@ -298,7 +298,7 @@
 		user << "You do not know how to operate this airlock's mechanism."
 		return
 
-/obj/machinery/door/airlock/alien/attackby(C as obj, mob/user as mob)
+/obj/machinery/door/airlock/alien/attackby(C as obj, mob/user as mob, params)
 	if(isalien(user) || isrobot(user) || isAI(user))
 		..(C, user)
 	else
@@ -943,7 +943,7 @@ About the new airlock wires panel:
 		updateUsrDialog()
 	return 0
 
-/obj/machinery/door/airlock/attackby(C as obj, mob/user as mob)
+/obj/machinery/door/airlock/attackby(C as obj, mob/user as mob, params)
 	//world << text("airlock attackby src [] obj [] mob []", src, C, user)
 	if(!istype(usr, /mob/living/silicon))
 		if(src.isElectrified())
@@ -1048,7 +1048,7 @@ About the new airlock wires panel:
 		..()
 	return
 
-/obj/machinery/door/airlock/plasma/attackby(C as obj, mob/user as mob)
+/obj/machinery/door/airlock/plasma/attackby(C as obj, mob/user as mob, params)
 	if(C)
 		ignite(is_hot(C))
 	..()
@@ -1174,7 +1174,7 @@ About the new airlock wires panel:
 	return
 
 
-/obj/machinery/door/airlock/hatch/gamma/attackby(C as obj, mob/user as mob)
+/obj/machinery/door/airlock/hatch/gamma/attackby(C as obj, mob/user as mob, params)
 	//world << text("airlock attackby src [] obj [] mob []", src, C, user)
 	if(!istype(usr, /mob/living/silicon))
 		if(src.isElectrified())
@@ -1207,7 +1207,7 @@ About the new airlock wires panel:
 			return
 
 
-/obj/machinery/door/airlock/highsecurity/red/attackby(C as obj, mob/user as mob)
+/obj/machinery/door/airlock/highsecurity/red/attackby(C as obj, mob/user as mob, params)
 	//world << text("airlock attackby src [] obj [] mob []", src, C, user)
 	if(!istype(usr, /mob/living/silicon))
 		if(src.isElectrified())
