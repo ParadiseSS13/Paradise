@@ -406,6 +406,7 @@
 
 		else
 			user.visible_message("<span class='danger'>[user.name] hits the light.</span>")
+			playsound(src.loc, 'sound/effects/Glasshit.ogg', 75, 1)
 
 	// attempt to stick weapon into light socket
 	else if(status == LIGHT_EMPTY)
