@@ -215,7 +215,7 @@
 	var/new_name = "[pick(list("To Sleep Beneath","Wind Over","Embrace of","Dreams of","Witnessing","To Walk Beneath","Approaching the"))]"
 	new_name += " [pick(list("the Void","the Sky","Encroaching Night","Planetsong","Starsong","the Wandering Star","the Empty Day","Daybreak","Nightfall","the Rain"))]"
 	return new_name
-	
+
 /datum/language/trinary
 	name = "Trinary"
 	desc = "A modification of binary to allow fuzzy logic. 0 is no, 1 is maybe, 2 is yes. Credited with giving Machine People the ability to think creatively."
@@ -225,8 +225,8 @@
 	colour = "trinary"
 	key = "5"
 	flags = RESTRICTED | WHITELISTED
-	syllables = list("02011","01222","10100","10210","21012","02011","21200","1002","2001","0002","0012","0012","000","120","121","201","220","10","11","0")	
-	
+	syllables = list("02011","01222","10100","10210","21012","02011","21200","1002","2001","0002","0012","0012","000","120","121","201","220","10","11","0")
+
 /datum/language/kidan
 	name = "Chittin"
 	desc = "The noise made by rubbing its antennae together is actually a complex form of communication for Kidan."
@@ -237,7 +237,7 @@
 	key = "4"
 	flags = RESTRICTED | WHITELISTED
 	syllables = list("click","clack")
-	
+
 /datum/language/slime
 	name = "Bubblish"
 	desc = "The language of slimes. It's a mixture of bubbling noises and pops. Very difficult to speak without mechanical aid for humans."
@@ -309,6 +309,16 @@
 	colour = "rough"
 	key = "3"
 	syllables = list ("gra","ba","ba","breh","bra","rah","dur","ra","ro","gro","go","ber","bar","geh","heh", "gra")
+
+/datum/language/clown
+	name = "Clownish"
+	desc = "The language of clown planet. Mother tongue of clowns throughout the Galaxy."
+	speech_verb = "honks"
+	ask_verb = "honks"
+	exclaim_verb = "honks"
+	colour = "clown"
+	key = "0"
+	syllables = list ("honk","squeak","bonk","toot","narf","zub","wee","wub","norf")
 
 /datum/language/xenocommon
 	name = "Xenomorph"

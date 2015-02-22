@@ -32,7 +32,7 @@ var/global/image/typing_indicator
 
 	set_typing_indicator(1)
 	hud_typing = 1
-	var/message = input("","say (text)") as text
+	var/message = input("","say (text)") as null|text
 	hud_typing = 0
 	set_typing_indicator(0)
 	if(message)
@@ -44,7 +44,7 @@ var/global/image/typing_indicator
 
 	set_typing_indicator(1)
 	hud_typing = 1
-	var/message = input("","me (text)") as text
+	var/message = input("","me (text)") as null|text
 	hud_typing = 0
 	set_typing_indicator(0)
 	if(message)

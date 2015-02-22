@@ -229,7 +229,7 @@ modules/mob/living/carbon/human/life.dm if you die, you will be zoomed out.
 	projectile_type = "/obj/item/projectile/kinetic"
 	fire_sound = 'sound/weapons/Kenetic_accel.ogg'
 	charge_cost = 5000
-	cell_type = "/obj/item/weapon/stock_parts/cell/crap"
+	cell_type = "/obj/item/weapon/stock_parts/cell/emproof"
 	var/overheat = 0
 	var/recent_reload = 1
 
@@ -239,6 +239,9 @@ modules/mob/living/carbon/human/life.dm if you die, you will be zoomed out.
 		overheat = 0
 		recent_reload = 0
 	..()
+
+/obj/item/weapon/gun/energy/kinetic_accelerator/emp_act(severity)
+	return
 
 /obj/item/weapon/gun/energy/kinetic_accelerator/attack_self(var/mob/living/user/L)
 	if(overheat || recent_reload)
@@ -274,6 +277,11 @@ modules/mob/living/carbon/human/life.dm if you die, you will be zoomed out.
 	silenced = 0
 	projectile_type = "/obj/item/projectile/energy/bolt/large"
 
+/obj/item/weapon/gun/energy/kinetic_accelerator/crossbow/large/cyborg
+	desc = "One and done!"
+	icon_state = "crossbowlarge"
+	origin_tech = null
+	m_amt = 0
 
 /obj/item/weapon/gun/energy/disabler
 	name = "disabler"

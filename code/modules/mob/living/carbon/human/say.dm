@@ -276,7 +276,7 @@
 				message = pick("NEEIIGGGHHHH!", "NEEEIIIIGHH!", "NEIIIGGHH!", "HAAWWWWW!", "HAAAWWW!")
 				verb = pick("whinnies","neighs", "says")
 				handled = 1
-	
+
 	if(dna)
 		for(var/datum/dna/gene/gene in dna_genes)
 			if(!gene.block)
@@ -309,6 +309,8 @@
 				message = uppertext(message)
 				verb = "yells loudly"
 
+		if(COMIC in mutations)
+			message = "<span class='sans'>[message]</span>"
 	returns[1] = message
 	returns[2] = verb
 	returns[3] = handled

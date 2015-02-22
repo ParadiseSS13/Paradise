@@ -216,6 +216,7 @@ var/MAX_EX_FLASH_RANGE = 14
 #define HEADBANGPROTECT			4096
 #define EARBANGPROTECT			1024
 
+#define THICKMATERIAL 	1024			//prevents syringes, parapens and hypos if the external suit or helmet (if targeting head) has this flag. Example: space suits, biosuit, bombsuits, thick suits that cover your body. (NOTE: flag shared with NOSLIP)
 #define NOSLIP					1024 	//prevents from slipping on wet floors, in space etc
 
 #define OPENCONTAINER			4096	// is an open container for chemistry purposes
@@ -404,10 +405,11 @@ var/MAX_EX_FLASH_RANGE = 14
 #define PSY_RESIST    204		// Block remoteview
 #define SUPER_FART    205		// Duh
 #define EMPATH		206		//Read minds
+#define COMIC			207		//Comic Sans
 
 // /vg/ muts
 #define LOUD		208		// CAUSES INTENSE YELLING
-#define WHISPER	209		// causes quiet whispering
+//#define WHISPER	209		// causes quiet whispering
 #define DIZZY		210		// Trippy.
 
 //disabilities
@@ -843,6 +845,7 @@ var/list/restricted_camera_networks = list( //Those networks can only be accesse
 #define HAS_TAIL 		8
 #define HAS_SKIN_TONE 	16
 #define HAS_SKIN_COLOR	32
+#define TAIL_WAGGING    64
 
 //Language flags.
 #define WHITELISTED 1  		// Language is available if the speaker is whitelisted.

@@ -81,6 +81,7 @@ var/SCRAMBLEBLOCK = 0
 var/TOXICFARTBLOCK = 0
 var/STRONGBLOCK = 0
 var/HORNSBLOCK = 0
+var/COMICBLOCK = 0
 
 // Powers
 var/SOBERBLOCK = 0
@@ -100,7 +101,7 @@ var/POLYMORPHBLOCK = 0
 // /vg/ Mutations
 ///////////////////////////////
 var/LOUDBLOCK = 0
-var/WHISPERBLOCK = 0
+//var/WHISPERBLOCK = 0
 var/DIZZYBLOCK = 0
 
 

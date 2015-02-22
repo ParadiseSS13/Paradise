@@ -131,6 +131,11 @@
 /obj/item/ammo_casing/shotgun/dart/attackby()
 	return
 
+/obj/item/ammo_casing/syringegun
+	name = "syringe gun spring"
+	desc = "A high-power spring that throws syringes."
+	projectile_type = null
+
 /obj/item/ammo_casing/shotgun/fakebeanbag
 	name = "beanbag shell"
 	desc = "A weak beanbag shell."

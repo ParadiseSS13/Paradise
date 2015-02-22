@@ -77,8 +77,10 @@ h1.alert, h2.alert		{color: #000000;}
 .trinary				{color: #727272;}
 .kidan					{color: #664205;}
 .slime					{color: #0077AA;}
+.clown					{color: #ff0000;}
 .rough					{font-family: "Trebuchet MS", cursive, sans-serif;}
 .say_quote				{font-family: Georgia, Verdana, sans-serif;}
+.sans					{font-family: "Comic Sans MS", cursive, sans-serif; font-weight: bold;}
 
 .say_quote				{font-family: Georgia, Verdana, sans-serif;}
 
