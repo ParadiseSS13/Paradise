@@ -57,7 +57,7 @@
 	A.examine()
 
 /atom/proc/attack_ghost(mob/user as mob)
-	src.examine()
+	return
 
 // ---------------------------------------
 // And here are some good things for free:
