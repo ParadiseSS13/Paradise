@@ -874,6 +874,7 @@ var/list/slot_equipment_priority = list( \
 			stat(null, "Instances:\t[world.contents.len]")
 
 			if(master_controller)
+				/* HANDLED THROUGH PROCESS SCHEDULER
 				stat(null, "MasterController-[last_tick_duration] ([master_controller.processing?"On":"Off"]-[controller_iteration])")
 				stat(null, "Air-[master_controller.air_cost]")
 				stat(null, "Sun-[master_controller.sun_cost]")
@@ -885,12 +886,68 @@ var/list/slot_equipment_priority = list( \
 				stat(null, "PiNet-[master_controller.networks_cost]\t#[pipe_networks.len]")
 				stat(null, "PoNet-[master_controller.powernets_cost]\t#[powernets.len]")
 				stat(null, "NanoUI-[master_controller.nano_cost]\t#[nanomanager.processing_uis.len]")
-				stat(null,"Events-[master_controller.events_cost]\t#[event_manager.active_events.len]")
 //				stat(null, "GC-[master_controller.gc_cost]\t#[garbage.queue.len]")
-				stat(null, "Tick-[master_controller.ticker_cost]")
+				stat(null, "Tick-[master_controller.ticker_cost]")*/
+				stat(null,"Events-[master_controller.events_cost]\t#[event_manager.active_events.len]")
 				stat(null, "ALL-[master_controller.total_cost]")
 			else
 				stat(null, "MasterController-ERROR")
+
+			if(processScheduler.getIsRunning())
+				var/datum/controller/process/process
+
+				process = processScheduler.getProcess("ticker")
+				stat(null, "TIC\t - #[process.getTicks()]\t - [process.getLastRunTime()]")
+
+				process = processScheduler.getProcess("air")
+				stat(null, "AIR\t - #[process.getTicks()]\t - [process.getLastRunTime()]")
+
+				process = processScheduler.getProcess("lighting")
+				stat(null, "LIG\t - #[process.getTicks()]\t - [process.getLastRunTime()]")
+
+				process = processScheduler.getProcess("mob")
+				stat(null, "MOB([mob_list.len])\t - #[process.getTicks()]\t - [process.getLastRunTime()]")
+
+				process = processScheduler.getProcess("machinery")
+				stat(null, "MAC([machines.len])\t - #[process.getTicks()]\t - [process.getLastRunTime()]")
+
+				process = processScheduler.getProcess("obj")
+				stat(null, "OBJ([processing_objects.len])\t - #[process.getTicks()]\t - [process.getLastRunTime()]")
+
+				process = processScheduler.getProcess("pipenet")
+				stat(null, "PIP([pipe_networks.len])\t - #[process.getTicks()]\t - [process.getLastRunTime()]")
+
+				process = processScheduler.getProcess("powernet")
+				stat(null, "POW([powernets.len])\t - #[process.getTicks()]\t - [process.getLastRunTime()]")
+
+				process = processScheduler.getProcess("nanoui")
+				stat(null, "NAN([nanomanager.processing_uis.len])\t - #[process.getTicks()]\t - [process.getLastRunTime()]")
+
+				process = processScheduler.getProcess("disease")
+				stat(null, "DIS([active_diseases.len])\t - #[process.getTicks()]\t - [process.getLastRunTime()]")
+
+				//process = processScheduler.getProcess("sun")
+				//stat(null, "SUN\t - #[process.getTicks()]\t - [process.getLastRunTime()]")
+
+				//process = processScheduler.getProcess("garbage")
+				//stat(null, "GAR\t - #[process.getTicks()]\t - [process.getLastRunTime()]")
+
+				//process = processScheduler.getProcess("vote")
+				//stat(null, "VOT\t - #[process.getTicks()]\t - [process.getLastRunTime()]")
+
+				//process = processScheduler.getProcess("shuttle controller")
+				//stat(null, "SHT\t - #[process.getTicks()]\t - [process.getLastRunTime()]")
+
+				//process = processScheduler.getProcess("emergency shuttle")
+				//stat(null, "EME\t - #[process.getTicks()]\t - [process.getLastRunTime()]")
+
+				//process = processScheduler.getProcess("inactivity")
+				//stat(null, "IAC\t - #[process.getTicks()]\t - [process.getLastRunTime()]")
+
+				//process = processScheduler.getProcess("event")
+				//stat(null, "EVE([events.len])\t - #[process.getTicks()]\t - [process.getLastRunTime()]")
+			else
+				stat(null, "processScheduler is not running.")
 
 	if(listed_turf && client)
 		if(!TurfAdjacent(listed_turf))
