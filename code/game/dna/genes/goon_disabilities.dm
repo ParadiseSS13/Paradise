@@ -57,7 +57,7 @@
 	activation_message = "You feel blubbery and lethargic!"
 	deactivation_message = "You feel fit!"
 
-	mutation = M_OBESITY
+	mutation = OBESITY
 
 	New()
 		..()
@@ -219,7 +219,7 @@
 	deactivation_message = "Your stomach stops acting up. Phew!"
 	instability=2
 
-	mutation = M_TOXIC_FARTS
+	mutation = TOXIC_FARTS
 
 	New()
 		..()
@@ -237,7 +237,7 @@
 	activation_message = "You feel buff!"
 	deactivation_message = "You feel wimpy and weak."
 
-	mutation = M_STRONG
+	mutation = STRONG
 
 	New()
 		..()

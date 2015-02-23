@@ -327,7 +327,7 @@
 		if(s == "medical HUD")	//This file has to be saved as ANSI or this will not display correctly
 			dat += "<a href='byond://?src=\ref[src];software=medicalhud;sub=0'>Medical Analysis Suite</a> [(src.medHUD) ? "<font color=#55FF55>•</font>" : "<font color=#FF5555>•</font>"] <br>"
 		if(s == "universal translator")	//This file has to be saved as ANSI or this will not display correctly
-			dat += "<a href='byond://?src=\ref[src];software=translator;sub=0'>Universal Translator</a> [(src.universal_speak) ? "<font color=#55FF55>•</font>" : "<font color=#FF5555>•</font>"] <br>"
+			dat += "<a href='byond://?src=\ref[src];software=translator;sub=0'>Universal Translator</a> [(src.translator_on) ? "<font color=#55FF55>•</font>" : "<font color=#FF5555>•</font>"] <br>"
 		if(s == "projection array")
 			dat += "<a href='byond://?src=\ref[src];software=projectionarray;sub=0'>Projection Array</a> <br>"
 		if(s == "camera jack")

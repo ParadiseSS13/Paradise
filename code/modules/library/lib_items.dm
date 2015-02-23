@@ -28,7 +28,7 @@
 			I.loc = src
 	update_icon()
 
-/obj/structure/bookcase/attackby(obj/O as obj, mob/user as mob)
+/obj/structure/bookcase/attackby(obj/O as obj, mob/user as mob, params)
 	if(istype(O, /obj/item/weapon/book) || istype(O, /obj/item/weapon/spellbook))
 		user.drop_item()
 		O.loc = src
@@ -178,7 +178,7 @@
 	else
 		user << "This book is completely blank!"
 
-/obj/item/weapon/book/attackby(obj/item/weapon/W as obj, mob/user as mob)
+/obj/item/weapon/book/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
 	if(carved)
 		if(!store)
 			if(W.w_class < 3)

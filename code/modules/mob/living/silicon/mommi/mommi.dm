@@ -148,7 +148,7 @@ They can only use one tool at a time, they can't choose modules, and they have 1
 	real_name = changed_name
 	name = real_name
 
-/mob/living/silicon/robot/attackby(obj/item/weapon/W as obj, mob/user as mob)
+/mob/living/silicon/robot/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
 	if (istype(W, /obj/item/weapon/restraints/handcuffs)) // fuck i don't even know why isrobot() in handcuff code isn't working so this will have to do
 		return
 

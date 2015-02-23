@@ -43,6 +43,6 @@
 		burst()
 	return
 
-/obj/item/latexballon/attackby(obj/item/W as obj, mob/user as mob)
+/obj/item/latexballon/attackby(obj/item/W as obj, mob/user as mob, params)
 	if (can_puncture(W))
 		burst()

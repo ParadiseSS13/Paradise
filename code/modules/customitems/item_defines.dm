@@ -859,7 +859,7 @@
 		held.loc = get_turf(user)
 		src.held = null
 
-/obj/item/clothing/accessory/fluff/konaa_hirano/attackby(var/obj/item/O as obj, mob/user as mob)
+/obj/item/clothing/accessory/fluff/konaa_hirano/attackby(var/obj/item/O as obj, mob/user as mob, params)
 	if(istype(O,/obj/item/weapon/paper))
 		if(held)
 			usr << "[src] already has something inside it."

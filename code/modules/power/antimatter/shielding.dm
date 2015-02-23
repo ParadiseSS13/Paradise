@@ -135,7 +135,7 @@ proc/cardinalrange(var/center)
 	else if(processing) shutdown_core()
 
 
-/obj/machinery/am_shielding/attackby(obj/item/W, mob/user)
+/obj/machinery/am_shielding/attackby(obj/item/W, mob/user, params)
 	if(!istype(W) || !user) return
 	if(W.force > 10)
 		stability -= W.force/2
@@ -213,7 +213,7 @@ proc/cardinalrange(var/center)
 	m_amt = 100
 	w_amt = 2000
 
-/obj/item/device/am_shielding_container/attackby(var/obj/item/I, var/mob/user)
+/obj/item/device/am_shielding_container/attackby(var/obj/item/I, var/mob/user, params)
 	if(istype(I, /obj/item/device/multitool) && istype(src.loc,/turf))
 		new/obj/machinery/am_shielding(src.loc)
 		del(src)

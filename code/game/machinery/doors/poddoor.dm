@@ -25,7 +25,7 @@
 	else
 		return 0
 
-/obj/machinery/door/poddoor/attackby(obj/item/weapon/C as obj, mob/user as mob)
+/obj/machinery/door/poddoor/attackby(obj/item/weapon/C as obj, mob/user as mob, params)
 	src.add_fingerprint(user)
 	if (!( istype(C, /obj/item/weapon/crowbar) || (istype(C, /obj/item/weapon/twohanded/fireaxe) && C:wielded == 1) ))
 		return

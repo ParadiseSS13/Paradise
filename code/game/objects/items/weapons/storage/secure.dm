@@ -32,7 +32,7 @@
 		..()
 		usr << text("The service panel is [src.open ? "open" : "closed"].")
 
-	attackby(obj/item/weapon/W as obj, mob/user as mob)
+	attackby(obj/item/weapon/W as obj, mob/user as mob, params)
 		if(locked)
 			if ((istype(W, /obj/item/weapon/melee/energy/blade)) && (!src.emagged))
 				emag_act(user, W)
@@ -179,7 +179,7 @@
 
 	//I consider this worthless but it isn't my code so whatever.  Remove or uncomment.
 	/*attack(mob/M as mob, mob/living/user as mob)
-		if ((M_CLUMSY in user.mutations) && prob(50))
+		if ((CLUMSY in user.mutations) && prob(50))
 			user << "\red The [src] slips out of your hand and hits your head."
 			user.take_organ_damage(10)
 			user.Paralyse(2)

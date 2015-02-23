@@ -293,7 +293,7 @@
 				src.updateUsrDialog()
 
 
-	attackby(obj/item/weapon/W as obj, mob/user as mob)
+	attackby(obj/item/weapon/W as obj, mob/user as mob, params)
 		var/load = 0
 		if(istype(W, /obj/item/weapon/ore/))
 			for(var/mob/O in viewers(user, null)) O.show_message(text("\blue [] loads [] into the [].", user, W, src), 1)

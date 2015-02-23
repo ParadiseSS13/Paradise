@@ -174,7 +174,7 @@ var/global/list/breach_burn_descriptors = list(
 
 //Handles repairs (and also upgrades).
 
-/obj/item/clothing/suit/space/attackby(obj/item/W as obj, mob/user as mob)
+/obj/item/clothing/suit/space/attackby(obj/item/W as obj, mob/user as mob, params)
 	if(istype(W,/obj/item/stack/sheet/mineral/plastic) || istype(W,/obj/item/stack/sheet/metal))
 
 		if(istype(src.loc,/mob/living))

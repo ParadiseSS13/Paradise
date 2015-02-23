@@ -147,7 +147,7 @@
 		L.part = affected
 
 		H.dna.SetSEState(SOBERBLOCK,1)
-		H.mutations += M_SOBER
+		H.mutations += SOBER
 		H.check_mutations = 1
 		return 1
 

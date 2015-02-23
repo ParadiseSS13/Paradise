@@ -61,7 +61,7 @@
 	else
 		return 0
 
-/obj/vehicle/attackby(obj/item/weapon/W as obj, mob/user as mob)
+/obj/vehicle/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
 	if(istype(W, /obj/item/weapon/hand_labeler))
 		return
 	if(istype(W, /obj/item/weapon/screwdriver))

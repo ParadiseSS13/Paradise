@@ -11,7 +11,7 @@
 	var/list/authorized = list(  )
 
 
-	attackby(var/obj/item/card/W as obj, var/mob/user as mob)
+	attackby(var/obj/item/card/W as obj, var/mob/user as mob, params)
 		if(stat & (BROKEN|NOPOWER))	return
 		if ((!( istype(W, /obj/item/card) ) || !( ticker ) || emergency_shuttle.location != 1 || !( user )))	return
 		if (istype(W, /obj/item/card/id)||istype(W, /obj/item/device/pda))

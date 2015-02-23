@@ -143,8 +143,8 @@
 					slime.UpdateFeed()
 			return
 
-		if(istype(tmob, /mob/living/carbon/human) && (M_FAT in tmob.mutations))
-			if(prob(40) && !(M_FAT in src.mutations))
+		if(istype(tmob, /mob/living/carbon/human) && (FAT in tmob.mutations))
+			if(prob(40) && !(FAT in src.mutations))
 				src << "\red <B>You fail to push [tmob]'s fat ass out of the way.</B>"
 				now_pushing = 0
 				return
@@ -368,6 +368,7 @@
 	if(M.melee_damage_upper == 0)
 		M.emote("[M.friendly] [src]")
 	else
+		M.do_attack_animation(src)
 		if(M.attack_sound)
 			playsound(loc, M.attack_sound, 50, 1, 1)
 		for(var/mob/O in viewers(src, null))
@@ -384,6 +385,25 @@
 		apply_damage(damage, BRUTE, affecting, armor, M.name)
 		if(armor >= 2)	return
 
+/mob/living/carbon/human/attack_larva(mob/living/carbon/alien/larva/L as mob)
+
+	switch(L.a_intent)
+		if("help")
+			visible_message("<span class='notice'>[L] rubs its head against [src].</span>")
+
+
+		else
+			L.do_attack_animation(src)
+			var/damage = rand(1, 3)
+			visible_message("<span class='danger'>[L] bites [src]!</span>", \
+					"<span class='userdanger'>[L] bites [src]!</span>")
+			playsound(loc, 'sound/weapons/bite.ogg', 50, 1, -1)
+
+			if(stat != DEAD)
+				L.amount_grown = min(L.amount_grown + damage, L.max_grown)
+			var/datum/organ/external/affecting = get_organ(ran_zone(L.zone_sel.selecting))
+			var/armor_block = run_armor_check(affecting, "melee")
+			apply_damage(damage, BRUTE, affecting, armor_block)		
 
 /mob/living/carbon/human/proc/is_loyalty_implanted(mob/living/carbon/human/M)
 	for(var/L in M.contents)
@@ -398,9 +418,9 @@
 
 	if (health > -100)
 
-		for(var/mob/O in viewers(src, null))
-			if ((O.client && !( O.blinded )))
-				O.show_message(text("\red <B>The [M.name] glomps []!</B>", src), 1)
+		M.do_attack_animation(src)
+		visible_message("<span class='danger'>The [M.name] glomps [src]!</span>", \
+				"<span class='userdanger'>The [M.name] glomps [src]!</span>")
 
 		var/damage = rand(1, 3)
 
@@ -590,7 +610,7 @@
 //Returns "Unknown" if facially disfigured and real_name if not. Useful for setting name when polyacided or when updating a human's name variable
 /mob/living/carbon/human/proc/get_face_name()
 	var/datum/organ/external/head/head = get_organ("head")
-	if( !head || head.disfigured || (head.status & ORGAN_DESTROYED) || !real_name || (M_HUSK in mutations) )	//disfigured. use id-name if possible
+	if( !head || head.disfigured || (head.status & ORGAN_DESTROYED) || !real_name || (HUSK in mutations) )	//disfigured. use id-name if possible
 		return "Unknown"
 	return real_name
 

@@ -15,7 +15,7 @@
 	attack_paw(mob/user as mob)
 		return src.attack_hand(usr)
 
-	attackby(obj/item/weapon/grab/G as obj, mob/user as mob)
+	attackby(obj/item/weapon/grab/G as obj, mob/user as mob, params)
 		if(!istype(G, /obj/item/weapon/grab))
 			return
 		if(istype(G.affecting, /mob/living/carbon/monkey))

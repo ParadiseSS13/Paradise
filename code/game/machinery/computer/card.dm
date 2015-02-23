@@ -55,7 +55,7 @@
 		usr << "There is nothing to remove from the console."
 	return
 
-/obj/machinery/computer/card/attackby(obj/item/weapon/card/id/id_card, mob/user)
+/obj/machinery/computer/card/attackby(obj/item/weapon/card/id/id_card, mob/user, params)
 	if(!istype(id_card))
 		return ..()
 

@@ -48,7 +48,7 @@
 
 	return 1
 
-/obj/item/weapon/gun/syringe/attackby(var/obj/item/A as obj, mob/user as mob, var/show_msg = 1)
+/obj/item/weapon/gun/syringe/attackby(var/obj/item/A as obj, mob/user as mob, var/show_msg = 1, params)
 	if(istype(A, /obj/item/weapon/reagent_containers/syringe))
 		if(syringes.len < max_syringes)
 			user.drop_item()

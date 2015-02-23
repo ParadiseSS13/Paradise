@@ -85,7 +85,7 @@
 	return 1
 
 
-/obj/machinery/computer/xenos_station/attackby(obj/item/I as obj, mob/user as mob)
+/obj/machinery/computer/xenos_station/attackby(obj/item/I as obj, mob/user as mob, params)
 	return attack_hand(user)
 
 /obj/machinery/computer/xenos_station/attack_ai(mob/user as mob)

@@ -64,7 +64,7 @@
 	return
 
 /*
-/obj/item/weapon/extinguisher/attackby(obj/item/W, mob/user)
+/obj/item/weapon/extinguisher/attackby(obj/item/W, mob/user, params)
 	if(user.stat || user.restrained() || user.lying)  return
 
 	if (istype(W, /obj/item/weapon/wrench))

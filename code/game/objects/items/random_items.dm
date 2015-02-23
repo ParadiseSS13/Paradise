@@ -269,7 +269,7 @@
 	name = "\improper Mysterious Crate"
 	desc = "What could it be?"
 
-	attackby(obj/item/weapon/W as obj, mob/user as mob)
+	attackby(obj/item/weapon/W as obj, mob/user as mob, params)
 		if(istype(W, /obj/item/weapon/crowbar))
 			var/list/menace = pick(	/mob/living/simple_animal/hostile/carp,/mob/living/simple_animal/hostile/faithless,/mob/living/simple_animal/hostile/pirate,
 									/mob/living/simple_animal/hostile/creature,/mob/living/simple_animal/hostile/pirate/ranged,
@@ -299,7 +299,7 @@
 	name = "Schrodinger's Crate"
 	desc = "What happens if you open it?"
 
-	attackby(obj/item/weapon/W as obj, mob/user as mob)
+	attackby(obj/item/weapon/W as obj, mob/user as mob, params)
 		if(istype(W, /obj/item/weapon/crowbar))
 			var/mob/living/simple_animal/cat/Cat1 = new(loc)
 			Cat1.apply_damage(250)//,TOX)

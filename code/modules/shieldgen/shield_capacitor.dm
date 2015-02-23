@@ -32,7 +32,7 @@
 				break
 	..()
 
-/obj/machinery/shield_capacitor/attackby(obj/item/W, mob/user)
+/obj/machinery/shield_capacitor/attackby(obj/item/W, mob/user, params)
 
 	if(istype(W, /obj/item/weapon/card/id))
 		var/obj/item/weapon/card/id/C = W

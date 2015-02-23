@@ -17,7 +17,7 @@
 	var/trashtype = null //For disposable cuffs
 
 /obj/item/weapon/restraints/handcuffs/attack(mob/living/carbon/C, mob/user)
-	if(M_CLUMSY in user.mutations && prob(50))
+	if(CLUMSY in user.mutations && prob(50))
 		user << "<span class='warning'>Uh... how do those things work?!</span>"
 		apply_cuffs(user,user)
 
@@ -122,7 +122,7 @@ var/last_chew = 0
 	desc = "Use this to keep prisoners in line. Or you know, your significant other."
 	icon_state = "pinkcuffs"
 
-/obj/item/weapon/restraints/handcuffs/cable/attackby(var/obj/item/I, mob/user as mob)
+/obj/item/weapon/restraints/handcuffs/cable/attackby(var/obj/item/I, mob/user as mob, params)
 	..()
 	if(istype(I, /obj/item/stack/rods))
 		var/obj/item/stack/rods/R = I

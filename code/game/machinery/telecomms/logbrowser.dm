@@ -217,7 +217,7 @@
 		updateUsrDialog()
 		return
 
-	attackby(var/obj/item/weapon/D as obj, var/mob/user as mob)
+	attackby(var/obj/item/weapon/D as obj, var/mob/user as mob, params)
 		if(istype(D, /obj/item/weapon/screwdriver))
 			playsound(src.loc, 'sound/items/Screwdriver.ogg', 50, 1)
 			if(do_after(user, 20))

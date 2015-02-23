@@ -43,7 +43,7 @@
 		return
 	user << "\blue You cant move."
 
-/obj/effect/spresent/attackby(obj/item/weapon/W as obj, mob/user as mob)
+/obj/effect/spresent/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
 	..()
 
 	if (!istype(W, /obj/item/weapon/wirecutters))

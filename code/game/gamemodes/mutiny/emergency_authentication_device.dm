@@ -75,7 +75,7 @@
 	// Impossible!
 	state("Command aborted. This unit is defective.")
 
-/obj/machinery/emergency_authentication_device/attackby(obj/item/weapon/O, mob/user)
+/obj/machinery/emergency_authentication_device/attackby(obj/item/weapon/O, mob/user, params)
 	if(activated)
 		user << "\blue \The [src] is already active!"
 		return

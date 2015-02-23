@@ -31,7 +31,7 @@
 
 
 
-/obj/machinery/drying_rack/attackby(var/obj/item/W as obj, var/mob/user as mob)
+/obj/machinery/drying_rack/attackby(var/obj/item/W as obj, var/mob/user as mob, params)
 	if(is_type_in_list(W,accepted))
 		if(!running)
 			if(istype(W,/obj/item/weapon/reagent_containers/food/snacks/meat))

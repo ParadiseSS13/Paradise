@@ -90,7 +90,7 @@ obj/machinery/cooker/proc/gettype()
 	var/obj/item/weapon/reagent_containers/food/snacks/type = new(get_turf(src))
 	return type
 
-obj/machinery/cooker/attackby(obj/item/I, mob/user)
+obj/machinery/cooker/attackby(obj/item/I, mob/user, params)
 	if(stat & (NOPOWER|BROKEN))
 		return
 	if (!checkValid(I, user))

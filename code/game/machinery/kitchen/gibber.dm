@@ -78,7 +78,7 @@
 	else
 		src.startgibbing(user)
 
-/obj/machinery/gibber/attackby(obj/item/weapon/grab/G as obj, mob/user as mob)
+/obj/machinery/gibber/attackby(obj/item/weapon/grab/G as obj, mob/user as mob, params)
 	if(src.occupant)
 		user << "\red The gibber is full, empty it first!"
 		return

@@ -122,7 +122,7 @@
 			M.meteorhit(O)
 			shatter(M)
 
-/obj/structure/closet/statue/attackby(obj/item/I as obj, mob/user as mob)
+/obj/structure/closet/statue/attackby(obj/item/I as obj, mob/user as mob, params)
 	health -= I.force
 	visible_message("\red [user] strikes [src] with [I].")
 	if(health <= 0)

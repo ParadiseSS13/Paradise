@@ -126,7 +126,7 @@
 		if(5.0)
 			size = "huge"
 		else
-	//if ((M_CLUMSY in usr.mutations) && prob(50)) t = "funny-looking"
+	//if ((CLUMSY in usr.mutations) && prob(50)) t = "funny-looking"
 	usr << "This is a [src.blood_DNA ? "bloody " : ""]\icon[src][src.name]. It is a [size] item."
 	if(src.desc)
 		usr << src.desc
@@ -155,7 +155,6 @@
 	else
 		if(isliving(loc))
 			return 0
-		user.next_move = max(user.next_move+2,world.time + 2)
 
 	pickup(user)
 	add_fingerprint(user)
@@ -187,7 +186,6 @@
 		if(istype(src.loc, /mob/living))
 			return
 		src.pickup(user)
-		user.next_move = max(user.next_move+2,world.time + 2)
 
 	user.put_in_active_hand(src)
 	return
@@ -213,7 +211,7 @@
 
 // Due to storage type consolidation this should get used more now.
 // I have cleaned it up a little, but it could probably use more.  -Sayu
-/obj/item/attackby(obj/item/weapon/W as obj, mob/user as mob)
+/obj/item/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
 	if(istype(W,/obj/item/weapon/storage))
 		var/obj/item/weapon/storage/S = W
 		if(S.use_to_pickup)
@@ -302,7 +300,7 @@
 
 
 		if(istype(src, /obj/item/clothing/under) || istype(src, /obj/item/clothing/suit))
-			if(M_FAT in H.mutations)
+			if(FAT in H.mutations)
 				testing("[M] TOO FAT TO WEAR [src]!")
 				if(!(flags & ONESIZEFITSALL))
 					if(!disable_warning)
@@ -614,7 +612,7 @@
 		M.LAssailant = user
 
 	src.add_fingerprint(user)
-	//if((M_CLUMSY in user.mutations) && prob(50))
+	//if((CLUMSY in user.mutations) && prob(50))
 	//	M = user
 		/*
 		M << "\red You stab yourself in the eye."

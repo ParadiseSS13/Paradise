@@ -47,9 +47,9 @@
 /mob/living/proc/burn_skin(burn_amount)
 	if(istype(src, /mob/living/carbon/human))
 		//world << "DEBUG: burn_skin(), mutations=[mutations]"
-		if(M_NO_SHOCK in src.mutations) //shockproof
+		if(NO_SHOCK in src.mutations) //shockproof
 			return 0
-		if (M_RESIST_HEAT in src.mutations) //fireproof
+		if (RESIST_HEAT in src.mutations) //fireproof
 			return 0
 		var/mob/living/carbon/human/H = src	//make this damage method divide the damage to be done among all the body parts, then burn each body part for that much damage. will have better effect then just randomly picking a body part
 		var/divided_damage = (burn_amount)/(H.organs.len)
@@ -61,7 +61,7 @@
 		H.updatehealth()
 		return 1
 	else if(istype(src, /mob/living/carbon/monkey))
-		if (M_RESIST_HEAT in src.mutations) //fireproof
+		if (RESIST_HEAT in src.mutations) //fireproof
 			return 0
 		var/mob/living/carbon/monkey/M = src
 		M.adjustFireLoss(burn_amount)
@@ -456,7 +456,7 @@
 
 	if(!isliving(usr) || usr.next_move > world.time)
 		return
-	usr.next_move = world.time + 20
+	usr.changeNext_move(CLICK_CD_RESIST)
 
 	var/mob/living/L = usr
 
@@ -539,8 +539,8 @@
 		if(iscarbon(L))
 			var/mob/living/carbon/C = L
 			if( C.handcuffed )
-				C.next_move = world.time + 100
-				C.last_special = world.time + 100
+				C.changeNext_move(CLICK_CD_BREAKOUT)
+				C.last_special = world.time + CLICK_CD_BREAKOUT
 				C << "\red You attempt to unbuckle yourself. (This will take around 2 minutes and you need to stand still)"
 				for(var/mob/O in viewers(L))
 					O.show_message("\red <B>[usr] attempts to unbuckle themself!</B>", 1)
@@ -573,8 +573,8 @@
 		//		breakout_time++ //Harder to get out of welded lockers than locked lockers
 
 		//okay, so the closet is either welded or locked... resist!!!
-		usr.next_move = world.time + 100
-		L.last_special = world.time + 100
+		L.changeNext_move(CLICK_CD_BREAKOUT)
+		L.last_special = world.time + CLICK_CD_BREAKOUT
 		L << "\red You lean on the back of \the [C] and start pushing the door open. (this will take about [breakout_time] minutes)"
 		for(var/mob/O in viewers(usr.loc))
 			O.show_message("\red <B>The [L.loc] begins to shake violently!</B>", 1)
@@ -640,9 +640,9 @@
 				ExtinguishMob()
 			return
 		if(CM.handcuffed && CM.canmove && (CM.last_special <= world.time))
-			CM.next_move = world.time + 100
-			CM.last_special = world.time + 100
-			if(isalienadult(CM) || (M_HULK in usr.mutations))//Don't want to do a lot of logic gating here.
+			CM.changeNext_move(CLICK_CD_BREAKOUT)
+			CM.last_special = world.time + CLICK_CD_BREAKOUT
+			if(isalienadult(CM) || (HULK in usr.mutations))//Don't want to do a lot of logic gating here.
 				usr << "\red You attempt to break your handcuffs. (This will take around 5 seconds and you need to stand still)"
 				for(var/mob/O in viewers(CM))
 					O.show_message(text("\red <B>[] is trying to break the handcuffs!</B>", CM), 1)
@@ -677,9 +677,9 @@
 						CM.unEquip(CM.handcuffed)
 
 		else if(CM.legcuffed && CM.canmove && (CM.last_special <= world.time))
-			CM.next_move = world.time + 100
-			CM.last_special = world.time + 100
-			if(isalienadult(CM) || (M_HULK in usr.mutations))//Don't want to do a lot of logic gating here.
+			CM.changeNext_move(CLICK_CD_BREAKOUT)
+			CM.last_special = world.time + CLICK_CD_BREAKOUT
+			if(isalienadult(CM) || (HULK in usr.mutations))//Don't want to do a lot of logic gating here.
 				usr << "\red You attempt to break your legcuffs. (This will take around 5 seconds and you need to stand still)"
 				for(var/mob/O in viewers(CM))
 					O.show_message(text("\red <B>[] is trying to break the legcuffs!</B>", CM), 1)
@@ -761,3 +761,33 @@
 
 /mob/living/proc/can_use_vents()
 	return "You can't fit into that vent."
+	
+
+
+/atom/movable/proc/do_attack_animation(atom/A)
+	var/pixel_x_diff = 0
+	var/pixel_y_diff = 0
+	var/direction = get_dir(src, A)
+	switch(direction)
+		if(NORTH)
+			pixel_y_diff = 8
+		if(SOUTH)
+			pixel_y_diff = -8
+		if(EAST)
+			pixel_x_diff = 8
+		if(WEST)
+			pixel_x_diff = -8
+		if(NORTHEAST)
+			pixel_x_diff = 8
+			pixel_y_diff = 8
+		if(NORTHWEST)
+			pixel_x_diff = -8
+			pixel_y_diff = 8
+		if(SOUTHEAST)
+			pixel_x_diff = 8
+			pixel_y_diff = -8
+		if(SOUTHWEST)
+			pixel_x_diff = -8
+			pixel_y_diff = -8
+	animate(src, pixel_x = pixel_x + pixel_x_diff, pixel_y = pixel_y + pixel_y_diff, time = 2)
+	animate(pixel_x = initial(pixel_x), pixel_y = initial(pixel_y), time = 2)

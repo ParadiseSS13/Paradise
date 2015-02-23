@@ -43,7 +43,7 @@
 		..()
 		return
 
-/obj/machinery/apiary/attackby(var/obj/item/O as obj, var/mob/user as mob)
+/obj/machinery/apiary/attackby(var/obj/item/O as obj, var/mob/user as mob, params)
 	if(istype(O, /obj/item/queen_bee))
 		if(health > 0)
 			user << "\red There is already a queen in there."

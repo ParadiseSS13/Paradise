@@ -73,7 +73,7 @@
 	set category = "Object"
 	set src in usr
 
-	if((M_CLUMSY in usr.mutations) && prob(50))
+	if((CLUMSY in usr.mutations) && prob(50))
 		usr << "<span class='warning'>You cut yourself on the paper.</span>"
 		return
 	var/n_name = sanitize(copytext(input(usr, "What would you like to label the paper?", "Paper Labelling", name) as text, 1, MAX_MESSAGE_LEN))
@@ -348,7 +348,7 @@
 		update_icon()
 
 
-/obj/item/weapon/paper/attackby(obj/item/weapon/P as obj, mob/user as mob)
+/obj/item/weapon/paper/attackby(obj/item/weapon/P as obj, mob/user as mob, params)
 	..()
 	var/clown = 0
 	if(user.mind && (user.mind.assigned_role == "Clown"))

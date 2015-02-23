@@ -158,7 +158,7 @@
 			spawn(5) src.reagents.clear_reagents()
 			return
 
-	attackby(obj/item/weapon/W as obj, mob/user as mob)
+	attackby(obj/item/weapon/W as obj, mob/user as mob, params)
 		..()
 		if(istype(W, /obj/item/weapon/pen) || istype(W, /obj/item/device/flashlight/pen))
 			var/tmp_label = sanitize(input(user, "Enter a label for [src.name]","Label",src.label_text))
@@ -293,7 +293,7 @@
 	volume = 120
 	flags = OPENCONTAINER
 
-	attackby(var/obj/D, mob/user as mob)
+	attackby(var/obj/D, mob/user as mob, params)
 		if(isprox(D))
 			user << "You add [D] to [src]."
 			del(D)
