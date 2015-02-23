@@ -55,9 +55,10 @@
 
 	return parent.return_network(reference)
 
-/obj/machinery/atmospherics/pipe/Del()
+
+/obj/machinery/atmospherics/pipe/Destroy()
 	del(parent)
-	if(air_temporary)
+	if(air_temporary && loc)
 		loc.assume_air(air_temporary)
 
 	..()
@@ -70,7 +71,7 @@
 
 	if(istype(W,/obj/item/device/pipe_painter))
 		return 0
-		
+
 	if (istype(W, /obj/item/device/pipe_freezer))
 		if(!src.frozen) // If the pipe is not already frozen
 			user << "\red You begin to freeze the [src]"
@@ -88,7 +89,7 @@
 					"You hear dripping water.")
 
 		add_fingerprint(user)
-		return 1		
+		return 1
 
 	if (!istype(W, /obj/item/weapon/wrench))
 		return ..()
@@ -96,7 +97,7 @@
 	if (level==1 && isturf(T) && T.intact)
 		user << "\red You must remove the plating first."
 		return 1
-		
+
 	var/datum/gas_mixture/int_air = return_air()
 	var/datum/gas_mixture/env_air = loc.return_air()
 	if ((int_air.return_pressure()-env_air.return_pressure()) > 2*ONE_ATMOSPHERE)
@@ -129,7 +130,7 @@
 
 /*
 /obj/machinery/atmospherics/pipe/add_underlay(var/obj/machinery/atmospherics/node, var/direction)
-	if(istype(src, /obj/machinery/atmospherics/pipe/tank))	//todo: move tanks to unary devices 
+	if(istype(src, /obj/machinery/atmospherics/pipe/tank))	//todo: move tanks to unary devices
 		return ..()
 
 	if(node)
@@ -182,7 +183,7 @@
 
 /obj/machinery/atmospherics/pipe/simple/New()
 	..()
-	
+
 	// Pipe colors and icon states are handled by an image cache - so color and icon should
 	//  be null. For mapping purposes color is defined in the object definitions.
 	icon = null
@@ -242,7 +243,7 @@
 	else if(dir==12)
 		dir = 4
 
-/obj/machinery/atmospherics/pipe/simple/Del()
+/obj/machinery/atmospherics/pipe/simple/Destroy()
 	if(node1)
 		node1.disconnect(src)
 	if(node2)
@@ -276,7 +277,7 @@
 			if (meter.target == src)
 				new /obj/item/pipe_meter(T)
 				del(meter)
-		del(src)
+		qdel(src)
 	else if(node1 && node2)
 		overlays += icon_manager.get_atmos_icon("pipe", , pipe_color, pipe_icon + "intact" + icon_connect_type)
 	else
@@ -313,9 +314,9 @@
 				src.connected_to = c
 				node2 = target
 				break
-		
+
 	if(!node1 && !node2)
-		del(src)
+		qdel(src)
 		return
 
 	var/turf/T = get_turf(src)
@@ -359,7 +360,7 @@
 	layer = 2.39
 	icon_connect_type = "-supply"
 	color = PIPE_COLOR_BLUE
-	
+
 /obj/machinery/atmospherics/pipe/simple/visible/yellow
 	color = PIPE_COLOR_YELLOW
 
@@ -394,7 +395,7 @@
 	layer = 2.39
 	icon_connect_type = "-supply"
 	color = PIPE_COLOR_BLUE
-	
+
 /obj/machinery/atmospherics/pipe/simple/visible/universal
 	name="Universal pipe adapter"
 	desc = "An adapter for regular, supply and scrubbers pipes"
@@ -567,7 +568,7 @@
 	else
 		. = PROCESS_KILL
 
-/obj/machinery/atmospherics/pipe/manifold/Del()
+/obj/machinery/atmospherics/pipe/manifold/Destroy()
 	if(node1)
 		node1.disconnect(src)
 	if(node2)
@@ -620,19 +621,19 @@
 			if (meter.target == src)
 				new /obj/item/pipe_meter(T)
 				del(meter)
-		del(src)
+		qdel(src)
 	else
 		overlays.Cut()
 		overlays += icon_manager.get_atmos_icon("manifold", , pipe_color, "core" + icon_connect_type)
 		overlays += icon_manager.get_atmos_icon("manifold", , , "clamps" + icon_connect_type)
 		underlays.Cut()
-		
+
 		var/turf/T = get_turf(src)
 		var/list/directions = list(NORTH, SOUTH, EAST, WEST)
 		var/node1_direction = get_dir(src, node1)
 		var/node2_direction = get_dir(src, node2)
 		var/node3_direction = get_dir(src, node3)
-		
+
 		directions -= dir
 
 		directions -= add_underlay(T,node1,node1_direction,icon_connect_type)
@@ -692,7 +693,7 @@
 						break
 			if (node3)
 				break
-				
+
 	if(!node1 && !node2 && !node3)
 		del(src)
 		return
@@ -804,7 +805,7 @@
 	else
 		. = PROCESS_KILL
 
-/obj/machinery/atmospherics/pipe/manifold4w/Del()
+/obj/machinery/atmospherics/pipe/manifold4w/Destroy()
 	if(node1)
 		node1.disconnect(src)
 	if(node2)
@@ -866,13 +867,13 @@
 			if (meter.target == src)
 				new /obj/item/pipe_meter(T)
 				del(meter)
-		del(src)
+		qdel(src)
 	else
 		overlays.Cut()
 		overlays += icon_manager.get_atmos_icon("manifold", , pipe_color, "4way" + icon_connect_type)
 		overlays += icon_manager.get_atmos_icon("manifold", , , "clamps_4way" + icon_connect_type)
 		underlays.Cut()
-		
+
 		/*
 		var/list/directions = list(NORTH, SOUTH, EAST, WEST)
 
@@ -884,7 +885,7 @@
 		for(var/D in directions)
 			add_underlay(,D)
 		*/
-		
+
 		var/turf/T = get_turf(src)
 		var/list/directions = list(NORTH, SOUTH, EAST, WEST)
 		var/node1_direction = get_dir(src, node1)
@@ -948,7 +949,7 @@
 				src.connected_to = c
 				node4 = target
 				break
-				
+
 	if(!node1 && !node2 && !node3&& !node4)
 		del(src)
 		return
@@ -1059,7 +1060,7 @@
 		..()
 	else
 		. = PROCESS_KILL
-/obj/machinery/atmospherics/pipe/cap/Del()
+/obj/machinery/atmospherics/pipe/cap/Destroy()
 	if(node)
 		node.disconnect(src)
 
@@ -1176,7 +1177,7 @@
 	else
 		. = PROCESS_KILL
 
-/obj/machinery/atmospherics/pipe/tank/Del()
+/obj/machinery/atmospherics/pipe/tank/Destroy()
 	if(node1)
 		node1.disconnect(src)
 
@@ -1263,7 +1264,7 @@
 	air_temporary.oxygen = (25*ONE_ATMOSPHERE*O2STANDARD)*(air_temporary.volume)/(R_IDEAL_GAS_EQUATION*air_temporary.temperature)
 	air_temporary.nitrogen = (25*ONE_ATMOSPHERE*N2STANDARD)*(air_temporary.volume)/(R_IDEAL_GAS_EQUATION*air_temporary.temperature)
 
-	..()	
+	..()
 	icon_state = "air"
 
 /obj/machinery/atmospherics/pipe/tank/oxygen
@@ -1376,7 +1377,7 @@
 	else
 		parent.mingle_with_turf(loc, volume)
 
-/obj/machinery/atmospherics/pipe/vent/Del()
+/obj/machinery/atmospherics/pipe/vent/Destroy()
 	if(node1)
 		node1.disconnect(src)
 

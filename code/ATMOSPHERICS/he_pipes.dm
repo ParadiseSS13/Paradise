@@ -54,11 +54,11 @@
 		if(target.initialize_directions_he & get_dir(target,src))
 			node2 = target
 			break
-			
+
 	if(!node1 && !node2)
 		del(src)
 		return
-		
+
 	update_icon()
 	return
 
@@ -105,10 +105,10 @@
 		if(target.initialize_directions_he & get_dir(target,src))
 			node2 = target
 			break
-			
+
 	if(!node1 && !node2)
-		del(src)
-		return			
+		qdel(src)
+		return
 
 	update_icon()
 	return

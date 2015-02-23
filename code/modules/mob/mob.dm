@@ -855,7 +855,7 @@ var/list/slot_equipment_priority = list( \
 		return 0
 	src << message
 	return 1
-	
+
 /mob/proc/is_muzzled()
 	return 0
 
@@ -873,25 +873,14 @@ var/list/slot_equipment_priority = list( \
 			stat(null, "CPU:\t[world.cpu]")
 			stat(null, "Instances:\t[world.contents.len]")
 
-			if(master_controller)
-				/* HANDLED THROUGH PROCESS SCHEDULER
-				stat(null, "MasterController-[last_tick_duration] ([master_controller.processing?"On":"Off"]-[controller_iteration])")
-				stat(null, "Air-[master_controller.air_cost]")
-				stat(null, "Sun-[master_controller.sun_cost]")
-				stat(null, "Mob-[master_controller.mobs_cost]\t#[mob_list.len]")
-				stat(null, "Dis-[master_controller.diseases_cost]\t#[active_diseases.len]")
-				stat(null, "Mch-[master_controller.machines_cost]\t#[machines.len]")
-				stat(null, "Bots-[master_controller.aibots_cost]\t#[aibots.len]")
-				stat(null, "Obj-[master_controller.objects_cost]\t#[processing_objects.len]")
-				stat(null, "PiNet-[master_controller.networks_cost]\t#[pipe_networks.len]")
-				stat(null, "PoNet-[master_controller.powernets_cost]\t#[powernets.len]")
-				stat(null, "NanoUI-[master_controller.nano_cost]\t#[nanomanager.processing_uis.len]")
-//				stat(null, "GC-[master_controller.gc_cost]\t#[garbage.queue.len]")
-				stat(null, "Tick-[master_controller.ticker_cost]")*/
-				stat(null,"Events-[master_controller.events_cost]\t#[event_manager.active_events.len]")
-				stat(null, "ALL-[master_controller.total_cost]")
+			if (garbageCollector)
+				stat(null, "\tqdel - [garbageCollector.del_everything ? "off" : "on"]")
+				stat(null, "\ton queue - [garbageCollector.queue.len]")
+				stat(null, "\ttotal delete - [garbageCollector.dels_count]")
+				stat(null, "\tsoft delete - [garbageCollector.soft_dels]")
+				stat(null, "\thard delete - [garbageCollector.hard_dels]")
 			else
-				stat(null, "MasterController-ERROR")
+				stat(null, "Garbage Controller is not running.")
 
 			if(processScheduler.getIsRunning())
 				var/datum/controller/process/process
@@ -925,6 +914,9 @@ var/list/slot_equipment_priority = list( \
 
 				process = processScheduler.getProcess("disease")
 				stat(null, "DIS([active_diseases.len])\t - #[process.getTicks()]\t - [process.getLastRunTime()]")
+
+				process = processScheduler.getProcess("garbage")
+				stat(null, "GAR\t - #[process.getTicks()]\t - [process.getLastRunTime()]")
 
 				//process = processScheduler.getProcess("sun")
 				//stat(null, "SUN\t - #[process.getTicks()]\t - [process.getLastRunTime()]")
