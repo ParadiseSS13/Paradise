@@ -95,7 +95,7 @@
 	desc = "An incendiary-coated shotgun slug."
 	icon_state = "ishell"
 	projectile_type = "/obj/item/projectile/bullet/incendiary/shell"
-	
+
 /obj/item/ammo_casing/shotgun/frag12
 	name = "FRAG-12 slug"
 	desc = "A high explosive breaching round for a 12 gauge shotgun."
@@ -144,6 +144,7 @@
 
 /obj/item/ammo_casing/a762
 	desc = "A 7.62mm bullet casing."
+	icon_state = "762-casing"
 	caliber = "a762"
 	projectile_type = "/obj/item/projectile/bullet"
 

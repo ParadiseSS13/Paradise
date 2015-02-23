@@ -208,7 +208,7 @@ emp_act
 		user << "\red You sneakily slide the card into the dataport on [src]'s [affecting.display_name] and short out the safeties."
 		affecting.sabotaged = 1
 	return 1
-	
+
 //Returns 1 if the attack hit, 0 if it missed.
 /mob/living/carbon/human/proc/attacked_by(var/obj/item/I, var/mob/living/user, var/def_zone)
 	if(!I || !user)	return 0
@@ -249,7 +249,7 @@ emp_act
 
 	if(istype(I,/obj/item/weapon/card/emag))
 		emag_act(user, affecting)
-		
+
 	if(! I.discrete)
 		if(I.attack_verb.len)
 			visible_message("\red <B>[src] has been [pick(I.attack_verb)] in the [hit_area] with [I.name] by [user]!</B>")
@@ -288,8 +288,10 @@ emp_act
 		switch(hit_area)
 			if("head")//Harder to score a stun but if you do it lasts a bit longer
 				if(prob(I.force))
-					apply_effect(20, PARALYZE, armor)
-					visible_message("\red <B>[src] has been knocked unconscious!</B>")
+					apply_effect(5, WEAKEN, armor)
+					confused += 15
+					visible_message("<span class='danger'>[src] has been knocked down!</span>", \
+									"<span class='userdanger'>[src] has been knocked down!</span>")
 					if(src != user && I.damtype == BRUTE)
 						ticker.mode.remove_revolutionary(mind)
 
@@ -340,7 +342,7 @@ emp_act
 /mob/living/carbon/human/hitby(atom/movable/AM as mob|obj,var/speed = 5)
 	if(istype(AM,/obj/))
 		var/obj/O = AM
-		
+
 		if(in_throw_mode && !get_active_hand() && speed <= 5)	//empty active hand and we're in throw mode
 			if(canmove && !restrained())
 				if(isturf(O.loc))
@@ -348,7 +350,7 @@ emp_act
 					visible_message("<span class='warning'>[src] catches [O]!</span>")
 					throw_mode_off()
 					return
-					
+
 		var/zone = ran_zone("chest", 65)
 		var/dtype = BRUTE
 		if(istype(O,/obj/item/weapon))
