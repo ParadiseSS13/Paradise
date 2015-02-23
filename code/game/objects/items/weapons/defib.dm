@@ -52,20 +52,20 @@
 /obj/item/weapon/defibrillator/proc/update_overlays()
 	overlays.Cut()
 	if(!on)
-		overlays += "defibunit-paddles"
+		overlays += "[icon_state]-paddles"
 	if(powered)
-		overlays += "defibunit-powered"
+		overlays += "[icon_state]-powered"
 	if(!bcell)
-		overlays += "defibunit-nocell"
+		overlays += "[icon_state]-nocell"
 	if(!safety)
-		overlays += "defibunit-emagged"
+		overlays += "[icon_state]-emagged"
 
 /obj/item/weapon/defibrillator/proc/update_charge()
 	if(powered) //so it doesn't show charge if it's unpowered
 		if(bcell)
 			var/ratio = bcell.charge / bcell.maxcharge
 			ratio = Ceiling(ratio*4) * 25
-			overlays += "defibunit-charge[ratio]"
+			overlays += "[icon_state]-charge[ratio]"
 
 /obj/item/weapon/defibrillator/CheckParts()
 	bcell = locate(/obj/item/weapon/stock_parts/cell) in contents
