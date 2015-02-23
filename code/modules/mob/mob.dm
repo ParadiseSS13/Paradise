@@ -895,38 +895,17 @@ var/list/slot_equipment_priority = list( \
 			if(processScheduler.getIsRunning())
 				var/datum/controller/process/process
 
-				process = processScheduler.getProcess("vote")
-				stat(null, "VOT\t - #[process.getTicks()]\t - [process.getLastRunTime()]")
+				process = processScheduler.getProcess("ticker")
+				stat(null, "TIC\t - #[process.getTicks()]\t - [process.getLastRunTime()]")
 
 				process = processScheduler.getProcess("air")
 				stat(null, "AIR\t - #[process.getTicks()]\t - [process.getLastRunTime()]")
 
-				process = processScheduler.getProcess("sun")
-				stat(null, "SUN\t - #[process.getTicks()]\t - [process.getLastRunTime()]")
-
-				process = processScheduler.getProcess("ticker")
-				stat(null, "TIC\t - #[process.getTicks()]\t - [process.getLastRunTime()]")
-
-				//process = processScheduler.getProcess("garbage")
-				//stat(null, "GAR\t - #[process.getTicks()]\t - [process.getLastRunTime()]")
-
 				process = processScheduler.getProcess("lighting")
 				stat(null, "LIG\t - #[process.getTicks()]\t - [process.getLastRunTime()]")
 
-				process = processScheduler.getProcess("shuttle controller")
-				stat(null, "SHT\t - #[process.getTicks()]\t - [process.getLastRunTime()]")
-
-				process = processScheduler.getProcess("emergency shuttle")
-				stat(null, "EME\t - #[process.getTicks()]\t - [process.getLastRunTime()]")
-
-				process = processScheduler.getProcess("inactivity")
-				stat(null, "IAC\t - #[process.getTicks()]\t - [process.getLastRunTime()]")
-
 				process = processScheduler.getProcess("mob")
 				stat(null, "MOB([mob_list.len])\t - #[process.getTicks()]\t - [process.getLastRunTime()]")
-
-				process = processScheduler.getProcess("disease")
-				stat(null, "DIS([active_diseases.len])\t - #[process.getTicks()]\t - [process.getLastRunTime()]")
 
 				process = processScheduler.getProcess("machinery")
 				stat(null, "MAC([machines.len])\t - #[process.getTicks()]\t - [process.getLastRunTime()]")
@@ -942,6 +921,27 @@ var/list/slot_equipment_priority = list( \
 
 				process = processScheduler.getProcess("nanoui")
 				stat(null, "NAN([nanomanager.processing_uis.len])\t - #[process.getTicks()]\t - [process.getLastRunTime()]")
+
+				process = processScheduler.getProcess("disease")
+				stat(null, "DIS([active_diseases.len])\t - #[process.getTicks()]\t - [process.getLastRunTime()]")
+
+				//process = processScheduler.getProcess("sun")
+				//stat(null, "SUN\t - #[process.getTicks()]\t - [process.getLastRunTime()]")
+
+				//process = processScheduler.getProcess("garbage")
+				//stat(null, "GAR\t - #[process.getTicks()]\t - [process.getLastRunTime()]")
+
+				//process = processScheduler.getProcess("vote")
+				//stat(null, "VOT\t - #[process.getTicks()]\t - [process.getLastRunTime()]")
+
+				//process = processScheduler.getProcess("shuttle controller")
+				//stat(null, "SHT\t - #[process.getTicks()]\t - [process.getLastRunTime()]")
+
+				//process = processScheduler.getProcess("emergency shuttle")
+				//stat(null, "EME\t - #[process.getTicks()]\t - [process.getLastRunTime()]")
+
+				//process = processScheduler.getProcess("inactivity")
+				//stat(null, "IAC\t - #[process.getTicks()]\t - [process.getLastRunTime()]")
 
 				//process = processScheduler.getProcess("event")
 				//stat(null, "EVE([events.len])\t - #[process.getTicks()]\t - [process.getLastRunTime()]")
