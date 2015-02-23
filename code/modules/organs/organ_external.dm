@@ -1159,7 +1159,7 @@ obj/item/weapon/organ/head/proc/transfer_identity(var/mob/living/carbon/human/H)
 	respawnable_list += brainmob
 	brainmob.container = src
 
-obj/item/weapon/organ/head/attackby(obj/item/weapon/W as obj, mob/user as mob)
+obj/item/weapon/organ/head/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
 	if(istype(W,/obj/item/weapon/scalpel))
 		switch(brain_op_stage)
 			if(0)

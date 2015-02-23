@@ -221,7 +221,7 @@
 		helmet.flags |= NODROP
 		H << "\blue You deploy your hardsuit helmet, sealing you off from the world."
 
-/obj/item/clothing/suit/space/rig/attackby(obj/item/W as obj, mob/user as mob)
+/obj/item/clothing/suit/space/rig/attackby(obj/item/W as obj, mob/user as mob, params)
 
 	if(!istype(user,/mob/living)) return
 

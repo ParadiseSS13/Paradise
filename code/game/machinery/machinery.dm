@@ -218,7 +218,7 @@ Class Procs:
 	if(restrained() || lying || stat || stunned || weakened)
 		return
 	if(be_close && !in_range(M, src))
-		if(M_TK in mutations)
+		if(TK in mutations)
 			var/mob/living/carbon/human/H = M
 			if(istype(H.l_hand, /obj/item/tk_grab) || istype(H.r_hand, /obj/item/tk_grab))
 				return 1

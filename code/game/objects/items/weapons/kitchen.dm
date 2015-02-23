@@ -42,7 +42,7 @@
 
 	if(user.a_intent != "help")
 		if(user.zone_sel.selecting == "head" || user.zone_sel.selecting == "eyes")
-			if((M_CLUMSY in user.mutations) && prob(50))
+			if((CLUMSY in user.mutations) && prob(50))
 				M = user
 			return eyestab(M,user)
 		else
@@ -103,7 +103,7 @@
 		return (BRUTELOSS)
 
 /obj/item/weapon/kitchen/utensil/knife/attack(target as mob, mob/living/user as mob)
-	if ((M_CLUMSY in user.mutations) && prob(50))
+	if ((CLUMSY in user.mutations) && prob(50))
 		user << "\red You accidentally cut yourself with the [src]."
 		user.take_organ_damage(20)
 		return
@@ -118,7 +118,7 @@
 	throwforce = 10.0
 
 /obj/item/weapon/kitchen/utensil/knife/attack(target as mob, mob/living/user as mob)
-	if ((M_CLUMSY in user.mutations) && prob(50))
+	if ((CLUMSY in user.mutations) && prob(50))
 		user << "\red You somehow managed to cut yourself with the [src]."
 		user.take_organ_damage(20)
 		return
@@ -215,6 +215,7 @@
 	w_class = 3.0
 	attack_verb = list("bashed", "battered", "bludgeoned", "thrashed", "whacked")
 
+
 /*
  * Trays - Agouri
  */
@@ -235,7 +236,6 @@
 	var/max_carry = 10 // w_class = 1 -- takes up 1
 					   // w_class = 2 -- takes up 3
 					   // w_class = 3 -- takes up 5
-
 
 /*
 ===============~~~~~================================~~~~~====================

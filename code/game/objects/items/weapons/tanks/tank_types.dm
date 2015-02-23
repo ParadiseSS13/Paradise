@@ -110,7 +110,7 @@
 	src.air_contents.update_values()
 	return
 
-/obj/item/weapon/tank/plasma/attackby(obj/item/weapon/W as obj, mob/user as mob)
+/obj/item/weapon/tank/plasma/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
 	..()
 
 	if (istype(W, /obj/item/weapon/flamethrower))

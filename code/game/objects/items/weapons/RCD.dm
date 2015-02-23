@@ -36,7 +36,7 @@ RCD
 		return
 
 
-	attackby(obj/item/weapon/W, mob/user)
+	attackby(obj/item/weapon/W, mob/user, params)
 		..()
 		if(istype(W, /obj/item/weapon/rcd_ammo))
 			if((matter + 20) > 100)

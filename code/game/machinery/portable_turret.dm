@@ -285,7 +285,7 @@ Status: []<BR>"},
 
 
 
-/obj/machinery/porta_turret/attackby(obj/item/W as obj, mob/user as mob)
+/obj/machinery/porta_turret/attackby(obj/item/W as obj, mob/user as mob, params)
 	if(stat & BROKEN)
 		if(istype(W, /obj/item/weapon/crowbar))
 
@@ -692,7 +692,7 @@ Status: []<BR>"},
 
 
 
-/obj/machinery/porta_turret_construct/attackby(obj/item/W as obj, mob/user as mob)
+/obj/machinery/porta_turret_construct/attackby(obj/item/W as obj, mob/user as mob, params)
 
 	// this is a bit unweildy but self-explanitory
 	switch(build_step)
@@ -1018,7 +1018,7 @@ Status: []<BR>"},
 
 
 
-/obj/machinery/porta_turret_cover/attackby(obj/item/W as obj, mob/user as mob)
+/obj/machinery/porta_turret_cover/attackby(obj/item/W as obj, mob/user as mob, params)
 
 	if ((istype(W, /obj/item/weapon/card/emag)) && (!Parent_Turret.emagged))
 		user << "\red You short out [Parent_Turret]'s threat assessment circuits."

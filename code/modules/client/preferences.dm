@@ -1464,8 +1464,8 @@ datum/preferences
 			else continue
 
 		if(disabilities & DISABILITY_FLAG_FAT && character.species.flags & CAN_BE_FAT)//character.species.flags & CAN_BE_FAT)
-			character.mutations += M_FAT
-			character.mutations += M_OBESITY
+			character.mutations += FAT
+			character.mutations += OBESITY
 		if(disabilities & DISABILITY_FLAG_NEARSIGHTED)
 			character.disabilities|=NEARSIGHTED
 		if(disabilities & DISABILITY_FLAG_EPILEPTIC)

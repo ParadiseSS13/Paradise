@@ -536,7 +536,7 @@ var/list/ai_list = list()
 		if(A && target)
 
 			A.cameraFollow = target
-			A << text("Now tracking [] on camera.", target.name)
+			A << "Now tracking [target.name] on camera."
 			if (usr.machine == null)
 				usr.machine = usr
 
@@ -565,6 +565,7 @@ var/list/ai_list = list()
 	updatehealth()
 	return 2
 
+
 /mob/living/silicon/ai/attack_alien(mob/living/carbon/alien/humanoid/M as mob)
 	if (!ticker)
 		M << "You cannot attack people before the game has started."
@@ -577,38 +578,35 @@ var/list/ai_list = list()
 	switch(M.a_intent)
 
 		if ("help")
-			for(var/mob/O in viewers(src, null))
-				if ((O.client && !( O.blinded )))
-					O.show_message(text("\blue [M] caresses [src]'s plating with its scythe like arm."), 1)
+			visible_message("<span class='notice'>[M] caresses [src]'s plating with its scythe like arm.</span>")
 
 		else //harm
+			M.do_attack_animation(src)
 			var/damage = rand(10, 20)
 			if (prob(90))
 				playsound(loc, 'sound/weapons/slash.ogg', 25, 1, -1)
-				for(var/mob/O in viewers(src, null))
-					if ((O.client && !( O.blinded )))
-						O.show_message(text("\red <B>[] has slashed at []!</B>", M, src), 1)
+				visible_message("<span class='danger'>[M] has slashed at [src]!</span>",\
+								"<span class='userdanger'>[M] has slashed at [src]!</span>")
 				if(prob(8))
 					flick("noise", flash)
 				adjustBruteLoss(damage)
 				updatehealth()
 			else
 				playsound(loc, 'sound/weapons/slashmiss.ogg', 25, 1, -1)
-				for(var/mob/O in viewers(src, null))
-					if ((O.client && !( O.blinded )))
-						O.show_message(text("\red <B>[] took a swipe at []!</B>", M, src), 1)
+				visible_message("<span class='danger'>[M] took a swipe at [src]!</span>", \
+								"<span class='userdanger'>[M] took a swipe at [src]!</span>")
+
 	return
 
 /mob/living/silicon/ai/attack_animal(mob/living/simple_animal/M as mob)
 	if(M.melee_damage_upper == 0)
 		M.emote("[M.friendly] [src]")
 	else
+		M.do_attack_animation(src)
 		if(M.attack_sound)
 			playsound(loc, M.attack_sound, 50, 1, 1)
-		for(var/mob/O in viewers(src, null))
-			O.show_message("\red <B>[M]</B> [M.attacktext] [src]!", 1)
-		M.attack_log += text("\[[time_stamp()]\] <font color='red'>attacked [src.name] ([src.ckey])</font>")
-		src.attack_log += text("\[[time_stamp()]\] <font color='orange'>was attacked by [M.name] ([M.ckey])</font>")
+		visible_message("<span class='danger'><B>[M]</B> [M.attacktext] [src]!")
+		add_logs(M, src, "attacked", admin=0)
 		var/damage = rand(M.melee_damage_lower, M.melee_damage_upper)
 		adjustBruteLoss(damage)
 		updatehealth()
@@ -948,7 +946,7 @@ var/list/ai_list = list()
 		camera_light_on = world.timeofday + 1 * 20 // Update the light every 2 seconds.
 
 
-/mob/living/silicon/ai/attackby(obj/item/weapon/W as obj, mob/user as mob)
+/mob/living/silicon/ai/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
 	if(istype(W, /obj/item/weapon/wrench))
 		if(anchored)
 			user.visible_message("\blue \The [user] starts to unbolt \the [src] from the plating...")

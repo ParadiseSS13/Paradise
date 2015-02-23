@@ -11,7 +11,7 @@
 /*
  * Table Parts
  */
-/obj/item/weapon/table_parts/attackby(obj/item/weapon/W as obj, mob/user as mob)
+/obj/item/weapon/table_parts/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
 	..()
 	if (istype(W, /obj/item/weapon/wrench))
 		new /obj/item/stack/sheet/metal( user.loc )
@@ -36,7 +36,7 @@
 /*
  * Reinforced Table Parts
  */
-/obj/item/weapon/table_parts/reinforced/attackby(obj/item/weapon/W as obj, mob/user as mob)
+/obj/item/weapon/table_parts/reinforced/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
 	if (istype(W, /obj/item/weapon/wrench))
 		new /obj/item/stack/sheet/metal( user.loc )
 		new /obj/item/stack/rods( user.loc )
@@ -51,7 +51,7 @@
 /*
  * Wooden Table Parts
  */
-/obj/item/weapon/table_parts/wood/attackby(obj/item/weapon/W as obj, mob/user as mob)
+/obj/item/weapon/table_parts/wood/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
 	if (istype(W, /obj/item/weapon/wrench))
 		new /obj/item/stack/sheet/wood( user.loc )
 		del(src)
@@ -65,7 +65,7 @@
 /*
  * Rack Parts
  */
-/obj/item/weapon/rack_parts/attackby(obj/item/weapon/W as obj, mob/user as mob)
+/obj/item/weapon/rack_parts/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
 	..()
 	if (istype(W, /obj/item/weapon/wrench))
 		new /obj/item/stack/sheet/metal( user.loc )

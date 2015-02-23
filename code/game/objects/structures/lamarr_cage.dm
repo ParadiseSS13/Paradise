@@ -66,7 +66,7 @@
 	return
 
 
-/obj/structure/lamarr/attackby(obj/item/weapon/W as obj, mob/user as mob)
+/obj/structure/lamarr/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
 	src.health -= W.force
 	src.healthcheck()
 	..()

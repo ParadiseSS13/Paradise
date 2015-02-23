@@ -9,7 +9,7 @@
 	if(findtext(act,"s",-1) && !findtext(act,"_",-2))//Removes ending s's unless they are prefixed with a '_'
 		act = copytext(act,1,length(act))
 
-	var/muzzled = istype(src.wear_mask, /obj/item/clothing/mask/muzzle)
+	var/muzzled = is_muzzled()
 	//var/m_type = 1
 
 	for (var/obj/item/weapon/implant/I in src)
@@ -653,7 +653,7 @@
 		if("fart")
 			if(world.time-lastFart >= 600)
 //				playsound(src.loc, 'sound/effects/fart.ogg', 50, 1, -3) //Admins still vote no to fun
-				if(M_TOXIC_FARTS in mutations)
+				if(TOXIC_FARTS in mutations)
 					message = "<b>[src]</b> unleashes a [pick("horrible","terrible","foul","disgusting","awful")] fart."
 				else
 					message = "<b>[src]</b> [pick("passes wind","farts")]."
@@ -661,7 +661,7 @@
 
 				var/turf/location = get_turf(src)
 				var/aoe_range=2 // Default
-				if(M_SUPER_FART in mutations)
+				if(SUPER_FART in mutations)
 					aoe_range+=3 //Was 5
 
 	/*			// If we're wearing a suit, don't blast or gas those around us.
@@ -673,7 +673,7 @@
 						wearing_mask=1 */
 
 				// Process toxic farts first.
-				if(M_TOXIC_FARTS in mutations)
+				if(TOXIC_FARTS in mutations)
 					for(var/mob/M in range(location,aoe_range))
 						if (M.internal != null && M.wear_mask && (M.wear_mask.flags & MASKINTERNALS))
 							continue
@@ -698,7 +698,7 @@
 							sleep(10)
 							S.start()
 						*/
-				if(M_SUPER_FART in mutations)
+				if(SUPER_FART in mutations)
 					visible_message("\red <b>[name]</b> hunches down and grits their teeth!")
 					if(do_after(usr,30))
 						visible_message("\red <b>[name]</b> unleashes a [pick("tremendous","gigantic","colossal")] fart!","You hear a [pick("tremendous","gigantic","colossal")] fart.")

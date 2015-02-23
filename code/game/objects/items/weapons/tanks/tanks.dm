@@ -78,7 +78,7 @@
 
 		del(src)
 
-/obj/item/weapon/tank/attackby(obj/item/weapon/W as obj, mob/user as mob)
+/obj/item/weapon/tank/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
 	..()
 	var/obj/icon = src
 

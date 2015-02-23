@@ -562,7 +562,7 @@
 		for(var/i=1; i <= storage_slots; i++)
 			new /obj/item/weapon/match(src)
 
-	attackby(obj/item/weapon/match/W as obj, mob/user as mob)
+	attackby(obj/item/weapon/match/W as obj, mob/user as mob, params)
 		if(istype(W, /obj/item/weapon/match) && W.lit == 0)
 			W.lit = 1
 			W.icon_state = "match_lit"

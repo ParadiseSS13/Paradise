@@ -1,6 +1,6 @@
 // To clarify:
 // For use_to_pickup and allow_quick_gather functionality,
-// see item/attackby() (/game/objects/items.dm)
+// see item/attackby() (/game/objects/items.dm, params)
 // Do not remove this functionality without good reason, cough reagent_containers cough.
 // -Sayu
 
@@ -326,7 +326,7 @@
 	return 1
 
 //This proc is called when you want to place an item into the storage item.
-/obj/item/weapon/storage/attackby(obj/item/W as obj, mob/user as mob)
+/obj/item/weapon/storage/attackby(obj/item/W as obj, mob/user as mob, params)
 	..()
 
 	if(isrobot(user))

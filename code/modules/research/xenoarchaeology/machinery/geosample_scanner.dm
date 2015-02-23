@@ -63,7 +63,7 @@
 /obj/machinery/radiocarbon_spectrometer/attack_hand(var/mob/user as mob)
 	ui_interact(user)
 
-/obj/machinery/radiocarbon_spectrometer/attackby(var/obj/I as obj, var/mob/user as mob)
+/obj/machinery/radiocarbon_spectrometer/attackby(var/obj/I as obj, var/mob/user as mob, params)
 	if(scanning)
 		user << "<span class='warning'>You can't do that while [src] is scanning!</span>"
 	else

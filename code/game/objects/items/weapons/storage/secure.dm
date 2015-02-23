@@ -32,7 +32,7 @@
 		..()
 		usr << text("The service panel is [src.open ? "open" : "closed"].")
 
-	attackby(obj/item/weapon/W as obj, mob/user as mob)
+	attackby(obj/item/weapon/W as obj, mob/user as mob, params)
 		if(locked)
 			if ((istype(W, /obj/item/weapon/melee/energy/blade)) && (!src.emagged))
 				emag_act(user, W)

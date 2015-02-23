@@ -160,7 +160,7 @@
 					affecting.LAssailant = null
 				else
 					affecting.LAssailant = assailant
-				assailant.next_move = world.time + 10
+				assailant.changeNext_move(CLICK_CD_TKSTRANGLE)
 				affecting.losebreath += 1
 			else
 				assailant.visible_message("<span class='warning'>[assailant] was unable to tighten \his grip on [affecting]'s neck!</span>")
@@ -189,7 +189,7 @@
 		s_click(hud)
 		return
 	if(M == assailant && state >= GRAB_AGGRESSIVE)
-		if( (ishuman(user) && (M_FAT in user.mutations) && iscarbon(affecting) ) || ( isalien(user) && iscarbon(affecting) ) || ( istype(user,/mob/living/carbon/human/kidan) && istype(affecting,/mob/living/carbon/monkey/diona) ) )
+		if( (ishuman(user) && (FAT in user.mutations) && iscarbon(affecting) ) || ( isalien(user) && iscarbon(affecting) ) || ( istype(user,/mob/living/carbon/human/kidan) && istype(affecting,/mob/living/carbon/monkey/diona) ) )
 			var/mob/living/carbon/attacker = user
 			user.visible_message("<span class='danger'>[user] is attempting to devour [affecting]!</span>")
 			if(istype(user, /mob/living/carbon/alien/humanoid/hunter))

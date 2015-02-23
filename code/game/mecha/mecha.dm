@@ -453,7 +453,9 @@
 		src.destroy()
 	return
 
-/obj/mecha/attack_hand(mob/user as mob)
+/obj/mecha/attack_hand(mob/living/user as mob)
+	user.changeNext_move(CLICK_CD_MELEE)
+	user.do_attack_animation(src)
 	src.log_message("Attack by hand/paw. Attacker - [user].",1)
 
 	if(ishuman(user))
@@ -461,7 +463,7 @@
 			call(/obj/item/clothing/gloves/space_ninja/proc/drain)("MECHA",src,user:wear_suit)
 			return
 
-	if ((M_HULK in user.mutations) && !prob(src.deflect_chance))
+	if ((HULK in user.mutations) && !prob(src.deflect_chance))
 		src.take_damage(15)
 		src.check_for_internal_damage(list(MECHA_INT_TEMP_CONTROL,MECHA_INT_TANK_BREACH,MECHA_INT_CONTROL_LOST))
 		user.visible_message("<font color='red'><b>[user] hits [src.name], doing some damage.</b></font>", "<font color='red'><b>You hit [src.name] with all your might. The metal creaks and bends.</b></font>")
@@ -470,12 +472,14 @@
 		src.log_append_to_last("Armor saved.")
 	return
 
-/obj/mecha/attack_paw(mob/user as mob)
+/obj/mecha/attack_paw(mob/living/user as mob)
 	return src.attack_hand(user)
 
 
-/obj/mecha/attack_alien(mob/user as mob)
+/obj/mecha/attack_alien(mob/living/user as mob)
 	src.log_message("Attack by alien. Attacker - [user].",1)
+	user.changeNext_move(CLICK_CD_MELEE)
+	user.do_attack_animation(src)
 	if(!prob(src.deflect_chance))
 		src.take_damage(15)
 		src.check_for_internal_damage(list(MECHA_INT_TEMP_CONTROL,MECHA_INT_TANK_BREACH,MECHA_INT_CONTROL_LOST))
@@ -496,6 +500,7 @@
 	if(user.melee_damage_upper == 0)
 		user.emote("[user.friendly] [src]")
 	else
+		user.do_attack_animation(src)
 		if(!prob(src.deflect_chance))
 			var/damage = rand(user.melee_damage_lower, user.melee_damage_upper)
 			src.take_damage(damage)
@@ -674,8 +679,10 @@
 		src.check_for_internal_damage(list(MECHA_INT_FIRE, MECHA_INT_TEMP_CONTROL))
 	return
 
-/obj/mecha/proc/dynattackby(obj/item/weapon/W as obj, mob/user as mob)
+/obj/mecha/proc/dynattackby(obj/item/weapon/W as obj, mob/living/user as mob, params)
 	src.log_message("Attacked by [W]. Attacker - [user]")
+	user.changeNext_move(CLICK_CD_MELEE)
+	user.do_attack_animation(src)
 	if(prob(src.deflect_chance))
 		user << "\red The [W] bounces off [src.name] armor."
 		src.log_append_to_last("Armor saved.")
@@ -695,7 +702,7 @@
 ////// AttackBy //////
 //////////////////////
 
-/obj/mecha/attackby(obj/item/weapon/W as obj, mob/user as mob)
+/obj/mecha/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
 
 	if(istype(W, /obj/item/device/mmi) || istype(W, /obj/item/device/mmi/posibrain))
 		if(mmi_move_inside(W,user))

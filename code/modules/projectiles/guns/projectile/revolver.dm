@@ -14,7 +14,7 @@
 /obj/item/weapon/gun/projectile/revolver/process_chambered()
 	return ..(0, 1)
 
-/obj/item/weapon/gun/projectile/revolver/attackby(var/obj/item/A as obj, mob/user as mob)
+/obj/item/weapon/gun/projectile/revolver/attackby(var/obj/item/A as obj, mob/user as mob, params)
 	var/num_loaded = 0
 	if(istype(A, /obj/item/ammo_box))
 		var/obj/item/ammo_box/AM = A
@@ -115,7 +115,7 @@
 		M << "Your gun is now skinned as [choice]. Say hello to your new friend."
 		return 1
 
-/obj/item/weapon/gun/projectile/revolver/detective/attackby(var/obj/item/A as obj, mob/user as mob)
+/obj/item/weapon/gun/projectile/revolver/detective/attackby(var/obj/item/A as obj, mob/user as mob, params)
 	..()
 	if(istype(A, /obj/item/weapon/screwdriver) || istype(A, /obj/item/weapon/conversion_kit))
 		if(magazine.caliber == "38")
@@ -181,7 +181,7 @@
 		chamber_round()
 	spun = 1
 
-/obj/item/weapon/gun/projectile/revolver/russian/attackby(var/obj/item/A as obj, mob/user as mob)
+/obj/item/weapon/gun/projectile/revolver/russian/attackby(var/obj/item/A as obj, mob/user as mob, params)
 	..()
 	user.visible_message("<span class='warning'>[user] spins the chamber of the revolver.</span>", "<span class='warning'>You spin the revolver's chamber.</span>")
 	if(get_ammo() > 0)

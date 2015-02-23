@@ -194,7 +194,6 @@ var/list/reverse_dir = list(2, 1, 3, 8, 10, 9, 11, 4, 6, 5, 7, 12, 14, 13, 15, 3
 
 var/datum/station_state/start_state = null
 var/datum/configuration/config = null
-var/datum/sun/sun = null
 
 var/list/combatlog = list()
 var/list/IClog = list()

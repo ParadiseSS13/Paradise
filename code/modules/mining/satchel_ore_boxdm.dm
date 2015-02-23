@@ -18,7 +18,7 @@
 	var/amt_strange = 0
 	var/last_update = 0
 
-/obj/structure/ore_box/attackby(obj/item/weapon/W as obj, mob/user as mob)
+/obj/structure/ore_box/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
 	if (istype(W, /obj/item/weapon/ore))
 		user.unEquip(W)
 		src.contents += W

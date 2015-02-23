@@ -70,7 +70,7 @@
 				for(var/datum/reagent/R in B.reagents.reagent_list)
 					usr << "\blue [R.volume] units of [R.name]"
 
-/obj/item/weapon/gun/dartgun/attackby(obj/item/I as obj, mob/user as mob)
+/obj/item/weapon/gun/dartgun/attackby(obj/item/I as obj, mob/user as mob, params)
 	if(istype(I, /obj/item/weapon/dart_cartridge))
 
 		var/obj/item/weapon/dart_cartridge/D = I

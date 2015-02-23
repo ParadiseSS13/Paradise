@@ -72,7 +72,7 @@
 		overheat()
 			explosion(get_turf(src), 2, 5, 2, -1)
 
-	attackby(var/obj/item/O as obj, var/mob/user as mob)
+	attackby(var/obj/item/O as obj, var/mob/user as mob, params)
 		if(istype(O, /obj/item/weapon/tank/plasma))
 			if(P)
 				user << "\red The generator already has a plasma tank loaded!"

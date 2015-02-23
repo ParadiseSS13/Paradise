@@ -1,5 +1,7 @@
 #define SOLAR_UPDATE_TIME 600 //duration between two updates of the whole sun/solars positions
 
+var/global/datum/sun/sun
+
 /datum/sun
 	var/angle
 	var/dx
@@ -16,11 +18,12 @@
 		rate = -rate
 	solar_next_update = world.time	// init the timer
 	angle = rand (0,360)			// the station position to the sun is randomised at round start
-	
+
+/* HANDLED IN PROCESS SCHEDULER
 /hook/startup/proc/createSun()
 	sun = new /datum/sun()
 	return 1
-
+*/
 // calculate the sun's position given the time of day
 // at the standard rate (100%) the angle is increase/decreased by 6 degrees every minute.
 // a full rotation thus take a game hour in that case

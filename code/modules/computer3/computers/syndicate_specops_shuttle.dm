@@ -172,7 +172,7 @@ var/syndicate_elite_shuttle_timeleft = 0
 	if(syndicate_elite_shuttle_moving_to_station || syndicate_elite_shuttle_moving_to_mothership) return 0
 	else return 1
 
-/obj/machinery/computer3/syndicate_elite_shuttle/attackby(I as obj, user as mob)
+/obj/machinery/computer3/syndicate_elite_shuttle/attackby(I as obj, user as mob, params)
 	return attack_hand(user)
 
 /obj/machinery/computer3/syndicate_elite_shuttle/attack_ai(var/mob/user as mob)
@@ -181,7 +181,7 @@ var/syndicate_elite_shuttle_timeleft = 0
 /obj/machinery/computer3/syndicate_elite_shuttle/attack_paw(var/mob/user as mob)
 	return attack_hand(user)
 
-/obj/machinery/computer3/syndicate_elite_shuttle/attackby(I as obj, user as mob)
+/obj/machinery/computer3/syndicate_elite_shuttle/attackby(I as obj, user as mob, params)
 	if(istype(I,/obj/item/card/emag))
 		user << "\blue The electronic systems in this console are far too advanced for your primitive hacking peripherals."
 	else

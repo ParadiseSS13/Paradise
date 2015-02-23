@@ -36,7 +36,7 @@
 	l_color = "#50AB00"
 
 
-/obj/machinery/computer/message_monitor/attackby(obj/item/weapon/O as obj, mob/living/user as mob)
+/obj/machinery/computer/message_monitor/attackby(obj/item/weapon/O as obj, mob/living/user as mob, params)
 	if(stat & (NOPOWER|BROKEN))
 		return
 	if(!istype(user))

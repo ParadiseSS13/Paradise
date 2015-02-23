@@ -14,7 +14,7 @@
 	var/display_timer = 1
 
 /obj/item/weapon/grenade/proc/clown_check(var/mob/living/user)
-	if((M_CLUMSY in user.mutations) && prob(50))
+	if((CLUMSY in user.mutations) && prob(50))
 		user << "<span class='warning'>Huh? How does this thing work?</span>"
 		active = 1
 		icon_state = initial(icon_state) + "_active"
@@ -81,7 +81,7 @@
 		M.unEquip(src)
 
 
-/obj/item/weapon/grenade/attackby(obj/item/weapon/W as obj, mob/user as mob)
+/obj/item/weapon/grenade/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
 	if(istype(W, /obj/item/weapon/screwdriver))
 		switch(det_time)
 			if ("1")

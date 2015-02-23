@@ -53,7 +53,7 @@
 		return 1
 		
 	// Network configuration
-	attackby(I as obj, user as mob)
+	attackby(I as obj, user as mob, params)
 		access = list()
 		if(istype(I,/obj/item/weapon/card/id)) // If hit by a regular ID card.
 			var/obj/item/weapon/card/id/E = I	

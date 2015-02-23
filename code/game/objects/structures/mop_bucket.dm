@@ -19,7 +19,7 @@
 	usr << text("\icon[] [] contains [] units of water left!", src, src.name, src.reagents.total_volume)
 	..()
 
-/obj/structure/mopbucket/attackby(obj/item/weapon/W as obj, mob/user as mob)
+/obj/structure/mopbucket/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
 	if (istype(W, /obj/item/weapon/mop))
 		if (src.reagents.total_volume >= 2)
 			src.reagents.trans_to(W, 2)

@@ -5,7 +5,7 @@
 	var/obj/item/weapon/airlock_electronics/circuit = null
 	var/state=0
 
-/obj/structure/displaycase_frame/attackby(obj/item/weapon/W as obj, mob/user as mob)
+/obj/structure/displaycase_frame/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
 	var/pstate=state
 	var/turf/T=get_turf(src)
 	switch(state)
@@ -162,7 +162,7 @@
 	return
 
 
-/obj/structure/displaycase/attackby(obj/item/weapon/W as obj, mob/user as mob)
+/obj/structure/displaycase/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
 	if(istype(W, /obj/item/weapon/card))
 		var/obj/item/weapon/card/id/I=W
 		if(!check_access(I))

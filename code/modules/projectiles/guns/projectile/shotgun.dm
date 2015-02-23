@@ -11,7 +11,7 @@
 	var/recentpump = 0 // to prevent spammage
 	mag_type = "/obj/item/ammo_box/magazine/internal/shot"
 
-/obj/item/weapon/gun/projectile/shotgun/attackby(var/obj/item/A as obj, mob/user as mob)
+/obj/item/weapon/gun/projectile/shotgun/attackby(var/obj/item/A as obj, mob/user as mob, params)
 	var/num_loaded = 0
 	if(istype(A, /obj/item/ammo_box))
 		var/obj/item/ammo_box/AM = A
@@ -93,7 +93,7 @@
 	mag_type = "/obj/item/ammo_box/magazine/internal/shotriot"
 	sawn_desc = "Come with me if you want to live."
 
-/obj/item/weapon/gun/projectile/shotgun/riot/attackby(var/obj/item/A as obj, mob/user as mob)
+/obj/item/weapon/gun/projectile/shotgun/riot/attackby(var/obj/item/A as obj, mob/user as mob, params)
 	..()
 	if(istype(A, /obj/item/weapon/circular_saw) || istype(A, /obj/item/weapon/melee/energy) || istype(A, /obj/item/weapon/pickaxe/plasmacutter))
 		sawoff(user)
@@ -150,7 +150,7 @@
 	mag_type = "/obj/item/ammo_box/magazine/internal/cylinder/dualshot"
 	sawn_desc = "Omar's coming!"
 
-/obj/item/weapon/gun/projectile/revolver/doublebarrel/attackby(var/obj/item/A as obj, mob/user as mob)
+/obj/item/weapon/gun/projectile/revolver/doublebarrel/attackby(var/obj/item/A as obj, mob/user as mob, params)
 	..()
 	if(istype(A, /obj/item/ammo_box) || istype(A, /obj/item/ammo_casing))
 		chamber_round()
@@ -204,7 +204,7 @@
 	mag_type = "/obj/item/ammo_box/magazine/internal/cylinder/improvised"
 	sawn_desc = "I'm just here for the gasoline."
 
-/obj/item/weapon/gun/projectile/revolver/doublebarrel/improvised/attackby(var/obj/item/A as obj, mob/user as mob)
+/obj/item/weapon/gun/projectile/revolver/doublebarrel/improvised/attackby(var/obj/item/A as obj, mob/user as mob, params)
 	..()
 	if(istype(A, /obj/item/stack/cable_coil))
 		var/obj/item/stack/cable_coil/C = A

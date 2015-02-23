@@ -470,7 +470,7 @@
 	return
 
 
-/obj/machinery/suit_storage_unit/attackby(obj/item/I as obj, mob/user as mob)
+/obj/machinery/suit_storage_unit/attackby(obj/item/I as obj, mob/user as mob, params)
 	if(!src.ispowered)
 		return
 	if(istype(I, /obj/item/weapon/screwdriver))
@@ -631,7 +631,7 @@
 	user << "\blue The console controls are far too complicated for your tiny brain!"
 	return
 
-/obj/machinery/suit_cycler/attackby(obj/item/I as obj, mob/user as mob)
+/obj/machinery/suit_cycler/attackby(obj/item/I as obj, mob/user as mob, params)
 
 	if(electrified != 0)
 		if(src.shock(user, 100))
