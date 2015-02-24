@@ -138,6 +138,8 @@
 
 	var/coughedtime = null
 
+	var/emote_CD = 0		// Used to supress emote spamming. 1 if on CD, else 0		--FalseIncarnate
+
 	var/inertia_dir = 0
 
 	var/music_lastplayed = "null"
