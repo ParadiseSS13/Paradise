@@ -161,7 +161,7 @@
 /obj/item/weapon/card/id/GetID()
 	return src
 
-/obj/item/weapon/card/id/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
+/obj/item/weapon/card/id/attackby(obj/item/weapon/W as obj, mob/user as mob)
 	..()
 	if(istype(W,/obj/item/weapon/id_wallet))
 		user << "You slip [src] into [W]."

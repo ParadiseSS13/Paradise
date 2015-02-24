@@ -12,7 +12,7 @@
 	var/op = 1
 	var/activepage
 
-/obj/item/weapon/spellbook/attackby(obj/item/O as obj, mob/user as mob, params)
+/obj/item/weapon/spellbook/attackby(obj/item/O as obj, mob/user as mob)
 	if(istype(O, /obj/item/weapon/contract))
 		var/obj/item/weapon/contract/contract = O
 		if(contract.used)
@@ -366,8 +366,8 @@
 						if("scrying")
 							feedback_add_details("wizard_spell_learned","SO") //please do not change the abbreviation to keep data processing consistent. Add a unique id to any new spells
 							new /obj/item/weapon/scrying(get_turf(H))
-							if (!(XRAY in H.mutations))
-								H.mutations.Add(XRAY)
+							if (!(M_XRAY in H.mutations))
+								H.mutations.Add(M_XRAY)
 								H.sight |= (SEE_MOBS|SEE_OBJS|SEE_TURFS)
 								H.see_in_dark = 8
 								H.see_invisible = SEE_INVISIBLE_LEVEL_TWO

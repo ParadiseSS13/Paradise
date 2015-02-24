@@ -14,7 +14,7 @@
 	src.pixel_x = rand(-6, 6)
 	return
 
-/obj/item/ashtray/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
+/obj/item/ashtray/attackby(obj/item/weapon/W as obj, mob/user as mob)
 	if (health < 1)
 		return
 	if (istype(W,/obj/item/weapon/cigbutt) || istype(W,/obj/item/clothing/mask/cigarette) || istype(W, /obj/item/weapon/match))

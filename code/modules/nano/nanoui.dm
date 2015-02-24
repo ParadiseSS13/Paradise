@@ -252,7 +252,7 @@ nanoui is used to open and update nano browser uis
 	. = shared_living_nano_interaction(src_object)
 	if(. == STATUS_INTERACTIVE && be_close)
 		. = shared_living_nano_distance(src_object)
-		if(. == STATUS_UPDATE && (TK in mutations))	// If we have telekinesis and remain close enough, allow interaction.
+		if(. == STATUS_UPDATE && (M_TK in mutations))	// If we have telekinesis and remain close enough, allow interaction.
 			return STATUS_INTERACTIVE
 
  /**

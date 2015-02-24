@@ -37,7 +37,7 @@
 	..()
 	processing_objects.Add(src)
 
-/obj/item/weapon/anodevice/attackby(var/obj/I as obj, var/mob/user as mob, params)
+/obj/item/weapon/anodevice/attackby(var/obj/I as obj, var/mob/user as mob)
 	if(istype(I, /obj/item/weapon/anobattery))
 		if(!inserted_battery)
 			user << "\blue You insert the battery."

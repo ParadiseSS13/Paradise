@@ -90,7 +90,7 @@
 	onclose(user, "honkputer")
 
 
-/obj/machinery/computer/HONKputer/attackby(I as obj, user as mob, params)
+/obj/machinery/computer/HONKputer/attackby(I as obj, user as mob)
 	if(istype(I, /obj/item/weapon/screwdriver) && circuit)
 		playsound(src.loc, 'sound/items/Screwdriver.ogg', 50, 1)
 		if(do_after(user, 20))

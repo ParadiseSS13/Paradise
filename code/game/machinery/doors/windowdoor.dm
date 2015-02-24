@@ -195,15 +195,12 @@
 /obj/machinery/door/window/proc/attack_generic(mob/user as mob, damage = 0)
 	if(src.operating)
 		return
-	user.changeNext_move(CLICK_CD_MELEE)
-	user.do_attack_animation(src)
 	playsound(src.loc, 'sound/effects/Glasshit.ogg', 75, 1)
 	user.visible_message("<span class='danger'>[user] smashes against the [src.name].</span>", \
 				"<span class='userdanger'>[user] smashes against the [src.name].</span>")
 	take_damage(damage)
 
 /obj/machinery/door/window/attack_alien(mob/living/user as mob)
-
 	if(islarva(user))
 		return
 	attack_generic(user, 25)
@@ -248,7 +245,7 @@
 		emagged = 1
 		return 1
 	
-/obj/machinery/door/window/attackby(obj/item/weapon/I as obj, mob/living/user as mob, params)
+/obj/machinery/door/window/attackby(obj/item/weapon/I as obj, mob/living/user as mob)
 
 	//If it's in the process of opening/closing, ignore the click
 	if (src.operating)
@@ -333,8 +330,6 @@
 
 	//If it's a weapon, smash windoor. Unless it's an id card, agent card, ect.. then ignore it (Cards really shouldnt damage a door anyway)
 	if(src.density && istype(I, /obj/item/weapon) && !istype(I, /obj/item/weapon/card) )
-		user.changeNext_move(CLICK_CD_MELEE)
-		user.do_attack_animation(src)
 		if( (I.flags&NOBLUDGEON) || !I.force )
 			return
 		var/aforce = I.force

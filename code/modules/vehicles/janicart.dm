@@ -65,7 +65,7 @@
 
 	return ..()
 
-/obj/vehicle/train/janitor/trolley/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
+/obj/vehicle/train/janitor/trolley/attackby(obj/item/weapon/W as obj, mob/user as mob)
 	if(openTop)
 		W.loc = src
 		user.visible_message("<span class='notice'>[user] puts [W] in [src].</span>","<span class='notice'>You put [W] in [src].</span>")
@@ -93,7 +93,7 @@
 		else
 			icon_state = "trashcart"
 
-/obj/vehicle/train/janitor/engine/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
+/obj/vehicle/train/janitor/engine/attackby(obj/item/weapon/W as obj, mob/user as mob)
 	if(istype(W, /obj/item/weapon/key/janitor_train))
 		if(!key)
 			user.drop_item()

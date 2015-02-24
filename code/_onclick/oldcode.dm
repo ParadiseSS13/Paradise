@@ -270,7 +270,7 @@
 				// ------- YOU HAVE AN ITEM IN YOUR HAND - HANDLE ATTACKBY AND AFTERATTACK -------
 				var/ignoreAA = 0 //Ignore afterattack(). Surgery uses this.
 				if (t5)
-					ignoreAA = src.attackby(W, usr, params)
+					ignoreAA = src.attackby(W, usr)
 				if (W && !ignoreAA)
 					W.afterattack(src, usr, (t5 ? 1 : 0), params)
 
@@ -326,7 +326,7 @@
 				// ------- YOU ARE NOT RESTRAINED -------
 				if ((W && !( istype(src, /obj/screen) )))
 					// ------- IT SHOULD NEVER GET TO HERE, DUE TO THE ISTYPE(SRC, /OBJ/SCREEN) FROM PREVIOUS IF-S - I TESTED IT WITH A DEBUG OUTPUT AND I COULDN'T GET THIST TO SHOW UP. -------
-					src.attackby(W, usr, params)
+					src.attackby(W, usr)
 					if (W)
 						W.afterattack(src, usr,, params)
 				else
@@ -347,8 +347,8 @@
 					src.hand_al(usr, usr.hand)
 		else
 			// ------- YOU ARE CLICKING ON AN OBJECT THAT'S INACCESSIBLE TO YOU AND IS NOT YOUR HUD -------
-			if((LASER in usr:mutations) && usr:a_intent == "harm" && world.time >= usr.next_move)
-				// ------- YOU HAVE THE LASER MUTATION, YOUR INTENT SET TO HURT AND IT'S BEEN MORE THAN A DECISECOND SINCE YOU LAS TATTACKED -------
+			if((M_LASER in usr:mutations) && usr:a_intent == "harm" && world.time >= usr.next_move)
+				// ------- YOU HAVE THE M_LASER MUTATION, YOUR INTENT SET TO HURT AND IT'S BEEN MORE THAN A DECISECOND SINCE YOU LAS TATTACKED -------
 
 				var/turf/T = get_turf(usr)
 				var/turf/U = get_turf(src)

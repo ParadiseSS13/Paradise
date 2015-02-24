@@ -10,7 +10,7 @@
 
 	var/obj/item/weapon/virusdish/dish = null
 
-/obj/machinery/disease2/diseaseanalyser/attackby(var/obj/O as obj, var/mob/user as mob, params)
+/obj/machinery/disease2/diseaseanalyser/attackby(var/obj/O as obj, var/mob/user as mob)
 	if(!istype(O,/obj/item/weapon/virusdish)) return
 
 	if(dish)

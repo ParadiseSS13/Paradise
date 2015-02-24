@@ -195,7 +195,7 @@
 			updateUsrDialog()
 			return
 
-/obj/machinery/programmable/attackby(obj/item/I as obj, mob/user as mob, params)
+/obj/machinery/programmable/attackby(obj/item/I as obj, mob/user as mob)
 	if(istype(I,/obj/item/weapon/wrench)) // code borrowed from pipe dispenser
 		if (unwrenched==0)
 			playsound(src.loc, 'sound/items/Ratchet.ogg', 50, 1)
@@ -510,7 +510,7 @@
 				return
 
 			playsound(loc, "punch", 25, 1, -1)
-			if(HULK in H.mutations)			damage += 5
+			if(M_HULK in H.mutations)			damage += 5
 
 			if(damage < 5)
 				visible_message("[H] gives \the [src] a weak punch.")
@@ -580,7 +580,7 @@
 		..()
 		resetlists()
 
-	attackby(obj/item/I as obj, mob/user as mob, params)
+	attackby(obj/item/I as obj, mob/user as mob)
 		if(istype(I,/obj/item/device/multitool))
 			hacking = (hacking?0:1)
 			if(hacking)

@@ -237,7 +237,7 @@ datum/borrowbook // Datum used to keep track of who has borrowed what when and f
 	user << browse(dat, "window=library")
 	onclose(user, "library")
 
-/obj/machinery/librarycomp/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
+/obj/machinery/librarycomp/attackby(obj/item/weapon/W as obj, mob/user as mob)
 	if(istype(W, /obj/item/weapon/barcodescanner))
 		var/obj/item/weapon/barcodescanner/scanner = W
 		scanner.computer = src
@@ -404,7 +404,7 @@ datum/borrowbook // Datum used to keep track of who has borrowed what when and f
 	density = 1
 	var/obj/item/weapon/book/cache		// Last scanned book
 
-/obj/machinery/libraryscanner/attackby(var/obj/O as obj, var/mob/user as mob, params)
+/obj/machinery/libraryscanner/attackby(var/obj/O as obj, var/mob/user as mob)
 	if(istype(O, /obj/item/weapon/book))
 		user.drop_item()
 		O.loc = src
@@ -454,7 +454,7 @@ datum/borrowbook // Datum used to keep track of who has borrowed what when and f
 	anchored = 1
 	density = 1
 
-/obj/machinery/bookbinder/attackby(var/obj/O as obj, var/mob/user as mob, params)
+/obj/machinery/bookbinder/attackby(var/obj/O as obj, var/mob/user as mob)
 	if(istype(O, /obj/item/weapon/paper))
 		user.drop_item()
 		O.loc = src

@@ -494,7 +494,7 @@ var/list/mechtoys = list(
 	onclose(user, "computer")
 	return
 
-/obj/machinery/computer/supplycomp/attackby(I as obj, user as mob, params)
+/obj/machinery/computer/supplycomp/attackby(I as obj, user as mob)
 	if(istype(I,/obj/item/weapon/card/emag) && !hacked)
 		user << "\blue Special supplies unlocked."
 		hacked = 1

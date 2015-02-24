@@ -401,9 +401,9 @@ LOOK FOR SURGERY.DM*/
 	if(!istype(M))
 		return ..()
 
-	//if(M.mutations & HUSK)	return ..()
+	//if(M.mutations & M_HUSK)	return ..()
 
-	if((CLUMSY in user.mutations) && prob(50))
+	if((M_CLUMSY in user.mutations) && prob(50))
 		M = user
 		return eyestab(M,user)
 
@@ -649,7 +649,7 @@ LOOK FOR SURGERY.DM*/
 	if(!istype(M))
 		return ..()
 
-	if((CLUMSY in user.mutations) && prob(50))
+	if((M_CLUMSY in user.mutations) && prob(50))
 		M = user
 		return eyestab(M,user)
 

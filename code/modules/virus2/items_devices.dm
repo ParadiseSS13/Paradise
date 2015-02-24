@@ -24,7 +24,7 @@
 		report("Scan Complete: No antibodies detected.", user)
 		return
 
-	if (CLUMSY in user.mutations && prob(50))
+	if (M_CLUMSY in user.mutations && prob(50))
 		// I was tempted to be really evil and rot13 the output.
 		report("Antibodies detected: [reverse_text(antigens2string(C.antibodies))]", user)
 	else
@@ -53,7 +53,7 @@
 	src.virus2.makerandom(0, 1) // Virus dishes get minor effects only on creation, and have a chance of being injection type
 	growth = rand(5, 50)
 
-/obj/item/weapon/virusdish/attackby(var/obj/item/weapon/W as obj,var/mob/living/carbon/user as mob, params)
+/obj/item/weapon/virusdish/attackby(var/obj/item/weapon/W as obj,var/mob/living/carbon/user as mob)
 	if(istype(W,/obj/item/weapon/hand_labeler) || istype(W,/obj/item/weapon/reagent_containers/syringe))
 		return
 	..()
@@ -78,7 +78,7 @@
 	icon_state = "implantcase-b"
 	desc = "The bacteria in the dish are completely dead."
 
-/obj/item/weapon/ruinedvirusdish/attackby(var/obj/item/weapon/W as obj,var/mob/living/carbon/user as mob, params)
+/obj/item/weapon/ruinedvirusdish/attackby(var/obj/item/weapon/W as obj,var/mob/living/carbon/user as mob)
 	if(istype(W,/obj/item/weapon/hand_labeler) || istype(W,/obj/item/weapon/reagent_containers/syringe))
 		return ..()
 

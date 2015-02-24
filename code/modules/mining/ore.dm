@@ -86,7 +86,7 @@
 	pixel_y = rand(0,8)-8
 	if(src.z == ASTEROID_Z) score_oremined++ //When ore spawns, increment score.  Only include ore spawned on mining asteroid (No Clown Planet)
 
-/obj/item/weapon/ore/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
+/obj/item/weapon/ore/attackby(obj/item/weapon/W as obj, mob/user as mob)
 	if(istype(W,/obj/item/device/core_sampler))
 		var/obj/item/device/core_sampler/C = W
 		C.sample_item(src, user)

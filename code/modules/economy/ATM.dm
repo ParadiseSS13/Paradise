@@ -85,7 +85,7 @@ log transactions
 			linked_db = DB
 			break
 
-/obj/machinery/atm/attackby(obj/item/I as obj, mob/user as mob, params)
+/obj/machinery/atm/attackby(obj/item/I as obj, mob/user as mob)
 	if(istype(I, /obj/item/weapon/card))
 		var/obj/item/weapon/card/id/idcard = I
 		if(!held_card)

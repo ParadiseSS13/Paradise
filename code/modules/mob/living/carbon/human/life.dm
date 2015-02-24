@@ -244,7 +244,7 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 				var/x_offset = pixel_x + rand(-2,2) //Should probably be moved into the twitch emote at some point.
 				var/y_offset = pixel_y + rand(-1,1)
 				animate(src, pixel_x = pixel_x + x_offset, pixel_y = pixel_y + y_offset, time = 1)
-				animate(pixel_x = initial(pixel_x) , pixel_y = initial(pixel_y), time = 1)
+				animate(pixel_x = pixel_x - x_offset, pixel_y = pixel_y - y_offset, time = 1)
 		if (disabilities & NERVOUS)
 			speech_problem_flag = 1
 			if (prob(10))
@@ -303,7 +303,7 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 			return
 
 		if(getFireLoss())
-			if((RESIST_HEAT in mutations) || (prob(1)))
+			if((M_RESIST_HEAT in mutations) || (prob(1)))
 				heal_organ_damage(0,1)
 
 
@@ -389,7 +389,7 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 
 	proc/breathe()
 		if(reagents.has_reagent("lexorin")) return
-		if(NO_BREATH in mutations) return // No breath mutation means no breathing.
+		if(M_NO_BREATH in mutations) return // No breath mutation means no breathing.
 		if(istype(loc, /obj/machinery/atmospherics/unary/cryo_cell)) return
 		if(species && (species.flags & NO_BREATHE)) return
 
@@ -618,7 +618,7 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 		else if(adjusted_pressure >= species.hazard_low_pressure)
 			pressure_alert = -1
 		else
-			if( !(RESIST_COLD in mutations))
+			if( !(M_RESIST_COLD in mutations))
 				take_overall_damage(brute=LOW_PRESSURE_DAMAGE, used_weapon = "Low Pressure")
 				pressure_alert = -2
 			else
@@ -720,7 +720,7 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 		var/thermal_protection_flags = get_heat_protection_flags(temperature)
 
 		var/thermal_protection = 0.0
-		if(RESIST_HEAT in mutations)
+		if(M_RESIST_HEAT in mutations)
 			return 1
 		if(thermal_protection_flags)
 			if(thermal_protection_flags & HEAD)
@@ -777,7 +777,7 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 
 	proc/get_cold_protection(temperature)
 
-		if(RESIST_COLD in mutations)
+		if(M_RESIST_COLD in mutations)
 			return 1 //Fully protected from the cold.
 
 		temperature = max(temperature, 2.7) //There is an occasional bug where the temperature is miscalculated in ares with a small amount of gas on them, so this is necessary to ensure that that bug does not affect this calculation. Space's temperature is 2.7K and most suits that are intended to protect against any cold, protect down to 2.0K.
@@ -934,12 +934,12 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 			else if (light_amount < 2) //heal in the dark
 				heal_overall_damage(1,1)
 
-		//The fucking FAT mutation is the greatest shit ever. It makes everyone so hot and bothered.
+		//The fucking M_FAT mutation is the greatest shit ever. It makes everyone so hot and bothered.
 		if(species.flags & CAN_BE_FAT)
-			if(FAT in mutations)
+			if(M_FAT in mutations)
 				if(overeatduration < 100)
 					src << "\blue You feel fit again!"
-					mutations.Remove(FAT)
+					mutations.Remove(M_FAT)
 					update_mutantrace(0)
 					update_mutations(0)
 					update_inv_w_uniform(0)
@@ -947,7 +947,7 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 			else
 				if(overeatduration > 500)
 					src << "\red You suddenly feel blubbery!"
-					mutations.Add(FAT)
+					mutations.Add(M_FAT)
 					update_mutantrace(0)
 					update_mutations(0)
 					update_inv_w_uniform(0)
@@ -963,7 +963,7 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 
 		else
 			if(overeatduration > 1)
-				if(OBESITY in mutations)
+				if(M_OBESITY in mutations)
 					overeatduration -= 1 // Those with obesity gene take twice as long to unfat
 				else
 					overeatduration -= 2
@@ -1006,7 +1006,7 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 			silent = 0
 		else				//ALIVE. LIGHTS ARE ON
 
-			if(REGEN in mutations)
+			if(M_REGEN in mutations)
 				if(nutrition)
 					if(prob(10))
 						var/randumb = rand(1,5)
@@ -1017,7 +1017,7 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 
 			// Sobering multiplier.
 			// Sober block grants quadruple the alcohol metabolism.
-//			var/sober_str=!(SOBER in mutations)?1:4
+//			var/sober_str=!(M_SOBER in mutations)?1:4
 
 			updatehealth()	//TODO
 			if(!in_stasis)
@@ -1046,7 +1046,11 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 					adjustOxyLoss(1)*/
 
 			if(hallucination && !(species.flags & IS_SYNTHETIC))
-				spawn handle_hallucinations()
+				if(hallucination >= 20)
+					if(prob(3))
+						fake_attack(src)
+					if(!handling_hal)
+						spawn handle_hallucinations() //The not boring kind!
 
 				if(hallucination<=2)
 					hallucination = 0
@@ -1170,7 +1174,7 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 				var/pixel_y_diff = rand(-amplitude/3, amplitude/3)
 
 				animate(src, pixel_x = pixel_x + pixel_x_diff, pixel_y = pixel_y + pixel_y_diff , time = 2, loop = 6)
-				animate(pixel_x = initial(pixel_x) , pixel_y = initial(pixel_y) , time = 2)
+				animate(pixel_x = pixel_x - pixel_x_diff, pixel_y = pixel_y - pixel_y_diff, time = 2)
 				jitteriness = max(jitteriness-1, 0)
 
 			//Other
@@ -1294,7 +1298,7 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 					sight |= SEE_TURFS|SEE_MOBS|SEE_OBJS
 					see_in_dark = 8
 					if(!druggy)		see_invisible = SEE_INVISIBLE_LEVEL_TWO
-			if(XRAY in mutations)
+			if(M_XRAY in mutations)
 				sight |= SEE_TURFS|SEE_MOBS|SEE_OBJS
 				see_in_dark = 8
 				if(!druggy)		see_invisible = SEE_INVISIBLE_LEVEL_TWO
@@ -1505,7 +1509,7 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 				if(!machine.check_eye(src))		reset_view(null)
 			else
 				var/isRemoteObserve = 0
-				if((REMOTE_VIEW in mutations) && remoteview_target)
+				if((M_REMOTE_VIEW in mutations) && remoteview_target)
 					isRemoteObserve = 1
 					// Is he unconscious or dead?
 					if(remoteview_target.stat!=CONSCIOUS)
@@ -1513,7 +1517,7 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 						isRemoteObserve = 0
 
 					// Does he have psy resist?
-					if(PSY_RESIST in remoteview_target.mutations)
+					if(M_PSY_RESIST in remoteview_target.mutations)
 						src << "\red Your mind is shut out!"
 						isRemoteObserve = 0
 

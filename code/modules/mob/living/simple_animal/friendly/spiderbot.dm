@@ -42,7 +42,7 @@
 	speak_emote = list("beeps","clicks","chirps")
 	can_hide = 1
 
-/mob/living/simple_animal/spiderbot/attackby(var/obj/item/O as obj, var/mob/user as mob, params)
+/mob/living/simple_animal/spiderbot/attackby(var/obj/item/O as obj, var/mob/user as mob)
 
 	if(istype(O, /obj/item/device/mmi) || istype(O, /obj/item/device/mmi/posibrain))
 		var/obj/item/device/mmi/B = O

@@ -209,7 +209,7 @@
 				break
 	return total
 
-/obj/machinery/vending/attackby(obj/item/weapon/W, mob/user, params)
+/obj/machinery/vending/attackby(obj/item/weapon/W, mob/user)
 	if (currently_vending && vendor_account && !vendor_account.suspended)
 		var/paid = 0
 		var/handled = 0

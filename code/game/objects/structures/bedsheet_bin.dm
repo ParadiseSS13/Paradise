@@ -178,7 +178,7 @@ LINEN BINS
 		else				icon_state = "linenbin-full"
 
 
-/obj/structure/bedsheetbin/attackby(obj/item/I as obj, mob/user as mob, params)
+/obj/structure/bedsheetbin/attackby(obj/item/I as obj, mob/user as mob)
 	if(istype(I, /obj/item/weapon/bedsheet))
 		user.drop_item()
 		I.loc = src

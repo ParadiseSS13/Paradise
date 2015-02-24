@@ -17,7 +17,7 @@
 	icon_state = "[initial(icon_state)][magazine ? "-[magazine.max_ammo]" : ""][chambered ? "" : "-e"][silenced ? "-suppressed" : ""]"
 	return
 
-/obj/item/weapon/gun/projectile/automatic/attackby(var/obj/item/A as obj, mob/user as mob, params)
+/obj/item/weapon/gun/projectile/automatic/attackby(var/obj/item/A as obj, mob/user as mob)
 	if(..() && chambered)
 		alarmed = 0
 
@@ -103,7 +103,7 @@
 		user << "<span class='notice'>You remove the magazine from [src].</span>"
 
 
-/obj/item/weapon/gun/projectile/automatic/l6_saw/attackby(var/obj/item/A as obj, mob/user as mob, params)
+/obj/item/weapon/gun/projectile/automatic/l6_saw/attackby(var/obj/item/A as obj, mob/user as mob)
 	if(!cover_open && istype(A, mag_type))
 		user << "<span class='notice'>[src]'s cover is closed! You can't insert a new mag!</span>"
 		return
@@ -174,11 +174,11 @@
 	else
 		underbarrel.afterattack(target, user, flag, params)
 
-/obj/item/weapon/gun/projectile/automatic/c90gl/attackby(var/obj/item/A, mob/user, params)
+/obj/item/weapon/gun/projectile/automatic/c90gl/attackby(var/obj/item/A, mob/user)
 	if(select)
 		..()
 	else
-		underbarrel.attackby(A, user, params)
+		underbarrel.attackby(A, user)
 
 /obj/item/weapon/gun/projectile/automatic/c90gl/attack_self(var/mob/living/user)
 	if(select)

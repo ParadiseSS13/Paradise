@@ -26,9 +26,9 @@
 
 		del(src)
 
-/obj/item/weapon/holder/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
+/obj/item/weapon/holder/attackby(obj/item/weapon/W as obj, mob/user as mob)
 	for(var/mob/M in src.contents)
-		M.attackby(W,user, params)
+		M.attackby(W,user)
 
 /obj/item/weapon/holder/proc/show_message(var/message, var/m_type)
 	for(var/mob/living/M in contents)

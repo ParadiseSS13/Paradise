@@ -13,7 +13,7 @@
 	var/icon_state_charging = "recharger1"
 	var/icon_state_idle = "recharger0"
 
-/obj/machinery/laprecharger/attackby(obj/item/weapon/G as obj, mob/user as mob, params)
+/obj/machinery/laprecharger/attackby(obj/item/weapon/G as obj, mob/user as mob)
 	if(istype(user,/mob/living/silicon))
 		return
 	if(istype(G, /obj/item/weapon/gun/energy) || istype(G, /obj/item/weapon/melee/baton))

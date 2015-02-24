@@ -566,7 +566,7 @@
 		now_pushing = 1
 		if(ismob(AM))
 			var/mob/tmob = AM
-			if(istype(tmob, /mob/living/carbon/human) && (FAT in tmob.mutations))
+			if(istype(tmob, /mob/living/carbon/human) && (M_FAT in tmob.mutations))
 				if(prob(20))
 					usr << "\red <B>You fail to push [tmob]'s fat ass out of the way.</B>"
 					now_pushing = 0
@@ -642,7 +642,7 @@
 	return !cleared
 
 
-/mob/living/silicon/robot/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
+/mob/living/silicon/robot/attackby(obj/item/weapon/W as obj, mob/user as mob)
 	if (istype(W, /obj/item/weapon/restraints/handcuffs)) // fuck i don't even know why isrobot() in handcuff code isn't working so this will have to do
 		return
 
@@ -671,7 +671,6 @@
 			user << "Nothing to fix here!"
 			return
 		var/obj/item/weapon/weldingtool/WT = W
-		user.changeNext_move(CLICK_CD_MELEE)
 		if (WT.remove_fuel(0))
 			adjustBruteLoss(-30)
 			updatehealth()
@@ -922,21 +921,23 @@
 		if ("help")
 			for(var/mob/O in viewers(src, null))
 				if ((O.client && !( O.blinded )))
-					O.show_message(text("<span class='notice'>[M] caresses [src]'s plating with its scythe like arm.</span>"), 1)
+					O.show_message(text("\blue [M] caresses [src]'s plating with its scythe like arm."), 1)
 
 		if ("grab")
-			if (M == src || anchored)
+			if (M == src)
 				return
-			var/obj/item/weapon/grab/G = new /obj/item/weapon/grab(M, src )
+			var/obj/item/weapon/grab/G = new /obj/item/weapon/grab( M, M, src )
 
 			M.put_in_active_hand(G)
 
+			grabbed_by += G
 			G.synch()
 			playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
-			visible_message("<span class='danger'>[M] has grabbed [src] passively!</span>")
+			for(var/mob/O in viewers(src, null))
+				if ((O.client && !( O.blinded )))
+					O.show_message(text("\red [] has grabbed [] passively!", M, src), 1)
 
 		if ("harm")
-			M.do_attack_animation(src)
 			var/damage = rand(10, 20)
 			if (prob(90))
 				/*
@@ -948,31 +949,33 @@
 				What is this?*/
 
 				playsound(loc, 'sound/weapons/slash.ogg', 25, 1, -1)
-				visible_message("<span class='danger'>[M] has slashed at [src]!</span>",\
-								"<span class='userdanger'>[M] has slashed at [src]!</span>")
+				for(var/mob/O in viewers(src, null))
+					O.show_message(text("\red <B>[] has slashed at []!</B>", M, src), 1)
 				if(prob(8))
 					flick("noise", flash)
 				adjustBruteLoss(damage)
 				updatehealth()
 			else
 				playsound(loc, 'sound/weapons/slashmiss.ogg', 25, 1, -1)
-				visible_message("<span class='danger'>[M] took a swipe at [src]!</span>", \
-								"<span class='userdanger'>[M] took a swipe at [src]!</span>")
+				for(var/mob/O in viewers(src, null))
+					if ((O.client && !( O.blinded )))
+						O.show_message(text("\red <B>[] took a swipe at []!</B>", M, src), 1)
 
 		if ("disarm")
 			if(!(lying))
-				M.do_attack_animation(src)
 				if (rand(1,100) <= 85)
 					Stun(7)
 					step(src,get_dir(M,src))
 					spawn(5) step(src,get_dir(M,src))
 					playsound(loc, 'sound/weapons/pierce.ogg', 50, 1, -1)
-					visible_message("<span class='danger'>[M] has forced back [src]!</span>",\
-									"<span class='userdanger'>[M] has forced back [src]!</span>")
+					for(var/mob/O in viewers(src, null))
+						if ((O.client && !( O.blinded )))
+							O.show_message(text("\red <B>[] has forced back []!</B>", M, src), 1)
 				else
 					playsound(loc, 'sound/weapons/slashmiss.ogg', 25, 1, -1)
-					visible_message("<span class='danger'>[M] attempted to force back [src]!</span>",\
-									"<span class='userdanger'>[M] attempted to force back [src]!</span>")
+					for(var/mob/O in viewers(src, null))
+						if ((O.client && !( O.blinded )))
+							O.show_message(text("\red <B>[] attempted to force back []!</B>", M, src), 1)
 	return
 
 
@@ -985,9 +988,10 @@
 	if(M.Victim) return // can't attack while eating!
 
 	if (health > -100)
-		M.do_attack_animation(src)
-		visible_message("<span class='danger'>The [M.name] glomps [src]!</span>",\
-						"<span class='userdanger'>The [M.name] glomps [src]!</span>")
+
+		for(var/mob/O in viewers(src, null))
+			if ((O.client && !( O.blinded )))
+				O.show_message(text("\red <B>The [M.name] glomps []!</B>", src), 1)
 
 		var/damage = rand(1, 3)
 
@@ -1018,7 +1022,7 @@
 
 				for(var/mob/O in viewers(src, null))
 					if ((O.client && !( O.blinded )))
-						O.show_message(text("<span class='userdanger'>The [M.name] has electrified []!</span>", src), 1)
+						O.show_message(text("\red <B>The [M.name] has electrified []!</B>", src), 1)
 
 				flick("noise", flash)
 
@@ -1038,11 +1042,12 @@
 	if(M.melee_damage_upper == 0)
 		M.emote("[M.friendly] [src]")
 	else
-		M.do_attack_animation(src)
 		if(M.attack_sound)
 			playsound(loc, M.attack_sound, 50, 1, 1)
-		visible_message("<span class='danger'><B>[M]</B> [M.attacktext] [src]!</span>")
-		add_logs(M, src, "attacked", admin=0)
+		for(var/mob/O in viewers(src, null))
+			O.show_message("\red <B>[M]</B> [M.attacktext] [src]!", 1)
+		M.attack_log += text("\[[time_stamp()]\] <font color='red'>attacked [src.name] ([src.ckey])</font>")
+		src.attack_log += text("\[[time_stamp()]\] <font color='orange'>was attacked by [M.name] ([M.ckey])</font>")
 		var/damage = rand(M.melee_damage_lower, M.melee_damage_upper)
 		adjustBruteLoss(damage)
 		updatehealth()
@@ -1053,22 +1058,21 @@
 	add_fingerprint(user)
 
 	if(opened && !wiresexposed && (!istype(user, /mob/living/silicon)))
+		var/datum/robot_component/cell_component = components["power cell"]
 		if(cell)
 			cell.updateicon()
 			cell.add_fingerprint(user)
 			user.put_in_active_hand(cell)
 			user << "You remove \the [cell]."
 			cell = null
+			cell_component.wrapped = null
+			cell_component.installed = 0
 			updateicon()
-
-	if(!opened && (!istype(user, /mob/living/silicon)))
-		if (user.a_intent == "help")
-			user.visible_message("<span class='notice'>[user] pets [src]!</span>", \
-								"<span class='notice'>You pet [src]!</span>")
-
-/mob/living/silicon/robot/attack_paw(mob/user)
-
-	return attack_hand(user)
+		else if(cell_component.installed == -1)
+			cell_component.installed = 0
+			var/obj/item/broken_device = cell_component.wrapped
+			user << "You remove \the [broken_device]."
+			user.put_in_active_hand(broken_device)
 
 /mob/living/silicon/robot/proc/allowed(mob/M)
 	//check if it doesn't require any access at all

@@ -76,7 +76,7 @@
 	completed = /obj/machinery/computer3/laptop
 	max_components = 3
 
-/obj/structure/computer3frame/attackby(obj/item/P as obj, mob/user as mob, params)
+/obj/structure/computer3frame/attackby(obj/item/P as obj, mob/user as mob)
 	switch(state)
 		if(0)
 			if(istype(P, /obj/item/weapon/wrench))

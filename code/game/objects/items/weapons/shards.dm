@@ -50,7 +50,7 @@
 		else
 	return
 
-/obj/item/weapon/shard/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
+/obj/item/weapon/shard/attackby(obj/item/weapon/W as obj, mob/user as mob)
 	..()
 	if ( istype(W, /obj/item/weapon/weldingtool))
 		var/obj/item/weapon/weldingtool/WT = W
@@ -61,7 +61,7 @@
 					continue
 				if(G.amount>=G.max_amount)
 					continue
-				G.attackby(NG, user, params)
+				G.attackby(NG, user)
 				usr << "You add the newly-formed glass to the stack. It now contains [NG.amount] sheets."
 			//SN src = null
 			del(src)

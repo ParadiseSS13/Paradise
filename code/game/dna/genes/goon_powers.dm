@@ -6,7 +6,7 @@
 	activation_messages=list("You feel unusually sober.")
 	deactivation_messages = list("You feel like you could use a stiff drink.")
 
-	mutation=SOBER
+	mutation=M_SOBER
 
 	New()
 		block=SOBERBLOCK
@@ -19,7 +19,7 @@
 	deactivation_messages = list("You feel oddly exposed.")
 	instability=2
 
-	mutation=PSY_RESIST
+	mutation=M_PSY_RESIST
 
 	New()
 		block=PSYRESISTBLOCK
@@ -149,7 +149,7 @@
 		usr << "\red This will only work on normal organic beings."
 		return
 
-	if (RESIST_COLD in C.mutations)
+	if (M_RESIST_COLD in C.mutations)
 		C.visible_message("\red A cloud of fine ice crystals engulfs [C.name], but disappears almost instantly!")
 		return
 	var/handle_suit = 0
@@ -392,7 +392,7 @@
 			else usr.pixel_y -= 8
 			sleep(1)
 
-		if (FAT in usr.mutations && prob(66))
+		if (M_FAT in usr.mutations && prob(66))
 			usr.visible_message("\red <b>[usr.name]</b> crashes due to their heavy weight!")
 			//playsound(usr.loc, 'zhit.wav', 50, 1)
 			usr.weakened += 10
@@ -481,7 +481,7 @@
 	activation_messages = list("You suddenly notice more about others than you did before.")
 	deactivation_messages = list("You no longer feel able to sense intentions.")
 	instability=1
-	mutation=EMPATH
+	mutation=M_EMPATH
 
 	New()
 		..()
@@ -514,7 +514,7 @@
 			usr << "\red You may only use this on other organic beings."
 			return
 
-		if (PSY_RESIST in M.mutations)
+		if (M_PSY_RESIST in M.mutations)
 			usr << "\red You can't see into [M.name]'s mind at all!"
 			return
 
@@ -578,7 +578,7 @@
 				usr << "\blue <b>Numbers</b>: You sense the number[numbers.len>1?"s":""] [english_list(numbers)] [numbers.len>1?"are":"is"] important to [M.name]."
 		usr << "\blue <b>Thoughts</b>: [M.name] is currently [thoughts]."
 
-		if (EMPATH in M.mutations)
+		if (M_EMPATH in M.mutations)
 			M << "\red You sense [usr.name] reading your mind."
 		else if (prob(5) || M.mind.assigned_role=="Chaplain")
 			M << "\red You sense someone intruding upon your thoughts..."
@@ -594,7 +594,7 @@
 	deactivation_messages = list("You no longer feel gassy. What a relief!")
 	instability=1
 
-	mutation = SUPER_FART
+	mutation = M_SUPER_FART
 
 	New()
 		..()

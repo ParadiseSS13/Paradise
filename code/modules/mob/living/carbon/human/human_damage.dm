@@ -110,15 +110,15 @@
 	hud_updateflag |= 1 << HEALTH_HUD
 
 /mob/living/carbon/human/Stun(amount)
-	if(HULK in mutations)	return
+	if(M_HULK in mutations)	return
 	..()
 
 /mob/living/carbon/human/Weaken(amount)
-	if(HULK in mutations)	return
+	if(M_HULK in mutations)	return
 	..()
 
 /mob/living/carbon/human/Paralyse(amount)
-	if(HULK in mutations)	return
+	if(M_HULK in mutations)	return
 	..()
 
 

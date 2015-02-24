@@ -16,7 +16,7 @@
 	var/screen = 0
 
 
-/obj/item/weapon/paper_bundle/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
+/obj/item/weapon/paper_bundle/attackby(obj/item/weapon/W as obj, mob/user as mob)
 	..()
 	var/obj/item/weapon/paper/P
 	if(istype(W, /obj/item/weapon/paper))
@@ -60,7 +60,7 @@
 		if(istype(W, /obj/item/weapon/pen) || istype(W, /obj/item/toy/crayon))
 			usr << browse("", "window=[name]") //Closes the dialog
 		P = src[page]
-		P.attackby(W, user, params)
+		P.attackby(W, user)
 
 
 	update_icon()

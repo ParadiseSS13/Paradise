@@ -20,7 +20,7 @@
 	updateUsrDialog()
 	user << "<span class='notice'>You put [I] into [src].</span>"
 	return
-/obj/structure/engineeringcart/attackby(obj/item/I, mob/user, params)
+/obj/structure/engineeringcart/attackby(obj/item/I, mob/user)
 	var/fail_msg = "<span class='notice'>There is already one of those in [src].</span>"
 	if(!I.is_robot_module())
 		if(istype(I, /obj/item/stack/sheet/glass))

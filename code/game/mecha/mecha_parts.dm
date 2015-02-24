@@ -20,7 +20,7 @@
 	construction_cost = list("metal"=20000)
 	flags = CONDUCT
 
-	attackby(obj/item/W as obj, mob/user as mob, params)
+	attackby(obj/item/W as obj, mob/user as mob)
 		if(!construct || !construct.action(W, user))
 			..()
 		return

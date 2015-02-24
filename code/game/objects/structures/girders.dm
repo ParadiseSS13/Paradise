@@ -6,7 +6,7 @@
 	var/state = 0
 	var/health = 200
 
-/obj/structure/girder/attackby(obj/item/W as obj, mob/user as mob, params)
+/obj/structure/girder/attackby(obj/item/W as obj, mob/user as mob)
 	if(istype(W, /obj/item/weapon/wrench) && state == 0)
 		if(anchored && !istype(src,/obj/structure/girder/displaced))
 			playsound(src.loc, 'sound/items/Ratchet.ogg', 100, 1)
@@ -231,7 +231,7 @@
 	layer = 2
 	var/health = 250
 
-/obj/structure/cultgirder/attackby(obj/item/W as obj, mob/user as mob, params)
+/obj/structure/cultgirder/attackby(obj/item/W as obj, mob/user as mob)
 	if(istype(W, /obj/item/weapon/wrench))
 		playsound(src.loc, 'sound/items/Ratchet.ogg', 100, 1)
 		user << "\blue Now disassembling the girder"

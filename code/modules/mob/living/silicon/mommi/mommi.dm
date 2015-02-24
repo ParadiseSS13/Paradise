@@ -148,7 +148,7 @@ They can only use one tool at a time, they can't choose modules, and they have 1
 	real_name = changed_name
 	name = real_name
 
-/mob/living/silicon/robot/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
+/mob/living/silicon/robot/attackby(obj/item/weapon/W as obj, mob/user as mob)
 	if (istype(W, /obj/item/weapon/restraints/handcuffs)) // fuck i don't even know why isrobot() in handcuff code isn't working so this will have to do
 		return
 
@@ -164,8 +164,8 @@ They can only use one tool at a time, they can't choose modules, and they have 1
 			user << "Need more welding fuel!"
 			return
 
-	else if(istype(W, /obj/item/stack/cable_coil) && wiresexposed)
-		var/obj/item/stack/cable_coil/coil = W
+	else if(istype(W, /obj/item/weapon/cable_coil) && wiresexposed)
+		var/obj/item/weapon/cable_coil/coil = W
 		adjustFireLoss(-30)
 		updatehealth()
 		coil.use(1)

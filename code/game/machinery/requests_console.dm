@@ -358,7 +358,7 @@ var/list/obj/machinery/requests_console/allConsoles = list()
 	return
 
 					//err... hacking code, which has no reason for existing... but anyway... it's supposed to unlock priority 3 messanging on that console (EXTREME priority...) the code for that actually exists.
-/obj/machinery/requests_console/attackby(var/obj/item/weapon/O as obj, var/mob/user as mob, params)
+/obj/machinery/requests_console/attackby(var/obj/item/weapon/O as obj, var/mob/user as mob)
 	/*
 	if (istype(O, /obj/item/weapon/crowbar))
 		if(open)

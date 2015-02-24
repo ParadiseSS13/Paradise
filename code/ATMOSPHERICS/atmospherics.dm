@@ -39,7 +39,7 @@ Pipelines + Other Objects -> Pipe network
 		pipe_color = null
 	..()
 
-/obj/machinery/atmospherics/attackby(atom/A, mob/user as mob, params)
+/obj/machinery/atmospherics/attackby(atom/A, mob/user as mob)
 	if(istype(A, /obj/item/device/pipe_painter))
 		return
 	..()

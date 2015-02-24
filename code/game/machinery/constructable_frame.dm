@@ -92,7 +92,7 @@
 	else
 		desc += "."
 
-/obj/machinery/constructable_frame/machine_frame/attackby(obj/item/P as obj, mob/user as mob, params)
+/obj/machinery/constructable_frame/machine_frame/attackby(obj/item/P as obj, mob/user as mob)
 	if(P.crit_fail)
 		user << "<span class='danger'>This part is faulty, you cannot add this to the machine!</span>"
 		return
@@ -270,7 +270,7 @@ to destroy them and players will be able to make replacements.
 							/obj/machinery/vending/suitdispenser = "Suitlord 9000",
 							/obj/machinery/vending/shoedispenser = "Shoelord 9000")
 
-/obj/item/weapon/circuitboard/vendor/attackby(obj/item/I, mob/user, params)
+/obj/item/weapon/circuitboard/vendor/attackby(obj/item/I, mob/user)
 	if(istype(I, /obj/item/weapon/screwdriver))
 		set_type(pick(names_paths), user)
 
@@ -306,7 +306,7 @@ to destroy them and players will be able to make replacements.
 							/obj/item/stack/cable_coil = 1,
 							/obj/item/weapon/stock_parts/console_screen = 1)
 
-/obj/item/weapon/circuitboard/thermomachine/attackby(obj/item/I, mob/user, params)
+/obj/item/weapon/circuitboard/thermomachine/attackby(obj/item/I, mob/user)
 	if(istype(I, /obj/item/weapon/screwdriver))
 		if(build_path == /obj/machinery/atmospherics/unary/cold_sink/freezer)
 			build_path = /obj/machinery/atmospherics/unary/heat_reservoir/heater

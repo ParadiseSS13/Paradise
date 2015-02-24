@@ -23,9 +23,9 @@
 		overlays += bombassembly.overlays
 		overlays += "bomb_assembly"
 
-/obj/item/device/onetankbomb/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
+/obj/item/device/onetankbomb/attackby(obj/item/weapon/W as obj, mob/user as mob)
 	if(istype(W, /obj/item/device/analyzer))
-		bombtank.attackby(W, user, params)
+		bombtank.attackby(W, user)
 		return
 	if(istype(W, /obj/item/weapon/wrench) && !status)	//This is basically bomb assembly code inverted. apparently it works.
 

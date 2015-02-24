@@ -198,7 +198,7 @@ var/MAX_EX_FLASH_RANGE = 14
 #define NODROP					2		// This flag makes it so that an item literally cannot be removed at all, or at least that's how it should be. Only deleted.
 #define NOBLUDGEON  			4		// when an item has this it produces no "X has been hit by Y with Z" message with the default handler
 #define MASKINTERNALS			8		// mask allows internals
-//#define USEDELAY 				16		// 1 second extra delay on use (Can be used once every 2s)
+#define USEDELAY 				16		// 1 second extra delay on use (Can be used once every 2s)
 #define NOSHIELD				32		// weapon not affected by shield
 #define CONDUCT					64		// conducts electricity (metal etc.)
 #define ABSTRACT				128		// for all things that are technically items but used for various different stuff, made it 128 because it could conflict with other flags other way
@@ -216,7 +216,6 @@ var/MAX_EX_FLASH_RANGE = 14
 #define HEADBANGPROTECT			4096
 #define EARBANGPROTECT			1024
 
-#define THICKMATERIAL 	1024			//prevents syringes, parapens and hypos if the external suit or helmet (if targeting head) has this flag. Example: space suits, biosuit, bombsuits, thick suits that cover your body. (NOTE: flag shared with NOSLIP)
 #define NOSLIP					1024 	//prevents from slipping on wet floors, in space etc
 
 #define OPENCONTAINER			4096	// is an open container for chemistry purposes
@@ -342,18 +341,18 @@ var/MAX_EX_FLASH_RANGE = 14
 ///////////////////////////////////////
 
 // Generic mutations:
-#define	TK			1
-#define RESIST_COLD	2
-#define XRAY			3
-#define HULK			4
-#define CLUMSY			5
-#define FAT				6
-#define HUSK			7
-#define NOCLONE			8
+#define	M_TK			1
+#define M_RESIST_COLD	2
+#define M_XRAY			3
+#define M_HULK			4
+#define M_CLUMSY			5
+#define M_FAT				6
+#define M_HUSK			7
+#define M_NOCLONE			8
 
 
 // Extra powers:
-#define LASER			9 	// harm intent - click anywhere to shoot lasers from eyes
+#define M_LASER			9 	// harm intent - click anywhere to shoot lasers from eyes
 //#define HEAL			10 	// (Not implemented) healing people with hands
 //#define SHADOW		11 	// (Not implemented) shadow teleportation (create in/out portals anywhere) (25%)
 //#define SCREAM		12 	// (Not implemented) supersonic screaming (25%)
@@ -385,32 +384,32 @@ var/MAX_EX_FLASH_RANGE = 14
 #define PLANT 30
 
 // Other Mutations:
-#define NO_BREATH		100 	// no need to breathe
-#define REMOTE_VIEW	101 	// remote viewing
-#define REGEN			102 	// health regen
-#define RUN			103 	// no slowdown
-#define REMOTE_TALK	104 	// remote talking
-#define MORPH			105 	// changing appearance
-#define RESIST_HEAT	106 	// heat resistance
-#define HALLUCINATE	107 	// hallucinations
-#define FINGERPRINTS	108 	// no fingerprints
-#define NO_SHOCK		109 	// insulated hands
-#define DWARF			110 	// table climbing
+#define M_NO_BREATH		100 	// no need to breathe
+#define M_REMOTE_VIEW	101 	// remote viewing
+#define M_REGEN			102 	// health regen
+#define M_RUN			103 	// no slowdown
+#define M_REMOTE_TALK	104 	// remote talking
+#define M_MORPH			105 	// changing appearance
+#define M_RESIST_HEAT	106 	// heat resistance
+#define M_HALLUCINATE	107 	// hallucinations
+#define M_FINGERPRINTS	108 	// no fingerprints
+#define M_NO_SHOCK		109 	// insulated hands
+#define M_DWARF			110 	// table climbing
 
 // Goon muts
-#define OBESITY       200		// Decreased metabolism
-#define TOXIC_FARTS   201		// Duh
-#define STRONG        202		// (Nothing)
-#define SOBER         203		// Increased alcohol metabolism
-#define PSY_RESIST    204		// Block remoteview
-#define SUPER_FART    205		// Duh
-#define EMPATH		206		//Read minds
-#define COMIC			207		//Comic Sans
+#define M_OBESITY       200		// Decreased metabolism
+#define M_TOXIC_FARTS   201		// Duh
+#define M_STRONG        202		// (Nothing)
+#define M_SOBER         203		// Increased alcohol metabolism
+#define M_PSY_RESIST    204		// Block remoteview
+#define M_SUPER_FART    205		// Duh
+#define M_EMPATH		206		//Read minds
+#define M_COMIC			207		//Comic Sans
 
 // /vg/ muts
-#define LOUD		208		// CAUSES INTENSE YELLING
-//#define WHISPER	209		// causes quiet whispering
-#define DIZZY		210		// Trippy.
+#define M_LOUD		208		// CAUSES INTENSE YELLING
+//#define M_WHISPER	209		// causes quiet whispering
+#define M_DIZZY		210		// Trippy.
 
 //disabilities
 #define NEARSIGHTED		1
@@ -799,8 +798,8 @@ var/list/be_special_flags = list(
 //feel free to add shit to lists below
 var/list/tachycardics = list("coffee", "inaprovaline", "hyperzine", "nitroglycerin", "thirteenloko", "nicotine")	//increase heart rate
 var/list/bradycardics = list("neurotoxin", "cryoxadone", "clonexadone", "space_drugs", "stoxin")					//decrease heart rate
-var/list/heartstopper = list("zombie_powder") //this stops the heart
-var/list/cheartstopper = list() //this stops the heart when overdose is met -- c = conditional
+var/list/heartstopper = list("potassium_phorochloride", "zombie_powder") //this stops the heart
+var/list/cheartstopper = list("potassium_chloride") //this stops the heart when overdose is met -- c = conditional
 
 //proc/get_pulse methods
 #define GETPULSE_HAND	0	//less accurate (hand)
@@ -967,12 +966,3 @@ var/list/hit_appends = list("-OOF", "-ACK", "-UGH", "-HRNK", "-HURGH", "-GLORF")
 #define STATUS_UPDATE 1 // ORANGE Visability
 #define STATUS_DISABLED 0 // RED Visability
 #define STATUS_CLOSE -1 // Close the interface
-
-//Click cooldowns, in tenths of a second
-#define CLICK_CD_MELEE 8
-#define CLICK_CD_RANGE 4
-#define CLICK_CD_BREAKOUT 100
-#define CLICK_CD_HANDCUFFED 10
-#define CLICK_CD_TKSTRANGLE 10
-#define CLICK_CD_POINT 10
-#define CLICK_CD_RESIST 20

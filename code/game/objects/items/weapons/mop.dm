@@ -49,7 +49,7 @@
 			user << "<span class='notice'>You have finished mopping!</span>"
 
 
-/obj/effect/attackby(obj/item/I, mob/user, params)
+/obj/effect/attackby(obj/item/I, mob/user)
 	if(istype(I, /obj/item/weapon/mop) || istype(I, /obj/item/weapon/soap))
 		return
 	..()

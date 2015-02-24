@@ -48,7 +48,7 @@
 		else
 			icon_state = "scrubber:0"
 
-	attackby(var/obj/item/weapon/W as obj, var/mob/user as mob, params)
+	attackby(var/obj/item/weapon/W as obj, var/mob/user as mob)
 		if(istype(W, /obj/item/weapon/wrench))
 			if(on)
 				user << "\blue Turn it off first!"
@@ -65,7 +65,7 @@
 /obj/machinery/portable_atmospherics/scrubber/huge/stationary
 	name = "Stationary Air Scrubber"
 
-	attackby(var/obj/item/weapon/W as obj, var/mob/user as mob, params)
+	attackby(var/obj/item/weapon/W as obj, var/mob/user as mob)
 		if(istype(W, /obj/item/weapon/wrench))
 			user << "\blue The bolts are too tight for you to unscrew!"
 			return

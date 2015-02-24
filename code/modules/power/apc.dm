@@ -365,7 +365,7 @@
 
 
 //attack with an item - open/close cover, insert cell, or (un)lock interface
-/obj/machinery/power/apc/attackby(obj/item/W, mob/living/user, params)
+/obj/machinery/power/apc/attackby(obj/item/W, mob/user)
 
 	if (istype(user, /mob/living/silicon) && get_dist(src,user)>1)
 		return src.attack_hand(user)
@@ -577,7 +577,6 @@
 				(istype(W, /obj/item/device/multitool) || \
 				istype(W, /obj/item/weapon/wirecutters) || istype(W, /obj/item/device/assembly/signaler)))
 				return src.attack_hand(user)
-			user.do_attack_animation(src)
 			user.visible_message("\red The [src.name] has been hit with the [W.name] by [user.name]!", \
 				"\red You hit the [src.name] with your [W.name]!", \
 				"You hear bang")
@@ -672,8 +671,6 @@
 		return
 	if(indestructible)
 		return
-	user.changeNext_move(CLICK_CD_MELEE)
-	user.do_attack_animation(src)
 	user.visible_message("\red [user.name] slashes at the [src.name]!", "\blue You slash at the [src.name]!")
 	playsound(src.loc, 'sound/weapons/slash.ogg', 100, 1)
 

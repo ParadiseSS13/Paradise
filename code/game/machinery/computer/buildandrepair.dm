@@ -233,7 +233,7 @@
 	board_type = "honkcomputer"
 
 
-/obj/item/weapon/circuitboard/supplycomp/attackby(obj/item/I as obj, mob/user as mob, params)
+/obj/item/weapon/circuitboard/supplycomp/attackby(obj/item/I as obj, mob/user as mob)
 	if(istype(I,/obj/item/device/multitool))
 		var/catastasis = src.contraband_enabled
 		var/opposite_catastasis
@@ -255,7 +255,7 @@
 				user << "DERP! BUG! Report this (And what you were doing to cause it) to Agouri"
 	return
 
-/obj/item/weapon/circuitboard/rdconsole/attackby(obj/item/I as obj, mob/user as mob, params)
+/obj/item/weapon/circuitboard/rdconsole/attackby(obj/item/I as obj, mob/user as mob)
 	if(istype(I,/obj/item/weapon/screwdriver))
 		user.visible_message("\blue \the [user] adjusts the jumper on the [src]'s access protocol pins.", "\blue You adjust the jumper on the access protocol pins.")
 		if(src.build_path == "/obj/machinery/computer/rdconsole/core")
@@ -268,7 +268,7 @@
 			user << "\blue Access protocols set to default."
 	return
 
-/obj/structure/computerframe/attackby(obj/item/P as obj, mob/user as mob, params)
+/obj/structure/computerframe/attackby(obj/item/P as obj, mob/user as mob)
 	switch(state)
 		if(0)
 			if(istype(P, /obj/item/weapon/wrench))
@@ -379,7 +379,7 @@
 	name = "Bananium Computer-frame"
 	icon = 'icons/obj/machines/HONKputer.dmi'
 
-/obj/structure/computerframe/HONKputer/attackby(obj/item/P as obj, mob/user as mob, params)
+/obj/structure/computerframe/HONKputer/attackby(obj/item/P as obj, mob/user as mob)
 	switch(state)
 		if(0)
 			if(istype(P, /obj/item/weapon/wrench))

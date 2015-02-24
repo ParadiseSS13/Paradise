@@ -68,15 +68,8 @@
 		src.connected = sleepernew
 		return
 	return
-	
-/obj/machinery/sleeper/attack_animal(var/mob/living/simple_animal/M)//Stop putting hostile mobs in things guise
-	if(M.environment_smash)
-		M.do_attack_animation(src)
-		visible_message("<span class='danger'>[M.name] smashes [src] apart!</span>")
-		qdel(src)
-	return
 
-/obj/machinery/sleep_console/attackby(var/obj/item/weapon/G as obj, var/mob/user as mob, params)
+/obj/machinery/sleep_console/attackby(var/obj/item/weapon/G as obj, var/mob/user as mob)
 	if (istype(G, /obj/item/weapon/screwdriver))
 		default_deconstruction_screwdriver(user, "console-p", "console", G)
 		return
@@ -292,7 +285,7 @@
 	return
 
 
-/obj/machinery/sleeper/attackby(var/obj/item/weapon/G as obj, var/mob/user as mob, params)
+/obj/machinery/sleeper/attackby(var/obj/item/weapon/G as obj, var/mob/user as mob)
 	if(istype(G, /obj/item/weapon/reagent_containers/glass))
 		if(!beaker)
 			beaker = G

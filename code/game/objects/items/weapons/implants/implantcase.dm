@@ -21,7 +21,7 @@
 		return
 
 
-	attackby(obj/item/weapon/I as obj, mob/user as mob, params)
+	attackby(obj/item/weapon/I as obj, mob/user as mob)
 		..()
 		if (istype(I, /obj/item/weapon/pen))
 			var/t = input(user, "What would you like the label to be?", text("[]", src.name), null)  as text

@@ -13,7 +13,7 @@
 	var/d_state = 0
 
 /turf/simulated/wall/r_wall/attack_hand(mob/user as mob)
-	if (HULK in user.mutations)
+	if (M_HULK in user.mutations)
 		if (prob(10) || rotting)
 			usr << text("\blue You smash through the wall.")
 			usr.say(pick(";RAAAAAAAARGH!", ";HNNNNNNNNNGGGGGGH!", ";GWAAAAAAAARRRHHH!", "NNNNNNNNGGGGGGGGHH!", ";AAAAAAARRRGH!" ))
@@ -33,7 +33,7 @@
 	return
 
 
-/turf/simulated/wall/r_wall/attackby(obj/item/W as obj, mob/user as mob, params)
+/turf/simulated/wall/r_wall/attackby(obj/item/W as obj, mob/user as mob)
 
 	if (!(istype(user, /mob/living/carbon/human) || ticker) && ticker.mode.name != "monkey")
 		user << "<span class='warning'>You don't have the dexterity to do this!</span>"

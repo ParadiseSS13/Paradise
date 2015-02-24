@@ -102,7 +102,7 @@
 			sleep(15)
 		updateUsrDialog()
 
-/obj/machinery/photocopier/attackby(obj/item/O as obj, mob/user as mob, params)
+/obj/machinery/photocopier/attackby(obj/item/O as obj, mob/user as mob)
 	if(istype(O, /obj/item/weapon/paper) || istype(O, /obj/item/weapon/photo) || istype(O, /obj/item/weapon/paper_bundle))
 		if(!copyitem)
 			user.drop_item()

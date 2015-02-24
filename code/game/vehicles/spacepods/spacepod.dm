@@ -158,7 +158,7 @@
 			if(prob(40))
 				deal_damage(50)
 
-/obj/spacepod/attackby(obj/item/W as obj, mob/user as mob, params)
+/obj/spacepod/attackby(obj/item/W as obj, mob/user as mob)
 	if(iscrowbar(W))
 		hatch_open = !hatch_open
 		playsound(loc, 'sound/items/Crowbar.ogg', 50, 1)

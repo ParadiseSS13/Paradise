@@ -90,7 +90,7 @@
 	icon_state = "construct"
 	desc = "A wicked machine used by those skilled in magical arts. It is inactive"
 
-/obj/structure/constructshell/attackby(obj/item/O as obj, mob/user as mob, params)
+/obj/structure/constructshell/attackby(obj/item/O as obj, mob/user as mob)
 	if(istype(O, /obj/item/device/soulstone))
 		O.transfer_soul("CONSTRUCT",src,user)
 

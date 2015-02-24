@@ -14,19 +14,18 @@
 	possible_transfer_amounts = list(1,2,3,4,5,10,15,20,25,30)
 	flags = OPENCONTAINER
 	slot_flags = SLOT_BELT
-	var/ignore_flags = 0
 
 /obj/item/weapon/reagent_containers/hypospray/attack_paw(mob/user as mob)
 	return src.attack_hand(user)
 
 
-/obj/item/weapon/reagent_containers/hypospray/attack(mob/living/M, mob/user)
+/obj/item/weapon/reagent_containers/hypospray/attack(mob/M as mob, mob/user as mob)
 	if(!reagents.total_volume)
 		user << "\red [src] is empty."
 		return
-	if(!istype(M))
+	if (!( istype(M, /mob) ))
 		return
-	if(reagents.total_volume && (ignore_flags || M.can_inject(user, 1)))
+	if (reagents.total_volume)
 		user << "\blue You inject [M] with [src]."
 		M << "\red You feel a tiny prick!"
 
@@ -62,7 +61,6 @@
 	possible_transfer_amounts = list(10)
 	icon_state = "combat_hypo"
 	volume = 60
-	ignore_flags = 1 // So they can heal their comrades.
 
 /obj/item/weapon/reagent_containers/hypospray/combat/New()
 	..()
@@ -85,7 +83,6 @@
 	amount_per_transfer_from_this = 10
 	possible_transfer_amounts = list(10)
 	volume = 10
-	ignore_flags = 1 //so you can medipen through hardsuits
 	flags = null
 
 /obj/item/weapon/reagent_containers/hypospray/autoinjector/New()

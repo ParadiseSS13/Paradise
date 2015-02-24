@@ -40,7 +40,7 @@
 	density = 0
 
 
-	attackby(W as obj, mob/user as mob, params)
+	attackby(W as obj, mob/user as mob)
 		if (istype(W, /obj/item/weapon/pen))
 			var/t = input(user, "What would you like the label to be?", text("[]", src.name), null)  as text
 			if (user.get_active_hand() != W)
@@ -127,7 +127,7 @@
 			usr << "\red You can't fold that up anymore.."
 		..()
 
-	attackby(W as obj, mob/user as mob, params)
+	attackby(W as obj, mob/user as mob)
 		if(istype(W, /obj/item/weapon/card/id) || istype(W, /obj/item/device/pda))
 			if(src.allowed(user))
 				src.locked = !src.locked

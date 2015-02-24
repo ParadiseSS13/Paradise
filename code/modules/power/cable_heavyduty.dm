@@ -9,7 +9,7 @@
 	desc = "This cable is tough. It cannot be cut with simple hand tools."
 	layer = 2.39 //Just below pipes, which are at 2.4
 
-/obj/structure/cable/heavyduty/attackby(obj/item/W, mob/user, params)
+/obj/structure/cable/heavyduty/attackby(obj/item/W, mob/user)
 
 	var/turf/T = src.loc
 	if(T.intact)

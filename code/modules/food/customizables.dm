@@ -1,31 +1,31 @@
-/obj/item/weapon/reagent_containers/food/snacks/breadslice/attackby(obj/item/W as obj, mob/user as mob, params)
+/obj/item/weapon/reagent_containers/food/snacks/breadslice/attackby(obj/item/W as obj, mob/user as mob)
 	var/obj/item/weapon/reagent_containers/food/snacks/customizable/sandwich/S = new(get_turf(user))
-	S.attackby(W,user, params)
+	S.attackby(W,user)
 	qdel(src)
 
-/obj/item/weapon/reagent_containers/food/snacks/bun/attackby(obj/item/W as obj, mob/user as mob, params)
+/obj/item/weapon/reagent_containers/food/snacks/bun/attackby(obj/item/W as obj, mob/user as mob)
 	var/obj/item/weapon/reagent_containers/food/snacks/customizable/burger/S = new(get_turf(user))
-	S.attackby(W,user, params)
+	S.attackby(W,user)
 	qdel(src)
 
-/obj/item/weapon/reagent_containers/food/snacks/sliceable/flatdough/attackby(obj/item/W as obj, mob/user as mob, params)
+/obj/item/weapon/reagent_containers/food/snacks/sliceable/flatdough/attackby(obj/item/W as obj, mob/user as mob)
 	if(!istype(W, /obj/item/weapon/kitchenknife)) //Ignore this if object is kitchen knife - make dough slices instead of kitchen knife pizza
 		var/obj/item/weapon/reagent_containers/food/snacks/customizable/pizza/S = new(get_turf(user))
-		S.attackby(W,user, params)
+		S.attackby(W,user)
 		qdel(src)
 	else //It's a kitchen knife.  Go do the parent proc (slicing)
 		..()
 
 
-/obj/item/weapon/reagent_containers/food/snacks/boiledspagetti/attackby(obj/item/W as obj, mob/user as mob, params)
+/obj/item/weapon/reagent_containers/food/snacks/boiledspagetti/attackby(obj/item/W as obj, mob/user as mob)
 	var/obj/item/weapon/reagent_containers/food/snacks/customizable/pasta/S = new(get_turf(user))
-	S.attackby(W,user, params)
+	S.attackby(W,user)
 	qdel(src)
 
 
-/obj/item/trash/plate/attackby(obj/item/W as obj, mob/user as mob, params)
+/obj/item/trash/plate/attackby(obj/item/W as obj, mob/user as mob)
 	var/obj/item/weapon/reagent_containers/food/snacks/customizable/fullycustom/S = new(get_turf(user))
-	S.attackby(W,user, params)
+	S.attackby(W,user)
 	qdel(src)
 
 /obj/item/trash/bowl
@@ -34,11 +34,11 @@
 	icon = 'icons/obj/food.dmi'
 	icon_state = "soup"
 
-/obj/item/trash/bowl/attackby(obj/item/W as obj, mob/user as mob, params)
+/obj/item/trash/bowl/attackby(obj/item/W as obj, mob/user as mob)
 
 	if(istype(W,/obj/item/))
 		var/obj/item/weapon/reagent_containers/food/snacks/customizable/soup/S = new(get_turf(user))
-		S.attackby(W,user, params)
+		S.attackby(W,user)
 		qdel(src)
 	..()
 
@@ -311,7 +311,7 @@
 	basename = "burger"
 	toptype = new /obj/item/weapon/reagent_containers/food/snacks/bun()
 
-/obj/item/weapon/reagent_containers/food/snacks/customizable/attackby(obj/item/I, mob/user, params)
+/obj/item/weapon/reagent_containers/food/snacks/customizable/attackby(obj/item/I, mob/user)
 	if(src.contents.len > sandwich_limit)
 		user << "<span class='warning'>If you put anything else in or on [src] it's going to make a mess.</span>"
 		return

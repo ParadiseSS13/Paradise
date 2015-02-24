@@ -119,7 +119,7 @@ var/global/sent_honksquad = 0
 	equip_to_slot_or_del(new /obj/item/toy/crayon/rainbow(src), slot_in_backpack)
 	equip_to_slot_or_del(new /obj/item/weapon/gun/energy/clown(src), slot_in_backpack)
 	equip_to_slot_or_del(new /obj/item/weapon/reagent_containers/spray/waterflower(src), slot_in_backpack)
-	src.mutations.Add(CLUMSY)
+	src.mutations.Add(M_CLUMSY)
 
 
 

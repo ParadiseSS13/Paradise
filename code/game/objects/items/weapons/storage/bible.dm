@@ -66,7 +66,7 @@
 		user.take_organ_damage(0,10)
 		return
 
-	if ((CLUMSY in user.mutations) && prob(50))
+	if ((M_CLUMSY in user.mutations) && prob(50))
 		user << "\red The [src] slips out of your hand and hits your head."
 		user.take_organ_damage(10)
 		user.Paralyse(20)
@@ -115,6 +115,6 @@
 			A.reagents.del_reagent("water")
 			A.reagents.add_reagent("holywater",water2holy)
 
-/obj/item/weapon/storage/bible/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
+/obj/item/weapon/storage/bible/attackby(obj/item/weapon/W as obj, mob/user as mob)
 	playsound(src.loc, "rustle", 50, 1, -5)
 	..()

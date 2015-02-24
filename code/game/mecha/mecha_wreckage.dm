@@ -30,7 +30,7 @@
 	return
 
 
-/obj/effect/decal/mecha_wreckage/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
+/obj/effect/decal/mecha_wreckage/attackby(obj/item/weapon/W as obj, mob/user as mob)
 	if(istype(W, /obj/item/weapon/weldingtool))
 		var/obj/item/weapon/weldingtool/WT = W
 		if(salvage_num <= 0)

@@ -29,7 +29,7 @@
 	R.my_atom = src
 
 
-/obj/machinery/icemachine/attackby(obj/item/I, mob/user, params)
+/obj/machinery/icemachine/attackby(obj/item/I, mob/user)
 	if(istype(I, /obj/item/weapon/reagent_containers/glass))
 		if(beaker)
 			user << "<span class='notice'>A container is already inside [src].</span>"

@@ -26,7 +26,7 @@
 		return 0
 	return 1
 
-/obj/machinery/metaldetector/attackby(obj/item/W as obj, mob/user as mob, params)
+/obj/machinery/metaldetector/attackby(obj/item/W as obj, mob/user as mob)
 	if(istype(W, /obj/item/weapon/card))
 		for(var/ID in list(user.equipped(), user:wear_id, user:belt))
 			if(src.check_access(ID,list("20")))

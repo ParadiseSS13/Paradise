@@ -233,7 +233,7 @@
 	return
 
 //Mobs with objects
-/mob/living/simple_animal/parrot/attackby(var/obj/item/O as obj, var/mob/user as mob, params)
+/mob/living/simple_animal/parrot/attackby(var/obj/item/O as obj, var/mob/user as mob)
 	..()
 	if(!stat && !client && !istype(O, /obj/item/stack/medical))
 		if(O.force)

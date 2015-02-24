@@ -137,7 +137,7 @@
 		user.visible_message("[usr] draws back the string of [src]!","You continue drawing back the string of [src]!")
 		spawn(25) increase_tension(user)
 
-/obj/item/weapon/gun/launcher/crossbow/attackby(obj/item/W as obj, mob/user as mob, params)
+/obj/item/weapon/gun/launcher/crossbow/attackby(obj/item/W as obj, mob/user as mob)
 	if(!in_chamber)
 		if (istype(W,/obj/item/weapon/arrow))
 			user.drop_item()
@@ -195,7 +195,7 @@
 /obj/item/weapon/gun/launcher/crossbow/french
 	name = "french powered crossbow"
 
-/obj/item/weapon/gun/launcher/crossbow/french/attackby(obj/item/W as obj, mob/user as mob, params)
+/obj/item/weapon/gun/launcher/crossbow/french/attackby(obj/item/W as obj, mob/user as mob)
 	if(!in_chamber)
 		if (istype(W,/obj/item/weapon/reagent_containers/food/snacks/baguette))
 			user.drop_item()
@@ -255,7 +255,7 @@
 		if(4) usr << "It has a steel backbone, plastic lath and a cell mount installed."
 		if(5) usr << "It has a steel cable loosely strung across the lath."
 
-/obj/item/weapon/crossbowframe/attackby(obj/item/W as obj, mob/user as mob, params)
+/obj/item/weapon/crossbowframe/attackby(obj/item/W as obj, mob/user as mob)
 	if(istype(W,/obj/item/stack/rods))
 		if(buildstate == 0)
 			var/obj/item/stack/rods/R = W

@@ -21,7 +21,7 @@
 	if(!owned_scanner)
 		owned_scanner = locate(/obj/machinery/artifact_scanpad) in orange(1, src)
 
-/obj/machinery/artifact_harvester/attackby(var/obj/I as obj, var/mob/user as mob, params)
+/obj/machinery/artifact_harvester/attackby(var/obj/I as obj, var/mob/user as mob)
 	if(istype(I,/obj/item/weapon/anobattery))
 		if(!inserted_battery)
 			user << "\blue You insert [I] into [src]."

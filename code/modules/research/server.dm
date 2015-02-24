@@ -118,7 +118,7 @@
 
 				env.merge(removed)
 
-/obj/machinery/r_n_d/server/attackby(var/obj/item/O as obj, var/mob/user as mob, params)
+/obj/machinery/r_n_d/server/attackby(var/obj/item/O as obj, var/mob/user as mob)
 	if (disabled)
 		return
 		

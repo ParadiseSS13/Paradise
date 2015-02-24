@@ -8,7 +8,7 @@
 	throw_speed = 2
 	throw_range = 10
 	force = 5.0
-	flags = CONDUCT
+	flags = CONDUCT | USEDELAY
 	origin_tech = "combat=8;materials=5"
 	projectile = /obj/item/missile
 	var/missile_speed = 2
@@ -22,7 +22,7 @@
 	if (!(usr in view(2)) && usr!=src.loc) return
 	usr << "\blue [rockets.len] / [max_rockets] rockets."
 
-/obj/item/weapon/gun/rocketlauncher/attackby(obj/item/I as obj, mob/user as mob, params)
+/obj/item/weapon/gun/rocketlauncher/attackby(obj/item/I as obj, mob/user as mob)
 	if(istype(I, /obj/item/ammo_casing/rocket))
 		if(rockets.len < max_rockets)
 			user.drop_item()

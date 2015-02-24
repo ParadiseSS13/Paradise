@@ -4,7 +4,7 @@ obj/item/weapon/firework
 	icon_state = "rocket_0"
 	var/litzor = 0
 	var/datum/effects/system/sparkel_spread/S
-obj/item/weapon/firework/attackby(obj/item/weapon/W,mob/user, params)
+obj/item/weapon/firework/attackby(obj/item/weapon/W,mob/user)
 	if(litzor)
 		return
 	if (istype(W, /obj/item/weapon/weldingtool) && W:welding || istype(W,/obj/item/weapon/lighter) && W:lit)
@@ -26,7 +26,7 @@ obj/item/weapon/sparkler
 	icon_state = "sparkler_0"
 	var/litzor = 0
 	var/datum/effect/effect/system/spark_spread/S
-obj/item/weapon/sparkler/attackby(obj/item/weapon/W,mob/user, params)
+obj/item/weapon/sparkler/attackby(obj/item/weapon/W,mob/user)
 	if(litzor)
 		return
 	if (istype(W, /obj/item/weapon/weldingtool) && W:welding || istype(W,/obj/item/weapon/lighter) && W:lit)

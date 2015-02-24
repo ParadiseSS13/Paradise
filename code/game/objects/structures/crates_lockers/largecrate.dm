@@ -9,7 +9,7 @@
 	user << "<span class='notice'>You need a crowbar to pry this open!</span>"
 	return
 
-/obj/structure/largecrate/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
+/obj/structure/largecrate/attackby(obj/item/weapon/W as obj, mob/user as mob)
 	if(istype(W, /obj/item/weapon/crowbar))
 		new /obj/item/stack/sheet/wood(src)
 		var/turf/T = get_turf(src)
@@ -37,7 +37,7 @@
 	name = "cow crate"
 	icon_state = "lisacrate"
 
-/obj/structure/largecrate/cow/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
+/obj/structure/largecrate/cow/attackby(obj/item/weapon/W as obj, mob/user as mob)
 	if(istype(W, /obj/item/weapon/crowbar))
 		new /mob/living/simple_animal/cow(loc)
 	..()
@@ -46,7 +46,7 @@
 	name = "goat crate"
 	icon_state = "lisacrate"
 
-/obj/structure/largecrate/goat/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
+/obj/structure/largecrate/goat/attackby(obj/item/weapon/W as obj, mob/user as mob)
 	if(istype(W, /obj/item/weapon/crowbar))
 		new /mob/living/simple_animal/hostile/retaliate/goat(loc)
 	..()
@@ -55,7 +55,7 @@
 	name = "chicken crate"
 	icon_state = "lisacrate"
 
-/obj/structure/largecrate/chick/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
+/obj/structure/largecrate/chick/attackby(obj/item/weapon/W as obj, mob/user as mob)
 	if(istype(W, /obj/item/weapon/crowbar))
 		var/num = rand(4, 6)
 		for(var/i = 0, i < num, i++)
@@ -66,7 +66,7 @@
 	name = "Mysterious Crate"
 	icon_state = "lisacrate"
 
-/obj/structure/largecrate/ninja/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
+/obj/structure/largecrate/ninja/attackby(obj/item/weapon/W as obj, mob/user as mob)
 	if(istype(W, /obj/item/weapon/crowbar))
 		new /obj/item/clothing/gloves/space_ninja(loc)
 		new /obj/item/clothing/mask/gas/voice/space_ninja(loc)
@@ -80,7 +80,7 @@
 	name = "cat crate"
 	icon_state = "lisacrate"
 
-/obj/structure/largecrate/cat/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
+/obj/structure/largecrate/cat/attackby(obj/item/weapon/W as obj, mob/user as mob)
 	if(istype(W, /obj/item/weapon/crowbar))
 		new /mob/living/simple_animal/cat(loc)
 	..()

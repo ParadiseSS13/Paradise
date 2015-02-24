@@ -107,7 +107,7 @@
 	return
 
 
-/obj/machinery/power/smes/attackby(obj/item/I, mob/user, params)
+/obj/machinery/power/smes/attackby(obj/item/I, mob/user)
 	//opening using screwdriver
 	if(default_deconstruction_screwdriver(user, "[initial(icon_state)]-o", initial(icon_state), I))
 		update_icon()

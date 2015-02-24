@@ -37,7 +37,7 @@ RCD
 		return
 
 
-	attackby(obj/item/weapon/W, mob/user, params)
+	attackby(obj/item/weapon/W, mob/user)
 		..()
 		if(istype(W, /obj/item/weapon/rcd_ammo))
 			var/obj/item/weapon/rcd_ammo/R = W

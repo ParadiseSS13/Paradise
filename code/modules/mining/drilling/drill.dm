@@ -140,7 +140,7 @@
 /obj/machinery/mining/drill/attack_ai(var/mob/user as mob)
 	return src.attack_hand(user)
 
-/obj/machinery/mining/drill/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
+/obj/machinery/mining/drill/attackby(obj/item/weapon/W as obj, mob/user as mob)
 	if(istype(W,/obj/item/weapon/screwdriver))
 		if(active) return
 		open = !open
@@ -323,7 +323,7 @@
 	icon_state = "mining_brace"
 	var/obj/machinery/mining/drill/connected
 
-/obj/machinery/mining/brace/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
+/obj/machinery/mining/brace/attackby(obj/item/weapon/W as obj, mob/user as mob)
 	if(istype(W,/obj/item/weapon/wrench))
 
 		if(istype(get_turf(src),/turf/space))

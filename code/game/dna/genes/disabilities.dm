@@ -55,7 +55,7 @@
 	name="Hallucinate"
 	activation_message="Your mind says 'Hello'."
 	deactivation_message ="Sanity returns. Or does it?"
-	mutation=HALLUCINATE
+	mutation=M_HALLUCINATE
 
 	New()
 		block=HALLUCINATIONBLOCK
@@ -82,7 +82,7 @@
 	name="Clumsiness"
 	activation_message="You feel lightheaded."
 	deactivation_message ="You regain some control of your movements"
-	mutation=CLUMSY
+	mutation=M_CLUMSY
 
 	New()
 		block=CLUMSYBLOCK
@@ -155,7 +155,7 @@
 	desc = "This will only bring death and destruction."
 	activation_message = "<span class='sans'>Uh oh!</span>"
 	deactivation_message = "Well thank god that's over with."
-	mutation=COMIC
+	mutation=M_COMIC
 
 	New()
 		block = COMICBLOCK

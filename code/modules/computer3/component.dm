@@ -24,7 +24,7 @@
 
 	// If the computer is attacked by an item it will reference this to decide which peripheral(s) are affected.
 	var/list/attackby_types	= list()
-	proc/allow_attackby(var/obj/item/I as obj,var/mob/user as mob, params)
+	proc/allow_attackby(var/obj/item/I as obj,var/mob/user as mob)
 
 		for(var/typekey in attackby_types)
 			if(istype(I,typekey))
@@ -60,7 +60,7 @@
 			return
 		..()
 
-	attackby(obj/I as obj,mob/user as mob, params)
+	attackby(obj/I as obj,mob/user as mob)
 		if(computer && !computer.stat)
 			if(istype(I, /obj/item/device/aicard))
 				I:transfer_ai("AIFIXER","AICARD",src,user)
@@ -94,7 +94,7 @@
 			usr << "You are unable to insert \the card, as the reader slot is occupied"	
 			return 0
 
-	attackby(var/obj/item/I as obj, var/mob/user as mob, params)
+	attackby(var/obj/item/I as obj, var/mob/user as mob)
 		if(istype(I,/obj/item/weapon/card))
 			insert(I)
 			return

@@ -112,15 +112,15 @@
 	proc/handle_mutations_and_radiation()
 
 		if(getFireLoss())
-			if((RESIST_HEAT in mutations) || prob(50))
+			if((M_RESIST_HEAT in mutations) || prob(50))
 				switch(getFireLoss())
 					if(1 to 50)
 						adjustFireLoss(-1)
 					if(51 to 100)
 						adjustFireLoss(-5)
 
-		if ((HULK in mutations) && health <= 25)
-			mutations.Remove(HULK)
+		if ((M_HULK in mutations) && health <= 25)
+			mutations.Remove(M_HULK)
 			src << "\red You suddenly feel very weak."
 			Weaken(3)
 			emote("collapse")
@@ -421,7 +421,7 @@
 			if(HAZARD_LOW_PRESSURE to WARNING_LOW_PRESSURE)
 				pressure_alert = -1
 			else
-				if( !(RESIST_COLD in mutations) )
+				if( !(M_RESIST_COLD in mutations) )
 					adjustBruteLoss( LOW_PRESSURE_DAMAGE )
 					pressure_alert = -2
 				else
@@ -561,7 +561,7 @@
 
 	proc/handle_regular_hud_updates()
 
-		if (stat == 2 || (XRAY in mutations))
+		if (stat == 2 || (M_XRAY in mutations))
 			sight |= SEE_TURFS
 			sight |= SEE_MOBS
 			sight |= SEE_OBJS

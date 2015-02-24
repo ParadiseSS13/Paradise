@@ -114,7 +114,7 @@
 
 	return 1
 
-/obj/machinery/atmospherics/trinary/mixer/attackby(var/obj/item/weapon/W as obj, var/mob/user as mob, params)
+/obj/machinery/atmospherics/trinary/mixer/attackby(var/obj/item/weapon/W as obj, var/mob/user as mob)
 	if (!istype(W, /obj/item/weapon/wrench))
 		return ..()
 	var/datum/gas_mixture/int_air = return_air()

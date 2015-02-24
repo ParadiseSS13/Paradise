@@ -48,7 +48,7 @@ obj/structure/sign/poster/New(var/serial)
 	icon_state = design.icon_state // poster[serial_number]
 	..()
 
-obj/structure/sign/poster/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
+obj/structure/sign/poster/attackby(obj/item/weapon/W as obj, mob/user as mob)
 	if(istype(W, /obj/item/weapon/wirecutters))
 		playsound(loc, 'sound/items/Wirecutter.ogg', 100, 1)
 		if(ruined)
@@ -89,7 +89,7 @@ obj/structure/sign/poster/attackby(obj/item/weapon/W as obj, mob/user as mob, pa
 	del(src)
 
 
-//seperated to reduce code duplication. Moved here for ease of reference and to unclutter r_wall/attackby(, params)
+//seperated to reduce code duplication. Moved here for ease of reference and to unclutter r_wall/attackby()
 /turf/simulated/wall/proc/place_poster(var/obj/item/weapon/contraband/poster/P, var/mob/user)
 
 	if(!istype(src,/turf/simulated/wall))

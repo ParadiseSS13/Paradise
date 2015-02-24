@@ -119,7 +119,7 @@
 	else
 		return 0
 
-/obj/item/tape/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
+/obj/item/tape/attackby(obj/item/weapon/W as obj, mob/user as mob)
 	breaktape(W, user)
 
 /obj/item/tape/attack_hand(mob/user as mob)
