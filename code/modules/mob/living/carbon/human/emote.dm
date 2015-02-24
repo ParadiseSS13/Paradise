@@ -10,6 +10,8 @@
 		act = copytext(act,1,length(act))
 
 	var/muzzled = is_muzzled()
+	if(sdisabilities & MUTE || silent)
+		muzzled = 1
 	//var/m_type = 1
 
 	for (var/obj/item/weapon/implant/I in src)

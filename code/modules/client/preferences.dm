@@ -1100,7 +1100,7 @@ datum/preferences
 							b_type = new_b_type
 
 					if("hair")
-						if(species == "Human" || species == "Unathi" || species == "Tajaran" || species == "Skrell")
+						if(species == "Human" || species == "Unathi" || species == "Tajaran" || species == "Skrell" || species == "Machine")
 							var/new_hair = input(user, "Choose your character's hair colour:", "Character Preference") as color|null
 							if(new_hair)
 								r_hair = hex2num(copytext(new_hair, 2, 4))

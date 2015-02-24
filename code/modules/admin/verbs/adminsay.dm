@@ -2,20 +2,17 @@
 	set category = "Special Verbs"
 	set name = "Asay" //Gave this shit a shorter name so you only have to time out "asay" rather than "admin say" to use it --NeoFite
 	set hidden = 1
-
 	if(!check_rights(R_ADMIN))	return
 
 	msg = sanitize(copytext(msg, 1, MAX_MESSAGE_LEN))
 	if(!msg)	return
 
 	log_admin("[key_name(src)] : [msg]")
-	var/color = "admin"
+
 	if(check_rights(R_ADMIN,0))
-		color = "adminchat"
-		msg = "<span class='[color]'><span class='prefix'>ADMIN:</span> <EM>[key_name(usr, 1)]</EM> (<a href='?_src_=holder;adminplayerobservejump=\ref[mob]'>JMP</A>): <span class='message'>[msg]</span></span>"
 		for(var/client/C in admins)
 			if(R_ADMIN & C.holder.rights)
-				C << msg
+				C << "<span class='admin_channel'>ADMIN: <span class='name'>[key_name(usr, 1)]</span> (<a href='?_src_=holder;adminplayerobservejump=\ref[mob]'>JMP</A>): <span class='message'>[msg]</span></span>"
 
 	feedback_add_details("admin_verb","M") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
@@ -31,13 +28,11 @@
 
 	if (!msg)
 		return
-	var/color = "mod"
-	if (check_rights(R_ADMIN,0))
-		color = "adminmod"
 
-	var/channel = "MOD:"
-	if(config.mods_are_mentors)
-		channel = "MENTOR:"
+	var/spanclass = "mod_channel"
+	if(check_rights(R_ADMIN, 0))
+		spanclass = "mod_channel_admin"
 	for(var/client/C in admins)
-		if((R_ADMIN|R_MOD) & C.holder.rights)
-			C << "<span class='[color]'><span class='prefix'>[channel]</span> <EM>[key_name(src,1)]</EM> (<A HREF='?src=\ref[C.holder];adminplayerobservejump=\ref[mob]'>JMP</A>): <span class='message'>[msg]</span></span>"
+		C << "<span class='[spanclass]'>MOD: <span class='name'>[key_name(usr, 1)]</span> (<A HREF='?src=\ref[C.holder];adminplayerobservejump=\ref[mob]'>JMP</A>): <span class='message'>[msg]</span></span>"
+
+	feedback_add_details("admin_verb","MS") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!

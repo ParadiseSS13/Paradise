@@ -419,8 +419,8 @@ proc/get_damage_icon_part(damage_state, body_part)
 		if(update_icons)   update_icons()
 		return
 
-	//masks and helmets can obscure our hair.
-	if( (head && (head.flags & BLOCKHAIR)) || (wear_mask && (wear_mask.flags & BLOCKHAIR)))
+	//masks and helmets can obscure our hair, unless we're a synthetic
+	if(!(species.flags & IS_SYNTHETIC) && (head && (head.flags & BLOCKHAIR)) || !(species.flags & IS_SYNTHETIC) && (wear_mask && (wear_mask.flags & BLOCKHAIR)))
 		if(update_icons)   update_icons()
 		return
 
@@ -438,7 +438,7 @@ proc/get_damage_icon_part(damage_state, body_part)
 		else
 			//warning("Invalid f_style for [species.name]: [f_style]")
 
-	if(h_style && !(head && (head.flags & BLOCKHEADHAIR)))
+	if(h_style && !(head && (head.flags & BLOCKHEADHAIR) && !(species.flags & IS_SYNTHETIC)))
 		var/datum/sprite_accessory/hair_style = hair_styles_list[h_style]
 		if(hair_style && hair_style.species_allowed)
 			if(src.species.name in hair_style.species_allowed)

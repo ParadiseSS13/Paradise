@@ -16,8 +16,8 @@
 		if(stat == 2)
 			return say_dead(message)
 		return
-
-	if (istype(src.wear_mask, /obj/item/clothing/mask/muzzle))
+		
+	if (is_muzzled())
 		src << "<span class='danger'>You're muzzled and cannot speak!</span>"
 		return
 

@@ -12,8 +12,14 @@ var/global/image/typing_indicator
 	if(!typing_indicator)
 		typing_indicator = image('icons/mob/talk.dmi',null,"typing")
 
+	if(ishuman(src))
+		var/mob/living/carbon/human/H = src
+		if(H.sdisabilities & MUTE || H.silent)
+			overlays -= typing_indicator
+			return
+		
 	if(client)
-		if((client.prefs.toggles & SHOW_TYPING) || stat != CONSCIOUS)
+		if((client.prefs.toggles & SHOW_TYPING) || stat != CONSCIOUS || is_muzzled())
 			overlays -= typing_indicator
 		else
 			if(state)
