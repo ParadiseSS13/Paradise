@@ -117,6 +117,7 @@ var/list/ai_list = list()
 	add_language("Galactic Common", 1)
 	add_language("Sol Common", 1)
 	add_language("Tradeband", 1)
+	add_language("Gutter", 0)	
 	add_language("Sinta'unathi", 0)
 	add_language("Siik'tajr", 0)
 	add_language("Skrellian", 0)
@@ -125,7 +126,7 @@ var/list/ai_list = list()
 	add_language("Trinary", 1)
 	add_language("Chittin", 0)
 	add_language("Bubblish", 0)
-	add_language("Gutter", 0)		
+	add_language("Clownish", 0)		
 		
 	if(!safety)//Only used by AIize() to successfully spawn an AI.
 		if (!B)//If there is no player/brain inside.
