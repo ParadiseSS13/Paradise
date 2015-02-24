@@ -103,7 +103,7 @@
 		scan_state = "rock_[mineral.name][rand(1,3)]"
 
 	//Not even going to touch this pile of spaghetti
-	attackby(obj/item/weapon/W as obj, mob/user as mob)
+	attackby(obj/item/weapon/W as obj, mob/user as mob, params)
 
 		if (!(istype(usr, /mob/living/carbon/human) || ticker) && ticker.mode.name != "monkey")
 			usr << "\red You don't have the dexterity to do this!"
@@ -420,7 +420,7 @@
 			gets_dug()
 	return
 
-/turf/simulated/floor/plating/airless/asteroid/attackby(obj/item/weapon/W as obj, mob/user as mob)
+/turf/simulated/floor/plating/airless/asteroid/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
 
 	if(!W || !user)
 		return 0

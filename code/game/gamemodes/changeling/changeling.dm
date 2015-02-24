@@ -120,9 +120,9 @@ var/list/possible_changeling_IDs = list("Alpha","Beta","Gamma","Delta","Epsilon"
 			var/datum/objective/escape/escape_with_identity/identity_theft = new
 			identity_theft.owner = changeling
 			identity_theft.target = kill_objective.target
+			identity_theft.target_real_name = kill_objective.target.current.real_name //Whoops, forgot this.
 			if(identity_theft.target && identity_theft.target.current)
-				var/target_real_name = identity_theft.target.current.real_name
-				identity_theft.explanation_text = "Escape on the shuttle or an escape pod with the identity of [target_real_name], the [identity_theft.target.assigned_role] while wearing their identification card."
+				identity_theft.explanation_text = "Escape on the shuttle or an escape pod with the identity of [identity_theft.target_real_name], the [identity_theft.target.assigned_role] while wearing their identification card."
 			else
 				identity_theft.explanation_text = "Free objective"
 			changeling.objectives += identity_theft
@@ -148,7 +148,7 @@ var/list/possible_changeling_IDs = list("Alpha","Beta","Gamma","Delta","Epsilon"
 	if (changeling.current.mind)
 		if (changeling.current.mind.assigned_role == "Clown")
 			changeling.current << "You have evolved beyond your clownish nature, allowing you to wield weapons without harming yourself."
-			changeling.current.mutations.Remove(M_CLUMSY)
+			changeling.current.mutations.Remove(CLUMSY)
 
 	var/obj_count = 1
 	for(var/datum/objective/objective in changeling.objectives)
@@ -294,7 +294,7 @@ var/list/possible_changeling_IDs = list("Alpha","Beta","Gamma","Delta","Epsilon"
 		user << "<span class='warning'>[T] is not compatible with our biology.</span>"
 		return
 
-	if((M_NOCLONE || SKELETON || M_HUSK) in T.mutations)
+	if((NOCLONE || SKELETON || HUSK) in T.mutations)
 		user << "<span class='warning'>DNA of [target] is ruined beyond usability!</span>"
 		return
 

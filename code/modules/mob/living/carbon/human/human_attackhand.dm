@@ -18,6 +18,7 @@
 
 	if((M != src) && check_shields(0, M.name))
 		add_logs(src, M, "attempted to touch")
+		M.do_attack_animation(src)
 		visible_message("\red <B>[M] attempted to touch [src]!</B>")
 		return 0
 
@@ -31,7 +32,7 @@
 			var/datum/organ/external/affecting = get_organ(ran_zone(M.zone_sel.selecting))
 			var/armor_block = run_armor_check(affecting, "melee")
 
-			if(M_HULK in M.mutations)			damage += 5
+			if(HULK in M.mutations)			damage += 5
 
 			playsound(loc, "punch", 25, 1, -1)
 
@@ -120,6 +121,7 @@
 					return
 			//end vampire codes
 
+			M.do_attack_animation(src)
 			add_logs(src, M, "[pick(attack.attack_verb)]ed")
 
 			if(!iscarbon(M))
@@ -137,7 +139,7 @@
 			var/datum/organ/external/affecting = get_organ(ran_zone(M.zone_sel.selecting))
 			var/armor_block = run_armor_check(affecting, "melee")
 
-			if(M_HULK in M.mutations)			damage += 5
+			if(HULK in M.mutations)			damage += 5
 
 
 			playsound(loc, attack.attack_sound, 25, 1, -1)

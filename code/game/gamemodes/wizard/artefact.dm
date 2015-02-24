@@ -174,7 +174,7 @@
 	if(cowsleft <= 0)
 		del src
 
-/obj/effect/rend/cow/attackby(obj/item/I as obj, mob/user as mob)
+/obj/effect/rend/cow/attackby(obj/item/I as obj, mob/user as mob, params)
 	if(istype(I, /obj/item/weapon/nullrod))
 		visible_message("\red <b>[I] strikes a blow against \the [src], banishing it!</b>")
 		spawn(1)

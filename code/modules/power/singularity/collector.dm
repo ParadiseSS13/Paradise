@@ -50,7 +50,7 @@ var/global/list/rad_collectors = list()
 ..()
 
 
-/obj/machinery/power/rad_collector/attackby(obj/item/W, mob/user)
+/obj/machinery/power/rad_collector/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/device/analyzer))
 		user << "\blue The [W.name] detects that [last_power]W were recently produced."
 		return 1

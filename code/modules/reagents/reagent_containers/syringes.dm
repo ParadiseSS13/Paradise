@@ -47,7 +47,7 @@
 	attack_paw()
 		return attack_hand()
 
-	attackby(obj/item/I as obj, mob/user as mob)
+	attackby(obj/item/I as obj, mob/user as mob, params)
 
 		return
 
@@ -55,15 +55,20 @@
 		if(!proximity) return
 		if(!target.reagents) return
 
+		if(isliving(target))
+			var/mob/living/M = target
+			if(!M.can_inject(user, 1))
+				return
+
 		if(mode == SYRINGE_BROKEN)
 			user << "\red This syringe is broken!"
 			return
 
-		if (user.a_intent == "harm" && ismob(target))
-			if((M_CLUMSY in user.mutations) && prob(50))
+/*		if (user.a_intent == "harm" && ismob(target))
+			if((CLUMSY in user.mutations) && prob(50))
 				target = user
 			syringestab(target, user)
-			return
+			return */
 
 
 		switch(mode)
@@ -86,7 +91,7 @@
 						if(!T.dna)
 							usr << "You are unable to locate any blood. (To be specific, your target seems to be missing their DNA datum)"
 							return
-						if(M_NOCLONE in T.mutations) //target done been et, no more blood in him
+						if(NOCLONE in T.mutations) //target done been et, no more blood in him
 							user << "\red You are unable to locate any blood."
 							return
 

@@ -103,6 +103,7 @@
 		return
 	if(indestructible)
 		return
+	user.do_attack_animation(src)
 	status = 0
 	visible_message("<span class='warning'>\The [user] slashes at [src]!</span>")
 	playsound(src.loc, 'sound/weapons/slash.ogg', 100, 1)
@@ -122,7 +123,7 @@
 	src.view_range = num
 	cameranet.updateVisibility(src, 0)
 
-/obj/machinery/camera/attackby(obj/W as obj, mob/living/user as mob)
+/obj/machinery/camera/attackby(obj/W as obj, mob/living/user as mob, params)
 	//invalidateCameraCache()
 	// DECONSTRUCTION
 	if(isscrewdriver(W))

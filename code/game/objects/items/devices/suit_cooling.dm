@@ -121,7 +121,7 @@
 		if (on)
 			user << "You switch on the [src]."
 
-/obj/item/device/suit_cooling_unit/attackby(obj/item/weapon/W as obj, mob/user as mob)
+/obj/item/device/suit_cooling_unit/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
 	if (istype(W, /obj/item/weapon/screwdriver))
 		if(cover_open)
 			cover_open = 0

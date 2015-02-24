@@ -9,7 +9,6 @@
 	var/last_bumped = 0
 	var/pass_flags = 0
 	var/throwpass = 0
-	var/datum/crafting_holder/craft_holder = null
 	var/germ_level = GERM_LEVEL_AMBIENT // The higher the germ level, the more germ on the atom.
 
 	///Chemistry.
@@ -296,7 +295,7 @@ its easier to just keep the beam vertical.
 		add_fibers(M)
 
 		//He has no prints!
-		if (M_FINGERPRINTS in M.mutations)
+		if (FINGERPRINTS in M.mutations)
 			if(fingerprintslast != M.key)
 				fingerprintshidden += "(Has no fingerprints) Real name: [M.real_name], Key: [M.key]"
 				fingerprintslast = M.key

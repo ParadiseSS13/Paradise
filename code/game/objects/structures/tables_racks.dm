@@ -24,7 +24,6 @@
 	var/parts = /obj/item/weapon/table_parts
 	var/flipped = 0
 	var/health = 100
-	var/list/table_contents = list()
 	var/busy = 0
 
 /obj/structure/table/proc/update_adjacent()
@@ -41,8 +40,6 @@
 	update_icon()
 	update_adjacent()
 
-	craft_holder = new /datum/crafting_holder(src, "table")
-
 /obj/structure/table/Destroy()
 	update_adjacent()
 	..()
@@ -51,11 +48,6 @@
 	new parts(loc)
 	density = 0
 	qdel(src)
-
-/obj/structure/table/MouseDrop(atom/over)
-	if(usr.stat || usr.lying || !Adjacent(usr) || (over != usr))
-		return
-	craft_holder.interact(usr)
 
 /obj/structure/table/update_icon()
 	if(flipped)
@@ -286,26 +278,30 @@
 	if(prob(75))
 		destroy()
 
-/obj/structure/table/attack_paw(mob/user)
-	if(M_HULK in user.mutations)
+/obj/structure/table/attack_paw(mob/living/user)
+	if(HULK in user.mutations)
+		user.do_attack_animation(src)
 		user.say(pick(";RAAAAAAAARGH!", ";HNNNNNNNNNGGGGGGH!", ";GWAAAAAAAARRRHHH!", "NNNNNNNNGGGGGGGGHH!", ";AAAAAAARRRGH!" ))
 		visible_message("<span class='danger'>[user] smashes the [src] apart!</span>")
 		destroy()
 
 
-/obj/structure/table/attack_alien(mob/user)
+/obj/structure/table/attack_alien(mob/living/user)
+	user.do_attack_animation(src)
 	visible_message("<span class='danger'>[user] slices [src] apart!</span>")
 	destroy()
 
 /obj/structure/table/attack_animal(mob/living/simple_animal/user)
 	if(user.environment_smash)
+		user.do_attack_animation(src)
 		visible_message("<span class='danger'>[user] smashes [src] apart!</span>")
 		destroy()
 
 
 
-/obj/structure/table/attack_hand(mob/user)
-	if(M_HULK in user.mutations)
+/obj/structure/table/attack_hand(mob/living/user)
+	if(HULK in user.mutations)
+		user.do_attack_animation(src)
 		visible_message("<span class='danger'>[user] smashes [src] apart!</span>")
 		user.say(pick(";RAAAAAAAARGH!", ";HNNNNNNNNNGGGGGGH!", ";GWAAAAAAAARRRHHH!", "NNNNNNNNGGGGGGGGHH!", ";AAAAAAARRRGH!" ))
 		destroy()
@@ -380,7 +376,7 @@
 	return
 
 
-/obj/structure/table/attackby(obj/item/W as obj, mob/user as mob)
+/obj/structure/table/attackby(obj/item/W as obj, mob/user as mob, params)
 	if (istype(W, /obj/item/weapon/grab) && get_dist(src,user)<2)
 		var/obj/item/weapon/grab/G = W
 		if (istype(G.affecting, /mob/living))
@@ -424,6 +420,10 @@
 	if(!(W.flags & ABSTRACT))
 		if(user.drop_item())
 			W.Move(loc)
+			var/list/click_params = params2list(params)
+			//Center the icon where the user clicked.
+			W.pixel_x = (text2num(click_params["icon-x"]) - 16)
+			W.pixel_y = (text2num(click_params["icon-y"]) - 16)
 	return
 
 /obj/structure/table/proc/straight_table_check(var/direction)
@@ -539,7 +539,7 @@
 	health = 50
 	autoignition_temperature = AUTOIGNITION_WOOD // TODO:  Special ash subtype that looks like charred table legs.
 
-/obj/structure/table/woodentable/attackby(obj/item/I as obj, mob/user as mob)
+/obj/structure/table/woodentable/attackby(obj/item/I as obj, mob/user as mob, params)
 
 	if (istype(I, /obj/item/stack/tile/grass))
 		del(I)
@@ -589,6 +589,10 @@
 	if(!(I.flags & ABSTRACT))
 		if(user.drop_item())
 			I.Move(loc)
+			var/list/click_params = params2list(params)
+			//Center the icon where the user clicked.
+			I.pixel_x = (text2num(click_params["icon-x"]) - 16)
+			I.pixel_y = (text2num(click_params["icon-y"]) - 16)
 	//if(W && W.loc)	W.loc = src.loc
 	return 1
 
@@ -598,7 +602,7 @@
 	icon_state = "pokertable"
 
 
-/obj/structure/table/woodentable/poker/attackby(obj/item/weapon/W as obj, mob/user as mob)
+/obj/structure/table/woodentable/poker/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
 
 	if (istype(W, /obj/item/weapon/grab))
 		var/obj/item/weapon/grab/G = W
@@ -643,6 +647,10 @@
 	if(!(W.flags & ABSTRACT))
 		if(user.drop_item())
 			W.Move(loc)
+			var/list/click_params = params2list(params)
+			//Center the icon where the user clicked.
+			W.pixel_x = (text2num(click_params["icon-x"]) - 16)
+			W.pixel_y = (text2num(click_params["icon-y"]) - 16)
 	return 1
 
 
@@ -663,7 +671,7 @@
 	else
 		return ..()
 
-/obj/structure/table/reinforced/attackby(obj/item/weapon/W as obj, mob/user as mob)
+/obj/structure/table/reinforced/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
 	if (istype(W, /obj/item/weapon/weldingtool))
 		var/obj/item/weapon/weldingtool/WT = W
 		if(WT.remove_fuel(0, user))
@@ -750,7 +758,7 @@
 		step(O, get_dir(O, src))
 	return
 
-/obj/structure/rack/attackby(obj/item/weapon/W as obj, mob/user as mob)
+/obj/structure/rack/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
 	if (istype(W, /obj/item/weapon/wrench))
 		new /obj/item/weapon/rack_parts( src.loc )
 		playsound(src.loc, 'sound/items/Ratchet.ogg', 50, 1)
@@ -768,26 +776,29 @@
 
 
 /obj/structure/table/attack_hand(mob/user)
-	if(M_HULK in user.mutations)
+	if(HULK in user.mutations)
 		visible_message("<span class='danger'>[user] smashes [src] apart!</span>")
 		user.say(pick(";RAAAAAAAARGH!", ";HNNNNNNNNNGGGGGGH!", ";GWAAAAAAAARRRHHH!", "NNNNNNNNGGGGGGGGHH!", ";AAAAAAARRRGH!" ))
 		destroy()
 
 
-/obj/structure/rack/attack_paw(mob/user)
-	if(M_HULK in user.mutations)
+/obj/structure/rack/attack_paw(mob/living/user)
+	if(HULK in user.mutations)
+		user.do_attack_animation(src)
 		user.say(pick(";RAAAAAAAARGH!", ";HNNNNNNNNNGGGGGGH!", ";GWAAAAAAAARRRHHH!", "NNNNNNNNGGGGGGGGHH!", ";AAAAAAARRRGH!" ))
 		visible_message("<span class='danger'>[user] smashes [src] apart!</span>")
 		destroy()
 
 
-/obj/structure/rack/attack_alien(mob/user)
+/obj/structure/rack/attack_alien(mob/living/user)
+	user.do_attack_animation(src)
 	visible_message("<span class='danger'>[user] slices [src] apart!</span>")
 	destroy()
 
 
 /obj/structure/rack/attack_animal(mob/living/simple_animal/user)
 	if(user.environment_smash)
+		user.do_attack_animation(src)
 		visible_message("<span class='danger'>[user] smashes [src] apart!</span>")
 		destroy()
 

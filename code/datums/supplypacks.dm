@@ -146,7 +146,7 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 					/obj/item/weapon/grenade/smokebomb,
 					/obj/item/weapon/grenade/smokebomb,
 					/obj/item/weapon/grenade/smokebomb,
-					/obj/item/weapon/pen/paralysis,
+					/obj/item/weapon/pen/sleepy,
 					/obj/item/weapon/grenade/chem_grenade/incendiary)
 	cost = 20
 	containertype = /obj/structure/closet/crate
@@ -1114,7 +1114,7 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 	/obj/item/device/camera_film,
 	/obj/item/device/camera_film,
 	/obj/item/weapon/storage/photo_album,
-	/obj/item/weapon/packageWrap,
+	/obj/item/stack/packageWrap,
 	/obj/item/weapon/reagent_containers/glass/paint/red,
 	/obj/item/weapon/reagent_containers/glass/paint/green,
 	/obj/item/weapon/reagent_containers/glass/paint/blue,
@@ -1124,9 +1124,9 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 	/obj/item/weapon/reagent_containers/glass/paint/white,
 	/obj/item/weapon/reagent_containers/glass/paint/remover,
 	/obj/item/weapon/contraband/poster,
-	/obj/item/weapon/wrapping_paper,
-	/obj/item/weapon/wrapping_paper,
-	/obj/item/weapon/wrapping_paper)
+	/obj/item/stack/wrapping_paper,
+	/obj/item/stack/wrapping_paper,
+	/obj/item/stack/wrapping_paper)
 	cost = 10
 	containername = "Arts and Crafts crate"
 
@@ -1183,6 +1183,7 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 					/obj/item/clothing/mask/gas/clown_hat,
 					/obj/item/clothing/under/rank/clown,
 					/obj/item/weapon/bikehorn,
+					/obj/item/weapon/storage/backpack/mime,
 					/obj/item/clothing/under/mime,
 					/obj/item/clothing/shoes/black,
 					/obj/item/clothing/gloves/color/white,

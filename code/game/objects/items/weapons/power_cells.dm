@@ -127,3 +127,19 @@
 /obj/item/weapon/stock_parts/cell/pulse/pistol
 	name = "pulse pistol power cell"
 	maxcharge = 2000
+
+/obj/item/weapon/stock_parts/cell/emproof
+	name = "\improper EMP-proof cell"
+	desc = "An EMP-proof cell."
+	maxcharge = 5000
+	rating = 2
+
+/obj/item/weapon/stock_parts/cell/emproof/empty/New()
+	..()
+	charge = 0
+
+/obj/item/weapon/stock_parts/cell/emproof/emp_act(severity)
+	return
+
+/obj/item/weapon/stock_parts/cell/emproof/corrupt()
+	return

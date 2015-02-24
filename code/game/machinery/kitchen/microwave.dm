@@ -71,7 +71,7 @@
 *   Item Adding
 ********************/
 
-/obj/machinery/microwave/attackby(var/obj/item/O as obj, var/mob/user as mob)
+/obj/machinery/microwave/attackby(var/obj/item/O as obj, var/mob/user as mob, params)
 	if(operating)
 		return
 	if(!broken && dirty < 100)

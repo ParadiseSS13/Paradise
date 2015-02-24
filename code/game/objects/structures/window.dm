@@ -153,7 +153,7 @@ var/global/wcColored
 
 
 /obj/structure/window/attack_hand(mob/user as mob)
-	if(M_HULK in user.mutations)
+	if(HULK in user.mutations)
 		user.say(pick(";RAAAAAAAARGH!", ";HNNNNNNNNNGGGGGGH!", ";GWAAAAAAAARRRHHH!", "NNNNNNNNGGGGGGGGHH!", ";AAAAAAARRRGH!"))
 		user.visible_message("<span class='danger'>[user] smashes through [src]!</span>")
 		var/pdiff=performWallPressureCheck(src.loc)
@@ -162,11 +162,13 @@ var/global/wcColored
 			log_admin("Window destroyed by hulk [user.real_name] ([user.ckey]) with pdiff [pdiff] at [loc]!")
 		destroy()
 	else if (usr.a_intent == "harm")
+		user.changeNext_move(CLICK_CD_MELEE)
 		playsound(get_turf(src), 'sound/effects/glassknock.ogg', 80, 1)
 		usr.visible_message("\red [usr.name] bangs against the [src.name]!", \
 							"\red You bang against the [src.name]!", \
 							"You hear a banging sound.")
 	else
+		user.changeNext_move(CLICK_CD_MELEE)
 		playsound(src.loc, 'sound/effects/glassknock.ogg', 80, 1)
 		usr.visible_message("[usr.name] knocks on the [src.name].", \
 							"You knock on the [src.name].", \
@@ -177,7 +179,9 @@ var/global/wcColored
 /obj/structure/window/attack_paw(mob/user as mob)
 	return attack_hand(user)
 
-/obj/structure/window/proc/attack_generic(mob/user as mob, damage = 0)	//used by attack_alien, attack_animal, and attack_slime
+/obj/structure/window/proc/attack_generic(mob/living/user as mob, damage = 0)	//used by attack_alien, attack_animal, and attack_slime
+	user.changeNext_move(CLICK_CD_MELEE)
+	user.do_attack_animation(src)
 	health -= damage
 	if(health <= 0)
 		user.visible_message("<span class='danger'>[user] smashes through [src]!</span>")
@@ -190,25 +194,25 @@ var/global/wcColored
 		playsound(loc, 'sound/effects/Glasshit.ogg', 100, 1)
 
 
-/obj/structure/window/attack_alien(mob/user as mob)
+/obj/structure/window/attack_alien(mob/living/user as mob)
 	if(islarva(user)) return
 	attack_generic(user, 15)
 
-/obj/structure/window/attack_animal(mob/user as mob)
+/obj/structure/window/attack_animal(mob/living/user as mob)
 	if(!isanimal(user)) return
 	var/mob/living/simple_animal/M = user
 	if(M.melee_damage_upper <= 0) return
 	attack_generic(M, M.melee_damage_upper)
 
 
-/obj/structure/window/attack_slime(mob/user as mob)
+/obj/structure/window/attack_slime(mob/living/user as mob)
 	var/mob/living/carbon/slime/S = user
 	if (!S.is_adult)
 		return
 	attack_generic(user, rand(10, 15))
 
 
-/obj/structure/window/attackby(obj/item/weapon/W as obj, mob/user as mob)
+/obj/structure/window/attackby(obj/item/weapon/W as obj, mob/living/user as mob, params)
 	if(!istype(W)) return//I really wish I did not need this
 	if (istype(W, /obj/item/weapon/grab) && get_dist(src,user)<2)
 		var/obj/item/weapon/grab/G = W
@@ -279,7 +283,7 @@ var/global/wcColored
 					continue
 				if(G.amount>=G.max_amount)
 					continue
-				G.attackby(NG, user)
+				G.attackby(NG, user, params)
 
 			if (reinf)
 				var/obj/item/stack/rods/NR = new (src.loc)
@@ -288,7 +292,7 @@ var/global/wcColored
 						continue
 					if(R.amount>=R.max_amount)
 						continue
-					R.attackby(NR, user)
+					R.attackby(NR, user, params)
 
 		user << "<span class='notice'>You have disassembled the window.</span>"
 		disassembled = 1
@@ -298,6 +302,7 @@ var/global/wcColored
 		del(src)
 	else
 		if(W.damtype == BRUTE || W.damtype == BURN)
+			user.changeNext_move(CLICK_CD_MELEE)
 			hit(W.force)
 			if(health <= 7)
 				anchored = 0

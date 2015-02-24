@@ -65,7 +65,7 @@ for reference:
 	var/health = 100.0
 	var/maxhealth = 100.0
 
-	attackby(obj/item/W as obj, mob/user as mob)
+	attackby(obj/item/W as obj, mob/user as mob, params)
 		if (istype(W, /obj/item/stack/sheet/wood))
 			if (src.health < src.maxhealth)
 				visible_message("\red [user] begins to repair the [src]!")
@@ -157,7 +157,7 @@ for reference:
 
 		src.icon_state = "barrier[src.locked]"
 
-	attackby(obj/item/weapon/W as obj, mob/user as mob)
+	attackby(obj/item/weapon/W as obj, mob/user as mob, params)
 		if (istype(W, /obj/item/weapon/card/id))
 			if (src.allowed(user))
 				if	(src.emagged < 2.0)

@@ -38,7 +38,7 @@ var/turf/T
 	var/fillamt = 0
 
 
-/obj/item/weapon/grenade/bananade/casing/attackby(var/obj/item/I, mob/user as mob)
+/obj/item/weapon/grenade/bananade/casing/attackby(var/obj/item/I, mob/user as mob, params)
 	if(istype(I, /obj/item/weapon/bananapeel))
 		if(fillamt < 9)
 			usr << "<span  class='notice'>You add another banana peel to the assembly.</span>"

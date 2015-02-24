@@ -244,7 +244,7 @@ var/list/valid_secondary_effect_types = list(\
 	if(secondary_effect && secondary_effect.effect == EFFECT_TOUCH && secondary_effect.activated)
 		secondary_effect.DoEffectTouch(user)
 
-/obj/machinery/artifact/attackby(obj/item/weapon/W as obj, mob/living/user as mob)
+/obj/machinery/artifact/attackby(obj/item/weapon/W as obj, mob/living/user as mob, params)
 
 	if (istype(W, /obj/item/weapon/reagent_containers/))
 		if(W.reagents.has_reagent("hydrogen", 1) || W.reagents.has_reagent("water", 1))

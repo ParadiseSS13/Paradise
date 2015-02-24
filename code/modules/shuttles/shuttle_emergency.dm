@@ -152,7 +152,7 @@
 
 
 
-/obj/machinery/computer/shuttle_control/emergency/attackby(obj/item/weapon/W as obj, mob/user as mob)
+/obj/machinery/computer/shuttle_control/emergency/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
 	read_authorization(W)
 	..()
 	

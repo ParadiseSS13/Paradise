@@ -293,7 +293,7 @@
 				src.updateUsrDialog()
 
 
-	attackby(obj/item/weapon/W as obj, mob/user as mob)
+	attackby(obj/item/weapon/W as obj, mob/user as mob, params)
 		var/load = 0
 		if(istype(W, /obj/item/weapon/ore/))
 			for(var/mob/O in viewers(user, null)) O.show_message(text("\blue [] loads [] into the [].", user, W, src), 1)
@@ -317,7 +317,7 @@
 		//else if (istype(W, /obj/item/weapon/plant/wheat/metal))
 		//	new /obj/item/weapon/ore/iron(src)
 		//	load = 2
-		/*else if(istype(W, /obj/item/weapon/cable_coil/))
+		/*else if(istype(W, /obj/item/stack/cable_coil/))
 			for(var/mob/O in viewers(user, null)) O.show_message(text("\blue [] loads [] into the [].", user, W, src), 1)
 			for (var/amt = W:amount, amt > 0, amt--)
 				new /obj/item/weapon/ore/silver(src)
@@ -685,7 +685,7 @@
 /*
 /datum/manufacture/cable
 	name = "Electrical Cable Piece"
-	item = /obj/item/weapon/cable_coil/cut
+	item = /obj/item/stack/cable_coil/cut
 	cost1 = /obj/item/weapon/ore/silver
 	cname1 = "Silver"
 	amount1 = 1

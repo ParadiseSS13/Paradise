@@ -75,7 +75,7 @@
 *   Item Adding
 ********************/
 
-/obj/machinery/smartfridge/attackby(var/obj/item/O as obj, var/mob/user as mob)
+/obj/machinery/smartfridge/attackby(var/obj/item/O as obj, var/mob/user as mob, params)
 	if(!src.ispowered)
 		user << "<span class='notice'>\The [src] is unpowered and useless.</span>"
 		return

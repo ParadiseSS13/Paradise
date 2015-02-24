@@ -35,7 +35,7 @@
 /obj/item/weapon/photo/attack_self(mob/user as mob)
 	src.examine(user)
 
-/obj/item/weapon/photo/attackby(obj/item/weapon/P as obj, mob/user as mob)
+/obj/item/weapon/photo/attackby(obj/item/weapon/P as obj, mob/user as mob, params)
 	if(istype(P, /obj/item/weapon/pen) || istype(P, /obj/item/toy/crayon))
 		var/txt = sanitize(input(user, "What would you like to write on the back?", "Photo Writing", null)  as text)
 		txt = copytext(txt, 1, 128)
@@ -171,7 +171,7 @@
 	user << "You switch the camera [on ? "on" : "off"]."
 	return
 
-/obj/item/device/camera/attackby(obj/item/I as obj, mob/user as mob)
+/obj/item/device/camera/attackby(obj/item/I as obj, mob/user as mob, params)
 	if(istype(I, /obj/item/device/camera_film))
 		if(pictures_left)
 			user << "<span class='notice'>[src] still has some film in it!</span>"

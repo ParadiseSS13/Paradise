@@ -55,7 +55,7 @@
 	onclose(user, "mob[real_name]")
 	return
 
-/mob/living/simple_animal/corgi/attackby(var/obj/item/O as obj, var/mob/user as mob)
+/mob/living/simple_animal/corgi/attackby(var/obj/item/O as obj, var/mob/user as mob, params)
 	if(inventory_head && inventory_back)
 		//helmet and armor = 100% protection
 		if( istype(inventory_head,/obj/item/clothing/head/helmet) && istype(inventory_back,/obj/item/clothing/suit/armor) )
@@ -352,7 +352,7 @@
 		now_pushing = 1
 		if(ismob(AM))
 			var/mob/tmob = AM
-			if(istype(tmob, /mob/living/carbon/human) && (M_FAT in tmob.mutations))
+			if(istype(tmob, /mob/living/carbon/human) && (FAT in tmob.mutations))
 				if(prob(70))
 					src << "\red <B>You fail to push [tmob]'s fat ass out of the way.</B>"
 					now_pushing = 0

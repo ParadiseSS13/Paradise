@@ -100,7 +100,7 @@
 	else
 		user << browse(null,"window=eftpos")
 
-/obj/item/device/eftpos/attackby(O as obj, user as mob)
+/obj/item/device/eftpos/attackby(O as obj, user as mob, params)
 	if(istype(O, /obj/item/weapon/card))
 		//attempt to connect to a new db, and if that doesn't work then fail
 		if(!linked_db)

@@ -42,7 +42,7 @@
 /obj/structure/toilet/update_icon()
 	icon_state = "toilet[open][cistern]"
 
-/obj/structure/toilet/attackby(obj/item/I as obj, mob/living/user as mob)
+/obj/structure/toilet/attackby(obj/item/I as obj, mob/living/user as mob, params)
 	if(istype(I, /obj/item/weapon/crowbar))
 		user << "<span class='notice'>You start to [cistern ? "replace the lid on the cistern" : "lift the lid off the cistern"].</span>"
 		playsound(loc, 'sound/effects/stonedoor_openclose.ogg', 50, 1)
@@ -99,7 +99,7 @@
 	density = 0
 	anchored = 1
 
-/obj/structure/urinal/attackby(obj/item/I as obj, mob/user as mob)
+/obj/structure/urinal/attackby(obj/item/I as obj, mob/user as mob, params)
 	if(istype(I, /obj/item/weapon/grab))
 		var/obj/item/weapon/grab/G = I
 		if(isliving(G.affecting))
@@ -149,7 +149,7 @@
 		for (var/atom/movable/G in src.loc)
 			G.clean_blood()
 
-/obj/machinery/shower/attackby(obj/item/I as obj, mob/user as mob)
+/obj/machinery/shower/attackby(obj/item/I as obj, mob/user as mob, params)
 	if(I.type == /obj/item/device/analyzer)
 		user << "<span class='notice'>The water temperature seems to be [watertemp].</span>"
 	if(istype(I, /obj/item/weapon/wrench))
@@ -360,7 +360,7 @@
 		V.show_message("\blue [user] washes their hands using \the [src].")
 
 
-/obj/structure/sink/attackby(obj/item/O as obj, mob/user as mob)
+/obj/structure/sink/attackby(obj/item/O as obj, mob/user as mob, params)
 	if(busy)
 		user << "\red Someone's already washing here."
 		return
@@ -424,7 +424,7 @@
 	..()
 	icon_state = "puddle"
 
-/obj/structure/sink/puddle/attackby(obj/item/O as obj, mob/user as mob)
+/obj/structure/sink/puddle/attackby(obj/item/O as obj, mob/user as mob, params)
 	icon_state = "puddle-splash"
 	..()
 	icon_state = "puddle"

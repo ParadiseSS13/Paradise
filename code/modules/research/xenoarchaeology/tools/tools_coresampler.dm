@@ -35,7 +35,7 @@
 	else
 		return ..()
 
-/obj/item/device/core_sampler/attackby(obj/item/weapon/W as obj, mob/user as mob)
+/obj/item/device/core_sampler/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
 	if(istype(W,/obj/item/weapon/evidencebag))
 		if(num_stored_bags < 10)
 			del(W)

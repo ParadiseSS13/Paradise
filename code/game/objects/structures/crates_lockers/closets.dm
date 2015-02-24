@@ -162,6 +162,7 @@
 
 /obj/structure/closet/attack_animal(mob/living/simple_animal/user as mob)
 	if(user.environment_smash)
+		user.do_attack_animation(src)
 		visible_message("\red [user] destroys the [src]. ")
 		for(var/atom/movable/A as mob|obj in src)
 			A.loc = src.loc
@@ -181,7 +182,7 @@
 		src.dump_contents()
 		del(src)
 
-/obj/structure/closet/attackby(obj/item/weapon/W as obj, mob/user as mob)
+/obj/structure/closet/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
 	if(istype(W, /obj/item/weapon/rcs) && !src.opened)
 		var/obj/item/weapon/rcs/E = W
 		if(E.rcharges != 0)
@@ -265,7 +266,7 @@
 			return
 		if(W)
 			W.loc = src.loc
-	else if(istype(W, /obj/item/weapon/packageWrap))
+	else if(istype(W, /obj/item/stack/packageWrap))
 		return
 	else if(istype(W, /obj/item/weapon/weldingtool))
 		var/obj/item/weapon/weldingtool/WT = W

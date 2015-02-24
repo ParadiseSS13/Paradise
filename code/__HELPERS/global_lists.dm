@@ -25,6 +25,12 @@ var/global/list/joblist = list()					//list of all jobstypes, minus borg and AI
 var/global/list/flag_list = list()					//list of flags during Nations gamemode
 var/global/list/airlocks = list()					//list of all airlocks
 
+
+var/global/list/alphabet_uppercase = list("A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z") //added for Xenoarchaeology, might be useful for other stuff
+
+var/global/list/aibots = list() // AI controlled bots
+var/global/list/table_recipes = list() //list of all table craft recipes
+
 //Languages/species/whitelist.
 var/global/list/all_species[0]
 var/global/list/all_languages[0]
@@ -132,6 +138,8 @@ var/global/list/backbaglist = list("Nothing", "Backpack", "Satchel", "Satchel Al
 
 		if(S.flags & IS_WHITELISTED)
 			whitelisted_species += S.name
+			
+	init_subtypes(/datum/table_recipe, table_recipes)
 
 	return 1
 

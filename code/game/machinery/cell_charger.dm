@@ -34,7 +34,7 @@
 		if(charging)
 			usr << "Current charge: [charging.charge]"
 
-	attackby(obj/item/weapon/W, mob/user)
+	attackby(obj/item/weapon/W, mob/user, params)
 		if(stat & BROKEN)
 			return
 

@@ -11,9 +11,10 @@
 	slot_flags = SLOT_BELT
 	var/active = 0
 	var/det_time = 50
+	var/display_timer = 1
 
 /obj/item/weapon/grenade/proc/clown_check(var/mob/living/user)
-	if((M_CLUMSY in user.mutations) && prob(50))
+	if((CLUMSY in user.mutations) && prob(50))
 		user << "<span class='warning'>Huh? How does this thing work?</span>"
 		active = 1
 		icon_state = initial(icon_state) + "_active"
@@ -45,13 +46,12 @@
 
 
 /obj/item/weapon/grenade/examine()
-	set src in usr
-	usr << desc
-	if(det_time > 1)
-		usr << "The timer is set to [det_time/10] seconds."
-		return
-	usr << "\The [src] is set for instant detonation."
-
+	..()
+	if(display_timer)
+		if(det_time > 1)
+			usr << "The timer is set to [det_time/10] second\s."
+		else
+			usr << "\The [src] is set for instant detonation."
 
 /obj/item/weapon/grenade/attack_self(mob/user as mob)
 	if(!active)
@@ -81,7 +81,7 @@
 		M.unEquip(src)
 
 
-/obj/item/weapon/grenade/attackby(obj/item/weapon/W as obj, mob/user as mob)
+/obj/item/weapon/grenade/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
 	if(istype(W, /obj/item/weapon/screwdriver))
 		switch(det_time)
 			if ("1")

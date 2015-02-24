@@ -160,7 +160,7 @@ BLIND     // can't see anything
 	var/clipped = 0
 	species_restricted = list("exclude","Unathi","Tajaran")
 
-/obj/item/clothing/gloves/attackby(obj/item/weapon/W, mob/user)
+/obj/item/clothing/gloves/attackby(obj/item/weapon/W, mob/user, params)
 	if(istype(W, /obj/item/weapon/wirecutters))
 		if(clipped == 0)
 			playsound(src.loc, 'sound/items/Wirecutter.ogg', 100, 1)
@@ -280,7 +280,7 @@ BLIND     // can't see anything
 	name = "Space helmet"
 	icon_state = "space"
 	desc = "A special helmet designed for work in a hazardous, low-pressure environment."
-	flags = HEADCOVERSEYES | BLOCKHAIR | HEADCOVERSMOUTH | STOPSPRESSUREDMAGE
+	flags = HEADCOVERSEYES | BLOCKHAIR | HEADCOVERSMOUTH | STOPSPRESSUREDMAGE | THICKMATERIAL
 	item_state = "s_helmet"
 	permeability_coefficient = 0.01
 	armor = list(melee = 0, bullet = 0, laser = 0,energy = 0, bomb = 0, bio = 100, rad = 50)
@@ -301,7 +301,7 @@ BLIND     // can't see anything
 	w_class = 4//bulky item
 	gas_transfer_coefficient = 0.01
 	permeability_coefficient = 0.02
-	flags = STOPSPRESSUREDMAGE
+	flags = STOPSPRESSUREDMAGE | THICKMATERIAL
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
 	allowed = list(/obj/item/device/flashlight,/obj/item/weapon/tank,/obj/item/device/suit_cooling_unit)
 	slowdown = 2
@@ -344,7 +344,7 @@ BLIND     // can't see anything
 			if (AC.slot == A.slot)
 				return 0
 
-/obj/item/clothing/under/attackby(obj/item/I, mob/user)
+/obj/item/clothing/under/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/clothing/accessory))
 		var/obj/item/clothing/accessory/A = I
 		if(can_attach_accessory(A))
@@ -362,7 +362,7 @@ BLIND     // can't see anything
 
 	if(accessories.len)
 		for(var/obj/item/clothing/accessory/A in accessories)
-			A.attackby(I, user)
+			A.attackby(I, user, params)
 		return
 
 	..()

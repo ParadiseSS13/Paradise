@@ -11,9 +11,8 @@
 	var/modifystate
 
 	emp_act(severity)
-		power_supply.use(round(power_supply.maxcharge / severity))
+		power_supply.use(round(power_supply.charge / severity))
 		update_icon()
-		..()
 
 
 	New()
@@ -54,7 +53,7 @@
 		return
 
 /*
-	attackby(obj/item/weapon/W, mob/user)
+	attackby(obj/item/weapon/W, mob/user, params)
 		if(istype(W, /obj/item/weapon/stock_parts/cell))
 			if(!power_supply)
 				user.drop_item()

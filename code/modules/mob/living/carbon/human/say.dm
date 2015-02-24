@@ -286,7 +286,7 @@
 				handled = 1
 
 	if(message != "")
-		if((M_HULK in mutations) && health >= 25 && length(message))
+		if((HULK in mutations) && health >= 25 && length(message))
 			message = "[uppertext(message)]!!!"
 			verb = pick("yells","roars","hollers")
 			handled = 1
@@ -309,7 +309,7 @@
 				message = uppertext(message)
 				verb = "yells loudly"
 
-		if(M_COMIC in mutations)
+		if(COMIC in mutations)
 			message = "<span class='sans'>[message]</span>"
 	returns[1] = message
 	returns[2] = verb

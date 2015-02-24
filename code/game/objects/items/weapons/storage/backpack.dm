@@ -13,7 +13,7 @@
 	max_w_class = 3
 	max_combined_w_class = 21
 
-/obj/item/weapon/storage/backpack/attackby(obj/item/weapon/W as obj, mob/user as mob)
+/obj/item/weapon/storage/backpack/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
 	playsound(src.loc, "rustle", 50, 1, -5)
 	..()
 
@@ -33,7 +33,7 @@
 		..()
 		return
 
-	attackby(obj/item/weapon/W as obj, mob/user as mob)
+	attackby(obj/item/weapon/W as obj, mob/user as mob, params)
 		if(crit_fail)
 			user << "\red The Bluespace generator isn't working."
 			return
@@ -82,6 +82,12 @@
 	desc = "It's a backpack made by Honk! Co."
 	icon_state = "clownpack"
 	item_state = "clownpack"
+
+/obj/item/weapon/storage/backpack/mime
+	name = "Parcel Parceaux"
+	desc = "A silent backpack made for those silent workers. Silence Co."
+	icon_state = "mimepack"
+	item_state = "mimepack"
 
 /obj/item/weapon/storage/backpack/medic
 	name = "medical backpack"

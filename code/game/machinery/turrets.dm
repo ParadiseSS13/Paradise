@@ -299,7 +299,8 @@
 
 /obj/machinery/turret/attackby(obj/item/weapon/W, mob/user)//I can't believe no one added this before/N
 	..()
-	playsound(get_turf(src), 'sound/weapons/smash.ogg', 60, 1)
+	user.changeNext_move(CLICK_CD_MELEE)
+	playsound(src.loc, 'sound/weapons/smash.ogg', 60, 1)
 	src.spark_system.start()
 	src.health -= W.force * 0.5
 	if (src.health <= 0)
@@ -359,7 +360,7 @@
 	//don't have to check if control_area is path, since get_area_all_atoms can take path.
 	return
 
-/obj/machinery/turretid/attackby(obj/item/weapon/W, mob/user)
+/obj/machinery/turretid/attackby(obj/item/weapon/W, mob/user, params)
 	if(stat & BROKEN) return
 	if (istype(user, /mob/living/silicon))
 		return src.attack_hand(user)
@@ -433,26 +434,31 @@
 	popup.open()
 
 
+
 /obj/machinery/turret/attack_animal(mob/living/simple_animal/M as mob)
+	M.changeNext_move(CLICK_CD_MELEE)
+	M.do_attack_animation(src)
 	if(M.melee_damage_upper == 0)	return
 	if(!(stat & BROKEN))
-		visible_message("\red <B>[M] [M.attacktext] [src]!</B>")
-		M.attack_log += text("\[[time_stamp()]\] <font color='red'>attacked [src.name]</font>")
+		visible_message("<span class='userdanger'>[M] [M.attacktext] [src]!</span>")
+		add_logs(M, src, "attacked", admin=0)
 		//src.attack_log += text("\[[time_stamp()]\] <font color='orange'>was attacked by [M.name] ([M.ckey])</font>")
 		src.health -= M.melee_damage_upper
 		if (src.health <= 0)
 			src.die()
 	else
-		M << "\red That object is useless to you."
+		M << "<span class='danger'>That object is useless to you.</span>"
 	return
 
 
 
 
 /obj/machinery/turret/attack_alien(mob/living/carbon/alien/humanoid/M as mob)
+	M.changeNext_move(CLICK_CD_MELEE)
+	M.do_attack_animation(src)
 	if(!(stat & BROKEN))
-		playsound(get_turf(src), 'sound/weapons/slash.ogg', 25, 1, -1)
-		visible_message("\red <B>[] has slashed at []!</B>", M, src)
+		playsound(src.loc, 'sound/weapons/slash.ogg', 25, 1, -1)
+		visible_message("<span class='userdanger'>[M] has slashed at [src]!</span>")
 		src.health -= 15
 		if (src.health <= 0)
 			src.die()
@@ -574,7 +580,10 @@
 	return attack_hand(user)
 
 
-/obj/machinery/gun_turret/attack_alien(mob/user as mob)
+/obj/machinery/gun_turret/attack_alien(mob/living/user as mob)
+	user.changeNext_move(CLICK_CD_MELEE)
+	user.do_attack_animation(src)
+	playsound(src.loc, 'sound/weapons/slash.ogg', 25, 1, -1)
 	user.visible_message("[user] slashes at [src]", "You slash at [src]")
 	take_damage(15)
 	return

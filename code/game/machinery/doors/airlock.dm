@@ -258,6 +258,10 @@
 	icon = 'icons/obj/doors/Doorbananium.dmi'
 	mineral = "clown"
 
+/obj/machinery/door/airlock/mime
+	name = "Airlock"
+	icon = 'icons/obj/doors/Doorfreezer.dmi'
+
 /obj/machinery/door/airlock/sandstone
 	name = "Sandstone Airlock"
 	icon = 'icons/obj/doors/Doorsand.dmi'
@@ -298,7 +302,7 @@
 		user << "You do not know how to operate this airlock's mechanism."
 		return
 
-/obj/machinery/door/airlock/alien/attackby(C as obj, mob/user as mob)
+/obj/machinery/door/airlock/alien/attackby(C as obj, mob/user as mob, params)
 	if(isalien(user) || isrobot(user) || isAI(user))
 		..(C, user)
 	else
@@ -943,7 +947,7 @@ About the new airlock wires panel:
 		updateUsrDialog()
 	return 0
 
-/obj/machinery/door/airlock/attackby(C as obj, mob/user as mob)
+/obj/machinery/door/airlock/attackby(C as obj, mob/user as mob, params)
 	//world << text("airlock attackby src [] obj [] mob []", src, C, user)
 	if(!istype(usr, /mob/living/silicon))
 		if(src.isElectrified())
@@ -1048,7 +1052,7 @@ About the new airlock wires panel:
 		..()
 	return
 
-/obj/machinery/door/airlock/plasma/attackby(C as obj, mob/user as mob)
+/obj/machinery/door/airlock/plasma/attackby(C as obj, mob/user as mob, params)
 	if(C)
 		ignite(is_hot(C))
 	..()
@@ -1066,6 +1070,7 @@ About the new airlock wires panel:
 		playsound(src.loc, 'sound/machines/windowdoor.ogg', 100, 1)
 	else if(istype(src, /obj/machinery/door/airlock/clown))
 		playsound(src.loc, 'sound/items/bikehorn.ogg', 30, 1)
+	else if(istype(src, /obj/machinery/door/airlock/mime))
 	else
 		playsound(src.loc, 'sound/machines/airlock.ogg', 30, 1)
 	if(src.closeOther != null && istype(src.closeOther, /obj/machinery/door/airlock/) && !src.closeOther.density)
@@ -1102,6 +1107,7 @@ About the new airlock wires panel:
 		playsound(src.loc, 'sound/machines/windowdoor.ogg', 30, 1)
 	else if(istype(src, /obj/machinery/door/airlock/clown))
 		playsound(src.loc, 'sound/items/bikehorn.ogg', 30, 1)
+	else if(istype(src, /obj/machinery/door/airlock/mime))
 	else
 		playsound(get_turf(src), 'sound/machines/airlock.ogg', 30, 1)
 
@@ -1174,7 +1180,7 @@ About the new airlock wires panel:
 	return
 
 
-/obj/machinery/door/airlock/hatch/gamma/attackby(C as obj, mob/user as mob)
+/obj/machinery/door/airlock/hatch/gamma/attackby(C as obj, mob/user as mob, params)
 	//world << text("airlock attackby src [] obj [] mob []", src, C, user)
 	if(!istype(usr, /mob/living/silicon))
 		if(src.isElectrified())
@@ -1207,7 +1213,7 @@ About the new airlock wires panel:
 			return
 
 
-/obj/machinery/door/airlock/highsecurity/red/attackby(C as obj, mob/user as mob)
+/obj/machinery/door/airlock/highsecurity/red/attackby(C as obj, mob/user as mob, params)
 	//world << text("airlock attackby src [] obj [] mob []", src, C, user)
 	if(!istype(usr, /mob/living/silicon))
 		if(src.isElectrified())

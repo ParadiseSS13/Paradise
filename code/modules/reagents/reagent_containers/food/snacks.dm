@@ -134,14 +134,14 @@
 		usr << "\blue \The [src] was bitten multiple times!"
 
 
-/obj/item/weapon/reagent_containers/food/snacks/attackby(obj/item/weapon/W, mob/user)
+/obj/item/weapon/reagent_containers/food/snacks/attackby(obj/item/weapon/W, mob/user, params)
 	if(istype(W,/obj/item/weapon/pen))
 		var/n_name = sanitize(copytext(input(usr, "What would you like to name this dish?", "Food Renaming", null)  as text, 1, MAX_NAME_LEN))
 		if((loc == usr && usr.stat == 0))
 			name = "[n_name]"
 		return
 	if(istype(W,/obj/item/weapon/storage))
-		..() // -> item/attackby()
+		..() // -> item/attackby(, params)
 
 	if(istype(W,/obj/item/weapon/kitchen/utensil))
 
@@ -525,7 +525,7 @@
 		src.visible_message("\red [src.name] has been squashed.","\red You hear a smack.")
 		del(src)
 
-	attackby(obj/item/weapon/W as obj, mob/user as mob)
+	attackby(obj/item/weapon/W as obj, mob/user as mob, params)
 		if(istype( W, /obj/item/toy/crayon ))
 			var/obj/item/toy/crayon/C = W
 			var/clr = C.colourName
@@ -1243,8 +1243,7 @@
 	icon_state = "chinese2"
 	New()
 		..()
-		reagents.add_reagent("nutriment", 5)
-		reagents.add_reagent("carpotoxin", 1)
+		reagents.add_reagent("nutriment", 6)
 		bitesize = 2
 
 /obj/item/weapon/reagent_containers/food/snacks/chinese/newdles
@@ -2230,7 +2229,7 @@
 		..()
 		reagents.add_reagent("nutriment", 3)
 		bitesize = 1
-	attackby(obj/item/weapon/W as obj, mob/user as mob)
+	attackby(obj/item/weapon/W as obj, mob/user as mob, params)
 		if(istype(W,/obj/item/weapon/kitchen/rollingpin))
 			user.visible_message( \
 				"[user] flattens the dough with the rolling pin!", \
@@ -2850,7 +2849,7 @@
 
 	update_icon()
 
-/obj/item/pizzabox/attackby( obj/item/I as obj, mob/user as mob )
+/obj/item/pizzabox/attackby( obj/item/I as obj, mob/user as mob , params)
 	if( istype(I, /obj/item/pizzabox/) )
 		var/obj/item/pizzabox/box = I
 
@@ -3152,7 +3151,7 @@
 		reagents.add_reagent("nutriment", 3)
 
 // Flour + egg = dough
-/obj/item/weapon/reagent_containers/food/snacks/flour/attackby(obj/item/weapon/W as obj, mob/user as mob)
+/obj/item/weapon/reagent_containers/food/snacks/flour/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
 	if(istype(W,/obj/item/weapon/reagent_containers/food/snacks/egg))
 		new /obj/item/weapon/reagent_containers/food/snacks/dough(src)
 		user << "You make some dough."
@@ -3160,7 +3159,7 @@
 		del(src)
 
 // Egg + flour = dough
-/obj/item/weapon/reagent_containers/food/snacks/egg/attackby(obj/item/weapon/W as obj, mob/user as mob)
+/obj/item/weapon/reagent_containers/food/snacks/egg/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
 	if(istype(W,/obj/item/weapon/reagent_containers/food/snacks/flour))
 		new /obj/item/weapon/reagent_containers/food/snacks/dough(src)
 		user << "You make some dough."
@@ -3178,7 +3177,7 @@
 		reagents.add_reagent("nutriment", 3)
 
 // Dough + rolling pin = flat dough
-/obj/item/weapon/reagent_containers/food/snacks/dough/attackby(obj/item/I, mob/user)
+/obj/item/weapon/reagent_containers/food/snacks/dough/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/weapon/kitchen/rollingpin))
 		if(isturf(loc))
 			new /obj/item/weapon/reagent_containers/food/snacks/sliceable/flatdough(loc)
@@ -3281,7 +3280,7 @@
 		reagents.add_reagent("nutriment", 3)
 
 // potato + knife = raw sticks
-/obj/item/weapon/reagent_containers/food/snacks/grown/potato/attackby(obj/item/weapon/W as obj, mob/user as mob)
+/obj/item/weapon/reagent_containers/food/snacks/grown/potato/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
 	if(istype(W,/obj/item/weapon/kitchen/utensil/knife))
 		new /obj/item/weapon/reagent_containers/food/snacks/rawsticks(src)
 		user << "You cut the potato."

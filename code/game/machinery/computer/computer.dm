@@ -103,7 +103,7 @@
 	update_icon()
 
 
-/obj/machinery/computer/attackby(I as obj, user as mob)
+/obj/machinery/computer/attackby(I as obj, user as mob, params)
 	if(istype(I, /obj/item/weapon/screwdriver) && circuit)
 		playsound(src.loc, 'sound/items/Screwdriver.ogg', 50, 1)
 		if(do_after(user, 20))
@@ -127,8 +127,28 @@
 		src.attack_hand(user)
 	return
 
+/obj/machinery/computer/attack_paw(mob/living/user)
+	user.do_attack_animation(src)
+	if(circuit)
+		if(prob(10))
+			user.visible_message("<span class='danger'>[user.name] smashes the [src.name] with its paws.</span>",\
+			"<span class='danger'>You smash the [src.name] with your paws.</span>",\
+			"<span class='danger'>You hear a smashing sound.</span>")
+			set_broken()
+			return
+	user.visible_message("<span class='danger'>[user.name] smashes against the [src.name] with its paws.</span>",\
+	"<span class='danger'>You smash against the [src.name] with your paws.</span>",\
+	"<span class='danger'>You hear a clicking sound.</span>")
 
-
-
-
-
+/obj/machinery/computer/attack_alien(mob/living/user)
+	user.do_attack_animation(src)
+	if(circuit)
+		if(prob(80))
+			user.visible_message("<span class='danger'>[user.name] smashes the [src.name] with its claws.</span>",\
+			"<span class='danger'>You smash the [src.name] with your claws.</span>",\
+			"<span class='danger'>You hear a smashing sound.</span>")
+			set_broken()
+			return
+	user.visible_message("<span class='danger'>[user.name] smashes against the [src.name] with its claws.</span>",\
+	"<span class='danger'>You smash against the [src.name] with your claws.</span>",\
+	"<span class='danger'>You hear a clicking sound.</span>")
