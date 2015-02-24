@@ -204,6 +204,31 @@
 				if(miming)
 					m_type = 1
 
+		if ("flip")
+			m_type = 1
+			if (!src.restrained())
+				var/M = null
+				if (param)
+					for (var/mob/A in view(1, null))
+						if (param == A.name)
+							M = A
+							break
+				if (M == src)
+					M = null
+
+				if (M)
+					if(src.lying || src.weakened)
+						message = "<B>[src]</B> flops and flails around on the floor."
+					else
+						message = "<B>[src]</B> flips in [M]'s general direction."
+						src.SpinAnimation(5,1)
+				else
+					if(src.lying || src.weakened)
+						message = "<B>[src]</B> flops and flails around on the floor."
+					else
+						message = "<B>[src]</B> does a flip!"
+						src.SpinAnimation(5,1)
+
 		if ("aflap")
 			if (!src.restrained())
 				message = "<B>[src]</B> flaps his wings ANGRILY!"
