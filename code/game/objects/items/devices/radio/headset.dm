@@ -1,6 +1,6 @@
 /obj/item/device/radio/headset
 	name = "radio headset"
-	desc = "An updated, modular intercom that fits over the head. Takes encryption keys"
+	desc = "An updated, modular intercom that fits over the head. Takes encryption keys."
 	var/radio_desc = ""
 	icon_state = "headset"
 	item_state = "headset"
