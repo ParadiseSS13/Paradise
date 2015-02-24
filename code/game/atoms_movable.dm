@@ -15,12 +15,66 @@
 	var/mob/pulledby = null
 
 	var/area/areaMaster
-
+	var/hard_deleted = 0
 
 /atom/movable/New()
 	. = ..()
 	areaMaster = get_area_master(src)
 
+
+/atom/movable/Destroy()
+	if(opacity)
+		if(isturf(loc))
+			if(loc:lighting_lumcount > 1)
+				UpdateAffectingLights()
+	gcDestroyed = "Bye, world!"
+	tag = null
+	loc = null
+/*
+	if(istype(beams) && beams.len)
+		for(var/obj/effect/beam/B in beams)
+			if(B && B.target == src)
+				B.target = null
+			if(B.master && B.master.target == src)
+				B.master.target = null
+		beams.len = 0
+*/
+	..()
+
+/proc/delete_profile(var/type, code = 0)
+	if(!ticker || !ticker.current_state < 3) return
+	switch(code)
+		if(0)
+			if (!("[type]" in del_profiling))
+				del_profiling["[type]"] = 0
+
+			del_profiling["[type]"] += 1
+		if(1)
+			if (!("[type]" in ghdel_profiling))
+				ghdel_profiling["[type]"] = 0
+
+			ghdel_profiling["[type]"] += 1
+		if(2)
+			if (!("[type]" in gdel_profiling))
+				gdel_profiling["[type]"] = 0
+
+			gdel_profiling["[type]"] += 1
+			if(garbageCollector)
+				garbageCollector.soft_dels++
+
+/atom/movable/Del()
+	if (gcDestroyed)
+		garbageCollector.dequeue("\ref[src]")
+
+		if (hard_deleted)
+			delete_profile("[type]", 1)
+		else
+			delete_profile("[type]", 2)
+	else // direct del calls or nulled explicitly.
+		delete_profile("[type]", 0)
+		Destroy()
+
+	..()
 
 // Used in shuttle movement and AI eye stuff.
 // Primarily used to notify objects being moved by a shuttle/bluespace fuckup.

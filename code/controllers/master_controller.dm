@@ -11,7 +11,6 @@ var/global/air_processing_killed = 0
 var/global/pipe_processing_killed = 0
 
 datum/controller/game_controller
-	var/processing = 0
 	var/breather_ticks = 2		//a somewhat crude attempt to iron over the 'bumps' caused by high-cpu use by letting the MC have a breather for this many ticks after every loop
 	var/minimum_ticks = 20		//The minimum length of time between MC ticks
 
@@ -28,7 +27,7 @@ datum/controller/game_controller
 	var/events_cost		= 0
 	var/puddles_cost
 	var/ticker_cost		= 0
-	var/gc_cost         = 0
+	var/garbageCollectorCost = 0
 	var/total_cost		= 0
 
 	var/last_thing_processed
@@ -36,6 +35,7 @@ datum/controller/game_controller
 	var/list/shuttle_list	                    // For debugging and VV
 	var/datum/ore_distribution/asteroid_ore_map // For debugging and VV.
 
+	var/global/datum/garbage_collector/garbageCollector
 
 datum/controller/game_controller/New()
 	//There can be only one master_controller. Out with the old and in with the new.
@@ -70,9 +70,6 @@ datum/controller/game_controller/proc/setup()
 	if(!ticker)
 		ticker = new /datum/controller/gameticker()
 	*/
-
-	if(!garbage)
-		garbage = new /datum/controller/garbage_collector()
 
 
 	color_windows_init()
@@ -134,7 +131,7 @@ datum/controller/game_controller/proc/process()
 	spawn(0)
 		//set background = 1
 		while(1)	//far more efficient than recursively calling ourself
-			if(!Failsafe)	new /datum/controller/failsafe()
+			if(!failsafe)	new /datum/controller/failsafe()
 
 
 			if(processing)
@@ -246,12 +243,12 @@ datum/controller/game_controller/proc/process()
 
 				// GC
 				timer = world.timeofday
-				last_thing_processed = garbage.type
-				garbage.process()
-				gc_cost = (world.timeofday - timer) / 10
+				last_thing_processed = garbageCollector.type
+				garbageCollector.process()
+				garbageCollectorCost = (world.timeofday - timer) / 10
 
 				//TIMING
-				total_cost = air_cost + sun_cost + mobs_cost + diseases_cost + machines_cost + aibots_cost + objects_cost + networks_cost + powernets_cost + nano_cost + events_cost + puddles_cost + ticker_cost + gc_cost
+				total_cost = air_cost + sun_cost + mobs_cost + diseases_cost + machines_cost + aibots_cost + objects_cost + networks_cost + powernets_cost + nano_cost + events_cost + puddles_cost + ticker_cost + garbageCollectorCost
 
 				var/end_time = world.timeofday
 				if(end_time < start_time)	//why not just use world.time instead?

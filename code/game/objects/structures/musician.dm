@@ -19,7 +19,7 @@
 	instrumentDir = dir
 	instrumentObj = obj
 
-/datum/song/proc/Destroy()
+/datum/song/Destroy()
 	instrumentObj = null
 	return
 

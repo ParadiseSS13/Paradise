@@ -131,9 +131,8 @@ var/list/mechtoys = list(
 	var/comment = null
 
 /datum/controller/supply
-	var/processing = 1
-	var/processing_interval = 300
-	var/iteration = 0
+	processing = 1
+	processing_interval = 300
 	//supply points
 	var/points = 50
 	var/points_per_process = 1
