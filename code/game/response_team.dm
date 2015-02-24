@@ -324,9 +324,9 @@ proc/trigger_armed_response_team(var/force = 0)
 			M.equip_to_slot_or_del(new /obj/item/clothing/glasses/sunglasses/sechud(M), slot_glasses)
 
 			var/obj/item/weapon/card/id/W = new(src)
-			W.assignment = "Emergency Response Unit - Commander"
+			W.assignment = "Emergency Response Team Leader"
 			W.registered_name = M.real_name
-			W.name = "[M.real_name]'s ID Card ([W.assignment])"
+			W.name = "[M.real_name]'s ID Card (Emergency Response Team - Commander)"
 			W.icon_state = "centcom"
 			W.access = get_all_accesses()
 			W.access += list(access_cent_general, access_cent_living, access_cent_medical, access_cent_storage, access_cent_thunder, access_cent_teleporter)
@@ -348,9 +348,9 @@ proc/trigger_armed_response_team(var/force = 0)
 			M.equip_to_slot_or_del(new /obj/item/clothing/glasses/sunglasses/sechud(M), slot_glasses)
 
 			var/obj/item/weapon/card/id/W = new(src)
-			W.assignment = "Emergency Response Unit - Officer"
+			W.assignment = "Emergency Response Team"
 			W.registered_name = M.real_name
-			W.name = "[M.real_name]'s ID Card ([W.assignment])"
+			W.name = "[M.real_name]'s ID Card (Emergency Response Team - Officer)"
 			W.icon_state = "centcom"
 			W.access = get_all_accesses()
 			W.access += list(access_cent_general, access_cent_living, access_cent_thunder)
@@ -372,9 +372,9 @@ proc/trigger_armed_response_team(var/force = 0)
 			M.equip_to_slot_or_del(new /obj/item/clothing/glasses/hud/health_advanced(M), slot_glasses)
 
 			var/obj/item/weapon/card/id/W = new(src)
-			W.assignment = "Emergency Response Unit - Medic"
+			W.assignment = "Emergency Response Team"
 			W.registered_name = M.real_name
-			W.name = "[M.real_name]'s ID Card ([W.assignment])"
+			W.name = "[M.real_name]'s ID Card (Emergency Response Team - Medic)"
 			W.icon_state = "centcom"
 			W.access = get_all_accesses()
 			W.access += list(access_cent_general, access_cent_living, access_cent_medical)
@@ -400,9 +400,9 @@ proc/trigger_armed_response_team(var/force = 0)
 			M.equip_to_slot_or_del(new /obj/item/clothing/glasses/meson(M), slot_glasses)
 
 			var/obj/item/weapon/card/id/W = new(src)
-			W.assignment = "Emergency Response Unit - Engineer"
+			W.assignment = "Emergency Response Team"
 			W.registered_name = M.real_name
-			W.name = "[M.real_name]'s ID Card ([W.assignment])"
+			W.name = "[M.real_name]'s ID Card (Emergency Response Team - Engineer)"
 			W.icon_state = "centcom"
 			W.access = get_all_accesses()
 			W.access += list(access_cent_general, access_cent_living, access_cent_storage)
