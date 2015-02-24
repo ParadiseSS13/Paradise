@@ -66,6 +66,14 @@
 	..()
 	reagents.add_reagent("synaptizine", 30)
 
+/obj/item/weapon/reagent_containers/hypospray/combat/nanites // AKA admin hacks.
+	desc = "A modified air-needle autoinjector for use in combat situations. Prefilled with expensive medical nanites for rapid healing."
+	volume = 100
+
+/obj/item/weapon/reagent_containers/hypospray/combat/nanites/New()
+	..()
+	reagents.add_reagent("nanites", 70)
+
 
 /obj/item/weapon/reagent_containers/hypospray/autoinjector
 	name = "emergency autoinjector"

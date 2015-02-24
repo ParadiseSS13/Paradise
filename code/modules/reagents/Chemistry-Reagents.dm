@@ -1656,11 +1656,14 @@ datum
 
 			on_mob_life(var/mob/living/carbon/M as mob)
 				if(!M) M = holder.my_atom ///This can even heal dead people.
+				M.reagents.remove_all_type(/datum/reagent/toxin, 5*REM, 0, 1)
 				M.setCloneLoss(0)
 				M.setOxyLoss(0)
 				M.radiation = 0
 				M.heal_organ_damage(5,5)
 				M.adjustToxLoss(-5)
+				M.stuttering = 0
+				M.slurring = 0
 				if(holder.has_reagent("toxin"))
 					holder.remove_reagent("toxin", 5)
 				if(holder.has_reagent("stoxin"))
@@ -1710,6 +1713,11 @@ datum
 				M.jitteriness = 0
 				..()
 				return
+
+			nanites
+				name = "Nanites"
+				id = "nanites"
+				description = "Tiny machines capable of rapid cellular regeneration."
 
 		synaptizine
 			name = "Synaptizine"
