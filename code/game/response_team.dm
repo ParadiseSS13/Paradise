@@ -314,7 +314,6 @@ proc/trigger_armed_response_team(var/force = 0)
 	var/obj/item/weapon/implant/loyalty/L = new/obj/item/weapon/implant/loyalty(M)
 	L.imp_in = M
 	L.implanted = 1
-	M.sec_hud_set_implants()
 
 	switch(ertrole)
 		if("commander")
