@@ -58,14 +58,14 @@ var/can_call_ert
 		if(response_team_members.len > 6) usr << "The emergency response team is already full!"
 
 
-		for (var/obj/effect/landmark/L in landmarks_list) if (L.name == "Commando")
+		for (var/obj/effect/landmark/L in landmarks_list) if (L.name == "Response Team")
 			L.name = null//Reserving the place.
 			/*var/new_name = alert(usr, "Pick a name","Name") as null|text
 			if(!new_name)//Somebody changed his mind, place is available again.
 				L.name = "Commando"
 				return*/
 			if(alert(usr, "Join the ERT?.", "Emergency Response Team", "Yes", "No") == "No")
-				L.name = "Commando"
+				L.name = "Response Team"
 				return
 
 			var/leader_selected = isemptylist(response_team_members)
