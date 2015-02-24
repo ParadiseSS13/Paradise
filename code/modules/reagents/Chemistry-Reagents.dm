@@ -1711,6 +1711,12 @@ datum
 				..()
 				return
 
+			nanites
+				name = "Nanites"
+				id = "nanities"
+				description = "Nanomachines that aid in rapid cellular regeneration."
+
+
 		synaptizine
 			name = "Synaptizine"
 			id = "synaptizine"
