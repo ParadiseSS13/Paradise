@@ -366,6 +366,7 @@ proc/trigger_armed_response_team(var/force = 0)
 			pda.owner = M.real_name
 			pda.ownjob = "Emergency Response Team"
 			pda.name = "PDA-[M.real_name] ([pda.ownjob])"
+			pda.icon_state = "pda-security"
 			M.equip_to_slot_or_del(pda, slot_wear_pda)
 
 			M.equip_to_slot_or_del(new /obj/item/weapon/storage/box/response_team(M), slot_in_backpack)
@@ -396,6 +397,7 @@ proc/trigger_armed_response_team(var/force = 0)
 			pda.owner = M.real_name
 			pda.ownjob = "Emergency Response Team"
 			pda.name = "PDA-[M.real_name] ([pda.ownjob])"
+			pda.icon_state = "pda-medical"
 			M.equip_to_slot_or_del(pda, slot_wear_pda)
 
 			M.equip_to_slot_or_del(new /obj/item/weapon/storage/box/response_team(M), slot_in_backpack)
@@ -430,6 +432,7 @@ proc/trigger_armed_response_team(var/force = 0)
 			pda.owner = M.real_name
 			pda.ownjob = "Emergency Response Team"
 			pda.name = "PDA-[M.real_name] ([pda.ownjob])"
+			pda.icon_state = "pda-engineer"
 			M.equip_to_slot_or_del(pda, slot_wear_pda)
 
 			M.equip_to_slot_or_del(new /obj/item/weapon/storage/box/response_team(M), slot_in_backpack)
