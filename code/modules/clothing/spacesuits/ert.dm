@@ -5,6 +5,7 @@
 	item_state = "helm-command"
 	armor = list(melee = 50, bullet = 50, laser = 30,energy = 15, bomb = 30, bio = 100, rad = 60)
 	siemens_coefficient = 0.6
+	rig_restrict_helmet = 0 // ERT helmets can be taken on and off at will.
 	var/obj/machinery/camera/camera
 
 /obj/item/clothing/head/helmet/space/rig/ert/attack_self(mob/user)

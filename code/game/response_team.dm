@@ -64,7 +64,7 @@ var/can_call_ert
 			if(!new_name)//Somebody changed his mind, place is available again.
 				L.name = "Commando"
 				return*/
-			if(alert(usr, "Join the ERT?.", "Emergency Response Team", "Yes", "No") == "No")
+			if(alert(usr, "Join the ERT?", "Emergency Response Team", "Yes", "No") == "No")
 				L.name = "Response Team"
 				return
 

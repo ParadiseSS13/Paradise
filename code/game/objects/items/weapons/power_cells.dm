@@ -122,11 +122,11 @@
 
 /obj/item/weapon/stock_parts/cell/pulse/carbine
 	name = "pulse carbine power cell"
-	maxcharge = 5000
+	maxcharge = 4000
 
 /obj/item/weapon/stock_parts/cell/pulse/pistol
 	name = "pulse pistol power cell"
-	maxcharge = 2000
+	maxcharge = 1600
 
 /obj/item/weapon/stock_parts/cell/emproof
 	name = "\improper EMP-proof cell"
