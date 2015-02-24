@@ -332,7 +332,13 @@ proc/trigger_armed_response_team(var/force = 0)
 			W.access += list(access_cent_general, access_cent_living, access_cent_medical, access_cent_storage, access_cent_thunder, access_cent_teleporter)
 			M.equip_to_slot_or_del(W, slot_wear_id)
 
-			M.equip_to_slot_or_del(new /obj/item/weapon/storage/box/engineer(M), slot_in_backpack)
+			var/obj/item/device/pda/heads/pda = new(src)
+			pda.owner = M.real_name
+			pda.ownjob = "Emergency Response Team Leader"
+			pda.name = "PDA-[M.real_name] ([pda.ownjob])"
+			M.equip_to_slot_or_del(pda, slot_wear_pda)
+
+			M.equip_to_slot_or_del(new /obj/item/weapon/storage/box/response_team(M), slot_in_backpack)
 			M.equip_to_slot_or_del(new /obj/item/clothing/head/helmet/space/rig/ert/commander(M), slot_in_backpack)
 			M.equip_to_slot_or_del(new /obj/item/clothing/mask/gas/swat(M), slot_in_backpack)
 			M.equip_to_slot_or_del(new /obj/item/weapon/pinpointer(M), slot_in_backpack)
@@ -356,7 +362,13 @@ proc/trigger_armed_response_team(var/force = 0)
 			W.access += list(access_cent_general, access_cent_living, access_cent_thunder)
 			M.equip_to_slot_or_del(W, slot_wear_id)
 
-			M.equip_to_slot_or_del(new /obj/item/weapon/storage/box/engineer(M), slot_in_backpack)
+			var/obj/item/device/pda/heads/pda = new(src)
+			pda.owner = M.real_name
+			pda.ownjob = "Emergency Response Team"
+			pda.name = "PDA-[M.real_name] ([pda.ownjob])"
+			M.equip_to_slot_or_del(pda, slot_wear_pda)
+
+			M.equip_to_slot_or_del(new /obj/item/weapon/storage/box/response_team(M), slot_in_backpack)
 			M.equip_to_slot_or_del(new /obj/item/weapon/storage/box/handcuffs(M), slot_in_backpack)
 			M.equip_to_slot_or_del(new /obj/item/clothing/head/helmet/space/rig/ert/security(M), slot_in_backpack)
 			M.equip_to_slot_or_del(new /obj/item/clothing/mask/gas/swat(M), slot_in_backpack)
@@ -380,7 +392,13 @@ proc/trigger_armed_response_team(var/force = 0)
 			W.access += list(access_cent_general, access_cent_living, access_cent_medical)
 			M.equip_to_slot_or_del(W, slot_wear_id)
 
-			M.equip_to_slot_or_del(new /obj/item/weapon/storage/box/engineer(M), slot_in_backpack)
+			var/obj/item/device/pda/heads/pda = new(src)
+			pda.owner = M.real_name
+			pda.ownjob = "Emergency Response Team"
+			pda.name = "PDA-[M.real_name] ([pda.ownjob])"
+			M.equip_to_slot_or_del(pda, slot_wear_pda)
+
+			M.equip_to_slot_or_del(new /obj/item/weapon/storage/box/response_team(M), slot_in_backpack)
 			M.equip_to_slot_or_del(new /obj/item/clothing/head/helmet/space/rig/ert/medical(M), slot_in_backpack)
 			M.equip_to_slot_or_del(new /obj/item/clothing/mask/gas/swat(M), slot_in_backpack)
 			M.equip_to_slot_or_del(new /obj/item/weapon/storage/firstaid/o2(M), slot_in_backpack)
@@ -408,7 +426,13 @@ proc/trigger_armed_response_team(var/force = 0)
 			W.access += list(access_cent_general, access_cent_living, access_cent_storage)
 			M.equip_to_slot_or_del(W, slot_wear_id)
 
-			M.equip_to_slot_or_del(new /obj/item/weapon/storage/box/engineer(M), slot_in_backpack)
+			var/obj/item/device/pda/heads/pda = new(src)
+			pda.owner = M.real_name
+			pda.ownjob = "Emergency Response Team"
+			pda.name = "PDA-[M.real_name] ([pda.ownjob])"
+			M.equip_to_slot_or_del(pda, slot_wear_pda)
+
+			M.equip_to_slot_or_del(new /obj/item/weapon/storage/box/response_team(M), slot_in_backpack)
 			M.equip_to_slot_or_del(new /obj/item/clothing/head/helmet/space/rig/ert/engineer(M), slot_in_backpack)
 			M.equip_to_slot_or_del(new /obj/item/clothing/mask/gas/swat(M), slot_in_backpack)
 			M.equip_to_slot_or_del(new /obj/item/weapon/rcd/combat(M), slot_in_backpack)
@@ -416,9 +440,9 @@ proc/trigger_armed_response_team(var/force = 0)
 			M.equip_to_slot_or_del(new /obj/item/weapon/rcd_ammo/large(M), slot_in_backpack)
 			M.equip_to_slot_or_del(new /obj/item/weapon/gun/energy/gun(M), slot_in_backpack)
 
-			M.equip_to_slot_or_del(new /obj/item/weapon/storage/belt/utility/full(M), slot_belt)
+			M.equip_to_slot_or_del(new /obj/item/weapon/storage/belt/utility/full/response_team(M), slot_belt)
 
-			M.equip_to_slot_or_del(new /obj/item/weapon/storage/briefcase/inflatable(M), slot_r_hand)
+			M.equip_to_slot_or_del(new /obj/item/weapon/storage/briefcase/inflatable(M), slot_l_hand)
 
 /*/mob/living/carbon/human/proc/equip_strike_team(leader_selected = 0) Old ERT equip verb.
 

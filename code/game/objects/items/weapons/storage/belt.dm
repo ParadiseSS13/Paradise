@@ -59,6 +59,9 @@
 	new /obj/item/weapon/wirecutters(src)
 	new /obj/item/stack/cable_coil(src,30,pick("red","yellow","orange"))
 
+/obj/item/weapon/storage/belt/utility/full/response_team/New()
+	..()
+	new /obj/item/device/multitool(src)
 
 /obj/item/weapon/storage/belt/utility/atmostech/New()
 	..()
