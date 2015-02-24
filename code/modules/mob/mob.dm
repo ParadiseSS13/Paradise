@@ -913,6 +913,9 @@ var/list/slot_equipment_priority = list( \
 
 				process = processScheduler.getProcess("obj")
 				stat(null, "OBJ([processing_objects.len])\t - #[process.getTicks()]\t - [process.getLastRunTime()]")
+				
+				process = processScheduler.getProcess("bot")
+				stat(null, "BOT([aibots.len])\t - #[process.getTicks()]\t - [process.getLastRunTime()]")
 
 				process = processScheduler.getProcess("pipenet")
 				stat(null, "PIP([pipe_networks.len])\t - #[process.getTicks()]\t - [process.getLastRunTime()]")

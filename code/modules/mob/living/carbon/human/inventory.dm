@@ -136,7 +136,7 @@
 		update_inv_glasses(0)
 	else if(I == head)
 		head = null
-		if(I.flags & BLOCKHAIR)
+		if(I.flags & BLOCKHAIR || I.flags & BLOCKHEADHAIR)
 			update_hair(0)	//rebuild hair
 		update_inv_head(0)
 	else if(I == r_ear)
@@ -153,7 +153,7 @@
 		update_inv_belt(0)
 	else if(I == wear_mask)
 		wear_mask = null
-		if(I.flags & BLOCKHAIR)
+		if(I.flags & BLOCKHAIR || I.flags & BLOCKHEADHAIR)
 			update_hair(0)	//rebuild hair
 		if(internal)
 			if(internals)

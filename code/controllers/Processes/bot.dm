@@ -1,11 +1,20 @@
+/datum/controller/process/bot
+	var/tmp/datum/updateQueue/updateQueueInstance
+
 /datum/controller/process/bot/setup()
-	name = "bot controller"
+	name = "bot"
 	schedule_interval = 20 // every 2 seconds
+	updateQueueInstance = new
+
+/datum/controller/process/bot/started()
+	..()
+	if(!updateQueueInstance)
+		if(!aibots)
+			aibots = list()
+		else if(aibots.len)
+			updateQueueInstance = new
 
 /datum/controller/process/bot/doWork()
-	for(var/obj/machinery/bot/Bot in aibots)
-		if(!Bot.gc_destroyed)
-			spawn(0)
-				Bot.bot_process()
-			continue
-		aibots -= Bot
+	if(updateQueueInstance)
+		updateQueueInstance.init(aibots, "bot_process")
+		updateQueueInstance.Run()

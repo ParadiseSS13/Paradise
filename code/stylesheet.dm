@@ -36,6 +36,9 @@ em						{font-style: normal;	font-weight: bold;}
 .sciradio				{color: #993399;}
 .supradio				{color: #5F4519;}
 .srvradio				{color: #6eaa2c;}
+.admin_channel			{color: #9A04D1;	font-weight: bold;}
+.mod_channel			{color: #402A14;	font-weight: bold;}
+.mod_channel_admin      {color: #402A14;	font-weight: bold;}
 
 .alert					{color: #ff0000;}
 h1.alert, h2.alert		{color: #000000;}
@@ -60,8 +63,6 @@ h1.alert, h2.alert		{color: #000000;}
 
 .mod					{color: #735638;	font-weight: bold;}
 .modooc					{color: #184880;	font-weight: bold;}
-.adminchat				{color: #9A04D1;	font-weight: bold;}
-.adminmod				{color: #402A14;	font-weight: bold;}
 
 .alien					{color: #543354;}
 .noticealien			{color: #00c000;}
