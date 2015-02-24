@@ -405,7 +405,7 @@ proc/trigger_armed_response_team(var/force = 0)
 			M.equip_to_slot_or_del(new /obj/item/clothing/mask/gas/swat(M), slot_in_backpack)
 			M.equip_to_slot_or_del(new /obj/item/weapon/storage/firstaid/o2(M), slot_in_backpack)
 			M.equip_to_slot_or_del(new /obj/item/weapon/storage/firstaid/toxin(M), slot_in_backpack)
-			M.equip_to_slot_or_del(new /obj/item/weapon/reagent_containers/hypospray(M), slot_in_backpack)
+			M.equip_to_slot_or_del(new /obj/item/weapon/reagent_containers/hypospray/CMO(M), slot_in_backpack)
 			M.equip_to_slot_or_del(new /obj/item/weapon/gun/energy/gun(M), slot_in_backpack)
 
 			M.equip_to_slot_or_del(new /obj/item/weapon/defibrillator/compact/combat/loaded(M), slot_belt)
