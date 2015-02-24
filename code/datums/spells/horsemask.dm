@@ -26,7 +26,7 @@
 	if(!target)
 		return
 
-	if(target.type in compatible_mobs || ishuman(target))
+	if((target.type in compatible_mobs) || ishuman(target))
 		user << "<span class='notice'>It'd be stupid to curse [target] with a horse's head!</span>"
 		return
 

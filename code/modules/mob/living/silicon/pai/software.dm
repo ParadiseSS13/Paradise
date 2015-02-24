@@ -704,6 +704,7 @@
 		remove_language("Trinary")
 		remove_language("Chittin")
 		remove_language("Bubblish")
+		remove_language("Clownish")
 
 		src << "\blue Translator Module toggled OFF."
 
@@ -718,5 +719,6 @@
 		add_language("Trinary")
 		add_language("Chittin")
 		add_language("Bubblish")
+		add_language("Clownish")
 
 		src << "\blue Translator Module toggled ON."
