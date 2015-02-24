@@ -129,9 +129,7 @@
 		return 0
 
 
-	attackby(var/obj/item/weapon/W, var/mob/living/user, params)
-		user.changeNext_move(CLICK_CD_MELEE)
-		user.do_attack_animation(src)
+	attackby(var/obj/item/weapon/W, var/mob/user)
 		playsound(get_turf(src), 'sound/effects/attackblob.ogg', 50, 1)
 		src.visible_message("\red <B>The [src.name] has been attacked with \the [W][(user ? " by [user]." : ".")]")
 		var/damage = 0
@@ -143,19 +141,6 @@
 			if("brute")
 				damage = (W.force / max(src.brute_resist,1))
 
-		health -= damage
-		update_icon()
-		return
-		
-	attack_animal(mob/living/simple_animal/M as mob)
-		M.changeNext_move(CLICK_CD_MELEE)
-		M.do_attack_animation(src)
-		playsound(src.loc, 'sound/effects/attackblob.ogg', 50, 1)
-		src.visible_message("<span class='danger'>The [src.name] has been attacked by \the [M]!</span>")
-		var/damage = rand(M.melee_damage_lower, M.melee_damage_upper)
-		if(!damage) // Avoid divide by zero errors
-			return
-		damage /= max(src.brute_resist, 1)
 		health -= damage
 		update_icon()
 		return

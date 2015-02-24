@@ -13,7 +13,7 @@
 	src.overlays += image('icons/obj/computer.dmi', "ai-fixer-empty")
 
 
-/obj/machinery/computer/aifixer/attackby(I as obj, user as mob, params)
+/obj/machinery/computer/aifixer/attackby(I as obj, user as mob)
 	if(istype(I, /obj/item/device/aicard))
 		if(stat & (NOPOWER|BROKEN))
 			user << "This terminal isn't functioning right now, get it working!"

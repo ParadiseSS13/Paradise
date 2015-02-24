@@ -61,7 +61,7 @@
 	user << browse("[dat]", "window=console_stacking_machine")
 
 
-/obj/machinery/mineral/labor_claim_console/attackby(obj/item/I as obj, mob/user as mob, params)
+/obj/machinery/mineral/labor_claim_console/attackby(obj/item/I as obj, mob/user as mob)
 	if(istype(I, /obj/item/weapon/card/id))
 		return attack_hand(user)
 	..()
@@ -181,7 +181,7 @@
 /obj/machinery/mineral/labor_points_checker/attack_hand(mob/user)
 	user.examine(src)
 
-/obj/machinery/mineral/labor_points_checker/attackby(obj/item/I as obj, mob/user as mob, params)
+/obj/machinery/mineral/labor_points_checker/attackby(obj/item/I as obj, mob/user as mob)
 	if(istype(I, /obj/item/weapon/card/id))
 		if(istype(I, /obj/item/weapon/card/id/prisoner))
 			var/obj/item/weapon/card/id/prisoner/prisoner_id = I

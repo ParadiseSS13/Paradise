@@ -317,7 +317,7 @@
 		if(os)
 			os.error = BUSTED_ASS_COMPUTER
 
-	attackby(I as obj, mob/user as mob, params)
+	attackby(I as obj, mob/user as mob)
 		if(istype(I, /obj/item/weapon/screwdriver) && allow_disassemble)
 			disassemble(user)
 			return
@@ -341,7 +341,7 @@
 				P = input(user,"Which component?") as null|anything in p_list
 
 			if(P)
-				P.attackby(I,user, params)
+				P.attackby(I,user)
 				return
 		..()
 

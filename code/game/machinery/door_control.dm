@@ -40,7 +40,7 @@
 /obj/machinery/door_control/attack_paw(mob/user as mob)
 	return src.attack_hand(user)
 
-/obj/machinery/door_control/attackby(obj/item/weapon/W, mob/user as mob, params)
+/obj/machinery/door_control/attackby(obj/item/weapon/W, mob/user as mob)
 	/* For later implementation
 	if (istype(W, /obj/item/weapon/screwdriver))
 	{
@@ -142,7 +142,7 @@
 /obj/machinery/driver_button/attack_paw(mob/user as mob)
 	return src.attack_hand(user)
 
-/obj/machinery/driver_button/attackby(obj/item/weapon/W, mob/user as mob, params)
+/obj/machinery/driver_button/attackby(obj/item/weapon/W, mob/user as mob)
 
 	if(istype(W, /obj/item/device/detective_scanner))
 		return

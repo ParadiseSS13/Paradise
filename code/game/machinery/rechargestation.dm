@@ -79,7 +79,7 @@
 	else
 		icon_state = "borgcharger0"
 
-/obj/machinery/recharge_station/attackby(obj/item/P as obj, mob/user as mob, params)
+/obj/machinery/recharge_station/attackby(obj/item/P as obj, mob/user as mob)
 	if (istype(P, /obj/item/weapon/screwdriver))
 		if(src.occupant)
 			user << "<span class='notice'>The maintenance panel is locked.</span>"

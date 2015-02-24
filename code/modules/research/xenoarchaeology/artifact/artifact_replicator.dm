@@ -128,7 +128,7 @@
 
 	user << browse(dat, "window=alien_replicator")
 
-/obj/machinery/replicator/attackby(obj/item/weapon/W as obj, mob/living/user as mob, params)
+/obj/machinery/replicator/attackby(obj/item/weapon/W as obj, mob/living/user as mob)
 	user.drop_item()
 	W.loc = src
 	stored_materials.Add(W)

@@ -42,7 +42,7 @@
 	overlays += "clipboard_over"
 	return
 
-/obj/item/weapon/clipboard/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
+/obj/item/weapon/clipboard/attackby(obj/item/weapon/W as obj, mob/user as mob)
 
 	if(istype(W, /obj/item/weapon/paper) || istype(W, /obj/item/weapon/photo))
 		user.drop_item()
@@ -53,7 +53,7 @@
 		update_icon()
 
 	else if(istype(toppaper) && istype(W, /obj/item/weapon/pen))
-		toppaper.attackby(W, usr, params)
+		toppaper.attackby(W, usr)
 		update_icon()
 
 	return

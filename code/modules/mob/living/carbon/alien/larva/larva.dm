@@ -36,7 +36,7 @@
 		now_pushing = 1
 		if(ismob(AM))
 			var/mob/tmob = AM
-			if(istype(tmob, /mob/living/carbon/human) && (FAT in tmob.mutations))
+			if(istype(tmob, /mob/living/carbon/human) && (M_FAT in tmob.mutations))
 				if(prob(70))
 					src << "\red <B>You fail to push [tmob]'s fat ass out of the way.</B>"
 					now_pushing = 0
@@ -71,12 +71,14 @@
 
 
 /mob/living/carbon/alien/larva/ex_act(severity)
-	..()
+	if(!blinded)
+		flick("flash", flash)
 
 	var/b_loss = null
 	var/f_loss = null
 	switch (severity)
 		if (1.0)
+			b_loss += 500
 			gib()
 			return
 
@@ -117,7 +119,7 @@
 
 		//paralysis += 1
 
-	show_message("<span class='userdanger'>The blob attacks you!</span>")
+	show_message("\red The blob attacks you!")
 
 	adjustFireLoss(damage)
 
@@ -128,7 +130,7 @@
 //can't equip anything
 /mob/living/carbon/alien/larva/attack_ui(slot_id)
 	return
-	
+
 /mob/living/carbon/alien/larva/meteorhit(O as obj)
 	for(var/mob/M in viewers(src, null))
 		if ((M.client && !( M.blinded )))
@@ -140,164 +142,31 @@
 		updatehealth()
 	return
 
-/mob/living/carbon/alien/larva/attack_animal(mob/living/simple_animal/M as mob)
-	if(M.melee_damage_upper == 0)
-		M.emote("[M.friendly] [src]")
-	else
-		M.do_attack_animation(src)
-		if(M.attack_sound)
-			playsound(loc, M.attack_sound, 50, 1, 1)
-		visible_message("<span class='danger'>[M] [M.attacktext] [src]!</span>", \
-				"<span class='userdanger'>[M] [M.attacktext] [src]!</span>")
-		var/damage = rand(M.melee_damage_lower, M.melee_damage_upper)
-		adjustBruteLoss(damage)
-		add_logs(M, src, "attacked", admin=0)
-		updatehealth()
-
-
-/mob/living/carbon/alien/larva/attack_paw(mob/living/carbon/monkey/M as mob)
-	if(!(istype(M, /mob/living/carbon/monkey)))	return//Fix for aliens receiving double messages when attacking other aliens.
-
-	if (!ticker)
-		M << "You cannot attack people before the game has started."
-		return
-
-	if (istype(loc, /turf) && istype(loc.loc, /area/start))
-		M << "No attacking people at spawn, you jackass."
-		return
-	..()
-
-	switch(M.a_intent)
-
-		if ("help")
-			help_shake_act(M)
-		else
-			M.do_attack_animation(src)
-			if (istype(src.wear_mask, /obj/item/clothing/mask/muzzle))
-				return
-			playsound(loc, 'sound/weapons/bite.ogg', 50, 1, -1)
-			visible_message("<span class='danger'>[M.name] bites [src]!</span>", \
-					"<span class='userdanger'>[M.name] bites [src]!</span>")
-			if (health > -100)
-				adjustBruteLoss(rand(1, 3))
-				updatehealth()
-	return
-
-
-/mob/living/carbon/alien/larva/attack_slime(mob/living/carbon/slime/M as mob)
-	if (!ticker)
-		M << "You cannot attack people before the game has started."
-		return
-
-	if(M.Victim)
-		return // can't attack while eating!
-
-	if (stat != DEAD)
-		M.do_attack_animation(src)
-		visible_message("<span class='danger'>The [M.name] glomps [src]!</span>", \
-				"<span class='userdanger'>The [M.name] glomps [src]!</span>")
-		var/damage = rand(1, 3)
-
-		if(M.is_adult)
-			damage = rand(20, 40)
-		else
-			damage = rand(5, 35)
-
-
-		adjustBruteLoss(damage)
-		updatehealth()
-
-	return
-
 /mob/living/carbon/alien/larva/attack_hand(mob/living/carbon/human/M as mob)
-	if (!ticker)
-		M << "You cannot attack people before the game has started."
-		return
+	if(..())
+		var/damage = rand(1, 9)
+		if (prob(90))
+			if (M_HULK in M.mutations)
+				damage += 5
+				spawn(0)
+					Paralyse(1)
+					step_away(src,M,15)
+					sleep(3)
+					step_away(src,M,15)
+			playsound(loc, "punch", 25, 1, -1)
+			add_logs(M, src, "attacked")
+			visible_message("<span class='danger'>[M] has kicked [src]!</span>", \
+					"<span class='userdanger'>[M] has kicked [src]!</span>")
+			if ((stat != DEAD) && (damage > 4.9))
+				Paralyse(rand(5,10))
 
-	if (istype(loc, /turf) && istype(loc.loc, /area/start))
-		M << "No attacking people at spawn, you jackass."
-		return
-
-	..()
-
-	switch(M.a_intent)
-
-		if ("help")
-			help_shake_act(M)
-
-		if ("grab")
-			if (M == src || anchored)
-				return
-			var/obj/item/weapon/grab/G = new /obj/item/weapon/grab(M, src )
-
-			M.put_in_active_hand(G)
-
-			G.synch()
-
-			LAssailant = M
-
-			playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
-			visible_message("<span class='warning'>[M] has grabbed [src] passively!</span>")
-
+			adjustBruteLoss(damage)
+			updatehealth()
 		else
-			M.do_attack_animation(src)
-			var/damage = rand(1, 9)
-			if (prob(90))
-				if (HULK in M.mutations)
-					damage += 5
-					spawn(0)
-						Paralyse(1)
-						step_away(src,M,15)
-						sleep(3)
-						step_away(src,M,15)
-				playsound(loc, "punch", 25, 1, -1)
-				visible_message("<span class='danger'>[M] has kicked [src]!</span>", \
-						"<span class='userdanger'>[M] has kicked [src]!</span>")
-				if ((stat != DEAD) && (damage > 4.9))
-					Weaken(rand(5,10))
-					visible_message("<span class='danger'>[M] has weakened [src]!</span>", \
-							"<span class='userdanger'>[M] has weakened [src]!</span>", \
-							"<span class='danger'>You hear someone fall.</span>")
-				adjustBruteLoss(damage)
-				updatehealth()
-			else
-				playsound(loc, 'sound/weapons/punchmiss.ogg', 25, 1, -1)
-				visible_message("<span class='danger'>[M] has attempted to kick [src]!</span>", \
-						"<span class='userdanger'>[M] has attempted to kick [src]!</span>")
-	return
+			playsound(loc, 'sound/weapons/punchmiss.ogg', 25, 1, -1)
+			visible_message("<span class='danger'>[M] has attempted to kick [src]!</span>", \
+					"<span class='userdanger'>[M] has attempted to kick [src]!</span>")
 
-/mob/living/carbon/alien/larva/attack_alien(mob/living/carbon/alien/humanoid/M as mob)
-	if (!ticker)
-		M << "You cannot attack people before the game has started."
-		return
-
-	if (istype(loc, /turf) && istype(loc.loc, /area/start))
-		M << "No attacking people at spawn, you jackass."
-		return
-
-	..()
-
-	switch(M.a_intent)
-
-		if ("help")
-			sleeping = max(0,sleeping-5)
-			resting = 0
-			AdjustParalysis(-3)
-			AdjustStunned(-3)
-			AdjustWeakened(-3)
-			visible_message("<span class='notice'>[M.name] nuzzles [src] trying to wake it up!</span>")
-
-		else
-			if (health > 0)
-				M.do_attack_animation(src)
-				playsound(loc, 'sound/weapons/bite.ogg', 50, 1, -1)
-				var/damage = 1
-				visible_message("<span class='danger'>[M.name] bites [src]!</span>", \
-						"<span class='userdanger'>[M.name] bites [src]!</span>")
-				adjustBruteLoss(damage)
-				updatehealth()
-			else
-				M << "<span class='warning'>[name] is too injured for that.</span>"
 	return
 
 /mob/living/carbon/alien/larva/restrained()

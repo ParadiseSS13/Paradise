@@ -58,29 +58,29 @@
 		charges--
 		insisting = 0
 
-		if (!(HULK in user.mutations))
+		if (!(M_HULK in user.mutations))
 			user.dna.SetSEState(HULKBLOCK,1)
 
-		if (!(LASER in user.mutations))
-			user.mutations.Add(LASER)
+		if (!(M_LASER in user.mutations))
+			user.mutations.Add(M_LASER)
 
-		if (!(XRAY in user.mutations))
-			user.mutations.Add(XRAY)
+		if (!(M_XRAY in user.mutations))
+			user.mutations.Add(M_XRAY)
 			user.sight |= (SEE_MOBS|SEE_OBJS|SEE_TURFS)
 			user.see_in_dark = 8
 			user.see_invisible = SEE_INVISIBLE_LEVEL_TWO
 
-		if (!(RESIST_COLD in user.mutations))
-			user.mutations.Add(RESIST_COLD)
+		if (!(M_RESIST_COLD in user.mutations))
+			user.mutations.Add(M_RESIST_COLD)
 
-		if (!(RESIST_HEAT in user.mutations))
-			user.mutations.Add(RESIST_HEAT)
+		if (!(M_RESIST_HEAT in user.mutations))
+			user.mutations.Add(M_RESIST_HEAT)
 
-		if (!(TK in user.mutations))
-			user.mutations.Add(TK)
+		if (!(M_TK in user.mutations))
+			user.mutations.Add(M_TK)
 
-		if(!(REGEN in user.mutations))
-			user.mutations.Add(REGEN)
+		if(!(M_REGEN in user.mutations))
+			user.mutations.Add(M_REGEN)
 
 		user.update_mutations()
 

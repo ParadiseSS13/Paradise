@@ -338,8 +338,8 @@ datum
 			name = "Glycerol"
 			id = "glycerol"
 			result = "glycerol"
-			required_reagents = list("cornoil" = 3, "sacid" = 1)
-			result_amount = 1
+			required_reagents = list("cornoil" = 3, "sacid" = 2)
+			result_amount = 5
 
 		nitroglycerin
 			name = "Nitroglycerin"
@@ -459,6 +459,20 @@ datum
 			required_reagents = list("ethanol" = 1, "chlorine" = 3, "water" = 1)
 			result_amount = 1
 
+		potassium_chloride
+			name = "Potassium Chloride"
+			id = "potassium_chloride"
+			result = "potassium_chloride"
+			required_reagents = list("sodiumchloride" = 1, "potassium" = 1)
+			result_amount = 2
+
+		potassium_chlorophoride
+			name = "Potassium Chlorophoride"
+			id = "potassium_chlorophoride"
+			result = "potassium_chlorophoride"
+			required_reagents = list("potassium_chloride" = 1, "plasma" = 1, "chloralhydrate" = 1)
+			result_amount = 4
+
 		stoxin
 			name = "Sleep Toxin"
 			id = "stoxin"
@@ -470,8 +484,8 @@ datum
 			name = "Zombie Powder"
 			id = "zombiepowder"
 			result = "zombiepowder"
-			required_reagents = list("carpotoxin" = 5, "stoxin" = 5, "copper" = 5)
-			result_amount = 2
+			required_reagents = list("carpotoxin" = 1, "stoxin" = 1, "copper" = 1)
+			result_amount = 3
 
 		mutetoxin
 			name = "Mute toxin"
@@ -1455,7 +1469,7 @@ datum
 			required_other = 1
 			on_reaction(var/datum/reagents/holder)
 				feedback_add_details("slime_cores_used","[replacetext(name," ","_")]")
-				var/obj/effect/goleRUNe/Z = new /obj/effect/goleRUNe
+				var/obj/effect/golem_rune/Z = new /obj/effect/golem_rune
 				Z.loc = get_turf(holder.my_atom)
 				Z.announce_to_ghosts()
 //Bluespace

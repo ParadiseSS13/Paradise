@@ -101,8 +101,7 @@
 
 
 /obj/structure/alien/resin/attack_hand(mob/living/user)
-	if(HULK in user.mutations)
-		user.do_attack_animation(src)
+	if(M_HULK in user.mutations)
 		user.visible_message("<span class='danger'>[user] destroys [src]!</span>")
 		health = 0
 		healthcheck()
@@ -113,8 +112,6 @@
 
 
 /obj/structure/alien/resin/attack_alien(mob/living/user)
-	user.changeNext_move(CLICK_CD_MELEE)
-	user.do_attack_animation(src)
 	if(islarva(user))
 		return
 	user.visible_message("<span class='danger'>[user] claws at the resin!</span>")
@@ -125,8 +122,7 @@
 	healthcheck()
 
 
-/obj/structure/alien/resin/attackby(obj/item/I, mob/living/user, params)
-	user.changeNext_move(CLICK_CD_MELEE)
+/obj/structure/alien/resin/attackby(obj/item/I, mob/living/user)
 	health -= I.force
 	playsound(loc, 'sound/effects/attackblob.ogg', 100, 1)
 	healthcheck()
@@ -206,7 +202,7 @@
 	del(src)
 
 
-/obj/structure/alien/weeds/attackby(obj/item/I, mob/user, params)
+/obj/structure/alien/weeds/attackby(obj/item/I, mob/user)
 	if(I.attack_verb.len)
 		visible_message("<span class='danger'>[user] has [pick(I.attack_verb)] [src] with [I]!</span>")
 	else
@@ -359,7 +355,7 @@
 	healthcheck()
 
 
-/obj/structure/alien/egg/attackby(obj/item/I, mob/user, params)
+/obj/structure/alien/egg/attackby(obj/item/I, mob/user)
 	if(I.attack_verb.len)
 		visible_message("<span class='danger'>[user] has [pick(I.attack_verb)] [src] with [I]!</span>")
 	else

@@ -482,7 +482,7 @@ var/const/POS_HEADER = {"<html>
 		products[pid]=LI
 	src.attack_hand(usr)
 
-/obj/machinery/pos/attackby(var/atom/movable/A, var/mob/user, params)
+/obj/machinery/pos/attackby(var/atom/movable/A, var/mob/user)
 	if(istype(A,/obj/item/weapon/card/id))
 		var/obj/item/weapon/card/id/I = A
 		if(!logged_in)

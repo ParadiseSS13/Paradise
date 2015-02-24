@@ -42,7 +42,7 @@
 	// Set up DNA.
 	if(!delay_ready_dna)
 		dna.ready_dna(src)
-
+		
 /mob/living/carbon/human/dummy
 	real_name = "Test Dummy"
 	status_flags = GODMODE|CANPUSH
@@ -143,8 +143,8 @@
 					slime.UpdateFeed()
 			return
 
-		if(istype(tmob, /mob/living/carbon/human) && (FAT in tmob.mutations))
-			if(prob(40) && !(FAT in src.mutations))
+		if(istype(tmob, /mob/living/carbon/human) && (M_FAT in tmob.mutations))
+			if(prob(40) && !(M_FAT in src.mutations))
 				src << "\red <B>You fail to push [tmob]'s fat ass out of the way.</B>"
 				now_pushing = 0
 				return
@@ -205,8 +205,8 @@
 				stat("Distribution Pressure", internal.distribute_pressure)
 		if(mind)
 			if(mind.changeling)
-				stat("Chemical Storage", "[mind.changeling.chem_charges]/[mind.changeling.chem_storage]")
-				stat("Absorbed DNA", mind.changeling.absorbedcount)
+				stat("Chemical Storage", mind.changeling.chem_charges)
+				stat("Genetic Damage Time", mind.changeling.geneticdamage)
 		if (istype(wear_suit, /obj/item/clothing/suit/space/space_ninja)&&wear_suit:s_initialized)
 			stat("Energy Charge", (wear_suit:cell:charge))
 
@@ -368,7 +368,6 @@
 	if(M.melee_damage_upper == 0)
 		M.emote("[M.friendly] [src]")
 	else
-		M.do_attack_animation(src)
 		if(M.attack_sound)
 			playsound(loc, M.attack_sound, 50, 1, 1)
 		for(var/mob/O in viewers(src, null))
@@ -385,25 +384,6 @@
 		apply_damage(damage, BRUTE, affecting, armor, M.name)
 		if(armor >= 2)	return
 
-/mob/living/carbon/human/attack_larva(mob/living/carbon/alien/larva/L as mob)
-
-	switch(L.a_intent)
-		if("help")
-			visible_message("<span class='notice'>[L] rubs its head against [src].</span>")
-
-
-		else
-			L.do_attack_animation(src)
-			var/damage = rand(1, 3)
-			visible_message("<span class='danger'>[L] bites [src]!</span>", \
-					"<span class='userdanger'>[L] bites [src]!</span>")
-			playsound(loc, 'sound/weapons/bite.ogg', 50, 1, -1)
-
-			if(stat != DEAD)
-				L.amount_grown = min(L.amount_grown + damage, L.max_grown)
-			var/datum/organ/external/affecting = get_organ(ran_zone(L.zone_sel.selecting))
-			var/armor_block = run_armor_check(affecting, "melee")
-			apply_damage(damage, BRUTE, affecting, armor_block)		
 
 /mob/living/carbon/human/proc/is_loyalty_implanted(mob/living/carbon/human/M)
 	for(var/L in M.contents)
@@ -418,9 +398,9 @@
 
 	if (health > -100)
 
-		M.do_attack_animation(src)
-		visible_message("<span class='danger'>The [M.name] glomps [src]!</span>", \
-				"<span class='userdanger'>The [M.name] glomps [src]!</span>")
+		for(var/mob/O in viewers(src, null))
+			if ((O.client && !( O.blinded )))
+				O.show_message(text("\red <B>The [M.name] glomps []!</B>", src), 1)
 
 		var/damage = rand(1, 3)
 
@@ -559,8 +539,8 @@
 		if(id)
 			return id.rank ? id.rank : if_no_job
 		else
-			return if_no_id
-
+			return if_no_id		
+		
 //gets assignment from ID or ID inside PDA or PDA itself
 //Useful when player do something with computers
 /mob/living/carbon/human/proc/get_assignment(var/if_no_id = "No id", var/if_no_job = "No job")
@@ -610,7 +590,7 @@
 //Returns "Unknown" if facially disfigured and real_name if not. Useful for setting name when polyacided or when updating a human's name variable
 /mob/living/carbon/human/proc/get_face_name()
 	var/datum/organ/external/head/head = get_organ("head")
-	if( !head || head.disfigured || (head.status & ORGAN_DESTROYED) || !real_name || (HUSK in mutations) )	//disfigured. use id-name if possible
+	if( !head || head.disfigured || (head.status & ORGAN_DESTROYED) || !real_name || (M_HUSK in mutations) )	//disfigured. use id-name if possible
 		return "Unknown"
 	return real_name
 
@@ -1093,21 +1073,6 @@
 			xylophone=0
 	return
 
-/mob/living/carbon/human/can_inject(var/mob/user, var/error_msg, var/target_zone)
-	. = 1 // Default to returning true.
-	if(user && !target_zone)
-		target_zone = user.zone_sel.selecting
-	// If targeting the head, see if the head item is thin enough.
-	// If targeting anything else, see if the wear suit is thin enough.
-	if(above_neck(target_zone))
-		if(head && head.flags & THICKMATERIAL)
-			. = 0
-	else
-		if(wear_suit && wear_suit.flags & THICKMATERIAL)
-			. = 0
-	if(!. && error_msg && user)
-		// Might need re-wording.
-		user << "<span class='alert'>There is no exposed flesh or thin material [target_zone == "head" ? "on their head" : "on their body"].</span>"
 
 /mob/living/carbon/human/proc/vomit(hairball=0)
 	if(stat==2)return
@@ -1336,7 +1301,7 @@
 		usr << "\blue [self ? "Your" : "[src]'s"] pulse is [src.get_pulse(GETPULSE_HAND)]."
 
 /mob/living/carbon/human/proc/set_species(var/new_species, var/force_organs, var/default_colour)
-
+	
 	var/datum/species/oldspecies = species
 	if(!dna)
 		if(!new_species)
@@ -1353,26 +1318,26 @@
 
 		if(species.language)
 			remove_language(species.language)
-
+			
 		if(species.default_language)
-			remove_language(species.default_language)
-
+			remove_language(species.default_language)	
+			
 	species = all_species[new_species]
-
+	
 	if(oldspecies)
 		if(oldspecies.default_genes.len)
 			oldspecies.handle_dna(src,1) // Remove any genes that belong to the old species
 
 	if(force_organs || !organs || !organs.len)
 		species.create_organs(src)
-
+		
 	if(vessel)
 		vessel = null
 	make_blood()
 
 	if(species.language)
 		add_language(species.language)
-
+		
 	if(species.default_language)
 		add_language(species.default_language)
 
@@ -1394,7 +1359,7 @@
 		r_skin = 0
 		g_skin = 0
 		b_skin = 0
-
+		
 	if(!dna)
 		dna = new /datum/dna(null)
 		dna.species = species.name

@@ -9,7 +9,7 @@
 	var/obj/item/weapon/reagent_containers/held_container
 	var/heat_time = 50
 
-/obj/machinery/bunsen_burner/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
+/obj/machinery/bunsen_burner/attackby(obj/item/weapon/W as obj, mob/user as mob)
 	if(istype(W, /obj/item/weapon/reagent_containers))
 		if(held_container)
 			user << "\red You must remove the [held_container] first."

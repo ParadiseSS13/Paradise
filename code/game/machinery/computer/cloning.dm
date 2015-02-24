@@ -73,7 +73,7 @@
 
 	return podf
 
-/obj/machinery/computer/cloning/attackby(obj/item/W as obj, mob/user as mob, params)
+/obj/machinery/computer/cloning/attackby(obj/item/W as obj, mob/user as mob)
 	if (istype(W, /obj/item/weapon/disk/data)) //INSERT SOME DISKETTES
 		if (!src.diskette)
 			user.drop_item()
@@ -329,7 +329,7 @@
 		scantemp = "<span class=\"bad\">Error: Mental interface failure.</span>"
 		nanomanager.update_uis(src)
 		return
-	if ((NOCLONE in subject.mutations) && src.scanner.scan_level < 2)
+	if ((M_NOCLONE in subject.mutations) && src.scanner.scan_level < 2)
 		scantemp = "<span class=\"bad\">Error: Mental interface failure.</span>"
 		nanomanager.update_uis(src)
 		return

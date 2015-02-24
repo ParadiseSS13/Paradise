@@ -320,7 +320,7 @@
 
 */
 
-/obj/machinery/body_scanconsole/attackby(var/obj/item/weapon/G as obj, var/mob/user as mob, params)
+/obj/machinery/body_scanconsole/attackby(var/obj/item/weapon/G as obj, var/mob/user as mob)
 	if (istype(G, /obj/item/weapon/screwdriver))
 		default_deconstruction_screwdriver(user, "bodyscannerconsole-p", "bodyscannerconsole", G)
 		return		

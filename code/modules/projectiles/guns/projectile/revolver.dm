@@ -12,9 +12,20 @@
 	return
 
 /obj/item/weapon/gun/projectile/revolver/process_chambered()
-	return ..(0, 1)
+	var/obj/item/ammo_casing/AC = chambered //Find chambered round
+	if(isnull(AC) || !istype(AC))
+		return 0
+	chambered = null
+	chamber_round()
+	if(AC.BB)
+		in_chamber = AC.BB //Load projectile into chamber.
+		AC.BB.loc = src //Set projectile loc to gun.
+		AC.BB = null
+		AC.update_icon()
+		return 1
+	return 0
 
-/obj/item/weapon/gun/projectile/revolver/attackby(var/obj/item/A as obj, mob/user as mob, params)
+/obj/item/weapon/gun/projectile/revolver/attackby(var/obj/item/A as obj, mob/user as mob)
 	var/num_loaded = 0
 	if(istype(A, /obj/item/ammo_box))
 		var/obj/item/ammo_box/AM = A
@@ -115,7 +126,7 @@
 		M << "Your gun is now skinned as [choice]. Say hello to your new friend."
 		return 1
 
-/obj/item/weapon/gun/projectile/revolver/detective/attackby(var/obj/item/A as obj, mob/user as mob, params)
+/obj/item/weapon/gun/projectile/revolver/detective/attackby(var/obj/item/A as obj, mob/user as mob)
 	..()
 	if(istype(A, /obj/item/weapon/screwdriver) || istype(A, /obj/item/weapon/conversion_kit))
 		if(magazine.caliber == "38")
@@ -181,7 +192,7 @@
 		chamber_round()
 	spun = 1
 
-/obj/item/weapon/gun/projectile/revolver/russian/attackby(var/obj/item/A as obj, mob/user as mob, params)
+/obj/item/weapon/gun/projectile/revolver/russian/attackby(var/obj/item/A as obj, mob/user as mob)
 	..()
 	user.visible_message("<span class='warning'>[user] spins the chamber of the revolver.</span>", "<span class='warning'>You spin the revolver's chamber.</span>")
 	if(get_ammo() > 0)

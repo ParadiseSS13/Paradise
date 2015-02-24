@@ -30,13 +30,22 @@
 /mob/living/carbon/human/RangedAttack(var/atom/A)
 	if(!gloves && !mutations.len) return
 	var/obj/item/clothing/gloves/G = gloves
-	if((LASER in mutations) && a_intent == "harm")
+	if((M_LASER in mutations) && a_intent == "harm")
 		LaserEyes(A) // moved into a proc below
 
 	else if(istype(G) && G.Touch(A,0)) // for magic gloves
 		return
 
-	else if(TK in mutations)
+	else if(M_TK in mutations)
+		switch(get_dist(src,A))
+			if(1 to 5) // not adjacent may mean blocked by window
+				next_move += 2
+			if(5 to 7)
+				next_move += 5
+			if(8 to 15)
+				next_move += 10
+			if(16 to 128)
+				return
 		A.attack_tk(src)
 */
 
@@ -69,7 +78,7 @@
 	if(..())
 		return
 	if(a_intent != "harm" || !ismob(A)) return
-	if(is_muzzled())
+	if(istype(wear_mask, /obj/item/clothing/mask/muzzle))
 		return
 	var/mob/living/carbon/ML = A
 	var/dam_zone = ran_zone(pick("chest", "l_hand", "r_hand", "l_leg", "r_leg"))

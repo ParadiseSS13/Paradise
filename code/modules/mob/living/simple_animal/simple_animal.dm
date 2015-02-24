@@ -236,16 +236,18 @@
 			m_type = 2
 	..()
 
+
+
 /mob/living/simple_animal/attack_animal(mob/living/simple_animal/M as mob)
 	if(M.melee_damage_upper == 0)
-		M.emote("me", 1, "[M.friendly] [src]")
+		M.emote("[M.friendly] [src]")
 	else
-		M.do_attack_animation(src)
 		if(M.attack_sound)
 			playsound(loc, M.attack_sound, 50, 1, 1)
-		visible_message("<span class='danger'>\The [M] [M.attacktext] [src]!</span>", \
-				"<span class='userdanger'>\The [M] [M.attacktext] [src]!</span>")
-		add_logs(M, src, "attacked", admin=0)
+		for(var/mob/O in viewers(src, null))
+			O.show_message("\red <B>\The [M]</B> [M.attacktext] [src]!", 1)
+		M.attack_log += text("\[[time_stamp()]\] <font color='red'>attacked [src.name] ([src.ckey])</font>")
+		src.attack_log += text("\[[time_stamp()]\] <font color='orange'>was attacked by [M.name] ([M.ckey])</font>")
 		var/damage = rand(M.melee_damage_lower, M.melee_damage_upper)
 		adjustBruteLoss(damage)
 
@@ -264,8 +266,10 @@
 
 		if("help")
 			if (health > 0)
-				visible_message("<span class='notice'> [M] [response_help] [src].</span>")
-				playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
+				for(var/mob/O in viewers(src, null))
+					if ((O.client && !( O.blinded )))
+						O.show_message("\blue [M] [response_help] [src].")
+						playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
 
 		if("grab")
 			if (M == src || anchored)
@@ -277,42 +281,23 @@
 
 			M.put_in_active_hand(G)
 
+			grabbed_by += G
 			G.synch()
 
 			LAssailant = M
 
-			visible_message("<span class='warning'>[M] has grabbed [src] passively!</span>")
-			playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
+			for(var/mob/O in viewers(src, null))
+				if ((O.client && !( O.blinded )))
+					O.show_message(text("\red [] has grabbed [] passively!", M, src), 1)
+					playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
 
 		if("harm", "disarm")
-			M.do_attack_animation(src)
-			visible_message("<span class='danger'>[M] [response_harm] [src]!</span>")
-			playsound(loc, "punch", 25, 1, -1)
 			adjustBruteLoss(harm_intent_damage)
+			for(var/mob/O in viewers(src, null))
+				if ((O.client && !( O.blinded )))
+					O.show_message("\red [M] [response_harm] [src]!")
+					playsound(loc, "punch", 25, 1, -1)
 
-	return
-
-/mob/living/simple_animal/attack_paw(mob/living/carbon/monkey/M as mob)
-	if(!(istype(M, /mob/living/carbon/monkey)))
-		return // Fix for aliens receiving double messages when attacking simple animals.
-
-	..()
-
-	switch(M.a_intent)
-
-		if ("help")
-			if (health > 0)
-				visible_message("<span class='notice'> [M] [response_help] [src].</span>")
-				playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
-		else
-			M.do_attack_animation(src)
-			if (istype(src.wear_mask, /obj/item/clothing/mask/muzzle))
-				return
-			playsound(loc, 'sound/weapons/bite.ogg', 50, 1, -1)
-			visible_message("<span class='danger'>[M.name] bites [src]!</span>", \
-						"<span class='userdanger'>[M.name] bites [src]!</span>")
-			if (health > -100)
-				adjustBruteLoss(rand(1, 3))
 	return
 
 /mob/living/simple_animal/attack_alien(mob/living/carbon/alien/humanoid/M as mob)
@@ -321,7 +306,9 @@
 
 		if ("help")
 
-			visible_message("<span class='notice'>[M] caresses [src] with its scythe like arm.</span>")
+			for(var/mob/O in viewers(src, null))
+				if ((O.client && !( O.blinded )))
+					O.show_message(text("\blue [M] caresses [src] with its scythe like arm."), 1)
 		if ("grab")
 			if(M == src || anchored)
 				return
@@ -332,18 +319,18 @@
 
 			M.put_in_active_hand(G)
 
+			grabbed_by += G
 			G.synch()
 			LAssailant = M
 
 			playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
-			visible_message("<span class='warning'>[M] has grabbed [src] passively!</span>")
+			for(var/mob/O in viewers(src, null))
+				if ((O.client && !( O.blinded )))
+					O.show_message(text("\red [] has grabbed [] passively!", M, src), 1)
 
-		if("harm", "disarm")
-			M.do_attack_animation(src)
+		else
 			var/damage = rand(15, 30)
-			visible_message("<span class='danger'>[M] has slashed at [src]!</span>", \
-					"<span class='userdanger'>[M] has slashed at [src]!</span>")
-			playsound(loc, 'sound/weapons/slice.ogg', 25, 1, -1)
+			visible_message("\red <B>[M] has slashed at [src]!</B>")
 			adjustBruteLoss(damage)
 
 	return
@@ -352,19 +339,17 @@
 
 	switch(L.a_intent)
 		if("help")
-			visible_message("<span class='notice'>[L] rubs its head against [src].</span>")
+			visible_message("\blue [L] rubs it's head against [src]")
 
 
 		else
-			L.do_attack_animation(src)
+
 			var/damage = rand(5, 10)
-			visible_message("<span class='danger'>[L] bites [src]!</span>", \
-					"<span class='userdanger'>[L] bites [src]!</span>")
-			playsound(loc, 'sound/weapons/bite.ogg', 50, 1, -1)
+			visible_message("\red <B>[L] bites [src]!</B>")
 
 			if(stat != DEAD)
-				L.amount_grown = min(L.amount_grown + damage, L.max_grown)
 				adjustBruteLoss(damage)
+				L.amount_grown = min(L.amount_grown + damage, L.max_grown)
 
 
 /mob/living/simple_animal/attack_slime(mob/living/carbon/slime/M as mob)
@@ -374,24 +359,22 @@
 
 	if(M.Victim) return // can't attack while eating!
 
-	if (health > 0)
-		M.do_attack_animation(src)
-		visible_message("<span class='danger'>[M.name] glomps [src]!</span>", \
-				"<span class='userdanger'>[M.name] glomps [src]!</span>")
+	visible_message("\red <B>[M.name] glomps [src]!</B>")
 
-		var/damage = rand(1, 3)
+	var/damage = rand(1, 3)
 
-		if(M.is_adult)
-			damage = rand(20, 40)
-		else
-			damage = rand(5, 35)
+	if(M.is_adult)
+		damage = rand(20, 40)
+	else
+		damage = rand(5, 35)
 
-		adjustBruteLoss(damage)
+	adjustBruteLoss(damage)
 
 
 	return
 
-/mob/living/simple_animal/attackby(var/obj/item/O as obj, var/mob/living/user as mob)  //Marker -Agouri
+
+/mob/living/simple_animal/attackby(var/obj/item/O as obj, var/mob/user as mob)  //Marker -Agouri
 	if(istype(O, /obj/item/stack/medical))
 		if(stat != DEAD)
 			var/obj/item/stack/medical/MED = O
@@ -419,8 +402,6 @@
 		if(istype(O, /obj/item/weapon/kitchenknife) || istype(O, /obj/item/weapon/butch))
 			harvest()
 	else
-		user.changeNext_move(CLICK_CD_MELEE)
-		user.do_attack_animation(src)
 		var/damage = 0
 		if(O.force)
 			if(O.force >= force_threshold)

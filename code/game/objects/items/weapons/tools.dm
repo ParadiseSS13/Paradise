@@ -87,7 +87,7 @@
 	if(!istype(M))	return ..()
 	if(user.zone_sel.selecting != "eyes" && user.zone_sel.selecting != "head")
 		return ..()
-	if((CLUMSY in user.mutations) && prob(50))
+	if((M_CLUMSY in user.mutations) && prob(50))
 		M = user
 	return eyestab(M,user)
 
@@ -172,7 +172,7 @@
 	return
 
 
-/obj/item/weapon/weldingtool/attackby(obj/item/W as obj, mob/user as mob, params)
+/obj/item/weapon/weldingtool/attackby(obj/item/W as obj, mob/user as mob)
 	if(istype(W,/obj/item/weapon/screwdriver))
 		if(welding)
 			user << "\red Stop welding first!"

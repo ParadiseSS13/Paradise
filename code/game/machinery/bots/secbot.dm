@@ -175,7 +175,7 @@ Auto Patrol: []"},
 			updateUsrDialog()
 
 
-/obj/machinery/bot/secbot/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
+/obj/machinery/bot/secbot/attackby(obj/item/weapon/W as obj, mob/user as mob)
 	if(istype(W, /obj/item/weapon/card/id)||istype(W, /obj/item/device/pda))
 		if(allowed(user) && !open && !emagged)
 			locked = !locked
@@ -241,7 +241,7 @@ Auto Patrol: []"},
 						icon_state = "[base_icon][on]"
 					var/mob/living/carbon/M = target
 					if(istype(M, /mob/living/carbon/human))
-						if( M.stuttering < 5 && !(HULK in M.mutations) )
+						if( M.stuttering < 5 && !(M_HULK in M.mutations) )
 							M.stuttering = 5
 						if(harmbaton) // Bots with harmbaton enabled become shitcurity. - Dave
 							M.apply_damage(10)
@@ -412,7 +412,7 @@ Auto Patrol: []"},
 
 //Secbot Construction
 
-/obj/item/clothing/head/helmet/attackby(var/obj/item/device/assembly/signaler/S, mob/user as mob, params)
+/obj/item/clothing/head/helmet/attackby(var/obj/item/device/assembly/signaler/S, mob/user as mob)
 	..()
 	if(!issignaler(S))
 		..()
@@ -431,7 +431,7 @@ Auto Patrol: []"},
 	else
 		return
 
-/obj/item/weapon/secbot_assembly/attackby(obj/item/I, mob/user, params)
+/obj/item/weapon/secbot_assembly/attackby(obj/item/I, mob/user)
 	..()
 	if(istype(I, /obj/item/weapon/weldingtool))
 		if(!build_step)

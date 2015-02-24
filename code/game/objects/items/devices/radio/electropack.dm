@@ -26,7 +26,7 @@
 			S.part2 = null
 		master = null
 
-/obj/item/device/radio/electropack/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
+/obj/item/device/radio/electropack/attackby(obj/item/weapon/W as obj, mob/user as mob)
 	..()
 	if(istype(W, /obj/item/clothing/head/helmet))
 		if(!b_stat)

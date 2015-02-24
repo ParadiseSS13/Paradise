@@ -92,7 +92,7 @@ var/engwords = list("travel", "blood", "join", "hell", "destroy", "technology", 
 	return
 
 
-/obj/effect/rune/attackby(I as obj, user as mob, params)
+/obj/effect/rune/attackby(I as obj, user as mob)
 	if(istype(I, /obj/item/weapon/tome) && iscultist(user))
 		user << "You retrace your steps, carefully undoing the lines of the rune."
 		del(src)
@@ -487,7 +487,7 @@ var/engwords = list("travel", "blood", "join", "hell", "destroy", "technology", 
 			user << "The book seems full of illegible scribbles. Is this a joke?"
 			return
 
-	attackby(obj/item/weapon/tome/T as obj, mob/living/user as mob, params)
+	attackby(obj/item/weapon/tome/T as obj, mob/living/user as mob)
 		if(istype(T, /obj/item/weapon/tome)) // sanity check to prevent a runtime error
 			switch(alert("Copy the runes from your tome?",,"Copy", "Cancel"))
 				if("cancel")

@@ -25,7 +25,7 @@
 	l_color = "#B40000"
 
 
-/obj/machinery/computer/secure_data/attackby(obj/item/O as obj, user as mob, params)
+/obj/machinery/computer/secure_data/attackby(obj/item/O as obj, user as mob)
 	if(istype(O, /obj/item/weapon/card/id) && !scan)
 		usr.drop_item()
 		O.loc = src

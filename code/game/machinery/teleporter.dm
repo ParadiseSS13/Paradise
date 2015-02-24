@@ -30,7 +30,7 @@
 			break
 	return power_station
 
-/obj/machinery/computer/teleporter/attackby(I as obj, mob/living/user as mob, params)
+/obj/machinery/computer/teleporter/attackby(I as obj, mob/living/user as mob)
 	if(istype(I, /obj/item/device/gps))
 		var/obj/item/device/gps/L = I
 		if(L.locked_location && !(stat & (NOPOWER|BROKEN)))
@@ -329,7 +329,7 @@
 		//--FalseIncarnate
 	return
 
-/obj/machinery/teleport/hub/attackby(obj/item/W, mob/user, params)
+/obj/machinery/teleport/hub/attackby(obj/item/W, mob/user)
 	if(default_deconstruction_screwdriver(user, "tele-o", "tele0", W))
 		return
 
@@ -414,7 +414,7 @@
 		teleporter_hub.update_icon()
 	..()
 
-/obj/machinery/teleport/station/attackby(var/obj/item/weapon/W, mob/user, params)
+/obj/machinery/teleport/station/attackby(var/obj/item/weapon/W, mob/user)
 	if(istype(W, /obj/item/device/multitool) && !panel_open)
 		var/obj/item/device/multitool/M = W
 		if(M.buffer && istype(M.buffer, /obj/machinery/teleport/station) && M.buffer != src)

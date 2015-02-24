@@ -101,7 +101,7 @@ obj/machinery/air_sensor
 			sensors = list()
 		src.updateUsrDialog()
 
-	attackby(I as obj, user as mob, params)
+	attackby(I as obj, user as mob)
 		if(istype(I, /obj/item/weapon/screwdriver))
 			playsound(get_turf(src), 'sound/items/Screwdriver.ogg', 50, 1)
 			if(do_after(user, 20))
@@ -382,7 +382,7 @@ legend {
 		var/cutoff_temperature = 2000
 		var/on_temperature = 1200
 
-		attackby(I as obj, user as mob, params)
+		attackby(I as obj, user as mob)
 			if(istype(I, /obj/item/weapon/screwdriver))
 				playsound(get_turf(src), 'sound/items/Screwdriver.ogg', 50, 1)
 				if(do_after(user, 20))

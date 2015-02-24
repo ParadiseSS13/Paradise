@@ -101,7 +101,7 @@
 		attack_generic(user, rand(10, 15))
 
 
-	attackby(obj/item/weapon/W as obj, mob/user as mob, params)
+	attackby(obj/item/weapon/W as obj, mob/user as mob)
 		if(!istype(W)) return
 
 		if (can_puncture(W))

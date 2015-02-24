@@ -55,7 +55,7 @@ var/bomb_set
 				nanomanager.update_uis(src)
 	return
 
-/obj/machinery/nuclearbomb/attackby(obj/item/weapon/O as obj, mob/user as mob, params)
+/obj/machinery/nuclearbomb/attackby(obj/item/weapon/O as obj, mob/user as mob)
 	if (istype(O, /obj/item/weapon/screwdriver))
 		src.add_fingerprint(user)
 		if (src.auth)

@@ -170,7 +170,7 @@ Auto Patrol[]"},
 			declare_arrests = !declare_arrests
 			updateUsrDialog()
 
-/obj/machinery/bot/ed209/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
+/obj/machinery/bot/ed209/attackby(obj/item/weapon/W as obj, mob/user as mob)
 	if (istype(W, /obj/item/weapon/card/id)||istype(W, /obj/item/device/pda))
 		if (allowed(user) && !open && !emagged)
 			locked = !locked
@@ -257,7 +257,7 @@ Auto Patrol[]"},
 						icon_state = "[lasercolor]ed209[on]"
 					var/mob/living/carbon/M = target
 					if(istype(M, /mob/living/carbon/human))
-						if( M.stuttering < 5 && !(HULK in M.mutations) )
+						if( M.stuttering < 5 && !(M_HULK in M.mutations) )
 							M.stuttering = 5
 						M.Stun(5)
 						M.Weaken(5)
@@ -538,7 +538,7 @@ Auto Patrol[]"},
 
 
 
-/obj/item/weapon/ed209_assembly/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
+/obj/item/weapon/ed209_assembly/attackby(obj/item/weapon/W as obj, mob/user as mob)
 	..()
 
 	if(istype(W, /obj/item/weapon/pen))

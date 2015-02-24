@@ -21,7 +21,7 @@
 	var/mob/living/silicon/robot = null//Appears unused.
 	var/obj/mecha = null//This does not appear to be used outside of reference in mecha.dm.
 
-	attackby(var/obj/item/O as obj, var/mob/user as mob, params)
+	attackby(var/obj/item/O as obj, var/mob/user as mob)
 		if(istype(O,/obj/item/brain) && !brainmob) //Time to stick a brain in it --NEO
 			if(!O:brainmob)
 				user << "\red You aren't sure where this brain came from, but you're pretty sure it's a useless brain."

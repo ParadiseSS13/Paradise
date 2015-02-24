@@ -35,8 +35,8 @@
 		component_parts = list()
 		component_parts += new /obj/item/weapon/stock_parts/matter_bin(src)
 		component_parts += new /obj/item/weapon/stock_parts/micro_laser(src)
-		component_parts += new /obj/item/stack/cable_coil(src)
-		component_parts += new /obj/item/stack/cable_coil(src)
+		component_parts += new /obj/item/weapon/cable_coil(src)
+		component_parts += new /obj/item/weapon/cable_coil(src)
 		component_parts += new /obj/item/weapon/stock_parts/capacitor(src)
 		component_parts += new board_path(src)
 		RefreshParts()
@@ -72,7 +72,7 @@
 		overheat()
 			explosion(get_turf(src), 2, 5, 2, -1)
 
-	attackby(var/obj/item/O as obj, var/mob/user as mob, params)
+	attackby(var/obj/item/O as obj, var/mob/user as mob)
 		if(istype(O, /obj/item/weapon/tank/plasma))
 			if(P)
 				user << "\red The generator already has a plasma tank loaded!"

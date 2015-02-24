@@ -89,7 +89,7 @@ datum
 	volume = 2
 	flags = OPENCONTAINER
 
-obj/item/weapon/reagent_containers/glass/solution_tray/attackby(obj/item/weapon/W as obj, mob/living/user as mob, params)
+obj/item/weapon/reagent_containers/glass/solution_tray/attackby(obj/item/weapon/W as obj, mob/living/user as mob)
 	if(istype(W, /obj/item/weapon/pen))
 		var/new_label = input("What should the new label be?","Label solution tray")
 		if(new_label)

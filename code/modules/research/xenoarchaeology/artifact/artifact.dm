@@ -64,7 +64,7 @@
 		if(istype(M.selected,/obj/item/mecha_parts/mecha_equipment/tool/drill))
 			M.selected.action(src)
 
-/obj/structure/boulder/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
+/obj/structure/boulder/attackby(obj/item/weapon/W as obj, mob/user as mob)
 	if (istype(W, /obj/item/device/core_sampler))
 		if(geological_data)
 			src.geological_data.artifact_distance = rand(-100,100) / 100

@@ -70,7 +70,7 @@
 				for(var/datum/reagent/R in B.reagents.reagent_list)
 					usr << "\blue [R.volume] units of [R.name]"
 
-/obj/item/weapon/gun/dartgun/attackby(obj/item/I as obj, mob/user as mob, params)
+/obj/item/weapon/gun/dartgun/attackby(obj/item/I as obj, mob/user as mob)
 	if(istype(I, /obj/item/weapon/dart_cartridge))
 
 		var/obj/item/weapon/dart_cartridge/D = I
@@ -298,16 +298,3 @@
 
 /obj/item/weapon/gun/dartgun/vox/raider
 	starting_chems = list("space_drugs","stoxin","impedrezene")
-
-/obj/effect/syringe_gun_dummy //moved this shitty thing here
-	name = ""
-	desc = ""
-	icon = 'icons/obj/chemical.dmi'
-	icon_state = "null"
-	anchored = 1
-	density = 0
-
-	New()
-		var/datum/reagents/R = new/datum/reagents(15)
-		reagents = R
-		R.my_atom = src

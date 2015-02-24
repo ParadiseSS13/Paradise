@@ -63,8 +63,8 @@ var/const/GRAV_NEEDS_WRENCH = 3
 /obj/machinery/gravity_generator/part
 	var/obj/machinery/gravity_generator/main/main_part = null
 
-/obj/machinery/gravity_generator/part/attackby(obj/item/I as obj, mob/user as mob, params)
-	return main_part.attackby(I, user, params)
+/obj/machinery/gravity_generator/part/attackby(obj/item/I as obj, mob/user as mob)
+	return main_part.attackby(I, user)
 
 /obj/machinery/gravity_generator/part/get_status()
 	return main_part.get_status()
@@ -177,7 +177,7 @@ var/const/GRAV_NEEDS_WRENCH = 3
 // Interaction
 
 // Fixing the gravity generator.
-/obj/machinery/gravity_generator/main/attackby(obj/item/I as obj, mob/user as mob, params)
+/obj/machinery/gravity_generator/main/attackby(obj/item/I as obj, mob/user as mob)
 	var/old_broken_state = broken_state
 	switch(broken_state)
 		if(GRAV_NEEDS_SCREWDRIVER)

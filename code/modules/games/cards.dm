@@ -42,7 +42,7 @@
 		P.card_icon = "joker"
 		cards += P
 
-/obj/item/weapon/deck/attackby(obj/O as obj, mob/user as mob, params)
+/obj/item/weapon/deck/attackby(obj/O as obj, mob/user as mob)
 	if(istype(O,/obj/item/weapon/hand))
 		var/obj/item/weapon/hand/H = O
 		for(var/datum/playingcard/P in H.cards)
@@ -118,7 +118,7 @@
 	usr.visible_message("\The [usr] deals a card to \the [M].")
 	H.throw_at(get_step(M,M.dir),10,1,H)
 
-/obj/item/weapon/hand/attackby(obj/O as obj, mob/user as mob, params)
+/obj/item/weapon/hand/attackby(obj/O as obj, mob/user as mob)
 	if(istype(O,/obj/item/weapon/hand))
 		var/obj/item/weapon/hand/H = O
 		for(var/datum/playingcard/P in H.cards)

@@ -56,7 +56,7 @@
 		src.update_icon()
 	return
 
-/obj/item/toy/balloon/attackby(obj/O as obj, mob/user as mob, params)
+/obj/item/toy/balloon/attackby(obj/O as obj, mob/user as mob)
 	if(istype(O, /obj/item/weapon/reagent_containers/glass))
 		if(O.reagents)
 			if(O.reagents.total_volume < 1)
@@ -148,7 +148,7 @@
 		..()
 		return
 
-	attackby(obj/item/toy/ammo/gun/A as obj, mob/user as mob, params)
+	attackby(obj/item/toy/ammo/gun/A as obj, mob/user as mob)
 
 		if (istype(A, /obj/item/toy/ammo/gun))
 			if (src.bullets >= 7)
@@ -221,7 +221,7 @@
 		if (bullets)
 			usr << "\blue It is loaded with [bullets] foam darts!"
 
-	attackby(obj/item/I as obj, mob/user as mob, params)
+	attackby(obj/item/I as obj, mob/user as mob)
 		if(istype(I, /obj/item/toy/ammo/crossbow))
 			if(bullets <= 4)
 				user.drop_item()
@@ -330,7 +330,7 @@
     attack_verb = list("struck", "hammered", "hit", "bashed")
     bullets = 20.0
 
-/obj/item/toy/crossbow/tommygun/attackby(obj/item/I as obj, mob/user as mob, params)
+/obj/item/toy/crossbow/tommygun/attackby(obj/item/I as obj, mob/user as mob)
 	if(istype(I, /obj/item/toy/ammo/crossbow))
 		if(bullets <= 19)
 			user.drop_item()
@@ -377,7 +377,7 @@
 		return
 
 // Copied from /obj/item/weapon/melee/energy/sword/attackby
-/obj/item/toy/sword/attackby(obj/item/weapon/W, mob/living/user, params)
+/obj/item/toy/sword/attackby(obj/item/weapon/W, mob/living/user)
 	..()
 	if(istype(W, /obj/item/toy/sword))
 		if(W == src)
@@ -703,7 +703,7 @@ obj/item/toy/cards/deck/attack_self(mob/user as mob)
 		user.visible_message("<span class='notice'>[user] shuffles the deck.</span>", "<span class='notice'>You shuffle the deck.</span>")
 		cooldown = world.time
 
-obj/item/toy/cards/deck/attackby(obj/item/toy/cards/singlecard/C, mob/living/user, params)
+obj/item/toy/cards/deck/attackby(obj/item/toy/cards/singlecard/C, mob/living/user)
 	..()
 	if(istype(C))
 		if(C.parentdeck == src)
@@ -723,7 +723,7 @@ obj/item/toy/cards/deck/attackby(obj/item/toy/cards/singlecard/C, mob/living/use
 			src.icon_state = "deck_[deckstyle]_low"
 
 
-obj/item/toy/cards/deck/attackby(obj/item/toy/cards/cardhand/C, mob/living/user, params)
+obj/item/toy/cards/deck/attackby(obj/item/toy/cards/cardhand/C, mob/living/user)
 	..()
 	if(istype(C))
 		if(C.parentdeck == src)
@@ -827,7 +827,7 @@ obj/item/toy/cards/cardhand/Topic(href, href_list)
 				del(src)
 		return
 
-obj/item/toy/cards/cardhand/attackby(obj/item/toy/cards/singlecard/C, mob/living/user, params)
+obj/item/toy/cards/cardhand/attackby(obj/item/toy/cards/singlecard/C, mob/living/user)
 	if(istype(C))
 		if(C.parentdeck == src.parentdeck)
 			src.currenthand += C.cardname
@@ -898,7 +898,7 @@ obj/item/toy/cards/singlecard/verb/Flip()
 		src.name = "card"
 		src.pixel_x = -5
 
-obj/item/toy/cards/singlecard/attackby(obj/item/I, mob/living/user, params)
+obj/item/toy/cards/singlecard/attackby(obj/item/I, mob/living/user)
 	if(istype(I, /obj/item/toy/cards/singlecard/))
 		var/obj/item/toy/cards/singlecard/C = I
 		if(C.parentdeck == src.parentdeck)

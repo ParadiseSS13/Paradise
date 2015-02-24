@@ -35,7 +35,7 @@
 			del(src)
 			return
 
-/obj/item/flag/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
+/obj/item/flag/attackby(obj/item/weapon/W as obj, mob/user as mob)
 	..()
 	if(istype(W, /obj/item/weapon/weldingtool))
 		var/obj/item/weapon/weldingtool/WT = W

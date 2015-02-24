@@ -38,7 +38,7 @@
 	mag_type = "/obj/item/ammo_box/magazine/internal/cylinder/grenadelauncher"
 	w_class = 3
 
-/obj/item/weapon/gun/projectile/revolver/grenadelauncher/attackby(var/obj/item/A, mob/user, params)
+/obj/item/weapon/gun/projectile/revolver/grenadelauncher/attackby(var/obj/item/A, mob/user)
 	..()
 	if(istype(A, /obj/item/ammo_box) || istype(A, /obj/item/ammo_casing))
 		chamber_round()

@@ -144,8 +144,6 @@
 	name = "dart"
 	icon_state = "cbbolt"
 	damage = 6
-	embed = 0
-	sharp = 0
 
 	New()
 		..()

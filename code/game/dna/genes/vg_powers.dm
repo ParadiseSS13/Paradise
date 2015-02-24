@@ -26,12 +26,12 @@ Obviously, requires DNA2.
 
 	can_activate(var/mob/M,var/flags)
 		// Can't be big AND small.
-		if(DWARF in M.mutations)
+		if(M_DWARF in M.mutations)
 			return 0
 		return ..(M,flags)
 
 	OnDrawUnderlays(var/mob/M,var/g,var/fat)
-		if(HULK in M.mutations)
+		if(M_HULK in M.mutations)
 			if(fat)
 				return "hulk_[fat]_s"
 			else
@@ -40,11 +40,11 @@ Obviously, requires DNA2.
 
 	OnMobLife(var/mob/living/carbon/human/M)
 		if(!istype(M)) return
-		if(HULK in M.mutations)
+		if(M_HULK in M.mutations)
 			var/timeleft=M.hulk_time - world.time
 			if(M.health <= 25 || timeleft <= 0)
 				M.hulk_time=0 // Just to be sure.
-				M.mutations.Remove(HULK)
+				M.mutations.Remove(M_HULK)
 				//M.dna.SetSEState(HULKBLOCK,0)
 				M.update_mutations()		//update our mutation overlays
 				M.update_body()
@@ -78,7 +78,7 @@ Obviously, requires DNA2.
 		return
 	var/mob/living/carbon/human/M=usr
 	M.hulk_time = world.time + HULK_DURATION
-	M.mutations.Add(HULK)
+	M.mutations.Add(M_HULK)
 	M.update_mutations()		//update our mutation overlays
 	M.update_body()
 	//M.say(pick("",";")+pick("HULK MAD","YOU MADE HULK ANGRY")) // Just a note to security.
@@ -98,7 +98,7 @@ Obviously, requires DNA2.
 	deactivation_messages = list("You body feels normal.")
 
 
-	mutation=MORPH
+	mutation=M_MORPH
 	instability=2
 
 	New()
@@ -197,7 +197,7 @@ Obviously, requires DNA2.
 /datum/dna/gene/basic/grant_spell/remotetalk
 	name="Telepathy"
 	activation_messages=list("You expand your mind outwards.")
-	mutation=REMOTE_TALK
+	mutation=M_REMOTE_TALK
 	instability=1
 
 	spelltype =/obj/effect/proc_holder/spell/wizard/targeted/remotetalk
@@ -244,7 +244,7 @@ Obviously, requires DNA2.
 	var/say = strip_html(input("What do you wish to say"))
 
 	for(var/mob/living/target in targets)
-		if(REMOTE_TALK in target.mutations)
+		if(M_REMOTE_TALK in target.mutations)
 			target.show_message("\blue You hear [usr.real_name]'s voice: [say]")
 		else
 			target.show_message("\blue You hear a voice that seems to echo around the room: [say]")
@@ -257,7 +257,7 @@ Obviously, requires DNA2.
 /datum/dna/gene/basic/grant_spell/remoteview
 	name="Remote Viewing"
 	activation_messages=list("Your mind expands.")
-	mutation=REMOTE_VIEW
+	mutation=M_REMOTE_VIEW
 	instability=3
 
 	spelltype =/obj/effect/proc_holder/spell/wizard/targeted/remoteview
@@ -283,7 +283,7 @@ Obviously, requires DNA2.
 	var/list/targets = living_mob_list 
 	var/list/remoteviewers = new /list()
 	for(var/mob/M in targets)
-		if(REMOTE_VIEW in M.mutations)
+		if(M_REMOTE_VIEW in M.mutations)
 			remoteviewers += M
 	if(!remoteviewers.len || remoteviewers.len == 1)
 		usr << "<span class='warning'>No valid targets with remote view were found!</span>"
@@ -316,7 +316,7 @@ Obviously, requires DNA2.
 	for(var/mob/living/L in targets)
 		if(ishuman(L))
 			var/mob/living/carbon/human/H = L
-			if(PSY_RESIST in H.mutations)
+			if(M_PSY_RESIST in H.mutations)
 				continue
 		target = L
 

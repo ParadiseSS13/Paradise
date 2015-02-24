@@ -165,7 +165,7 @@
 		qdel(src)
 	return T
 
-/obj/structure/falsewall/attackby(obj/item/weapon/W, mob/user, params)
+/obj/structure/falsewall/attackby(obj/item/weapon/W, mob/user)
 	if(opening)
 		user << "<span class='warning'>You must wait until the door has stopped moving.</span>"
 		return
@@ -271,7 +271,7 @@
 	var/active = null
 	var/last_event = 0
 
-/obj/structure/falsewall/uranium/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
+/obj/structure/falsewall/uranium/attackby(obj/item/weapon/W as obj, mob/user as mob)
 	radiate()
 	..()
 

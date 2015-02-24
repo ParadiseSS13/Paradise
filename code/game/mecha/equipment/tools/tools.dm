@@ -548,9 +548,9 @@
 		if(!chassis) return
 		return "<span style=\"color:[equip_ready?"#0f0":"#f00"];\">*</span>&nbsp;[src.name]"
 
-	proc/dynattackby(obj/item/weapon/W as obj, mob/user as mob, params)
+	proc/dynattackby(obj/item/weapon/W as obj, mob/user as mob)
 		if(!action_checks(user))
-			return chassis.dynattackby(W,user, params)
+			return chassis.dynattackby(W,user)
 		chassis.log_message("Attacked by [W]. Attacker - [user]")
 		if(prob(chassis.deflect_chance*deflect_coeff))
 			user << "\red The [W] bounces off [chassis] armor."
@@ -920,7 +920,7 @@
 				return 0
 		return
 
-	attackby(weapon,mob/user, params)
+	attackby(weapon,mob/user)
 		var/result = load_fuel(weapon)
 		if(isnull(result))
 			user.visible_message("[user] tries to shove [weapon] into [src]. What a dumb-ass.","<font color='red'>[fuel] traces minimal. [weapon] cannot be used as fuel.</font>")

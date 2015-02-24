@@ -85,7 +85,7 @@ Programs are a file that can be executed
 */
 
 
-/datum/file/program/proc/attackby(O as obj, user as mob, params)
+/datum/file/program/proc/attackby(O as obj, user as mob)
 	return
 
 /*

@@ -20,7 +20,7 @@
 			master.growth_queue -= src
 		..()
 
-/obj/effect/biomass/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
+/obj/effect/biomass/attackby(obj/item/weapon/W as obj, mob/user as mob)
 	if (!W || !user || !W.type) return
 	switch(W.type)
 		if(/obj/item/weapon/circular_saw) del src

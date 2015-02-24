@@ -99,7 +99,7 @@ proc/move_labor_shuttle() //TODO: Security Access only; add moving the shuttle t
 		else
 			usr << "\blue Shuttle is already moving."
 
-/obj/machinery/computer/labor_shuttle/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
+/obj/machinery/computer/labor_shuttle/attackby(obj/item/weapon/W as obj, mob/user as mob)
 
 	if (istype(W, /obj/item/weapon/card/emag))
 		src.req_access = list()

@@ -255,8 +255,7 @@
 	if (Victim) return // can't attack while eating!
 
 	if (health > -100)
-	
-		M.do_attack_animation(src)
+
 		visible_message("<span class='danger'> The [M.name] has glomped [src]!</span>", \
 				"<span class='userdanger'> The [M.name] has glomped [src]!</span>")
 		var/damage = rand(1, 3)
@@ -276,7 +275,6 @@
 	if(M.melee_damage_upper == 0)
 		M.emote("[M.friendly] [src]")
 	else
-		M.do_attack_animation(src)
 		if(M.attack_sound)
 			playsound(loc, M.attack_sound, 50, 1, 1)
 		visible_message("<span class='danger'>[M] [M.attacktext] [src]!</span>", \
@@ -310,7 +308,6 @@
 			if (istype(wear_mask, /obj/item/clothing/mask/muzzle))
 				return
 			if (health > 0)
-				M.do_attack_animation(src)
 				attacked += 10
 				//playsound(loc, 'sound/weapons/bite.ogg', 50, 1, -1)
 				visible_message("<span class='danger'>[M.name] has attacked [src]!</span>", \
@@ -319,26 +316,7 @@
 				updatehealth()
 	return
 
-/mob/living/carbon/slime/attack_larva(mob/living/carbon/alien/larva/L as mob)
 
-	switch(L.a_intent)
-
-		if("help")
-			visible_message("<span class='notice'>[L] rubs its head against [src].</span>")
-
-
-		else
-			L.do_attack_animation(src)
-			attacked += 10
-			visible_message("<span class='danger'>[L] bites [src]!</span>", \
-					"<span class='userdanger'>[L] bites [src]!</span>")
-			playsound(loc, 'sound/weapons/bite.ogg', 50, 1, -1)
-
-			if(stat != DEAD)
-				var/damage = rand(1, 3)
-				L.amount_grown = min(L.amount_grown + damage, L.max_grown)
-				adjustBruteLoss(damage)
-				
 /mob/living/carbon/slime/attack_hand(mob/living/carbon/human/M as mob)
 	if (!ticker)
 		M << "You cannot attack people before the game has started."
@@ -437,12 +415,12 @@
 			visible_message("<span class='warning'>[M] has grabbed [src] passively!</span>")
 
 		else
-			M.do_attack_animation(src)
+
 			var/damage = rand(1, 9)
 
 			attacked += 10
 			if (prob(90))
-				if (HULK in M.mutations)
+				if (M_HULK in M.mutations)
 					damage += 5
 					if(Victim || Target)
 						Victim = null
@@ -484,7 +462,7 @@
 			visible_message("<span class='notice'>[M] caresses [src] with its scythe like arm.</span>")
 
 		if ("harm")
-			M.do_attack_animation(src)
+
 			if (prob(95))
 				attacked += 10
 				playsound(loc, 'sound/weapons/slice.ogg', 25, 1, -1)
@@ -518,7 +496,6 @@
 			visible_message("<span class='warning'> [M] has grabbed [name] passively!</span>")
 
 		if ("disarm")
-			M.do_attack_animation(src)
 			playsound(loc, 'sound/weapons/pierce.ogg', 25, 1, -1)
 			var/damage = 5
 			attacked += 10
@@ -556,7 +533,7 @@
 			updatehealth()
 	return
 
-/mob/living/carbon/slime/attackby(obj/item/W, mob/user, params)
+/mob/living/carbon/slime/attackby(obj/item/W, mob/user)
 	if(istype(W,/obj/item/stack/sheet/mineral/plasma)) //Lets you feed slimes plasma.
 		if (user in Friends)
 			++Friends[user]
@@ -666,7 +643,7 @@ mob/living/carbon/slime/var/temperature_resistance = T0C+75
 	var/Uses = 1 // uses before it goes inert
 	var/enhanced = 0 //has it been enhanced before?
 
-	attackby(obj/item/O as obj, mob/user as mob, params)
+	attackby(obj/item/O as obj, mob/user as mob)
 		if(istype(O, /obj/item/weapon/slimesteroid2))
 			if(enhanced == 1)
 				user << "<span class='warning'> This extract has already been enhanced!</span>"
@@ -981,7 +958,7 @@ mob/living/carbon/slime/var/temperature_resistance = T0C+75
 	max_heat_protection_temperature = FIRE_HELMET_MAX_HEAT_PROTECTION_TEMPERATURE
 	armor = list(melee = 80, bullet = 20, laser = 20, energy = 10, bomb = 0, bio = 0, rad = 0)
 
-/obj/effect/goleRUNe
+/obj/effect/golem_rune
 	anchored = 1
 	desc = "a strange rune used to create golems. It glows when spirits are nearby."
 	name = "rune"
@@ -1141,7 +1118,7 @@ mob/living/carbon/slime/var/temperature_resistance = T0C+75
 	if (environment.toxins > MOLES_PLASMA_VISIBLE)//plasma exposure causes the egg to hatch
 		src.Hatch()
 
-/obj/item/weapon/reagent_containers/food/snacks/egg/slime/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
+/obj/item/weapon/reagent_containers/food/snacks/egg/slime/attackby(obj/item/weapon/W as obj, mob/user as mob)
 	if(istype( W, /obj/item/toy/crayon ))
 		return
 	else

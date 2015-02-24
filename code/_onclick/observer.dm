@@ -19,8 +19,8 @@
 	if(client.buildmode)
 		build_click(src, client.buildmode, params, A)
 		return
-	if(world.time <= next_move) 
-		return
+	if(world.time <= next_move) return
+	next_move = world.time + 8
 
 	var/list/modifiers = params2list(params)
 	if(modifiers["shift"])

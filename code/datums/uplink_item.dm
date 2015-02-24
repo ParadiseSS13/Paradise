@@ -323,18 +323,18 @@ var/list/uplink_items = list()
 	cost = 18
 	gamemodes = list("nuclear emergency")
 
-/datum/uplink_item/ammo/bullbuck
-	name = "Drum Magazine - 12g buckshot"
-	desc = "An additional 8-round buckshot magazine for use in the Bulldog shotgun. Front towards enemy."
+/datum/uplink_item/ammo/bullstun
+	name = "Drum Magazine - 12g Stun Slug"
+	desc = "An additional 8-round stun slug magazine for use in the Bulldog shotgun. Saying that they're non-lethal would be lying."
 	item = /obj/item/ammo_box/magazine/m12g
 	cost = 2
 	gamemodes = list("nuclear emergency")
 
-/datum/uplink_item/ammo/bullstun
-	name = "Drum Magazine - 12g Stun Slug"
-	desc = "An alternative 8-round stun slug magazine for use in the Bulldog shotgun. Saying that they're completely non-lethal would be lying."
-	item = /obj/item/ammo_box/magazine/m12g/stun
-	cost = 3
+/datum/uplink_item/ammo/bullbuck
+	name = "Drum Magazine - 12g Buckshot"
+	desc = "An alternative 8-round buckshot magazine for use in the Bulldog shotgun. Front towards enemy."
+	item = /obj/item/ammo_box/magazine/m12g/buckshot
+	cost = 2
 	gamemodes = list("nuclear emergency")
 
 /datum/uplink_item/ammo/bulldragon
@@ -371,11 +371,10 @@ var/list/uplink_items = list()
 /datum/uplink_item/stealthy_weapons
 	category = "Stealthy and Inconspicuous Weapons"
 
-/datum/uplink_item/stealthy_weapons/sleepy_pen
-	name = "Sleepy Pen"
-	desc = "A syringe disguised as a functional pen, filled with a potent mix of drugs, including a strong anaesthetic and a chemical that is capable of blocking the movement of the vocal chords. \
-	The pen holds one dose of the mixture. The pen can be refilled."
-	item = /obj/item/weapon/pen/sleepy
+/datum/uplink_item/stealthy_weapons/para_pen
+	name = "Paralysis Pen"
+	desc = "A syringe disguised as a functional pen, filled with a neuromuscular-blocking drug that renders a target mute on injection that will eventually cause them to pass out. The pen holds one dose of paralyzing agent,though it can be refilled."
+	item = /obj/item/weapon/pen/paralysis
 	cost = 8
 	excludefrom = list("nuclear emergency")
 

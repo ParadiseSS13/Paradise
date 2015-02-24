@@ -29,7 +29,7 @@
 	user << "<span class='notice'>You put [I] into [src].</span>"
 	return
 
-/obj/structure/foodcart/attackby(obj/item/I, mob/user, params)
+/obj/structure/foodcart/attackby(obj/item/I, mob/user)
 	var/fail_msg = "<span class='notice'>There are no open spaces for this in [src].</span>"
 	if(!I.is_robot_module())
 		if(istype(I, /obj/item/weapon/reagent_containers/food/snacks))

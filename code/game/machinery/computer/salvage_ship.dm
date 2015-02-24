@@ -36,7 +36,7 @@
 	return 1
 
 
-/obj/machinery/computer/salvage_ship/attackby(obj/item/I as obj, mob/user as mob, params)
+/obj/machinery/computer/salvage_ship/attackby(obj/item/I as obj, mob/user as mob)
 	return attack_hand(user)
 
 /obj/machinery/computer/salvage_ship/attack_ai(mob/user as mob)

@@ -19,7 +19,7 @@
 
 	dir = EAST
 
-/obj/structure/spacepod_frame/attackby(obj/item/W as obj, mob/user as mob, params)
+/obj/structure/spacepod_frame/attackby(obj/item/W as obj, mob/user as mob)
 	if(!construct || !construct.action(W, user))
 		..()
 	return

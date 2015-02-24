@@ -108,7 +108,7 @@
 	src.throw_source = get_turf(src)	//store the origin turf
 
 	if(usr)
-		if(HULK in usr.mutations)
+		if(M_HULK in usr.mutations)
 			src.throwing = 2 // really strong throw!
 
 	var/dist_x = abs(target.x - src.x)
@@ -207,9 +207,9 @@
 	verbs.Cut()
 	return
 
-/atom/movable/overlay/attackby(a, b, c)
+/atom/movable/overlay/attackby(a, b)
 	if (src.master)
-		return src.master.attackby(a, b, c)
+		return src.master.attackby(a, b)
 	return
 
 /atom/movable/overlay/attack_paw(a, b, c)

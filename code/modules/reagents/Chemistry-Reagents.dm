@@ -398,7 +398,7 @@ datum
 
 			on_mob_life(var/mob/living/M as mob)
 				if(!M) M = holder.my_atom
-				if (FAT in M.mutations)
+				if (M_FAT in M.mutations)
 					M.gib()
 				..()
 				return
@@ -1656,11 +1656,14 @@ datum
 
 			on_mob_life(var/mob/living/carbon/M as mob)
 				if(!M) M = holder.my_atom ///This can even heal dead people.
+				M.reagents.remove_all_type(/datum/reagent/toxin, 5*REM, 0, 1)
 				M.setCloneLoss(0)
 				M.setOxyLoss(0)
 				M.radiation = 0
 				M.heal_organ_damage(5,5)
 				M.adjustToxLoss(-5)
+				M.stuttering = 0
+				M.slurring = 0
 				if(holder.has_reagent("toxin"))
 					holder.remove_reagent("toxin", 5)
 				if(holder.has_reagent("stoxin"))
@@ -1710,6 +1713,11 @@ datum
 				M.jitteriness = 0
 				..()
 				return
+
+			nanites
+				name = "Nanites"
+				id = "nanites"
+				description = "Tiny machines capable of rapid cellular regeneration."
 
 		synaptizine
 			name = "Synaptizine"
@@ -2263,6 +2271,46 @@ datum
 				M.apply_effect(10,IRRADIATE,0)
 				..()
 				return
+
+
+		potassium_chloride
+			name = "Potassium Chloride"
+			id = "potassium_chloride"
+			description = "A delicious salt that stops the heart when injected into cardiac muscle."
+			reagent_state = SOLID
+			color = "#FFFFFF" // rgb: 255,255,255
+			overdose = 30
+
+			on_mob_life(var/mob/living/carbon/M as mob)
+				var/mob/living/carbon/human/H = M
+				if(H.stat != 1)
+					if (volume >= overdose)
+						if(H.losebreath >= 10)
+							H.losebreath = max(10, H.losebreath-10)
+						H.adjustOxyLoss(2)
+						H.Weaken(10)
+				..()
+				return
+
+		potassium_chlorophoride
+			name = "Potassium Chlorophoride"
+			id = "potassium_chlorophoride"
+			description = "A specific chemical based on Potassium Chloride to stop the heart for surgery. Not safe to eat!"
+			reagent_state = SOLID
+			color = "#FFFFFF" // rgb: 255,255,255
+			overdose = 20
+
+			on_mob_life(var/mob/living/carbon/M as mob)
+				if(ishuman(M))
+					var/mob/living/carbon/human/H = M
+					if(H.stat != 1)
+						if(H.losebreath >= 10)
+							H.losebreath = max(10, M.losebreath-10)
+						H.adjustOxyLoss(2)
+						H.Weaken(10)
+				..()
+				return
+
 
 /////////////////////////Food Reagents////////////////////////////
 // Part of the food code. Nutriment is used instead of the old "heal_amt" code. Also is where all the food
@@ -3258,7 +3306,7 @@ datum
 			on_mob_life(var/mob/living/M as mob, var/alien)
 				// Sobering multiplier.
 				// Sober block makes it more difficult to get drunk
-				var/sober_str=!(SOBER in M.mutations)?1:2
+				var/sober_str=!(M_SOBER in M.mutations)?1:2
 				M:nutrition += nutriment_factor
 				holder.remove_reagent(src.id, FOOD_METABOLISM)
 				if(!src.data) data = 1
@@ -3591,11 +3639,6 @@ datum
 				reagent_state = LIQUID
 				color = "#664300" // rgb: 102, 67, 0
 
-				on_mob_life(var/mob/living/M as mob)
-					M.Stun(2)
-					..()
-					return
-
 			changelingsting
 				name = "Changeling Sting"
 				id = "changelingsting"
@@ -3833,6 +3876,10 @@ datum
 				reagent_state = LIQUID
 				color = "#664300" // rgb: 102, 67, 0
 
+				on_mob_life(var/mob/living/M as mob)
+					..()
+					M.stunned = 4
+					return
 
 			neurotoxin
 				name = "Neurotoxin"
@@ -3842,22 +3889,12 @@ datum
 				color = "#2E2E61" // rgb: 46, 46, 97
 
 				on_mob_life(var/mob/living/M as mob)
-					M.weakened = max(M.weakened, 3)
-					if(!data)
-						data = 1
-					data++
-					M.dizziness +=6
-					if(data >= 15 && data <45)
-						if (!M.slurring)
-							M.slurring = 1
-						M.slurring += 3
-					else if(data >= 45 && prob(50) && data <55)
-						M.confused = max(M.confused+3,0)
-					else if(data >=55)
-						M.druggy = max(M.druggy, 55)
-					else if(data >=200)
-						M.adjustToxLoss(2)
 					..()
+					if(!M) M = holder.my_atom
+					M:adjustOxyLoss(0.5)
+					M:adjustOxyLoss(0.5)
+					M:weakened = max(M:weakened, 15)
+					M:silent = max(M:silent, 15)
 					return
 
 			bananahonk

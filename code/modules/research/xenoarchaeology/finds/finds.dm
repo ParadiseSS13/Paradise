@@ -45,7 +45,7 @@
 	if(severity && prob(30))
 		src.visible_message("The [src] crumbles away, leaving some dust and gravel behind.")*/
 
-/obj/item/weapon/ore/strangerock/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
+/obj/item/weapon/ore/strangerock/attackby(obj/item/weapon/W as obj, mob/user as mob)
 	if(istype(W,/obj/item/weapon/weldingtool/))
 		var/obj/item/weapon/weldingtool/w = W
 		if(w.isOn())
@@ -250,7 +250,7 @@
 			if(prob(75))
 				new_item = new /obj/item/weapon/pen(src.loc)
 			else
-				new_item = new /obj/item/weapon/pen/sleepy(src.loc)
+				new_item = new /obj/item/weapon/pen/sleepypen(src.loc)
 			if(prob(30))
 				apply_image_decorations = 1
 		if(16)

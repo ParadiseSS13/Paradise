@@ -30,7 +30,7 @@
 
 
 
-/obj/item/ammo_casing/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
+/obj/item/ammo_casing/attackby(obj/item/weapon/W as obj, mob/user as mob)
 	if(istype(W, /obj/item/weapon/screwdriver))
 		if(BB)
 			if(initial(BB.name) == "bullet")
@@ -95,7 +95,7 @@
 			return 1
 	return 0
 
-/obj/item/ammo_box/attackby(var/obj/item/A as obj, mob/user as mob, var/silent = 0, params)
+/obj/item/ammo_box/attackby(var/obj/item/A as obj, mob/user as mob, var/silent = 0)
 	var/num_loaded = 0
 	if(istype(A, /obj/item/ammo_box))
 		var/obj/item/ammo_box/AM = A

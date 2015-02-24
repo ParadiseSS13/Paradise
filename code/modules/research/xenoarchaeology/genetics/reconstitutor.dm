@@ -47,7 +47,7 @@ datum/genesequence
 	undiscovered_genesequences = master_controller.all_animal_genesequences.Copy()
 	..()
 
-/obj/machinery/computer/reconstitutor/attackby(obj/item/W, mob/user, params)
+/obj/machinery/computer/reconstitutor/attackby(obj/item/W, mob/user)
 	if(istype(W,/obj/item/weapon/fossil))
 		user.drop_item()
 		W.loc = src.loc

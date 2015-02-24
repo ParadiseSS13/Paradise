@@ -31,7 +31,7 @@
 	return
 
 
-/obj/machinery/juicer/attackby(var/obj/item/O as obj, var/mob/user as mob, params)
+/obj/machinery/juicer/attackby(var/obj/item/O as obj, var/mob/user as mob)
 	if (istype(O,/obj/item/weapon/reagent_containers/glass) || \
 		istype(O,/obj/item/weapon/reagent_containers/food/drinks/drinkingglass))
 		if (beaker)
