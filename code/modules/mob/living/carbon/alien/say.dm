@@ -16,9 +16,20 @@
 		return emote(copytext(message,2))
 
 	var/datum/language/speaking = parse_language(message)
-
 	if(speaking)
-		message = copytext(message, 2+length(speaking.key))
+		message = copytext(message,2+length(speaking.key))
+	else
+		speaking = all_languages["Xenomorph"]
+
+	var/ending = copytext(message, length(message))
+	if (speaking)
+		// This is broadcast to all mobs with the language,
+		// irrespective of distance or anything else.
+		if(speaking.flags & HIVEMIND)
+			speaking.broadcast(src,trim(message))
+			return
+		//If we've gotten this far, keep going!
+		verb = speaking.get_spoken_verb(ending)
 
 	message = trim(message)
 
