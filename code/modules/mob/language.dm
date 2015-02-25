@@ -412,7 +412,7 @@
 
 	for (var/mob/M in dead_mob_list)
 		if(!istype(M,/mob/new_player) && !istype(M,/mob/living/carbon/brain))
-			var/message_start_dead = "<i><span class='game say'>[name] (<a href='byond://?src=\ref[M];follow2=\ref[M];follow=\ref[speaker]'>follow</a>), <span class='name'>[speaker.name]</span>"
+			var/message_start_dead = "<i><span class='game say'>[name], <span class='name'>[speaker.name] (<a href='byond://?src=\ref[M];follow2=\ref[M];follow=\ref[speaker]'>follow</a>)</span>"
 			M.show_message("[message_start_dead] [message_body]", 2)
 
 	for (var/mob/living/S in living_mob_list)
