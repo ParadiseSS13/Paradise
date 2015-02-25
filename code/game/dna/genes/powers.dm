@@ -7,6 +7,7 @@
 	activation_messages=list("You feel no need to breathe.")
 	mutation=NO_BREATH
 	instability=2
+	activation_prob=10
 
 	New()
 		block=NOBREATHBLOCK
@@ -112,10 +113,57 @@
 		..(M,connected,flags)
 		M.pass_flags |= 1
 
+
+// OLD HULK BEHAVIOR
+/datum/dna/gene/basic/hulk
+	name="Hulk"
+	activation_messages=list("Your muscles hurt.")
+	mutation=HULK
+	activation_prob=5
+
+	New()
+		block=HULKBLOCK
+
+	can_activate(var/mob/M,var/flags)
+		// Can't be big AND small.
+		if(DWARF in M.mutations)
+			return 0
+		return ..(M,flags)
+
+	activate(var/mob/M, var/connected, var/flags)
+		..()
+		var/status = CANSTUN | CANWEAKEN | CANPARALYSE | CANPUSH
+		M.status_flags &= ~status
+
+	deactivate(var/mob/M, var/connected, var/flags)
+		..()
+		M.status_flags |= CANSTUN | CANWEAKEN | CANPARALYSE | CANPUSH
+
+	OnDrawUnderlays(var/mob/M,var/g,var/fat)
+		if(HULK in M.mutations)
+			if(fat)
+				return "hulk_[fat]_s"
+			else
+				return "hulk_[g]_s"
+		return 0
+
+	OnMobLife(var/mob/living/carbon/human/M)
+		if(!istype(M)) return
+		if ((HULK in M.mutations) && M.health <= 25)
+			M.mutations.Remove(HULK)
+			M.dna.SetSEState(HULKBLOCK,0)
+			M.update_mutations()		//update our mutation overlays
+			M.update_body()
+			M.status_flags |= CANSTUN | CANWEAKEN | CANPARALYSE | CANPUSH //temporary fix until the problem can be solved.
+			M << "<span class='danger'>You suddenly feel very weak.</span>"
+			M.Weaken(3)
+			M.emote("collapse")
+
 /datum/dna/gene/basic/xray
 	name="X-Ray Vision"
 	activation_messages=list("The walls suddenly disappear.")
 	mutation=XRAY
+	activation_prob=10
 	instability=2
 
 	New()
@@ -125,7 +173,7 @@
 	name="Telekenesis"
 	activation_messages=list("You feel smarter.")
 	mutation=TK
-	activation_prob=15
+	activation_prob=10
 	instability=5
 
 	New()

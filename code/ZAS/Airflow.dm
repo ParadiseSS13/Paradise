@@ -207,6 +207,8 @@ mob/airflow_hit(atom/A)
 	for(var/mob/M in hearers(src))
 		M.show_message("\red <B>\The [src] slams into \a [A]!</B>",1,"\red You hear a loud slam!",2)
 	playsound(src.loc, "smash.ogg", 25, 1, -1)
+	if(!(status_flags & CANSTUN) && !(status_flags & CANWEAKEN))
+		return 0
 	weakened = max(weakened, (istype(A,/obj/item) ? A:w_class : rand(1,5))) //Heheheh
 	. = ..()
 
@@ -237,6 +239,9 @@ mob/living/carbon/human/airflow_hit(atom/A)
 
 	blocked = run_armor_check("groin","melee")
 	apply_damage(b_loss/3, BRUTE, "groin", blocked, 0, "Airflow")
+
+	if(!(status_flags & CANSTUN) && !(status_flags & CANWEAKEN))
+		return 0
 
 	if(airflow_speed > 10)
 		paralysis += round(airflow_speed * vsc.airflow_stun)

@@ -32,7 +32,9 @@
 			var/datum/organ/external/affecting = get_organ(ran_zone(M.zone_sel.selecting))
 			var/armor_block = run_armor_check(affecting, "melee")
 
-			if(HULK in M.mutations)			damage += 5
+			if(HULK in M.mutations)
+				damage += 5
+				Weaken(4)
 
 			playsound(loc, "punch", 25, 1, -1)
 
@@ -139,8 +141,9 @@
 			var/datum/organ/external/affecting = get_organ(ran_zone(M.zone_sel.selecting))
 			var/armor_block = run_armor_check(affecting, "melee")
 
-			if(HULK in M.mutations)			damage += 5
-
+			if(HULK in M.mutations)
+				damage += 5
+				Weaken(4)
 
 			playsound(loc, attack.attack_sound, 25, 1, -1)
 

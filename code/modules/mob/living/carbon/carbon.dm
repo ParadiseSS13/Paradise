@@ -78,7 +78,10 @@
 
 
 /mob/living/carbon/electrocute_act(var/shock_damage, var/obj/source, var/siemens_coeff = 1.0, var/def_zone = null)
-	if(status_flags & GODMODE)	return 0	//godmode
+	if(status_flags & GODMODE)	//godmode
+		return 0
+	if(NO_SHOCK in mutations) //shockproof
+		return 0
 	shock_damage *= siemens_coeff
 	if (shock_damage<1)
 		return 0
@@ -99,8 +102,14 @@
 				"\red <B>You feel a powerful shock course through your body!</B>", \
 				"\red You hear a heavy electrical crack." \
 			)
-		Stun(10)//This should work for now, more is really silly and makes you lay there forever
-		Weaken(10)
+		jitteriness += 1000 //High numbers for violent convulsions
+		do_jitter_animation(jitteriness)
+		stuttering += 2
+		Stun(2)
+		spawn(20)
+			jitteriness -= 990 //Still jittery, but vastly less
+			Stun(3)
+			Weaken(3)
 	if (shock_damage > 200)
 		src.visible_message(
 			"\red [src] was arc flashed by the [source]!", \
@@ -588,6 +597,6 @@
 
 /mob/living/carbon/proc/canBeHandcuffed()
 	return 0
-	
+
 /mob/living/carbon/is_muzzled()
 	return(istype(src.wear_mask, /obj/item/clothing/mask/muzzle))
