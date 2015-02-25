@@ -292,17 +292,17 @@
 
 /obj/machinery/autolathe/proc/can_build(var/datum/design/D,var/multiplier=1,var/custom_metal,var/custom_glass)
 	var/coeff = get_coeff(D)
-
-	var/m_amount_tmp = m_amount
+	
+	var/metal_amount = m_amount
 	if(custom_metal)
-		m_amount_tmp = custom_metal
-	var/g_amount_tmp = g_amount
+		metal_amount = custom_metal
+	var/glass_amount = g_amount
 	if(custom_glass)
-		g_amount_tmp = custom_glass
-
-	if(D.materials["$metal"] && (m_amount_tmp*multiplier < (D.materials["$metal"] / coeff)))
+		glass_amount = custom_glass
+	
+	if(D.materials["$metal"] && (metal_amount < (multiplier*D.materials["$metal"] / coeff)))
 		return 0
-	if(D.materials["$glass"] && (g_amount_tmp*multiplier < (D.materials["$glass"] / coeff)))
+	if(D.materials["$glass"] && (glass_amount < (multiplier*D.materials["$glass"] / coeff)))
 		return 0
 	return 1
 
