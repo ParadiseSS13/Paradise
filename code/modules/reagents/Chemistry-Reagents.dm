@@ -1435,13 +1435,6 @@ datum
 								H.adjustToxLoss(50)
 								..()
 								return
-					if(ismonkey(M))
-						var/mob/living/carbon/monkey/MO = M
-						if(MO.dna)
-							if(MO.dna.mutantrace == "plant") //plantmen monkeys (diona) take EVEN MORE damage
-								MO.adjustToxLoss(100)
-								..()
-								return
 
 		plasma
 			name = "Plasma"
@@ -1722,7 +1715,7 @@ datum
 
 			nanites
 				name = "Nanites"
-				id = "nanities"
+				id = "nanites"
 				description = "Nanomachines that aid in rapid cellular regeneration."
 
 
