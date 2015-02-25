@@ -77,6 +77,17 @@
 		new /obj/item/weapon/reagent_containers/hypospray/autoinjector( src )
 		return
 
+/obj/item/weapon/storage/box/response_team
+	New()
+		..()
+		contents = list()
+		sleep(1)
+		new /obj/item/clothing/mask/breath( src )
+		new /obj/item/weapon/tank/emergency_oxygen/double/full( src )
+		new /obj/item/clothing/glasses/night( src )
+		new /obj/item/weapon/kitchenknife/combat( src ) // SURVIVAL KNIFE, FOR CARVING A BOW OUT OF THE BONES OF ASSISTANTS AFTER YOU CRASH-LAND ON THE STATION.
+		new /obj/item/weapon/reagent_containers/hypospray/autoinjector( src )
+		return
 
 /obj/item/weapon/storage/box/gloves
 	name = "box of latex gloves"
@@ -480,7 +491,7 @@
 		new /obj/item/weapon/restraints/handcuffs(src)
 		new /obj/item/weapon/restraints/handcuffs(src)
 		new /obj/item/weapon/restraints/handcuffs(src)
-		
+
 /obj/item/weapon/storage/box/zipties
 	name = "box of spare zipties"
 	desc = "A box full of zipties."

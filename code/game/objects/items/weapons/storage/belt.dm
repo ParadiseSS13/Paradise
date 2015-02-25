@@ -59,6 +59,9 @@
 	new /obj/item/weapon/wirecutters(src)
 	new /obj/item/stack/cable_coil(src,30,pick("red","yellow","orange"))
 
+/obj/item/weapon/storage/belt/utility/full/response_team/New()
+	..()
+	new /obj/item/device/multitool(src)
 
 /obj/item/weapon/storage/belt/utility/atmostech/New()
 	..()
@@ -127,6 +130,13 @@
 /obj/item/weapon/storage/belt/security/New()
 	..()
 	new /obj/item/device/flashlight/seclite(src)
+
+/obj/item/weapon/storage/belt/security/response_team/New()
+	..()
+	new /obj/item/weapon/grenade/flashbang(src)
+	new /obj/item/weapon/grenade/flashbang(src)
+	new /obj/item/weapon/melee/telebaton(src)
+	new /obj/item/weapon/restraints/handcuffs(src)
 
 /obj/item/weapon/storage/belt/soulstone
 	name = "soul stone belt"
