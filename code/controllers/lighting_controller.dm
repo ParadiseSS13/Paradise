@@ -19,7 +19,7 @@ datum/controller/lighting/New()
 	if(lighting_controller != src)
 		if(istype(lighting_controller,/datum/controller/lighting))
 			Recover()	//if we are replacing an existing lighting_controller (due to a crash) we attempt to preserve as much as we can
-			del(lighting_controller)
+			qdel(lighting_controller)
 		lighting_controller = src
 
 
