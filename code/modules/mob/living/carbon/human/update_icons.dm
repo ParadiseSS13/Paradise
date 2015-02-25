@@ -420,7 +420,7 @@ proc/get_damage_icon_part(damage_state, body_part)
 		return
 
 	//masks and helmets can obscure our hair, unless we're a synthetic
-	if(!(species.flags & IS_SYNTHETIC) && (head && (head.flags & BLOCKHAIR)) || !(species.flags & IS_SYNTHETIC) && (wear_mask && (wear_mask.flags & BLOCKHAIR)))
+	if( (head && (head.flags & BLOCKHAIR)) || (wear_mask && (wear_mask.flags & BLOCKHAIR)))
 		if(update_icons)   update_icons()
 		return
 

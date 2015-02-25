@@ -1,3 +1,8 @@
+var/list/robot_verbs_default = list(
+	/mob/living/silicon/robot/proc/sensor_mode,
+	/mob/living/silicon/robot/proc/checklaws
+)
+
 /mob/living/silicon/robot
 	name = "Cyborg"
 	real_name = "Cyborg"
@@ -71,8 +76,7 @@
 	var/braintype = "Cyborg"
 	var/base_icon = ""
 	var/crisis = 0
-	var/hiddenborg = 0
-
+	
 	var/obj/item/borg/sight/hud/sec/sechud = null
 	var/obj/item/borg/sight/hud/med/healthhud = null
 
@@ -82,40 +86,31 @@
 	spark_system.attach(src)
 	
 	add_language("Robot Talk", 1)
+	
+	wires = new(src)
 
 	robot_modules_background = new()
 	robot_modules_background.icon_state = "block"
 	robot_modules_background.layer = 19	//Objects that appear on screen are on layer 20, UI should be just below it.
-
-	wires = new(src)
-
 	ident = rand(1, 999)
 	updatename("Default")
 	updateicon()
-	if(mmi == null)
-		mmi = new /obj/item/device/mmi/posibrain(src)	//Give the borg an MMI if he spawns without for some reason. (probably not the correct way to spawn a posibrain, but it works)
-		mmi.icon_state="posibrain-occupied"
-	if(syndie)
-		if(!cell)
-			cell = new /obj/item/weapon/stock_parts/cell(src)
-			laws = new /datum/ai_laws/antimov()
-		lawupdate = 0
-		scrambledcodes = 1
-		cell.maxcharge = 25000
-		cell.charge = 25000
-		module = new /obj/item/weapon/robot_module/syndicate(src)
-		hands.icon_state = "standard"
-		icon_state = "secborg"
-		modtype = "Security"
-	init(alien)
 
 	radio = new /obj/item/device/radio/borg(src)
+	common_radio = radio
+	
+	init()
+	
 	if(!scrambledcodes && !camera)
 		camera = new /obj/machinery/camera(src)
 		camera.c_tag = real_name
 		camera.network = list("SS13","Robots")
 		if(wires.IsCameraCut()) // 5 = BORG CAMERA
 			camera.status = 0
+
+	if(mmi == null)
+		mmi = new /obj/item/device/mmi/posibrain(src)	//Give the borg an MMI if he spawns without for some reason. (probably not the correct way to spawn a posibrain, but it works)
+		mmi.icon_state="posibrain-occupied"
 
 	initialize_components()
 	//if(!unfinished)
@@ -131,6 +126,8 @@
 		cell.charge = 7500
 
 	..()
+	
+	add_robot_verbs()
 
 	if(cell)
 		var/datum/robot_component/cell_component = components["power cell"]
@@ -148,17 +145,9 @@
 	hud_list[NATIONS_HUD] = image('icons/mob/hud.dmi', src, "hudblank")
 
 /mob/living/silicon/robot/proc/init(var/alien=0)
-	if(hiddenborg)
-		playsound(loc, 'sound/voice/liveagain.ogg', 75, 1)
-		return
 	aiCamera = new/obj/item/device/camera/siliconcam/robot_camera(src)
-	if(mmi.alien || alien)
-		laws = new /datum/ai_laws/alienmov()
-		connected_ai = select_active_alien_ai()
-		scrambledcodes = 1
-	else
-		make_laws()
-		connected_ai = select_active_ai_with_fewest_borgs()
+	make_laws()
+	connected_ai = select_active_ai_with_fewest_borgs()
 	if(connected_ai)
 		connected_ai.connected_robots += src
 		lawsync()
@@ -174,7 +163,7 @@
 	if (!rbPDA)
 		rbPDA = new/obj/item/device/pda/ai(src)
 	rbPDA.set_name_and_job(custom_name,braintype)
-	if(hiddenborg)
+	if(scrambledcodes)
 		rbPDA.hidden = 1
 		
 /mob/living/silicon/robot/binarycheck()
@@ -451,11 +440,17 @@
 		C.toggled = 1
 		src << "\red You enable [C.name]."
 
-/mob/living/silicon/robot/verb/control_hud()
+/mob/living/silicon/robot/proc/sensor_mode()
 	set name = "Set Sensor Augmentation"
 	set desc = "Augment visual feed with internal sensor overlays."
 	set category = "Robot Commands"
 	toggle_sensor_mode()
+	
+/mob/living/silicon/robot/proc/add_robot_verbs()
+	src.verbs |= robot_verbs_default
+
+/mob/living/silicon/robot/proc/remove_robot_verbs()
+	src.verbs -= robot_verbs_default
 
 /mob/living/silicon/robot/blob_act()
 	if (stat != 2)
@@ -1395,21 +1390,29 @@
 	icon_state = "nano_bloodhound"
 	lawupdate = 0
 	scrambledcodes = 1
-	hiddenborg = 1
 	modtype = "Commando"
 	faction = list("nanotrasen")
 	designation = "NT Combat Cyborg"
 	req_access = list(access_cent_specops)
-
+	
 /mob/living/silicon/robot/deathsquad/New(loc)
-	..()
-	cell.maxcharge = 50000
-	cell.charge = 50000
-	radio = new /obj/item/device/radio/borg/deathsquad(src)
-	module = new /obj/item/weapon/robot_module/deathsquad(src)
-	laws = new /datum/ai_laws/deathsquad()
+	if(!cell)
+		cell = new /obj/item/weapon/stock_parts/cell(src)
+		cell.maxcharge = 25000
+		cell.charge = 25000
 
-	Namepick()
+	..()
+	
+/mob/living/silicon/robot/syndicate/init()
+	aiCamera = new/obj/item/device/camera/siliconcam/robot_camera(src)
+
+	laws = new /datum/ai_laws/deathsquad
+	module = new /obj/item/weapon/robot_module/deathsquad(src)
+
+	radio = new /obj/item/device/radio/borg/deathsquad(src)
+	radio.recalculateChannels()
+
+	playsound(loc, 'sound/mecha/nominalsyndi.ogg', 75, 0)
 
 /mob/living/silicon/robot/deathsquad/attack_hand(mob/user)
 	if((ckey == null) && searching_for_ckey == 0)
@@ -1453,12 +1456,10 @@
 			get_borg_occupant(user, possiblecandidates)
 			return
 
-
 /mob/living/silicon/robot/syndicate
 	icon_state = "syndie_bloodhound"
 	lawupdate = 0
 	scrambledcodes = 1
-	hiddenborg = 1
 	modtype = "Synd"
 	faction = list("syndicate")
 	designation = "Syndicate"
@@ -1466,14 +1467,23 @@
 	req_access = list(access_syndicate)
 
 /mob/living/silicon/robot/syndicate/New(loc)
-	..()
-	cell.maxcharge = 25000
-	cell.charge = 25000
-	radio = new /obj/item/device/radio/borg/syndicate(src)
-	module = new /obj/item/weapon/robot_module/syndicate(src)
-	laws = new /datum/ai_laws/syndicate_override()
+	if(!cell)
+		cell = new /obj/item/weapon/stock_parts/cell(src)
+		cell.maxcharge = 25000
+		cell.charge = 25000
 
-	Namepick()
+	..()
+	
+/mob/living/silicon/robot/syndicate/init()
+	aiCamera = new/obj/item/device/camera/siliconcam/robot_camera(src)
+
+	laws = new /datum/ai_laws/syndicate_override
+	module = new /obj/item/weapon/robot_module/syndicate(src)
+
+	radio = new /obj/item/device/radio/borg/syndicate(src)
+	radio.recalculateChannels()
+
+	playsound(loc, 'sound/mecha/nominalsyndi.ogg', 75, 0)
 	
 /mob/living/silicon/robot/syndicate/canUseTopic(atom/movable/M)
 	if(stat || lockcharge || stunned || weakened)
