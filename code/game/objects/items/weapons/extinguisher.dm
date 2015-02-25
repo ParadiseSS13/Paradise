@@ -132,13 +132,18 @@
 		var/turf/T = get_turf(target)
 		var/turf/T1 = get_step(T,turn(direction, 90))
 		var/turf/T2 = get_step(T,turn(direction, -90))
-
 		var/list/the_targets = list(T,T1,T2)
+		if(precision)
+			var/turf/T3 = get_step(T1, turn(direction, 90))
+			var/turf/T4 = get_step(T2,turn(direction, -90))
+			the_targets = list(T,T1,T2,T3,T4)
 
 		for(var/a=0, a<5, a++)
 			spawn(0)
 				var/obj/effect/effect/water/W = new /obj/effect/effect/water( get_turf(src) )
 				var/turf/my_target = pick(the_targets)
+				if(precision)
+					the_targets -= my_target
 				var/datum/reagents/R = new/datum/reagents(5)
 				if(!W) return
 				W.reagents = R
