@@ -34,7 +34,7 @@
 	var/prod_coeff
 	var/datum/wires/autolathe/wires = null
 
-	var/datum/design/being_built
+	var/list/being_built = list()
 	var/datum/research/files
 	var/list/datum/design/matching_designs
 	var/selected_category
@@ -264,20 +264,22 @@
 	var/glass_cost = D.materials["$glass"]
 	var/power = max(2000, (metal_cost+glass_cost)*multiplier/5)
 	if (can_build(D,multiplier))
-		being_built = D
+		being_built = list(D,multiplier)
 		use_power(power)
 		icon_state = "autolathe"
 		flick("autolathe_n",src)
-		updateUsrDialog()
-		sleep(32/coeff)
 		if(is_stack)
 			m_amount -= metal_cost*multiplier
 			g_amount -= glass_cost*multiplier
-			var/obj/item/stack/S = new D.build_path(BuildTurf)
-			S.amount = multiplier
 		else
 			m_amount -= metal_cost/coeff
 			g_amount -= glass_cost/coeff
+		updateUsrDialog()
+		sleep(32/coeff)
+		if(is_stack)
+			var/obj/item/stack/S = new D.build_path(BuildTurf)
+			S.amount = multiplier
+		else
 			var/obj/item/new_item = new D.build_path(BuildTurf)
 			new_item.m_amt /= coeff
 			new_item.g_amt /= coeff
@@ -313,6 +315,13 @@
 		OutputList[2] = (D.materials["$glass"] / coeff)*multiplier
 	return OutputList
 
+/obj/machinery/autolathe/proc/get_processing_line()
+	var/datum/design/D = being_built[1]
+	var/multiplier = being_built[2]
+	var/is_stack = (multiplier>1)
+	var/output = "PROCESSING: [initial(D.name)][is_stack?" (x[multiplier])":null]"
+	return output
+
 /obj/machinery/autolathe/proc/get_queue()
 	var/temp_metal = m_amount
 	var/temp_glass = g_amount
@@ -320,14 +329,18 @@
 	output += "<div class='statusDisplay'>"
 	output += "<b>Queue contains:</b>"
 	if (!istype(queue) || !queue.len)
-		if(being_built)
-			output += "<ol><li>PROCESSING: [initial(being_built.name)]</li></ol>"
+		if(being_built.len)
+			output += "<ol><li>"
+			output += get_processing_line()
+			output += "</li></ol>"
 		else
 			output += "<br>Nothing"
 	else
 		output += "<ol>"
-		if(being_built)
-			output += "<li>PROCESSING: [initial(being_built.name)]</li>"
+		if(being_built.len)
+			output += "<li>"
+			output += get_processing_line()
+			output += "</li>"
 		var/i = 0
 		var/datum/design/D
 		for(var/list/L in queue)
@@ -369,17 +382,19 @@
 			return
 	while(D)
 		if(stat&(NOPOWER|BROKEN))
+			being_built = new /list()
 			return 0
 		if(!can_build(D,multiplier))
 			visible_message("\icon[src] <b>\The [src]</b> beeps, \"Not enough resources. Queue processing terminated.\"")
 			queue = list()
+			being_built = new /list()
 			return 0
 
 		remove_from_queue(1)
 		build_item(D,multiplier)
 		D = listgetindex(listgetindex(queue, 1),1)
 		multiplier = listgetindex(listgetindex(queue,1),2)
-	being_built = null
+	being_built = new /list()
 	//visible_message("\icon[src] <b>\The [src]</b> beeps, \"Queue processing finished successfully.\"")
 
 /obj/machinery/autolathe/proc/main_win(mob/user)
