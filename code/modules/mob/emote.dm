@@ -2,12 +2,13 @@
 
 //Emote Cooldown System (it's so simple!)
 /mob/proc/handle_emote_CD()
-	if(src.emote_CD == 1)
-		return 1	// Already on CD, prevent use
+	if(emote_cd == 2) return 1			// Cooldown emotes were disabled by an admin, prevent use
+	if(src.emote_cd == 1) return 1		// Already on CD, prevent use
 
-	src.emote_CD = 1		// Starting cooldown
+	src.emote_cd = 1		// Starting cooldown
 	spawn(EMOTE_COOLDOWN)
-		src.emote_CD = 0	// Cooldown complete, ready for more!
+		if(emote_cd == 2) return 1		// Don't reset if cooldown emotes were disabled by an admin during the cooldown
+		src.emote_cd = 0				// Cooldown complete, ready for more!
 
 	return 0		// Proceed with emote
 //--FalseIncarnate
