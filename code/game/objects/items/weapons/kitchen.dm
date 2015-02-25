@@ -177,7 +177,7 @@
 	desc = "A huge thing used for chopping and chopping up meat. This includes clowns and clown-by-products."
 	flags = CONDUCT
 	force = 15.0
-	w_class = 2.0
+	w_class = 3.0
 	throwforce = 8.0
 	throw_speed = 3
 	throw_range = 6
@@ -212,44 +212,6 @@
 	throw_speed = 3
 	throw_range = 7
 	w_class = 3.0
-	attack_verb = list("bashed", "battered", "bludgeoned", "thrashed", "whacked") //I think the rollingpin attackby will end up ignoring this anyway.
-
-/obj/item/weapon/kitchen/rollingpin/attack(mob/living/M as mob, mob/living/user as mob)
-	if ((CLUMSY in user.mutations) && prob(50))
-		user << "\red The [src] slips out of your hand and hits your head."
-		user.take_organ_damage(10)
-		user.Paralyse(2)
-		return
-
-	M.attack_log += text("\[[time_stamp()]\] <font color='orange'>Has been attacked with [src.name] by [user.name] ([user.ckey])</font>")
-	user.attack_log += text("\[[time_stamp()]\] <font color='red'>Used the [src.name] to attack [M.name] ([M.ckey])</font>")
-	msg_admin_attack("[user.name] ([user.ckey]) used the [src.name] to attack [M.name] ([M.ckey]) (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[user.x];Y=[user.y];Z=[user.z]'>JMP</a>)")
-
-	if(!iscarbon(user))
-		M.LAssailant = null
-	else
-		M.LAssailant = user
-
-	var/t = user:zone_sel.selecting
-	if (t == "head")
-		if(ishuman(M))
-			var/mob/living/carbon/human/H = M
-			if (H.stat < 2 && H.health < 50 && prob(90))
-				// ******* Check
-				if (istype(H, /obj/item/clothing/head) && H.flags & 8 && prob(80))
-					H << "\red The helmet protects you from being hit hard in the head!"
-					return
-				var/time = rand(2, 6)
-				if (prob(75))
-					H.Paralyse(time)
-				else
-					H.Stun(time)
-				if(H.stat != 2)	H.stat = 1
-				user.visible_message("\red <B>[H] has been knocked unconscious!</B>", "\red <B>You knock [H] unconscious!</B>")
-				return
-			else
-				H.visible_message("\red [user] tried to knock [H] unconscious!", "\red [user] tried to knock you unconscious!")
-				H.eye_blurry += 3
-	return ..()
+	attack_verb = list("bashed", "battered", "bludgeoned", "thrashed", "whacked")
 
 /* Trays moved to /obj/item/weapon/storage/bag */
