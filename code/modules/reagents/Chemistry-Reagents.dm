@@ -3984,3 +3984,9 @@ datum
 */
 // Undefine the alias for REAGENTS_EFFECT_MULTIPLER
 #undef REM
+
+
+/datum/reagent/Destroy()
+	if(holder)
+		holder.reagent_list -= src
+		holder = null
