@@ -21,8 +21,6 @@
 				on_CD = handle_emote_CD()							//proc located in code\modules\mob\emote.dm
 			else												//Everyone else fails, skip the emote attempt
 				return
-		if("flip")
-			on_CD = handle_emote_CD()
 		//Everything else, including typos of the above emotes
 		else
 			on_CD = 0	//If it doesn't induce the cooldown, we won't check for the cooldown
