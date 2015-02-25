@@ -90,7 +90,7 @@
 "abL" = (/obj/effect/decal/cleanable/cobweb2,/obj/structure/table,/obj/item/weapon/paper,/obj/machinery/light/small{dir = 1},/obj/item/weapon/pen,/obj/machinery/status_display{density = 0; layer = 4; pixel_x = 0; pixel_y = 32},/turf/simulated/floor/plating,/area/security/permabrig)
 "abM" = (/obj/structure/grille,/obj/structure/sign/securearea,/turf/simulated/floor/airless{icon_state = "circuit"},/area)
 "abN" = (/obj/structure/table,/obj/item/weapon/wrench,/obj/machinery/light/small{dir = 8},/obj/item/device/radio/intercom{broadcasting = 0; freerange = 0; frequency = 1475; listening = 1; name = "Station Intercom (Security)"; pixel_x = -30; pixel_y = 0},/turf/simulated/floor/plating,/area/security/permabrig)
-"abO" = (/obj/machinery/atmospherics/pipe/simple/visible{dir = 4},/turf/simulated/floor/plating,/area/security/permabrig)
+"abO" = (/obj/machinery/atmospherics/pipe/simple/visible{dir = 5},/turf/simulated/floor/plating,/area/security/permabrig)
 "abP" = (/obj/machinery/atmospherics/valve{dir = 4},/obj/machinery/light_switch{pixel_y = -25},/turf/simulated/floor/plating,/area/security/permabrig)
 "abQ" = (/obj/machinery/firealarm{dir = 1; pixel_y = -24},/obj/machinery/atmospherics/pipe/simple/visible{dir = 9},/turf/simulated/floor/plating,/area/security/permabrig)
 "abR" = (/turf/simulated/floor/plating,/area/security/permabrig)
