@@ -227,6 +227,12 @@ var/global/datum/controller/gameticker/ticker
 		statistic_cycle() // Polls population totals regularly and stores them in an SQL DB -- TLE
 
 	votetimer()
+
+	for(var/mob/M in mob_list)
+		if(istype(M,/mob/new_player))
+			var/mob/new_player/N = M
+			N.new_player_panel_proc()
+
 	return 1
 
 /datum/controller/gameticker

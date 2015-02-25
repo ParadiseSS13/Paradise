@@ -46,6 +46,12 @@
 	desc = "Dark Green beret with an old insignia on it."
 	icon_state = "sparkyninja_beret"
 
+/obj/item/weapon/book/manual/security_space_law/black
+	name = "Space Law - Limited Edition"
+	desc = "A leather-bound, immaculately-written copy of JUSTICE."
+	icon_state = "bookSpaceLawblack"
+	title = "Space Law - Limited Edition"
+
 //////////////////////////////////
 ////////// Fluff Items ///////////
 //////////////////////////////////

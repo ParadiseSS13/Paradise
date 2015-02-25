@@ -120,6 +120,14 @@
 	m_amt = 0
 	g_amt = 0
 
+/obj/item/weapon/stock_parts/cell/pulse/carbine
+	name = "pulse carbine power cell"
+	maxcharge = 4000
+
+/obj/item/weapon/stock_parts/cell/pulse/pistol
+	name = "pulse pistol power cell"
+	maxcharge = 1600
+
 /obj/item/weapon/stock_parts/cell/emproof
 	name = "\improper EMP-proof cell"
 	desc = "An EMP-proof cell."

@@ -11,6 +11,24 @@
 
 	var/muzzled = is_muzzled()
 
+	//Emote Cooldown System (it's so simple!)
+	// proc/handle_emote_CD() located in [code\modules\mob\emote.dm]
+	var/on_CD = 0
+	switch(act)
+		//Cooldown-inducing emotes
+		if("chirp")
+			if(istype(src,/mob/living/carbon/monkey/diona))		//Only Diona Nymphs can chirp
+				on_CD = handle_emote_CD()							//proc located in code\modules\mob\emote.dm
+			else												//Everyone else fails, skip the emote attempt
+				return
+		//Everything else, including typos of the above emotes
+		else
+			on_CD = 0	//If it doesn't induce the cooldown, we won't check for the cooldown
+
+	if(on_CD == 1)		// Check if we need to suppress the emote attempt.
+		return			// Suppress emote, you're still cooling off.
+	//--FalseIncarnate
+
 	switch(act)
 		if ("me")
 			if(silent)
@@ -32,10 +50,9 @@
 			return custom_emote(m_type, message)
 
 		if ("chirp")
-			if(istype(src,/mob/living/carbon/monkey/diona))
-				message = "<B>The [src.name]</B> chirps!"
-				playsound(src.loc, 'sound/misc/nymphchirp.ogg', 50, 0)
-				m_type = 2
+			message = "<B>The [src.name]</B> chirps!"
+			playsound(src.loc, 'sound/misc/nymphchirp.ogg', 50, 0)
+			m_type = 2
 		if("sign")
 			if (!src.restrained())
 				message = text("<B>The monkey</B> signs[].", (text2num(param) ? text(" the number []", text2num(param)) : null))

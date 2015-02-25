@@ -131,9 +131,8 @@ var/list/mechtoys = list(
 	var/comment = null
 
 /datum/controller/supply
-	var/processing = 1
-	var/processing_interval = 300
-	var/iteration = 0
+	processing = 1
+	processing_interval = 300
 	//supply points
 	var/points = 50
 	var/points_per_process = 1
@@ -224,8 +223,8 @@ var/list/mechtoys = list(
 						plat_count += P.amount
 
 					// If you send something in a crate, centcom's keeping it! - fixes secure crates being sent to centom to open them
-					del(A)
-			del(MA)
+					qdel(A)
+			qdel(MA)
 
 		if(plasma_count)
 			points += plasma_count * points_per_plasma

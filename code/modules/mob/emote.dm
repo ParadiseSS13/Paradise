@@ -1,3 +1,18 @@
+#define EMOTE_COOLDOWN 50		//Time in deciseconds that the cooldown lasts
+
+//Emote Cooldown System (it's so simple!)
+/mob/proc/handle_emote_CD()
+	if(emote_cd == 2) return 1			// Cooldown emotes were disabled by an admin, prevent use
+	if(src.emote_cd == 1) return 1		// Already on CD, prevent use
+
+	src.emote_cd = 1		// Starting cooldown
+	spawn(EMOTE_COOLDOWN)
+		if(emote_cd == 2) return 1		// Don't reset if cooldown emotes were disabled by an admin during the cooldown
+		src.emote_cd = 0				// Cooldown complete, ready for more!
+
+	return 0		// Proceed with emote
+//--FalseIncarnate
+
 // All mobs should have custom emote, really..
 /mob/proc/custom_emote(var/m_type=1,var/message = null)
 
