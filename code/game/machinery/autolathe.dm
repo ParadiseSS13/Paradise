@@ -16,7 +16,7 @@
 
 	var/operating = 0.0
 	var/list/queue = list()
-	var/queue_max_len = 10
+	var/queue_max_len = 12
 	var/turf/BuildTurf
 	anchored = 1.0
 	var/list/L = list()
@@ -190,16 +190,17 @@
 
 		/////////////////
 		//href protection
-		being_built = files.FindDesignByID(href_list["make"]) //check if it's a valid design
-		if(!being_built)
+		var/datum/design/design_last_ordered
+		design_last_ordered = files.FindDesignByID(href_list["make"]) //check if it's a valid design
+		if(!design_last_ordered)
 			return
-		if(!(being_built.build_type & AUTOLATHE))
+		if(!(design_last_ordered.build_type & AUTOLATHE))
 			return
 
 		//multiplier checks : only stacks can have one and its value is 1, 10 ,25 or max_multiplier
 		var/multiplier = text2num(href_list["multiplier"])
-		var/max_multiplier = min(50, being_built.materials["$metal"] ?round(m_amount/being_built.materials["$metal"]):INFINITY,being_built.materials["$glass"]?round(g_amount/being_built.materials["$glass"]):INFINITY)
-		var/is_stack = ispath(being_built.build_path, /obj/item/stack)
+		var/max_multiplier = min(50, design_last_ordered.materials["$metal"] ?round(m_amount/design_last_ordered.materials["$metal"]):INFINITY,design_last_ordered.materials["$glass"]?round(g_amount/design_last_ordered.materials["$glass"]):INFINITY)
+		var/is_stack = ispath(design_last_ordered.build_path, /obj/item/stack)
 
 		if(!is_stack && (multiplier > 1))
 			return
@@ -207,8 +208,8 @@
 			return
 		/////////////////
 
-		if(queue.len<queue_max_len)
-			add_to_queue(being_built,multiplier)
+		if((queue.len+1)<queue_max_len)
+			add_to_queue(design_last_ordered,multiplier)
 		else
 			usr << "\red The autolathe queue is full!"
 		if (!busy)
@@ -263,6 +264,7 @@
 	var/glass_cost = D.materials["$glass"]
 	var/power = max(2000, (metal_cost+glass_cost)*multiplier/5)
 	if (can_build(D,multiplier))
+		being_built = D
 		use_power(power)
 		icon_state = "autolathe"
 		flick("autolathe_n",src)
@@ -318,19 +320,23 @@
 	output += "<div class='statusDisplay'>"
 	output += "<b>Queue contains:</b>"
 	if (!istype(queue) || !queue.len)
-		output += "<br>Nothing"
+		if(being_built)
+			output += "<ol><li>PROCESSING: [initial(being_built.name)]</li></ol>"
+		else
+			output += "<br>Nothing"
 	else
 		output += "<ol>"
+		if(being_built)
+			output += "<li>PROCESSING: [initial(being_built.name)]</li>"
 		var/i = 0
 		var/datum/design/D
 		for(var/list/L in queue)
 			i++
 			D = L[1]
 			var/multiplier = L[2]
-			var/obj/part = D.build_path
 			var/list/LL = get_design_cost_as_list(D,multiplier)
 			var/is_stack = (multiplier>1)
-			output += "<li[!can_build(D,multiplier,temp_metal,temp_glass)?" style='color: #f00;'":null]>[initial(part.name)][is_stack?" (x[multiplier])":null] - [i>1?"<a href='?src=\ref[src];queue_move=-1;index=[i]' class='arrow'>&uarr;</a>":null] [i<queue.len?"<a href='?src=\ref[src];queue_move=+1;index=[i]' class='arrow'>&darr;</a>":null] <a href='?src=\ref[src];remove_from_queue=[i]'>Remove</a></li>"
+			output += "<li[!can_build(D,multiplier,temp_metal,temp_glass)?" style='color: #f00;'":null]>[initial(D.name)][is_stack?" (x[multiplier])":null] - [i>1?"<a href='?src=\ref[src];queue_move=-1;index=[i]' class='arrow'>&uarr;</a>":null] [i<queue.len?"<a href='?src=\ref[src];queue_move=+1;index=[i]' class='arrow'>&darr;</a>":null] <a href='?src=\ref[src];remove_from_queue=[i]'>Remove</a></li>"
 			temp_metal = max(temp_metal-LL[1],1)
 			temp_glass = max(temp_glass-LL[2],1)
 
@@ -373,6 +379,7 @@
 		build_item(D,multiplier)
 		D = listgetindex(listgetindex(queue, 1),1)
 		multiplier = listgetindex(listgetindex(queue,1),2)
+	being_built = null
 	//visible_message("\icon[src] <b>\The [src]</b> beeps, \"Queue processing finished successfully.\"")
 
 /obj/machinery/autolathe/proc/main_win(mob/user)
