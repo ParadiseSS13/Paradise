@@ -34,6 +34,16 @@
 	m_amt = 0
 	max_water = 30
 	sprite_name = "miniFE"
+	
+/obj/item/weapon/extinguisher/examine()
+	set src in usr
+
+	usr << "\icon[src] [src.name] contains:"
+	if(reagents && reagents.reagent_list.len)
+		for(var/datum/reagent/R in reagents.reagent_list)
+			usr << "\blue [R.volume] units of [R.name]"
+	..()
+	return
 
 /obj/item/weapon/extinguisher/New()
 	create_reagents(max_water)
@@ -91,19 +101,27 @@
 
 		if(usr.buckled && isobj(usr.buckled) && !usr.buckled.anchored )
 			spawn(0)
+				var/obj/structure/stool/bed/chair/C = null
+				if(istype(usr.buckled, /obj/structure/stool/bed/chair))
+					C = usr.buckled
 				var/obj/B = usr.buckled
 				var/movementdirection = turn(direction,180)
+				if(C)	C.propelled = 4
 				B.Move(get_step(usr,movementdirection), movementdirection)
+				sleep(1)
+				B.Move(get_step(usr,movementdirection), movementdirection)
+				if(C)	C.propelled = 3
 				sleep(1)
 				B.Move(get_step(usr,movementdirection), movementdirection)
 				sleep(1)
 				B.Move(get_step(usr,movementdirection), movementdirection)
-				sleep(1)
-				B.Move(get_step(usr,movementdirection), movementdirection)
+				if(C)	C.propelled = 2
 				sleep(2)
 				B.Move(get_step(usr,movementdirection), movementdirection)
+				if(C)	C.propelled = 1
 				sleep(2)
 				B.Move(get_step(usr,movementdirection), movementdirection)
+				if(C)	C.propelled = 0
 				sleep(3)
 				B.Move(get_step(usr,movementdirection), movementdirection)
 				sleep(3)

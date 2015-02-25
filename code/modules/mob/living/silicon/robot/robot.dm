@@ -1403,7 +1403,7 @@ var/list/robot_verbs_default = list(
 
 	..()
 	
-/mob/living/silicon/robot/syndicate/init()
+/mob/living/silicon/robot/deathsquad/init()
 	aiCamera = new/obj/item/device/camera/siliconcam/robot_camera(src)
 
 	laws = new /datum/ai_laws/deathsquad
