@@ -336,3 +336,11 @@
 	item_state = "shamebrero"
 	desc = "Once it's on, it never comes off."
 	flags = NODROP
+
+/obj/item/clothing/head/griffin
+	name = "griffon head"
+	desc = "Why not 'eagle head'? Who knows."
+	icon_state = "griffinhat"
+	item_state = "griffinhat"
+	flags = BLOCKHAIR|NODROP
+	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE

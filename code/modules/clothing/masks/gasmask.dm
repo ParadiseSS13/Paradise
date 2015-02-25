@@ -135,6 +135,7 @@
 	desc = "Twoooo!"
 	icon_state = "owl"
 	species_fit = list("Vox")
+	flags = MASKCOVERSMOUTH | MASKCOVERSEYES | BLOCK_GAS_SMOKE_EFFECT | MASKINTERNALS | NODROP
 
 
 // ********************************************************************

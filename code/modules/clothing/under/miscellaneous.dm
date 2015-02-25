@@ -140,12 +140,6 @@
 	max_heat_protection_temperature = SPACE_SUIT_MAX_HEAT_PROTECTION_TEMPERATURE
 	siemens_coefficient = 0
 
-/obj/item/clothing/under/owl
-	name = "owl uniform"
-	desc = "A jumpsuit with owl wings. Photorealistic owl feathers! Twooooo!"
-	icon_state = "owl"
-	_color = "owl"
-
 /obj/item/clothing/under/johnny
 	name = "johnny~~ jumpsuit"
 	desc = "Johnny~~"
@@ -644,3 +638,19 @@
 	icon_state = "checkered_suit"
 	item_state = "checkered_suit"
 	_color = "checkered_suit"
+
+
+
+/obj/item/clothing/under/owl
+	name = "owl uniform"
+	desc = "A soft brown jumpsuit made of synthetic feathers and strong conviction."
+	icon_state = "owl"
+	_color = "owl"
+	flags = NODROP
+
+/obj/item/clothing/under/griffin
+	name = "griffon uniform"
+	desc = "A soft brown jumpsuit with a white feather collar made of synthetic feathers and a lust for mayhem."
+	icon_state = "griffin"
+	_color = "griffin"
+	flags = NODROP

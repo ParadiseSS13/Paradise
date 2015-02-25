@@ -151,3 +151,10 @@
 	name = "dress shoes"
 	desc = "They appear impeccably polished."
 	icon_state = "laceups"
+
+/obj/item/clothing/shoes/griffin
+	name = "griffon boots"
+	desc = "A pair of costume boots fashioned after bird talons."
+	icon_state = "griffinboots"
+	item_state = "griffinboots"
+	flags = NODROP
