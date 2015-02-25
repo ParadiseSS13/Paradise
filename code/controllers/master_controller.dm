@@ -42,7 +42,7 @@ datum/controller/game_controller/New()
 	if(master_controller != src)
 		if(istype(master_controller))
 			Recover()
-			del(master_controller)
+			qdel(master_controller)
 		master_controller = src
 
 	if(!job_master)
