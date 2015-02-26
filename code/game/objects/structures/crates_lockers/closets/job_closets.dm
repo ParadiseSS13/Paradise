@@ -85,6 +85,7 @@
 	new /obj/item/weapon/holosign_creator(src)
 	new /obj/item/clothing/gloves/black(src)
 	new /obj/item/clothing/head/soft/purple(src)
+	new /obj/item/weapon/watertank/janitor(src)
 	new /obj/item/weapon/storage/belt/janitor(src)
 
 /*

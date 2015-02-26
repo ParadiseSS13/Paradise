@@ -404,7 +404,7 @@
 		if("Toggle Sensor Augmentation")
 			if(isrobot(usr))
 				var/mob/living/silicon/robot/R = usr
-				R.control_hud()				
+				R.sensor_mode()				
 				
 		if("module1")
 			if(istype(usr, /mob/living/silicon/robot))
@@ -551,7 +551,7 @@
 		if("Set Sensor Augmentation")
 			if(isAI(usr))
 				var/mob/living/silicon/ai/AI = usr
-				AI.control_hud()
+				AI.sensor_mode()
 				
 		// Alien
 		if("night vision")

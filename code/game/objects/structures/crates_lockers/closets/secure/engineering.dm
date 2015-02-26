@@ -144,6 +144,7 @@
 		new /obj/item/clothing/suit/storage/hazardvest(src)
 		new /obj/item/clothing/mask/gas(src)
 		new /obj/item/weapon/tank/emergency_oxygen/engi(src)
+		new /obj/item/weapon/watertank/atmos(src)
 		new /obj/item/clothing/suit/fire/atmos(src)
 		new /obj/item/clothing/head/hardhat/atmos(src)
 

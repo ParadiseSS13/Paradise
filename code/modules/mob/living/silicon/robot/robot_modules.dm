@@ -217,7 +217,7 @@
 		src.modules += new /obj/item/device/flashlight(src)
 		src.modules += new /obj/item/device/flash/cyborg(src)
 		src.modules += new /obj/item/weapon/soap/nanotrasen(src)
-		src.modules += new /obj/item/weapon/storage/bag/trash(src)
+		src.modules += new /obj/item/weapon/storage/bag/trash/cyborg(src)
 		src.modules += new /obj/item/weapon/mop(src)
 		src.modules += new /obj/item/device/lightreplacer(src)
 		src.modules += new /obj/item/weapon/holosign_creator(src)
@@ -248,7 +248,7 @@
 
 		src.modules += new /obj/item/weapon/reagent_containers/robodropper(src)
 		src.modules += new /obj/item/weapon/lighter/zippo(src)
-		src.modules += new /obj/item/weapon/tray/robotray(src)
+		src.modules += new /obj/item/weapon/storage/bag/tray/cyborg(src)
 		src.modules += new /obj/item/weapon/reagent_containers/food/drinks/shaker(src)
 		src.emag = new /obj/item/weapon/reagent_containers/food/drinks/cans/beer(src)
 

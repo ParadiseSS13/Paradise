@@ -2,6 +2,32 @@
 #define AI_CHECK_RADIO 2
 
 var/list/ai_list = list()
+var/list/ai_verbs_default = list(
+	/mob/living/silicon/ai/proc/ai_alerts,
+	/mob/living/silicon/ai/proc/announcement,
+	/mob/living/silicon/ai/proc/ai_call_shuttle,
+	/mob/living/silicon/ai/proc/ai_cancel_call,
+	/mob/living/silicon/ai/proc/ai_camera_track,
+	/mob/living/silicon/ai/proc/ai_camera_list,
+	/mob/living/silicon/ai/proc/ai_goto_location,
+	/mob/living/silicon/ai/proc/ai_remove_location,
+	/mob/living/silicon/ai/proc/ai_hologram_change,
+	/mob/living/silicon/ai/proc/ai_network_change,
+	/mob/living/silicon/ai/proc/ai_roster,
+	/mob/living/silicon/ai/proc/ai_statuschange,
+	/mob/living/silicon/ai/proc/ai_store_location,
+	/mob/living/silicon/ai/proc/checklaws,
+	/mob/living/silicon/ai/proc/control_integrated_radio,
+	/mob/living/silicon/ai/proc/core,
+	/mob/living/silicon/ai/proc/pick_icon,
+	/mob/living/silicon/ai/proc/sensor_mode,
+	/mob/living/silicon/ai/proc/show_laws_verb,
+	/mob/living/silicon/ai/proc/toggle_acceleration,
+	/mob/living/silicon/ai/proc/toggle_camera_light,
+	/mob/living/silicon/ai/proc/botcall,
+	/mob/living/silicon/ai/proc/change_arrival_message,
+	/mob/living/silicon/ai/proc/nano_crew_monitor
+)
 
 //Not sure why this is necessary...
 /proc/AutoUpdateAI(obj/subject)
@@ -13,7 +39,6 @@ var/list/ai_list = list()
 				is_in_use = 1
 				subject.attack_ai(M)
 	return is_in_use
-
 
 /mob/living/silicon/ai
 	name = "AI"
@@ -69,6 +94,12 @@ var/list/ai_list = list()
 
 	var/arrivalmsg = "$name, $rank, has arrived on the station."
 
+/mob/living/silicon/ai/proc/add_ai_verbs()
+	src.verbs |= ai_verbs_default
+
+/mob/living/silicon/ai/proc/remove_ai_verbs()
+	src.verbs -= ai_verbs_default	
+	
 /mob/living/silicon/ai/New(loc, var/datum/ai_laws/L, var/obj/item/device/mmi/B, var/safety = 0)
 	var/list/possibleNames = ai_names
 
@@ -101,16 +132,13 @@ var/list/ai_list = list()
 
 	aiMulti = new(src)
 	aiRadio = new(src)
+	common_radio = aiRadio
 	aiRadio.myAi = src
 
 	aiCamera = new/obj/item/device/camera/siliconcam/ai_camera(src)
 
-
-
 	if (istype(loc, /turf))
-		verbs.Add(/mob/living/silicon/ai/proc/ai_network_change, \
-		/mob/living/silicon/ai/proc/ai_statuschange, /mob/living/silicon/ai/proc/ai_hologram_change, \
-		/mob/living/silicon/ai/proc/toggle_camera_light, /mob/living/silicon/ai/proc/botcall, /mob/living/silicon/ai/proc/control_integrated_radio, /mob/living/silicon/ai/proc/control_hud, /mob/living/silicon/ai/proc/change_arrival_message, /mob/living/silicon/ai/proc/ai_store_location, /mob/living/silicon/ai/proc/ai_goto_location, /mob/living/silicon/ai/proc/ai_remove_location, /mob/living/silicon/ai/proc/nano_crew_monitor, /mob/living/silicon/ai/proc/ai_cancel_call)
+		add_ai_verbs(src)
 
 	//Languages
 	add_language("Robot Talk", 1)
@@ -130,33 +158,14 @@ var/list/ai_list = list()
 		
 	if(!safety)//Only used by AIize() to successfully spawn an AI.
 		if (!B)//If there is no player/brain inside.
-			empty_playable_ai_cores += new/obj/structure/AIcore/deactivated(loc)//New empty terminal.
+			new/obj/structure/AIcore/deactivated(loc)//New empty terminal.
 			del(src)//Delete AI.
 			return
 		else
 			if (B.brainmob.mind)
-				if(B.alien)
-					B.brainmob.mind.transfer_to(src)
-					icon_state = "ai-alien"
-					verbs.Remove(,/mob/living/silicon/ai/proc/ai_call_shuttle,/mob/living/silicon/ai/proc/ai_camera_track, \
-					/mob/living/silicon/ai/proc/ai_camera_list, /mob/living/silicon/ai/proc/ai_network_change, \
-					/mob/living/silicon/ai/proc/ai_statuschange, /mob/living/silicon/ai/proc/ai_hologram_change, \
-					/mob/living/silicon/ai/proc/toggle_camera_light,/mob/living/silicon/ai/verb/pick_icon,/mob/living/silicon/ai/proc/control_hud, /mob/living/silicon/ai/proc/change_arrival_message, /mob/living/silicon/ai/proc/ai_cancel_call)
-					laws = new /datum/ai_laws/alienmov
-					add_language("xenocommon", 1)
-				else
-					B.brainmob.mind.transfer_to(src)
+				B.brainmob.mind.transfer_to(src)
 
-			src << "<B>You are playing the station's AI. The AI cannot move, but can interact with many objects while viewing them (through cameras).</B>"
-			src << "<B>To look at other parts of the station, click on yourself to get a camera menu.</B>"
-			src << "<B>While observing through a camera, you can use most (networked) devices which you can see, such as computers, APCs, intercoms, doors, etc.</B>"
-			src << "To use something, simply click on it."
-			src << "Use say :b to speak to your cyborgs through binary."
-			if (!(ticker && ticker.mode && (mind in ticker.mode.malf_ai)))
-				show_laws()
-				src << "<b>These laws may be changed by other players, or by you being the traitor.</b>"
-
-			job = "AI"
+			on_mob_init()
 
 	spawn(5)
 		new /obj/machinery/ai_powersupply(src)
@@ -177,6 +186,30 @@ var/list/ai_list = list()
 	ai_list += src
 	..()
 	return
+	
+/mob/living/silicon/ai/proc/on_mob_init()
+	src << "<B>You are playing the station's AI. The AI cannot move, but can interact with many objects while viewing them (through cameras).</B>"
+	src << "<B>To look at other parts of the station, click on yourself to get a camera menu.</B>"
+	src << "<B>While observing through a camera, you can use most (networked) devices which you can see, such as computers, APCs, intercoms, doors, etc.</B>"
+	src << "To use something, simply click on it."
+	src << "Use say :b to speak to your cyborgs through binary. Use say :h to speak from an active holopad."
+	src << "For department channels, use the following say commands:"
+
+	var/radio_text = ""
+	for(var/i = 1 to common_radio.channels.len)
+		var/channel = common_radio.channels[i]
+		var/key = get_radio_key_from_channel(channel)
+		radio_text += "[key] - [channel]"
+		if(i != common_radio.channels.len)
+			radio_text += ", "
+
+	src << radio_text
+
+	if (!(ticker && ticker.mode && (mind in ticker.mode.malf_ai)))
+		show_laws()
+		src << "<b>These laws may be changed by other players, or by you being the traitor.</b>"
+
+	job = "AI"
 	
 /mob/living/silicon/ai/proc/SetName(pickedName as text)
 	real_name = pickedName
@@ -226,7 +259,7 @@ var/list/ai_list = list()
 	if(powered_ai.anchored)
 		use_power = 2
 
-/mob/living/silicon/ai/verb/pick_icon()
+/mob/living/silicon/ai/proc/pick_icon()
 	set category = "AI Commands"
 	set name = "Set AI Core Display"
 	if(stat || aiRestorePowerRoutine)
@@ -290,6 +323,9 @@ var/list/ai_list = list()
 
 
 /mob/living/silicon/ai/proc/ai_alerts()
+	set name = "Show Alerts"
+	set category = "AI Commands"
+	
 	var/dat = "<HEAD><TITLE>Current Station Alerts</TITLE><META HTTP-EQUIV='Refresh' CONTENT='10'></HEAD><BODY>\n"
 	dat += "<A HREF='?src=\ref[src];mach_close=aialerts'>Close</A><BR><BR>"
 	for (var/cat in alarms)
@@ -324,9 +360,14 @@ var/list/ai_list = list()
 
 // this verb lets the ai see the stations manifest
 /mob/living/silicon/ai/proc/ai_roster()
+	set name = "Show Crew Manifest"
+	set category = "AI Commands"
 	show_station_manifest()
 
 /mob/living/silicon/ai/proc/ai_call_shuttle()
+	set name = "Call Emergency Shuttle"
+	set category = "AI Commands"
+
 	if(src.stat == 2)
 		src << "You can't call the shuttle because you are dead!"
 		return
@@ -906,7 +947,7 @@ var/list/ai_list = list()
 	else
 		lightNearbyCamera()
 
-/mob/living/silicon/ai/proc/control_hud()
+/mob/living/silicon/ai/proc/sensor_mode()
 	set name = "Set Sensor Augmentation"
 	set desc = "Augment visual feed with internal sensor overlays."
 	set category = "AI Commands"

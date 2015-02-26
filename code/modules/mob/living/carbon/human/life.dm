@@ -926,10 +926,12 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 			traumatic_shock -= light_amount
 
 			if(species.flags & IS_PLANT)
-				if(nutrition > 500)
-					nutrition = 500
+				if(nutrition > 450)
+					nutrition = 450
 				if(light_amount >= 5) //if there's enough light, heal
-					adjustBruteLoss(-(light_amount))
+					adjustBruteLoss(-(light_amount/2))
+					adjustFireLoss(-(light_amount/4))
+					//adjustToxLoss(-(light_amount))
 					adjustOxyLoss(-(light_amount))
 					//TODO: heal wounds, heal broken limbs.
 

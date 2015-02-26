@@ -103,7 +103,7 @@
 	id = "boxes"
 	blacklist = null
 	whitelist = list(/obj/item/weapon/storage, /obj/item/weapon/moneybag, /obj/item/weapon/evidencebag,
-					/obj/item/weapon/tray, /obj/item/pizzabox, /obj/item/weapon/clipboard,
+					/obj/item/weapon/storage/bag/tray, /obj/item/pizzabox, /obj/item/weapon/clipboard,
 					/obj/item/smallDelivery, /obj/structure/bigDelivery)
 
 /datum/cargoprofile/cargo
@@ -270,7 +270,7 @@
 					/obj/item/weapon/hand_labeler,/obj/item/weapon/hemostat,/obj/item/weapon/mop,/obj/item/weapon/locator,/obj/item/weapon/minihoe,
 					/obj/item/stack/packageWrap,/obj/item/weapon/pen,/obj/item/weapon/pickaxe,/obj/item/weapon/pinpointer,
 					/obj/item/weapon/rcd,/obj/item/weapon/rcd_ammo,/obj/item/weapon/retractor,/obj/item/weapon/rsf,/obj/item/weapon/rsp,/obj/item/weapon/scalpel,
-					/obj/item/weapon/screwdriver,/obj/item/weapon/shovel,/obj/item/weapon/soap,/obj/item/weapon/stamp,/obj/item/weapon/tray,/obj/item/weapon/weldingtool,
+					/obj/item/weapon/screwdriver,/obj/item/weapon/shovel,/obj/item/weapon/soap,/obj/item/weapon/stamp,/obj/item/weapon/storage/bag/tray,/obj/item/weapon/weldingtool,
 					/obj/item/weapon/wirecutters,/obj/item/weapon/wrench,/obj/item/weapon/extinguisher)
 
 /datum/cargoprofile/finished
