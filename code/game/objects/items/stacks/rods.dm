@@ -3,6 +3,7 @@
 	desc = "Some rods. Can be used for building, or something."
 	singular_name = "metal rod"
 	icon_state = "rods"
+	item_state = "rods"
 	flags = CONDUCT
 	w_class = 3.0
 	force = 9.0
@@ -12,6 +13,16 @@
 	m_amt = 1875
 	max_amount = 60
 	attack_verb = list("hit", "bludgeoned", "whacked")
+
+/obj/item/stack/rods/New(var/loc, var/amount=null)
+	update_icon()
+	return ..()
+
+/obj/item/stack/rods/update_icon()
+	if(get_amount() <= 5)
+		icon_state = "rods-[get_amount()]"
+	else
+		icon_state = "rods"
 
 /obj/item/stack/rods/attackby(obj/item/W as obj, mob/user as mob, params)
 	..()
