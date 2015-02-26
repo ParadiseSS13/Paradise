@@ -2,7 +2,7 @@
 This is /vg/'s nerf for hulk.  Feel free to steal it.
 
 Obviously, requires DNA2.
-*/
+
 
 // When hulk was first applied (world.time).
 /mob/living/carbon/human/var/hulk_time=0
@@ -84,7 +84,7 @@ Obviously, requires DNA2.
 	//M.say(pick("",";")+pick("HULK MAD","YOU MADE HULK ANGRY")) // Just a note to security.
 	message_admins("[key_name(usr)] has hulked out! ([formatJumpTo(usr)])")
 	return
-
+*/
 
 ///////////////////Vanilla Morph////////////////////////////////////
 
@@ -222,19 +222,19 @@ Obviously, requires DNA2.
 /obj/effect/proc_holder/spell/wizard/targeted/remotetalk/choose_targets(mob/user = usr)
 	var/list/targets = new /list()
 	var/list/validtargets = new /list()
-	for(var/mob/M in living_mob_list)	
+	for(var/mob/M in living_mob_list)
 		if(M && M.mind)
 			var/special_role = M.mind.special_role
 			if (special_role == "Wizard" || special_role == "Ninja" || special_role == "Syndicate" || special_role == "Syndicate Commando" || special_role == "Vox Raider" || special_role == "Alien")
 				continue
-				
+
 			validtargets += M
-		
+
 	if(!validtargets.len || validtargets.len == 1)
 		usr << "<span class='warning'>There are no valid targets!</span>"
 		start_recharge()
 		return
-		
+
 	targets += input("Choose the target to talk to.", "Targeting") as mob in validtargets
 
 	perform(targets)
@@ -280,7 +280,7 @@ Obviously, requires DNA2.
 	icon_power_button = "genetic_view"
 
 /obj/effect/proc_holder/spell/wizard/targeted/remoteview/choose_targets(mob/user = usr)
-	var/list/targets = living_mob_list 
+	var/list/targets = living_mob_list
 	var/list/remoteviewers = new /list()
 	for(var/mob/M in targets)
 		if(REMOTE_VIEW in M.mutations)

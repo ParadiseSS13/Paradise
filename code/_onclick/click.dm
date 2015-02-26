@@ -107,7 +107,7 @@
 			if(ismob(A))
 				changeNext_move(CLICK_CD_MELEE)
 			UnarmedAttack(A, 1)
-					
+
 		return
 
 	if(!isturf(loc)) // This is going to stop you from telekinesing from inside a closet, but I don't shed many tears for that
@@ -126,7 +126,7 @@
 				if(ismob(A))
 					changeNext_move(CLICK_CD_MELEE)
 				UnarmedAttack(A, 1)
-				
+
 			return
 		else // non-adjacent click
 			if(W)
@@ -136,9 +136,9 @@
 
 	return
 
-/mob/proc/changeNext_move(num)	
+/mob/proc/changeNext_move(num)
 	next_move = world.time + num
-	
+
 // Default behavior: ignore double clicks, consider them normal clicks instead
 /mob/proc/DblClickOn(var/atom/A, var/params)
 	return
@@ -344,21 +344,9 @@
 		if(available >= 5000000)
 			L.damage = 205
 		if(L.damage >= 200)
-			apply_damage(15, BURN, (hand ? "l_hand" : "r_hand"))
-			//usr:Stun(15)
-			//usr:Weaken(15)
-			//if(usr:status_flags & CANSTUN) // stun is usually associated with stutter
-			//	usr:stuttering += 20
 			time = 200
-			src << "<span class='warning'>[G] overload from the massive current shocking you in the process!"
 		else if(L.damage >= 100)
-			apply_damage(5, BURN, (hand ? "l_hand" : "r_hand"))
-			//usr:Stun(10)
-			//usr:Weaken(10)
-			//if(usr:status_flags & CANSTUN) // stun is usually associated with stutter
-			//	usr:stuttering += 10
 			time = 150
-			src << "<span class='warning'>[G] overload from the massive current shocking you in the process!"
 		var/datum/effect/effect/system/spark_spread/s = new /datum/effect/effect/system/spark_spread
 		s.set_up(5, 1, src)
 		s.start()

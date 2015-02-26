@@ -47,8 +47,6 @@
 /mob/living/proc/burn_skin(burn_amount)
 	if(istype(src, /mob/living/carbon/human))
 		//world << "DEBUG: burn_skin(), mutations=[mutations]"
-		if(NO_SHOCK in src.mutations) //shockproof
-			return 0
 		if (RESIST_HEAT in src.mutations) //fireproof
 			return 0
 		var/mob/living/carbon/human/H = src	//make this damage method divide the damage to be done among all the body parts, then burn each body part for that much damage. will have better effect then just randomly picking a body part
@@ -629,7 +627,8 @@
 		var/mob/living/carbon/CM = L
 		if(CM.on_fire && CM.canmove)
 			CM.fire_stacks -= 5
-			CM.Weaken(3)
+			CM.weakened = max(CM.weakened, 3)//We dont check for CANWEAKEN, I don't care how immune to weakening you are, if you're rolling on the ground, you're busy.
+			CM.update_canmove()
 			CM.spin(32,2)
 			CM.visible_message("<span class='danger'>[CM] rolls on the floor, trying to put themselves out!</span>", \
 				"<span class='notice'>You stop, drop, and roll!</span>")
@@ -761,7 +760,7 @@
 
 /mob/living/proc/can_use_vents()
 	return "You can't fit into that vent."
-	
+
 
 
 /atom/movable/proc/do_attack_animation(atom/A)
@@ -791,3 +790,15 @@
 			pixel_y_diff = -8
 	animate(src, pixel_x = pixel_x + pixel_x_diff, pixel_y = pixel_y + pixel_y_diff, time = 2)
 	animate(pixel_x = initial(pixel_x), pixel_y = initial(pixel_y), time = 2)
+
+/mob/living/do_attack_animation(atom/A)
+	..()
+	floating = 0 // If we were without gravity, the bouncing animation got stopped, so we make sure we restart the bouncing after the next movement.
+
+/mob/living/proc/do_jitter_animation(jitteriness)
+	var/amplitude = min(4, (jitteriness/100) + 1)
+	var/pixel_x_diff = rand(-amplitude, amplitude)
+	var/pixel_y_diff = rand(-amplitude/3, amplitude/3)
+	animate(src, pixel_x = pixel_x + pixel_x_diff, pixel_y = pixel_y + pixel_y_diff , time = 2, loop = 6)
+	animate(pixel_x = initial(pixel_x) , pixel_y = initial(pixel_y) , time = 2)
+	floating = 0 // If we were without gravity, the bouncing animation got stopped, so we make sure we restart the bouncing after the next movement.

@@ -62,7 +62,7 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 
 	if(life_tick%30==15)
 		hud_updateflag = 1022
-		
+
 	voice = GetVoice()
 
 	//No need to update all of these procs if the guy is dead.
@@ -1165,13 +1165,7 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 
 			//Jitteryness
 			if(jitteriness)
-				var/amplitude = min(4, (jitteriness/100) + 1)
-				var/pixel_x_diff = rand(-amplitude, amplitude)
-				var/pixel_y_diff = rand(-amplitude/3, amplitude/3)
-
-				animate(src, pixel_x = pixel_x + pixel_x_diff, pixel_y = pixel_y + pixel_y_diff , time = 2, loop = 6)
-				animate(pixel_x = initial(pixel_x) , pixel_y = initial(pixel_y) , time = 2)
-				jitteriness = max(jitteriness-1, 0)
+				do_jitter_animation(jitteriness)
 
 			//Other
 			handle_statuses()
@@ -1926,7 +1920,7 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 	var/client/C = client
 	for(var/mob/living/carbon/human/H in view(src, 14))
 		C.images += H.hud_list[NATIONS_HUD]
-		
+
 /mob/living/carbon/human/handle_silent()
 	if(..())
 		speech_problem_flag = 1

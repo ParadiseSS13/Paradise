@@ -24,7 +24,7 @@
 	real_name = name
 	regenerate_icons()
 	add_language("Xenomorph")
-	add_language("Hivemind") 
+	add_language("Hivemind")
 	..()
 
 //This is fine, works the same as a human
@@ -128,7 +128,7 @@
 //can't equip anything
 /mob/living/carbon/alien/larva/attack_ui(slot_id)
 	return
-	
+
 /mob/living/carbon/alien/larva/meteorhit(O as obj)
 	for(var/mob/M in viewers(src, null))
 		if ((M.client && !( M.blinded )))
@@ -254,7 +254,7 @@
 				visible_message("<span class='danger'>[M] has kicked [src]!</span>", \
 						"<span class='userdanger'>[M] has kicked [src]!</span>")
 				if ((stat != DEAD) && (damage > 4.9))
-					Weaken(rand(5,10))
+					Paralyse(rand(5,10))
 					visible_message("<span class='danger'>[M] has weakened [src]!</span>", \
 							"<span class='userdanger'>[M] has weakened [src]!</span>", \
 							"<span class='danger'>You hear someone fall.</span>")
