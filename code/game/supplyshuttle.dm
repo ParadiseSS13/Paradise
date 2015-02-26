@@ -290,8 +290,16 @@ var/list/mechtoys = list(
 			//manifest finalisation
 			slip.info += "</ul><br>"
 			slip.info += "CHECK CONTENTS AND STAMP BELOW THE LINE TO CONFIRM RECEIPT OF GOODS<hr>"
-			if (SP.contraband) slip.loc = null	//we are out of blanks for Form #44-D Ordering Illicit Drugs.
-
+			if(!SP.contraband)
+				if(istype(A, /obj/structure/closet/crate))
+					var/obj/structure/closet/crate/CR = A
+					CR.manifest = slip
+					CR.update_icon()
+				if(istype(A, /obj/structure/largecrate))
+					var/obj/structure/largecrate/LC = A
+					LC.manifest = slip
+					LC.update_icon()
+			else slip.loc = null	//we are out of blanks for Form #44-D Ordering Illicit Drugs.
 		shoppinglist.Cut()
 		return
 
