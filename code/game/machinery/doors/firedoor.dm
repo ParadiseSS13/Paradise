@@ -60,6 +60,10 @@
 	opacity = 0
 	density = 0
 
+	//These are frequenly used with windows, so make sure zones can pass.
+	//Generally if a firedoor is at a place where there should be a zone boundery then there will be a regular door underneath it.
+	block_air_zones = 0
+
 	var/blocked = 0
 	var/lockdown = 0 // When the door has detected a problem, it locks.
 	var/pdiff_alert = 0
@@ -106,7 +110,7 @@
 /obj/machinery/door/firedoor/examine()
 	set src in view()
 	. = ..()
-	
+
 	if(pdiff >= FIREDOOR_MAX_PRESSURE_DIFF)
 		usr << "<span class='warning'>WARNING: Current pressure differential is [pdiff]kPa! Opening door may result in injury!</span>"
 
@@ -287,7 +291,7 @@
 
 /obj/machinery/door/firedoor/attack_ai(mob/user as mob)
 	if(operating)
-		return //Already doing something.	
+		return //Already doing something.
 
 	if(blocked)
 		user << "\red \The [src] is welded solid!"
@@ -295,11 +299,11 @@
 
 	var/area/A = get_area_master(src)
 	ASSERT(istype(A)) // This worries me.
-	var/alarmed = A.air_doors_activated || A.fire	
+	var/alarmed = A.air_doors_activated || A.fire
 
 	var/access_granted = 0
 	if(isAI(user) || isrobot(user))
-		access_granted = 1	
+		access_granted = 1
 
 	if(access_granted == 1)
 		user.visible_message("\blue \The [src] [density ? "open" : "close"]s for \the [user].",\
@@ -320,7 +324,7 @@
 		spawn(50)
 			if(alarmed)
 				nextstate = CLOSED
-		
+
 	// CHECK PRESSURE
 /obj/machinery/door/firedoor/process()
 	..()
