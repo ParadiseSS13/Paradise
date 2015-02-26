@@ -1,18 +1,15 @@
-/mob/living/carbon/verb/give()
+/mob/living/carbon/verb/give(var/mob/living/carbon/target in oview(1))
 	set category = "IC"
 	set name = "Give"
-	set src in view(1)
-	if(src.stat == 2 || usr.stat == 2 || src.client == null)
-		return
-	if(src == usr)
-		usr << "\red I feel stupider, suddenly."
+
+	if(target.stat == 2 || usr.stat == 2|| target.client == null)
 		return
 	var/obj/item/I
 	if(!usr.hand && usr.r_hand == null)
-		usr << "\red You don't have anything in your right hand to give to [src.name]"
+		usr << "<span class='warning'> You don't have anything in your right hand to give to [target.name]</span>"
 		return
 	if(usr.hand && usr.l_hand == null)
-		usr << "\red You don't have anything in your left hand to give to [src.name]"
+		usr << "<span class='warning'> You don't have anything in your left hand to give to [target.name]</span>"
 		return
 	if(usr.hand)
 		I = usr.l_hand
@@ -23,38 +20,38 @@
 	if((I.flags & NODROP) || (I.flags & ABSTRACT))
 		usr << "<span class='notice'>That's not exactly something you can give.</span>"
 		return
-	if(src.r_hand == null || src.l_hand == null)
-		switch(alert(src,"[usr] wants to give you \a [I]?",,"Yes","No"))
+	if(target.r_hand == null || target.l_hand == null)
+		switch(alert(target,"[usr] wants to give you \a [I]?",,"Yes","No"))
 			if("Yes")
 				if(!I)
 					return
 				if(!Adjacent(usr))
-					usr << "\red You need to stay in reaching distance while giving an object."
-					src << "\red [usr.name] moved too far away."
+					usr << "<span class='warning'> You need to stay in reaching distance while giving an object.</span>"
+					target << "<span class='warning'> [usr.name] moved too far away.</span>"
 					return
 				if((usr.hand && usr.l_hand != I) || (!usr.hand && usr.r_hand != I))
-					usr << "\red You need to keep the item in your active hand."
-					src << "\red [usr.name] seem to have given up on giving \the [I.name] to you."
+					usr << "<span class='warning'> You need to keep the item in your active hand.</span>"
+					target << "<span class='warning'> [usr.name] seem to have given up on giving \the [I.name] to you.</span>"
 					return
-				if(src.r_hand != null && src.l_hand != null)
-					src << "\red Your hands are full."
-					usr << "\red Their hands are full."
+				if(target.r_hand != null && target.l_hand != null)
+					target << "<span class='warning'> Your hands are full.</span>"
+					usr << "<span class='warning'> Their hands are full.</span>"
 					return
 				else
 					usr.drop_item()
-					if(src.r_hand == null)
-						src.r_hand = I
+					if(target.r_hand == null)
+						target.r_hand = I
 					else
-						src.l_hand = I
-				I.loc = src
+						target.l_hand = I
+				I.loc = target
 				I.layer = 20
-				I.add_fingerprint(src)
+				I.add_fingerprint(target)
 				src.update_inv_l_hand()
 				src.update_inv_r_hand()
 				usr.update_inv_l_hand()
 				usr.update_inv_r_hand()
-				src.visible_message("\blue [usr.name] handed \the [I.name] to [src.name].")
+				target.visible_message("<span class='notice'> [usr.name] handed \the [I.name] to [target.name].</span>")
 			if("No")
-				src.visible_message("\red [usr.name] tried to hand [I.name] to [src.name] but [src.name] didn't want it.")
+				target.visible_message("<span class='warning'> [usr.name] tried to hand [I.name] to [target.name] but [target.name] didn't want it.</span>")
 	else
-		usr << "\red [src.name]'s hands are full."
+		usr << "<span class='warning'> [target.name]'s hands are full.</span>"
