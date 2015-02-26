@@ -7,6 +7,7 @@
 	fire_sound = 'sound/weapons/Taser.ogg'
 	projectile_type = "/obj/item/projectile/energy/electrode"
 	cell_type = "/obj/item/weapon/stock_parts/cell/crap"
+	fire_delay = 20
 
 /obj/item/weapon/gun/energy/taser/cyborg
 	name = "taser gun"
@@ -50,9 +51,9 @@
 	desc = "A high-tech revolver that fires internal, reusable stun cartidges in a revolving cylinder. Holds twice as much ammo as a standard taser."
 	icon_state = "stunrevolver"
 	fire_sound = "sound/weapons/gunshot.ogg"
-	origin_tech = "combat=3;materials=3;powerstorage=2"
 	projectile_type = "/obj/item/projectile/energy/electrode"
 	cell_type = "/obj/item/weapon/stock_parts/cell"
+	fire_delay = 20
 
 
 
