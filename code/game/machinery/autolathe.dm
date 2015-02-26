@@ -16,7 +16,7 @@
 
 	var/operating = 0.0
 	var/list/queue = list()
-	var/queue_max_len = 10
+	var/queue_max_len = 12
 	var/turf/BuildTurf
 	anchored = 1.0
 	var/list/L = list()
@@ -34,7 +34,7 @@
 	var/prod_coeff
 	var/datum/wires/autolathe/wires = null
 
-	var/datum/design/being_built
+	var/list/being_built = list()
 	var/datum/research/files
 	var/list/datum/design/matching_designs
 	var/selected_category
@@ -190,16 +190,17 @@
 
 		/////////////////
 		//href protection
-		being_built = files.FindDesignByID(href_list["make"]) //check if it's a valid design
-		if(!being_built)
+		var/datum/design/design_last_ordered
+		design_last_ordered = files.FindDesignByID(href_list["make"]) //check if it's a valid design
+		if(!design_last_ordered)
 			return
-		if(!(being_built.build_type & AUTOLATHE))
+		if(!(design_last_ordered.build_type & AUTOLATHE))
 			return
 
 		//multiplier checks : only stacks can have one and its value is 1, 10 ,25 or max_multiplier
 		var/multiplier = text2num(href_list["multiplier"])
-		var/max_multiplier = min(50, being_built.materials["$metal"] ?round(m_amount/being_built.materials["$metal"]):INFINITY,being_built.materials["$glass"]?round(g_amount/being_built.materials["$glass"]):INFINITY)
-		var/is_stack = ispath(being_built.build_path, /obj/item/stack)
+		var/max_multiplier = min(50, design_last_ordered.materials["$metal"] ?round(m_amount/design_last_ordered.materials["$metal"]):INFINITY,design_last_ordered.materials["$glass"]?round(g_amount/design_last_ordered.materials["$glass"]):INFINITY)
+		var/is_stack = ispath(design_last_ordered.build_path, /obj/item/stack)
 
 		if(!is_stack && (multiplier > 1))
 			return
@@ -207,8 +208,8 @@
 			return
 		/////////////////
 
-		if(queue.len<queue_max_len)
-			add_to_queue(being_built,multiplier)
+		if((queue.len+1)<queue_max_len)
+			add_to_queue(design_last_ordered,multiplier)
 		else
 			usr << "\red The autolathe queue is full!"
 		if (!busy)
@@ -263,19 +264,22 @@
 	var/glass_cost = D.materials["$glass"]
 	var/power = max(2000, (metal_cost+glass_cost)*multiplier/5)
 	if (can_build(D,multiplier))
+		being_built = list(D,multiplier)
 		use_power(power)
 		icon_state = "autolathe"
 		flick("autolathe_n",src)
-		updateUsrDialog()
-		sleep(32/coeff)
 		if(is_stack)
 			m_amount -= metal_cost*multiplier
 			g_amount -= glass_cost*multiplier
-			var/obj/item/stack/S = new D.build_path(BuildTurf)
-			S.amount = multiplier
 		else
 			m_amount -= metal_cost/coeff
 			g_amount -= glass_cost/coeff
+		updateUsrDialog()
+		sleep(32/coeff)
+		if(is_stack)
+			var/obj/item/stack/S = new D.build_path(BuildTurf)
+			S.amount = multiplier
+		else
 			var/obj/item/new_item = new D.build_path(BuildTurf)
 			new_item.m_amt /= coeff
 			new_item.g_amt /= coeff
@@ -288,17 +292,17 @@
 
 /obj/machinery/autolathe/proc/can_build(var/datum/design/D,var/multiplier=1,var/custom_metal,var/custom_glass)
 	var/coeff = get_coeff(D)
-
-	var/m_amount_tmp = m_amount
+	
+	var/metal_amount = m_amount
 	if(custom_metal)
-		m_amount_tmp = custom_metal
-	var/g_amount_tmp = g_amount
+		metal_amount = custom_metal
+	var/glass_amount = g_amount
 	if(custom_glass)
-		g_amount_tmp = custom_glass
-
-	if(D.materials["$metal"] && (m_amount_tmp*multiplier < (D.materials["$metal"] / coeff)))
+		glass_amount = custom_glass
+	
+	if(D.materials["$metal"] && (metal_amount < (multiplier*D.materials["$metal"] / coeff)))
 		return 0
-	if(D.materials["$glass"] && (g_amount_tmp*multiplier < (D.materials["$glass"] / coeff)))
+	if(D.materials["$glass"] && (glass_amount < (multiplier*D.materials["$glass"] / coeff)))
 		return 0
 	return 1
 
@@ -311,6 +315,13 @@
 		OutputList[2] = (D.materials["$glass"] / coeff)*multiplier
 	return OutputList
 
+/obj/machinery/autolathe/proc/get_processing_line()
+	var/datum/design/D = being_built[1]
+	var/multiplier = being_built[2]
+	var/is_stack = (multiplier>1)
+	var/output = "PROCESSING: [initial(D.name)][is_stack?" (x[multiplier])":null]"
+	return output
+
 /obj/machinery/autolathe/proc/get_queue()
 	var/temp_metal = m_amount
 	var/temp_glass = g_amount
@@ -318,19 +329,27 @@
 	output += "<div class='statusDisplay'>"
 	output += "<b>Queue contains:</b>"
 	if (!istype(queue) || !queue.len)
-		output += "<br>Nothing"
+		if(being_built.len)
+			output += "<ol><li>"
+			output += get_processing_line()
+			output += "</li></ol>"
+		else
+			output += "<br>Nothing"
 	else
 		output += "<ol>"
+		if(being_built.len)
+			output += "<li>"
+			output += get_processing_line()
+			output += "</li>"
 		var/i = 0
 		var/datum/design/D
 		for(var/list/L in queue)
 			i++
 			D = L[1]
 			var/multiplier = L[2]
-			var/obj/part = D.build_path
 			var/list/LL = get_design_cost_as_list(D,multiplier)
 			var/is_stack = (multiplier>1)
-			output += "<li[!can_build(D,multiplier,temp_metal,temp_glass)?" style='color: #f00;'":null]>[initial(part.name)][is_stack?" (x[multiplier])":null] - [i>1?"<a href='?src=\ref[src];queue_move=-1;index=[i]' class='arrow'>&uarr;</a>":null] [i<queue.len?"<a href='?src=\ref[src];queue_move=+1;index=[i]' class='arrow'>&darr;</a>":null] <a href='?src=\ref[src];remove_from_queue=[i]'>Remove</a></li>"
+			output += "<li[!can_build(D,multiplier,temp_metal,temp_glass)?" style='color: #f00;'":null]>[initial(D.name)][is_stack?" (x[multiplier])":null] - [i>1?"<a href='?src=\ref[src];queue_move=-1;index=[i]' class='arrow'>&uarr;</a>":null] [i<queue.len?"<a href='?src=\ref[src];queue_move=+1;index=[i]' class='arrow'>&darr;</a>":null] <a href='?src=\ref[src];remove_from_queue=[i]'>Remove</a></li>"
 			temp_metal = max(temp_metal-LL[1],1)
 			temp_glass = max(temp_glass-LL[2],1)
 
@@ -363,16 +382,19 @@
 			return
 	while(D)
 		if(stat&(NOPOWER|BROKEN))
+			being_built = new /list()
 			return 0
 		if(!can_build(D,multiplier))
 			visible_message("\icon[src] <b>\The [src]</b> beeps, \"Not enough resources. Queue processing terminated.\"")
 			queue = list()
+			being_built = new /list()
 			return 0
 
 		remove_from_queue(1)
 		build_item(D,multiplier)
 		D = listgetindex(listgetindex(queue, 1),1)
 		multiplier = listgetindex(listgetindex(queue,1),2)
+	being_built = new /list()
 	//visible_message("\icon[src] <b>\The [src]</b> beeps, \"Queue processing finished successfully.\"")
 
 /obj/machinery/autolathe/proc/main_win(mob/user)
