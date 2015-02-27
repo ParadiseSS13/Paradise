@@ -6,7 +6,7 @@
 	if (istype(in_use, /obj/machinery/computer/shuttle_control/emergency))
 		var/obj/machinery/computer/shuttle_control/emergency/C = in_use
 		C.reset_authorization()
-	
+
 	emergency_shuttle.shuttle_arrived()
 
 /datum/shuttle/ferry/emergency/long_jump(var/area/departing, var/area/destination, var/area/interim, var/travel_time, var/direction)
@@ -37,7 +37,7 @@
 		var/obj/machinery/computer/shuttle_control/emergency/C = user
 		if (!C.has_authorization())
 			return 0
-		
+
 		if(moving_status == SHUTTLE_STRANDED && C.has_authorization())
 			return 1
 	return ..()
@@ -45,12 +45,12 @@
 /datum/shuttle/ferry/emergency/can_force(var/mob/user)
 	if (istype(user, /obj/machinery/computer/shuttle_control/emergency))
 		var/obj/machinery/computer/shuttle_control/emergency/C = user
-		
+
 		//initiating or cancelling a launch ALWAYS requires authorization, but if we are already set to launch anyways than forcing does not.
 		//this is so that people can force launch if the docking controller cannot safely undock without needing X heads to swipe.
 		if (process_state != WAIT_LAUNCH && !C.has_authorization())
 			return 0
-	
+
 	return ..()
 
 /datum/shuttle/ferry/emergency/can_cancel(var/mob/user)
@@ -62,7 +62,7 @@
 
 /datum/shuttle/ferry/emergency/launch(var/user)
 	if (!can_launch(user)) return
-	
+
 	if(emergency_shuttle.no_escape)
 		user << "<span class='warning'>The emergency shuttle has been disabled by Centcom.</span>"
 		return
@@ -155,7 +155,7 @@
 /obj/machinery/computer/shuttle_control/emergency/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
 	read_authorization(W)
 	..()
-	
+
 /obj/machinery/computer/shuttle_control/emergency/emag_act(user as mob)
 	if (!emagged)
 		user << "\blue You short out the [src]'s authorization protocols."
@@ -214,7 +214,7 @@
 		"docking_status" = shuttle.docking_controller? shuttle.docking_controller.get_docking_status() : null,
 		"docking_override" = shuttle.docking_controller? shuttle.docking_controller.override_enabled : null,
 		"can_launch" = shuttle.can_launch(src),
-		"can_cancel" = shuttle.can_cancel(src),
+		//"can_cancel" = shuttle.can_cancel(src),
 		"can_force" = shuttle.can_force(src),
 		"auth_list" = auth_list,
 		"has_auth" = has_auth,
@@ -236,7 +236,7 @@
 	if(href_list["removeid"])
 		var/dna_hash = href_list["removeid"]
 		authorized -= dna_hash
-	
+
 	if(!emagged && href_list["scanid"])
 		//They selected an empty entry. Try to scan their id.
 		if (ishuman(usr))
