@@ -122,9 +122,11 @@ var/list/possible_changeling_IDs = list("Alpha","Beta","Gamma","Delta","Epsilon"
 			identity_theft.target = kill_objective.target
 			identity_theft.target_real_name = kill_objective.target.current.real_name //Whoops, forgot this.
 			if(identity_theft.target && identity_theft.target.current)
-				identity_theft.explanation_text = "Escape on the shuttle or an escape pod with the identity of [identity_theft.target_real_name], the [identity_theft.target.assigned_role] while wearing their identification card."
-			else
-				identity_theft.explanation_text = "Free objective"
+				var/mob/living/carbon/human/H = identity_theft.target.current
+				if(H.species && H.species.flags && H.species.flags & NO_SCAN) // For species that can't be absorbed - should default to an escape objective instead
+					return
+				else	
+					identity_theft.explanation_text = "Escape on the shuttle or an escape pod with the identity of [identity_theft.target_real_name], the [identity_theft.target.assigned_role] while wearing their identification card."
 			changeling.objectives += identity_theft
 
 	if (!(locate(/datum/objective/escape) in changeling.objectives))
