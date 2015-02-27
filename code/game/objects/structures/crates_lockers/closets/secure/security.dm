@@ -113,7 +113,7 @@
 		new /obj/item/weapon/storage/lockbox/loyalty(src)
 		new /obj/item/weapon/storage/box/flashbangs(src)
 		new /obj/item/clothing/mask/gas/sechailer/hos(src)
-		new /obj/item/weapon/shield/riot(src)
+		new /obj/item/weapon/shield/riot/tele(src)
 		new /obj/item/weapon/melee/baton/loaded(src)
 		new /obj/item/weapon/storage/belt/security(src)
 		new /obj/item/taperoll/police(src)
