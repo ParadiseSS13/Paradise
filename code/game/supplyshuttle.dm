@@ -366,6 +366,7 @@ var/list/mechtoys = list(
 			temp += "<b>Request from: [get_supply_group_name(cat)]</b><BR><BR>"
 			for(var/supply_type in supply_controller.supply_packs )
 				var/datum/supply_packs/N = supply_controller.supply_packs[supply_type]
+				if(N.name == "HEADER") continue		//skip HEADER entry to disable exploiting it for supply points
 				if(N.hidden || N.contraband || N.group != cat) continue								//Have to send the type instead of a reference to
 				temp += "<A href='?src=\ref[src];doorder=[supply_type]'>[N.name]</A> Cost: [N.cost]<BR>"		//the obj because it would get caught by the garbage
 
@@ -562,6 +563,7 @@ var/list/mechtoys = list(
 			temp += "<b>Request from: [get_supply_group_name(cat)]</b><BR><BR>"
 			for(var/supply_type in supply_controller.supply_packs )
 				var/datum/supply_packs/N = supply_controller.supply_packs[supply_type]
+				if(N.name == "HEADER") continue		//skip HEADER entry to disable exploiting it for supply points
 				if((N.hidden && !hacked) || (N.contraband && !can_order_contraband) || N.group != cat) continue								//Have to send the type instead of a reference to
 				temp += "<A href='?src=\ref[src];doorder=[supply_type]'>[N.name]</A> Cost: [N.cost]<BR>"		//the obj because it would get caught by the garbage
 
