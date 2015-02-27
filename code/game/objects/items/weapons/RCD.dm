@@ -30,7 +30,7 @@ RCD
 
 
 	New()
-		desc = "A RCD. It currently holds [matter]/100 matter-units."
+		desc = "A RCD. It currently holds [matter]/[max_matter] matter-units."
 		src.spark_system = new /datum/effect/effect/system/spark_spread
 		spark_system.set_up(5, 0, src)
 		spark_system.attach(src)
@@ -44,9 +44,9 @@ RCD
 			if((matter + R.ammoamt) > max_matter)
 				user << "<span class='notice'>The RCD cant hold any more matter-units.</span>"
 				return
+			matter += R.ammoamt
 			user.drop_item()
 			del(W)
-			matter += R.ammoamt
 			playsound(src.loc, 'sound/machines/click.ogg', 50, 1)
 			user << "<span class='notice'>The RCD now holds [matter]/[max_matter] matter-units.</span>"
 			desc = "A RCD. It currently holds [matter]/[max_matter] matter-units."
@@ -168,7 +168,7 @@ RCD
 	if(matter < amount)
 		return 0
 	matter -= amount
-	desc = "A RCD. It currently holds [matter]/100 matter-units."
+	desc = "A RCD. It currently holds [matter]/[max_matter] matter-units."
 	return 1
 
 /obj/item/weapon/rcd/proc/checkResource(var/amount, var/mob/user)
