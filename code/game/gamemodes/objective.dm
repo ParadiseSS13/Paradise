@@ -733,7 +733,7 @@ datum/objective/absorb
 						n_p ++
 			else if (ticker.current_state == GAME_STATE_PLAYING)
 				for(var/mob/living/carbon/human/P in player_list)
-					if((P.species.flags & IS_SYNTHETIC) || (P.species.flags & NO_SCAN))
+					if(P.species.flags & NO_SCAN)
 						continue
 					if(P.client && !(P.mind in ticker.mode.changelings) && P.mind!=owner)
 						n_p ++

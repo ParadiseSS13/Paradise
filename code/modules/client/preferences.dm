@@ -221,7 +221,7 @@ datum/preferences
 				dat += "<br>"
 				dat += "Species: <a href='?_src_=prefs;preference=species;task=input'>[species]</a><br>"
 				if(species == "Vox")//oldvox code, sucks I know
-					dat += "Old vox? <a href='?_src_=prefs;preference=speciesprefs;task=input'>[speciesprefs ? "Yes(Big N2 tank)" : "No(Vox-special N2 tank)"]</a><br>"
+					dat += "Old Vox? <a href='?_src_=prefs;preference=speciesprefs;task=input'>[speciesprefs ? "Yes (Large N2 tank)" : "No(Vox-special N2 tank)"]</a><br>"
 				dat += "Secondary Language:<br><a href='?_src_=prefs;preference=language;task=input'>[language]</a><br>"
 				dat += "Blood Type: <a href='?_src_=prefs;preference=b_type;task=input'>[b_type]</a><br>"
 				if(species == "Human")
@@ -327,7 +327,10 @@ datum/preferences
 					dat += "[copytext(flavor_text, 1, 37)]...<br>"
 				dat += "<br>"
 
-				dat += "<br><b>Hair</b><br>"
+				var/hairname = "Hair"
+				if(species == "Machine")
+					hairname = "Frame Color"
+				dat += "<br><b>[hairname]</b><br>"
 				dat += "<a href='?_src_=prefs;preference=hair;task=input'>Change Color</a> <font face='fixedsys' size='3' color='#[num2hex(r_hair, 2)][num2hex(g_hair, 2)][num2hex(b_hair, 2)]'><table style='display:inline;' bgcolor='#[num2hex(r_hair, 2)][num2hex(g_hair, 2)][num2hex(b_hair)]'><tr><td>__</td></tr></table></font> "
 				dat += " Style: <a href='?_src_=prefs;preference=h_style;task=input'>[h_style]</a><br>"
 
@@ -1101,7 +1104,10 @@ datum/preferences
 
 					if("hair")
 						if(species == "Human" || species == "Unathi" || species == "Tajaran" || species == "Skrell" || species == "Machine")
-							var/new_hair = input(user, "Choose your character's hair colour:", "Character Preference") as color|null
+							var/input = "Choose your character's hair colour:"
+							if(species == "Machine")
+								input = "Choose your character's frame colour:"
+							var/new_hair = input(user, input, "Character Preference") as color|null
 							if(new_hair)
 								r_hair = hex2num(copytext(new_hair, 2, 4))
 								g_hair = hex2num(copytext(new_hair, 4, 6))
