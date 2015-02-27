@@ -9,6 +9,7 @@
 	slot_flags = SLOT_BACK
 	slowdown = 1
 	action_button_name = "Toggle Mister"
+	icon_action_button = "action_waterbackpack"
 
 	var/obj/item/weapon/noz
 	var/on = 0
@@ -109,6 +110,7 @@
 	icon = 'icons/obj/watertank.dmi'
 	icon_state = "mister"
 	item_state = "mister"
+	icon_override = 'icons/mob/in-hand/tools.dmi'
 	w_class = 4.0
 	amount_per_transfer_from_this = 50
 	possible_transfer_amounts = list(25,50,100)
@@ -206,6 +208,7 @@
 	icon = 'icons/obj/watertank.dmi'
 	icon_state = "atmos_nozzle"
 	item_state = "nozzleatmos"
+	icon_override = 'icons/mob/in-hand/tools.dmi'
 	safety = 0
 	max_water = 200
 	power = 8
