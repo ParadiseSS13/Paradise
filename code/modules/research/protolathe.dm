@@ -26,17 +26,16 @@ Note: Must be placed west/left of and R&D console to function.
 
 	var/list/categories = list(
 								"Bluespace",
-								"Communication",
 								"Equipment",
 								"Janitorial",
 								"Medical",
 								"Mining",
 								"Miscellaneous",
 								"Power",
-								"Stock Parts",							
-								"Weapons"	
-								)	
-	
+								"Stock Parts",
+								"Weapons"
+								)
+
 	reagents = new()
 
 

@@ -11,7 +11,7 @@
 	reliability_base = 74
 	build_path = "/obj/item/device/mass_spectrometer/adv"
 	category = list("Medical")
-	
+
 /datum/design/adv_reagent_scanner
 	name = "Advanced Reagent Scanner"
 	desc = "A device for identifying chemicals and their proportions."
@@ -22,18 +22,7 @@
 	reliability_base = 74
 	build_path = /obj/item/device/reagent_scanner/adv
 	category = list("Medical")
-	
-/datum/design/implant_chem
-	name = "Chemical Implant"
-	desc = "An implant which can be filled with various chemicals, and then injected on command."
-	id = "implant_chem"
-	req_tech = list("materials" = 2, "biotech" = 3)
-	build_type = PROTOLATHE
-	materials = list("$metal" = 50, "$glass" = 50)
-	build_path = /obj/item/weapon/implantcase/chem
-	locked = 1
-	category = list("Medical")
-	
+
 /datum/design/noreactbeaker
 	name = "Cryostasis Beaker"
 	desc = "A cryostasis beaker that allows for chemical storage without reactions. Can hold up to 50 units."
@@ -44,7 +33,7 @@
 	reliability_base = 76
 	build_path = /obj/item/weapon/reagent_containers/glass/beaker/noreact
 	category = list("Medical")
-	
+
 /datum/design/cyborg_analyzer
 	name = "Cyborg Analyzer"
 	desc = "A hand-held scanner able to diagnose robotic injuries."
@@ -55,7 +44,7 @@
 	reliability_base = 76
 	build_path = /obj/item/device/robotanalyzer
 	category = list("Medical")
-	
+
 /datum/design/defib
 	name = "Defibrillator"
 	desc = "A device that delivers powerful shocks to detachable paddles that resuscitate incapacitated patients."
@@ -66,17 +55,8 @@
 	reliability = 76
 	build_path = /obj/item/weapon/defibrillator
 	category = list("Medical")
-	
-/datum/design/implant_free
-	name = "Freedom Implant"
-	desc = "An implant which allows the user to instantly escape from restraints."
-	id = "implant_free"
-	req_tech = list("syndicate" = 2, "biotech" = 3)
-	build_type = PROTOLATHE
-	materials = list("$metal" = 50, "$glass" = 50)
-	build_path = /obj/item/weapon/implantcase/freedom
-	category = list("Medical")
-	
+
+
 /datum/design/sensor_device
 	name = "Handheld Crew Monitor"
 	desc = "A device for tracking crew members on the station."
@@ -87,28 +67,7 @@
 	reliability_base = 76
 	build_path = /obj/item/device/sensor_device
 	category = list("Medical")
-	
-/datum/design/implanter
-	name = "Implanter"
-	desc = "A basic implanter for injecting implants"
-	id = "implanter"
-	req_tech = list("materials" = 2, "biotech" = 3)
-	build_type = PROTOLATHE
-	materials = list("$metal" = 50, "$glass" = 50)
-	build_path = "/obj/item/weapon/implanter"
-	category = list("Medical")
-	
-/datum/design/implant_loyal
-	name = "Loyalty Implant"
-	desc = "An implant which makes its carrier loyal to Nanotrasen."
-	id = "implant_loyal"
-	req_tech = list("materials" = 2, "biotech" = 3)
-	build_type = PROTOLATHE
-	materials = list("$metal" = 7000, "$glass" = 7000)
-	build_path = /obj/item/weapon/implantcase/loyalty
-	locked = 1
-	category = list("Medical")
-	
+
 /datum/design/mmi
 	name = "Man-Machine Interface"
 	desc = "The Warrior's bland acronym, MMI, obscures the true horror of this monstrosity."
@@ -119,7 +78,7 @@
 	reliability_base = 76
 	build_path = /obj/item/device/mmi
 	category = list("Misc","Medical")
-	
+
 /datum/design/mass_spectrometer
 	name = "Mass-Spectrometer"
 	desc = "A device for analyzing chemicals in the blood."
@@ -130,7 +89,7 @@
 	reliability_base = 76
 	build_path = /obj/item/device/mass_spectrometer
 	category = list("Medical")
-	
+
 /datum/design/posibrain
 	name = "Positronic Brain"
 	desc = "Allows for the construction of a positronic brain"
@@ -151,7 +110,7 @@
 	reliability_base = 74
 	build_path = /obj/item/device/mmi/radio_enabled
 	category = list("Misc","Medical")
-	
+
 /datum/design/nanopaste
 	name = "Nanopaste"
 	desc = "A tube of paste containing swarms of repair nanites. Very effective in repairing robotic machinery."

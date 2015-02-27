@@ -4258,7 +4258,7 @@
 "bDT" = (/obj/structure/disposalpipe/segment,/obj/machinery/atmospherics/unary/vent_pump/on{dir = 4},/turf/simulated/floor,/area/quartermaster/office)
 "bDU" = (/obj/structure/cable{d1 = 1; d2 = 2; icon_state = "1-2"},/obj/machinery/atmospherics/pipe/manifold/hidden/supply{dir = 4; initialize_directions = 11; level = 1},/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,/turf/simulated/floor,/area/quartermaster/office)
 "bDV" = (/obj/machinery/door/firedoor/border_only{dir = 4; name = "Firelock East"},/obj/machinery/door/airlock/glass_mining{name = "Cargo Office"; req_access_txt = "50"},/turf/simulated/floor,/area/quartermaster/office)
-"bDW" = (/obj/machinery/lapvend,/turf/simulated/floor,/area/quartermaster/office)
+"bDW" = (/obj/machinery/vending/cart,/turf/simulated/floor,/area/quartermaster/office)
 "bDX" = (/obj/structure/closet/secure_closet/hop2,/turf/simulated/floor,/area/crew_quarters/heads)
 "bDY" = (/turf/simulated/floor,/area/crew_quarters/heads)
 "bDZ" = (/obj/structure/table,/obj/item/weapon/pen,/obj/item/weapon/paper_bin{pixel_x = -3; pixel_y = 7},/obj/item/weapon/pen,/obj/item/device/megaphone,/turf/simulated/floor,/area/crew_quarters/heads)
