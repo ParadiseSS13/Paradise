@@ -43,9 +43,6 @@
 	desc = "An energy gun with an experimental miniaturized reactor."
 	icon_state = "nucgun"
 	origin_tech = "combat=3;materials=5;powerstorage=3"
-	charge_cost = 1000
-	fire_sound = 'sound/weapons/Taser.ogg'
-	projectile_type = "/obj/item/projectile/energy/electrode"
 	var/lightfail = 0
 	var/charge_tick = 0
 	can_flashlight = 0
@@ -120,9 +117,6 @@
 		update_mode()
 			if (mode == 0)
 				overlays += "nucgun-stun"
-				charge_cost = 1000
-				fire_sound = 'sound/weapons/Taser.ogg'
-				projectile_type = "/obj/item/projectile/energy/electrode"
 			else if (mode == 1)
 				overlays += "nucgun-kill"
 
