@@ -131,9 +131,8 @@ var/list/mechtoys = list(
 	var/comment = null
 
 /datum/controller/supply
-	var/processing = 1
-	var/processing_interval = 300
-	var/iteration = 0
+	processing = 1
+	processing_interval = 300
 	//supply points
 	var/points = 50
 	var/points_per_process = 1
@@ -224,8 +223,8 @@ var/list/mechtoys = list(
 						plat_count += P.amount
 
 					// If you send something in a crate, centcom's keeping it! - fixes secure crates being sent to centom to open them
-					del(A)
-			del(MA)
+					qdel(A)
+			qdel(MA)
 
 		if(plasma_count)
 			points += plasma_count * points_per_plasma
@@ -291,8 +290,16 @@ var/list/mechtoys = list(
 			//manifest finalisation
 			slip.info += "</ul><br>"
 			slip.info += "CHECK CONTENTS AND STAMP BELOW THE LINE TO CONFIRM RECEIPT OF GOODS<hr>"
-			if (SP.contraband) slip.loc = null	//we are out of blanks for Form #44-D Ordering Illicit Drugs.
-
+			if(!SP.contraband)
+				if(istype(A, /obj/structure/closet/crate))
+					var/obj/structure/closet/crate/CR = A
+					CR.manifest = slip
+					CR.update_icon()
+				if(istype(A, /obj/structure/largecrate))
+					var/obj/structure/largecrate/LC = A
+					LC.manifest = slip
+					LC.update_icon()
+			else slip.loc = null	//we are out of blanks for Form #44-D Ordering Illicit Drugs.
 		shoppinglist.Cut()
 		return
 
@@ -359,6 +366,7 @@ var/list/mechtoys = list(
 			temp += "<b>Request from: [get_supply_group_name(cat)]</b><BR><BR>"
 			for(var/supply_type in supply_controller.supply_packs )
 				var/datum/supply_packs/N = supply_controller.supply_packs[supply_type]
+				if(N.name == "HEADER") continue		//skip HEADER entry to disable exploiting it for supply points
 				if(N.hidden || N.contraband || N.group != cat) continue								//Have to send the type instead of a reference to
 				temp += "<A href='?src=\ref[src];doorder=[supply_type]'>[N.name]</A> Cost: [N.cost]<BR>"		//the obj because it would get caught by the garbage
 
@@ -555,6 +563,7 @@ var/list/mechtoys = list(
 			temp += "<b>Request from: [get_supply_group_name(cat)]</b><BR><BR>"
 			for(var/supply_type in supply_controller.supply_packs )
 				var/datum/supply_packs/N = supply_controller.supply_packs[supply_type]
+				if(N.name == "HEADER") continue		//skip HEADER entry to disable exploiting it for supply points
 				if((N.hidden && !hacked) || (N.contraband && !can_order_contraband) || N.group != cat) continue								//Have to send the type instead of a reference to
 				temp += "<A href='?src=\ref[src];doorder=[supply_type]'>[N.name]</A> Cost: [N.cost]<BR>"		//the obj because it would get caught by the garbage
 

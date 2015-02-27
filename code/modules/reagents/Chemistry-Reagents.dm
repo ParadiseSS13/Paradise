@@ -210,6 +210,7 @@ datum
 			description = "A ubiquitous chemical substance that is composed of hydrogen and oxygen."
 			reagent_state = LIQUID
 			color = "#0064C8" // rgb: 0, 100, 200
+			var/cooling_temperature = 2
 
 			reaction_mob(var/mob/living/M, var/method=TOUCH, var/volume)
 				if(!istype(M, /mob/living))
@@ -224,6 +225,7 @@ datum
 
 			reaction_turf(var/turf/simulated/T, var/volume)
 				if (!istype(T)) return
+				var/CT = cooling_temperature
 				src = null
 				if(volume >= 3)
 					if(T.wet >= 1) return
@@ -248,10 +250,10 @@ datum
 				var/hotspot = (locate(/obj/fire) in T)
 				if(hotspot && !istype(T, /turf/space))
 					var/datum/gas_mixture/lowertemp = T.remove_air( T:air:total_moles() )
-					lowertemp.temperature = max( min(lowertemp.temperature-2000,lowertemp.temperature / 2) ,0)
+					lowertemp.temperature = max( min(lowertemp.temperature-(CT*1000),lowertemp.temperature / CT) ,0)
 					lowertemp.react()
 					T.assume_air(lowertemp)
-					del(hotspot)
+					qdel(hotspot)
 				return
 
 			reaction_obj(var/obj/O, var/volume)
@@ -1433,6 +1435,13 @@ datum
 								H.adjustToxLoss(50)
 								..()
 								return
+					if(ismonkey(M))
+						var/mob/living/carbon/monkey/MO = M
+						if(MO.dna)
+							if(MO.dna.mutantrace == "plant") //plantmen monkeys (diona) take EVEN MORE damage
+								MO.adjustToxLoss(100)
+								..()
+								return
 
 		plasma
 			name = "Plasma"
@@ -1713,7 +1722,7 @@ datum
 
 			nanites
 				name = "Nanites"
-				id = "nanities"
+				id = "nanites"
 				description = "Nanomachines that aid in rapid cellular regeneration."
 
 
@@ -3990,3 +3999,9 @@ datum
 */
 // Undefine the alias for REAGENTS_EFFECT_MULTIPLER
 #undef REM
+
+
+/datum/reagent/Destroy()
+	if(holder)
+		holder.reagent_list -= src
+		holder = null

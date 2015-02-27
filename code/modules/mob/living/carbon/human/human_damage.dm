@@ -32,7 +32,7 @@
 	timeofdeath = 0
 
 /mob/living/carbon/human/getBrainLoss()
-	if(species && species.flags & NO_INTORGANS) 
+	if(species && species.flags & NO_INTORGANS)
 		return
 	var/res = brainloss
 	var/datum/organ/internal/brain/sponge = internal_organs_by_name["brain"]
@@ -110,15 +110,12 @@
 	hud_updateflag |= 1 << HEALTH_HUD
 
 /mob/living/carbon/human/Stun(amount)
-	if(HULK in mutations)	return
 	..()
 
 /mob/living/carbon/human/Weaken(amount)
-	if(HULK in mutations)	return
 	..()
 
 /mob/living/carbon/human/Paralyse(amount)
-	if(HULK in mutations)	return
 	..()
 
 

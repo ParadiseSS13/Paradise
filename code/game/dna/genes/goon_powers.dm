@@ -47,6 +47,7 @@
 	desc = "Enables the subject to bend low levels of light around themselves, creating a cloaking effect."
 	activation_messages = list("You begin to fade into the shadows.")
 	deactivation_messages = list("You become fully visible.")
+	activation_prob=10
 
 	New()
 		block=SHADOWBLOCK
@@ -66,6 +67,7 @@
 	desc = "The subject becomes able to subtly alter light patterns to become invisible, as long as they remain still."
 	activation_messages = list("You feel one with your surroundings.")
 	deactivation_messages = list("You feel oddly exposed.")
+	activation_prob=10
 
 	New()
 		block=CHAMELEONBLOCK
@@ -316,7 +318,7 @@
 	else
 		usr.visible_message("\red [usr] eats \the [the_item].")
 		playsound(usr.loc, 'sound/items/eatfood.ogg', 50, 0)
-		del(the_item)
+		qdel(the_item)
 		doHeal(usr)
 
 	return

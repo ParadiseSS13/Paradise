@@ -156,7 +156,7 @@
 				number++
 
 
-/mob/living/silicon/robot/verb/checklaws() //Gives you a link-driven interface for deciding what laws the statelaws() proc will share with the crew. --NeoFite
+/mob/living/silicon/robot/proc/checklaws() //Gives you a link-driven interface for deciding what laws the statelaws() proc will share with the crew. --NeoFite
 	set category = "Robot Commands"
 	set name = "State Laws"
 	var/list = "<b>Which laws do you want to include when stating them for the crew?</b><br><br>"

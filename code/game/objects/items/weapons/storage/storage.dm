@@ -336,19 +336,6 @@
 	if(!can_be_inserted(W))
 		return 0
 
-	if(istype(W, /obj/item/weapon/tray))
-		var/obj/item/weapon/tray/T = W
-		if(T.calc_carry() > 0)
-			if(prob(85))
-				user << "\red The tray won't fit in [src]."
-				return 1
-			else
-				W.loc = user.loc
-				if ((user.client && user.s_active != src))
-					user.client.screen -= W
-				W.dropped(user)
-				user << "\red God damnit!"
-
 	handle_item_insertion(W)
 	return 1
 

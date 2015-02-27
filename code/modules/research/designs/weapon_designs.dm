@@ -6,7 +6,7 @@
 	name = "Advanced Energy Gun"
 	desc = "An energy gun with an experimental miniaturized reactor."
 	id = "nuclear_gun"
-	req_tech = list("combat" = 3, "materials" = 5, "powerstorage" = 3)
+	req_tech = list("combat" = 4, "materials" = 5, "powerstorage" = 3)
 	build_type = PROTOLATHE
 	materials = list("$metal" = 5000, "$glass" = 1000, "$uranium" = 2000)
 	reliability_base = 76
@@ -147,7 +147,7 @@
 	id = "stunrevolver"
 	req_tech = list("combat" = 3, "materials" = 3, "powerstorage" = 2)
 	build_type = PROTOLATHE
-	materials = list("$metal" = 4000)
+	materials = list("$metal" = 4000, "$glass" = 1000)
 	build_path = /obj/item/weapon/gun/energy/stunrevolver
 	locked = 1
 	category = list("Weapons")

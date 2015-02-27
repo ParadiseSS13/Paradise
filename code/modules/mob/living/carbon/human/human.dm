@@ -403,7 +403,7 @@
 				L.amount_grown = min(L.amount_grown + damage, L.max_grown)
 			var/datum/organ/external/affecting = get_organ(ran_zone(L.zone_sel.selecting))
 			var/armor_block = run_armor_check(affecting, "melee")
-			apply_damage(damage, BRUTE, affecting, armor_block)		
+			apply_damage(damage, BRUTE, affecting, armor_block)
 
 /mob/living/carbon/human/proc/is_loyalty_implanted(mob/living/carbon/human/M)
 	for(var/L in M.contents)
@@ -636,7 +636,10 @@
 //Removed the horrible safety parameter. It was only being used by ninja code anyways.
 //Now checks siemens_coefficient of the affected area by default
 /mob/living/carbon/human/electrocute_act(var/shock_damage, var/obj/source, var/base_siemens_coeff = 1.0, var/def_zone = null)
-	if(status_flags & GODMODE)	return 0	//godmode
+	if(status_flags & GODMODE)	//godmode
+		return 0
+	if(NO_SHOCK in mutations) //shockproof
+		return 0
 
 	if (!def_zone)
 		def_zone = pick("l_hand", "r_hand")

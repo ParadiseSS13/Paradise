@@ -11,6 +11,17 @@ would spawn and follow the beaker, even if it is carried or thrown.
 	icon = 'icons/effects/effects.dmi'
 	mouse_opacity = 0
 	unacidable = 1//So effect are not targeted by alien acid.
+	
+/datum/effect/effect/proc/fadeOut(var/atom/A, var/frames = 16)
+	if(A.alpha == 0) //Handle already transparent case
+		return
+	if(frames == 0)
+		frames = 1 //We will just assume that by 0 frames, the coder meant "during one frame".
+	var/step = A.alpha / frames
+	for(var/i = 0, i < frames, i++)
+		A.alpha -= step
+		sleep(world.tick_lag)
+	return
 
 /obj/effect/effect/water
 	name = "water"

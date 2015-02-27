@@ -62,6 +62,7 @@
 	R.add_language("Galactic Common", 1)
 	R.add_language("Sol Common", 1)
 	R.add_language("Tradeband", 1)
+	R.add_language("Gutter", 0)
 	R.add_language("Sinta'unathi", 0)
 	R.add_language("Siik'tajr", 0)
 	R.add_language("Skrellian", 0)
@@ -70,7 +71,7 @@
 	R.add_language("Trinary", 1)
 	R.add_language("Chittin", 0)
 	R.add_language("Bubblish", 0)
-	R.add_language("Gutter", 0)
+	R.add_language("Clownish",0)
 
 /obj/item/weapon/robot_module/standard
 	name = "standard robot module"
@@ -216,7 +217,7 @@
 		src.modules += new /obj/item/device/flashlight(src)
 		src.modules += new /obj/item/device/flash/cyborg(src)
 		src.modules += new /obj/item/weapon/soap/nanotrasen(src)
-		src.modules += new /obj/item/weapon/storage/bag/trash(src)
+		src.modules += new /obj/item/weapon/storage/bag/trash/cyborg(src)
 		src.modules += new /obj/item/weapon/mop(src)
 		src.modules += new /obj/item/device/lightreplacer(src)
 		src.modules += new /obj/item/weapon/holosign_creator(src)
@@ -247,7 +248,7 @@
 
 		src.modules += new /obj/item/weapon/reagent_containers/robodropper(src)
 		src.modules += new /obj/item/weapon/lighter/zippo(src)
-		src.modules += new /obj/item/weapon/tray/robotray(src)
+		src.modules += new /obj/item/weapon/storage/bag/tray/cyborg(src)
 		src.modules += new /obj/item/weapon/reagent_containers/food/drinks/shaker(src)
 		src.emag = new /obj/item/weapon/reagent_containers/food/drinks/cans/beer(src)
 
@@ -270,6 +271,7 @@
 	R.add_language("Galactic Common", 1)
 	R.add_language("Sol Common", 1)
 	R.add_language("Tradeband", 1)
+	R.add_language("Gutter", 1)	
 	R.add_language("Sinta'unathi", 1)
 	R.add_language("Siik'tajr", 1)
 	R.add_language("Skrellian", 1)
@@ -278,7 +280,7 @@
 	R.add_language("Trinary", 1)
 	R.add_language("Chittin", 1)
 	R.add_language("Bubblish", 1)
-	R.add_language("Gutter", 1)
+	R.add_language("Clownish",1)
 
 /*
 /obj/item/weapon/robot_module/clerical //Whyyyyy?

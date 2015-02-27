@@ -121,7 +121,10 @@
 
 		if ((HULK in mutations) && health <= 25)
 			mutations.Remove(HULK)
-			src << "\red You suddenly feel very weak."
+			dna.SetSEState(HULKBLOCK,0)
+			update_mutations()		//update our mutation overlays
+			status_flags |= CANSTUN | CANWEAKEN | CANPARALYSE | CANPUSH //temporary fix until the problem can be solved.
+			src << "<span class='danger'>You suddenly feel very weak.</span>"
 			Weaken(3)
 			emote("collapse")
 

@@ -180,7 +180,7 @@ obj/item/weapon/gun/energy/staff/focus
 	projectile_type = "/obj/item/projectile/beam/sniper"
 	slot_flags = SLOT_BACK
 	charge_cost = 2500
-	fire_delay = 10
+	fire_delay = 50
 	w_class = 4.0
 	var/zoom = 0
 

@@ -108,7 +108,7 @@ var/const/tk_maxrange = 15
 			return
 
 		var/d = get_dist(user, target)
-		if(focus) 
+		if(focus)
 			d = max(d,get_dist(user,focus)) // whichever is further
 		if(d > tk_maxrange)
 			user << "<span class='warning'>Your mind won't reach that far.</span>"
@@ -163,7 +163,7 @@ var/const/tk_maxrange = 15
 		O.icon_state = "nothing"
 		flick("empdisable",O)
 		spawn(5)
-			O.delete()
+			qdel(O)
 		return
 
 

@@ -22,6 +22,7 @@
 	#define SEC_HUD 1 //Security HUD mode
 	#define MED_HUD 2 //Medical HUD mode
 	var/local_transmit //If set, can only speak to others of the same type within a short range.
+	var/obj/item/device/radio/common_radio
 
 /mob/living/silicon/proc/cancelAlarm()
 	return

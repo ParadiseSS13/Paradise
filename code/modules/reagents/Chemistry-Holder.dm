@@ -640,3 +640,10 @@ datum
 atom/proc/create_reagents(var/max_vol)
 	reagents = new/datum/reagents(max_vol)
 	reagents.my_atom = src
+
+/datum/reagents/Destroy()
+	for(var/datum/reagent/reagent in reagent_list)
+		reagent.Destroy()
+
+	if(my_atom)
+		my_atom = null

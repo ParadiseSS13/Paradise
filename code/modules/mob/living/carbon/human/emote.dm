@@ -20,69 +20,100 @@
 
 	if(src.stat == 2.0 && (act != "deathgasp"))
 		return
+
+	//Emote Cooldown System (it's so simple!)
+	// proc/handle_emote_CD() located in [code\modules\mob\emote.dm]
+	var/on_CD = 0
+	switch(act)
+		//Cooldown-inducing emotes
+		if("ping","buzz","beep")
+			if (species.name == "Machine")		//Only Machines can beep, ping, and buzz
+				on_CD = handle_emote_CD()			//proc located in code\modules\mob\emote.dm
+			else								//Everyone else fails, skip the emote attempt
+				return
+		if("squish")
+			if(species.name == "Slime People")	//Only Slime People can squish
+				on_CD = handle_emote_CD()			//proc located in code\modules\mob\emote.dm
+			else								//Everyone else fails, skip the emote attempt
+				return
+		if("scream", "fart", "flip")
+			on_CD = handle_emote_CD()				//proc located in code\modules\mob\emote.dm
+		//Everything else, including typos of the above emotes
+		else
+			on_CD = 0	//If it doesn't induce the cooldown, we won't check for the cooldown
+
+	if(on_CD == 1)		// Check if we need to suppress the emote attempt.
+		return			// Suppress emote, you're still cooling off.
+	//--FalseIncarnate
+
 	switch(act)
 		if("ping")
-			if (species.name == "Machine")
-				var/M = null
-				if(param)
-					for (var/mob/A in view(null, null))
-						if (param == A.name)
-							M = A
-							break
-				if(!M)
-					param = null
+			var/M = null
+			if(param)
+				for (var/mob/A in view(null, null))
+					if (param == A.name)
+						M = A
+						break
+			if(!M)
+				param = null
 
-				if (param)
-					message = "<B>[src]</B> pings at [param]."
-				else
-					message = "<B>[src]</B> pings."
-				playsound(src.loc, 'sound/machines/ping.ogg', 50, 0)
-				m_type = 1
+			if (param)
+				message = "<B>[src]</B> pings at [param]."
 			else
-				if (!species.name == "Machine")
-					return
+				message = "<B>[src]</B> pings."
+			playsound(src.loc, 'sound/machines/ping.ogg', 50, 0)
+			m_type = 1
 
 		if("buzz")
-			if (species.name == "Machine")
-				var/M = null
-				if(param)
-					for (var/mob/A in view(null, null))
-						if (param == A.name)
-							M = A
-							break
-				if(!M)
-					param = null
+			var/M = null
+			if(param)
+				for (var/mob/A in view(null, null))
+					if (param == A.name)
+						M = A
+						break
+			if(!M)
+				param = null
 
-				if (param)
-					message = "<B>[src]</B> buzzes at [param]."
-				else
-					message = "<B>[src]</B> buzzes."
-				playsound(src.loc, 'sound/machines/buzz-sigh.ogg', 50, 0)
-				m_type = 1
+			if (param)
+				message = "<B>[src]</B> buzzes at [param]."
 			else
-				if (!species.name == "Machine")
-					return
+				message = "<B>[src]</B> buzzes."
+			playsound(src.loc, 'sound/machines/buzz-sigh.ogg', 50, 0)
+			m_type = 1
 
 		if("beep")
-			if(species.name == "Machine")
-				var/M = null
-				if(param)
-					for (var/mob/A in view(null, null))
-						if (param == A.name)
-							M = A
-							break
-				if(!M)
-					param = null
+			var/M = null
+			if(param)
+				for (var/mob/A in view(null, null))
+					if (param == A.name)
+						M = A
+						break
+			if(!M)
+				param = null
 
-				if (param)
-					message = "<B>[src]</B> beeps at [param]."
-				else
-					message = "<B>[src]</B> beeps."
-				playsound(src.loc, 'sound/machines/twobeep.ogg', 50, 0)
-				m_type = 1
+			if (param)
+				message = "<B>[src]</B> beeps at [param]."
 			else
-				if (!species.name == "Machine")
-					return
+				message = "<B>[src]</B> beeps."
+			playsound(src.loc, 'sound/machines/twobeep.ogg', 50, 0)
+			m_type = 1
+
+		if("squish")
+			var/M = null
+			if(param)
+				for (var/mob/A in view(null, null))
+					if (param == A.name)
+						M = A
+						break
+			if(!M)
+				param = null
+
+			if (param)
+				message = "<B>[src]</B> squishes at [param]."
+			else
+				message = "<B>[src]</B> squishes."
+			playsound(src.loc, 'sound/effects/slime_squish.ogg', 50, 0) //Credit to DrMinky (freesound.org) for the sound.
+			m_type = 1
 
 		if("wag")
 			if(species.bodyflags & TAIL_WAGGING)
@@ -203,6 +234,31 @@
 				m_type = 2
 				if(miming)
 					m_type = 1
+
+		if ("flip")
+			m_type = 1
+			if (!src.restrained())
+				var/M = null
+				if (param)
+					for (var/mob/A in view(1, null))
+						if (param == A.name)
+							M = A
+							break
+				if (M == src)
+					M = null
+
+				if (M)
+					if(src.lying || src.weakened)
+						message = "<B>[src]</B> flops and flails around on the floor."
+					else
+						message = "<B>[src]</B> flips in [M]'s general direction."
+						src.SpinAnimation(5,1)
+				else
+					if(src.lying || src.weakened)
+						message = "<B>[src]</B> flops and flails around on the floor."
+					else
+						message = "<B>[src]</B> does a flip!"
+						src.SpinAnimation(5,1)
 
 		if ("aflap")
 			if (!src.restrained())

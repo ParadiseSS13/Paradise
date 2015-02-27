@@ -22,7 +22,7 @@
 		name = text("alien ([rand(1, 1000)])")
 	real_name = name
 	add_language("Xenomorph")
-	add_language("Hivemind") 
+	add_language("Hivemind")
 	..()
 
 //This is fine, works the same as a human
@@ -65,7 +65,7 @@
 	return (tally + move_delay_add + config.alien_delay)
 
 /mob/living/carbon/alien/humanoid/Process_Spacemove(var/check_drift = 0)
-	return 1
+	return 0
 
 ///mob/living/carbon/alien/humanoid/bullet_act(var/obj/item/projectile/Proj) taken care of in living
 
@@ -121,7 +121,7 @@
 	show_message("<span class='userdanger'>The blob attacks!</span>")
 	adjustFireLoss(damage)
 	return
-	
+
 /mob/living/carbon/alien/humanoid/meteorhit(O as obj)
 	for(var/mob/M in viewers(src, null))
 		if ((M.client && !( M.blinded )))
@@ -271,7 +271,7 @@
 				if (HULK in M.mutations)//HULK SMASH
 					damage += 14
 					spawn(0)
-						Weaken(damage) // Why can a hulk knock an alien out but not knock out a human? Damage is robust enough.
+						Paralyse(1)
 						step_away(src,M,15)
 						sleep(3)
 						step_away(src,M,15)
@@ -279,7 +279,7 @@
 				visible_message("<span class='danger'>[M] has punched [src]!</span>", \
 						"<span class='userdanger'>[M] has punched [src]!</span>")
 				if ((stat != DEAD) && (damage > 9||prob(5)))//Regular humans have a very small chance of weakening an alien.
-					Weaken(1,5)
+					Paralyse(2)
 					visible_message("<span class='danger'>[M] has weakened [src]!</span>", \
 							"<span class='userdanger'>[M] has weakened [src]!</span>", \
 							"<span class='danger'>You hear someone fall.</span>")
@@ -292,7 +292,7 @@
 		if ("disarm")
 			if (!lying)
 				if (prob(5))//Very small chance to push an alien down.
-					Weaken(2)
+					Paralyse(2)
 					playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
 					visible_message("<span class='danger'>[M] has pushed down [src]!</span>", \
 							"<span class='userdanger'>[M] has pushed down [src]!</span>")

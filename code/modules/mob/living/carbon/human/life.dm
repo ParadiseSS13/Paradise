@@ -62,7 +62,7 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 
 	if(life_tick%30==15)
 		hud_updateflag = 1022
-		
+
 	voice = GetVoice()
 
 	//No need to update all of these procs if the guy is dead.
@@ -632,8 +632,20 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 	handle_fire()
 		if(..())
 			return
-		var/thermal_protection = get_heat_protection(10000) //If you don't have fire suit level protection, you get a temperature increase
-		if((1 - thermal_protection) > 0.0001)
+		var/thermal_protection = 0 //Simple check to estimate how protected we are against multiple temperatures
+		if(wear_suit)
+			if(wear_suit.max_heat_protection_temperature >= FIRESUIT_MAX_HEAT_PROTECTION_TEMPERATURE)
+				thermal_protection += (wear_suit.max_heat_protection_temperature*0.7)
+		if(head)
+			if(head.max_heat_protection_temperature >= FIRE_HELMET_MAX_HEAT_PROTECTION_TEMPERATURE)
+				thermal_protection += (head.max_heat_protection_temperature*THERMAL_PROTECTION_HEAD)
+		thermal_protection = round(thermal_protection)
+		if(thermal_protection >= FIRE_IMMUNITY_SUIT_MAX_TEMP_PROTECT)
+			return
+		if(thermal_protection >= FIRESUIT_MAX_HEAT_PROTECTION_TEMPERATURE)
+			bodytemperature += 11
+			return
+		else
 			bodytemperature += BODYTEMP_HEATING_MAX
 		return
 	//END FIRE CODE
@@ -914,10 +926,12 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 			traumatic_shock -= light_amount
 
 			if(species.flags & IS_PLANT)
-				if(nutrition > 500)
-					nutrition = 500
+				if(nutrition > 450)
+					nutrition = 450
 				if(light_amount >= 5) //if there's enough light, heal
-					adjustBruteLoss(-(light_amount))
+					adjustBruteLoss(-(light_amount/2))
+					adjustFireLoss(-(light_amount/4))
+					//adjustToxLoss(-(light_amount))
 					adjustOxyLoss(-(light_amount))
 					//TODO: heal wounds, heal broken limbs.
 
@@ -1165,13 +1179,7 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 
 			//Jitteryness
 			if(jitteriness)
-				var/amplitude = min(4, (jitteriness/100) + 1)
-				var/pixel_x_diff = rand(-amplitude, amplitude)
-				var/pixel_y_diff = rand(-amplitude/3, amplitude/3)
-
-				animate(src, pixel_x = pixel_x + pixel_x_diff, pixel_y = pixel_y + pixel_y_diff , time = 2, loop = 6)
-				animate(pixel_x = initial(pixel_x) , pixel_y = initial(pixel_y) , time = 2)
-				jitteriness = max(jitteriness-1, 0)
+				do_jitter_animation(jitteriness)
 
 			//Other
 			handle_statuses()
@@ -1926,7 +1934,7 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 	var/client/C = client
 	for(var/mob/living/carbon/human/H in view(src, 14))
 		C.images += H.hud_list[NATIONS_HUD]
-		
+
 /mob/living/carbon/human/handle_silent()
 	if(..())
 		speech_problem_flag = 1

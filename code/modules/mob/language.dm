@@ -18,6 +18,7 @@
 	var/native                       // If set, non-native speakers will have trouble speaking.
 	var/list/syllables               // Used when scrambling text for a non-speaker.
 	var/list/space_chance = 55       // Likelihood of getting a space in the random scramble string.
+	var/follow = 0					 // Applies to HIVEMIND languages - should a follow link be included for dead mobs?
 
 /datum/language/proc/get_random_name(var/gender, name_count=2, syllable_count=4)
 	if(!syllables || !syllables.len)
@@ -102,7 +103,12 @@
 	var/msg = "<i><span class='game say'>[name], <span class='name'>[speaker_mask]</span> [format_message(message, get_spoken_verb(message))]</span></i>"
 
 	for(var/mob/player in player_list)
-		if(istype(player,/mob/dead) || ((src in player.languages) && check_special_condition(player)))
+		if(istype(player,/mob/dead) && follow)
+			var/msg_dead = "<i><span class='game say'>[name], <span class='name'>[speaker_mask]</span> (<a href='byond://?src=\ref[player];follow2=\ref[player];follow=\ref[speaker]'>follow</a>) [format_message(message, get_spoken_verb(message))]</span></i>"
+			player << msg_dead
+			continue
+
+		else if(istype(player,/mob/dead) || ((src in player.languages) && check_special_condition(player)))
 			player << msg
 
 /datum/language/proc/check_special_condition(var/mob/other)
@@ -340,12 +346,7 @@
 	colour = "alien"
 	key = "a"
 	flags = RESTRICTED | HIVEMIND
-
-/datum/language/xenos/check_special_condition(var/mob/other)
-	var/mob/living/carbon/M = other
-	if(!istype(M))
-		return 1
-	return 0
+	follow = 1
 
 /datum/language/ling
 	name = "Changeling"
@@ -395,6 +396,7 @@
 	exclaim_verb = "declares"
 	key = "b"
 	flags = RESTRICTED | HIVEMIND
+	follow = 1
 	var/drone_only
 
 /datum/language/binary/broadcast(var/mob/living/speaker,var/message,var/speaker_mask)
@@ -409,8 +411,9 @@
 	var/message_body = "<span class='message'>[speaker.say_quote(message)], \"[message]\"</span></span></i>"
 
 	for (var/mob/M in dead_mob_list)
-		if(!istype(M,/mob/new_player) && !istype(M,/mob/living/carbon/brain)) //No meta-evesdropping
-			M.show_message("[message_start] [message_body]", 2)
+		if(!istype(M,/mob/new_player) && !istype(M,/mob/living/carbon/brain))
+			var/message_start_dead = "<i><span class='game say'>[name], <span class='name'>[speaker.name] (<a href='byond://?src=\ref[M];follow2=\ref[M];follow=\ref[speaker]'>follow</a>)</span>"
+			M.show_message("[message_start_dead] [message_body]", 2)
 
 	for (var/mob/living/S in living_mob_list)
 
@@ -447,6 +450,7 @@
 	key = "d"
 	flags = RESTRICTED | HIVEMIND
 	drone_only = 1
+	follow = 1
 
 // Language handling.
 /mob/proc/add_language(var/language)

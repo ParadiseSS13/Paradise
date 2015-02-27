@@ -444,3 +444,30 @@
 	desc = "An overcoat for the clown soldier, to keep him warm during those cold winter nights on the front."
 	icon_state = "soldiersuit"
 	item_state = "soldiersuit"
+
+/obj/item/clothing/suit/toggle/owlwings
+	name = "owl cloak"
+	desc = "A soft brown cloak made of synthetic feathers. Soft to the touch, stylish, and a 2 meter wing span that will drive the ladies mad."
+	icon_state = "owl_wings"
+	item_state = "owl_wings"
+	body_parts_covered = ARMS
+	armor = list(melee = 5, bullet = 0, laser = 0,energy = 0, bomb = 0, bio = 0, rad = 0)
+	allowed = list(/obj/item/weapon/gun/energy,/obj/item/weapon/reagent_containers/spray/pepper,/obj/item/weapon/gun/projectile,/obj/item/ammo_box,/obj/item/ammo_casing,/obj/item/weapon/melee/baton,/obj/item/weapon/restraints/handcuffs,/obj/item/device/flashlight/seclite)
+	action_button_name = "Toggle Owl Wings"
+	icon_action_button = "action_wings"
+	flags = NODROP
+
+/obj/item/clothing/suit/toggle/owlwings/griffinwings
+	name = "griffon cloak"
+	desc = "A plush white cloak made of synthetic feathers. Soft to the touch, stylish, and a 2 meter wing span that will drive your captives mad."
+	icon_state = "griffin_wings"
+	item_state = "griffin_wings"
+
+/obj/item/clothing/suit/toggle/attack_self()
+	if(icon_state == initial(icon_state))
+		icon_state = icon_state + "_t"
+		item_state = icon_state + "_t"
+	else
+		icon_state = initial(icon_state)
+		item_state = initial(item_state)
+	usr.update_inv_wear_suit()
