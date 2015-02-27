@@ -179,14 +179,13 @@ var/list/blob_nodes = list()
 			return
 
 		if (2)
-			command_announcement.Announce("The biohazard has grown out of control and will soon reach critical mass. Activate the nuclear failsafe to maintain quarantine. The Nuclear Authentication Code is [get_nuke_code()] ", "Biohazard Alert", new_sound = 'sound/AI/blob_confirmed.ogg')
+			command_announcement.Announce("The biohazard has grown out of control and will soon reach critical mass. Activate the nuclear failsafe to maintain quarantine. The Nuclear Authentication Code is [get_nuke_code()] ", "Biohazard Alert", new_sound = 'sound/effects/siren.ogg')
 			set_security_level("gamma")
 			var/obj/machinery/door/airlock/vault/V = locate(/obj/machinery/door/airlock/vault) in world
 			if(V && (V.z in config.station_levels))
 				V.locked = 0
 				V.update_icon()
 			send_intercept(2)
-			spawn(10)	world << sound('sound/effects/siren.ogg')
 			return
 
 	return
