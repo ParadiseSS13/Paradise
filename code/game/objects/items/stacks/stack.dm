@@ -169,6 +169,7 @@
 		if(usr)
 			usr.unEquip(src, 1)
 		qdel(src)
+	update_icon()
 	return 1
 
 /obj/item/stack/proc/add_to_stacks(mob/usr as mob)
@@ -185,6 +186,7 @@
 		usr << "You add new [item.singular_name] to the stack. It now contains [item.amount] [item.singular_name]\s."
 		if(!oldsrc)
 			break
+	update_icon()
 
 /obj/item/stack/proc/get_amount()
 	return amount
@@ -201,6 +203,7 @@
 			spawn(0) src.interact(usr)
 	else
 		..()
+	update_icon()
 	return
 
 /obj/item/stack/attackby(obj/item/W as obj, mob/user as mob, params)
@@ -220,6 +223,7 @@
 		src.use(to_transfer)
 		if (src && usr.machine==src)
 			spawn(0) src.interact(usr)
+		S.update_icon()
 	else return ..()
 
 /obj/item/stack/proc/copy_evidences(obj/item/stack/from as obj)

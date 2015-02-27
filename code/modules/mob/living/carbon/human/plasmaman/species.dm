@@ -30,26 +30,48 @@
 		H.unEquip(H.wear_mask)
 
 	H.equip_or_collect(new /obj/item/clothing/mask/breath(H), slot_wear_mask)
-	var/suit=/obj/item/clothing/suit/space/plasmaman
-	var/helm=/obj/item/clothing/head/helmet/space/plasmaman
+	var/suit=/obj/item/clothing/suit/space/eva/plasmaman
+	var/helm=/obj/item/clothing/head/helmet/space/eva/plasmaman
 	var/tank_slot = slot_s_store
 	var/tank_slot_name = "suit storage"
 
 	switch(H.mind.assigned_role)
-		/*
 		if("Research Director","Scientist","Geneticist","Roboticist")
-			suit=/obj/item/clothing/suit/space/vox/casual/science
-			helm=/obj/item/clothing/head/helmet/space/vox/casual/science
-		if("Chief Engineer","Station Engineer","Atmospheric Technician")
-			suit=/obj/item/clothing/suit/space/vox/casual/engineer
-			helm=/obj/item/clothing/head/helmet/space/vox/casual/engineer
+			suit=/obj/item/clothing/suit/space/eva/plasmaman/science
+			helm=/obj/item/clothing/head/helmet/space/eva/plasmaman/science
+		if("Chief Engineer","Station Engineer")
+			suit=/obj/item/clothing/suit/space/eva/plasmaman/engineer
+			helm=/obj/item/clothing/head/helmet/space/eva/plasmaman/engineer
+		if("Atmospheric Technician")
+			suit=/obj/item/clothing/suit/space/eva/plasmaman/atmostech
+			helm=/obj/item/clothing/head/helmet/space/eva/plasmaman/atmostech
 		if("Head of Security","Warden","Detective","Security Officer")
-			suit=/obj/item/clothing/suit/space/vox/casual/security
-			helm=/obj/item/clothing/head/helmet/space/vox/casual/security
+			suit=/obj/item/clothing/suit/space/eva/plasmaman/security
+			helm=/obj/item/clothing/head/helmet/space/eva/plasmaman/security
 		if("Chief Medical Officer","Medical Doctor","Paramedic","Chemist")
-			suit=/obj/item/clothing/suit/space/vox/casual/medical
-			helm=/obj/item/clothing/head/helmet/space/vox/casual/medical
-		*/ // For now.
+			suit=/obj/item/clothing/suit/space/eva/plasmaman/medical
+			helm=/obj/item/clothing/head/helmet/space/eva/plasmaman/medical
+		if("Bartender", "Chef")
+			suit=/obj/item/clothing/suit/space/eva/plasmaman/service
+			helm=/obj/item/clothing/head/helmet/space/eva/plasmaman/service
+		if("Cargo Technician", "Quartermaster")
+			suit=/obj/item/clothing/suit/space/eva/plasmaman/cargo
+			helm=/obj/item/clothing/head/helmet/space/eva/plasmaman/cargo
+		if("Shaft Miner")
+			suit=/obj/item/clothing/suit/space/eva/plasmaman/miner
+			helm=/obj/item/clothing/head/helmet/space/eva/plasmaman/miner
+		if("Botanist")
+			suit=/obj/item/clothing/suit/space/eva/plasmaman/botanist
+			helm=/obj/item/clothing/head/helmet/space/eva/plasmaman/botanist
+		if("Chaplain")
+			suit=/obj/item/clothing/suit/space/eva/plasmaman/chaplain
+			helm=/obj/item/clothing/head/helmet/space/eva/plasmaman/chaplain
+		if("Janitor")
+			suit=/obj/item/clothing/suit/space/eva/plasmaman/janitor
+			helm=/obj/item/clothing/head/helmet/space/eva/plasmaman/janitor
+		if("Assistant")
+			suit=/obj/item/clothing/suit/space/eva/plasmaman/assistant
+			helm=/obj/item/clothing/head/helmet/space/eva/plasmaman/assistant
 		if("Clown","Mime")
 			tank_slot=slot_r_hand
 			tank_slot_name = "hand"

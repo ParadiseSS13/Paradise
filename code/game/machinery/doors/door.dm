@@ -20,6 +20,7 @@
 	var/heat_proof = 0 // For glass airlocks/opacity firedoors
 	var/emergency = 0
 	var/air_properties_vary_with_direction = 0
+	var/block_air_zones = 1 //If set, air zones cannot merge across the door even when it is opened.
 
 	//Multi-tile doors
 	dir = EAST
@@ -96,7 +97,7 @@
 
 
 /obj/machinery/door/CanPass(atom/movable/mover, turf/target, height=0, air_group=0)
-	if(air_group) return 0
+	if(air_group) return !block_air_zones
 	if(istype(mover) && mover.checkpass(PASSGLASS))
 		return !opacity
 	return !density

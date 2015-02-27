@@ -344,3 +344,9 @@
 	item_state = "griffinhat"
 	flags = BLOCKHAIR|NODROP
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE
+
+/obj/item/clothing/head/lordadmiralhat
+	name = "Lord Admiral's Hat"
+	desc = "A hat suitable for any man of high and exalted rank."
+	icon_state = "lordadmiralhat"
+	item_state = "lordadmiralhat"
