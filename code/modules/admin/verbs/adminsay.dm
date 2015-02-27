@@ -33,6 +33,7 @@
 	if(check_rights(R_ADMIN, 0))
 		spanclass = "mod_channel_admin"
 	for(var/client/C in admins)
-		C << "<span class='[spanclass]'>MOD: <span class='name'>[key_name(usr, 1)]</span> (<A HREF='?src=\ref[C.holder];adminplayerobservejump=\ref[mob]'>JMP</A>): <span class='message'>[msg]</span></span>"
+		if(R_MOD & C.holder.rights)
+			C << "<span class='[spanclass]'>MOD: <span class='name'>[key_name(usr, 1)]</span> (<A HREF='?src=\ref[C.holder];adminplayerobservejump=\ref[mob]'>JMP</A>): <span class='message'>[msg]</span></span>"
 
 	feedback_add_details("admin_verb","MS") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
