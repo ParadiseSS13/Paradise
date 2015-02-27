@@ -103,3 +103,13 @@
 	name = "Borg Fancy v2"
 	desc = "Borg Fancy, Now only taking the most fancy."
 	icon_state="poster21"
+
+/datum/poster/tg_22
+	name = "The Griffin"
+	desc = " The Griffin commands you to be the worst you can be. Will you?"
+	icon_state="poster22"
+
+/datum/poster/tg_23
+	name = "The Owl"
+	desc = " The Owl would do his best to protect the station. Will you?"
+	icon_state="poster23"
