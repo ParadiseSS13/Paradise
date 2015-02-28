@@ -1,4 +1,4 @@
-/datum/controller/process/inactivity/setup()
+/*/datum/controller/process/inactivity/setup()
 	name = "inactivity"
 	schedule_interval = INACTIVITY_KICK
 
@@ -13,4 +13,4 @@
 
 			scheck()
 
-#undef INACTIVITY_KICK
+#undef INACTIVITY_KICK*/
