@@ -471,3 +471,10 @@
 		icon_state = initial(icon_state)
 		item_state = initial(item_state)
 	usr.update_inv_wear_suit()
+
+/obj/item/clothing/suit/lordadmiral
+	name = "Lord Admiral's Coat"
+	desc = "You'll be the Ruler of the King's Navy in no time."
+	icon_state = "lordadmiral"
+	item_state = "lordadmiral"
+	allowed = list (/obj/item/weapon/gun)

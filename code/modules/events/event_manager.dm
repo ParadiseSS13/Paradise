@@ -293,12 +293,12 @@
 
 /client/proc/event_manager_panel()
 	set name = "Event Manager Panel"
-	set category = "Admin"
+	set category = "Event"
 	if(event_manager)
 		event_manager.Interact(usr)
 	feedback_add_details("admin_verb","EMP") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 	return
-	
+
 /datum/event/proc/findEventArea() //Here's a nice proc to use to find an area for your event to land in!
 	var/area/candidate = null
 
@@ -343,7 +343,7 @@
 			break
 
 	return candidate
-	
+
 /datum/event/proc/num_players()
 	var/players = 0
 	for(var/mob/living/carbon/human/P in player_list)

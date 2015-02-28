@@ -283,39 +283,3 @@
 		hitsound = "swing_hit"
 	src.add_fingerprint(user)
 	return
-
-
-/*
- * Energy Shield
- */
-/obj/item/weapon/shield/energy/IsShield()
-	if(active)
-		return 1
-	else
-		return 0
-
-/obj/item/weapon/shield/energy/attack_self(mob/living/user as mob)
-	if ((CLUMSY in user.mutations) && prob(50))
-		user << "\red You beat yourself in the head with [src]."
-		user.take_organ_damage(5)
-	active = !active
-	if (active)
-		force = 10
-		reflect_chance = 100
-		icon_state = "eshield[active]"
-		w_class = 4
-		playsound(user, 'sound/weapons/saberon.ogg', 50, 1)
-		user << "\blue [src] is now active."
-	else
-		force = 3
-		icon_state = "eshield[active]"
-		w_class = 1
-		reflect_chance = 0
-		playsound(user, 'sound/weapons/saberoff.ogg', 50, 1)
-		user << "\blue [src] can now be concealed."
-	if(istype(user,/mob/living/carbon/human))
-		var/mob/living/carbon/human/H = user
-		H.update_inv_l_hand()
-		H.update_inv_r_hand()
-	add_fingerprint(user)
-	return

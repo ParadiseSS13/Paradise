@@ -466,7 +466,7 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 		if(species.name=="Plasmaman")
 
 			// Check if we're wearing our biosuit and mask.
-			if (!istype(wear_suit,/obj/item/clothing/suit/space/plasmaman) || !istype(head,/obj/item/clothing/head/helmet/space/plasmaman))
+			if (!istype(wear_suit,/obj/item/clothing/suit/space/eva/plasmaman) || !istype(head,/obj/item/clothing/head/helmet/space/eva/plasmaman))
 				//testing("Plasmaman [src] leakin'.  coverflags=[cover_flags]")
 				// OH FUCK HE LEAKIN'.
 				// This was OP.
