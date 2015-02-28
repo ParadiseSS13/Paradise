@@ -468,8 +468,8 @@
 
 
 
-/obj/machinery/turretid/Topic(href, href_list)
-	if(..())
+/obj/machinery/turretid/Topic(href, href_list, var/nowindow = 0)
+	if(..(href, href_list))
 		return 1
 	if (src.locked)
 		if (!istype(usr, /mob/living/silicon))
@@ -481,7 +481,8 @@
 	else if (href_list["toggleLethal"])
 		src.lethal = !src.lethal
 		src.updateTurrets()
-	src.attack_hand(usr)
+	if(!nowindow)
+		src.attack_hand(usr)
 
 /obj/machinery/turretid/proc/updateTurrets()
 	if(control_area)
@@ -566,8 +567,9 @@
 
 
 /obj/machinery/gun_turret/bullet_act(var/obj/item/projectile/Proj)
-	take_damage(Proj.damage)
-	return
+	if((Proj.damage_type == BRUTE || Proj.damage_type == BURN))
+		take_damage(Proj.damage)
+		return
 
 /obj/machinery/gun_turret/proc/die()
 	state = 2
