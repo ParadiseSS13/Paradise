@@ -68,6 +68,17 @@
 	build_path = /obj/item/weapon/grenade/chem_grenade/large
 	category = list("Weapons")
 
+/datum/design/tele_shield
+	name = "Telescopic Riot Shield"
+	desc = "An advanced riot shield made of lightweight materials that collapses for easy storage."
+	id = "tele_shield"
+	req_tech = list("combat" = 4, "materials" = 3, "engineering" = 3)
+	build_type = PROTOLATHE
+	materials = list("$metal" = 4000, "$glass" = 5000, "$silver" = 300)
+	build_path = /obj/item/weapon/shield/riot/tele
+	locked = 1
+	category = list("Weapons")
+
 /datum/design/lasercannon
 	name = "Laser Cannon"
 	desc = "A heavy duty laser cannon."
