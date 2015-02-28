@@ -956,6 +956,16 @@ proc/move_gamma_ship()
 		fromArea = locate(/area/shuttle/gamma/station)
 		toArea = locate(/area/shuttle/gamma/space)
 	fromArea.move_contents_to(toArea)
+	
+	for(var/obj/machinery/mech_bay_recharge_port/P in toArea)
+		P.locate_recharge_turf()
+		
+	for(var/obj/machinery/power/apc/A in toArea)
+		A.init()
+		
+	for(var/obj/machinery/alarm/A in toArea)
+		A.first_run()
+		
 	if (gamma_ship_location)
 		gamma_ship_location = 0
 	else

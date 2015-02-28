@@ -11,8 +11,10 @@
 			return
 
 		if(istype(I, /obj/item/clothing/head/helmet/space/rig)) // If the item to be equipped is a rigid suit helmet
-			src << "\red You must fasten the helmet to a hardsuit first. (Target the head and use on a hardsuit)" // Stop eva helms equipping.
-			return 0
+			var/obj/item/clothing/head/helmet/space/rig/C = I
+			if(C.rig_restrict_helmet)
+				src << "\red You must fasten the helmet to a hardsuit first. (Target the head and use on a hardsuit)" // Stop eva helms equipping.
+				return 0
 
 		if(H.equip_to_appropriate_slot(I))
 			if(hand)

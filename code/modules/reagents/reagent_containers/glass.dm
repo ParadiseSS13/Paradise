@@ -299,7 +299,9 @@
 			del(D)
 			user.put_in_hands(new /obj/item/weapon/bucket_sensor)
 			user.unEquip(src)
-			del(src)
+			qdel(src)
+			
+		..()
 
 /obj/item/weapon/reagent_containers/glass/beaker/vial
 	name = "vial"

@@ -220,6 +220,7 @@
 		H.equip_to_slot(helmet, slot_head)
 		helmet.flags |= NODROP
 		H << "\blue You deploy your hardsuit helmet, sealing you off from the world."
+	H.update_inv_head()
 
 /obj/item/clothing/suit/space/rig/attackby(obj/item/W as obj, mob/user as mob, params)
 

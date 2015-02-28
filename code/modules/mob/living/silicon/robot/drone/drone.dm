@@ -25,7 +25,7 @@
 
 	//Used for self-mailing.
 	var/mail_destination = 0
-	var/sprite[0]
+//	var/sprite[0]
 
 
 /mob/living/silicon/robot/drone/New()
@@ -275,6 +275,7 @@
 	src << "<b>Don't invade their worksites, don't steal their resources, don't tell them about the changeling in the toilets.</b>"
 	src << "<b>If a crewmember has noticed you, <i>you are probably breaking your first law</i></b>."
 
+/*
 	sprite["Default"] = "repairbot"
 	sprite["Mk2 Mousedrone"] = "mk2"
 	sprite["Mk3 Monkeydrone"] = "mk3"
@@ -284,6 +285,8 @@
 	updateicon()
 
 	choose_icon(6,sprite)
+*/
+
 
 /mob/living/silicon/robot/drone/Bump(atom/movable/AM as mob|obj, yes)
 	if (!yes || ( \

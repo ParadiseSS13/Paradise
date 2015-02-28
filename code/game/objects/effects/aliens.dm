@@ -207,6 +207,7 @@
 
 
 /obj/structure/alien/weeds/attackby(obj/item/I, mob/user, params)
+	user.changeNext_move(CLICK_CD_MELEE)
 	if(I.attack_verb.len)
 		visible_message("<span class='danger'>[user] has [pick(I.attack_verb)] [src] with [I]!</span>")
 	else
@@ -360,6 +361,7 @@
 
 
 /obj/structure/alien/egg/attackby(obj/item/I, mob/user, params)
+	user.changeNext_move(CLICK_CD_MELEE)
 	if(I.attack_verb.len)
 		visible_message("<span class='danger'>[user] has [pick(I.attack_verb)] [src] with [I]!</span>")
 	else

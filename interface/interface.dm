@@ -13,7 +13,7 @@
 		src << "<span class='danger'>The wiki URL is not set in the server configuration.</span>"
 	return
 
-#define CHANGELOG "https://github.com/ParadiseSS13/Paradise/commits/master"
+#define CHANGELOG "https://github.com/ParadiseSS13/Paradise/issues?q=is%3Apr+is%3Aclosed"
 /client/verb/changes()
 	set name = "Changelog"
 	set desc = "Visit Github to check out the commits."
