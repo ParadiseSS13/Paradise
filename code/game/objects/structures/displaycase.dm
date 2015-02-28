@@ -72,10 +72,11 @@
 	desc = "A display case for the captain's antique laser gun. It taunts you to kick it."
 
 /obj/structure/displaycase/captains_laser/New()
-	req_access = list(access_captain)
-	occupant = new /obj/item/weapon/gun/energy/laser/captain(src)
+	req_access = list(access_captain)	
 	locked = 1
-	update_icon()
+	spawn(5)
+		occupant = new /obj/item/weapon/gun/energy/laser/captain(src)
+		update_icon()
 
 /obj/structure/proc/getPrint(mob/user as mob)
 	return md5(user:dna:uni_identity)
