@@ -48,15 +48,22 @@ var/can_call_ert
 		if(!send_emergency_team)
 			usr << "No emergency response team is currently being sent."
 			return
+			
 	/*	if(admin_emergency_team)
 			usr << "An emergency response team has already been sent."
 			return */
-		if(jobban_isbanned(usr, "Syndicate") || jobban_isbanned(usr, "Emergency Response Team") || jobban_isbanned(usr, "Security Officer"))
-			usr << "<font color=red><b>You are jobbanned from the emergency reponse team!"
+			
+		if(jobban_isbanned(usr, "Emergency Response Team"))
+			usr << "<span class='warning'>You are jobbanned from the emergency reponse team!</span>"
+			return
+		
+		var/responseteam_age = 21 // 21 days to play as an ERT member
+		var/player_age_check = check_client_age(usr.client, responseteam_age)
+		if(player_age_check && config.use_age_restriction_for_antags)
+			usr << "<span class='warning'>This role is not yet available to you. You need to wait another [player_age_check] days.</span>"
 			return
 
 		if(response_team_members.len > 6) usr << "The emergency response team is already full!"
-
 
 		for (var/obj/effect/landmark/L in landmarks_list) if (L.name == "Response Team")
 			L.name = null//Reserving the place.
@@ -64,7 +71,7 @@ var/can_call_ert
 			if(!new_name)//Somebody changed his mind, place is available again.
 				L.name = "Commando"
 				return*/
-			if(alert(usr, "Join the ERT?", "Emergency Response Team", "Yes", "No") == "No")
+			if(alert(usr, "Join the Emergency Response Team?", "Emergency Response Team", "Yes", "No") == "No")
 				L.name = "Response Team"
 				return
 

@@ -247,7 +247,7 @@ BLIND     // can't see anything
 	var/ignore_maskadjust = 1
 	var/adjusted_flags = null
 	
-//Proc that moves gas/breath masks out of the way, disabling them and allowing pill/food consumption
+//Proc that moves gas/breath masks out of the way
 /obj/item/clothing/mask/proc/adjustmask(var/mob/user)
 	if(!ignore_maskadjust)
 		if(!user.canmove || user.stat || user.restrained())

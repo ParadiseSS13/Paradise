@@ -55,6 +55,13 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 		return 0
 		
 	return max(0, minimal_player_age_antag - C.player_age)
+	
+/proc/check_client_age(client/C, var/days) // If days isn't provided, returns the age of the client. If it is provided, it returns the days until the player_age is equal to or greater than the days variable
+	if(!days)
+		return C.player_age
+	else
+		return max(0, days - C.player_age)
+	return 0
 
 var/const/MAX_SAVE_SLOTS = 10
 
