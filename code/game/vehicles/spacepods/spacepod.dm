@@ -372,6 +372,7 @@
 
 	if(H && H.client && H in range(1))
 		if(src.occupant && src.occupant2)
+			H << "<span class='notice'>[src.name] is full.</span>"
 			return
 
 		if(src.occupant && !src.occupant2)
