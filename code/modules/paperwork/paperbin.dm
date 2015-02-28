@@ -25,15 +25,26 @@
 		amount=0
 		update_icon()
 
-/obj/item/weapon/paper_bin/MouseDrop(mob/user as mob)
-	if((user == usr && (!( usr.restrained() ) && (!( usr.stat ) && (usr.contents.Find(src) || in_range(src, usr))))))
-		if(!istype(usr, /mob/living/carbon/slime) && !istype(usr, /mob/living/simple_animal))
-			if( !usr.get_active_hand() )		//if active hand is empty
-				src.loc = user
-				user.put_in_hands(src)
-				user.visible_message("<span class='notice'>[user] picks up the [src].</span>", "<span class='notice'>You grab [src] from the floor!</span>")
-
-	return
+/obj/item/weapon/paper_bin/MouseDrop(atom/over_object)
+	var/mob/M = usr
+	if(M.restrained() || M.stat || !Adjacent(M))
+		return
+	
+	if(over_object == M)
+		M.put_in_hands(src)
+	
+	else if(istype(over_object, /obj/screen))
+		switch(over_object.name)
+			if("r_hand")
+				if(!M.unEquip(src))
+					return
+				M.put_in_r_hand(src)
+			if("l_hand")
+				if(!M.unEquip(src))
+					return
+				M.put_in_l_hand(src)
+	
+	add_fingerprint(M)
 
 
 /obj/item/weapon/paper_bin/attack_paw(mob/user as mob)
