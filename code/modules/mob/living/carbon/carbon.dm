@@ -476,10 +476,10 @@
 		update_inv_wear_mask(0)
 	else if(I == handcuffed)
 		handcuffed = null
-		update_inv_handcuffed(0)
+		update_inv_handcuffed(1)
 	else if(I == legcuffed)
 		legcuffed = null
-		update_inv_legcuffed(0)
+		update_inv_legcuffed(1)
 
 /mob/living/carbon/show_inv(mob/living/carbon/user as mob)
 	user.set_machine(src)

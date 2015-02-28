@@ -182,7 +182,7 @@
 		update_inv_back(0)
 	else if(I == handcuffed)
 		handcuffed = null
-		update_inv_handcuffed(0)
+		update_inv_handcuffed(1)
 	else if(I == legcuffed)
 		legcuffed = null
 		update_inv_legcuffed(0)
