@@ -7,6 +7,8 @@
 	icon_state = "corgi"
 	icon_living = "corgi"
 	icon_dead = "corgi_dead"
+	health = 30
+	maxHealth = 30
 	speak = list("YAP", "Woof!", "Bark!", "AUUUUUU")
 	speak_emote = list("barks", "woofs")
 	emote_hear = list("barks", "woofs", "yaps","pants")
@@ -27,6 +29,33 @@
 
 /mob/living/simple_animal/corgi/New()
 	..()
+	regenerate_icons()
+
+/mob/living/simple_animal/corgi/Life()
+	. = ..()
+	if(.)
+		if(fire)
+			if(fire_alert)							fire.icon_state = "fire[fire_alert]" //fire_alert is either 0 if no alert, 1 for heat and 2 for cold.
+			else									fire.icon_state = "fire0"
+		if(pullin)
+			if(pulling)								pullin.icon_state = "pull1"
+			else									pullin.icon_state = "pull0"
+		if(oxygen)
+			if(oxygen_alert)						oxygen.icon_state = "oxy1"
+			else									oxygen.icon_state = "oxy0"
+		if(toxin)
+			if(toxins_alert)							toxin.icon_state = "tox1"
+			else									toxin.icon_state = "tox0"
+
+	switch(health)
+		if(30 to INFINITY)		healths.icon_state = "health0"
+		if(26 to 29)			healths.icon_state = "health1"
+		if(21 to 25)			healths.icon_state = "health2"
+		if(16 to 20)			healths.icon_state = "health3"
+		if(11 to 15)			healths.icon_state = "health4"
+		if(6 to 10)				healths.icon_state = "health5"
+		if(1 to 5)				healths.icon_state = "health6"
+		else					healths.icon_state = "health7"
 	regenerate_icons()
 
 /mob/living/simple_animal/corgi/Die()
@@ -292,7 +321,7 @@
 	..()
 
 	//Feeding, chasing food, FOOOOODDDD
-	if(!stat && !resting && !buckled)
+	if(!stat && !resting && !buckled && (ckey == null))
 		turns_since_scan++
 		if(turns_since_scan > 5)
 			turns_since_scan = 0
@@ -336,9 +365,10 @@
 		if(prob(1))
 			emote(pick("dances around","chases its tail"))
 			spawn(0)
-				for(var/i in list(1,2,4,8,4,2,1,2,4,8,4,2,1,2,4,8,4,2))
-					dir = i
-					sleep(1)
+				if (ckey == null)
+					for(var/i in list(1,2,4,8,4,2,1,2,4,8,4,2,1,2,4,8,4,2))
+						dir = i
+						sleep(1)
 
 /obj/item/weapon/reagent_containers/food/snacks/meat/corgi
 	name = "Corgi meat"
@@ -387,9 +417,10 @@
 				if ((M.client && !( M.blinded )))
 					M.show_message("\blue [user] baps [name] on the nose with the rolled up [O]")
 			spawn(0)
-				for(var/i in list(1,2,4,8,4,2,1,2))
-					dir = i
-					sleep(1)
+				if (ckey == null)
+					for(var/i in list(1,2,4,8,4,2,1,2))
+						dir = i
+						sleep(1)
 	else
 		..()
 
@@ -467,11 +498,12 @@
 
 	if(!stat && !resting && !buckled)
 		if(prob(1))
-			emote(pick("dances around","chases her tail"))
-			spawn(0)
-				for(var/i in list(1,2,4,8,4,2,1,2,4,8,4,2,1,2,4,8,4,2))
-					dir = i
-					sleep(1)
+			if (ckey == null)
+				emote(pick("dances around","chases her tail"))
+				spawn(0)
+					for(var/i in list(1,2,4,8,4,2,1,2,4,8,4,2,1,2,4,8,4,2))
+						dir = i
+						sleep(1)
 
 
 /mob/living/simple_animal/corgi/Ian/borgi
