@@ -399,10 +399,11 @@ datum
 
 			check_gofast(var/mob/M)
 				if(M && istype(M, /mob))
-					if(M.reagents.has_reagent("hyperzine")||M.reagents.has_reagent("nuka_cola"))
-						return 1
-					else
-						M.status_flags &= ~GOTTAGOFAST
+					if(M.reagents)
+						if(M.reagents.has_reagent("hyperzine")||M.reagents.has_reagent("nuka_cola"))
+							return 1
+						else
+							M.status_flags &= ~GOTTAGOFAST
 
 			update_total()
 				total_volume = 0

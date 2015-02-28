@@ -243,6 +243,31 @@ BLIND     // can't see anything
 	icon = 'icons/obj/clothing/masks.dmi'
 	body_parts_covered = HEAD
 	slot_flags = SLOT_MASK
+	var/mask_adjusted = 0
+	var/ignore_maskadjust = 1
+	var/adjusted_flags = null
+	
+//Proc that moves gas/breath masks out of the way, disabling them and allowing pill/food consumption
+/obj/item/clothing/mask/proc/adjustmask(var/mob/user)
+	if(!ignore_maskadjust)
+		if(!user.canmove || user.stat || user.restrained())
+			return
+		if(src.mask_adjusted == 1)
+			src.icon_state = initial(icon_state)
+			gas_transfer_coefficient = initial(gas_transfer_coefficient)
+			permeability_coefficient = initial(permeability_coefficient)
+			user << "You push \the [src] back into place."
+			src.mask_adjusted = 0
+			slot_flags = initial(slot_flags)
+		else
+			src.icon_state += "_up"
+			user << "You push \the [src] out of the way."
+			gas_transfer_coefficient = null
+			permeability_coefficient = null
+			src.mask_adjusted = 1
+			if(adjusted_flags)
+				slot_flags = adjusted_flags
+		usr.update_inv_wear_mask()
 
 //Shoes
 /obj/item/clothing/shoes

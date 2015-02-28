@@ -639,8 +639,6 @@
 	item_state = "checkered_suit"
 	_color = "checkered_suit"
 
-
-
 /obj/item/clothing/under/owl
 	name = "owl uniform"
 	desc = "A soft brown jumpsuit made of synthetic feathers and strong conviction."
@@ -654,3 +652,4 @@
 	icon_state = "griffin"
 	_color = "griffin"
 	flags = NODROP
+	

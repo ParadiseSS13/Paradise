@@ -17,6 +17,13 @@
 	blood_overlay_type = "armor"
 	flags = ONESIZEFITSALL
 	armor = list(melee = 50, bullet = 15, laser = 50, energy = 10, bomb = 25, bio = 0, rad = 0)
+	
+/obj/item/clothing/suit/armor/vest/jacket
+	name = "military jacket"
+	desc = "An old military jacket, it has armoring."
+	icon_state = "militaryjacket"
+	item_state = "militaryjacket"
+	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
 
 /obj/item/clothing/suit/armor/vest/combat
 	name = "combat vest"
