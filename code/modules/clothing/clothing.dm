@@ -267,6 +267,12 @@ BLIND     // can't see anything
 			src.mask_adjusted = 1
 			if(adjusted_flags)
 				slot_flags = adjusted_flags
+			if(ishuman(user))
+				var/mob/living/carbon/human/H = user
+				if(H.internal)
+					if(H.internals)
+						H.internals.icon_state = "internal0"
+					H.internal = null
 		usr.update_inv_wear_mask()
 
 //Shoes

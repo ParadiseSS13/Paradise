@@ -276,6 +276,9 @@
 						if(!istype(C.wear_mask, /obj/item/clothing/mask))
 							C << "<span class='notice'>You are not wearing a mask.</span>"
 							return 1
+						if(C.wear_mask.mask_adjusted)
+							C << "<span class='notice'>Put your mask on first.</span>"
+							return 1						
 						else
 							var/list/nicename = null
 							var/list/tankcheck = null
