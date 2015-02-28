@@ -50,9 +50,9 @@
 	pr_int_temp_processor = new /datum/global_iterator/pod_preserve_temp(list(src))
 	pr_give_air = new /datum/global_iterator/pod_tank_give_air(list(src))
 	equipment_system = new(src)
-	spacepods_list += src 
-	
-/obj/spacepod/Destroy()	
+	spacepods_list += src
+
+/obj/spacepod/Destroy()
 	spacepods_list -= src
 	..()
 
@@ -61,9 +61,9 @@
 		pod_overlays = new/list(2)
 		pod_overlays[DAMAGE] = image(icon, icon_state="pod_damage")
 		pod_overlays[FIRE] = image(icon, icon_state="pod_fire")
-	
+
 	overlays.Cut()
-	
+
 	if(health <= round(initial(health)/2))
 		overlays += pod_overlays[DAMAGE]
 		if(health <= round(initial(health)/4))
@@ -72,11 +72,11 @@
 /obj/spacepod/bullet_act(var/obj/item/projectile/P)
 	if(P.damage && !P.nodamage)
 		deal_damage(P.damage)
-		
+
 /obj/spacepod/blob_act()
 	deal_damage(30)
 	return
-		
+
 /obj/spacepod/attack_animal(mob/living/simple_animal/user as mob)
 	if(user.melee_damage_upper == 0)
 		user.emote("[user.friendly] [src]")
@@ -86,7 +86,7 @@
 		visible_message("\red <B>[user]</B> [user.attacktext] [src]!")
 		user.attack_log += text("\[[time_stamp()]\] <font color='red'>attacked [src.name]</font>")
 	return
-	
+
 /obj/spacepod/attack_alien(mob/user as mob)
 	deal_damage(15)
 	playsound(src.loc, 'sound/weapons/slash.ogg', 50, 1, -1)
@@ -211,8 +211,8 @@
 			user << "\blue <b>\The [src] is fully repaired!</b>"
 
 /obj/spacepod/attack_paw(mob/user as mob)
-	return src.attack_hand(user)				
-				
+	return src.attack_hand(user)
+
 /obj/spacepod/attack_hand(mob/user as mob)
 	if(!hatch_open)
 		return ..()
@@ -371,7 +371,10 @@
 		return
 
 	if(H && H.client && H in range(1))
-		if(src.occupant)
+		if(src.occupant && src.occupant2)
+			return
+
+		if(src.occupant && !src.occupant2)
 			if(src.occupant.ckey == H.ckey)
 				H.visible_message("You climb over the console and drop down into the secondary seat.")
 				H.reset_view(src)
@@ -404,30 +407,36 @@
 				return 1
 
 		else
-			H.reset_view(src)
-			/*
-			H.client.perspective = EYE_PERSPECTIVE
-			H.client.eye = src
-			*/
-			H.stop_pulling()
-			H.forceMove(src)
-			src.occupant = H
-			src.add_fingerprint(H)
-			src.forceMove(src.loc)
-			//dir = dir_in
-			playsound(src, 'sound/machines/windowdoor.ogg', 50, 1)
-			return 1
+			if(!src.occupant)
+				H.reset_view(src)
+				/*
+				H.client.perspective = EYE_PERSPECTIVE
+				H.client.eye = src
+				*/
+				H.stop_pulling()
+				H.forceMove(src)
+				src.occupant = H
+				src.add_fingerprint(H)
+				src.forceMove(src.loc)
+				//dir = dir_in
+				playsound(src, 'sound/machines/windowdoor.ogg', 50, 1)
+				return 1
+			else
+				return
 	else
 		return 0
 
 /obj/spacepod/proc/moved_other_inside(var/mob/living/carbon/human/H as mob)
-	H.reset_view(src)
-	H.stop_pulling()
-	H.forceMove(src)
-	src.occupant2 = H
-	src.forceMove(src.loc)
-	playsound(src, 'sound/machines/windowdoor.ogg', 50, 1)
-	return 1
+	if(!src.occupant2)
+		H.reset_view(src)
+		H.stop_pulling()
+		H.forceMove(src)
+		src.occupant2 = H
+		src.forceMove(src.loc)
+		playsound(src, 'sound/machines/windowdoor.ogg', 50, 1)
+		return 1
+	else
+		return
 
 
 
@@ -436,7 +445,15 @@
 	if(M != user)
 		if(M.stat != 0)
 			if(allow2enter)
-				moved_other_inside(M)
+				if(!src.occupant2)
+					visible_message("\red [user.name] starts loading [M.name] into the pod!")
+					sleep(10)
+					moved_other_inside(M)
+				else if(src.occupant2 && !src.occupant)
+					usr << "\red <b>You can't put a corpse into the driver's seat!</b>"
+					return
+				else
+					return
 			else
 				return
 		else
@@ -444,6 +461,68 @@
 	else
 		move_inside(M, user)
 
+
+/obj/spacepod/verb/move_inside()
+	set category = "Object"
+	set name = "Enter Pod"
+	set src in oview(1)
+	var/fukkendisk = usr.GetTypeInAllContents(/obj/item/weapon/disk/nuclear)
+
+	if(usr.restrained() || usr.stat || usr.weakened || usr.stunned || usr.paralysis || usr.resting) //are you cuffed, dying, lying, stunned or other
+		return
+
+	if (usr.stat || !ishuman(usr))
+		return
+
+	if(fukkendisk)
+		usr << "\red <B>The nuke-disk is locking the door every time you try to open it. You get the feeling that it doesn't want to go into the spacepod.</b>"
+		return
+
+	for(var/mob/living/carbon/slime/M in range(1,usr))
+		if(M.Victim == usr)
+			usr << "You're too busy getting your life sucked out of you."
+			return
+
+	if(src.occupant)
+		if(allow2enter)
+			if(!src.occupant2)
+				usr << "\blue <B>You start climbing into the secondary seat.</B>"
+				visible_message("\blue [usr] starts to climb into [src.name].")
+				if(enter_after(40,usr))
+					moved_inside(usr)
+				else
+					usr << "You stop entering the spacepod."
+				return
+			else
+				usr << "\red <b>You can't fit!</b>"
+		else
+			usr << "\red <b>The door is locked!</b>"
+
+	else if(!src.occupant && src.occupant2)
+		if(allow2enter)
+			usr << "\blue <B>You start climbing into the primary seat.</B>"
+			visible_message("\blue [usr] starts to climb into [src.name].")
+			if(enter_after(40,usr))
+				moved_inside(usr)
+			else
+				usr << "You stop entering the spacepod."
+			return
+		else
+			usr << "\red <b>The door is locked!</b>"
+
+	else if(!src.occupant && !src.occupant2)
+		visible_message("\blue [usr] starts to climb into [src.name].")
+		if(enter_after(40,usr))
+			if(!src.occupant)
+				moved_inside(usr)
+			else if(src.occupant!=usr)
+				usr << "[src.occupant] was faster. Try better next time, loser."
+		else
+			usr << "You stop entering the spacepod."
+		return
+
+
+/* !!OLD BROKEN SYSTEM!! - tiger
 
 /obj/spacepod/verb/move_inside()
 	set category = "Object"
@@ -459,8 +538,12 @@
 		return
 	if (usr.stat || !ishuman(usr))
 		return
+
 	if (src.occupant)
 		if(allow2enter)
+			if(src.occupant2)
+				usr << "\blue <B>You can't fit!</b"
+				return
 			usr << "\blue <B>You starts climbing into the secondary seat.</B>"
 			visible_message("\blue [usr] starts to climb into [src.name]")
 			if(enter_after(40,usr))
@@ -515,46 +598,55 @@
 		usr << "You stop entering the exosuit."
 	return
 
+*/
+
 /obj/spacepod/verb/exit_pod()
 	set name = "Exit pod"
 	set category = "Spacepod"
 	set src = usr.loc
+
 
 	if(usr != src.occupant)
 		if(src.occupant2)
 			if(usr != src.occupant2)
 				return
 			else
+				if(src.occupant)
+					src.occupant.visible_message("<span class='notice'>[src.occupant2.name] climbs out of the pod!</span>") //Inform the remaining occupant that someone ejected.
 				inertia_dir = 0 // engage reverse thruster and power down pod
 				src.occupant2.loc = src.loc
 				src.occupant2 = null
-				usr << "<span class='notice'>You climb out of the pod</span>"
+				usr << "<span class='notice'>You climb out of the pod.</span>"
+
 
 		else
 			return
 	else
+		if(src.occupant2)
+			src.occupant2.visible_message("<span class='notice'>[src.occupant2.name] climbs out of the pod!</span>") //Inform the remaining occupant that someone ejected.
 		inertia_dir = 0 // engage reverse thruster and power down pod
 		src.occupant.loc = src.loc
 		src.occupant = null
-		usr << "<span class='notice'>You climb out of the pod</span>"
+		usr << "<span class='notice'>You climb out of the pod.</span>"
 		return
 
 /obj/spacepod/verb/exit_pod2()
 	if(!src.occupant2)
 		set hidden = 1
 		return
+
 	else
 		set name = "Eject Secondary Seat"
 		set category = "Spacepod"
 		set src = usr.loc
 		set hidden = 0
 
-		if(usr.ckey == src.occupant2.ckey)
+		if(usr == src.occupant2)
 			usr << "<span class='notice'>Use 'Exit Pod'</span>"
 			return
 		else
 			usr << "<span class='notice'>You eject [src.occupant2.name].</span>"
-			src.occupant2.visible_message("You were ejected from the pod!")
+			src.occupant2.visible_message("<span class='warning'>You were ejected from the pod!</span>")
 			inertia_dir = 0 // engage reverse thruster and power down pod
 			src.occupant2.loc = src.loc
 			src.occupant2 = null
@@ -565,7 +657,7 @@
 	set category = "Spacepod"
 	set src = usr.loc
 
-	if(occupant2 == src)
+	if(occupant2 == usr)
 		if(!allow2enter)
 			usr << "<span class='notice'>You can't unlock the doors from your seat.</span>"
 			return
