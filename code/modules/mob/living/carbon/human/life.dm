@@ -583,8 +583,12 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 				take_overall_damage(burn=HEAT_DAMAGE_LEVEL_2, used_weapon = "High Body Temperature")
 				fire_alert = max(fire_alert, 2)
 			if(bodytemperature > species.heat_level_3 && bodytemperature < INFINITY)
-				take_overall_damage(burn=HEAT_DAMAGE_LEVEL_3, used_weapon = "High Body Temperature")
-				fire_alert = max(fire_alert, 2)
+				if(on_fire)
+					take_overall_damage(burn=HEAT_DAMAGE_LEVEL_3, used_weapon = "Fire")
+					fire_alert = max(fire_alert, 2)
+				else
+					take_overall_damage(burn=HEAT_DAMAGE_LEVEL_2, used_weapon = "High Body Temperature")
+					fire_alert = max(fire_alert, 2)
 
 		else if(bodytemperature < species.cold_level_1)
 			fire_alert = max(fire_alert, 1)

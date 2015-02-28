@@ -15,7 +15,7 @@
 	var/const/waittime_l = 600
 	var/const/waittime_h = 1800 // started at 1800
 
-	var/AI_win_timeleft = 2000 //started at 2000, in case I change this for testing round end.
+	var/AI_win_timeleft = 1500 //started at 1500, in case I change this for testing round end.
 	var/malf_mode_declared = 0
 	var/station_captured = 0
 	var/to_nuke_or_not_to_nuke = 0
