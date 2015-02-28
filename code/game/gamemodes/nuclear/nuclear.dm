@@ -171,7 +171,7 @@ proc/issyndicate(mob/living/M as mob)
 
 	var/hair_c = pick("#8B4513","#000000","#FF4500","#FFD700") // Brown, black, red, blonde
 	var/eye_c = pick("#000000","#8B4513","1E90FF") // Black, brown, blue
-	var/skin_tone = pick(30, 35, 40, 45, 50, 60, 75, 90, 105, 120) // Caucasian - black
+	var/skin_tone = pick(-50, -30, -10, 0, 0, 0, 10) // Caucasian/black
 	var/hair_style = "Bald"
 	var/facial_hair_style = "Shaved"
 	if(M.gender == MALE)
@@ -191,8 +191,7 @@ proc/issyndicate(mob/living/M as mob)
 	M.r_eyes = hex2num(copytext(eye_c, 2, 4))
 	M.g_eyes = hex2num(copytext(eye_c, 4, 6))
 	M.b_eyes = hex2num(copytext(eye_c, 6, 8))
-	M.s_tone = skin_tone + 35
-	M.s_tone = -M.s_tone + 35
+	M.s_tone = skin_tone
 	M.h_style = hair_style
 	M.f_style = facial_hair_style
 
