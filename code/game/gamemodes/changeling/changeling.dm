@@ -120,8 +120,8 @@ var/list/possible_changeling_IDs = list("Alpha","Beta","Gamma","Delta","Epsilon"
 			var/datum/objective/escape/escape_with_identity/identity_theft = new
 			identity_theft.owner = changeling
 			identity_theft.target = kill_objective.target
-			identity_theft.target_real_name = kill_objective.target.current.real_name //Whoops, forgot this.
 			if(identity_theft.target && identity_theft.target.current)
+				identity_theft.target_real_name = kill_objective.target.current.real_name //Whoops, forgot this.
 				var/mob/living/carbon/human/H = identity_theft.target.current
 				if(H.species && H.species.flags && H.species.flags & NO_SCAN) // For species that can't be absorbed - should default to an escape objective instead
 					return

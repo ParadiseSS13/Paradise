@@ -229,6 +229,8 @@
 			update_icon()
 	else
 		if(user.a_intent == "harm")
+			user.changeNext_move(CLICK_CD_MELEE)
+			user.do_attack_animation(src)
 			user.visible_message("\red [user.name] kicks \the [src]!", \
 				"\red You kick \the [src]!", \
 				"You hear glass crack.")

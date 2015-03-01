@@ -118,7 +118,7 @@
 		wear_suit = null
 		if(I.flags_inv & HIDEJUMPSUIT)
 			update_inv_w_uniform()
-		update_inv_wear_suit(0)
+		update_inv_wear_suit()
 	else if(I == w_uniform)
 		if(r_store)
 			unEquip(r_store, 1) //Again, makes sense for pockets to drop.
@@ -129,69 +129,69 @@
 		if(belt)
 			unEquip(belt)
 		w_uniform = null
-		update_inv_w_uniform(0)
+		update_inv_w_uniform()
 	else if(I == gloves)
 		gloves = null
-		update_inv_gloves(0)
+		update_inv_gloves()
 	else if(I == glasses)
 		glasses = null
-		update_inv_glasses(0)
+		update_inv_glasses()
 	else if(I == head)
 		head = null
 		if(I.flags & BLOCKHAIR || I.flags & BLOCKHEADHAIR)
-			update_hair(0)	//rebuild hair
-		update_inv_head(0)
+			update_hair()	//rebuild hair
+		update_inv_head()
 	else if(I == r_ear)
 		r_ear = null
-		update_inv_ears(0)
+		update_inv_ears()
 	else if (I == l_ear)
 		l_ear = null
-		update_inv_ears(0)
+		update_inv_ears()
 	else if(I == shoes)
 		shoes = null
-		update_inv_shoes(0)
+		update_inv_shoes()
 	else if(I == belt)
 		belt = null
-		update_inv_belt(0)
+		update_inv_belt()
 	else if(I == wear_mask)
 		wear_mask = null
 		if(I.flags & BLOCKHAIR || I.flags & BLOCKHEADHAIR)
-			update_hair(0)	//rebuild hair
+			update_hair()	//rebuild hair
 		if(internal)
 			if(internals)
 				internals.icon_state = "internal0"
 			internal = null
-		update_inv_wear_mask(0)
+		update_inv_wear_mask()
 	else if(I == wear_id)
 		wear_id = null
-		update_inv_wear_id(0)
+		update_inv_wear_id()
 	else if(I == wear_pda)
 		wear_pda = null
-		update_inv_wear_pda(0)
+		update_inv_wear_pda()
 	else if(I == r_store)
 		r_store = null
-		update_inv_pockets(0)
+		update_inv_pockets()
 	else if(I == l_store)
 		l_store = null
-		update_inv_pockets(0)
+		update_inv_pockets()
 	else if(I == s_store)
 		s_store = null
-		update_inv_s_store(0)
+		update_inv_s_store()
 	else if(I == back)
 		back = null
-		update_inv_back(0)
+		update_inv_back()
 	else if(I == handcuffed)
 		handcuffed = null
-		update_inv_handcuffed(1)
+		update_inv_handcuffed()
 	else if(I == legcuffed)
 		legcuffed = null
-		update_inv_legcuffed(0)
+		update_inv_legcuffed()
 	else if(I == r_hand)
 		r_hand = null
-		update_inv_r_hand(0)
+		update_inv_r_hand()
 	else if(I == l_hand)
 		l_hand = null
-		update_inv_l_hand(0)
+		update_inv_l_hand()
 
 
 	update_action_buttons()
