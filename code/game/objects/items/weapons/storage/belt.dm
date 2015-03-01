@@ -318,16 +318,6 @@
 	max_combined_w_class = 21 // = 14 * 1.5, not 14 * 2.  This is deliberate
 	origin_tech = "bluespace=4"
 	can_hold = list()
-	New()
-		if(prob(5))
-			//Sometimes people choose justice.
-			//Sometimes justice chooses you.
-			visible_message("That doesn't look like a normal Toolbelt of Holding...")
-			new /obj/item/weapon/storage/belt/bluespace/owlman(loc)
-			spawn(1)
-				del src
-			return
-		..()
 
 	proc/failcheck(mob/user as mob)
 		if (prob(src.reliability)) return 1 //No failure
