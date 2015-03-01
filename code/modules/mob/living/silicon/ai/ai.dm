@@ -83,6 +83,7 @@ var/list/ai_verbs_default = list(
 	var/apc_override = 0 //hack for letting the AI use its APC even when visionless
 	var/camera_light_on = 0	//Defines if the AI toggled the light on the camera it's looking through.
 	var/datum/trackable/track = null
+	var/last_paper_seen = null
 	var/can_shunt = 1
 	var/last_announcement = ""
 	var/obj/machinery/bot/Bot
@@ -98,8 +99,8 @@ var/list/ai_verbs_default = list(
 	src.verbs |= ai_verbs_default
 
 /mob/living/silicon/ai/proc/remove_ai_verbs()
-	src.verbs -= ai_verbs_default	
-	
+	src.verbs -= ai_verbs_default
+
 /mob/living/silicon/ai/New(loc, var/datum/ai_laws/L, var/obj/item/device/mmi/B, var/safety = 0)
 	var/list/possibleNames = ai_names
 
@@ -145,7 +146,7 @@ var/list/ai_verbs_default = list(
 	add_language("Galactic Common", 1)
 	add_language("Sol Common", 1)
 	add_language("Tradeband", 1)
-	add_language("Gutter", 0)	
+	add_language("Gutter", 0)
 	add_language("Sinta'unathi", 0)
 	add_language("Siik'tajr", 0)
 	add_language("Skrellian", 0)
@@ -154,8 +155,8 @@ var/list/ai_verbs_default = list(
 	add_language("Trinary", 1)
 	add_language("Chittin", 0)
 	add_language("Bubblish", 0)
-	add_language("Clownish", 0)		
-		
+	add_language("Clownish", 0)
+
 	if(!safety)//Only used by AIize() to successfully spawn an AI.
 		if (!B)//If there is no player/brain inside.
 			new/obj/structure/AIcore/deactivated(loc)//New empty terminal.
@@ -181,12 +182,12 @@ var/list/ai_verbs_default = list(
 	hud_list[SPECIALROLE_HUD] = image('icons/mob/hud.dmi', src, "hudblank")
 	hud_list[NATIONS_HUD]	  = image('icons/mob/hud.dmi', src, "hudblank")
 
-	init_subsystems()	
-	
+	init_subsystems()
+
 	ai_list += src
 	..()
 	return
-	
+
 /mob/living/silicon/ai/proc/on_mob_init()
 	src << "<B>You are playing the station's AI. The AI cannot move, but can interact with many objects while viewing them (through cameras).</B>"
 	src << "<B>To look at other parts of the station, click on yourself to get a camera menu.</B>"
@@ -210,7 +211,7 @@ var/list/ai_verbs_default = list(
 		src << "<b>These laws may be changed by other players, or by you being the traitor.</b>"
 
 	job = "AI"
-	
+
 /mob/living/silicon/ai/proc/SetName(pickedName as text)
 	real_name = pickedName
 	name = pickedName
@@ -325,7 +326,7 @@ var/list/ai_verbs_default = list(
 /mob/living/silicon/ai/proc/ai_alerts()
 	set name = "Show Alerts"
 	set category = "AI Commands"
-	
+
 	var/dat = "<HEAD><TITLE>Current Station Alerts</TITLE><META HTTP-EQUIV='Refresh' CONTENT='10'></HEAD><BODY>\n"
 	dat += "<A HREF='?src=\ref[src];mach_close=aialerts'>Close</A><BR><BR>"
 	for (var/cat in alarms)
@@ -371,15 +372,15 @@ var/list/ai_verbs_default = list(
 	if(src.stat == 2)
 		src << "You can't call the shuttle because you are dead!"
 		return
-		
+
 	if(check_unable(AI_CHECK_WIRELESS))
-		return		
+		return
 
 	var/confirm = alert("Are you sure you want to call the shuttle?", "Confirm Shuttle Call", "Yes", "No")
 
 	if(check_unable(AI_CHECK_WIRELESS))
-		return	
-	
+		return
+
 	if(confirm == "Yes")
 		call_shuttle_proc(src)
 
@@ -389,23 +390,23 @@ var/list/ai_verbs_default = list(
 		if(C)
 			C.post_status("shuttle")
 	return
-	
+
 /mob/living/silicon/ai/proc/ai_cancel_call()
 	set name = "Recall Emergency Shuttle"
 	set category = "AI Commands"
-	
+
 	if(src.stat == 2)
 		src << "You can't send the shuttle back because you are dead!"
 		return
-		
+
 	if(check_unable(AI_CHECK_WIRELESS))
 		return
 
-	var/confirm = alert("Are you sure you want to recall the shuttle?", "Confirm Shuttle Recall", "Yes", "No")		
-	
+	var/confirm = alert("Are you sure you want to recall the shuttle?", "Confirm Shuttle Recall", "Yes", "No")
+
 	if(check_unable(AI_CHECK_WIRELESS))
-		return	
-	
+		return
+
 	if(confirm == "Yes")
 		cancel_call_proc(src)
 
@@ -415,29 +416,29 @@ var/list/ai_verbs_default = list(
 /mob/living/silicon/ai/verb/toggle_anchor()
 	set category = "AI Commands"
 	set name = "Toggle Floor Bolts"
-	
+
 	if(!isturf(loc)) // if their location isn't a turf
 		return // stop
-		
+
 	anchored = !anchored // Toggles the anchor
 
 	src << "[anchored ? "<b>You are now anchored.</b>" : "<b>You are now unanchored.</b>"]"
 
 /mob/living/silicon/ai/update_canmove()
 	return 0
-		
+
 /mob/living/silicon/ai/proc/announcement()
 	set name = "Announcement"
 	set desc = "Create a vocal announcement by typing in the available words to create a sentence."
 	set category = "AI Commands"
-	
+
 	if(src.stat == 2)
 		src << "You can't call make an announcement because you are dead!"
 		return
-		
+
 	if(check_unable(AI_CHECK_WIRELESS | AI_CHECK_RADIO))
-		return	
-		
+		return
+
 	ai_announcement()
 
 /mob/living/silicon/ai/check_eye(var/mob/user as mob)
@@ -499,6 +500,9 @@ var/list/ai_verbs_default = list(
 		switchCamera(locate(href_list["switchcamera"])) in cameranet.cameras
 	if (href_list["showalerts"])
 		ai_alerts()
+	if(href_list["show_paper"])
+		if(last_paper_seen)
+			src << browse(last_paper_seen, "window=show_paper")
 	//Carn: holopad requests
 	if (href_list["jumptoholopad"])
 		var/obj/machinery/hologram/holopad/H = locate(href_list["jumptoholopad"])
@@ -673,7 +677,7 @@ var/list/ai_verbs_default = list(
 
 	if(check_unable(AI_CHECK_WIRELESS | AI_CHECK_RADIO))
 		return
-		
+
 	var/ai_allowed_Zlevel = list(1,3,5)
 	var/d
 	var/area/bot_area
@@ -794,7 +798,7 @@ var/list/ai_verbs_default = list(
 	set name = "Jump To Network"
 	unset_machine()
 	var/cameralist[0]
-	
+
 	if(check_unable())
 		return
 
@@ -814,7 +818,7 @@ var/list/ai_verbs_default = list(
 				cameralist[i] = i
 	var/old_network = network
 	network = input(U, "Which network would you like to view?") as null|anything in cameralist
-	
+
 	if(check_unable())
 		return
 
@@ -848,16 +852,16 @@ var/list/ai_verbs_default = list(
 	if(usr.stat == 2)
 		usr <<"You cannot change your emotional status because you are dead!"
 		return
-		
+
 	if(check_unable())
-		return		
-	
+		return
+
 	var/list/ai_emotions = list("Very Happy", "Happy", "Neutral", "Unsure", "Confused", "Sad", "BSOD", "Blank", "Problems?", "Awesome", "Facepalm", "Friend Computer")
 	var/emote = input("Please, select a status!", "AI Status", null, null) in ai_emotions
-	
+
 	if(check_unable())
-		return	
-	
+		return
+
 	for (var/obj/machinery/M in machines) //change status
 		if(istype(M, /obj/machinery/ai_status_display))
 			var/obj/machinery/ai_status_display/AISD = M
@@ -877,7 +881,7 @@ var/list/ai_verbs_default = list(
 	set name = "Change Hologram"
 	set desc = "Change the default hologram available to AI to something else."
 	set category = "AI Commands"
-	
+
 	if(check_unable())
 		return
 
@@ -934,7 +938,7 @@ var/list/ai_verbs_default = list(
 
 	if(stat != CONSCIOUS)
 		return
-		
+
 	if(check_unable())
 		return
 
@@ -1014,11 +1018,11 @@ var/list/ai_verbs_default = list(
 	set name = "Radio Settings"
 	set desc = "Allows you to change settings of your radio."
 	set category = "AI Commands"
-	
+
 	if(check_unable(AI_CHECK_RADIO))
-		return	
-		
-	src << "Accessing Subspace Transceiver control..."	
+		return
+
+	src << "Accessing Subspace Transceiver control..."
 	if (src.aiRadio)
 		src.aiRadio.interact(src)
 
@@ -1070,7 +1074,7 @@ var/list/ai_verbs_default = list(
 		else
 			src << "\red You've failed to open an airlock for [target]"
 		return
-		
+
 
 /mob/living/silicon/ai/proc/check_unable(var/flags = 0)
 	if(stat == DEAD)
@@ -1087,7 +1091,7 @@ var/list/ai_verbs_default = list(
 
 /mob/living/silicon/ai/proc/is_in_chassis()
 	return istype(loc, /turf)
-	
+
 #undef AI_CHECK_WIRELESS
 #undef AI_CHECK_RADIO
-	
+

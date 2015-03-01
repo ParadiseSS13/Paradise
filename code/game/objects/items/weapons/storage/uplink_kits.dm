@@ -8,6 +8,7 @@
 				new /obj/item/weapon/card/id/syndicate(src)
 				new /obj/item/weapon/card/id/syndicate(src)
 				new /obj/item/clothing/shoes/syndigaloshes(src)
+				new /obj/item/device/camera_bug(src)
 				return
 
 			if("stealth")
@@ -132,15 +133,6 @@
 	..()
 	new /obj/item/clothing/suit/space/syndicate/black/red(src)
 	new /obj/item/clothing/head/helmet/space/syndicate/black/red(src)
-	return
-
-/obj/item/weapon/storage/box/syndie_kit/surveillance
-	name = "box (S)"
-
-/obj/item/weapon/storage/box/syndie_kit/surveillance/New()
-	..()
-	new /obj/item/device/handtv(src)
-	new /obj/item/weapon/storage/box/surveillance(src)
 	return
 
 /obj/item/weapon/storage/box/syndie_kit/conversion

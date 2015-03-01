@@ -441,6 +441,12 @@ var/list/uplink_items = list()
 	item = /obj/item/device/chameleon
 	cost = 7
 
+/datum/uplink_item/stealthy_tools/camera_bug
+	name = "Camera Bug"
+	desc = "Enables you to bug cameras to view them remotely. Adding particular items to it alters its functions."
+	item = /obj/item/device/camera_bug
+	cost = 2
+
 /datum/uplink_item/stealthy_tools/dnascrambler
 	name = "DNA Scrambler"
 	desc = "A syringe with one injection that randomizes appearance and name upon use. A cheaper but less versatile alternative to an agent card and voice changer."
@@ -505,20 +511,6 @@ var/list/uplink_items = list()
 	desc = "These glasses are thermals disguised as engineers' optical meson scanners. They allow you to see organisms through walls by capturing the upper portion of the infrared light spectrum, emitted as heat and light by objects. Hotter objects, such as warm bodies, cybernetic organisms and artificial intelligence cores emit more of this light than cooler objects like walls and airlocks."
 	item = /obj/item/clothing/glasses/thermal/syndi
 	cost = 6
-
-/*
-/datum/uplink_item/device_tools/surveillance
-	name = "Camera Surveillance Kit"
-	desc = "This kit contains 5 Camera bugs and one mobile receiver. Attach camera bugs to a camera to enable remote viewing."
-	item = /obj/item/weapon/storage/box/syndie_kit/surveillance
-	cost = 5
-
-/datum/uplink_item/device_tools/camerabugs
-	name = "Camera Bugs"
-	desc = "This is a Camera bug resupply giving you 5 more camera bugs."
-	item = /obj/item/weapon/storage/box/surveillance
-	cost = 4
-*/   //commented out until porting over TG's camera bug
 
 /datum/uplink_item/device_tools/binary
 	name = "Binary Translator Key"
