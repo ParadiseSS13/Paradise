@@ -35,10 +35,16 @@
 	gas_transfer_coefficient = 0.90
 	permeability_coefficient = 0.01
 	armor = list(melee = 0, bullet = 0, laser = 0,energy = 0, bomb = 0, bio = 25, rad = 0)
+	action_button_name = "Adjust Sterile Mask"
+	ignore_maskadjust = 0
 	species_fit = list("Vox")
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/mask.dmi'
 		)
+		
+/obj/item/clothing/mask/surgical/attack_self(var/mob/user)
+	adjustmask(user)		
+		
 /obj/item/clothing/mask/fakemoustache
 	name = "fake moustache"
 	desc = "Warning: moustache is fake."
@@ -150,3 +156,51 @@
 	item_state = "pennywise_mask"
 	species_fit = list("Vox")
 	flags = MASKCOVERSMOUTH | MASKCOVERSEYES | BLOCK_GAS_SMOKE_EFFECT | MASKINTERNALS | BLOCKHAIR
+
+// Bandanas
+/obj/item/clothing/mask/bandana
+	name = "bandana"
+	desc = "A colorful bandana."
+	flags = MASKCOVERSMOUTH
+	flags_inv = HIDEFACE
+	w_class = 1
+	slot_flags = SLOT_MASK
+	ignore_maskadjust = 0
+	adjusted_flags = SLOT_HEAD
+	icon_state = "bandbotany"
+	icon_action_button = "action_bandana"
+	action_button_name = "Adjust Bandana"
+	
+/obj/item/clothing/mask/bandana/attack_self(var/mob/user)
+	adjustmask(user)
+
+obj/item/clothing/mask/bandana/red
+	name = "red bandana"
+	icon_state = "bandred"
+
+obj/item/clothing/mask/bandana/blue
+	name = "blue bandana"
+	icon_state = "bandblue"
+
+obj/item/clothing/mask/bandana/gold
+	name = "gold bandana"
+	icon_state = "bandgold"
+
+obj/item/clothing/mask/bandana/green
+	name = "green bandana"
+	icon_state = "bandgreen"
+
+/obj/item/clothing/mask/bandana/botany
+	name = "botany bandana"
+	desc = "It's a green bandana with some fine nanotech lining."
+	icon_state = "bandbotany"
+
+/obj/item/clothing/mask/bandana/skull
+	name = "skull bandana"
+	desc = "It's a black bandana with a skull pattern."
+	icon_state = "bandskull"
+
+/obj/item/clothing/mask/bandana/black
+	name = "black bandana"
+	desc = "It's a black bandana."
+	icon_state = "bandblack"

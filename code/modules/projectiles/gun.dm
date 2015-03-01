@@ -36,6 +36,7 @@
 	var/last_fired = 0
 	var/obj/item/device/flashlight/F = null
 	var/can_flashlight = 0
+	var/heavy_weapon = 0
 
 	proc/ready_to_fire()
 		if(world.time >= last_fired + fire_delay)
@@ -122,6 +123,12 @@
 
 	if(!in_chamber)
 		return
+		
+	if(heavy_weapon)
+		if(user.get_inactive_hand())
+			recoil = 4 //one-handed kick
+		else
+			recoil = initial(recoil)
 
 	in_chamber.firer = user
 	in_chamber.def_zone = user.zone_sel.selecting
@@ -142,6 +149,12 @@
 		user.visible_message("<span class='warning'>[user] fires [src][reflex ? " by reflex":""]!</span>", \
 		"<span class='warning'>You fire [src][reflex ? "by reflex":""]!</span>", \
 		"You hear a [istype(in_chamber, /obj/item/projectile/beam) ? "laser blast" : "gunshot"]!")
+		
+	if(heavy_weapon)
+		if(user.get_inactive_hand())
+			if(prob(15))
+				user.visible_message("<span class='danger'>[src] flies out of [user]'s hands!</span>", "<span class='userdanger'>[src] kicks out of your grip!</span>")
+				user.drop_item()
 
 	if (istype(in_chamber, /obj/item/projectile/bullet/blank)) // A hacky way of making blank shotgun shells work again. Honk.
 		in_chamber.delete()

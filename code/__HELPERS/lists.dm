@@ -393,12 +393,6 @@ proc/listclearnulls(list/list)
 	//world.log << "	output: [out.len]"
 	return reverselist(out)
 
-/proc/find_record(field, value, list/L)
-	for(var/datum/data/record/R in L)
-		if(R.fields[field] == value)
-			return R
-		
-
 /proc/dd_sortedObjectList(var/list/L, var/cache=list())
 	if(L.len < 2)
 		return L

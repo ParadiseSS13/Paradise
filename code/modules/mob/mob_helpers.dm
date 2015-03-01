@@ -114,6 +114,11 @@ proc/isembryo(A)
 	if(istype(A, /mob/living/silicon))
 		return 1
 	return 0
+	
+/proc/isSilicon(A) // Bay support
+	if(istype(A, /mob/living/silicon))
+		return 1
+	return 0	
 
 /proc/isliving(A)
 	if(istype(A, /mob/living))
@@ -158,6 +163,13 @@ proc/isnewplayer(A)
 
 proc/hasorgans(A)
 	return ishuman(A)
+	
+proc/iscuffed(A)
+	if(istype(A, /mob/living/carbon))
+		var/mob/living/carbon/C = A
+		if(C.handcuffed)
+			return 1
+	return 0
 
 proc/isdeaf(A)
 	if(istype(A, /mob))

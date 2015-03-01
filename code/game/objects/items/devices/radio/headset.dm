@@ -238,6 +238,13 @@
 	icon_state = "com_headset"
 	item_state = "headset"
 	ks2type = /obj/item/device/encryptionkey/heads/blueshield
+	
+/obj/item/device/radio/headset/heads/blueshield/alt
+	name = "\proper blueshield's bowman headset"
+	desc = "The headset of the Blueshield. Protects ears from flashbangs."
+	flags = EARBANGPROTECT
+	icon_state = "com_headset_alt"
+	item_state = "com_headset_alt"
 
 /obj/item/device/radio/headset/ert
 	name = "emergency response team headset"

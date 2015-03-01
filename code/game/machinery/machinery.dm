@@ -184,65 +184,21 @@ Class Procs:
 		use_power(active_power_usage,power_channel, 1)
 	return 1
 
-/obj/machinery/Topic(href, href_list, var/nowindow = 0, var/checkrange = 1)
-	if(..())
-		return 1
-	if(!can_be_used_by(usr, be_close = checkrange))
-		return 1
-	add_fingerprint(usr)
-	return 0
+/obj/machinery/CanUseTopic(var/mob/user, var/be_close)
+	if(!interact_offline && (stat & (NOPOWER|BROKEN)))
+		return STATUS_CLOSE
 
-/obj/machinery/proc/can_be_used_by(mob/user, be_close = 1)
-	if(!interact_offline && stat & (NOPOWER|BROKEN))
-		return 0
-	if(!user.canUseTopic(src, be_close))
-		return 0
-	return 1
+	return ..()
+
+/obj/machinery/CouldUseTopic(var/mob/user)
+	..()
+	user.set_machine(src)
+
+/obj/machinery/CouldNotUseTopic(var/mob/user)
+	usr.unset_machine()
+
+////////////////////////////////////////////////////////////////////////////////////////////	
 	
-////////////////////////////////////////////////////////////////////////////////////////////
-
-/mob/proc/canUseTopic(atom/movable/M, be_close = 1)
-	return
-
-/mob/dead/observer/canUseTopic(atom/movable/M, be_close = 1)
-	if(check_rights(R_ADMIN, 0))
-		return
-
-/mob/living/canUseTopic(atom/movable/M, be_close = 1, no_dextery = 0)
-	if(no_dextery)
-		src << "<span class='notice'>You don't have the dexterity to do this!</span>"
-		return 0
-	return be_close && !in_range(M, src)
-
-/mob/living/carbon/human/canUseTopic(atom/movable/M, be_close = 1)
-	if(restrained() || lying || stat || stunned || weakened)
-		return
-	if(be_close && !in_range(M, src))
-		if(TK in mutations)
-			var/mob/living/carbon/human/H = M
-			if(istype(H.l_hand, /obj/item/tk_grab) || istype(H.r_hand, /obj/item/tk_grab))
-				return 1
-		return
-	if(!isturf(M.loc) && M.loc != src)
-		return
-	return 1
-
-/mob/living/silicon/ai/canUseTopic(atom/movable/M)
-	if(stat)
-		return
-	//stop AIs from leaving windows open and using then after they lose vision
-	//apc_override is needed here because AIs use their own APC when powerless
-	if(cameranet && !cameranet.checkTurfVis(get_turf(M)) && !apc_override)
-		return
-	return 1
-
-/mob/living/silicon/robot/canUseTopic(atom/movable/M)
-	if(stat || lockcharge || stunned || weakened)
-		return
-	return 1
-
-////////////////////////////////////////////////////////////////////////////////////////////
-
 /obj/machinery/attack_ai(var/mob/user as mob)
 	if(isAI(user))
 		var/mob/living/silicon/ai/A = user
@@ -401,3 +357,51 @@ Class Procs:
 		I.loc = loc
 	del(src)
 	return 1
+	
+/obj/machinery/proc/on_assess_perp(mob/living/carbon/human/perp)
+	return 0
+
+/obj/machinery/proc/is_assess_emagged()
+	return emagged
+
+/obj/machinery/proc/assess_perp(mob/living/carbon/human/perp, var/auth_weapons, var/check_records, var/check_arrest)
+	var/threatcount = 0	//the integer returned
+
+	if(is_assess_emagged())
+		return 10	//if emagged, always return 10.
+
+	threatcount += on_assess_perp(perp)
+	if(threatcount >= 10)
+		return threatcount
+
+	//Agent cards lower threatlevel.
+	var/obj/item/weapon/card/id/id = GetIdCard(perp)
+	if(id && istype(id, /obj/item/weapon/card/id/syndicate))
+		threatcount -= 2
+
+	if(auth_weapons && !src.allowed(perp))
+		if(istype(perp.l_hand, /obj/item/weapon/gun) || istype(perp.l_hand, /obj/item/weapon/melee))
+			threatcount += 4
+
+		if(istype(perp.r_hand, /obj/item/weapon/gun) || istype(perp.r_hand, /obj/item/weapon/melee))
+			threatcount += 4
+
+		if(istype(perp.belt, /obj/item/weapon/gun) || istype(perp.belt, /obj/item/weapon/melee))
+			threatcount += 2
+
+		if(perp.species.name != "Human") //beepsky so racist.
+			threatcount += 2
+
+	if(check_records || check_arrest)
+		var/perpname = perp.name
+		if(id)
+			perpname = id.registered_name
+
+		var/datum/data/record/R = find_security_record("name", perpname)
+		if(check_records && !R)
+			threatcount += 4
+
+		if(check_arrest && R && (R.fields["criminal"] == "*Arrest*"))
+			threatcount += 4
+
+	return threatcount

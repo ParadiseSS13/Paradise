@@ -466,7 +466,7 @@ datum/mind
 				if(!def_value)//If it's a custom objective, it will be an empty string.
 					def_value = "custom"
 
-			var/new_obj_type = input("Select objective type:", "Objective type", def_value) as null|anything in list("assassinate", "blood", "debrain", "protect", "prevent", "harm", "speciesist", "brig", "hijack", "escape", "survive", "steal", "download", "nuclear", "capture", "absorb", "escape_with_identity", "destroy", "maroon", "identity theft", "custom")
+			var/new_obj_type = input("Select objective type:", "Objective type", def_value) as null|anything in list("assassinate", "blood", "debrain", "protect", "prevent", "harm", "speciesist", "brig", "hijack", "escape", "survive", "steal", "download", "nuclear", "capture", "absorb", "destroy", "maroon", "identity theft", "custom")
 			if (!new_obj_type) return
 
 			var/datum/objective/new_objective = null

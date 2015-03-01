@@ -128,7 +128,7 @@ img, a img {
 h1, h2, h3, h4, h5, h6 {
     margin: 0;
     padding: 12px 0 6px 0;
-    color: #517087;
+    color: #FFFFFF;
     clear: both;
 }
 
@@ -238,15 +238,30 @@ div.notice {
     clear: both;
 }
 
-.itemLabel {
+.itemLabel, .itemLabelWide {
     float: left;
-    width: 30%;
     color: #e9c183;
 }
 
-.itemContent {
-    float: left;
+.itemLabel {
+    width: 30%;
+}
+
+.itemLabelWide {
     width: 69%;
+}
+
+
+.itemContent, .itemContentThin {
+    float: left;
+}
+
+.itemContent {
+    width: 69%;
+}
+
+.itemContentThin {
+    width: 30%;
 }
 
 .itemLabelNarrow {
@@ -471,6 +486,14 @@ div.notice {
     height: 200px;
     margin: 200px 0;
     text-align: center;
+}
+
+table.fixed {
+	table-layout:fixed;
+}
+
+table.fixed td {
+	overflow: hidden;
 }
 
 /* Table styling for the power monitor */

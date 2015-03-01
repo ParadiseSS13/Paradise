@@ -132,7 +132,7 @@ var/list/mechtoys = list(
 
 /datum/controller/supply
 	processing = 1
-	processing_interval = 300
+	//processing_interval = 300
 	//supply points
 	var/points = 50
 	var/points_per_process = 1
@@ -152,20 +152,21 @@ var/list/mechtoys = list(
 	New()
 		ordernum = rand(1,9000)
 
-	//Supply shuttle ticker - handles supply point regenertion and shuttle travelling between centcomm and the station
+	//Supply shuttle ticker - handles supply point regeneration and shuttle travelling between centcomm and the station
 	proc/process()
 		for(var/typepath in (typesof(/datum/supply_packs) - /datum/supply_packs))
 			var/datum/supply_packs/P = new typepath()
+			if(P.name == "HEADER") 
+				del(P)
+				continue 
 			supply_packs[P.name] = P
 
 		spawn(0)
-			//set background = 1
-			while(1)
-				if(processing)
-					iteration++
-					points += points_per_process
+			if(processing)
+				iteration++
+				points += points_per_process
 
-				sleep(processing_interval)
+				//sleep(processing_interval)
 
 	//To stop things being sent to centcomm which should not be sent to centcomm. Recursively checks for these types.
 	proc/forbidden_atoms_check(atom/A)
@@ -366,7 +367,6 @@ var/list/mechtoys = list(
 			temp += "<b>Request from: [get_supply_group_name(cat)]</b><BR><BR>"
 			for(var/supply_type in supply_controller.supply_packs )
 				var/datum/supply_packs/N = supply_controller.supply_packs[supply_type]
-				if(N.name == "HEADER") continue		//skip HEADER entry to disable exploiting it for supply points
 				if(N.hidden || N.contraband || N.group != cat) continue								//Have to send the type instead of a reference to
 				temp += "<A href='?src=\ref[src];doorder=[supply_type]'>[N.name]</A> Cost: [N.cost]<BR>"		//the obj because it would get caught by the garbage
 
@@ -563,7 +563,6 @@ var/list/mechtoys = list(
 			temp += "<b>Request from: [get_supply_group_name(cat)]</b><BR><BR>"
 			for(var/supply_type in supply_controller.supply_packs )
 				var/datum/supply_packs/N = supply_controller.supply_packs[supply_type]
-				if(N.name == "HEADER") continue		//skip HEADER entry to disable exploiting it for supply points
 				if((N.hidden && !hacked) || (N.contraband && !can_order_contraband) || N.group != cat) continue								//Have to send the type instead of a reference to
 				temp += "<A href='?src=\ref[src];doorder=[supply_type]'>[N.name]</A> Cost: [N.cost]<BR>"		//the obj because it would get caught by the garbage
 
