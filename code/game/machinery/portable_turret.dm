@@ -155,15 +155,13 @@
 	qdel(cover) // qdel
 	..()
 
-/obj/machinery/porta_turret/proc/isLocked(mob/user,var/message = 1)
+/obj/machinery/porta_turret/proc/isLocked(mob/user)
 	if(ailock && (isrobot(user) || isAI(user)))
-		if(message)
-			user << "<span class='notice'>There seems to be a firewall preventing you from accessing this device.</span>"
+		user << "<span class='notice'>There seems to be a firewall preventing you from accessing this device.</span>"
 		return 1
 
 	if(locked && !(isrobot(user) || isAI(user)))
-		if(message)
-			user << "<span class='notice'>Access denied.</span>"
+		user << "<span class='notice'>Access denied.</span>"
 		return 1
 
 	return 0
@@ -208,20 +206,23 @@
 /obj/machinery/porta_turret/proc/HasController()
 	var/area/A = get_area(src)
 	return A && A.turret_controls.len > 0
-
-/obj/machinery/porta_turret/Topic(href, href_list, var/nowindow = 0)
-	if(..())
-		return 1
-		
+	
+/obj/machinery/porta_turret/CanUseTopic(var/mob/user)
 	if(HasController())
-		usr << "<span class='notice'>Turrets can only be controlled using the assigned turret controller.</span>"
-		return 1
+		user << "<span class='notice'>Turrets can only be controlled using the assigned turret controller.</span>"
+		return STATUS_CLOSE
 
-	if(isLocked(usr,0))
-		return 1
+	if(isLocked(user))
+		return STATUS_CLOSE
 
 	if(!anchored)
 		usr << "<span class='notice'>\The [src] has to be secured first!</span>"
+		return STATUS_CLOSE
+
+	return STATUS_INTERACTIVE
+
+/obj/machinery/porta_turret/Topic(href, href_list, var/nowindow = 0)
+	if(..())
 		return 1
 
 	if(href_list["command"] && href_list["value"])
@@ -754,12 +755,12 @@
 
 		if(4)
 			if(isprox(I))
-				build_step = 5
 				if(!user.unEquip(I))
 					user << "<span class='notice'>\the [I] is stuck to your hand, you cannot put it in \the [src]</span>"
 					return
+				build_step = 5
+				del(I) // del
 				user << "<span class='notice'>You add the prox sensor to the turret.</span>"
-				qdel(I) // qdel
 				return
 
 			//attack_hand() removes the gun

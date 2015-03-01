@@ -103,7 +103,9 @@ var/list/world_uplinks = list()
 
 
 /obj/item/device/uplink/Topic(href, href_list)
-	..()
+	if(..())
+		return 1
+		
 	if(!active)
 		return
 
@@ -152,7 +154,8 @@ var/list/world_uplinks = list()
 	desc = "There is something wrong if you're examining this."
 
 /obj/item/device/uplink/hidden/Topic(href, href_list)
-	..()
+	if(..())
+		return 1
 	if(href_list["lock"])
 		toggle()
 		usr << browse(null, "window=hidden")
