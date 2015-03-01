@@ -735,7 +735,7 @@ It can still be worn/put on as normal.
 						W.layer = initial(W.layer)
 						W.add_fingerprint(source)
 		if("CPR")
-			if ((target.health > config.health_threshold_dead && target.health < config.health_threshold_crit))
+			if ((target.health > config.health_threshold_dead && target.health <= config.health_threshold_crit))
 				var/suff = min(target.getOxyLoss(), 7)
 				target.adjustOxyLoss(-suff)
 				target.updatehealth()
