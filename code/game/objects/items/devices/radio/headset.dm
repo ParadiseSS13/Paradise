@@ -230,7 +230,7 @@
 	desc = "The headset of the Magistrate."
 	icon_state = "com_headset"
 	item_state = "headset"
-	keyslot1 = /obj/item/device/encryptionkey/heads/magistrate
+	ks2type = /obj/item/device/encryptionkey/heads/magistrate
 
 /obj/item/device/radio/headset/heads/blueshield
 	name = "blueshield's headset"
