@@ -154,18 +154,26 @@
 	action_button_name = "HALT!"
 	icon_action_button = "action_sechailer"
 
-/obj/item/clothing/mask/gas/sechailer/warden
-
-/obj/item/clothing/mask/gas/sechailer/hos
-
 /obj/item/clothing/mask/gas/sechailer/swat
 	name = "\improper SWAT mask"
 	desc = "A close-fitting tactical mask with an especially aggressive Compli-o-nator 3000."
 	action_button_name = "HALT!"
-	icon_state = "swat"
+	icon_state = "officermask"
 	aggressiveness = 3
 	ignore_maskadjust = 1
-	
+
+/obj/item/clothing/mask/gas/sechailer/cyborg
+	name = "security hailer"
+	desc = "A set of recognizable pre-recorded messages for cyborgs to use when apprehending criminals."
+	icon = 'icons/obj/device.dmi'
+	icon_state = "taperecorderidle"
+	aggressiveness = 1 //Borgs are nicecurity!
+	ignore_maskadjust = 1
+
+/obj/item/clothing/mask/gas/sechailer/cyborg/New()
+	..()
+	verbs -= /obj/item/clothing/mask/gas/sechailer/verb/adjust
+
 /obj/item/clothing/mask/gas/sechailer/verb/adjust()
 	set category = "Object"
 	set name = "Adjust Mask"
