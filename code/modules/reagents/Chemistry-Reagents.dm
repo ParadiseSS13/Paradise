@@ -980,7 +980,7 @@ datum
 								if(prob(50))
 									M.apply_effect(50,IRRADIATE,0) // curing it that way may kill you instead
 									M.adjustToxLoss(100)
-								M:antibodies |= V.antigen
+								C:antibodies |= V.antigen
 				..()
 				return
 
@@ -1637,7 +1637,7 @@ datum
 					if(C.virus2.len)
 						for (var/ID in C.virus2)
 							var/datum/disease2/disease/V = C.virus2[ID]
-							M:antibodies |= V.antigen
+							C:antibodies |= V.antigen
 				..()
 				return
 
