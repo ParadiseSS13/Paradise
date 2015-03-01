@@ -130,3 +130,38 @@
 		update_charge()
 		update_reactor()
 		update_mode()
+		
+
+/obj/item/weapon/gun/energy/gun/turret
+	name = "hybrid turret gun"
+	desc = "A heavy hybrid energy cannon with two settings: Stun and kill."
+	icon_state = "turretlaser"
+	slot_flags = null
+	w_class = 5
+	heavy_weapon = 1
+	can_flashlight = 0
+	
+/obj/item/weapon/gun/energy/gun/turret/update_icon()
+	icon_state = initial(icon_state)
+
+/obj/item/weapon/gun/energy/gun/turret/attack_self(mob/living/user as mob)
+	switch(mode)
+		if(0)
+			mode = 1
+			charge_cost = 1000
+			fire_sound = 'sound/weapons/Laser.ogg'
+			user << "\red [src.name] is now set to kill."
+			projectile_type = "/obj/item/projectile/beam"
+			modifystate = "energykill"
+		if(1)
+			mode = 0
+			charge_cost = 500
+			fire_sound = 'sound/weapons/Taser2.ogg'
+			user << "\red [src.name] is now set to disable."
+			projectile_type = "/obj/item/projectile/beam/disabler"
+			modifystate = "energystun"
+	update_icon()
+	if(user.l_hand == src)
+		user.update_inv_l_hand()
+	else
+		user.update_inv_r_hand()	

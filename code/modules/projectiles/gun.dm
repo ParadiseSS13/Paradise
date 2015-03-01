@@ -36,6 +36,7 @@
 	var/last_fired = 0
 	var/obj/item/device/flashlight/F = null
 	var/can_flashlight = 0
+	var/heavy_weapon = 0
 
 	proc/ready_to_fire()
 		if(world.time >= last_fired + fire_delay)
@@ -122,6 +123,12 @@
 
 	if(!in_chamber)
 		return
+		
+	if(heavy_weapon)
+		if(user.get_inactive_hand())
+			recoil = 4 //one-handed kick
+		else
+			recoil = initial(recoil)
 
 	in_chamber.firer = user
 	in_chamber.def_zone = user.zone_sel.selecting

@@ -158,6 +158,13 @@ proc/isnewplayer(A)
 
 proc/hasorgans(A)
 	return ishuman(A)
+	
+proc/iscuffed(A)
+	if(istype(A, /mob/living/carbon))
+		var/mob/living/carbon/C = A
+		if(C.handcuffed)
+			return 1
+	return 0
 
 proc/isdeaf(A)
 	if(istype(A, /mob))

@@ -238,15 +238,30 @@ div.notice {
     clear: both;
 }
 
-.itemLabel {
+.itemLabel, .itemLabelWide {
     float: left;
-    width: 30%;
     color: #e9c183;
 }
 
-.itemContent {
-    float: left;
+.itemLabel {
+    width: 30%;
+}
+
+.itemLabelWide {
     width: 69%;
+}
+
+
+.itemContent, .itemContentThin {
+    float: left;
+}
+
+.itemContent {
+    width: 69%;
+}
+
+.itemContentThin {
+    width: 30%;
 }
 
 .itemLabelNarrow {

@@ -144,10 +144,9 @@ nanoui is used to open and update nano browser uis
 		return
 
 	var/status = user.can_interact_with_interface(host.nano_host())
+	set_status(status, push_update)
 	if(status == STATUS_CLOSE)
 		close()
-	else
-		set_status(status, push_update)
 		
 /*
 	Procs called by update_status()
@@ -501,6 +500,8 @@ nanoui is used to open and update nano browser uis
 	if (width && height)
 		window_size = "size=[width]x[height];"
 	update_status(0)
+	if(status == STATUS_CLOSE)
+		return
 	var/html=get_html()
 	if(src.writeDebug)
 		var/f = file("nano/debug.html")

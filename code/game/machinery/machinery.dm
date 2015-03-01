@@ -401,3 +401,51 @@ Class Procs:
 		I.loc = loc
 	del(src)
 	return 1
+	
+/obj/machinery/proc/on_assess_perp(mob/living/carbon/human/perp)
+	return 0
+
+/obj/machinery/proc/is_assess_emagged()
+	return emagged
+
+/obj/machinery/proc/assess_perp(mob/living/carbon/human/perp, var/auth_weapons, var/check_records, var/check_arrest)
+	var/threatcount = 0	//the integer returned
+
+	if(is_assess_emagged())
+		return 10	//if emagged, always return 10.
+
+	threatcount += on_assess_perp(perp)
+	if(threatcount >= 10)
+		return threatcount
+
+	//Agent cards lower threatlevel.
+	var/obj/item/weapon/card/id/id = GetIdCard(perp)
+	if(id && istype(id, /obj/item/weapon/card/id/syndicate))
+		threatcount -= 2
+
+	if(auth_weapons && !src.allowed(perp))
+		if(istype(perp.l_hand, /obj/item/weapon/gun) || istype(perp.l_hand, /obj/item/weapon/melee))
+			threatcount += 4
+
+		if(istype(perp.r_hand, /obj/item/weapon/gun) || istype(perp.r_hand, /obj/item/weapon/melee))
+			threatcount += 4
+
+		if(istype(perp.belt, /obj/item/weapon/gun) || istype(perp.belt, /obj/item/weapon/melee))
+			threatcount += 2
+
+		if(perp.species.name != "Human") //beepsky so racist.
+			threatcount += 2
+
+	if(check_records || check_arrest)
+		var/perpname = perp.name
+		if(id)
+			perpname = id.registered_name
+
+		var/datum/data/record/R = find_security_record("name", perpname)
+		if(check_records && !R)
+			threatcount += 4
+
+		if(check_arrest && R && (R.fields["criminal"] == "*Arrest*"))
+			threatcount += 4
+
+	return threatcount
