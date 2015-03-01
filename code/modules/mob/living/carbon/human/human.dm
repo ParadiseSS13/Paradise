@@ -1680,3 +1680,6 @@
 
 /mob/living/carbon/human/canBeHandcuffed()
 	return 1
+
+/mob/living/carbon/human/InCritical()
+	return (health <= config.health_threshold_crit && stat == UNCONSCIOUS)

@@ -1,42 +1,46 @@
 /obj/item/stack/rods
-	name = "metal rods"
+	name = "metal rod"
 	desc = "Some rods. Can be used for building, or something."
 	singular_name = "metal rod"
 	icon_state = "rods"
+	item_state = "rods"
 	flags = CONDUCT
 	w_class = 3.0
 	force = 9.0
-	throwforce = 15.0
-	throw_speed = 5
-	throw_range = 20
-	m_amt = 1875
+	throwforce = 10.0
+	throw_speed = 3
+	throw_range = 7
+	m_amt = 1000
 	max_amount = 60
 	attack_verb = list("hit", "bludgeoned", "whacked")
+	hitsound = 'sound/weapons/grenadelaunch.ogg'
 
 /obj/item/stack/rods/New(var/loc, var/amount=null)
+	..()
+
 	update_icon()
-	return ..()
 
 /obj/item/stack/rods/update_icon()
-	if(get_amount() <= 5)
-		icon_state = "rods-[get_amount()]"
+	var/amount = get_amount()
+	if((amount <= 5) && (amount > 0))
+		icon_state = "rods-[amount]"
 	else
 		icon_state = "rods"
 
 /obj/item/stack/rods/attackby(obj/item/W as obj, mob/user as mob, params)
-	..()
 	if (istype(W, /obj/item/weapon/weldingtool))
 		var/obj/item/weapon/weldingtool/WT = W
 
-		if(amount < 2)
-			user << "\red You need at least two rods to do this."
+		if(get_amount() < 2)
+			user << "<span class='warning'>You need at least two rods to do this.</span>"
 			return
 
 		if(WT.remove_fuel(0,user))
 			var/obj/item/stack/sheet/metal/new_item = new(usr.loc)
 			new_item.add_to_stacks(usr)
-			for (var/mob/M in viewers(src))
-				M.show_message("\red [src] is shaped into metal by [user.name] with the weldingtool.", 3, "\red You hear welding.", 2)
+			user.visible_message("<span class='warning'>[user.name] shaped [src] into metal with the weldingtool.</span>", \
+						 "<span class='notice'>You shaped [src] into metal with the weldingtool.</span>", \
+						 "<span class='warning'>You hear welding.</span>")
 			var/obj/item/stack/rods/R = src
 			src = null
 			var/replace = (user.get_inactive_hand()==R)

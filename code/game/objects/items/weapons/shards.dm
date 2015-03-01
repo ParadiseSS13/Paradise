@@ -7,32 +7,18 @@
 	sharp = 1
 	edge = 1
 	desc = "Could probably be used as ... a throwing weapon?"
-	w_class = 2.0
+	w_class = 1.0
 	force = 5.0
-	throwforce = 8.0
+	throwforce = 10.0
 	item_state = "shard-glass"
-//	matter = list("glass" = 3750)
+	g_amt = MINERAL_MATERIAL_AMOUNT
 	attack_verb = list("stabbed", "slashed", "sliced", "cut")
+	hitsound = 'sound/weapons/bladeslice.ogg'
 
 /obj/item/weapon/shard/suicide_act(mob/user)
 		viewers(user) << pick("\red <b>[user] is slitting \his wrists with \the [src]! It looks like \he's trying to commit suicide.</b>", \
 							"\red <b>[user] is slitting \his throat with \the [src]! It looks like \he's trying to commit suicide.</b>")
 		return (BRUTELOSS)
-
-/obj/item/weapon/shard/attack(mob/living/carbon/M as mob, mob/living/carbon/user as mob)
-	playsound(loc, 'sound/weapons/bladeslice.ogg', 50, 1, -1)
-	return ..()
-
-/obj/item/weapon/shard/Bump()
-
-	spawn( 0 )
-		if (prob(20))
-			src.force = 15
-		else
-			src.force = 4
-		..()
-		return
-	return
 
 /obj/item/weapon/shard/New()
 
@@ -50,23 +36,20 @@
 		else
 	return
 
-/obj/item/weapon/shard/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
-	..()
-	if ( istype(W, /obj/item/weapon/weldingtool))
-		var/obj/item/weapon/weldingtool/WT = W
+/obj/item/weapon/shard/attackby(obj/item/I, mob/user, params)
+	if(istype(I, /obj/item/weapon/weldingtool))
+		var/obj/item/weapon/weldingtool/WT = I
 		if(WT.remove_fuel(0, user))
 			var/obj/item/stack/sheet/glass/NG = new (user.loc)
-			for (var/obj/item/stack/sheet/glass/G in user.loc)
-				if(G==NG)
+			for(var/obj/item/stack/sheet/glass/G in user.loc)
+				if(G == NG)
 					continue
-				if(G.amount>=G.max_amount)
+				if(G.amount >= G.max_amount)
 					continue
-				G.attackby(NG, user, params)
-				usr << "You add the newly-formed glass to the stack. It now contains [NG.amount] sheets."
-			//SN src = null
-			del(src)
-			return
-	return ..()
+				G.attackby(NG, user)
+			user << "<span class='notice'>You add the newly-formed glass to the stack. It now contains [NG.amount] sheet\s.</span>"
+			qdel(src)
+	..()
 
 /obj/item/weapon/shard/Crossed(AM as mob|obj)
 	if(ismob(AM))

@@ -203,7 +203,7 @@
 		death()
 		return
 
-	else if(src.health < config.health_threshold_crit)
+	else if(src.health <= config.health_threshold_crit)
 
 		if(!src.reagents.has_reagent("inaprovaline"))
 			src.adjustOxyLoss(10)

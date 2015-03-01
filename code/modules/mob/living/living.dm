@@ -23,11 +23,15 @@
 				*/
 /mob/living/verb/succumb()
 	set hidden = 1
-	if ((src.health < 0 && src.health > -95.0))
-		src.adjustOxyLoss(src.health + 200)
-		src.health = 100 - src.getOxyLoss() - src.getToxLoss() - src.getFireLoss() - src.getBruteLoss()
-		src << "\blue You have given up life and succumbed to death."
+	if (InCritical())
+		src.attack_log += "[src] has ["succumbed to death"] with [round(health, 0.1)] points of health!"
+		src.adjustOxyLoss(src.health - config.health_threshold_dead)
+		updatehealth()
+		src << "<span class='notice'>You have given up life and succumbed to death.</span>"
+		death()
 
+/mob/living/proc/InCritical()
+	return (src.health < 0 && src.health > -95.0 && stat == UNCONSCIOUS)
 
 /mob/living/proc/updatehealth()
 	if(status_flags & GODMODE)
