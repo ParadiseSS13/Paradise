@@ -6,11 +6,11 @@
 
 	if(I == r_store)
 		r_store = null
-		update_inv_pockets(0)
+		update_inv_pockets()
 
 	else if(I == l_store)
 		l_store = null
-		update_inv_pockets(0)
+		update_inv_pockets()
 
 /mob/living/carbon/alien/humanoid/attack_ui(slot_id)
 	var/obj/item/W = get_active_hand()

@@ -23,15 +23,14 @@
 	if(isturf(T))
 		attached = locate() in T
 	if(attached)
-		powernet = attached.get_powernet()
-
-
+		powernet = attached.get_powernet()	
+		
 /obj/machinery/power/monitor/attack_ai(mob/user)
 	add_fingerprint(user)
 
 	if(stat & (BROKEN|NOPOWER))
 		return
-	interact(user)
+	interact(user)	
 
 /obj/machinery/power/monitor/attack_hand(mob/user)
 	add_fingerprint(user)

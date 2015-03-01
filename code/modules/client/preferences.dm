@@ -500,6 +500,8 @@ datum/preferences
 					HTML += " <font color=green>\[Yes]</font>"
 				else
 					HTML += " <font color=red>\[No]</font>"
+				if(job.alt_titles)
+					HTML += "<br><b><a class='white' href=\"byond://?src=\ref[user];preference=job;task=alt_title;job=\ref[job]\">\[[GetPlayerAltTitle(job)]\]</a></b></td></tr>"
 				HTML += "</a></td></tr>"
 				continue
 /*

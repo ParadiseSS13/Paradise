@@ -93,6 +93,9 @@
 
 /obj/machinery/computer/xenos_station/attack_paw(mob/user as mob)
 	return attack_hand(user)
+	
+/obj/machinery/computer/xenos_station/attack_alien(mob/user as mob)
+	return attack_hand(user)
 
 /obj/machinery/computer/xenos_station/attack_hand(mob/user as mob)
 	if(!allowed(user))

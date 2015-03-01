@@ -13,7 +13,7 @@
 	return STATUS_CLOSE // By default no mob can do anything with NanoUI
 
 /mob/dead/observer/can_use_topic()
-	if(check_rights(R_ADMIN, 0))
+	if(check_rights(R_ADMIN, 0, src))
 		return STATUS_INTERACTIVE				// Admins are more equal
 	return STATUS_UPDATE						// Ghosts can view updates
 
