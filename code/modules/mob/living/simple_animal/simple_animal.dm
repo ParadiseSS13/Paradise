@@ -10,6 +10,10 @@
 	var/icon_dead = ""
 	var/icon_gib = null	//We only try to show a gibbing animation if this exists.
 
+	var/oxygen_alert = 0
+	var/toxins_alert = 0
+	var/fire_alert = 0
+
 	var/list/speak = list()
 	var/speak_chance = 0
 	var/list/emote_hear = list()	//Hearable emotes
@@ -105,7 +109,7 @@
 	handle_paralysed()
 
 	//Movement
-	if(!client && !stop_automated_movement && wander)
+	if(!client && !stop_automated_movement && wander && (ckey == null))
 		if(isturf(src.loc) && !resting && !buckled && canmove)		//This is so it only moves if it's not inside a closet, gentics machine, etc.
 			turns_since_move++
 			if(turns_since_move >= turns_per_move)
@@ -114,7 +118,7 @@
 					turns_since_move = 0
 
 	//Speaking
-	if(!client && speak_chance)
+	if(!client && speak_chance && (ckey == null))
 		if(rand(0,200) < speak_chance)
 			if(speak && speak.len)
 				if((emote_hear && emote_hear.len) || (emote_see && emote_see.len))
@@ -166,6 +170,9 @@
 			if(min_oxy)
 				if(Environment.oxygen < min_oxy)
 					atmos_suitable = 0
+					oxygen_alert = 1
+				else
+					oxygen_alert = 0
 			if(max_oxy)
 				if(Environment.oxygen > max_oxy)
 					atmos_suitable = 0
@@ -175,6 +182,9 @@
 			if(max_tox)
 				if(Environment.toxins > max_tox)
 					atmos_suitable = 0
+					toxins_alert = 1
+				else
+					toxins_alert = 0
 			if(min_n2)
 				if(Environment.nitrogen < min_n2)
 					atmos_suitable = 0
@@ -192,9 +202,13 @@
 
 	//Atmos effect
 	if(bodytemperature < minbodytemp)
+		fire_alert = 2
 		adjustBruteLoss(cold_damage_per_tick)
 	else if(bodytemperature > maxbodytemp)
+		fire_alert = 1
 		adjustBruteLoss(heat_damage_per_tick)
+	else
+		fire_alert = 0
 
 	if(!atmos_suitable)
 		adjustBruteLoss(unsuitable_atoms_damage)
@@ -559,7 +573,7 @@
 		if (S.occupant || S.occupant2)
 			return 0
 	return 1
-	
+
 /mob/living/simple_animal/say(var/message)
 	if(stat)
 		return
