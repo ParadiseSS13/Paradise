@@ -149,6 +149,12 @@
 		user.visible_message("<span class='warning'>[user] fires [src][reflex ? " by reflex":""]!</span>", \
 		"<span class='warning'>You fire [src][reflex ? "by reflex":""]!</span>", \
 		"You hear a [istype(in_chamber, /obj/item/projectile/beam) ? "laser blast" : "gunshot"]!")
+		
+	if(heavy_weapon)
+		if(user.get_inactive_hand())
+			if(prob(15))
+				user.visible_message("<span class='danger'>[src] flies out of [user]'s hands!</span>", "<span class='userdanger'>[src] kicks out of your grip!</span>")
+				user.drop_item()
 
 	if (istype(in_chamber, /obj/item/projectile/bullet/blank)) // A hacky way of making blank shotgun shells work again. Honk.
 		in_chamber.delete()

@@ -79,13 +79,6 @@
 	if(stat & BROKEN)
 		return
 
-	if(!emagged && istype(W, /obj/item/weapon/card/emag))
-		user << "<span class='danger'>You short out the turret controls' access analysis module.</span>"
-		emagged = 1
-		locked = 0
-		ailock = 0
-		return
-
 	if(istype(W, /obj/item/weapon/card/id)||istype(W, /obj/item/device/pda))
 		if(src.allowed(usr))
 			if(emagged)
@@ -95,6 +88,14 @@
 				user << "<span class='notice'>You [ locked ? "lock" : "unlock"] the panel.</span>"
 		return
 	return ..()
+	
+/obj/machinery/turretid/emag_act(user as mob)
+	if(!emagged)
+		user << "<span class='danger'>You short out the turret controls' access analysis module.</span>"
+		emagged = 1
+		locked = 0
+		ailock = 0
+		return
 
 /obj/machinery/turretid/attack_ai(mob/user as mob)
 	if(isLocked(user))

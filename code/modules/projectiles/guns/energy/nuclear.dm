@@ -140,6 +140,9 @@
 	w_class = 5
 	heavy_weapon = 1
 	can_flashlight = 0
+	projectile_type = /obj/item/projectile/energy/electrode
+	charge_cost = 1000
+	fire_delay = 20
 	
 /obj/item/weapon/gun/energy/gun/turret/update_icon()
 	icon_state = initial(icon_state)
@@ -148,18 +151,20 @@
 	switch(mode)
 		if(0)
 			mode = 1
-			charge_cost = 1000
+			charge_cost = 500
 			fire_sound = 'sound/weapons/Laser.ogg'
 			user << "\red [src.name] is now set to kill."
-			projectile_type = "/obj/item/projectile/beam"
+			projectile_type = /obj/item/projectile/beam
 			modifystate = "energykill"
+			fire_delay = 0
 		if(1)
 			mode = 0
-			charge_cost = 500
-			fire_sound = 'sound/weapons/Taser2.ogg'
-			user << "\red [src.name] is now set to disable."
-			projectile_type = "/obj/item/projectile/beam/disabler"
+			charge_cost = 1000
+			fire_sound = 'sound/weapons/Taser.ogg'
+			user << "\red [src.name] is now set to stun."
+			projectile_type = /obj/item/projectile/energy/electrode
 			modifystate = "energystun"
+			fire_delay = 20
 	update_icon()
 	if(user.l_hand == src)
 		user.update_inv_l_hand()

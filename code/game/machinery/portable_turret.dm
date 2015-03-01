@@ -155,13 +155,15 @@
 	qdel(cover) // qdel
 	..()
 
-/obj/machinery/porta_turret/proc/isLocked(mob/user)
+/obj/machinery/porta_turret/proc/isLocked(mob/user,var/message = 1)
 	if(ailock && (isrobot(user) || isAI(user)))
-		user << "<span class='notice'>There seems to be a firewall preventing you from accessing this device.</span>"
+		if(message)
+			user << "<span class='notice'>There seems to be a firewall preventing you from accessing this device.</span>"
 		return 1
 
 	if(locked && !(isrobot(user) || isAI(user)))
-		user << "<span class='notice'>Access denied.</span>"
+		if(message)
+			user << "<span class='notice'>Access denied.</span>"
 		return 1
 
 	return 0
@@ -193,7 +195,7 @@
 		settings[++settings.len] = list("category" = "Check Security Records", "setting" = "check_records", "value" = check_records)
 		settings[++settings.len] = list("category" = "Check Arrest Status", "setting" = "check_arrest", "value" = check_arrest)
 		settings[++settings.len] = list("category" = "Check Access Authorization", "setting" = "check_access", "value" = check_access)
-		settings[++settings.len] = list("category" = "Check misc. Lifeforms", "setting" = "check_anomalies", "value" = check_anomalies)
+		settings[++settings.len] = list("category" = "Check Misc. Lifeforms", "setting" = "check_anomalies", "value" = check_anomalies)
 		data["settings"] = settings
 
 	ui = nanomanager.try_update_ui(user, src, ui_key, ui, data, force_open)
@@ -215,7 +217,7 @@
 		usr << "<span class='notice'>Turrets can only be controlled using the assigned turret controller.</span>"
 		return 1
 
-	if(isLocked(usr))
+	if(isLocked(usr,0))
 		return 1
 
 	if(!anchored)
@@ -274,18 +276,6 @@
 					user << "<span class='notice'>You remove the turret but did not manage to salvage anything.</span>"
 				qdel(src) // qdel
 
-	if(istype(I, /obj/item/weapon/card/emag) && !emagged)
-		//Emagging the turret makes it go bonkers and stun everyone. It also makes
-		//the turret shoot much, much faster.
-		user << "<span class='warning'>You short out [src]'s threat assessment circuits.</span>"
-		visible_message("[src] hums oddly...")
-		emagged = 1
-		iconholder = 1
-		controllock = 1
-		enabled = 0 //turns off the turret temporarily
-		sleep(60) //6 seconds for the traitor to gtfo of the area before the turret decides to ruin his shit
-		enabled = 1 //turns it back on. The cover popUp() popDown() are automatically called in process(), no need to define it here
-
 	else if((istype(I, /obj/item/weapon/wrench)))
 		if(enabled || raised)
 			user << "<span class='warning'>You cannot unsecure an active turret!</span>"
@@ -334,6 +324,7 @@
 		//if the turret was attacked with the intention of harming it:
 		user.changeNext_move(CLICK_CD_MELEE)
 		take_damage(I.force * 0.5)
+		playsound(src.loc, 'sound/weapons/smash.ogg', 60, 1)
 		if(I.force * 0.5 > 1) //if the force of impact dealt at least 1 damage, the turret gets pissed off
 			if(!attacked && !emagged)
 				attacked = 1
@@ -342,6 +333,19 @@
 					attacked = 0
 			
 		..()
+		
+/obj/machinery/porta_turret/emag_act(user as mob)
+	if(!emagged)
+		//Emagging the turret makes it go bonkers and stun everyone. It also makes
+		//the turret shoot much, much faster.
+		user << "<span class='warning'>You short out [src]'s threat assessment circuits.</span>"
+		visible_message("[src] hums oddly...")
+		emagged = 1
+		iconholder = 1
+		controllock = 1
+		enabled = 0 //turns off the turret temporarily
+		sleep(60) //6 seconds for the traitor to gtfo of the area before the turret decides to ruin his shit
+		enabled = 1 //turns it back on. The cover popUp() popDown() are automatically called in process(), no need to define it here
 
 /obj/machinery/porta_turret/proc/take_damage(var/force)
 	health -= force
@@ -524,6 +528,7 @@
 		return
 	if(stat & BROKEN)
 		return
+	playsound(get_turf(src), 'sound/effects/turret/open.wav', 60, 1)
 	invisibility = 0
 	raising = 1
 	flick("popup", cover)
@@ -542,6 +547,7 @@
 		return
 	if(stat & BROKEN)
 		return
+	playsound(get_turf(src), 'sound/effects/turret/open.wav', 60, 1)
 	layer = 3
 	raising = 1
 	flick("popdown", cover)
