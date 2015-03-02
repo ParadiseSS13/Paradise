@@ -367,8 +367,24 @@ var/list/mechtoys = list(
 			temp += "<b>Request from: [get_supply_group_name(cat)]</b><BR><BR>"
 			for(var/supply_type in supply_controller.supply_packs )
 				var/datum/supply_packs/N = supply_controller.supply_packs[supply_type]
-				if(N.hidden || N.contraband || N.group != cat) continue								//Have to send the type instead of a reference to
-				temp += "<A href='?src=\ref[src];doorder=[supply_type]'>[N.name]</A> Cost: [N.cost]<BR>"		//the obj because it would get caught by the garbage
+				if(N.hidden || N.contraband || N.group != cat) continue
+				temp += "<A href='?src=\ref[src];doorder=[supply_type]'>[N.name]</A>" //Have to send the type instead of a reference to the obj because it would get caught by the garbage
+				temp += " (<A href='?src=\ref[src];see_contents=[supply_type]'>contents</A>)"
+				temp += " Cost: [N.cost]<BR>"
+
+	else if (href_list["see_contents"])
+		//Find the correct supply_pack datum
+		var/datum/supply_packs/P = supply_controller.supply_packs[href_list["see_contents"]]
+		if(!istype(P))	return
+		
+		var/cat = P.group
+		var/tempaccess = get_access_desc(P.access)
+		
+		temp = "<b>Supply points: [supply_controller.points]</b><BR>"
+		temp += "<A href='?src=\ref[src];order=[cat]'>Back to [get_supply_group_name(cat)]</A><HR><BR><BR>"
+		temp += "Access restriction: [tempaccess ? tempaccess : "None"]<br><br>"
+		temp += "Contents of <b>[P.name]</b>:<BR>"
+		temp += P.manifest
 
 	else if (href_list["doorder"])
 		if(world.time < reqtime)
@@ -563,8 +579,10 @@ var/list/mechtoys = list(
 			temp += "<b>Request from: [get_supply_group_name(cat)]</b><BR><BR>"
 			for(var/supply_type in supply_controller.supply_packs )
 				var/datum/supply_packs/N = supply_controller.supply_packs[supply_type]
-				if((N.hidden && !hacked) || (N.contraband && !can_order_contraband) || N.group != cat) continue								//Have to send the type instead of a reference to
-				temp += "<A href='?src=\ref[src];doorder=[supply_type]'>[N.name]</A> Cost: [N.cost]<BR>"		//the obj because it would get caught by the garbage
+				if((N.hidden && !hacked) || (N.contraband && !can_order_contraband) || N.group != cat) continue
+				temp += "<A href='?src=\ref[src];doorder=[supply_type]'>[N.name]</A>" //Have to send the type instead of a reference to the obj because it would get caught by the garbage
+				temp += " (<A href='?src=\ref[src];see_contents=[supply_type]'>contents</A>)"
+				temp += " Cost: [N.cost]<BR>"
 
 		/*temp = "Supply points: [supply_controller.points]<BR><HR><BR>Request what?<BR><BR>"
 
@@ -575,6 +593,20 @@ var/list/mechtoys = list(
 			temp += "<A href='?src=\ref[src];doorder=[supply_name]'>[supply_name]</A> Cost: [N.cost]<BR>"    //the obj because it would get caught by the garbage
 		temp += "<BR><A href='?src=\ref[src];mainmenu=1'>OK</A>"*/
 
+	else if (href_list["see_contents"])
+		//Find the correct supply_pack datum
+		var/datum/supply_packs/P = supply_controller.supply_packs[href_list["see_contents"]]
+		if(!istype(P))	return
+		
+		var/cat = P.group
+		var/tempaccess = get_access_desc(P.access)
+		
+		temp = "<b>Supply points: [supply_controller.points]</b><BR>"
+		temp += "<A href='?src=\ref[src];order=[cat]'>Back to [get_supply_group_name(cat)]</A><HR><BR><BR>"
+		temp += "Access restriction: [tempaccess ? tempaccess : "None"]<br><br>"
+		temp += "Contents of <b>[P.name]</b>:<BR>"
+		temp += P.manifest
+	
 	else if (href_list["doorder"])
 		if(world.time < reqtime)
 			for(var/mob/V in hearers(src))
