@@ -549,11 +549,13 @@
 
 // Harvest an animal's delicious byproducts
 /mob/living/simple_animal/proc/harvest()
-	new meat_type (get_turf(src))
-	if(prob(95))
+	if(prob(70))
+		if(meat_amount && meat_type)
+			for(var/i = 0; i < meat_amount; i++)
+				new meat_type(get_turf(src))
 		del(src)
-		return
-	gib()
+	else
+		gib()
 	return
 
 
