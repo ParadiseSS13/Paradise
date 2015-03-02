@@ -229,6 +229,9 @@
 			L += D.wrapped
 			if(istype(D.wrapped, /obj/item/weapon/storage)) //this should never happen
 				L += get_contents(D.wrapped)
+		for(var/obj/item/weapon/folder/F in src.contents)
+			L += F.contents //Folders can't store any storage items.
+
 		return L
 
 /mob/living/proc/check_contents_for(A)
