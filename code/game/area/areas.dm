@@ -261,12 +261,11 @@
 	return
 
 /area/proc/updateicon()
-	if ((fire || eject || party || radalert) && ((!requires_power)?(!requires_power):power_environ))//If it doesn't require power, can still activate this proc.
-		// Highest priority at the top.
-		if(radalert && !fire)
-			icon_state = "radiation"
-			blend_mode = BLEND_MULTIPLY
-		else if(fire && !radalert && !eject && !party)
+	if(radalert) // always show the radiation alert, regardless of power
+		icon_state = "radiation"
+		blend_mode = BLEND_MULTIPLY	
+	else if ((fire || eject || party) && ((!requires_power)?(!requires_power):power_environ))//If it doesn't require power, can still activate this proc.
+		if(fire && !radalert && !eject && !party)
 			icon_state = "red"
 			blend_mode = BLEND_MULTIPLY
 		/*else if(atmosalm && !fire && !eject && !party)
