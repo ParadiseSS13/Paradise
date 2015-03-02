@@ -374,6 +374,8 @@ obj/machinery/bot/proc/scan(var/scan_type, var/old_target, var/scan_range)
 				final_result = scan_result
 			else
 				continue //The current element failed assessment, move on to the next.
+		else
+			continue
 		return final_result
 
 //When the scan finds a target, run bot specific processing to select it for the next step. Empty by default.
