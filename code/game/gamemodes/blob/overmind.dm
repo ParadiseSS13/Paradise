@@ -14,12 +14,25 @@
 	var/obj/effect/blob/core/blob_core = null // The blob overmind's core
 	var/blob_points = 0
 	var/max_blob_points = 100
+	var/ghostimage = null
 
 /mob/camera/blob/New()
 	var/new_name = "[initial(name)] ([rand(1, 999)])"
 	name = new_name
 	real_name = new_name
+
+	ghostimage = image(src.icon,src,src.icon_state)
+	ghost_darkness_images |= ghostimage //so ghosts can see the blob cursor when they disable darkness
+	updateallghostimages()
+
 	..()
+
+/mob/camera/blob/Destroy()
+	if (ghostimage)
+		ghost_darkness_images -= ghostimage
+		qdel(ghostimage)
+		ghostimage = null;
+		updateallghostimages()
 
 /mob/camera/blob/Login()
 	..()

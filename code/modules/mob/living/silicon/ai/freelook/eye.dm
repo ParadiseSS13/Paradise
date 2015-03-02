@@ -14,7 +14,21 @@
 	status_flags = GODMODE  // You can't damage it.
 	mouse_opacity = 0
 	see_in_dark = 7
-	invisibility = INVISIBILITY_AI_EYE
+	invisibility = SEE_INVISIBLE_OBSERVER
+	var/ghostimage = null
+
+/mob/aiEye/New()
+	ghostimage = image(src.icon,src,src.icon_state)
+	ghost_darkness_images |= ghostimage //so ghosts can see the blob cursor when they disable darkness
+	updateallghostimages()
+	..()
+
+/mob/aiEye/Destroy()
+	if (ghostimage)
+		ghost_darkness_images -= ghostimage
+		qdel(ghostimage)
+		ghostimage = null;
+		updateallghostimages()
 
 // Movement code. Returns 0 to stop air movement from moving it.
 /mob/aiEye/Move()
@@ -25,7 +39,7 @@
 	set popup_menu = 0
 	set src = usr.contents
 	return 0
-	
+
 /mob/aiEye/pull()
 	set popup_menu = 0
 	set src = usr.contents

@@ -104,12 +104,12 @@
 
 ////////////////////////STAGE 4/////////////////////////////////
 
-/datum/disease2/effect/alchdranine
+/datum/disease2/effect/doctorsdelight
 	name = "Panacea Effect"
 	stage = 4
 	activate(var/mob/living/carbon/mob,var/multiplier)
-		if (mob.reagents.get_reagent_amount("alchdranine") < 1)
-			mob.reagents.add_reagent("alchdranine", 1)
+		if (mob.reagents.get_reagent_amount("doctorsdelight") < 1)
+			mob.reagents.add_reagent("doctorsdelight", 1)
 
 /datum/disease2/effect/viralsputum_major
 	name = "Hemoptysis"

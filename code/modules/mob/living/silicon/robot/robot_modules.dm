@@ -56,7 +56,7 @@
 	for(var/obj/O in temp_list)
 		if(O)
 			modules += O
-			
+
 /obj/item/weapon/robot_module/proc/add_languages(var/mob/living/silicon/robot/R)
 	//full set of languages
 	R.add_language("Galactic Common", 1)
@@ -108,7 +108,7 @@
 		src.modules += new /obj/item/weapon/reagent_containers/glass/beaker/large(src)
 		src.modules += new /obj/item/weapon/reagent_containers/dropper(src)
 		src.modules += new /obj/item/weapon/reagent_containers/syringe(src)
-		src.modules += new /obj/item/weapon/extinguisher/mini(src)	
+		src.modules += new /obj/item/weapon/extinguisher/mini(src)
 		src.modules += new /obj/item/stack/medical/advanced/bruise_pack(src)
 		src.modules += new /obj/item/stack/medical/advanced/ointment(src)
 		src.modules += new /obj/item/stack/medical/splint(src)
@@ -204,7 +204,7 @@
 		src.modules += new /obj/item/weapon/melee/baton/robot(src)
 		src.modules += new /obj/item/weapon/gun/energy/disabler/cyborg(src)
 		src.modules += new /obj/item/taperoll/police(src)
-		src.modules += new /obj/item/device/taperecorder(src)
+		src.modules += new /obj/item/clothing/mask/gas/sechailer/cyborg(src)
 		src.emag = new /obj/item/weapon/gun/energy/laser/cyborg(src)
 		return
 
@@ -265,13 +265,13 @@
 	if(src.emag)
 		var/obj/item/weapon/reagent_containers/food/drinks/cans/beer/B = src.emag
 		B.reagents.add_reagent("beer2", 2)
-		
+
 /obj/item/weapon/robot_module/butler/add_languages(var/mob/living/silicon/robot/R)
 	//full set of languages
 	R.add_language("Galactic Common", 1)
 	R.add_language("Sol Common", 1)
 	R.add_language("Tradeband", 1)
-	R.add_language("Gutter", 1)	
+	R.add_language("Gutter", 1)
 	R.add_language("Sinta'unathi", 1)
 	R.add_language("Siik'tajr", 1)
 	R.add_language("Skrellian", 1)
@@ -373,7 +373,7 @@
 		src.emag = new /obj/item/weapon/reagent_containers/spray/alien/acid(src)
 		src.emag.reagents.add_reagent("pacid", 125)
 		src.emag.reagents.add_reagent("sacid", 125)
-		
+
 /obj/item/weapon/robot_module/alien/hunter/add_languages(var/mob/living/silicon/robot/R)
 	..()
 	R.add_language("xenocommon", 1)
