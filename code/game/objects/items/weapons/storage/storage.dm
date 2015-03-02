@@ -75,6 +75,8 @@
 		L += G.gift
 		if (istype(G.gift, /obj/item/weapon/storage))
 			L += G.gift:return_inv()
+	for(var/obj/item/weapon/folder/F in src)
+		L += F.contents
 	return L
 
 /obj/item/weapon/storage/proc/show_to(mob/user as mob)
