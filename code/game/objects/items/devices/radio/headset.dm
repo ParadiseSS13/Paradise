@@ -15,7 +15,7 @@
 	var/obj/item/device/encryptionkey/keyslot2 = null
 	maxf = 1489
 
-	var/ks1type = /obj/item/device/encryptionkey
+	var/ks1type = null
 	var/ks2type = null
 
 /obj/item/device/radio/headset/New()
@@ -53,7 +53,7 @@
 		if(H.l_ear == src || H.r_ear == src)
 			return ..(freq, level)
 	return -1
-	
+
 /obj/item/device/radio/headset/alt
 	name = "bowman headset"
 	desc = "An updated, modular intercom that fits over the head. Takes encryption keys. Protects ears from flashbangs."
@@ -77,7 +77,7 @@
 /obj/item/device/radio/headset/binary
 	origin_tech = "syndicate=3"
 	ks1type = /obj/item/device/encryptionkey/binary
-	
+
 /obj/item/device/radio/headset/headset_sec
 	name = "security radio headset"
 	desc = "This is used by your elite security force."
@@ -238,7 +238,7 @@
 	icon_state = "com_headset"
 	item_state = "headset"
 	ks2type = /obj/item/device/encryptionkey/heads/blueshield
-	
+
 /obj/item/device/radio/headset/heads/blueshield/alt
 	name = "\proper blueshield's bowman headset"
 	desc = "The headset of the Blueshield. Protects ears from flashbangs."
@@ -253,7 +253,7 @@
 	item_state = "headset"
 	freerange = 1
 	ks2type = /obj/item/device/encryptionkey/ert
-	
+
 /obj/item/device/radio/headset/ert/alt
 	name = "\proper emergency response team's bowman headset"
 	desc = "The headset of the boss. Protects ears from flashbangs."
@@ -395,4 +395,3 @@
 			radio_text += ", "
 
 	radio_desc = radio_text
-	

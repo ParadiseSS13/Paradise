@@ -76,7 +76,6 @@
 	build_type = PROTOLATHE
 	materials = list("$metal" = 4000, "$glass" = 5000, "$silver" = 300)
 	build_path = /obj/item/weapon/shield/riot/tele
-	locked = 1
 	category = list("Weapons")
 
 /datum/design/lasercannon
