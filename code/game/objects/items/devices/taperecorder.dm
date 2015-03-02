@@ -39,7 +39,7 @@
 		return
 
 /obj/item/device/taperecorder/emag_act(user as mob)			
-	if(!emagged == 0)
+	if(emagged == 0)
 		emagged = 1
 		recording = 0
 		user << "<span class='warning'>PZZTTPFFFT</span>"
