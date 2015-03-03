@@ -5,7 +5,7 @@
 	var/obj/item/weapon/airlock_electronics/circuit = null
 	var/state=0
 
-/obj/structure/displaycase_frame/attackby(obj/item/weapon/W as obj, mob/user as mob)
+/obj/structure/displaycase_frame/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
 	var/pstate=state
 	var/turf/T=get_turf(src)
 	switch(state)
@@ -72,10 +72,11 @@
 	desc = "A display case for the captain's antique laser gun. It taunts you to kick it."
 
 /obj/structure/displaycase/captains_laser/New()
-	req_access = list(access_captain)
-	occupant = new /obj/item/weapon/gun/energy/laser/captain(src)
+	req_access = list(access_captain)	
 	locked = 1
-	update_icon()
+	spawn(5)
+		occupant = new /obj/item/weapon/gun/energy/laser/captain(src)
+		update_icon()
 
 /obj/structure/proc/getPrint(mob/user as mob)
 	return md5(user:dna:uni_identity)
@@ -162,7 +163,7 @@
 	return
 
 
-/obj/structure/displaycase/attackby(obj/item/weapon/W as obj, mob/user as mob)
+/obj/structure/displaycase/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
 	if(istype(W, /obj/item/weapon/card))
 		var/obj/item/weapon/card/id/I=W
 		if(!check_access(I))
@@ -228,6 +229,8 @@
 			update_icon()
 	else
 		if(user.a_intent == "harm")
+			user.changeNext_move(CLICK_CD_MELEE)
+			user.do_attack_animation(src)
 			user.visible_message("\red [user.name] kicks \the [src]!", \
 				"\red You kick \the [src]!", \
 				"You hear glass crack.")

@@ -41,22 +41,6 @@
 
 	autoignition_temperature = 530 // Kelvin
 
-
-/obj/item/weapon/storage/box/surveillance
-	name = "\improper DromedaryCo packet"
-	desc = "A packet of six imported DromedaryCo cancer sticks. A label on the packaging reads, \"Wouldn't a slow death make a change?\""
-	icon = 'icons/obj/cigarettes.dmi'
-	icon_state = "Dpacket"
-	item_state = "Dpacket"
-	w_class = 1
-	foldable = null
-	New()
-		..()
-		contents = list()
-		sleep(1)
-		for(var/i = 1 to 5)
-			new /obj/item/device/camera_bug(src)
-
 /obj/item/weapon/storage/box/survival
 	New()
 		..()
@@ -77,6 +61,17 @@
 		new /obj/item/weapon/reagent_containers/hypospray/autoinjector( src )
 		return
 
+/obj/item/weapon/storage/box/response_team
+	New()
+		..()
+		contents = list()
+		sleep(1)
+		new /obj/item/clothing/mask/breath( src )
+		new /obj/item/weapon/tank/emergency_oxygen/double/full( src )
+		new /obj/item/clothing/glasses/night( src )
+		new /obj/item/weapon/kitchenknife/combat( src ) // SURVIVAL KNIFE, FOR CARVING A BOW OUT OF THE BONES OF ASSISTANTS AFTER YOU CRASH-LAND ON THE STATION.
+		new /obj/item/weapon/reagent_containers/hypospray/autoinjector( src )
+		return
 
 /obj/item/weapon/storage/box/gloves
 	name = "box of latex gloves"
@@ -183,6 +178,20 @@
 		new /obj/item/weapon/grenade/flashbang(src)
 		new /obj/item/weapon/grenade/flashbang(src)
 
+/obj/item/weapon/storage/box/flashes
+	name = "box of flashbulbs"
+	desc = "<B>WARNING: Flashes can cause serious eye damage, protective eyewear is required.</B>"
+	icon_state = "flashbang"
+
+	New()
+		..()
+		new /obj/item/device/flash(src)
+		new /obj/item/device/flash(src)
+		new /obj/item/device/flash(src)
+		new /obj/item/device/flash(src)
+		new /obj/item/device/flash(src)
+		new /obj/item/device/flash(src)
+
 /obj/item/weapon/storage/box/teargas
 	name = "box of tear gas grenades (WARNING)"
 	desc = "<B>WARNING: These devices are extremely dangerous and can cause blindness and skin irritation.</B>"
@@ -241,6 +250,20 @@
 		new /obj/item/weapon/implantcase/chem(src)
 		new /obj/item/weapon/implanter(src)
 		new /obj/item/weapon/implantpad(src)
+
+/obj/item/weapon/storage/box/exileimp
+	name = "boxed exile implant kit"
+	desc = "Box of exile implants. It has a picture of a clown being booted through the Gateway."
+	icon_state = "implant"
+
+	New()
+		..()
+		new /obj/item/weapon/implantcase/exile(src)
+		new /obj/item/weapon/implantcase/exile(src)
+		new /obj/item/weapon/implantcase/exile(src)
+		new /obj/item/weapon/implantcase/exile(src)
+		new /obj/item/weapon/implantcase/exile(src)
+		new /obj/item/weapon/implanter(src)
 
 /obj/item/weapon/storage/box/deathimp
 	name = "death alarm implant kit"
@@ -423,7 +446,7 @@
 		new /obj/item/weapon/card/id/prisoner/seven(src)
 
 /obj/item/weapon/storage/box/seccarts
-	name = "Spare R.O.B.U.S.T. Cartridges"
+	name = "spare R.O.B.U.S.T. Cartridges"
 	desc = "A box full of R.O.B.U.S.T. Cartridges, used by Security."
 	icon_state = "pda"
 
@@ -445,13 +468,28 @@
 
 	New()
 		..()
-		new /obj/item/weapon/handcuffs(src)
-		new /obj/item/weapon/handcuffs(src)
-		new /obj/item/weapon/handcuffs(src)
-		new /obj/item/weapon/handcuffs(src)
-		new /obj/item/weapon/handcuffs(src)
-		new /obj/item/weapon/handcuffs(src)
-		new /obj/item/weapon/handcuffs(src)
+		new /obj/item/weapon/restraints/handcuffs(src)
+		new /obj/item/weapon/restraints/handcuffs(src)
+		new /obj/item/weapon/restraints/handcuffs(src)
+		new /obj/item/weapon/restraints/handcuffs(src)
+		new /obj/item/weapon/restraints/handcuffs(src)
+		new /obj/item/weapon/restraints/handcuffs(src)
+		new /obj/item/weapon/restraints/handcuffs(src)
+
+/obj/item/weapon/storage/box/zipties
+	name = "box of spare zipties"
+	desc = "A box full of zipties."
+	icon_state = "handcuff"
+
+	New()
+		..()
+		new /obj/item/weapon/restraints/handcuffs/cable/zipties(src)
+		new /obj/item/weapon/restraints/handcuffs/cable/zipties(src)
+		new /obj/item/weapon/restraints/handcuffs/cable/zipties(src)
+		new /obj/item/weapon/restraints/handcuffs/cable/zipties(src)
+		new /obj/item/weapon/restraints/handcuffs/cable/zipties(src)
+		new /obj/item/weapon/restraints/handcuffs/cable/zipties(src)
+		new /obj/item/weapon/restraints/handcuffs/cable/zipties(src)
 
 /obj/item/weapon/storage/box/fakesyndiesuit
 	name = "boxed space suit and helmet"
@@ -512,7 +550,6 @@
 	item_state = "zippo"
 	storage_slots = 10
 	w_class = 1
-	flags = TABLEPASS
 	slot_flags = SLOT_BELT
 
 	New()
@@ -520,7 +557,7 @@
 		for(var/i=1; i <= storage_slots; i++)
 			new /obj/item/weapon/match(src)
 
-	attackby(obj/item/weapon/match/W as obj, mob/user as mob)
+	attackby(obj/item/weapon/match/W as obj, mob/user as mob, params)
 		if(istype(W, /obj/item/weapon/match) && W.lit == 0)
 			W.lit = 1
 			W.icon_state = "match_lit"

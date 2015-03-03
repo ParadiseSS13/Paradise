@@ -1,7 +1,10 @@
+var/global/list/del_profiling = list()
+var/global/list/gdel_profiling = list()
+var/global/list/ghdel_profiling = list()
 /atom
 	layer = 2
 	var/level = 2
-	var/flags = FPRINT
+	var/flags = 0
 	var/list/fingerprints
 	var/list/fingerprintshidden
 	var/fingerprintslast = null
@@ -9,7 +12,6 @@
 	var/last_bumped = 0
 	var/pass_flags = 0
 	var/throwpass = 0
-	var/datum/crafting_holder/craft_holder = null
 	var/germ_level = GERM_LEVEL_AMBIENT // The higher the germ level, the more germ on the atom.
 
 	///Chemistry.
@@ -25,15 +27,17 @@
 	// Garbage collection
 	var/gc_destroyed=null
 
-/atom/Del()
-	// Pass to Destroy().
-	if(!gc_destroyed)
-		Destroy()
-	..()
 
-/atom/proc/Destroy()
-	gc_destroyed=world.time
+/atom/Destroy()
+	SetOpacity(0)
 
+
+	if(reagents)
+		reagents.Destroy()
+		reagents = null
+
+	// Idea by ChuckTheSheep to make the object even more unreferencable.
+	invisibility = 101
 
 /atom/proc/CheckParts()
 	return
@@ -242,6 +246,8 @@ its easier to just keep the beam vertical.
 /atom/proc/blob_act()
 	return
 
+/atom/proc/emag_act()
+	return
 
 /atom/proc/hitby(atom/movable/AM as mob|obj)
 	if (density)
@@ -294,7 +300,7 @@ its easier to just keep the beam vertical.
 		add_fibers(M)
 
 		//He has no prints!
-		if (M_FINGERPRINTS in M.mutations)
+		if (FINGERPRINTS in M.mutations)
 			if(fingerprintslast != M.key)
 				fingerprintshidden += "(Has no fingerprints) Real name: [M.real_name], Key: [M.key]"
 				fingerprintslast = M.key
@@ -378,8 +384,6 @@ its easier to just keep the beam vertical.
 		M.dna = new /datum/dna(null)
 		M.dna.real_name = M.real_name
 	M.check_dna()
-	if (!( src.flags ) & FPRINT)
-		return 0
 	if(!blood_DNA || !istype(blood_DNA, /list))	//if our list of DNA doesn't exist yet (or isn't a list) initialise it.
 		blood_DNA = list()
 

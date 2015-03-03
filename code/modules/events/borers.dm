@@ -12,18 +12,17 @@
 
 /datum/event/borer_infestation/announce()
 	if(successSpawn)
-		command_alert("Unidentified lifesigns detected coming aboard [station_name()]. Secure any exterior access, including ducting and ventilation.", "Lifesign Alert")
-		world << sound('sound/AI/aliens.ogg')
+		command_announcement.Announce("Unidentified lifesigns detected coming aboard [station_name()]. Secure any exterior access, including ducting and ventilation.", "Lifesign Alert", new_sound = 'sound/AI/aliens.ogg')
 
 /datum/event/borer_infestation/start()
 	var/list/vents = list()
 	for(var/obj/machinery/atmospherics/unary/vent_pump/temp_vent in world)
-		if(temp_vent.loc.z == 1 && !temp_vent.welded && temp_vent.network)
+		if((temp_vent.loc.z in config.station_levels) && !temp_vent.welded && temp_vent.network)
 			//Stops cortical borers getting stuck in small networks. See: Security, Virology
 			if(temp_vent.network.normal_members.len > 50)
 				vents += temp_vent
 
-	var/list/candidates = get_candidates(BE_ALIEN,ALIEN_AFK_BRACKET,"alien","Syndicate")
+	var/list/candidates = get_candidates(BE_ALIEN,ALIEN_AFK_BRACKET)
 	while(spawncount > 0 && vents.len && candidates.len)
 		var/obj/vent = pick_n_take(vents)
 		var/client/C = pick_n_take(candidates)

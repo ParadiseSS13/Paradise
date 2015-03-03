@@ -114,7 +114,7 @@
 		inserted = null
 
 
-	attackby(obj/O as obj, mob/user as mob)
+	attackby(obj/O as obj, mob/user as mob, params)
 		if(inserted && istype(O,/obj/item/weapon/pen))
 			usr << "You use [O] to carefully pry [inserted] out of [src]."
 			eject_disk(forced = 1)

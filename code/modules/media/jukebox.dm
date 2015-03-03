@@ -155,7 +155,7 @@ var/global/loopModeNames=list(
 	popup.open()
 
 
-/obj/machinery/media/jukebox/attackby(obj/item/W, mob/user)
+/obj/machinery/media/jukebox/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/weapon/card/emag))
 		current_song=0
 		if(!emagged)

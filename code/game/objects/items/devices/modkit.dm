@@ -23,7 +23,7 @@
 
 	if(!parts)
 		user << "<span class='warning'>This kit has no parts for this modification left.</span>"
-		user.drop_from_inventory(src)
+		user.unEquip(src)
 		del(src)
 		return
 
@@ -59,7 +59,7 @@
 		parts &= ~MODKIT_SUIT
 
 	if(!parts)
-		user.drop_from_inventory(src)
+		user.unEquip(src)
 		del(src)
 
 /obj/item/device/modkit/examine()

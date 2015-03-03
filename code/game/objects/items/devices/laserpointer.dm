@@ -5,7 +5,7 @@
 	icon_state = "pointer"
 	item_state = "pen"
 	var/pointer_icon_state
-	flags =  FPRINT | TABLEPASS | CONDUCT |  USEDELAY
+	flags = CONDUCT
 	slot_flags = SLOT_BELT
 	m_amt = 500
 	g_amt = 500
@@ -45,7 +45,7 @@
 /obj/item/device/laser_pointer/attack(mob/living/M, mob/user)
 	laser_act(M, user)
 
-/obj/item/device/laser_pointer/attackby(obj/item/W, mob/user)
+/obj/item/device/laser_pointer/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/weapon/stock_parts/micro_laser))
 		if(!diode)
 			user.drop_item()

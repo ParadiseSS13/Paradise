@@ -8,15 +8,11 @@
 	var/emagged = 0
 	var/syndicate = 0
 
-/obj/item/device/radio/beacon/attackby(I as obj, mob/living/user as mob)
-	if(istype(I,/obj/item/weapon/card/emag)) // If hit by an emag.
-		var/obj/item/weapon/card/emag/E = I
-		if(!emagged)
-			if(E.uses)
-				E.uses--
-				emagged = 1
-				syndicate = 1
-				user << "\blue The This beacon now only be locked on to by emagged teleporters!"
+/obj/item/device/radio/beacon/emag_act(user as mob)
+	if(!emagged)
+		emagged = 1
+		syndicate = 1
+		user << "\blue The This beacon now only be locked on to by emagged teleporters!"
 	
 /obj/item/device/radio/beacon/hear_talk()
 	return

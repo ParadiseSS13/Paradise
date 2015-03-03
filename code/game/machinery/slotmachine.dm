@@ -1,3 +1,4 @@
+var/datum/announcement/minor/slotmachine_announcement = new(do_log = 0)
 /obj/machinery/slot_machine
 	name = "Slot Machine"
 	desc = "Gambling for the antisocial."
@@ -55,7 +56,7 @@
 					if (roll == 1)
 						for(var/mob/O in hearers(src, null))
 							O.show_message(text("<b>[]</b> says, 'JACKPOT! You win [src.money]!'", src), 1)
-						command_alert("Congratulations [usr.name] on winning the Jackpot!", "Jackpot Winner")
+						slotmachine_announcement.Announce("Congratulations [usr.name] on winning the Jackpot!", "Jackpot Winner")
 						usr.mind.initial_account.money += src.money
 						src.money = 0
 					else if (roll > 1 && roll <= 10)

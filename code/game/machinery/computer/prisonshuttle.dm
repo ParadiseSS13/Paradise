@@ -22,7 +22,7 @@ var/prison_shuttle_timeleft = 0
 	var/prison_break = 0
 
 
-	attackby(I as obj, user as mob)
+	attackby(I as obj, user as mob, params)
 		return src.attack_hand(user)
 
 
@@ -34,7 +34,7 @@ var/prison_shuttle_timeleft = 0
 		return src.attack_hand(user)
 
 
-	attackby(I as obj, user as mob)
+	attackby(I as obj, user as mob, params)
 		if(istype(I, /obj/item/weapon/screwdriver))
 			playsound(src.loc, 'sound/items/Screwdriver.ogg', 50, 1)
 			if(do_after(user, 20))

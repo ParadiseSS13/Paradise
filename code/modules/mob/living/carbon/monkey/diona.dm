@@ -193,7 +193,7 @@
 	adult.rename_self("diona")
 
 	for (var/obj/item/W in src.contents)
-		src.drop_from_inventory(W)
+		src.unEquip(W)
 
 	del(src)
 

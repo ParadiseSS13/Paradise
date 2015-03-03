@@ -9,7 +9,7 @@
 	req_tech = list("powerstorage" = 1)
 	build_type = PROTOLATHE | AUTOLATHE | MECHFAB
 	materials = list("$metal" = 700, "$glass" = 50)
-	build_path = /obj/item/weapon/cell
+	build_path = /obj/item/weapon/stock_parts/cell
 	category = list("Misc","Power")
 
 /datum/design/high_cell
@@ -19,7 +19,7 @@
 	req_tech = list("powerstorage" = 2)
 	build_type = PROTOLATHE | AUTOLATHE | MECHFAB
 	materials = list("$metal" = 700, "$glass" = 60)
-	build_path = /obj/item/weapon/cell/high
+	build_path = /obj/item/weapon/stock_parts/cell/high
 	category = list("Misc","Power")
 	
 /datum/design/hyper_cell
@@ -30,7 +30,7 @@
 	reliability_base = 70
 	build_type = PROTOLATHE | MECHFAB
 	materials = list("$metal" = 400, "$gold" = 150, "$silver" = 150, "$glass" = 70)
-	build_path = /obj/item/weapon/cell/hyper
+	build_path = /obj/item/weapon/stock_parts/cell/hyper
 	category = list("Misc","Power")
 	
 /datum/design/super_cell
@@ -41,7 +41,7 @@
 	reliability_base = 75
 	build_type = PROTOLATHE | MECHFAB
 	materials = list("$metal" = 700, "$glass" = 70)
-	build_path = /obj/item/weapon/cell/super
+	build_path = /obj/item/weapon/stock_parts/cell/super
 	category = list("Misc","Power")
 	
 /datum/design/pacman

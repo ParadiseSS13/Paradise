@@ -64,6 +64,9 @@ NanoBaseHelpers = function ()
 			round: function(number) {
 				return Math.round(number);
 			},
+			fixed: function(number) {
+				return Math.round(number * 10) / 10;
+			},
 			// Round a number down to integer
 			floor: function(number) {
 				return Math.floor(number);

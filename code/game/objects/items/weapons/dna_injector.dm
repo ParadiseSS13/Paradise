@@ -67,7 +67,7 @@
 	if(istype(M,/mob/living))
 		M.apply_effect(rand(5,20),IRRADIATE,0)
 
-	if (!(M_NOCLONE in M.mutations)) // prevents drained people from having their DNA changed
+	if (!(NOCLONE in M.mutations)) // prevents drained people from having their DNA changed
 		// UI in syringe.
 		if (buf.types & DNA2_BUF_UI)
 			if (!block) //isolated block?
@@ -93,7 +93,7 @@
 
 	spawn(0)//this prevents the collapse of space-time continuum
 		if (user)
-			user.drop_from_inventory(src)
+			user.unEquip(src)
 		del(src)
 	return uses
 

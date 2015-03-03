@@ -25,7 +25,7 @@
 	possible_transfer_amounts = list(5)
 	volume = 5
 	can_be_placed_into = null
-	flags = FPRINT | TABLEPASS | OPENCONTAINER | NOBLUDGEON
+	flags = OPENCONTAINER | NOBLUDGEON
 
 /obj/item/weapon/reagent_containers/glass/rag/attack(atom/target as obj|turf|area, mob/user as mob , flag)
 	if(ismob(target) && target.reagents && reagents.total_volume)

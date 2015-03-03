@@ -64,8 +64,16 @@ rcd light flash thingy on matter drain
 	set name = "Upgrade Turrets"
 	src.verbs -= /mob/living/silicon/ai/proc/upgrade_turrets
 	for(var/obj/machinery/turret/turret in machines)
-		turret.health += 30
-		turret.shot_delay = 20
+		var/turf/T = get_turf(turret)
+		if(T.z in config.station_levels)
+			turret.health += 30
+			turret.shot_delay = 20
+	for(var/obj/machinery/porta_turret/turret in machines)
+		var/turf/T = get_turf(turret)
+		if(T.z in config.station_levels)
+			// Increase health by 37.5% of original max, decrease delays between shots to 66%
+			turret.health += initial(turret.health) * 3 / 8
+			turret.shot_delay = initial(turret.shot_delay) * 2 / 3
 	src << "<span class='notice'>Turrets upgraded.</span>"
 
 /datum/AI_Module/large/lockdown
@@ -90,6 +98,8 @@ rcd light flash thingy on matter drain
 
 	var/obj/machinery/door/airlock/AL
 	for(var/obj/machinery/door/D in airlocks)
+		if(!(D.z in config.contact_levels))
+			continue
 		spawn()
 			if(istype(D, /obj/machinery/door/airlock))
 				AL = D
@@ -313,7 +323,7 @@ rcd light flash thingy on matter drain
 
 	power_type = /client/proc/reactivate_camera
 
-/client/proc/reactivate_camera(obj/machinery/camera/C as obj in cameranet.viewpoints)
+/client/proc/reactivate_camera(obj/machinery/camera/C as obj in cameranet.cameras)
 	set name = "Reactivate Camera"
 	set category = "Malfunction"
 	if (istype (C, /obj/machinery/camera))
@@ -337,7 +347,7 @@ rcd light flash thingy on matter drain
 
 	power_type = /client/proc/upgrade_camera
 
-/client/proc/upgrade_camera(obj/machinery/camera/C as obj in cameranet.viewpoints)
+/client/proc/upgrade_camera(obj/machinery/camera/C as obj in cameranet.cameras)
 	set name = "Upgrade Camera"
 	set category = "Malfunction"
 	if(istype(C))

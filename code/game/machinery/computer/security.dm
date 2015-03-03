@@ -25,7 +25,7 @@
 	l_color = "#B40000"
 
 
-/obj/machinery/computer/secure_data/attackby(obj/item/O as obj, user as mob)
+/obj/machinery/computer/secure_data/attackby(obj/item/O as obj, user as mob, params)
 	if(istype(O, /obj/item/weapon/card/id) && !scan)
 		usr.drop_item()
 		O.loc = src
@@ -208,7 +208,7 @@ I can't be bothered to look more of the actual code outside of switch but that p
 What a mess.*/
 /obj/machinery/computer/secure_data/Topic(href, href_list)
 	if(..())
-		return
+		return 1
 	if (!( data_core.general.Find(active1) ))
 		active1 = null
 	if (!( data_core.security.Find(active2) ))

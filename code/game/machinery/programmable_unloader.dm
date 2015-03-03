@@ -144,7 +144,7 @@
 
 /obj/machinery/programmable/Topic(href, href_list)
 	if(..())
-		return
+		return 1
 	usr.set_machine(src)
 	add_fingerprint(usr)
 	switch(href_list["operation"])
@@ -195,20 +195,7 @@
 			updateUsrDialog()
 			return
 
-/obj/machinery/programmable/attackby(obj/item/I as obj, mob/user as mob)
-	if(istype(I,/obj/item/weapon/card/emag))
-		if(emagged)
-			return
-		user << "You swipe the unloader with your card.  After a moment's grinding, it beeps in a sinister fashion."
-		playsound(src.loc, 'sound/machines/twobeep.ogg', 50, 0)
-		emagged = 1
-		overrides += emag_overrides
-
-		var/datum/effect/effect/system/spark_spread/s = new /datum/effect/effect/system/spark_spread
-		s.set_up(2, 1, src)
-		s.start()
-
-		return
+/obj/machinery/programmable/attackby(obj/item/I as obj, mob/user as mob, params)
 	if(istype(I,/obj/item/weapon/wrench)) // code borrowed from pipe dispenser
 		if (unwrenched==0)
 			playsound(src.loc, 'sound/items/Ratchet.ogg', 50, 1)
@@ -281,7 +268,18 @@
 		I.loc = src
 		RefreshParts()
 
+/obj/machinery/programmable/emag_act(user as mob)
+	if(emagged)
+		return
+	user << "You swipe the unloader with your card.  After a moment's grinding, it beeps in a sinister fashion."
+	playsound(src.loc, 'sound/machines/twobeep.ogg', 50, 0)
+	emagged = 1
+	overrides += emag_overrides
 
+	var/datum/effect/effect/system/spark_spread/s = new /datum/effect/effect/system/spark_spread
+	s.set_up(2, 1, src)
+	s.start()
+	return
 
 /obj/machinery/programmable/process()
 	if (!output || !input)
@@ -512,7 +510,7 @@
 				return
 
 			playsound(loc, "punch", 25, 1, -1)
-			if(M_HULK in H.mutations)			damage += 5
+			if(HULK in H.mutations)			damage += 5
 
 			if(damage < 5)
 				visible_message("[H] gives \the [src] a weak punch.")
@@ -582,7 +580,7 @@
 		..()
 		resetlists()
 
-	attackby(obj/item/I as obj, mob/user as mob)
+	attackby(obj/item/I as obj, mob/user as mob, params)
 		if(istype(I,/obj/item/device/multitool))
 			hacking = (hacking?0:1)
 			if(hacking)

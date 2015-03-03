@@ -10,7 +10,7 @@
 	for(var/obj/item/W in src)
 		if (W==w_uniform) // will be torn
 			continue
-		drop_from_inventory(W)
+		unEquip(W)
 	regenerate_icons()
 	monkeyizing = 1
 	canmove = 0
@@ -73,14 +73,14 @@
 	if (monkeyizing)
 		return
 	for(var/obj/item/W in src)
-		drop_from_inventory(W)
+		unEquip(W)
 	monkeyizing = 1
 	canmove = 0
 	icon = null
 	invisibility = 101
 	return ..()
 
-/mob/proc/AIize(move=1)
+/mob/proc/AIize()
 	if(client)
 		src << sound(null, repeat = 0, wait = 0, volume = 85, channel = 1) // stop the jams for AIs
 	var/mob/living/silicon/ai/O = new (loc,,,1)//No MMI but safety is in effect.
@@ -93,52 +93,40 @@
 	else
 		O.key = key
 
-	if(move)
-		var/obj/loc_landmark
+	var/obj/loc_landmark
+	for(var/obj/effect/landmark/start/sloc in landmarks_list)
+		if (sloc.name != "AI")
+			continue
+		if (locate(/mob/living) in sloc.loc)
+			continue
+		loc_landmark = sloc
+	if (!loc_landmark)
+		for(var/obj/effect/landmark/tripai in landmarks_list)
+			if (tripai.name == "tripai")
+				if(locate(/mob/living) in tripai.loc)
+					continue
+				loc_landmark = tripai
+	if (!loc_landmark)
+		O << "Oh god sorry we can't find an unoccupied AI spawn location, so we're spawning you on top of someone."
 		for(var/obj/effect/landmark/start/sloc in landmarks_list)
-			if (sloc.name != "AI")
-				continue
-			if ((locate(/mob/living) in sloc.loc) || (locate(/obj/structure/AIcore) in sloc.loc))
-				continue
-			loc_landmark = sloc
-		if (!loc_landmark)
-			for(var/obj/effect/landmark/tripai in landmarks_list)
-				if (tripai.name == "tripai")
-					if((locate(/mob/living) in tripai.loc) || (locate(/obj/structure/AIcore) in tripai.loc))
-						continue
-					loc_landmark = tripai
-		if (!loc_landmark)
-			O << "Oh god sorry we can't find an unoccupied AI spawn location, so we're spawning you on top of someone."
-			for(var/obj/effect/landmark/start/sloc in landmarks_list)
-				if (sloc.name == "AI")
-					loc_landmark = sloc
+			if (sloc.name == "AI")
+				loc_landmark = sloc
 
-		O.loc = loc_landmark.loc
-		for (var/obj/item/device/radio/intercom/comm in O.loc)
-			comm.ai += O
+	O.loc = loc_landmark.loc
+	for (var/obj/item/device/radio/intercom/comm in O.loc)
+		comm.ai += O
 
-	O << "<B>You are playing the station's AI. The AI cannot move, but can interact with many objects while viewing them (through cameras).</B>"
-	O << "<B>To look at other parts of the station, click on yourself to get a camera menu.</B>"
-	O << "<B>While observing through a camera, you can use most (networked) devices which you can see, such as computers, APCs, intercoms, doors, etc.</B>"
-	O << "To use something, simply click on it."
-	O << {"Use say ":b to speak to your cyborgs through binary."}
-	if (!(ticker && ticker.mode && (O.mind in ticker.mode.malf_ai)))
-		O.show_laws()
-		O << "<b>These laws may be changed by other players, or by you being the traitor.</b>"
+	O.on_mob_init()
 
-	O.verbs += /mob/living/silicon/ai/proc/show_laws_verb
-	O.verbs += /mob/living/silicon/ai/proc/ai_statuschange
-
-	O.job = "AI"
+	O.add_ai_verbs()
 
 	O.rename_self("ai",1)
-	spawn(0)
-		del(src)
-	return O
-
+	. = O
+	qdel(src)
+	
 /mob/living/carbon/human/make_into_mask(var/should_gib = 0)
 	for(var/t in organs)
-		del(t)
+		qdel(t)
 	return ..(should_gib)
 
 
@@ -150,7 +138,7 @@
 
 	if(!should_remove_items)
 		for(var/obj/item/W in src)
-			drop_from_inventory(W)
+			unEquip(W)
 
 	var/mob/spirit/mask/new_spirit = new()
 
@@ -193,7 +181,7 @@
 	if (monkeyizing)
 		return
 	for(var/obj/item/W in src)
-		drop_from_inventory(W)
+		unEquip(W)
 	regenerate_icons()
 	monkeyizing = 1
 	canmove = 0
@@ -249,7 +237,7 @@
 	if (monkeyizing)
 		return
 	for(var/obj/item/W in src)
-		drop_from_inventory(W)
+		unEquip(W)
 	regenerate_icons()
 	monkeyizing = 1
 	canmove = 0
@@ -280,7 +268,7 @@
 	if (monkeyizing)
 		return
 	for(var/obj/item/W in src)
-		drop_from_inventory(W)
+		unEquip(W)
 	regenerate_icons()
 	monkeyizing = 1
 	canmove = 0
@@ -315,7 +303,7 @@
 	if (monkeyizing)
 		return
 	for(var/obj/item/W in src)
-		drop_from_inventory(W)
+		unEquip(W)
 	regenerate_icons()
 	monkeyizing = 1
 	canmove = 0
@@ -345,7 +333,7 @@
 	if(monkeyizing)
 		return
 	for(var/obj/item/W in src)
-		drop_from_inventory(W)
+		unEquip(W)
 
 	regenerate_icons()
 	monkeyizing = 1
@@ -434,7 +422,13 @@
 	if(ispath(MP, /mob/living/simple_animal/pony))
 		return 1 // ZOMG PONIES WHEEE
 	if(ispath(MP, /mob/living/simple_animal/fox))
-		return 1 		
+		return 1
+	if(ispath(MP, /mob/living/simple_animal/chick))
+		return 1
+	if(ispath(MP, /mob/living/simple_animal/pug))
+		return 1
+	if(ispath(MP, /mob/living/simple_animal/butterfly))
+		return 1
 	//Not in here? Must be untested!
 	return 0
 
@@ -459,7 +453,13 @@
 	if(ispath(MP, /mob/living/simple_animal/pony))
 		return 1
 	if(ispath(MP, /mob/living/simple_animal/fox))
-		return 1 	
+		return 1
+	if(ispath(MP, /mob/living/simple_animal/chick))
+		return 1
+	if(ispath(MP, /mob/living/simple_animal/pug))
+		return 1
+	if(ispath(MP, /mob/living/simple_animal/butterfly))
+		return 1
 
 //Antag Creatures!
 /*	if(ispath(MP, /mob/living/simple_animal/hostile/carp) && !jobban_isbanned(src, "Syndicate"))

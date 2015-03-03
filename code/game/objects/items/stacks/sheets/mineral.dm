@@ -77,7 +77,7 @@ obj/item/stack/sheet/mineral/iron
 	origin_tech = "materials=1"
 	sheettype = "iron"
 	color = "#333333"
-	perunit = 3750
+	perunit = 2000
 
 obj/item/stack/sheet/mineral/iron/New()
 	..()
@@ -88,7 +88,7 @@ obj/item/stack/sheet/mineral/iron/New()
 	desc = "This appears to be a combination of both sand and stone."
 	singular_name = "sandstone brick"
 	icon_state = "sheet-sandstone"
-	throw_speed = 4
+	throw_speed = 3
 	throw_range = 5
 	origin_tech = "materials=1"
 	sheettype = "sandstone"
@@ -101,7 +101,7 @@ obj/item/stack/sheet/mineral/iron/New()
 	name = "diamond"
 	icon_state = "sheet-diamond"
 	origin_tech = "materials=6"
-	perunit = 3750
+	perunit = 2000
 	sheettype = "diamond"
 
 

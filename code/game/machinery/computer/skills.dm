@@ -22,7 +22,7 @@
 	var/order = 1 // -1 = Descending - 1 = Ascending
 
 
-/obj/machinery/computer/skills/attackby(obj/item/O as obj, user as mob)
+/obj/machinery/computer/skills/attackby(obj/item/O as obj, user as mob, params)
 	if(istype(O, /obj/item/weapon/card/id) && !scan)
 		usr.drop_item()
 		O.loc = src
@@ -151,7 +151,7 @@ I can't be bothered to look more of the actual code outside of switch but that p
 What a mess.*/
 /obj/machinery/computer/skills/Topic(href, href_list)
 	if(..())
-		return
+		return 1
 	if (!( data_core.general.Find(active1) ))
 		active1 = null
 	if ((usr.contents.Find(src) || (in_range(src, usr) && istype(loc, /turf))) || (istype(usr, /mob/living/silicon)))

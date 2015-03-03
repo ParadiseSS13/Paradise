@@ -65,7 +65,7 @@
 	if(stat || paralysis || stunned || weakened)
 		return
 
-	face_atom(A) // change direction to face what you clicked on
+	face_atom(A)
 
 	if(next_move > world.time) // in the year 2000...
 		return
@@ -77,6 +77,7 @@
 		return M.click_action(A,src)
 
 	if(restrained())
+		changeNext_move(CLICK_CD_HANDCUFFED) //Doing shit in cuffs shall be vey slow
 		RestrainedClickOn(A)
 		return
 
@@ -87,56 +88,45 @@
 	var/obj/item/W = get_active_hand()
 
 	if(W == A)
-		next_move = world.time + 6
-		if(W.flags&USEDELAY)
-			next_move += 5
 		W.attack_self(src)
 		if(hand)
 			update_inv_l_hand(0)
 		else
 			update_inv_r_hand(0)
-
 		return
 
-	// operate two levels deep here (item in backpack in src; NOT item in box in backpack in src)
-	if(A == loc || (A in loc) || (A in contents) || (A.loc in contents))
-
-		// faster access to objects already on you
-		if(A in contents)
-			next_move = world.time + 6 // on your person
-		else
-			next_move = world.time + 8 // in a box/bag or in your square
-
+	// operate two STORAGE levels deep here (item in backpack in src; NOT item in box in backpack in src)
+	var/sdepth = A.storage_depth(src)
+	if(A == loc || (A in loc) || (sdepth != -1 && sdepth <= 1))
 		// No adjacency needed
 		if(W)
-			if(W.flags&USEDELAY)
-				next_move += 5
-
 			var/resolved = A.attackby(W,src)
 			if(!resolved && A && W)
 				W.afterattack(A,src,1,params) // 1 indicates adjacency
 		else
-			UnarmedAttack(A)
+			if(ismob(A))
+				changeNext_move(CLICK_CD_MELEE)
+			UnarmedAttack(A, 1)
+
 		return
 
 	if(!isturf(loc)) // This is going to stop you from telekinesing from inside a closet, but I don't shed many tears for that
 		return
 
 	// Allows you to click on a box's contents, if that box is on the ground, but no deeper than that
-	if(isturf(A) || isturf(A.loc) || (A.loc && isturf(A.loc.loc)))
-		next_move = world.time + 10
-
+	sdepth = A.storage_depth_turf()
+	if(isturf(A) || isturf(A.loc) || (sdepth != -1 && sdepth <= 1))
 		if(A.Adjacent(src)) // see adjacent.dm
 			if(W)
-				if(W.flags&USEDELAY)
-					next_move += 5
-
-				// Return 1 in attackby() to prevent afterattack() effects (when safely moving items for example)
-				var/resolved = A.attackby(W,src)
+				// Return 1 in attackby() to prevent afterattack() effects (when safely moving items for example, params)
+				var/resolved = A.attackby(W,src,params)
 				if(!resolved && A && W)
 					W.afterattack(A,src,1,params) // 1: clicking something Adjacent
 			else
+				if(ismob(A))
+					changeNext_move(CLICK_CD_MELEE)
 				UnarmedAttack(A, 1)
+
 			return
 		else // non-adjacent click
 			if(W)
@@ -146,10 +136,12 @@
 
 	return
 
+/mob/proc/changeNext_move(num)
+	next_move = world.time + num
+
 // Default behavior: ignore double clicks, consider them normal clicks instead
 /mob/proc/DblClickOn(var/atom/A, var/params)
-	ClickOn(A,params)
-
+	return
 
 /*
 	Translates into attack_hand, etc.
@@ -162,6 +154,8 @@
 	in human click code to allow glove touches only at melee range.
 */
 /mob/proc/UnarmedAttack(var/atom/A, var/proximity_flag)
+	if(ismob(A))
+		changeNext_move(CLICK_CD_MELEE)
 	return
 
 /*
@@ -176,22 +170,12 @@
 	if(ishuman(src) && (istype(src:gloves, /obj/item/clothing/gloves/yellow/power)) && a_intent == "harm")
 		PowerGlove(A)
 	if(!mutations.len) return
-	if((M_LASER in mutations) && a_intent == "harm")
+	if((LASER in mutations) && a_intent == "harm")
 		LaserEyes(A) // moved into a proc below
 		return
-	else if(M_TK in mutations)
-		switch(get_dist(src,A))
-			if(0)
-				;
-			if(1 to 5) // not adjacent may mean blocked by window
-				next_move += 2
-			if(5 to 7)
-				next_move += 5
-			if(8 to tk_maxrange)
-				next_move += 10
-			else
-				return
-		A.attack_tk(src)
+	else
+		if(TK in mutations)
+			A.attack_tk(src)
 /*
 	Restrained ClickOn
 
@@ -208,6 +192,13 @@
 /mob/proc/MiddleClickOn(var/atom/A)
 	A.point()
 	return
+
+/mob/living/carbon/MiddleClickOn(var/atom/A)
+	if(!src.stat && src.mind && src.mind.changeling && src.mind.changeling.chosen_sting && (istype(A, /mob/living/carbon)) && (A != src))
+		next_click = world.time + 5
+		mind.changeling.chosen_sting.try_to_sting(src, A)
+	else
+		A.point()
 
 // In case of use break glass
 /*
@@ -251,6 +242,13 @@
 	A.AltClick(src)
 	return
 
+/mob/living/carbon/AltClickOn(var/atom/A)
+	if(!src.stat && src.mind && src.mind.changeling && src.mind.changeling.chosen_sting && (istype(A, /mob/living/carbon)) && (A != src))
+		next_click = world.time + 5
+		mind.changeling.chosen_sting.try_to_sting(src, A)
+	else
+		..()
+
 /atom/proc/AltClick(var/mob/user)
 	var/turf/T = get_turf(src)
 	if(T && user.TurfAdjacent(T))
@@ -273,16 +271,16 @@
 	return
 
 /atom/proc/CtrlShiftClick(var/mob/user)
-	return	
+	return
 
 /mob/proc/AltShiftClickOn(var/atom/A)
 	A.AltShiftClick(src)
 	return
 
 /atom/proc/AltShiftClick(var/mob/user)
-	return	
-	
-	
+	return
+
+
 /*
 	Misc helpers
 
@@ -293,7 +291,7 @@
 	return
 
 /mob/living/LaserEyes(atom/A)
-	next_move = world.time + 6
+	changeNext_move(CLICK_CD_RANGE)
 	var/turf/T = get_turf(src)
 	var/turf/U = get_turf(A)
 
@@ -346,21 +344,9 @@
 		if(available >= 5000000)
 			L.damage = 205
 		if(L.damage >= 200)
-			apply_damage(15, BURN, (hand ? "l_hand" : "r_hand"))
-			//usr:Stun(15)
-			//usr:Weaken(15)
-			//if(usr:status_flags & CANSTUN) // stun is usually associated with stutter
-			//	usr:stuttering += 20
 			time = 200
-			src << "<span class='warning'>[G] overload from the massive current shocking you in the process!"
 		else if(L.damage >= 100)
-			apply_damage(5, BURN, (hand ? "l_hand" : "r_hand"))
-			//usr:Stun(10)
-			//usr:Weaken(10)
-			//if(usr:status_flags & CANSTUN) // stun is usually associated with stutter
-			//	usr:stuttering += 10
 			time = 150
-			src << "<span class='warning'>[G] overload from the massive current shocking you in the process!"
 		var/datum/effect/effect/system/spark_spread/s = new /datum/effect/effect/system/spark_spread
 		s.set_up(5, 1, src)
 		s.start()

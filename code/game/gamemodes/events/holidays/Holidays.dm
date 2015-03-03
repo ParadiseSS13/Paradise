@@ -171,7 +171,7 @@ var/global/Holiday = null
 */
 /*			var/list/obj/containers = list()
 			for(var/obj/item/weapon/storage/S in world)
-				if(S.z != 1)	continue
+				if(!(S.z in config.station_levels))	continue
 				containers += S
 
 			message_admins("\blue DEBUG: Event: Egg spawned at [Egg.loc] ([Egg.x],[Egg.y],[Egg.z])")*/

@@ -21,7 +21,7 @@
 		return
 
 
-	attackby(obj/item/clothing/under/U as obj, mob/user as mob)
+	attackby(obj/item/clothing/under/U as obj, mob/user as mob, params)
 		..()
 		if(istype(U, /obj/item/clothing/under/chameleon))
 			user << "\red Nothing happens."

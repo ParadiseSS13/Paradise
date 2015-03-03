@@ -45,7 +45,7 @@
 	if(severity && prob(30))
 		src.visible_message("The [src] crumbles away, leaving some dust and gravel behind.")*/
 
-/obj/item/weapon/ore/strangerock/attackby(obj/item/weapon/W as obj, mob/user as mob)
+/obj/item/weapon/ore/strangerock/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
 	if(istype(W,/obj/item/weapon/weldingtool/))
 		var/obj/item/weapon/weldingtool/w = W
 		if(w.isOn())
@@ -183,12 +183,12 @@
 			apply_image_decorations = 1
 		if(8)
 			item_type = "handcuffs"
-			new_item = new /obj/item/weapon/handcuffs(src.loc)
+			new_item = new /obj/item/weapon/restraints/handcuffs(src.loc)
 			additional_desc = "[pick("They appear to be for securing two things together","Looks kinky","Doesn't seem like a children's toy")]."
 		if(9)
 			item_type = "[pick("wicked","evil","byzantine","dangerous")] looking [pick("device","contraption","thing","trap")]"
 			apply_prefix = 0
-			new_item = new /obj/item/weapon/legcuffs/beartrap(src.loc)
+			new_item = new /obj/item/weapon/restraints/legcuffs/beartrap(src.loc)
 			additional_desc = "[pick("It looks like it could take a limb off",\
 			"Could be some kind of animal trap",\
 			"There appear to be [pick("dark red","dark purple","dark green","dark blue")] stains along part of it")]."
@@ -250,7 +250,7 @@
 			if(prob(75))
 				new_item = new /obj/item/weapon/pen(src.loc)
 			else
-				new_item = new /obj/item/weapon/pen/sleepypen(src.loc)
+				new_item = new /obj/item/weapon/pen/sleepy(src.loc)
 			if(prob(30))
 				apply_image_decorations = 1
 		if(16)
@@ -347,7 +347,7 @@
 			if(spawn_type)
 				var/obj/item/weapon/gun/energy/new_gun = new spawn_type(src.loc)
 				new_item = new_gun
-				new_item.icon_state = "egun[rand(1,6)]"
+				new_item.icon_state = pick("laser","retro","laser","caplaser","xray","energy","laser")
 				new_gun.desc = "This is an antique energy weapon, you're not sure if it will fire or not."
 
 				//5% chance to explode when first fired
@@ -544,12 +544,14 @@
 
 		if(talkative)
 			new_item.talking_atom = new()
-			talking_atom.holder_atom = new_item
-			talking_atom.init()
+			if(talking_atom)
+				talking_atom.holder_atom = new_item
+				talking_atom.init()
 
 		del(src)
 
 	else if(talkative)
 		src.talking_atom = new()
-		talking_atom.holder_atom = src
-		talking_atom.init()
+		if(talking_atom)
+			talking_atom.holder_atom = src
+			talking_atom.init()

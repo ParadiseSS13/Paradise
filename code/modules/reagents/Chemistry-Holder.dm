@@ -398,11 +398,12 @@ datum
 				return 1
 
 			check_gofast(var/mob/M)
-				if(istype(M, /mob))
-					if(M.reagents.has_reagent("hyperzine")||M.reagents.has_reagent("nuka_cola"))
-						return 1
-					else
-						M.status_flags &= ~GOTTAGOFAST
+				if(M && istype(M, /mob))
+					if(M.reagents)
+						if(M.reagents.has_reagent("hyperzine")||M.reagents.has_reagent("nuka_cola"))
+							return 1
+						else
+							M.status_flags &= ~GOTTAGOFAST
 
 			update_total()
 				total_volume = 0
@@ -640,3 +641,10 @@ datum
 atom/proc/create_reagents(var/max_vol)
 	reagents = new/datum/reagents(max_vol)
 	reagents.my_atom = src
+
+/datum/reagents/Destroy()
+	for(var/datum/reagent/reagent in reagent_list)
+		reagent.Destroy()
+
+	if(my_atom)
+		my_atom = null

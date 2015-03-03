@@ -50,7 +50,7 @@
 	return
 
 /*
-/obj/machinery/computer/pod/attackby(I as obj, user as mob)
+/obj/machinery/computer/pod/attackby(I as obj, user as mob, params)
 	if(istype(I, /obj/item/weapon/screwdriver))
 		playsound(loc, 'sound/items/Screwdriver.ogg', 50, 1)
 		if(do_after(user, 20))
@@ -163,7 +163,7 @@
 
 /obj/machinery/computer/pod/Topic(href, href_list)
 	if(..())
-		return
+		return 1
 	if((usr.contents.Find(src) || (in_range(src, usr) && istype(loc, /turf))) || (istype(usr, /mob/living/silicon)))
 		usr.set_machine(src)
 		if(href_list["power"])

@@ -304,7 +304,7 @@
 			if(auth)
 				var/t1 = href_list["assign"]
 				if(t1 == "Custom")
-					var/temp_t = copytext(sanitize(input("Enter a custom job assignment.","Assignment")),1,MAX_MESSAGE_LEN)
+					var/temp_t = sanitize(copytext(input("Enter a custom job assignment.","Assignment"),1,MAX_MESSAGE_LEN))
 					if(temp_t)
 						t1 = temp_t
 				set_default_access(t1)

@@ -4,7 +4,6 @@
 	icon_state = "stunbaton"
 	item_state = "baton"
 	slot_flags = SLOT_BELT
-	flags = FPRINT | TABLEPASS
 	force = 10
 	throwforce = 7
 	w_class = 3
@@ -12,7 +11,7 @@
 	attack_verb = list("beaten")
 	var/stunforce = 7
 	var/status = 0
-	var/obj/item/weapon/cell/high/bcell = null
+	var/obj/item/weapon/stock_parts/cell/high/bcell = null
 	var/hitcost = 1500
 
 /obj/item/weapon/melee/baton/suicide_act(mob/user)
@@ -25,7 +24,7 @@
 	return
 
 /obj/item/weapon/melee/baton/CheckParts()
-	bcell = locate(/obj/item/weapon/cell) in contents
+	bcell = locate(/obj/item/weapon/stock_parts/cell) in contents
 	update_icon()
 
 /obj/item/weapon/melee/baton/loaded/New() //this one starts with a cell pre-installed.
@@ -60,9 +59,9 @@
 	if(!bcell)
 		user <<"<span class='warning'>The baton does not have a power source installed.</span>"
 
-/obj/item/weapon/melee/baton/attackby(obj/item/weapon/W, mob/user)
-	if(istype(W, /obj/item/weapon/cell))
-		var/obj/item/weapon/cell/C = W
+/obj/item/weapon/melee/baton/attackby(obj/item/weapon/W, mob/user, params)
+	if(istype(W, /obj/item/weapon/stock_parts/cell))
+		var/obj/item/weapon/stock_parts/cell/C = W
 		if(bcell)
 			user << "<span class='notice'>[src] already has a cell.</span>"
 		else
@@ -102,7 +101,7 @@
 	add_fingerprint(user)
 
 /obj/item/weapon/melee/baton/attack(mob/M, mob/living/user)
-	if(status && (M_CLUMSY in user.mutations) && prob(50))
+	if(status && (CLUMSY in user.mutations) && prob(50))
 		user.visible_message("<span class='danger'>[user] accidentally hits themself with [src]!</span>", \
 							"<span class='userdanger'>You accidentally hit yourself with [src]!</span>")
 		user.Weaken(stunforce*3)
@@ -119,6 +118,7 @@
 
 	if(user.a_intent != "harm")
 		if(status)
+			user.do_attack_animation(L)
 			baton_stun(L, user)
 		else
 			L.visible_message("<span class='warning'>[L] has been prodded with [src] by [user]. Luckily it was off.</span>", \
@@ -177,7 +177,7 @@
 		bcell = R.cell
 	return ..()
 
-/obj/item/weapon/melee/baton/robot/attackby(obj/item/weapon/W, mob/user)
+/obj/item/weapon/melee/baton/robot/attackby(obj/item/weapon/W, mob/user, params)
 	return
 
 /obj/item/weapon/melee/baton/loaded/ntcane

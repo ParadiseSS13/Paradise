@@ -142,8 +142,8 @@
 		pixel_x = (dir & 3)? 0 : (dir == 4 ? -24 : 24)
 		pixel_y = (dir & 3)? (dir ==1 ? -24 : 24) : 0
 		update_icon()
-		if(ticker && ticker.current_state == 3)//if the game is running
-			src.initialize()
+		if(ticker && ticker.current_state == GAME_STATE_PLAYING)
+			initialize()
 		return
 
 	first_run()
@@ -458,6 +458,7 @@
 	alert_signal.transmission_method = 1
 	alert_signal.data["zone"] = alarm_area.name
 	alert_signal.data["type"] = "Atmospheric"
+	alert_signal.data["hidden"] = hidden
 
 	if(alert_level==2)
 		alert_signal.data["alert"] = "severe"
@@ -728,7 +729,39 @@
 	if(!shorted)
 		ui_interact(user)
 
+/obj/machinery/alarm/proc/can_use(mob/user as mob)
+	if (user.stat && !isobserver(user))
+		user << "\red You must be conscious to use this [src]!"
+		return 0
+
+	if(stat & (NOPOWER|BROKEN))
+		return 0
+
+	if(buildstage != 2)
+		return 0
+
+	if((get_dist(src, user) > 1) && !istype(user, /mob/living/silicon))
+		return 0
+
+	if(istype(user, /mob/living/silicon) && aidisabled)
+		user << "AI control for this air alarm interface has been disabled."
+		return 0
+
+	return 1
+
+/obj/machinery/alarm/proc/is_authenticated(mob/user as mob)
+	if(isAI(user) || isrobot(user))
+		return 1
+	else
+		return !locked
+
 /obj/machinery/alarm/Topic(href, href_list)
+	if(..())
+		return 1
+
+	if(!can_use(usr))
+		return 1
+
 	var/changed=0
 
 	if(href_list["rcon"])
@@ -747,6 +780,9 @@
 
 	//testing(href)
 	if(href_list["command"])
+		if(!is_authenticated(usr))
+			return
+
 		var/device_id = href_list["id_tag"]
 		switch(href_list["command"])
 			if( "power",
@@ -832,11 +868,17 @@
 				return 1
 
 	if(href_list["screen"])
+		if(!is_authenticated(usr))
+			return
+
 		screen = text2num(href_list["screen"])
 		ui_interact(usr)
 		return 1
 
 	if(href_list["atmos_alarm"])
+		if(!is_authenticated(usr))
+			return
+
 		alarmActivated=1
 		alarm_area.updateDangerLevel()
 		update_icon()
@@ -844,6 +886,9 @@
 		return 1
 
 	if(href_list["atmos_reset"])
+		if(!is_authenticated(usr))
+			return
+
 		alarmActivated=0
 		alarm_area.updateDangerLevel()
 		update_icon()
@@ -851,12 +896,18 @@
 		return 1
 
 	if(href_list["mode"])
+		if(!is_authenticated(usr))
+			return
+
 		mode = text2num(href_list["mode"])
 		apply_mode()
 		ui_interact(usr)
 		return 1
 
 	if(href_list["preset"])
+		if(!is_authenticated(usr))
+			return
+
 		preset = text2num(href_list["preset"])
 		apply_preset()
 		ui_interact(usr)
@@ -879,7 +930,7 @@
 		updateUsrDialog()
 
 
-/obj/machinery/alarm/attackby(obj/item/W as obj, mob/user as mob)
+/obj/machinery/alarm/attackby(obj/item/W as obj, mob/user as mob, params)
 /*	if (istype(W, /obj/item/weapon/wirecutters))
 		stat ^= BROKEN
 		add_fingerprint(user)
@@ -968,7 +1019,7 @@
 				playsound(get_turf(src), 'sound/items/Ratchet.ogg', 50, 1)
 				del(src)
 
-	return ..()
+	return 0
 
 /obj/machinery/alarm/power_change()
 	if(powered(power_channel))
@@ -1009,9 +1060,9 @@ Code shamelessly copied from apc_frame
 	desc = "Used for building Air Alarms"
 	icon = 'icons/obj/monitors.dmi'
 	icon_state = "alarm_bitem"
-	flags = FPRINT | TABLEPASS| CONDUCT
+	flags = CONDUCT
 
-/obj/item/alarm_frame/attackby(obj/item/weapon/W as obj, mob/user as mob)
+/obj/item/alarm_frame/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
 	if (istype(W, /obj/item/weapon/wrench))
 		new /obj/item/stack/sheet/metal( get_turf(src.loc), 2 )
 		del(src)
@@ -1113,7 +1164,7 @@ FIRE ALARM
 	if(prob(50/severity)) alarm()
 	..()
 
-/obj/machinery/firealarm/attackby(obj/item/W as obj, mob/user as mob)
+/obj/machinery/firealarm/attackby(obj/item/W as obj, mob/user as mob, params)
 	src.add_fingerprint(user)
 
 	if (istype(W, /obj/item/weapon/screwdriver) && buildstage == 2)
@@ -1345,9 +1396,9 @@ Code shamelessly copied from apc_frame
 	desc = "Used for building Fire Alarms"
 	icon = 'icons/obj/monitors.dmi'
 	icon_state = "fire_bitem"
-	flags = FPRINT | TABLEPASS| CONDUCT
+	flags = CONDUCT
 
-/obj/item/firealarm_frame/attackby(obj/item/weapon/W as obj, mob/user as mob)
+/obj/item/firealarm_frame/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
 	if (istype(W, /obj/item/weapon/wrench))
 		new /obj/item/stack/sheet/metal( get_turf(src.loc), 2 )
 		del(src)

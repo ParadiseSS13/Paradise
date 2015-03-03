@@ -8,7 +8,6 @@
 	throw_speed = 3
 	throw_range = 7
 	w_class = 3.0
-	flags = FPRINT | TABLEPASS
 	attack_verb = list("mopped", "bashed", "bludgeoned", "whacked")
 	var/mopping = 0
 	var/mopcount = 0
@@ -50,7 +49,7 @@
 			user << "<span class='notice'>You have finished mopping!</span>"
 
 
-/obj/effect/attackby(obj/item/I, mob/user)
+/obj/effect/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/weapon/mop) || istype(I, /obj/item/weapon/soap))
 		return
 	..()

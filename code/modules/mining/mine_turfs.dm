@@ -103,7 +103,7 @@
 		scan_state = "rock_[mineral.name][rand(1,3)]"
 
 	//Not even going to touch this pile of spaghetti
-	attackby(obj/item/weapon/W as obj, mob/user as mob)
+	attackby(obj/item/weapon/W as obj, mob/user as mob, params)
 
 		if (!(istype(usr, /mob/living/carbon/human) || ticker) && ticker.mode.name != "monkey")
 			usr << "\red You don't have the dexterity to do this!"
@@ -137,7 +137,7 @@
 				return
 			last_act = world.time
 
-			playsound(user, P.drill_sound, 20, 1)
+			P.playDigSound()
 
 			//handle any archaeological finds we might uncover
 			var/fail_message
@@ -279,6 +279,7 @@
 				M.apply_effect(25, IRRADIATE)
 
 		var/turf/simulated/floor/plating/airless/asteroid/N = ChangeTurf(/turf/simulated/floor/plating/airless/asteroid)
+		playsound(src, 'sound/effects/break_stone.ogg', 50, 1) //beautiful destruction
 		N.fullUpdateMineralOverlays()
 
 		if(rand(1,750) == 1)
@@ -419,7 +420,7 @@
 			gets_dug()
 	return
 
-/turf/simulated/floor/plating/airless/asteroid/attackby(obj/item/weapon/W as obj, mob/user as mob)
+/turf/simulated/floor/plating/airless/asteroid/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
 
 	if(!W || !user)
 		return 0
@@ -434,7 +435,7 @@
 			return
 
 		user << "\red You start digging."
-		playsound(loc, 'sound/effects/rustle1.ogg', 50, 1) //russle sounds sounded better
+		playsound(src, 'sound/effects/shovel_dig.ogg', 50, 1) //FUCK YO RUSTLE I GOT'S THE DIGS SOUND HERE
 
 		sleep(40)
 		if ((user.loc == T && user.get_active_hand() == W))
@@ -451,7 +452,7 @@
 			return
 
 		user << "\red You start digging."
-		playsound(loc, 'sound/effects/rustle1.ogg', 50, 1) //russle sounds sounded better
+		playsound(src, 'sound/effects/shovel_dig.ogg', 50, 1) //FUCK YO RUSTLE I GOT'S THE DIGS SOUND HERE
 
 		sleep(30)
 		if ((user.loc == T && user.get_active_hand() == W))
@@ -468,7 +469,7 @@
 			return
 
 		user << "\red You start digging."
-		playsound(loc, 'sound/effects/rustle1.ogg', 50, 1) //russle sounds sounded better
+		playsound(src, 'sound/effects/shovel_dig.ogg', 50, 1) //FUCK YO RUSTLE I GOT'S THE DIGS SOUND HERE
 
 		sleep(0)
 		if ((user.loc == T && user.get_active_hand() == W))

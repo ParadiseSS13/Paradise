@@ -81,6 +81,7 @@ var/SCRAMBLEBLOCK = 0
 var/TOXICFARTBLOCK = 0
 var/STRONGBLOCK = 0
 var/HORNSBLOCK = 0
+var/COMICBLOCK = 0
 
 // Powers
 var/SOBERBLOCK = 0
@@ -100,7 +101,7 @@ var/POLYMORPHBLOCK = 0
 // /vg/ Mutations
 ///////////////////////////////
 var/LOUDBLOCK = 0
-var/WHISPERBLOCK = 0
+//var/WHISPERBLOCK = 0
 var/DIZZYBLOCK = 0
 
 
@@ -193,7 +194,6 @@ var/list/reverse_dir = list(2, 1, 3, 8, 10, 9, 11, 4, 6, 5, 7, 12, 14, 13, 15, 3
 
 var/datum/station_state/start_state = null
 var/datum/configuration/config = null
-var/datum/sun/sun = null
 
 var/list/combatlog = list()
 var/list/IClog = list()
@@ -326,12 +326,6 @@ var/score_dmgestkey = null
 
 // Recall time limit:  2 hours
 var/recall_time_limit=72000
-
-//added for Xenoarchaeology, might be useful for other stuff
-var/global/list/alphabet_uppercase = list("A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z")
-
-// AI controlled bots
-var/global/list/aibots = list()
 
 // Announcer intercom, because too much stuff creates an intercom for one message then hard del()s it.
 var/global/obj/item/device/radio/intercom/global_announcer = new(null)

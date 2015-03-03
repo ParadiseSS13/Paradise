@@ -103,7 +103,7 @@
 		//mod PMs are maroon
 		//PMs sent from admins and mods display their rank
 		if(holder)
-			if( holder.rights & R_MOD && !holder.rights & R_ADMIN )
+			if( holder.rights & (R_MOD | R_MENTOR) && !holder.rights & R_ADMIN )
 				recieve_color = "maroon"
 			else
 				recieve_color = "red"
@@ -204,20 +204,14 @@
 
 	var/list/modholders = list()
 	var/list/banholders = list()
-	var/list/debugholders = list()
 	var/list/adminholders = list()
-	var/list/eventholders = list()
 	for(var/client/X in admins)
-		if(R_MOD & X.holder.rights)
+		if((R_MOD | R_MENTOR) & X.holder.rights)
 			modholders += X
 		if(R_ADMIN & X.holder.rights)
 			adminholders += X
-		if(R_DEBUG & X.holder.rights)
-			debugholders += X
 		if(R_BAN & X.holder.rights)
 			banholders += X
-		if(R_EVENT & X.holder.rights)
-			eventholders += X
 
 	//we don't use message_admins here because the sender/receiver might get it too
 	for(var/client/X in admins)
@@ -227,20 +221,10 @@
 		if(X.key!=key && X.key!=C.key)
 			switch(type)
 				if("Question")
-					if(X.holder.rights & R_MOD)
+					if(X.holder.rights & (R_MOD | R_MENTOR))
 						X << "<B><font color='blue'>[type]: [key_name(src, X, 0, type)]-&gt;[key_name(C, X, 0, type)]:</B> \blue [msg]</font>" //inform X
 					else if(!modholders.len && X.holder.rights & R_ADMIN)
 						X << "<B><font color='blue'>[type]: [key_name(src, X, 0, type)]-&gt;[key_name(C, X, 0, type)]:</B> \blue [msg]</font>" //Any admins in backup of mod question
-				if("Bug Report")
-					if(X.holder.rights & R_DEBUG)
-						X << "<B><font color='blue'>[type]: [key_name(src, X, 0, type)]-&gt;[key_name(C, X, 0, type)]:</B> \blue [msg]</font>" //inform X
-					else if(!debugholders.len && X.holder.rights & R_ADMIN)
-						X << "<B><font color='blue'>[type]: [key_name(src, X, 0, type)]-&gt;[key_name(C, X, 0, type)]:</B> \blue [msg]</font>" //Any admins in backup of bug reports
-				if("Event")
-					if(X.holder.rights & R_EVENT)
-						X << "<B><font color='blue'>[type]: [key_name(src, X, 0, type)]-&gt;[key_name(C, X, 0, type)]:</B> \blue [msg]</font>" //inform X
-					else if(!eventholders.len && X.holder.rights & R_BAN)
-						X << "<B><font color='blue'>[type]: [key_name(src, X, 0, type)]-&gt;[key_name(C, X, 0, type)]:</B> \blue [msg]</font>" //Quality in backup of Event
 				if("Player Complaint")
 					if(X.holder.rights & R_BAN)
 						X << "<B><font color='blue'>[type]: [key_name(src, X, 0, type)]-&gt;[key_name(C, X, 0, type)]:</B> \blue [msg]</font>" //There should always be at least 1 person with +BAN on
@@ -273,6 +257,6 @@
 	for(var/client/X in admins)
 		if(X == src)
 			continue
-		if((X.holder.rights & R_ADMIN) || (X.holder.rights & R_MOD))
+		if((X.holder.rights & R_ADMIN) || (X.holder.rights & (R_MOD | R_MENTOR)))
 			X << "<B><font color='blue'>PM: [key_name(src, X, 0)]-&gt;IRC-Admins:</B> \blue [msg]</font>"
 

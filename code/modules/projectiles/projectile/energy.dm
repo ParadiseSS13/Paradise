@@ -25,6 +25,12 @@
 			sparks.set_up(1, 1, src)
 			sparks.start()
 			proj_hit = 1
+		else if(iscarbon(target))
+			var/mob/living/carbon/C = target
+			if(HULK in C.mutations)
+				C.say(pick(";RAAAAAAAARGH!", ";HNNNNNNNNNGGGGGGH!", ";GWAAAAAAAARRRHHH!", "NNNNNNNNGGGGGGGGHH!", ";AAAAAAARRRGH!" ))
+			else if(C.status_flags & CANWEAKEN)
+				C.do_jitter_animation(jitter)
 	..()
 
 /obj/item/projectile/energy/electrode/on_range() //to ensure the bolt sparks when it reaches the end of its range if it didn't hit a target yet

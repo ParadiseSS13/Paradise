@@ -6,7 +6,8 @@
 	item_state = null	//so the human update icon uses the icon_state instead.
 	fire_sound = 'sound/weapons/Taser.ogg'
 	projectile_type = "/obj/item/projectile/energy/electrode"
-	cell_type = "/obj/item/weapon/cell/crap"
+	cell_type = "/obj/item/weapon/stock_parts/cell/crap"
+	fire_delay = 20
 
 /obj/item/weapon/gun/energy/taser/cyborg
 	name = "taser gun"
@@ -14,7 +15,7 @@
 	icon_state = "taser"
 	fire_sound = 'sound/weapons/Taser.ogg'
 	projectile_type = "/obj/item/projectile/energy/electrode"
-	cell_type = "/obj/item/weapon/cell/secborg"
+	cell_type = "/obj/item/weapon/stock_parts/cell/secborg"
 	var/charge_tick = 0
 	var/recharge_time = 10 //Time it takes for shots to recharge (in ticks)
 
@@ -50,9 +51,9 @@
 	desc = "A high-tech revolver that fires internal, reusable stun cartidges in a revolving cylinder. Holds twice as much ammo as a standard taser."
 	icon_state = "stunrevolver"
 	fire_sound = "sound/weapons/gunshot.ogg"
-	origin_tech = "combat=3;materials=3;powerstorage=2"
 	projectile_type = "/obj/item/projectile/energy/electrode"
-	cell_type = "/obj/item/weapon/cell"
+	cell_type = "/obj/item/weapon/stock_parts/cell"
+	fire_delay = 20
 
 
 
@@ -67,7 +68,7 @@
 	silenced = 1
 	fire_sound = 'sound/weapons/Genhit.ogg'
 	projectile_type = "/obj/item/projectile/energy/bolt"
-	cell_type = "/obj/item/weapon/cell/crap"
+	cell_type = "/obj/item/weapon/stock_parts/cell/crap"
 	var/charge_tick = 0
 
 /obj/item/weapon/gun/energy/crossbow/New()

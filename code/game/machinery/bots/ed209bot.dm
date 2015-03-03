@@ -33,7 +33,6 @@
 	var/arrest_type = 0 //If true, don't handcuff
 	var/projectile = /obj/item/projectile/energy/electrode //Holder for projectile type
 	var/shoot_sound = 'sound/weapons/Taser.ogg'
-	radio_frequency = SEC_FREQ
 	radio_name = "Security"
 	bot_type = SEC_BOT
 	bot_type_name = "ED-209"
@@ -171,7 +170,7 @@ Auto Patrol[]"},
 			declare_arrests = !declare_arrests
 			updateUsrDialog()
 
-/obj/machinery/bot/ed209/attackby(obj/item/weapon/W as obj, mob/user as mob)
+/obj/machinery/bot/ed209/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
 	if (istype(W, /obj/item/weapon/card/id)||istype(W, /obj/item/device/pda))
 		if (allowed(user) && !open && !emagged)
 			locked = !locked
@@ -258,7 +257,7 @@ Auto Patrol[]"},
 						icon_state = "[lasercolor]ed209[on]"
 					var/mob/living/carbon/M = target
 					if(istype(M, /mob/living/carbon/human))
-						if( M.stuttering < 5 && !(M_HULK in M.mutations) )
+						if( M.stuttering < 5 && !(HULK in M.mutations) )
 							M.stuttering = 5
 						M.Stun(5)
 						M.Weaken(5)
@@ -269,7 +268,7 @@ Auto Patrol[]"},
 
 					if(declare_arrests)
 						var/area/location = get_area(src)
-						speak("[arrest_type ? "Detaining" : "Arresting"] level [threatlevel] scumbag <b>[target]</b> in [location].",radio_frequency, radio_name)
+						speak("[arrest_type ? "Detaining" : "Arresting"] level [threatlevel] scumbag <b>[target]</b> in [location].", radio_name)
 					target.visible_message("<span class='danger'>[target] has been stunned by [src]!</span>",\
 											"<span class='userdanger'>[target] has been stunned by [src]!</span></span>")
 
@@ -299,16 +298,15 @@ Auto Patrol[]"},
 				if(!arrest_type)
 					if(!target.handcuffed)  //he's not cuffed? Try to cuff him!
 						mode = BOT_ARREST
-						playsound(loc, 'sound/weapons/handcuffs.ogg', 30, 1, -2)
-						target.visible_message("<span class='danger'>[src] is trying to put handcuffs on [target]!</span>",\
-											"<span class='userdanger'>[src] is trying to put handcuffs on [target]!</span>")
-
+						playsound(loc, 'sound/weapons/cablecuff.ogg', 30, 1, -2)
+						target.visible_message("<span class='danger'>[src] is trying to put zipties on [target]!</span>",\
+											"<span class='userdanger'>[src] is trying to put zipties on [target]!</span>")
 						spawn(30)
 							if( !Adjacent(target) || !isturf(target.loc) ) //if he's in a closet or not adjacent, we cancel cuffing.
 								return
 							if(!target.handcuffed)
-								target.handcuffed = new /obj/item/weapon/handcuffs(target)
-								target.update_inv_handcuffed(0)	//update the handcuffs overlay
+								target.handcuffed = new /obj/item/weapon/restraints/handcuffs/cable/zipties/used(target)
+								target.update_inv_handcuffed(1)	//update the handcuffs overlay
 								back_to_idle()
 					else
 						back_to_idle()
@@ -540,7 +538,7 @@ Auto Patrol[]"},
 
 
 
-/obj/item/weapon/ed209_assembly/attackby(obj/item/weapon/W as obj, mob/user as mob)
+/obj/item/weapon/ed209_assembly/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
 	..()
 
 	if(istype(W, /obj/item/weapon/pen))
@@ -665,14 +663,14 @@ Auto Patrol[]"},
 					user << "<span class='notice'>Taser gun attached.</span>"
 
 		if(9)
-			if(istype(W, /obj/item/weapon/cell))
+			if(istype(W, /obj/item/weapon/stock_parts/cell))
 				build_step++
 				user << "<span class='notice'>You complete the ED-209.</span>"
 				var/turf/T = get_turf(src)
 				new /obj/machinery/bot/ed209(T,created_name,lasercolor)
 				user.drop_item()
 				qdel(W)
-				user.before_take_item(src, 1)
+				user.unEquip(src, 1)
 				qdel(src)
 
 

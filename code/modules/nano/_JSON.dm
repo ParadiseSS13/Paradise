@@ -7,6 +7,6 @@ proc
 		var/static/json_reader/_jsonr = new()
 		return _jsonr.ReadObject(_jsonr.ScanJson(json))
 
-	list2json(list/L)
+	list2json(list/L, var/cached_data = null)
 		var/static/json_writer/_jsonw = new()
-		return _jsonw.WriteObject(L)
+		return _jsonw.WriteObject(L, cached_data)

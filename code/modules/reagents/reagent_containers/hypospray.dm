@@ -12,20 +12,21 @@
 	amount_per_transfer_from_this = 5
 	volume = 30
 	possible_transfer_amounts = list(1,2,3,4,5,10,15,20,25,30)
-	flags = FPRINT | TABLEPASS | OPENCONTAINER
+	flags = OPENCONTAINER
 	slot_flags = SLOT_BELT
+	var/ignore_flags = 0
 
 /obj/item/weapon/reagent_containers/hypospray/attack_paw(mob/user as mob)
 	return src.attack_hand(user)
 
 
-/obj/item/weapon/reagent_containers/hypospray/attack(mob/M as mob, mob/user as mob)
+/obj/item/weapon/reagent_containers/hypospray/attack(mob/living/M, mob/user)
 	if(!reagents.total_volume)
 		user << "\red [src] is empty."
 		return
-	if (!( istype(M, /mob) ))
+	if(!istype(M))
 		return
-	if (reagents.total_volume)
+	if(reagents.total_volume && (ignore_flags || M.can_inject(user, 1)))
 		user << "\blue You inject [M] with [src]."
 		M << "\red You feel a tiny prick!"
 
@@ -61,11 +62,20 @@
 	possible_transfer_amounts = list(10)
 	icon_state = "combat_hypo"
 	volume = 60
+	ignore_flags = 1 // So they can heal their comrades.
 
 /obj/item/weapon/reagent_containers/hypospray/combat/New()
 	..()
 	reagents.add_reagent("synaptizine", 30)
 
+/obj/item/weapon/reagent_containers/hypospray/combat/nanites
+	name = "combat stimulant injector"
+	desc = "A modified air-needle autoinjector filled with expensive regeneration nanites."
+	volume = 100
+
+/obj/item/weapon/reagent_containers/hypospray/combat/New()
+	..()
+	reagents.add_reagent("nanites", 70)
 
 /obj/item/weapon/reagent_containers/hypospray/autoinjector
 	name = "emergency autoinjector"
@@ -75,6 +85,7 @@
 	amount_per_transfer_from_this = 10
 	possible_transfer_amounts = list(10)
 	volume = 10
+	ignore_flags = 1 //so you can medipen through hardsuits
 	flags = null
 
 /obj/item/weapon/reagent_containers/hypospray/autoinjector/New()

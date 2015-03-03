@@ -102,7 +102,7 @@
 		else
 			icon_state = mineralType
 
-	attackby(obj/item/weapon/W as obj, mob/user as mob)
+	attackby(obj/item/weapon/W as obj, mob/user as mob, params)
 		if(istype(W,/obj/item/weapon/pickaxe))
 			var/obj/item/weapon/pickaxe/digTool = W
 			user << "You start digging the [name]."
@@ -157,13 +157,6 @@
 				CheckHardness()
 		return
 
-	proc/update_nearby_tiles(need_rebuild) //Copypasta from airlock code
-		if(!air_master) return 0
-
-		air_master.mark_for_update(get_turf(src))
-
-		return 1
-
 /obj/structure/mineral_door/iron
 	mineralType = "metal"
 	hardness = 3
@@ -194,7 +187,7 @@
 /obj/structure/mineral_door/transparent/plasma
 	mineralType = "plasma"
 
-	attackby(obj/item/weapon/W as obj, mob/user as mob)
+	attackby(obj/item/weapon/W as obj, mob/user as mob, params)
 		if(istype(W,/obj/item/weapon/weldingtool))
 			var/obj/item/weapon/weldingtool/WT = W
 			if(WT.remove_fuel(0, user))

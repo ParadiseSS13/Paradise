@@ -24,9 +24,7 @@
 
 
 	proc/new_player_panel_proc()
-		var/output = "<div align='center'><B>New Player Options</B>"
-		output +="<hr>"
-		output += "<p><a href='byond://?src=\ref[src];show_preferences=1'>Setup Character</A></p>"
+		var/output = "<center><p><a href='byond://?src=\ref[src];show_preferences=1'>Setup Character</A></p>"
 
 		if(!ticker || ticker.current_state <= GAME_STATE_PREGAME)
 			if(!ready)	output += "<p><a href='byond://?src=\ref[src];ready=1'>Declare Ready</A></p>"
@@ -57,9 +55,9 @@
 				else
 					output += "<p><a href='byond://?src=\ref[src];showpoll=1'>Show Player Polls</A></p>"
 
-		output += "</div>"
+		output += "</center>"
 
-		var/datum/browser/popup = new(src, "playersetup", "<div align='center'>New Player Options</div>", 210, 240)
+		var/datum/browser/popup = new(src, "playersetup", "<div align='center'>New Player Options</div>", 220, 290)
 		popup.set_window_options("can_close=0")
 		popup.set_content(output)
 		popup.open(0)
@@ -105,6 +103,7 @@
 
 		if(href_list["ready"])
 			ready = !ready
+			new_player_panel_proc()
 
 		if(href_list["refresh"])
 			src << browse(null, "window=playersetup") //closes the player setup window
@@ -115,7 +114,7 @@
 			if(alert(src,"Are you sure you wish to observe? You will have to wait 30 minutes before being able to respawn!","Player Setup","Yes","No") == "Yes")
 				if(!client)	return 1
 				var/mob/dead/observer/observer = new()
-
+				src << browse(null, "window=playersetup")
 				spawning = 1
 				src << sound(null, repeat = 0, wait = 0, volume = 85, channel = 1) // MAD JAMS cant last forever yo
 
@@ -309,7 +308,7 @@
 		EquipRacialItems(character)
 		character = job_master.EquipRank(character, rank, 1)					//equips the human
 		EquipCustomItems(character)
-		
+
 		// AIs don't need a spawnpoint, they must spawn at an empty core
 		if(character.mind.assigned_role == "AI")
 
@@ -346,7 +345,7 @@
 		else
 			character.loc = pick(latejoin)
 			join_message = "has arrived on the station"
-		
+
 		character.lastarea = get_area(loc)
 		// Moving wheelchair if they have one
 		if(character.buckled && istype(character.buckled, /obj/structure/stool/bed/chair/wheelchair))
@@ -398,12 +397,12 @@
 				if(character.mind)
 					if((character.mind.special_role != "MODE"))
 						var/arrivalmessage = "A new[rank ? " [rank]" : " visitor" ] [join_message ? join_message : "has arrived on the station"]."
-						announcer.say(";[arrivalmessage]")		
+						announcer.say(";[arrivalmessage]")
 			else
 				if(character.mind)
 					if((character.mind.special_role != "MODE"))
 						// can't use their name here, since cyborg namepicking is done post-spawn, so we'll just say "A new Cyborg has arrived"/"A new Android has arrived"/etc.
-						global_announcer.autosay("A new[rank ? " [rank]" : " visitor" ] [join_message ? join_message : "has arrived on the station"].", "Arrivals Announcement Computer")			
+						global_announcer.autosay("A new[rank ? " [rank]" : " visitor" ] [join_message ? join_message : "has arrived on the station"].", "Arrivals Announcement Computer")
 
 	proc/LateChoices()
 		var/mills = world.time // 1/10 of a second, not real milliseconds but whatever
@@ -444,45 +443,21 @@
 	proc/create_character()
 		spawning = 1
 		close_spawn_windows()
+
 		var/mob/living/carbon/human/new_character
+
 		var/datum/species/chosen_species
 		if(client.prefs.species)
 			chosen_species = all_species[client.prefs.species]
 		if(chosen_species)
 			// Have to recheck admin due to no usr at roundstart. Latejoins are fine though.
 			if(is_species_whitelisted(chosen_species) || has_admin_rights())
-				switch(chosen_species.name)
-					if("Slime People")
-						new_character = new /mob/living/carbon/human/slime(loc)
-					if("Tajaran")
-						new_character = new /mob/living/carbon/human/tajaran(loc)
-					if("Unathi")
-						new_character = new /mob/living/carbon/human/unathi(loc)
-					if("Skrell")
-						new_character = new /mob/living/carbon/human/skrell(loc)
-					if("Diona")
-						new_character = new /mob/living/carbon/human/diona(loc)
-					if("Vox")
-						new_character = new /mob/living/carbon/human/vox(loc)
-					if("Vox Armalis")
-						new_character = new /mob/living/carbon/human/voxarmalis(loc)
-					if("Kidan")
-						new_character = new /mob/living/carbon/human/kidan(loc)
-					if("Grey")
-						new_character = new /mob/living/carbon/human/grey(loc)
-					if("Machine")
-						new_character = new /mob/living/carbon/human/machine(loc)
-					if("Plasmaman")
-						new_character = new /mob/living/carbon/human/plasma(loc)
-					if("Human")
-						new_character = new /mob/living/carbon/human/human(loc)
-//				new_character.set_species(client.prefs.species)
-				if(chosen_species.language)
-					new_character.add_language(chosen_species.language)
-		else
-			new_character = new /mob/living/carbon/human(loc)
-		new_character.lastarea = get_area(loc)
+				new_character = new(loc, client.prefs.species)
 
+		if(!new_character)
+			new_character = new(loc)
+
+		new_character.lastarea = get_area(loc)
 
 		var/datum/language/chosen_language
 		if(client.prefs.language)
@@ -519,7 +494,7 @@
 			new_character.disabilities |= NEARSIGHTED
 
 		if(client.prefs.disabilities & DISABILITY_FLAG_FAT)
-			new_character.mutations += M_FAT
+			new_character.mutations += FAT
 			new_character.overeatduration = 600 // Max overeat
 
 		if(client.prefs.disabilities & DISABILITY_FLAG_EPILEPTIC)
@@ -529,7 +504,9 @@
 		if(client.prefs.disabilities & DISABILITY_FLAG_DEAF)
 			new_character.dna.SetSEState(DEAFBLOCK,1,1)
 			new_character.sdisabilities |= DEAF
-			
+
+		chosen_species.handle_dna(new_character)
+
 		domutcheck(new_character)
 		new_character.dna.UpdateSE()
 

@@ -39,13 +39,13 @@ var/const/tk_maxrange = 15
 
 /obj/item/attack_tk(mob/user)
 	if(user.stat || !isturf(loc)) return
-	if((M_TK in user.mutations) && !user.get_active_hand()) // both should already be true to get here
+	if((TK in user.mutations) && !user.get_active_hand()) // both should already be true to get here
 		var/obj/item/tk_grab/O = new(src)
 		user.put_in_active_hand(O)
 		O.host = user
 		O.focus_object(src)
 	else
-		warning("Strange attack_tk(): TK([M_TK in user.mutations]) empty hand([!user.get_active_hand()])")
+		warning("Strange attack_tk(): TK([TK in user.mutations]) empty hand([!user.get_active_hand()])")
 	return
 
 
@@ -56,7 +56,7 @@ var/const/tk_maxrange = 15
 	TK Grab Item (the workhorse of old TK)
 
 	* If you have not grabbed something, do a normal tk attack
-	* If you have something, throw it at the target.  If it is already adjacent, do a normal attackby()
+	* If you have something, throw it at the target.  If it is already adjacent, do a normal attackby(, params)
 	* If you click what you are holding, or attack_self(), do an attack_self_tk() on it.
 	* Deletes itself if it is ever not in your hand, or if you should have no access to TK.
 */
@@ -65,7 +65,7 @@ var/const/tk_maxrange = 15
 	desc = "Magic"
 	icon = 'icons/obj/magic.dmi'//Needs sprites
 	icon_state = "2"
-	flags = NOBLUDGEON
+	flags = NOBLUDGEON | ABSTRACT
 	//item_state = null
 	w_class = 10.0
 	layer = 20
@@ -95,33 +95,24 @@ var/const/tk_maxrange = 15
 		if(focus)
 			focus.attack_self_tk(user)
 
-	afterattack(atom/target as mob|obj|turf|area, mob/living/user as mob|obj, proximity)//TODO: go over this
+	afterattack(atom/target as mob|obj|turf|area, mob/living/user as mob|obj, proximity, params)//TODO: go over this
 		if(!target || !user)	return
 		if(last_throw+3 > world.time)	return
 		if(!host || host != user)
 			del(src)
 			return
-		if(!(M_TK in host.mutations))
+		if(!(TK in host.mutations))
 			del(src)
 			return
 		if(isobj(target) && !isturf(target.loc))
 			return
 
 		var/d = get_dist(user, target)
-		if(focus) d = max(d,get_dist(user,focus)) // whichever is further
-		switch(d)
-			if(0)
-				;
-			if(1 to 5) // not adjacent may mean blocked by window
-				if(!proximity)
-					user.next_move += 2
-			if(5 to 7)
-				user.next_move += 5
-			if(8 to tk_maxrange)
-				user.next_move += 10
-			else
-				user << "\blue Your mind won't reach that far."
-				return
+		if(focus)
+			d = max(d,get_dist(user,focus)) // whichever is further
+		if(d > tk_maxrange)
+			user << "<span class='warning'>Your mind won't reach that far.</span>"
+			return
 
 		if(!focus)
 			focus_object(target, user)
@@ -134,7 +125,7 @@ var/const/tk_maxrange = 15
 
 		if(!istype(target, /turf) && istype(focus,/obj/item) && target.Adjacent(focus))
 			var/obj/item/I = focus
-			var/resolved = target.attackby(I, user, user:get_organ_target())
+			var/resolved = target.attackby(I, user, params)
 			if(!resolved && target && I)
 				I.afterattack(target,user,1) // for splashing with beakers
 
@@ -172,7 +163,7 @@ var/const/tk_maxrange = 15
 		O.icon_state = "nothing"
 		flick("empdisable",O)
 		spawn(5)
-			O.delete()
+			qdel(O)
 		return
 
 
@@ -198,7 +189,7 @@ var/const/tk_maxrange = 15
 //equip_to_slot_or_del(obj/item/W, slot, del_on_fail = 1)
 /*
 		if(istype(user, /mob/living/carbon))
-			if(user:mutations & M_TK && get_dist(source, user) <= 7)
+			if(user:mutations & TK && get_dist(source, user) <= 7)
 				if(user:get_active_hand())	return 0
 				var/X = source:x
 				var/Y = source:y

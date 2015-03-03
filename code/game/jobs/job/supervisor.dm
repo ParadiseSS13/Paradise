@@ -1,3 +1,4 @@
+var/datum/announcement/minor/captain_announcement = new(do_newscast = 1)
 /datum/job/captain
 	title = "Captain"
 	flag = CAPTAIN
@@ -20,7 +21,7 @@
 			if(4) H.equip_or_collect(new /obj/item/weapon/storage/backpack/satchel(H), slot_back)
 		H.equip_or_collect(new /obj/item/weapon/storage/box/survival(H.back), slot_in_backpack)
 		var/obj/item/clothing/under/U = new /obj/item/clothing/under/rank/captain(H)
-		U.hastie = new /obj/item/clothing/tie/medal/gold/captain(U)
+		U.accessories += new /obj/item/clothing/accessory/medal/gold/captain(U)
 		H.equip_or_collect(U, slot_w_uniform)
 		H.equip_or_collect(new /obj/item/device/pda/captain(H), slot_wear_pda)
 		H.equip_or_collect(new /obj/item/clothing/suit/armor/vest/capcarapace(H), slot_wear_suit)
@@ -35,7 +36,7 @@
 		var/obj/item/weapon/implant/loyalty/L = new/obj/item/weapon/implant/loyalty(H)
 		L.imp_in = H
 		L.implanted = 1
-		world << "<b>Captain [H.real_name] on deck!</b>"
+		captain_announcement.Announce("All hands, captain [H.real_name] on deck!")
 		var/datum/organ/external/affected = H.organs_by_name["head"]
 		affected.implants += L
 		L.part = affected
@@ -162,7 +163,7 @@
 
 	equip(var/mob/living/carbon/human/H)
 		if(!H)	return 0
-		H.equip_or_collect(new /obj/item/device/radio/headset/heads/blueshield(H), slot_l_ear)
+		H.equip_or_collect(new /obj/item/device/radio/headset/heads/blueshield/alt(H), slot_l_ear)
 		switch(H.backbag)
 			if(2) H.equip_or_collect(new /obj/item/weapon/storage/backpack/security(H), slot_back)
 			if(3) H.equip_or_collect(new /obj/item/weapon/storage/backpack/satchel_norm(H), slot_back)

@@ -39,6 +39,8 @@
 		onclose(user, "syndbeacon")
 
 	Topic(href, href_list)
+		if(..())
+			return 1
 		if(href_list["betraitor"])
 			if(charges < 1)
 				src.updateUsrDialog()
@@ -154,7 +156,7 @@
 			return
 
 
-	attackby(obj/item/weapon/W as obj, mob/user as mob)
+	attackby(obj/item/weapon/W as obj, mob/user as mob, params)
 		if(istype(W,/obj/item/weapon/screwdriver))
 			if(active)
 				user << "\red You need to deactivate the beacon first!"

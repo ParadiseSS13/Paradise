@@ -13,6 +13,7 @@
 	dir = 8
 	idle_power_usage = 250
 	active_power_usage = 500
+	interact_offline = 1
 
 /obj/machinery/sleep_console/power_change()
 	if(stat & BROKEN)
@@ -67,8 +68,15 @@
 		src.connected = sleepernew
 		return
 	return
+	
+/obj/machinery/sleeper/attack_animal(var/mob/living/simple_animal/M)//Stop putting hostile mobs in things guise
+	if(M.environment_smash)
+		M.do_attack_animation(src)
+		visible_message("<span class='danger'>[M.name] smashes [src] apart!</span>")
+		qdel(src)
+	return
 
-/obj/machinery/sleep_console/attackby(var/obj/item/weapon/G as obj, var/mob/user as mob)
+/obj/machinery/sleep_console/attackby(var/obj/item/weapon/G as obj, var/mob/user as mob, params)
 	if (istype(G, /obj/item/weapon/screwdriver))
 		default_deconstruction_screwdriver(user, "console-p", "console", G)
 		return
@@ -284,7 +292,7 @@
 	return
 
 
-/obj/machinery/sleeper/attackby(var/obj/item/weapon/G as obj, var/mob/user as mob)
+/obj/machinery/sleeper/attackby(var/obj/item/weapon/G as obj, var/mob/user as mob, params)
 	if(istype(G, /obj/item/weapon/reagent_containers/glass))
 		if(!beaker)
 			beaker = G
@@ -506,7 +514,7 @@
 		return
 	if(user.restrained() || user.stat || user.weakened || user.stunned || user.paralysis || user.resting) //are you cuffed, dying, lying, stunned or other
 		return
-	if(O.anchored || get_dist(user, src) > 1 || get_dist(user, O) > 1 || user.contents.Find(src)) // is the mob anchored, too far away from you, or are you too far away from the source
+	if(get_dist(user, src) > 1 || get_dist(user, O) > 1 || user.contents.Find(src)) // is the mob anchored, too far away from you, or are you too far away from the source
 		return
 	if(!ismob(O)) //humans only
 		return

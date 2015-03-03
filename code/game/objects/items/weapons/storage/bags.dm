@@ -10,6 +10,7 @@
  *		Plant Bag
  *		Sheet Snatcher
  *		Book Bag
+ *		Tray
  *
  *	-Sayu
  */
@@ -21,7 +22,6 @@
 	display_contents_with_number = 0 // UNStABLE AS FuCK, turn on when it stops crashing clients
 	use_to_pickup = 1
 	slot_flags = SLOT_BELT
-	flags = FPRINT | TABLEPASS
 
 // -----------------------------
 //          Trash bag
@@ -38,6 +38,11 @@
 	storage_slots = 30
 	can_hold = list() // any
 	cant_hold = list("/obj/item/weapon/disk/nuclear","/obj/item/flag/nation")
+	
+/obj/item/weapon/storage/bag/trash/suicide_act(mob/user)
+	user.visible_message("<span class='suicide'>[user] puts the [src.name] over their head and starts chomping at the insides! Disgusting!</span>")
+	playsound(loc, 'sound/items/eatfood.ogg', 50, 1, -1)
+	return (TOXLOSS)
 
 /obj/item/weapon/storage/bag/trash/update_icon()
 	if(contents.len == 0)
@@ -48,10 +53,15 @@
 		icon_state = "trashbag2"
 	else icon_state = "trashbag3"
 
+/obj/item/weapon/storage/bag/trash/cyborg	
+	
 /obj/item/weapon/storage/bag/trash/proc/janicart_insert(mob/user, obj/structure/janitorialcart/J)
 	J.put_in_cart(src, user)
 	J.mybag=src
 	J.update_icon()
+	
+/obj/item/weapon/storage/bag/trash/cyborg/janicart_insert(mob/user, obj/structure/janitorialcart/J)
+	return
 
 
 // -----------------------------
@@ -209,7 +219,7 @@
 				break
 
 		if(!inserted || !S.amount)
-			usr.u_equip(S)
+			usr.unEquip(S)
 			usr.update_icons()	//update our overlays
 			if (usr.client && usr.s_active != src)
 				usr.client.screen -= S
@@ -308,7 +318,7 @@
 	w_class = 1
 
 	can_hold = list("/obj/item/weapon/coin","/obj/item/weapon/spacecash")
-	
+
 // -----------------------------
 //           Book bag
 // -----------------------------
@@ -324,3 +334,96 @@
 	max_w_class = 3
 	w_class = 4 //Bigger than a book because physics
 	can_hold = list(/obj/item/weapon/book, /obj/item/weapon/spellbook) //No bibles, consistent with bookcase
+	
+/*
+ * Trays - Agouri
+ */
+/obj/item/weapon/storage/bag/tray
+	name = "tray"
+	icon = 'icons/obj/food.dmi'
+	icon_state = "tray"
+	desc = "A metal tray to lay food on."
+	force = 5
+	throwforce = 10.0
+	throw_speed = 3
+	throw_range = 5
+	w_class = 4.0
+	flags = CONDUCT
+	m_amt = 3000
+
+/obj/item/weapon/storage/bag/tray/attack(mob/living/M as mob, mob/living/user as mob)
+	..()
+	// Drop all the things. All of them.
+	var/list/obj/item/oldContents = contents.Copy()
+	quick_empty()
+
+	// Make each item scatter a bit
+	for(var/obj/item/I in oldContents)
+		spawn()
+			for(var/i = 1, i <= rand(1,2), i++)
+				if(I)
+					step(I, pick(NORTH,SOUTH,EAST,WEST))
+					sleep(rand(2,4))
+
+	if(prob(50))
+		playsound(M, 'sound/items/trayhit1.ogg', 50, 1)
+	else
+		playsound(M, 'sound/items/trayhit2.ogg', 50, 1)
+
+	if(ishuman(M) || ismonkey(M))
+		if(prob(10))
+			M.Weaken(2)
+
+/obj/item/weapon/storage/bag/tray/proc/rebuild_overlays()
+	overlays.Cut()
+	for(var/obj/item/I in contents)
+		overlays += image("icon" = I.icon, "icon_state" = I.icon_state, "layer" = -1)
+
+/obj/item/weapon/storage/bag/tray/remove_from_storage(obj/item/W as obj, atom/new_location)
+	..()
+	rebuild_overlays()
+
+/obj/item/weapon/storage/bag/tray/handle_item_insertion(obj/item/I, prevent_warning = 0)
+	overlays += image("icon" = I.icon, "icon_state" = I.icon_state, "layer" = -1)
+	..()
+
+/obj/item/weapon/storage/bag/tray/cyborg	
+	
+/obj/item/weapon/storage/bag/tray/cyborg/afterattack(atom/target, mob/user as mob)
+	if ( isturf(target) || istype(target,/obj/structure/table) )
+		var foundtable = istype(target,/obj/structure/table/)
+		if ( !foundtable ) //it must be a turf!
+			for(var/obj/structure/table/T in target)
+				foundtable = 1
+				break
+
+		var turf/dropspot
+		if ( !foundtable ) // don't unload things onto walls or other silly places.
+			dropspot = user.loc
+		else if ( isturf(target) ) // they clicked on a turf with a table in it
+			dropspot = target
+		else					// they clicked on a table
+			dropspot = target.loc
+
+		overlays = null
+
+		var droppedSomething = 0
+
+		for(var/obj/item/I in contents)
+			I.loc = dropspot
+			contents.Remove(I)
+			droppedSomething = 1
+			if(!foundtable && isturf(dropspot))
+				// if no table, presume that the person just shittily dropped the tray on the ground and made a mess everywhere!
+				spawn()
+					for(var/i = 1, i <= rand(1,2), i++)
+						if(I)
+							step(I, pick(NORTH,SOUTH,EAST,WEST))
+							sleep(rand(2,4))
+		if ( droppedSomething )
+			if ( foundtable )
+				user.visible_message("\blue [user] unloads their service tray.")
+			else
+				user.visible_message("\blue [user] drops all the items on their tray.")
+
+	return ..()

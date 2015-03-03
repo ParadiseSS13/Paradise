@@ -8,7 +8,7 @@
 	idle_power_usage = 5
 	active_power_usage = 60
 	power_channel = EQUIP
-	var/obj/item/weapon/cell/charging = null
+	var/obj/item/weapon/stock_parts/cell/charging = null
 	var/chargelevel = -1
 	proc
 		updateicon()
@@ -34,11 +34,11 @@
 		if(charging)
 			usr << "Current charge: [charging.charge]"
 
-	attackby(obj/item/weapon/W, mob/user)
+	attackby(obj/item/weapon/W, mob/user, params)
 		if(stat & BROKEN)
 			return
 
-		if(istype(W, /obj/item/weapon/cell) && anchored)
+		if(istype(W, /obj/item/weapon/stock_parts/cell) && anchored)
 			if(charging)
 				user << "\red There is already a cell in the charger."
 				return

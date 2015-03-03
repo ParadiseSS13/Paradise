@@ -1,6 +1,6 @@
 <div class="item">
 	<div class="itemContent" style="padding: 5px">
-		{{:helper.link(data.power ? 'On' : 'Off', null, {'command' : 'power'}, null, data.power ? 'selected' : 'redBackground')}}
+		{{:helper.link(data.power ? 'On' : 'Off', null, {'command' : 'power'}, data.config ? 'disabled' : null)}}
 	</div>
 	<div class="itemContent" style="padding: 5px">
 		{{:helper.link('Configure', null, {'command' : 'configure'}, null, data.config ? 'selected' : null)}}
@@ -50,10 +50,10 @@
         </div>
 
         <div class="itemContent" style="padding: 5px">
-            Target Output Pressure: {{:helper.round(data.pressure)}} kPa
+            Set Flow Rate Limit: {{:(data.set_flow_rate/10)}} L/s
         </div>
         <div class="itemContent" style="padding: 5px">
-            {{:helper.link('Set Target Pressure', null, {'command' : 'set_pressure'})}}
+            {{:helper.link('Set Flow Rate Limit', null, {'command' : 'set_flow_rate'})}}
         </div>
 	
 	{{else}}
@@ -94,7 +94,7 @@
         </div>
 
         <div class="itemContent" style="padding: 5px">
-            Target Output Pressure: {{:helper.round(data.pressure)}} kPa
+            Flow Rate: {{:(data.last_flow_rate/10)}} L/s
         </div>
 
 	{{/if}}

@@ -6,13 +6,13 @@
 	var/list/vents  = list()
 
 /datum/event/vent_clog/announce()
-	command_alert("The scrubbers network is experiencing a backpressure surge.  Some ejection of contents may occur.", "Atmospherics alert")
+	command_announcement.Announce("The scrubbers network is experiencing a backpressure surge.  Some ejection of contents may occur.", "Atmospherics alert")
 
 
 /datum/event/vent_clog/setup()
 	endWhen = rand(25, 100)
 	for(var/obj/machinery/atmospherics/unary/vent_scrubber/temp_vent in machines)
-		if(temp_vent.loc.z == 1 && temp_vent.network)
+		if((temp_vent.loc.z in config.station_levels) && temp_vent.network)
 			if(temp_vent.network.normal_members.len > 50)
 				vents += temp_vent
 

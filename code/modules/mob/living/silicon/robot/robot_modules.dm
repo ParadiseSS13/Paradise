@@ -4,12 +4,13 @@
 	icon_state = "std_module"
 	w_class = 100.0
 	item_state = "electronic"
-	flags = FPRINT|TABLEPASS | CONDUCT
+	flags = CONDUCT
 
 	var/list/modules = list()
 	var/obj/item/emag = null
 	var/obj/item/borg/upgrade/jetpack = null
 	var/list/stacktypes
+	var/channels = list()
 
 
 	emp_act(severity)
@@ -56,6 +57,22 @@
 		if(O)
 			modules += O
 
+/obj/item/weapon/robot_module/proc/add_languages(var/mob/living/silicon/robot/R)
+	//full set of languages
+	R.add_language("Galactic Common", 1)
+	R.add_language("Sol Common", 1)
+	R.add_language("Tradeband", 1)
+	R.add_language("Gutter", 0)
+	R.add_language("Sinta'unathi", 0)
+	R.add_language("Siik'tajr", 0)
+	R.add_language("Skrellian", 0)
+	R.add_language("Vox-pidgin", 0)
+	R.add_language("Rootspeak", 0)
+	R.add_language("Trinary", 1)
+	R.add_language("Chittin", 0)
+	R.add_language("Bubblish", 0)
+	R.add_language("Clownish",0)
+
 /obj/item/weapon/robot_module/standard
 	name = "standard robot module"
 
@@ -71,10 +88,12 @@
 		src.emag = new /obj/item/weapon/melee/energy/sword/cyborg(src)
 		return
 
-/obj/item/weapon/robot_module/surgeon
-	name = "surgeon robot module"
+/obj/item/weapon/robot_module/medical
+	name = "medical robot module"
 	stacktypes = list(
 		/obj/item/stack/medical/advanced/bruise_pack = 5,
+		/obj/item/stack/medical/advanced/ointment = 5,
+		/obj/item/stack/medical/splint = 5,
 		/obj/item/stack/nanopaste = 5
 		)
 
@@ -82,7 +101,18 @@
 		src.modules += new /obj/item/device/flashlight(src)
 		src.modules += new /obj/item/device/flash/cyborg(src)
 		src.modules += new /obj/item/device/healthanalyzer(src)
-		src.modules += new /obj/item/weapon/reagent_containers/borghypo/surgeon(src)
+		src.modules += new /obj/item/device/reagent_scanner/adv(src)
+		src.modules += new /obj/item/weapon/borg_defib(src)
+		src.modules += new /obj/item/roller_holder(src)
+		src.modules += new /obj/item/weapon/reagent_containers/borghypo(src)
+		src.modules += new /obj/item/weapon/reagent_containers/glass/beaker/large(src)
+		src.modules += new /obj/item/weapon/reagent_containers/dropper(src)
+		src.modules += new /obj/item/weapon/reagent_containers/syringe(src)
+		src.modules += new /obj/item/weapon/extinguisher/mini(src)
+		src.modules += new /obj/item/stack/medical/advanced/bruise_pack(src)
+		src.modules += new /obj/item/stack/medical/advanced/ointment(src)
+		src.modules += new /obj/item/stack/medical/splint(src)
+		src.modules += new /obj/item/stack/nanopaste(src)
 		src.modules += new /obj/item/weapon/scalpel(src)
 		src.modules += new /obj/item/weapon/hemostat(src)
 		src.modules += new /obj/item/weapon/retractor(src)
@@ -92,9 +122,6 @@
 		src.modules += new /obj/item/weapon/bonesetter(src)
 		src.modules += new /obj/item/weapon/circular_saw(src)
 		src.modules += new /obj/item/weapon/surgicaldrill(src)
-		src.modules += new /obj/item/weapon/extinguisher/mini(src)
-		src.modules += new /obj/item/stack/medical/advanced/bruise_pack(src)
-		src.modules += new /obj/item/stack/nanopaste(src)
 
 		src.emag = new /obj/item/weapon/reagent_containers/spray(src)
 
@@ -102,57 +129,10 @@
 		src.emag.name = "Polyacid spray"
 		return
 
-/obj/item/weapon/robot_module/surgeon/respawn_consumable(var/mob/living/silicon/robot/R)
+/obj/item/weapon/robot_module/medical/respawn_consumable(var/mob/living/silicon/robot/R)
 	if(src.emag)
 		var/obj/item/weapon/reagent_containers/spray/PS = src.emag
 		PS.reagents.add_reagent("pacid", 2)
-	..()
-
-/obj/item/weapon/robot_module/crisis
-	name = "crisis robot module"
-	stacktypes = list(
-		/obj/item/stack/medical/advanced/ointment = 5,
-		/obj/item/stack/medical/advanced/bruise_pack = 5,
-		/obj/item/stack/medical/splint = 5
-		)
-
-
-	New()
-		src.modules += new /obj/item/device/flashlight(src)
-		src.modules += new /obj/item/device/flash/cyborg(src)
-		src.modules += new /obj/item/device/healthanalyzer(src)
-		src.modules += new /obj/item/device/reagent_scanner/adv(src)
-		src.modules += new /obj/item/roller_holder(src)
-		src.modules += new /obj/item/stack/medical/advanced/ointment(src)
-		src.modules += new /obj/item/stack/medical/advanced/bruise_pack(src)
-		src.modules += new /obj/item/stack/medical/splint(src)
-		src.modules += new /obj/item/weapon/reagent_containers/borghypo/crisis(src)
-		src.modules += new /obj/item/weapon/reagent_containers/glass/beaker/large(src)
-		src.modules += new /obj/item/weapon/reagent_containers/robodropper(src)
-		src.modules += new /obj/item/weapon/reagent_containers/syringe(src)
-		src.modules += new /obj/item/weapon/extinguisher/mini(src)
-
-		src.emag = new /obj/item/weapon/reagent_containers/spray(src)
-
-		src.emag.reagents.add_reagent("pacid", 250)
-		src.emag.name = "Polyacid spray"
-		var/obj/item/weapon/reagent_containers/spray/S = emag
-		S.banned_reagents = list()
-		return
-
-/obj/item/weapon/robot_module/crisis/respawn_consumable(var/mob/living/silicon/robot/R)
-
-	var/obj/item/weapon/reagent_containers/syringe/S = locate() in src.modules
-	if(S.mode == 2)
-		S.reagents.clear_reagents()
-		S.mode = initial(S.mode)
-		S.desc = initial(S.desc)
-		S.update_icon()
-
-	if(src.emag)
-		var/obj/item/weapon/reagent_containers/spray/PS = src.emag
-		PS.reagents.add_reagent("pacid", 2)
-
 	..()
 
 /obj/item/weapon/robot_module/engineering
@@ -220,11 +200,11 @@
 	New()
 		src.modules += new /obj/item/device/flashlight/seclite(src)
 		src.modules += new /obj/item/device/flash/cyborg(src)
-		src.modules += new /obj/item/weapon/handcuffs/cyborg(src)
+		src.modules += new /obj/item/weapon/restraints/handcuffs/cable/zipties/cyborg(src)
 		src.modules += new /obj/item/weapon/melee/baton/robot(src)
 		src.modules += new /obj/item/weapon/gun/energy/disabler/cyborg(src)
 		src.modules += new /obj/item/taperoll/police(src)
-		src.modules += new /obj/item/device/taperecorder(src)
+		src.modules += new /obj/item/clothing/mask/gas/sechailer/cyborg(src)
 		src.emag = new /obj/item/weapon/gun/energy/laser/cyborg(src)
 		return
 
@@ -237,7 +217,7 @@
 		src.modules += new /obj/item/device/flashlight(src)
 		src.modules += new /obj/item/device/flash/cyborg(src)
 		src.modules += new /obj/item/weapon/soap/nanotrasen(src)
-		src.modules += new /obj/item/weapon/storage/bag/trash(src)
+		src.modules += new /obj/item/weapon/storage/bag/trash/cyborg(src)
 		src.modules += new /obj/item/weapon/mop(src)
 		src.modules += new /obj/item/device/lightreplacer(src)
 		src.modules += new /obj/item/weapon/holosign_creator(src)
@@ -268,7 +248,7 @@
 
 		src.modules += new /obj/item/weapon/reagent_containers/robodropper(src)
 		src.modules += new /obj/item/weapon/lighter/zippo(src)
-		src.modules += new /obj/item/weapon/tray/robotray(src)
+		src.modules += new /obj/item/weapon/storage/bag/tray/cyborg(src)
 		src.modules += new /obj/item/weapon/reagent_containers/food/drinks/shaker(src)
 		src.emag = new /obj/item/weapon/reagent_containers/food/drinks/cans/beer(src)
 
@@ -285,6 +265,22 @@
 	if(src.emag)
 		var/obj/item/weapon/reagent_containers/food/drinks/cans/beer/B = src.emag
 		B.reagents.add_reagent("beer2", 2)
+
+/obj/item/weapon/robot_module/butler/add_languages(var/mob/living/silicon/robot/R)
+	//full set of languages
+	R.add_language("Galactic Common", 1)
+	R.add_language("Sol Common", 1)
+	R.add_language("Tradeband", 1)
+	R.add_language("Gutter", 1)
+	R.add_language("Sinta'unathi", 1)
+	R.add_language("Siik'tajr", 1)
+	R.add_language("Skrellian", 1)
+	R.add_language("Vox-pidgin", 1)
+	R.add_language("Rootspeak", 1)
+	R.add_language("Trinary", 1)
+	R.add_language("Chittin", 1)
+	R.add_language("Bubblish", 1)
+	R.add_language("Clownish",1)
 
 /*
 /obj/item/weapon/robot_module/clerical //Whyyyyy?
@@ -338,8 +334,7 @@
 	src.modules += new /obj/item/device/flash/cyborg(src)
 	src.modules += new /obj/item/device/flashlight(src)
 	src.modules += new /obj/item/weapon/melee/energy/sword/cyborg(src)
-	src.modules += new /obj/item/weapon/gun/energy/printer(src)
-	src.modules += new /obj/item/weapon/gun/projectile/revolver/grenadelauncher/multi/cyborg(src)
+	src.modules += new /obj/item/weapon/gun/energy/kinetic_accelerator/crossbow/large/cyborg(src)
 	src.modules += new /obj/item/weapon/card/emag(src)
 	src.modules += new /obj/item/weapon/tank/jetpack/carbondioxide(src)
 	src.modules += new /obj/item/weapon/crowbar(src)
@@ -378,6 +373,10 @@
 		src.emag = new /obj/item/weapon/reagent_containers/spray/alien/acid(src)
 		src.emag.reagents.add_reagent("pacid", 125)
 		src.emag.reagents.add_reagent("sacid", 125)
+
+/obj/item/weapon/robot_module/alien/hunter/add_languages(var/mob/living/silicon/robot/R)
+	..()
+	R.add_language("xenocommon", 1)
 
 /obj/item/weapon/robot_module/drone
 	name = "drone module"

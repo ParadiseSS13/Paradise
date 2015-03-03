@@ -153,7 +153,7 @@
 
 /obj/machinery/suit_storage_unit/Topic(href, href_list) //I fucking HATE this proc
 	if(..())
-		return
+		return 1
 	if ((usr.contents.Find(src) || ((get_dist(src, usr) <= 1) && istype(src.loc, /turf))) || (istype(usr, /mob/living/silicon/ai)))
 		usr.set_machine(src)
 		if (href_list["toggleUV"])
@@ -470,7 +470,7 @@
 	return
 
 
-/obj/machinery/suit_storage_unit/attackby(obj/item/I as obj, mob/user as mob)
+/obj/machinery/suit_storage_unit/attackby(obj/item/I as obj, mob/user as mob, params)
 	if(!src.ispowered)
 		return
 	if(istype(I, /obj/item/weapon/screwdriver))
@@ -631,7 +631,7 @@
 	user << "\blue The console controls are far too complicated for your tiny brain!"
 	return
 
-/obj/machinery/suit_cycler/attackby(obj/item/I as obj, mob/user as mob)
+/obj/machinery/suit_cycler/attackby(obj/item/I as obj, mob/user as mob, params)
 
 	if(electrified != 0)
 		if(src.shock(user, 100))
@@ -679,24 +679,6 @@
 		panel_open = !panel_open
 		user << "You [panel_open ?  "open" : "close"] the maintenance panel."
 		src.updateUsrDialog()
-		return
-
-	else if(istype(I,/obj/item/weapon/card/emag))
-
-		if(emagged)
-			user << "\red The cycler has already been subverted."
-			return
-
-		var/obj/item/weapon/card/emag/E = I
-		src.updateUsrDialog()
-		E.uses--
-
-		//Clear the access reqs, disable the safeties, and open up all paintjobs.
-		user << "\red You run the sequencer across the interface, corrupting the operating protocols."
-		departments = list("Engineering","Mining","Medical","Security","Atmos","^%###^%$")
-		emagged = 1
-		safeties = 0
-		req_access = list()
 		return
 
 	else if(istype(I,/obj/item/clothing/head/helmet/space))
@@ -748,6 +730,19 @@
 		return
 
 	..()
+	
+/obj/machinery/suit_cycler/emag_act(user as mob)
+	if(emagged)
+		user << "\red The cycler has already been subverted."
+		return
+
+	//Clear the access reqs, disable the safeties, and open up all paintjobs.
+	user << "\red You run the sequencer across the interface, corrupting the operating protocols."
+	departments = list("Engineering","Mining","Medical","Security","Atmos","^%###^%$")
+	emagged = 1
+	safeties = 0
+	req_access = list()
+	return
 
 /obj/machinery/suit_cycler/attack_hand(mob/user as mob)
 

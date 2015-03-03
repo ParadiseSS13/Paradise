@@ -6,7 +6,7 @@
 	name = "Advanced Energy Gun"
 	desc = "An energy gun with an experimental miniaturized reactor."
 	id = "nuclear_gun"
-	req_tech = list("combat" = 3, "materials" = 5, "powerstorage" = 3)
+	req_tech = list("combat" = 4, "materials" = 5, "powerstorage" = 3)
 	build_type = PROTOLATHE
 	materials = list("$metal" = 5000, "$glass" = 1000, "$uranium" = 2000)
 	reliability_base = 76
@@ -68,6 +68,16 @@
 	build_path = /obj/item/weapon/grenade/chem_grenade/large
 	category = list("Weapons")
 
+/datum/design/tele_shield
+	name = "Telescopic Riot Shield"
+	desc = "An advanced riot shield made of lightweight materials that collapses for easy storage."
+	id = "tele_shield"
+	req_tech = list("combat" = 4, "materials" = 3, "engineering" = 3)
+	build_type = PROTOLATHE
+	materials = list("$metal" = 4000, "$glass" = 5000, "$silver" = 300)
+	build_path = /obj/item/weapon/shield/riot/tele
+	category = list("Weapons")
+
 /datum/design/lasercannon
 	name = "Laser Cannon"
 	desc = "A heavy duty laser cannon."
@@ -77,6 +87,16 @@
 	materials = list("$metal" = 10000, "$glass" = 2000, "$diamond" = 2000)
 	build_path = /obj/item/weapon/gun/energy/lasercannon
 	locked = 1
+	category = list("Weapons")
+
+/datum/design/receiver
+	name = "Modular Receiver"
+	desc = "A prototype modular receiver and trigger assembly for a variety of firearms."
+	id = "receiver"
+	req_tech = list("combat" = 5, "materials" = 4)
+	build_type = PROTOLATHE
+	materials = list("$metal" = 6500, "$silver" = 500)
+	build_path = /obj/item/weaponcrafting/receiver
 	category = list("Weapons")
 
 /datum/design/plasmapistol
@@ -119,7 +139,6 @@
 	build_type = PROTOLATHE
 	materials = list("$metal" = 5000, "$glass" = 1000)
 	build_path = /obj/item/weapon/gun/syringe/rapidsyringe
-	locked = 1
 	category = list("Weapons")
 
 /datum/design/stunshell
@@ -138,7 +157,7 @@
 	id = "stunrevolver"
 	req_tech = list("combat" = 3, "materials" = 3, "powerstorage" = 2)
 	build_type = PROTOLATHE
-	materials = list("$metal" = 4000)
+	materials = list("$metal" = 4000, "$glass" = 1000)
 	build_path = /obj/item/weapon/gun/energy/stunrevolver
 	locked = 1
 	category = list("Weapons")

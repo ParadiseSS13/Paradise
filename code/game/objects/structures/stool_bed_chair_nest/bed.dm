@@ -121,7 +121,7 @@
 	icon_state = "down"
 	anchored = 0
 
-/obj/structure/stool/bed/roller/attackby(obj/item/weapon/W as obj, mob/user as mob)
+/obj/structure/stool/bed/roller/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
 	if(istype(W,/obj/item/roller_holder))
 		if(buckled_mob)
 			manual_unbuckle()
@@ -145,7 +145,7 @@
 		R.add_fingerprint(user)
 		del(src)
 
-/obj/item/roller/attackby(obj/item/weapon/W as obj, mob/user as mob)
+/obj/item/roller/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
 
 	if(istype(W,/obj/item/roller_holder))
 		var/obj/item/roller_holder/RH = W

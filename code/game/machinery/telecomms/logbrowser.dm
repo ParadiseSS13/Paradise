@@ -217,7 +217,7 @@
 		updateUsrDialog()
 		return
 
-	attackby(var/obj/item/weapon/D as obj, var/mob/user as mob)
+	attackby(var/obj/item/weapon/D as obj, var/mob/user as mob, params)
 		if(istype(D, /obj/item/weapon/screwdriver))
 			playsound(src.loc, 'sound/items/Screwdriver.ogg', 50, 1)
 			if(do_after(user, 20))
@@ -244,9 +244,11 @@
 					A.icon_state = "4"
 					A.anchored = 1
 					del(src)
-		else if(istype(D, /obj/item/weapon/card/emag) && !emagged)
+		src.updateUsrDialog()
+		return
+		
+	emag_act(user as mob)
+		if(!emagged)
 			playsound(src.loc, 'sound/effects/sparks4.ogg', 75, 1)
 			emagged = 1
 			user << "\blue You you disable the security protocols"
-		src.updateUsrDialog()
-		return

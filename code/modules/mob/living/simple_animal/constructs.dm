@@ -66,7 +66,7 @@
 		now_pushing = 1
 		if(ismob(AM))
 			var/mob/tmob = AM
-			if(istype(tmob, /mob/living/carbon/human) && (M_FAT in tmob.mutations))
+			if(istype(tmob, /mob/living/carbon/human) && (FAT in tmob.mutations))
 				if(prob(5))
 					src << "\red <B>You fail to push [tmob]'s fat ass out of the way.</B>"
 					now_pushing = 0
@@ -101,6 +101,7 @@
 		if(M.melee_damage_upper <= 0)
 			M.emote("[M.friendly] \the <EM>[src]</EM>")
 		else
+			M.do_attack_animation(src)
 			if(M.attack_sound)
 				playsound(loc, M.attack_sound, 50, 1, 1)
 			for(var/mob/O in viewers(src, null))
@@ -109,7 +110,7 @@
 			var/damage = rand(M.melee_damage_lower, M.melee_damage_upper)
 			adjustBruteLoss(damage)
 
-/mob/living/simple_animal/construct/attackby(var/obj/item/O as obj, var/mob/user as mob)
+/mob/living/simple_animal/construct/attackby(var/obj/item/O as obj, var/mob/user as mob, params)
 	if(O.force)
 		var/damage = O.force
 		if (O.damtype == STAMINA)
@@ -150,7 +151,7 @@
 	status_flags = 0
 	construct_spells = list(/obj/effect/proc_holder/spell/wizard/aoe_turf/conjure/lesserforcewall)
 
-/mob/living/simple_animal/construct/armoured/attackby(var/obj/item/O as obj, var/mob/user as mob)
+/mob/living/simple_animal/construct/armoured/attackby(var/obj/item/O as obj, var/mob/user as mob, params)
 	if(O.force)
 		if(O.force >= 11)
 			var/damage = O.force
@@ -279,7 +280,7 @@
 	var/energy = 0
 	var/max_energy = 1000
 
-/mob/living/simple_animal/construct/behemoth/attackby(var/obj/item/O as obj, var/mob/user as mob)
+/mob/living/simple_animal/construct/behemoth/attackby(var/obj/item/O as obj, var/mob/user as mob, params)
 	if(O.force)
 		if(O.force >= 11)
 			var/damage = O.force

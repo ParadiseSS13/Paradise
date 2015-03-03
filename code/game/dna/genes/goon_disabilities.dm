@@ -12,6 +12,7 @@
 	desc = "Completely shuts down the speech center of the subject's brain."
 	activation_message   = "You feel unable to express yourself at all."
 	deactivation_message = "You feel able to speak freely again."
+	sdisability = 1
 
 	New()
 		..()
@@ -57,7 +58,7 @@
 	activation_message = "You feel blubbery and lethargic!"
 	deactivation_message = "You feel fit!"
 
-	mutation = M_OBESITY
+	mutation = OBESITY
 
 	New()
 		..()
@@ -219,7 +220,7 @@
 	deactivation_message = "Your stomach stops acting up. Phew!"
 	instability=2
 
-	mutation = M_TOXIC_FARTS
+	mutation = TOXIC_FARTS
 
 	New()
 		..()
@@ -237,7 +238,7 @@
 	activation_message = "You feel buff!"
 	deactivation_message = "You feel wimpy and weak."
 
-	mutation = M_STRONG
+	mutation = STRONG
 
 	New()
 		..()
@@ -335,7 +336,7 @@
 
 	if(L)
 		usr.attack_log += text("\[[time_stamp()]\] <font color='red'>[usr.real_name] ([usr.ckey]) cast the spell [name] on [L.real_name] ([L.ckey]).</font>")
-		msg_admin_attack("[usr.real_name] ([usr.ckey]) has cast the spell [name] on  [L.real_name] ([L.ckey]) (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[usr.x];Y=[usr.y];Z=[usr.z]'>)")
+		msg_admin_attack("[usr.real_name] ([usr.ckey]) has cast the spell [name] on [L.real_name] ([L.ckey]) (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[usr.x];Y=[usr.y];Z=[usr.z]'>JMP</a>)")
 
 	L.adjust_fire_stacks(0.5)
 	L.visible_message("\red <b>[L.name]</b> suddenly bursts into flames!")

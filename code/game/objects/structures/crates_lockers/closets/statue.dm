@@ -5,7 +5,6 @@
 	icon_state = "human_male"
 	density = 1
 	anchored = 1
-	flags = FPRINT
 	health = 0 //destroying the statue kills the mob within
 	var/intialTox = 0 	//these are here to keep the mob from taking damage from things that logically wouldn't affect a rock
 	var/intialFire = 0	//it's a little sloppy I know but it was this or the GODMODE flag. Lesser of two evils.
@@ -123,7 +122,7 @@
 			M.meteorhit(O)
 			shatter(M)
 
-/obj/structure/closet/statue/attackby(obj/item/I as obj, mob/user as mob)
+/obj/structure/closet/statue/attackby(obj/item/I as obj, mob/user as mob, params)
 	health -= I.force
 	visible_message("\red [user] strikes [src] with [I].")
 	if(health <= 0)

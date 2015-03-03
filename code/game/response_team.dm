@@ -48,30 +48,42 @@ var/can_call_ert
 		if(!send_emergency_team)
 			usr << "No emergency response team is currently being sent."
 			return
+			
 	/*	if(admin_emergency_team)
 			usr << "An emergency response team has already been sent."
 			return */
-		if(jobban_isbanned(usr, "Syndicate") || jobban_isbanned(usr, "Emergency Response Team") || jobban_isbanned(usr, "Security Officer"))
-			usr << "<font color=red><b>You are jobbanned from the emergency reponse team!"
+			
+		if(jobban_isbanned(usr, "Emergency Response Team"))
+			usr << "<span class='warning'>You are jobbanned from the emergency reponse team!</span>"
+			return
+		
+		var/responseteam_age = 21 // 21 days to play as an ERT member
+		var/player_age_check = check_client_age(usr.client, responseteam_age)
+		if(player_age_check && config.use_age_restriction_for_antags)
+			usr << "<span class='warning'>This role is not yet available to you. You need to wait another [player_age_check] days.</span>"
 			return
 
-		if(response_team_members.len > 5) usr << "The emergency response team is already full!"
+		if(response_team_members.len > 6) usr << "The emergency response team is already full!"
 
-
-		for (var/obj/effect/landmark/L in landmarks_list) if (L.name == "Commando")
+		for (var/obj/effect/landmark/L in landmarks_list) if (L.name == "Response Team")
 			L.name = null//Reserving the place.
-			var/new_name = input(usr, "Pick a name","Name") as null|text
+			/*var/new_name = alert(usr, "Pick a name","Name") as null|text
 			if(!new_name)//Somebody changed his mind, place is available again.
 				L.name = "Commando"
+				return*/
+			if(alert(usr, "Join the Emergency Response Team?", "Emergency Response Team", "Yes", "No") == "No")
+				L.name = "Response Team"
 				return
+
 			var/leader_selected = isemptylist(response_team_members)
 			if(!src.client)
 				return
 			var/client/C = src.client
-			var/mob/living/carbon/human/new_commando = C.create_response_team(L.loc, leader_selected, new_name)
+			var/mob/living/carbon/human/new_commando = C.create_response_team(L.loc, leader_selected)
 			del(L)
 			new_commando.mind.key = usr.key
 			new_commando.key = usr.key
+			new_commando.update_icons()
 
 			new_commando << "\blue You are [!leader_selected?"a member":"the <B>LEADER</B>"] of an Emergency Response Team, a type of military division, under CentComm's service. There is a code red alert on [station_name()], you are tasked to go and fix the problem."
 			new_commando << "<b>You should first gear up and discuss a plan with your team. More members may be joining, don't move out before you're ready."
@@ -142,11 +154,11 @@ proc/trigger_armed_response_team(var/force = 0)
 
 	// there's only a certain chance a team will be sent
 	if(!prob(send_team_chance))
-		command_alert("It would appear that an emergency response team was requested for [station_name()]. Unfortunately, we were unable to send one at this time.", "Central Command")
+		command_announcement.Announce("It would appear that an emergency response team was requested for [station_name()]. Unfortunately, we were unable to send one at this time.", "Central Command")
 		can_call_ert = 0 // Only one call per round, ladies.
 		return
 
-	command_alert("It would appear that an emergency response team was requested for [station_name()]. We will prepare and send one as soon as possible.", "Central Command")
+	command_announcement.Announce("It would appear that an emergency response team was requested for [station_name()]. We will prepare and send one as soon as possible.", "Central Command")
 
 	can_call_ert = 0 // Only one call per round, gentleman.
 	send_emergency_team = 1
@@ -168,7 +180,7 @@ proc/trigger_armed_response_team(var/force = 0)
 			continue
 */
 
-/client/proc/create_response_team(obj/spawn_location, leader_selected = 0, commando_name)
+/client/proc/create_response_team(obj/spawn_location, leader_selected = 0)
 
 	//usr << "\red ERT has been temporarily disabled. Talk to a coder."
 	//return
@@ -178,7 +190,7 @@ proc/trigger_armed_response_team(var/force = 0)
 
 	//todo: god damn this.
 	//make it a panel, like in character creation
-	var/new_facial = input("Please select facial hair color.", "Character Generation") as color
+	/*var/new_facial = input("Please select facial hair color.", "Character Generation") as color
 	if(new_facial)
 		M.r_facial = hex2num(copytext(new_facial, 2, 4))
 		M.g_facial = hex2num(copytext(new_facial, 4, 6))
@@ -262,14 +274,20 @@ proc/trigger_armed_response_team(var/force = 0)
 		if(new_gender == "Male")
 			M.gender = MALE
 		else
-			M.gender = FEMALE
+			M.gender = FEMALE*/
 	//M.rebuild_appearance()
+
+	M.gender = pick(MALE, FEMALE)
+
+	var/datum/preferences/A = new()//Randomize appearance for the commando.
+	A.randomize_appearance_for(M)
+
 	M.update_hair()
 	M.update_body()
 	M.check_dna(M)
 
-	M.real_name = commando_name
-	M.name = commando_name
+	M.real_name = "[!leader_selected ? pick("Corporal", "Sergeant", "Staff Sergeant", "Sergeant 1st Class", "Master Sergeant", "Sergeant Major") : pick("Lieutenant", "Captain", "Major")] [pick(last_names)]"
+	M.name = M.real_name
 	M.age = !leader_selected ? rand(23,35) : rand(35,45)
 
 	M.dna.ready_dna(M)//Creates DNA.
@@ -283,10 +301,160 @@ proc/trigger_armed_response_team(var/force = 0)
 	if(!(M.mind in ticker.minds))
 		ticker.minds += M.mind//Adds them to regular mind list.
 	M.loc = spawn_location
-	M.equip_strike_team(leader_selected)
+
+	if(leader_selected)
+		equip_emergencyresponsesquad(M, "commander")
+	else
+		switch(input("Which class?") in list("Security","Engineer","Medical"))
+			if("Security")
+				equip_emergencyresponsesquad(M, "sec")
+			if("Engineer")
+				equip_emergencyresponsesquad(M, "eng")
+			if("Medical")
+				equip_emergencyresponsesquad(M, "med")
 	return M
 
-/mob/living/carbon/human/proc/equip_strike_team(leader_selected = 0)
+/proc/equip_emergencyresponsesquad(var/mob/living/carbon/human/M, var/ertrole)
+	M.equip_to_slot_or_del(new /obj/item/device/radio/headset/ert/alt(src), slot_l_ear)
+	M.equip_to_slot_or_del(new /obj/item/clothing/under/rank/centcom_officer(M), slot_w_uniform)
+
+	var/obj/item/weapon/implant/loyalty/L = new/obj/item/weapon/implant/loyalty(M)
+	L.imp_in = M
+	L.implanted = 1
+
+	switch(ertrole)
+		if("commander")
+			M.equip_to_slot_or_del(new /obj/item/clothing/shoes/magboots/advance(M), slot_shoes)
+			M.equip_to_slot_or_del(new /obj/item/clothing/gloves/combat(M), slot_gloves)
+			M.equip_to_slot_or_del(new /obj/item/clothing/suit/space/rig/ert/commander(M), slot_wear_suit)
+			M.equip_to_slot_or_del(new /obj/item/weapon/storage/backpack/captain(M), slot_back)
+			M.equip_to_slot_or_del(new /obj/item/clothing/glasses/sunglasses/sechud(M), slot_glasses)
+
+			var/obj/item/weapon/card/id/W = new(src)
+			W.assignment = "Emergency Response Team Leader"
+			W.registered_name = M.real_name
+			W.name = "[M.real_name]'s ID Card (Emergency Response Team - Commander)"
+			W.icon_state = "centcom"
+			W.access = get_all_accesses()
+			W.access += list(access_cent_general, access_cent_living, access_cent_medical, access_cent_storage, access_cent_thunder, access_cent_teleporter)
+			M.equip_to_slot_or_del(W, slot_wear_id)
+
+			var/obj/item/device/pda/heads/pda = new(src)
+			pda.owner = M.real_name
+			pda.ownjob = "Emergency Response Team Leader"
+			pda.name = "PDA-[M.real_name] ([pda.ownjob])"
+			M.equip_to_slot_or_del(pda, slot_wear_pda)
+
+			M.equip_to_slot_or_del(new /obj/item/weapon/storage/box/response_team(M), slot_in_backpack)
+			M.equip_to_slot_or_del(new /obj/item/clothing/head/helmet/space/rig/ert/commander(M), slot_in_backpack)
+			M.equip_to_slot_or_del(new /obj/item/clothing/mask/gas/swat(M), slot_in_backpack)
+			M.equip_to_slot_or_del(new /obj/item/weapon/pinpointer(M), slot_in_backpack)
+			M.equip_to_slot_or_del(new /obj/item/weapon/gun/energy/gun(M), slot_in_backpack)
+
+			M.equip_to_slot_or_del(new /obj/item/weapon/storage/belt/security/response_team(M), slot_belt)
+
+		if("sec")
+			M.equip_to_slot_or_del(new /obj/item/clothing/shoes/magboots(M), slot_shoes)
+			M.equip_to_slot_or_del(new /obj/item/clothing/gloves/combat(M), slot_gloves)
+			M.equip_to_slot_or_del(new /obj/item/clothing/suit/space/rig/ert/security(M), slot_wear_suit)
+			M.equip_to_slot_or_del(new /obj/item/weapon/storage/backpack/security(M), slot_back)
+			M.equip_to_slot_or_del(new /obj/item/clothing/glasses/sunglasses/sechud(M), slot_glasses)
+
+			var/obj/item/weapon/card/id/W = new(src)
+			W.assignment = "Emergency Response Team"
+			W.registered_name = M.real_name
+			W.name = "[M.real_name]'s ID Card (Emergency Response Team - Officer)"
+			W.icon_state = "centcom"
+			W.access = get_all_accesses()
+			W.access += list(access_cent_general, access_cent_living, access_cent_thunder)
+			M.equip_to_slot_or_del(W, slot_wear_id)
+
+			var/obj/item/device/pda/heads/pda = new(src)
+			pda.owner = M.real_name
+			pda.ownjob = "Emergency Response Team"
+			pda.name = "PDA-[M.real_name] ([pda.ownjob])"
+			pda.icon_state = "pda-security"
+			M.equip_to_slot_or_del(pda, slot_wear_pda)
+
+			M.equip_to_slot_or_del(new /obj/item/weapon/storage/box/response_team(M), slot_in_backpack)
+			M.equip_to_slot_or_del(new /obj/item/weapon/storage/box/handcuffs(M), slot_in_backpack)
+			M.equip_to_slot_or_del(new /obj/item/clothing/head/helmet/space/rig/ert/security(M), slot_in_backpack)
+			M.equip_to_slot_or_del(new /obj/item/clothing/mask/gas/swat(M), slot_in_backpack)
+			M.equip_to_slot_or_del(new /obj/item/weapon/gun/energy/gun/nuclear(M), slot_in_backpack)
+
+			M.equip_to_slot_or_del(new /obj/item/weapon/storage/belt/security/response_team(M), slot_belt)
+
+		if("med")
+			M.equip_to_slot_or_del(new /obj/item/clothing/shoes/magboots(M), slot_shoes)
+			M.equip_to_slot_or_del(new /obj/item/clothing/gloves/combat(M), slot_gloves)
+			M.equip_to_slot_or_del(new /obj/item/clothing/suit/space/rig/ert/medical(M), slot_wear_suit)
+			M.equip_to_slot_or_del(new /obj/item/weapon/storage/backpack/medic(M), slot_back)
+			M.equip_to_slot_or_del(new /obj/item/clothing/glasses/hud/health_advanced(M), slot_glasses)
+
+			var/obj/item/weapon/card/id/W = new(src)
+			W.assignment = "Emergency Response Team"
+			W.registered_name = M.real_name
+			W.name = "[M.real_name]'s ID Card (Emergency Response Team - Medic)"
+			W.icon_state = "centcom"
+			W.access = get_all_accesses()
+			W.access += list(access_cent_general, access_cent_living, access_cent_medical)
+			M.equip_to_slot_or_del(W, slot_wear_id)
+
+			var/obj/item/device/pda/heads/pda = new(src)
+			pda.owner = M.real_name
+			pda.ownjob = "Emergency Response Team"
+			pda.name = "PDA-[M.real_name] ([pda.ownjob])"
+			pda.icon_state = "pda-medical"
+			M.equip_to_slot_or_del(pda, slot_wear_pda)
+
+			M.equip_to_slot_or_del(new /obj/item/weapon/storage/box/response_team(M), slot_in_backpack)
+			M.equip_to_slot_or_del(new /obj/item/clothing/head/helmet/space/rig/ert/medical(M), slot_in_backpack)
+			M.equip_to_slot_or_del(new /obj/item/clothing/mask/gas/swat(M), slot_in_backpack)
+			M.equip_to_slot_or_del(new /obj/item/weapon/storage/firstaid/o2(M), slot_in_backpack)
+			M.equip_to_slot_or_del(new /obj/item/weapon/storage/firstaid/toxin(M), slot_in_backpack)
+			M.equip_to_slot_or_del(new /obj/item/weapon/reagent_containers/hypospray/CMO(M), slot_in_backpack)
+			M.equip_to_slot_or_del(new /obj/item/weapon/gun/energy/gun(M), slot_in_backpack)
+
+			M.equip_to_slot_or_del(new /obj/item/weapon/defibrillator/compact/combat/loaded(M), slot_belt)
+
+			M.equip_to_slot_or_del(new /obj/item/weapon/storage/firstaid/adv(M), slot_r_hand)
+
+		if("eng")
+			M.equip_to_slot_or_del(new /obj/item/clothing/shoes/magboots/advance(M), slot_shoes)
+			M.equip_to_slot_or_del(new /obj/item/clothing/gloves/combat(M), slot_gloves)
+			M.equip_to_slot_or_del(new /obj/item/clothing/suit/space/rig/ert/engineer(M), slot_wear_suit)
+			M.equip_to_slot_or_del(new /obj/item/weapon/storage/backpack/industrial(M), slot_back)
+			M.equip_to_slot_or_del(new /obj/item/clothing/glasses/meson(M), slot_glasses)
+
+			var/obj/item/weapon/card/id/W = new(src)
+			W.assignment = "Emergency Response Team"
+			W.registered_name = M.real_name
+			W.name = "[M.real_name]'s ID Card (Emergency Response Team - Engineer)"
+			W.icon_state = "centcom"
+			W.access = get_all_accesses()
+			W.access += list(access_cent_general, access_cent_living, access_cent_storage)
+			M.equip_to_slot_or_del(W, slot_wear_id)
+
+			var/obj/item/device/pda/heads/pda = new(src)
+			pda.owner = M.real_name
+			pda.ownjob = "Emergency Response Team"
+			pda.name = "PDA-[M.real_name] ([pda.ownjob])"
+			pda.icon_state = "pda-engineer"
+			M.equip_to_slot_or_del(pda, slot_wear_pda)
+
+			M.equip_to_slot_or_del(new /obj/item/weapon/storage/box/response_team(M), slot_in_backpack)
+			M.equip_to_slot_or_del(new /obj/item/clothing/head/helmet/space/rig/ert/engineer(M), slot_in_backpack)
+			M.equip_to_slot_or_del(new /obj/item/clothing/mask/gas/swat(M), slot_in_backpack)
+			M.equip_to_slot_or_del(new /obj/item/weapon/rcd/combat(M), slot_in_backpack)
+			M.equip_to_slot_or_del(new /obj/item/weapon/rcd_ammo/large(M), slot_in_backpack)
+			M.equip_to_slot_or_del(new /obj/item/weapon/rcd_ammo/large(M), slot_in_backpack)
+			M.equip_to_slot_or_del(new /obj/item/weapon/gun/energy/gun(M), slot_in_backpack)
+
+			M.equip_to_slot_or_del(new /obj/item/weapon/storage/belt/utility/full/response_team(M), slot_belt)
+
+			M.equip_to_slot_or_del(new /obj/item/weapon/storage/briefcase/inflatable(M), slot_l_hand)
+
+/*/mob/living/carbon/human/proc/equip_strike_team(leader_selected = 0) Old ERT equip verb.
 
 	//Special radio setup
 	equip_to_slot_or_del(new /obj/item/device/radio/headset/ert/alt(src), slot_l_ear)
@@ -321,7 +489,7 @@ proc/trigger_armed_response_team(var/force = 0)
 	L.imp_in = src
 	L.implanted = 1
 
-	return 1
+	return 1*/
 
 //debug verb (That is horribly coded, LEAVE THIS OFF UNLESS PRIVATELY TESTING. Seriously.
 /*client/verb/ResponseTeam()

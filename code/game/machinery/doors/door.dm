@@ -20,6 +20,7 @@
 	var/heat_proof = 0 // For glass airlocks/opacity firedoors
 	var/emergency = 0
 	var/air_properties_vary_with_direction = 0
+	var/block_air_zones = 1 //If set, air zones cannot merge across the door even when it is opened.
 
 	//Multi-tile doors
 	dir = EAST
@@ -96,7 +97,7 @@
 
 
 /obj/machinery/door/CanPass(atom/movable/mover, turf/target, height=0, air_group=0)
-	if(air_group) return 0
+	if(air_group) return !block_air_zones
 	if(istype(mover) && mover.checkpass(PASSGLASS))
 		return !opacity
 	return !density
@@ -143,7 +144,7 @@
 		return
 	..()
 
-/obj/machinery/door/attackby(obj/item/I as obj, mob/user as mob)
+/obj/machinery/door/attackby(obj/item/I as obj, mob/user as mob, params)
 	if(istype(I, /obj/item/device/detective_scanner))
 		return
 	if(src.operating || isrobot(user))	return //borgs can't attack doors open because it conflicts with their AI-like interaction with them.
@@ -153,10 +154,7 @@
 	if(!src.requiresID())
 		user = null
 	if(src.density && (istype(I, /obj/item/weapon/card/emag)||istype(I, /obj/item/weapon/melee/energy/blade)))
-		flick("door_spark", src)
-		sleep(6)
-		open()
-		operating = -1
+		emag_act(user)
 		return 1
 	if(src.allowed(user) || src.emergency == 1)
 		if(src.density)
@@ -168,6 +166,13 @@
 		flick("door_deny", src)
 	return
 
+/obj/machinery/door/emag_act(user as mob)
+	if(density)
+		flick("door_spark", src)
+		sleep(6)
+		open()
+		operating = -1
+		return 1
 
 /obj/machinery/door/blob_act()
 	if(prob(40))

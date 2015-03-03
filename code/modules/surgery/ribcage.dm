@@ -12,7 +12,8 @@
 /datum/surgery_step/ribcage/saw_ribcage
 	allowed_tools = list(
 	/obj/item/weapon/circular_saw = 100, \
-	/obj/item/weapon/hatchet = 75
+	/obj/item/weapon/hatchet = 75, \
+	/obj/item/weapon/melee/arm_blade = 60
 	)
 
 	min_duration = 50
@@ -146,7 +147,7 @@
 		user.visible_message(msg, self_msg)
 
 		target.op_stage.ribcage = 0
-		
+
 //////////////////////////////////////////////////////////////////
 //					ALIEN EMBRYO SURGERY						//
 //////////////////////////////////////////////////////////////////

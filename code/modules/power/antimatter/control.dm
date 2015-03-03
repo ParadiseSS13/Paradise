@@ -145,7 +145,7 @@
 	//No other icons for it atm
 
 
-/obj/machinery/power/am_control_unit/attackby(obj/item/W, mob/user)
+/obj/machinery/power/am_control_unit/attackby(obj/item/W, mob/user, params)
 	if(!istype(W) || !user) return
 	if(istype(W, /obj/item/weapon/wrench))
 		if(!anchored)
@@ -174,7 +174,7 @@
 		W.loc = src
 		if(user.client)
 			user.client.screen -= W
-		user.u_equip(W)
+		user.unEquip(W)
 		user.update_icons()
 		user.visible_message("[user.name] loads an [W.name] into the [src.name].", \
 				"You load an [W.name].", \

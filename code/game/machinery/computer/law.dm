@@ -26,7 +26,7 @@
 		return
 
 
-	attackby(obj/item/weapon/O as obj, mob/user as mob)
+	attackby(obj/item/weapon/O as obj, mob/user as mob, params)
 		if (user.z > 6)
 			user << "\red <b>Unable to establish a connection</b>: \black You're too far away from the station!"
 			return
@@ -53,7 +53,8 @@
 			usr << "[src.current.name] selected for law changes."
 		return
 
-
+	attack_ghost(user as mob)
+		return 1
 
 /obj/machinery/computer/borgupload
 	name = "Cyborg Upload"
@@ -63,7 +64,7 @@
 	var/mob/living/silicon/robot/current = null
 
 
-	attackby(obj/item/weapon/aiModule/module as obj, mob/user as mob)
+	attackby(obj/item/weapon/aiModule/module as obj, mob/user as mob, params)
 		if(istype(module, /obj/item/weapon/aiModule))
 			module.install(src)
 		else
@@ -85,3 +86,6 @@
 		else
 			usr << "[src.current.name] selected for law changes."
 		return
+		
+	attack_ghost(user as mob)
+		return 1

@@ -389,7 +389,7 @@
 	range = RANGED
 
 	action(atom/target)
-		if(!action_checks(target) || src.loc.z == 2) return
+		if(!action_checks(target) || (src.loc.z in config.admin_levels)) return
 		var/turf/T = get_turf(target)
 		if(T)
 			set_ready_state(0)
@@ -410,7 +410,7 @@
 
 
 	action(atom/target)
-		if(!action_checks(target) || src.loc.z == 2) return
+		if(!action_checks(target) || (src.loc.z in config.admin_levels)) return
 		var/list/theareas = list()
 		for(var/area/AR in orange(100, chassis))
 			if(AR in theareas) continue
@@ -548,9 +548,9 @@
 		if(!chassis) return
 		return "<span style=\"color:[equip_ready?"#0f0":"#f00"];\">*</span>&nbsp;[src.name]"
 
-	proc/dynattackby(obj/item/weapon/W as obj, mob/user as mob)
+	proc/dynattackby(obj/item/weapon/W as obj, mob/user as mob, params)
 		if(!action_checks(user))
-			return chassis.dynattackby(W,user)
+			return chassis.dynattackby(W,user, params)
 		chassis.log_message("Attacked by [W]. Attacker - [user]")
 		if(prob(chassis.deflect_chance*deflect_coeff))
 			user << "\red The [W] bounces off [chassis] armor."
@@ -920,7 +920,7 @@
 				return 0
 		return
 
-	attackby(weapon,mob/user)
+	attackby(weapon,mob/user, params)
 		var/result = load_fuel(weapon)
 		if(isnull(result))
 			user.visible_message("[user] tries to shove [weapon] into [src]. What a dumb-ass.","<font color='red'>[fuel] traces minimal. [weapon] cannot be used as fuel.</font>")

@@ -2,7 +2,6 @@
 	name = "cargo cap"
 	desc = "It's a baseball hat in a tasteless yellow colour."
 	icon_state = "cargosoft"
-	flags = FPRINT|TABLEPASS
 	item_state = "helmet"
 	_color = "cargo"
 	var/flipped = 0

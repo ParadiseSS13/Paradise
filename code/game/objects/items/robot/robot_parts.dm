@@ -3,7 +3,7 @@
 	icon = 'icons/obj/robot_parts.dmi'
 	item_state = "buildpipe"
 	icon_state = "blank"
-	flags = FPRINT | TABLEPASS | CONDUCT
+	flags = CONDUCT
 	slot_flags = SLOT_BELT
 	var/construction_time = 100
 	var/list/construction_cost = list("metal"=20000,"glass"=5000)
@@ -49,7 +49,7 @@
 	construction_time = 350
 	construction_cost = list("metal"=40000)
 	var/wires = 0.0
-	var/obj/item/weapon/cell/cell = null
+	var/obj/item/weapon/stock_parts/cell/cell = null
 
 /obj/item/robot_parts/head
 	name = "robot head"
@@ -101,7 +101,7 @@
 				return 1
 	return 0
 
-/obj/item/robot_parts/robot_suit/attackby(obj/item/W as obj, mob/user as mob)
+/obj/item/robot_parts/robot_suit/attackby(obj/item/W as obj, mob/user as mob, params)
 	..()
 	if(istype(W, /obj/item/stack/sheet/metal) && !l_arm && !r_arm && !l_leg && !r_leg && !chest && !head)
 		var/obj/item/weapon/ed209_assembly/B = new /obj/item/weapon/ed209_assembly
@@ -109,7 +109,7 @@
 		user << "You armed the robot frame"
 		W:use(1)
 		if (user.get_inactive_hand()==src)
-			user.before_take_item(src)
+			user.unEquip(src)
 			user.put_in_inactive_hand(B)
 		del(src)
 	if(istype(W, /obj/item/robot_parts/l_leg))
@@ -249,9 +249,9 @@
 
 	return
 
-/obj/item/robot_parts/chest/attackby(obj/item/W as obj, mob/user as mob)
+/obj/item/robot_parts/chest/attackby(obj/item/W as obj, mob/user as mob, params)
 	..()
-	if(istype(W, /obj/item/weapon/cell))
+	if(istype(W, /obj/item/weapon/stock_parts/cell))
 		if(src.cell)
 			user << "\blue You have already inserted a cell!"
 			return
@@ -271,7 +271,7 @@
 			user << "\blue You insert the wire!"
 	return
 
-/obj/item/robot_parts/head/attackby(obj/item/W as obj, mob/user as mob)
+/obj/item/robot_parts/head/attackby(obj/item/W as obj, mob/user as mob, params)
 	..()
 	if(istype(W, /obj/item/device/flash))
 		if(istype(user,/mob/living/silicon/robot))
@@ -299,7 +299,7 @@
 		return
 	return
 
-/obj/item/robot_parts/attackby(obj/item/W as obj, mob/user as mob)
+/obj/item/robot_parts/attackby(obj/item/W as obj, mob/user as mob, params)
 	if(istype(W,/obj/item/weapon/card/emag))
 		if(sabotaged)
 			user << "\red [src] is already sabotaged!"

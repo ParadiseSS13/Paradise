@@ -39,7 +39,7 @@
 // possibly intentional, but removing it allows us to not duplicate functionality.
 // -Sayu (storage conslidation)
 /*
-/obj/item/weapon/reagent_containers/attackby(obj/item/I as obj, mob/user as mob)
+/obj/item/weapon/reagent_containers/attackby(obj/item/I as obj, mob/user as mob, params)
 	return
 */
 /obj/item/weapon/reagent_containers/afterattack(obj/target, mob/user , flag)

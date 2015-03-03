@@ -15,12 +15,11 @@
 	icon = 'icons/obj/bureaucracy.dmi'
 	icon_state = "pen"
 	item_state = "pen"
-	flags = FPRINT | TABLEPASS
 	slot_flags = SLOT_BELT | SLOT_EARS
 	throwforce = 0
 	w_class = 1.0
-	throw_speed = 7
-	throw_range = 15
+	throw_speed = 3
+	throw_range = 7
 	m_amt = 10
 	var/colour = "black"	//what colour the ink is!
 	pressure_resistance = 2
@@ -42,72 +41,37 @@
 	colour = "white"
 
 
-/obj/item/weapon/pen/attack(mob/M as mob, mob/user as mob)
-	if(!ismob(M))
+/obj/item/weapon/pen/attack(mob/living/M, mob/user)
+	if(!istype(M))
 		return
-	user << "<span class='warning'>You stab [M] with the pen.</span>"
-//	M << "\red You feel a tiny prick!" //That's a whole lot of meta!
-	M.attack_log += text("\[[time_stamp()]\] <font color='orange'>Has been stabbed with [name]  by [user.name] ([user.ckey])</font>")
-	user.attack_log += text("\[[time_stamp()]\] <font color='red'>Used the [name] to stab [M.name] ([M.ckey])</font>")
-	if(!iscarbon(user))
-		M.LAssailant = null
-	else
-		M.LAssailant = user
-	return
 
+	if(M.can_inject(user, 1))
+		user << "<span class='warning'>You stab [M] with the pen.</span>"
+//		M << "<span class='danger'>You feel a tiny prick!</span>"
+		. = 1
+
+	add_logs(user, M, "stabbed", object="[name]")
 
 /*
- * Sleepy Pens
+ * Sleepypens
  */
-/obj/item/weapon/pen/sleepypen
-	desc = "It's a black ink pen with a sharp point and a carefully engraved \"Waffle Co.\""
-	flags = FPRINT | TABLEPASS | OPENCONTAINER
+/obj/item/weapon/pen/sleepy
+	flags = OPENCONTAINER
 	origin_tech = "materials=2;syndicate=5"
 
 
-/obj/item/weapon/pen/sleepypen/New()
-	var/datum/reagents/R = new/datum/reagents(30) //Used to be 300
-	reagents = R
-	R.my_atom = src
-	R.add_reagent("chloralhydrate", 22)	//Used to be 100 sleep toxin//30 Chloral seems to be fatal, reducing it to 22./N
+/obj/item/weapon/pen/sleepy/attack(mob/living/M, mob/user)
+	if(!istype(M))	return
+
+	if(..())
+		if(reagents.total_volume)
+			if(M.reagents)
+				reagents.trans_to(M, 55)
+
+
+/obj/item/weapon/pen/sleepy/New()
+	create_reagents(55)
+	reagents.add_reagent("stoxin", 30)
+	reagents.add_reagent("mutetoxin", 15)
+	reagents.add_reagent("tirizene", 10)
 	..()
-	return
-
-
-/obj/item/weapon/pen/sleepypen/attack(mob/M as mob, mob/user as mob)
-	if(!ismob(M))
-		return
-	..()
-	msg_admin_attack("[user.name] ([user.ckey]) Used the [name] to stab [M.name] ([M.ckey]) (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[user.x];Y=[user.y];Z=[user.z]'>JMP</a>)")
-	if(reagents.total_volume)
-		if(M.reagents) reagents.trans_to(M, 50) //used to be 150
-	return
-
-
-/*
- * Parapens
- */
-/obj/item/weapon/pen/paralysis
-	flags = FPRINT | TABLEPASS | OPENCONTAINER
-	origin_tech = "materials=2;syndicate=5"
-
-
-/obj/item/weapon/pen/paralysis/New()
-	var/datum/reagents/R = new/datum/reagents(55)
-	reagents = R
-	R.my_atom = src
-	R.add_reagent("stoxin", 30)
-	R.add_reagent("mutetoxin", 15)
-	R.add_reagent("tirizene", 10)
-	..()
-	return
-
-
-/obj/item/weapon/pen/paralysis/attack(mob/M as mob, mob/user as mob)
-	if(!ismob(M))
-		return
-	..()
-	msg_admin_attack("[user.name] ([user.ckey]) Used the [name] to stab [M.name] ([M.ckey]) (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[user.x];Y=[user.y];Z=[user.z]'>JMP</a>)")
-	if(reagents.total_volume)
-		if(M.reagents) reagents.trans_to(M, 55) //used to be 150
-	return

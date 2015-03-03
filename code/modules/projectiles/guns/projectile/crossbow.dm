@@ -7,7 +7,6 @@
 	icon = 'icons/obj/weapons.dmi'
 	icon_state = "bolt"
 	item_state = "bolt"
-	flags =  FPRINT | TABLEPASS
 	throwforce = 8
 	w_class = 3.0
 	sharp = 1
@@ -72,7 +71,7 @@
 	var/tension = 0                         // Current draw on the bow.
 	var/max_tension = 5                     // Highest possible tension.
 	var/release_speed = 5                   // Speed per unit of tension.
-	var/obj/item/weapon/cell/cell = null    // Used for firing superheated rods.
+	var/obj/item/weapon/stock_parts/cell/cell = null    // Used for firing superheated rods.
 	var/current_user                        // Used to check if the crossbow has changed hands since being drawn.
 
 /obj/item/weapon/gun/launcher/crossbow/emp_act(severity)
@@ -138,7 +137,7 @@
 		user.visible_message("[usr] draws back the string of [src]!","You continue drawing back the string of [src]!")
 		spawn(25) increase_tension(user)
 
-/obj/item/weapon/gun/launcher/crossbow/attackby(obj/item/W as obj, mob/user as mob)
+/obj/item/weapon/gun/launcher/crossbow/attackby(obj/item/W as obj, mob/user as mob, params)
 	if(!in_chamber)
 		if (istype(W,/obj/item/weapon/arrow))
 			user.drop_item()
@@ -158,7 +157,7 @@
 			superheat_rod(user)
 			return
 
-	if(istype(W, /obj/item/weapon/cell))
+	if(istype(W, /obj/item/weapon/stock_parts/cell))
 		if(!cell)
 			user.drop_item()
 			W.loc = src
@@ -196,7 +195,7 @@
 /obj/item/weapon/gun/launcher/crossbow/french
 	name = "french powered crossbow"
 
-/obj/item/weapon/gun/launcher/crossbow/french/attackby(obj/item/W as obj, mob/user as mob)
+/obj/item/weapon/gun/launcher/crossbow/french/attackby(obj/item/W as obj, mob/user as mob, params)
 	if(!in_chamber)
 		if (istype(W,/obj/item/weapon/reagent_containers/food/snacks/baguette))
 			user.drop_item()
@@ -213,7 +212,7 @@
 			user.visible_message("\The [src] only takes baguettes.")
 			return
 
-	if(istype(W, /obj/item/weapon/cell))
+	if(istype(W, /obj/item/weapon/stock_parts/cell))
 		user.visible_message("The [src] is too simple be adapted with a cell.")
 		return
 
@@ -256,7 +255,7 @@
 		if(4) usr << "It has a steel backbone, plastic lath and a cell mount installed."
 		if(5) usr << "It has a steel cable loosely strung across the lath."
 
-/obj/item/weapon/crossbowframe/attackby(obj/item/W as obj, mob/user as mob)
+/obj/item/weapon/crossbowframe/attackby(obj/item/W as obj, mob/user as mob, params)
 	if(istype(W,/obj/item/stack/rods))
 		if(buildstate == 0)
 			var/obj/item/stack/rods/R = W

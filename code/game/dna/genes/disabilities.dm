@@ -55,7 +55,7 @@
 	name="Hallucinate"
 	activation_message="Your mind says 'Hello'."
 	deactivation_message ="Sanity returns. Or does it?"
-	mutation=M_HALLUCINATE
+	mutation=HALLUCINATE
 
 	New()
 		block=HALLUCINATIONBLOCK
@@ -82,7 +82,7 @@
 	name="Clumsiness"
 	activation_message="You feel lightheaded."
 	deactivation_message ="You regain some control of your movements"
-	mutation=M_CLUMSY
+	mutation=CLUMSY
 
 	New()
 		block=CLUMSYBLOCK
@@ -149,3 +149,13 @@
 
 	OnSay(var/mob/M, var/message)
 		return replacetext(message,"s","th")
+
+/datum/dna/gene/disability/comic
+	name = "Comic"
+	desc = "This will only bring death and destruction."
+	activation_message = "<span class='sans'>Uh oh!</span>"
+	deactivation_message = "Well thank god that's over with."
+	mutation=COMIC
+
+	New()
+		block = COMICBLOCK

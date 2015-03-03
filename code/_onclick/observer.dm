@@ -19,8 +19,8 @@
 	if(client.buildmode)
 		build_click(src, client.buildmode, params, A)
 		return
-	if(world.time <= next_move) return
-	next_move = world.time + 8
+	if(world.time <= next_move) 
+		return
 
 	var/list/modifiers = params2list(params)
 	if(modifiers["shift"])
@@ -57,17 +57,18 @@
 	A.examine()
 
 /atom/proc/attack_ghost(mob/user as mob)
-	src.examine()
+	return
 
 // ---------------------------------------
 // And here are some good things for free:
 // Now you can click through portals, wormholes, gateways, and teleporters while observing. -Sayu
 
 /obj/machinery/teleport/hub/attack_ghost(mob/user as mob)
-	var/atom/l = loc
-	var/obj/machinery/computer/teleporter/com = locate(/obj/machinery/computer/teleporter, locate(l.x - 2, l.y, l.z))
-	if(com.locked)
-		user.loc = get_turf(com.locked)
+	var/obj/machinery/teleport/station/S = power_station
+	if(S)
+		var/obj/machinery/computer/teleporter/com = S.teleporter_console
+		if(com && com.target)
+			user.loc = get_turf(com.target)
 
 /obj/effect/portal/attack_ghost(mob/user as mob)
 	if(target)

@@ -133,7 +133,7 @@
 /
 /mob/living/silicon/robot/mommi/handle_regular_hud_updates()
 
-	if (src.stat == 2 || M_XRAY in mutations || src.sight_mode & BORGXRAY)
+	if (src.stat == 2 || XRAY in mutations || src.sight_mode & BORGXRAY)
 		src.sight |= SEE_TURFS
 		src.sight |= SEE_MOBS
 		src.sight |= SEE_OBJS
@@ -264,7 +264,7 @@
 	if (src.client)
 		src.client.screen -= src.contents
 		for(var/obj/I in src.contents)
-			//if(I && !(istype(I,/obj/item/weapon/cell) || istype(I,/obj/item/device/radio)  || istype(I,/obj/machinery/camera) || istype(I,/obj/item/device/mmi)))
+			//if(I && !(istype(I,/obj/item/weapon/stock_parts/cell) || istype(I,/obj/item/device/radio)  || istype(I,/obj/machinery/camera) || istype(I,/obj/item/device/mmi)))
 			if(I)
 				// Make sure we're not showing any of our internal components, as that would be lewd.
 				// This way of doing it ensures that shit we pick up will be visible, wheras shit inside of us isn't.

@@ -14,23 +14,14 @@ client/proc/one_click_antag()
 
 	var/dat = {"<B>One-click Antagonist</B><br>
 		<a href='?src=\ref[src];makeAntag=1'>Make Traitors</a><br>
-		<a href='?src=\ref[src];makeAntag=2'>Make Changlings</a><br>
-		<a href='?src=\ref[src];makeAntag=3'>Make Revs</a><br>
+		<a href='?src=\ref[src];makeAntag=2'>Make Changelings</a><br>
+		<a href='?src=\ref[src];makeAntag=3'>Make Revolutionaries</a><br>
 		<a href='?src=\ref[src];makeAntag=4'>Make Cult</a><br>
 		<a href='?src=\ref[src];makeAntag=5'>Make Malf AI</a><br>
 		<a href='?src=\ref[src];makeAntag=6'>Make Wizard (Requires Ghosts)</a><br>
-		<a href='?src=\ref[src];makeAntag=11'>Make Vox Raiders (Requires Ghosts)</a><br>
+		<a href='?src=\ref[src];makeAntag=7'>Make Vampires</a><br>
+		<a href='?src=\ref[src];makeAntag=8'>Make Vox Raiders (Requires Ghosts)</a><br>
 		"}
-/* These dont work just yet
-	Ninja, aliens and deathsquad I have not looked into yet
-	Nuke team is getting a null mob returned from makebody() (runtime error: null.mind. Line 272)
-
-		<a href='?src=\ref[src];makeAntag=7'>Make Nuke Team (Requires Ghosts)</a><br>
-		<a href='?src=\ref[src];makeAntag=8'>Make Space Ninja (Requires Ghosts)</a><br>
-		<a href='?src=\ref[src];makeAntag=9'>Make Aliens (Requires Ghosts)</a><br>
-		<a href='?src=\ref[src];makeAntag=10'>Make Deathsquad (Syndicate) (Requires Ghosts)</a><br>
-		"}
-*/
 	usr << browse(dat, "window=oneclickantag;size=400x400")
 	return
 
@@ -42,7 +33,7 @@ client/proc/one_click_antag()
 	var/datum/mind/themind = null
 
 	for(var/mob/living/silicon/ai/ai in player_list)
-		if(ai.client)
+		if(ai.client && ai.client.prefs.be_special & BE_MALF)
 			AIs += ai
 
 	if(AIs.len)
@@ -67,12 +58,14 @@ client/proc/one_click_antag()
 
 	for(var/mob/living/carbon/human/applicant in player_list)
 		if(applicant.client.prefs.be_special & BE_TRAITOR)
-			if(!applicant.stat)
-				if(applicant.mind)
-					if (!applicant.mind.special_role)
-						if(!jobban_isbanned(applicant, "traitor") && !jobban_isbanned(applicant, "Syndicate"))
-							if(!(applicant.job in temp.restricted_jobs))
-								candidates += applicant
+			if(player_old_enough_antag(applicant.client,BE_TRAITOR))
+				if(!applicant.stat)
+					if(applicant.mind)
+						if (!applicant.mind.special_role)
+							if(!jobban_isbanned(applicant, "traitor") && !jobban_isbanned(applicant, "Syndicate"))
+								if(!(applicant.mind.assigned_role in temp.restricted_jobs))
+									if(!(applicant.client.prefs.species in temp.protected_species))
+										candidates += applicant
 
 	if(candidates.len)
 		var/numTratiors = min(candidates.len, 3)
@@ -99,12 +92,14 @@ client/proc/one_click_antag()
 
 	for(var/mob/living/carbon/human/applicant in player_list)
 		if(applicant.client.prefs.be_special & BE_CHANGELING)
-			if(!applicant.stat)
-				if(applicant.mind)
-					if (!applicant.mind.special_role)
-						if(!jobban_isbanned(applicant, "changeling") && !jobban_isbanned(applicant, "Syndicate"))
-							if(!(applicant.job in temp.restricted_jobs))
-								candidates += applicant
+			if(player_old_enough_antag(applicant.client,BE_CHANGELING))
+				if(!applicant.stat)
+					if(applicant.mind)
+						if (!applicant.mind.special_role)
+							if(!jobban_isbanned(applicant, "changeling") && !jobban_isbanned(applicant, "Syndicate"))
+								if(!(applicant.mind.assigned_role in temp.restricted_jobs))
+									if(!(applicant.client.prefs.species in temp.protected_species))
+										candidates += applicant
 
 	if(candidates.len)
 		var/numChanglings = min(candidates.len, 3)
@@ -129,12 +124,14 @@ client/proc/one_click_antag()
 
 	for(var/mob/living/carbon/human/applicant in player_list)
 		if(applicant.client.prefs.be_special & BE_REV)
-			if(applicant.stat == CONSCIOUS)
-				if(applicant.mind)
-					if(!applicant.mind.special_role)
-						if(!jobban_isbanned(applicant, "revolutionary") && !jobban_isbanned(applicant, "Syndicate"))
-							if(!(applicant.job in temp.restricted_jobs))
-								candidates += applicant
+			if(player_old_enough_antag(applicant.client,BE_REV))
+				if(applicant.stat == CONSCIOUS)
+					if(applicant.mind)
+						if(!applicant.mind.special_role)
+							if(!jobban_isbanned(applicant, "revolutionary") && !jobban_isbanned(applicant, "Syndicate"))
+								if(!(applicant.mind.assigned_role in temp.restricted_jobs))
+									if(!(applicant.client.prefs.species in temp.protected_species))
+										candidates += applicant
 
 	if(candidates.len)
 		var/numRevs = min(candidates.len, 3)
@@ -153,17 +150,19 @@ client/proc/one_click_antag()
 	var/time_passed = world.time
 
 	for(var/mob/G in respawnable_list)
-		if(!jobban_isbanned(G, "wizard") && !jobban_isbanned(G, "Syndicate"))
-			spawn(0)
-				switch(G.timed_alert("Do you wish to be considered for the position of Space Wizard Foundation 'diplomat'?","Please answer in 30 seconds!","No",300,"Yes","No"))//alert(G, "Do you wish to be considered for the position of Space Wizard Foundation 'diplomat'?","Please answer in 30 seconds!","Yes","No"))
-					if("Yes")
-						if((world.time-time_passed)>300)//If more than 30 game seconds passed.
-							return
-						candidates += G
-					if("No")
-						return
-					else
-						return
+		if(G.client.prefs.be_special & BE_WIZARD)
+			if(!jobban_isbanned(G, "wizard") && !jobban_isbanned(G, "Syndicate"))
+				if(player_old_enough_antag(G.client,BE_WIZARD))
+					spawn(0)
+						switch(G.timed_alert("Do you wish to be considered for the position of Space Wizard Foundation 'diplomat'?","Please answer in 30 seconds!","No",300,"Yes","No"))//alert(G, "Do you wish to be considered for the position of Space Wizard Foundation 'diplomat'?","Please answer in 30 seconds!","Yes","No"))
+							if("Yes")
+								if((world.time-time_passed)>300)//If more than 30 game seconds passed.
+									return
+								candidates += G
+							if("No")
+								return
+							else
+								return
 
 	sleep(300)
 
@@ -194,12 +193,14 @@ client/proc/one_click_antag()
 
 	for(var/mob/living/carbon/human/applicant in player_list)
 		if(applicant.client.prefs.be_special & BE_CULTIST)
-			if(applicant.stat == CONSCIOUS)
-				if(applicant.mind)
-					if(!applicant.mind.special_role)
-						if(!jobban_isbanned(applicant, "cultist") && !jobban_isbanned(applicant, "Syndicate"))
-							if(!(applicant.job in temp.restricted_jobs))
-								candidates += applicant
+			if(player_old_enough_antag(applicant.client,BE_CULTIST))
+				if(applicant.stat == CONSCIOUS)
+					if(applicant.mind)
+						if(!applicant.mind.special_role)
+							if(!jobban_isbanned(applicant, "cultist") && !jobban_isbanned(applicant, "Syndicate"))
+								if(!(applicant.mind.assigned_role in temp.restricted_jobs))
+									if(!(applicant.client.prefs.species in temp.protected_species))
+										candidates += applicant
 
 	if(candidates.len)
 		var/numCultists = min(candidates.len, 4)
@@ -223,17 +224,19 @@ client/proc/one_click_antag()
 	var/time_passed = world.time
 
 	for(var/mob/G in respawnable_list)
-		if(!jobban_isbanned(G, "operative") && !jobban_isbanned(G, "Syndicate"))
-			spawn(0)
-				switch(alert(G,"Do you wish to be considered for a nuke team being sent in?","Please answer in 30 seconds!","Yes","No"))
-					if("Yes")
-						if((world.time-time_passed)>300)//If more than 30 game seconds passed.
-							return
-						candidates += G
-					if("No")
-						return
-					else
-						return
+		if(G.client.prefs.be_special & BE_OPERATIVE)
+			if(!jobban_isbanned(G, "operative") && !jobban_isbanned(G, "Syndicate"))
+				if(player_old_enough_antag(G.client,BE_OPERATIVE))
+					spawn(0)
+						switch(alert(G,"Do you wish to be considered for a nuke team being sent in?","Please answer in 30 seconds!","Yes","No"))
+							if("Yes")
+								if((world.time-time_passed)>300)//If more than 30 game seconds passed.
+									return
+								candidates += G
+							if("No")
+								return
+							else
+								return
 
 	sleep(300)
 
@@ -328,16 +331,17 @@ client/proc/one_click_antag()
 
 	//Generates a list of commandos from active ghosts. Then the user picks which characters to respawn as the commandos.
 	for(var/mob/G in respawnable_list)
-		spawn(0)
-			switch(alert(G,"Do you wish to be considered for an elite syndicate strike team being sent in?","Please answer in 30 seconds!","Yes","No"))
-				if("Yes")
-					if((world.time-time_passed)>300)//If more than 30 game seconds passed.
+		if(!jobban_isbanned(G, "Syndicate"))
+			spawn(0)
+				switch(alert(G,"Do you wish to be considered for an elite syndicate strike team being sent in?","Please answer in 30 seconds!","Yes","No"))
+					if("Yes")
+						if((world.time-time_passed)>300)//If more than 30 game seconds passed.
+							return
+						candidates += G
+					if("No")
 						return
-					candidates += G
-				if("No")
-					return
-				else
-					return
+					else
+						return
 	sleep(300)
 
 	for(var/mob/dead/observer/G in candidates)
@@ -445,16 +449,19 @@ client/proc/one_click_antag()
 
 	//Generates a list of candidates from active ghosts.
 	for(var/mob/G in respawnable_list)
-		spawn(0)
-			switch(alert(G,"Do you wish to be considered for a vox raiding party arriving on the station?","Please answer in 30 seconds!","Yes","No"))
-				if("Yes")
-					if((world.time-time_passed)>300)//If more than 30 game seconds passed.
-						return
-					candidates += G
-				if("No")
-					return
-				else
-					return
+		if(G.client.prefs.be_special & BE_RAIDER)
+			if(player_old_enough_antag(G.client,BE_RAIDER))
+				if(!jobban_isbanned(G, "raider") && !jobban_isbanned(G, "Syndicate"))
+					spawn(0)
+						switch(alert(G,"Do you wish to be considered for a vox raiding party arriving on the station?","Please answer in 30 seconds!","Yes","No"))
+							if("Yes")
+								if((world.time-time_passed)>300)//If more than 30 game seconds passed.
+									return
+								candidates += G
+							if("No")
+								return
+							else
+								return
 
 	sleep(300) //Debug.
 
@@ -533,3 +540,35 @@ client/proc/one_click_antag()
 	new_vox.equip_vox_raider()
 
 	return new_vox
+	
+/datum/admins/proc/makeVampires()
+
+	var/datum/game_mode/vampire/temp = new
+	if(config.protect_roles_from_antagonist)
+		temp.restricted_jobs += temp.protected_jobs
+
+	var/list/mob/living/carbon/human/candidates = list()
+	var/mob/living/carbon/human/H = null
+
+	for(var/mob/living/carbon/human/applicant in player_list)
+		if(applicant.client.prefs.be_special & BE_VAMPIRE)
+			if(player_old_enough_antag(applicant.client,BE_VAMPIRE))
+				if(!applicant.stat)
+					if(applicant.mind)
+						if (!applicant.mind.special_role)
+							if(!jobban_isbanned(applicant, "vampire") && !jobban_isbanned(applicant, "Syndicate"))
+								if(!(applicant.job in temp.restricted_jobs))
+									if(!(applicant.client.prefs.species in temp.protected_species))
+										candidates += applicant
+
+	if(candidates.len)
+		var/numVampires = min(candidates.len, 3)
+
+		for(var/i = 0, i<numVampires, i++)
+			H = pick(candidates)
+			H.make_vampire()
+			candidates.Remove(H)
+
+		return 1
+
+	return 0

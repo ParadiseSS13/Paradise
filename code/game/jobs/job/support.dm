@@ -31,7 +31,7 @@
 			H.equip_or_collect(new /obj/item/weapon/storage/box/survival(H), slot_in_backpack)
 
 		H.dna.SetSEState(SOBERBLOCK,1)
-		H.mutations += M_SOBER
+		H.mutations += SOBER
 		H.check_mutations = 1
 
 		return 1
@@ -226,7 +226,9 @@
 		H.equip_or_collect(new /obj/item/toy/crayon/rainbow(H), slot_in_backpack)
 		H.equip_or_collect(new /obj/item/weapon/storage/fancy/crayons(H), slot_in_backpack)
 		H.equip_or_collect(new /obj/item/weapon/reagent_containers/spray/waterflower(H), slot_in_backpack)
-		H.mutations.Add(M_CLUMSY)
+		H.mutations.Add(CLUMSY)
+		H.dna.SetSEState(COMICBLOCK,1,1)
+		genemutcheck(H,COMICBLOCK,null,MUTCHK_FORCED)
 		return 1
 
 
@@ -245,8 +247,7 @@
 
 	equip(var/mob/living/carbon/human/H)
 		if(!H)	return 0
-		if(H.backbag == 2) H.equip_or_collect(new /obj/item/weapon/storage/backpack(H), slot_back)
-		if(H.backbag == 3) H.equip_or_collect(new /obj/item/weapon/storage/backpack/satchel_norm(H), slot_back)
+		H.equip_or_collect(new /obj/item/weapon/storage/backpack/mime(H), slot_back)
 		if(H.gender == FEMALE)
 			H.equip_or_collect(new /obj/item/clothing/under/sexymime(H), slot_w_uniform)
 			H.equip_or_collect(new /obj/item/clothing/mask/gas/sexymime(H), slot_wear_mask)
@@ -259,14 +260,9 @@
 		H.equip_or_collect(new /obj/item/clothing/gloves/color/white(H), slot_gloves)
 		H.equip_or_collect(new /obj/item/clothing/head/beret(H), slot_head)
 		H.equip_or_collect(new /obj/item/clothing/suit/suspenders(H), slot_wear_suit)
-		if(H.backbag == 1)
-			H.equip_or_collect(new /obj/item/weapon/storage/box/survival(H), slot_r_hand)
-			H.equip_or_collect(new /obj/item/toy/crayon/mime(H), slot_l_store)
-			H.equip_or_collect(new /obj/item/weapon/reagent_containers/food/drinks/bottle/bottleofnothing(H), slot_l_hand)
-		else
-			H.equip_or_collect(new /obj/item/weapon/storage/box/survival(H.back), slot_in_backpack)
-			H.equip_or_collect(new /obj/item/toy/crayon/mime(H), slot_in_backpack)
-			H.equip_or_collect(new /obj/item/weapon/reagent_containers/food/drinks/bottle/bottleofnothing(H), slot_in_backpack)
+		H.equip_or_collect(new /obj/item/weapon/storage/box/survival(H.back), slot_in_backpack)
+		H.equip_or_collect(new /obj/item/toy/crayon/mime(H), slot_in_backpack)
+		H.equip_or_collect(new /obj/item/weapon/reagent_containers/food/drinks/bottle/bottleofnothing(H), slot_in_backpack)
 		H.verbs += /client/proc/mimespeak
 		H.verbs += /client/proc/mimewall
 		H.mind.special_verbs += /client/proc/mimespeak

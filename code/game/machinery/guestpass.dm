@@ -54,7 +54,7 @@
 	var/list/internal_log = list()
 	var/mode = 0  // 0 - making pass, 1 - viewing logs
 
-/obj/machinery/computer/guestpass/attackby(obj/O, mob/user)
+/obj/machinery/computer/guestpass/attackby(obj/O, mob/user, params)
 	if(istype(O, /obj/item/weapon/card/id))
 		if(!giver)
 			user.drop_item()
@@ -105,7 +105,7 @@
 
 /obj/machinery/computer/guestpass/Topic(href, href_list)
 	if(..())
-		return
+		return 1
 	usr.set_machine(src)
 	if (href_list["mode"])
 		mode = text2num(href_list["mode"])

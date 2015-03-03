@@ -148,7 +148,7 @@
 				del(src)
 		return
 
-/obj/effect/meteor/attackby(obj/item/weapon/W as obj, mob/user as mob)
+/obj/effect/meteor/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
 	if(istype(W, /obj/item/weapon/pickaxe))
 		del(src)
 		return

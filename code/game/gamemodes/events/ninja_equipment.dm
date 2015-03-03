@@ -37,7 +37,7 @@ ________________________________________________________________________________
 	reagents.my_atom = src
 	for(var/reagent_id in reagent_list)
 		reagent_id == "uranium" ? reagents.add_reagent(reagent_id, r_maxamount+(a_boost*a_transfer)) : reagents.add_reagent(reagent_id, r_maxamount)//It will take into account uranium used for adrenaline boosting.
-	cell = new/obj/item/weapon/cell/high//The suit should *always* have a battery because so many things rely on it.
+	cell = new/obj/item/weapon/stock_parts/cell/high//The suit should *always* have a battery because so many things rely on it.
 	cell.charge = 9990//Starting charge should not be higher than maximum charge. It leads to problems with recharging.
 	cell.maxcharge = 10000 // Due to Ponies' overhaul Ninjas began starting with a 15000 energy cell. This should fix that issue.
 
@@ -564,7 +564,7 @@ ________________________________________________________________________________
 		if("Message")
 			var/obj/item/device/pda/P = locate(href_list["target"])
 			var/t = input(U, "Please enter untraceable message.") as text
-			t = copytext(sanitize(t), 1, MAX_MESSAGE_LEN)
+			t = sanitize(copytext(t, 1, MAX_MESSAGE_LEN))
 			if(!t||U.stat||U.wear_suit!=src||!s_initialized)//Wow, another one of these. Man...
 				display_to << browse(null, "window=spideros")
 				return
@@ -850,7 +850,7 @@ ________________________________________________________________________________
 
 //=======//GENERAL SUIT PROCS//=======//
 
-/obj/item/clothing/suit/space/space_ninja/attackby(obj/item/I, mob/U)
+/obj/item/clothing/suit/space/space_ninja/attackby(obj/item/I, mob/U, params)
 	if(U==affecting)//Safety, in case you try doing this without wearing the suit/being the person with the suit.
 		if(istype(I, /obj/item/device/aicard))//If it's an AI card.
 			if(s_control)
@@ -880,14 +880,14 @@ ________________________________________________________________________________
 
 			U << "Replenished a total of [total_reagent_transfer ? total_reagent_transfer : "zero"] chemical units."//Let the player know how much total volume was added.
 			return
-		else if(istype(I, /obj/item/weapon/cell))
+		else if(istype(I, /obj/item/weapon/stock_parts/cell))
 			if(I:maxcharge>cell.maxcharge&&n_gloves&&n_gloves.candrain)
 				U << "\blue Higher maximum capacity detected.\nUpgrading..."
 				if (n_gloves&&n_gloves.candrain&&do_after(U,s_delay))
 					U.drop_item()
 					I.loc = src
 					I:charge = min(I:charge+cell.charge, I:maxcharge)
-					var/obj/item/weapon/cell/old_cell = cell
+					var/obj/item/weapon/stock_parts/cell/old_cell = cell
 					old_cell.charge = 0
 					U.put_in_hands(old_cell)
 					old_cell.add_fingerprint(U)
@@ -1116,7 +1116,7 @@ ________________________________________________________________________________
 				U << "\red This SMES cell has run dry of power. You must find another source."
 
 		if("CELL")
-			var/obj/item/weapon/cell/A = target
+			var/obj/item/weapon/stock_parts/cell/A = target
 			if(A.charge)
 				if (G.candrain&&do_after(U,30))
 					U << "\blue Gained <B>[A.charge]</B> energy from the cell."
@@ -1287,7 +1287,7 @@ ________________________________________________________________________________
 /obj/item/clothing/gloves/space_ninja/examine()
 	set src in view()
 	..()
-	if(!canremove)
+	if(flags & NODROP)
 		var/mob/living/carbon/human/U = loc
 		U << "The energy drain mechanism is: <B>[candrain?"active":"inactive"]</B>."
 
@@ -1351,21 +1351,21 @@ ________________________________________________________________________________
 		var/chance = rand(1,100)
 		switch(chance)
 			if(1 to 70)//High chance of a regular name.
-				voice = "[rand(0,1)==1?pick(first_names_female):pick(first_names_male)] [pick(last_names)]"
+				changer.voice = "[rand(0,1)==1?pick(first_names_female):pick(first_names_male)] [pick(last_names)]"
 			if(71 to 80)//Smaller chance of a clown name.
-				voice = "[pick(clown_names)]"
+				changer.voice = "[pick(clown_names)]"
 			if(81 to 90)//Small chance of a wizard name.
-				voice = "[pick(wizard_first)] [pick(wizard_second)]"
+				changer.voice = "[pick(wizard_first)] [pick(wizard_second)]"
 			if(91 to 100)//Small chance of an existing crew name.
 				var/names[] = new()
 				for(var/mob/living/carbon/human/M in player_list)
 					if(M==U||!M.client||!M.real_name)	continue
 					names.Add(M.real_name)
-				voice = !names.len ? "Cuban Pete" : pick(names)
-		U << "You are now mimicking <B>[voice]</B>."
+				changer.voice = !names.len ? "Cuban Pete" : pick(names)
+		U << "You are now mimicking <B>[changer.voice]</B>."
 	else
-		U << "The voice synthesizer is [voice!="Unknown"?"now":"already"] deactivated."
-		voice = "Unknown"
+		U << "The voice synthesizer is [changer.voice!="Unknown"?"now":"already"] deactivated."
+		changer.voice = "Unknown"
 	return
 
 /obj/item/clothing/mask/gas/voice/space_ninja/proc/switchm()
@@ -1408,7 +1408,7 @@ ________________________________________________________________________________
 		if(3)
 			mode = "Meson Scanner"
 	usr << "<B>[mode]</B> is active."//Leaving usr here since it may be on the floor or on a person.
-	usr << "Voice mimicking algorithm is set <B>[!vchange?"inactive":"active"]</B>."
+	usr << "Voice mimicking algorithm is set <B>[!changer.active?"inactive":"active"]</B>."
 
 
 /*
@@ -1479,7 +1479,7 @@ It is possible to destroy the net by the occupant or someone else.
 				if(istype(M,/mob/living/carbon/human))
 					if(W==M:w_uniform)	continue//So all they're left with are shoes and uniform.
 					if(W==M:shoes)	continue
-				M.drop_from_inventory(W)
+				M.unEquip(W)
 
 			spawn(0)
 				playsound(M.loc, 'sound/effects/sparks4.ogg', 50, 1)
@@ -1554,34 +1554,35 @@ It is possible to destroy the net by the occupant or someone else.
 		..()
 		return
 
-	attack_hand()
-		if (M_HULK in usr.mutations)
-			usr << text("\blue You easily destroy the energy net.")
+	attack_hand(mob/living/user)
+		if (HULK in user.mutations)
+			user << text("\blue You easily destroy the energy net.")
 			for(var/mob/O in oviewers(src))
-				O.show_message(text("\red [] rips the energy net apart!", usr), 1)
+				O.show_message(text("\red [] rips the energy net apart!", user), 1)
 			health-=50
 		healthcheck()
 		return
 
-	attack_paw()
-		return attack_hand()
+	attack_paw(mob/living/user)
+		return attack_hand(user)
 
-	attack_alien()
-		if (islarva(usr))
+	attack_alien(mob/living/user)
+		if (islarva(user))
 			return
-		usr << text("\green You claw at the net.")
+		user.do_attack_animation(src)
+		user << text("\green You claw at the net.")
 		for(var/mob/O in oviewers(src))
-			O.show_message(text("\red [] claws at the energy net!", usr), 1)
+			O.show_message(text("\red [] claws at the energy net!", user), 1)
 		playsound(get_turf(src), 'sound/weapons/slash.ogg', 80, 1)
 		health -= rand(10, 20)
 		if(health <= 0)
-			usr << text("\green You slice the energy net to pieces.")
+			user << text("\green You slice the energy net to pieces.")
 			for(var/mob/O in oviewers(src))
-				O.show_message(text("\red [] slices the energy net apart!", usr), 1)
+				O.show_message(text("\red [] slices the energy net apart!", user), 1)
 		healthcheck()
 		return
 
-	attackby(obj/item/weapon/W as obj, mob/user as mob)
+	attackby(obj/item/weapon/W as obj, mob/user as mob, params)
 		var/aforce = W.force
 		health = max(0, health - aforce)
 		healthcheck()

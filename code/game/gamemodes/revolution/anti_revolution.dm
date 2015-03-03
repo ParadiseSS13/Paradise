@@ -134,7 +134,7 @@
 /datum/game_mode/anti_revolution/proc/check_crew_victory()
 	for(var/datum/mind/head_mind in heads)
 		var/turf/T = get_turf(head_mind.current)
-		if((head_mind) && (head_mind.current) && (head_mind.current.stat != 2) && T && (T.z == 1) && !head_mind.is_brigged(600))
+		if((head_mind) && (head_mind.current) && (head_mind.current.stat != 2) && T && (T.z in config.station_levels) && !head_mind.is_brigged(600))
 			if(ishuman(head_mind.current))
 				return 0
 	return 1

@@ -125,13 +125,13 @@ var/global/list/all_money_accounts = list()
 	var/money = 0
 	var/suspended = 0
 	var/list/transaction_log = list()
-	var/security_level = 1	//0 - auto-identify from worn ID, require only account number
+	var/security_level = 0	//0 - auto-identify from worn ID, require only account number
 							//1 - require manual login / account number and pin
 							//2 - require card and manual login
 
 /datum/money_account/New()
 	..()
-	security_level = pick (0,1) //Stealing is now slightly viable
+	//security_level = pick (0,1) //Stealing is now slightly viable
 
 /datum/transaction
 	var/target_name = ""

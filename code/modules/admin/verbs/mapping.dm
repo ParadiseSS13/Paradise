@@ -52,7 +52,7 @@ var/intercom_range_display_status = 0
 		del(C)
 
 	if(camera_range_display_status)
-		for(var/obj/machinery/camera/C in cameranet.viewpoints)
+		for(var/obj/machinery/camera/C in cameranet.cameras)
 			new/obj/effect/debugging/camera_range(C.loc)
 	feedback_add_details("admin_verb","mCRD") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
@@ -68,7 +68,7 @@ var/intercom_range_display_status = 0
 
 	var/list/obj/machinery/camera/CL = list()
 
-	for(var/obj/machinery/camera/C in cameranet.viewpoints)
+	for(var/obj/machinery/camera/C in cameranet.cameras)
 		CL += C
 
 	var/output = {"<B>CAMERA ANOMALIES REPORT</B><HR>

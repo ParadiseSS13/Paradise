@@ -104,12 +104,12 @@
 
 ////////////////////////STAGE 4/////////////////////////////////
 
-/datum/disease2/effect/alchdranine
+/datum/disease2/effect/doctorsdelight
 	name = "Panacea Effect"
 	stage = 4
 	activate(var/mob/living/carbon/mob,var/multiplier)
-		if (mob.reagents.get_reagent_amount("alchdranine") < 1)
-			mob.reagents.add_reagent("alchdranine", 1)
+		if (mob.reagents.get_reagent_amount("doctorsdelight") < 1)
+			mob.reagents.add_reagent("doctorsdelight", 1)
 
 /datum/disease2/effect/viralsputum_major
 	name = "Hemoptysis"
@@ -382,12 +382,12 @@
 /obj/item/clothing/mask/gas/virusclown_hat
 
 	dropped(mob/user as mob)
-		canremove = 1
+		flags &= ~NODROP
 		..()
 
 	equipped(var/mob/user, var/slot)
 		if (slot == slot_l_hand)
-			canremove = 1		//curses!
+			flags &= ~NODROP		//curses!
 		..()
 */
 
@@ -626,12 +626,12 @@
 /obj/item/clothing/glasses/virussunglasses
 
 	dropped(mob/user as mob)
-		canremove = 1
+		flags &= ~NODROP
 		..()
 
 	equipped(var/mob/user, var/slot)
 		if (slot == slot_glasses)
-			canremove = 0		//curses!
+			flags |= NODROP		//curses!
 		..()
 
 
@@ -650,12 +650,12 @@
 /obj/item/clothing/mask/gas/virusclown_hat
 
 	dropped(mob/user as mob)
-		canremove = 1
+		flags &= ~NODROP
 		..()
 
 	equipped(var/mob/user, var/slot)
 		if (slot == slot_wear_mask)
-			canremove = 0		//curses!
+			flags |= NODROP		//curses!
 		..()
 
 
@@ -678,12 +678,12 @@ var/list/compatible_mobs = list(/mob/living/carbon/human, /mob/living/carbon/mon
 	voicechange = 1		//NEEEEIIGHH
 
 	dropped(mob/user as mob)
-		canremove = 1
+		flags &= ~NODROP
 		..()
 
 	equipped(var/mob/user, var/slot)
 		if (slot == slot_wear_mask)
-			canremove = 0		//curses!
+			flags |= NODROP		//curses!
 		..()
 
 

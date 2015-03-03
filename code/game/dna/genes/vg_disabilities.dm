@@ -17,7 +17,7 @@
 		message = replacetext(message,"!","!!")
 		return uppertext(message)
 
-
+/* BROKEN WITH NEW SAYCODE
 /datum/dna/gene/disability/speech/whisper
 	name = "Quiet"
 	desc = "Damages the subjects vocal cords"
@@ -30,13 +30,13 @@
 
 	can_activate(var/mob/M,var/flags)
 		// No loud whispering.
-		if(M_LOUD in M.mutations)
+		if(LOUD in M.mutations)
 			return 0
 		return ..(M,flags)
 
 	OnSay(var/mob/M, var/message)
 		M.whisper(message)
-
+*/
 
 /datum/dna/gene/disability/dizzy
 	name = "Dizzy"
@@ -51,5 +51,5 @@
 
 	OnMobLife(var/mob/living/carbon/human/M)
 		if(!istype(M)) return
-		if(M_DIZZY in M.mutations)
+		if(DIZZY in M.mutations)
 			M.Dizzy(300)

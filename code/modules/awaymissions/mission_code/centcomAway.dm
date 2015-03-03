@@ -4,7 +4,8 @@
 	name = "XCC-P5831"
 	icon_state = "away"
 	requires_power = 0
-
+	report_alerts = 0
+	
 /area/awaymission/centcomAway/general
 	name = "XCC-P5831"
 	music = "music/ambigen3.ogg"

@@ -97,6 +97,12 @@
 	if(jobban_isbanned(src,"nonhumandept") || jobban_isbanned(src,"Drone"))
 		usr << "\red You are banned from playing drones and cannot spawn as a drone."
 		return
+		
+	var/drone_age = 14 // 14 days to play as a drone
+	var/player_age_check = check_client_age(usr.client, drone_age)
+	if(player_age_check && config.use_age_restriction_for_antags)
+		usr << "<span class='warning'>This role is not yet available to you. You need to wait another [player_age_check] days.</span>"
+		return
 
 	var/deathtime = world.time - src.timeofdeath
 	var/joinedasobserver = 0

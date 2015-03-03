@@ -307,7 +307,11 @@ datum/admins/proc/DB_ban_unban_by_id(var/id)
 		output += "<option value='[j]'>[j]</option>"
 	for(var/j in nonhuman_positions)
 		output += "<option value='[j]'>[j]</option>"
-	for(var/j in list("traitor","changeling","operative","revolutionary","cultist","wizard"))
+	for(var/j in list("Dionaea","NPC","AntagHUD","Emergency Response Team"))
+		output += "<option value='[j]'>[j]</option>"
+	for(var/j in list("commanddept","securitydept","engineeringdept","medicaldept","sciencedept","supportdept","nonhumandept"))
+		output += "<option value='[j]'>[j]</option>"	
+	for(var/j in list("Syndicate","traitor","changeling","operative","revolutionary","cultist","wizard","alien","ninja","raider","mutineer","blob"))
 		output += "<option value='[j]'>[j]</option>"
 	output += "</select></td></tr></table>"
 	output += "<b>Reason:<br></b><textarea name='dbbanreason' cols='50'></textarea><br>"

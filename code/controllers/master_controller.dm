@@ -5,14 +5,12 @@
 var/global/datum/controller/game_controller/master_controller //Set in world.New()
 
 var/global/controller_iteration = 0
-var/global/last_tick_timeofday = world.timeofday
 var/global/last_tick_duration = 0
 
 var/global/air_processing_killed = 0
 var/global/pipe_processing_killed = 0
 
 datum/controller/game_controller
-	var/processing = 0
 	var/breather_ticks = 2		//a somewhat crude attempt to iron over the 'bumps' caused by high-cpu use by letting the MC have a breather for this many ticks after every loop
 	var/minimum_ticks = 20		//The minimum length of time between MC ticks
 
@@ -29,7 +27,7 @@ datum/controller/game_controller
 	var/events_cost		= 0
 	var/puddles_cost
 	var/ticker_cost		= 0
-	var/gc_cost         = 0
+	var/garbageCollectorCost = 0
 	var/total_cost		= 0
 
 	var/last_thing_processed
@@ -37,13 +35,14 @@ datum/controller/game_controller
 	var/list/shuttle_list	                    // For debugging and VV
 	var/datum/ore_distribution/asteroid_ore_map // For debugging and VV.
 
+	var/global/datum/garbage_collector/garbageCollector
 
 datum/controller/game_controller/New()
 	//There can be only one master_controller. Out with the old and in with the new.
 	if(master_controller != src)
 		if(istype(master_controller))
 			Recover()
-			del(master_controller)
+			qdel(master_controller)
 		master_controller = src
 
 	if(!job_master)
@@ -54,8 +53,8 @@ datum/controller/game_controller/New()
 
 	if(!syndicate_code_phrase)		syndicate_code_phrase	= generate_code_phrase()
 	if(!syndicate_code_response)	syndicate_code_response	= generate_code_phrase()
-	if(!emergency_shuttle)			emergency_shuttle = new /datum/emergency_shuttle_controller()
-	if(!shuttle_controller)			shuttle_controller = new /datum/shuttle_controller()
+	//if(!emergency_shuttle)			emergency_shuttle = new /datum/emergency_shuttle_controller()	MOVED TO SCHEDULER
+	//if(!shuttle_controller)			shuttle_controller = new /datum/shuttle_controller()
 
 datum/controller/game_controller/proc/setup()
 	world.tick_lag = config.Ticklag
@@ -63,15 +62,15 @@ datum/controller/game_controller/proc/setup()
 	spawn(20)
 		createRandomZlevel()
 
+	/* MOVED TO SCHEDULER
 	if(!air_master)
 		air_master = new /datum/controller/air_system()
 		air_master.Setup()
 
 	if(!ticker)
 		ticker = new /datum/controller/gameticker()
+	*/
 
-	if(!garbage)
-		garbage = new /datum/controller/garbage_collector()
 
 	color_windows_init()
 	setup_objects()
@@ -82,15 +81,17 @@ datum/controller/game_controller/proc/setup()
 
 	for(var/i=0, i<max_secret_rooms, i++)
 		make_mining_asteroid_secret()
-		
+
 	populate_spawn_points()
+
+/* MOVED TO SCHEDULER
 
 	spawn(0)
 		if(ticker)
 			ticker.pregame()
 
 	lighting_controller.Initialize()
-
+*/
 
 datum/controller/game_controller/proc/setup_objects()
 	world << "\red \b Initializing objects"
@@ -130,11 +131,8 @@ datum/controller/game_controller/proc/process()
 	spawn(0)
 		//set background = 1
 		while(1)	//far more efficient than recursively calling ourself
-			if(!Failsafe)	new /datum/controller/failsafe()
+			if(!failsafe)	new /datum/controller/failsafe()
 
-			var/currenttime = world.timeofday
-			last_tick_duration = (currenttime - last_tick_timeofday) / 10
-			last_tick_timeofday = currenttime
 
 			if(processing)
 				var/timer
@@ -245,12 +243,12 @@ datum/controller/game_controller/proc/process()
 
 				// GC
 				timer = world.timeofday
-				last_thing_processed = garbage.type
-				garbage.process()
-				gc_cost = (world.timeofday - timer) / 10
+				last_thing_processed = garbageCollector.type
+				garbageCollector.process()
+				garbageCollectorCost = (world.timeofday - timer) / 10
 
 				//TIMING
-				total_cost = air_cost + sun_cost + mobs_cost + diseases_cost + machines_cost + aibots_cost + objects_cost + networks_cost + powernets_cost + nano_cost + events_cost + puddles_cost + ticker_cost + gc_cost
+				total_cost = air_cost + sun_cost + mobs_cost + diseases_cost + machines_cost + aibots_cost + objects_cost + networks_cost + powernets_cost + nano_cost + events_cost + puddles_cost + ticker_cost + garbageCollectorCost
 
 				var/end_time = world.timeofday
 				if(end_time < start_time)	//why not just use world.time instead?

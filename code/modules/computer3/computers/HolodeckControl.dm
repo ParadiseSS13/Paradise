@@ -154,7 +154,7 @@
 		if(isobj(obj))
 			var/mob/M = obj.loc
 			if(ismob(M))
-				M.u_equip(obj)
+				M.unEquip(obj)
 				M.update_icons()	//so their overlays update
 
 		if(!silent)

@@ -37,7 +37,7 @@
 	return
 
 
-/obj/machinery/lapvend/attackby(obj/item/weapon/W as obj, mob/user as mob)
+/obj/machinery/lapvend/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
 	if(vendmode == 1)
 		if(istype(W, /obj/item/weapon/card))
 			var/obj/item/weapon/card/I = W
@@ -202,10 +202,10 @@
 		newlap.spawn_parts += (/obj/item/part/computer/networking/cable)
 	if (power == 1)
 		del(newlap.battery)
-		newlap.battery = new /obj/item/weapon/cell/high(newlap)
+		newlap.battery = new /obj/item/weapon/stock_parts/cell/high(newlap)
 	if (power == 2)
 		del(newlap.battery)
-		newlap.battery = new /obj/item/weapon/cell/super(newlap)
+		newlap.battery = new /obj/item/weapon/stock_parts/cell/super(newlap)
 
 	newlap.spawn_parts()
 
@@ -293,7 +293,7 @@
 	return total
 
 /obj/machinery/lapvend/proc/choose_progs(var/obj/item/weapon/card/id/C)
-	if(access_security in C.access || access_forensics_lockers in C.access)
+	if((access_security in C.access) || (access_forensics_lockers in C.access))
 		newlap.spawn_files += (/datum/file/program/secure_data)
 		newlap.spawn_files += (/datum/file/camnet_key)
 		newlap.spawn_files += (/datum/file/camnet_key/researchoutpost)
@@ -349,9 +349,9 @@
 		network = 2
 	if(istype(L.stored_computer.net,/obj/item/part/computer/networking/cable))
 		network = 3
-	if(istype(L.stored_computer.battery, /obj/item/weapon/cell/high))
+	if(istype(L.stored_computer.battery, /obj/item/weapon/stock_parts/cell/high))
 		power = 1
-	if(istype(L.stored_computer.battery, /obj/item/weapon/cell/super))
+	if(istype(L.stored_computer.battery, /obj/item/weapon/stock_parts/cell/super))
 		power = 2
 
 

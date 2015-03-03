@@ -6,7 +6,7 @@
 
 /datum/event/ionstorm/announce()
 	endWhen = rand(500, 1500)
-//		command_alert("The station has entered an ion storm.  Monitor all electronic equipment for malfunctions", "Anomaly Alert")
+//		command_announcement.Announce("The station has entered an ion storm.  Monitor all electronic equipment for malfunctions", "Anomaly Alert")
 	for (var/mob/living/carbon/human/player in world)
 		if(player.client)
 			players += player.real_name
@@ -86,7 +86,7 @@
 /datum/event/ionstorm/end()
 	spawn(rand(5000,8000))
 		if(prob(50))
-			command_alert("It has come to our attention that the station passed through an ion storm.  Please monitor all electronic equipment for malfunctions.", "Anomaly Alert")
+			command_announcement.Announce("It has come to our attention that the station passed through an ion storm.  Please monitor all electronic equipment for malfunctions.", "Anomaly Alert")
 
 /*
 /proc/IonStorm(botEmagChance = 10)
@@ -212,21 +212,21 @@ Would like to add a law like "Law x is _______" where x = a number, and _____ is
 	spawn(0)
 		world << "Started processing APCs"
 		for (var/obj/machinery/power/apc/APC in world)
-			if(APC.z == 1)
+			if((APC.z in config.station_levels))
 				APC.ion_act()
 				apcnum++
 		world << "Finished processing APCs. Processed: [apcnum]"
 	spawn(0)
 		world << "Started processing SMES"
 		for (var/obj/machinery/power/smes/SMES in world)
-			if(SMES.z == 1)
+			if((SMES.z in config.station_levels))
 				SMES.ion_act()
 				smesnum++
 		world << "Finished processing SMES. Processed: [smesnum]"
 	spawn(0)
 		world << "Started processing AIRLOCKS"
 		for (var/obj/machinery/door/airlock/D in world)
-			if(D.z == 1)
+			if((D.z in config.station_levels))
 				//if(length(D.req_access) > 0 && !(12 in D.req_access)) //not counting general access and maintenance airlocks
 				airlocknum++
 				spawn(0)
@@ -235,7 +235,7 @@ Would like to add a law like "Law x is _______" where x = a number, and _____ is
 	spawn(0)
 		world << "Started processing FIREDOORS"
 		for (var/obj/machinery/door/firedoor/D in world)
-			if(D.z == 1)
+			if((D.z in config.station_levels))
 				firedoornum++;
 				spawn(0)
 					D.ion_act()

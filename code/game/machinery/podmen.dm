@@ -27,7 +27,7 @@ Growing it to term with nothing injected will grab a ghost from the observers. *
 	var/found_player = 0
 	var/beingharvested = 0
 
-/obj/item/seeds/replicapod/attackby(obj/item/weapon/W as obj, mob/user as mob)
+/obj/item/seeds/replicapod/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
 
 	if(istype(W,/obj/item/weapon/reagent_containers))
 

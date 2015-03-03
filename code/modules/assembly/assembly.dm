@@ -3,7 +3,7 @@
 	desc = "A small electronic device that should never exist."
 	icon = 'icons/obj/assemblies/new_assemblies.dmi'
 	icon_state = ""
-	flags = FPRINT | CONDUCT
+	flags = CONDUCT
 	w_class = 2.0
 	m_amt = 100
 	g_amt = 0
@@ -70,7 +70,8 @@
 			else if(A.a_right == src)
 				A.a_right = null
 			src.holder = null
-
+		..()
+			
 	pulsed(var/radio = 0)
 		if(holder && (wires & WIRE_RECEIVE))
 			activate()
@@ -119,7 +120,7 @@
 		return 0
 
 
-	attackby(obj/item/weapon/W as obj, mob/user as mob)
+	attackby(obj/item/weapon/W as obj, mob/user as mob, params)
 		if(isassembly(W))
 			var/obj/item/device/assembly/A = W
 			if((!A.secured) && (!secured))

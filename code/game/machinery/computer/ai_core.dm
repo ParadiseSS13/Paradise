@@ -10,7 +10,7 @@
 	var/obj/item/device/mmi/brain = null
 
 
-/obj/structure/AIcore/attackby(obj/item/P as obj, mob/user as mob)
+/obj/structure/AIcore/attackby(obj/item/P as obj, mob/user as mob, params)
 	switch(state)
 		if(0)
 			if(istype(P, /obj/item/weapon/wrench))
@@ -174,8 +174,12 @@
 	icon_state = "ai-empty"
 	anchored = 1
 	state = 20//So it doesn't interact based on the above. Not really necessary.
+	
+/obj/structure/AIcore/deactivated/Destroy()
+	empty_playable_ai_cores -= src	
+	..()
 
-/obj/structure/AIcore/deactivated/attackby(var/obj/item/W, var/mob/user)
+/obj/structure/AIcore/deactivated/attackby(var/obj/item/W, var/mob/user, params)
 	if(istype(W, /obj/item/device/aicard))//Is it?
 		var/obj/item/device/aicard/card = W
 		card.transfer_ai("INACTIVE","AICARD",src,user)

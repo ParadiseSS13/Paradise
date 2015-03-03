@@ -32,9 +32,12 @@
 	timeofdeath = 0
 
 /mob/living/carbon/human/getBrainLoss()
-	if(species && species.flags & NO_INTORGANS) return
+	if(species && species.flags & NO_INTORGANS)
+		return
 	var/res = brainloss
 	var/datum/organ/internal/brain/sponge = internal_organs_by_name["brain"]
+	if(!sponge)
+		return
 	if (sponge.is_bruised())
 		res += 20
 	if (sponge.is_broken())
@@ -107,15 +110,12 @@
 	hud_updateflag |= 1 << HEALTH_HUD
 
 /mob/living/carbon/human/Stun(amount)
-	if(M_HULK in mutations)	return
 	..()
 
 /mob/living/carbon/human/Weaken(amount)
-	if(M_HULK in mutations)	return
 	..()
 
 /mob/living/carbon/human/Paralyse(amount)
-	if(M_HULK in mutations)	return
 	..()
 
 
@@ -197,6 +197,7 @@
 		UpdateDamageIcon()
 		hud_updateflag |= 1 << HEALTH_HUD
 	updatehealth()
+	speech_problem_flag = 1
 
 
 //Heal MANY external organs, in random order
@@ -218,6 +219,7 @@
 		parts -= picked
 	updatehealth()
 	hud_updateflag |= 1 << HEALTH_HUD
+	speech_problem_flag = 1
 	if(update)	UpdateDamageIcon()
 
 // damage MANY external organs, in random order
@@ -348,7 +350,7 @@ This function restores all organs.
 			multiplier = 2
 		var/obj/item/clothing/head/H = head
 		if(!istype(H) || prob(H.loose * multiplier))
-			drop_from_inventory(H)
+			unEquip(H)
 			if(prob(60))
 				step_rand(H)
 			if(!stat)

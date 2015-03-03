@@ -258,6 +258,10 @@
 	icon = 'icons/obj/doors/Doorbananium.dmi'
 	mineral = "clown"
 
+/obj/machinery/door/airlock/mime
+	name = "Airlock"
+	icon = 'icons/obj/doors/Doorfreezer.dmi'
+
 /obj/machinery/door/airlock/sandstone
 	name = "Sandstone Airlock"
 	icon = 'icons/obj/doors/Doorsand.dmi'
@@ -298,7 +302,7 @@
 		user << "You do not know how to operate this airlock's mechanism."
 		return
 
-/obj/machinery/door/airlock/alien/attackby(C as obj, mob/user as mob)
+/obj/machinery/door/airlock/alien/attackby(C as obj, mob/user as mob, params)
 	if(isalien(user) || isrobot(user) || isAI(user))
 		..(C, user)
 	else
@@ -358,7 +362,7 @@ About the new airlock wires panel:
 	return ((src.aiControlDisabled==1) && (!hackProof) && (!src.isAllPowerLoss()));
 
 /obj/machinery/door/airlock/proc/arePowerSystemsOn()
-	if (stat & NOPOWER)
+	if (stat & (NOPOWER|BROKEN))
 		return 0
 	return (src.secondsMainPowerLost==0 || src.secondsBackupPowerLost==0)
 
@@ -473,7 +477,8 @@ About the new airlock wires panel:
 		if("spark")
 			flick("door_spark", src)
 		if("deny")
-			flick("door_deny", src)
+			if(density && src.arePowerSystemsOn())
+				flick("door_deny", src)
 	return
 
 /obj/machinery/door/airlock/attack_ai(mob/user as mob)
@@ -695,16 +700,13 @@ About the new airlock wires panel:
 		//AI
 		//aiDisable - 1 idscan, 2 disrupt main power, 3 disrupt backup power, 4 drop door bolts, 5 un-electrify door, 7 close door, 8 door safties, 9 door speed, 11 emergency access
 		//aiEnable - 1 idscan, 4 raise door bolts, 5 electrify door for 30 seconds, 6 electrify door indefinitely, 7 open door,  8 door safties, 9 door speed, 11 emergency access
-	if(!nowindow)
-		..()
-	if(usr.stat || usr.restrained()|| usr.small)
-		return
-	add_fingerprint(usr)
+	if(..())
+		return 1
 	if(href_list["close"])
 		usr << browse(null, "window=airlock")
 		if(usr.machine==src)
 			usr.unset_machine()
-			return
+			return 1
 
 	if((in_range(src, usr) && istype(src.loc, /turf)) && src.p_open)
 		usr.set_machine(src)
@@ -753,7 +755,7 @@ About the new airlock wires panel:
 
 	if(istype(usr, /mob/living/silicon))
 		if (!check_synth_access(usr))
-			return
+			return 1
 
 		//AI
 		//aiDisable - 1 idscan, 2 disrupt main power, 3 disrupt backup power, 4 drop door bolts, 5 un-electrify door, 7 close door, 8 door safties, 9 door speed
@@ -943,9 +945,9 @@ About the new airlock wires panel:
 	update_icon()
 	if(!nowindow)
 		updateUsrDialog()
-	return
+	return 0
 
-/obj/machinery/door/airlock/attackby(C as obj, mob/user as mob)
+/obj/machinery/door/airlock/attackby(C as obj, mob/user as mob, params)
 	//world << text("airlock attackby src [] obj [] mob []", src, C, user)
 	if(!istype(usr, /mob/living/silicon))
 		if(src.isElectrified())
@@ -1031,26 +1033,26 @@ About the new airlock wires panel:
 			if(density)
 				if(beingcrowbarred == 0) //being fireaxe'd
 					var/obj/item/weapon/twohanded/fireaxe/F = C
-					if(F:wielded)
+					if(F.wielded)
 						spawn(0)	open(1)
 					else
-						user << "\red You need to be wielding the Fire axe to do that."
+						user << "\red You need to be wielding \the [C] to do that."
 				else
 					spawn(0)	open(1)
 			else
 				if(beingcrowbarred == 0)
 					var/obj/item/weapon/twohanded/fireaxe/F = C
-					if(F:wielded)
+					if(F.wielded)
 						spawn(0)	close(1)
 					else
-						user << "\red You need to be wielding the Fire axe to do that."
+						user << "\red You need to be wielding \the [C] to do that."
 				else
 					spawn(0)	close(1)
 	else
 		..()
 	return
 
-/obj/machinery/door/airlock/plasma/attackby(C as obj, mob/user as mob)
+/obj/machinery/door/airlock/plasma/attackby(C as obj, mob/user as mob, params)
 	if(C)
 		ignite(is_hot(C))
 	..()
@@ -1068,6 +1070,7 @@ About the new airlock wires panel:
 		playsound(src.loc, 'sound/machines/windowdoor.ogg', 100, 1)
 	else if(istype(src, /obj/machinery/door/airlock/clown))
 		playsound(src.loc, 'sound/items/bikehorn.ogg', 30, 1)
+	else if(istype(src, /obj/machinery/door/airlock/mime))
 	else
 		playsound(src.loc, 'sound/machines/airlock.ogg', 30, 1)
 	if(src.closeOther != null && istype(src.closeOther, /obj/machinery/door/airlock/) && !src.closeOther.density)
@@ -1104,6 +1107,7 @@ About the new airlock wires panel:
 		playsound(src.loc, 'sound/machines/windowdoor.ogg', 30, 1)
 	else if(istype(src, /obj/machinery/door/airlock/clown))
 		playsound(src.loc, 'sound/items/bikehorn.ogg', 30, 1)
+	else if(istype(src, /obj/machinery/door/airlock/mime))
 	else
 		playsound(get_turf(src), 'sound/machines/airlock.ogg', 30, 1)
 
@@ -1176,7 +1180,7 @@ About the new airlock wires panel:
 	return
 
 
-/obj/machinery/door/airlock/hatch/gamma/attackby(C as obj, mob/user as mob)
+/obj/machinery/door/airlock/hatch/gamma/attackby(C as obj, mob/user as mob, params)
 	//world << text("airlock attackby src [] obj [] mob []", src, C, user)
 	if(!istype(usr, /mob/living/silicon))
 		if(src.isElectrified())
@@ -1209,7 +1213,7 @@ About the new airlock wires panel:
 			return
 
 
-/obj/machinery/door/airlock/highsecurity/red/attackby(C as obj, mob/user as mob)
+/obj/machinery/door/airlock/highsecurity/red/attackby(C as obj, mob/user as mob, params)
 	//world << text("airlock attackby src [] obj [] mob []", src, C, user)
 	if(!istype(usr, /mob/living/silicon))
 		if(src.isElectrified())

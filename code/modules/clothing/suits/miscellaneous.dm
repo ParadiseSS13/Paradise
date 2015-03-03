@@ -36,14 +36,12 @@
 	desc = "Yarr."
 	icon_state = "pirate_old"
 	item_state = "pirate_old"
-	flags = FPRINT | TABLEPASS
 
 /obj/item/clothing/suit/pirate_black
 	name = "black pirate coat"
 	desc = "Yarr."
 	icon_state = "pirate"
 	item_state = "pirate"
-	flags = FPRINT | TABLEPASS
 
 
 /obj/item/clothing/suit/hgpirate
@@ -51,7 +49,6 @@
 	desc = "Yarr."
 	icon_state = "hgpirate"
 	item_state = "hgpirate"
-	flags = FPRINT | TABLEPASS
 	flags_inv = HIDEJUMPSUIT
 
 
@@ -60,7 +57,7 @@
 	desc = "Suit for a cyborg costume."
 	icon_state = "death"
 	item_state = "death"
-	flags = FPRINT | TABLEPASS | CONDUCT
+	flags = CONDUCT
 	fire_resist = T0C+5200
 	flags_inv = HIDEGLOVES|HIDESHOES|HIDEJUMPSUIT
 
@@ -70,7 +67,6 @@
 	desc = "A Nazi great coat"
 	icon_state = "nazi"
 	item_state = "nazi"
-	flags = FPRINT | TABLEPASS
 
 
 /obj/item/clothing/suit/johnny_coat
@@ -78,7 +74,6 @@
 	desc = "Johnny~~"
 	icon_state = "johnny"
 	item_state = "johnny"
-	flags = FPRINT | TABLEPASS
 
 
 /obj/item/clothing/suit/justice
@@ -86,7 +81,6 @@
 	desc = "this pretty much looks ridiculous"
 	icon_state = "justice"
 	item_state = "justice"
-	flags = FPRINT | TABLEPASS
 	flags_inv = HIDEGLOVES|HIDESHOES|HIDEJUMPSUIT
 
 
@@ -95,7 +89,6 @@
 	desc = "This robe commands authority."
 	icon_state = "judge"
 	item_state = "judge"
-	flags = FPRINT | TABLEPASS
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
 	allowed = list(/obj/item/weapon/storage/fancy/cigarettes,/obj/item/weapon/spacecash)
 	flags_inv = HIDEJUMPSUIT
@@ -124,7 +117,6 @@
 	item_state = "syndicate-black-red"
 	desc = "A plastic replica of the syndicate space suit, you'll look just like a real murderous syndicate agent in this! This is a toy, it is not made for use in space!"
 	w_class = 3
-	flags = FPRINT | TABLEPASS
 	allowed = list(/obj/item/device/flashlight,/obj/item/weapon/tank/emergency_oxygen,/obj/item/toy)
 	flags_inv = HIDEGLOVES|HIDESHOES|HIDEJUMPSUIT
 
@@ -215,7 +207,7 @@
 	desc = "Forced to live on your shameful acting as a fake Mexican, you and your poncho have grown inseperable. Literally."
 	icon_state = "ponchoshame"
 	item_state = "ponchoshame"
-	canremove = 0
+	flags = NODROP
 
 /*
  * Misc
@@ -228,7 +220,7 @@
 	item_state = "straight_jacket"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS|HANDS
 	flags_inv = HIDEGLOVES|HIDESHOES|HIDEJUMPSUIT|HIDETAIL
-	flags = FPRINT | TABLEPASS | ONESIZEFITSALL
+	flags = ONESIZEFITSALL
 
 /obj/item/clothing/suit/ianshirt
 	name = "worn shirt"
@@ -282,21 +274,18 @@
 	desc = "A long, thick black leather coat."
 	icon_state = "leathercoat"
 	item_state = "leathercoat"
-	flags = FPRINT | TABLEPASS
 
 /obj/item/clothing/suit/browncoat
 	name = "brown leather coat"
 	desc = "A long, brown leather coat."
 	icon_state = "browncoat"
 	item_state = "browncoat"
-	flags = FPRINT | TABLEPASS
 
 /obj/item/clothing/suit/neocoat
 	name = "black coat"
 	desc = "A flowing, black coat."
 	icon_state = "neocoat"
 	item_state = "neocoat"
-	flags = FPRINT | TABLEPASS
 
 /obj/item/clothing/suit/browntrenchcoat
 	name = "brown trench coat"
@@ -318,7 +307,6 @@
 	desc = "A cream coloured, genteel suit."
 	icon_state = "creamsuit"
 	item_state = "creamsuit"
-	flags = FPRINT | TABLEPASS
 
 //stripper
 
@@ -412,7 +400,7 @@
 	w_class = 4//bulky item
 	gas_transfer_coefficient = 0.01
 	permeability_coefficient = 0.01
-	flags = FPRINT | TABLEPASS | ONESIZEFITSALL
+	flags = ONESIZEFITSALL
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
 	allowed = list(/obj/item/weapon/tank/emergency_oxygen,/obj/item/weapon/pen,/obj/item/device/flashlight/pen)
 	armor = list(melee = 0, bullet = 0, laser = 0,energy = 0, bomb = 0, bio = 100, rad = 20)
@@ -425,7 +413,7 @@
 	icon_state = "mercy_hood"
 	item_state = "mercy_hood"
 	permeability_coefficient = 0.01
-	flags = FPRINT|TABLEPASS|HEADCOVERSEYES|HEADCOVERSMOUTH|BLOCKHAIR
+	flags = HEADCOVERSEYES | HEADCOVERSMOUTH | BLOCKHAIR
 	armor = list(melee = 0, bullet = 0, laser = 0,energy = 0, bomb = 0, bio = 100, rad = 20)
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES
 	siemens_coefficient = 0.9
@@ -456,3 +444,37 @@
 	desc = "An overcoat for the clown soldier, to keep him warm during those cold winter nights on the front."
 	icon_state = "soldiersuit"
 	item_state = "soldiersuit"
+
+/obj/item/clothing/suit/toggle/owlwings
+	name = "owl cloak"
+	desc = "A soft brown cloak made of synthetic feathers. Soft to the touch, stylish, and a 2 meter wing span that will drive the ladies mad."
+	icon_state = "owl_wings"
+	item_state = "owl_wings"
+	body_parts_covered = ARMS
+	armor = list(melee = 5, bullet = 0, laser = 0,energy = 0, bomb = 0, bio = 0, rad = 0)
+	allowed = list(/obj/item/weapon/gun/energy,/obj/item/weapon/reagent_containers/spray/pepper,/obj/item/weapon/gun/projectile,/obj/item/ammo_box,/obj/item/ammo_casing,/obj/item/weapon/melee/baton,/obj/item/weapon/restraints/handcuffs,/obj/item/device/flashlight/seclite)
+	action_button_name = "Toggle Owl Wings"
+	icon_action_button = "action_wings"
+	flags = NODROP
+
+/obj/item/clothing/suit/toggle/owlwings/griffinwings
+	name = "griffon cloak"
+	desc = "A plush white cloak made of synthetic feathers. Soft to the touch, stylish, and a 2 meter wing span that will drive your captives mad."
+	icon_state = "griffin_wings"
+	item_state = "griffin_wings"
+
+/obj/item/clothing/suit/toggle/attack_self()
+	if(icon_state == initial(icon_state))
+		icon_state = icon_state + "_t"
+		item_state = icon_state + "_t"
+	else
+		icon_state = initial(icon_state)
+		item_state = initial(item_state)
+	usr.update_inv_wear_suit()
+
+/obj/item/clothing/suit/lordadmiral
+	name = "Lord Admiral's Coat"
+	desc = "You'll be the Ruler of the King's Navy in no time."
+	icon_state = "lordadmiral"
+	item_state = "lordadmiral"
+	allowed = list (/obj/item/weapon/gun)

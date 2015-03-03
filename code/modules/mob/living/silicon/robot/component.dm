@@ -121,6 +121,11 @@
 /mob/living/silicon/robot/proc/is_component_functioning(module_name)
 	var/datum/robot_component/C = components[module_name]
 	return C && C.installed == 1 && C.toggled && C.is_powered()
+	
+// Returns component by it's string name
+/mob/living/silicon/robot/proc/get_component(var/component_name)
+	var/datum/robot_component/C = components[component_name]
+	return C
 
 /obj/item/broken_device
 	name = "broken component"
@@ -168,7 +173,7 @@
 	icon_state = "robotanalyzer"
 	item_state = "analyzer"
 	desc = "A hand-held scanner able to diagnose robotic injuries."
-	flags = FPRINT | TABLEPASS | CONDUCT
+	flags = CONDUCT
 	slot_flags = SLOT_BELT
 	throwforce = 3
 	w_class = 2.0
@@ -178,7 +183,7 @@
 	var/mode = 1;
 
 /obj/item/device/robotanalyzer/attack(mob/living/M as mob, mob/living/user as mob)
-	if(( (M_CLUMSY in user.mutations) || user.getBrainLoss() >= 60) && prob(50))
+	if(( (CLUMSY in user.mutations) || user.getBrainLoss() >= 60) && prob(50))
 		user << text("\red You try to analyze the floor's vitals!")
 		for(var/mob/O in viewers(M, null))
 			O.show_message(text("\red [user] has analyzed the floor's vitals!"), 1)

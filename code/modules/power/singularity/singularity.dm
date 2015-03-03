@@ -1,6 +1,7 @@
 //This file was auto-corrected by findeclaration.exe on 25.5.2012 20:42:33
 
 // Added spess ghoasts/cameras to this so they don't add to the lag. - N3X
+var/global/narsie_cometh = 0
 var/global/list/uneatable = list(
 	/turf/space,
 	/obj/effect/overlay,
@@ -508,6 +509,7 @@ var/global/list/uneatable = list(
 	if(emergency_shuttle && emergency_shuttle.can_call())
 		emergency_shuttle.call_evac()
 		emergency_shuttle.launch_time = 0	// Cannot recall
+	narsie_cometh = 1
 
 
 /obj/machinery/singularity/narsie/proc/spawn_animation()
@@ -541,7 +543,7 @@ var/global/list/uneatable = list(
 	if(istype(A,/obj/))
 		var/obj/O = A
 		O.ex_act(1.0)
-		if(O) del(O)
+		if(O) qdel(O)
 
 	else if(isturf(A))
 		var/turf/T = A
@@ -565,7 +567,7 @@ var/global/list/uneatable = list(
 		var/obj/O = A
 		machines -= O
 		processing_objects -= O
-		O.loc = null
+		qdel(O)
 	else if(isturf(A))
 		var/turf/T = A
 		if(istype(T,/turf/simulated/wall))

@@ -185,12 +185,12 @@
 			return null
 
 		var/list/L = list()
-		for(var/obj/machinery/camera/C in cameranet.viewpoints)
+		for(var/obj/machinery/camera/C in cameranet.cameras)
 			var/list/temp = C.network & key.networks
 			if(temp.len)
 				L.Add(C)
 
-		camera_sort(L)
+		cameranet.process_sort()
 
 		return L
 	verify_machine(var/obj/machinery/camera/C,var/datum/file/camnet_key/key = null)

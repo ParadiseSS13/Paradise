@@ -112,7 +112,7 @@
 			//TODO: Species check, skull damage for forcing an unfitting helmet on?
 			helmet.loc = H
 			H.equip_to_slot(helmet, slot_head)
-			helmet.canremove = 0
+			helmet.flags |= NODROP
 
 	if(attached_boots && boots)
 		if(H.shoes)
@@ -121,7 +121,7 @@
 			M << "Your suit's boots deploy with a hiss."
 			boots.loc = H
 			H.equip_to_slot(boots, slot_shoes)
-			boots.canremove = 0
+			boots.flags |= NODROP
 
 /obj/item/clothing/suit/space/rig/dropped()
 	..()
@@ -132,16 +132,16 @@
 		H = helmet.loc
 		if(istype(H))
 			if(helmet && H.head == helmet)
-				helmet.canremove = 1
-				H.drop_from_inventory(helmet)
+				helmet.flags &= ~NODROP
+				H.unEquip(helmet)
 				helmet.loc = src
 
 	if(boots)
 		H = boots.loc
 		if(istype(H))
 			if(boots && H.shoes == boots)
-				boots.canremove = 1
-				H.drop_from_inventory(boots)
+				boots.flags &= ~NODROP
+				H.unEquip(boots)
 				boots.loc = src
 
 /*
@@ -206,8 +206,8 @@
 	if(H.wear_suit != src) return
 
 	if(H.head == helmet)
-		helmet.canremove = 1
-		H.drop_from_inventory(helmet)
+		helmet.flags &= ~NODROP
+		H.unEquip(helmet)
 		helmet.loc = src
 		H << "\blue You retract your hardsuit helmet."
 	else
@@ -218,10 +218,11 @@
 		helmet.loc = H
 		helmet.pickup(H)
 		H.equip_to_slot(helmet, slot_head)
-		helmet.canremove = 0
+		helmet.flags |= NODROP
 		H << "\blue You deploy your hardsuit helmet, sealing you off from the world."
+	H.update_inv_head()
 
-/obj/item/clothing/suit/space/rig/attackby(obj/item/W as obj, mob/user as mob)
+/obj/item/clothing/suit/space/rig/attackby(obj/item/W as obj, mob/user as mob, params)
 
 	if(!istype(user,/mob/living)) return
 
@@ -365,43 +366,89 @@
 //Syndicate rig
 /obj/item/clothing/head/helmet/space/rig/syndi
 	name = "blood-red hardsuit helmet"
-	desc = "An advanced helmet designed for work in special operations. Property of Gorlex Marauders."
-	icon_state = "rig0-syndie"
+	desc = "A dual-mode advanced helmet designed for work in special operations. It is in travel mode. Property of Gorlex Marauders."
+	icon_state = "hardsuit1-syndi"
 	item_state = "syndie_helm"
-	_color = "syndie"
+	_color = "syndi"
 	armor = list(melee = 60, bullet = 50, laser = 30, energy = 15, bomb = 35, bio = 100, rad = 50)
-	siemens_coefficient = 0.6
-	var/obj/machinery/camera/camera
-	species_restricted = list("exclude","Unathi","Tajaran","Skrell","Vox")
+	on = 1
+	flags = HEADCOVERSEYES | BLOCKHAIR | HEADCOVERSMOUTH | STOPSPRESSUREDMAGE | THICKMATERIAL
+	action_button_name = "Toggle Helmet Mode"
+	icon_action_button = "Action_hardsuit1-syndi"
+	species_restricted = null
+	sprite_sheets = null
 
+/obj/item/clothing/head/helmet/space/rig/syndi/update_icon()
+	icon_state = "hardsuit[on]-[_color]"
 
 /obj/item/clothing/head/helmet/space/rig/syndi/attack_self(mob/user)
-	if(camera)
-		..(user)
+	if(!isturf(user.loc))
+		user << "You cannot toggle your helmet while in this [user.loc]" //To prevent some lighting anomalities.
+		return
+	on = !on
+	if(on)
+		user << "<span class='notice'>You switch your helmet to travel mode.</span>"
+		name = "blood-red hardsuit helmet"
+		desc = "A dual-mode advanced helmet designed for work in special operations. It is in travel mode. Property of Gorlex Marauders."
+		flags = HEADCOVERSEYES | BLOCKHAIR | HEADCOVERSMOUTH | STOPSPRESSUREDMAGE | THICKMATERIAL
+		flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE
+		cold_protection = HEAD
+		user.AddLuminosity(brightness_on)
 	else
-		camera = new /obj/machinery/camera(src)
-		camera.network = list("NukeOps")
-		cameranet.removeCamera(camera)
-		camera.c_tag = user.name
-		user << "\blue User scanned as [camera.c_tag]. Camera activated."
+		user << "<span class='notice'>You switch your helmet to combat mode.</span>"
+		name = "blood-red hardsuit helmet (combat)"
+		desc = "A dual-mode advanced helmet designed for work in special operations. It is in combat mode. Property of Gorlex Marauders."
+		flags = BLOCKHAIR
+		flags_inv = HIDEEARS
+		cold_protection = null
+		user.AddLuminosity(-brightness_on)
 
-/obj/item/clothing/head/helmet/space/rig/syndi/examine()
-	..()
-	if(get_dist(usr,src) <= 1)
-		usr << "This helmet has a built-in camera. It's [camera ? "" : "in"]active."
+	update_icon()
+	playsound(src.loc, 'sound/mecha/mechmove03.ogg', 50, 1)
+	user.update_inv_head()
 
 /obj/item/clothing/suit/space/rig/syndi
-	icon_state = "rig-syndie"
 	name = "blood-red hardsuit"
-	desc = "An advanced suit that protects against injuries during special operations. Property of Gorlex Marauders."
+	desc = "A dual-mode advanced hardsuit designed for work in special operations. It is in travel mode. Property of Gorlex Marauders."
+	icon_state = "hardsuit1-syndi"
 	item_state = "syndie_hardsuit"
+	_color = "syndi"
 	slowdown = 1
 	w_class = 3
+	var/on = 1
+	action_button_name = "Toggle Hardsuit Mode"
+	icon_action_button = "Action_hardsuit1-syndi"
 	armor = list(melee = 60, bullet = 50, laser = 30, energy = 15, bomb = 35, bio = 100, rad = 50)
-	allowed = list(/obj/item/weapon/gun,/obj/item/ammo_box/magazine,/obj/item/ammo_casing,/obj/item/weapon/melee/baton,/obj/item/weapon/melee/energy/sword,/obj/item/weapon/handcuffs,/obj/item/weapon/tank)
-	siemens_coefficient = 0.6
-	species_restricted = list("exclude","Unathi","Tajaran","Skrell","Vox")
+	allowed = list(/obj/item/weapon/gun,/obj/item/ammo_box,/obj/item/ammo_casing,/obj/item/weapon/melee/baton,/obj/item/weapon/melee/energy/sword,/obj/item/weapon/restraints/handcuffs,/obj/item/weapon/tank)
+	species_restricted = null
 	sprite_sheets = null
+
+/obj/item/clothing/suit/space/rig/syndi/update_icon()
+	icon_state = "hardsuit[on]-[_color]"
+
+/obj/item/clothing/suit/space/rig/syndi/attack_self(mob/user)
+	on = !on
+	if(on)
+		user << "<span class='notice'>You switch your hardsuit to travel mode.</span>"
+		name = "blood-red hardsuit helmet"
+		desc = "A dual-mode advanced hardsuit designed for work in special operations. It is in travel mode. Property of Gorlex Marauders."
+		slowdown = 1
+		flags = STOPSPRESSUREDMAGE | THICKMATERIAL
+		flags_inv = HIDEGLOVES|HIDESHOES|HIDEJUMPSUIT
+		cold_protection = UPPER_TORSO | LOWER_TORSO | LEGS | FEET | ARMS | HANDS
+	else
+		user << "<span class='notice'>You switch your hardsuit to combat mode.</span>"
+		name = "blood-red hardsuit helmet (combat)"
+		desc = "A dual-mode advanced hardsuit designed for work in special operations. It is in combat mode. Property of Gorlex Marauders."
+		slowdown = 0
+		flags = BLOCKHAIR
+		flags_inv = null
+		cold_protection = null
+
+	update_icon()
+	playsound(src.loc, 'sound/mecha/mechmove03.ogg', 50, 1)
+	user.update_inv_wear_suit()
+	user.update_inv_w_uniform()
 
 //Wizard Rig
 /obj/item/clothing/head/helmet/space/rig/wizard
@@ -469,7 +516,7 @@
 	desc = "A special suit that protects against hazardous, low pressure environments. Has an additional layer of armor."
 	item_state = "sec_hardsuit"
 	armor = list(melee = 30, bullet = 15, laser = 30, energy = 10, bomb = 10, bio = 100, rad = 50)
-	allowed = list(/obj/item/weapon/gun,/obj/item/device/flashlight,/obj/item/weapon/tank,/obj/item/device/suit_cooling_unit,/obj/item/weapon/melee/baton,/obj/item/weapon/reagent_containers/spray/pepper,/obj/item/ammo_box,/obj/item/ammo_casing,/obj/item/weapon/handcuffs)
+	allowed = list(/obj/item/weapon/gun,/obj/item/device/flashlight,/obj/item/weapon/tank,/obj/item/device/suit_cooling_unit,/obj/item/weapon/melee/baton,/obj/item/weapon/reagent_containers/spray/pepper,/obj/item/ammo_box,/obj/item/ammo_casing,/obj/item/weapon/restraints/handcuffs)
 	siemens_coefficient = 0.7
 
 
@@ -508,5 +555,5 @@
 	name = "singuloth knight's armor"
 	desc = "This is a ceremonial armor from the chapter of the Singuloth Knights. It's made of pure forged adamantium."
 	item_state = "singuloth_hardsuit"
-	flags = FPRINT | TABLEPASS | STOPSPRESSUREDMAGE
+	flags = STOPSPRESSUREDMAGE
 	armor = list(melee = 40, bullet = 5, laser = 20,energy = 5, bomb = 25, bio = 100, rad = 100)

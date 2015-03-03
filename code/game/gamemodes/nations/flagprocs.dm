@@ -20,7 +20,7 @@
 /obj/item/flag/nation/light()
 	return
 
-/obj/item/flag/nation/attackby(var/obj/item/weapon/W, var/mob/user)
+/obj/item/flag/nation/attackby(var/obj/item/weapon/W, var/mob/user, params)
 	return
 
 /obj/item/flag/nation/attack_paw()

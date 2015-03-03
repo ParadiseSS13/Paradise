@@ -36,9 +36,6 @@
 		if(istype(master, /obj/item/weapon/storage))
 			var/obj/item/weapon/storage/S = master
 			S.close(usr)
-		else if(istype(master,/obj/item/clothing/suit/storage))
-			var/obj/item/clothing/suit/storage/S = master
-			S.close(usr)
 	return 1
 
 /obj/screen/power_action
@@ -55,7 +52,6 @@
 		return 1
 	if(usr.next_move >= world.time)
 		return
-	usr.next_move = world.time + 6
 
 	if(usr.stat || usr.restrained() || usr.stunned || usr.lying)
 		return 1
@@ -90,7 +86,7 @@
 /obj/screen/storage
 	name = "storage"
 
-/obj/screen/storage/Click()
+/obj/screen/storage/Click(location, control, params)
 	if(world.time <= usr.next_move)
 		return 1
 	if(usr.stat || usr.paralysis || usr.stunned || usr.weakened)
@@ -100,8 +96,7 @@
 	if(master)
 		var/obj/item/I = usr.get_active_hand()
 		if(I)
-			master.attackby(I, usr)
-			usr.next_move = world.time+2
+			master.attackby(I, usr, params, params)
 	return 1
 
 /obj/screen/gun
@@ -281,6 +276,9 @@
 						if(!istype(C.wear_mask, /obj/item/clothing/mask))
 							C << "<span class='notice'>You are not wearing a mask.</span>"
 							return 1
+						if(C.wear_mask.mask_adjusted)
+							C << "<span class='notice'>Put your mask on first.</span>"
+							return 1						
 						else
 							var/list/nicename = null
 							var/list/tankcheck = null
@@ -409,7 +407,7 @@
 		if("Toggle Sensor Augmentation")
 			if(isrobot(usr))
 				var/mob/living/silicon/robot/R = usr
-				R.control_hud()				
+				R.sensor_mode()				
 				
 		if("module1")
 			if(istype(usr, /mob/living/silicon/robot))
@@ -506,8 +504,7 @@
 		if("Crew Monitoring")
 			if(isAI(usr))
 				var/mob/living/silicon/ai/AI = usr
-				var/obj/machinery/computer/crew/C = locate(/obj/machinery/computer/crew)
-				C.attack_ai(AI)
+				AI.nano_crew_monitor()
 
 		if("Show Crew Manifest")
 			if(isAI(usr))
@@ -557,7 +554,7 @@
 		if("Set Sensor Augmentation")
 			if(isAI(usr))
 				var/mob/living/silicon/ai/AI = usr
-				AI.control_hud()
+				AI.sensor_mode()
 				
 		// Alien
 		if("night vision")
@@ -587,12 +584,10 @@
 			if(iscarbon(usr))
 				var/mob/living/carbon/C = usr
 				C.activate_hand("r")
-				usr.next_move = world.time+2
 		if("l_hand")
 			if(iscarbon(usr))
 				var/mob/living/carbon/C = usr
 				C.activate_hand("l")
-				usr.next_move = world.time+2
 		if("swap")
 			usr:swap_hand()
 		if("hand")
@@ -601,5 +596,4 @@
 			if(usr.attack_ui(slot_id))
 				usr.update_inv_l_hand(0)
 				usr.update_inv_r_hand(0)
-				usr.next_move = world.time+6
 	return 1

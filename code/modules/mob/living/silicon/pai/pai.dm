@@ -71,6 +71,7 @@
 
 	var/obj/item/radio/integrated/signal/sradio // AI's signaller
 
+	var/translator_on = 0 // keeps track of the translator module
 
 /mob/living/silicon/pai/New(var/obj/item/device/paicard)
 	canmove = 0
@@ -81,6 +82,14 @@
 		if(!card.radio)
 			card.radio = new /obj/item/device/radio(src.card)
 		radio = card.radio
+		
+	//Default languages without universal translator software
+	add_language("Galactic Common", 1)
+	add_language("Sol Common", 1)
+	add_language("Tradeband", 1)
+	add_language("Gutter", 1)	
+	add_language("Trinary", 1)		
+		
 	//Verbs for pAI mobile form, chassis and Say flavor text
 	verbs += /mob/living/silicon/pai/proc/choose_chassis
 	verbs += /mob/living/silicon/pai/proc/choose_verbs
@@ -204,6 +213,7 @@
 	if(M.melee_damage_upper == 0)
 		M.emote("[M.friendly] [src]")
 	else
+		M.do_attack_animation(src)
 		if(M.attack_sound)
 			playsound(loc, M.attack_sound, 50, 1, 1)
 		for(var/mob/O in viewers(src, null))
@@ -231,6 +241,7 @@
 					O.show_message(text("\blue [M] caresses [src]'s casing with its scythe like arm."), 1)
 
 		else //harm
+			M.do_attack_animation(src)
 			var/damage = rand(10, 20)
 			if (prob(90))
 				playsound(src.loc, 'sound/weapons/slash.ogg', 25, 1, -1)
@@ -334,7 +345,7 @@
 	//I'm not sure how much of this is necessary, but I would rather avoid issues.
 	if(istype(card.loc,/mob))
 		var/mob/holder = card.loc
-		holder.drop_from_inventory(card)
+		holder.unEquip(card)
 	else if(istype(card.loc,/obj/item/clothing/suit/space/space_ninja))
 		var/obj/item/clothing/suit/space/space_ninja/holder = card.loc
 		holder.pai = null
@@ -415,7 +426,7 @@
 	canmove = !resting
 
 //Overriding this will stop a number of headaches down the track.
-/mob/living/silicon/pai/attackby(obj/item/weapon/W as obj, mob/user as mob)
+/mob/living/silicon/pai/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
 	if(W.force)
 		visible_message("<span class='danger'>[user.name] attacks [src] with [W]!</span>")
 		src.adjustBruteLoss(W.force)
@@ -504,3 +515,6 @@
 			close_up()
 	return 2
 
+// No binary for pAIs.
+/mob/living/silicon/pai/binarycheck()
+	return 0

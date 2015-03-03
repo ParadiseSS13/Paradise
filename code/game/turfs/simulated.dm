@@ -42,8 +42,8 @@
 
 /turf/simulated/Entered(atom/A, atom/OL)
 
-	if (istype(A,/mob/living/carbon))
-		var/mob/living/carbon/M = A
+	if (istype(A,/mob/living/carbon/human))
+		var/mob/living/carbon/human/M = A
 		if(M.lying)	return
 		if(prob(80))
 			dirt++
@@ -121,7 +121,7 @@
 		switch (src.wet)
 			if(1)
 				if(istype(M, /mob/living/carbon/human)) // Added check since monkeys don't have shoes
-					if ((M.m_intent == "run") && !(istype(M:shoes, /obj/item/clothing/shoes) && M:shoes.flags&NOSLIP))
+					if ((M.m_intent == "run") && !(istype(M:shoes, /obj/item/clothing/shoes) && M.shoes.flags&NOSLIP))
 						M.stop_pulling()
 						step(M, M.dir)
 						M << "\blue You slipped on the wet floor!"
@@ -131,7 +131,7 @@
 					else
 						M.inertia_dir = 0
 						return
-				else if(!istype(M, (/mob/living/carbon/slime || /mob/living/carbon/human/slime)) || (M:species.bodyflags & FEET_NOSLIP))
+				else if(!istype(M, (/mob/living/carbon/human/slime)) || (M.species.bodyflags & FEET_NOSLIP))
 					if (M.m_intent == "run")
 						M.stop_pulling()
 						step(M, M.dir)

@@ -41,16 +41,19 @@
 
 	sleep_offline = 1
 
+	processScheduler = new
 	master_controller = new /datum/controller/game_controller()
 	spawn(1)
+		processScheduler.deferSetupFor(/datum/controller/process/ticker)
+		processScheduler.setup()
+
 		master_controller.setup()
 
 	spawn(3000)		//so we aren't adding to the round-start lag
 		if(config.ToRban)
 			ToRban_autoupdate()
-		if(config.kick_inactive)
-			KickInactiveClients()
-//			KickDisconnectedClients()
+		/*if(config.kick_inactive) HANDLED IN PROCESS SCHEDULER
+			KickInactiveClients()*/
 
 
 #undef RECOMMENDED_VERSION
@@ -193,6 +196,8 @@ var/world_topic_spam_protect_time = world.timeofday
 	spawn(0)
 		world << sound(pick('sound/AI/newroundsexy.ogg','sound/misc/apcdestroyed.ogg','sound/misc/bangindonk.ogg')) // random end sounds!! - LastyBatsy
 
+	processScheduler.stop()
+
 	for(var/client/C in clients)
 		if(config.server)	//if you set a server location in config.txt, it sends you there instead of trying to reconnect to the same world address. -- NeoFite
 			C << link("byond://[config.server]")
@@ -225,7 +230,7 @@ var/world_topic_spam_protect_time = world.timeofday
 			sleep(sleep_length)
 			sleep_check = world.timeofday
 		waiting++
-#undef INACTIVITY_KICK
+//#undef INACTIVITY_KICK
 /*
 #define DISCONNECTED_DELETE	6000	//10 minutes in ticks (approx)
 /world/proc/KickDisconnectedClients()
@@ -241,13 +246,13 @@ var/world_topic_spam_protect_time = world.timeofday
 						job_master.FreeRole(C.job)
 						message_admins("<b>[C.name]</b> ([C.ckey]), the [C.job] has been freed due to (<font color='#ffcc00'><b>Client disconnect for 10 minutes</b></font>)\n")
 						for(var/obj/item/W in C)
-							C.drop_from_inventory(W)
+							C.unEquip(W)
 						del(C)
 					else if(!C.key && C.stat != DEAD && C.brain_op_stage!=4.0)
 						job_master.FreeRole(C.job)
 						message_admins("<b>[C.name]</b> ([C.ckey]), the [C.job] has been freed due to (<font color='#ffcc00'><b>Client quit BYOND</b></font>)\n")
 						for(var/obj/item/W in C)
-							C.drop_from_inventory(W)
+							C.unEquip(W)
 						del(C)
 #undef INACTIVITY_KICK
 */

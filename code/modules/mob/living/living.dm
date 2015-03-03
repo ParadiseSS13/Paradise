@@ -23,11 +23,15 @@
 				*/
 /mob/living/verb/succumb()
 	set hidden = 1
-	if ((src.health < 0 && src.health > -95.0))
-		src.adjustOxyLoss(src.health + 200)
-		src.health = 100 - src.getOxyLoss() - src.getToxLoss() - src.getFireLoss() - src.getBruteLoss()
-		src << "\blue You have given up life and succumbed to death."
+	if (InCritical())
+		src.attack_log += "[src] has ["succumbed to death"] with [round(health, 0.1)] points of health!"
+		src.adjustOxyLoss(src.health - config.health_threshold_dead)
+		updatehealth()
+		src << "<span class='notice'>You have given up life and succumbed to death.</span>"
+		death()
 
+/mob/living/proc/InCritical()
+	return (src.health < 0 && src.health > -95.0 && stat == UNCONSCIOUS)
 
 /mob/living/proc/updatehealth()
 	if(status_flags & GODMODE)
@@ -47,9 +51,7 @@
 /mob/living/proc/burn_skin(burn_amount)
 	if(istype(src, /mob/living/carbon/human))
 		//world << "DEBUG: burn_skin(), mutations=[mutations]"
-		if(M_NO_SHOCK in src.mutations) //shockproof
-			return 0
-		if (M_RESIST_HEAT in src.mutations) //fireproof
+		if (RESIST_HEAT in src.mutations) //fireproof
 			return 0
 		var/mob/living/carbon/human/H = src	//make this damage method divide the damage to be done among all the body parts, then burn each body part for that much damage. will have better effect then just randomly picking a body part
 		var/divided_damage = (burn_amount)/(H.organs.len)
@@ -61,7 +63,7 @@
 		H.updatehealth()
 		return 1
 	else if(istype(src, /mob/living/carbon/monkey))
-		if (M_RESIST_HEAT in src.mutations) //fireproof
+		if (RESIST_HEAT in src.mutations) //fireproof
 			return 0
 		var/mob/living/carbon/monkey/M = src
 		M.adjustFireLoss(burn_amount)
@@ -216,7 +218,7 @@
 			L += get_contents(S)
 		for(var/obj/item/clothing/suit/storage/S in src.contents)//Check for labcoats and jackets
 			L += get_contents(S)
-		for(var/obj/item/clothing/tie/storage/S in src.contents)//Check for holsters
+		for(var/obj/item/clothing/accessory/storage/S in src.contents)//Check for holsters
 			L += get_contents(S)
 		for(var/obj/item/weapon/gift/G in src.contents) //Check for gift-wrapped items
 			L += G.gift
@@ -227,6 +229,9 @@
 			L += D.wrapped
 			if(istype(D.wrapped, /obj/item/weapon/storage)) //this should never happen
 				L += get_contents(D.wrapped)
+		for(var/obj/item/weapon/folder/F in src.contents)
+			L += F.contents //Folders can't store any storage items.
+
 		return L
 
 /mob/living/proc/check_contents_for(A)
@@ -286,11 +291,11 @@
 		var/mob/living/carbon/C = src
 
 		if (C.handcuffed && !initial(C.handcuffed))
-			C.drop_from_inventory(C.handcuffed)
+			C.unEquip(C.handcuffed)
 		C.handcuffed = initial(C.handcuffed)
 
 		if (C.legcuffed && !initial(C.legcuffed))
-			C.drop_from_inventory(C.legcuffed)
+			C.unEquip(C.legcuffed)
 		C.legcuffed = initial(C.legcuffed)
 	hud_updateflag |= 1 << HEALTH_HUD
 	hud_updateflag |= 1 << STATUS_HUD
@@ -456,7 +461,7 @@
 
 	if(!isliving(usr) || usr.next_move > world.time)
 		return
-	usr.next_move = world.time + 20
+	usr.changeNext_move(CLICK_CD_RESIST)
 
 	var/mob/living/L = usr
 
@@ -466,7 +471,7 @@
 		var/mob/M = H.loc                      //Get our mob holder (if any).
 
 		if(istype(M))
-			M.drop_from_inventory(H)
+			M.unEquip(H)
 			M << "[H] wriggles out of your grip!"
 			src << "You wriggle out of [M]'s grip!"
 		else if(istype(H.loc,/obj/item))
@@ -539,8 +544,8 @@
 		if(iscarbon(L))
 			var/mob/living/carbon/C = L
 			if( C.handcuffed )
-				C.next_move = world.time + 100
-				C.last_special = world.time + 100
+				C.changeNext_move(CLICK_CD_BREAKOUT)
+				C.last_special = world.time + CLICK_CD_BREAKOUT
 				C << "\red You attempt to unbuckle yourself. (This will take around 2 minutes and you need to stand still)"
 				for(var/mob/O in viewers(L))
 					O.show_message("\red <B>[usr] attempts to unbuckle themself!</B>", 1)
@@ -573,8 +578,8 @@
 		//		breakout_time++ //Harder to get out of welded lockers than locked lockers
 
 		//okay, so the closet is either welded or locked... resist!!!
-		usr.next_move = world.time + 100
-		L.last_special = world.time + 100
+		L.changeNext_move(CLICK_CD_BREAKOUT)
+		L.last_special = world.time + CLICK_CD_BREAKOUT
 		L << "\red You lean on the back of \the [C] and start pushing the door open. (this will take about [breakout_time] minutes)"
 		for(var/mob/O in viewers(usr.loc))
 			O.show_message("\red <B>The [L.loc] begins to shake violently!</B>", 1)
@@ -629,7 +634,8 @@
 		var/mob/living/carbon/CM = L
 		if(CM.on_fire && CM.canmove)
 			CM.fire_stacks -= 5
-			CM.Weaken(3)
+			CM.weakened = max(CM.weakened, 3)//We dont check for CANWEAKEN, I don't care how immune to weakening you are, if you're rolling on the ground, you're busy.
+			CM.update_canmove()
 			CM.spin(32,2)
 			CM.visible_message("<span class='danger'>[CM] rolls on the floor, trying to put themselves out!</span>", \
 				"<span class='notice'>You stop, drop, and roll!</span>")
@@ -640,9 +646,9 @@
 				ExtinguishMob()
 			return
 		if(CM.handcuffed && CM.canmove && (CM.last_special <= world.time))
-			CM.next_move = world.time + 100
-			CM.last_special = world.time + 100
-			if(isalienadult(CM) || (M_HULK in usr.mutations))//Don't want to do a lot of logic gating here.
+			CM.changeNext_move(CLICK_CD_BREAKOUT)
+			CM.last_special = world.time + CLICK_CD_BREAKOUT
+			if(isalienadult(CM) || (HULK in usr.mutations))//Don't want to do a lot of logic gating here.
 				usr << "\red You attempt to break your handcuffs. (This will take around 5 seconds and you need to stand still)"
 				for(var/mob/O in viewers(CM))
 					O.show_message(text("\red <B>[] is trying to break the handcuffs!</B>", CM), 1)
@@ -658,8 +664,8 @@
 						CM.handcuffed = null
 						CM.update_inv_handcuffed()
 			else
-				var/obj/item/weapon/handcuffs/HC = CM.handcuffed
-				var/breakouttime = 1200 //A default in case you are somehow handcuffed with something that isn't an obj/item/weapon/handcuffs type
+				var/obj/item/weapon/restraints/handcuffs/HC = CM.handcuffed
+				var/breakouttime = 1200 //A default in case you are somehow handcuffed with something that isn't an obj/item/weapon/restraints/handcuffs type
 				var/displaytime = 2 //Minutes to display in the "this will take X minutes."
 				if(istype(HC)) //If you are handcuffed with actual handcuffs... Well what do I know, maybe someone will want to handcuff you with toilet paper in the future...
 					breakouttime = HC.breakouttime
@@ -674,12 +680,12 @@
 						for(var/mob/O in viewers(CM))//                                         lags so hard that 40s isn't lenient enough - Quarxink
 							O.show_message("\red <B>[CM] manages to remove the handcuffs!</B>", 1)
 						CM << "\blue You successfully remove \the [CM.handcuffed]."
-						CM.drop_from_inventory(CM.handcuffed)
+						CM.unEquip(CM.handcuffed)
 
 		else if(CM.legcuffed && CM.canmove && (CM.last_special <= world.time))
-			CM.next_move = world.time + 100
-			CM.last_special = world.time + 100
-			if(isalienadult(CM) || (M_HULK in usr.mutations))//Don't want to do a lot of logic gating here.
+			CM.changeNext_move(CLICK_CD_BREAKOUT)
+			CM.last_special = world.time + CLICK_CD_BREAKOUT
+			if(isalienadult(CM) || (HULK in usr.mutations))//Don't want to do a lot of logic gating here.
 				usr << "\red You attempt to break your legcuffs. (This will take around 5 seconds and you need to stand still)"
 				for(var/mob/O in viewers(CM))
 					O.show_message(text("\red <B>[] is trying to break the legcuffs!</B>", CM), 1)
@@ -695,7 +701,7 @@
 						CM.legcuffed = null
 						CM.update_inv_legcuffed()
 			else
-				var/obj/item/weapon/legcuffs/HC = CM.legcuffed
+				var/obj/item/weapon/restraints/legcuffs/HC = CM.legcuffed
 				var/breakouttime = 1200 //A default in case you are somehow legcuffed with something that isn't an obj/item/weapon/legcuffs type
 				var/displaytime = 2 //Minutes to display in the "this will take X minutes."
 				if(istype(HC)) //If you are legcuffed with actual legcuffs... Well what do I know, maybe someone will want to legcuff you with toilet paper in the future...
@@ -711,7 +717,7 @@
 						for(var/mob/O in viewers(CM))//                                         lags so hard that 40s isn't lenient enough - Quarxink
 							O.show_message("\red <B>[CM] manages to remove the legcuffs!</B>", 1)
 						CM << "\blue You successfully remove \the [CM.legcuffed]."
-						CM.drop_from_inventory(CM.legcuffed)
+						CM.unEquip(CM.legcuffed)
 						CM.legcuffed = null
 						CM.update_inv_legcuffed()
 
@@ -761,3 +767,45 @@
 
 /mob/living/proc/can_use_vents()
 	return "You can't fit into that vent."
+
+
+
+/atom/movable/proc/do_attack_animation(atom/A)
+	var/pixel_x_diff = 0
+	var/pixel_y_diff = 0
+	var/direction = get_dir(src, A)
+	switch(direction)
+		if(NORTH)
+			pixel_y_diff = 8
+		if(SOUTH)
+			pixel_y_diff = -8
+		if(EAST)
+			pixel_x_diff = 8
+		if(WEST)
+			pixel_x_diff = -8
+		if(NORTHEAST)
+			pixel_x_diff = 8
+			pixel_y_diff = 8
+		if(NORTHWEST)
+			pixel_x_diff = -8
+			pixel_y_diff = 8
+		if(SOUTHEAST)
+			pixel_x_diff = 8
+			pixel_y_diff = -8
+		if(SOUTHWEST)
+			pixel_x_diff = -8
+			pixel_y_diff = -8
+	animate(src, pixel_x = pixel_x + pixel_x_diff, pixel_y = pixel_y + pixel_y_diff, time = 2)
+	animate(pixel_x = initial(pixel_x), pixel_y = initial(pixel_y), time = 2)
+
+/mob/living/do_attack_animation(atom/A)
+	..()
+	floating = 0 // If we were without gravity, the bouncing animation got stopped, so we make sure we restart the bouncing after the next movement.
+
+/mob/living/proc/do_jitter_animation(jitteriness)
+	var/amplitude = min(4, (jitteriness/100) + 1)
+	var/pixel_x_diff = rand(-amplitude, amplitude)
+	var/pixel_y_diff = rand(-amplitude/3, amplitude/3)
+	animate(src, pixel_x = pixel_x + pixel_x_diff, pixel_y = pixel_y + pixel_y_diff , time = 2, loop = 6)
+	animate(pixel_x = initial(pixel_x) , pixel_y = initial(pixel_y) , time = 2)
+	floating = 0 // If we were without gravity, the bouncing animation got stopped, so we make sure we restart the bouncing after the next movement.

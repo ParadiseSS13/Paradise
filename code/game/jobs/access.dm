@@ -508,6 +508,15 @@
 		return assignment
 
 	return "Unknown"
+	
+proc/GetIdCard(var/mob/living/carbon/human/H)
+	if(H.wear_id)
+		var/id = H.wear_id.GetID()
+		if(id)
+			return id
+	if(H.get_active_hand())
+		var/obj/item/I = H.get_active_hand()
+		return I.GetID()
 
 proc/FindNameFromID(var/mob/living/carbon/human/H)
 	ASSERT(istype(H))

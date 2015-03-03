@@ -206,3 +206,8 @@ obj/item/projectile/kinetic/New()
 /obj/item/effect/kinetic_blast/New()
 	spawn(4)
 		del(src)
+		
+/obj/item/projectile/bullet/frag12
+	name ="explosive slug"
+	damage = 25
+	weaken = 5

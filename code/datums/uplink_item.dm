@@ -323,18 +323,18 @@ var/list/uplink_items = list()
 	cost = 18
 	gamemodes = list("nuclear emergency")
 
-/datum/uplink_item/ammo/bullstun
-	name = "Drum Magazine - 12g Stun Slug"
-	desc = "An additional 8-round stun slug magazine for use in the Bulldog shotgun. Saying that they're non-lethal would be lying."
+/datum/uplink_item/ammo/bullbuck
+	name = "Drum Magazine - 12g buckshot"
+	desc = "An additional 8-round buckshot magazine for use in the Bulldog shotgun. Front towards enemy."
 	item = /obj/item/ammo_box/magazine/m12g
 	cost = 2
 	gamemodes = list("nuclear emergency")
 
-/datum/uplink_item/ammo/bullbuck
-	name = "Drum Magazine - 12g Buckshot"
-	desc = "An alternative 8-round buckshot magazine for use in the Bulldog shotgun. Front towards enemy."
-	item = /obj/item/ammo_box/magazine/m12g/buckshot
-	cost = 2
+/datum/uplink_item/ammo/bullstun
+	name = "Drum Magazine - 12g Stun Slug"
+	desc = "An alternative 8-round stun slug magazine for use in the Bulldog shotgun. Saying that they're completely non-lethal would be lying."
+	item = /obj/item/ammo_box/magazine/m12g/stun
+	cost = 3
 	gamemodes = list("nuclear emergency")
 
 /datum/uplink_item/ammo/bulldragon
@@ -371,10 +371,11 @@ var/list/uplink_items = list()
 /datum/uplink_item/stealthy_weapons
 	category = "Stealthy and Inconspicuous Weapons"
 
-/datum/uplink_item/stealthy_weapons/para_pen
-	name = "Paralysis Pen"
-	desc = "A syringe disguised as a functional pen, filled with a neuromuscular-blocking drug that renders a target mute on injection that will eventually cause them to pass out. The pen holds one dose of paralyzing agent,though it can be refilled."
-	item = /obj/item/weapon/pen/paralysis
+/datum/uplink_item/stealthy_weapons/sleepy_pen
+	name = "Sleepy Pen"
+	desc = "A syringe disguised as a functional pen, filled with a potent mix of drugs, including a strong anaesthetic and a chemical that is capable of blocking the movement of the vocal chords. \
+	The pen holds one dose of the mixture. The pen can be refilled."
+	item = /obj/item/weapon/pen/sleepy
 	cost = 8
 	excludefrom = list("nuclear emergency")
 
@@ -440,6 +441,12 @@ var/list/uplink_items = list()
 	item = /obj/item/device/chameleon
 	cost = 7
 
+/datum/uplink_item/stealthy_tools/camera_bug
+	name = "Camera Bug"
+	desc = "Enables you to bug cameras to view them remotely. Adding particular items to it alters its functions."
+	item = /obj/item/device/camera_bug
+	cost = 2
+
 /datum/uplink_item/stealthy_tools/dnascrambler
 	name = "DNA Scrambler"
 	desc = "A syringe with one injection that randomizes appearance and name upon use. A cheaper but less versatile alternative to an agent card and voice changer."
@@ -480,7 +487,7 @@ var/list/uplink_items = list()
 
 
 /datum/uplink_item/device_tools/medkit
-	name = "Syndicate Medical Supply Kit"
+	name = "Syndicate Combat Medic Kit"
 	desc = "The syndicate medkit is a suspicious black and red. Included is a combat stimulant injector for rapid healing, a medical hud for quick identification of injured comrades, \
 	and other medical supplies helpful for a medical field operative."
 	item = /obj/item/weapon/storage/firstaid/tactical
@@ -504,20 +511,6 @@ var/list/uplink_items = list()
 	desc = "These glasses are thermals disguised as engineers' optical meson scanners. They allow you to see organisms through walls by capturing the upper portion of the infrared light spectrum, emitted as heat and light by objects. Hotter objects, such as warm bodies, cybernetic organisms and artificial intelligence cores emit more of this light than cooler objects like walls and airlocks."
 	item = /obj/item/clothing/glasses/thermal/syndi
 	cost = 6
-
-/*
-/datum/uplink_item/device_tools/surveillance
-	name = "Camera Surveillance Kit"
-	desc = "This kit contains 5 Camera bugs and one mobile receiver. Attach camera bugs to a camera to enable remote viewing."
-	item = /obj/item/weapon/storage/box/syndie_kit/surveillance
-	cost = 5
-
-/datum/uplink_item/device_tools/camerabugs
-	name = "Camera Bugs"
-	desc = "This is a Camera bug resupply giving you 5 more camera bugs."
-	item = /obj/item/weapon/storage/box/surveillance
-	cost = 4
-*/   //commented out until porting over TG's camera bug
 
 /datum/uplink_item/device_tools/binary
 	name = "Binary Translator Key"
