@@ -46,14 +46,14 @@
 	build_path = /obj/item/weapon/gun/energy/floragun
 	category = list("Weapons")
 
-/datum/design/ionrifle
-	name = "Ion Rifle"
+/datum/design/ioncarbine
+	name = "Ion Carbine"
 	desc = "How to dismantle a cyborg : The gun."
-	id = "ionrifle"
+	id = "ioncarbine"
 	req_tech = list("combat" = 5, "materials" = 4, "magnets" = 4)
 	build_type = PROTOLATHE
 	materials = list("$silver" = 4000, "$metal" = 6000, "$uranium" = 1000)
-	build_path = /obj/item/weapon/gun/energy/ionrifle
+	build_path = /obj/item/weapon/gun/energy/ionrifle/carbine
 	locked = 1
 	category = list("Weapons")
 

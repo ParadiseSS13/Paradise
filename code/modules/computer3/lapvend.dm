@@ -320,8 +320,8 @@
 		newlap.spawn_files += (/datum/file/camnet_key/anomalyisolation)
 		newlap.spawn_files += (/datum/file/camnet_key/toxins)
 		newlap.spawn_files += (/datum/file/camnet_key/telepad)
-	if(access_rd in C.access)
-		newlap.spawn_files += (/datum/file/program/borg_control)
+/*	if(access_rd in C.access)
+		newlap.spawn_files += (/datum/file/program/borg_control) */
 	if(access_cent_specops in C.access)
 		newlap.spawn_files += (/datum/file/camnet_key/ert)
 		newlap.spawn_files += (/datum/file/camnet_key/centcom)
