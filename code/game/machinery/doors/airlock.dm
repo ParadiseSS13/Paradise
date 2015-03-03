@@ -537,12 +537,12 @@ About the new airlock wires panel:
 
 	var/commands[0]
 	commands[++commands.len] = list("name" = "IdScan",					"command"= "idscan",				"active" = !aiDisabledIdScanner,	"enabled" = "Enabled",	"disabled" = "Disable",		"danger" = 0, "act" = 1)
-	commands[++commands.len] = list("name" = "Bolts",					"command"= "bolts",					"active" = !locked,					"enabled" = "Raised ",	"disabled" = "Dropped",		"danger" = 0, "act" = 0)
+	commands[++commands.len] = list("name" = "Bolts",					"command"= "bolts",					"active" = !locked,					"enabled" = "Raised",	"disabled" = "Dropped",		"danger" = 0, "act" = 0)
 	commands[++commands.len] = list("name" = "Bolt Lights",				"command"= "lights",				"active" = lights,					"enabled" = "Enabled",	"disabled" = "Disable",		"danger" = 0, "act" = 1)
 	commands[++commands.len] = list("name" = "Safeties",				"command"= "safeties",				"active" = safe,					"enabled" = "Nominal",	"disabled" = "Overridden",	"danger" = 1, "act" = 0)
 	commands[++commands.len] = list("name" = "Timing",					"command"= "timing",				"active" = normalspeed,				"enabled" = "Nominal",	"disabled" = "Overridden",	"danger" = 1, "act" = 0)
 	commands[++commands.len] = list("name" = "Door State",				"command"= "open",					"active" = density,					"enabled" = "Closed",	"disabled" = "Opened", 		"danger" = 0, "act" = 0)
-	commands[++commands.len] = list("name" = "Emergency Access",				"command"= "emergency",		"active" = emergency,				"enabled" = "Enabled",	"disabled" = "Disabled", 	"danger" = 0, "act" = 0)
+	commands[++commands.len] = list("name" = "Emergency Access",		"command"= "emergency",				"active" = !emergency,				"enabled" = "Disabled",	"disabled" = "Enabled", 	"danger" = 0, "act" = 0)
 
 	data["commands"] = commands
 
@@ -872,77 +872,65 @@ About the new airlock wires panel:
 	if(!forced)
 		if( !arePowerSystemsOn() || isWireCut(AIRLOCK_WIRE_OPEN_DOOR) )
 			return 0
-	use_power(50)
-	if(forced)
-		playsound(src.loc, 'sound/machines/airlockforced.ogg', 30, 1)
-	else if(istype(src, /obj/machinery/door/airlock/glass))
+	use_power(360)	//360 W seems much more appropriate for an actuator moving an industrial door capable of crushing people
+	if(istype(src, /obj/machinery/door/airlock/glass))
 		playsound(src.loc, 'sound/machines/windowdoor.ogg', 100, 1)
-	else if(istype(src, /obj/machinery/door/airlock/clown))
-		playsound(src.loc, 'sound/items/bikehorn.ogg', 30, 1)
-	else if(istype(src, /obj/machinery/door/airlock/mime))
 	else
 		playsound(src.loc, 'sound/machines/airlock.ogg', 30, 1)
 	if(src.closeOther != null && istype(src.closeOther, /obj/machinery/door/airlock/) && !src.closeOther.density)
 		src.closeOther.close()
-	// This worries me - N3X
-	if(autoclose  && normalspeed)
-		spawn(150)
-			autoclose()
-	else if(autoclose && !normalspeed)
-		spawn(5)
-			autoclose()
-	// </worry>
-
 	return ..()
 
 /obj/machinery/door/airlock/close(var/forced=0)
 	if(operating || welded || locked)
 		return
 	if(!forced)
-		if( !arePowerSystemsOn() || isWireCut(AIRLOCK_WIRE_DOOR_BOLTS) )
+		//despite the name, this wire is for general door control.
+		//Bolts are already covered by the check for locked, above
+		if( !arePowerSystemsOn() || isWireCut(AIRLOCK_WIRE_OPEN_DOOR) )
 			return
 	if(safe)
 		for(var/turf/turf in locs)
 			if(locate(/mob/living) in turf)
 			//	playsound(src.loc, 'sound/machines/buzz-two.ogg', 50, 0)	//THE BUZZING IT NEVER STOPS	-Pete
 				spawn (60)
-					autoclose()
+					close()
 				return
 
-	use_power(50)
-	if(forced)
-		playsound(src.loc, 'sound/machines/airlockforced.ogg', 30, 1)
-	else if(istype(src, /obj/machinery/door/airlock/glass))
+	for(var/turf/turf in locs)
+		for(var/mob/living/M in turf)
+			if(isrobot(M))
+				M.adjustBruteLoss(DOOR_CRUSH_DAMAGE)
+			else
+				M.adjustBruteLoss(DOOR_CRUSH_DAMAGE)
+				M.SetStunned(5)
+				M.SetWeakened(5)
+				var/obj/effect/stop/S
+				S = new /obj/effect/stop
+				S.victim = M
+				S.loc = M.loc
+				spawn(20)
+					del(S)
+				if (ishuman(M))
+					var/mob/living/carbon/human/H = M
+					if (!(H.species && (H.species.flags & NO_PAIN)))
+						M.emote("scream")
+			var/turf/location = src.loc
+			if(istype(location, /turf/simulated))
+				location.add_blood(M)
+
+	use_power(360)	//360 W seems much more appropriate for an actuator moving an industrial door capable of crushing people
+	if(istype(src, /obj/machinery/door/airlock/glass))
 		playsound(src.loc, 'sound/machines/windowdoor.ogg', 30, 1)
-	else if(istype(src, /obj/machinery/door/airlock/clown))
-		playsound(src.loc, 'sound/items/bikehorn.ogg', 30, 1)
-	else if(istype(src, /obj/machinery/door/airlock/mime))
 	else
-		playsound(get_turf(src), 'sound/machines/airlock.ogg', 30, 1)
-
-	for(var/turf/T in loc)
-		var/obj/structure/window/W = locate(/obj/structure/window) in T
-		if (W)
-			W.destroy()
-
-	if(density)
-		return 1
-	operating = 1
-	do_animate("closing")
-	src.layer = 3.1
-	sleep(5)
-	src.density = 1
-	if(!safe)
-		crush()
-	sleep(5)
-	update_icon()
-	if(visible && !glass)
-		SetOpacity(1)
-	operating = 0
-	update_nearby_tiles()
-	if(locate(/mob/living) in get_turf(src))
-		open()
-
+		playsound(src.loc, 'sound/machines/airlock.ogg', 30, 1)
+	for(var/turf/turf in locs)
+		var/obj/structure/window/killthis = (locate(/obj/structure/window) in turf)
+		if(killthis)
+			killthis.ex_act(2)//Smashin windows
+	..()
+	return
+	
 	//I shall not add a check every x ticks if a door has closed over some fire.
 	var/obj/fire/fire = locate() in loc
 	if(fire)
