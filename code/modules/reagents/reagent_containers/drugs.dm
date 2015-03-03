@@ -81,8 +81,6 @@
 			user << "\blue You transfer [trans] units of the solution to [target]."
 
 		//Safety for dumping stuff into a ninja suit. It handles everything through attackby() and this is unnecessary.
-		else if(istype(target, /obj/item/clothing/suit/space/space_ninja))
-			return
 
 		else if(istype(target, /obj/machinery/bunsen_burner))
 			return

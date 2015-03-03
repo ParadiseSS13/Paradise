@@ -87,20 +87,6 @@
 			new /mob/living/simple_animal/chick(loc)
 	..()
 
-/obj/structure/largecrate/ninja
-	name = "Mysterious Crate"
-	icon_state = "lisacrate"
-
-/obj/structure/largecrate/ninja/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
-	if(istype(W, /obj/item/weapon/crowbar))
-		new /obj/item/clothing/gloves/space_ninja(loc)
-		new /obj/item/clothing/mask/gas/voice/space_ninja(loc)
-		new /obj/item/clothing/shoes/space_ninja(loc)
-		new /obj/item/clothing/head/helmet/space/space_ninja(loc)
-		new /obj/item/clothing/suit/space/space_ninja(loc)
-		new	/obj/item/weapon/ninja_manuscript(loc)
-	..()
-
 /obj/structure/largecrate/cat
 	name = "cat crate"
 	icon_state = "lisacrate"

@@ -42,10 +42,10 @@
 		return ..(active_with_role)
 	return 0
 
-/datum/event_meta/ninja/get_weight(var/list/active_with_role)
+/*/datum/event_meta/ninja/get_weight(var/list/active_with_role)
 	if(toggle_space_ninja)
 		return ..(active_with_role)
-	return 0
+	return 0*/
 
 /datum/event	//NOTE: Times are measured in master controller ticks!
 	var/startWhen		= 0	//When in the lifetime to call start().

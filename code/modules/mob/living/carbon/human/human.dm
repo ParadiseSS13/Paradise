@@ -207,8 +207,6 @@
 			if(mind.changeling)
 				stat("Chemical Storage", "[mind.changeling.chem_charges]/[mind.changeling.chem_storage]")
 				stat("Absorbed DNA", mind.changeling.absorbedcount)
-		if (istype(wear_suit, /obj/item/clothing/suit/space/space_ninja)&&wear_suit:s_initialized)
-			stat("Energy Charge", (wear_suit:cell:charge))
 
 	if(istype(loc, /obj/spacepod)) // Spacdpods!
 		var/obj/spacepod/S = loc
