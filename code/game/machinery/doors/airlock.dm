@@ -875,6 +875,10 @@ About the new airlock wires panel:
 	use_power(360)	//360 W seems much more appropriate for an actuator moving an industrial door capable of crushing people
 	if(istype(src, /obj/machinery/door/airlock/glass))
 		playsound(src.loc, 'sound/machines/windowdoor.ogg', 100, 1)
+	else if(istype(src, /obj/machinery/door/airlock/clown))
+		playsound(src.loc, 'sound/items/bikehorn.ogg', 30, 1)
+	else if(istype(src, /obj/machinery/door/airlock/mime))
+		// Play nothing
 	else
 		playsound(src.loc, 'sound/machines/airlock.ogg', 30, 1)
 	if(src.closeOther != null && istype(src.closeOther, /obj/machinery/door/airlock/) && !src.closeOther.density)
