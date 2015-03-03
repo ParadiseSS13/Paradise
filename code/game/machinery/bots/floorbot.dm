@@ -244,7 +244,7 @@
 		if(!target && replacetiles) //Finds a floor without a tile and gives it one.
 			process_type = REPLACE_TILE //The target must be the floor and not a tile. The floor must not already have a floortile.
 			target = scan(/turf/simulated/floor, oldtarget)
-
+			
 		if(!target && fixfloors) //Repairs damaged floors and tiles.
 			process_type = FIX_TILE
 			target = scan(/turf/simulated/floor, oldtarget)
@@ -287,6 +287,8 @@
 			target = null
 			mode = BOT_IDLE
 			return
+			
+		ignore_list = list() // Reset the ignore list
 
 		if(loc == target || loc == target.loc)
 			if(istype(target, /obj/item/stack/tile/plasteel))

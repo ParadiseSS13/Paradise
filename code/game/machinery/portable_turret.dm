@@ -759,7 +759,7 @@
 					user << "<span class='notice'>\the [I] is stuck to your hand, you cannot put it in \the [src]</span>"
 					return
 				build_step = 5
-				del(I) // del
+				qdel(I) // qdel
 				user << "<span class='notice'>You add the prox sensor to the turret.</span>"
 				return
 

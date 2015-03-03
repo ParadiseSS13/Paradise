@@ -70,7 +70,8 @@
 			else if(A.a_right == src)
 				A.a_right = null
 			src.holder = null
-
+		..()
+			
 	pulsed(var/radio = 0)
 		if(holder && (wires & WIRE_RECEIVE))
 			activate()

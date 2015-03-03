@@ -1385,6 +1385,7 @@ proc/is_hot(obj/item/W as obj)
 
 //Returns 1 if the given item is capable of popping things like balloons, inflatable barriers, or cutting police tape.
 /proc/can_puncture(obj/item/W as obj)		// For the record, WHAT THE HELL IS THIS METHOD OF DOING IT?
+	if(!istype(W)) return 0
 	if(!W) return 0
 	if(W.sharp) return 1
 	return ( \
