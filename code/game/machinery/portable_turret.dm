@@ -601,11 +601,13 @@
 	update_icon()
 	var/obj/item/projectile/A
 	if(emagged || lethal)
-		A = new eprojectile(loc)
-		playsound(loc, eshot_sound, 75, 1)
+		if(eprojectile)
+			A = new eprojectile(loc)
+			playsound(loc, eshot_sound, 75, 1)
 	else
-		A = new projectile(loc)
-		playsound(loc, shot_sound, 75, 1)
+		if(projectile)
+			A = new projectile(loc)
+			playsound(loc, shot_sound, 75, 1)
 	A.original = target
 
 	// Lethal/emagged turrets use twice the power due to higher energy beams
