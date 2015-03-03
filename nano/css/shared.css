@@ -238,7 +238,7 @@ div.notice {
     clear: both;
 }
 
-.itemLabel, .itemLabelWide {
+.itemLabel, .itemLabelWide, .itemLabelFull {
     float: left;
     color: #e9c183;
 }
@@ -251,6 +251,9 @@ div.notice {
     width: 69%;
 }
 
+.itemLabelFull {
+    width: 100%;
+}
 
 .itemContent, .itemContentThin {
     float: left;

@@ -10,7 +10,7 @@
 	density = 1
 	layer = 2.7
 
-	var/secondsElectrified = 0
+	var/electrified_until = 0	// World time when the door is no longer electrified. -1 if it is permanently electrified until someone fixes it.
 	var/visible = 1
 	var/p_open = 0
 	var/operating = 0
@@ -57,8 +57,9 @@
 	..()
 	return
 
-//process()
-	//return
+/obj/machinery/door/process()
+	if(electrified_until > 0 && world.time > electrified_until)
+		electrified_until = 0
 
 /obj/machinery/door/Bumped(atom/AM)
 	if(p_open || operating) return
@@ -184,10 +185,7 @@
 	if(prob(20/severity) && (istype(src,/obj/machinery/door/airlock) || istype(src,/obj/machinery/door/window)) )
 		open()
 	if(prob(40/severity))
-		if(secondsElectrified == 0)
-			secondsElectrified = -1
-			spawn(300)
-				secondsElectrified = 0
+		electrified_until = max(electrified_until, world.time + SecondsToTicks(30 / severity))
 	..()
 
 
@@ -213,8 +211,7 @@
 		icon_state = "door0"
 	return
 
-
-/obj/machinery/door/proc/door_animate(animation)
+/obj/machinery/door/proc/do_animate(animation)
 	switch(animation)
 		if("opening")
 			if(p_open)
@@ -228,8 +225,7 @@
 				flick("doorc1", src)
 		if("deny")
 			flick("door_deny", src)
-	return
-
+	return	
 
 /obj/machinery/door/proc/open()
 	if(!density)
@@ -240,7 +236,7 @@
 		return 0
 	if(!operating)		operating = 1
 
-	door_animate("opening")
+	do_animate("opening")
 	icon_state = "door0"
 	src.SetOpacity(0)
 	sleep(5)
@@ -270,7 +266,7 @@
 		return
 	operating = 1
 
-	door_animate("closing")
+	do_animate("closing")
 	explosion_resistance = initial(explosion_resistance)
 	src.layer = 3.1
 	sleep(5)

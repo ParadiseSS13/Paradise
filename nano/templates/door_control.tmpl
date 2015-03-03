@@ -1,0 +1,55 @@
+<div class="item">
+	<div class="itemLabelWide">
+		Main power is 
+		{{if data.main_power_loss == 0}}
+			online
+		{{else data.main_power_loss == -1}}
+			offline
+		{{else}}
+			offline for {{:data.main_power_loss}} second{{:data.main_power_loss == 1 ? '' : 's'}}
+		{{/if}}.
+	</div>
+	<div class="itemContentThin">
+		{{:helper.link(data.main_power_loss ? 'Disabled' : 'Disable', null, {'command' : 'main_power'}, data.main_power_loss == 0 ? null : 'disabled', data.main_power_loss == 0 ? 'redButton' : null)}}
+	</div>
+</div>	
+
+<div class="item">
+	<div class="itemLabelWide">
+		Backup power is 
+		{{if data.backup_power_loss == 0}}
+			online
+		{{else data.backup_power_loss == -1}}
+			offline
+		{{else}}
+			offline for {{:data.backup_power_loss}} second{{:data.backup_power_loss == 1 ? '' : 's'}}
+		{{/if}}.
+	</div>
+	<div class="itemContentThin">
+		{{:helper.link(data.backup_power_loss ? 'Disabled' : 'Disable', null, {'command' : 'backup_power'}, data.backup_power_loss == 0 ? null : 'disabled', data.backup_power_loss == 0 ? 'redButton' : null)}}
+	</div>
+</div>	
+
+<div class="item">
+	<div class="itemLabelWide">
+		Electrified Status:
+	</div>
+    <div class="itemContent">
+		{{:helper.link('Offline'  , null, {'command' : 'electrify_permanently', 'activate' : "0" }, null, data.electrified == 0 ? 'selected' : null)}}
+        {{:helper.link(data.electrified <= 0 ? 'Temporary (30s)' : 'Temporary (' + data.electrified +'s)', null, {'command' : 'electrify_temporary',   'activate' : "1"}, null, data.electrified > 0 ? 'redButton' : null)}}
+        {{:helper.link('Permanent', null, {'command' : 'electrify_permanently', 'activate' : "1"}, null, data.electrified == -1 ? 'redButton' : null)}}
+	</div>
+</div>	
+
+<br>
+{{for data.commands}}
+	<div class="item">
+        <div class="itemLabel">
+            {{:value.name}}:
+        </div>
+        <div class="itemContentThin">
+            {{:helper.link(value.enabled, null, {'command' : value.command, 'activate' : value.act ? 1 : 0}, null, value.active ?  'selected' : null)}}
+            {{:helper.link(value.disabled,null, {'command' : value.command, 'activate' : value.act ? 0 : 1}, null,!value.active ? (value.danger ? 'redButton' : 'selected') : null)}}
+        </div>
+    </div>	
+{{/for}}

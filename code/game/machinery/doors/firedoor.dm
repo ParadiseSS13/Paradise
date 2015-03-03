@@ -391,17 +391,6 @@
 	latetoggle()
 	layer = 2.6
 
-
-
-/obj/machinery/door/firedoor/door_animate(animation)
-	switch(animation)
-		if("opening")
-			flick("door_opening", src)
-		if("closing")
-			flick("door_closing", src)
-	return
-
-
 /obj/machinery/door/firedoor/update_icon()
 	overlays = 0
 	if(density)
@@ -423,7 +412,14 @@
 			overlays += "welded_open"
 	return
 
-
+/obj/machinery/door/firedoor/do_animate(animation)
+	switch(animation)
+		if("opening")
+			flick("door_opening", src)
+		if("closing")
+			flick("door_closing", src)
+	return	
+	
 /obj/machinery/door/firedoor/border_only
 //These are playing merry hell on ZAS.  Sorry fellas :(
 /*

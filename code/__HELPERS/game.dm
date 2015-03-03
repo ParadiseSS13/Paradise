@@ -456,3 +456,6 @@ proc/isInSight(var/atom/A, var/atom/B)
 
 /proc/MinutesToTicks(var/minutes as num)
 	return minutes * 60 * 10
+	
+/proc/SecondsToTicks(var/seconds)
+	return seconds * 10
