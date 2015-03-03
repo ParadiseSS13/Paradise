@@ -225,24 +225,27 @@
 	return	
 
 /obj/machinery/door/proc/open()
-	if(!density)		return 1
-	if(operating > 0)	return
-	if(!ticker)			return 0
+	if(!density)
+		return 1
+	if(operating > 0)
+		return
+	if(!ticker)
+		return 0
 	if(!operating)		operating = 1
 
 	do_animate("opening")
 	src.SetOpacity(0)
-	sleep(10)
-	src.layer = open_layer
+	sleep(5)
 	src.density = 0
+	sleep(5)
+	src.layer = 2.7
 	explosion_resistance = 0
 	update_icon()
 	SetOpacity(0)
+	operating = 0
 	update_nearby_tiles()
 
-	if(operating)	operating = 0
-
-	if(autoclose && normalspeed)
+	if(autoclose  && normalspeed)
 		spawn(150)
 			autoclose()
 	if(autoclose && !normalspeed)
@@ -251,17 +254,19 @@
 
 	return 1
 
-
 /obj/machinery/door/proc/close()
-	if(density)	return 1
-	if(operating > 0)	return
+	if(density)
+		return 1
+	if(operating > 0)
+		return
 	operating = 1
 
-	src.density = 1
-	explosion_resistance = initial(explosion_resistance)
-	src.layer = closed_layer
 	do_animate("closing")
-	sleep(10)
+	explosion_resistance = initial(explosion_resistance)
+	src.layer = 3.1
+	sleep(5)
+	src.density = 1
+	sleep(5)
 	update_icon()
 	if(visible && !glass)
 		SetOpacity(1)	//caaaaarn!
