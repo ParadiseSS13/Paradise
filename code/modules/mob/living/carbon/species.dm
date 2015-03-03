@@ -57,7 +57,7 @@
 	//Used in icon caching.
 	var/race_key = 0
 	var/icon/icon_template
-	
+
 	// Language/culture vars.
 	var/default_language = "Galactic Common" // Default language is used when 'say' is used without modifiers.
 	var/language = "Galactic Common"         // Default racial language, if any.
@@ -71,7 +71,7 @@
 /datum/species/proc/get_random_name(var/gender)
 	var/datum/language/species_language = all_languages[language]
 	return species_language.get_random_name(gender)
-	
+
 /datum/species/proc/create_organs(var/mob/living/carbon/human/H) //Handles creation of mob organs.
 	//This is a basic humanoid limb setup.
 	H.organs = list()
@@ -255,7 +255,7 @@
 /datum/species/proc/handle_post_spawn(var/mob/living/carbon/C) //Handles anything not already covered by basic species assignment.
 	handle_dna(C)
 	return
-	
+
 /datum/species/proc/handle_dna(var/mob/living/carbon/C, var/remove) //Handles DNA mutations, as that doesn't work at init.
 	return
 
@@ -273,7 +273,7 @@
 
 /datum/species/proc/equip(var/mob/living/carbon/human/H)
 	return
-	
+
 /datum/species/proc/can_understand(var/mob/other)
 	return
 
@@ -303,7 +303,7 @@
 	unarmed_type = /datum/unarmed_attack/claws
 	primitive = /mob/living/carbon/monkey/unathi
 	darksight = 3
-	
+
 	blurb = "A heavily reptillian species, Unathi (or 'Sinta as they call themselves) hail from the \
 	Uuosa-Eso system, which roughly translates to 'burning mother'.<br/><br/>Coming from a harsh, radioactive \
 	desert planet, they mostly hold ideals of honesty, virtue, martial combat and bravery above all \
@@ -336,7 +336,7 @@
 	tail = "tajtail"
 	unarmed_type = /datum/unarmed_attack/claws
 	darksight = 8
-	
+
 	blurb = "The Tajaran race is a species of feline-like bipeds hailing from the planet of Ahdomai in the \
 	S'randarr system. They have been brought up into the space age by the Humans and Skrell, and have been \
 	influenced heavily by their long history of Slavemaster rule. They have a structured, clan-influenced way \
@@ -372,7 +372,7 @@
 	language = "Skrellian"
 	primitive = /mob/living/carbon/monkey/skrell
 	unarmed_type = /datum/unarmed_attack/punch
-	
+
 	blurb = "An amphibious species, Skrell come from the star system known as Qerr'Vallis, which translates to 'Star of \
 	the royals' or 'Light of the Crown'.<br/><br/>Skrell are a highly advanced and logical race who live under the rule \
 	of the Qerr'Katish, a caste within their society which keeps the empire of the Skrell running smoothly. Skrell are \
@@ -384,7 +384,7 @@
 	bodyflags = HAS_SKIN_COLOR
 
 	flesh_color = "#8CD7A3"
-
+	blood_color = "#1D2CBF"
 	reagent_tag = IS_SKRELL
 
 /datum/species/vox
@@ -392,14 +392,14 @@
 	icobase = 'icons/mob/human_races/r_vox.dmi'
 	deform = 'icons/mob/human_races/r_def_vox.dmi'
 	path = /mob/living/carbon/human/vox
-	
+
 	default_language = "Galactic Common"
-	language = "Vox-pidgin"	
+	language = "Vox-pidgin"
 	speech_sounds = list('sound/voice/shriek1.ogg')
 	speech_chance = 20
-	
+
 	unarmed_type = /datum/unarmed_attack/claws	//I dont think it will hurt to give vox claws too.
-	
+
 	blurb = "The Vox are the broken remnants of a once-proud race, now reduced to little more than \
 	scavenging vermin who prey on isolated stations, ships or planets to keep their own ancient arkships \
 	alive. They are four to five feet tall, reptillian, beaked, tailed and quilled; human crews often \
@@ -421,6 +421,7 @@
 
 	flags = NO_SCAN | IS_WHITELISTED
 
+	blood_color = "#2299FC"
 	flesh_color = "#808D11"
 
 	reagent_tag = IS_VOX
@@ -549,13 +550,13 @@
 	eyes = "grey_eyes_s"
 
 	brute_mod = 1.25 //greys are fragile
-	
+
 	default_genes = list(REMOTE_TALK)
 
 	primitive = /mob/living/carbon/monkey // TODO
 
 	flags = IS_WHITELISTED | HAS_LIPS | HAS_UNDERWEAR | CAN_BE_FAT
-	
+
 /datum/species/grey/handle_dna(var/mob/living/carbon/C, var/remove)
 	if(!remove)
 		C.dna.SetSEState(REMOTETALKBLOCK,1,1)
@@ -588,7 +589,7 @@
 	heat_level_1 = 300
 	heat_level_2 = 350
 	heat_level_3 = 700
-	
+
 	blurb = "Commonly referred to (erroneously) as 'plant people', the Dionaea are a strange space-dwelling collective \
 	species hailing from Epsilon Ursae Minoris. Each 'diona' is a cluster of numerous cat-sized organisms called nymphs; \
 	there is no effective upper limit to the number that can fuse in gestalt, and reports exist	of the Epsilon Ursae \
@@ -605,7 +606,7 @@
 	flesh_color = "#907E4A"
 
 	reagent_tag = IS_DIONA
-	
+
 /datum/species/diona/can_understand(var/mob/other)
 	var/mob/living/carbon/monkey/diona/D = other
 	if(istype(D))
@@ -659,7 +660,7 @@
 	synth_temp_gain = 10 //this should cause IPCs to stabilize at ~80 C in a 20 C environment.
 
 	flags = IS_WHITELISTED | NO_BREATHE | NO_SCAN | NO_BLOOD | NO_PAIN | IS_SYNTHETIC | NO_INTORGANS
-
+	blood_color = "#1F181F"
 	flesh_color = "#AAAAAA"
 
 /datum/species/machine/handle_death(var/mob/living/carbon/human/H)

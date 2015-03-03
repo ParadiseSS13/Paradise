@@ -151,7 +151,7 @@
 	visible_message("<span class='userdanger'>[user] has slashed [src]!</span>")
 	playsound(loc, 'sound/weapons/slice.ogg', 25, 1, -1)
 	if(prob(10))
-		new /obj/effect/decal/cleanable/oil(loc)
+		new /obj/effect/decal/cleanable/blood/oil(loc)
 	healthcheck()
 
 
@@ -163,7 +163,7 @@
 	visible_message("<span class='userdanger'>[M] has [M.attacktext] [src]!</span>")
 	add_logs(M, src, "attacked", admin=0)
 	if(prob(10))
-		new /obj/effect/decal/cleanable/oil(loc)
+		new /obj/effect/decal/cleanable/blood/oil(loc)
 	healthcheck()
 
 /obj/machinery/bot/Topic(href, href_list) //Master Topic to handle common functions.
@@ -270,7 +270,7 @@
 /obj/machinery/bot/emag_act(user as mob)
 	if (emagged < 2)
 		Emag(user)
-				
+
 /obj/machinery/bot/bullet_act(var/obj/item/projectile/Proj)
 	if((Proj.damage_type == BRUTE || Proj.damage_type == BURN))
 		health -= Proj.damage
@@ -345,7 +345,7 @@
 	if((!on) || (!message))
 		return
 	if(freqname)
-		Radio.autosay(message, src.name, freqname, list(src.z)) 
+		Radio.autosay(message, src.name, freqname, list(src.z))
 	else
 		for(var/mob/O in hearers(src, null))
 			O.show_message("<span class='game say'><span class='name'>[src]</span> beeps, \"[message]\"</span>",2)
@@ -789,4 +789,3 @@ obj/machinery/bot/proc/bot_summon()
 		loc = Mb.loc
 		frustration = 0
 	return
-	

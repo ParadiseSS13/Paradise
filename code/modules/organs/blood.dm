@@ -36,8 +36,9 @@ var/const/BLOOD_VOLUME_SURVIVE = 122
 /mob/living/carbon/human/proc/fixblood()
 	for(var/datum/reagent/blood/B in vessel.reagent_list)
 		if(B.id == "blood")
-			B.data = list(	"donor"=src,"viruses"=null,"blood_DNA"=dna.unique_enzymes,"blood_type"=dna.b_type,	\
+			B.data = list(	"donor"=src,"viruses"=null,"blood_DNA"=dna.unique_enzymes,"blood_colour"= species.blood_color,"blood_type"=dna.b_type,	\
 							"resistances"=null,"trace_chem"=null, "virus2" = null, "antibodies" = null)
+			B.color = B.data["blood_colour"]
 
 // Takes care blood loss and regeneration
 /mob/living/carbon/human/proc/handle_blood()
@@ -171,30 +172,6 @@ var/const/BLOOD_VOLUME_SURVIVE = 122
 		vessel.reaction(T, TOUCH, amm)
 		return
 
-	if(src.species.bloodflags &BLOOD_GREEN)
-		var/list/obj/effect/decal/cleanable/blood/drip/green/nums2 = list()
-		iconL = list("g1","g2","g3","g4","g5")
-
-		vessel.remove_reagent("blood",amm)
-
-		for(var/obj/effect/decal/cleanable/blood/drip/green/G in T)
-			nums2 += G
-			iconL.Remove(G.icon_state)
-
-		if (nums2.len < 5)
-			var/obj/effect/decal/cleanable/blood/drip/green/this = new(T)
-			this.icon_state = pick(iconL)
-			this.blood_DNA = list()
-			this.blood_DNA[dna.unique_enzymes] = dna.b_type
-			for (var/ID in virus2)
-				var/datum/disease2/disease/V = virus2[ID]
-				this.virus2[ID] = V.getcopy()
-		else
-			for(var/obj/effect/decal/cleanable/blood/drip/green/G in nums)
-				del G
-			T.add_blood(src)
-		return
-
 	else
 		vessel.remove_reagent("blood",amm)
 
@@ -237,6 +214,13 @@ var/const/BLOOD_VOLUME_SURVIVE = 122
 	B.data["antibodies"] = src.antibodies
 	B.data["blood_DNA"] = copytext(src.dna.unique_enzymes,1,0)
 	B.data["blood_type"] = copytext(src.dna.b_type,1,0)
+
+	// Putting this here due to return shenanigans.
+	if(istype(src,/mob/living/carbon/human))
+		var/mob/living/carbon/human/H = src
+		B.data["blood_colour"] = H.species.blood_color
+		B.color = B.data["blood_colour"]
+
 	var/list/temp_chem = list()
 	for(var/datum/reagent/R in src.reagents.reagent_list)
 		temp_chem += R.id
@@ -335,3 +319,61 @@ var/const/BLOOD_VOLUME_SURVIVE = 122
 			if(donor_antigen != "O") return 1
 		//AB is a universal receiver.
 	return 0
+
+proc/blood_splatter(var/target,var/datum/reagent/blood/source,var/large)
+
+	var/obj/effect/decal/cleanable/blood/B
+	var/decal_type = /obj/effect/decal/cleanable/blood/splatter
+	var/turf/T = get_turf(target)
+
+	if(istype(source,/mob/living/carbon/human))
+		var/mob/living/carbon/human/M = source
+		source = M.get_blood(M.vessel)
+	else if(istype(source,/mob/living/carbon/monkey))
+		var/mob/living/carbon/monkey/donor = source
+		if(donor.dna)
+			source = new()
+			source.data["blood_DNA"] = donor.dna.unique_enzymes
+			source.data["blood_type"] = donor.dna.b_type
+
+	// Are we dripping or splattering?
+	var/list/drips = list()
+	// Only a certain number of drips (or one large splatter) can be on a given turf.
+	for(var/obj/effect/decal/cleanable/blood/drip/drop in T)
+		drips |= drop.drips
+		del(drop)
+	if(!large && drips.len < 3)
+		decal_type = /obj/effect/decal/cleanable/blood/drip
+
+	// Find a blood decal or create a new one.
+	B = locate(decal_type) in T
+	if(!B)
+		B = new decal_type(T)
+
+	var/obj/effect/decal/cleanable/blood/drip/drop = B
+	if(istype(drop) && drips && drips.len && !large)
+		drop.overlays |= drips
+		drop.drips |= drips
+
+	// If there's no data to copy, call it quits here.
+	if(!source)
+		return B
+
+	// Update appearance.
+	if(source.data["blood_colour"])
+		B.basecolor = source.data["blood_colour"]
+		B.update_icon()
+
+	// Update blood information.
+	if(source.data["blood_DNA"])
+		B.blood_DNA = list()
+		if(source.data["blood_type"])
+			B.blood_DNA[source.data["blood_DNA"]] = source.data["blood_type"]
+		else
+			B.blood_DNA[source.data["blood_DNA"]] = "O+"
+
+	// Update virus information.
+	if(source.data["virus2"])
+		B.virus2 = virus_copylist(source.data["virus2"])
+
+	return B

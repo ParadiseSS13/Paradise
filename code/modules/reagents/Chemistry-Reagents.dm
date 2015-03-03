@@ -92,6 +92,10 @@ datum
 				holder.remove_reagent(src.id, custom_metabolism) //By default it slowly disappears.
 				return
 
+			// Called when two reagents of the same are mixing.
+			on_merge(var/data)
+				return
+
 			on_move(var/mob/M)
 				return
 
@@ -115,7 +119,7 @@ datum
 
 
 		blood
-			data = new/list("donor"=null,"viruses"=null,"blood_DNA"=null,"blood_type"=null,"resistances"=null,"trace_chem"=null, "antibodies" = null)
+			data = new/list("donor"=null,"viruses"=null,"blood_DNA"=null,"blood_type"=null,"blood_colour"= "#A10808","resistances"=null,"trace_chem"=null, "antibodies" = null)
 			name = "Blood"
 			id = "blood"
 			reagent_state = LIQUID
@@ -138,6 +142,15 @@ datum
 					var/mob/living/carbon/C = M
 					C.antibodies |= self.data["antibodies"]
 
+			on_merge(var/data)
+				if(data["blood_colour"])
+					color = data["blood_colour"]
+				return ..()
+
+			on_update(var/atom/A)
+				if(data["blood_colour"])
+					color = data["blood_colour"]
+				return ..()
 
 
 
@@ -164,7 +177,7 @@ datum
 						blood_prop.blood_DNA["Non-Human DNA"] = "A+"
 
 				else if(istype(self.data["donor"], /mob/living/carbon/alien))
-					var/obj/effect/decal/cleanable/xenoblood/blood_prop = locate() in T
+					var/obj/effect/decal/cleanable/blood/xeno/blood_prop = locate() in T
 					if(!blood_prop)
 						blood_prop = new(T)
 						blood_prop.blood_DNA["UNKNOWN DNA STRUCTURE"] = "X*"

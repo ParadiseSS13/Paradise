@@ -97,7 +97,7 @@
 		healthcheck()
 	else
 		..()
-		
+
 /obj/vehicle/emag_act(user as mob)
 	if(!emagged)
 		Emag(user)
@@ -108,7 +108,7 @@
 	src.visible_message("\red <B>[M] has [M.attacktext] [src]!</B>")
 	M.attack_log += text("\[[time_stamp()]\] <font color='red'>attacked [src.name]</font>")
 	if(prob(10))
-		new /obj/effect/decal/cleanable/oil(src.loc)
+		new /obj/effect/decal/cleanable/blood/oil(src.loc)
 	healthcheck()
 
 /obj/vehicle/bullet_act(var/obj/item/projectile/Proj)
@@ -214,7 +214,7 @@
 	unload()
 
 	new /obj/effect/gibspawner/robot(Tsec)
-	new /obj/effect/decal/cleanable/oil(src.loc)
+	new /obj/effect/decal/cleanable/blood/oil(src.loc)
 
 	del(src)
 

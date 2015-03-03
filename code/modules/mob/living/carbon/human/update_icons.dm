@@ -610,10 +610,9 @@ proc/get_damage_icon_part(damage_state, body_part)
 			standing.icon = w_uniform.sprite_sheets[species.name]
 
 		if(w_uniform.blood_DNA)
-			if(green==1)
-				standing.overlays	+= image("icon" = 'icons/effects/blood.dmi', "icon_state" = "xuniformblood")
-			else
-				standing.overlays	+= image("icon" = 'icons/effects/blood.dmi', "icon_state" = "uniformblood")
+			var/image/bloodsies	= image("icon" = 'icons/effects/blood.dmi', "icon_state" = "uniformblood")
+			bloodsies.color		= w_uniform.blood_color
+			standing.overlays	+= bloodsies
 
 		if(w_uniform:accessories.len)	//WE CHECKED THE TYPE ABOVE. THIS REALLY SHOULD BE FINE.
 			for(var/obj/item/clothing/accessory/A in w_uniform:accessories)
@@ -666,18 +665,16 @@ proc/get_damage_icon_part(damage_state, body_part)
 			standing = image("icon" = 'icons/mob/hands.dmi', "icon_state" = "[t_state]")
 
 		if(gloves.blood_DNA)
-			if(green==1)
-				standing.overlays	+= image("icon" = 'icons/effects/blood.dmi', "icon_state" = "xbloodyhands")
-			else
-				standing.overlays	+= image("icon" = 'icons/effects/blood.dmi', "icon_state" = "bloodyhands")
+			var/image/bloodsies	= image("icon" = 'icons/effects/blood.dmi', "icon_state" = "bloodyhands")
+			bloodsies.color = gloves.blood_color
+			standing.overlays	+= bloodsies
 		gloves.screen_loc = ui_gloves
 		overlays_standing[GLOVES_LAYER]	= standing
 	else
 		if(blood_DNA)
-			if (green)
-				overlays_standing[GLOVES_LAYER]	= image("icon" = 'icons/effects/blood.dmi', "icon_state" = "xbloodyhands")
-			else
-				overlays_standing[GLOVES_LAYER]	= image("icon" = 'icons/effects/blood.dmi', "icon_state" = "bloodyhands")
+			var/image/bloodsies	= image("icon" = 'icons/effects/blood.dmi', "icon_state" = "bloodyhands")
+			bloodsies.color = hand_blood_color
+			overlays_standing[GLOVES_LAYER]	= bloodsies
 		else
 			overlays_standing[GLOVES_LAYER]	= null
 	if(update_icons)   update_icons()
@@ -738,14 +735,19 @@ proc/get_damage_icon_part(damage_state, body_part)
 		else
 			standing = image("icon" = 'icons/mob/feet.dmi', "icon_state" = "[shoes.icon_state]")
 
+
 		if(shoes.blood_DNA)
-			if(green==1)
-				standing.overlays	+= image("icon" = 'icons/effects/blood.dmi', "icon_state" = "xshoeblood")
-			else
-				standing.overlays	+= image("icon" = 'icons/effects/blood.dmi', "icon_state" = "shoeblood")
-		overlays_standing[SHOES_LAYER]	= standing
+			var/image/bloodsies = image("icon" = 'icons/effects/blood.dmi', "icon_state" = "shoeblood")
+			bloodsies.color = shoes.blood_color
+			standing.overlays += bloodsies
+		overlays_standing[SHOES_LAYER] = standing
 	else
-		overlays_standing[SHOES_LAYER]		= null
+		if(feet_blood_DNA)
+			var/image/bloodsies = image("icon" = 'icons/effects/blood.dmi', "icon_state" = "shoeblood")
+			bloodsies.color = feet_blood_color
+			overlays_standing[SHOES_LAYER] = bloodsies
+		else
+			overlays_standing[SHOES_LAYER] = null
 	if(update_icons)   update_icons()
 
 /mob/living/carbon/human/update_inv_s_store(var/update_icons=1)
@@ -778,10 +780,9 @@ proc/get_damage_icon_part(damage_state, body_part)
 				standing = image("icon" = 'icons/mob/head.dmi', "icon_state" = "[head.icon_state]")
 
 		if(head.blood_DNA)
-			if(green==1)
-				standing.overlays	+= image("icon" = 'icons/effects/blood.dmi', "icon_state" = "xhelmetblood")
-			else
-				standing.overlays	+= image("icon" = 'icons/effects/blood.dmi', "icon_state" = "helmetblood")
+			var/image/bloodsies = image("icon" = 'icons/effects/blood.dmi', "icon_state" = "helmetblood")
+			bloodsies.color = head.blood_color
+			standing.overlays	+= bloodsies
 		overlays_standing[HEAD_LAYER]	= standing
 
 
@@ -831,19 +832,12 @@ proc/get_damage_icon_part(damage_state, body_part)
 			drop_l_hand()
 			drop_r_hand()
 
-		if(wear_suit.blood_DNA)
-			var/t_state
-			if( istype(wear_suit, /obj/item/clothing/suit/armor/vest || /obj/item/clothing/suit/wcoat) )
-				t_state = "armor"
-			else if( istype(wear_suit, /obj/item/clothing/suit/storage/det_suit || /obj/item/clothing/suit/storage/labcoat) )
-				t_state = "coat"
-			else
-				t_state = "suit"
-			standing.overlays += image("icon" = 'icons/effects/blood.dmi', "icon_state" = "[t_state]blood")
 
-			if(wear_suit.blood_DNA)
-				var/obj/item/clothing/suit/S = wear_suit
-				standing.overlays += image("icon" = 'icons/effects/blood.dmi', "icon_state" = "[S.blood_overlay_type]blood")
+		if(wear_suit.blood_DNA)
+			var/obj/item/clothing/suit/S = wear_suit
+			var/image/bloodsies = image("icon" = 'icons/effects/blood.dmi', "icon_state" = "[S.blood_overlay_type]blood")
+			bloodsies.color = wear_suit.blood_color
+			standing.overlays	+= bloodsies
 
 
 		overlays_standing[SUIT_LAYER]	= standing
