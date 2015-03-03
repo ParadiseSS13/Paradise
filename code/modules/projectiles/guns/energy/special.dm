@@ -325,7 +325,7 @@ modules/mob/living/carbon/human/life.dm if you die, you will be zoomed out.
 	if(isrobot(src.loc))
 		var/mob/living/silicon/robot/R = src.loc
 		if(R && R.cell)
-			if(R.cell.use(charge_cost)) 		//Take power from the borg...
+			if(R.cell.use(charge_cost/10)) 		//Take power from the borg...
 				power_supply.give(charge_cost)	//... to recharge the shot
 
 	update_icon()
@@ -342,7 +342,7 @@ modules/mob/living/carbon/human/life.dm if you die, you will be zoomed out.
 	fire_sound = 'sound/weapons/Gunshot_smg.ogg'
 	cell_type = "/obj/item/weapon/stock_parts/cell/secborg"
 	projectile_type = "/obj/item/projectile/bullet/midbullet3"
-	charge_cost = 300 //Yeah, let's NOT give them a 300 round clip that recharges, 20 is more reasonable and will actually hurt the borg's battery for overuse.
+	charge_cost = 200 //Yeah, let's NOT give them a 300 round clip that recharges, 20 is more reasonable and will actually hurt the borg's battery for overuse.
 	var/charge_tick = 0
 	var/recharge_time = 5
 
@@ -369,6 +369,6 @@ modules/mob/living/carbon/human/life.dm if you die, you will be zoomed out.
 	if(isrobot(src.loc))
 		var/mob/living/silicon/robot/R = src.loc
 		if(R && R.cell)
-			if(R.cell.use(charge_cost)) 		//Take power from the borg...
+			if(R.cell.use(charge_cost/10)) 		//Take power from the borg...
 				power_supply.give(charge_cost)	//...to recharge the shot
 	return 1
