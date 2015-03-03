@@ -245,7 +245,7 @@
 				if(!helmet)
 					user << "\The [src] does not have a helmet installed."
 				else
-					user << "You detatch \the [helmet] from \the [src]'s helmet mount."
+					user << "You detach \the [helmet] from \the [src]'s helmet mount."
 					helmet.loc = get_turf(src)
 					src.helmet = null
 				return

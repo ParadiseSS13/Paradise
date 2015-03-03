@@ -81,6 +81,10 @@ var/global/list/datum/stack_recipe/metal_recipes = list ( \
 	throwforce = 10.0
 	flags = CONDUCT
 	origin_tech = "materials=1"
+	
+/obj/item/stack/sheet/metal/full/New()
+	..()
+	amount = 50
 
 /obj/item/stack/sheet/metal/cyborg
 	name = "metal"
@@ -120,8 +124,12 @@ var/global/list/datum/stack_recipe/plasteel_recipes = list ( \
 	origin_tech = "materials=2"
 
 /obj/item/stack/sheet/plasteel/New(var/loc, var/amount=null)
-		recipes = plasteel_recipes
-		return ..()
+	recipes = plasteel_recipes
+	return ..()
+		
+/obj/item/stack/sheet/plasteel/full/New(var/loc, var/amount=null)
+	amount = 50
+	..(loc, amount)
 
 /*
  * Wood

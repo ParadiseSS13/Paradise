@@ -1207,7 +1207,7 @@ obj/item/weapon/organ/head/attackby(obj/item/weapon/W as obj, mob/user as mob, p
 					user.put_in_hands(B)
 					B.transfer_identity(brainmob)
 				else
-					var/obj/item/brain/B = new(loc)
+					var/obj/item/brain/B = new()
 					user.put_in_hands(B)
 					B.transfer_identity(brainmob)
 

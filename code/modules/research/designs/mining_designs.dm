@@ -32,16 +32,6 @@
 	build_path = /obj/item/weapon/pickaxe/drill
 	category = list("Mining")	
 	
-/datum/design/mesons
-	name = "Optical Meson Scanners"
-	desc = "Used for seeing walls, floors, and stuff through anything."
-	id = "mesons"
-	req_tech = list("materials" = 3, "magnets" = 3, "engineering" = 3)
-	build_type = PROTOLATHE
-	materials = list("$metal" = 200, "$glass" = 300, "$plasma" = 100)
-	build_path = /obj/item/clothing/glasses/meson
-	category = list("Mining")
-	
 /datum/design/plasmacutter
 	name = "Plasma Cutter"
 	desc = "You could use it to cut limbs off of xenos! Or, you know, mine stuff."
