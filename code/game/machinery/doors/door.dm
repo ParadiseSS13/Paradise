@@ -10,7 +10,6 @@
 	density = 1
 	layer = 2.7
 
-	var/electrified_until = 0	// World time when the door is no longer electrified. -1 if it is permanently electrified until someone fixes it.
 	var/visible = 1
 	var/p_open = 0
 	var/operating = 0
@@ -56,10 +55,6 @@
 	airlocks -= src
 	..()
 	return
-
-/obj/machinery/door/process()
-	if(electrified_until > 0 && world.time > electrified_until)
-		electrified_until = 0
 
 /obj/machinery/door/Bumped(atom/AM)
 	if(p_open || operating) return
@@ -184,8 +179,6 @@
 /obj/machinery/door/emp_act(severity)
 	if(prob(20/severity) && (istype(src,/obj/machinery/door/airlock) || istype(src,/obj/machinery/door/window)) )
 		open()
-	if(prob(40/severity))
-		electrified_until = max(electrified_until, world.time + SecondsToTicks(30 / severity))
 	..()
 
 

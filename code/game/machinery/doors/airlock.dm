@@ -28,6 +28,7 @@
 	explosion_resistance = 15
 	var/aiControlDisabled = 0 //If 1, AI control is disabled until the AI hacks back in and disables the lock. If 2, the AI has bypassed the lock. If -1, the control is enabled but the AI had bypassed it earlier, so if it is disabled again the AI would have no trouble getting back in.
 	var/hackProof = 0 // if 1, this door can't be hacked by the AI
+	var/electrified_until = 0	// World time when the door is no longer electrified. -1 if it is permanently electrified until someone fixes it.
 	var/main_power_lost_until = 0	 //World time when main power is restored.
 	var/backup_power_lost_until = -1 //World time when backup power is restored.
 	var/spawnPowerRestoreRunning = 0
@@ -209,23 +210,15 @@
 	var/last_event = 0
 	
 /obj/machinery/door/airlock/process()
-	// Deliberate no call to parent
-	if(src.isWireCut(AIRLOCK_WIRE_MAIN_POWER1) || src.isWireCut(AIRLOCK_WIRE_MAIN_POWER2))
-		main_power_lost_until = -1
-	else if(main_power_lost_until > 0 && world.time > main_power_lost_until)
+	// Deliberate no call to parent.
+	if(main_power_lost_until > 0 && world.time >= main_power_lost_until)
 		regainMainPower()
 
-	if(src.isWireCut(AIRLOCK_WIRE_BACKUP_POWER1) || src.isWireCut(AIRLOCK_WIRE_BACKUP_POWER2))
-		backup_power_lost_until = -1
-	if(backup_power_lost_until > 0&& world.time > backup_power_lost_until)
+	if(backup_power_lost_until > 0 && world.time >= backup_power_lost_until)
 		regainBackupPower()
 
-	if(electrified_until && !arePowerSystemsOn())
-		electrified_until = 0
-	else if(isWireCut(AIRLOCK_WIRE_ELECTRIFY))
-		electrified_until = -1
-	else if(electrified_until > 0 && world.time > electrified_until)
-		electrified_until = 0
+	else if(electrified_until > 0 && world.time >= electrified_until)
+		electrify(0)
 
 /obj/machinery/door/airlock/uranium/process()
 	if(world.time > last_event+20)
@@ -390,32 +383,72 @@ About the new airlock wires panel:
 	return !(src.isWireCut(AIRLOCK_WIRE_IDSCAN) || aiDisabledIdScanner)
 
 /obj/machinery/door/airlock/proc/isAllPowerLoss()
-	if(stat & NOPOWER)
+	if(stat & (NOPOWER|BROKEN))
 		return 1
-	if(src.isWireCut(AIRLOCK_WIRE_MAIN_POWER1) || src.isWireCut(AIRLOCK_WIRE_MAIN_POWER2))
-		if(src.isWireCut(AIRLOCK_WIRE_BACKUP_POWER1) || src.isWireCut(AIRLOCK_WIRE_BACKUP_POWER2))
-			return 1
+	if(mainPowerCablesCut() && backupPowerCablesCut())
+		return 1
 	return 0
+	
+/obj/machinery/door/airlock/proc/mainPowerCablesCut()
+	return src.isWireCut(AIRLOCK_WIRE_MAIN_POWER1) || src.isWireCut(AIRLOCK_WIRE_MAIN_POWER2)
+
+/obj/machinery/door/airlock/proc/backupPowerCablesCut()
+	return src.isWireCut(AIRLOCK_WIRE_BACKUP_POWER1) || src.isWireCut(AIRLOCK_WIRE_BACKUP_POWER2)
 
 /obj/machinery/door/airlock/proc/loseMainPower()
-	// process() will handle the case of cut power cables
-	main_power_lost_until = world.time + SecondsToTicks(60)
-	backup_power_lost_until = max(backup_power_lost_until, world.time + SecondsToTicks(10))
+	main_power_lost_until = mainPowerCablesCut() ? -1 : world.time + SecondsToTicks(60)
+
+	// If backup power is permanently disabled then activate in 10 seconds if possible, otherwise it's already enabled or a timer is already running
+	if(backup_power_lost_until == -1 && !backupPowerCablesCut())
+		backup_power_lost_until = world.time + SecondsToTicks(10)
+
+	// Disable electricity if required
+	if(electrified_until && isAllPowerLoss())
+		electrify(0)
 
 /obj/machinery/door/airlock/proc/loseBackupPower()
-	// process() will handle the case of cut power cables
-	backup_power_lost_until = world.time + SecondsToTicks(60)
+	backup_power_lost_until = backupPowerCablesCut() ? -1 : world.time + SecondsToTicks(60)
+
+	// Disable electricity if required
+	if(electrified_until && isAllPowerLoss())
+		electrify(0)
 
 /obj/machinery/door/airlock/proc/regainMainPower()
-	if(!src.isWireCut(AIRLOCK_WIRE_MAIN_POWER1) && !src.isWireCut(AIRLOCK_WIRE_MAIN_POWER2))
+	if(!mainPowerCablesCut())
 		main_power_lost_until = 0
-		backup_power_lost_until = -1
+		// If backup power is currently active then disable, otherwise let it count down and disable itself later
+		if(!backup_power_lost_until)
+			backup_power_lost_until = -1
 		update_icon()
 
 /obj/machinery/door/airlock/proc/regainBackupPower()
-	if(!src.isWireCut(AIRLOCK_WIRE_BACKUP_POWER1) && !src.isWireCut(AIRLOCK_WIRE_BACKUP_POWER2))
-		backup_power_lost_until = 0
+	if(!backupPowerCablesCut())
+		// Restore backup power only if main power is offline, otherwise permanently disable
+		backup_power_lost_until = main_power_lost_until == 0 ? -1 : 0
 		update_icon()
+		
+/obj/machinery/door/airlock/proc/electrify(var/duration, var/feedback = 0)
+	var/message = ""
+	if(src.isWireCut(AIRLOCK_WIRE_ELECTRIFY) && arePowerSystemsOn())
+		message = text("The electrification wire is cut - Door permanently electrified.")
+		src.electrified_until = -1
+	else if(duration && !arePowerSystemsOn())
+		message = text("The door is unpowered - Cannot electrify the door.")
+		src.electrified_until = 0
+	else if(!duration && electrified_until != 0)
+		message = "The door is now un-electrified."
+		src.electrified_until = 0
+	else if(duration)	//electrify door for the given duration seconds
+		if(usr)
+			shockedby += text("\[[time_stamp()]\] - [usr](ckey:[usr.ckey])")
+			usr.attack_log += text("\[[time_stamp()]\] <font color='red'>Electrified the [name] at [x] [y] [z]</font>")
+		else
+			shockedby += text("\[[time_stamp()]\] - EMP)")
+		message = "The door is now electrified [duration == -1 ? "permanently" : "for [duration] second\s"]."
+		src.electrified_until = duration == -1 ? -1 : world.time + SecondsToTicks(duration)
+
+	if(feedback && message)
+		usr << message
 
 // shock user with probability prb (if all connections & power are working)
 // returns 1 if shocked, 0 otherwise
@@ -917,23 +950,29 @@ About the new airlock wires panel:
 	return
 
 /obj/machinery/door/airlock/proc/lock(var/forced=0)
-	if (operating || src.locked) return
+	if(locked)
+		return 0
+
+	if (operating && !forced) return 0
 
 	src.locked = 1
 	for(var/mob/M in range(1,src))
 		M.show_message("You hear a click from the bottom of the door.", 2)
 	update_icon()
+	return 1
 
 /obj/machinery/door/airlock/proc/unlock(var/forced=0)
-	if (operating || !src.locked) return
+	if(!src.locked)
+		return
 
-	if (forced || (src.arePowerSystemsOn())) //only can raise bolts if power's on
-		src.locked = 0
-		for(var/mob/M in range(1,src))
-			M.show_message("You hear a click from the bottom of the door.", 2)
-		update_icon()
-		return 1
-	return 0
+	if (!forced)
+		if(operating || !src.arePowerSystemsOn() || isWireCut(AIRLOCK_WIRE_DOOR_BOLTS)) return
+
+	src.locked = 0
+	for(var/mob/M in range(1,src))
+		M.show_message("You hear a click from the bottom of the door.", 2)
+	update_icon()
+	return 1
 
 /obj/machinery/door/airlock/New()
 	..()
@@ -1013,7 +1052,21 @@ About the new airlock wires panel:
 		else
 			return
 
-
 /obj/machinery/door/airlock/CanAStarPass(var/obj/item/weapon/card/id/ID)
 //Airlock is passable if it is open (!density), bot has access, and is not bolted shut)
 	return !density || (check_access(ID) && !locked)
+	
+/obj/machinery/door/airlock/emp_act(var/severity)
+	if(prob(40/severity))
+		var/duration = world.time + SecondsToTicks(30 / severity)
+		if(duration > electrified_until)
+			electrify(duration)
+	..()
+
+/obj/machinery/door/airlock/power_change() //putting this is obj/machinery/door itself makes non-airlock doors turn invisible for some reason
+	..()
+	if(stat & NOPOWER)
+		// If we lost power, disable electrification
+		// Keeping door lights on, runs on internal battery or something.
+		electrified_until = 0
+	update_icon()

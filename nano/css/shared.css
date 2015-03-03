@@ -232,15 +232,32 @@ div.notice {
     clear: both;
 }
 
+
 .item {
     width: 100%;
     margin: 4px 0 0 0;
     clear: both;
 }
 
-.itemLabel, .itemLabelWide, .itemLabelFull {
+.itemContentNarrow, .itemContent {
+    float: left;
+}
+
+.itemContentNarrow {
+    width: 30%;
+}
+
+.itemContent {
+    width: 69%;
+}
+
+.itemLabelNarrow, .itemLabel, .itemLabelWide, .itemLabelWider, .itemLabelWidest {
     float: left;
     color: #e9c183;
+}
+
+.itemLabelNarrow {
+    width: 20%;
 }
 
 .itemLabel {
@@ -248,35 +265,15 @@ div.notice {
 }
 
 .itemLabelWide {
-    width: 69%;
-}
-
-.itemLabelFull {
-    width: 100%;
-}
-
-.itemContent, .itemContentThin {
-    float: left;
-}
-
-.itemContent {
-    width: 69%;
-}
-
-.itemContentThin {
-    width: 30%;
-}
-
-.itemLabelNarrow {
-    float: left;
-    width: 20%;
-    color: #e9c183;
-}
-
-.itemLabelWide {
-    float: left;
     width: 45%;
-    color: #e9c183;
+}
+
+.itemLabelWider {
+    width: 69%;
+}
+
+.itemLabelWidest {
+    width: 100%;
 }
 
 .itemContentWide {
