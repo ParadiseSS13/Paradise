@@ -10,6 +10,7 @@
 	var/dirty = 0 // Does it need cleaning?
 	var/gibtime = 40 // Time from starting until meat appears
 	var/mob/living/occupant // Mob who has been put inside
+	var/locked = 0 //Used to prevent mobs from breaking the feedin anim
 	use_power = 1
 	idle_power_usage = 2
 	active_power_usage = 500
@@ -66,6 +67,8 @@
 	return src.attack_hand(user)
 
 /obj/machinery/gibber/relaymove(mob/user as mob)
+	if(locked)
+		return
 	src.go_out()
 	return
 
@@ -74,6 +77,9 @@
 		return
 	if(operating)
 		user << "\red It's locked and running"
+		return
+	if(locked)
+		user << "\red Wait for [occupant.name] to finish being loaded!"
 		return
 	else
 		src.startgibbing(user)
@@ -101,6 +107,7 @@
 		src.occupant = M
 		del(G)
 		update_icon()
+		feedinTopanim()
 
 /obj/machinery/gibber/verb/eject()
 	set category = "Object"
@@ -116,6 +123,8 @@
 /obj/machinery/gibber/proc/go_out()
 	if (!src.occupant)
 		return
+	if (locked)
+		return
 	for(var/obj/O in src)
 		O.loc = src.loc
 	if (src.occupant.client)
@@ -125,6 +134,42 @@
 	src.occupant = null
 	update_icon()
 	return
+
+/obj/machinery/gibber/proc/feedinTopanim()
+	if(!src.occupant)
+		return
+
+	src.locked = 1
+
+	var/image/gibberoverlay = new
+	gibberoverlay.icon = src.icon
+	gibberoverlay.icon_state = "grinderoverlay"
+	gibberoverlay.overlays += image('icons/obj/kitchen.dmi', "gridle")
+
+	var/image/feedee = new
+	occupant.dir = 2
+	feedee.icon = getFlatIcon(occupant, 2)
+	feedee.pixel_y = 25
+	feedee.pixel_x = 2
+	overlays += feedee
+	overlays += gibberoverlay
+
+	var/i //our counter
+	for(i=0,i<30,i++)
+		overlays -= gibberoverlay
+		overlays -= feedee
+		feedee.pixel_y--
+		if(feedee.pixel_y == 16)
+			feedee.icon += icon('icons/obj/kitchen.dmi', "footicon")
+			continue
+		if(feedee.pixel_y == -5)
+			overlays -= feedee
+			overlays -= gibberoverlay
+			src.locked = 0
+			break
+		overlays += feedee
+		overlays += gibberoverlay
+		sleep(1)
 
 
 /obj/machinery/gibber/proc/startgibbing(mob/user as mob)
