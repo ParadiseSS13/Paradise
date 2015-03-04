@@ -43,11 +43,11 @@
 	if(href_list["copy"])
 		if(stat & (BROKEN|NOPOWER))
 			return
-		
+
 		for(var/i = 0, i < copies, i++)
 			if(toner <= 0)
 				break
-			
+
 			if (istype(copyitem, /obj/item/weapon/paper))
 				copy(copyitem)
 				sleep(15)
@@ -60,7 +60,7 @@
 			else
 				usr << "<span class='warning'>\The [copyitem] can't be copied by \the [src].</span>"
 				break
-			
+
 			use_power(active_power_usage)
 		updateUsrDialog()
 	else if(href_list["remove"])
@@ -81,7 +81,7 @@
 	else if(href_list["aipic"])
 		if(!istype(usr,/mob/living/silicon)) return
 		if(stat & (BROKEN|NOPOWER)) return
-		
+
 		if(toner >= 5)
 			var/mob/living/silicon/tempAI = usr
 			var/obj/item/device/camera/siliconcam/camera = tempAI.aiCamera
@@ -138,12 +138,12 @@
 				del(src)
 			else
 				if(toner > 0)
-					new /obj/effect/decal/cleanable/oil(get_turf(src))
+					new /obj/effect/decal/cleanable/blood/oil(get_turf(src))
 					toner = 0
 		else
 			if(prob(50))
 				if(toner > 0)
-					new /obj/effect/decal/cleanable/oil(get_turf(src))
+					new /obj/effect/decal/cleanable/blood/oil(get_turf(src))
 					toner = 0
 	return
 
@@ -152,7 +152,7 @@
 		del(src)
 	else
 		if(toner > 0)
-			new /obj/effect/decal/cleanable/oil(get_turf(src))
+			new /obj/effect/decal/cleanable/blood/oil(get_turf(src))
 			toner = 0
 	return
 
@@ -219,7 +219,7 @@
 			toner = 0
 			visible_message("<span class='notice'>A red light on \the [src] flashes, indicating that it is out of toner.</span>")
 			break
-		
+
 		if(istype(W, /obj/item/weapon/paper))
 			W = copy(W)
 		else if(istype(W, /obj/item/weapon/photo))

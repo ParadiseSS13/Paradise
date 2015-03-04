@@ -1252,16 +1252,15 @@
 	if(blood_DNA[M.dna.unique_enzymes])
 		return 0 //already bloodied with this blood. Cannot add more.
 	blood_DNA[M.dna.unique_enzymes] = M.dna.b_type
-	if(M.species.bloodflags & BLOOD_GREEN)
-		src.update_inv_gloves(1,1)	//handles bloody hands overlays and updating
-	else
-		src.update_inv_gloves(1,0)
+	hand_blood_color = blood_color
+	src.update_inv_gloves()
 	verbs += /mob/living/carbon/human/proc/bloody_doodle
 	return 1 //we applied blood to the item
 
 /mob/living/carbon/human/clean_blood(var/clean_feet)
 	.=..()
 	if(clean_feet && !shoes && istype(feet_blood_DNA, /list) && feet_blood_DNA.len)
+		feet_blood_color = null
 		del(feet_blood_DNA)
 		update_inv_shoes(1)
 		return 1

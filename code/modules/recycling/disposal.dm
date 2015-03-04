@@ -238,7 +238,7 @@
 			return
 		*/
 		interact(user, 0)
-		
+
 	// hostile mob escape from disposals
 	attack_animal(var/mob/living/simple_animal/M)
 		if(M.environment_smash)
@@ -1368,7 +1368,7 @@
 
 	src.streak(dirs)
 
-/obj/effect/decal/cleanable/robot_debris/gib/pipe_eject(var/direction)
+/obj/effect/decal/cleanable/blood/gibs/robot/gib/pipe_eject(var/direction)
 	var/list/dirs
 	if(direction)
 		dirs = list( direction, turn(direction, -45), turn(direction, 45))

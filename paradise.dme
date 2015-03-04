@@ -625,6 +625,7 @@
 #include "code\game\objects\effects\decals\Cleanable\humans.dm"
 #include "code\game\objects\effects\decals\Cleanable\misc.dm"
 #include "code\game\objects\effects\decals\Cleanable\robots.dm"
+#include "code\game\objects\effects\decals\Cleanable\tracks.dm"
 #include "code\game\objects\effects\decals\posters\bs12.dm"
 #include "code\game\objects\effects\decals\posters\tgposters.dm"
 #include "code\game\objects\effects\spawners\bombspawner.dm"
