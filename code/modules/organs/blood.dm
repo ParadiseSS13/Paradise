@@ -163,9 +163,6 @@ var/const/BLOOD_VOLUME_SURVIVE = 122
 
 	var/amm = 0.1 * amt
 	var/turf/T = get_turf(src)
-	var/list/obj/effect/decal/cleanable/blood/drip/nums = list()
-
-	var/list/iconL = list("1","2","3","4","5")
 
 	if(src.species.bloodflags &BLOOD_SLIME)
 		vessel.remove_reagent("water",amm)
@@ -174,24 +171,8 @@ var/const/BLOOD_VOLUME_SURVIVE = 122
 
 	else
 		vessel.remove_reagent("blood",amm)
+		blood_splatter(src,src)
 
-		for(var/obj/effect/decal/cleanable/blood/drip/G in T)
-			nums += G
-			iconL.Remove(G.icon_state)
-
-		if (nums.len < 5)
-			var/obj/effect/decal/cleanable/blood/drip/this = new(T)
-			this.icon_state = pick(iconL)
-			this.blood_DNA = list()
-			this.blood_DNA[dna.unique_enzymes] = dna.b_type
-			for (var/ID in virus2)
-				var/datum/disease2/disease/V = virus2[ID]
-				this.virus2[ID] = V.getcopy()
-		else
-			for(var/obj/effect/decal/cleanable/blood/drip/G in nums)
-				del G
-			T.add_blood(src)
-		return
 
 /****************************************************
 				BLOOD TRANSFERS
