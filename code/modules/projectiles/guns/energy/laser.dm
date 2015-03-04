@@ -63,8 +63,8 @@ obj/item/weapon/gun/energy/laser/retro
 		return 1
 	if(isrobot(src.loc))
 		var/mob/living/silicon/robot/R = src.loc
-		if(R && R.cell && R.cell.charge >= 83)
-			R.cell.use(83)
+		if(R && R.cell && R.cell.charge >= 500)
+			R.cell.use(500)
 			in_chamber = new/obj/item/projectile/beam(src)
 			return 1
 	return 0
