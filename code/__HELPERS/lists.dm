@@ -214,6 +214,8 @@ proc/listclearnulls(list/list)
 	while(Li <= L.len && Ri <= R.len)
 		var/atom/rL = L[Li]
 		var/atom/rR = R[Ri]
+		if(!rL.name || !rR.name)
+			continue
 		if(sorttext(rL.name, rR.name) == order)
 			result += L[Li++]
 		else
