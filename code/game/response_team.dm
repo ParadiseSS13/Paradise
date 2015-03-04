@@ -296,7 +296,7 @@ var/can_call_ert
 
 	M.gender = pick(MALE, FEMALE)
 	M.set_species("Human",1)
-	M.dna.ready_dna(M) // Quadriplegic Nuke Ops won't be participating in the paralympics
+	M.dna.ready_dna(M)
 
 	var/hair_c = pick("#8B4513","#000000","#FF4500","#FFD700") // Brown, black, red, blonde
 	var/eye_c = pick("#000000","#8B4513","1E90FF") // Black, brown, blue
@@ -375,8 +375,7 @@ var/can_call_ert
 			W.registered_name = M.real_name
 			W.name = "[M.real_name]'s ID Card (Emergency Response Team - Commander)"
 			W.icon_state = "centcom"
-			W.access = get_all_accesses()
-			W.access += list(access_cent_general, access_cent_living, access_cent_medical, access_cent_storage, access_cent_thunder, access_cent_teleporter)
+			W.access = get_centcom_access(W.assignment)
 			M.equip_to_slot_or_del(W, slot_wear_id)
 
 			var/obj/item/device/pda/heads/pda = new(src)
@@ -460,8 +459,7 @@ var/can_call_ert
 			W.registered_name = M.real_name
 			W.name = "[M.real_name]'s ID Card (Emergency Response Team - Officer)"
 			W.icon_state = "centcom"
-			W.access = get_all_accesses()
-			W.access += list(access_cent_general, access_cent_living, access_cent_thunder)
+			W.access = get_centcom_access(W.assignment)
 			M.equip_to_slot_or_del(W, slot_wear_id)
 
 			var/obj/item/device/pda/heads/pda = new(src)
@@ -500,8 +498,7 @@ var/can_call_ert
 			W.registered_name = M.real_name
 			W.name = "[M.real_name]'s ID Card (Emergency Response Team - Medic)"
 			W.icon_state = "centcom"
-			W.access = get_all_accesses()
-			W.access += list(access_cent_general, access_cent_living, access_cent_medical)
+			W.access = get_centcom_access(W.assignment)
 			M.equip_to_slot_or_del(W, slot_wear_id)
 
 			var/obj/item/device/pda/heads/pda = new(src)
@@ -542,8 +539,7 @@ var/can_call_ert
 			W.registered_name = M.real_name
 			W.name = "[M.real_name]'s ID Card (Emergency Response Team - Engineer)"
 			W.icon_state = "centcom"
-			W.access = get_all_accesses()
-			W.access += list(access_cent_general, access_cent_living, access_cent_storage)
+			W.access = get_centcom_access(W.assignment)
 			M.equip_to_slot_or_del(W, slot_wear_id)
 
 			var/obj/item/device/pda/heads/pda = new(src)
@@ -586,8 +582,7 @@ var/can_call_ert
 			W.registered_name = M.real_name
 			W.name = "[M.real_name]'s ID Card (Emergency Response Team - Janitor)"
 			W.icon_state = "centcom"
-			W.access = get_all_accesses()
-			W.access += list(access_cent_general, access_cent_living, access_cent_storage)
+			W.access = get_centcom_access(W.assignment)
 			M.equip_to_slot_or_del(W, slot_wear_id)
 
 			var/obj/item/device/pda/heads/pda = new(src)

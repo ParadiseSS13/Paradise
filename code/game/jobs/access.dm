@@ -77,28 +77,20 @@
 /var/const/access_weapons = 99 //Weapon authorization for secbots
 
 	//BEGIN CENTCOM ACCESS
-	/*Should leave plenty of room if we need to add more access levels.
-/var/const/Mostly for admin fun times.*/
 /var/const/access_cent_general = 101//General facilities.
-/var/const/access_cent_thunder = 102//Thunderdome.
-/var/const/access_cent_specops = 103//Special Ops.
-/var/const/access_cent_medical = 104//Medical/Research
-/var/const/access_cent_living = 105//Living quarters.
-/var/const/access_cent_storage = 106//Generic storage areas.
-/var/const/access_cent_teleporter = 107//Teleporter.
-/var/const/access_cent_creed = 108//Creed's office.
-/var/const/access_cent_captain = 109//Captain's office/ID comp/AI.
-
-	//EMBASSIES
-
-/var/const/embassy_tajaran = 120
-/var/const/embassy_skrell = 121
-/var/const/embassy_unathi = 122
-/var/const/embassy_diona = 123
-/var/const/embassy_kidan = 124
-/var/const/embassy_slime = 125
-/var/const/embassy_grey = 126
-/var/const/embassy_vox = 127
+/var/const/access_cent_living = 102//Living quarters.
+/var/const/access_cent_medical = 103//Medical.
+/var/const/access_cent_security = 104//Security.
+/var/const/access_cent_storage = 105//Storage areas.
+/var/const/access_cent_shuttles = 106//Shuttle docks.
+/var/const/access_cent_telecomms = 107//Telecomms.
+/var/const/access_cent_teleporter = 108//Telecomms.
+/var/const/access_cent_specops = 109//Special Ops.
+/var/const/access_cent_specops_commander = 110//Special Ops Commander.
+/var/const/access_cent_blackops = 111//Black Ops.
+/var/const/access_cent_thunder = 112//Thunderdome.
+/var/const/access_cent_bridge = 113//Bridge.
+/var/const/access_cent_commander = 114//Commander's Office/ID computer.
 
 	//The Syndicate
 /var/const/access_syndicate = 150//General Syndicate Access
@@ -197,34 +189,49 @@
 /proc/get_centcom_access(job)
 	switch(job)
 		if("VIP Guest")
-			return list(access_cent_general)
+			return list(access_cent_general, access_cent_living)
 		if("Custodian")
-			return list(access_cent_general, access_cent_living, access_cent_storage)
+			return list(access_cent_general, access_cent_living, access_cent_medical, access_cent_storage)
 		if("Thunderdome Overseer")
 			return list(access_cent_general, access_cent_thunder)
-		if("Emergency Response Team")
-			return list(access_cent_general, access_cent_living, access_cent_storage) + get_all_accesses()
+		if("Emergency Response Team Member")
+			return list(access_cent_general, access_cent_living, access_cent_medical, access_cent_security, access_cent_storage, access_cent_specops) + get_all_accesses()
 		if("Emergency Response Team Leader")
-			return list(access_cent_general, access_cent_living, access_cent_storage, access_cent_teleporter) + get_all_accesses()
-		if("Intel Officer")
-			return list(access_cent_general, access_cent_living) + get_all_accesses()
+			return list(access_cent_general, access_cent_living, access_cent_medical, access_cent_security, access_cent_storage, access_cent_specops, access_cent_specops_commander) + get_all_accesses()
 		if("Medical Officer")
-			return list(access_cent_general, access_cent_living, access_cent_medical) + get_all_accesses()
-		if("Death Commando")
-			return list(access_cent_general, access_cent_specops, access_cent_living, access_cent_storage) + get_all_accesses()
+			return list(access_cent_general, access_cent_living, access_cent_medical, access_cent_storage) + get_all_accesses()
+		if("Intel Officer")
+			return list(access_cent_general, access_cent_living, access_cent_security, access_cent_storage) + get_all_accesses()
 		if("Research Officer")
-			return list(access_cent_general, access_cent_specops, access_cent_medical, access_cent_teleporter, access_cent_storage) + get_all_accesses()
-		if("BlackOps Commander")
-			return list(access_cent_general, access_cent_thunder, access_cent_specops, access_cent_living, access_cent_storage, access_cent_creed) + get_all_accesses()
+			return list(access_cent_general, access_cent_specops, access_cent_medical, access_cent_storage, access_cent_telecomms, access_cent_teleporter) + get_all_accesses()
+		if("Death Commando")
+			return list(access_cent_general, access_cent_living, access_cent_medical, access_cent_security, access_cent_storage, access_cent_specops, access_cent_specops_commander, access_cent_blackops) + get_all_accesses()
+		if("Deathsquad Officer")
+			return get_all_centcom_access() + get_all_accesses()
 		if("Special Operations Officer")
 			return get_all_centcom_access() + get_all_accesses()
+		if("Nanotrasen Navy Representative")
+			return get_all_centcom_access() + get_all_accesses()			
 		if("Nanotrasen Navy Officer")
 			return get_all_centcom_access() + get_all_accesses()
 		if("Nanotrasen Navy Captain")
 			return get_all_centcom_access() + get_all_accesses()
 		if("Supreme Commander")
 			return get_all_centcom_access() + get_all_accesses()
-
+			
+/proc/get_syndicate_access(job)
+	switch(job)
+		if("Syndicate Operative")
+			return list(access_syndicate)
+		if("Syndicate Operative Leader")
+			return list(access_syndicate, access_syndicate_leader)
+		if("Vox Raider")
+			return list(access_vox)			
+		if("Vox Trader")
+			return list(access_vox)	
+		if("Syndicate Commando")
+			return list(access_syndicate, access_syndicate_leader)				
+			
 /proc/get_all_accesses()
 	return list(access_security, access_sec_doors, access_brig, access_armory, access_forensics_lockers, access_court,
 	            access_medical, access_genetics, access_morgue, access_rd,
@@ -240,10 +247,10 @@
 	            access_pilot, access_ntrep, access_magistrate, access_minisat)
 
 /proc/get_all_centcom_access()
-	return list(access_cent_general, access_cent_thunder, access_cent_specops, access_cent_medical, access_cent_living, access_cent_storage, access_cent_teleporter, access_cent_creed, access_cent_captain)
+	return list(access_cent_general, access_cent_living, access_cent_medical, access_cent_security, access_cent_storage, access_cent_shuttles, access_cent_telecomms, access_cent_teleporter, access_cent_specops, access_cent_specops_commander, access_cent_blackops, access_cent_thunder, access_cent_bridge, access_cent_commander)
 
 /proc/get_all_syndicate_access()
-	return list(access_syndicate)
+	return list(access_syndicate, access_syndicate_leader, access_vox)
 
 /proc/get_region_accesses(var/code)
 	switch(code)
@@ -436,23 +443,42 @@
 /proc/get_centcom_access_desc(A)
 	switch(A)
 		if(access_cent_general)
-			return "Code Grey"
-		if(access_cent_thunder)
-			return "Code Yellow"
-		if(access_cent_storage)
-			return "Code Orange"
+			return "General Access"
 		if(access_cent_living)
-			return "Code Green"
+			return "Living Quarters"
 		if(access_cent_medical)
-			return "Code White"
+			return "Medical"
+		if(access_cent_security)
+			return "Security"
+		if(access_cent_storage)
+			return "Storage"
+		if(access_cent_shuttles)
+			return "Shuttles"
+		if(access_cent_telecomms)
+			return "Telecommunications"
 		if(access_cent_teleporter)
-			return "Code Blue"
+			return "Teleporter"
 		if(access_cent_specops)
-			return "Code Black"
-		if(access_cent_creed)
-			return "Code Silver"
-		if(access_cent_captain)
-			return "Code Gold"
+			return "Special Ops"
+		if(access_cent_specops_commander)
+			return "Special Ops Commander"
+		if(access_cent_blackops)
+			return "Black Ops"
+		if(access_cent_thunder)
+			return "Thunderdome"
+		if(access_cent_bridge)
+			return "Bridge"
+		if(access_cent_commander)
+			return "Commander"
+			
+/proc/get_syndicate_access_desc(A)
+	switch(A)
+		if(access_syndicate)
+			return "Syndicate Operative"
+		if(access_syndicate_leader)
+			return "Syndicate Operative Leader"
+		if(access_vox)
+			return "Vox"
 
 /proc/get_all_jobs()
 	var/list/all_jobs = list()
@@ -465,7 +491,7 @@
 	return all_jobs
 
 /proc/get_all_centcom_jobs()
-	return list("VIP Guest","Custodian","Thunderdome Overseer","Emergency Response Team Member","Emergency Response Team Leader","Intel Officer","Medical Officer","Death Commando","Research Officer","BlackOps Commander","Special Operations Officer","Nanotrasen Navy Officer","Nanotrasen Navy Captain","Supreme Commander")
+	return list("VIP Guest","Custodian","Thunderdome Overseer","Emergency Response Team Member","Emergency Response Team Leader","Intel Officer","Medical Officer","Death Commando","Research Officer","Deathsquad Officer","Special Operations Officer","Nanotrasen Navy Representative","Nanotrasen Navy Officer","Nanotrasen Navy Captain","Supreme Commander")
 
 //gets the actual job rank (ignoring alt titles)
 //this is used solely for sechuds

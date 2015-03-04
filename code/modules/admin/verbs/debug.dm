@@ -855,8 +855,8 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 			W.icon_state = "centcom"
 			W.item_state = "id_inv"
 			W.access = get_all_accesses()
-			W.access += list("VIP Guest","Custodian","Thunderdome Overseer","Intel Officer","Medical Officer","Death Commando","Research Officer")
 			W.assignment = "Nanotrasen Navy Representative"
+			W.access = get_centcom_access(W.assignment)
 			W.registered_name = M.real_name
 			M.equip_if_possible(W, slot_wear_id)
 
@@ -878,9 +878,8 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 
 			var/obj/item/weapon/card/id/centcom/W = new(M)
 			W.name = "[M.real_name]'s ID Card (Nanotrasen Navy Officer)"
-			W.access = get_all_accesses()
-			W.access += get_all_centcom_access()
-			W.assignment = "Nanotrasen Navy Officer"
+			W.assignment = "Nanotrasen Navy Officer"			
+			W.access = get_centcom_access(W.assignment)
 			W.registered_name = M.real_name
 			M.equip_if_possible(W, slot_wear_id)
 
@@ -904,12 +903,12 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 			var/obj/item/weapon/card/id/centcom/W = new(M)
 			W.name = "[M.real_name]'s ID Card (Nanotrasen Navy Captain)"
 			W.access = get_all_accesses()
-			W.access += get_all_centcom_access()
-			W.assignment = "Nanotrasen Navy Captain"
+			W.assignment = "Nanotrasen Navy Captain"			
+			W.access = get_centcom_access(W.assignment)
 			W.registered_name = M.real_name
 			M.equip_if_possible(W, slot_wear_id)
 
-		if("emergency response team")
+		if("emergency response team member")
 			M.equip_to_slot_or_del(new /obj/item/clothing/under/rank/centcom_officer(M), slot_w_uniform)
 			M.equip_to_slot_or_del(new /obj/item/clothing/shoes/combat(M), slot_shoes)
 			M.equip_to_slot_or_del(new /obj/item/clothing/gloves/swat(M), slot_gloves)
@@ -919,11 +918,10 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 			M.equip_to_slot_or_del(new /obj/item/weapon/storage/backpack/satchel(M), slot_back)
 
 			var/obj/item/weapon/card/id/W = new(M)
-			W.name = "[M.real_name]'s ID Card (Emergency Response Team)"
+			W.name = "[M.real_name]'s ID Card (Emergency Response Team - Member)"
 			W.icon_state = "centcom"
-			W.access = get_all_accesses()
-			W.access += get_all_centcom_access()
-			W.assignment = "Emergency Response Team"
+			W.assignment = "Emergency Response Team Member"
+			W.access = get_centcom_access(W.assignment)
 			W.registered_name = M.real_name
 			M.equip_to_slot_or_del(W, slot_wear_id)
 
@@ -942,11 +940,10 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 			M.equip_to_slot_or_del(new /obj/item/weapon/storage/backpack/satchel(M), slot_back)
 
 			var/obj/item/weapon/card/id/W = new(M)
-			W.name = "[M.real_name]'s ID Card (Emergency Response Team Leader)"
+			W.name = "[M.real_name]'s ID Card (Emergency Response Team - Leader)"
 			W.icon_state = "centcom"
-			W.access = get_all_accesses()
-			W.access += get_all_centcom_access()
 			W.assignment = "Emergency Response Team Leader"
+			W.access = get_centcom_access(W.assignment)
 			W.registered_name = M.real_name
 			M.equip_to_slot_or_del(W, slot_wear_id)
 
@@ -980,9 +977,8 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 			var/obj/item/weapon/card/id/W = new(M)
 			W.name = "[M.real_name]'s ID Card (Special Operations Officer)"
 			W.icon_state = "centcom"
-			W.access = get_all_accesses()
-			W.access += get_all_centcom_access()
 			W.assignment = "Special Operations Officer"
+			W.access = get_centcom_access(W.assignment)
 			W.registered_name = M.real_name
 			M.equip_to_slot_or_del(W, slot_wear_id)
 
@@ -1010,9 +1006,8 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 			var/obj/item/weapon/card/id/W = new(M)
 			W.name = "[M.real_name]'s ID Card (Special Operations Officer)"
 			W.icon_state = "centcom"
-			W.access = get_all_accesses()
-			W.access += get_all_centcom_access()
 			W.assignment = "Special Operations Officer"
+			W.access = get_centcom_access(W.assignment)
 			W.registered_name = M.real_name
 			M.equip_to_slot_or_del(W, slot_wear_id)
 
@@ -1038,7 +1033,6 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 			W.assignment = "Singuloth Knight"
 			W.registered_name = M.real_name
 			M.equip_to_slot_or_del(W, slot_wear_id)
-
 
 		if("blue wizard")
 			M.equip_to_slot_or_del(new /obj/item/clothing/under/color/lightpurple(M), slot_w_uniform)
@@ -1116,9 +1110,8 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 			var/obj/item/weapon/card/id/W = new(M)
 			W.name = "[M.real_name]'s ID Card (Deathsquad Officer)"
 			W.icon_state = "centcom"
-			W.access = get_all_accesses()
-			W.access += get_all_centcom_access()
 			W.assignment = "Deathsquad Officer"
+			W.access = get_centcom_access(W.assignment)
 			W.registered_name = M.real_name
 			M.equip_to_slot_or_del(W, slot_wear_id)
 
@@ -1150,9 +1143,8 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 			var/obj/item/weapon/card/id/W = new(M)
 			W.name = "[M.real_name]'s ID Card (Deathsquad Officer)"
 			W.icon_state = "centcom"
-			W.access = get_all_accesses()
-			W.access += get_all_centcom_access()
 			W.assignment = "Deathsquad Officer"
+			W.access = get_centcom_access(W.assignment) 
 			W.registered_name = M.real_name
 			M.equip_to_slot_or_del(W, slot_wear_id)
 
