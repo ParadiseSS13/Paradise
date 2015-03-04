@@ -200,11 +200,6 @@
 	desc = "A flag proudly boasting the logo of the Syndicate, in defiance of NT."
 	icon_state = "syndiflag"
 
-/obj/item/flag/ninja
-	name = "Spider Clan flag"
-	desc = "A flag proudly boasting the logo of the Spider Clan, in defiance of NT."
-	icon_state = "ninjaflag"
-
 /obj/item/flag/wiz
 	name = "Wizard Federation flag"
 	desc = "A flag proudly boasting the logo of the Wizard Federation, sworn enemies of NT."

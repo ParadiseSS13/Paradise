@@ -139,7 +139,7 @@ var/global/mulebot_count = 0
 	user << "<span class='notice'>You [locked ? "lock" : "unlock"] the mulebot's controls!</span>"
 	flick("mulebot-emagged", src)
 	playsound(loc, 'sound/effects/sparks1.ogg', 100, 0)
-	
+
 /obj/machinery/bot/mulebot/ex_act(var/severity)
 	unload(0)
 	switch(severity)
@@ -932,6 +932,6 @@ var/global/mulebot_count = 0
 	s.set_up(3, 1, src)
 	s.start()
 
-	new /obj/effect/decal/cleanable/oil(loc)
+	new /obj/effect/decal/cleanable/blood/oil(loc)
 	unload(0)
 	qdel(src)

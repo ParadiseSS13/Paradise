@@ -72,7 +72,7 @@
 		return
 
 	//looks like this only appears in whisper. Should it be elsewhere as well? Maybe handle_speech_problems?
-	var/voice_sub
+	/*var/voice_sub
 	for(var/obj/item/gear in list(wear_mask,wear_suit,head))
 		if(!gear)
 			continue
@@ -97,7 +97,7 @@
 			message = replacetext(message, "l", "�")
 			message = replacetext(message, "s", "�")
 			message = replacetext(message, "u", "�")
-			message = replacetext(message, "b", "�")
+			message = replacetext(message, "b", "�")*/
 
 	var/list/listening = hearers(message_range, src)
 	listening |= src

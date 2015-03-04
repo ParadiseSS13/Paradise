@@ -3,7 +3,7 @@
 	icon = 'icons/obj/items.dmi'
 	var/discrete = 0 // used in item_attack.dm to make an item not show an attack message to viewers
 	var/no_embed = 0 // For use in item_attack.dm
-	var/icon/blood_overlay = null //this saves our blood splatter overlay, which will be processed not to go over the edges of the sprite
+	var/image/blood_overlay = null //this saves our blood splatter overlay, which will be processed not to go over the edges of the sprite
 	var/blood_overlay_color = null
 	var/item_state = null
 	var/r_speed = 1.0
@@ -675,35 +675,29 @@
 
 	//if we haven't made our blood_overlay already
 	if( !blood_overlay )
-		if(M.species.bloodflags & BLOOD_GREEN)
-			generate_blood_overlay(1)
-		else
-			generate_blood_overlay()
+		generate_blood_overlay()
 
 	//apply the blood-splatter overlay if it isn't already in there
 	if(!blood_DNA.len)
+		blood_overlay.color = blood_color
 		overlays += blood_overlay
 
 	//if this blood isn't already in the list, add it
-
-	if(blood_DNA[M.dna.unique_enzymes])
-		return 0 //already bloodied with this blood. Cannot add more.
-	blood_DNA[M.dna.unique_enzymes] = M.dna.b_type
+	if(istype(M))
+		if(blood_DNA[M.dna.unique_enzymes])
+			return 0 //already bloodied with this blood. Cannot add more.
+		blood_DNA[M.dna.unique_enzymes] = M.dna.b_type
 	return 1 //we applied blood to the item
 
-/obj/item/proc/generate_blood_overlay(blood_overlay_color)
+/obj/item/proc/generate_blood_overlay()
 	if(blood_overlay)
 		return
 
 	var/icon/I = new /icon(icon, icon_state)
 	I.Blend(new /icon('icons/effects/blood.dmi', rgb(255,255,255)),ICON_ADD) //fills the icon_state with white (except where it's transparent)
-	if (blood_overlay_color == 1)
-		I.Blend(new /icon('icons/effects/blood.dmi', "xitemblood"),ICON_MULTIPLY) //adds blood and the remaining white areas become transparant
-	else
-		I.Blend(new /icon('icons/effects/blood.dmi', "itemblood"),ICON_MULTIPLY) //adds blood and the remaining white areas become transparant
+	I.Blend(new /icon('icons/effects/blood.dmi', "itemblood"),ICON_MULTIPLY) //adds blood and the remaining white areas become transparant
 
 	//not sure if this is worth it. It attaches the blood_overlay to every item of the same type if they don't have one already made.
 	for(var/obj/item/A in world)
 		if(A.type == type && !A.blood_overlay)
 			A.blood_overlay = image(I)
-

@@ -200,6 +200,7 @@ proc/listclearnulls(list/list)
 
 //Mergesort: divides up the list into halves to begin the sort
 /proc/sortAtom(var/list/atom/L, var/order = 1)
+	listclearnulls(L)
 	if(isnull(L) || L.len < 2)
 		return L
 	var/middle = L.len / 2 + 1

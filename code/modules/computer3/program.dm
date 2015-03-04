@@ -361,12 +361,12 @@ Programs are a file that can be executed
 	drm = 1
 	active_state = "power"
 	volume = 5000
-
+/*
 /datum/file/program/borg_control
 	name = "Cyborg Maint"
 	image = 'icons/ntos/borgcontrol.png'
 	active_state = "robot"
-	volume = 9050
+	volume = 9050 */
 
 /datum/file/program/AIupload
 	name = "AI Upload"

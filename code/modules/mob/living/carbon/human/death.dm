@@ -20,12 +20,12 @@
 		if(prob(100 - E.get_damage()))
 			// Override the current limb status and don't cause an explosion
 			E.droplimb(1,1)
-			
+
 	if(!(species.flags & IS_SYNTHETIC))
 		flick("gibbed-h", animation)
 		hgibs(loc, viruses, dna)
 	else
-		new /obj/effect/decal/cleanable/robot_debris(src.loc)
+		new /obj/effect/decal/cleanable/blood/gibs/robot(src.loc)
 		var/datum/effect/effect/system/spark_spread/s = new /datum/effect/effect/system/spark_spread
 		s.set_up(3, 1, src)
 		s.start()
@@ -115,7 +115,7 @@
 	if(ticker && ticker.mode)
 		if(istype(ticker.mode,/datum/game_mode/heist))
 			vox_kills++ //Bad vox. Shouldn't be killing humans.
-		
+
 	if(ishuman(LAssailant))
 		var/mob/living/carbon/human/H=LAssailant
 		if(H.mind)

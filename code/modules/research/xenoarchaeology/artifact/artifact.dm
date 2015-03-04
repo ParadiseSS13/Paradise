@@ -13,7 +13,6 @@
 	artifact_id = "[pick("kappa","sigma","antaeres","beta","omicron","iota","epsilon","omega","gamma","delta","tau","alpha")]-[rand(100,999)]"
 
 	artifact_find_type = pick(\
-	5;/obj/structure/largecrate/ninja,\
 	5;/obj/machinery/power/supermatter,\
 	5;/obj/structure/constructshell,\
 	5;/obj/machinery/wish_granter,\
@@ -44,7 +43,7 @@
 /obj/structure/boulder/New()
 	icon_state = "boulder[rand(1,4)]"
 	excavation_level = rand(5,50)
-	
+
 /obj/structure/boulder/Bumped(AM)
 	. = ..()
 	if(istype(AM,/mob/living/carbon/human))

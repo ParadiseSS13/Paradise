@@ -9,6 +9,7 @@ var/global/list/ghdel_profiling = list()
 	var/list/fingerprintshidden
 	var/fingerprintslast = null
 	var/list/blood_DNA
+	var/blood_color
 	var/last_bumped = 0
 	var/pass_flags = 0
 	var/throwpass = 0
@@ -376,30 +377,30 @@ its easier to just keep the beam vertical.
 
 //returns 1 if made bloody, returns 0 otherwise
 /atom/proc/add_blood(mob/living/carbon/human/M as mob)
-	if(flags & NOBLOODY) return 0
-	.=1
-	if (!( istype(M, /mob/living/carbon/human) ))
+
+	if(flags & NOBLOODY)
 		return 0
-	if (!istype(M.dna, /datum/dna))
-		M.dna = new /datum/dna(null)
-		M.dna.real_name = M.real_name
-	M.check_dna()
+
 	if(!blood_DNA || !istype(blood_DNA, /list))	//if our list of DNA doesn't exist yet (or isn't a list) initialise it.
 		blood_DNA = list()
 
-	//adding blood to humans
-	else if (istype(src, /mob/living/carbon/human))
-		var/mob/living/carbon/human/H = src
-		//if this blood isn't already in the list, add it
-		if(blood_DNA[H.dna.unique_enzymes])
-			return 0 //already bloodied with this blood. Cannot add more.
-		blood_DNA[H.dna.unique_enzymes] = H.dna.b_type
-		if(H.species.bloodflags & BLOOD_GREEN)
-			H.update_inv_gloves(1,1)
-		else
-			H.update_inv_gloves(1,0)	//handles bloody hands overlays and updating
-		return 1 //we applied blood to the item
-	return
+	blood_color = "#A10808"
+	if(istype(M))
+		if (!istype(M.dna, /datum/dna))
+			M.dna = new /datum/dna(null)
+			M.dna.real_name = M.real_name
+		M.check_dna()
+		if (M.species)
+			blood_color = M.species.blood_color
+	. = 1
+	return 1
+
+
+/atom/proc/clean_blood()
+	src.germ_level = 0
+	if(istype(blood_DNA, /list))
+		del(blood_DNA)
+		return 1
 
 /atom/proc/add_vomit_floor(mob/living/carbon/M as mob, var/toxvomit = 0)
 	if( istype(src, /turf/simulated) )
@@ -413,11 +414,6 @@ its easier to just keep the beam vertical.
 	if( istype(src, /turf/simulated) )
 		new /obj/effect/decal/cleanable/poop(src)
 
-/atom/proc/clean_blood()
-	src.germ_level = 0
-	if(istype(blood_DNA, /list))
-		del(blood_DNA)
-		return 1
 
 /atom/proc/get_global_map_pos()
 	if(!islist(global_map) || isemptylist(global_map)) return
