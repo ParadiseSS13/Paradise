@@ -487,7 +487,7 @@
 		var/obj/mecha/M = loc
 		loc_temp =  M.return_temperature()
 
-	if(istype(loc, /obj/spacepod))
+	else if(istype(loc, /obj/spacepod))
 		var/obj/spacepod/S = loc
 		loc_temp = S.return_temperature()
 
