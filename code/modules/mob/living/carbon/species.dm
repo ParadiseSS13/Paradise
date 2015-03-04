@@ -380,7 +380,6 @@
 	the secrets of their empire to their allies."
 
 	flags = HAS_LIPS | HAS_UNDERWEAR
-	bloodflags = BLOOD_GREEN
 	bodyflags = HAS_SKIN_COLOR
 
 	flesh_color = "#8CD7A3"
@@ -517,8 +516,10 @@
 	brute_mod = 0.8
 
 	flags = IS_WHITELISTED
-	bloodflags = BLOOD_GREEN
 	bodyflags = FEET_CLAWS
+
+	blood_color = "#FB9800"
+
 
 /datum/species/slime
 	name = "Slime People"
@@ -556,6 +557,8 @@
 	primitive = /mob/living/carbon/monkey // TODO
 
 	flags = IS_WHITELISTED | HAS_LIPS | HAS_UNDERWEAR | CAN_BE_FAT
+
+	blood_color = "#A200FF"
 
 /datum/species/grey/handle_dna(var/mob/living/carbon/C, var/remove)
 	if(!remove)
