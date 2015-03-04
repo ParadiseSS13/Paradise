@@ -26,7 +26,8 @@
 
 	var/heat_level_1 = 360  // Heat damage level 1 above this point.
 	var/heat_level_2 = 400  // Heat damage level 2 above this point.
-	var/heat_level_3 = 1000 // Heat damage level 2 above this point.
+	var/heat_level_3 = 460 // Heat damage level 3 above this point; used for body temperature
+	var/heat_level_3_breathe = 1000 // Heat damage level 3 above this point; used for breathed air temperature
 
 	var/body_temperature = 310.15	//non-IS_SYNTHETIC species will try to stabilize at this temperature. (also affects temperature processing)
 	var/synth_temp_gain = 0			//IS_SYNTHETIC species will gain this much temperature every second
@@ -105,8 +106,7 @@
 	var/safe_oxygen_min = 16 // Minimum safe partial pressure of O2, in kPa
 	//var/safe_oxygen_max = 140 // Maximum safe partial pressure of O2, in kPa (Not used for now)
 	var/safe_co2_max = 10 // Yes it's an arbitrary value who cares?
-	var/safe_toxins_max = 0.5
-	var/safe_toxins_mask = 5
+	var/safe_toxins_max = 0.005
 	var/SA_para_min = 1
 	var/SA_sleep_min = 5
 	var/oxygen_used = 0
@@ -179,16 +179,9 @@
 	if(Toxins_pp > safe_toxins_max) // Too much toxins
 		var/ratio = (breath.toxins/safe_toxins_max) * 10
 		//adjustToxLoss(Clamp(ratio, MIN_PLASMA_DAMAGE, MAX_PLASMA_DAMAGE))	//Limit amount of damage toxin exposure can do per second
-		if(H.wear_mask)
-			if(H.wear_mask.flags & BLOCK_GAS_SMOKE_EFFECT)
-				if(breath.toxins > safe_toxins_mask)
-					ratio = (breath.toxins/safe_toxins_mask) * 10
-				else
-					ratio = 0
-		if(ratio)
-			if(H.reagents)
-				H.reagents.add_reagent("plasma", Clamp(ratio, MIN_PLASMA_DAMAGE, MAX_PLASMA_DAMAGE))
-			H.toxins_alert = max(H.toxins_alert, 1)
+		if(H.reagents)
+			H.reagents.add_reagent("plasma", Clamp(ratio, MIN_PLASMA_DAMAGE, MAX_PLASMA_DAMAGE))
+		H.toxins_alert = max(H.toxins_alert, 1)
 	else if(O2_pp > vox_oxygen_max && name == "Vox") //Oxygen is toxic to vox.
 		var/ratio = (breath.oxygen/vox_oxygen_max) * 1000
 		H.adjustToxLoss(Clamp(ratio, MIN_PLASMA_DAMAGE, MAX_PLASMA_DAMAGE))
@@ -202,12 +195,16 @@
 			if(SA_pp > SA_para_min) // Enough to make us paralysed for a bit
 				H.Paralyse(3) // 3 gives them one second to wake up and run away a bit!
 				if(SA_pp > SA_sleep_min) // Enough to make us sleep as well
-					H.sleeping = min(H.sleeping+2, 10)
-			else if(SA_pp > 0.15)	// There is sleeping gas in their lungs, but only a little, so give them a bit of a warning
+					H.sleeping = max(H.sleeping+2, 10)
+			else if(SA_pp > 0.01)	// There is sleeping gas in their lungs, but only a little, so give them a bit of a warning
 				if(prob(20))
 					spawn(0) H.emote(pick("giggle", "laugh"))
-			SA.moles = 0
 
+	handle_temperature(breath, H)
+
+	return 1
+
+/datum/species/proc/handle_temperature(datum/gas_mixture/breath, var/mob/living/carbon/human/H) // called by human/life, handles temperatures
 	if( (abs(310.15 - breath.temperature) > 50) && !(RESIST_HEAT in H.mutations)) // Hot air hurts :(
 		if(H.status_flags & GODMODE)	return 1	//godmode
 		if(breath.temperature < cold_level_1)
@@ -243,14 +240,14 @@
 					H.apply_damage(HEAT_GAS_DAMAGE_LEVEL_1, BURN, "head", used_weapon = "Excessive Heat")
 					H.fire_alert = max(H.fire_alert, 2)
 
-				if(heat_level_2 to heat_level_3)
+				if(heat_level_2 to heat_level_3_breathe)
 					H.apply_damage(HEAT_GAS_DAMAGE_LEVEL_2, BURN, "head", used_weapon = "Excessive Heat")
 					H.fire_alert = max(H.fire_alert, 2)
 
-				if(heat_level_3 to INFINITY)
+				if(heat_level_3_breathe to INFINITY)
 					H.apply_damage(HEAT_GAS_DAMAGE_LEVEL_3, BURN, "head", used_weapon = "Excessive Heat")
 					H.fire_alert = max(H.fire_alert, 2)
-	return 1
+	return
 
 /datum/species/proc/handle_post_spawn(var/mob/living/carbon/C) //Handles anything not already covered by basic species assignment.
 	handle_dna(C)
@@ -315,11 +312,12 @@
 
 	cold_level_1 = 280 //Default 260 - Lower is better
 	cold_level_2 = 220 //Default 200
-	cold_level_3 = 130 //Default 120
+	cold_level_3 = 140 //Default 120
 
-	heat_level_1 = 420 //Default 360 - Higher is better
-	heat_level_2 = 480 //Default 400
-	heat_level_3 = 1100 //Default 1000
+	heat_level_1 = 380 //Default 360 - Higher is better
+	heat_level_2 = 420 //Default 400
+	heat_level_3 = 480 //Default 460
+	heat_level_3_breathe = 1100 //Default 1000
 
 	flesh_color = "#34AF10"
 
@@ -343,13 +341,14 @@
 	of family and politics. They prefer colder environments, and speak a variety of languages, mostly Siik'Maas, \
 	using unique inflections their mouths form."
 
-	cold_level_1 = 200
-	cold_level_2 = 140
-	cold_level_3 = 80
+	cold_level_1 = 240
+	cold_level_2 = 180
+	cold_level_3 = 100
 
-	heat_level_1 = 330
+	heat_level_1 = 340
 	heat_level_2 = 380
-	heat_level_3 = 800
+	heat_level_3 = 440
+	heat_level_3_breathe = 900
 
 	primitive = /mob/living/carbon/monkey/tajara
 
@@ -463,6 +462,7 @@
 	heat_level_1 = 2000
 	heat_level_2 = 3000
 	heat_level_3 = 4000
+	heat_level_3_breathe = 4000
 
 	brute_mod = 0.2
 	burn_mod = 0.2
@@ -587,8 +587,9 @@
 	cold_level_3 = -1
 
 	heat_level_1 = 300
-	heat_level_2 = 350
-	heat_level_3 = 700
+	heat_level_2 = 340
+	heat_level_3 = 400
+	heat_level_3_breathe = 700
 
 	blurb = "Commonly referred to (erroneously) as 'plant people', the Dionaea are a strange space-dwelling collective \
 	species hailing from Epsilon Ursae Minoris. Each 'diona' is a cluster of numerous cat-sized organisms called nymphs; \
@@ -656,6 +657,7 @@
 	heat_level_1 = 500		//gives them about 25 seconds in space before taking damage
 	heat_level_2 = 1000
 	heat_level_3 = 2000
+	heat_level_3_breathe = 2000
 
 	synth_temp_gain = 10 //this should cause IPCs to stabilize at ~80 C in a 20 C environment.
 
