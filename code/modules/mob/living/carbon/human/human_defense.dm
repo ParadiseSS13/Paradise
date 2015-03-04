@@ -435,30 +435,16 @@ emp_act
 		add_blood(source)
 		bloody_hands = amount
 		bloody_hands_mob = source
-	if(istype(source,/mob/living/carbon/human))
-		var/mob/living/carbon/human/H = source
-		if(H.species.bloodflags & BLOOD_GREEN)
-			update_inv_gloves(1,1)		//updates on-mob overlays for bloody hands and/or bloody gloves
-		else
-			update_inv_gloves(1,0)		//updates on-mob overlays for bloody hands and/or bloody gloves
-	else
-		update_inv_gloves(1,0)		//updates on-mob overlays for bloody hands and/or bloody gloves
+	update_inv_gloves(1)		//updates on-mob overlays for bloody hands and/or bloody gloves
 
 /mob/living/carbon/human/proc/bloody_body(var/mob/living/source)
 	if(wear_suit)
 		wear_suit.add_blood(source)
-		update_inv_wear_suit(0,0)
+		update_inv_wear_suit(0)
 		return
 	if(w_uniform)
 		w_uniform.add_blood(source)
-		if(istype(source,/mob/living/carbon/human))
-			var/mob/living/carbon/human/H = source
-			if(H.species.bloodflags & BLOOD_GREEN)
-				update_inv_w_uniform(1,1)
-			else
-				update_inv_w_uniform(1,0)
-		else
-			update_inv_w_uniform(1,0)
+		update_inv_w_uniform(1)
 
 /mob/living/carbon/human/proc/handle_suit_punctures(var/damtype, var/damage)
 
