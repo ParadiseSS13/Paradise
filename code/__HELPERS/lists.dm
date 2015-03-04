@@ -200,6 +200,7 @@ proc/listclearnulls(list/list)
 
 //Mergesort: divides up the list into halves to begin the sort
 /proc/sortAtom(var/list/atom/L, var/order = 1)
+	listclearnulls(L)
 	if(isnull(L) || L.len < 2)
 		return L
 	var/middle = L.len / 2 + 1
@@ -214,8 +215,6 @@ proc/listclearnulls(list/list)
 	while(Li <= L.len && Ri <= R.len)
 		var/atom/rL = L[Li]
 		var/atom/rR = R[Ri]
-		if(!rL.name || !rR.name)
-			continue
 		if(sorttext(rL.name, rR.name) == order)
 			result += L[Li++]
 		else
