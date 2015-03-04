@@ -348,7 +348,7 @@ var/can_call_ert
 
 /proc/equip_emergencyresponsesquad(var/mob/living/carbon/human/M, var/role, var/role2)
 	M.equip_to_slot_or_del(new /obj/item/device/radio/headset/ert/alt(src), slot_l_ear)
-	M.equip_to_slot_or_del(new /obj/item/clothing/under/rank/centcom_officer(M), slot_w_uniform)
+	M.equip_to_slot_or_del(new /obj/item/clothing/under/ert(M), slot_w_uniform)
 
 	var/obj/item/weapon/implant/loyalty/L = new/obj/item/weapon/implant/loyalty(M)
 	L.imp_in = M
