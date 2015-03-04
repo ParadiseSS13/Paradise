@@ -125,22 +125,20 @@
 	return
 
 /obj/machinery/door/airlock/AIAltShiftClick()  // Sets/Unsets Emergency Access Override
-	if(emagged)
-		return
-	if(!emergency)
-		Topic("aiEnable=11", list("aiEnable"="11"), 1) // 1 meaning no window (consistency!)
+	if(density)
+		Topic(src, list("src"= "\ref[src]", "command"="emergency", "activate" = "1"), 1) // 1 meaning no window (consistency!)
 	else
-		Topic("aiDisable=11", list("aiDisable"="11"), 1)
+		Topic(src, list("src"= "\ref[src]", "command"="emergency", "activate" = "0"), 1)
 	return
-
+	
 /atom/proc/AIShiftClick()
 	return
 
 /obj/machinery/door/airlock/AIShiftClick()  // Opens and closes doors!
 	if(density)
-		Topic("aiEnable=7", list("aiEnable"="7"), 1) // 1 meaning no window (consistency!)
+		Topic(src, list("src"= "\ref[src]", "command"="open", "activate" = "1"), 1) // 1 meaning no window (consistency!)
 	else
-		Topic("aiDisable=7", list("aiDisable"="7"), 1)
+		Topic(src, list("src"= "\ref[src]", "command"="open", "activate" = "0"), 1)
 	return
 
 /atom/proc/AICtrlClick(var/mob/living/silicon/ai/user)
@@ -151,9 +149,9 @@
 
 /obj/machinery/door/airlock/AICtrlClick() // Bolts doors
 	if(locked)
-		Topic("aiEnable=4", list("aiEnable"="4"), 1)// 1 meaning no window (consistency!)
+		Topic(src, list("src"= "\ref[src]", "command"="bolts", "activate" = "0"), 1)// 1 meaning no window (consistency!)
 	else
-		Topic("aiDisable=4", list("aiDisable"="4"), 1)
+		Topic(src, list("src"= "\ref[src]", "command"="bolts", "activate" = "1"), 1)
 
 /obj/machinery/power/apc/AICtrlClick() // turns off/on APCs.
 	Topic("breaker=1", list("breaker"="1"), 0) // 0 meaning no window (consistency! wait...)
@@ -165,16 +163,12 @@
 	AltClick(A)
 
 /obj/machinery/door/airlock/AIAltClick() // Electrifies doors.
-	if(emagged)
-		return
-	if(!secondsElectrified)
+	if(!electrified_until)
 		// permanent shock
-		Topic("aiEnable=6", list("aiEnable"="6"), 1) // 1 meaning no window (consistency!)
-		use_log += text("\[[time_stamp()]\] <font color='red'>[usr.name] ([usr.ckey]) electrified [src].</font>")
+		Topic(src, list("src"= "\ref[src]", "command"="electrify_permanently", "activate" = "1"), 1) // 1 meaning no window (consistency!)
 	else
 		// disable/6 is not in Topic; disable/5 disables both temporary and permanent shock
-		Topic("aiDisable=5", list("aiDisable"="5"), 1)
-		use_log += text("\[[time_stamp()]\] <font color='orange'>[usr.name] ([usr.ckey]) toggled turned off the [src]'s electrification.</font>")
+		Topic(src, list("src"= "\ref[src]", "command"="electrify_permanently", "activate" = "0"), 1)
 	return
 
 /obj/machinery/turretid/AIAltClick() //toggles lethal on turrets
@@ -185,10 +179,11 @@
 
 /obj/machinery/door/airlock/AIMiddleClick() // Toggles door bolt lights.
 	if(!src.lights)
-		Topic("aiEnable=10", list("aiEnable"="10"), 1) // 1 meaning no window (consistency!)
+		Topic(src, list("src"= "\ref[src]", "command"="lights", "activate" = "1"), 1) // 1 meaning no window (consistency!)
 	else
-		Topic("aiDisable=10", list("aiDisable"="10"), 1)
+		Topic(src, list("src"= "\ref[src]", "command"="lights", "activate" = "0"), 1)
 	return
+
 
 //
 // Override AdjacentQuick for AltClicking

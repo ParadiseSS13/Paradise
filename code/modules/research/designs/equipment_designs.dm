@@ -51,6 +51,26 @@
 	build_path = /obj/item/clothing/glasses/hud/security/night
 	category = list("Equipment")
 
+/datum/design/nvgmesons
+	name = "Night Vision Optical Meson Scanners"
+	desc = "Prototype meson scanners fitted with an extra sensor which amplifies the visible light spectrum and overlays it to the UHD display."
+	id = "nvgmesons"
+	req_tech = list("materials" = 5, "magnets" = 5, "engineering" = 4)
+	build_type = PROTOLATHE
+	materials = list("$metal" = 300, "$glass" = 400, "$plasma" = 250, "$uranium" = 1000)
+	build_path = /obj/item/clothing/glasses/meson
+	category = list("Mining")	
+	
+/datum/design/mesons
+	name = "Optical Meson Scanners"
+	desc = "Used for seeing walls, floors, and stuff through anything."
+	id = "mesons"
+	req_tech = list("materials" = 3, "magnets" = 3, "engineering" = 3)
+	build_type = PROTOLATHE
+	materials = list("$metal" = 200, "$glass" = 300, "$plasma" = 100)
+	build_path = /obj/item/clothing/glasses/meson
+	category = list("Equipment")
+
 /datum/design/security_hud
 	name = "Security HUD"
 	desc = "A heads-up display that scans the humans in view and provides accurate data about their ID status."

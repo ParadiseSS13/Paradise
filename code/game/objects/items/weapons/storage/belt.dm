@@ -59,7 +59,7 @@
 	new /obj/item/weapon/wirecutters(src)
 	new /obj/item/stack/cable_coil(src,30,pick("red","yellow","orange"))
 
-/obj/item/weapon/storage/belt/utility/full/response_team/New()
+/obj/item/weapon/storage/belt/utility/full/multitool/New()
 	..()
 	new /obj/item/device/multitool(src)
 
@@ -133,6 +133,8 @@
 
 /obj/item/weapon/storage/belt/security/response_team/New()
 	..()
+	contents.Cut()
+	new /obj/item/weapon/kitchenknife/combat(src)
 	new /obj/item/weapon/grenade/flashbang(src)
 	new /obj/item/weapon/grenade/flashbang(src)
 	new /obj/item/weapon/melee/telebaton(src)
@@ -170,7 +172,7 @@
 
 /obj/item/weapon/storage/belt/military
 	name = "military belt"
-	desc = "A syndicate belt designed to be used by boarding parties.  Its style is modeled after the hardsuits they wear."
+	desc = "A syndicate belt designed to be used by boarding parties.  Its style is modelled after the hardsuits they wear."
 	icon_state = "militarybelt"
 	item_state = "military"
 
@@ -189,6 +191,15 @@
 		"/obj/item/weapon/soap",
 		"/obj/item/weapon/holosign_creator"
 		)
+		
+/obj/item/weapon/storage/belt/janitor/full/New()
+	..()
+	new /obj/item/device/lightreplacer(src)
+	new /obj/item/weapon/holosign_creator(src)
+	new /obj/item/weapon/reagent_containers/spray(src)
+	new /obj/item/weapon/soap(src)
+	new /obj/item/weapon/grenade/chem_grenade/cleaner(src)
+	new /obj/item/weapon/grenade/chem_grenade/cleaner(src)
 
 /obj/item/weapon/storage/belt/bandolier
 	name = "bandolier"

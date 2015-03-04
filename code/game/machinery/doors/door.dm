@@ -1,4 +1,6 @@
 //This file was auto-corrected by findeclaration.exe on 25.5.2012 20:42:31
+#define DOOR_OPEN_LAYER 2.7		//Under all objects if opened. 2.7 due to tables being at 2.6
+#define DOOR_CLOSED_LAYER 3.1	//Above most items if closed
 
 /obj/machinery/door
 	name = "Door"
@@ -8,9 +10,10 @@
 	anchored = 1
 	opacity = 1
 	density = 1
-	layer = 2.7
+	layer = DOOR_OPEN_LAYER
+	var/open_layer = DOOR_OPEN_LAYER
+	var/closed_layer = DOOR_CLOSED_LAYER
 
-	var/secondsElectrified = 0
 	var/visible = 1
 	var/p_open = 0
 	var/operating = 0
@@ -29,11 +32,11 @@
 /obj/machinery/door/New()
 	. = ..()
 	if(density)
-		layer = 3.1 //Above most items if closed
+		layer = closed_layer
 		explosion_resistance = initial(explosion_resistance)
 		update_heat_protection(get_turf(src))
 	else
-		layer = 2.7 //Under all objects if opened. 2.7 due to tables being at 2.6
+		layer = open_layer
 		explosion_resistance = 0
 
 
@@ -56,9 +59,6 @@
 	airlocks -= src
 	..()
 	return
-
-//process()
-	//return
 
 /obj/machinery/door/Bumped(atom/AM)
 	if(p_open || operating) return
@@ -183,11 +183,6 @@
 /obj/machinery/door/emp_act(severity)
 	if(prob(20/severity) && (istype(src,/obj/machinery/door/airlock) || istype(src,/obj/machinery/door/window)) )
 		open()
-	if(prob(40/severity))
-		if(secondsElectrified == 0)
-			secondsElectrified = -1
-			spawn(300)
-				secondsElectrified = 0
 	..()
 
 
@@ -213,8 +208,7 @@
 		icon_state = "door0"
 	return
 
-
-/obj/machinery/door/proc/door_animate(animation)
+/obj/machinery/door/proc/do_animate(animation)
 	switch(animation)
 		if("opening")
 			if(p_open)
@@ -228,8 +222,7 @@
 				flick("doorc1", src)
 		if("deny")
 			flick("door_deny", src)
-	return
-
+	return	
 
 /obj/machinery/door/proc/open()
 	if(!density)
@@ -240,8 +233,7 @@
 		return 0
 	if(!operating)		operating = 1
 
-	door_animate("opening")
-	icon_state = "door0"
+	do_animate("opening")
 	src.SetOpacity(0)
 	sleep(5)
 	src.density = 0
@@ -262,7 +254,6 @@
 
 	return 1
 
-
 /obj/machinery/door/proc/close()
 	if(density)
 		return 1
@@ -270,7 +261,7 @@
 		return
 	operating = 1
 
-	door_animate("closing")
+	do_animate("closing")
 	explosion_resistance = initial(explosion_resistance)
 	src.layer = 3.1
 	sleep(5)

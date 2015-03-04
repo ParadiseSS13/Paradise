@@ -25,7 +25,7 @@
 
 /obj/item/clothing/suit/space/rig/ert
 	name = "emergency response team suit"
-	desc = "A suit worn by members of the Nanotrasen Emaergency Response Team. Armoured, space ready, and fire resistant."
+	desc = "A suit worn by members of the Nanotrasen Emergency Response Team. Armoured, space ready, and fire resistant."
 	icon_state = "ert_commander"
 	item_state = "suit-command"
 	w_class = 3
@@ -69,13 +69,13 @@
 //Engineer
 /obj/item/clothing/head/helmet/space/rig/ert/engineer
 	name = "emergency response team engineer helmet"
-	desc = "A helmet worn by engineering members of a Nanotrasen Emergency Response Team. Has blue highlights. Armoured and space ready."
+	desc = "A helmet worn by engineers of a Nanotrasen Emergency Response Team. Has yellow highlights. Armoured and space ready."
 	icon_state = "rig0-ert_engineer"
 	_color = "ert_engineer"
 
 /obj/item/clothing/suit/space/rig/ert/engineer
 	name = "emergency response team engineer suit"
-	desc = "A suit worn by the engineering of a Nanotrasen Emergency Response Team. Has blue highlights. Armoured, space ready, and fire resistant."
+	desc = "A suit worn by the engineers of a Nanotrasen Emergency Response Team. Has yellow highlights. Armoured, space ready, and fire resistant."
 	icon_state = "ert_engineer"
 
 //Medical
@@ -89,3 +89,15 @@
 	name = "emergency response team medical suit"
 	desc = "A suit worn by medical members of a Nanotrasen Emergency Response Team. Has white highlights. Armoured and space ready."
 	icon_state = "ert_medical"
+	
+//Janitor
+/obj/item/clothing/head/helmet/space/rig/ert/janitor
+	name = "emergency response team janitor helmet"
+	desc = "A helmet worn by janitorial members of a Nanotrasen Emergency Response Team. Has purple highlights. Armoured and space ready."
+	icon_state = "rig0-ert_janitor"
+	_color = "ert_janitor"
+
+/obj/item/clothing/suit/space/rig/ert/janitor
+	name = "emergency response team janitor suit"
+	desc = "A suit worn by the janitorial of a Nanotrasen Emergency Response Team. Has purple highlights. Armoured, space ready, and fire resistant."
+	icon_state = "ert_janitor"

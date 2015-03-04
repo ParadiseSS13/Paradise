@@ -109,7 +109,7 @@ rcd light flash thingy on matter drain
 					AL.close()
 					AL.locked = 1 //Bolt it!
 					AL.lights = 0 //Stealth bolt for a classic AI door trap.
-					AL.secondsElectrified = -1  //Shock it!
+					AL.electrified_until = -1  //Shock it!
 			else if(!D.stat) //So that only powered doors are closed.
 				D.close() //Close ALL the doors!
 
@@ -140,7 +140,7 @@ rcd light flash thingy on matter drain
 				AL = D
 				if(AL.canAIControl() && !AL.stat) //Must be powered and have working AI wire.
 					AL.locked = 0
-					AL.secondsElectrified = 0
+					AL.electrified_until = 0
 					AL.open()
 					AL.safe = 1
 					AL.lights = 1 //Essentially reset the airlock to normal.

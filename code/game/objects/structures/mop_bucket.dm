@@ -12,7 +12,10 @@
 	var/datum/reagents/R = new/datum/reagents(100)
 	reagents = R
 	R.my_atom = src
-
+	
+/obj/structure/mopbucket/full/New()
+	..()
+	reagents.add_reagent("water", 100)
 
 /obj/structure/mopbucket/examine()
 	set src in usr
