@@ -368,7 +368,7 @@ var/can_call_ert
 			R.helmet.flags |= NODROP
 					
 			M.equip_to_slot_or_del(new /obj/item/clothing/mask/gas/swat(M), slot_wear_mask)
-			M.equip_to_slot_or_del(new /obj/item/weapon/storage/backpack/satchel(M), slot_back)
+			M.equip_to_slot_or_del(new /obj/item/weapon/storage/backpack/ert/commander(M), slot_back)
 
 			var/obj/item/weapon/card/id/W = new(src)
 			W.assignment = "Emergency Response Team Leader"
@@ -451,7 +451,7 @@ var/can_call_ert
 			R.helmet.flags |= NODROP
 			
 			M.equip_to_slot_or_del(new /obj/item/clothing/mask/gas/swat(M), slot_wear_mask)
-			M.equip_to_slot_or_del(new /obj/item/weapon/storage/backpack/satchel(M), slot_back)
+			M.equip_to_slot_or_del(new /obj/item/weapon/storage/backpack/ert/security(M), slot_back)
 			M.equip_to_slot_or_del(new /obj/item/clothing/glasses/sunglasses/sechud(M), slot_glasses)
 
 			var/obj/item/weapon/card/id/W = new(src)
@@ -490,7 +490,7 @@ var/can_call_ert
 			R.helmet.flags |= NODROP
 			
 			M.equip_to_slot_or_del(new /obj/item/clothing/mask/gas/swat(M), slot_wear_mask)
-			M.equip_to_slot_or_del(new /obj/item/weapon/storage/backpack/satchel(M), slot_back)
+			M.equip_to_slot_or_del(new /obj/item/weapon/storage/backpack/ert/medical(M), slot_back)
 			M.equip_to_slot_or_del(new /obj/item/clothing/glasses/hud/health/night(M), slot_glasses)
 
 			var/obj/item/weapon/card/id/W = new(src)
@@ -522,7 +522,7 @@ var/can_call_ert
 
 		if("Engineering")
 			M.equip_to_slot_or_del(new /obj/item/clothing/shoes/magboots/advance(M), slot_shoes)
-			M.equip_to_slot_or_del(new /obj/item/clothing/gloves/combat(M), slot_gloves)
+			M.equip_to_slot_or_del(new /obj/item/weapon/storage/backpack/ert/engineer(M), slot_gloves)
 			M.equip_to_slot_or_del(new /obj/item/clothing/suit/space/rig/ert/engineer(M), slot_wear_suit)
 			
 			var/obj/item/clothing/suit/space/rig/R = M.wear_suit
@@ -574,7 +574,7 @@ var/can_call_ert
 			R.helmet.flags |= NODROP
 			
 			M.equip_to_slot_or_del(new /obj/item/clothing/mask/gas/swat(M), slot_wear_mask)
-			M.equip_to_slot_or_del(new /obj/item/weapon/storage/backpack/satchel(M), slot_back)
+			M.equip_to_slot_or_del(new /obj/item/weapon/storage/backpack/ert/janitor(M), slot_back)
 			M.equip_to_slot_or_del(new /obj/item/clothing/glasses/janitor(M), slot_glasses)
 
 			var/obj/item/weapon/card/id/W = new(src)

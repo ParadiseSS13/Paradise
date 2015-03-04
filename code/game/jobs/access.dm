@@ -10,7 +10,7 @@
 /var/const/access_tox_storage = 8
 /var/const/access_genetics = 9
 /var/const/access_engine = 10
-/var/const/access_engine_equip= 11
+/var/const/access_engine_equip = 11
 /var/const/access_maint_tunnels = 12
 /var/const/access_external_airlocks = 13
 /var/const/access_emergency_storage = 14
