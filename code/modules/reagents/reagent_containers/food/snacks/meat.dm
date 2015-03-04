@@ -9,7 +9,7 @@
 		reagents.add_reagent("nutriment", 3)
 		src.bitesize = 3
 
-/obj/item/weapon/reagent_containers/food/snacks/meat/attackby(obj/item/weapon/W as obj, mob/user as mob)
+/obj/item/weapon/reagent_containers/food/snacks/meat/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
 	if(istype(W,/obj/item/weapon/kitchen/utensil/knife))
 		new /obj/item/weapon/reagent_containers/food/snacks/rawcutlet(src)
 		new /obj/item/weapon/reagent_containers/food/snacks/rawcutlet(src)
@@ -34,4 +34,8 @@
 
 /obj/item/weapon/reagent_containers/food/snacks/meat/corgi
 	name = "Corgi meat"
+	desc = "Tastes like... well you know..."
+
+/obj/item/weapon/reagent_containers/food/snacks/meat/pug
+	name = "Pug meat"
 	desc = "Tastes like... well you know..."

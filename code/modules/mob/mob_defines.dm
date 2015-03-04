@@ -138,6 +138,8 @@
 
 	var/coughedtime = null
 
+	var/emote_cd = 0		// Used to supress emote spamming. 1 if on CD, 2 if disabled by admin (manually set), else 0
+
 	var/inertia_dir = 0
 
 	var/music_lastplayed = "null"
@@ -220,6 +222,7 @@
 	var/immune_to_ssd = 0
 
 	var/turf/listed_turf = null  //the current turf being examined in the stat panel
+	var/list/shouldnt_see = list()	//list of objects that this mob shouldn't see in the stat panel. this silliness is needed because of AI alt+click and cult blood runes
 
 	var/kills=0
 

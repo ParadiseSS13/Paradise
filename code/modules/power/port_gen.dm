@@ -26,7 +26,7 @@
 /obj/machinery/power/port_gen/process()
 ideally we're looking to generate 5000
 
-/obj/machinery/power/port_gen/attackby(obj/item/weapon/W, mob/user)
+/obj/machinery/power/port_gen/attackby(obj/item/weapon/W, mob/user, params)
 tank [un]loading stuff
 
 /obj/machinery/power/port_gen/attack_hand(mob/user)
@@ -199,7 +199,7 @@ display round(lastgen) and plasmatank amount
 /obj/machinery/power/port_gen/pacman/proc/overheat()
 	explosion(src.loc, 2, 5, 2, -1)
 
-/obj/machinery/power/port_gen/pacman/attackby(var/obj/item/O as obj, var/mob/user as mob)
+/obj/machinery/power/port_gen/pacman/attackby(var/obj/item/O as obj, var/mob/user as mob, params)
 	if(istype(O, sheet_path))
 		var/obj/item/stack/addstack = O
 		var/amount = min((max_sheets - sheets), addstack.amount)
@@ -211,9 +211,6 @@ display round(lastgen) and plasmatank amount
 		addstack.use(amount)
 		updateUsrDialog()
 		return
-	else if (istype(O, /obj/item/weapon/card/emag))
-		emagged = 1
-		emp_act(1)
 	else if(!active)
 		if(istype(O, /obj/item/weapon/wrench))
 			if(!anchored  && !isinspace())
@@ -239,6 +236,10 @@ display round(lastgen) and plasmatank amount
 		else if(istype(O, /obj/item/weapon/crowbar) && panel_open)
 			default_deconstruction_crowbar(O)
 
+/obj/machinery/power/port_gen/pacman/emag_act(user as mob)
+	emagged = 1
+	emp_act(1)			
+			
 /obj/machinery/power/port_gen/pacman/attack_hand(mob/user as mob)
 	..()
 	if (!anchored)

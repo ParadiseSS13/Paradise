@@ -6,7 +6,6 @@
 	icon_state = "chef"
 	item_state = "chef"
 	desc = "The commander in chef's head wear."
-	flags = FPRINT | TABLEPASS
 	siemens_coefficient = 0.9
 	loose = 35 // why-a do people always push-a me over
 
@@ -15,7 +14,6 @@
 	name = "captain's hat"
 	icon_state = "captain"
 	desc = "It's good being the king."
-	flags = FPRINT|TABLEPASS
 	item_state = "caphat"
 	siemens_coefficient = 0.9
 	armor = list(melee = 50, bullet = 15, laser = 50, energy = 10, bomb = 25, bio = 0, rad = 0)
@@ -32,7 +30,6 @@
 	name = "head of personnel's cap"
 	icon_state = "hopcap"
 	desc = "The symbol of true bureaucratic micromanagement."
-	flags = FPRINT|TABLEPASS
 	siemens_coefficient = 0.9
 	armor = list(melee = 50, bullet = 15, laser = 50, energy = 10, bomb = 25, bio = 0, rad = 0)
 	loose = 43 // not the answer
@@ -42,7 +39,7 @@
 	name = "chaplain's hood"
 	desc = "It's hood that covers the head. It keeps you warm during the space winters."
 	icon_state = "chaplain_hood"
-	flags = FPRINT|TABLEPASS|HEADCOVERSEYES|BLOCKHAIR
+	flags = HEADCOVERSEYES | BLOCKHAIR
 	siemens_coefficient = 0.9
 	loose = 2
 
@@ -51,7 +48,7 @@
 	name = "nun hood"
 	desc = "Maximum piety in this star system."
 	icon_state = "nun_hood"
-	flags = FPRINT|TABLEPASS|HEADCOVERSEYES|BLOCKHAIR
+	flags = HEADCOVERSEYES | BLOCKHAIR
 	siemens_coefficient = 0.9
 	loose = 2
 
@@ -68,7 +65,6 @@
 	name = "beret"
 	desc = "A beret, an artists favorite headwear."
 	icon_state = "beret"
-	flags = FPRINT | TABLEPASS
 	siemens_coefficient = 0.9
 	loose = 16
 
@@ -77,7 +73,6 @@
 	name = "head of security cap"
 	desc = "The robust standard-issue cap of the Head of Security. For showing the officers who's in charge."
 	icon_state = "hoscap"
-	flags = FPRINT | TABLEPASS
 	armor = list(melee = 80, bullet = 60, laser = 50, energy = 10, bomb = 25, bio = 10, rad = 0)
 
 /obj/item/clothing/head/HoS/beret
@@ -89,7 +84,6 @@
 	name = "warden's police hat"
 	desc = "It's a special armored hat issued to the Warden of a security force. Protects the head from impacts."
 	icon_state = "policehelm"
-	flags = FPRINT | TABLEPASS
 	armor = list(melee = 60, bullet = 5, laser = 25, energy = 10, bomb = 25, bio = 0, rad = 0)
 
 /obj/item/clothing/head/customs
@@ -98,14 +92,12 @@
 	icon_state = "customshelm"
 	item_state = "customshelm"
 	armor = list(melee = 30, bullet = 25, laser = 25, energy = 10, bomb = 0, bio = 0, rad = 0)
-	flags = FPRINT | TABLEPASS
 
 /obj/item/clothing/head/beret/sec
 	name = "security beret"
 	desc = "A beret with the security insignia emblazoned on it. For officers that are more inclined towards style than safety."
 	icon_state = "beret_badge"
 	armor = list(melee = 30, bullet = 25, laser = 25, energy = 10, bomb = 0, bio = 0, rad = 0)
-	flags = FPRINT | TABLEPASS
 
 /obj/item/clothing/head/beret/sec/warden
 	name = "warden's beret"
@@ -117,14 +109,13 @@
 	name = "engineering beret"
 	desc = "A beret with the engineering insignia emblazoned on it. For engineers that are more inclined towards style than safety."
 	icon_state = "e_beret_badge"
-	flags = FPRINT | TABLEPASS
 
 //Medical
 /obj/item/clothing/head/surgery
 	name = "surgical cap"
 	desc = "A cap surgeons wear during operations. Keeps their hair from tickling your internal organs."
 	icon_state = "surgcap_blue"
-	flags = FPRINT | TABLEPASS | BLOCKHEADHAIR
+	flags = BLOCKHEADHAIR
 	loose = 13
 
 /obj/item/clothing/head/surgery/purple

@@ -3,7 +3,6 @@
 	name = "packet of seeds"
 	icon = 'icons/obj/seeds.dmi'
 	icon_state = "seed"
-	flags = FPRINT | TABLEPASS
 	w_class = 2.0
 
 	var/seed_type

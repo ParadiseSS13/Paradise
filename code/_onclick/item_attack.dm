@@ -4,13 +4,16 @@
 	return
 
 // No comment
-/atom/proc/attackby(obj/item/W, mob/user)
+/atom/proc/attackby(obj/item/W, mob/living/user, params)
 	return
-/atom/movable/attackby(obj/item/W, mob/user)
+/atom/movable/attackby(obj/item/W, mob/living/user, params)
+	user.changeNext_move(CLICK_CD_MELEE)
+	user.do_attack_animation(src)
 	if(!(W.flags&NOBLUDGEON))
 		visible_message("<span class='danger'>[src] has been hit by [user] with [W].</span>")
 
-/mob/living/attackby(obj/item/I, mob/user)
+/mob/living/attackby(obj/item/I, mob/user, params)
+	user.changeNext_move(CLICK_CD_MELEE)
 	if(istype(I) && ismob(user))
 		I.attack(src, user)
 
@@ -50,8 +53,6 @@
 	/////////////////////////
 
 	var/power = force
-	if(M_HULK in user.mutations)
-		power *= 2
 
 	if(!istype(M, /mob/living/carbon/human))
 		if(istype(M, /mob/living/carbon/slime))
@@ -128,6 +129,7 @@
 		var/showname = "."
 		if(user)
 			showname = " by [user]."
+			user.do_attack_animation(src)
 		if(!(user in viewers(M, null)))
 			showname = "."
 
@@ -159,7 +161,7 @@
 						if (istype(location, /turf/simulated))
 							location:add_blood_floor(M)
 			if("fire")
-				if (!(M_RESIST_COLD in M.mutations))
+				if (!(RESIST_COLD in M.mutations))
 					M.take_organ_damage(0, power)
 					M << "Aargh it burns!"
 		M.updatehealth()

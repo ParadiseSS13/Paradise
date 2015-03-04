@@ -20,6 +20,13 @@
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/eyes.dmi'
 		)
+		
+/obj/item/clothing/glasses/meson/night
+	name = "Night Vision Optical Meson Scanner"
+	desc = "An Optical Meson Scanner fitted with an amplified visible light spectrum overlay, providing greater visual clarity in darkness."
+	icon_state = "nvgmeson"
+	item_state = "glasses"
+	darkness_view = 8
 
 /obj/item/clothing/glasses/meson/prescription
 	name = "prescription mesons"
@@ -35,17 +42,23 @@
 	desc = "An implanted replacement for a left eye with meson vision capabilities."
 	icon_state = "cybereye-green"
 	item_state = "eyepatch"
-	canremove = 0
+	flags = NODROP
 
 /obj/item/clothing/glasses/science
 	name = "Science Goggles"
 	desc = "nothing"
 	icon_state = "purple"
 	item_state = "glasses"
+	
+/obj/item/clothing/glasses/janitor
+	name = "Janitorial Goggles"
+	desc = "These'll keep the soap out of your eyes."
+	icon_state = "purple"
+	item_state = "glasses"
 
 /obj/item/clothing/glasses/night
 	name = "Night Vision Goggles"
-	desc = "You can totally see in the dark now!."
+	desc = "You can totally see in the dark now!"
 	icon_state = "night"
 	item_state = "glasses"
 	origin_tech = "magnets=2"
@@ -88,7 +101,7 @@
 	desc = "An implanted replacement for a left eye with material vision capabilities."
 	icon_state = "cybereye-blue"
 	item_state = "eyepatch"
-	canremove = 0
+	flags = NODROP
 
 /obj/item/clothing/glasses/regular
 	name = "Prescription Glasses"
@@ -293,4 +306,4 @@
 	desc = "An implanted replacement for a left eye with thermal vision capabilities."
 	icon_state = "cybereye-red"
 	item_state = "eyepatch"
-	canremove = 0
+	flags = NODROP

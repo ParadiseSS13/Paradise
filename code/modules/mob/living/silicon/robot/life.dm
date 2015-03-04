@@ -16,16 +16,19 @@
 		update_items()
 	if (src.stat != DEAD) //still using power
 		use_power()
-		process_killswitch()
 		process_locks()
+
 	update_canmove()
+
+	update_gravity(mob_has_gravity())
+
 	handle_fire()
 
 /mob/living/silicon/robot/proc/clamp_values()
 
-//	SetStunned(min(stunned, 30))
+	SetStunned(min(stunned, 30))
 	SetParalysis(min(paralysis, 30))
-//	SetWeakened(min(weakened, 20))
+	SetWeakened(min(weakened, 20))
 	sleeping = 0
 	adjustBruteLoss(0)
 	adjustToxLoss(0)
@@ -36,20 +39,23 @@
 	if (is_component_functioning("power cell") && cell)
 		if(src.cell.charge <= 0)
 			uneq_all()
-			src.stat = 1		
+			src.stat = 1
 			has_power = 0
 			for(var/V in components)
 				var/datum/robot_component/C = components[V]
 				if(C.name == "actuator") // Let drained robots move, disable the rest
 					continue
 				C.consume_power()
+		else if (src.cell.charge <= 100)
+			uneq_all()
+			src.cell.use(1)
 		else
 			if(src.module_state_1)
-				src.cell.use(3)
+				src.cell.use(4)
 			if(src.module_state_2)
-				src.cell.use(3)
+				src.cell.use(4)
 			if(src.module_state_3)
-				src.cell.use(3)
+				src.cell.use(4)
 
 			for(var/V in components)
 				var/datum/robot_component/C = components[V]
@@ -57,14 +63,13 @@
 
 			if(!is_component_functioning("actuator"))
 				Paralyse(3)
-
+			src.eye_blind = 0
 			src.stat = 0
 			has_power = 1
 	else
 		uneq_all()
-		src.stat = 1	
+		src.stat = 1
 		Paralyse(3)
-
 
 /mob/living/silicon/robot/proc/handle_regular_status_updates()
 
@@ -74,7 +79,9 @@
 		else
 			src.camera.status = 1
 
-	updatehealth()
+	health = maxHealth - (getOxyLoss() + getFireLoss() + getBruteLoss())
+
+	if(getOxyLoss() > 50) Paralyse(3)
 
 	if(src.sleeping)
 		Paralyse(3)
@@ -83,10 +90,21 @@
 	if(src.resting)
 		Weaken(5)
 
-	if(health < config.health_threshold_dead && src.stat != 2) //die only once
+	if(health <= config.health_threshold_dead && src.stat != 2) //die only once
 		death()
 
 	if (src.stat != 2) //Alive.
+		if(!istype(src,/mob/living/silicon/robot/drone))
+			if(health < 50) //Gradual break down of modules as more damage is sustained
+				if(uneq_module(module_state_3))
+					src << "<span class='warning'>SYSTEM ERROR: Module 3 OFFLINE.</span>"
+				if(health < 0)
+					if(uneq_module(module_state_2))
+						src << "<span class='warning'>SYSTEM ERROR: Module 2 OFFLINE.</span>"
+					if(health < -50)
+						if(uneq_module(module_state_1))
+							src << "<span class='warning'>CRITICAL ERROR: All modules OFFLINE.</span>"
+
 		if (src.paralysis || src.stunned || src.weakened) //Stunned etc.
 			src.stat = 1
 			if (src.stunned > 0)
@@ -95,34 +113,25 @@
 				AdjustWeakened(-1)
 			if (src.paralysis > 0)
 				AdjustParalysis(-1)
-				src.blinded = 1
+				src.eye_blind = max(eye_blind, 1)
 			else
-				src.blinded = 0
+				src.eye_blind = 0
 
 		else	//Not stunned.
 			src.stat = 0
 
 	else //Dead.
-		src.blinded = 1
-		src.stat = 2
+		src.eye_blind = 1
 
 	if (src.stuttering) src.stuttering--
 
 	if (src.eye_blind)
 		src.eye_blind--
-		src.blinded = 1
-
-	if (src.ear_deaf > 0) src.ear_deaf--
-	if (src.ear_damage < 25)
-		src.ear_damage -= 0.05
-		src.ear_damage = max(src.ear_damage, 0)
 
 	src.density = !( src.lying )
 
-	if ((src.sdisabilities & BLIND))
-		src.blinded = 1
-	if ((src.sdisabilities & DEAF))
-		src.ear_deaf = 1
+	if (src.disabilities & BLIND)
+		src.eye_blind = max(1, eye_blind)
 
 	if (src.eye_blurry > 0)
 		src.eye_blurry--
@@ -154,31 +163,32 @@
 
 /mob/living/silicon/robot/proc/handle_regular_hud_updates()
 
-	if (src.stat == 2 || M_XRAY in mutations || src.sight_mode & BORGXRAY)
+	if (src.stat == 2 || src.sight_mode & BORGXRAY)
 		src.sight |= SEE_TURFS
 		src.sight |= SEE_MOBS
 		src.sight |= SEE_OBJS
 		src.see_in_dark = 8
-		src.see_invisible = SEE_INVISIBLE_MINIMUM
-	else if (src.sight_mode & BORGMESON && src.sight_mode & BORGTHERM)
-		src.sight |= SEE_TURFS
-		src.sight |= SEE_MOBS
-		src.see_in_dark = 8
-		see_invisible = SEE_INVISIBLE_MINIMUM
-	else if (src.sight_mode & BORGMESON)
-		src.sight |= SEE_TURFS
-		src.see_in_dark = 8
-		see_invisible = SEE_INVISIBLE_MINIMUM
-	else if (src.sight_mode & BORGTHERM)
-		src.sight |= SEE_MOBS
-		src.see_in_dark = 8
 		src.see_invisible = SEE_INVISIBLE_LEVEL_TWO
-	else if (src.stat != 2)
-		src.sight &= ~SEE_MOBS
-		src.sight &= ~SEE_TURFS
-		src.sight &= ~SEE_OBJS
+	else
 		src.see_in_dark = 8
-		src.see_invisible = SEE_INVISIBLE_LEVEL_TWO
+		if (src.sight_mode & BORGMESON && src.sight_mode & BORGTHERM)
+			src.sight |= SEE_TURFS
+			src.sight |= SEE_MOBS
+			src.see_invisible = SEE_INVISIBLE_MINIMUM
+		else if (src.sight_mode & BORGMESON)
+			src.sight |= SEE_TURFS
+			src.see_invisible = SEE_INVISIBLE_MINIMUM
+			src.see_in_dark = 1
+		else if (src.sight_mode & BORGTHERM)
+			src.sight |= SEE_MOBS
+			src.see_invisible = SEE_INVISIBLE_LEVEL_TWO
+		else if (src.stat != 2)
+			src.sight &= ~SEE_MOBS
+			src.sight &= ~SEE_TURFS
+			src.sight &= ~SEE_OBJS
+			src.see_invisible = SEE_INVISIBLE_LEVEL_TWO
+		if(see_override)
+			see_invisible = see_override
 
 	regular_hud_updates()
 
@@ -212,17 +222,15 @@
 						src.healths.icon_state = "health6"
 			else
 				switch(health)
-					if(200 to INFINITY)
+					if(100 to INFINITY)
 						src.healths.icon_state = "health0"
-					if(150 to 200)
-						src.healths.icon_state = "health1"
-					if(100 to 150)
-						src.healths.icon_state = "health2"
 					if(50 to 100)
-						src.healths.icon_state = "health3"
+						src.healths.icon_state = "health2"
 					if(0 to 50)
+						src.healths.icon_state = "health3"
+					if(-50 to 0)
 						src.healths.icon_state = "health4"
-					if(config.health_threshold_dead to 0)
+					if(config.health_threshold_dead to -50)
 						src.healths.icon_state = "health5"
 					else
 						src.healths.icon_state = "health6"
@@ -309,7 +317,7 @@
 	if (src.client)
 		src.client.screen -= src.contents
 		for(var/obj/I in src.contents)
-			if(I && !(istype(I,/obj/item/weapon/cell) || istype(I,/obj/item/device/radio)  || istype(I,/obj/machinery/camera) || istype(I,/obj/item/device/mmi)))
+			if(I && !(istype(I,/obj/item/weapon/stock_parts/cell) || istype(I,/obj/item/device/radio)  || istype(I,/obj/machinery/camera) || istype(I,/obj/item/device/mmi)))
 				src.client.screen += I
 	if(src.module_state_1)
 		src.module_state_1:screen_loc = ui_inv1
@@ -318,16 +326,6 @@
 	if(src.module_state_3)
 		src.module_state_3:screen_loc = ui_inv3
 	updateicon()
-
-/mob/living/silicon/robot/proc/process_killswitch()
-	if(killswitch)
-		killswitch_time --
-		if(killswitch_time <= 0)
-			if(src.client)
-				src << "\red <B>Killswitch Activated"
-			killswitch = 0
-			spawn(5)
-				gib()
 
 /mob/living/silicon/robot/proc/process_locks()
 	if(weapon_lock)
@@ -348,7 +346,13 @@
 /mob/living/silicon/robot/handle_fire()
 	if(..())
 		return
-	adjustFireLoss(3)
+	if(fire_stacks > 0)
+		fire_stacks--
+		fire_stacks = max(0, fire_stacks)
+	else
+		ExtinguishMob()
+
+	//adjustFireLoss(3)
 	return
 
 /mob/living/silicon/robot/update_fire()

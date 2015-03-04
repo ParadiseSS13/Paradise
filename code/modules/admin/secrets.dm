@@ -77,7 +77,6 @@
 					<A href='?src=\ref[src];secretsfun=borers'>Trigger a Cortical Borer infestation</A><BR>
 					<A href='?src=\ref[src];secretsfun=alien_silent'>Spawn an Alien silently</A><BR>
 					<A href='?src=\ref[src];secretsfun=spiders'>Trigger a Spider infestation</A><BR>
-					<A href='?src=\ref[src];secretsfun=spaceninja'>Send in a space ninja</A><BR>
 					<A href='?src=\ref[src];secretsfun=striketeam'>Send in a strike team</A><BR>
 					<A href='?src=\ref[src];secretsfun=striketeam_syndicate'>Send in a syndicate strike team</A><BR>
 					<A href='?src=\ref[src];secretsfun=honksquad'>Send in a HONKsquad</A><BR>

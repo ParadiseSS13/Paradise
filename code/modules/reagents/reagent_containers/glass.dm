@@ -12,7 +12,7 @@
 	amount_per_transfer_from_this = 10
 	possible_transfer_amounts = list(5,10,15,25,30,50)
 	volume = 50
-	flags = FPRINT | TABLEPASS | OPENCONTAINER
+	flags = OPENCONTAINER
 
 	var/label_text = ""
 
@@ -142,10 +142,6 @@
 			var/trans = src.reagents.trans_to(target, amount_per_transfer_from_this)
 			user << "\blue You transfer [trans] units of the solution to [target]."
 
-		//Safety for dumping stuff into a ninja suit. It handles everything through attackby() and this is unnecessary.
-		else if(istype(target, /obj/item/clothing/suit/space/space_ninja))
-			return
-
 		else if(istype(target, /obj/machinery/bunsen_burner))
 			return
 
@@ -158,7 +154,7 @@
 			spawn(5) src.reagents.clear_reagents()
 			return
 
-	attackby(obj/item/weapon/W as obj, mob/user as mob)
+	attackby(obj/item/weapon/W as obj, mob/user as mob, params)
 		..()
 		if(istype(W, /obj/item/weapon/pen) || istype(W, /obj/item/device/flashlight/pen))
 			var/tmp_label = sanitize(input(user, "Enter a label for [src.name]","Label",src.label_text))
@@ -226,11 +222,11 @@
 	name = "large beaker"
 	desc = "A large beaker. Can hold up to 100 units."
 	icon_state = "beakerlarge"
-	g_amt = 5000
+	g_amt = 2500
 	volume = 100
 	amount_per_transfer_from_this = 10
 	possible_transfer_amounts = list(5,10,15,25,30,50,100)
-	flags = FPRINT | TABLEPASS | OPENCONTAINER
+	flags = OPENCONTAINER
 
 /obj/item/weapon/reagent_containers/glass/beaker/vial
 	name = "vial"
@@ -240,7 +236,7 @@
 	volume = 25
 	amount_per_transfer_from_this = 10
 	possible_transfer_amounts = list(5,10,15,25)
-	flags = FPRINT | TABLEPASS | OPENCONTAINER
+	flags = OPENCONTAINER
 
 /obj/item/weapon/reagent_containers/glass/beaker/noreact
 	name = "cryostasis beaker"
@@ -249,7 +245,7 @@
 	g_amt = 500
 	volume = 50
 	amount_per_transfer_from_this = 10
-	flags = FPRINT | TABLEPASS | OPENCONTAINER | NOREACT
+	flags = OPENCONTAINER | NOREACT
 
 /obj/item/weapon/reagent_containers/glass/beaker/bluespace
 	name = "bluespace beaker"
@@ -259,7 +255,7 @@
 	volume = 300
 	amount_per_transfer_from_this = 10
 	possible_transfer_amounts = list(5,10,15,25,30,50,100,300)
-	flags = FPRINT | TABLEPASS | OPENCONTAINER
+	flags = OPENCONTAINER
 
 /obj/item/weapon/reagent_containers/glass/beaker/cryoxadone
 	New()
@@ -291,15 +287,17 @@
 	amount_per_transfer_from_this = 20
 	possible_transfer_amounts = list(5,10,15,25,30,50,80,100,120)
 	volume = 120
-	flags = FPRINT | OPENCONTAINER
+	flags = OPENCONTAINER
 
-	attackby(var/obj/D, mob/user as mob)
+	attackby(var/obj/D, mob/user as mob, params)
 		if(isprox(D))
 			user << "You add [D] to [src]."
 			del(D)
 			user.put_in_hands(new /obj/item/weapon/bucket_sensor)
-			user.drop_from_inventory(src)
-			del(src)
+			user.unEquip(src)
+			qdel(src)
+
+		..()
 
 /obj/item/weapon/reagent_containers/glass/beaker/vial
 	name = "vial"
@@ -309,7 +307,7 @@
 	volume = 15
 	amount_per_transfer_from_this = 5
 	possible_transfer_amounts = list(1,5,15)
-	flags = FPRINT | TABLEPASS | OPENCONTAINER
+	flags = OPENCONTAINER
 
 /*
 /obj/item/weapon/reagent_containers/glass/blender_jug
@@ -341,7 +339,6 @@
 	amount_per_transfer_from_this = 20
 	possible_transfer_amounts = list(10,20,30,60)
 	volume = 120
-	flags = FPRINT
 
 /obj/item/weapon/reagent_containers/glass/dispenser
 	name = "reagent glass"
@@ -349,7 +346,7 @@
 	icon = 'icons/obj/chemical.dmi'
 	icon_state = "beaker0"
 	amount_per_transfer_from_this = 10
-	flags = FPRINT | TABLEPASS | OPENCONTAINER
+	flags = OPENCONTAINER
 
 /obj/item/weapon/reagent_containers/glass/dispenser/surfactant
 	name = "reagent glass (surfactant)"

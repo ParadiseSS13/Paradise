@@ -249,7 +249,6 @@ client
 			body += "<option value='?_src_=vars;godmode=\ref[D]'>Toggle Godmode</option>"
 			body += "<option value='?_src_=vars;build_mode=\ref[D]'>Toggle Build Mode</option>"
 
-			body += "<option value='?_src_=vars;ninja=\ref[D]'>Make Space Ninja</option>"
 			body += "<option value='?_src_=vars;make_skeleton=\ref[D]'>Make 2spooky</option>"
 
 			body += "<option value='?_src_=vars;direct_control=\ref[D]'>Assume Direct Control</option>"
@@ -441,7 +440,7 @@ client
 			usr << "This can only be used on instances of type /mob"
 			return
 
-		var/new_name = copytext(sanitize(input(usr,"What would you like to name this mob?","Input a name",M.real_name) as text|null),1,MAX_NAME_LEN)
+		var/new_name = sanitize(copytext(input(usr,"What would you like to name this mob?","Input a name",M.real_name) as text|null,1,MAX_NAME_LEN))
 		if( !new_name || !M )	return
 
 		message_admins("Admin [key_name_admin(usr)] renamed [key_name_admin(M)] to [new_name].")
@@ -525,17 +524,6 @@ client
 
 		src.give_disease2(M)
 		href_list["datumrefresh"] = href_list["give_spell"]
-
-	else if(href_list["ninja"])
-		if(!check_rights(R_SPAWN))	return
-
-		var/mob/M = locate(href_list["ninja"])
-		if(!istype(M))
-			usr << "This can only be used on instances of type /mob"
-			return
-
-		src.cmd_admin_ninjafy(M)
-		href_list["datumrefresh"] = href_list["ninja"]
 
 	else if(href_list["godmode"])
 		if(!check_rights(R_REJUVINATE))	return
@@ -627,7 +615,7 @@ client
 				for(var/obj/Obj in world)
 					if(Obj.type == O_type)
 						i++
-						del(Obj)
+						qdel(Obj)
 				if(!i)
 					usr << "No objects of this type exist"
 					return
@@ -638,7 +626,7 @@ client
 				for(var/obj/Obj in world)
 					if(istype(Obj,O_type))
 						i++
-						del(Obj)
+						qdel(Obj)
 				if(!i)
 					usr << "No objects of this type exist"
 					return

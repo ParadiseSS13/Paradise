@@ -6,6 +6,7 @@
 	var/active = 0 //This gets set to 1 on all devices except the one where the initial request was made.
 	var/event = ""
 	var/screen = 1
+	var/list/ert_chosen = list()
 	var/confirmed = 0 //This variable is set by the device that confirms the request.
 	var/confirm_delay = 20 //(2 seconds)
 	var/busy = 0 //Busy when waiting for authentication or an event request has been sent from this device.
@@ -28,7 +29,7 @@
 	user << "You are too primitive to use this device."
 	return
 
-/obj/machinery/keycard_auth/attackby(obj/item/weapon/W as obj, mob/user as mob)
+/obj/machinery/keycard_auth/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
 	if(stat & (NOPOWER|BROKEN))
 		user << "This device is not powered."
 		return
@@ -41,6 +42,9 @@
 					event_source.confirmed = 1
 					event_source.event_confirmed_by = usr
 			else if(screen == 2)
+				if(event == "Emergency Response Team" && !ert_chosen.len)
+					user << "<span class='notice'>Pick the Emergency Response Team type first!</span>"
+					return
 				event_triggered_by = usr
 				broadcast_request() //This is the device making the initial event request. It needs to broadcast to other devices
 
@@ -67,11 +71,16 @@
 	var/data[0]
 	data["screen"] = screen
 	data["event"] = event
-	data["src"] = "\ref[src]"
+	data["erttypes"] = list()
+	for(var/type in response_team_types)
+		var/active = 0
+		if((type in ert_chosen))
+			active = 1
+		data["erttypes"] += list(list("name" = type, "active" = active))
 	
 	ui = nanomanager.try_update_ui(user, src, ui_key, ui, data, force_open)	
 	if (!ui)
-		ui = new(user, src, ui_key, "keycard_auth.tmpl", "Keycard Authentication Device UI", 520, 260)
+		ui = new(user, src, ui_key, "keycard_auth.tmpl", "Keycard Authentication Device UI", 520, 320)
 		ui.set_initial_data(data)		
 		ui.open()	
 
@@ -85,10 +94,17 @@
 		usr << "This device is without power."
 		return
 	if(href_list["triggerevent"])
+		ert_chosen.Cut()
 		event = href_list["triggerevent"]
 		screen = 2
 	if(href_list["reset"])
 		reset()
+	if(href_list["ert"])
+		var/chosen = href_list["ert"]
+		if((chosen in response_team_types) && !(chosen in ert_chosen))
+			ert_chosen |= chosen
+		else
+			ert_chosen -= chosen
 
 	nanomanager.update_uis(src)
 	add_fingerprint(usr)
@@ -148,9 +164,10 @@
 			feedback_inc("alert_keycard_auth_maintRevoke",1)
 		if("Emergency Response Team")
 			if(is_ert_blocked())
-				usr << "\red All emergency response teams are dispatched and can not be called at this time."
+				usr << "\red All Emergency Response Teams are dispatched and can not be called at this time."
 				return
 
+			response_team_chosen_types += ert_chosen
 			trigger_armed_response_team(1)
 			feedback_inc("alert_keycard_auth_ert",1)
 

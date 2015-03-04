@@ -4,7 +4,7 @@
 	icon_state = "voice0"
 	item_state = "flashbang"	//looks exactly like a flash (and nothing like a flashbang)
 	w_class = 1.0
-	flags = FPRINT | TABLEPASS | CONDUCT
+	flags = CONDUCT
 
 	var/spamcheck = 0
 	var/emagged = 0
@@ -24,9 +24,8 @@
 	spawn(20)
 		spamcheck = 0
 
-/obj/item/device/hailer/attackby(obj/item/I, mob/user)
-	if(istype(I, /obj/item/weapon/card/emag) && !emagged)
+/obj/item/device/hailer/emag_act(user as mob)
+	if(!emagged)
 		user << "\red You overload \the [src]'s voice synthesizer."
 		emagged = 1
-		return
-	return
+		

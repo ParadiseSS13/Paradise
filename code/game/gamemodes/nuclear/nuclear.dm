@@ -132,6 +132,7 @@ proc/issyndicate(mob/living/M as mob)
 		synd_mind.current.loc = synd_spawn[spawnpos]
 
 		forge_syndicate_objectives(synd_mind)
+		create_syndicate(synd_mind)
 		greet_syndicate(synd_mind)
 		equip_syndicate(synd_mind.current)
 
@@ -162,7 +163,37 @@ proc/issyndicate(mob/living/M as mob)
 	spawn (rand(waittime_l, waittime_h))
 		send_intercept()
 	return ..()
+	
+/datum/game_mode/proc/create_syndicate(var/datum/mind/synd_mind) // So we don't have inferior species as ops - randomize a human
+	var/mob/living/carbon/human/M = synd_mind.current
+	M.set_species("Human",1)
+	M.dna.ready_dna(M) // Quadriplegic Nuke Ops won't be participating in the paralympics
 
+	var/hair_c = pick("#8B4513","#000000","#FF4500","#FFD700") // Brown, black, red, blonde
+	var/eye_c = pick("#000000","#8B4513","1E90FF") // Black, brown, blue
+	var/skin_tone = pick(-50, -30, -10, 0, 0, 0, 10) // Caucasian/black
+	var/hair_style = "Bald"
+	var/facial_hair_style = "Shaved"
+	if(M.gender == MALE)
+		hair_style = pick(hair_styles_male_list)
+		facial_hair_style = pick(facial_hair_styles_list)
+	else
+		hair_style = pick(hair_styles_female_list)
+		if(prob(5))
+			facial_hair_style = pick(facial_hair_styles_list)
+
+	M.r_facial = hex2num(copytext(hair_c, 2, 4))
+	M.g_facial = hex2num(copytext(hair_c, 4, 6))
+	M.b_facial = hex2num(copytext(hair_c, 6, 8))
+	M.r_hair = hex2num(copytext(hair_c, 2, 4))
+	M.g_hair = hex2num(copytext(hair_c, 4, 6))
+	M.b_hair = hex2num(copytext(hair_c, 6, 8))
+	M.r_eyes = hex2num(copytext(eye_c, 2, 4))
+	M.g_eyes = hex2num(copytext(eye_c, 4, 6))
+	M.b_eyes = hex2num(copytext(eye_c, 6, 8))
+	M.s_tone = skin_tone
+	M.h_style = hair_style
+	M.f_style = facial_hair_style
 
 /datum/game_mode/proc/prepare_syndicate_leader(var/datum/mind/synd_mind, var/nuke_code)
 	var/leader_title = pick("Czar", "Boss", "Commander", "Chief", "Kingpin", "Director", "Overlord")
@@ -246,9 +277,6 @@ proc/issyndicate(mob/living/M as mob)
 	U.hidden_uplink.uses = 20
 	synd_mob.equip_to_slot_or_del(U, slot_in_backpack)
 
-	var/obj/item/clothing/suit/space/rig/syndi/new_suit = new(synd_mob)
-	var/obj/item/clothing/head/helmet/space/rig/syndi/new_helmet = new(synd_mob)
-
 	if(synd_mob.species)
 
 		/*
@@ -261,28 +289,12 @@ proc/issyndicate(mob/living/M as mob)
 		var/race = synd_mob.species.name
 
 		switch(race)
-			if("Unathi")
-				new_suit.species_restricted = list("Unathi")
-				new_helmet.species_restricted = list("Unathi")
-			if("Tajaran")
-				new_suit.species_restricted = list("Tajaran")
-				new_helmet.species_restricted = list("Tajaran")
-			if("Skrell")
-				new_suit.species_restricted = list("Skrell")
-				new_helmet.species_restricted = list("Skrell")
 			if("Vox" || "Vox Armalis")
-				synd_mob.equip_to_slot_or_del(new /obj/item/clothing/mask/breath(synd_mob), slot_wear_mask)
+				synd_mob.equip_to_slot_or_del(new /obj/item/clothing/mask/gas/syndicate(synd_mob), slot_wear_mask)
 				synd_mob.equip_to_slot_or_del(new /obj/item/weapon/tank/nitrogen(synd_mob), slot_l_hand)
 				synd_mob.internal = synd_mob.l_hand
 				if (synd_mob.internals)
 					synd_mob.internals.icon_state = "internal1"
-				new_suit.species_restricted = list ("Vox", "Vox Armalis")
-				new_helmet.species_restricted = list ("Vox", "Vox Armalis")
-
-
-	synd_mob.equip_to_slot_or_del(new_suit, slot_wear_suit)
-	synd_mob.equip_to_slot_or_del(new_helmet, slot_head)
-
 
 	var/obj/item/weapon/implant/dexplosive/E = new/obj/item/weapon/implant/dexplosive(synd_mob)
 	E.imp_in = synd_mob
@@ -409,7 +421,7 @@ proc/issyndicate(mob/living/M as mob)
 
 /proc/nukelastname(var/mob/M as mob) //--All praise goes to NEO|Phyte, all blame goes to DH, and it was Cindi-Kate's idea. Also praise Urist for copypasta ho.
 	var/randomname = pick(last_names)
-	var/newname = copytext(sanitize(input(M,"You are the nuke operative [pick("Czar", "Boss", "Commander", "Chief", "Kingpin", "Director", "Overlord")]. Please choose a last name for your family.", "Name change",randomname)),1,MAX_NAME_LEN)
+	var/newname = sanitize(copytext(input(M,"You are the nuke operative [pick("Czar", "Boss", "Commander", "Chief", "Kingpin", "Director", "Overlord")]. Please choose a last name for your family.", "Name change",randomname),1,MAX_NAME_LEN))
 
 	if (!newname)
 		newname = randomname

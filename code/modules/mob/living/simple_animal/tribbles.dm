@@ -51,7 +51,7 @@ var/global/totaltribbles = 0   //global variable so it updates for all tribbles,
 			del(src)
 
 
-/mob/living/simple_animal/tribble/attackby(var/obj/item/weapon/O as obj, var/mob/user as mob)
+/mob/living/simple_animal/tribble/attackby(var/obj/item/weapon/O as obj, var/mob/user as mob, params)
 	if(istype(O, /obj/item/weapon/scalpel))
 		user << "<span class='notice'>You try to neuter the tribble, but it's moving too much and you fail!</span>"
 	else if(istype(O, /obj/item/weapon/cautery))
@@ -190,7 +190,7 @@ var/global/totaltribbles = 0   //global variable so it updates for all tribbles,
 	return
 
 
-/obj/structure/tribble_cage/attackby(obj/item/weapon/W as obj, mob/user as mob)
+/obj/structure/tribble_cage/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
 	src.health -= W.force
 	src.healthcheck()
 	..()

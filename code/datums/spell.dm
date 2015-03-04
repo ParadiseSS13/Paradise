@@ -48,7 +48,7 @@ var/list/spells = typesof(/obj/effect/proc_holder/spell) //needed for the badmin
 	var/icon_power_button
 	var/power_button_name
 
-/obj/effect/proc_holder/spell/wizard/proc/cast_check(skipcharge = 0, mob/user = usr) //checks if the spell can be cast based on its settings; skipcharge is used when an additional cast_check is called inside the spell
+/obj/effect/proc_holder/spell/wizard/proc/cast_check(skipcharge = 0, mob/living/user = usr) //checks if the spell can be cast based on its settings; skipcharge is used when an additional cast_check is called inside the spell
 
 	if(!(src in user.spell_list))
 		user << "<span class='warning'>You shouldn't have this spell! Something's wrong.</span>"
@@ -60,7 +60,7 @@ var/list/spells = typesof(/obj/effect/proc_holder/spell) //needed for the badmin
 			caster.reset_view(0)
 			return 0
 
-	if(user.z == 2 && !centcom_cancast) //Certain spells are not allowed on the centcom zlevel
+	if((user.z in config.admin_levels) && !centcom_cancast) //Certain spells are not allowed on the centcom zlevel
 		return 0
 
 	if(!skipcharge)
@@ -75,27 +75,27 @@ var/list/spells = typesof(/obj/effect/proc_holder/spell) //needed for the badmin
 					return 0
 
 	if(!ghost)
-		if(usr.stat && !stat_allowed)
-			usr << "Not when you're incapacitated."
+		if(user.stat && !stat_allowed)
+			user << "Not when you're incapacitated."
 			return 0
 
-		if(ishuman(usr) || ismonkey(usr))
-			if(istype(usr.wear_mask, /obj/item/clothing/mask/muzzle))
-				usr << "Mmmf mrrfff!"
+		if(ishuman(user) || ismonkey(user))
+			if(user.is_muzzled())
+				user << "Mmmf mrrfff!"
 				return 0
 	var/obj/effect/proc_holder/spell/wizard/noclothes/spell = locate() in user.spell_list
 	if(clothes_req && !(spell && istype(spell)))//clothes check
-		if(!istype(usr, /mob/living/carbon/human))
-			usr << "You aren't a human, Why are you trying to cast a human spell, silly non-human? Casting human spells is for humans."
+		if(!istype(user, /mob/living/carbon/human))
+			user << "You aren't a human, Why are you trying to cast a human spell, silly non-human? Casting human spells is for humans."
 			return 0
-		if(!istype(usr:wear_suit, /obj/item/clothing/suit/wizrobe) && !istype(user:wear_suit, /obj/item/clothing/suit/space/rig/wizard))
-			usr << "I don't feel strong enough without my robe."
+		if(!istype(user:wear_suit, /obj/item/clothing/suit/wizrobe) && !istype(user:wear_suit, /obj/item/clothing/suit/space/rig/wizard))
+			user << "I don't feel strong enough without my robe."
 			return 0
-		if(!istype(usr:shoes, /obj/item/clothing/shoes/sandal))
-			usr << "I don't feel strong enough without my sandals."
+		if(!istype(user:shoes, /obj/item/clothing/shoes/sandal))
+			user << "I don't feel strong enough without my sandals."
 			return 0
-		if(!istype(usr:head, /obj/item/clothing/head/wizard) && !istype(usr:head, /obj/item/clothing/head/helmet/space/rig/wizard))
-			usr << "<span class='notice'>I don't feel strong enough without my hat.</span>"
+		if(!istype(user:head, /obj/item/clothing/head/wizard) && !istype(user:head, /obj/item/clothing/head/helmet/space/rig/wizard))
+			user << "<span class='notice'>I don't feel strong enough without my hat.</span>"
 			return 0
 
 	if(!skipcharge)

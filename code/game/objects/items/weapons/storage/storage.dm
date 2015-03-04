@@ -1,6 +1,6 @@
 // To clarify:
 // For use_to_pickup and allow_quick_gather functionality,
-// see item/attackby() (/game/objects/items.dm)
+// see item/attackby() (/game/objects/items.dm, params)
 // Do not remove this functionality without good reason, cough reagent_containers cough.
 // -Sayu
 
@@ -22,6 +22,7 @@
 	var/allow_quick_gather	//Set this variable to allow the object to have the 'toggle mode' verb, which quickly collects all items from a tile.
 	var/collection_mode = 1;  //0 = pick one at a time, 1 = pick all on tile
 	var/foldable = null	// BubbleWrap - if set, can be folded (when empty) into a sheet of cardboard
+	var/use_sound = "rustle"	//sound played when used. null for no sound.
 
 /obj/item/weapon/storage/MouseDrop(obj/over_object as obj)
 	if (ishuman(usr) || ismonkey(usr)) //so monkeys can take off their backpacks -- Urist
@@ -45,10 +46,12 @@
 		if (!( M.restrained() ) && !( M.stat ))
 			switch(over_object.name)
 				if("r_hand")
-					M.u_equip(src)
+					if(!M.unEquip(src))
+						return
 					M.put_in_r_hand(src)
 				if("l_hand")
-					M.u_equip(src)
+					if(!M.unEquip(src))
+						return
 					M.put_in_l_hand(src)
 			src.add_fingerprint(usr)
 			return
@@ -72,6 +75,8 @@
 		L += G.gift
 		if (istype(G.gift, /obj/item/weapon/storage))
 			L += G.gift:return_inv()
+	for(var/obj/item/weapon/folder/F in src)
+		L += F.contents
 	return L
 
 /obj/item/weapon/storage/proc/show_to(mob/user as mob)
@@ -100,6 +105,15 @@
 	if(user.s_active == src)
 		user.s_active = null
 	return
+
+/obj/item/weapon/storage/proc/open(mob/user as mob)
+	if (src.use_sound)
+		playsound(src.loc, src.use_sound, 50, 1, -5)
+
+	orient2hud(user)
+	if (user.s_active)
+		user.s_active.close(user)
+	show_to(user)
 
 /obj/item/weapon/storage/proc/close(mob/user as mob)
 
@@ -192,7 +206,7 @@
 //This proc return 1 if the item can be picked up and 0 if it can't.
 //Set the stop_messages to stop it from printing messages
 /obj/item/weapon/storage/proc/can_be_inserted(obj/item/W as obj, stop_messages = 0)
-	if(!istype(W)) return //Not an item
+	if(!istype(W) || (W.flags & ABSTRACT)) return //Not an item
 
 	if(src.loc == W)
 		return 0 //Means the item is already in the storage item
@@ -240,15 +254,21 @@
 				usr << "<span class='notice'>[src] cannot hold [W] as it's a storage item of the same size.</span>"
 			return 0 //To prevent the stacking of same sized storage items.
 
+	if(W.flags & NODROP) //SHOULD be handled in unEquip, but better safe than sorry.
+		usr << "<span class='notice'>\the [W] is stuck to your hand, you can't put it in \the [src]</span>"
+		return 0
+
 	return 1
 
 //This proc handles items being inserted. It does not perform any checks of whether an item can or can't be inserted. That's done by can_be_inserted()
 //The stop_warning parameter will stop the insertion message from being displayed. It is intended for cases where you are inserting multiple items at once,
 //such as when picking up all the items on a tile with one click.
 /obj/item/weapon/storage/proc/handle_item_insertion(obj/item/W as obj, prevent_warning = 0)
-	if(!istype(W)) return 0
+	if(!istype(W))
+		return 0
 	if(usr)
-		usr.u_equip(W)
+		if(!usr.unEquip(W))
+			return 0
 		usr.update_icons()	//update our overlays
 	W.loc = src
 	W.on_enter_storage(src)
@@ -308,7 +328,7 @@
 	return 1
 
 //This proc is called when you want to place an item into the storage item.
-/obj/item/weapon/storage/attackby(obj/item/W as obj, mob/user as mob)
+/obj/item/weapon/storage/attackby(obj/item/W as obj, mob/user as mob, params)
 	..()
 
 	if(isrobot(user))
@@ -317,19 +337,6 @@
 
 	if(!can_be_inserted(W))
 		return 0
-
-	if(istype(W, /obj/item/weapon/tray))
-		var/obj/item/weapon/tray/T = W
-		if(T.calc_carry() > 0)
-			if(prob(85))
-				user << "\red The tray won't fit in [src]."
-				return 1
-			else
-				W.loc = user.loc
-				if ((user.client && user.s_active != src))
-					user.client.screen -= W
-				W.dropped(user)
-				user << "\red God damnit!"
 
 	handle_item_insertion(W)
 	return 1
@@ -450,6 +457,39 @@
 	del(src)
 //BubbleWrap END
 
+//Returns the storage depth of an atom. This is the number of storage items the atom is contained in before reaching toplevel (the area).
+//Returns -1 if the atom was not found on container.
+/atom/proc/storage_depth(atom/container)
+	var/depth = 0
+	var/atom/cur_atom = src
 
+	while (cur_atom && !(cur_atom in container.contents))
+		if (isarea(cur_atom))
+			return -1
+		if (istype(cur_atom.loc, /obj/item/weapon/storage))
+			depth++
+		cur_atom = cur_atom.loc
 
+	if (!cur_atom)
+		return -1	//inside something with a null loc.
+
+	return depth
+
+//Like storage depth, but returns the depth to the nearest turf
+//Returns -1 if no top level turf (a loc was null somewhere, or a non-turf atom's loc was an area somehow).
+/atom/proc/storage_depth_turf()
+	var/depth = 0
+	var/atom/cur_atom = src
+
+	while (cur_atom && !isturf(cur_atom))
+		if (isarea(cur_atom))
+			return -1
+		if (istype(cur_atom.loc, /obj/item/weapon/storage))
+			depth++
+		cur_atom = cur_atom.loc
+
+	if (!cur_atom)
+		return -1	//inside something with a null loc.
+
+	return depth
 

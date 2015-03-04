@@ -30,14 +30,14 @@
 		overlays += "folder_paper"
 	return
 
-/obj/item/weapon/folder/attackby(obj/item/weapon/W as obj, mob/user as mob)
+/obj/item/weapon/folder/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
 	if(istype(W, /obj/item/weapon/paper) || istype(W, /obj/item/weapon/photo) || istype(W, /obj/item/weapon/paper_bundle) || istype(W, /obj/item/documents))
 		user.drop_item()
 		W.loc = src
 		user << "<span class='notice'>You put the [W] into \the [src].</span>"
 		update_icon()
 	else if(istype(W, /obj/item/weapon/pen))
-		var/n_name = copytext(sanitize(input(usr, "What would you like to label the folder?", "Folder Labelling", null)  as text), 1, MAX_NAME_LEN)
+		var/n_name = sanitize(copytext(input(usr, "What would you like to label the folder?", "Folder Labelling", null) as text, 1, MAX_NAME_LEN))
 		if((loc == usr && usr.stat == 0))
 			name = "folder[(n_name ? text("- '[n_name]'") : null)]"
 	return

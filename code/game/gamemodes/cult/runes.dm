@@ -813,7 +813,7 @@ var/list/sacrificed = list()
 			cultist.legcuffed = null
 			cultist.update_inv_legcuffed()
 		if (istype(cultist.wear_mask, /obj/item/clothing/mask/muzzle))
-			cultist.u_equip(cultist.wear_mask)
+			cultist.unEquip(cultist.wear_mask)
 		if(istype(cultist.loc, /obj/structure/closet)&&cultist.loc:welded)
 			cultist.loc:welded = 0
 		if(istype(cultist.loc, /obj/structure/closet/secure_closet)&&cultist.loc:locked)
@@ -1019,7 +1019,7 @@ var/list/sacrificed = list()
 			if(iscarbon(L))
 				var/mob/living/carbon/C = L
 				flick("e_flash", C.flash)
-				if(C.stuttering < 1 && (!(M_HULK in C.mutations)))
+				if(C.stuttering < 1 && (!(HULK in C.mutations)))
 					C.stuttering = 1
 				C.Weaken(1)
 				C.Stun(1)
@@ -1046,7 +1046,7 @@ var/list/sacrificed = list()
 			else if(iscarbon(T))
 				var/mob/living/carbon/C = T
 				flick("e_flash", C.flash)
-				if (!(M_HULK in C.mutations))
+				if (!(HULK in C.mutations))
 					C.silent += 15
 				C.Weaken(25)
 				C.Stun(25)

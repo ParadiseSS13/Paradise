@@ -25,9 +25,16 @@ var/global/list/joblist = list()					//list of all jobstypes, minus borg and AI
 var/global/list/flag_list = list()					//list of flags during Nations gamemode
 var/global/list/airlocks = list()					//list of all airlocks
 
+
+var/global/list/alphabet_uppercase = list("A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z") //added for Xenoarchaeology, might be useful for other stuff
+
+var/global/list/aibots = list() // AI controlled bots
+var/global/list/table_recipes = list() //list of all table craft recipes
+
 //Languages/species/whitelist.
 var/global/list/all_species[0]
 var/global/list/all_languages[0]
+var/global/list/language_keys[0]					// Table of say codes for all languages
 var/global/list/all_nations[0]
 var/global/list/whitelisted_species = list()
 
@@ -118,6 +125,13 @@ var/global/slime_colorh = list("grey", "gold", "silver", "metal", "purple", "dar
 		var/datum/language/L = new T
 		all_languages[L.name] = L
 
+	for (var/language_name in all_languages)
+		var/datum/language/L = all_languages[language_name]
+		if(!(L.flags & NONGLOBAL))
+			language_keys[":[lowertext(L.key)]"] = L
+			language_keys[".[lowertext(L.key)]"] = L
+			language_keys["#[lowertext(L.key)]"] = L
+
 	var/rkey = 0
 	paths = typesof(/datum/species)-/datum/species
 	for(var/T in paths)
@@ -128,6 +142,8 @@ var/global/slime_colorh = list("grey", "gold", "silver", "metal", "purple", "dar
 
 		if(S.flags & IS_WHITELISTED)
 			whitelisted_species += S.name
+			
+	init_subtypes(/datum/table_recipe, table_recipes)
 
 	return 1
 

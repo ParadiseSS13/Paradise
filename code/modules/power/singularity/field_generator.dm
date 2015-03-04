@@ -95,7 +95,7 @@ field_generator power level display
 		return
 
 
-/obj/machinery/field_generator/attackby(obj/item/W, mob/user)
+/obj/machinery/field_generator/attackby(obj/item/W, mob/user, params)
 	if(active)
 		user << "The [src] needs to be off."
 		return
@@ -350,6 +350,6 @@ field_generator power level display
 			if(O.last_warning && temp)
 				if((world.time - O.last_warning) > 50) //to stop message-spam
 					temp = 0
-					message_admins("A singulo exists and a containment field has failed.",1)
+					msg_admin_attack("A singulo exists and a containment field has failed.",1)
 					investigate_log("has <font color='red'>failed</font> whilst a singulo exists.","singulo")
 			O.last_warning = world.time

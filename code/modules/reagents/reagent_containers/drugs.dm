@@ -8,7 +8,7 @@
 	amount_per_transfer_from_this = 2
 	possible_transfer_amounts = 2
 	volume = 10
-	flags = FPRINT | TABLEPASS | OPENCONTAINER
+	flags = OPENCONTAINER
 
 	var/label_text = ""
 
@@ -81,8 +81,6 @@
 			user << "\blue You transfer [trans] units of the solution to [target]."
 
 		//Safety for dumping stuff into a ninja suit. It handles everything through attackby() and this is unnecessary.
-		else if(istype(target, /obj/item/clothing/suit/space/space_ninja))
-			return
 
 		else if(istype(target, /obj/machinery/bunsen_burner))
 			return
@@ -91,7 +89,7 @@
 			return
 
 
-	attackby(obj/item/weapon/W as obj, mob/user as mob)
+	attackby(obj/item/weapon/W as obj, mob/user as mob, params)
 		if(istype(W, /obj/item/weapon/pen) || istype(W, /obj/item/device/flashlight/pen))
 			var/tmp_label = sanitize(input(user, "Enter a label for [src.name]","Label",src.label_text))
 			if(length(tmp_label) > 10)

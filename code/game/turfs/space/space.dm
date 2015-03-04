@@ -31,7 +31,7 @@
 		step(user.pulling, get_dir(user.pulling.loc, src))
 	return
 
-/turf/space/attackby(obj/item/C as obj, mob/user as mob)
+/turf/space/attackby(obj/item/C as obj, mob/user as mob, params)
 
 	if (istype(C, /obj/item/stack/rods))
 		var/obj/item/stack/rods/R = C

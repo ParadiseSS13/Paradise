@@ -35,7 +35,7 @@
 			del(src)
 			return
 
-/obj/item/flag/attackby(obj/item/weapon/W as obj, mob/user as mob)
+/obj/item/flag/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
 	..()
 	if(istype(W, /obj/item/weapon/weldingtool))
 		var/obj/item/weapon/weldingtool/WT = W
@@ -199,11 +199,6 @@
 	name = "Syndicate flag"
 	desc = "A flag proudly boasting the logo of the Syndicate, in defiance of NT."
 	icon_state = "syndiflag"
-
-/obj/item/flag/ninja
-	name = "Spider Clan flag"
-	desc = "A flag proudly boasting the logo of the Spider Clan, in defiance of NT."
-	icon_state = "ninjaflag"
 
 /obj/item/flag/wiz
 	name = "Wizard Federation flag"

@@ -237,9 +237,7 @@ datum/borrowbook // Datum used to keep track of who has borrowed what when and f
 	user << browse(dat, "window=library")
 	onclose(user, "library")
 
-/obj/machinery/librarycomp/attackby(obj/item/weapon/W as obj, mob/user as mob)
-	if (src.density && istype(W, /obj/item/weapon/card/emag))
-		src.emagged = 1
+/obj/machinery/librarycomp/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
 	if(istype(W, /obj/item/weapon/barcodescanner))
 		var/obj/item/weapon/barcodescanner/scanner = W
 		scanner.computer = src
@@ -248,6 +246,10 @@ datum/borrowbook // Datum used to keep track of who has borrowed what when and f
 			V.show_message("[src] lets out a low, short blip.", 2)
 	else
 		..()
+		
+/obj/machinery/librarycomp/emag_act(user as mob)
+	if (src.density)
+		src.emagged = 1
 
 /obj/machinery/librarycomp/Topic(href, href_list)
 	if(..())
@@ -300,9 +302,9 @@ datum/borrowbook // Datum used to keep track of who has borrowed what when and f
 		if(checkoutperiod < 1)
 			checkoutperiod = 1
 	if(href_list["editbook"])
-		buffer_book = copytext(sanitize(input("Enter the book's title:") as text|null),1,MAX_MESSAGE_LEN)
+		buffer_book = sanitize(copytext(input("Enter the book's title:") as text|null,1,MAX_MESSAGE_LEN))
 	if(href_list["editmob"])
-		buffer_mob = copytext(sanitize(input("Enter the recipient's name:") as text|null),1,MAX_NAME_LEN)
+		buffer_mob = sanitize(copytext(input("Enter the recipient's name:") as text|null,1,MAX_NAME_LEN))
 	if(href_list["checkout"])
 		var/datum/borrowbook/b = new /datum/borrowbook
 		b.bookname = sanitize(buffer_book)
@@ -317,7 +319,7 @@ datum/borrowbook // Datum used to keep track of who has borrowed what when and f
 		var/obj/item/weapon/book/b = locate(href_list["delbook"])
 		inventory.Remove(b)
 	if(href_list["setauthor"])
-		var/newauthor = copytext(sanitize(input("Enter the author's name: ") as text|null),1,MAX_MESSAGE_LEN)
+		var/newauthor = sanitize(copytext(input("Enter the author's name: ") as text|null,1,MAX_MESSAGE_LEN))
 		if(newauthor)
 			scanner.cache.author = newauthor
 	if(href_list["setcategory"])
@@ -402,7 +404,7 @@ datum/borrowbook // Datum used to keep track of who has borrowed what when and f
 	density = 1
 	var/obj/item/weapon/book/cache		// Last scanned book
 
-/obj/machinery/libraryscanner/attackby(var/obj/O as obj, var/mob/user as mob)
+/obj/machinery/libraryscanner/attackby(var/obj/O as obj, var/mob/user as mob, params)
 	if(istype(O, /obj/item/weapon/book))
 		user.drop_item()
 		O.loc = src
@@ -452,7 +454,7 @@ datum/borrowbook // Datum used to keep track of who has borrowed what when and f
 	anchored = 1
 	density = 1
 
-/obj/machinery/bookbinder/attackby(var/obj/O as obj, var/mob/user as mob)
+/obj/machinery/bookbinder/attackby(var/obj/O as obj, var/mob/user as mob, params)
 	if(istype(O, /obj/item/weapon/paper))
 		user.drop_item()
 		O.loc = src

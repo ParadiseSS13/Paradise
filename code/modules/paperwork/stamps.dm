@@ -1,23 +1,26 @@
 /obj/item/weapon/stamp
-	name = "\improper GRANTED rubber stamp"
+	name = "\improper rubber stamp"
 	desc = "A rubber stamp for stamping important documents."
 	icon = 'icons/obj/bureaucracy.dmi'
 	icon_state = "stamp-ok"
 	item_state = "stamp"
-	flags = FPRINT | TABLEPASS
 	throwforce = 0
 	w_class = 1.0
-	throw_speed = 7
-	throw_range = 15
+	throw_speed = 3
+	throw_range = 7
 	m_amt = 60
-	_color = "qm"
+	_color = "cargo"
 	pressure_resistance = 2
 	attack_verb = list("stamped")
+
+/obj/item/weapon/stamp/suicide_act(mob/user)
+	user.visible_message("<span class='suicide'>[user] stamps 'VOID' on \his forehead, then promptly falls over, dead.</span>")
+	return (OXYLOSS)
 
 /obj/item/weapon/stamp/qm
 	name = "Quartermaster's rubber stamp"
 	icon_state = "stamp-qm"
-	_color = "cargo"
+	_color = "qm"
 
 /obj/item/weapon/stamp/law
 	name = "Law office's rubber stamp"
@@ -53,6 +56,11 @@
 	name = "chief medical officer's rubber stamp"
 	icon_state = "stamp-cmo"
 	_color = "cmo"
+
+/obj/item/weapon/stamp/granted
+	name = "\improper GRANTED rubber stamp"
+	icon_state = "stamp-ok"
+	_color = "qm"
 
 /obj/item/weapon/stamp/denied
 	name = "\improper DENIED rubber stamp"

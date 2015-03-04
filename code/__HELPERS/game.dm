@@ -167,8 +167,6 @@
 // The old system would loop through lists for a total of 5000 per function call, in an empty server.
 // This new system will loop at around 1000 in an empty server.
 
-// SCREW THAT SHIT, we're not recursing.
-
 /proc/get_mobs_in_view(var/R, var/atom/source)
 	// Returns a list of mobs in range of R from source. Used in radio and say code.
 
@@ -180,48 +178,40 @@
 
 	var/list/range = hear(R, T)
 
-	for(var/mob/M in range)
-		hear += M
+	for(var/atom/A in range)
+		if(ismob(A))
+			var/mob/M = A
+			if(M.client)
+				hear += M
+			//world.log << "Start = [M] - [get_turf(M)] - ([M.x], [M.y], [M.z])"
+		else if(istype(A, /obj/item/device/radio))
+			hear += A
 
-	var/list/objects = list()
+		if(isobj(A) || ismob(A))
+			hear |= recursive_mob_check(A, hear, 3, 1, 0, 1)
 
-	for(var/obj/O in range)				//Get a list of objects in hearing range.  We'll check to see if any clients have their "eye" set to the object
-		objects += O
-
-	for(var/client/C in clients)
-		if(!istype(C) || !C.eye || istype(C.eye, /mob/aiEye))
-			continue   			//I have no idea when this client check would be needed, but if this runtimes people won't hear anything
-							//So kinda paranoid about runtime avoidance.
-		if(istype(C.eye, /obj/machinery/camera))
-			continue				//No microphones in cameras.
-
-		if(C.mob in hear)
-			continue
-
-		var/list/hear_and_objects = (hear|objects)      //Combined these lists here instead of doing the combine 3 more times.
-
-		if(C.eye in hear_and_objects)
-			hear += C.mob
-
-		else if(C.mob && C.mob.loc in hear_and_objects)
-			hear += C.mob
-		else if(C.mob && C.mob.loc.loc in hear_and_objects)
-			hear += C.mob
-		else if(C.mob && C.mob.loc.loc.loc in hear_and_objects)
-			hear += C.mob
 	return hear
 
 
 /proc/get_mobs_in_radio_ranges(var/list/obj/item/device/radio/radios)
 
-	//set background = 1
+	set background = 1
 
 	. = list()
 	// Returns a list of mobs who can hear any of the radios given in @radios
 	var/list/speaker_coverage = list()
-	for(var/i = 1; i <= radios.len; i++)
-		var/obj/item/device/radio/R = radios[i]
+	for(var/obj/item/device/radio/R in radios)
 		if(R)
+			//Cyborg checks. Receiving message uses a bit of cyborg's charge.
+			var/obj/item/device/radio/borg/BR = R
+			if(istype(BR) && BR.myborg)
+				var/mob/living/silicon/robot/borg = BR.myborg
+				var/datum/robot_component/CO = borg.get_component("radio")
+				if(!CO)
+					continue //No radio component (Shouldn't happen)
+				if(!borg.is_component_functioning("radio") || !borg.use_power(CO.energy_consumption))
+					continue //No power.
+
 			var/turf/speaker = get_turf(R)
 			if(speaker)
 				for(var/turf/T in hear(R.canhear_range,speaker))
@@ -238,6 +228,7 @@
 				if(speaker_coverage[ear] || (istype(M, /mob/dead/observer) && (M.client) && (M.client.prefs.toggles & CHAT_GHOSTRADIO)))
 					. |= M		// Since we're already looping through mobs, why bother using |= ? This only slows things down.
 	return .
+
 
 #define SIGN(X) ((X<0)?-1:1)
 
@@ -313,7 +304,8 @@ proc/isInSight(var/atom/A, var/atom/B)
 			return M
 	return null
 
-/proc/get_candidates(be_special_flag=0, afk_bracket=3000, jobban=0, department_jobban=0, override_age=0)
+/proc/get_candidates(be_special_flag=0, afk_bracket=3000, override_age=0, override_jobban=0)
+	var/roletext = get_roletext(be_special_flag)
 	var/list/candidates = list()
 	// Keep looping until we find a non-afk candidate within the time bracket (we limit the bracket to 10 minutes (6000))
 	while(!candidates.len && afk_bracket < 6000)
@@ -321,7 +313,7 @@ proc/isInSight(var/atom/A, var/atom/B)
 			if(G.client != null)
 				if(!(G.mind && G.mind.current && G.mind.current.stat != DEAD))
 					if(!G.client.is_afk(afk_bracket) && (G.client.prefs.be_special & be_special_flag))
-						if(!jobban && !department_jobban || !jobban_isbanned(G, jobban) && !jobban_isbanned(G,department_jobban))
+						if(!override_jobban || (!jobban_isbanned(G, roletext) && !jobban_isbanned(G,"Syndicate")))
 							if(override_age || player_old_enough_antag(G.client,be_special_flag))
 								candidates += G.client
 		afk_bracket += 600 // Add a minute to the bracket, for every attempt
@@ -464,3 +456,6 @@ proc/isInSight(var/atom/A, var/atom/B)
 
 /proc/MinutesToTicks(var/minutes as num)
 	return minutes * 60 * 10
+	
+/proc/SecondsToTicks(var/seconds)
+	return seconds * 10

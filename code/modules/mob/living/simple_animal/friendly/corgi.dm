@@ -7,6 +7,8 @@
 	icon_state = "corgi"
 	icon_living = "corgi"
 	icon_dead = "corgi_dead"
+	health = 30
+	maxHealth = 30
 	speak = list("YAP", "Woof!", "Bark!", "AUUUUUU")
 	speak_emote = list("barks", "woofs")
 	emote_hear = list("barks", "woofs", "yaps","pants")
@@ -25,7 +27,43 @@
 	var/obj/item/inventory_back
 	var/facehugger
 
+/mob/living/simple_animal/corgi/New()
+	..()
+	regenerate_icons()
+
 /mob/living/simple_animal/corgi/Life()
+	. = ..()
+	if(.)
+		if(fire)
+			if(fire_alert)							fire.icon_state = "fire[fire_alert]" //fire_alert is either 0 if no alert, 1 for heat and 2 for cold.
+			else									fire.icon_state = "fire0"
+		if(pullin)
+			if(pulling)								pullin.icon_state = "pull1"
+			else									pullin.icon_state = "pull0"
+		if(oxygen)
+			if(oxygen_alert)						oxygen.icon_state = "oxy1"
+			else									oxygen.icon_state = "oxy0"
+		if(toxin)
+			if(toxins_alert)							toxin.icon_state = "tox1"
+			else									toxin.icon_state = "tox0"
+
+	if (healths)
+		switch(health)
+			if(30 to INFINITY)		healths.icon_state = "health0"
+			if(26 to 29)			healths.icon_state = "health1"
+			if(21 to 25)			healths.icon_state = "health2"
+			if(16 to 20)			healths.icon_state = "health3"
+			if(11 to 15)			healths.icon_state = "health4"
+			if(6 to 10)				healths.icon_state = "health5"
+			if(1 to 5)				healths.icon_state = "health6"
+			else					healths.icon_state = "health7"
+	regenerate_icons()
+
+/mob/living/simple_animal/corgi/Die()
+	..()
+	regenerate_icons()
+
+/mob/living/simple_animal/corgi/revive()
 	..()
 	regenerate_icons()
 
@@ -33,7 +71,7 @@
 	user.set_machine(src)
 	if(user.stat) return
 
-	var/dat = 	"<div align='center'><b>Inventory of [name]</b></div><p>"
+	var/dat = 	"<div align='center'><b>Inventory of [real_name]</b></div><p>"
 	if(inventory_head)
 		dat +=	"<br><b>Head:</b> [inventory_head] (<a href='?src=\ref[src];remove_inv=head'>Remove</a>)"
 	else
@@ -47,7 +85,7 @@
 	onclose(user, "mob[real_name]")
 	return
 
-/mob/living/simple_animal/corgi/attackby(var/obj/item/O as obj, var/mob/user as mob)
+/mob/living/simple_animal/corgi/attackby(var/obj/item/O as obj, var/mob/user as mob, params)
 	if(inventory_head && inventory_back)
 		//helmet and armor = 100% protection
 		if( istype(inventory_head,/obj/item/clothing/head/helmet) && istype(inventory_back,/obj/item/clothing/suit/armor) )
@@ -85,6 +123,7 @@
 					SetLuminosity(0)
 					inventory_head.loc = src.loc
 					inventory_head = null
+					regenerate_icons()
 				else
 					usr << "\red There is nothing to remove from its [remove_from]."
 					return
@@ -92,6 +131,7 @@
 				if(inventory_back)
 					inventory_back.loc = src.loc
 					inventory_back = null
+					regenerate_icons()
 				else
 					usr << "\red There is nothing to remove from its [remove_from]."
 					return
@@ -163,6 +203,7 @@
 					usr.drop_item()
 
 					place_on_head(item_to_add)
+					regenerate_icons()
 
 			if("back")
 				if(inventory_back)
@@ -281,7 +322,7 @@
 	..()
 
 	//Feeding, chasing food, FOOOOODDDD
-	if(!stat && !resting && !buckled)
+	if(!stat && !resting && !buckled && (ckey == null))
 		turns_since_scan++
 		if(turns_since_scan > 5)
 			turns_since_scan = 0
@@ -325,9 +366,10 @@
 		if(prob(1))
 			emote(pick("dances around","chases its tail"))
 			spawn(0)
-				for(var/i in list(1,2,4,8,4,2,1,2,4,8,4,2,1,2,4,8,4,2))
-					dir = i
-					sleep(1)
+				if (ckey == null)
+					for(var/i in list(1,2,4,8,4,2,1,2,4,8,4,2,1,2,4,8,4,2))
+						dir = i
+						sleep(1)
 
 /obj/item/weapon/reagent_containers/food/snacks/meat/corgi
 	name = "Corgi meat"
@@ -341,7 +383,7 @@
 		now_pushing = 1
 		if(ismob(AM))
 			var/mob/tmob = AM
-			if(istype(tmob, /mob/living/carbon/human) && (M_FAT in tmob.mutations))
+			if(istype(tmob, /mob/living/carbon/human) && (FAT in tmob.mutations))
 				if(prob(70))
 					src << "\red <B>You fail to push [tmob]'s fat ass out of the way.</B>"
 					now_pushing = 0
@@ -376,14 +418,15 @@
 				if ((M.client && !( M.blinded )))
 					M.show_message("\blue [user] baps [name] on the nose with the rolled up [O]")
 			spawn(0)
-				for(var/i in list(1,2,4,8,4,2,1,2))
-					dir = i
-					sleep(1)
+				if (ckey == null)
+					for(var/i in list(1,2,4,8,4,2,1,2))
+						dir = i
+						sleep(1)
 	else
 		..()
 
 /mob/living/simple_animal/corgi/regenerate_icons()
-	overlays = list()
+	overlays.Cut()
 
 	if(inventory_head)
 		var/head_icon_state = inventory_head.icon_state
@@ -456,11 +499,12 @@
 
 	if(!stat && !resting && !buckled)
 		if(prob(1))
-			emote(pick("dances around","chases her tail"))
-			spawn(0)
-				for(var/i in list(1,2,4,8,4,2,1,2,4,8,4,2,1,2,4,8,4,2))
-					dir = i
-					sleep(1)
+			if (ckey == null)
+				emote(pick("dances around","chases her tail"))
+				spawn(0)
+					for(var/i in list(1,2,4,8,4,2,1,2,4,8,4,2,1,2,4,8,4,2))
+						dir = i
+						sleep(1)
 
 
 /mob/living/simple_animal/corgi/Ian/borgi
@@ -471,14 +515,12 @@
 	icon_living = "borgi"
 	var/emagged = 0
 
-/mob/living/simple_animal/corgi/Ian/borgi/attackby(var/obj/item/O as obj, var/mob/user as mob)
-	if (istype(O, /obj/item/weapon/card/emag) && !emagged)
+/mob/living/simple_animal/corgi/Ian/borgi/emag_act(user as mob)
+	if(!emagged)
 		emagged = 1
 		visible_message("<span class='warning'>[user] swipes a card through [src].</span>", "<span class='notice'>You overload [src]s internal reactor.</span>")
 		spawn (1000)
 			src.explode()
-		return
-	..()
 
 /mob/living/simple_animal/corgi/Ian/borgi/proc/explode()
 	for(var/mob/M in viewers(src, null))
@@ -520,7 +562,7 @@
 /mob/living/simple_animal/corgi/Ian/borgi/Die()
 	..()
 	visible_message("<b>[src]</b> blows apart!")
-	new /obj/effect/decal/cleanable/robot_debris(src.loc)
+	new /obj/effect/decal/cleanable/blood/gibs/robot(src.loc)
 	var/datum/effect/effect/system/spark_spread/s = new /datum/effect/effect/system/spark_spread
 	s.set_up(3, 1, src)
 	s.start()

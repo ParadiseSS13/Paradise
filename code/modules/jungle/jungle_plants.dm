@@ -27,7 +27,7 @@
 		A.loc = get_turf(src)
 */
 
-/obj/structure/bush/attackby(var/obj/I as obj, var/mob/user as mob)
+/obj/structure/bush/attackby(var/obj/I as obj, var/mob/user as mob, params)
 	//hatchets can clear away undergrowth
 	if(istype(I, /obj/item/weapon/hatchet) && !stump)
 		if(indestructable)

@@ -1,6 +1,7 @@
 #define GHOST_CAN_REENTER 1
 #define GHOST_IS_OBSERVER 2
 
+var/list/image/ghost_darkness_images = list() //this is a list of images for things ghosts should still be able to see when they toggle darkness
 
 /mob/dead/observer
 	name = "ghost"
@@ -24,6 +25,10 @@
 	var/atom/movable/following = null
 	var/medHUD = 0
 	var/secHUD = 0
+	var/anonsay = 0
+	var/image/ghostimage = null //this mobs ghost image, for deleting and stuff
+	var/ghostvision = 1 //is the ghost able to see things humans can't?
+	var/seedarkness = 1
 
 /mob/dead/observer/New(var/mob/body=null, var/flags=1)
 	sight |= SEE_TURFS | SEE_MOBS | SEE_OBJS | SEE_SELF
@@ -39,6 +44,10 @@
 
 
 	stat = DEAD
+
+	ghostimage = image(src.icon,src,src.icon_state)
+	ghost_darkness_images |= ghostimage
+	updateallghostimages()
 
 	var/turf/T
 	if(ismob(body))
@@ -77,6 +86,14 @@
 	real_name = name
 	..()
 
+/mob/dead/observer/Destroy()
+	if (ghostimage)
+		ghost_darkness_images -= ghostimage
+		del(ghostimage)
+		ghostimage = null
+		updateallghostimages()
+	..()
+
 /mob/dead/CanPass(atom/movable/mover, turf/target, height=0, air_group=0)
 	return 1
 /*
@@ -113,7 +130,7 @@ Works together with spawning an observer, noted above.
 	for(var/mob/living/carbon/human/patient in oview(M, 14))
 		C.images += patient.hud_list[HEALTH_HUD]
 		C.images += patient.hud_list[STATUS_HUD_OOC]
-		
+
 /mob/dead/proc/process_secHUD(var/mob/M)
 	var/client/C = M.client
 	for(var/mob/living/carbon/human/target in oview(M, 14))
@@ -460,21 +477,6 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 		src << "\blue Heat Capacity: [round(environment.heat_capacity(),0.1)]"
 
 
-/mob/dead/observer/verb/toggle_sight()
-	set name = "Toggle Sight"
-	set category = "Ghost"
-
-	switch(see_invisible)
-		if(SEE_INVISIBLE_OBSERVER_AI_EYE)
-			see_invisible = SEE_INVISIBLE_OBSERVER_NOOBSERVERS
-			usr << "<span class='notice'>You no longer see other observers or the AI eye.</span>"
-		if(SEE_INVISIBLE_OBSERVER_NOOBSERVERS)
-			see_invisible = SEE_INVISIBLE_OBSERVER_NOLIGHTING
-			usr << "<span class='notice'>You no longer see darkness.</span>"
-		else
-			see_invisible = SEE_INVISIBLE_OBSERVER_AI_EYE
-			usr << "<span class='notice'>You again see everything.</span>"
-
 /mob/dead/observer/verb/view_manfiest()
 	set name = "View Crew Manifest"
 	set category = "Ghost"
@@ -490,6 +492,11 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	if(usr != src)
 		return
 		..()
+
+	if (href_list["track"])
+		var/mob/target = locate(href_list["track"]) in mob_list
+		if(target)
+			ManualFollow(target)
 
 	if (href_list["follow"])
 		var/mob/target = locate(href_list["follow"]) in mob_list
@@ -532,3 +539,52 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 				following = null
 	..()
 //END TELEPORT HREF CODE
+
+/mob/dead/observer/verb/toggle_anonsay()
+	set category = "Ghost"
+	set name = "Toggle Anonymous Chat"
+	set desc = "Toggles showing your key in dead chat."
+
+	src.anonsay = !src.anonsay
+	if(anonsay)
+		src << "<span class='info'>Your key won't be shown when you speak in dead chat.</span>"
+	else
+		src << "<span class='info'>Your key will be publicly visible again.</span>"
+
+/mob/dead/observer/verb/toggle_ghostsee()
+	set name = "Toggle Ghost Vision"
+	set desc = "Toggles your ability to see things only ghosts can see, like other ghosts"
+	set category = "Ghost"
+	ghostvision = !(ghostvision)
+	updateghostsight()
+	usr << "You [(ghostvision?"now":"no longer")] have ghost vision."
+
+/mob/dead/observer/verb/toggle_darkness()
+	set name = "Toggle Darkness"
+	set category = "Ghost"
+	seedarkness = !(seedarkness)
+	updateghostsight()
+
+/mob/dead/observer/proc/updateghostsight()
+	if (!seedarkness)
+		see_invisible = SEE_INVISIBLE_OBSERVER_NOLIGHTING
+	else
+		see_invisible = SEE_INVISIBLE_OBSERVER
+		if (!ghostvision)
+			see_invisible = SEE_INVISIBLE_LIVING;
+	updateghostimages()
+
+/proc/updateallghostimages()
+	for (var/mob/dead/observer/O in player_list)
+		O.updateghostimages()
+
+/mob/dead/observer/proc/updateghostimages()
+	if (!client)
+		return
+	if (seedarkness || !ghostvision)
+		client.images -= ghost_darkness_images
+	else
+		//add images for the 60inv things ghosts can normally see when darkness is enabled so they can see them now
+		client.images |= ghost_darkness_images
+		if (ghostimage)
+			client.images -= ghostimage //remove ourself

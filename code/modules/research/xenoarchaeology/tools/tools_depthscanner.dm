@@ -10,7 +10,6 @@
 	icon_state = "crap"
 	item_state = "analyzer"
 	w_class = 1.0
-	flags = FPRINT | TABLEPASS
 	slot_flags = SLOT_BELT
 	var/list/positive_locations = list()
 	var/datum/depth_scan/current

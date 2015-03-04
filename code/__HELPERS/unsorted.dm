@@ -411,13 +411,7 @@ Turf and target are seperate in case you want to teleport some distance from a t
 				//world << "<b>[newname] is the AI!</b>"
 				//world << sound('sound/AI/newAI.ogg')
 				// Set eyeobj name
-				if(A.eyeobj)
-					A.eyeobj.name = "[newname] (AI Eye)"
-
-				// Set ai pda name
-				if(A.aiPDA)
-					A.aiPDA.owner = newname
-					A.aiPDA.name = newname + " (" + A.aiPDA.ownjob + ")"
+				A.SetName(newname)
 
 
 		fully_replace_character_name(oldname,newname)
@@ -534,29 +528,36 @@ Turf and target are seperate in case you want to teleport some distance from a t
 
 	return creatures
 
-var/list/sortMobsOrder = list(	"/mob/living/silicon/ai",
-								"/mob/living/silicon/pai",
-								"/mob/living/silicon/robot",
-								"/mob/living/carbon/human",
-								"/mob/spirit/mask",
-								"/mob/living/carbon/brain",
-								"/mob/living/carbon/alien",
-								"/mob/dead/observer",
-								"/mob/new_player",
-								"/mob/living/carbon/monkey",
-								"/mob/living/carbon/slime",
-								"/mob/living/simple_animal",
-								"/mob/living/silicon/hivebot",
-								"/mob/living/silicon/hive_mainframe"	)
-
 //Orders mobs by type then by name
 /proc/sortmobs()
 	var/list/moblist = list()
 	var/list/sortmob = sortAtom(mob_list)
-	for (var/path in sortMobsOrder)
-		for (var/mob/sorting in sortmob)
-			if (istype(sorting,text2path(path)))
-				moblist.Add(sorting)
+	for(var/mob/living/silicon/ai/M in sortmob)
+		moblist.Add(M)
+	for(var/mob/living/silicon/pai/M in sortmob)
+		moblist.Add(M)
+	for(var/mob/living/silicon/robot/M in sortmob)
+		moblist.Add(M)
+	for(var/mob/living/carbon/human/M in sortmob)
+		moblist.Add(M)
+	for(var/mob/living/carbon/brain/M in sortmob)
+		moblist.Add(M)
+	for(var/mob/living/carbon/alien/M in sortmob)
+		moblist.Add(M)
+	for(var/mob/dead/observer/M in sortmob)
+		moblist.Add(M)
+	for(var/mob/new_player/M in sortmob)
+		moblist.Add(M)
+	for(var/mob/living/carbon/monkey/M in sortmob)
+		moblist.Add(M)
+	for(var/mob/living/carbon/slime/M in sortmob)
+		moblist.Add(M)
+	for(var/mob/living/simple_animal/M in sortmob)
+		moblist.Add(M)
+//	for(var/mob/living/silicon/hivebot/M in world)
+//		mob_list.Add(M)
+//	for(var/mob/living/silicon/hive_mainframe/M in world)
+//		mob_list.Add(M)
 	return moblist
 
 //E = MC^2
@@ -1391,6 +1392,7 @@ proc/is_hot(obj/item/W as obj)
 
 //Returns 1 if the given item is capable of popping things like balloons, inflatable barriers, or cutting police tape.
 /proc/can_puncture(obj/item/W as obj)		// For the record, WHAT THE HELL IS THIS METHOD OF DOING IT?
+	if(!istype(W)) return 0
 	if(!W) return 0
 	if(W.sharp) return 1
 	return ( \

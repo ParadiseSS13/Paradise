@@ -7,7 +7,7 @@
 	var/obj/item/device/radio/electropack/part2 = null
 	var/status = 0
 	w_class = 5.0
-	flags = FPRINT | CONDUCT
+	flags = CONDUCT
 
 /obj/item/assembly/shock_kit/Destroy()
 	del(part1)
@@ -15,7 +15,7 @@
 	..()
 	return
 
-/obj/item/assembly/shock_kit/attackby(obj/item/weapon/W as obj, mob/user as mob)
+/obj/item/assembly/shock_kit/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
 	if(istype(W, /obj/item/weapon/wrench) && !status)
 		var/turf/T = loc
 		if(ismob(T))

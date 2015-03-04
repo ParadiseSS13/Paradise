@@ -2,38 +2,38 @@
 
 var/list/preferences_datums = list()
 
-var/global/list/special_roles = list( //keep synced with the defines BE_* in setup.dm
+var/global/list/special_roles = list( //keep synced with the defines BE_* in setup.dm. THE ORDER MATTERS
 //some autodetection here.
-	"pAI" = 1,                   						 // 0	
-	"traitor" = IS_MODE_COMPILED("traitor"),             // 1
-	"changeling" = IS_MODE_COMPILED("changeling"),       // 2
-	"vampire" = IS_MODE_COMPILED("vampire"),			 // 3	
-	"revolutionary" = IS_MODE_COMPILED("revolution"),    // 4
-	"blob" = IS_MODE_COMPILED("blob"),          	     // 5	
-	"operative" = IS_MODE_COMPILED("nuclear"),           // 6
-	"cultist" = IS_MODE_COMPILED("cult"),                // 7
-	"wizard" = IS_MODE_COMPILED("wizard"),               // 8
-	"raider" = IS_MODE_COMPILED("heist"),				 // 9
-	"alien" = 1,           							     // 10
-	"ninja" = 1,										 // 11	
-	"mutineer" = IS_MODE_COMPILED("mutiny"),             // 12
-	"malf AI" = IS_MODE_COMPILED("malfunction")	         // 13
+	"traitor" = IS_MODE_COMPILED("traitor"),             // 1 / 1
+	"operative" = IS_MODE_COMPILED("nuclear"),           // 2 / 2
+	"changeling" = IS_MODE_COMPILED("changeling"),       // 4 / 3
+	"wizard" = IS_MODE_COMPILED("wizard"),               // 8 / 4
+	"malf AI" = IS_MODE_COMPILED("malfunction"),         // 16 / 5
+	"revolutionary" = IS_MODE_COMPILED("revolution"),    // 32 / 6 
+	"alien" = 1,           							     // 62 / 7
+	"pAI" = 1,                   						 // 128	/ 8
+	"cultist" = IS_MODE_COMPILED("cult"),                // 256 / 9
+	"ninja" = 1,										 // 512 / 10
+	"raider" = IS_MODE_COMPILED("heist"),				 // 1024 / 11
+	"vampire" = IS_MODE_COMPILED("vampire"),			 // 2048 / 12
+	"mutineer" = IS_MODE_COMPILED("mutiny"),             // 4096 / 13
+	"blob" = IS_MODE_COMPILED("blob")          	     // 8192 / 14
 )
 var/global/list/special_role_times = list( //minimum age (in days) for accounts to play these roles
-	num2text(BE_TRAITOR) = 14, 
-	num2text(BE_OPERATIVE) = 21,
+	num2text(BE_PAI) = 0,   
+	num2text(BE_TRAITOR) = 7, 
 	num2text(BE_CHANGELING) = 14, 
-	num2text(BE_WIZARD) = 21,
-	num2text(BE_MALF) = 30,
+	num2text(BE_WIZARD) = 14,
 	num2text(BE_REV) = 14,
-	num2text(BE_ALIEN) = 21,        							     
-	num2text(BE_PAI) = 0,                   						 
-	num2text(BE_CULTIST) = 21,
-	num2text(BE_NINJA) = 21,									 
-	num2text(BE_RAIDER) = 21,
 	num2text(BE_VAMPIRE) = 14,
+	num2text(BE_BLOB) = 14,
+	num2text(BE_OPERATIVE) = 21,
+	num2text(BE_CULTIST) = 21,
+	num2text(BE_RAIDER) = 21,
+	num2text(BE_ALIEN) = 21,        							                  						 
+	num2text(BE_NINJA) = 21,									 
 	num2text(BE_MUTINEER) = 21,
-	num2text(BE_BLOB) = 14
+	num2text(BE_MALF) = 30
 )
 
 /proc/player_old_enough_antag(client/C, role)
@@ -55,6 +55,13 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 		return 0
 		
 	return max(0, minimal_player_age_antag - C.player_age)
+	
+/proc/check_client_age(client/C, var/days) // If days isn't provided, returns the age of the client. If it is provided, it returns the days until the player_age is equal to or greater than the days variable
+	if(!days)
+		return C.player_age
+	else
+		return max(0, days - C.player_age)
+	return 0
 
 var/const/MAX_SAVE_SLOTS = 10
 
@@ -224,7 +231,7 @@ datum/preferences
 				dat += "<br>"
 				dat += "Species: <a href='?_src_=prefs;preference=species;task=input'>[species]</a><br>"
 				if(species == "Vox")//oldvox code, sucks I know
-					dat += "Old vox? <a href='?_src_=prefs;preference=speciesprefs;task=input'>[speciesprefs ? "Yes(Big N2 tank)" : "No(Vox-special N2 tank)"]</a><br>"
+					dat += "Old Vox? <a href='?_src_=prefs;preference=speciesprefs;task=input'>[speciesprefs ? "Yes (Large N2 tank)" : "No(Vox-special N2 tank)"]</a><br>"
 				dat += "Secondary Language:<br><a href='?_src_=prefs;preference=language;task=input'>[language]</a><br>"
 				dat += "Blood Type: <a href='?_src_=prefs;preference=b_type;task=input'>[b_type]</a><br>"
 				if(species == "Human")
@@ -330,7 +337,10 @@ datum/preferences
 					dat += "[copytext(flavor_text, 1, 37)]...<br>"
 				dat += "<br>"
 
-				dat += "<br><b>Hair</b><br>"
+				var/hairname = "Hair"
+				if(species == "Machine")
+					hairname = "Frame Color"
+				dat += "<br><b>[hairname]</b><br>"
 				dat += "<a href='?_src_=prefs;preference=hair;task=input'>Change Color</a> <font face='fixedsys' size='3' color='#[num2hex(r_hair, 2)][num2hex(g_hair, 2)][num2hex(b_hair, 2)]'><table style='display:inline;' bgcolor='#[num2hex(r_hair, 2)][num2hex(g_hair, 2)][num2hex(b_hair)]'><tr><td>__</td></tr></table></font> "
 				dat += " Style: <a href='?_src_=prefs;preference=h_style;task=input'>[h_style]</a><br>"
 
@@ -498,6 +508,8 @@ datum/preferences
 					HTML += " <font color=green>\[Yes]</font>"
 				else
 					HTML += " <font color=red>\[No]</font>"
+				if(job.alt_titles)
+					HTML += "<br><b><a class='white' href=\"byond://?src=\ref[user];preference=job;task=alt_title;job=\ref[job]\">\[[GetPlayerAltTitle(job)]\]</a></b></td></tr>"
 				HTML += "</a></td></tr>"
 				continue
 /*
@@ -1108,8 +1120,11 @@ datum/preferences
 							b_type = new_b_type
 
 					if("hair")
-						if(species == "Human" || species == "Unathi" || species == "Tajaran" || species == "Skrell")
-							var/new_hair = input(user, "Choose your character's hair colour:", "Character Preference") as color|null
+						if(species == "Human" || species == "Unathi" || species == "Tajaran" || species == "Skrell" || species == "Machine")
+							var/input = "Choose your character's hair colour:"
+							if(species == "Machine")
+								input = "Choose your character's frame colour:"
+							var/new_hair = input(user, input, "Character Preference") as color|null
 							if(new_hair)
 								r_hair = hex2num(copytext(new_hair, 2, 4))
 								g_hair = hex2num(copytext(new_hair, 4, 6))
@@ -1484,8 +1499,8 @@ datum/preferences
 			else continue
 
 		if(disabilities & DISABILITY_FLAG_FAT && character.species.flags & CAN_BE_FAT)//character.species.flags & CAN_BE_FAT)
-			character.mutations += M_FAT
-			character.mutations += M_OBESITY
+			character.mutations += FAT
+			character.mutations += OBESITY
 		if(disabilities & DISABILITY_FLAG_NEARSIGHTED)
 			character.disabilities|=NEARSIGHTED
 		if(disabilities & DISABILITY_FLAG_EPILEPTIC)

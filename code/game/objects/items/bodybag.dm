@@ -40,14 +40,14 @@
 	density = 0
 
 
-	attackby(W as obj, mob/user as mob)
+	attackby(W as obj, mob/user as mob, params)
 		if (istype(W, /obj/item/weapon/pen))
 			var/t = input(user, "What would you like the label to be?", text("[]", src.name), null)  as text
 			if (user.get_active_hand() != W)
 				return
 			if (!in_range(src, user) && src.loc != user)
 				return
-			t = copytext(sanitize(t),1,MAX_MESSAGE_LEN)
+			t = sanitize(copytext(t,1,MAX_MESSAGE_LEN))
 			if (t)
 				src.name = "body bag - "
 				src.name += t
@@ -127,7 +127,7 @@
 			usr << "\red You can't fold that up anymore.."
 		..()
 
-	attackby(W as obj, mob/user as mob)
+	attackby(W as obj, mob/user as mob, params)
 		if(istype(W, /obj/item/weapon/card/id) || istype(W, /obj/item/device/pda))
 			if(src.allowed(user))
 				src.locked = !src.locked

@@ -2,12 +2,12 @@
 	spawn()
 		var/list/pick_turfs = list()
 		for(var/turf/simulated/floor/T in world)
-			if(T.z == 1)
+			if((T.z in config.station_levels))
 				pick_turfs += T
 
 		if(pick_turfs.len)
 			//All ready. Announce that bad juju is afoot.
-			command_alert("Space-time anomalies detected on the station. There is no additional data.", "Anomaly Alert")
+			command_announcement.Announce("Space-time anomalies detected on the station. There is no additional data.", "Anomaly Alert")
 			for(var/mob/M in player_list)
 				if(!istype(M,/mob/new_player))
 					M << sound('sound/AI/spanomalies.ogg')

@@ -59,7 +59,7 @@
 						item_to_retrive = null
 						break
 
-					M.u_equip(item_to_retrive)
+					M.unEquip(item_to_retrive)
 
 					if(ishuman(M)) //Edge case housekeeping
 						var/mob/living/carbon/human/C = M

@@ -5,7 +5,7 @@
 	var/track_blood = 0
 	var/list/feet_blood_DNA
 	var/track_blood_type
-	var/track_blood_green = 0
+	var/feet_blood_color
 
 /obj/item/clothing/gloves
 	var/transfer_blood = 0
@@ -13,7 +13,6 @@
 
 /obj/item/clothing/shoes/
 	var/track_blood = 0
-	var/track_blood_green = 0
 
 /obj/item/weapon/reagent_containers/glass/rag
 	name = "damp rag"
@@ -25,7 +24,7 @@
 	possible_transfer_amounts = list(5)
 	volume = 5
 	can_be_placed_into = null
-	flags = FPRINT | TABLEPASS | OPENCONTAINER | NOBLUDGEON
+	flags = OPENCONTAINER | NOBLUDGEON
 
 /obj/item/weapon/reagent_containers/glass/rag/attack(atom/target as obj|turf|area, mob/user as mob , flag)
 	if(ismob(target) && target.reagents && reagents.total_volume)

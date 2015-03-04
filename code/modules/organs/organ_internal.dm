@@ -96,6 +96,7 @@
 			P.internal_organs = list()
 		P.internal_organs += src
 	H.internal_organs_by_name[name] = src
+	H.internal_organs |= src
 	owner = H
 	return
 
@@ -196,7 +197,7 @@
 				src.damage += 0.2 * process_accuracy
 			//Damaged one shares the fun
 			else
-				var/datum/organ/internal/O = pick(owner.internal_organs_by_name)
+				var/datum/organ/internal/O = pick(owner.internal_organs)
 				if(O)
 					O.damage += 0.2  * process_accuracy
 

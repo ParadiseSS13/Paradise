@@ -156,6 +156,10 @@ var/turf/space/Space_Tile = locate(/turf/space) // A space tile to reference whe
 
 //This was a define, but I changed it to a variable so it can be changed in-game.(kept the all-caps definition because... code...) -Errorage
 var/MAX_EXPLOSION_RANGE = 14
+var/MAX_EX_DEVESTATION_RANGE = 3
+var/MAX_EX_HEAVY_RANGE = 7
+var/MAX_EX_LIGHT_RANGE = 14
+var/MAX_EX_FLASH_RANGE = 14
 //#define MAX_EXPLOSION_RANGE		14					// Defaults to 12 (was 8) -- TLE
 
 #define HUMAN_STRIP_DELAY 40 //takes 40ds = 4s to strip someone.
@@ -186,46 +190,45 @@ var/MAX_EXPLOSION_RANGE = 14
 #define SLOT_DENYPOCKET 4096	//this is to deny items with a w_class of 2 or 1 to fit in pockets.
 #define SLOT_TWOEARS 8192
 #define SLOT_PDA 16384
+#define SLOT_TIE 32768
 
 
 //FLAGS BITMASK
-#define STOPSPRESSUREDMAGE 1	//This flag is used on the flags variable for SUIT and HEAD items which stop pressure damage. Note that the flag 1 was previous used as ONBACK, so it is possible for some code to use (flags & 1) when checking if something can be put on your back. Replace this code with (inv_flags & SLOT_BACK) if you see it anywhere
-                                //To successfully stop you taking all pressure damage you must have both a suit and head item with this flag.
-#define TABLEPASS 2			// can pass by a table or rack
+#define STOPSPRESSUREDMAGE 		1		//This flag is used on the flags variable for SUIT and HEAD items which stop pressure damage. Note that the flag 1 was previous used as ONBACK, so it is possible for some code to use (flags & 1) when checking if something can be put on your back. Replace this code with (inv_flags & SLOT_BACK) if you see it anywhere To successfully stop you taking all pressure damage you must have both a suit and head item with this flag.
+#define NODROP					2		// This flag makes it so that an item literally cannot be removed at all, or at least that's how it should be. Only deleted.
+#define NOBLUDGEON  			4		// when an item has this it produces no "X has been hit by Y with Z" message with the default handler
+#define MASKINTERNALS			8		// mask allows internals
+//#define USEDELAY 				16		// 1 second extra delay on use (Can be used once every 2s)
+#define NOSHIELD				32		// weapon not affected by shield
+#define CONDUCT					64		// conducts electricity (metal etc.)
+#define ABSTRACT				128		// for all things that are technically items but used for various different stuff, made it 128 because it could conflict with other flags other way
+#define ON_BORDER				512		// item has priority to check when entering or leaving
+#define NODELAY 				32768	// 1 second attackby delay skipped (Can be used once every 0.2s). Most objects have a 1s attackby delay, which doesn't require a flag.
 
-#define MASKINTERNALS	8	// mask allows internals
-//#define SUITSPACE		8	// suit protects against space
+#define NOBLOODY				2048	// used to items if they don't want to get a blood overlay
 
-#define USEDELAY 	16		// 1 second extra delay on use (Can be used once every 2s)
-#define NODELAY 	32768	// 1 second attackby delay skipped (Can be used once every 0.2s). Most objects have a 1s attackby delay, which doesn't require a flag.
-#define NOSHIELD	32		// weapon not affected by shield
-#define CONDUCT		64		// conducts electricity (metal etc.)
-#define FPRINT		256		// takes a fingerprint
-#define ON_BORDER	512		// item has priority to check when entering or leaving
-#define NOBLUDGEON  4  // when an item has this it produces no "X has been hit by Y with Z" message with the default handler
-#define NOBLOODY	2048	// used to items if they don't want to get a blood overlay
+#define GLASSESCOVERSEYES		1024
+#define MASKCOVERSEYES			1024	// get rid of some of the other retardation in these flags
+#define HEADCOVERSEYES			1024	// feel free to realloc these numbers for other purposes
+#define MASKCOVERSMOUTH			2048	// on other items, these are just for mask/head
+#define HEADCOVERSMOUTH			2048
 
-#define GLASSESCOVERSEYES	1024
-#define MASKCOVERSEYES		1024		// get rid of some of the other retardation in these flags
-#define HEADCOVERSEYES		1024		// feel free to realloc these numbers for other purposes
-#define MASKCOVERSMOUTH		2048		// on other items, these are just for mask/head
-#define HEADCOVERSMOUTH		2048
+#define HEADBANGPROTECT			4096
+#define EARBANGPROTECT			1024
 
-#define HEADBANGPROTECT		4096
-#define EARBANGPROTECT		1024
+#define THICKMATERIAL 	1024			//prevents syringes, parapens and hypos if the external suit or helmet (if targeting head) has this flag. Example: space suits, biosuit, bombsuits, thick suits that cover your body. (NOTE: flag shared with NOSLIP)
+#define NOSLIP					1024 	//prevents from slipping on wet floors, in space etc
 
-#define NOSLIP		1024 		//prevents from slipping on wet floors, in space etc
+#define OPENCONTAINER			4096	// is an open container for chemistry purposes
 
-#define OPENCONTAINER	4096	// is an open container for chemistry purposes
+#define BLOCK_GAS_SMOKE_EFFECT	8192	// blocks the effect that chemical clouds would have on a mob --glasses, mask and helmets ONLY! (NOTE: flag shared with ONESIZEFITSALL)
+#define ONESIZEFITSALL 			8192
+#define PLASMAGUARD 			1638	//Does not get contaminated by plasma.
 
-#define BLOCK_GAS_SMOKE_EFFECT 8192	// blocks the effect that chemical clouds would have on a mob --glasses, mask and helmets ONLY! (NOTE: flag shared with ONESIZEFITSALL)
-#define ONESIZEFITSALL 8192
-#define PLASMAGUARD 16384			//Does not get contaminated by plasma.
+#define	NOREACT					16384 	//Reagents dont' react inside this container.
 
-#define	NOREACT		16384 			//Reagents dont' react inside this container.
-
-#define BLOCKHEADHAIR 4             // temporarily removes the user's hair overlay. Leaves facial hair.
-#define BLOCKHAIR	32768			// temporarily removes the user's hair, facial and otherwise.
+#define BLOCKHEADHAIR 			4		// temporarily removes the user's hair overlay. Leaves facial hair.
+#define BLOCKHAIR				32768	// temporarily removes the user's hair, facial and otherwise.
 
 //flags for pass_flags
 #define PASSTABLE	1
@@ -271,6 +274,7 @@ var/MAX_EXPLOSION_RANGE = 14
 #define slot_legcuffed 19
 #define slot_r_ear 20
 #define slot_wear_pda 21
+#define slot_tie 22
 
 //Cant seem to find a mob bitflags area other than the powers one
 
@@ -338,18 +342,18 @@ var/MAX_EXPLOSION_RANGE = 14
 ///////////////////////////////////////
 
 // Generic mutations:
-#define	M_TK			1
-#define M_RESIST_COLD	2
-#define M_XRAY			3
-#define M_HULK			4
-#define M_CLUMSY			5
-#define M_FAT				6
-#define M_HUSK			7
-#define M_NOCLONE			8
+#define	TK			1
+#define RESIST_COLD	2
+#define XRAY			3
+#define HULK			4
+#define CLUMSY			5
+#define FAT				6
+#define HUSK			7
+#define NOCLONE			8
 
 
 // Extra powers:
-#define M_LASER			9 	// harm intent - click anywhere to shoot lasers from eyes
+#define LASER			9 	// harm intent - click anywhere to shoot lasers from eyes
 //#define HEAL			10 	// (Not implemented) healing people with hands
 //#define SHADOW		11 	// (Not implemented) shadow teleportation (create in/out portals anywhere) (25%)
 //#define SCREAM		12 	// (Not implemented) supersonic screaming (25%)
@@ -381,31 +385,32 @@ var/MAX_EXPLOSION_RANGE = 14
 #define PLANT 30
 
 // Other Mutations:
-#define M_NO_BREATH		100 	// no need to breathe
-#define M_REMOTE_VIEW	101 	// remote viewing
-#define M_REGEN			102 	// health regen
-#define M_RUN			103 	// no slowdown
-#define M_REMOTE_TALK	104 	// remote talking
-#define M_MORPH			105 	// changing appearance
-#define M_RESIST_HEAT	106 	// heat resistance
-#define M_HALLUCINATE	107 	// hallucinations
-#define M_FINGERPRINTS	108 	// no fingerprints
-#define M_NO_SHOCK		109 	// insulated hands
-#define M_DWARF			110 	// table climbing
+#define NO_BREATH		100 	// no need to breathe
+#define REMOTE_VIEW	101 	// remote viewing
+#define REGEN			102 	// health regen
+#define RUN			103 	// no slowdown
+#define REMOTE_TALK	104 	// remote talking
+#define MORPH			105 	// changing appearance
+#define RESIST_HEAT	106 	// heat resistance
+#define HALLUCINATE	107 	// hallucinations
+#define FINGERPRINTS	108 	// no fingerprints
+#define NO_SHOCK		109 	// insulated hands
+#define DWARF			110 	// table climbing
 
 // Goon muts
-#define M_OBESITY       200		// Decreased metabolism
-#define M_TOXIC_FARTS   201		// Duh
-#define M_STRONG        202		// (Nothing)
-#define M_SOBER         203		// Increased alcohol metabolism
-#define M_PSY_RESIST    204		// Block remoteview
-#define M_SUPER_FART    205		// Duh
-#define M_EMPATH		206		//Read minds
+#define OBESITY       200		// Decreased metabolism
+#define TOXIC_FARTS   201		// Duh
+#define STRONG        202		// (Nothing)
+#define SOBER         203		// Increased alcohol metabolism
+#define PSY_RESIST    204		// Block remoteview
+#define SUPER_FART    205		// Duh
+#define EMPATH		206		//Read minds
+#define COMIC			207		//Comic Sans
 
 // /vg/ muts
-#define M_LOUD		208		// CAUSES INTENSE YELLING
-#define M_WHISPER	209		// causes quiet whispering
-#define M_DIZZY		210		// Trippy.
+#define LOUD		208		// CAUSES INTENSE YELLING
+//#define WHISPER	209		// causes quiet whispering
+#define DIZZY		210		// Trippy.
 
 //disabilities
 #define NEARSIGHTED		1
@@ -696,8 +701,9 @@ var/list/TAGGERLOCATIONS = list("Disposals",
 #define R_SOUNDS		2048
 #define R_SPAWN			4096
 #define R_MOD			8192
+#define R_MENTOR		16384
 
-#define R_MAXPERMISSION 8192 //This holds the maximum value for a permission. It is used in iteration, so keep it updated.
+#define R_MAXPERMISSION 16384 //This holds the maximum value for a permission. It is used in iteration, so keep it updated.
 
 #define R_HOST			65535
 
@@ -707,11 +713,12 @@ var/list/TAGGERLOCATIONS = list("Disposals",
 #define CHAT_GHOSTEARS	4
 #define CHAT_GHOSTSIGHT	8
 #define CHAT_PRAYER		16
-//#define CHAT_RADIO		32
+#define CHAT_RADIO		32
 #define CHAT_ATTACKLOGS	64
 #define CHAT_DEBUGLOGS	128
 #define CHAT_LOOC		256
 #define CHAT_GHOSTRADIO 512
+#define SHOW_TYPING 	1024
 
 #define SOUND_ADMINHELP	1
 #define SOUND_MIDI		2
@@ -720,7 +727,7 @@ var/list/TAGGERLOCATIONS = list("Disposals",
 #define SOUND_STREAMING	16
 
 #define SOUND_DEFAULT (SOUND_ADMINHELP|SOUND_MIDI|SOUND_AMBIENCE|SOUND_LOBBY|SOUND_STREAMING)
-#define TOGGLES_DEFAULT (CHAT_OOC|CHAT_DEAD|CHAT_GHOSTEARS|CHAT_GHOSTSIGHT|CHAT_PRAYER|CHAT_ATTACKLOGS|CHAT_LOOC)
+#define TOGGLES_DEFAULT (CHAT_OOC|CHAT_DEAD|CHAT_GHOSTEARS|CHAT_GHOSTSIGHT|CHAT_PRAYER|CHAT_RADIO|CHAT_ATTACKLOGS|CHAT_LOOC)
 
 #define BE_TRAITOR		1
 #define BE_OPERATIVE	2
@@ -733,7 +740,7 @@ var/list/TAGGERLOCATIONS = list("Disposals",
 #define BE_CULTIST		256
 #define BE_NINJA		512
 #define BE_RAIDER		1024
-#define BE_VAMPIRE		2048 
+#define BE_VAMPIRE		2048
 #define BE_MUTINEER		4096
 #define BE_BLOB			8192
 
@@ -792,18 +799,20 @@ var/list/be_special_flags = list(
 //feel free to add shit to lists below
 var/list/tachycardics = list("coffee", "inaprovaline", "hyperzine", "nitroglycerin", "thirteenloko", "nicotine")	//increase heart rate
 var/list/bradycardics = list("neurotoxin", "cryoxadone", "clonexadone", "space_drugs", "stoxin")					//decrease heart rate
-var/list/heartstopper = list("potassium_phorochloride", "zombie_powder") //this stops the heart
-var/list/cheartstopper = list("potassium_chloride") //this stops the heart when overdose is met -- c = conditional
+var/list/heartstopper = list("zombie_powder") //this stops the heart
+var/list/cheartstopper = list() //this stops the heart when overdose is met -- c = conditional
 
 //proc/get_pulse methods
 #define GETPULSE_HAND	0	//less accurate (hand)
 #define GETPULSE_TOOL	1	//more accurate (med scanner, sleeper, etc)
 
-var/list/RESTRICTED_CAMERA_NETWORKS = list( //Those networks can only be accessed by preexisting terminals. AIs and new terminals can't use them.
+var/list/restricted_camera_networks = list( //Those networks can only be accessed by preexisting terminals. AIs and new terminals can't use them.
 	"CentCom",
 	"ERT",
 	"NukeOps",
 	"Thunderdome",
+	"UO45",
+	"UO45R",
 	"Xeno"
 	)
 
@@ -836,13 +845,17 @@ var/list/RESTRICTED_CAMERA_NETWORKS = list( //Those networks can only be accesse
 #define HAS_TAIL 		8
 #define HAS_SKIN_TONE 	16
 #define HAS_SKIN_COLOR	32
-
+#define TAIL_WAGGING    64
 
 //Language flags.
-#define WHITELISTED 1  // Language is available if the speaker is whitelisted.
-#define RESTRICTED 2   // Language can only be accquired by spawning or an admin.
-#define NONVERBAL 4    // Language has a significant non-verbal component. Speech is garbled without line-of-sight
-#define SIGNLANG 8     // Language is completely non-verbal. Speech is displayed through emotes for those who can understand.
+#define WHITELISTED 1  		// Language is available if the speaker is whitelisted.
+#define RESTRICTED 2   		// Language can only be accquired by spawning or an admin.
+#define NONVERBAL 4    		// Language has a significant non-verbal component. Speech is garbled without line-of-sight
+#define SIGNLANG 8     		// Language is completely non-verbal. Speech is displayed through emotes for those who can understand.
+#define HIVEMIND 16         // Broadcast to all mobs with this language.
+#define NONGLOBAL 32		// Do not add to general languages list
+#define INNATE 64			// All mobs can be assumed to speak and understand this language (audible emotes)
+#define NO_TALK_MSG 128		// Do not show the "\The [speaker] talks into \the [radio]" message
 
 //Flags for zone sleeping
 #define ZONE_ACTIVE 1
@@ -942,3 +955,26 @@ var/list/hit_appends = list("-OOF", "-ACK", "-UGH", "-HRNK", "-HURGH", "-GLORF")
 #define CRAFTLATHE	8	//Uses fuck if I know. For use eventually.
 #define MECHFAB		16 //Remember, objects utilising this flag should have construction_time and construction_cost vars.
 //Note: More then one of these can be added to a design but imprinter and lathe designs are incompatable.
+
+// Suit sensor levels
+#define SUIT_SENSOR_OFF 0
+#define SUIT_SENSOR_BINARY 1
+#define SUIT_SENSOR_VITAL 2
+#define SUIT_SENSOR_TRACKING 3
+
+// NanoUI flags
+#define STATUS_INTERACTIVE 2 // GREEN Visability
+#define STATUS_UPDATE 1 // ORANGE Visability
+#define STATUS_DISABLED 0 // RED Visability
+#define STATUS_CLOSE -1 // Close the interface
+
+#define NANO_IGNORE_DISTANCE 1
+
+//Click cooldowns, in tenths of a second
+#define CLICK_CD_MELEE 8
+#define CLICK_CD_RANGE 4
+#define CLICK_CD_BREAKOUT 100
+#define CLICK_CD_HANDCUFFED 10
+#define CLICK_CD_TKSTRANGLE 10
+#define CLICK_CD_POINT 10
+#define CLICK_CD_RESIST 20

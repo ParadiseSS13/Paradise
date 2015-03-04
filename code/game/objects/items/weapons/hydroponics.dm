@@ -20,7 +20,6 @@
 	desc = "A small satchel made for organizing seeds."
 	var/mode = 1;  //0 = pick one at a time, 1 = pick all on tile
 	var/capacity = 500; //the number of seeds it can carry.
-	flags = FPRINT | TABLEPASS
 	slot_flags = SLOT_BELT
 	w_class = 1
 	var/list/item_quants = list()
@@ -40,7 +39,7 @@
 		if(0)
 			usr << "The bag now picks up one seed pouch at a time."
 
-/obj/item/seeds/attackby(var/obj/item/O as obj, var/mob/user as mob)
+/obj/item/seeds/attackby(var/obj/item/O as obj, var/mob/user as mob, params)
 	..()
 	if (istype(O, /obj/item/weapon/seedbag))
 		var/obj/item/weapon/seedbag/S = O
@@ -231,7 +230,7 @@
 /*
  * Corncob
  */
-/obj/item/weapon/corncob/attackby(obj/item/weapon/W as obj, mob/user as mob)
+/obj/item/weapon/corncob/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
 	..()
 	if(istype(W, /obj/item/weapon/circular_saw) || istype(W, /obj/item/weapon/hatchet) || istype(W, /obj/item/weapon/kitchen/utensil/knife) || istype(W, /obj/item/weapon/kitchenknife) || istype(W, /obj/item/weapon/kitchenknife/ritual))
 		user << "<span class='notice'>You use [W] to fashion a pipe out of the corn cob!</span>"

@@ -43,9 +43,6 @@
 	desc = "An energy gun with an experimental miniaturized reactor."
 	icon_state = "nucgun"
 	origin_tech = "combat=3;materials=5;powerstorage=3"
-	charge_cost = 1000
-	fire_sound = 'sound/weapons/Taser.ogg'
-	projectile_type = "/obj/item/projectile/energy/electrode"
 	var/lightfail = 0
 	var/charge_tick = 0
 	can_flashlight = 0
@@ -120,9 +117,6 @@
 		update_mode()
 			if (mode == 0)
 				overlays += "nucgun-stun"
-				charge_cost = 1000
-				fire_sound = 'sound/weapons/Taser.ogg'
-				projectile_type = "/obj/item/projectile/energy/electrode"
 			else if (mode == 1)
 				overlays += "nucgun-kill"
 
@@ -136,3 +130,43 @@
 		update_charge()
 		update_reactor()
 		update_mode()
+		
+
+/obj/item/weapon/gun/energy/gun/turret
+	name = "hybrid turret gun"
+	desc = "A heavy hybrid energy cannon with two settings: Stun and kill."
+	icon_state = "turretlaser"
+	slot_flags = null
+	w_class = 5
+	heavy_weapon = 1
+	can_flashlight = 0
+	projectile_type = /obj/item/projectile/energy/electrode
+	charge_cost = 1000
+	fire_delay = 20
+	
+/obj/item/weapon/gun/energy/gun/turret/update_icon()
+	icon_state = initial(icon_state)
+
+/obj/item/weapon/gun/energy/gun/turret/attack_self(mob/living/user as mob)
+	switch(mode)
+		if(0)
+			mode = 1
+			charge_cost = 500
+			fire_sound = 'sound/weapons/Laser.ogg'
+			user << "\red [src.name] is now set to kill."
+			projectile_type = /obj/item/projectile/beam
+			modifystate = "energykill"
+			fire_delay = 0
+		if(1)
+			mode = 0
+			charge_cost = 1000
+			fire_sound = 'sound/weapons/Taser.ogg'
+			user << "\red [src.name] is now set to stun."
+			projectile_type = /obj/item/projectile/energy/electrode
+			modifystate = "energystun"
+			fire_delay = 20
+	update_icon()
+	if(user.l_hand == src)
+		user.update_inv_l_hand()
+	else
+		user.update_inv_r_hand()	

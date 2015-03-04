@@ -29,7 +29,6 @@
 	var/remote_disabled = 0 //If enabled, the AI cannot *Remotely* control a bot. It can still control it through cameras.
 	var/mob/living/silicon/ai/calling_ai //Links a bot to the AI calling it.
 	var/obj/item/device/radio/Radio //The bot's radio, for speaking to people.
-	var/radio_frequency //The bot's default radio speaking freqency. Recommended to be on a department frequency.
 	var/radio_name = "Common"
 	//var/emagged = 0 //Urist: Moving that var to the general /bot tree as it's used by most bots
 	var/auto_patrol = 0// set to make bot automatically patrol
@@ -146,22 +145,25 @@
 		user << "[src] is in pristine condition."
 
 /obj/machinery/bot/attack_alien(var/mob/living/carbon/alien/user as mob)
+	user.changeNext_move(CLICK_CD_MELEE)
+	user.do_attack_animation(src)
 	health -= rand(15,30)*brute_dam_coeff
 	visible_message("<span class='userdanger'>[user] has slashed [src]!</span>")
 	playsound(loc, 'sound/weapons/slice.ogg', 25, 1, -1)
 	if(prob(10))
-		new /obj/effect/decal/cleanable/oil(loc)
+		new /obj/effect/decal/cleanable/blood/oil(loc)
 	healthcheck()
 
 
 /obj/machinery/bot/attack_animal(var/mob/living/simple_animal/M as mob)
+	M.do_attack_animation(src)
 	if(M.melee_damage_upper == 0)
 		return
 	health -= M.melee_damage_upper
 	visible_message("<span class='userdanger'>[M] has [M.attacktext] [src]!</span>")
 	add_logs(M, src, "attacked", admin=0)
 	if(prob(10))
-		new /obj/effect/decal/cleanable/oil(loc)
+		new /obj/effect/decal/cleanable/blood/oil(loc)
 	healthcheck()
 
 /obj/machinery/bot/Topic(href, href_list) //Master Topic to handle common functions.
@@ -230,15 +232,13 @@
 	return 1 //Successful completion. Used to prevent child process() continuing if this one is ended early.
 
 
-/obj/machinery/bot/attackby(obj/item/weapon/W as obj, mob/user as mob)
+/obj/machinery/bot/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
 	if(istype(W, /obj/item/weapon/screwdriver))
 		if(!locked)
 			open = !open
 			user << "<span class='notice'>Maintenance panel is now [open ? "opened" : "closed"].</span>"
 		else
 			user << "<span class='warning'>Maintenance panel is locked.</span>"
-	else if (istype(W, /obj/item/weapon/card/emag) && emagged < 2)
-		Emag(user)
 	else
 		if(istype(W, /obj/item/weapon/weldingtool) && user.a_intent != "harm")
 			if(health >= maxhealth)
@@ -267,6 +267,9 @@
 				..()
 				healthcheck()
 
+/obj/machinery/bot/emag_act(user as mob)
+	if (emagged < 2)
+		Emag(user)
 
 /obj/machinery/bot/bullet_act(var/obj/item/projectile/Proj)
 	if((Proj.damage_type == BRUTE || Proj.damage_type == BURN))
@@ -338,13 +341,11 @@
 /obj/machinery/bot/attack_ai(mob/user as mob)
 	attack_hand(user)
 
-/obj/machinery/bot/proc/speak(var/message, freq, var/freqname = null) //Pass a message to have the bot say() it. Pass a frequency to say it on the radio.
+/obj/machinery/bot/proc/speak(var/message, var/freqname = null) //Pass a message to have the bot say() it. Pass a frequency to say it on the radio.
 	if((!on) || (!message))
 		return
-	if(freq)
-		Radio.set_frequency(radio_frequency)
 	if(freqname)
-		Radio.autosay(message, src.name, freqname, list(src.z)) 
+		Radio.autosay(message, src.name, freqname, list(src.z))
 	else
 		for(var/mob/O in hearers(src, null))
 			O.show_message("<span class='game say'><span class='name'>[src]</span> beeps, \"[message]\"</span>",2)
@@ -373,6 +374,8 @@ obj/machinery/bot/proc/scan(var/scan_type, var/old_target, var/scan_range)
 				final_result = scan_result
 			else
 				continue //The current element failed assessment, move on to the next.
+		else
+			continue
 		return final_result
 
 //When the scan finds a target, run bot specific processing to select it for the next step. Empty by default.
@@ -583,7 +586,7 @@ obj/machinery/bot/proc/start_patrol()
 	new_destination = "__nearest__"
 	post_signal(beacon_freq, "findbeacon", "patrol")
 	awaiting_beacon = 1
-	spawn(150)
+	spawn(200)
 		awaiting_beacon = 0
 		if(nearest_beacon)
 			set_destination(nearest_beacon)
@@ -653,7 +656,7 @@ obj/machinery/bot/proc/start_patrol()
 					botcard.access = user_access + prev_access //Adds the user's access, if any.
 				mode = BOT_SUMMON
 				calc_summon_path()
-				speak("Responding.", radio_frequency, radio_name)
+				speak("Responding.", radio_name)
 				return
 
 	// receive response from beacon
@@ -740,7 +743,7 @@ obj/machinery/bot/proc/bot_summon()
 	check_bot_access()
 	path = AStar(loc, summon_target, /turf/proc/CardinalTurfsWithAccess, /turf/proc/Distance_cardinal, 0, 150, id=botcard, exclude=avoid)
 	if(!path || tries >= 5) //Cannot reach target. Give up and announce the issue.
-		speak("Summon command failed, destination unreachable.", radio_frequency, radio_name)
+		speak("Summon command failed, destination unreachable.", radio_name)
 		bot_reset()
 
 /obj/machinery/bot/proc/summon_step()
@@ -788,4 +791,3 @@ obj/machinery/bot/proc/bot_summon()
 		loc = Mb.loc
 		frustration = 0
 	return
-	

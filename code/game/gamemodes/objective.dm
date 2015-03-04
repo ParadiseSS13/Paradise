@@ -30,7 +30,7 @@ datum/objective
 	proc/find_target()
 		var/list/possible_targets = list()
 		for(var/datum/mind/possible_target in ticker.minds)
-			if(possible_target != owner && ishuman(possible_target.current) && (possible_target.current.stat != 2))
+			if(possible_target != owner && ishuman(possible_target.current) && (possible_target.current.stat != DEAD))
 				possible_targets += possible_target
 		if(possible_targets.len > 0)
 			target = pick(possible_targets)
@@ -38,7 +38,7 @@ datum/objective
 	proc/find_target_by_role(role, role_type=0)//Option sets either to check assigned role or special role. Default to assigned.
 		var/list/possible_targets = list()
 		for(var/datum/mind/possible_target in ticker.minds)
-			if((possible_target != owner) && ishuman(possible_target.current) && ((role_type ? possible_target.special_role : possible_target.assigned_role) == role) && (possible_target.current.stat != 2) )
+			if((possible_target != owner) && ishuman(possible_target.current) && ((role_type ? possible_target.special_role : possible_target.assigned_role) == role) && (possible_target.current.stat != DEAD) )
 				possible_targets += possible_target
 		if(possible_targets.len > 0)
 			target = pick(possible_targets)
@@ -47,7 +47,7 @@ datum/objective
 	proc/find_target_with_special_role(role)
 		var/list/possible_targets = list()
 		for(var/datum/mind/possible_target in ticker.minds)
-			if((possible_target != owner) && ishuman(possible_target.current) && (role && possible_target.special_role == role || !role && possible_target.special_role) && (possible_target.current.stat != 2) )
+			if((possible_target != owner) && ishuman(possible_target.current) && (role && possible_target.special_role == role || !role && possible_target.special_role) && (possible_target.current.stat != DEAD) )
 				possible_targets += possible_target
 		if(possible_targets.len > 0)
 			target = pick(possible_targets)
@@ -104,7 +104,7 @@ datum/objective/mutiny
 			if(target.current.stat == DEAD || !ishuman(target.current) || !target.current.ckey || !target.current.client)
 				return 1
 			var/turf/T = get_turf(target.current)
-			if(T && (T.z != 1))			//If they leave the station they count as dead for this
+			if(T && !(T.z in config.station_levels))			//If they leave the station they count as dead for this
 				return 2
 			return 0
 		return 1
@@ -139,7 +139,7 @@ datum/objective/mutiny/rp
 				if(target in ticker.mode:head_revolutionaries)
 					return 1
 			var/turf/T = get_turf(target.current)
-			if(T && (T.z != 1))			//If they leave the station they count as dead for this
+			if(T && !(T.z in config.station_levels))			//If they leave the station they count as dead for this
 				rval = 2
 			return 0
 		return rval
@@ -255,7 +255,7 @@ datum/objective/maroon
 		if(target && target.current)
 			if(target.current.stat == DEAD || issilicon(target.current) || isbrain(target.current) || target.current.z > 6 || !target.current.ckey) //Borgs/brains/AIs count as dead for traitor objectives. --NeoFite
 				return 1
-			if(target.current.z == 2)
+			if((target.current.z in config.admin_levels))
 				return 0
 		return 1
 
@@ -385,7 +385,7 @@ datum/objective/block
 		for(var/mob/living/player in player_list)
 			if(player.type in protected_mobs)	continue
 			if (player.mind)
-				if (player.stat != 2)
+				if (player.stat != DEAD)
 					if (get_turf(player) in shuttle)
 						return 0
 		return 1
@@ -420,7 +420,7 @@ datum/objective/escape
 			return 0
 		if(!emergency_shuttle.returned())
 			return 0
-		if(!owner.current || owner.current.stat ==2)
+		if(!owner.current || owner.current.stat == DEAD)
 			return 0
 		var/turf/location = get_turf(owner.current.loc)
 		if(!location)
@@ -451,7 +451,14 @@ datum/objective/escape/escape_with_identity
 	var/target_real_name // Has to be stored because the target's real_name can change over the course of the round
 
 	find_target()
-		target = ..()
+		var/list/possible_targets = list() //Copypasta because NO_SCAN races, yay for snowflakes.
+		for(var/datum/mind/possible_target in ticker.minds)
+			if(possible_target != owner && ishuman(possible_target.current) && (possible_target.current.stat != DEAD))
+				var/mob/living/carbon/human/H = possible_target.current
+				if(!(H.species.flags & NO_SCAN))
+					possible_targets += possible_target
+		if(possible_targets.len > 0)
+			target = pick(possible_targets)
 		if(target && target.current)
 			target_real_name = target.current.real_name
 			explanation_text = "Escape on the shuttle or an escape pod with the identity of [target_real_name], the [target.assigned_role] while wearing their identification card."
@@ -612,7 +619,7 @@ datum/objective/steal
 			var/tmp_obj = new O.typepath
 			var/custom_name = tmp_obj:name
 			del(tmp_obj)
-			O.name = copytext(sanitize(input("Enter target name:", "Objective target", custom_name) as text|null),1,MAX_NAME_LEN)
+			O.name = sanitize(copytext(input("Enter target name:", "Objective target", custom_name) as text|null,1,MAX_NAME_LEN))
 			if (!O.name) return
 			steal_target = O
 			explanation_text = "Steal [O.name]."
@@ -656,21 +663,7 @@ datum/objective/download
 
 
 	check_completion()
-		if(!ishuman(owner.current))
-			return 0
-		if(!owner.current || owner.current.stat == 2)
-			return 0
-		if(!(istype(owner.current:wear_suit, /obj/item/clothing/suit/space/space_ninja)&&owner.current:wear_suit:s_initialized))
-			return 0
-		var/current_amount
-		var/obj/item/clothing/suit/space/space_ninja/S = owner.current:wear_suit
-		if(!S.stored_research.len)
-			return 0
-		else
-			for(var/datum/tech/current_data in S.stored_research)
-				if(current_data.level>1)	current_amount+=(current_data.level-1)
-		if(current_amount<target_amount)	return 0
-		return 1
+		return 0
 
 
 
@@ -682,34 +675,8 @@ datum/objective/capture
 
 
 	check_completion()//Basically runs through all the mobs in the area to determine how much they are worth.
-		var/captured_amount = 0
-		var/area/ninja/holding/A = locate()
-		for(var/mob/living/carbon/human/M in A)//Humans.
-			if(M.stat==2)//Dead folks are worth less.
-				captured_amount+=0.5
-				continue
-			captured_amount+=1
-		for(var/mob/living/carbon/monkey/M in A)//Monkeys are almost worthless, you failure.
-			captured_amount+=0.1
-		for(var/mob/living/carbon/alien/larva/M in A)//Larva are important for research.
-			if(M.stat==2)
-				captured_amount+=0.5
-				continue
-			captured_amount+=1
-		for(var/mob/living/carbon/alien/humanoid/M in A)//Aliens are worth twice as much as humans.
-			if(istype(M, /mob/living/carbon/alien/humanoid/queen))//Queens are worth three times as much as humans.
-				if(M.stat==2)
-					captured_amount+=1.5
-				else
-					captured_amount+=3
-				continue
-			if(M.stat==2)
-				captured_amount+=1
-				continue
-			captured_amount+=2
-		if(captured_amount<target_amount)
-			return 0
-		return 1
+		return 0
+
 
 
 
@@ -720,10 +687,14 @@ datum/objective/absorb
 			var/n_p = 1 //autowin
 			if (ticker.current_state == GAME_STATE_SETTING_UP)
 				for(var/mob/new_player/P in player_list)
-					if(P.client && P.ready && P.mind!=owner)
+					if(P.client && P.ready && P.mind != owner)
+						if(P.client.prefs && (P.client.prefs.species == "Vox" || P.client.prefs.species == "Slime People" || P.client.prefs.species == "Machine")) // Special check for species that can't be absorbed. No better solution.
+							continue
 						n_p ++
 			else if (ticker.current_state == GAME_STATE_PLAYING)
 				for(var/mob/living/carbon/human/P in player_list)
+					if(P.species.flags & NO_SCAN)
+						continue
 					if(P.client && !(P.mind in ticker.mode.changelings) && P.mind!=owner)
 						n_p ++
 			target_amount = min(target_amount, n_p)
@@ -738,12 +709,14 @@ datum/objective/absorb
 			return 0
 
 datum/objective/destroy
+	var/target_real_name
 	find_target()
 		var/list/possible_targets = active_ais(1)
 		var/mob/living/silicon/ai/target_ai = pick(possible_targets)
 		target = target_ai.mind
 		if(target && target.current)
-			explanation_text = "Destroy [target.name], the experimental AI."
+			target_real_name = target.current.real_name
+			explanation_text = "Destroy [target_real_name], the AI."
 		else
 			explanation_text = "Free Objective"
 		return target
@@ -845,7 +818,7 @@ datum/objective/heist/kidnap
 		var/list/priority_targets = list()
 
 		for(var/datum/mind/possible_target in ticker.minds)
-			if(possible_target != owner && ishuman(possible_target.current) && (possible_target.current.stat != 2) && (possible_target.assigned_role != "MODE"))
+			if(possible_target != owner && ishuman(possible_target.current) && (possible_target.current.stat != DEAD) && (possible_target.assigned_role != "MODE"))
 				possible_targets += possible_target
 				for(var/role in roles)
 					if(possible_target.assigned_role == role)
@@ -865,7 +838,7 @@ datum/objective/heist/kidnap
 
 	check_completion()
 		if(target && target.current)
-			if (target.current.stat == 2)
+			if (target.current.stat == DEAD)
 				return 0 // They're dead. Fail.
 			//if (!target.current.restrained())
 			//	return 0 // They're loose. Close but no cigar.

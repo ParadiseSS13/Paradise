@@ -4,19 +4,24 @@
 	icon_state = "ionrifle"
 	item_state = null	//so the human update icon uses the icon_state instead.
 	icon_override = 'icons/mob/in-hand/guns.dmi'
-	fire_sound = 'sound/weapons/Laser.ogg'
+	fire_sound = 'sound/weapons/IonRifle.ogg'
 	origin_tech = "combat=2;magnets=4"
-	w_class = 4.0
-	flags =  FPRINT | TABLEPASS | CONDUCT
+	w_class = 5.0
+	flags =  CONDUCT
 	slot_flags = SLOT_BACK
 	projectile_type = "/obj/item/projectile/ion"
 
 /obj/item/weapon/gun/energy/ionrifle/emp_act(severity)
-	if(severity <= 2)
-		power_supply.use(round(power_supply.maxcharge / severity))
-		update_icon()
-	else
-		return
+	return
+
+/obj/item/weapon/gun/energy/ionrifle/carbine
+	name = "ion carbine"
+	desc = "The MK.II Prototype Ion Projector is a lightweight carbine version of the larger ion rifle, built to be ergonomic and efficient."
+	icon_state = "ioncarbine"
+	item_state = "ioncarbine"
+	origin_tech = "combat=4;magnets=4;materials=4"
+	w_class = 3
+	slot_flags = SLOT_BELT
 
 /obj/item/weapon/gun/energy/decloner
 	name = "biological demolecularisor"
@@ -92,7 +97,7 @@
 	item_state = "c20r"
 	w_class = 4
 	projectile_type = "/obj/item/projectile/meteor"
-	cell_type = "/obj/item/weapon/cell/potato"
+	cell_type = "/obj/item/weapon/stock_parts/cell/potato"
 	clumsy_check = 0 //Admin spawn only, might as well let clowns use it.
 	var/charge_tick = 0
 	var/recharge_time = 5 //Time it takes for shots to recharge (in ticks)
@@ -180,7 +185,7 @@ obj/item/weapon/gun/energy/staff/focus
 	projectile_type = "/obj/item/projectile/beam/sniper"
 	slot_flags = SLOT_BACK
 	charge_cost = 2500
-	fire_delay = 10
+	fire_delay = 50
 	w_class = 4.0
 	var/zoom = 0
 
@@ -229,7 +234,7 @@ modules/mob/living/carbon/human/life.dm if you die, you will be zoomed out.
 	projectile_type = "/obj/item/projectile/kinetic"
 	fire_sound = 'sound/weapons/Kenetic_accel.ogg'
 	charge_cost = 5000
-	cell_type = "/obj/item/weapon/cell/crap"
+	cell_type = "/obj/item/weapon/stock_parts/cell/emproof"
 	var/overheat = 0
 	var/recent_reload = 1
 
@@ -239,6 +244,9 @@ modules/mob/living/carbon/human/life.dm if you die, you will be zoomed out.
 		overheat = 0
 		recent_reload = 0
 	..()
+
+/obj/item/weapon/gun/energy/kinetic_accelerator/emp_act(severity)
+	return
 
 /obj/item/weapon/gun/energy/kinetic_accelerator/attack_self(var/mob/living/user/L)
 	if(overheat || recent_reload)
@@ -274,14 +282,20 @@ modules/mob/living/carbon/human/life.dm if you die, you will be zoomed out.
 	silenced = 0
 	projectile_type = "/obj/item/projectile/energy/bolt/large"
 
+/obj/item/weapon/gun/energy/kinetic_accelerator/crossbow/large/cyborg
+	desc = "One and done!"
+	icon_state = "crossbowlarge"
+	origin_tech = null
+	m_amt = 0
 
 /obj/item/weapon/gun/energy/disabler
 	name = "disabler"
 	desc = "A self-defense weapon that exhausts organic targets, weakening them until they collapse."
 	icon_state = "disabler"
 	item_state = null
-	projectile_type = "/obj/item/projectile/beam/disabler"
-	cell_type = "/obj/item/weapon/cell"
+	projectile_type = /obj/item/projectile/beam/disabler
+	fire_sound = 'sound/weapons/taser2.ogg'
+	cell_type = "/obj/item/weapon/stock_parts/cell"
 	charge_cost = 500
 
 /obj/item/weapon/gun/energy/disabler/cyborg
@@ -311,7 +325,7 @@ modules/mob/living/carbon/human/life.dm if you die, you will be zoomed out.
 	if(isrobot(src.loc))
 		var/mob/living/silicon/robot/R = src.loc
 		if(R && R.cell)
-			if(R.cell.use(charge_cost)) 		//Take power from the borg...
+			if(R.cell.use(charge_cost/10)) 		//Take power from the borg...
 				power_supply.give(charge_cost)	//... to recharge the shot
 
 	update_icon()
@@ -326,9 +340,9 @@ modules/mob/living/carbon/human/life.dm if you die, you will be zoomed out.
 	icon_state = "l6closed0"
 	icon = 'icons/obj/gun.dmi'
 	fire_sound = 'sound/weapons/Gunshot_smg.ogg'
-	cell_type = "/obj/item/weapon/cell/secborg"
+	cell_type = "/obj/item/weapon/stock_parts/cell/secborg"
 	projectile_type = "/obj/item/projectile/bullet/midbullet3"
-	charge_cost = 300 //Yeah, let's NOT give them a 300 round clip that recharges, 20 is more reasonable and will actually hurt the borg's battery for overuse.
+	charge_cost = 200 //Yeah, let's NOT give them a 300 round clip that recharges, 20 is more reasonable and will actually hurt the borg's battery for overuse.
 	var/charge_tick = 0
 	var/recharge_time = 5
 
@@ -355,6 +369,6 @@ modules/mob/living/carbon/human/life.dm if you die, you will be zoomed out.
 	if(isrobot(src.loc))
 		var/mob/living/silicon/robot/R = src.loc
 		if(R && R.cell)
-			if(R.cell.use(charge_cost)) 		//Take power from the borg...
+			if(R.cell.use(charge_cost/10)) 		//Take power from the borg...
 				power_supply.give(charge_cost)	//...to recharge the shot
 	return 1

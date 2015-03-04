@@ -8,7 +8,7 @@
 
 	//Has a list of items that it can hold.
 	var/list/can_hold = list(
-		/obj/item/weapon/cell,
+		/obj/item/weapon/stock_parts/cell,
 		/obj/item/weapon/firealarm_electronics,
 		/obj/item/weapon/airalarm_electronics,
 		/obj/item/weapon/airlock_electronics,
@@ -80,14 +80,14 @@
 			wrapped = thing
 			break
 
-	if(wrapped) //Already have an item.		
-		
+	if(wrapped) //Already have an item.
+
 		//Temporary put wrapped into user so target's attackby() checks pass.
 		wrapped.loc = user
-		
+
 		//Pass the attack on to the target. This might delete/relocate wrapped.
-		target.attackby(wrapped,user)
-		
+		target.attackby(wrapped,user, params)
+
 		//If wrapped did neither get deleted nor put into target, put it back into the gripper.
 		if(wrapped && user && (wrapped.loc == user))
 			wrapped.loc = src
@@ -196,7 +196,7 @@
 			D << "\red You carefully and thoroughly decompile your downed fellow, storing as much of its resources as you can within yourself."
 
 			del(M)
-			new/obj/effect/decal/cleanable/oil(get_turf(src))
+			new/obj/effect/decal/cleanable/blood/oil(get_turf(src))
 
 			stored_comms["metal"] += 15
 			stored_comms["glass"] += 15
@@ -233,7 +233,7 @@
 			stored_comms["metal"]++
 			stored_comms["plastic"]++
 			stored_comms["plastic"]++
-		else if(istype(W,/obj/effect/decal/cleanable/robot_debris))
+		else if(istype(W,/obj/effect/decal/cleanable/blood/gibs/robot))
 			stored_comms["metal"]++
 			stored_comms["metal"]++
 			stored_comms["glass"]++

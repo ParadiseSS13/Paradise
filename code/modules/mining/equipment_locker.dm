@@ -228,7 +228,7 @@
 	updateUsrDialog()
 	return
 
-/obj/machinery/mineral/equipment_locker/attackby(obj/item/I as obj, mob/user as mob)
+/obj/machinery/mineral/equipment_locker/attackby(obj/item/I as obj, mob/user as mob, params)
 	if(istype(I, /obj/item/weapon/mining_voucher))
 		RedeemVoucher(I, user)
 		return
@@ -285,7 +285,7 @@
 	icon_state = "data"
 	var/points = 500
 
-/obj/item/weapon/card/mining_point_card/attackby(obj/item/I as obj, mob/user as mob)
+/obj/item/weapon/card/mining_point_card/attackby(obj/item/I as obj, mob/user as mob, params)
 	if(istype(I, /obj/item/weapon/card/id))
 		if(points)
 			var/obj/item/weapon/card/id/C = I
@@ -324,7 +324,7 @@
 		var/list/L = list()
 		for(var/obj/item/device/radio/beacon/B in world)
 			var/turf/T = get_turf(B)
-			if(T.z == 1)
+			if((T.z in config.station_levels))
 				L += B
 		if(!L.len)
 			user << "<span class='notice'>The [src.name] failed to create a wormhole.</span>"
@@ -484,7 +484,7 @@
 	projectilesound = 'sound/weapons/Gunshot4.ogg'
 	wanted_objects = list(/obj/item/weapon/ore)
 
-/mob/living/simple_animal/hostile/mining_drone/attackby(obj/item/I as obj, mob/user as mob)
+/mob/living/simple_animal/hostile/mining_drone/attackby(obj/item/I as obj, mob/user as mob, params)
 	if(istype(I, /obj/item/weapon/weldingtool))
 		var/obj/item/weapon/weldingtool/W = I
 		if(W.welding && !stat)

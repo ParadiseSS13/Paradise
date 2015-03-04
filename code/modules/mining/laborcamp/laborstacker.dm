@@ -12,14 +12,15 @@
 	var/obj/item/weapon/card/id/prisoner/inserted_id
 	var/obj/machinery/door/airlock/release_door
 	var/door_tag = "prisonshuttle"
-	var/obj/item/device/radio/Radio //needed to send messages to sec radio
 	var/use_release_door = 0
+	var/obj/item/device/radio/intercom/announcer
 
 
 /obj/machinery/mineral/labor_claim_console/New()
 	..()
-	Radio = new/obj/item/device/radio(src)
-	Radio.listening = 0 
+	announcer = new /obj/item/device/radio/intercom(null)
+	announcer.config(list("Security" = 0))
+
 	spawn(7)
 		src.machine = locate(/obj/machinery/mineral/stacking_machine, get_step(src, machinedir))
 		var/t
@@ -60,12 +61,13 @@
 	user << browse("[dat]", "window=console_stacking_machine")
 
 
-/obj/machinery/mineral/labor_claim_console/attackby(obj/item/I as obj, mob/user as mob)
+/obj/machinery/mineral/labor_claim_console/attackby(obj/item/I as obj, mob/user as mob, params)
 	if(istype(I, /obj/item/weapon/card/id))
 		return attack_hand(user)
-	else if(istype(I, /obj/item/weapon/card/emag))
-		return emag(user)
 	..()
+	
+/obj/machinery/mineral/labor_claim_console/emag_act(user as mob)
+	emag(user)
 
 /obj/machinery/mineral/labor_claim_console/proc/emag(mob/user as mob)
 	if(!emagged)
@@ -102,8 +104,8 @@
 				else
 					if(shuttle.location == 1)
 						if (shuttle.moving_status == SHUTTLE_IDLE)
-							Radio.set_frequency(SEC_FREQ)
-							Radio.talk_into(src, "[inserted_id.registered_name] has returned to the station. Minerals and Prisoner ID card ready for retrieval.", SEC_FREQ)
+							var/message = "[inserted_id.registered_name] has returned to the station. Minerals and Prisoner ID card ready for retrieval."
+							announcer.autosay(message, "Labor Camp Controller", "Security")
 							usr << "<span class='notice'>Shuttle received message and will be sent shortly.</span>"
 							shuttle.launch()
 						else
@@ -130,7 +132,7 @@
 
 /obj/machinery/mineral/stacking_machine/laborstacker
 	var/points = 0 //The unclaimed value of ore stacked.  Value for each ore loosely relative to its rarity.
-	var/list/ore_values = list(("glass" = 1), ("metal" = 2), ("solid plasma" = 20), ("plasteel" = 23), ("reinforced glass" = 4), ("gold" = 20), ("silver" = 20), ("uranium" = 20), ("diamond" = 25), ("bananium" = 50))
+	var/list/ore_values = list(("glass" = 1), ("metal" = 2), ("iron" = 3), ("solid plasma" = 20), ("plasteel" = 23), ("reinforced glass" = 4), ("gold" = 20), ("silver" = 20), ("uranium" = 20), ("diamond" = 25), ("bananium" = 50))
 
 /obj/machinery/mineral/stacking_machine/laborstacker/proc/get_ore_values()
 	var/dat = "<table border='0' width='200'>"
@@ -154,6 +156,17 @@
 					S.loc = output.loc
 			else
 				O.loc = output.loc
+				
+	//Output amounts that are past stack_amt.
+	for(var/sheet in stack_storage)
+		if(stack_storage[sheet] >= stack_amt)
+			var/stacktype = stack_paths[sheet]
+			var/obj/item/stack/sheet/S = new stacktype (get_turf(output))
+			S.amount = stack_amt
+			stack_storage[sheet] -= stack_amt
+
+	console.updateUsrDialog()
+	return
 
 
 /**********************Point Lookup Console**************************/
@@ -168,7 +181,7 @@
 /obj/machinery/mineral/labor_points_checker/attack_hand(mob/user)
 	user.examine(src)
 
-/obj/machinery/mineral/labor_points_checker/attackby(obj/item/I as obj, mob/user as mob)
+/obj/machinery/mineral/labor_points_checker/attackby(obj/item/I as obj, mob/user as mob, params)
 	if(istype(I, /obj/item/weapon/card/id))
 		if(istype(I, /obj/item/weapon/card/id/prisoner))
 			var/obj/item/weapon/card/id/prisoner/prisoner_id = I

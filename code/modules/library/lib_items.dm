@@ -28,7 +28,7 @@
 			I.loc = src
 	update_icon()
 
-/obj/structure/bookcase/attackby(obj/O as obj, mob/user as mob)
+/obj/structure/bookcase/attackby(obj/O as obj, mob/user as mob, params)
 	if(istype(O, /obj/item/weapon/book) || istype(O, /obj/item/weapon/spellbook))
 		user.drop_item()
 		O.loc = src
@@ -149,7 +149,6 @@
 	throw_speed = 1
 	throw_range = 5
 	w_class = 3		 //upped to three because books are, y'know, pretty big. (and you could hide them inside eachother recursively forever)
-	flags = FPRINT | TABLEPASS
 	attack_verb = list("bashed", "whacked", "educated")
 
 	autoignition_temperature = AUTOIGNITION_PAPER
@@ -179,7 +178,7 @@
 	else
 		user << "This book is completely blank!"
 
-/obj/item/weapon/book/attackby(obj/item/weapon/W as obj, mob/user as mob)
+/obj/item/weapon/book/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
 	if(carved)
 		if(!store)
 			if(W.w_class < 3)
@@ -274,7 +273,6 @@
 	throw_speed = 1
 	throw_range = 5
 	w_class = 1.0
-	flags = FPRINT | TABLEPASS
 	var/obj/machinery/librarycomp/computer // Associated computer - Modes 1 to 3 use this
 	var/obj/item/weapon/book/book	 //  Currently scanned book
 	var/mode = 0 					// 0 - Scan only, 1 - Scan and Set Buffer, 2 - Scan and Attempt to Check In, 3 - Scan and Attempt to Add to Inventory

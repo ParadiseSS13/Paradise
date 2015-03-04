@@ -54,6 +54,17 @@
 	materials = list("$metal" = 500, "$glass" = 1000)
 	build_path = /obj/item/device/gps
 	category = list("Bluespace")
+	
+/datum/design/miningsatchel_holding
+	name = "Mining Satchel of Holding"
+	desc = "A mining satchel that can hold an infinite amount of ores."
+	id = "minerbag_holding"
+	req_tech = list("bluespace" = 3, "materials" = 4)
+	build_type = PROTOLATHE
+	materials = list("$gold" = 250, "$uranium" = 500) //quite cheap, for more convenience
+	reliability = 100
+	build_path = /obj/item/weapon/storage/bag/ore/holding
+	category = list("Bluespace")
 
 /datum/design/telepad_beacon
 	name = "Telepad Beacon"

@@ -33,11 +33,11 @@
 	..()
 	component_parts = list()
 	component_parts += new /obj/item/weapon/circuitboard/smes(null)
-	component_parts += new /obj/item/weapon/cell/high(null)
-	component_parts += new /obj/item/weapon/cell/high(null)
-	component_parts += new /obj/item/weapon/cell/high(null)
-	component_parts += new /obj/item/weapon/cell/high(null)
-	component_parts += new /obj/item/weapon/cell/high(null)
+	component_parts += new /obj/item/weapon/stock_parts/cell/high(null)
+	component_parts += new /obj/item/weapon/stock_parts/cell/high(null)
+	component_parts += new /obj/item/weapon/stock_parts/cell/high(null)
+	component_parts += new /obj/item/weapon/stock_parts/cell/high(null)
+	component_parts += new /obj/item/weapon/stock_parts/cell/high(null)
 	component_parts += new /obj/item/weapon/stock_parts/capacitor(null)
 	component_parts += new /obj/item/stack/cable_coil(null, 5)
 	RefreshParts()
@@ -68,7 +68,7 @@
 		IO += CP.rating
 	input_level_max = 200000 * IO
 	output_level_max = 200000 * IO
-	for(var/obj/item/weapon/cell/PC in component_parts)
+	for(var/obj/item/weapon/stock_parts/cell/PC in component_parts)
 		C += PC.maxcharge
 	capacity = C / (15000) * 1e6
 	
@@ -107,7 +107,7 @@
 	return
 
 
-/obj/machinery/power/smes/attackby(obj/item/I, mob/user)
+/obj/machinery/power/smes/attackby(obj/item/I, mob/user, params)
 	//opening using screwdriver
 	if(default_deconstruction_screwdriver(user, "[initial(icon_state)]-o", initial(icon_state), I))
 		update_icon()
@@ -332,6 +332,9 @@
 	add_fingerprint(user)
 	ui_interact(user)
 	
+/obj/machinery/power/smes/attack_ghost(mob/user)
+	ui_interact(user)	
+	
 /obj/machinery/power/smes/attack_hand(mob/user)
 	add_fingerprint(user)
 	ui_interact(user)
@@ -421,7 +424,7 @@
 
 
 /obj/machinery/power/smes/proc/ion_act()
-	if(src.z == 1)
+	if((src.z in config.station_levels))
 		if(prob(1)) //explosion
 			world << "\red SMES explosion in [src.loc.loc]"
 			for(var/mob/M in viewers(src))

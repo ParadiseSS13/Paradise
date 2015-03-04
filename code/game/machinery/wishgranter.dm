@@ -30,52 +30,96 @@
 		insisting++
 
 	else
-		user << "You speak.  [pick("I want the station to disappear","Humanity is corrupt, mankind must be destroyed","I want to be rich", "I want to rule the world","I want immortality.")].  The Wish Granter answers."
-		user << "Your head pounds for a moment, before your vision clears.  You are the avatar of the Wish Granter, and your power is LIMITLESS!  And it's all yours.  You need to make sure no one can take it from you.  No one can know, first."
-
-		charges--
-		insisting = 0
-
-		if (!(M_HULK in user.mutations))
-			user.dna.SetSEState(HULKBLOCK,1)
-
-		if (!(M_LASER in user.mutations))
-			user.mutations.Add(M_LASER)
-
-		if (!(M_XRAY in user.mutations))
-			user.mutations.Add(M_XRAY)
-			user.sight |= (SEE_MOBS|SEE_OBJS|SEE_TURFS)
-			user.see_in_dark = 8
-			user.see_invisible = SEE_INVISIBLE_LEVEL_TWO
-
-		if (!(M_RESIST_COLD in user.mutations))
-			user.mutations.Add(M_RESIST_COLD)
-
-		if (!(M_RESIST_HEAT in user.mutations))
-			user.mutations.Add(M_RESIST_HEAT)
-
-		if (!(M_TK in user.mutations))
-			user.mutations.Add(M_TK)
-
-		/* Not used
-		if(!(HEAL in user.mutations))
-			user.mutations.Add(HEAL)
-		*/
-
-		user.update_mutations()
+		user << "The power of the Wish Granter have turned you into the superhero the station deserves. You are a masked vigilante, and answer to no man. Will you use your newfound strength to protect the innocent, or will you hunt the guilty?"
 
 		ticker.mode.traitors += user.mind
-		user.mind.special_role = "Avatar of the Wish Granter"
+		user.mind.special_role = "The Hero The Station Deserves"
 
-		var/datum/objective/silence/silence = new
-		silence.owner = user.mind
-		user.mind.objectives += silence
+
+		var/mob/living/carbon/human/M = user
+
+		var/wish = input("You want to...","Wish") as anything in list("Protect the innocent","Hunt the guilty")
+		switch(wish)
+			if("Protect the innocent")
+				M.fully_replace_character_name(M.real_name, "Owlman")
+
+				var/datum/objective/protect/protect = new
+				protect.owner = user.mind
+				user.mind.objectives += protect
+
+				for(var/obj/item/W in M)
+					M.unEquip(W)
+
+				M.equip_to_slot_or_del(new /obj/item/clothing/shoes/black(M), slot_shoes)
+				M.equip_to_slot_or_del(new /obj/item/clothing/under/owl(M), slot_w_uniform)
+				M.equip_to_slot_or_del(new /obj/item/clothing/suit/toggle/owlwings(M), slot_wear_suit)
+				M.equip_to_slot_or_del(new /obj/item/clothing/mask/gas/owl_mask(M), slot_wear_mask)
+
+				var/obj/item/weapon/card/id/syndicate/W = new(M)
+				W.name = "[M.real_name]'s ID Card (Superhero)"
+				W.access = get_all_accesses()
+				W.assignment = "Superhero"
+				W.registered_name = M.real_name
+				M.equip_to_slot_or_del(W, slot_wear_id)
+
+				M.regenerate_icons()
+
+			if("Hunt the guilty")
+				M.fully_replace_character_name(M.real_name, "The Griffin")
+
+				var/datum/objective/assassinate/assasinate = new
+				assasinate.owner = user.mind
+				user.mind.objectives += assasinate
+
+				for(var/obj/item/W in M)
+					M.unEquip(W)
+
+				M.equip_to_slot_or_del(new /obj/item/clothing/shoes/griffin(M), slot_shoes)
+				M.equip_to_slot_or_del(new /obj/item/clothing/under/griffin(M), slot_w_uniform)
+				M.equip_to_slot_or_del(new /obj/item/clothing/suit/toggle/owlwings/griffinwings(M), slot_wear_suit)
+				M.equip_to_slot_or_del(new /obj/item/clothing/head/griffin(M), slot_head)
+
+				var/obj/item/weapon/card/id/syndicate/W = new(M)
+				W.name = "[M.real_name]'s ID Card (Supervillain)"
+				W.access = get_all_accesses()
+				W.assignment = "Supervillain"
+				W.registered_name = M.real_name
+				M.equip_to_slot_or_del(W, slot_wear_id)
+
+				M.regenerate_icons()
 
 		var/obj_count = 1
 		for(var/datum/objective/OBJ in user.mind.objectives)
 			user << "<B>Objective #[obj_count]</B>: [OBJ.explanation_text]"
 			obj_count++
 
-		user << "You have a very bad feeling about this."
+		charges--
+		insisting = 0
+
+		if (!(HULK in user.mutations))
+			user.dna.SetSEState(HULKBLOCK,1)
+
+		if (!(LASER in user.mutations))
+			user.mutations.Add(LASER)
+
+		if (!(XRAY in user.mutations))
+			user.mutations.Add(XRAY)
+			user.sight |= (SEE_MOBS|SEE_OBJS|SEE_TURFS)
+			user.see_in_dark = 8
+			user.see_invisible = SEE_INVISIBLE_LEVEL_TWO
+
+		if (!(RESIST_COLD in user.mutations))
+			user.mutations.Add(RESIST_COLD)
+
+		if (!(RESIST_HEAT in user.mutations))
+			user.mutations.Add(RESIST_HEAT)
+
+		if (!(TK in user.mutations))
+			user.mutations.Add(TK)
+
+		if(!(REGEN in user.mutations))
+			user.mutations.Add(REGEN)
+
+		user.update_mutations()
 
 	return

@@ -27,7 +27,7 @@
 	else
 		icon_state = "isolator"
 
-/obj/machinery/disease2/isolator/attackby(var/obj/O as obj, var/mob/user)
+/obj/machinery/disease2/isolator/attackby(var/obj/O as obj, var/mob/user, params)
 	if(!istype(O,/obj/item/weapon/reagent_containers/syringe)) return
 	var/obj/item/weapon/reagent_containers/syringe/S = O
 

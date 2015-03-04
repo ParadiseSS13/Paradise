@@ -79,20 +79,20 @@
 		..()
 		return
 
-	if(!canremove)
+	if(flags & NODROP)
 		return
 
 	var/obj/item/clothing/ears/O
 	if(slot_flags & SLOT_TWOEARS )
 		O = (H.l_ear == src ? H.r_ear : H.l_ear)
-		user.u_equip(O)
+		user.unEquip(O)
 		if(!istype(src,/obj/item/clothing/ears/offear))
 			del(O)
 			O = src
 	else
 		O = src
 
-	user.u_equip(src)
+	user.unEquip(src)
 
 	if (O)
 		user.put_in_hands(O)
@@ -160,7 +160,7 @@ BLIND     // can't see anything
 	var/clipped = 0
 	species_restricted = list("exclude","Unathi","Tajaran")
 
-/obj/item/clothing/gloves/attackby(obj/item/weapon/W, mob/user)
+/obj/item/clothing/gloves/attackby(obj/item/weapon/W, mob/user, params)
 	if(istype(W, /obj/item/weapon/wirecutters))
 		if(clipped == 0)
 			playsound(src.loc, 'sound/items/Wirecutter.ogg', 100, 1)
@@ -243,6 +243,37 @@ BLIND     // can't see anything
 	icon = 'icons/obj/clothing/masks.dmi'
 	body_parts_covered = HEAD
 	slot_flags = SLOT_MASK
+	var/mask_adjusted = 0
+	var/ignore_maskadjust = 1
+	var/adjusted_flags = null
+	
+//Proc that moves gas/breath masks out of the way
+/obj/item/clothing/mask/proc/adjustmask(var/mob/user)
+	if(!ignore_maskadjust)
+		if(!user.canmove || user.stat || user.restrained())
+			return
+		if(src.mask_adjusted == 1)
+			src.icon_state = initial(icon_state)
+			gas_transfer_coefficient = initial(gas_transfer_coefficient)
+			permeability_coefficient = initial(permeability_coefficient)
+			user << "You push \the [src] back into place."
+			src.mask_adjusted = 0
+			slot_flags = initial(slot_flags)
+		else
+			src.icon_state += "_up"
+			user << "You push \the [src] out of the way."
+			gas_transfer_coefficient = null
+			permeability_coefficient = null
+			src.mask_adjusted = 1
+			if(adjusted_flags)
+				slot_flags = adjusted_flags
+			if(ishuman(user))
+				var/mob/living/carbon/human/H = user
+				if(H.internal)
+					if(H.internals)
+						H.internals.icon_state = "internal0"
+					H.internal = null
+		usr.update_inv_wear_mask()
 
 //Shoes
 /obj/item/clothing/shoes
@@ -267,7 +298,6 @@ BLIND     // can't see anything
 	icon = 'icons/obj/clothing/suits.dmi'
 	name = "suit"
 	var/fire_resist = T0C+100
-	flags = FPRINT | TABLEPASS
 	allowed = list(/obj/item/weapon/tank/emergency_oxygen)
 	armor = list(melee = 0, bullet = 0, laser = 0,energy = 0, bomb = 0, bio = 0, rad = 0)
 	slot_flags = SLOT_OCLOTHING
@@ -281,7 +311,7 @@ BLIND     // can't see anything
 	name = "Space helmet"
 	icon_state = "space"
 	desc = "A special helmet designed for work in a hazardous, low-pressure environment."
-	flags = FPRINT | TABLEPASS | HEADCOVERSEYES | BLOCKHAIR | HEADCOVERSMOUTH | STOPSPRESSUREDMAGE
+	flags = HEADCOVERSEYES | BLOCKHAIR | HEADCOVERSMOUTH | STOPSPRESSUREDMAGE | THICKMATERIAL
 	item_state = "s_helmet"
 	permeability_coefficient = 0.01
 	armor = list(melee = 0, bullet = 0, laser = 0,energy = 0, bomb = 0, bio = 100, rad = 50)
@@ -302,7 +332,7 @@ BLIND     // can't see anything
 	w_class = 4//bulky item
 	gas_transfer_coefficient = 0.01
 	permeability_coefficient = 0.02
-	flags = FPRINT | TABLEPASS | STOPSPRESSUREDMAGE
+	flags = STOPSPRESSUREDMAGE | THICKMATERIAL
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
 	allowed = list(/obj/item/device/flashlight,/obj/item/weapon/tank,/obj/item/device/suit_cooling_unit)
 	slowdown = 2
@@ -321,7 +351,6 @@ BLIND     // can't see anything
 	name = "under"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
 	permeability_coefficient = 0.90
-	flags = FPRINT | TABLEPASS
 	slot_flags = SLOT_ICLOTHING
 	armor = list(melee = 0, bullet = 0, laser = 0,energy = 0, bomb = 0, bio = 0, rad = 0)
 	var/has_sensor = 1//For the crew computer 2 = unable to change mode
@@ -331,31 +360,49 @@ BLIND     // can't see anything
 		2 = Report detailed damages
 		3 = Report location
 		*/
-	var/obj/item/clothing/tie/hastie = null
+	var/list/accessories = list()
 	var/displays_id = 1
 	var/rolled_down = 0
 	var/basecolor
 
+/obj/item/clothing/under/proc/can_attach_accessory(obj/item/clothing/accessory/A)
+	if(istype(A))
+		.=1
+	else
+		return 0
+	if(accessories.len && (A.slot in list("utility","armband")))
+		for(var/obj/item/clothing/accessory/AC in accessories)
+			if (AC.slot == A.slot)
+				return 0
 
-/obj/item/clothing/under/attackby(obj/item/I, mob/user)
-	if(!hastie && istype(I, /obj/item/clothing/tie))
-		user.drop_item()
-		hastie = I
-		I.loc = src
-		user << "<span class='notice'>You attach [I] to [src].</span>"
+/obj/item/clothing/under/attackby(obj/item/I, mob/user, params)
+	if(istype(I, /obj/item/clothing/accessory))
+		var/obj/item/clothing/accessory/A = I
+		if(can_attach_accessory(A))
+			user.drop_item()
+			accessories += A
+			A.on_attached(src, user)
 
-		if(istype(loc, /mob/living/carbon/human))
-			var/mob/living/carbon/human/H = loc
-			H.update_inv_w_uniform()
+			if(istype(loc, /mob/living/carbon/human))
+				var/mob/living/carbon/human/H = loc
+				H.update_inv_w_uniform()
 
+			return
+		else
+			user << "<span class='notice'>You cannot attach more accessories of this type to [src].</span>"
+
+	if(accessories.len)
+		for(var/obj/item/clothing/accessory/A in accessories)
+			A.attackby(I, user, params)
 		return
 
 	..()
 
 /obj/item/clothing/under/attack_hand(mob/user as mob)
 	//only forward to the attached accessory if the clothing is equipped (not in a storage)
-	if(hastie && src.loc == user)
-		removetie()
+	if(accessories.len && src.loc == user)
+		for(var/obj/item/clothing/accessory/A in accessories)
+			A.attack_hand(user)
 		return
 
 	if ((ishuman(usr) || ismonkey(usr)) && src.loc == user)	//make it harder to accidentally undress yourself
@@ -369,13 +416,13 @@ BLIND     // can't see anything
 		if (!(src.loc == usr))
 			return
 
-		if (!( usr.restrained() ) && !( usr.stat ))
+		if (!( usr.restrained() ) && !( usr.stat ) && ( over_object ))
 			switch(over_object.name)
 				if("r_hand")
-					usr.u_equip(src)
+					usr.unEquip(src)
 					usr.put_in_r_hand(src)
 				if("l_hand")
-					usr.u_equip(src)
+					usr.unEquip(src)
 					usr.put_in_l_hand(src)
 			src.add_fingerprint(usr)
 			return
@@ -393,8 +440,9 @@ BLIND     // can't see anything
 			usr << "Its vital tracker appears to be enabled."
 		if(3)
 			usr << "Its vital tracker and tracking beacon appear to be enabled."
-	if(hastie)
-		usr << "\A [hastie] is clipped to it."
+	if(accessories.len)
+		for(var/obj/item/clothing/accessory/A in accessories)
+			usr << "\A [A] is attached to it."
 
 /obj/item/clothing/under/verb/toggle()
 	set name = "Toggle Suit Sensors"
@@ -439,30 +487,35 @@ BLIND     // can't see anything
 	else
 		usr << "<span class='notice'>You cannot roll down the uniform!</span>"
 
-/obj/item/clothing/under/proc/removetie()
+/obj/item/clothing/under/proc/remove_accessory(mob/user, obj/item/clothing/accessory/A)
+	if(!(A in accessories))
+		return
+
+	A.on_removed(user)
+	accessories -= A
+	usr.update_inv_w_uniform()
+
+/obj/item/clothing/under/verb/removetie()
+	set name = "Remove Accessory"
+	set category = "Object"
 	set src in usr
 	if(!istype(usr, /mob/living)) return
 	if(usr.stat) return
-
-	if(hastie)
-		usr.put_in_hands(hastie)
-		hastie = null
-
-		if (istype(hastie,/obj/item/clothing/tie/storage))
-			var/obj/item/clothing/tie/storage/W = hastie
-			if (W.hold)
-				W.hold.loc = hastie
-
-		if(istype(loc, /mob/living/carbon/human))
-			var/mob/living/carbon/human/H = loc
-			H.update_inv_w_uniform()
+	if(!accessories.len) return
+	var/obj/item/clothing/accessory/A
+	if(accessories.len > 1)
+		A = input("Select an accessory to remove from [src]") as null|anything in accessories
+	else
+		A = accessories[1]
+	src.remove_accessory(usr,A)
 
 /obj/item/clothing/under/rank/New()
 	sensor_mode = pick(0,1,2,3)
 	..()
 
 /obj/item/clothing/under/emp_act(severity)
-	if (hastie)
-		hastie.emp_act(severity)
+	if(accessories.len)
+		for(var/obj/item/clothing/accessory/A in accessories)
+			A.emp_act(severity)
 	..()
 

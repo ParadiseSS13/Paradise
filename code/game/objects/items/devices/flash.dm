@@ -7,7 +7,7 @@
 	w_class = 1
 	throw_speed = 3
 	throw_range = 7
-	flags = FPRINT | TABLEPASS | CONDUCT
+	flags = CONDUCT
 	origin_tech = "magnets=2;combat=1"
 
 	var/times_used = 0 //Number of times it's been used.
@@ -16,7 +16,7 @@
 
 
 /obj/item/device/flash/proc/clown_check(mob/user)
-	if(user && (M_CLUMSY in user.mutations) && prob(50))
+	if(user && (CLUMSY in user.mutations) && prob(50))
 		flash_carbon(user, user, 15, 0)
 		return 0
 	return 1
@@ -66,10 +66,11 @@
 		if(user && convert)
 			terrible_conversion_proc(M, user)
 			M.Stun(1)
-		user.visible_message("<span class='disarm'>[user] blinds [M] with the flash!</span>")
+			user.visible_message("<span class='disarm'>[user] blinds [M] with the flash!</span>")
 		return 1
 	else
-		user.visible_message("<span class='disarm'>[user] fails to blind [M] with the flash!</span>")
+		if(user)
+			user.visible_message("<span class='disarm'>[user] fails to blind [M] with the flash!</span>")
 		return 0
 
 /obj/item/device/flash/attack(mob/living/M, mob/user)

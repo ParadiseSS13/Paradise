@@ -32,7 +32,7 @@
 		master.growth_queue -= src
 	..()
 
-/obj/effect/plantsegment/attackby(obj/item/weapon/W as obj, mob/user as mob)
+/obj/effect/plantsegment/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
 	if (!W || !user || !W.type) return
 	switch(W.type)
 		if(/obj/item/weapon/circular_saw) del src

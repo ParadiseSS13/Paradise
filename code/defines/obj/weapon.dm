@@ -3,7 +3,7 @@
 	desc = "Should anything ever go wrong..."
 	icon = 'icons/obj/items.dmi'
 	icon_state = "red_phone"
-	flags = FPRINT | TABLEPASS | CONDUCT
+	flags = CONDUCT
 	force = 3.0
 	throwforce = 2.0
 	throw_speed = 1
@@ -22,7 +22,6 @@
 	anchored = 0.0
 	var/matter = 0
 	var/mode = 1
-	flags = TABLEPASS
 	w_class = 3.0
 
 /obj/item/weapon/bananapeel
@@ -108,7 +107,7 @@
 	icon = 'icons/obj/weapons.dmi'
 	icon_state = "cane"
 	item_state = "stick"
-	flags = FPRINT | TABLEPASS| CONDUCT
+	flags = CONDUCT
 	force = 5.0
 	throwforce = 7.0
 	w_class = 2.0
@@ -160,7 +159,7 @@
 	gender = PLURAL
 	icon = 'icons/obj/items.dmi'
 	icon_state = "handcuff"
-	flags = FPRINT | TABLEPASS | CONDUCT
+	flags = CONDUCT
 	throwforce = 0
 	w_class = 3.0
 	origin_tech = "materials=1"
@@ -235,7 +234,7 @@
 		if(H)
 			user << "<span class='notice'>You use [src] to destroy [H].</span>"
 			signs -= H
-			del(H)
+			qdel(H)
 		else
 			if(signs.len < max_signs)
 				H = new(get_turf(target))
@@ -251,7 +250,7 @@
 	if(signs.len)
 		var/list/L = signs.Copy()
 		for(var/sign in L)
-			del(sign)
+			qdel(sign)
 			signs -= sign
 		user << "<span class='notice'>You clear all active holograms.</span>"
 
@@ -272,7 +271,6 @@
 	throw_speed = 1
 	throw_range = 5
 	w_class = 2.0
-	flags = FPRINT | TABLEPASS
 	attack_verb = list("warned", "cautioned", "smashed")
 
 	proximity_sign
@@ -315,7 +313,7 @@
 						if(ishuman(C))
 							dead_legs(C)
 						if(src)
-							del(src)
+							qdel(src)
 
 		proc/dead_legs(mob/living/carbon/human/H as mob)
 			var/datum/organ/external/l = H.get_organ("l_leg")
@@ -335,7 +333,7 @@
 	desc = "Parts of a rack."
 	icon = 'icons/obj/items.dmi'
 	icon_state = "rack_parts"
-	flags = FPRINT | TABLEPASS| CONDUCT
+	flags = CONDUCT
 	m_amt = 3750
 
 /*/obj/item/weapon/syndicate_uplink
@@ -349,7 +347,7 @@
 	var/traitor_frequency = 0.0
 	var/mob/currentUser = null
 	var/obj/item/device/radio/origradio = null
-	flags = FPRINT | TABLEPASS | CONDUCT | ONBELT
+	flags = CONDUCT | ONBELT
 	w_class = 2.0
 	item_state = "radio"
 	throw_speed = 4
@@ -367,7 +365,7 @@
 	var/selfdestruct = 0.0
 	var/traitor_frequency = 0.0
 	var/obj/item/device/radio/origradio = null
-	flags = FPRINT | TABLEPASS| CONDUCT
+	flags = CONDUCT
 	slot_flags = SLOT_BELT
 	item_state = "radio"
 	throwforce = 5
@@ -387,7 +385,7 @@
 	throw_speed = 1
 	throw_range = 5
 	w_class = 2.0
-	flags = FPRINT | TABLEPASS | NOSHIELD
+	flags = NOSHIELD
 	attack_verb = list("bludgeoned", "whacked", "disciplined")
 
 /obj/item/weapon/staff/broom
@@ -407,7 +405,7 @@
 	throw_speed = 1
 	throw_range = 5
 	w_class = 2.0
-	flags = FPRINT | TABLEPASS | NOSHIELD
+	flags = NOSHIELD
 
 /obj/item/weapon/table_parts
 	name = "table parts"
@@ -416,7 +414,7 @@
 	icon = 'icons/obj/items.dmi'
 	icon_state = "table_parts"
 	m_amt = 3750
-	flags = FPRINT | TABLEPASS| CONDUCT
+	flags = CONDUCT
 	attack_verb = list("slammed", "bashed", "battered", "bludgeoned", "thrashed", "whacked")
 
 /obj/item/weapon/table_parts/reinforced
@@ -425,7 +423,7 @@
 	icon = 'icons/obj/items.dmi'
 	icon_state = "reinf_tableparts"
 	m_amt = 7500
-	flags = FPRINT | TABLEPASS| CONDUCT
+	flags = CONDUCT
 
 /obj/item/weapon/table_parts/wood
 	name = "wooden table parts"
@@ -453,7 +451,7 @@
 	icon_state = "std_module"
 	w_class = 2.0
 	item_state = "electronic"
-	flags = FPRINT|TABLEPASS|CONDUCT
+	flags = CONDUCT
 	var/mtype = 1						// 1=electronic 2=hardware
 
 /obj/item/weapon/module/card_reader
@@ -481,48 +479,12 @@
 	icon_state = "power_mod"
 	desc = "Charging circuits for power cells."
 
-
-/obj/item/device/camera_bug
-	name = "camera bug"
-	desc = "Tiny electronic device meant to bug cameras for viewing later."
-	icon = 'icons/obj/device.dmi'
-	icon_state = "implant_evil"
-	w_class = 1.0
-	item_state = ""
-	throw_speed = 4
-	throw_range = 20
-
-/obj/item/weapon/camera_bug/attack_self(mob/usr as mob)
-	var/list/cameras = new/list()
-	for (var/obj/machinery/camera/C in cameranet.viewpoints)
-		if (C.bugged && C.status)
-			cameras.Add(C)
-	if (length(cameras) == 0)
-		usr << "\red No bugged functioning cameras found."
-		return
-
-	var/list/friendly_cameras = new/list()
-
-	for (var/obj/machinery/camera/C in cameras)
-		friendly_cameras.Add(C.c_tag)
-
-	var/target = input("Select the camera to observe", null) as null|anything in friendly_cameras
-	if (!target)
-		return
-	for (var/obj/machinery/camera/C in cameras)
-		if (C.c_tag == target)
-			target = C
-			break
-	if (usr.stat == 2) return
-
-	usr.client.eye = target
-
 /obj/item/weapon/hatchet
 	name = "hatchet"
 	desc = "A very sharp axe blade upon a short fibremetal handle. It has a long history of chopping things, but now it is used for chopping wood."
 	icon = 'icons/obj/weapons.dmi'
 	icon_state = "hatchet"
-	flags = FPRINT | TABLEPASS | CONDUCT
+	flags = CONDUCT
 	force = 12.0
 	sharp = 1
 	edge = 1
@@ -553,7 +515,7 @@
 	throw_speed = 2
 	throw_range = 3
 	w_class = 4.0
-	flags = FPRINT | TABLEPASS | NOSHIELD
+	flags = NOSHIELD
 	slot_flags = SLOT_BACK
 	origin_tech = "materials=2;combat=2"
 	attack_verb = list("chopped", "sliced", "cut", "reaped")
@@ -564,8 +526,8 @@
 	if(istype(A, /obj/effect/plantsegment))
 		for(var/obj/effect/plantsegment/B in orange(A,1))
 			if(prob(80))
-				del B
-		del A
+				qdel(B)
+		qdel(A)
 
 /*
 /obj/item/weapon/cigarpacket
@@ -577,7 +539,7 @@
 	w_class = 1
 	throwforce = 2
 	var/cigarcount = 6
-	flags = ONBELT | TABLEPASS */
+	flags = ONBELT */
 
 /obj/item/weapon/pai_cable
 	desc = "A flexible coated cable with a universal jack on one end."
@@ -596,7 +558,7 @@
 	item_state = "RPED"
 	icon_override = 'icons/mob/in-hand/tools.dmi'
 	w_class = 5
-	can_hold = list("/obj/item/weapon/stock_parts","/obj/item/weapon/cell")
+	can_hold = list("/obj/item/weapon/stock_parts")
 	storage_slots = 50
 	use_to_pickup = 1
 	allow_quick_gather = 1
@@ -672,6 +634,7 @@
 /obj/item/weapon/stock_parts/capacitor/adv
 	name = "advanced capacitor"
 	desc = "An advanced capacitor used in the construction of a variety of devices."
+	icon_state = "adv_capacitor"
 	origin_tech = "powerstorage=3"
 	rating = 2
 	m_amt = 50
@@ -680,7 +643,7 @@
 /obj/item/weapon/stock_parts/scanning_module/adv
 	name = "advanced scanning module"
 	desc = "A compact, high resolution scanning module used in the construction of certain devices."
-	icon_state = "scan_module"
+	icon_state = "adv_scan_module"
 	origin_tech = "magnets=3"
 	rating = 2
 	m_amt = 50
@@ -716,6 +679,7 @@
 /obj/item/weapon/stock_parts/capacitor/super
 	name = "super capacitor"
 	desc = "A super-high capacity capacitor used in the construction of a variety of devices."
+	icon_state = "super_capacitor"
 	origin_tech = "powerstorage=5;materials=4"
 	rating = 3
 	m_amt = 50
@@ -724,6 +688,7 @@
 /obj/item/weapon/stock_parts/scanning_module/phasic
 	name = "phasic scanning module"
 	desc = "A compact, high resolution phasic scanning module used in the construction of certain devices."
+	icon_state = "super_scan_module"
 	origin_tech = "magnets=5"
 	rating = 3
 	m_amt = 50
@@ -832,7 +797,6 @@
 	icon = 'icons/obj/lightning.dmi'
 	icon_state = "lightning"
 	desc = "test lightning"
-	flags = USEDELAY
 
 	New()
 		icon = midicon

@@ -13,6 +13,7 @@
 	lawupdate = 0
 	density = 1
 	req_access = list(access_engine, access_robotics)
+	local_transmit = 1
 
 	// We need to keep track of a few module items so we don't need to do list operations
 	// every time we need them. These get set in New() after the module is chosen.
@@ -24,12 +25,15 @@
 
 	//Used for self-mailing.
 	var/mail_destination = 0
+//	var/sprite[0]
 
-	//Used for pulling.
 
 /mob/living/silicon/robot/drone/New()
 
 	..()
+
+	remove_language("Robot Talk")
+	add_language("Drone Talk", 1)
 
 	if(camera && "Robots" in camera.network)
 		camera.network.Add("Engineering")
@@ -85,84 +89,12 @@
 /mob/living/silicon/robot/drone/choose_icon()
 	return
 
+
 /mob/living/silicon/robot/drone/pick_module()
 	return
 
-//Drones can only use binary and say emotes. NOTHING else.
-//TBD, fix up boilerplate. ~ Z
-/mob/living/silicon/robot/drone/say(var/message)
-	if (!message)
-		return
-
-	if (src.client)
-		if(client.prefs.muted & MUTE_IC)
-			src << "You cannot send IC messages (muted)."
-			return
-		if (src.client.handle_spam_prevention(message,MUTE_IC))
-			return
-
-	if (stat == 2)
-		message = trim(copytext(sanitize(message), 1, MAX_MESSAGE_LEN))
-		return say_dead(message)
-		
-	//Must be concious to speak
-	if (stat)
-		return
-		
-	if(copytext(message,1,2) == "*")
-		return emote(copytext(message,2))
-		
-	if (length(message) >= 2)		
-		var/prefix = copytext(message, 1, 3)
-		if (department_radio_keys[prefix] == "drone")
-			message = copytext(message, 3)
-			message = trim(copytext(sanitize(message), 1, MAX_MESSAGE_LEN))		
-			
-			if(istype(src, /mob/living/silicon/robot/drone))
-				var/mob/living/silicon/robot/drone/R = src
-				if(!R.is_component_functioning("comms"))
-					src << "\red Your drone communications component isn't functional."
-					return
-			drone_talk(message)		
-		else
-			var/list/listeners = hearers(5,src)
-			listeners |= src
-			message = trim(copytext(sanitize(message), 1, MAX_MESSAGE_LEN))		
-			for(var/mob/living/silicon/D in listeners)
-				if(D.client) 
-					D << "<b>[src]</b> transmits, \"[message]\""
-
-			for (var/mob/M in player_list)
-				if (!M.client)
-					continue
-				if (istype(M, /mob/new_player))
-					continue
-				else if(M.stat == 2 && (M.client.prefs.toggles & CHAT_GHOSTEARS) && src.client)
-					M << "<b>[src]</b> <a href='byond://?src=\ref[M];follow2=\ref[M];follow=\ref[src]'>(Follow)</a> transmits, \"[message]\""
-				else if(M.stat == 2 && src.client && M in listeners)
-					M << "<b>[src]</b> <a href='byond://?src=\ref[M];follow2=\ref[M];follow=\ref[src]'>(Follow)</a> transmits, \"[message]\""
-			
-/mob/living/proc/drone_talk(var/message)
-	log_say("[key_name(src)] : [message]")
-	message = trim(message)			
-
-	if (!message)
-		return
-
-	var/message_a = say_quote(message)
-	var/rendered = "<i><span class='game say'>Drone Talk, <span class='name'>[name]</span> <span class='message'>[message_a]</span></span></i>"
-	
-	for (var/mob/living/S in living_mob_list)
-		if(istype(S, /mob/living/silicon/robot/drone))
-			S.show_message(rendered, 2)
-	
-	for (var/mob/S in dead_mob_list)	
-		if(!istype(S,/mob/new_player) && !istype(S,/mob/living/carbon/brain))	
-			var/rendered2 = "<i><span class='game say'>Drone Talk, <span class='name'>[name]</span> <a href='byond://?src=\ref[S];follow2=\ref[S];follow=\ref[src]'>(Follow)</a> <span class='message'>[message_a]</span></span></i>"
-			S.show_message(rendered2, 2)
-
 //Drones cannot be upgraded with borg modules so we need to catch some items before they get used in ..().
-/mob/living/silicon/robot/drone/attackby(obj/item/weapon/W as obj, mob/user as mob)
+/mob/living/silicon/robot/drone/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
 
 	if(istype(W, /obj/item/borg/upgrade/))
 		user << "\red The maintenance drone chassis not compatible with \the [W]."
@@ -170,41 +102,6 @@
 
 	else if (istype(W, /obj/item/weapon/crowbar))
 		user << "The machine is hermetically sealed. You can't open the case."
-		return
-
-	else if (istype(W, /obj/item/weapon/card/emag))
-
-		if(!client || stat == 2)
-			user << "\red There's not much point subverting this heap of junk."
-			return
-
-		if(emagged)
-			src << "\red [user] attempts to load subversive software into you, but your hacked subroutined ignore the attempt."
-			user << "\red You attempt to subvert [src], but the sequencer has no effect."
-			return
-
-		user << "\red You swipe the sequencer across [src]'s interface and watch its eyes flicker."
-		src << "\red You feel a sudden burst of malware loaded into your execute-as-root buffer. Your tiny brain methodically parses, loads and executes the script."
-
-		var/obj/item/weapon/card/emag/emag = W
-		emag.uses--
-
-		message_admins("[key_name_admin(user)] emagged drone [key_name_admin(src)].  Laws overridden.")
-		log_game("[key_name(user)] emagged drone [key_name(src)].  Laws overridden.")
-		var/time = time2text(world.realtime,"hh:mm:ss")
-		lawchanges.Add("[time] <B>:</B> [user.name]([user.key]) emagged [name]([key])")
-
-		emagged = 1
-		lawupdate = 0
-		connected_ai = null
-		clear_supplied_laws()
-		clear_inherent_laws()
-		laws = new /datum/ai_laws/syndicate_override
-		set_zeroth_law("Only [user.real_name] and people he designates as being such are Syndicate Agents.")
-
-		src << "<b>Obey these laws:</b>"
-		laws.show_laws(src)
-		src << "\red \b ALERT: [user.real_name] is your new master. Obey your new laws and his commands."
 		return
 
 	else if (istype(W, /obj/item/weapon/card/id)||istype(W, /obj/item/device/pda))
@@ -242,6 +139,41 @@
 		return
 
 	..()
+
+/mob/living/silicon/robot/drone/emag_act(user as mob)
+	if(!client || stat == 2)
+		user << "\red There's not much point subverting this heap of junk."
+		return
+
+	if(!ishuman(user))
+		return
+	var/mob/living/carbon/human/H = user
+
+	if(emagged)
+		src << "\red [user] attempts to load subversive software into you, but your hacked subroutined ignore the attempt."
+		user << "\red You attempt to subvert [src], but the sequencer has no effect."
+		return
+
+	user << "\red You swipe the sequencer across [src]'s interface and watch its eyes flicker."
+	src << "\red You feel a sudden burst of malware loaded into your execute-as-root buffer. Your tiny brain methodically parses, loads and executes the script."
+
+	message_admins("[key_name_admin(user)] emagged drone [key_name_admin(src)].  Laws overridden.")
+	log_game("[key_name(user)] emagged drone [key_name(src)].  Laws overridden.")
+	var/time = time2text(world.realtime,"hh:mm:ss")
+	lawchanges.Add("[time] <B>:</B> [H.name]([H.key]) emagged [name]([key])")
+
+	emagged = 1
+	lawupdate = 0
+	connected_ai = null
+	clear_supplied_laws()
+	clear_inherent_laws()
+	laws = new /datum/ai_laws/syndicate_override
+	set_zeroth_law("Only [H.real_name] and people he designates as being such are Syndicate Agents.")
+
+	src << "<b>Obey these laws:</b>"
+	laws.show_laws(src)
+	src << "\red \b ALERT: [H.real_name] is your new master. Obey your new laws and his commands."
+	return
 
 //DRONE LIFE/DEATH
 
@@ -342,6 +274,19 @@
 	src << "Remember,  you are <b>lawed against interference with the crew</b>. Also remember, <b>you DO NOT take orders from the AI.</b>"
 	src << "<b>Don't invade their worksites, don't steal their resources, don't tell them about the changeling in the toilets.</b>"
 	src << "<b>If a crewmember has noticed you, <i>you are probably breaking your first law</i></b>."
+
+/*
+	sprite["Default"] = "repairbot"
+	sprite["Mk2 Mousedrone"] = "mk2"
+	sprite["Mk3 Monkeydrone"] = "mk3"
+	var/icontype
+	icontype = input(player,"Pick an icon") in sprite
+	icon_state = sprite[icontype]
+	updateicon()
+
+	choose_icon(6,sprite)
+*/
+
 
 /mob/living/silicon/robot/drone/Bump(atom/movable/AM as mob|obj, yes)
 	if (!yes || ( \

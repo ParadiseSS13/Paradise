@@ -75,7 +75,7 @@
 *   Item Adding
 ********************/
 
-/obj/machinery/smartfridge/attackby(var/obj/item/O as obj, var/mob/user as mob)
+/obj/machinery/smartfridge/attackby(var/obj/item/O as obj, var/mob/user as mob, params)
 	if(!src.ispowered)
 		user << "<span class='notice'>\The [src] is unpowered and useless.</span>"
 		return
@@ -85,7 +85,9 @@
 			user << "<span class='notice'>\The [src] is full.</span>"
 			return 1
 		else
-			user.before_take_item(O)
+			if(!user.unEquip(O))
+				usr << "<span class='notice'>\the [O] is stuck to your hand, you cannot put it in \the [src]</span>"
+				return
 			O.loc = src
 			if(item_quants[O.name])
 				item_quants[O.name]++

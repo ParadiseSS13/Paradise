@@ -24,7 +24,7 @@
 
 	// If the computer is attacked by an item it will reference this to decide which peripheral(s) are affected.
 	var/list/attackby_types	= list()
-	proc/allow_attackby(var/obj/item/I as obj,var/mob/user as mob)
+	proc/allow_attackby(var/obj/item/I as obj,var/mob/user as mob, params)
 
 		for(var/typekey in attackby_types)
 			if(istype(I,typekey))
@@ -50,17 +50,7 @@
 	var/mob/living/silicon/ai/occupant	= null
 	var/busy = 0
 
-	// Ninja gloves check
-	attack_hand(mob/user as mob)
-		if(ishuman(user) && istype(user:gloves, /obj/item/clothing/gloves/space_ninja) && user:gloves:candrain && !user:gloves:draining)
-			if(user:wear_suit:s_control)
-				user:wear_suit.transfer_ai("AIFIXER","NINJASUIT",src,user)
-			else
-				user << "\red <b>ERROR</b>: \black Remote access channel disabled."
-			return
-		..()
-
-	attackby(obj/I as obj,mob/user as mob)
+	attackby(obj/I as obj,mob/user as mob, params)
 		if(computer && !computer.stat)
 			if(istype(I, /obj/item/device/aicard))
 				I:transfer_ai("AIFIXER","AICARD",src,user)
@@ -85,7 +75,16 @@
 	var/dualslot = 0 // faster than typechecking
 	attackby_types = list(/obj/item/weapon/card)
 
-	attackby(var/obj/item/I as obj, var/mob/user as mob)
+	emag_act(user as mob)
+		if(!writer)
+			usr << "You insert \the card, and the computer grinds, sparks, and beeps.  After a moment, the card ejects itself."
+			computer.emagged = 1
+			return 1
+		else
+			usr << "You are unable to insert \the card, as the reader slot is occupied"
+			return 0
+
+	attackby(var/obj/item/I as obj, var/mob/user as mob, params)
 		if(istype(I,/obj/item/weapon/card))
 			insert(I)
 			return
@@ -101,14 +100,6 @@
 		if(slot == 2 && !dualslot)
 			usr << "This device has only one card slot"
 			return 0
-
-		if(istype(card,/obj/item/weapon/card/emag)) // emag reader slot
-			if(!writer)
-				usr << "You insert \the [card], and the computer grinds, sparks, and beeps.  After a moment, the card ejects itself."
-				computer.emagged = 1
-				return 1
-			else
-				usr << "You are unable to insert \the [card], as the reader slot is occupied"
 
 		var/mob/living/L = usr
 		switch(slot)
@@ -131,7 +122,6 @@
 					usr << "There is already something in both slots."
 				else
 					usr << "There is already something in the reader slot."
-
 
 	// Usage of insert() preferred, as it also tells result to the user.
 	proc/equip_to_reader(var/obj/item/weapon/card/card, var/mob/living/L)

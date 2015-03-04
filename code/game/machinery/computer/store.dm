@@ -128,7 +128,7 @@ td.cost.toomuch {
 
 /obj/machinery/computer/merch/Topic(href, href_list)
 	if(..())
-		return
+		return 1
 
 	//testing(href)
 

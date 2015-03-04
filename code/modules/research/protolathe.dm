@@ -26,17 +26,16 @@ Note: Must be placed west/left of and R&D console to function.
 
 	var/list/categories = list(
 								"Bluespace",
-								"Communication",
 								"Equipment",
 								"Janitorial",
 								"Medical",
 								"Mining",
 								"Miscellaneous",
 								"Power",
-								"Stock Parts",							
-								"Weapons"	
-								)	
-	
+								"Stock Parts",
+								"Weapons"
+								)
+
 	reagents = new()
 
 
@@ -93,7 +92,7 @@ Note: Must be placed west/left of and R&D console to function.
 	A = A / max(1, (being_built.materials[M]/efficiency_coeff))
 	return A
 
-/obj/machinery/r_n_d/protolathe/attackby(var/obj/item/O as obj, var/mob/user as mob)
+/obj/machinery/r_n_d/protolathe/attackby(var/obj/item/O as obj, var/mob/user as mob, params)
 	if (shocked)
 		shock(user,50)
 	if (default_deconstruction_screwdriver(user, "protolathe_t", "protolathe", O))
@@ -199,8 +198,9 @@ Note: Must be placed west/left of and R&D console to function.
 	busy = 0
 	src.updateUsrDialog()
 
-	src.overlays += "protolathe_[stack.name]"
-	sleep(10)
-	src.overlays -= "protolathe_[stack.name]"
+	if(stack)
+		src.overlays += "protolathe_[stack.name]"
+		sleep(10)
+		src.overlays -= "protolathe_[stack.name]"
 
 	return

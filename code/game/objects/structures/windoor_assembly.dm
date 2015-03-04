@@ -27,13 +27,6 @@ obj/structure/windoor_assembly
 	var/secure = 0		//Whether or not this creates a secure windoor
 	var/state = "01"	//How far the door assembly has progressed
 
-/obj/structure/windoor_assembly/proc/update_nearby_tiles(need_rebuild)
-	if(!air_master) return 0
-
-	air_master.mark_for_update(loc)
-
-	return 1
-	
 obj/structure/windoor_assembly/New(dir=NORTH)
 	..()
 	src.ini_dir = src.dir
@@ -64,7 +57,7 @@ obj/structure/windoor_assembly/Destroy()
 		return 1
 
 
-/obj/structure/windoor_assembly/attackby(obj/item/W as obj, mob/user as mob)
+/obj/structure/windoor_assembly/attackby(obj/item/W as obj, mob/user as mob, params)
 	//I really should have spread this out across more states but thin little windoors are hard to sprite.
 	add_fingerprint(user)
 	switch(state)

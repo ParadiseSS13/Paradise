@@ -90,7 +90,8 @@ proc/do_surgery(mob/living/M, mob/living/user, obj/item/tool)
 			if( prob(S.tool_quality(tool)) &&  do_mob(user, M, rand(S.min_duration, S.max_duration)))
 				S.end_step(user, M, user.zone_sel.selecting, tool)		//finish successfully
 			else														//or
-				S.fail_step(user, M, user.zone_sel.selecting, tool)		//malpractice~
+				if(!isrobot(user))
+					S.fail_step(user, M, user.zone_sel.selecting, tool)		//malpractice~
 			return	1	  												//don't want to do weapony things after surgery
 	return 0
 

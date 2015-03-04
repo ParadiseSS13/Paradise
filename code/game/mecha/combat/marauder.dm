@@ -73,7 +73,7 @@
 	src.smoke_system.attach(src)
 	return
 
-/obj/mecha/combat/marauder/seraph/New()
+/obj/mecha/combat/marauder/seraph/loaded/New()
 	..()//Let it equip whatever is needed.
 	var/obj/item/mecha_parts/mecha_equipment/ME
 	if(equipment.len)//Now to remove it and equip anew.

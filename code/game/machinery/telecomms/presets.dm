@@ -29,7 +29,7 @@
 	hide = 1
 	toggled = 1
 	//anchored = 1
-	//use_power = 0
+	use_power = 0
 	//idle_power_usage = 0
 	heatgen = 0
 	autolinkers = list("c_relay")
@@ -42,6 +42,13 @@
 	autolinkers = list("hub", "relay", "c_relay", "s_relay", "m_relay", "r_relay", "science", "medical",
 	"supply", "service", "common", "command", "engineering", "security",
 	"receiverA", "receiverB", "broadcasterA", "broadcasterB")
+	
+/obj/machinery/telecomms/hub/preset_cent
+	id = "CentComm Hub"
+	network = "tcommsat"
+	use_power = 0
+	autolinkers = list("hub_cent", "c_relay", "s_relay", "m_relay", "r_relay",
+	 "centcomm", "receiverCent", "broadcasterCent")
 
 //Receivers
 
@@ -67,7 +74,13 @@
 		for(var/i = 1441, i < 1489, i += 2)
 			freq_listening |= i
 		..()
-
+		
+/obj/machinery/telecomms/receiver/preset_cent
+	id = "CentComm Receiver"
+	network = "tcommsat"
+	use_power = 0
+	autolinkers = list("receiverCent")
+	freq_listening = list(ERT_FREQ, DTH_FREQ)
 
 //Buses
 
@@ -99,6 +112,13 @@
 	for(var/i = 1441, i < 1489, i += 2)
 		freq_listening |= i
 	..()
+	
+/obj/machinery/telecomms/bus/preset_cent
+	id = "CentComm Bus"
+	network = "tcommsat"
+	use_power = 0
+	freq_listening = list(ERT_FREQ, DTH_FREQ)
+	autolinkers = list("processorCent", "centcomm")
 
 //Processors
 
@@ -121,6 +141,12 @@
 	id = "Processor 4"
 	network = "tcommsat"
 	autolinkers = list("processor4")
+	
+/obj/machinery/telecomms/processor/preset_cent
+	id = "CentComm Processor"
+	network = "tcommsat"
+	use_power = 0
+	autolinkers = list("processorCent")
 
 //Servers
 
@@ -175,6 +201,11 @@
 	freq_listening = list(1359)
 	autolinkers = list("security")
 
+/obj/machinery/telecomms/server/presets/centcomm
+	id = "CentComm Server"
+	freq_listening = list(ERT_FREQ, DTH_FREQ)
+	use_power = 0
+	autolinkers = list("centcomm")	
 
 //Broadcasters
 
@@ -191,3 +222,9 @@
 	id = "Broadcaster B"
 	network = "tcommsat"
 	autolinkers = list("broadcasterB")
+
+/obj/machinery/telecomms/broadcaster/preset_cent
+	id = "CentComm Broadcaster"
+	network = "tcommsat"
+	use_power = 0
+	autolinkers = list("broadcasterCent")

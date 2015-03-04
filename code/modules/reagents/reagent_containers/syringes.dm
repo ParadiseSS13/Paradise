@@ -47,7 +47,7 @@
 	attack_paw()
 		return attack_hand()
 
-	attackby(obj/item/I as obj, mob/user as mob)
+	attackby(obj/item/I as obj, mob/user as mob, params)
 
 		return
 
@@ -55,15 +55,20 @@
 		if(!proximity) return
 		if(!target.reagents) return
 
+		if(isliving(target))
+			var/mob/living/M = target
+			if(!M.can_inject(user, 1))
+				return
+
 		if(mode == SYRINGE_BROKEN)
 			user << "\red This syringe is broken!"
 			return
 
-		if (user.a_intent == "harm" && ismob(target))
-			if((M_CLUMSY in user.mutations) && prob(50))
+/*		if (user.a_intent == "harm" && ismob(target))
+			if((CLUMSY in user.mutations) && prob(50))
 				target = user
 			syringestab(target, user)
-			return
+			return */
 
 
 		switch(mode)
@@ -86,8 +91,25 @@
 						if(!T.dna)
 							usr << "You are unable to locate any blood. (To be specific, your target seems to be missing their DNA datum)"
 							return
-						if(M_NOCLONE in T.mutations) //target done been et, no more blood in him
+						if(NOCLONE in T.mutations) //target done been et, no more blood in him
 							user << "\red You are unable to locate any blood."
+							return
+
+
+						var/time = 30 //Injecting through a hardsuit takes longer due to needing to find a port.
+						if(istype(target,/mob/living/carbon/human))
+							var/mob/living/carbon/human/H = T
+							if((H.species.bloodflags & BLOOD_SLIME) || (H.species.flags & NO_BLOOD))
+								usr << "<span class='warning'>You are unable to locate any blood.</span>"
+								return
+							if(H.wear_suit && istype(H.wear_suit,/obj/item/clothing/suit/space))
+								time = 60
+						if(target == user)
+							time = 0
+						else
+							for(var/mob/O in viewers(world.view, user))
+								O.show_message(text("\red <B>[] is trying to take a blood sample from []!</B>", user, target), 1)
+						if(!do_mob(user, target, time))
 							return
 
 						var/datum/reagent/B
@@ -105,9 +127,10 @@
 							src.reagents.update_total()
 							src.on_reagent_change()
 							src.reagents.handle_reactions()
-						user << "\blue You take a blood sample from [target]"
-						for(var/mob/O in viewers(4, user))
-							O.show_message("\red [user] takes a blood sample from [target].", 1)
+
+							user << "\blue You take a blood sample from [target]"
+							for(var/mob/O in viewers(4, user))
+								O.show_message("\red [user] takes a blood sample from [target].", 1)
 
 				else //if not mob
 					if(!target.reagents.total_volume)
@@ -276,7 +299,7 @@
 			if (target != user && target.getarmor(target_zone, "melee") > 5 && prob(50))
 				for(var/mob/O in viewers(world.view, user))
 					O.show_message(text("\red <B>[user] tries to stab [target] in \the [hit_area] with [src.name], but the attack is deflected by armor!</B>"), 1)
-				user.u_equip(src)
+				user.unEquip(src)
 				del(src)
 				return
 

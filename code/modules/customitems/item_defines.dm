@@ -18,7 +18,6 @@
 	icon= 'icons/obj/clothing/hats.dmi'
 	icon_state = "hairflowerp"
 	item_state = "hairflowerp"
-	flags = FPRINT|TABLEPASS
 
 /obj/item/clothing/under/fluff/WornTurtleneck // DaveTheHeadcrab: Makkota Atani
 	name = "Worn Combat Turtleneck"
@@ -46,7 +45,12 @@
 	name = "royal marines commando beret"
 	desc = "Dark Green beret with an old insignia on it."
 	icon_state = "sparkyninja_beret"
-	flags = FPRINT | TABLEPASS
+
+/obj/item/weapon/book/manual/security_space_law/black
+	name = "Space Law - Limited Edition"
+	desc = "A leather-bound, immaculately-written copy of JUSTICE."
+	icon_state = "bookSpaceLawblack"
+	title = "Space Law - Limited Edition"
 
 //////////////////////////////////
 ////////// Fluff Items ///////////
@@ -413,7 +417,6 @@
 	item_state = "ciglit"
 	w_class = 1
 	body_parts_covered = null
-	flags = FPRINT|TABLEPASS
 
 //Strange penlight, Nerezza: Asher Spock
 
@@ -738,7 +741,7 @@
 
 /obj/item/clothing/under/rank/bartender/fluff/classy	//searif: Ara Al-Jazari
 	name = "classy bartender uniform"
-	desc = "A prim and proper uniform that looks very similar to a bartender's, the only differences being a red tie, waistcoat and a rag hanging out of the back pocket."
+	desc = "A prim and proper uniform that looks very similar to a bartender's, the only differences being a red accessory, waistcoat and a rag hanging out of the back pocket."
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "ara_bar_uniform"
 	item_state = "ara_bar_uniform"
@@ -777,7 +780,6 @@
 	_color = "jane_sid_suit"
 	has_sensor = 2
 	sensor_mode = 3
-	flags = FPRINT | TABLEPASS
 
 //Suit roll-down toggle.
 /obj/item/clothing/under/fluff/jane_sidsuit/verb/toggle_zipper()
@@ -818,7 +820,7 @@
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "flagmask"
 	item_state = "flagmask"
-	flags = FPRINT|TABLEPASS|MASKCOVERSMOUTH
+	flags = MASKCOVERSMOUTH
 	w_class = 2
 	gas_transfer_coefficient = 0.90
 */
@@ -828,12 +830,11 @@
 	desc = "A silver and emerald shamrock pendant. It has the initials \"M.K.\" engraved on the back."
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "mara_kilpatrick_1"
-	flags = FPRINT|TABLEPASS
 	w_class = 1
 
 ////// Small locket - Altair An-Nasaqan - Serithi
 
-/obj/item/clothing/tie/fluff/altair_locket
+/obj/item/clothing/accessory/fluff/altair_locket
 	name = "small locket"
 	desc = "A small golden locket attached to an Ii'rka-reed string. Inside the locket is a holo-picture of a female Tajaran, and an inscription writtin in Siik'mas."
 	icon = 'icons/obj/custom_items.dmi'
@@ -841,13 +842,12 @@
 	item_state = "altair_locket"
 	_color = "altair_locket"
 	slot_flags = 0
-	flags = FPRINT|TABLEPASS
 	w_class = 1
 	slot_flags = SLOT_MASK
 
 ////// Silver locket - Konaa Hirano - Konaa_Hirano
 
-/obj/item/clothing/tie/fluff/konaa_hirano
+/obj/item/clothing/accessory/fluff/konaa_hirano
 	name = "silver locket"
 	desc = "This oval shaped, argentium sterling silver locket hangs on an incredibly fine, refractive string, almost thin as hair and microweaved from links to a deceptive strength, of similar material. The edges are engraved very delicately with an elegant curving design, but overall the main is unmarked and smooth to the touch, leaving room for either remaining as a stolid piece or future alterations. There is an obvious internal place for a picture or lock of some sort, but even behind that is a very thin compartment unhinged with the pinch of a thumb and forefinger."
 	icon = 'icons/obj/custom_items.dmi'
@@ -855,18 +855,17 @@
 	item_state = "konaahirano"
 	_color = "konaahirano"
 	slot_flags = 0
-	flags = FPRINT|TABLEPASS
 	w_class = 1
 	slot_flags = SLOT_MASK
 	var/obj/item/held //Item inside locket.
 
-/obj/item/clothing/tie/fluff/konaa_hirano/attack_self(mob/user as mob)
+/obj/item/clothing/accessory/fluff/konaa_hirano/attack_self(mob/user as mob)
 	if(held)
 		user << "You open [src] and [held] falls out."
 		held.loc = get_turf(user)
 		src.held = null
 
-/obj/item/clothing/tie/fluff/konaa_hirano/attackby(var/obj/item/O as obj, mob/user as mob)
+/obj/item/clothing/accessory/fluff/konaa_hirano/attackby(var/obj/item/O as obj, mob/user as mob, params)
 	if(istype(O,/obj/item/weapon/paper))
 		if(held)
 			usr << "[src] already has something inside it."
@@ -880,24 +879,22 @@
 
 //////  Medallion - Nasir Khayyam - Jamini
 
-/obj/item/clothing/tie/fluff/nasir_khayyam_1
+/obj/item/clothing/accessory/fluff/nasir_khayyam_1
 	name = "medallion"
 	desc = "This silvered medallion bears the symbol of the Hadii Clan of the Tajaran."
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "nasir_khayyam_1"
-	flags = FPRINT|TABLEPASS
 	w_class = 1
 	slot_flags = SLOT_MASK
 
 
 ////// Medallion - Lin Chang - Roland410
 
-/obj/item/clothing/tie/fluff/lin_chang_1
+/obj/item/clothing/accessory/fluff/lin_chang_1
 	name = "shining black medallion"
 	desc = "A shiny black medallion made of something that looks like the Earth's obsidian, but it is harder than anything ever seen yet. On the front there seems to be a standing unathi chiseled in it, on the back the name of Lin Chang with the title of the Assassin Archmage."
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "nasir_khayyam_1"
-	flags = FPRINT|TABLEPASS
 	w_class = 1
 	slot_flags = SLOT_MASK
 
@@ -908,7 +905,6 @@
 	desc = "A brass necklace with a green emerald placed at the end. It has a small inscription on the top of the chain, saying \'Foster\'"
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "ty_foster"
-	flags = FPRINT|TABLEPASS
 	w_class = 1
 
 //////////// Shoes ////////////

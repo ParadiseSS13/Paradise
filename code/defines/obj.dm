@@ -4,7 +4,7 @@
 	anchored = 1
 	density = 1
 
-	attackby(obj/item/weapon/W as obj, mob/user as mob)
+	attackby(obj/item/weapon/W as obj, mob/user as mob, params)
 		return attack_hand(user)
 
 	attack_hand(mob/user as mob)
@@ -19,7 +19,7 @@
 	anchored = 1
 	density = 0
 
-	attackby(obj/item/weapon/W as obj, mob/user as mob)
+	attackby(obj/item/weapon/W as obj, mob/user as mob, params)
 
 		return attack_hand(user)
 
@@ -380,7 +380,7 @@ var/global/list/PDA_Manifest = list()
 	throwforce = 0.0
 	throw_speed = 1
 	throw_range = 20
-	flags = FPRINT | TABLEPASS | CONDUCT
+	flags = CONDUCT
 
 
 /obj/effect/stop

@@ -3,8 +3,8 @@
 	desc = "Used to remotely activate devices."
 	icon_state = "signaller"
 	item_state = "signaler"
-	m_amt = 1000
-	g_amt = 200
+	m_amt = 400
+	g_amt = 120
 	origin_tech = "magnets=1"
 	wires = WIRE_RECEIVE | WIRE_PULSE | WIRE_RADIO_PULSE | WIRE_RADIO_RECEIVE
 
@@ -144,14 +144,13 @@
 
 
 	proc/set_frequency(new_frequency)
-		if(!radio_controller)
-			sleep(20)
-		if(!radio_controller)
+		spawn(20)
+			if(!radio_controller)
+				return
+			radio_controller.remove_object(src, frequency)
+			frequency = new_frequency
+			radio_connection = radio_controller.add_object(src, frequency, RADIO_CHAT)
 			return
-		radio_controller.remove_object(src, frequency)
-		frequency = new_frequency
-		radio_connection = radio_controller.add_object(src, frequency, RADIO_CHAT)
-		return
 
 // Embedded signaller used in anomalies.
 /obj/item/device/assembly/signaler/anomaly

@@ -187,7 +187,8 @@
 /datum/surgery_step/generic/cut_limb
 	allowed_tools = list(
 	/obj/item/weapon/circular_saw = 100, \
-	/obj/item/weapon/hatchet = 75
+	/obj/item/weapon/hatchet = 75, \
+	/obj/item/weapon/melee/arm_blade = 60
 	)
 
 	min_duration = 110

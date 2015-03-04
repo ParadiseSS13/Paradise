@@ -65,9 +65,8 @@
 	onclose(user, "cryopod_console")
 
 /obj/machinery/computer/cryopod/Topic(href, href_list)
-
 	if(..())
-		return
+		return 1
 
 	var/mob/user = usr
 
@@ -200,7 +199,7 @@
 		/obj/item/clothing/shoes/magboots,
 		/obj/item/blueprints,
 		/obj/item/clothing/head/helmet/space,
-		/obj/item/weapon/tank
+		/obj/item/weapon/storage/internal
 	)
 
 /obj/machinery/cryopod/right
@@ -284,7 +283,7 @@
 /obj/machinery/cryopod/robot/despawn_occupant()
 	var/mob/living/silicon/robot/R = occupant
 	if(!istype(R)) return ..()
-	
+
 	R.contents -= R.mmi
 	del(R.mmi)
 	for(var/obj/item/I in R.module) // the tools the borg has; metal, glass, guns etc
@@ -300,7 +299,7 @@
 /obj/machinery/cryopod/proc/despawn_occupant()
 	//Drop all items into the pod.
 	for(var/obj/item/W in occupant)
-		occupant.drop_from_inventory(W)
+		occupant.unEquip(W)
 		W.loc = src
 
 		if(W.contents.len) //Make sure we catch anything not handled by del() on the items.
@@ -389,7 +388,7 @@
 
 	//Make an announcement and log the person entering storage.
 	control_computer.frozen_crew += "[occupant.real_name]"
-	
+
 	var/ailist[] = list()
 	for (var/mob/living/silicon/ai/A in living_mob_list)
 		ailist += A
@@ -398,7 +397,7 @@
 		announcer.say(";[occupant.real_name] [on_store_message]")
 	else
 		announce.autosay("[occupant.real_name] [on_store_message]", "[on_store_name]")
-				
+
 	visible_message("<span class='notice'>\The [src] hums and hisses as it moves [occupant.real_name] into storage.</span>", 3)
 
 	// Delete the mob.
@@ -407,7 +406,7 @@
 	name = initial(name)
 
 
-/obj/machinery/cryopod/attackby(var/obj/item/weapon/G as obj, var/mob/user as mob)
+/obj/machinery/cryopod/attackby(var/obj/item/weapon/G as obj, var/mob/user as mob, params)
 
 	if(istype(G, /obj/item/weapon/grab))
 
@@ -461,7 +460,7 @@
 
 			//Despawning occurs when process() is called with an occupant without a client.
 			src.add_fingerprint(M)
-			
+
 
 /obj/machinery/cryopod/MouseDrop_T(atom/movable/O as mob|obj, mob/user as mob)
 
@@ -469,7 +468,7 @@
 		return
 	if(user.restrained() || user.stat || user.weakened || user.stunned || user.paralysis || user.resting) //are you cuffed, dying, lying, stunned or other
 		return
-	if(O.anchored || get_dist(user, src) > 1 || get_dist(user, O) > 1 || user.contents.Find(src)) // is the mob anchored, too far away from you, or are you too far away from the source
+	if(get_dist(user, src) > 1 || get_dist(user, O) > 1 || user.contents.Find(src)) // is the mob anchored, too far away from you, or are you too far away from the source
 		return
 	if(!ismob(O)) //humans only
 		return

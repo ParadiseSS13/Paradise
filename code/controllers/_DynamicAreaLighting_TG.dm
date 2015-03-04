@@ -94,7 +94,7 @@ datum/light_source
 		if(owner.loc && owner.luminosity > 0)
 			readrgb(owner.l_color)
 			effect = list()
-			for(var/turf/T in view(owner.get_light_range(),owner))
+			for(var/turf/T in view(owner.get_light_range(),get_turf(owner)))
 				var/delta_lumen = lum(T)
 				if(delta_lumen > 0)
 					effect[T] = delta_lumen
@@ -160,14 +160,6 @@ atom/movable/New()
 		trueLuminosity = luminosity * luminosity
 		light = new(src)
 
-//Objects with opacity will trigger nearby lights to update at next lighting process.
-atom/movable/Destroy()
-	if(opacity)
-		if(isturf(loc))
-			if(loc:lighting_lumcount > 1)
-				UpdateAffectingLights()
-
-	..()
 
 //Sets our luminosity.
 //If we have no light it will create one.

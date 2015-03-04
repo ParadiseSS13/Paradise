@@ -17,7 +17,7 @@
 			src.nutrition -= HUNGER_FACTOR/10
 			if(src.m_intent == "run")
 				src.nutrition -= HUNGER_FACTOR/10
-		if((M_FAT in src.mutations) && src.m_intent == "run" && src.bodytemperature <= 360)
+		if((FAT in src.mutations) && src.m_intent == "run" && src.bodytemperature <= 360)
 			src.bodytemperature += 2
 
 		// Moving around increases germ_level faster
@@ -78,7 +78,10 @@
 
 
 /mob/living/carbon/electrocute_act(var/shock_damage, var/obj/source, var/siemens_coeff = 1.0, var/def_zone = null)
-	if(status_flags & GODMODE)	return 0	//godmode
+	if(status_flags & GODMODE)	//godmode
+		return 0
+	if(NO_SHOCK in mutations) //shockproof
+		return 0
 	shock_damage *= siemens_coeff
 	if (shock_damage<1)
 		return 0
@@ -99,8 +102,14 @@
 				"\red <B>You feel a powerful shock course through your body!</B>", \
 				"\red You hear a heavy electrical crack." \
 			)
-		Stun(10)//This should work for now, more is really silly and makes you lay there forever
-		Weaken(10)
+		jitteriness += 1000 //High numbers for violent convulsions
+		do_jitter_animation(jitteriness)
+		stuttering += 2
+		Stun(2)
+		spawn(20)
+			jitteriness -= 990 //Still jittery, but vastly less
+			Stun(3)
+			Weaken(3)
 	if (shock_damage > 200)
 		src.visible_message(
 			"\red [src] was arc flashed by the [source]!", \
@@ -378,11 +387,13 @@
 	throw_mode_off()
 	if(usr.stat || !target)
 		return
-	if(target.type == /obj/screen) return
+	if(target.type == /obj/screen)
+		return
 
 	var/atom/movable/item = src.get_active_hand()
 
-	if(!item) return
+	if(!item || (item.flags & NODROP))
+		return
 
 	if (istype(item, /obj/item/weapon/grab))
 		var/obj/item/weapon/grab/G = item
@@ -404,10 +415,10 @@
 				else
 					M.LAssailant = usr
 
-	if(!item) return //Grab processing has a chance of returning null
-
-	item.layer = initial(item.layer)
-	u_equip(item)
+	if(!item)
+		return //Grab processing has a chance of returning null
+	if(!ismob(item)) //Honk mobs don't have a dropped() proc honk
+		unEquip(item)
 	update_icons()
 
 	if (istype(usr, /mob/living/carbon)) //Check if a carbon mob is throwing. Modify/remove this line as required.
@@ -419,6 +430,7 @@
 
 	//actually throw it!
 	if (item)
+		item.layer = initial(item.layer)
 		src.visible_message("\red [src] has thrown [item].")
 
 		if(!src.lastarea)
@@ -437,10 +449,6 @@
 
 		item.throw_at(target, item.throw_range, item.throw_speed, src)
 
-/mob/living/carbon/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume)
-	..()
-	bodytemperature = max(bodytemperature, BODYTEMP_HEAT_DAMAGE_LIMIT+10)
-
 /mob/living/carbon/can_use_hands()
 	if(handcuffed)
 		return 0
@@ -453,29 +461,34 @@
 		return 1
 	return
 
-/mob/living/carbon/u_equip(obj/item/W as obj)
-	if(!W)	return 0
+/mob/living/carbon/unEquip(obj/item/I) //THIS PROC DID NOT CALL ..()
+	. = ..() //Sets the default return value to what the parent returns.
+	if(!. || !I) //We don't want to set anything to null if the parent returned 0.
+		return
 
-	else if (W == handcuffed)
+	if(I == back)
+		back = null
+		update_inv_back(0)
+	else if(I == wear_mask)
+		if(istype(src, /mob/living/carbon/human)) //If we don't do this hair won't be properly rebuilt.
+			return
+		wear_mask = null
+		update_inv_wear_mask(0)
+	else if(I == handcuffed)
 		handcuffed = null
-		update_inv_handcuffed()
-
-	else if (W == legcuffed)
+		update_inv_handcuffed(1)
+	else if(I == legcuffed)
 		legcuffed = null
-		update_inv_legcuffed()
-	else
-	 ..()
-
-	return
+		update_inv_legcuffed(1)
 
 /mob/living/carbon/show_inv(mob/living/carbon/user as mob)
 	user.set_machine(src)
 	var/dat = {"
 	<B><HR><FONT size=3>[name]</FONT></B>
 	<BR><HR>
-	<BR><B>Head(Mask):</B> <A href='?src=\ref[src];item=mask'>[(wear_mask ? wear_mask : "Nothing")]</A>
-	<BR><B>Left Hand:</B> <A href='?src=\ref[src];item=l_hand'>[(l_hand ? l_hand  : "Nothing")]</A>
-	<BR><B>Right Hand:</B> <A href='?src=\ref[src];item=r_hand'>[(r_hand ? r_hand : "Nothing")]</A>
+	<BR><B>Head(Mask):</B> <A href='?src=\ref[src];item=mask'>[(wear_mask && !(wear_mask.flags & ABSTRACT)) ? wear_mask : "Nothing"]</A>
+	<BR><B>Left Hand:</B> <A href='?src=\ref[src];item=l_hand'>[(l_hand && !(l_hand.flags & ABSTRACT)) ? l_hand  : "Nothing"]</A>
+	<BR><B>Right Hand:</B> <A href='?src=\ref[src];item=r_hand'>[(r_hand && !(r_hand.flags & ABSTRACT)) ? r_hand : "Nothing"]</A>
 	<BR><B>Back:</B> <A href='?src=\ref[src];item=back'>[(back ? back : "Nothing")]</A> [((istype(wear_mask, /obj/item/clothing/mask) && istype(back, /obj/item/weapon/tank) && !( internal )) ? text(" <A href='?src=\ref[];item=internal'>Set Internal</A>", src) : "")]
 	<BR>[(handcuffed ? text("<A href='?src=\ref[src];item=handcuff'>Handcuffed</A>") : text("<A href='?src=\ref[src];item=handcuff'>Not Handcuffed</A>"))]
 	<BR>[(internal ? text("<A href='?src=\ref[src];item=internal'>Remove Internal</A>") : "")]
@@ -580,3 +593,6 @@
 
 /mob/living/carbon/proc/canBeHandcuffed()
 	return 0
+
+/mob/living/carbon/is_muzzled()
+	return(istype(src.wear_mask, /obj/item/clothing/mask/muzzle))

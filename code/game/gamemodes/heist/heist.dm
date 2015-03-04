@@ -15,7 +15,7 @@ var/global/list/obj/cortical_stacks = list() //Stacks for 'leave nobody behind' 
 	required_players = 15
 	required_players_secret = 25
 	required_enemies = 4
-	recommended_enemies = 6
+	recommended_enemies = 5
 	votable = 0
 
 	var/const/waittime_l = 600 //lower bound on time before intercept arrives (in tenths of seconds)
@@ -150,8 +150,8 @@ var/global/list/obj/cortical_stacks = list() //Stacks for 'leave nobody behind' 
 	var/i = 1
 	var/max_objectives = pick(2,2,2,2,3,3,3,4)
 	var/list/objs = list()
+	var/list/goals = list("kidnap","loot","salvage")
 	while(i<= max_objectives)
-		var/list/goals = list("kidnap","loot","salvage")
 		var/goal = pick(goals)
 		var/datum/objective/heist/O
 

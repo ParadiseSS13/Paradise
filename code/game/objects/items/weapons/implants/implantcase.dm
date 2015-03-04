@@ -21,7 +21,7 @@
 		return
 
 
-	attackby(obj/item/weapon/I as obj, mob/user as mob)
+	attackby(obj/item/weapon/I as obj, mob/user as mob, params)
 		..()
 		if (istype(I, /obj/item/weapon/pen))
 			var/t = input(user, "What would you like the label to be?", text("[]", src.name), null)  as text
@@ -29,7 +29,7 @@
 				return
 			if((!in_range(src, usr) && src.loc != user))
 				return
-			t = copytext(sanitize(t),1,MAX_MESSAGE_LEN)
+			t = sanitize(copytext(t,1,MAX_MESSAGE_LEN))
 			if(t)
 				src.name = text("Glass Case- '[]'", t)
 			else

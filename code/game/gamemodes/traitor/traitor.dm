@@ -107,7 +107,7 @@
 				assign_exchange_role(exchange_blue)
 		else
 			var/list/active_ais = active_ais()
-			if(active_ais.len && prob(100/num_players()))
+			if(active_ais.len && prob(4)) // Leaving this at a flat chance for now, problems with the num_players() proc due to latejoin antags.
 				var/datum/objective/destroy/destroy_objective = new
 				destroy_objective.owner = traitor
 				destroy_objective.find_target()
@@ -143,7 +143,7 @@
 						traitor.objectives += steal_objective
 		switch(rand(1,100))
 			if(1 to 30) // Die glorious death
-				if (!(locate(/datum/objective/die) in traitor.objectives) && !(locate(/datum/objective/steal) in traitor.objectives))
+				if (!(locate(/datum/objective/die) in traitor.objectives) && !(locate(/datum/objective/steal) in traitor.objectives) && !(locate(/datum/objective/steal/exchange) in traitor.objectives) && !(locate(/datum/objective/steal/exchange/backstab) in traitor.objectives))
 					var/datum/objective/die/die_objective = new
 					die_objective.owner = traitor
 					traitor.objectives += die_objective
@@ -301,7 +301,7 @@
 	if (traitor_mob.mind)
 		if (traitor_mob.mind.assigned_role == "Clown")
 			traitor_mob << "Your training has allowed you to overcome your clownish nature, allowing you to wield weapons without harming yourself."
-			traitor_mob.mutations.Remove(M_CLUMSY)
+			traitor_mob.mutations.Remove(CLUMSY)
 
 	// find a radio! toolbox(es), backpack, belt, headset
 	var/obj/item/R = locate(/obj/item/device/pda) in traitor_mob.contents //Hide the uplink in a PDA if available, otherwise radio

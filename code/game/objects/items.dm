@@ -3,15 +3,13 @@
 	icon = 'icons/obj/items.dmi'
 	var/discrete = 0 // used in item_attack.dm to make an item not show an attack message to viewers
 	var/no_embed = 0 // For use in item_attack.dm
-	var/icon/blood_overlay = null //this saves our blood splatter overlay, which will be processed not to go over the edges of the sprite
+	var/image/blood_overlay = null //this saves our blood splatter overlay, which will be processed not to go over the edges of the sprite
 	var/blood_overlay_color = null
-	var/abstract = 0
 	var/item_state = null
 	var/r_speed = 1.0
 	var/health = null
 	var/hitsound = null
 	var/w_class = 3.0
-	flags = FPRINT | TABLEPASS
 	var/slot_flags = 0		//This is used to determine on which slots an item can fit.
 	pass_flags = PASSTABLE
 	pressure_resistance = 5
@@ -35,7 +33,6 @@
 	var/permeability_coefficient = 1 // for chemicals/diseases
 	var/siemens_coefficient = 1 // for electrical admittance/conductance (electrocution checks and shit)
 	var/slowdown = 0 // How much clothing is slowing you down. Negative values speeds you up
-	var/canremove = 1 //Mostly for Ninja code at this point but basically will not allow the item to be removed if set to 0. /N
 	var/reflect_chance = 0 //This var dictates what % of a time an object will reflect an energy based weapon's shot
 	var/armor = list(melee = 0, bullet = 0, laser = 0,energy = 0, bomb = 0, bio = 0, rad = 0)
 	var/list/allowed = null //suit storage stuff.
@@ -56,7 +53,7 @@
 /obj/item/Destroy()
 	if(istype(src.loc, /mob))
 		var/mob/H = src.loc
-		H.drop_from_inventory(src) // items at the very least get unequipped from their mob before being deleted
+		H.unEquip(src) // items at the very least get unequipped from their mob before being deleted
 	if(reagents && istype(reagents))
 		reagents.my_atom = null
 		reagents.delete()
@@ -129,7 +126,7 @@
 		if(5.0)
 			size = "huge"
 		else
-	//if ((M_CLUMSY in usr.mutations) && prob(50)) t = "funny-looking"
+	//if ((CLUMSY in usr.mutations) && prob(50)) t = "funny-looking"
 	usr << "This is a [src.blood_DNA ? "bloody " : ""]\icon[src][src.name]. It is a [size] item."
 	if(src.desc)
 		usr << src.desc
@@ -151,19 +148,15 @@
 		S.remove_from_storage(src)
 
 	src.throwing = 0
-	if (src.loc == user)
-		//canremove==0 means that object may not be removed. You can still wear it. This only applies to clothing. /N
-		if(!src.canremove)
+	if (loc == user)
+		if(!user.unEquip(src))
 			return 0
-		else
-			user.u_equip(src)
 
 	else
-		if(isliving(src.loc))
+		if(isliving(loc))
 			return 0
-		user.next_move = max(user.next_move+2,world.time + 2)
 
-	src.pickup(user)
+	pickup(user)
 	add_fingerprint(user)
 	user.put_in_active_hand(src)
 	return 1
@@ -176,7 +169,7 @@
 
 		if(!A.has_fine_manipulation || w_class >= 4)
 			if(src in A.contents) // To stop Aliens having items stuck in their pockets
-				A.drop_from_inventory(src)
+				A.unEquip(src)
 			user << "Your claws aren't capable of such fine manipulation."
 			return
 
@@ -187,16 +180,12 @@
 					M.client.screen -= src
 	src.throwing = 0
 	if (src.loc == user)
-		//canremove==0 means that object may not be removed. You can still wear it. This only applies to clothing. /N
-		if(istype(src, /obj/item/clothing) && !src:canremove)
+		if(!user.unEquip(src))
 			return
-		else
-			user.u_equip(src)
 	else
 		if(istype(src.loc, /mob/living))
 			return
 		src.pickup(user)
-		user.next_move = max(user.next_move+2,world.time + 2)
 
 	user.put_in_active_hand(src)
 	return
@@ -207,7 +196,7 @@
 
 	if(!A.has_fine_manipulation || w_class >= 4)
 		if(src in A.contents) // To stop Aliens having items stuck in their pockets
-			A.drop_from_inventory(src)
+			A.unEquip(src)
 		user << "Your claws aren't capable of such fine manipulation."
 		return
 	attack_paw(A)
@@ -222,7 +211,7 @@
 
 // Due to storage type consolidation this should get used more now.
 // I have cleaned it up a little, but it could probably use more.  -Sayu
-/obj/item/attackby(obj/item/weapon/W as obj, mob/user as mob)
+/obj/item/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
 	if(istype(W,/obj/item/weapon/storage))
 		var/obj/item/weapon/storage/S = W
 		if(S.use_to_pickup)
@@ -311,7 +300,7 @@
 
 
 		if(istype(src, /obj/item/clothing/under) || istype(src, /obj/item/clothing/suit))
-			if(M_FAT in H.mutations)
+			if(FAT in H.mutations)
 				testing("[M] TOO FAT TO WEAR [src]!")
 				if(!(flags & ONESIZEFITSALL))
 					if(!disable_warning)
@@ -422,6 +411,8 @@
 					return 0
 				return 1
 			if(slot_l_store)
+				if(flags & NODROP) //Pockets aren't visible, so you can't move NODROP items into them.
+					return 0
 				if(H.l_store)
 					return 0
 				if(!H.w_uniform)
@@ -433,6 +424,8 @@
 				if( w_class <= 2 || (slot_flags & SLOT_POCKET) )
 					return 1
 			if(slot_r_store)
+				if(flags & NODROP)
+					return 0
 				if(H.r_store)
 					return 0
 				if(!H.w_uniform)
@@ -445,6 +438,8 @@
 					return 1
 				return 0
 			if(slot_s_store)
+				if(flags & NODROP) //Suit storage NODROP items drop if you take a suit off, this is to prevent people exploiting this.
+					return 0
 				if(H.s_store)
 					return 0
 				if(!H.wear_suit)
@@ -465,13 +460,13 @@
 			if(slot_handcuffed)
 				if(H.handcuffed)
 					return 0
-				if(!istype(src, /obj/item/weapon/handcuffs))
+				if(!istype(src, /obj/item/weapon/restraints/handcuffs))
 					return 0
 				return 1
 			if(slot_legcuffed)
 				if(H.legcuffed)
 					return 0
-				if(!istype(src, /obj/item/weapon/legcuffs))
+				if(!istype(src, /obj/item/weapon/restraints/legcuffs))
 					return 0
 				return 1
 			if(slot_in_backpack)
@@ -480,6 +475,19 @@
 					if(B.contents.len < B.storage_slots && w_class <= B.max_w_class)
 						return 1
 				return 0
+			if(slot_tie)
+				if(!H.w_uniform)
+					if(!disable_warning)
+						H << "<span class='warning'>You need a jumpsuit before you can attach this [name].</span>"
+					return 0
+				var/obj/item/clothing/under/uniform = H.w_uniform
+				if(uniform.accessories.len && !uniform.can_attach_accessory(src))
+					if (!disable_warning)
+						H << "<span class='warning'>You already have an accessory of this type attached to your [uniform].</span>"
+					return 0
+				if( !(slot_flags & SLOT_TIE) )
+					return 0
+				return 1
 		return 0 //Unsupported slot
 		//END HUMAN
 
@@ -551,7 +559,7 @@
 	if( src in usr )
 		attack_self(usr)
 		return
-	else if(istype(src, /obj/item/clothing/tie))
+	else if(istype(src, /obj/item/clothing/accessory))
 		if(istype(src.loc,/obj/item/clothing/under))
 			attack_self(usr)
 
@@ -604,7 +612,7 @@
 		M.LAssailant = user
 
 	src.add_fingerprint(user)
-	//if((M_CLUMSY in user.mutations) && prob(50))
+	//if((CLUMSY in user.mutations) && prob(50))
 	//	M = user
 		/*
 		M << "\red You stab yourself in the eye."
@@ -667,35 +675,29 @@
 
 	//if we haven't made our blood_overlay already
 	if( !blood_overlay )
-		if(M.species.bloodflags & BLOOD_GREEN)
-			generate_blood_overlay(1)
-		else
-			generate_blood_overlay()
+		generate_blood_overlay()
 
 	//apply the blood-splatter overlay if it isn't already in there
 	if(!blood_DNA.len)
+		blood_overlay.color = blood_color
 		overlays += blood_overlay
 
 	//if this blood isn't already in the list, add it
-
-	if(blood_DNA[M.dna.unique_enzymes])
-		return 0 //already bloodied with this blood. Cannot add more.
-	blood_DNA[M.dna.unique_enzymes] = M.dna.b_type
+	if(istype(M))
+		if(blood_DNA[M.dna.unique_enzymes])
+			return 0 //already bloodied with this blood. Cannot add more.
+		blood_DNA[M.dna.unique_enzymes] = M.dna.b_type
 	return 1 //we applied blood to the item
 
-/obj/item/proc/generate_blood_overlay(blood_overlay_color)
+/obj/item/proc/generate_blood_overlay()
 	if(blood_overlay)
 		return
 
 	var/icon/I = new /icon(icon, icon_state)
 	I.Blend(new /icon('icons/effects/blood.dmi', rgb(255,255,255)),ICON_ADD) //fills the icon_state with white (except where it's transparent)
-	if (blood_overlay_color == 1)
-		I.Blend(new /icon('icons/effects/blood.dmi', "xitemblood"),ICON_MULTIPLY) //adds blood and the remaining white areas become transparant
-	else
-		I.Blend(new /icon('icons/effects/blood.dmi', "itemblood"),ICON_MULTIPLY) //adds blood and the remaining white areas become transparant
+	I.Blend(new /icon('icons/effects/blood.dmi', "itemblood"),ICON_MULTIPLY) //adds blood and the remaining white areas become transparant
 
 	//not sure if this is worth it. It attaches the blood_overlay to every item of the same type if they don't have one already made.
 	for(var/obj/item/A in world)
 		if(A.type == type && !A.blood_overlay)
 			A.blood_overlay = image(I)
-

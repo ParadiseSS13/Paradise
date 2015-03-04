@@ -48,7 +48,7 @@
 
 	broadcast() // Bzzt
 /*
-/obj/machinery/media/transmitter/broadcast/attackby(var/obj/item/W, mob/user)
+/obj/machinery/media/transmitter/broadcast/attackby(var/obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/device/multitool))
 		update_multitool_menu(user)
 		return 1

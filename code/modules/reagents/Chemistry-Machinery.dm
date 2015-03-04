@@ -26,6 +26,7 @@
 	var/list/broken_requirements = list()
 	var/broken_on_spawn = 0
 	var/recharge_delay = 15
+	var/image/icon_beaker = null //cached overlay
 
 
 /obj/machinery/chem_dispenser/proc/recharge()
@@ -59,13 +60,14 @@
 	dispensable_reagents = sortList(dispensable_reagents)
 
 	if(broken_on_spawn)
+		overlays.Cut()
 		var/amount = pick(3,3,4)
 		var/list/options = list()
 		options[/obj/item/weapon/stock_parts/capacitor/adv] = "Add an advanced capacitor to fix it."
 		options[/obj/item/weapon/stock_parts/console_screen] = "Replace the console screen to fix it."
 		options[/obj/item/weapon/stock_parts/manipulator/pico] = "Upgrade to a pico manipulator to fix it."
 		options[/obj/item/weapon/stock_parts/matter_bin/super] = "Give it a super matter bin to fix it."
-		options[/obj/item/weapon/cell/super] = "Replace the reagent synthesizer with a super capacity cell to fix it."
+		options[/obj/item/weapon/stock_parts/cell/super] = "Replace the reagent synthesizer with a super capacity cell to fix it."
 		options[/obj/item/device/mass_spectrometer/adv] = "Replace the reagent scanner with an advanced mass spectrometer to fix it"
 		options[/obj/item/weapon/stock_parts/micro_laser/high] = "Repair the reagent synthesizer with an high-power micro-laser to fix it"
 		options[/obj/item/device/reagent_scanner/adv] = "Replace the reagent scanner with an advanced reagent scanner to fix it"
@@ -181,12 +183,11 @@
 			var/obj/item/weapon/reagent_containers/glass/B = beaker
 			B.loc = loc
 			beaker = null
-			if(!panel_open)
-				icon_state = initial(icon_state)
+			overlays.Cut()
 	add_fingerprint(usr)
 	return 1 // update UIs attached to this object
 
-/obj/machinery/chem_dispenser/attackby(var/obj/item/weapon/reagent_containers/B as obj, var/mob/user as mob)
+/obj/machinery/chem_dispenser/attackby(var/obj/item/weapon/reagent_containers/B as obj, var/mob/user as mob, params)
 	if(isrobot(user))
 		return
 
@@ -211,10 +212,13 @@
 		B.loc = src
 		user << "You set [B] on the machine."
 		nanomanager.update_uis(src) // update all UIs attached to src
-		icon_state = "[initial(icon_state)]2"
+		if(!icon_beaker)
+			icon_beaker = image('icons/obj/chemical.dmi', src, "disp_beaker") //randomize beaker overlay position.
+		icon_beaker.pixel_x = rand(-10,5)
+		overlays += icon_beaker
 		return
 
-/obj/machinery/chem_dispenser/attackby(var/obj/item/weapon/B as obj, var/mob/user as mob)
+/obj/machinery/chem_dispenser/attackby(var/obj/item/weapon/B as obj, var/mob/user as mob, params)
 	..()
 	if(istype(B, /obj/item/device/multitool))
 		if(hackedcheck == 0)
@@ -290,7 +294,7 @@
 	component_parts += new /obj/item/weapon/stock_parts/manipulator(src)
 	component_parts += new /obj/item/weapon/stock_parts/capacitor(src)
 	component_parts += new /obj/item/weapon/stock_parts/console_screen(src)
-	component_parts += new /obj/item/weapon/cell/super(src)
+	component_parts += new /obj/item/weapon/stock_parts/cell/super(src)
 	RefreshParts()
 
 /obj/machinery/chem_dispenser/constructable/RefreshParts()
@@ -303,14 +307,14 @@
 	max_energy = temp_energy * 5  //max energy = (bin1.rating + bin2.rating - 1) * 5, 5 on lowest 25 on highest
 	for(var/obj/item/weapon/stock_parts/capacitor/C in component_parts)
 		time += C.rating
-	for(var/obj/item/weapon/cell/P in component_parts)
+	for(var/obj/item/weapon/stock_parts/cell/P in component_parts)
 		time += round(P.maxcharge, 10000) / 10000
 	recharge_delay /= time/2         //delay between recharges, double the usual time on lowest 50% less than usual on highest
 	for(var/obj/item/weapon/stock_parts/manipulator/M in component_parts)
 		for(i=1, i<=M.rating, i++)
 			dispensable_reagents = sortList(dispensable_reagents | special_reagents[i])
 
-/obj/machinery/chem_dispenser/constructable/attackby(var/obj/item/I, var/mob/user)
+/obj/machinery/chem_dispenser/constructable/attackby(var/obj/item/I, var/mob/user, params)
 	if(istype(I, /obj/item/weapon/reagent_containers/glass))
 		if(panel_open)
 			user << "<span class='notice'>Close the maintenance panel first.</span>"
@@ -396,7 +400,7 @@
 		spawn(rand(0, 15))
 			stat |= NOPOWER
 
-/obj/machinery/chem_master/attackby(var/obj/item/weapon/B as obj, var/mob/user as mob)
+/obj/machinery/chem_master/attackby(var/obj/item/weapon/B as obj, var/mob/user as mob, params)
 
 	if(istype(B, /obj/item/weapon/reagent_containers/glass) || istype(B, /obj/item/weapon/reagent_containers/food/drinks/drinkingglass))
 
@@ -440,7 +444,7 @@
 		usr << browse(null, "window=chemmaster")
 		usr.unset_machine()
 		return
-	
+
 	if (href_list["print_p"])
 		if (!(src.printing))
 			src.printing = 1
@@ -465,7 +469,7 @@
 			P.info += "<br><br><b>Notes:</b><br>"
 			P.name = "Chemical Analysis - [href_list["name"]]"
 			src.printing = null
-	
+
 	if(beaker)
 		var/datum/reagents/R = beaker:reagents
 		if (href_list["analyze"])
@@ -929,7 +933,7 @@
 	return
 
 
-/obj/machinery/computer/pandemic/attackby(var/obj/I as obj, var/mob/user as mob)
+/obj/machinery/computer/pandemic/attackby(var/obj/I as obj, var/mob/user as mob, params)
 	if(istype(I, /obj/item/weapon/reagent_containers/glass))
 		if(stat & (NOPOWER|BROKEN)) return
 		if(src.beaker)
@@ -1026,7 +1030,7 @@
 	return
 
 
-/obj/machinery/reagentgrinder/attackby(var/obj/item/O as obj, var/mob/user as mob)
+/obj/machinery/reagentgrinder/attackby(var/obj/item/O as obj, var/mob/user as mob, params)
 
 
 	if (istype(O,/obj/item/weapon/reagent_containers/glass) || \
@@ -1069,7 +1073,7 @@
 		user << "Cannot refine into a reagent."
 		return 1
 
-	user.before_take_item(O)
+	user.unEquip(O)
 	O.loc = src
 	holdingitems += O
 	src.updateUsrDialog()

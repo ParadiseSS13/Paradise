@@ -8,7 +8,7 @@
 
 	var/obj/item/weapon/reagent_containers/container = null
 
-/obj/machinery/computer/curer/attackby(var/obj/I as obj, var/mob/user as mob)
+/obj/machinery/computer/curer/attackby(var/obj/I as obj, var/mob/user as mob, params)
 	if(istype(I,/obj/item/weapon/reagent_containers))
 		var/mob/living/carbon/C = user
 		if(!container)
@@ -32,7 +32,7 @@
 		state("The [src.name] Buzzes", "blue")
 		return
 	..()
-	return 
+	return
 
 /obj/machinery/computer/curer/attack_ai(var/mob/user as mob)
 	return src.attack_hand(user)

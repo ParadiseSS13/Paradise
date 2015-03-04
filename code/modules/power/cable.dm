@@ -1,6 +1,6 @@
 // attach a wire to a power machine - leads from the turf you are standing on
 
-/obj/machinery/power/attackby(obj/item/weapon/W, mob/user)
+/obj/machinery/power/attackby(obj/item/weapon/W, mob/user, params)
 
 	if(istype(W, /obj/item/stack/cable_coil))
 
@@ -120,7 +120,7 @@
 /obj/structure/cable/attack_tk(mob/user)
 	return
 
-/obj/structure/cable/attackby(obj/item/W, mob/user)
+/obj/structure/cable/attackby(obj/item/W, mob/user, params)
 
 	var/turf/T = src.loc
 	if(T.intact)
@@ -216,7 +216,7 @@
 	throw_range = 5
 	m_amt = 50
 	g_amt = 20
-	flags = TABLEPASS | FPRINT | CONDUCT
+	flags = CONDUCT
 	slot_flags = SLOT_BELT
 	attack_verb = list("whipped", "lashed", "disciplined", "flogged")
 
@@ -270,7 +270,7 @@
 		if(src.amount <= 14)
 			usr << "\red You need at least 15 lengths to make restraints!"
 			return
-		var/obj/item/weapon/handcuffs/cable/B = new /obj/item/weapon/handcuffs/cable(usr.loc)
+		var/obj/item/weapon/restraints/handcuffs/cable/B = new /obj/item/weapon/restraints/handcuffs/cable(usr.loc)
 		B.icon_state = "cuff_[_color]"
 		usr << "\blue You wind some cable together to make some restraints."
 		src.use(15)
@@ -278,7 +278,7 @@
 		usr << "\blue You cannot do that."
 	..()
 
-/obj/item/stack/cable_coil/attackby(obj/item/weapon/W, mob/user)
+/obj/item/stack/cable_coil/attackby(obj/item/weapon/W, mob/user, params)
 	..()
 	if( istype(W, /obj/item/weapon/wirecutters) && src.amount > 1)
 		src.amount--
@@ -313,7 +313,7 @@
 		//handle mob icon update
 		if(ismob(loc))
 			var/mob/M = loc
-			M.u_equip(src)
+			M.unEquip(src)
 		del(src)
 	else
 		amount -= used

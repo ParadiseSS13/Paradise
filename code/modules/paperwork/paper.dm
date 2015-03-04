@@ -39,20 +39,10 @@
 	..()
 	pixel_y = rand(-8, 8)
 	pixel_x = rand(-9, 9)
-	stamps = ""
-
-	if(name != "paper")
-		desc = "This is a paper titled '" + name + "'."
-
-	if(info != initial(info))
-		info = html_encode(info)
-		info = replacetext(info, "\n", "<BR>")
-		info = parsepencode(info)
 
 	spawn(2)
 		update_icon()
 		updateinfolinks()
-		return
 
 /obj/item/weapon/paper/update_icon()
 	if(icon_state == "paper_talisman")
@@ -83,10 +73,10 @@
 	set category = "Object"
 	set src in usr
 
-	if((M_CLUMSY in usr.mutations) && prob(50))
+	if((CLUMSY in usr.mutations) && prob(50))
 		usr << "<span class='warning'>You cut yourself on the paper.</span>"
 		return
-	var/n_name = copytext(sanitize(input(usr, "What would you like to label the paper?", "Paper Labelling", null)  as text), 1, MAX_MESSAGE_LEN)
+	var/n_name = sanitize(copytext(input(usr, "What would you like to label the paper?", "Paper Labelling", name) as text, 1, MAX_MESSAGE_LEN))
 	if((loc == usr && usr.stat == 0))
 		name = "[(n_name ? text("[n_name]") : initial(name))]"
 	if(name != "paper")
@@ -195,7 +185,7 @@
 
 
 /obj/item/weapon/paper/proc/parsepencode(var/t, var/obj/item/weapon/pen/P, mob/user as mob, var/iscrayon = 0)
-//	t = copytext(sanitize(t),1,MAX_MESSAGE_LEN)
+//	t = sanitize(copytext(t),1,MAX_MESSAGE_LEN)
 
 	t = replacetext(t, "\[center\]", "<center>")
 	t = replacetext(t, "\[/center\]", "</center>")
@@ -303,7 +293,7 @@
 				"[class]You burn right through \the [src], turning it to ash. It flutters through the air before settling on the floor in a heap.")
 
 				if(user.get_inactive_hand() == src)
-					user.drop_from_inventory(src)
+					user.unEquip(src)
 
 				new /obj/effect/decal/cleanable/ash(get_turf(src))
 				del(src)
@@ -358,7 +348,7 @@
 		update_icon()
 
 
-/obj/item/weapon/paper/attackby(obj/item/weapon/P as obj, mob/user as mob)
+/obj/item/weapon/paper/attackby(obj/item/weapon/P as obj, mob/user as mob, params)
 	..()
 	var/clown = 0
 	if(user.mind && (user.mind.assigned_role == "Clown"))
@@ -376,29 +366,29 @@
 			B.name = name
 		else if (P.name != "paper" && P.name != "photo")
 			B.name = P.name
-		user.drop_from_inventory(P)
+		user.unEquip(P)
 		if (istype(user, /mob/living/carbon/human))
 			var/mob/living/carbon/human/h_user = user
 			if (h_user.r_hand == src)
-				h_user.drop_from_inventory(src)
+				h_user.unEquip(src)
 				h_user.put_in_r_hand(B)
 			else if (h_user.l_hand == src)
-				h_user.drop_from_inventory(src)
+				h_user.unEquip(src)
 				h_user.put_in_l_hand(B)
 			else if (h_user.l_store == src)
-				h_user.drop_from_inventory(src)
+				h_user.unEquip(src)
 				B.loc = h_user
 				B.layer = 20
 				h_user.l_store = B
 				h_user.update_inv_pockets()
 			else if (h_user.r_store == src)
-				h_user.drop_from_inventory(src)
+				h_user.unEquip(src)
 				B.loc = h_user
 				B.layer = 20
 				h_user.r_store = B
 				h_user.update_inv_pockets()
 			else if (h_user.head == src)
-				h_user.u_equip(src)
+				h_user.unEquip(src)
 				h_user.put_in_hands(B)
 			else if (!istype(src.loc, /turf))
 				src.loc = get_turf(h_user)
@@ -563,7 +553,7 @@
 
 /obj/item/weapon/paper/armory
 	name = "paper- 'Armory Inventory'"
-	info = "4 Deployable Barriers<br>4 Portable Flashers<br>1 Mechanical Toolbox<br>2 Boxes of Spare Handcuffs<br>1 Box of Flashbangs<br>1 Box of Spare R.O.B.U.S.T. Cartridges<br>1 Tracking Implant Kit<br>1 Chemical Implant Kit<br>1 Box of Tear Gas Grenades<br>1 Explosive Ordnance Disposal Suit<br>1 Biohazard Suit<br>3 Gas Masks<br>1 Lockbox of Loyalty Implants<br>1 Ion Rifle<br>3 Sets of Riot Equipment<br>2 Sets of Security Hardsuits<br>1 Ablative Armor Vest<br>3 Bulletproof Vests<br>3 Helmets<br><br>2 Riot Shotguns<br>2 Boxes of Beanbag Shells<br>3 Laser Guns<br>3 Energy Guns<br>3 Advanced Tasers"
+	info = "4 Deployable Barriers<br>4 Portable Flashers<br>1 Mechanical Toolbox<br>2 Boxes of Spare Handcuffs<br>1 Box of Flashbangs<br>1 Box of Spare R.O.B.U.S.T. Cartridges<br>1 Tracking Implant Kit<br>1 Chemical Implant Kit<br>1 Box of Tear Gas Grenades<br>1 Explosive Ordnance Disposal Suit<br>1 Biohazard Suit<br>6 Gas Masks<br>1 Lockbox of Loyalty Implants<br>1 Ion Rifle<br>3 Sets of Riot Equipment<br>2 Sets of Security Hardsuits<br>1 Ablative Armor Vest<br>3 Bulletproof Vests<br>3 Helmets<br><br>2 Riot Shotguns<br>2 Boxes of Beanbag Shells<br>3 Laser Guns<br>3 Energy Guns<br>3 Advanced Tasers"
 
 /obj/item/weapon/paper/firingrange
 	name = "paper- 'Firing Range Instructions'"

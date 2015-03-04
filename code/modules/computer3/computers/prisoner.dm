@@ -90,7 +90,7 @@
 			screen = !screen
 
 		else if(href_list["warn"])
-			var/warning = trim(copytext(sanitize(input(usr,"Message:","Enter your message here!","")),1,MAX_MESSAGE_LEN))
+			var/warning = trim(sanitize(copytext(input(usr,"Message:","Enter your message here!",""),1,MAX_MESSAGE_LEN)))
 			if(!warning) return
 			var/obj/item/weapon/implant/I = locate(href_list["warn"])
 			if( istype(I) && I.imp_in)

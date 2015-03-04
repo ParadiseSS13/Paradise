@@ -6,14 +6,13 @@
 	throw_speed = 1
 	throw_range = 5
 	w_class = 1.0
-	flags = FPRINT | TABLEPASS
 	var/uses = 5
 	var/temp = null
 	var/max_uses = 5
 	var/op = 1
 	var/activepage
 
-/obj/item/weapon/spellbook/attackby(obj/item/O as obj, mob/user as mob)
+/obj/item/weapon/spellbook/attackby(obj/item/O as obj, mob/user as mob, params)
 	if(istype(O, /obj/item/weapon/contract))
 		var/obj/item/weapon/contract/contract = O
 		if(contract.used)
@@ -367,8 +366,8 @@
 						if("scrying")
 							feedback_add_details("wizard_spell_learned","SO") //please do not change the abbreviation to keep data processing consistent. Add a unique id to any new spells
 							new /obj/item/weapon/scrying(get_turf(H))
-							if (!(M_XRAY in H.mutations))
-								H.mutations.Add(M_XRAY)
+							if (!(XRAY in H.mutations))
+								H.mutations.Add(XRAY)
 								H.sight |= (SEE_MOBS|SEE_OBJS|SEE_TURFS)
 								H.see_in_dark = 8
 								H.see_invisible = SEE_INVISIBLE_LEVEL_TWO
@@ -555,12 +554,13 @@
 	if(istype(user, /mob/living/carbon/human))
 		user <<"<font size='15' color='red'><b>HOR-SIE HAS RISEN</b></font>"
 		var/obj/item/clothing/mask/horsehead/magichead = new /obj/item/clothing/mask/horsehead
-		magichead.canremove = 0		//curses!
+		magichead.flags |= NODROP		//curses!
 		magichead.flags_inv = null	//so you can still see their face
 		magichead.voicechange = 1	//NEEEEIIGHH
-		user.drop_from_inventory(user.wear_mask)
+		if(!user.unEquip(user.wear_mask))
+			del user.wear_mask
 		user.equip_to_slot_if_possible(magichead, slot_wear_mask, 1, 1)
-		del(src)
+		del src
 	else
 		user <<"<span class='notice'>I say thee neigh</span>"
 

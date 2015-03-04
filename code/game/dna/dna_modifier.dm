@@ -45,6 +45,7 @@
 	use_power = 1
 	idle_power_usage = 50
 	active_power_usage = 300
+	interact_offline = 1
 	var/locked = 0
 	var/mob/living/carbon/occupant = null
 	var/obj/item/weapon/reagent_containers/glass/beaker = null
@@ -64,7 +65,7 @@
 	component_parts += new /obj/item/stack/cable_coil(src, 1)
 	component_parts += new /obj/item/stack/cable_coil(src, 1)
 	RefreshParts()
-	
+
 /obj/machinery/dna_scannernew/upgraded/New()
 	..()
 	component_parts = list()
@@ -190,7 +191,7 @@
 	if(user.pulling == L)
 		user.pulling = null
 
-/obj/machinery/dna_scannernew/attackby(var/obj/item/weapon/item as obj, var/mob/user as mob)
+/obj/machinery/dna_scannernew/attackby(var/obj/item/weapon/item as obj, var/mob/user as mob, params)
 	if(istype(item, /obj/item/weapon/screwdriver))
 		if(occupant)
 			user << "<span class='notice'>The maintenance panel is locked.</span>"
@@ -232,7 +233,7 @@
 		return
 	put_in(G.affecting)
 	src.add_fingerprint(user)
-	del(G)
+	qdel(G)
 	return
 
 /obj/machinery/dna_scannernew/proc/put_in(var/mob/M)
@@ -308,7 +309,7 @@
 	if(prob(75))
 		for(var/atom/movable/A as mob|obj in src)
 			A.loc = src.loc
-		del(src)
+		qdel(src)
 
 /obj/machinery/computer/scan_consolenew
 	name = "DNA Modifier Access Console"
@@ -337,7 +338,7 @@
 	active_power_usage = 400
 	var/waiting_for_user_input=0 // Fix for #274 (Mash create block injector without answering dialog to make unlimited injectors) - N3X
 
-/obj/machinery/computer/scan_consolenew/attackby(obj/item/I as obj, mob/user as mob)
+/obj/machinery/computer/scan_consolenew/attackby(obj/item/I as obj, mob/user as mob, params)
 	if (istype(I, /obj/item/weapon/disk/data)) //INSERT SOME diskS
 		if (!src.disk)
 			user.drop_item()
@@ -366,7 +367,7 @@
 
 /obj/machinery/computer/scan_consolenew/blob_act()
 	if(prob(75))
-		del(src)
+		qdel(src)
 
 /obj/machinery/computer/scan_consolenew/power_change()
 	if(stat & BROKEN)
@@ -503,7 +504,7 @@
 		occupantData["name"] = connected.occupant.name
 		occupantData["stat"] = connected.occupant.stat
 		occupantData["isViableSubject"] = 1
-		if ((M_NOCLONE in connected.occupant.mutations && connected.scan_level < 3) || !src.connected.occupant.dna)
+		if ((NOCLONE in connected.occupant.mutations && connected.scan_level < 3) || !src.connected.occupant.dna)
 			occupantData["isViableSubject"] = 0
 		occupantData["health"] = connected.occupant.health
 		occupantData["maxHealth"] = connected.occupant.maxHealth
@@ -842,7 +843,7 @@
 			return 1
 
 		if (bufferOption == "transfer")
-			if (!src.connected.occupant || (M_NOCLONE in src.connected.occupant.mutations && connected.scan_level < 3) || !src.connected.occupant.dna)
+			if (!src.connected.occupant || (NOCLONE in src.connected.occupant.mutations && connected.scan_level < 3) || !src.connected.occupant.dna)
 				return
 
 			irradiating = 2

@@ -5,21 +5,24 @@
 	icon_state = "mopbucket"
 	density = 1
 	pressure_resistance = 5
-	flags = FPRINT | TABLEPASS | OPENCONTAINER
+	flags = OPENCONTAINER
 	var/amount_per_transfer_from_this = 5 //shit I dunno, adding this so syringes stop runtime erroring. --NeoFite
 
 /obj/structure/mopbucket/New()
 	var/datum/reagents/R = new/datum/reagents(100)
 	reagents = R
 	R.my_atom = src
-
+	
+/obj/structure/mopbucket/full/New()
+	..()
+	reagents.add_reagent("water", 100)
 
 /obj/structure/mopbucket/examine()
 	set src in usr
 	usr << text("\icon[] [] contains [] units of water left!", src, src.name, src.reagents.total_volume)
 	..()
 
-/obj/structure/mopbucket/attackby(obj/item/weapon/W as obj, mob/user as mob)
+/obj/structure/mopbucket/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
 	if (istype(W, /obj/item/weapon/mop))
 		if (src.reagents.total_volume >= 2)
 			src.reagents.trans_to(W, 2)

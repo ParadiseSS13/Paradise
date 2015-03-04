@@ -76,6 +76,7 @@
 	TOXICFARTBLOCK = getAssignedBlock("TOXICFART",  numsToAssign, good=1)
 	STRONGBLOCK    = getAssignedBlock("STRONG",     numsToAssign, good=1)
 	HORNSBLOCK     = getAssignedBlock("HORNS",      numsToAssign)
+	COMICBLOCK     = getAssignedBlock("COMIC",      numsToAssign)
 
 	// Powers
 	SOBERBLOCK     = getAssignedBlock("SOBER",      numsToAssign, good=1)
@@ -97,7 +98,7 @@
 
 	// Disabilities
 	LOUDBLOCK      = getAssignedBlock("LOUD",       numsToAssign)
-	WHISPERBLOCK   = getAssignedBlock("WHISPER",    numsToAssign)
+	//WHISPERBLOCK   = getAssignedBlock("WHISPER",    numsToAssign) BROKEN WITH NEW SAYCODE
 	DIZZYBLOCK     = getAssignedBlock("DIZZY",      numsToAssign)
 
 
@@ -133,22 +134,6 @@
 				assigned_gene_blocks[block] = gene
 
 	//testing("DNA2: [numsToAssign.len] blocks are unused: [english_list(numsToAssign)]")
-
-// Run AFTER genetics setup and AFTER species setup.
-/proc/setup_species()
-	// SPECIES GENETICS FUN
-	for(var/name in all_species)
-		// I hate BYOND.  Can't just call while it's in the list.
-		var/datum/species/species = all_species[name]
-		if(species.default_block_names.len>0)
-			testing("Setting up genetics for [species.name] (needs [english_list(species.default_block_names)])")
-			species.default_blocks.Cut()
-			for(var/block=1;block<DNA_SE_LENGTH;block++)
-				if(assigned_blocks[block] in species.default_block_names)
-					testing("  Found [assigned_blocks[block]] ([block])")
-					species.default_blocks.Add(block)
-			if(species.default_blocks.len)
-				all_species[name]=species
 
 /proc/setupfactions()
 

@@ -68,7 +68,7 @@
 		icon_state = "[prefix]off"
 		return
 
-	attackby(var/obj/item/weapon/W as obj, var/mob/user as mob)
+	attackby(var/obj/item/weapon/W as obj, var/mob/user as mob, params)
 		if (!istype(W, /obj/item/weapon/wrench))
 			return ..()
 		var/turf/T = src.loc

@@ -33,26 +33,8 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 	var/prev_gender = null // Debug for plural genders
 	var/temperature_alert = 0
 	var/in_stasis = 0
-	var/do_deferred_species_setup=0
 	var/exposedtimenow = 0
 	var/firstexposed = 0
-
-// Doing this during species init breaks shit.
-/mob/living/carbon/human/proc/DeferredSpeciesSetup()
-	var/mut_update=0
-	if(species.default_mutations.len>0)
-		for(var/mutation in species.default_mutations)
-			if(!(mutation in mutations))
-				mutations.Add(mutation)
-				mut_update=1
-	if(species.default_blocks.len>0)
-		for(var/block in species.default_blocks)
-			if(!dna.GetSEState(block))
-				dna.SetSEState(block,1)
-				mut_update=1
-	if(mut_update)
-		domutcheck(src,null,MUTCHK_FORCED)
-		update_mutations()
 
 /mob/living/carbon/human/Life()
 	set invisibility = 0
@@ -62,10 +44,6 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 	if(!loc)			return	// Fixing a null error that occurs when the mob isn't found in the world -- TLE
 
 	..()
-
-	if(do_deferred_species_setup)
-		DeferredSpeciesSetup()
-		do_deferred_species_setup=0
 
 	//Apparently, the person who wrote this code designed it so that
 	//blinded get reset each cycle and then get activated later in the
@@ -84,6 +62,8 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 
 	if(life_tick%30==15)
 		hud_updateflag = 1022
+
+	voice = GetVoice()
 
 	//No need to update all of these procs if the guy is dead.
 	if(stat != DEAD && !in_stasis)
@@ -252,22 +232,26 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 				drop_item()
 				emote("cough")
 		if (disabilities & TOURETTES)
+			speech_problem_flag = 1
 			if ((prob(10) && paralysis <= 1))
 				Stun(10)
 				switch(rand(1, 3))
 					if(1)
 						emote("twitch")
 					if(2 to 3)
-						say("[prob(50) ? ";" : ""][pick("SHIT", "PISS", "FUCK", "CUNT", "COCKSUCKER", "MOTHERFUCKER", "TITS")]")
+						var/tourettes = pick("SHIT", "PISS", "FUCK", "CUNT", "COCKSUCKER", "MOTHERFUCKER", "TITS")
+						say("[prob(50) ? ";" : ""][tourettes]")
 				var/x_offset = pixel_x + rand(-2,2) //Should probably be moved into the twitch emote at some point.
 				var/y_offset = pixel_y + rand(-1,1)
 				animate(src, pixel_x = pixel_x + x_offset, pixel_y = pixel_y + y_offset, time = 1)
-				animate(pixel_x = pixel_x - x_offset, pixel_y = pixel_y - y_offset, time = 1)
+				animate(pixel_x = initial(pixel_x) , pixel_y = initial(pixel_y), time = 1)
 		if (disabilities & NERVOUS)
+			speech_problem_flag = 1
 			if (prob(10))
 				stuttering = max(10, stuttering)
 
 		if (getBrainLoss() >= 60 && stat != 2)
+			speech_problem_flag = 1
 			if (prob(3))
 				switch(pick(1,2,3))
 					if(1)
@@ -319,7 +303,7 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 			return
 
 		if(getFireLoss())
-			if((M_RESIST_HEAT in mutations) || (prob(1)))
+			if((RESIST_HEAT in mutations) || (prob(1)))
 				heal_organ_damage(0,1)
 
 
@@ -329,6 +313,7 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 			if(gene.is_active(src))
 			/*	if (prob(10) && prob(gene.instability))
 					adjustCloneLoss(1) */
+				speech_problem_flag = 1
 				gene.OnMobLife(src)
 
 		if (radiation)
@@ -404,7 +389,7 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 
 	proc/breathe()
 		if(reagents.has_reagent("lexorin")) return
-		if(M_NO_BREATH in mutations) return // No breath mutation means no breathing.
+		if(NO_BREATH in mutations) return // No breath mutation means no breathing.
 		if(istype(loc, /obj/machinery/atmospherics/unary/cryo_cell)) return
 		if(species && (species.flags & NO_BREATHE)) return
 
@@ -412,7 +397,7 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 		var/datum/gas_mixture/breath
 
 		// HACK NEED CHANGING LATER
-		if(health < config.health_threshold_crit)
+		if(health <= config.health_threshold_crit)
 			losebreath++
 
 		if(losebreath>0) //Suffocating so do not take a breath
@@ -481,7 +466,7 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 		if(species.name=="Plasmaman")
 
 			// Check if we're wearing our biosuit and mask.
-			if (!istype(wear_suit,/obj/item/clothing/suit/space/plasmaman) || !istype(head,/obj/item/clothing/head/helmet/space/plasmaman))
+			if (!istype(wear_suit,/obj/item/clothing/suit/space/eva/plasmaman) || !istype(head,/obj/item/clothing/head/helmet/space/eva/plasmaman))
 				//testing("Plasmaman [src] leakin'.  coverflags=[cover_flags]")
 				// OH FUCK HE LEAKIN'.
 				// This was OP.
@@ -591,15 +576,18 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 			//Body temperature is too hot.
 			fire_alert = max(fire_alert, 1)
 			if(status_flags & GODMODE)	return 1	//godmode
-			switch(bodytemperature)
-				if(species.heat_level_1 to species.heat_level_2)
-					take_overall_damage(burn=HEAT_DAMAGE_LEVEL_1, used_weapon = "High Body Temperature")
+			if(bodytemperature >= species.heat_level_1 && bodytemperature <= species.heat_level_2)
+				take_overall_damage(burn=HEAT_DAMAGE_LEVEL_1, used_weapon = "High Body Temperature")
+				fire_alert = max(fire_alert, 2)
+			if(bodytemperature > species.heat_level_2 && bodytemperature <= species.heat_level_3)
+				take_overall_damage(burn=HEAT_DAMAGE_LEVEL_2, used_weapon = "High Body Temperature")
+				fire_alert = max(fire_alert, 2)
+			if(bodytemperature > species.heat_level_3 && bodytemperature < INFINITY)
+				if(on_fire)
+					take_overall_damage(burn=HEAT_DAMAGE_LEVEL_3, used_weapon = "Fire")
 					fire_alert = max(fire_alert, 2)
-				if(species.heat_level_2 to species.heat_level_3)
+				else
 					take_overall_damage(burn=HEAT_DAMAGE_LEVEL_2, used_weapon = "High Body Temperature")
-					fire_alert = max(fire_alert, 2)
-				if(species.heat_level_3 to INFINITY)
-					take_overall_damage(burn=HEAT_DAMAGE_LEVEL_3, used_weapon = "High Body Temperature")
 					fire_alert = max(fire_alert, 2)
 
 		else if(bodytemperature < species.cold_level_1)
@@ -607,16 +595,15 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 			if(status_flags & GODMODE)	return 1	//godmode
 			if(stat == DEAD) return 1 //ZomgPonies -- No need for cold burn damage if dead
 			if(!istype(loc, /obj/machinery/atmospherics/unary/cryo_cell))
-				switch(bodytemperature)
-					if(species.cold_level_2 to species.cold_level_1)
-						take_overall_damage(burn=COLD_DAMAGE_LEVEL_1, used_weapon = "High Body Temperature")
-						fire_alert = max(fire_alert, 1)
-					if(species.cold_level_3 to species.cold_level_2)
-						take_overall_damage(burn=COLD_DAMAGE_LEVEL_2, used_weapon = "High Body Temperature")
-						fire_alert = max(fire_alert, 1)
-					if(-INFINITY to species.cold_level_3)
-						take_overall_damage(burn=COLD_DAMAGE_LEVEL_3, used_weapon = "High Body Temperature")
-						fire_alert = max(fire_alert, 1)
+				if(bodytemperature >= species.cold_level_2 && bodytemperature <= species.cold_level_1)
+					take_overall_damage(burn=COLD_DAMAGE_LEVEL_1, used_weapon = "Low Body Temperature")
+					fire_alert = max(fire_alert, 1)
+				if(bodytemperature >= species.cold_level_3 && bodytemperature < species.cold_level_2)
+					take_overall_damage(burn=COLD_DAMAGE_LEVEL_2, used_weapon = "Low Body Temperature")
+					fire_alert = max(fire_alert, 1)
+				if(bodytemperature > -INFINITY && bodytemperature < species.cold_level_3)
+					take_overall_damage(burn=COLD_DAMAGE_LEVEL_3, used_weapon = "Low Body Temperature")
+					fire_alert = max(fire_alert, 1)
 
 		// Account for massive pressure differences.  Done by Polymorph
 		// Made it possible to actually have something that can protect against high pressure... Done by Errorage. Polymorph now has an axe sticking from his head for his previous hardcoded nonsense!
@@ -633,7 +620,7 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 		else if(adjusted_pressure >= species.hazard_low_pressure)
 			pressure_alert = -1
 		else
-			if( !(M_RESIST_COLD in mutations))
+			if( !(RESIST_COLD in mutations))
 				take_overall_damage(brute=LOW_PRESSURE_DAMAGE, used_weapon = "Low Pressure")
 				pressure_alert = -2
 			else
@@ -647,8 +634,20 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 	handle_fire()
 		if(..())
 			return
-		var/thermal_protection = get_heat_protection(10000) //If you don't have fire suit level protection, you get a temperature increase
-		if((1 - thermal_protection) > 0.0001)
+		var/thermal_protection = 0 //Simple check to estimate how protected we are against multiple temperatures
+		if(wear_suit)
+			if(wear_suit.max_heat_protection_temperature >= FIRESUIT_MAX_HEAT_PROTECTION_TEMPERATURE)
+				thermal_protection += (wear_suit.max_heat_protection_temperature*0.7)
+		if(head)
+			if(head.max_heat_protection_temperature >= FIRE_HELMET_MAX_HEAT_PROTECTION_TEMPERATURE)
+				thermal_protection += (head.max_heat_protection_temperature*THERMAL_PROTECTION_HEAD)
+		thermal_protection = round(thermal_protection)
+		if(thermal_protection >= FIRE_IMMUNITY_SUIT_MAX_TEMP_PROTECT)
+			return
+		if(thermal_protection >= FIRESUIT_MAX_HEAT_PROTECTION_TEMPERATURE)
+			bodytemperature += 11
+			return
+		else
 			bodytemperature += BODYTEMP_HEATING_MAX
 		return
 	//END FIRE CODE
@@ -735,7 +734,7 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 		var/thermal_protection_flags = get_heat_protection_flags(temperature)
 
 		var/thermal_protection = 0.0
-		if(M_RESIST_HEAT in mutations)
+		if(RESIST_HEAT in mutations)
 			return 1
 		if(thermal_protection_flags)
 			if(thermal_protection_flags & HEAD)
@@ -792,7 +791,7 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 
 	proc/get_cold_protection(temperature)
 
-		if(M_RESIST_COLD in mutations)
+		if(RESIST_COLD in mutations)
 			return 1 //Fully protected from the cold.
 
 		temperature = max(temperature, 2.7) //There is an occasional bug where the temperature is miscalculated in ares with a small amount of gas on them, so this is necessary to ensure that that bug does not affect this calculation. Space's temperature is 2.7K and most suits that are intended to protect against any cold, protect down to 2.0K.
@@ -929,10 +928,12 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 			traumatic_shock -= light_amount
 
 			if(species.flags & IS_PLANT)
-				if(nutrition > 500)
-					nutrition = 500
+				if(nutrition > 450)
+					nutrition = 450
 				if(light_amount >= 5) //if there's enough light, heal
-					adjustBruteLoss(-(light_amount))
+					adjustBruteLoss(-(light_amount/2))
+					adjustFireLoss(-(light_amount/4))
+					//adjustToxLoss(-(light_amount))
 					adjustOxyLoss(-(light_amount))
 					//TODO: heal wounds, heal broken limbs.
 
@@ -949,12 +950,12 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 			else if (light_amount < 2) //heal in the dark
 				heal_overall_damage(1,1)
 
-		//The fucking M_FAT mutation is the greatest shit ever. It makes everyone so hot and bothered.
+		//The fucking FAT mutation is the greatest shit ever. It makes everyone so hot and bothered.
 		if(species.flags & CAN_BE_FAT)
-			if(M_FAT in mutations)
+			if(FAT in mutations)
 				if(overeatduration < 100)
 					src << "\blue You feel fit again!"
-					mutations.Remove(M_FAT)
+					mutations.Remove(FAT)
 					update_mutantrace(0)
 					update_mutations(0)
 					update_inv_w_uniform(0)
@@ -962,7 +963,7 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 			else
 				if(overeatduration > 500)
 					src << "\red You suddenly feel blubbery!"
-					mutations.Add(M_FAT)
+					mutations.Add(FAT)
 					update_mutantrace(0)
 					update_mutations(0)
 					update_inv_w_uniform(0)
@@ -978,7 +979,7 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 
 		else
 			if(overeatduration > 1)
-				if(M_OBESITY in mutations)
+				if(OBESITY in mutations)
 					overeatduration -= 1 // Those with obesity gene take twice as long to unfat
 				else
 					overeatduration -= 2
@@ -1021,7 +1022,7 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 			silent = 0
 		else				//ALIVE. LIGHTS ARE ON
 
-			if(M_REGEN in mutations)
+			if(REGEN in mutations)
 				if(nutrition)
 					if(prob(10))
 						var/randumb = rand(1,5)
@@ -1032,7 +1033,7 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 
 			// Sobering multiplier.
 			// Sober block grants quadruple the alcohol metabolism.
-//			var/sober_str=!(M_SOBER in mutations)?1:4
+//			var/sober_str=!(SOBER in mutations)?1:4
 
 			updatehealth()	//TODO
 			if(!in_stasis)
@@ -1050,7 +1051,7 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 			analgesic = max(0, analgesic - 1)
 
 			//UNCONSCIOUS. NO-ONE IS HOME
-			if( (getOxyLoss() > 50) || (config.health_threshold_crit > health) )
+			if( (getOxyLoss() > 50) || (config.health_threshold_crit >= health) )
 				Paralyse(3)
 
 				/* Done by handle_breath()
@@ -1061,11 +1062,7 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 					adjustOxyLoss(1)*/
 
 			if(hallucination && !(species.flags & IS_SYNTHETIC))
-				if(hallucination >= 20)
-					if(prob(3))
-						fake_attack(src)
-					if(!handling_hal)
-						spawn handle_hallucinations() //The not boring kind!
+				spawn handle_hallucinations()
 
 				if(hallucination<=2)
 					hallucination = 0
@@ -1091,6 +1088,7 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 				if(halloss > 0)
 					adjustHalLoss(-3)
 			else if(sleeping)
+				speech_problem_flag = 1
 				handle_dreams()
 				adjustStaminaLoss(-10)
 				adjustHalLoss(-3)
@@ -1183,13 +1181,7 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 
 			//Jitteryness
 			if(jitteriness)
-				var/amplitude = min(4, (jitteriness/100) + 1)
-				var/pixel_x_diff = rand(-amplitude, amplitude)
-				var/pixel_y_diff = rand(-amplitude/3, amplitude/3)
-
-				animate(src, pixel_x = pixel_x + pixel_x_diff, pixel_y = pixel_y + pixel_y_diff , time = 2, loop = 6)
-				animate(pixel_x = pixel_x - pixel_x_diff, pixel_y = pixel_y - pixel_y_diff, time = 2)
-				jitteriness = max(jitteriness-1, 0)
+				do_jitter_animation(jitteriness)
 
 			//Other
 			handle_statuses()
@@ -1312,7 +1304,7 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 					sight |= SEE_TURFS|SEE_MOBS|SEE_OBJS
 					see_in_dark = 8
 					if(!druggy)		see_invisible = SEE_INVISIBLE_LEVEL_TWO
-			if(M_XRAY in mutations)
+			if(XRAY in mutations)
 				sight |= SEE_TURFS|SEE_MOBS|SEE_OBJS
 				see_in_dark = 8
 				if(!druggy)		see_invisible = SEE_INVISIBLE_LEVEL_TWO
@@ -1324,29 +1316,6 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 				else
 					see_invisible = SEE_INVISIBLE_LIVING
 					seer = 0
-
-			var/tmp/has_ninja_mask = 0
-			if(istype(wear_mask, /obj/item/clothing/mask/gas/voice/space_ninja))
-				has_ninja_mask = 1
-				var/obj/item/clothing/mask/gas/voice/space_ninja/O = wear_mask
-				switch(O.mode)
-					if(0)
-						var/target_list[] = list()
-						for(var/mob/living/target in oview(src))
-							if( target.mind&&(target.mind.special_role||issilicon(target)) )//They need to have a mind.
-								target_list += target
-						if(target_list.len)//Everything else is handled by the ninja mask proc.
-							O.assess_targets(target_list, src)
-						if(!druggy)		see_invisible = SEE_INVISIBLE_LIVING
-					if(1)
-						see_in_dark = 5
-						if(!druggy)		see_invisible = SEE_INVISIBLE_MINIMUM
-					if(2)
-						sight |= SEE_MOBS
-						if(!druggy)		see_invisible = SEE_INVISIBLE_LEVEL_TWO
-					if(3)
-						sight |= SEE_TURFS
-						if(!druggy)		see_invisible = SEE_INVISIBLE_LIVING
 
 			if(glasses)
 				var/obj/item/clothing/glasses/G = glasses
@@ -1375,7 +1344,7 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 						see_invisible = SEE_INVISIBLE_LIVING
 					if(istype(O,/obj/item/clothing/glasses/hud/security/night) || istype(O,/obj/item/clothing/glasses/hud/health/night))
 						see_invisible = SEE_INVISIBLE_MINIMUM
-			else if(!seer && !has_ninja_mask)
+			else if(!seer)
 				see_in_dark = species.darksight
 				see_invisible = SEE_INVISIBLE_LIVING
 
@@ -1523,7 +1492,7 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 				if(!machine.check_eye(src))		reset_view(null)
 			else
 				var/isRemoteObserve = 0
-				if((M_REMOTE_VIEW in mutations) && remoteview_target)
+				if((REMOTE_VIEW in mutations) && remoteview_target)
 					isRemoteObserve = 1
 					// Is he unconscious or dead?
 					if(remoteview_target.stat!=CONSCIOUS)
@@ -1531,13 +1500,13 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 						isRemoteObserve = 0
 
 					// Does he have psy resist?
-					if(M_PSY_RESIST in remoteview_target.mutations)
+					if(PSY_RESIST in remoteview_target.mutations)
 						src << "\red Your mind is shut out!"
 						isRemoteObserve = 0
 
 					// Not on the station or mining?
 					var/turf/temp_turf = get_turf(remoteview_target)
-					if((temp_turf.z != 1 && temp_turf.z != 5) || remoteview_target.stat!=CONSCIOUS)
+					if((!(temp_turf.z in config.contact_levels)) || remoteview_target.stat!=CONSCIOUS)
 						src << "\red Your psy-connection grows too faint to maintain!"
 						isRemoteObserve = 0
 				if(!isRemoteObserve && client && !client.adminobs)
@@ -1646,7 +1615,7 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 		if(status_flags & GODMODE)	return 0	//godmode
 		if(analgesic || (species && species.flags & NO_PAIN)) return // analgesic avoids all traumatic shock temporarily
 
-		if(health < 0)// health 0 makes you immediately collapse
+		if(health <= config.health_threshold_softcrit)// health 0 makes you immediately collapse
 			shock_stage = max(shock_stage, 61)
 
 		if(traumatic_shock >= 100)
@@ -1945,6 +1914,28 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 	for(var/mob/living/carbon/human/H in view(src, 14))
 		C.images += H.hud_list[NATIONS_HUD]
 
+/mob/living/carbon/human/handle_silent()
+	if(..())
+		speech_problem_flag = 1
+	return silent
+
+/mob/living/carbon/human/handle_slurring()
+	if(..())
+		speech_problem_flag = 1
+	return slurring
+
+/mob/living/carbon/human/handle_stunned()
+	if(species.flags & NO_PAIN)
+		stunned = 0
+		return 0
+	if(..())
+		speech_problem_flag = 1
+	return stunned
+
+/mob/living/carbon/human/handle_stuttering()
+	if(..())
+		speech_problem_flag = 1
+	return stuttering
 
 // Need this in species.
 //#undef HUMAN_MAX_OXYLOSS

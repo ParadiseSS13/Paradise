@@ -465,7 +465,7 @@
 	return all_jobs
 
 /proc/get_all_centcom_jobs()
-	return list("VIP Guest","Custodian","Thunderdome Overseer","Emergency Response Team","Emergency Response Team Leader","Intel Officer","Medical Officer","Death Commando","Research Officer","BlackOps Commander","Special Operations Officer","Nanotrasen Navy Officer","Nanotrasen Navy Captain","Supreme Commander")
+	return list("VIP Guest","Custodian","Thunderdome Overseer","Emergency Response Team Member","Emergency Response Team Leader","Intel Officer","Medical Officer","Death Commando","Research Officer","BlackOps Commander","Special Operations Officer","Nanotrasen Navy Officer","Nanotrasen Navy Captain","Supreme Commander")
 
 //gets the actual job rank (ignoring alt titles)
 //this is used solely for sechuds
@@ -508,6 +508,15 @@
 		return assignment
 
 	return "Unknown"
+	
+proc/GetIdCard(var/mob/living/carbon/human/H)
+	if(H.wear_id)
+		var/id = H.wear_id.GetID()
+		if(id)
+			return id
+	if(H.get_active_hand())
+		var/obj/item/I = H.get_active_hand()
+		return I.GetID()
 
 proc/FindNameFromID(var/mob/living/carbon/human/H)
 	ASSERT(istype(H))

@@ -1,5 +1,6 @@
 /mob/living/carbon/alien/proc/handle_chemicals_in_body()
-	if(reagents) reagents.metabolize(src)
+	if(reagents)
+		reagents.metabolize(src)
 
 	if (drowsyness)
 		drowsyness--
@@ -101,7 +102,7 @@
 	breath.toxins -= toxins_used
 	breath.oxygen += toxins_used
 
-	if(breath.temperature > (T0C+66) && !(M_RESIST_COLD  in mutations)) // Hot air hurts :(
+	if(breath.temperature > (T0C+66) && !(RESIST_COLD  in mutations)) // Hot air hurts :(
 		if(prob(20))
 			src << "<span class='danger'>You feel a searing heat in your lungs!</span>"
 		fire_alert = max(fire_alert, 1)

@@ -320,7 +320,7 @@
 
 */
 
-/obj/machinery/body_scanconsole/attackby(var/obj/item/weapon/G as obj, var/mob/user as mob)
+/obj/machinery/body_scanconsole/attackby(var/obj/item/weapon/G as obj, var/mob/user as mob, params)
 	if (istype(G, /obj/item/weapon/screwdriver))
 		default_deconstruction_screwdriver(user, "bodyscannerconsole-p", "bodyscannerconsole", G)
 		return		
@@ -519,8 +519,8 @@
 	return
 
 /obj/machinery/body_scanconsole/Topic(href, href_list)
-	if(stat & (BROKEN|NOPOWER)) return
-	if(usr.stat || usr.restrained()) return
+	if(..())
+		return 1
 	
 	if (href_list["print_p"])
 		if (!(src.printing) && src.printing_text)

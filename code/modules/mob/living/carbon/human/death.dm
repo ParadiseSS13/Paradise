@@ -20,12 +20,12 @@
 		if(prob(100 - E.get_damage()))
 			// Override the current limb status and don't cause an explosion
 			E.droplimb(1,1)
-			
+
 	if(!(species.flags & IS_SYNTHETIC))
 		flick("gibbed-h", animation)
 		hgibs(loc, viruses, dna)
 	else
-		new /obj/effect/decal/cleanable/robot_debris(src.loc)
+		new /obj/effect/decal/cleanable/blood/gibs/robot(src.loc)
 		var/datum/effect/effect/system/spark_spread/s = new /datum/effect/effect/system/spark_spread
 		s.set_up(3, 1, src)
 		s.start()
@@ -115,7 +115,7 @@
 	if(ticker && ticker.mode)
 		if(istype(ticker.mode,/datum/game_mode/heist))
 			vox_kills++ //Bad vox. Shouldn't be killing humans.
-		
+
 	if(ishuman(LAssailant))
 		var/mob/living/carbon/human/H=LAssailant
 		if(H.mind)
@@ -151,7 +151,7 @@
 	return
 
 /mob/living/carbon/human/proc/ChangeToHusk()
-	if(M_HUSK in mutations)	return
+	if(HUSK in mutations)	return
 
 	if(f_style)
 		f_style = "Shaved"		//we only change the icon_state of the hair datum, so it doesn't mess up their UI/UE
@@ -159,7 +159,7 @@
 		h_style = "Bald"
 	update_hair(0)
 
-	mutations.Add(M_HUSK)
+	mutations.Add(HUSK)
 	status_flags |= DISFIGURED	//makes them unknown without fucking up other stuff like admintools
 	update_body(0)
 	update_mutantrace()
@@ -167,5 +167,5 @@
 
 /mob/living/carbon/human/proc/Drain()
 	ChangeToHusk()
-	mutations |= M_NOCLONE
+	mutations |= NOCLONE
 	return

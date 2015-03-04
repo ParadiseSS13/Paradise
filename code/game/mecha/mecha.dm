@@ -29,7 +29,7 @@
 	var/deflect_chance = 10 //chance to deflect the incoming projectiles, hits, or lesser the effect of ex_act.
 	//the values in this list show how much damage will pass through, not how much will be absorbed.
 	var/list/damage_absorption = list("brute"=0.8,"fire"=1.2,"bullet"=0.9,"laser"=1,"energy"=1,"bomb"=1)
-	var/obj/item/weapon/cell/cell
+	var/obj/item/weapon/stock_parts/cell/cell
 	var/state = 0
 	var/list/log = new
 	var/last_message = 0
@@ -115,7 +115,7 @@
 	internal_tank = new /obj/machinery/portable_atmospherics/canister/air(src)
 	return internal_tank
 
-/obj/mecha/proc/add_cell(var/obj/item/weapon/cell/C=null)
+/obj/mecha/proc/add_cell(var/obj/item/weapon/stock_parts/cell/C=null)
 	if(C)
 		C.forceMove(src)
 		cell = C
@@ -453,15 +453,13 @@
 		src.destroy()
 	return
 
-/obj/mecha/attack_hand(mob/user as mob)
+/obj/mecha/attack_hand(mob/living/user as mob)
+	user.changeNext_move(CLICK_CD_MELEE)
+	user.do_attack_animation(src)
 	src.log_message("Attack by hand/paw. Attacker - [user].",1)
 
-	if(ishuman(user))
-		if(istype(user:gloves, /obj/item/clothing/gloves/space_ninja)&&user:gloves:candrain&&!user:gloves:draining)
-			call(/obj/item/clothing/gloves/space_ninja/proc/drain)("MECHA",src,user:wear_suit)
-			return
 
-	if ((M_HULK in user.mutations) && !prob(src.deflect_chance))
+	if ((HULK in user.mutations) && !prob(src.deflect_chance))
 		src.take_damage(15)
 		src.check_for_internal_damage(list(MECHA_INT_TEMP_CONTROL,MECHA_INT_TANK_BREACH,MECHA_INT_CONTROL_LOST))
 		user.visible_message("<font color='red'><b>[user] hits [src.name], doing some damage.</b></font>", "<font color='red'><b>You hit [src.name] with all your might. The metal creaks and bends.</b></font>")
@@ -470,12 +468,14 @@
 		src.log_append_to_last("Armor saved.")
 	return
 
-/obj/mecha/attack_paw(mob/user as mob)
+/obj/mecha/attack_paw(mob/living/user as mob)
 	return src.attack_hand(user)
 
 
-/obj/mecha/attack_alien(mob/user as mob)
+/obj/mecha/attack_alien(mob/living/user as mob)
 	src.log_message("Attack by alien. Attacker - [user].",1)
+	user.changeNext_move(CLICK_CD_MELEE)
+	user.do_attack_animation(src)
 	if(!prob(src.deflect_chance))
 		src.take_damage(15)
 		src.check_for_internal_damage(list(MECHA_INT_TEMP_CONTROL,MECHA_INT_TANK_BREACH,MECHA_INT_CONTROL_LOST))
@@ -496,6 +496,7 @@
 	if(user.melee_damage_upper == 0)
 		user.emote("[user.friendly] [src]")
 	else
+		user.do_attack_animation(src)
 		if(!prob(src.deflect_chance))
 			var/damage = rand(user.melee_damage_lower, user.melee_damage_upper)
 			src.take_damage(damage)
@@ -674,8 +675,10 @@
 		src.check_for_internal_damage(list(MECHA_INT_FIRE, MECHA_INT_TEMP_CONTROL))
 	return
 
-/obj/mecha/proc/dynattackby(obj/item/weapon/W as obj, mob/user as mob)
+/obj/mecha/proc/dynattackby(obj/item/weapon/W as obj, mob/living/user as mob, params)
 	src.log_message("Attacked by [W]. Attacker - [user]")
+	user.changeNext_move(CLICK_CD_MELEE)
+	user.do_attack_animation(src)
 	if(prob(src.deflect_chance))
 		user << "\red The [W] bounces off [src.name] armor."
 		src.log_append_to_last("Armor saved.")
@@ -695,18 +698,7 @@
 ////// AttackBy //////
 //////////////////////
 
-/obj/mecha/attackby(obj/item/weapon/W as obj, mob/user as mob)
-
-	if(istype(W,  /obj/item/weapon/card/emag))
-		if(istype(src,	/obj/mecha/working/ripley) && emagged == 0)
-			emagged = 1
-			usr << "\blue You slide the [W] through the [src]'s ID slot."
-			playsound(src.loc, "sparks", 100, 1)
-			src.desc += "</br><b>\red The mech's equiptment slots spark dangerously!</b>"
-		else
-			usr <<"\red The [src]'s ID slot rejects the [W]."
-		return
-
+/obj/mecha/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
 
 	if(istype(W, /obj/item/device/mmi) || istype(W, /obj/item/device/mmi/posibrain))
 		if(mmi_move_inside(W,user))
@@ -781,7 +773,7 @@
 			user << "You screw the cell in place"
 		return
 
-	else if(istype(W, /obj/item/weapon/cell))
+	else if(istype(W, /obj/item/weapon/stock_parts/cell))
 		if(state==4)
 			if(!src.cell)
 				user << "You install the powercell"
@@ -809,7 +801,9 @@
 		return
 
 	else if(istype(W, /obj/item/mecha_parts/mecha_tracking))
-		user.drop_from_inventory(W)
+		if(!user.unEquip(W))
+			user << "<span class='notice'>\the [W] is stuck to your hand, you cannot put it in \the [src]</span>"
+			return
 		W.forceMove(src)
 		user.visible_message("[user] attaches [W] to [src].", "You attach [W] to [src]")
 		return
@@ -862,6 +856,15 @@
 */
 	return
 
+/obj/mecha/emag_act(user as mob)
+	if(istype(src,	/obj/mecha/working/ripley) && emagged == 0)
+		emagged = 1
+		usr << "\blue You slide the card through the [src]'s ID slot."
+		playsound(src.loc, "sparks", 100, 1)
+		src.desc += "</br><b>\red The mech's equiptment slots spark dangerously!</b>"
+	else
+		usr <<"\red The [src]'s ID slot rejects the card."
+	return
 
 
 /*
@@ -1118,7 +1121,9 @@
 		else if(mmi_as_oc.brainmob.stat)
 			user << "Beta-rhythm below acceptable level."
 			return 0
-		user.drop_from_inventory(mmi_as_oc)
+		if(!user.unEquip(mmi_as_oc))
+			user << "<span class='notice'>\the [mmi_as_oc] is stuck to your hand, you cannot put it in \the [src]</span>"
+			return
 		var/mob/brainmob = mmi_as_oc.brainmob
 		brainmob.reset_view(src)
 	/*
@@ -1231,6 +1236,8 @@
 /////////////////////////
 
 /obj/mecha/proc/operation_allowed(mob/living/carbon/human/H)
+	if(!ishuman(H))
+		return 0
 	for(var/ID in list(H.get_active_hand(), H.wear_id, H.belt))
 		if(src.check_access(ID,src.operation_req_access))
 			return 1

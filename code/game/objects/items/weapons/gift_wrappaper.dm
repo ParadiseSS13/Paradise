@@ -43,7 +43,7 @@
 		return
 	user << "\blue You cant move."
 
-/obj/effect/spresent/attackby(obj/item/weapon/W as obj, mob/user as mob)
+/obj/effect/spresent/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
 	..()
 
 	if (!istype(W, /obj/item/weapon/wirecutters))
@@ -104,12 +104,12 @@
 		/obj/item/device/paicard,
 		/obj/item/device/violin,
 		/obj/item/weapon/storage/belt/utility/full,
-		/obj/item/clothing/tie/horrible)
+		/obj/item/clothing/accessory/horrible)
 
 	if(!ispath(gift_type,/obj/item))	return
 
 	var/obj/item/I = new gift_type(M)
-	M.u_equip(src)
+	M.unEquip(src, 1)
 	M.put_in_hands(I)
 	I.add_fingerprint(M)
 	del(src)
@@ -118,81 +118,14 @@
 /*
  * Wrapping Paper
  */
-/obj/item/weapon/wrapping_paper
+/obj/item/stack/wrapping_paper
 	name = "wrapping paper"
 	desc = "You can use this to wrap items in."
 	icon = 'icons/obj/items.dmi'
 	icon_state = "wrap_paper"
-	var/amount = 20.0
+	flags = NOBLUDGEON
+	amount = 25
+	max_amount = 25
 
-/obj/item/weapon/wrapping_paper/attackby(obj/item/weapon/W as obj, mob/user as mob)
-	..()
-	if (!( locate(/obj/structure/table, src.loc) ))
-		user << "\blue You MUST put the paper on a table!"
-	if (W.w_class < 4)
-		if ((istype(user.l_hand, /obj/item/weapon/wirecutters) || istype(user.r_hand, /obj/item/weapon/wirecutters)))
-			var/a_used = 2 ** (src.w_class - 1)
-			if (src.amount < a_used)
-				user << "\blue You need more paper!"
-				return
-			else
-				if(istype(W, /obj/item/smallDelivery) || istype(W, /obj/item/weapon/gift)) //No gift wrapping gifts!
-					return
-
-				src.amount -= a_used
-				user.drop_item()
-				var/obj/item/weapon/gift/G = new /obj/item/weapon/gift( src.loc )
-				G.size = W.w_class
-				G.w_class = G.size + 1
-				G.icon_state = text("gift[]", G.size)
-				G.gift = W
-				W.loc = G
-				G.add_fingerprint(user)
-				W.add_fingerprint(user)
-				src.add_fingerprint(user)
-			if (src.amount <= 0)
-				new /obj/item/weapon/c_tube( src.loc )
-				del(src)
-				return
-		else
-			user << "\blue You need scissors!"
-	else
-		user << "\blue The object is FAR too large!"
-	return
-
-
-/obj/item/weapon/wrapping_paper/examine()
-	set src in oview(1)
-
-	..()
-	usr << text("There is about [] square units of paper left!", src.amount)
-	return
-
-/obj/item/weapon/wrapping_paper/attack(mob/target as mob, mob/user as mob)
-	if (!istype(target, /mob/living/carbon/human)) return
-	var/mob/living/carbon/human/H = target
-
-	if (istype(H.wear_suit, /obj/item/clothing/suit/straight_jacket) || H.stat)
-		if (src.amount > 2)
-			var/obj/effect/spresent/present = new /obj/effect/spresent (H.loc)
-			src.amount -= 2
-
-			if (H.client)
-				H.client.perspective = EYE_PERSPECTIVE
-				H.client.eye = present
-
-			H.loc = present
-
-			H.attack_log += text("\[[time_stamp()]\] <font color='orange'>Has been wrapped with [src.name]  by [user.name] ([user.ckey])</font>")
-			user.attack_log += text("\[[time_stamp()]\] <font color='red'>Used the [src.name] to wrap [H.name] ([H.ckey])</font>")
-			log_attack("[user.name] ([user.ckey]) used the [src.name] to wrap [H.name] ([H.ckey])")
-
-			if(!iscarbon(user))
-				H.LAssailant = null
-			else
-				H.LAssailant = user
-
-		else
-			user << "\blue You need more paper."
-	else
-		user << "They are moving around too much. A straightjacket would help."
+/obj/item/stack/wrapping_paper/attack_self(mob/user)
+	user << "<span class='notice'>You need to use it on a package that has already been wrapped!</span>"

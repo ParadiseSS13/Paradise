@@ -66,10 +66,41 @@ turf/simulated/hotspot_expose(exposed_temperature, exposed_volume, soh)
 
 	icon = 'icons/effects/fire.dmi'
 	icon_state = "1"
-	l_color = "#ED9200"
+	l_color = "#010000"
 	layer = TURF_LAYER
 
 	var/firelevel = 10000 //Calculated by gas_mixture.calculate_firelevel()
+
+/obj/fire/proc/GenColor(var/datum/gas_mixture/ac)
+	var/temperature = ac.temperature
+	//All temperatures are in Kelvin for the color assignment
+	if(temperature > 9000)
+		//rainbow, wtf?
+		l_color = pick("#0092ED", "#EDEDED", "#ED9200", "#ED00ED", "#0000ED", "#010000", "#00EDED", "#EDED00", "#ED0000")
+	else if(temperature >= 7150)
+		//dark blue
+		l_color = "#0000ED"
+	else if(temperature >= 5300)
+		//blue
+		l_color = "#0092ED"
+	else if(temperature >= 1800)
+		//cyan
+		l_color = "#00EDED"
+	else if(temperature >= 1500)
+		//white
+		l_color = "#EDEDED"
+	else if(temperature >= 1300)
+		//yellow
+		l_color = "#EDED00"
+	else if(temperature >= 1100)
+		//orange
+		l_color = "#ED9200"
+	else if(temperature >= 75)
+		//red
+		l_color = "#ED0000"
+	else
+		//black fire, go atmos!
+		l_color = "#010000"
 
 /obj/fire/process()
 	. = 1
@@ -114,10 +145,10 @@ turf/simulated/hotspot_expose(exposed_temperature, exposed_volume, soh)
 		icon_state = "3"
 		SetLuminosity(7)
 	else if(firelevel > 2.5)
-		icon_state = "2"
+		icon_state = "3"
 		SetLuminosity(5)
 	else
-		icon_state = "1"
+		icon_state = "3"
 		SetLuminosity(3)
 
 	//im not sure how to implement a version that works for every creature so for now monkeys are firesafe
@@ -129,6 +160,9 @@ turf/simulated/hotspot_expose(exposed_temperature, exposed_volume, soh)
 		A.fire_act(air_contents, air_contents.temperature, air_contents.return_volume())
 	// Burn the turf, too.
 	S.fire_act(air_contents, air_contents.temperature, air_contents.return_volume())
+
+	//Update color of the fire
+	src.GenColor(air_contents)
 
 	//spread
 	for(var/direction in cardinal)

@@ -43,8 +43,8 @@
 
 
 	// attack by item places it in to disposal
-	attackby(var/obj/item/I, var/mob/user)
-		if(stat & BROKEN || !I || !user)
+	attackby(var/obj/item/I, var/mob/user, params)
+		if(stat & BROKEN || !I || !user || (I.flags & NODROP))
 			return
 
 		if(isrobot(user) && !istype(I, /obj/item/weapon/storage/bag/trash))
@@ -102,7 +102,7 @@
 				T.update_icon()
 				update()
 				return
-			
+
 		if(istype(I, /obj/item/weapon/storage/part_replacer))
 			var/obj/item/weapon/storage/part_replacer/P = I
 			if(P.contents.len)
@@ -111,7 +111,7 @@
 					P.remove_from_storage(O,src)
 				update()
 				return
-				
+
 		var/obj/item/weapon/grab/G = I
 		if(istype(G))	// handle grabbed mob
 			if(ismob(G.affecting))
@@ -238,6 +238,14 @@
 			return
 		*/
 		interact(user, 0)
+
+	// hostile mob escape from disposals
+	attack_animal(var/mob/living/simple_animal/M)
+		if(M.environment_smash)
+			M.do_attack_animation(src)
+			visible_message("<span class='danger'>[M.name] smashes \the [src] apart!</span>")
+			qdel(src)
+		return
 
 	// user interaction
 	interact(mob/user, var/ai=0)
@@ -530,7 +538,7 @@
 			AM.loc = src
 			if(istype(AM, /mob/living/carbon/human))
 				var/mob/living/carbon/human/H = AM
-				if(M_FAT in H.mutations)		// is a human and fat?
+				if(FAT in H.mutations)		// is a human and fat?
 					has_fat_guy = 1			// set flag on holder
 			if(istype(AM, /obj/structure/bigDelivery) && !hasmob)
 				var/obj/structure/bigDelivery/T = AM
@@ -861,7 +869,7 @@
 	//attack by item
 	//weldingtool: unfasten and convert to obj/disposalconstruct
 
-	attackby(var/obj/item/I, var/mob/user)
+	attackby(var/obj/item/I, var/mob/user, params)
 
 		var/turf/T = src.loc
 		if(T.intact)
@@ -1015,7 +1023,7 @@
 		update()
 		return
 
-	attackby(var/obj/item/I, var/mob/user)
+	attackby(var/obj/item/I, var/mob/user, params)
 		if(..())
 			return
 
@@ -1162,7 +1170,7 @@
 	return
 
 	// Override attackby so we disallow trunkremoval when somethings ontop
-/obj/structure/disposalpipe/trunk/attackby(var/obj/item/I, var/mob/user)
+/obj/structure/disposalpipe/trunk/attackby(var/obj/item/I, var/mob/user, params)
 
 	//Disposal bins or chutes
 	/*
@@ -1300,7 +1308,7 @@
 
 		return
 
-	attackby(var/obj/item/I, var/mob/user)
+	attackby(var/obj/item/I, var/mob/user, params)
 		if(!I || !user)
 			return
 		src.add_fingerprint(user)
@@ -1360,7 +1368,7 @@
 
 	src.streak(dirs)
 
-/obj/effect/decal/cleanable/robot_debris/gib/pipe_eject(var/direction)
+/obj/effect/decal/cleanable/blood/gibs/robot/gib/pipe_eject(var/direction)
 	var/list/dirs
 	if(direction)
 		dirs = list( direction, turn(direction, -45), turn(direction, 45))

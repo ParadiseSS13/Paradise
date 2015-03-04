@@ -10,7 +10,7 @@
 	var/obj/item/device/mmi/brain = null
 
 
-/obj/structure/AIcore/attackby(obj/item/P as obj, mob/user as mob)
+/obj/structure/AIcore/attackby(obj/item/P as obj, mob/user as mob, params)
 	switch(state)
 		if(0)
 			if(istype(P, /obj/item/weapon/wrench))
@@ -175,7 +175,11 @@
 	anchored = 1
 	state = 20//So it doesn't interact based on the above. Not really necessary.
 
-/obj/structure/AIcore/deactivated/attackby(var/obj/item/W, var/mob/user)
+/obj/structure/AIcore/deactivated/Destroy()
+	empty_playable_ai_cores -= src
+	..()
+
+/obj/structure/AIcore/deactivated/attackby(var/obj/item/W, var/mob/user, params)
 	if(istype(W, /obj/item/device/aicard))//Is it?
 		var/obj/item/device/aicard/card = W
 		card.transfer_ai("INACTIVE","AICARD",src,user)
@@ -198,7 +202,7 @@
 			return
 	else
 		return ..()
-		
+
 /client/proc/empty_ai_core_toggle_latejoin()
 	set name = "Toggle AI Core Latejoin"
 	set category = "Admin"
@@ -206,7 +210,7 @@
 	var/list/cores = list()
 	for(var/obj/structure/AIcore/deactivated/D in world)
 		cores["[D] ([D.loc.loc])"] = D
-		
+
 	if(!cores.len)
 		src << "No deactivated AI cores were found."
 
@@ -259,7 +263,7 @@ That prevents a few funky behaviors.
 							T.cancel_camera()
 							T << "You have been downloaded to a mobile storage device. Remote device connection severed."
 							U << "\blue <b>Transfer successful</b>: \black [T.name] ([rand(1000,9999)].exe) removed from host terminal and stored within local memory."
-					if("NINJASUIT")
+					/*if("NINJASUIT")
 						var/obj/item/clothing/suit/space/space_ninja/C = src
 						if(C.AI)//If there is an AI on card.
 							U << "\red <b>Transfer failed</b>: \black Existing AI found on this terminal. Remove existing AI to install a new one."
@@ -280,7 +284,7 @@ That prevents a few funky behaviors.
 								C.AI = T
 								T.cancel_camera()
 								T << "You have been downloaded to a mobile storage device. Remote device connection severed."
-								U << "\blue <b>Transfer successful</b>: \black [T.name] ([rand(1000,9999)].exe) removed from host terminal and stored within local memory."
+								U << "\blue <b>Transfer successful</b>: \black [T.name] ([rand(1000,9999)].exe) removed from host terminal and stored within local memory."*/
 
 			if("INACTIVE")//Inactive AI object.
 				var/obj/structure/AIcore/deactivated/T = target
@@ -298,7 +302,7 @@ That prevents a few funky behaviors.
 							A << "You have been uploaded to a stationary terminal. Remote device connection restored."
 							U << "\blue <b>Transfer successful</b>: \black [A.name] ([rand(1000,9999)].exe) installed and executed succesfully. Local copy has been removed."
 							del(T)
-					if("NINJASUIT")
+					/*if("NINJASUIT")
 						var/obj/item/clothing/suit/space/space_ninja/C = src
 						var/mob/living/silicon/ai/A = C.AI
 						if(A)
@@ -308,7 +312,7 @@ That prevents a few funky behaviors.
 							A.cancel_camera()
 							A << "You have been uploaded to a stationary terminal. Remote device connection restored."
 							U << "\blue <b>Transfer succesful</b>: \black [A.name] ([rand(1000,9999)].exe) installed and executed succesfully. Local copy has been removed."
-							del(T)
+							del(T)*/
 			if("AIFIXER")//AI Fixer terminal.
 				var/obj/machinery/computer/aifixer/T = target
 				switch(interaction)
@@ -353,7 +357,7 @@ That prevents a few funky behaviors.
 								U << "\red <b>ERROR</b>: \black Reconstruction in progress."
 							else if (!T.occupant)
 								U << "\red <b>ERROR</b>: \black Unable to locate artificial intelligence."
-					if("NINJASUIT")
+					/*if("NINJASUIT")
 						var/obj/item/clothing/suit/space/space_ninja/C = src
 						if(!T.contents.len)
 							if (!C.AI)
@@ -386,8 +390,8 @@ That prevents a few funky behaviors.
 							else if (T.active)
 								U << "\red <b>ERROR</b>: \black Reconstruction in progress."
 							else if (!T.occupant)
-								U << "\red <b>ERROR</b>: \black Unable to locate artificial intelligence."
-			if("NINJASUIT")//Ninjasuit
+								U << "\red <b>ERROR</b>: \black Unable to locate artificial intelligence."*/
+			/*if("NINJASUIT")//Ninjasuit
 				var/obj/item/clothing/suit/space/space_ninja/T = target
 				switch(interaction)
 					if("AICARD")
@@ -422,7 +426,7 @@ That prevents a few funky behaviors.
 										A_T << "You have been uploaded to a mobile storage device."
 										U << "\blue <b>SUCCESS</b>: \black [A_T.name] ([rand(1000,9999)].exe) removed from local memory and installed to host."
 									else if(A_T)//If the target AI is dead. Else just go to return since nothing would happen if both are empty.
-										U << "\red <b>ERROR</b>: \black [A_T.name] data core is corrupted. Unable to install."
+										U << "\red <b>ERROR</b>: \black [A_T.name] data core is corrupted. Unable to install."*/
 
 	else
 		U << "\red <b>ERROR</b>: \black AI flush is in progress, cannot execute transfer protocol."

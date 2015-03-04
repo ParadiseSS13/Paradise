@@ -8,6 +8,9 @@
 	new /obj/item/clothing/under/color/blue(src)
 	new /obj/item/clothing/under/color/blue(src)
 	new /obj/item/clothing/under/color/blue(src)
+	new /obj/item/clothing/mask/bandana/blue(src)
+	new /obj/item/clothing/mask/bandana/blue(src)
+	new /obj/item/clothing/mask/bandana/blue(src)
 	new /obj/item/clothing/shoes/brown(src)
 	new /obj/item/clothing/shoes/brown(src)
 	new /obj/item/clothing/shoes/brown(src)
@@ -22,6 +25,9 @@
 /obj/structure/closet/wardrobe/red/New()
 	new /obj/item/weapon/storage/backpack/duffel/security(src)
 	new /obj/item/weapon/storage/backpack/duffel/security(src)
+	new /obj/item/clothing/mask/bandana/red(src)
+	new /obj/item/clothing/mask/bandana/red(src)
+	new /obj/item/clothing/mask/bandana/red(src)
 	new /obj/item/clothing/under/rank/security(src)
 	new /obj/item/clothing/under/rank/security(src)
 	new /obj/item/clothing/under/rank/security(src)
@@ -381,6 +387,10 @@
 	new /obj/item/clothing/head/soft/grey(src)
 	if(prob(50))
 		new /obj/item/weapon/storage/backpack/duffel(src)
+	if(prob(40))
+		new /obj/item/clothing/under/assistantformal(src)
+	if(prob(40))
+		new /obj/item/clothing/under/assistantformal(src)
 	return
 
 

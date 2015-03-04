@@ -43,7 +43,7 @@
 //-------------------------------------------
 /obj/vehicle/train/janitor/engine/New()
 	..()
-	cell = new /obj/item/weapon/cell/high
+	cell = new /obj/item/weapon/stock_parts/cell/high
 	verbs -= /atom/movable/verb/pull
 	key = new()
 	var/datum/reagents/R = new/datum/reagents(100)
@@ -65,7 +65,7 @@
 
 	return ..()
 
-/obj/vehicle/train/janitor/trolley/attackby(obj/item/weapon/W as obj, mob/user as mob)
+/obj/vehicle/train/janitor/trolley/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
 	if(openTop)
 		W.loc = src
 		user.visible_message("<span class='notice'>[user] puts [W] in [src].</span>","<span class='notice'>You put [W] in [src].</span>")
@@ -93,7 +93,7 @@
 		else
 			icon_state = "trashcart"
 
-/obj/vehicle/train/janitor/engine/attackby(obj/item/weapon/W as obj, mob/user as mob)
+/obj/vehicle/train/janitor/engine/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
 	if(istype(W, /obj/item/weapon/key/janitor_train))
 		if(!key)
 			user.drop_item()
@@ -136,10 +136,10 @@
 	..()
 	flick("mulebot-emagged", src)
 
-/obj/vehicle/train/janitor/trolley/insert_cell(var/obj/item/weapon/cell/C, var/mob/living/carbon/human/H)
+/obj/vehicle/train/janitor/trolley/insert_cell(var/obj/item/weapon/stock_parts/cell/C, var/mob/living/carbon/human/H)
 	return
 
-/obj/vehicle/train/janitor/engine/insert_cell(var/obj/item/weapon/cell/C, var/mob/living/carbon/human/H)
+/obj/vehicle/train/janitor/engine/insert_cell(var/obj/item/weapon/stock_parts/cell/C, var/mob/living/carbon/human/H)
 	..()
 	update_stats()
 

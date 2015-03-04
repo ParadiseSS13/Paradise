@@ -22,7 +22,7 @@
 		new /obj/item/device/analyzer/plant_analyzer(src)
 		new /obj/item/device/radio/headset/headset_service(src)
 		new /obj/item/device/radio/headset/headset_service(src)
-		new /obj/item/clothing/head/greenbandana(src)
+		new /obj/item/clothing/mask/bandana/botany(src)
 		new /obj/item/weapon/minihoe(src)
 		new /obj/item/weapon/hatchet(src)
 		new /obj/item/weapon/bee_net(src)

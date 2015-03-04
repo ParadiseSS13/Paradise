@@ -49,7 +49,6 @@
 	var/oldloc = null
 	req_one_access = list(access_construction, access_robotics)
 	var/targetdirection
-	radio_frequency = ENG_FREQ //Engineering channel
 	radio_name = "Engineering"
 	bot_type = FLOOR_BOT
 	bot_type_name = "Floorbot"
@@ -134,7 +133,7 @@
 	return
 
 
-/obj/machinery/bot/floorbot/attackby(var/obj/item/W , mob/user as mob)
+/obj/machinery/bot/floorbot/attackby(var/obj/item/W , mob/user as mob, params)
 	if(istype(W, /obj/item/stack/tile/plasteel))
 		var/obj/item/stack/tile/plasteel/T = W
 		if(amount >= 50)
@@ -245,7 +244,7 @@
 		if(!target && replacetiles) //Finds a floor without a tile and gives it one.
 			process_type = REPLACE_TILE //The target must be the floor and not a tile. The floor must not already have a floortile.
 			target = scan(/turf/simulated/floor, oldtarget)
-
+			
 		if(!target && fixfloors) //Repairs damaged floors and tiles.
 			process_type = FIX_TILE
 			target = scan(/turf/simulated/floor, oldtarget)
@@ -288,6 +287,8 @@
 			target = null
 			mode = BOT_IDLE
 			return
+			
+		ignore_list = list() // Reset the ignore list
 
 		if(loc == target || loc == target.loc)
 			if(istype(target, /obj/item/stack/tile/plasteel))
@@ -318,7 +319,7 @@
 /obj/machinery/bot/floorbot/proc/nag() //Annoy everyone on the channel to refill us!
 	if(!nagged)
 		var/area/location = get_area(src)
-		speak("Requesting refill at <b>[location]</b>!", radio_frequency, radio_name)
+		speak("Requesting refill at <b>[location]</b>!", radio_name)
 		nagged = 1
 
 /obj/machinery/bot/floorbot/proc/is_hull_breach(var/turf/t) //Ignore space tiles not considered part of a structure, also ignores shuttle docking areas.
@@ -478,7 +479,7 @@ obj/machinery/bot/floorbot/process_scan(var/scan_target)
 	return
 
 
-/obj/item/weapon/storage/toolbox/mechanical/attackby(var/obj/item/stack/tile/plasteel/T, mob/user as mob)
+/obj/item/weapon/storage/toolbox/mechanical/attackby(var/obj/item/stack/tile/plasteel/T, mob/user as mob, params)
 	if(!istype(T, /obj/item/stack/tile/plasteel))
 		..()
 		return
@@ -491,13 +492,13 @@ obj/machinery/bot/floorbot/process_scan(var/scan_target)
 		var/obj/item/weapon/toolbox_tiles/B = new /obj/item/weapon/toolbox_tiles
 		user.put_in_hands(B)
 		user << "<span class='notice'>You add the tiles into the empty toolbox. They protrude from the top.</span>"
-		user.before_take_item(src, 1)
+		user.unEquip(src, 1)
 		qdel(src)
 	else
 		user << "<span class='alert'>You need 10 floor tiles to start building a floorbot.</span>"
 		return
 
-/obj/item/weapon/toolbox_tiles/attackby(var/obj/item/W, mob/user as mob)
+/obj/item/weapon/toolbox_tiles/attackby(var/obj/item/W, mob/user as mob, params)
 	..()
 	if(isprox(W))
 		qdel(W)
@@ -505,7 +506,7 @@ obj/machinery/bot/floorbot/process_scan(var/scan_target)
 		B.created_name = created_name
 		user.put_in_hands(B)
 		user << "<span class='notice'>You add the sensor to the toolbox and tiles!</span>"
-		user.before_take_item(src, 1)
+		user.unEquip(src, 1)
 		qdel(src)
 
 	else if (istype(W, /obj/item/weapon/pen))
@@ -517,7 +518,7 @@ obj/machinery/bot/floorbot/process_scan(var/scan_target)
 
 		created_name = t
 
-/obj/item/weapon/toolbox_tiles_sensor/attackby(var/obj/item/W, mob/user as mob)
+/obj/item/weapon/toolbox_tiles_sensor/attackby(var/obj/item/W, mob/user as mob, params)
 	..()
 	if(istype(W, /obj/item/robot_parts/l_arm) || istype(W, /obj/item/robot_parts/r_arm))
 		qdel(W)
@@ -525,7 +526,7 @@ obj/machinery/bot/floorbot/process_scan(var/scan_target)
 		var/obj/machinery/bot/floorbot/A = new /obj/machinery/bot/floorbot(T)
 		A.name = created_name
 		user << "<span class='notice'>You add the robot arm to the odd looking toolbox assembly! Boop beep!</span>"
-		user.before_take_item(src, 1)
+		user.unEquip(src, 1)
 		qdel(src)
 	else if (istype(W, /obj/item/weapon/pen))
 		var/t = stripped_input(user, "Enter new robot name", name, created_name,MAX_NAME_LEN)

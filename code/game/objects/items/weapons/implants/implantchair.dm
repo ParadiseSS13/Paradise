@@ -74,7 +74,7 @@
 			return
 
 
-	attackby(var/obj/item/weapon/G as obj, var/mob/user as mob)
+	attackby(var/obj/item/weapon/G as obj, var/mob/user as mob, params)
 		if(istype(G, /obj/item/weapon/grab))
 			if(!ismob(G:affecting))
 				return
