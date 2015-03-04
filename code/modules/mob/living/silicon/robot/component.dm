@@ -67,11 +67,11 @@
 	name = "armour plating"
 	energy_consumption = 0
 	external_type = /obj/item/robot_parts/robot_component/armour
-	max_damage = 100
+	max_damage = 60
 
 /datum/robot_component/actuator
 	name = "actuator"
-	energy_consumption = 1
+	energy_consumption = 2
 	external_type = /obj/item/robot_parts/robot_component/actuator
 	max_damage = 50
 
@@ -121,7 +121,7 @@
 /mob/living/silicon/robot/proc/is_component_functioning(module_name)
 	var/datum/robot_component/C = components[module_name]
 	return C && C.installed == 1 && C.toggled && C.is_powered()
-
+	
 // Returns component by it's string name
 /mob/living/silicon/robot/proc/get_component(var/component_name)
 	var/datum/robot_component/C = components[component_name]

@@ -121,8 +121,8 @@
 			user.do_attack_animation(L)
 			baton_stun(L, user)
 		else
-			L.visible_message("<span class='warning'>[user] has prodded [L] with [src]. Luckily it was off.</span>", \
-							"<span class='warning'>[user] has prodded you with [src]. Luckily it was off</span>")
+			L.visible_message("<span class='warning'>[L] has been prodded with [src] by [user]. Luckily it was off.</span>", \
+							"<span class='warning'>You've been prodded with [src] by [user]. Luckily it was off</span>")
 			return
 	else
 		..()
@@ -138,8 +138,8 @@
 	L.Weaken(stunforce)
 	L.apply_effect(STUTTER, stunforce)
 
-	L.visible_message("<span class='danger'>[user] has stunned [L] with [src]!</span>", \
-							"<span class='userdanger'>[user] has stunned you with [src]!</span>")
+	L.visible_message("<span class='danger'>[L] has been stunned with [src] by [user]!</span>", \
+							"<span class='userdanger'>You've been stunned with [src] by [user]!</span>")
 	playsound(loc, 'sound/weapons/Egloves.ogg', 50, 1, -1)
 
 	if(isrobot(loc))
@@ -163,9 +163,22 @@
 	..()
 
 //secborg stun baton module
-/obj/item/weapon/melee/baton/loaded/robot
-	hitcost = 1000
+/obj/item/weapon/melee/baton/robot
+	hitcost = 500
 
+/obj/item/weapon/melee/baton/robot/New()
+	..()
+	return
+
+/obj/item/weapon/melee/baton/robot/attack_self(mob/user)
+	//try to find our power cell
+	var/mob/living/silicon/robot/R = loc
+	if (istype(R))
+		bcell = R.cell
+	return ..()
+
+/obj/item/weapon/melee/baton/robot/attackby(obj/item/weapon/W, mob/user, params)
+	return
 
 /obj/item/weapon/melee/baton/loaded/ntcane
 	name = "fancy cane"

@@ -8,8 +8,8 @@ var/list/robot_verbs_default = list(
 	real_name = "Cyborg"
 	icon = 'icons/mob/robots.dmi'
 	icon_state = "robot"
-	maxHealth = 100
-	health = 100
+	maxHealth = 200
+	health = 200
 	universal_speak = 1
 
 	var/sight_mode = 0
@@ -63,6 +63,8 @@ var/list/robot_verbs_default = list(
 	var/datum/effect/effect/system/spark_spread/spark_system//So they can initialize sparks whenever/N
 	var/jeton = 0
 	var/has_power = 1
+	var/killswitch = 0
+	var/killswitch_time = 60
 	var/weapon_lock = 0
 	var/weaponlock_time = 120
 	var/lawupdate = 1 //Cyborgs will sync their laws with their AI by default
@@ -74,7 +76,7 @@ var/list/robot_verbs_default = list(
 	var/braintype = "Cyborg"
 	var/base_icon = ""
 	var/crisis = 0
-
+	
 	var/obj/item/borg/sight/hud/sec/sechud = null
 	var/obj/item/borg/sight/hud/med/healthhud = null
 
@@ -82,9 +84,9 @@ var/list/robot_verbs_default = list(
 	spark_system = new /datum/effect/effect/system/spark_spread()
 	spark_system.set_up(5, 0, src)
 	spark_system.attach(src)
-
+	
 	add_language("Robot Talk", 1)
-
+	
 	wires = new(src)
 
 	robot_modules_background = new()
@@ -96,9 +98,9 @@ var/list/robot_verbs_default = list(
 
 	radio = new /obj/item/device/radio/borg(src)
 	common_radio = radio
-
+	
 	init()
-
+	
 	if(!scrambledcodes && !camera)
 		camera = new /obj/machinery/camera(src)
 		camera.c_tag = real_name
@@ -124,7 +126,7 @@ var/list/robot_verbs_default = list(
 		cell.charge = 7500
 
 	..()
-
+	
 	add_robot_verbs()
 
 	if(cell)
@@ -163,7 +165,7 @@ var/list/robot_verbs_default = list(
 	rbPDA.set_name_and_job(custom_name,braintype)
 	if(scrambledcodes)
 		rbPDA.hidden = 1
-
+		
 /mob/living/silicon/robot/binarycheck()
 	if(is_component_functioning("comms"))
 		var/datum/robot_component/RC = get_component("comms")
@@ -241,7 +243,6 @@ var/list/robot_verbs_default = list(
 			module_sprites["Standard"] = "surgeon"
 			module_sprites["Advanced Droid"] = "droid-medical"
 			module_sprites["Needles"] = "medicalrobot"
-			status_flags &= ~CANPUSH
 
 		if("Security")
 			module = new /obj/item/weapon/robot_module/security(src)
@@ -250,7 +251,6 @@ var/list/robot_verbs_default = list(
 			module_sprites["Red Knight"] = "Security"
 			module_sprites["Black Knight"] = "securityrobot"
 			module_sprites["Bloodhound"] = "bloodhound"
-			status_flags &= ~CANPUSH
 
 		if("Engineering")
 			module = new /obj/item/weapon/robot_module/engineering(src)
@@ -281,7 +281,7 @@ var/list/robot_verbs_default = list(
 			icon_state = "xenoborg-state-a"
 			modtype = "Xeno-Hu"
 			feedback_inc("xeborg_hunter",1)
-
+			
 	//languages
 	module.add_languages(src)
 
@@ -445,7 +445,7 @@ var/list/robot_verbs_default = list(
 	set desc = "Augment visual feed with internal sensor overlays."
 	set category = "Robot Commands"
 	toggle_sensor_mode()
-
+	
 /mob/living/silicon/robot/proc/add_robot_verbs()
 	src.verbs |= robot_verbs_default
 
@@ -824,7 +824,7 @@ var/list/robot_verbs_default = list(
 	else
 		spark_system.start()
 		return ..()
-
+		
 /mob/living/silicon/robot/emag_act(user as mob)
 	if(!ishuman(user))
 		return
@@ -904,44 +904,128 @@ var/list/robot_verbs_default = list(
 				usr << "You unlock your cover."
 
 /mob/living/silicon/robot/attack_alien(mob/living/carbon/alien/humanoid/M as mob)
-	if (M.a_intent =="disarm")
-		if(!(lying))
+	if (!ticker)
+		M << "You cannot attack people before the game has started."
+		return
+
+	if (istype(loc, /turf) && istype(loc.loc, /area/start))
+		M << "No attacking people at spawn, you jackass."
+		return
+
+	switch(M.a_intent)
+
+		if ("help")
+			for(var/mob/O in viewers(src, null))
+				if ((O.client && !( O.blinded )))
+					O.show_message(text("<span class='notice'>[M] caresses [src]'s plating with its scythe like arm.</span>"), 1)
+
+		if ("grab")
+			if (M == src || anchored)
+				return
+			var/obj/item/weapon/grab/G = new /obj/item/weapon/grab(M, src )
+
+			M.put_in_active_hand(G)
+
+			G.synch()
+			playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
+			visible_message("<span class='danger'>[M] has grabbed [src] passively!</span>")
+
+		if ("harm")
 			M.do_attack_animation(src)
-			if (prob(85))
-				Stun(7)
-				step(src,get_dir(M,src))
-				spawn(5)
-					step(src,get_dir(M,src))
-				add_logs(M, src, "pushed", admin=0)
-				playsound(loc, 'sound/weapons/pierce.ogg', 50, 1, -1)
-				visible_message("<span class='danger'>[M] has forced back [src]!</span>", \
-								"<span class='userdanger'>[M] has forced back [src]!</span>")
+			var/damage = rand(10, 20)
+			if (prob(90))
+				/*
+				if (M.class == "combat")
+					damage += 15
+					if(prob(20))
+						weakened = max(weakened,4)
+						stunned = max(stunned,4)
+				What is this?*/
+
+				playsound(loc, 'sound/weapons/slash.ogg', 25, 1, -1)
+				visible_message("<span class='danger'>[M] has slashed at [src]!</span>",\
+								"<span class='userdanger'>[M] has slashed at [src]!</span>")
+				if(prob(8))
+					flick("noise", flash)
+				adjustBruteLoss(damage)
+				updatehealth()
 			else
 				playsound(loc, 'sound/weapons/slashmiss.ogg', 25, 1, -1)
 				visible_message("<span class='danger'>[M] took a swipe at [src]!</span>", \
 								"<span class='userdanger'>[M] took a swipe at [src]!</span>")
-	else
-		..()
+
+		if ("disarm")
+			if(!(lying))
+				M.do_attack_animation(src)
+				if (rand(1,100) <= 85)
+					Stun(7)
+					step(src,get_dir(M,src))
+					spawn(5) step(src,get_dir(M,src))
+					playsound(loc, 'sound/weapons/pierce.ogg', 50, 1, -1)
+					visible_message("<span class='danger'>[M] has forced back [src]!</span>",\
+									"<span class='userdanger'>[M] has forced back [src]!</span>")
+				else
+					playsound(loc, 'sound/weapons/slashmiss.ogg', 25, 1, -1)
+					visible_message("<span class='danger'>[M] attempted to force back [src]!</span>",\
+									"<span class='userdanger'>[M] attempted to force back [src]!</span>")
 	return
 
 
 
 /mob/living/silicon/robot/attack_slime(mob/living/carbon/slime/M as mob)
-	if(..()) //successful slime shock
-		flick("noise", flash)
-		var/stunprob = M.powerlevel * 7 + 10
-		if(prob(stunprob) && M.powerlevel >= 8)
-			adjustBruteLoss(M.powerlevel * rand(6,10))
+	if (!ticker)
+		M << "You cannot attack people before the game has started."
+		return
 
-	var/damage = rand(1, 3)
+	if(M.Victim) return // can't attack while eating!
 
-	if(M.is_adult)
-		damage = rand(20, 40)
-	else
-		damage = rand(5, 35)
-	damage = round(damage / 2) // borgs recieve half damage
-	adjustBruteLoss(damage)
-	updatehealth()
+	if (health > -100)
+		M.do_attack_animation(src)
+		visible_message("<span class='danger'>The [M.name] glomps [src]!</span>",\
+						"<span class='userdanger'>The [M.name] glomps [src]!</span>")
+
+		var/damage = rand(1, 3)
+
+		if(M.is_adult)
+			damage = rand(20, 40)
+		else
+			damage = rand(5, 35)
+
+		damage = round(damage / 2) // borgs recieve half damage
+		adjustBruteLoss(damage)
+
+
+		if(M.powerlevel > 0)
+			var/stunprob = 10
+
+			switch(M.powerlevel)
+				if(1 to 2) stunprob = 20
+				if(3 to 4) stunprob = 30
+				if(5 to 6) stunprob = 40
+				if(7 to 8) stunprob = 60
+				if(9) 	   stunprob = 70
+				if(10) 	   stunprob = 95
+
+			if(prob(stunprob))
+				M.powerlevel -= 3
+				if(M.powerlevel < 0)
+					M.powerlevel = 0
+
+				for(var/mob/O in viewers(src, null))
+					if ((O.client && !( O.blinded )))
+						O.show_message(text("<span class='userdanger'>The [M.name] has electrified []!</span>", src), 1)
+
+				flick("noise", flash)
+
+				var/datum/effect/effect/system/spark_spread/s = new /datum/effect/effect/system/spark_spread
+				s.set_up(5, 1, src)
+				s.start()
+
+				if (prob(stunprob) && M.powerlevel >= 8)
+					adjustBruteLoss(M.powerlevel * rand(6,10))
+
+
+		updatehealth()
 
 	return
 
@@ -1217,12 +1301,6 @@ var/list/robot_verbs_default = list(
 		return
 
 /mob/living/silicon/robot/proc/self_destruct()
-	if(emagged)
-		if(mmi)
-			qdel(mmi)
-		explosion(src.loc,1,2,4)
-	else
-		explosion(src.loc,-1,0,2)
 	gib()
 	return
 
@@ -1235,12 +1313,9 @@ var/list/robot_verbs_default = list(
 	scrambledcodes = 1
 	//Disconnect it's camera so it's not so easily tracked.
 	if(src.camera)
-		qdel(src.camera)
-		src.camera = null
-		// I'm trying to get the Cyborg to not be listed in the camera list
-		// Instead of being listed as "deactivated". The downside is that I'm going
-		// to have to check if every camera is null or not before doing anything, to prevent runtime errors.
-		// I could change the network to null but I don't know what would happen, and it seems too hacky for me.
+		src.camera.network = list()
+		cameranet.removeCamera(src.camera)
+
 
 /mob/living/silicon/robot/proc/ResetSecurityCodes()
 	set category = "Robot Commands"
@@ -1319,7 +1394,7 @@ var/list/robot_verbs_default = list(
 	faction = list("nanotrasen")
 	designation = "NT Combat Cyborg"
 	req_access = list(access_cent_specops)
-
+	
 /mob/living/silicon/robot/deathsquad/New(loc)
 	if(!cell)
 		cell = new /obj/item/weapon/stock_parts/cell(src)
@@ -1327,7 +1402,7 @@ var/list/robot_verbs_default = list(
 		cell.charge = 25000
 
 	..()
-
+	
 /mob/living/silicon/robot/deathsquad/init()
 	aiCamera = new/obj/item/device/camera/siliconcam/robot_camera(src)
 
@@ -1398,7 +1473,7 @@ var/list/robot_verbs_default = list(
 		cell.charge = 25000
 
 	..()
-
+	
 /mob/living/silicon/robot/syndicate/init()
 	aiCamera = new/obj/item/device/camera/siliconcam/robot_camera(src)
 
