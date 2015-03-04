@@ -470,7 +470,8 @@ var/can_call_ert
 			M.equip_to_slot_or_del(pda, slot_wear_pda)
 			
 			M.equip_to_slot_or_del(new /obj/item/weapon/gun/energy/gun(M), slot_s_store)
-			M.equip_to_slot_or_del(new /obj/item/weapon/tank/emergency_oxygen/double/full(M), slot_r_store)			
+			M.equip_to_slot_or_del(new /obj/item/weapon/tank/emergency_oxygen/double/full(M), slot_r_store)		
+			M.equip_to_slot_or_del(new /obj/item/weapon/restraints/handcuffs, slot_l_store)					
 			
 			M.equip_to_slot_or_del(new /obj/item/clothing/glasses/hud/security/night(M), slot_in_backpack)
 			M.equip_to_slot_or_del(new /obj/item/weapon/storage/box/handcuffs(M), slot_in_backpack)
@@ -560,8 +561,6 @@ var/can_call_ert
 			M.equip_to_slot_or_del(new /obj/item/stack/sheet/plasteel/full(M), slot_in_backpack)		
 
 			M.equip_to_slot_or_del(new /obj/item/weapon/storage/belt/utility/full/multitool(M), slot_belt)
-
-			M.equip_to_slot_or_del(new /obj/item/weapon/storage/briefcase/inflatable(M), slot_r_hand)
 			
 		if("Janitorial")
 			M.equip_to_slot_or_del(new /obj/item/clothing/shoes/galoshes(M), slot_shoes)
