@@ -3,13 +3,19 @@
 #define GC_FORCE_DEL_PER_TICK 60
 //#define GC_DEBUG
 
-var/list/gc_hard_del_types = new
+var/list/gc_hard_del_types = list()
 var/datum/garbage_collector/garbageCollector
 
 /client/proc/gc_dump_hdl()
 	set name = "(GC) Hard Del List"
 	set desc = "List types that are hard del()'d by the GC."
 	set category = "Debug"
+	
+	if(!check_rights(R_DEBUG))
+		return
+		
+	if(!gc_hard_del_types || !gc_hard_del_types.len)
+		usr << "<span class='notice'>No hard del()'d types found.</span>"
 
 	for(var/A in gc_hard_del_types)
 		usr << "[A] = [gc_hard_del_types[A]]"
@@ -60,8 +66,7 @@ var/datum/garbage_collector/garbageCollector
 			#endif
 
 			AM.hard_deleted = 1
-			if(!AM.type in gc_hard_del_types)
-				gc_hard_del_types += AM.type
+			gc_hard_del_types |= AM.type
 			del AM
 
 			hard_dels++
@@ -95,8 +100,7 @@ var/datum/garbage_collector/garbageCollector
 
 	if(!istype(AM))
 		WARNING("qdel() passed object of type [AM.type]. qdel() can only handle /atom/movable types.")
-		if(!AM.type in gc_hard_del_types)
-			gc_hard_del_types += AM.type
+		gc_hard_del_types |= AM.type
 		del(AM)
 		garbageCollector.hard_dels++
 		garbageCollector.dels_count++

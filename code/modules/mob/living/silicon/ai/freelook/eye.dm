@@ -26,7 +26,7 @@
 /mob/aiEye/Destroy()
 	if (ghostimage)
 		ghost_darkness_images -= ghostimage
-		qdel(ghostimage)
+		del(ghostimage)
 		ghostimage = null;
 		updateallghostimages()
 
