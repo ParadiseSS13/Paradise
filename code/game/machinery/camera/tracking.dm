@@ -132,8 +132,6 @@
 			//Cameras can't track people wearing an agent card or a ninja hood.
 			if(H.wear_id && istype(H.wear_id.GetID(), /obj/item/weapon/card/id/syndicate))
 				continue
-			if(istype(H.head, /obj/item/clothing/head/helmet/space/space_ninja) && (H.head.flags & NODROP))
-				continue
 		 // Now, are they viewable by a camera? (This is last because it's the most intensive check)
 		if(!near_camera(M))
 			continue
@@ -195,10 +193,6 @@
 				if(H.digitalcamo)
 					U.ai_cancel_tracking(1)
 					return
-				if(H.head && istype(H.head, /obj/item/clothing/head/helmet/space/space_ninja) && (H.head.flags & NODROP))
-					U.ai_cancel_tracking(1)
-					return
-
 			if(istype(target.loc,/obj/effect/dummy))
 				U.ai_cancel_tracking()
 				return

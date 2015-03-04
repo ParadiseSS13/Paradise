@@ -50,16 +50,6 @@
 	var/mob/living/silicon/ai/occupant	= null
 	var/busy = 0
 
-	// Ninja gloves check
-	attack_hand(mob/user as mob)
-		if(ishuman(user) && istype(user:gloves, /obj/item/clothing/gloves/space_ninja) && user:gloves:candrain && !user:gloves:draining)
-			if(user:wear_suit:s_control)
-				user:wear_suit.transfer_ai("AIFIXER","NINJASUIT",src,user)
-			else
-				user << "\red <b>ERROR</b>: \black Remote access channel disabled."
-			return
-		..()
-
 	attackby(obj/I as obj,mob/user as mob, params)
 		if(computer && !computer.stat)
 			if(istype(I, /obj/item/device/aicard))
@@ -91,7 +81,7 @@
 			computer.emagged = 1
 			return 1
 		else
-			usr << "You are unable to insert \the card, as the reader slot is occupied"	
+			usr << "You are unable to insert \the card, as the reader slot is occupied"
 			return 0
 
 	attackby(var/obj/item/I as obj, var/mob/user as mob, params)

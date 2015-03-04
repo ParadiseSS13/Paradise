@@ -315,9 +315,11 @@ client/proc/one_click_antag()
 	alien_infestation(3)
 	return 1
 
+/*
 /datum/admins/proc/makeSpaceNinja()
 	space_ninja_arrival()
 	return 1
+*/
 
 /datum/admins/proc/makeDeathsquad()
 	var/list/mob/candidates = list()
@@ -509,8 +511,8 @@ client/proc/one_click_antag()
 
 	while(i<=sounds)
 		i++
-		newname += pick(list("ti","hi","ki","ya","ta","ha","ka","ya","chi","cha","kah"))	
-	
+		newname += pick(list("ti","hi","ki","ya","ta","ha","ka","ya","chi","cha","kah"))
+
 	new_vox.real_name = capitalize(newname)
 	new_vox.name = new_vox.real_name
 	new_vox.age = rand(12,20)
@@ -528,7 +530,7 @@ client/proc/one_click_antag()
 		limb.status &= ~(ORGAN_DESTROYED | ORGAN_ROBOT)
 
 	//Now apply cortical stack.
-	var/datum/organ/external/E = new_vox.get_organ("head")	
+	var/datum/organ/external/E = new_vox.get_organ("head")
 	var/obj/item/weapon/implant/cortical/I = new(new_vox)
 	I.imp_in = new_vox
 	I.implanted = 1
@@ -540,7 +542,7 @@ client/proc/one_click_antag()
 	new_vox.equip_vox_raider()
 
 	return new_vox
-	
+
 /datum/admins/proc/makeVampires()
 
 	var/datum/game_mode/vampire/temp = new

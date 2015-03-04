@@ -599,8 +599,8 @@
 					user << "You emag the APC interface."
 					update_icon()
 				else
-					user << "You fail to [ locked ? "unlock" : "lock"] the APC interface."				
-				
+					user << "You fail to [ locked ? "unlock" : "lock"] the APC interface."
+
 // attack with hand - remove cell (if cover open) or interact with the APC
 /obj/machinery/power/apc/attack_hand(mob/user)
 //	if (!can_use(user)) This already gets called in interact() and in topic()
@@ -657,12 +657,6 @@
 	if(stat & (BROKEN|MAINT))
 		return
 
-	if(ishuman(user))
-		if(istype(user:gloves, /obj/item/clothing/gloves/space_ninja)&&user:gloves:candrain&&!user:gloves:draining)
-			call(/obj/item/clothing/gloves/space_ninja/proc/drain)("APC",src,user:wear_suit)
-			return
-	// do APC interaction
-	//user.set_machine(src)
 	src.interact(user)
 
 /obj/machinery/power/apc/attack_alien(mob/living/carbon/alien/humanoid/user)
@@ -691,12 +685,12 @@
 	else
 		beenhit += 1
 	return
-	
+
 /obj/machinery/power/apc/attack_ghost(user as mob)
-	if(stat & (BROKEN|MAINT))	
+	if(stat & (BROKEN|MAINT))
 		return
 	return ui_interact(user)
-	
+
 /obj/machinery/power/apc/interact(mob/user)
 	if(!user)
 		return
@@ -859,7 +853,7 @@
 			user << "\red You momentarily forget how to use [src]."
 			return 0
 	return 1
-	
+
 /obj/machinery/power/apc/proc/is_authenticated(mob/user as mob)
 	if(isAI(user) || isrobot(user))
 		return 1
@@ -869,26 +863,26 @@
 /obj/machinery/power/apc/Topic(href, href_list, var/usingUI = 1)
 	if(..())
 		return 1
-		
+
 	if(!can_use(usr, 1))
 		return 1
 
 	if (href_list["lock"])
 		if(!is_authenticated(usr))
 			return
-			
+
 		coverlocked = !coverlocked
 
 	else if (href_list["breaker"])
 		if(!is_authenticated(usr))
 			return
-			
+
 		toggle_breaker()
 
 	else if (href_list["cmode"])
 		if(!is_authenticated(usr))
 			return
-			
+
 		chargemode = !chargemode
 		if(!chargemode)
 			charging = 0
@@ -897,7 +891,7 @@
 	else if (href_list["eqp"])
 		if(!is_authenticated(usr))
 			return
-			
+
 		var/val = text2num(href_list["eqp"])
 		equipment = setsubsystem(val)
 		update_icon()
@@ -906,7 +900,7 @@
 	else if (href_list["lgt"])
 		if(!is_authenticated(usr))
 			return
-			
+
 		var/val = text2num(href_list["lgt"])
 		lighting = setsubsystem(val)
 		update_icon()
@@ -915,7 +909,7 @@
 	else if (href_list["env"])
 		if(!is_authenticated(usr))
 			return
-			
+
 		var/val = text2num(href_list["env"])
 		environ = setsubsystem(val)
 		update_icon()

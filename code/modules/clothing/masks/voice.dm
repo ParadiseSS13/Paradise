@@ -29,31 +29,3 @@
 /obj/item/clothing/mask/gas/voice/New()
 	..()
 	changer = new(src)
-
-/obj/item/clothing/mask/gas/voice/space_ninja
-	name = "ninja mask"
-	desc = "A close-fitting mask that acts both as an air filter and a post-modern fashion statement."
-	icon_state = "s-ninja(norm)"
-	item_state = "s-ninja_mask"
-	unacidable = 1
-	siemens_coefficient = 0.2
-	species_fit = list("Vox")
-	var/mode = 0// 0==Scouter | 1==Night Vision | 2==Thermal | 3==Meson
-
-/obj/item/clothing/mask/gas/voice/space_ninja/scar
-	name = "ninja mask"
-	desc = "A close-fitting mask that acts both as an air filter and a post-modern fashion statement. This mask appears to have already seen battle."
-	icon_state = "s-ninja(scar)"
-	item_state = "s-ninja_mask"
-
-/obj/item/clothing/mask/gas/voice/space_ninja/visor
-	name = "ninja mask"
-	desc = "A close-fitting mask that acts both as an air filter and a post-modern fashion statement. This variant appears to have a visor to increase vision."
-	icon_state = "s-ninja(visor)"
-	item_state = "s-ninja_mask"
-
-/obj/item/clothing/mask/gas/voice/space_ninja/monocular
-	name = "ninja mask"
-	desc = "A close-fitting mask that acts both as an air filter and a post-modern fashion statement. This variant appears to focus the user's vision out of a single port."
-	icon_state = "s-ninja(mon)"
-	item_state = "s-ninja_mask"

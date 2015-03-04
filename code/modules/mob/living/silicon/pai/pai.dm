@@ -82,14 +82,14 @@
 		if(!card.radio)
 			card.radio = new /obj/item/device/radio(src.card)
 		radio = card.radio
-		
+
 	//Default languages without universal translator software
 	add_language("Galactic Common", 1)
 	add_language("Sol Common", 1)
 	add_language("Tradeband", 1)
-	add_language("Gutter", 1)	
-	add_language("Trinary", 1)		
-		
+	add_language("Gutter", 1)
+	add_language("Trinary", 1)
+
 	//Verbs for pAI mobile form, chassis and Say flavor text
 	verbs += /mob/living/silicon/pai/proc/choose_chassis
 	verbs += /mob/living/silicon/pai/proc/choose_verbs
@@ -346,9 +346,6 @@
 	if(istype(card.loc,/mob))
 		var/mob/holder = card.loc
 		holder.unEquip(card)
-	else if(istype(card.loc,/obj/item/clothing/suit/space/space_ninja))
-		var/obj/item/clothing/suit/space/space_ninja/holder = card.loc
-		holder.pai = null
 	else if(istype(card.loc,/obj/item/device/pda))
 		var/obj/item/device/pda/holder = card.loc
 		holder.pai = null
