@@ -146,10 +146,8 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 	var/pressure_difference = abs( pressure - ONE_ATMOSPHERE )
 
 	var/pressure_adjustment_coefficient = 1	//Determins how much the clothing you are wearing protects you in percent.
-	if(wear_suit && (wear_suit.flags & STOPSPRESSUREDMAGE))
-		pressure_adjustment_coefficient -= PRESSURE_SUIT_REDUCTION_COEFFICIENT
-	if(head && (head.flags & STOPSPRESSUREDMAGE))
-		pressure_adjustment_coefficient -= PRESSURE_HEAD_REDUCTION_COEFFICIENT
+	if(wear_suit && (wear_suit.flags & STOPSPRESSUREDMAGE) && head && (head.flags & STOPSPRESSUREDMAGE)) // Complete set of pressure-proof suit worn, assume fully sealed.
+		pressure_adjustment_coefficient = 0
 	pressure_adjustment_coefficient = max(pressure_adjustment_coefficient,0) //So it isn't less than 0
 	pressure_difference = pressure_difference * pressure_adjustment_coefficient
 	if(pressure > ONE_ATMOSPHERE)
