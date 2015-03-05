@@ -835,9 +835,7 @@ var/list/restricted_camera_networks = list( //Those networks can only be accesse
 #define NO_INTORGANS	32768
 
 //Species Blood Flags
-#define BLOOD_GREEN 	1
-#define BLOOD_BLUE		2
-#define BLOOD_SLIME		4
+#define BLOOD_SLIME		1
 //Species Body Flags
 #define FEET_CLAWS		1
 #define FEET_PADDED		2
