@@ -285,16 +285,16 @@ var/can_call_ert
 			else
 				del(H)
 
-	var/new_gender = alert(usr, "Please select gender.", "Character Generation", "Male", "Female")
+	//M.rebuild_appearance()			
+	*/
+	
+	var/new_gender = alert(usr, "Please select your gender.", "Character Generation", "Male", "Female")
 	if (new_gender)
 		if(new_gender == "Male")
 			M.gender = MALE
 		else
 			M.gender = FEMALE
-	//M.rebuild_appearance()
-*/
 
-	M.gender = pick(MALE, FEMALE)
 	M.set_species("Human",1)
 	M.dna.ready_dna(M)
 
@@ -348,7 +348,7 @@ var/can_call_ert
 
 /proc/equip_emergencyresponsesquad(var/mob/living/carbon/human/M, var/role, var/role2)
 	M.equip_to_slot_or_del(new /obj/item/device/radio/headset/ert/alt(src), slot_l_ear)
-	M.equip_to_slot_or_del(new /obj/item/clothing/under/ert(M), slot_w_uniform)
+	M.equip_to_slot_or_del(new /obj/item/clothing/under/rank/centcom_officer(M), slot_w_uniform)
 
 	var/obj/item/weapon/implant/loyalty/L = new/obj/item/weapon/implant/loyalty(M)
 	L.imp_in = M
