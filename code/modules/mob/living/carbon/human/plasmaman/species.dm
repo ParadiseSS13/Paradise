@@ -5,7 +5,7 @@
 	language = "Clatter"
 	unarmed_type = /datum/unarmed_attack/punch
 
-	flags = IS_WHITELISTED /*| HAS_LIPS | HAS_TAIL | NO_EAT | NO_BREATHE | NON_GENDERED*/ | NO_BLOOD
+	flags = IS_WHITELISTED | NO_BLOOD
 
 	//default_mutations=list(SKELETON) // This screws things up
 
