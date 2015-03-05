@@ -1017,6 +1017,10 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 
 		if(status_flags & GODMODE)	return 0
 
+		//SSD check, if a logged player is awake put them back to sleep!
+		if(player_logged && sleeping < 2)
+			sleeping = 2
+
 		if(stat == DEAD)	//DEAD. BROWN BREAD. SWIMMING WITH THE SPESS CARP
 			blinded = 1
 			silent = 0
@@ -1093,7 +1097,10 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 				adjustStaminaLoss(-10)
 				adjustHalLoss(-3)
 				if (mind)
-					if((mind.active && client != null) || immune_to_ssd) //This also checks whether a client is connected, if not, sleep is not reduced.
+					//Are they SSD? If so we'll keep them asleep but work off some of that sleep var in case of stoxin or similar.
+					if(player_logged)
+						sleeping = max(sleeping-1, 2)
+					else
 						sleeping = max(sleeping-1, 0)
 				blinded = 1
 				stat = UNCONSCIOUS
