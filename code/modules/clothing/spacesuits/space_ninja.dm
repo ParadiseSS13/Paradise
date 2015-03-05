@@ -49,6 +49,7 @@
 	if(enabled) // If the Ninja's suit is on and connected.
 		if(usr.mind.special_role != "Ninja")
 			usr << "<span style='color: #ff0000;'><b>FÄ†AL ï¿½Rrï¿½R</b>: µ§er n¤t rec¤gnized, c-c¤ntr-r¤£§-£§ £¤cked."
+			return
 
 		if(!user) // The user var is, so far as I can tell, required to refresh the window after each click.
 			user = usr
@@ -86,6 +87,7 @@
 
 	if(href_list["night"])
 		darkness_view = (darkness_view ? 0 : 8)
+		see_darkness = (darkness_view ? 0 : 1)
 		energyConsumption += (darkness_view ? 2 : -2)
 		usr << "Light amplification <span style='color: #0000ff;'><b>[(darkness_view ? "ENABLED" : "DISABLED")]</b></span>."
 
