@@ -33,10 +33,7 @@
 	if(!linkedturfs)
 		processing_objects.Remove(src)
 		return
-	for(var/turf/simulated/floor/beach/water/W in linkedturfs)
-		for(var/mob/M in W)
-			if(M)
-				updateMobs()
+	updateMobs()
 
 /obj/machinery/poolcontroller/proc/updateMobs()
 	for(var/turf/simulated/floor/beach/water/W in linkedturfs)
@@ -48,9 +45,11 @@
 						H.bodytemperature = min(500, H.bodytemperature + 35)
 						H.adjustFireLoss(5)
 						H << "<span class='danger'>The water is searing hot!</span>"
+						return
 					else
 						M.bodytemperature = min(500, M.bodytemperature + 35)
 						M << "<span class='danger'>The water is searing hot!</span>"
+						return
 
 				if("cold")
 					if(ishuman(M))
@@ -58,9 +57,11 @@
 						H.bodytemperature = max(80, H.bodytemperature - 80)
 						H.adjustFireLoss(5)
 						H << "<span class='danger'>The water is freezing!</span>"
+						return
 					else
 						M.bodytemperature = max(80, M.bodytemperature - 80)
 						M << "<span class='danger'>The water is freezing!</span>"
+						return
 
 				if("normal")
 					return
