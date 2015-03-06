@@ -1338,6 +1338,7 @@
 #include "code\modules\mob\living\silicon\pai\recruit.dm"
 #include "code\modules\mob\living\silicon\pai\say.dm"
 #include "code\modules\mob\living\silicon\pai\software.dm"
+#include "code\modules\mob\living\silicon\pai\software_modules.dm"
 #include "code\modules\mob\living\silicon\robot\component.dm"
 #include "code\modules\mob\living\silicon\robot\death.dm"
 #include "code\modules\mob\living\silicon\robot\emote.dm"
