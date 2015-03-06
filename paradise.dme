@@ -665,7 +665,6 @@
 #include "code\game\objects\items\devices\powersink.dm"
 #include "code\game\objects\items\devices\scanners.dm"
 #include "code\game\objects\items\devices\sensor_device.dm"
-#include "code\game\objects\items\devices\suit_cooling.dm"
 #include "code\game\objects\items\devices\taperecorder.dm"
 #include "code\game\objects\items\devices\traitordevices.dm"
 #include "code\game\objects\items\devices\transfer_valve.dm"
