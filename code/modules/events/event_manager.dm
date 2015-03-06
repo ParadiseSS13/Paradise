@@ -299,7 +299,7 @@
 	feedback_add_details("admin_verb","EMP") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 	return
 
-/datum/event/proc/findEventArea() //Here's a nice proc to use to find an area for your event to land in!
+/proc/findEventArea() //Here's a nice proc to use to find an area for your event to land in!
 	var/area/candidate = null
 
 	var/list/safe_areas = list(
