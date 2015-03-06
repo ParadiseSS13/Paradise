@@ -12,7 +12,7 @@
 /obj/machinery/poolcontroller/New() //This proc automatically happens on world start
 	for(var/turf/simulated/floor/beach/water/W in range(srange,src)) //Search for /turf/simulated/floor/beach/water in the range of var/srange
 		src.linkedturfs += W //Add found pool turfs to the central list.
-	processing_objects.Add(src) //Add the pool controller to the processing queue to tie mob effects to the air controller.
+	..() //Changed to call parent as per MarkvA's recommendation
 
 /obj/machinery/poolcontroller/emag_act(user as mob) //Emag_act, this is called when it is hit with a cryptographic sequencer.
 	if(!emagged) //If it is not already emagged, emag it.
@@ -85,10 +85,6 @@
 		return
 
 /obj/machinery/poolcontroller/process()
-	if(!linkedturfs) //If no pool tiles are linked, remove the controller from the processing queue, no sense wasting processing power on it.
-		processing_objects.Remove(src)
-		return
-
 	updateMobs() //Call the mob affecting proc
 
 /obj/machinery/poolcontroller/proc/updateMobs()
