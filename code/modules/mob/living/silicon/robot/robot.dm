@@ -904,63 +904,24 @@ var/list/robot_verbs_default = list(
 				usr << "You unlock your cover."
 
 /mob/living/silicon/robot/attack_alien(mob/living/carbon/alien/humanoid/M as mob)
-	if (!ticker)
-		M << "You cannot attack people before the game has started."
-		return
-
-	if (istype(loc, /turf) && istype(loc.loc, /area/start))
-		M << "No attacking people at spawn, you jackass."
-		return
-
-	switch(M.a_intent)
-
-		if ("help")
-			for(var/mob/O in viewers(src, null))
-				if ((O.client && !( O.blinded )))
-					O.show_message(text("<span class='notice'>[M] caresses [src]'s plating with its scythe like arm.</span>"), 1)
-
-		if ("grab")
-			if (M == src || anchored)
-				return
-			var/obj/item/weapon/grab/G = new /obj/item/weapon/grab(M, src )
-
-			M.put_in_active_hand(G)
-
-			G.synch()
-			playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
-			visible_message("<span class='danger'>[M] has grabbed [src] passively!</span>")
-
-		if ("harm")
+	if (M.a_intent =="disarm")
+		if(!(lying))
 			M.do_attack_animation(src)
-			var/damage = rand(10, 20)
-			if (prob(90))
-				playsound(loc, 'sound/weapons/slash.ogg', 25, 1, -1)
-				visible_message("<span class='danger'>[M] has slashed at [src]!</span>",\
-								"<span class='userdanger'>[M] has slashed at [src]!</span>")
-				if(prob(8))
-					flick("noise", flash)
-				adjustBruteLoss(damage)
-				updatehealth()
+			if (prob(85))
+				Stun(7)
+				step(src,get_dir(M,src))
+				spawn(5)
+					step(src,get_dir(M,src))
+				add_logs(M, src, "pushed", admin=0)
+				playsound(loc, 'sound/weapons/pierce.ogg', 50, 1, -1)
+				visible_message("<span class='danger'>[M] has forced back [src]!</span>", \
+								"<span class='userdanger'>[M] has forced back [src]!</span>")
 			else
 				playsound(loc, 'sound/weapons/slashmiss.ogg', 25, 1, -1)
 				visible_message("<span class='danger'>[M] took a swipe at [src]!</span>", \
 								"<span class='userdanger'>[M] took a swipe at [src]!</span>")
-
-		if ("disarm")
-			if(!(lying))
-				M.do_attack_animation(src)
-				if (prob(85))
-					Stun(7)
-					step(src,get_dir(M,src))
-					spawn(5)
-						step(src,get_dir(M,src))
-					playsound(loc, 'sound/weapons/pierce.ogg', 50, 1, -1)
-					visible_message("<span class='danger'>[M] has forced back [src]!</span>",\
-									"<span class='userdanger'>[M] has forced back [src]!</span>")
-				else
-					playsound(loc, 'sound/weapons/slashmiss.ogg', 25, 1, -1)
-					visible_message("<span class='danger'>[M] attempted to force back [src]!</span>",\
-									"<span class='userdanger'>[M] attempted to force back [src]!</span>")
+	else
+		..()
 	return
 
 
