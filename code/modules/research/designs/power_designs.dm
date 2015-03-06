@@ -9,6 +9,7 @@
 	req_tech = list("powerstorage" = 1)
 	build_type = PROTOLATHE | AUTOLATHE | MECHFAB
 	materials = list("$metal" = 700, "$glass" = 50)
+	construction_time=100
 	build_path = /obj/item/weapon/stock_parts/cell
 	category = list("Misc","Power")
 
@@ -19,9 +20,10 @@
 	req_tech = list("powerstorage" = 2)
 	build_type = PROTOLATHE | AUTOLATHE | MECHFAB
 	materials = list("$metal" = 700, "$glass" = 60)
+	construction_time=100
 	build_path = /obj/item/weapon/stock_parts/cell/high
 	category = list("Misc","Power")
-	
+
 /datum/design/hyper_cell
 	name = "Hyper-Capacity Power Cell"
 	desc = "A power cell that holds 30000 units of energy"
@@ -30,9 +32,10 @@
 	reliability_base = 70
 	build_type = PROTOLATHE | MECHFAB
 	materials = list("$metal" = 400, "$gold" = 150, "$silver" = 150, "$glass" = 70)
+	construction_time=100
 	build_path = /obj/item/weapon/stock_parts/cell/hyper
 	category = list("Misc","Power")
-	
+
 /datum/design/super_cell
 	name = "Super-Capacity Power Cell"
 	desc = "A power cell that holds 20000 units of energy"
@@ -41,9 +44,10 @@
 	reliability_base = 75
 	build_type = PROTOLATHE | MECHFAB
 	materials = list("$metal" = 700, "$glass" = 70)
+	construction_time=100
 	build_path = /obj/item/weapon/stock_parts/cell/super
 	category = list("Misc","Power")
-	
+
 /datum/design/pacman
 	name = "Machine Board (PACMAN-type Generator)"
 	desc = "The circuit board that for a PACMAN-type portable generator."
@@ -54,7 +58,7 @@
 	materials = list("$glass" = 1000, "sacid" = 20)
 	build_path = /obj/item/weapon/circuitboard/pacman
 	category = list("Engineering Machinery")
-	
+
 /datum/design/mrspacman
 	name = "Machine Board (MRSPACMAN-type Generator)"
 	desc = "The circuit board that for a MRSPACMAN-type portable generator."
