@@ -6,6 +6,8 @@
 	var/list/linkedturfs = list() //List contains all of the linked pool turfs to this controller, assignment happens on New()
 	var/temperature = "normal" //The temperature of the pool, starts off on normal, which has no effects.
 	var/srange = 5 //The range of the search for pool turfs, change this for bigger or smaller pools.
+	var/linkedmist = list() //Used to keep track of created mist
+	var/misted = 0 //Used to check for mist.
 
 /obj/machinery/poolcontroller/New() //This proc automatically happens on world start
 	for(var/turf/simulated/floor/beach/water/W in range(srange,src)) //Search for /turf/simulated/floor/beach/water in the range of var/srange
@@ -41,12 +43,14 @@
 
 		switch(temp) //Used for setting the actual temperature var based on user input.
 			if("Hot")
+				miston()
 				temperature = "hot"
 				usr << "<span class='warning'>You flick the pool temperature to [temperature](WARNING).</span>" //Differ from standard message to make sure the user understands the temperature is harmful.
 				return
 			if("Cold")
 				temperature = "cold"
 				usr << "<span class='warning'>You flick the pool temperature to [temperature](WARNING).</span>" //Differ from standard message to make sure the user understands the temperature is harmful.
+				mistoff() //this won't get called otherwise
 				return
 
 			//Regular non-traitorous temperature choices still avalible.
@@ -59,6 +63,7 @@
 			if("Cancel")
 				return
 
+		mistoff()
 		usr << "<span class='warning'>You flick the pool temperature to [temperature].</span>" //Inform the mob of the temperature they just picked.
 		return
 
@@ -75,6 +80,7 @@
 			if("Cancel") //Cancel does nothing and leaves the temperature at it's previous state.
 				return
 
+		mistoff()
 		usr << "<span class='warning'>You flick the pool temperature to [temperature].</span>" //Display what the user picked.
 		return
 
@@ -119,3 +125,17 @@
 					M.bodytemperature = max(290, M.bodytemperature - 15) //Cools mobs to just below normal, not enough to burn
 					M << "<span class='warning'>The water is chilly.</span>" //Inform the mob it's chilly water.
 					return
+
+/obj/machinery/poolcontroller/proc/miston()
+	for(var/turf/simulated/floor/beach/water/W in linkedturfs)
+		var/M = new /obj/effect/mist(W)
+		if(misted)
+			return
+		linkedmist += M
+
+	misted = 1
+
+/obj/machinery/poolcontroller/proc/mistoff()
+	for(var/obj/effect/mist/M in linkedmist)
+		del(M)
+	misted = 0
