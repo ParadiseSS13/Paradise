@@ -4,6 +4,9 @@
 	//Mind updates
 	sync_mind()
 
+	//If they're SSD, remove it so they can wake back up.
+	player_logged = 0
+
 	//Round specific stuff like hud updates
 	if(ticker && ticker.mode)
 		var/ref = "\ref[mind]"
