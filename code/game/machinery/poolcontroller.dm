@@ -39,19 +39,19 @@
 		return
 
 	if(emagged) //Emagging unlocks more (deadly) options.
-		var/temp = input("What temperature would you like to set the pool to?", "Pool Temperature") in list("Hot","Cold", "Warm", "Cool", "Normal","Cancel") //Allow user to choose which temperature they want.
+		var/temp = input("What temperature would you like to set the pool to?", "Pool Temperature") in list("Scalding","Frigid", "Warm", "Cool", "Normal","Cancel") //Allow user to choose which temperature they want.
 
 		switch(temp) //Used for setting the actual temperature var based on user input.
-			if("Hot")
-				miston()
-				temperature = "hot"
+			if("Scalding")
+				miston() //Turn on warning mist for the pool
+				temperature = "scalding" //Burn em!
 				usr << "<span class='warning'>You flick the pool temperature to [temperature](WARNING).</span>" //Differ from standard message to make sure the user understands the temperature is harmful.
-				return
-			if("Cold")
-				temperature = "cold"
+				return //Return to avoid calling the un-unique message.
+			if("Frigid")
+				temperature = "frigid"
 				usr << "<span class='warning'>You flick the pool temperature to [temperature](WARNING).</span>" //Differ from standard message to make sure the user understands the temperature is harmful.
 				mistoff() //this won't get called otherwise
-				return
+				return //Return to avoid calling the un-unique message.
 
 			//Regular non-traitorous temperature choices still avalible.
 			if("Warm")
@@ -63,7 +63,7 @@
 			if("Cancel")
 				return
 
-		mistoff()
+		mistoff() //Remove all mist, setting it to scalding returns before now, only regular temperatures will call it
 		usr << "<span class='warning'>You flick the pool temperature to [temperature].</span>" //Inform the mob of the temperature they just picked.
 		return
 
@@ -80,7 +80,7 @@
 			if("Cancel") //Cancel does nothing and leaves the temperature at it's previous state.
 				return
 
-		mistoff()
+		mistoff() //Remove all mist, because it shouldn't be here if the pool is not set to scalding
 		usr << "<span class='warning'>You flick the pool temperature to [temperature].</span>" //Display what the user picked.
 		return
 
@@ -91,21 +91,13 @@
 	for(var/turf/simulated/floor/beach/water/W in linkedturfs) //Check for pool-turfs linked to the controller.
 		for(var/mob/M in W) //Check for mobs in the linked pool-turfs.
 			switch(temperature) //Apply different effects based on what the temperature is set to.
-				if("hot") //Burn the mob.
-					if(ishuman(M))
-						var/mob/living/carbon/human/H = M //If humanoid, directly apply fire damage for quicker effect.
-						H.adjustFireLoss(5)
-
+				if("scalding") //Burn the mob.
 					M.bodytemperature = min(500, M.bodytemperature + 35) //heat mob at 35k(elvin) per cycle
 					M << "<span class='danger'>The water is searing hot!</span>"
 					return
 
-				if("cold") //Freeze the mob.
-					if(ishuman(M))
-						var/mob/living/carbon/human/H = M  //If humanoid, directly apply fire damage for quicker effect.
-						H.adjustFireLoss(5)
-
-					M.bodytemperature = max(80, M.bodytemperature - 80) //Quickly cool mob at -80k per cycle
+				if("frigid") //Freeze the mob.
+					M.bodytemperature = max(80, M.bodytemperature - 35) //cool mob at -35k per cycle
 					M << "<span class='danger'>The water is freezing!</span>"
 					return
 
@@ -118,20 +110,20 @@
 					return
 
 				if("cool") //Gently cool the mob.
-					M.bodytemperature = max(290, M.bodytemperature - 15) //Cools mobs to just below normal, not enough to burn
+					M.bodytemperature = max(290, M.bodytemperature - 10) //Cools mobs to just below normal, not enough to burn
 					M << "<span class='warning'>The water is chilly.</span>" //Inform the mob it's chilly water.
 					return
 
-/obj/machinery/poolcontroller/proc/miston()
+/obj/machinery/poolcontroller/proc/miston() //Spawn /obj/effect/mist (from the shower) on all linked pool tiles
 	for(var/turf/simulated/floor/beach/water/W in linkedturfs)
 		var/M = new /obj/effect/mist(W)
 		if(misted)
 			return
 		linkedmist += M
 
-	misted = 1
+	misted = 1 //var just to keep track of when the mist on proc has been called.
 
-/obj/machinery/poolcontroller/proc/mistoff()
+/obj/machinery/poolcontroller/proc/mistoff() //Delete all /obj/effect/mist from all linked pool tiles.
 	for(var/obj/effect/mist/M in linkedmist)
 		del(M)
-	misted = 0
+	misted = 0 //no mist left, turn off the tracking var
