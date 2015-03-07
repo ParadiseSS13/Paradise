@@ -1320,7 +1320,7 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 			if(glasses)
 				var/obj/item/clothing/glasses/G = glasses
 				if(istype(G))
-					see_in_dark += G.darkness_view
+					see_in_dark = (G.darkness_view ? see_in_dark + G.darkness_view : species.darksight) // Otherwise we keep our darkness view with togglable nightvision.
 					if(G.vision_flags)		// MESONS
 						sight |= G.vision_flags
 						if(!druggy)
@@ -1335,13 +1335,13 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 					if(istype(glasses, /obj/item/clothing/glasses/sunglasses/sechud))
 						var/obj/item/clothing/glasses/sunglasses/sechud/O = glasses
 						if(O.hud)		O.hud.process_hud(src)
-						if(!druggy)		see_invisible = SEE_INVISIBLE_LIVING
+						if(!druggy)		see_invisible = (!O.see_darkness || O.vision_flags ? SEE_INVISIBLE_MINIMUM : SEE_INVISIBLE_LIVING) // So we can have meson/thermal/material sunglasses
 
 				if(istype(glasses, /obj/item/clothing/glasses/hud))
 					var/obj/item/clothing/glasses/hud/O = glasses
 					O.process_hud(src)
 					if(!druggy)
-						see_invisible = (O.see_darkness ? SEE_INVISIBLE_LIVING : SEE_INVISIBLE_MINIMUM)
+						see_invisible = (!O.see_darkness || O.vision_flags ? SEE_INVISIBLE_MINIMUM : SEE_INVISIBLE_LIVING)
 			else if(!seer)
 				see_in_dark = species.darksight
 				see_invisible = SEE_INVISIBLE_LIVING
