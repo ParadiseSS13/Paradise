@@ -124,8 +124,6 @@
 
 		var/data[0]
 		data["manifest"] = data_core.get_manifest_json()
-		// This is dumb, but NanoUI breaks if it has no data to send
-		data["a"] = "a"
 
 		ui = nanomanager.try_update_ui(user, user, id, ui, data, force_open)
 		if(!ui)
