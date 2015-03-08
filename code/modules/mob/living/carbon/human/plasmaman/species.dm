@@ -2,10 +2,10 @@
 	name = "Plasmaman"
 	icobase = 'icons/mob/human_races/r_plasmaman_sb.dmi'
 	deform = 'icons/mob/human_races/r_plasmaman_pb.dmi'  // TODO: Need deform.
-	language = "Clatter"
+	//language = "Clatter"
 	unarmed_type = /datum/unarmed_attack/punch
 
-	flags = IS_WHITELISTED /*| HAS_LIPS | HAS_TAIL | NO_EAT | NO_BREATHE | NON_GENDERED*/ | NO_BLOOD
+	flags = IS_WHITELISTED | NO_BLOOD
 
 	//default_mutations=list(SKELETON) // This screws things up
 
@@ -36,21 +36,45 @@
 	var/tank_slot_name = "suit storage"
 
 	switch(H.mind.assigned_role)
-		if("Research Director","Scientist","Geneticist","Roboticist")
+		if("Scientist","Geneticist","Roboticist")
 			suit=/obj/item/clothing/suit/space/eva/plasmaman/science
 			helm=/obj/item/clothing/head/helmet/space/eva/plasmaman/science
-		if("Chief Engineer","Station Engineer")
-			suit=/obj/item/clothing/suit/space/eva/plasmaman/engineer
-			helm=/obj/item/clothing/head/helmet/space/eva/plasmaman/engineer
+		if("Research Director")
+			suit=/obj/item/clothing/suit/space/eva/plasmaman/science/rd
+			helm=/obj/item/clothing/head/helmet/space/eva/plasmaman/science/rd
+		if("Station Engineer", "Mechanic")
+			suit=/obj/item/clothing/suit/space/eva/plasmaman/engineer/
+			helm=/obj/item/clothing/head/helmet/space/eva/plasmaman/engineer/
+		if("Chief Engineer")
+			suit=/obj/item/clothing/suit/space/eva/plasmaman/engineer/ce
+			helm=/obj/item/clothing/head/helmet/space/eva/plasmaman/engineer/ce
 		if("Atmospheric Technician")
 			suit=/obj/item/clothing/suit/space/eva/plasmaman/atmostech
 			helm=/obj/item/clothing/head/helmet/space/eva/plasmaman/atmostech
-		if("Head of Security","Warden","Detective","Security Officer")
-			suit=/obj/item/clothing/suit/space/eva/plasmaman/security
-			helm=/obj/item/clothing/head/helmet/space/eva/plasmaman/security
-		if("Chief Medical Officer","Medical Doctor","Paramedic","Chemist")
+		if("Warden","Detective","Security Officer")
+			suit=/obj/item/clothing/suit/space/eva/plasmaman/security/
+			helm=/obj/item/clothing/head/helmet/space/eva/plasmaman/security/
+		if("Head of Security")
+			suit=/obj/item/clothing/suit/space/eva/plasmaman/security/hos
+			helm=/obj/item/clothing/head/helmet/space/eva/plasmaman/security/hos
+		if("Captain")
+			suit=/obj/item/clothing/suit/space/eva/plasmaman/security/captain
+			helm=/obj/item/clothing/head/helmet/space/eva/plasmaman/security/captain
+		if("Head of Personnel")
+			suit=/obj/item/clothing/suit/space/eva/plasmaman/security/hop
+			helm=/obj/item/clothing/head/helmet/space/eva/plasmaman/security/hop
+		if("Medical Doctor")
 			suit=/obj/item/clothing/suit/space/eva/plasmaman/medical
 			helm=/obj/item/clothing/head/helmet/space/eva/plasmaman/medical
+		if("Paramedic")
+			suit=/obj/item/clothing/suit/space/eva/plasmaman/medical/paramedic
+			helm=/obj/item/clothing/head/helmet/space/eva/plasmaman/medical/paramedic
+		if("Chemist")
+			suit=/obj/item/clothing/suit/space/eva/plasmaman/medical/chemist
+			helm=/obj/item/clothing/head/helmet/space/eva/plasmaman/medical/chemist
+		if("Chief Medical Officer")
+			suit=/obj/item/clothing/suit/space/eva/plasmaman/medical/cmo
+			helm=/obj/item/clothing/head/helmet/space/eva/plasmaman/medical/cmo
 		if("Bartender", "Chef")
 			suit=/obj/item/clothing/suit/space/eva/plasmaman/service
 			helm=/obj/item/clothing/head/helmet/space/eva/plasmaman/service
@@ -72,9 +96,12 @@
 		if("Assistant")
 			suit=/obj/item/clothing/suit/space/eva/plasmaman/assistant
 			helm=/obj/item/clothing/head/helmet/space/eva/plasmaman/assistant
-		if("Clown","Mime")
-			tank_slot=slot_r_hand
-			tank_slot_name = "hand"
+		if("Clown")
+			suit=/obj/item/clothing/suit/space/eva/plasmaman/clown
+			helm=/obj/item/clothing/head/helmet/space/eva/plasmaman/clown
+		if("Mime")
+			suit=/obj/item/clothing/suit/space/eva/plasmaman/mime
+			helm=/obj/item/clothing/head/helmet/space/eva/plasmaman/mime
 	H.equip_or_collect(new suit(H), slot_wear_suit)
 	H.equip_or_collect(new helm(H), slot_head)
 	H.equip_or_collect(new/obj/item/weapon/tank/plasma/plasmaman(H), tank_slot) // Bigger plasma tank from Raggy.

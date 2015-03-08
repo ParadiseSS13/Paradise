@@ -125,6 +125,7 @@
 /obj/item/weapon/tank/plasma/plasmaman
 	desc = "The lifeblood of plasmamen.  Warning:  Extremely flammable, do not inhale (unless you're a plasman)."
 	icon_state = "plasma_fr"
+	distribute_pressure = ONE_ATMOSPHERE*O2STANDARD
 
 /obj/item/weapon/tank/plasma/plasmaman/examine()
 	set src in usr
