@@ -1653,7 +1653,12 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 					H.vomit()
 
 	proc/handle_heartbeat()
-		if(pulse == PULSE_NONE)
+		if(pulse == PULSE_NONE || !species.has_organ["heart"])
+			return
+
+		var/datum/organ/internal/heart/H = internal_organs_by_name["heart"]
+
+		if(!H || H.robotic >=2 )
 			return
 
 		if(pulse >= PULSE_2FAST || shock_stage >= 10 || istype(get_turf(src), /turf/space))
@@ -1664,7 +1669,7 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 
 			if(heartbeat >= rate)
 				heartbeat = 0
-				src << sound('sound/effects/singlebeat.ogg',0,0,0,60)
+				src << sound('sound/effects/singlebeat.ogg',0,0,0,50)
 			else
 				heartbeat++
 
