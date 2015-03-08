@@ -1226,3 +1226,17 @@
 	component_parts += new /obj/item/weapon/vending_refill/clothing(0)
 	component_parts += new /obj/item/weapon/vending_refill/clothing(0)
 	component_parts += new /obj/item/weapon/vending_refill/clothing(0)
+
+/obj/machinery/vending/artvend
+	name = "ArtVend"
+	desc = "A vending machine for art supplies."
+	product_slogans = "Stop by for all your artistic needs!;Color the floors with crayons, not blood!;Don't be a starving artist, use ArtVend. ;Don't fart, do art!"
+	product_ads = "Just like Kindergarten!;Now with 1000% more vibrant colors!;Screwing with the janitor was never so easy!;Creativity is at the heart of every spessman."
+	vend_delay = 34
+	icon_state = "artvend"
+	products = list(/obj/item/stack/cable_coil/random = 10,/obj/item/device/camera = 4,/obj/item/device/camera_film = 6,
+	/obj/item/weapon/storage/photo_album = 2,/obj/item/stack/wrapping_paper = 4,/obj/item/stack/packageWrap = 4,
+	/obj/item/weapon/storage/fancy/crayons = 4,/obj/item/weapon/paper = 10,/obj/item/weapon/c_tube = 10,
+	/obj/item/weapon/pen = 5,/obj/item/weapon/pen/blue = 5,/obj/item/weapon/pen/red = 5)
+	contraband = list(/obj/item/toy/crayon/mime = 1,/obj/item/toy/crayon/rainbow = 1)
+	premium = list(/obj/item/weapon/contraband/poster = 5)

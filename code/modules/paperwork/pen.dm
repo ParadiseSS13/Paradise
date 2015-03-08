@@ -26,11 +26,13 @@
 
 
 /obj/item/weapon/pen/blue
+	name = "blue-ink pen"
 	desc = "It's a normal blue ink pen."
 	icon_state = "pen_blue"
 	colour = "blue"
 
 /obj/item/weapon/pen/red
+	name = "red-ink pen"
 	desc = "It's a normal red ink pen."
 	icon_state = "pen_red"
 	colour = "red"
