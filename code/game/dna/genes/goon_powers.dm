@@ -6,7 +6,7 @@
 	activation_messages=list("You feel unusually sober.")
 	deactivation_messages = list("You feel like you could use a stiff drink.")
 
-	mutation=M_SOBER
+	mutation=SOBER
 
 	New()
 		block=SOBERBLOCK
@@ -19,7 +19,7 @@
 	deactivation_messages = list("You feel oddly exposed.")
 	instability=2
 
-	mutation=M_PSY_RESIST
+	mutation=PSY_RESIST
 
 	New()
 		block=PSYRESISTBLOCK
@@ -47,6 +47,7 @@
 	desc = "Enables the subject to bend low levels of light around themselves, creating a cloaking effect."
 	activation_messages = list("You begin to fade into the shadows.")
 	deactivation_messages = list("You become fully visible.")
+	activation_prob=10
 
 	New()
 		block=SHADOWBLOCK
@@ -66,6 +67,7 @@
 	desc = "The subject becomes able to subtly alter light patterns to become invisible, as long as they remain still."
 	activation_messages = list("You feel one with your surroundings.")
 	deactivation_messages = list("You feel oddly exposed.")
+	activation_prob=10
 
 	New()
 		block=CHAMELEONBLOCK
@@ -149,7 +151,7 @@
 		usr << "\red This will only work on normal organic beings."
 		return
 
-	if (M_RESIST_COLD in C.mutations)
+	if (RESIST_COLD in C.mutations)
 		C.visible_message("\red A cloud of fine ice crystals engulfs [C.name], but disappears almost instantly!")
 		return
 	var/handle_suit = 0
@@ -159,11 +161,15 @@
 			if(istype(H.wear_suit, /obj/item/clothing/suit/space))
 				handle_suit = 1
 				if(H.internal)
-					H.visible_message("\red A cloud of fine ice crystals engulfs [H]!",
-										"<span class='notice'>A cloud of fine ice crystals cover your [H.head]'s visor.</span>")
+					H.visible_message("\red [usr] sprays a cloud of fine ice crystals, engulfing [H]!",
+										"<span class='notice'>[usr] sprays a cloud of fine ice crystals over your [H.head]'s visor.</span>")
+					log_admin("[ckey(usr.key)] has used cryokinesis on [ckey(C.key)], internals yes, suit yes")
+					msg_admin_attack("[usr.real_name] ([usr.ckey]) has cast cryokinesis on [C.real_name] ([C.ckey]), (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[usr.x];Y=[usr.y];Z=[usr.z]'>JMP</a>)")
 				else
-					H.visible_message("\red A cloud of fine ice crystals engulfs [H]!",
-										"<span class='warning'>A cloud of fine ice crystals cover your [H.head]'s visor and make it into your air vents!.</span>")
+					H.visible_message("\red [usr] sprays a cloud of fine ice crystals engulfing, [H]!",
+										"<span class='warning'>[usr] sprays a cloud of fine ice crystals cover your [H.head]'s visor and make it into your air vents!.</span>")
+					log_admin("[usr.real_name] ([ckey(usr.key)]) has used cryokinesis on [C.real_name] ([ckey(C.key)]), (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[usr.x];Y=[usr.y];Z=[usr.z]'>)")
+					msg_admin_attack("[usr.real_name] ([usr.ckey]) has cast cryokinesis on [C.real_name] ([C.ckey]), (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[usr.x];Y=[usr.y];Z=[usr.z]'>JMP</a>)")
 					H.bodytemperature = max(0, H.bodytemperature - 50)
 					H.adjustFireLoss(5)
 	if(!handle_suit)
@@ -171,8 +177,9 @@
 		C.adjustFireLoss(10)
 		C.ExtinguishMob()
 
-		C.visible_message("\red A cloud of fine ice crystals engulfs [C]!")
-		log_admin("[ckey(usr.key)] has used cryokinesis on [ckey(C.key)].")
+		C.visible_message("\red [usr] sprays a cloud of fine ice crystals, engulfing [C]!")
+		log_admin("[ckey(usr.key)] has used cryokinesis on [ckey(C.key)], internals no, suit no")
+		msg_admin_attack("[usr.real_name] ([usr.ckey]) has cast cryokinesis on [C.real_name] ([C.ckey]), (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[usr.x];Y=[usr.y];Z=[usr.z]'>JMP</a>)")
 
 	//playsound(usr.loc, 'bamf.ogg', 50, 0)
 
@@ -311,7 +318,7 @@
 	else
 		usr.visible_message("\red [usr] eats \the [the_item].")
 		playsound(usr.loc, 'sound/items/eatfood.ogg', 50, 0)
-		del(the_item)
+		qdel(the_item)
 		doHeal(usr)
 
 	return
@@ -387,7 +394,7 @@
 			else usr.pixel_y -= 8
 			sleep(1)
 
-		if (M_FAT in usr.mutations && prob(66))
+		if (FAT in usr.mutations && prob(66))
 			usr.visible_message("\red <b>[usr.name]</b> crashes due to their heavy weight!")
 			//playsound(usr.loc, 'zhit.wav', 50, 1)
 			usr.weakened += 10
@@ -476,7 +483,7 @@
 	activation_messages = list("You suddenly notice more about others than you did before.")
 	deactivation_messages = list("You no longer feel able to sense intentions.")
 	instability=1
-	mutation=M_EMPATH
+	mutation=EMPATH
 
 	New()
 		..()
@@ -509,7 +516,7 @@
 			usr << "\red You may only use this on other organic beings."
 			return
 
-		if (M_PSY_RESIST in M.mutations)
+		if (PSY_RESIST in M.mutations)
 			usr << "\red You can't see into [M.name]'s mind at all!"
 			return
 
@@ -573,7 +580,7 @@
 				usr << "\blue <b>Numbers</b>: You sense the number[numbers.len>1?"s":""] [english_list(numbers)] [numbers.len>1?"are":"is"] important to [M.name]."
 		usr << "\blue <b>Thoughts</b>: [M.name] is currently [thoughts]."
 
-		if (M_EMPATH in M.mutations)
+		if (EMPATH in M.mutations)
 			M << "\red You sense [usr.name] reading your mind."
 		else if (prob(5) || M.mind.assigned_role=="Chaplain")
 			M << "\red You sense someone intruding upon your thoughts..."
@@ -589,7 +596,7 @@
 	deactivation_messages = list("You no longer feel gassy. What a relief!")
 	instability=1
 
-	mutation = M_SUPER_FART
+	mutation = SUPER_FART
 
 	New()
 		..()

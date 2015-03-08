@@ -207,6 +207,9 @@
 	if(Process_Grab())	return
 
 
+	if(mob.remote_control)					//we're controlling something, our movement is relayed to it
+		return mob.remote_control.relaymove(mob, direct)
+
 	if(!mob.canmove)
 		return
 
@@ -247,7 +250,7 @@
 					move_delay += 6
 				move_delay += 1+config.run_speed
 			if("walk")
-				move_delay += 7+config.walk_speed
+				move_delay += 1+config.walk_speed
 		move_delay += mob.movement_delay()
 
 		if(config.Tickcomp)

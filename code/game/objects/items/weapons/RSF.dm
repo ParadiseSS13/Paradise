@@ -13,14 +13,13 @@ RSF
 	anchored = 0.0
 	var/matter = 0
 	var/mode = 1
-	flags = TABLEPASS
 	w_class = 3.0
 
 /obj/item/weapon/rsf/New()
 	desc = "A RSF. It currently holds [matter]/30 fabrication-units."
 	return
 
-/obj/item/weapon/rsf/attackby(obj/item/weapon/W as obj, mob/user as mob)
+/obj/item/weapon/rsf/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
 	..()
 	if (istype(W, /obj/item/weapon/rcd_ammo))
 		if ((matter + 10) > 30)

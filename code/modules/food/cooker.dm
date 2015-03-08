@@ -37,19 +37,10 @@ obj/machinery/cooker/proc/checkValid(obj/item/check, mob/user)
 	if(on)
 		user << "<span class='notice'>[src] is still active!</span>"
 		return 0
-	if(istype(check, /obj/item/weapon/grab) || istype(check, /obj/item/tk_grab))
-		user << "<span class='warning'>That isn't going to fit.</span>"
-		return 0
-	if(istype(check, /obj/item/weapon/reagent_containers/glass))
-		user << "<span class='warning'>That would probably break [src].</span>"
-		return 0
-	if(istype(check, /obj/item/weapon/disk/nuclear))
-		user << "Central command would kill you if you [thiscooktype] that."
-		return 0
-	if(istype(check, /obj/item/flag))
-		user << "<span class='warning'>That isn't going to fit.</span>"
-		return 0
-	return 1
+	if(istype(check, /obj/item/weapon/reagent_containers/food/snacks))
+		return 1
+	user << "<span class ='notice'>You can only process food!</span>"
+	return 0
 
 obj/machinery/cooker/proc/setIcon(obj/item/copyme, obj/item/copyto)
 	copyto.color = foodcolor
@@ -99,7 +90,7 @@ obj/machinery/cooker/proc/gettype()
 	var/obj/item/weapon/reagent_containers/food/snacks/type = new(get_turf(src))
 	return type
 
-obj/machinery/cooker/attackby(obj/item/I, mob/user)
+obj/machinery/cooker/attackby(obj/item/I, mob/user, params)
 	if(stat & (NOPOWER|BROKEN))
 		return
 	if (!checkValid(I, user))

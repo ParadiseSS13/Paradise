@@ -161,45 +161,17 @@
 
 
 
-/obj/machinery/computer/HolodeckControl/attackby(var/obj/item/weapon/D as obj, var/mob/user as mob)
-//Warning, uncommenting this can have concequences. For example, deconstructing the computer may cause holographic eswords to never derez
-
-/*		if(istype(D, /obj/item/weapon/screwdriver))
-			playsound(src.loc, 'sound/items/Screwdriver.ogg', 50, 1)
-			if(do_after(user, 20))
-				if (src.stat & BROKEN)
-					user << "\blue The broken glass falls out."
-					var/obj/structure/computerframe/A = new /obj/structure/computerframe( src.loc )
-					new /obj/item/weapon/shard( src.loc )
-					var/obj/item/weapon/circuitboard/comm_traffic/M = new /obj/item/weapon/circuitboard/comm_traffic( A )
-					for (var/obj/C in src)
-						C.loc = src.loc
-					A.circuit = M
-					A.state = 3
-					A.icon_state = "3"
-					A.anchored = 1
-					del(src)
-				else
-					user << "\blue You disconnect the monitor."
-					var/obj/structure/computerframe/A = new /obj/structure/computerframe( src.loc )
-					var/obj/item/weapon/circuitboard/comm_traffic/M = new /obj/item/weapon/circuitboard/comm_traffic( A )
-					for (var/obj/C in src)
-						C.loc = src.loc
-					A.circuit = M
-					A.state = 4
-					A.icon_state = "4"
-					A.anchored = 1
-					del(src)
-
-*/
-	if(istype(D, /obj/item/weapon/card/emag) && !emagged)
+/obj/machinery/computer/HolodeckControl/attackby(var/obj/item/weapon/D as obj, var/mob/user as mob, params)
+	return
+	
+/obj/machinery/computer/HolodeckControl/emag_act(user as mob)
+	if(!emagged)
 		playsound(src.loc, 'sound/effects/sparks4.ogg', 75, 1)
 		emagged = 1
 		user << "\blue You vastly increase projector power and override the safety and security protocols."
 		user << "Warning.  Automatic shutoff and derezing protocols have been corrupted.  Please call Nanotrasen maintenance and do not use the simulator."
 		log_game("[key_name(usr)] emagged the Holodeck Control Computer")
-	src.updateUsrDialog()
-	return
+		src.updateUsrDialog()
 
 /obj/machinery/computer/HolodeckControl/New()
 	..()
@@ -269,8 +241,7 @@
 	if(isobj(obj))
 		var/mob/M = obj.loc
 		if(ismob(M))
-			M.u_equip(obj)
-			M.update_icons()	//so their overlays update
+			M.unEquip(obj, 1) //Holoweapons should always drop.
 
 	if(!silent)
 		var/obj/oldobj = obj
@@ -394,7 +365,7 @@
 					var/turf/simulated/floor/FF = get_step(src,direction)
 					FF.update_icon() //so siding get updated properly
 
-/turf/simulated/floor/holofloor/attackby(obj/item/weapon/W as obj, mob/user as mob)
+/turf/simulated/floor/holofloor/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
 	return
 	// HOLOFLOOR DOES NOT GIVE A FUCK
 
@@ -431,7 +402,7 @@
 	return // HOLOTABLE DOES NOT GIVE A FUCK
 
 
-/obj/structure/table/holotable/attackby(obj/item/weapon/W as obj, mob/user as mob)
+/obj/structure/table/holotable/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
 	if (istype(W, /obj/item/weapon/grab) && get_dist(src,user)<2)
 		var/obj/item/weapon/grab/G = W
 		if(G.state<2)
@@ -489,7 +460,7 @@
 	throw_range = 5
 	throwforce = 0
 	w_class = 2.0
-	flags = FPRINT | TABLEPASS | NOSHIELD
+	flags = NOSHIELD
 	var/active = 0
 
 /obj/item/weapon/holo/esword/green
@@ -551,7 +522,7 @@
 	density = 1
 	throwpass = 1
 
-/obj/structure/holohoop/attackby(obj/item/weapon/W as obj, mob/user as mob)
+/obj/structure/holohoop/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
 	if (istype(W, /obj/item/weapon/grab) && get_dist(src,user)<2)
 		var/obj/item/weapon/grab/G = W
 		if(G.state<2)
@@ -609,7 +580,7 @@
 	..()
 
 
-/obj/machinery/readybutton/attackby(obj/item/weapon/W as obj, mob/user as mob)
+/obj/machinery/readybutton/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
 	user << "The device is a solid button, there's nothing you can do with it!"
 
 /obj/machinery/readybutton/attack_hand(mob/user as mob)

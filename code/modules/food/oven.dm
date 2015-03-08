@@ -15,7 +15,7 @@
 	..()
 	updatefood()
 
-/obj/machinery/cooking/attackby(obj/item/I, mob/user)
+/obj/machinery/cooking/attackby(obj/item/I, mob/user, params)
 	if(on)
 		user << "The machine is already running."
 		return
@@ -41,7 +41,7 @@
 			else
 				icon_state = "mixer_off"
 			C.loc = get_turf(src)
-			C.attackby(F,user)
+			C.attackby(F,user, params)
 			playsound(loc, 'sound/machines/ding.ogg', 50, 1)
 			updatefood()
 			return

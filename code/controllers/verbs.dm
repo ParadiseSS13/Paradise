@@ -49,7 +49,7 @@
 	return
 
 
-/client/proc/debug_controller(controller in list("Master","Failsafe","Ticker","Lighting","Air","Jobs","Sun","Radio","Supply","Shuttles","Emergency Shuttle","Configuration","pAI", "Cameras","Garbage", "Crafting", "Transfer Controller"))
+/client/proc/debug_controller(controller in list("Master","failsafe","Ticker","Lighting","Air","Jobs","Sun","Radio","Supply","Shuttles","Emergency Shuttle","Configuration","pAI", "Cameras","Garbage", "Transfer Controller","Event","Scheduler"))
 	set category = "Debug"
 	set name = "Debug Controller"
 	set desc = "Debug the various periodic loop controllers for the game (be careful!)"
@@ -59,18 +59,15 @@
 		if("Master")
 			debug_variables(master_controller)
 			feedback_add_details("admin_verb","DMC")
-		if("Failsafe")
-			debug_variables(Failsafe)
-			feedback_add_details("admin_verb","DFailsafe")
+		if ("failsafe")
+			debug_variables(failsafe)
+			feedback_add_details("admin_verb", "dfailsafe")
 		if("Ticker")
 			debug_variables(ticker)
 			feedback_add_details("admin_verb","DTicker")
 		if("Lighting")
 			debug_variables(lighting_controller)
 			feedback_add_details("admin_verb","DLighting")
-		if("Garbage")
-			debug_variables(garbage)
-			feedback_add_details("admin_verb","DGarbage")
 		if("Air")
 			debug_variables(air_master)
 			feedback_add_details("admin_verb","DAir")
@@ -101,8 +98,15 @@
 		if("Cameras")
 			debug_variables(cameranet)
 			feedback_add_details("admin_verb","DCameras")
-		if("Crafting")
-			debug_variables(crafting_master)
-			feedback_add_details("admin_verb","DCrafting")
+		if("Event")
+			debug_variables(event_manager)
+			feedback_add_details("admin_verb","DEvent")
+		if("Garbage")
+			debug_variables(garbageCollector)
+			feedback_add_details("admin_verb","DGarbage")
+		if("Scheduler")
+			debug_variables(processScheduler)
+			feedback_add_details("admin_verb","DprocessScheduler")
+
 	message_admins("Admin [key_name_admin(usr)] is debugging the [controller] controller.")
 	return

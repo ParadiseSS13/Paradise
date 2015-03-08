@@ -14,6 +14,11 @@
 		if(M.occupant)
 			stance = HOSTILE_STANCE_ATTACK
 			return A
+	else if(istype(A, /obj/spacepod))
+		var/obj/spacepod/M = A
+		if(M.occupant || M.occupant2)
+			stance = HOSTILE_STANCE_ATTACK
+			return A
 
 /mob/living/simple_animal/hostile/retaliate/ListTargets()
 	if(!enemies.len)
@@ -41,6 +46,11 @@
 		else if(istype(A, /obj/mecha))
 			var/obj/mecha/M = A
 			if(M.occupant)
+				enemies |= M
+				enemies |= M.occupant
+		else if(istype(A, /obj/spacepod))
+			var/obj/spacepod/M = A
+			if(M.occupant || M.occupant2)
 				enemies |= M
 				enemies |= M.occupant
 

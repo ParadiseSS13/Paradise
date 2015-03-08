@@ -9,6 +9,8 @@
 	fire_sound = 'sound/effects/Explosion1.ogg'
 	origin_tech = "combat=3"
 	mag_type = "/obj/item/ammo_box/magazine/m75"
+	isHandgun()
+		return 1
 
 /obj/item/weapon/gun/projectile/automatic/gyropistol/New()
 	..()
@@ -36,7 +38,7 @@
 	mag_type = "/obj/item/ammo_box/magazine/internal/cylinder/grenadelauncher"
 	w_class = 3
 
-/obj/item/weapon/gun/projectile/revolver/grenadelauncher/attackby(var/obj/item/A, mob/user)
+/obj/item/weapon/gun/projectile/revolver/grenadelauncher/attackby(var/obj/item/A, mob/user, params)
 	..()
 	if(istype(A, /obj/item/ammo_box) || istype(A, /obj/item/ammo_casing))
 		chamber_round()
@@ -48,3 +50,11 @@
 	item_state = "bulldog"
 	icon_override = 'icons/mob/in-hand/guns.dmi'
 	mag_type = "/obj/item/ammo_box/magazine/internal/cylinder/grenadelauncher/multi"
+
+/obj/item/weapon/gun/projectile/revolver/grenadelauncher/multi/cyborg
+	desc = "A 6-shot grenade launcher."
+	icon = 'icons/mecha/mecha_equipment.dmi'
+	icon_state = "mecha_grenadelnchr"
+
+/obj/item/weapon/gun/projectile/revolver/grenadelauncher/multi/cyborg/attack_self()
+	return

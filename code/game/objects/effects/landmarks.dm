@@ -39,6 +39,18 @@
 		if("JoinLate")
 			latejoin += loc
 			del(src)
+			
+		if("JoinLateGateway")
+			latejoin_gateway += loc
+			del(src)
+
+		if("JoinLateCryo")
+			latejoin_cryo += loc
+			del(src)
+			
+		if("JoinLateCyborg")
+			latejoin_cyborg += loc
+			del(src)
 
 		//prisoners
 		if("prisonwarp")
@@ -78,6 +90,9 @@
 
 		if("carpspawn")
 			carplist += loc
+			
+		if("voxstart")
+			raider_spawn += loc
 
 	landmarks_list += src
 	return 1
@@ -166,7 +181,7 @@
 	del(src)
 
 /obj/effect/landmark/costume/scratch/New()
-	new /obj/item/clothing/gloves/white(src.loc)
+	new /obj/item/clothing/gloves/color/white(src.loc)
 	new /obj/item/clothing/shoes/white(src.loc)
 	new /obj/item/clothing/under/scratch(src.loc)
 	if (prob(30))

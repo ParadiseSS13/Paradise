@@ -27,7 +27,7 @@
 	name = "Seraph"
 	icon_state = "seraph"
 	initial_icon = "seraph"
-	operation_req_access = list(access_cent_creed)
+	operation_req_access = list(access_cent_commander)
 	step_in = 3
 	health = 550
 	wreckage = /obj/effect/decal/mecha_wreckage/seraph
@@ -73,7 +73,7 @@
 	src.smoke_system.attach(src)
 	return
 
-/obj/mecha/combat/marauder/seraph/New()
+/obj/mecha/combat/marauder/seraph/loaded/New()
 	..()//Let it equip whatever is needed.
 	var/obj/item/mecha_parts/mecha_equipment/ME
 	if(equipment.len)//Now to remove it and equip anew.

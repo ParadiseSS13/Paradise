@@ -35,7 +35,6 @@
 
 /obj/effect/landmark/corpse/proc/createCorpse() //Creates a mob and checks for gear in each slot before attempting to equip it.
 	var/mob/living/carbon/human/human/M = new /mob/living/carbon/human/human (src.loc)
-	M.dna.mutantrace = mutantrace
 	M.real_name = src.name
 	M.death(1) //Kills the new mob
 	M.timeofdeath = timeofdeath
@@ -100,8 +99,8 @@
 	name = "Syndicate Operative"
 	corpseuniform = /obj/item/clothing/under/syndicate
 	corpsesuit = /obj/item/clothing/suit/armor/vest
-	corpseshoes = /obj/item/clothing/shoes/swat
-	corpsegloves = /obj/item/clothing/gloves/swat
+	corpseshoes = /obj/item/clothing/shoes/combat
+	corpsegloves = /obj/item/clothing/gloves/combat
 	corpseradio = /obj/item/device/radio/headset
 	corpsemask = /obj/item/clothing/mask/gas
 	corpsehelmet = /obj/item/clothing/head/helmet/swat
@@ -116,8 +115,8 @@
 	name = "Syndicate Commando"
 	corpseuniform = /obj/item/clothing/under/syndicate
 	corpsesuit = /obj/item/clothing/suit/space/rig/syndi
-	corpseshoes = /obj/item/clothing/shoes/swat
-	corpsegloves = /obj/item/clothing/gloves/swat
+	corpseshoes = /obj/item/clothing/shoes/combat
+	corpsegloves = /obj/item/clothing/gloves/combat
 	corpseradio = /obj/item/device/radio/headset
 	corpsemask = /obj/item/clothing/mask/gas/syndicate
 	corpsehelmet = /obj/item/clothing/head/helmet/space/rig/syndi
@@ -247,7 +246,7 @@
 /obj/effect/landmark/corpse/miner
 	corpseradio = /obj/item/device/radio/headset/headset_cargo
 	corpseuniform = /obj/item/clothing/under/rank/miner
-	corpsegloves = /obj/item/clothing/gloves/black
+	corpsegloves = /obj/item/clothing/gloves/fingerless
 	corpseback = /obj/item/weapon/storage/backpack/industrial
 	corpseshoes = /obj/item/clothing/shoes/black
 	corpseid = 1
@@ -281,8 +280,8 @@
 	corpseglasses = /obj/item/clothing/glasses/eyepatch
 	corpsemask = /obj/item/clothing/mask/cigarette/cigar/cohiba
 	corpsehelmet = /obj/item/clothing/head/centhat
-	corpsegloves = /obj/item/clothing/gloves/swat
-	corpseshoes = /obj/item/clothing/shoes/swat
+	corpsegloves = /obj/item/clothing/gloves/combat
+	corpseshoes = /obj/item/clothing/shoes/combat
 	corpsepocket1 = /obj/item/weapon/lighter/zippo
 	corpseid = 1
 	corpseidjob = "Commander"

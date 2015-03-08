@@ -56,9 +56,9 @@
 	del(milled_item)
 	busy = 0
 
-/obj/machinery/mill/attackby(var/obj/item/weapon/W as obj, mob/user as mob)
+/obj/machinery/mill/attackby(var/obj/item/weapon/W as obj, mob/user as mob, params)
 	if(istype(W,/obj/item/weapon/reagent_containers/food))
-		user.u_equip(W)
+		user.unEquip(W)
 		W.loc = src
 		input += W
 	else
@@ -126,9 +126,9 @@
 	del(fermenting_item)
 	busy = 0
 
-/obj/machinery/fermenter/attackby(var/obj/item/weapon/W as obj, mob/user as mob)
+/obj/machinery/fermenter/attackby(var/obj/item/weapon/W as obj, mob/user as mob, params)
 	if(istype(W,/obj/item/weapon/reagent_containers/food))
-		user.u_equip(W)
+		user.unEquip(W)
 		W.loc = src
 		input += W
 	else
@@ -187,9 +187,9 @@
 	del(destilling_item)
 	busy = 0
 
-/obj/machinery/still/attackby(var/obj/item/weapon/W as obj, mob/user as mob)
+/obj/machinery/still/attackby(var/obj/item/weapon/W as obj, mob/user as mob, params)
 	if(istype(W,/obj/item/weapon/reagent_containers/food))
-		user.u_equip(W)
+		user.unEquip(W)
 		W.loc = src
 		input += W
 	else
@@ -272,9 +272,9 @@
 	output += spinning_item
 	busy = 0
 
-/obj/machinery/centrifuge/attackby(var/obj/item/weapon/W as obj, mob/user as mob)
+/obj/machinery/centrifuge/attackby(var/obj/item/weapon/W as obj, mob/user as mob, params)
 	if(istype(W,/obj/item/weapon/reagent_containers/food))
-		user.u_equip(W)
+		user.unEquip(W)
 		W.loc = src
 		input += W
 	else

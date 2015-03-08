@@ -17,6 +17,7 @@
 	damage_type = BURN
 	flag = "laser"
 	eyeblur = 2
+	chatlog_attacks = 0
 
 /obj/item/projectile/beam/scatter
 	name = "laser pellet"
@@ -43,6 +44,15 @@
 	damage = 15
 	irradiate = 30
 	forcedodge = 1
+
+/obj/item/projectile/beam/disabler
+	name = "disabler beam"
+	icon_state = "omnilaser"
+	damage = 36
+	damage_type = STAMINA
+	flag = "energy"
+	hitsound = 'sound/weapons/tap.ogg'
+	eyeblur = 0
 
 /obj/item/projectile/beam/pulse
 	name = "pulse"
@@ -71,6 +81,7 @@
 	flag = "laser"
 	pass_flags = PASSTABLE | PASSGLASS | PASSGRILLE
 	var/suit_types = list(/obj/item/clothing/suit/redtag, /obj/item/clothing/suit/bluetag)
+	chatlog_attacks = 0
 
 /obj/item/projectile/lasertag/on_hit(var/atom/target, var/blocked = 0)
 	if(istype(target, /mob/living/carbon/human))

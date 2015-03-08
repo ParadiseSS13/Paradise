@@ -1,15 +1,73 @@
+/datum/canister_icons
+	var
+		possiblemaincolor = list( //these lists contain the possible colors of a canister
+			list("name" = "\[N2O\]", "icon" = "redws"),
+			list("name" = "\[N2\]", "icon" = "red"),
+			list("name" = "\[O2\]", "icon" = "blue"),
+			list("name" = "\[Toxin (Bio)\]", "icon" = "orange"),
+			list("name" = "\[CO2\]", "icon" = "black"),
+			list("name" = "\[Air\]", "icon" = "grey"),
+			list("name" = "\[CAUTION\]", "icon" = "yellow"),
+			list("name" = "\[SPECIAL\]", "icon" = "whiters")
+			)
+		possibleseccolor = list( // no point in having the N2O and "whiters" ones in these lists
+			list("name" = "\[N2\]", "icon" = "red-c"),
+			list("name" = "\[O2\]", "icon" = "blue-c"),
+			list("name" = "\[Toxin (Bio)\]", "icon" = "orange-c"),
+			list("name" = "\[CO2\]", "icon" = "black-c"),
+			list("name" = "\[Air\]", "icon" = "grey-c"),
+			list("name" = "\[CAUTION\]", "icon" = "yellow-c")
+			)
+		possibletertcolor = list(
+			list("name" = "\[N2\]", "icon" = "red-c-1"),
+			list("name" = "\[O2\]", "icon" = "blue-c-1"),
+			list("name" = "\[Toxin (Bio)\]", "icon" = "orange-c-1"),
+			list("name" = "\[CO2\]", "icon" = "black-c-1"),
+			list("name" = "\[Air\]", "icon" = "grey-c-1"),
+			list("name" = "\[CAUTION\]", "icon" = "yellow-c-1")
+			)
+		possiblequartcolor = list(
+			list("name" = "\[N2\]", "icon" = "red-c-2"),
+			list("name" = "\[O2\]", "icon" = "blue-c-2"),
+			list("name" = "\[Toxin (Bio)\]", "icon" = "orange-c-2"),
+			list("name" = "\[CO2\]", "icon" = "black-c-2"),
+			list("name" = "\[Air\]", "icon" = "grey-c-2"),
+			list("name" = "\[CAUTION\]", "icon" = "yellow-c-2")
+			)
+		
+		possibledecals = list( //var that stores all possible decals, used by ui
+			list("name" = "Low temperature canister", "icon" = "cold"),
+			list("name" = "High temperature canister", "icon" = "hot"),
+			list("name" = "Plasma containing canister", "icon" = "plasma")
+		)
+
+var/datum/canister_icons/canister_icon_container = new()
+
 /obj/machinery/portable_atmospherics/canister
 	name = "canister"
 	icon = 'icons/obj/atmos.dmi'
 	icon_state = "yellow"
 	density = 1
 	var/health = 100.0
-	flags = FPRINT | CONDUCT
-
+	flags = CONDUCT
+	
+	var/menu = 0
+	//used by nanoui: 0 = main menu, 1 = relabel
+	
 	var/valve_open = 0
 	var/release_pressure = ONE_ATMOSPHERE
-
-	var/_color = "yellow"
+	
+	var/list/_color //variable that stores colours
+	var/list/decals //list that stores the decals
+	
+	//lists for check_change()
+	var/list/oldcolor
+	var/list/olddecals
+	
+	//passed to the ui to render the color lists
+	var/list/colorcontainer
+	var/list/possibledecals
+	
 	var/can_label = 1
 	var/filled = 0.5
 	pressure_resistance = 7*ONE_ATMOSPHERE
@@ -19,42 +77,60 @@
 	var/release_log = ""
 	var/busy = 0
 	var/update_flag = 0
-
-/obj/machinery/portable_atmospherics/canister/sleeping_agent
-	name = "Canister: \[N2O\]"
-	icon_state = "redws"
-	_color = "redws"
-	can_label = 0
-/obj/machinery/portable_atmospherics/canister/nitrogen
-	name = "Canister: \[N2\]"
-	icon_state = "red"
-	_color = "red"
-	can_label = 0
-/obj/machinery/portable_atmospherics/canister/oxygen
-	name = "Canister: \[O2\]"
-	icon_state = "blue"
-	_color = "blue"
-	can_label = 0
-/obj/machinery/portable_atmospherics/canister/toxins
-	name = "Canister \[Toxin (Bio)\]"
-	icon_state = "orange"
-	_color = "orange"
-	can_label = 0
-/obj/machinery/portable_atmospherics/canister/carbon_dioxide
-	name = "Canister \[CO2\]"
-	icon_state = "black"
-	_color = "black"
-	can_label = 0
-/obj/machinery/portable_atmospherics/canister/air
-	name = "Canister \[Air\]"
-	icon_state = "grey"
-	_color = "grey"
-	can_label = 0
-/obj/machinery/portable_atmospherics/canister/custom_mix
-	name = "Canister \[Custom\]"
-	icon_state = "whiters"
-	_color = "whiters"
-	can_label = 0
+	
+	New()
+		..()
+		_color = list(
+		"prim" = "yellow",
+		"sec" = "none",
+		"ter" = "none",
+		"quart" = "none")
+		oldcolor = new /list()
+		decals = list("cold" = 0, "hot" = 0, "plasma" = 0)
+		colorcontainer = new /list(4)
+		possibledecals = new /list(3)
+		update_icon()
+		
+/obj/machinery/portable_atmospherics/canister/proc/init_data_vars()
+	//passed to the ui to render the color lists
+	colorcontainer = list(
+		"prim" = list(
+			"options" = canister_icon_container.possiblemaincolor,
+			"name" = "Primary color",
+		),
+		"sec" = list(
+			"options" = canister_icon_container.possibleseccolor,
+			"name" = "Secondary color",
+		),
+		"ter" = list(
+			"options" = canister_icon_container.possibletertcolor,
+			"name" = "Tertiary color",
+		),
+		"quart" = list(
+			"options" = canister_icon_container.possiblequartcolor,
+			"name" = "Quaternary color",
+		)
+	)
+	
+	//var/anycolor used by the nanoUI, 0: no color applied. 1: color applied
+	for(var/C in colorcontainer)
+		if(C == "prim") continue
+		var/list/L = colorcontainer[C]
+		if(!(_color[C]) || (_color[C] == "none"))
+			L.Add(list("anycolor" = 0))
+		else
+			L.Add(list("anycolor" = 1))
+		colorcontainer[C] = L
+	
+	possibledecals = new /list(3)
+	
+	var/i
+	var/list/L = canister_icon_container.possibledecals
+	for(i=1;i<=L.len;i++)
+		var/list/LL = L[i]
+		LL = LL.Copy() //make sure we don't edit the datum list
+		LL.Add(list("active" = decals[LL["icon"]])) //"active" used by nanoUI
+		possibledecals[i] = LL
 
 /obj/machinery/portable_atmospherics/canister/proc/check_change()
 	var/old_flag = update_flag
@@ -74,6 +150,14 @@
 	else
 		update_flag |= 32
 
+	if(list2params(oldcolor) != list2params(_color))
+		update_flag |= 64
+		oldcolor = _color.Copy()
+	
+	if(list2params(olddecals) != list2params(decals))
+		update_flag |= 128
+		olddecals = decals.Copy()
+	
 	if(update_flag == old_flag)
 		return 1
 	else
@@ -88,19 +172,31 @@ update_flag
 8 = tank_pressure < ONE_ATMOS
 16 = tank_pressure < 15*ONE_ATMOS
 32 = tank_pressure go boom.
+64 = colors
+128 = decals
+(note: colors and decals has to be applied every icon update)
 */
 
 	if (src.destroyed)
 		src.overlays = 0
-		src.icon_state = text("[]-1", src._color)
+		src.icon_state = text("[]-1", src._color["prim"])//yes, I KNOW the colours don't reflect when the can's borked, whatever.
 
-	if(icon_state != "[_color]")
-		icon_state = "[_color]"
+	if(icon_state != src._color["prim"])
+		icon_state = src._color["prim"]
 
 	if(check_change()) //Returns 1 if no change needed to icons.
 		return
 
-	src.overlays = 0
+	overlays.Cut()
+	
+	for(var/C in _color)
+		if(C == "prim") continue
+		if(_color[C] == "none") continue
+		overlays.Add(_color[C])
+	
+	for(var/D in decals)
+		if(decals[D])
+			overlays.Add("decal-" + D)
 
 	if(update_flag & 1)
 		overlays += "can-open"
@@ -114,7 +210,35 @@ update_flag
 		overlays += "can-o2"
 	else if(update_flag & 32)
 		overlays += "can-o3"
+	
+	update_flag &= ~196 //the flags 128 and 64 represent change, not states. As such, we have to reset them to be able to detect a change on the next go.
 	return
+
+//template modification exploit prevention, used in Topic()
+/obj/machinery/portable_atmospherics/canister/proc/is_a_color(var/inputVar, var/checkColor = "all") 
+	if (checkColor == "prim" || checkColor == "all")
+		for(var/list/L in canister_icon_container.possiblemaincolor)
+			if (L["icon"] == inputVar)
+				return 1
+	if (checkColor == "sec" || checkColor == "all")
+		for(var/list/L in canister_icon_container.possibleseccolor)
+			if (L["icon"] == inputVar)
+				return 1
+	if (checkColor == "ter" || checkColor == "all")
+		for(var/list/L in canister_icon_container.possibletertcolor)
+			if (L["icon"] == inputVar)
+				return 1
+	if (checkColor == "quart" || checkColor == "all")
+		for(var/list/L in canister_icon_container.possiblequartcolor)
+			if (L["icon"] == inputVar)
+				return 1
+	return 0
+
+/obj/machinery/portable_atmospherics/canister/proc/is_a_decal(var/inputVar)
+	for(var/list/L in canister_icon_container.possibledecals)
+		if (L["icon"] == inputVar)
+			return 1
+	return 0
 
 /obj/machinery/portable_atmospherics/canister/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume)
 	if(exposed_temperature > temperature_resistance)
@@ -202,9 +326,10 @@ update_flag
 	return
 
 /obj/machinery/portable_atmospherics/canister/bullet_act(var/obj/item/projectile/Proj)
-	if(Proj.damage)
-		src.health -= round(Proj.damage / 2)
-		healthcheck()
+	if((Proj.damage_type == BRUTE || Proj.damage_type == BURN))
+		if(Proj.damage)
+			src.health -= round(Proj.damage / 2)
+			healthcheck()
 	..()
 
 /obj/machinery/portable_atmospherics/canister/meteorhit(var/obj/O as obj)
@@ -212,7 +337,7 @@ update_flag
 	healthcheck()
 	return
 
-/obj/machinery/portable_atmospherics/canister/attackby(var/obj/item/weapon/W as obj, var/mob/user as mob)
+/obj/machinery/portable_atmospherics/canister/attackby(var/obj/item/weapon/W as obj, var/mob/user as mob, params)
 	if(iswelder(W) && src.destroyed)
 		if(weld(W, user))
 			user << "\blue You salvage whats left of \the [src]"
@@ -252,7 +377,7 @@ update_flag
 
 /obj/machinery/portable_atmospherics/canister/attack_paw(var/mob/user as mob)
 	return src.attack_hand(user)
-	
+
 /obj/machinery/portable_atmospherics/canister/attack_alien(mob/living/carbon/alien/humanoid/user)
 	return
 
@@ -263,10 +388,16 @@ update_flag
 	if (src.destroyed)
 		return
 
+	init_data_vars() //set up var/colorcontainer and var/possibledecals
+	
 	// this is the data which will be sent to the ui
 	var/data[0]
 	data["name"] = name
+	data["menu"] = menu ? 1 : 0
 	data["canLabel"] = can_label ? 1 : 0
+	data["_color"] = _color
+	data["colorContainer"] = colorcontainer
+	data["possibleDecals"] = possibledecals
 	data["portConnected"] = connected_port ? 1 : 0
 	data["tankPressure"] = round(air_contents.return_pressure() ? air_contents.return_pressure() : 0)
 	data["releasePressure"] = round(release_pressure ? release_pressure : 0)
@@ -290,6 +421,10 @@ update_flag
 		ui.open()
 		// auto update every Master Controller tick
 		ui.set_auto_update(1)
+	
+	//Disregard these, avoid cluttering up the VV window
+	colorcontainer = new /list(4)
+	possibledecals = new /list(3)
 
 /obj/machinery/portable_atmospherics/canister/Topic(href, href_list)
 
@@ -301,6 +436,9 @@ update_flag
 		usr << browse(null, "window=canister")
 		onclose(usr, "canister")
 		return
+	
+	if (href_list["choice"] == "menu")
+		menu = text2num(href_list["mode_target"])
 
 	if(href_list["toggle"])
 		if (valve_open)
@@ -329,34 +467,82 @@ update_flag
 			release_pressure = min(10*ONE_ATMOSPHERE, release_pressure+diff)
 		else
 			release_pressure = max(ONE_ATMOSPHERE/10, release_pressure+diff)
-
-	if (href_list["relabel"])
+		
+	if (href_list["rename"])
 		if (can_label)
-			var/list/colors = list(\
-				"\[N2O\]" = "redws", \
-				"\[N2\]" = "red", \
-				"\[O2\]" = "blue", \
-				"\[Toxin (Bio)\]" = "orange", \
-				"\[CO2\]" = "black", \
-				"\[Air\]" = "grey", \
-				"\[CAUTION\]" = "yellow", \
-				"\[Custom\]" = "whiters",\
-			)
-			var/label = input("Choose canister label", "Gas canister") as null|anything in colors
-			if (label)
-				src._color = colors[label]
-				src.icon_state = colors[label]
-				src.name = "Canister: [label]"
+			var/T = sanitize(copytext(input("Choose canister label", "Name", name) as text|null,1,MAX_NAME_LEN))
+			if (can_label) //Exploit prevention
+				if (T)
+					name = T
+				else
+					name = "canister"
+			else
+				usr << "\red As you attempted to rename it the pressure rose!"
 
+	if (href_list["choice"] == "Primary color")
+		if (is_a_color(href_list["icon"],"prim"))
+			_color["prim"] = href_list["icon"]
+	if (href_list["choice"] == "Secondary color")
+		if (href_list["icon"] == "none")
+			_color["sec"] = "none"
+		else if (is_a_color(href_list["icon"],"sec"))
+			_color["sec"] = href_list["icon"]
+	if (href_list["choice"] == "Tertiary color")
+		if (href_list["icon"] == "none")
+			_color["ter"] = "none"
+		else if (is_a_color(href_list["icon"],"ter"))
+			_color["ter"] = href_list["icon"]
+	if (href_list["choice"] == "Quaternary color")
+		if (href_list["icon"] == "none")
+			_color["quart"] = "none"
+		else if (is_a_color(href_list["icon"],"quart"))
+			_color["quart"] = href_list["icon"]
+	
+	if (href_list["choice"] == "decals")
+		if (is_a_decal(href_list["icon"]))
+			decals[href_list["icon"]] = (decals[href_list["icon"]] == 0)
+			
 	src.add_fingerprint(usr)
 	update_icon()
 
 	return 1
 
+
+/obj/machinery/portable_atmospherics/canister/toxins
+	name = "Canister \[Toxin (Plasma)\]"
+	icon_state = "orange" //See New()
+	can_label = 0
+/obj/machinery/portable_atmospherics/canister/oxygen
+	name = "Canister: \[O2\]"
+	icon_state = "blue" //See New()
+	can_label = 0
+/obj/machinery/portable_atmospherics/canister/sleeping_agent
+	name = "Canister: \[N2O\]"
+	icon_state = "redws" //See New()
+	can_label = 0
+/obj/machinery/portable_atmospherics/canister/nitrogen
+	name = "Canister: \[N2\]"
+	icon_state = "red" //See New()
+	can_label = 0
+/obj/machinery/portable_atmospherics/canister/carbon_dioxide
+	name = "Canister \[CO2\]"
+	icon_state = "black" //See New()
+	can_label = 0
+/obj/machinery/portable_atmospherics/canister/air
+	name = "Canister \[Air\]"
+	icon_state = "grey" //See New()
+	can_label = 0
+/obj/machinery/portable_atmospherics/canister/custom_mix
+	name = "Canister \[Custom\]"
+	icon_state = "whiters" //See New()
+	can_label = 0
+
+
 /obj/machinery/portable_atmospherics/canister/toxins/New()
-
 	..()
-
+	
+	_color["prim"] = "orange"
+	decals["plasma"] = 1
 	src.air_contents.toxins = (src.maximum_pressure*filled)*air_contents.volume/(R_IDEAL_GAS_EQUATION*air_contents.temperature)
 	air_contents.update_values()
 
@@ -364,18 +550,18 @@ update_flag
 	return 1
 
 /obj/machinery/portable_atmospherics/canister/oxygen/New()
-
 	..()
 
+	_color["prim"] = "blue"
 	src.air_contents.oxygen = (src.maximum_pressure*filled)*air_contents.volume/(R_IDEAL_GAS_EQUATION*air_contents.temperature)
 	air_contents.update_values()
 	src.update_icon()
 	return 1
 
 /obj/machinery/portable_atmospherics/canister/sleeping_agent/New()
-
 	..()
-
+	
+	_color["prim"] = "redws"
 	var/datum/gas/sleeping_agent/trace_gas = new
 	air_contents.trace_gases += trace_gas
 	trace_gas.moles = (src.maximum_pressure*filled)*air_contents.volume/(R_IDEAL_GAS_EQUATION*air_contents.temperature)
@@ -401,9 +587,9 @@ update_flag
 
 
 /obj/machinery/portable_atmospherics/canister/nitrogen/New()
-
 	..()
 
+	_color["prim"] = "red"
 	src.air_contents.nitrogen = (src.maximum_pressure*filled)*air_contents.volume/(R_IDEAL_GAS_EQUATION*air_contents.temperature)
 	air_contents.update_values()
 
@@ -411,8 +597,9 @@ update_flag
 	return 1
 
 /obj/machinery/portable_atmospherics/canister/carbon_dioxide/New()
-
 	..()
+	
+	_color["prim"] = "black"
 	src.air_contents.carbon_dioxide = (src.maximum_pressure*filled)*air_contents.volume/(R_IDEAL_GAS_EQUATION*air_contents.temperature)
 	air_contents.update_values()
 
@@ -421,8 +608,9 @@ update_flag
 
 
 /obj/machinery/portable_atmospherics/canister/air/New()
-
 	..()
+	
+	_color["prim"] = "grey"
 	src.air_contents.oxygen = (O2STANDARD*src.maximum_pressure*filled)*air_contents.volume/(R_IDEAL_GAS_EQUATION*air_contents.temperature)
 	src.air_contents.nitrogen = (N2STANDARD*src.maximum_pressure*filled)*air_contents.volume/(R_IDEAL_GAS_EQUATION*air_contents.temperature)
 	air_contents.update_values()
@@ -433,6 +621,7 @@ update_flag
 /obj/machinery/portable_atmospherics/canister/custom_mix/New()
 	..()
 
+	_color["prim"] = "whiters"
 	src.update_icon() // Otherwise new canisters do not have their icon updated with the pressure light, likely want to add this to the canister class constructor, avoiding at current time to refrain from screwing up code for other canisters. --DZD
 	return 1
 

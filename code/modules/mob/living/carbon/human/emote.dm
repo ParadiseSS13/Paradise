@@ -9,7 +9,9 @@
 	if(findtext(act,"s",-1) && !findtext(act,"_",-2))//Removes ending s's unless they are prefixed with a '_'
 		act = copytext(act,1,length(act))
 
-	var/muzzled = istype(src.wear_mask, /obj/item/clothing/mask/muzzle)
+	var/muzzled = is_muzzled()
+	if(sdisabilities & MUTE || silent)
+		muzzled = 1
 	//var/m_type = 1
 
 	for (var/obj/item/weapon/implant/I in src)
@@ -18,69 +20,117 @@
 
 	if(src.stat == 2.0 && (act != "deathgasp"))
 		return
+
+	//Emote Cooldown System (it's so simple!)
+	// proc/handle_emote_CD() located in [code\modules\mob\emote.dm]
+	var/on_CD = 0
+	switch(act)
+		//Cooldown-inducing emotes
+		if("ping","buzz","beep")
+			if (species.name == "Machine")		//Only Machines can beep, ping, and buzz
+				on_CD = handle_emote_CD()			//proc located in code\modules\mob\emote.dm
+			else								//Everyone else fails, skip the emote attempt
+				return
+		if("squish")
+			if(species.name == "Slime People")	//Only Slime People can squish
+				on_CD = handle_emote_CD()			//proc located in code\modules\mob\emote.dm
+			else								//Everyone else fails, skip the emote attempt
+				return
+		if("scream", "fart", "flip")
+			on_CD = handle_emote_CD()				//proc located in code\modules\mob\emote.dm
+		//Everything else, including typos of the above emotes
+		else
+			on_CD = 0	//If it doesn't induce the cooldown, we won't check for the cooldown
+
+	if(on_CD == 1)		// Check if we need to suppress the emote attempt.
+		return			// Suppress emote, you're still cooling off.
+	//--FalseIncarnate
+
 	switch(act)
 		if("ping")
-			if (species.name == "Machine")
-				var/M = null
-				if(param)
-					for (var/mob/A in view(null, null))
-						if (param == A.name)
-							M = A
-							break
-				if(!M)
-					param = null
+			var/M = null
+			if(param)
+				for (var/mob/A in view(null, null))
+					if (param == A.name)
+						M = A
+						break
+			if(!M)
+				param = null
 
-				if (param)
-					message = "<B>[src]</B> pings at [param]."
-				else
-					message = "<B>[src]</B> pings."
-				playsound(src.loc, 'sound/machines/ping.ogg', 50, 0)
-				m_type = 1
+			if (param)
+				message = "<B>[src]</B> pings at [param]."
 			else
-				if (!species.name == "Machine")
-					return
+				message = "<B>[src]</B> pings."
+			playsound(src.loc, 'sound/machines/ping.ogg', 50, 0)
+			m_type = 1
 
 		if("buzz")
-			if (species.name == "Machine")
-				var/M = null
-				if(param)
-					for (var/mob/A in view(null, null))
-						if (param == A.name)
-							M = A
-							break
-				if(!M)
-					param = null
+			var/M = null
+			if(param)
+				for (var/mob/A in view(null, null))
+					if (param == A.name)
+						M = A
+						break
+			if(!M)
+				param = null
 
-				if (param)
-					message = "<B>[src]</B> buzzes at [param]."
-				else
-					message = "<B>[src]</B> buzzes."
-				playsound(src.loc, 'sound/machines/buzz-sigh.ogg', 50, 0)
-				m_type = 1
+			if (param)
+				message = "<B>[src]</B> buzzes at [param]."
 			else
-				if (!species.name == "Machine")
-					return
+				message = "<B>[src]</B> buzzes."
+			playsound(src.loc, 'sound/machines/buzz-sigh.ogg', 50, 0)
+			m_type = 1
 
 		if("beep")
-			if(species.name == "Machine")
-				var/M = null
-				if(param)
-					for (var/mob/A in view(null, null))
-						if (param == A.name)
-							M = A
-							break
-				if(!M)
-					param = null
+			var/M = null
+			if(param)
+				for (var/mob/A in view(null, null))
+					if (param == A.name)
+						M = A
+						break
+			if(!M)
+				param = null
 
-				if (param)
-					message = "<B>[src]</B> beeps at [param]."
-				else
-					message = "<B>[src]</B> beeps."
-				playsound(src.loc, 'sound/machines/twobeep.ogg', 50, 0)
-				m_type = 1
+			if (param)
+				message = "<B>[src]</B> beeps at [param]."
 			else
-				if (!species.name == "Machine")
+				message = "<B>[src]</B> beeps."
+			playsound(src.loc, 'sound/machines/twobeep.ogg', 50, 0)
+			m_type = 1
+
+		if("squish")
+			var/M = null
+			if(param)
+				for (var/mob/A in view(null, null))
+					if (param == A.name)
+						M = A
+						break
+			if(!M)
+				param = null
+
+			if (param)
+				message = "<B>[src]</B> squishes at [param]."
+			else
+				message = "<B>[src]</B> squishes."
+			playsound(src.loc, 'sound/effects/slime_squish.ogg', 50, 0) //Credit to DrMinky (freesound.org) for the sound.
+			m_type = 1
+
+		if("wag")
+			if(species.bodyflags & TAIL_WAGGING)
+				if(!wear_suit || !(wear_suit.flags_inv & HIDETAIL) && !istype(wear_suit, /obj/item/clothing/suit/space))
+					message = "<B>[src]</B> starts wagging \his tail."
+					src.start_tail_wagging(1)
+				else
 					return
+			else
+				return
+
+		if("swag")
+			if(species.bodyflags & TAIL_WAGGING)
+				message = "<B>[src]</B> stops wagging \his tail."
+				src.stop_tail_wagging(1)
+			else
+				return
 
 		if ("airguitar")
 			if (!src.restrained())
@@ -113,7 +163,7 @@
 			m_type = 1
 
 		if ("custom")
-			var/input = copytext(sanitize(input("Choose an emote to display.") as text|null),1,MAX_MESSAGE_LEN)
+			var/input = sanitize(copytext(input("Choose an emote to display.") as text|null,1,MAX_MESSAGE_LEN))
 			if (!input)
 				return
 			var/input2 = input("Is this a visible or hearable emote?") in list("Visible","Hearable")
@@ -185,6 +235,31 @@
 				if(miming)
 					m_type = 1
 
+		if ("flip")
+			m_type = 1
+			if (!src.restrained())
+				var/M = null
+				if (param)
+					for (var/mob/A in view(1, null))
+						if (param == A.name)
+							M = A
+							break
+				if (M == src)
+					M = null
+
+				if (M)
+					if(src.lying || src.weakened)
+						message = "<B>[src]</B> flops and flails around on the floor."
+					else
+						message = "<B>[src]</B> flips in [M]'s general direction."
+						src.SpinAnimation(5,1)
+				else
+					if(src.lying || src.weakened)
+						message = "<B>[src]</B> flops and flails around on the floor."
+					else
+						message = "<B>[src]</B> does a flip!"
+						src.SpinAnimation(5,1)
+
 		if ("aflap")
 			if (!src.restrained())
 				message = "<B>[src]</B> flaps his wings ANGRILY!"
@@ -228,17 +303,16 @@
 			m_type = 1
 
 		if ("cough")
-			if(!reagents.has_reagent("dextromethorphan"))
-				if(miming)
-					message = "<B>[src]</B> appears to cough!"
-					m_type = 1
+			if(miming)
+				message = "<B>[src]</B> appears to cough!"
+				m_type = 1
+			else
+				if (!muzzled)
+					message = "<B>[src]</B> coughs!"
+					m_type = 2
 				else
-					if (!muzzled)
-						message = "<B>[src]</B> coughs!"
-						m_type = 2
-					else
-						message = "<B>[src]</B> makes a strong noise."
-						m_type = 2
+					message = "<B>[src]</B> makes a strong noise."
+					m_type = 2
 
 		if ("frown")
 			message = "<B>[src]</B> frowns."
@@ -634,75 +708,55 @@
 
 		// Needed for M_TOXIC_FART
 		if("fart")
-			if(world.time-lastFart >= 600)
-//				playsound(src.loc, 'sound/effects/fart.ogg', 50, 1, -3) //Admins still vote no to fun
-				if(M_TOXIC_FARTS in mutations)
-					message = "<b>[src]</b> unleashes a [pick("horrible","terrible","foul","disgusting","awful")] fart."
-				else
-					message = "<b>[src]</b> [pick("passes wind","farts")]."
-				m_type = 2
-
-				var/turf/location = get_turf(src)
-				var/aoe_range=2 // Default
-				if(M_SUPER_FART in mutations)
-					aoe_range+=3 //Was 5
-
-	/*			// If we're wearing a suit, don't blast or gas those around us.
-				var/wearing_suit=0
-				var/wearing_mask=0
-				if(wear_suit && wear_suit.body_parts_covered & LOWER_TORSO)
-					wearing_suit=1
-					if (internal != null && wear_mask && (wear_mask.flags & MASKINTERNALS))
-						wearing_mask=1 */
-
-				// Process toxic farts first.
-				if(M_TOXIC_FARTS in mutations)
-					for(var/mob/M in range(location,aoe_range))
-						if (M.internal != null && M.wear_mask && (M.wear_mask.flags & MASKINTERNALS))
-							continue
-						if(!airborne_can_reach(location,M,aoe_range))
-							continue
-						// Now, we don't have this:
-						//new /obj/effects/fart_cloud(T,L)
-						// But:
-						// <[REDACTED]> so, what it does is...imagine a 3x3 grid with the person in the center. When someone uses the emote *fart (it's not a spell style ability and has no cooldown), then anyone in the 8 tiles AROUND the person who uses it
-						// <[REDACTED]> gets between 1 and 10 units of jenkem added to them...we obviously don't have Jenkem, but Space Drugs do literally the same exact thing as Jenkem
-						// <[REDACTED]> the user, of course, isn't impacted because it's not an actual smoke cloud
-						// So, let's give 'em space drugs.
-						if (M == src)
-							continue
-						M.reagents.add_reagent("space_drugs",rand(1,10))
-						/*
-						var/datum/effect/effect/system/smoke_spread/chem/fart/S = new /datum/effect/effect/system/smoke_spread/chem/fart
-						S.attach(location)
-						S.set_up(src, 10, 0, location)
-						spawn(0)
-							S.start()
-							sleep(10)
-							S.start()
-						*/
-				if(M_SUPER_FART in mutations)
-					visible_message("\red <b>[name]</b> hunches down and grits their teeth!")
-					if(do_after(usr,30))
-						visible_message("\red <b>[name]</b> unleashes a [pick("tremendous","gigantic","colossal")] fart!","You hear a [pick("tremendous","gigantic","colossal")] fart.")
-						//playsound(L.loc, 'superfart.ogg', 50, 0)
-						for(var/mob/living/V in range(location,aoe_range))
-							shake_camera(V,10,5)
-							if (V == src)
-								continue
-							if(!airborne_can_reach(get_turf(src), get_turf(V)))
-								continue
-							V << "\red You are sent flying!"
-							V.Weaken(5) // why the hell was this set to 12 christ
-							step_away(V,location,15)
-							step_away(V,location,15)
-							step_away(V,location,15)
-					else
-						usr << "\red You were interrupted and couldn't fart! Rude!"
-				lastFart=world.time
+//			playsound(src.loc, 'sound/effects/fart.ogg', 50, 1, -3) //Admins still vote no to fun
+			if(TOXIC_FARTS in mutations)
+				message = "<b>[src]</b> unleashes a [pick("horrible","terrible","foul","disgusting","awful")] fart."
 			else
-				message = "<b>[src]</b> strains, and nothing happens."
-				m_type = 1
+				message = "<b>[src]</b> [pick("passes wind","farts")]."
+			m_type = 2
+
+			var/turf/location = get_turf(src)
+			var/aoe_range=2 // Default
+			if(SUPER_FART in mutations)
+				aoe_range+=3 //Was 5
+
+			// Process toxic farts first.
+			if(TOXIC_FARTS in mutations)
+				for(var/mob/M in range(location,aoe_range))
+					if (M.internal != null && M.wear_mask && (M.wear_mask.flags & MASKINTERNALS))
+						continue
+					if(!airborne_can_reach(location,M,aoe_range))
+						continue
+					// Now, we don't have this:
+					//new /obj/effects/fart_cloud(T,L)
+					// But:
+					// <[REDACTED]> so, what it does is...imagine a 3x3 grid with the person in the center. When someone uses the emote *fart (it's not a spell style ability and has no cooldown), then anyone in the 8 tiles AROUND the person who uses it
+					// <[REDACTED]> gets between 1 and 10 units of jenkem added to them...we obviously don't have Jenkem, but Space Drugs do literally the same exact thing as Jenkem
+					// <[REDACTED]> the user, of course, isn't impacted because it's not an actual smoke cloud
+					// So, let's give 'em space drugs.
+					if (M == src)
+						continue
+					M.reagents.add_reagent("space_drugs",rand(1,10))
+
+			if(SUPER_FART in mutations)
+				visible_message("\red <b>[name]</b> hunches down and grits their teeth!")
+				if(do_after(usr,30))
+					visible_message("\red <b>[name]</b> unleashes a [pick("tremendous","gigantic","colossal")] fart!","You hear a [pick("tremendous","gigantic","colossal")] fart.")
+					//playsound(L.loc, 'superfart.ogg', 50, 0)
+					for(var/mob/living/V in range(location,aoe_range))
+						shake_camera(V,10,5)
+						if (V == src)
+							continue
+						if(!airborne_can_reach(get_turf(src), get_turf(V)))
+							continue
+						V << "\red You are sent flying!"
+						V.Weaken(5) // why the hell was this set to 12 christ
+						step_away(V,location,15)
+						step_away(V,location,15)
+						step_away(V,location,15)
+				else
+					usr << "\red You were interrupted and couldn't fart! Rude!"
+
 
 		if ("help")
 			src << "blink, blink_r, blush, bow-(none)/mob, burp, choke, chuckle, clap, collapse, cough,\ncry, custom, deathgasp, drool, eyebrow, frown, gasp, giggle, groan, grumble, handshake, hug-(none)/mob, glare-(none)/mob,\ngrin, laugh, look-(none)/mob, moan, mumble, nod, pale, point-atom, raise, salute, shake, shiver, shrug,\nsigh, signal-#1-10, smile, sneeze, sniff, snore, stare-(none)/mob, tremble, twitch, twitch_s, whimper,\nwink, yawn"
@@ -740,11 +794,11 @@
 	set desc = "Sets a description which will be shown when someone examines you."
 	set category = "IC"
 
-	pose =  copytext(sanitize(input(usr, "This is [src]. \He is...", "Pose", null)  as text), 1, MAX_MESSAGE_LEN)
+	pose =  sanitize(copytext(input(usr, "This is [src]. \He is...", "Pose", null)  as text, 1, MAX_MESSAGE_LEN))
 
 /mob/living/carbon/human/verb/set_flavor()
 	set name = "Set Flavour Text"
 	set desc = "Sets an extended description of your character's features."
 	set category = "IC"
 
-	flavor_text =  copytext(sanitize(input(usr, "Please enter your new flavour text.", "Flavour text", null)  as text), 1)
+	flavor_text =  sanitize(copytext(input(usr, "Please enter your new flavour text.", "Flavour text", null)  as text, 1))

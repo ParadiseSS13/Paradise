@@ -4,7 +4,7 @@
 	icon = 'icons/obj/janitor.dmi'
 	icon_state = "cleaner"
 	item_state = "cleaner"
-	flags = TABLEPASS|OPENCONTAINER|FPRINT|NOBLUDGEON
+	flags = OPENCONTAINER | NOBLUDGEON
 	slot_flags = SLOT_BELT
 	throwforce = 0
 	w_class = 2.0
@@ -46,7 +46,8 @@
 	spray(A)
 
 	playsound(src.loc, 'sound/effects/spray2.ogg', 50, 1, -6)
-
+	user.changeNext_move(CLICK_CD_RANGE*2)
+	
 	if(reagents.has_reagent("sacid"))
 		message_admins("[key_name_admin(user)] fired sulphuric acid from \a [src].")
 		log_game("[key_name(user)] fired sulphuric acid from \a [src].")

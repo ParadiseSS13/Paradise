@@ -37,6 +37,13 @@
 
 /obj/machinery/iv_drip/MouseDrop(over_object, src_location, over_location)
 	..()
+	
+	if(!ishuman(usr) && !isrobot(usr))
+		return
+		
+	var/turf/T = get_turf(src)
+	if(!usr in range(1, T))
+		return
 
 	if(attached)
 		visible_message("[src.attached] is detached from \the [src]")
@@ -50,7 +57,7 @@
 		src.update_icon()
 
 
-/obj/machinery/iv_drip/attackby(obj/item/weapon/W as obj, mob/user as mob)
+/obj/machinery/iv_drip/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
 	if (istype(W, /obj/item/weapon/reagent_containers))
 		if(!isnull(src.beaker))
 			user << "There is already a reagent container loaded!"
@@ -103,7 +110,7 @@
 			if(!istype(T)) return
 			if(!T.dna)
 				return
-			if(M_NOCLONE in T.mutations)
+			if(NOCLONE in T.mutations)
 				return
 
 			if(T.species && T.species.flags & NO_BLOOD)
@@ -133,6 +140,7 @@
 
 /obj/machinery/iv_drip/verb/toggle_mode()
 	set name = "Toggle Mode"
+	set category = "Object"
 	set src in view(1)
 
 	if(!istype(usr, /mob/living))

@@ -12,25 +12,18 @@
 */
 /mob/living/proc/run_armor_check(var/def_zone = null, var/attack_flag = "melee", var/absorb_text = null, var/soften_text = null)
 	var/armor = getarmor(def_zone, attack_flag)
-	var/absorb = 0
-	if(prob(armor))
-		absorb += 1
-	if(prob(armor))
-		absorb += 1
-	if(absorb >= 2)
-		if(absorb_text)
-			show_message("[absorb_text]")
-		else
-			show_message("\red Your armor absorbs the blow!")
-		return 2
-	if(absorb == 1)
-		if(absorb_text)
-			show_message("[soften_text]",4)
-		else
-			show_message("\red Your armor softens the blow!")
-		return 1
-	return 0
 
+	if(armor >= 100)
+		if(absorb_text)
+			src << "<span class='userdanger'>[absorb_text]</span>"
+		else
+			src << "<span class='userdanger'>Your armor absorbs the blow!</span>"
+	else if(armor > 0)
+		if(soften_text)
+			src << "<span class='userdanger'>[soften_text]</span>"
+		else
+			src << "<span class='userdanger'>Your armor softens the blow!</span>"
+	return armor
 
 //if null is passed for def_zone, then this should return something appropriate for all zones (e.g. area effect damage)
 /mob/living/proc/getarmor(var/def_zone, var/type)
@@ -73,21 +66,20 @@
 */
 
 	//Armor
-	var/absorb = run_armor_check(def_zone, P.flag)
+	var/armor = run_armor_check(def_zone, P.flag)
 	var/proj_sharp = is_sharp(P)
 	var/proj_edge = has_edge(P)
 	if ((proj_sharp || proj_edge) && prob(getarmor(def_zone, P.flag)))
 		proj_sharp = 0
 		proj_edge = 0
 
-	if(!P.nodamage)
-		apply_damage(P.damage, P.damage_type, def_zone, absorb, 0, P, sharp=proj_sharp, edge=proj_edge)
-
-	P.on_hit(src, absorb, def_zone)
-	if(istype(P, /obj/item/projectile/beam/lightning))
+	if(istype(P, /obj/item/projectile/beam/lightning)) //Stupid snowflake lightning gun.
 		if(P.damage >= 200)
 			src.dust()
-	return absorb
+
+	if(!P.nodamage)
+		apply_damage(P.damage, P.damage_type, def_zone, armor)
+	return P.on_hit(src, armor, def_zone)
 
 //Handles the effects of "stun" weapons
 /mob/living/proc/stun_effect_act(var/stun_amount, var/agony_amount, var/def_zone, var/used_weapon=null)
@@ -117,6 +109,7 @@
 /mob/living/hitby(atom/movable/AM as mob|obj,var/speed = 5)//Standardization and logging -Sieve
 	if(istype(AM,/obj/))
 		var/obj/O = AM
+		var/zone = ran_zone("chest", 65)//Hits a random part of the body, geared towards the chest
 		var/dtype = BRUTE
 		if(istype(O,/obj/item/weapon))
 			var/obj/item/weapon/W = O
@@ -138,10 +131,9 @@
 			return
 		*/
 		src.visible_message("\red [src] has been hit by [O].")
-		var/armor = run_armor_check(null, "melee")
+		var/armor = run_armor_check(zone, "melee")
 
-		if(armor < 2)
-			apply_damage(throw_damage, dtype, null, armor, is_sharp(O), has_edge(O), O)
+		apply_damage(throw_damage, dtype, zone, armor, is_sharp(O), has_edge(O), O)
 
 		O.throwing = 0		//it hit, so stop moving
 
@@ -231,19 +223,21 @@
 /mob/living/proc/IgniteMob()
 	if(fire_stacks > 0)
 		on_fire = 1
+		src.AddLuminosity(3)
 		update_fire()
 
 /mob/living/proc/ExtinguishMob()
 	if(on_fire)
 		on_fire = 0
 		fire_stacks = 0
+		src.AddLuminosity(-3)
 		update_fire()
 
 /mob/living/proc/update_fire()
 	return
 
 /mob/living/proc/adjust_fire_stacks(add_fire_stacks) //Adjusting the amount of fire_stacks we have on person
-		fire_stacks = Clamp(fire_stacks + add_fire_stacks, min = -20, max = 20)
+	fire_stacks = Clamp(fire_stacks + add_fire_stacks, min = -20, max = 20)
 
 /mob/living/proc/handle_fire()
 	if(fire_stacks < 0)
@@ -251,25 +245,15 @@
 		fire_stacks = min(0, fire_stacks)//So we dry ourselves back to default, nonflammable.
 	if(!on_fire)
 		return 1
-
-	var/oxy=0
-	var/turf/T=loc
-	if(istype(T))
-		if(istype(T,/turf/space))
-			ExtinguishMob() //If there's no oxygen in the tile we're on, put out the fire
-			return 1
-		var/datum/gas_mixture/G = loc.return_air() // Check if we're standing in an oxygenless environment
-		if(G)
-			oxy=G.oxygen
-	if(oxy < 10 || fire_stacks <= 0)
+	var/datum/gas_mixture/G = loc.return_air() // Check if we're standing in an oxygenless environment
+	if(G.oxygen < 1)
 		ExtinguishMob() //If there's no oxygen in the tile we're on, put out the fire
-		return 1
+		return
 	var/turf/location = get_turf(src)
 	location.hotspot_expose(700, 50, 1)
 
 /mob/living/fire_act()
-	adjust_fire_stacks(5)
-	if(fire_stacks > 9 && !on_fire)
-		IgniteMob()
+	adjust_fire_stacks(0.5)
+	IgniteMob()
 
 //Mobs on Fire end

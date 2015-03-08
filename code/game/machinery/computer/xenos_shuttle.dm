@@ -85,13 +85,16 @@
 	return 1
 
 
-/obj/machinery/computer/xenos_station/attackby(obj/item/I as obj, mob/user as mob)
+/obj/machinery/computer/xenos_station/attackby(obj/item/I as obj, mob/user as mob, params)
 	return attack_hand(user)
 
 /obj/machinery/computer/xenos_station/attack_ai(mob/user as mob)
 	return attack_hand(user)
 
 /obj/machinery/computer/xenos_station/attack_paw(mob/user as mob)
+	return attack_hand(user)
+	
+/obj/machinery/computer/xenos_station/attack_alien(mob/user as mob)
 	return attack_hand(user)
 
 /obj/machinery/computer/xenos_station/attack_hand(mob/user as mob)
@@ -123,6 +126,9 @@
 
 
 /obj/machinery/computer/xenos_station/Topic(href, href_list)
+	if(..())
+		return 1
+		
 	if(!isliving(usr))	return
 	var/mob/living/user = usr
 

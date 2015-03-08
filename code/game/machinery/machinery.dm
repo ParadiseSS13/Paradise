@@ -113,6 +113,7 @@ Class Procs:
 	var/panel_open = 0
 	var/area/myArea
 	var/interact_offline = 0 // Can the machine be interacted with while de-powered.
+	var/use_log = list()
 
 /obj/machinery/New()
 	addAtProcessing()
@@ -183,37 +184,21 @@ Class Procs:
 		use_power(active_power_usage,power_channel, 1)
 	return 1
 
-/obj/machinery/Topic(href, href_list)
+/obj/machinery/CanUseTopic(var/mob/user, var/be_close)
+	if(!interact_offline && (stat & (NOPOWER|BROKEN)))
+		return STATUS_CLOSE
+
+	return ..()
+
+/obj/machinery/CouldUseTopic(var/mob/user)
 	..()
-	if(!interact_offline && stat & (NOPOWER|BROKEN))
-		return 1
-	if(usr.restrained() || usr.lying || usr.stat)
-		return 1
-	if ( ! (istype(usr, /mob/living/carbon/human) || \
-			istype(usr, /mob/living/silicon) || \
-			istype(usr, /mob/living/carbon/monkey) && ticker && ticker.mode.name == "monkey") )
-		usr << "\red You don't have the dexterity to do this!"
-		return 1
+	user.set_machine(src)
 
-	var/norange = 0
-	if(istype(usr, /mob/living/carbon/human))
-		var/mob/living/carbon/human/H = usr
-		if(istype(H.l_hand, /obj/item/tk_grab))
-			norange = 1
-		else if(istype(H.r_hand, /obj/item/tk_grab))
-			norange = 1
+/obj/machinery/CouldNotUseTopic(var/mob/user)
+	usr.unset_machine()
 
-	if(!norange)
-		if ((!in_range(src, usr) || !istype(src.loc, /turf)) && !istype(usr, /mob/living/silicon))
-			return 1
-
-	src.add_fingerprint(usr)
-
-	var/area/A = get_area(src)
-	A.powerupdate = 1
-
-	return 0
-
+////////////////////////////////////////////////////////////////////////////////////////////	
+	
 /obj/machinery/attack_ai(var/mob/user as mob)
 	if(isAI(user))
 		var/mob/living/silicon/ai/A = user
@@ -297,7 +282,7 @@ Class Procs:
 			user << "<span class='notice'>You close the maintenance hatch of [src].</span>"
 		return 1
 	return 0
-	
+
 /obj/machinery/proc/default_change_direction_wrench(var/mob/user, var/obj/item/weapon/wrench/W)
 	if(panel_open && istype(W))
 		playsound(src.loc, 'sound/items/Ratchet.ogg', 50, 1)
@@ -328,7 +313,7 @@ Class Procs:
   state(text, "blue")
   playsound(src.loc, 'sound/machines/ping.ogg', 50, 0)
 
-/obj/machinery/proc/exchange_parts(mob/user, obj/item/weapon/storage/part_replacer/W)	
+/obj/machinery/proc/exchange_parts(mob/user, obj/item/weapon/storage/part_replacer/W)
 	var/shouldplaysound = 0
 	if(istype(W) && component_parts)
 		if(panel_open)
@@ -350,22 +335,6 @@ Class Procs:
 							user << "<span class='notice'>[A.name] replaced with [B.name].</span>"
 							shouldplaysound = 1
 							break
-			// Power cell snowflake
-			for(var/obj/item/weapon/cell/A in component_parts)
-				for(var/D in CB.req_components)
-					if(ispath(A.type, D))
-						P = D
-						break
-				for(var/obj/item/weapon/cell/B in W.contents)
-					if(istype(B, P) && istype(A, P))
-						if(B.rating > A.rating)
-							W.remove_from_storage(B, src)
-							W.handle_item_insertion(A, 1)
-							component_parts -= A
-							component_parts += B
-							B.loc = null
-							user << "<span class='notice'>[A.name] replaced with [B.name].</span>"
-							break							
 			RefreshParts()
 		else
 			user << "<span class='notice'>Following parts detected in the machine:</span>"
@@ -388,3 +357,51 @@ Class Procs:
 		I.loc = loc
 	del(src)
 	return 1
+	
+/obj/machinery/proc/on_assess_perp(mob/living/carbon/human/perp)
+	return 0
+
+/obj/machinery/proc/is_assess_emagged()
+	return emagged
+
+/obj/machinery/proc/assess_perp(mob/living/carbon/human/perp, var/auth_weapons, var/check_records, var/check_arrest)
+	var/threatcount = 0	//the integer returned
+
+	if(is_assess_emagged())
+		return 10	//if emagged, always return 10.
+
+	threatcount += on_assess_perp(perp)
+	if(threatcount >= 10)
+		return threatcount
+
+	//Agent cards lower threatlevel.
+	var/obj/item/weapon/card/id/id = GetIdCard(perp)
+	if(id && istype(id, /obj/item/weapon/card/id/syndicate))
+		threatcount -= 2
+
+	if(auth_weapons && !src.allowed(perp))
+		if(istype(perp.l_hand, /obj/item/weapon/gun) || istype(perp.l_hand, /obj/item/weapon/melee))
+			threatcount += 4
+
+		if(istype(perp.r_hand, /obj/item/weapon/gun) || istype(perp.r_hand, /obj/item/weapon/melee))
+			threatcount += 4
+
+		if(istype(perp.belt, /obj/item/weapon/gun) || istype(perp.belt, /obj/item/weapon/melee))
+			threatcount += 2
+
+		if(perp.species.name != "Human") //beepsky so racist.
+			threatcount += 2
+
+	if(check_records || check_arrest)
+		var/perpname = perp.name
+		if(id)
+			perpname = id.registered_name
+
+		var/datum/data/record/R = find_security_record("name", perpname)
+		if(check_records && !R)
+			threatcount += 4
+
+		if(check_arrest && R && (R.fields["criminal"] == "*Arrest*"))
+			threatcount += 4
+
+	return threatcount

@@ -92,7 +92,8 @@ var/list/mechtoys = list(
 		..()
 
 /obj/machinery/computer/supplycomp
-	name = "Supply shuttle console"
+	name = "Supply Shuttle Console"
+	desc = "Used to order supplies."
 	icon = 'icons/obj/computer.dmi'
 	icon_state = "supply"
 	req_access = list(access_cargo)
@@ -104,7 +105,8 @@ var/list/mechtoys = list(
 	var/last_viewed_group = "categories"
 
 /obj/machinery/computer/ordercomp
-	name = "Supply ordering console"
+	name = "Supply Ordering Console"
+	desc = "Used to order supplies from cargo staff."
 	icon = 'icons/obj/computer.dmi'
 	icon_state = "request"
 	circuit = "/obj/item/weapon/circuitboard/ordercomp"
@@ -129,9 +131,8 @@ var/list/mechtoys = list(
 	var/comment = null
 
 /datum/controller/supply
-	var/processing = 1
-	var/processing_interval = 300
-	var/iteration = 0
+	processing = 1
+	//processing_interval = 300
 	//supply points
 	var/points = 50
 	var/points_per_process = 1
@@ -151,20 +152,21 @@ var/list/mechtoys = list(
 	New()
 		ordernum = rand(1,9000)
 
-	//Supply shuttle ticker - handles supply point regenertion and shuttle travelling between centcomm and the station
+	//Supply shuttle ticker - handles supply point regeneration and shuttle travelling between centcomm and the station
 	proc/process()
 		for(var/typepath in (typesof(/datum/supply_packs) - /datum/supply_packs))
 			var/datum/supply_packs/P = new typepath()
+			if(P.name == "HEADER") 
+				del(P)
+				continue 
 			supply_packs[P.name] = P
 
 		spawn(0)
-			//set background = 1
-			while(1)
-				if(processing)
-					iteration++
-					points += points_per_process
+			if(processing)
+				iteration++
+				points += points_per_process
 
-				sleep(processing_interval)
+				//sleep(processing_interval)
 
 	//To stop things being sent to centcomm which should not be sent to centcomm. Recursively checks for these types.
 	proc/forbidden_atoms_check(atom/A)
@@ -210,21 +212,20 @@ var/list/mechtoys = list(
 						if(slip.stamped && slip.stamped.len) //yes, the clown stamp will work. clown is the highest authority on the station, it makes sense
 							points += points_per_slip
 							find_slip = 0
-						continue
 
 					// Sell phoron
-					if(istype(A, /obj/item/stack/sheet/mineral/plasma))
+					else if(istype(A, /obj/item/stack/sheet/mineral/plasma))
 						var/obj/item/stack/sheet/mineral/plasma/P = A
 						plasma_count += P.amount
 
 					// Sell platinum
-					if(istype(A, /obj/item/stack/sheet/mineral/platinum))
+					else if(istype(A, /obj/item/stack/sheet/mineral/platinum))
 						var/obj/item/stack/sheet/mineral/platinum/P = A
 						plat_count += P.amount
 
 					// If you send something in a crate, centcom's keeping it! - fixes secure crates being sent to centom to open them
-					del(A)
-			del(MA)
+					qdel(A)
+			qdel(MA)
 
 		if(plasma_count)
 			points += plasma_count * points_per_plasma
@@ -272,8 +273,8 @@ var/list/mechtoys = list(
 				A:req_access += text2num(SP.access)
 
 			var/list/contains
-			if(istype(SP,/datum/supply_packs/randomised))
-				var/datum/supply_packs/randomised/SPR = SP
+			if(istype(SP,/datum/supply_packs/misc/randomised))
+				var/datum/supply_packs/misc/randomised/SPR = SP
 				contains = list()
 				if(SPR.contains.len)
 					for(var/j=1,j<=SPR.num_contained,j++)
@@ -290,8 +291,16 @@ var/list/mechtoys = list(
 			//manifest finalisation
 			slip.info += "</ul><br>"
 			slip.info += "CHECK CONTENTS AND STAMP BELOW THE LINE TO CONFIRM RECEIPT OF GOODS<hr>"
-			if (SP.contraband) slip.loc = null	//we are out of blanks for Form #44-D Ordering Illicit Drugs.
-
+			if(!SP.contraband)
+				if(istype(A, /obj/structure/closet/crate))
+					var/obj/structure/closet/crate/CR = A
+					CR.manifest = slip
+					CR.update_icon()
+				if(istype(A, /obj/structure/largecrate))
+					var/obj/structure/largecrate/LC = A
+					LC.manifest = slip
+					LC.update_icon()
+			else slip.loc = null	//we are out of blanks for Form #44-D Ordering Illicit Drugs.
 		shoppinglist.Cut()
 		return
 
@@ -348,17 +357,34 @@ var/list/mechtoys = list(
 			temp = "<b>Supply points: [supply_controller.points]</b><BR>"
 			temp += "<A href='?src=\ref[src];mainmenu=1'>Main Menu</A><HR><BR><BR>"
 			temp += "<b>Select a category</b><BR><BR>"
-			for(var/supply_group_name in all_supply_groups )
-				temp += "<A href='?src=\ref[src];order=[supply_group_name]'>[supply_group_name]</A><BR>"
+			for(var/cat in all_supply_groups )
+				temp += "<A href='?src=\ref[src];order=[cat]'>[get_supply_group_name(cat)]</A><BR>"
 		else
 			last_viewed_group = href_list["order"]
+			var/cat = text2num(last_viewed_group)
 			temp = "<b>Supply points: [supply_controller.points]</b><BR>"
 			temp += "<A href='?src=\ref[src];order=categories'>Back to all categories</A><HR><BR><BR>"
-			temp += "<b>Request from: [last_viewed_group]</b><BR><BR>"
-			for(var/supply_name in supply_controller.supply_packs )
-				var/datum/supply_packs/N = supply_controller.supply_packs[supply_name]
-				if(N.hidden || N.contraband || N.group != last_viewed_group) continue								//Have to send the type instead of a reference to
-				temp += "<A href='?src=\ref[src];doorder=[supply_name]'>[supply_name]</A> Cost: [N.cost]<BR>"		//the obj because it would get caught by the garbage
+			temp += "<b>Request from: [get_supply_group_name(cat)]</b><BR><BR>"
+			for(var/supply_type in supply_controller.supply_packs )
+				var/datum/supply_packs/N = supply_controller.supply_packs[supply_type]
+				if(N.hidden || N.contraband || N.group != cat) continue
+				temp += "<A href='?src=\ref[src];doorder=[supply_type]'>[N.name]</A>" //Have to send the type instead of a reference to the obj because it would get caught by the garbage
+				temp += " (<A href='?src=\ref[src];see_contents=[supply_type]'>contents</A>)"
+				temp += " Cost: [N.cost]<BR>"
+
+	else if (href_list["see_contents"])
+		//Find the correct supply_pack datum
+		var/datum/supply_packs/P = supply_controller.supply_packs[href_list["see_contents"]]
+		if(!istype(P))	return
+		
+		var/cat = P.group
+		var/tempaccess = get_access_desc(P.access)
+		
+		temp = "<b>Supply points: [supply_controller.points]</b><BR>"
+		temp += "<A href='?src=\ref[src];order=[cat]'>Back to [get_supply_group_name(cat)]</A><HR><BR><BR>"
+		temp += "Access restriction: [tempaccess ? tempaccess : "None"]<br><br>"
+		temp += "Contents of <b>[P.name]</b>:<BR>"
+		temp += P.manifest
 
 	else if (href_list["doorder"])
 		if(world.time < reqtime)
@@ -371,7 +397,7 @@ var/list/mechtoys = list(
 		if(!istype(P))	return
 
 		var/timeout = world.time + 600
-		var/reason = copytext(sanitize(input(usr,"Reason:","Why do you require this item?","") as null|text),1,MAX_MESSAGE_LEN)
+		var/reason = sanitize(copytext(input(usr,"Reason:","Why do you require this item?","") as null|text,1,MAX_MESSAGE_LEN))
 		if(world.time > timeout)	return
 		if(!reason)	return
 
@@ -492,7 +518,7 @@ var/list/mechtoys = list(
 	onclose(user, "computer")
 	return
 
-/obj/machinery/computer/supplycomp/attackby(I as obj, user as mob)
+/obj/machinery/computer/supplycomp/attackby(I as obj, user as mob, params)
 	if(istype(I,/obj/item/weapon/card/emag) && !hacked)
 		user << "\blue Special supplies unlocked."
 		hacked = 1
@@ -543,17 +569,20 @@ var/list/mechtoys = list(
 			temp = "<b>Supply points: [supply_controller.points]</b><BR>"
 			temp += "<A href='?src=\ref[src];mainmenu=1'>Main Menu</A><HR><BR><BR>"
 			temp += "<b>Select a category</b><BR><BR>"
-			for(var/supply_group_name in all_supply_groups )
-				temp += "<A href='?src=\ref[src];order=[supply_group_name]'>[supply_group_name]</A><BR>"
+			for(var/cat in all_supply_groups )
+				temp += "<A href='?src=\ref[src];order=[cat]'>[get_supply_group_name(cat)]</A><BR>"
 		else
 			last_viewed_group = href_list["order"]
+			var/cat = text2num(last_viewed_group)
 			temp = "<b>Supply points: [supply_controller.points]</b><BR>"
 			temp += "<A href='?src=\ref[src];order=categories'>Back to all categories</A><HR><BR><BR>"
-			temp += "<b>Request from: [last_viewed_group]</b><BR><BR>"
-			for(var/supply_name in supply_controller.supply_packs )
-				var/datum/supply_packs/N = supply_controller.supply_packs[supply_name]
-				if((N.hidden && !hacked) || (N.contraband && !can_order_contraband) || N.group != last_viewed_group) continue								//Have to send the type instead of a reference to
-				temp += "<A href='?src=\ref[src];doorder=[supply_name]'>[supply_name]</A> Cost: [N.cost]<BR>"		//the obj because it would get caught by the garbage
+			temp += "<b>Request from: [get_supply_group_name(cat)]</b><BR><BR>"
+			for(var/supply_type in supply_controller.supply_packs )
+				var/datum/supply_packs/N = supply_controller.supply_packs[supply_type]
+				if((N.hidden && !hacked) || (N.contraband && !can_order_contraband) || N.group != cat) continue
+				temp += "<A href='?src=\ref[src];doorder=[supply_type]'>[N.name]</A>" //Have to send the type instead of a reference to the obj because it would get caught by the garbage
+				temp += " (<A href='?src=\ref[src];see_contents=[supply_type]'>contents</A>)"
+				temp += " Cost: [N.cost]<BR>"
 
 		/*temp = "Supply points: [supply_controller.points]<BR><HR><BR>Request what?<BR><BR>"
 
@@ -564,6 +593,20 @@ var/list/mechtoys = list(
 			temp += "<A href='?src=\ref[src];doorder=[supply_name]'>[supply_name]</A> Cost: [N.cost]<BR>"    //the obj because it would get caught by the garbage
 		temp += "<BR><A href='?src=\ref[src];mainmenu=1'>OK</A>"*/
 
+	else if (href_list["see_contents"])
+		//Find the correct supply_pack datum
+		var/datum/supply_packs/P = supply_controller.supply_packs[href_list["see_contents"]]
+		if(!istype(P))	return
+		
+		var/cat = P.group
+		var/tempaccess = get_access_desc(P.access)
+		
+		temp = "<b>Supply points: [supply_controller.points]</b><BR>"
+		temp += "<A href='?src=\ref[src];order=[cat]'>Back to [get_supply_group_name(cat)]</A><HR><BR><BR>"
+		temp += "Access restriction: [tempaccess ? tempaccess : "None"]<br><br>"
+		temp += "Contents of <b>[P.name]</b>:<BR>"
+		temp += P.manifest
+	
 	else if (href_list["doorder"])
 		if(world.time < reqtime)
 			for(var/mob/V in hearers(src))
@@ -575,7 +618,7 @@ var/list/mechtoys = list(
 		if(!istype(P))	return
 
 		var/timeout = world.time + 600
-		var/reason = copytext(sanitize(input(usr,"Reason:","Why do you require this item?","") as null|text),1,MAX_MESSAGE_LEN)
+		var/reason = sanitize(copytext(input(usr,"Reason:","Why do you require this item?","") as null|text,1,MAX_MESSAGE_LEN))
 		if(world.time > timeout)	return
 		if(!reason)	return
 

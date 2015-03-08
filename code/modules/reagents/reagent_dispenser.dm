@@ -7,13 +7,12 @@
 	icon_state = "watertank"
 	density = 1
 	anchored = 0
-	flags = FPRINT
 	pressure_resistance = 2*ONE_ATMOSPHERE
 
 	var/amount_per_transfer_from_this = 10
 	var/possible_transfer_amounts = list(10,25,50,100)
 
-	attackby(obj/item/weapon/W as obj, mob/user as mob)
+	attackby(obj/item/weapon/W as obj, mob/user as mob, params)
 		return
 
 	New()
@@ -39,6 +38,8 @@
 		set name = "Set transfer amount"
 		set category = "Object"
 		set src in view(1)
+		if(usr.stat || !usr.canmove || usr.restrained())
+			return
 		var/N = input("Amount per transfer from this:","[src]") as null|anything in possible_transfer_amounts
 		if (N)
 			amount_per_transfer_from_this = N
@@ -125,7 +126,7 @@
 			rig = null
 			overlays = new/list()
 
-/obj/structure/reagent_dispensers/fueltank/attackby(obj/item/weapon/W as obj, mob/user as mob)
+/obj/structure/reagent_dispensers/fueltank/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
 	if (istype(W,/obj/item/weapon/wrench))
 		user.visible_message("[user] wrenches [src]'s faucet [modded ? "closed" : "open"].", \
 			"You wrench [src]'s faucet [modded ? "closed" : "open"]")
@@ -142,7 +143,7 @@
 
 			var/obj/item/device/assembly_holder/H = W
 			if (istype(H.a_left,/obj/item/device/assembly/igniter) || istype(H.a_right,/obj/item/device/assembly/igniter))
-				message_admins("[key_name_admin(user)] rigged fueltank at ([loc.x],[loc.y],[loc.z]) for explosion.")
+				msg_admin_attack("[key_name_admin(user)] rigged fueltank at ([loc.x],[loc.y],[loc.z]) for explosion.")
 				log_game("[key_name(user)] rigged fueltank at ([loc.x],[loc.y],[loc.z]) for explosion.")
 
 				rig = W

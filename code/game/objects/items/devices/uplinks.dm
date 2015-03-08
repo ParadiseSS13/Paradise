@@ -103,7 +103,9 @@ var/list/world_uplinks = list()
 
 
 /obj/item/device/uplink/Topic(href, href_list)
-	..()
+	if(..())
+		return 1
+		
 	if(!active)
 		return
 
@@ -152,7 +154,8 @@ var/list/world_uplinks = list()
 	desc = "There is something wrong if you're examining this."
 
 /obj/item/device/uplink/hidden/Topic(href, href_list)
-	..()
+	if(..())
+		return 1
 	if(href_list["lock"])
 		toggle()
 		usr << browse(null, "window=hidden")
@@ -251,7 +254,7 @@ var/list/world_uplinks = list()
 	return 0
 	
 //Refund proc for the borg teleporter (later I'll make a general refund proc if there is demand for it)
-/obj/item/device/radio/headset/syndicate/attackby(obj/item/weapon/W as obj, mob/user as mob)
+/obj/item/device/radio/headset/syndicate/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
 	if(istype(W, /obj/item/weapon/antag_spawner/borg_tele))
 		var/obj/item/weapon/antag_spawner/borg_tele/S = W
 		if(!S.used && !S.checking)
@@ -261,7 +264,7 @@ var/list/world_uplinks = list()
 		else
 			user << "<span class='notice'>This teleporter is already used, or is currently being used.</span>"
 			
-/obj/item/device/radio/uplink/attackby(obj/item/weapon/W as obj, mob/user as mob)
+/obj/item/device/radio/uplink/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
 	if(istype(W, /obj/item/weapon/antag_spawner/borg_tele))
 		var/obj/item/weapon/antag_spawner/borg_tele/S = W
 		if(!S.used && !S.checking)

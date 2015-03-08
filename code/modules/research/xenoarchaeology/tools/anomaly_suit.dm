@@ -14,15 +14,15 @@
 	item_state = "engspace_helmet"
 	armor = list(melee = 0, bullet = 0, laser = 0,energy = 0, bomb = 0, bio = 100, rad = 100)
 
-/obj/item/clothing/suit/space/anomaly
+/obj/item/clothing/suit/space/eva/anomaly
 	name = "Excavation suit"
 	desc = "A pressure resistant excavation suit partially capable of insulating against exotic alien energies."
 	icon_state = "cespace_suit"
 	item_state = "cespace_suit"
 	armor = list(melee = 0, bullet = 0, laser = 0,energy = 0, bomb = 0, bio = 100, rad = 100)
-	allowed = list(/obj/item/device/flashlight,/obj/item/weapon/tank,/obj/item/device/suit_cooling_unit)
+	allowed = list(/obj/item/device/flashlight,/obj/item/weapon/tank)
 
-/obj/item/clothing/head/helmet/space/anomaly
+/obj/item/clothing/head/helmet/space/eva/anomaly
 	name = "Excavation hood"
 	desc = "A pressure resistant excavation hood partially capable of insulating against exotic alien energies."
 	icon_state = "cespace_helmet"

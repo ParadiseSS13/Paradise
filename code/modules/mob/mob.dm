@@ -82,6 +82,34 @@
 /atom/proc/visible_message(var/message, var/blind_message)
 	for(var/mob/M in viewers(src))
 		M.show_message( message, 1, blind_message, 2)
+	
+// Show a message to all mobs in earshot of this one
+// This would be for audible actions by the src mob
+// message is the message output to anyone who can hear.
+// self_message (optional) is what the src mob hears.
+// deaf_message (optional) is what deaf people will see.
+// hearing_distance (optional) is the range, how many tiles away the message can be heard.
+/mob/audible_message(var/message, var/deaf_message, var/hearing_distance, var/self_message)
+	var/range = 7
+	if(hearing_distance)
+		range = hearing_distance
+	var/msg = message
+	for(var/mob/M in get_mobs_in_view(range, src))
+		if(self_message && M==src)
+			msg = self_message
+		M.show_message( msg, 2, deaf_message, 1)
+		
+// Show a message to all mobs in earshot of this atom
+// Use for objects performing audible actions
+// message is the message output to anyone who can hear.
+// deaf_message (optional) is what deaf people will see.
+// hearing_distance (optional) is the range, how many tiles away the message can be heard.
+/atom/proc/audible_message(var/message, var/deaf_message, var/hearing_distance)
+	var/range = 7
+	if(hearing_distance)
+		range = hearing_distance
+	for(var/mob/M in get_mobs_in_view(range, src))
+		M.show_message( message, 2, deaf_message, 1)
 
 /mob/proc/findname(msg)
 	for(var/mob/M in mob_list)
@@ -93,6 +121,7 @@
 	return 0
 
 /mob/proc/Life()
+//	handle_typing_indicator()
 //	if(organStructure)
 //		organStructure.ProcessOrgans()
 	return
@@ -106,7 +135,14 @@
 	var/obj/item/W = get_active_hand()
 
 	if(istype(W))
-		equip_to_slot_if_possible(W, slot)
+		if (istype(W, /obj/item/clothing))
+			var/obj/item/clothing/C = W
+			if(C.rig_restrict_helmet)
+				src << "\red You must fasten the helmet to a hardsuit first. (Target the head and use on a hardsuit)" // Stop eva helms equipping.
+			else
+				equip_to_slot_if_possible(C, slot)
+		else
+			equip_to_slot_if_possible(W, slot)
 
 	if(ishuman(src) && W == src:head)
 		src:update_hair()
@@ -186,6 +222,7 @@ var/list/slot_equipment_priority = list( \
 		slot_glasses,\
 		slot_belt,\
 		slot_s_store,\
+		slot_tie,\
 		slot_l_store,\
 		slot_r_store\
 	)
@@ -238,7 +275,7 @@ var/list/slot_equipment_priority = list( \
 				if( !(slot_flags & SLOT_BACK) )
 					return 0
 				if(H.back)
-					if(H.back.canremove)
+					if(!(H.back.flags & NODROP))
 						return 2
 					else
 						return 0
@@ -247,7 +284,7 @@ var/list/slot_equipment_priority = list( \
 				if( !(slot_flags & SLOT_OCLOTHING) )
 					return 0
 				if(H.wear_suit)
-					if(H.wear_suit.canremove)
+					if(!(H.wear_suit.flags & NODROP))
 						return 2
 					else
 						return 0
@@ -256,7 +293,7 @@ var/list/slot_equipment_priority = list( \
 				if( !(slot_flags & SLOT_GLOVES) )
 					return 0
 				if(H.gloves)
-					if(H.gloves.canremove)
+					if(!(H.gloves.flags & NODROP))
 						return 2
 					else
 						return 0
@@ -265,7 +302,7 @@ var/list/slot_equipment_priority = list( \
 				if( !(slot_flags & SLOT_FEET) )
 					return 0
 				if(H.shoes)
-					if(H.shoes.canremove)
+					if(!(H.shoes.flags & NODROP))
 						return 2
 					else
 						return 0
@@ -278,7 +315,7 @@ var/list/slot_equipment_priority = list( \
 				if( !(slot_flags & SLOT_BELT) )
 					return 0
 				if(H.belt)
-					if(H.belt.canremove)
+					if(!(H.belt.flags & NODROP))
 						return 2
 					else
 						return 0
@@ -287,7 +324,7 @@ var/list/slot_equipment_priority = list( \
 				if( !(slot_flags & SLOT_EYES) )
 					return 0
 				if(H.glasses)
-					if(H.glasses.canremove)
+					if(!(H.glasses.flags & NODROP))
 						return 2
 					else
 						return 0
@@ -296,7 +333,7 @@ var/list/slot_equipment_priority = list( \
 				if( !(slot_flags & SLOT_HEAD) )
 					return 0
 				if(H.head)
-					if(H.head.canremove)
+					if(!(H.head.flags & NODROP))
 						return 2
 					else
 						return 0
@@ -305,7 +342,7 @@ var/list/slot_equipment_priority = list( \
 				if( !(slot_flags & slot_l_ear) )
 					return 0
 				if(H.l_ear)
-					if(H.l_ear.canremove)
+					if(!(H.l_ear.flags & NODROP))
 						return 2
 					else
 						return 0
@@ -314,7 +351,7 @@ var/list/slot_equipment_priority = list( \
 				if( !(slot_flags & slot_r_ear) )
 					return 0
 				if(H.r_ear)
-					if(H.r_ear.canremove)
+					if(!(H.r_ear.flags & NODROP))
 						return 2
 					else
 						return 0
@@ -322,10 +359,10 @@ var/list/slot_equipment_priority = list( \
 			if(slot_w_uniform)
 				if( !(slot_flags & SLOT_ICLOTHING) )
 					return 0
-				if((M_FAT in H.mutations) && !(flags & ONESIZEFITSALL))
+				if((FAT in H.mutations) && !(flags & ONESIZEFITSALL))
 					return 0
 				if(H.w_uniform)
-					if(H.w_uniform.canremove)
+					if(!(H.w_uniform.flags & NODROP))
 						return 2
 					else
 						return 0
@@ -338,7 +375,7 @@ var/list/slot_equipment_priority = list( \
 				if( !(slot_flags & SLOT_ID) )
 					return 0
 				if(H.wear_id)
-					if(H.wear_id.canremove)
+					if(!(H.wear_id.flags & NODROP))
 						return 2
 					else
 						return 0
@@ -375,13 +412,13 @@ var/list/slot_equipment_priority = list( \
 					if(!disable_warning)
 						usr << "You somehow have a suit with no defined allowed items for suit storage, stop that."
 					return 0
-				if(src.w_class > 3)
+				if(src.w_class > 4)
 					if(!disable_warning)
 						usr << "The [name] is too big to attach."
 					return 0
 				if( istype(src, /obj/item/device/pda) || istype(src, /obj/item/weapon/pen) || is_type_in_list(src, H.wear_suit.allowed) )
 					if(H.s_store)
-						if(H.s_store.canremove)
+						if(!(H.s_store.flags & NODROP))
 							return 2
 						else
 							return 0
@@ -391,13 +428,13 @@ var/list/slot_equipment_priority = list( \
 			if(slot_handcuffed)
 				if(H.handcuffed)
 					return 0
-				if(!istype(src, /obj/item/weapon/handcuffs))
+				if(!istype(src, /obj/item/weapon/restraints/handcuffs))
 					return 0
 				return 1
 			if(slot_legcuffed)
 				if(H.legcuffed)
 					return 0
-				if(!istype(src, /obj/item/weapon/legcuffs))
+				if(!istype(src, /obj/item/weapon/restraints/legcuffs))
 					return 0
 				return 1
 			if(slot_in_backpack)
@@ -430,9 +467,9 @@ var/list/slot_equipment_priority = list( \
 	<B><HR><FONT size=3>[name]</FONT></B>
 	<BR><HR>
 	<BR><B>Head(Mask):</B> <A href='?src=\ref[src];item=mask'>[(wear_mask ? wear_mask : "Nothing")]</A>
-	<BR><B>Left Hand:</B> <A href='?src=\ref[src];item=l_hand'>[(l_hand ? l_hand  : "Nothing")]</A>
-	<BR><B>Right Hand:</B> <A href='?src=\ref[src];item=r_hand'>[(r_hand ? r_hand : "Nothing")]</A>
-	<BR><B>Back:</B> <A href='?src=\ref[src];item=back'>[(back ? back : "Nothing")]</A> [((istype(wear_mask, /obj/item/clothing/mask) && istype(back, /obj/item/weapon/tank) && !( internal )) ? text(" <A href='?src=\ref[];item=internal'>Set Internal</A>", src) : "")]
+	<BR><B>Left Hand:</B> <A href='?src=\ref[src];item=l_hand'>[(l_hand && !(l_hand.flags & ABSTRACT)) ? l_hand  : "Nothing"]</A>
+	<BR><B>Right Hand:</B> <A href='?src=\ref[src];item=r_hand'>[(r_hand && !(r_hand.flags & ABSTRACT)) ? r_hand : "Nothing"]</A>
+	<BR><B>Back:</B> <A href='?src=\ref[src];item=back'>[(back && !(back.flags & ABSTRACT)) ? back : "Nothing"]</A> [((istype(wear_mask, /obj/item/clothing/mask) && istype(back, /obj/item/weapon/tank) && !( internal )) ? text(" <A href='?src=\ref[];item=internal'>Set Internal</A>", src) : "")]
 	<BR>[(internal ? text("<A href='?src=\ref[src];item=internal'>Remove Internal</A>") : "")]
 	<BR><A href='?src=\ref[src];item=pockets'>Empty Pockets</A>
 	<BR><A href='?src=\ref[user];refresh=1'>Refresh</A>
@@ -494,8 +531,6 @@ var/list/slot_equipment_priority = list( \
 		if (W)
 			W.attack_self(src)
 			update_inv_r_hand()
-	if(next_move < world.time)
-		next_move = world.time + 2
 	return
 
 /*
@@ -750,12 +785,13 @@ var/list/slot_equipment_priority = list( \
 /mob/proc/pull_damage()
 	if(ishuman(src))
 		var/mob/living/carbon/human/H = src
-		if(H.health - H.halloss <= config.health_threshold_crit)
+		if(H.health - H.halloss <= config.health_threshold_softcrit)
 			for(var/name in H.organs_by_name)
 				var/datum/organ/external/e = H.organs_by_name[name]
-				if((H.lying) && ((e.status & ORGAN_BROKEN && !(e.status & ORGAN_SPLINTED)) || e.status & ORGAN_BLEEDING) && (H.getBruteLoss() + H.getFireLoss() >= 100))
-					return 1
-					break
+				if(H.lying)
+					if(((e.status & ORGAN_BROKEN && !(e.status & ORGAN_SPLINTED)) || e.status & ORGAN_BLEEDING) && (H.getBruteLoss() + H.getFireLoss() >= 100))
+						return 1
+						break
 		return 0
 
 /mob/MouseDrop(mob/M as mob)
@@ -849,6 +885,9 @@ var/list/slot_equipment_priority = list( \
 	src << message
 	return 1
 
+/mob/proc/is_muzzled()
+	return 0
+
 /mob/proc/show_viewers(message)
 	for(var/mob/M in viewers())
 		M.see(message)
@@ -863,23 +902,76 @@ var/list/slot_equipment_priority = list( \
 			stat(null, "CPU:\t[world.cpu]")
 			stat(null, "Instances:\t[world.contents.len]")
 
-			if(master_controller)
-				stat(null, "MasterController-[last_tick_duration] ([master_controller.processing?"On":"Off"]-[controller_iteration])")
-				stat(null, "Air-[master_controller.air_cost]")
-				stat(null, "Sun-[master_controller.sun_cost]")
-				stat(null, "Mob-[master_controller.mobs_cost]\t#[mob_list.len]")
-				stat(null, "Dis-[master_controller.diseases_cost]\t#[active_diseases.len]")
-				stat(null, "Mch-[master_controller.machines_cost]\t#[machines.len]")
-				stat(null, "Bots-[master_controller.aibots_cost]\t#[aibots.len]")
-				stat(null, "Obj-[master_controller.objects_cost]\t#[processing_objects.len]")
-				stat(null, "PiNet-[master_controller.networks_cost]\t#[pipe_networks.len]")
-				stat(null, "Ponet-[master_controller.powernets_cost]\t#[powernets.len]")
-				stat(null, "NanoUI-[master_controller.nano_cost]\t#[nanomanager.processing_uis.len]")
-//				stat(null, "GC-[master_controller.gc_cost]\t#[garbage.queue.len]")
-				stat(null, "Tick-[master_controller.ticker_cost]")
-				stat(null, "ALL-[master_controller.total_cost]")
+			if (garbageCollector)
+				stat(null, "\tqdel - [garbageCollector.del_everything ? "off" : "on"]")
+				stat(null, "\ton queue - [garbageCollector.queue.len]")
+				stat(null, "\ttotal delete - [garbageCollector.dels_count]")
+				stat(null, "\tsoft delete - [garbageCollector.soft_dels]")
+				stat(null, "\thard delete - [garbageCollector.hard_dels]")
 			else
-				stat(null, "MasterController-ERROR")
+				stat(null, "Garbage Controller is not running.")
+
+			if(processScheduler.getIsRunning())
+				var/datum/controller/process/process
+
+				process = processScheduler.getProcess("ticker")
+				stat(null, "TIC\t - #[process.getTicks()]\t - [process.getLastRunTime()]")
+
+				process = processScheduler.getProcess("air")
+				stat(null, "AIR\t - #[process.getTicks()]\t - [process.getLastRunTime()]")
+
+				process = processScheduler.getProcess("lighting")
+				stat(null, "LIG\t - #[process.getTicks()]\t - [process.getLastRunTime()]")
+
+				process = processScheduler.getProcess("mob")
+				stat(null, "MOB([mob_list.len])\t - #[process.getTicks()]\t - [process.getLastRunTime()]")
+
+				process = processScheduler.getProcess("machinery")
+				stat(null, "MAC([machines.len])\t - #[process.getTicks()]\t - [process.getLastRunTime()]")
+
+				process = processScheduler.getProcess("obj")
+				stat(null, "OBJ([processing_objects.len])\t - #[process.getTicks()]\t - [process.getLastRunTime()]")
+
+				process = processScheduler.getProcess("bot")
+				stat(null, "BOT([aibots.len])\t - #[process.getTicks()]\t - [process.getLastRunTime()]")
+
+				process = processScheduler.getProcess("pipenet")
+				stat(null, "PIP([pipe_networks.len])\t - #[process.getTicks()]\t - [process.getLastRunTime()]")
+
+				process = processScheduler.getProcess("powernet")
+				stat(null, "POW([powernets.len])\t - #[process.getTicks()]\t - [process.getLastRunTime()]")
+
+				process = processScheduler.getProcess("nanoui")
+				stat(null, "NAN([nanomanager.processing_uis.len])\t - #[process.getTicks()]\t - [process.getLastRunTime()]")
+
+				process = processScheduler.getProcess("disease")
+				stat(null, "DIS([active_diseases.len])\t - #[process.getTicks()]\t - [process.getLastRunTime()]")
+
+				process = processScheduler.getProcess("garbage")
+				stat(null, "GAR\t - #[process.getTicks()]\t - [process.getLastRunTime()]")
+
+				//process = processScheduler.getProcess("sun")
+				//stat(null, "SUN\t - #[process.getTicks()]\t - [process.getLastRunTime()]")
+
+				//process = processScheduler.getProcess("garbage")
+				//stat(null, "GAR\t - #[process.getTicks()]\t - [process.getLastRunTime()]")
+
+				//process = processScheduler.getProcess("vote")
+				//stat(null, "VOT\t - #[process.getTicks()]\t - [process.getLastRunTime()]")
+
+				//process = processScheduler.getProcess("shuttle controller")
+				//stat(null, "SHT\t - #[process.getTicks()]\t - [process.getLastRunTime()]")
+
+				//process = processScheduler.getProcess("emergency shuttle")
+				//stat(null, "EME\t - #[process.getTicks()]\t - [process.getLastRunTime()]")
+
+				//process = processScheduler.getProcess("inactivity")
+				//stat(null, "IAC\t - #[process.getTicks()]\t - [process.getLastRunTime()]")
+
+				//process = processScheduler.getProcess("event")
+				//stat(null, "EVE([events.len])\t - #[process.getTicks()]\t - [process.getLastRunTime()]")
+			else
+				stat(null, "processScheduler is not running.")
 
 	if(listed_turf && client)
 		if(!TurfAdjacent(listed_turf))
@@ -889,7 +981,12 @@ var/list/slot_equipment_priority = list( \
 			for(var/atom/A in listed_turf)
 				if(A.invisibility > see_invisible)
 					continue
+				if(is_type_in_list(A, shouldnt_see))
+					continue
 				statpanel(listed_turf.name, null, A)
+
+	if(mind && mind.changeling)
+		add_stings_to_statpanel(mind.changeling.purchasedpowers)
 
 	if(spell_list && spell_list.len)
 		for(var/obj/effect/proc_holder/spell/wizard/S in spell_list)
@@ -901,6 +998,11 @@ var/list/slot_equipment_priority = list( \
 				if("holdervar")
 					statpanel(S.panel,"[S.holder_var_type] [S.holder_var_amount]",S)
 
+
+/mob/proc/add_stings_to_statpanel(var/list/stings)
+	for(var/obj/effect/proc_holder/changeling/S in stings)
+		if(S.chemical_cost >=0 && S.can_be_used_by(src))
+			statpanel("[S.panel]",((S.chemical_cost > 0) ? "[S.chemical_cost]" : ""),S)
 	/* // Why have a duplicate set of turfs in the stat panel?
 	if(listed_turf)
 		if(get_dist(listed_turf,src) > 1)
@@ -1043,16 +1145,19 @@ var/list/slot_equipment_priority = list( \
 /mob/proc/Stun(amount)
 	if(status_flags & CANSTUN)
 		stunned = max(max(stunned,amount),0) //can't go below 0, getting a low amount of stun doesn't lower your current stun
+		update_canmove()
 	return
 
 /mob/proc/SetStunned(amount) //if you REALLY need to set stun to a set amount without the whole "can't go below current stunned"
 	if(status_flags & CANSTUN)
 		stunned = max(amount,0)
+		update_canmove()
 	return
 
 /mob/proc/AdjustStunned(amount)
 	if(status_flags & CANSTUN)
 		stunned = max(stunned + amount,0)
+		update_canmove()
 	return
 
 /mob/proc/Weaken(amount)
@@ -1076,40 +1181,49 @@ var/list/slot_equipment_priority = list( \
 /mob/proc/Paralyse(amount)
 	if(status_flags & CANPARALYSE)
 		paralysis = max(max(paralysis,amount),0)
+		update_canmove()
 	return
 
 /mob/proc/SetParalysis(amount)
 	if(status_flags & CANPARALYSE)
 		paralysis = max(amount,0)
+		update_canmove()
 	return
 
 /mob/proc/AdjustParalysis(amount)
 	if(status_flags & CANPARALYSE)
 		paralysis = max(paralysis + amount,0)
+		update_canmove()
 	return
 
 /mob/proc/Sleeping(amount)
 	sleeping = max(max(sleeping,amount),0)
+	update_canmove()
 	return
 
 /mob/proc/SetSleeping(amount)
 	sleeping = max(amount,0)
+	update_canmove()
 	return
 
 /mob/proc/AdjustSleeping(amount)
 	sleeping = max(sleeping + amount,0)
+	update_canmove()
 	return
 
 /mob/proc/Resting(amount)
 	resting = max(max(resting,amount),0)
+	update_canmove()
 	return
 
 /mob/proc/SetResting(amount)
 	resting = max(amount,0)
+	update_canmove()
 	return
 
 /mob/proc/AdjustResting(amount)
 	resting = max(resting + amount,0)
+	update_canmove()
 	return
 
 /mob/proc/get_species()
@@ -1133,7 +1247,7 @@ mob/proc/yank_out_object()
 
 	if(!isliving(usr) || usr.next_move > world.time)
 		return
-	usr.next_move = world.time + 20
+	usr.changeNext_move(CLICK_CD_RESIST)
 
 	if(usr.stat == 1)
 		usr << "You are unconcious and cannot do that!"
@@ -1193,7 +1307,7 @@ mob/proc/yank_out_object()
 		H.shock_stage+=10
 
 		if(prob(10)) //I'M SO ANEMIC I COULD JUST -DIE-.
-			var/datum/wound/internal_bleeding/I = new (15)
+			var/datum/wound/internal_bleeding/I = new ()
 			affected.wounds += I
 			H.custom_pain("Something tears wetly in your [affected] as [selection] is pulled free!", 1)
 
@@ -1212,9 +1326,13 @@ mob/proc/yank_out_object()
 
 
 
-/mob/verb/respawn()
+/mob/dead/observer/verb/respawn()
 	set name = "Respawn as NPC"
-	set category = "OOC"
+	set category = "Ghost"
+
+	if(jobban_isbanned(usr, "NPC"))
+		usr << "<span class='warning'>You are banned from playing as NPC's.</span>"
+		return
 
 	if((usr in respawnable_list) && (stat==2 || istype(usr,/mob/dead/observer)))
 		var/list/creatures = list("Mouse")

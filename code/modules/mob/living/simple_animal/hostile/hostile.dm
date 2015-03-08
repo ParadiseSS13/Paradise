@@ -11,7 +11,7 @@
 	var/projectiletype
 	var/projectilesound
 	var/casingtype
-	var/move_to_delay = 2 //delay for the automated movement.
+	var/move_to_delay = 3 //delay for the automated movement.
 	var/list/friends = list()
 	var/vision_range = 9 //How big of an area to search for targets in, a vision of 9 attempts to find targets as soon as they walk into screen view
 
@@ -71,6 +71,9 @@
 		for(var/obj/mecha/M in mechas_list)
 			if(get_dist(M, src) <= vision_range && can_see(src, M, vision_range))
 				L += M
+		for(var/obj/spacepod/S in spacepods_list)
+			if(get_dist(S, src) <= vision_range && can_see(src, S, vision_range))
+				L += S
 	return L
 
 /mob/living/simple_animal/hostile/proc/FindTarget()//Step 2, filter down possible targets to things we actually care about
@@ -130,6 +133,10 @@
 	if(istype(the_target, /obj/mecha))
 		var/obj/mecha/M = the_target
 		if(M.occupant)//Just so we don't attack empty mechs
+			return 1
+	if(istype(the_target, /obj/spacepod))
+		var/obj/spacepod/S = the_target
+		if(S.occupant || S.occupant2)//Just so we don't attack empty mechs
 			return 1
 	return 0
 

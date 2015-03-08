@@ -49,9 +49,19 @@ proc/random_facial_hair_style(gender, species = "Human")
 
 		return f_style
 
-proc/random_name(gender, speciesName = "Human")
-	var/datum/species/S = all_species[speciesName]
-	return S.makeName(gender)
+proc/random_name(gender, species = "Human")
+
+	var/datum/species/current_species
+	if(species)
+		current_species = all_species[species]
+
+	if(!current_species || current_species.name == "Human")
+		if(gender==FEMALE)
+			return capitalize(pick(first_names_female)) + " " + capitalize(pick(last_names))
+		else
+			return capitalize(pick(first_names_male)) + " " + capitalize(pick(last_names))
+	else
+		return current_species.get_random_name(gender)	
 
 proc/random_skin_tone()
 	switch(pick(60;"caucasian", 15;"afroamerican", 10;"african", 10;"latino", 5;"albino"))
@@ -122,6 +132,8 @@ Proc for attack log creation, because really why not
 
 proc/add_logs(mob/target, mob/user, what_done, var/object=null, var/addition=null)
 	var/list/ignore=list("shaked","CPRed","grabbed","punched")
+	if(!user)
+		return
 	if(ismob(user))
 		user.attack_log += text("\[[time_stamp()]\] <font color='red'>Has [what_done] [target.name][ismob(target) ? "([target.ckey])" : ""][object ? " with [object]" : " "][addition]</font>")
 	if(ismob(target))

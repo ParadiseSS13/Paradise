@@ -9,7 +9,6 @@
 	throw_range = 5
 	w_class = 1.0
 	var/used = 0
-	flags = FPRINT | TABLEPASS
 
 
 /obj/item/weapon/contract/attack_self(mob/user as mob)
@@ -88,7 +87,7 @@
 				var/wizard_name_first = pick(wizard_first)
 				var/wizard_name_second = pick(wizard_second)
 				var/randomname = "[wizard_name_first] [wizard_name_second]"
-				var/newname = copytext(sanitize(input(M, "You are the wizard's apprentice. Would you like to change your name to something else?", "Name change", randomname) as null|text),1,MAX_NAME_LEN)
+				var/newname = sanitize(copytext(input(M, "You are the wizard's apprentice. Would you like to change your name to something else?", "Name change", randomname) as null|text,1,MAX_NAME_LEN))
 
 				if (!newname)
 					newname = randomname
@@ -116,7 +115,6 @@
 	icon = 'icons/obj/wizard.dmi'
 	icon_state = "render"
 	item_state = "render"
-	flags = FPRINT | TABLEPASS
 	force = 15
 	throwforce = 10
 	w_class = 3
@@ -176,7 +174,7 @@
 	if(cowsleft <= 0)
 		del src
 
-/obj/effect/rend/cow/attackby(obj/item/I as obj, mob/user as mob)
+/obj/effect/rend/cow/attackby(obj/item/I as obj, mob/user as mob, params)
 	if(istype(I, /obj/item/weapon/nullrod))
 		visible_message("\red <b>[I] strikes a blow against \the [src], banishing it!</b>")
 		spawn(1)
@@ -197,7 +195,6 @@
 	throwforce = 15
 	damtype = BURN
 	force = 15
-	flags = FPRINT | TABLEPASS
 	hitsound = 'sound/items/welder2.ogg'
 
 /obj/item/weapon/scrying/attack_self(mob/user as mob)

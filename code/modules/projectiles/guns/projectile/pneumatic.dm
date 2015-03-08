@@ -5,7 +5,7 @@
 	icon_state = "pneumatic"
 	item_state = "pneumatic"
 	w_class = 5.0
-	flags =  FPRINT | TABLEPASS | CONDUCT
+	flags = CONDUCT
 	fire_sound_text = "a loud whoosh of moving air"
 	fire_delay = 50
 	fire_sound = 'sound/weapons/tablehit1.ogg'
@@ -51,7 +51,7 @@
 	else
 		usr << "There's no tank in [src]."
 
-/obj/item/weapon/gun/launcher/pneumatic/attackby(obj/item/W as obj, mob/user as mob)
+/obj/item/weapon/gun/launcher/pneumatic/attackby(obj/item/W as obj, mob/user as mob, params)
 	if(!tank && istype(W,/obj/item/weapon/tank))
 		user.drop_item()
 		tank = W
@@ -154,7 +154,7 @@
 		if(4) usr << "It has an outer chassis welded in place."
 		if(5) usr << "It has a transfer valve installed."
 
-/obj/item/weapon/cannonframe/attackby(obj/item/W as obj, mob/user as mob)
+/obj/item/weapon/cannonframe/attackby(obj/item/W as obj, mob/user as mob, params)
 	if(istype(W,/obj/item/pipe))
 		if(buildstate == 0)
 			user.drop_item()

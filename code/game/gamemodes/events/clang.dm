@@ -78,7 +78,7 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 		walk_towards(immrod, end,1)
 	sleep(1)
 	while (immrod)
-		if (immrod.z != 1)
+		if ((immrod.z in config.station_levels))
 			immrod.z = 1
 		if(immrod.loc == end)
 			del(immrod)
@@ -86,4 +86,4 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 	for(var/obj/effect/immovablerod/imm in world)
 		return
 	sleep(50)
-	command_alert("What the fuck was that?!", "General Alert")
+	command_announcement.Announce("What the fuck was that?!", "General Alert")

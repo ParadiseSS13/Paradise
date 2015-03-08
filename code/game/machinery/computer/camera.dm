@@ -1,3 +1,7 @@
+/proc/invalidateCameraCache()
+	for(var/obj/machinery/computer/security/s in world)
+		s.camera_cache = null
+	
 /obj/machinery/computer/security
 	name = "Camera Monitor"
 	desc = "Used to access the various cameras networks on the station."
@@ -12,6 +16,7 @@
 	var/list/tempnets[0]
 	var/list/data[0]
 	var/list/access[0]
+	var/camera_cache = null
 
 	New() // Lists existing networks and their required access. Format: networks[<name>] = list(<access>)
 		networks["SS13"] = list(access_hos,access_captain)
@@ -20,24 +25,23 @@
 		networks["Mining Outpost"] = list(access_qm,access_hop,access_hos,access_captain)
 		networks["Research"] = list(access_rd,access_hos,access_captain)
 		networks["Prison"] = list(access_hos,access_captain)
+		networks["Labor"] = list(access_hos,access_captain)
 		networks["Interrogation"] = list(access_hos,access_captain)	
 		networks["Atmosphere Alarms"] = list(access_ce,access_hos,access_captain)
 		networks["Fire Alarms"] = list(access_ce,access_hos,access_captain)	
 		networks["Power Alarms"] = list(access_ce,access_hos,access_captain)
 		networks["Supermatter"] = list(access_ce,access_hos,access_captain)	
+		networks["MiniSat"] = list(access_rd,access_hos,access_captain)	
 		networks["Singularity"] = list(access_ce,access_hos,access_captain)	
 		networks["Anomaly Isolation"] = list(access_rd,access_hos,access_captain)
 		networks["Toxins"] = list(access_rd,access_hos,access_captain)
 		networks["Telepad"] = list(access_rd,access_hos,access_captain)
-		networks["ERT"] = list(access_cent_teleporter,access_cent_captain)		
-		networks["CentCom"] = list(access_cent_captain)
-		networks["Thunderdome"] = list(access_cent_captain)
+		networks["ERT"] = list(access_cent_specops_commander,access_cent_commander)		
+		networks["CentCom"] = list(access_cent_security,access_cent_commander)
+		networks["Thunderdome"] = list(access_cent_thunder,access_cent_commander)
 		
 	attack_ai(var/mob/user as mob)
-		if(isAI(user))
-			return ui_interact(user) 
-		else
-			return attack_hand(user)
+		return attack_hand(user)
 
 	attack_paw(var/mob/user as mob)
 		return attack_hand(user)
@@ -49,39 +53,64 @@
 		return 1
 		
 	// Network configuration
-	attackby(I as obj, user as mob)
-		if(istype(I,/obj/item/weapon/card/emag)) // If hit by an emag.
-			var/obj/item/weapon/card/emag/E = I
-			if(!emagged)
-				if(E.uses)
-					E.uses--
-					emagged = 1
-					user << "\blue You have authorized full network access!"
-					ui_interact(user)
-				else
-					ui_interact(user)
-			else
-				ui_interact(user)
-		else if(istype(I,/obj/item/weapon/card/id)) // If hit by a regular ID card.
+	attackby(I as obj, user as mob, params)
+		access = list()
+		if(istype(I,/obj/item/weapon/card/id)) // If hit by a regular ID card.
 			var/obj/item/weapon/card/id/E = I	
 			access = E.access
 			ui_interact(user)
 		else
 			..()
 			
+	emag_act(user as mob)
+		if(!emagged)
+			emagged = 1
+			user << "\blue You have authorized full network access!"
+			ui_interact(user)
+		else
+			ui_interact(user)
+			
 	ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
-		if(..())
-			return
-		if(stat & (NOPOWER|BROKEN))
-			return						
+		if(src.z > 6) return
+		if(stat & (NOPOWER|BROKEN)) return
+		if(user.stat) return						
 		
-		data.Cut()
+		var/data[0]
+
+
+		data["current"] = null
+
+		var/list/L = list()
+		for (var/obj/machinery/camera/C in cameranet.cameras)
+			if(can_access_camera(C))
+				L.Add(C)
+
+		cameranet.process_sort()
+
+		var/cameras[0]
+		for(var/obj/machinery/camera/C in L)
+			var/cam[0]
+			cam["name"] = C.c_tag
+			cam["deact"] = !C.can_use()
+			cam["camera"] = "\ref[C]"
+			cam["x"] = C.x
+			cam["y"] = C.y
+			cam["z"] = C.z
+
+			cameras[++cameras.len] = cam
+
+			if(C == current)
+				data["current"] = cam
+
+		data["cameras"] = cameras
+		
 		tempnets.Cut()
 		if(emagged)
 			access = list(access_captain) // Assume captain level access when emagged
 			data["emagged"] = 1
-		if(isAI(user))
+		if(isAI(user) || isrobot(user))
 			access = list(access_captain) // Assume captain level access when AI
+			
 		// Loop through the ID's permission, and check which networks the ID has access to.
 		for(var/l in networks) // Loop through networks.
 			for(var/m in networks[l]) // Loop through access levels of the networks.
@@ -92,16 +121,36 @@
 						tempnets.Add(list(list("name" = l, "active" = 0)))	
 					break
 		data["networks"] = tempnets
+		
 		ui = nanomanager.try_update_ui(user, src, ui_key, ui, data, force_open)
-		if(!ui)
-			ui = new(user, src, ui_key, "camera_console.tmpl", "Camera Monitor UI", 660, 280)
+		if (!ui)
+			ui = new(user, src, ui_key, "sec_camera.tmpl", "Camera Console", 900, 800)
+
+			// adding a template with the key "mapContent" enables the map ui functionality
+			ui.add_template("mapContent", "sec_camera_map_content.tmpl")
+			// adding a template with the key "mapHeader" replaces the map header content
+			ui.add_template("mapHeader", "sec_camera_map_header.tmpl")
+
 			ui.set_initial_data(data)
 			ui.open()
-
+			ui.set_auto_update(1)
+			
 	Topic(href, href_list)
-		if(..())
-			return	
-		if(href_list["activate"]) // Activate: enable or disable networks
+		if(href_list["switchTo"])
+			if(src.z>6 || stat&(NOPOWER|BROKEN)) return
+			if(usr.stat || ((get_dist(usr, src) > 1 || !( usr.canmove ) || usr.blinded) && !istype(usr, /mob/living/silicon))) return
+			var/obj/machinery/camera/C = locate(href_list["switchTo"]) in cameranet.cameras
+			if(!C) return
+
+			switch_to_camera(usr, C)
+			return 1
+		else if(href_list["reset"])
+			if(src.z>6 || stat&(NOPOWER|BROKEN)) return
+			if(usr.stat || ((get_dist(usr, src) > 1 || !( usr.canmove ) || usr.blinded) && !istype(usr, /mob/living/silicon))) return
+			current = null
+			usr.check_eye(current)
+			return 1
+		else if(href_list["activate"]) // Activate: enable or disable networks
 			var/net = href_list["activate"]	// Network to be enabled or disabled.
 			var/active = href_list["active"] // Is the network currently active.
 			for(var/a in networks[net])
@@ -113,50 +162,26 @@
 						src.network += net
 						break
 			nanomanager.update_uis(src)
+		else
+			. = ..()
 						
 	attack_hand(var/mob/user as mob)
-		if(src.z > 6)
-			user << "\red <b>Unable to establish a connection:</b> \black You're too far away from the station!"
+		access = list()
+		if (src.z > 6)
+			user << "\red <b>Unable to establish a connection</b>: \black You're too far away from the station!"
 			return
-		if(stat & (NOPOWER|BROKEN))	
-			return
+		if(stat & (NOPOWER|BROKEN))	return
 
 		if(!isAI(user))
 			user.set_machine(src)
 			
-		if(network.len == 0)
-			user << "\red No networks configured! Swipe the monitor with an authorized ID to configure them."
-			return
-			
-		// Camera listing
-		var/list/L = list()
-		for (var/obj/machinery/camera/C in cameranet.viewpoints)
-			L.Add(C)
-		camera_sort(L)
-
-		var/list/D = list()
-		D["Cancel"] = "Cancel"
-		for(var/obj/machinery/camera/C in L)
-			if(can_access_camera(C))
-				D[text("[][]", C.c_tag, (C.status ? null : " (Deactivated)"))] = C
-				C.watcherslist -= user
-		var/t = input(user, "Which camera should you change to?") as null|anything in D
-		if(!t)
-			user.unset_machine()
-			return 0
-
-		var/obj/machinery/camera/C = D[t]
+		if(ishuman(user))
+			var/mob/living/carbon/human/H = user
+			if(H.wear_id)
+				var/obj/item/weapon/card/id/gold/C = H.wear_id
+				access = C.access
 		
-		if(t == "Cancel")
-			user.unset_machine()
-			return 0
-
-		if(C)
-			C.watcherslist += user
-			switch_to_camera(user, C)
-			spawn(5)
-				attack_hand(user)
-		return
+		ui_interact(user)
 	
 	// Check if camera is accessible when jumping
 	proc/can_access_camera(var/obj/machinery/camera/C)
@@ -174,6 +199,9 @@
 		else
 			if(isAI(user))
 				var/mob/living/silicon/ai/A = user
+				// Only allow non-carded AIs to view because the interaction with the eye gets all wonky otherwise.
+				if(!A.is_in_chassis())
+					return 0
 				A.eyeobj.setLoc(get_turf(C))
 				A.client.eye = A.eyeobj
 			else

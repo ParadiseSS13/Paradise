@@ -4,19 +4,24 @@
 	icon_state = "ionrifle"
 	item_state = null	//so the human update icon uses the icon_state instead.
 	icon_override = 'icons/mob/in-hand/guns.dmi'
-	fire_sound = 'sound/weapons/Laser.ogg'
+	fire_sound = 'sound/weapons/IonRifle.ogg'
 	origin_tech = "combat=2;magnets=4"
-	w_class = 4.0
-	flags =  FPRINT | TABLEPASS | CONDUCT
+	w_class = 5.0
+	flags =  CONDUCT
 	slot_flags = SLOT_BACK
 	projectile_type = "/obj/item/projectile/ion"
 
 /obj/item/weapon/gun/energy/ionrifle/emp_act(severity)
-	if(severity <= 2)
-		power_supply.use(round(power_supply.maxcharge / severity))
-		update_icon()
-	else
-		return
+	return
+
+/obj/item/weapon/gun/energy/ionrifle/carbine
+	name = "ion carbine"
+	desc = "The MK.II Prototype Ion Projector is a lightweight carbine version of the larger ion rifle, built to be ergonomic and efficient."
+	icon_state = "ioncarbine"
+	item_state = "ioncarbine"
+	origin_tech = "combat=4;magnets=4;materials=4"
+	w_class = 3
+	slot_flags = SLOT_BELT
 
 /obj/item/weapon/gun/energy/decloner
 	name = "biological demolecularisor"
@@ -92,7 +97,7 @@
 	item_state = "c20r"
 	w_class = 4
 	projectile_type = "/obj/item/projectile/meteor"
-	cell_type = "/obj/item/weapon/cell/potato"
+	cell_type = "/obj/item/weapon/stock_parts/cell/potato"
 	clumsy_check = 0 //Admin spawn only, might as well let clowns use it.
 	var/charge_tick = 0
 	var/recharge_time = 5 //Time it takes for shots to recharge (in ticks)
@@ -180,7 +185,7 @@ obj/item/weapon/gun/energy/staff/focus
 	projectile_type = "/obj/item/projectile/beam/sniper"
 	slot_flags = SLOT_BACK
 	charge_cost = 2500
-	fire_delay = 10
+	fire_delay = 50
 	w_class = 4.0
 	var/zoom = 0
 
@@ -222,24 +227,148 @@ modules/mob/living/carbon/human/life.dm if you die, you will be zoomed out.
 
 /obj/item/weapon/gun/energy/kinetic_accelerator
 	name = "proto-kinetic accelerator"
-	desc = "According to Nanotrasen accounting, this is mining equipment. It's been modified to the legal limit on power output, and often serves as a miner's first defense against hostile alien life; it's not very powerful unless used in a low pressure environment."
-	icon_state = "freezegun"
-	item_state = "shotgun"
+	desc = "According to Nanotrasen accounting, this is mining equipment. It's been modified for extreme power output to crush rocks, but often serves as a miner's first defense against hostile alien life; it's not very powerful unless used in a low pressure environment."
+	icon_state = "kineticgun"
+	item_state = "kineticgun"
+	icon_override = 'icons/mob/in-hand/guns.dmi'
 	projectile_type = "/obj/item/projectile/kinetic"
-	cell_type = "/obj/item/weapon/cell/crap"
+	fire_sound = 'sound/weapons/Kenetic_accel.ogg'
 	charge_cost = 5000
+	cell_type = "/obj/item/weapon/stock_parts/cell/emproof"
+	var/overheat = 0
+	var/recent_reload = 1
 
-/obj/item/weapon/gun/energy/kinetic_accelerator/attack_self(var/mob/living/user/L)
-	power_supply.give(5000)
-	playsound(src.loc, 'sound/weapons/shotgunpump.ogg', 60, 1)
+/obj/item/weapon/gun/energy/kinetic_accelerator/Fire()
+	overheat = 1
+	spawn(20)
+		overheat = 0
+		recent_reload = 0
+	..()
+
+/obj/item/weapon/gun/energy/kinetic_accelerator/emp_act(severity)
 	return
 
+/obj/item/weapon/gun/energy/kinetic_accelerator/attack_self(var/mob/living/user/L)
+	if(overheat || recent_reload)
+		return
+	power_supply.give(5000)
+	if(!silenced)
+		playsound(src.loc, 'sound/weapons/kenetic_reload.ogg', 60, 1)
+	else
+		usr << "<span class='warning'>You silently charge [src].<span>"
+	recent_reload = 1
+	update_icon()
+	return
+
+/obj/item/weapon/gun/energy/kinetic_accelerator/crossbow
+	name = "mini energy crossbow"
+	desc = "A weapon favored by syndicate stealth specialists."
+	icon_state = "crossbow"
+	item_state = "crossbow"
+	w_class = 2
+	m_amt = 2000
+	origin_tech = "combat=2;magnets=2;syndicate=5"
+	silenced = 1
+	projectile_type = "/obj/item/projectile/energy/bolt"
+	fire_sound = 'sound/weapons/Genhit.ogg'
+
+/obj/item/weapon/gun/energy/kinetic_accelerator/crossbow/large
+	name = "energy crossbow"
+	desc = "A reverse engineered weapon using syndicate technology."
+	icon_state = "crossbowlarge"
+	w_class = 3
+	m_amt = 4000
+	origin_tech = "combat=2;magnets=2;syndicate=3" //can be further researched for more syndie tech
+	silenced = 0
+	projectile_type = "/obj/item/projectile/energy/bolt/large"
+
+/obj/item/weapon/gun/energy/kinetic_accelerator/crossbow/large/cyborg
+	desc = "One and done!"
+	icon_state = "crossbowlarge"
+	origin_tech = null
+	m_amt = 0
 
 /obj/item/weapon/gun/energy/disabler
 	name = "disabler"
 	desc = "A self-defense weapon that exhausts organic targets, weakening them until they collapse."
 	icon_state = "disabler"
 	item_state = null
-	projectile_type = "/obj/item/projectile/energy/disabler"
-	cell_type = "/obj/item/weapon/cell"
+	projectile_type = /obj/item/projectile/beam/disabler
+	fire_sound = 'sound/weapons/taser2.ogg'
+	cell_type = "/obj/item/weapon/stock_parts/cell"
 	charge_cost = 500
+
+/obj/item/weapon/gun/energy/disabler/cyborg
+	name = "cyborg disabler"
+	desc = "An integrated disabler that draws from a cyborg's power cell. This weapon contains a limiter to prevent the cyborg's power cell from overheating."
+	var/charge_tick = 0
+	var/recharge_time = 2.5
+
+/obj/item/weapon/gun/energy/disabler/cyborg/New()
+	..()
+	processing_objects.Add(src)
+
+
+/obj/item/weapon/gun/energy/disabler/cyborg/Destroy()
+	processing_objects.Remove(src)
+	..()
+
+/obj/item/weapon/gun/energy/disabler/cyborg/process() //Every [recharge_time] ticks, recharge a shot for the cyborg
+	if(power_supply.charge == power_supply.maxcharge)
+		return 0
+	charge_tick++
+	if(charge_tick < recharge_time)
+		return 0
+	charge_tick = 0
+
+	if(!power_supply) return 0 //sanity
+	if(isrobot(src.loc))
+		var/mob/living/silicon/robot/R = src.loc
+		if(R && R.cell)
+			if(R.cell.use(charge_cost/10)) 		//Take power from the borg...
+				power_supply.give(charge_cost)	//... to recharge the shot
+
+	update_icon()
+	return 1
+
+
+/* 3d printer 'pseudo guns' for borgs */
+
+/obj/item/weapon/gun/energy/printer
+	name = "cyborg lmg"
+	desc = "A machinegun that fires 3d-printed flachettes slowly regenerated using a cyborg's internal power source."
+	icon_state = "l6closed0"
+	icon = 'icons/obj/gun.dmi'
+	fire_sound = 'sound/weapons/Gunshot_smg.ogg'
+	cell_type = "/obj/item/weapon/stock_parts/cell/secborg"
+	projectile_type = "/obj/item/projectile/bullet/midbullet3"
+	charge_cost = 200 //Yeah, let's NOT give them a 300 round clip that recharges, 20 is more reasonable and will actually hurt the borg's battery for overuse.
+	var/charge_tick = 0
+	var/recharge_time = 5
+
+/obj/item/weapon/gun/energy/printer/update_icon()
+	return
+
+/obj/item/weapon/gun/energy/printer/New()
+	..()
+	processing_objects.Add(src)
+
+/obj/item/weapon/gun/energy/printer/Destroy()
+	processing_objects.Remove(src)
+	..()
+
+/obj/item/weapon/gun/energy/printer/process()
+	if(power_supply.charge == power_supply.maxcharge)
+		return 0
+	charge_tick++
+	if(charge_tick < recharge_time)
+		return 0
+	charge_tick = 0
+
+	if(!power_supply) return 0 //sanity
+	if(isrobot(src.loc))
+		var/mob/living/silicon/robot/R = src.loc
+		if(R && R.cell)
+			if(R.cell.use(charge_cost/10)) 		//Take power from the borg...
+				power_supply.give(charge_cost)	//...to recharge the shot
+	return 1

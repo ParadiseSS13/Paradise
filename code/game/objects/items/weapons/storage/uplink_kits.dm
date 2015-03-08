@@ -8,11 +8,12 @@
 				new /obj/item/weapon/card/id/syndicate(src)
 				new /obj/item/weapon/card/id/syndicate(src)
 				new /obj/item/clothing/shoes/syndigaloshes(src)
+				new /obj/item/device/camera_bug(src)
 				return
 
 			if("stealth")
-				new /obj/item/weapon/gun/energy/crossbow(src)
-				new /obj/item/weapon/pen/paralysis(src)
+				new /obj/item/weapon/gun/energy/kinetic_accelerator/crossbow(src)
+				new /obj/item/weapon/pen/sleepy(src)
 				new /obj/item/device/chameleon(src)
 				return
 
@@ -36,7 +37,10 @@
 				new /obj/item/weapon/gun/projectile/revolver(src)
 				new /obj/item/ammo_box/a357(src)
 				new /obj/item/weapon/card/emag(src)
-				new /obj/item/weapon/plastique(src)
+				new /obj/item/weapon/c4(src)
+				new /obj/item/clothing/gloves/color/latex/nitrile(src)
+				new /obj/item/clothing/mask/gas/clown_hat(src)
+				new /obj/item/clothing/under/suit_jacket/really_black(src)
 				return
 
 			if("murder")
@@ -132,15 +136,6 @@
 	..()
 	new /obj/item/clothing/suit/space/syndicate/black/red(src)
 	new /obj/item/clothing/head/helmet/space/syndicate/black/red(src)
-	return
-
-/obj/item/weapon/storage/box/syndie_kit/surveillance
-	name = "box (S)"
-
-/obj/item/weapon/storage/box/syndie_kit/surveillance/New()
-	..()
-	new /obj/item/device/handtv(src)
-	new /obj/item/weapon/storage/box/surveillance(src)
 	return
 
 /obj/item/weapon/storage/box/syndie_kit/conversion

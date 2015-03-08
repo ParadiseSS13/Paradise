@@ -29,7 +29,7 @@
 		return
 
 	var/P = new /obj/effect/decal/point(tile)
-	usr.next_move = world.time + 10
+	usr.changeNext_move(CLICK_CD_POINT)
 	spawn (20)
 		if(P)	del(P)
 

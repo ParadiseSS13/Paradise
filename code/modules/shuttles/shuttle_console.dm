@@ -73,39 +73,35 @@
 	src.add_fingerprint(usr)
 
 	if(href_list["move"])
-		launch()
+		launch(usr)
 	if(href_list["force"])
-		force_launch()
+		force_launch(usr)
 	else if(href_list["cancel"])
-		cancel_launch()
+		cancel_launch(usr)
 
-/obj/machinery/computer/shuttle_control/proc/launch()
+/obj/machinery/computer/shuttle_control/proc/launch(var/mob/user)
 	var/datum/shuttle/ferry/shuttle = shuttle_controller.shuttles[shuttle_tag]
 	if (!istype(shuttle))
 		return
-	shuttle.launch(src)
+	shuttle.launch(user)
 	
-/obj/machinery/computer/shuttle_control/proc/force_launch()
+/obj/machinery/computer/shuttle_control/proc/force_launch(var/mob/user)
 	var/datum/shuttle/ferry/shuttle = shuttle_controller.shuttles[shuttle_tag]
 	if (!istype(shuttle))
 		return
-	shuttle.force_launch(src)
+	shuttle.force_launch(user)
 
-/obj/machinery/computer/shuttle_control/proc/cancel_launch()
+/obj/machinery/computer/shuttle_control/proc/cancel_launch(var/mob/user)
 	var/datum/shuttle/ferry/shuttle = shuttle_controller.shuttles[shuttle_tag]
 	if (!istype(shuttle))
 		return
-	shuttle.cancel_launch(src)
+	shuttle.cancel_launch(user)
 
-/obj/machinery/computer/shuttle_control/attackby(obj/item/weapon/W as obj, mob/user as mob)
-
-	if (istype(W, /obj/item/weapon/card/emag))
-		src.req_access = list()
-		src.req_one_access = list()
-		hacked = 1
-		usr << "You short out the console's ID checking system. It's now available to everyone!"
-	else
-		..()
+/obj/machinery/computer/shuttle_control/emag_act(user as mob)
+	src.req_access = list()
+	src.req_one_access = list()
+	hacked = 1
+	usr << "You short out the console's ID checking system. It's now available to everyone!"
 
 /obj/machinery/computer/shuttle_control/bullet_act(var/obj/item/projectile/Proj)
 	visible_message("[Proj] ricochets off [src]!")

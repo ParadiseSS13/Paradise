@@ -20,12 +20,21 @@ var/global/list/landmarks_list = list()				//list of all landmarks created
 var/global/list/surgery_steps = list()				//list of all surgery steps  |BS12
 var/global/list/side_effects = list()				//list of all medical sideeffects types by thier names |BS12
 var/global/list/mechas_list = list()				//list of all mechs. Used by hostile mobs target tracking.
+var/global/list/spacepods_list = list()				//list of all space pods. Used by hostile mobs target tracking.
 var/global/list/joblist = list()					//list of all jobstypes, minus borg and AI
 var/global/list/flag_list = list()					//list of flags during Nations gamemode
+var/global/list/airlocks = list()					//list of all airlocks
+
+
+var/global/list/alphabet_uppercase = list("A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z") //added for Xenoarchaeology, might be useful for other stuff
+
+var/global/list/aibots = list() // AI controlled bots
+var/global/list/table_recipes = list() //list of all table craft recipes
 
 //Languages/species/whitelist.
 var/global/list/all_species[0]
 var/global/list/all_languages[0]
+var/global/list/language_keys[0]					// Table of say codes for all languages
 var/global/list/all_nations[0]
 var/global/list/whitelisted_species = list()
 
@@ -42,10 +51,12 @@ var/global/list/facial_hair_styles_male_list = list()
 var/global/list/facial_hair_styles_female_list = list()
 var/global/list/skin_styles_female_list = list()		//unused
 	//Underwear
-var/global/list/underwear_m = list("White", "Grey", "Green", "Blue", "Black", "Mankini", "None") //Curse whoever made male/female underwear diffrent colours
+var/global/list/underwear_m = list("White", "Grey", "Green", "Blue", "Black", "Mankini", "None")
 var/global/list/underwear_f = list("Red", "White", "Yellow", "Blue", "Black", "Thong", "None")
+var/global/list/underwear_list = underwear_m + underwear_f
 	//undershirt
-var/global/list/undershirt_t = list("Black Tank top", "White Tank top", "Black shirt", "White shirt", "None")
+var/global/list/undershirt_t = list("White Shirt", "White Tank top", "Black shirt", "Black Tank top", "Grey Shirt", "Grey tank top", "Lover Shirt", "Blue Ian Shirt", "UK Shirt","I Love NT Shirt", "Peace Shirt", "Band Shirt", "PogoMan Shirt", "Matroska Shirt", "White Short-sleeved shirt", "Purple Short-sleeved shirt", "Blue Short-sleeved shirt", "Green Short-sleeved shirt", "Black Short-Sleeved shirt", "Blue T-Shirt", "Red T-Shirt", "Yellow T-Shirt", "Green T-Shirt", "Blue Polo Shirt", "Red Polo Shirt", "White Polo Shirt", "Gray-Yellow Polo Shirt", "Green Sports Shirt", "Red Sports Shirt", "Blue Sports Shirt", "SS13 Shirt", "Fire Tank Top", "Question Shirt", "Skull Shirt", "Commie Shirt", "Nanotrasen Shirt", "Striped Shirt", "Blue Shirt", "Red Shirt", "Green Shirt", "Meat Shirt", "Tie-Dye Shirt", "Red Jersey", "Blue Jersey", "None")
+var/global/list/undershirt_list = undershirt_t
 	//Backpacks
 var/global/list/backbaglist = list("Nothing", "Backpack", "Satchel", "Satchel Alt")
 
@@ -110,6 +121,13 @@ var/global/list/backbaglist = list("Nothing", "Backpack", "Satchel", "Satchel Al
 		var/datum/language/L = new T
 		all_languages[L.name] = L
 
+	for (var/language_name in all_languages)
+		var/datum/language/L = all_languages[language_name]
+		if(!(L.flags & NONGLOBAL))
+			language_keys[":[lowertext(L.key)]"] = L
+			language_keys[".[lowertext(L.key)]"] = L
+			language_keys["#[lowertext(L.key)]"] = L
+
 	var/rkey = 0
 	paths = typesof(/datum/species)-/datum/species
 	for(var/T in paths)
@@ -120,6 +138,8 @@ var/global/list/backbaglist = list("Nothing", "Backpack", "Satchel", "Satchel Al
 
 		if(S.flags & IS_WHITELISTED)
 			whitelisted_species += S.name
+			
+	init_subtypes(/datum/table_recipe, table_recipes)
 
 	return 1
 

@@ -13,7 +13,8 @@
 	var/d_state = 0
 
 /turf/simulated/wall/r_wall/attack_hand(mob/user as mob)
-	if (M_HULK in user.mutations)
+	user.changeNext_move(CLICK_CD_MELEE)
+	if (HULK in user.mutations)
 		if (prob(10) || rotting)
 			usr << text("\blue You smash through the wall.")
 			usr.say(pick(";RAAAAAAAARGH!", ";HNNNNNNNNNGGGGGGH!", ";GWAAAAAAAARRRHHH!", "NNNNNNNNGGGGGGGGHH!", ";AAAAAAARRRGH!" ))
@@ -33,8 +34,8 @@
 	return
 
 
-/turf/simulated/wall/r_wall/attackby(obj/item/W as obj, mob/user as mob)
-
+/turf/simulated/wall/r_wall/attackby(obj/item/W as obj, mob/user as mob, params)
+	user.changeNext_move(CLICK_CD_MELEE)
 	if (!(istype(user, /mob/living/carbon/human) || ticker) && ticker.mode.name != "monkey")
 		user << "<span class='warning'>You don't have the dexterity to do this!</span>"
 		return
@@ -286,6 +287,11 @@
 	else if( istype(W,/obj/item/apc_frame) )
 		var/obj/item/apc_frame/AH = W
 		AH.try_build(src)
+
+	else if(istype(W,/obj/item/newscaster_frame))
+		var/obj/item/newscaster_frame/AH = W
+		AH.try_build(src)
+		return 1
 
 	else if( istype(W,/obj/item/alarm_frame) )
 		var/obj/item/alarm_frame/AH = W

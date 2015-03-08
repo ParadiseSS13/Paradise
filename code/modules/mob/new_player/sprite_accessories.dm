@@ -598,11 +598,37 @@
 		icon_state = "vox_shortquills"
 		species_allowed = list("Vox")
 
+	vox_crestedquills
+		name = "Crested Vox Quills"
+		icon_state = "vox_crestedquills"
+		species_allowed = list("Vox")
+
+	vox_tielquills
+		name = "Vox Tiel Quills"
+		icon_state = "vox_tielquills"
+		species_allowed = list("Vox")
+
+	vox_emperorquills
+		name = "Vox Emperor Quills"
+		icon_state = "vox_emperorquills"
+		species_allowed = list("Vox")
+
+	vox_keelquills
+		name = "Vox Keel Quills"
+		icon_state = "vox_keelquills"
+		species_allowed = list("Vox")
+
+	vox_keetquills
+		name = "Vox Keet Quills"
+		icon_state = "vox_keetquills"
+		species_allowed = list("Vox")
+
+
 /datum/sprite_accessory/facial_hair
 
 	taj_sideburns
 		name = "Tajara Sideburns"
-		icon_state = "facial_mutton"
+		icon_state = "facial_sideburns"
 		species_allowed = list("Tajaran")
 
 	taj_mutton

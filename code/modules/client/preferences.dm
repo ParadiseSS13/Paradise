@@ -2,25 +2,66 @@
 
 var/list/preferences_datums = list()
 
-var/global/list/special_roles = list( //keep synced with the defines BE_* in setup.dm --rastaf
+var/global/list/special_roles = list( //keep synced with the defines BE_* in setup.dm. THE ORDER MATTERS
 //some autodetection here.
-	"traitor" = IS_MODE_COMPILED("traitor"),             // 0
-	"operative" = IS_MODE_COMPILED("nuclear"),           // 1
-	"changeling" = IS_MODE_COMPILED("changeling"),       // 2
-	"wizard" = IS_MODE_COMPILED("wizard"),               // 3
-	"malf AI" = IS_MODE_COMPILED("malfunction"),         // 4
-	"revolutionary" = IS_MODE_COMPILED("revolution"),    // 5
-	"alien candidate" = 1, //always show                 // 6
-	"pAI candidate" = 1, // -- TLE                       // 7
-	"cultist" = IS_MODE_COMPILED("cult"),                // 8
-	"plant" = 1,										 // 9
-	"ninja" = "true",									 // 10
-	"vox raider" = IS_MODE_COMPILED("heist"),			 // 11
-	"slime" = 1,                                         // 12
-	"vampire" = IS_MODE_COMPILED("vampire"),			 // 13
-	"mutineer" = IS_MODE_COMPILED("mutiny"),             // 14
-	"blob" = IS_MODE_COMPILED("blob")          		     // 15	
+	"traitor" = IS_MODE_COMPILED("traitor"),             // 1 / 1
+	"operative" = IS_MODE_COMPILED("nuclear"),           // 2 / 2
+	"changeling" = IS_MODE_COMPILED("changeling"),       // 4 / 3
+	"wizard" = IS_MODE_COMPILED("wizard"),               // 8 / 4
+	"malf AI" = IS_MODE_COMPILED("malfunction"),         // 16 / 5
+	"revolutionary" = IS_MODE_COMPILED("revolution"),    // 32 / 6 
+	"alien" = 1,           							     // 62 / 7
+	"pAI" = 1,                   						 // 128	/ 8
+	"cultist" = IS_MODE_COMPILED("cult"),                // 256 / 9
+	"ninja" = 1,										 // 512 / 10
+	"raider" = IS_MODE_COMPILED("heist"),				 // 1024 / 11
+	"vampire" = IS_MODE_COMPILED("vampire"),			 // 2048 / 12
+	"mutineer" = IS_MODE_COMPILED("mutiny"),             // 4096 / 13
+	"blob" = IS_MODE_COMPILED("blob")          	     // 8192 / 14
 )
+var/global/list/special_role_times = list( //minimum age (in days) for accounts to play these roles
+	num2text(BE_PAI) = 0,   
+	num2text(BE_TRAITOR) = 7, 
+	num2text(BE_CHANGELING) = 14, 
+	num2text(BE_WIZARD) = 14,
+	num2text(BE_REV) = 14,
+	num2text(BE_VAMPIRE) = 14,
+	num2text(BE_BLOB) = 14,
+	num2text(BE_OPERATIVE) = 21,
+	num2text(BE_CULTIST) = 21,
+	num2text(BE_RAIDER) = 21,
+	num2text(BE_ALIEN) = 21,        							                  						 
+	num2text(BE_NINJA) = 21,									 
+	num2text(BE_MUTINEER) = 21,
+	num2text(BE_MALF) = 30
+)
+
+/proc/player_old_enough_antag(client/C, role)
+	if(available_in_days_antag(C, role) == 0)
+		return 1	//Available in 0 days = available right now = player is old enough to play.
+	return 0
+
+/proc/available_in_days_antag(client/C, role)
+	if(!C)
+		return 0
+	if(!role)
+		return 0
+	if(!config.use_age_restriction_for_antags)
+		return 0
+	if(!isnum(C.player_age))
+		return 0 //This is only a number if the db connection is established, otherwise it is text: "Requires database", meaning these restrictions cannot be enforced
+	var/minimal_player_age_antag = special_role_times[num2text(role)]
+	if(!isnum(minimal_player_age_antag))
+		return 0
+		
+	return max(0, minimal_player_age_antag - C.player_age)
+	
+/proc/check_client_age(client/C, var/days) // If days isn't provided, returns the age of the client. If it is provided, it returns the days until the player_age is equal to or greater than the days variable
+	if(!days)
+		return C.player_age
+	else
+		return max(0, days - C.player_age)
+	return 0
 
 var/const/MAX_SAVE_SLOTS = 10
 
@@ -57,6 +98,7 @@ datum/preferences
 	var/be_random_name = 0				//whether we are a random name every round
 	var/gender = MALE					//gender of character (well duh)
 	var/age = 30						//age of character
+	var/spawnpoint = "Arrivals Shuttle" //where this character will spawn (0-2).
 	var/b_type = "A+"					//blood type (not-chooseable)
 	var/underwear = 1					//underwear type
 	var/undershirt = 1					//undershirt type
@@ -78,6 +120,8 @@ datum/preferences
 	var/b_eyes = 0						//Eye color
 	var/species = "Human"
 	var/language = "None"				//Secondary language
+
+	var/speciesprefs = 0//I hate having to do this, I really do (Using this for oldvox code, making names universal I guess
 
 		//Mob preview
 	var/icon/preview_icon = null
@@ -178,14 +222,18 @@ datum/preferences
 				dat += "<br>"
 				dat += "<b>Gender:</b> <a href='?_src_=prefs;preference=gender'><b>[gender == MALE ? "Male" : "Female"]</b></a><br>"
 				dat += "<b>Age:</b> <a href='?_src_=prefs;preference=age;task=input'>[age]</a>"
+				//dat += "<b>Spawn Point</b>: <a href='byond://?src=\ref[user];preference=spawnpoint;task=input'>[spawnpoint]</a>"
 				dat += "<br><table><tr><td><b>Body</b> "
 				dat += "(<a href='?_src_=prefs;preference=all;task=random'>&reg;</A>)"
 				dat += "<br>"
 				dat += "Species: <a href='?_src_=prefs;preference=species;task=input'>[species]</a><br>"
+				if(species == "Vox")//oldvox code, sucks I know
+					dat += "Old Vox? <a href='?_src_=prefs;preference=speciesprefs;task=input'>[speciesprefs ? "Yes (Large N2 tank)" : "No(Vox-special N2 tank)"]</a><br>"
 				dat += "Secondary Language:<br><a href='?_src_=prefs;preference=language;task=input'>[language]</a><br>"
 				dat += "Blood Type: <a href='?_src_=prefs;preference=b_type;task=input'>[b_type]</a><br>"
 				if(species == "Human")
 					dat += "Skin Tone: <a href='?_src_=prefs;preference=s_tone;task=input'>[-s_tone + 35]/220<br></a>"
+
 		//		dat += "Skin pattern: <a href='byond://?src=\ref[user];preference=skin_style;task=input'>Adjust</a><br>"
 				dat += "<br><b>Handicaps</b><br>"
 				dat += "\t<a href='?_src_=prefs;preference=disabilities'><b>\[Set Disabilities\]</b></a><br>"
@@ -286,7 +334,10 @@ datum/preferences
 					dat += "[copytext(flavor_text, 1, 37)]...<br>"
 				dat += "<br>"
 
-				dat += "<br><b>Hair</b><br>"
+				var/hairname = "Hair"
+				if(species == "Machine")
+					hairname = "Frame Color"
+				dat += "<br><b>[hairname]</b><br>"
 				dat += "<a href='?_src_=prefs;preference=hair;task=input'>Change Color</a> <font face='fixedsys' size='3' color='#[num2hex(r_hair, 2)][num2hex(g_hair, 2)][num2hex(b_hair, 2)]'><table style='display:inline;' bgcolor='#[num2hex(r_hair, 2)][num2hex(g_hair, 2)][num2hex(b_hair)]'><tr><td>__</td></tr></table></font> "
 				dat += " Style: <a href='?_src_=prefs;preference=h_style;task=input'>[h_style]</a><br>"
 
@@ -322,20 +373,21 @@ datum/preferences
 					dat += "<b>OOC Notes:</b> <a href='?_src_=prefs;preference=metadata;task=input'> Edit </a><br>"
 
 				dat += "</td><td width='300px' height='300px' valign='top'>"
-				dat += "<h2>Antagonist Settings</h2>"
+				dat += "<h2>Special Role Settings</h2>"
 //				dat += "<br><br>"
 				if(jobban_isbanned(user, "Syndicate"))
-					dat += "<b>You are banned from antagonist roles.</b>"
+					dat += "<b>You are banned from special roles.</b>"
 					src.be_special = 0
 				else
 					var/n = 0
 					for (var/i in special_roles)
 						if(special_roles[i]) //if mode is available on the server
+							var/special_role_flag = be_special_flags[i]
 							if(jobban_isbanned(user, i))
 								dat += "<b>Be [i]:</b> <font color=red><b> \[BANNED]</b></font><br>"
-							else if(i == "pai candidate")
-								if(jobban_isbanned(user, "pAI"))
-									dat += "<b>Be [i]:</b> <font color=red><b> \[BANNED]</b></font><br>"
+							else if(!player_old_enough_antag(user.client,special_role_flag))
+								var/available_in_days_antag = available_in_days_antag(user.client,special_role_flag)
+								dat += "<b>Be [i]:</b> <font color=red><b> \[IN [(available_in_days_antag)] DAYS]</b></font><br>"
 							else
 								dat += "<b>Be [i]:</b> <a href='?_src_=prefs;preference=be_special;num=[n]'><b>[src.be_special&(1<<n) ? "Yes" : "No"]</b></a><br>"
 						n++
@@ -448,6 +500,8 @@ datum/preferences
 					HTML += " <font color=green>\[Yes]</font>"
 				else
 					HTML += " <font color=red>\[No]</font>"
+				if(job.alt_titles)
+					HTML += "<br><b><a class='white' href=\"byond://?src=\ref[user];preference=job;task=alt_title;job=\ref[job]\">\[[GetPlayerAltTitle(job)]\]</a></b></td></tr>"
 				HTML += "</a></td></tr>"
 				continue
 /*
@@ -1022,6 +1076,8 @@ datum/preferences
 							b_hair = 0//hex2num(copytext(new_hair, 6, 8))
 
 							s_tone = 0
+					if("speciesprefs")//oldvox code
+						speciesprefs = !speciesprefs
 
 					if("language")
 //						var/languages_available
@@ -1056,8 +1112,11 @@ datum/preferences
 							b_type = new_b_type
 
 					if("hair")
-						if(species == "Human" || species == "Unathi" || species == "Tajaran" || species == "Skrell")
-							var/new_hair = input(user, "Choose your character's hair colour:", "Character Preference") as color|null
+						if(species == "Human" || species == "Unathi" || species == "Tajaran" || species == "Skrell" || species == "Machine")
+							var/input = "Choose your character's hair colour:"
+							if(species == "Machine")
+								input = "Choose your character's frame colour:"
+							var/new_hair = input(user, input, "Character Preference") as color|null
 							if(new_hair)
 								r_hair = hex2num(copytext(new_hair, 2, 4))
 								g_hair = hex2num(copytext(new_hair, 4, 6))
@@ -1251,6 +1310,17 @@ datum/preferences
 						var/skin_style_name = input(user, "Select a new skin style") as null|anything in list("default1", "default2", "default3")
 						if(!skin_style_name) return
 */
+
+/*					if("spawnpoint")
+						var/list/spawnkeys = list()
+						for(var/S in spawntypes)
+							spawnkeys += S
+						var/choice = input(user, "Where would you like to spawn when latejoining?") as null|anything in spawnkeys
+						if(!choice || !spawntypes[choice])
+							spawnpoint = "Arrivals Shuttle"
+							return
+						spawnpoint = choice */
+
 			else
 				switch(href_list["preference"])
 					if("gender")
@@ -1409,8 +1479,8 @@ datum/preferences
 			else continue
 
 		if(disabilities & DISABILITY_FLAG_FAT && character.species.flags & CAN_BE_FAT)//character.species.flags & CAN_BE_FAT)
-			character.mutations += M_FAT
-			character.mutations += M_OBESITY
+			character.mutations += FAT
+			character.mutations += OBESITY
 		if(disabilities & DISABILITY_FLAG_NEARSIGHTED)
 			character.disabilities|=NEARSIGHTED
 		if(disabilities & DISABILITY_FLAG_EPILEPTIC)

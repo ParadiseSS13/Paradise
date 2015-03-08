@@ -4,14 +4,13 @@
 	desc = "A special helmet designed for work in a hazardous, low-pressure environment."
 	icon_state = "rig0-engineering"
 	item_state = "eng_helm"
-	armor = list(melee = 40, bullet = 5, laser = 20,energy = 5, bomb = 35, bio = 100, rad = 20)
+	rig_restrict_helmet = 1
+	armor = list(melee = 10, bullet = 5, laser = 10, energy = 5, bomb = 10, bio = 100, rad = 75)
 	allowed = list(/obj/item/device/flashlight)
 	var/brightness_on = 4 //luminosity when on
 	var/on = 0
 	_color = "engineering" //Determines used sprites: rig[on]-[color] and rig[on]-[color]2 (lying down sprite)
 	icon_action_button = "action_hardhat"
-	heat_protection = HEAD
-	max_heat_protection_temperature = SPACE_SUIT_MAX_HEAT_PROTECTION_TEMPERATURE
 
 	//Species-specific stuff.
 	species_restricted = list("exclude","Unathi","Tajaran","Skrell","Diona","Vox")
@@ -19,11 +18,13 @@
 		"Unathi" = 'icons/mob/species/unathi/helmet.dmi',
 		"Tajaran" = 'icons/mob/species/tajaran/helmet.dmi',
 		"Skrell" = 'icons/mob/species/skrell/helmet.dmi',
+		"Vox" = 'icons/mob/species/vox/helmet.dmi',
 		)
 	sprite_sheets_obj = list(
 		"Unathi" = 'icons/obj/clothing/species/unathi/hats.dmi',
 		"Tajaran" = 'icons/obj/clothing/species/tajaran/hats.dmi',
 		"Skrell" = 'icons/obj/clothing/species/skrell/hats.dmi',
+		"Vox" = 'icons/obj/clothing/species/vox/hats.dmi',
 		)
 
 	attack_self(mob/user)
@@ -58,27 +59,27 @@
 	desc = "A special space suit for environments that might pose hazards beyond just the vacuum of space. Provides more protection than a standard space suit."
 	icon_state = "rig-engineering"
 	item_state = "eng_hardsuit"
-	slowdown = 1
-	armor = list(melee = 40, bullet = 5, laser = 20,energy = 5, bomb = 35, bio = 100, rad = 20)
-	allowed = list(/obj/item/device/flashlight,/obj/item/weapon/tank,/obj/item/device/suit_cooling_unit)
-	heat_protection = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
-	max_heat_protection_temperature = SPACE_SUIT_MAX_HEAT_PROTECTION_TEMPERATURE
+	slowdown = 2
+	armor = list(melee = 10, bullet = 5, laser = 10, energy = 5, bomb = 10, bio = 100, rad = 75)
+	allowed = list(/obj/item/device/flashlight,/obj/item/weapon/tank,/obj/item/device/t_scanner, /obj/item/weapon/rcd)
 
-	species_restricted = list("exclude","Unathi","Tajaran","Diona","Vox")
+	species_restricted = list("exclude","Unathi","Tajaran","Skrell","Diona","Vox")
 	sprite_sheets = list(
 		"Unathi" = 'icons/mob/species/unathi/suit.dmi',
 		"Tajaran" = 'icons/mob/species/tajaran/suit.dmi',
 		"Skrell" = 'icons/mob/species/skrell/suit.dmi',
+		"Vox" = 'icons/mob/species/vox/suit.dmi',
 		)
 	sprite_sheets_obj = list(
 		"Unathi" = 'icons/obj/clothing/species/unathi/suits.dmi',
 		"Tajaran" = 'icons/obj/clothing/species/tajaran/suits.dmi',
 		"Skrell" = 'icons/obj/clothing/species/skrell/suits.dmi',
+		"Vox" = 'icons/obj/clothing/species/vox/suits.dmi',
 		)
 
 	//Breach thresholds, should ideally be inherited by most (if not all) hardsuits.
 	breach_threshold = 18
-	can_breach = 1
+	can_breach = 0
 
 	//Component/device holders.
 	var/obj/item/weapon/stock_parts/gloves = null     // Basic capacitor allows insulation, upgrades allow shock gloves etc.
@@ -111,7 +112,7 @@
 			//TODO: Species check, skull damage for forcing an unfitting helmet on?
 			helmet.loc = H
 			H.equip_to_slot(helmet, slot_head)
-			helmet.canremove = 0
+			helmet.flags |= NODROP
 
 	if(attached_boots && boots)
 		if(H.shoes)
@@ -120,7 +121,7 @@
 			M << "Your suit's boots deploy with a hiss."
 			boots.loc = H
 			H.equip_to_slot(boots, slot_shoes)
-			boots.canremove = 0
+			boots.flags |= NODROP
 
 /obj/item/clothing/suit/space/rig/dropped()
 	..()
@@ -131,16 +132,16 @@
 		H = helmet.loc
 		if(istype(H))
 			if(helmet && H.head == helmet)
-				helmet.canremove = 1
-				H.drop_from_inventory(helmet)
+				helmet.flags &= ~NODROP
+				H.unEquip(helmet)
 				helmet.loc = src
 
 	if(boots)
 		H = boots.loc
 		if(istype(H))
 			if(boots && H.shoes == boots)
-				boots.canremove = 1
-				H.drop_from_inventory(boots)
+				boots.flags &= ~NODROP
+				H.unEquip(boots)
 				boots.loc = src
 
 /*
@@ -205,8 +206,8 @@
 	if(H.wear_suit != src) return
 
 	if(H.head == helmet)
-		helmet.canremove = 1
-		H.drop_from_inventory(helmet)
+		helmet.flags &= ~NODROP
+		H.unEquip(helmet)
 		helmet.loc = src
 		H << "\blue You retract your hardsuit helmet."
 	else
@@ -217,10 +218,11 @@
 		helmet.loc = H
 		helmet.pickup(H)
 		H.equip_to_slot(helmet, slot_head)
-		helmet.canremove = 0
+		helmet.flags |= NODROP
 		H << "\blue You deploy your hardsuit helmet, sealing you off from the world."
+	H.update_inv_head()
 
-/obj/item/clothing/suit/space/rig/attackby(obj/item/W as obj, mob/user as mob)
+/obj/item/clothing/suit/space/rig/attackby(obj/item/W as obj, mob/user as mob, params)
 
 	if(!istype(user,/mob/living)) return
 
@@ -243,7 +245,7 @@
 				if(!helmet)
 					user << "\The [src] does not have a helmet installed."
 				else
-					user << "You detatch \the [helmet] from \the [src]'s helmet mount."
+					user << "You detach \the [helmet] from \the [src]'s helmet mount."
 					helmet.loc = get_turf(src)
 					src.helmet = null
 				return
@@ -309,16 +311,16 @@
 	desc = "A special helmet designed for work in a hazardous, low-pressure environment. Has radiation shielding."
 	icon_state = "rig0-engineering"
 	item_state = "eng_helm"
-	armor = list(melee = 40, bullet = 5, laser = 20,energy = 5, bomb = 35, bio = 100, rad = 80)
+	armor = list(melee = 10, bullet = 5, laser = 10, energy = 5, bomb = 10, bio = 100, rad = 75)
 
 /obj/item/clothing/suit/space/rig/engineering
 	name = "engineering hardsuit"
 	desc = "A special suit that protects against hazardous, low pressure environments. Has radiation shielding."
 	icon_state = "rig-engineering"
 	item_state = "eng_hardsuit"
-	slowdown = 1
-	armor = list(melee = 40, bullet = 5, laser = 20,energy = 5, bomb = 35, bio = 100, rad = 80)
-	allowed = list(/obj/item/device/flashlight,/obj/item/weapon/tank,/obj/item/device/suit_cooling_unit,/obj/item/weapon/storage/bag/ore,/obj/item/device/t_scanner,/obj/item/weapon/pickaxe, /obj/item/weapon/rcd)
+	slowdown = 2
+	armor = list(melee = 10, bullet = 5, laser = 10, energy = 5, bomb = 10, bio = 100, rad = 75)
+	allowed = list(/obj/item/device/flashlight,/obj/item/weapon/tank,/obj/item/device/t_scanner, /obj/item/weapon/rcd)
 
 //Chief Engineer's rig
 /obj/item/clothing/head/helmet/space/rig/elite
@@ -328,6 +330,9 @@
 	item_state = "ce_helm"
 	_color = "white"
 	sprite_sheets = null
+	armor = list(melee = 40, bullet = 5, laser = 10, energy = 5, bomb = 50, bio = 100, rad = 90)
+	heat_protection = HEAD												//Uncomment to enable firesuit protection
+	max_heat_protection_temperature = FIRE_IMMUNITY_HELM_MAX_TEMP_PROTECT
 
 /obj/item/clothing/suit/space/rig/elite
 	icon_state = "rig-white"
@@ -335,6 +340,9 @@
 	desc = "An advanced suit that protects against hazardous, low pressure environments. Shines with a high polish."
 	item_state = "ce_hardsuit"
 	sprite_sheets = null
+	armor = list(melee = 40, bullet = 5, laser = 10, energy = 5, bomb = 50, bio = 100, rad = 90)
+	heat_protection = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS					//Uncomment to enable firesuit protection
+	max_heat_protection_temperature = FIRE_IMMUNITY_SUIT_MAX_TEMP_PROTECT
 
 //Mining rig
 /obj/item/clothing/head/helmet/space/rig/mining
@@ -343,56 +351,104 @@
 	icon_state = "rig0-mining"
 	item_state = "mining_helm"
 	_color = "mining"
-	armor = list(melee = 50, bullet = 5, laser = 20,energy = 5, bomb = 55, bio = 100, rad = 20)
+	flags = HEADCOVERSEYES | BLOCKHAIR | HEADCOVERSMOUTH | STOPSPRESSUREDMAGE
+	armor = list(melee = 40, bullet = 5, laser = 10, energy = 5, bomb = 50, bio = 100, rad = 50)
 
 /obj/item/clothing/suit/space/rig/mining
 	icon_state = "rig-mining"
 	name = "mining hardsuit"
 	desc = "A special suit that protects against hazardous, low pressure environments. Has reinforced plating."
 	item_state = "mining_hardsuit"
-	armor = list(melee = 50, bullet = 5, laser = 20,energy = 5, bomb = 55, bio = 100, rad = 20)
+	armor = list(melee = 40, bullet = 5, laser = 10, energy = 5, bomb = 50, bio = 100, rad = 50)
+	allowed = list(/obj/item/device/flashlight,/obj/item/weapon/tank,/obj/item/weapon/storage/bag/ore,/obj/item/weapon/pickaxe)
 
 
 //Syndicate rig
 /obj/item/clothing/head/helmet/space/rig/syndi
 	name = "blood-red hardsuit helmet"
-	desc = "An advanced helmet designed for work in special operations. Property of Gorlex Marauders."
-	icon_state = "rig0-syndie"
+	desc = "A dual-mode advanced helmet designed for work in special operations. It is in travel mode. Property of Gorlex Marauders."
+	icon_state = "hardsuit1-syndi"
 	item_state = "syndie_helm"
-	_color = "syndie"
-	armor = list(melee = 60, bullet = 50, laser = 30,energy = 15, bomb = 35, bio = 100, rad = 60)
-	siemens_coefficient = 0.6
-	var/obj/machinery/camera/camera
-	species_restricted = list("exclude","Unathi","Tajaran","Skrell","Vox")
+	_color = "syndi"
+	armor = list(melee = 60, bullet = 50, laser = 30, energy = 15, bomb = 35, bio = 100, rad = 50)
+	on = 1
+	flags = HEADCOVERSEYES | BLOCKHAIR | HEADCOVERSMOUTH | STOPSPRESSUREDMAGE | THICKMATERIAL
+	action_button_name = "Toggle Helmet Mode"
+	icon_action_button = "Action_hardsuit1-syndi"
+	species_restricted = null
+	sprite_sheets = null
 
+/obj/item/clothing/head/helmet/space/rig/syndi/update_icon()
+	icon_state = "hardsuit[on]-[_color]"
 
 /obj/item/clothing/head/helmet/space/rig/syndi/attack_self(mob/user)
-	if(camera)
-		..(user)
+	if(!isturf(user.loc))
+		user << "You cannot toggle your helmet while in this [user.loc]" //To prevent some lighting anomalities.
+		return
+	on = !on
+	if(on)
+		user << "<span class='notice'>You switch your helmet to travel mode.</span>"
+		name = "blood-red hardsuit helmet"
+		desc = "A dual-mode advanced helmet designed for work in special operations. It is in travel mode. Property of Gorlex Marauders."
+		flags = HEADCOVERSEYES | BLOCKHAIR | HEADCOVERSMOUTH | STOPSPRESSUREDMAGE | THICKMATERIAL
+		flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE
+		cold_protection = HEAD
+		user.AddLuminosity(brightness_on)
 	else
-		camera = new /obj/machinery/camera(src)
-		camera.network = list("NukeOps")
-		cameranet.removeCamera(camera)
-		camera.c_tag = user.name
-		user << "\blue User scanned as [camera.c_tag]. Camera activated."
+		user << "<span class='notice'>You switch your helmet to combat mode.</span>"
+		name = "blood-red hardsuit helmet (combat)"
+		desc = "A dual-mode advanced helmet designed for work in special operations. It is in combat mode. Property of Gorlex Marauders."
+		flags = BLOCKHAIR
+		flags_inv = HIDEEARS
+		cold_protection = null
+		user.AddLuminosity(-brightness_on)
 
-/obj/item/clothing/head/helmet/space/rig/syndi/examine()
-	..()
-	if(get_dist(usr,src) <= 1)
-		usr << "This helmet has a built-in camera. It's [camera ? "" : "in"]active."
+	update_icon()
+	playsound(src.loc, 'sound/mecha/mechmove03.ogg', 50, 1)
+	user.update_inv_head()
 
 /obj/item/clothing/suit/space/rig/syndi
-	icon_state = "rig-syndie"
 	name = "blood-red hardsuit"
-	desc = "An advanced suit that protects against injuries during special operations. Property of Gorlex Marauders."
+	desc = "A dual-mode advanced hardsuit designed for work in special operations. It is in travel mode. Property of Gorlex Marauders."
+	icon_state = "hardsuit1-syndi"
 	item_state = "syndie_hardsuit"
+	_color = "syndi"
 	slowdown = 1
 	w_class = 3
-	armor = list(melee = 60, bullet = 50, laser = 30, energy = 15, bomb = 35, bio = 100, rad = 60)
-	allowed = list(/obj/item/weapon/gun,/obj/item/ammo_box/magazine,/obj/item/ammo_casing,/obj/item/weapon/melee/baton,/obj/item/weapon/melee/energy/sword,/obj/item/weapon/handcuffs,/obj/item/weapon/tank)
-	siemens_coefficient = 0.6
-	species_restricted = list("exclude","Unathi","Tajaran","Skrell","Vox")
+	var/on = 1
+	action_button_name = "Toggle Hardsuit Mode"
+	icon_action_button = "Action_hardsuit1-syndi"
+	armor = list(melee = 60, bullet = 50, laser = 30, energy = 15, bomb = 35, bio = 100, rad = 50)
+	allowed = list(/obj/item/weapon/gun,/obj/item/ammo_box,/obj/item/ammo_casing,/obj/item/weapon/melee/baton,/obj/item/weapon/melee/energy/sword,/obj/item/weapon/restraints/handcuffs,/obj/item/weapon/tank)
+	species_restricted = null
 	sprite_sheets = null
+
+/obj/item/clothing/suit/space/rig/syndi/update_icon()
+	icon_state = "hardsuit[on]-[_color]"
+
+/obj/item/clothing/suit/space/rig/syndi/attack_self(mob/user)
+	on = !on
+	if(on)
+		user << "<span class='notice'>You switch your hardsuit to travel mode.</span>"
+		name = "blood-red hardsuit helmet"
+		desc = "A dual-mode advanced hardsuit designed for work in special operations. It is in travel mode. Property of Gorlex Marauders."
+		slowdown = 1
+		flags = STOPSPRESSUREDMAGE | THICKMATERIAL
+		flags_inv = HIDEGLOVES|HIDESHOES|HIDEJUMPSUIT
+		cold_protection = UPPER_TORSO | LOWER_TORSO | LEGS | FEET | ARMS | HANDS
+	else
+		user << "<span class='notice'>You switch your hardsuit to combat mode.</span>"
+		name = "blood-red hardsuit helmet (combat)"
+		desc = "A dual-mode advanced hardsuit designed for work in special operations. It is in combat mode. Property of Gorlex Marauders."
+		slowdown = 0
+		flags = BLOCKHAIR
+		flags_inv = null
+		cold_protection = null
+
+	update_icon()
+	playsound(src.loc, 'sound/mecha/mechmove03.ogg', 50, 1)
+	user.update_inv_wear_suit()
+	user.update_inv_w_uniform()
 
 //Wizard Rig
 /obj/item/clothing/head/helmet/space/rig/wizard
@@ -404,6 +460,9 @@
 	unacidable = 1 //No longer shall our kind be foiled by lone chemists with spray bottles!
 	armor = list(melee = 40, bullet = 20, laser = 20,energy = 20, bomb = 35, bio = 100, rad = 60)
 	siemens_coefficient = 0.7
+	heat_protection = HEAD												//Uncomment to enable firesuit protection
+	max_heat_protection_temperature = FIRE_IMMUNITY_HELM_MAX_TEMP_PROTECT
+	unacidable = 1
 	sprite_sheets = null
 
 /obj/item/clothing/suit/space/rig/wizard
@@ -414,26 +473,32 @@
 	slowdown = 1
 	w_class = 3
 	unacidable = 1
-	armor = list(melee = 40, bullet = 20, laser = 20,energy = 20, bomb = 35, bio = 100, rad = 60)
+	armor = list(melee = 40, bullet = 20, laser = 20, energy = 20, bomb = 35, bio = 100, rad = 50)
+	allowed = list(/obj/item/weapon/teleportation_scroll,/obj/item/weapon/tank)
+	heat_protection = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS					//Uncomment to enable firesuit protection
+	max_heat_protection_temperature = FIRE_IMMUNITY_SUIT_MAX_TEMP_PROTECT
+	unacidable = 1
 	siemens_coefficient = 0.7
 	sprite_sheets = null
 
 //Medical Rig
 /obj/item/clothing/head/helmet/space/rig/medical
 	name = "medical hardsuit helmet"
-	desc = "A special helmet designed for work in a hazardous, low pressure environment. Has minor radiation shielding."
+	desc = "A special helmet designed for work in a hazardous, low pressure environment. Built with lightweight materials for extra comfort, but does not protect the eyes from intense light."
 	icon_state = "rig0-medical"
 	item_state = "medical_helm"
 	_color = "medical"
-	armor = list(melee = 30, bullet = 5, laser = 20,energy = 5, bomb = 25, bio = 100, rad = 50)
+	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES
+	armor = list(melee = 10, bullet = 5, laser = 10, energy = 5, bomb = 10, bio = 100, rad = 50)
 
 /obj/item/clothing/suit/space/rig/medical
 	icon_state = "rig-medical"
 	name = "medical hardsuit"
-	desc = "A special suit that protects against hazardous, low pressure environments. Has minor radiation shielding."
+	desc = "A special helmet designed for work in a hazardous, low pressure environment. Built with lightweight materials for extra comfort."
 	item_state = "medical_hardsuit"
-	allowed = list(/obj/item/device/flashlight,/obj/item/weapon/tank,/obj/item/device/suit_cooling_unit,/obj/item/weapon/storage/firstaid,/obj/item/device/healthanalyzer,/obj/item/stack/medical)
-	armor = list(melee = 30, bullet = 5, laser = 20,energy = 5, bomb = 25, bio = 100, rad = 50)
+	slowdown = 1
+	allowed = list(/obj/item/device/flashlight,/obj/item/weapon/tank,/obj/item/weapon/storage/firstaid,/obj/item/device/healthanalyzer,/obj/item/stack/medical)
+	armor = list(melee = 10, bullet = 5, laser = 10, energy = 5, bomb = 10, bio = 100, rad = 50)
 
 	//Security
 /obj/item/clothing/head/helmet/space/rig/security
@@ -442,7 +507,7 @@
 	icon_state = "rig0-sec"
 	item_state = "sec_helm"
 	_color = "sec"
-	armor = list(melee = 60, bullet = 10, laser = 30, energy = 5, bomb = 45, bio = 100, rad = 10)
+	armor = list(melee = 30, bullet = 15, laser = 30,energy = 10, bomb = 10, bio = 100, rad = 50)
 	siemens_coefficient = 0.7
 
 /obj/item/clothing/suit/space/rig/security
@@ -450,8 +515,8 @@
 	name = "security hardsuit"
 	desc = "A special suit that protects against hazardous, low pressure environments. Has an additional layer of armor."
 	item_state = "sec_hardsuit"
-	armor = list(melee = 60, bullet = 10, laser = 30, energy = 5, bomb = 45, bio = 100, rad = 10)
-	allowed = list(/obj/item/weapon/gun,/obj/item/device/flashlight,/obj/item/weapon/tank,/obj/item/device/suit_cooling_unit,/obj/item/weapon/melee/baton)
+	armor = list(melee = 30, bullet = 15, laser = 30, energy = 10, bomb = 10, bio = 100, rad = 50)
+	allowed = list(/obj/item/weapon/gun,/obj/item/device/flashlight,/obj/item/weapon/tank,/obj/item/weapon/melee/baton,/obj/item/weapon/reagent_containers/spray/pepper,/obj/item/ammo_box,/obj/item/ammo_casing,/obj/item/weapon/restraints/handcuffs)
 	siemens_coefficient = 0.7
 
 
@@ -462,16 +527,19 @@
 	icon_state = "rig0-atmos"
 	item_state = "atmos_helm"
 	_color = "atmos"
-	armor = list(melee = 40, bullet = 5, laser = 20,energy = 5, bomb = 35, bio = 100, rad = 50)
-	max_heat_protection_temperature = FIRE_HELMET_MAX_HEAT_PROTECTION_TEMPERATURE
+	armor = list(melee = 10, bullet = 5, laser = 10, energy = 5, bomb = 10, bio = 100, rad = 0)
+	heat_protection = HEAD												//Uncomment to enable firesuit protection
+	max_heat_protection_temperature = FIRE_IMMUNITY_HELM_MAX_TEMP_PROTECT
+
 
 /obj/item/clothing/suit/space/rig/atmos
 	desc = "A special suit that protects against hazardous, low pressure environments. Has improved thermal protection and minor radiation shielding."
 	icon_state = "rig-atmos"
 	name = "atmos hardsuit"
 	item_state = "atmos_hardsuit"
-	armor = list(melee = 40, bullet = 5, laser = 20,energy = 5, bomb = 35, bio = 100, rad = 50)
-	max_heat_protection_temperature = FIRESUIT_MAX_HEAT_PROTECTION_TEMPERATURE
+	armor = list(melee = 10, bullet = 5, laser = 10, energy = 5, bomb = 10, bio = 100, rad = 0)
+	heat_protection = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS					//Uncomment to enable firesuit protection
+	max_heat_protection_temperature = FIRE_IMMUNITY_SUIT_MAX_TEMP_PROTECT
 
 //Singuloth armor
 /obj/item/clothing/head/helmet/space/rig/singuloth
@@ -480,13 +548,12 @@
 	icon_state = "rig0-singuloth"
 	item_state = "singuloth_helm"
 	_color = "singuloth"
-	armor = list(melee = 40, bullet = 5, laser = 20,energy = 5, bomb = 25, bio = 100, rad = 80)
+	armor = list(melee = 40, bullet = 5, laser = 20,energy = 5, bomb = 25, bio = 100, rad = 100)
 
 /obj/item/clothing/suit/space/rig/singuloth
 	icon_state = "rig-singuloth"
 	name = "singuloth knight's armor"
 	desc = "This is a ceremonial armor from the chapter of the Singuloth Knights. It's made of pure forged adamantium."
 	item_state = "singuloth_hardsuit"
-	flags = FPRINT | TABLEPASS | STOPSPRESSUREDMAGE
-	armor = list(melee = 40, bullet = 5, laser = 20,energy = 5, bomb = 25, bio = 100, rad = 80)
-	
+	flags = STOPSPRESSUREDMAGE
+	armor = list(melee = 40, bullet = 5, laser = 20,energy = 5, bomb = 25, bio = 100, rad = 100)

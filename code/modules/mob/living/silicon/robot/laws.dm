@@ -77,6 +77,10 @@
 	laws_sanity_check()
 	laws.set_zeroth_law(law)
 
+/mob/living/silicon/robot/proc/clear_zeroth_law()
+	laws_sanity_check()
+	laws.clear_zeroth_law()
+
 /mob/living/silicon/robot/proc/add_inherent_law(var/law)
 	laws_sanity_check()
 	laws.add_inherent_law(law)
@@ -152,7 +156,7 @@
 				number++
 
 
-/mob/living/silicon/robot/verb/checklaws() //Gives you a link-driven interface for deciding what laws the statelaws() proc will share with the crew. --NeoFite
+/mob/living/silicon/robot/proc/checklaws() //Gives you a link-driven interface for deciding what laws the statelaws() proc will share with the crew. --NeoFite
 	set category = "Robot Commands"
 	set name = "State Laws"
 	var/list = "<b>Which laws do you want to include when stating them for the crew?</b><br><br>"

@@ -13,7 +13,7 @@
 	src.overlays += image('icons/obj/computer.dmi', "ai-fixer-empty")
 
 
-/obj/machinery/computer/aifixer/attackby(I as obj, user as mob)
+/obj/machinery/computer/aifixer/attackby(I as obj, user as mob, params)
 	if(istype(I, /obj/item/device/aicard))
 		if(stat & (NOPOWER|BROKEN))
 			user << "This terminal isn't functioning right now, get it working!"
@@ -79,7 +79,7 @@
 
 /obj/machinery/computer/aifixer/Topic(href, href_list)
 	if(..())
-		return
+		return 1
 	if (href_list["fix"])
 		src.active = 1
 		src.overlays += image('icons/obj/computer.dmi', "ai-fixer-on")

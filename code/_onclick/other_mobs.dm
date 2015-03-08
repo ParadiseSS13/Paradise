@@ -17,32 +17,26 @@
 /atom/proc/attack_hand(mob/user as mob)
 	return
 
-/mob/living/carbon/human/RestrainedClickOn(var/atom/A)
+/*
+/mob/living/carbon/human/RestrainedClickOn(var/atom/A) -- Handled by carbons
 	return
+*/
 
-
+/mob/living/carbon/RestrainedClickOn(var/atom/A)
+	return 0
 
 // Commented out to prevent overwriting RangedAttack in click.dm ~ Bone White
 /*
 /mob/living/carbon/human/RangedAttack(var/atom/A)
 	if(!gloves && !mutations.len) return
 	var/obj/item/clothing/gloves/G = gloves
-	if((M_LASER in mutations) && a_intent == "harm")
+	if((LASER in mutations) && a_intent == "harm")
 		LaserEyes(A) // moved into a proc below
 
 	else if(istype(G) && G.Touch(A,0)) // for magic gloves
 		return
 
-	else if(M_TK in mutations)
-		switch(get_dist(src,A))
-			if(1 to 5) // not adjacent may mean blocked by window
-				next_move += 2
-			if(5 to 7)
-				next_move += 5
-			if(8 to 15)
-				next_move += 10
-			if(16 to 128)
-				return
+	else if(TK in mutations)
 		A.attack_tk(src)
 */
 
@@ -72,8 +66,10 @@
 	things considerably
 */
 /mob/living/carbon/monkey/RestrainedClickOn(var/atom/A)
+	if(..())
+		return
 	if(a_intent != "harm" || !ismob(A)) return
-	if(istype(wear_mask, /obj/item/clothing/mask/muzzle))
+	if(is_muzzled())
 		return
 	var/mob/living/carbon/ML = A
 	var/dam_zone = ran_zone(pick("chest", "l_hand", "r_hand", "l_leg", "r_leg"))

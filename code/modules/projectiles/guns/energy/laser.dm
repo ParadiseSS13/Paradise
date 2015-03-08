@@ -24,6 +24,8 @@ obj/item/weapon/gun/energy/laser/retro
 
 /obj/item/weapon/gun/energy/laser/captain
 	icon_state = "caplaser"
+	item_state = "caplaser"
+	icon_override = 'icons/mob/in-hand/guns.dmi'
 	desc = "This is an antique laser gun. All craftsmanship is of the highest quality. It is decorated with assistant leather and chrome. The object menaces with spikes of energy. On the item is an image of Space Station 13. The station is exploding."
 	force = 10
 	origin_tech = null
@@ -61,8 +63,8 @@ obj/item/weapon/gun/energy/laser/retro
 		return 1
 	if(isrobot(src.loc))
 		var/mob/living/silicon/robot/R = src.loc
-		if(R && R.cell && R.cell.charge >= 500)
-			R.cell.use(500)
+		if(R && R.cell && R.cell.charge >= 83)
+			R.cell.use(83)
 			in_chamber = new/obj/item/projectile/beam(src)
 			return 1
 	return 0
@@ -78,7 +80,7 @@ obj/item/weapon/gun/energy/laser/retro
 	item_state = "laser"
 	w_class = 4.0
 	force = 10
-	flags =  FPRINT | TABLEPASS | CONDUCT
+	flags =  CONDUCT
 	slot_flags = SLOT_BACK
 	fire_sound = 'sound/weapons/lasercannonfire.ogg'
 	origin_tech = "combat=4;materials=3;powerstorage=3"

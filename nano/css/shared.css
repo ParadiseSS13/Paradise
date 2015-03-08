@@ -128,7 +128,7 @@ img, a img {
 h1, h2, h3, h4, h5, h6 {
     margin: 0;
     padding: 12px 0 6px 0;
-    color: #517087;
+    color: #FFFFFF;
     clear: both;
 }
 
@@ -232,33 +232,48 @@ div.notice {
     clear: both;
 }
 
+
 .item {
     width: 100%;
     margin: 4px 0 0 0;
     clear: both;
 }
 
-.itemLabel {
+.itemContentNarrow, .itemContent {
     float: left;
+}
+
+.itemContentNarrow {
     width: 30%;
-    color: #e9c183;
 }
 
 .itemContent {
-    float: left;
     width: 69%;
 }
 
-.itemLabelNarrow {
+.itemLabelNarrow, .itemLabel, .itemLabelWide, .itemLabelWider, .itemLabelWidest {
     float: left;
-    width: 20%;
     color: #e9c183;
 }
 
+.itemLabelNarrow {
+    width: 20%;
+}
+
+.itemLabel {
+    width: 30%;
+}
+
 .itemLabelWide {
-    float: left;
     width: 45%;
-    color: #e9c183;
+}
+
+.itemLabelWider {
+    width: 69%;
+}
+
+.itemLabelWidest {
+    width: 100%;
 }
 
 .itemContentWide {
@@ -471,6 +486,14 @@ div.notice {
     height: 200px;
     margin: 200px 0;
     text-align: center;
+}
+
+table.fixed {
+	table-layout:fixed;
+}
+
+table.fixed td {
+	overflow: hidden;
 }
 
 /* Table styling for the power monitor */

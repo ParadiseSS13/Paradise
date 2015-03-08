@@ -1,3 +1,5 @@
+#define CAT_HIDDEN 2 // Also in code/game/machinery/vending.dm
+
 /datum/wires/vending
 	holder_type = /obj/machinery/vending
 	wire_count = 4
@@ -17,17 +19,12 @@ var/const/VENDING_WIRE_IDSCAN = 8
 		return 1
 	return 0
 
-/datum/wires/vending/Interact(var/mob/living/user)
-	if(CanUse(user))
-		var/obj/machinery/vending/V = holder
-		V.attack_hand(user)
-
 /datum/wires/vending/GetInteractWindow()
 	var/obj/machinery/vending/V = holder
 	. += ..()
 	. += "<BR>The orange light is [V.seconds_electrified ? "on" : "off"].<BR>"
 	. += "The red light is [V.shoot_inventory ? "off" : "blinking"].<BR>"
-	. += "The green light is [V.extended_inventory ? "on" : "off"].<BR>"
+	. += "The green light is [(V.categories & CAT_HIDDEN) ? "on" : "off"].<BR>"
 	. += "A [V.scan_id ? "purple" : "yellow"] light is on.<BR>"
 
 /datum/wires/vending/UpdatePulsed(var/index)
@@ -36,7 +33,7 @@ var/const/VENDING_WIRE_IDSCAN = 8
 		if(VENDING_WIRE_THROW)
 			V.shoot_inventory = !V.shoot_inventory
 		if(VENDING_WIRE_CONTRABAND)
-			V.extended_inventory = !V.extended_inventory
+			V.categories ^= CAT_HIDDEN
 		if(VENDING_WIRE_ELECTRIFY)
 			V.seconds_electrified = 30
 		if(VENDING_WIRE_IDSCAN)
@@ -48,7 +45,7 @@ var/const/VENDING_WIRE_IDSCAN = 8
 		if(VENDING_WIRE_THROW)
 			V.shoot_inventory = !mended
 		if(VENDING_WIRE_CONTRABAND)
-			V.extended_inventory = 0
+			V.categories &= ~CAT_HIDDEN
 		if(VENDING_WIRE_ELECTRIFY)
 			if(mended)
 				V.seconds_electrified = 0

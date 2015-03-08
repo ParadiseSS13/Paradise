@@ -228,6 +228,12 @@ proc/tg_text2list(text, glue=",", assocglue=";")
 		last_found = found + delim_len
 	while(found)
 
+/proc/text2numlist(text, delimiter="\n")
+	var/list/num_list = list()
+	for(var/x in text2list(text, delimiter))
+		num_list += text2num(x)
+	return num_list
+
 //Splits the text of a file at seperator and returns them in a list.
 /proc/file2list(filename, seperator="\n")
 	return text2list(return_file_text(filename),seperator)
@@ -341,6 +347,7 @@ proc/tg_text2list(text, glue=",", assocglue=";")
 	if(rights & R_SOUNDS)		. += "[seperator]+SOUND"
 	if(rights & R_SPAWN)		. += "[seperator]+SPAWN"
 	if(rights & R_MOD)			. += "[seperator]+MODERATOR"
+	if(rights & R_MENTOR)		. += "[seperator]+MENTOR"
 	return .
 
 /proc/ui_style2icon(ui_style)

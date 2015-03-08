@@ -100,7 +100,7 @@
 	)
 	fluffitems = list(
 		/obj/effect/decal/remains/human                 = 5,
-		/obj/effect/decal/cleanable/xenoblood          = 5,
+		/obj/effect/decal/cleanable/blood/xeno          = 5,
 		/obj/effect/decal/mecha_wreckage/ripley			= 1
 	)
 	complex_max_size=6

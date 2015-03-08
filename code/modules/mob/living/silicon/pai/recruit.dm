@@ -64,32 +64,32 @@ var/datum/paiController/paiController			// Global handler for pAI candidates
 				if("name")
 					t = input("Enter a name for your pAI", "pAI Name", candidate.name) as text
 					if(t)
-						candidate.name = copytext(sanitize(t),1,MAX_NAME_LEN)
+						candidate.name = sanitize(copytext(t,1,MAX_NAME_LEN))
 				if("desc")
 					t = input("Enter a description for your pAI", "pAI Description", candidate.description) as message
 					if(t)
-						candidate.description = copytext(sanitize(t),1,MAX_MESSAGE_LEN)
+						candidate.description = sanitize(copytext(t,1,MAX_MESSAGE_LEN))
 				if("role")
 					t = input("Enter a role for your pAI", "pAI Role", candidate.role) as text
 					if(t)
-						candidate.role = copytext(sanitize(t),1,MAX_MESSAGE_LEN)
+						candidate.role = sanitize(copytext(t,1,MAX_MESSAGE_LEN))
 				if("ooc")
 					t = input("Enter any OOC comments", "pAI OOC Comments", candidate.comments) as message
 					if(t)
-						candidate.comments = copytext(sanitize(t),1,MAX_MESSAGE_LEN)
+						candidate.comments = sanitize(copytext(t,1,MAX_MESSAGE_LEN))
 				if("save")
 					candidate.savefile_save(usr)
 				if("load")
 					candidate.savefile_load(usr)
 					//In case people have saved unsanitized stuff.
 					if(candidate.name)
-						candidate.name = copytext(sanitize(candidate.name),1,MAX_NAME_LEN)
+						candidate.name = sanitize(copytext(candidate.name,1,MAX_NAME_LEN))
 					if(candidate.description)
-						candidate.description = copytext(sanitize(candidate.description),1,MAX_MESSAGE_LEN)
+						candidate.description = sanitize(copytext(candidate.description,1,MAX_MESSAGE_LEN))
 					if(candidate.role)
-						candidate.role = copytext(sanitize(candidate.role),1,MAX_MESSAGE_LEN)
+						candidate.role = sanitize(copytext(candidate.role,1,MAX_MESSAGE_LEN))
 					if(candidate.comments)
-						candidate.comments = copytext(sanitize(candidate.comments),1,MAX_MESSAGE_LEN)
+						candidate.comments = sanitize(copytext(candidate.comments,1,MAX_MESSAGE_LEN))
 
 				if("submit")
 					if(candidate)
@@ -349,11 +349,14 @@ var/datum/paiController/paiController			// Global handler for pAI candidates
 	proc/requestRecruits()
 		for(var/mob/dead/observer/O in player_list)
 			if(O.client && O.client.prefs.be_special & BE_PAI)
-				if(check_recruit(O))
-					O << "\blue <b>A pAI card is looking for personalities. (<a href='?src=\ref[src];signup=\ref[O]'>Sign Up</a>)</b>"
-					//question(O.client)
+				if(player_old_enough_antag(O.client,BE_PAI))
+					if(check_recruit(O))
+						O << "\blue <b>A pAI card is looking for personalities. (<a href='?src=\ref[src];signup=\ref[O]'>Sign Up</a>)</b>"
+						//question(O.client)
 	proc/check_recruit(var/mob/dead/observer/O)
-		if(jobban_isbanned(O, "pAI"))
+		if(jobban_isbanned(O, "pAI") || jobban_isbanned(O,"nonhumandept"))
+			return 0
+		if(!player_old_enough_antag(O.client,BE_PAI))
 			return 0
 		if(O.has_enabled_antagHUD == 1 && config.antag_hud_restricted)
 			return 0

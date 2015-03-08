@@ -23,15 +23,14 @@
 	if(isturf(T))
 		attached = locate() in T
 	if(attached)
-		powernet = attached.get_powernet()
-
-
+		powernet = attached.get_powernet()	
+		
 /obj/machinery/power/monitor/attack_ai(mob/user)
 	add_fingerprint(user)
 
 	if(stat & (BROKEN|NOPOWER))
 		return
-	interact(user)
+	interact(user)	
 
 /obj/machinery/power/monitor/attack_hand(mob/user)
 	add_fingerprint(user)
@@ -40,7 +39,7 @@
 		return
 	interact(user)
 
-/obj/machinery/power/monitor/attackby(I as obj, user as mob)
+/obj/machinery/power/monitor/attackby(I as obj, user as mob, params)
 	if(istype(I, /obj/item/weapon/screwdriver))
 		playsound(src.loc, 'sound/items/Screwdriver.ogg', 50, 1)
 		if(do_after(user, 20))
@@ -133,7 +132,8 @@
 
 
 /obj/machinery/power/monitor/Topic(href, href_list)
-	..()
+	if(..())
+		return 1
 	if( href_list["close"] )
 		usr << browse(null, "window=powcomp")
 		usr.unset_machine()

@@ -14,7 +14,7 @@ var/syndicate_elite_shuttle_timeleft = 0
 	name = "Elite Syndicate Squad Shuttle Console"
 	icon = 'icons/obj/computer.dmi'
 	icon_state = "syndishuttle"
-	req_access = list(access_cent_specops)
+	req_access = list(access_syndicate)
 	var/temp = null
 	var/hacked = 0
 	var/allowedtocall = 0
@@ -176,7 +176,7 @@ var/syndicate_elite_shuttle_timeleft = 0
 	if(syndicate_elite_shuttle_moving_to_station || syndicate_elite_shuttle_moving_to_mothership) return 0
 	else return 1
 
-/obj/machinery/computer/syndicate_elite_shuttle/attackby(I as obj, user as mob)
+/obj/machinery/computer/syndicate_elite_shuttle/attackby(I as obj, user as mob, params)
 	return attack_hand(user)
 
 /obj/machinery/computer/syndicate_elite_shuttle/attack_ai(var/mob/user as mob)
@@ -186,7 +186,7 @@ var/syndicate_elite_shuttle_timeleft = 0
 /obj/machinery/computer/syndicate_elite_shuttle/attack_paw(var/mob/user as mob)
 	return attack_hand(user)
 
-/obj/machinery/computer/syndicate_elite_shuttle/attackby(I as obj, user as mob)
+/obj/machinery/computer/syndicate_elite_shuttle/attackby(I as obj, user as mob, params)
 	if(istype(I,/obj/item/weapon/card/emag))
 		user << "\blue The electronic systems in this console are far too advanced for your primitive hacking peripherals."
 	else
@@ -220,7 +220,7 @@ var/syndicate_elite_shuttle_timeleft = 0
 
 /obj/machinery/computer/syndicate_elite_shuttle/Topic(href, href_list)
 	if(..())
-		return
+		return 1
 
 	if ((usr.contents.Find(src) || (in_range(src, usr) && istype(loc, /turf))) || (istype(usr, /mob/living/silicon)))
 		usr.set_machine(src)

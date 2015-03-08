@@ -18,7 +18,7 @@ var/global/wcColored
 		wcColored = 1
 
 	var/list/wcBarAreas = list(/area/crew_quarters/bar)
-	var/list/wcBrigAreas = list(/area/security,/area/security/main,/area/security/lobby,/area/security/brig,/area/security/permabrig,/area/security/prison,/area/security/prison/cell_block/A,/area/security/prison/cell_block/B,/area/security/prison/cell_block/C,/area/security/execution,/area/security/processing,/area/security/interrogation,/area/security/interrogationobs,/area/security/evidence,/area/security/prisonlockers,/area/security/medbay,/area/security/processing,/area/security/warden,/area/security/armoury,/area/security/securearmoury,/area/security/armoury/gamma,/area/security/securehallway,/area/security/hos,/area/security/podbay,/area/security/detectives_office,/area/security/range,/area/security/nuke_storage,/area/security/customs,/area/security/customs2,/area/security/checkpoint,/area/security/checkpoint2,/area/security/checkpoint2,/area/security/checkpoint/supply,/area/security/checkpoint/engineering,/area/security/checkpoint/medical,/area/security/checkpoint/science,/area/security/vacantoffice,/area/security/vacantoffice2,/area/prison,/area/prison/arrival_airlock,/area/prison/control,/area/prison/crew_quarters,/area/prison/rec_room,/area/prison/closet,/area/prison/hallway/fore,/area/prison/hallway/aft,/area/prison/hallway/port,/area/prison/hallway/starboard,/area/prison/morgue,/area/prison/medical_research,/area/prison/medical,/area/prison/solar,/area/prison/podbay,/area/prison/solar_control,/area/prison/solitary,/area/prison/cell_block,/area/prison/cell_block/A,/area/prison/cell_block/B,/area/prison/cell_block/C,/area/shuttle/gamma/space,/area/shuttle/gamma/station)
+	var/list/wcBrigAreas = list(/area/security,/area/security/main,/area/security/lobby,/area/security/brig,/area/security/permabrig,/area/security/prison,/area/security/prison/cell_block/A,/area/security/prison/cell_block/B,/area/security/prison/cell_block/C,/area/security/execution,/area/security/processing,/area/security/interrogation,/area/security/interrogationobs,/area/security/evidence,/area/security/prisonlockers,/area/security/medbay,/area/security/processing,/area/security/warden,/area/security/armoury,/area/security/securearmoury,/area/security/armoury/gamma,/area/security/securehallway,/area/security/hos,/area/security/podbay,/area/security/detectives_office,/area/security/range,/area/security/nuke_storage,/area/security/customs,/area/security/customs2,/area/security/checkpoint,/area/security/checkpoint2,/area/security/checkpoint2,/area/security/checkpoint/supply,/area/security/checkpoint/engineering,/area/security/checkpoint/medical,/area/security/checkpoint/science,/area/security/vacantoffice2,/area/prison,/area/prison/arrival_airlock,/area/prison/control,/area/prison/crew_quarters,/area/prison/rec_room,/area/prison/closet,/area/prison/hallway/fore,/area/prison/hallway/aft,/area/prison/hallway/port,/area/prison/hallway/starboard,/area/prison/morgue,/area/prison/medical_research,/area/prison/medical,/area/prison/solar,/area/prison/podbay,/area/prison/solar_control,/area/prison/solitary,/area/prison/cell_block,/area/prison/cell_block/A,/area/prison/cell_block/B,/area/prison/cell_block/C,/area/shuttle/gamma/space,/area/shuttle/gamma/station,/area/security/prisonershuttle)
 
 	var/newcolor
 	for(var/A in wcBarAreas)
@@ -58,16 +58,14 @@ var/global/wcColored
 //	var/icon/silicateIcon = null // the silicated icon
 
 /obj/structure/window/bullet_act(var/obj/item/projectile/Proj)
-	//Tasers and the like should not damage windows.
-	if(Proj.damage_type == STAMINA)
-		return
-
-	health -= Proj.damage
+	if((Proj.damage_type == BRUTE || Proj.damage_type == BURN))
+		health -= Proj.damage
+		update_nearby_icons()
 	..()
 	if(health <= 0)
 		var/pdiff=performWallPressureCheck(src.loc)
 		if(pdiff>0)
-			message_admins("Window destroyed by [Proj.firer.real_name] ([formatPlayerPanel(Proj.firer,Proj.firer.ckey)]) via \an [Proj]! pdiff = [pdiff] at [formatJumpTo(loc)]!")
+			msg_admin_attack("Window destroyed by [Proj.firer.name] ([formatPlayerPanel(Proj.firer,Proj.firer.ckey)]) via \an [Proj]! pdiff = [pdiff] at [formatJumpTo(loc)]!")
 			log_admin("Window destroyed by ([Proj.firer.ckey]) via \an [Proj]! pdiff = [pdiff] at [loc]!")
 		destroy()
 	return
@@ -137,38 +135,40 @@ var/global/wcColored
 		var/pdiff=performWallPressureCheck(src.loc)
 		if(pdiff>0)
 			if(M)
-				message_admins("Window with pdiff [pdiff] at [formatJumpTo(loc)] deanchored by [M.real_name] ([formatPlayerPanel(M,M.ckey)])!")
+				msg_admin_attack("Window with pdiff [pdiff] at [formatJumpTo(loc)] deanchored by [M.real_name] ([formatPlayerPanel(M,M.ckey)])!")
 				log_admin("Window with pdiff [pdiff] at [loc] deanchored by [M.real_name] ([M.ckey])!")
 			else
-				message_admins("Window with pdiff [pdiff] at [formatJumpTo(loc)] deanchored by [AM]!")
+				msg_admin_attack("Window with pdiff [pdiff] at [formatJumpTo(loc)] deanchored by [AM]!")
 				log_admin("Window with pdiff [pdiff] at [loc] deanchored by [AM]!")
 	if(health <= 0)
 		var/pdiff=performWallPressureCheck(src.loc)
 		if(pdiff>0)
 			if(M)
-				message_admins("Window with pdiff [pdiff] at [formatJumpTo(loc)] destroyed by [M.real_name] ([formatPlayerPanel(M,M.ckey)])!")
+				msg_admin_attack("Window with pdiff [pdiff] at [formatJumpTo(loc)] destroyed by [M.real_name] ([formatPlayerPanel(M,M.ckey)])!")
 				log_admin("Window with pdiff [pdiff] at [loc] destroyed by [M.real_name] ([M.ckey])!")
 			else
-				message_admins("Window with pdiff [pdiff] at [formatJumpTo(loc)] destroyed by [AM]!")
+				msg_admin_attack("Window with pdiff [pdiff] at [formatJumpTo(loc)] destroyed by [AM]!")
 				log_admin("Window with pdiff [pdiff] at [loc] destroyed by [AM]!")
 		destroy()
 
 
 /obj/structure/window/attack_hand(mob/user as mob)
-	if(M_HULK in user.mutations)
+	if(HULK in user.mutations)
 		user.say(pick(";RAAAAAAAARGH!", ";HNNNNNNNNNGGGGGGH!", ";GWAAAAAAAARRRHHH!", "NNNNNNNNGGGGGGGGHH!", ";AAAAAAARRRGH!"))
 		user.visible_message("<span class='danger'>[user] smashes through [src]!</span>")
 		var/pdiff=performWallPressureCheck(src.loc)
 		if(pdiff>0)
-			message_admins("Window destroyed by hulk [user.real_name] ([formatPlayerPanel(user,user.ckey)]) with pdiff [pdiff] at [formatJumpTo(loc)]!")
+			msg_admin_attack("Window destroyed by hulk [user.real_name] ([formatPlayerPanel(user,user.ckey)]) with pdiff [pdiff] at [formatJumpTo(loc)]!")
 			log_admin("Window destroyed by hulk [user.real_name] ([user.ckey]) with pdiff [pdiff] at [loc]!")
 		destroy()
 	else if (usr.a_intent == "harm")
+		user.changeNext_move(CLICK_CD_MELEE)
 		playsound(get_turf(src), 'sound/effects/glassknock.ogg', 80, 1)
 		usr.visible_message("\red [usr.name] bangs against the [src.name]!", \
 							"\red You bang against the [src.name]!", \
 							"You hear a banging sound.")
 	else
+		user.changeNext_move(CLICK_CD_MELEE)
 		playsound(src.loc, 'sound/effects/glassknock.ogg', 80, 1)
 		usr.visible_message("[usr.name] knocks on the [src.name].", \
 							"You knock on the [src.name].", \
@@ -179,69 +179,72 @@ var/global/wcColored
 /obj/structure/window/attack_paw(mob/user as mob)
 	return attack_hand(user)
 
-/obj/structure/window/proc/attack_generic(mob/user as mob, damage = 0)	//used by attack_alien, attack_animal, and attack_slime
+/obj/structure/window/proc/attack_generic(mob/living/user as mob, damage = 0)	//used by attack_alien, attack_animal, and attack_slime
+	user.changeNext_move(CLICK_CD_MELEE)
+	user.do_attack_animation(src)
 	health -= damage
 	if(health <= 0)
 		user.visible_message("<span class='danger'>[user] smashes through [src]!</span>")
 		var/pdiff=performWallPressureCheck(src.loc)
 		if(pdiff>0)
-			message_admins("Window destroyed by [user.real_name] ([formatPlayerPanel(user,user.ckey)]) with pdiff [pdiff] at [formatJumpTo(loc)]!")
+			msg_admin_attack("Window destroyed by [user.real_name] ([formatPlayerPanel(user,user.ckey)]) with pdiff [pdiff] at [formatJumpTo(loc)]!")
 		destroy()
 	else	//for nicer text~
 		user.visible_message("<span class='danger'>[user] smashes into [src]!</span>")
 		playsound(loc, 'sound/effects/Glasshit.ogg', 100, 1)
 
 
-/obj/structure/window/attack_alien(mob/user as mob)
+/obj/structure/window/attack_alien(mob/living/user as mob)
 	if(islarva(user)) return
 	attack_generic(user, 15)
 
-/obj/structure/window/attack_animal(mob/user as mob)
+/obj/structure/window/attack_animal(mob/living/user as mob)
 	if(!isanimal(user)) return
 	var/mob/living/simple_animal/M = user
 	if(M.melee_damage_upper <= 0) return
 	attack_generic(M, M.melee_damage_upper)
 
 
-/obj/structure/window/attack_slime(mob/user as mob)
+/obj/structure/window/attack_slime(mob/living/user as mob)
 	var/mob/living/carbon/slime/S = user
 	if (!S.is_adult)
 		return
 	attack_generic(user, rand(10, 15))
 
 
-/obj/structure/window/attackby(obj/item/weapon/W as obj, mob/user as mob)
+/obj/structure/window/attackby(obj/item/weapon/W as obj, mob/living/user as mob, params)
 	if(!istype(W)) return//I really wish I did not need this
-	if(W.flags & NOBLUDGEON) return
-
 	if (istype(W, /obj/item/weapon/grab) && get_dist(src,user)<2)
 		var/obj/item/weapon/grab/G = W
-		if (istype(G.affecting, /mob/living))
+		if(istype(G.affecting,/mob/living))
 			var/mob/living/M = G.affecting
 			var/state = G.state
 			del(W)	//gotta delete it here because if window breaks, it won't get deleted
 			switch (state)
 				if(1)
+					M.visible_message("<span class='warning'>[user] slams [M] against \the [src]!</span>")
 					M.apply_damage(7)
 					hit(10)
-					visible_message("\red [user] slams [M] against \the [src]!")
 				if(2)
+					M.visible_message("<span class='danger'>[user] bashes [M] against \the [src]!</span>")
 					if (prob(50))
 						M.Weaken(1)
 					M.apply_damage(10)
 					hit(25)
-					visible_message("\red <b>[user] bashes [M] against \the [src]!</b>")
 				if(3)
+					M.visible_message("<span class='danger'><big>[user] crushes [M] against \the [src]!</big></span>")
 					M.Weaken(5)
 					M.apply_damage(20)
 					hit(50)
-					visible_message("\red <big><b>[user] crushes [M] against \the [src]!</b></big>")
 				if(4)
+					visible_message("<span class='danger'><big>[user] smashes [M] against \the [src]!</big></span>")
 					M.Weaken(5)
 					M.apply_damage(30)
 					hit(75)
-					visible_message("\red <big><b>[user] smashes [M] against \the [src]!</b></big>")
 			return
+
+	if(W.flags & NOBLUDGEON) return
+
 	if(istype(W, /obj/item/weapon/screwdriver))
 		if(reinf && state >= 1)
 			state = 3 - state
@@ -255,7 +258,7 @@ var/global/wcColored
 			if(!anchored)
 				var/pdiff=performWallPressureCheck(src.loc)
 				if(pdiff>0)
-					message_admins("Window with pdiff [pdiff] deanchored by [user.real_name] ([formatPlayerPanel(user,user.ckey)]) at [formatJumpTo(loc)]!")
+					msg_admin_attack("Window with pdiff [pdiff] deanchored by [user.real_name] ([formatPlayerPanel(user,user.ckey)]) at [formatJumpTo(loc)]!")
 					log_admin("Window with pdiff [pdiff] deanchored by [user.real_name] ([user.ckey]) at [loc]!")
 		else if(!reinf)
 			anchored = !anchored
@@ -265,7 +268,7 @@ var/global/wcColored
 			if(!anchored)
 				var/pdiff=performWallPressureCheck(src.loc)
 				if(pdiff>0)
-					message_admins("Window with pdiff [pdiff] deanchored by [user.real_name] ([formatPlayerPanel(user,user.ckey)]) at [formatJumpTo(loc)]!")
+					msg_admin_attack("Window with pdiff [pdiff] deanchored by [user.real_name] ([formatPlayerPanel(user,user.ckey)]) at [formatJumpTo(loc)]!")
 					log_admin("Window with pdiff [pdiff] deanchored by [user.real_name] ([user.ckey]) at [loc]!")
 	else if(istype(W, /obj/item/weapon/crowbar) && reinf && state <= 1)
 		state = 1 - state
@@ -280,7 +283,7 @@ var/global/wcColored
 					continue
 				if(G.amount>=G.max_amount)
 					continue
-				G.attackby(NG, user)
+				G.attackby(NG, user, params)
 
 			if (reinf)
 				var/obj/item/stack/rods/NR = new (src.loc)
@@ -289,7 +292,7 @@ var/global/wcColored
 						continue
 					if(R.amount>=R.max_amount)
 						continue
-					R.attackby(NR, user)
+					R.attackby(NR, user, params)
 
 		user << "<span class='notice'>You have disassembled the window.</span>"
 		disassembled = 1
@@ -299,6 +302,7 @@ var/global/wcColored
 		del(src)
 	else
 		if(W.damtype == BRUTE || W.damtype == BURN)
+			user.changeNext_move(CLICK_CD_MELEE)
 			hit(W.force)
 			if(health <= 7)
 				anchored = 0
@@ -306,7 +310,7 @@ var/global/wcColored
 				step(src, get_dir(user, src))
 				var/pdiff=performWallPressureCheck(src.loc)
 				if(pdiff>0)
-					message_admins("Window with pdiff [pdiff] deanchored by [user.real_name] ([formatPlayerPanel(user,user.ckey)]) at [formatJumpTo(loc)]!")
+					msg_admin_attack("Window with pdiff [pdiff] deanchored by [user.real_name] ([formatPlayerPanel(user,user.ckey)]) at [formatJumpTo(loc)]!")
 					log_admin("Window with pdiff [pdiff] deanchored by [user.real_name] ([user.ckey]) at [loc]!")
 		else
 			playsound(loc, 'sound/effects/Glasshit.ogg', 75, 1)
@@ -326,7 +330,7 @@ var/global/wcColored
 	if(health <= 0)
 		var/pdiff=performWallPressureCheck(src.loc)
 		if(pdiff>0)
-			message_admins("Window with pdiff [pdiff] broken at [formatJumpTo(loc)]!")
+			msg_admin_attack("Window with pdiff [pdiff] broken at [formatJumpTo(loc)]!")
 		destroy()
 		return
 
@@ -383,7 +387,8 @@ var/global/wcColored
 /obj/structure/window/New(Loc,re=0)
 	..()
 	ini_dir = dir
-	color = color_windows(src)
+	if(!color && !istype(src,/obj/structure/window/plasmabasic) && !istype(src,/obj/structure/window/plasmareinforced))
+		color = color_windows(src)
 	update_nearby_tiles(need_rebuild=1)
 	update_nearby_icons()
 	return
@@ -402,14 +407,6 @@ var/global/wcColored
 	..()
 	dir = ini_dir
 	update_nearby_tiles(need_rebuild=1)
-
-
-//This proc has to do with airgroups and atmos, it has nothing to do with smoothwindows, that's update_nearby_tiles().
-/obj/structure/window/proc/update_nearby_tiles(need_rebuild)
-	if(!air_master) return 0
-	air_master.mark_for_update(get_turf(src))
-
-	return 1
 
 //checks if this window is full-tile one
 /obj/structure/window/proc/is_fulltile()
@@ -450,7 +447,6 @@ var/global/wcColored
 /obj/structure/window/plasmabasic/New(Loc,re=0)
 	..()
 	ini_dir = dir
-	color = null
 	update_nearby_tiles(need_rebuild=1)
 	update_nearby_icons()
 	return
@@ -475,7 +471,6 @@ var/global/wcColored
 /obj/structure/window/plasmareinforced/New(Loc,re=0)
 	..()
 	ini_dir = dir
-	color = null
 	update_nearby_tiles(need_rebuild=1)
 	update_nearby_icons()
 	return

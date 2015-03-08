@@ -36,7 +36,7 @@
 	return 1
 
 
-/obj/machinery/computer/salvage_ship/attackby(obj/item/I as obj, mob/user as mob)
+/obj/machinery/computer/salvage_ship/attackby(obj/item/I as obj, mob/user as mob, params)
 	return attack_hand(user)
 
 /obj/machinery/computer/salvage_ship/attack_ai(mob/user as mob)
@@ -75,6 +75,8 @@
 
 
 /obj/machinery/computer/salvage_ship/Topic(href, href_list)
+	if(..())
+		return 1
 	if(!isliving(usr))	return
 	var/mob/living/user = usr
 

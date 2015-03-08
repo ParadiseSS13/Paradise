@@ -85,7 +85,7 @@ log transactions
 			linked_db = DB
 			break
 
-/obj/machinery/atm/attackby(obj/item/I as obj, mob/user as mob)
+/obj/machinery/atm/attackby(obj/item/I as obj, mob/user as mob, params)
 	if(istype(I, /obj/item/weapon/card))
 		var/obj/item/weapon/card/id/idcard = I
 		if(!held_card)
@@ -376,7 +376,7 @@ log transactions
 
 //create the most effective combination of notes to make up the requested amount
 /obj/machinery/atm/proc/withdraw_arbitrary_sum(var/arbitrary_sum)
-	dispense_cash(arbitrary_sum,get_turf(src))
+	dispense_cash(arbitrary_sum,get_step(get_turf(src),turn(dir,180))) // Spawn on the ATM.
 
 //stolen wholesale and then edited a bit from newscasters, which are awesome and by Agouri
 /obj/machinery/atm/proc/scan_user(mob/living/carbon/human/human_user as mob)

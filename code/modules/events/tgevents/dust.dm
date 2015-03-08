@@ -1,5 +1,3 @@
-
-
 /datum/event/dust
 	var/qnty = 1
 

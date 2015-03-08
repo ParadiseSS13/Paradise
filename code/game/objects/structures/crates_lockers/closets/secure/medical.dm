@@ -69,11 +69,12 @@
 			new /obj/item/weapon/storage/backpack/medic(src)
 		else
 			new /obj/item/weapon/storage/backpack/satchel_med(src)
+		new /obj/item/weapon/storage/backpack/duffel/medical(src)
 		new /obj/item/clothing/under/rank/medical(src)
 		new /obj/item/clothing/suit/storage/labcoat(src)
 		new /obj/item/clothing/shoes/white(src)
 		new /obj/item/device/radio/headset/headset_med(src)
-		new /obj/item/clothing/gloves/latex(src)
+		new /obj/item/clothing/gloves/color/latex/nitrile(src)
 		new /obj/item/weapon/defibrillator/loaded(src)
 		new /obj/item/weapon/storage/belt/medical(src)
 		new /obj/item/clothing/glasses/hud/health(src)
@@ -128,6 +129,7 @@
 			new /obj/item/weapon/storage/backpack/medic(src)
 		else
 			new /obj/item/weapon/storage/backpack/satchel_med(src)
+		new /obj/item/weapon/storage/backpack/duffel/medical(src)
 		new /obj/item/clothing/suit/bio_suit/cmo(src)
 		new /obj/item/clothing/head/bio_hood/cmo(src)
 		new /obj/item/clothing/shoes/white(src)
@@ -144,13 +146,12 @@
 		new /obj/item/clothing/suit/storage/labcoat/cmo(src)
 		new /obj/item/clothing/under/rank/chief_medical_officer(src)
 		new /obj/item/clothing/shoes/brown	(src)
-		new /obj/item/clothing/gloves/latex(src)
 		new /obj/item/device/radio/headset/heads/cmo(src)
-		new /obj/item/clothing/gloves/latex(src)
-		new /obj/item/weapon/defibrillator/loaded(src)
+		new /obj/item/clothing/gloves/color/latex/nitrile(src)
+		new /obj/item/weapon/defibrillator/compact/loaded(src)
 		new /obj/item/weapon/storage/belt/medical(src)
 		new /obj/item/device/flash(src)
-		new /obj/item/weapon/reagent_containers/hypospray(src)
+		new /obj/item/weapon/reagent_containers/hypospray/CMO(src)
 		return
 
 
@@ -231,6 +232,8 @@
 	New()
 		..()
 		sleep(2)
-		new /obj/item/clothing/suit/space/paramedic(src)
-		new /obj/item/clothing/head/helmet/space/paramedic(src)
+		new /obj/item/clothing/suit/space/eva/paramedic(src)
+		new /obj/item/clothing/head/helmet/space/eva/paramedic(src)
+		new /obj/item/clothing/head/helmet/space/eva/paramedic(src)
+		new /obj/item/device/sensor_device(src)
 		return

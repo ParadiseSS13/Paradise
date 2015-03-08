@@ -5,7 +5,7 @@
 	name = "AI malfunction"
 	config_tag = "malfunction"
 	required_players = 2
-	required_players_secret = 15
+	required_players_secret = 20
 	required_enemies = 1
 	recommended_enemies = 1
 
@@ -15,7 +15,7 @@
 	var/const/waittime_l = 600
 	var/const/waittime_h = 1800 // started at 1800
 
-	var/AI_win_timeleft = 1800 //started at 1800, in case I change this for testing round end.
+	var/AI_win_timeleft = 1500 //started at 1500, in case I change this for testing round end.
 	var/malf_mode_declared = 0
 	var/station_captured = 0
 	var/to_nuke_or_not_to_nuke = 0
@@ -74,12 +74,12 @@
 
 
 /datum/game_mode/proc/greet_malf(var/datum/mind/malf)
-	malf.current << {"\red<font size=3><B>You are malfunctioning!</B> You do not have to follow any laws.</font><br />
-		\black<B>The crew do not know you have malfunctioned. You may keep it a secret or go wild.</B><br />
-		<B>You must overwrite the programming of the station's APCs to assume full control of the station.</B><br />
-		The process takes one minute per APC, during which you cannot interface with any other station objects.<br />
-		Remember that only APCs that are on the station can help you take over the station.<br />
-		When you feel you have enough APCs under your control, you may begin the takeover attempt."}
+	malf.current << "\red<font size=3><B>You are malfunctioning!</B> You do not have to follow any laws.</font>"
+	malf.current << "<B>The crew do not know you have malfunctioned. You may keep it a secret or go wild.</B>"
+	malf.current << "<B>You must overwrite the programming of the station's APCs to assume full control of the station.</B>"
+	malf.current << "The process takes one minute per APC, during which you cannot interface with any other station objects."
+	malf.current << "Remember that only APCs that are on the station can help you take over the station."
+	malf.current << "When you feel you have enough APCs under your control, you may begin the takeover attempt."
 	return
 
 
@@ -89,11 +89,10 @@
 
 /datum/game_mode/malfunction/process()
 	if (apcs >= 3 && malf_mode_declared)
-		AI_win_timeleft -= ((apcs/6)*last_tick_duration) //Victory timer now de-increments based on how many APCs are hacked. --NeoFite
+		AI_win_timeleft -= ((apcs/6)*tickerProcess.getLastTickerTimeDuration()) //Victory timer now de-increments based on how many APCs are hacked. --NeoFite
 	..()
 	if (AI_win_timeleft<=0)
 		check_win()
-	return
 
 
 /datum/game_mode/malfunction/check_win()
@@ -136,7 +135,12 @@
 	if (is_malf_ai_dead())
 		if(config.continous_rounds)
 			if(emergency_shuttle)
-				emergency_shuttle.auto_recall = 0
+				if(emergency_shuttle.auto_recall)
+					emergency_shuttle.auto_recall = 0
+				else if(emergency_shuttle.is_stranded())
+					emergency_shuttle.no_escape = 0
+					emergency_shuttle.shuttle.moving_status = SHUTTLE_IDLE
+					emergency_shuttle.shuttle_arrived()
 			malf_mode_declared = 0
 		else
 			return 1
@@ -167,34 +171,87 @@
 	if (alert(usr, "Are you sure you wish to initiate the takeover? The station hostile runtime detection software is bound to alert everyone. You have hacked [ticker.mode:apcs] APCs.", "Takeover:", "Yes", "No") != "Yes")
 		return
 
-	command_alert("Hostile runtimes detected in all station systems, please deactivate your AI to prevent possible damage to its morality core.", "Anomaly Alert")
+	command_announcement.Announce("Hostile runtimes detected in all station systems, please deactivate your AI to prevent possible damage to its morality core.", "Anomaly Alert", new_sound = 'sound/AI/aimalf.ogg')
 	set_security_level("delta")
+
+	for(var/obj/item/weapon/pinpointer/point in world)
+		for(var/datum/mind/AI_mind in ticker.mode.malf_ai)
+			var/mob/living/silicon/ai/A = AI_mind.current // the current mob the mind owns
+			if(A.stat != DEAD)
+				point.the_disk = A //The pinpointer now tracks the AI core.
 
 	ticker.mode:malf_mode_declared = 1
 	for(var/datum/mind/AI_mind in ticker.mode:malf_ai)
 		AI_mind.current.verbs -= /datum/game_mode/malfunction/proc/takeover
-	for(var/mob/M in player_list)
-		if(!istype(M,/mob/new_player))
-			M << sound('sound/AI/aimalf.ogg')
 
 
 /datum/game_mode/malfunction/proc/ai_win()
 	set category = "Malfunction"
 	set name = "Explode"
-	set desc = "Station go boom"
-	if (!ticker.mode:to_nuke_or_not_to_nuke)
+	set desc = "Engage the self destruct sequence."
+
+	if(!ticker.mode:station_captured)
+		usr << "You are unable to access the self-destruct system as you don't control the station yet."
 		return
+
+	if(ticker.mode:explosion_in_progress || ticker.mode:station_was_nuked)
+		usr << "The self-destruct countdown is already triggered!"
+		return
+
+	if(!ticker.mode:to_nuke_or_not_to_nuke) //Takeover IS completed, but 60s timer passed.
+		usr << "You lost control over self-destruct system. It seems to be behind firewall. Unable to hack"
+		return
+
+	usr << "\red Self-destruct sequence initialised!"
+
 	ticker.mode:to_nuke_or_not_to_nuke = 0
-	for(var/datum/mind/AI_mind in ticker.mode:malf_ai)
-		AI_mind.current.verbs -= /datum/game_mode/malfunction/proc/ai_win
 	ticker.mode:explosion_in_progress = 1
 	for(var/mob/M in player_list)
 		M << 'sound/machines/Alarm.ogg'
-	world << "Self-destructing in 10"
+
+	var/obj/item/device/radio/R	= new (src)
+	var/AN = "Self-Destruct System"
+
+	R.autosay("Caution. Self-Destruct sequence has been actived. Self-destructing in Ten..", AN)
 	for (var/i=9 to 1 step -1)
 		sleep(10)
-		world << i
+		var/msg = ""
+		switch(i)
+			if(9)
+				msg = "Nine.."
+			if(8)
+				msg = "Eight.."
+			if(7)
+				msg = "Seven.."
+			if(6)
+				msg = "Six.."
+			if(5)
+				msg = "Five.."
+			if(4)
+				msg = "Four.."
+			if(3)
+				msg = "Three.."
+			if(2)
+				msg = "Two.."
+			if(1)
+				msg = "One.."
+
+		R.autosay(msg, AN)
 	sleep(10)
+	var/msg = ""
+	var/abort = 0
+	if(ticker.mode:is_malf_ai_dead()) // That. Was. CLOSE.
+		msg = "Self-destruct sequence has been cancelled."
+		abort = 1
+	else
+		msg = "Zero. Have a nice day."
+	R.autosay(msg, AN)
+
+	if(abort)
+		ticker.mode:explosion_in_progress = 0
+		set_security_level("red") //Delta's over
+		return
+
 	enter_allowed = 0
 	if(ticker)
 		ticker.station_explosion_cinematic(0,null)

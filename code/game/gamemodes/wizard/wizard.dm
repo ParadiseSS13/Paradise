@@ -116,7 +116,7 @@
 	var/wizard_name_second = pick(wizard_second)
 	var/randomname = "[wizard_name_first] [wizard_name_second]"
 	spawn(0)
-		var/newname = copytext(sanitize(input(wizard_mob, "You are the Space Wizard. Would you like to change your name to something else?", "Name change", randomname) as null|text),1,MAX_NAME_LEN)
+		var/newname = sanitize(copytext(input(wizard_mob, "You are the Space Wizard. Would you like to change your name to something else?", "Name change", randomname) as null|text,1,MAX_NAME_LEN))
 
 		if (!newname)
 			newname = randomname
@@ -273,8 +273,9 @@
 //OTHER PROCS
 
 //To batch-remove wizard spells. Linked to mind.dm.
-/mob/proc/spellremove(var/mob/M as mob)
+/mob/proc/spellremove(var/mob/M as mob, var/removeallspells=1)
 	for(var/obj/effect/proc_holder/spell/wizard/spell_to_remove in src.spell_list)
+		if (spell_to_remove.name == "Artificer" && !removeallspells) continue
 		del(spell_to_remove)
 		update_power_buttons()
 

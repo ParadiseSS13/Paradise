@@ -15,12 +15,66 @@
 	var/mob/pulledby = null
 
 	var/area/areaMaster
-
+	var/hard_deleted = 0
 
 /atom/movable/New()
 	. = ..()
 	areaMaster = get_area_master(src)
 
+
+/atom/movable/Destroy()
+	if(opacity)
+		if(isturf(loc))
+			if(loc:lighting_lumcount > 1)
+				UpdateAffectingLights()
+	gcDestroyed = "Bye, world!"
+	tag = null
+	loc = null
+/*
+	if(istype(beams) && beams.len)
+		for(var/obj/effect/beam/B in beams)
+			if(B && B.target == src)
+				B.target = null
+			if(B.master && B.master.target == src)
+				B.master.target = null
+		beams.len = 0
+*/
+	..()
+
+/proc/delete_profile(var/type, code = 0)
+	if(!ticker || !ticker.current_state < 3) return
+	switch(code)
+		if(0)
+			if (!("[type]" in del_profiling))
+				del_profiling["[type]"] = 0
+
+			del_profiling["[type]"] += 1
+		if(1)
+			if (!("[type]" in ghdel_profiling))
+				ghdel_profiling["[type]"] = 0
+
+			ghdel_profiling["[type]"] += 1
+		if(2)
+			if (!("[type]" in gdel_profiling))
+				gdel_profiling["[type]"] = 0
+
+			gdel_profiling["[type]"] += 1
+			if(garbageCollector)
+				garbageCollector.soft_dels++
+
+/atom/movable/Del()
+	if (gcDestroyed)
+		garbageCollector.dequeue("\ref[src]")
+
+		if (hard_deleted)
+			delete_profile("[type]", 1)
+		else
+			delete_profile("[type]", 2)
+	else // direct del calls or nulled explicitly.
+		delete_profile("[type]", 0)
+		Destroy()
+
+	..()
 
 // Used in shuttle movement and AI eye stuff.
 // Primarily used to notify objects being moved by a shuttle/bluespace fuckup.
@@ -99,16 +153,13 @@
 					src.throw_impact(A,speed)
 
 /atom/movable/proc/throw_at(atom/target, range, speed, thrower)
-	if(!target || !src)	return 0
+	if(!target || !src || (flags & NODROP))
+		return 0
 	//use a modified version of Bresenham's algorithm to get from the atom's current position to that of the target
 
 	src.throwing = 1
 	src.thrower = thrower
 	src.throw_source = get_turf(src)	//store the origin turf
-
-	if(usr)
-		if(M_HULK in usr.mutations)
-			src.throwing = 2 // really strong throw!
 
 	var/dist_x = abs(target.x - src.x)
 	var/dist_y = abs(target.y - src.y)
@@ -206,9 +257,9 @@
 	verbs.Cut()
 	return
 
-/atom/movable/overlay/attackby(a, b)
+/atom/movable/overlay/attackby(a, b, c)
 	if (src.master)
-		return src.master.attackby(a, b)
+		return src.master.attackby(a, b, c)
 	return
 
 /atom/movable/overlay/attack_paw(a, b, c)

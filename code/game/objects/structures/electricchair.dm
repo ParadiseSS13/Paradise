@@ -1,3 +1,4 @@
+
 /obj/structure/stool/bed/chair/e_chair
 	name = "electric chair"
 	desc = "Looks absolutely SHOCKING!"
@@ -11,7 +12,7 @@
 	overlays += image('icons/obj/objects.dmi', src, "echair_over", MOB_LAYER + 1, dir)
 	return
 
-/obj/structure/stool/bed/chair/e_chair/attackby(obj/item/weapon/W as obj, mob/user as mob)
+/obj/structure/stool/bed/chair/e_chair/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
 	if(istype(W, /obj/item/weapon/wrench))
 		var/obj/structure/stool/bed/chair/C = new /obj/structure/stool/bed/chair(loc)
 		playsound(loc, 'sound/items/Ratchet.ogg', 50, 1)
@@ -27,7 +28,8 @@
 	set name = "Toggle Electric Chair"
 	set category = "Object"
 	set src in oview(1)
-
+	if(usr.stat || !usr.canmove || usr.restrained())
+		return
 	if(on)
 		on = 0
 		icon_state = "echair0"

@@ -141,6 +141,15 @@
 	update_icon()
 	if(closed_system)
 		flags &= ~OPENCONTAINER
+		
+/obj/machinery/portable_atmospherics/hydroponics/upgraded/New()
+	..()
+	component_parts = list()
+	component_parts += new /obj/item/weapon/circuitboard/hydroponics(src)
+	component_parts += new /obj/item/weapon/stock_parts/matter_bin/super(src)
+	component_parts += new /obj/item/weapon/stock_parts/matter_bin/super(src)
+	component_parts += new /obj/item/weapon/stock_parts/console_screen(src)
+	RefreshParts()
 
 /obj/machinery/portable_atmospherics/hydroponics/RefreshParts()
 	var/tmp_capacity = 0
@@ -655,7 +664,7 @@
 
 	return
 
-/obj/machinery/portable_atmospherics/hydroponics/attackby(var/obj/item/O as obj, var/mob/user as mob)
+/obj/machinery/portable_atmospherics/hydroponics/attackby(var/obj/item/O as obj, var/mob/user as mob, params)
 	if(exchange_parts(user, O))
 		return
 
@@ -949,7 +958,7 @@
 	use_power = 0
 	draw_warnings = 0
 
-/obj/machinery/portable_atmospherics/hydroponics/soil/attackby(var/obj/item/O as obj, var/mob/user as mob)
+/obj/machinery/portable_atmospherics/hydroponics/soil/attackby(var/obj/item/O as obj, var/mob/user as mob, params)
 	if(istype(O, /obj/item/weapon/shovel))
 		user << "You clear up [src]!"
 		del(src)

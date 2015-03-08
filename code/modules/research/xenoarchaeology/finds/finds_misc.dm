@@ -24,7 +24,7 @@
 		else
 	return
 
-/obj/item/weapon/shard/plasma/attackby(obj/item/weapon/W as obj, mob/user as mob)
+/obj/item/weapon/shard/plasma/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
 	..()
 	if ( istype(W, /obj/item/weapon/weldingtool))
 		var/obj/item/weapon/weldingtool/WT = W
@@ -35,7 +35,7 @@
 					continue
 				if(G.amount>=G.max_amount)
 					continue
-				G.attackby(NG, user)
+				G.attackby(NG, user, params)
 				usr << "You add the newly-formed plasma glass to the stack. It now contains [NG.amount] sheets."
 			//SN src = null
 			returnToPool(src)

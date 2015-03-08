@@ -37,6 +37,21 @@
 	component_parts += new /obj/item/weapon/stock_parts/capacitor(src)
 	component_parts += new /obj/item/stack/cable_coil(src, 1)
 	RefreshParts()
+	locate_recharge_turf()
+	
+/obj/machinery/mech_bay_recharge_port/upgraded/New()
+	..()
+	component_parts = list()
+	component_parts += new /obj/item/weapon/circuitboard/mech_recharger(src)
+	component_parts += new /obj/item/weapon/stock_parts/capacitor/super(src)
+	component_parts += new /obj/item/weapon/stock_parts/capacitor/super(src)
+	component_parts += new /obj/item/weapon/stock_parts/capacitor/super(src)
+	component_parts += new /obj/item/weapon/stock_parts/capacitor/super(src)
+	component_parts += new /obj/item/weapon/stock_parts/capacitor/super(src)
+	component_parts += new /obj/item/stack/cable_coil(src, 1)
+	RefreshParts()
+
+/obj/machinery/mech_bay_recharge_port/proc/locate_recharge_turf()
 	recharging_turf = get_step(loc, dir)
 
 /obj/machinery/mech_bay_recharge_port/RefreshParts()
@@ -64,12 +79,12 @@
 			recharge_console.update_icon()
 
 
-/obj/machinery/mech_bay_recharge_port/attackby(obj/item/I, mob/user)
+/obj/machinery/mech_bay_recharge_port/attackby(obj/item/I, mob/user, params)
 	if(default_deconstruction_screwdriver(user, "recharge_port-o", "recharge_port", I))
 		return
 
 	if(default_change_direction_wrench(user, I))
-		recharging_turf = get_step(loc, dir)
+		locate_recharge_turf()
 		return
 
 	if(exchange_parts(user, I))

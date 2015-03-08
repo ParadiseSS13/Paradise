@@ -9,12 +9,11 @@
 	icon_state = "backpack"
 	item_state = "backpack"
 	w_class = 4.0
-	flags = FPRINT|TABLEPASS
 	slot_flags = SLOT_BACK	//ERROOOOO
 	max_w_class = 3
 	max_combined_w_class = 21
 
-/obj/item/weapon/storage/backpack/attackby(obj/item/weapon/W as obj, mob/user as mob)
+/obj/item/weapon/storage/backpack/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
 	playsound(src.loc, "rustle", 50, 1, -5)
 	..()
 
@@ -34,7 +33,7 @@
 		..()
 		return
 
-	attackby(obj/item/weapon/W as obj, mob/user as mob)
+	attackby(obj/item/weapon/W as obj, mob/user as mob, params)
 		if(crit_fail)
 			user << "\red The Bluespace generator isn't working."
 			return
@@ -83,6 +82,12 @@
 	desc = "It's a backpack made by Honk! Co."
 	icon_state = "clownpack"
 	item_state = "clownpack"
+
+/obj/item/weapon/storage/backpack/mime
+	name = "Parcel Parceaux"
+	desc = "A silent backpack made for those silent workers. Silence Co."
+	icon_state = "mimepack"
+	item_state = "mimepack"
 
 /obj/item/weapon/storage/backpack/medic
 	name = "medical backpack"
@@ -217,20 +222,23 @@
 	icon_override = 'icons/mob/in-hand/duffelbag.dmi'
 	icon_state = "duffel"
 	item_state = "duffel"
-	storage_slots = 10 // Duffelbags can hold more items.
-	max_combined_w_class = 25
+	storage_slots = 9 // Duffelbags can hold more items.
+	max_combined_w_class = 27
+	slowdown = 1
 
 /obj/item/weapon/storage/backpack/duffel/syndimed
 	name = "suspicious duffelbag"
 	desc = "A black and red duffelbag with a red and white cross sewn onto it."
 	icon_state = "duffel-syndimed"
 	item_state = "duffel-syndimed"
+	slowdown = 0
 
 /obj/item/weapon/storage/backpack/duffel/syndiammo
 	name = "suspicious duffelbag"
 	desc = "A black and red duffelbag with a patch depicting shotgun shells sewn onto it."
 	icon_state = "duffel-syndiammo"
 	item_state = "duffel-syndiammo"
+	slowdown = 0
 
 /obj/item/weapon/storage/backpack/duffel/captain
 	name = "captain's duffelbag"
@@ -292,3 +300,39 @@
 	desc = "A duffelbag designed to hold bananas and bike horns."
 	icon_state = "duffel-clown"
 	item_state = "duffel-clown"
+	
+//ERT backpacks.
+/obj/item/weapon/storage/backpack/ert
+	name = "emergency response team backpack"
+	desc = "A spacious backpack with lots of pockets, used by members of the Nanotrasen Emergency Response Team."
+	icon_state = "ert_commander"
+	item_state = "backpack"
+
+//Commander
+/obj/item/weapon/storage/backpack/ert/commander
+	name = "emergency response team commander backpack"
+	desc = "A spacious backpack with lots of pockets, worn by the commander of a Nanotrasen Emergency Response Team."
+
+//Security
+/obj/item/weapon/storage/backpack/ert/security
+	name = "emergency response team security backpack"
+	desc = "A spacious backpack with lots of pockets, worn by security members of a Nanotrasen Emergency Response Team."
+	icon_state = "ert_security"
+
+//Engineering
+/obj/item/weapon/storage/backpack/ert/engineer
+	name = "emergency response team engineer backpack"
+	desc = "A spacious backpack with lots of pockets, worn by engineering members of a Nanotrasen Emergency Response Team."
+	icon_state = "ert_engineering"
+
+//Medical
+/obj/item/weapon/storage/backpack/ert/medical
+	name = "emergency response team medical backpack"
+	desc = "A spacious backpack with lots of pockets, worn by medical members of a Nanotrasen Emergency Response Team."
+	icon_state = "ert_medical"
+	
+//Janitorial
+/obj/item/weapon/storage/backpack/ert/janitor
+	name = "emergency response team janitor backpack"
+	desc = "A spacious backpack with lots of pockets, worn by janitorial members of a Nanotrasen Emergency Response Team."
+	icon_state = "ert_janitor"

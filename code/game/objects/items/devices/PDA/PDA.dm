@@ -11,7 +11,6 @@ var/global/list/obj/item/device/pda/PDAs = list()
 	icon_state = "pda"
 	item_state = "electronic"
 	w_class = 1.0
-	flags = FPRINT | TABLEPASS
 	slot_flags = SLOT_PDA | SLOT_BELT
 
 	//Main variables
@@ -51,6 +50,7 @@ var/global/list/obj/item/device/pda/PDAs = list()
 
 	var/obj/item/weapon/card/id/id = null //Making it possible to slot an ID card into the PDA so it can function as both.
 	var/ownjob = null //related to above
+	var/ownrank = null // this one is rank, never alt title
 
 	var/obj/item/device/paicard/pai = null	// A slot for a personal AI device
 
@@ -129,19 +129,15 @@ var/global/list/obj/item/device/pda/PDAs = list()
 	icon_state = "pda-captain"
 	detonate = 0
 	//toff = 1
-	
+
 /obj/item/device/pda/heads/ntrep
 	default_cartridge = /obj/item/weapon/cartridge/supervisor
 	icon_state = "pda-h"
-	
-/obj/item/device/pda/heads/ntrec
-	default_cartridge = /obj/item/weapon/cartridge/supervisor
-	icon_state = "pda-h"
-	
+
 /obj/item/device/pda/heads/magistrate
 	default_cartridge = /obj/item/weapon/cartridge/supervisor
 	icon_state = "pda-h"
-	
+
 /obj/item/device/pda/heads/blueshield
 	default_cartridge = /obj/item/weapon/cartridge/hos
 	icon_state = "pda-h"
@@ -209,6 +205,10 @@ var/global/list/obj/item/device/pda/PDAs = list()
 	default_cartridge = /obj/item/weapon/cartridge/medical
 	icon_state = "pda-genetics"
 
+/obj/item/device/pda/centcom
+	default_cartridge = /obj/item/weapon/cartridge/centcom
+	icon_state = "pda-h"
+
 
 // Special AI/pAI PDAs that cannot explode.
 /obj/item/device/pda/ai
@@ -217,9 +217,13 @@ var/global/list/obj/item/device/pda/PDAs = list()
 	detonate = 0
 
 
-/obj/item/device/pda/ai/proc/set_name_and_job(newname as text, newjob as text)
+/obj/item/device/pda/ai/proc/set_name_and_job(newname as text, newjob as text, newrank as null|text)
 	owner = newname
 	ownjob = newjob
+	if(newrank)
+		ownrank = newrank
+	else
+		ownrank = ownjob
 	name = newname + " (" + ownjob + ")"
 
 
@@ -575,6 +579,7 @@ var/global/list/obj/item/device/pda/PDAs = list()
 			id_check(U, 1)
 		if("UpdateInfo")
 			ownjob = id.assignment
+			ownrank = id.rank
 			name = "PDA-[owner] ([ownjob])"
 		if("Eject")//Ejects the cart, only done from hub.
 			if (!isnull(cartridge))
@@ -684,7 +689,7 @@ var/global/list/obj/item/device/pda/PDAs = list()
 						U << "The PDA softly beeps."
 						ui.close()
 					else
-						t = copytext(sanitize(t), 1, 20)
+						t = sanitize(copytext(t, 1, 20))
 						ttone = t
 			else
 				ui.close()
@@ -892,7 +897,8 @@ var/global/list/obj/item/device/pda/PDAs = list()
 /obj/item/device/pda/proc/create_message(var/mob/living/U = usr, var/obj/item/device/pda/P)
 
 	var/t = input(U, "Please enter message", name, null) as text
-	t = copytext(sanitize(t), 1, MAX_MESSAGE_LEN)
+	t = sanitize(copytext(t, 1, MAX_MESSAGE_LEN))
+	t = readd_quotes(t)
 	if (!t || !istype(P))
 		return
 	if (!in_range(src, U) && loc != U)
@@ -1049,7 +1055,7 @@ var/global/list/obj/item/device/pda/PDAs = list()
 	return
 
 // access to status display signals
-/obj/item/device/pda/attackby(obj/item/C as obj, mob/user as mob)
+/obj/item/device/pda/attackby(obj/item/C as obj, mob/user as mob, params)
 	..()
 	if(istype(C, /obj/item/weapon/cartridge) && !cartridge)
 		cartridge = C
@@ -1068,6 +1074,7 @@ var/global/list/obj/item/device/pda/PDAs = list()
 		if(!owner)
 			owner = idcard.registered_name
 			ownjob = idcard.assignment
+			ownrank = idcard.rank
 			name = "PDA-[owner] ([ownjob])"
 			user << "<span class='notice'>Card scanned.</span>"
 		else

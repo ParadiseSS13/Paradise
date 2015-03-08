@@ -67,7 +67,7 @@
 	if(istype(M,/mob/living))
 		M.apply_effect(rand(5,20),IRRADIATE,0)
 
-	if (!(M_NOCLONE in M.mutations)) // prevents drained people from having their DNA changed
+	if (!(NOCLONE in M.mutations)) // prevents drained people from having their DNA changed
 		// UI in syringe.
 		if (buf.types & DNA2_BUF_UI)
 			if (!block) //isolated block?
@@ -93,13 +93,15 @@
 
 	spawn(0)//this prevents the collapse of space-time continuum
 		if (user)
-			user.drop_from_inventory(src)
+			user.unEquip(src)
 		del(src)
 	return uses
 
 /obj/item/weapon/dnainjector/attack(mob/M as mob, mob/user as mob)
-	if (!istype(M, /mob))
-		return
+	if(ishuman(M)) // Would've done this via species instead of type, but the basic mob doesn't have a species, go figure.
+		var/mob/living/carbon/human/H = M
+		if(H.species.flags & IS_SYNTHETIC)
+			return
 	if (!(istype(usr, /mob/living/carbon/human) || ticker) && ticker.mode.name != "monkey")
 		user << "\red You don't have the dexterity to do this!"
 		return
@@ -474,7 +476,7 @@
 	value = 0xFFF
 	//block = 3
 	New()
-		block = HEADACHEBLOCK
+		block = EPILEPSYBLOCK
 		..()
 
 /obj/item/weapon/dnainjector/antiepi
@@ -484,7 +486,7 @@
 	value = 0x001
 	//block = 3
 	New()
-		block = HEADACHEBLOCK
+		block = EPILEPSYBLOCK
 		..()
 
 /obj/item/weapon/dnainjector/anticough

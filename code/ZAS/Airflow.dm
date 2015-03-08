@@ -8,11 +8,13 @@ mob/proc/airflow_stun()
 	if(stat == 2)
 		return 0
 	if(last_airflow_stun > world.time - vsc.airflow_stun_cooldown)	return 0
+
 	if(!(status_flags & CANSTUN) && !(status_flags & CANWEAKEN))
-		src << "\blue You stay upright as the air rushes past you."
+		src << "<span class='notice'>You stay upright as the air rushes past you.</span>"
 		return 0
-	if(weakened <= 0) src << "\red The sudden rush of air knocks you over!"
-	weakened = max(weakened,5)
+	if(!lying)
+		src << "<span class='warning'>The sudden rush of air knocks you over!</span>"
+	Weaken(5)
 	last_airflow_stun = world.time
 
 mob/living/silicon/airflow_stun()
@@ -22,16 +24,9 @@ mob/living/carbon/metroid/airflow_stun()
 	return
 
 mob/living/carbon/human/airflow_stun()
-	if(last_airflow_stun > world.time - vsc.airflow_stun_cooldown)	return 0
-	if(buckled) return 0
 	if(shoes)
 		if(shoes.flags & NOSLIP) return 0
-	if(!(status_flags & CANSTUN) && !(status_flags & CANWEAKEN))
-		src << "\blue You stay upright as the air rushes past you."
-		return 0
-	if(weakened <= 0) src << "\red The sudden rush of air knocks you over!"
-	weakened = max(weakened,rand(1,5))
-	last_airflow_stun = world.time
+	..()
 
 atom/movable/proc/check_airflow_movable(n)
 
@@ -84,10 +79,8 @@ obj/item/check_airflow_movable(n)
 		if(istype(src, /mob/living/carbon/human))
 			if(src:buckled)
 				return
-			if(src:shoes)
-				if(istype(src:shoes, /obj/item/clothing/shoes/magboots))
-					if(src:shoes.flags & NOSLIP)
-						return
+			if(src:shoes && src:shoes.flags & NOSLIP)
+				return
 		src << "\red You are sucked away by airflow!"
 	var/airflow_falloff = 9 - ul_FalloffAmount(airflow_dest) //It's a fast falloff calc.  Very useful.
 	if(airflow_falloff < 1)
@@ -148,10 +141,8 @@ obj/item/check_airflow_movable(n)
 		if(istype(src, /mob/living/carbon/human))
 			if(src:buckled)
 				return
-			if(src:shoes)
-				if(istype(src:shoes, /obj/item/clothing/shoes/magboots))
-					if(src:shoes.flags & NOSLIP)
-						return
+			if(src:shoes && src:shoes.flags & NOSLIP)
+				return
 		src << "\red You are pushed away by airflow!"
 		last_airflow = world.time
 	var/airflow_falloff = 9 - ul_FalloffAmount(airflow_dest) //It's a fast falloff calc.  Very useful.
@@ -207,7 +198,8 @@ mob/airflow_hit(atom/A)
 	for(var/mob/M in hearers(src))
 		M.show_message("\red <B>\The [src] slams into \a [A]!</B>",1,"\red You hear a loud slam!",2)
 	playsound(src.loc, "smash.ogg", 25, 1, -1)
-	weakened = max(weakened, (istype(A,/obj/item) ? A:w_class : rand(1,5))) //Heheheh
+	var/weak_amt = istype(A,/obj/item) ? A:w_class : rand(1,5) //Heheheh
+	Weaken(weak_amt)
 	. = ..()
 
 obj/airflow_hit(atom/A)
@@ -239,10 +231,10 @@ mob/living/carbon/human/airflow_hit(atom/A)
 	apply_damage(b_loss/3, BRUTE, "groin", blocked, 0, "Airflow")
 
 	if(airflow_speed > 10)
-		paralysis += round(airflow_speed * vsc.airflow_stun)
-		stunned = max(stunned,paralysis + 3)
+		Paralyse(round(airflow_speed * vsc.airflow_stun))
+		Stun(paralysis + 3)
 	else
-		stunned += round(airflow_speed * vsc.airflow_stun/2)
+		Stun(round(airflow_speed * vsc.airflow_stun/2))
 	. = ..()
 
 zone/proc/movables()
@@ -252,3 +244,35 @@ zone/proc/movables()
 			if(istype(A, /obj/effect) || istype(A, /mob/aiEye))
 				continue
 			. += A
+
+//ULTRALIGHT - only file where this is still used, hence why it's in here
+#define UL_I_FALLOFF_SQUARE 0
+#define UL_I_FALLOFF_ROUND 1
+#define ul_FalloffStyle UL_I_FALLOFF_ROUND // Sets the lighting falloff to be either squared or circular.
+var/list/ul_FastRoot = list(0, 1, 1, 1, 2, 2, 2, 2, 2, 3, 3, 3, 3, 3, 3, 3, 4, 4, 4, 4, 4, 4, 4, 4, 4, 5, 5, 5, 5, 5, 5,
+							5, 5, 5, 5, 5, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7,
+							7, 7)
+
+atom/proc/ul_FalloffAmount(var/atom/ref)
+	if (ul_FalloffStyle == UL_I_FALLOFF_ROUND)
+		var/delta_x = (ref.x - src.x)
+		var/delta_y = (ref.y - src.y)
+
+		#ifdef ul_LightingResolution
+		if (round((delta_x*delta_x + delta_y*delta_y)*ul_LightingResolutionSqrt,1) > ul_FastRoot.len)
+			for(var/i = ul_FastRoot.len, i <= round(delta_x*delta_x+delta_y*delta_y*ul_LightingResolutionSqrt,1), i++)
+				ul_FastRoot += round(sqrt(i))
+		return ul_FastRoot[round((delta_x*delta_x + delta_y*delta_y)*ul_LightingResolutionSqrt, 1) + 1]/ul_LightingResolution
+
+		#else
+		if ((delta_x*delta_x + delta_y*delta_y) > ul_FastRoot.len)
+			for(var/i = ul_FastRoot.len, i <= delta_x*delta_x+delta_y*delta_y, i++)
+				ul_FastRoot += round(sqrt(i))
+		return ul_FastRoot[delta_x*delta_x + delta_y*delta_y + 1]
+
+		#endif
+
+	else if (ul_FalloffStyle == UL_I_FALLOFF_SQUARE)
+		return get_dist(src, ref)
+
+	return 0

@@ -30,14 +30,14 @@
 		overlays += "folder_paper"
 	return
 
-/obj/item/weapon/folder/attackby(obj/item/weapon/W as obj, mob/user as mob)
-	if(istype(W, /obj/item/weapon/paper) || istype(W, /obj/item/weapon/photo) || istype(W, /obj/item/weapon/paper_bundle))
+/obj/item/weapon/folder/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
+	if(istype(W, /obj/item/weapon/paper) || istype(W, /obj/item/weapon/photo) || istype(W, /obj/item/weapon/paper_bundle) || istype(W, /obj/item/documents))
 		user.drop_item()
 		W.loc = src
 		user << "<span class='notice'>You put the [W] into \the [src].</span>"
 		update_icon()
 	else if(istype(W, /obj/item/weapon/pen))
-		var/n_name = copytext(sanitize(input(usr, "What would you like to label the folder?", "Folder Labelling", null)  as text), 1, MAX_NAME_LEN)
+		var/n_name = sanitize(copytext(input(usr, "What would you like to label the folder?", "Folder Labelling", null) as text, 1, MAX_NAME_LEN))
 		if((loc == usr && usr.stat == 0))
 			name = "folder[(n_name ? text("- '[n_name]'") : null)]"
 	return
@@ -51,6 +51,8 @@
 		dat += "<A href='?src=\ref[src];remove=\ref[Ph]'>Remove</A> - <A href='?src=\ref[src];look=\ref[Ph]'>[Ph.name]</A><BR>"
 	for(var/obj/item/weapon/paper_bundle/Pa in src)
 		dat += "<A href='?src=\ref[src];remove=\ref[Pa]'>Remove</A> - <A href='?src=\ref[src];look=\ref[Pa]'>[Pa.name]</A><BR>"
+	for(var/obj/item/documents/doc in src)
+		dat += "<A href='?src=\ref[src];remove=\ref[doc]'>Remove</A> - <A href='?src=\ref[src];look=\ref[doc]'>[doc.name]</A><BR>"
 	user << browse(dat, "window=folder")
 	onclose(user, "folder")
 	add_fingerprint(usr)
@@ -92,3 +94,33 @@
 		attack_self(usr)
 		update_icon()
 	return
+
+/obj/item/weapon/folder/documents
+	name = "folder- 'TOP SECRET'"
+	desc = "A folder stamped \"Top Secret - Property of Nanotrasen Corporation. Unauthorized distribution is punishable by death.\""
+
+/obj/item/weapon/folder/documents/New()
+	..()
+	new /obj/item/documents/nanotrasen(src)
+	update_icon()
+
+/obj/item/weapon/folder/syndicate
+	name = "folder- 'TOP SECRET'"
+	desc = "A folder stamped \"Top Secret - Property of The Syndicate.\""
+
+/obj/item/weapon/folder/syndicate/red
+	icon_state = "folder_sred"
+
+/obj/item/weapon/folder/syndicate/red/New()
+	..()
+	new /obj/item/documents/syndicate/red(src)
+	update_icon()
+
+/obj/item/weapon/folder/syndicate/blue
+	icon_state = "folder_sblue"
+
+/obj/item/weapon/folder/syndicate/blue/New()
+	..()
+	new /obj/item/documents/syndicate/blue(src)
+	update_icon()
+

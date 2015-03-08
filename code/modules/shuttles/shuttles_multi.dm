@@ -3,6 +3,7 @@
 
 	var/cloaked = 1
 	var/at_origin = 1
+	var/returned_home = 0
 	var/move_time = 240
 	var/cooldown = 20
 	var/last_move = 0	//the time at which we last moved
@@ -21,23 +22,25 @@
 	..()
 	if(origin) last_departed = origin
 
-/datum/shuttle/multi_shuttle/move()
+/datum/shuttle/multi_shuttle/move(var/area/origin, var/area/destination)
 	..()
 	last_move = world.time
+	if (destination == src.origin)
+		returned_home = 1
 
 /datum/shuttle/multi_shuttle/proc/announce_departure()
 
 	if(cloaked || isnull(departure_message))
 		return
 
-	command_alert(departure_message,(announcer ? announcer : "Central Command"))
+	command_announcement.Announce(departure_message,(announcer ? announcer : "Central Command"))
 
 /datum/shuttle/multi_shuttle/proc/announce_arrival()
 
 	if(cloaked || isnull(arrival_message))
 		return
 
-	command_alert(arrival_message,(announcer ? announcer : "Central Command"))
+	command_announcement.Announce(arrival_message,(announcer ? announcer : "Central Command"))
 
 /obj/machinery/computer/shuttle_control/multi
 	icon_state = "syndishuttle"

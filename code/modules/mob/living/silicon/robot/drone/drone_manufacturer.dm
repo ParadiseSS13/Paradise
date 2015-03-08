@@ -80,7 +80,6 @@
 
 
 /mob/dead/verb/join_as_drone()
-
 	set category = "Ghost"
 	set name = "Join As Drone"
 	set desc = "If there is a powered, enabled fabricator in the game world with a prepared chassis, join as a maintenance drone."
@@ -95,16 +94,25 @@
 	if (usr != src)
 		return 0 //something is terribly wrong
 
-	if(jobban_isbanned(src,"Cyborg"))
-		usr << "\red You are banned from playing synthetics and cannot spawn as a drone."
+	if(jobban_isbanned(src,"nonhumandept") || jobban_isbanned(src,"Drone"))
+		usr << "\red You are banned from playing drones and cannot spawn as a drone."
+		return
+		
+	var/drone_age = 14 // 14 days to play as a drone
+	var/player_age_check = check_client_age(usr.client, drone_age)
+	if(player_age_check && config.use_age_restriction_for_antags)
+		usr << "<span class='warning'>This role is not yet available to you. You need to wait another [player_age_check] days.</span>"
 		return
 
 	var/deathtime = world.time - src.timeofdeath
+	var/joinedasobserver = 0
 	if(istype(src,/mob/dead/observer))
 		var/mob/dead/observer/G = src
 		if(G.has_enabled_antagHUD == 1 && config.antag_hud_restricted)
-			usr << "\blue <B>Upon using the antagHUD you forfeighted the ability to join the round.</B>"
+			usr << "\blue <B>Upon using the antagHUD you forfeited the ability to join the round.</B>"
 			return
+		if(G.started_as_observer == 1)
+			joinedasobserver = 1
 
 	var/deathtimeminutes = round(deathtime / 600)
 	var/pluralcheck = "minute"
@@ -116,7 +124,7 @@
 		pluralcheck = " [deathtimeminutes] minutes and"
 	var/deathtimeseconds = round((deathtime - deathtimeminutes * 600) / 10,1)
 
-	if (deathtime < 6000)
+	if (deathtime < 6000 && joinedasobserver == 0)	
 		usr << "You have been dead for[pluralcheck] [deathtimeseconds] seconds."
 		usr << "You must wait 10 minutes to respawn as a drone!"
 		return

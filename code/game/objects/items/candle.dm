@@ -22,7 +22,7 @@
 		icon_state = "candle[i][lit ? "_lit" : ""]"
 
 
-	attackby(obj/item/weapon/W as obj, mob/user as mob)
+	attackby(obj/item/weapon/W as obj, mob/user as mob, params)
 		..()
 		if(istype(W, /obj/item/weapon/weldingtool))
 			var/obj/item/weapon/weldingtool/WT = W
@@ -59,7 +59,8 @@
 		if(!wax)
 			new/obj/item/trash/candle(src.loc)
 			if(istype(src.loc, /mob))
-				src.dropped()
+				var/mob/M = src.loc
+				M.unEquip(src, 1) //src is being deleted anyway
 			del(src)
 		update_icon()
 		if(istype(loc, /turf)) //start a fire if possible

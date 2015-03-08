@@ -1,4 +1,4 @@
-#define FONT_SIZE "5pt"
+#define FONT_SIZE "4pt"
 #define FONT_COLOR "#09f"
 #define FONT_STYLE "Arial Black"
 #define SCROLL_SPEED 2
@@ -96,6 +96,10 @@
 				message2 = get_shuttle_timer_arrival()
 				if(length(message2) > CHARS_PER_LINE)
 					message2 = "Error"
+				update_display(message1, message2)
+			else if(emergency_shuttle.is_stranded())
+				message1 = "-ERR-"
+				message2 = "??:??"
 				update_display(message1, message2)
 			else
 				remove_display()

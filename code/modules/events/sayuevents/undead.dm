@@ -2,14 +2,13 @@
 	var/spawn_prob = 10
 	startWhen = 2
 	announceWhen = 3
-	oneShot			= 1
 	start()
 		var/datum/event/electrical_storm/RS = new
 		RS.lightsoutAmount = pick(2,2,3)
 		RS.start()
 		RS.kill()
 		for(var/area/A)
-			if(A.z != 1) continue //Spook on main station only.
+			if(!(A.z in config.station_levels)) continue //Spook on main station only.
 			if(A.luminosity) continue
 //			if(A.lighting_space) continue
 			if(A.type == /area) continue

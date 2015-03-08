@@ -4,7 +4,7 @@
 	icon = 'icons/obj/gun.dmi'
 	icon_state = "detective"
 	item_state = "gun"
-	flags =  FPRINT | TABLEPASS | CONDUCT
+	flags =  CONDUCT
 	slot_flags = SLOT_BELT
 	m_amt = 2000
 	w_class = 3.0
@@ -34,6 +34,9 @@
 						//1 for keep shooting until aim is lowered
 	var/fire_delay = 0
 	var/last_fired = 0
+	var/obj/item/device/flashlight/F = null
+	var/can_flashlight = 0
+	var/heavy_weapon = 0
 
 	proc/ready_to_fire()
 		if(world.time >= last_fired + fire_delay)
@@ -76,15 +79,15 @@
 	return 1
 
 /obj/item/weapon/gun/proc/Fire(atom/target as mob|obj|turf|area, mob/living/user as mob|obj, params, reflex = 0)//TODO: go over this
-	//Exclude lasertag guns from the M_CLUMSY check.
+	//Exclude lasertag guns from the CLUMSY check.
 	if(clumsy_check)
 		if(istype(user, /mob/living))
 			var/mob/living/M = user
-			if ((M_CLUMSY in M.mutations) && prob(50))
+			if ((CLUMSY in M.mutations) && prob(50))
 				M << "<span class='danger'>[src] blows up in your face.</span>"
 				M.take_organ_damage(0,20)
 				M.drop_item()
-				del(src)
+				qdel(src)
 				return
 
 	if (!user.IsAdvancedToolUser() || istype(user, /mob/living/carbon/monkey/diona))
@@ -92,7 +95,7 @@
 		return
 	if(istype(user, /mob/living))
 		var/mob/living/M = user
-		if (M_HULK in M.mutations)
+		if (HULK in M.mutations)
 			M << "\red Your meaty finger is much too large for the trigger guard!"
 			return
 	if(ishuman(user))
@@ -120,12 +123,18 @@
 
 	if(!in_chamber)
 		return
+		
+	if(heavy_weapon)
+		if(user.get_inactive_hand())
+			recoil = 4 //one-handed kick
+		else
+			recoil = initial(recoil)
 
 	in_chamber.firer = user
 	in_chamber.def_zone = user.zone_sel.selecting
 	if(targloc == curloc)
 		user.bullet_act(in_chamber)
-		del(in_chamber)
+		qdel(in_chamber)
 		update_icon()
 		return
 
@@ -140,6 +149,12 @@
 		user.visible_message("<span class='warning'>[user] fires [src][reflex ? " by reflex":""]!</span>", \
 		"<span class='warning'>You fire [src][reflex ? "by reflex":""]!</span>", \
 		"You hear a [istype(in_chamber, /obj/item/projectile/beam) ? "laser blast" : "gunshot"]!")
+		
+	if(heavy_weapon)
+		if(user.get_inactive_hand())
+			if(prob(15))
+				user.visible_message("<span class='danger'>[src] flies out of [user]'s hands!</span>", "<span class='userdanger'>[src] kicks out of your grip!</span>")
+				user.drop_item()
 
 	if (istype(in_chamber, /obj/item/projectile/bullet/blank)) // A hacky way of making blank shotgun shells work again. Honk.
 		in_chamber.delete()
@@ -151,7 +166,7 @@
 	in_chamber.loc = get_turf(user)
 	in_chamber.starting = get_turf(user)
 	in_chamber.shot_from = src
-	user.next_move = world.time + 4
+	user.changeNext_move(CLICK_CD_RANGE)
 	in_chamber.silenced = silenced
 	in_chamber.current = curloc
 	in_chamber.yo = targloc.y - curloc.y
@@ -272,3 +287,87 @@
 			return
 	else
 		return ..() //Pistolwhippin'
+
+
+/obj/item/weapon/gun/attackby(var/obj/item/A as obj, mob/user as mob, params)
+	if(istype(A, /obj/item/device/flashlight/seclite))
+		var/obj/item/device/flashlight/seclite/S = A
+		if(can_flashlight)
+			if(!F)
+				if(user.l_hand != src && user.r_hand != src)
+					user << "<span class='notice'>You'll need [src] in your hands to do that.</span>"
+					return
+				user.drop_item()
+				user << "<span class='notice'>You click [S] into place on [src].</span>"
+				if(S.on)
+					SetLuminosity(0)
+				F = S
+				A.loc = src
+				update_icon()
+				update_gunlight(user)
+				verbs += /obj/item/weapon/gun/proc/toggle_gunlight
+	if(istype(A, /obj/item/weapon/screwdriver))
+		if(F)
+			if(user.l_hand != src && user.r_hand != src)
+				user << "<span class='notice'>You'll need [src] in your hands to do that.</span>"
+				return
+			for(var/obj/item/device/flashlight/seclite/S in src)
+				user << "<span class='notice'>You unscrew the seclite from [src].</span>"
+				F = null
+				S.loc = get_turf(user)
+				update_gunlight(user)
+				S.update_brightness(user)
+				update_icon()
+				verbs -= /obj/item/weapon/gun/proc/toggle_gunlight
+	..()
+	return
+
+/obj/item/weapon/gun/proc/toggle_gunlight()
+	set name = "Toggle Gunlight"
+	set category = "Object"
+	set desc = "Click to toggle your weapon's attached flashlight."
+
+	if(!F)
+		return
+
+	var/mob/living/carbon/human/user = usr
+	if(!isturf(user.loc))
+		user << "You cannot turn the light on while in this [user.loc]."
+	F.on = !F.on
+	user << "<span class='notice'>You toggle the gunlight [F.on ? "on":"off"].</span>"
+
+	playsound(user, 'sound/weapons/empty.ogg', 100, 1)
+	update_gunlight(user)
+	return
+
+/obj/item/weapon/gun/proc/update_gunlight(var/mob/user = null)
+	if(F)
+		if(F.on)
+			if(loc == user)
+				user.AddLuminosity(F.brightness_on)
+			else if(isturf(loc))
+				SetLuminosity(F.brightness_on)
+		else
+			if(loc == user)
+				user.AddLuminosity(-F.brightness_on)
+			else if(isturf(loc))
+				SetLuminosity(0)
+		update_icon()
+	else
+		if(loc == user)
+			user.AddLuminosity(-5)
+		else if(isturf(loc))
+			SetLuminosity(0)
+		return
+
+/obj/item/weapon/gun/pickup(mob/user)
+	if(F)
+		if(F.on)
+			user.AddLuminosity(F.brightness_on)
+			SetLuminosity(0)
+
+/obj/item/weapon/gun/dropped(mob/user)
+	if(F)
+		if(F.on)
+			user.AddLuminosity(-F.brightness_on)
+			SetLuminosity(F.brightness_on)

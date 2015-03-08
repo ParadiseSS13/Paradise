@@ -13,10 +13,10 @@
 		src << "<span class='danger'>The wiki URL is not set in the server configuration.</span>"
 	return
 
-#define CHANGELOG "http://nanotrasen.se/phpBB3/viewtopic.php?f=10&t=36"
+#define CHANGELOG "https://github.com/ParadiseSS13/Paradise/issues?q=is%3Apr+is%3Aclosed"
 /client/verb/changes()
 	set name = "Changelog"
-	set desc = "Visit the forum to check out the changelog."
+	set desc = "Visit Github to check out the commits."
 	set hidden = 1
 
 	if(alert("This will open the changelog in your browser. Are you sure?",,"Yes","No")=="No")
@@ -58,7 +58,7 @@
 #undef DONATE
 
 /client/verb/hotkeys_help()
-	set name = "hotkeys-help"
+	set name = "Hotkeys Help"
 	set category = "OOC"
 
 	var/hotkey_mode = {"<font color='purple'>
@@ -119,3 +119,36 @@ Admin:
 	src << other
 	if(holder)
 		src << admin
+
+
+//adv. hotkey mode verbs, vars located in /code/modules/client/client defines.dm
+
+/client/verb/hotkey_toggle()//toggles hotkey mode between on and off, respects selected type
+	set name = ".Toggle Hotkey Mode"
+
+	hotkeyon = !hotkeyon//toggle the var
+
+	var/hotkeys = hotkeylist[hotkeytype]//get the list containing the hotkey names
+	var/hotkeyname = hotkeys[hotkeyon ? "on" : "off"]//get the name of the hotkey, to not clutter winset() to much
+
+	winset(usr, "mainwindow", "macro=[hotkeyname]")//change the hotkey
+	usr << (hotkeyon ? "Hotkey mode enabled." : "Hotkey mode disabled.")//feedback to the user
+
+	if(hotkeyon)//using an if statement because I don't want to clutter winset() with ? operators
+		winset(usr, "mainwindow.hotkey_toggle", "is-checked=true")//checks the button
+		winset(usr, "mapwindow.map", "focus=true")//sets mapwindow focus
+	else
+		winset(usr, "mainwindow.hotkey_toggle", "is-checked=false")//unchecks the button
+		winset(usr, "mainwindow.input", "focus=true")//sets focus
+
+/client/verb/hotkey_mode()//asks user for the hotkey type and changes the macro accordingly
+	set name = "Set hotkey mode"
+	set category = "Preferences"
+
+	hotkeytype = input("Choose hotkey mode", "Hotkey mode") as null|anything in hotkeylist//ask the user for the hotkey type
+
+	var/hotkeys = hotkeylist[hotkeytype]//get the list containing the hotkey names
+	var/hotkeyname = hotkeys[hotkeyon ? "on" : "off"]//get the name of the hotkey, to not clutter winset() to much
+
+	winset(usr, "mainwindow", "macro=[hotkeyname]")//change the hotkey
+	usr << "Hotkey mode changed to [hotkeytype]."

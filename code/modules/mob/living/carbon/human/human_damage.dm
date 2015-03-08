@@ -16,18 +16,28 @@
 	if (species.flags & IS_SYNTHETIC)
 		var/datum/organ/external/H = organs_by_name["head"]
 		if (!H.amputated)
-			if ((health >= (config.health_threshold_dead/100*75)) && stat == DEAD)  //need to get them 25% away from death point before reviving them
-				dead_mob_list -= src
-				respawnable_list -= src
-				living_mob_list += src
-				stat = CONSCIOUS
-				ear_deaf = 0
+			if ((health >= (config.health_threshold_dead/100*75)) && stat == DEAD)  //need to get them 25% away from death point before reviving synthetics
+				update_revive()
+	if (stat == CONSCIOUS && (src in dead_mob_list)) //Defib fix
+		update_revive()
 	return
 
+/mob/living/carbon/human/proc/update_revive() // handles revival through other means than cloning or adminbus (defib, IPC repair)
+	stat = CONSCIOUS
+	dead_mob_list -= src
+	living_mob_list |= src
+	mob_list |= src
+	ear_deaf = 0
+	tod = 0
+	timeofdeath = 0
+
 /mob/living/carbon/human/getBrainLoss()
-	if(species && species.flags & NO_INTORGANS) return
+	if(species && species.flags & NO_INTORGANS)
+		return
 	var/res = brainloss
 	var/datum/organ/internal/brain/sponge = internal_organs_by_name["brain"]
+	if(!sponge)
+		return
 	if (sponge.is_bruised())
 		res += 20
 	if (sponge.is_broken())
@@ -100,15 +110,12 @@
 	hud_updateflag |= 1 << HEALTH_HUD
 
 /mob/living/carbon/human/Stun(amount)
-	if(M_HULK in mutations)	return
 	..()
 
 /mob/living/carbon/human/Weaken(amount)
-	if(M_HULK in mutations)	return
 	..()
 
 /mob/living/carbon/human/Paralyse(amount)
-	if(M_HULK in mutations)	return
 	..()
 
 
@@ -132,6 +139,7 @@
 				var/datum/organ/external/O = pick(candidates)
 				O.mutate()
 				src << "<span class = 'notice'>Something is not right with your [O.display_name]...</span>"
+				O.add_autopsy_data("Mutation", amount)
 				return
 	else
 		if (prob(heal_prob))
@@ -189,6 +197,7 @@
 		UpdateDamageIcon()
 		hud_updateflag |= 1 << HEALTH_HUD
 	updatehealth()
+	speech_problem_flag = 1
 
 
 //Heal MANY external organs, in random order
@@ -210,6 +219,7 @@
 		parts -= picked
 	updatehealth()
 	hud_updateflag |= 1 << HEALTH_HUD
+	speech_problem_flag = 1
 	if(update)	UpdateDamageIcon()
 
 // damage MANY external organs, in random order
@@ -284,7 +294,8 @@ This function restores all organs.
 	//Handle BRUTE and BURN damage
 	handle_suit_punctures(damagetype, damage)
 
-	if(blocked >= 2)	return 0
+	blocked = (100-blocked)/100
+	if(blocked <= 0)	return 0
 
 	var/datum/organ/external/organ = null
 	if(isorgan(def_zone))
@@ -294,8 +305,7 @@ This function restores all organs.
 		organ = get_organ(check_zone(def_zone))
 	if(!organ)	return 0
 
-	if(blocked)
-		damage = (damage/(blocked+1))
+	damage = damage * blocked
 
 	switch(damagetype)
 		if(BRUTE)
@@ -334,14 +344,14 @@ This function restores all organs.
 	..()
 	if(forced)
 		playsound(loc, "bodyfall", 50, 1, -1)
-	if(head)
+/*	if(head)
 		var/multiplier = 1
 		if(stat || (status_flags & FAKEDEATH))
 			multiplier = 2
 		var/obj/item/clothing/head/H = head
 		if(!istype(H) || prob(H.loose * multiplier))
-			drop_from_inventory(H)
+			unEquip(H)
 			if(prob(60))
 				step_rand(H)
 			if(!stat)
-				src << "<span class='warning'>Your [H] fell off!</span>"
+				src << "<span class='warning'>Your [H] fell off!</span>" */

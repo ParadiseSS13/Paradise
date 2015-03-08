@@ -12,7 +12,7 @@
 	name = "first-aid kit"
 	desc = "It's an emergency medical kit for those serious boo-boos."
 	icon_state = "firstaid"
-	icon_override = 'icons/mob/in-hand/medkits.dmi'	
+	icon_override = 'icons/mob/in-hand/medkits.dmi'
 	throw_speed = 2
 	throw_range = 8
 	var/empty = 0
@@ -56,8 +56,8 @@
 		return
 
 /obj/item/weapon/storage/firstaid/toxin
-	name = "toxin first aid"
-	desc = "Used to treat when you have a high amoutn of toxins in your body."
+	name = "toxin first aid kit"
+	desc = "Used to treat when you have a high amounts of toxins in your body."
 	icon_state = "antitoxin"
 	item_state = "firstaid-toxin"
 
@@ -77,7 +77,7 @@
 		return
 
 /obj/item/weapon/storage/firstaid/o2
-	name = "oxygen deprivation first aid"
+	name = "oxygen deprivation first aid kit"
 	desc = "A box full of oxygen goodies."
 	icon_state = "o2"
 	item_state = "firstaid-o2"
@@ -121,8 +121,8 @@
 /obj/item/weapon/storage/firstaid/tactical/New()
 	..()
 	if (empty) return
-	new /obj/item/clothing/tie/stethoscope( src )
-	new /obj/item/weapon/surgicaldrill(src)
+	new /obj/item/clothing/accessory/stethoscope( src )
+	new /obj/item/weapon/defibrillator/compact/combat/loaded(src)
 	new /obj/item/weapon/reagent_containers/hypospray/combat(src)
 	new /obj/item/weapon/reagent_containers/pill/bicaridine(src)
 	new /obj/item/weapon/reagent_containers/pill/dermaline(src)
@@ -154,10 +154,10 @@
 		if ((!( M.restrained() ) && !( M.stat ) /*&& M.pocket == src*/))
 			switch(over_object.name)
 				if("r_hand")
-					M.u_equip(src)
+					M.unEquip(src)
 					M.put_in_r_hand(src)
 				if("l_hand")
-					M.u_equip(src)
+					M.unEquip(src)
 					M.put_in_l_hand(src)
 			src.add_fingerprint(usr)
 			return

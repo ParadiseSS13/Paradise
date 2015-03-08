@@ -187,7 +187,8 @@
 /datum/surgery_step/generic/cut_limb
 	allowed_tools = list(
 	/obj/item/weapon/circular_saw = 100, \
-	/obj/item/weapon/hatchet = 75
+	/obj/item/weapon/hatchet = 75, \
+	/obj/item/weapon/melee/arm_blade = 60
 	)
 
 	min_duration = 110
@@ -216,7 +217,7 @@
 		var/datum/organ/external/affected = target.get_organ(target_zone)
 		user.visible_message("\blue [user] cuts off [target]'s [affected.display_name] with \the [tool].", \
 		"\blue You cut off [target]'s [affected.display_name] with \the [tool].")
-		affected.droplimb(1,0)
+		affected.droplimb(1,1,1)
 
 	fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
 		var/datum/organ/external/affected = target.get_organ(target_zone)

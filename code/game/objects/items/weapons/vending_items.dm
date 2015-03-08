@@ -57,7 +57,7 @@
 	machine_name = "AutoDrobe"
 	icon_state = "refill_costume"
 	charges = 19// of 58
-	
+
 /obj/item/weapon/vending_refill/hatdispenser
 	machine_name = "hat"
 	icon_state = "refill_costume"
@@ -67,8 +67,13 @@
 	machine_name = "suit"
 	icon_state = "refill_costume"
 	charges = 68// of 206
-	
+
 /obj/item/weapon/vending_refill/shoedispenser
 	machine_name = "shoe"
 	icon_state = "refill_costume"
 	charges = 30// of 91
+
+/obj/item/weapon/vending_refill/clothing
+	machine_name = "ClothesMate"
+	icon_state = "refill_clothes"
+	charges = 20// of 62

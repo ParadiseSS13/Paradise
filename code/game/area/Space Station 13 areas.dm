@@ -22,6 +22,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	var/poweralm = 1
 	var/party = null
 	var/radalert = 0
+	var/report_alerts = 1 // Should atmos alerts notify the AI/computers
 	level = null
 	name = "Space"
 	icon = 'icons/turf/areas.dmi'
@@ -66,10 +67,12 @@ var/list/teleportlocs = list()
 	for(var/area/AR in world)
 		if(istype(AR, /area/shuttle) || istype(AR, /area/syndicate_station) || istype(AR, /area/wizard_station)) continue
 		if(teleportlocs.Find(AR.name)) continue
-		var/turf/picked = pick(get_area_turfs(AR.type))
-		if (picked.z == 1)
-			teleportlocs += AR.name
-			teleportlocs[AR.name] = AR
+		var/list/turfs = get_area_turfs(AR.type)
+		if(turfs.len)
+			var/turf/picked = pick(turfs)
+			if ((picked.z in config.station_levels))
+				teleportlocs += AR.name
+				teleportlocs[AR.name] = AR
 
 	teleportlocs = sortAssoc(teleportlocs)
 
@@ -80,13 +83,15 @@ var/list/ghostteleportlocs = list()
 /hook/startup/proc/setupGhostTeleportLocs()
 	for(var/area/AR in world)
 		if(ghostteleportlocs.Find(AR.name)) continue
-		if(istype(AR, /area/turret_protected/aisat) || istype(AR, /area/derelict) || istype(AR, /area/tdome))
+		if(istype(AR, /area/tdome))
 			ghostteleportlocs += AR.name
 			ghostteleportlocs[AR.name] = AR
-		var/turf/picked = pick(get_area_turfs(AR.type))
-		if (picked.z == 1 || picked.z == 5 || picked.z == 3)
-			ghostteleportlocs += AR.name
-			ghostteleportlocs[AR.name] = AR
+		var/list/turfs = get_area_turfs(AR.type)
+		if(turfs.len)
+			var/turf/picked = pick(turfs)
+			if ((picked.z in config.player_levels))
+				ghostteleportlocs += AR.name
+				ghostteleportlocs[AR.name] = AR
 
 	ghostteleportlocs = sortAssoc(ghostteleportlocs)
 
@@ -492,27 +497,6 @@ var/list/ghostteleportlocs = list()
 	name = "\improper Asteroid - Artifact"
 	icon_state = "cave"
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/area/planet/clown
-	name = "\improper Clown Planet"
-	icon_state = "honk"
-	luminosity = 1
-	lighting_use_dynamic = 0
-	requires_power = 0
-
 /area/tdome
 	name = "\improper Thunderdome"
 	icon_state = "thunder"
@@ -770,6 +754,15 @@ var/list/ghostteleportlocs = list()
 	name = "\improper Prison Cell Block C"
 	icon_state = "brig"
 
+//Labor camp
+/area/mine/laborcamp
+	name = "Labor Camp"
+	icon_state = "brig"
+
+/area/mine/laborcamp/security
+	name = "Labor Camp Security"
+	icon_state = "security"
+
 //STATION13
 
 /area/atmos
@@ -838,8 +831,12 @@ var/list/ghostteleportlocs = list()
 	name = "Engineering Maintenance"
 	icon_state = "amaint"
 
+/area/maintenance/engi_shuttle
+	name = "Engineering Shuttle Access"
+	icon_state = "maint_e_shuttle"
+
 /area/maintenance/storage
-	name = "Atmospherics"
+	name = "Atmospherics Maintenance"
 	icon_state = "green"
 
 /area/maintenance/incinerator
@@ -1240,10 +1237,6 @@ var/list/ghostteleportlocs = list()
 	name = "\improper Mechanic Workshop"
 	icon_state = "engine"
 
-/area/engine/gravity_generator
-	name = "\improper Gravity Generator Room"
-	icon_state = "blue"
-
 //Solars
 
 /area/solar
@@ -1324,7 +1317,7 @@ var/list/ghostteleportlocs = list()
 	music = "signal"
 
 /area/AIsattele
-	name = "\improper AI Satellite Teleporter Room"
+	name = "\improper Abandoned Teleporter"
 	icon_state = "teleporter"
 	music = "signal"
 
@@ -1991,6 +1984,11 @@ area/security/podbay
 
 
 //Traitor Station
+/area/traitor
+	name = "\improper Syndicate Base"
+	icon_state = "syndie_hall"
+	report_alerts = 0
+	
 /area/traitor/rnd
 	name = "\improper Syndicate Research and Development"
 	icon_state = "syndie_rnd"
@@ -2065,6 +2063,14 @@ area/security/podbay
 /area/aisat
 	name = "\improper AI Satellite Exterior"
 	icon_state = "yellow"
+
+/area/aisat/entrance
+	name = "\improper AI Satellite Entrance"
+	icon_state = "ai_foyer"
+
+/area/aisat/maintenance
+	name = "\improper AI Satellite Maintenance"
+	icon_state = "storage"
 
 /area/turret_protected/aisat_interior
 	name = "\improper AI Satellite Antechamber"
@@ -2257,72 +2263,105 @@ area/security/podbay
 	luminosity = 1
 	lighting_use_dynamic = 0
 	requires_power = 0
-	var/sound/mysound = null
 
-	New()
-		..()
-		var/sound/S = new/sound()
-		mysound = S
-		S.file = 'sound/ambience/shore.ogg'
-		S.repeat = 1
-		S.wait = 0
-		S.channel = 123
-		S.volume = 100
-		S.priority = 255
-		S.status = SOUND_UPDATE
-		process()
+////////////////////////AWAY AREAS///////////////////////////////////
 
-	Entered(atom/movable/Obj,atom/OldLoc)
-		if(ismob(Obj))
-			if(Obj:client)
-				mysound.status = SOUND_UPDATE
-				Obj << mysound
-		return
+/area/awaycontent
+	name = "space"
+	report_alerts = 0
 
-	Exited(atom/movable/Obj)
-		if(ismob(Obj))
-			if(Obj:client)
-				mysound.status = SOUND_PAUSED | SOUND_UPDATE
-				Obj << mysound
+/area/awaycontent/a1
+	icon_state = "awaycontent1"
 
-	proc/process()
-		//set background = 1
+/area/awaycontent/a2
+	icon_state = "awaycontent2"
 
-		var/sound/S = null
-		var/sound_delay = 0
-		if(prob(25))
-			S = sound(file=pick('sound/ambience/seag1.ogg','sound/ambience/seag2.ogg','sound/ambience/seag3.ogg'), volume=100)
-			sound_delay = rand(0, 50)
+/area/awaycontent/a3
+	icon_state = "awaycontent3"
 
-		for(var/mob/living/carbon/human/H in src)
-			if(H.s_tone > -55)
-				H.s_tone--
-				H.update_body()
-			if(H.client)
-				mysound.status = SOUND_UPDATE
-				H << mysound
-				if(S)
-					spawn(sound_delay)
-						H << S
+/area/awaycontent/a4
+	icon_state = "awaycontent4"
 
-		spawn(60) .()
+/area/awaycontent/a5
+	icon_state = "awaycontent5"
 
-////////////////////////CLOWN PLANET///////////////////////////////////
+/area/awaycontent/a6
+	icon_state = "awaycontent6"
 
+/area/awaycontent/a7
+	icon_state = "awaycontent7"
 
-/area/awaymission/clownplanet/miningtown
-	name = "\improper Clown Planet - Bananium-o-Rama"
-	icon_state = "away1"
-	luminosity = 1
-	requires_power = 0
+/area/awaycontent/a8
+	icon_state = "awaycontent8"
 
-/area/awaymission/clownplanet/mine
-	name = "\improper Clown Planet - Bananium-o-Rama Mines"
-	icon_state = "away2"
-	luminosity = 1
-	requires_power = 0
+/area/awaycontent/a9
+	icon_state = "awaycontent9"
 
+/area/awaycontent/a10
+	icon_state = "awaycontent10"
 
+/area/awaycontent/a11
+	icon_state = "awaycontent11"
+
+/area/awaycontent/a11
+	icon_state = "awaycontent12"
+
+/area/awaycontent/a12
+	icon_state = "awaycontent13"
+
+/area/awaycontent/a13
+	icon_state = "awaycontent14"
+
+/area/awaycontent/a14
+	icon_state = "awaycontent14"
+
+/area/awaycontent/a15
+	icon_state = "awaycontent15"
+
+/area/awaycontent/a16
+	icon_state = "awaycontent16"
+
+/area/awaycontent/a17
+	icon_state = "awaycontent17"
+
+/area/awaycontent/a18
+	icon_state = "awaycontent18"
+
+/area/awaycontent/a19
+	icon_state = "awaycontent19"
+
+/area/awaycontent/a20
+	icon_state = "awaycontent20"
+
+/area/awaycontent/a21
+	icon_state = "awaycontent21"
+
+/area/awaycontent/a22
+	icon_state = "awaycontent22"
+
+/area/awaycontent/a23
+	icon_state = "awaycontent23"
+
+/area/awaycontent/a24
+	icon_state = "awaycontent24"
+
+/area/awaycontent/a25
+	icon_state = "awaycontent25"
+
+/area/awaycontent/a26
+	icon_state = "awaycontent26"
+
+/area/awaycontent/a27
+	icon_state = "awaycontent27"
+
+/area/awaycontent/a28
+	icon_state = "awaycontent28"
+
+/area/awaycontent/a29
+	icon_state = "awaycontent29"
+
+/area/awaycontent/a30
+	icon_state = "awaycontent30"
 
 /////////////////////////////////////////////////////////////////////
 /*

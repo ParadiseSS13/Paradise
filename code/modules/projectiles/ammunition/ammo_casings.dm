@@ -96,6 +96,12 @@
 	icon_state = "ishell"
 	projectile_type = "/obj/item/projectile/bullet/incendiary/shell"
 
+/obj/item/ammo_casing/shotgun/frag12
+	name = "FRAG-12 slug"
+	desc = "A high explosive breaching round for a 12 gauge shotgun."
+	icon_state = "heshell"
+	projectile_type = /obj/item/projectile/bullet/frag12
+
 /obj/item/ammo_casing/shotgun/incendiary/dragonsbreath
 	name = "dragonsbreath shell"
 	desc = "A shotgun shell which fires a spread of incendiary pellets."
@@ -125,6 +131,11 @@
 /obj/item/ammo_casing/shotgun/dart/attackby()
 	return
 
+/obj/item/ammo_casing/syringegun
+	name = "syringe gun spring"
+	desc = "A high-power spring that throws syringes."
+	projectile_type = null
+
 /obj/item/ammo_casing/shotgun/fakebeanbag
 	name = "beanbag shell"
 	desc = "A weak beanbag shell."
@@ -133,6 +144,7 @@
 
 /obj/item/ammo_casing/a762
 	desc = "A 7.62mm bullet casing."
+	icon_state = "762-casing"
 	caliber = "a762"
 	projectile_type = "/obj/item/projectile/bullet"
 

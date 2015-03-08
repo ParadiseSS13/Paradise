@@ -68,6 +68,7 @@ var/global/nologevent = 0
 
 	if(M.client)
 		body += "| <A HREF='?src=\ref[src];sendtoprison=\ref[M]'>Prison</A> | "
+		body += "\ <A href='?_src_=holder;sendbacktolobby=\ref[M]'>Send back to Lobby</A> | "
 		var/muted = M.client.prefs.muted
 		body += {"<br><b>Mute: </b>
 			\[<A href='?src=\ref[src];mute=\ref[M];mute_type=[MUTE_IC]'><font color='[(muted & MUTE_IC)?"red":"blue"]'>IC</font></a> |
@@ -729,16 +730,6 @@ var/global/nologevent = 0
 	message_admins("[key_name_admin(usr)] toggled Aliens [aliens_allowed ? "on" : "off"].", 1)
 	feedback_add_details("admin_verb","TA") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
-
-/datum/admins/proc/toggle_space_ninja()
-	set category = "Event"
-	set desc="Toggle space ninjas spawning."
-	set name="Toggle Space Ninjas"
-	toggle_space_ninja = !toggle_space_ninja
-	log_admin("[key_name(usr)] toggled Space Ninjas to [toggle_space_ninja].")
-	message_admins("[key_name_admin(usr)] toggled Space Ninjas [toggle_space_ninja ? "on" : "off"].", 1)
-	feedback_add_details("admin_verb","TSN") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
-
 /datum/admins/proc/delay()
 	set category = "Server"
 	set desc="Delay the game start/end"
@@ -780,7 +771,7 @@ var/global/nologevent = 0
 /datum/admins/proc/unprison(var/mob/M in mob_list)
 	set category = "Admin"
 	set name = "Unprison"
-	if (M.z == 2)
+	if ((M.z in config.admin_levels))
 		M.loc = pick(latejoin)
 		message_admins("[key_name_admin(usr)] has unprisoned [key_name_admin(M)]", 1)
 		log_admin("[key_name(usr)] has unprisoned [key_name(M)]")
@@ -913,7 +904,7 @@ var/global/nologevent = 0
 			usr << "<b>AI [key_name(S, usr)]'s laws:</b>"
 		else if(isrobot(S))
 			var/mob/living/silicon/robot/R = S
-			usr << "<b>CYBORG [key_name(S, usr)] [R.connected_ai?"(Slaved to: [R.connected_ai])":"(Independant)"]: laws:</b>"
+			usr << "<b>CYBORG [key_name(S, usr)] [R.connected_ai?"(Slaved to: [R.connected_ai])":"(Independent)"]: laws:</b>"
 		else if (ispAI(S))
 			usr << "<b>pAI [key_name(S, usr)]'s laws:</b>"
 		else
@@ -955,6 +946,16 @@ proc/move_gamma_ship()
 		fromArea = locate(/area/shuttle/gamma/station)
 		toArea = locate(/area/shuttle/gamma/space)
 	fromArea.move_contents_to(toArea)
+
+	for(var/obj/machinery/mech_bay_recharge_port/P in toArea)
+		P.locate_recharge_turf()
+
+	for(var/obj/machinery/power/apc/A in toArea)
+		A.init()
+
+	for(var/obj/machinery/alarm/A in toArea)
+		A.first_run()
+
 	if (gamma_ship_location)
 		gamma_ship_location = 0
 	else

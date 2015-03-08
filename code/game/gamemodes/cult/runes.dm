@@ -111,7 +111,7 @@ var/list/sacrificed = list()
 		"\red AAAAAAHHHH!.", \
 		"\red You hear an anguished scream.")
 		cult_log("[key_name_admin(usr)] tried to convert [key_name_admin(M)]")
-		if(is_convertable_to_cult(M.mind) && !jobban_isbanned(M, "cultist"))//putting jobban check here because is_convertable uses mind as argument
+		if(is_convertable_to_cult(M.mind) && !jobban_isbanned(M, "cultist") && !jobban_isbanned(M,"Syndicate"))//putting jobban check here because is_convertable uses mind as argument
 			ticker.mode.add_cultist(M.mind)
 			M.mind.special_role = "Cultist"
 			M << "<font color=\"purple\"><b><i>Your blood pulses. Your head throbs. The world goes red. All at once you are aware of a horrible, horrible truth. The veil of reality has been ripped away and in the festering wound left behind something sinister takes root.</b></i></font>"
@@ -373,7 +373,7 @@ var/list/sacrificed = list()
 		break
 	if(!ghost)
 		return this_rune.fizzle()
-	if(jobban_isbanned(ghost, "cultist"))
+	if(jobban_isbanned(ghost, "cultist") || jobban_isbanned(ghost,"Syndicate"))
 		return this_rune.fizzle()
 
 	usr.say("Gal'h'rfikk harfrandid mud[pick("'","`")]gib!")
@@ -813,7 +813,7 @@ var/list/sacrificed = list()
 			cultist.legcuffed = null
 			cultist.update_inv_legcuffed()
 		if (istype(cultist.wear_mask, /obj/item/clothing/mask/muzzle))
-			cultist.u_equip(cultist.wear_mask)
+			cultist.unEquip(cultist.wear_mask)
 		if(istype(cultist.loc, /obj/structure/closet)&&cultist.loc:welded)
 			cultist.loc:welded = 0
 		if(istype(cultist.loc, /obj/structure/closet/secure_closet)&&cultist.loc:locked)
@@ -1019,7 +1019,7 @@ var/list/sacrificed = list()
 			if(iscarbon(L))
 				var/mob/living/carbon/C = L
 				flick("e_flash", C.flash)
-				if(C.stuttering < 1 && (!(M_HULK in C.mutations)))
+				if(C.stuttering < 1 && (!(HULK in C.mutations)))
 					C.stuttering = 1
 				C.Weaken(1)
 				C.Stun(1)
@@ -1046,7 +1046,7 @@ var/list/sacrificed = list()
 			else if(iscarbon(T))
 				var/mob/living/carbon/C = T
 				flick("e_flash", C.flash)
-				if (!(M_HULK in C.mutations))
+				if (!(HULK in C.mutations))
 					C.silent += 15
 				C.Weaken(25)
 				C.Stun(25)

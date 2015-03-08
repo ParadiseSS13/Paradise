@@ -82,14 +82,14 @@
 	filling_color = "#E6E8DA"
 	plantname = "potato"
 
-/obj/item/weapon/reagent_containers/food/snacks/grown/potato/attackby(obj/item/weapon/W as obj, mob/user as mob)
+/obj/item/weapon/reagent_containers/food/snacks/grown/potato/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
 	..()
 	if(istype(W, /obj/item/stack/cable_coil))
 		if(W:amount >= 5)
 			W:amount -= 5
 			if(!W:amount) del(W)
 			user << "<span class='notice'>You add some cable to the potato and slide it inside the battery encasing.</span>"
-			var/obj/item/weapon/cell/potato/pocell = new /obj/item/weapon/cell/potato(user.loc)
+			var/obj/item/weapon/stock_parts/cell/potato/pocell = new /obj/item/weapon/stock_parts/cell/potato(user.loc)
 			pocell.maxcharge = src.potency * 10
 			pocell.charge = pocell.maxcharge
 			del(src)
@@ -239,9 +239,9 @@
 	filling_color = "#125709"
 	plantname = "ambrosia"
 
-/obj/item/weapon/reagent_containers/food/snacks/grown/ambrosiavulgaris/attackby(var/obj/item/W as obj, var/mob/user as mob)
+/obj/item/weapon/reagent_containers/food/snacks/grown/ambrosiavulgaris/attackby(var/obj/item/W as obj, var/mob/user as mob, params)
 	if(istype(W, /obj/item/weapon/rollingpaper))
-		user.u_equip(W)
+		user.unEquip(W)
 		var/obj/item/clothing/mask/cigarette/joint/J = new /obj/item/clothing/mask/cigarette/joint(user.loc)
 		J.chem_volume = src.reagents.total_volume
 		src.reagents.trans_to(J, J.chem_volume)
@@ -262,9 +262,9 @@
 	filling_color = "#229E11"
 	plantname = "ambrosiadeus"
 
-/obj/item/weapon/reagent_containers/food/snacks/grown/ambrosiadeus/attackby(var/obj/item/W as obj, var/mob/user as mob)
+/obj/item/weapon/reagent_containers/food/snacks/grown/ambrosiadeus/attackby(var/obj/item/W as obj, var/mob/user as mob, params)
 	if(istype(W, /obj/item/weapon/rollingpaper))
-		user.u_equip(W)
+		user.unEquip(W)
 		var/obj/item/clothing/mask/cigarette/joint/deus/J = new /obj/item/clothing/mask/cigarette/joint/deus(user.loc)
 		J.chem_volume = src.reagents.total_volume
 		src.reagents.trans_to(J, J.chem_volume)
@@ -317,7 +317,7 @@
 	filling_color = "#FAB728"
 	plantname = "pumpkin"
 
-/obj/item/weapon/reagent_containers/food/snacks/grown/pumpkin/attackby(obj/item/weapon/W as obj, mob/user as mob)
+/obj/item/weapon/reagent_containers/food/snacks/grown/pumpkin/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
 	..()
 	if(istype(W, /obj/item/weapon/circular_saw) || istype(W, /obj/item/weapon/hatchet) || istype(W, /obj/item/weapon/twohanded/fireaxe) || istype(W, /obj/item/weapon/kitchen/utensil/knife) || istype(W, /obj/item/weapon/kitchenknife) || istype(W, /obj/item/weapon/melee/energy))
 		user.show_message("<span class='notice'>You carve a face into [src]!</span>", 1)
@@ -393,36 +393,17 @@
 	name = "koibean"
 	desc = "Something about these seems fishy."
 	icon_state = "koibeans"
-	New()
-		..()
-		spawn(5)	//So potency can be set in the proc that creates these crops
-			reagents.add_reagent("nutriment", 1+round((potency / 30), 1))
-			reagents.add_reagent("carpotoxin", 1+round((potency / 20), 1))
-			bitesize = 1+round(reagents.total_volume / 2, 1)
 
 /obj/item/weapon/reagent_containers/food/snacks/grown/moonflower
 	name = "moonflower"
 	desc = "Store in a location at least 50 yards away from werewolves."
 	icon_state = "moonflower"
-	New()
-		..()
-		spawn(5)	//So potency can be set in the proc that creates these crops
-			reagents.add_reagent("nutriment", 1+round((potency / 50), 1))
-			reagents.add_reagent("moonshine", 1+round((potency / 10), 1))
-			bitesize = 1+round(reagents.total_volume / 2, 1)
 
 /obj/item/weapon/reagent_containers/food/snacks/grown/ghost_chilli
 	name = "ghost chili"
 	desc = "It seems to be vibrating gently."
 	icon_state = "ghostchilipepper"
 	var/mob/held_mob
-	New()
-		..()
-		spawn(5)	//So potency can be set in the proc that creates these crops
-			reagents.add_reagent("nutriment", 1+round((potency / 25), 1))
-			reagents.add_reagent("capsaicin", 8+round(potency / 2, 1))
-			reagents.add_reagent("condensedcapsaicin", 4+round(potency / 4, 1))
-			bitesize = 1+round(reagents.total_volume / 4, 1)
 
 /obj/item/weapon/reagent_containers/food/snacks/grown/tomato
 	name = "tomato"
@@ -484,7 +465,7 @@
 
 /obj/item/weapon/reagent_containers/food/snacks/grown/bluetomato/throw_impact(atom/hit_atom)
 	..()
-	new/obj/effect/decal/cleanable/oil(src.loc)
+	new/obj/effect/decal/cleanable/blood/oil(src.loc)
 	src.visible_message("<span class='notice'>The [src.name] has been squashed.</span>","<span class='moderate'>You hear a smack.</span>")
 	src.reagents.reaction(get_turf(hit_atom))
 	for(var/atom/A in get_turf(hit_atom))
@@ -643,6 +624,50 @@
 	user.SetLuminosity(round(user.luminosity - (potency/10),1))
 	SetLuminosity(round(potency/10,1))
 
+//Tobacco/varieties
+/obj/item/weapon/reagent_containers/food/snacks/grown/tobacco
+	name = "tobacco leaves"
+	desc = "It's tobacco... Put that in your pipe and smoke it."
+	icon_state = "tobacco_leaves"
+	filling_color = "#FFE991"
+	plantname = "tobacco"
+
+/obj/item/weapon/reagent_containers/food/snacks/grown/tobacco/space
+	name = "space-tobacco leaves"
+	desc = "It's tobacco... From SPACE!"
+	icon_state = "stobacco_leaves"
+	filling_color = "#FFE991"
+	plantname = "stobacco"
+
+//Tea/varieties
+/obj/item/weapon/reagent_containers/food/snacks/grown/teaaspera
+	name = "tea-aspera leaves"
+	desc = "Tea Aspera is well documented to have beneficial health effects!"
+	icon_state = "tea_aspera_leaves"
+	filling_color = "#7F8400"
+	plantname = "teaaspera"
+
+/obj/item/weapon/reagent_containers/food/snacks/grown/teaastra
+	name = "tea-astra leaves"
+	desc = "Tea Astra is well documented to have significant health effects."
+	icon_state = "tea_astra_leaves"
+	filling_color = "#7F8400"
+	plantname = "teaastra"
+
+//Coffee/varieties
+/obj/item/weapon/reagent_containers/food/snacks/grown/coffeea
+	name = "coffee-arabica beans"
+	desc = "Coffee Arabica: A great way start to your morning, or to prolong your nights."
+	icon_state = "coffee_arabica"
+	filling_color = "#5B2E0D"
+	plantname = "coffeea"
+
+/obj/item/weapon/reagent_containers/food/snacks/grown/coffeer
+	name = "coffee-robusta beans"
+	desc = "Coffee Robusta: Coffe so robust we had to put it in the name."
+	icon_state = "coffee_robusta"
+	filling_color = "#5B2E0D"
+	plantname = "coffeer"
 
 // *************************************
 // Complex Grown Object Defines -
@@ -666,7 +691,7 @@
 	var/list/turfs = new/list()
 	var/datum/effect/effect/system/spark_spread/s = new /datum/effect/effect/system/spark_spread
 	if(inner_teleport_radius < 1) //Wasn't potent enough, it just splats.
-		new/obj/effect/decal/cleanable/oil(src.loc)
+		new/obj/effect/decal/cleanable/blood/oil(src.loc)
 		src.visible_message("<span class='notice'>The [src.name] has been squashed.</span>","<span class='moderate'>You hear a smack.</span>")
 		del(src)
 		return
@@ -703,7 +728,7 @@
 				sleep(1)
 				s.set_up(3, 1, A)
 				s.start()
-	new/obj/effect/decal/cleanable/oil(src.loc)
+	new/obj/effect/decal/cleanable/blood/oil(src.loc)
 	src.visible_message("<span class='notice'>The [src.name] has been squashed, causing a distortion in space-time.</span>","<span class='moderate'>You hear a splat and a crackle.</span>")
 	del(src)
 	return

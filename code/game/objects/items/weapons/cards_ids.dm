@@ -68,58 +68,16 @@
 	icon_state = "emag"
 	item_state = "card-id"
 	origin_tech = "magnets=2;syndicate=2"
-	var/uses = 10
-	// List of devices that cost a use to emag.
-	var/list/devices = list(
-		/obj/item/robot_parts,
-		/obj/item/weapon/storage/lockbox,
-		/obj/item/weapon/storage/secure,
-		/obj/item/weapon/circuitboard,
-		/obj/item/device/eftpos,
-		/obj/item/device/lightreplacer,
-		/obj/item/device/taperecorder,
-		/obj/item/device/hailer,
-		/obj/item/clothing/tie/holobadge,
-		/obj/structure/closet/crate/secure,
-		/obj/structure/closet/secure_closet,
-		/obj/machinery/librarycomp,
-		/obj/machinery/computer,
-		/obj/machinery/power,
-		/obj/machinery/suspension_gen,
-		/obj/machinery/shield_capacitor,
-		/obj/machinery/shield_gen,
-//		/obj/machinery/zero_point_emitter,
-		/obj/machinery/clonepod,
-		/obj/machinery/deployable,
-		/obj/machinery/door_control,
-		/obj/machinery/porta_turret,
-		/obj/machinery/shieldgen,
-		/obj/machinery/turretid,
-		/obj/machinery/vending,
-		/obj/machinery/bot,
-		/obj/machinery/door,
-		/obj/machinery/telecomms,
-		/obj/machinery/mecha_part_fabricator,
-		/obj/vehicle
-		)
+	flags = NOBLUDGEON
 
+/obj/item/weapon/card/emag/attack()
+	return
 
-/obj/item/weapon/card/emag/afterattack(var/obj/item/weapon/O as obj, mob/user as mob)
-
-	for(var/type in devices)
-		if(istype(O,type))
-			uses--
-			break
-
-	if(uses<1)
-		user.visible_message("[src] fizzles and sparks - it seems it's been used once too often, and is now broken.")
-		user.drop_item()
-		var/obj/item/weapon/card/emag_broken/junk = new(user.loc)
-		junk.add_fingerprint(user)
-		del(src)
+/obj/item/weapon/card/emag/afterattack(atom/target, mob/user, proximity)
+	var/atom/A = target
+	if(!proximity) 
 		return
-
-	..()
+	A.emag_act(user)
 
 /obj/item/weapon/card/id
 	name = "identification card"
@@ -203,7 +161,7 @@
 /obj/item/weapon/card/id/GetID()
 	return src
 
-/obj/item/weapon/card/id/attackby(obj/item/weapon/W as obj, mob/user as mob)
+/obj/item/weapon/card/id/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
 	..()
 	if(istype(W,/obj/item/weapon/id_wallet))
 		user << "You slip [src] into [W]."
@@ -212,6 +170,18 @@
 		src.icon = W.icon
 		src.icon_state = W.icon_state
 		del(W)
+		return
+
+	if(istype(W, /obj/item/weapon/id_decal/))
+		var/obj/item/weapon/id_decal/decal = W
+		user << "You apply [decal] to [src]."
+		if(decal.override_name)
+			name = decal.decal_name
+		desc = decal.decal_desc
+		icon_state = decal.decal_icon_state
+		item_state = decal.decal_item_state
+		qdel(decal)
+		qdel(W)
 		return
 
 	else if(istype (W,/obj/item/weapon/stamp))
@@ -280,7 +250,7 @@
 			return
 		src.registered_name = t
 
-		var u = copytext(sanitize(input(user, "What occupation would you like to put on this card?\nNote: This will not grant any access levels other than Maintenance.", "Agent card job assignment", "Civilian")),1,MAX_MESSAGE_LEN)
+		var u = sanitize(copytext(input(user, "What occupation would you like to put on this card?\nNote: This will not grant any access levels other than Maintenance.", "Agent card job assignment", "Civilian"),1,MAX_MESSAGE_LEN))
 		if(!u)
 			alert("Invalid assignment.")
 			src.registered_name = ""
@@ -295,13 +265,13 @@
 
 		switch(alert("Would you like to display the ID, or retitle it?","Choose.","Rename","Show"))
 			if("Rename")
-				var t = copytext(sanitize(input(user, "What name would you like to put on this card?", "Agent card name", ishuman(user) ? user.real_name : user.name)),1,26)
+				var t = sanitize(copytext(input(user, "What name would you like to put on this card?", "Agent card name", ishuman(user) ? user.real_name : user.name),1,26))
 				if(!t || t == "Unknown" || t == "floor" || t == "wall" || t == "r-wall") //Same as mob/new_player/prefrences.dm
 					alert("Invalid name.")
 					return
 				src.registered_name = t
 
-				var u = copytext(sanitize(input(user, "What occupation would you like to put on this card?\nNote: This will not grant any access levels other than Maintenance.", "Agent card job assignment", "Civilian")),1,MAX_MESSAGE_LEN)
+				var u = sanitize(copytext(input(user, "What occupation would you like to put on this card?\nNote: This will not grant any access levels other than Maintenance.", "Agent card job assignment", "Civilian"),1,MAX_MESSAGE_LEN))
 				if(!u)
 					alert("Invalid assignment.")
 					src.registered_name = ""
@@ -392,3 +362,43 @@
 	desc = "Finders, keepers."
 	access = list(access_salvage_captain)
 
+/obj/item/weapon/id_decal
+	name = "identification card decal"
+	desc = "A modification kit to make your ID cards look snazzy.."
+	icon = 'icons/obj/device.dmi'
+	icon_state = "batterer"
+	var/decal_name = "identification card"
+	var/decal_desc = "A card used to provide ID and determine access across the station."
+	var/decal_icon_state = "id"
+	var/decal_item_state = "card-id"
+	var/override_name = 0
+
+/obj/item/weapon/id_decal/gold
+	name = "gold ID card card decal"
+	decal_desc = "A golden card which shows power and might."
+	decal_icon_state = "gold"
+	decal_item_state = "gold_id"
+
+/obj/item/weapon/id_decal/silver
+	name = "silver ID card decal"
+	decal_desc = "A silver card which shows honour and dedication."
+	decal_icon_state = "silver"
+	decal_item_state = "silver_id"
+
+/obj/item/weapon/id_decal/prisoner
+	name = "prisoner ID card decal"
+	decal_desc = "You are a number, you are not a free man."
+	decal_icon_state = "orange"
+	decal_item_state = "orange-id"
+
+/obj/item/weapon/id_decal/centcom
+	name = "centcom ID card decal"
+	decal_desc = "An ID straight from Cent. Com."
+	decal_icon_state = "centcom"
+
+/obj/item/weapon/id_decal/emag
+	name = "cryptographic sequencer ID card decal"
+	decal_name = "cryptographic sequencer"
+	decal_desc = "It's a card with a magnetic strip attached to some circuitry."
+	decal_icon_state = "emag"
+	override_name = 1

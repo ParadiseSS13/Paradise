@@ -163,7 +163,7 @@ var/list/uplink_items = list()
 /datum/uplink_item/jobspecific/pickpocketgloves
 	name = "Pickpocket's Gloves"
 	desc = "A pair of sleek gloves to aid in pickpocketing, while wearing these you can see inside the pockets of any unsuspecting mark, loot the ID or pockets without them knowing, and pickpocketing puts the item directly into your hand."
-	item = /obj/item/clothing/gloves/black/thief
+	item = /obj/item/clothing/gloves/color/black/thief
 	cost = 6
 	job = list("Civilian")
 
@@ -188,7 +188,7 @@ var/list/uplink_items = list()
 /datum/uplink_item/jobspecific/powergloves
 	name = "Power Gloves"
 	desc = "Insulated gloves that can utilize the power of the station to deliver a short arc of electricity at a target. Must be standing on a powered cable to use."
-	item = /obj/item/clothing/gloves/yellow/power
+	item = /obj/item/clothing/gloves/color/yellow/power
 	cost = 14
 	job = list("Station Engineer","Chief Engineer")
 
@@ -227,7 +227,7 @@ var/list/uplink_items = list()
 /datum/uplink_item/dangerous/crossbow
 	name = "Energy Crossbow"
 	desc = "A miniature energy crossbow that is small enough both to fit into a pocket and to slip into a backpack unnoticed by observers. Fires bolts tipped with toxin, a poisonous substance that is the product of a living organism. Stuns enemies for a short period of time. Recharges automatically."
-	item = /obj/item/weapon/gun/energy/crossbow
+	item = /obj/item/weapon/gun/energy/kinetic_accelerator/crossbow
 	cost = 12
 	excludefrom = list("nuclear emergency")
 
@@ -323,18 +323,18 @@ var/list/uplink_items = list()
 	cost = 18
 	gamemodes = list("nuclear emergency")
 
-/datum/uplink_item/ammo/bullstun
-	name = "Drum Magazine - 12g Stun Slug"
-	desc = "An additional 8-round stun slug magazine for use in the Bulldog shotgun. Saying that they're non-lethal would be lying."
+/datum/uplink_item/ammo/bullbuck
+	name = "Drum Magazine - 12g buckshot"
+	desc = "An additional 8-round buckshot magazine for use in the Bulldog shotgun. Front towards enemy."
 	item = /obj/item/ammo_box/magazine/m12g
 	cost = 2
 	gamemodes = list("nuclear emergency")
 
-/datum/uplink_item/ammo/bullbuck
-	name = "Drum Magazine - 12g Buckshot"
-	desc = "An alternative 8-round buckshot magazine for use in the Bulldog shotgun. Front towards enemy."
-	item = /obj/item/ammo_box/magazine/m12g/buckshot
-	cost = 2
+/datum/uplink_item/ammo/bullstun
+	name = "Drum Magazine - 12g Stun Slug"
+	desc = "An alternative 8-round stun slug magazine for use in the Bulldog shotgun. Saying that they're completely non-lethal would be lying."
+	item = /obj/item/ammo_box/magazine/m12g/stun
+	cost = 3
 	gamemodes = list("nuclear emergency")
 
 /datum/uplink_item/ammo/bulldragon
@@ -371,10 +371,11 @@ var/list/uplink_items = list()
 /datum/uplink_item/stealthy_weapons
 	category = "Stealthy and Inconspicuous Weapons"
 
-/datum/uplink_item/stealthy_weapons/para_pen
-	name = "Paralysis Pen"
-	desc = "A syringe disguised as a functional pen, filled with a neuromuscular-blocking drug that renders a target mute on injection that will eventually cause them to pass out. The pen holds one dose of paralyzing agent,though it can be refilled."
-	item = /obj/item/weapon/pen/paralysis
+/datum/uplink_item/stealthy_weapons/sleepy_pen
+	name = "Sleepy Pen"
+	desc = "A syringe disguised as a functional pen, filled with a potent mix of drugs, including a strong anaesthetic and a chemical that is capable of blocking the movement of the vocal chords. \
+	The pen holds one dose of the mixture. The pen can be refilled."
+	item = /obj/item/weapon/pen/sleepy
 	cost = 8
 	excludefrom = list("nuclear emergency")
 
@@ -440,6 +441,12 @@ var/list/uplink_items = list()
 	item = /obj/item/device/chameleon
 	cost = 7
 
+/datum/uplink_item/stealthy_tools/camera_bug
+	name = "Camera Bug"
+	desc = "Enables you to bug cameras to view them remotely. Adding particular items to it alters its functions."
+	item = /obj/item/device/camera_bug
+	cost = 2
+
 /datum/uplink_item/stealthy_tools/dnascrambler
 	name = "DNA Scrambler"
 	desc = "A syringe with one injection that randomizes appearance and name upon use. A cheaper but less versatile alternative to an agent card and voice changer."
@@ -480,7 +487,7 @@ var/list/uplink_items = list()
 
 
 /datum/uplink_item/device_tools/medkit
-	name = "Syndicate Medical Supply Kit"
+	name = "Syndicate Combat Medic Kit"
 	desc = "The syndicate medkit is a suspicious black and red. Included is a combat stimulant injector for rapid healing, a medical hud for quick identification of injured comrades, \
 	and other medical supplies helpful for a medical field operative."
 	item = /obj/item/weapon/storage/firstaid/tactical
@@ -505,20 +512,6 @@ var/list/uplink_items = list()
 	item = /obj/item/clothing/glasses/thermal/syndi
 	cost = 6
 
-/*
-/datum/uplink_item/device_tools/surveillance
-	name = "Camera Surveillance Kit"
-	desc = "This kit contains 5 Camera bugs and one mobile receiver. Attach camera bugs to a camera to enable remote viewing."
-	item = /obj/item/weapon/storage/box/syndie_kit/surveillance
-	cost = 5
-
-/datum/uplink_item/device_tools/camerabugs
-	name = "Camera Bugs"
-	desc = "This is a Camera bug resupply giving you 5 more camera bugs."
-	item = /obj/item/weapon/storage/box/surveillance
-	cost = 4
-*/   //commented out until porting over TG's camera bug
-
 /datum/uplink_item/device_tools/binary
 	name = "Binary Translator Key"
 	desc = "A key, that when inserted into a radio headset, allows you to listen to and talk with artificial intelligences and cybernetic organisms in binary."
@@ -528,7 +521,7 @@ var/list/uplink_items = list()
 /datum/uplink_item/device_tools/cipherkey
 	name = "Syndicate Encryption Key"
 	desc = "A key, that when inserted into a radio headset, allows you to listen to all station department channels as well as talk on an encrypted Syndicate channel."
-	item = /obj/item/device/encryptionkey/syndicate/hacked
+	item = /obj/item/device/encryptionkey/syndicate
 	cost = 5
 
 /datum/uplink_item/device_tools/hacked_module
@@ -540,7 +533,7 @@ var/list/uplink_items = list()
 /datum/uplink_item/device_tools/plastic_explosives
 	name = "Composition C-4"
 	desc = "C-4 is plastic explosive of the common variety Composition C. You can use it to breach walls or connect a signaler to its wiring to make it remotely detonable. It has a modifiable timer with a minimum setting of 10 seconds."
-	item = /obj/item/weapon/plastique
+	item = /obj/item/weapon/c4
 	cost = 1
 
 /datum/uplink_item/device_tools/powersink

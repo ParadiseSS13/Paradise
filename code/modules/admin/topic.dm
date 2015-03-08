@@ -37,18 +37,10 @@
 				if(!src.makeWizard())
 					usr << "\red Unfortunately there weren't enough candidates available."
 			if("7")
-				log_admin("[key_name(usr)] has spawned a nuke team.")
-				if(!src.makeNukeTeam())
+				log_admin("[key_name(usr)] has spawned vampires.")
+				if(!src.makeVampires())
 					usr << "\red Unfortunately there weren't enough candidates available."
 			if("8")
-				log_admin("[key_name(usr)] has spawned a ninja.")
-				src.makeSpaceNinja()
-			if("9")
-				log_admin("[key_name(usr)] has spawned aliens.")
-				src.makeAliens()
-			if("10")
-				log_admin("[key_name(usr)] has spawned a death squad.")
-			if("11")
 				log_admin("[key_name(usr)] has spawned vox raiders.")
 				if(!src.makeVoxRaiders())
 					usr << "\red Unfortunately there weren't enough candidates available."
@@ -287,28 +279,28 @@
 		message_admins("\blue [key_name_admin(usr)] has used rudimentary transformation on [key_name_admin(M)]. Transforming to [href_list["simplemake"]]; deletemob=[delmob]", 1)
 
 		switch(href_list["simplemake"])
-			if("observer")			M.change_mob_type( /mob/dead/observer , null, null, delmob )
-			if("drone")				M.change_mob_type( /mob/living/carbon/alien/humanoid/drone , null, null, delmob )
-			if("hunter")			M.change_mob_type( /mob/living/carbon/alien/humanoid/hunter , null, null, delmob )
-			if("queen")				M.change_mob_type( /mob/living/carbon/alien/humanoid/queen/large , null, null, delmob )
-			if("sentinel")			M.change_mob_type( /mob/living/carbon/alien/humanoid/sentinel , null, null, delmob )
-			if("larva")				M.change_mob_type( /mob/living/carbon/alien/larva , null, null, delmob )
-			if("human")				M.change_mob_type( /mob/living/carbon/human/human , null, null, delmob )
-			if("slime")			M.change_mob_type( /mob/living/carbon/slime , null, null, delmob )
-			if("monkey")			M.change_mob_type( /mob/living/carbon/monkey , null, null, delmob )
-			if("robot")				M.change_mob_type( /mob/living/silicon/robot , null, null, delmob )
-			if("cat")				M.change_mob_type( /mob/living/simple_animal/cat , null, null, delmob )
-			if("runtime")			M.change_mob_type( /mob/living/simple_animal/cat/Runtime , null, null, delmob )
-			if("corgi")				M.change_mob_type( /mob/living/simple_animal/corgi , null, null, delmob )
-			if("ian")				M.change_mob_type( /mob/living/simple_animal/corgi/Ian , null, null, delmob )
-			if("crab")				M.change_mob_type( /mob/living/simple_animal/crab , null, null, delmob )
-			if("coffee")			M.change_mob_type( /mob/living/simple_animal/crab/Coffee , null, null, delmob )
-			if("parrot")			M.change_mob_type( /mob/living/simple_animal/parrot , null, null, delmob )
-			if("polyparrot")		M.change_mob_type( /mob/living/simple_animal/parrot/Poly , null, null, delmob )
-			if("constructarmoured")	M.change_mob_type( /mob/living/simple_animal/construct/armoured , null, null, delmob )
-			if("constructbuilder")	M.change_mob_type( /mob/living/simple_animal/construct/builder , null, null, delmob )
-			if("constructwraith")	M.change_mob_type( /mob/living/simple_animal/construct/wraith , null, null, delmob )
-			if("shade")				M.change_mob_type( /mob/living/simple_animal/shade , null, null, delmob )
+			if("observer")			M.change_mob_type( /mob/dead/observer , null, null, delmob, 1 )
+			if("drone")				M.change_mob_type( /mob/living/carbon/alien/humanoid/drone , null, null, delmob, 1 )
+			if("hunter")			M.change_mob_type( /mob/living/carbon/alien/humanoid/hunter , null, null, delmob, 1 )
+			if("queen")				M.change_mob_type( /mob/living/carbon/alien/humanoid/queen/large , null, null, delmob, 1 )
+			if("sentinel")			M.change_mob_type( /mob/living/carbon/alien/humanoid/sentinel , null, null, delmob, 1 )
+			if("larva")				M.change_mob_type( /mob/living/carbon/alien/larva , null, null, delmob, 1 )
+			if("human")				M.change_mob_type( /mob/living/carbon/human/human , null, null, delmob, 1 )
+			if("slime")				M.change_mob_type( /mob/living/carbon/slime , null, null, delmob, 1 )
+			if("monkey")			M.change_mob_type( /mob/living/carbon/monkey , null, null, delmob, 1 )
+			if("robot")				M.change_mob_type( /mob/living/silicon/robot , null, null, delmob, 1 )
+			if("cat")				M.change_mob_type( /mob/living/simple_animal/cat , null, null, delmob, 1 )
+			if("runtime")			M.change_mob_type( /mob/living/simple_animal/cat/Runtime , null, null, delmob, 1 )
+			if("corgi")				M.change_mob_type( /mob/living/simple_animal/corgi , null, null, delmob, 1 )
+			if("ian")				M.change_mob_type( /mob/living/simple_animal/corgi/Ian , null, null, delmob, 1 )
+			if("crab")				M.change_mob_type( /mob/living/simple_animal/crab , null, null, delmob, 1 )
+			if("coffee")			M.change_mob_type( /mob/living/simple_animal/crab/Coffee , null, null, delmob, 1 )
+			if("parrot")			M.change_mob_type( /mob/living/simple_animal/parrot , null, null, delmob, 1 )
+			if("polyparrot")		M.change_mob_type( /mob/living/simple_animal/parrot/Poly , null, null, delmob, 1 )
+			if("constructarmoured")	M.change_mob_type( /mob/living/simple_animal/construct/armoured , null, null, delmob, 1 )
+			if("constructbuilder")	M.change_mob_type( /mob/living/simple_animal/construct/builder , null, null, delmob, 1 )
+			if("constructwraith")	M.change_mob_type( /mob/living/simple_animal/construct/wraith , null, null, delmob, 1 )
+			if("shade")				M.change_mob_type( /mob/living/simple_animal/shade , null, null, delmob, 1 )
 
 
 	/////////////////////////////////////new ban stuff
@@ -600,16 +592,17 @@
 				jobs += "</tr><tr align='center'>"
 				counter = 0
 
-		//pAI isn't technically a job, but it goes in here.
+		//Drone
+		if(jobban_isbanned(M, "Drone"))
+			jobs += "<td width='20%'><a href='?src=\ref[src];jobban3=Drone;jobban4=\ref[M]'><font color=red>Drone</font></a></td>"
+		else
+			jobs += "<td width='20%'><a href='?src=\ref[src];jobban3=Drone;jobban4=\ref[M]'>Drone</a></td>"
+
+		//pAI
 		if(jobban_isbanned(M, "pAI"))
 			jobs += "<td width='20%'><a href='?src=\ref[src];jobban3=pAI;jobban4=\ref[M]'><font color=red>pAI</font></a></td>"
 		else
 			jobs += "<td width='20%'><a href='?src=\ref[src];jobban3=pAI;jobban4=\ref[M]'>pAI</a></td>"
-
-		if(jobban_isbanned(M, "AntagHUD"))
-			jobs += "<td width='20%'><a href='?src=\ref[src];jobban3=AntagHUD;jobban4=\ref[M]'><font color=red>AntagHUD</font></a></td>"
-		else
-			jobs += "<td width='20%'><a href='?src=\ref[src];jobban3=AntagHUD;jobban4=\ref[M]'>AntagHUD</a></td>"
 
 		jobs += "</tr></table>"
 
@@ -630,19 +623,17 @@
 		else
 			jobs += "<td width='20%'><a href='?src=\ref[src];jobban3=changeling;jobban4=\ref[M]'>[replacetext("Changeling", " ", "&nbsp")]</a></td>"
 
-		//Nuke Operative
+		//Nuclear Operative
 		if(jobban_isbanned(M, "operative") || isbanned_dept)
-			jobs += "<td width='20%'><a href='?src=\ref[src];jobban3=operative;jobban4=\ref[M]'><font color=red>[replacetext("Nuke Operative", " ", "&nbsp")]</font></a></td>"
+			jobs += "<td width='20%'><a href='?src=\ref[src];jobban3=operative;jobban4=\ref[M]'><font color=red>[replacetext("Nuclear Operative", " ", "&nbsp")]</font></a></td>"
 		else
-			jobs += "<td width='20%'><a href='?src=\ref[src];jobban3=operative;jobban4=\ref[M]'>[replacetext("Nuke Operative", " ", "&nbsp")]</a></td>"
+			jobs += "<td width='20%'><a href='?src=\ref[src];jobban3=operative;jobban4=\ref[M]'>[replacetext("Nuclear Operative", " ", "&nbsp")]</a></td>"
 
 		//Revolutionary
 		if(jobban_isbanned(M, "revolutionary") || isbanned_dept)
 			jobs += "<td width='20%'><a href='?src=\ref[src];jobban3=revolutionary;jobban4=\ref[M]'><font color=red>[replacetext("Revolutionary", " ", "&nbsp")]</font></a></td>"
 		else
 			jobs += "<td width='20%'><a href='?src=\ref[src];jobban3=revolutionary;jobban4=\ref[M]'>[replacetext("Revolutionary", " ", "&nbsp")]</a></td>"
-
-		jobs += "</tr><tr align='center'>" //Breaking it up so it fits nicer on the screen every 5 entries
 
 		//Cultist
 		if(jobban_isbanned(M, "cultist") || isbanned_dept)
@@ -656,39 +647,69 @@
 		else
 			jobs += "<td width='20%'><a href='?src=\ref[src];jobban3=wizard;jobban4=\ref[M]'>[replacetext("Wizard", " ", "&nbsp")]</a></td>"
 
-
+		jobs += "</tr><tr align='center'>" //Breaking it up so it fits nicer on the screen every 5 entries
 
 /*		//Malfunctioning AI	//Removed Malf-bans because they're a pain to impliment
 		if(jobban_isbanned(M, "malf AI") || isbanned_dept)
 			jobs += "<td width='20%'><a href='?src=\ref[src];jobban3=malf AI;jobban4=\ref[M]'><font color=red>[replacetext("Malf AI", " ", "&nbsp")]</font></a></td>"
 		else
 			jobs += "<td width='20%'><a href='?src=\ref[src];jobban3=malf AI;jobban4=\ref[M]'>[replacetext("Malf AI", " ", "&nbsp")]</a></td>"
+*/
 
 		//Alien
-		if(jobban_isbanned(M, "alien candidate") || isbanned_dept)
-			jobs += "<td width='20%'><a href='?src=\ref[src];jobban3=alien candidate;jobban4=\ref[M]'><font color=red>[replacetext("Alien", " ", "&nbsp")]</font></a></td>"
+		if(jobban_isbanned(M, "alien") || isbanned_dept)
+			jobs += "<td width='20%'><a href='?src=\ref[src];jobban3=alien;jobban4=\ref[M]'><font color=red>[replacetext("Alien", " ", "&nbsp")]</font></a></td>"
 		else
-			jobs += "<td width='20%'><a href='?src=\ref[src];jobban3=alien candidate;jobban4=\ref[M]'>[replacetext("Alien", " ", "&nbsp")]</a></td>"
+			jobs += "<td width='20%'><a href='?src=\ref[src];jobban3=alien;jobban4=\ref[M]'>[replacetext("Alien", " ", "&nbsp")]</a></td>"
 
-		//Infested Monkey
-		if(jobban_isbanned(M, "infested monkey") || isbanned_dept)
-			jobs += "<td width='20%'><a href='?src=\ref[src];jobban3=infested monkey;jobban4=\ref[M]'><font color=red>[replacetext("Infested Monkey", " ", "&nbsp")]</font></a></td>"
+		//Ninja
+		if(jobban_isbanned(M, "ninja") || isbanned_dept)
+			jobs += "<td width='20%'><a href='?src=\ref[src];jobban3=ninja;jobban4=\ref[M]'><font color=red>[replacetext("Ninja", " ", "&nbsp")]</font></a></td>"
 		else
-			jobs += "<td width='20%'><a href='?src=\ref[src];jobban3=infested monkey;jobban4=\ref[M]'>[replacetext("Infested Monkey", " ", "&nbsp")]</a></td>"
-*/
+			jobs += "<td width='20%'><a href='?src=\ref[src];jobban3=ninja;jobban4=\ref[M]'>[replacetext("Ninja", " ", "&nbsp")]</a></td>"
+
+		//Raider
+		if(jobban_isbanned(M, "raider") || isbanned_dept)
+			jobs += "<td width='20%'><a href='?src=\ref[src];jobban3=raider;jobban4=\ref[M]'><font color=red>[replacetext("Raider", " ", "&nbsp")]</font></a></td>"
+		else
+			jobs += "<td width='20%'><a href='?src=\ref[src];jobban3=raider;jobban4=\ref[M]'>[replacetext("Raider", " ", "&nbsp")]</a></td>"
+
+		//Mutineer
+		if(jobban_isbanned(M, "mutineer") || isbanned_dept)
+			jobs += "<td width='20%'><a href='?src=\ref[src];jobban3=mutineer;jobban4=\ref[M]'><font color=red>[replacetext("Mutineer", " ", "&nbsp")]</font></a></td>"
+		else
+			jobs += "<td width='20%'><a href='?src=\ref[src];jobban3=mutineer;jobban4=\ref[M]'>[replacetext("Mutineer", " ", "&nbsp")]</a></td>"
+
+		//Blob
+		if(jobban_isbanned(M, "blob") || isbanned_dept)
+			jobs += "<td width='20%'><a href='?src=\ref[src];jobban3=blob;jobban4=\ref[M]'><font color=red>[replacetext("Blob", " ", "&nbsp")]</font></a></td>"
+		else
+			jobs += "<td width='20%'><a href='?src=\ref[src];jobban3=blob;jobban4=\ref[M]'>[replacetext("Blob", " ", "&nbsp")]</a></td>"
 
 		jobs += "</tr></table>"
 
 
 		//Other races  (BLUE, because I have no idea what other color to make this)
 		jobs += "<table cellpadding='1' cellspacing='0' width='100%'>"
-		jobs += "<tr bgcolor='ccccff'><th colspan='1'>Other</th></tr><tr align='center'>"
+		jobs += "<tr bgcolor='ccccff'><th colspan='4'>Other</th></tr><tr align='center'>"
 
 		//NYMPH
 		if(jobban_isbanned(M, "Dionaea"))
 			jobs += "<td width='20%'><a href='?src=\ref[src];jobban3=Dionaea;jobban4=\ref[M]'><font color=red>Dionaea Nymph</font></a></td>"
 		else
-			jobs += "<td width='20%'><a href='?src=\ref[src];jobban3=Dionaea;jobban4=\ref[M]'>Dionaea</a></td>"
+			jobs += "<td width='20%'><a href='?src=\ref[src];jobban3=Dionaea;jobban4=\ref[M]'>Dionaea Nymph</a></td>"
+
+		//NPC
+		if(jobban_isbanned(M, "NPC"))
+			jobs += "<td width='20%'><a href='?src=\ref[src];jobban3=NPC;jobban4=\ref[M]'><font color=red>NPC</font></a></td>"
+		else
+			jobs += "<td width='20%'><a href='?src=\ref[src];jobban3=NPC;jobban4=\ref[M]'>NPC</a></td>"
+
+		//ANTAG HUD
+		if(jobban_isbanned(M, "AntagHUD"))
+			jobs += "<td width='20%'><a href='?src=\ref[src];jobban3=AntagHUD;jobban4=\ref[M]'><font color=red>AntagHUD</font></a></td>"
+		else
+			jobs += "<td width='20%'><a href='?src=\ref[src];jobban3=AntagHUD;jobban4=\ref[M]'>AntagHUD</a></td>"
 
 		//ERT
 		if(jobban_isbanned(M, "Emergency Response Team") || isbanned_dept)
@@ -1071,6 +1092,7 @@
 		message_admins("\blue [key_name_admin(usr)] attempting to monkeyize [key_name_admin(H)]", 1)
 		H.monkeyize()
 
+
 	else if(href_list["corgione"])
 		if(!check_rights(R_SPAWN))	return
 
@@ -1120,7 +1142,7 @@
 
 		//strip their stuff and stick it in the crate
 		for(var/obj/item/I in M)
-			M.u_equip(I)
+			M.unEquip(I)
 			if(I)
 				I.loc = locker
 				I.layer = initial(I.layer)
@@ -1142,6 +1164,30 @@
 		log_admin("[key_name(usr)] sent [key_name(M)] to the prison station.")
 		message_admins("\blue [key_name_admin(usr)] sent [key_name_admin(M)] to the prison station.", 1)
 
+	else if(href_list["sendbacktolobby"])
+		if(!check_rights(R_ADMIN))
+			return
+
+		var/mob/M = locate(href_list["sendbacktolobby"])
+
+		if(!isobserver(M))
+			usr << "<span class='notice'>You can only send ghost players back to the Lobby.</span>"
+			return
+
+		if(!M.client)
+			usr << "<span class='warning'>[M] doesn't seem to have an active client.</span>"
+			return
+
+		if(alert(usr, "Send [key_name(M)] back to Lobby?", "Message", "Yes", "No") != "Yes")
+			return
+
+		log_admin("[key_name(usr)] has sent [key_name(M)] back to the Lobby.")
+		message_admins("[key_name(usr)] has sent [key_name(M)] back to the Lobby.")
+
+		var/mob/new_player/NP = new()
+		NP.ckey = M.ckey
+		qdel(M)
+
 	else if(href_list["tdome1"])
 		if(!check_rights(R_SERVER|R_EVENT))	return
 
@@ -1157,7 +1203,7 @@
 			return
 
 		for(var/obj/item/I in M)
-			M.u_equip(I)
+			M.unEquip(I)
 			if(I)
 				I.loc = M.loc
 				I.layer = initial(I.layer)
@@ -1186,7 +1232,7 @@
 			return
 
 		for(var/obj/item/I in M)
-			M.u_equip(I)
+			M.unEquip(I)
 			if(I)
 				I.loc = M.loc
 				I.layer = initial(I.layer)
@@ -1237,7 +1283,7 @@
 			return
 
 		for(var/obj/item/I in M)
-			M.u_equip(I)
+			M.unEquip(I)
 			if(I)
 				I.loc = M.loc
 				I.layer = initial(I.layer)
@@ -1384,7 +1430,7 @@
 						foo += text("<B>Is an AI</B> | ")
 					else
 						foo += text("<A HREF='?src=\ref[];makeai=\ref[]'>Make AI</A> | ", src, M)
-					if(M.z != 2)
+					if(!(M.z in config.admin_levels))
 						foo += text("<A HREF='?src=\ref[];sendtoprison=\ref[]'>Prison</A> | ", src, M)
 						foo += text("<A HREF='?src=\ref[];sendtomaze=\ref[]'>Maze</A> | ", src, M)
 					else
@@ -1516,11 +1562,11 @@
 			usr << "This can only be used on instances of type /mob/living"
 			return
 
-		if(alert(src.owner, "Are you sure you wish to hit [key_name(M)] with Blue Space Artillery?",  "Confirm Firing?" , "Yes" , "No") != "Yes")
+		if(alert(src.owner, "Are you sure you wish to hit [key_name(M)] with Bluespace Artillery?",  "Confirm Firing?" , "Yes" , "No") != "Yes")
 			return
 
 		if(BSACooldown)
-			src.owner << "Standby!  Reload cycle in progress!  Gunnary crews ready in five seconds!"
+			src.owner << "Standby. Reload cycle in progress. Gunnery crews ready in five seconds!"
 			return
 
 		BSACooldown = 1
@@ -1552,6 +1598,9 @@
 			M.stuttering = 20
 
 	else if(href_list["CentcommReply"])
+		if(!check_rights(R_ADMIN))
+			return
+
 		var/mob/living/carbon/human/H = locate(href_list["CentcommReply"])
 		if(!istype(H))
 			usr << "This can only be used on instances of type /mob/living/carbon/human"
@@ -1569,9 +1618,15 @@
 		H << "You hear something crackle in your headset for a moment before a voice speaks.  \"Please stand by for a message from Central Command.  Message as follows. [input].  Message ends.\""
 
 	else if(href_list["SyndicateReply"])
+		if(!check_rights(R_ADMIN))
+			return
+
 		var/mob/living/carbon/human/H = locate(href_list["SyndicateReply"])
 		if(!istype(H))
 			usr << "This can only be used on instances of type /mob/living/carbon/human"
+			return
+		if(H.stat != 0)
+			usr << "The person you are trying to contact is not conscious."
 			return
 		if(!istype(H.l_ear, /obj/item/device/radio/headset) && !istype(H.r_ear, /obj/item/device/radio/headset))
 			usr << "The person you are trying to contact is not wearing a headset"
@@ -1601,10 +1656,13 @@
 		H << "You hear something crackle in your headset for a moment before a voice speaks.  \"Please stand by for a message from your HONKbrothers.  Message as follows, HONK. [input].  Message ends, HONK.\""
 
 	else if(href_list["AdminFaxView"])
+		if(!check_rights(R_ADMIN))
+			return
+
 		var/obj/item/fax = locate(href_list["AdminFaxView"])
 		if (istype(fax, /obj/item/weapon/paper))
 			var/obj/item/weapon/paper/P = fax
-			P.show_content(usr)
+			P.show_content(usr,1)
 		else if (istype(fax, /obj/item/weapon/photo))
 			var/obj/item/weapon/photo/H = fax
 			H.show(usr)
@@ -1613,21 +1671,24 @@
 			//open a browse window listing the contents instead
 			var/data = ""
 			var/obj/item/weapon/paper_bundle/B = fax
-			
+
 			for (var/page = 1, page <= B.amount + 1, page++)
 				var/obj/pageobj = B.contents[page]
 				data += "<A href='?src=\ref[src];AdminFaxViewPage=[page];paper_bundle=\ref[B]'>Page [page] - [pageobj.name]</A><BR>"
-			
+
 			usr << browse(data, "window=[B.name]")
 		else
 			usr << "\red The faxed item is not viewable. This is probably a bug, and should be reported on the tracker: [fax.type]"
 
 	else if (href_list["AdminFaxViewPage"])
+		if(!check_rights(R_ADMIN))
+			return
+
 		var/page = text2num(href_list["AdminFaxViewPage"])
 		var/obj/item/weapon/paper_bundle/bundle = locate(href_list["paper_bundle"])
-		
+
 		if (!bundle) return
-		
+
 		if (istype(bundle.contents[page], /obj/item/weapon/paper))
 			var/obj/item/weapon/paper/P = bundle.contents[page]
 			P.show_content(src.owner, 1)
@@ -1635,51 +1696,155 @@
 			var/obj/item/weapon/photo/H = bundle.contents[page]
 			H.show(src.owner)
 		return
-		
-	else if(href_list["CentcommFaxReply"])
-		var/mob/sender = locate(href_list["CentcommFaxReply"])
+
+	else if(href_list["AdminFaxCreate"])
+		if(!check_rights(R_ADMIN))
+			return
+
+		var/mob/sender = locate(href_list["AdminFaxCreate"])
 		var/obj/machinery/photocopier/faxmachine/fax = locate(href_list["originfax"])
+		var/faxtype = href_list["faxtype"]
+		var/reply_to = locate(href_list["replyto"])
+		var/destination
+		var/notify
 
-		var/input = input(src.owner, "Please enter a message to reply to [key_name(sender)] via secure connection. NOTE: BBCode does not work, but HTML tags do! Use <br> for line breaks.", "Outgoing message from Centcomm", "") as message|null
-		if(!input)	return
+		var/obj/item/weapon/paper/P = new /obj/item/weapon/paper(null) //hopefully the null loc won't cause trouble for us
 
-		var/customname = input(src.owner, "Pick a title for the report", "Title") as text|null
-		
+		if(!fax)
+			var/list/departmentoptions = alldepartments + "All Departments"
+			destination = input(usr, "To which department?", "Choose a department", "") as null|anything in departmentoptions
+			if(!destination)
+				del(P)
+				return
+
+			for(var/obj/machinery/photocopier/faxmachine/F in allfaxes)
+				if(destination != "All Departments" && F.department == destination)
+					fax = F
+
+
+		var/input = input(src.owner, "Please enter a message to send a fax via secure connection. Use <br> for line breaks. Both pencode and HTML work.", "Outgoing message from Centcomm", "") as message|null
+		if(!input)
+			del(P)
+			return
+		input = P.parsepencode(input) // Encode everything from pencode to html
+
+		var/customname = input(src.owner, "Pick a title for the fax.", "Fax Title") as text|null
+		if(!customname)
+			customname = "paper"
+
+		var/stampname
+		var/stamptype
+		var/stampvalue
+		var/sendername
+		switch(faxtype)
+			if("Central Command")
+				stamptype = "icon"
+				stampvalue = "cent"
+				sendername = command_name()
+			if("Syndicate")
+				sendername = "UNKNOWN"
+			if("Administrator")
+				stamptype = input(src.owner, "Pick a stamp type.", "Stamp Type") as null|anything in list("icon","text","none")
+				if(stamptype == "icon")
+					stampname = input(src.owner, "Pick a stamp icon.", "Stamp Icon") as null|anything in list("centcom","granted","denied","clown")
+					switch(stampname)
+						if("centcom")
+							stampvalue = "cent"
+						if("granted")
+							stampvalue = "ok"
+						if("denied")
+							stampvalue = "deny"
+						if("clown")
+							stampvalue = "clown"
+				else if(stamptype == "text")
+					stampvalue = input(src.owner, "What should the stamp say?", "Stamp Text") as text|null
+				else if(stamptype == "none")
+					stamptype = ""
+				else
+					del(P)
+					return
+
+				sendername = input(src.owner, "What organization does the fax come from? This determines the prefix of the paper (i.e. Central Command- Title). This is optional.", "Organization") as text|null
+
+		if(sender)
+			notify = alert(src.owner, "Would you like to inform the original sender that a fax has arrived?","Notify Sender","Yes","No")
+
 		// Create the reply message
-		var/obj/item/weapon/paper/P = new /obj/item/weapon/paper( null ) //hopefully the null loc won't cause trouble for us
-		P.name = "[command_name()]- [customname]"
+		if(sendername)
+			P.name = "[sendername]- [customname]"
+		else
+			P.name = "[customname]"
 		P.info = input
 		P.update_icon()
-		P.stamps += "<HR><img src=large_stamp-cent.png>"	
-		var/image/stampoverlay = image('icons/obj/bureaucracy.dmi')
 		P.x = rand(-2, 0)
-		P.y = rand(-1, 2)	
+		P.y = rand(-1, 2)
 		P.offset_x += P.x
 		P.offset_y += P.y
-		stampoverlay.pixel_x = P.x
-		stampoverlay.pixel_y = P.y
-		
-		if(!P.ico)
-			P.ico = new
-		P.ico += "paper_stamp-cent"
-		stampoverlay.icon_state = "paper_stamp-cent"
-		
-		// Stamps
-		if(!P.stamped)
-			P.stamped = new
-		P.stamped += /obj/item/weapon/stamp/centcom
-		P.overlays += stampoverlay
+		if(stamptype)
+			var/image/stampoverlay = image('icons/obj/bureaucracy.dmi')
+			stampoverlay.pixel_x = P.x
+			stampoverlay.pixel_y = P.y
 
-		if(fax.recievefax(P))
-			src.owner << "\blue Message reply to transmitted successfully."
-			log_admin("[key_name(src.owner)] replied to a fax message from [key_name(sender)]: [input]")
-			message_admins("[key_name_admin(src.owner)] replied to a fax message from [key_name_admin(sender)]", 1)
+			if(!P.ico)
+				P.ico = new
+			P.ico += "paper_stamp-[stampvalue]"
+			stampoverlay.icon_state = "paper_stamp-[stampvalue]"
+
+			if(stamptype == "icon")
+				if(!P.stamped)
+					P.stamped = new
+				P.stamped += /obj/item/weapon/stamp/centcom
+				P.overlays += stampoverlay
+				P.stamps += "<HR><img src=large_stamp-[stampvalue].png>"
+
+			else if(stamptype == "text")
+				if(!P.stamped)
+					P.stamped = new
+				P.stamped += /obj/item/weapon/stamp
+				P.overlays += stampoverlay
+				P.stamps += "<HR><i>[stampvalue]</i>"
+
+		if(destination != "All Departments")
+			if(!fax.receivefax(P))
+				src.owner << "\red Message transmission failed."
+				return
 		else
-			src.owner << "\red Message reply failed."
-		
-		spawn(100)
-			del(P)
+			for(var/obj/machinery/photocopier/faxmachine/F in allfaxes)
+				if((F.z in config.station_levels))
+					if(!F.receivefax(P))
+						src.owner << "\red Message transmission to [F.department] failed."
+
+		var/datum/fax/admin/A = new /datum/fax/admin()
+		A.name = P.name
+		A.from_department = faxtype
+		if(destination != "All Departments")
+			A.to_department = fax.department
+		else
+			A.to_department = "All Departments"
+		A.origin = "Administrator"
+		A.message = P
+		A.reply_to = reply_to
+		A.sent_by = usr
+		A.sent_at = world.time
+
+		src.owner << "\blue Message transmitted successfully."
+		if(notify == "Yes")
+			var/mob/living/carbon/human/H = sender
+			if(istype(H) && H.stat == 1 && (istype(H.l_ear, /obj/item/device/radio/headset) || istype(H.r_ear, /obj/item/device/radio/headset)))
+				sender << "Your headset pings, notifying you that a reply to your fax has arrived."
+		if(sender)
+			log_admin("[key_name(src.owner)] replied to a fax message from [key_name(sender)]: [input]")
+			message_admins("[key_name_admin(src.owner)] replied to a fax message from [key_name_admin(sender)] (<a href='?_src_=holder;AdminFaxView=\ref[P]'>VIEW</a>).", 1)
+		else
+			log_admin("[key_name(src.owner)] sent a fax message to [destination]: [input]")
+			message_admins("[key_name_admin(src.owner)] sent a fax message to [destination] (<a href='?_src_=holder;AdminFaxView=\ref[P]'>VIEW</a>).", 1)
 		return
+
+	else if(href_list["refreshfaxpanel"])
+		if(!check_rights(R_ADMIN))
+			return
+
+		fax_panel(usr)
 
 	else if(href_list["jumpto"])
 		if(!check_rights(R_ADMIN))	return
@@ -1939,11 +2104,11 @@
 				if(gravity_is_on)
 					log_admin("[key_name(usr)] toggled gravity on.", 1)
 					message_admins("\blue [key_name_admin(usr)] toggled gravity on.", 1)
-					command_alert("Gravity generators are again functioning within normal parameters. Sorry for any inconvenience.")
+					command_announcement.Announce("Gravity generators are again functioning within normal parameters. Sorry for any inconvenience.")
 				else
 					log_admin("[key_name(usr)] toggled gravity off.", 1)
 					message_admins("\blue [key_name_admin(usr)] toggled gravity off.", 1)
-					command_alert("Feedback surge detected in mass-distributions systems. Artifical gravity has been disabled whilst the system reinitializes. Further failures may result in a gravitational collapse and formation of blackholes. Have a nice day.")
+					command_announcement.Announce("Feedback surge detected in mass-distributions systems. Artifical gravity has been disabled whilst the system reinitializes. Further failures may result in a gravitational collapse and formation of blackholes. Have a nice day.")
 			if("wave")
 				feedback_inc("admin_secrets_fun_used",1)
 				feedback_add_details("admin_secrets_fun_used","Meteor")
@@ -1976,6 +2141,16 @@
 				feedback_add_details("admin_secrets_fun_used","FLUX")
 				message_admins("[key_name_admin(usr)] has triggered an energetic flux")
 				new /datum/event/anomaly/anomaly_flux()
+			if("goblob")
+				feedback_inc("admin_secrets_fun_used",1)
+				feedback_add_details("admin_secrets_fun_used","BLOB")
+				message_admins("[key_name_admin(usr)] has triggered a blob.")
+				new /datum/game_mode/blob()
+			if("aliens")
+				feedback_inc("admin_secrets_fun_used",1)
+				feedback_add_details("admin_secrets_fun_used","ALIEN")
+				message_admins("[key_name_admin(usr)] has triggered an alien infestation.")
+				new /datum/event/alien_infestation()
 			if("power")
 				feedback_inc("admin_secrets_fun_used",1)
 				feedback_add_details("admin_secrets_fun_used","P")
@@ -2032,7 +2207,7 @@
 				for(var/mob/living/carbon/human/H in mob_list)
 					var/turf/loc = find_loc(H)
 					var/security = 0
-					if(loc.z > 1 || prisonwarped.Find(H))
+					if(!(loc.z in config.station_levels) || prisonwarped.Find(H))
 
 //don't warp them if they aren't ready or are already there
 						continue
@@ -2048,7 +2223,7 @@
 							if(istype(W, /datum/organ/external))
 								continue
 								//don't strip organs
-							H.u_equip(W)
+							H.unEquip(W)
 							if (H.client)
 								H.client.screen -= W
 							if (W)
@@ -2067,7 +2242,7 @@
 				if(!ticker)
 					alert("The game hasn't started yet!")
 					return
-				var/objective = copytext(sanitize(input("Enter an objective")),1,MAX_MESSAGE_LEN)
+				var/objective = sanitize(copytext(input("Enter an objective"),1,MAX_MESSAGE_LEN))
 				if(!objective)
 					return
 				feedback_inc("admin_secrets_fun_used",1)
@@ -2345,7 +2520,7 @@
 				message_admins("[key_name_admin(usr)] made the floor LAVA! It'll last [length] seconds and it will deal [damage] damage to everyone.", 1)
 
 				for(var/turf/simulated/floor/F in world)
-					if(F.z == 1)
+					if((F.z in config.station_levels))
 						F.name = "lava"
 						F.desc = "The floor is LAVA!"
 						F.overlays += "lava"
@@ -2370,7 +2545,7 @@
 						sleep(10)
 
 					for(var/turf/simulated/floor/F in world) // Reset everything.
-						if(F.z == 1)
+						if((F.z in config.station_levels))
 							F.name = initial(F.name)
 							F.desc = initial(F.desc)
 							F.overlays.Cut()
@@ -2418,11 +2593,10 @@
 				feedback_inc("admin_secrets_fun_used",1)
 				feedback_add_details("admin_secrets_fun_used","EgL")
 				for(var/obj/machinery/door/airlock/W in world)
-					if(W.z == 1 && !istype(get_area(W), /area/bridge) && !istype(get_area(W), /area/crew_quarters) && !istype(get_area(W), /area/security/prison))
+					if((W.z in config.station_levels) && !istype(get_area(W), /area/bridge) && !istype(get_area(W), /area/crew_quarters) && !istype(get_area(W), /area/security/prison))
 						W.req_access = list()
 				message_admins("[key_name_admin(usr)] activated Egalitarian Station mode")
-				command_alert("Centcomm airlock control override activated. Please take this time to get acquainted with your coworkers.")
-				world << sound('sound/AI/commandreport.ogg')
+				command_announcement.Announce("Centcomm airlock control override activated. Please take this time to get acquainted with your coworkers.", new_sound = 'sound/AI/commandreport.ogg')
 			if("dorf")
 				feedback_inc("admin_secrets_fun_used",1)
 				feedback_add_details("admin_secrets_fun_used","DF")
@@ -2437,8 +2611,7 @@
 				message_admins("[key_name_admin(usr)] triggered an ion storm")
 				var/show_log = alert(usr, "Show ion message?", "Message", "Yes", "No")
 				if(show_log == "Yes")
-					command_alert("Ion storm detected near the station. Please check all AI-controlled equipment for errors.", "Anomaly Alert")
-					world << sound('sound/AI/ionstorm.ogg')
+					command_announcement.Announce("Ion storm detected near the station. Please check all AI-controlled equipment for errors.", "Anomaly Alert", new_sound = 'sound/AI/ionstorm.ogg')
 			if("carp")
 				feedback_inc("admin_secrets_fun_used",1)
 				feedback_add_details("admin_secrets_fun_used","Crp")

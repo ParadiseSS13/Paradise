@@ -4,7 +4,6 @@
 	icon = 'icons/obj/closet.dmi'
 	icon_state = "closed"
 	density = 1
-	flags = FPRINT
 	var/icon_closed = "closed"
 	var/icon_opened = "open"
 	var/opened = 0
@@ -12,6 +11,7 @@
 	var/wall_mounted = 0 //never solid (You can always pass over it)
 	var/health = 100
 	var/lastbang
+	var/sound = 'sound/machines/click.ogg'
 	var/storage_capacity = 30 //This is so that someone can't pack hundreds of items in a locker/crate
 							  //then open it in a populated area to crash clients.
 
@@ -71,10 +71,8 @@
 
 	src.icon_state = src.icon_opened
 	src.opened = 1
-	if(istype(src, /obj/structure/closet/body_bag))
-		playsound(src.loc, 'sound/items/zip.ogg', 15, 1, -3)
-	if(istype(src,/obj/structure/closet/coffin/sarcophagus))
-		playsound(src.loc, 'sound/effects/stonedoor_openclose.ogg', 15, 1, -3)
+	if(sound)
+		playsound(src.loc, src.sound, 15, 1, -3)
 	else
 		playsound(src.loc, 'sound/machines/click.ogg', 15, 1, -3)
 	density = 0
@@ -119,10 +117,8 @@
 
 	src.icon_state = src.icon_closed
 	src.opened = 0
-	if(istype(src, /obj/structure/closet/body_bag))
-		playsound(src.loc, 'sound/items/zip.ogg', 15, 1, -3)
-	if(istype(src,/obj/structure/closet/coffin/sarcophagus))
-		playsound(src.loc, 'sound/effects/stonedoor_openclose.ogg', 15, 1, -3)
+	if(sound)
+		playsound(src.loc, src.sound, 15, 1, -3)
 	else
 		playsound(src.loc, 'sound/machines/click.ogg', 15, 1, -3)
 	density = 1
@@ -155,17 +151,18 @@
 				qdel(src)
 
 /obj/structure/closet/bullet_act(var/obj/item/projectile/Proj)
-	health -= Proj.damage
 	..()
-	if(health <= 0)
-		for(var/atom/movable/A as mob|obj in src)
-			A.loc = src.loc
-		del(src)
-
+	if((Proj.damage_type == BRUTE || Proj.damage_type == BURN))
+		health -= Proj.damage
+		if(health <= 0)
+			for(var/atom/movable/A as mob|obj in src)
+				A.loc = src.loc
+			del(src)
 	return
 
 /obj/structure/closet/attack_animal(mob/living/simple_animal/user as mob)
 	if(user.environment_smash)
+		user.do_attack_animation(src)
 		visible_message("\red [user] destroys the [src]. ")
 		for(var/atom/movable/A as mob|obj in src)
 			A.loc = src.loc
@@ -185,7 +182,7 @@
 		src.dump_contents()
 		del(src)
 
-/obj/structure/closet/attackby(obj/item/weapon/W as obj, mob/user as mob)
+/obj/structure/closet/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
 	if(istype(W, /obj/item/weapon/rcs) && !src.opened)
 		var/obj/item/weapon/rcs/E = W
 		if(E.rcharges != 0)
@@ -265,15 +262,16 @@
 			return
 		if(isrobot(user))
 			return
-		usr.drop_item()
+		if(!usr.drop_item())
+			return
 		if(W)
 			W.loc = src.loc
-	else if(istype(W, /obj/item/weapon/packageWrap))
+	else if(istype(W, /obj/item/stack/packageWrap))
 		return
 	else if(istype(W, /obj/item/weapon/weldingtool))
 		var/obj/item/weapon/weldingtool/WT = W
 		if(src == user.loc)
-			user << "<span class='notice'>You can not [welded?"unweld":"weld"] the locker from inside.</span>"			
+			user << "<span class='notice'>You can not [welded?"unweld":"weld"] the locker from inside.</span>"
 			return
 		if(!WT.remove_fuel(0,user))
 			user << "<span class='notice'>You need more welding fuel to complete this task.</span>"

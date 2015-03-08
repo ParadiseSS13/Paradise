@@ -77,7 +77,7 @@
 	name = "\improper taser system"
 	desc = "A weak taser system for space pods, fires electrodes that shock upon impact."
 	icon_state = "pod_taser"
-	projectile_type = "/obj/item/projectile/energy/electrode"
+	projectile_type = "/obj/item/projectile/beam/disabler"
 	shot_cost = 250
 	fire_sound = "sound/weapons/Taser.ogg"
 
@@ -85,7 +85,7 @@
 	name = "\improper burst taser system"
 	desc = "A weak taser system for space pods, this one fires 3 at a time."
 	icon_state = "pod_b_taser"
-	projectile_type = "/obj/item/projectile/energy/electrode"
+	projectile_type = "/obj/item/projectile/beam/disabler"
 	shot_cost = 350
 	shots_per = 3
 	fire_sound = "sound/weapons/Taser.ogg"

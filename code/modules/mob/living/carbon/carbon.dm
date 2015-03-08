@@ -17,7 +17,7 @@
 			src.nutrition -= HUNGER_FACTOR/10
 			if(src.m_intent == "run")
 				src.nutrition -= HUNGER_FACTOR/10
-		if((M_FAT in src.mutations) && src.m_intent == "run" && src.bodytemperature <= 360)
+		if((FAT in src.mutations) && src.m_intent == "run" && src.bodytemperature <= 360)
 			src.bodytemperature += 2
 
 		// Moving around increases germ_level faster
@@ -78,7 +78,10 @@
 
 
 /mob/living/carbon/electrocute_act(var/shock_damage, var/obj/source, var/siemens_coeff = 1.0, var/def_zone = null)
-	if(status_flags & GODMODE)	return 0	//godmode
+	if(status_flags & GODMODE)	//godmode
+		return 0
+	if(NO_SHOCK in mutations) //shockproof
+		return 0
 	shock_damage *= siemens_coeff
 	if (shock_damage<1)
 		return 0
@@ -99,8 +102,14 @@
 				"\red <B>You feel a powerful shock course through your body!</B>", \
 				"\red You hear a heavy electrical crack." \
 			)
-		Stun(10)//This should work for now, more is really silly and makes you lay there forever
-		Weaken(10)
+		jitteriness += 1000 //High numbers for violent convulsions
+		do_jitter_animation(jitteriness)
+		stuttering += 2
+		Stun(2)
+		spawn(20)
+			jitteriness -= 990 //Still jittery, but vastly less
+			Stun(3)
+			Weaken(3)
 	if (shock_damage > 200)
 		src.visible_message(
 			"\red [src] was arc flashed by the [source]!", \
@@ -194,43 +203,44 @@
 					src << "<span class='info'>You feel fatigued.</span>"
 			if((SKELETON in H.mutations) && (!H.w_uniform) && (!H.wear_suit))
 				H.play_xylophone()
-		else if(lying) // /vg/: For hugs. This is how update_icon figgers it out, anyway.  - N3X15
-			var/t_him = "it"
-			if (src.gender == MALE)
-				t_him = "him"
-			else if (src.gender == FEMALE)
-				t_him = "her"
-			if (istype(src,/mob/living/carbon/human) && src:w_uniform)
-				var/mob/living/carbon/human/H = src
-				H.w_uniform.add_fingerprint(M)
-			src.sleeping = max(0,src.sleeping-5)
-			if(src.sleeping == 0)
-				src.resting = 0
-			AdjustParalysis(-3)
-			AdjustStunned(-3)
-			AdjustWeakened(-3)
-			playsound(src.loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
-			M.visible_message( \
-				"\blue [M] shakes [src] trying to wake [t_him] up!", \
-				"\blue You shake [src] trying to wake [t_him] up!", \
-				)
-		// BEGIN HUGCODE - N3X
 		else
-			if (istype(src,/mob/living/carbon/human) && src:w_uniform)
-				var/mob/living/carbon/human/H = src
-				H.w_uniform.add_fingerprint(M)
-			playsound(get_turf(src), 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
-			M.visible_message( \
-				"\blue [M] gives [src] a [pick("hug","warm embrace")].", \
-				"\blue You hug [src].", \
-				)
+			if(player_logged)
+				M.visible_message("<span class='notice'>[M] shakes [src], but they do not respond. Probably suffering from SSD.", \
+				"<span class='notice'>You shake [src], but they are unresponsive. Probably suffering from SSD.</span>")
+			if(lying) // /vg/: For hugs. This is how update_icon figgers it out, anyway.  - N3X15
+				var/t_him = "it"
+				if (src.gender == MALE)
+					t_him = "him"
+				else if (src.gender == FEMALE)
+					t_him = "her"
+				if (istype(src,/mob/living/carbon/human) && src:w_uniform)
+					var/mob/living/carbon/human/H = src
+					H.w_uniform.add_fingerprint(M)
+				src.sleeping = max(0,src.sleeping-5)
+				if(src.sleeping == 0)
+					src.resting = 0
+				AdjustParalysis(-3)
+				AdjustStunned(-3)
+				AdjustWeakened(-3)
+				playsound(src.loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
+				M.visible_message( \
+					"\blue [M] shakes [src] trying to wake [t_him] up!", \
+					"\blue You shake [src] trying to wake [t_him] up!", \
+					)
+			// BEGIN HUGCODE - N3X
+			else
+				if (istype(src,/mob/living/carbon/human) && src:w_uniform)
+					var/mob/living/carbon/human/H = src
+					H.w_uniform.add_fingerprint(M)
+				playsound(get_turf(src), 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
+				M.visible_message( \
+					"\blue [M] gives [src] a [pick("hug","warm embrace")].", \
+					"\blue You hug [src].", \
+					)
 
 
 /mob/living/carbon/proc/eyecheck()
 	return 0
-
-// ++++ROCKDTBEN++++ MOB PROCS -- Ask me before touching.
-// Stop! ... Hammertime! ~Carn
 
 /mob/living/carbon/proc/getDNA()
 	return dna
@@ -238,16 +248,20 @@
 /mob/living/carbon/proc/setDNA(var/datum/dna/newDNA)
 	dna = newDNA
 
-// ++++ROCKDTBEN++++ MOB PROCS //END
+/mob/living/carbon/can_use_vents()
+	return
 
-
-
-/mob/living/carbon/proc/handle_ventcrawl(var/obj/machinery/atmospherics/unary/vent_pump/vent_found = null) // -- TLE -- Merged by Carn
+/mob/living/proc/handle_ventcrawl(var/obj/machinery/atmospherics/unary/vent_pump/vent_found = null, var/ignore_items = 0) // -- TLE -- Merged by Carn
 	if(stat)
 		src << "You must be conscious to do this!"
 		return
 	if(lying)
 		src << "You can't vent crawl while you're stunned!"
+		return
+
+	var/special_fail_msg = can_use_vents()
+	if(special_fail_msg)
+		src << "\red [special_fail_msg]"
 		return
 
 	if(vent_found) // one was passed in, probably from vent/AltClick()
@@ -264,9 +278,11 @@
 	if(!vent_found)
 		src << "You'll need a non-welded vent to crawl into!"
 		return
+
 	if(!vent_found.network || !vent_found.network.normal_members.len)
 		src << "This vent is not connected to anything."
 		return
+
 	var/list/vents = list()
 	for(var/obj/machinery/atmospherics/unary/vent_pump/temp_vent in vent_found.network.normal_members)
 		if(temp_vent.welded)
@@ -289,16 +305,18 @@
 		return
 
 	var/obj/selection = input("Select a destination.", "Duct System") as null|anything in sortAssoc(vents)
-	if(!selection)  return
+	if(!selection)	return
 
 	if(!vent_found.Adjacent(src))
 		src << "Never mind, you left."
 		return
 
-	for(var/obj/item/carried_item in contents)//If the monkey got on objects.
-		if( !istype(carried_item, /obj/item/weapon/implant) && !istype(carried_item, /obj/item/clothing/mask/facehugger) )//If it's not an implant or a facehugger
-			src << "\red You can't be carrying items or have items equipped when vent crawling!"
-			return
+	if(!ignore_items)
+		for(var/obj/item/carried_item in contents)//If the monkey got on objects.
+			if( !istype(carried_item, /obj/item/weapon/implant) && !istype(carried_item, /obj/item/clothing/mask/facehugger) )//If it's not an implant or a facehugger
+				src << "\red You can't be carrying items or have items equipped when vent crawling!"
+				return
+
 	if(isslime(src))
 		var/mob/living/carbon/slime/S = src
 		if(S.Victim)
@@ -317,22 +335,20 @@
 
 	spawn(travel_time)
 
-		if(!target_vent)  return
+		if(!target_vent)	return
 		for(var/mob/O in hearers(target_vent,null))
 			O.show_message("You hear something squeezing through the ventilation ducts.",2)
 
 		sleep(travel_time)
 
-		if(!target_vent)  return
-		if(target_vent.welded)      //the vent can be welded while alien scrolled through the list or travelled.
-			target_vent = vent_found   //travel back. No additional time required.
+		if(!target_vent)	return
+		if(target_vent.welded)			//the vent can be welded while alien scrolled through the list or travelled.
+			target_vent = vent_found 	//travel back. No additional time required.
 			src << "\red The vent you were heading to appears to be welded."
 		loc = target_vent.loc
 		var/area/new_area = get_area(loc)
 		if(new_area)
 			new_area.Entered(src)
-
-
 
 /mob/living/carbon/clean_blood()
 	. = ..()
@@ -375,11 +391,13 @@
 	throw_mode_off()
 	if(usr.stat || !target)
 		return
-	if(target.type == /obj/screen) return
+	if(target.type == /obj/screen)
+		return
 
 	var/atom/movable/item = src.get_active_hand()
 
-	if(!item) return
+	if(!item || (item.flags & NODROP))
+		return
 
 	if (istype(item, /obj/item/weapon/grab))
 		var/obj/item/weapon/grab/G = item
@@ -401,10 +419,10 @@
 				else
 					M.LAssailant = usr
 
-	if(!item) return //Grab processing has a chance of returning null
-
-	item.layer = initial(item.layer)
-	u_equip(item)
+	if(!item)
+		return //Grab processing has a chance of returning null
+	if(!ismob(item)) //Honk mobs don't have a dropped() proc honk
+		unEquip(item)
 	update_icons()
 
 	if (istype(usr, /mob/living/carbon)) //Check if a carbon mob is throwing. Modify/remove this line as required.
@@ -416,6 +434,7 @@
 
 	//actually throw it!
 	if (item)
+		item.layer = initial(item.layer)
 		src.visible_message("\red [src] has thrown [item].")
 
 		if(!src.lastarea)
@@ -434,10 +453,6 @@
 
 		item.throw_at(target, item.throw_range, item.throw_speed, src)
 
-/mob/living/carbon/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume)
-	..()
-	bodytemperature = max(bodytemperature, BODYTEMP_HEAT_DAMAGE_LIMIT+10)
-
 /mob/living/carbon/can_use_hands()
 	if(handcuffed)
 		return 0
@@ -450,29 +465,64 @@
 		return 1
 	return
 
-/mob/living/carbon/u_equip(obj/item/W as obj)
-	if(!W)	return 0
+/mob/living/carbon/unEquip(obj/item/I) //THIS PROC DID NOT CALL ..()
+	. = ..() //Sets the default return value to what the parent returns.
+	if(!. || !I) //We don't want to set anything to null if the parent returned 0.
+		return
 
-	else if (W == handcuffed)
+	if(I == back)
+		back = null
+		update_inv_back(0)
+	else if(I == wear_mask)
+		if(istype(src, /mob/living/carbon/human)) //If we don't do this hair won't be properly rebuilt.
+			return
+		wear_mask = null
+		update_inv_wear_mask(0)
+	else if(I == handcuffed)
 		handcuffed = null
-		update_inv_handcuffed()
-
-	else if (W == legcuffed)
+		update_inv_handcuffed(1)
+	else if(I == legcuffed)
 		legcuffed = null
-		update_inv_legcuffed()
-	else
-	 ..()
+		update_inv_legcuffed(1)
 
-	return
+/mob/living/carbon/proc/get_temperature(var/datum/gas_mixture/environment)
+	var/loc_temp = T0C
+	if(istype(loc, /obj/mecha))
+		var/obj/mecha/M = loc
+		loc_temp =  M.return_temperature()
+
+	else if(istype(loc, /obj/spacepod))
+		var/obj/spacepod/S = loc
+		loc_temp = S.return_temperature()
+
+	else if(istype(loc, /obj/structure/transit_tube_pod))
+		loc_temp = environment.temperature
+
+	else if(istype(get_turf(src), /turf/space))
+		var/turf/heat_turf = get_turf(src)
+		loc_temp = heat_turf.temperature
+
+	else if(istype(loc, /obj/machinery/atmospherics/unary/cryo_cell))
+		var/obj/machinery/atmospherics/unary/cryo_cell/C = loc
+
+		if(C.air_contents.total_moles() < 10)
+			loc_temp = environment.temperature
+		else
+			loc_temp = C.air_contents.temperature
+
+	else
+		loc_temp = environment.temperature
+
+	return loc_temp
 
 /mob/living/carbon/show_inv(mob/living/carbon/user as mob)
 	user.set_machine(src)
 	var/dat = {"
 	<B><HR><FONT size=3>[name]</FONT></B>
 	<BR><HR>
-	<BR><B>Head(Mask):</B> <A href='?src=\ref[src];item=mask'>[(wear_mask ? wear_mask : "Nothing")]</A>
-	<BR><B>Left Hand:</B> <A href='?src=\ref[src];item=l_hand'>[(l_hand ? l_hand  : "Nothing")]</A>
-	<BR><B>Right Hand:</B> <A href='?src=\ref[src];item=r_hand'>[(r_hand ? r_hand : "Nothing")]</A>
+	<BR><B>Head(Mask):</B> <A href='?src=\ref[src];item=mask'>[(wear_mask && !(wear_mask.flags & ABSTRACT)) ? wear_mask : "Nothing"]</A>
+	<BR><B>Left Hand:</B> <A href='?src=\ref[src];item=l_hand'>[(l_hand && !(l_hand.flags & ABSTRACT)) ? l_hand  : "Nothing"]</A>
+	<BR><B>Right Hand:</B> <A href='?src=\ref[src];item=r_hand'>[(r_hand && !(r_hand.flags & ABSTRACT)) ? r_hand : "Nothing"]</A>
 	<BR><B>Back:</B> <A href='?src=\ref[src];item=back'>[(back ? back : "Nothing")]</A> [((istype(wear_mask, /obj/item/clothing/mask) && istype(back, /obj/item/weapon/tank) && !( internal )) ? text(" <A href='?src=\ref[];item=internal'>Set Internal</A>", src) : "")]
 	<BR>[(handcuffed ? text("<A href='?src=\ref[src];item=handcuff'>Handcuffed</A>") : text("<A href='?src=\ref[src];item=handcuff'>Not Handcuffed</A>"))]
 	<BR>[(internal ? text("<A href='?src=\ref[src];item=internal'>Remove Internal</A>") : "")]
@@ -554,7 +604,7 @@
 
 /mob/living/carbon/proc/spawn_larvae()
 	set category = "Alien"
-	set name = "Reproduce"
+	set name = "Reproduce (100)"
 	set desc = "Spawn several young."
 
 	var/mob/living/simple_animal/borer/B = has_brain_worms()
@@ -577,3 +627,6 @@
 
 /mob/living/carbon/proc/canBeHandcuffed()
 	return 0
+
+/mob/living/carbon/is_muzzled()
+	return(istype(src.wear_mask, /obj/item/clothing/mask/muzzle))

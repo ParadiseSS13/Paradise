@@ -4,7 +4,7 @@
 	icon = 'icons/obj/storage.dmi'
 	icon_state = "red"
 	item_state = "toolbox_red"
-	flags = FPRINT | TABLEPASS| CONDUCT
+	flags = CONDUCT
 	force = 10.0
 	throwforce = 10.0
 	throw_speed = 2
@@ -64,7 +64,7 @@
 		new /obj/item/stack/cable_coil(src,30,color)
 		new /obj/item/stack/cable_coil(src,30,color)
 		if(prob(5))
-			new /obj/item/clothing/gloves/yellow(src)
+			new /obj/item/clothing/gloves/color/yellow(src)
 		else
 			new /obj/item/stack/cable_coil(src,30,color)
 

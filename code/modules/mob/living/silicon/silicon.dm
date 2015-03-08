@@ -6,8 +6,8 @@
 	var/datum/ai_laws/laws = null//Now... THEY ALL CAN ALL HAVE LAWS
 	var/list/alarms_to_show = list()
 	var/list/alarms_to_clear = list()
-	immune_to_ssd = 1
 	var/list/hud_list[10]
+	var/list/speech_synthesizer_langs = list()	//which languages can be vocalized by the speech synthesizer
 	var/list/alarm_types_show = list("Motion" = 0, "Fire" = 0, "Atmosphere" = 0, "Power" = 0, "Camera" = 0)
 	var/list/alarm_types_clear = list("Motion" = 0, "Fire" = 0, "Atmosphere" = 0, "Power" = 0, "Camera" = 0)
 	var/designation = ""
@@ -20,6 +20,8 @@
 	var/sensor_mode = 0 //Determines the current HUD.
 	#define SEC_HUD 1 //Security HUD mode
 	#define MED_HUD 2 //Medical HUD mode
+	var/local_transmit //If set, can only speak to others of the same type within a short range.
+	var/obj/item/device/radio/common_radio
 
 /mob/living/silicon/proc/cancelAlarm()
 	return
@@ -122,6 +124,11 @@
 /mob/living/silicon/proc/damage_mob(var/brute = 0, var/fire = 0, var/tox = 0)
 	return
 
+/mob/living/silicon/can_inject(var/mob/user, var/error_msg)
+	if(error_msg)
+		user << "<span class='alert'>Their outer shell is too tough.</span>"
+	return 0
+
 /mob/living/silicon/IsAdvancedToolUser()
 	return 1
 
@@ -206,6 +213,37 @@
 		show_system_integrity()
 		show_malf_ai()
 
+//Silicon mob language procs
+
+/mob/living/silicon/can_speak(datum/language/speaking)
+	return universal_speak || (speaking in src.speech_synthesizer_langs)	//need speech synthesizer support to vocalize a language
+
+/mob/living/silicon/add_language(var/language, var/can_speak=1)
+	if (..(language) && can_speak)
+		speech_synthesizer_langs.Add(all_languages[language])
+		return 1
+
+/mob/living/silicon/remove_language(var/rem_language)
+	..(rem_language)
+
+	for (var/datum/language/L in speech_synthesizer_langs)
+		if (L.name == rem_language)
+			speech_synthesizer_langs -= L
+
+/mob/living/silicon/check_languages()
+	set name = "Check Known Languages"
+	set category = "IC"
+	set src = usr
+
+	var/dat = "<b><font size = 5>Known Languages</font></b><br/><br/>"
+
+	for(var/datum/language/L in languages)
+		if(!(L.flags & NONGLOBAL))
+			dat += "<b>[L.name] (:[L.key])</b><br/>Speech Synthesizer: <i>[(L in speech_synthesizer_langs)? "YES":"NOT SUPPORTED"]</i><br/>[L.desc]<br/><br/>"
+
+	src << browse(dat, "window=checklanguage")
+	return
+
 // this function displays the stations manifest in a separate window
 /mob/living/silicon/proc/show_station_manifest()
 	var/dat
@@ -249,14 +287,17 @@
 	set desc = "Sets a description which will be shown when someone examines you."
 	set category = "IC"
 
-	pose =  copytext(sanitize(input(usr, "This is [src]. It is...", "Pose", null)  as text), 1, MAX_MESSAGE_LEN)
+	pose =  sanitize(copytext(input(usr, "This is [src]. It is...", "Pose", null)  as text, 1, MAX_MESSAGE_LEN))
 
 /mob/living/silicon/verb/set_flavor()
 	set name = "Set Flavour Text"
 	set desc = "Sets an extended description of your character's features."
 	set category = "IC"
 
-	flavor_text =  copytext(sanitize(input(usr, "Please enter your new flavour text.", "Flavour text", null)  as text), 1)
+	flavor_text =  sanitize(copytext(input(usr, "Please enter your new flavour text.", "Flavour text", null)  as text, 1))
+
+/mob/living/silicon/binarycheck()
+	return 1
 
 /mob/living/silicon/proc/toggle_sensor_mode()
 	var/sensor_type = input("Please select sensor type.", "Sensor Integration", null) in list("Security", "Medical","Disable")

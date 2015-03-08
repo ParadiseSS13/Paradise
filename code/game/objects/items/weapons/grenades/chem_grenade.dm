@@ -26,15 +26,9 @@
 	update_icon()
 
 
-/obj/item/weapon/grenade/chem_grenade/examine()
-	set src in usr
-	usr << desc
-	if(stage >= WIRED)
-		if(nadeassembly)
-			usr << nadeassembly.a_left.describe()
-			usr << nadeassembly.a_right.describe()
-		else
-			usr << "The timer is set to [det_time/10] second\s."
+/obj/item/weapon/grenade/chem_grenade/examine(mob/user)
+	display_timer = (stage == READY && !nadeassembly)	//show/hide the timer based on assembly state
+	..()
 
 
 /obj/item/weapon/grenade/chem_grenade/proc/get_trigger()
@@ -96,7 +90,7 @@
 		else if(clown_check(user))
 			// This used to go before the assembly check, but that has absolutely zero to do with priming the damn thing.  You could spam the admins with it.
 			var/log_str = "[key_name(usr)]<A HREF='?_src_=holder;adminmoreinfo=\ref[usr]'>?</A> has primed a [name] for detonation at <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[bombturf.x];Y=[bombturf.y];Z=[bombturf.z]'>[A.name] (JMP)</a>."
-			message_admins(log_str)
+			msg_admin_attack(log_str)
 			log_game(log_str)
 			bombers += "[log_str]"
 			user << "<span class='warning'>You prime the [name]! [det_time / 10] second\s!</span>"
@@ -109,7 +103,7 @@
 				prime()
 
 
-/obj/item/weapon/grenade/chem_grenade/attackby(obj/item/I, mob/user)
+/obj/item/weapon/grenade/chem_grenade/attackby(obj/item/I, mob/user, params)
 	if(istype(I,/obj/item/weapon/hand_labeler))
 		var/obj/item/weapon/hand_labeler/HL = I
 		if(length(HL.label))
@@ -144,7 +138,7 @@
 				var/turf/bombturf = get_turf(loc)
 				var/area/A = bombturf.loc
 				var/log_str = "[key_name(usr)]<A HREF='?_src_=holder;adminmoreinfo=\ref[usr]'>?</A> has completed [name] at <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[bombturf.x];Y=[bombturf.y];Z=[bombturf.z]'>[A.name] (JMP)</a> [contained]."
-				message_admins(log_str)
+				msg_admin_attack(log_str)
 				log_game(log_str)
 			else
 				user << "<span class='notice'>You need to add at least one beaker before locking the assembly.</span>"
@@ -374,7 +368,7 @@
 	//I tried to just put it in the allowed_containers list but
 	//if you do that it must have reagents.  If you're going to
 	//make a special case you might as well do it explicitly. -Sayu
-/obj/item/weapon/grenade/chem_grenade/large/attackby(obj/item/I, mob/user)
+/obj/item/weapon/grenade/chem_grenade/large/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/slime_extract) && stage == WIRED)
 		user << "<span class='notice'>You add [I] to the assembly.</span>"
 		user.drop_item()

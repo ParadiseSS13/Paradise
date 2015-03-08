@@ -134,7 +134,7 @@ var/global/datum/shuttle_controller/shuttle_controller
 	admin_shuttle.area_offsite = locate(/area/shuttle/administration/centcom)
 	admin_shuttle.area_station = locate(/area/shuttle/administration/station)
 	admin_shuttle.docking_controller_tag = "admin_shuttle_port"
-	admin_shuttle.docking_controller_tag_station = "admin_shuttle_starboard"
+	admin_shuttle.docking_controller_tag_station = "admin_shuttle_port"
 	admin_shuttle.docking_controller_tag_offsite = "admin_shuttle_port"
 	admin_shuttle.dock_target_station = "admin_shuttle_dock_airlock"
 	admin_shuttle.dock_target_offsite = "admin_shuttle_bay"
@@ -213,12 +213,12 @@ var/global/datum/shuttle_controller/shuttle_controller
 		"Fore Port Solars" = locate(/area/vox_station/northwest_solars),
 		"Aft Starboard Solars" = locate(/area/vox_station/southeast_solars),
 		"Aft Port Solars" = locate(/area/vox_station/southwest_solars),
-		"Mining asteroid" = locate(/area/vox_station/mining)
+		"Mining Asteroid" = locate(/area/vox_station/mining)
 		)
 
 	VS.announcer = "NSV Icarus"
-	VS.arrival_message = "Attention, Cyberiad, we just tracked a small target bypassing our defensive perimeter. Can't fire on it without hitting the station - you've got incoming visitors, like it or not."
-	VS.departure_message = "Your guests are pulling away, Cyberiad - moving too fast for us to draw a bead on them. Looks like they're heading out of the system at a rapid clip."
+	VS.arrival_message = "Attention, [station_name()], we just tracked a small target bypassing our defensive perimeter. Can't fire on it without hitting the station - you've got incoming visitors, like it or not."
+	VS.departure_message = "Your guests are pulling away, [station_name()] - moving too fast for us to draw a bead on them. Looks like they're heading out of the system at a rapid clip."
 	VS.interim = locate(/area/vox_station/transit)
 
 	VS.warmup_time = 0
@@ -240,8 +240,8 @@ var/global/datum/shuttle_controller/shuttle_controller
 		)
 
 	MS.announcer = "NSV Icarus"
-	MS.arrival_message = "Attention, Cyberiad, you have a large signature approaching the station - looks unarmed to surface scans. We're too far out to intercept - brace for visitors."
-	MS.departure_message = "Your visitors are on their way out of the system, Cyberiad, burning delta-v like it's nothing. Good riddance."
+	MS.arrival_message = "Attention, [station_name()], you have a large signature approaching the station - looks unarmed to surface scans. We're too far out to intercept - brace for visitors."
+	MS.departure_message = "Your visitors are on their way out of the system, [station_name()], burning delta-v like it's nothing. Good riddance."
 	MS.interim = locate(/area/syndicate_station/transit)
 
 	MS.warmup_time = 0

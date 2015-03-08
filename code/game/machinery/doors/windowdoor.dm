@@ -18,7 +18,8 @@
 		src.icon_state = "[src.icon_state]"
 		src.base_state = src.icon_state
 
-	color = color_windows(src)
+	if(!color)
+		color = color_windows(src)
 	return
 
 /obj/machinery/door/window/Destroy()
@@ -194,12 +195,15 @@
 /obj/machinery/door/window/proc/attack_generic(mob/user as mob, damage = 0)
 	if(src.operating)
 		return
+	user.changeNext_move(CLICK_CD_MELEE)
+	user.do_attack_animation(src)
 	playsound(src.loc, 'sound/effects/Glasshit.ogg', 75, 1)
 	user.visible_message("<span class='danger'>[user] smashes against the [src.name].</span>", \
 				"<span class='userdanger'>[user] smashes against the [src.name].</span>")
 	take_damage(damage)
 
 /obj/machinery/door/window/attack_alien(mob/living/user as mob)
+
 	if(islarva(user))
 		return
 	attack_generic(user, 25)
@@ -224,21 +228,13 @@
 /obj/machinery/door/window/attack_hand(mob/user as mob)
 	return src.attackby(user, user)
 
-/obj/machinery/door/window/attackby(obj/item/weapon/I as obj, mob/living/user as mob)
-
-	//If it's in the process of opening/closing, ignore the click
-	if (src.operating)
-		return
-
-	add_fingerprint(user)
-
-	//Emags and ninja swords? You may pass.
-	if (src.density && (istype(I, /obj/item/weapon/card/emag)||istype(I, /obj/item/weapon/melee/energy/blade)))
+/obj/machinery/door/window/emag_act(user as mob, weapon as obj)
+	if(density)
 		src.operating = -1
 		flick("[src.base_state]spark", src)
 		sleep(6)
 		desc += "<BR><span class='warning'>Its access panel is smoking slightly.</span>"
-		if(istype(I, /obj/item/weapon/melee/energy/blade))
+		if(istype(weapon, /obj/item/weapon/melee/energy/blade))
 			var/datum/effect/effect/system/spark_spread/spark_system = new /datum/effect/effect/system/spark_spread()
 			spark_system.set_up(5, 0, src.loc)
 			spark_system.start()
@@ -250,6 +246,19 @@
 			return 1
 		open()
 		emagged = 1
+		return 1
+	
+/obj/machinery/door/window/attackby(obj/item/weapon/I as obj, mob/living/user as mob, params)
+
+	//If it's in the process of opening/closing, ignore the click
+	if (src.operating)
+		return
+
+	add_fingerprint(user)
+
+	//Ninja swords? You may pass.
+	if (src.density && (istype(I, /obj/item/weapon/card/emag)||istype(I, /obj/item/weapon/melee/energy/blade)))
+		emag_act(user,I)
 		return 1
 
 	if(istype(I, /obj/item/weapon/screwdriver))
@@ -324,6 +333,8 @@
 
 	//If it's a weapon, smash windoor. Unless it's an id card, agent card, ect.. then ignore it (Cards really shouldnt damage a door anyway)
 	if(src.density && istype(I, /obj/item/weapon) && !istype(I, /obj/item/weapon/card) )
+		user.changeNext_move(CLICK_CD_MELEE)
+		user.do_attack_animation(src)
 		if( (I.flags&NOBLUDGEON) || !I.force )
 			return
 		var/aforce = I.force

@@ -10,7 +10,7 @@
 	var/obj/item/device/mmi/brain = null
 
 
-/obj/structure/AIcore/attackby(obj/item/P as obj, mob/user as mob)
+/obj/structure/AIcore/attackby(obj/item/P as obj, mob/user as mob, params)
 	switch(state)
 		if(0)
 			if(istype(P, /obj/item/weapon/wrench))
@@ -120,7 +120,7 @@
 					user << "\red Sticking a dead [P] into the frame would sort of defeat the purpose."
 					return
 
-				if(jobban_isbanned(P:brainmob, "AI"))
+				if(jobban_isbanned(P:brainmob, "AI") || jobban_isbanned(P:brainmob,"nonhumandept"))
 					user << "\red This [P] does not seem to fit."
 					return
 
@@ -156,11 +156,15 @@
 			if(istype(P, /obj/item/weapon/screwdriver))
 				playsound(loc, 'sound/items/Screwdriver.ogg', 50, 1)
 				user << "<span class='notice'>You connect the monitor.</span>"
-				if(!laws.inherent.len) //If laws isn't set to null but nobody supplied a board, the AI would normally be created lawless. We don't want that.
-					laws = null
-				var/mob/living/silicon/ai/A = new /mob/living/silicon/ai (loc, laws, brain)
-				if(A) //if there's no brain, the mob is deleted and a structure/AIcore is created
-					A.rename_self("ai", 1)
+				if(!brain)
+					var/open_for_latejoin = alert(user, "Would you like this core to be open for latejoining AIs?", "Latejoin", "Yes", "Yes", "No") == "Yes"
+					var/obj/structure/AIcore/deactivated/D = new(loc)
+					if(open_for_latejoin)
+						empty_playable_ai_cores += D
+				else
+					var/mob/living/silicon/ai/A = new /mob/living/silicon/ai ( loc, laws, brain )
+					if(A) //if there's no brain, the mob is deleted and a structure/AIcore is created
+						A.rename_self("ai", 1)
 				feedback_inc("cyborg_ais_created",1)
 				del(src)
 
@@ -171,10 +175,57 @@
 	anchored = 1
 	state = 20//So it doesn't interact based on the above. Not really necessary.
 
-	attackby(var/obj/item/device/aicard/A as obj, var/mob/user as mob)
-		if(istype(A, /obj/item/device/aicard))//Is it?
-			A.transfer_ai("INACTIVE","AICARD",src,user)
-		return
+/obj/structure/AIcore/deactivated/Destroy()
+	empty_playable_ai_cores -= src
+	..()
+
+/obj/structure/AIcore/deactivated/attackby(var/obj/item/W, var/mob/user, params)
+	if(istype(W, /obj/item/device/aicard))//Is it?
+		var/obj/item/device/aicard/card = W
+		card.transfer_ai("INACTIVE","AICARD",src,user)
+	else if(istype(W, /obj/item/weapon/wrench))
+		if(anchored)
+			user.visible_message("\blue \The [user] starts to unbolt \the [src] from the plating...")
+			if(!do_after(user,40))
+				user.visible_message("\blue \The [user] decides not to unbolt \the [src].")
+				return
+			user.visible_message("\blue \The [user] finishes unfastening \the [src]!")
+			anchored = 0
+			return
+		else
+			user.visible_message("\blue \The [user] starts to bolt \the [src] to the plating...")
+			if(!do_after(user,40))
+				user.visible_message("\blue \The [user] decides not to bolt \the [src].")
+				return
+			user.visible_message("\blue \The [user] finishes fastening down \the [src]!")
+			anchored = 1
+			return
+	else
+		return ..()
+
+/client/proc/empty_ai_core_toggle_latejoin()
+	set name = "Toggle AI Core Latejoin"
+	set category = "Admin"
+
+	var/list/cores = list()
+	for(var/obj/structure/AIcore/deactivated/D in world)
+		cores["[D] ([D.loc.loc])"] = D
+
+	if(!cores.len)
+		src << "No deactivated AI cores were found."
+
+	var/id = input("Which core?", "Toggle AI Core Latejoin", null) as null|anything in cores
+	if(!id) return
+
+	var/obj/structure/AIcore/deactivated/D = cores[id]
+	if(!D) return
+
+	if(D in empty_playable_ai_cores)
+		empty_playable_ai_cores -= D
+		src << "\The [id] is now <font color=\"#ff0000\">not available</font> for latejoining AIs."
+	else
+		empty_playable_ai_cores += D
+		src << "\The [id] is now <font color=\"#008000\">available</font> for latejoining AIs."
 
 
 /*
@@ -212,7 +263,7 @@ That prevents a few funky behaviors.
 							T.cancel_camera()
 							T << "You have been downloaded to a mobile storage device. Remote device connection severed."
 							U << "\blue <b>Transfer successful</b>: \black [T.name] ([rand(1000,9999)].exe) removed from host terminal and stored within local memory."
-					if("NINJASUIT")
+					/*if("NINJASUIT")
 						var/obj/item/clothing/suit/space/space_ninja/C = src
 						if(C.AI)//If there is an AI on card.
 							U << "\red <b>Transfer failed</b>: \black Existing AI found on this terminal. Remove existing AI to install a new one."
@@ -233,7 +284,7 @@ That prevents a few funky behaviors.
 								C.AI = T
 								T.cancel_camera()
 								T << "You have been downloaded to a mobile storage device. Remote device connection severed."
-								U << "\blue <b>Transfer successful</b>: \black [T.name] ([rand(1000,9999)].exe) removed from host terminal and stored within local memory."
+								U << "\blue <b>Transfer successful</b>: \black [T.name] ([rand(1000,9999)].exe) removed from host terminal and stored within local memory."*/
 
 			if("INACTIVE")//Inactive AI object.
 				var/obj/structure/AIcore/deactivated/T = target
@@ -251,7 +302,7 @@ That prevents a few funky behaviors.
 							A << "You have been uploaded to a stationary terminal. Remote device connection restored."
 							U << "\blue <b>Transfer successful</b>: \black [A.name] ([rand(1000,9999)].exe) installed and executed succesfully. Local copy has been removed."
 							del(T)
-					if("NINJASUIT")
+					/*if("NINJASUIT")
 						var/obj/item/clothing/suit/space/space_ninja/C = src
 						var/mob/living/silicon/ai/A = C.AI
 						if(A)
@@ -261,7 +312,7 @@ That prevents a few funky behaviors.
 							A.cancel_camera()
 							A << "You have been uploaded to a stationary terminal. Remote device connection restored."
 							U << "\blue <b>Transfer succesful</b>: \black [A.name] ([rand(1000,9999)].exe) installed and executed succesfully. Local copy has been removed."
-							del(T)
+							del(T)*/
 			if("AIFIXER")//AI Fixer terminal.
 				var/obj/machinery/computer/aifixer/T = target
 				switch(interaction)
@@ -306,7 +357,7 @@ That prevents a few funky behaviors.
 								U << "\red <b>ERROR</b>: \black Reconstruction in progress."
 							else if (!T.occupant)
 								U << "\red <b>ERROR</b>: \black Unable to locate artificial intelligence."
-					if("NINJASUIT")
+					/*if("NINJASUIT")
 						var/obj/item/clothing/suit/space/space_ninja/C = src
 						if(!T.contents.len)
 							if (!C.AI)
@@ -339,8 +390,8 @@ That prevents a few funky behaviors.
 							else if (T.active)
 								U << "\red <b>ERROR</b>: \black Reconstruction in progress."
 							else if (!T.occupant)
-								U << "\red <b>ERROR</b>: \black Unable to locate artificial intelligence."
-			if("NINJASUIT")//Ninjasuit
+								U << "\red <b>ERROR</b>: \black Unable to locate artificial intelligence."*/
+			/*if("NINJASUIT")//Ninjasuit
 				var/obj/item/clothing/suit/space/space_ninja/T = target
 				switch(interaction)
 					if("AICARD")
@@ -375,7 +426,7 @@ That prevents a few funky behaviors.
 										A_T << "You have been uploaded to a mobile storage device."
 										U << "\blue <b>SUCCESS</b>: \black [A_T.name] ([rand(1000,9999)].exe) removed from local memory and installed to host."
 									else if(A_T)//If the target AI is dead. Else just go to return since nothing would happen if both are empty.
-										U << "\red <b>ERROR</b>: \black [A_T.name] data core is corrupted. Unable to install."
+										U << "\red <b>ERROR</b>: \black [A_T.name] data core is corrupted. Unable to install."*/
 
 	else
 		U << "\red <b>ERROR</b>: \black AI flush is in progress, cannot execute transfer protocol."

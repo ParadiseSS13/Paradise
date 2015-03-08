@@ -98,7 +98,7 @@
 	name = "plasma tank"
 	desc = "Contains dangerous plasma. Do not inhale. Warning: extremely flammable."
 	icon_state = "plasma"
-	flags = FPRINT | TABLEPASS | CONDUCT
+	flags = CONDUCT
 	slot_flags = null	//they have no straps!
 
 
@@ -110,7 +110,7 @@
 	src.air_contents.update_values()
 	return
 
-/obj/item/weapon/tank/plasma/attackby(obj/item/weapon/W as obj, mob/user as mob)
+/obj/item/weapon/tank/plasma/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
 	..()
 
 	if (istype(W, /obj/item/weapon/flamethrower))
@@ -118,13 +118,14 @@
 		if ((!F.status)||(F.ptank))	return
 		src.master = F
 		F.ptank = src
-		user.before_take_item(src)
+		user.unEquip(src)
 		src.loc = F
 	return
 
 /obj/item/weapon/tank/plasma/plasmaman
 	desc = "The lifeblood of plasmamen.  Warning:  Extremely flammable, do not inhale (unless you're a plasman)."
 	icon_state = "plasma_fr"
+	distribute_pressure = ONE_ATMOSPHERE*O2STANDARD
 
 /obj/item/weapon/tank/plasma/plasmaman/examine()
 	set src in usr
@@ -140,7 +141,7 @@
 	name = "emergency oxygen tank"
 	desc = "Used for emergencies. Contains very little oxygen, so try to conserve it until you actually need it."
 	icon_state = "emergency"
-	flags = FPRINT | TABLEPASS | CONDUCT
+	flags = CONDUCT
 	slot_flags = SLOT_BELT
 	w_class = 2.0
 	force = 4.0
@@ -173,6 +174,16 @@
 	name = "double emergency oxygen tank"
 	icon_state = "emergency_double"
 	volume = 10
+
+/obj/item/weapon/tank/emergency_oxygen/double/full
+	name = "pressurized double emergency oxygen tank"
+	desc = "Used for \"emergencies,\" it actually contains a fair amount of oxygen."
+
+	New()
+		..()
+		src.air_contents.oxygen = (10*ONE_ATMOSPHERE)*volume/(R_IDEAL_GAS_EQUATION*T20C)
+		src.air_contents.update_values()
+		return
 
 /*
  * Nitrogen

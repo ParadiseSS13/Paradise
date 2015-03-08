@@ -128,7 +128,7 @@
 
 /obj/machinery/computer/med_data/Topic(href, href_list)
 	if(..())
-		return
+		return 1
 
 	if (!( data_core.general.Find(src.active1) ))
 		src.active1 = null

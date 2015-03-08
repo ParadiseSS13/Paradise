@@ -206,7 +206,7 @@
 		return
 
 
-/obj/machinery/computer/telecomms/traffic/attackby(var/obj/item/weapon/D as obj, var/mob/user as mob)
+/obj/machinery/computer/telecomms/traffic/attackby(var/obj/item/weapon/D as obj, var/mob/user as mob, params)
 	if(istype(D, /obj/item/weapon/screwdriver))
 		playsound(get_turf(src), 'sound/items/Screwdriver.ogg', 50, 1)
 		if(do_after(user, 20))
@@ -233,12 +233,14 @@
 				A.icon_state = "4"
 				A.anchored = 1
 				del(src)
-	else if(istype(D, /obj/item/weapon/card/emag) && !emagged)
+	src.updateUsrDialog()
+	return
+	
+/obj/machinery/computer/telecomms/traffic/emag_act(user as mob)
+	if(!emagged)
 		playsound(get_turf(src), 'sound/effects/sparks4.ogg', 75, 1)
 		emagged = 1
 		user << "\blue You you disable the security protocols"
-	src.updateUsrDialog()
-	return
 
 /obj/machinery/computer/telecomms/traffic/proc/canAccess(var/mob/user)
 	if(issilicon(user) || in_range(user, src))

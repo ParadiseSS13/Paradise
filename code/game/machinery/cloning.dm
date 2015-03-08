@@ -45,6 +45,19 @@
 	component_parts += new /obj/item/stack/cable_coil(src, 1)
 	RefreshParts()
 
+/obj/machinery/clonepod/upgraded/New()
+	..()
+	component_parts = list()
+	component_parts += new /obj/item/weapon/circuitboard/clonepod(src)
+	component_parts += new /obj/item/weapon/stock_parts/scanning_module/phasic(src)
+	component_parts += new /obj/item/weapon/stock_parts/scanning_module/phasic(src)
+	component_parts += new /obj/item/weapon/stock_parts/manipulator/pico(src)
+	component_parts += new /obj/item/weapon/stock_parts/manipulator/pico(src)
+	component_parts += new /obj/item/weapon/stock_parts/console_screen(src)
+	component_parts += new /obj/item/stack/cable_coil(src, 1)
+	component_parts += new /obj/item/stack/cable_coil(src, 1)
+	RefreshParts()
+
 /obj/machinery/clonepod/RefreshParts()
 	speed_coeff = 0
 	efficiency = 0
@@ -53,7 +66,7 @@
 	for(var/obj/item/weapon/stock_parts/manipulator/P in component_parts)
 		speed_coeff += P.rating
 	heal_level = (efficiency * 15) + 10
-	
+
 //The return of data disks?? Just for transferring between genetics machine/cloning machine.
 //TO-DO: Make the genetics machine accept them.
 /obj/item/weapon/disk/data
@@ -248,9 +261,10 @@
 	H.dna.UpdateSE()
 	H.dna.UpdateUI()
 
+/* //let's not make people waste even more time after being cloned.
 	H.f_style = "Shaved"
 	if(R.dna.species == "Human") //no more xenos losing ears/tentacles
-		H.h_style = pick("Bedhead", "Bedhead 2", "Bedhead 3")
+		H.h_style = pick("Bedhead", "Bedhead 2", "Bedhead 3") */
 
 	H.set_species(R.dna.species)
 
@@ -314,7 +328,7 @@
 	return
 
 //Let's unlock this early I guess.  Might be too early, needs tweaking.
-/obj/machinery/clonepod/attackby(obj/item/weapon/W as obj, mob/user as mob)
+/obj/machinery/clonepod/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
 	if (istype(W, /obj/item/weapon/screwdriver))
 		if(occupant || mess || locked)
 			user << "<span class='notice'>The maintenance panel is locked.</span>"
@@ -323,8 +337,8 @@
 		return
 
 	if(exchange_parts(user, W))
-		return		
-		
+		return
+
 	if(istype(W, /obj/item/weapon/crowbar))
 		if(panel_open)
 			default_deconstruction_crowbar(W)
@@ -389,7 +403,7 @@
 	set name = "Eject Cloner"
 	set category = "Object"
 	set src in oview(1)
-	
+
 	if(!usr)
 		return
 	if (usr.stat != 0)
@@ -416,7 +430,7 @@
 
 	if (src.locked)
 		user << "<span class=\"warning\">The cloning pod is locked!</span>"
-		return	
+		return
 	/*
 	for(var/obj/O in src)
 		O.loc = src.loc

@@ -55,3 +55,19 @@
 	// /vg/: MEDIAAAAAAAA
 	// Set on login.
 	var/datum/media_manager/media = null
+
+	/////////////////////////////////////////////////////////////////////
+	//adv. hotkey mode vars, code using them in /interface/interface.dm//
+	/////////////////////////////////////////////////////////////////////
+
+	var/hotkeytype = "QWERTY" //what set of hotkeys is in use(defaulting to QWERTY because I can't be bothered to ake this save on SQL)
+	var/hotkeyon = 0 //is the hotkey on?
+
+	var/hotkeylist = list( //list defining hotkey types, look at lists in place for structure if adding any if the future
+		"QWERTY" = list(
+			"on" = "hotkeymode",
+			"off" = "macro"),
+		"AZERTY" = list(
+			"on" = "AZERTYon",
+			"off" = "AZERTYoff")
+	)

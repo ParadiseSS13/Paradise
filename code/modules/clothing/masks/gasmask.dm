@@ -2,7 +2,7 @@
 	name = "gas mask"
 	desc = "A face-covering mask that can be connected to an air supply."
 	icon_state = "gas_alt"
-	flags = FPRINT | TABLEPASS | MASKCOVERSMOUTH | MASKCOVERSEYES | BLOCK_GAS_SMOKE_EFFECT | MASKINTERNALS
+	flags = MASKCOVERSMOUTH | MASKCOVERSEYES | BLOCK_GAS_SMOKE_EFFECT | MASKINTERNALS
 	flags_inv = HIDEEARS|HIDEEYES|HIDEFACE
 	w_class = 3.0
 	item_state = "gas_alt"
@@ -19,7 +19,7 @@
 	name = "bane mask"
 	desc = "Only when the station is in flames, do you have my permission to robust."
 	icon_state = "bane_mask"
-	flags = FPRINT | TABLEPASS | MASKCOVERSMOUTH | MASKCOVERSEYES | BLOCK_GAS_SMOKE_EFFECT | MASKINTERNALS
+	flags = MASKCOVERSMOUTH | MASKCOVERSEYES | BLOCK_GAS_SMOKE_EFFECT | MASKINTERNALS
 	flags_inv = HIDEEARS|HIDEEYES|HIDEFACE
 	w_class = 3.0
 	item_state = "bane_mask"
@@ -51,51 +51,13 @@
 	siemens_coefficient = 0.7
 	species_fit = list("Vox")
 
-/obj/item/clothing/mask/gas/voice
-	name = "gas mask"
-	//desc = "A face-covering mask that can be connected to an air supply. It seems to house some odd electronics."
-	var/mode = 0// 0==Scouter | 1==Night Vision | 2==Thermal | 3==Meson
-	var/voice = "Unknown"
-	var/vchange = 0//This didn't do anything before. It now checks if the mask has special functions/N
-	origin_tech = "syndicate=4"
-	species_fit = list("Vox")
-
-/obj/item/clothing/mask/gas/voice/space_ninja
-	name = "ninja mask"
-	desc = "A close-fitting mask that acts both as an air filter and a post-modern fashion statement."
-	icon_state = "s-ninja(norm)"
-	item_state = "s-ninja_mask"
-	vchange = 1
-	unacidable = 1
-	siemens_coefficient = 0.2
-	species_fit = list("Vox")
-
-/obj/item/clothing/mask/gas/voice/space_ninja/scar
-	name = "ninja mask"
-	desc = "A close-fitting mask that acts both as an air filter and a post-modern fashion statement. This mask appears to have already seen battle."
-	icon_state = "s-ninja(scar)"
-	item_state = "s-ninja_mask"
-
-/obj/item/clothing/mask/gas/voice/space_ninja/visor
-	name = "ninja mask"
-	desc = "A close-fitting mask that acts both as an air filter and a post-modern fashion statement. This variant appears to have a visor to increase vision."
-	icon_state = "s-ninja(visor)"
-	item_state = "s-ninja_mask"
-
-/obj/item/clothing/mask/gas/voice/space_ninja/monocular
-	name = "ninja mask"
-	desc = "A close-fitting mask that acts both as an air filter and a post-modern fashion statement. This variant appears to focus the user's vision out of a single port."
-	icon_state = "s-ninja(mon)"
-	item_state = "s-ninja_mask"
-
-
 /obj/item/clothing/mask/gas/clown_hat
 	name = "clown wig and mask"
 	desc = "A true prankster's facial attire. A clown is incomplete without his wig and mask."
 	icon_state = "clown"
 	item_state = "clown_hat"
 	species_fit = list("Vox")
-	flags = FPRINT | TABLEPASS | MASKCOVERSMOUTH | MASKCOVERSEYES | BLOCK_GAS_SMOKE_EFFECT | MASKINTERNALS | BLOCKHAIR
+	flags = MASKCOVERSMOUTH | MASKCOVERSEYES | BLOCK_GAS_SMOKE_EFFECT | MASKINTERNALS | BLOCKHAIR
 
 /obj/item/clothing/mask/gas/clown_hat/attack_self(mob/user)
 
@@ -118,7 +80,7 @@
 	desc = "Some pranksters are truly magical."
 	icon_state = "wizzclown"
 	item_state = "wizzclown"
-	flags = FPRINT | TABLEPASS | MASKCOVERSMOUTH | MASKCOVERSEYES | BLOCK_GAS_SMOKE_EFFECT | MASKINTERNALS | BLOCKHAIR
+	flags = MASKCOVERSMOUTH | MASKCOVERSEYES | BLOCK_GAS_SMOKE_EFFECT | MASKINTERNALS | BLOCKHAIR
 
 /obj/item/clothing/mask/gas/virusclown_hat
 	name = "clown wig and mask"
@@ -173,6 +135,7 @@
 	desc = "Twoooo!"
 	icon_state = "owl"
 	species_fit = list("Vox")
+	flags = MASKCOVERSMOUTH | MASKCOVERSEYES | BLOCK_GAS_SMOKE_EFFECT | MASKINTERNALS | NODROP
 
 
 // ********************************************************************
@@ -183,17 +146,40 @@
 	name = "security gas mask"
 	desc = "A standard issue Security gas mask with integrated 'Compli-o-nator 3000' device, plays over a dozen pre-recorded compliance phrases designed to get scumbags to stand still whilst you taze them. Do not tamper with the device."
 	action_button_name = "HALT!"
-	icon_state = "officermask"
+	icon_state = "sechailer"
 	var/cooldown = 0
 	var/aggressiveness = 2
+	ignore_maskadjust = 0
 	species_fit = list()
-/obj/item/clothing/mask/gas/sechailer/warden
-	icon_state = "wardenmask"
+	action_button_name = "HALT!"
+	icon_action_button = "action_sechailer"
 
-/obj/item/clothing/mask/gas/sechailer/hos
-	icon_state = "hosmask"
+/obj/item/clothing/mask/gas/sechailer/swat
+	name = "\improper SWAT mask"
+	desc = "A close-fitting tactical mask with an especially aggressive Compli-o-nator 3000."
+	action_button_name = "HALT!"
+	icon_state = "officermask"
+	aggressiveness = 3
+	ignore_maskadjust = 1
 
-/obj/item/clothing/mask/gas/sechailer/attackby(obj/item/weapon/W as obj, mob/user as mob)
+/obj/item/clothing/mask/gas/sechailer/cyborg
+	name = "security hailer"
+	desc = "A set of recognizable pre-recorded messages for cyborgs to use when apprehending criminals."
+	icon = 'icons/obj/device.dmi'
+	icon_state = "taperecorderidle"
+	aggressiveness = 1 //Borgs are nicecurity!
+	ignore_maskadjust = 1
+
+/obj/item/clothing/mask/gas/sechailer/cyborg/New()
+	..()
+	verbs -= /obj/item/clothing/mask/gas/sechailer/verb/adjust
+
+/obj/item/clothing/mask/gas/sechailer/verb/adjust()
+	set category = "Object"
+	set name = "Adjust Mask"
+	adjustmask(usr)
+
+/obj/item/clothing/mask/gas/sechailer/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
 	if(istype(W, /obj/item/weapon/screwdriver))
 		switch(aggressiveness)
 			if(1)

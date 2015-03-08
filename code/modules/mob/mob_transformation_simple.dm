@@ -2,7 +2,7 @@
 //This proc is the most basic of the procs. All it does is make a new mob on the same tile and transfer over a few variables.
 //Returns the new mob
 //Note that this proc does NOT do MMI related stuff!
-/mob/proc/change_mob_type(var/new_type = null, var/turf/location = null, var/new_name = null as text, var/delete_old_mob = 0 as num)
+/mob/proc/change_mob_type(var/new_type = null, var/turf/location = null, var/new_name = null as text, var/delete_old_mob = 0 as num, var/forcekey = 0)
 
 	if(istype(src,/mob/new_player))
 		usr << "\red cannot convert players who have not entered yet."
@@ -30,7 +30,7 @@
 
 	if(!M || !ismob(M))
 		usr << "Type path is not a mob (new_type = [new_type]) in change_mob_type(). Contact a coder."
-		del(M)
+		qdel(M)
 		return
 
 	if( istext(new_name) )
@@ -43,12 +43,12 @@
 	if(src.dna)
 		M.dna = src.dna.Clone()
 
-	if(mind)
+	if((mind && istype(M, /mob/living)) && !forcekey)
 		mind.transfer_to(M)
 	else
 		M.key = key
 
 	if(delete_old_mob)
 		spawn(1)
-			del(src)
+			qdel(src)
 	return M

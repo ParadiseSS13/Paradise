@@ -12,7 +12,7 @@ RCD
 	opacity = 0
 	density = 0
 	anchored = 0.0
-	flags = FPRINT | TABLEPASS| CONDUCT
+	flags = CONDUCT
 	force = 10.0
 	throwforce = 10.0
 	throw_speed = 3
@@ -21,6 +21,7 @@ RCD
 	m_amt = 100000
 	origin_tech = "engineering=4;materials=2"
 	var/datum/effect/effect/system/spark_spread/spark_system
+	var/max_matter = 100
 	var/matter = 0
 	var/working = 0
 	var/mode = 1
@@ -29,25 +30,26 @@ RCD
 
 
 	New()
-		desc = "A RCD. It currently holds [matter]/100 matter-units."
+		desc = "A RCD. It currently holds [matter]/[max_matter] matter-units."
 		src.spark_system = new /datum/effect/effect/system/spark_spread
 		spark_system.set_up(5, 0, src)
 		spark_system.attach(src)
 		return
 
 
-	attackby(obj/item/weapon/W, mob/user)
+	attackby(obj/item/weapon/W, mob/user, params)
 		..()
 		if(istype(W, /obj/item/weapon/rcd_ammo))
-			if((matter + 20) > 100)
+			var/obj/item/weapon/rcd_ammo/R = W
+			if((matter + R.ammoamt) > max_matter)
 				user << "<span class='notice'>The RCD cant hold any more matter-units.</span>"
 				return
+			matter += R.ammoamt
 			user.drop_item()
 			del(W)
-			matter += 20
 			playsound(src.loc, 'sound/machines/click.ogg', 50, 1)
-			user << "<span class='notice'>The RCD now holds [matter]/100 matter-units.</span>"
-			desc = "A RCD. It currently holds [matter]/100 matter-units."
+			user << "<span class='notice'>The RCD now holds [matter]/[max_matter] matter-units.</span>"
+			desc = "A RCD. It currently holds [matter]/[max_matter] matter-units."
 			return
 
 
@@ -166,7 +168,7 @@ RCD
 	if(matter < amount)
 		return 0
 	matter -= amount
-	desc = "A RCD. It currently holds [matter]/100 matter-units."
+	desc = "A RCD. It currently holds [matter]/[max_matter] matter-units."
 	return 1
 
 /obj/item/weapon/rcd/proc/checkResource(var/amount, var/mob/user)
@@ -186,6 +188,12 @@ RCD
 	desc = "A device used to rapidly build and deconstruct walls and floors."
 	canRwall = 1
 
+/obj/item/weapon/rcd/combat
+	name = "combat RCD"
+	max_matter = 500
+	matter = 500
+	canRwall = 1
+
 /obj/item/weapon/rcd_ammo
 	name = "compressed matter cartridge"
 	desc = "Highly compressed matter for the RCD."
@@ -198,3 +206,7 @@ RCD
 	origin_tech = "materials=2"
 	m_amt = 16000
 	g_amt = 8000
+	var/ammoamt = 20
+
+/obj/item/weapon/rcd_ammo/large
+	ammoamt = 100

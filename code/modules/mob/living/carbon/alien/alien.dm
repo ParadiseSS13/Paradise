@@ -125,7 +125,7 @@
 
 /mob/living/carbon/alien/proc/handle_mutations_and_radiation()
 	if(getFireLoss())
-		if((M_RESIST_HEAT in mutations) || prob(5))
+		if((RESIST_HEAT in mutations) || prob(5))
 			adjustFireLoss(-1)
 
 	// Aliens love radiation nom nom nom
@@ -277,6 +277,9 @@ Des: Removes all infected images from the alien.
 		hud_used.alien_plasma_display.maptext = "<div align='center' valign='middle' style='position:relative; top:0px; left:6px'> <font color='magenta'>[storedPlasma]</font></div>"
 
 /mob/living/carbon/alien/larva/updatePlasmaDisplay()
+	return
+	
+/mob/living/carbon/alien/can_use_vents()
 	return
 
 #undef HEAT_DAMAGE_LEVEL_1

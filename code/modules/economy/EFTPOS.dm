@@ -100,7 +100,7 @@
 	else
 		user << browse(null,"window=eftpos")
 
-/obj/item/device/eftpos/attackby(O as obj, user as mob)
+/obj/item/device/eftpos/attackby(O as obj, user as mob, params)
 	if(istype(O, /obj/item/weapon/card))
 		//attempt to connect to a new db, and if that doesn't work then fail
 		if(!linked_db)
@@ -179,7 +179,7 @@
 				var/obj/item/I = usr.get_active_hand()
 				if (istype(I, /obj/item/weapon/card))
 					var/obj/item/weapon/card/id/C = I
-					if(access_cent_captain in C.access || access_hop in C.access || access_captain in C.access)
+					if(access_cent_commander in C.access || access_hop in C.access || access_captain in C.access)
 						access_code = 0
 						usr << "\icon[src]<span class='info'>Access code reset to 0.</span>"
 				else if (istype(I, /obj/item/weapon/card/emag))

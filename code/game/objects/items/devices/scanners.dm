@@ -13,7 +13,6 @@ REAGENT SCANNER
 	desc = "A terahertz-ray emitter and scanner used to detect underfloor objects such as cables and pipes."
 	icon_state = "t-ray0"
 	var/on = 0
-	flags = FPRINT | TABLEPASS
 	slot_flags = SLOT_BELT
 	w_class = 2
 	item_state = "electronic"
@@ -43,7 +42,7 @@ REAGENT SCANNER
 /obj/item/device/t_scanner/attack_self(mob/user)
 
 	on = !on
-	icon_state = "t-ray[on]"
+	icon_state = copytext(icon_state, 1, length(icon_state))+"[on]"
 
 	if(on)
 		processing_objects.Add(src)
@@ -53,6 +52,9 @@ REAGENT SCANNER
 	if(!on)
 		processing_objects.Remove(src)
 		return null
+	scan()
+
+/obj/item/device/t_scanner/proc/scan()
 
 	for(var/turf/T in range(scan_range, src.loc) )
 
@@ -66,11 +68,13 @@ REAGENT SCANNER
 
 			if(O.invisibility == 101)
 				O.invisibility = 0
+				O.alpha = 128
 				spawn(pulse_duration)
 					if(O)
 						var/turf/U = O.loc
 						if(U.intact)
 							O.invisibility = 101
+							O.alpha = 255
 		for(var/mob/living/M in T.contents)
 			var/oldalpha = M.alpha
 			if(M.alpha < 255 && istype(M))
@@ -94,7 +98,7 @@ REAGENT SCANNER
 	item_state = "healthanalyzer"
 	icon_override = 'icons/mob/in-hand/tools.dmi'
 	desc = "A hand-held body scanner able to distinguish vital signs of the subject."
-	flags = FPRINT | TABLEPASS | CONDUCT
+	flags = CONDUCT
 	slot_flags = SLOT_BELT
 	throwforce = 3
 	w_class = 1.0
@@ -106,7 +110,7 @@ REAGENT SCANNER
 
 
 /obj/item/device/healthanalyzer/attack(mob/living/M as mob, mob/living/user as mob)
-	if (( (M_CLUMSY in user.mutations) || user.getBrainLoss() >= 60) && prob(50))
+	if (( (CLUMSY in user.mutations) || user.getBrainLoss() >= 60) && prob(50))
 		user << text("\red You try to analyze the floor's vitals!")
 		for(var/mob/O in viewers(M, null))
 			O.show_message(text("\red [user] has analyzed the floor's vitals!"), 1)
@@ -255,7 +259,7 @@ REAGENT SCANNER
 	icon_state = "atmos"
 	item_state = "analyzer"
 	w_class = 2.0
-	flags = FPRINT | TABLEPASS| CONDUCT
+	flags = CONDUCT
 	slot_flags = SLOT_BELT
 	throwforce = 5
 	throw_speed = 4
@@ -325,7 +329,7 @@ REAGENT SCANNER
 	icon_state = "spectrometer"
 	item_state = "analyzer"
 	w_class = 2.0
-	flags = FPRINT | TABLEPASS| CONDUCT | OPENCONTAINER
+	flags = CONDUCT | OPENCONTAINER
 	slot_flags = SLOT_BELT
 	throwforce = 5
 	throw_speed = 4
@@ -398,7 +402,7 @@ REAGENT SCANNER
 	icon_state = "spectrometer"
 	item_state = "analyzer"
 	w_class = 2.0
-	flags = FPRINT | TABLEPASS | CONDUCT
+	flags = CONDUCT
 	slot_flags = SLOT_BELT
 	throwforce = 5
 	throw_speed = 4

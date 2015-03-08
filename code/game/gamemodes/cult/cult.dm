@@ -21,7 +21,7 @@
 /datum/game_mode/cult
 	name = "cult"
 	config_tag = "cult"
-	restricted_jobs = list("Chaplain","AI", "Cyborg", "Internal Affairs Agent", "Security Officer", "Warden", "Detective", "Security Pod Pilot", "Head of Security", "Captain", "Head of Personnel", "Blueshield", "Nanotrasen Representative", "Nanotrasen Recruiter", "Magistrate", "Brig Physician", "Customs Officer")
+	restricted_jobs = list("Chaplain","AI", "Cyborg", "Internal Affairs Agent", "Security Officer", "Warden", "Detective", "Security Pod Pilot", "Head of Security", "Captain", "Head of Personnel", "Blueshield", "Nanotrasen Representative", "Magistrate", "Brig Physician")
 	protected_jobs = list()
 	required_players = 5
 	required_players_secret = 15
@@ -132,7 +132,7 @@
 	if (mob.mind)
 		if (mob.mind.assigned_role == "Clown")
 			mob << "Your training has allowed you to overcome your clownish nature, allowing you to wield weapons without harming yourself."
-			mob.mutations.Remove(M_CLUMSY)
+			mob.mutations.Remove(CLUMSY)
 
 	add_cult_viewpoint(mob) // give them a viewpoint
 

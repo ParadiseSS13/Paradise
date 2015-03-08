@@ -16,8 +16,8 @@
 
 /obj/machinery/computer/HONKputer/Topic(href, href_list)
 	if(..())
-		return
-	if (src.z > 1)
+		return 1
+	if (!(src.z in config.station_levels))
 		usr << "\red <b>Unable to establish a connection</b>: \black You're too far away from the station!"
 		return
 	usr.set_machine(src)
@@ -57,12 +57,10 @@
 
 	src.updateUsrDialog()
 
-/obj/machinery/computer/HONKputer/attackby(var/obj/I as obj, var/mob/user as mob)
-	if(istype(I,/obj/item/weapon/card/emag/))
+/obj/machinery/computer/HONKputer/emag_act(user as mob)
+	if(!emagged)
 		src.emagged = 1
 		user << "You scramble the login circuits, allowing anyone to use the console!"
-	..()
-
 
 /obj/machinery/computer/HONKputer/attack_hand(var/mob/user as mob)
 	if(..())
@@ -92,7 +90,7 @@
 	onclose(user, "honkputer")
 
 
-/obj/machinery/computer/HONKputer/attackby(I as obj, user as mob)
+/obj/machinery/computer/HONKputer/attackby(I as obj, user as mob, params)
 	if(istype(I, /obj/item/weapon/screwdriver) && circuit)
 		playsound(src.loc, 'sound/items/Screwdriver.ogg', 50, 1)
 		if(do_after(user, 20))

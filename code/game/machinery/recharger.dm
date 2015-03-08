@@ -13,7 +13,7 @@
 	var/icon_state_charging = "recharger1"
 	var/icon_state_idle = "recharger0"
 
-/obj/machinery/recharger/attackby(obj/item/weapon/G as obj, mob/user as mob)
+/obj/machinery/recharger/attackby(obj/item/weapon/G as obj, mob/user as mob, params)
 	if(istype(user,/mob/living/silicon))
 		return
 	if(istype(G, /obj/item/weapon/gun/energy) || istype(G, /obj/item/weapon/melee/baton) || istype(G,/obj/item/device/laptop))
@@ -29,7 +29,7 @@
 			user << "\red The [name] blinks red as you try to insert the item!"
 			return
 
-		if (istype(G, /obj/item/weapon/gun/energy/gun/nuclear) || istype(G, /obj/item/weapon/gun/energy/crossbow))
+		if (istype(G, /obj/item/weapon/gun/energy/gun/nuclear))
 			user << "<span class='notice'>Your gun's recharge port was removed to make room for a miniaturized reactor.</span>"
 			return
 		if(istype(G, /obj/item/device/laptop))

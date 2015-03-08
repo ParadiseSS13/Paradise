@@ -4,7 +4,7 @@
 	icon = 'icons/obj/storage.dmi'
 	name = "Money bag"
 	icon_state = "moneybag"
-	flags = FPRINT | TABLEPASS| CONDUCT
+	flags = CONDUCT
 	force = 10.0
 	throwforce = 2.0
 	w_class = 4.0
@@ -72,7 +72,7 @@
 */
 	user << browse("[dat]", "window=moneybag")
 
-/obj/item/weapon/moneybag/attackby(obj/item/weapon/W as obj, mob/user as mob)
+/obj/item/weapon/moneybag/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
 	..()
 	if (istype(W, /obj/item/weapon/coin))
 		var/obj/item/weapon/coin/C = W

@@ -6,7 +6,7 @@
 	if (istype(in_use, /obj/machinery/computer/shuttle_control/emergency))
 		var/obj/machinery/computer/shuttle_control/emergency/C = in_use
 		C.reset_authorization()
-	
+
 	emergency_shuttle.shuttle_arrived()
 
 /datum/shuttle/ferry/emergency/long_jump(var/area/departing, var/area/destination, var/area/interim, var/travel_time, var/direction)
@@ -26,30 +26,34 @@
 		emergency_shuttle.departed = 1
 
 		if (emergency_shuttle.evac)
-			captain_announce("The Emergency Shuttle has left the station. Estimate [round(emergency_shuttle.estimate_arrival_time()/60,1)] minutes until the shuttle docks at Central Command.")
+			priority_announcement.Announce("The Emergency Shuttle has left the station. Estimate [round(emergency_shuttle.estimate_arrival_time()/60,1)] minutes until the shuttle docks at Central Command.")
 		else
-			captain_announce("The Crew Transfer Shuttle has left the station. Estimate [round(emergency_shuttle.estimate_arrival_time()/60,1)] minutes until the shuttle docks at Central Command.")
+			priority_announcement.Announce("The Crew Transfer Shuttle has left the station. Estimate [round(emergency_shuttle.estimate_arrival_time()/60,1)] minutes until the shuttle docks at Central Command.")
 
 	..(origin, destination)
 
-/datum/shuttle/ferry/emergency/can_launch(var/user)
+/datum/shuttle/ferry/emergency/can_launch(var/mob/user)
 	if (istype(user, /obj/machinery/computer/shuttle_control/emergency))
 		var/obj/machinery/computer/shuttle_control/emergency/C = user
 		if (!C.has_authorization())
 			return 0
+
+		if(moving_status == SHUTTLE_STRANDED && C.has_authorization())
+			return 1
 	return ..()
 
-/datum/shuttle/ferry/emergency/can_force(var/user)
+/datum/shuttle/ferry/emergency/can_force(var/mob/user)
 	if (istype(user, /obj/machinery/computer/shuttle_control/emergency))
 		var/obj/machinery/computer/shuttle_control/emergency/C = user
-		
+
 		//initiating or cancelling a launch ALWAYS requires authorization, but if we are already set to launch anyways than forcing does not.
 		//this is so that people can force launch if the docking controller cannot safely undock without needing X heads to swipe.
 		if (process_state != WAIT_LAUNCH && !C.has_authorization())
 			return 0
+
 	return ..()
 
-/datum/shuttle/ferry/emergency/can_cancel(var/user)
+/datum/shuttle/ferry/emergency/can_cancel(var/mob/user)
 	if (istype(user, /obj/machinery/computer/shuttle_control/emergency))
 		var/obj/machinery/computer/shuttle_control/emergency/C = user
 		if (!C.has_authorization())
@@ -58,6 +62,10 @@
 
 /datum/shuttle/ferry/emergency/launch(var/user)
 	if (!can_launch(user)) return
+
+	if(emergency_shuttle.no_escape)
+		user << "<span class='warning'>The emergency shuttle has been disabled by Centcom.</span>"
+		return
 
 	if (istype(user, /obj/machinery/computer/shuttle_control/emergency))	//if we were given a command by an emergency shuttle console
 		if (emergency_shuttle.autopilot)
@@ -144,14 +152,15 @@
 
 
 
-/obj/machinery/computer/shuttle_control/emergency/attackby(obj/item/weapon/W as obj, mob/user as mob)
-	if (istype(W, /obj/item/weapon/card/emag) && !emagged)
+/obj/machinery/computer/shuttle_control/emergency/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
+	read_authorization(W)
+	..()
+
+/obj/machinery/computer/shuttle_control/emergency/emag_act(user as mob)
+	if (!emagged)
 		user << "\blue You short out the [src]'s authorization protocols."
 		emagged = 1
 		return
-
-	read_authorization(W)
-	..()
 
 /obj/machinery/computer/shuttle_control/emergency/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
 	var/data[0]
@@ -164,6 +173,7 @@
 		if(SHUTTLE_IDLE) shuttle_state = "idle"
 		if(SHUTTLE_WARMUP) shuttle_state = "warmup"
 		if(SHUTTLE_INTRANSIT) shuttle_state = "in_transit"
+		if(SHUTTLE_STRANDED) shuttle_state = "idle"
 
 	var/shuttle_status
 	switch (shuttle.process_state)
@@ -175,7 +185,7 @@
 			else
 				shuttle_status = "Standing-by at Central Command."
 		if(WAIT_LAUNCH)
-			shuttle_status = "Shuttle has recieved command and will depart shortly."
+			shuttle_status = "Shuttle has received command and will depart shortly."
 		if(WAIT_ARRIVE)
 			shuttle_status = "Proceeding to destination."
 		if(WAIT_FINISH)
@@ -204,7 +214,7 @@
 		"docking_status" = shuttle.docking_controller? shuttle.docking_controller.get_docking_status() : null,
 		"docking_override" = shuttle.docking_controller? shuttle.docking_controller.override_enabled : null,
 		"can_launch" = shuttle.can_launch(src),
-		"can_cancel" = shuttle.can_cancel(src),
+		//"can_cancel" = shuttle.can_cancel(src),
 		"can_force" = shuttle.can_force(src),
 		"auth_list" = auth_list,
 		"has_auth" = has_auth,
@@ -226,7 +236,7 @@
 	if(href_list["removeid"])
 		var/dna_hash = href_list["removeid"]
 		authorized -= dna_hash
-	
+
 	if(!emagged && href_list["scanid"])
 		//They selected an empty entry. Try to scan their id.
 		if (ishuman(usr))

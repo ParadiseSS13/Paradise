@@ -38,7 +38,7 @@
 		if((INFINITY * -1) to 0)
 			usr << "It appears completely unsalvageable"
 
-/obj/structure/stool/bed/chair/cart/attackby(obj/item/W, mob/user)
+/obj/structure/stool/bed/chair/cart/attackby(obj/item/W, mob/user, params)
 	if (istype(W, /obj/item/weapon/weldingtool))
 		var/obj/item/weapon/weldingtool/WT = W
 		if (WT.remove_fuel(0))
@@ -287,7 +287,7 @@
 	if(mybag)
 		usr << "\A [mybag] is hanging on the [name]."
 
-/obj/structure/stool/bed/chair/cart/janicart/attackby(obj/item/W, mob/user)
+/obj/structure/stool/bed/chair/cart/janicart/attackby(obj/item/W, mob/user, params)
 	..()
 	if(istype(W, /obj/item/weapon/mop))
 		if(reagents.total_volume >= 2)
@@ -442,7 +442,7 @@
 	return
 
 
-/obj/structure/janitorialcart/attackby(obj/item/I, mob/user)
+/obj/structure/janitorialcart/attackby(obj/item/I, mob/user, params)
 	var/fail_msg = "<span class='notice'>There is already one of those in [src].</span>"
 
 	if(!I.is_robot_module())
@@ -482,14 +482,29 @@
 				update_icon()
 			else
 				user << "<span class='notice'>[src] can't hold any more signs.</span>"
-		else if(mybag)
-			mybag.attackby(I, user)
 		else if(istype(I, /obj/item/weapon/crowbar))
 			user.visible_message("<span class='warning'>[user] begins to empty the contents of [src].</span>")
 			if(do_after(user, 30))
 				usr << "<span class='notice'>You empty the contents of [src]'s bucket onto the floor.</span>"
 				reagents.reaction(src.loc)
 				src.reagents.clear_reagents()
+		else if(istype(I, /obj/item/weapon/wrench))
+			if (!anchored && !isinspace())
+				playsound(src.loc, 'sound/items/Ratchet.ogg', 50, 1)
+				user.visible_message( \
+					"[user] tightens \the [src]'s casters.", \
+					"<span class='notice'> You have tightened \the [src]'s casters.</span>", \
+					"You hear ratchet.")
+				anchored = 1
+			else if(anchored)
+				playsound(src.loc, 'sound/items/Ratchet.ogg', 50, 1)
+				user.visible_message( \
+					"[user] loosens \the [src]'s casters.", \
+					"<span class='notice'> You have loosened \the [src]'s casters.</span>", \
+					"You hear ratchet.")
+				anchored = 0
+		else if(mybag)
+			mybag.attackby(I, user, params)
 	else
 		usr << "<span class='warning'>You cannot interface your modules [src]!</span>"
 

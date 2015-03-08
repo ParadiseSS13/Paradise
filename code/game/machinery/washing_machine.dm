@@ -1,5 +1,6 @@
 /obj/machinery/washing_machine
 	name = "Washing Machine"
+	desc = "Gets rid of those pesky bloodstains, or your money back!"
 	icon = 'icons/obj/machines/washing_machine.dmi'
 	icon_state = "wm_10"
 	density = 1
@@ -87,8 +88,8 @@
 					//world << "DEBUG: YUP! [new_icon_state] and [new_item_state]"
 					break
 				del(J)
-			for(var/T in typesof(/obj/item/clothing/gloves))
-				var/obj/item/clothing/gloves/G = new T
+			for(var/T in typesof(/obj/item/clothing/gloves/color))
+				var/obj/item/clothing/gloves/color/G = new T
 				//world << "DEBUG: [color] == [J.color]"
 				if(_color == G._color)
 					new_glove_icon_state = G.icon_state
@@ -137,13 +138,13 @@
 					J.name = new_jumpsuit_name
 					J.desc = new_desc
 			if(new_glove_icon_state && new_glove_item_state && new_glove_name)
-				for(var/obj/item/clothing/gloves/G in contents)
+				for(var/obj/item/clothing/gloves/color/G in contents)
 					//world << "DEBUG: YUP! FOUND IT!"
 					G.item_state = new_glove_item_state
 					G.icon_state = new_glove_icon_state
 					G._color = _color
 					G.name = new_glove_name
-					if(!istype(G, /obj/item/clothing/gloves/black/thief))
+					if(!istype(G, /obj/item/clothing/gloves/color/black/thief))
 						G.desc = new_desc
 			if(new_shoe_icon_state && new_shoe_name)
 				for(var/obj/item/clothing/shoes/S in contents)
@@ -151,7 +152,7 @@
 					if (S.chained == 1)
 						S.chained = 0
 						S.slowdown = SHOES_SLOWDOWN
-						new /obj/item/weapon/handcuffs( src )
+						new /obj/item/weapon/restraints/handcuffs( src )
 					S.icon_state = new_shoe_icon_state
 					S._color = _color
 					S.name = new_shoe_name
@@ -194,7 +195,7 @@
 /obj/machinery/washing_machine/update_icon()
 	icon_state = "wm_[state][panel]"
 
-/obj/machinery/washing_machine/attackby(obj/item/weapon/W as obj, mob/user as mob)
+/obj/machinery/washing_machine/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
 	/*if(istype(W,/obj/item/weapon/screwdriver))
 		panel = !panel
 		user << "\blue you [panel ? "open" : "close"] the [src]'s maintenance panel"*/
@@ -265,7 +266,10 @@
 			return
 		if ( istype(W,/obj/item/clothing/gloves/furgloves ) )
 			user << "This item does not fit."
-			return			
+			return
+		if(W.flags & NODROP) //if "can't drop" item
+			user << "<span class='notice'>\The [W] is stuck to your hand, you cannot put it in the washing machine!</span>"
+			return
 
 		if(contents.len < 5)
 			if ( state in list(1, 3) )

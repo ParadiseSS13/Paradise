@@ -4,7 +4,6 @@
 	icon = 'icons/obj/clothing/belts.dmi'
 	icon_state = "utilitybelt"
 	item_state = "utility"
-	flags = FPRINT | TABLEPASS
 	slot_flags = SLOT_BELT
 	attack_verb = list("whipped", "lashed", "disciplined")
 
@@ -21,10 +20,10 @@
 	if (!M.restrained() && !M.stat && can_use())
 		switch(over_object.name)
 			if("r_hand")
-				M.u_equip(src)
+				M.unEquip(src)
 				M.put_in_r_hand(src)
 			if("l_hand")
-				M.u_equip(src)
+				M.unEquip(src)
 				M.put_in_l_hand(src)
 		src.add_fingerprint(usr)
 		return
@@ -47,7 +46,8 @@
 		"/obj/item/stack/cable_coil",
 		"/obj/item/device/t_scanner",
 		"/obj/item/device/analyzer",
-		"/obj/item/taperoll/engineering")
+		"/obj/item/taperoll/engineering",
+		"/obj/item/weapon/extinguisher/mini")
 
 
 /obj/item/weapon/storage/belt/utility/full/New()
@@ -59,6 +59,9 @@
 	new /obj/item/weapon/wirecutters(src)
 	new /obj/item/stack/cable_coil(src,30,pick("red","yellow","orange"))
 
+/obj/item/weapon/storage/belt/utility/full/multitool/New()
+	..()
+	new /obj/item/device/multitool(src)
 
 /obj/item/weapon/storage/belt/utility/atmostech/New()
 	..()
@@ -68,6 +71,7 @@
 	new /obj/item/weapon/crowbar(src)
 	new /obj/item/weapon/wirecutters(src)
 	new /obj/item/device/t_scanner(src)
+	new /obj/item/weapon/extinguisher/mini(src)
 
 
 
@@ -92,8 +96,9 @@
 		"/obj/item/stack/medical",
 		"/obj/item/device/flashlight/pen",
 		"/obj/item/clothing/mask/surgical",
-		"/obj/item/clothing/gloves/latex",
-        "/obj/item/weapon/reagent_containers/hypospray/autoinjector"
+		"/obj/item/clothing/gloves/color/latex",
+        "/obj/item/weapon/reagent_containers/hypospray/autoinjector",
+		"/obj/item/device/sensor_device"
 	)
 
 
@@ -108,7 +113,7 @@
 		"/obj/item/weapon/grenade/flashbang",
 		"/obj/item/weapon/grenade/chem_grenade/teargas",
 		"/obj/item/weapon/reagent_containers/spray/pepper",
-		"/obj/item/weapon/handcuffs",
+		"/obj/item/weapon/restraints/handcuffs",
 		"/obj/item/device/flash",
 		"/obj/item/clothing/glasses",
 		"/obj/item/ammo_casing/shotgun",
@@ -125,6 +130,15 @@
 /obj/item/weapon/storage/belt/security/New()
 	..()
 	new /obj/item/device/flashlight/seclite(src)
+
+/obj/item/weapon/storage/belt/security/response_team/New()
+	..()
+	contents.Cut()
+	new /obj/item/weapon/kitchenknife/combat(src)
+	new /obj/item/weapon/melee/baton/loaded(src)
+	new /obj/item/device/flash(src)
+	new /obj/item/weapon/melee/telebaton(src)
+	new /obj/item/weapon/grenade/flashbang(src)
 
 /obj/item/weapon/storage/belt/soulstone
 	name = "soul stone belt"
@@ -158,7 +172,7 @@
 
 /obj/item/weapon/storage/belt/military
 	name = "military belt"
-	desc = "A syndicate belt designed to be used by boarding parties.  Its style is modeled after the hardsuits they wear."
+	desc = "A syndicate belt designed to be used by boarding parties.  Its style is modelled after the hardsuits they wear."
 	icon_state = "militarybelt"
 	item_state = "military"
 
@@ -177,3 +191,267 @@
 		"/obj/item/weapon/soap",
 		"/obj/item/weapon/holosign_creator"
 		)
+		
+/obj/item/weapon/storage/belt/janitor/full/New()
+	..()
+	new /obj/item/device/lightreplacer(src)
+	new /obj/item/weapon/holosign_creator(src)
+	new /obj/item/weapon/reagent_containers/spray(src)
+	new /obj/item/weapon/soap(src)
+	new /obj/item/weapon/grenade/chem_grenade/cleaner(src)
+	new /obj/item/weapon/grenade/chem_grenade/cleaner(src)
+
+/obj/item/weapon/storage/belt/bandolier
+	name = "bandolier"
+	desc = "A bandolier for holding shotgun ammunition."
+	icon_state = "bandolier"
+	item_state = "bandolier"
+	storage_slots = 6
+	can_hold = list(
+		"/obj/item/ammo_casing/shotgun"
+		)
+
+/obj/item/weapon/storage/belt/bandolier/full/New()
+	..()
+	new /obj/item/ammo_casing/shotgun/beanbag(src)
+	new /obj/item/ammo_casing/shotgun/beanbag(src)
+	new /obj/item/ammo_casing/shotgun/beanbag(src)
+	new /obj/item/ammo_casing/shotgun/beanbag(src)
+	new /obj/item/ammo_casing/shotgun/beanbag(src)
+	new /obj/item/ammo_casing/shotgun/beanbag(src)
+
+/obj/item/weapon/storage/belt/holster
+	name = "shoulder holster"
+	desc = "A holster to conceal a carried handgun. WARNING: Badasses only."
+	icon_state = "holster"
+	item_state = "holster"
+	storage_slots = 1
+	max_w_class = 3
+	can_hold = list(
+		"/obj/item/weapon/gun/projectile/automatic/pistol",
+		"/obj/item/weapon/gun/projectile/revolver/detective"
+		)
+
+/obj/item/weapon/storage/belt/wands
+	name = "wand belt"
+	desc = "A belt designed to hold various rods of power. A veritable fanny pack of exotic magic."
+	icon_state = "soulstonebelt"
+	item_state = "soulstonebelt"
+	storage_slots = 6
+	can_hold = list(
+		"/obj/item/weapon/gun/magic/wand"
+		)
+
+/obj/item/weapon/storage/belt/wands/full/New()
+	..()
+	new /obj/item/weapon/gun/magic/wand/death(src)
+	new /obj/item/weapon/gun/magic/wand/resurrection(src)
+	new /obj/item/weapon/gun/magic/wand/polymorph(src)
+	new /obj/item/weapon/gun/magic/wand/teleport(src)
+	new /obj/item/weapon/gun/magic/wand/door(src)
+	new /obj/item/weapon/gun/magic/wand/fireball(src)
+
+	for(var/obj/item/weapon/gun/magic/wand/W in contents) //All wands in this pack come in the best possible condition
+		W.max_charges = initial(W.max_charges)
+		W.charges = W.max_charges
+
+/obj/item/weapon/storage/belt/fannypack
+	name = "fannypack"
+	desc = "A dorky fannypack for keeping small items in."
+	icon_state = "fannypack_leather"
+	item_state = "fannypack_leather"
+	storage_slots = 3
+	max_w_class = 2
+
+/obj/item/weapon/storage/belt/fannypack/black
+	name = "black fannypack"
+	icon_state = "fannypack_black"
+	item_state = "fannypack_black"
+
+/obj/item/weapon/storage/belt/fannypack/red
+	name = "red fannypack"
+	icon_state = "fannypack_red"
+	item_state = "fannypack_red"
+
+/obj/item/weapon/storage/belt/fannypack/purple
+	name = "purple fannypack"
+	icon_state = "fannypack_purple"
+	item_state = "fannypack_purple"
+
+/obj/item/weapon/storage/belt/fannypack/blue
+	name = "blue fannypack"
+	icon_state = "fannypack_blue"
+	item_state = "fannypack_blue"
+
+/obj/item/weapon/storage/belt/fannypack/orange
+	name = "orange fannypack"
+	icon_state = "fannypack_orange"
+	item_state = "fannypack_orange"
+
+/obj/item/weapon/storage/belt/fannypack/white
+	name = "white fannypack"
+	icon_state = "fannypack_white"
+	item_state = "fannypack_white"
+
+/obj/item/weapon/storage/belt/fannypack/green
+	name = "green fannypack"
+	icon_state = "fannypack_green"
+	item_state = "fannypack_green"
+
+/obj/item/weapon/storage/belt/fannypack/pink
+	name = "pink fannypack"
+	icon_state = "fannypack_pink"
+	item_state = "fannypack_pink"
+
+/obj/item/weapon/storage/belt/fannypack/cyan
+	name = "cyan fannypack"
+	icon_state = "fannypack_cyan"
+	item_state = "fannypack_cyan"
+
+/obj/item/weapon/storage/belt/fannypack/yellow
+	name = "yellow fannypack"
+	icon_state = "fannypack_yellow"
+	item_state = "fannypack_yellow"
+
+// -------------------------------------
+//     Bluespace Belt
+// -------------------------------------
+
+
+/obj/item/weapon/storage/belt/bluespace
+	name = "Belt of Holding"
+	desc = "The greatest in pants-supporting technology."
+	icon_state = "medicalbelt"
+	item_state = "medical"
+	storage_slots = 14
+	w_class = 4
+	max_w_class = 2
+	max_combined_w_class = 21 // = 14 * 1.5, not 14 * 2.  This is deliberate
+	origin_tech = "bluespace=4"
+	can_hold = list()
+
+	proc/failcheck(mob/user as mob)
+		if (prob(src.reliability)) return 1 //No failure
+		if (prob(src.reliability))
+			user << "\red The Bluespace portal resists your attempt to add another item." //light failure
+		else
+			user << "\red The Bluespace generator malfunctions!"
+			for (var/obj/O in src.contents) //it broke, delete what was in it
+				del(O)
+			crit_fail = 1
+			return 0
+
+/obj/item/weapon/storage/belt/bluespace/owlman
+	name = "Owlman's utility belt"
+	desc = "Sometimes people choose justice.  Sometimes, justice chooses you..."
+	icon_state = "securitybelt"
+	item_state = "security"
+	storage_slots = 14
+	max_w_class = 3
+	max_combined_w_class = 28 // = 14 * 2
+	origin_tech = "bluespace=4;syndicate=2"
+	allow_quick_empty = 1
+	can_hold = list()
+	New()
+		..()
+		new /obj/item/clothing/mask/gas/owl_mask(src)
+		new /obj/item/clothing/under/owl(src)
+		new /obj/item/weapon/grenade/smokebomb(src)
+		new /obj/item/weapon/grenade/smokebomb(src)
+		new /obj/item/device/detective_scanner(src)
+
+
+
+ // As a last resort, the belt can be used as a plastic explosive with a fixed timer (15 seconds).  Naturally, you'll lose all your gear...
+ // Of course, it could be worse.  It could spawn a singularity!
+/obj/item/weapon/storage/belt/bluespace/owlman/afterattack(atom/target as obj|turf, mob/user as mob, flag)
+	if (!flag)
+		return
+	if (istype(target, /turf/unsimulated) || istype(target, /turf/simulated/shuttle) || istype(target, /obj/item/weapon/storage) || istype(target, /obj/structure/table) || istype(target, /obj/structure/closet))
+		return
+	user << "Planting explosives..."
+	user.visible_message("[user.name] is fiddling with their toolbelt.")
+	if(ismob(target))
+		user.attack_log += "\[[time_stamp()]\] <font color='red'> [user.real_name] tried planting [name] on [target:real_name] ([target:ckey])</font>"
+		log_attack("<font color='red'> [user.real_name] ([user.ckey]) tried planting [name] on [target:real_name] ([target:ckey])</font>")
+		user.visible_message("\red [user.name] is trying to strap a belt to [target.name]!")
+
+
+	if(do_after(user, 50) && in_range(user, target))
+		user.drop_item()
+		target = target
+		loc = null
+		var/location
+		if (isturf(target)) location = target
+		if (ismob(target))
+			target:attack_log += "\[[time_stamp()]\]<font color='orange'> Had the [name] planted on them by [user.real_name] ([user.ckey])</font>"
+			user.visible_message("\red [user.name] finished planting an explosive on [target.name]!")
+		target.overlays += image('icons/obj/assemblies.dmi', "plastic-explosive2")
+		user << "You sacrifice your belt for the sake of justice. Timer counting down from 15."
+		spawn(150)
+			if(target)
+				if(ismob(target) || isobj(target))
+					location = target.loc // These things can move
+				explosion(location, -1, -1, 2, 3)
+				if (istype(target, /turf/simulated/wall)) target:dismantle_wall(1)
+				else target.ex_act(1)
+				if (isobj(target))
+					if (target)
+						del(target)
+				if (src)
+					del(src)
+/obj/item/weapon/storage/belt/bluespace/attack(mob/M as mob, mob/user as mob, def_zone)
+	return
+
+/obj/item/weapon/storage/belt/bluespace/admin
+	name = "Admin's Tool-belt"
+	desc = "Holds everything for those that run everything."
+	icon_state = "soulstonebelt"
+	item_state = "soulstonebelt"
+	w_class = 10 // permit holding other storage items
+	storage_slots = 28
+	max_w_class = 10
+	max_combined_w_class = 280
+	can_hold = list()
+
+	New()
+		..()
+		new /obj/item/weapon/crowbar(src)
+		new /obj/item/weapon/screwdriver(src)
+		new /obj/item/weapon/weldingtool/hugetank(src)
+		new /obj/item/weapon/wirecutters(src)
+		new /obj/item/weapon/wrench(src)
+		new /obj/item/device/multitool(src)
+		new /obj/item/stack/cable_coil(src)
+
+		new /obj/item/weapon/restraints/handcuffs(src)
+		new /obj/item/weapon/dnainjector/xraymut(src)
+		new /obj/item/weapon/dnainjector/firemut(src)
+		new /obj/item/weapon/dnainjector/telemut(src)
+		new /obj/item/weapon/dnainjector/hulkmut(src)
+//		new /obj/item/weapon/spellbook(src) // for smoke effects, door openings, etc
+//		new /obj/item/weapon/magic/spellbook(src)
+
+//		new/obj/item/weapon/reagent_containers/hypospray/admin(src)
+
+/obj/item/weapon/storage/belt/bluespace/sandbox
+	name = "Sandbox Mode Toolbelt"
+	desc = "Holds whatever, you can spawn your own damn stuff."
+	w_class = 10 // permit holding other storage items
+	storage_slots = 28
+	max_w_class = 10
+	max_combined_w_class = 280
+	can_hold = list()
+
+	New()
+		..()
+		new /obj/item/weapon/crowbar(src)
+		new /obj/item/weapon/screwdriver(src)
+		new /obj/item/weapon/weldingtool/hugetank(src)
+		new /obj/item/weapon/wirecutters(src)
+		new /obj/item/weapon/wrench(src)
+		new /obj/item/device/multitool(src)
+		new /obj/item/stack/cable_coil(src)
+
+		new /obj/item/device/analyzer(src)
+		new /obj/item/device/healthanalyzer(src)

@@ -27,7 +27,7 @@
 	blade_color = pick("red","blue","green","purple")
 
 /obj/item/weapon/melee/energy/sword/attack_self(mob/living/user as mob)
-	if ((M_CLUMSY in user.mutations) && prob(50))
+	if ((CLUMSY in user.mutations) && prob(50))
 		user << "\red You accidentally cut yourself with [src]."
 		user.take_organ_damage(5,5)
 	active = !active
@@ -60,7 +60,7 @@
 	add_fingerprint(user)
 	return
 
-/obj/item/weapon/melee/energy/sword/attackby(obj/item/weapon/W, mob/living/user)
+/obj/item/weapon/melee/energy/sword/attackby(obj/item/weapon/W, mob/living/user, params)
 	..()
 	if(istype(W, /obj/item/weapon/melee/energy/sword))
 		if(W == src)
@@ -101,12 +101,11 @@
 	icon = 'icons/obj/weapons.dmi'
 	icon_state = "baton"
 	item_state = "classic_baton"
-	flags = FPRINT | TABLEPASS
 	slot_flags = SLOT_BELT
 	force = 10
 
 /obj/item/weapon/melee/classic_baton/attack(mob/M as mob, mob/living/user as mob)
-	if ((M_CLUMSY in user.mutations) && prob(50))
+	if ((CLUMSY in user.mutations) && prob(50))
 		user << "\red You club yourself over the head."
 		user.Weaken(3 * force)
 		if(ishuman(user))
@@ -125,7 +124,7 @@
 	if (user.a_intent == "harm")
 		if(!..()) return
 		playsound(get_turf(src), "swing_hit", 50, 1, -1)
-		if (M.stuttering < 8 && (!(M_HULK in M.mutations))  /*&& (!istype(H:wear_suit, /obj/item/clothing/suit/judgerobe))*/)
+		if (M.stuttering < 8 && (!(HULK in M.mutations))  /*&& (!istype(H:wear_suit, /obj/item/clothing/suit/judgerobe))*/)
 			M.stuttering = 8
 		M.Stun(8)
 		M.Weaken(8)
@@ -157,7 +156,6 @@
 	icon = 'icons/obj/weapons.dmi'
 	icon_state = "telebaton_0"
 	item_state = "telebaton_0"
-	flags = FPRINT | TABLEPASS
 	slot_flags = SLOT_BELT
 	w_class = 2
 	force = 3
@@ -203,7 +201,7 @@
 /obj/item/weapon/melee/telebaton/attack(mob/target as mob, mob/living/user as mob)
 	if(on)
 		add_fingerprint(user)
-		if((M_CLUMSY in user.mutations) && prob(50))
+		if((CLUMSY in user.mutations) && prob(50))
 			user << "<span class ='danger'>You club yourself over the head.</span>"
 			user.Weaken(3 * force)
 			if(ishuman(user))
@@ -284,40 +282,4 @@
 		src.w_class = 5
 		hitsound = "swing_hit"
 	src.add_fingerprint(user)
-	return
-
-
-/*
- * Energy Shield
- */
-/obj/item/weapon/shield/energy/IsShield()
-	if(active)
-		return 1
-	else
-		return 0
-
-/obj/item/weapon/shield/energy/attack_self(mob/living/user as mob)
-	if ((M_CLUMSY in user.mutations) && prob(50))
-		user << "\red You beat yourself in the head with [src]."
-		user.take_organ_damage(5)
-	active = !active
-	if (active)
-		force = 10
-		reflect_chance = 100
-		icon_state = "eshield[active]"
-		w_class = 4
-		playsound(user, 'sound/weapons/saberon.ogg', 50, 1)
-		user << "\blue [src] is now active."
-	else
-		force = 3
-		icon_state = "eshield[active]"
-		w_class = 1
-		reflect_chance = 0
-		playsound(user, 'sound/weapons/saberoff.ogg', 50, 1)
-		user << "\blue [src] can now be concealed."
-	if(istype(user,/mob/living/carbon/human))
-		var/mob/living/carbon/human/H = user
-		H.update_inv_l_hand()
-		H.update_inv_r_hand()
-	add_fingerprint(user)
 	return

@@ -25,6 +25,16 @@
 	src << "As a ghost, you will now [(prefs.toggles & CHAT_GHOSTRADIO) ? "hear all radio chat in the world" : "only hear from nearby speakers"]."
 	prefs.save_preferences(src)
 	feedback_add_details("admin_verb","TGR")
+	
+/client/proc/toggle_hear_radio()
+	set name = "Show/Hide RadioChatter"
+	set category = "Preferences"
+	set desc = "Toggle seeing radiochatter from radios and speakers"
+	if(!holder) return
+	prefs.toggles ^= CHAT_RADIO
+	prefs.save_preferences(src)
+	usr << "You will [(prefs.toggles & CHAT_RADIO) ? "now" : "no longer"] see radio chatter from radios or speakers"
+	feedback_add_details("admin_verb","THR") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /client/verb/toggleadminhelpsound()
 	set name = "Hear/Silence Adminhelps"
@@ -126,11 +136,15 @@
 
 //be special
 /client/verb/toggle_be_special(role in be_special_flags)
-	set name = "Toggle SpecialRole Candidacy"
+	set name = "Toggle Special Role Candidacy"
 	set category = "Preferences"
 	set desc = "Toggles which special roles you would like to be a candidate for, during events."
 	var/role_flag = be_special_flags[role]
 	if(!role_flag)	return
+	if(!player_old_enough_antag(src,be_special_flags[role]))
+		var/available_in_days_antag = available_in_days_antag(src,be_special_flags[role])
+		src << "<span class='warning'>This role is not yet available to you. You need to wait another [available_in_days_antag] days.</span>"
+		return
 	prefs.be_special ^= role_flag
 	prefs.save_preferences(src)
 	src << "You will [(prefs.be_special & role_flag) ? "now" : "no longer"] be considered for [role] events (where possible)."

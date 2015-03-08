@@ -6,7 +6,7 @@
 	icon_state = "powersink0"
 	item_state = "electronic"
 	w_class = 4.0
-	flags = FPRINT | TABLEPASS | CONDUCT
+	flags = CONDUCT
 	throwforce = 5
 	throw_speed = 1
 	throw_range = 2
@@ -21,7 +21,7 @@
 
 	var/obj/structure/cable/attached		// the attached cable
 
-	attackby(var/obj/item/I, var/mob/user)
+	attackby(var/obj/item/I, var/mob/user, params)
 		if(istype(I, /obj/item/weapon/screwdriver))
 			if(mode == 0)
 				var/turf/T = loc

@@ -4,7 +4,7 @@
 /obj/item/weapon/tank
 	name = "tank"
 	icon = 'icons/obj/tank.dmi'
-	flags = FPRINT | TABLEPASS | CONDUCT
+	flags = CONDUCT
 	slot_flags = SLOT_BACK
 	hitsound = 'sound/weapons/smash.ogg'
 	w_class = 3
@@ -78,7 +78,7 @@
 
 		del(src)
 
-/obj/item/weapon/tank/attackby(obj/item/weapon/W as obj, mob/user as mob)
+/obj/item/weapon/tank/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
 	..()
 	var/obj/icon = src
 

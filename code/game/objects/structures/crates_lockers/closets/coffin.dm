@@ -16,3 +16,4 @@
 	icon_state = "sarc"
 	icon_closed = "sarc"
 	icon_opened = "sarc_open"
+	sound = 'sound/effects/stonedoor_openclose.ogg'

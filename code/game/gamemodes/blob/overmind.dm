@@ -14,12 +14,25 @@
 	var/obj/effect/blob/core/blob_core = null // The blob overmind's core
 	var/blob_points = 0
 	var/max_blob_points = 100
+	var/ghostimage = null
 
 /mob/camera/blob/New()
 	var/new_name = "[initial(name)] ([rand(1, 999)])"
 	name = new_name
 	real_name = new_name
+
+	ghostimage = image(src.icon,src,src.icon_state)
+	ghost_darkness_images |= ghostimage //so ghosts can see the blob cursor when they disable darkness
+	updateallghostimages()
+
 	..()
+
+/mob/camera/blob/Destroy()
+	if (ghostimage)
+		ghost_darkness_images -= ghostimage
+		del(ghostimage)
+		ghostimage = null;
+		updateallghostimages()
 
 /mob/camera/blob/Login()
 	..()
@@ -65,13 +78,13 @@
 /mob/camera/blob/proc/blob_talk(message)
 	log_say("[key_name(src)] : [message]")
 
-	message = trim(copytext(sanitize(message), 1, MAX_MESSAGE_LEN))
+	message = trim(sanitize(copytext(message, 1, MAX_MESSAGE_LEN)))
 
 	if (!message)
 		return
 
-	var/message_a = say_quote(message)
-	var/rendered = "<font color=\"#EE4000\"><i><span class='game say'>Blob Telepathy, <span class='name'>[name]</span> <span class='message'>[message_a]</span></span></i></font>"
+	var/verb = "states,"
+	var/rendered = "<font color=\"#EE4000\"><i><span class='game say'>Blob Telepathy, <span class='name'>[name]</span> <span class='message'>[verb] \"[message]\"</span></span></i></font>"
 
 	for (var/mob/camera/blob/S in world)
 		if(istype(S))
@@ -79,7 +92,7 @@
 
 	for (var/mob/M in dead_mob_list)
 		if(!istype(M,/mob/new_player) && !istype(M,/mob/living/carbon/brain)) //No meta-evesdropping
-			rendered = "<font color=\"#EE4000\"><i><span class='game say'>Blob Telepathy, <span class='name'>[name]</span> <a href='byond://?src=\ref[M];follow2=\ref[M];follow=\ref[src]'>(Follow)</a> <span class='message'>[message_a]</span></span></i></font>"
+			rendered = "<font color=\"#EE4000\"><i><span class='game say'>Blob Telepathy, <span class='name'>[name]</span> (<a href='byond://?src=\ref[M];follow2=\ref[M];follow=\ref[src]'>follow</a>) <span class='message'>[verb] \"[message]\"</span></span></i></font>"
 			M.show_message(rendered, 2)
 
 /mob/camera/blob/emote(var/act,var/m_type=1,var/message = null)

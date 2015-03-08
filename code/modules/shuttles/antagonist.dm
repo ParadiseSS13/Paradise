@@ -1,6 +1,6 @@
 /obj/machinery/computer/shuttle_control/multi/vox
 	name = "skipjack control console"
-	req_access = list(access_syndicate)
+	req_access = list(access_vox)
 	shuttle_tag = "Vox Skipjack"
 	
 /obj/machinery/computer/shuttle_control/multi/vox/attack_ai(user as mob)

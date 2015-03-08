@@ -24,11 +24,6 @@
 	var/hardness = 40 //lower numbers are harder. Used to determine the probability of a hulk smashing through.
 	var/engraving, engraving_quality //engraving on the wall
 	var/del_suppress_resmoothing = 0 // Do not resmooth neighbors on Destroy. (smoothwall.dm)
-	canSmoothWith = list(
-		/turf/simulated/wall,
-		/obj/structure/falsewall,
-		/obj/structure/falserwall // WHY DO WE SMOOTH WITH FALSE R-WALLS WHEN WE DON'T SMOOTH WITH REAL R-WALLS.
-	)
 
 /turf/simulated/wall/Del()
 	for(var/obj/effect/E in src) if(E.name == "Wallrot") del E
@@ -245,8 +240,10 @@
 
 //Interactions
 
-/turf/simulated/wall/attack_paw(mob/user as mob)
-	if ((M_HULK in user.mutations))
+/turf/simulated/wall/attack_paw(mob/living/user as mob)
+	user.changeNext_move(CLICK_CD_MELEE)
+	if ((HULK in user.mutations))
+		user.do_attack_animation(src)
 		if (prob(40))
 			usr << text("\blue You smash through the wall.")
 			usr.say(pick(";RAAAAAAAARGH!", ";HNNNNNNNNNGGGGGGH!", ";GWAAAAAAAARRRHHH!", "NNNNNNNNGGGGGGGGHH!", ";AAAAAAARRRGH!" ))
@@ -260,6 +257,8 @@
 	return src.attack_hand(user)
 
 /turf/simulated/wall/attack_animal(var/mob/living/simple_animal/M)
+	M.changeNext_move(CLICK_CD_MELEE)
+	M.do_attack_animation(src)
 	if(M.environment_smash >= 2)
 		if(istype(src, /turf/simulated/wall/r_wall))
 			if(M.environment_smash == 3)
@@ -274,7 +273,8 @@
 	return
 
 /turf/simulated/wall/attack_hand(mob/user as mob)
-	if (M_HULK in user.mutations)
+	user.changeNext_move(CLICK_CD_MELEE)
+	if (HULK in user.mutations)
 		if (prob(40) || rotting)
 			user << text("\blue You smash through the wall.")
 			user.say(pick(";RAAAAAAAARGH!", ";HNNNNNNNNNGGGGGGH!", ";GWAAAAAAAARRRHHH!", "NNNNNNNNGGGGGGGGHH!", ";AAAAAAARRRGH!" ))
@@ -295,8 +295,8 @@
 	src.add_fingerprint(user)
 	return
 
-/turf/simulated/wall/attackby(obj/item/weapon/W as obj, mob/user as mob)
-
+/turf/simulated/wall/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
+	user.changeNext_move(CLICK_CD_MELEE)
 	if (!(istype(user, /mob/living/carbon/human) || ticker) && ticker.mode.name != "monkey")
 		user << "<span class='warning'>You don't have the dexterity to do this!</span>"
 		return
@@ -456,6 +456,11 @@
 		AH.try_build(src)
 		return
 
+	else if(istype(W,/obj/item/newscaster_frame))
+		var/obj/item/newscaster_frame/AH = W
+		AH.try_build(src)
+		return 1		
+		
 	else if(istype(W,/obj/item/alarm_frame))
 		var/obj/item/alarm_frame/AH = W
 		AH.try_build(src)

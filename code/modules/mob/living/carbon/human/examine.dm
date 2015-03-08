@@ -67,8 +67,8 @@
 		var/tie_msg
 		if(istype(w_uniform,/obj/item/clothing/under))
 			var/obj/item/clothing/under/U = w_uniform
-			if(U.hastie)
-				tie_msg += " with \icon[U.hastie] \a [U.hastie]"
+			if(U.accessories.len)
+				tie_msg += " with [lowertext(english_list(U.accessories))]"
 
 		if(w_uniform.blood_DNA)
 			msg += "<span class='warning'>[t_He] [t_is] wearing \icon[w_uniform] [w_uniform.gender==PLURAL?"some":"a"] blood-stained [w_uniform.name][tie_msg]!</span>\n"
@@ -104,14 +104,14 @@
 			msg += "[t_He] [t_has] \icon[back] \a [back] on [t_his] back.\n"
 
 	//left hand
-	if(l_hand)
+	if(l_hand && !(l_hand.flags & ABSTRACT))
 		if(l_hand.blood_DNA)
 			msg += "<span class='warning'>[t_He] [t_is] holding \icon[l_hand] [l_hand.gender==PLURAL?"some":"a"] blood-stained [l_hand.name] in [t_his] left hand!</span>\n"
 		else
 			msg += "[t_He] [t_is] holding \icon[l_hand] \a [l_hand] in [t_his] left hand.\n"
 
 	//right hand
-	if(r_hand)
+	if(r_hand && !(r_hand.flags & ABSTRACT))
 		if(r_hand.blood_DNA)
 			msg += "<span class='warning'>[t_He] [t_is] holding \icon[r_hand] [r_hand.gender==PLURAL?"some":"a"] blood-stained [r_hand.name] in [t_his] right hand!</span>\n"
 		else
@@ -130,7 +130,9 @@
 
 	//handcuffed?
 	if(handcuffed)
-		if(istype(handcuffed, /obj/item/weapon/handcuffs/cable))
+		if(istype(handcuffed, /obj/item/weapon/restraints/handcuffs/cable/zipties))
+			msg += "<span class='warning'>[t_He] [t_is] \icon[handcuffed] restrained with zipties!</span>\n"
+		else if(istype(handcuffed, /obj/item/weapon/restraints/handcuffs/cable))
 			msg += "<span class='warning'>[t_He] [t_is] \icon[handcuffed] restrained with cable!</span>\n"
 		else
 			msg += "<span class='warning'>[t_He] [t_is] \icon[handcuffed] handcuffed!</span>\n"
@@ -203,7 +205,7 @@
 	if(suiciding)
 		msg += "<span class='warning'>[t_He] appears to have commited suicide... there is no hope of recovery.</span>\n"
 
-	if(M_DWARF in mutations)
+	if(DWARF in mutations)
 		msg += "[t_He] [t_is] a halfling!\n"
 
 	var/distance = get_dist(usr,src)
@@ -211,7 +213,7 @@
 		distance = 1
 	if (src.stat)
 		msg += "<span class='warning'>[t_He] [t_is]n't responding to anything around [t_him] and seems to be asleep.</span>\n"
-		if((stat == 2 || src.health < config.health_threshold_crit) && distance <= 3)
+		if((stat == 2 || src.health <= config.health_threshold_crit) && distance <= 3)
 			msg += "<span class='warning'>[t_He] does not appear to be breathing.</span>\n"
 		if(istype(usr, /mob/living/carbon/human) && !usr.stat && distance <= 1)
 			for(var/mob/O in viewers(usr.loc, null))

@@ -4,7 +4,6 @@
 	icon_state = "pai"
 	item_state = "electronic"
 	w_class = 2.0
-	flags = FPRINT | TABLEPASS
 	slot_flags = SLOT_BELT
 	origin_tech = "programming=2"
 	var/obj/item/device/radio/radio
@@ -162,19 +161,13 @@
 				<table class="request">
 					<tr>
 						<td class="radio">Transmit:</td>
-						<td><a href='byond://?src=\ref[src];wires=[WIRE_TRANSMIT]'>[(!radio.isWireCut(WIRE_TRANSMIT)) ? "<font color=#55FF55>En" : "<font color=#FF5555>Dis" ]abled</font></a>
+						<td><a href='byond://?src=\ref[src];wires=4'>[radio.broadcasting ? "<font color=#55FF55>En" : "<font color=#FF5555>Dis" ]abled</font></a>
 
 						</td>
 					</tr>
 					<tr>
 						<td class="radio">Receive:</td>
-						<td><a href='byond://?src=\ref[src];wires=[WIRE_RECEIVE]'>[(!radio.isWireCut(WIRE_RECEIVE)) ? "<font color=#55FF55>En" : "<font color=#FF5555>Dis" ]abled</font></a>
-
-						</td>
-					</tr>
-					<tr>
-						<td class="radio">Signal Pulser:</td>
-						<td><a href='byond://?src=\ref[src];wires=[WIRE_SIGNAL]'>[(!radio.isWireCut(WIRE_SIGNAL)) ? "<font color=#55FF55>En" : "<font color=#FF5555>Dis" ]abled</font></a>
+						<td><a href='byond://?src=\ref[src];wires=2'>[radio.listening ? "<font color=#55FF55>En" : "<font color=#FF5555>Dis" ]abled</font></a>
 
 						</td>
 					</tr>
@@ -225,8 +218,16 @@
 
 /obj/item/device/paicard/Topic(href, href_list)
 
+	var/mob/U = usr
+
 	if(!usr || usr.stat)
 		return
+
+	if(pai)
+		if(!in_range(src, U) || pai.canmove || pai.resting)
+			U << browse(null, "window=paicard")
+			usr.unset_machine()
+			return
 
 	if(href_list["setdna"])
 		if(pai.master_dna)
@@ -250,14 +251,21 @@
 				M << "<font color = #ff4d4d><h3>Byte by byte you lose your sense of self.</h3></font>"
 				M << "<font color = #ff8787><h4>Your mental faculties leave you.</h4></font>"
 				M << "<font color = #ffc4c4><h5>oblivion... </h5></font>"
+				var/mob/living/silicon/pai/P = M
+				if(istype(P))
+					if(P.resting || P.canmove)
+						P.close_up()
 				M.death(0)
 			removePersonality()
 	if(href_list["wires"])
 		var/t1 = text2num(href_list["wires"])
-		if(radio)
-			radio.wires.CutWireIndex(t1)
+		switch(t1)
+			if(4)
+				radio.ToggleBroadcast()
+			if(2)
+				radio.ToggleReception()
 	if(href_list["setlaws"])
-		var/newlaws = copytext(sanitize(input("Enter any additional directives you would like your pAI personality to follow. Note that these directives will not override the personality's allegiance to its imprinted master. Conflicting directives will be ignored.", "pAI Directive Configuration", pai.pai_laws) as message),1,MAX_MESSAGE_LEN)
+		var/newlaws = sanitize(copytext(input("Enter any additional directives you would like your pAI personality to follow. Note that these directives will not override the personality's allegiance to its imprinted master. Conflicting directives will be ignored.", "pAI Directive Configuration", pai.pai_laws) as message,1,MAX_MESSAGE_LEN))
 		if(newlaws)
 			pai.pai_laws = newlaws
 			pai << "Your supplemental directives have been updated. Your new directives are:"
@@ -278,6 +286,8 @@
 	src.overlays.Cut()
 	src.overlays += "pai-off"
 
+/obj/item/device/paicard
+	var/current_emotion = 1
 /obj/item/device/paicard/proc/setEmotion(var/emotion)
 	if(pai)
 		src.overlays.Cut()
@@ -291,6 +301,7 @@
 			if(7) src.overlays += "pai-sad"
 			if(8) src.overlays += "pai-angry"
 			if(9) src.overlays += "pai-what"
+		current_emotion = emotion
 
 /obj/item/device/paicard/proc/alertUpdate()
 	var/turf/T = get_turf_or_move(src.loc)
@@ -302,3 +313,8 @@
 		M.emp_act(severity)
 	..()
 
+/obj/item/device/paicard/ex_act(severity)
+	if(pai)
+		pai.ex_act(severity)
+	else
+		del(src)

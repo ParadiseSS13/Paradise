@@ -30,7 +30,6 @@
 	var/declare_crit = 1 //If active, the bot will transmit a critical patient alert to MedHUD users.
 	var/declare_cooldown = 0 //Prevents spam of critical patient alerts.
 	var/stationary_mode = 0 //If enabled, the Medibot will not move automatically.
-	radio_frequency = MED_FREQ //Medical frequency
 	radio_name = "Medical"
 	//Setting which reagents to use to treat what by default. By id.
 	var/treatment_brute = "tricordrazine"
@@ -221,7 +220,7 @@
 	updateUsrDialog()
 	return
 
-/obj/machinery/bot/medbot/attackby(obj/item/weapon/W as obj, mob/user as mob)
+/obj/machinery/bot/medbot/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
 	if (istype(W, /obj/item/weapon/card/id)||istype(W, /obj/item/device/pda))
 		if (allowed(user) && !open && !emagged)
 			locked = !locked
@@ -533,7 +532,7 @@
 	if((skin == "bezerk"))
 		return
 	var/area/location = get_area(src)
-	speak("Medical emergency! [crit_patient ? "<b>[crit_patient]</b>" : "A patient"] is in critical condition at [location]!",radio_frequency, radio_name)
+	speak("Medical emergency! [crit_patient ? "<b>[crit_patient]</b>" : "A patient"] is in critical condition at [location]!", radio_name)
 	declare_cooldown = 1
 	spawn(200) //Twenty seconds
 		declare_cooldown = 0
@@ -542,7 +541,7 @@
  *	Medbot Assembly -- Can be made out of all three medkits.
  */
 
-/obj/item/weapon/storage/firstaid/attackby(var/obj/item/robot_parts/S, mob/user as mob)
+/obj/item/weapon/storage/firstaid/attackby(var/obj/item/robot_parts/S, mob/user as mob, params)
 
 	if ((!istype(S, /obj/item/robot_parts/l_arm)) && (!istype(S, /obj/item/robot_parts/r_arm)))
 		..()
@@ -564,11 +563,11 @@
 	qdel(S)
 	user.put_in_hands(A)
 	user << "<span class='notice'>You add the robot arm to the first aid kit.</span>"
-	user.before_take_item(src, 1)
+	user.unEquip(src, 1)
 	qdel(src)
 
 
-/obj/item/weapon/firstaid_arm_assembly/attackby(obj/item/weapon/W as obj, mob/user as mob)
+/obj/item/weapon/firstaid_arm_assembly/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
 	..()
 	if(istype(W, /obj/item/weapon/pen))
 		var/t = stripped_input(user, "Enter new robot name", name, created_name,MAX_NAME_LEN)
@@ -598,5 +597,5 @@
 					var/obj/machinery/bot/medbot/S = new /obj/machinery/bot/medbot(T)
 					S.skin = skin
 					S.name = created_name
-					user.before_take_item(src, 1)
+					user.unEquip(src, 1)
 					qdel(src)

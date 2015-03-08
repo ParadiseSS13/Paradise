@@ -43,7 +43,7 @@
 		new /obj/item/clothing/suit/storage/labcoat(src)
 		new /obj/item/weapon/cartridge/rd(src)
 		new /obj/item/clothing/shoes/white(src)
-		new /obj/item/clothing/gloves/latex(src)
+		new /obj/item/clothing/gloves/color/latex(src)
 		new /obj/item/device/radio/headset/heads/rd(src)
 		new /obj/item/weapon/tank/air(src)
 		new /obj/item/clothing/mask/gas(src)

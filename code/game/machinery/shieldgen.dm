@@ -25,16 +25,7 @@
 	if(!height || air_group) return 0
 	else return ..()
 
-//Looks like copy/pasted code... I doubt 'need_rebuild' is even used here - Nodrak
-/obj/machinery/shield/proc/update_nearby_tiles(need_rebuild)
-	if(!air_master) return 0
-
-	air_master.mark_for_update(get_turf(src))
-
-	return 1
-
-
-/obj/machinery/shield/attackby(obj/item/weapon/W as obj, mob/user as mob)
+/obj/machinery/shield/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
 	if(!istype(W)) return
 
 	//Calculate damage
@@ -47,7 +38,7 @@
 
 
 	if (src.health <= 0)
-		visible_message("\blue The [src] dissapates")
+		visible_message("\blue The [src] dissipates")
 		del(src)
 		return
 
@@ -60,7 +51,7 @@
 	src.health -= max_health*0.75 //3/4 health as damage
 
 	if(src.health <= 0)
-		visible_message("\blue The [src] dissapates")
+		visible_message("\blue The [src] dissipates")
 		del(src)
 		return
 
@@ -72,7 +63,7 @@
 	health -= Proj.damage
 	..()
 	if(health <=0)
-		visible_message("\blue The [src] dissapates")
+		visible_message("\blue The [src] dissipates")
 		del(src)
 		return
 	opacity = 1
@@ -121,7 +112,7 @@
 
 	//Handle the destruction of the shield
 	if (src.health <= 0)
-		visible_message("\blue The [src] dissapates")
+		visible_message("\blue The [src] dissipates")
 		del(src)
 		return
 
@@ -250,7 +241,7 @@
 			user << "The device must first be secured to the floor."
 	return
 
-/obj/machinery/shieldgen/attackby(obj/item/weapon/W as obj, mob/user as mob)
+/obj/machinery/shieldgen/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
 	if(istype(W, /obj/item/weapon/card/emag))
 		malfunction = 1
 		update_icon()
@@ -335,7 +326,7 @@
 //		var/maxshieldload = 200
 		var/obj/structure/cable/attached		// the attached cable
 		var/storedpower = 0
-		flags = FPRINT | CONDUCT
+		flags = CONDUCT
 		use_power = 0
 
 /obj/machinery/shieldwallgen/proc/power()
@@ -470,7 +461,7 @@
 		CF.dir = field_dir
 
 
-/obj/machinery/shieldwallgen/attackby(obj/item/W, mob/user)
+/obj/machinery/shieldwallgen/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/weapon/wrench))
 		if(active)
 			user << "Turn off the field generator first."
@@ -498,8 +489,8 @@
 			user << "\red Access denied."
 
 	else
-		src.add_fingerprint(user)
-		visible_message("\red The [src.name] has been hit with the [W.name] by [user.name]!")
+		add_fingerprint(user)
+		..()
 
 /obj/machinery/shieldwallgen/proc/cleanup(var/NSEW)
 	var/obj/machinery/shieldwall/F

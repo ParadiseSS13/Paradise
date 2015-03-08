@@ -24,9 +24,7 @@
 
 
 	proc/new_player_panel_proc()
-		var/output = "<div align='center'><B>New Player Options</B>"
-		output +="<hr>"
-		output += "<p><a href='byond://?src=\ref[src];show_preferences=1'>Setup Character</A></p>"
+		var/output = "<center><p><a href='byond://?src=\ref[src];show_preferences=1'>Setup Character</A></p>"
 
 		if(!ticker || ticker.current_state <= GAME_STATE_PREGAME)
 			if(!ready)	output += "<p><a href='byond://?src=\ref[src];ready=1'>Declare Ready</A></p>"
@@ -57,9 +55,9 @@
 				else
 					output += "<p><a href='byond://?src=\ref[src];showpoll=1'>Show Player Polls</A></p>"
 
-		output += "</div>"
+		output += "</center>"
 
-		var/datum/browser/popup = new(src, "playersetup", "<div align='center'>New Player Options</div>", 210, 240)
+		var/datum/browser/popup = new(src, "playersetup", "<div align='center'>New Player Options</div>", 220, 290)
 		popup.set_window_options("can_close=0")
 		popup.set_content(output)
 		popup.open(0)
@@ -105,6 +103,7 @@
 
 		if(href_list["ready"])
 			ready = !ready
+			new_player_panel_proc()
 
 		if(href_list["refresh"])
 			src << browse(null, "window=playersetup") //closes the player setup window
@@ -115,7 +114,7 @@
 			if(alert(src,"Are you sure you wish to observe? You will have to wait 30 minutes before being able to respawn!","Player Setup","Yes","No") == "Yes")
 				if(!client)	return 1
 				var/mob/dead/observer/observer = new()
-
+				src << browse(null, "window=playersetup")
 				spawning = 1
 				src << sound(null, repeat = 0, wait = 0, volume = 85, channel = 1) // MAD JAMS cant last forever yo
 
@@ -167,7 +166,7 @@
 					src << alert("You are currently not whitelisted to play [client.prefs.species].")
 					return 0
 
-			AttemptLateSpawn(href_list["SelectedJob"])
+			AttemptLateSpawn(href_list["SelectedJob"],client.prefs.spawnpoint)
 			return
 
 		if(href_list["privacy_poll"])
@@ -272,7 +271,7 @@
 	proc/IsJobAvailable(rank)
 		var/datum/job/job = job_master.GetJob(rank)
 		if(!job)	return 0
-		if((job.current_positions >= job.total_positions) && job.total_positions != -1)	return 0
+		if(!job.is_position_available()) return 0
 		if(jobban_isbanned(src,rank))	return 0
 		if(!is_job_whitelisted(src, rank))	 return 0
 		if(!job.player_old_enough(src.client))	return 0
@@ -290,7 +289,7 @@
 		return 1
 
 
-	proc/AttemptLateSpawn(rank)
+	proc/AttemptLateSpawn(rank,var/spawning_at)
 		if (src != usr)
 			return 0
 		if(!ticker || ticker.current_state != GAME_STATE_PLAYING)
@@ -305,11 +304,48 @@
 
 		job_master.AssignRole(src, rank, 1)
 
-		var/mob/living/carbon/human/character = create_character()	//creates the human and transfers vars and mind
+		var/mob/living/character = create_character()	//creates the human and transfers vars and mind
 		EquipRacialItems(character)
-		job_master.EquipRank(character, rank, 1)					//equips the human
+		character = job_master.EquipRank(character, rank, 1)					//equips the human
 		EquipCustomItems(character)
-		character.loc = pick(latejoin)
+
+		// AIs don't need a spawnpoint, they must spawn at an empty core
+		if(character.mind.assigned_role == "AI")
+
+			character = character.AIize(move=0) // AIize the character, but don't move them yet
+
+			// IsJobAvailable for AI checks that there is an empty core available in this list
+			var/obj/structure/AIcore/deactivated/C = empty_playable_ai_cores[1]
+			empty_playable_ai_cores -= C
+
+			character.loc = C.loc
+
+			AnnounceCyborg(character, rank, "has been downloaded to the empty core in \the [character.loc.loc]")
+			ticker.mode.latespawn(character)
+
+			del(C)
+			del(src)
+			return
+
+		//Find our spawning point.
+		var/join_message
+		var/datum/spawnpoint/S
+
+		if(spawning_at)
+			S = spawntypes[spawning_at]
+
+		if(S && istype(S))
+			if(S.check_job_spawning(rank))
+				character.loc = pick(S.turfs)
+				join_message = S.msg
+			else
+				character << "Your chosen spawnpoint ([S.display_name]) is unavailable for your chosen job. Spawning you at the Arrivals shuttle instead."
+				character.loc = pick(latejoin)
+				join_message = "has arrived on the station"
+		else
+			character.loc = pick(latejoin)
+			join_message = "has arrived on the station"
+
 		character.lastarea = get_area(loc)
 		// Moving wheelchair if they have one
 		if(character.buckled && istype(character.buckled, /obj/structure/stool/bed/chair/wheelchair))
@@ -321,20 +357,52 @@
 		if(character.mind.assigned_role != "Cyborg")
 			data_core.manifest_inject(character)
 			ticker.minds += character.mind//Cyborgs and AIs handle this in the transform proc.	//TODO!!!!! ~Carn
-			AnnounceArrival(character, rank)
+			AnnounceArrival(character, rank, join_message)
 			callHook("latespawn", list(character))
 		else
-			character.Robotize()
+			AnnounceCyborg(character, rank, join_message)
+			callHook("latespawn", list(character))
 		del(src)
 
 
-	proc/AnnounceArrival(var/mob/living/carbon/human/character, var/rank)
+	proc/AnnounceArrival(var/mob/living/carbon/human/character, var/rank, var/join_message)
 		if (ticker.current_state == GAME_STATE_PLAYING)
-			var/obj/item/device/radio/intercom/a = new /obj/item/device/radio/intercom(null)// BS12 EDIT Arrivals Announcement Computer, rather than the AI.
-			if(character.mind.role_alt_title)
-				rank = character.mind.role_alt_title
-			a.autosay("[character.real_name],[rank ? " [rank]," : " visitor," ] has arrived on the station.", "Arrivals Announcement Computer")
-			del(a)
+			var/ailist[] = list()
+			for (var/mob/living/silicon/ai/A in living_mob_list)
+				ailist += A
+			if (ailist.len)
+				var/mob/living/silicon/ai/announcer = pick(ailist)
+				if(character.mind)
+					if((character.mind.assigned_role != "Cyborg") && (character.mind.special_role != "MODE"))
+						if(character.mind.role_alt_title)
+							rank = character.mind.role_alt_title
+						var/arrivalmessage = announcer.arrivalmsg
+						arrivalmessage = replacetext(arrivalmessage,"$name",character.real_name)
+						arrivalmessage = replacetext(arrivalmessage,"$rank",rank ? "[rank]" : "visitor")
+						announcer.say(";[arrivalmessage]")
+			else
+				if(character.mind)
+					if((character.mind.assigned_role != "Cyborg") && (character.mind.special_role != "MODE"))
+						if(character.mind.role_alt_title)
+							rank = character.mind.role_alt_title
+						global_announcer.autosay("[character.real_name],[rank ? " [rank]," : " visitor," ] [join_message ? join_message : "has arrived on the station"].", "Arrivals Announcement Computer")
+
+	proc/AnnounceCyborg(var/mob/living/character, var/rank, var/join_message)
+		if (ticker.current_state == GAME_STATE_PLAYING)
+			var/ailist[] = list()
+			for (var/mob/living/silicon/ai/A in living_mob_list)
+				ailist += A
+			if (ailist.len)
+				var/mob/living/silicon/ai/announcer = pick(ailist)
+				if(character.mind)
+					if((character.mind.special_role != "MODE"))
+						var/arrivalmessage = "A new[rank ? " [rank]" : " visitor" ] [join_message ? join_message : "has arrived on the station"]."
+						announcer.say(";[arrivalmessage]")
+			else
+				if(character.mind)
+					if((character.mind.special_role != "MODE"))
+						// can't use their name here, since cyborg namepicking is done post-spawn, so we'll just say "A new Cyborg has arrived"/"A new Android has arrived"/etc.
+						global_announcer.autosay("A new[rank ? " [rank]" : " visitor" ] [join_message ? join_message : "has arrived on the station"].", "Arrivals Announcement Computer")
 
 	proc/LateChoices()
 		var/mills = world.time // 1/10 of a second, not real milliseconds but whatever
@@ -375,45 +443,21 @@
 	proc/create_character()
 		spawning = 1
 		close_spawn_windows()
+
 		var/mob/living/carbon/human/new_character
+
 		var/datum/species/chosen_species
 		if(client.prefs.species)
 			chosen_species = all_species[client.prefs.species]
 		if(chosen_species)
 			// Have to recheck admin due to no usr at roundstart. Latejoins are fine though.
 			if(is_species_whitelisted(chosen_species) || has_admin_rights())
-				switch(chosen_species.name)
-					if("Slime People")
-						new_character = new /mob/living/carbon/human/slime(loc)
-					if("Tajaran")
-						new_character = new /mob/living/carbon/human/tajaran(loc)
-					if("Unathi")
-						new_character = new /mob/living/carbon/human/unathi(loc)
-					if("Skrell")
-						new_character = new /mob/living/carbon/human/skrell(loc)
-					if("Diona")
-						new_character = new /mob/living/carbon/human/diona(loc)
-					if("Vox")
-						new_character = new /mob/living/carbon/human/vox(loc)
-					if("Vox Armalis")
-						new_character = new /mob/living/carbon/human/voxarmalis(loc)
-					if("Kidan")
-						new_character = new /mob/living/carbon/human/kidan(loc)
-					if("Grey")
-						new_character = new /mob/living/carbon/human/grey(loc)
-					if("Machine")
-						new_character = new /mob/living/carbon/human/machine(loc)
-					if("Plasmaman")
-						new_character = new /mob/living/carbon/human/plasma(loc)
-					if("Human")
-						new_character = new /mob/living/carbon/human/human(loc)
-//				new_character.set_species(client.prefs.species)
-				if(chosen_species.language)
-					new_character.add_language(chosen_species.language)
-		else
-			new_character = new /mob/living/carbon/human(loc)
-		new_character.lastarea = get_area(loc)
+				new_character = new(loc, client.prefs.species)
 
+		if(!new_character)
+			new_character = new(loc)
+
+		new_character.lastarea = get_area(loc)
 
 		var/datum/language/chosen_language
 		if(client.prefs.language)
@@ -450,7 +494,7 @@
 			new_character.disabilities |= NEARSIGHTED
 
 		if(client.prefs.disabilities & DISABILITY_FLAG_FAT)
-			new_character.mutations += M_FAT
+			new_character.mutations += FAT
 			new_character.overeatduration = 600 // Max overeat
 
 		if(client.prefs.disabilities & DISABILITY_FLAG_EPILEPTIC)
@@ -461,6 +505,9 @@
 			new_character.dna.SetSEState(DEAFBLOCK,1,1)
 			new_character.sdisabilities |= DEAF
 
+		chosen_species.handle_dna(new_character)
+
+		domutcheck(new_character)
 		new_character.dna.UpdateSE()
 
 

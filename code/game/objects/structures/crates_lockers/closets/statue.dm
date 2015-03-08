@@ -5,7 +5,6 @@
 	icon_state = "human_male"
 	density = 1
 	anchored = 1
-	flags = FPRINT
 	health = 0 //destroying the statue kills the mob within
 	var/intialTox = 0 	//these are here to keep the mob from taking damage from things that logically wouldn't affect a rock
 	var/intialFire = 0	//it's a little sloppy I know but it was this or the GODMODE flag. Lesser of two evils.
@@ -62,6 +61,17 @@
 
 /obj/structure/closet/statue/dump_contents()
 
+	if(istype(src.loc, /mob/living/simple_animal/hostile/statue))
+		var/mob/living/simple_animal/hostile/statue/S = src.loc
+		src.loc = S.loc
+		if(S.mind)
+			for(var/mob/M in contents)
+				S.mind.transfer_to(M)
+				M << "As the animating magic wears off you feel yourself coming back to your senses. You are yourself again!"
+				break
+		qdel(S)
+
+
 	for(var/obj/O in src)
 		O.loc = src.loc
 
@@ -72,7 +82,6 @@
 		if(M.client)
 			M.client.eye = M.client.mob
 			M.client.perspective = MOB_PERSPECTIVE
-
 
 
 /obj/structure/closet/statue/open()
@@ -113,7 +122,7 @@
 			M.meteorhit(O)
 			shatter(M)
 
-/obj/structure/closet/statue/attackby(obj/item/I as obj, mob/user as mob)
+/obj/structure/closet/statue/attackby(obj/item/I as obj, mob/user as mob, params)
 	health -= I.force
 	visible_message("\red [user] strikes [src] with [I].")
 	if(health <= 0)

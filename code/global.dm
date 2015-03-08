@@ -11,7 +11,6 @@ var/global/list/all_areas = list()
 var/global/list/machines = list()
 var/global/list/processing_objects = list()
 var/global/list/active_diseases = list()
-var/global/list/events = list()
 var/global/list/med_hud_users = list()
 var/global/list/sec_hud_users = list()
 		//items that ask to be called every cycle
@@ -56,7 +55,6 @@ var/MONKEYBLOCK = 50 // Monkey block will always be the DNA_SE_LENGTH
 var/BLOCKADD = 0
 var/DIFFMUT = 0
 
-var/HEADACHEBLOCK = 0
 var/NOBREATHBLOCK = 0
 var/REMOTEVIEWBLOCK = 0
 var/REGENERATEBLOCK = 0
@@ -83,6 +81,7 @@ var/SCRAMBLEBLOCK = 0
 var/TOXICFARTBLOCK = 0
 var/STRONGBLOCK = 0
 var/HORNSBLOCK = 0
+var/COMICBLOCK = 0
 
 // Powers
 var/SOBERBLOCK = 0
@@ -102,7 +101,7 @@ var/POLYMORPHBLOCK = 0
 // /vg/ Mutations
 ///////////////////////////////
 var/LOUDBLOCK = 0
-var/WHISPERBLOCK = 0
+//var/WHISPERBLOCK = 0
 var/DIZZYBLOCK = 0
 
 
@@ -121,7 +120,7 @@ var/endicon = null
 var/diary = null
 var/diaryofmeanpeople = null
 var/href_logfile = null
-var/station_name = "NCS Cyberiad"
+var/station_name = "NSS Cyberiad"
 var/game_version = "Custom ParaCode"
 var/changelog_hash = ""
 var/game_year = (text2num(time2text(world.realtime, "YYYY")) + 544)
@@ -168,6 +167,9 @@ var/list/monkeystart = list()
 var/list/wizardstart = list()
 var/list/newplayer_start = list()
 var/list/latejoin = list()
+var/list/latejoin_gateway = list()
+var/list/latejoin_cryo = list()
+var/list/latejoin_cyborg = list()
 var/list/prisonwarp = list()	//prisoners go to these
 var/list/holdingfacility = list()	//captured people go here
 var/list/xeno_spawn = list()//Aliens spawn at these.
@@ -192,7 +194,6 @@ var/list/reverse_dir = list(2, 1, 3, 8, 10, 9, 11, 4, 6, 5, 7, 12, 14, 13, 15, 3
 
 var/datum/station_state/start_state = null
 var/datum/configuration/config = null
-var/datum/sun/sun = null
 
 var/list/combatlog = list()
 var/list/IClog = list()
@@ -220,6 +221,9 @@ var/forceblob = 0
 // nanomanager, the manager for Nano UIs
 var/datum/nanomanager/nanomanager = new()
 
+// event manager, the manager for events
+var/datum/event_manager/event_manager = new()
+
 #define SPEED_OF_LIGHT 3e8 //not exact but hey!
 #define SPEED_OF_LIGHT_SQ 9e+16
 #define FIRE_DAMAGE_MODIFIER 0.0215 //Higher values result in more external fire damage to the skin (default 0.0215)
@@ -235,6 +239,10 @@ var/datum/nanomanager/nanomanager = new()
 #define shuttle_time_in_station 1800 // 3 minutes in the station
 #define shuttle_time_to_arrive 6000 // 10 minutes to arrive
 
+#define EVENT_LEVEL_MUNDANE 1
+#define EVENT_LEVEL_MODERATE 2
+#define EVENT_LEVEL_MAJOR 3
+
 	//away missions
 var/list/awaydestinations = list()	//a list of landmarks that the warpgate can take you to
 
@@ -242,15 +250,15 @@ var/list/awaydestinations = list()	//a list of landmarks that the warpgate can t
 
 var/sqladdress = "localhost"
 var/sqlport = "3306"
-var/sqldb = "tgstation"
+var/sqldb = "paradise"
 var/sqllogin = "root"
-var/sqlpass = "bleh"
+var/sqlpass = "example"
 
 	// Feedback gathering sql connection
 
-var/sqlfdbkdb = "test"
+var/sqlfdbkdb = "paradise"
 var/sqlfdbklogin = "root"
-var/sqlfdbkpass = "bleh"
+var/sqlfdbkpass = "example"
 
 var/sqllogging = 0 // Should we log deaths, population stats, etc?
 
@@ -319,8 +327,5 @@ var/score_dmgestkey = null
 // Recall time limit:  2 hours
 var/recall_time_limit=72000
 
-//added for Xenoarchaeology, might be useful for other stuff
-var/global/list/alphabet_uppercase = list("A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z")
-
-// AI controlled bots
-var/global/list/aibots = list()
+// Announcer intercom, because too much stuff creates an intercom for one message then hard del()s it.
+var/global/obj/item/device/radio/intercom/global_announcer = new(null)

@@ -12,7 +12,8 @@
 /datum/surgery_step/brain/saw_skull
 	allowed_tools = list(
 	/obj/item/weapon/circular_saw = 100, \
-	/obj/item/weapon/hatchet = 75
+	/obj/item/weapon/hatchet = 75, \
+	/obj/item/weapon/melee/arm_blade = 60 // Dr. Chang E. Ling, MD
 	)
 
 	min_duration = 50
@@ -30,7 +31,6 @@
 		user.visible_message("\blue [user] has cut through [target]'s skull open with \the [tool].",		\
 		"\blue You have cut through [target]'s skull open with \the [tool].")
 		target.brain_op_stage = 2
-		target.expose_brain()
 
 	fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
 		user.visible_message("\red [user]'s hand slips, cracking [target]'s skull with \the [tool]!" , \
@@ -68,7 +68,8 @@
 /datum/surgery_step/brain/saw_spine
 	allowed_tools = list(
 	/obj/item/weapon/circular_saw = 100, \
-	/obj/item/weapon/hatchet = 75
+	/obj/item/weapon/hatchet = 75, \
+	/obj/item/weapon/melee/arm_blade = 60
 	)
 
 	min_duration = 50

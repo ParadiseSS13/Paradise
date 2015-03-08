@@ -13,6 +13,8 @@
 	set name = "Set transfer amount"
 	set category = "Object"
 	set src in range(0)
+	if(usr.stat || !usr.canmove || usr.restrained())
+		return
 	var/N = input("Amount per transfer from this:","[src]") as null|anything in possible_transfer_amounts
 	if (N)
 		amount_per_transfer_from_this = N
@@ -37,7 +39,7 @@
 // possibly intentional, but removing it allows us to not duplicate functionality.
 // -Sayu (storage conslidation)
 /*
-/obj/item/weapon/reagent_containers/attackby(obj/item/I as obj, mob/user as mob)
+/obj/item/weapon/reagent_containers/attackby(obj/item/I as obj, mob/user as mob, params)
 	return
 */
 /obj/item/weapon/reagent_containers/afterattack(obj/target, mob/user , flag)

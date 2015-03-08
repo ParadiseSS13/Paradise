@@ -5,7 +5,7 @@
 	icon = 'icons/obj/device.dmi'
 	icon_state = "implant"
 	var/implanted = null
-	var/mob/imp_in = null
+	var/mob/living/imp_in = null
 	var/datum/organ/external/part = null
 	_color = "b"
 	var/allow_reagents = 0
@@ -429,6 +429,7 @@ the implant may become unstable and either pre-maturely inject the subject or si
 			source.SetStunned(0)
 			source.SetWeakened(0)
 			source.SetParalysis(0)
+			imp_in.adjustStaminaLoss(-75)
 			source.lying = 0
 			source.update_canmove()
 

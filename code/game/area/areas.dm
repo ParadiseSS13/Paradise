@@ -1,6 +1,16 @@
 // Areas.dm
 
-
+// Added to fix mech fabs 05/2013 ~Sayu
+// This is necessary due to lighting subareas.  If you were to go in assuming that things in
+// the same logical /area have the parent /area object... well, you would be mistaken.  If you
+// want to find machines, mobs, etc, in the same logical area, you will need to check all the
+// related areas.  This returns a master contents list to assist in that.
+/proc/area_contents(var/area/A)
+	if(!istype(A)) return null
+	var/list/contents = list()
+	for(var/area/LSA in A.related)
+		contents += LSA.contents
+	return contents
 
 // ===
 /area
@@ -42,25 +52,32 @@
 	InitializeLighting()
 
 
-/area/proc/poweralert(var/state, var/obj/source as obj)
+/area/proc/poweralert(var/state, var/obj/source as obj)		
 	if (state != poweralm)
 		poweralm = state
 		if(istype(source))	//Only report power alarms on the z-level where the source is located.
 			var/list/cameras = list()
 			for (var/area/RA in related)
 				for (var/obj/machinery/camera/C in RA)
+					if(!report_alerts)
+						break
 					cameras += C
 					if(state == 1)
+
 						C.network.Remove("Power Alarms")
 					else
 						C.network.Add("Power Alarms")
 			for (var/mob/living/silicon/aiPlayer in player_list)
+				if(!report_alerts)
+					break
 				if(aiPlayer.z == source.z)
 					if (state == 1)
 						aiPlayer.cancelAlarm("Power", src, source)
 					else
 						aiPlayer.triggerAlarm("Power", src, cameras, source)
 			for(var/obj/machinery/computer/station_alert/a in machines)
+				if(!report_alerts)
+					break
 				if(a.z == source.z)
 					if(state == 1)
 						a.cancelAlarm("Power", src, source)
@@ -97,11 +114,17 @@
 			for(var/area/RA in related)
 				//updateicon()
 				for(var/obj/machinery/camera/C in RA)
+					if(!report_alerts)
+						break
 					cameras += C
 					C.network.Add("Atmosphere Alarms")
 			for(var/mob/living/silicon/aiPlayer in player_list)
+				if(!report_alerts)
+					break
 				aiPlayer.triggerAlarm("Atmosphere", src, cameras, src)
 			for(var/obj/machinery/computer/station_alert/a in machines)
+				if(!report_alerts)
+					break
 				a.triggerAlarm("Atmosphere", src, cameras, src)
 			air_doors_activated=1
 			CloseFirelocks()
@@ -109,10 +132,16 @@
 		else if (atmosalm == 2)
 			for(var/area/RA in related)
 				for(var/obj/machinery/camera/C in RA)
+					if(!report_alerts)
+						break
 					C.network.Remove("Atmosphere Alarms")
 			for(var/mob/living/silicon/aiPlayer in player_list)
+				if(!report_alerts)
+					break
 				aiPlayer.cancelAlarm("Atmosphere", src, src)
 			for(var/obj/machinery/computer/station_alert/a in machines)
+				if(!report_alerts)
+					break
 				a.cancelAlarm("Atmosphere", src, src)
 			air_doors_activated=0
 			OpenFirelocks()
@@ -152,11 +181,17 @@
 		var/list/cameras = list()
 		for(var/area/RA in related)
 			for (var/obj/machinery/camera/C in RA)
+				if(!report_alerts)
+					continue
 				cameras.Add(C)
 				C.network.Add("Fire Alarms")
 		for (var/mob/living/silicon/ai/aiPlayer in player_list)
+			if(!report_alerts)
+				continue
 			aiPlayer.triggerAlarm("Fire", src, cameras, src)
 		for (var/obj/machinery/computer/station_alert/a in machines)
+			if(!report_alerts)
+				continue
 			a.triggerAlarm("Fire", src, cameras, src)
 
 /area/proc/firereset()
@@ -166,10 +201,16 @@
 		updateicon()
 		for(var/area/RA in related)
 			for (var/obj/machinery/camera/C in RA)
+				if(!report_alerts)
+					continue
 				C.network.Remove("Fire Alarms")
 		for (var/mob/living/silicon/ai/aiPlayer in player_list)
+			if(!report_alerts)
+				continue
 			aiPlayer.cancelAlarm("Fire", src, src)
 		for (var/obj/machinery/computer/station_alert/a in machines)
+			if(!report_alerts)
+				continue
 			a.cancelAlarm("Fire", src, src)
 		OpenFirelocks()
 
@@ -220,12 +261,11 @@
 	return
 
 /area/proc/updateicon()
-	if ((fire || eject || party || radalert) && ((!requires_power)?(!requires_power):power_environ))//If it doesn't require power, can still activate this proc.
-		// Highest priority at the top.
-		if(radalert && !fire)
-			icon_state = "radiation"
-			blend_mode = BLEND_MULTIPLY
-		else if(fire && !radalert && !eject && !party)
+	if(radalert) // always show the radiation alert, regardless of power
+		icon_state = "radiation"
+		blend_mode = BLEND_MULTIPLY	
+	else if ((fire || eject || party) && ((!requires_power)?(!requires_power):power_environ))//If it doesn't require power, can still activate this proc.
+		if(fire && !radalert && !eject && !party)
 			icon_state = "red"
 			blend_mode = BLEND_MULTIPLY
 		/*else if(atmosalm && !fire && !eject && !party)
@@ -345,7 +385,7 @@
 		thunk(L)
 
 	// Ambience goes down here -- make sure to list each area seperately for ease of adding things in later, thanks! Note: areas adjacent to each other should have the same sounds to prevent cutoff when possible.- LastyScratch
-	if(L && L.client && (L.client.prefs.toggles & SOUND_AMBIENCE))
+	if(L && L.client && (L.client.prefs.sound & SOUND_AMBIENCE))
 		if(!L.client.ambience_playing)
 			L.client.ambience_playing = 1
 			L << sound('sound/ambience/shipambience.ogg', repeat = 1, wait = 0, volume = 35, channel = 2)

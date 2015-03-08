@@ -22,7 +22,7 @@
 		if(M == usr)
 			usr << "<span class='notice'>You finish eating \the [src].</span>"
 		usr.visible_message("<span class='notice'>[usr] finishes eating \the [src].</span>")
-		usr.drop_from_inventory(src)	//so icons update :[
+		usr.unEquip(src)	//so icons update :[
 
 		if(trash)
 			if(ispath(trash,/obj/item))
@@ -39,7 +39,7 @@
 /obj/item/weapon/reagent_containers/food/snacks/attack(mob/M as mob, mob/user as mob, def_zone)
 	if(!reagents.total_volume)						//Shouldn't be needed but it checks to see if it has anything left in it.
 		user << "\red None of [src] left, oh no!"
-		M.drop_from_inventory(src)	//so icons update :[
+		M.unEquip(src)	//so icons update :[
 		del(src)
 		return 0
 
@@ -134,14 +134,14 @@
 		usr << "\blue \The [src] was bitten multiple times!"
 
 
-/obj/item/weapon/reagent_containers/food/snacks/attackby(obj/item/weapon/W, mob/user)
+/obj/item/weapon/reagent_containers/food/snacks/attackby(obj/item/weapon/W, mob/user, params)
 	if(istype(W,/obj/item/weapon/pen))
-		var/n_name = copytext(sanitize(input(usr, "What would you like to name this dish?", "Food Renaming", null)  as text), 1, MAX_NAME_LEN)
+		var/n_name = sanitize(copytext(input(usr, "What would you like to name this dish?", "Food Renaming", null)  as text, 1, MAX_NAME_LEN))
 		if((loc == usr && usr.stat == 0))
 			name = "[n_name]"
 		return
 	if(istype(W,/obj/item/weapon/storage))
-		..() // -> item/attackby()
+		..() // -> item/attackby(, params)
 
 	if(istype(W,/obj/item/weapon/kitchen/utensil))
 
@@ -194,7 +194,7 @@
 		if(!iscarbon(user))
 			return 1
 		user << "\red You slip [W] inside [src]."
-		user.u_equip(W)
+		user.unEquip(W)
 		if ((user.client && user.s_active != src))
 			user.client.screen -= W
 		W.dropped(user)
@@ -207,7 +207,7 @@
 			!isturf(src.loc) || \
 			!(locate(/obj/structure/table) in src.loc) && \
 			!(locate(/obj/machinery/optable) in src.loc) && \
-			!(locate(/obj/item/weapon/tray) in src.loc) \
+			!(locate(/obj/item/weapon/storage/bag/tray) in src.loc) \
 		)
 		user << "\red You cannot slice [src] here! You need a table or at least a tray to do it."
 		return 1
@@ -237,18 +237,23 @@
 			something.loc = get_turf(src)
 	..()
 
-/obj/item/weapon/reagent_containers/food/snacks/attack_animal(var/mob/M)
+/obj/item/weapon/reagent_containers/food/snacks/attack_animal(mob/M)
 	if(isanimal(M))
 		if(iscorgi(M))
-			if(bitecount == 0 || prob(50))
-				M.emote("nibbles away at the [src]")
-			bitecount++
-			if(bitecount >= 5)
-				var/sattisfaction_text = pick("burps from enjoyment", "yaps for more", "woofs twice", "looks at the area where the [src] was")
-				if(sattisfaction_text)
-					M.emote("[sattisfaction_text]")
+			if(bitecount >= 4)
+				M.visible_message("[M] [pick("burps from enjoyment", "yaps for more", "woofs twice", "looks at the area where \the [src] was")].","<span class=\"notice\">You swallow up the last part of \the [src].")
+				playsound(src.loc,'sound/items/eatfood.ogg', rand(10,50), 1)
+				var/mob/living/simple_animal/corgi/C = M
+				if (C.health <= C.maxHealth + 5)
+					C.health += 5
+				else
+					C.health = C.maxHealth
 				del(src)
-		if(ismouse(M))
+			else
+				M.visible_message("[M] takes a bite of \the [src].","<span class=\"notice\">You take a bite of \the [src].")
+				playsound(src.loc,'sound/items/eatfood.ogg', rand(10,50), 1)
+				bitecount++
+		else if(ismouse(M))
 			var/mob/living/simple_animal/mouse/N = M
 			N << text("\blue You nibble away at [src].")
 			if(prob(50))
@@ -525,7 +530,7 @@
 		src.visible_message("\red [src.name] has been squashed.","\red You hear a smack.")
 		del(src)
 
-	attackby(obj/item/weapon/W as obj, mob/user as mob)
+	attackby(obj/item/weapon/W as obj, mob/user as mob, params)
 		if(istype( W, /obj/item/toy/crayon ))
 			var/obj/item/toy/crayon/C = W
 			var/clr = C.colourName
@@ -1243,8 +1248,7 @@
 	icon_state = "chinese2"
 	New()
 		..()
-		reagents.add_reagent("nutriment", 5)
-		reagents.add_reagent("carpotoxin", 1)
+		reagents.add_reagent("nutriment", 6)
 		bitesize = 2
 
 /obj/item/weapon/reagent_containers/food/snacks/chinese/newdles
@@ -2230,7 +2234,7 @@
 		..()
 		reagents.add_reagent("nutriment", 3)
 		bitesize = 1
-	attackby(obj/item/weapon/W as obj, mob/user as mob)
+	attackby(obj/item/weapon/W as obj, mob/user as mob, params)
 		if(istype(W,/obj/item/weapon/kitchen/rollingpin))
 			user.visible_message( \
 				"[user] flattens the dough with the rolling pin!", \
@@ -2850,7 +2854,7 @@
 
 	update_icon()
 
-/obj/item/pizzabox/attackby( obj/item/I as obj, mob/user as mob )
+/obj/item/pizzabox/attackby( obj/item/I as obj, mob/user as mob , params)
 	if( istype(I, /obj/item/pizzabox/) )
 		var/obj/item/pizzabox/box = I
 
@@ -3112,7 +3116,7 @@
         name = "ice cream cone"
         desc = "Delicious ice cream."
         icon_state = "icecream_cone"
-        volume = 500
+        volume = 50
         New()
                 ..()
                 reagents.add_reagent("nutriment", 2)
@@ -3124,7 +3128,7 @@
         name = "chocolate ice cream cone"
         desc = "Delicious ice cream."
         icon_state = "icecream_cup"
-        volume = 500
+        volume = 50
         New()
                 ..()
                 reagents.add_reagent("nutriment", 4)
@@ -3140,7 +3144,7 @@
 	bitesize = 2
 	New()
 		..()
-		reagents.add_reagent("nutriment", 30)
+		reagents.add_reagent("nutriment", 3)
 /obj/item/weapon/reagent_containers/food/snacks/deepfryholder
 	name = "Deep Fried Foods Holder Obj"
 	desc = "If you can see this description the code for the deep fryer fucked up."
@@ -3149,10 +3153,10 @@
 	bitesize = 2
 	New()
 		..()
-		reagents.add_reagent("nutriment", 30)
+		reagents.add_reagent("nutriment", 3)
 
 // Flour + egg = dough
-/obj/item/weapon/reagent_containers/food/snacks/flour/attackby(obj/item/weapon/W as obj, mob/user as mob)
+/obj/item/weapon/reagent_containers/food/snacks/flour/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
 	if(istype(W,/obj/item/weapon/reagent_containers/food/snacks/egg))
 		new /obj/item/weapon/reagent_containers/food/snacks/dough(src)
 		user << "You make some dough."
@@ -3160,7 +3164,7 @@
 		del(src)
 
 // Egg + flour = dough
-/obj/item/weapon/reagent_containers/food/snacks/egg/attackby(obj/item/weapon/W as obj, mob/user as mob)
+/obj/item/weapon/reagent_containers/food/snacks/egg/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
 	if(istype(W,/obj/item/weapon/reagent_containers/food/snacks/flour))
 		new /obj/item/weapon/reagent_containers/food/snacks/dough(src)
 		user << "You make some dough."
@@ -3178,7 +3182,7 @@
 		reagents.add_reagent("nutriment", 3)
 
 // Dough + rolling pin = flat dough
-/obj/item/weapon/reagent_containers/food/snacks/dough/attackby(obj/item/I, mob/user)
+/obj/item/weapon/reagent_containers/food/snacks/dough/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/weapon/kitchen/rollingpin))
 		if(isturf(loc))
 			new /obj/item/weapon/reagent_containers/food/snacks/sliceable/flatdough(loc)
@@ -3281,7 +3285,7 @@
 		reagents.add_reagent("nutriment", 3)
 
 // potato + knife = raw sticks
-/obj/item/weapon/reagent_containers/food/snacks/grown/potato/attackby(obj/item/weapon/W as obj, mob/user as mob)
+/obj/item/weapon/reagent_containers/food/snacks/grown/potato/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
 	if(istype(W,/obj/item/weapon/kitchen/utensil/knife))
 		new /obj/item/weapon/reagent_containers/food/snacks/rawsticks(src)
 		user << "You cut the potato."

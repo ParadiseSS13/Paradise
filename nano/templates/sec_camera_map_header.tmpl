@@ -1,0 +1,23 @@
+<!--
+Title: Security Camera Console (Map header)
+Used In File(s): \code\game\machinery\computer\camera.dm
+-->
+{{:helper.link('Show Camera List', 'script', {'showMap' : 0})}}
+{{:helper.link('Reset', 'refresh', {'reset' : 1})}}
+<div style="float:left;">
+<div class='item'>
+	<div class='itemLabel'>Current Camera:&nbsp;</div>
+	{{if data.current}}
+		<div class='itemContent'><b>{{:data.current.name}}</b></div>
+	{{else}}
+		<div class='itemContent'>None</div>
+	{{/if}}
+</div>
+</div>
+<div style="float: right; width: 240px;">
+    <span style="float: left;">Zoom Level:&nbsp;</span>
+    <div unselectable="on" class="link zoomLink" data-zoom-level="4">x1.0</div>
+    <div unselectable="on" class="link zoomLink" data-zoom-level="6">x1.5</div>
+    <div unselectable="on" class="link zoomLink" data-zoom-level="8">x2.0</div>
+    <div unselectable="on" class="link zoomLink" data-zoom-level="12">x2.5</div>
+</div>

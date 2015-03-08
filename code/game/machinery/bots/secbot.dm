@@ -25,7 +25,6 @@
 	var/arrest_type = 0 //If true, don't handcuff
 	var/harmbaton = 0
 	var/base_icon = "secbot"
-	radio_frequency = SEC_FREQ //Security channel
 	radio_name = "Security"
 	bot_type = SEC_BOT
 	bot_type_name = "Secbot"
@@ -50,8 +49,14 @@
 /obj/machinery/bot/secbot/pingsky
 	name = "Officer Pingsky"
 	desc = "It's Officer Pingsky! Delegated to satellite guard duty for harbouring anti-human sentiment."
-	radio_frequency = AIPRIV_FREQ
 	radio_name = "AI Private"
+
+/obj/machinery/bot/secbot/ofitser
+	name = "Prison Ofitser"
+	desc = "It's Prison Ofitser! Powered by the tears and sweat of prisoners."
+	idcheck = 0
+	weaponscheck = 1
+	auto_patrol = 1
 
 /obj/machinery/bot/secbot/buzzsky
 	name = "Officer Buzzsky"
@@ -79,7 +84,7 @@
 	icon_state = "[base_icon][on]"
 	spawn(3)
 
-		var/datum/job/detective/J = new/datum/job/detective
+		var/datum/job/officer/J = new/datum/job/officer
 		botcard.access = J.get_access()
 		prev_access = botcard.access
 		add_to_beacons(bot_filter)
@@ -170,7 +175,7 @@ Auto Patrol: []"},
 			updateUsrDialog()
 
 
-/obj/machinery/bot/secbot/attackby(obj/item/weapon/W as obj, mob/user as mob)
+/obj/machinery/bot/secbot/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
 	if(istype(W, /obj/item/weapon/card/id)||istype(W, /obj/item/device/pda))
 		if(allowed(user) && !open && !emagged)
 			locked = !locked
@@ -236,7 +241,7 @@ Auto Patrol: []"},
 						icon_state = "[base_icon][on]"
 					var/mob/living/carbon/M = target
 					if(istype(M, /mob/living/carbon/human))
-						if( M.stuttering < 5 && !(M_HULK in M.mutations) )
+						if( M.stuttering < 5 && !(HULK in M.mutations) )
 							M.stuttering = 5
 						if(harmbaton) // Bots with harmbaton enabled become shitcurity. - Dave
 							M.apply_damage(10)
@@ -249,7 +254,7 @@ Auto Patrol: []"},
 
 					if(declare_arrests)
 						var/area/location = get_area(src)
-						speak("[arrest_type ? "Detaining" : "Arresting"] level [threatlevel] scumbag <b>[target]</b> in [location].",radio_frequency, radio_name)
+						speak("[arrest_type ? "Detaining" : "Arresting"] level [threatlevel] scumbag <b>[target]</b> in [location].", radio_name)
 					target.visible_message("<span class='danger'>[target] has been [harmbaton ? "beaten" : "stunned"] by [src]!</span>",\
 											"<span class='userdanger'>[target] has been [harmbaton ? "beaten" : "stunned"] by [src]!</span>")
 
@@ -279,15 +284,15 @@ Auto Patrol: []"},
 				if(!arrest_type)
 					if(!target.handcuffed)  //he's not cuffed? Try to cuff him!
 						mode = BOT_ARREST
-						playsound(loc, 'sound/weapons/handcuffs.ogg', 30, 1, -2)
-						target.visible_message("<span class='danger'>[src] is trying to put handcuffs on [target]!</span>",\
-											"<span class='userdanger'>[src] is trying to put handcuffs on [target]!</span>")
-						spawn(60)
+						playsound(loc, 'sound/weapons/cablecuff.ogg', 30, 1, -2)
+						target.visible_message("<span class='danger'>[src] is trying to put zipties on [target]!</span>",\
+											"<span class='userdanger'>[src] is trying to put zipties on [target]!</span>")
+						spawn(30)
 							if( !Adjacent(target) || !isturf(target.loc) ) //if he's in a closet or not adjacent, we cancel cuffing.
 								return
 							if(!target.handcuffed)
-								target.handcuffed = new /obj/item/weapon/handcuffs(target)
-								target.update_inv_handcuffed(0)	//update the handcuffs overlay
+								target.handcuffed = new /obj/item/weapon/restraints/handcuffs/cable/zipties/used(target)
+								target.update_inv_handcuffed(1)	//update the handcuffs overlay
 								playsound(loc, pick('sound/voice/bgod.ogg', 'sound/voice/biamthelaw.ogg', 'sound/voice/bsecureday.ogg', 'sound/voice/bradio.ogg', 'sound/voice/binsult.ogg', 'sound/voice/bcreep.ogg'), 50, 0)
 								back_to_idle()
 					else
@@ -396,7 +401,7 @@ Auto Patrol: []"},
 	s.set_up(3, 1, src)
 	s.start()
 
-	new /obj/effect/decal/cleanable/oil(loc)
+	new /obj/effect/decal/cleanable/blood/oil(loc)
 	qdel(src)
 
 /obj/machinery/bot/secbot/attack_alien(var/mob/living/carbon/alien/user as mob)
@@ -407,7 +412,7 @@ Auto Patrol: []"},
 
 //Secbot Construction
 
-/obj/item/clothing/head/helmet/attackby(var/obj/item/device/assembly/signaler/S, mob/user as mob)
+/obj/item/clothing/head/helmet/attackby(var/obj/item/device/assembly/signaler/S, mob/user as mob, params)
 	..()
 	if(!issignaler(S))
 		..()
@@ -421,12 +426,12 @@ Auto Patrol: []"},
 		var/obj/item/weapon/secbot_assembly/A = new /obj/item/weapon/secbot_assembly
 		user.put_in_hands(A)
 		user << "<span class='notice'>You add the signaler to the helmet.</span>"
-		user.before_take_item(src, 1)
+		user.unEquip(src, 1)
 		qdel(src)
 	else
 		return
 
-/obj/item/weapon/secbot_assembly/attackby(obj/item/I, mob/user)
+/obj/item/weapon/secbot_assembly/attackby(obj/item/I, mob/user, params)
 	..()
 	if(istype(I, /obj/item/weapon/weldingtool))
 		if(!build_step)

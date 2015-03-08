@@ -78,9 +78,13 @@ var/global/list/datum/stack_recipe/metal_recipes = list ( \
 	singular_name = "metal sheet"
 	icon_state = "sheet-metal"
 	m_amt = 3750
-	throwforce = 14.0
-	flags = FPRINT | TABLEPASS | CONDUCT
+	throwforce = 10.0
+	flags = CONDUCT
 	origin_tech = "materials=1"
+	
+/obj/item/stack/sheet/metal/full/New()
+	..()
+	amount = 50
 
 /obj/item/stack/sheet/metal/cyborg
 	name = "metal"
@@ -88,8 +92,8 @@ var/global/list/datum/stack_recipe/metal_recipes = list ( \
 	singular_name = "metal sheet"
 	icon_state = "sheet-metal"
 	m_amt = 0
-	throwforce = 14.0
-	flags = FPRINT | TABLEPASS | CONDUCT
+	throwforce = 10.0
+	flags = CONDUCT
 
 /obj/item/stack/sheet/metal/New(var/loc, var/amount=null)
 	recipes = metal_recipes
@@ -115,13 +119,17 @@ var/global/list/datum/stack_recipe/plasteel_recipes = list ( \
 	icon_state = "sheet-plasteel"
 	item_state = "sheet-metal"
 	m_amt = 7500
-	throwforce = 15.0
-	flags = FPRINT | TABLEPASS | CONDUCT
+	throwforce = 10.0
+	flags = CONDUCT
 	origin_tech = "materials=2"
 
 /obj/item/stack/sheet/plasteel/New(var/loc, var/amount=null)
-		recipes = plasteel_recipes
-		return ..()
+	recipes = plasteel_recipes
+	return ..()
+		
+/obj/item/stack/sheet/plasteel/full/New(var/loc, var/amount=null)
+	amount = 50
+	..(loc, amount)
 
 /*
  * Wood
@@ -133,6 +141,7 @@ var/global/list/datum/stack_recipe/wood_recipes = list ( \
 	new/datum/stack_recipe("wooden chair", /obj/structure/stool/bed/chair/wood/normal, 3, time = 10, one_per_turf = 1, on_floor = 1), \
 	new/datum/stack_recipe("wooden barricade", /obj/structure/barricade/wooden, 5, time = 50, one_per_turf = 1, on_floor = 1), \
 	new/datum/stack_recipe("bookcase", /obj/structure/bookcase, 5, time = 50, one_per_turf = 1, on_floor = 1), \
+	new/datum/stack_recipe("rifle stock", /obj/item/weaponcrafting/stock, 10, time = 40), \
 	new/datum/stack_recipe("crossbow frame", /obj/item/weapon/crossbowframe, 5, time = 25, one_per_turf = 0, on_floor = 0), \
 	new/datum/stack_recipe("wooden door", /obj/structure/mineral_door/wood, 10, time = 20, one_per_turf = 1, on_floor = 1), \
 	new/datum/stack_recipe("coffin", /obj/structure/closet/coffin, 5, time = 15, one_per_turf = 1, on_floor = 1), \
@@ -186,7 +195,6 @@ var/global/list/datum/stack_recipe/cardboard_recipes = list ( \
 	desc = "Large sheets of card, like boxes folded flat."
 	singular_name = "cardboard sheet"
 	icon_state = "sheet-card"
-	flags = FPRINT | TABLEPASS
 	origin_tech = "materials=1"
 
 /obj/item/stack/sheet/cardboard/New(var/loc, var/amount=null)

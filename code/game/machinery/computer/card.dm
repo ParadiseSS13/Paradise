@@ -55,7 +55,7 @@
 		usr << "There is nothing to remove from the console."
 	return
 
-/obj/machinery/computer/card/attackby(obj/item/weapon/card/id/id_card, mob/user)
+/obj/machinery/computer/card/attackby(obj/item/weapon/card/id/id_card, mob/user, params)
 	if(!istype(id_card))
 		return ..()
 
@@ -198,7 +198,7 @@
 			if (is_authenticated() && modify)
 				var/t1 = href_list["assign_target"]
 				if(t1 == "Custom")
-					var/temp_t = copytext(sanitize(input("Enter a custom job assignment.","Assignment")),1,MAX_MESSAGE_LEN)
+					var/temp_t = sanitize(copytext(input("Enter a custom job assignment.","Assignment"),1,MAX_MESSAGE_LEN))
 					//let custom jobs function as an impromptu alt title, mainly for sechuds
 					if(temp_t && modify)
 						modify.assignment = temp_t
@@ -291,4 +291,4 @@
 /obj/machinery/computer/card/centcom
 	name = "CentCom Identification Computer"
 	circuit = "/obj/item/weapon/circuitboard/card/centcom"
-	req_access = list(access_cent_captain)
+	req_access = list(access_cent_commander)

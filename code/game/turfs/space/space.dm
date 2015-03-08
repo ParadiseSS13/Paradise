@@ -3,9 +3,9 @@
 	name = "\proper space"
 	icon_state = "0"
 
-	temperature = T0C
+	temperature = TCMB
 	thermal_conductivity = OPEN_HEAT_TRANSFER_COEFFICIENT
-//	heat_capacity = 700000 No.
+	heat_capacity = 700000
 
 /turf/space/New()
 	if(!istype(src, /turf/space/transit))
@@ -31,7 +31,7 @@
 		step(user.pulling, get_dir(user.pulling.loc, src))
 	return
 
-/turf/space/attackby(obj/item/C as obj, mob/user as mob)
+/turf/space/attackby(obj/item/C as obj, mob/user as mob, params)
 
 	if (istype(C, /obj/item/stack/rods))
 		var/obj/item/stack/rods/R = C

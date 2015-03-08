@@ -24,6 +24,7 @@
 		"Cat" = "cat",
 		"Mouse" = "mouse",
 		"Monkey" = "monkey",
+		"Corgi" = "corgi",
 		"Fox" = "fox"
 		)
 
@@ -59,17 +60,23 @@
 	var/secHUD = 0			// Toggles whether the Security HUD is active or not
 	var/medHUD = 0			// Toggles whether the Medical  HUD is active or not
 
+	var/medical_cannotfind = 0
 	var/datum/data/record/medicalActive1		// Datacore record declarations for record software
 	var/datum/data/record/medicalActive2
 
+	var/security_cannotfind = 0
 	var/datum/data/record/securityActive1		// Could probably just combine all these into one
 	var/datum/data/record/securityActive2
 
 	var/obj/machinery/door/hackdoor		// The airlock being hacked
 	var/hackprogress = 0				// Possible values: 0 - 100, >= 100 means the hack is complete and will be reset upon next check
+	var/hack_aborted = 0
 
 	var/obj/item/radio/integrated/signal/sradio // AI's signaller
 
+	var/translator_on = 0 // keeps track of the translator module
+
+	var/current_pda_messaging = null
 
 /mob/living/silicon/pai/New(var/obj/item/device/paicard)
 	canmove = 0
@@ -80,6 +87,13 @@
 		if(!card.radio)
 			card.radio = new /obj/item/device/radio(src.card)
 		radio = card.radio
+
+	//Default languages without universal translator software
+	add_language("Galactic Common", 1)
+	add_language("Sol Common", 1)
+	add_language("Tradeband", 1)
+	add_language("Gutter", 1)
+	add_language("Trinary", 1)
 
 	//Verbs for pAI mobile form, chassis and Say flavor text
 	verbs += /mob/living/silicon/pai/proc/choose_chassis
@@ -174,16 +188,16 @@
 
 	switch(severity)
 		if(1.0)
-			if (src.stat != 2)
-				adjustBruteLoss(100)
-				adjustFireLoss(100)
+			if (src.stat != 2) //Let's not have two of these instantly kill you.
+				adjustBruteLoss(45)
+				adjustFireLoss(45)
 		if(2.0)
 			if (src.stat != 2)
-				adjustBruteLoss(60)
-				adjustFireLoss(60)
+				adjustBruteLoss(30)
+				adjustFireLoss(30)
 		if(3.0)
 			if (src.stat != 2)
-				adjustBruteLoss(30)
+				adjustBruteLoss(20)
 
 	src.updatehealth()
 
@@ -200,7 +214,20 @@
 		src.updatehealth()
 	return
 
-//mob/living/silicon/pai/bullet_act(var/obj/item/projectile/Proj)
+/mob/living/silicon/pai/attack_animal(mob/living/simple_animal/M as mob)
+	if(M.melee_damage_upper == 0)
+		M.emote("[M.friendly] [src]")
+	else
+		M.do_attack_animation(src)
+		if(M.attack_sound)
+			playsound(loc, M.attack_sound, 50, 1, 1)
+		for(var/mob/O in viewers(src, null))
+			O.show_message("\red <B>[M]</B> [M.attacktext] [src]!", 1)
+		M.attack_log += text("\[[time_stamp()]\] <font color='red'>attacked [src.name] ([src.ckey])</font>")
+		src.attack_log += text("\[[time_stamp()]\] <font color='orange'>was attacked by [M.name] ([M.ckey])</font>")
+		var/damage = rand(M.melee_damage_lower, M.melee_damage_upper)
+		adjustBruteLoss(damage)
+		updatehealth()
 
 /mob/living/silicon/pai/attack_alien(mob/living/carbon/alien/humanoid/M as mob)
 	if (!ticker)
@@ -219,6 +246,7 @@
 					O.show_message(text("\blue [M] caresses [src]'s casing with its scythe like arm."), 1)
 
 		else //harm
+			M.do_attack_animation(src)
 			var/damage = rand(10, 20)
 			if (prob(90))
 				playsound(src.loc, 'sound/weapons/slash.ogg', 25, 1, -1)
@@ -235,8 +263,6 @@
 					if ((O.client && !( O.blinded )))
 						O.show_message(text("\red <B>[] took a swipe at []!</B>", M, src), 1)
 	return
-
-///mob/living/silicon/pai/attack_hand(mob/living/carbon/M as mob)
 
 /mob/living/silicon/pai/proc/switchCamera(var/obj/machinery/camera/C)
 	usr:cameraFollow = null
@@ -324,10 +350,7 @@
 	//I'm not sure how much of this is necessary, but I would rather avoid issues.
 	if(istype(card.loc,/mob))
 		var/mob/holder = card.loc
-		holder.drop_from_inventory(card)
-	else if(istype(card.loc,/obj/item/clothing/suit/space/space_ninja))
-		var/obj/item/clothing/suit/space/space_ninja/holder = card.loc
-		holder.pai = null
+		holder.unEquip(card)
 	else if(istype(card.loc,/obj/item/device/pda))
 		var/obj/item/device/pda/holder = card.loc
 		holder.pai = null
@@ -405,26 +428,29 @@
 	canmove = !resting
 
 //Overriding this will stop a number of headaches down the track.
-/mob/living/silicon/pai/attackby(obj/item/weapon/W as obj, mob/user as mob)
+/mob/living/silicon/pai/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
 	if(W.force)
 		visible_message("<span class='danger'>[user.name] attacks [src] with [W]!</span>")
 		src.adjustBruteLoss(W.force)
 		src.updatehealth()
 	else
 		visible_message("<span class='warning'>[user.name] bonks [src] harmlessly with [W].</span>")
-	if(stat != 2) close_up()
+	spawn(1)
+		if(stat != 2)
+			close_up()
 	return
 
 /mob/living/silicon/pai/attack_hand(mob/user as mob)
 	if(stat == 2) return
 	visible_message("<span class='danger'>[user.name] boops [src] on the head.</span>")
-	close_up()
+	spawn(1)
+		close_up()
 
 //I'm not sure how much of this is necessary, but I would rather avoid issues.
 /mob/living/silicon/pai/proc/close_up()
 
 	last_special = world.time + 200
-
+	resting = 0
 	if(src.loc == card)
 		return
 
@@ -443,10 +469,18 @@
 	canmove = 0
 	icon_state = "[chassis]"
 
-/mob/living/silicon/pai/start_pulling(var/atom/movable/AM)
+/mob/living/silicon/pai/Bump(atom/movable/AM as mob|obj, yes)
+	return
 
+/mob/living/silicon/pai/Bumped(AM as mob|obj)
+	return
+
+/mob/living/silicon/pai/start_pulling(var/atom/movable/AM)
+	if(stat || sleeping || paralysis || weakened)
+		return
 	if(istype(AM,/obj/item))
 		src << "<span class='warning'>You are far too small to pull anything!</span>"
+	return
 
 /mob/living/silicon/pai/examine()
 
@@ -479,6 +513,10 @@
 	..(Proj)
 	updatehealth()
 	if (stat != 2)
-		close_up()
+		spawn(1)
+			close_up()
 	return 2
 
+// No binary for pAIs.
+/mob/living/silicon/pai/binarycheck()
+	return 0

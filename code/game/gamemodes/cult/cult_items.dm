@@ -3,7 +3,6 @@
 	desc = "An arcane weapon wielded by the followers of Nar-Sie"
 	icon_state = "cultblade"
 	item_state = "cultblade"
-	flags = FPRINT | TABLEPASS
 	w_class = 4
 	force = 30
 	throwforce = 10
@@ -34,7 +33,7 @@
 	icon_state = "culthood"
 	desc = "A hood worn by the followers of Nar-Sie."
 	flags_inv = HIDEFACE
-	flags = FPRINT|TABLEPASS|HEADCOVERSEYES
+	flags = HEADCOVERSEYES
 	armor = list(melee = 30, bullet = 10, laser = 5,energy = 5, bomb = 0, bio = 0, rad = 0)
 	cold_protection = HEAD
 	min_cold_protection_temperature = SPACE_HELMET_MIN_COLD_PROTECTION_TEMPERATURE
@@ -55,7 +54,6 @@
 	desc = "A set of armored robes worn by the followers of Nar-Sie"
 	icon_state = "cultrobes"
 	item_state = "cultrobes"
-	flags = FPRINT | TABLEPASS
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
 	allowed = list(/obj/item/weapon/tome,/obj/item/weapon/melee/cultblade)
 	armor = list(melee = 50, bullet = 30, laser = 50,energy = 20, bomb = 25, bio = 10, rad = 0)
@@ -68,7 +66,7 @@
 	item_state = "magus"
 	desc = "A helm worn by the followers of Nar-Sie."
 	flags_inv = HIDEFACE
-	flags = FPRINT|TABLEPASS|HEADCOVERSEYES|HEADCOVERSMOUTH|BLOCKHAIR
+	flags = HEADCOVERSEYES | HEADCOVERSMOUTH | BLOCKHAIR
 	armor = list(melee = 30, bullet = 30, laser = 30,energy = 20, bomb = 0, bio = 0, rad = 0)
 	siemens_coefficient = 0
 	loose = 6 // mostly one size fits all
@@ -78,7 +76,6 @@
 	desc = "A set of armored robes worn by the followers of Nar-Sie"
 	icon_state = "magusred"
 	item_state = "magusred"
-	flags = FPRINT | TABLEPASS
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
 	allowed = list(/obj/item/weapon/tome,/obj/item/weapon/melee/cultblade)
 	armor = list(melee = 50, bullet = 30, laser = 50,energy = 20, bomb = 25, bio = 10, rad = 0)
@@ -100,7 +97,7 @@
 	item_state = "cult_armour"
 	desc = "A bulky suit of armour, bristling with spikes. It looks space proof."
 	w_class = 3
-	allowed = list(/obj/item/weapon/tome,/obj/item/weapon/melee/cultblade,/obj/item/weapon/tank/emergency_oxygen,/obj/item/device/suit_cooling_unit)
+	allowed = list(/obj/item/weapon/tome,/obj/item/weapon/melee/cultblade,/obj/item/weapon/tank)
 	slowdown = 1
 	armor = list(melee = 60, bullet = 50, laser = 30,energy = 15, bomb = 30, bio = 30, rad = 30)
 	siemens_coefficient = 0

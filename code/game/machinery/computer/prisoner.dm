@@ -38,8 +38,9 @@
 				var/p = inserted_id:points
 				var/g = inserted_id:goal
 				dat += text("<A href='?src=\ref[src];id=1'>[inserted_id]</A><br>")
-				dat += text("Collectd Points: [p]. <A href='?src=\ref[src];id=2'>Reset.</A><br>")
+				dat += text("Collected points: [p]. <A href='?src=\ref[src];id=2'>Reset.</A><br>")
 				dat += text("Card goal: [g].  <A href='?src=\ref[src];id=3'>Set </A><br>")
+				dat += text("Space Law recommends sentences of 100 points per minute they would normally serve in the brig.<BR>")
 			else
 				dat += text("<A href='?src=\ref[src];id=0'>Insert Prisoner ID.</A><br>")
 			dat += "<HR>Chemical Implants<BR>"
@@ -64,7 +65,7 @@
 				if(!T.implanted) continue
 				var/loc_display = "Unknown"
 				var/mob/living/carbon/M = T.imp_in
-				if(M.z == 1 && !istype(M.loc, /turf/space))
+				if((M.z in config.station_levels) && !istype(M.loc, /turf/space))
 					var/turf/mob_loc = get_turf_loc(M)
 					loc_display = mob_loc.loc
 				if(T.malfunction)
@@ -128,7 +129,7 @@
 					usr << "Unauthorized Access."
 
 			else if(href_list["warn"])
-				var/warning = copytext(sanitize(input(usr,"Message:","Enter your message here!","")),1,MAX_MESSAGE_LEN)
+				var/warning = sanitize(copytext(input(usr,"Message:","Enter your message here!",""),1,MAX_MESSAGE_LEN))
 				if(!warning) return
 				var/obj/item/weapon/implant/I = locate(href_list["warn"])
 				if((I)&&(I.imp_in))

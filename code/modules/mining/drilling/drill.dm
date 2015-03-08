@@ -33,7 +33,7 @@
 	var/obj/item/weapon/stock_parts/matter_bin/storage
 	var/obj/item/weapon/stock_parts/micro_laser/cutter
 	var/obj/item/weapon/stock_parts/capacitor/cellmount
-	var/obj/item/weapon/cell/cell
+	var/obj/item/weapon/stock_parts/cell/cell
 
 	//Flags
 	var/need_update_field = 0
@@ -140,7 +140,7 @@
 /obj/machinery/mining/drill/attack_ai(var/mob/user as mob)
 	return src.attack_hand(user)
 
-/obj/machinery/mining/drill/attackby(obj/item/weapon/W as obj, mob/user as mob)
+/obj/machinery/mining/drill/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
 	if(istype(W,/obj/item/weapon/screwdriver))
 		if(active) return
 		open = !open
@@ -195,7 +195,7 @@
 				cellmount = W
 				user << "You install \the [W]."
 			return
-		else if(istype(W,/obj/item/weapon/cell))
+		else if(istype(W,/obj/item/weapon/stock_parts/cell))
 			if(cell)
 				user << "The drill already has a cell installed."
 			else
@@ -323,7 +323,7 @@
 	icon_state = "mining_brace"
 	var/obj/machinery/mining/drill/connected
 
-/obj/machinery/mining/brace/attackby(obj/item/weapon/W as obj, mob/user as mob)
+/obj/machinery/mining/brace/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
 	if(istype(W,/obj/item/weapon/wrench))
 
 		if(istype(get_turf(src),/turf/space))

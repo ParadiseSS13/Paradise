@@ -36,6 +36,9 @@ em						{font-style: normal;	font-weight: bold;}
 .sciradio				{color: #993399;}
 .supradio				{color: #5F4519;}
 .srvradio				{color: #6eaa2c;}
+.admin_channel			{color: #9A04D1;	font-weight: bold;}
+.mod_channel			{color: #402A14;	font-weight: bold;}
+.mod_channel_admin      {color: #402A14;	font-weight: bold;}
 
 .alert					{color: #ff0000;}
 h1.alert, h2.alert		{color: #000000;}
@@ -60,16 +63,25 @@ h1.alert, h2.alert		{color: #000000;}
 
 .mod					{color: #735638;	font-weight: bold;}
 .modooc					{color: #184880;	font-weight: bold;}
-.adminchat				{color: #9A04D1;	font-weight: bold;}
-.adminmod				{color: #402A14;	font-weight: bold;}
 
 .alien					{color: #543354;}
 .noticealien			{color: #00c000;}
 .alertalien				{color: #00c000; font-weight: bold;}
 .tajaran				{color: #803B56;}
+.tajaran_signlang		{color: #941C1C;}
 .skrell					{color: #00CED1;}
 .soghun					{color: #228B22;}
+.solcom					{color: #22228B;}
+.changeling				{color: #800080;}
 .vox					{color: #AA00AA;}
+.diona					{color: #007200;}
+.trinary				{color: #727272;}
+.kidan					{color: #664205;}
+.slime					{color: #0077AA;}
+.clown					{color: #ff0000;}
+.rough					{font-family: "Trebuchet MS", cursive, sans-serif;}
+.say_quote				{font-family: Georgia, Verdana, sans-serif;}
+.sans					{font-family: "Comic Sans MS", cursive, sans-serif; font-weight: bold;}
 
 .say_quote				{font-family: Georgia, Verdana, sans-serif;}
 

@@ -91,13 +91,6 @@
 						else
 							src.DB_job_unlock("Nanotrasen Representative",30)
 							return
-					if("4")
-						if(karma <30)
-							usr << "You do not have enough karma!"
-							return
-						else
-							src.DB_job_unlock("Customs Officer",30)
-							return
 					if("5")
 						if(karma <30)
 							usr << "You do not have enough karma!"
@@ -118,13 +111,6 @@
 							return
 						else
 							src.DB_job_unlock("Magistrate",45)
-							return
-					if("8")
-						if(karma <10)
-							usr << "You do not have enough karma!"
-							return
-						else
-							src.DB_job_unlock("Nanotrasen Recruiter",10)
 							return
 					if("9")
 						if(karma <30)
@@ -171,13 +157,20 @@
 						else
 							src.DB_species_unlock("Slime People",45)
 							return
+					if("6")
+						if(karma <100)
+							usr << "You do not have enough karma!"
+							return
+						else
+							src.DB_species_unlock("Plasmaman",100)
+							return
 			if(href_list["KarmaRefund"])
 				var/type = href_list["KarmaRefundType"]
 				var/job = href_list["KarmaRefund"]
 				var/cost = href_list["KarmaRefundCost"]
 				src.karmarefund(type,job,cost)
 				return
-				
+
 	switch(href_list["_src_"])
 		if("holder")	hsrc = holder
 		if("usr")		hsrc = mob
@@ -426,5 +419,6 @@
 		'icons/stamp_icons/large_stamp-qm.png',
 		'icons/stamp_icons/large_stamp-law.png',
 		'icons/stamp_icons/large_stamp-cent.png',
-		'html/talisman.png'
+		'html/talisman.png',
+		'html/images/ntlogo.png'
 		)

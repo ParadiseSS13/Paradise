@@ -61,7 +61,7 @@
 
 	proc/count()
 		for(var/turf/T in world)
-			if(T.z != 1)
+			if(!(T.z in config.station_levels))
 				continue
 
 			if(istype(T,/turf/simulated/floor))
@@ -83,7 +83,7 @@
 					src.r_wall += 1
 
 		for(var/obj/O in world)
-			if(O.z != 1)
+			if(!(O.z in config.station_levels))
 				continue
 
 			if(istype(O, /obj/structure/window))

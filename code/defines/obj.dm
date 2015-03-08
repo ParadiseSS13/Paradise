@@ -4,7 +4,7 @@
 	anchored = 1
 	density = 1
 
-	attackby(obj/item/weapon/W as obj, mob/user as mob)
+	attackby(obj/item/weapon/W as obj, mob/user as mob, params)
 		return attack_hand(user)
 
 	attack_hand(mob/user as mob)
@@ -13,13 +13,13 @@
 /obj/structure/ninjatele
 
 	name = "Long-Distance Teleportation Console"
-	desc = "A console used to send a Spider Clan agent long distances rapidly."
+	desc = "A console used to send a Spider Clan operative long distances rapidly."
 	icon = 'icons/obj/ninjaobjects.dmi'
 	icon_state = "teleconsole"
 	anchored = 1
 	density = 0
 
-	attackby(obj/item/weapon/W as obj, mob/user as mob)
+	attackby(obj/item/weapon/W as obj, mob/user as mob, params)
 
 		return attack_hand(user)
 
@@ -380,7 +380,7 @@ var/global/list/PDA_Manifest = list()
 	throwforce = 0.0
 	throw_speed = 1
 	throw_range = 20
-	flags = FPRINT | TABLEPASS | CONDUCT
+	flags = CONDUCT
 
 
 /obj/effect/stop

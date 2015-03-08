@@ -114,6 +114,11 @@
 #define ui_borg_health "16:28,6:13" //borgs have the health display where humans have the pressure damage indicator.
 #define ui_alien_health "16:28,6:13" //aliens have the health display where humans have the pressure damage indicator.
 
+#define ui_construct_health "16:00,8:17" //same height as humans, hugging the right border
+#define ui_construct_purge "16:00,6:15"
+#define ui_construct_fire "15:16,8:13" //above health, slightly to the left
+#define ui_construct_pull "16:28,2:10" //above the zone_sel icon
+
 //Pop-up inventory
 #define ui_shoes "2:8,1:5"
 

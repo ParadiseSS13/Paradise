@@ -19,6 +19,43 @@
 	return
 */
 
+/obj/mecha/working/ripley/Destroy()
+	while(src.damage_absorption.["brute"] < 0.6)
+		new /obj/item/asteroid/goliath_hide(src.loc)
+		src.damage_absorption.["brute"] = src.damage_absorption.["brute"] + 0.1 //If a goliath-plated ripley gets killed, all the plates drop
+	for(var/atom/movable/A in src.cargo)
+		A.loc = loc
+		step_rand(A)
+	cargo.Cut()
+	..()
+
+/obj/mecha/working/ripley/go_out()
+	..()
+	if (src.damage_absorption.["brute"] < 0.6 && src.damage_absorption.["brute"] > 0.3)
+		src.overlays = null
+		src.overlays += image("icon" = "mecha.dmi", "icon_state" = "ripley-g-open")
+	else if (src.damage_absorption.["brute"] == 0.3)
+		src.overlays = null
+		src.overlays += image("icon" = "mecha.dmi", "icon_state" = "ripley-g-full-open")
+
+/obj/mecha/working/ripley/moved_inside(var/mob/living/carbon/human/H as mob)
+	..()
+	if (src.damage_absorption.["brute"] < 0.6 && src.damage_absorption.["brute"] > 0.3)
+		src.overlays = null
+		src.overlays += image("icon" = "mecha.dmi", "icon_state" = "ripley-g")
+	else if (src.damage_absorption.["brute"] == 0.3)
+		src.overlays = null
+		src.overlays += image("icon" = "mecha.dmi", "icon_state" = "ripley-g-full")
+
+/obj/mecha/working/ripley/mmi_moved_inside(var/obj/item/device/mmi/mmi_as_oc as obj,mob/user as mob)
+	..()
+	if (src.damage_absorption.["brute"] < 0.6 && src.damage_absorption.["brute"] > 0.3)
+		src.overlays = null
+		src.overlays += image("icon" = "mecha.dmi", "icon_state" = "ripley-g")
+	else if (src.damage_absorption.["brute"] == 0.3)
+		src.overlays = null
+		src.overlays += image("icon" = "mecha.dmi", "icon_state" = "ripley-g-full")
+
 /obj/mecha/working/ripley/firefighter
 	desc = "Standart APLU chassis was refitted with additional thermal protection and cistern."
 	name = "APLU \"Firefighter\""

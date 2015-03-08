@@ -72,7 +72,7 @@ emp_act
 			if(c_hand && (stun_amount || agony_amount > 10))
 				msg_admin_attack("[src.name] ([src.ckey]) was disarmed by a stun effect")
 
-				u_equip(c_hand)
+				unEquip(c_hand)
 				if (affected.status & ORGAN_ROBOT)
 					emote("me", 1, "drops what they were holding, their [affected.display_name] malfunctioning!")
 				else
@@ -185,9 +185,6 @@ emp_act
 				buckled.unbuckle()
 			src.loc = picked
 			return 1
-	if(species.flags & HAS_CHITTIN && (prob(50 - round(damage / 3))))
-		visible_message("\red <B> The [attack_text] bounces off [src]' natural armor!</B>")
-		return 1
 	return 0
 
 /mob/living/carbon/human/emp_act(severity)
@@ -201,18 +198,20 @@ emp_act
 			I.emp_act(severity)
 	..()
 
+/mob/living/carbon/human/emag_act(user as mob, var/datum/organ/external/affecting)
+	if(!(affecting.status & ORGAN_ROBOT))
+		user << "\red That limb isn't robotic."
+		return
+	if(affecting.sabotaged)
+		user << "\red [src]'s [affecting.display_name] is already sabotaged!"
+	else
+		user << "\red You sneakily slide the card into the dataport on [src]'s [affecting.display_name] and short out the safeties."
+		affecting.sabotaged = 1
+	return 1
 
 //Returns 1 if the attack hit, 0 if it missed.
 /mob/living/carbon/human/proc/attacked_by(var/obj/item/I, var/mob/living/user, var/def_zone)
 	if(!I || !user)	return 0
-
-	var/target_zone = def_zone? check_zone(def_zone) : get_zone_with_miss_chance(user.zone_sel.selecting, src)
-
-	if(user == src) // Attacking yourself can't miss
-		target_zone = user.zone_sel.selecting
-	if(!target_zone && !src.stat && !I.discrete)
-		visible_message("\red <B>[user] misses [src] with \the [I]!")
-		return 0
 
 	if(istype(I, /obj/item/weapon/butch/meatcleaver) && src.stat == DEAD && user.a_intent == "harm")
 		var/obj/item/weapon/reagent_containers/food/snacks/meat/human/newmeat = new /obj/item/weapon/reagent_containers/food/snacks/meat/human(get_turf(src.loc))
@@ -235,7 +234,7 @@ emp_act
 
 			del(src)
 
-	var/datum/organ/external/affecting = get_organ(target_zone)
+	var/datum/organ/external/affecting = get_organ(ran_zone(user.zone_sel.selecting))
 	if (!affecting)
 		return 0
 	if(affecting.status & ORGAN_DESTROYED)
@@ -243,21 +242,14 @@ emp_act
 		return 0
 	var/hit_area = affecting.display_name
 
-	if((user != src) && check_shields(I.force, "the [I.name]"))
-		return 0
+	if(user != src)
+		user.do_attack_animation(src)
+		if(check_shields(I.force, "the [I.name]"))
+			return 0
 
 	if(istype(I,/obj/item/weapon/card/emag))
-		if(!(affecting.status & ORGAN_ROBOT))
-			user << "\red That limb isn't robotic."
-			return
-		if(affecting.sabotaged)
-			user << "\red [src]'s [affecting.display_name] is already sabotaged!"
-		else
-			user << "\red You sneakily slide [I] into the dataport on [src]'s [affecting.display_name] and short out the safeties."
-			var/obj/item/weapon/card/emag/emag = I
-			emag.uses--
-			affecting.sabotaged = 1
-		return 1
+		emag_act(user, affecting)
+
 	if(! I.discrete)
 		if(I.attack_verb.len)
 			visible_message("\red <B>[src] has been [pick(I.attack_verb)] in the [hit_area] with [I.name] by [user]!</B>")
@@ -267,11 +259,11 @@ emp_act
 	var/armor = run_armor_check(affecting, "melee", "Your armor has protected your [hit_area].", "Your armor has softened hit to your [hit_area].")
 	var/weapon_sharp = is_sharp(I)
 	var/weapon_edge = has_edge(I)
-	if ((weapon_sharp || weapon_edge) && prob(getarmor(target_zone, "melee")))
+	if ((weapon_sharp || weapon_edge) && prob(getarmor(user.zone_sel.selecting, "melee")))
 		weapon_sharp = 0
 		weapon_edge = 0
 
-	if(armor >= 2)	return 0
+	if(armor >= 100)	return 0
 	if(!I.force)	return 0
 	var/Iforce = I.force //to avoid runtimes on the forcesay checks at the bottom. Some items might delete themselves if you drop them. (stunning yourself, ninja swords)
 
@@ -296,8 +288,10 @@ emp_act
 		switch(hit_area)
 			if("head")//Harder to score a stun but if you do it lasts a bit longer
 				if(prob(I.force))
-					apply_effect(20, PARALYZE, armor)
-					visible_message("\red <B>[src] has been knocked unconscious!</B>")
+					apply_effect(5, WEAKEN, armor)
+					confused += 15
+					visible_message("<span class='danger'>[src] has been knocked down!</span>", \
+									"<span class='userdanger'>[src] has been knocked down!</span>")
 					if(src != user && I.damtype == BRUTE)
 						ticker.mode.remove_revolutionary(mind)
 
@@ -325,8 +319,8 @@ emp_act
 		forcesay(hit_appends)	//forcesay checks stat already
 
 	if (I.damtype == BRUTE)
-		if((I.edge && prob(2 * I.force)) || (I.force > 20 && prob(I.force)))
-			if(affecting.brute_dam >= affecting.max_damage * config.organ_health_multiplier)
+		if((affecting.brute_dam + I.force) >= affecting.max_damage * config.organ_health_multiplier)
+			if(I.edge && prob(I.force))
 				affecting.dismember_limb()
 
 /*	//Melee weapon embedded object code. Commented out, as most people on the forums seem to find this annoying and think it does not contribute to general gameplay. - Dave
@@ -348,25 +342,22 @@ emp_act
 /mob/living/carbon/human/hitby(atom/movable/AM as mob|obj,var/speed = 5)
 	if(istype(AM,/obj/))
 		var/obj/O = AM
+
+		if(in_throw_mode && !get_active_hand() && speed <= 5)	//empty active hand and we're in throw mode
+			if(canmove && !restrained())
+				if(isturf(O.loc))
+					put_in_active_hand(O)
+					visible_message("<span class='warning'>[src] catches [O]!</span>")
+					throw_mode_off()
+					return
+
+		var/zone = ran_zone("chest", 65)
 		var/dtype = BRUTE
 		if(istype(O,/obj/item/weapon))
 			var/obj/item/weapon/W = O
 			dtype = W.damtype
 		var/throw_damage = O.throwforce*(speed/5)
 
-		var/zone
-		if (istype(O.thrower, /mob/living))
-			var/mob/living/L = O.thrower
-			zone = check_zone(L.zone_sel.selecting)
-		else
-			zone = ran_zone("chest",75)	//Hits a random part of the body, geared towards the chest
-
-		//check if we hit
-		if (O.throw_source)
-			var/distance = get_dist(O.throw_source, loc)
-			zone = get_zone_with_miss_chance(zone, src, min(15*(distance-2), 0))
-		else
-			zone = get_zone_with_miss_chance(zone, src, 15)
 		/*
 		if(!zone)
 			visible_message("\blue \The [O] misses [src] narrowly!")
@@ -383,8 +374,8 @@ emp_act
 		src.visible_message("\red [src] has been hit in the [hit_area] by [O].")
 		var/armor = run_armor_check(affecting, "melee", "Your armor has protected your [hit_area].", "Your armor has softened hit to your [hit_area].") //I guess "melee" is the best fit here
 
-		if(armor < 2)
-			apply_damage(throw_damage, dtype, zone, armor, is_sharp(O), has_edge(O), O)
+
+		apply_damage(throw_damage, dtype, zone, armor, is_sharp(O), has_edge(O), O)
 
 		if(ismob(O.thrower))
 			var/mob/M = O.thrower
@@ -444,30 +435,16 @@ emp_act
 		add_blood(source)
 		bloody_hands = amount
 		bloody_hands_mob = source
-	if(istype(source,/mob/living/carbon/human))
-		var/mob/living/carbon/human/H = source
-		if(H.species.bloodflags & BLOOD_GREEN)
-			update_inv_gloves(1,1)		//updates on-mob overlays for bloody hands and/or bloody gloves
-		else
-			update_inv_gloves(1,0)		//updates on-mob overlays for bloody hands and/or bloody gloves
-	else
-		update_inv_gloves(1,0)		//updates on-mob overlays for bloody hands and/or bloody gloves
+	update_inv_gloves(1)		//updates on-mob overlays for bloody hands and/or bloody gloves
 
 /mob/living/carbon/human/proc/bloody_body(var/mob/living/source)
 	if(wear_suit)
 		wear_suit.add_blood(source)
-		update_inv_wear_suit(0,0)
+		update_inv_wear_suit(0)
 		return
 	if(w_uniform)
 		w_uniform.add_blood(source)
-		if(istype(source,/mob/living/carbon/human))
-			var/mob/living/carbon/human/H = source
-			if(H.species.bloodflags & BLOOD_GREEN)
-				update_inv_w_uniform(1,1)
-			else
-				update_inv_w_uniform(1,0)
-		else
-			update_inv_w_uniform(1,0)
+		update_inv_w_uniform(1)
 
 /mob/living/carbon/human/proc/handle_suit_punctures(var/damtype, var/damage)
 

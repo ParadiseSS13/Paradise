@@ -13,7 +13,6 @@
 	artifact_id = "[pick("kappa","sigma","antaeres","beta","omicron","iota","epsilon","omega","gamma","delta","tau","alpha")]-[rand(100,999)]"
 
 	artifact_find_type = pick(\
-	5;/obj/structure/largecrate/ninja,\
 	5;/obj/machinery/power/supermatter,\
 	5;/obj/structure/constructshell,\
 	5;/obj/machinery/wish_granter,\
@@ -44,7 +43,7 @@
 /obj/structure/boulder/New()
 	icon_state = "boulder[rand(1,4)]"
 	excavation_level = rand(5,50)
-	
+
 /obj/structure/boulder/Bumped(AM)
 	. = ..()
 	if(istype(AM,/mob/living/carbon/human))
@@ -64,10 +63,11 @@
 		if(istype(M.selected,/obj/item/mecha_parts/mecha_equipment/tool/drill))
 			M.selected.action(src)
 
-/obj/structure/boulder/attackby(obj/item/weapon/W as obj, mob/user as mob)
+/obj/structure/boulder/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
 	if (istype(W, /obj/item/device/core_sampler))
-		src.geological_data.artifact_distance = rand(-100,100) / 100
-		src.geological_data.artifact_id = artifact_find.artifact_id
+		if(geological_data)
+			src.geological_data.artifact_distance = rand(-100,100) / 100
+			src.geological_data.artifact_id = artifact_find.artifact_id
 
 		var/obj/item/device/core_sampler/C = W
 		C.sample_item(src, user)

@@ -16,12 +16,12 @@
 	desc = "Used for building lights."
 	icon = 'icons/obj/lighting.dmi'
 	icon_state = "tube-construct-item"
-	flags = FPRINT | TABLEPASS| CONDUCT
+	flags = CONDUCT
 	var/fixture_type = "tube"
 	var/obj/machinery/light/newlight = null
 	var/sheets_refunded = 2
 
-/obj/item/light_fixture_frame/attackby(obj/item/weapon/W as obj, mob/user as mob)
+/obj/item/light_fixture_frame/attackby(obj/item/weapon/W as obj, mob/living/user as mob, params)
 	if (istype(W, /obj/item/weapon/wrench))
 		new /obj/item/stack/sheet/metal( get_turf(src.loc), sheets_refunded )
 		del(src)
@@ -63,7 +63,7 @@
 	desc = "Used for building small lights."
 	icon = 'icons/obj/lighting.dmi'
 	icon_state = "bulb-construct-item"
-	flags = FPRINT | TABLEPASS| CONDUCT
+	flags = CONDUCT
 	fixture_type = "bulb"
 	sheets_refunded = 1
 
@@ -99,7 +99,7 @@
 			usr << "The casing is closed."
 			return
 
-/obj/machinery/light_construct/attackby(obj/item/weapon/W as obj, mob/user as mob)
+/obj/machinery/light_construct/attackby(obj/item/weapon/W as obj, mob/living/user as mob, params)
 	src.add_fingerprint(user)
 	if (istype(W, /obj/item/weapon/wrench))
 		if (src.stage == 1)
@@ -344,7 +344,7 @@
 
 // attack with item - insert light (if right type), otherwise try to break the light
 
-/obj/machinery/light/attackby(obj/item/W, mob/user)
+/obj/machinery/light/attackby(obj/item/W, mob/living/user, params)
 
 	//Light replacer code
 	if(istype(W, /obj/item/device/lightreplacer))
@@ -390,7 +390,7 @@
 
 	else if(status != LIGHT_BROKEN && status != LIGHT_EMPTY)
 
-
+		user.do_attack_animation(src)
 		if(prob(1+W.force * 5))
 
 			user << "You hit the light, and it smashes!"
@@ -399,13 +399,14 @@
 					continue
 				M.show_message("[user.name] smashed the light!", 3, "You hear a tinkle of breaking glass", 2)
 			if(on && (W.flags & CONDUCT))
-				//if(!user.mutations & M_RESIST_COLD)
+				//if(!user.mutations & RESIST_COLD)
 				if (prob(12))
 					electrocute_mob(user, get_area(src), src, 0.3)
 			broken()
 
 		else
-			user << "You hit the light!"
+			user.visible_message("<span class='danger'>[user.name] hits the light.</span>")
+			playsound(src.loc, 'sound/effects/Glasshit.ogg', 75, 1)
 
 	// attempt to stick weapon into light socket
 	else if(status == LIGHT_EMPTY)
@@ -435,7 +436,7 @@
 			var/datum/effect/effect/system/spark_spread/s = new /datum/effect/effect/system/spark_spread
 			s.set_up(3, 1, src)
 			s.start()
-			//if(!user.mutations & M_RESIST_COLD)
+			//if(!user.mutations & RESIST_COLD)
 			if (prob(75))
 				electrocute_mob(user, get_area(src), src, rand(0.7,1.0))
 
@@ -471,8 +472,8 @@
 		user << "\green That object is useless to you."
 		return
 	else if (status == LIGHT_OK||status == LIGHT_BURNED)
-		for(var/mob/M in viewers(src))
-			M.show_message("\red [user.name] smashed the light!", 3, "You hear a tinkle of breaking glass", 2)
+		user.do_attack_animation(src)
+		visible_message("<span class='danger'>[user.name] smashed the light!</span>", "You hear a tinkle of breaking glass")
 		broken()
 	return
 
@@ -482,8 +483,8 @@
 		M << "\red That object is useless to you."
 		return
 	else if (status == LIGHT_OK||status == LIGHT_BURNED)
-		for(var/mob/O in viewers(src))
-			O.show_message("\red [M.name] smashed the light!", 3, "You hear a tinkle of breaking glass", 2)
+		M.do_attack_animation(src)
+		visible_message("<span class='danger'>[M.name] smashed the light!</span>", "You hear a tinkle of breaking glass")
 		broken()
 	return
 // attack with hand - remove tube/bulb
@@ -511,12 +512,17 @@
 		else
 			prot = 1
 
-		if(prot > 0 || (M_RESIST_HEAT in user.mutations))
+		if(prot > 0 || (RESIST_HEAT in user.mutations))
 			user << "You remove the light [fitting]"
-		else if(M_TK in user.mutations)
+		else if(TK in user.mutations)
 			user << "You telekinetically remove the light [fitting]."
 		else
-			user << "You try to remove the light [fitting], but it's too hot and you don't want to burn your hand."
+			user << "You try to remove the light [fitting], but you burn your hand on it!"
+
+			var/datum/organ/external/affecting = H.get_organ("[user.hand ? "l" : "r" ]_hand")
+			if(affecting.take_damage( 0, 5 ))		// 5 burn damage
+				H.UpdateDamageIcon()
+			H.updatehealth()
 			return				// if burned, don't remove the light
 	else
 		user << "You remove the light [fitting]."
@@ -652,7 +658,6 @@
 
 /obj/item/weapon/light
 	icon = 'icons/obj/lighting.dmi'
-	flags = FPRINT | TABLEPASS
 	force = 2
 	throwforce = 5
 	w_class = 1
@@ -726,7 +731,7 @@
 
 // attack bulb/tube with object
 // if a syringe, can inject plasma to make it explode
-/obj/item/weapon/light/attackby(var/obj/item/I, var/mob/user)
+/obj/item/weapon/light/attackby(var/obj/item/I, var/mob/user, params)
 	..()
 	if(istype(I, /obj/item/weapon/reagent_containers/syringe))
 		var/obj/item/weapon/reagent_containers/syringe/S = I

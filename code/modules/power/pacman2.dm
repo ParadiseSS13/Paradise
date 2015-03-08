@@ -35,8 +35,8 @@
 		component_parts = list()
 		component_parts += new /obj/item/weapon/stock_parts/matter_bin(src)
 		component_parts += new /obj/item/weapon/stock_parts/micro_laser(src)
-		component_parts += new /obj/item/weapon/cable_coil(src)
-		component_parts += new /obj/item/weapon/cable_coil(src)
+		component_parts += new /obj/item/stack/cable_coil(src)
+		component_parts += new /obj/item/stack/cable_coil(src)
 		component_parts += new /obj/item/weapon/stock_parts/capacitor(src)
 		component_parts += new board_path(src)
 		RefreshParts()
@@ -72,7 +72,7 @@
 		overheat()
 			explosion(get_turf(src), 2, 5, 2, -1)
 
-	attackby(var/obj/item/O as obj, var/mob/user as mob)
+	attackby(var/obj/item/O as obj, var/mob/user as mob, params)
 		if(istype(O, /obj/item/weapon/tank/plasma))
 			if(P)
 				user << "\red The generator already has a plasma tank loaded!"
@@ -81,14 +81,6 @@
 			user.drop_item()
 			O.loc = src
 			user << "\blue You add the plasma tank to the generator."
-		else if (istype(O, /obj/item/weapon/card/emag))
-			var/obj/item/weapon/card/emag/E = O
-			if(E.uses)
-				E.uses--
-			else
-				return
-			emagged = 1
-			emp_act(1)
 		else if(!active)
 			if(istype(O, /obj/item/weapon/wrench))
 				anchored = !anchored
@@ -114,6 +106,11 @@
 				new_frame.state = 2
 				new_frame.icon_state = "box_1"
 				del(src)
+				
+	emag_act(user as mob)
+		if(!emagged)
+			emagged = 1
+			emp_act(1)
 
 	attack_hand(mob/user as mob)
 		..()

@@ -12,6 +12,12 @@
 			return
 
 	if(istype(src.loc,/mob/living/simple_animal/borer))
+		message = trim(sanitize(copytext(message, 1, MAX_MESSAGE_LEN)))
+		if (!message)
+			return
+		log_say("[key_name(src)] : [message]")
+		if (stat == 2)
+			return say_dead(message)
 		var/mob/living/simple_animal/borer/B = src.loc
 		src << "You whisper silently, \"[message]\""
 		B.host << "The captive mind of [src] whispers, \"[message]\""
@@ -94,51 +100,11 @@
 
 /mob/living/simple_animal/borer/New(var/by_gamemode=0)
 	..()
+	add_language("Cortical Link")
 	truename = "[pick("Primary","Secondary","Tertiary","Quaternary")] [rand(1000,9999)]"
-	host_brain = new/mob/living/captive_brain(src)
 
 	if(!by_gamemode)
 		request_player()
-
-
-/mob/living/simple_animal/borer/say(var/message)
-
-	message = trim(copytext(sanitize(message), 1, MAX_MESSAGE_LEN))
-	message = capitalize(message)
-
-	if(!message)
-		return
-
-	if (stat == 2)
-		return say_dead(message)
-
-	if (stat)
-		return
-
-	if (src.client)
-		if(client.prefs.muted & MUTE_IC)
-			src << "\red You cannot speak in IC (muted)."
-			return
-		if (src.client.handle_spam_prevention(message,MUTE_IC))
-			return
-
-	if (copytext(message, 1, 2) == "*")
-		return emote(copytext(message, 2))
-
-	if (copytext(message, 1, 2) == ";") //Brain borer hivemind.
-		return borer_speak(message)
-
-	if(!host)
-		src << "You have no host to speak to."
-		return //No host, no audible speech.
-
-	src << "You drop words into [host]'s mind: \"[message]\""
-	host << "Your own thoughts speak: \"[message]\""
-
-	for(var/mob/M in mob_list)
-		if(M.mind && (istype(M, /mob/dead/observer)))
-			M << "<i>Thought-speech, <b>[truename]</b> -> <b>[host]:</b> [copytext(message, 2)]</i>"
-
 
 /mob/living/simple_animal/borer/Stat()
 	..()
@@ -215,10 +181,6 @@
 		src << "You cannot do that in your current state."
 		return
 
-	if(!host.internal_organs_by_name["brain"]) //this should only run in admin-weirdness situations, but it's here non the less - RR
-		src << "<span class='warning'>There is no brain here for us to command!</span>"
-		return
-
 	if(docile)
 		src << "\blue You are feeling far too docile to do that."
 		return
@@ -232,7 +194,9 @@
 		else
 			src << "\red <B>You plunge your probosci deep into the cortex of the host brain, interfacing directly with their nervous system.</B>"
 			host << "\red <B>You feel a strange shifting sensation behind your eyes as an alien consciousness displaces yours.</B>"
-
+			var/borer_key = src.key
+			host.attack_log += text("\[[time_stamp()]\] <font color='blue'>[src.name] ([src.ckey]) has assumed control of [host.name] ([host.ckey])</font>")
+			msg_admin_attack("[src.name] ([src.ckey]) has assumed control of [host.name] ([host.ckey]) (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[host.x];Y=[host.y];Z=[host.z]'>JMP</a>)")
 			// host -> brain
 			var/h2b_id = host.computer_id
 			var/h2b_ip= host.lastKnownIP
@@ -243,6 +207,8 @@
 			host_brain = new(src)
 
 			host_brain.ckey = host.ckey
+
+			host_brain.name = host.name
 
 			if(!host_brain.computer_id)
 				host_brain.computer_id = h2b_id
@@ -270,11 +236,13 @@
 			host.verbs += /mob/living/carbon/proc/punish_host
 			host.verbs += /mob/living/carbon/proc/spawn_larvae
 
+			if(src && !src.key)
+				src.key = "@[borer_key]"
 			return
 
 /mob/living/simple_animal/borer/verb/secrete_chemicals()
 	set category = "Alien"
-	set name = "Secrete Chemicals"
+	set name = "Secrete Chemicals (50)"
 	set desc = "Push some chemicals into your host's bloodstream."
 
 	if(!host)
@@ -291,9 +259,9 @@
 	if(chemicals < 50)
 		src << "You don't have enough chemicals!"
 
-	var/chem = input("Select a chemical to secrete.", "Chemicals") in list("bicaridine","tramadol","hyperzine","alkysine")
+	var/chem = input("Select a chemical to secrete.", "Chemicals") as null|anything in list("alkysine","bicaridine","hyperzine","tramadol")
 
-	if(chemicals < 50 || !host || controlling || !src || stat) //Sanity check.
+	if(!chem || chemicals < 50 || !host || controlling || !src || stat) //Sanity check.
 		return
 
 	src << "\red <B>You squirt a measure of [chem] from your reservoirs into [host]'s bloodstream.</B>"
@@ -331,6 +299,7 @@
 		src << "You wiggle out of [host]'s ear and plop to the ground."
 
 		detatch()
+		leave_host()
 
 mob/living/simple_animal/borer/proc/detatch()
 
@@ -341,14 +310,10 @@ mob/living/simple_animal/borer/proc/detatch()
 		var/datum/organ/external/head = H.get_organ("head")
 		head.implants -= src
 
-	src.loc = get_turf(host)
 	controlling = 0
 
 	reset_view(null)
 	machine = null
-
-	host.reset_view(null)
-	host.machine = null
 
 	host.verbs -= /mob/living/carbon/proc/release_control
 	host.verbs -= /mob/living/carbon/proc/punish_host
@@ -356,7 +321,8 @@ mob/living/simple_animal/borer/proc/detatch()
 
 
 	if(host_brain)
-
+		host.attack_log += text("\[[time_stamp()]\] <font color='blue'>[host_brain.name] ([host_brain.ckey]) has taken control back from [src.name] ([host.ckey])</font>")
+		msg_admin_attack("[host_brain.name] ([host_brain.ckey]) has taken control back from [src.name] ([host.ckey]) (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[host.x];Y=[host.y];Z=[host.z]'>JMP</a>)")
 		// host -> self
 		var/h2s_id = host.computer_id
 		var/h2s_ip= host.lastKnownIP
@@ -387,11 +353,23 @@ mob/living/simple_animal/borer/proc/detatch()
 
 	del(host_brain)
 
+	return
+
+/mob/living/simple_animal/borer/proc/leave_host()
+
+	if(!host)	return
+
+	src.loc = get_turf(host)
+
+	reset_view(null)
+	machine = null
+
+	host.reset_view(null)
+	host.machine = null
+
 	var/mob/living/H = host
 	H.status_flags &= ~PASSEMOTES
-
 	host = null
-
 	return
 
 /mob/living/simple_animal/borer/verb/infest()
@@ -479,48 +457,12 @@ mob/living/simple_animal/borer/proc/detatch()
 	host.status_flags |= PASSEMOTES
 
 /mob/living/simple_animal/borer/verb/ventcrawl()
-	set name = "Crawl through Vent"
+	set name = "Crawl through vent (borer)"
 	set desc = "Enter an air vent and crawl through the pipe system."
 	set category = "Alien"
+	handle_ventcrawl()
 
-//	if(!istype(V,/obj/machinery/atmoalter/siphs/fullairsiphon/air_vent))
-//		return
-	var/obj/machinery/atmospherics/unary/vent_pump/vent_found
-	var/welded = 0
-	for(var/obj/machinery/atmospherics/unary/vent_pump/v in range(1,src))
-		if(!v.welded)
-			vent_found = v
-			break
-		else
-			welded = 1
-	if(vent_found)
-		if(vent_found.network&&vent_found.network.normal_members.len)
-			var/list/vents = list()
-			for(var/obj/machinery/atmospherics/unary/vent_pump/temp_vent in vent_found.network.normal_members)
-				if(temp_vent.loc == loc)
-					continue
-				vents.Add(temp_vent)
-			var/list/choices = list()
-			for(var/obj/machinery/atmospherics/unary/vent_pump/vent in vents)
-				if(vent.loc.z != loc.z)
-					continue
-				var/atom/a = get_turf(vent)
-				choices.Add(a.loc)
-			var/turf/startloc = loc
-			var/obj/selection = input("Select a destination.", "Duct System") in choices
-			var/selection_position = choices.Find(selection)
-			if(loc==startloc)
-				var/obj/target_vent = vents[selection_position]
-				if(target_vent)
-					loc = target_vent.loc
-			else
-				src << "\blue You need to remain still while entering a vent."
-		else
-			src << "\blue This vent is not connected to anything."
-	else if(welded)
-		src << "\red That vent is welded."
-	else
-		src << "\blue You must be standing on or beside an air vent to enter it."
+/mob/living/simple_animal/borer/can_use_vents()
 	return
 
 //Procs for grabbing players.
@@ -529,7 +471,7 @@ mob/living/simple_animal/borer/proc/request_player()
 		if(jobban_isbanned(O, "Syndicate"))
 			continue
 		if(O.client)
-			if(O.client.prefs.be_special & BE_ALIEN)
+			if(O.client.prefs.be_special & BE_ALIEN && !jobban_isbanned(O, "alien"))
 				question(O.client)
 
 mob/living/simple_animal/borer/proc/question(var/client/C)

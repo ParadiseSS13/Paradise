@@ -10,7 +10,7 @@
 	for(var/obj/item/W in src)
 		if (W==w_uniform) // will be torn
 			continue
-		drop_from_inventory(W)
+		unEquip(W)
 	regenerate_icons()
 	monkeyizing = 1
 	canmove = 0
@@ -61,19 +61,19 @@
 	spawning = 1
 	return ..()
 
-/mob/living/carbon/human/AIize()
+/mob/living/carbon/human/AIize(move=1) // 'move' argument needs defining here too because BYOND is dumb
 	if (monkeyizing)
 		return
 	for(var/t in organs)
 		del(t)
 
-	return ..()
+	return ..(move)
 
 /mob/living/carbon/AIize()
 	if (monkeyizing)
 		return
 	for(var/obj/item/W in src)
-		drop_from_inventory(W)
+		unEquip(W)
 	monkeyizing = 1
 	canmove = 0
 	icon = null
@@ -116,28 +116,17 @@
 	for (var/obj/item/device/radio/intercom/comm in O.loc)
 		comm.ai += O
 
-	O << "<B>You are playing the station's AI. The AI cannot move, but can interact with many objects while viewing them (through cameras).</B>"
-	O << "<B>To look at other parts of the station, click on yourself to get a camera menu.</B>"
-	O << "<B>While observing through a camera, you can use most (networked) devices which you can see, such as computers, APCs, intercoms, doors, etc.</B>"
-	O << "To use something, simply click on it."
-	O << {"Use say ":b to speak to your cyborgs through binary."}
-	if (!(ticker && ticker.mode && (O.mind in ticker.mode.malf_ai)))
-		O.show_laws()
-		O << "<b>These laws may be changed by other players, or by you being the traitor.</b>"
+	O.on_mob_init()
 
-	O.verbs += /mob/living/silicon/ai/proc/show_laws_verb
-	O.verbs += /mob/living/silicon/ai/proc/ai_statuschange
-
-	O.job = "AI"
+	O.add_ai_verbs()
 
 	O.rename_self("ai",1)
 	. = O
-	del(src)
-
-
+	qdel(src)
+	
 /mob/living/carbon/human/make_into_mask(var/should_gib = 0)
 	for(var/t in organs)
-		del(t)
+		qdel(t)
 	return ..(should_gib)
 
 
@@ -149,7 +138,7 @@
 
 	if(!should_remove_items)
 		for(var/obj/item/W in src)
-			drop_from_inventory(W)
+			unEquip(W)
 
 	var/mob/spirit/mask/new_spirit = new()
 
@@ -192,7 +181,7 @@
 	if (monkeyizing)
 		return
 	for(var/obj/item/W in src)
-		drop_from_inventory(W)
+		unEquip(W)
 	regenerate_icons()
 	monkeyizing = 1
 	canmove = 0
@@ -248,7 +237,7 @@
 	if (monkeyizing)
 		return
 	for(var/obj/item/W in src)
-		drop_from_inventory(W)
+		unEquip(W)
 	regenerate_icons()
 	monkeyizing = 1
 	canmove = 0
@@ -279,7 +268,7 @@
 	if (monkeyizing)
 		return
 	for(var/obj/item/W in src)
-		drop_from_inventory(W)
+		unEquip(W)
 	regenerate_icons()
 	monkeyizing = 1
 	canmove = 0
@@ -314,7 +303,7 @@
 	if (monkeyizing)
 		return
 	for(var/obj/item/W in src)
-		drop_from_inventory(W)
+		unEquip(W)
 	regenerate_icons()
 	monkeyizing = 1
 	canmove = 0
@@ -344,7 +333,7 @@
 	if(monkeyizing)
 		return
 	for(var/obj/item/W in src)
-		drop_from_inventory(W)
+		unEquip(W)
 
 	regenerate_icons()
 	monkeyizing = 1
@@ -432,12 +421,19 @@
 		return 1 //Parrots are no longer unfinished! -Nodrak
 	if(ispath(MP, /mob/living/simple_animal/pony))
 		return 1 // ZOMG PONIES WHEEE
+	if(ispath(MP, /mob/living/simple_animal/fox))
+		return 1
+	if(ispath(MP, /mob/living/simple_animal/chick))
+		return 1
+	if(ispath(MP, /mob/living/simple_animal/pug))
+		return 1
+	if(ispath(MP, /mob/living/simple_animal/butterfly))
+		return 1
 	//Not in here? Must be untested!
 	return 0
 
 
 /mob/proc/safe_respawn(var/MP)
-//Bad mobs! - Remember to add a comment explaining what's wrong with the mob
 	if(!MP)
 		return 0	//Sanity, this should never happen.
 
@@ -456,21 +452,29 @@
 		return 1
 	if(ispath(MP, /mob/living/simple_animal/pony))
 		return 1
+	if(ispath(MP, /mob/living/simple_animal/fox))
+		return 1
+	if(ispath(MP, /mob/living/simple_animal/chick))
+		return 1
+	if(ispath(MP, /mob/living/simple_animal/pug))
+		return 1
+	if(ispath(MP, /mob/living/simple_animal/butterfly))
+		return 1
 
 //Antag Creatures!
-/*	if(ispath(MP, /mob/living/simple_animal/hostile/carp))
+/*	if(ispath(MP, /mob/living/simple_animal/hostile/carp) && !jobban_isbanned(src, "Syndicate"))
 		return 1
-	if(ispath(MP, /mob/living/simple_animal/hostile/giant_spider))
+	if(ispath(MP, /mob/living/simple_animal/hostile/giant_spider) && !jobban_isbanned(src, "Syndicate"))
 		return 1 */
-	if(ispath(MP, /mob/living/simple_animal/borer))
+	if(ispath(MP, /mob/living/simple_animal/borer) && !jobban_isbanned(src, "alien") && !jobban_isbanned(src, "Syndicate"))
 		return 1
-	if(ispath(MP, /mob/living/carbon/alien))
+	if(ispath(MP, /mob/living/carbon/alien) && !jobban_isbanned(src, "alien") && !jobban_isbanned(src, "Syndicate"))
 		return 1
-	if(ispath(MP, /mob/living/simple_animal/hostile/statue))
+	if(ispath(MP, /mob/living/simple_animal/hostile/statue) && !jobban_isbanned(src, "Syndicate"))
 		return 1
 
 //Friendly Creatures!
-	if(ispath(MP, /mob/living/carbon/monkey/diona))
+	if(ispath(MP, /mob/living/carbon/monkey/diona) && !jobban_isbanned(src, "Dionaea"))
 		return 1
 
 	//Not in here? Must be untested!

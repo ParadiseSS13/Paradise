@@ -8,7 +8,7 @@
 
 	var/obj/item/device/radio/borg/radio = null
 	var/mob/living/silicon/ai/connected_ai = null
-	var/obj/item/weapon/cell/cell = null
+	var/obj/item/weapon/stock_parts/cell/cell = null
 	var/obj/machinery/camera/camera = null
 	var/obj/item/device/mmi/mmi = null
 	var/list/req_access = list(access_robotics) //Access needed to pop out the brain.
@@ -42,7 +42,7 @@
 	speak_emote = list("beeps","clicks","chirps")
 	can_hide = 1
 
-/mob/living/simple_animal/spiderbot/attackby(var/obj/item/O as obj, var/mob/user as mob)
+/mob/living/simple_animal/spiderbot/attackby(var/obj/item/O as obj, var/mob/user as mob, params)
 
 	if(istype(O, /obj/item/device/mmi) || istype(O, /obj/item/device/mmi/posibrain))
 		var/obj/item/device/mmi/B = O
@@ -71,7 +71,7 @@
 			user << "\red [O] is dead. Sticking it into the frame would sort of defeat the purpose."
 			return
 
-		if(jobban_isbanned(B.brainmob, "Cyborg"))
+		if(jobban_isbanned(B.brainmob, "Cyborg") || jobban_isbanned(B.brainmob,"nonhumandept"))
 			user << "\red [O] does not seem to fit."
 			return
 
@@ -125,18 +125,6 @@
 		else
 			user << "\red You swipe your card, with no effect."
 			return 0
-	else if (istype(O, /obj/item/weapon/card/emag))
-		if (emagged)
-			user << "\red [src] is already overloaded - better run."
-			return 0
-		else
-			var/obj/item/weapon/card/emag/emag = O
-			emag.uses--
-			emagged = 1
-			user << "\blue You short out the security protocols and overload [src]'s cell, priming it to explode in a short time."
-			spawn(100)	src << "\red Your cell seems to be outputting a lot of power..."
-			spawn(200)	src << "\red Internal heat sensors are spiking! Something is badly wrong with your cell!"
-			spawn(300)	src.explode()
 
 	else
 		if(O.force)
@@ -152,6 +140,17 @@
 			for(var/mob/M in viewers(src, null))
 				if ((M.client && !( M.blinded )))
 					M.show_message("\red [user] gently taps [src] with the [O]. ")
+					
+/mob/living/simple_animal/spiderbot/emag_act(user as mob)
+	if (emagged)
+		user << "\red [src] is already overloaded - better run."
+		return 0
+	else
+		emagged = 1
+		user << "\blue You short out the security protocols and overload [src]'s cell, priming it to explode in a short time."
+		spawn(100)	src << "\red Your cell seems to be outputting a lot of power..."
+		spawn(200)	src << "\red Internal heat sensors are spiking! Something is badly wrong with your cell!"
+		spawn(300)	src.explode()
 
 /mob/living/simple_animal/spiderbot/proc/transfer_personality(var/obj/item/device/mmi/M as obj)
 

@@ -1,5 +1,3 @@
-
-
 /datum/event/falsealarm
 	announceWhen	= 0
 	endWhen			= 1

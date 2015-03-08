@@ -23,6 +23,10 @@
 /mob/living/silicon/ai/proc/set_zeroth_law(var/law, var/law_borg)
 	src.laws_sanity_check()
 	src.laws.set_zeroth_law(law, law_borg)
+	
+/mob/living/silicon/ai/proc/clear_zeroth_law(var/law_borg)
+	src.laws_sanity_check()
+	src.laws.clear_zeroth_law(law_borg)
 
 /mob/living/silicon/ai/proc/add_inherent_law(var/law)
 	src.laws_sanity_check()
@@ -108,7 +112,7 @@
 				number++
 
 
-/mob/living/silicon/ai/verb/checklaws() //Gives you a link-driven interface for deciding what laws the statelaws() proc will share with the crew. --NeoFite
+/mob/living/silicon/ai/proc/checklaws() //Gives you a link-driven interface for deciding what laws the statelaws() proc will share with the crew. --NeoFite
 	set category = "AI Commands"
 	set name = "State Laws"
 

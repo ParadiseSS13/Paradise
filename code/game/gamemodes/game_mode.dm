@@ -22,7 +22,8 @@
 	var/explosion_in_progress = 0 //sit back and relax
 	var/list/datum/mind/modePlayer = new
 	var/list/restricted_jobs = list()	// Jobs it doesn't make sense to be.  I.E chaplain or AI cultist
-	var/list/protected_jobs = list()	// Jobs that can't be trators
+	var/list/protected_jobs = list()	// Jobs that can't be traitors
+	var/list/protected_species = list() // Species that can't be traitors
 	var/required_players = 0
 	var/required_players_secret = 0 //Minimum number of players for that game mode to be chose in Secret
 	var/required_enemies = 0
@@ -35,13 +36,13 @@
 	var/uplink_items = {"Highly Visible and Dangerous Weapons;
 /obj/item/weapon/gun/projectile:6:Revolver;
 /obj/item/ammo_magazine/a357:2:Ammo-357;
-/obj/item/weapon/gun/energy/crossbow:5:Energy Crossbow;
+/obj/item/weapon/gun/energy/kinetic_accelerator/crossbow:5:Energy Crossbow;
 /obj/item/weapon/melee/energy/sword:4:Energy Sword;
 /obj/item/weapon/storage/box/syndicate:10:Syndicate Bundle;
 /obj/item/weapon/storage/box/emps:3:5 EMP Grenades;
 Whitespace:Seperator;
 Stealthy and Inconspicuous Weapons;
-/obj/item/weapon/pen/paralysis:3:Paralysis Pen;
+/obj/item/weapon/pen/sleepy:3:Sleepy Pen;
 /obj/item/weapon/soap/syndie:1:Syndicate Soap;
 /obj/item/weapon/cartridge/syndicate:3:Detomatix PDA Cartridge;
 Whitespace:Seperator;
@@ -59,7 +60,7 @@ Devices and Tools;
 /obj/item/clothing/glasses/thermal/syndi:3:Thermal Imaging Glasses;
 /obj/item/device/encryptionkey/binary:3:Binary Translator Key;
 /obj/item/weapon/aiModule/syndicate:7:Hacked AI Upload Module;
-/obj/item/weapon/plastique:2:C-4 (Destroys walls);
+/obj/item/weapon/c4:2:C-4 (Destroys walls);
 /obj/item/device/powersink:5:Powersink (DANGER!);
 /obj/item/device/radio/beacon/syndicate:7:Singularity Beacon (DANGER!);
 /obj/item/weapon/circuitboard/teleporter:20:Teleporter Circuit Board;
@@ -322,10 +323,7 @@ Implants;
 			comm.messagetext.Add(intercepttext)
 /*	world << sound('sound/AI/commandreport.ogg') */
 
-	command_alert("Summary downloaded and printed out at all communications consoles.", "Enemy communication intercepted. Security Level Elevated.")
-	for(var/mob/M in player_list)
-		if(!istype(M,/mob/new_player))
-			M << sound('sound/AI/intercept.ogg')
+	command_announcement.Announce("Summary downloaded and printed out at all communications consoles.", "Enemy communication intercepted. Security Level Elevated.", new_sound = 'sound/AI/intercept.ogg')
 	if(security_level < SEC_LEVEL_BLUE)
 		set_security_level(SEC_LEVEL_BLUE)
 
@@ -336,29 +334,21 @@ Implants;
 	//var/list/drafted = list()
 	//var/datum/mind/applicant = null
 
-	var/roletext
-	switch(role)
-		if(BE_CHANGELING)	roletext="changeling"
-		if(BE_TRAITOR)		roletext="traitor"
-		if(BE_OPERATIVE)	roletext="operative"
-		if(BE_WIZARD)		roletext="wizard"
-		if(BE_REV)			roletext="revolutionary"
-		if(BE_CULTIST)		roletext="cultist"
-		if(BE_NINJA)		roletext="ninja"
-		if(BE_VOX)			roletext="vox"
+	var/roletext = get_roletext(role)
 
 	// Assemble a list of active players without jobbans.
 	for(var/mob/new_player/player in player_list)
-		if( player.client && player.ready )
+		if(player.client && player.ready)
 			if(!jobban_isbanned(player, "Syndicate") && !jobban_isbanned(player, roletext))
-				players += player
+				if(player_old_enough_antag(player.client,role))
+					players += player
 
 	// Shuffle the players list so that it becomes ping-independent.
 	players = shuffle(players)
 
-	// Get a list of all the people who want to be the antagonist for this round
+	// Get a list of all the people who want to be the antagonist for this round, except those with incompatible species
 	for(var/mob/new_player/player in players)
-		if(player.client.prefs.be_special & role)
+		if(player.client.prefs.be_special & role && !(player.client.prefs.species in protected_species))
 			log_debug("[player.key] had [roletext] enabled, so we are drafting them.")
 			candidates += player.mind
 			players -= player
@@ -452,6 +442,11 @@ Implants;
 		if(P.client && P.ready)
 			. ++
 
+/datum/game_mode/proc/num_players_started()
+	. = 0
+	for(var/mob/living/carbon/human/H in player_list)
+		if(H.client)
+			. ++
 
 ///////////////////////////////////
 //Keeps track of all living heads//
@@ -463,6 +458,13 @@ Implants;
 			heads += player.mind
 	return heads
 
+/datum/game_mode/proc/get_extra_living_heads()
+	var/list/heads = list()
+	var/list/alt_positions = list("Warden", "Magistrate", "Blueshield", "Nanotrasen Representative")
+	for(var/mob/living/carbon/human/player in mob_list)
+		if(player.stat!=2 && player.mind && (player.mind.assigned_role in alt_positions))
+			heads += player.mind
+	return heads
 
 ////////////////////////////
 //Keeps track of all heads//
@@ -471,6 +473,14 @@ Implants;
 	var/list/heads = list()
 	for(var/mob/player in mob_list)
 		if(player.mind && (player.mind.assigned_role in command_positions))
+			heads += player.mind
+	return heads
+
+/datum/game_mode/proc/get_extra_heads()
+	var/list/heads = list()
+	var/list/alt_positions = list("Warden", "Magistrate", "Blueshield", "Nanotrasen Representative")
+	for(var/mob/player in mob_list)
+		if(player.mind && (player.mind.assigned_role in alt_positions))
 			heads += player.mind
 	return heads
 
@@ -551,3 +561,40 @@ proc/get_nt_opposed()
 				dudes += man
 	if(dudes.len == 0) return null
 	return pick(dudes)
+
+//Announces objectives/generic antag text.
+/proc/show_generic_antag_text(var/datum/mind/player)
+	if(player.current)
+		player.current << \
+		"You are an antagonist! <font color=blue>Within the rules,</font> \
+		try to act as an opposing force to the crew. Further RP and try to make sure \
+		other players have <i>fun</i>! If you are confused or at a loss, always adminhelp, \
+		and before taking extreme actions, please try to also contact the administration! \
+		Think through your actions and make the roleplay immersive! <b>Please remember all \
+		rules aside from those without explicit exceptions apply to antagonists.</b>"
+
+/proc/show_objectives(var/datum/mind/player)
+	if(!player || !player.current) return
+
+	var/obj_count = 1
+	player.current << "\blue Your current objectives:"
+	for(var/datum/objective/objective in player.objectives)
+		player.current << "<B>Objective #[obj_count]</B>: [objective.explanation_text]"
+		obj_count++
+
+/proc/get_roletext(var/role)
+	var/roletext
+	switch(role)
+		if(BE_CHANGELING)	roletext="changeling"
+		if(BE_TRAITOR)		roletext="traitor"
+		if(BE_OPERATIVE)	roletext="operative"
+		if(BE_WIZARD)		roletext="wizard"
+		if(BE_REV)			roletext="revolutionary"
+		if(BE_CULTIST)		roletext="cultist"
+		if(BE_NINJA)		roletext="ninja"
+		if(BE_RAIDER)		roletext="raider"
+		if(BE_VAMPIRE)		roletext="vampire"
+		if(BE_ALIEN)		roletext="alien"
+		if(BE_MUTINEER)		roletext="mutineer"
+		if(BE_BLOB)			roletext="blob"
+	return roletext

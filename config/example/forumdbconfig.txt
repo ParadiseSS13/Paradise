@@ -10,7 +10,7 @@ ADDRESS localhost
 PORT 3306
 
 # Database the forum data may be found in
-DATABASE tgstation13
+DATABASE paradise
 
 # Username/Login used to access the database
 LOGIN mylogin

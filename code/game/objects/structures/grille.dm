@@ -5,7 +5,7 @@
 	icon_state = "grille"
 	density = 1
 	anchored = 1
-	flags = FPRINT | CONDUCT
+	flags = CONDUCT
 	pressure_resistance = 5*ONE_ATMOSPHERE
 	layer = 2.9
 	explosion_resistance = 5
@@ -55,10 +55,12 @@
 	if(ismob(user)) shock(user, 70)
 
 
-/obj/structure/grille/attack_paw(mob/user as mob)
+/obj/structure/grille/attack_paw(mob/living/user as mob)
 	attack_hand(user)
 
-/obj/structure/grille/attack_hand(mob/user as mob)
+/obj/structure/grille/attack_hand(mob/living/user as mob)
+	user.changeNext_move(CLICK_CD_MELEE)
+	user.do_attack_animation(src)
 	playsound(loc, 'sound/effects/grillehit.ogg', 80, 1)
 	user.visible_message("<span class='warning'>[user] kicks [src].</span>", \
 						 "<span class='warning'>You kick [src].</span>", \
@@ -66,15 +68,16 @@
 
 	if(shock(user, 70))
 		return
-	if(M_HULK in user.mutations)
+	if(HULK in user.mutations)
 		health -= 5
 	else
 		health -= 1
 	healthcheck()
 
-/obj/structure/grille/attack_alien(mob/user as mob)
+/obj/structure/grille/attack_alien(mob/living/user as mob)
 	if(istype(user, /mob/living/carbon/alien/larva))	return
-
+	user.changeNext_move(CLICK_CD_MELEE)
+	user.do_attack_animation(src)
 	playsound(loc, 'sound/effects/grillehit.ogg', 80, 1)
 	user.visible_message("<span class='warning'>[user] mangles [src].</span>", \
 						 "<span class='warning'>You mangle [src].</span>", \
@@ -85,7 +88,9 @@
 		healthcheck()
 		return
 
-/obj/structure/grille/attack_slime(mob/user as mob)
+/obj/structure/grille/attack_slime(mob/living/user as mob)
+	user.changeNext_move(CLICK_CD_MELEE)
+	user.do_attack_animation(src)
 	var/mob/living/carbon/slime/S = user
 	if (!S.is_adult)
 		return
@@ -101,7 +106,8 @@
 
 /obj/structure/grille/attack_animal(var/mob/living/simple_animal/M as mob)
 	if(M.melee_damage_upper == 0)	return
-
+	M.changeNext_move(CLICK_CD_MELEE)
+	M.do_attack_animation(src)
 	playsound(loc, 'sound/effects/grillehit.ogg', 80, 1)
 	M.visible_message("<span class='warning'>[M] smashes against [src].</span>", \
 					  "<span class='warning'>You smash against [src].</span>", \
@@ -128,18 +134,16 @@
 			return !density
 
 /obj/structure/grille/bullet_act(var/obj/item/projectile/Proj)
-
-	if(!Proj)	return
-
-	//Tasers and the like should not damage grilles.
-	if(Proj.damage_type == STAMINA)
+	if(!Proj)
 		return
+	..()
+	if((Proj.damage_type != STAMINA)) //Grilles can't be exhausted to death
+		src.health -= Proj.damage*0.3
+		healthcheck()
+	return
 
-	src.health -= Proj.damage*0.2
-	healthcheck()
-	return 0
-
-/obj/structure/grille/attackby(obj/item/weapon/W as obj, mob/user as mob)
+/obj/structure/grille/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
+	user.changeNext_move(CLICK_CD_MELEE)
 	if(iswirecutter(W))
 		if(!shock(user, 100))
 			playsound(loc, 'sound/items/Wirecutter.ogg', 100, 1)

@@ -3,6 +3,10 @@
 		M << "No attacking people at spawn, you jackass."
 		return
 
+	if(frozen)
+		M << "\red Do not touch Admin-Frozen people."
+		return
+
 	var/datum/organ/external/temp = M:organs_by_name["r_hand"]
 	if (M.hand)
 		temp = M:organs_by_name["l_hand"]
@@ -14,6 +18,7 @@
 
 	if((M != src) && check_shields(0, M.name))
 		add_logs(src, M, "attempted to touch")
+		M.do_attack_animation(src)
 		visible_message("\red <B>[M] attempted to touch [src]!</B>")
 		return 0
 
@@ -27,7 +32,9 @@
 			var/datum/organ/external/affecting = get_organ(ran_zone(M.zone_sel.selecting))
 			var/armor_block = run_armor_check(affecting, "melee")
 
-			if(M_HULK in M.mutations)			damage += 5
+			if(HULK in M.mutations)
+				damage += 5
+				Weaken(4)
 
 			playsound(loc, "punch", 25, 1, -1)
 
@@ -116,6 +123,7 @@
 					return
 			//end vampire codes
 
+			M.do_attack_animation(src)
 			add_logs(src, M, "[pick(attack.attack_verb)]ed")
 
 			if(!iscarbon(M))
@@ -133,8 +141,9 @@
 			var/datum/organ/external/affecting = get_organ(ran_zone(M.zone_sel.selecting))
 			var/armor_block = run_armor_check(affecting, "melee")
 
-			if(M_HULK in M.mutations)			damage += 5
-
+			if(HULK in M.mutations)
+				damage += 5
+				Weaken(4)
 
 			playsound(loc, attack.attack_sound, 25, 1, -1)
 
@@ -172,15 +181,15 @@
 				log_attack("[M.name] ([M.ckey]) pushed [src.name] ([src.ckey])")
 				return
 
-			if(randn <= 45 && !lying)
+/*			if(randn <= 45 && !lying)
 				if(head)
 					var/obj/item/clothing/head/H = head
 					if(!istype(H) || prob(H.loose))
-						drop_from_inventory(H)
-						if(prob(60))
-							step_away(H,M)
-						visible_message("<span class='warning'>[M] has knocked [src]'s [H] off!</span>",
-										"<span class='warning'>[M] knocked \the [H] clean off your head!</span>")
+						if(unEquip(H))
+							if(prob(60))
+								step_away(H,M)
+							visible_message("<span class='warning'>[M] has knocked [src]'s [H] off!</span>",
+											"<span class='warning'>[M] knocked \the [H] clean off your head!</span>") */
 
 			var/talked = 0	// BubbleWrap
 
@@ -209,8 +218,8 @@
 				//End BubbleWrap
 
 				if(!talked)	//BubbleWrap
-					drop_item()
-					visible_message("\red <B>[M] has disarmed [src]!</B>")
+					if(drop_item())
+						visible_message("\red <B>[M] has disarmed [src]!</B>")
 				playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
 				return
 

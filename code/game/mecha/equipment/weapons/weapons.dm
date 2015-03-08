@@ -158,7 +158,7 @@
 				var/mob/living/carbon/human/H = M
 				if(isobj(H.shoes))
 					var/thingy = H.shoes
-					H.drop_from_inventory(H.shoes)
+					H.unEquip(H.shoes)
 					walk_away(thingy,chassis,15,2)
 					spawn(20)
 						if(thingy)
@@ -293,7 +293,7 @@
 	name = "Ultra AC 2"
 	icon_state = "mecha_uac2"
 	equip_cooldown = 10
-	projectile = /obj/item/projectile/bullet/weakbullet
+	projectile = /obj/item/projectile/bullet/weakbullet3
 	fire_sound = 'sound/weapons/Gunshot.ogg'
 	projectiles = 300
 	projectile_energy_cost = 20
