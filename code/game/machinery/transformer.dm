@@ -246,7 +246,7 @@
 		badcount++
 	for(var/obj/item/weapon/kitchenknife/KK in src.loc)
 		badcount++
-	for(var/obj/item/weapon/plastique/KK in src.loc)
+	for(var/obj/item/weapon/c4/KK in src.loc)
 		badcount++
 	for(var/obj/item/weapon/melee/ML in src.loc)
 		badcount++
