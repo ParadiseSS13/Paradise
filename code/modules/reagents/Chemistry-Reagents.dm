@@ -2771,6 +2771,12 @@ datum
 				description = "This juice is VERY sour."
 				color = "#863333" // rgb: 175, 175, 0
 
+			grapejuice
+				name = "Grape Juice"
+				id = "grapejuice"
+				description = "This juice is known to stain shirts."
+				color = "#993399" // rgb: 153, 51, 153
+
 			banana
 				name = "Banana Juice"
 				id = "banana"

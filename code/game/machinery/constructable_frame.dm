@@ -344,10 +344,43 @@ to destroy them and players will be able to make replacements.
 	build_path = /obj/machinery/microwave
 	board_type = "machine"
 	origin_tech = "programming=1"
-	frame_desc = "Requires 1 Micro Laser, 1 piece of cable and 1 Console Screen."
+	frame_desc = "Requires 1 Micro Laser, 2 pieces of cable and 1 Console Screen."
 	req_components = list(
 							/obj/item/weapon/stock_parts/micro_laser = 1,
 							/obj/item/stack/cable_coil = 2,
+							/obj/item/weapon/stock_parts/console_screen = 1)
+
+/obj/item/weapon/circuitboard/oven
+	name = "circuit board (Oven)"
+	build_path = /obj/machinery/oven
+	board_type = "machine"
+	origin_tech = "programming=1;plasmatech=1"
+	frame_desc = "Requires 2 Micro Lasers, 5 pieces of cable and 1 Console Screen."
+	req_components = list(
+							/obj/item/weapon/stock_parts/micro_laser = 2,
+							/obj/item/stack/cable_coil = 5,
+							/obj/item/weapon/stock_parts/console_screen = 1)
+
+/obj/item/weapon/circuitboard/grill
+	name = "circuit board (Grill)"
+	build_path = /obj/machinery/grill
+	board_type = "machine"
+	origin_tech = "programming=1;plasmatech=1"
+	frame_desc = "Requires 2 Micro Lasers, 5 pieces of cable and 1 Console Screen."
+	req_components = list(
+							/obj/item/weapon/stock_parts/micro_laser = 2,
+							/obj/item/stack/cable_coil = 5,
+							/obj/item/weapon/stock_parts/console_screen = 1)
+
+/obj/item/weapon/circuitboard/candy_maker
+	name = "circuit board (Candy Maker)"
+	build_path = /obj/machinery/candy_maker
+	board_type = "machine"
+	origin_tech = "programming=2"
+	frame_desc = "Requires 1 Manipulator, 5 pieces of cable and 1 Console Screen."
+	req_components = list(
+							/obj/item/weapon/stock_parts/manipulator = 1,
+							/obj/item/stack/cable_coil = 5,
 							/obj/item/weapon/stock_parts/console_screen = 1)
 
 /obj/item/weapon/circuitboard/chem_dispenser
