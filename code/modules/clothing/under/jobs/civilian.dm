@@ -131,6 +131,18 @@
 		"Vox" = 'icons/mob/species/vox/uniform.dmi'
 		)
 
+/obj/item/clothing/under/rank/ntrep
+	desc = "A well-ironed dress shirt and matching set of black pants."
+	name = "dress shirt"
+	icon_state = "internalaffairs"
+	item_state = "internalaffairs"
+	_color = "internalaffairs"
+	flags = ONESIZEFITSALL
+	species_fit = list("Vox")
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/species/vox/uniform.dmi'
+		)
+
 
 /obj/item/clothing/under/rank/janitor
 	desc = "It's the official uniform of the station's janitor. It has minor protection from biohazards."
