@@ -18,15 +18,15 @@ var/const/WIRE_EXPLODE = 1
 				explode()
 
 /datum/wires/explosive/plastic
-	holder_type = /obj/item/weapon/plastique
+	holder_type = /obj/item/weapon/c4
 
 /datum/wires/explosive/plastic/CanUse(var/mob/living/L)
-	var/obj/item/weapon/plastique/P = holder
+	var/obj/item/weapon/c4/P = holder
 	if(P.open_panel)
 		return 1
 	return 0
 
 /datum/wires/explosive/plastic/explode()
-	var/obj/item/weapon/plastique/P = holder
+	var/obj/item/weapon/c4/P = holder
 	P.explode(get_turf(P))
 

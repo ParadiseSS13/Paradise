@@ -127,6 +127,7 @@
 						occupant2 << "<span class='warning'>[i]</span>"
 					if(i == 0)
 						explosion(loc, 2, 4, 8)
+						qdel(src)
 					sleep(10)
 
 	update_icons()

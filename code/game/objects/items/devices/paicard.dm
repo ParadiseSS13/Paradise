@@ -286,6 +286,8 @@
 	src.overlays.Cut()
 	src.overlays += "pai-off"
 
+/obj/item/device/paicard
+	var/current_emotion = 1
 /obj/item/device/paicard/proc/setEmotion(var/emotion)
 	if(pai)
 		src.overlays.Cut()
@@ -299,6 +301,7 @@
 			if(7) src.overlays += "pai-sad"
 			if(8) src.overlays += "pai-angry"
 			if(9) src.overlays += "pai-what"
+		current_emotion = emotion
 
 /obj/item/device/paicard/proc/alertUpdate()
 	var/turf/T = get_turf_or_move(src.loc)

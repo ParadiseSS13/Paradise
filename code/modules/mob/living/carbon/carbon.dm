@@ -203,36 +203,40 @@
 					src << "<span class='info'>You feel fatigued.</span>"
 			if((SKELETON in H.mutations) && (!H.w_uniform) && (!H.wear_suit))
 				H.play_xylophone()
-		else if(lying) // /vg/: For hugs. This is how update_icon figgers it out, anyway.  - N3X15
-			var/t_him = "it"
-			if (src.gender == MALE)
-				t_him = "him"
-			else if (src.gender == FEMALE)
-				t_him = "her"
-			if (istype(src,/mob/living/carbon/human) && src:w_uniform)
-				var/mob/living/carbon/human/H = src
-				H.w_uniform.add_fingerprint(M)
-			src.sleeping = max(0,src.sleeping-5)
-			if(src.sleeping == 0)
-				src.resting = 0
-			AdjustParalysis(-3)
-			AdjustStunned(-3)
-			AdjustWeakened(-3)
-			playsound(src.loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
-			M.visible_message( \
-				"\blue [M] shakes [src] trying to wake [t_him] up!", \
-				"\blue You shake [src] trying to wake [t_him] up!", \
-				)
-		// BEGIN HUGCODE - N3X
 		else
-			if (istype(src,/mob/living/carbon/human) && src:w_uniform)
-				var/mob/living/carbon/human/H = src
-				H.w_uniform.add_fingerprint(M)
-			playsound(get_turf(src), 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
-			M.visible_message( \
-				"\blue [M] gives [src] a [pick("hug","warm embrace")].", \
-				"\blue You hug [src].", \
-				)
+			if(player_logged)
+				M.visible_message("<span class='notice'>[M] shakes [src], but they do not respond. Probably suffering from SSD.", \
+				"<span class='notice'>You shake [src], but they are unresponsive. Probably suffering from SSD.</span>")
+			if(lying) // /vg/: For hugs. This is how update_icon figgers it out, anyway.  - N3X15
+				var/t_him = "it"
+				if (src.gender == MALE)
+					t_him = "him"
+				else if (src.gender == FEMALE)
+					t_him = "her"
+				if (istype(src,/mob/living/carbon/human) && src:w_uniform)
+					var/mob/living/carbon/human/H = src
+					H.w_uniform.add_fingerprint(M)
+				src.sleeping = max(0,src.sleeping-5)
+				if(src.sleeping == 0)
+					src.resting = 0
+				AdjustParalysis(-3)
+				AdjustStunned(-3)
+				AdjustWeakened(-3)
+				playsound(src.loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
+				M.visible_message( \
+					"\blue [M] shakes [src] trying to wake [t_him] up!", \
+					"\blue You shake [src] trying to wake [t_him] up!", \
+					)
+			// BEGIN HUGCODE - N3X
+			else
+				if (istype(src,/mob/living/carbon/human) && src:w_uniform)
+					var/mob/living/carbon/human/H = src
+					H.w_uniform.add_fingerprint(M)
+				playsound(get_turf(src), 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
+				M.visible_message( \
+					"\blue [M] gives [src] a [pick("hug","warm embrace")].", \
+					"\blue You hug [src].", \
+					)
 
 
 /mob/living/carbon/proc/eyecheck()
@@ -480,6 +484,36 @@
 	else if(I == legcuffed)
 		legcuffed = null
 		update_inv_legcuffed(1)
+
+/mob/living/carbon/proc/get_temperature(var/datum/gas_mixture/environment)
+	var/loc_temp = T0C
+	if(istype(loc, /obj/mecha))
+		var/obj/mecha/M = loc
+		loc_temp =  M.return_temperature()
+
+	else if(istype(loc, /obj/spacepod))
+		var/obj/spacepod/S = loc
+		loc_temp = S.return_temperature()
+
+	else if(istype(loc, /obj/structure/transit_tube_pod))
+		loc_temp = environment.temperature
+
+	else if(istype(get_turf(src), /turf/space))
+		var/turf/heat_turf = get_turf(src)
+		loc_temp = heat_turf.temperature
+
+	else if(istype(loc, /obj/machinery/atmospherics/unary/cryo_cell))
+		var/obj/machinery/atmospherics/unary/cryo_cell/C = loc
+
+		if(C.air_contents.total_moles() < 10)
+			loc_temp = environment.temperature
+		else
+			loc_temp = C.air_contents.temperature
+
+	else
+		loc_temp = environment.temperature
+
+	return loc_temp
 
 /mob/living/carbon/show_inv(mob/living/carbon/user as mob)
 	user.set_machine(src)
