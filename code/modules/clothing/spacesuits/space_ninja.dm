@@ -100,7 +100,7 @@
 
 		suitBusy = 1
 
-		if(suitActive && (alert("Confirm suit systems shutdown? This cannot be halted once it has started", "Confirm Shutdown", "Yes", "No") == "Yes"))
+		if(suitActive && (alert("Confirm suit systems shutdown? This cannot be halted once it has started.", "Confirm Shutdown", "Yes", "No") == "Yes"))
 			usr << "<span style='color: #0000ff;'>Now de-initializing...</span>"
 
 			sleep(15)
@@ -210,6 +210,7 @@
 
 		icon_state = (user.gender == MALE ? "s-ninjan" : "s-ninjanf")
 		suitGloves.icon_state = "s-ninjan"
+		suitGloves.item_state = "s-ninjan"
 
 		return 1
 
@@ -226,6 +227,7 @@
 		suitShoes.slowdown = -1
 		icon_state = "s-ninja"
 		suitGloves.icon_state = "s-ninja"
+		suitGloves.item_state = "s-ninja"
 
 		suitHood = null
 		suitMask = null
