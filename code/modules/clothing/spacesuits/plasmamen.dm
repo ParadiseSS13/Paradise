@@ -3,10 +3,9 @@
 /obj/item/clothing/suit/space/eva/plasmaman
 	name = "plasmaman suit"
 	desc = "A special containment suit designed to protect a plasmaman's volatile body from outside exposure and quickly extinguish it in emergencies."
-	w_class = 3
 	allowed = list(/obj/item/weapon/gun,/obj/item/ammo_casing,/obj/item/ammo_casing,/obj/item/weapon/melee/baton,/obj/item/weapon/melee/energy/sword,/obj/item/weapon/restraints/handcuffs,/obj/item/weapon/tank)
-	slowdown = 2
-	armor = list(melee = 0, bullet = 0, laser = 0,energy = 0, bomb = 0, bio = 100, rad = 0)
+	slowdown = 0
+	armor = list(melee = 0, bullet = 0, laser = 0,energy = 0, bomb = 0, bio = 100, rad = 20)
 	heat_protection = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
 	flags_inv = HIDEGLOVES|HIDESHOES|HIDEJUMPSUIT
@@ -64,6 +63,7 @@
 	else	user.SetLuminosity(user.luminosity - brightness_on)
 	user.update_inv_head()
 
+
 /obj/item/clothing/head/helmet/space/eva/plasmaman/pickup(mob/user)
 	if(on)
 		user.SetLuminosity(user.luminosity + brightness_on)
@@ -82,7 +82,6 @@
 /obj/item/clothing/suit/space/eva/plasmaman/assistant
 	name = "plasmaman assistant suit"
 	icon_state = "plasmamanAssistant_suit"
-	slowdown = 1
 
 /obj/item/clothing/head/helmet/space/eva/plasmaman/assistant
 	name = "plasmaman assistant helmet"
@@ -92,28 +91,27 @@
 /obj/item/clothing/suit/space/eva/plasmaman/atmostech
 	name = "plasmaman atmospheric suit"
 	icon_state = "plasmamanAtmos_suit"
-	armor = list(melee = 20, bullet = 0, laser = 0,energy = 0, bomb = 25, bio = 100, rad = 0)
+	armor = list(melee = 10, bullet = 5, laser = 10, energy = 5, bomb = 10, bio = 100, rad = 0)
 	max_heat_protection_temperature = FIRESUIT_MAX_HEAT_PROTECTION_TEMPERATURE
 
 /obj/item/clothing/head/helmet/space/eva/plasmaman/atmostech
 	name = "plasmaman atmospheric helmet"
 	icon_state = "plasmamanAtmos_helmet0"
 	base_state = "plasmamanAtmos_helmet"
-	armor = list(melee = 20, bullet = 0, laser = 0,energy = 0, bomb = 25, bio = 100, rad = 0)
+	armor = list(melee = 10, bullet = 5, laser = 10, energy = 5, bomb = 10, bio = 100, rad = 0)
 	max_heat_protection_temperature = FIRE_HELMET_MAX_HEAT_PROTECTION_TEMPERATURE
 
 /obj/item/clothing/suit/space/eva/plasmaman/engineer
 	name = "plasmaman engineer suit"
 	icon_state = "plasmamanEngineer_suit"
-	armor = list(melee = 40, bullet = 5, laser = 20,energy = 5, bomb = 35, bio = 100, rad = 80)
+	armor = list(melee = 10, bullet = 5, laser = 10, energy = 5, bomb = 10, bio = 100, rad = 75)
 	pressure_resistance = 200 * ONE_ATMOSPHERE
-	slowdown = 1
 
 /obj/item/clothing/head/helmet/space/eva/plasmaman/engineer
 	name = "plasmaman engineer helmet"
 	icon_state = "plasmamanEngineer_helmet0"
 	base_state = "plasmamanEngineer_helmet"
-	armor = list(melee = 40, bullet = 5, laser = 20,energy = 5, bomb = 35, bio = 100, rad = 80)
+	armor = list(melee = 10, bullet = 5, laser = 10, energy = 5, bomb = 10, bio = 100, rad = 75)
 	pressure_resistance = 200 * ONE_ATMOSPHERE
 
 /obj/item/clothing/suit/space/eva/plasmaman/engineer/ce
@@ -133,7 +131,6 @@
 /obj/item/clothing/suit/space/eva/plasmaman/botanist
 	name = "plasmaman botanist suit"
 	icon_state = "plasmamanBotanist_suit"
-	slowdown = 1
 
 /obj/item/clothing/head/helmet/space/eva/plasmaman/botanist
 	name = "plasmaman botanist helmet"
@@ -143,7 +140,6 @@
 /obj/item/clothing/suit/space/eva/plasmaman/chaplain
 	name = "plasmaman chaplain suit"
 	icon_state = "plasmamanChaplain_suit"
-	slowdown = 1
 
 /obj/item/clothing/head/helmet/space/eva/plasmaman/chaplain
 	name = "plasmaman chaplain helmet"
@@ -153,7 +149,6 @@
 /obj/item/clothing/suit/space/eva/plasmaman/clown
 	name = "plasmaman clown suit"
 	icon_state = "plasmaman_Clown"
-	slowdown = 1
 
 /obj/item/clothing/head/helmet/space/eva/plasmaman/clown
 	name = "plasmaman clown helmet"
@@ -163,7 +158,6 @@
 /obj/item/clothing/suit/space/eva/plasmaman/mime
 	name = "plasmaman mime suit"
 	icon_state = "plasmaman_Mime"
-	slowdown = 1
 
 /obj/item/clothing/head/helmet/space/eva/plasmaman/mime
 	name = "plasmaman mime helmet"
@@ -173,7 +167,6 @@
 /obj/item/clothing/suit/space/eva/plasmaman/service
 	name = "plasmaman service suit"
 	icon_state = "plasmamanService_suit"
-	slowdown = 1
 
 /obj/item/clothing/head/helmet/space/eva/plasmaman/service
 	name = "plasmaman service helmet"
@@ -183,7 +176,6 @@
 /obj/item/clothing/suit/space/eva/plasmaman/janitor
 	name = "plasmaman janitor suit"
 	icon_state = "plasmamanJanitor_suit"
-	slowdown = 1
 
 /obj/item/clothing/head/helmet/space/eva/plasmaman/janitor
 	name = "plasmaman janitor helmet"
@@ -196,7 +188,6 @@
 /obj/item/clothing/suit/space/eva/plasmaman/cargo
 	name = "plasmaman cargo suit"
 	icon_state = "plasmamanCargo_suit"
-	slowdown = 1
 
 /obj/item/clothing/head/helmet/space/eva/plasmaman/cargo
 	name = "plasmaman cargo helmet"
@@ -206,13 +197,13 @@
 /obj/item/clothing/suit/space/eva/plasmaman/miner
 	name = "plasmaman miner suit"
 	icon_state = "plasmamanMiner_suit"
-	armor = list(melee = 30, bullet = 5, laser = 15,energy = 5, bomb = 30, bio = 100, rad = 20)
+	armor = list(melee = 40, bullet = 5, laser = 10, energy = 5, bomb = 50, bio = 100, rad = 50)
 
 /obj/item/clothing/head/helmet/space/eva/plasmaman/miner
 	name = "plasmaman miner helmet"
 	icon_state = "plasmamanMiner_helmet0"
 	base_state = "plasmamanMiner_helmet"
-	armor = list(melee = 30, bullet = 5, laser = 15,energy = 5, bomb = 30, bio = 100, rad = 20)
+	armor = list(melee = 40, bullet = 5, laser = 10, energy = 5, bomb = 50, bio = 100, rad = 50)
 
 
 // MEDSCI
@@ -220,7 +211,6 @@
 /obj/item/clothing/suit/space/eva/plasmaman/medical
 	name = "plasmaman medical suit"
 	icon_state = "plasmamanMedical_suit"
-	slowdown = 1
 
 /obj/item/clothing/head/helmet/space/eva/plasmaman/medical
 	name = "plasmaman medical helmet"
@@ -230,7 +220,6 @@
 /obj/item/clothing/suit/space/eva/plasmaman/medical/paramedic
 	name = "plasmaman paramedic suit"
 	icon_state = "plasmaman_Paramedic"
-	slowdown = 1
 
 /obj/item/clothing/head/helmet/space/eva/plasmaman/medical/paramedic
 	name = "plasmaman paramedic helmet"
@@ -240,7 +229,6 @@
 /obj/item/clothing/suit/space/eva/plasmaman/medical/chemist
 	name = "plasmaman chemist suit"
 	icon_state = "plasmaman_Chemist"
-	slowdown = 1
 
 /obj/item/clothing/head/helmet/space/eva/plasmaman/medical/chemist
 	name = "plasmaman chemist helmet"
@@ -259,7 +247,6 @@
 /obj/item/clothing/suit/space/eva/plasmaman/science
 	name = "plasmaman scientist suit"
 	icon_state = "plasmamanScience_suit"
-	slowdown = 1
 
 /obj/item/clothing/head/helmet/space/eva/plasmaman/science
 	name = "plasmaman scientist helmet"
@@ -281,14 +268,13 @@
 /obj/item/clothing/suit/space/eva/plasmaman/security
 	name = "plasmaman security suit"
 	icon_state = "plasmamanSecurity_suit"
-	slowdown = 1
-	armor = list(melee = 40, bullet = 15, laser = 35,energy = 5, bomb = 35, bio = 100, rad = 20)
+	armor = list(melee = 30, bullet = 15, laser = 30,energy = 10, bomb = 10, bio = 100, rad = 50)
 
 /obj/item/clothing/head/helmet/space/eva/plasmaman/security
 	name = "plasmaman security helmet"
 	icon_state = "plasmamanSecurity_helmet0"
 	base_state = "plasmamanSecurity_helmet"
-	armor = list(melee = 40, bullet = 15, laser = 35,energy = 5, bomb = 35, bio = 100, rad = 20)
+	armor = list(melee = 30, bullet = 15, laser = 30,energy = 10, bomb = 10, bio = 100, rad = 50)
 
 /obj/item/clothing/suit/space/eva/plasmaman/security/hos
 	name = "plasmaman head of security suit"
@@ -322,7 +308,6 @@
 /obj/item/clothing/suit/space/eva/plasmaman/nuclear
 	name = "blood red plasmaman suit"
 	icon_state = "plasmaman_Nukeops"
-	slowdown = 1
 	armor = list(melee = 60, bullet = 50, laser = 30, energy = 15, bomb = 35, bio = 100, rad = 60)
 	allowed = list(/obj/item/device/flashlight,/obj/item/weapon/tank,/obj/item/weapon/gun,/obj/item/ammo_casing,/obj/item/ammo_casing,/obj/item/weapon/melee/baton,/obj/item/weapon/melee/energy/sword,/obj/item/weapon/restraints/handcuffs)
 	siemens_coefficient = 0.6
