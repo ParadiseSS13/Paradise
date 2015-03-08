@@ -7,45 +7,32 @@
 	use_power = 0
 	anchored = 1
 	density = 1
-
-	var/charges = 1
-	var/insisting = 0
-
+	var/datum/mind/target
+	var/list/types = list("Owlman", "The Griffin")
 /obj/machinery/wish_granter/attack_hand(var/mob/user as mob)
 	usr.set_machine(src)
 
-	if(charges <= 0)
-		user << "The Wish Granter lies silent."
-		return
-
-	else if(!istype(user, /mob/living/carbon/human))
+	if(!istype(user, /mob/living/carbon/human))
 		user << "You feel a dark stirring inside of the Wish Granter, something you want nothing of. Your instincts are better than any man's."
 		return
 
 	else if(is_special_character(user))
 		user << "Even to a heart as dark as yours, you know nothing good will come of this.  Something instinctual makes you pull away."
 
-	else if (!insisting)
-		user << "Your first touch makes the Wish Granter stir, listening to you.  Are you really sure you want to do this?"
-		insisting++
-
 	else
 		user << "The power of the Wish Granter have turned you into the superhero the station deserves. You are a masked vigilante, and answer to no man. Will you use your newfound strength to protect the innocent, or will you hunt the guilty?"
 
-		ticker.mode.traitors += user.mind
-		user.mind.special_role = "The Hero The Station Deserves"
-
+		var/wish
+		if(types.len == 1)
+			wish = pick(types)
+		else
+			wish = input("You want to become...","Wish") as null|anything in types
 
 		var/mob/living/carbon/human/M = user
-
-		var/wish = input("You want to...","Wish") as anything in list("Protect the innocent","Hunt the guilty")
 		switch(wish)
-			if("Protect the innocent")
+			if("Owlman")
+				types -= "Owlman"
 				M.fully_replace_character_name(M.real_name, "Owlman")
-
-				var/datum/objective/protect/protect = new
-				protect.owner = user.mind
-				user.mind.objectives += protect
 
 				for(var/obj/item/W in M)
 					M.unEquip(W)
@@ -64,12 +51,18 @@
 
 				M.regenerate_icons()
 
-			if("Hunt the guilty")
-				M.fully_replace_character_name(M.real_name, "The Griffin")
+				var/datum/objective/protect/protect = new
+				protect.owner = user.mind
+				if(target)
+					protect.target = target
+				else
+					protect.find_target()
+					target = protect.target
+				user.mind.objectives += protect
 
-				var/datum/objective/assassinate/assasinate = new
-				assasinate.owner = user.mind
-				user.mind.objectives += assasinate
+			if("The Griffin")
+				types -= "The Griffin"
+				M.fully_replace_character_name(M.real_name, "The Griffin")
 
 				for(var/obj/item/W in M)
 					M.unEquip(W)
@@ -88,14 +81,25 @@
 
 				M.regenerate_icons()
 
+				var/datum/objective/assassinate/assasinate = new
+				assasinate.owner = user.mind
+				if(target)
+					assasinate.target = target
+				else
+					assasinate.find_target()
+					target = assasinate.target
+				user.mind.objectives += assasinate
+
+		ticker.mode.traitors += user.mind
+		user.mind.special_role = wish
+
 		var/obj_count = 1
 		for(var/datum/objective/OBJ in user.mind.objectives)
 			user << "<B>Objective #[obj_count]</B>: [OBJ.explanation_text]"
 			obj_count++
 
-		charges--
-		insisting = 0
 
+		//Time to hand out the powers, since they are currently generic
 		if (!(HULK in user.mutations))
 			user.dna.SetSEState(HULKBLOCK,1)
 
@@ -122,4 +126,14 @@
 
 		user.update_mutations()
 
+		//Remove the wishgranter or teleport it randomly on the station
+		if(!types.len)
+			user << "The wishgranter slowly fades into mist..."
+			qdel(src)
+			return
+		else
+			var/impact_area = findEventArea()
+			var/turf/T = pick(get_area_turfs(impact_area))
+			if(T)
+				src.loc = T
 	return

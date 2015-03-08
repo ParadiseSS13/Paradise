@@ -849,7 +849,8 @@
 	build_type = MECHFAB
 	req_tech = list("combat" = 4, "syndicate" = 3)
 	build_path = /obj/item/borg/upgrade/syndicate
-	category = "Cyborg Upgrade Modules"
+	materials = list("$metal"=10000,"$glass"=15000,"$diamond" = 10000)
+	construction_time = 120
 	category = list("Cyborg Upgrade Modules")
 
 /datum/design/borg_upgrade_jetpack

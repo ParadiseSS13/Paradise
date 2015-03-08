@@ -13,6 +13,7 @@
 	var/obj/item/weapon/reagent_containers/glass/beaker = null
 	var/autoeject = 0
 
+	var/next_trans = 0
 	var/current_heat_capacity = 50
 	var/efficiency
 
@@ -38,7 +39,7 @@
 	component_parts += new /obj/item/stack/cable_coil(src, 1)
 	RefreshParts()
 
-/obj/machinery/atmospherics/unary/cryo_cell/New()
+/obj/machinery/atmospherics/unary/cryo_cell/upgraded/New()
 	..()
 	component_parts = list()
 	component_parts += new /obj/item/weapon/circuitboard/cryo_tube(src)
@@ -128,15 +129,13 @@
 	if(!on)
 		return
 
-	if(occupant)
-		if(occupant.stat != 2)
-			process_occupant()
-
 	if(air_contents)
 		temperature_archived = air_contents.temperature
 		heat_gas_contents()
 		expel_gas()
 
+		if(occupant)
+			process_occupant()
 	if(abs(temperature_archived-air_contents.temperature) > 1)
 		network.update = 1
 
@@ -220,7 +219,7 @@
 				data["beakerVolume"] += R.volume
 
 	data["autoeject"] = autoeject
-	
+
 	// update the ui if it exists, returns null if no ui is passed/found
 	ui = nanomanager.try_update_ui(user, src, ui_key, ui, data, force_open)
 	if (!ui)
@@ -319,11 +318,11 @@
 	if(air_contents.total_moles() < 10)
 		return
 	if(occupant)
-		if(occupant.stat == 2)
+		if(occupant.stat == 2 || occupant.health >= 100)  //Why waste energy on dead or healthy people
+			occupant.bodytemperature = T0C
 			return
 		occupant.bodytemperature += 2*(air_contents.temperature - occupant.bodytemperature)*current_heat_capacity/(current_heat_capacity + air_contents.heat_capacity())
 		occupant.bodytemperature = max(occupant.bodytemperature, air_contents.temperature) // this is so ugly i'm sorry for doing it i'll fix it later i promise
-		occupant.stat = 1
 		if(occupant.bodytemperature < T0C)
 			occupant.sleeping = max(5/efficiency, (1/occupant.bodytemperature)*2000/efficiency)
 			occupant.Paralyse(max(5/efficiency, (1/occupant.bodytemperature)*3000/efficiency))
@@ -333,17 +332,17 @@
 				occupant.adjustOxyLoss(-1)
 			//severe damage should heal waaay slower without proper chemicals
 			if(occupant.bodytemperature < 225)
-				if (occupant.getToxLoss())
+				if(occupant.getToxLoss())
 					occupant.adjustToxLoss(max(-efficiency, (-20*(efficiency ** 2)) / occupant.getToxLoss()))
 				var/heal_brute = occupant.getBruteLoss() ? min(efficiency, 20*(efficiency**2) / occupant.getBruteLoss()) : 0
 				var/heal_fire = occupant.getFireLoss() ? min(efficiency, 20*(efficiency**2) / occupant.getFireLoss()) : 0
 				occupant.heal_organ_damage(heal_brute,heal_fire)
-		var/has_cryo = occupant.reagents.get_reagent_amount("cryoxadone") >= 1
-		var/has_clonexa = occupant.reagents.get_reagent_amount("clonexadone") >= 1
-		var/has_cryo_medicine = has_cryo || has_clonexa
-		if(beaker && !has_cryo_medicine)
-			beaker.reagents.trans_to(occupant, 1, 1)
+		if(beaker && next_trans == 0)
+			beaker.reagents.trans_to(occupant, 1, 10)
 			beaker.reagents.reaction(occupant)
+	next_trans++
+	if(next_trans == 10)
+		next_trans = 0
 
 /obj/machinery/atmospherics/unary/cryo_cell/proc/heat_gas_contents()
 	if(air_contents.total_moles() < 1)
@@ -357,13 +356,12 @@
 /obj/machinery/atmospherics/unary/cryo_cell/proc/expel_gas()
 	if(air_contents.total_moles() < 1)
 		return
-//	var/datum/gas_mixture/expel_gas = new
-//	var/remove_amount = air_contents.total_moles()/50
-//	expel_gas = air_contents.remove(remove_amount)
-
-	// Just have the gas disappear to nowhere.
-	//expel_gas.temperature = T20C // Lets expel hot gas and see if that helps people not die as they are removed
-	//loc.assume_air(expel_gas)
+	var/datum/gas_mixture/expel_gas = new
+	var/remove_amount = air_contents.total_moles()/100
+	expel_gas = air_contents.remove(remove_amount)
+	expel_gas.temperature = T20C // Lets expel hot gas and see if that helps people not die as they are removed
+	loc.assume_air(expel_gas)
+	update_nearby_tiles()
 
 /obj/machinery/atmospherics/unary/cryo_cell/proc/go_out()
 	if(!( occupant ))
@@ -415,7 +413,7 @@
 		if (usr.stat == 2)//and he's not dead....
 			return
 		usr << "\blue Release sequence activated. This will take two minutes."
-		sleep(1200)
+		sleep(600)
 		if(!src || !usr || !occupant || (occupant != usr)) //Check if someone's released/replaced/bombed him already
 			return
 		go_out()//and release him from the eternal prison.
