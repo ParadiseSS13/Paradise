@@ -993,6 +993,7 @@
 #include "code\modules\clothing\spacesuits\miscellaneous.dm"
 #include "code\modules\clothing\spacesuits\plasmamen.dm"
 #include "code\modules\clothing\spacesuits\rig.dm"
+#include "code\modules\clothing\spacesuits\space_ninja.dm"
 #include "code\modules\clothing\spacesuits\syndi.dm"
 #include "code\modules\clothing\spacesuits\void.dm"
 #include "code\modules\clothing\suits\alien.dm"
