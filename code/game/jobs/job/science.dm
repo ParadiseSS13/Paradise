@@ -139,7 +139,6 @@
 		H.equip_or_collect(new /obj/item/clothing/shoes/black(H), slot_shoes)
 		H.equip_or_collect(new /obj/item/device/pda/roboticist(H), slot_wear_pda)
 		H.equip_or_collect(new /obj/item/clothing/suit/storage/labcoat(H), slot_wear_suit)
-//		H.equip_or_collect(new /obj/item/clothing/gloves/black(H), slot_gloves)
 		H.equip_or_collect(new /obj/item/weapon/storage/belt/utility/full(H), slot_belt)
 		if(H.backbag == 1)
 			H.equip_or_collect(new /obj/item/weapon/storage/box/survival(H), slot_r_hand)

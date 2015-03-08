@@ -1,4 +1,4 @@
-/obj/item/clothing/gloves/yellow
+/obj/item/clothing/gloves/color/yellow
 	desc = "These gloves will protect the wearer from electric shock."
 	name = "insulated gloves"
 	icon_state = "yellow"
@@ -14,7 +14,7 @@
 	power
 		var/next_shock = 0
 
-/obj/item/clothing/gloves/fyellow                             //Cheap Chinese Crap
+/obj/item/clothing/gloves/color/fyellow                             //Cheap Chinese Crap
 	desc = "These gloves are cheap copies of the coveted gloves, no way this can end badly."
 	name = "budget insulated gloves"
 	icon_state = "yellow"
@@ -30,7 +30,7 @@
 	New()
 		siemens_coefficient = pick(0,0.5,0.5,0.5,0.5,0.75,1.5)
 
-/obj/item/clothing/gloves/black
+/obj/item/clothing/gloves/color/black
 	desc = "These gloves are fire-resistant."
 	name = "black gloves"
 	icon_state = "black"
@@ -55,7 +55,7 @@
 	thief
 		pickpocket = 1
 
-/obj/item/clothing/gloves/orange
+/obj/item/clothing/gloves/color/orange
 	name = "orange gloves"
 	desc = "A pair of gloves, they don't look special in any way."
 	icon_state = "orange"
@@ -65,7 +65,7 @@
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/gloves.dmi'
 		)
-/obj/item/clothing/gloves/red
+/obj/item/clothing/gloves/color/red
 	name = "red gloves"
 	desc = "A pair of gloves, they don't look special in any way."
 	icon_state = "red"
@@ -75,7 +75,7 @@
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/gloves.dmi'
 		)
-/obj/item/clothing/gloves/rainbow
+/obj/item/clothing/gloves/color/rainbow
 	name = "rainbow gloves"
 	desc = "A pair of gloves, they don't look special in any way."
 	icon_state = "rainbow"
@@ -88,7 +88,7 @@
 	clown
 		_color = "clown"
 
-/obj/item/clothing/gloves/blue
+/obj/item/clothing/gloves/color/blue
 	name = "blue gloves"
 	desc = "A pair of gloves, they don't look special in any way."
 	icon_state = "blue"
@@ -98,7 +98,7 @@
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/gloves.dmi'
 		)
-/obj/item/clothing/gloves/purple
+/obj/item/clothing/gloves/color/purple
 	name = "purple gloves"
 	desc = "A pair of gloves, they don't look special in any way."
 	icon_state = "purple"
@@ -108,7 +108,7 @@
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/gloves.dmi'
 		)
-/obj/item/clothing/gloves/green
+/obj/item/clothing/gloves/color/green
 	name = "green gloves"
 	desc = "A pair of gloves, they don't look special in any way."
 	icon_state = "green"
@@ -118,7 +118,7 @@
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/gloves.dmi'
 		)
-/obj/item/clothing/gloves/grey
+/obj/item/clothing/gloves/color/grey
 	name = "grey gloves"
 	desc = "A pair of gloves, they don't look special in any way."
 	icon_state = "gray"
@@ -134,7 +134,7 @@
 	hop
 		_color = "hop"				//Exists for washing machines. Is not different from gray gloves in any way.
 
-/obj/item/clothing/gloves/light_brown
+/obj/item/clothing/gloves/color/light_brown
 	name = "light brown gloves"
 	desc = "A pair of gloves, they don't look special in any way."
 	icon_state = "lightbrown"
@@ -144,7 +144,7 @@
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/gloves.dmi'
 		)
-/obj/item/clothing/gloves/brown
+/obj/item/clothing/gloves/color/brown
 	name = "brown gloves"
 	desc = "A pair of gloves, they don't look special in any way."
 	icon_state = "brown"
@@ -170,8 +170,6 @@
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/mask.dmi'
 		)
-	cmo
-		_color = "medical"		//Exists for washing machines. Is not different from latex gloves in any way.
 
 /obj/item/clothing/gloves/color/latex/nitrile
 	name = "nitrile gloves"
@@ -179,6 +177,7 @@
 	icon_state = "nitrile"
 	item_state = "nitrilegloves"
 	transfer_prints = FALSE
+	_color = "medical"
 
 /obj/item/clothing/gloves/color/white
 	name = "white gloves"
@@ -188,7 +187,7 @@
 	_color="mime"
 
 	redcoat
-	_color = "redcoat"		//Exists for washing machines. Is not different from white gloves in any way.
+		_color = "redcoat"		//Exists for washing machines. Is not different from white gloves in any way.
 
 
 /obj/item/clothing/gloves/color/captain

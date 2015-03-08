@@ -38,6 +38,9 @@
 				new /obj/item/ammo_box/a357(src)
 				new /obj/item/weapon/card/emag(src)
 				new /obj/item/weapon/plastique(src)
+				new /obj/item/clothing/gloves/color/latex/nitrile(src)
+				new /obj/item/clothing/mask/gas/clown_hat(src)
+				new /obj/item/clothing/under/suit_jacket/really_black(src)
 				return
 
 			if("murder")
