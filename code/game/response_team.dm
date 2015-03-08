@@ -427,7 +427,7 @@ var/can_call_ert
 					M.equip_to_slot_or_del(new /obj/item/weapon/storage/briefcase/inflatable(M), slot_r_hand)
 					
 				if("Janitorial")
-					M.equip_to_slot_or_del(new /obj/item/clothing/gloves/purple(M), slot_gloves)
+					M.equip_to_slot_or_del(new /obj/item/clothing/gloves/color/purple(M), slot_gloves)
 					M.equip_to_slot_or_del(new /obj/item/clothing/glasses/janitor, slot_glasses)
 					M.equip_to_slot_or_del(new /obj/item/weapon/storage/belt/janitor/full, slot_belt)
 					
@@ -564,7 +564,7 @@ var/can_call_ert
 			
 		if("Janitorial")
 			M.equip_to_slot_or_del(new /obj/item/clothing/shoes/galoshes(M), slot_shoes)
-			M.equip_to_slot_or_del(new /obj/item/clothing/gloves/purple(M), slot_gloves)
+			M.equip_to_slot_or_del(new /obj/item/clothing/gloves/color/purple(M), slot_gloves)
 			M.equip_to_slot_or_del(new /obj/item/clothing/suit/space/rig/ert/janitor(M), slot_wear_suit)
 			
 			var/obj/item/clothing/suit/space/rig/R = M.wear_suit

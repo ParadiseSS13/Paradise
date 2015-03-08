@@ -67,7 +67,7 @@
 				knifecount++
 			for(var/obj/item/weapon/kitchenknife/KK in M)
 				knifecount++
-			for(var/obj/item/weapon/plastique/KK in M)
+			for(var/obj/item/weapon/c4/KK in M)
 				bombcount++
 			for(var/obj/item/weapon/melee/ML in M)
 				meleecount++
