@@ -163,7 +163,7 @@ var/list/uplink_items = list()
 /datum/uplink_item/jobspecific/pickpocketgloves
 	name = "Pickpocket's Gloves"
 	desc = "A pair of sleek gloves to aid in pickpocketing, while wearing these you can see inside the pockets of any unsuspecting mark, loot the ID or pockets without them knowing, and pickpocketing puts the item directly into your hand."
-	item = /obj/item/clothing/gloves/black/thief
+	item = /obj/item/clothing/gloves/color/black/thief
 	cost = 6
 	job = list("Civilian")
 
@@ -188,7 +188,7 @@ var/list/uplink_items = list()
 /datum/uplink_item/jobspecific/powergloves
 	name = "Power Gloves"
 	desc = "Insulated gloves that can utilize the power of the station to deliver a short arc of electricity at a target. Must be standing on a powered cable to use."
-	item = /obj/item/clothing/gloves/yellow/power
+	item = /obj/item/clothing/gloves/color/yellow/power
 	cost = 14
 	job = list("Station Engineer","Chief Engineer")
 
@@ -521,7 +521,7 @@ var/list/uplink_items = list()
 /datum/uplink_item/device_tools/cipherkey
 	name = "Syndicate Encryption Key"
 	desc = "A key, that when inserted into a radio headset, allows you to listen to all station department channels as well as talk on an encrypted Syndicate channel."
-	item = /obj/item/device/encryptionkey/syndicate/hacked
+	item = /obj/item/device/encryptionkey/syndicate
 	cost = 5
 
 /datum/uplink_item/device_tools/hacked_module

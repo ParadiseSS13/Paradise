@@ -75,6 +75,7 @@
 	req_tech = list("programming" = 2, "biotech" = 3)
 	build_type = PROTOLATHE | MECHFAB
 	materials = list("$metal" = 1000, "$glass" = 500)
+	construction_time = 75
 	reliability_base = 76
 	build_path = /obj/item/device/mmi
 	category = list("Misc","Medical")
@@ -107,6 +108,7 @@
 	req_tech = list("programming" = 2, "biotech" = 4)
 	build_type = PROTOLATHE | MECHFAB
 	materials = list("$metal" = 1200, "$glass" = 500)
+	construction_time = 75
 	reliability_base = 74
 	build_path = /obj/item/device/mmi/radio_enabled
 	category = list("Misc","Medical")
@@ -139,6 +141,7 @@
 	req_tech = list("magnets" = 3, "combat" = 2)
 	build_type = MECHFAB
 	materials = list("$metal" = 750, "$glass" = 750)
+	construction_time = 100
 	reliability_base = 76
 	build_path = /obj/item/device/flash/synthetic
 	category = list("Misc")

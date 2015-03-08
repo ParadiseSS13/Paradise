@@ -111,8 +111,8 @@
 		if(. == STATUS_UPDATE && (TK in mutations))	// If we have telekinesis and remain close enough, allow interaction.
 			return STATUS_INTERACTIVE
 
-/var/global/datum/topic_state/default_state = new()			
-			
+/var/global/datum/topic_state/default_state = new()
+
 /datum/topic_state
 	var/flags = 0
 

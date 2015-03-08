@@ -587,7 +587,7 @@ proc/get_damage_icon_part(damage_state, body_part)
 /* --------------------------------------- */
 //vvvvvv UPDATE_INV PROCS vvvvvv
 
-/mob/living/carbon/human/update_inv_w_uniform(var/update_icons=1,var/green=0)
+/mob/living/carbon/human/update_inv_w_uniform(var/update_icons=1)
 	if(w_uniform && istype(w_uniform, /obj/item/clothing/under) )
 		w_uniform.screen_loc = ui_iclothing
 		var/t_color = w_uniform._color
@@ -651,7 +651,7 @@ proc/get_damage_icon_part(damage_state, body_part)
 
 	if(update_icons)   update_icons()
 
-/mob/living/carbon/human/update_inv_gloves(var/update_icons=1,var/green=0)
+/mob/living/carbon/human/update_inv_gloves(var/update_icons=1)
 	if(gloves)
 		var/t_state = gloves.item_state
 		if(!t_state)	t_state = gloves.icon_state
@@ -724,7 +724,7 @@ proc/get_damage_icon_part(damage_state, body_part)
 		overlays_standing[EARS_LAYER]	= null
 	if(update_icons)   update_icons()
 
-/mob/living/carbon/human/update_inv_shoes(var/update_icons=1,var/green=0)
+/mob/living/carbon/human/update_inv_shoes(var/update_icons=1)
 	if(shoes)
 
 		var/image/standing
@@ -765,7 +765,7 @@ proc/get_damage_icon_part(damage_state, body_part)
 	if(update_icons)   update_icons()
 
 
-/mob/living/carbon/human/update_inv_head(var/update_icons=1,var/green=0)
+/mob/living/carbon/human/update_inv_head(var/update_icons=1)
 	if(head)
 		head.screen_loc = ui_head		//TODO
 		var/image/standing

@@ -55,7 +55,7 @@
 /obj/item/weapon/stamp/cmo
 	name = "chief medical officer's rubber stamp"
 	icon_state = "stamp-cmo"
-	_color = "cmo"
+	_color = "medical"
 
 /obj/item/weapon/stamp/granted
 	name = "\improper GRANTED rubber stamp"
