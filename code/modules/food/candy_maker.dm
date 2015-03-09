@@ -1,7 +1,7 @@
 
 /obj/machinery/candy_maker
 	name = "candy machine"
-	desc = "Get yer box of deep fried deep fried deep fried deep fried cotton candy cereal sandwich cookies here!"
+	desc = "The stuff of nightmares for a dentist."
 	icon = 'icons/obj/cooking_machines.dmi'
 	icon_state = "candymaker_off"
 	layer = 2.9
