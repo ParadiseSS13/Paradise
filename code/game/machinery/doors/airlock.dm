@@ -761,7 +761,7 @@ About the new airlock wires panel:
 		if(isdhacker(usr) || ishacker(usr))
 			for(var/obj/item/weapon/implant/hack/H in usr)
 				H.powerlevel = 0
-				usr << "\red <b>Your hack-implant discharges it's energy to hack the door!</b> You will need to wait a minute for it to recharge."
+				usr << "\red <b>Your hack-implant discharges its energy to hack the door!</b> You will need to wait a minute for it to recharge."
 
 	update_icon()
 	return 1
