@@ -26,6 +26,7 @@
 	icon_state = "healthhudnight"
 	item_state = "glasses"
 	darkness_view = 8
+	see_darkness = 0
 
 /obj/item/clothing/glasses/hud/health/process_hud(var/mob/M)
 	process_med_hud(M,1)
@@ -53,6 +54,7 @@
 	desc = "An advanced heads-up display which provides id data and vision in complete darkness."
 	icon_state = "securityhudnight"
 	darkness_view = 8
+	see_darkness = 0
 
 /obj/item/clothing/glasses/hud/security/process_hud(var/mob/M)
 

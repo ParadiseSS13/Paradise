@@ -48,22 +48,22 @@
 		if("Chief Engineer")
 			suit=/obj/item/clothing/suit/space/eva/plasmaman/engineer/ce
 			helm=/obj/item/clothing/head/helmet/space/eva/plasmaman/engineer/ce
-		if("Atmospheric Technician")
+		if("Life Support Specialist")
 			suit=/obj/item/clothing/suit/space/eva/plasmaman/atmostech
 			helm=/obj/item/clothing/head/helmet/space/eva/plasmaman/atmostech
-		if("Warden","Detective","Security Officer")
+		if("Warden","Detective","Security Officer","Security Pod Pilot")
 			suit=/obj/item/clothing/suit/space/eva/plasmaman/security/
 			helm=/obj/item/clothing/head/helmet/space/eva/plasmaman/security/
-		if("Head of Security")
+		if("Head of Security", "Magistrate")
 			suit=/obj/item/clothing/suit/space/eva/plasmaman/security/hos
 			helm=/obj/item/clothing/head/helmet/space/eva/plasmaman/security/hos
-		if("Captain")
+		if("Captain", "Blueshield")
 			suit=/obj/item/clothing/suit/space/eva/plasmaman/security/captain
 			helm=/obj/item/clothing/head/helmet/space/eva/plasmaman/security/captain
-		if("Head of Personnel")
+		if("Head of Personnel", "Nanotrasen Representative")
 			suit=/obj/item/clothing/suit/space/eva/plasmaman/security/hop
 			helm=/obj/item/clothing/head/helmet/space/eva/plasmaman/security/hop
-		if("Medical Doctor")
+		if("Medical Doctor","Brig Physician")
 			suit=/obj/item/clothing/suit/space/eva/plasmaman/medical
 			helm=/obj/item/clothing/head/helmet/space/eva/plasmaman/medical
 		if("Paramedic")
@@ -93,7 +93,7 @@
 		if("Janitor")
 			suit=/obj/item/clothing/suit/space/eva/plasmaman/janitor
 			helm=/obj/item/clothing/head/helmet/space/eva/plasmaman/janitor
-		if("Assistant")
+		if("Civilian", "Barber")
 			suit=/obj/item/clothing/suit/space/eva/plasmaman/assistant
 			helm=/obj/item/clothing/head/helmet/space/eva/plasmaman/assistant
 		if("Clown")

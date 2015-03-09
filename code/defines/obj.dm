@@ -13,7 +13,7 @@
 /obj/structure/ninjatele
 
 	name = "Long-Distance Teleportation Console"
-	desc = "A console used to send a Spider Clan agent long distances rapidly."
+	desc = "A console used to send a Spider Clan operative long distances rapidly."
 	icon = 'icons/obj/ninjaobjects.dmi'
 	icon_state = "teleconsole"
 	anchored = 1

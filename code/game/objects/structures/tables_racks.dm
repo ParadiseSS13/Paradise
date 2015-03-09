@@ -416,6 +416,7 @@
 		for(var/mob/O in viewers(user, 4))
 			O.show_message("\blue The [src] was sliced apart by [user]!", 1, "\red You hear [src] coming apart.", 2)
 		destroy()
+		return
 
 	if(!(W.flags & ABSTRACT))
 		if(user.drop_item())
@@ -427,7 +428,7 @@
 			//Clamp it so that the icon never moves more than 16 pixels in either direction (thus leaving the table turf)
 			W.pixel_x = Clamp(text2num(click_params["icon-x"]) - 16, -(world.icon_size/2), world.icon_size/2)
 			W.pixel_y = Clamp(text2num(click_params["icon-y"]) - 16, -(world.icon_size/2), world.icon_size/2)
-			
+
 	return
 
 /obj/structure/table/proc/straight_table_check(var/direction)

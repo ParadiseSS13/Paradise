@@ -8,6 +8,7 @@
 	//var/darkness_view = 0//Base human is 2
 	//var/invisa_view = 0
 	var/prescription = 0
+	var/see_darkness = 1
 
 /obj/item/clothing/glasses/meson
 	name = "Optical Meson Scanner"
@@ -20,13 +21,14 @@
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/eyes.dmi'
 		)
-		
+
 /obj/item/clothing/glasses/meson/night
 	name = "Night Vision Optical Meson Scanner"
 	desc = "An Optical Meson Scanner fitted with an amplified visible light spectrum overlay, providing greater visual clarity in darkness."
 	icon_state = "nvgmeson"
 	item_state = "glasses"
 	darkness_view = 8
+	see_darkness = 0
 
 /obj/item/clothing/glasses/meson/prescription
 	name = "prescription mesons"
@@ -49,7 +51,7 @@
 	desc = "nothing"
 	icon_state = "purple"
 	item_state = "glasses"
-	
+
 /obj/item/clothing/glasses/janitor
 	name = "Janitorial Goggles"
 	desc = "These'll keep the soap out of your eyes."
@@ -63,6 +65,7 @@
 	item_state = "glasses"
 	origin_tech = "magnets=2"
 	darkness_view = 8
+	see_darkness = 0
 	species_fit = list("Vox")
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/eyes.dmi'
