@@ -878,7 +878,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 
 			var/obj/item/weapon/card/id/centcom/W = new(M)
 			W.name = "[M.real_name]'s ID Card (Nanotrasen Navy Officer)"
-			W.assignment = "Nanotrasen Navy Officer"			
+			W.assignment = "Nanotrasen Navy Officer"
 			W.access = get_centcom_access(W.assignment)
 			W.registered_name = M.real_name
 			M.equip_if_possible(W, slot_wear_id)
@@ -903,13 +903,13 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 			var/obj/item/weapon/card/id/centcom/W = new(M)
 			W.name = "[M.real_name]'s ID Card (Nanotrasen Navy Captain)"
 			W.access = get_all_accesses()
-			W.assignment = "Nanotrasen Navy Captain"			
+			W.assignment = "Nanotrasen Navy Captain"
 			W.access = get_centcom_access(W.assignment)
 			W.registered_name = M.real_name
 			M.equip_if_possible(W, slot_wear_id)
 
 		if("emergency response team member")
-			M.equip_to_slot_or_del(new /obj/item/clothing/under/ert(M), slot_w_uniform)
+			M.equip_to_slot_or_del(new /obj/item/clothing/under/rank/centcom_officer(M), slot_w_uniform)
 			M.equip_to_slot_or_del(new /obj/item/clothing/shoes/combat(M), slot_shoes)
 			M.equip_to_slot_or_del(new /obj/item/clothing/gloves/combat(M), slot_gloves)
 			M.equip_to_slot_or_del(new /obj/item/device/radio/headset/ert/alt(M), slot_l_ear)
@@ -931,7 +931,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 			pda.name = "PDA-[M.real_name] ([pda.ownjob])"
 
 		if("emergency response team leader")
-			M.equip_to_slot_or_del(new /obj/item/clothing/under/ert(M), slot_w_uniform)
+			M.equip_to_slot_or_del(new /obj/item/clothing/under/rank/centcom_officer(M), slot_w_uniform)
 			M.equip_to_slot_or_del(new /obj/item/clothing/shoes/combat(M), slot_shoes)
 			M.equip_to_slot_or_del(new /obj/item/clothing/gloves/combat(M), slot_gloves)
 			M.equip_to_slot_or_del(new /obj/item/device/radio/headset/ert/alt(M), slot_l_ear)
@@ -1144,7 +1144,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 			W.name = "[M.real_name]'s ID Card (Deathsquad Officer)"
 			W.icon_state = "centcom"
 			W.assignment = "Deathsquad Officer"
-			W.access = get_centcom_access(W.assignment) 
+			W.access = get_centcom_access(W.assignment)
 			W.registered_name = M.real_name
 			M.equip_to_slot_or_del(W, slot_wear_id)
 
