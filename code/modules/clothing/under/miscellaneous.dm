@@ -108,13 +108,14 @@
 	_color = "officer"
 	displays_id = 0
 	flags = ONESIZEFITSALL
-	
-/obj/item/clothing/under/ert
-	name = "ERT tactical uniform"
-	desc = "A short-sleeved black uniform, paired with grey digital-camo cargo pants. It looks very tactical."
+
+/obj/item/clothing/under/rank/blueshield
+	name = "blueshield uniform"
+	desc = "A short-sleeved black uniform, paired with grey digital-camo cargo pants. Standard issue to Blueshield officers."
 	icon_state = "ert_uniform"
 	item_state = "bl_suit"
 	_color = "ert_uniform"
+	armor = list(melee = 10, bullet = 0, laser = 0,energy = 0, bomb = 0, bio = 0, rad = 0)
 
 /obj/item/clothing/under/space
 	name = "\improper NASA jumpsuit"
@@ -659,4 +660,3 @@
 	icon_state = "griffin"
 	_color = "griffin"
 	flags = NODROP
-	
