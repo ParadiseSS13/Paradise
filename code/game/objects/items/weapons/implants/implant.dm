@@ -614,7 +614,7 @@ the implant may become unstable and either pre-maturely inject the subject or si
 	implanted(mob/M)
 		if(!istype(M, /mob/living/carbon/human))	return 0
 		var/mob/living/carbon/human/H = M
-		H << "\blue A digital HUD displays on your retina, allowing you to interface to the wireless controls of the nearby airlocks."
+		H << "\blue A digital HUD displays on your retina, allowing you to interface with the wireless controls of the nearby airlocks."
 		return 1
 
 	New()
