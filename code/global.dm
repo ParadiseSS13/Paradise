@@ -250,15 +250,15 @@ var/list/awaydestinations = list()	//a list of landmarks that the warpgate can t
 
 var/sqladdress = "localhost"
 var/sqlport = "3306"
-var/sqldb = "Paradise"
-var/sqllogin = "SQLAccess"
-var/sqlpass = "bleh"
+var/sqldb = "paradise"
+var/sqllogin = "root"
+var/sqlpass = "example"
 
 	// Feedback gathering sql connection
 
-var/sqlfdbkdb = "Paradise"
-var/sqlfdbklogin = "SQLAccess"
-var/sqlfdbkpass = "bleh"
+var/sqlfdbkdb = "paradise"
+var/sqlfdbklogin = "root"
+var/sqlfdbkpass = "example"
 
 var/sqllogging = 0 // Should we log deaths, population stats, etc?
 
