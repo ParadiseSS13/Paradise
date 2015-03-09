@@ -342,6 +342,6 @@
 		return accesses
 
 	authenticate()
-		if(access_cent_captain in reader.access)
+		if(access_cent_commander in reader.access)
 			return 1
 		return 0

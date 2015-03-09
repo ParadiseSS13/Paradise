@@ -173,7 +173,7 @@
 	_color = "vox-casual-2"
 	item_state = "vox-casual-2"
 
-/obj/item/clothing/gloves/yellow/vox
+/obj/item/clothing/gloves/color/yellow/vox
 	desc = "These bizarre gauntlets seem to be fitted for... bird claws?"
 	name = "insulated gauntlets"
 	icon_state = "gloves-vox"

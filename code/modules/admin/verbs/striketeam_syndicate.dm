@@ -138,7 +138,7 @@ var/global/sent_syndicate_strike_team = 0
 		equip_to_slot_or_del(new /obj/item/clothing/suit/space/syndicate/black/strike(src), slot_wear_suit)
 	else
 		equip_to_slot_or_del(new /obj/item/clothing/suit/space/syndicate/black/red/strike(src), slot_wear_suit)
-	equip_to_slot_or_del(new /obj/item/clothing/gloves/swat(src), slot_gloves)
+	equip_to_slot_or_del(new /obj/item/clothing/gloves/combat(src), slot_gloves)
 	if (!syndicate_leader_selected)
 		equip_to_slot_or_del(new /obj/item/clothing/head/helmet/space/syndicate/black/strike(src), slot_head)
 	else
@@ -151,10 +151,10 @@ var/global/sent_syndicate_strike_team = 0
 
 	equip_to_slot_or_del(new /obj/item/ammo_box/magazine/m45(src), slot_in_backpack)
 	equip_to_slot_or_del(new /obj/item/weapon/storage/firstaid/regular(src), slot_in_backpack)
-	equip_to_slot_or_del(new /obj/item/weapon/plastique(src), slot_in_backpack)
+	equip_to_slot_or_del(new /obj/item/weapon/c4(src), slot_in_backpack)
 	equip_to_slot_or_del(new /obj/item/device/flashlight(src), slot_in_backpack)
 	if (!syndicate_leader_selected)
-		equip_to_slot_or_del(new /obj/item/weapon/plastique(src), slot_in_backpack)
+		equip_to_slot_or_del(new /obj/item/weapon/c4(src), slot_in_backpack)
 		equip_to_slot_or_del(new /obj/item/weapon/card/emag(src), slot_in_backpack)
 	else
 		equip_to_slot_or_del(new /obj/item/weapon/pinpointer(src), slot_in_backpack)
@@ -171,8 +171,8 @@ var/global/sent_syndicate_strike_team = 0
 	W.name = "[real_name]'s ID Card"
 	W.icon_state = "id"
 	W.access = get_all_accesses()//They get full station access because obviously the syndicate has HAAAX, and can make special IDs for their most elite members.
-	W.access += list(access_cent_general, access_cent_specops, access_cent_living, access_cent_storage, access_syndicate)//Let's add their forged CentCom access and syndicate access.
 	W.assignment = "Syndicate Commando"
+	W.access = get_syndicate_access(W.assignment)
 	W.registered_name = real_name
 	equip_to_slot_or_del(W, slot_wear_id)
 

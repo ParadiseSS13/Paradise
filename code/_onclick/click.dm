@@ -167,7 +167,7 @@
 	animals lunging, etc.
 */
 /mob/proc/RangedAttack(var/atom/A, var/params)
-	if(ishuman(src) && (istype(src:gloves, /obj/item/clothing/gloves/yellow/power)) && a_intent == "harm")
+	if(ishuman(src) && (istype(src:gloves, /obj/item/clothing/gloves/color/yellow/power)) && a_intent == "harm")
 		PowerGlove(A)
 	if(!mutations.len) return
 	if((LASER in mutations) && a_intent == "harm")
@@ -321,7 +321,7 @@
 	return
 
 /mob/living/carbon/human/PowerGlove(atom/A)
-	var/obj/item/clothing/gloves/yellow/power/G = src:gloves
+	var/obj/item/clothing/gloves/color/yellow/power/G = src:gloves
 	var/time = 100
 	var/turf/T = get_turf(src)
 	var/turf/U = get_turf(A)
