@@ -244,8 +244,7 @@
 		new /obj/item/weapon/melee/baton/loaded(src)
 		new /obj/item/clothing/glasses/sunglasses(src)
 		new /obj/item/clothing/glasses/hud/health_advanced
-		new /obj/item/clothing/head/beret/centcom/officer(src)
-		new /obj/item/clothing/under/rank/centcom_officer(src)
+		new /obj/item/clothing/head/beret/centcom/officer(src)(src)
 		new /obj/item/clothing/suit/armor/vest/fluff/deus_blueshield(src)
 		new /obj/item/clothing/shoes/centcom(src)
 		new /obj/item/clothing/accessory/holster(src)
@@ -269,7 +268,6 @@
 		new /obj/item/device/paicard(src)
 		new /obj/item/device/flash(src)
 		new /obj/item/clothing/glasses/sunglasses(src)
-		new /obj/item/clothing/under/rank/centcom_officer(src)
 		new /obj/item/clothing/gloves/color/white(src)
 		new /obj/item/clothing/shoes/centcom(src)
 		new /obj/item/clothing/under/lawyer/oldman(src)
