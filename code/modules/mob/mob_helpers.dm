@@ -156,6 +156,12 @@ proc/isorgan(A)
 			return 1
 	return 0
 
+/proc/ishacker(A)
+	for(var/obj/item/weapon/implant/hack/H in A)
+		if(H && H.implanted)
+			return 1
+	return 0
+
 proc/isnewplayer(A)
 	if(istype(A, /mob/new_player))
 		return 1

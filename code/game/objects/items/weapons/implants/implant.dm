@@ -593,3 +593,24 @@ the implant may become unstable and either pre-maturely inject the subject or si
 		source.mind.store_memory("EMP implant can be activated [uses] time\s by using the [src.activation_emote] emote, <B>say *[src.activation_emote]</B> to attempt to activate.", 0, 0)
 		source << "The implanted EMP implant can be activated [uses] time\s by using the [src.activation_emote] emote, <B>say *[src.activation_emote]</B> to attempt to activate."
 		return 1
+
+/obj/item/weapon/implant/hack
+	name = "hacking implant"
+	desc = "An implant used by hackers to interface with airlock controls"
+	get_data()
+		var/dat = {"
+<b>Implant Specifications:</b><BR>
+<b>Name:</b> Hacking Implant<BR>
+<b>Life:</b> ???<BR>
+<b>Important Notes:</b> <font color='red'>Illegal</font><BR>
+<HR>
+<b>Implant Details:</b> Subjects injected with implant can interface with NanoTrasen door OS, like NT cyborgs.<BR>
+<b>Function:</b> Enables user to interface with NanoTrasen doors like a cyborg.<BR>
+<b>Integrity:</b> ???"}
+		return dat
+
+	implanted(mob/M)
+		if(!istype(M, /mob/living/carbon/human))	return 0
+		var/mob/living/carbon/human/H = M
+		H << "\blue You feel like you could interface with the nearest door."
+		return 1

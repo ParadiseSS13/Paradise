@@ -50,6 +50,7 @@
 	var/hasShocked = 0 //Prevents multiple shocks from happening
 	var/frozen = 0 //special condition for airlocks that are frozen shut, this will look weird on not normal airlocks because of a lack of special overlays.
 	autoclose = 1
+	var/hackerimplant = 0 //rawr must override topic
 
 /obj/machinery/door/airlock/command
 	name = "Airlock"
@@ -208,7 +209,7 @@
 	icon = 'icons/obj/doors/Dooruranium.dmi'
 	mineral = "uranium"
 	var/last_event = 0
-	
+
 /obj/machinery/door/airlock/process()
 	// Deliberate no call to parent.
 	if(main_power_lost_until > 0 && world.time >= main_power_lost_until)
@@ -319,7 +320,7 @@
 	else
 		user << "You do not know how to operate this airlock's mechanism."
 		return
-		
+
 
 
 /*
@@ -388,7 +389,7 @@ About the new airlock wires panel:
 	if(mainPowerCablesCut() && backupPowerCablesCut())
 		return 1
 	return 0
-	
+
 /obj/machinery/door/airlock/proc/mainPowerCablesCut()
 	return src.isWireCut(AIRLOCK_WIRE_MAIN_POWER1) || src.isWireCut(AIRLOCK_WIRE_MAIN_POWER2)
 
@@ -426,7 +427,7 @@ About the new airlock wires panel:
 		// Restore backup power only if main power is offline, otherwise permanently disable
 		backup_power_lost_until = main_power_lost_until == 0 ? -1 : 0
 		update_icon()
-		
+
 /obj/machinery/door/airlock/proc/electrify(var/duration, var/feedback = 0)
 	var/message = ""
 	if(src.isWireCut(AIRLOCK_WIRE_ELECTRIFY) && arePowerSystemsOn())
@@ -475,7 +476,7 @@ About the new airlock wires panel:
 /obj/machinery/door/airlock/update_icon()
 	if(overlays) overlays.Cut()
 	overlays = list()
-	if(emergency && arePowerSystemsOn()) 
+	if(emergency && arePowerSystemsOn())
 		overlays += image('icons/obj/doors/doorint.dmi', "elights")
 	if(density)
 		if(locked && lights)
@@ -494,7 +495,7 @@ About the new airlock wires panel:
 		icon_state = "door_open"
 
 	return
-	
+
 
 /obj/machinery/door/airlock/do_animate(animation)
 	switch(animation)
@@ -614,6 +615,10 @@ About the new airlock wires panel:
 	return src.attack_hand(user)
 
 /obj/machinery/door/airlock/attack_hand(mob/user as mob)
+	if(ishacker(user))
+		attack_ai(user)
+		return
+
 	if(!istype(user, /mob/living/silicon))
 		if(src.isElectrified())
 			if(src.shock(user, 100))
@@ -641,7 +646,7 @@ About the new airlock wires panel:
 	return
 
 /obj/machinery/door/airlock/CanUseTopic(var/mob/user, href_list)
-	if(!issilicon(user))
+	if(!issilicon(user) && !ishacker(user))
 		return STATUS_CLOSE
 
 	if(operating < 0) //emagged
@@ -918,7 +923,7 @@ About the new airlock wires panel:
 		var/obj/structure/window/killthis = (locate(/obj/structure/window) in turf)
 		if(killthis)
 			killthis.ex_act(2)//Smashin windows
-		
+
 	if(density)
 		return 1
 	operating = 1
@@ -1049,7 +1054,7 @@ About the new airlock wires panel:
 /obj/machinery/door/airlock/CanAStarPass(var/obj/item/weapon/card/id/ID)
 //Airlock is passable if it is open (!density), bot has access, and is not bolted shut)
 	return !density || (check_access(ID) && !locked)
-	
+
 /obj/machinery/door/airlock/emp_act(var/severity)
 	if(prob(40/severity))
 		var/duration = world.time + SecondsToTicks(30 / severity)
