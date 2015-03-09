@@ -144,7 +144,7 @@ var/datum/announcement/minor/captain_announcement = new(do_newscast = 1)
 	department_flag = KARMA
 	total_positions = 1
 	spawn_positions = 1
-	supervisors = "the captain"
+	supervisors = "the nanotrasen representative"
 	selection_color = "#ddddff"
 	idtype = /obj/item/weapon/card/id
 	req_admin_notify = 1
@@ -155,12 +155,8 @@ var/datum/announcement/minor/captain_announcement = new(do_newscast = 1)
 			            access_crematorium, access_kitchen, access_cargo, access_cargo_bot, access_mailsorting, access_qm, access_hydroponics, access_lawyer,
 			            access_theatre, access_chapel_office, access_library, access_research, access_mining, access_heads_vault, access_mining_station,
 			            access_clown, access_mime, access_hop, access_RC_announce, access_keycard_auth, access_gateway, access_weapons, access_blueshield)
-	minimal_access = list(access_security, access_sec_doors, access_brig, access_court, access_forensics_lockers,
-			            access_medical, access_engine, access_eva, access_heads,
-			            access_all_personal_lockers, access_maint_tunnels, access_bar, access_janitor, access_construction, access_morgue,
-			            access_crematorium, access_kitchen, access_cargo, access_cargo_bot, access_mailsorting, access_qm, access_hydroponics, access_lawyer,
-			            access_theatre, access_chapel_office, access_library, access_research, access_mining, access_heads_vault, access_mining_station,
-			            access_clown, access_mime, access_hop, access_RC_announce, access_keycard_auth, access_gateway, access_blueshield, access_weapons)
+	minimal_access = list(access_forensics_lockers, access_sec_doors, access_medical, access_construction, access_engine, access_maint_tunnels, access_research,
+			            access_RC_announce, access_keycard_auth, access_heads, access_blueshield, access_weapons)
 
 	equip(var/mob/living/carbon/human/H)
 		if(!H)	return 0
