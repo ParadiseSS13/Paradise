@@ -12,7 +12,6 @@
 	max_heat_protection_temperature = SPACE_SUIT_MAX_HEAT_PROTECTION_TEMPERATURE
 	species_restricted = list("Plasmaman")
 	flags = STOPSPRESSUREDMAGE  | PLASMAGUARD
-	pressure_resistance = 40 * ONE_ATMOSPHERE //we can't change, so some resistance is needed
 
 	icon_state = "plasmaman_suit"
 	item_state = "plasmaman_suit"
@@ -40,7 +39,6 @@
 	name = "plasmaman helmet"
 	desc = "A special containment helmet designed to protect a plasmaman's volatile body from outside exposure and quickly extinguish it in emergencies."
 	flags = STOPSPRESSUREDMAGE | PLASMAGUARD
-	pressure_resistance = 40 * ONE_ATMOSPHERE
 	species_restricted = list("Plasmaman")
 
 	icon_state = "plasmaman_helmet0"
@@ -105,14 +103,12 @@
 	name = "plasmaman engineer suit"
 	icon_state = "plasmamanEngineer_suit"
 	armor = list(melee = 10, bullet = 5, laser = 10, energy = 5, bomb = 10, bio = 100, rad = 75)
-	pressure_resistance = 200 * ONE_ATMOSPHERE
 
 /obj/item/clothing/head/helmet/space/eva/plasmaman/engineer
 	name = "plasmaman engineer helmet"
 	icon_state = "plasmamanEngineer_helmet0"
 	base_state = "plasmamanEngineer_helmet"
 	armor = list(melee = 10, bullet = 5, laser = 10, energy = 5, bomb = 10, bio = 100, rad = 75)
-	pressure_resistance = 200 * ONE_ATMOSPHERE
 
 /obj/item/clothing/suit/space/eva/plasmaman/engineer/ce
 	name = "plasmaman chief engineer suit"

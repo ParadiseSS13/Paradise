@@ -141,72 +141,19 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 		handle_vampire()
 
 
-//Much like get_heat_protection(), this returns a 0 - 1 value, which corresponds to the percentage of protection based on what you're wearing and what you're exposed to.
-/mob/living/carbon/human/proc/get_pressure_protection()
+/mob/living/carbon/human/calculate_affecting_pressure(var/pressure)
+	..()
+	var/pressure_difference = abs( pressure - ONE_ATMOSPHERE )
+
 	var/pressure_adjustment_coefficient = 1	//Determins how much the clothing you are wearing protects you in percent.
-
-	if(head && (head.flags & STOPSPRESSUREDMAGE))
-		pressure_adjustment_coefficient -= PRESSURE_HEAD_REDUCTION_COEFFICIENT
-
-	if(wear_suit && (wear_suit.flags & STOPSPRESSUREDMAGE))
-		pressure_adjustment_coefficient -= PRESSURE_SUIT_REDUCTION_COEFFICIENT
-
-		//Handles breaches in your space suit. 10 suit damage equals a 100% loss of pressure reduction.
-		if(istype(wear_suit,/obj/item/clothing/suit/space))
-			var/obj/item/clothing/suit/space/S = wear_suit
-			if(S.can_breach && S.damage)
-				var/pressure_loss = S.damage * 0.1
-				pressure_adjustment_coefficient += pressure_loss
-
-	pressure_adjustment_coefficient = min(1,max(pressure_adjustment_coefficient,0)) //So it isn't less than 0 or larger than 1.
-
-	return 1 - pressure_adjustment_coefficient	//want 0 to be bad protection, 1 to be good protection
-
-// Calculate how vulnerable the human is to under- and overpressure.
-// Returns 0 (equals 0 %) if sealed in an undamaged suit, 1 if unprotected (equals 100%).
-// Suitdamage can modifiy this in 10% steps.
-/mob/living/carbon/human/proc/get_pressure_weakness()
-
-	var/pressure_adjustment_coefficient = 1 // Assume no protection at first.
-
 	if(wear_suit && (wear_suit.flags & STOPSPRESSUREDMAGE) && head && (head.flags & STOPSPRESSUREDMAGE)) // Complete set of pressure-proof suit worn, assume fully sealed.
 		pressure_adjustment_coefficient = 0
-
-		// Handles breaches in your space suit. 10 suit damage equals a 100% loss of pressure protection.
-		if(istype(wear_suit,/obj/item/clothing/suit/space))
-			var/obj/item/clothing/suit/space/S = wear_suit
-			if(S.can_breach && S.damage)
-				pressure_adjustment_coefficient += S.damage * 0.1
-
-	pressure_adjustment_coefficient = min(1,max(pressure_adjustment_coefficient,0)) // So it isn't less than 0 or larger than 1.
-
-	return pressure_adjustment_coefficient
-
-/mob/living/carbon/human/calculate_affecting_pressure(var/pressure)
-	var/pressure_difference
-
-	// First get the absolute pressure difference.
-	if(pressure < ONE_ATMOSPHERE) // We are in an underpressure.
-		pressure_difference = ONE_ATMOSPHERE - pressure
-
-	else //We are in an overpressure or standard atmosphere.
-		pressure_difference = pressure - ONE_ATMOSPHERE
-
-	if(pressure_difference < 5) // If the difference is small, don't bother calculating the fraction.
-		pressure_difference = 0
-
-	else
-		// Otherwise calculate how much of that absolute pressure difference affects us, can be 0 to 1 (equals 0% to 100%).
-		// This is our relative difference.
-		pressure_difference *= get_pressure_weakness()
-
-	// The difference is always positive to avoid extra calculations.
-	// Apply the relative difference on a standard atmosphere to get the final result.
-	// The return value will be the adjusted_pressure of the human that is the basis of pressure warnings and damage.
-	if(pressure < ONE_ATMOSPHERE)
-		return ONE_ATMOSPHERE - pressure_difference
-	else
+	pressure_adjustment_coefficient = max(pressure_adjustment_coefficient,0) //So it isn't less than 0
+	pressure_difference = pressure_difference * pressure_adjustment_coefficient
+	if(pressure > ONE_ATMOSPHERE)
 		return ONE_ATMOSPHERE + pressure_difference
+	else
+		return ONE_ATMOSPHERE - pressure_difference
 
 
 /mob/living/carbon/human
@@ -526,50 +473,25 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 		if(!environment)
 			return
 
-		//Moved pressure calculations here for use in skip-processing check.
-		var/pressure = environment.return_pressure()
-		var/adjusted_pressure = calculate_affecting_pressure(pressure)
+		var/loc_temp = get_temperature(environment)
+		//world << "Loc temp: [loc_temp] - Body temp: [bodytemperature] - Fireloss: [getFireLoss()] - Thermal protection: [get_thermal_protection()] - Fire protection: [thermal_protection + add_fire_protection(loc_temp)] - Heat capacity: [environment_heat_capacity] - Location: [loc] - src: [src]"
 
-		if(!istype(get_turf(src), /turf/space)) //space is not meant to change your body temperature.
-			var/loc_temp = T0C
-			if(istype(loc, /obj/mecha))
-				var/obj/mecha/M = loc
-				loc_temp =  M.return_temperature()
+		//Body temperature is adjusted in two steps. Firstly your body tries to stabilize itself a bit.
+		if(stat != 2)
+			stabilize_temperature_from_calories()
 
-			if(istype(loc, /obj/spacepod))
-				var/obj/spacepod/S = loc
-				loc_temp = S.return_temperature()
-			//else if(istype(get_turf(src), /turf/space))
-
-			else if(istype(loc, /obj/machinery/atmospherics/unary/cryo_cell))
-				loc_temp = loc:air_contents.temperature
+		//After then, it reacts to the surrounding atmosphere based on your thermal protection
+		if(!on_fire) //If you're on fire, you do not heat up or cool down based on surrounding gases
+			if(loc_temp < bodytemperature)
+				//Place is colder than we are
+				var/thermal_protection = get_cold_protection(loc_temp) //This returns a 0 - 1 value, which corresponds to the percentage of protection based on what you're wearing and what you're exposed to.
+				if(thermal_protection < 1)
+					bodytemperature += min((1-thermal_protection) * ((loc_temp - bodytemperature) / BODYTEMP_COLD_DIVISOR), BODYTEMP_COOLING_MAX)
 			else
-				loc_temp = environment.temperature
-
-			if(adjusted_pressure < species.warning_high_pressure && adjusted_pressure > species.warning_low_pressure && abs(loc_temp - bodytemperature) < 20 && bodytemperature < species.heat_level_1 && bodytemperature > species.cold_level_1 && environment.toxins < MOLES_PLASMA_VISIBLE)
-				pressure_alert = 0
-				return // Temperatures are within normal ranges, fuck all this processing. ~Ccomp
-
-			if(!on_fire) //If you're on fire, you do not heat up or cool down based on surrounding gases
-				//Body temperature adjusts depending on surrounding atmosphere based on your thermal protection
-				var/temp_adj = 0
-				if(loc_temp < bodytemperature)			//Place is colder than we are
-					var/thermal_protection = get_cold_protection(loc_temp) //This returns a 0 - 1 value, which corresponds to the percentage of protection based on what you're wearing and what you're exposed to.
-					if(thermal_protection < 1)
-						temp_adj = (1-thermal_protection) * ((loc_temp - bodytemperature) / BODYTEMP_COLD_DIVISOR)	//this will be negative
-				else if (loc_temp > bodytemperature)			//Place is hotter than we are
-					var/thermal_protection = get_heat_protection(loc_temp) //This returns a 0 - 1 value, which corresponds to the percentage of protection based on what you're wearing and what you're exposed to.
-					if(thermal_protection < 1)
-						temp_adj = (1-thermal_protection) * ((loc_temp - bodytemperature) / BODYTEMP_HEAT_DIVISOR)
-
-				//Use heat transfer as proportional to the gas density. However, we only care about the relative density vs standard 101 kPa/20 C air. Therefore we can use mole ratios
-				var/relative_density = environment.total_moles() / MOLES_CELLSTANDARD
-				temp_adj *= relative_density
-
-				if (temp_adj > BODYTEMP_HEATING_MAX) temp_adj = BODYTEMP_HEATING_MAX
-				if (temp_adj < BODYTEMP_COOLING_MAX) temp_adj = BODYTEMP_COOLING_MAX
-				//world << "Environment: [loc_temp], [src]: [bodytemperature], Adjusting: [temp_adj]"
-				bodytemperature += temp_adj
+				//Place is hotter than we are
+				var/thermal_protection = get_heat_protection(loc_temp) //This returns a 0 - 1 value, which corresponds to the percentage of protection based on what you're wearing and what you're exposed to.
+				if(thermal_protection < 1)
+					bodytemperature += min((1-thermal_protection) * ((loc_temp - bodytemperature) / BODYTEMP_HEAT_DIVISOR), BODYTEMP_HEATING_MAX)
 
 		// +/- 50 degrees from 310.15K is the 'safe' zone, where no damage is dealt.
 		if(bodytemperature > species.heat_level_1)
@@ -607,6 +529,9 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 
 		// Account for massive pressure differences.  Done by Polymorph
 		// Made it possible to actually have something that can protect against high pressure... Done by Errorage. Polymorph now has an axe sticking from his head for his previous hardcoded nonsense!
+
+		var/pressure = environment.return_pressure()
+		var/adjusted_pressure = calculate_affecting_pressure(pressure) //Returns how much pressure actually affects the mob.
 		if(status_flags & GODMODE)	return 1	//godmode
 
 		if(adjusted_pressure >= species.hazard_high_pressure)
@@ -620,14 +545,12 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 		else if(adjusted_pressure >= species.hazard_low_pressure)
 			pressure_alert = -1
 		else
-			if( !(RESIST_COLD in mutations))
+			if(RESIST_COLD in mutations)
+				pressure_alert = -1
+			else
 				take_overall_damage(brute=LOW_PRESSURE_DAMAGE, used_weapon = "Low Pressure")
 				pressure_alert = -2
-			else
-				pressure_alert = -1
 
-		if(environment.toxins > MOLES_PLASMA_VISIBLE)
-			pl_effects()
 		return
 
 	///FIRE CODE
@@ -671,39 +594,20 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 		return temp_change
 	*/
 
-	proc/stabilize_body_temperature()
-		//TODO find a better place to put this
-		if (s_store && istype(s_store, /obj/item/device/suit_cooling_unit))
-			var/obj/item/device/suit_cooling_unit/CU = s_store
-			CU.cool_mob(src)
-
-//		if (species.flags & IS_SYNTHETIC)
-//			bodytemperature += species.synth_temp_gain		//that CPU/posibrain just keeps putting out heat.		// commented out as making synthetics unplayable until cooling system sorted out
-//			return
-
-		var/body_temperature_difference = species.body_temperature - bodytemperature
-
-		if (abs(body_temperature_difference) < 0.5)
-			return //fuck this precision
-
-		if(bodytemperature < species.cold_level_1) //260.15 is 310.15 - 50, the temperature where you start to feel effects.
+	proc/stabilize_temperature_from_calories()
+		if(bodytemperature <= species.cold_level_1) //260.15 is 310.15 - 50, the temperature where you start to feel effects.
 			if(nutrition >= 2) //If we are very, very cold we'll use up quite a bit of nutriment to heat us up.
 				nutrition -= 2
-			var/recovery_amt = max((body_temperature_difference / BODYTEMP_AUTORECOVERY_DIVISOR), BODYTEMP_AUTORECOVERY_MINIMUM)
-			//world << "Cold. Difference = [body_temperature_difference]. Recovering [recovery_amt]"
-//				log_debug("Cold. Difference = [body_temperature_difference]. Recovering [recovery_amt]")
-			bodytemperature += recovery_amt
-		else if(species.cold_level_1 <= bodytemperature && bodytemperature <= species.heat_level_1)
-			var/recovery_amt = body_temperature_difference / BODYTEMP_AUTORECOVERY_DIVISOR
-			//world << "Norm. Difference = [body_temperature_difference]. Recovering [recovery_amt]"
-//				log_debug("Norm. Difference = [body_temperature_difference]. Recovering [recovery_amt]")
-			bodytemperature += recovery_amt
-		else if(bodytemperature > species.heat_level_1) //360.15 is 310.15 + 50, the temperature where you start to feel effects.
+			var/body_temperature_difference = species.body_temperature - bodytemperature
+			bodytemperature += max((body_temperature_difference / BODYTEMP_AUTORECOVERY_DIVISOR), BODYTEMP_AUTORECOVERY_MINIMUM)
+		if(bodytemperature >= species.cold_level_1 && bodytemperature <= species.heat_level_1)
+			var/body_temperature_difference = species.body_temperature - bodytemperature
+			bodytemperature += body_temperature_difference / BODYTEMP_AUTORECOVERY_DIVISOR
+		if(bodytemperature >= species.heat_level_1) //360.15 is 310.15 + 50, the temperature where you start to feel effects.
 			//We totally need a sweat system cause it totally makes sense...~
-			var/recovery_amt = min((body_temperature_difference / BODYTEMP_AUTORECOVERY_DIVISOR), -BODYTEMP_AUTORECOVERY_MINIMUM)	//We're dealing with negative numbers
-			//world << "Hot. Difference = [body_temperature_difference]. Recovering [recovery_amt]"
-//				log_debug("Hot. Difference = [body_temperature_difference]. Recovering [recovery_amt]")
-			bodytemperature += recovery_amt
+			var/body_temperature_difference = species.body_temperature - bodytemperature
+			bodytemperature += min((body_temperature_difference / BODYTEMP_AUTORECOVERY_DIVISOR), -BODYTEMP_AUTORECOVERY_MINIMUM)	//We're dealing with negative numbers
+
 
 	//This proc returns a number made up of the flags for body parts which you are protected on. (such as HEAD, UPPER_TORSO, LOWER_TORSO, etc. See setup.dm for the full list)
 	proc/get_heat_protection_flags(temperature) //Temperature is the temperature you're being exposed to.
@@ -1041,7 +945,6 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 
 			updatehealth()	//TODO
 			if(!in_stasis)
-				stabilize_body_temperature()	//Body temperature adjusts itself
 				handle_organs()	//Optimized.
 				handle_blood()
 
@@ -1327,12 +1230,12 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 			if(glasses)
 				var/obj/item/clothing/glasses/G = glasses
 				if(istype(G))
-					see_in_dark += G.darkness_view
+					see_in_dark = (G.darkness_view ? see_in_dark + G.darkness_view : species.darksight) // Otherwise we keep our darkness view with togglable nightvision.
 					if(G.vision_flags)		// MESONS
 						sight |= G.vision_flags
 						if(!druggy)
 							see_invisible = SEE_INVISIBLE_MINIMUM
-					if(istype(G,/obj/item/clothing/glasses/night))
+					if(!G.see_darkness)
 						see_invisible = SEE_INVISIBLE_MINIMUM
 	/* HUD shit goes here, as long as it doesn't modify sight flags */
 	// The purpose of this is to stop xray and w/e from preventing you from using huds -- Love, Doohl
@@ -1342,15 +1245,13 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 					if(istype(glasses, /obj/item/clothing/glasses/sunglasses/sechud))
 						var/obj/item/clothing/glasses/sunglasses/sechud/O = glasses
 						if(O.hud)		O.hud.process_hud(src)
-						if(!druggy)		see_invisible = SEE_INVISIBLE_LIVING
+						if(!druggy)		see_invisible = (!O.see_darkness || O.vision_flags ? SEE_INVISIBLE_MINIMUM : SEE_INVISIBLE_LIVING) // So we can have meson/thermal/material sunglasses
 
 				if(istype(glasses, /obj/item/clothing/glasses/hud))
 					var/obj/item/clothing/glasses/hud/O = glasses
 					O.process_hud(src)
 					if(!druggy)
-						see_invisible = SEE_INVISIBLE_LIVING
-					if(istype(O,/obj/item/clothing/glasses/hud/security/night) || istype(O,/obj/item/clothing/glasses/hud/health/night))
-						see_invisible = SEE_INVISIBLE_MINIMUM
+						see_invisible = (!O.see_darkness || O.vision_flags ? SEE_INVISIBLE_MINIMUM : SEE_INVISIBLE_LIVING)
 			else if(!seer)
 				see_in_dark = species.darksight
 				see_invisible = SEE_INVISIBLE_LIVING

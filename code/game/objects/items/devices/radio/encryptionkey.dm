@@ -21,13 +21,6 @@
 	origin_tech = "syndicate=3"
 	syndie = 1 //Signifies that it de-crypts Syndicate transmissions
 
-/obj/item/device/encryptionkey/syndicate/hacked
-	name = "Standard Encryption Key"
-	desc = "An encryption key for a radio headset. Has no special codes in it. Looks more sophisticated than usual."
-	channels = list("Command" = 0, "Security" = 0, "Engineering" = 0, "Science" = 0, "Medical" = 0, "Supply" = 0, "Service" = 0, "Syndicate" = 1)
-	origin_tech = "syndicate=3"
-	syndie = 1
-
 /obj/item/device/encryptionkey/binary
 	name = "binary translator key"
 	desc = "An encryption key for a radio headset. To access the binary channel, use :b."

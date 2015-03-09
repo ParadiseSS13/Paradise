@@ -5,7 +5,7 @@
 	icon = 'icons/obj/computer.dmi'
 	icon_state = "aiupload"
 	density = 1
-	req_one_access = list(access_hop, access_captain, access_cent_captain)
+	req_one_access = list(access_hop, access_captain, access_cent_commander)
 	var/receipt_num
 	var/machine_id = ""
 	var/obj/item/weapon/card/id/held_card
@@ -16,7 +16,7 @@
 	proc/get_access_level()
 		if (!held_card)
 			return 0
-		if(access_cent_captain in held_card.access)
+		if(access_cent_commander in held_card.access)
 			return 2
 		else if(access_hop in held_card.access || access_captain in held_card.access)
 			return 1

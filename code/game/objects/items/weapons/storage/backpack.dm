@@ -300,3 +300,39 @@
 	desc = "A duffelbag designed to hold bananas and bike horns."
 	icon_state = "duffel-clown"
 	item_state = "duffel-clown"
+	
+//ERT backpacks.
+/obj/item/weapon/storage/backpack/ert
+	name = "emergency response team backpack"
+	desc = "A spacious backpack with lots of pockets, used by members of the Nanotrasen Emergency Response Team."
+	icon_state = "ert_commander"
+	item_state = "backpack"
+
+//Commander
+/obj/item/weapon/storage/backpack/ert/commander
+	name = "emergency response team commander backpack"
+	desc = "A spacious backpack with lots of pockets, worn by the commander of a Nanotrasen Emergency Response Team."
+
+//Security
+/obj/item/weapon/storage/backpack/ert/security
+	name = "emergency response team security backpack"
+	desc = "A spacious backpack with lots of pockets, worn by security members of a Nanotrasen Emergency Response Team."
+	icon_state = "ert_security"
+
+//Engineering
+/obj/item/weapon/storage/backpack/ert/engineer
+	name = "emergency response team engineer backpack"
+	desc = "A spacious backpack with lots of pockets, worn by engineering members of a Nanotrasen Emergency Response Team."
+	icon_state = "ert_engineering"
+
+//Medical
+/obj/item/weapon/storage/backpack/ert/medical
+	name = "emergency response team medical backpack"
+	desc = "A spacious backpack with lots of pockets, worn by medical members of a Nanotrasen Emergency Response Team."
+	icon_state = "ert_medical"
+	
+//Janitorial
+/obj/item/weapon/storage/backpack/ert/janitor
+	name = "emergency response team janitor backpack"
+	desc = "A spacious backpack with lots of pockets, worn by janitorial members of a Nanotrasen Emergency Response Team."
+	icon_state = "ert_janitor"
