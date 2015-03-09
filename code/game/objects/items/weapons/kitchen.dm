@@ -7,6 +7,7 @@
  *		Kitchen knives
  *		Butcher's cleaver
  *		Rolling Pins
+ *		Candy Moulds
  */
 
 /obj/item/weapon/kitchen
@@ -215,3 +216,58 @@
 	attack_verb = list("bashed", "battered", "bludgeoned", "thrashed", "whacked")
 
 /* Trays moved to /obj/item/weapon/storage/bag */
+
+/*
+ * Candy Moulds
+ */
+
+/obj/item/weapon/kitchen/mould
+	name = "generic candy mould"
+	desc = "You aren't sure what it's supposed to be."
+	icon_state = "mould"
+	force = 5
+	throwforce = 5
+	throw_speed = 3
+	throw_range = 3
+	w_class = 2.0
+	attack_verb = list("bashed", "battered", "bludgeoned", "thrashed", "smashed")
+
+/obj/item/weapon/kitchen/mould/bear
+	name = "bear-shaped candy mould"
+	desc = "It has the shape of a small bear imprinted into it."
+	icon_state = "mould_bear"
+
+/obj/item/weapon/kitchen/mould/worm
+	name = "worm-shaped candy mould"
+	desc = "It has the shape of a worm imprinted into it."
+	icon_state = "mould_worm"
+
+/obj/item/weapon/kitchen/mould/bean
+	name = "bean-shaped candy mould"
+	desc = "It has the shape of a bean imprinted into it."
+	icon_state = "mould_bean"
+
+/obj/item/weapon/kitchen/mould/ball
+	name = "ball-shaped candy mould"
+	desc = "It has a small sphere imprinted into it."
+	icon_state = "mould_ball"
+
+/obj/item/weapon/kitchen/mould/cane
+	name = "cane-shaped candy mould"
+	desc = "It has the shape of a cane imprinted into it."
+	icon_state = "mould_cane"
+
+/obj/item/weapon/kitchen/mould/cash
+	name = "cash-shaped candy mould"
+	desc = "It has the shape and design of fake money imprinted into it."
+	icon_state = "mould_cash"
+
+/obj/item/weapon/kitchen/mould/coin
+	name = "coin-shaped candy mould"
+	desc = "It has the shape of a coin imprinted into it."
+	icon_state = "mould_coin"
+
+/obj/item/weapon/kitchen/mould/loli
+	name = "sucker mould"
+	desc = "It has the shape of a sucker imprinted into it."
+	icon_state = "mould_loli"

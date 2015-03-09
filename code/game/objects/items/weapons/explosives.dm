@@ -1,4 +1,4 @@
-/obj/item/weapon/plastique
+/obj/item/weapon/c4
 	name = "plastic explosives"
 	desc = "Used to put holes in specific areas without too much extra hole."
 	gender = PLURAL
@@ -13,11 +13,11 @@
 	var/atom/target = null
 	var/open_panel = 0
 
-/obj/item/weapon/plastique/New()
+/obj/item/weapon/c4/New()
 	wires = new(src)
 	..()
 
-/obj/item/weapon/plastique/suicide_act(var/mob/user)
+/obj/item/weapon/c4/suicide_act(var/mob/user)
 	. = (BRUTELOSS)
 	viewers(user) << "<span class='suicide'>[user] activates the C4 and holds it above his head! It looks like \he's going out with a bang!</span>"
 	var/message_say = "FOR NO RAISIN!"
@@ -44,7 +44,7 @@
 	explode(get_turf(user))
 	return .
 
-/obj/item/weapon/plastique/attackby(var/obj/item/I, var/mob/user, params)
+/obj/item/weapon/c4/attackby(var/obj/item/I, var/mob/user, params)
 	if(istype(I, /obj/item/weapon/screwdriver))
 		open_panel = !open_panel
 		user << "<span class='notice'>You [open_panel ? "open" : "close"] the wire panel.</span>"
@@ -53,7 +53,7 @@
 	else
 		..()
 
-/obj/item/weapon/plastique/attack_self(mob/user as mob)
+/obj/item/weapon/c4/attack_self(mob/user as mob)
 	var/newtime = input(usr, "Please set the timer.", "Timer", 10) as num
 	if(newtime < 10)
 		newtime = 10
@@ -63,7 +63,7 @@
 	user << "Timer set for [timer] seconds."
 
 
-/obj/item/weapon/plastique/afterattack(atom/target as obj|turf, mob/user as mob, flag)
+/obj/item/weapon/c4/afterattack(atom/target as obj|turf, mob/user as mob, flag)
 	if (!flag)
 		return
 	if (ismob(target) || istype(target, /turf/unsimulated) || istype(target, /turf/simulated/shuttle) || istype(target, /obj/item/weapon/storage) || istype(target, /obj/item/clothing/accessory/storage) || istype(target, /obj/item/clothing/under))
@@ -90,7 +90,7 @@
 		spawn(timer*10)
 			explode(get_turf(target))
 
-/obj/item/weapon/plastique/proc/explode(var/location)
+/obj/item/weapon/c4/proc/explode(var/location)
 
 	if(!target)
 		target = get_atom_on_turf(src)
@@ -110,5 +110,5 @@
 				del(target)
 	del(src)
 
-/obj/item/weapon/plastique/attack(mob/M as mob, mob/user as mob, def_zone)
+/obj/item/weapon/c4/attack(mob/M as mob, mob/user as mob, def_zone)
 	return

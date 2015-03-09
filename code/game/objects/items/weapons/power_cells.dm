@@ -128,6 +128,13 @@
 	name = "pulse pistol power cell"
 	maxcharge = 1600
 
+/obj/item/weapon/stock_parts/cell/ninja
+	name = "spider-clan power cell"
+	desc = "A standard ninja-suit power cell."
+	maxcharge = 10000
+	rating = 3
+	g_amt = 60
+
 /obj/item/weapon/stock_parts/cell/emproof
 	name = "\improper EMP-proof cell"
 	desc = "An EMP-proof cell."

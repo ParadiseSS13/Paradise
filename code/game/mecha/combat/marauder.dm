@@ -27,7 +27,7 @@
 	name = "Seraph"
 	icon_state = "seraph"
 	initial_icon = "seraph"
-	operation_req_access = list(access_cent_creed)
+	operation_req_access = list(access_cent_commander)
 	step_in = 3
 	health = 550
 	wreckage = /obj/effect/decal/mecha_wreckage/seraph

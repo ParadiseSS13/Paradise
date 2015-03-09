@@ -319,6 +319,7 @@
 		reagents.add_reagent("tricordrazine", 8)
 		bitesize = 3
 
+/*
 /obj/item/weapon/reagent_containers/food/snacks/candy
 	name = "candy"
 	desc = "Nougat, love it or hate it."
@@ -353,6 +354,7 @@
 		reagents.add_reagent("nutriment", 4)
 		reagents.add_reagent("sugar", 2)
 		bitesize = 2
+*/
 
 /obj/item/weapon/reagent_containers/food/snacks/chips
 	name = "chips"

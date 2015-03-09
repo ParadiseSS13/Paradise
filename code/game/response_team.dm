@@ -285,18 +285,18 @@ var/can_call_ert
 			else
 				del(H)
 
-	var/new_gender = alert(usr, "Please select gender.", "Character Generation", "Male", "Female")
+	//M.rebuild_appearance()			
+	*/
+	
+	var/new_gender = alert(usr, "Please select your gender.", "Character Generation", "Male", "Female")
 	if (new_gender)
 		if(new_gender == "Male")
 			M.gender = MALE
 		else
 			M.gender = FEMALE
-	//M.rebuild_appearance()
-*/
 
-	M.gender = pick(MALE, FEMALE)
 	M.set_species("Human",1)
-	M.dna.ready_dna(M) // Quadriplegic Nuke Ops won't be participating in the paralympics
+	M.dna.ready_dna(M)
 
 	var/hair_c = pick("#8B4513","#000000","#FF4500","#FFD700") // Brown, black, red, blonde
 	var/eye_c = pick("#000000","#8B4513","1E90FF") // Black, brown, blue
@@ -368,15 +368,14 @@ var/can_call_ert
 			R.helmet.flags |= NODROP
 					
 			M.equip_to_slot_or_del(new /obj/item/clothing/mask/gas/swat(M), slot_wear_mask)
-			M.equip_to_slot_or_del(new /obj/item/weapon/storage/backpack/satchel(M), slot_back)
+			M.equip_to_slot_or_del(new /obj/item/weapon/storage/backpack/ert/commander(M), slot_back)
 
 			var/obj/item/weapon/card/id/W = new(src)
 			W.assignment = "Emergency Response Team Leader"
 			W.registered_name = M.real_name
 			W.name = "[M.real_name]'s ID Card (Emergency Response Team - Commander)"
 			W.icon_state = "centcom"
-			W.access = get_all_accesses()
-			W.access += list(access_cent_general, access_cent_living, access_cent_medical, access_cent_storage, access_cent_thunder, access_cent_teleporter)
+			W.access = get_centcom_access(W.assignment)
 			M.equip_to_slot_or_del(W, slot_wear_id)
 
 			var/obj/item/device/pda/heads/pda = new(src)
@@ -428,7 +427,7 @@ var/can_call_ert
 					M.equip_to_slot_or_del(new /obj/item/weapon/storage/briefcase/inflatable(M), slot_r_hand)
 					
 				if("Janitorial")
-					M.equip_to_slot_or_del(new /obj/item/clothing/gloves/purple(M), slot_gloves)
+					M.equip_to_slot_or_del(new /obj/item/clothing/gloves/color/purple(M), slot_gloves)
 					M.equip_to_slot_or_del(new /obj/item/clothing/glasses/janitor, slot_glasses)
 					M.equip_to_slot_or_del(new /obj/item/weapon/storage/belt/janitor/full, slot_belt)
 					
@@ -452,7 +451,7 @@ var/can_call_ert
 			R.helmet.flags |= NODROP
 			
 			M.equip_to_slot_or_del(new /obj/item/clothing/mask/gas/swat(M), slot_wear_mask)
-			M.equip_to_slot_or_del(new /obj/item/weapon/storage/backpack/satchel(M), slot_back)
+			M.equip_to_slot_or_del(new /obj/item/weapon/storage/backpack/ert/security(M), slot_back)
 			M.equip_to_slot_or_del(new /obj/item/clothing/glasses/sunglasses/sechud(M), slot_glasses)
 
 			var/obj/item/weapon/card/id/W = new(src)
@@ -460,8 +459,7 @@ var/can_call_ert
 			W.registered_name = M.real_name
 			W.name = "[M.real_name]'s ID Card (Emergency Response Team - Officer)"
 			W.icon_state = "centcom"
-			W.access = get_all_accesses()
-			W.access += list(access_cent_general, access_cent_living, access_cent_thunder)
+			W.access = get_centcom_access(W.assignment)
 			M.equip_to_slot_or_del(W, slot_wear_id)
 
 			var/obj/item/device/pda/heads/pda = new(src)
@@ -472,7 +470,8 @@ var/can_call_ert
 			M.equip_to_slot_or_del(pda, slot_wear_pda)
 			
 			M.equip_to_slot_or_del(new /obj/item/weapon/gun/energy/gun(M), slot_s_store)
-			M.equip_to_slot_or_del(new /obj/item/weapon/tank/emergency_oxygen/double/full(M), slot_r_store)			
+			M.equip_to_slot_or_del(new /obj/item/weapon/tank/emergency_oxygen/double/full(M), slot_r_store)		
+			M.equip_to_slot_or_del(new /obj/item/weapon/restraints/handcuffs, slot_l_store)					
 			
 			M.equip_to_slot_or_del(new /obj/item/clothing/glasses/hud/security/night(M), slot_in_backpack)
 			M.equip_to_slot_or_del(new /obj/item/weapon/storage/box/handcuffs(M), slot_in_backpack)
@@ -492,7 +491,7 @@ var/can_call_ert
 			R.helmet.flags |= NODROP
 			
 			M.equip_to_slot_or_del(new /obj/item/clothing/mask/gas/swat(M), slot_wear_mask)
-			M.equip_to_slot_or_del(new /obj/item/weapon/storage/backpack/satchel(M), slot_back)
+			M.equip_to_slot_or_del(new /obj/item/weapon/storage/backpack/ert/medical(M), slot_back)
 			M.equip_to_slot_or_del(new /obj/item/clothing/glasses/hud/health/night(M), slot_glasses)
 
 			var/obj/item/weapon/card/id/W = new(src)
@@ -500,8 +499,7 @@ var/can_call_ert
 			W.registered_name = M.real_name
 			W.name = "[M.real_name]'s ID Card (Emergency Response Team - Medic)"
 			W.icon_state = "centcom"
-			W.access = get_all_accesses()
-			W.access += list(access_cent_general, access_cent_living, access_cent_medical)
+			W.access = get_centcom_access(W.assignment)
 			M.equip_to_slot_or_del(W, slot_wear_id)
 
 			var/obj/item/device/pda/heads/pda = new(src)
@@ -525,7 +523,7 @@ var/can_call_ert
 
 		if("Engineering")
 			M.equip_to_slot_or_del(new /obj/item/clothing/shoes/magboots/advance(M), slot_shoes)
-			M.equip_to_slot_or_del(new /obj/item/clothing/gloves/combat(M), slot_gloves)
+			M.equip_to_slot_or_del(new /obj/item/weapon/storage/backpack/ert/engineer(M), slot_gloves)
 			M.equip_to_slot_or_del(new /obj/item/clothing/suit/space/rig/ert/engineer(M), slot_wear_suit)
 			
 			var/obj/item/clothing/suit/space/rig/R = M.wear_suit
@@ -542,8 +540,7 @@ var/can_call_ert
 			W.registered_name = M.real_name
 			W.name = "[M.real_name]'s ID Card (Emergency Response Team - Engineer)"
 			W.icon_state = "centcom"
-			W.access = get_all_accesses()
-			W.access += list(access_cent_general, access_cent_living, access_cent_storage)
+			W.access = get_centcom_access(W.assignment)
 			M.equip_to_slot_or_del(W, slot_wear_id)
 
 			var/obj/item/device/pda/heads/pda = new(src)
@@ -564,12 +561,10 @@ var/can_call_ert
 			M.equip_to_slot_or_del(new /obj/item/stack/sheet/plasteel/full(M), slot_in_backpack)		
 
 			M.equip_to_slot_or_del(new /obj/item/weapon/storage/belt/utility/full/multitool(M), slot_belt)
-
-			M.equip_to_slot_or_del(new /obj/item/weapon/storage/briefcase/inflatable(M), slot_r_hand)
 			
 		if("Janitorial")
 			M.equip_to_slot_or_del(new /obj/item/clothing/shoes/galoshes(M), slot_shoes)
-			M.equip_to_slot_or_del(new /obj/item/clothing/gloves/purple(M), slot_gloves)
+			M.equip_to_slot_or_del(new /obj/item/clothing/gloves/color/purple(M), slot_gloves)
 			M.equip_to_slot_or_del(new /obj/item/clothing/suit/space/rig/ert/janitor(M), slot_wear_suit)
 			
 			var/obj/item/clothing/suit/space/rig/R = M.wear_suit
@@ -578,7 +573,7 @@ var/can_call_ert
 			R.helmet.flags |= NODROP
 			
 			M.equip_to_slot_or_del(new /obj/item/clothing/mask/gas/swat(M), slot_wear_mask)
-			M.equip_to_slot_or_del(new /obj/item/weapon/storage/backpack/satchel(M), slot_back)
+			M.equip_to_slot_or_del(new /obj/item/weapon/storage/backpack/ert/janitor(M), slot_back)
 			M.equip_to_slot_or_del(new /obj/item/clothing/glasses/janitor(M), slot_glasses)
 
 			var/obj/item/weapon/card/id/W = new(src)
@@ -586,8 +581,7 @@ var/can_call_ert
 			W.registered_name = M.real_name
 			W.name = "[M.real_name]'s ID Card (Emergency Response Team - Janitor)"
 			W.icon_state = "centcom"
-			W.access = get_all_accesses()
-			W.access += list(access_cent_general, access_cent_living, access_cent_storage)
+			W.access = get_centcom_access(W.assignment)
 			M.equip_to_slot_or_del(W, slot_wear_id)
 
 			var/obj/item/device/pda/heads/pda = new(src)
