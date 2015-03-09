@@ -50,7 +50,6 @@
 	var/hasShocked = 0 //Prevents multiple shocks from happening
 	var/frozen = 0 //special condition for airlocks that are frozen shut, this will look weird on not normal airlocks because of a lack of special overlays.
 	autoclose = 1
-	var/hackerimplant = 0 //rawr must override topic
 
 /obj/machinery/door/airlock/command
 	name = "Airlock"
@@ -757,6 +756,12 @@ About the new airlock wires panel:
 			else
 				emergency = 1
 				usr << "Emergency access has been enabled."
+
+	if(ishuman(usr))
+		if(isdhacker(usr) || ishacker(usr))
+			for(var/obj/item/weapon/implant/hack/H in usr)
+				H.powerlevel = 0
+				usr << "\red <b>Your hack-implant discharges it's energy to hack the door!</b> You will need to wait a minute for it to recharge."
 
 	update_icon()
 	return 1

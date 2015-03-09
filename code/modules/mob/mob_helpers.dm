@@ -156,9 +156,15 @@ proc/isorgan(A)
 			return 1
 	return 0
 
-/proc/ishacker(A)
+/proc/isdhacker(A) //useful for determining if they have a discharged hacking implant
 	for(var/obj/item/weapon/implant/hack/H in A)
-		if(H && H.implanted)
+		if(H && H.implanted && H.powerlevel < H.MAXPOWER)//uses variable to determine charge time, for easy adjusting later.
+			return 1
+	return 0
+
+/proc/ishacker(A) //checks if they have a hacking implant and if it is charged
+	for(var/obj/item/weapon/implant/hack/H in A)
+		if(H && H.implanted && H.powerlevel == H.MAXPOWER)
 			return 1
 	return 0
 

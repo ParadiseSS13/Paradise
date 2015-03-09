@@ -597,6 +597,8 @@ the implant may become unstable and either pre-maturely inject the subject or si
 /obj/item/weapon/implant/hack
 	name = "hacking implant"
 	desc = "An implant used by hackers to interface with airlock controls"
+	var/powerlevel = 10 //This should be the same as MAXPOWER.
+	var/MAXPOWER = 10 //Max charge level, adjust to change charging time- measured in processing ticks, 10 is 5~ seconds.
 	get_data()
 		var/dat = {"
 <b>Implant Specifications:</b><BR>
@@ -614,3 +616,10 @@ the implant may become unstable and either pre-maturely inject the subject or si
 		var/mob/living/carbon/human/H = M
 		H << "\blue You feel like you could interface with the nearest door."
 		return 1
+
+	New()
+		processing_objects.Add(src)
+
+	process()
+		if(powerlevel < src.MAXPOWER)
+			powerlevel++
