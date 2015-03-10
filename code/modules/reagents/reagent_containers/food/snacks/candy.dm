@@ -600,7 +600,7 @@
 /obj/item/weapon/reagent_containers/food/snacks/candy/cotton/red
 	name = "cotton candy"
 	desc = "Light and fluffy, it's like eating a cloud made from sugar!"
-	icon_state = "cottoncandy_plain"
+	icon_state = "cottoncandy_red"
 	trash = /obj/item/weapon/c_tube
 	filling_color = "#801E28"
 
@@ -612,7 +612,7 @@
 /obj/item/weapon/reagent_containers/food/snacks/candy/cotton/blue
 	name = "cotton candy"
 	desc = "Light and fluffy, it's like eating a cloud made from sugar!"
-	icon_state = "cottoncandy_plain"
+	icon_state = "cottoncandy_blue"
 	trash = /obj/item/weapon/c_tube
 	filling_color = "#863333"
 
@@ -624,7 +624,7 @@
 /obj/item/weapon/reagent_containers/food/snacks/candy/cotton/poison
 	name = "cotton candy"
 	desc = "Light and fluffy, it's like eating a cloud made from sugar!"
-	icon_state = "cottoncandy_plain"
+	icon_state = "cottoncandy_blue"
 	trash = /obj/item/weapon/c_tube
 	filling_color = "#863353"
 
@@ -638,7 +638,7 @@
 /obj/item/weapon/reagent_containers/food/snacks/candy/cotton/green
 	name = "cotton candy"
 	desc = "Light and fluffy, it's like eating a cloud made from sugar!"
-	icon_state = "cottoncandy_plain"
+	icon_state = "cottoncandy_green"
 	trash = /obj/item/weapon/c_tube
 	filling_color = "#365E30"
 
@@ -650,7 +650,7 @@
 /obj/item/weapon/reagent_containers/food/snacks/candy/cotton/yellow
 	name = "cotton candy"
 	desc = "Light and fluffy, it's like eating a cloud made from sugar!"
-	icon_state = "cottoncandy_plain"
+	icon_state = "cottoncandy_yellow"
 	trash = /obj/item/weapon/c_tube
 	filling_color = "#863333"
 
@@ -662,7 +662,7 @@
 /obj/item/weapon/reagent_containers/food/snacks/candy/cotton/orange
 	name = "cotton candy"
 	desc = "Light and fluffy, it's like eating a cloud made from sugar!"
-	icon_state = "cottoncandy_plain"
+	icon_state = "cottoncandy_orange"
 	trash = /obj/item/weapon/c_tube
 	filling_color = "#E78108"
 
@@ -674,7 +674,7 @@
 /obj/item/weapon/reagent_containers/food/snacks/candy/cotton/purple
 	name = "cotton candy"
 	desc = "Light and fluffy, it's like eating a cloud made from sugar!"
-	icon_state = "cottoncandy_plain"
+	icon_state = "cottoncandy_purple"
 	trash = /obj/item/weapon/c_tube
 	filling_color = "#993399"
 
@@ -686,7 +686,7 @@
 /obj/item/weapon/reagent_containers/food/snacks/candy/cotton/pink
 	name = "cotton candy"
 	desc = "Light and fluffy, it's like eating a cloud made from sugar!"
-	icon_state = "cottoncandy_plain"
+	icon_state = "cottoncandy_pink"
 	trash = /obj/item/weapon/c_tube
 	filling_color = "#863333"
 
@@ -698,7 +698,7 @@
 /obj/item/weapon/reagent_containers/food/snacks/candy/cotton/rainbow
 	name = "cotton candy"
 	desc = "Light and fluffy, it's like eating a cloud made from sugar!"
-	icon_state = "cottoncandy_plain"
+	icon_state = "cottoncandy_rainbow"
 	trash = /obj/item/weapon/c_tube
 	filling_color = "#C8A5DC"
 
@@ -712,7 +712,7 @@
 /obj/item/weapon/reagent_containers/food/snacks/candy/cotton/bad_rainbow
 	name = "cotton candy"
 	desc = "Light and fluffy, it's like eating a cloud made from sugar!"
-	icon_state = "cottoncandy_plain"
+	icon_state = "cottoncandy_rainbow"
 	trash = /obj/item/weapon/c_tube
 	filling_color = "#32127A"
 
