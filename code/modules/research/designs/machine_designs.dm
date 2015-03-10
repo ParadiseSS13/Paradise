@@ -10,7 +10,7 @@
 	build_type = IMPRINTER
 	materials = list("$glass" = 1000, "sacid" = 20)
 	build_path = /obj/item/weapon/circuitboard/thermomachine
-	category = list ("Engineering Machinery")	
+	category = list ("Engineering Machinery")
 
 /datum/design/smes
 	name = "Machine Board (SMES)"
@@ -21,7 +21,7 @@
 	materials = list("$glass" = 1000, "sacid" = 20)
 	build_path = /obj/item/weapon/circuitboard/smes
 	category = list ("Engineering Machinery")
-	
+
 /datum/design/telepad
 	name = "Machine Board (Telepad Board)"
 	desc = "Allows for the construction of circuit boards used to build a Telepad."
@@ -30,8 +30,8 @@
 	build_type = IMPRINTER
 	materials = list("$glass" = 1000, "sacid" = 20)
 	build_path = /obj/item/weapon/circuitboard/telesci_pad
-	category = list ("Teleportation Machinery")	
-	
+	category = list ("Teleportation Machinery")
+
 /datum/design/teleport_hub
 	name = "Machine Board (Teleportation Hub)"
 	desc = "Allows for the construction of circuit boards used to build a Teleportation Hub."
@@ -40,8 +40,8 @@
 	build_type = IMPRINTER
 	materials = list("$glass" = 1000, "sacid" = 20)
 	build_path = /obj/item/weapon/circuitboard/teleporter_hub
-	category = list ("Teleportation Machinery")	
-	
+	category = list ("Teleportation Machinery")
+
 /datum/design/teleport_station
 	name = "Machine Board (Teleportation Station)"
 	desc = "Allows for the construction of circuit boards used to build a Teleporter Station."
@@ -50,8 +50,8 @@
 	build_type = IMPRINTER
 	materials = list("$glass" = 1000, "sacid" = 20)
 	build_path = /obj/item/weapon/circuitboard/teleporter_station
-	category = list ("Teleportation Machinery")	
-	
+	category = list ("Teleportation Machinery")
+
 /datum/design/bodyscanner
 	name = "Machine Board (Body Scanner)"
 	desc = "Allows for the construction of circuit boards used to build a Body Scanner."
@@ -71,7 +71,7 @@
 	materials = list("$glass" = 1000, "sacid" = 20)
 	build_path = /obj/item/weapon/circuitboard/bodyscanner_console
 	category = list("Medical Machinery")
-	
+
 /datum/design/clonepod
 	name = "Machine Board (Cloning Pod)"
 	desc = "Allows for the construction of circuit boards used to build a Cloning Pod."
@@ -81,7 +81,7 @@
 	materials = list("$glass" = 1000, "sacid" = 20)
 	build_path = /obj/item/weapon/circuitboard/clonepod
 	category = list("Medical Machinery")
-		
+
 /datum/design/clonescanner
 	name = "Machine Board (Cloning Scanner)"
 	desc = "Allows for the construction of circuit boards used to build a Cloning Scanner."
@@ -91,7 +91,7 @@
 	materials = list("$glass" = 1000, "sacid" = 20)
 	build_path = /obj/item/weapon/circuitboard/clonescanner
 	category = list("Medical Machinery")
-	
+
 /datum/design/cryotube
 	name = "Machine Board (Cryotube Board)"
 	desc = "Allows for the construction of circuit boards used to build a Cryotube."
@@ -101,7 +101,7 @@
 	materials = list("$glass" = 1000, "sacid" = 20)
 	build_path = /obj/item/weapon/circuitboard/cryo_tube
 	category = list("Medical Machinery")
-	
+
 /datum/design/chem_dispenser
 	name = "Machine Board (Portable Chem Dispenser)"
 	desc = "The circuit board for a Portable Chem Dispenser."
@@ -111,7 +111,7 @@
 	materials = list("$glass" = 1000, "sacid" = 20)
 	build_path = /obj/item/weapon/circuitboard/chem_dispenser
 	category = list("Medical Machinery")
-	
+
 /datum/design/sleeper
 	name = "Machine Board (Sleeper)"
 	desc = "Allows for the construction of circuit boards used to build a Sleeper."
@@ -131,7 +131,7 @@
 	materials = list("$glass" = 1000, "sacid" = 20)
 	build_path = /obj/item/weapon/circuitboard/sleep_console
 	category = list("Medical Machinery")
-	
+
 /datum/design/biogenerator
 	name = "Machine Board (Biogenerator)"
 	desc = "The circuit board for a Biogenerator."
@@ -160,8 +160,8 @@
 	build_type = IMPRINTER
 	materials = list("$glass" = 1000, "sacid" = 20)
 	build_path = /obj/item/weapon/circuitboard/autolathe
-	category = list("Research Machinery")	
-	
+	category = list("Research Machinery")
+
 /datum/design/circuit_imprinter
 	name = "Machine Board (Circuit Imprinter)"
 	desc = "The circuit board for a Circuit Imprinter."
@@ -170,8 +170,8 @@
 	build_type = IMPRINTER
 	materials = list("$glass" = 1000, "sacid" = 20)
 	build_path = /obj/item/weapon/circuitboard/circuit_imprinter
-	category = list("Research Machinery")	
-	
+	category = list("Research Machinery")
+
 /datum/design/cyborgrecharger
 	name = "Machine Board (Cyborg Recharger)"
 	desc = "The circuit board for a Cyborg Recharger."
@@ -181,7 +181,7 @@
 	materials = list("$glass" = 1000, "sacid" = 20)
 	build_path = /obj/item/weapon/circuitboard/cyborgrecharger
 	category = list("Research Machinery")
-	
+
 /datum/design/destructive_analyzer
 	name = "Machine Board (Destructive Analyzer)"
 	desc = "The circuit board for a Destructive Analyzer."
@@ -191,7 +191,7 @@
 	materials = list("$glass" = 1000, "sacid" = 20)
 	build_path = /obj/item/weapon/circuitboard/destructive_analyzer
 	category = list("Research Machinery")
-	
+
 /datum/design/mechfab
 	name = "Machine Board (Exosuit Fabricator)"
 	desc = "The circuit board for an Exosuit Fabricator"
@@ -201,7 +201,7 @@
 	materials = list("$glass" = 1000, "sacid" = 20)
 	build_path = /obj/item/weapon/circuitboard/mechfab
 	category = list("Research Machinery")
-	
+
 /datum/design/mech_recharger
 	name = "Machine Board (Mech Bay Recharger)"
 	desc = "The circuit board for a Mech Bay Recharger."
@@ -250,8 +250,38 @@
 	build_type = IMPRINTER
 	materials = list("$glass" = 1000, "sacid" = 20)
 	build_path = /obj/item/weapon/circuitboard/microwave
-	category = list("Misc. Machinery")			
-	
+	category = list("Misc. Machinery")
+
+/datum/design/oven
+	name = "Machine Board (Oven)"
+	desc = "The circuit board for an Oven."
+	id = "oven"
+	req_tech = list("programming" = 1, "plasmatech" = 1)
+	build_type = IMPRINTER
+	materials = list("$glass" = 1000, "sacid" = 20)
+	build_path = /obj/item/weapon/circuitboard/oven
+	category = list("Misc. Machinery")
+
+/datum/design/grill
+	name = "Machine Board (Grill)"
+	desc = "The circuit board for a Grill."
+	id = "grill"
+	req_tech = list("programming" = 1, "plasmatech" = 1)
+	build_type = IMPRINTER
+	materials = list("$glass" = 1000, "sacid" = 20)
+	build_path = /obj/item/weapon/circuitboard/grill
+	category = list("Misc. Machinery")
+
+/datum/design/candy_maker
+	name = "Machine Board (Candy Maker)"
+	desc = "The circuit board for a Candy Maker."
+	id = "candymaker"
+	req_tech = list("programming" = 2)
+	build_type = IMPRINTER
+	materials = list("$glass" = 1000, "sacid" = 20)
+	build_path = /obj/item/weapon/circuitboard/candy_maker
+	category = list("Misc. Machinery")
+
 /datum/design/orion_trail
 	name = "Machine Board (Orion Trail Arcade Machine)"
 	desc = "Allows for the construction of circuit boards used to build a new Orion Trail machine."
@@ -261,7 +291,7 @@
 	materials = list("$glass" = 1000, "sacid" = 20)
 	build_path = /obj/item/weapon/circuitboard/arcade/orion_trail
 	category = list("Misc. Machinery")
-	
+
 /datum/design/programmable
 	name = "Machine Board (Programmable Unloader)"
 	desc = "The circuit board for a Programmable Unloader."

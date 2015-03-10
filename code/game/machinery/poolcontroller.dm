@@ -90,6 +90,14 @@
 /obj/machinery/poolcontroller/proc/updateMobs()
 	for(var/turf/simulated/floor/beach/water/W in linkedturfs) //Check for pool-turfs linked to the controller.
 		for(var/mob/M in W) //Check for mobs in the linked pool-turfs.
+			//Sanity checks, don't affect robuts, AI eyes, and observers
+			if(isAIEye(M))
+				return
+			if(issilicon(M))
+				return
+			if(isobserver(M))
+				return
+			//End sanity checks, go on
 			switch(temperature) //Apply different effects based on what the temperature is set to.
 				if("scalding") //Burn the mob.
 					M.bodytemperature = min(500, M.bodytemperature + 35) //heat mob at 35k(elvin) per cycle
@@ -106,12 +114,14 @@
 
 				if("warm") //Gently warm the mob.
 					M.bodytemperature = min(330, M.bodytemperature + 10) //Heats up mobs to just over normal, not enough to burn
-					M << "<span class='warning'>The water is quite warm.</span>" //Inform the mob it's warm water.
+					if(prob(50)) //inform the mob of warm water half the time
+						M << "<span class='warning'>The water is quite warm.</span>" //Inform the mob it's warm water.
 					return
 
 				if("cool") //Gently cool the mob.
 					M.bodytemperature = max(290, M.bodytemperature - 10) //Cools mobs to just below normal, not enough to burn
-					M << "<span class='warning'>The water is chilly.</span>" //Inform the mob it's chilly water.
+					if(prob(50)) //inform the mob of cold water half the time
+						M << "<span class='warning'>The water is chilly.</span>" //Inform the mob it's chilly water.
 					return
 
 /obj/machinery/poolcontroller/proc/miston() //Spawn /obj/effect/mist (from the shower) on all linked pool tiles

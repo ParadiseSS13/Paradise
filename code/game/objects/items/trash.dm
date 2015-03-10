@@ -56,6 +56,10 @@
 	can
 		name = "crushed can"
 		icon_state = "cola"
+	gum
+		name = "chewed gum"
+		desc = "NOT free candy."
+		icon_state = "gum"
 
 /obj/item/trash/attack(mob/M as mob, mob/living/user as mob)
 	return
