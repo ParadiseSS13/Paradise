@@ -647,6 +647,13 @@ datum
 			required_reagents = list ("ammonia" = 1, "ethanol" = 1)
 			result_amount = 2
 
+		robustharvest
+			name = "Robust Harvest"
+			id = "robustharvest"
+			result = "robustharvest"
+			required_reagents = list ("diethylamine" = 1, "radium" = 1)
+			result_amount = 2
+
 		space_cleaner
 			name = "Space cleaner"
 			id = "cleaner"
