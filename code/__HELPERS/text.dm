@@ -38,7 +38,7 @@
 	for(var/char in repl_chars)
 		replacetext(t, char, repl_chars[char])
 	return t
-	
+
 /proc/readd_quotes(var/t)
 	var/list/repl_chars = list("&#34;" = "\"")
 	for(var/char in repl_chars)
@@ -309,7 +309,7 @@ proc/checkhtml(var/t)
 	for(var/i = length(text); i > 0; i--)
 		new_text += copytext(text, i, i+1)
 	return new_text
-	
+
 //This proc strips html properly, but it's not lazy like the other procs.
 //This means that it doesn't just remove < and > and call it a day.
 //Also limit the size of the input, if specified.
@@ -339,4 +339,11 @@ proc/checkhtml(var/t)
 
 /proc/trim_strip_html_properly(var/input, var/max_length = MAX_MESSAGE_LEN)
     return trim(strip_html_properly(input, max_length))
-	
+
+
+//For generating neat chat tag-images
+//The icon var could be local in the proc, but it's a waste of resources
+//	to always create it and then throw it out.
+/var/icon/text_tag_icons = new('./icons/chattags.dmi')
+/proc/create_text_tag(var/tagname, var/tagdesc = tagname, var/client/C = null)
+	return "<IMG src='\ref[text_tag_icons.icon]' class='text_tag' iconstate='[tagname]'" + (tagdesc ? " alt='[tagdesc]'" : "") + ">"
