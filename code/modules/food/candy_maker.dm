@@ -79,7 +79,7 @@
 			return
 		if(exchange_parts(user, O))
 			return
-	if(istype(O, /obj/item/weapon/wrench))
+	if(!broken && istype(O, /obj/item/weapon/wrench))
 		playsound(src, 'sound/items/Ratchet.ogg', 50, 1)
 		if(anchored)
 			anchored = 0
