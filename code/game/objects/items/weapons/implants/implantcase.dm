@@ -149,3 +149,14 @@
 		src.imp = new /obj/item/weapon/implant/freedom( src )
 		..()
 		return
+
+/obj/item/weapon/implantcase/hack
+	name = "Glass Case- 'HackImplant'"
+	desc = "A case containing a hacking implant."
+	icon = 'icons/obj/items.dmi'
+	icon_state = "implantcase-b"
+
+	New()
+		src.imp = new /obj/item/weapon/implant/hack( src )
+		..()
+		return

@@ -80,6 +80,9 @@
 			else if(XRAY in M.mutations)	//mob has X-RAY vision
 				flick("flash", M.flash) //Yes, you can still get flashed wit X-Ray.
 				user << "<span class='notice'>[M] pupils give an eerie glow!</span>"
+			else if(ishacker(M) || isdhacker(M))
+				flick("flash", M.flash)
+				user << "<span class='notice'>[M]'s eyes refract the light with a metallic sheen.</span>" //Thank you, False. I am bad at writing.
 			else	//they're okay!
 				if(!M.blinded)
 					flick("flash", M.flash)	//flash the affected mob

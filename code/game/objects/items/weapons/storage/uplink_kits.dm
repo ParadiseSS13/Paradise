@@ -186,3 +186,13 @@
 		new /obj/item/weapon/grenade/empgrenade(src)
 		new /obj/item/weapon/implanter/emp/(src)
 		new /obj/item/device/flashlight/emp/(src)
+
+/obj/item/weapon/storage/box/syndie_kit/imp_hack
+	name = "Hack Implant (with injector)"
+
+/obj/item/weapon/storage/box/syndie_kit/imp_hack/New()
+	..()
+	var/obj/item/weapon/implanter/O = new(src)
+	O.imp = new /obj/item/weapon/implant/hack(O)
+	O.update()
+	return

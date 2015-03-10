@@ -630,6 +630,12 @@ var/list/uplink_items = list()
 	item = /obj/item/weapon/storage/box/syndie_kit/imp_adrenal
 	cost = 8
 
+/datum/uplink_item/implants/hack
+	name = "Hack Implant"
+	desc = "An impant injected into the body, which allows the user to interface with NT door systems."
+	item = /obj/item/weapon/storage/box/syndie_kit/imp_hack
+	cost = 20
+
 // POINTLESS BADASSERY
 
 /datum/uplink_item/badass
