@@ -9,7 +9,7 @@ var/global/list/special_roles = list( //keep synced with the defines BE_* in set
 	"changeling" = IS_MODE_COMPILED("changeling"),       // 4 / 3
 	"wizard" = IS_MODE_COMPILED("wizard"),               // 8 / 4
 	"malf AI" = IS_MODE_COMPILED("malfunction"),         // 16 / 5
-	"revolutionary" = IS_MODE_COMPILED("revolution"),    // 32 / 6 
+	"revolutionary" = IS_MODE_COMPILED("revolution"),    // 32 / 6
 	"alien" = 1,           							     // 62 / 7
 	"pAI" = 1,                   						 // 128	/ 8
 	"cultist" = IS_MODE_COMPILED("cult"),                // 256 / 9
@@ -20,9 +20,9 @@ var/global/list/special_roles = list( //keep synced with the defines BE_* in set
 	"blob" = IS_MODE_COMPILED("blob")          	     // 8192 / 14
 )
 var/global/list/special_role_times = list( //minimum age (in days) for accounts to play these roles
-	num2text(BE_PAI) = 0,   
-	num2text(BE_TRAITOR) = 7, 
-	num2text(BE_CHANGELING) = 14, 
+	num2text(BE_PAI) = 0,
+	num2text(BE_TRAITOR) = 7,
+	num2text(BE_CHANGELING) = 14,
 	num2text(BE_WIZARD) = 14,
 	num2text(BE_REV) = 14,
 	num2text(BE_VAMPIRE) = 14,
@@ -30,8 +30,8 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 	num2text(BE_OPERATIVE) = 21,
 	num2text(BE_CULTIST) = 21,
 	num2text(BE_RAIDER) = 21,
-	num2text(BE_ALIEN) = 21,        							                  						 
-	num2text(BE_NINJA) = 21,									 
+	num2text(BE_ALIEN) = 21,
+	num2text(BE_NINJA) = 21,
 	num2text(BE_MUTINEER) = 21,
 	num2text(BE_MALF) = 30
 )
@@ -53,9 +53,9 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 	var/minimal_player_age_antag = special_role_times[num2text(role)]
 	if(!isnum(minimal_player_age_antag))
 		return 0
-		
+
 	return max(0, minimal_player_age_antag - C.player_age)
-	
+
 /proc/check_client_age(client/C, var/days) // If days isn't provided, returns the age of the client. If it is provided, it returns the days until the player_age is equal to or greater than the days variable
 	if(!days)
 		return C.player_age
@@ -966,9 +966,10 @@ datum/preferences
 					if("age")
 						age = rand(AGE_MIN, AGE_MAX)
 					if("hair")
-						r_hair = rand(0,255)
-						g_hair = rand(0,255)
-						b_hair = rand(0,255)
+						if(species == "Human" || species == "Unathi" || species == "Tajaran" || species == "Skrell" || species == "Machine")
+							r_hair = rand(0,255)
+							g_hair = rand(0,255)
+							b_hair = rand(0,255)
 					if("h_style")
 						h_style = random_hair_style(gender, species)
 					if("facial")
@@ -988,11 +989,13 @@ datum/preferences
 						g_eyes = rand(0,255)
 						b_eyes = rand(0,255)
 					if("s_tone")
-						s_tone = random_skin_tone()
+						if(species == "Human")
+							s_tone = random_skin_tone()
 					if("s_color")
-						r_skin = rand(0,255)
-						g_skin = rand(0,255)
-						b_skin = rand(0,255)
+						if(species == "Unathi" || species == "Tajaran" || species == "Skrell")
+							r_skin = rand(0,255)
+							g_skin = rand(0,255)
+							b_skin = rand(0,255)
 					if("bag")
 						backbag = rand(1,4)
 					/*if("skin_style")

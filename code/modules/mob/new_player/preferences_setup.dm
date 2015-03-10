@@ -6,13 +6,16 @@ datum/preferences
 				gender = MALE
 			else
 				gender = FEMALE
-		s_tone = random_skin_tone()
+		if(species == "Human")
+			s_tone = random_skin_tone()
 		h_style = random_hair_style(gender, species)
 		f_style = random_facial_hair_style(gender, species)
-		randomize_hair_color("hair")
+		if(species == "Human" || species == "Unathi" || species == "Tajaran" || species == "Skrell" || species == "Machine")
+			randomize_hair_color("hair")
 		randomize_hair_color("facial")
 		randomize_eyes_color()
-		randomize_skin_color()
+		if(species == "Unathi" || species == "Tajaran" || species == "Skrell")
+			randomize_skin_color()
 		underwear = rand(1,underwear_m.len)
 		undershirt = rand(1,undershirt_t.len)
 		backbag = 2
