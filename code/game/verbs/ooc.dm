@@ -57,7 +57,7 @@ var/global/normal_ooc_colour = "#002eb8"
 						display_name = "[holder.fakekey]/([src.key])"
 					else
 						display_name = holder.fakekey
-			C << "<font color='[display_colour]'><span class='ooc'><span class='prefix'>OOC:</span> <EM>[display_name]:</EM> <span class='message'>[msg]</span></span></font>"
+			C << "<font color='[display_colour]'><span class='ooc'>" + create_text_tag("ooc", "OOC:", C) + "<EM>[display_name]:</EM> <span class='message'>[msg]</span></span></font>"
 
 			/*
 			if(holder)
@@ -141,7 +141,7 @@ var/global/normal_ooc_colour = "#002eb8"
 						display_name = "[holder.fakekey]/([src.key])"
 					else
 						display_name = holder.fakekey
-			C << "<font color='#6699CC'><span class='ooc'><span class='prefix'>LOOC:</span> <EM>[display_name]:</EM> <span class='message'>[msg]</span></span></font>"
+			C << "<font color='#6699CC'><span class='ooc'>" + create_text_tag("looc", "LOOC:", C) + "<EM>[display_name]:</EM> <span class='message'>[msg]</span></span></font>"
 
 	// Now handle admins
 	display_name = S.key
@@ -151,7 +151,7 @@ var/global/normal_ooc_colour = "#002eb8"
 	for(var/client/C in admins)
 		if(C.holder.rights | R_MENTOR)
 			if(C.prefs.toggles & CHAT_LOOC)
-				var/prefix = "(R)LOOC"
+				var/prefix = "(R)"
 				if (C.mob in heard)
-					prefix = "LOOC"
-				C << "<font color='#6699CC'><span class='ooc'><span class='prefix'>[prefix]:</span> <EM>[display_name]:</EM> <span class='message'>[msg]</span></span></font>"
+					prefix = ""
+				C << "<font color='#6699CC'><span class='ooc'>" + create_text_tag("looc", "LOOC:", C) + "<span class='prefix'>[prefix]:</span> <EM>[display_name]:</EM> <span class='message'>[msg]</span></span></font>"
