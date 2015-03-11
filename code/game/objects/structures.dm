@@ -1,6 +1,7 @@
 /obj/structure
 	icon = 'icons/obj/structures.dmi'
 	var/climbable
+	var/mob/climber
 
 /obj/structure/blob_act()
 	if(prob(50))
@@ -73,19 +74,25 @@
 	if(S && S.density) return
 
 	usr.visible_message("<span class='warning'>[user] starts climbing onto \the [src]!</span>")
-
+	climber = user
 	if(!do_after(user,50))
+		climber = null
 		return
 
 	if (!can_touch(user) || !climbable)
+		climber = null
 		return
 
 	S = locate() in T.contents
-	if(S && S.density) return
+	if(S && S.density)
+		climber = null
+		return
 
 	usr.loc = get_turf(src)
 	if (get_turf(user) == get_turf(src))
 		usr.visible_message("<span class='warning'>[user] climbs onto \the [src]!</span>")
+
+	climber = null
 
 /obj/structure/proc/structure_shaken()
 
