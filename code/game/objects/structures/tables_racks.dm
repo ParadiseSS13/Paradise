@@ -307,6 +307,9 @@
 		destroy()
 	else
 		..()
+	if(climber)
+		climber.Weaken(2)
+		climber.visible_message("<span class='warning'>[climber.name] has been knocked off the table", "You've been knocked off the table", "You see [climber.name] get knocked off the table</span>")
 
 /obj/structure/table/attack_tk() // no telehulk sorry
 	return

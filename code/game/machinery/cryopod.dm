@@ -523,17 +523,17 @@
 		else
 			icon_state = occupied_icon_state
 
-			L << "<span class='notice'>[on_enter_occupant_message]</span>"
-			L << "<span class='notice'><b>If you ghost, log out or close your client now, your character will shortly be permanently removed from the round.</b></span>"
-			occupant = L
-			time_entered = world.time
+		L << "<span class='notice'>[on_enter_occupant_message]</span>"
+		L << "<span class='notice'><b>If you ghost, log out or close your client now, your character will shortly be permanently removed from the round.</b></span>"
+		occupant = L
+		time_entered = world.time
 
-			// Book keeping!
-			log_admin("[key_name_admin(L)] has entered a stasis pod. (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)")
-			message_admins("<span class='notice'>[key_name_admin(L)] has entered a stasis pod.</span>")
+		// Book keeping!
+		log_admin("[key_name_admin(L)] has entered a stasis pod. (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)")
+		message_admins("<span class='notice'>[key_name_admin(L)] has entered a stasis pod.</span>")
 
-			//Despawning occurs when process() is called with an occupant without a client.
-			src.add_fingerprint(L)
+		//Despawning occurs when process() is called with an occupant without a client.
+		src.add_fingerprint(L)
 
 	return
 
@@ -544,6 +544,9 @@
 	if(usr.stat != 0)
 		return
 
+	if(usr != occupant)
+		usr << "The cryopod is in use and locked!"
+		return
 	if(orient_right)
 		icon_state = "[base_icon_state]-r"
 	else
