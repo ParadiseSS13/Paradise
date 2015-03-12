@@ -544,7 +544,7 @@
 	if(usr.stat != 0)
 		return
 
-	if(usr != src)
+	if(usr != occupant)
 		usr << "The cryopod is in use and locked!"
 		return
 	if(orient_right)
