@@ -105,13 +105,18 @@
 		ui.open()
 
 /obj/machinery/poolcontroller/Topic(href, href_list)
+	if(..())	return 1
 
 	switch(href_list["temp"])
 		if("Scalding")
+			if(!src.emagged)
+				return 0
 			src.temperature = "scalding"
 			src.temperaturecolor = "#FF0000"
 			miston()
 		if("Frigid")
+			if(!src.emagged)
+				return 0
 			src.temperature = "frigid"
 			src.temperaturecolor = "#00CCCC"
 			mistoff()
