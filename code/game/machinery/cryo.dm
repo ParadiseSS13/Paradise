@@ -1,7 +1,7 @@
 /obj/machinery/atmospherics/unary/cryo_cell
 	name = "cryo cell"
 	icon = 'icons/obj/cryogenics.dmi'
-	icon_state = "cell-off"
+	icon_state = "pod0"
 	density = 1
 	anchored = 1.0
 	layer = 2.8
@@ -306,13 +306,14 @@
 	return
 
 /obj/machinery/atmospherics/unary/cryo_cell/update_icon()
-	if(on)
-		if(occupant)
-			icon_state = "cell-occupied"
-			return
-		icon_state = "cell-on"
-		return
-	icon_state = "cell-off"
+	overlays.Cut()
+	icon_state = "pod[on]"
+	if(occupant)
+		var/image/pickle = image(occupant.icon, occupant.icon_state)
+		pickle.overlays = occupant.overlays
+		pickle.pixel_y = 20
+		overlays += pickle
+	overlays += "lid[on]"
 
 /obj/machinery/atmospherics/unary/cryo_cell/proc/process_occupant()
 	if(air_contents.total_moles() < 10)
