@@ -190,7 +190,7 @@
 	var/f_loss = null
 	switch (severity)
 		if (1.0)
-			del(src)
+			qdel(src)
 			return
 
 		if (2.0)
@@ -255,7 +255,7 @@
 	if (Victim) return // can't attack while eating!
 
 	if (health > -100)
-	
+
 		M.do_attack_animation(src)
 		visible_message("<span class='danger'> The [M.name] has glomped [src]!</span>", \
 				"<span class='userdanger'> The [M.name] has glomped [src]!</span>")
@@ -338,7 +338,7 @@
 				var/damage = rand(1, 3)
 				L.amount_grown = min(L.amount_grown + damage, L.max_grown)
 				adjustBruteLoss(damage)
-				
+
 /mob/living/carbon/slime/attack_hand(mob/living/carbon/human/M as mob)
 	if (!ticker)
 		M << "You cannot attack people before the game has started."

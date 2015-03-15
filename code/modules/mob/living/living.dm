@@ -33,6 +33,11 @@
 /mob/living/proc/InCritical()
 	return (src.health < 0 && src.health > -95.0 && stat == UNCONSCIOUS)
 
+/mob/living/ex_act(severity)
+	..()
+	if(client && !eye_blind)
+		flick("flash", src.flash)
+
 /mob/living/proc/updatehealth()
 	if(status_flags & GODMODE)
 		health = 100
