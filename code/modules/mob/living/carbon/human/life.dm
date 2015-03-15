@@ -1016,6 +1016,9 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 							adjustBruteLoss(-1)
 							adjustFireLoss(-1)
 							adjustToxLoss(-1)
+			else if(status_flags & FAKEDEATH)
+				blinded = 1
+				stat = UNCONSCIOUS
 			else if(resting)
 				if(halloss > 0)
 					adjustHalLoss(-3)
