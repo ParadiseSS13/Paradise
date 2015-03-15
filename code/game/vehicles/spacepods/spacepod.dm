@@ -754,16 +754,7 @@
 		return
 
 /obj/spacepod/verb/fireWeapon()
-	if(src.occupant2)
-		if(usr.ckey != src.occupant2.ckey)
-			set name = "Fire Pod Weapons"
-			set desc = "Fire the weapons."
-			set category = "Spacepod"
-			set src = usr.loc
-			equipment_system.weapon_system.fire_weapons()
-		else
-			return
-	else
+	if(!CheckIfOccupant2(usr))
 		set name = "Fire Pod Weapons"
 		set desc = "Fire the weapons."
 		set category = "Spacepod"
@@ -771,35 +762,20 @@
 		equipment_system.weapon_system.fire_weapons()
 
 obj/spacepod/verb/toggleLights()
-	if(src.occupant2)
-		if(usr.ckey != src.occupant2.ckey)
-			set name = "Toggle Lights"
-			set category = "Spacepod"
-			set src = usr.loc
-			if (usr != occupant)
-				return
-			lights = !lights
-			if(lights)
-				SetLuminosity(luminosity + lights_power)
-			else
-				SetLuminosity(luminosity - lights_power)
-			occupant << "Toggled lights [lights?"on":"off"]."
-			return
-		else
-			return
+	set name = "Toggle Lights"
+	set category = "Spacepod"
+	set src = usr.loc
+	if(!CheckIfOccupant2(usr))
+		lightsToggle()
+
+/obj/spacepod/proc/lightsToggle()
+	lights = !lights
+	if(lights)
+		SetLuminosity(luminosity + lights_power)
 	else
-		set name = "Toggle Lights"
-		set category = "Spacepod"
-		set src = usr.loc
-		if (usr != occupant)
-			return
-		lights = !lights
-		if(lights)
-			SetLuminosity(luminosity + lights_power)
-		else
-			SetLuminosity(luminosity - lights_power)
-		occupant << "Toggled lights [lights?"on":"off"]."
-		return
+		SetLuminosity(luminosity - lights_power)
+	occupant << "Toggled lights [lights?"on":"off"]."
+	return
 
 /obj/spacepod/proc/enter_after(delay as num, var/mob/user as mob, var/numticks = 5)
 	var/delayfraction = delay/numticks
@@ -874,86 +850,60 @@ obj/spacepod/verb/toggleLights()
 	return 1
 
 /obj/spacepod/relaymove(mob/user, direction)
-	if(src.occupant2)
-		if(user.ckey != src.occupant2.ckey)
-			var/moveship = 1
-			if(battery && battery.charge >= 3 && health && empcounter == 0)
-				src.dir = direction
-				switch(direction)
-					if(1)
-						if(inertia_dir == 2)
-							inertia_dir = 0
-							moveship = 0
-					if(2)
-						if(inertia_dir == 1)
-							inertia_dir = 0
-							moveship = 0
-					if(4)
-						if(inertia_dir == 8)
-							inertia_dir = 0
-							moveship = 0
-					if(8)
-						if(inertia_dir == 4)
-							inertia_dir = 0
-							moveship = 0
-				if(moveship)
-					step(src, direction)
-					if(istype(src.loc, /turf/space))
-						inertia_dir = direction
-			else
-				if(!battery)
-					user << "<span class='warning'>No energy cell detected.</span>"
-				else if(battery.charge < 3)
-					user << "<span class='warning'>Not enough charge left.</span>"
-				else if(!health)
-					user << "<span class='warning'>She's dead, Jim</span>"
-				else if(empcounter != 0)
-					user << "<span class='warning'>The pod control interface isn't responding. The console indicates [empcounter] seconds before reboot.</span>"
-				else
-					user << "<span class='warning'>Unknown error has occurred, yell at pomf.</span>"
-				return 0
-			battery.charge = max(0, battery.charge - 3)
-		else
-			return
+	if(!CheckIfOccupant2(user))
+		handlerelaymove(user, direction)
 
 	else
-		var/moveship = 1
-		if(battery && battery.charge >= 3 && health && empcounter == 0)
-			src.dir = direction
-			switch(direction)
-				if(1)
-					if(inertia_dir == 2)
-						inertia_dir = 0
-						moveship = 0
-				if(2)
-					if(inertia_dir == 1)
-						inertia_dir = 0
-						moveship = 0
-				if(4)
-					if(inertia_dir == 8)
-						inertia_dir = 0
-						moveship = 0
-				if(8)
-					if(inertia_dir == 4)
-						inertia_dir = 0
-						moveship = 0
-			if(moveship)
-				step(src, direction)
-				if(istype(src.loc, /turf/space))
-					inertia_dir = direction
+		return
+
+/obj/spacepod/proc/handlerelaymove(mob/user, direction)
+	var/moveship = 1
+	if(battery && battery.charge >= 3 && health && empcounter == 0)
+		src.dir = direction
+		switch(direction)
+			if(1)
+				if(inertia_dir == 2)
+					inertia_dir = 0
+					moveship = 0
+			if(2)
+				if(inertia_dir == 1)
+					inertia_dir = 0
+					moveship = 0
+			if(4)
+				if(inertia_dir == 8)
+					inertia_dir = 0
+					moveship = 0
+			if(8)
+				if(inertia_dir == 4)
+					inertia_dir = 0
+					moveship = 0
+		if(moveship)
+			step(src, direction)
+			if(istype(src.loc, /turf/space))
+				inertia_dir = direction
+	else
+		if(!battery)
+			user << "<span class='warning'>No energy cell detected.</span>"
+		else if(battery.charge < 3)
+			user << "<span class='warning'>Not enough charge left.</span>"
+		else if(!health)
+			user << "<span class='warning'>She's dead, Jim</span>"
+		else if(empcounter != 0)
+			user << "<span class='warning'>The pod control interface isn't responding. The console indicates [empcounter] seconds before reboot.</span>"
 		else
-			if(!battery)
-				user << "<span class='warning'>No energy cell detected.</span>"
-			else if(battery.charge < 3)
-				user << "<span class='warning'>Not enough charge left.</span>"
-			else if(!health)
-				user << "<span class='warning'>She's dead, Jim</span>"
-			else if(empcounter != 0)
-				user << "<span class='warning'>The pod control interface isn't responding. The console indicates [empcounter] seconds before reboot.</span>"
-			else
-				user << "<span class='warning'>Unknown error has occurred, yell at pomf.</span>"
+			user << "<span class='warning'>Unknown error has occurred, yell at pomf.</span>"
+		return 0
+	battery.charge = max(0, battery.charge - 3)
+
+/obj/spacepod/proc/CheckIfOccupant2(mob/user)
+	if(!src.occupant2)
+		return 0
+	if(src.occupant2)
+		if(user == src.occupant2)
+			return 1
+		else
 			return 0
-		battery.charge = max(0, battery.charge - 3)
+
 
 /obj/effect/landmark/spacepod/random
 	name = "spacepod spawner"
