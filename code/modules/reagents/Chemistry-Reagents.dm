@@ -1210,6 +1210,34 @@ datum
 			reagent_state = SOLID
 			color = "#D0D0D0" // rgb: 208, 208, 208
 
+		osmium
+			name = "Osmium"
+			id = "osmium"
+			description = "A hard, energy-rich metal alloy. It is often used in certain power generators."
+			reagent_state = SOLID
+			color = "#9999FF"
+
+		tritium
+			name = "Tritium"
+			id = "tritium"
+			description = "An extremely dense form of hardened hydrogen, it holds significant amounts of potential energy that advanced combustion generators can harness."
+			reagent_state = SOLID
+			color = "#777777"
+
+		myhydrogen
+			name = "Metallic Hydrogen"
+			id = "mhydrogen"
+			description = "A highly conductive and rare form of solidified hydrogen, it is a highly reactive metal with promising usefulness in scientific applications."
+			reagent_state = SOLID
+			color = "#D0D0D0"
+
+		diamond
+			name = "Diamond"
+			id = "diamond"
+			description = "A rare and highly-valuable precious gem forged by geothermal heat and immense pressure, obtained only from extremely deep drilling operations."
+			reagent_state = SOLID
+			color = "#D0D0D0"
+
 		uranium
 			name ="Uranium"
 			id = "uranium"
