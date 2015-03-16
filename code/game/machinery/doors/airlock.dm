@@ -208,7 +208,7 @@
 	icon = 'icons/obj/doors/Dooruranium.dmi'
 	mineral = "uranium"
 	var/last_event = 0
-	
+
 /obj/machinery/door/airlock/process()
 	// Deliberate no call to parent.
 	if(main_power_lost_until > 0 && world.time >= main_power_lost_until)
@@ -300,6 +300,11 @@
 	hackProof = 1
 	aiControlDisabled = 1
 
+/obj/machinery/door/airlock/shuttle
+	name = "shuttle airlock"
+	icon = 'icons/obj/doors/doorshuttle.dmi'
+	assembly_type = /obj/structure/door_assembly/door_assembly_shuttle
+
 /obj/machinery/door/airlock/alien
 	name = "Alien Airlock"
 	desc = "A mysterious alien airlock with a complicated opening mechanism."
@@ -319,7 +324,7 @@
 	else
 		user << "You do not know how to operate this airlock's mechanism."
 		return
-		
+
 
 
 /*
@@ -388,7 +393,7 @@ About the new airlock wires panel:
 	if(mainPowerCablesCut() && backupPowerCablesCut())
 		return 1
 	return 0
-	
+
 /obj/machinery/door/airlock/proc/mainPowerCablesCut()
 	return src.isWireCut(AIRLOCK_WIRE_MAIN_POWER1) || src.isWireCut(AIRLOCK_WIRE_MAIN_POWER2)
 
@@ -426,7 +431,7 @@ About the new airlock wires panel:
 		// Restore backup power only if main power is offline, otherwise permanently disable
 		backup_power_lost_until = main_power_lost_until == 0 ? -1 : 0
 		update_icon()
-		
+
 /obj/machinery/door/airlock/proc/electrify(var/duration, var/feedback = 0)
 	var/message = ""
 	if(src.isWireCut(AIRLOCK_WIRE_ELECTRIFY) && arePowerSystemsOn())
@@ -475,7 +480,7 @@ About the new airlock wires panel:
 /obj/machinery/door/airlock/update_icon()
 	if(overlays) overlays.Cut()
 	overlays = list()
-	if(emergency && arePowerSystemsOn()) 
+	if(emergency && arePowerSystemsOn())
 		overlays += image('icons/obj/doors/doorint.dmi', "elights")
 	if(density)
 		if(locked && lights)
@@ -494,7 +499,7 @@ About the new airlock wires panel:
 		icon_state = "door_open"
 
 	return
-	
+
 
 /obj/machinery/door/airlock/do_animate(animation)
 	switch(animation)
@@ -918,7 +923,7 @@ About the new airlock wires panel:
 		var/obj/structure/window/killthis = (locate(/obj/structure/window) in turf)
 		if(killthis)
 			killthis.ex_act(2)//Smashin windows
-		
+
 	if(density)
 		return 1
 	operating = 1
@@ -1049,7 +1054,7 @@ About the new airlock wires panel:
 /obj/machinery/door/airlock/CanAStarPass(var/obj/item/weapon/card/id/ID)
 //Airlock is passable if it is open (!density), bot has access, and is not bolted shut)
 	return !density || (check_access(ID) && !locked)
-	
+
 /obj/machinery/door/airlock/emp_act(var/severity)
 	if(prob(40/severity))
 		var/duration = world.time + SecondsToTicks(30 / severity)
