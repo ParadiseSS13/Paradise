@@ -157,25 +157,6 @@
 	if(istype(A, /obj/item/weapon/circular_saw) || istype(A, /obj/item/weapon/melee/energy) || istype(A, /obj/item/weapon/pickaxe/plasmacutter))
 		sawoff(user)
 
-/obj/item/weapon/gun/projectile/proc/sawoff(mob/user as mob)
-	user << "<span class='notice'>You begin to shorten \the [src].</span>"
-	if(get_ammo())
-		afterattack(user, user)
-		playsound(user, fire_sound, 50, 1)
-		user.visible_message("<span class='danger'>The [src] goes off!</span>", "<span class='danger'>The [src] goes off in your face!</span>")
-		return
-	if(do_after(user, 30))
-		name = "sawn-off [src.name]"
-		desc = sawn_desc
-		icon_state = initial(icon_state) + "-sawn"
-		w_class = 3.0
-		item_state = "gun"
-		slot_flags &= ~SLOT_BACK	//you can't sling it on your back
-		slot_flags |= SLOT_BELT		//but you can wear it on your belt (poorly concealed under a trenchcoat, ideally)
-		user << "<span class='warning'>You shorten \the [src]!</span>"
-		update_icon()
-		return
-
 /obj/item/weapon/gun/projectile/revolver/doublebarrel/attack_self(mob/living/user as mob)
 	var/num_unloaded = 0
 	while (get_ammo() > 0)
@@ -206,7 +187,7 @@
 
 /obj/item/weapon/gun/projectile/revolver/doublebarrel/improvised/attackby(var/obj/item/A as obj, mob/user as mob, params)
 	..()
-	if(istype(A, /obj/item/stack/cable_coil))
+	if(istype(A, /obj/item/stack/cable_coil) && !sawn_state)
 		var/obj/item/stack/cable_coil/C = A
 		if(C.use(10))
 			slot_flags = SLOT_BACK
@@ -217,7 +198,44 @@
 			user << "<span class='warning'>You need at least ten lengths of cable if you want to make a sling.</span>"
 			return
 			
-/obj/item/weapon/gun/projectile/revolver/doublebarrel/improvised/sawoff(mob/user as mob)
-	user << "<span class='warning'>Shortening \the [src] will break it.</span>"
-	return
+// Sawing guns related procs //
+
+/obj/item/weapon/gun/projectile/proc/blow_up(mob/user as mob)
+	if(get_ammo())
+		afterattack(user, user)
+		playsound(user, fire_sound, 50, 1)
+		user.visible_message("<span class='danger'>The [src] goes off!</span>", "<span class='danger'>The [src] goes off in your face!</span>")
+		return
+
+/obj/item/weapon/gun/projectile/proc/sawoff(mob/user as mob)
+	if(sawn_state == SAWN_OFF)
+		user << "<span class='notice'>\The [src] is already shortened.</span>"
+		return
+
+	if(sawn_state == SAWN_SAWING)
+		return
+
+	user.visible_message("<span class='notice'>[user] begins to shorten \the [src].</span>", "<span class='notice'>You begin to shorten \the [src].</span>")
+
+	//if there's any live ammo inside the gun, makes it go off
+	if(blow_up(user))
+		user.visible_message("<span class='danger'>\The [src] goes off!</span>", "<span class='danger'>\The [src] goes off in your face!</span>")
+		return
+
+	sawn_state = SAWN_SAWING
+
+	if(do_after(user, 30))
+		user.visible_message("<span class='warning'>[user] shortens \the [src]!</span>", "<span class='warning'>You shorten \the [src]!</span>")
+		name = "sawn-off [src.name]"
+		desc = sawn_desc
+		icon_state = "[icon_state]-sawn"
+		w_class = 3.0
+		item_state = "gun"
+		slot_flags &= ~SLOT_BACK	//you can't sling it on your back
+		slot_flags |= SLOT_BELT		//but you can wear it on your belt (poorly concealed under a trenchcoat, ideally)
+		sawn_state = SAWN_OFF
+		update_icon()
+		return
+	else
+		sawn_state = SAWN_INTACT
 		
