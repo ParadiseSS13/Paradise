@@ -216,3 +216,8 @@
 		else
 			user << "<span class='warning'>You need at least ten lengths of cable if you want to make a sling.</span>"
 			return
+			
+/obj/item/weapon/gun/projectile/revolver/doublebarrel/improvised/sawoff(mob/user as mob)
+	user << "<span class='warning'>Shortening \the [src] will break it.</span>"
+	return
+		

@@ -37,6 +37,11 @@
 	icon_state = "pen_red"
 	colour = "red"
 
+/obj/item/weapon/pen/gray
+	name = "gray-ink pen"
+	desc = "It's a normal gray ink pen."
+	colour = "gray"
+
 /obj/item/weapon/pen/invisible
 	desc = "It's an invisble pen marker."
 	icon_state = "pen"

@@ -252,8 +252,8 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 				screen = 2.1
 
 	else if(href_list["maxresearch"]) //Eject the item inside the destructive analyzer.
-		if(!usr.client.holder) return
-		if(usr.client.holder & R_MENTOR) return
+		if(!check_rights(R_ADMIN)) 
+			return
 		screen = 0.0
 		if(alert("Are you sure you want to maximize research levels?","Confirmation","Yes","No")=="No")
 			return
@@ -769,7 +769,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 				dat += "<span class='linkOn'>Disconnect from Research Network</span><BR>"
 			dat += "<A href='?src=\ref[src];menu=1.7'>Device Linkage Menu</A><BR>"
 			dat += "<A href='?src=\ref[src];lock=0.2'>Lock Console</A><BR>"
-			if(user.client.holder)
+			if(check_rights(R_ADMIN))
 				dat += "<A href='?src=\ref[src];maxresearch=1'>\[ADMIN\] Maximize Research Levels</A><BR>"
 			dat += "<A href='?src=\ref[src];reset=1'>Reset R&D Database</A></div>"
 

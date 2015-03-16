@@ -464,16 +464,6 @@ Turf and target are seperate in case you want to teleport some distance from a t
 		else		. = pick(ais)
 	return .
 
-//this is like the above function, but for alien borgs. Im not going to go over verbose with the name.
-/proc/select_active_alien_ai()
-	var/mob/living/silicon/ai/selected
-	var/list/active = active_ais()
-	for(var/mob/living/silicon/ai/A in active)
-		if(!selected || ((selected.connected_robots > A.connected_robots) && selected.alienAI))
-			selected = A
-	return selected
-
-
 /proc/get_sorted_mobs()
 	var/list/old_list = getmobs()
 	var/list/AI_list = list()
