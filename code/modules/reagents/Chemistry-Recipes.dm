@@ -471,11 +471,99 @@ datum
 			name = "Solid Plasma"
 			id = "solidplasma"
 			result = null
-			required_reagents = list("iron" = 5, "frostoil" = 5, "plasma" = 20)
+			required_reagents = list("carbon" = 5, "frostoil" = 5, "plasma" = 20)
 			result_amount = 1
 			on_reaction(var/datum/reagents/holder, var/created_volume)
 				var/location = get_turf(holder.my_atom)
 				new /obj/item/stack/sheet/mineral/plasma(location)
+				return
+
+		goldsolidification
+			name = "Gold"
+			id = "gold"
+			result = null
+			required_reagents = list("carbon" = 5, "frostoil" = 5, "gold" = 20)
+			result_amount = 1
+			on_reaction(var/datum/reagents/holder, var/created_volume)
+				var/location = get_turf(holder.my_atom)
+				new /obj/item/stack/sheet/mineral/gold(location)
+				return
+
+		silversolidification
+			name = "Silver"
+			id = "silver"
+			result = null
+			required_reagents = list("carbon" = 5, "frostoil" = 5, "silver" = 20)
+			result_amount = 1
+			on_reaction(var/datum/reagents/holder, var/created_volume)
+				var/location = get_turf(holder.my_atom)
+				new /obj/item/stack/sheet/mineral/silver(location)
+				return
+
+		ironsolidification
+			name = "Iron"
+			id = "iron"
+			result = null
+			required_reagents = list("carbon" = 5, "frostoil" = 5, "iron" = 20)
+			result_amount = 1
+			on_reaction(var/datum/reagents/holder, var/created_volume)
+				var/location = get_turf(holder.my_atom)
+				new /obj/item/stack/sheet/mineral/iron(location)
+				return
+
+		uraniumsolidification
+			name = "Uranium"
+			id = "uranium"
+			result = null
+			required_reagents = list("carbon" = 5, "frostoil" = 5, "uranium" = 20)
+			result_amount = 1
+			on_reaction(var/datum/reagents/holder, var/created_volume)
+				var/location = get_turf(holder.my_atom)
+				new /obj/item/stack/sheet/mineral/gold(location)
+				return
+
+		osmiumsolidification
+			name = "Osmium"
+			id = "osmium"
+			result = null
+			required_reagents = list("carbon" = 5, "frostoil" = 5, "osmium" = 20)
+			result_amount = 1
+			on_reaction(var/datum/reagents/holder, var/created_volume)
+				var/location = get_turf(holder.my_atom)
+				new /obj/item/stack/sheet/mineral/osmium(location)
+				return
+
+		tritiumsolidification
+			name = "Tritium"
+			id = "tritium"
+			result = null
+			required_reagents = list("carbon" = 5, "frostoil" = 5, "tritium" = 20)
+			result_amount = 1
+			on_reaction(var/datum/reagents/holder, var/created_volume)
+				var/location = get_turf(holder.my_atom)
+				new /obj/item/stack/sheet/mineral/tritium(location)
+				return
+
+		mhydrogensolidification
+			name = "Metallic Hydrogen"
+			id = "mhydrogen"
+			result = null
+			required_reagents = list("carbon" = 5, "frostoil" = 5, "mhydrogen" = 20)
+			result_amount = 1
+			on_reaction(var/datum/reagents/holder, var/created_volume)
+				var/location = get_turf(holder.my_atom)
+				new /obj/item/stack/sheet/mineral/mhydrogen(location)
+				return
+
+		diamondsolidification
+			name = "Diamond""
+			id = "diamond"
+			result = null
+			required_reagents = list("carbon" = 5, "frostoil" = 5, "diamond" = 20)
+			result_amount = 1
+			on_reaction(var/datum/reagents/holder, var/created_volume)
+				var/location = get_turf(holder.my_atom)
+				new /obj/item/stack/sheet/mineral/diamond(location)
 				return
 
 		plastication
