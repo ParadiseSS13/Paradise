@@ -69,6 +69,14 @@
 	weaken = 5
 	range = 7
 
+/obj/item/projectile/energy/shuriken
+	name = "shuriken"
+	icon_state = "toxin"
+	damage = 10
+	damage_type = TOX
+	nodamage = 0
+	weaken = 5
+	stutter = 5
 
 /obj/item/projectile/energy/bolt
 	name = "bolt"

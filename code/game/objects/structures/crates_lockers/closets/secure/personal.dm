@@ -75,9 +75,9 @@
 		else if(src.allowed(user) || !src.registered_name || (istype(I) && (src.registered_name == I.registered_name)))
 			//they can open all lockers, or nobody owns this, or they own this locker
 			src.locked = !( src.locked )
-			if(src.locked)	
+			if(src.locked)
 				src.icon_state = src.icon_locked
-			else	
+			else
 				src.icon_state = src.icon_closed
 				registered_name = null
 				desc = initial(desc)
@@ -87,19 +87,8 @@
 				src.desc = "Owned by [I.registered_name]."
 		else
 			user << "\red Access Denied"
-	else if( (istype(W, /obj/item/weapon/card/emag)||istype(W, /obj/item/weapon/melee/energy/blade)) && !src.broken)
-		broken = 1
-		locked = 0
-		desc = "It appears to be broken."
-		icon_state = src.icon_broken
-		if(istype(W, /obj/item/weapon/melee/energy/blade))
-			var/datum/effect/effect/system/spark_spread/spark_system = new /datum/effect/effect/system/spark_spread()
-			spark_system.set_up(5, 0, src.loc)
-			spark_system.start()
-			playsound(src.loc, 'sound/weapons/blade1.ogg', 50, 1)
-			playsound(src.loc, "sparks", 50, 1)
-			for(var/mob/O in viewers(user, 3))
-				O.show_message("\blue The locker has been sliced open by [user] with an energy blade!", 1, "\red You hear metal being sliced and sparks flying.", 2)
+	else if((istype(W, /obj/item/weapon/card/emag)) && !src.broken)
+		emag_act()
 	else
 		user << "\red Access Denied"
 	return

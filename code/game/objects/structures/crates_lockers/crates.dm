@@ -295,18 +295,22 @@
 	if(is_type_in_list(W, list(/obj/item/stack/packageWrap, /obj/item/stack/cable_coil, /obj/item/device/radio/electropack, /obj/item/weapon/wirecutters)))
 		return ..()
 	if(locked && (istype(W, /obj/item/weapon/card/emag)||istype(W, /obj/item/weapon/melee/energy/blade)))
-		overlays += sparks
-		spawn(6) overlays -= sparks //Tried lots of stuff but nothing works right. so i have to use this *sadface*
-		playsound(src.loc, "sparks", 60, 1)
-		src.locked = 0
-		src.broken = 1
-		update_icon()
-		user << "<span class='notice'>You unlock \the [src].</span>"
+		emag_act()
 		return
 	if(!opened)
 		src.togglelock(user)
 		return
 	return ..()
+
+/obj/structure/closet/crate/secure/emag_act()
+	overlays += sparks
+	spawn(6) overlays -= sparks //Tried lots of stuff but nothing works right. so i have to use this *sadface*
+	playsound(src.loc, "sparks", 60, 1)
+	src.locked = 0
+	src.broken = 1
+	update_icon()
+	usr << "<span class='notice'>You unlock \the [src].</span>"
+	return
 
 /obj/structure/closet/crate/secure/emp_act(severity)
 	for(var/obj/O in src)
