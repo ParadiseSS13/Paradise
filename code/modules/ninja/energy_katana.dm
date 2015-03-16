@@ -23,7 +23,7 @@
 		playsound(user, "sparks", 50, 1)
 		playsound(user, 'sound/weapons/blade1.ogg', 50, 1)
 		user.visible_message("<span class='danger'>[user] masterfully slices [target]!</span>", "<span class='notice'>You masterfully slice [target]!</span>")
-		target.emag_act()
+		target.emag_act(user)
 		sleep(15)
 		cooldown = 0
 

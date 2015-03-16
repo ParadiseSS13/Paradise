@@ -87,8 +87,8 @@
 				src.desc = "Owned by [I.registered_name]."
 		else
 			user << "\red Access Denied"
-	else if((istype(W, /obj/item/weapon/card/emag)) && !src.broken)
-		emag_act()
+	else if((istype(W, /obj/item/weapon/card/emag) || istype(W, /obj/item/weapon/melee/energy/blade)) && !broken)
+		emag_act(user)
 	else
 		user << "\red Access Denied"
 	return

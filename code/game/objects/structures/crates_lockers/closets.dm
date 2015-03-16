@@ -186,6 +186,9 @@
 	if(istype(W, /obj/item/weapon/rcs) && !src.opened)
 		var/obj/item/weapon/rcs/E = W
 		if(E.rcharges != 0)
+			if(!(src.z in config.contact_levels))
+				user << "<span class='warning'>The rapid-crate-sender can't locate any telepads!</span>"
+				return
 			if(E.mode == 0)
 				if(!E.teleporting)
 					var/list/L = list()

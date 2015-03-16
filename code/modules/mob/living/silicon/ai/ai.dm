@@ -61,7 +61,6 @@ var/list/ai_verbs_default = list(
 	var/obj/item/device/pda/ai/aiPDA = null
 	var/obj/item/device/multitool/aiMulti = null
 	var/custom_sprite = 0 //For our custom sprites
-	var/alienAI = 0
 
 	var/obj/item/device/radio/headset/heads/ai_integrated/aiRadio = null
 

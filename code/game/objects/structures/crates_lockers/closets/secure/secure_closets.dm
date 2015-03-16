@@ -77,20 +77,21 @@
 		user.drop_item()
 		if(W)
 			W.loc = src.loc
-	else if((istype(W, /obj/item/weapon/card/emag)||istype(W, /obj/item/weapon/melee/energy/blade)) && !src.broken)
-		emag_act()
+	else if((istype(W, /obj/item/weapon/card/emag)||istype(W, /obj/item/weapon/melee/energy/blade)) && !broken)
+		emag_act(user)
 	else if(istype(W,/obj/item/stack/packageWrap) || istype(W,/obj/item/weapon/weldingtool))
 		return ..(W,user)
 	else
 		togglelock(user)
 
-/obj/structure/closet/secure_closet/emag_act()
-	broken = 1
-	locked = 0
-	desc = "It appears to be broken."
-	icon_state = icon_off
-	flick(icon_broken, src)
-	usr<< "<span class='notice'>You unlock \the [src].</span>"
+/obj/structure/closet/secure_closet/emag_act(user as mob)
+	if(!broken)
+		broken = 1
+		locked = 0
+		desc = "It appears to be broken."
+		icon_state = icon_off
+		flick(icon_broken, src)
+		user << "<span class='notice'>You unlock \the [src].</span>"
 
 /obj/structure/closet/secure_closet/attack_hand(mob/user as mob)
 	src.add_fingerprint(user)
