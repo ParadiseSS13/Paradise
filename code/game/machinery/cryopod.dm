@@ -177,9 +177,9 @@
 	var/allow_occupant_types = list(/mob/living/carbon/human, /mob/living/carbon/monkey)
 	var/disallow_occupant_types = list()
 
-	var/mob/occupant = null       // Person waiting to be despawned.
+	var/mob/living/occupant = null       // Person waiting to be despawned.
 	var/orient_right = null       // Flips the sprite.
-	var/time_till_despawn = 18000 // 30 minutes-ish safe period before being despawned.
+	var/time_till_despawn = 9000 // 15 minutes-ish safe period before being despawned.
 	var/time_entered = 0          // Used to keep track of the safe period.
 	var/obj/item/device/radio/intercom/announce //
 
@@ -267,7 +267,11 @@
 //Lifted from Unity stasis.dm and refactored. ~Zuhayr
 /obj/machinery/cryopod/process()
 	if(occupant)
-		//Allow a ten minute gap between entering the pod and actually despawning.
+		// Eject dead people
+		if(occupant.stat == DEAD)
+			go_out()
+		
+		// Allow a gap between entering the pod and actually despawning.
 		if(world.time - time_entered < time_till_despawn)
 			return
 
@@ -421,7 +425,11 @@
 			return
 
 		var/willing = null //We don't want to allow people to be forced into despawning.
-		var/mob/M = G:affecting
+		var/mob/living/M = G:affecting
+		
+		if(!istype(M) || M.stat == DEAD)
+			user << "<span class='notice'>Dead people can not be put into cryo.</span>"
+			return
 
 		if(M.client)
 			if(alert(M,"Would you like to enter long-term storage?",,"Yes","No") == "Yes")
@@ -488,6 +496,11 @@
 	var/mob/living/L = O
 	if(!istype(L) || L.buckled)
 		return
+		
+	if(L.stat == DEAD)
+		user << "<span class='notice'>Dead people can not be put into cryo.</span>"
+		return
+	
 	for(var/mob/living/carbon/slime/M in range(1,L))
 		if(M.Victim == L)
 			usr << "[L.name] will not fit into the cryo pod because they have a slime latched onto their head."
@@ -541,12 +554,14 @@
 	set name = "Eject Pod"
 	set category = "Object"
 	set src in oview(1)
+	
 	if(usr.stat != 0)
 		return
 
 	if(usr != occupant)
 		usr << "The cryopod is in use and locked!"
 		return
+		
 	if(orient_right)
 		icon_state = "[base_icon_state]-r"
 	else
