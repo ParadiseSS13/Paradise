@@ -101,6 +101,12 @@ obj/structure/door_assembly
 		airlock_type = "/highsecurity"
 		glass = -1
 
+	door_assembly_shuttle
+		base_icon_state = "shuttle"
+		base_name = "shuttle airlock"
+		airlock_type = "/shuttle"
+		glass = -1
+
 	multi_tile
 		icon = 'icons/obj/doors/door_assembly2x1.dmi'
 		dir = EAST
