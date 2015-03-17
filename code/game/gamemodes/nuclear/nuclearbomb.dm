@@ -237,6 +237,9 @@ obj/machinery/nuclearbomb/proc/nukehack_win(mob/user as mob)
 	set category = "Object"
 	set name = "Make Deployable"
 	set src in oview(1)
+	
+	if(usr.stat || !usr.canmove || usr.restrained())
+		return
 
 	if (src.deployable)
 		usr << "\red You close several panels to make [src] undeployable."
