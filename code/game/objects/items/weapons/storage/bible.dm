@@ -11,10 +11,8 @@
 	autoignition_temperature = 522 // Kelvin
 
 	suicide_act(mob/user)
-		user.emote("fart")
-		viewers(user) << "\red <b>[user] farts on the [src.name]!</b>"
-		viewers(user) << "\blue <b>A mysterious force smites [user]!</b>"
-		return (user.gib(1))
+		viewers(user) << "<span class='warning'><b>[user] stares into [src.name] and attempts to trascend understanding of the universe!</b></span>"
+		return (user.dust())
 
 
 /obj/item/weapon/storage/bible/booze
