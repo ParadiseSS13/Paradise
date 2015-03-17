@@ -90,7 +90,6 @@
 	icon = 'icons/obj/objects.dmi'
 	icon_state = "weldtank"
 	amount_per_transfer_from_this = 10
-	var/modded = 0
 	var/obj/item/device/assembly_holder/rig = null
 	New()
 		..()
@@ -109,8 +108,49 @@
 	ex_act()
 		explode()
 
+/obj/structure/reagent_dispensers/fueltank/examine()
+	set src in view()
+	..()
+	if (!(usr in view(2)) && usr!=src.loc) return
+	if(rig)
+		usr << "<span class='notice'>There is some kind of device rigged to the tank."
+
+/obj/structure/reagent_dispensers/fueltank/attack_hand()
+	if (rig)
+		usr.visible_message("[usr] begins to detach [rig] from \the [src].", "You begin to detach [rig] from \the [src]")
+		if(do_after(usr, 20))
+			usr.visible_message("\blue [usr] detaches [rig] from \the [src].", "\blue  You detach [rig] from \the [src]")
+			rig.loc = get_turf(usr)
+			rig = null
+			overlays = new/list()
+
+/obj/structure/reagent_dispensers/fueltank/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
+	if (istype(W,/obj/item/device/assembly_holder))
+		if (rig)
+			user << "\red There is another device in the way."
+			return ..()
+		user.visible_message("[user] begins rigging [W] to \the [src].", "You begin rigging [W] to \the [src]")
+		if(do_after(user, 20))
+			user.visible_message("\blue [user] rigs [W] to \the [src].", "\blue  You rig [W] to \the [src]")
+
+			var/obj/item/device/assembly_holder/H = W
+			if (istype(H.a_left,/obj/item/device/assembly/igniter) || istype(H.a_right,/obj/item/device/assembly/igniter))
+				msg_admin_attack("[key_name_admin(user)] rigged fueltank at ([loc.x],[loc.y],[loc.z]) for explosion.")
+				log_game("[key_name(user)] rigged fueltank at ([loc.x],[loc.y],[loc.z]) for explosion.")
+
+				rig = W
+				user.drop_item()
+				W.loc = src
+
+				var/icon/test = getFlatIcon(W)
+				test.Shift(NORTH,1)
+				test.Shift(EAST,6)
+				overlays += test
+
+		return ..()
+
 /obj/structure/reagent_dispensers/fueltank/proc/explode()
-	explosion(src.loc,0,1,3)
+	explosion(src.loc,0,1,4)
 	if(src)
 		del(src)
 
@@ -119,6 +159,27 @@
 		explode()
 	return ..()
 
+/obj/structure/reagent_dispensers/fueltank/Move()
+	..()
+	if(rig)
+		rig.process_movement()
+
+/obj/structure/reagent_dispensers/fueltank/HasProximity(atom/movable/AM)
+	if(rig)
+		rig.HasProximity(AM)
+
+/obj/structure/reagent_dispensers/fueltank/Crossed(atom/movable/AM)
+	if(rig)
+		rig.Crossed(AM)
+
+/obj/structure/reagent_dispensers/fueltank/hear_talk(mob/living/M, msg)
+	if(rig)
+		rig.hear_talk(M, msg)
+
+/obj/structure/reagent_dispensers/fueltank/Bump()
+	..()
+	if(rig)
+		rig.process_movement()
 
 /obj/structure/reagent_dispensers/peppertank
 	name = "Pepper Spray Refiller"

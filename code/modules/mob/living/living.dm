@@ -37,8 +37,6 @@
 	..()
 	if(client && !eye_blind)
 		flick("flash", src.flash)
-	if(stat == DEAD)
-		gib()
 
 /mob/living/proc/updatehealth()
 	if(status_flags & GODMODE)
