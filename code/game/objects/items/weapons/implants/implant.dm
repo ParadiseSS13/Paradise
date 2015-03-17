@@ -335,11 +335,11 @@ the implant may become unstable and either pre-maturely inject the subject or si
 		if(!istype(M, /mob/living/carbon/human))	return 0
 		var/mob/living/carbon/human/H = M
 		if(H.mind in ticker.mode.head_revolutionaries)
-			H.visible_message("[H] seems to resist the implant!", "You feel the corporate tendrils of Nanotrasen try to invade your mind!")
+			H.visible_message("<span class='warning'>[H] seems to resist the implant!</span>", "<span class='warning'>You feel the corporate tendrils of Nanotrasen try to invade your mind!</span>")
 			return 0
 		else if(H.mind in ticker.mode:revolutionaries)
 			ticker.mode:remove_revolutionary(H.mind)
-		H << "\blue You feel a surge of loyalty towards Nanotrasen."
+		H << "<span class='notice'>You feel a surge of loyalty towards Nanotrasen.</span>"
 		return 1
 
 /obj/item/weapon/implant/traitor
@@ -367,18 +367,18 @@ the implant may become unstable and either pre-maturely inject the subject or si
 		if(!M.mind) return 0
 		var/mob/living/carbon/human/H = M
 		if(M == user)
-			user << "<span class='notice'>Making yourself loyal to yourself was a great idea! Perhaps the best idea, ever! Actually, you just feel like an idiot.</span>"
+			user << "<span class='notice'>Making yourself loyal to yourself was a great idea! Perhaps even the best idea ever! Actually, you just feel like an idiot.</span>"
 			if(isliving(user))
 				user:brainloss += 20
 			return
-		if(locate(/obj/item/weapon/implant/traitor) in H.contents || locate(/obj/item/weapon/implant/loyalty) in H.contents)
-			H.visible_message("[H] seems to resist the implant!", "You feel a strange sensation in your head that quickly dissipates.")
+		if(locate(/obj/item/weapon/implant/loyalty) in H.contents)
+			H.visible_message("<span class='warning'>[H] seems to resist the implant!</span>", "<span class='warning'>You feel a strange sensation in your head that quickly dissipates.</span>")
 			return 0
-		else if(H.mind in ticker.mode.traitors)
-			H.visible_message("[H] seems to resist the implant!", "You feel a familiar sensation in your head that quickly dissipates.")
+		if(locate(/obj/item/weapon/implant/traitor) in H.contents)
+			H.visible_message("<span class='warning'>[H] seems to resist the implant!</span>", "<span class='warning'>You feel a strange sensation in your head that quickly dissipates.</span>")
 			return 0
 		H.implanting = 1
-		H << "\blue You feel a surge of loyalty towards [user.name]."
+		H << "<span class='notice'>You feel completely loyal to [user.name].</span>"
 		if(!(user.mind in ticker.mode:implanter))
 			ticker.mode:implanter[ref] = list()
 		implanters = ticker.mode:implanter[ref]
@@ -389,11 +389,11 @@ the implant may become unstable and either pre-maturely inject the subject or si
 		ticker.mode:implanter[ref] = implanters
 		ticker.mode.traitors += H.mind
 		H.mind.special_role = "traitor"
-		H << "<B>\red You're now completely loyal to [user.name]!</B> You now must lay down your life to protect them and assist in their goals at any cost."
+		H << "<span class='warning'><B>You're now completely loyal to [user.name]!</B> You now must lay down your life to protect them and assist in their goals at any cost.</span>"
 		var/datum/objective/protect/p = new
 		p.owner = H.mind
 		p.target = user:mind
-		p.explanation_text = "Protect [user:real_name], the [user:mind:assigned_role=="MODE" ? (user:mind:special_role) : (user:mind:assigned_role)]."
+		p.explanation_text = "Obey every order from and protect [user:real_name], the [user:mind:assigned_role=="MODE" ? (user:mind:special_role) : (user:mind:assigned_role)]."
 		H.mind.objectives += p
 		for(var/datum/objective/objective in H.mind.objectives)
 			H << "<B>Objective #1</B>: [objective.explanation_text]"
