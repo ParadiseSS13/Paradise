@@ -1654,13 +1654,27 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 
 	proc/handle_heartbeat()
 		var/client/C = src.client
-		if(C.prefs.sound & SOUND_HEARTBEAT) //disable heartbeat by pref
+		if(C && C.prefs.sound & SOUND_HEARTBEAT) //disable heartbeat by pref
+			var/datum/organ/internal/heart/H = internal_organs_by_name["heart"]
+			if(istype(H,/datum/organ/internal/heart/robotic)) //Handle robotic hearts specially with a wuuuubb. This also applies to machine-people.
+				if(shock_stage >= 10 || istype(get_turf(src), /turf/space))
+					//PULSE_THREADY - maximum value for pulse, currently it 5.
+					//High pulse value corresponds to a fast rate of heartbeat.
+					//Divided by 2, otherwise it is too slow.
+					var/rate = (PULSE_THREADY - 2)/2 //machine people (main target) have no pulse, manually subtract standard human pulse (2). Mechanic-heart humans probably have a pulse, but 'advanced neural systems' keep the heart rate steady, or something
+
+					if(heartbeat >= rate)
+						heartbeat = 0
+						src << sound('sound/effects/electheart.ogg',0,0,0,30) //Credit to GhostHack (www.ghosthack.de) for sound.
+					else
+						heartbeat++
+					return
+				return
+
 			if(pulse == PULSE_NONE)
 				return
 
-			var/datum/organ/internal/heart/H = internal_organs_by_name["heart"]
-
-			if(!H || istype(H,/datum/organ/internal/heart/robotic))
+			if(!H)
 				return
 
 			if(pulse >= PULSE_2FAST || shock_stage >= 10 || istype(get_turf(src), /turf/space))
@@ -1671,7 +1685,10 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 
 				if(heartbeat >= rate)
 					heartbeat = 0
-					src << sound('sound/effects/singlebeat.ogg',0,0,0,50)
+					if(istype(H,/datum/organ/internal/heart/assisted))
+						src << sound('sound/effects/pacemakebeat.ogg',0,0,0,50)
+					else
+						src << sound('sound/effects/singlebeat.ogg',0,0,0,50)
 				else
 					heartbeat++
 
