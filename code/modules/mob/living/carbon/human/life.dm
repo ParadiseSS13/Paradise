@@ -110,7 +110,7 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 		handle_pain()
 
 		handle_medical_side_effects()
-		
+
 		handle_heartbeat()
 
 	if(stat == DEAD)
@@ -1653,12 +1653,12 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 					H.vomit()
 
 	proc/handle_heartbeat()
-		if(pulse == PULSE_NONE || !species.has_organ["heart"])
+		if(pulse == PULSE_NONE)
 			return
 
 		var/datum/organ/internal/heart/H = internal_organs_by_name["heart"]
 
-		if(!H || H.robotic >=2 )
+		if(!H || istype(H,/datum/organ/internal/heart/robotic))
 			return
 
 		if(pulse >= PULSE_2FAST || shock_stage >= 10 || istype(get_turf(src), /turf/space))
