@@ -597,37 +597,37 @@ var/list/uplink_items = list()
 /datum/uplink_item/implants/freedom
 	name = "Freedom Implant"
 	desc = "An implant injected into the body and later activated using a bodily gesture to attempt to slip restraints."
-	item = /obj/item/weapon/storage/box/syndie_kit/imp_freedom
+	item = /obj/item/weapon/implanter/freedom
 	cost = 5
 
 /datum/uplink_item/implants/uplink
 	name = "Uplink Implant"
 	desc = "An implant injected into the body, and later activated using a bodily gesture to open an uplink with 5 telecrystals. The ability for an agent to open an uplink after their posessions have been stripped from them makes this implant excellent for escaping confinement."
-	item = /obj/item/weapon/storage/box/syndie_kit/imp_uplink
+	item = /obj/item/weapon/implanter/uplink
 	cost = 20
 
 /datum/uplink_item/implants/explosive
 	name = "Explosive Implant"
 	desc = "An implant injected into the body, and later activated using a vocal command to cause a large explosion from the implant."
-	item = /obj/item/weapon/storage/box/syndie_kit/imp_explosive
+	item = /obj/item/weapon/implanter/explosive
 	cost = 12
 
 /datum/uplink_item/implants/compression
 	name = "Compressed Matter Implant"
 	desc = "An implant injected into the body, and later activated using a bodily gesture to retrieve an item that was earlier compressed."
-	item = /obj/item/weapon/storage/box/syndie_kit/imp_compress
+	item = /obj/item/weapon/implanter/compressed
 	cost = 8
 
 /datum/uplink_item/implants/mindslave
 	name = "Mindslave Implant"
 	desc = "A box containing an implanter filled with a mindslave implant that when injected into another person makes them loyal to you and your cause, unless of course they're already implanted by someone else. Loyalty ends if the implant is no longer in their system."
-	item = /obj/item/weapon/storage/box/syndie_kit/mindslave
+	item = /obj/item/weapon/implanter/traitor
 	cost = 10
 
 /datum/uplink_item/implants/adrenal
 	name = "Adrenal Implant"
 	desc = "An implant injected into the body, and later activated using a bodily gesture to inject a chemical cocktail, which has a mild healing effect along with removing all stuns and increasing his speed."
-	item = /obj/item/weapon/storage/box/syndie_kit/imp_adrenal
+	item = /obj/item/weapon/implanter/adrenalin
 	cost = 8
 
 // POINTLESS BADASSERY
