@@ -477,11 +477,9 @@
 	return
 
 /mob/living/simple_animal/ex_act(severity)
-	if(!blinded)
-		flick("flash", flash)
+	..()
 	switch (severity)
 		if (1.0)
-			adjustBruteLoss(500)
 			gib()
 			return
 
