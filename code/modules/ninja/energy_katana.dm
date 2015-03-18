@@ -10,7 +10,7 @@
 	throwforce = 20
 	var/cooldown = 0 // Because spam aint cool, yo.
 
-/obj/item/weapon/katana/attack(mob/living/carbon/M as mob, mob/living/carbon/user as mob)
+/obj/item/weapon/katana/energy/attack(mob/living/carbon/M as mob, mob/living/carbon/user as mob)
 	playsound(user, 'sound/weapons/blade1.ogg', 50, 1, -1)
 	return ..()
 
