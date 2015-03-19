@@ -35,6 +35,7 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 	var/in_stasis = 0
 	var/exposedtimenow = 0
 	var/firstexposed = 0
+	var/heartbeat = 0
 
 /mob/living/carbon/human/Life()
 	set invisibility = 0
@@ -109,6 +110,8 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 		handle_pain()
 
 		handle_medical_side_effects()
+
+		handle_heartbeat()
 
 	if(stat == DEAD)
 		handle_decay()
@@ -498,6 +501,7 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 			//Body temperature is too hot.
 			fire_alert = max(fire_alert, 1)
 			if(status_flags & GODMODE)	return 1	//godmode
+
 			if(bodytemperature >= species.heat_level_1 && bodytemperature <= species.heat_level_2)
 				take_overall_damage(burn=HEAT_DAMAGE_LEVEL_1, used_weapon = "High Body Temperature")
 				fire_alert = max(fire_alert, 2)
@@ -515,7 +519,9 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 		else if(bodytemperature < species.cold_level_1)
 			fire_alert = max(fire_alert, 1)
 			if(status_flags & GODMODE)	return 1	//godmode
+
 			if(stat == DEAD) return 1 //ZomgPonies -- No need for cold burn damage if dead
+
 			if(!istype(loc, /obj/machinery/atmospherics/unary/cryo_cell))
 				if(bodytemperature >= species.cold_level_2 && bodytemperature <= species.cold_level_1)
 					take_overall_damage(burn=COLD_DAMAGE_LEVEL_1, used_weapon = "Low Body Temperature")
@@ -1646,6 +1652,46 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 					H << "<spawn class='warning'>You smell something foul..."
 					H.vomit()
 
+	proc/handle_heartbeat()
+		var/client/C = src.client
+		if(C && C.prefs.sound & SOUND_HEARTBEAT) //disable heartbeat by pref
+			var/datum/organ/internal/heart/H = internal_organs_by_name["heart"]
+			if(istype(H,/datum/organ/internal/heart/robotic)) //Handle robotic hearts specially with a wuuuubb. This also applies to machine-people.
+				if(shock_stage >= 10 || istype(get_turf(src), /turf/space))
+					//PULSE_THREADY - maximum value for pulse, currently it 5.
+					//High pulse value corresponds to a fast rate of heartbeat.
+					//Divided by 2, otherwise it is too slow.
+					var/rate = (PULSE_THREADY - 2)/2 //machine people (main target) have no pulse, manually subtract standard human pulse (2). Mechanic-heart humans probably have a pulse, but 'advanced neural systems' keep the heart rate steady, or something
+
+					if(heartbeat >= rate)
+						heartbeat = 0
+						src << sound('sound/effects/electheart.ogg',0,0,0,30) //Credit to GhostHack (www.ghosthack.de) for sound.
+					else
+						heartbeat++
+					return
+				return
+
+			if(pulse == PULSE_NONE)
+				return
+
+			if(!H)
+				return
+
+			if(pulse >= PULSE_2FAST || shock_stage >= 10 || istype(get_turf(src), /turf/space))
+				//PULSE_THREADY - maximum value for pulse, currently it 5.
+				//High pulse value corresponds to a fast rate of heartbeat.
+				//Divided by 2, otherwise it is too slow.
+				var/rate = (PULSE_THREADY - pulse)/2
+
+				if(heartbeat >= rate)
+					heartbeat = 0
+					if(istype(H,/datum/organ/internal/heart/assisted))
+						src << sound('sound/effects/pacemakebeat.ogg',0,0,0,50)
+					else
+						src << sound('sound/effects/singlebeat.ogg',0,0,0,50)
+				else
+					heartbeat++
+
 /*
 	Called by life(), instead of having the individual hud items update icons each tick and check for status changes
 	we only set those statuses and icons upon changes.  Then those HUD items will simply add those pre-made images.
@@ -1663,6 +1709,7 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 			holder.icon_state = "hud[RoundHealth(health)]"
 
 		hud_list[HEALTH_HUD] = holder
+
 
 	if(hud_updateflag & 1 << STATUS_HUD)
 		var/foundVirus = 0
@@ -1698,6 +1745,7 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 		hud_list[STATUS_HUD] = holder
 		hud_list[STATUS_HUD_OOC] = holder2
 
+
 	if(hud_updateflag & 1 << ID_HUD)
 		var/image/holder = hud_list[ID_HUD]
 		if(wear_id)
@@ -1711,6 +1759,7 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 
 
 		hud_list[ID_HUD] = holder
+
 
 	if(hud_updateflag & 1 << WANTED_HUD)
 		var/image/holder = hud_list[WANTED_HUD]
@@ -1736,6 +1785,7 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 						holder.icon_state = "hudreleased"
 						break
 		hud_list[WANTED_HUD] = holder
+
 
 	if(hud_updateflag & 1 << IMPLOYAL_HUD || hud_updateflag & 1 << IMPCHEM_HUD || hud_updateflag & 1 << IMPTRACK_HUD)
 		var/image/holder1 = hud_list[IMPTRACK_HUD]
@@ -1847,6 +1897,7 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 	if(..())
 		speech_problem_flag = 1
 	return stuttering
+
 
 // Need this in species.
 //#undef HUMAN_MAX_OXYLOSS
