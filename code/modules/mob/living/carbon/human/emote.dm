@@ -709,7 +709,14 @@
 		// Needed for M_TOXIC_FART
 		if("fart")
 //			playsound(src.loc, 'sound/effects/fart.ogg', 50, 1, -3) //Admins still vote no to fun
-			if(TOXIC_FARTS in mutations)
+			if(locate(/obj/item/weapon/storage/bible) in get_turf(src))
+				viewers(src) << "<span class='warning'><b>[src] farts on the Bible!</b></span>"
+				viewers(src) << "<span class='notice'><b>A mysterious force smites [src]!</b></span>"
+				var/datum/effect/effect/system/spark_spread/s = new /datum/effect/effect/system/spark_spread
+				s.set_up(3, 1, src)
+				s.start()
+				src.gib()
+			else if(TOXIC_FARTS in mutations)
 				message = "<b>[src]</b> unleashes a [pick("horrible","terrible","foul","disgusting","awful")] fart."
 			else
 				message = "<b>[src]</b> [pick("passes wind","farts")]."
