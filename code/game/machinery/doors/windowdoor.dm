@@ -9,7 +9,6 @@
 	flags = ON_BORDER
 	opacity = 0
 	var/obj/item/weapon/airlock_electronics/electronics = null
-	explosion_resistance = 5
 
 /obj/machinery/door/window/New()
 	..()
@@ -112,7 +111,6 @@
 	src.icon_state = text("[]open", src.base_state)
 	sleep(10)
 
-	explosion_resistance = 0
 	src.density = 0
 //	src.sd_SetOpacity(0)	//TODO: why is this here? Opaque windoors? ~Carn
 	update_nearby_tiles()
@@ -136,7 +134,6 @@
 	src.icon_state = src.base_state
 
 	src.density = 1
-	explosion_resistance = initial(explosion_resistance)
 //	if(src.visible)
 //		SetOpacity(1)	//TODO: why is this here? Opaque windoors? ~Carn
 	update_nearby_tiles()
@@ -247,7 +244,7 @@
 		open()
 		emagged = 1
 		return 1
-	
+
 /obj/machinery/door/window/attackby(obj/item/weapon/I as obj, mob/living/user as mob, params)
 
 	//If it's in the process of opening/closing, ignore the click
