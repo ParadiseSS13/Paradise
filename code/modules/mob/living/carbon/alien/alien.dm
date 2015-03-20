@@ -80,17 +80,7 @@
 	if(!environment)
 		return
 
-	var/loc_temp = T0C
-	if(istype(loc, /obj/mecha))
-		var/obj/mecha/M = loc
-		loc_temp =  M.return_temperature()
-	else if(istype(get_turf(src), /turf/space))
-		var/turf/heat_turf = get_turf(src)
-		loc_temp = heat_turf.temperature
-	else if(istype(loc, /obj/machinery/atmospherics/unary/cryo_cell))
-		loc_temp = loc:air_contents.temperature
-	else
-		loc_temp = environment.temperature
+	var/loc_temp = get_temperature(environment)
 
 	//world << "Loc temp: [loc_temp] - Body temp: [bodytemperature] - Fireloss: [getFireLoss()] - Fire protection: [heat_protection] - Location: [loc] - src: [src]"
 
@@ -115,12 +105,16 @@
 			if(360 to 400)
 				apply_damage(HEAT_DAMAGE_LEVEL_1, BURN)
 				fire_alert = max(fire_alert, 2)
-			if(400 to 1000)
+			if(400 to 460)
 				apply_damage(HEAT_DAMAGE_LEVEL_2, BURN)
 				fire_alert = max(fire_alert, 2)
-			if(1000 to INFINITY)
-				apply_damage(HEAT_DAMAGE_LEVEL_3, BURN)
-				fire_alert = max(fire_alert, 2)
+			if(460 to INFINITY)
+				if(on_fire)
+					apply_damage(HEAT_DAMAGE_LEVEL_3, BURN)
+					fire_alert = max(fire_alert, 2)
+				else
+					apply_damage(HEAT_DAMAGE_LEVEL_2, BURN)
+					fire_alert = max(fire_alert, 2)
 	return
 
 /mob/living/carbon/alien/proc/handle_mutations_and_radiation()
@@ -208,7 +202,7 @@
 		see_invisible = 45
 		nightvision = 0
 		usr.hud_used.nightvisionicon.icon_state = "nightvision0"
-		
+
 
 /mob/living/carbon/alien/assess_threat(var/obj/machinery/bot/secbot/judgebot, var/lasercolor)
 	if(judgebot.emagged == 2)
@@ -278,7 +272,7 @@ Des: Removes all infected images from the alien.
 
 /mob/living/carbon/alien/larva/updatePlasmaDisplay()
 	return
-	
+
 /mob/living/carbon/alien/can_use_vents()
 	return
 
