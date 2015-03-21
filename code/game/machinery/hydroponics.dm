@@ -109,7 +109,7 @@
 		"cryoxadone" =     list(  3,    0,   0   ),
 		"ammonia" =        list(  0.5,  0,   0   ),
 		"diethylamine" =   list(  1,    0,   0   ),
-		"nutriment" =      list(  0.5,  1,   0   ),
+		"nutriment" =      list(  0.25,  0.15,   0   ),
 		"radium" =         list( -1.5,  0,   0.2 ),
 		"adminordrazine" = list(  1,    1,   1   ),
 		"robustharvest" =  list(  0,    0.2, 0   ),
@@ -141,7 +141,7 @@
 	update_icon()
 	if(closed_system)
 		flags &= ~OPENCONTAINER
-		
+
 /obj/machinery/portable_atmospherics/hydroponics/upgraded/New()
 	..()
 	component_parts = list()
@@ -368,7 +368,7 @@
 			// Beneficial reagents have a few impacts along with health buffs.
 			if(beneficial_reagents[R.id])
 				health += beneficial_reagents[R.id][1]       * reagent_total
-				yield_mod += beneficial_reagents[R.id][2]    * reagent_total
+				yield_mod = min(100, yield_mod + (beneficial_reagents[R.id][2]    * reagent_total))
 				mutation_mod += beneficial_reagents[R.id][3] * reagent_total
 
 			// Mutagen is distinct from the previous types and mostly has a chance of proccing a mutation.
