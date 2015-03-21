@@ -70,8 +70,11 @@
 	spark_system.set_up(5, 0, src)
 	spark_system.attach(src)
 
-	cover = new /obj/machinery/porta_turret_cover(loc)
-	cover.Parent_Turret = src
+	if(anchored)
+		create_cover()
+	else
+		invisibility = 0
+		update_icon()
 	setup()
 
 /obj/machinery/porta_turret/proc/setup()
