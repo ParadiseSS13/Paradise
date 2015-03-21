@@ -252,7 +252,7 @@
 	ui_title = "Soda Dispens-o-matic"
 	energy = 100
 	max_energy = 100
-	dispensable_reagents = list("water","ice", "milk", "soymilk", "coffee","tea","hot_coco", "cola","spacemountainwind","dr_gibb","space_up","tonic","sodawater","lemon_lime","sugar","orangejuice", "lemonjuice", "limejuice","tomatojuice", "banana", "watermelonjuice", "carrotjuice", "potato", "berryjuice")
+	dispensable_reagents = list("water","ice", "milk", "soymilk", "coffee","tea","hot_coco", "cola","spacemountainwind","dr_gibb","space_up","tonic","sodawater","lemon_lime", "grapejuice","sugar","orangejuice", "lemonjuice", "limejuice","tomatojuice", "banana", "watermelonjuice", "carrotjuice", "potato", "berryjuice")
 	hack_message = "You change the mode from 'McNano' to 'Pizza King'."
 	unhack_message = "You change the mode from 'Pizza King' to 'McNano'."
 	hacked_reagents = list("thirteenloko")
@@ -1013,6 +1013,7 @@
 		/obj/item/weapon/reagent_containers/food/snacks/grown/lime = list("limejuice" = 0),
 		/obj/item/weapon/reagent_containers/food/snacks/watermelonslice = list("watermelonjuice" = 0),
 		/obj/item/weapon/reagent_containers/food/snacks/grown/poisonberries = list("poisonberryjuice" = 0),
+		/obj/item/weapon/reagent_containers/food/snacks/grown/grapes = list("grapejuice" = 0),
 	)
 
 
