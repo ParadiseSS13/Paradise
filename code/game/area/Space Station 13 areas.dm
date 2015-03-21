@@ -1715,8 +1715,12 @@ area/security/podbay
 	icon_state = "toxmix"
 
 /area/toxins/misc_lab
-	name = "\improper Testing Lab"
+	name = "\improper Research Testing Lab"
 	icon_state = "toxmisc"
+	
+/area/toxins/test_chamber
+	name = "\improper Research Testing Chamber"
+	icon_state = "toxtest"
 
 /area/toxins/server
 	name = "\improper Server Room"
