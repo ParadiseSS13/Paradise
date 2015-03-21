@@ -433,7 +433,7 @@
 	build_type = AUTOLATHE
 	materials = list("$metal" = 500)
 	build_path = /obj/item/weapon/flamethrower/full
-	category = list("hacked", "Weapons and ammo")
+	category = list("hacked", "Security")
 	
 /datum/design/handcuffs
 	name = "Handcuffs"
