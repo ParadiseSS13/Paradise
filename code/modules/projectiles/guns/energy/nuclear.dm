@@ -130,7 +130,7 @@
 		update_charge()
 		update_reactor()
 		update_mode()
-		
+
 
 /obj/item/weapon/gun/energy/gun/turret
 	name = "hybrid turret gun"
@@ -142,8 +142,8 @@
 	can_flashlight = 0
 	projectile_type = /obj/item/projectile/energy/electrode
 	charge_cost = 1000
-	fire_delay = 20
-	
+	fire_delay = 15
+
 /obj/item/weapon/gun/energy/gun/turret/update_icon()
 	icon_state = initial(icon_state)
 
@@ -164,9 +164,9 @@
 			user << "\red [src.name] is now set to stun."
 			projectile_type = /obj/item/projectile/energy/electrode
 			modifystate = "energystun"
-			fire_delay = 20
+			fire_delay = 15
 	update_icon()
 	if(user.l_hand == src)
 		user.update_inv_l_hand()
 	else
-		user.update_inv_r_hand()	
+		user.update_inv_r_hand()

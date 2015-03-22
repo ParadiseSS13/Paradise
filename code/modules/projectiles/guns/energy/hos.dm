@@ -37,7 +37,7 @@
 				user << "\red [src.name] is now set to stun."
 				projectile_type = "/obj/item/projectile/energy/electrode"
 				modifystate = "hoslaserstun"
-				fire_delay = 20
+				fire_delay = 15
 		update_icon()
 		if(user.l_hand == src)
 			user.update_inv_l_hand()

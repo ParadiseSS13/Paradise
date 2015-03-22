@@ -192,6 +192,16 @@ var/list/uplink_items = list()
 	cost = 14
 	job = list("Station Engineer","Chief Engineer")
 
+//RD
+
+/datum/uplink_item/jobspecific/telegun
+	name = "Telegun"
+	desc = "An extremely energy gun that utilizes bluespace technology to teleport away living targets; will teleport targets to the same beacon a teleporter is locked onto."
+	item = /obj/item/weapon/gun/energy/telegun
+	cost = 12
+	job = list("Research Director")
+
+
 // DANGEROUS WEAPONS
 
 /datum/uplink_item/dangerous
