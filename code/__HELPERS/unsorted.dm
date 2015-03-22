@@ -1272,28 +1272,28 @@ proc/get_mob_with_client_list()
 /proc/getPixelDistance(var/atom/A, var/atom/B)
 	if(!istype(A)||!istype(B))
 		return 0
-	
+
 	var/_x1 = A.x
 	var/_x2 = B.x
 	var/_y1 = A.y
 	var/_y2 = B.y
-	
+
 	//Ensure _x1 is bigger, simplicity
 	if(_x2 > _x1)
 		var/tx = _x1
 		_x1 = _x2
 		_x2 = tx
-	
+
 	//Ensure _y1 is bigger, simplicity
 	if(_y2 > _y1)
 		var/ty = _y1
 		_y1 = _y2
 		_y2 = ty
-	
+
 	//DY/DX
 	var/dx = _x1 - _x2 + A.pixel_x + B.pixel_x
 	var/dy = _y1 - _y2 + A.pixel_y + B.pixel_y
-	
+
 	//Distance check
 	if(dx == 0 && dy == 0) //No distance, don't bother calculating
 		return 0
@@ -1661,24 +1661,3 @@ atom/proc/GetTypeInAllContents(typepath)
 			step(AM, pick(alldirs))
 		chance = max(chance - (initial_chance / steps), 0)
 		steps--
-<<<<<<< HEAD
-=======
-
-/proc/living_player_count()
-	var/living_player_count = 0
-	for(var/mob in player_list)
-		if(mob in living_mob_list)
-			living_player_count += 1
-	return living_player_count
-
-/proc/randomColor(var/mode = 0)	//if 1 it doesn't pick white, black or gray
-	switch(mode)
-		if(0)
-			return pick("white","black","gray","red","green","blue","brown","yellow","orange","darkred",
-						"crimson","lime","darkgreen","cyan","navy","teal","purple","indigo")
-		if(1)
-			return pick("red","green","blue","brown","yellow","orange","darkred","crimson",
-						"lime","darkgreen","cyan","navy","teal","purple","indigo")
-		else
-			return "white"
->>>>>>> 7bd2fad... Adds getPixelDistance()
