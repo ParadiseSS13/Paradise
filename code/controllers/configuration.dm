@@ -49,7 +49,7 @@
 	var/list/votable_modes = list()		// votable modes
 	var/list/probabilities = list()		// relative probability of each mode
 	var/humans_need_surnames = 0
-	var/allow_random_events = 1			// enables random events mid-round when set to 1
+	var/allow_random_events = 0			// enables random events mid-round when set to 1
 	var/allow_ai = 1					// allow ai job
 	var/hostedby = null
 	var/respawn = 0
@@ -118,8 +118,6 @@
 	var/use_age_restriction_for_antags = 0 //Do antags use account age restrictions? --requires database
 
 	var/simultaneous_pm_warning_timeout = 100
-
-	var/use_recursive_explosions //Defines whether the server uses recursive or circular explosions.
 
 	var/assistant_maint = 0 //Do assistants get maint access?
 	var/gateway_delay = 6000 //How long the gateway takes before it activates. Default is half an hour.
@@ -215,9 +213,6 @@
 
 				if ("jobs_have_minimal_access")
 					config.jobs_have_minimal_access = 1
-
-				if ("use_recursive_explosions")
-					use_recursive_explosions = 1
 
 				if ("log_ooc")
 					config.log_ooc = 1

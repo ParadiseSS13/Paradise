@@ -92,7 +92,7 @@ datum/theft_objective/ai/check_special_completion(var/obj/item/device/aicard/C)
 /datum/theft_objective/slime_extract
 	name = "a sample of unused slime extract"
 	typepath = /obj/item/slime_extract
-	protected_jobs = list("Research Director","Xenobiologist")
+	protected_jobs = list("Research Director","Scientist")
 
 /datum/theft_objective/slime_extract/check_special_completion(var/obj/item/slime_extract/E)
 	if(..())
