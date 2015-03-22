@@ -118,7 +118,7 @@
 	..()
 
 	if(W.reagents && W.reagents.has_reagent("water"))
-		user << "<span class='notice'>You feel [deity_name] blessing \the [W] as you insert it into your [src].</span>"
+		user << "<span class='notice'>You feel [deity_name] blessing \the [W] as you insert it into \the [src].</span>"
 		var/water2holy = W.reagents.get_reagent_amount("water")
 		W.reagents.del_reagent("water")
 		W.reagents.add_reagent("holywater",water2holy)
