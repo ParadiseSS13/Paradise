@@ -67,6 +67,19 @@
 	buck = 5
 	deviation = 0.8
 
+/obj/item/ammo_casing/shotgun/improvised/overload
+	name = "overloaded improvised shell"
+	desc = "An extremely weak shotgun shell with multiple small pellets made out of metal shards. This one has been packed with even more \
+	propellant. It's like playing russian roulette, with a shotgun."
+	icon_state = "improvshell"
+	projectile_type = /obj/item/projectile/bullet/pellet/random
+	m_amt = 250
+	buck = 5
+	deviation = 1.0
+
+/obj/item/ammo_casing/shotgun/improvised/overload/New()
+	..()
+	buck = rand(3, 8)
 
 /obj/item/ammo_casing/shotgun/stunslug
 	name = "taser slug"
@@ -109,6 +122,21 @@
 	projectile_type = "/obj/item/projectile/bullet/incendiary/shell/dragonsbreath"
 	buck = 4
 	deviation = 0.9
+
+/obj/item/ammo_casing/shotgun/ion
+	name = "ion shell"
+	desc = "An advanced shotgun shell which uses a subspace ansible crystal to produce an effect similar to a standard ion rifle. \
+	The unique properties of the crystal splot the pulse into a spread of individually weaker bolts."
+	icon_state = "ionshell"
+	projectile_type = /obj/item/projectile/ion/weak
+	buck = 4
+	deviation = 0.9
+
+/obj/item/ammo_casing/shotgun/laserslug
+	name = "laser slug"
+	desc = "An advanced shotgun shell that uses a micro laser to replicate the effects of a laser weapon in a ballistic package."
+	icon_state = "lshell"
+	projectile_type = /obj/item/projectile/beam
 
 /obj/item/ammo_casing/shotgun/techshell
 	name = "unloaded technological shell"
