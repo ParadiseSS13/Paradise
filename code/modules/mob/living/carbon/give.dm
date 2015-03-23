@@ -2,6 +2,9 @@
 	set category = "IC"
 	set name = "Give"
 
+	if(!iscarbon(target)) //something is bypassing the give arguments, no clue what, adding a sanity check JIC
+		usr << "<span class='danger'>Wait a second... \the [target] HAS NO HANDS! AHH!</span>" //cheesy messages ftw
+		return
 	if(target.stat == 2 || usr.stat == 2|| target.client == null)
 		return
 	var/obj/item/I
