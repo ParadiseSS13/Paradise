@@ -218,6 +218,10 @@ turf/simulated/hotspot_expose(exposed_temperature, exposed_volume, soh)
 	firelevel = fl
 	air_master.active_hotspots.Add(src)
 
+	for(var/mob/living/L in loc)
+		L.fire_act()
+
+
 
 /obj/fire/Del()
 	if (istype(loc, /turf/simulated))
