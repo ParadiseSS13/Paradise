@@ -216,7 +216,7 @@ mob/living/carbon/human/airflow_hit(atom/A)
 //	for(var/mob/M in hearers(src))
 //		M.show_message("\red <B>[src] slams into [A]!</B>",1,"\red You hear a loud slam!",2)
 	playsound(src.loc, "punch", 25, 1, -1)
-	if (prob(33))
+/*	if (prob(33))
 		loc:add_blood(src)
 		bloody_body(src)
 	var/b_loss = airflow_speed * vsc.airflow_damage
@@ -230,7 +230,7 @@ mob/living/carbon/human/airflow_hit(atom/A)
 	blocked = run_armor_check("groin","melee")
 	apply_damage(b_loss/3, BRUTE, "groin", blocked, 0, "Airflow")
 
-/*	if(airflow_speed > 10)
+	if(airflow_speed > 10)
 		Paralyse(round(airflow_speed * vsc.airflow_stun))
 		Stun(paralysis + 3)
 	else
