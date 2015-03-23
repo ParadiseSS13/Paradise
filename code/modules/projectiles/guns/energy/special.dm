@@ -335,7 +335,7 @@ modules/mob/living/carbon/human/life.dm if you die, you will be zoomed out.
 
 /obj/item/weapon/gun/energy/telegun
 	name = "Teleporter Gun"
-	desc = "An extremely advanced bluespace energy gun capable of teleporting targets to far off locations."
+	desc = "An extremely high-tech bluespace energy gun capable of teleporting targets to far off locations."
 	icon_state = "telegun"
 	item_state = "ionrifle"
 	icon_override = 'icons/mob/in-hand/guns.dmi'
