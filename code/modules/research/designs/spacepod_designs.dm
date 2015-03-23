@@ -110,7 +110,7 @@
 	req_tech = list("materials" = 3, "combat" = 3)
 	build_path = /obj/item/device/spacepod_equipment/weaponry/burst_taser
 	category = list("Pod_Weaponry")
-	materials = list("$metal" = 15000)
+	materials = list("$metal" = 15000,"$plasma"=2000)
 	locked = 1
 
 /datum/design/pod_gun_laser
@@ -122,5 +122,5 @@
 	req_tech = list("materials" = 3, "combat" = 3, "plasma" = 2)
 	build_path = /obj/item/device/spacepod_equipment/weaponry/laser
 	category = list("Pod_Weaponry")
-	materials = list("$metal" = 15000)
+	materials = list("$metal"=10000,"$glass"=5000,"$gold"=1000,"$silver"=2000)
 	locked = 1
