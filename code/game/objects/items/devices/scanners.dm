@@ -106,6 +106,7 @@ REAGENT SCANNER
 	throw_range = 10
 	m_amt = 200
 	origin_tech = "magnets=1;biotech=1"
+	var/upgraded = 0
 	var/mode = 1;
 
 
@@ -171,21 +172,11 @@ REAGENT SCANNER
 		OX = fake_oxy > 50 ? 		"\red Severe oxygen deprivation detected\blue" 	: 	"Subject bloodstream oxygen level normal"
 	user.show_message("[OX] | [TX] | [BU] | [BR]")
 	if (istype(M, /mob/living/carbon))
-		if(M:reagents.total_volume > 0)
-			var/unknown = 0
-			var/reagentdata[0]
+		if(M:reagents.total_volume > 0 && upgraded)
+			user.show_message("\blue Reagents detected in subject's blood:")
 			for(var/A in M.reagents.reagent_list)
 				var/datum/reagent/R = A
-				if(R.scannable)
-					reagentdata["[R.id]"] = "\t \blue [round(M.reagents.get_reagent_amount(R.id), 1)]u [R.name]"
-				else
-					unknown++
-			if(reagentdata.len)
-				user.show_message("\blue Beneficial reagents detected in subject's blood:")
-				for(var/d in reagentdata)
-					user.show_message(reagentdata[d])
-			if(unknown)
-				user.show_message(text("\red Warning: Unknown substance[(unknown>1)?"s":""] detected in subject's blood."))
+				user.show_message("\t \blue [M.reagents.get_reagent_amount(R.id)]u [R.name]")
 		if(M:virus2.len)
 			var/mob/living/carbon/C = M
 			for (var/ID in C.virus2)
@@ -252,6 +243,30 @@ REAGENT SCANNER
 		if(0)
 			usr << "The scanner no longer shows limb damage."
 
+/obj/item/device/healthanalyzer/attackby(obj/item/W, mob/user, params)
+	if(istype(W, /obj/item/device/healthupgrade))
+		if(upgraded)
+			user << "<span class='notice'>You have already installed an upgraded in the [src].</span>"
+		else
+			user << "<span class='notice'>You install the upgrade in the [src].</span>"
+			overlays += "advanced"
+			playsound(src.loc, 'sound/items/Deconstruct.ogg', 50, 1)
+			upgraded = 1
+			qdel(W)
+
+/obj/item/device/healthanalyzer/advanced
+	upgraded = 1
+
+/obj/item/device/healthanalyzer/advanced/New()
+	overlays += "advanced"
+
+
+/obj/item/device/healthupgrade
+	name = "Health Analyzer Upgrade"
+	icon_state = "healthupgrade"
+	desc = "An upgrade unit that can be installed on a health analyzer for expanded functionality."
+	w_class = 1.0
+	origin_tech = "magnets=2;biotech=2"
 
 /obj/item/device/analyzer
 	desc = "A hand-held environmental scanner which reports current gas levels."
@@ -464,35 +479,37 @@ REAGENT SCANNER
 	throwforce = 0
 	throw_speed = 3
 	throw_range = 7
-//	matter = list("metal" = 30,"glass" = 20)
+	m_amt = 30
+	g_amt = 20
 
 /obj/item/device/slime_scanner/attack(mob/living/M as mob, mob/living/user as mob)
 	if (!isslime(M))
-		user << "<B>This device can only scan slimes!</B>"
+		user.show_message("<span class='warning'>This device can only scan slimes!</span>", 1)
 		return
 	var/mob/living/carbon/slime/T = M
-	user.show_message("Slime scan results:")
-	user.show_message(text("[T.colour] [] slime", T.is_adult ? "adult" : "baby"))
-	user.show_message(text("Nutrition: [T.nutrition]/[]", T.get_max_nutrition()))
+	user.show_message("Slime scan results:", 1)
+	user.show_message(text("[T.colour] [] slime", T.is_adult ? "adult" : "baby"), 1)
+	user.show_message(text("Nutrition: [T.nutrition]/[]", T.get_max_nutrition()), 1)
 	if (T.nutrition < T.get_starve_nutrition())
-		user.show_message("<span class='alert'>Warning: slime is starving!</span>")
+		user.show_message("<span class='warning'>Warning: slime is starving!</span>", 1)
 	else if (T.nutrition < T.get_hunger_nutrition())
-		user.show_message("<span class='warning'>Warning: slime is hungry</span>")
-	user.show_message("Electric change strength: [T.powerlevel]")
-	user.show_message("Health: [T.health]")
+		user.show_message("<span class='warning'>Warning: slime is hungry</span>", 1)
+	user.show_message("Electric change strength: [T.powerlevel]", 1)
+	user.show_message("Health: [T.health]", 1)
 	if (T.slime_mutation[4] == T.colour)
-		user.show_message("This slime does not evolve any further")
+		user.show_message("This slime does not evolve any further.", 1)
 	else
 		if (T.slime_mutation[3] == T.slime_mutation[4])
 			if (T.slime_mutation[2] == T.slime_mutation[1])
-				user.show_message(text("Possible mutation: []", T.slime_mutation[3]))
-				user.show_message("Genetic destability: [T.mutation_chance/2]% chance of mutation on splitting")
+				user.show_message("Possible mutation: [T.slime_mutation[3]]", 1)
+				user.show_message("Genetic destability: [T.mutation_chance/2]% chance of mutation on splitting", 1)
 			else
-				user.show_message(text("Possible mutations: [], [], [] (x2)", T.slime_mutation[1], T.slime_mutation[2], T.slime_mutation[3]))
-				user.show_message("Genetic destability: [T.mutation_chance]% chance of mutation on splitting")
+				user.show_message("Possible mutations: [T.slime_mutation[1]], [T.slime_mutation[2]], [T.slime_mutation[3]] (x2)", 1)
+				user.show_message("Genetic destability: [T.mutation_chance]% chance of mutation on splitting", 1)
 		else
-			user.show_message(text("Possible mutations: [], [], [], []", T.slime_mutation[1], T.slime_mutation[2], T.slime_mutation[3], T.slime_mutation[4]))
-			user.show_message("Genetic destability: [T.mutation_chance]% chance of mutation on splitting")
+			user.show_message("Possible mutations: [T.slime_mutation[1]], [T.slime_mutation[2]], [T.slime_mutation[3]], [T.slime_mutation[4]]", 1)
+			user.show_message("Genetic destability: [T.mutation_chance]% chance of mutation on splitting", 1)
 	if (T.cores > 1)
-		user.show_message("Anomalious slime core amount detected")
-	user.show_message("Growth progress: [T.amount_grown]/10")
+		user.show_message("Anomalious slime core amount detected", 1)
+	user.show_message("Growth progress: [T.amount_grown]/10", 1)
+

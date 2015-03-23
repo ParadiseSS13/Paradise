@@ -6367,7 +6367,7 @@
 "csw" = (/turf/simulated/wall,/area/medical/morgue)
 "csx" = (/obj/machinery/door/poddoor{density = 0; icon_state = "pdoor0"; id = "xenobio2"; name = "Containment Blast Doors"; opacity = 0},/obj/machinery/door/window/northleft{base_state = "right"; dir = 8; icon_state = "right"; name = "Containment Pen"; req_access_txt = "55"},/turf/simulated/floor/engine,/area/toxins/xenobiology)
 "csy" = (/obj/structure/stool/bed/chair{dir = 4},/obj/structure/cable{d1 = 1; d2 = 2; icon_state = "1-2"; tag = ""},/turf/simulated/floor{icon_state = "white"},/area/toxins/xenobiology)
-"csz" = (/obj/structure/table,/obj/machinery/atmospherics/pipe/simple/hidden/supply,/obj/item/weapon/storage/box/beakers{pixel_x = -1; pixel_y = -1; pixel_x = 2; pixel_y = 2},/turf/simulated/floor{icon_state = "white"},/area/toxins/xenobiology)
+"csz" = (/obj/structure/table,/obj/machinery/atmospherics/pipe/simple/hidden/supply,/obj/item/weapon/storage/box/beakers{pixel_x = -1; pixel_y = -1; pixel_x = 2; pixel_y = 2},/obj/item/device/slime_scanner,/obj/item/device/slime_scanner,/turf/simulated/floor{icon_state = "white"},/area/toxins/xenobiology)
 "csA" = (/obj/structure/table,/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,/obj/item/weapon/storage/box/syringes,/turf/simulated/floor{icon_state = "white"},/area/toxins/xenobiology)
 "csB" = (/obj/structure/stool/bed/chair{dir = 4},/obj/structure/cable{d1 = 1; d2 = 2; icon_state = "1-2"; tag = ""},/obj/structure/cable{d1 = 1; d2 = 8; icon_state = "1-8"; tag = ""},/obj/effect/landmark/start{name = "Scientist"},/turf/simulated/floor{icon_state = "white"},/area/toxins/xenobiology)
 "csC" = (/obj/structure/disposalpipe/segment,/turf/simulated/floor{icon_state = "white"},/area/toxins/xenobiology)
