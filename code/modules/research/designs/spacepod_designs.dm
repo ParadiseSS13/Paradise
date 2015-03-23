@@ -1,12 +1,13 @@
 /datum/design/spacepod_main
+	construction_time = 100
 	name = "Circuit Design (Space Pod Mainboard)"
 	desc = "Allows for the construction of a Space Pod mainboard."
 	id = "spacepod_main"
 	req_tech = list("materials" = 1) //All parts required to build a basic pod have materials 1, so the mechanic can do his damn job.
-	build_type = IMPRINTER
-	materials = list("$glass" = 2000, "sacid" = 20)
+	build_type = PODFAB
+	materials = list("$metal"=5000)
 	build_path = /obj/item/weapon/circuitboard/mecha/pod
-	category = list("Misc. Machinery")
+	category = list("Pod_Parts")
 
 //////////////////////////////////////////////////
 /////////SPACEPOD PARTS///////////////////////////
@@ -98,6 +99,7 @@
 	build_path = /obj/item/device/spacepod_equipment/weaponry/taser
 	category = list("Pod_Weaponry")
 	materials = list("$metal" = 15000)
+	locked = 1
 
 /datum/design/pod_gun_btaser
 	construction_time = 200
@@ -109,6 +111,7 @@
 	build_path = /obj/item/device/spacepod_equipment/weaponry/burst_taser
 	category = list("Pod_Weaponry")
 	materials = list("$metal" = 15000)
+	locked = 1
 
 /datum/design/pod_gun_laser
 	construction_time = 200

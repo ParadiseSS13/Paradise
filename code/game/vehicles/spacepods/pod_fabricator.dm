@@ -175,7 +175,13 @@
 	desc = initial(desc)
 
 	var/obj/item/I = new D.build_path
-	I.loc = get_step(src,SOUTH)
+	var/O = D.locked
+	if(O)
+		var/obj/item/weapon/storage/lockbox/L = new/obj/item/weapon/storage/lockbox(src.loc)
+		I.loc = L
+		L.name += " ([I.name])"
+	else
+		I.loc = get_step(src,SOUTH)
 	I.m_amt = get_resource_cost_w_coeff(D,"$metal")
 	I.g_amt = get_resource_cost_w_coeff(D,"$glass")
 	visible_message("\icon[src] <b>\The [src]</b> beeps, \"\The [I] is complete.\"")
