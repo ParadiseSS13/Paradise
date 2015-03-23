@@ -13,8 +13,8 @@ mob/proc/airflow_stun()
 		src << "<span class='notice'>You stay upright as the air rushes past you.</span>"
 		return 0
 	if(!lying)
-		src << "<span class='warning'>The sudden rush of air knocks you over!</span>"
-	Weaken(5)
+		src << "<span class='warning'>The sudden rush of air pushes you around!</span>"
+//	Weaken(5)
 	last_airflow_stun = world.time
 
 mob/living/silicon/airflow_stun()
@@ -198,9 +198,9 @@ mob/airflow_hit(atom/A)
 	for(var/mob/M in hearers(src))
 		M.show_message("\red <B>\The [src] slams into \a [A]!</B>",1,"\red You hear a loud slam!",2)
 	playsound(src.loc, "smash.ogg", 25, 1, -1)
-	var/weak_amt = istype(A,/obj/item) ? A:w_class : rand(1,5) //Heheheh
+/*	var/weak_amt = istype(A,/obj/item) ? A:w_class : rand(1,5) //Heheheh
 	Weaken(weak_amt)
-	. = ..()
+	. = ..() */
 
 obj/airflow_hit(atom/A)
 	for(var/mob/M in hearers(src))
@@ -230,12 +230,12 @@ mob/living/carbon/human/airflow_hit(atom/A)
 	blocked = run_armor_check("groin","melee")
 	apply_damage(b_loss/3, BRUTE, "groin", blocked, 0, "Airflow")
 
-	if(airflow_speed > 10)
+/*	if(airflow_speed > 10)
 		Paralyse(round(airflow_speed * vsc.airflow_stun))
 		Stun(paralysis + 3)
 	else
 		Stun(round(airflow_speed * vsc.airflow_stun/2))
-	. = ..()
+	. = ..() */
 
 zone/proc/movables()
 	. = list()
