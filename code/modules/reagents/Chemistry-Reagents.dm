@@ -1426,27 +1426,6 @@ datum
 				M.adjustToxLoss(3*REM)
 				..()
 				return
-			reaction_obj(var/obj/O, var/volume)
-				src = null
-				/*if(istype(O,/obj/item/weapon/reagent_containers/food/snacks/egg/slime))
-					var/obj/item/weapon/reagent_containers/food/snacks/egg/slime/egg = O
-					if (egg.grown)
-						egg.Hatch()*/
-				if((!O) || (!volume))	return 0
-				var/turf/the_turf = get_turf(O)
-				var/datum/gas_mixture/napalm = new
-				var/datum/gas/volatile_fuel/fuel = new
-				fuel.moles = volume
-				napalm.trace_gases += fuel
-				the_turf.assume_air(napalm)
-			reaction_turf(var/turf/T, var/volume)
-				src = null
-				var/datum/gas_mixture/napalm = new
-				var/datum/gas/volatile_fuel/fuel = new
-				fuel.moles = volume
-				napalm.trace_gases += fuel
-				T.assume_air(napalm)
-				return
 			reaction_mob(var/mob/living/M, var/method=TOUCH, var/volume)//Splashing people with plasma is stronger than fuel!
 				if(!istype(M, /mob/living))
 					return
