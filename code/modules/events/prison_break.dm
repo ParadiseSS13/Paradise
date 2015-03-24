@@ -3,7 +3,8 @@
 
 	var/releaseWhen = 25
 	var/list/area/prisonAreas = list()
-
+	var/list/area/potentialAreas = list(/area/security/prison,/area/security/brig,/area/security/processing,/area/security/permabrig,/area/security/lobby,/area/security/lobby)
+	var/list/area/candidateAreas = list()
 
 /datum/event/prison_break/setup()
 	announceWhen = rand(50, 60)
@@ -37,9 +38,13 @@
 
 
 /datum/event/prison_break/start()
+	for(var/areapath in potentialAreas)
+		candidateAreas += typesof(areapath)
+
 	for(var/area/A in world)
-		if(istype(A, /area/security/prison) || istype(A, /area/security/brig))
+		if(istype(A, candidateAreas))
 			prisonAreas += A
+
 
 	if(prisonAreas && prisonAreas.len > 0)
 		for(var/area/A in prisonAreas)
