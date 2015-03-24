@@ -236,7 +236,15 @@
 			if(isturf(src.loc))
 				var/mob/living/carbon/H = AM
 				if(H.m_intent == "run")
+					if(H.lying)
+						H.apply_damage(20,BRUTE,"chest")
+					else
+						H.apply_damage(20,BRUTE,(pick("l_leg", "r_leg")))
 					armed = 0
+					icon_state = "beartrap0"
+					playsound(src.loc, 'sound/effects/snap.ogg', 50, 1)
+					H.visible_message("<span class='danger'>[H] triggers \the [src].</span>", \
+					"<span class='userdanger'>You trigger \the [src]!</span>")
 					H.legcuffed = src
 					src.loc = H
 					H.update_inv_legcuffed()
@@ -250,7 +258,11 @@
 						O.show_message("\red <B>[H] steps on \the [src].</B>", 1)
 		if(isanimal(AM) && !istype(AM, /mob/living/simple_animal/parrot) && !istype(AM, /mob/living/simple_animal/construct) && !istype(AM, /mob/living/simple_animal/shade) && !istype(AM, /mob/living/simple_animal/hostile/viscerator))
 			armed = 0
+			icon_state = "beartrap0"
 			var/mob/living/simple_animal/SA = AM
+			playsound(src.loc, 'sound/effects/snap.ogg', 50, 1)
+			SA.visible_message("<span class='danger'>[SA] triggers \the [src].</span>", \
+			"<span class='userdanger'>You trigger \the [src]!</span>")
 			SA.health -= 20
 	..()
 
