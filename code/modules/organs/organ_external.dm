@@ -139,6 +139,9 @@
 		if (burn || brute)
 			if (status & ORGAN_ROBOT && body_part != UPPER_TORSO && body_part != LOWER_TORSO)
 				droplimb(1) //Robot limbs just kinda fail at full damage.
+
+//Removing shuffling limb damage over to parent if limb is out of HP
+/*
 			else
 				//List organs we can pass it to
 				var/list/datum/organ/external/possible_points = list()
@@ -152,18 +155,20 @@
 					//And pass the pain around
 					var/datum/organ/external/target = pick(possible_points)
 					target.take_damage(brute, burn, sharp, edge, used_weapon, forbidden_limbs + src)
+*/
 
 	// sync the organ's damage with its wounds
 	src.update_damages()
 
 	//If limb took enough damage, try to cut or tear it off
-	/*
+/*
 	if(body_part != UPPER_TORSO && body_part != LOWER_TORSO) //as hilarious as it is, getting hit on the chest too much shouldn't effectively gib you.
 		if(config.limbs_can_break && brute_dam >= max_damage * config.organ_health_multiplier)
 			if( (edge && prob(5 * brute)) || (brute > 20 && prob(2 * brute)) )
 				droplimb(1)
 				return
-    */
+*/
+
 	owner.updatehealth()
 
 	var/result = update_icon()
@@ -875,8 +880,8 @@ Note that amputating the affected organ does in fact remove the infection from t
 	name = "chest"
 	icon_name = "torso"
 	display_name = "chest"
-	max_damage = 75
-	min_broken_damage = 40
+	max_damage = 200
+	min_broken_damage = 50
 	body_part = UPPER_TORSO
 	vital = 1
 
@@ -887,14 +892,13 @@ Note that amputating the affected organ does in fact remove the infection from t
 	max_damage = 50
 	min_broken_damage = 30
 	body_part = LOWER_TORSO
-	vital = 1
 
 /datum/organ/external/l_arm
 	name = "l_arm"
 	display_name = "left arm"
 	icon_name = "l_arm"
 	max_damage = 50
-	min_broken_damage = 20
+	min_broken_damage = 30
 	body_part = ARM_LEFT
 
 	process()
@@ -906,7 +910,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 	display_name = "left leg"
 	icon_name = "l_leg"
 	max_damage = 50
-	min_broken_damage = 20
+	min_broken_damage = 30
 	body_part = LEG_LEFT
 	icon_position = LEFT
 
@@ -915,7 +919,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 	display_name = "right arm"
 	icon_name = "r_arm"
 	max_damage = 50
-	min_broken_damage = 20
+	min_broken_damage = 30
 	body_part = ARM_RIGHT
 
 	process()
@@ -927,7 +931,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 	display_name = "right leg"
 	icon_name = "r_leg"
 	max_damage = 50
-	min_broken_damage = 20
+	min_broken_damage = 30
 	body_part = LEG_RIGHT
 	icon_position = RIGHT
 
@@ -936,7 +940,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 	display_name = "left foot"
 	icon_name = "l_foot"
 	max_damage = 30
-	min_broken_damage = 15
+	min_broken_damage = 20
 	body_part = FOOT_LEFT
 	icon_position = LEFT
 
@@ -945,7 +949,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 	display_name = "right foot"
 	icon_name = "r_foot"
 	max_damage = 30
-	min_broken_damage = 15
+	min_broken_damage = 20
 	body_part = FOOT_RIGHT
 	icon_position = RIGHT
 
@@ -954,7 +958,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 	display_name = "right hand"
 	icon_name = "r_hand"
 	max_damage = 30
-	min_broken_damage = 15
+	min_broken_damage = 20
 	body_part = HAND_RIGHT
 
 	process()
@@ -966,7 +970,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 	display_name = "left hand"
 	icon_name = "l_hand"
 	max_damage = 30
-	min_broken_damage = 15
+	min_broken_damage = 20
 	body_part = HAND_LEFT
 
 	process()
@@ -977,8 +981,8 @@ Note that amputating the affected organ does in fact remove the infection from t
 	name = "head"
 	icon_name = "head"
 	display_name = "head"
-	max_damage = 75
-	min_broken_damage = 40
+	max_damage = 200
+	min_broken_damage = 50
 	body_part = HEAD
 	var/disfigured = 0
 	var/brained = 0
