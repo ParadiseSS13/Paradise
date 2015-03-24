@@ -71,8 +71,8 @@ datum/reagent/salglu_solution
 datum/reagent/salglu_solution/on_mob_life(var/mob/living/M as mob)
 	if(!M) M = holder.my_atom
 	if(prob(33))
-		M.adjustBruteLoss(-1*REM)
-		M.adjustFireLoss(-1*REM)
+		M.adjustBruteLoss(-2*REM)
+		M.adjustFireLoss(-2*REM)
 	..()
 	return
 
@@ -234,7 +234,8 @@ datum/reagent/pen_acid/on_mob_life(var/mob/living/M as mob)
 	if(!M) M = holder.my_atom
 	if(M.radiation > 0)
 		M.radiation -= 7
-	M.adjustToxLoss(-4*REM)
+	if(prob(70))
+		M.adjustToxLoss(-4*REM)
 	if(prob(33))
 		M.adjustBruteLoss(1*REM)
 	if(M.radiation < 0)
@@ -486,19 +487,16 @@ datum/reagent/morphine/addiction_act_stage4(var/mob/living/M as mob)
 
 datum/reagent/oculine/on_mob_life(var/mob/living/M as mob)
 	if(!M) M = holder.my_atom
-	cycle_amount++
-	if(M.eye_blind > 0 && cycle_amount > 20)
-		if(prob(30))
-			M.eye_blind = 0
-		else if(prob(80))
-			M.eye_blind = 0
-			M.eye_blurry = 1
-		if(M.eye_blurry > 0)
-			if(prob(80))
-				M.eye_blurry = 0
+	M.eye_blurry = max(M.eye_blurry-5 , 0)
+	M.eye_blind = max(M.eye_blind-5 , 0)
+	if(ishuman(M))
+		var/mob/living/carbon/human/H = M
+		var/datum/organ/internal/eyes/E = H.internal_organs_by_name["eyes"]
+		if(istype(E))
+			if(E.damage > 0)
+				E.damage -= 1
 	..()
 	return
-
 /datum/chemical_reaction/oculine
 	name = "Oculine"
 	id = "oculine"

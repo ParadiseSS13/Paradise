@@ -5,7 +5,7 @@ datum/reagent
 	var/overdosed = 0 // You fucked up and this is now triggering it's overdose effects, purge that shit quick.
 	var/current_cycle = 0
 datum/reagents
-	var/chem_temp = 150
+	var/chem_temp = 300
 	var/addiction_tick = 1
 	var/list/datum/reagent/addiction_list = new/list()
 

@@ -103,9 +103,9 @@ datum/reagent/neurotoxin2
 
 datum/reagent/neurotoxin2/on_mob_life(var/mob/living/M as mob)
 	cycle_count++
-	if(M.brainloss + M.toxloss <= 60)
+	if(M.brainloss < 60)
 		M.adjustBrainLoss(1*REM)
-		M.adjustToxLoss(1*REM)
+	M.adjustToxLoss(1*REM)
 	if(cycle_count == 17)
 		M.sleeping += 10 // buffed so it works
 	..()
@@ -249,7 +249,7 @@ datum/reagent/pancuronium
 datum/reagent/pancuronium/on_mob_life(var/mob/living/M as mob)
 	if(!M) M = holder.my_atom
 	if(current_cycle >= 10)
-		M.SetParalysis(3)
+		M.Weaken(3)
 	if(prob(7))
 		M.losebreath += rand(3,5)
 	..()
