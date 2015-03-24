@@ -13,6 +13,8 @@
 	var/times_used = 0 //Number of times it's been used.
 	var/broken = 0     //Is the flash burnt out?
 	var/last_used = 0 //last world.time it was used.
+	var/battery_panel = 0 //whether the flash can be modified with a cell or not
+	var/overcharged = 0   //if overcharged the flash will set people on fire then immediately burn out (does so even if it doesn't blind them).
 
 
 /obj/item/device/flash/proc/clown_check(mob/user)
@@ -20,6 +22,21 @@
 		flash_carbon(user, user, 15, 0)
 		return 0
 	return 1
+
+/obj/item/device/flash/attackby(obj/item/W, mob/user, params)
+	if(istype(W, /obj/item/weapon/screwdriver))
+		if(battery_panel)
+			user << "<span class='notice'>You close the battery compartment on the [src].</span>"
+			battery_panel = 0
+		else
+			user << "<span class='notice'>You open the battery compartment on the [src].</span>"
+			battery_panel = 1
+	if(battery_panel && !overcharged)
+		if(istype(W, /obj/item/weapon/stock_parts/cell))
+			user << "<span class='notice'>You jam the cell into battery compartment on the [src].</span>"
+			qdel(W)
+			overcharged = 1
+			overlays += "overcharge"
 
 
 /obj/item/device/flash/proc/burn_out() //Made so you can override it if you want to have an invincible flash from R&D or something.
@@ -79,6 +96,10 @@
 
 	if(iscarbon(M))
 		flash_carbon(M, user, 5, 1)
+		if(overcharged)
+			M.adjust_fire_stacks(6)
+			M.IgniteMob()
+			burn_out()
 		return 1
 
 	else if(issilicon(M))

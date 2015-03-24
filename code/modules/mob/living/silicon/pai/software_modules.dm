@@ -479,16 +479,26 @@
 	id = "translator"
 
 	toggle(mob/living/silicon/pai/user)
-		// 	Sol Common, Tradeband and Gutter are added with New() and are therefore the current default, always active languages
+		// 	Galactic Common, Sol Common, Tradeband, Gutter and Trinary are added with New() and are therefore the current default, always active languages
 		user.translator_on = !user.translator_on
 		if(user.translator_on)
 			user.add_language("Sinta'unathi")
 			user.add_language("Siik'tajr")
 			user.add_language("Skrellian")
+			user.add_language("Vox-pidgin")
+			user.add_language("Rootspeak")
+			user.add_language("Chittin")
+			user.add_language("Bubblish")
+			user.add_language("Clownish")
 		else
 			user.remove_language("Sinta'unathi")
 			user.remove_language("Siik'tajr")
 			user.remove_language("Skrellian")
+			user.remove_language("Vox-pidgin")
+			user.remove_language("Rootspeak")
+			user.remove_language("Chittin")
+			user.remove_language("Bubblish")
+			user.remove_language("Clownish")
 
 	is_active(mob/living/silicon/pai/user)
 		return user.translator_on

@@ -33,11 +33,9 @@
 	. = ..()
 	if(density)
 		layer = closed_layer
-		explosion_resistance = initial(explosion_resistance)
 		update_heat_protection(get_turf(src))
 	else
 		layer = open_layer
-		explosion_resistance = 0
 
 
 	if(width > 1)
@@ -222,7 +220,7 @@
 				flick("doorc1", src)
 		if("deny")
 			flick("door_deny", src)
-	return	
+	return
 
 /obj/machinery/door/proc/open()
 	if(!density)
@@ -239,7 +237,6 @@
 	src.density = 0
 	sleep(5)
 	src.layer = 2.7
-	explosion_resistance = 0
 	update_icon()
 	SetOpacity(0)
 	operating = 0
@@ -262,7 +259,6 @@
 	operating = 1
 
 	do_animate("closing")
-	explosion_resistance = initial(explosion_resistance)
 	src.layer = 3.1
 	sleep(5)
 	src.density = 1

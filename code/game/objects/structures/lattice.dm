@@ -11,10 +11,10 @@
 /obj/structure/lattice/New()
 	..()
 	if(!(istype(src.loc, /turf/space)))
-		del(src)
+		qdel(src)
 	for(var/obj/structure/lattice/LAT in src.loc)
 		if(LAT != src)
-			del(LAT)
+			qdel(LAT)
 	icon = 'icons/obj/smoothlattice.dmi'
 	icon_state = "latticeblank"
 	updateOverlays()
@@ -33,7 +33,7 @@
 	..()
 
 /obj/structure/lattice/blob_act()
-	del(src)
+	qdel(src)
 	return
 
 /obj/structure/lattice/ex_act(severity)
@@ -81,3 +81,4 @@
 
 		icon_state = "lattice[dir_sum]"
 		return
+		

@@ -12,6 +12,12 @@
 		return 1
 
 
+/obj/item/projectile/ion/weak
+
+/obj/item/projectile/ion/weak/on_hit(atom/target, blocked = 0)
+	empulse(target, 0, 0)
+	return 1
+
 /obj/item/projectile/bullet/gyro
 	name ="explosive bolt"
 	icon_state= "bolter"
@@ -206,8 +212,30 @@ obj/item/projectile/kinetic/New()
 /obj/item/effect/kinetic_blast/New()
 	spawn(4)
 		del(src)
-		
+
 /obj/item/projectile/bullet/frag12
 	name ="explosive slug"
 	damage = 25
 	weaken = 5
+
+/obj/item/projectile/bullet/frag12/on_hit(atom/target, blocked = 0)
+	explosion(target, -1, 0, 1)
+	return 1
+
+/obj/item/projectile/energy/teleport
+	name = "teleportation burst"
+	icon_state = "bluespace"
+	damage = 0
+	nodamage = 1
+
+/obj/item/projectile/energy/teleport/on_hit(var/atom/target, var/blocked = 0)
+	if(isliving(target))
+		var/obj/item/device/radio/beacon/teletarget = null
+		for(var/obj/machinery/computer/teleporter/com in machines)
+			if(com.target)
+				teletarget = com.target
+		if(teletarget)
+			do_teleport(target, teletarget, 0)//teleport what's in the tile to the beacon
+		else
+			do_teleport(target, target, 15) //Otherwise it just warps you off somewhere.
+

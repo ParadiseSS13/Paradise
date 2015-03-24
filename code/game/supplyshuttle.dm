@@ -44,7 +44,6 @@ var/list/mechtoys = list(
 	density = 0
 	anchored = 1
 	layer = 4
-	explosion_resistance = 5
 
 /obj/structure/plasticflaps/CanPass(atom/A, turf/T)
 	if(istype(A) && A.checkpass(PASSGLASS))
@@ -156,9 +155,9 @@ var/list/mechtoys = list(
 	proc/process()
 		for(var/typepath in (typesof(/datum/supply_packs) - /datum/supply_packs))
 			var/datum/supply_packs/P = new typepath()
-			if(P.name == "HEADER") 
+			if(P.name == "HEADER")
 				del(P)
-				continue 
+				continue
 			supply_packs[P.name] = P
 
 		spawn(0)
@@ -376,10 +375,10 @@ var/list/mechtoys = list(
 		//Find the correct supply_pack datum
 		var/datum/supply_packs/P = supply_controller.supply_packs[href_list["see_contents"]]
 		if(!istype(P))	return
-		
+
 		var/cat = P.group
 		var/tempaccess = get_access_desc(P.access)
-		
+
 		temp = "<b>Supply points: [supply_controller.points]</b><BR>"
 		temp += "<A href='?src=\ref[src];order=[cat]'>Back to [get_supply_group_name(cat)]</A><HR><BR><BR>"
 		temp += "Access restriction: [tempaccess ? tempaccess : "None"]<br><br>"
@@ -597,16 +596,16 @@ var/list/mechtoys = list(
 		//Find the correct supply_pack datum
 		var/datum/supply_packs/P = supply_controller.supply_packs[href_list["see_contents"]]
 		if(!istype(P))	return
-		
+
 		var/cat = P.group
 		var/tempaccess = get_access_desc(P.access)
-		
+
 		temp = "<b>Supply points: [supply_controller.points]</b><BR>"
 		temp += "<A href='?src=\ref[src];order=[cat]'>Back to [get_supply_group_name(cat)]</A><HR><BR><BR>"
 		temp += "Access restriction: [tempaccess ? tempaccess : "None"]<br><br>"
 		temp += "Contents of <b>[P.name]</b>:<BR>"
 		temp += P.manifest
-	
+
 	else if (href_list["doorder"])
 		if(world.time < reqtime)
 			for(var/mob/V in hearers(src))

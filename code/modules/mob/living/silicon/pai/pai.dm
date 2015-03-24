@@ -183,23 +183,22 @@
 			src << "<font color=green>You feel an electric surge run through your circuitry and become acutely aware at how lucky you are that you can still feel at all.</font>"
 
 /mob/living/silicon/pai/ex_act(severity)
-	if(!blinded)
-		flick("flash", src.flash)
+	..()
 
 	switch(severity)
 		if(1.0)
-			if (src.stat != 2) //Let's not have two of these instantly kill you.
-				adjustBruteLoss(45)
-				adjustFireLoss(45)
+			if (src.stat != 2)
+				adjustBruteLoss(100)
+				adjustFireLoss(100)
 		if(2.0)
 			if (src.stat != 2)
-				adjustBruteLoss(30)
-				adjustFireLoss(30)
+				adjustBruteLoss(60)
+				adjustFireLoss(60)
 		if(3.0)
 			if (src.stat != 2)
-				adjustBruteLoss(20)
+				adjustBruteLoss(30)
 
-	src.updatehealth()
+	return
 
 
 // See software.dm for Topic()

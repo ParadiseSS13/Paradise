@@ -123,6 +123,7 @@
 			shatter(M)
 
 /obj/structure/closet/statue/attackby(obj/item/I as obj, mob/user as mob, params)
+	user.changeNext_move(CLICK_CD_MELEE)
 	health -= I.force
 	visible_message("\red [user] strikes [src] with [I].")
 	if(health <= 0)

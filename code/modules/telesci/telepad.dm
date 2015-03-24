@@ -127,6 +127,7 @@
 /obj/item/weapon/rcs/Destroy()
 	processing_objects.Remove(src)
 	..()
+	
 /obj/item/weapon/rcs/process()
 	if(rcharges > 10)
 		rcharges = 10

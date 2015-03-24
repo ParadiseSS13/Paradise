@@ -81,7 +81,7 @@ var/global/list/datum/stack_recipe/metal_recipes = list ( \
 	throwforce = 10.0
 	flags = CONDUCT
 	origin_tech = "materials=1"
-	
+
 /obj/item/stack/sheet/metal/full/New()
 	..()
 	amount = 50
@@ -126,7 +126,7 @@ var/global/list/datum/stack_recipe/plasteel_recipes = list ( \
 /obj/item/stack/sheet/plasteel/New(var/loc, var/amount=null)
 	recipes = plasteel_recipes
 	return ..()
-		
+
 /obj/item/stack/sheet/plasteel/full/New(var/loc, var/amount=null)
 	amount = 50
 	..(loc, amount)
@@ -188,6 +188,7 @@ var/global/list/datum/stack_recipe/cardboard_recipes = list ( \
 	new/datum/stack_recipe("cardborg helmet", /obj/item/clothing/head/cardborg), \
 	new/datum/stack_recipe("pizza box", /obj/item/pizzabox), \
 	new/datum/stack_recipe("folder", /obj/item/weapon/folder), \
+	new/datum/stack_recipe("cardboard tube", /obj/item/weapon/c_tube), \
 )
 
 /obj/item/stack/sheet/cardboard	//BubbleWrap

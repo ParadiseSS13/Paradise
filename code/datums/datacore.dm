@@ -149,7 +149,7 @@ proc/get_id_photo(var/mob/living/carbon/human/H)
 		if(E.status & ORGAN_ROBOT)
 			temp.MapColors(rgb(77,77,77), rgb(150,150,150), rgb(28,28,28), rgb(0,0,0))
 		preview_icon.Blend(temp, ICON_OVERLAY)
-	
+
 	//Tail
 	if(H.species.tail && H.species.flags & HAS_TAIL)
 		temp = new/icon("icon" = 'icons/effects/species.dmi', "icon_state" = "[H.species.tail]_s")
@@ -161,14 +161,17 @@ proc/get_id_photo(var/mob/living/carbon/human/H)
 			preview_icon.Blend(rgb(H.s_tone, H.s_tone, H.s_tone), ICON_ADD)
 		else
 			preview_icon.Blend(rgb(-H.s_tone,  -H.s_tone,  -H.s_tone), ICON_SUBTRACT)
-
+/* Commented out due to broken-ness, see below comment
 	// Skin color
 	if(H.species.flags & HAS_SKIN_TONE)
 		if(!H.species || H.species.flags & HAS_SKIN_COLOR)
 			preview_icon.Blend(rgb(H.r_skin, H.g_skin, H.b_skin), ICON_ADD)
+*/
+	// Proper Skin color - Fix, you can't have HAS_SKIN_TONE *and* HAS_SKIN_COLOR
+	if(H.species.bodyflags & HAS_SKIN_COLOR)
+		preview_icon.Blend(rgb(H.r_skin, H.g_skin, H.b_skin), ICON_ADD)
 
 	var/icon/eyes_s = new/icon("icon" = 'icons/mob/human_face.dmi', "icon_state" = H.species ? H.species.eyes : "eyes_s")
-
 	eyes_s.Blend(rgb(H.r_eyes, H.g_eyes, H.b_eyes), ICON_ADD)
 
 	var/datum/sprite_accessory/hair_style = hair_styles_list[H.h_style]
@@ -182,6 +185,10 @@ proc/get_id_photo(var/mob/living/carbon/human/H)
 		var/icon/facial_s = new/icon("icon" = facial_hair_style.icon, "icon_state" = "[facial_hair_style.icon_state]_s")
 		facial_s.Blend(rgb(H.r_facial, H.g_facial, H.b_facial), ICON_ADD)
 		eyes_s.Blend(facial_s, ICON_OVERLAY)
+
+	if(H.species.bloodflags & BLOOD_SLIME)
+		var/icon/blendingslime = new/icon("icon" = 'icons/effects/slimemutant.dmi', "icon_state" = "[H.slime_color]_slime_[H.gender]_s")
+		preview_icon.Blend(blendingslime, ICON_OVERLAY)
 
 	var/icon/clothes_s = null
 	switch(H.mind.assigned_role)
@@ -311,11 +318,12 @@ proc/get_id_photo(var/mob/living/carbon/human/H)
 			clothes_s.Blend(new /icon('icons/mob/suit.dmi', "labcoat_open"), ICON_OVERLAY)
 		else if(H.mind.assigned_role in get_all_centcom_jobs())
 			clothes_s = new /icon('icons/mob/uniform.dmi', "officer_s")
-			clothes_s.Blend(new /icon('icons/mob/feet.dmi', "laceups"), ICON_UNDERLAY)		
+			clothes_s.Blend(new /icon('icons/mob/feet.dmi', "laceups"), ICON_UNDERLAY)
 		else
 			clothes_s = new /icon('icons/mob/uniform.dmi', "grey_s")
 			clothes_s.Blend(new /icon('icons/mob/feet.dmi', "black"), ICON_UNDERLAY)
-	preview_icon.Blend(eyes_s, ICON_OVERLAY)
+	if(!H.species.bloodflags & BLOOD_SLIME)
+		preview_icon.Blend(eyes_s, ICON_OVERLAY)
 	if(clothes_s)
 		preview_icon.Blend(clothes_s, ICON_OVERLAY)
 	del(eyes_s)

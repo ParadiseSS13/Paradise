@@ -39,6 +39,9 @@
 /obj/item/projectile/bullet/pellet/weak
 	damage = 3
 
+/obj/item/projectile/bullet/pellet/random/New()
+	damage = rand(10)
+
 /obj/item/projectile/bullet/midbullet
 	damage = 20
 	stamina = 65 //two rounds from the c20r knocks people down
@@ -101,6 +104,7 @@
 /obj/item/projectile/bullet/incendiary/shell/Move()
 	..()
 	var/turf/location = get_turf(src)
+	new/obj/fire(location)
 	location.hotspot_expose(700, 50, 1)
 
 /obj/item/projectile/bullet/incendiary/shell/dragonsbreath

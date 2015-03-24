@@ -90,7 +90,6 @@
 	icon = 'icons/obj/objects.dmi'
 	icon_state = "weldtank"
 	amount_per_transfer_from_this = 10
-	var/modded = 0
 	var/obj/item/device/assembly_holder/rig = null
 	New()
 		..()
@@ -98,7 +97,9 @@
 
 	bullet_act(var/obj/item/projectile/Proj)
 		if(istype(Proj ,/obj/item/projectile/beam)||istype(Proj,/obj/item/projectile/bullet))
-			if(!istype(Proj ,/obj/item/projectile/lasertag) && !istype(Proj ,/obj/item/projectile/practice) )
+			if((Proj.damage_type == BURN) || (Proj.damage_type == BRUTE))
+				message_admins("[key_name_admin(Proj.firer)] triggered a fueltank explosion.")
+				log_game("[key_name(Proj.firer)] triggered a fueltank explosion.")
 				explode()
 
 	blob_act()
@@ -107,13 +108,10 @@
 	ex_act()
 		explode()
 
-
 /obj/structure/reagent_dispensers/fueltank/examine()
 	set src in view()
 	..()
 	if (!(usr in view(2)) && usr!=src.loc) return
-	if (modded)
-		usr << "\red Fuel faucet is wrenched open, leaking the fuel!"
 	if(rig)
 		usr << "<span class='notice'>There is some kind of device rigged to the tank."
 
@@ -127,12 +125,6 @@
 			overlays = new/list()
 
 /obj/structure/reagent_dispensers/fueltank/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
-	if (istype(W,/obj/item/weapon/wrench))
-		user.visible_message("[user] wrenches [src]'s faucet [modded ? "closed" : "open"].", \
-			"You wrench [src]'s faucet [modded ? "closed" : "open"]")
-		modded = modded ? 0 : 1
-		if (modded)
-			leak_fuel(amount_per_transfer_from_this)
 	if (istype(W,/obj/item/device/assembly_holder))
 		if (rig)
 			user << "\red There is another device in the way."
@@ -157,14 +149,8 @@
 
 		return ..()
 
-
 /obj/structure/reagent_dispensers/fueltank/proc/explode()
-	if (reagents.total_volume > 500)
-		explosion(src.loc,1,2,4)
-	else if (reagents.total_volume > 100)
-		explosion(src.loc,0,1,3)
-	else
-		explosion(src.loc,-1,1,2)
+	explosion(src.loc,0,1,4)
 	if(src)
 		del(src)
 
@@ -175,18 +161,8 @@
 
 /obj/structure/reagent_dispensers/fueltank/Move()
 	..()
-	if(modded)
-		leak_fuel(amount_per_transfer_from_this)
 	if(rig)
 		rig.process_movement()
-
-/obj/structure/reagent_dispensers/fueltank/proc/leak_fuel(amount)
-	if (reagents.total_volume == 0)
-		return
-
-	amount = min(amount, reagents.total_volume)
-	reagents.remove_reagent("fuel",amount)
-//	new /obj/effect/decal/cleanable/liquid_fuel(src.loc, amount)
 
 /obj/structure/reagent_dispensers/fueltank/HasProximity(atom/movable/AM)
 	if(rig)

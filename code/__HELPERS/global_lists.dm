@@ -59,6 +59,10 @@ var/global/list/undershirt_t = list("White Shirt", "White Tank top", "Black shir
 var/global/list/undershirt_list = undershirt_t
 	//Backpacks
 var/global/list/backbaglist = list("Nothing", "Backpack", "Satchel", "Satchel Alt")
+	//Slime Colors
+var/global/slime_colorh = list("grey", "gold", "silver", "metal", "purple", "darkpurple", "orange", "yellow", "red", "blue", "darkblue", "pink", "green", "lightpink", "black", "oil", "adamantine")
+
+
 
 //////////////////////////
 /////Initial Building/////

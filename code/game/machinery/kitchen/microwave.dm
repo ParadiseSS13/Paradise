@@ -32,11 +32,11 @@
 	reagents.my_atom = src
 	if (!available_recipes)
 		available_recipes = new
-		for (var/type in (typesof(/datum/recipe)-/datum/recipe))
+		for (var/type in (typesof(/datum/recipe/microwave)-/datum/recipe/microwave))
 			available_recipes+= new type
 		acceptable_items = new
 		acceptable_reagents = new
-		for (var/datum/recipe/recipe in available_recipes)
+		for (var/datum/recipe/microwave/recipe in available_recipes)
 			for (var/item in recipe.items)
 				acceptable_items |= item
 			for (var/reagent in recipe.reagents)
@@ -79,7 +79,7 @@
 			return
 		if(exchange_parts(user, O))
 			return
-	if(istype(O, /obj/item/weapon/wrench))
+	if(!broken && istype(O, /obj/item/weapon/wrench))
 		playsound(src, 'sound/items/Ratchet.ogg', 50, 1)
 		if(anchored)
 			anchored = 0

@@ -797,6 +797,7 @@ proc/get_damage_icon_part(damage_state, body_part)
 		if(!t_state)	t_state = belt.icon_state
 
 		if(belt.icon_override)
+			t_state = "[t_state]_be"
 			overlays_standing[BELT_LAYER] = image("icon" = belt.icon_override, "icon_state" = "[t_state]")
 		else if(belt.sprite_sheets && belt.sprite_sheets[species.name])
 			overlays_standing[BELT_LAYER] = image("icon" = belt.sprite_sheets[species.name], "icon_state" = "[t_state]")

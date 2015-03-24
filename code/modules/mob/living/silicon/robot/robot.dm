@@ -514,16 +514,10 @@ var/list/robot_verbs_default = list(
 
 
 /mob/living/silicon/robot/ex_act(severity)
-	if(!blinded)
-		flick("flash", flash)
-
 	switch(severity)
 		if(1.0)
-			if (stat != 2)
-				adjustBruteLoss(100)
-				adjustFireLoss(100)
-				gib()
-				return
+			gib()
+			return
 		if(2.0)
 			if (stat != 2)
 				adjustBruteLoss(60)
@@ -531,8 +525,7 @@ var/list/robot_verbs_default = list(
 		if(3.0)
 			if (stat != 2)
 				adjustBruteLoss(30)
-
-	updatehealth()
+	return
 
 
 /mob/living/silicon/robot/meteorhit(obj/O as obj)

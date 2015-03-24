@@ -1,0 +1,45 @@
+<!-- 
+Title: Pool Controller UI.
+Used In File(s): \code\game\machinery\poolcontroller.dm
+ -->
+<div class="item">
+	<div class="itemLabel">
+		<b>Current Temperature</b>: 
+	</div>
+	<div class="itemContent">
+		<font color={{:data.TempColor}}>{{:data.currentTemp}}</font>
+	</div>
+</div>
+<div class="item">
+	<div class="itemContent">
+		{{if data.emagged}}
+			<b><font color='red'>WARNING: SAFE MODE OVERRIDE</font></b>
+		{{else}}
+			<b><font color='green'>Safeties Nominal</font></b>
+		{{/if}}
+	</div>
+</div>
+<div class="item">
+	<div class="itemContent">
+		<b>Temperature Selection:</b>
+	</div>
+	{{if data.emagged}}
+		<div class="itemContentWide" style="width: 100%;">
+			{{:helper.link('Scalding', 'circle-arrow-n', { 'temp' : 'Scalding' })}}
+		</div>
+	{{/if}}
+	<div class="itemContentWide" style="width: 100%;">
+		{{:helper.link('Warm', 'circle-arrow-n', { 'temp' : 'Warm' })}}
+	</div>
+	<div class="itemContentWide" style="width: 100%;">
+		{{:helper.link('Normal', 'circle-arrow-e', { 'temp' : 'Normal' })}}
+	</div>
+	<div class="itemContentWide" style="width: 100%;">
+		{{:helper.link('Cool', 'circle-arrow-s', { 'temp' : 'Cool' })}}
+	</div>
+	{{if data.emagged}}
+		<div class="itemContentWide" style="width: 100%;">
+			{{:helper.link('Frigid', 'circle-arrow-s', { 'temp' : 'Frigid' })}}
+		</div>
+	{{/if}}
+</div>

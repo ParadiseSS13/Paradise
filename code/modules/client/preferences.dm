@@ -9,7 +9,7 @@ var/global/list/special_roles = list( //keep synced with the defines BE_* in set
 	"changeling" = IS_MODE_COMPILED("changeling"),       // 4 / 3
 	"wizard" = IS_MODE_COMPILED("wizard"),               // 8 / 4
 	"malf AI" = IS_MODE_COMPILED("malfunction"),         // 16 / 5
-	"revolutionary" = IS_MODE_COMPILED("revolution"),    // 32 / 6 
+	"revolutionary" = IS_MODE_COMPILED("revolution"),    // 32 / 6
 	"alien" = 1,           							     // 62 / 7
 	"pAI" = 1,                   						 // 128	/ 8
 	"cultist" = IS_MODE_COMPILED("cult"),                // 256 / 9
@@ -20,9 +20,9 @@ var/global/list/special_roles = list( //keep synced with the defines BE_* in set
 	"blob" = IS_MODE_COMPILED("blob")          	     // 8192 / 14
 )
 var/global/list/special_role_times = list( //minimum age (in days) for accounts to play these roles
-	num2text(BE_PAI) = 0,   
-	num2text(BE_TRAITOR) = 7, 
-	num2text(BE_CHANGELING) = 14, 
+	num2text(BE_PAI) = 0,
+	num2text(BE_TRAITOR) = 7,
+	num2text(BE_CHANGELING) = 14,
 	num2text(BE_WIZARD) = 14,
 	num2text(BE_REV) = 14,
 	num2text(BE_VAMPIRE) = 14,
@@ -30,8 +30,8 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 	num2text(BE_OPERATIVE) = 21,
 	num2text(BE_CULTIST) = 21,
 	num2text(BE_RAIDER) = 21,
-	num2text(BE_ALIEN) = 21,        							                  						 
-	num2text(BE_NINJA) = 21,									 
+	num2text(BE_ALIEN) = 21,
+	num2text(BE_NINJA) = 21,
 	num2text(BE_MUTINEER) = 21,
 	num2text(BE_MALF) = 30
 )
@@ -53,9 +53,9 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 	var/minimal_player_age_antag = special_role_times[num2text(role)]
 	if(!isnum(minimal_player_age_antag))
 		return 0
-		
+
 	return max(0, minimal_player_age_antag - C.player_age)
-	
+
 /proc/check_client_age(client/C, var/days) // If days isn't provided, returns the age of the client. If it is provided, it returns the days until the player_age is equal to or greater than the days variable
 	if(!days)
 		return C.player_age
@@ -120,6 +120,9 @@ datum/preferences
 	var/b_eyes = 0						//Eye color
 	var/species = "Human"
 	var/language = "None"				//Secondary language
+
+	var/slime_color = "blue" //need this for assigning to chars
+	var/HRslime_color = ""
 
 	var/speciesprefs = 0//I hate having to do this, I really do (Using this for oldvox code, making names universal I guess
 
@@ -351,6 +354,11 @@ datum/preferences
 				if(species == "Unathi" || species == "Tajaran" || species == "Skrell")
 					dat += "<br><b>Body Color</b><br>"
 					dat += "<a href='?_src_=prefs;preference=skin;task=input'>Change Color</a> <font face='fixedsys' size='3' color='#[num2hex(r_skin, 2)][num2hex(g_skin, 2)][num2hex(b_skin, 2)]'><table style='display:inline;' bgcolor='#[num2hex(r_skin, 2)][num2hex(g_skin, 2)][num2hex(b_skin)]'><tr><td>__</td></tr></table></font>"
+
+				if(species == "Slime People")
+					HRslime_color = capitalize(slime_color)
+					dat += "<br><b>Slime Color</b><br>"
+					dat += "<a href='?_src_=prefs;preference=slime_color;task=input'>Change Slime Color</a> <b>[HRslime_color]</b>"
 
 				dat += "</td></tr></table><hr><center>"
 
@@ -966,9 +974,10 @@ datum/preferences
 					if("age")
 						age = rand(AGE_MIN, AGE_MAX)
 					if("hair")
-						r_hair = rand(0,255)
-						g_hair = rand(0,255)
-						b_hair = rand(0,255)
+						if(species == "Human" || species == "Unathi" || species == "Tajaran" || species == "Skrell" || species == "Machine")
+							r_hair = rand(0,255)
+							g_hair = rand(0,255)
+							b_hair = rand(0,255)
 					if("h_style")
 						h_style = random_hair_style(gender, species)
 					if("facial")
@@ -988,11 +997,13 @@ datum/preferences
 						g_eyes = rand(0,255)
 						b_eyes = rand(0,255)
 					if("s_tone")
-						s_tone = random_skin_tone()
+						if(species == "Human")
+							s_tone = random_skin_tone()
 					if("s_color")
-						r_skin = rand(0,255)
-						g_skin = rand(0,255)
-						b_skin = rand(0,255)
+						if(species == "Unathi" || species == "Tajaran" || species == "Skrell")
+							r_skin = rand(0,255)
+							g_skin = rand(0,255)
+							b_skin = rand(0,255)
 					if("bag")
 						backbag = rand(1,4)
 					/*if("skin_style")
@@ -1201,6 +1212,16 @@ datum/preferences
 								r_skin = hex2num(copytext(new_skin, 2, 4))
 								g_skin = hex2num(copytext(new_skin, 4, 6))
 								b_skin = hex2num(copytext(new_skin, 6, 8))
+
+					if("slime_color")
+						var/list/slime_colors
+						slime_colors = slime_colorh
+						if(species == "Slime People")
+							var/new_slime = input(user, "Choose your slime color: ", "Character Preference") as null|anything in slime_colors
+							if(new_slime)
+								slime_color = slime_colors[slime_colors.Find(new_slime)]
+							ShowChoices(user)
+
 
 					if("ooccolor")
 						var/new_ooccolor = input(user, "Choose your OOC colour:", "Game Preference") as color|null
@@ -1454,6 +1475,8 @@ datum/preferences
 
 		character.h_style = h_style
 		character.f_style = f_style
+
+		character.slime_color = slime_color
 
 		// Destroy/cyborgize organs
 		for(var/name in organ_data)

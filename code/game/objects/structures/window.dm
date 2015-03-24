@@ -465,7 +465,6 @@ var/global/wcColored
 	glasstype = /obj/item/stack/sheet/plasmaglass
 	reinf = 1
 	health = 160
-	explosion_resistance = 4
 
 
 /obj/structure/window/plasmareinforced/New(Loc,re=0)
@@ -485,7 +484,6 @@ var/global/wcColored
 	reinf = 1
 	basestate = "rwindow"
 	health = 40
-	explosion_resistance = 1
 
 /obj/structure/window/reinforced/tinted
 	name = "tinted window"

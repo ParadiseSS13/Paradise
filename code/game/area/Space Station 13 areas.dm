@@ -1715,8 +1715,12 @@ area/security/podbay
 	icon_state = "toxmix"
 
 /area/toxins/misc_lab
-	name = "\improper Miscellaneous Research"
+	name = "\improper Research Testing Lab"
 	icon_state = "toxmisc"
+	
+/area/toxins/test_chamber
+	name = "\improper Research Testing Chamber"
+	icon_state = "toxtest"
 
 /area/toxins/server
 	name = "\improper Server Room"
@@ -1988,7 +1992,7 @@ area/security/podbay
 	name = "\improper Syndicate Base"
 	icon_state = "syndie_hall"
 	report_alerts = 0
-	
+
 /area/traitor/rnd
 	name = "\improper Syndicate Research and Development"
 	icon_state = "syndie_rnd"

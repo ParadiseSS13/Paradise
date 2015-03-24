@@ -7,7 +7,7 @@
 	fire_sound = 'sound/weapons/Taser.ogg'
 	projectile_type = "/obj/item/projectile/energy/electrode"
 	cell_type = "/obj/item/weapon/stock_parts/cell/crap"
-	fire_delay = 20
+	fire_delay = 15
 
 /obj/item/weapon/gun/energy/taser/cyborg
 	name = "taser gun"
@@ -53,7 +53,7 @@
 	fire_sound = "sound/weapons/gunshot.ogg"
 	projectile_type = "/obj/item/projectile/energy/electrode"
 	cell_type = "/obj/item/weapon/stock_parts/cell"
-	fire_delay = 20
+	fire_delay = 15
 
 
 

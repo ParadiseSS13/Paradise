@@ -223,7 +223,7 @@ var/MAX_EX_FLASH_RANGE = 14
 
 #define BLOCK_GAS_SMOKE_EFFECT	8192	// blocks the effect that chemical clouds would have on a mob --glasses, mask and helmets ONLY! (NOTE: flag shared with ONESIZEFITSALL)
 #define ONESIZEFITSALL 			8192
-#define PLASMAGUARD 			1638	//Does not get contaminated by plasma.
+#define PLASMAGUARD 			16384	//Does not get contaminated by plasma.
 
 #define	NOREACT					16384 	//Reagents dont' react inside this container.
 
@@ -725,8 +725,9 @@ var/list/TAGGERLOCATIONS = list("Disposals",
 #define SOUND_AMBIENCE	4
 #define SOUND_LOBBY		8
 #define SOUND_STREAMING	16
+#define SOUND_HEARTBEAT	32
 
-#define SOUND_DEFAULT (SOUND_ADMINHELP|SOUND_MIDI|SOUND_AMBIENCE|SOUND_LOBBY|SOUND_STREAMING)
+#define SOUND_DEFAULT (SOUND_ADMINHELP|SOUND_MIDI|SOUND_AMBIENCE|SOUND_LOBBY|SOUND_STREAMING|SOUND_HEARTBEAT)
 #define TOGGLES_DEFAULT (CHAT_OOC|CHAT_DEAD|CHAT_GHOSTEARS|CHAT_GHOSTSIGHT|CHAT_PRAYER|CHAT_RADIO|CHAT_ATTACKLOGS|CHAT_LOOC)
 
 #define BE_TRAITOR		1
@@ -952,6 +953,7 @@ var/list/hit_appends = list("-OOF", "-ACK", "-UGH", "-HRNK", "-HURGH", "-GLORF")
 #define	AUTOLATHE	4	//Uses glass/metal only.
 #define CRAFTLATHE	8	//Uses fuck if I know. For use eventually.
 #define MECHFAB		16 //Remember, objects utilising this flag should have construction_time and construction_cost vars.
+#define PODFAB		32 //Used by the spacepod part fabricator. Same idea as the mechfab
 //Note: More then one of these can be added to a design but imprinter and lathe designs are incompatable.
 
 // Suit sensor levels

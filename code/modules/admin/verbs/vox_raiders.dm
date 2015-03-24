@@ -8,7 +8,7 @@ var/global/vox_tick = 1
 
 	equip_to_slot_or_del(new /obj/item/clothing/under/vox/vox_robes(src), slot_w_uniform)
 	equip_to_slot_or_del(new /obj/item/clothing/shoes/magboots/vox(src), slot_shoes) // REPLACE THESE WITH CODED VOX ALTERNATIVES.
-	equip_to_slot_or_del(new /obj/item/clothing/gloves/yellow/vox(src), slot_gloves) // AS ABOVE.
+	equip_to_slot_or_del(new /obj/item/clothing/gloves/color/yellow/vox(src), slot_gloves) // AS ABOVE.
 
 	switch(vox_tick)
 		if(1) // Vox raider!

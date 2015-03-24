@@ -61,7 +61,6 @@ var/list/ai_verbs_default = list(
 	var/obj/item/device/pda/ai/aiPDA = null
 	var/obj/item/device/multitool/aiMulti = null
 	var/custom_sprite = 0 //For our custom sprites
-	var/alienAI = 0
 
 	var/obj/item/device/radio/headset/heads/ai_integrated/aiRadio = null
 
@@ -467,14 +466,11 @@ var/list/ai_verbs_default = list(
 	..()
 
 /mob/living/silicon/ai/ex_act(severity)
-	if(!blinded)
-		flick("flash", flash)
+	..()
 
 	switch(severity)
 		if(1.0)
-			if (stat != 2)
-				adjustBruteLoss(100)
-				adjustFireLoss(100)
+			gib()
 		if(2.0)
 			if (stat != 2)
 				adjustBruteLoss(60)
@@ -483,7 +479,7 @@ var/list/ai_verbs_default = list(
 			if (stat != 2)
 				adjustBruteLoss(30)
 
-	updatehealth()
+	return
 
 
 /mob/living/silicon/ai/Topic(href, href_list)

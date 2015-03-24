@@ -5,6 +5,7 @@
 	icon_state = "airlock_control_standby"
 	var/list/linkedturfs = list() //List contains all of the linked pool turfs to this controller, assignment happens on New()
 	var/temperature = "normal" //The temperature of the pool, starts off on normal, which has no effects.
+	var/temperaturecolor = "" //used for nanoUI fancyness
 	var/srange = 5 //The range of the search for pool turfs, change this for bigger or smaller pools.
 	var/linkedmist = list() //Used to keep track of created mist
 	var/misted = 0 //Used to check for mist.
@@ -30,59 +31,11 @@
 			user << "\red Nothing happens." //If not emagged, don't do anything, and don't tell the user that it can be emagged.
 
 		return //Return, nothing else needs to be done.
-	else //If it's not a multitool, defer to /obj/machinery/proc/attackby
+	else //If it's not a multitool, defer to /obj/machinery/attackby
 		..()
 
-/obj/machinery/poolcontroller/attack_hand()
-	if(!Adjacent(usr))
-		usr << "You moved away."
-		return
-
-	if(emagged) //Emagging unlocks more (deadly) options.
-		var/temp = input("What temperature would you like to set the pool to?", "Pool Temperature") in list("Scalding","Frigid", "Warm", "Cool", "Normal","Cancel") //Allow user to choose which temperature they want.
-
-		switch(temp) //Used for setting the actual temperature var based on user input.
-			if("Scalding")
-				miston() //Turn on warning mist for the pool
-				temperature = "scalding" //Burn em!
-				usr << "<span class='warning'>You flick the pool temperature to [temperature](WARNING).</span>" //Differ from standard message to make sure the user understands the temperature is harmful.
-				return //Return to avoid calling the un-unique message.
-			if("Frigid")
-				temperature = "frigid"
-				usr << "<span class='warning'>You flick the pool temperature to [temperature](WARNING).</span>" //Differ from standard message to make sure the user understands the temperature is harmful.
-				mistoff() //this won't get called otherwise
-				return //Return to avoid calling the un-unique message.
-
-			//Regular non-traitorous temperature choices still avalible.
-			if("Warm")
-				temperature = "warm"
-			if("Cool")
-				temperature = "cool"
-			if("Normal")
-				temperature = "normal"
-			if("Cancel")
-				return
-
-		mistoff() //Remove all mist, setting it to scalding returns before now, only regular temperatures will call it
-		usr << "<span class='warning'>You flick the pool temperature to [temperature].</span>" //Inform the mob of the temperature they just picked.
-		return
-
-	else
-		var/temp = input("What temperature would you like to set the pool to?", "Pool Temperature") in list("Warm","Cool","Normal","Cancel") //Allow user to choose which temperature they want.
-
-		switch(temp) //Used for setting the actual temperature var based on user input.
-			if("Warm")
-				temperature = "warm"
-			if("Cool")
-				temperature = "cool"
-			if("Normal")
-				temperature = "normal"
-			if("Cancel") //Cancel does nothing and leaves the temperature at it's previous state.
-				return
-
-		mistoff() //Remove all mist, because it shouldn't be here if the pool is not set to scalding
-		usr << "<span class='warning'>You flick the pool temperature to [temperature].</span>" //Display what the user picked.
-		return
+/obj/machinery/poolcontroller/attack_hand(mob/user as mob)
+	ui_interact(user)
 
 /obj/machinery/poolcontroller/process()
 	updateMobs() //Call the mob affecting proc
@@ -90,6 +43,14 @@
 /obj/machinery/poolcontroller/proc/updateMobs()
 	for(var/turf/simulated/floor/beach/water/W in linkedturfs) //Check for pool-turfs linked to the controller.
 		for(var/mob/M in W) //Check for mobs in the linked pool-turfs.
+			//Sanity checks, don't affect robuts, AI eyes, and observers
+			if(isAIEye(M))
+				return
+			if(issilicon(M))
+				return
+			if(isobserver(M))
+				return
+			//End sanity checks, go on
 			switch(temperature) //Apply different effects based on what the temperature is set to.
 				if("scalding") //Burn the mob.
 					M.bodytemperature = min(500, M.bodytemperature + 35) //heat mob at 35k(elvin) per cycle
@@ -106,12 +67,14 @@
 
 				if("warm") //Gently warm the mob.
 					M.bodytemperature = min(330, M.bodytemperature + 10) //Heats up mobs to just over normal, not enough to burn
-					M << "<span class='warning'>The water is quite warm.</span>" //Inform the mob it's warm water.
+					if(prob(50)) //inform the mob of warm water half the time
+						M << "<span class='warning'>The water is quite warm.</span>" //Inform the mob it's warm water.
 					return
 
 				if("cool") //Gently cool the mob.
 					M.bodytemperature = max(290, M.bodytemperature - 10) //Cools mobs to just below normal, not enough to burn
-					M << "<span class='warning'>The water is chilly.</span>" //Inform the mob it's chilly water.
+					if(prob(50)) //inform the mob of cold water half the time
+						M << "<span class='warning'>The water is chilly.</span>" //Inform the mob it's chilly water.
 					return
 
 /obj/machinery/poolcontroller/proc/miston() //Spawn /obj/effect/mist (from the shower) on all linked pool tiles
@@ -127,3 +90,47 @@
 	for(var/obj/effect/mist/M in linkedmist)
 		del(M)
 	misted = 0 //no mist left, turn off the tracking var
+
+/obj/machinery/poolcontroller/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
+	var/data[0]
+
+	data["currentTemp"] = capitalize(src.temperature)
+	data["emagged"] = emagged
+	data["TempColor"] = temperaturecolor
+
+	ui = nanomanager.try_update_ui(user, src, ui_key, ui, data, force_open)
+	if(!ui)
+		ui = new(user, src, ui_key, "poolcontroller.tmpl", "Pool Controller Interface", 520, 410)
+		ui.set_initial_data(data)
+		ui.open()
+
+/obj/machinery/poolcontroller/Topic(href, href_list)
+	if(..())	return 1
+
+	switch(href_list["temp"])
+		if("Scalding")
+			if(!src.emagged)
+				return 0
+			src.temperature = "scalding"
+			src.temperaturecolor = "#FF0000"
+			miston()
+		if("Frigid")
+			if(!src.emagged)
+				return 0
+			src.temperature = "frigid"
+			src.temperaturecolor = "#00CCCC"
+			mistoff()
+		if("Warm")
+			src.temperature = "warm"
+			src.temperaturecolor = "#990000"
+			mistoff()
+		if("Cool")
+			src.temperature = "cool"
+			src.temperaturecolor = "#009999"
+			mistoff()
+		if("Normal")
+			src.temperature = "normal"
+			src.temperaturecolor = ""
+			mistoff()
+
+	return 1

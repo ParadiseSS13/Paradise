@@ -193,6 +193,10 @@
 	item_state = "waterbackpackatmos"
 	volume = 200
 
+/obj/item/weapon/watertank/atmos/New()
+	..()
+	reagents.add_reagent("water", 200)
+
 /obj/item/weapon/watertank/atmos/make_noz()
 	return new /obj/item/weapon/extinguisher/mini/nozzle(src)
 

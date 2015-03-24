@@ -98,9 +98,9 @@ var/datum/announcement/minor/captain_announcement = new(do_newscast = 1)
 	department_flag = KARMA
 	total_positions = 1
 	spawn_positions = 1
-	supervisors = "the Nanotrasen Board of Directors"
+	supervisors = "the command staff"
 	selection_color = "#ddddff"
-	idtype = /obj/item/weapon/card/id/centcom
+	idtype = /obj/item/weapon/card/id
 	req_admin_notify = 1
 	minimal_player_age = 21
 	access = list(access_security, access_sec_doors, access_brig, access_court, access_forensics_lockers,
@@ -126,7 +126,8 @@ var/datum/announcement/minor/captain_announcement = new(do_newscast = 1)
 		H.equip_or_collect(new /obj/item/weapon/storage/box/survival(H.back), slot_in_backpack)
 		H.equip_or_collect(new /obj/item/weapon/melee/baton/loaded/ntcane(H.back), slot_in_backpack)
 		H.equip_or_collect(new /obj/item/weapon/lighter/zippo/fluff/nt_rep(H.back), slot_in_backpack)
-		H.equip_if_possible(new /obj/item/clothing/under/rank/centcom/representative(H), slot_w_uniform)
+		H.equip_if_possible(new /obj/item/clothing/under/rank/ntrep(H), slot_w_uniform)
+		H.equip_if_possible(new /obj/item/clothing/suit/storage/ntrep(H), slot_wear_suit)
 		H.equip_if_possible(new /obj/item/clothing/shoes/centcom(H), slot_shoes)
 		H.equip_or_collect(new /obj/item/device/pda/heads/ntrep(H), slot_wear_pda)
 		var/obj/item/weapon/implant/loyalty/L = new/obj/item/weapon/implant/loyalty(H)
@@ -143,9 +144,9 @@ var/datum/announcement/minor/captain_announcement = new(do_newscast = 1)
 	department_flag = KARMA
 	total_positions = 1
 	spawn_positions = 1
-	supervisors = "the captain"
+	supervisors = "the nanotrasen representative"
 	selection_color = "#ddddff"
-	idtype = /obj/item/weapon/card/id/centcom
+	idtype = /obj/item/weapon/card/id
 	req_admin_notify = 1
 	minimal_player_age = 21
 	access = list(access_security, access_sec_doors, access_brig, access_court, access_forensics_lockers,
@@ -153,13 +154,9 @@ var/datum/announcement/minor/captain_announcement = new(do_newscast = 1)
 			            access_all_personal_lockers, access_maint_tunnels, access_bar, access_janitor, access_construction, access_morgue,
 			            access_crematorium, access_kitchen, access_cargo, access_cargo_bot, access_mailsorting, access_qm, access_hydroponics, access_lawyer,
 			            access_theatre, access_chapel_office, access_library, access_research, access_mining, access_heads_vault, access_mining_station,
-			            access_clown, access_mime, access_hop, access_RC_announce, access_keycard_auth, access_gateway, access_weapons)
-	minimal_access = list(access_security, access_sec_doors, access_brig, access_court, access_forensics_lockers,
-			            access_medical, access_engine, access_eva, access_heads,
-			            access_all_personal_lockers, access_maint_tunnels, access_bar, access_janitor, access_construction, access_morgue,
-			            access_crematorium, access_kitchen, access_cargo, access_cargo_bot, access_mailsorting, access_qm, access_hydroponics, access_lawyer,
-			            access_theatre, access_chapel_office, access_library, access_research, access_mining, access_heads_vault, access_mining_station,
-			            access_clown, access_mime, access_hop, access_RC_announce, access_keycard_auth, access_gateway, access_blueshield, access_weapons)
+			            access_clown, access_mime, access_hop, access_RC_announce, access_keycard_auth, access_gateway, access_weapons, access_blueshield)
+	minimal_access = list(access_forensics_lockers, access_sec_doors, access_medical, access_construction, access_engine, access_maint_tunnels, access_research,
+			            access_RC_announce, access_keycard_auth, access_heads, access_blueshield, access_weapons)
 
 	equip(var/mob/living/carbon/human/H)
 		if(!H)	return 0
@@ -172,7 +169,7 @@ var/datum/announcement/minor/captain_announcement = new(do_newscast = 1)
 		H.equip_or_collect(new /obj/item/clothing/gloves/combat(H), slot_gloves)
 		H.equip_or_collect(new /obj/item/clothing/shoes/jackboots(H), slot_shoes)
 		H.equip_or_collect(new /obj/item/clothing/glasses/hud/health_advanced, slot_glasses)
-		H.equip_if_possible(new /obj/item/clothing/under/rank/centcom/blueshield(H), slot_w_uniform)
+		H.equip_if_possible(new /obj/item/clothing/under/rank/blueshield(H), slot_w_uniform)
 		H.equip_if_possible(new /obj/item/clothing/suit/armor/vest/fluff/deus_blueshield(H), slot_wear_suit)
 		H.equip_or_collect(new /obj/item/weapon/gun/energy/advtaser(H), slot_s_store)
 		H.equip_or_collect(new /obj/item/device/pda/heads/blueshield(H), slot_wear_pda)
@@ -196,7 +193,7 @@ var/datum/announcement/minor/captain_announcement = new(do_newscast = 1)
 	spawn_positions = 1
 	supervisors = "the Nanotrasen Supreme Court"
 	selection_color = "#ddddff"
-	idtype = /obj/item/weapon/card/id/centcom
+	idtype = /obj/item/weapon/card/id
 	req_admin_notify = 1
 	minimal_player_age = 21
 	access = list(access_security, access_sec_doors, access_brig, access_court, access_forensics_lockers,

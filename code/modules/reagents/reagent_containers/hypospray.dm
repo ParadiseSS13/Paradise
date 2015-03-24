@@ -73,7 +73,7 @@
 	desc = "A modified air-needle autoinjector filled with expensive regeneration nanites."
 	volume = 100
 
-/obj/item/weapon/reagent_containers/hypospray/combat/New()
+/obj/item/weapon/reagent_containers/hypospray/combat/nanites/New()
 	..()
 	reagents.add_reagent("nanites", 70)
 

@@ -232,6 +232,9 @@
 	set name = "Harvest honeycomb"
 	set category = "Object"
 
+	if(usr.stat || !usr.canmove || usr.restrained())
+		return
+		
 	while(health > 15)
 		health -= 15
 		var/obj/item/weapon/reagent_containers/food/snacks/honeycomb/H = new(src.loc)

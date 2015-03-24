@@ -41,18 +41,6 @@
 		proj_hit = 1
 	..()
 
-/obj/item/projectile/energy/electrode/revolver
-	name = "electrode"
-	icon_state = "spark"
-	nodamage = 1
-/*	stun = 2
-	weaken = 2
-	stutter = 10 */
-	agony = 50
-	damage_type = HALLOSS
-	hitsound = 'sound/weapons/tase.ogg'
-	//Damage will be handled on the MOB side, to prevent window shattering.
-
 /obj/item/projectile/energy/declone
 	name = "declone"
 	icon_state = "declone"
@@ -69,6 +57,14 @@
 	weaken = 5
 	range = 7
 
+/obj/item/projectile/energy/shuriken
+	name = "shuriken"
+	icon_state = "toxin"
+	damage = 10
+	damage_type = TOX
+	nodamage = 0
+	weaken = 5
+	stutter = 5
 
 /obj/item/projectile/energy/bolt
 	name = "bolt"

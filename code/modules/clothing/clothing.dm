@@ -235,6 +235,7 @@ BLIND     // can't see anything
 	body_parts_covered = HEAD
 	slot_flags = SLOT_HEAD
 	var/loose = 10 // probability (0..100) of coming off your head when you fall over or lay down
+	var/blockTracking // Do we block AI tracking?
 
 
 //Mask

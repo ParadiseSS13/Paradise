@@ -200,9 +200,6 @@ Class Procs:
 ////////////////////////////////////////////////////////////////////////////////////////////	
 	
 /obj/machinery/attack_ai(var/mob/user as mob)
-	if(isAI(user))
-		var/mob/living/silicon/ai/A = user
-		if(A.alienAI) return
 	if(isrobot(user))
 		// For some reason attack_robot doesn't work
 		// This is to stop robots from using cameras to remotely control machines.

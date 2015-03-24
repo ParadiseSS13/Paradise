@@ -106,7 +106,7 @@
 /obj/item/device/encryptionkey/heads/blueshield
 	name = "Blueshield's Encryption Key"
 	icon_state = "com_cypherkey"
-	channels = list("Command" = 1, "Security" = 1)
+	channels = list("Command" = 1)
 
 /*
 /obj/item/device/encryptionkey/headset_mine
