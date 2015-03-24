@@ -302,6 +302,52 @@ obj/item/weapon/twohanded/
 	playsound(loc, 'sound/weapons/bladeslice.ogg', 50, 1, -1)
 	return ..()
 
+//Putting heads on spears
+/obj/item/weapon/organ/head/attackby(var/obj/item/weapon/W, var/mob/living/user, params)
+	if(istype(W, /obj/item/weapon/twohanded/spear))
+		user << "<span class='notice'>You stick the head onto the spear and stand it upright on the ground.</span>"
+		var/obj/structure/headspear/HS = new /obj/structure/headspear(user.loc)
+		var/matrix/M = matrix()
+		src.transform = M
+		user.drop_item()
+		src.loc = HS
+		var/image/IM = image(src.icon,src.icon_state)
+		IM.overlays = src.overlays.Copy()
+		HS.overlays += IM
+		qdel(W)
+		return
+	return ..()
+
+/obj/item/weapon/twohanded/spear/attackby(var/obj/item/I, var/mob/living/user)
+	if(istype(I, /obj/item/weapon/organ/head))
+		user << "<span class='notice'>You stick the head onto the spear and stand it upright on the ground.</span>"
+		var/obj/structure/headspear/HS = new /obj/structure/headspear(user.loc)
+		var/matrix/M = matrix()
+		I.transform = M
+		usr.drop_item()
+		I.loc = HS
+		var/image/IM = image(I.icon,I.icon_state)
+		IM.overlays = I.overlays.Copy()
+		HS.overlays += IM
+		qdel(src)
+		return
+	return ..()
+
+/obj/structure/headspear
+	name = "head on a spear"
+	desc = "How barbaric."
+	icon_state = "headspear"
+	density = 0
+	anchored = 1
+
+
+/obj/structure/headspear/attack_hand(mob/living/user)
+	user.visible_message("<span class='warning'>[user] kicks over \the [src]!</span>", "<span class='danger'>You kick down \the [src]!</span>")
+	new /obj/item/weapon/twohanded/spear(user.loc)
+	for(var/obj/item/weapon/organ/head/H in src)
+		H.loc = user.loc
+	qdel(src)
+
 /obj/item/weapon/twohanded/spear/kidan
 	icon_state = "kidanspear0"
 	name = "Kidan spear"
