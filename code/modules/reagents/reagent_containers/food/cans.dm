@@ -173,6 +173,43 @@
 		src.pixel_x = rand(-10.0, 10)
 		src.pixel_y = rand(-10.0, 10)
 
+/obj/item/weapon/reagent_containers/food/drinks/cans/adminbooze
+	name = "Admin Booze"
+	desc = "Bottled Griffon tears. Drink with caution."
+	icon_state = "adminbooze"
+	New()
+		..()
+		reagents.add_reagent("admorinazine", 5)
+		reagents.add_reagent("capsaicin", 5)
+		reagents.add_reagent("hyperzine", 20)
+		reagents.add_reagent("thirteenloko", 20)
+		src.pixel_x = rand(-10.0, 10)
+		src.pixel_y = rand(-10.0, 10)
+
+/obj/item/weapon/reagent_containers/food/drinks/cans/madminmalt
+	name = "Madmin Malt"
+	desc = "Bottled essence of angry admins. Drink with <i>EXTREME</i> caution."
+	icon_state = "madminmalt"
+	New()
+		..()
+		reagents.add_reagent("hellwater", 20)
+		reagents.add_reagent("neurotoxin", 15)
+		reagents.add_reagent("thirteenloko", 15)
+		src.pixel_x = rand(-10.0, 10)
+		src.pixel_y = rand(-10.0, 10)
+
+/obj/item/weapon/reagent_containers/food/drinks/cans/badminbrew
+	name = "Badmin Brew"
+	desc = "Bottled trickery and terrible admin work. Probably shouldn't drink this one at all."
+	icon_state = "badminbrew"
+	New()
+		..()
+		reagents.add_reagent("mutagen", 25)
+		reagents.add_reagent("anti_toxin", 10)
+		reagents.add_reagent("thirteenloko", 15)
+		src.pixel_x = rand(-10.0, 10)
+		src.pixel_y = rand(-10.0, 10)
+
 /obj/item/weapon/reagent_containers/food/drinks/cans/ale
 	name = "Magm-Ale"
 	desc = "A true dorf's drink of choice."
