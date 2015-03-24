@@ -252,7 +252,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 				screen = 2.1
 
 	else if(href_list["maxresearch"]) //Eject the item inside the destructive analyzer.
-		if(!check_rights(R_ADMIN)) 
+		if(!check_rights(R_ADMIN))
 			return
 		screen = 0.0
 		if(alert("Are you sure you want to maximize research levels?","Confirmation","Yes","No")=="No")
@@ -1111,6 +1111,13 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	id = 2
 	req_access = null
 	req_access_txt = "29"
+
+/obj/machinery/computer/rdconsole/mechanics
+	name = "Mechanics R&D Console"
+	desc = "A console used to interface with R&D tools."
+	id = 2
+	req_access = null
+	req_access_txt = "70"
 
 /obj/machinery/computer/rdconsole/core
 	name = "Core R&D Console"

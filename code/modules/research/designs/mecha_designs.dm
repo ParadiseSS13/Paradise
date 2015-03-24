@@ -166,14 +166,3 @@
 	materials = list("$glass" = 1000, "sacid" = 20)
 	build_path = /obj/item/weapon/circuitboard/mecha/honker/targeting
 	category = list("Exosuit Modules")
-	
-// Space pod
-/datum/design/spacepod_main
-	name = "Exosuit Board (Space Pod Mainboard)"
-	desc = "Allows for the construction of a Space Pod mainboard."
-	id = "spacepod_main"
-	req_tech = list("programming" = 4)
-	build_type = IMPRINTER
-	materials = list("$glass" = 1000, "sacid" = 20)
-	build_path = /obj/item/weapon/circuitboard/mecha/pod
-	category = list("Exosuit Modules")
