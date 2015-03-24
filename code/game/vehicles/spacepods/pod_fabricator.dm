@@ -40,6 +40,7 @@
 								"Pod_Frame",
 								"Misc",
 								)
+	var/turf/exit
 
 /obj/machinery/spod_part_fabricator/New()
 	..()
@@ -52,6 +53,11 @@
 	component_parts += new /obj/item/weapon/stock_parts/console_screen(null)
 	RefreshParts()
 	files = new /datum/research(src) //Setup the research data holder.
+	for(var/direction in cardinal)
+		exit = get_step(src,direction)
+		if(!exit.density)
+			break
+		exit = loc
 
 /obj/machinery/spod_part_fabricator/upgraded/New()
 	..()
@@ -177,11 +183,11 @@
 	var/obj/item/I = new D.build_path
 	var/O = D.locked
 	if(O)
-		var/obj/item/weapon/storage/lockbox/L = new/obj/item/weapon/storage/lockbox(src.loc)
+		var/obj/item/weapon/storage/lockbox/L = new/obj/item/weapon/storage/lockbox(exit)
 		I.loc = L
 		L.name += " ([I.name])"
 	else
-		I.loc = get_step(src,SOUTH)
+		I.loc = exit
 	I.m_amt = get_resource_cost_w_coeff(D,"$metal")
 	I.g_amt = get_resource_cost_w_coeff(D,"$glass")
 	visible_message("\icon[src] <b>\The [src]</b> beeps, \"\The [I] is complete.\"")
@@ -316,7 +322,6 @@
 	if (..())
 		return
 	user.set_machine(src)
-	var/turf/exit = get_step(src,SOUTH)
 	if(exit.density)
 		visible_message("\icon[src] <b>\The [src]</b> beeps, \"Error! Part outlet is obstructed.\"")
 		return
