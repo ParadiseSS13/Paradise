@@ -161,6 +161,7 @@
 	src.thrower = thrower
 	src.throw_source = get_turf(src)	//store the origin turf
 
+	SpinAnimation(5, 1)
 	var/dist_x = abs(target.x - src.x)
 	var/dist_y = abs(target.y - src.y)
 
