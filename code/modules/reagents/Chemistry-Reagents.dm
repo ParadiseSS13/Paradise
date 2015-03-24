@@ -565,6 +565,8 @@ datum
 								M.mind.vampire.nullified = max(5, M.mind.vampire.nullified + 2)
 							if(11 to INFINITY)
 								M << "<span class = 'danger'>You suddenly ignite in a holy fire!</span>"
+								for(var/mob/O in viewers(M, null))
+									O.show_message(text("<span class = 'danger'>[] suddenly bursts into flames!<span>", M), 1)
 								M.fire_stacks = min(5,M.fire_stacks + 3)
 								M.IgniteMob()			//Only problem with igniting people is currently the commonly availible fire suits make you immune to being on fire
 								M.adjustFireLoss(3)		//Hence the other damages... ain't I a bastard?
