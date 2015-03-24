@@ -26,6 +26,17 @@
 	var/datum/reagents/R = new/datum/reagents(volume)
 	reagents = R
 	R.my_atom = src
+	processing_objects.Add(src)
+
+/obj/item/weapon/reagent_containers/Destroy()
+	processing_objects.Remove(src)
+	..()
+
+/obj/item/weapon/reagent_containers/process()
+	if(reagents)
+		reagents.reagent_on_tick()
+	..()
+	return
 
 /obj/item/weapon/reagent_containers/attack_self(mob/user as mob)
 	return

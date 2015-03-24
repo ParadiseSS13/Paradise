@@ -10,7 +10,7 @@
 //Some on_mob_life() procs check for alien races.
 #define IS_DIONA 1
 #define IS_VOX 2
-
+// ^ fuck this shit holy fuck - Iamgoofball
 datum
 	reagent
 		var/name = "Reagent"
@@ -21,8 +21,7 @@ datum
 		var/list/data = null
 		var/volume = 0
 		var/nutriment_factor = 0
-		var/custom_metabolism = REAGENTS_METABOLISM
-		var/overdose = 0
+		var/metabolization_rate = REAGENTS_METABOLISM
 		var/scannable = 0 //shows up on health analyzers
 		//var/list/viruses = list()
 		var/color = "#000000" // rgb: 0, 0, 0 (does not support alpha channels - yet!)
@@ -86,10 +85,10 @@ datum
 				return
 
 			on_mob_life(var/mob/living/M as mob, var/alien)
-				if(!istype(M, /mob/living))
+				if(!istype(M, /mob/living)) // YOU'RE A FUCKING RETARD NEO WHY CAN'T YOU JUST FIX THE PROBLEM ON THE REAGENT - Iamgoofball
 					return //Noticed runtime errors from pacid trying to damage ghosts, this should fix. --NEO
 							// Certain elements in too large amounts cause side-effects
-				holder.remove_reagent(src.id, custom_metabolism) //By default it slowly disappears.
+				holder.remove_reagent(src.id, metabolization_rate) //By default it slowly disappears.
 				return
 
 			// Called when two reagents of the same are mixing.
@@ -379,29 +378,6 @@ datum
 				M.adjustOxyLoss(3)
 				M.sleeping += 1
 				..()
-				return
-
-		chefspecial
-			// Quiet and lethal, needs atleast 4 units in the person before they'll die
-			name = "Chef's Special"
-			id = "chefspecial"
-			description = "An extremely toxic chemical that will surely end in death."
-			reagent_state = LIQUID
-			color = "#CF3600" // rgb: 207, 54, 0
-			custom_metabolism = 0.39
-
-			on_mob_life(var/mob/living/M as mob)
-				var/random = rand(150,180)
-				if(!M) M = holder.my_atom
-				if(!data) data = 1
-				switch(data)
-					if(0 to 5)
-						..()
-				if(data >= random)
-					if(M.stat != DEAD)
-						M.death(0)
-						M.attack_log += "\[[time_stamp()]\]<font color='red'>Died a quick and painless death by <font color='green'>Chef Excellence's Special Sauce</font>.</font>"
-				data++
 				return
 
 		minttoxin
@@ -1063,7 +1039,7 @@ datum
 			reagent_state = LIQUID
 			color = "#C855DC"
 			scannable = 1
-			custom_metabolism = 0.2 // Lasts 2.5 minutes for 15 units
+			metabolization_rate = 0.2 // Lasts 2.5 minutes for 15 units
 
 			on_mob_life(var/mob/living/M as mob)
 				if(!M) M = holder.my_atom
@@ -1104,7 +1080,7 @@ datum
 			reagent_state = LIQUID
 			color = "#C8A5DC"
 			scannable = 1
-			custom_metabolism = 0.2 // Lasts 2.5 minutes for 15 units
+			metabolization_rate = 0.2 // Lasts 2.5 minutes for 15 units
 
 			on_mob_life(var/mob/living/M as mob)
 				if(!M) M = holder.my_atom
@@ -1118,7 +1094,7 @@ datum
 			description = "An effective and very addictive painkiller."
 			reagent_state = LIQUID
 			color = "#C805DC"
-			custom_metabolism = 0.3 // Lasts 1.5 minutes for 15 units
+			metabolization_rate = 0.3 // Lasts 1.5 minutes for 15 units
 			scannable = 1
 
 			on_mob_life(var/mob/living/M as mob)
@@ -3229,7 +3205,7 @@ datum
 				id = "absinthe"
 				description = "Watch out that the Green Fairy doesn't come for you!"
 				color = "#33EE00" // rgb: lots, ??, ??
-				overdose = 30
+				overdose_threshold = 30
 				dizzy_adj = 5
 				slur_start = 25
 				confused_start = 100
@@ -3240,7 +3216,7 @@ datum
 					if(!data) data = 1
 					data++
 					M:hallucination += 5
-					if(volume > overdose)
+					if(volume > overdose_threshold)
 						M:adjustToxLoss(1)
 					..()
 					return
@@ -3250,12 +3226,12 @@ datum
 				id = "rum"
 				description = "Popular with the sailors. Not very popular with everyone else."
 				color = "#664300" // rgb: 102, 67, 0
-				overdose = 30
+				overdose_threshold = 30
 
 				on_mob_life(var/mob/living/M as mob)
 					..()
 					M.dizziness +=5
-					if(volume > overdose)
+					if(volume > overdose_threshold)
 						M:adjustToxLoss(1)
 					return
 
