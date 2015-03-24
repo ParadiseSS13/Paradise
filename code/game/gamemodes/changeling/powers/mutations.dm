@@ -109,7 +109,7 @@
 	name = "Arm Blade"
 	desc = "We reform one of our arms into a deadly blade."
 	helptext = "Cannot be used while in lesser form."
-	chemical_cost = 20
+	chemical_cost = 25
 	dna_cost = 2
 	genetic_damage = 10
 	req_human = 1
@@ -294,7 +294,7 @@
 	name = "Chitinous Armor"
 	desc = "We turn our skin into tough chitin to protect us from damage."
 	helptext = "Upkeep of the armor requires a low expenditure of chemicals. The armor is strong against brute force, but does not provide much protection from lasers. Retreating the armor damages our genomes. Cannot be used in lesser form."
-	chemical_cost = 20
+	chemical_cost = 25
 	dna_cost = 2
 	genetic_damage = 11
 	req_human = 1
@@ -313,7 +313,7 @@
 	flags = NODROP
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
 	slowdown = 2
-	armor = list(melee = 65, bullet = 20, laser = 10, energy = 13, bomb = 0, bio = 0, rad = 0)
+	armor = list(melee = 65, bullet = 20, laser = 10, energy = 15, bomb = 0, bio = 0, rad = 0)
 	flags_inv = HIDEJUMPSUIT
 	cold_protection = 0
 	heat_protection = 0
@@ -331,7 +331,7 @@
 	desc = "A tough, hard covering of black chitin with transparent chitin in front."
 	icon_state = "lingarmorhelmet"
 	flags = HEADCOVERSEYES | BLOCKHAIR | NODROP
-	armor = list(melee = 70, bullet = 15, laser = 7,energy = 10, bomb = 5, bio = 2, rad = 0)
+	armor = list(melee = 65, bullet = 20, laser = 10,energy = 15, bomb = 0, bio = 0, rad = 0)
 	flags_inv = HIDEEARS
 
 /obj/item/clothing/head/helmet/changeling/dropped()
