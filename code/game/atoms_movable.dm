@@ -11,6 +11,7 @@
 	var/turf/throw_source = null
 	var/throw_speed = 2
 	var/throw_range = 7
+	var/no_spin = 0
 	var/moved_recently = 0
 	var/mob/pulledby = null
 
@@ -161,7 +162,8 @@
 	src.thrower = thrower
 	src.throw_source = get_turf(src)	//store the origin turf
 
-	SpinAnimation(5, 1)
+	if(!no_spin)
+		SpinAnimation(5, 1)
 	var/dist_x = abs(target.x - src.x)
 	var/dist_y = abs(target.y - src.y)
 

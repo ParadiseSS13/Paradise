@@ -291,6 +291,7 @@ obj/item/weapon/twohanded/
 	force_wielded = 18 // Was 13, Buffed - RR
 	throwforce = 20
 	throw_speed = 3
+	no_spin = 1
 	flags = NOSHIELD
 	attack_verb = list("attacked", "poked", "jabbed", "torn", "gored")
 
