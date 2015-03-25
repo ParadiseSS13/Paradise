@@ -88,7 +88,6 @@ mob/living/carbon/human/proc/handle_pain()
 		return
 	var/maxdam = 0
 	var/datum/organ/external/damaged_organ = null
-	limbpain = 0
 	for(var/datum/organ/external/E in organs)
 		// amputated limbs don't cause pain
 		if(E.amputated) continue
@@ -101,8 +100,7 @@ mob/living/carbon/human/proc/handle_pain()
 			maxdam = dam
 		if(damaged_organ)
 			pain(damaged_organ.display_name, maxdam, 0)
-		if(!E.vital)
-			limbpain += dam
+
 
 	// Damage to internal organs hurts a lot.
 	for(var/n in internal_organs_by_name)

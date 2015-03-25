@@ -79,7 +79,5 @@
 
 	var/frozen = 0 //used for preventing attacks on admin-frozen people
 
-	var/limbpain = 0
-
 	fire_dmi = 'icons/mob/OnFire.dmi'
 	fire_sprite = "Standing"
