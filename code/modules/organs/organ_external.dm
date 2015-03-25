@@ -890,7 +890,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 	icon_name = "groin"
 	display_name = "groin"
 	max_damage = 50
-	min_broken_damage = 30
+	min_broken_damage = 25
 	body_part = LOWER_TORSO
 
 /datum/organ/external/l_arm
@@ -898,7 +898,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 	display_name = "left arm"
 	icon_name = "l_arm"
 	max_damage = 50
-	min_broken_damage = 30
+	min_broken_damage = 25
 	body_part = ARM_LEFT
 
 	process()
@@ -910,7 +910,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 	display_name = "left leg"
 	icon_name = "l_leg"
 	max_damage = 50
-	min_broken_damage = 30
+	min_broken_damage = 25
 	body_part = LEG_LEFT
 	icon_position = LEFT
 
@@ -919,7 +919,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 	display_name = "right arm"
 	icon_name = "r_arm"
 	max_damage = 50
-	min_broken_damage = 30
+	min_broken_damage = 25
 	body_part = ARM_RIGHT
 
 	process()
@@ -931,7 +931,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 	display_name = "right leg"
 	icon_name = "r_leg"
 	max_damage = 50
-	min_broken_damage = 30
+	min_broken_damage = 25
 	body_part = LEG_RIGHT
 	icon_position = RIGHT
 
@@ -940,7 +940,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 	display_name = "left foot"
 	icon_name = "l_foot"
 	max_damage = 30
-	min_broken_damage = 20
+	min_broken_damage = 15
 	body_part = FOOT_LEFT
 	icon_position = LEFT
 
@@ -949,7 +949,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 	display_name = "right foot"
 	icon_name = "r_foot"
 	max_damage = 30
-	min_broken_damage = 20
+	min_broken_damage = 15
 	body_part = FOOT_RIGHT
 	icon_position = RIGHT
 
@@ -958,7 +958,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 	display_name = "right hand"
 	icon_name = "r_hand"
 	max_damage = 30
-	min_broken_damage = 20
+	min_broken_damage = 15
 	body_part = HAND_RIGHT
 
 	process()
@@ -970,7 +970,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 	display_name = "left hand"
 	icon_name = "l_hand"
 	max_damage = 30
-	min_broken_damage = 20
+	min_broken_damage = 15
 	body_part = HAND_LEFT
 
 	process()
