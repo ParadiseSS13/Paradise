@@ -193,3 +193,12 @@
 	New()
 		..()
 		reagents.add_reagent("frostoil", 30)
+
+/obj/item/weapon/reagent_containers/glass/bottle/morphine
+	name = "Morphine Bottle"
+	desc = "A small bottle. Contains morphine."
+	icon = 'icons/obj/chemical.dmi'
+	icon_state = "bottle17"
+	New()
+		..()
+		reagents.add_reagent("morphine", 30)

@@ -148,7 +148,7 @@ datum/reagent/cyanide/on_mob_life(var/mob/living/M as mob)
 	required_temp = 380
 
 /datum/reagent/questionmark // food poisoning
-	name = "Bad Food"
+	name = "????"
 	id = "????"
 	description = "????"
 	reagent_state = LIQUID
@@ -198,8 +198,91 @@ datum/reagent/itching_powder/on_mob_life(var/mob/living/M as mob)
 	required_reagents = list("fuel" = 1, "ammonia" = 1, "charcoal" = 1)
 	result_amount = 3
 
+datum/reagent/facid/on_mob_life(var/mob/living/M as mob)
+	if(!M) M = holder.my_atom
+	M.adjustToxLoss(2*REM)
+	M.take_organ_damage(0, 1*REM)
+	..()
+	return
+
+datum/reagent/facid
+	name = "Fluorosulfuric Acid"
+	id = "facid"
+	description = ""
+	reagent_state = LIQUID
+	color = "#CF3600"
+
+datum/reagent/facid/reaction_mob(var/mob/living/M, var/method=TOUCH, var/volume)
+	if(!istype(M, /mob/living))
+		return //wooo more runtime fixin
+	if(method == TOUCH)
+		if(ishuman(M))
+			var/mob/living/carbon/human/H = M
+
+			if(H.wear_mask)
+				if(!H.wear_mask.unacidable)
+					qdel (H.wear_mask)
+					H.update_inv_wear_mask()
+					H << "\red Your mask melts away but protects you from the acid!"
+				else
+					H << "\red Your mask protects you from the acid!"
+				return
+
+			if(H.head)
+				if(prob(15) && !H.head.unacidable)
+					qdel(H.head)
+					H.update_inv_head()
+					H << "\red Your helmet melts away but protects you from the acid"
+				else
+					H << "\red Your helmet protects you from the acid!"
+				return
+
+			if(!H.unacidable)
+				var/datum/organ/external/affecting = H.get_organ("head")
+				if(affecting.take_damage(15, 0))
+					H.UpdateDamageIcon()
+				H.emote("scream")
+		else if(ismonkey(M))
+			var/mob/living/carbon/monkey/MK = M
+
+			if(MK.wear_mask)
+				if(!MK.wear_mask.unacidable)
+					qdel (MK.wear_mask)
+					MK.update_inv_wear_mask()
+					MK << "\red Your mask melts away but protects you from the acid!"
+				else
+					MK << "\red Your mask protects you from the acid!"
+				return
+
+			if(!MK.unacidable)
+				MK.take_organ_damage(min(15, volume * 4)) // same deal as sulphuric acid
+	else
+		if(!M.unacidable)
+			if(ishuman(M))
+				var/mob/living/carbon/human/H = M
+				var/datum/organ/external/affecting = H.get_organ("head")
+				if(affecting.take_damage(15, 0))
+					H.UpdateDamageIcon()
+				H.emote("scream")
+				H.status_flags |= DISFIGURED
+			else
+				M.take_organ_damage(min(15, volume * 4))
+
+datum/reagent/facid/reaction_obj(var/obj/O, var/volume)
+	if(istype(O,/obj/item/weapon/organ/head))
+		new/obj/item/weapon/skeleton/head(O.loc)
+		for(var/mob/M in viewers(5, O))
+			M << "\red \the [O] melts."
+		qdel(O)
+	if((istype(O,/obj/item) || istype(O,/obj/effect/glowshroom)))
+		if(!O.unacidable)
+			var/obj/effect/decal/cleanable/molten_item/I = new/obj/effect/decal/cleanable/molten_item(O.loc)
+			I.desc = "Looks like this was \an [O] some time ago."
+			for(var/mob/M in viewers(5, O))
+				M << "\red \the [O] melts."
+			qdel(O)
 /datum/chemical_reaction/facid
-	name = "Fluorosulfuric acid"
+	name = "Fluorosulfuric Acid"
 	id = "facid"
 	result = "facid"
 	required_reagents = list("sacid" = 1, "fluorine" = 1, "hydrogen" = 1, "potassium" = 1)
