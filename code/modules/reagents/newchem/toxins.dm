@@ -198,6 +198,19 @@ datum/reagent/itching_powder/on_mob_life(var/mob/living/M as mob)
 	required_reagents = list("fuel" = 1, "ammonia" = 1, "charcoal" = 1)
 	result_amount = 3
 
+datum/reagent/facid/on_mob_life(var/mob/living/M as mob)
+	if(!M) M = holder.my_atom
+	M.adjustToxLoss(2*REM)
+	M.take_organ_damage(0, 1*REM)
+	..()
+	return
+
+datum/reagent/facid
+	name = "Fluorosulfuric Acid"
+	id = "facid"
+	description = ""
+	reagent_state = LIQUID
+	color = "#CF3600"
 /datum/chemical_reaction/facid
 	name = "Fluorosulfuric acid"
 	id = "facid"
