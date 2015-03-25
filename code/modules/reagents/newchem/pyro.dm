@@ -503,3 +503,16 @@ datum/reagent/pyrosium/on_tick()
 		holder.handle_reactions()
 	..()
 	return
+
+/datum/chemical_reaction/azide
+	name = "azide"
+	id = "azide"
+	result = null
+	required_reagents = list("chlorine" = 1, "oxygen" = 1, "nitrogen" = 1, "ammonia" = 1, "sodium" = 1, "silver" = 1)
+	result_amount = 1
+	mix_message = "The substance violently detonates!"
+
+/datum/chemical_reaction/azide/on_reaction(var/datum/reagents/holder, var/created_volume)
+	var/location = get_turf(holder.my_atom)
+	explosion(location,0,1,3)
+	return

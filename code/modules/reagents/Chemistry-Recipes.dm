@@ -347,8 +347,8 @@ datum
 			name = "Sodium Chloride"
 			id = "sodiumchloride"
 			result = "sodiumchloride"
-			required_reagents = list("sodium" = 1, "chlorine" = 1)
-			result_amount = 2
+			required_reagents = list("sodium" = 1, "chlorine" = 1, "water" = 1)
+			result_amount = 3
 
 		flash_powder
 			name = "Flash powder"
@@ -594,13 +594,6 @@ datum
 			result = "cleaner"
 			required_reagents = list("ammonia" = 1, "water" = 1)
 			result_amount = 2
-
-		plantbgone
-			name = "Plant-B-Gone"
-			id = "plantbgone"
-			result = "plantbgone"
-			required_reagents = list("chlorine" = 1, "hydrogen" = 1, "nitrogen" = 1)
-			result_amount = 3
 
 ///////Changeling Blood Test/////////////
 		changeling_test

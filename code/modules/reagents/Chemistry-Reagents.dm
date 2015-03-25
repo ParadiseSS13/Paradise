@@ -1314,62 +1314,6 @@ datum
 					..()
 					return
 
-		plantbgone
-			name = "Plant-B-Gone"
-			id = "plantbgone"
-			description = "A harmful toxic mixture to kill plantlife. Do not ingest!"
-			reagent_state = LIQUID
-			color = "#49002E" // rgb: 73, 0, 46
-
-			on_mob_life(var/mob/living/M as mob)
-				if(!M) M = holder.my_atom
-				M.adjustToxLoss(1)
-				..()
-				return
-
-			// Clear off wallrot fungi
-			reaction_turf(var/turf/T, var/volume)
-				if(istype(T, /turf/simulated/wall))
-					var/turf/simulated/wall/W = T
-					if(W.rotting)
-						W.rotting = 0
-						for(var/obj/effect/E in W) if(E.name == "Wallrot") del E
-
-						for(var/mob/O in viewers(W, null))
-							O.show_message(text("\blue The fungi are completely dissolved by the solution!"), 1)
-
-			reaction_obj(var/obj/O, var/volume)
-				if(istype(O,/obj/structure/alien/weeds/))
-					var/obj/structure/alien/weeds/alien_weeds = O
-					alien_weeds.health -= rand(15,35) // Kills alien weeds pretty fast
-					alien_weeds.healthcheck()
-				else if(istype(O,/obj/effect/glowshroom)) //even a small amount is enough to kill it
-					del(O)
-				else if(istype(O,/obj/effect/plantsegment))
-					if(prob(50)) del(O) //Kills kudzu too.
-				// Damage that is done to growing plants is separately at code/game/machinery/hydroponics at obj/item/hydroponics
-
-			reaction_mob(var/mob/living/M, var/method=TOUCH, var/volume)
-				src = null
-				if(iscarbon(M))
-					var/mob/living/carbon/C = M
-					if(!C.wear_mask) // If not wearing a mask
-						C.adjustToxLoss(2) // 4 toxic damage per application, doubled for some reason
-					if(ishuman(M))
-						var/mob/living/carbon/human/H = M
-						if(H.dna)
-							if(H.species.flags & IS_PLANT) //plantmen take a LOT of damage
-								H.adjustToxLoss(50)
-								..()
-								return
-					if(ismonkey(M))
-						var/mob/living/carbon/monkey/MO = M
-						if(MO.dna)
-							if(MO.dna.mutantrace == "plant") //plantmen monkeys (diona) take EVEN MORE damage
-								MO.adjustToxLoss(100)
-								..()
-								return
-
 		plasma
 			name = "Plasma"
 			id = "plasma"
@@ -1947,7 +1891,7 @@ datum
 
 			on_mob_life(var/mob/living/M)
 				if(!M) M = holder.my_atom
-				if (holder.has_reagent("plantbgone",45))
+				if (holder.has_reagent("atrazine",45))
 					holder.del_reagent("spore")
 				if (prob(1))
 					M << "\red Your mouth tastes funny."

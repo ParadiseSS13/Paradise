@@ -269,7 +269,7 @@
 	for(var/i = 1 to storage_slots)
 		reagents.add_reagent("lipozine",4)
 		reagents.add_reagent("ammonia",2)
-		reagents.add_reagent("plantbgone",1)
+		reagents.add_reagent("atrazine",1)
 		reagents.add_reagent("toxin",1.5)
 
 /*
