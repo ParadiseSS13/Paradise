@@ -19,7 +19,7 @@
 	var/hackedcheck = 0
 	var/list/dispensable_reagents = list("hydrogen","lithium","carbon","nitrogen","oxygen","fluorine",
 	"sodium","aluminum","silicon","phosphorus","sulfur","chlorine","potassium","iron",
-	"copper","mercury","plasma","radium","water","ethanol","sugar","sacid","tungsten","iodine","bromine","silver")
+	"copper","mercury","plasma","radium","water","ethanol","sugar","tungsten","iodine","bromine","silver")
 	var/list/hacked_reagents = list("toxin")
 	var/hack_message = "You disable the safety safeguards, enabling the \"Mad Scientist\" mode."
 	var/unhack_message = "You re-enable the safety safeguards, enabling the \"NT Standard\" mode."
@@ -282,7 +282,7 @@
 	recharge_delay = 30
 	dispensable_reagents = list()
 	var/list/special_reagents = list(list("hydrogen", "oxygen", "silicon", "phosphorus", "sulfur", "carbon", "nitrogen"),
-						 		list("lithium", "sugar", "sacid", "water", "copper", "mercury", "sodium"),
+						 		list("lithium", "sugar", "water", "copper", "mercury", "sodium"),
 								list("ethanol", "chlorine", "potassium", "aluminium","plasma", "radium", "fluorine", "iron"))
 
 /obj/machinery/chem_dispenser/constructable/New()

@@ -752,9 +752,21 @@ datum
 			description = "The organic compound commonly known as table sugar and sometimes called saccharose. This white, odorless, crystalline powder has a pleasing, sweet taste."
 			reagent_state = SOLID
 			color = "#FFFFFF" // rgb: 255, 255, 255
+			overdose_threshold = 200 // Hyperglycaemic shock
 
 			on_mob_life(var/mob/living/M as mob)
 				M.nutrition += 1*REM
+				if(prob(4))
+					M.reagents.add_reagent("epinephrine", 1.2)
+				if(prob(50))
+					M.AdjustParalysis(-1)
+					M.AdjustStunned(-1)
+					M.AdjustWeakened(-1)
+				if(current_cycle >= 90)
+					M.jitteriness += 10
+				if(volume > overdose_threshold)
+					M << "<span class = 'danger'>You pass out from hyperglycemic shock!</span>"
+					M.Paralyse(1)
 				..()
 				return
 

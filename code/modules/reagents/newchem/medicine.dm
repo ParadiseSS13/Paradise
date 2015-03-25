@@ -18,7 +18,6 @@ datum/reagent/silver_sulfadiazine/reaction_mob(var/mob/living/M as mob, var/meth
 			M.adjustFireLoss(-volume)
 			if(show_message)
 				M << "<span class='notice'>You feel your burns healing!</span>"
-			M.emote("scream")
 		if(method == INGEST)
 			M.adjustToxLoss(0.5*volume)
 			if(show_message)
@@ -254,7 +253,7 @@ datum/reagent/pen_acid/on_mob_life(var/mob/living/M as mob)
 	result_amount = 6
 
 datum/reagent/sal_acid
-	name = "Salicyclic Acid"
+	name = "Salicylic Acid"
 	id = "sal_acid"
 	description = "If you have less than 50 brute damage, there is a 50% chance to heal one unit. If overdosed it will have a 50% chance to deal 2 brute damage if the patient has less than 50 brute damage already."
 	reagent_state = LIQUID

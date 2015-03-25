@@ -592,8 +592,15 @@ datum
 			name = "Space cleaner"
 			id = "cleaner"
 			result = "cleaner"
-			required_reagents = list("ammonia" = 1, "water" = 1)
-			result_amount = 2
+			required_reagents = list("ammonia" = 1, "water" = 1, "ethanol" = 1)
+			result_amount = 3
+
+		sulfuric_acid
+			name = "Sulfuric Acid"
+			id = "sacid"
+			result = "sacid"
+			required_reagents = list("sulfur" = 1, "oxygen" = 1, "hydrogen" = 1)
+			result_amount = 3
 
 ///////Changeling Blood Test/////////////
 		changeling_test
