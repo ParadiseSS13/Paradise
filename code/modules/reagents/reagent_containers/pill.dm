@@ -113,13 +113,13 @@
 		..()
 		reagents.add_reagent("toxin", 50)
 
-/obj/item/weapon/reagent_containers/pill/cyanide
-	name = "Cyanide pill"
+/obj/item/weapon/reagent_containers/pill/initropidril
+	name = "initropidril pill"
 	desc = "Don't swallow this."
 	icon_state = "pill5"
 	New()
 		..()
-		reagents.add_reagent("cyanide", 50)
+		reagents.add_reagent("initropidril", 50)
 
 /obj/item/weapon/reagent_containers/pill/adminordrazine
 	name = "Adminordrazine pill"
@@ -228,3 +228,27 @@
 		reagents.add_reagent("impedrezene", 10)
 		reagents.add_reagent("synaptizine", 5)
 		reagents.add_reagent("hyperzine", 5)
+
+/obj/item/weapon/reagent_containers/pill/charcoal
+	name = "Chacoal pill"
+	desc = "Neutralizes many common toxins."
+	icon_state = "pill17"
+	New()
+		..()
+		reagents.add_reagent("charcoal", 25)
+
+/obj/item/weapon/reagent_containers/pill/salicylic
+	name = "Salicylic Acid pill"
+	desc = "Commonly used to treat moderate pain and fevers."
+	icon_state = "pill4"
+	New()
+		..()
+		reagents.add_reagent("sal_acid", 20)
+
+/obj/item/weapon/reagent_containers/pill/salbutamol
+	name = "Salbutamol pill"
+	desc = "Used to treat respiratory distress."
+	icon_state = "pill8"
+	New()
+		..()
+		reagents.add_reagent("salbutamol", 20)

@@ -90,7 +90,7 @@
 
 /obj/item/weapon/reagent_containers/hypospray/autoinjector/New()
 	..()
-	reagents.add_reagent("inaprovaline", 10)
+	reagents.add_reagent("epinephrine", 10)
 	update_icon()
 	return
 
@@ -119,7 +119,7 @@
 
 /obj/item/weapon/reagent_containers/hypospray/autoinjector/leporazine/New()
 	..()
-	reagents.remove_reagent("inaprovaline", 10)
+	reagents.remove_reagent("epinephrine", 10)
 	reagents.add_reagent("leporazine", 9)
 	reagents.add_reagent("lexorin", 1)
 	update_icon()
@@ -132,7 +132,7 @@
 
 /obj/item/weapon/reagent_containers/hypospray/autoinjector/stimpack/New()
 	..()
-	reagents.remove_reagent("inaprovaline", 10)
+	reagents.remove_reagent("epinephrine", 10)
 	reagents.add_reagent("hyperzine", 9)
 	reagents.add_reagent("lexorin", 1)
 	update_icon()
