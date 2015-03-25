@@ -34,9 +34,6 @@
 	if(control_disabled || stat)
 		return
 
-	if(alienAI)
-		return
-
 	var/list/modifiers = params2list(params)
 	if(modifiers["shift"] && modifiers["ctrl"])
 		CtrlShiftClickOn(A)

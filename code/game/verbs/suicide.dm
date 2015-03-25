@@ -19,9 +19,6 @@
 	var/confirm = alert("Are you sure you want to commit suicide?", "Confirm Suicide", "Yes", "No")
 
 	if(confirm == "Yes")
-		if(!canmove || restrained())	//just while I finish up the new 'fun' suiciding verb. This is to prevent metagaming via suicide
-			src << "You can't commit suicide whilst restrained! ((You can type Ghost instead however.))"
-			return
 		suiciding = 1
 		var/obj/item/held_item = get_active_hand()
 		if(held_item)
@@ -61,9 +58,9 @@
 				//If something went wrong, just do normal oxyloss
 				if(!(damagetype | BRUTELOSS) && !(damagetype | FIRELOSS) && !(damagetype | TOXLOSS) && !(damagetype | OXYLOSS))
 					adjustOxyLoss(max(175 - getToxLoss() - getFireLoss() - getBruteLoss() - getOxyLoss(), 0))
-				
-				var/datum/organ/external/affected = get_organ("head")				
-				affected.add_autopsy_data("Suicide by [held_item]", 175) 
+
+				var/datum/organ/external/affected = get_organ("head")
+				affected.add_autopsy_data("Suicide by [held_item]", 175)
 
 				updatehealth()
 				return
@@ -74,10 +71,10 @@
 							"\red <b>[src] is twisting \his own neck! It looks like \he's trying to commit suicide.</b>", \
 							"\red <b>[src] is holding \his breath! It looks like \he's trying to commit suicide.</b>")
 		adjustOxyLoss(max(175 - getToxLoss() - getFireLoss() - getBruteLoss() - getOxyLoss(), 0))
-		
-		var/datum/organ/external/affected = get_organ("head")				
-		affected.add_autopsy_data("Suicide", 175) 
-		
+
+		var/datum/organ/external/affected = get_organ("head")
+		affected.add_autopsy_data("Suicide", 175)
+
 		updatehealth()
 
 /mob/living/carbon/brain/verb/suicide()

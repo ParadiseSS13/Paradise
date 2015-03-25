@@ -2,6 +2,8 @@
 	var/tally = 0
 	if(status_flags & GOTTAGOFAST)
 		tally -= 1
+	if(status_flags & GOTTAGOREALLYFAST)
+		tally -= 2
 
 	if(species && species.flags & IS_SLOW)
 		tally = 5
@@ -61,6 +63,8 @@
 		tally += (283.222 - bodytemperature) / 10 * 1.75
 
 	if(RUN in mutations)
+		tally = 0
+	if(status_flags & IGNORESLOWDOWN) // make sure this is always at the end so we don't have ignore slowdown getting ignored itself
 		tally = 0
 
 	return (tally+config.human_delay)

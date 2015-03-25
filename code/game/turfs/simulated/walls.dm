@@ -100,13 +100,13 @@
 		update_icon()
 
 	return
-
+/*
 /turf/simulated/wall/adjacent_fire_act(turf/simulated/floor/adj_turf, datum/gas_mixture/adj_air, adj_temp, adj_volume)
 	if(adj_temp > max_temperature)
 		take_damage(rand(10, 20) * (adj_temp / max_temperature))
 
 	return ..()
-
+*/
 /turf/simulated/wall/proc/dismantle_wall(devastated=0, explode=0)
 	if(istype(src,/turf/simulated/wall/r_wall))
 		if(!devastated)
@@ -163,7 +163,7 @@
 			src.ChangeTurf(/turf/space)
 			return
 		if(2.0)
-			if(prob(75))
+			if(prob(50))
 				take_damage(rand(150, 250))
 			else
 				dismantle_wall(1,1)
@@ -175,7 +175,7 @@
 /turf/simulated/wall/blob_act()
 	take_damage(rand(75, 125))
 	return
-	
+
 /turf/simulated/wall/mech_melee_attack(obj/mecha/M)
 	if(M.damtype == "brute")
 		playsound(src, 'sound/weapons/punch4.ogg', 50, 1)
@@ -185,7 +185,7 @@
 			dismantle_wall(1)
 			M.occupant_message("<span class='warning'>You smash through the wall.</span>")
 			visible_message("<span class='warning'>[src.name] smashes through the wall!</span>")
-			playsound(src, 'sound/effects/meteorimpact.ogg', 100, 1)	
+			playsound(src, 'sound/effects/meteorimpact.ogg', 100, 1)
 
 // Wall-rot effect, a nasty fungus that destroys walls.
 /turf/simulated/wall/proc/rot()
@@ -459,8 +459,8 @@
 	else if(istype(W,/obj/item/newscaster_frame))
 		var/obj/item/newscaster_frame/AH = W
 		AH.try_build(src)
-		return 1		
-		
+		return 1
+
 	else if(istype(W,/obj/item/alarm_frame))
 		var/obj/item/alarm_frame/AH = W
 		AH.try_build(src)

@@ -1,3 +1,7 @@
+ #define SAWN_INTACT  0
+ #define SAWN_OFF     1
+ #define SAWN_SAWING -1
+
 /obj/item/weapon/gun
 	name = "gun"
 	desc = "Its a gun. It's pretty terrible, though."
@@ -23,6 +27,7 @@
 	var/can_suppress = 0
 	var/clumsy_check = 1
 	var/sawn_desc = null
+	var/sawn_state = SAWN_INTACT
 	var/obj/item/ammo_casing/chambered = null // The round (not bullet) that is in the chamber. THIS MISPLACED ITEM BROUGHT TO YOU BY HACKY BUCKSHOT.
 	var/tmp/list/mob/living/target //List of who yer targeting.
 	var/tmp/lock_time = -100

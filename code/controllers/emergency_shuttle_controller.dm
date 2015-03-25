@@ -18,7 +18,7 @@ var/global/datum/emergency_shuttle_controller/emergency_shuttle
 
 	var/deny_shuttle = 0	//allows admins to prevent the shuttle from being called
 	var/departed = 0		//if the shuttle has left the station at least once
-	
+
 	var/datum/announcement/priority/emergency_shuttle_docked = new(0, new_sound = sound('sound/AI/shuttledock.ogg'))
 	var/datum/announcement/priority/emergency_shuttle_called = new(0, new_sound = sound('sound/AI/shuttlecalled.ogg'))
 	var/datum/announcement/priority/emergency_shuttle_recalled = new(0, new_sound = sound('sound/AI/shuttlerecalled.ogg'))
@@ -34,7 +34,7 @@ var/global/datum/emergency_shuttle_controller/emergency_shuttle
 				if(is_stranded())
 					priority_announcement.Announce("Hostile environment detected. Departure has been postponed indefinitely pending conflict resolution.")
 					wait_for_launch = 0
-					return			
+					return
 				//launch the pods!
 				for (var/datum/shuttle/ferry/escape_pod/pod in escape_pods)
 					if (!pod.arming_controller || pod.arming_controller.armed)
@@ -57,10 +57,9 @@ var/global/datum/emergency_shuttle_controller/emergency_shuttle
 				priority_announcement.Announce("The scheduled Crew Transfer Shuttle has docked with the station. It will depart in approximately [round(emergency_shuttle.estimate_launch_time()/60,1)] minutes.")
 
 		//arm the escape pods
-		if (evac)
-			for (var/datum/shuttle/ferry/escape_pod/pod in escape_pods)
-				if (pod.arming_controller)
-					pod.arming_controller.arm()
+		for (var/datum/shuttle/ferry/escape_pod/pod in escape_pods)
+			if (pod.arming_controller)
+				pod.arming_controller.arm()
 
 //begins the launch countdown and sets the amount of time left until launch
 /datum/emergency_shuttle_controller/proc/set_launch_countdown(var/seconds)
@@ -186,7 +185,7 @@ var/global/datum/emergency_shuttle_controller/emergency_shuttle
 
 /datum/emergency_shuttle_controller/proc/has_eta()
 	return (wait_for_launch || shuttle.moving_status != SHUTTLE_IDLE && shuttle.moving_status != SHUTTLE_STRANDED)
-	
+
 /datum/emergency_shuttle_controller/proc/is_stranded()
 	return (shuttle.moving_status == SHUTTLE_STRANDED)
 
@@ -224,10 +223,10 @@ var/global/datum/emergency_shuttle_controller/emergency_shuttle
 
 			var/timeleft = emergency_shuttle.estimate_launch_time()
 			return "ETD-[(timeleft / 60) % 60]:[add_zero(num2text(timeleft % 60), 2)]"
-			
+
 		if (is_stranded())
 			return "ETA-ERR"
-				
+
 	return ""
 /*
 	Some slapped-together star effects for maximum spess immershuns. Basically consists of a

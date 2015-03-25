@@ -21,7 +21,7 @@
 		var/obj/vent = pick_n_take(vents)
 
 		var/list/gunk = list("water","carbon","flour","radium","toxin","cleaner","nutriment","condensedcapsaicin","psilocybin","lube",
-							"plantbgone","banana","anti_toxin","space_drugs","hyperzine","holywater","ethanol","hot_coco","pacid",
+							"atrazine","banana","anti_toxin","space_drugs","hyperzine","holywater","ethanol","hot_coco","pacid",
 							"blood","stoxin","fluorine","ryetalyn","mutagen","oxycodone","fuel","cryptobiolin",
 							"impedrezene","mindbreaker","nanites","lipozine","frostoil","doctorsdelight","beepskysmash",
 							"tricordrazine", "amatoxin", "adminordrazine", "neurotoxin", "zombiepowder", "synaptizine")

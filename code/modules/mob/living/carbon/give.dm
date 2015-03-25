@@ -2,6 +2,9 @@
 	set category = "IC"
 	set name = "Give"
 
+	if(!iscarbon(target)) //something is bypassing the give arguments, no clue what, adding a sanity check JIC
+		usr << "<span class='danger'>Wait a second... \the [target] HAS NO HANDS! AHH!</span>" //cheesy messages ftw
+		return
 	if(target.stat == 2 || usr.stat == 2|| target.client == null)
 		return
 	var/obj/item/I
@@ -48,8 +51,8 @@
 				I.add_fingerprint(target)
 				src.update_inv_l_hand()
 				src.update_inv_r_hand()
-				usr.update_inv_l_hand()
-				usr.update_inv_r_hand()
+				target.update_inv_l_hand()
+				target.update_inv_r_hand()
 				target.visible_message("<span class='notice'> [usr.name] handed \the [I.name] to [target.name].</span>")
 			if("No")
 				target.visible_message("<span class='warning'> [usr.name] tried to hand [I.name] to [target.name] but [target.name] didn't want it.</span>")

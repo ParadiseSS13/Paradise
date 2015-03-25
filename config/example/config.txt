@@ -21,9 +21,6 @@ JOBS_HAVE_MINIMAL_ACCESS
 ## See USE_AGE_RESTRICTION_FOR_JOBS for more information
 #USE_AGE_RESTRICTION_FOR_ANTAGS
 
-## Unhash this to use recursive explosions, keep it hashed to use circle explosions. Recursive explosions react to walls, airlocks and blast doors, making them look a lot cooler than the boring old circular explosions. They require more CPU and are (as of january 2013) experimental
-#USE_RECURSIVE_EXPLOSIONS
-
 ## log OOC channel
 LOG_OOC
 

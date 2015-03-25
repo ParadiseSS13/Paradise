@@ -214,9 +214,6 @@
 		stat("Spacepod Integrity", "[!S.health ? "0" : "[(S.health / initial(S.health)) * 100]"]%")
 
 /mob/living/carbon/human/ex_act(severity)
-	if(!blinded)
-		flick("flash", flash)
-
 	var/shielded = 0
 	var/b_loss = null
 	var/f_loss = null
@@ -235,7 +232,7 @@
 
 				while(limbs_affected != 0)
 					processing_dismember = pick(organs)
-					if(processing_dismember.name != "chest" && processing_dismember.name != "groin")
+					if(processing_dismember.name != "chest" && processing_dismember.name != "head")
 						processing_dismember.droplimb(1,0,0,pick(0,1,2))
 						limbs_affected -= 1
 
@@ -259,7 +256,7 @@
 
 				while(limbs_affected != 0)
 					processing_dismember = pick(organs)
-					if(processing_dismember.name != "chest" && processing_dismember.name != "groin" && processing_dismember.name != "head")
+					if(processing_dismember.name != "chest" && processing_dismember.name != "head")
 						processing_dismember.droplimb(1,0,0,pick(0,2))
 						limbs_affected -= 1
 
@@ -269,7 +266,7 @@
 
 				while(limbs_affected != 0)
 					processing_dismember = pick(organs)
-					if(processing_dismember.name != "chest" && processing_dismember.name != "groin")
+					if(processing_dismember.name != "chest" && processing_dismember.name != "head")
 						processing_dismember.droplimb(1,0,0,pick(0,2))
 						limbs_affected -= 1
 
@@ -291,7 +288,7 @@
 
 				while(limbs_affected != 0)
 					processing_dismember = pick(organs)
-					if(processing_dismember.name != "chest" && processing_dismember.name != "groin" && processing_dismember.name != "head")
+					if(processing_dismember.name != "chest" && processing_dismember.name != "head")
 						processing_dismember.droplimb(1)
 						limbs_affected -= 1
 
@@ -302,23 +299,15 @@
 				Paralyse(10)
 
 	var/update = 0
-
-	// focus most of the blast on one organ
-	var/datum/organ/external/take_blast = pick(organs)
-	update |= take_blast.take_damage(b_loss * 0.9, f_loss * 0.9, used_weapon = "Explosive blast")
-
-	// distribute the remaining 10% on all limbs equally
-	b_loss *= 0.1
-	f_loss *= 0.1
-
 	var/weapon_message = "Explosive Blast"
-
 	for(var/datum/organ/external/temp in organs)
 		switch(temp.name)
 			if("head")
 				update |= temp.take_damage(b_loss * 0.2, f_loss * 0.2, used_weapon = weapon_message)
 			if("chest")
 				update |= temp.take_damage(b_loss * 0.4, f_loss * 0.4, used_weapon = weapon_message)
+			if("groin")
+				update |= temp.take_damage(b_loss * 0.1, f_loss * 0.1, used_weapon = weapon_message)
 			if("l_arm")
 				update |= temp.take_damage(b_loss * 0.05, f_loss * 0.05, used_weapon = weapon_message)
 			if("r_arm")
@@ -328,15 +317,16 @@
 			if("r_leg")
 				update |= temp.take_damage(b_loss * 0.05, f_loss * 0.05, used_weapon = weapon_message)
 			if("r_foot")
-				update |= temp.take_damage(b_loss * 0.05, f_loss * 0.05, used_weapon = weapon_message)
+				update |= temp.take_damage(b_loss * 0.025, f_loss * 0.025, used_weapon = weapon_message)
 			if("l_foot")
-				update |= temp.take_damage(b_loss * 0.05, f_loss * 0.05, used_weapon = weapon_message)
-			if("r_arm")
-				update |= temp.take_damage(b_loss * 0.05, f_loss * 0.05, used_weapon = weapon_message)
-			if("l_arm")
-				update |= temp.take_damage(b_loss * 0.05, f_loss * 0.05, used_weapon = weapon_message)
+				update |= temp.take_damage(b_loss * 0.025, f_loss * 0.025, used_weapon = weapon_message)
+			if("r_hand")
+				update |= temp.take_damage(b_loss * 0.025, f_loss * 0.025, used_weapon = weapon_message)
+			if("l_hand")
+				update |= temp.take_damage(b_loss * 0.025, f_loss * 0.025, used_weapon = weapon_message)
 	if(update)	UpdateDamageIcon()
 
+	..()
 
 /mob/living/carbon/human/blob_act()
 	if(stat == 2)	return

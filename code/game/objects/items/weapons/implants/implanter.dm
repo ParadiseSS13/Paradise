@@ -54,7 +54,7 @@
 
 
 /obj/item/weapon/implanter/traitor
-	name = "implanter-mindslave"
+	name = "implanter (Mindslave)"
 	desc = "Divide and Conquer."
 
 	New()
@@ -64,7 +64,7 @@
 		return
 
 /obj/item/weapon/implanter/loyalty
-	name = "implanter-loyalty"
+	name = "implanter (Loyalty)"
 
 /obj/item/weapon/implanter/loyalty/New()
 	src.imp = new /obj/item/weapon/implant/loyalty( src )
@@ -73,7 +73,7 @@
 	return
 
 /obj/item/weapon/implanter/dexplosive
-	name = "implanter (DE)"
+	name = "implanter (Microbomb)"
 
 /obj/item/weapon/implanter/dexplosive/New()
 	src.imp = new /obj/item/weapon/implant/dexplosive( src )
@@ -82,7 +82,7 @@
 	return
 
 /obj/item/weapon/implanter/explosive
-	name = "implanter (E)"
+	name = "implanter (Explosive)"
 
 /obj/item/weapon/implanter/explosive/New()
 	src.imp = new /obj/item/weapon/implant/explosive( src )
@@ -91,7 +91,7 @@
 	return
 
 /obj/item/weapon/implanter/adrenalin
-	name = "implanter-adrenalin"
+	name = "implanter (Adrenaline)"
 
 /obj/item/weapon/implanter/adrenalin/New()
 	src.imp = new /obj/item/weapon/implant/adrenalin(src)
@@ -100,7 +100,7 @@
 	return
 
 /obj/item/weapon/implanter/compressed
-	name = "implanter (C)"
+	name = "implanter (Compressed)"
 	icon_state = "cimplanter1"
 
 	var/list/forbidden_types=list(
@@ -152,7 +152,7 @@
 		update()
 
 /obj/item/weapon/implanter/deadman
-	name = "implanter-deadman"
+	name = "implanter (Deadman)"
 	desc = "Switch it."
 
 	New()
@@ -162,7 +162,7 @@
 		return
 
 /obj/item/weapon/implanter/death_alarm
-	name = "implanter-death alarm"
+	name = "implanter (Death Alarm)"
 	desc = "Announces the death of the implanted person over radio"
 
 	New()
@@ -172,10 +172,28 @@
 		return
 
 /obj/item/weapon/implanter/emp
-	name = "implanter-EMP"
+	name = "implanter (EMP)"
 
 	New()
 		src.imp = new /obj/item/weapon/implant/emp(src)
+		..()
+		update()
+		return
+
+/obj/item/weapon/implanter/freedom
+	name = "implanter (Freedom)"
+
+	New()
+		src.imp = new /obj/item/weapon/implant/freedom(src)
+		..()
+		update()
+		return
+
+/obj/item/weapon/implanter/uplink
+	name = "implanter (Uplink)"
+
+	New()
+		src.imp = new /obj/item/weapon/implant/uplink(src)
 		..()
 		update()
 		return

@@ -12,6 +12,9 @@
 	slot_flags = SLOT_BACK
 	w_class = 4.0
 
+	emp_act()
+		return
+
 	attack_self(mob/living/user as mob)
 		switch(mode)
 			if(2)
@@ -20,21 +23,18 @@
 				fire_sound = 'sound/weapons/Taser.ogg'
 				user << "\red [src.name] is now set to stun."
 				projectile_type = "/obj/item/projectile/energy/electrode"
-				fire_delay = 20
 			if(0)
 				mode = 1
 				charge_cost = 100
 				fire_sound = 'sound/weapons/Laser.ogg'
 				user << "\red [src.name] is now set to kill."
 				projectile_type = "/obj/item/projectile/beam"
-				fire_delay = 0
 			if(1)
 				mode = 2
 				charge_cost = 200
 				fire_sound = 'sound/weapons/pulse.ogg'
 				user << "\red [src.name] is now set to DESTROY."
 				projectile_type = "/obj/item/projectile/beam/pulse"
-				fire_delay = 0
 		return
 
 	isHandgun()

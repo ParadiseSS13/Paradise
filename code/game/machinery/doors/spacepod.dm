@@ -4,7 +4,6 @@
 	icon = 'icons/effects/beam.dmi'
 	icon_state = "n_beam"
 	var/id = 1.0
-	explosion_resistance = 25
 	density = 0
 	anchored = 1
 

@@ -102,6 +102,11 @@ turf/simulated/hotspot_expose(exposed_temperature, exposed_volume, soh)
 		//black fire, go atmos!
 		l_color = "#010000"
 
+/obj/fire/Crossed(mob/living/L)
+	..()
+	if(isliving(L))
+		L.fire_act()
+
 /obj/fire/process()
 	. = 1
 
@@ -212,6 +217,10 @@ turf/simulated/hotspot_expose(exposed_temperature, exposed_volume, soh)
 	SetLuminosity(3)
 	firelevel = fl
 	air_master.active_hotspots.Add(src)
+
+	for(var/mob/living/L in loc)
+		L.fire_act()
+
 
 
 /obj/fire/Del()

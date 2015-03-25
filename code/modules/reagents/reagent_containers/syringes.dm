@@ -507,3 +507,21 @@
 		reagents.add_reagent("anti_toxin", 8)
 		mode = SYRINGE_INJECT
 		update_icon()
+
+/obj/item/weapon/reagent_containers/syringe/charcoal
+	name = "Syringe (charcoal)"
+	desc = "Contains charcoal - used to treat toxins and damage from toxins."
+	New()
+		..()
+		reagents.add_reagent("charcoal", 15)
+		mode = SYRINGE_INJECT
+		update_icon()
+
+/obj/item/weapon/reagent_containers/syringe/insulin
+	name = "Syringe (insulin)"
+	desc = "Contains insulin - used to treat diabetes."
+	New()
+		..()
+		reagents.add_reagent("insulin", 15)
+		mode = SYRINGE_INJECT
+		update_icon()

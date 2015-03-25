@@ -58,8 +58,8 @@
 	req_tech = list("materials" = 5, "magnets" = 5, "engineering" = 4)
 	build_type = PROTOLATHE
 	materials = list("$metal" = 300, "$glass" = 400, "$plasma" = 250, "$uranium" = 1000)
-	build_path = /obj/item/clothing/glasses/meson
-	category = list("Mining")	
+	build_path = /obj/item/clothing/glasses/meson/night
+	category = list("Equipment")	
 	
 /datum/design/mesons
 	name = "Optical Meson Scanners"

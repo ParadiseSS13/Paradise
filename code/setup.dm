@@ -516,6 +516,8 @@ var/list/global_mutations = list() // list of hidden mutation things
 #define LEAPING		16
 #define PASSEMOTES	32      //Mob has a cortical borer or holders inside of it that need to see emotes.
 #define GOTTAGOFAST	64
+#define GOTTAGOREALLYFAST	128
+#define IGNORESLOWDOWN	256
 #define GODMODE		4096
 #define FAKEDEATH	8192	//Replaces stuff like changeling.changeling_fakedeath
 #define DISFIGURED	16384	//I'll probably move this elsewhere if I ever get wround to writing a bitflag mob-damage system
@@ -725,8 +727,9 @@ var/list/TAGGERLOCATIONS = list("Disposals",
 #define SOUND_AMBIENCE	4
 #define SOUND_LOBBY		8
 #define SOUND_STREAMING	16
+#define SOUND_HEARTBEAT	32
 
-#define SOUND_DEFAULT (SOUND_ADMINHELP|SOUND_MIDI|SOUND_AMBIENCE|SOUND_LOBBY|SOUND_STREAMING)
+#define SOUND_DEFAULT (SOUND_ADMINHELP|SOUND_MIDI|SOUND_AMBIENCE|SOUND_LOBBY|SOUND_STREAMING|SOUND_HEARTBEAT)
 #define TOGGLES_DEFAULT (CHAT_OOC|CHAT_DEAD|CHAT_GHOSTEARS|CHAT_GHOSTSIGHT|CHAT_PRAYER|CHAT_RADIO|CHAT_ATTACKLOGS|CHAT_LOOC)
 
 #define BE_TRAITOR		1
@@ -952,6 +955,7 @@ var/list/hit_appends = list("-OOF", "-ACK", "-UGH", "-HRNK", "-HURGH", "-GLORF")
 #define	AUTOLATHE	4	//Uses glass/metal only.
 #define CRAFTLATHE	8	//Uses fuck if I know. For use eventually.
 #define MECHFAB		16 //Remember, objects utilising this flag should have construction_time and construction_cost vars.
+#define PODFAB		32 //Used by the spacepod part fabricator. Same idea as the mechfab
 //Note: More then one of these can be added to a design but imprinter and lathe designs are incompatable.
 
 // Suit sensor levels

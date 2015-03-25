@@ -287,11 +287,11 @@ emp_act
 
 		switch(hit_area)
 			if("head")//Harder to score a stun but if you do it lasts a bit longer
-				if(prob(I.force))
-					apply_effect(5, WEAKEN, armor)
-					confused += 15
+				if(stat == CONSCIOUS && prob(I.force) && armor < 50)
 					visible_message("<span class='danger'>[src] has been knocked down!</span>", \
 									"<span class='userdanger'>[src] has been knocked down!</span>")
+					apply_effect(5, WEAKEN, armor)
+					confused += 15
 					if(src != user && I.damtype == BRUTE)
 						ticker.mode.remove_revolutionary(mind)
 
@@ -307,9 +307,10 @@ emp_act
 						update_inv_glasses(0)
 
 			if("chest")//Easier to score a stun but lasts less time
-				if(prob((I.force + 10)))
+				if(stat == CONSCIOUS && I.force && prob(I.force + 10))
+					visible_message("<span class='danger'>[src] has been knocked down!</span>", \
+									"<span class='userdanger'>[src] has been knocked down!</span>")
 					apply_effect(5, WEAKEN, armor)
-					visible_message("\red <B>[src] has been knocked down!</B>")
 
 				if(bloody)
 					bloody_body(src)

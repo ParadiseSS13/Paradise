@@ -17,6 +17,7 @@ var/global/totaltribbles = 0   //global variable so it updates for all tribbles,
 	maxHealth = 10
 	health = 10
 	meat_type = /obj/item/stack/sheet/fur
+	meat_amount = 1
 	response_help  = "pets"
 	response_disarm = "gently pushes aside"
 	response_harm   = "whacks"

@@ -56,6 +56,9 @@
 		use_me = 1 //If it can move, let it emote
 	else							canmove = 0
 	return canmove
-	
+
+/mob/living/carbon/brain/ex_act() //you cant blow up brainmobs because it makes transfer_to() freak out when borgs blow up.
+	return
+
 /mob/living/carbon/brain/binarycheck()
 	return istype(loc, /obj/item/device/mmi/posibrain)

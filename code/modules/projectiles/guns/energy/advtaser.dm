@@ -11,7 +11,7 @@
 	charge_cost = 2000
 	modifystate = "advtaserstun"
 	can_flashlight = 1
-	fire_delay = 20
+	fire_delay = 15
 
 	var/mode = 0 //0 = stun, 1 = disable
 
@@ -33,7 +33,7 @@
 				user << "\red [src.name] is now set to stun."
 				projectile_type = "/obj/item/projectile/energy/electrode"
 				modifystate = "advtaserstun"
-				fire_delay = 20
+				fire_delay = 15
 		update_icon()
 		if(user.l_hand == src)
 			user.update_inv_l_hand()

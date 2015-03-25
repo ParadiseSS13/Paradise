@@ -33,6 +33,11 @@
 /mob/living/proc/InCritical()
 	return (src.health < 0 && src.health > -95.0 && stat == UNCONSCIOUS)
 
+/mob/living/ex_act(severity)
+	..()
+	if(client && !eye_blind)
+		flick("flash", src.flash)
+
 /mob/living/proc/updatehealth()
 	if(status_flags & GODMODE)
 		health = 100
@@ -331,6 +336,7 @@
 	if(iscarbon(src))
 		var/mob/living/carbon/C = src
 		C.handcuffed = initial(C.handcuffed)
+		C.heart_attack = 0
 
 		// restore all of the human's blood and reset their shock stage
 		if(ishuman(src))
