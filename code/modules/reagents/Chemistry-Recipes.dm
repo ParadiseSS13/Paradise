@@ -115,13 +115,6 @@ datum
 			required_reagents = list("ethanol" = 1, "tramadol" = 1, "plasma" = 1)
 			result_amount = 1
 
-		//cyanide
-		//	name = "Cyanide"
-		//	id = "cyanide"
-		//	result = "cyanide"
-		//	required_reagents = list("hydrogen" = 1, "carbon" = 1, "nitrogen" = 1)
-		//	result_amount = 1
-
 		thermite
 			name = "Thermite"
 			id = "thermite"
