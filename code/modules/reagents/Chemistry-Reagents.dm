@@ -526,16 +526,30 @@ datum
 						ticker.mode.remove_all_cult_icons_from_client(M.client)  // fixes the deconverted's own client not removing their mob's cult icon
 						for(var/mob/O in viewers(M, null))
 							O.show_message(text("\blue []'s eyes blink and become clearer.", M), 1) // So observers know it worked.
-					// Vamps react to this like acid
-					if(((M.mind in ticker.mode.vampires) || M.mind.vampire) && (!(VAMP_FULL in M.mind.vampire.powers)) && prob(10))
-						if(!M) M = holder.my_atom
-						M.adjustToxLoss(1*REM)
-						M.take_organ_damage(0, 1*REM)
+					// Vampires who ingest holy water combust if it's in their system for long enough.
+					if(((M.mind in ticker.mode.vampires) || M.mind.vampire) && (!(VAMP_FULL in M.mind.vampire.powers)) && prob(80))
+						data++
+						switch(data)
+							if(1 to 3)
+								M << "<span class = 'warning'>Something sizzles in your veins!</span>"
+								M.mind.vampire.nullified = max(5, M.mind.vampire.nullified + 2)
+							if(4 to 10)
+								M << "<span class = 'danger'>You feel an intense burning inside of you!</span>"
+								M.adjustFireLoss(1)
+								M.mind.vampire.nullified = max(5, M.mind.vampire.nullified + 2)
+							if(11 to INFINITY)
+								M << "<span class = 'danger'>You suddenly ignite in a holy fire!</span>"
+								for(var/mob/O in viewers(M, null))
+									O.show_message(text("<span class = 'danger'>[] suddenly bursts into flames!<span>", M), 1)
+								M.fire_stacks = min(5,M.fire_stacks + 3)
+								M.IgniteMob()			//Only problem with igniting people is currently the commonly availible fire suits make you immune to being on fire
+								M.adjustFireLoss(3)		//Hence the other damages... ain't I a bastard?
+								M.mind.vampire.nullified = max(5, M.mind.vampire.nullified + 2)
 				holder.remove_reagent(src.id, 10 * REAGENTS_METABOLISM) //high metabolism to prevent extended uncult rolls.
 
 
-			reaction_mob(var/mob/living/M, var/method=TOUCH, var/volume)//Splashing people with water can help put them out!
-				// Vamps react to this like acid
+			reaction_mob(var/mob/living/M, var/method=TOUCH, var/volume)
+				// Vampires have their powers weakened by holy water applied to the skin.
 				if(ishuman(M))
 					if((M.mind in ticker.mode.vampires))
 						var/mob/living/carbon/human/H=M
@@ -543,22 +557,12 @@ datum
 							if(H.wear_mask)
 								H << "\red Your mask protects you from the holy water!"
 								return
-							if(H.head)
+							else if(H.head)
 								H << "\red Your helmet protects you from the holy water!"
 								return
-							if(!M.unacidable)
-								if(prob(15) && volume >= 30)
-									var/datum/organ/external/affecting = H.get_organ("head")
-									if(affecting)
-										if(affecting.take_damage(25, 0))
-											H.UpdateDamageIcon()
-										H.status_flags |= DISFIGURED
-										H.emote("scream")
-								else
-									M.take_organ_damage(min(15, volume * 2)) // uses min() and volume to make sure they aren't being sprayed in trace amounts (1 unit != insta rape) -- Doohl
-						else
-							if(!M.unacidable)
-								M.take_organ_damage(min(15, volume * 2))
+							else
+								M << "<span class='warning'>Something holy interferes with your powers!</span>"
+								M.mind.vampire.nullified = max(5, M.mind.vampire.nullified + 2)
 				return
 
 		serotrotium
@@ -1395,27 +1399,6 @@ datum
 					holder.remove_reagent("inaprovaline", 2*REM)
 				M.adjustToxLoss(3*REM)
 				..()
-				return
-			reaction_obj(var/obj/O, var/volume)
-				src = null
-				/*if(istype(O,/obj/item/weapon/reagent_containers/food/snacks/egg/slime))
-					var/obj/item/weapon/reagent_containers/food/snacks/egg/slime/egg = O
-					if (egg.grown)
-						egg.Hatch()*/
-				if((!O) || (!volume))	return 0
-				var/turf/the_turf = get_turf(O)
-				var/datum/gas_mixture/napalm = new
-				var/datum/gas/volatile_fuel/fuel = new
-				fuel.moles = volume
-				napalm.trace_gases += fuel
-				the_turf.assume_air(napalm)
-			reaction_turf(var/turf/T, var/volume)
-				src = null
-				var/datum/gas_mixture/napalm = new
-				var/datum/gas/volatile_fuel/fuel = new
-				fuel.moles = volume
-				napalm.trace_gases += fuel
-				T.assume_air(napalm)
 				return
 			reaction_mob(var/mob/living/M, var/method=TOUCH, var/volume)//Splashing people with plasma is stronger than fuel!
 				if(!istype(M, /mob/living))

@@ -21,7 +21,7 @@
 		return
 	attack(mob/M as mob, mob/user as mob, def_zone)
 		if(M == user)
-			M << "\blue You [apply_type] [src]."
+			M << "\blue You [apply_method] [src]."
 			M.unEquip(src) //icon update
 			if(reagents.total_volume)
 				reagents.reaction(M, apply_type)
