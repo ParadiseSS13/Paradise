@@ -162,7 +162,7 @@
 	volume = 20
 	New()
 		..()
-		reagents.add_reagent("chefspecial", 20)
+		reagents.add_reagent("amantin", 20)
 
 //Food packs. To easily apply deadly toxi... delicious sauces to your food!
 /obj/item/weapon/reagent_containers/food/condiment/pack
