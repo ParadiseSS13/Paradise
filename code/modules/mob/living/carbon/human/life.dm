@@ -113,6 +113,8 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 
 		handle_heartbeat()
 
+		handle_heartattack()
+
 	if(stat == DEAD)
 		handle_decay()
 
@@ -812,7 +814,7 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 
 	proc/handle_chemicals_in_body()
 
-		if(reagents && !(species.flags & IS_SYNTHETIC)) //Synths don't process reagents.
+		if(reagents) //Synths don't process reagents. // fuck you they do now - Iamgoofball
 			var/alien = 0
 			if(species && species.reagent_tag)
 				alien = species.reagent_tag
@@ -1611,7 +1613,7 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 				break
 		for(var/datum/reagent/R in reagents.reagent_list) //Conditional heart-stoppage
 			if(R.id in cheartstopper)
-				if(R.volume >= R.overdose)
+				if(R.volume >= R.overdose_threshold)
 					temp = PULSE_NONE
 					break
 
@@ -1897,6 +1899,16 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 	if(..())
 		speech_problem_flag = 1
 	return stuttering
+
+
+/mob/living/carbon/human/proc/handle_heartattack()
+	if(!heart_attack)
+		return
+	else
+		losebreath += 5
+		adjustOxyLoss(5)
+		adjustBrainLoss(10)
+	return
 
 
 // Need this in species.

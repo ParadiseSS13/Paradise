@@ -92,6 +92,23 @@ REAGENT SCANNER
 					M.invisibility = INVISIBILITY_LEVEL_TWO
 
 
+/proc/chemscan(var/mob/living/user, var/mob/living/M)
+	if(ishuman(M))
+		var/mob/living/carbon/human/H = M
+		if(H.reagents)
+			if(H.reagents.reagent_list.len)
+				user.show_message("<span class='notice'>Subject contains the following reagents:</span>")
+				for(var/datum/reagent/R in H.reagents.reagent_list)
+					user.show_message("<span class='notice'>[R.volume]u of [R.name][R.overdosed == 1 ? "</span> - <span class = 'boldannounce'>OVERDOSING</span>" : ".</span>"]")
+			else
+				user.show_message("<span class = 'notice'>Subject contains no reagents.</span>")
+			if(H.reagents.addiction_list.len)
+				user.show_message("<span class='danger'>Subject is addicted to the following reagents:</span>")
+				for(var/datum/reagent/R in H.reagents.addiction_list)
+					user.show_message("<span class='danger'>[R.name]</span>")
+			else
+				user.show_message("<span class='notice'>Subject is not addicted to any reagents.</span>")
+
 /obj/item/device/healthanalyzer
 	name = "Health Analyzer"
 	icon_state = "health"
@@ -172,12 +189,9 @@ REAGENT SCANNER
 		OX = fake_oxy > 50 ? 		"\red Severe oxygen deprivation detected\blue" 	: 	"Subject bloodstream oxygen level normal"
 	user.show_message("[OX] | [TX] | [BU] | [BR]")
 	if (istype(M, /mob/living/carbon))
-		if(M:reagents.total_volume > 0 && upgraded)
-			user.show_message("\blue Reagents detected in subject's blood:")
-			for(var/A in M.reagents.reagent_list)
-				var/datum/reagent/R = A
-				user.show_message("\t \blue [M.reagents.get_reagent_amount(R.id)]u [R.name]")
-		if(M:virus2.len)
+		if(upgraded)
+			chemscan(user, M)
+		if(M:virus2.len) // WHAT IS TYPECASTING
 			var/mob/living/carbon/C = M
 			for (var/ID in C.virus2)
 				if (ID in virusDB)

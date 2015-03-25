@@ -14,7 +14,9 @@ datum
 		var/result_amount = 0
 		var/secondary = 0 // set to nonzero if secondary reaction
 		var/list/secondary_results = list()		//additional reagents produced by the reaction
-		var/requires_heating = 0
+		var/required_temp = 0
+		var/mix_message = "The solution begins to bubble."
+
 
 		proc
 			on_reaction(var/datum/reagents/holder, var/created_volume)
@@ -374,39 +376,6 @@ datum
 						C.Weaken(5)
 						continue
 					C.Stun(5)
-
-		napalm
-			name = "Napalm"
-			id = "napalm"
-			result = null
-			required_reagents = list("aluminum" = 1, "plasma" = 1, "sacid" = 1 )
-			result_amount = 1
-			on_reaction(var/datum/reagents/holder, var/created_volume)
-				var/turf/simulated/T = get_turf(holder.my_atom)
-				for(var/turf/simulated/turf in range(created_volume/10,T))
-					new /obj/fire(turf)
-				holder.del_reagent("napalm")
-				return
-
-		chemsmoke
-			name = "Chemsmoke"
-			id = "chemsmoke"
-			result = null
-			required_reagents = list("potassium" = 1, "sugar" = 1, "phosphorus" = 1)
-			result_amount = null
-			secondary = 1
-			on_reaction(var/datum/reagents/holder, var/created_volume)
-				var/location = get_turf(holder.my_atom)
-				var/datum/effect/effect/system/chem_smoke_spread/S = new /datum/effect/effect/system/chem_smoke_spread
-				S.attach(location)
-				S.set_up(holder, 10, 0, location)
-				playsound(location, 'sound/effects/smoke.ogg', 50, 1, -3)
-				spawn(0)
-					S.start()
-					sleep(10)
-					S.start()
-				holder.clear_reagents()
-				return
 
 		chloralhydrate
 			name = "Chloral Hydrate"
