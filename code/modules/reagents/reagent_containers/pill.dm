@@ -162,21 +162,21 @@
 		reagents.add_reagent("tramadol", 15)
 
 
-/obj/item/weapon/reagent_containers/pill/methylphenidate
-	name = "Methylphenidate pill"
-	desc = "Improves the ability to concentrate."
+/obj/item/weapon/reagent_containers/pill/methamphetamine
+	name = "Methamphetamine pill"
+	desc = "Helps improve the ability to concentrate."
 	icon_state = "pill8"
 	New()
 		..()
-		reagents.add_reagent("methylphenidate", 15)
+		reagents.add_reagent("methamphetamine", 5)
 
-/obj/item/weapon/reagent_containers/pill/citalopram
-	name = "Citalopram pill"
-	desc = "Mild anti-depressant."
+/obj/item/weapon/reagent_containers/pill/diphenhydramine
+	name = "Diphenhydramine pill"
+	desc = "A mild tranquilizer and anti-psychotic."
 	icon_state = "pill8"
 	New()
 		..()
-		reagents.add_reagent("citalopram", 15)
+		reagents.add_reagent("diphenhydramine", 15)
 
 /obj/item/weapon/reagent_containers/pill/paroxetine
 	name = "Paroxetine pill"

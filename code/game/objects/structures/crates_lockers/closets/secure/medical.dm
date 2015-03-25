@@ -87,10 +87,10 @@
 
 /obj/item/weapon/storage/pill_bottle/psychiatrist/New()
 	..()
-	new /obj/item/weapon/reagent_containers/pill/citalopram(src)
-	new /obj/item/weapon/reagent_containers/pill/citalopram(src)
-	new /obj/item/weapon/reagent_containers/pill/methylphenidate(src)
-	new /obj/item/weapon/reagent_containers/pill/methylphenidate(src)
+	new /obj/item/weapon/reagent_containers/pill/diphenhydramine(src)
+	new /obj/item/weapon/reagent_containers/pill/diphenhydramine(src)
+	new /obj/item/weapon/reagent_containers/pill/methamphetamine(src)
+	new /obj/item/weapon/reagent_containers/pill/methamphetamine(src)
 
 /obj/structure/closet/secure_closet/psychiatrist
 	name = "Psychiatrist's Locker"
