@@ -237,8 +237,8 @@ datum/reagent/hair_dye
 	name = "hair_dye"
 	id = "hair_dye"
 	result = "hair_dye"
-	required_reagents = list("colorful_reagent" = 1, "radium" = 1, "space_drugs" = 1)
-	result_amount = 5
+	required_reagents = list("colorful_reagent" = 1, "hairgrownium" = 1)
+	result_amount = 2
 
 datum/reagent/hair_dye/reaction_mob(var/mob/living/M, var/volume)
 	if(M && ishuman(M))
@@ -290,11 +290,18 @@ datum/reagent/super_hairgrownium
 	required_reagents = list("iron" = 1, "methamphetamine " = 1, "hairgrownium" = 1)
 	result_amount = 3
 
-datum/reagent/super_hairgrownium/reaction_mob(var/mob/living/M, var/volume)
+datum/reagent/super_hairgrownium/on_mob_life(var/mob/living/M as mob)
+	if(!M) M = holder.my_atom
 	if(M && ishuman(M))
 		var/mob/living/carbon/human/H = M
 		H.h_style = "Very Long Hair"
 		H.f_style = "Very Long Beard"
 		H.update_hair()
+		if(!H.wear_mask || H.wear_mask && !istype(H.wear_mask, /obj/item/clothing/mask/fakemoustache))
+			if(H.wear_mask)
+				H.unEquip(H.wear_mask)
+			var/obj/item/clothing/mask/fakemoustache = new /obj/item/clothing/mask/fakemoustache
+			H.equip_to_slot(fakemoustache, slot_wear_mask)
+			H << "<span class = 'notice'>Hair bursts forth from your every follicle!"
 	..()
 	return

@@ -764,7 +764,11 @@ datum
 					M.AdjustWeakened(-1)
 				if(current_cycle >= 90)
 					M.jitteriness += 10
-				if(volume > overdose_threshold)
+				..()
+				return
+
+			overdose_process(var/mob/living/M as mob)
+				if(volume > 200)
 					M << "<span class = 'danger'>You pass out from hyperglycemic shock!</span>"
 					M.Paralyse(1)
 				..()
