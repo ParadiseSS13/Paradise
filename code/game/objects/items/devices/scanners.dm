@@ -103,7 +103,7 @@ REAGENT SCANNER
 			else
 				user.show_message("<span class = 'notice'>Subject contains no reagents.</span>")
 			if(H.reagents.addiction_list.len)
-				user.show_message("<span class='userdanger'>Subject is addicted to the following reagents:</span>")
+				user.show_message("<span class='danger'>Subject is addicted to the following reagents:</span>")
 				for(var/datum/reagent/R in H.reagents.addiction_list)
 					user.show_message("<span class='danger'>[R.name]</span>")
 			else
