@@ -169,6 +169,21 @@
 				return
 */
 
+	//If limb took enough damage, try to cut or tear it off
+	if(config.limbs_can_break && (brute_dam + burn_dam) >= (max_damage * config.organ_health_multiplier))
+		if((sharp || edge) && used_weapon)
+			if(istype(used_weapon,/obj/item))
+				var/obj/item/W = used_weapon
+				if(W.w_class >= 3)
+					droplimb(1)
+			return
+		if(brute >= 23 && prob(brute)) // Wooden baseball bat in both hands == 23
+			droplimb(1,0,0,2)
+			return
+		if(burn >= 20) // Most laser rifle shots.
+			droplimb(1,0,0,1)
+			return
+
 	owner.updatehealth()
 
 	var/result = update_icon()
@@ -294,12 +309,6 @@ This function completely restores a damaged organ to perfect condition.
 	if(germ_level)
 		return 1
 	return 0
-
-/datum/organ/external/proc/dismember_limb()
-	if(body_part != UPPER_TORSO && body_part != LOWER_TORSO) //as hilarious as it is, getting hit on the chest too much shouldn't effectively gib you.
-		if(config.limbs_can_break)
-			droplimb(1)
-			return
 
 /datum/organ/external/process()
 	//Dismemberment
@@ -572,14 +581,12 @@ Note that amputating the affected organ does in fact remove the infection from t
 		O.setAmputatedTree()
 
 //Handles dismemberment
-/datum/organ/external/proc/droplimb(var/override = 0,var/no_explode = 0,var/amputation=0, var/spawn_limb=0)
+/datum/organ/external/proc/droplimb(var/override = 0,var/no_explode = 0,var/amputation=0, var/disintegrate)
 	if(destspawn) return
 	if(override)
 		status |= ORGAN_DESTROYED
 	if(status & ORGAN_DESTROYED)
 		if(body_part == UPPER_TORSO)
-			return
-		if(body_part == LOWER_TORSO)
 			return
 		src.status &= ~ORGAN_BROKEN
 		src.status &= ~ORGAN_BLEEDING
@@ -610,22 +617,23 @@ Note that amputating the affected organ does in fact remove the infection from t
 
 		switch(body_part)
 			if(HEAD)
-				if(owner.species.flags & IS_SYNTHETIC)
-					if(owner.mind)
-						organ= new /obj/item/weapon/organ/head/posi(owner.loc, owner)
+				if(!disintegrate)
+					if(owner.species.flags & IS_SYNTHETIC)
+						if(owner.mind)
+							organ= new /obj/item/weapon/organ/head/posi(owner.loc, owner)
+							owner.death()
+					else if(SKELETON in owner.mutations)
+						organ= new /obj/item/weapon/skeleton/head(owner.loc)
+					else
+						organ= new /obj/item/weapon/organ/head(owner.loc, owner)
 						owner.death()
-				else if(SKELETON in owner.mutations)
-					organ= new /obj/item/weapon/skeleton/head(owner.loc)
-				else
-					organ= new /obj/item/weapon/organ/head(owner.loc, owner)
-					owner.death()
-				owner.unEquip(owner.glasses)
-				owner.unEquip(owner.head)
-				owner.unEquip(owner.l_ear)
-				owner.unEquip(owner.r_ear)
-				owner.unEquip(owner.wear_mask)
+					owner.unEquip(owner.glasses)
+					owner.unEquip(owner.head)
+					owner.unEquip(owner.l_ear)
+					owner.unEquip(owner.r_ear)
+					owner.unEquip(owner.wear_mask)
 			if(ARM_RIGHT)
-				if(!spawn_limb)
+				if(!disintegrate)
 					if(status & ORGAN_ROBOT)
 						organ = new /obj/item/robot_parts/r_arm(owner.loc)
 					else if(SKELETON in owner.mutations)
@@ -633,7 +641,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 					else
 						organ= new /obj/item/weapon/organ/r_arm(owner.loc, owner)
 			if(ARM_LEFT)
-				if(!spawn_limb)
+				if(!disintegrate)
 					if(status & ORGAN_ROBOT)
 						organ= new /obj/item/robot_parts/l_arm(owner.loc)
 					else if(SKELETON in owner.mutations)
@@ -641,7 +649,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 					else
 						organ= new /obj/item/weapon/organ/l_arm(owner.loc, owner)
 			if(LEG_RIGHT)
-				if(!spawn_limb)
+				if(!disintegrate)
 					if(status & ORGAN_ROBOT)
 						organ = new /obj/item/robot_parts/r_leg(owner.loc)
 					else if(SKELETON in owner.mutations)
@@ -649,7 +657,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 					else
 						organ= new /obj/item/weapon/organ/r_leg(owner.loc, owner)
 			if(LEG_LEFT)
-				if(!spawn_limb)
+				if(!disintegrate)
 					if(status & ORGAN_ROBOT)
 						organ = new /obj/item/robot_parts/l_leg(owner.loc)
 					else if(SKELETON in owner.mutations)
@@ -657,7 +665,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 					else
 						organ= new /obj/item/weapon/organ/l_leg(owner.loc, owner)
 			if(HAND_RIGHT)
-				if(!spawn_limb)
+				if(!disintegrate)
 					if(!(status & ORGAN_ROBOT))
 						if(SKELETON in owner.mutations)
 							organ = new /obj/item/weapon/skeleton/r_hand(owner.loc)
@@ -665,7 +673,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 							organ= new /obj/item/weapon/organ/r_hand(owner.loc, owner)
 					owner.unEquip(owner.gloves)
 			if(HAND_LEFT)
-				if(!spawn_limb)
+				if(!disintegrate)
 					if(!(status & ORGAN_ROBOT))
 						if(SKELETON in owner.mutations)
 							organ = new /obj/item/weapon/skeleton/l_hand(owner.loc)
@@ -673,7 +681,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 							organ= new /obj/item/weapon/organ/l_hand(owner.loc, owner)
 					owner.unEquip(owner.gloves)
 			if(FOOT_RIGHT)
-				if(!spawn_limb)
+				if(!disintegrate)
 					if(!(status & ORGAN_ROBOT))
 						if(SKELETON in owner.mutations)
 							organ = new /obj/item/weapon/skeleton/r_foot(owner.loc)
@@ -681,7 +689,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 							organ= new /obj/item/weapon/organ/r_foot/(owner.loc, owner)
 					owner.unEquip(owner.shoes)
 			if(FOOT_LEFT)
-				if(!spawn_limb)
+				if(!disintegrate)
 					if(!(status & ORGAN_ROBOT))
 						if(SKELETON in owner.mutations)
 							organ = new /obj/item/weapon/skeleton/l_foot(owner.loc)
@@ -703,20 +711,58 @@ Note that amputating the affected organ does in fact remove the infection from t
 			spawn(10)
 				del(spark_system)
 
-		if(organ)
-			owner.visible_message("\red [owner.name]'s [display_name] flies off in an arc.",\
-			"<span class='moderate'><b>Your [display_name] goes flying off!</b></span>",\
-			"You hear a terrible sound of ripping tendons and flesh.")
+		switch(disintegrate)
+			if(1)
+				owner.visible_message(
+					"<span class='danger'>\The [owner]'s [display_name] flashes away into ashes!</span>",\
+					"<span class='moderate'><b>Your [display_name] flashes away into ashes!</b></span>",\
+					"<span class='danger'>You hear the crackling sound of burning flesh.</span>")
+				new /obj/effect/decal/cleanable/ash(get_turf(owner))
+			if(2)
+				owner.visible_message(
+					"<span class='danger'>\The [owner]'s [display_name] explodes in a shower of gore!</span>",\
+					"<span class='moderate'><b>Your [display_name] explodes in a shower of gore!</b></span>",\
+					"<span class='danger'>You hear the sickening splatter of gore.</span>")
+				var/obj/effect/decal/cleanable/blood/gibs/gore = new(get_turf(owner))
+				if(owner.species.flesh_color)
+					gore.fleshcolor = owner.species.flesh_color
+				if(owner.species.blood_color)
+					gore.basecolor = owner.species.blood_color
+				gore.update_icon()
+				gore.throw_at(get_edge_target_turf(owner,pick(alldirs)),rand(1,3),30)
 
+				if(body_part == HEAD && owner.brain_op_stage != 4.0)
+					var/mob/living/simple_animal/borer/borer = owner.has_brain_worms()
+					if(borer)
+						borer.detatch() //Should remove borer if the brain is removed - RR
+					if(owner.species && owner.species.flags & IS_SYNTHETIC)
+						var/obj/item/device/mmi/posibrain/P = new(owner.loc)
+						P.transfer_identity(owner)
+						if(istype(P.loc,/turf))
+							P.throw_at(get_edge_target_turf(owner,pick(alldirs)),rand(1,3),30)
+					else
+						var/obj/item/brain/B = new(owner.loc)
+						B.transfer_identity(owner)
+						if(istype(B.loc,/turf))
+							B.throw_at(get_edge_target_turf(owner,pick(alldirs)),rand(1,3),30)
+
+
+
+		if(organ)
+			if(!amputation)
+				owner.visible_message(
+					"<span class='danger'>\The [owner]'s [display_name] flies off in an arc!</span>",\
+					"<span class='moderate'><b>Your [display_name] goes flying off!</b></span>",\
+					"<span class='danger'>You hear a terrible sound of ripping tendons and flesh.</span>")
 			//Throw organs around
 			var/lol = pick(cardinal)
 			step(organ,lol)
 			// OK so maybe your limb just flew off, but if it was attached to a pair of cuffs then hooray! Freedom!
 			release_restraints()
-			owner.regenerate_icons()
 
-			if(vital)
-				owner.death()
+		if(vital)
+			owner.death()
+		owner.regenerate_icons()
 		return organ
 
 /****************************************************
