@@ -51,7 +51,7 @@
 		"chlorine" =        1.5,
 		"sacid" =           1.5,
 		"pacid" =           3,
-		"plantbgone" =      3,
+		"atrazine" =      	3,
 		"cryoxadone" =     -3,
 		"radium" =          2
 		)
@@ -76,7 +76,7 @@
 		"sugar" =           2,
 		"sacid" =          -2,
 		"pacid" =          -4,
-		"plantbgone" =     -8,
+		"atrazine" =  	   -8,
 		"adminordrazine" = -5
 		)
 	var/global/list/pestkiller_reagents = list(
@@ -105,7 +105,7 @@
 		"sodawater" =      list(  0.1,  0,   0   ),
 		"sacid" =          list( -1,    0,   0   ),
 		"pacid" =          list( -2,    0,   0   ),
-		"plantbgone" =     list( -2,    0,   0.2 ),
+		"atrazine" =       list( -2,    0,   0.2 ),
 		"cryoxadone" =     list(  3,    0,   0   ),
 		"ammonia" =        list(  0.5,  0,   0   ),
 		"diethylamine" =   list(  1,    0,   0   ),

@@ -537,6 +537,7 @@ datum/reagent/atropine/on_mob_life(var/mob/living/M as mob)
 	if(prob(30))
 		M.Dizzy(5)
 		M.Jitter(5)
+	M.reagents.remove_reagent("sarin",10)
 	..()
 	return
 

@@ -451,3 +451,113 @@ datum/reagent/curare/on_mob_life(var/mob/living/M as mob)
 	M.adjustOxyLoss(1)
 	..()
 	return
+
+datum/reagent/sarin
+	name = "Sarin"
+	id = "sarin"
+	description = "An extremely deadly neurotoxin."
+	reagent_state = LIQUID
+	color = "#C7C7C7"
+	metabolization_rate = 0.1
+
+/datum/chemical_reaction/sarin
+	name = "sarin"
+	id = "sarin"
+	result = "sarin"
+	required_reagents = list("chlorine" = 1, "fluorine" = 1, "hydrogen" = 1, "oxygen" = 1, "phosphorus" = 1, "fuel" = 1, "acetone" = 1, "atrazine" = 1)
+	result_amount = 3
+	mix_message = "The mixture yields a colorless, odorless liquid."
+	required_temp = 373
+
+datum/reagent/sarin/on_mob_life(var/mob/living/M as mob)
+	if(!M) M = holder.my_atom
+	M.adjustFireLoss(1)
+	M.adjustToxLoss(1)
+	if(prob(20))
+		M.emote(pick("twitch","scream", "drool", "quiver"))
+	if(prob(5))
+		M.confused = max(M.confused, 3)
+	if(prob(15))
+		M.fakevomit()
+	if(prob(2))
+		M.visible_message("<span class='danger'>[M] starts having a seizure!</span>", "<span class='danger'>You have a seizure!</span>")
+		M.Paralyse(5)
+		M.jitteriness = 1000
+	if(current_cycle >= 5)
+		M.jitteriness += 10
+	if(current_cycle >= 20)
+		if(prob(5))
+			M.emote("collapse")
+	switch(current_cycle)
+		if(0 to 60)
+			M.adjustBrainLoss(1)
+		if(61 to INFINITY)
+			M.adjustBrainLoss(2)
+			M.Paralyse(5)
+			M.losebreath += 5
+	..()
+	return
+
+datum/reagent/atrazine
+	name = "Atrazine"
+	id = "atrazine"
+	description = "A herbicidal compound used for destroying unwanted plants."
+	reagent_state = LIQUID
+	color = "#17002D"
+
+datum/reagent/atrazine/on_mob_life(var/mob/living/M as mob)
+	if(!M) M = holder.my_atom
+	M.adjustToxLoss(2)
+	..()
+	return
+
+			// Clear off wallrot fungi
+datum/reagent/atrazine/reaction_turf(var/turf/T, var/volume)
+	if(istype(T, /turf/simulated/wall))
+		var/turf/simulated/wall/W = T
+		if(W.rotting)
+			W.rotting = 0
+			for(var/obj/effect/E in W) if(E.name == "Wallrot") del E
+
+			for(var/mob/O in viewers(W, null))
+				O.show_message(text("\blue The fungi are completely dissolved by the solution!"), 1)
+
+datum/reagent/atrazine/reaction_obj(var/obj/O, var/volume)
+	if(istype(O,/obj/structure/alien/weeds/))
+		var/obj/structure/alien/weeds/alien_weeds = O
+		alien_weeds.health -= rand(15,35) // Kills alien weeds pretty fast
+		alien_weeds.healthcheck()
+	else if(istype(O,/obj/effect/glowshroom)) //even a small amount is enough to kill it
+		del(O)
+	else if(istype(O,/obj/effect/plantsegment))
+		if(prob(50)) del(O) //Kills kudzu too.
+	// Damage that is done to growing plants is separately at code/game/machinery/hydroponics at obj/item/hydroponics
+
+datum/reagent/atrazine/reaction_mob(var/mob/living/M, var/method=TOUCH, var/volume)
+	src = null
+	if(iscarbon(M))
+		var/mob/living/carbon/C = M
+		if(!C.wear_mask) // If not wearing a mask
+			C.adjustToxLoss(2) // 4 toxic damage per application, doubled for some reason
+		if(ishuman(M))
+			var/mob/living/carbon/human/H = M
+			if(H.dna)
+				if(H.species.flags & IS_PLANT) //plantmen take a LOT of damage
+					H.adjustToxLoss(50)
+					..()
+					return
+		if(ismonkey(M))
+			var/mob/living/carbon/monkey/MO = M
+			if(MO.dna)
+				if(MO.dna.mutantrace == "plant") //plantmen monkeys (diona) take EVEN MORE damage
+					MO.adjustToxLoss(100)
+					..()
+					return
+
+/datum/chemical_reaction/atrazine
+	name = "atrazine"
+	id = "atrazine"
+	result = "atrazine"
+	required_reagents = list("chlorine" = 1, "hydrogen" = 1, "nitrogen" = 1)
+	result_amount = 3
+	mix_message = "The mixture gives off a harsh odor"
