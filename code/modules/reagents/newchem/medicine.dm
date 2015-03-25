@@ -144,7 +144,7 @@ datum/reagent/charcoal/on_mob_life(var/mob/living/M as mob)
 	name = "Styptic Powder"
 	id = "styptic_powder"
 	result = "styptic_powder"
-	required_reagents = list("aluminium" = 1, "hydrogen" = 1, "oxygen" = 1, "sacid" = 1)
+	required_reagents = list("aluminum" = 1, "hydrogen" = 1, "oxygen" = 1, "sacid" = 1)
 	result_amount = 4
 	mix_message = "The solution yields an astringent powder."
 
