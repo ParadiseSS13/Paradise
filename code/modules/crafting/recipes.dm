@@ -10,7 +10,7 @@
 
 /datum/table_recipe/IED
 	name = "IED"
-	result = /obj/item/weapon/grenade/iedcasing
+	result = /obj/item/weapon/grenade/iedcasing/filled
 	reqs = list(/datum/reagent/fuel = 50,
 				/obj/item/stack/cable_coil = 1,
 				/obj/item/device/assembly/igniter = 1,
