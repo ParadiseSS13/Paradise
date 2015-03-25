@@ -189,7 +189,8 @@ REAGENT SCANNER
 		OX = fake_oxy > 50 ? 		"\red Severe oxygen deprivation detected\blue" 	: 	"Subject bloodstream oxygen level normal"
 	user.show_message("[OX] | [TX] | [BU] | [BR]")
 	if (istype(M, /mob/living/carbon))
-		chemscan(user, M)
+		if(upgraded)
+			chemscan(user, M)
 		if(M:virus2.len) // WHAT IS TYPECASTING
 			var/mob/living/carbon/C = M
 			for (var/ID in C.virus2)
