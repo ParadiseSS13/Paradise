@@ -482,9 +482,9 @@ datum/reagent/sarin/on_mob_life(var/mob/living/M as mob)
 	if(prob(2))
 		M.visible_message("<span class='danger'>[M] starts having a seizure!</span>", "<span class='danger'>You have a seizure!</span>")
 		M.Paralyse(5)
-		M.Jitter(1000)
+		M.jitteriness = 1000
 	if(current_cycle >= 5)
-		M.Jitter(50)
+		M.jitteriness += 10
 	if(current_cycle >= 20)
 		if(prob(5))
 			M.emote("collapse")
