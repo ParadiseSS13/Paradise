@@ -22,7 +22,6 @@ datum
 		var/volume = 0
 		var/nutriment_factor = 0
 		var/metabolization_rate = REAGENTS_METABOLISM
-		var/scannable = 1 //shows up on health analyzers
 		//var/list/viruses = list()
 		var/color = "#000000" // rgb: 0, 0, 0 (does not support alpha channels - yet!)
 
@@ -89,6 +88,7 @@ datum
 					return //Noticed runtime errors from pacid trying to damage ghosts, this should fix. --NEO
 							// Certain elements in too large amounts cause side-effects
 				holder.remove_reagent(src.id, metabolization_rate) //By default it slowly disappears.
+				current_cycle++
 				return
 
 			// Called when two reagents of the same are mixing.
@@ -1035,14 +1035,9 @@ datum
 			description = "Most probably know this as Tylenol, but this chemical is a mild, simple painkiller."
 			reagent_state = LIQUID
 			color = "#C855DC"
-<<<<<<< HEAD
-			scannable = 1
 			metabolization_rate = 0.2 // Lasts 2.5 minutes for 15 units
-=======
-			custom_metabolism = 0.2 // Lasts 2.5 minutes for 15 units
->>>>>>> 8c265bf6aac1e630b2627439f8a95d5e2d917aab
 
-			on_mob_life(var/mob/living/M as mob)
+			on_mob_life(var/mob/living/M as mob) // what the fuck are you idiots smoking
 				if(!M) M = holder.my_atom
 				..()
 				return
@@ -1080,12 +1075,7 @@ datum
 			description = "A simple, yet effective painkiller."
 			reagent_state = LIQUID
 			color = "#C8A5DC"
-<<<<<<< HEAD
-			scannable = 1
 			metabolization_rate = 0.2 // Lasts 2.5 minutes for 15 units
-=======
-			custom_metabolism = 0.2 // Lasts 2.5 minutes for 15 units
->>>>>>> 8c265bf6aac1e630b2627439f8a95d5e2d917aab
 
 			on_mob_life(var/mob/living/M as mob)
 				if(!M) M = holder.my_atom
@@ -1099,12 +1089,7 @@ datum
 			description = "An effective and very addictive painkiller."
 			reagent_state = LIQUID
 			color = "#C805DC"
-<<<<<<< HEAD
 			metabolization_rate = 0.3 // Lasts 1.5 minutes for 15 units
-			scannable = 1
-=======
-			custom_metabolism = 0.3 // Lasts 1.5 minutes for 15 units
->>>>>>> 8c265bf6aac1e630b2627439f8a95d5e2d917aab
 
 			on_mob_life(var/mob/living/M as mob)
 				if(!M) M = holder.my_atom

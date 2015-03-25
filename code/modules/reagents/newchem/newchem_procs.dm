@@ -9,9 +9,6 @@ datum/reagents
 	var/addiction_tick = 1
 	var/list/datum/reagent/addiction_list = new/list()
 
-datum/reagent/on_mob_life()
-	current_cycle++
-
 datum/reagents/proc/metabolize(var/mob/M)
 	if(M)
 		chem_temp = M.bodytemperature
