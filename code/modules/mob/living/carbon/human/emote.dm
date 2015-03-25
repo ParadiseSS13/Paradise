@@ -330,6 +330,10 @@
 			message = "<B>[src]</B> waves."
 			m_type = 1
 
+		if ("quiver")
+			message = "<B>[src]</B> quivers."
+			m_type = 1
+
 		if ("gasp")
 			if(miming)
 				message = "<B>[src]</B> appears to be gasping!"

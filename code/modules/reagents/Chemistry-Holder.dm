@@ -247,12 +247,6 @@ datum
 				return total_transfered
 */
 
-			metabolize(var/mob/M,var/alien)
-				for(var/A in reagent_list)
-					var/datum/reagent/R = A
-					if(M && R)
-						R.on_mob_life(M,alien)
-				update_total()
 
 			conditional_update_move(var/atom/A, var/Running = 0)
 				for(var/datum/reagent/R in reagent_list)
@@ -278,14 +272,6 @@ datum
 
 							var/datum/chemical_reaction/C = reaction
 
-							//check if this recipe needs to be heated to mix
-							if(C.requires_heating)
-								if(istype(my_atom.loc, /obj/machinery/bunsen_burner))
-									if(!my_atom.loc:heated)
-										continue
-								else
-									continue
-
 							var/total_required_reagents = C.required_reagents.len
 							var/total_matching_reagents = 0
 							var/total_required_catalysts = C.required_catalysts.len
@@ -293,7 +279,7 @@ datum
 							var/matching_container = 0
 							var/matching_other = 0
 							var/list/multipliers = new/list()
-
+							var/required_temp = C.required_temp
 							for(var/B in C.required_reagents)
 								if(!has_reagent(B, C.required_reagents[B]))	break
 								total_matching_reagents++
@@ -324,10 +310,10 @@ datum
 									if(M.Uses > 0) // added a limit to slime cores -- Muskets requested this
 										matching_other = 1
 
+							if(required_temp == 0)
+								required_temp = chem_temp
 
-
-
-							if(total_matching_reagents == total_required_reagents && total_matching_catalysts == total_required_catalysts && matching_container && matching_other)
+							if(total_matching_reagents == total_required_reagents && total_matching_catalysts == total_required_catalysts && matching_container && matching_other && chem_temp >= required_temp)
 								var/multiplier = min(multipliers)
 								var/preserved_data = null
 								for(var/B in C.required_reagents)
@@ -348,7 +334,7 @@ datum
 
 								var/list/seen = viewers(4, get_turf(my_atom))
 								for(var/mob/M in seen)
-									M << "\blue \icon[my_atom] The solution begins to bubble."
+									M << "\blue \icon[my_atom] [C.mix_message]."
 
 							/*	if(istype(my_atom, /obj/item/slime_core))
 									var/obj/item/slime_core/ME = my_atom
@@ -387,6 +373,9 @@ datum
 				for(var/A in reagent_list)
 					var/datum/reagent/R = A
 					if (R.id == reagent)
+						if(istype(my_atom, /mob/living))
+							var/mob/living/M = my_atom
+							R.reagent_deleted(M)
 						reagent_list -= A
 						del(A)
 						update_total()
@@ -396,14 +385,6 @@ datum
 
 
 				return 1
-
-			check_gofast(var/mob/M)
-				if(M && istype(M, /mob))
-					if(M.reagents)
-						if(M.reagents.has_reagent("hyperzine")||M.reagents.has_reagent("nuka_cola"))
-							return 1
-						else
-							M.status_flags &= ~GOTTAGOFAST
 
 			update_total()
 				total_volume = 0

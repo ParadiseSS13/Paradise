@@ -14,7 +14,9 @@ datum
 		var/result_amount = 0
 		var/secondary = 0 // set to nonzero if secondary reaction
 		var/list/secondary_results = list()		//additional reagents produced by the reaction
-		var/requires_heating = 0
+		var/required_temp = 0
+		var/mix_message = "The solution begins to bubble."
+
 
 		proc
 			on_reaction(var/datum/reagents/holder, var/created_volume)
@@ -112,13 +114,6 @@ datum
 			result = "oxycodone"
 			required_reagents = list("ethanol" = 1, "tramadol" = 1, "plasma" = 1)
 			result_amount = 1
-
-		//cyanide
-		//	name = "Cyanide"
-		//	id = "cyanide"
-		//	result = "cyanide"
-		//	required_reagents = list("hydrogen" = 1, "carbon" = 1, "nitrogen" = 1)
-		//	result_amount = 1
 
 		thermite
 			name = "Thermite"
@@ -352,8 +347,8 @@ datum
 			name = "Sodium Chloride"
 			id = "sodiumchloride"
 			result = "sodiumchloride"
-			required_reagents = list("sodium" = 1, "chlorine" = 1)
-			result_amount = 2
+			required_reagents = list("sodium" = 1, "chlorine" = 1, "water" = 1)
+			result_amount = 3
 
 		flash_powder
 			name = "Flash powder"
@@ -374,39 +369,6 @@ datum
 						C.Weaken(5)
 						continue
 					C.Stun(5)
-
-		napalm
-			name = "Napalm"
-			id = "napalm"
-			result = null
-			required_reagents = list("aluminum" = 1, "plasma" = 1, "sacid" = 1 )
-			result_amount = 1
-			on_reaction(var/datum/reagents/holder, var/created_volume)
-				var/turf/simulated/T = get_turf(holder.my_atom)
-				for(var/turf/simulated/turf in range(created_volume/10,T))
-					new /obj/fire(turf)
-				holder.del_reagent("napalm")
-				return
-
-		chemsmoke
-			name = "Chemsmoke"
-			id = "chemsmoke"
-			result = null
-			required_reagents = list("potassium" = 1, "sugar" = 1, "phosphorus" = 1)
-			result_amount = null
-			secondary = 1
-			on_reaction(var/datum/reagents/holder, var/created_volume)
-				var/location = get_turf(holder.my_atom)
-				var/datum/effect/effect/system/chem_smoke_spread/S = new /datum/effect/effect/system/chem_smoke_spread
-				S.attach(location)
-				S.set_up(holder, 10, 0, location)
-				playsound(location, 'sound/effects/smoke.ogg', 50, 1, -3)
-				spawn(0)
-					S.start()
-					sleep(10)
-					S.start()
-				holder.clear_reagents()
-				return
 
 		chloralhydrate
 			name = "Chloral Hydrate"
@@ -456,17 +418,6 @@ datum
 			result = "lipozine"
 			required_reagents = list("sodiumchloride" = 1, "ethanol" = 1, "radium" = 1)
 			result_amount = 3
-
-		plasmasolidification
-			name = "Solid Plasma"
-			id = "solidplasma"
-			result = null
-			required_reagents = list("iron" = 5, "frostoil" = 5, "plasma" = 20)
-			result_amount = 1
-			on_reaction(var/datum/reagents/holder, var/created_volume)
-				var/location = get_turf(holder.my_atom)
-				new /obj/item/stack/sheet/mineral/plasma(location)
-				return
 
 		plastication
 			name = "Plastic"
@@ -641,14 +592,14 @@ datum
 			name = "Space cleaner"
 			id = "cleaner"
 			result = "cleaner"
-			required_reagents = list("ammonia" = 1, "water" = 1)
-			result_amount = 2
+			required_reagents = list("ammonia" = 1, "water" = 1, "ethanol" = 1)
+			result_amount = 3
 
-		plantbgone
-			name = "Plant-B-Gone"
-			id = "plantbgone"
-			result = "plantbgone"
-			required_reagents = list("chlorine" = 1, "hydrogen" = 1, "nitrogen" = 1)
+		sulfuric_acid
+			name = "Sulfuric Acid"
+			id = "sacid"
+			result = "sacid"
+			required_reagents = list("sulfur" = 1, "oxygen" = 1, "hydrogen" = 1)
 			result_amount = 3
 
 ///////Changeling Blood Test/////////////

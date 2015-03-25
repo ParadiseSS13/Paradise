@@ -20,7 +20,7 @@
 
 /obj/item/weapon/storage/firstaid/fire
 	name = "fire first-aid kit"
-	desc = "It's an emergency medical kit for when the toxins lab <i>-spontaneously-</i> burns down."
+	desc = "A medical kit that contains several medical patches and pills for treating burns. Contains one epinephrine syringe for emergency use and a health analyzer."
 	icon_state = "ointment"
 	item_state = "firstaid-ointment"
 
@@ -30,34 +30,35 @@
 
 		icon_state = pick("ointment","firefirstaid")
 
+		new /obj/item/weapon/reagent_containers/pill/patch/silver_sulf( src )
+		new /obj/item/weapon/reagent_containers/pill/patch/silver_sulf( src )
+		new /obj/item/weapon/reagent_containers/pill/patch/silver_sulf( src )
+		new /obj/item/weapon/reagent_containers/pill/patch/silver_sulf( src )
 		new /obj/item/device/healthanalyzer( src )
 		new /obj/item/weapon/reagent_containers/hypospray/autoinjector( src )
-		new /obj/item/stack/medical/ointment( src )
-		new /obj/item/stack/medical/ointment( src )
-		new /obj/item/weapon/reagent_containers/pill/kelotane( src )
-		new /obj/item/weapon/reagent_containers/pill/kelotane( src )
-		new /obj/item/weapon/reagent_containers/pill/kelotane( src ) //Replaced ointment with these since they actually work --Errorage
+		new /obj/item/weapon/reagent_containers/pill/salicylic( src )
 		return
 
 
 /obj/item/weapon/storage/firstaid/regular
+	desc = "A general medical kit that contains medical patches for both brute damage and burn damage. Also contains an epinephrine syringe for emergency use and a health analyzer"
 	icon_state = "firstaid"
 
 	New()
 		..()
 		if (empty) return
-		new /obj/item/stack/medical/bruise_pack(src)
-		new /obj/item/stack/medical/bruise_pack(src)
-		new /obj/item/stack/medical/bruise_pack(src)
-		new /obj/item/stack/medical/ointment(src)
-		new /obj/item/stack/medical/ointment(src)
-		new /obj/item/device/healthanalyzer(src)
+		new /obj/item/weapon/reagent_containers/pill/patch/styptic( src )
+		new /obj/item/weapon/reagent_containers/pill/patch/styptic( src )
+		new /obj/item/weapon/reagent_containers/pill/salicylic( src )
+		new /obj/item/weapon/reagent_containers/pill/patch/silver_sulf( src )
+		new /obj/item/weapon/reagent_containers/pill/patch/silver_sulf( src )
+		new /obj/item/device/healthanalyzer( src )
 		new /obj/item/weapon/reagent_containers/hypospray/autoinjector( src )
 		return
 
 /obj/item/weapon/storage/firstaid/toxin
 	name = "toxin first aid kit"
-	desc = "Used to treat when you have a high amounts of toxins in your body."
+	desc = "A medical kit designed to counter poisoning by common toxins. Contains three pills and syringes, and a health analyzer to determine the health of the patient."
 	icon_state = "antitoxin"
 	item_state = "firstaid-toxin"
 
@@ -67,31 +68,50 @@
 
 		icon_state = pick("antitoxin","antitoxfirstaid","antitoxfirstaid2","antitoxfirstaid3")
 
-		new /obj/item/weapon/reagent_containers/syringe/antitoxin( src )
-		new /obj/item/weapon/reagent_containers/syringe/antitoxin( src )
-		new /obj/item/weapon/reagent_containers/syringe/antitoxin( src )
-		new /obj/item/weapon/reagent_containers/pill/antitox( src )
-		new /obj/item/weapon/reagent_containers/pill/antitox( src )
-		new /obj/item/weapon/reagent_containers/pill/antitox( src )
+		new /obj/item/weapon/reagent_containers/syringe/charcoal( src )
+		new /obj/item/weapon/reagent_containers/syringe/charcoal( src )
+		new /obj/item/weapon/reagent_containers/syringe/charcoal( src )
+		new /obj/item/weapon/reagent_containers/pill/charcoal( src )
+		new /obj/item/weapon/reagent_containers/pill/charcoal( src )
+		new /obj/item/weapon/reagent_containers/pill/charcoal( src )
 		new /obj/item/device/healthanalyzer( src )
 		return
 
 /obj/item/weapon/storage/firstaid/o2
 	name = "oxygen deprivation first aid kit"
-	desc = "A box full of oxygen goodies."
+	desc = "A first aid kit that contains four pills of salbutamol, which is able to counter injuries caused by suffocation. Also contains a health analyzer to determine the health of the patient."
 	icon_state = "o2"
 	item_state = "firstaid-o2"
 
 	New()
 		..()
 		if (empty) return
-		new /obj/item/weapon/reagent_containers/pill/dexalin( src )
-		new /obj/item/weapon/reagent_containers/pill/dexalin( src )
-		new /obj/item/weapon/reagent_containers/pill/dexalin( src )
-		new /obj/item/weapon/reagent_containers/pill/dexalin( src )
-		new /obj/item/weapon/reagent_containers/hypospray/autoinjector( src )
-		new /obj/item/weapon/reagent_containers/syringe/inaprovaline( src )
+		new /obj/item/weapon/reagent_containers/pill/salbutamol( src )
+		new /obj/item/weapon/reagent_containers/pill/salbutamol( src )
+		new /obj/item/weapon/reagent_containers/pill/salbutamol( src )
+		new /obj/item/weapon/reagent_containers/pill/salbutamol( src )
 		new /obj/item/device/healthanalyzer( src )
+		return
+
+/obj/item/weapon/storage/firstaid/brute
+	name = "brute trauma treatment kit"
+	desc = "A medical kit that contains several medical patches and pills for treating brute injuries. Contains one epinephrine syringe for emergency use and a health analyzer."
+	icon_state = "brute"
+	item_state = "firstaid-brute"
+
+	New()
+		..()
+		if (empty) return
+
+		icon_state = pick("brute","brute2")
+
+		new /obj/item/weapon/reagent_containers/pill/patch/styptic(src)
+		new /obj/item/weapon/reagent_containers/pill/patch/styptic(src)
+		new /obj/item/weapon/reagent_containers/pill/patch/styptic(src)
+		new /obj/item/weapon/reagent_containers/pill/patch/styptic(src)
+		new /obj/item/device/healthanalyzer(src)
+		new /obj/item/weapon/reagent_containers/hypospray/autoinjector(src)
+		new /obj/item/stack/medical/bruise_pack(src)
 		return
 
 /obj/item/weapon/storage/firstaid/adv
@@ -124,8 +144,8 @@
 	new /obj/item/clothing/accessory/stethoscope( src )
 	new /obj/item/weapon/defibrillator/compact/combat/loaded(src)
 	new /obj/item/weapon/reagent_containers/hypospray/combat(src)
-	new /obj/item/weapon/reagent_containers/pill/bicaridine(src)
-	new /obj/item/weapon/reagent_containers/pill/dermaline(src)
+	new /obj/item/weapon/reagent_containers/pill/patch/styptic(src)
+	new /obj/item/weapon/reagent_containers/pill/patch/silver_sulf(src)
 	new /obj/item/weapon/reagent_containers/ld50_syringe(src)
 	new /obj/item/clothing/glasses/hud/health/night(src)
 	return

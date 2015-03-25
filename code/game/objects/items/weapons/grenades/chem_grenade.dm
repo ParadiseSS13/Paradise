@@ -266,10 +266,11 @@
 
 	invisibility = INVISIBILITY_MAXIMUM		//kaboom
 	del nadeassembly // do this now to stop infrared beams
-
+	var/end_temp = 0
 	for(var/obj/item/weapon/reagent_containers/glass/G in beakers)
 		G.reagents.trans_to(src, G.reagents.total_volume)
-
+		end_temp += G.reagents.chem_temp
+	reagents.chem_temp = end_temp
 	if(reagents.total_volume)	//The possible reactions didnt use up all reagents.
 		var/datum/effect/effect/system/steam_spread/steam = new /datum/effect/effect/system/steam_spread()
 		steam.set_up(10, 0, get_turf(src))
@@ -428,11 +429,11 @@
 		var/obj/item/weapon/reagent_containers/glass/beaker/B1 = new(src)
 		var/obj/item/weapon/reagent_containers/glass/beaker/B2 = new(src)
 
-		B1.reagents.add_reagent("plantbgone", 30)
+		B1.reagents.add_reagent("atrazine", 30)
 		B1.reagents.add_reagent("potassium", 20)
 		B2.reagents.add_reagent("phosphorus", 20)
 		B2.reagents.add_reagent("sugar", 20)
-		B2.reagents.add_reagent("plantbgone", 10)
+		B2.reagents.add_reagent("atrazine", 10)
 
 		beakers += B1
 		beakers += B2

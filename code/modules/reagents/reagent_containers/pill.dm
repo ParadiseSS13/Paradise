@@ -9,6 +9,8 @@
 	item_state = "pill"
 	possible_transfer_amounts = null
 	volume = 50
+	var/apply_type = INGEST
+	var/apply_method = "swallow"
 
 	New()
 		..()
@@ -19,39 +21,27 @@
 		return
 	attack(mob/M as mob, mob/user as mob, def_zone)
 		if(M == user)
-
-			if(istype(M, /mob/living/carbon/human))
-				var/mob/living/carbon/human/H = M
-				if(H.species.flags & IS_SYNTHETIC)
-					H << "\red You have a monitor for a head, where do you think you're going to put that?"
-					return
-
-			M << "\blue You swallow [src]."
+			M << "\blue You [apply_method] [src]."
 			M.unEquip(src) //icon update
 			if(reagents.total_volume)
-				reagents.reaction(M, INGEST)
+				reagents.reaction(M, apply_type)
 				spawn(5)
-					reagents.trans_to_ingest(M, reagents.total_volume)
-					del(src)
+					reagents.trans_to(M, reagents.total_volume)
+					qdel(src)
 			else
-				del(src)
+				qdel(src)
 			return 1
 
 		else if(istype(M, /mob/living/carbon/human) )
 
-			var/mob/living/carbon/human/H = M
-			if(H.species.flags & IS_SYNTHETIC)
-				H << "\red They have a monitor for a head, where do you think you're going to put that?"
-				return
-
 			for(var/mob/O in viewers(world.view, user))
-				O.show_message("\red [user] attempts to force [M] to swallow [src].", 1)
+				O.show_message("\red [user] attempts to force [M] to [apply_method] [src].", 1)
 
 			if(!do_mob(user, M)) return
 
 			user.unEquip(src) //icon update
 			for(var/mob/O in viewers(world.view, user))
-				O.show_message("\red [user] forces [M] to swallow [src].", 1)
+				O.show_message("\red [user] forces [M] to [apply_method] [src].", 1)
 
 			M.attack_log += text("\[[time_stamp()]\] <font color='orange'>Has been fed [src.name] by [user.name] ([user.ckey]) Reagents: [reagentlist(src)]</font>")
 			user.attack_log += text("\[[time_stamp()]\] <font color='red'>Fed [M.name] by [M.name] ([M.ckey]) Reagents: [reagentlist(src)]</font>")
@@ -63,12 +53,12 @@
 				M.LAssailant = user
 
 			if(reagents.total_volume)
-				reagents.reaction(M, INGEST)
+				reagents.reaction(M, apply_type)
 				spawn(5)
 					reagents.trans_to_ingest(M, reagents.total_volume)
-					del(src)
+					qdel(src)
 			else
-				del(src)
+				qdel(src)
 
 			return 1
 
@@ -79,7 +69,7 @@
 
 		if(target.is_open_container() != 0 && target.reagents)
 			if(!target.reagents.total_volume)
-				user << "\red [target] is empty. Cant dissolve pill."
+				user << "\red [target] is empty. Cant dissolve [src]."
 				return
 
 			// /vg/: Logging transfers of bad things
@@ -93,12 +83,12 @@
 					message_admins("[user.name] ([user.ckey]) added [reagents.get_reagent_ids(1)] to \a [target] with [src].[hl] (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[user.x];Y=[user.y];Z=[user.z]'>JMP</a>)")
 					log_game("[user.name] ([user.ckey]) added [reagents.get_reagent_ids(1)] to \a [target] with [src].")
 
-			user << "\blue You dissolve the pill in [target]"
+			user << "\blue You dissolve [src] in [target]"
 			reagents.trans_to(target, reagents.total_volume)
 			for(var/mob/O in viewers(2, user))
 				O.show_message("\red [user] puts something in [target].", 1)
 			spawn(5)
-				del(src)
+				qdel(src)
 
 		return
 
@@ -123,13 +113,13 @@
 		..()
 		reagents.add_reagent("toxin", 50)
 
-/obj/item/weapon/reagent_containers/pill/cyanide
-	name = "Cyanide pill"
+/obj/item/weapon/reagent_containers/pill/initropidril
+	name = "initropidril pill"
 	desc = "Don't swallow this."
 	icon_state = "pill5"
 	New()
 		..()
-		reagents.add_reagent("cyanide", 50)
+		reagents.add_reagent("initropidril", 50)
 
 /obj/item/weapon/reagent_containers/pill/adminordrazine
 	name = "Adminordrazine pill"
@@ -172,21 +162,21 @@
 		reagents.add_reagent("tramadol", 15)
 
 
-/obj/item/weapon/reagent_containers/pill/methylphenidate
-	name = "Methylphenidate pill"
-	desc = "Improves the ability to concentrate."
+/obj/item/weapon/reagent_containers/pill/methamphetamine
+	name = "Methamphetamine pill"
+	desc = "Helps improve the ability to concentrate."
 	icon_state = "pill8"
 	New()
 		..()
-		reagents.add_reagent("methylphenidate", 15)
+		reagents.add_reagent("methamphetamine", 5)
 
-/obj/item/weapon/reagent_containers/pill/citalopram
-	name = "Citalopram pill"
-	desc = "Mild anti-depressant."
+/obj/item/weapon/reagent_containers/pill/diphenhydramine
+	name = "Diphenhydramine pill"
+	desc = "A mild tranquilizer and anti-psychotic."
 	icon_state = "pill8"
 	New()
 		..()
-		reagents.add_reagent("citalopram", 15)
+		reagents.add_reagent("diphenhydramine", 15)
 
 /obj/item/weapon/reagent_containers/pill/paroxetine
 	name = "Paroxetine pill"
@@ -238,3 +228,27 @@
 		reagents.add_reagent("impedrezene", 10)
 		reagents.add_reagent("synaptizine", 5)
 		reagents.add_reagent("hyperzine", 5)
+
+/obj/item/weapon/reagent_containers/pill/charcoal
+	name = "Chacoal pill"
+	desc = "Neutralizes many common toxins."
+	icon_state = "pill17"
+	New()
+		..()
+		reagents.add_reagent("charcoal", 25)
+
+/obj/item/weapon/reagent_containers/pill/salicylic
+	name = "Salicylic Acid pill"
+	desc = "Commonly used to treat moderate pain and fevers."
+	icon_state = "pill4"
+	New()
+		..()
+		reagents.add_reagent("sal_acid", 20)
+
+/obj/item/weapon/reagent_containers/pill/salbutamol
+	name = "Salbutamol pill"
+	desc = "Used to treat respiratory distress."
+	icon_state = "pill8"
+	New()
+		..()
+		reagents.add_reagent("salbutamol", 20)

@@ -336,6 +336,7 @@
 	if(iscarbon(src))
 		var/mob/living/carbon/C = src
 		C.handcuffed = initial(C.handcuffed)
+		C.heart_attack = 0
 
 		// restore all of the human's blood and reset their shock stage
 		if(ishuman(src))

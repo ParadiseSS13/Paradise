@@ -82,7 +82,7 @@
 /atom/proc/visible_message(var/message, var/blind_message)
 	for(var/mob/M in viewers(src))
 		M.show_message( message, 1, blind_message, 2)
-	
+
 // Show a message to all mobs in earshot of this one
 // This would be for audible actions by the src mob
 // message is the message output to anyone who can hear.
@@ -98,7 +98,7 @@
 		if(self_message && M==src)
 			msg = self_message
 		M.show_message( msg, 2, deaf_message, 1)
-		
+
 // Show a message to all mobs in earshot of this atom
 // Use for objects performing audible actions
 // message is the message output to anyone who can hear.
@@ -1439,3 +1439,11 @@ mob/proc/yank_out_object()
 				if(G.can_reenter_corpse || even_if_they_cant_reenter)
 					return G
 				break
+
+
+/mob/proc/fakevomit() //for aesthetic vomits that need to be instant and do not stun. -Fox
+	src.visible_message("<span class='warning'>[src] pukes all over \himself!</span>","<span class='warning'>You puke all over yourself!</span>")
+	playsound(loc, 'sound/effects/splat.ogg', 50, 1)
+	var/turf/location = loc
+	if (istype(location, /turf/simulated))
+		location.add_vomit_floor(src, 1)
