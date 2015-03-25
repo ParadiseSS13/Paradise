@@ -363,22 +363,6 @@ datum
 				..()
 				return
 
-		cyanide
-			// Fast and lethal
-			name = "Cyanide"
-			id = "cyanide"
-			description = "A highly toxic chemical."
-			reagent_state = LIQUID
-			color = "#CF3600" // rgb: 207, 54, 0
-
-			on_mob_life(var/mob/living/M as mob)
-				if(!M) M = holder.my_atom
-				M.adjustToxLoss(3)
-				M.adjustOxyLoss(3)
-				M.sleeping += 1
-				..()
-				return
-
 		minttoxin
 			name = "Mint Toxin"
 			id = "minttoxin"
