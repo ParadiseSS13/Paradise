@@ -318,11 +318,6 @@ emp_act
 	if(Iforce > 10 || Iforce >= 5 && prob(33))
 		forcesay(hit_appends)	//forcesay checks stat already
 
-	if (I.damtype == BRUTE)
-		if((affecting.brute_dam + I.force) >= affecting.max_damage * config.organ_health_multiplier)
-			if(I.edge && prob(I.force))
-				affecting.dismember_limb()
-
 /*	//Melee weapon embedded object code. Commented out, as most people on the forums seem to find this annoying and think it does not contribute to general gameplay. - Dave
 	if (I.damtype == BRUTE && !I.is_robot_module())
 		var/damage = I.force
