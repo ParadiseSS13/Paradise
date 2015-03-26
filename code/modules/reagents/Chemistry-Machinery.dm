@@ -283,7 +283,7 @@
 	dispensable_reagents = list()
 	var/list/special_reagents = list(list("hydrogen", "oxygen", "silicon", "phosphorus", "sulfur", "carbon", "nitrogen"),
 						 		list("lithium", "sugar", "water", "copper", "mercury", "sodium"),
-								list("ethanol", "chlorine", "potassium", "aluminium","plasma", "radium", "fluorine", "iron"))
+								list("ethanol", "chlorine", "potassium", "aluminum","plasma", "radium", "fluorine", "iron"))
 
 /obj/machinery/chem_dispenser/constructable/New()
 	..()

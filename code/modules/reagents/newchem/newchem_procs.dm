@@ -62,7 +62,7 @@ datum/reagents/proc/reagent_on_tick()
 
 datum/reagents/proc/check_ignoreslow(var/mob/M)
 	if(istype(M, /mob))
-		if(M.reagents.has_reagent("morphine")||M.reagents.has_reagent("ephedrine"))
+		if(M.reagents.has_reagent("morphine"))
 			return 1
 		else
 			M.status_flags &= ~IGNORESLOWDOWN

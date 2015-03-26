@@ -73,12 +73,10 @@
 	if(..())
 		if(reagents.total_volume)
 			if(M.reagents)
-				reagents.trans_to(M, 55)
+				reagents.trans_to(M, 50)
 
 
 /obj/item/weapon/pen/sleepy/New()
-	create_reagents(55)
-	reagents.add_reagent("stoxin", 30)
-	reagents.add_reagent("mutetoxin", 15)
-	reagents.add_reagent("tirizene", 10)
+	create_reagents(100)
+	reagents.add_reagent("ketamine", 100)
 	..()

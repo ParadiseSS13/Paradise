@@ -91,7 +91,7 @@ datum
 			name = "Unstable mutagen"
 			id = "mutagen"
 			result = "mutagen"
-			required_reagents = list("radium" = 1, "phosphorus" = 1, "chlorine" = 1)
+			required_reagents = list("radium" = 1, "plasma" = 1, "chlorine" = 1)
 			result_amount = 3
 
 		tramadol
@@ -122,19 +122,13 @@ datum
 			required_reagents = list("aluminum" = 1, "iron" = 1, "oxygen" = 1)
 			result_amount = 3
 
-		lexorin
-			name = "Lexorin"
-			id = "lexorin"
-			result = "lexorin"
-			required_reagents = list("plasma" = 1, "hydrogen" = 1, "nitrogen" = 1)
-			result_amount = 3
-
 		space_drugs
 			name = "Space Drugs"
 			id = "space_drugs"
 			result = "space_drugs"
 			required_reagents = list("mercury" = 1, "sugar" = 1, "lithium" = 1)
 			result_amount = 3
+			mix_message = "Slightly dizzying fumes drift from the solution."
 
 		lube
 			name = "Space Lube"
@@ -283,8 +277,8 @@ datum
 			name = "Cryoxadone"
 			id = "cryoxadone"
 			result = "cryoxadone"
-			required_reagents = list("dexalin" = 1, "water" = 1, "oxygen" = 1)
-			result_amount = 3
+			required_reagents = list("cryostylane" = 1, "plasma" = 1, "acetone" = 1, "mutagen" = 1)
+			result_amount = 4
 
 		clonexadone
 			name = "Clonexadone"
@@ -389,13 +383,6 @@ datum
 			id = "zombiepowder"
 			result = "zombiepowder"
 			required_reagents = list("carpotoxin" = 5, "stoxin" = 5, "copper" = 5)
-			result_amount = 2
-
-		mutetoxin
-			name = "Mute toxin"
-			id = "mutetoxin"
-			result = "mutetoxin"
-			required_reagents = list("uranium" = 2, "water" = 1, "carbon" = 1)
 			result_amount = 2
 
 		rezadone
@@ -587,6 +574,7 @@ datum
 			result = "diethylamine"
 			required_reagents = list ("ammonia" = 1, "ethanol" = 1)
 			result_amount = 2
+			required_temp = 374
 
 		space_cleaner
 			name = "Space cleaner"

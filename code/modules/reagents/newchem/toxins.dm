@@ -200,8 +200,8 @@ datum/reagent/itching_powder/on_mob_life(var/mob/living/M as mob)
 
 datum/reagent/facid/on_mob_life(var/mob/living/M as mob)
 	if(!M) M = holder.my_atom
-	M.adjustToxLoss(2*REM)
-	M.take_organ_damage(0, 1*REM)
+	M.adjustToxLoss(1*REM)
+	M.adjustFireLoss(1)
 	..()
 	return
 
@@ -354,6 +354,26 @@ datum/reagent/sodium_thiopental/on_mob_life(var/mob/living/M as mob)
 	..()
 	return
 
+datum/reagent/ketamine
+	name = "Ketamine"
+	id = "ketamine"
+	description = "A potent veterinary tranquilizer."
+	reagent_state = LIQUID
+	color = "#646EA0"
+	metabolization_rate = 0.8
+
+datum/reagent/ketamine/on_mob_life(var/mob/living/M as mob)
+	if(!M) M = holder.my_atom
+	if(current_cycle <= 10)
+		if(prob(20))
+			M.emote("yawn")
+	if(current_cycle == 6)
+		M.eye_blurry = max(M.eye_blurry, 5)
+	if(current_cycle >= 10)
+		M.Paralyse(10)
+	..()
+	return
+
 datum/reagent/sulfonal
 	name = "Sulfonal"
 	id = "sulfonal"
@@ -467,7 +487,7 @@ datum/reagent/sarin
 	required_reagents = list("chlorine" = 1, "fluorine" = 1, "hydrogen" = 1, "oxygen" = 1, "phosphorus" = 1, "fuel" = 1, "acetone" = 1, "atrazine" = 1)
 	result_amount = 3
 	mix_message = "The mixture yields a colorless, odorless liquid."
-	required_temp = 373
+	required_temp = 374
 
 datum/reagent/sarin/on_mob_life(var/mob/living/M as mob)
 	if(!M) M = holder.my_atom
@@ -565,3 +585,48 @@ datum/reagent/atrazine/reaction_mob(var/mob/living/M, var/method=TOUCH, var/volu
 	required_reagents = list("chlorine" = 1, "hydrogen" = 1, "nitrogen" = 1)
 	result_amount = 3
 	mix_message = "The mixture gives off a harsh odor"
+
+datum/reagent/capulettium
+	name = "Capulettium"
+	id = "capulettium"
+	description = "A rare drug that causes the user to appear dead for some time."
+	reagent_state = LIQUID
+	color = "#60A584"
+
+/datum/chemical_reaction/capulettium
+	name = "capulettium"
+	id = "capulettium"
+	result = "capulettium"
+	required_reagents = list("neurotoxin2" = 1, "chlorine" = 1, "hydrogen" = 1)
+	result_amount = 1
+	mix_message = "The smell of death wafts up from the solution."
+
+datum/reagent/capulettium/on_mob_life(var/mob/living/M as mob)
+	if(!M) M = holder.my_atom
+	M.eye_blurry = max(M.eye_blurry, 2)
+	if(current_cycle == 12)
+		M.emote("deathgasp")
+		M.Paralyse(10)
+	..()
+	return
+
+datum/reagent/capulettium_plus
+	name = "Capulettium Plus"
+	id = "capulettium_plus"
+	description = "A rare and expensive drug that causes the user to appear dead for some time while they retain consciousness and vision."
+	reagent_state = LIQUID
+	color = "#60A584"
+
+/datum/chemical_reaction/capulettium_plus
+	name = "capulettium_plus"
+	id = "capulettium_plus"
+	result = "capulettium_plus"
+	required_reagents = list("capulettium" = 1, "ephedrine" = 1, "methamphetamine" = 1)
+	result_amount = 3
+	mix_message = "The solution begins to slosh about violently by itself."
+
+datum/reagent/capulettium_plus/on_mob_life(var/mob/living/M as mob)
+	if(!M) M = holder.my_atom
+	M.silent += REM + 1
+	..()
+	return

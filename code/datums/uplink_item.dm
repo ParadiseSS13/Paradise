@@ -202,6 +202,15 @@ var/list/uplink_items = list()
 	job = list("Research Director")
 
 
+//Stimulants
+
+/datum/uplink_item/jobspecific/stims
+	name = "Stimulants"
+	desc = "A highly illegal compound containd within a comapct auto-injector; when injected it makes the user extremely resistant to incapacitation and greatly enhances the body's ability to repair itself."
+	item = /obj/item/weapon/reagent_containers/hypospray/autoinjector/stimulants
+	cost = 7
+	job = list("Scientist","Research Director","Geneticist","Chief Medical Officer","Medical Doctor","Psychiatrist","Chemist","Paramedic","Virologist","Brig Physician")
+
 // DANGEROUS WEAPONS
 
 /datum/uplink_item/dangerous
@@ -383,8 +392,7 @@ var/list/uplink_items = list()
 
 /datum/uplink_item/stealthy_weapons/sleepy_pen
 	name = "Sleepy Pen"
-	desc = "A syringe disguised as a functional pen, filled with a potent mix of drugs, including a strong anaesthetic and a chemical that is capable of blocking the movement of the vocal chords. \
-	The pen holds one dose of the mixture. The pen can be refilled."
+	desc = "A syringe disguised as a functional pen. It's filled with a potent anaesthetic. \The pen holds two doses of the mixture. The pen can be refilled."
 	item = /obj/item/weapon/pen/sleepy
 	cost = 8
 	excludefrom = list("nuclear emergency")

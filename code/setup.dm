@@ -802,7 +802,7 @@ var/list/be_special_flags = list(
 //feel free to add shit to lists below
 var/list/tachycardics = list("coffee", "inaprovaline", "hyperzine", "nitroglycerin", "thirteenloko", "nicotine")	//increase heart rate
 var/list/bradycardics = list("neurotoxin", "cryoxadone", "clonexadone", "space_drugs", "stoxin")					//decrease heart rate
-var/list/heartstopper = list("zombie_powder") //this stops the heart
+var/list/heartstopper = list("zombie_powder", "capulettium", "capulettium_plus") //this stops the heart
 var/list/cheartstopper = list() //this stops the heart when overdose is met -- c = conditional
 
 //proc/get_pulse methods
