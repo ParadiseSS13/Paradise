@@ -107,7 +107,7 @@
 
 
 /obj/item/areaeditor/proc/get_area_type(var/area/A = get_area())
-	if (istype(A,/area/space))
+	if (A.name == "Space")
 		return AREA_SPACE
 	var/list/SPECIALS = list(
 		/area/shuttle,
@@ -119,6 +119,7 @@
 		/area/syndicate_station,
 		/area/wizard_station,
 		/area/prison
+		// /area/derelict //commented out, all hail derelict-rebuilders!
 	)
 	for (var/type in SPECIALS)
 		if ( istype(A,type) )
