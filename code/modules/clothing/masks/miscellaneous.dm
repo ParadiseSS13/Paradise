@@ -57,7 +57,7 @@
 	set category = "Object"
 	set desc = "Devise evil plans of evilness."
 
-	usr.visible_message("<span class = 'danger'>\ [usr] twirls \his moustache and laughs [pick("fiendishly","maniacally","diabolically","evilly","fiendishly")]!</span>")
+	usr.visible_message("<span class = 'danger'>\ [usr] twirls \his moustache and laughs [pick("fiendishly","maniacally","diabolically","evilly")]!</span>")
 
 //scarves (fit in in mask slot)
 
