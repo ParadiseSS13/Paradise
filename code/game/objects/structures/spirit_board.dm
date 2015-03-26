@@ -63,11 +63,8 @@
 	var/light_amount = 0
 	var/turf/T = get_turf(src)
 	var/area/A = T.loc
-	var/ischapel = 0
 
 	if(A)
-		if(A.name == "Chapel")
-			ischapel = 1
 		if(A.lighting_use_dynamic)
 			light_amount = T.lighting_lumcount
 		else
@@ -76,10 +73,6 @@
 	if(light_amount > 2)
 		M << "<span class='warning'>It's too bright here to use [src.name]!</span>"
 		return 0
-
-	if(!ischapel)
-		return 0
-
 
 	//mobs in range check
 	var/users_in_range = 0
