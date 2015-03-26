@@ -202,7 +202,7 @@
 	name = "Flash powder"
 	id = "flash_powder"
 	result = "flash_powder"
-	required_reagents = list("aluminium" = 1, "potassium" = 1, "sulfur" = 1 )
+	required_reagents = list("aluminum" = 1, "potassium" = 1, "sulfur" = 1 )
 	result_amount = 3
 
 /datum/chemical_reaction/flash_powder_flash
@@ -429,8 +429,8 @@
 /datum/chemical_reaction/napalm
 	name = "Napalm"
 	id = "napalm"
-	result = null
-	required_reagents = list("aluminium" = 1, "plasma" = 1, "sacid" = 1 )
+	result = "napalm"
+	required_reagents = list("sugar" = 1, "fuel" = 1, "ethanol" = 1 )
 	result_amount = 1
 
 datum/reagent/cryostylane

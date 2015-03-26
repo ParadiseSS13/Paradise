@@ -172,7 +172,7 @@
 /obj/item/projectile/bullet/dart/metalfoam
 	New()
 		..()
-		reagents.add_reagent("aluminium", 15)
+		reagents.add_reagent("aluminum", 15)
 		reagents.add_reagent("foaming_agent", 5)
 		reagents.add_reagent("pacid", 5)
 

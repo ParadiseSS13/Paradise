@@ -47,10 +47,17 @@
 	adjustmask(user)
 
 /obj/item/clothing/mask/fakemoustache
-	name = "fake moustache"
-	desc = "Warning: moustache is fake."
+	name = "completely real moustache"
+	desc = "moustache is totally real."
 	icon_state = "fake-moustache"
 	flags_inv = HIDEFACE
+
+/obj/item/clothing/mask/fakemoustache/verb/pontificate()
+	set name = "Pontificate Evilly"
+	set category = "Object"
+	set desc = "Devise evil plans of evilness."
+
+	usr.visible_message("<span class = 'danger'>\ [usr] twirls \his moustache and laughs [pick("fiendishly","maniacally","diabolically","evilly","fiendishly")]!</span>")
 
 //scarves (fit in in mask slot)
 

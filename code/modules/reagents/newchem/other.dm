@@ -287,7 +287,7 @@ datum/reagent/super_hairgrownium
 	name = "Super Hairgrownium"
 	id = "super_hairgrownium"
 	result = "super_hairgrownium"
-	required_reagents = list("iron" = 1, "methamphetamine " = 1, "hairgrownium" = 1)
+	required_reagents = list("iron" = 1, "methamphetamine" = 1, "hairgrownium" = 1)
 	result_amount = 3
 
 datum/reagent/super_hairgrownium/on_mob_life(var/mob/living/M as mob)
