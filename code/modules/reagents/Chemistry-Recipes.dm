@@ -128,6 +128,7 @@ datum
 			result = "space_drugs"
 			required_reagents = list("mercury" = 1, "sugar" = 1, "lithium" = 1)
 			result_amount = 3
+			mix_message = "Slightly dizzying fumes drift from the solution."
 
 		lube
 			name = "Space Lube"
@@ -382,13 +383,6 @@ datum
 			id = "zombiepowder"
 			result = "zombiepowder"
 			required_reagents = list("carpotoxin" = 5, "stoxin" = 5, "copper" = 5)
-			result_amount = 2
-
-		mutetoxin
-			name = "Mute toxin"
-			id = "mutetoxin"
-			result = "mutetoxin"
-			required_reagents = list("uranium" = 2, "water" = 1, "carbon" = 1)
 			result_amount = 2
 
 		rezadone

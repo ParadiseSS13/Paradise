@@ -662,7 +662,8 @@ datum
 
 			on_mob_life(var/mob/living/M as mob)
 				if(!M) M = holder.my_atom
-				M.adjustBrainLoss(0.7)
+				if(prob(70))
+					M.adjustBrainLoss(1)
 				..()
 				return
 
@@ -1824,18 +1825,6 @@ datum
 					var/mob/M = holder.my_atom
 					M.status_flags &= ~FAKEDEATH
 				..()8*/
-
-		mutetoxin
-			name = "Mute Toxin"
-			id = "mutetoxin"
-			description = "A toxin that temporarily paralyzes the vocal cords."
-			reagent_state = LIQUID
-			color = "#F0F8FF" // rgb: 240, 248, 255
-
-			on_mob_life(var/mob/living/M)
-				if(!M) M = holder.my_atom
-				M.silent += REM + 1
-				..()
 
 		staminatoxin
 			name = "Tirizene"

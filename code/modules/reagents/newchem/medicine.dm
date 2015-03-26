@@ -66,6 +66,7 @@ datum/reagent/salglu_solution
 	description = "Has a 33% chance per metabolism cycle to heal brute and burn damage."
 	reagent_state = LIQUID
 	color = "#C8A5DC"
+	metabolization_rate = 0.15
 
 datum/reagent/salglu_solution/on_mob_life(var/mob/living/M as mob)
 	if(!M) M = holder.my_atom
@@ -799,8 +800,8 @@ datum/reagent/stimulants/on_mob_life(var/mob/living/M as mob)
 	if(!M) M = holder.my_atom
 	M.adjustOxyLoss(-5*REM)
 	M.adjustToxLoss(-5*REM)
-	M.adjustBruteLoss(-5*REM)
-	M.adjustFireLoss(-5*REM)
+	M.adjustBruteLoss(-10*REM)
+	M.adjustFireLoss(-10*REM)
 	M.setStaminaLoss(0)
 	var/status = CANSTUN | CANWEAKEN | CANPARALYSE
 	M.status_flags &= ~status
@@ -810,8 +811,8 @@ datum/reagent/stimulants/reagent_deleted(var/mob/living/M as mob)
 	if(!M) M = holder.my_atom
 	M.status_flags |= CANSTUN | CANWEAKEN | CANPARALYSE
 	M.adjustBruteLoss(12)
-	M.adjustToxLoss(12)
-	M.Stun(3)
+	M.adjustToxLoss(24)
+	M.Stun(4)
 	..()
 	return
 
