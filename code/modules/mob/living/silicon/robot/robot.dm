@@ -878,6 +878,9 @@ var/list/robot_verbs_default = list(
 						del(D)
 					src.module.modules += new /obj/item/weapon/pickaxe/diamonddrill(src.module)
 					src.module.rebuild()
+				if(src.module && istype(src.module, /obj/item/weapon/robot_module/medical))
+					for(var/obj/item/weapon/borg_defib/F in src.module.modules)
+						F.safety = 0
 				updateicon()
 			else
 				user << "You fail to [ locked ? "unlock" : "lock"] [src]'s interface."
