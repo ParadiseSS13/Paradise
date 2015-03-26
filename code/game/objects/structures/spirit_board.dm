@@ -11,11 +11,11 @@
 	var/lastuser = null
 
 /obj/structure/spirit_board/proc/announce_to_ghosts()
-		for(var/mob/dead/observer/O in player_list)
-			if(O.client)
-				var/area/A = get_area(src)
-				if(A)
-					O << "\blue <b>Someone has begun playing with a [src.name] in [A.name]!. (<a href='?src=\ref[O];jump=\ref[src]'>Teleport</a>)</b>"
+	for(var/mob/dead/observer/O in player_list)
+		if(O.client)
+			var/area/A = get_area(src)
+			if(A)
+				O << "\blue <b>Someone has begun playing with a [src.name] in [A.name]!. (<a href='?src=\ref[O];jump=\ref[src]'>Teleport</a>)</b>"
 
 /obj/structure/spirit_board/examine()
 	desc = "[initial(desc)] The planchette is sitting at \"[planchette]\"."
@@ -78,6 +78,7 @@
 
 	if(!ischapel)
 		return 0
+
 
 	//mobs in range check
 	var/users_in_range = 0
