@@ -416,6 +416,7 @@
 	var/revivecost = 1000
 	var/cooldown = 0
 	var/busy = 0
+	var/safety = 1
 	flags = NODROP
 
 /obj/item/weapon/borg_defib/attack(mob/M, mob/user)
@@ -431,14 +432,14 @@
 		user << "<span class='notice'>This unit is only designed to work on humanoid lifeforms.</span>"
 		return
 	else
-		if(user.a_intent == "harm")
+		if(user.a_intent == "harm"  && !safety)
 			busy = 1
 			H.visible_message("<span class='danger'>[user] has touched [H.name] with [src]!</span>", \
 					"<span class='userdanger'>[user] has touched [H.name] with [src]!</span>")
 			H.adjustStaminaLoss(50)
 			H.Weaken(5)
 			H.updatehealth() //forces health update before next life tick
-			playsound(get_turf(src), 'sound/weapons/Egloves.ogg', 50, 1, -1)
+			playsound(get_turf(src), 'sound/machines/defib_zap.ogg', 50, 1, -1)
 			H.emote("gasp")
 			add_logs(user, M, "stunned", object="defibrillator")
 			if(isrobot(user))
@@ -457,7 +458,7 @@
 			update_icon()
 			if(do_after(user, 30)) //beginning to place the paddles on patient's chest to allow some time for people to move away to stop the process
 				user.visible_message("<span class='notice'>[user] places [src] on [M.name]'s chest.</span>", "<span class='warning'>You place [src] on [M.name]'s chest.</span>")
-				playsound(get_turf(src), 'sound/weapons/flash.ogg', 50, 0)
+				playsound(get_turf(src), 'sound/machines/defib_charge.ogg', 50, 0)
 				var/mob/dead/observer/ghost = H.get_ghost()
 				var/tplus = world.time - H.timeofdeath
 				var/tlimit = 6000 //past this much time the patient is unrecoverable (in deciseconds)
@@ -469,7 +470,7 @@
 						var/health = H.health
 						M.visible_message("<span class='warning'>[M]'s body convulses a bit.")
 						playsound(get_turf(src), "bodyfall", 50, 1)
-						playsound(get_turf(src), 'sound/weapons/Egloves.ogg', 50, 1, -1)
+						playsound(get_turf(src), 'sound/machines/defib_zap.ogg', 50, 1, -1)
 						for(var/datum/organ/external/O in H.organs)
 							total_brute	+= O.brute_dam
 							total_burn	+= O.burn_dam
@@ -481,7 +482,7 @@
 							H.adjustFireLoss(tobehealed)
 							H.adjustBruteLoss(tobehealed)
 							user.visible_message("<span class='notice'>[user] pings: Resuscitation successful.</span>")
-							playsound(get_turf(src), 'sound/machines/ping.ogg', 50, 0)
+							playsound(get_turf(src), 'sound/machines/defib_success.ogg', 50, 0)
 							H.stat = 1
 							H.update_revive()
 							H.emote("gasp")
@@ -501,7 +502,7 @@
 								if(ghost)
 									ghost << "<span class='ghostalert'>Your heart is being defibrillated. Return to your body if you want to be revived!</span> (Verbs -> Ghost -> Re-enter corpse)"
 									ghost << sound('sound/effects/genetics.ogg')
-							playsound(get_turf(src), 'sound/machines/buzz-two.ogg', 50, 0)
+							playsound(get_turf(src), 'sound/machines/defib_failed.ogg', 50, 0)
 							if(isrobot(user))
 								var/mob/living/silicon/robot/R = user
 								R.cell.use(revivecost)
@@ -512,7 +513,7 @@
 							update_icon()
 					else
 						user.visible_message("<span class='notice'>[user] buzzes: Patient is not in a valid state. Operation aborted.</span>")
-						playsound(get_turf(src), 'sound/machines/buzz-sigh.ogg', 50, 0)
+						playsound(get_turf(src), 'sound/machines/defib_failed.ogg', 50, 0)
 			busy = 0
 			update_icon()
 		else
