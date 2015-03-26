@@ -202,6 +202,15 @@ var/list/uplink_items = list()
 	job = list("Research Director")
 
 
+//Stimulants
+
+/datum/uplink_item/jobspecific/stims
+	name = "Stimulants"
+	desc = "A highly illegal compound containd within a comapct auto-injector; when injected it makes the user extremely resistant to incapacitation and greatly enhances the body's ability to repair itself."
+	item = /obj/item/weapon/reagent_containers/hypospray/autoinjector/stimulants
+	cost = 7
+	job = list("Scientist","Research Director","Geneticist","Chief Medical Officer","Medical Doctor","Psychiatrist","Chemist","Paramedic","Virologist","Brig Physician")
+
 // DANGEROUS WEAPONS
 
 /datum/uplink_item/dangerous

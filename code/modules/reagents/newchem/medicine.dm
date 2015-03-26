@@ -187,6 +187,8 @@ datum/reagent/calomel/on_mob_life(var/mob/living/M as mob)
 			M.reagents.remove_reagent(R.id,5)
 	if(M.health > 20)
 		M.adjustToxLoss(5*REM)
+	if(prob(10))
+		M.fakevomit()
 	..()
 	return
 
@@ -344,7 +346,6 @@ datum/reagent/ephedrine
 
 datum/reagent/ephedrine/on_mob_life(var/mob/living/M as mob)
 	if(!M) M = holder.my_atom
-	M.status_flags |= IGNORESLOWDOWN
 	M.AdjustParalysis(-1)
 	M.AdjustStunned(-1)
 	M.AdjustWeakened(-1)
@@ -771,7 +772,6 @@ datum/reagent/antihol/on_mob_life(var/mob/living/M as mob)
 	M.slurring = 0
 	M.confused = 0
 	M.reagents.remove_reagent("ethanol", 8)
-	M.adjustToxLoss(-0.2*REM)
 	..()
 
 /datum/chemical_reaction/antihol
@@ -794,29 +794,24 @@ datum/reagent/antihol/on_mob_life(var/mob/living/M as mob)
 	description = "Increases run speed and eliminates stuns, can heal minor damage. If overdosed it will deal toxin damage and stun."
 	color = "#C8A5DC"
 	metabolization_rate = 0.4
-	overdose_threshold = 60
 
 datum/reagent/stimulants/on_mob_life(var/mob/living/M as mob)
 	if(!M) M = holder.my_atom
-	M.status_flags |= IGNORESLOWDOWN
-	if(M.health < 50 && M.health > 0)
-		if(prob(50))
-			M.adjustOxyLoss(-5*REM)
-			M.adjustToxLoss(-5*REM)
-			M.adjustBruteLoss(-5*REM)
-			M.adjustFireLoss(-5*REM)
-	M.adjustFireLoss(-3*REM)
-	M.AdjustParalysis(-1)
-	M.AdjustStunned(-1)
-	M.AdjustWeakened(-1)
-	M.adjustStaminaLoss(-3*REM)
+	M.adjustOxyLoss(-5*REM)
+	M.adjustToxLoss(-5*REM)
+	M.adjustBruteLoss(-5*REM)
+	M.adjustFireLoss(-5*REM)
+	M.setStaminaLoss(0)
+	var/status = CANSTUN | CANWEAKEN | CANPARALYSE
+	M.status_flags &= ~status
 	..()
 
-datum/reagent/stimulants/overdose_process(var/mob/living/M as mob)
-	if(prob(33))
-		M.adjustStaminaLoss(5*REM)
-		M.adjustToxLoss(2*REM)
-		M.losebreath++
+datum/reagent/stimulants/reagent_deleted(var/mob/living/M as mob)
+	if(!M) M = holder.my_atom
+	M.status_flags |= CANSTUN | CANWEAKEN | CANPARALYSE
+	M.adjustBruteLoss(12)
+	M.adjustToxLoss(12)
+	M.Stun(3)
 	..()
 	return
 

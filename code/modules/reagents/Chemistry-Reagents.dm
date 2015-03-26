@@ -346,7 +346,7 @@ datum
 
 			on_mob_life(var/mob/living/M as mob)
 				if(!M) M = holder.my_atom
-				M.adjustToxLoss(1.5)
+				M.adjustToxLoss(2)
 				..()
 				return
 
@@ -483,6 +483,7 @@ datum
 			description = "An illegal chemical compound used as drug."
 			reagent_state = LIQUID
 			color = "#60A584" // rgb: 96, 165, 132
+			metabolization_rate = 0.2
 
 			on_mob_life(var/mob/living/M as mob)
 				if(!M) M = holder.my_atom
@@ -491,7 +492,6 @@ datum
 					if(M.canmove && !M.restrained())
 						if(prob(10)) step(M, pick(cardinal))
 				if(prob(7)) M.emote(pick("twitch","drool","moan","giggle"))
-				holder.remove_reagent(src.id, 0.5 * REAGENTS_METABOLISM)
 				..()
 				return
 
@@ -658,13 +658,11 @@ datum
 			description = "A chemical element."
 			reagent_state = LIQUID
 			color = "#484848" // rgb: 72, 72, 72
+			metabolization_rate = 0.2
 
 			on_mob_life(var/mob/living/M as mob)
 				if(!M) M = holder.my_atom
-				if(M.canmove && istype(M.loc, /turf/space))
-					step(M, pick(cardinal))
-				if(prob(5)) M.emote(pick("twitch","drool","moan"))
-				M.adjustBrainLoss(2)
+				M.adjustBrainLoss(0.7)
 				..()
 				return
 
@@ -698,7 +696,7 @@ datum
 
 			on_mob_life(var/mob/living/M as mob)
 				if(!M) M = holder.my_atom
-				M.take_organ_damage(1*REM, 0)
+				M.adjustFireLoss(1)
 				..()
 				return
 
@@ -711,6 +709,7 @@ datum
 
 			on_mob_life(var/mob/living/M as mob)
 				if(!M) M = holder.my_atom
+				M.adjustFireLoss(1)
 				M.adjustToxLoss(1*REM)
 				..()
 				return
@@ -784,7 +783,7 @@ datum
 			on_mob_life(var/mob/living/M as mob)
 				if(!M) M = holder.my_atom
 				M.adjustToxLoss(1*REM)
-				M.take_organ_damage(0, 1*REM)
+				M.adjustFireLoss(1)
 				..()
 				return
 			reaction_mob(var/mob/living/M, var/method=TOUCH, var/volume)
@@ -861,8 +860,8 @@ datum
 
 			on_mob_life(var/mob/living/M as mob)
 				if(!M) M = holder.my_atom
-				M.adjustToxLoss(2*REM)
-				M.take_organ_damage(0, 1*REM)
+				M.adjustToxLoss(1*REM)
+				M.adjustFireLoss(1)
 				..()
 				return
 
@@ -957,10 +956,11 @@ datum
 			description = "Radium is an alkaline earth metal. It is extremely radioactive."
 			reagent_state = SOLID
 			color = "#C7C7C7" // rgb: 199,199,199
+			metabolization_rate = 0.3
 
 			on_mob_life(var/mob/living/M as mob)
 				if(!M) M = holder.my_atom
-				M.apply_effect(2*REM,IRRADIATE,0)
+				M.apply_effect(4*REM,IRRADIATE,0)
 				// radium may increase your chances to cure a disease
 				if(istype(M,/mob/living/carbon)) // make sure to only use it on carbon mobs
 					var/mob/living/carbon/C = M
@@ -1052,6 +1052,7 @@ datum
 			description = "Might cause unpredictable mutations. Keep away from children."
 			reagent_state = LIQUID
 			color = "#13BC5E" // rgb: 19, 188, 94
+			metabolization_rate = 0.3
 
 			reaction_mob(var/mob/M, var/method=TOUCH, var/volume)
 				if(!..())	return
@@ -1069,7 +1070,7 @@ datum
 			on_mob_life(var/mob/living/M as mob)
 				if(!M.dna) return //No robots, AIs, aliens, Ians or other mobs should be affected by this.
 				if(!M) M = holder.my_atom
-				M.apply_effect(5*REM,IRRADIATE,0)
+				M.apply_effect(2*REM,IRRADIATE,0)
 				..()
 				return
 
@@ -1193,7 +1194,7 @@ datum
 
 			on_mob_life(var/mob/living/M as mob)
 				if(!M) M = holder.my_atom
-				M.apply_effect(1,IRRADIATE,0)
+				M.apply_effect(2,IRRADIATE,0)
 				..()
 				return
 
@@ -1395,10 +1396,7 @@ datum
 				if(M.stat == 2.0)
 					return
 				if(!M) M = holder.my_atom
-				if(prob(33))
-					M.take_organ_damage(1*REM, 0)
-				M.adjustOxyLoss(3)
-				if(prob(20)) M.emote("gasp")
+				M.adjustToxLoss(1)
 				..()
 				return
 
@@ -1729,7 +1727,7 @@ datum
 				if(!M) M = holder.my_atom
 				if(M.bodytemperature < 170)
 					M.adjustCloneLoss(-1)
-					M.adjustOxyLoss(-3)
+					M.adjustOxyLoss(-10)
 					M.heal_organ_damage(3,3)
 					M.adjustToxLoss(-3)
 				..()
@@ -1746,9 +1744,6 @@ datum
 				if(!M) M = holder.my_atom
 				if(M.bodytemperature < 170)
 					M.adjustCloneLoss(-3)
-					M.adjustOxyLoss(-3)
-					M.heal_organ_damage(3,3)
-					M.adjustToxLoss(-3)
 					M.status_flags &= ~DISFIGURED
 				..()
 				return

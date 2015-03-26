@@ -200,8 +200,8 @@ datum/reagent/itching_powder/on_mob_life(var/mob/living/M as mob)
 
 datum/reagent/facid/on_mob_life(var/mob/living/M as mob)
 	if(!M) M = holder.my_atom
-	M.adjustToxLoss(2*REM)
-	M.take_organ_damage(0, 1*REM)
+	M.adjustToxLoss(1*REM)
+	M.adjustFireLoss(1)
 	..()
 	return
 
@@ -467,7 +467,7 @@ datum/reagent/sarin
 	required_reagents = list("chlorine" = 1, "fluorine" = 1, "hydrogen" = 1, "oxygen" = 1, "phosphorus" = 1, "fuel" = 1, "acetone" = 1, "atrazine" = 1)
 	result_amount = 3
 	mix_message = "The mixture yields a colorless, odorless liquid."
-	required_temp = 373
+	required_temp = 374
 
 datum/reagent/sarin/on_mob_life(var/mob/living/M as mob)
 	if(!M) M = holder.my_atom

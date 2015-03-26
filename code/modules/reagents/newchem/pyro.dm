@@ -446,26 +446,10 @@ datum/reagent/cryostylane
 	required_reagents = list("water" = 1, "plasma" = 1, "nitrogen" = 1)
 	result_amount = 3
 
-/datum/chemical_reaction/cryostylane/on_reaction(var/datum/reagents/holder, var/created_volume)
-	holder.chem_temp = 20 // cools the fuck down
-	return
-
-
 datum/reagent/cryostylane/on_mob_life(var/mob/living/M as mob) //TODO: code freezing into an ice cube
-	if(M.reagents.has_reagent("oxygen"))
-		M.reagents.remove_reagent("oxygen", 1)
-		M.bodytemperature -= 30
+	M.bodytemperature -= 30
 	..()
 	return
-
-datum/reagent/cryostylane/on_tick()
-	if(holder.has_reagent("oxygen"))
-		holder.remove_reagent("oxygen", 1)
-		holder.chem_temp -= 10
-		holder.handle_reactions()
-	..()
-	return
-
 
 datum/reagent/cryostylane/reaction_turf(var/turf/simulated/T, var/volume)
 	if(volume >= 5)

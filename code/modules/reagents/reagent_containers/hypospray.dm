@@ -137,3 +137,18 @@
 	reagents.add_reagent("lexorin", 1)
 	update_icon()
 	return
+
+/obj/item/weapon/reagent_containers/hypospray/autoinjector/stimulants
+	name = "Stimulants autoinjector"
+	desc = "Rapidly stimulates and regernates the body's organ system."
+	icon_state = "stimpen"
+	amount_per_transfer_from_this = 50
+	possible_transfer_amounts = list(50)
+	volume = 50
+
+/obj/item/weapon/reagent_containers/hypospray/autoinjector/stimulants/New()
+	..()
+	reagents.remove_reagent("epinephrine", 10)
+	reagents.add_reagent("stimulants", 50)
+	update_icon()
+	return
