@@ -81,7 +81,7 @@ datum/theft_objective/ai/check_special_completion(var/obj/item/device/aicard/C)
 
 /datum/theft_objective/blueprints
 	name = "the station blueprints"
-	typepath = /obj/item/blueprints
+	typepath = /obj/item/areaeditor/blueprints
 	protected_jobs = list("Chief Engineer")
 
 /datum/theft_objective/voidsuit

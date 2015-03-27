@@ -8,7 +8,6 @@
 	icon_broken = "securecebroken"
 	icon_off = "secureceoff"
 
-
 	New()
 		..()
 		sleep(2)
@@ -17,7 +16,8 @@
 		else
 			new /obj/item/weapon/storage/backpack/satchel_eng(src)
 		new /obj/item/weapon/storage/backpack/duffel/engineering(src)
-		new /obj/item/blueprints(src)
+		new /obj/item/areaeditor/blueprints(src)
+		new /obj/item/weapon/storage/box/permits(src)
 		new /obj/item/clothing/under/rank/chief_engineer(src)
 		new /obj/item/clothing/head/hardhat/white(src)
 		new /obj/item/clothing/glasses/welding/superior(src)
@@ -32,8 +32,6 @@
 		new /obj/item/device/flash(src)
 		new /obj/item/taperoll/engineering(src)
 		return
-
-
 
 /obj/structure/closet/secure_closet/engineering_electrical
 	name = "Electrical Supplies"

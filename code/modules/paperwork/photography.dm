@@ -384,6 +384,7 @@
 			camera.network = list("news")
 			camera.c_tag = user.name
 	else
+
 		src.icon_state = icon_on
 		camera = new /obj/machinery/camera(src)
 		camera.network = list("news")

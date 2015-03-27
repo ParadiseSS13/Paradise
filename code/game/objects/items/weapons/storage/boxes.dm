@@ -150,7 +150,6 @@
 		new /obj/item/ammo_casing/shotgun(src)
 		new /obj/item/ammo_casing/shotgun(src)
 
-
 /obj/item/weapon/storage/box/flashbangs
 	name = "box of flashbangs (WARNING)"
 	desc = "<B>WARNING: These devices are extremely dangerous and can cause blindness or deafness in repeated use.</B>"
@@ -402,6 +401,19 @@
 		..()
 		for(var/i = 1; i <= 5; i++)
 			new /obj/item/weapon/reagent_containers/food/snacks/monkeycube/wrapped/neaeracube(src)
+
+
+/obj/item/weapon/storage/box/permits
+	name = "box of construction permits"
+	desc = "A box for containing construction permits, used to officially declare built rooms as additions to the station."
+	icon_state = "id"
+
+/obj/item/weapon/storage/box/permits/New() //There's only a few, so blueprints are still useful beyond setting every room's name to PRIMARY FART STORAGE
+	..()
+	new /obj/item/areaeditor/permit(src)
+	new /obj/item/areaeditor/permit(src)
+	new /obj/item/areaeditor/permit(src)
+
 
 /obj/item/weapon/storage/box/ids
 	name = "spare IDs"

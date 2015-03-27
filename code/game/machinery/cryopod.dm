@@ -197,7 +197,7 @@
 		/obj/item/weapon/pinpointer,
 		/obj/item/clothing/suit,
 		/obj/item/clothing/shoes/magboots,
-		/obj/item/blueprints,
+		/obj/item/areaeditor/blueprints,
 		/obj/item/clothing/head/helmet/space,
 		/obj/item/weapon/storage/internal
 	)
@@ -270,7 +270,7 @@
 		// Eject dead people
 		if(occupant.stat == DEAD)
 			go_out()
-		
+
 		// Allow a gap between entering the pod and actually despawning.
 		if(world.time - time_entered < time_till_despawn)
 			return
@@ -426,7 +426,7 @@
 
 		var/willing = null //We don't want to allow people to be forced into despawning.
 		var/mob/living/M = G:affecting
-		
+
 		if(!istype(M) || M.stat == DEAD)
 			user << "<span class='notice'>Dead people can not be put into cryo.</span>"
 			return
@@ -496,11 +496,11 @@
 	var/mob/living/L = O
 	if(!istype(L) || L.buckled)
 		return
-		
+
 	if(L.stat == DEAD)
 		user << "<span class='notice'>Dead people can not be put into cryo.</span>"
 		return
-	
+
 	for(var/mob/living/carbon/slime/M in range(1,L))
 		if(M.Victim == L)
 			usr << "[L.name] will not fit into the cryo pod because they have a slime latched onto their head."
@@ -554,14 +554,14 @@
 	set name = "Eject Pod"
 	set category = "Object"
 	set src in oview(1)
-	
+
 	if(usr.stat != 0)
 		return
 
 	if(usr != occupant)
 		usr << "The cryopod is in use and locked!"
 		return
-		
+
 	if(orient_right)
 		icon_state = "[base_icon_state]-r"
 	else
