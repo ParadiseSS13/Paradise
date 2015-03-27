@@ -30,7 +30,7 @@
 		user << "\blue You inject [M] with [src]."
 		M << "\red You feel a tiny prick!"
 
-		src.reagents.reaction(M, INGEST)
+		src.reagents.reaction(M)
 		if(M.reagents)
 
 			var/list/injected = list()
@@ -53,7 +53,7 @@
 
 /obj/item/weapon/reagent_containers/hypospray/CMO/New()
 	..()
-	reagents.add_reagent("doctorsdelight", 30)
+	reagents.add_reagent("omnizine", 30)
 
 /obj/item/weapon/reagent_containers/hypospray/combat
 	name = "combat stimulant injector"
@@ -133,7 +133,7 @@
 /obj/item/weapon/reagent_containers/hypospray/autoinjector/stimpack/New()
 	..()
 	reagents.remove_reagent("epinephrine", 10)
-	reagents.add_reagent("hyperzine", 9)
+	reagents.add_reagent("methamphetamine", 9)
 	reagents.add_reagent("lexorin", 1)
 	update_icon()
 	return

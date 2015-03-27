@@ -49,7 +49,7 @@
 	melee_damage_upper = 10
 	poison_per_bite = 10
 	var/atom/cocoon_target
-	poison_type = "stoxin"
+	poison_type = "morphine"
 	var/fed = 0
 
 //hunters have the most poison and move the fastest, so they can find prey

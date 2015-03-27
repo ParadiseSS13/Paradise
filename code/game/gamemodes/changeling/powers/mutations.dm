@@ -274,7 +274,7 @@
 /obj/item/clothing/suit/space/changeling/process()
 	if(ishuman(loc))
 		var/mob/living/carbon/human/H = loc
-		H.reagents.add_reagent("dexalinp", REAGENTS_METABOLISM)
+		H.reagents.add_reagent("perfluorodecalin", REAGENTS_METABOLISM)
 
 /obj/item/clothing/head/helmet/space/changeling
 	name = "flesh mass"

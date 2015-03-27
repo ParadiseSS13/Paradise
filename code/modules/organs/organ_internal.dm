@@ -191,7 +191,7 @@
 			src.damage = 0
 
 		//High toxins levels are dangerous
-		if(owner.getToxLoss() >= 60 && !owner.reagents.has_reagent("anti_toxin"))
+		if(owner.getToxLoss() >= 60 && !owner.reagents.has_reagent("charcoal"))
 			//Healthy liver suffers on its own
 			if (src.damage < min_broken_damage)
 				src.damage += 0.2 * process_accuracy
@@ -202,7 +202,7 @@
 					O.damage += 0.2  * process_accuracy
 
 		//Detox can heal small amounts of damage
-		if (src.damage && src.damage < src.min_bruised_damage && owner.reagents.has_reagent("anti_toxin"))
+		if (src.damage && src.damage < src.min_bruised_damage && owner.reagents.has_reagent("charcoal"))
 			src.damage -= 0.2 * process_accuracy
 
 		// Damaged liver means some chemicals are very dangerous
@@ -213,7 +213,7 @@
 					owner.adjustToxLoss(0.1 * process_accuracy)
 
 			// Can't cope with toxins at all
-			for(var/toxin in list("toxin", "plasma", "sacid", "pacid", "cyanide", "lexorin", "amatoxin", "chloralhydrate", "carpotoxin", "zombiepowder", "mindbreaker"))
+			for(var/toxin in list("toxin", "plasma", "sacid", "facid", "cyanide", "amatoxin", "carpotoxin", "mindbreaker"))
 				if(owner.reagents.has_reagent(toxin))
 					owner.adjustToxLoss(0.3 * process_accuracy)
 

@@ -170,8 +170,8 @@
 						if(O.reagents.get_reagent_amount("water") < 50)
 							O.reagents.add_reagent("water", 2 * coeff)
 					if(istype(O,/obj/item/weapon/reagent_containers/spray/alien/stun))
-						if(O.reagents.get_reagent_amount("stoxin") < 250)
-							O.reagents.add_reagent("stoxin", 2 * coeff)
+						if(O.reagents.get_reagent_amount("morphine") < 250)
+							O.reagents.add_reagent("morphine", 2 * coeff)
 
 
 				if(R)
@@ -183,11 +183,11 @@
 					if(istype(R.module.emag, /obj/item/weapon/reagent_containers/spray))
 						var/obj/item/weapon/reagent_containers/spray/S = R.module.emag
 						if(S.name == "polyacid spray")
-							S.reagents.add_reagent("pacid", 2 * coeff)
+							S.reagents.add_reagent("facid", 2 * coeff)
 						if(S.name == "lube spray")
 							S.reagents.add_reagent("lube", 2 * coeff)
 						else if(S.name == "acid synthesizer")
-							S.reagents.add_reagent("pacid", 2 * coeff)
+							S.reagents.add_reagent("facid", 2 * coeff)
 							S.reagents.add_reagent("sacid", 2 * coeff)
 
 /obj/machinery/recharge_station/verb/move_eject()

@@ -11,12 +11,6 @@
 	1	* src.getCloneLoss() + 		\
 	1	* src.halloss
 
-	if(reagents.has_reagent("alkysine"))
-		src.traumatic_shock -= 5
-	if(reagents.has_reagent("inaprovaline"))
-		src.traumatic_shock -= 15
-	if(reagents.has_reagent("synaptizine"))
-		src.traumatic_shock -= 30
 	if(reagents.has_reagent("paracetamol"))
 		src.traumatic_shock -= 40
 	if(reagents.has_reagent("tramadol"))

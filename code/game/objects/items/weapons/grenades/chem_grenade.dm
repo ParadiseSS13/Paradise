@@ -391,7 +391,7 @@
 
 		B1.reagents.add_reagent("aluminum", 30)
 		B2.reagents.add_reagent("foaming_agent", 10)
-		B2.reagents.add_reagent("pacid", 10)
+		B2.reagents.add_reagent("facid", 10)
 
 		beakers += B1
 		beakers += B2

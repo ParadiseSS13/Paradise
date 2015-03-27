@@ -294,10 +294,10 @@
 	desc = "A small gas-powered dartgun, fitted for nonhuman hands."
 
 /obj/item/weapon/gun/dartgun/vox/medical
-	starting_chems = list("kelotane","bicaridine","anti_toxin")
+	starting_chems = list("silver_sulfadiazine","styptic_powder","charcoal")
 
 /obj/item/weapon/gun/dartgun/vox/raider
-	starting_chems = list("space_drugs","stoxin","impedrezene")
+	starting_chems = list("space_drugs","morphine","haloperidol")
 
 /obj/effect/syringe_gun_dummy //moved this shitty thing here
 	name = ""

@@ -41,7 +41,7 @@
 	result = /obj/item/weapon/reagent_containers/food/snacks/boiledegg
 
 /datum/recipe/microwave/dionaroast
-	reagents = list("pacid" = 5) //It dissolves the carapace. Still poisonous, though.
+	reagents = list("facid" = 5) //It dissolves the carapace. Still poisonous, though.
 	items = list(
 		/obj/item/weapon/holder/diona,
 		/obj/item/weapon/reagent_containers/food/snacks/grown/apple
@@ -221,7 +221,7 @@
 	result = /obj/item/weapon/reagent_containers/food/snacks/donkpocket //SPECIAL
 	proc/warm_up(var/obj/item/weapon/reagent_containers/food/snacks/donkpocket/being_cooked)
 		being_cooked.warm = 1
-		being_cooked.reagents.add_reagent("tricordrazine", 5)
+		being_cooked.reagents.add_reagent("omnizine", 15)
 		being_cooked.bitesize = 6
 		being_cooked.name = "Warm " + being_cooked.name
 		being_cooked.cooltime()

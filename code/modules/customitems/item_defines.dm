@@ -404,7 +404,7 @@
 	icon_state = "pill9"
 	New()
 		..()
-		reagents.add_reagent("stoxin", 5)
+		reagents.add_reagent("morphine", 5)
 		reagents.add_reagent("sugar", 10)
 		reagents.add_reagent("ethanol", 5)
 

@@ -503,7 +503,7 @@
 				if( health <= 20 && prob(1) )
 					spawn(0)
 						emote("gasp")
-				if(!reagents.has_reagent("inaprovaline"))
+				if(!reagents.has_reagent("epinephrine"))
 					adjustOxyLoss(1)
 				Paralyse(3)
 			if(halloss > 100)

@@ -14,14 +14,14 @@
 	var/recharge_time = 5 //Time it takes for shots to recharge (in seconds)
 
 	var/list/datum/reagents/reagent_list = list()
-	var/list/reagent_ids = list("doctorsdelight", "inaprovaline", "spaceacillin")
-	//var/list/reagent_ids = list("dexalin", "kelotane", "bicaridine", "anti_toxin", "inaprovaline", "spaceacillin")
+	var/list/reagent_ids = list("salglu_solution", "epinephrine", "spaceacillin")
+	//var/list/reagent_ids = list("salbutamol", "silver_sulfadiazine", "styptic_powder", "charcoal", "epinephrine", "spaceacillin")
 
 /obj/item/weapon/reagent_containers/borghypo/surgeon
-	reagent_ids = list("bicaridine", "inaprovaline", "dexalin")
+	reagent_ids = list("styptic_powder", "epinephrine", "salbutamol")
 
 /obj/item/weapon/reagent_containers/borghypo/crisis
-	reagent_ids = list("doctorsdelight", "inaprovaline", "tramadol")
+	reagent_ids = list("salglu_solution", "epinephrine", "tramadol")
 
 /obj/item/weapon/reagent_containers/borghypo/New()
 	..()
@@ -78,7 +78,7 @@
 		user << "\blue You inject [M] with the injector."
 		M << "\red You feel a tiny prick!"
 
-		R.reaction(M, INGEST)
+		R.reaction(M)
 		if(M.reagents)
 			var/trans = R.trans_to(M, amount_per_transfer_from_this)
 			user << "\blue [trans] units injected.  [R.total_volume] units remaining."

@@ -97,14 +97,6 @@
 ////////////////////////////////////////////////////////////////////////////////
 
 //Pills
-/obj/item/weapon/reagent_containers/pill/antitox
-	name = "Anti-toxins pill"
-	desc = "Neutralizes many common toxins."
-	icon_state = "pill17"
-	New()
-		..()
-		reagents.add_reagent("anti_toxin", 25)
-
 /obj/item/weapon/reagent_containers/pill/tox
 	name = "Toxins pill"
 	desc = "Highly toxic."
@@ -129,30 +121,6 @@
 		..()
 		reagents.add_reagent("adminordrazine", 50)
 
-/obj/item/weapon/reagent_containers/pill/stox
-	name = "Sleeping pill"
-	desc = "Commonly used to treat insomnia."
-	icon_state = "pill8"
-	New()
-		..()
-		reagents.add_reagent("stoxin", 30)
-
-/obj/item/weapon/reagent_containers/pill/kelotane
-	name = "Kelotane pill"
-	desc = "Used to treat burns."
-	icon_state = "pill11"
-	New()
-		..()
-		reagents.add_reagent("kelotane", 30)
-
-/obj/item/weapon/reagent_containers/pill/dermaline
-	name = "Dermaline pill"
-	desc = "Used to treat severe burns."
-	icon_state = "pill12"
-	New()
-		..()
-		reagents.add_reagent("dermaline", 30)
-
 /obj/item/weapon/reagent_containers/pill/tramadol
 	name = "Tramadol pill"
 	desc = "A simple painkiller."
@@ -170,13 +138,13 @@
 		..()
 		reagents.add_reagent("methamphetamine", 5)
 
-/obj/item/weapon/reagent_containers/pill/diphenhydramine
-	name = "Diphenhydramine pill"
-	desc = "A mild tranquilizer and anti-psychotic."
+/obj/item/weapon/reagent_containers/pill/haloperidol
+	name = "Haloperidol pill"
+	desc = "Haloperidol is an anti-psychotic use to treat psychiatric problems."
 	icon_state = "pill8"
 	New()
 		..()
-		reagents.add_reagent("diphenhydramine", 15)
+		reagents.add_reagent("haloperidol", 15)
 
 /obj/item/weapon/reagent_containers/pill/paroxetine
 	name = "Paroxetine pill"
@@ -186,29 +154,6 @@
 		..()
 		reagents.add_reagent("paroxetine", 15)
 
-/obj/item/weapon/reagent_containers/pill/inaprovaline
-	name = "Inaprovaline pill"
-	desc = "Used to stabilize patients."
-	icon_state = "pill20"
-	New()
-		..()
-		reagents.add_reagent("inaprovaline", 30)
-
-/obj/item/weapon/reagent_containers/pill/dexalin
-	name = "Dexalin pill"
-	desc = "Used to treat oxygen deprivation."
-	icon_state = "pill16"
-	New()
-		..()
-		reagents.add_reagent("dexalin", 30)
-
-/obj/item/weapon/reagent_containers/pill/bicaridine
-	name = "Bicaridine pill"
-	desc = "Used to treat physical injuries."
-	icon_state = "pill18"
-	New()
-		..()
-		reagents.add_reagent("bicaridine", 30)
 
 /obj/item/weapon/reagent_containers/pill/happy
 	name = "Happy pill"
@@ -225,9 +170,8 @@
 	icon_state = "pill18"
 	New()
 		..()
-		reagents.add_reagent("impedrezene", 10)
 		reagents.add_reagent("synaptizine", 5)
-		reagents.add_reagent("hyperzine", 5)
+		reagents.add_reagent("methamphetamine", 5)
 
 /obj/item/weapon/reagent_containers/pill/charcoal
 	name = "Chacoal pill"

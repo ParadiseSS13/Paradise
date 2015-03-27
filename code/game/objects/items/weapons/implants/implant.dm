@@ -434,8 +434,8 @@ the implant may become unstable and either pre-maturely inject the subject or si
 			source.update_canmove()
 
 			source.reagents.add_reagent("synaptizine", 10)
-			source.reagents.add_reagent("tricordrazine", 10)
-			source.reagents.add_reagent("hyperzine", 10)
+			source.reagents.add_reagent("omnizine", 10)
+			source.reagents.add_reagent("methamphetamine", 10)
 
 		return
 

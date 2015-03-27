@@ -1,4 +1,4 @@
-#define EMOTE_COOLDOWN 50		//Time in deciseconds that the cooldown lasts
+#define EMOTE_COOLDOWN 20		//Time in deciseconds that the cooldown lasts
 
 //Emote Cooldown System (it's so simple!)
 /mob/proc/handle_emote_CD()

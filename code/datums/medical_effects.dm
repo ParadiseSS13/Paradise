@@ -80,8 +80,8 @@
 // ========
 /datum/medical_effect/headache
 	name = "Headache"
-	triggers = list("cryoxadone" = 10, "bicaridine" = 15, "tricordrazine" = 15)
-	cures = list("alkysine", "tramadol", "paracetamol", "oxycodone")
+	triggers = list("cryoxadone" = 10)
+	cures = list("mannitol", "tramadol", "paracetamol", "oxycodone")
 	cure_message = "Your head stops throbbing..."
 
 /datum/medical_effect/headache/on_life(mob/living/carbon/human/H, strength)
@@ -97,8 +97,8 @@
 // ===========
 /datum/medical_effect/bad_stomach
 	name = "Bad Stomach"
-	triggers = list("kelotane" = 30, "dermaline" = 15)
-	cures = list("anti_toxin")
+	triggers = list()
+	cures = list()
 	cure_message = "Your stomach feels a little better now..."
 
 /datum/medical_effect/bad_stomach/on_life(mob/living/carbon/human/H, strength)
@@ -114,8 +114,8 @@
 // ======
 /datum/medical_effect/cramps
 	name = "Cramps"
-	triggers = list("anti_toxin" = 30, "tramadol" = 15)
-	cures = list("inaprovaline")
+	triggers = list("tramadol" = 15)
+	cures = list("epinephrine")
 	cure_message = "The cramps let up..."
 
 /datum/medical_effect/cramps/on_life(mob/living/carbon/human/H, strength)
@@ -133,7 +133,7 @@
 /datum/medical_effect/itch
 	name = "Itch"
 	triggers = list("space_drugs" = 10)
-	cures = list("inaprovaline")
+	cures = list("epinephrine")
 	cure_message = "The itching stops..."
 
 /datum/medical_effect/itch/on_life(mob/living/carbon/human/H, strength)

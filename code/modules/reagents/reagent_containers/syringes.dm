@@ -442,25 +442,6 @@
 ////////////////////////////////////////////////////////////////////////////////
 
 
-
-/obj/item/weapon/reagent_containers/syringe/inaprovaline
-	name = "Syringe (inaprovaline)"
-	desc = "Contains inaprovaline - used to stabilize patients."
-	New()
-		..()
-		reagents.add_reagent("inaprovaline", 15)
-		mode = SYRINGE_INJECT
-		update_icon()
-
-/obj/item/weapon/reagent_containers/syringe/antitoxin
-	name = "Syringe (anti-toxin)"
-	desc = "Contains anti-toxins."
-	New()
-		..()
-		reagents.add_reagent("anti_toxin", 15)
-		mode = SYRINGE_INJECT
-		update_icon()
-
 /obj/item/weapon/reagent_containers/syringe/antiviral
 	name = "Syringe (spaceacillin)"
 	desc = "Contains antiviral agents."
@@ -470,41 +451,43 @@
 		mode = SYRINGE_INJECT
 		update_icon()
 
-/obj/item/weapon/reagent_containers/ld50_syringe/choral
+/obj/item/weapon/reagent_containers/ld50_syringe/lethal
 	New()
 		..()
-		reagents.add_reagent("chloralhydrate", 50)
+		reagents.add_reagent("sulfonal", 4)
+		reagents.add_reagent("pancuronium", 6)
+		reagents.add_reagent("neurotoxin2", 40)
 		mode = SYRINGE_INJECT
 		update_icon()
 
 
 //Robot syringes
 //Not special in any way, code wise. They don't have added variables or procs.
-/obj/item/weapon/reagent_containers/syringe/robot/antitoxin
-	name = "Syringe (anti-toxin)"
-	desc = "Contains anti-toxins."
+/obj/item/weapon/reagent_containers/syringe/robot/charcoal
+	name = "Syringe (charcoal)"
+	desc = "Contains charcoal."
 	New()
 		..()
-		reagents.add_reagent("anti_toxin", 15)
+		reagents.add_reagent("charcoal", 15)
 		mode = SYRINGE_INJECT
 		update_icon()
 
-/obj/item/weapon/reagent_containers/syringe/robot/inoprovaline
-	name = "Syringe (inoprovaline)"
-	desc = "Contains inaprovaline - used to stabilize patients."
+/obj/item/weapon/reagent_containers/syringe/robot/epinephrine
+	name = "Syringe (Epinephrine)"
+	desc = "Contains epinephrine - used to stabilize patients."
 	New()
 		..()
-		reagents.add_reagent("inaprovaline", 15)
+		reagents.add_reagent("epinephrine", 15)
 		mode = SYRINGE_INJECT
 		update_icon()
 
 /obj/item/weapon/reagent_containers/syringe/robot/mixed
 	name = "Syringe (mixed)"
-	desc = "Contains inaprovaline & anti-toxins."
+	desc = "Contains epinephrine & charcoal."
 	New()
 		..()
-		reagents.add_reagent("inaprovaline", 7)
-		reagents.add_reagent("anti_toxin", 8)
+		reagents.add_reagent("epinephrine", 7)
+		reagents.add_reagent("charcoal", 8)
 		mode = SYRINGE_INJECT
 		update_icon()
 

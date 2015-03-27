@@ -21,10 +21,10 @@
 		var/obj/vent = pick_n_take(vents)
 
 		var/list/gunk = list("water","carbon","flour","radium","toxin","cleaner","nutriment","condensedcapsaicin","psilocybin","lube",
-							"atrazine","banana","anti_toxin","space_drugs","hyperzine","holywater","ethanol","hot_coco","pacid",
-							"blood","stoxin","fluorine","ryetalyn","mutagen","oxycodone","fuel","cryptobiolin",
-							"impedrezene","mindbreaker","nanites","lipozine","frostoil","doctorsdelight","beepskysmash",
-							"tricordrazine", "amatoxin", "adminordrazine", "neurotoxin", "zombiepowder", "synaptizine")
+							"atrazine","banana","charcoal","space_drugs","methamphetamine","holywater","ethanol","hot_coco","facid",
+							"blood","morphine","fluorine","mutadone","mutagen","oxycodone","fuel","cryptobiolin",
+							"haloperidol","mindbreaker","nanites","lipolicide","frostoil","salglu_solution","beepskysmash",
+							"omnizine", "amatoxin", "adminordrazine", "neurotoxin", "synaptizine")
 		var/datum/reagents/R = new/datum/reagents(50)
 		R.my_atom = vent
 		R.add_reagent(pick(gunk), 50)

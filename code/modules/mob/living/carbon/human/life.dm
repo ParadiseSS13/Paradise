@@ -448,8 +448,6 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 
 		if(!breath || (breath.total_moles() == 0) || suiciding)
 			var/oxyloss = 0
-			if(reagents.has_reagent("inaprovaline"))
-				return
 			if(suiciding)
 				oxyloss = 2
 				adjustOxyLoss(oxyloss)//If you are suiciding, you should die a little bit faster
@@ -973,7 +971,7 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 				if( health <= 20 && prob(1) )
 					spawn(0)
 						emote("gasp")
-				if(!reagents.has_reagent("inaprovaline"))
+				if(!reagents.has_reagent("epinephrine"))
 					adjustOxyLoss(1)*/
 
 			if(hallucination && !(species.flags & IS_SYNTHETIC))
@@ -1008,7 +1006,7 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 				adjustStaminaLoss(-10)
 				adjustHalLoss(-3)
 				if (mind)
-					//Are they SSD? If so we'll keep them asleep but work off some of that sleep var in case of stoxin or similar.
+					//Are they SSD? If so we'll keep them asleep but work off some of that sleep var in case of morphine or similar.
 					if(player_logged)
 						sleeping = max(sleeping-1, 2)
 					else

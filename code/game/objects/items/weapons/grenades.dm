@@ -143,7 +143,7 @@
 		B1.reagents.add_reagent("glycerol",30) // todo: someone says NG is overpowered, test.
 		B1.reagents.add_reagent("sacid",15)
 		B2.reagents.add_reagent("sacid",15)
-		B2.reagents.add_reagent("pacid",30)
+		B2.reagents.add_reagent("facid",30)
 		beakers += B1
 		beakers += B2
 

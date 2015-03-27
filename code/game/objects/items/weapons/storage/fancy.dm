@@ -221,7 +221,7 @@
 /obj/item/weapon/storage/fancy/cigarettes/cigpack_syndicate/New()
 	..()
 	for(var/i = 1 to storage_slots)
-		reagents.add_reagent("doctorsdelight",15)
+		reagents.add_reagent("omnizine",15)
 
 /obj/item/weapon/storage/fancy/cigarettes/cigpack_uplift
 	name = "\improper Uplift Smooth packet"
@@ -267,7 +267,7 @@
 /obj/item/weapon/storage/fancy/cigarettes/cigpack_shadyjims/New()
 	..()
 	for(var/i = 1 to storage_slots)
-		reagents.add_reagent("lipozine",4)
+		reagents.add_reagent("lipolicide",4)
 		reagents.add_reagent("ammonia",2)
 		reagents.add_reagent("atrazine",1)
 		reagents.add_reagent("toxin",1.5)

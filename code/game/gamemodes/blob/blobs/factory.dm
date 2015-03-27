@@ -109,8 +109,8 @@
 	// Create the reagents to put into the air, s-acid is yellow and stings a little
 	create_reagents(50)
 	reagents.add_reagent("condensedcapsaicin", 10)
-	reagents.add_reagent("zombiepowder", 25)
-	reagents.add_reagent("impedrezene", 15)
+	reagents.add_reagent("neurotoxin2", 25)
+	reagents.add_reagent("haloperidol", 15)
 
 	// Attach the smoke spreader and setup/start it.
 	S.attach(location)

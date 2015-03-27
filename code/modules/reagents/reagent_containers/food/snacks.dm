@@ -316,7 +316,7 @@
 	New()
 		..()
 		reagents.add_reagent("nutriment", 8)
-		reagents.add_reagent("tricordrazine", 8)
+		reagents.add_reagent("omnizine", 8)
 		bitesize = 3
 
 /*
@@ -457,7 +457,7 @@
 			if(9)
 				reagents.add_reagent("berryjuice", 3)
 			if(10)
-				reagents.add_reagent("tricordrazine", 3)
+				reagents.add_reagent("omnizine", 3)
 		if(prob(30))
 			src.icon_state = "donut2"
 			src.name = "Frosted Chaos Donut"
@@ -524,6 +524,7 @@
 	New()
 		..()
 		reagents.add_reagent("nutriment", 1)
+		reagents.add_reagent("egg", 5)
 
 	throw_impact(atom/hit_atom)
 		..()
@@ -649,7 +650,7 @@
 	New()
 		..()
 		reagents.add_reagent("nutriment", 12)
-		reagents.add_reagent("stoxin", 3)
+		reagents.add_reagent("morphine", 3)
 		bitesize = 3
 
 /obj/item/weapon/reagent_containers/food/snacks/stuffing
@@ -719,7 +720,7 @@
 	New()
 		..()
 		reagents.add_reagent("nutriment", 12)
-		reagents.add_reagent("hyperzine", 5)
+		reagents.add_reagent("methamphetamine", 5)
 		src.bitesize = 3
 
 /obj/item/weapon/reagent_containers/food/snacks/xenomeat
@@ -789,7 +790,7 @@
 		if (src.warm)
 			spawn( 4200 )
 				src.warm = 0
-				src.reagents.del_reagent("tricordrazine")
+				src.reagents.del_reagent("omnizine")
 				src.name = "donk-pocket"
 		return
 
@@ -802,7 +803,7 @@
 	New()
 		..()
 		reagents.add_reagent("nutriment", 6)
-		reagents.add_reagent("alkysine", 6)
+		reagents.add_reagent("mannitol", 6)
 		bitesize = 2
 
 /obj/item/weapon/reagent_containers/food/snacks/ghostburger
@@ -1088,7 +1089,7 @@
 			name = "exceptional plump pie"
 			desc = "Microwave is taken by a fey mood! It has cooked an exceptional plump pie!"
 			reagents.add_reagent("nutriment", 8)
-			reagents.add_reagent("tricordrazine", 5)
+			reagents.add_reagent("omnizine", 5)
 			bitesize = 2
 		else
 			reagents.add_reagent("nutriment", 8)
@@ -1282,7 +1283,7 @@
 	New()
 		..()
 		reagents.add_reagent("nutriment", 4)
-		reagents.add_reagent("doctorsdelight", 5)
+		reagents.add_reagent("salglu_solution", 5)
 		bitesize = 3
 
 /obj/item/weapon/reagent_containers/food/snacks/loadedbakedpotato
@@ -1499,7 +1500,7 @@
 		..()
 		reagents.add_reagent("nutriment", 8)
 		reagents.add_reagent("water", 5)
-		reagents.add_reagent("tricordrazine", 5)
+		reagents.add_reagent("omnizine", 5)
 		bitesize = 5
 
 /obj/item/weapon/reagent_containers/food/snacks/mysterysoup
@@ -1524,7 +1525,7 @@
 			if(3)
 				reagents.add_reagent("nutriment", 5)
 				reagents.add_reagent("water", 5)
-				reagents.add_reagent("tricordrazine", 5)
+				reagents.add_reagent("omnizine", 5)
 			if(4)
 				reagents.add_reagent("nutriment", 5)
 				reagents.add_reagent("water", 10)
@@ -1546,7 +1547,7 @@
 			if(10)
 				reagents.add_reagent("nutriment", 6)
 				reagents.add_reagent("tomatojuice", 5)
-				reagents.add_reagent("imidazoline", 5)
+				reagents.add_reagent("oculine", 5)
 		bitesize = 5
 
 /obj/item/weapon/reagent_containers/food/snacks/wishsoup
@@ -1860,7 +1861,7 @@
 		..()
 		reagents.add_reagent("nutriment", 10)
 		reagents.add_reagent("tomatojuice", 5)
-		reagents.add_reagent("imidazoline", 5)
+		reagents.add_reagent("oculine", 5)
 		reagents.add_reagent("water", 5)
 		bitesize = 10
 
@@ -2021,7 +2022,7 @@
 	New()
 		..()
 		reagents.add_reagent("nutriment", 3)
-		reagents.add_reagent("imidazoline", 3)
+		reagents.add_reagent("oculine", 3)
 		bitesize = 2
 
 /obj/item/weapon/reagent_containers/food/snacks/superbiteburger
@@ -2146,7 +2147,7 @@
 			name = "exceptional plump helmet biscuit"
 			desc = "Microwave is taken by a fey mood! It has cooked an exceptional plump helmet biscuit!"
 			reagents.add_reagent("nutriment", 8)
-			reagents.add_reagent("tricordrazine", 5)
+			reagents.add_reagent("omnizine", 5)
 			bitesize = 2
 		else
 			reagents.add_reagent("nutriment", 5)
@@ -2211,7 +2212,7 @@
 	New()
 		..()
 		reagents.add_reagent("nutriment", 8)
-		reagents.add_reagent("doctorsdelight", 5)
+		reagents.add_reagent("omnizine", 5)
 		bitesize = 3
 
 /obj/item/weapon/reagent_containers/food/snacks/appletart
@@ -2383,7 +2384,7 @@
 	New()
 		..()
 		reagents.add_reagent("nutriment", 25)
-		reagents.add_reagent("imidazoline", 10)
+		reagents.add_reagent("oculine", 10)
 		bitesize = 2
 
 /obj/item/weapon/reagent_containers/food/snacks/carrotcakeslice
@@ -2404,7 +2405,7 @@
 	New()
 		..()
 		reagents.add_reagent("nutriment", 25)
-		reagents.add_reagent("alkysine", 10)
+		reagents.add_reagent("mannitol", 10)
 		bitesize = 2
 
 /obj/item/weapon/reagent_containers/food/snacks/braincakeslice
@@ -2746,7 +2747,7 @@
 		..()
 		reagents.add_reagent("nutriment", 30)
 		reagents.add_reagent("tomatojuice", 6)
-		reagents.add_reagent("imidazoline", 12)
+		reagents.add_reagent("oculine", 12)
 		bitesize = 2
 
 /obj/item/weapon/reagent_containers/food/snacks/vegetablepizzaslice
@@ -3026,7 +3027,7 @@
 	New()
 		..()
 		reagents.add_reagent("nutriment", 12)
-		reagents.add_reagent("stoxin", 3)
+		reagents.add_reagent("morphine", 3)
 		bitesize = 3
 
 /obj/item/weapon/reagent_containers/food/snacks/stuffing
