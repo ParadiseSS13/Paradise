@@ -850,7 +850,10 @@ datum/reagent/teporone
 
 datum/reagent/teporone/on_mob_life(var/mob/living/M as mob)
 	if(!M) M = holder.my_atom
-	M.bodytemperature = 310
+	if(M.bodytemperature > 310)
+		M.bodytemperature -= 10
+	if(M.bodytemperature < 310)
+		M.bodytemperature += 10
 	..()
 	return
 

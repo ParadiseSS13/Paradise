@@ -81,7 +81,7 @@
 /datum/medical_effect/headache
 	name = "Headache"
 	triggers = list("cryoxadone" = 10)
-	cures = list("mannitol", "tramadol", "paracetamol", "oxycodone")
+	cures = list("mannitol", "morphine", "acetaminophen", "hydrocodone")
 	cure_message = "Your head stops throbbing..."
 
 /datum/medical_effect/headache/on_life(mob/living/carbon/human/H, strength)
@@ -114,7 +114,7 @@
 // ======
 /datum/medical_effect/cramps
 	name = "Cramps"
-	triggers = list("tramadol" = 15)
+	triggers = list("morphine" = 15)
 	cures = list("epinephrine")
 	cure_message = "The cramps let up..."
 

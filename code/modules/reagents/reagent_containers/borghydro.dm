@@ -21,7 +21,7 @@
 	reagent_ids = list("styptic_powder", "epinephrine", "salbutamol")
 
 /obj/item/weapon/reagent_containers/borghypo/crisis
-	reagent_ids = list("salglu_solution", "epinephrine", "tramadol")
+	reagent_ids = list("salglu_solution", "epinephrine", "acetaminophen")
 
 /obj/item/weapon/reagent_containers/borghypo/New()
 	..()

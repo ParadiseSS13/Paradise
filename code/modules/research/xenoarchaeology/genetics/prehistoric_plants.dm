@@ -62,7 +62,7 @@
 	icon_state = "valeleaves"
 	New(var/loc, var/potency)
 		..()
-		reagents.add_reagent("paracetamol", potency * 5)
+		reagents.add_reagent("acetaminophen", potency * 5)
 		reagents.add_reagent("salbutamol", potency * 2)
 		reagents.add_reagent("nutriment", potency)
 		bitesize = 1+round(reagents.total_volume / 2, 1)

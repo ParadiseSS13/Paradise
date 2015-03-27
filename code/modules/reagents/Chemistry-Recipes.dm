@@ -75,26 +75,20 @@ datum
 			result_amount = 3
 			mix_message = "The substance turns neon green and bubbles unnervingly."
 
-		tramadol
-			name = "Tramadol"
-			id = "tramadol"
-			result = "tramadol"
-			required_reagents = list("epinephrine" = 1, "ethanol" = 1, "oxygen" = 1)
-			result_amount = 3
+		acetaminophen
+			name = "Acetaminophen"
+			id = "acetaminophen"
+			result = "acetaminophen"
+			required_reagents = list("phenol" = 1, "sodium" = 1, "oxygen" = 1, "nitrogen" = 1, "sacid" = 1, "water" = 1)
+			result_amount = 6
+			mix_message = "The mixture becomes a fine white powder."
 
-		paracetamol
-			name = "Paracetamol"
-			id = "paracetamol"
-			result = "paracetamol"
-			required_reagents = list("tramadol" = 1, "sugar" = 1, "water" = 1)
+		hydrocodone
+			name = "Hydrocodone"
+			id = "hydrocodone"
+			result = "hydrocodone"
+			required_reagents = list("morphine" = 1, "acetaminophen" = 1, "sacid" = 1, "water" = 1, "oil" = 1)
 			result_amount = 3
-
-		oxycodone
-			name = "Oxycodone"
-			id = "oxycodone"
-			result = "oxycodone"
-			required_reagents = list("ethanol" = 1, "tramadol" = 1, "plasma" = 1)
-			result_amount = 1
 
 		thermite
 			name = "Thermite"
@@ -139,14 +133,6 @@ datum
 			result = "virusfood"
 			required_reagents = list("water" = 1, "milk" = 1)
 			result_amount = 5
-
-		leporazine
-			name = "Leporazine"
-			id = "leporazine"
-			result = "leporazine"
-			required_reagents = list("silicon" = 1, "copper" = 1)
-			required_catalysts = list("plasma" = 5)
-			result_amount = 2
 
 		cryptobiolin
 			name = "Cryptobiolin"

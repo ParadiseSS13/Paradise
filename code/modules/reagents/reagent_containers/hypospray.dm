@@ -112,15 +112,15 @@
 	else
 		usr << "\blue It is spent."
 
-/obj/item/weapon/reagent_containers/hypospray/autoinjector/leporazine //basilisks
-	name = "leporazine autoinjector"
+/obj/item/weapon/reagent_containers/hypospray/autoinjector/teporone //basilisks
+	name = "teporone autoinjector"
 	desc = "A rapid way to regulate your body's temperature in the event of a hardsuit malfunction at the cost of some shortness of breath."
 	icon_state = "lepopen"
 
-/obj/item/weapon/reagent_containers/hypospray/autoinjector/leporazine/New()
+/obj/item/weapon/reagent_containers/hypospray/autoinjector/teporone/New()
 	..()
 	reagents.remove_reagent("epinephrine", 10)
-	reagents.add_reagent("leporazine", 9)
+	reagents.add_reagent("teporone", 9)
 	reagents.add_reagent("lexorin", 1)
 	update_icon()
 	return

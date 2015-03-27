@@ -430,7 +430,7 @@
 
 /obj/item/weapon/reagent_containers/hypospray/fluff/asher_spock_1/New()
 	..()
-	reagents.add_reagent("oxycodone", 15)
+	reagents.add_reagent("hydrocodone", 15)
 	update_icon()
 	return
 

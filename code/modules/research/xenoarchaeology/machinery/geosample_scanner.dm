@@ -51,7 +51,7 @@
 	coolant_reagents_purity["icecoffee"] = 0.6
 	coolant_reagents_purity["icetea"] = 0.6
 	coolant_reagents_purity["milkshake"] = 0.6
-	coolant_reagents_purity["leporazine"] = 0.7
+	coolant_reagents_purity["teporone"] = 0.7
 	coolant_reagents_purity["sterilizine"] = 0.7
 	coolant_reagents_purity["cryoxadone"] = 0.9
 	coolant_reagents_purity["coolant"] = 1

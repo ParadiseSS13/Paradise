@@ -569,8 +569,8 @@
 
 	New()
 		..()
-		new /obj/item/weapon/reagent_containers/hypospray/autoinjector/leporazine(src)
-		new /obj/item/weapon/reagent_containers/hypospray/autoinjector/leporazine(src)
+		new /obj/item/weapon/reagent_containers/hypospray/autoinjector/teporone(src)
+		new /obj/item/weapon/reagent_containers/hypospray/autoinjector/teporone(src)
 		new /obj/item/weapon/reagent_containers/hypospray/autoinjector/stimpack(src)
 		new /obj/item/weapon/reagent_containers/hypospray/autoinjector/stimpack(src)
 		new /obj/item/weapon/reagent_containers/hypospray/autoinjector/stimpack(src)

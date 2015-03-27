@@ -11,11 +11,11 @@
 	1	* src.getCloneLoss() + 		\
 	1	* src.halloss
 
-	if(reagents.has_reagent("paracetamol"))
+	if(reagents.has_reagent("acetaminophen"))
 		src.traumatic_shock -= 40
-	if(reagents.has_reagent("tramadol"))
+	if(reagents.has_reagent("morphine"))
 		src.traumatic_shock -= 60
-	if(reagents.has_reagent("oxycodone"))
+	if(reagents.has_reagent("hydrocodone"))
 		src.traumatic_shock -= 200
 	if(src.slurring)
 		src.traumatic_shock -= 10

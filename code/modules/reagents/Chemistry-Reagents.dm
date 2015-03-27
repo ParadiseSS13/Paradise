@@ -858,10 +858,10 @@ datum
 				..()
 				return
 
-		paracetamol
-			name = "Paracetamol"
-			id = "paracetamol"
-			description = "Most probably know this as Tylenol, but this chemical is a mild, simple painkiller."
+		acetaminophen
+			name = "Acetaminophenl"
+			id = "acetaminophen"
+			description = "Most probably know this as Tylenol. This chemical is a mild, simple painkiller."
 			reagent_state = LIQUID
 			color = "#C855DC"
 			metabolization_rate = 0.2 // Lasts 2.5 minutes for 15 units
@@ -899,23 +899,10 @@ datum
 				..()
 				return
 
-		tramadol
-			name = "Tramadol"
-			id = "tramadol"
-			description = "A simple, yet effective painkiller."
-			reagent_state = LIQUID
-			color = "#C8A5DC"
-			metabolization_rate = 0.2 // Lasts 2.5 minutes for 15 units
-
-			on_mob_life(var/mob/living/M as mob)
-				if(!M) M = holder.my_atom
-				..()
-				return
-
-		oxycodone
-			name = "Oxycodone"
-			id = "oxycodone"
-			description = "An effective and very addictive painkiller."
+		hydrocodone
+			name = "Hydrocodone-Acetaminophen"
+			id = "hydrocodone"
+			description = "An extremely effective painkiller; may have long term abuse consequences."
 			reagent_state = LIQUID
 			color = "#C805DC"
 			metabolization_rate = 0.3 // Lasts 1.5 minutes for 15 units
@@ -1156,22 +1143,6 @@ datum
 					M.adjust_fire_stacks(volume / 5)
 					..()
 					return
-
-		leporazine
-			name = "Leporazine"
-			id = "leporazine"
-			description = "Leporazine can be use to stabilize an individuals body temperature."
-			reagent_state = LIQUID
-			color = "#E9D66B" // rgb: 233, 214, 107
-
-			on_mob_life(var/mob/living/M as mob)
-				if(!M) M = holder.my_atom
-				if(M.bodytemperature > 310)
-					M.bodytemperature = max(310, M.bodytemperature - (40 * TEMPERATURE_DAMAGE_COEFFICIENT))
-				else if(M.bodytemperature < 311)
-					M.bodytemperature = min(310, M.bodytemperature + (40 * TEMPERATURE_DAMAGE_COEFFICIENT))
-				..()
-				return
 
 		cryptobiolin
 			name = "Cryptobiolin"
