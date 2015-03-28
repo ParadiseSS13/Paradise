@@ -1623,6 +1623,9 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 		if(species.flags & IS_SYNTHETIC)
 			return
 
+		if(reagents.has_reagent("formaldehyde")) //embalming fluid stops decay
+			return
+
 		if(decaytime <= 6000) //10 minutes for decaylevel1 -- stinky
 			return
 
@@ -1650,7 +1653,7 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 					if(M && (M.flags & MASKCOVERSMOUTH))
 						return
 					H << "<spawn class='warning'>You smell something foul..."
-					H.vomit()
+					H.fakevomit()
 
 	proc/handle_heartbeat()
 		var/client/C = src.client
