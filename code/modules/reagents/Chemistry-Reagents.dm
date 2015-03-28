@@ -24,7 +24,7 @@ datum
 		var/metabolization_rate = REAGENTS_METABOLISM
 		//var/list/viruses = list()
 		var/color = "#000000" // rgb: 0, 0, 0 (does not support alpha channels - yet!)
-
+		var/shock_reduction = 0
 		proc
 			reaction_mob(var/mob/M, var/method=TOUCH, var/volume) //By default we have a chance to transfer some
 				if(!istype(M, /mob/living))	return 0
