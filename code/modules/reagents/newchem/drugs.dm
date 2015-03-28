@@ -188,8 +188,8 @@ datum/reagent/crank/addiction_act_stage4(var/mob/living/M as mob)
 		if(I)
 			M.drop_item()
 	..()
-	if(prob(20))
-		M.adjustToxLoss(5)
+	if(prob(50))
+		M.adjustToxLoss(10)
 	M.adjustBrainLoss(pick(0.5, 0.6, 0.7, 0.8, 0.9, 1))
 	return
 

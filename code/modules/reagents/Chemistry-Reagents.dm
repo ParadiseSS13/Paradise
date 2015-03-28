@@ -864,6 +864,7 @@ datum
 			description = "Most probably know this as Tylenol. This chemical is a mild, simple painkiller."
 			reagent_state = LIQUID
 			color = "#C855DC"
+			shock_reduction = 40
 			metabolization_rate = 0.2 // Lasts 2.5 minutes for 15 units
 
 			on_mob_life(var/mob/living/M as mob) // what the fuck are you idiots smoking
@@ -906,6 +907,7 @@ datum
 			reagent_state = LIQUID
 			color = "#C805DC"
 			metabolization_rate = 0.3 // Lasts 1.5 minutes for 15 units
+			shock_reduction = 200
 
 			on_mob_life(var/mob/living/M as mob)
 				if(!M) M = holder.my_atom

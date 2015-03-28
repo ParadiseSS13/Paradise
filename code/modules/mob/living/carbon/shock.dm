@@ -11,12 +11,10 @@
 	1	* src.getCloneLoss() + 		\
 	1	* src.halloss
 
-	if(reagents.has_reagent("acetaminophen"))
-		src.traumatic_shock -= 40
-	if(reagents.has_reagent("morphine"))
-		src.traumatic_shock -= 60
-	if(reagents.has_reagent("hydrocodone"))
-		src.traumatic_shock -= 200
+	if(reagents)
+		for(var/datum/reagent/R in reagents.reagent_list)
+			if(R.shock_reduction)
+				src.traumatic_shock -= R.shock_reduction // now you too can varedit cyanide to reduce shock by 1000 - Iamgoofball
 	if(src.slurring)
 		src.traumatic_shock -= 10
 	if(src.analgesic)
