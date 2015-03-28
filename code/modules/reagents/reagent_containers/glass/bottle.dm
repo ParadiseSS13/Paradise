@@ -204,8 +204,8 @@
 		reagents.add_reagent("morphine", 30)
 
 /obj/item/weapon/reagent_containers/glass/bottle/traitor
-	name = "fuck shit Bottle"
-	desc = "A small bottle. Contains woody's got wood in liquid form."
+	name = "Traitor Bottle"
+	desc = "A small bottle. Contains water in liquid form."
 	icon = 'icons/obj/chemical.dmi'
 	icon_state = "bottle17"
 	volume = 50
@@ -235,9 +235,9 @@
 /obj/item/weapon/reagent_containers/glass/bottle/traitor/curare
 	poison = "curare"
 	poison_name = "Curare"
-/obj/item/weapon/reagent_containers/glass/bottle/traitor/coiine
-	poison = "coiine"
-	poison_name = "Coiine"
+/obj/item/weapon/reagent_containers/glass/bottle/traitor/coniine
+	poison = "coniine"
+	poison_name = "coniine"
 /obj/item/weapon/reagent_containers/glass/bottle/traitor/histamine
 	poison = "histamine"
 	poison_name = "Histamine"
