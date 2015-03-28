@@ -179,7 +179,7 @@
 	icon_state = "adminbooze"
 	New()
 		..()
-		reagents.add_reagent("admorinazine", 5)
+		reagents.add_reagent("adminordrazine", 5)
 		reagents.add_reagent("capsaicin", 5)
 		reagents.add_reagent("methamphetamine", 20)
 		reagents.add_reagent("thirteenloko", 20)
