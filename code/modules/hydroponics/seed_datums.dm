@@ -838,7 +838,7 @@ proc/populate_seed_list()
 	mutants = list("destroyingangel","plastic")
 	packet_icon = "mycelium-amanita"
 	plant_icon = "amanita"
-	chems = list("nutriment" = list(1), "amatoxin" = list(3,3), "psilocybin" = list(1,25))
+	chems = list("nutriment" = list(1), "amanitin" = list(3,3), "psilocybin" = list(1,25))
 
 	lifespan = 50
 	maturation = 10
@@ -854,7 +854,7 @@ proc/populate_seed_list()
 	products = list(/obj/item/weapon/reagent_containers/food/snacks/grown/mushroom/angel)
 	packet_icon = "mycelium-angel"
 	plant_icon = "angel"
-	chems = list("nutriment" = list(1,50), "amatoxin" = list(13,3), "psilocybin" = list(1,25))
+	chems = list("nutriment" = list(1,50), "amanitin" = list(13,3), "psilocybin" = list(1,25))
 
 	maturation = 12
 	yield = 2

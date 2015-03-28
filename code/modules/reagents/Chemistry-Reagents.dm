@@ -1464,13 +1464,6 @@ datum
 			reagent_state = SOLID
 			color = "#664B63" // rgb: 102, 75, 99
 
-		nicotine
-			name = "Nicotine"
-			id = "nicotine"
-			description = "A highly addictive stimulant extracted from the tobacco plant."
-			reagent_state = LIQUID
-			color = "#181818" // rgb: 24, 24, 24
-
 		ammonia
 			name = "Ammonia"
 			id = "ammonia"
@@ -1734,32 +1727,6 @@ datum
 				M.nutrition += nutriment_factor
 				..()
 				return
-
-		amatoxin
-			name = "Amanitin"
-			id = "amatoxin"
-			description = "A powerful poison derived from certain species of mushroom."
-			color = "#792300" // rgb: 121, 35, 0
-
-			on_mob_life(var/mob/living/M as mob)
-				if(!M) M = holder.my_atom
-				if(!data) data = 1
-				data++
-				..()
-				return
-
-			Del()
-				if(holder)
-					if (istype(holder.my_atom,/mob/living))
-						var/mob/living/M as mob
-						var/to_remove = 0
-						if (holder.has_reagent("charcoal"))
-							to_remove = min(holder.get_reagent_amount("charcoal"),data)
-							holder.remove_reagent("charcoal", to_remove, 0)
-							data -= to_remove
-						if(M)
-							M.adjustToxLoss((data-1)*rand(2,4))
-				..()
 
 		psilocybin
 			name = "Psilocybin"

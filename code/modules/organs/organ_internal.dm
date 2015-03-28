@@ -213,7 +213,7 @@
 					owner.adjustToxLoss(0.1 * process_accuracy)
 
 			// Can't cope with toxins at all
-			for(var/toxin in list("toxin", "plasma", "sacid", "facid", "cyanide", "amatoxin", "carpotoxin", "mindbreaker"))
+			for(var/toxin in list("toxin", "plasma", "sacid", "facid", "cyanide", "amanitin", "carpotoxin", "mindbreaker"))
 				if(owner.reagents.has_reagent(toxin))
 					owner.adjustToxLoss(0.3 * process_accuracy)
 

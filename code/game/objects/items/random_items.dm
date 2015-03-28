@@ -61,7 +61,7 @@
 //	identify_probability = 0
 	New()
 		..()
-		var/global/list/chems_only = list("slimejelly","blood","water","lube","charcoal","toxin","cyanide","morphine","epinephrine","space_drugs","serotrotium","oxygen","copper","nitrogen","hydrogen","potassium","mercury","sulfur","carbon","chlorine","fluorine","sodium","phosphorus","lithium","sugar","sacid","facid","glycerol","radium","mutadone","thermite","mutagen","virusfood","iron","gold","silver","uranium","aluminum","silicon","fuel","cleaner","atrazine","plasma","teporone","cryptobiolin","lexorin","silver_sulfadiazine","salbutamol","perfluorodecalin","omnizine","synaptizine","haloperidol","potass_iodide","pen_acid","mannitol","oculine","styptic_powder","methamphetamine","cryoxadone","clonexadone","spaceacillin","carpotoxin","mindbreaker","fluorosurfactant","foaming_agent","ethanol","ammonia","diethylamine","antihol","pancuronium","lipolicide","condensedcapsaicin","frostoil","amatoxin","psilocybin","enzyme","nothing","salglu_solution","antifreeze","neurotoxin")
+		var/global/list/chems_only = list("slimejelly","blood","water","lube","charcoal","toxin","cyanide","morphine","epinephrine","space_drugs","serotrotium","oxygen","copper","nitrogen","hydrogen","potassium","mercury","sulfur","carbon","chlorine","fluorine","sodium","phosphorus","lithium","sugar","sacid","facid","glycerol","radium","mutadone","thermite","mutagen","virusfood","iron","gold","silver","uranium","aluminum","silicon","fuel","cleaner","atrazine","plasma","teporone","cryptobiolin","lexorin","silver_sulfadiazine","salbutamol","perfluorodecalin","omnizine","synaptizine","haloperidol","potass_iodide","pen_acid","mannitol","oculine","styptic_powder","methamphetamine","cryoxadone","clonexadone","spaceacillin","carpotoxin","mindbreaker","fluorosurfactant","foaming_agent","ethanol","ammonia","diethylamine","antihol","pancuronium","lipolicide","condensedcapsaicin","frostoil","amanitin","psilocybin","enzyme","nothing","salglu_solution","antifreeze","neurotoxin")
 		var/global/list/rare_chems = list("minttoxin","nanites","xenomicrobes","adminordrazine")
 
 		var/datum/reagent/R = pick(chems_only + rare_chems)
@@ -123,7 +123,7 @@
 
 	New()
 		..()
-		var/global/list/meds_only = list("charcoal","toxin","cyanide","morphine","epinephrine","space_drugs","serotrotium","mutadone","mutagen","teporone","cryptobiolin","lexorin","silver_sulfadiazine","salbutamol","perfluorodecalin","omnizine","synaptizine","haloperidol","potass_iodide","pen_acid","mannitol","oculine","styptic_powder","methamphetamine","spaceacillin","carpotoxin","mindbreaker","ethanol","ammonia","diethylamine","antihol","pancuronium","lipolicide","condensedcapsaicin","frostoil","amatoxin","psilocybin","nothing","salglu_solution","neurotoxin")
+		var/global/list/meds_only = list("charcoal","toxin","cyanide","morphine","epinephrine","space_drugs","serotrotium","mutadone","mutagen","teporone","cryptobiolin","lexorin","silver_sulfadiazine","salbutamol","perfluorodecalin","omnizine","synaptizine","haloperidol","potass_iodide","pen_acid","mannitol","oculine","styptic_powder","methamphetamine","spaceacillin","carpotoxin","mindbreaker","ethanol","ammonia","diethylamine","antihol","pancuronium","lipolicide","condensedcapsaicin","frostoil","amanitin","psilocybin","nothing","salglu_solution","neurotoxin")
 		var/global/list/rare_meds = list("nanites","xenomicrobes","minttoxin","adminordrazine","blood")
 
 		var/i = 1

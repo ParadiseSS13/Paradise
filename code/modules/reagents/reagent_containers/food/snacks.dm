@@ -1073,7 +1073,7 @@
 	New()
 		..()
 		reagents.add_reagent("nutriment", 5)
-		reagents.add_reagent("amatoxin", 3)
+		reagents.add_reagent("amanitin", 3)
 		reagents.add_reagent("psilocybin", 1)
 		bitesize = 3
 
@@ -1408,7 +1408,7 @@
 	New()
 		..()
 		reagents.add_reagent("nutriment", 6)
-		reagents.add_reagent("amatoxin", 6)
+		reagents.add_reagent("amanitin", 6)
 		reagents.add_reagent("psilocybin", 3)
 		bitesize = 3
 
