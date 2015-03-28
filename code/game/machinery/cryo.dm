@@ -282,7 +282,7 @@
 		if(occupant || on)
 			user << "<span class='notice'>The maintenance panel is locked.</span>"
 			return
-		default_deconstruction_screwdriver(user, "cell-o", "cell-off", G)
+		default_deconstruction_screwdriver(user, "pod0-o", "pod0", G)
 		return
 
 	if(exchange_parts(user, G))
