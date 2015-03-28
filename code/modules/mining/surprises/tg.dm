@@ -175,7 +175,7 @@
 		/obj/structure/table/reinforced=2,
 		/obj/machinery/portable_atmospherics/hydroponics=1,
 		/obj/effect/glowshroom/single=2,
-		/obj/item/weapon/reagent_containers/syringe/antitoxin=2,
+		/obj/item/weapon/reagent_containers/syringe/charcoal=2,
 		/obj/item/weapon/reagent_containers/glass/bottle/diethylamine=3,
 		/obj/item/weapon/reagent_containers/glass/bottle/ammonia=3
 	)

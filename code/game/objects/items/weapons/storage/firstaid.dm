@@ -146,7 +146,7 @@
 	new /obj/item/weapon/reagent_containers/hypospray/combat(src)
 	new /obj/item/weapon/reagent_containers/pill/patch/styptic(src)
 	new /obj/item/weapon/reagent_containers/pill/patch/silver_sulf(src)
-	new /obj/item/weapon/reagent_containers/ld50_syringe(src)
+	new /obj/item/weapon/reagent_containers/ld50_syringe/lethal(src)
 	new /obj/item/clothing/glasses/hud/health/night(src)
 	return
 
@@ -188,48 +188,19 @@
 			return
 	return
 
-/obj/item/weapon/storage/pill_bottle/kelotane
-	name = "Pill bottle (kelotane)"
-	desc = "Contains pills used to treat burns."
-
-	New()
-		..()
-		new /obj/item/weapon/reagent_containers/pill/kelotane( src )
-		new /obj/item/weapon/reagent_containers/pill/kelotane( src )
-		new /obj/item/weapon/reagent_containers/pill/kelotane( src )
-		new /obj/item/weapon/reagent_containers/pill/kelotane( src )
-		new /obj/item/weapon/reagent_containers/pill/kelotane( src )
-		new /obj/item/weapon/reagent_containers/pill/kelotane( src )
-		new /obj/item/weapon/reagent_containers/pill/kelotane( src )
-
-/obj/item/weapon/storage/pill_bottle/antitox
-	name = "Pill bottle (Anti-toxin)"
+/obj/item/weapon/storage/pill_bottle/charcoal
+	name = "Pill bottle (Charcoal)"
 	desc = "Contains pills used to counter toxins."
 
 	New()
 		..()
-		new /obj/item/weapon/reagent_containers/pill/antitox( src )
-		new /obj/item/weapon/reagent_containers/pill/antitox( src )
-		new /obj/item/weapon/reagent_containers/pill/antitox( src )
-		new /obj/item/weapon/reagent_containers/pill/antitox( src )
-		new /obj/item/weapon/reagent_containers/pill/antitox( src )
-		new /obj/item/weapon/reagent_containers/pill/antitox( src )
-		new /obj/item/weapon/reagent_containers/pill/antitox( src )
-
-/obj/item/weapon/storage/pill_bottle/inaprovaline
-	name = "Pill bottle (inaprovaline)"
-	desc = "Contains pills used to stabilize patients."
-
-	New()
-		..()
-		new /obj/item/weapon/reagent_containers/pill/inaprovaline( src )
-		new /obj/item/weapon/reagent_containers/pill/inaprovaline( src )
-		new /obj/item/weapon/reagent_containers/pill/inaprovaline( src )
-		new /obj/item/weapon/reagent_containers/pill/inaprovaline( src )
-		new /obj/item/weapon/reagent_containers/pill/inaprovaline( src )
-		new /obj/item/weapon/reagent_containers/pill/inaprovaline( src )
-		new /obj/item/weapon/reagent_containers/pill/inaprovaline( src )
-
+		new /obj/item/weapon/reagent_containers/pill/charcoal( src )
+		new /obj/item/weapon/reagent_containers/pill/charcoal( src )
+		new /obj/item/weapon/reagent_containers/pill/charcoal( src )
+		new /obj/item/weapon/reagent_containers/pill/charcoal( src )
+		new /obj/item/weapon/reagent_containers/pill/charcoal( src )
+		new /obj/item/weapon/reagent_containers/pill/charcoal( src )
+		new /obj/item/weapon/reagent_containers/pill/charcoal( src )
 
 /obj/item/weapon/storage/pill_bottle/dice
 	name = "pack of dice"

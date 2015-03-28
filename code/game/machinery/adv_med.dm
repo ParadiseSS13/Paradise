@@ -11,7 +11,7 @@
 	active_power_usage = 2500
 
 	l_color = "#00FF00"
-	
+
 	power_change()
 		..()
 		if(!(stat & (BROKEN|NOPOWER)))
@@ -28,24 +28,24 @@
 	component_parts += new /obj/item/weapon/stock_parts/console_screen(src)
 	component_parts += new /obj/item/stack/cable_coil(src, 2)
 	RefreshParts()
-			
-/obj/machinery/bodyscanner/RefreshParts()	
 
-/obj/machinery/bodyscanner/attackby(var/obj/item/weapon/G as obj, var/mob/user as mob)	
+/obj/machinery/bodyscanner/RefreshParts()
+
+/obj/machinery/bodyscanner/attackby(var/obj/item/weapon/G as obj, var/mob/user as mob)
 	if (istype(G, /obj/item/weapon/screwdriver))
 		if(src.occupant)
 			user << "<span class='notice'>The maintenance panel is locked.</span>"
-			return	
+			return
 		default_deconstruction_screwdriver(user, "bodyscanner-o", "bodyscanner-open", G)
-		return		
-	
+		return
+
 	if (istype(G, /obj/item/weapon/wrench))
 		if(src.occupant)
 			user << "<span class='notice'>The scanner is occupied.</span>"
-			return	
+			return
 		if(panel_open)
 			user << "<span class='notice'>Close the maintenance panel first.</span>"
-			return	
+			return
 		if(dir == 4)
 			dir = 8
 		else
@@ -55,12 +55,12 @@
 	if(exchange_parts(user, G))
 		return
 
-	default_deconstruction_crowbar(G)		
-		
+	default_deconstruction_crowbar(G)
+
 	if(istype(G, /obj/item/weapon/grab))
 		if(panel_open)
 			user << "\blue <b>Close the maintenance panel first.</b>"
-			return			
+			return
 		if(!ismob(G:affecting))
 			return
 		if (src.occupant)
@@ -84,7 +84,7 @@
 		//G = null
 		del(G)
 		return
-			
+
 /obj/machinery/bodyscanner/MouseDrop_T(atom/movable/O as mob|obj, mob/user as mob)
 	if(O.loc == user) //no you can't pull things out of your ass
 		return
@@ -104,7 +104,7 @@
 		return
 	if(panel_open)
 		user << "\blue <B>Close the maintenance panel first.</B>"
-		return	
+		return
 	if(occupant)
 		user << "\blue <B>The body scanner is already occupied!</B>"
 		return
@@ -255,7 +255,7 @@
 		spawn(rand(0, 15))
 			src.icon_state = "bodyscannerconsole-p"
 			stat |= NOPOWER
-	
+
 /obj/machinery/body_scanconsole/New()
 	..()
 	component_parts = list()
@@ -266,7 +266,7 @@
 	RefreshParts()
 	findscanner()
 
-/obj/machinery/body_scanconsole/RefreshParts()		
+/obj/machinery/body_scanconsole/RefreshParts()
 
 /obj/machinery/body_scanconsole/ex_act(severity)
 	switch(severity)
@@ -295,8 +295,8 @@
 			bodyscannernew = locate(/obj/machinery/bodyscanner, get_step(src, dir))
 		src.connected = bodyscannernew
 		return
-	return		
-	
+	return
+
 /*
 
 /obj/machinery/body_scanconsole/process() //not really used right now
@@ -323,22 +323,22 @@
 /obj/machinery/body_scanconsole/attackby(var/obj/item/weapon/G as obj, var/mob/user as mob, params)
 	if (istype(G, /obj/item/weapon/screwdriver))
 		default_deconstruction_screwdriver(user, "bodyscannerconsole-p", "bodyscannerconsole", G)
-		return		
-	
+		return
+
 	if (istype(G, /obj/item/weapon/wrench))
 		if(panel_open)
 			user << "<span class='notice'>Close the maintenance panel first.</span>"
-			return	
+			return
 		if(dir == 4)
 			dir = 8
 		else
 			dir = 4
 		playsound(src.loc, 'sound/items/Ratchet.ogg', 50, 1)
-		
+
 	if(exchange_parts(user, G))
 		return
 
-	default_deconstruction_crowbar(G)	
+	default_deconstruction_crowbar(G)
 
 /obj/machinery/body_scanconsole/attack_paw(user as mob)
 	return src.attack_hand(user)
@@ -352,7 +352,7 @@
 	if(stat & (NOPOWER|BROKEN))
 		return
 	if (panel_open)
-		user << "<span class='notice'>Close the maintenance panel first.</span>"	
+		user << "<span class='notice'>Close the maintenance panel first.</span>"
 		return
 	if(!src.connected)
 		findscanner()
@@ -409,11 +409,11 @@
 							blood_percent *= 100
 							dat += text("[]\tBlood Level %: [] ([] units)</FONT><BR>", (blood_volume > 448 ?"<font color='blue'>" : "<font color='red'>"), blood_percent, blood_volume)
 						if(occupant.reagents)
-							dat += text("Inaprovaline units: [] units<BR>", occupant.reagents.get_reagent_amount("inaprovaline"))
-							dat += text("Soporific (Sleep Toxin): [] units<BR>", occupant.reagents.get_reagent_amount("stoxin"))
-							dat += text("[]\tDermaline: [] units</FONT><BR>", (occupant.reagents.get_reagent_amount("dermaline") < 30 ? "<font color='black'>" : "<font color='red'>"), occupant.reagents.get_reagent_amount("dermaline"))
-							dat += text("[]\tBicaridine: [] units<BR>", (occupant.reagents.get_reagent_amount("bicaridine") < 30 ? "<font color='black'>" : "<font color='red'>"), occupant.reagents.get_reagent_amount("bicaridine"))
-							dat += text("[]\tDexalin: [] units<BR>", (occupant.reagents.get_reagent_amount("dexalin") < 30 ? "<font color='black'>" : "<font color='red'>"), occupant.reagents.get_reagent_amount("dexalin"))
+							dat += text("Epinephrine units: [] units<BR>", occupant.reagents.get_reagent_amount("Epinephrine"))
+							dat += text("Morphine: [] units<BR>", occupant.reagents.get_reagent_amount("morphine"))
+							dat += text("[]\tSilver Sulfadiazine: [] units</FONT><BR>", (occupant.reagents.get_reagent_amount("silver_sulfadiazine") < 30 ? "<font color='black'>" : "<font color='red'>"), occupant.reagents.get_reagent_amount("silver_sulfadiazine"))
+							dat += text("[]\tStyptic Powder: [] units<BR>", (occupant.reagents.get_reagent_amount("styptic_powder") < 30 ? "<font color='black'>" : "<font color='red'>"), occupant.reagents.get_reagent_amount("styptic_powder"))
+							dat += text("[]\tsalbutamol: [] units<BR>", (occupant.reagents.get_reagent_amount("salbutamol") < 30 ? "<font color='black'>" : "<font color='red'>"), occupant.reagents.get_reagent_amount("salbutamol"))
 
 						dat += "<HR><table border='1'>"
 						dat += "<tr>"
@@ -521,7 +521,7 @@
 /obj/machinery/body_scanconsole/Topic(href, href_list)
 	if(..())
 		return 1
-	
+
 	if (href_list["print_p"])
 		if (!(src.printing) && src.printing_text)
 			src.printing = 1

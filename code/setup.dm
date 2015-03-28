@@ -800,9 +800,9 @@ var/list/be_special_flags = list(
 #define PULSE_2FAST		4	//>120 bpm
 #define PULSE_THREADY	5	//occurs during hypovolemic shock
 //feel free to add shit to lists below
-var/list/tachycardics = list("coffee", "inaprovaline", "hyperzine", "nitroglycerin", "thirteenloko", "nicotine")	//increase heart rate
-var/list/bradycardics = list("neurotoxin", "cryoxadone", "clonexadone", "space_drugs", "stoxin")					//decrease heart rate
-var/list/heartstopper = list("zombie_powder", "capulettium", "capulettium_plus") //this stops the heart
+var/list/tachycardics = list("coffee", "methamphetamine", "nitroglycerin", "thirteenloko", "nicotine")	//increase heart rate
+var/list/bradycardics = list("neurotoxin", "cryoxadone", "clonexadone", "space_drugs")					//decrease heart rate
+var/list/heartstopper = list("capulettium", "capulettium_plus") //this stops the heart
 var/list/cheartstopper = list() //this stops the heart when overdose is met -- c = conditional
 
 //proc/get_pulse methods

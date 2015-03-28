@@ -11,18 +11,10 @@
 	1	* src.getCloneLoss() + 		\
 	1	* src.halloss
 
-	if(reagents.has_reagent("alkysine"))
-		src.traumatic_shock -= 5
-	if(reagents.has_reagent("inaprovaline"))
-		src.traumatic_shock -= 15
-	if(reagents.has_reagent("synaptizine"))
-		src.traumatic_shock -= 30
-	if(reagents.has_reagent("paracetamol"))
-		src.traumatic_shock -= 40
-	if(reagents.has_reagent("tramadol"))
-		src.traumatic_shock -= 60
-	if(reagents.has_reagent("oxycodone"))
-		src.traumatic_shock -= 200
+	if(reagents)
+		for(var/datum/reagent/R in reagents.reagent_list)
+			if(R.shock_reduction)
+				src.traumatic_shock -= R.shock_reduction // now you too can varedit cyanide to reduce shock by 1000 - Iamgoofball
 	if(src.slurring)
 		src.traumatic_shock -= 10
 	if(src.analgesic)

@@ -55,29 +55,6 @@
 			var/image/lid = image(icon, src, "lid_bottle")
 			overlays += lid
 
-/obj/item/weapon/reagent_containers/glass/bottle/inaprovaline
-	name = "inaprovaline bottle"
-	desc = "A small bottle. Contains inaprovaline - used to stabilize patients."
-	icon = 'icons/obj/chemical.dmi'
-	icon_state = "bottle16"
-
-	New()
-		..()
-		reagents.add_reagent("inaprovaline", 30)
-
-
-/obj/item/weapon/reagent_containers/glass/bottle/hyperzine
-	name = "hyperzine bottle"
-	desc = "A small bottle. Contains hyperzine - a powerful stimulant."
-	icon = 'icons/obj/chemical.dmi'
-	icon_state = "bottle18"
-
-	New()
-		..()
-		reagents.add_reagent("hyperzine", 30)
-
-
-
 /obj/item/weapon/reagent_containers/glass/bottle/toxin
 	name = "toxin bottle"
 	desc = "A small bottle of toxins. Do not drink, it is poisonous."
@@ -97,36 +74,6 @@
 	New()
 		..()
 		reagents.add_reagent("cyanide", 30)
-
-/obj/item/weapon/reagent_containers/glass/bottle/stoxin
-	name = "sleep-toxin bottle"
-	desc = "A small bottle of sleep toxins. Just the fumes make you sleepy."
-	icon = 'icons/obj/chemical.dmi'
-	icon_state = "bottle20"
-
-	New()
-		..()
-		reagents.add_reagent("stoxin", 30)
-
-/obj/item/weapon/reagent_containers/glass/bottle/chloralhydrate
-	name = "Chloral Hydrate Bottle"
-	desc = "A small bottle of Choral Hydrate. Mickey's Favorite!"
-	icon = 'icons/obj/chemical.dmi'
-	icon_state = "bottle20"
-
-	New()
-		..()
-		reagents.add_reagent("chloralhydrate", 15)		//Intentionally low since it is so strong. Still enough to knock someone out.
-
-/obj/item/weapon/reagent_containers/glass/bottle/antitoxin
-	name = "anti-toxin bottle"
-	desc = "A small bottle of Anti-toxins. Counters poisons, and repairs damage, a wonder drug."
-	icon = 'icons/obj/chemical.dmi'
-	icon_state = "bottle17"
-
-	New()
-		..()
-		reagents.add_reagent("anti_toxin", 30)
 
 /obj/item/weapon/reagent_containers/glass/bottle/mutagen
 	name = "unstable mutagen bottle"
@@ -158,14 +105,14 @@
 		..()
 		reagents.add_reagent("diethylamine", 30)
 
-/obj/item/weapon/reagent_containers/glass/bottle/pacid
-	name = "Polytrinic Acid Bottle"
-	desc = "A small bottle. Contains a small amount of Polytrinic Acid"
+/obj/item/weapon/reagent_containers/glass/bottle/facid
+	name = "Fluorosulfuric Acid Bottle"
+	desc = "A small bottle. Contains a small amount of Fluorosulfuric Acid"
 	icon = 'icons/obj/chemical.dmi'
 	icon_state = "bottle17"
 	New()
 		..()
-		reagents.add_reagent("pacid", 30)
+		reagents.add_reagent("facid", 30)
 
 /obj/item/weapon/reagent_containers/glass/bottle/adminordrazine
 	name = "Adminordrazine Bottle"
@@ -202,3 +149,97 @@
 	New()
 		..()
 		reagents.add_reagent("morphine", 30)
+
+/obj/item/weapon/reagent_containers/glass/bottle/charcoal
+	name = "Charcoal Bottle"
+	desc = "A small bottle. Contains charcoal."
+	icon = 'icons/obj/chemical.dmi'
+	icon_state = "bottle17"
+	New()
+		..()
+		reagents.add_reagent("charcoal", 30)
+
+/obj/item/weapon/reagent_containers/glass/bottle/epinephrine
+	name = "Epinephrine Bottle"
+	desc = "A small bottle. Contains epinephrine."
+	icon = 'icons/obj/chemical.dmi'
+	icon_state = "bottle17"
+	New()
+		..()
+		reagents.add_reagent("epinephrine", 30)
+
+/obj/item/weapon/reagent_containers/glass/bottle/pancuronium
+	name = "Pancuronium Bottle"
+	desc = "A small bottle of pancuronium."
+	icon = 'icons/obj/chemical.dmi'
+	icon_state = "bottle14"
+
+	New()
+		..()
+		reagents.add_reagent("pancuronium", 30)
+
+/obj/item/weapon/reagent_containers/glass/bottle/sulfonal
+	name = "Sulfonal Bottle"
+	desc = "A small bottle of Sulfonal."
+	icon = 'icons/obj/chemical.dmi'
+	icon_state = "bottle19"
+
+	New()
+		..()
+		reagents.add_reagent("sulfonal", 30)
+
+//Reagent bottles
+
+/obj/item/weapon/reagent_containers/glass/bottle/reagent
+	name = "Reagent Bottle"
+	desc = "A bottle for storing reagents"
+	icon_state = "rbottle"
+	volume = 50
+
+/obj/item/weapon/reagent_containers/glass/bottle/reagent/oil
+	name = "Oil Bottle"
+	desc = "A reagent bottle. Contains oil."
+	icon_state = "rbottle1"
+	New()
+		..()
+		reagents.add_reagent("oil", 50)
+
+/obj/item/weapon/reagent_containers/glass/bottle/reagent/phenol
+	name = "Phenol Bottle"
+	desc = "A reagent bottle. Contains phenol."
+	icon_state = "rbottle2"
+	New()
+		..()
+		reagents.add_reagent("phenol", 50)
+
+/obj/item/weapon/reagent_containers/glass/bottle/reagent/acetone
+	name = "Acetone Bottle"
+	desc = "A reagent bottle. Contains acetone."
+	icon_state = "rbottle3"
+	New()
+		..()
+		reagents.add_reagent("acetone", 50)
+
+/obj/item/weapon/reagent_containers/glass/bottle/reagent/ammonia
+	name = "Ammonia Bottle"
+	desc = "A reagent bottle. Contains ammonia."
+	icon_state = "rbottle4"
+	New()
+		..()
+		reagents.add_reagent("ammonia", 50)
+
+/obj/item/weapon/reagent_containers/glass/bottle/reagent/diethylamine
+	name = "Diethylamine Bottle"
+	desc = "A reagent bottle. Contains diethylamine."
+	icon_state = "rbottle5"
+	New()
+		..()
+		reagents.add_reagent("diethylamine", 50)
+
+/obj/item/weapon/reagent_containers/glass/bottle/reagent/acid
+	name = "Acid Bottle"
+	desc = "A reagent bottle. Contains sulfuric acid."
+	icon_state = "rbottle6"
+	New()
+		..()
+		reagents.add_reagent("sacid", 50)

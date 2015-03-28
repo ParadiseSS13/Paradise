@@ -588,7 +588,7 @@ proc/populate_seed_list()
 	mutants = null
 	packet_icon = "seed-deathnettle"
 	plant_icon = "deathnettle"
-	chems = list("nutriment" = list(1,50), "pacid" = list(0,1))
+	chems = list("nutriment" = list(1,50), "facid" = list(0,1))
 
 	maturation = 8
 	yield = 2
@@ -734,7 +734,7 @@ proc/populate_seed_list()
 	packet_icon = "seed-ambrosiavulgaris"
 	plant_icon = "ambrosiavulgaris"
 	harvest_repeat = 1
-	chems = list("nutriment" = list(1), "space_drugs" = list(1,8), "kelotane" = list(1,8,1), "bicaridine" = list(1,10,1), "toxin" = list(1,10))
+	chems = list("nutriment" = list(1), "thc" = list(1,8), "silver_sulfadiazine" = list(1,8,1), "styptic_powder" = list(1,10,1), "toxin" = list(1,10))
 
 	lifespan = 60
 	maturation = 6
@@ -750,7 +750,7 @@ proc/populate_seed_list()
 	mutants = null
 	packet_icon = "seed-ambrosiadeus"
 	plant_icon = "ambrosiadeus"
-	chems = list("nutriment" = list(1), "bicaridine" = list(1,8), "synaptizine" = list(1,8,1), "hyperzine" = list(1,10,1), "space_drugs" = list(1,10))
+	chems = list("nutriment" = list(1), "styptic_powder" = list(1,8), "synaptizine" = list(1,8,1), "methamphetamine" = list(1,10,1), "thc" = list(1,10))
 
 //Mushrooms/varieties.
 /datum/seed/mushroom
@@ -823,7 +823,7 @@ proc/populate_seed_list()
 	mutants = null
 	packet_icon = "mycelium-liberty"
 	plant_icon = "liberty"
-	chems = list("nutriment" = list(1), "stoxin" = list(3,3), "space_drugs" = list(1,25))
+	chems = list("nutriment" = list(1), "morphine" = list(3,3), "space_drugs" = list(1,25))
 
 	lifespan = 25
 	production = 1
@@ -838,7 +838,7 @@ proc/populate_seed_list()
 	mutants = list("destroyingangel","plastic")
 	packet_icon = "mycelium-amanita"
 	plant_icon = "amanita"
-	chems = list("nutriment" = list(1), "amatoxin" = list(3,3), "psilocybin" = list(1,25))
+	chems = list("nutriment" = list(1), "amanitin" = list(3,3), "psilocybin" = list(1,25))
 
 	lifespan = 50
 	maturation = 10
@@ -854,7 +854,7 @@ proc/populate_seed_list()
 	products = list(/obj/item/weapon/reagent_containers/food/snacks/grown/mushroom/angel)
 	packet_icon = "mycelium-angel"
 	plant_icon = "angel"
-	chems = list("nutriment" = list(1,50), "amatoxin" = list(13,3), "psilocybin" = list(1,25))
+	chems = list("nutriment" = list(1,50), "amanitin" = list(13,3), "psilocybin" = list(1,25))
 
 	maturation = 12
 	yield = 2
@@ -945,7 +945,7 @@ proc/populate_seed_list()
 	packet_icon = "seed-poppy"
 	products = list(/obj/item/weapon/reagent_containers/food/snacks/grown/poppy)
 	plant_icon = "poppy"
-	chems = list("nutriment" = list(1,20), "bicaridine" = list(1,10))
+	chems = list("nutriment" = list(1,20), "styptic_powder" = list(1,10))
 
 	lifespan = 25
 	potency = 20
@@ -1020,7 +1020,7 @@ proc/populate_seed_list()
 	products = list(/obj/item/weapon/reagent_containers/food/snacks/grown/greengrapes)
 	mutants = null
 	plant_icon = "greengrape"
-	chems = list("nutriment" = list(1,10), "kelotane" = list(3,5))
+	chems = list("nutriment" = list(1,10))
 
 //Soybeans/varieties
 /datum/seed/soybean
@@ -1085,7 +1085,7 @@ proc/populate_seed_list()
 	products = list(/obj/item/weapon/reagent_containers/food/snacks/grown/tobacco/space)
 	plant_icon = "stobacco"
 	harvest_repeat = 1
-	chems = list("nutriment" = list(1,40), "nicotine" = list(1,20), "inaprovaline" = list(1,30))
+	chems = list("nutriment" = list(1,40), "nicotine" = list(1,20), "epinephrine" = list(1,30))
 
 	lifespan = 25
 	maturation = 5
@@ -1104,7 +1104,7 @@ proc/populate_seed_list()
 	products = list(/obj/item/weapon/reagent_containers/food/snacks/grown/teaaspera)
 	plant_icon = "teaaspera"
 	harvest_repeat = 1
-	chems = list("teapowder" = list(1,20), "anti_toxin" = list(1,30))
+	chems = list("teapowder" = list(1,20), "charcoal" = list(1,30))
 
 	lifespan = 30
 	maturation = 5
@@ -1122,7 +1122,7 @@ proc/populate_seed_list()
 	products = list(/obj/item/weapon/reagent_containers/food/snacks/grown/teaastra)
 	plant_icon = "teaastra"
 	harvest_repeat = 1
-	chems = list("teapowder" = list(1,20), "impedrezene" = list(1,30))
+	chems = list("teapowder" = list(1,20), "haloperidol" = list(1,30))
 
 	lifespan = 30
 	maturation = 5
@@ -1158,7 +1158,7 @@ proc/populate_seed_list()
 	products = list(/obj/item/weapon/reagent_containers/food/snacks/grown/coffeer)
 	plant_icon = "coffeer"
 	harvest_repeat = 1
-	chems = list("coffeepowder" = list(1,20), "synaptizine" = list(1,20), "hyperzine" = list(1,40))
+	chems = list("coffeepowder" = list(1,20), "synaptizine" = list(1,20), "methamphetamine" = list(1,40))
 
 	lifespan = 30
 	maturation = 5
@@ -1208,7 +1208,7 @@ proc/populate_seed_list()
 	packet_icon = "seed-shand"
 	products = list(/obj/item/stack/medical/bruise_pack/tajaran)
 	plant_icon = "shand"
-	chems = list("bicaridine" = list(0,10))
+	chems = list("styptic_powder" = list(0,10))
 
 	lifespan = 50
 	maturation = 3
@@ -1224,7 +1224,7 @@ proc/populate_seed_list()
 	packet_icon = "seed-mtear"
 	products = list(/obj/item/stack/medical/ointment/tajaran)
 	plant_icon = "mtear"
-	chems = list("honey" = list(1,10), "kelotane" = list(3,5))
+	chems = list("honey" = list(1,10), "silver_sulfadiazine" = list(3,5))
 
 	lifespan = 50
 	maturation = 3
@@ -1318,7 +1318,7 @@ proc/populate_seed_list()
 	packet_icon = "seed-carrot"
 	products = list(/obj/item/weapon/reagent_containers/food/snacks/grown/carrot)
 	plant_icon = "carrot"
-	chems = list("nutriment" = list(1,20), "imidazoline" = list(3,5))
+	chems = list("nutriment" = list(1,20), "oculine" = list(3,5))
 
 	lifespan = 25
 	maturation = 10
@@ -1513,7 +1513,7 @@ proc/populate_seed_list()
 	products = list(/obj/item/weapon/reagent_containers/food/snacks/grown/kudzupod)
 	plant_icon = "kudzu"
 	product_colour = "#96D278"
-	chems = list("nutriment" = list(1,50), "anti_toxin" = list(1,25))
+	chems = list("nutriment" = list(1,50), "charcoal" = list(1,25))
 
 	lifespan = 20
 	maturation = 6

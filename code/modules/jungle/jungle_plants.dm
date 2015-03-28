@@ -58,7 +58,7 @@
 //*******************************//
 
 var/list/fruit_icon_states = list("badrecipe","kudzupod","reishi","lime","grapes","boiledrorocore","chocolateegg")
-var/list/reagent_effects = list("toxin","anti_toxin","stoxin","space_drugs","mindbreaker","zombiepowder","impedrezene")
+var/list/reagent_effects = list("toxin","charcoal","morphine","space_drugs","mindbreaker","haloperidol")
 var/jungle_plants_init = 0
 
 /proc/init_jungle_plants()

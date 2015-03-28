@@ -704,7 +704,7 @@
 
 	New()
 		..()
-		reagents.add_reagent("tricordrazine", 20)
+		reagents.add_reagent("omnizine", 20)
 		reagents.del_reagent("sugar")
 		reagents.update_total()
 		bitesize = 4

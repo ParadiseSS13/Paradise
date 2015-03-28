@@ -453,9 +453,8 @@ Note that amputating the affected organ does in fact remove the infection from t
 
 		// Internal wounds get worse over time. Low temperatures (cryo) stop them.
 		if(W.internal && !W.can_autoheal() && owner.bodytemperature >= 170)
-			var/bicardose = owner.reagents.get_reagent_amount("bicaridine")
-			var/inaprovaline = owner.reagents.get_reagent_amount("inaprovaline")
-			if(!bicardose || !inaprovaline)	//bicaridine and inaprovaline stop internal wounds from growing bigger with time, and also stop bleeding
+			var/bicardose = owner.reagents.get_reagent_amount("styptic_powder")
+			if(!bicardose)	//styptic powder stops internal wounds from growing bigger with time, and also stop bleeding
 				W.open_wound(0.1 * wound_update_accuracy)
 				owner.vessel.remove_reagent("blood",0.05 * W.damage * wound_update_accuracy)
 
@@ -463,8 +462,8 @@ Note that amputating the affected organ does in fact remove the infection from t
 			if(prob(1 * wound_update_accuracy))
 				owner.custom_pain("You feel a stabbing pain in your [display_name]!",1)
 
-			//overdose of bicaridine begins healing IB
-			if(owner.reagents.get_reagent_amount("bicaridine") >= 30)
+			//overdose of styptic powder begins healing IB
+			if(owner.reagents.get_reagent_amount("styptic_powder") >= 30)
 				W.damage = max(0, W.damage - 0.2)
 
 		// slow healing

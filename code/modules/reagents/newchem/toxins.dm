@@ -44,6 +44,7 @@ datum/reagent/histamine/on_mob_life(var/mob/living/M as mob)
 				M.adjustBruteLoss(2*REM)
 	..()
 	return
+
 datum/reagent/histamine/overdose_process(var/mob/living/M as mob)
 	M.adjustOxyLoss(pick(1,3)*REM)
 	M.adjustBruteLoss(pick(1,3)*REM)
@@ -54,7 +55,7 @@ datum/reagent/histamine/overdose_process(var/mob/living/M as mob)
 datum/reagent/formaldehyde
 	name = "Formaldehyde"
 	id = "formaldehyde"
-	description = "Deals a moderate amount of Toxin damage over time. 10% chance to decay into 10-15 histamine."
+	description = "Formaldehyde is a common industrial chemical and is used to preserve corpses and medical samples. It is highly toxic and irritating."
 	reagent_state = LIQUID
 	color = "#CF3600"
 
@@ -62,8 +63,7 @@ datum/reagent/formaldehyde/on_mob_life(var/mob/living/M as mob)
 	if(!M) M = holder.my_atom
 	M.adjustToxLoss(1*REM)
 	if(prob(10))
-		M.reagents.add_reagent("histamine",pick(5,15))
-		M.reagents.remove_reagent("formaldehyde",1)
+		M.reagents.add_reagent("histamine",rand(5,15))
 	..()
 	return
 
@@ -74,6 +74,7 @@ datum/reagent/formaldehyde/on_mob_life(var/mob/living/M as mob)
 	required_reagents = list("ethanol" = 1, "oxygen" = 1, "silver" = 1)
 	result_amount = 3
 	required_temp = 420
+	mix_message = "Ugh, it smells like the morgue in here."
 
 datum/reagent/venom
 	name = "Venom"
@@ -82,32 +83,38 @@ datum/reagent/venom
 	reagent_state = LIQUID
 	color = "#CF3600"
 	metabolization_rate = 0.2
+	overdose_threshold = 40
+
 datum/reagent/venom/on_mob_life(var/mob/living/M as mob)
 	if(!M) M = holder.my_atom
 	M.adjustToxLoss((0.1*volume)*REM)
 	M.adjustBruteLoss((0.1*volume)*REM)
 	if(prob(25))
-		M.reagents.add_reagent("histamine",pick(5,10))
-		M.reagents.remove_reagent("venom",1)
+		M.reagents.add_reagent("histamine",rand(5,10))
+	..()
+	return
+
+datum/reagent/venom/overdose_process(var/mob/living/M as mob)
+	if(volume >= 40)
+		if(prob(4))
+			M.gib()
 	..()
 	return
 
 datum/reagent/neurotoxin2
 	name = "Neurotoxin"
 	id = "neurotoxin2"
-	description = "Deals toxin and brain damage up to 60 before it slows down, causing confusion and a knockout after 17 elapsed cycles."
+	description = "A dangerous toxin that attacks the nervous system."
 	reagent_state = LIQUID
-	color = "#CF3600"
-	var/cycle_count = 0
+	color = "#60A584"
 	metabolization_rate = 1
 
 datum/reagent/neurotoxin2/on_mob_life(var/mob/living/M as mob)
-	cycle_count++
 	if(M.brainloss < 60)
 		M.adjustBrainLoss(1*REM)
 	M.adjustToxLoss(1*REM)
-	if(cycle_count == 17)
-		M.sleeping += 10 // buffed so it works
+	if(current_cycle >= 17)
+		M.Paralyse(10)
 	..()
 	return
 
@@ -122,7 +129,7 @@ datum/reagent/neurotoxin2/on_mob_life(var/mob/living/M as mob)
 datum/reagent/cyanide
 	name = "Cyanide"
 	id = "cyanide"
-	description = "Deals toxin damage, alongside some oxygen loss. 8% chance of stun and some extra toxin damage."
+	description = "A highly toxic chemical with some uses as a building block for other things."
 	reagent_state = LIQUID
 	color = "#CF3600"
 	metabolization_rate = 0.1
@@ -146,6 +153,7 @@ datum/reagent/cyanide/on_mob_life(var/mob/living/M as mob)
 	required_reagents = list("oil" = 1, "ammonia" = 1, "oxygen" = 1)
 	result_amount = 3
 	required_temp = 380
+	mix_message = "The mixture gives off a faint scent of almonds."
 
 /datum/reagent/questionmark // food poisoning
 	name = "????"
@@ -324,9 +332,9 @@ datum/reagent/initropidril/on_mob_life(var/mob/living/M as mob)
 datum/reagent/pancuronium
 	name = "Pancuronium"
 	id = "pancuronium"
-	description = "Knocks you out after 30 seconds, 7% chance to cause some oxygen loss."
+	description = "Pancuronium bromide is a powerful skeletal muscle relaxant."
 	reagent_state = LIQUID
-	color = "#CF3600"
+	color = "#1E4664"
 	metabolization_rate = 0.2
 
 datum/reagent/pancuronium/on_mob_life(var/mob/living/M as mob)

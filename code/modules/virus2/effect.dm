@@ -104,12 +104,12 @@
 
 ////////////////////////STAGE 4/////////////////////////////////
 
-/datum/disease2/effect/doctorsdelight
+/datum/disease2/effect/omnizine
 	name = "Panacea Effect"
 	stage = 4
 	activate(var/mob/living/carbon/mob,var/multiplier)
-		if (mob.reagents.get_reagent_amount("doctorsdelight") < 1)
-			mob.reagents.add_reagent("doctorsdelight", 1)
+		if (mob.reagents.get_reagent_amount("omnizine") < 1)
+			mob.reagents.add_reagent("omnizine", 1)
 
 /datum/disease2/effect/viralsputum_major
 	name = "Hemoptysis"
@@ -291,7 +291,7 @@
 	name = "Spontaneous Cellular Collapse"
 	stage = 4
 	activate(var/mob/living/carbon/mob,var/multiplier)
-		mob.reagents.add_reagent("pacid", 1)
+		mob.reagents.add_reagent("facid", 1)
 		mob << "<span class = 'warning'> Your body burns as your cells break down.</span>"
 		shake_camera(mob,5*multiplier)
 
@@ -419,8 +419,8 @@
 	name = "Regenerative Synapse Effect"
 	stage = 3
 	activate(var/mob/living/carbon/mob,var/multiplier)
-		if (mob.reagents.get_reagent_amount("alkysine") < 1)
-			mob.reagents.add_reagent("alkysine", 1)
+		if (mob.reagents.get_reagent_amount("mannitol") < 1)
+			mob.reagents.add_reagent("mannitol", 1)
 
 /datum/disease2/effect/paroxetine
 	name = "Psyche Collapse Syndrome"
@@ -686,37 +686,8 @@ var/list/compatible_mobs = list(/mob/living/carbon/human, /mob/living/carbon/mon
 			flags |= NODROP		//curses!
 		..()
 
-
-//Lets not make people nearly immortal. ~Alex-gh
-/*
-/datum/disease2/effect/spaceadapt
-	name = "Space Adaptation Effect"
-	stage = 3
-	activate(var/mob/living/carbon/mob,var/multiplier)
-		var/mob/living/carbon/human/H = mob
-		if (mob.reagents.get_reagent_amount("dexalinp") < 10)
-			mob.reagents.add_reagent("dexalinp", 4)
-		if (mob.reagents.get_reagent_amount("leporazine") < 10)
-			mob.reagents.add_reagent("leporazine", 4)
-		if (mob.reagents.get_reagent_amount("bicaridine") < 10)
-			mob.reagents.add_reagent("bicaridine", 4)
-		if (mob.reagents.get_reagent_amount("dermaline") < 10)
-			mob.reagents.add_reagent("dermaline", 4)
-		mob.emote("me",1,"exhales slowly.")
-		var/datum/organ/external/chest/chest = H.get_organ("chest")
-		for(var/datum/organ/internal/I in chest.internal_organs)
-			I.damage = 0
-*/
-
-
 ////////////////////////STAGE 2/////////////////////////////////
 
-/datum/disease2/effect/methylphenidate
-	name = "Mental Stability Phenomenon"
-	stage = 2
-	activate(var/mob/living/carbon/mob,var/multiplier)
-		if (mob.reagents.get_reagent_amount("methylphenidate") < 5)
-			mob.reagents.add_reagent("methylphenidate", 1)
 
 /datum/disease2/effect/pain
 	name = "Acute Muscle Ache"
@@ -827,8 +798,8 @@ var/list/compatible_mobs = list(/mob/living/carbon/human, /mob/living/carbon/mon
 	name = "Adrenal Overload"
 	stage = 2
 	activate(var/mob/living/carbon/mob,var/multiplier)
-		if (mob.reagents.get_reagent_amount("hyperzine") < 40)
-			mob.reagents.add_reagent("hyperzine", 4)
+		if (mob.reagents.get_reagent_amount("methamphetamine") < 40)
+			mob.reagents.add_reagent("methamphetamine", 4)
 		if (prob(30))
 			mob << "<span class='notice'>You feel a rush of energy inside you!</span>"
 			mob.jitteriness += 10
@@ -904,8 +875,8 @@ var/list/compatible_mobs = list(/mob/living/carbon/human, /mob/living/carbon/mon
 	stage = 2
 	activate(var/mob/living/carbon/mob,var/multiplier)
 		mob << "<span class = 'notice'> You feel optimistic!</span>"
-		if (mob.reagents.get_reagent_amount("tricordrazine") < 1)
-			mob.reagents.add_reagent("tricordrazine", 1)
+		if (mob.reagents.get_reagent_amount("salglu_solution") < 1)
+			mob.reagents.add_reagent("salglu_solution", 1)
 
 
 ////////////////////////STAGE 1/////////////////////////////////
@@ -929,8 +900,8 @@ var/list/compatible_mobs = list(/mob/living/carbon/human, /mob/living/carbon/mon
 	name = "Adrenaline Extra"
 	stage = 1
 	activate(var/mob/living/carbon/mob,var/multiplier)
-		if (mob.reagents.get_reagent_amount("hyperzine") < 10)
-			mob.reagents.add_reagent("hyperzine", 4)
+		if (mob.reagents.get_reagent_amount("ephedrine") < 10)
+			mob.reagents.add_reagent("ephedrine", 4)
 		if (prob(30))
 			mob << "<span class='notice'>You feel a rush of energy inside you!</span>"
 			mob.jitteriness += 10

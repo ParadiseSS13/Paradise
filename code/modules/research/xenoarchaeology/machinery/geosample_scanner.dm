@@ -51,11 +51,8 @@
 	coolant_reagents_purity["icecoffee"] = 0.6
 	coolant_reagents_purity["icetea"] = 0.6
 	coolant_reagents_purity["milkshake"] = 0.6
-	coolant_reagents_purity["leporazine"] = 0.7
-	coolant_reagents_purity["kelotane"] = 0.7
+	coolant_reagents_purity["teporone"] = 0.7
 	coolant_reagents_purity["sterilizine"] = 0.7
-	coolant_reagents_purity["dermaline"] = 0.7
-	coolant_reagents_purity["hyperzine"] = 0.8
 	coolant_reagents_purity["cryoxadone"] = 0.9
 	coolant_reagents_purity["coolant"] = 1
 	coolant_reagents_purity["adminordrazine"] = 2
@@ -144,15 +141,15 @@
 	data["radiation"] = round(radiation)
 	data["t_left_radspike"] = round(t_left_radspike)
 	data["rad_shield_on"] = rad_shield
-	
+
 	// update the ui if it exists, returns null if no ui is passed/found
-	ui = nanomanager.try_update_ui(user, src, ui_key, ui, data, force_open)	
+	ui = nanomanager.try_update_ui(user, src, ui_key, ui, data, force_open)
 	if (!ui)
 		// the ui does not exist, so we'll create a new() one
         // for a list of parameters and their descriptions see the code docs in \code\modules\nano\nanoui.dm
 		ui = new(user, src, ui_key, "geoscanner.tmpl", "High Res Radiocarbon Spectrometer", 900, 825)
 		// when the ui is first opened this is the data it will use
-		ui.set_initial_data(data)		
+		ui.set_initial_data(data)
 		// open the new ui window
 		ui.open()
 		// auto update every Master Controller tick

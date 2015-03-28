@@ -712,6 +712,8 @@
 
 		// Needed for M_TOXIC_FART
 		if("fart")
+			if(reagents.has_reagent("simethicone"))
+				return
 //			playsound(src.loc, 'sound/effects/fart.ogg', 50, 1, -3) //Admins still vote no to fun
 			if(locate(/obj/item/weapon/storage/bible) in get_turf(src))
 				viewers(src) << "<span class='warning'><b>[src] farts on the Bible!</b></span>"

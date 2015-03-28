@@ -7,9 +7,9 @@
 /datum/reagent/stabilizing_agent
 	name = "Stabilizing Agent"
 	id = "stabilizing_agent"
-	description = "Keeps unstable chemicals stable. This does not work on everything."
+	description = "A chemical that stabilises normally volatile compounds, preventing them from reacting immediately."
 	reagent_state = LIQUID
-	color = "#FFFFFF"
+	color = "#FFFF00"
 
 /datum/chemical_reaction/stabilizing_agent
 	name = "stabilizing_agent"
@@ -17,6 +17,7 @@
 	result = "stabilizing_agent"
 	required_reagents = list("iron" = 1, "oxygen" = 1, "hydrogen" = 1)
 	result_amount = 3
+	mix_message = "The mixture becomes a yellow liquid!"
 
 /datum/reagent/clf3
 	name = "Chlorine Trifluoride"

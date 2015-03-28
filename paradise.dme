@@ -1466,6 +1466,7 @@
 #include "code\modules\reagents\syringe_gun.dm"
 #include "code\modules\reagents\newchem\chem_heater.dm"
 #include "code\modules\reagents\newchem\drugs.dm"
+#include "code\modules\reagents\newchem\food.dm"
 #include "code\modules\reagents\newchem\medicine.dm"
 #include "code\modules\reagents\newchem\newchem_procs.dm"
 #include "code\modules\reagents\newchem\other.dm"

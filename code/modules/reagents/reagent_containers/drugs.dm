@@ -147,4 +147,4 @@
 /obj/item/weapon/reagent_containers/drugs/baggie/meth
 	New()
 		..()
-		reagents.add_reagent("hyperzine", 10)
+		reagents.add_reagent("methamphetamine", 10)

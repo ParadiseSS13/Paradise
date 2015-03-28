@@ -18,8 +18,11 @@ datum/reagent/nicotine/on_mob_life(var/mob/living/M as mob)
 	var/smoke_message = pick("You can just feel your lungs dying!", "You feel relaxed.", "You feel calmed.", "You feel the lung cancer forming.", "You feel the money you wasted.", "You feel like a space cowboy.", "You feel rugged.")
 	if(prob(5))
 		M << "<span class='notice'>[smoke_message]</span>"
-	M.AdjustStunned(-1)
-	M.adjustStaminaLoss(-1*REM)
+	if(prob(50))
+		M.AdjustParalysis(-1)
+		M.AdjustStunned(-1)
+		M.AdjustWeakened(-1)
+		M.adjustStaminaLoss(-1*REM)
 	..()
 	return
 
@@ -84,12 +87,19 @@ datum/reagent/crank/addiction_act_stage4(var/mob/living/M as mob)
 	mix_message = "The mixture violently reacts, leaving behind a few crystalline shards."
 	required_temp = 390
 
+/datum/chemical_reaction/crank/on_reaction(var/datum/reagents/holder, var/created_volume)
+	var/turf/T = get_turf(holder.my_atom)
+	for(var/turf/turf in range(1,T))
+		new /obj/fire(turf)
+	explosion(T,0,0,2)
+	return
+
 /datum/reagent/krokodil
 	name = "Krokodil"
 	id = "krokodil"
-	description = "Cools and calms you down. If overdosed it will deal significant Brain and Toxin damage. If addicted it will begin to deal fatal amounts of Brute damage as the subject's skin falls off."
+	description = "A sketchy homemade opiate, often used by disgruntled Cosmonauts."
 	reagent_state = LIQUID
-	color = "#60A584" // rgb: 96, 165, 132
+	color = "#0264B4"
 	overdose_threshold = 20
 	addiction_threshold = 15
 
@@ -157,10 +167,10 @@ datum/reagent/crank/addiction_act_stage4(var/mob/living/M as mob)
 	var/high_message = pick("You feel hyper.", "You feel like you need to go faster.", "You feel like you can run the world.")
 	if(prob(5))
 		M << "<span class='notice'>[high_message]</span>"
-	M.AdjustParalysis(-3)
-	M.AdjustStunned(-3)
-	M.AdjustWeakened(-3)
-	M.adjustStaminaLoss(-3)
+	M.AdjustParalysis(-2)
+	M.AdjustStunned(-2)
+	M.AdjustWeakened(-2)
+	M.adjustStaminaLoss(-2)
 	M.status_flags |= GOTTAGOREALLYFAST
 	M.Jitter(3)
 	M.adjustBrainLoss(0.5)
@@ -170,9 +180,6 @@ datum/reagent/crank/addiction_act_stage4(var/mob/living/M as mob)
 	return
 
 /datum/reagent/methamphetamine/overdose_process(var/mob/living/M as mob)
-	if(M.canmove && !istype(M.loc, /turf/space))
-		for(var/i = 0, i < 4, i++)
-			step(M, pick(cardinal))
 	if(prob(20))
 		M.emote("laugh")
 	if(prob(33))
@@ -181,8 +188,8 @@ datum/reagent/crank/addiction_act_stage4(var/mob/living/M as mob)
 		if(I)
 			M.drop_item()
 	..()
-	if(prob(20))
-		M.adjustToxLoss(5)
+	if(prob(50))
+		M.adjustToxLoss(10)
 	M.adjustBrainLoss(pick(0.5, 0.6, 0.7, 0.8, 0.9, 1))
 	return
 
@@ -200,9 +207,6 @@ datum/reagent/crank/addiction_act_stage4(var/mob/living/M as mob)
 	..()
 	return
 /datum/reagent/methamphetamine/addiction_act_stage3(var/mob/living/M as mob)
-	if(M.canmove && !istype(M.loc, /turf/space))
-		for(var/i = 0, i < 4, i++)
-			step(M, pick(cardinal))
 	M.Jitter(15)
 	M.Dizzy(15)
 	if(prob(40))
@@ -210,9 +214,6 @@ datum/reagent/crank/addiction_act_stage4(var/mob/living/M as mob)
 	..()
 	return
 /datum/reagent/methamphetamine/addiction_act_stage4(var/mob/living/carbon/human/M as mob)
-	if(M.canmove && !istype(M.loc, /turf/space))
-		for(var/i = 0, i < 8, i++)
-			step(M, pick(cardinal))
 	M.Jitter(20)
 	M.Dizzy(20)
 	M.adjustToxLoss(5)
@@ -346,13 +347,13 @@ datum/reagent/crank/addiction_act_stage4(var/mob/living/M as mob)
 	name = "aranesp"
 	id = "aranesp"
 	result = "aranesp"
-	required_reagents = list("epinephrine" = 1, "atropine" = 1, "morphine" = 1)
+	required_reagents = list("epinephrine" = 1, "atropine" = 1, "insulin" = 1)
 	result_amount = 3
 
 /datum/reagent/aranesp
 	name = "Aranesp"
 	id = "aranesp"
-	description = "Amps you up and gets you going, fixes all stamina damage you might have but can cause toxin and oxygen damage.."
+	description = "An illegal performance enhancing drug. Side effects might include chest pain, seizures, swelling, headache, fever... ... ..."
 	reagent_state = LIQUID
 	color = "#60A584" // rgb: 96, 165, 132
 
@@ -366,5 +367,22 @@ datum/reagent/crank/addiction_act_stage4(var/mob/living/M as mob)
 	if(prob(rand(1,100)))
 		M.losebreath++
 		M.adjustOxyLoss(20)
+	..()
+	return
+
+/datum/reagent/thc
+	name = "Tetrahydrocannabinol"
+	id = "thc"
+	description = "A mild psychoactive chemical extracted from the cannabis plant."
+	reagent_state = LIQUID
+	color = "#0FBE0F"
+
+
+/datum/reagent/thc/on_mob_life(var/mob/living/M as mob)
+	if(!M) M = holder.my_atom
+	if(prob(8))
+		M.emote(pick("smile","giggle","laugh"))
+	if(prob(50))
+		M.stuttering += 2
 	..()
 	return

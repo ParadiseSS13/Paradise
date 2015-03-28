@@ -19,10 +19,10 @@
 		new /obj/item/weapon/reagent_containers/dropper(src)
 		new /obj/item/weapon/reagent_containers/glass/beaker(src)
 		new /obj/item/weapon/reagent_containers/glass/beaker(src)
-		new /obj/item/weapon/reagent_containers/glass/bottle/inaprovaline(src)
-		new /obj/item/weapon/reagent_containers/glass/bottle/inaprovaline(src)
-		new /obj/item/weapon/reagent_containers/glass/bottle/antitoxin(src)
-		new /obj/item/weapon/reagent_containers/glass/bottle/antitoxin(src)
+		new /obj/item/weapon/reagent_containers/glass/bottle/epinephrine(src)
+		new /obj/item/weapon/reagent_containers/glass/bottle/epinephrine(src)
+		new /obj/item/weapon/reagent_containers/glass/bottle/charcoal(src)
+		new /obj/item/weapon/reagent_containers/glass/bottle/charcoal(src)
 		return
 
 
@@ -87,8 +87,8 @@
 
 /obj/item/weapon/storage/pill_bottle/psychiatrist/New()
 	..()
-	new /obj/item/weapon/reagent_containers/pill/diphenhydramine(src)
-	new /obj/item/weapon/reagent_containers/pill/diphenhydramine(src)
+	new /obj/item/weapon/reagent_containers/pill/haloperidol(src)
+	new /obj/item/weapon/reagent_containers/pill/haloperidol(src)
 	new /obj/item/weapon/reagent_containers/pill/methamphetamine(src)
 	new /obj/item/weapon/reagent_containers/pill/methamphetamine(src)
 
@@ -107,7 +107,7 @@
 		sleep(2)
 		new /obj/item/clothing/suit/straight_jacket(src)
 		new /obj/item/weapon/reagent_containers/syringe(src)
-		new /obj/item/weapon/reagent_containers/glass/bottle/stoxin(src)
+		new /obj/item/weapon/reagent_containers/glass/bottle/morphine(src)
 		new /obj/item/weapon/storage/pill_bottle/psychiatrist(src)
 
 		return
@@ -236,4 +236,27 @@
 		new /obj/item/clothing/head/helmet/space/eva/paramedic(src)
 		new /obj/item/clothing/head/helmet/space/eva/paramedic(src)
 		new /obj/item/device/sensor_device(src)
+		return
+
+/obj/structure/closet/secure_closet/reagents
+	name = "Chemical Storage Closet"
+	desc = "Store dangerous chemicals in here."
+	icon_state = "chemical1"
+	icon_closed = "chemical"
+	icon_locked = "chemical1"
+	icon_opened = "medicalopen"
+	icon_broken = "chemicalbroken"
+	icon_off = "chemicaloff"
+	req_access = list(access_chemistry)
+
+
+	New()
+		..()
+		sleep(2)
+		new /obj/item/weapon/reagent_containers/glass/bottle/reagent/phenol(src)
+		new /obj/item/weapon/reagent_containers/glass/bottle/reagent/ammonia(src)
+		new /obj/item/weapon/reagent_containers/glass/bottle/reagent/oil(src)
+		new /obj/item/weapon/reagent_containers/glass/bottle/reagent/acetone(src)
+		new /obj/item/weapon/reagent_containers/glass/bottle/reagent/acid(src)
+		new /obj/item/weapon/reagent_containers/glass/bottle/reagent/diethylamine(src)
 		return

@@ -68,7 +68,7 @@
 		src.connected = sleepernew
 		return
 	return
-	
+
 /obj/machinery/sleeper/attack_animal(var/mob/living/simple_animal/M)//Stop putting hostile mobs in things guise
 	if(M.environment_smash)
 		M.do_attack_animation(src)
@@ -177,7 +177,7 @@
 				if (src.connected.occupant)
 					if (src.connected.occupant.stat == DEAD)
 						usr << "\red \b This person has no life for to preserve anymore. Take them to a department capable of reanimating them."
-					else if(src.connected.occupant.health > src.connected.min_health || href_list["chemical"] == "inaprovaline")
+					else if(src.connected.occupant.health > src.connected.min_health || href_list["chemical"] == "epinephrine")
 						src.connected.inject_chemical(usr,href_list["chemical"],text2num(href_list["amount"]))
 					else
 						usr << "\red \b This person is not in good enough condition for sleepers to be effective! Use another means of treatment, such as cryogenics!"
@@ -209,9 +209,9 @@
 	dir = 8
 	var/orient = "LEFT" // "RIGHT" changes the dir suffix to "-r"
 	var/mob/living/carbon/human/occupant = null
-	var/possible_chems = list(list("inaprovaline", "stoxin", "dexalin", "bicaridine", "kelotane"),
-								   list("inaprovaline", "stoxin", "dexalinp", "bicaridine", "dermaline", "kelotane", "imidazoline"),
-								   list("inaprovaline", "stoxin", "dexalinp", "bicaridine", "dermaline", "kelotane", "imidazoline", "anti_toxin", "ryetalyn", "alkysine", "arithrazine"))
+	var/possible_chems = list(list("epinephrine", "morphine", "salbutamol", "styptic_powder"),
+								   list("epinephrine", "morphine", "salbutamol", "styptic_powder", "oculine"),
+								   list("epinephrine", "smorphine", "salbutamol", "styptic_powder", "oculine", "charcoal", "mutadone", "mannitol"))
 	var/amounts = list(5, 10)
 	var/obj/item/weapon/reagent_containers/glass/beaker = null
 	var/filtering = 0
@@ -246,7 +246,7 @@
 	component_parts += new /obj/item/weapon/stock_parts/console_screen(src)
 	component_parts += new /obj/item/stack/cable_coil(src, 1)
 	RefreshParts()
-	
+
 /obj/machinery/sleeper/upgraded/New()
 	..()
 	component_parts = list()
@@ -415,8 +415,8 @@
 	M.AdjustParalysis(-4)
 	M.AdjustWeakened(-4)
 	M.AdjustStunned(-4)
-	if (M:reagents.get_reagent_amount("inaprovaline") < 5)
-		M:reagents.add_reagent("inaprovaline", 5)
+	if (M:reagents.get_reagent_amount("salglu_solution") < 5)
+		M:reagents.add_reagent("salglu_solution", 5)
 	return
 
 /obj/machinery/sleeper/proc/toggle_filter()

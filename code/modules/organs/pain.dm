@@ -9,11 +9,11 @@ mob/var/next_pain_time = 0
 // amount is a num from 1 to 100
 mob/living/carbon/proc/pain(var/partname, var/amount, var/force, var/burning = 0)
 	if(stat >= 2) return
-	if(reagents.has_reagent("paracetamol"))
+	if(reagents.has_reagent("acetaminophen"))
 		return
-	if(reagents.has_reagent("tramadol"))
+	if(reagents.has_reagent("morphine"))
 		return
-	if(reagents.has_reagent("oxycodone"))
+	if(reagents.has_reagent("hydrocodone"))
 		return
 	if(analgesic)
 		return
@@ -58,9 +58,9 @@ mob/living/carbon/human/proc/custom_pain(var/message, var/flash_strength)
 
 	if(species && species.flags & NO_PAIN) return
 
-	if(reagents.has_reagent("tramadol"))
+	if(reagents.has_reagent("morphine"))
 		return
-	if(reagents.has_reagent("oxycodone"))
+	if(reagents.has_reagent("hydrocodone"))
 		return
 	if(analgesic)
 		return
@@ -80,9 +80,9 @@ mob/living/carbon/human/proc/handle_pain()
 	if(species && species.flags & NO_PAIN) return
 
 	if(stat >= 2) return
-	if(reagents.has_reagent("tramadol"))
+	if(reagents.has_reagent("morphine"))
 		return
-	if(reagents.has_reagent("oxycodone"))
+	if(reagents.has_reagent("hydrocodone"))
 		return
 	if(analgesic)
 		return

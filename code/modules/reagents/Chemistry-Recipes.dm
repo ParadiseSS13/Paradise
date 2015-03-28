@@ -59,32 +59,12 @@ datum
 			required_reagents = list("aluminum" = 1, "silicon" = 1, "oxygen" = 1)
 			result_amount = 3
 */
-		stoxin
-			name = "Sleep Toxin"
-			id = "stoxin"
-			result = "stoxin"
-			required_reagents = list("chloralhydrate" = 1, "sugar" = 4)
-			result_amount = 5
 
 		sterilizine
 			name = "Sterilizine"
 			id = "sterilizine"
 			result = "sterilizine"
-			required_reagents = list("ethanol" = 1, "anti_toxin" = 1, "chlorine" = 1)
-			result_amount = 3
-
-		inaprovaline
-			name = "Inaprovaline"
-			id = "inaprovaline"
-			result = "inaprovaline"
-			required_reagents = list("oxygen" = 1, "carbon" = 1, "sugar" = 1)
-			result_amount = 3
-
-		anti_toxin
-			name = "Anti-Toxin (Dylovene)"
-			id = "anti_toxin"
-			result = "anti_toxin"
-			required_reagents = list("silicon" = 1, "potassium" = 1, "nitrogen" = 1)
+			required_reagents = list("ethanol" = 1, "charcoal" = 1, "chlorine" = 1)
 			result_amount = 3
 
 		mutagen
@@ -93,27 +73,22 @@ datum
 			result = "mutagen"
 			required_reagents = list("radium" = 1, "plasma" = 1, "chlorine" = 1)
 			result_amount = 3
+			mix_message = "The substance turns neon green and bubbles unnervingly."
 
-		tramadol
-			name = "Tramadol"
-			id = "tramadol"
-			result = "tramadol"
-			required_reagents = list("inaprovaline" = 1, "ethanol" = 1, "oxygen" = 1)
+		acetaminophen
+			name = "Acetaminophen"
+			id = "acetaminophen"
+			result = "acetaminophen"
+			required_reagents = list("phenol" = 1, "sodium" = 1, "oxygen" = 1, "nitrogen" = 1, "sacid" = 1, "water" = 1)
+			result_amount = 6
+			mix_message = "The mixture becomes a fine white powder."
+
+		hydrocodone
+			name = "Hydrocodone"
+			id = "hydrocodone"
+			result = "hydrocodone"
+			required_reagents = list("morphine" = 1, "acetaminophen" = 1, "sacid" = 1, "water" = 1, "oil" = 1)
 			result_amount = 3
-
-		paracetamol
-			name = "Paracetamol"
-			id = "paracetamol"
-			result = "paracetamol"
-			required_reagents = list("tramadol" = 1, "sugar" = 1, "water" = 1)
-			result_amount = 3
-
-		oxycodone
-			name = "Oxycodone"
-			id = "oxycodone"
-			result = "oxycodone"
-			required_reagents = list("ethanol" = 1, "tramadol" = 1, "plasma" = 1)
-			result_amount = 1
 
 		thermite
 			name = "Thermite"
@@ -137,53 +112,11 @@ datum
 			required_reagents = list("water" = 1, "silicon" = 1, "oxygen" = 1)
 			result_amount = 4
 
-		pacid
-			name = "Polytrinic acid"
-			id = "pacid"
-			result = "pacid"
-			required_reagents = list("sacid" = 1, "chlorine" = 1, "potassium" = 1)
-			result_amount = 3
-
-		synaptizine
-			name = "Synaptizine"
-			id = "synaptizine"
-			result = "synaptizine"
-			required_reagents = list("sugar" = 1, "lithium" = 1, "water" = 1)
-			result_amount = 3
-
-		hyronalin
-			name = "Hyronalin"
-			id = "hyronalin"
-			result = "hyronalin"
-			required_reagents = list("radium" = 1, "anti_toxin" = 1)
-			result_amount = 2
-
-		arithrazine
-			name = "Arithrazine"
-			id = "arithrazine"
-			result = "arithrazine"
-			required_reagents = list("hyronalin" = 1, "hydrogen" = 1)
-			result_amount = 2
-
-		impedrezene
-			name = "Impedrezene"
-			id = "impedrezene"
-			result = "impedrezene"
-			required_reagents = list("mercury" = 1, "oxygen" = 1, "sugar" = 1)
-			result_amount = 2
-
-		kelotane
-			name = "Kelotane"
-			id = "kelotane"
-			result = "kelotane"
-			required_reagents = list("silicon" = 1, "carbon" = 1)
-			result_amount = 2
-
 		peridaxon
 			name = "Peridaxon"
 			id = "peridaxon"
 			result = "peridaxon"
-			required_reagents = list("bicaridine" = 2, "clonexadone" = 2)
+			required_reagents = list("styptic_powder" = 2, "clonexadone" = 2)
 			required_catalysts = list("plasma" = 5)
 			result_amount = 2
 
@@ -201,14 +134,6 @@ datum
 			required_reagents = list("water" = 1, "milk" = 1)
 			result_amount = 5
 
-		leporazine
-			name = "Leporazine"
-			id = "leporazine"
-			result = "leporazine"
-			required_reagents = list("silicon" = 1, "copper" = 1)
-			required_catalysts = list("plasma" = 5)
-			result_amount = 2
-
 		cryptobiolin
 			name = "Cryptobiolin"
 			id = "cryptobiolin"
@@ -216,69 +141,13 @@ datum
 			required_reagents = list("potassium" = 1, "oxygen" = 1, "sugar" = 1)
 			result_amount = 3
 
-		tricordrazine
-			name = "Tricordrazine"
-			id = "tricordrazine"
-			result = "tricordrazine"
-			required_reagents = list("inaprovaline" = 1, "anti_toxin" = 1)
-			result_amount = 2
-
-		alkysine
-			name = "Alkysine"
-			id = "alkysine"
-			result = "alkysine"
-			required_reagents = list("chlorine" = 1, "nitrogen" = 1, "anti_toxin" = 1)
-			result_amount = 2
-
-		dexalin
-			name = "Dexalin"
-			id = "dexalin"
-			result = "dexalin"
-			required_reagents = list("oxygen" = 2)
-			required_catalysts = list("plasma" = 5)
-			result_amount = 1
-
-		dermaline
-			name = "Dermaline"
-			id = "dermaline"
-			result = "dermaline"
-			required_reagents = list("oxygen" = 1, "phosphorus" = 1, "kelotane" = 1)
-			result_amount = 3
-
-		dexalinp
-			name = "Dexalin Plus"
-			id = "dexalinp"
-			result = "dexalinp"
-			required_reagents = list("dexalin" = 1, "carbon" = 1, "iron" = 1)
-			result_amount = 3
-
-		bicaridine
-			name = "Bicaridine"
-			id = "bicaridine"
-			result = "bicaridine"
-			required_reagents = list("inaprovaline" = 1, "carbon" = 1)
-			result_amount = 2
-
-		hyperzine
-			name = "Hyperzine"
-			id = "hyperzine"
-			result = "hyperzine"
-			required_reagents = list("sugar" = 1, "phosphorus" = 1, "sulfur" = 1,)
-			result_amount = 3
-
-		ryetalyn
-			name = "Ryetalyn"
-			id = "ryetalyn"
-			result = "ryetalyn"
-			required_reagents = list("arithrazine" = 1, "carbon" = 1)
-			result_amount = 2
-
 		cryoxadone
 			name = "Cryoxadone"
 			id = "cryoxadone"
 			result = "cryoxadone"
 			required_reagents = list("cryostylane" = 1, "plasma" = 1, "acetone" = 1, "mutagen" = 1)
 			result_amount = 4
+			mix_message = "The solution bubbles softly."
 
 		clonexadone
 			name = "Clonexadone"
@@ -292,29 +161,15 @@ datum
 			name = "Spaceacillin"
 			id = "spaceacillin"
 			result = "spaceacillin"
-			required_reagents = list("cryptobiolin" = 1, "inaprovaline" = 1)
-			result_amount = 2
-
-		imidazoline
-			name = "imidazoline"
-			id = "imidazoline"
-			result = "imidazoline"
-			required_reagents = list("carbon" = 1, "hydrogen" = 1, "anti_toxin" = 1)
+			required_reagents = list("cryptobiolin" = 1, "epinephrine" = 1)
 			result_amount = 2
 
 		inacusiate
 			name = "inacusiate"
 			id = "inacusiate"
 			result = "inacusiate"
-			required_reagents = list("water" = 1, "carbon" = 1, "anti_toxin" = 1)
+			required_reagents = list("water" = 1, "carbon" = 1, "charcoal" = 1)
 			result_amount = 2
-
-		ethylredoxrazine
-			name = "Ethylredoxrazine"
-			id = "ethylredoxrazine"
-			result = "ethylredoxrazine"
-			required_reagents = list("oxygen" = 1, "anti_toxin" = 1, "carbon" = 1)
-			result_amount = 3
 
 		glycerol
 			name = "Glycerol"
@@ -327,7 +182,7 @@ datum
 			name = "Nitroglycerin"
 			id = "nitroglycerin"
 			result = "nitroglycerin"
-			required_reagents = list("glycerol" = 1, "pacid" = 1, "sacid" = 1)
+			required_reagents = list("glycerol" = 1, "facid" = 1, "sacid" = 1)
 			result_amount = 2
 			on_reaction(var/datum/reagents/holder, var/created_volume)
 				var/datum/effect/effect/system/reagents_explosion/e = new()
@@ -343,47 +198,7 @@ datum
 			result = "sodiumchloride"
 			required_reagents = list("sodium" = 1, "chlorine" = 1, "water" = 1)
 			result_amount = 3
-
-		flash_powder
-			name = "Flash powder"
-			id = "flash_powder"
-			result = null
-			required_reagents = list("aluminum" = 1, "potassium" = 1, "sulfur" = 1 )
-			result_amount = null
-			on_reaction(var/datum/reagents/holder, var/created_volume)
-				var/location = get_turf(holder.my_atom)
-				var/datum/effect/effect/system/spark_spread/s = new /datum/effect/effect/system/spark_spread
-				s.set_up(2, 1, location)
-				s.start()
-				for(var/mob/living/carbon/C in hearers(5, location))
-					if(C.eyecheck())
-						continue
-					flick("e_flash", C.flash)
-					if(get_dist(C, location) < 4)
-						C.Weaken(5)
-						continue
-					C.Stun(5)
-
-		chloralhydrate
-			name = "Chloral Hydrate"
-			id = "chloralhydrate"
-			result = "chloralhydrate"
-			required_reagents = list("ethanol" = 1, "chlorine" = 3, "water" = 1)
-			result_amount = 1
-
-		stoxin
-			name = "Sleep Toxin"
-			id = "stoxin"
-			result = "stoxin"
-			required_reagents = list("chloralhydrate" = 1, "sugar" = 4)
-			result_amount = 5
-
-		zombiepowder
-			name = "Zombie Powder"
-			id = "zombiepowder"
-			result = "zombiepowder"
-			required_reagents = list("carpotoxin" = 5, "stoxin" = 5, "copper" = 5)
-			result_amount = 2
+			mix_message = "The solution crystallizes with a brief flare of light."
 
 		rezadone
 			name = "Rezadone"
@@ -396,21 +211,14 @@ datum
 			name = "Mindbreaker Toxin"
 			id = "mindbreaker"
 			result = "mindbreaker"
-			required_reagents = list("silicon" = 1, "hydrogen" = 1, "anti_toxin" = 1)
+			required_reagents = list("silicon" = 1, "hydrogen" = 1, "charcoal" = 1)
 			result_amount = 5
-
-		lipozine
-			name = "Lipozine"
-			id = "Lipozine"
-			result = "lipozine"
-			required_reagents = list("sodiumchloride" = 1, "ethanol" = 1, "radium" = 1)
-			result_amount = 3
 
 		plastication
 			name = "Plastic"
 			id = "solidplastic"
 			result = null
-			required_reagents = list("pacid" = 10, "plasticide" = 20)
+			required_reagents = list("facid" = 10, "plasticide" = 20)
 			result_amount = 1
 			on_reaction(var/datum/reagents/holder)
 				var/obj/item/stack/sheet/metal/M = new /obj/item/stack/sheet/mineral/plastic
@@ -515,7 +323,7 @@ datum
 			name = "Metal Foam"
 			id = "metalfoam"
 			result = null
-			required_reagents = list("aluminum" = 3, "foaming_agent" = 1, "pacid" = 1)
+			required_reagents = list("aluminum" = 3, "foaming_agent" = 1, "facid" = 1)
 			result_amount = 5
 
 			on_reaction(var/datum/reagents/holder, var/created_volume)
@@ -535,7 +343,7 @@ datum
 			name = "Iron Foam"
 			id = "ironlfoam"
 			result = null
-			required_reagents = list("iron" = 3, "foaming_agent" = 1, "pacid" = 1)
+			required_reagents = list("iron" = 3, "foaming_agent" = 1, "facid" = 1)
 			result_amount = 5
 
 			on_reaction(var/datum/reagents/holder, var/created_volume)
@@ -635,9 +443,9 @@ datum
 
 
 		slimeinaprov
-			name = "Slime Inaprovaline"
-			id = "m_inaprov"
-			result = "inaprovaline"
+			name = "Slime Epinephrine"
+			id = "m_epinephrine"
+			result = "epinephrine"
 			required_reagents = list("water" = 5)
 			result_amount = 3
 			required_other = 1
@@ -1442,7 +1250,7 @@ datum
 			name = "The Doctor's Delight"
 			id = "doctordelight"
 			result = "doctorsdelight"
-			required_reagents = list("limejuice" = 1, "tomatojuice" = 1, "orangejuice" = 1, "cream" = 1, "tricordrazine" = 1)
+			required_reagents = list("limejuice" = 1, "tomatojuice" = 1, "orangejuice" = 1, "cream" = 1)
 			result_amount = 5
 
 		irish_cream
@@ -1698,7 +1506,7 @@ datum
 			name = "Neurotoxin"
 			id = "neurotoxin"
 			result = "neurotoxin"
-			required_reagents = list("gargleblaster" = 1, "stoxin" = 1)
+			required_reagents = list("gargleblaster" = 1, "morphine" = 1)
 			result_amount = 2
 
 		snowwhite

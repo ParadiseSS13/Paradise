@@ -119,17 +119,6 @@ datum/reagent/colorful_reagent
 	required_reagents = list("plasma" = 1, "radium" = 1, "space_drugs" = 1, "cryoxadone" = 1, "triple_citrus" = 1)
 	result_amount = 5
 
-datum/reagent/colorful_reagent/on_mob_life(var/mob/living/M as mob)
-	if(M && isliving(M))
-		M.color = pick(random_color_list)
-	..()
-	return
-
-datum/reagent/colorful_reagent/reaction_mob(var/mob/living/M, var/volume)
-	if(M && isliving(M))
-		M.color = pick(random_color_list)
-	..()
-	return
 datum/reagent/colorful_reagent/reaction_obj(var/obj/O, var/volume)
 	if(O)
 		O.color = pick(random_color_list)
@@ -138,70 +127,6 @@ datum/reagent/colorful_reagent/reaction_obj(var/obj/O, var/volume)
 datum/reagent/colorful_reagent/reaction_turf(var/turf/T, var/volume)
 	if(T)
 		T.color = pick(random_color_list)
-	..()
-	return
-
-
-datum/reagent/triple_citrus
-	name = "Triple Citrus"
-	id = "triple_citrus"
-	description = "A solution."
-	reagent_state = LIQUID
-	color = "#C8A5DC"
-
-/datum/chemical_reaction/triple_citrus
-	name = "triple_citrus"
-	id = "triple_citrus"
-	result = "triple_citrus"
-	required_reagents = list("lemonjuice" = 1, "limejuice" = 1, "orangejuice" = 1)
-	result_amount = 5
-
-datum/reagent/corn_starch
-	name = "Corn Starch"
-	id = "corn_starch"
-	description = "The powdered starch of maize, derived from the kernel's endosperm. Used as a thickener for gravies and puddings."
-	reagent_state = LIQUID
-	color = "#C8A5DC"
-
-/datum/chemical_reaction/corn_syrup
-	name = "corn_syrup"
-	id = "corn_syrup"
-	result = "corn_syrup"
-	required_reagents = list("corn_starch" = 1, "sacid" = 1)
-	result_amount = 2
-	required_temp = 374
-
-datum/reagent/corn_syrup
-	name = "Corn Syrup"
-	id = "corn_syrup"
-	description = "A sweet syrup derived from corn starch that has had its starches converted into maltose and other sugars."
-	reagent_state = LIQUID
-	color = "#C8A5DC"
-
-datum/reagent/corn_syrup/on_mob_life(var/mob/living/M as mob)
-	if(!M) M = holder.my_atom
-	M.reagents.add_reagent("sugar", 1.2)
-	..()
-	return
-
-/datum/chemical_reaction/vhfcs
-	name = "vhfcs"
-	id = "vhfcs"
-	result = "vhfcs"
-	required_reagents = list("corn_syrup" = 1)
-	required_catalysts = list("enzyme" = 1)
-	result_amount = 1
-
-datum/reagent/vhfcs
-	name = "Very-high-fructose corn syrup"
-	id = "vhfcs"
-	description = "An incredibly sweet syrup, created from corn syrup treated with enzymes to convert its sugars into fructose."
-	reagent_state = LIQUID
-	color = "#C8A5DC"
-
-datum/reagent/vhfcs/on_mob_life(var/mob/living/M as mob)
-	if(!M) M = holder.my_atom
-	M.reagents.add_reagent("sugar", 2.4)
 	..()
 	return
 
