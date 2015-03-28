@@ -430,7 +430,7 @@ datum/reagent/morphine
 	var/cycle_count = 0
 	overdose_threshold = 30
 	addiction_threshold = 25
-
+	shock_reduction = 60
 
 datum/reagent/morphine/on_mob_life(var/mob/living/M as mob)
 	if(!M) M = holder.my_atom
