@@ -202,3 +202,57 @@
 	New()
 		..()
 		reagents.add_reagent("morphine", 30)
+
+/obj/item/weapon/reagent_containers/glass/bottle/traitor
+	name = "Traitor Bottle"
+	desc = "A small bottle. Contains water in liquid form."
+	icon = 'icons/obj/chemical.dmi'
+	icon_state = "bottle17"
+	volume = 50
+	var/poison = "water"
+	var/poison_name = "Water"
+	New()
+		..()
+		reagents.add_reagent(poison, 50)
+		name = "[poison_name] bottle"
+		desc = "A small bottle. Contains [poison_name]."
+
+/obj/item/weapon/reagent_containers/glass/bottle/traitor/initropidril
+	poison = "initropidril"
+	poison_name = "Initropidril"
+/obj/item/weapon/reagent_containers/glass/bottle/traitor/polonium
+	poison = "polonium"
+	poison_name = "Polonium"
+/obj/item/weapon/reagent_containers/glass/bottle/traitor/pancuronium
+	poison = "pancuronium"
+	poison_name = "Pancuronium"
+/obj/item/weapon/reagent_containers/glass/bottle/traitor/sodium_thiopental
+	poison = "sodium_thiopental"
+	poison_name = "Sodium Thiopental"
+/obj/item/weapon/reagent_containers/glass/bottle/traitor/amantin
+	poison = "amantin"
+	poison_name = "Amantin"
+/obj/item/weapon/reagent_containers/glass/bottle/traitor/curare
+	poison = "curare"
+	poison_name = "Curare"
+/obj/item/weapon/reagent_containers/glass/bottle/traitor/coniine
+	poison = "coniine"
+	poison_name = "coniine"
+/obj/item/weapon/reagent_containers/glass/bottle/traitor/histamine
+	poison = "histamine"
+	poison_name = "Histamine"
+/obj/item/weapon/reagent_containers/glass/bottle/traitor/venom
+	poison = "venom"
+	poison_name = "Venom"
+/obj/item/weapon/reagent_containers/glass/bottle/traitor/sulfonal
+	poison = "sulfonal"
+	poison_name = "Sulfonal"
+/obj/item/weapon/reagent_containers/glass/bottle/traitor/formaldehyde
+	poison = "formaldehyde"
+	poison_name = "Formaldehyde"
+/obj/item/weapon/reagent_containers/glass/bottle/traitor/neurotoxin2
+	poison = "neurotoxin2"
+	poison_name = "Neurotoxin"
+/obj/item/weapon/reagent_containers/glass/bottle/traitor/cyanide
+	poison = "cyanide"
+	poison_name = "Cyanide"

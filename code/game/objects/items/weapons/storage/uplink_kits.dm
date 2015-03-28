@@ -186,3 +186,22 @@
 		new /obj/item/weapon/grenade/empgrenade(src)
 		new /obj/item/weapon/implanter/emp/(src)
 		new /obj/item/device/flashlight/emp/(src)
+
+/obj/item/weapon/storage/box/syndie_kit/poison
+	name = "Poison Kit"
+
+	New()
+		..()
+		new /obj/item/weapon/reagent_containers/glass/bottle/traitor/initropidril(src)
+		new /obj/item/weapon/reagent_containers/glass/bottle/traitor/polonium(src)
+		new /obj/item/weapon/reagent_containers/glass/bottle/traitor/pancuronium(src)
+		new /obj/item/weapon/reagent_containers/glass/bottle/traitor/sodium_thiopental(src)
+		new /obj/item/weapon/reagent_containers/glass/bottle/traitor/amantin(src)
+		new /obj/item/weapon/reagent_containers/glass/bottle/traitor/curare(src)
+		new /obj/item/weapon/reagent_containers/glass/bottle/traitor/coiine(src)
+		new /obj/item/weapon/reagent_containers/glass/bottle/traitor/histamine(src)
+		new /obj/item/weapon/reagent_containers/glass/bottle/traitor/venom(src)
+		new /obj/item/weapon/reagent_containers/glass/bottle/traitor/sulfonal(src)
+		new /obj/item/weapon/reagent_containers/glass/bottle/traitor/formaldehyde(src)
+		new /obj/item/weapon/reagent_containers/glass/bottle/traitor/neurotoxin2(src)
+		new /obj/item/weapon/reagent_containers/glass/bottle/traitor/cyanide(src)

@@ -397,6 +397,12 @@ var/list/uplink_items = list()
 	cost = 8
 	excludefrom = list("nuclear emergency")
 
+/datum/uplink_item/stealthy_weapons/poison_kit
+	name = "Poison Kit"
+	desc = "A box of many potent and deadly chemicals."
+	item = /obj/item/weapon/storage/box/syndie_kit/poison
+	cost = 4
+
 /datum/uplink_item/stealthy_weapons/soap
 	name = "Syndicate Soap"
 	desc = "A sinister-looking surfactant used to clean blood stains to hide murders and prevent DNA analysis. You can also drop it underfoot to slip people."
