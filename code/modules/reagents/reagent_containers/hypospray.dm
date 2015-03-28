@@ -30,7 +30,7 @@
 		user << "\blue You inject [M] with [src]."
 		M << "\red You feel a tiny prick!"
 
-		src.reagents.reaction(M)
+		src.reagents.add_reagent(M)
 		if(M.reagents)
 
 			var/list/injected = list()

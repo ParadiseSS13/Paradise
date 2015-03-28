@@ -78,7 +78,7 @@
 		user << "\blue You inject [M] with the injector."
 		M << "\red You feel a tiny prick!"
 
-		R.reaction(M)
+		R.add_reagent(M)
 		if(M.reagents)
 			var/trans = R.trans_to(M, amount_per_transfer_from_this)
 			user << "\blue [trans] units injected.  [R.total_volume] units remaining."
