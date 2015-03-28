@@ -301,8 +301,8 @@
 			src.occupant.adjustBrainLoss(-((speed_coeff/2)))
 
 			//So clones don't die of oxyloss in a running pod.
-			if (src.occupant.reagents.get_reagent_amount("perfluorodecalin") < 5)
-				src.occupant.reagents.add_reagent("perfluorodecalin", 5)
+			if (src.occupant.reagents.get_reagent_amount("salbutamol") < 5)
+				src.occupant.reagents.add_reagent("salbutamol", 5)
 
 			//Also heal some oxyloss ourselves just in case!!
 			src.occupant.adjustOxyLoss(-4)

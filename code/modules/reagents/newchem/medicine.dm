@@ -427,7 +427,6 @@ datum/reagent/morphine
 	description = "A strong but highly addictive opiate painkiller with sedative side effects."
 	reagent_state = LIQUID
 	color = "#C8A5DC"
-	var/cycle_count = 0
 	overdose_threshold = 30
 	addiction_threshold = 25
 	shock_reduction = 60
@@ -435,9 +434,15 @@ datum/reagent/morphine
 datum/reagent/morphine/on_mob_life(var/mob/living/M as mob)
 	if(!M) M = holder.my_atom
 	M.status_flags |= IGNORESLOWDOWN
-	if(cycle_count >= 36)
-		M.sleeping += 3
-	cycle_count++
+	switch(current_cycle)
+		if(0 to 15)
+			if(prob(5))
+				M.emote("yawn")
+		if(16 to 35)
+			M.drowsyness = max(M.drowsyness, 10)
+		if(36 to INFINITY)
+			M.Paralyse(10)
+			M.drowsyness = max(M.drowsyness, 15)
 	..()
 	return
 

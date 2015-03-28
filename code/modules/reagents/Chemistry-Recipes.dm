@@ -200,26 +200,6 @@ datum
 			result_amount = 3
 			mix_message = "The solution crystallizes with a brief flare of light."
 
-		flash_powder
-			name = "Flash powder"
-			id = "flash_powder"
-			result = null
-			required_reagents = list("aluminum" = 1, "potassium" = 1, "sulfur" = 1 )
-			result_amount = null
-			on_reaction(var/datum/reagents/holder, var/created_volume)
-				var/location = get_turf(holder.my_atom)
-				var/datum/effect/effect/system/spark_spread/s = new /datum/effect/effect/system/spark_spread
-				s.set_up(2, 1, location)
-				s.start()
-				for(var/mob/living/carbon/C in hearers(5, location))
-					if(C.eyecheck())
-						continue
-					flick("e_flash", C.flash)
-					if(get_dist(C, location) < 4)
-						C.Weaken(5)
-						continue
-					C.Stun(5)
-
 		rezadone
 			name = "Rezadone"
 			id = "rezadone"
