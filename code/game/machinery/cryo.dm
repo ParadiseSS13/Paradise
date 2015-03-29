@@ -1,7 +1,7 @@
 /obj/machinery/atmospherics/unary/cryo_cell
 	name = "cryo cell"
 	icon = 'icons/obj/cryogenics.dmi'
-	icon_state = "cell-off"
+	icon_state = "pod0"
 	density = 1
 	anchored = 1.0
 	layer = 2.8
@@ -17,7 +17,7 @@
 	var/current_heat_capacity = 50
 	var/efficiency
 
-	l_color = "#00FF00"
+	l_color = "#FFFFFF"
 	power_change()
 		..()
 		if(!(stat & (BROKEN|NOPOWER)))
@@ -282,7 +282,7 @@
 		if(occupant || on)
 			user << "<span class='notice'>The maintenance panel is locked.</span>"
 			return
-		default_deconstruction_screwdriver(user, "cell-o", "cell-off", G)
+		default_deconstruction_screwdriver(user, "pod0-o", "pod0", G)
 		return
 
 	if(exchange_parts(user, G))
@@ -306,13 +306,52 @@
 	return
 
 /obj/machinery/atmospherics/unary/cryo_cell/update_icon()
-	if(on)
-		if(occupant)
-			icon_state = "cell-occupied"
-			return
-		icon_state = "cell-on"
+	handle_update_icon()
+
+/obj/machinery/atmospherics/unary/cryo_cell/proc/handle_update_icon() //making another proc to avoid spam in update_icon
+	overlays.Cut() //empty the overlay proc, just in case
+	icon_state = "pod[on]" //set the icon properly every time
+
+	if(!src.occupant)
+		overlays += "lid[on]" //if no occupant, just put the lid overlay on, and ignore the rest
 		return
-	icon_state = "cell-off"
+
+
+	if(occupant)
+		var/image/pickle = image(occupant.icon, occupant.icon_state)
+		pickle.overlays = occupant.overlays
+		pickle.pixel_y = 22
+
+		overlays += pickle
+		overlays += "lid[on]"
+		if(src.on) //no bobbing if off
+			var/up = 0 //used to see if we are going up or down, 1 is down, 2 is up
+			while(occupant)
+				overlays -= "lid[on]" //have to remove the overlays first, to force an update- remove cloning pod overlay
+				overlays -= pickle //remove mob overlay
+
+				switch(pickle.pixel_y) //this looks messy as fuck but it works, switch won't call itself twice
+
+					if(23) //inbetween state, for smoothness
+						switch(up) //this is set later in the switch, to keep track of where the mob is supposed to go
+							if(2) //2 is up
+								pickle.pixel_y = 24 //set to highest
+
+							if(1) //1 is down
+								pickle.pixel_y = 22 //set to lowest
+
+					if(22) //mob is at it's lowest
+						pickle.pixel_y = 23 //set to inbetween
+						up = 2 //have to go up
+
+					if(24) //mob is at it's highest
+						pickle.pixel_y = 23 //set to inbetween
+						up = 1 //have to go down
+
+				overlays += pickle //re-add the mob to the icon
+				overlays += "lid[on]" //re-add the overlay of the pod, they are inside it, not floating
+
+				sleep(7) //don't want to jiggle violently, just slowly bob
 
 /obj/machinery/atmospherics/unary/cryo_cell/proc/process_occupant()
 	if(air_contents.total_moles() < 10)
