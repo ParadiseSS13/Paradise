@@ -182,6 +182,11 @@
 	icon = 'icons/obj/chemical.dmi'
 	icon_state = "syringeproj"
 
+/obj/item/projectile/bullet/dart/syringe/tranquilizer
+	New()
+		..()
+		reagents.add_reagent("haloperidol", 15)
+
 /obj/item/projectile/bullet/neurotoxin
 	name = "neurotoxin spit"
 	icon_state = "neurotoxin"

@@ -243,3 +243,11 @@
 	New()
 		..()
 		reagents.add_reagent("sacid", 50)
+
+/obj/item/weapon/reagent_containers/glass/bottle/reagent/formaldehyde
+	name = "Formaldehyde Bottle"
+	desc = "A reagent bottle. Contains formaldehyde."
+	icon_state = "rbottle"
+	New()
+		..()
+		reagents.add_reagent("formaldehyde", 50)

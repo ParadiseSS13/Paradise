@@ -74,6 +74,9 @@ var/const/BLOOD_VOLUME_SURVIVE = 122
 					if (reagents.has_reagent("iron"))	//Hematogen candy anyone?
 						B.volume += 0.8
 						reagents.remove_reagent("iron", 0.1)
+					if (reagents.has_reagent("salglu_solution"))	//saline is good for blood regeneration
+						if(prob(33))
+							B.volume += 1.0
 
 		// Damaged heart virtually reduces the blood volume, as the blood isn't
 		// being pumped properly anymore.

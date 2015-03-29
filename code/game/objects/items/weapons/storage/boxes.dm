@@ -355,6 +355,20 @@
 		new /obj/item/weapon/reagent_containers/food/snacks/donkpocket(src)
 		new /obj/item/weapon/reagent_containers/food/snacks/donkpocket(src)
 
+/obj/item/weapon/storage/box/syndidonkpockets
+	name = "box of donk-pockets"
+	desc = "This box feels slightly warm"
+	icon_state = "donk_kit"
+
+	New()
+		..()
+		new /obj/item/weapon/reagent_containers/food/snacks/syndidonkpocket(src)
+		new /obj/item/weapon/reagent_containers/food/snacks/syndidonkpocket(src)
+		new /obj/item/weapon/reagent_containers/food/snacks/syndidonkpocket(src)
+		new /obj/item/weapon/reagent_containers/food/snacks/syndidonkpocket(src)
+		new /obj/item/weapon/reagent_containers/food/snacks/syndidonkpocket(src)
+		new /obj/item/weapon/reagent_containers/food/snacks/syndidonkpocket(src)
+
 /obj/item/weapon/storage/box/monkeycubes
 	name = "monkey cube box"
 	desc = "Drymate brand monkey cubes. Just add water!"

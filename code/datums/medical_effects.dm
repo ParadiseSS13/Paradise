@@ -81,7 +81,7 @@
 /datum/medical_effect/headache
 	name = "Headache"
 	triggers = list("cryoxadone" = 10)
-	cures = list("mannitol", "morphine", "acetaminophen", "hydrocodone")
+	cures = list("mannitol", "morphine", "sal_acid", "hydrocodone")
 	cure_message = "Your head stops throbbing..."
 
 /datum/medical_effect/headache/on_life(mob/living/carbon/human/H, strength)

@@ -157,12 +157,12 @@
 
 /obj/item/weapon/reagent_containers/food/condiment/syndisauce
 	name = "Chef Excellence's Special Sauce"
-	desc = "A potent sauce distilled from the toxin glands of 1000 Space Carp with an extra touch of LSD because why not?"
-	amount_per_transfer_from_this = 1
-	volume = 20
+	desc = "A potent sauce extracted from the potent amanita mushrooms. Death never tasted quite so delicious."
+	amount_per_transfer_from_this = 5
+	volume = 50
 	New()
 		..()
-		reagents.add_reagent("chefspecial", 20)
+		reagents.add_reagent("amanitin", 50)
 
 //Food packs. To easily apply deadly toxi... delicious sauces to your food!
 /obj/item/weapon/reagent_containers/food/condiment/pack

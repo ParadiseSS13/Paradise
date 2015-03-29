@@ -75,20 +75,12 @@ datum
 			result_amount = 3
 			mix_message = "The substance turns neon green and bubbles unnervingly."
 
-		acetaminophen
-			name = "Acetaminophen"
-			id = "acetaminophen"
-			result = "acetaminophen"
-			required_reagents = list("phenol" = 1, "sodium" = 1, "oxygen" = 1, "nitrogen" = 1, "sacid" = 1, "water" = 1)
-			result_amount = 6
-			mix_message = "The mixture becomes a fine white powder."
-
 		hydrocodone
 			name = "Hydrocodone"
 			id = "hydrocodone"
 			result = "hydrocodone"
-			required_reagents = list("morphine" = 1, "acetaminophen" = 1, "sacid" = 1, "water" = 1, "oil" = 1)
-			result_amount = 3
+			required_reagents = list("morphine" = 1, "sacid" = 1, "water" = 1, "oil" = 1)
+			result_amount = 2
 
 		thermite
 			name = "Thermite"
@@ -112,12 +104,11 @@ datum
 			required_reagents = list("water" = 1, "silicon" = 1, "oxygen" = 1)
 			result_amount = 4
 
-		peridaxon
-			name = "Peridaxon"
-			id = "peridaxon"
-			result = "peridaxon"
-			required_reagents = list("styptic_powder" = 2, "clonexadone" = 2)
-			required_catalysts = list("plasma" = 5)
+		mitocholide
+			name = "mitocholide"
+			id = "mitocholide"
+			result = "mitocholide"
+			required_reagents = list("synthflesh" = 1, "clonexadone" = 1)
 			result_amount = 2
 
 		holy_water
@@ -126,13 +117,6 @@ datum
 			result = "holywater"
 			required_reagents = list("water" = 1, "mercury" = 1, "wine" = 1)
 			result_amount = 3
-
-		virus_food
-			name = "Virus Food"
-			id = "virusfood"
-			result = "virusfood"
-			required_reagents = list("water" = 1, "milk" = 1)
-			result_amount = 5
 
 		cryptobiolin
 			name = "Cryptobiolin"
@@ -164,12 +148,12 @@ datum
 			required_reagents = list("cryptobiolin" = 1, "epinephrine" = 1)
 			result_amount = 2
 
-		inacusiate
-			name = "inacusiate"
-			id = "inacusiate"
-			result = "inacusiate"
-			required_reagents = list("water" = 1, "carbon" = 1, "charcoal" = 1)
-			result_amount = 2
+		Audioline
+			name = "Audioline"
+			id = "audioline"
+			result = "audioline"
+			required_reagents = list("spaceacillin" = 1, "salglu_solution" = 1, "epinephrine" = 1)
+			result_amount = 3
 
 		glycerol
 			name = "Glycerol"
@@ -230,8 +214,8 @@ datum
 			name = "Virus Food"
 			id = "virusfood"
 			result = "virusfood"
-			required_reagents = list("water" = 5, "milk" = 5, "oxygen" = 5)
-			result_amount = 15
+			required_reagents = list("water" = 1, "milk" = 1, "oxygen" = 1)
+			result_amount = 3
 /*
 		mix_virus
 			name = "Mix Virus"

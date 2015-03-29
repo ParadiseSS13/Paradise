@@ -159,6 +159,13 @@
 /obj/item/ammo_casing/shotgun/dart/attackby()
 	return
 
+/obj/item/ammo_casing/shotgun/tranquilizer
+	name = "tranquilizer darts"
+	desc = "A tranquilizer round used to subdue individuals utilizing stimulants."
+	icon_state = "cshell"
+	projectile_type = "/obj/item/projectile/bullet/dart/syringe/tranquilizer"
+	m_amt = 250
+
 /obj/item/ammo_casing/syringegun
 	name = "syringe gun spring"
 	desc = "A high-power spring that throws syringes."

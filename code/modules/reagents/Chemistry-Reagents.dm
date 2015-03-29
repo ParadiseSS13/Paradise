@@ -858,20 +858,6 @@ datum
 				..()
 				return
 
-		acetaminophen
-			name = "Acetaminophenl"
-			id = "acetaminophen"
-			description = "Most probably know this as Tylenol. This chemical is a mild, simple painkiller."
-			reagent_state = LIQUID
-			color = "#C855DC"
-			shock_reduction = 40
-			metabolization_rate = 0.2 // Lasts 2.5 minutes for 15 units
-
-			on_mob_life(var/mob/living/M as mob) // what the fuck are you idiots smoking
-				if(!M) M = holder.my_atom
-				..()
-				return
-
 		mutagen
 			name = "Unstable mutagen"
 			id = "mutagen"
@@ -901,7 +887,7 @@ datum
 				return
 
 		hydrocodone
-			name = "Hydrocodone-Acetaminophen"
+			name = "Hydrocodone"
 			id = "hydrocodone"
 			description = "An extremely effective painkiller; may have long term abuse consequences."
 			reagent_state = LIQUID
@@ -1246,9 +1232,9 @@ datum
 				..()
 				return
 
-		inacusiate
-			name = "Inacusiate"
-			id = "inacusiate"
+		audioline
+			name = "Audioline"
+			id = "audioline"
 			description = "Heals ear damage."
 			reagent_state = LIQUID
 			color = "#6600FF" // rgb: 100, 165, 255
@@ -1260,10 +1246,10 @@ datum
 				..()
 				return
 
-		peridaxon
-			name = "Peridaxon"
-			id = "peridaxon"
-			description = "Used to encourage recovery of internal organs and nervous systems. Medicate cautiously."
+		mitocholide
+			name = "Mitocholide"
+			id = "mitocholide"
+			description = "A specialized drugs that stimulates the mitochondria of cells to encourage healing of internal organs."
 			reagent_state = LIQUID
 			color = "#C8A5DC" // rgb: 200, 165, 220
 
@@ -1292,7 +1278,7 @@ datum
 				if(M.bodytemperature < 170)
 					M.adjustCloneLoss(-1)
 					M.adjustOxyLoss(-10)
-					M.heal_organ_damage(3,3)
+					M.heal_organ_damage(12,12)
 					M.adjustToxLoss(-3)
 				..()
 				return
