@@ -8218,7 +8218,7 @@
 "dcb" = (/turf/unsimulated/wall/fakeglass{tag = "icon-fakewindows (EAST)"; icon_state = "fakewindows"; dir = 4},/area/syndicate_mothership)
 "dcc" = (/turf/unsimulated/floor{icon = 'icons/turf/snow.dmi'; icon_state = "snow"},/obj/structure/flora/grass/both,/turf/unsimulated/floor{icon = 'icons/turf/snow.dmi'; icon_state = "gravsnow_corner"},/area/syndicate_mothership)
 "dcd" = (/turf/unsimulated/floor{icon = 'icons/turf/snow.dmi'; icon_state = "snow"},/obj/structure/flora/tree/pine,/turf/unsimulated/floor{icon = 'icons/turf/snow.dmi'; icon_state = "gravsnow_corner"},/area/syndicate_mothership)
-"dce" = (/obj/structure/table,/obj/item/weapon/storage/box/donkpockets{pixel_x = 3; pixel_y = 3},/turf/simulated/shuttle/floor{icon_state = "floor4"},/area/syndicate_station/start)
+"dce" = (/obj/structure/table,/obj/item/weapon/storage/box/syndidonkpockets,/turf/simulated/shuttle/floor{icon_state = "floor4"},/area/syndicate_station/start)
 "dcf" = (/obj/structure/stool/bed/chair/comfy/black{tag = "icon-comfychair_black (NORTH)"; icon_state = "comfychair_black"; dir = 1},/turf/simulated/shuttle/floor{icon_state = "floor4"},/area/syndicate_station/start)
 "dcg" = (/turf/unsimulated/floor{icon = 'icons/turf/snow.dmi'; icon_state = "snow"},/turf/unsimulated/floor{tag = "icon-gravsnow_corner (EAST)"; icon = 'icons/turf/snow.dmi'; icon_state = "gravsnow_corner"; dir = 4},/area/syndicate_mothership)
 "dch" = (/obj/structure/table,/obj/item/weapon/storage/fancy/crayons,/obj/item/weapon/storage/fancy/crayons,/turf/unsimulated/floor{icon_state = "freezerfloor"; dir = 2},/area/syndicate_mothership)
