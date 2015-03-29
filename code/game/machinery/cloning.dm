@@ -523,6 +523,11 @@
 		var/image/newpickle = handle_occupant_icon(pickle) //handle building the clone
 		overlays += newpickle //add modified image to overlays
 
+		var/image/bluebar = new //sci-fi scanny blue hovery thingy animation
+		bluebar.icon = 'icons/obj/cloning.dmi' //all overlays located here
+		bluebar.icon_state = "pod2_bluebar" //the animation
+		overlays += bluebar //add to overlays
+
 		var/image/liduo = new //animated shit on top of mob
 		liduo.icon = 'icons/obj/cloning.dmi' //all overlays located here
 		liduo.icon_state = "pod2_lidolay_anim" //frame animation
