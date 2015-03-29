@@ -11,7 +11,7 @@
 	desc = "An electronically-lockable pod for growing organic tissue."
 	density = 1
 	icon = 'icons/obj/cloning.dmi'
-	icon_state = "pod_0"
+	icon_state = "pod2_base" //invisible icon, should never be actually seen
 	req_access = list(access_genetics) //For premature unlocking.
 	var/mob/living/occupant
 	var/heal_level = 90 //The clone is released once its health reaches this level.
@@ -44,6 +44,7 @@
 	component_parts += new /obj/item/stack/cable_coil(src, 1)
 	component_parts += new /obj/item/stack/cable_coil(src, 1)
 	RefreshParts()
+	update_icon()
 
 /obj/machinery/clonepod/upgraded/New()
 	..()
@@ -173,6 +174,7 @@
 	if ((!isnull(src.occupant)) && (src.occupant.stat != 2))
 		var/completion = (100 * ((src.occupant.health + 100) / (src.heal_level + 100)))
 		user << "Current clone cycle is [round(completion)]% complete."
+		update_icon()
 	return
 
 //Clonepod
@@ -215,7 +217,6 @@
 		R.dna.real_name = "clone ([rand(0,999)])"
 	H.real_name = R.dna.real_name
 
-	src.icon_state = "pod_1"
 	//Get the clone body ready
 	H.adjustCloneLoss(190) //new damage var so you can't eject a clone early then stab them to abuse the current damage system --NeoFite
 	H.adjustBrainLoss(190) // The rand(10, 30) will come out as extra brain damage
@@ -268,6 +269,8 @@
 
 	H.set_species(R.dna.species)
 
+	update_icon()
+
 	for(var/datum/language/L in R.languages)
 		H.add_language(L.name)
 
@@ -277,7 +280,6 @@
 
 //Grow clones to maturity then kick them out.  FREELOADERS
 /obj/machinery/clonepod/process()
-
 	if(stat & NOPOWER) //Autoeject if power is lost
 		if (src.occupant)
 			src.locked = 0
@@ -308,6 +310,7 @@
 			src.occupant.adjustOxyLoss(-4)
 
 			use_power(7500) //This might need tweaking.
+			update_icon() //bad, i know, but with the live clone building, this has to be called constantly
 			return
 
 		else if((src.occupant.cloneloss <= (100 - src.heal_level)) && (!src.eject_wait))
@@ -320,8 +323,6 @@
 		src.occupant = null
 		if (src.locked)
 			src.locked = 0
-		if (!src.mess && !panel_open)
-			icon_state = "pod_0"
 		//use_power(200)
 		return
 
@@ -416,12 +417,12 @@
 	if (src.mess) //Clean that mess and dump those gibs!
 		src.mess = 0
 		gibs(src.loc)
-		src.icon_state = "pod_0"
 
 		/*
 		for(var/obj/O in src)
 			O.loc = src.loc
 		*/
+		update_icon()
 		return
 
 	if (!(src.occupant))
@@ -440,21 +441,20 @@
 		src.occupant.client.eye = src.occupant.client.mob
 		src.occupant.client.perspective = MOB_PERSPECTIVE
 	src.occupant.loc = src.loc
-	src.icon_state = "pod_0"
 	src.eject_wait = 0 //If it's still set somehow.
 	domutcheck(src.occupant) //Waiting until they're out before possible monkeyizing.
 	src.occupant.add_side_effect("Bad Stomach") // Give them an extra side-effect for free.
 	src.occupant = null
 
 	src.biomass -= CLONE_BIOMASS
-
+	update_icon() //call this down here to ensure it doesn't get stuck
 	return
 
 /obj/machinery/clonepod/proc/malfunction()
 	if(src.occupant)
 		src.connected_message("Critical Error!")
 		src.mess = 1
-		src.icon_state = "pod_g"
+		update_icon()
 		src.occupant.ghostize()
 		spawn(5)
 			del(src.occupant)
@@ -494,6 +494,129 @@
 				return
 		else
 	return
+
+/obj/machinery/clonepod/update_icon()
+	..() //call parent tbs
+	if(overlays.len) //always empty overlays if they have anything in them
+		overlays.Cut() //remove all overlays
+
+	if(src.mess) //just in case
+		icon_state = "pod2_g" //base is bigger than pod_g, probably not noticable when it happens (i hope)
+		return //don't want it to go past this check
+
+	if(!occupant) //no mob being cloned
+		if(overlays.len) //empty overlays if any overlays present (JIC)
+			overlays.Cut() //^^^^
+		icon_state = "pod2_0" //base off-sprite
+
+	if(occupant)
+		icon_state = "" //Set icon_state to null, every image is handled by overlays (for a reason)
+		overlays.Cut() //clear overlays, since they are going to have to be reapplied
+		var/image/lidu = new //basic underlay first
+		lidu.icon = 'icons/obj/cloning.dmi' //all overlays located here
+		lidu.icon_state = "pod2_underlay" //just a backboard sprite, would look bad alone
+		overlays += lidu //add it to the overlays
+
+		var/image/pickle = new //mob on top of underlay
+		pickle.icon = occupant.icon //looks like the occupant
+		pickle.icon_state = occupant.icon_state //looks like the occupant
+		pickle.overlays = occupant.overlays //makes sure it looks like the occupant
+		var/image/newpickle = handle_occupant_icon(pickle) //handle building the clone
+		overlays += newpickle //add modified image to overlays
+
+		var/image/liduo = new //animated shit on top of mob
+		liduo.icon = 'icons/obj/cloning.dmi' //all overlays located here
+		liduo.icon_state = "pod2_lidolay_anim" //frame animation
+		overlays += liduo //add to overlays
+
+		var/image/lid = new //lid on top of mob and animated shit
+		lid.icon = 'icons/obj/cloning.dmi' //all overlays located here
+		lid.icon_state = "pod2_lid" //clear glass dome, mobs are inside cloner, not floating
+		overlays += lid //add to overlays
+		return //just to make sure it returns
+
+	else
+		icon_state = "pod2_0" //JIC else, shouldn't ever be used.
+
+/obj/machinery/clonepod/proc/handle_occupant_icon(var/image/pickle) //takes input of an image and changes it to match completeness level
+	if(!pickle)
+		return //no image inputted
+
+	if(!src.occupant)
+		return //prevent runtime errors
+
+	var/completion = (100 * ((src.occupant.health + 100) / (src.heal_level + 100))) //get clone completion level
+
+	var/rcompletion = round(completion) //less accuracy plis
+
+	var/image/tempnew = new //new temporary icon
+	tempnew.icon = pickle.icon //adopt the inputted icon vars
+	tempnew.icon_state = pickle.icon_state
+	tempnew.overlays = pickle.overlays
+
+	switch(rcompletion) //this.. is the messiest thing ever but it works- More or less, checks completion level of clone, makes sprite match that
+		if(1 to 3)
+			tempnew.icon += icon ('icons/obj/cloningcut.dmi', "s1")
+		if(4 to 6)
+			tempnew.icon += icon ('icons/obj/cloningcut.dmi', "s2")
+		if(7 to 9)
+			tempnew.icon += icon ('icons/obj/cloningcut.dmi', "s3")
+		if(10 to 12)
+			tempnew.icon += icon ('icons/obj/cloningcut.dmi', "s4")
+		if(13 to 15)
+			tempnew.icon += icon ('icons/obj/cloningcut.dmi', "s5")
+		if(16 to 18)
+			tempnew.icon += icon ('icons/obj/cloningcut.dmi', "s6")
+		if(19 to 21)
+			tempnew.icon += icon ('icons/obj/cloningcut.dmi', "s7")
+		if(22 to 24)
+			tempnew.icon += icon ('icons/obj/cloningcut.dmi', "s8")
+		if(25 to 27)
+			tempnew.icon += icon ('icons/obj/cloningcut.dmi', "s9")
+		if(28 to 30)
+			tempnew.icon += icon ('icons/obj/cloningcut.dmi', "s10")
+		if(31 to 33)
+			tempnew.icon += icon ('icons/obj/cloningcut.dmi', "s11")
+		if(34 to 36)
+			tempnew.icon += icon ('icons/obj/cloningcut.dmi', "s12")
+		if(37 to 39)
+			tempnew.icon += icon ('icons/obj/cloningcut.dmi', "s13")
+		if(40 to 42)
+			tempnew.icon += icon ('icons/obj/cloningcut.dmi', "s14")
+		if(43 to 45)
+			tempnew.icon += icon ('icons/obj/cloningcut.dmi', "s15")
+		if(46 to 48)
+			tempnew.icon += icon ('icons/obj/cloningcut.dmi', "s16")
+		if(49 to 51)
+			tempnew.icon += icon ('icons/obj/cloningcut.dmi', "s17")
+		if(52 to 54)
+			tempnew.icon += icon ('icons/obj/cloningcut.dmi', "s18")
+		if(55 to 57)
+			tempnew.icon += icon ('icons/obj/cloningcut.dmi', "s19")
+		if(58 to 60)
+			tempnew.icon += icon ('icons/obj/cloningcut.dmi', "s20")
+		if(61 to 63)
+			tempnew.icon += icon ('icons/obj/cloningcut.dmi', "s21")
+		if(64 to 66)
+			tempnew.icon += icon ('icons/obj/cloningcut.dmi', "s22")
+		if(67 to 69)
+			tempnew.icon += icon ('icons/obj/cloningcut.dmi', "s23")
+		if(70 to 72)
+			tempnew.icon += icon ('icons/obj/cloningcut.dmi', "s24")
+		if(73 to 75)
+			tempnew.icon += icon ('icons/obj/cloningcut.dmi', "s25")
+		if(76 to 78)
+			tempnew.icon += icon ('icons/obj/cloningcut.dmi', "s26")
+		if(79 to 81)
+			tempnew.icon += icon ('icons/obj/cloningcut.dmi', "s27")
+		if(82 to 84)
+			tempnew.icon += icon ('icons/obj/cloningcut.dmi', "s28")
+		if(85 to 87)
+			tempnew.icon += icon ('icons/obj/cloningcut.dmi', "s29")
+		if(88 to 100)
+			tempnew.icon += icon ('icons/obj/cloningcut.dmi', "s30")
+
+	return tempnew //return the new icon
 
 /*
  *	Diskette Box
