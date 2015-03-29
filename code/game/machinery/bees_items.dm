@@ -74,21 +74,10 @@
 	icon_state = "honeycomb"
 	desc = "Dripping with sugary sweetness."
 
-	New()
-		..()
-
 /obj/item/weapon/reagent_containers/food/snacks/honeycomb/New()
 	..()
-	reagents.add_reagent("honey",10)
-	reagents.add_reagent("nutriment", 0.5)
-	reagents.add_reagent("sugar", 2)
+	reagents.add_reagent("honey",15)
 	bitesize = 2
-
-/datum/reagent/honey
-	name = "Honey"
-	id = "honey"
-	description = "A golden yellow syrup, loaded with sugary sweetness."
-	color = "#FFFF00"
 
 /obj/item/weapon/book/manual/hydroponics_beekeeping
 	name = "The Ins and Outs of Apiculture - A Precise Art"

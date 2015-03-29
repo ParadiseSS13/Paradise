@@ -400,7 +400,7 @@
 		del(O)
 	src.reagents.clear_reagents()
 	ffuu.reagents.add_reagent("carbon", amount)
-	ffuu.reagents.add_reagent("toxin", amount/10)
+	ffuu.reagents.add_reagent("????", amount/10)
 	return ffuu
 
 /obj/machinery/microwave/Topic(href, href_list)

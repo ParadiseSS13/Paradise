@@ -69,7 +69,7 @@ datum/reagent/formaldehyde/on_mob_life(var/mob/living/M as mob)
 
 /datum/chemical_reaction/formaldehyde
 	name = "formaldehyde"
-	id = "Formaldehyde"
+	id = "formaldehyde"
 	result = "formaldehyde"
 	required_reagents = list("ethanol" = 1, "oxygen" = 1, "silver" = 1)
 	result_amount = 3
@@ -110,11 +110,21 @@ datum/reagent/neurotoxin2
 	metabolization_rate = 1
 
 datum/reagent/neurotoxin2/on_mob_life(var/mob/living/M as mob)
-	if(M.brainloss < 60)
-		M.adjustBrainLoss(1*REM)
-	M.adjustToxLoss(1*REM)
-	if(current_cycle >= 17)
-		M.Paralyse(10)
+	if(current_cycle <= 4)
+		M.reagents.add_reagent("neurotoxin2", 1.0)
+	if(current_cycle >= 5)
+		if(prob(5))
+			M.emote("drool")
+		if(M.brainloss < 60)
+			M.adjustBrainLoss(1*REM)
+		M.adjustToxLoss(1*REM)
+	if(current_cycle >= 9)
+		M.drowsyness = max(M.drowsyness, 10)
+	if(current_cycle >= 13)
+		M.Paralyse(8)
+	switch(current_cycle)
+		if(5 to 45)
+			M.confused = max(M.confused, 15)
 	..()
 	return
 
@@ -136,11 +146,14 @@ datum/reagent/cyanide
 
 datum/reagent/cyanide/on_mob_life(var/mob/living/M as mob)
 	if(!M) M = holder.my_atom
+	if(prob(5))
+		M.emote("drool")
 	M.adjustToxLoss(1.5*REM)
 	if(prob(10))
+		M << "<span class = 'danger'>You cannot breathe!</span>"
 		M.losebreath += 1
 	if(prob(8))
-		M << "You feel horrendously weak!"
+		M << "<span class = 'danger'>You feel horrendously weak!</span>"
 		M.Stun(2)
 		M.adjustToxLoss(2*REM)
 	..()
@@ -155,19 +168,6 @@ datum/reagent/cyanide/on_mob_life(var/mob/living/M as mob)
 	required_temp = 380
 	mix_message = "The mixture gives off a faint scent of almonds."
 
-/datum/reagent/questionmark // food poisoning
-	name = "????"
-	id = "????"
-	description = "????"
-	reagent_state = LIQUID
-	color = "#CF3600"
-	metabolization_rate = 0.2
-
-datum/reagent/questionmark/on_mob_life(var/mob/living/M as mob)
-	if(!M) M = holder.my_atom
-	M.adjustToxLoss(1*REM)
-	..()
-	return
 
 datum/reagent/itching_powder
 	name = "Itching Powder"
@@ -216,9 +216,9 @@ datum/reagent/facid/on_mob_life(var/mob/living/M as mob)
 datum/reagent/facid
 	name = "Fluorosulfuric Acid"
 	id = "facid"
-	description = ""
+	description = "Fluorosulfuric acid is a an extremely corrosive super-acid."
 	reagent_state = LIQUID
-	color = "#CF3600"
+	color = "#4141D2"
 
 datum/reagent/facid/reaction_mob(var/mob/living/M, var/method=TOUCH, var/volume)
 	if(!istype(M, /mob/living))
@@ -296,6 +296,7 @@ datum/reagent/facid/reaction_obj(var/obj/O, var/volume)
 	required_reagents = list("sacid" = 1, "fluorine" = 1, "hydrogen" = 1, "potassium" = 1)
 	result_amount = 4
 	required_temp = 380
+	mix_message = "The mixture deepens to a dark blue, and slowly begins to corrode its container."
 
 datum/reagent/initropidril
 	name = "Initropidril"
@@ -313,19 +314,18 @@ datum/reagent/initropidril/on_mob_life(var/mob/living/M as mob)
 		var/picked_option = rand(1,3)
 		switch(picked_option)
 			if(1)
-				M.Stun(3)
-				M.Weaken(3)
+				M << "<span class = 'danger'>You feel horrendously weak!</span>"
+				M.Stun(2)
+				M.losebreath += 1
 			if(2)
-				M.losebreath += 10
-				M.adjustOxyLoss(rand(5,25))
+				M << "<span class = 'danger'>You cannot breathe!</span>"
+				M.losebreath += 5
+				M.adjustOxyLoss(10)
 			if(3)
 				var/mob/living/carbon/human/H = M
 				if(!H.heart_attack)
-					H.visible_message("<span class = 'userdanger'>[H] clutches at their chest as if their heart stopped!</span>")
+					H.visible_message("<span class = 'userdanger'>[H] clutches at their chest !</span>")
 					H.heart_attack = 1 // rip in pepperoni
-				else
-					H.losebreath += 10
-					H.adjustOxyLoss(rand(5,25))
 	..()
 	return
 

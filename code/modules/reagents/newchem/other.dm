@@ -89,6 +89,7 @@ datum/reagent/acetone
 	result = "oil"
 	required_reagents = list("fuel" = 1, "carbon" = 1, "hydrogen" = 1)
 	result_amount = 3
+	mix_message = "An iridescent black chemical forms in the container."
 
 /datum/chemical_reaction/phenol
 	name = "phenol"
@@ -116,8 +117,8 @@ datum/reagent/colorful_reagent
 	name = "colorful_reagent"
 	id = "colorful_reagent"
 	result = "colorful_reagent"
-	required_reagents = list("plasma" = 1, "radium" = 1, "space_drugs" = 1, "cryoxadone" = 1, "triple_citrus" = 1)
-	result_amount = 5
+	required_reagents = list("plasma" = 1, "radium" = 1, "space_drugs" = 1, "cryoxadone" = 1, "triple_citrus" = 1, "stabilizing_agent" = 1)
+	result_amount = 6
 
 datum/reagent/colorful_reagent/reaction_obj(var/obj/O, var/volume)
 	if(O)

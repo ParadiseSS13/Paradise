@@ -716,7 +716,7 @@ datum
 			id = "sacid"
 			description = "A strong mineral acid with the molecular formula H2SO4."
 			reagent_state = LIQUID
-			color = "#DB5008" // rgb: 219, 80, 8
+			color = "#00D72B"
 
 			on_mob_life(var/mob/living/M as mob)
 				if(!M) M = holder.my_atom
@@ -1154,6 +1154,7 @@ datum
 			description = "Lexorin temporarily stops respiration. Causes tissue damage."
 			reagent_state = LIQUID
 			color = "#32127A" // rgb: 50, 18, 122
+			metabolization_rate = 0.2
 
 			on_mob_life(var/mob/living/M as mob)
 				if(M.stat == 2.0)
@@ -1461,9 +1462,9 @@ datum
 		diethylamine
 			name = "Diethylamine"
 			id = "diethylamine"
-			description = "A secondary amine, mildly corrosive."
+			description = "A secondary amine, useful as a plant nutrient and as building block for other compounds."
 			reagent_state = LIQUID
-			color = "#604030" // rgb: 96, 64, 48
+			color = "#322D00"
 
 		Spores
 			name = "Spores"
@@ -1741,7 +1742,6 @@ datum
 						M.Dizzy(20)
 						M.druggy = max(M.druggy, 40)
 						if(prob(30)) M.emote(pick("twitch","giggle"))
-				holder.remove_reagent(src.id, 0.2)
 				data++
 				..()
 				return

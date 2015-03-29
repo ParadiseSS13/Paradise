@@ -359,6 +359,7 @@ datum
 			result = "ammonia"
 			required_reagents = list("hydrogen" = 3, "nitrogen" = 1)
 			result_amount = 3
+			mix_message = "The mixture bubbles, emitting an acrid reek."
 
 		diethylamine
 			name = "Diethylamine"
@@ -367,6 +368,7 @@ datum
 			required_reagents = list ("ammonia" = 1, "ethanol" = 1)
 			result_amount = 2
 			required_temp = 374
+			mix_message = "A horrible smell pours forth from the mixture."
 
 		space_cleaner
 			name = "Space cleaner"
@@ -374,6 +376,7 @@ datum
 			result = "cleaner"
 			required_reagents = list("ammonia" = 1, "water" = 1, "ethanol" = 1)
 			result_amount = 3
+			mix_message = "Ick, this stuff really stinks. Sure does make the container sparkle though!"
 
 		sulfuric_acid
 			name = "Sulfuric Acid"
@@ -381,6 +384,7 @@ datum
 			result = "sacid"
 			required_reagents = list("sulfur" = 1, "oxygen" = 1, "hydrogen" = 1)
 			result_amount = 3
+			mix_message = "The mixture gives off a sharp acidic tang."
 
 ///////Changeling Blood Test/////////////
 		changeling_test
