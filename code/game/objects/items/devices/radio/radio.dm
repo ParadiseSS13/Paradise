@@ -40,14 +40,14 @@
 		radio_controller.remove_object(src, frequency)
 		frequency = new_frequency
 		radio_connection = radio_controller.add_object(src, frequency, RADIO_CHAT)
-	
+
 
 /obj/item/device/radio/New()
 	..()
 	wires = new(src)
 	if(radio_controller)
 		initialize()
-		
+
 	if(prison_radio)
 		wires.CutWireIndex(WIRE_TRANSMIT)
 
@@ -513,7 +513,7 @@
 	icon_state = "radio"
 	canhear_range = 3
 	subspace_transmission = 1
-	
+
 /obj/item/device/radio/borg/syndicate
 	syndie = 1
 	keyslot = new /obj/item/device/encryptionkey/syndicate
@@ -526,7 +526,7 @@
 
 /obj/item/device/radio/borg/deathsquad/New()
 	..()
-	set_frequency(1441)
+	set_frequency(DTH_FREQ)
 
 /obj/item/device/radio/borg/talk_into()
 	. = ..()
