@@ -171,16 +171,14 @@
 
 	//If limb took enough damage, try to cut or tear it off
 	if(config.limbs_can_break && (brute_dam + burn_dam) >= (max_damage * config.organ_health_multiplier))
-		if((sharp || edge) && used_weapon)
-			if(istype(used_weapon,/obj/item))
-				var/obj/item/W = used_weapon
-				if(W.w_class >= 3)
-					droplimb(1)
+		if((sharp || edge) && prob(brute))
+			droplimb(1)
 			return
-		if(brute >= 23 && prob(brute)) // Wooden baseball bat in both hands == 23
+		if(brute >= 20 && prob(brute)) // Wooden baseball bat in both hands == 23
 			droplimb(1,0,0,2)
 			return
 		if(burn >= 20) // Most laser rifle shots.
+			if(body_part == HEAD) return //No ashing someone's head off since you don't get a brain back.
 			droplimb(1,0,0,1)
 			return
 
