@@ -924,7 +924,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 	name = "chest"
 	icon_name = "torso"
 	display_name = "chest"
-	max_damage = 200
+	max_damage = 75
 	min_broken_damage = 50
 	body_part = UPPER_TORSO
 	vital = 1
@@ -934,7 +934,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 	icon_name = "groin"
 	display_name = "groin"
 	max_damage = 50
-	min_broken_damage = 25
+	min_broken_damage = 60
 	body_part = LOWER_TORSO
 
 /datum/organ/external/l_arm
@@ -1025,7 +1025,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 	name = "head"
 	icon_name = "head"
 	display_name = "head"
-	max_damage = 200
+	max_damage = 75
 	min_broken_damage = 50
 	body_part = HEAD
 	var/disfigured = 0
