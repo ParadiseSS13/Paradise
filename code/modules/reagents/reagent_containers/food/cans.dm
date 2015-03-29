@@ -192,7 +192,7 @@
 	icon_state = "madminmalt"
 	New()
 		..()
-		reagents.add_reagent("hellwater", 20)
+		reagents.add_reagent("hell_water", 20)
 		reagents.add_reagent("neurotoxin", 15)
 		reagents.add_reagent("thirteenloko", 15)
 		src.pixel_x = rand(-10.0, 10)

@@ -574,12 +574,9 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 		"red wizard",
 		"marisa wizard",
 		"emergency response team",
-		"nanotrasen representative",
 		"nanotrasen officer",
 		"nanotrasen captain",
-		"singuloth knight",
-		"deathsquad officer - combat",
-		"deathsquad officer - formal"
+		"singuloth knight"
 
 		)
 	var/dostrip = input("Do you want to strip [M] before equipping them? (0=no, 1=yes)", "STRIPTEASE") as null|anything in list(0,1)
@@ -835,31 +832,6 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 		if("syndicate commando")
 			M.equip_syndicate_commando()
 
-		if("nanotrasen representative")
-			M.equip_if_possible(new /obj/item/clothing/under/rank/centcom/representative(M), slot_w_uniform)
-			M.equip_if_possible(new /obj/item/clothing/shoes/centcom(M), slot_shoes)
-			M.equip_if_possible(new /obj/item/clothing/gloves/color/white(M), slot_gloves)
-			M.equip_if_possible(new /obj/item/device/radio/headset/heads/ntrep(M), slot_l_ear)
-
-			var/obj/item/device/pda/heads/ntrep/pda = new(M)
-			pda.owner = M.real_name
-			pda.ownjob = "Nanotrasen Navy Representative"
-			pda.name = "PDA-[M.real_name] ([pda.ownjob])"
-
-			M.equip_if_possible(pda, slot_r_store)
-			M.equip_if_possible(new /obj/item/clothing/glasses/sunglasses(M), slot_l_store)
-			M.equip_if_possible(new /obj/item/weapon/clipboard(M), slot_belt)
-
-			var/obj/item/weapon/card/id/W = new(M)
-			W.name = "[M.real_name]'s ID Card (Nanotrasen Navy Representative)"
-			W.icon_state = "centcom"
-			W.item_state = "id_inv"
-			W.access = get_all_accesses()
-			W.assignment = "Nanotrasen Navy Representative"
-			W.access = get_centcom_access(W.assignment)
-			W.registered_name = M.real_name
-			M.equip_if_possible(W, slot_wear_id)
-
 		if("nanotrasen officer")
 			M.equip_if_possible(new /obj/item/clothing/under/rank/centcom/officer(M), slot_w_uniform)
 			M.equip_if_possible(new /obj/item/clothing/shoes/centcom(M), slot_shoes)
@@ -874,7 +846,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 
 			M.equip_if_possible(pda, slot_r_store)
 			M.equip_if_possible(new /obj/item/clothing/glasses/sunglasses(M), slot_l_store)
-			M.equip_if_possible(new /obj/item/weapon/gun/energy(M), slot_belt)
+			M.equip_if_possible(new /obj/item/weapon/gun/energy/pulse_rifle/pistol(M), slot_belt)
 
 			var/obj/item/weapon/card/id/centcom/W = new(M)
 			W.name = "[M.real_name]'s ID Card (Nanotrasen Navy Officer)"
@@ -898,7 +870,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 
 			M.equip_if_possible(pda, slot_r_store)
 			M.equip_if_possible(new /obj/item/clothing/glasses/sunglasses(M), slot_l_store)
-			M.equip_if_possible(new /obj/item/weapon/gun/energy/pulse_rifle/pistol/m1911(M), slot_belt)
+			M.equip_if_possible(new /obj/item/weapon/gun/energy/pulse_rifle/pistol(M), slot_belt)
 
 			var/obj/item/weapon/card/id/centcom/W = new(M)
 			W.name = "[M.real_name]'s ID Card (Nanotrasen Navy Captain)"
@@ -958,24 +930,24 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 			M.equip_to_slot_or_del(new /obj/item/clothing/shoes/combat(M), slot_shoes)
 			M.equip_to_slot_or_del(new /obj/item/clothing/gloves/combat(M), slot_gloves)
 			M.equip_to_slot_or_del(new /obj/item/device/radio/headset/ert/alt(src), slot_l_ear)
-			M.equip_to_slot_or_del(new /obj/item/clothing/glasses/thermal/eyepatch(M), slot_glasses)
+			M.equip_to_slot_or_del(new /obj/item/clothing/glasses/thermal/cyber(M), slot_glasses)
 			M.equip_to_slot_or_del(new /obj/item/clothing/mask/cigarette/cigar/cohiba(M), slot_wear_mask)
 			M.equip_to_slot_or_del(new /obj/item/clothing/head/helmet/space/deathsquad/beret(M), slot_head)
 			M.equip_to_slot_or_del(new /obj/item/weapon/gun/energy/pulse_rifle/pistol/m1911(M), slot_belt)
 			M.equip_to_slot_or_del(new /obj/item/weapon/storage/box/matches(M), slot_r_store)
+			M.equip_to_slot_or_del(new /obj/item/weapon/twohanded/dualsaber/red(M), slot_l_store)
+
 			M.equip_to_slot_or_del(new /obj/item/weapon/storage/backpack/satchel(M), slot_back)
+			M.equip_to_slot_or_del(new /obj/item/clothing/mask/gas/sechailer/swat(M), slot_in_backpack)
+			M.equip_to_slot_or_del(new /obj/item/weapon/tank/emergency_oxygen/double/full(M), slot_in_backpack)
+			M.equip_to_slot_or_del(new /obj/item/weapon/reagent_containers/hypospray/combat/nanites(M), slot_in_backpack)
+			M.equip_to_slot_or_del(new /obj/item/weapon/storage/box/flashbangs(src), slot_in_backpack)
+			M.equip_to_slot_or_del(new /obj/item/weapon/storage/box/zipties(src), slot_in_backpack)
+			M.equip_to_slot_or_del(new /obj/item/clothing/shoes/magboots/syndie/advance(src), slot_in_backpack)
 
-			var/obj/item/device/pda/centcom/pda = new(M)
-			pda.owner = M.real_name
-			pda.ownjob = "Special Operations Officer"
-			pda.icon_state = "pda-syndi"
-			pda.name = "PDA-[M.real_name] ([pda.ownjob])"
-			pda.desc = "A portable microcomputer by Thinktronic Systems, LTD. This is model is a special edition designed for military field work."
-
-			M.equip_if_possible(pda, slot_wear_pda)
 
 			var/obj/item/weapon/card/id/W = new(M)
-			W.name = "[M.real_name]'s ID Card (Special Operations Officer)"
+			W.name = "[M.real_name]'s ID Card"
 			W.icon_state = "centcom"
 			W.assignment = "Special Operations Officer"
 			W.access = get_centcom_access(W.assignment)
@@ -985,11 +957,15 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 		if("special ops formal")
 			M.equip_if_possible(new /obj/item/clothing/under/rank/centcom/captain(M), slot_w_uniform)
 			M.equip_to_slot_or_del(new /obj/item/device/radio/headset/ert/alt(src), slot_l_ear)
-			M.equip_if_possible(new /obj/item/clothing/gloves/color/white(M), slot_gloves)
+			M.equip_to_slot_or_del(new /obj/item/clothing/gloves/combat(M), slot_gloves)
 			M.equip_to_slot_or_del(new /obj/item/clothing/shoes/combat(M), slot_shoes)
 			M.equip_to_slot_or_del(new /obj/item/clothing/head/helmet/space/deathsquad/beret(M), slot_head)
+			M.equip_to_slot_or_del(new /obj/item/clothing/glasses/thermal/cyber(M), slot_glasses)
+			M.equip_to_slot_or_del(new /obj/item/clothing/mask/cigarette/cigar/cohiba(M), slot_wear_mask)
 			M.equip_to_slot_or_del(new /obj/item/weapon/gun/energy/pulse_rifle/pistol/m1911(M), slot_belt)
 			M.equip_to_slot_or_del(new /obj/item/weapon/storage/backpack/satchel(M), slot_back)
+			M.equip_to_slot_or_del(new /obj/item/weapon/storage/box/matches(M), slot_r_store)
+			M.equip_if_possible(new /obj/item/weapon/melee/telebaton(M), slot_l_store)
 
 			var/obj/item/device/pda/centcom/pda = new(M)
 			pda.owner = M.real_name
@@ -1086,65 +1062,6 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 			W.access = get_all_accesses()
 			W.access += get_all_centcom_access()
 			W.assignment = "Admiral"
-			W.registered_name = M.real_name
-			M.equip_to_slot_or_del(W, slot_wear_id)
-
-		if("deathsquad officer - combat")
-			M.equip_to_slot_or_del(new /obj/item/clothing/under/syndicate/combat(M), slot_w_uniform)
-			M.equip_to_slot_or_del(new /obj/item/clothing/suit/space/deathsquad/officer(M), slot_wear_suit)
-			M.equip_to_slot_or_del(new /obj/item/clothing/shoes/combat(M), slot_shoes)
-			M.equip_to_slot_or_del(new /obj/item/clothing/gloves/combat(M), slot_gloves)
-			M.equip_to_slot_or_del(new /obj/item/device/radio/headset/ert/alt(src), slot_l_ear)
-			M.equip_to_slot_or_del(new /obj/item/clothing/glasses/thermal/cyber(M), slot_glasses)
-			M.equip_to_slot_or_del(new /obj/item/clothing/mask/cigarette/cigar/cohiba(M), slot_wear_mask)
-			M.equip_to_slot_or_del(new /obj/item/clothing/head/helmet/space/deathsquad/beret(M), slot_head)
-			M.equip_to_slot_or_del(new /obj/item/weapon/gun/energy/pulse_rifle/pistol/m1911(M), slot_belt)
-			M.equip_to_slot_or_del(new /obj/item/weapon/storage/box/matches(M), slot_r_store)
-			M.equip_to_slot_or_del(new /obj/item/weapon/storage/backpack/satchel(M), slot_back)
-
-			M.equip_to_slot_or_del(new /obj/item/weapon/storage/box/flashbangs(src), slot_in_backpack)
-			M.equip_to_slot_or_del(new /obj/item/weapon/storage/firstaid/regular(src), slot_in_backpack)
-			M.equip_to_slot_or_del(new /obj/item/weapon/twohanded/dualsaber/red(M), slot_in_backpack)
-			M.equip_to_slot_or_del(new /obj/item/clothing/mask/gas(M), slot_in_backpack)
-
-			var/obj/item/weapon/card/id/W = new(M)
-			W.name = "[M.real_name]'s ID Card (Deathsquad Officer)"
-			W.icon_state = "centcom"
-			W.assignment = "Deathsquad Officer"
-			W.access = get_centcom_access(W.assignment)
-			W.registered_name = M.real_name
-			M.equip_to_slot_or_del(W, slot_wear_id)
-
-
-		if("deathsquad officer - formal")
-			M.equip_if_possible(new /obj/item/clothing/under/rank/centcom/captain(M), slot_w_uniform)
-			M.equip_to_slot_or_del(new /obj/item/clothing/glasses/thermal/cyber(M), slot_glasses)
-			M.equip_to_slot_or_del(new /obj/item/device/radio/headset/ert/alt(src), slot_l_ear)
-			M.equip_if_possible(new /obj/item/clothing/gloves/color/white(M), slot_gloves)
-			M.equip_to_slot_or_del(new /obj/item/clothing/shoes/centcom(M), slot_shoes)
-			M.equip_to_slot_or_del(new /obj/item/clothing/head/helmet/space/deathsquad/beret(M), slot_head)
-			M.equip_to_slot_or_del(new /obj/item/weapon/gun/energy/pulse_rifle/pistol/m1911(M), slot_belt)
-			M.equip_to_slot_or_del(new /obj/item/weapon/storage/backpack/satchel(M), slot_back)
-			M.equip_to_slot_or_del(new /obj/item/clothing/mask/cigarette/cigar/cohiba(M), slot_in_backpack)
-			M.equip_to_slot_or_del(new /obj/item/weapon/storage/box/matches(M), slot_in_backpack)
-
-			var/obj/item/device/pda/heads/pda = new(M)
-			pda.owner = M.real_name
-			pda.ownjob = "Deathsquad Officer"
-			pda.icon_state = "pda-syndi"
-			pda.name = "PDA-[M.real_name] ([pda.ownjob])"
-			pda.desc = "A portable microcomputer by Thinktronic Systems, LTD. This is model is a special edition designed for military field work."
-			pda.default_cartridge = /obj/item/weapon/cartridge/captain
-
-			M.equip_if_possible(pda, slot_wear_pda)
-
-			M.equip_if_possible(new /obj/item/weapon/melee/telebaton(M), slot_r_store)
-
-			var/obj/item/weapon/card/id/W = new(M)
-			W.name = "[M.real_name]'s ID Card (Deathsquad Officer)"
-			W.icon_state = "centcom"
-			W.assignment = "Deathsquad Officer"
-			W.access = get_centcom_access(W.assignment)
 			W.registered_name = M.real_name
 			M.equip_to_slot_or_del(W, slot_wear_id)
 
