@@ -98,8 +98,9 @@ mob/living/carbon/human/proc/handle_pain()
 		if(dam > maxdam && (maxdam == 0 || prob(70)) )
 			damaged_organ = E
 			maxdam = dam
-	if(damaged_organ)
-		pain(damaged_organ.display_name, maxdam, 0)
+		if(damaged_organ)
+			pain(damaged_organ.display_name, maxdam, 0)
+
 
 	// Damage to internal organs hurts a lot.
 	for(var/n in internal_organs_by_name)
