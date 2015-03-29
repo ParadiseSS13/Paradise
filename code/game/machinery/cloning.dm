@@ -174,7 +174,6 @@
 	if ((!isnull(src.occupant)) && (src.occupant.stat != 2))
 		var/completion = (100 * ((src.occupant.health + 100) / (src.heal_level + 100)))
 		user << "Current clone cycle is [round(completion)]% complete."
-		update_icon()
 	return
 
 //Clonepod
@@ -334,7 +333,7 @@
 		if(occupant || mess || locked)
 			user << "<span class='notice'>The maintenance panel is locked.</span>"
 			return
-		default_deconstruction_screwdriver(user, "[icon_state]_maintenance", "[initial(icon_state)]", W)
+		default_deconstruction_screwdriver(user, "pod_0_maintenance", "pod2_0", W)
 		return
 
 	if(exchange_parts(user, W))
