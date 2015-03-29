@@ -233,7 +233,7 @@
 				while(limbs_affected != 0)
 					processing_dismember = pick(organs)
 					if(processing_dismember.name != "chest" && processing_dismember.name != "head")
-						processing_dismember.droplimb(1,0,0,pick(0,1,2))
+						processing_dismember.droplimb(1,0,1,pick(0,1,2))
 						limbs_affected -= 1
 
 
@@ -257,7 +257,7 @@
 				while(limbs_affected != 0)
 					processing_dismember = pick(organs)
 					if(processing_dismember.name != "chest" && processing_dismember.name != "head")
-						processing_dismember.droplimb(1,0,0,pick(0,2))
+						processing_dismember.droplimb(1,0,1,pick(0,2))
 						limbs_affected -= 1
 
 			else
@@ -267,7 +267,7 @@
 				while(limbs_affected != 0)
 					processing_dismember = pick(organs)
 					if(processing_dismember.name != "chest" && processing_dismember.name != "head")
-						processing_dismember.droplimb(1,0,0,pick(0,2))
+						processing_dismember.droplimb(1,0,1,pick(0,2))
 						limbs_affected -= 1
 
 			if (!istype(l_ear, /obj/item/clothing/ears/earmuffs) && !istype(r_ear, /obj/item/clothing/ears/earmuffs))
@@ -289,7 +289,7 @@
 				while(limbs_affected != 0)
 					processing_dismember = pick(organs)
 					if(processing_dismember.name != "chest" && processing_dismember.name != "head")
-						processing_dismember.droplimb(1)
+						processing_dismember.droplimb(1,0,1)
 						limbs_affected -= 1
 
 			if (!istype(l_ear, /obj/item/clothing/ears/earmuffs) && !istype(r_ear, /obj/item/clothing/ears/earmuffs))
