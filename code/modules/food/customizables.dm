@@ -1,32 +1,42 @@
 /obj/item/weapon/reagent_containers/food/snacks/breadslice/attackby(obj/item/W as obj, mob/user as mob, params)
-	var/obj/item/weapon/reagent_containers/food/snacks/customizable/sandwich/S = new(get_turf(user))
-	S.attackby(W,user, params)
-	qdel(src)
+	if(istype(W, /obj/item/weapon/reagent_containers/food/snacks) && !(W.flags & NODROP))
+		var/obj/item/weapon/reagent_containers/food/snacks/customizable/sandwich/S = new(get_turf(user))
+		S.attackby(W,user, params)
+		qdel(src)
+	else
+		..()
 
 /obj/item/weapon/reagent_containers/food/snacks/bun/attackby(obj/item/W as obj, mob/user as mob, params)
-	var/obj/item/weapon/reagent_containers/food/snacks/customizable/burger/S = new(get_turf(user))
-	S.attackby(W,user, params)
-	qdel(src)
+	if(istype(W, /obj/item/weapon/reagent_containers/food/snacks) && !(W.flags & NODROP))
+		var/obj/item/weapon/reagent_containers/food/snacks/customizable/burger/S = new(get_turf(user))
+		S.attackby(W,user, params)
+		qdel(src)
 
 /obj/item/weapon/reagent_containers/food/snacks/sliceable/flatdough/attackby(obj/item/W as obj, mob/user as mob, params)
-	if(!istype(W, /obj/item/weapon/kitchenknife)) //Ignore this if object is kitchen knife - make dough slices instead of kitchen knife pizza
+	if(istype(W, /obj/item/weapon/reagent_containers/food/snacks) && !(W.flags & NODROP))
 		var/obj/item/weapon/reagent_containers/food/snacks/customizable/pizza/S = new(get_turf(user))
 		S.attackby(W,user, params)
 		qdel(src)
-	else //It's a kitchen knife.  Go do the parent proc (slicing)
+	else
 		..()
 
 
 /obj/item/weapon/reagent_containers/food/snacks/boiledspagetti/attackby(obj/item/W as obj, mob/user as mob, params)
-	var/obj/item/weapon/reagent_containers/food/snacks/customizable/pasta/S = new(get_turf(user))
-	S.attackby(W,user, params)
-	qdel(src)
+	if(istype(W, /obj/item/weapon/reagent_containers/food/snacks) && !(W.flags & NODROP))
+		var/obj/item/weapon/reagent_containers/food/snacks/customizable/pasta/S = new(get_turf(user))
+		S.attackby(W,user, params)
+		qdel(src)
+	else
+		..()
 
 
 /obj/item/trash/plate/attackby(obj/item/W as obj, mob/user as mob, params)
-	var/obj/item/weapon/reagent_containers/food/snacks/customizable/fullycustom/S = new(get_turf(user))
-	S.attackby(W,user, params)
-	qdel(src)
+	if(istype(W, /obj/item/weapon/reagent_containers/food/snacks) && !(W.flags & NODROP))
+		var/obj/item/weapon/reagent_containers/food/snacks/customizable/fullycustom/S = new(get_turf(user))
+		S.attackby(W,user, params)
+		qdel(src)
+	else
+		..()
 
 /obj/item/trash/bowl
 	name = "bowl"
@@ -36,11 +46,12 @@
 
 /obj/item/trash/bowl/attackby(obj/item/W as obj, mob/user as mob, params)
 
-	if(istype(W,/obj/item/))
+	if(istype(W, /obj/item/weapon/reagent_containers/food/snacks) && !(W.flags & NODROP))
 		var/obj/item/weapon/reagent_containers/food/snacks/customizable/soup/S = new(get_turf(user))
 		S.attackby(W,user, params)
 		qdel(src)
-	..()
+	else
+		..()
 
 /obj/item/weapon/reagent_containers/food/snacks/customizable/sandwich
 	/obj/item/weapon/reagent_containers/food/snacks/customizable
@@ -315,11 +326,8 @@
 	if(src.contents.len > sandwich_limit)
 		user << "<span class='warning'>If you put anything else in or on [src] it's going to make a mess.</span>"
 		return
-	if(istype(I, /obj/item/weapon/disk/nuclear))
-		user << "You think about it for a few seconds, then you realize Central Command likely doesn't find nuke disk [basename]s very funny, and so you decide not to turn the nuke disk into a foodstuff."
-		return
-	if(istype(I, /obj/item/flag/nation))
-		user << "That's not going to fit!"
+	if(!istype(I, /obj/item/weapon/reagent_containers/food/snacks))
+		user << "\The [I] isn't exactly something that you would want to eat."
 		return
 	user << "<span class='notice'>You add [I] to [src].</span>"
 	if(istype(I,  /obj/item/weapon/reagent_containers/))
@@ -380,7 +388,8 @@
 
 	usr << "<span class='notice'> You think you can see [whatsinside] in there.</span>"
 
-/obj/item/weapon/reagent_containers/food/snacks/customizable/attack(mob/M as mob, mob/user as mob, def_zone)
+/*
+/obj/item/weapon/reagent_containers/food/snacks/customizable/attack(mob/M as mob, mob/user as mob, def_zone) //SNOOOOOOOWFLAAAAAAAAAAAAAAAAAKES
 
 	var/obj/item/shard
 	for(var/obj/item/O in contents)
@@ -396,6 +405,7 @@
 		H << "\red You lacerate your mouth on a [shard.name] in the sandwich!"
 		H.adjustBruteLoss(5) //TODO: Target head if human.
 	..()
+*/
 
 /obj/item/weapon/reagent_containers/food/snacks/customizable/proc/newname()
 	var/unsorteditems[0]

@@ -221,7 +221,8 @@
 	src.visible_message("\red [src] flicks out a feeler and neatly steals a sample of [M]'s blood.","\red You flick out a feeler and neatly steal a sample of [M]'s blood.")
 	donors += M.real_name
 	for(var/datum/language/L in M.languages)
-		languages |= L
+		if(!(L.flags & HIVEMIND))
+			languages |= L
 
 	spawn(25)
 		update_progression()
