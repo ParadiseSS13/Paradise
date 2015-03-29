@@ -528,6 +528,7 @@ var/global/datum/controller/occupations/job_master
 			pda.ownjob = C.assignment
 			pda.ownrank = C.rank
 			pda.name = "PDA-[H.real_name] ([pda.ownjob])"
+			pda.JFLOG("Created")
 
 		return 1
 
