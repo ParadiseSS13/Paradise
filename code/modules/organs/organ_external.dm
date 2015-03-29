@@ -139,9 +139,6 @@
 		if (burn || brute)
 			if (status & ORGAN_ROBOT && body_part != UPPER_TORSO && body_part != LOWER_TORSO)
 				droplimb(1) //Robot limbs just kinda fail at full damage.
-
-//Removing shuffling limb damage over to parent if limb is out of HP
-/*
 			else
 				//List organs we can pass it to
 				var/list/datum/organ/external/possible_points = list()
@@ -155,7 +152,6 @@
 					//And pass the pain around
 					var/datum/organ/external/target = pick(possible_points)
 					target.take_damage(brute, burn, sharp, edge, used_weapon, forbidden_limbs + src)
-*/
 
 	// sync the organ's damage with its wounds
 	src.update_damages()
