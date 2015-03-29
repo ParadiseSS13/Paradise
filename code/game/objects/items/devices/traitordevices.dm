@@ -74,7 +74,7 @@ effective or pretty fucking useless.
 
 /obj/item/device/rad_laser
 	name = "Health Analyzer"
-	icon_state = "health"
+	icon_state = "health2"
 	item_state = "healthanalyzer"
 	icon_override = 'icons/mob/in-hand/tools.dmi'
 	desc = "A hand-held body scanner able to distinguish vital signs of the subject. A strange microlaser is hooked on to the scanning end."
@@ -110,7 +110,7 @@ effective or pretty fucking useless.
 /obj/item/device/rad_laser/proc/handle_cooldown(var/cooldown)
 	spawn(cooldown)
 		used = 0
-		icon_state = "health"
+		icon_state = "health2"
 
 /obj/item/device/rad_laser/attack_self(mob/user as mob)
 	..()

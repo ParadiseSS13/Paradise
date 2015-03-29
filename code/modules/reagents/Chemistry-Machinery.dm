@@ -25,7 +25,7 @@
 	var/unhack_message = "You re-enable the safety safeguards, enabling the \"NT Standard\" mode."
 	var/list/broken_requirements = list()
 	var/broken_on_spawn = 0
-	var/recharge_delay = 15
+	var/recharge_delay = 5
 	var/image/icon_beaker = null //cached overlay
 
 

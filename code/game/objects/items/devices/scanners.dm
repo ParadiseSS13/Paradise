@@ -485,7 +485,7 @@ REAGENT SCANNER
 
 /obj/item/device/slime_scanner
 	name = "slime scanner"
-	icon_state = "adv_spectrometer"
+	icon_state = "adv_spectrometer_s"
 	item_state = "analyzer"
 	origin_tech = "biotech=1"
 	w_class = 2.0

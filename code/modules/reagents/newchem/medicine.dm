@@ -264,6 +264,7 @@ datum/reagent/sal_acid
 	description = "This is a is a standard salicylate pain reliever and fever reducer."
 	reagent_state = LIQUID
 	color = "#C8A5DC"
+	shock_reduction = 40
 	overdose_threshold = 25
 
 datum/reagent/sal_acid/on_mob_life(var/mob/living/M as mob)

@@ -8,7 +8,7 @@
 	idle_power_usage = 40
 	var/obj/item/weapon/reagent_containers/beaker = null
 	var/temperature = 300
-	var/rate = 10 //heating/cooling rate, default is 10 kelvin per tick
+	var/rate = 15 //heating/cooling rate, default is 10 kelvin per tick
 	var/on = FALSE
 
 

@@ -794,6 +794,23 @@
 				src.name = "donk-pocket"
 		return
 
+/obj/item/weapon/reagent_containers/food/snacks/syndidonkpocket
+	name = "Donk-pocket"
+	desc = "This donk-pocket is emitting a small amount of heat."
+	icon_state = "donkpocket"
+	filling_color = "#DEDEAB"
+	volume = 90
+	bitesize = 100 //nom the whole thing at once.
+
+	New()
+		..()
+		reagents.add_reagent("omnizine", 15)
+		reagents.add_reagent("teporone", 15)
+		reagents.add_reagent("synaptizine", 15)
+		reagents.add_reagent("salglu_solution", 15)
+		reagents.add_reagent("salbutamol", 15)
+		reagents.add_reagent("methamphetamine", 15)
+
 /obj/item/weapon/reagent_containers/food/snacks/brainburger
 	name = "brainburger"
 	desc = "A strange looking burger. It looks almost sentient."

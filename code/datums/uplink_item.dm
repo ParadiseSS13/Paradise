@@ -120,7 +120,7 @@ var/list/uplink_items = list()
 	name = "Chef Excellence's Special Sauce"
 	desc = "A custom made sauce made from the toxin glands of 1000 space carp, if somebody ingests enough they'll be dead in 3 minutes or less guaranteed."
 	item = /obj/item/weapon/reagent_containers/food/condiment/syndisauce
-	cost = 4
+	cost = 2
 	job = list("Chef")
 
 /datum/uplink_item/jobspecific/meatcleaver
@@ -128,6 +128,13 @@ var/list/uplink_items = list()
 	desc = "A mean looking meat cleaver that does damage comparable to an Energy Sword but with the added benefit of chopping your victim into hunks of meat after they've died and the chance to stun when thrown."
 	item = /obj/item/weapon/butch/meatcleaver
 	cost = 10
+	job = list("Chef")
+
+/datum/uplink_item/jobspecific/syndidonk
+	name = "Syndicate Donk Pockets"
+	desc = "A box of highly specialized donk pockets with a number of regenerative and stimulating chemicals inside of them; the box comes equipped with a self-heating mechanism."
+	item = /obj/item/weapon/storage/box/syndidonkpockets
+	cost = 2
 	job = list("Chef")
 
 //Janitor
@@ -189,7 +196,7 @@ var/list/uplink_items = list()
 	name = "Power Gloves"
 	desc = "Insulated gloves that can utilize the power of the station to deliver a short arc of electricity at a target. Must be standing on a powered cable to use."
 	item = /obj/item/clothing/gloves/color/yellow/power
-	cost = 14
+	cost = 10
 	job = list("Station Engineer","Chief Engineer")
 
 //RD
@@ -476,14 +483,6 @@ var/list/uplink_items = list()
 	desc = "This satchel is thin enough to be hidden in the gap between plating and tiling, great for stashing your stolen goods. Comes with a crowbar and a floor tile inside."
 	item = /obj/item/weapon/storage/backpack/satchel_flat
 	cost = 2
-
-/* Commented out until a balance fix is found -Mel
-/datum/uplink_item/stealthy_tools/smdrill
-	name = "Supermatter Drill"
-	desc = "A pocket-sized drill tipped with nanoscopic supermatter crystals, able to cut through reinforced walls."
-	item = /obj/item/weapon/pickaxe/diamonddrill/traitor
-	cost = 6
-*/
 
 // DEVICE AND TOOLS
 
