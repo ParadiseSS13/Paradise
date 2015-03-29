@@ -42,11 +42,11 @@ datum/reagent/triple_citrus
 	result_amount = 3
 	mix_message = "The citrus juices begin to blend together."
 
-datum/reagent/triple_citrus/reaction_mob(var/mob/living/carbon/human/M as mob, var/method=TOUCH, var/volume)
-	if(!istype(M, /mob/living))
+datum/reagent/triple_citrus/reaction_mob(var/mob/living/carbon/M as mob, var/method=TOUCH, var/volume)
+	if(!istype(M, /mob/living/carbon))
 		return
 	if(method == INGEST)
-		M.adjustToxLoss(rand(1,2))
+		M.adjustToxLoss(-rand(1,2))
 
 datum/reagent/corn_starch
 	name = "Corn Starch"
