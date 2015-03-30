@@ -34,6 +34,13 @@
 	armor = list(melee = 50, bullet = 15, laser = 50, energy = 10, bomb = 25, bio = 0, rad = 0)
 	loose = 43 // not the answer
 
+//Nanotrasen Representative
+/obj/item/clothing/head/ntrep
+	name = "Nanotrasen Representative hat"
+	desc = "A cap issued to the Nanotrasen Representative"
+	icon_state = "ntrep"
+
+
 //Chaplain
 /obj/item/clothing/head/chaplain_hood
 	name = "chaplain's hood"

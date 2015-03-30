@@ -273,6 +273,7 @@
 		new /obj/item/clothing/under/lawyer/oldman(src)
 		new /obj/item/clothing/under/lawyer/black(src)
 		new /obj/item/clothing/under/lawyer/female(src)
+		new /obj/item/clothing/head/ntrep(src)
 		return
 
 
