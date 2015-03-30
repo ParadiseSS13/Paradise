@@ -1380,7 +1380,7 @@
 
 	New()
 		..()
-		reagents.add_reagent("toxin", 1)
+		reagents.add_reagent("????", 1)
 		reagents.add_reagent("carbon", 3)
 		bitesize = 2
 

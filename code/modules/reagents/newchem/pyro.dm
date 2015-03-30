@@ -448,7 +448,17 @@ datum/reagent/cryostylane
 	result_amount = 3
 
 datum/reagent/cryostylane/on_mob_life(var/mob/living/M as mob) //TODO: code freezing into an ice cube
-	M.bodytemperature -= 30
+	if(M.reagents.has_reagent("oxygen"))
+		M.reagents.remove_reagent("oxygen", 1)
+		M.bodytemperature -= 30
+	..()
+	return
+
+datum/reagent/cryostylane/on_tick()
+	if(holder.has_reagent("oxygen"))
+		holder.remove_reagent("oxygen", 1)
+		holder.chem_temp -= 10
+		holder.handle_reactions()
 	..()
 	return
 
@@ -469,10 +479,6 @@ datum/reagent/pyrosium
 	result = "pyrosium"
 	required_reagents = list("plasma" = 1, "radium" = 1, "phosphorus" = 1)
 	result_amount = 3
-
-/datum/chemical_reaction/pyrosium/on_reaction(var/datum/reagents/holder, var/created_volume)
-	holder.chem_temp = 20 // also cools the fuck down
-	return
 
 datum/reagent/pyrosium/on_mob_life(var/mob/living/M as mob)
 	if(M.reagents.has_reagent("oxygen"))

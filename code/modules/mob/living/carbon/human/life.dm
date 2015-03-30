@@ -1907,8 +1907,9 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 		return
 	else
 		losebreath += 5
-		adjustOxyLoss(5)
+		adjustOxyLoss(10)
 		adjustBrainLoss(10)
+		Paralyse(2)
 	return
 
 

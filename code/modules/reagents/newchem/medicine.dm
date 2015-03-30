@@ -103,7 +103,7 @@ datum/reagent/charcoal
 
 datum/reagent/charcoal/on_mob_life(var/mob/living/M as mob)
 	if(!M) M = holder.my_atom
-	M.adjustToxLoss(-3*REM)
+	M.adjustToxLoss(-1.5*REM)
 	for(var/datum/reagent/R in M.reagents.reagent_list)
 		if(R != src)
 			M.reagents.remove_reagent(R.id,1)
@@ -543,12 +543,11 @@ datum/reagent/atropine/on_mob_life(var/mob/living/M as mob)
 		M.adjustBruteLoss(-3*REM)
 		M.adjustFireLoss(-3*REM)
 	if(M.oxyloss > 65)
-		M.setOxyLoss(65)
+		M.adjustOxyLoss(-10*REM)
 	if(M.losebreath > 5)
 		M.losebreath = 5
-	if(prob(30))
-		M.Dizzy(5)
-		M.Jitter(5)
+	if(M.confused > 60)
+		M.confused += 5
 	M.reagents.remove_reagent("sarin",10)
 	..()
 	return
@@ -585,11 +584,9 @@ datum/reagent/epinephrine/on_mob_life(var/mob/living/M as mob)
 		M.adjustBruteLoss(-1*REM)
 		M.adjustFireLoss(-1*REM)
 	if(M.oxyloss > 35)
-		M.setOxyLoss(35)
-	if(M.losebreath >= 4)
-		M.losebreath -= 4
-	if(M.losebreath < 0)
-		M.losebreath = 0
+		M.adjustOxyLoss(-10*REM)
+	if(M.losebreath >= 3)
+		M.losebreath = 3
 	..()
 	return
 
