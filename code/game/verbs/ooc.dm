@@ -17,7 +17,7 @@ var/global/normal_ooc_colour = "#002eb8"
 		src << "\red You have OOC muted."
 		return
 
-	if(!holder)
+	if(!(holder && holder.rights && (holder.rights & R_MOD)))
 		if(!ooc_allowed)
 			src << "\red OOC is globally muted"
 			return
@@ -99,7 +99,7 @@ var/global/normal_ooc_colour = "#002eb8"
 		src << "\red You have LOOC muted."
 		return
 
-	if(!holder)
+	if(!(holder && holder.rights && (holder.rights & R_MOD)))
 		if(!ooc_allowed)
 			src << "\red LOOC is globally muted"
 			return

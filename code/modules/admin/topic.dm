@@ -1015,7 +1015,8 @@
 				return
 
 	else if(href_list["mute"])
-		if(!check_rights(R_ADMIN))	return
+		if(!check_rights(R_MOD))
+			return
 
 		var/mob/M = locate(href_list["mute"])
 		if(!ismob(M))	return

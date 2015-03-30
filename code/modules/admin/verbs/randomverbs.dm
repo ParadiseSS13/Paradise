@@ -152,15 +152,12 @@ proc/cmd_admin_mute(mob/M as mob, mute_type, automute = 0)
 	else
 		if(!usr || !usr.client)
 			return
-		if(!usr.client.holder)
+		if(!(usr.client.holder && usr.client.holder.rights && (usr.client.holder.rights & R_MOD)))
 			usr << "<font color='red'>Error: cmd_admin_mute: You don't have permission to do this.</font>"
 			return
 		if(!M.client)
 			usr << "<font color='red'>Error: cmd_admin_mute: This mob doesn't have a client tied to it.</font>"
-		if(M.client.holder)
-			usr << "<font color='red'>Error: cmd_admin_mute: You cannot mute an admin.</font>"
 	if(!M.client)		return
-	if(M.client.holder)	return
 
 	var/muteunmute
 	var/mute_string
