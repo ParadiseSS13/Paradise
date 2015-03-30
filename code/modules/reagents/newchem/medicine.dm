@@ -94,6 +94,14 @@ datum/reagent/synthflesh/reaction_mob(var/mob/living/M, var/method=TOUCH, var/vo
 	..()
 	return
 
+/*      //again, not until smoke rewrite--so many gibs,aghh!
+datum/reagent/synthflesh/reaction_turf(var/turf/T, var/volume) //let's make a mess!
+	src = null
+	if(volume >= 5)
+		new /obj/effect/decal/cleanable/blood/gibs(T)
+		playsound(T, 'sound/effects/splat.ogg', 50, 1, -3)
+		return */
+
 datum/reagent/charcoal
 	name = "Charcoal"
 	id = "charcoal"
@@ -180,7 +188,8 @@ datum/reagent/calomel
 	id = "calomel"
 	description = "This potent purgative rids the body of impurities. It is highly toxic however and close supervision is required."
 	reagent_state = LIQUID
-	color = "#1EA532"
+	color = "#22AB35"
+	metabolization_rate = 0.8
 
 datum/reagent/calomel/on_mob_life(var/mob/living/M as mob)
 	if(!M) M = holder.my_atom
@@ -201,6 +210,7 @@ datum/reagent/calomel/on_mob_life(var/mob/living/M as mob)
 	required_reagents = list("mercury" = 1, "chlorine" = 1)
 	result_amount = 2
 	required_temp = 374
+	mix_message = "Stinging vapors rise from the solution."
 
 datum/reagent/potass_iodide
 	name = "Potassium Iodide"
@@ -263,7 +273,7 @@ datum/reagent/sal_acid
 	id = "sal_acid"
 	description = "This is a is a standard salicylate pain reliever and fever reducer."
 	reagent_state = LIQUID
-	color = "#C8A5DC"
+	color = "#B3B3B3"
 	shock_reduction = 40
 	overdose_threshold = 25
 
@@ -295,7 +305,7 @@ datum/reagent/salbutamol
 	id = "salbutamol"
 	description = "Salbutamol is a common bronchodilation medication for asthmatics. It may help with other breathing problems as well."
 	reagent_state = LIQUID
-	color = "#A5F0EE"
+	color = "#00FFFF"
 	metabolization_rate = 0.2
 
 datum/reagent/salbutamol/on_mob_life(var/mob/living/M as mob)
@@ -405,7 +415,7 @@ datum/reagent/diphenhydramine
 	id = "diphenhydramine"
 	description = "Anti-allergy medication. May cause drowsiness, do not operate heavy machinery while using this."
 	reagent_state = LIQUID
-	color = "#A5F0EE"
+	color = "#5BCBE1"
 datum/reagent/diphenhydramine/on_mob_life(var/mob/living/M as mob)
 	if(!M) M = holder.my_atom
 	M.drowsyness += 1
@@ -573,7 +583,7 @@ datum/reagent/epinephrine
 	id = "epinephrine"
 	description = "Epinephrine is a potent neurotransmitter, used in medical emergencies to halt anaphylactic shock and prevent cardiac arrest."
 	reagent_state = LIQUID
-	color = "#C8A5DC"
+	color = "#96B1AE"
 	metabolization_rate = 0.2
 	overdose_threshold = 30
 
@@ -611,31 +621,41 @@ datum/reagent/strange_reagent
 	id = "strange_reagent"
 	description = "A glowing green fluid highly reminiscent of nuclear waste."
 	reagent_state = LIQUID
-	color = "#60A584"
+	color = "#A0E85E"
+	metabolization_rate = 0.2
 
-datum/reagent/strange_reagent/reaction_mob(var/mob/living/carbon/human/M as mob, var/method=TOUCH, var/volume)
-	if(M.stat == DEAD)
-		if(M.getBruteLoss() >= 100 || M.getFireLoss() >= 100)
-			M.visible_message("<span class='warning'>[M]'s body starts convulsing!</span>")
-			M.gib()
-			return
-		var/mob/dead/observer/ghost = M.get_ghost()
-		if(!M.suiciding && !ghost && !(NOCLONE in M.mutations))
-			M.visible_message("<span class='warning'>[M]'s appears to rise from the dead!</span>")
-			M.stat = 1
-			M.adjustOxyLoss(-20)
-			M.adjustToxLoss(-20)
-			dead_mob_list -= M
-			living_mob_list |= list(M)
-			M.emote("gasp")
-			add_logs(M, M, "revived", object="strange reagent")
+datum/reagent/strange_reagent/reaction_mob(var/mob/living/M as mob, var/method=TOUCH, var/volume)
+	if(istype(M, /mob/living/simple_animal))
+		if(method == TOUCH)
+			if(M.stat == DEAD)
+				M.health = M.maxHealth
+				M.visible_message("<span class='warning'>[M]'s seems to rise from the dead!</span>")
+	if(istype(M, /mob/living/carbon))
+		if(method == INGEST)
+			if(M.stat == DEAD)
+				if(M.getBruteLoss()+M.getFireLoss() >= 150)
+					M.visible_message("<span class='warning'>[M]'s body starts convulsing!</span>")
+					M.gib()
+					return
+				var/mob/dead/observer/ghost = M.get_ghost()
+				if(!M.suiciding && !ghost && !(NOCLONE in M.mutations))
+					M.visible_message("<span class='warning'>[M]'s seems to rise from the dead!</span>")
+					M.stat = 1
+					M.setOxyLoss(0)
+					M.adjustBruteLoss(rand(0,15))
+					M.adjustToxLoss(rand(0,15))
+					M.adjustFireLoss(rand(0,15))
+					dead_mob_list -= M
+					living_mob_list |= list(M)
+					add_logs(M, M, "revived", object="strange reagent")
 	..()
 	return
+
 datum/reagent/strange_reagent/on_mob_life(var/mob/living/M as mob)
 	if(!M) M = holder.my_atom
-	if(prob(rand(1,100)))
+	if(prob(10))
 		M.adjustBruteLoss(2*REM)
-		M.adjustFireLoss(2*REM)
+		M.adjustToxLoss(2*REM)
 	..()
 	return
 
@@ -645,6 +665,7 @@ datum/reagent/strange_reagent/on_mob_life(var/mob/living/M as mob)
 	result = "strange_reagent"
 	required_reagents = list("omnizine" = 1, "holywater" = 1, "mutagen" = 1)
 	result_amount = 3
+	mix_message = "The substance begins moving on its own somehow."
 
 datum/reagent/life
 	name = "Life"
@@ -733,7 +754,7 @@ proc/chemical_mob_spawn(var/datum/reagents/holder, var/amount_to_spawn, var/reac
 	name = "Mannitol"
 	id = "mannitol"
 	description = "Mannitol is a sugar alcohol that can help alleviate cranial swelling."
-	color = "#C8A5DC"
+	color = "#D1D1F1"
 
 /datum/reagent/mutadone/on_mob_life(var/mob/living/carbon/human/M as mob)
 	M.jitteriness = 0
@@ -823,6 +844,7 @@ datum/reagent/insulin
 	description = "A hormone generated by the pancreas responsible for metabolizing carbohydrates and fat in the bloodstream."
 	reagent_state = LIQUID
 	color = "#C8A5DC"
+
 datum/reagent/insulin/on_mob_life(var/mob/living/M as mob)
 	if(!M) M = holder.my_atom
 	M.reagents.remove_reagent("sugar", 5)

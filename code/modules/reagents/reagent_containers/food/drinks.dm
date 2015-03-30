@@ -226,6 +226,19 @@
 	New()
 		..()
 		reagents.add_reagent("tea", 30)
+		if(prob(10))
+			reagents.add_reagent("mugwort", 3)
+		src.pixel_x = rand(-10.0, 10)
+		src.pixel_y = rand(-10.0, 10)
+
+/obj/item/weapon/reagent_containers/food/drinks/mugwort
+	name = "Mugwort Tea"
+	desc = "A bitter herbal tea."
+	icon_state = "manlydorfglass"
+	item_state = "coffee"
+	New()
+		..()
+		reagents.add_reagent("mugwort", 30)
 		src.pixel_x = rand(-10.0, 10)
 		src.pixel_y = rand(-10.0, 10)
 
