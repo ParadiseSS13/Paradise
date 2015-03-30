@@ -141,7 +141,7 @@
 				var/mob/living/M = src
 				M.turf_collision(T, speed)
 
-	SpinAnimation(0, 0)
+
 //decided whether a movable atom being thrown can pass through the turf it is in.
 /atom/movable/proc/hit_check(var/speed)
 	if(src.throwing)
@@ -164,7 +164,7 @@
 	src.throw_source = get_turf(src)	//store the origin turf
 
 	if(!no_spin)
-		SpinAnimation(5, -1)
+		SpinAnimation(5, 1)
 	var/dist_x = abs(target.x - src.x)
 	var/dist_y = abs(target.y - src.y)
 
