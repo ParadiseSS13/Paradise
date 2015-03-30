@@ -301,9 +301,9 @@ datum/reagent/facid/reaction_obj(var/obj/O, var/volume)
 datum/reagent/initropidril
 	name = "Initropidril"
 	id = "initropidril"
-	description = "33% chance to hit with a random amount of toxin damage, 5-10% chances to cause stunning, suffocation, or immediate heart failure."
+	description = "A highly potent cardiac poison - can kill within minutes."
 	reagent_state = LIQUID
-	color = "#CF3600"
+	color = "#7F10C0"
 	metabolization_rate = 0.4
 
 datum/reagent/initropidril/on_mob_life(var/mob/living/M as mob)
@@ -324,7 +324,7 @@ datum/reagent/initropidril/on_mob_life(var/mob/living/M as mob)
 			if(3)
 				var/mob/living/carbon/human/H = M
 				if(!H.heart_attack)
-					H.visible_message("<span class = 'userdanger'>[H] clutches at their chest !</span>")
+					H.visible_message("<span class = 'userdanger'>[H] clutches at their chest!</span>")
 					H.heart_attack = 1 // rip in pepperoni
 	..()
 	return

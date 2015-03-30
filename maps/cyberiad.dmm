@@ -8000,7 +8000,7 @@
 "cXR" = (/turf/space/transit/north/shuttlespace_ns10,/area/syndicate_station/transit)
 "cXS" = (/turf/space/transit/north/shuttlespace_ns1,/area/syndicate_station/transit)
 "cXT" = (/obj/effect/step_trigger/thrower{affect_ghosts = 1; direction = 2; name = "thrower_throwdown"; tiles = 0},/turf/space/transit/north/shuttlespace_ns5,/area)
-"cXU" = (/obj/structure/table/woodentable,/obj/item/trash/cheesie,/turf/unsimulated/floor{dir = 8; icon_state = "wood"},/area/wizard_station)
+"cXU" = (/obj/structure/table/woodentable,/obj/item/weapon/reagent_containers/food/drinks/mugwort,/turf/unsimulated/floor{dir = 8; icon_state = "wood"},/area/wizard_station)
 "cXV" = (/obj/structure/table/woodentable,/obj/item/weapon/spacecash,/turf/unsimulated/floor{dir = 8; icon_state = "wood"},/area/wizard_station)
 "cXW" = (/obj/structure/rack,/obj/item/clothing/suit/wizrobe/red,/obj/item/clothing/shoes/sandal,/obj/item/clothing/head/wizard/red,/obj/item/weapon/staff,/turf/unsimulated/floor{icon_state = "grimy"},/area/wizard_station)
 "cXX" = (/obj/structure/rack,/obj/item/clothing/suit/wizrobe/magusred,/obj/item/clothing/head/wizard/magus,/obj/item/weapon/staff,/turf/unsimulated/floor{icon_state = "grimy"},/area/wizard_station)

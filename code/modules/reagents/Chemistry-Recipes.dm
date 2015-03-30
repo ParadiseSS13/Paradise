@@ -117,6 +117,7 @@ datum
 			result = "holywater"
 			required_reagents = list("water" = 1, "mercury" = 1, "wine" = 1)
 			result_amount = 3
+			mix_message = "The water somehow seems purified. Or maybe defiled."
 
 		cryptobiolin
 			name = "Cryptobiolin"

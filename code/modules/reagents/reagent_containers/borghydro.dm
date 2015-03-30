@@ -14,7 +14,7 @@
 	var/recharge_time = 5 //Time it takes for shots to recharge (in seconds)
 
 	var/list/datum/reagents/reagent_list = list()
-	var/list/reagent_ids = list("salglu_solution", "epinephrine", "spaceacillin")
+	var/list/reagent_ids = list("salglu_solution", "epinephrine", "spaceacillin", "charcoal")
 	//var/list/reagent_ids = list("salbutamol", "silver_sulfadiazine", "styptic_powder", "charcoal", "epinephrine", "spaceacillin")
 
 /obj/item/weapon/reagent_containers/borghypo/surgeon

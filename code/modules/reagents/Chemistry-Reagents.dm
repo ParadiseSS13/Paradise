@@ -419,7 +419,7 @@ datum
 			id = "space_drugs"
 			description = "An illegal chemical compound used as drug."
 			reagent_state = LIQUID
-			color = "#60A584" // rgb: 96, 165, 132
+			color = "#9087A2"
 			metabolization_rate = 0.2
 
 			on_mob_life(var/mob/living/M as mob)
@@ -810,7 +810,7 @@ datum
 			description = "Radium is an alkaline earth metal. It is extremely radioactive."
 			reagent_state = SOLID
 			color = "#C7C7C7" // rgb: 199,199,199
-			metabolization_rate = 0.3
+			metabolization_rate = 0.4
 
 			on_mob_life(var/mob/living/M as mob)
 				if(!M) M = holder.my_atom
@@ -863,7 +863,7 @@ datum
 			id = "mutagen"
 			description = "Might cause unpredictable mutations. Keep away from children."
 			reagent_state = LIQUID
-			color = "#00FF00"
+			color = "#04DF27"
 			metabolization_rate = 0.3
 
 			reaction_mob(var/mob/M, var/method=TOUCH, var/volume)
@@ -1064,7 +1064,7 @@ datum
 			id = "cleaner"
 			description = "A compound used to clean things. Now with 50% more sodium hypochlorite!"
 			reagent_state = LIQUID
-			color = "#A5F0EE" // rgb: 165, 240, 238
+			color = "#61C2C2"
 
 			reaction_obj(var/obj/O, var/volume)
 				if(istype(O,/obj/effect/decal/cleanable))
@@ -1250,7 +1250,7 @@ datum
 		mitocholide
 			name = "Mitocholide"
 			id = "mitocholide"
-			description = "A specialized drugs that stimulates the mitochondria of cells to encourage healing of internal organs."
+			description = "A specialized drug that stimulates the mitochondria of cells to encourage healing of internal organs."
 			reagent_state = LIQUID
 			color = "#C8A5DC" // rgb: 200, 165, 220
 

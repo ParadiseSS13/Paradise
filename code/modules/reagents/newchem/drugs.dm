@@ -247,11 +247,12 @@ datum/reagent/crank/addiction_act_stage4(var/mob/living/M as mob)
 /datum/reagent/bath_salts
 	name = "Bath Salts"
 	id = "bath_salts"
-	description = "Makes you nearly impervious to stuns and grants a stamina regeneration buff, but you will be a nearly uncontrollable tramp-bearded raving lunatic."
+	description = "Sometimes packaged as a refreshing bathwater additive, these crystals are definitely not for human consumption."
 	reagent_state = LIQUID
 	color = "#60A584" // rgb: 96, 165, 132
 	overdose_threshold = 20
 	addiction_threshold = 10
+	metabolization_rate = 0.6
 
 
 /datum/reagent/bath_salts/on_mob_life(var/mob/living/M as mob)
@@ -276,9 +277,10 @@ datum/reagent/crank/addiction_act_stage4(var/mob/living/M as mob)
 	name = "bath_salts"
 	id = "bath_salts"
 	result = "bath_salts"
-	required_reagents = list("????" = 1, "saltpetre" = 1, "nutriment" = 1, "cleaner" = 1, "enzyme" = 1, "tea" = 1, "mercury" = 1)
-	result_amount = 7
+	required_reagents = list("????" = 1, "saltpetre" = 1, "nutriment" = 1, "cleaner" = 1, "enzyme" = 1, "mugwort" = 1, "mercury" = 1)
+	result_amount = 6
 	required_temp = 374
+	mix_message = "Tiny cubic crystals precipitate out of the mixture. Huh."
 
 /datum/reagent/bath_salts/overdose_process(var/mob/living/M as mob)
 	M.hallucination += 10

@@ -125,3 +125,21 @@ datum/reagent/honey/reaction_turf(var/turf/T, var/volume)
 	if(volume >= 5)
 		new /obj/item/weapon/reagent_containers/food/snacks/honeycomb(T)
 		return */
+
+/datum/reagent/mugwort
+	name = "Mugwort"
+	id = "mugwort"
+	description = "A rather bitter herb once thought to hold magical protective properties."
+	reagent_state = LIQUID
+	color = "#21170E"
+
+datum/reagent/mugwort/on_mob_life(var/mob/living/M as mob)
+	if(!M) M = holder.my_atom
+	if(istype(M, /mob/living/carbon/human) && M.mind)
+		if(M.mind.special_role == "Wizard")
+			M.adjustToxLoss(-1*REM)
+			M.adjustOxyLoss(-1*REM)
+			M.adjustBruteLoss(-1*REM)
+			M.adjustFireLoss(-1*REM)
+	..()
+	return
