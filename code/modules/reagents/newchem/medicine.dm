@@ -683,7 +683,7 @@ datum/reagent/life
 /datum/chemical_reaction/life
 	name = "Life"
 	id = "life"
-	result = "life"
+	result = null
 	required_reagents = list("strange_reagent" = 1, "synthflesh" = 1, "blood" = 1)
 	result_amount = 3
 	required_temp = 374

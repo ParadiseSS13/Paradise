@@ -131,7 +131,7 @@ datum/reagent/colorful_reagent/reaction_turf(var/turf/T, var/volume)
 /datum/chemical_reaction/corgium
 	name = "corgium"
 	id = "corgium"
-	result = "corgium"
+	result = null
 	required_reagents = list("nutriment" = 1, "colorful_reagent" = 1, "strange_reagent" = 1, "blood" = 1)
 	result_amount = 3
 	required_temp = 374
@@ -139,7 +139,7 @@ datum/reagent/colorful_reagent/reaction_turf(var/turf/T, var/volume)
 datum/reagent/corgium
 	name = "Corgium"
 	id = "corgium"
-	description = "Corgi is liquid form. Don't ask."
+	description = "Corgi in liquid form. Don't ask."
 	reagent_state = LIQUID
 	color = "#F9A635"
 
