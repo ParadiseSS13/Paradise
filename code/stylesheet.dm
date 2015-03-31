@@ -51,15 +51,20 @@ h1.alert, h2.alert		{color: #000000;}
 .disarm					{color: #990000;}
 .passive				{color: #660000;}
 
+.userdanger				{color: #ff0000;	font-weight: bold; font-size: 3;}
 .danger					{color: #ff0000;	font-weight: bold;}
 .warning				{color: #ff0000;	font-style: italic;}
+.announce 				{color: #228b22;	font-weight: bold;}
+.boldannounce			{color: #ff0000;	font-weight: bold;}
 .rose					{color: #ff5050;}
 .info					{color: #0000CC;}
 .notice					{color: #000099;}
+.boldnotice				{color: #000099;	font-weight: bold;}
 .suicide				{color: #ff5050;	font-style: italic;}
 
 
 .newscaster				{color: #800000;}
+.ghostalert				{color: #5c00e6;	font-style: italic; font-weight: bold;}
 
 .mod					{color: #735638;	font-weight: bold;}
 .modooc					{color: #184880;	font-weight: bold;}
