@@ -148,6 +148,7 @@ datum/reagent/charcoal/on_mob_life(var/mob/living/M as mob)
 	result = "synthflesh"
 	required_reagents = list("blood" = 1, "carbon" = 1, "styptic_powder" = 1)
 	result_amount = 3
+	mix_message = "The mixture knits together into a fibrous, bloody mass."
 
 /datum/chemical_reaction/styptic_powder
 	name = "Styptic Powder"
