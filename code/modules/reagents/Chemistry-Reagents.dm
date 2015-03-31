@@ -692,7 +692,6 @@ datum
 			overdose_threshold = 200 // Hyperglycaemic shock
 
 			on_mob_life(var/mob/living/M as mob)
-				M.nutrition += 1*REM
 				if(prob(4))
 					M.reagents.add_reagent("epinephrine", 1.2)
 				if(prob(50))

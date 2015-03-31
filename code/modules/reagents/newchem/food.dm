@@ -151,6 +151,7 @@ datum/reagent/mugwort/on_mob_life(var/mob/living/M as mob)
 	reagent_state = LIQUID
 	color = "#AB5D5D"
 	metabolization_rate = 0.2
+	overdose_threshold = 125
 
 datum/reagent/porktonium/overdose_process(var/mob/living/M as mob)
 	if(volume > 125)

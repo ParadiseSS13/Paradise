@@ -211,7 +211,7 @@
 	var/mob/living/carbon/human/occupant = null
 	var/possible_chems = list(list("epinephrine", "morphine", "salbutamol", "styptic_powder"),
 								   list("epinephrine", "morphine", "salbutamol", "styptic_powder", "oculine"),
-								   list("epinephrine", "smorphine", "salbutamol", "styptic_powder", "oculine", "charcoal", "mutadone", "mannitol"))
+								   list("epinephrine", "morphine", "salbutamol", "styptic_powder", "oculine", "charcoal", "mutadone", "mannitol"))
 	var/amounts = list(5, 10)
 	var/obj/item/weapon/reagent_containers/glass/beaker = null
 	var/filtering = 0
