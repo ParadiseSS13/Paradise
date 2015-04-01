@@ -881,12 +881,6 @@ var/list/compatible_mobs = list(/mob/living/carbon/human, /mob/living/carbon/mon
 
 ////////////////////////STAGE 1/////////////////////////////////
 
-/datum/disease2/effect/citalopram
-	name = "Reality Check"
-	stage = 1
-	activate(var/mob/living/carbon/mob,var/multiplier)
-		if (mob.reagents.get_reagent_amount("citalopram") < 5)
-			mob.reagents.add_reagent("citalopram", 1)
 
 /datum/disease2/effect/pain_minor
 	name = "Heightened Sensitivity"

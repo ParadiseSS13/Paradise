@@ -1621,6 +1621,7 @@
 	New()
 		..()
 		reagents.add_reagent("nutriment", 4)
+		reagents.add_reagent("porktonium", 10)
 		baconbeacon = new /obj/item/device/radio/beacon/bacon(src)
 	On_Consume()
 		if(!reagents.total_volume)

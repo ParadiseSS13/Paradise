@@ -148,6 +148,7 @@ datum/reagent/charcoal/on_mob_life(var/mob/living/M as mob)
 	result = "synthflesh"
 	required_reagents = list("blood" = 1, "carbon" = 1, "styptic_powder" = 1)
 	result_amount = 3
+	mix_message = "The mixture knits together into a fibrous, bloody mass."
 
 /datum/chemical_reaction/styptic_powder
 	name = "Styptic Powder"
@@ -629,7 +630,7 @@ datum/reagent/strange_reagent/reaction_mob(var/mob/living/M as mob, var/method=T
 		if(method == TOUCH)
 			if(M.stat == DEAD)
 				M.health = M.maxHealth
-				M.visible_message("<span class='warning'>[M]'s seems to rise from the dead!</span>")
+				M.visible_message("<span class='warning'>[M] seems to rise from the dead!</span>")
 	if(istype(M, /mob/living/carbon))
 		if(method == INGEST)
 			if(M.stat == DEAD)
@@ -638,8 +639,12 @@ datum/reagent/strange_reagent/reaction_mob(var/mob/living/M as mob, var/method=T
 					M.gib()
 					return
 				var/mob/dead/observer/ghost = M.get_ghost()
+				if(ghost)
+					ghost << "<span class='ghostalert'>Your are attempting to be revived with Strange Reagent. Return to your body if you want to be revived!</span> (Verbs -> Ghost -> Re-enter corpse)"
+					ghost << sound('sound/effects/genetics.ogg')
+					M.visible_message("<span class='notice'>[M] doesn't appear to respond, perhaps try again later?</span>")
 				if(!M.suiciding && !ghost && !(NOCLONE in M.mutations))
-					M.visible_message("<span class='warning'>[M]'s seems to rise from the dead!</span>")
+					M.visible_message("<span class='warning'>[M] seems to rise from the dead!</span>")
 					M.stat = 1
 					M.setOxyLoss(0)
 					M.adjustBruteLoss(rand(0,15))
@@ -678,7 +683,7 @@ datum/reagent/life
 /datum/chemical_reaction/life
 	name = "Life"
 	id = "life"
-	result = "life"
+	result = null
 	required_reagents = list("strange_reagent" = 1, "synthflesh" = 1, "blood" = 1)
 	result_amount = 3
 	required_temp = 374

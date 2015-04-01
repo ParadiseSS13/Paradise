@@ -172,7 +172,7 @@
 		D.create_reagents(amount_per_transfer_from_this)
 		src.reagents.trans_to(D, amount_per_transfer_from_this)
 
-		D.color = mix_color_from_reagents(D.reagents.reagent_list)
+		D.icon += mix_color_from_reagents(D.reagents.reagent_list)
 
 		Sprays[i] = D
 

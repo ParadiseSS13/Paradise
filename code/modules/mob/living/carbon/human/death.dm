@@ -145,6 +145,7 @@
 	update_hair(0)
 
 	mutations.Add(SKELETON)
+	mutations.Add(NOCLONE)
 	status_flags |= DISFIGURED
 	update_body(0)
 	update_mutantrace()
