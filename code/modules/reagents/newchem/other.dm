@@ -185,6 +185,7 @@ datum/reagent/hairgrownium
 	description = "A solution to hair loss across the world."
 	reagent_state = LIQUID
 	color = "#C8A5DC"
+	penetrates_skin = 1
 
 /datum/chemical_reaction/hairgrownium
 	name = "hairgrownium"
@@ -208,6 +209,7 @@ datum/reagent/super_hairgrownium
 	description = "A concentrated solution to hair loss across the world."
 	reagent_state = LIQUID
 	color = "#C8A5DC"
+	penetrates_skin = 1
 
 /datum/chemical_reaction/super_hairgrownium
 	name = "Super Hairgrownium"

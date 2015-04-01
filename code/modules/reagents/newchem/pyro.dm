@@ -158,6 +158,7 @@
 	reagent_state = LIQUID
 	color = "#000000"
 	metabolization_rate = 0.05
+	penetrates_skin = 1
 
 /datum/chemical_reaction/blackpowder
 	name = "Black Powder"
@@ -173,10 +174,14 @@
 	required_reagents = list("blackpowder" = 1)
 	result_amount = 1
 	required_temp = 474
-	mix_message = "<span class = 'userdanger'>Sparks start flying around the black powder!</span>"
+	mix_message = "sparks start flying about."
 
 /datum/chemical_reaction/blackpowder_explosion/on_reaction(var/datum/reagents/holder, var/created_volume)
-	sleep(rand(50,100))
+	var/location = get_turf(holder.my_atom)
+	var/datum/effect/effect/system/spark_spread/s = new /datum/effect/effect/system/spark_spread
+	s.set_up(2, 1, location)
+	s.start()
+	sleep(rand(30,50))
 	blackpowder_detonate(holder, created_volume)
 	return
 

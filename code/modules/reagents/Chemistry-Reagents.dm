@@ -25,38 +25,24 @@ datum
 		//var/list/viruses = list()
 		var/color = "#000000" // rgb: 0, 0, 0 (does not support alpha channels - yet!)
 		var/shock_reduction = 0
+		var/penetrates_skin = 0 //Whether or not a reagent penetrates the skin
 		proc
-			reaction_mob(var/mob/M, var/method=TOUCH, var/volume) //By default we have a chance to transfer some
+			reaction_mob(var/mob/M, var/method=TOUCH, var/volume) //Some reagents transfer on touch, others don't; dependent on if they penetrate the skin or not.
 				if(!istype(M, /mob/living))	return 0
 				var/datum/reagent/self = src
-				src = null										  //of the reagent to the mob on TOUCHING it.
+				src = null
 
 				if(self.holder)		//for catching rare runtimes
-					if(!istype(self.holder.my_atom, /obj/effect/effect/chem_smoke))
-						// If the chemicals are in a smoke cloud, do not try to let the chemicals "penetrate" into the mob's system (balance station 13) -- Doohl
-
-						if(method == TOUCH)
-
-							var/chance = 1
-							var/block  = 0
-
-							for(var/obj/item/clothing/C in M.get_equipped_items())
-								if(C.permeability_coefficient < chance) chance = C.permeability_coefficient
-								if(istype(C, /obj/item/clothing/suit/bio_suit))
-									// bio suits are just about completely fool-proof - Doohl
-									// kind of a hacky way of making bio suits more resistant to chemicals but w/e
-									if(prob(75))
-										block = 1
-
-								if(istype(C, /obj/item/clothing/head/bio_hood))
-									if(prob(75))
-										block = 1
-
-							chance = chance * 100
-
-							if(prob(chance) && !block)
-								if(M.reagents)
-									M.reagents.add_reagent(self.id,self.volume/2)
+					if(method == TOUCH && self.penetrates_skin)
+						var/block  = 0
+						for(var/obj/item/clothing/C in M.get_equipped_items())
+							if(istype(C, /obj/item/clothing/suit/bio_suit))
+								block += 1
+							if(istype(C, /obj/item/clothing/head/bio_hood))
+								block += 1
+						if(block < 2)
+							if(M.reagents)
+								M.reagents.add_reagent(self.id,self.volume)
 
 /*
 					if(method == INGEST && istype(M, /mob/living/carbon))
@@ -596,6 +582,7 @@ datum
 			reagent_state = LIQUID
 			color = "#484848" // rgb: 72, 72, 72
 			metabolization_rate = 0.2
+			penetrates_skin = 1
 
 			on_mob_life(var/mob/living/M as mob)
 				if(!M) M = holder.my_atom
@@ -631,6 +618,7 @@ datum
 			description = "A chemical element."
 			reagent_state = GAS
 			color = "#808080" // rgb: 128, 128, 128
+			penetrates_skin = 1
 
 			on_mob_life(var/mob/living/M as mob)
 				if(!M) M = holder.my_atom
@@ -644,6 +632,7 @@ datum
 			description = "A highly-reactive chemical element."
 			reagent_state = GAS
 			color = "#808080" // rgb: 128, 128, 128
+			penetrates_skin = 1
 
 			on_mob_life(var/mob/living/M as mob)
 				if(!M) M = holder.my_atom
@@ -811,6 +800,7 @@ datum
 			reagent_state = SOLID
 			color = "#C7C7C7" // rgb: 199,199,199
 			metabolization_rate = 0.4
+			penetrates_skin = 1
 
 			on_mob_life(var/mob/living/M as mob)
 				if(!M) M = holder.my_atom
