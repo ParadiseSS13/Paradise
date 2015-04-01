@@ -56,7 +56,7 @@
 		/obj/item/weapon/kitchenknife = 75,	\
 		/obj/item/weapon/shard = 50, 		\
 	)
-	
+
 	can_infect = 1
 	blood_level = 1
 
@@ -69,7 +69,7 @@
 
 		if (target_zone == "mouth" || target_zone == "eyes")
 			return 0
-		
+
 		var/datum/organ/external/affected = target.get_organ(target_zone)
 
 		return affected.open == 2 && (affected.status & ORGAN_DEAD)
@@ -102,7 +102,7 @@
 		/obj/item/weapon/reagent_containers/spray = 50,
 		/obj/item/weapon/reagent_containers/glass/bucket = 50,
 	)
-	
+
 	can_infect = 0
 	blood_level = 0
 
@@ -112,9 +112,9 @@
 	can_use(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
 		if (!istype(tool, /obj/item/weapon/reagent_containers))
 			return 0
-		
+
 		var/obj/item/weapon/reagent_containers/container = tool
-		if(!container.reagents.has_reagent("peridaxon"))
+		if(!container.reagents.has_reagent("mitocholide"))
 			return 0
 
 		if(!hasorgans(target))
@@ -122,7 +122,7 @@
 
 		if (target_zone == "mouth" || target_zone == "eyes")
 			return 0
-		
+
 		var/datum/organ/external/affected = target.get_organ(target_zone)
 		return affected.open == 3 && (affected.status & ORGAN_DEAD)
 
@@ -135,34 +135,34 @@
 
 	end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
 		var/datum/organ/external/affected = target.get_organ(target_zone)
-		
+
 		if (!istype(tool, /obj/item/weapon/reagent_containers))
 			return
-		
+
 		var/obj/item/weapon/reagent_containers/container = tool
-		
+
 		var/trans = container.reagents.trans_to(target, container.amount_per_transfer_from_this)
 		if (trans > 0)
 			container.reagents.reaction(target, INGEST)	//technically it's contact, but the reagents are being applied to internal tissue
-			
-			if(container.reagents.has_reagent("peridaxon"))
+
+			if(container.reagents.has_reagent("mitocholide"))
 				affected.status &= ~ORGAN_DEAD
-			
+
 			user.visible_message("\blue [user] applies [trans] units of the solution to affected tissue in [target]'s [affected.display_name]", \
 				"\blue You apply [trans] units of the solution to affected tissue in [target]'s [affected.display_name] with \the [tool].")
 
 	fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
 		var/datum/organ/external/affected = target.get_organ(target_zone)
-		
+
 		if (!istype(tool, /obj/item/weapon/reagent_containers))
 			return
-		
+
 		var/obj/item/weapon/reagent_containers/container = tool
-		
+
 		var/trans = container.reagents.trans_to(target, container.amount_per_transfer_from_this)
 		container.reagents.reaction(target, INGEST)	//technically it's contact, but the reagents are being applied to internal tissue
-		
+
 		user.visible_message("\red [user]'s hand slips, applying [trans] units of the solution to the wrong place in [target]'s [affected.display_name] with the [tool]!" , \
 		"\red Your hand slips, applying [trans] units of the solution to the wrong place in [target]'s [affected.display_name] with the [tool]!")
-		
+
 		//no damage or anything, just wastes medicine
