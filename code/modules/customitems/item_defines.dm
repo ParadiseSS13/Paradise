@@ -981,7 +981,7 @@
 	icon_state = "hm_armorvest"
 	item_state = "hm_armorvest"
 
-/obj/item/clothing/mask/gas/sechailer/bluemask //Blue security mask
+/obj/item/clothing/mask/gas/sechailer/fluff/bluemask //Blue security mask
 	name = "custom SWAT mask"
 	desc = "A neon blue swat mask, used for demoralizing Greytide in the wild. It has the initials H.M. on the side."
 	action_button_name = "HALT!"
