@@ -11,6 +11,7 @@ datum/reagent/polonium
 	reagent_state = LIQUID
 	color = "#CF3600"
 	metabolization_rate = 0.1
+	penetrates_skin = 1
 
 datum/reagent/polonium/on_mob_life(var/mob/living/M as mob)
 	if(!M) M = holder.my_atom
@@ -58,6 +59,7 @@ datum/reagent/formaldehyde
 	description = "Formaldehyde is a common industrial chemical and is used to preserve corpses and medical samples. It is highly toxic and irritating."
 	reagent_state = LIQUID
 	color = "#CF3600"
+	penetrates_skin = 1
 
 datum/reagent/formaldehyde/on_mob_life(var/mob/living/M as mob)
 	if(!M) M = holder.my_atom
@@ -143,6 +145,7 @@ datum/reagent/cyanide
 	reagent_state = LIQUID
 	color = "#CF3600"
 	metabolization_rate = 0.1
+	penetrates_skin = 1
 
 datum/reagent/cyanide/on_mob_life(var/mob/living/M as mob)
 	if(!M) M = holder.my_atom
@@ -176,6 +179,7 @@ datum/reagent/itching_powder
 	reagent_state = LIQUID
 	color = "#CF3600"
 	metabolization_rate = 0.3
+	penetrates_skin = 1
 
 /datum/reagent/itching_powder/reaction_mob(var/mob/living/M, var/method=TOUCH, var/volume)
 	if(method == TOUCH)
@@ -369,6 +373,7 @@ datum/reagent/ketamine
 	reagent_state = LIQUID
 	color = "#646EA0"
 	metabolization_rate = 0.8
+	penetrates_skin = 1
 
 datum/reagent/ketamine/on_mob_life(var/mob/living/M as mob)
 	if(!M) M = holder.my_atom
@@ -470,6 +475,7 @@ datum/reagent/curare
 	reagent_state = LIQUID
 	color = "#CF3600"
 	metabolization_rate = 0.1
+	penetrates_skin = 1
 
 datum/reagent/curare/on_mob_life(var/mob/living/M as mob)
 	if(!M) M = holder.my_atom
@@ -487,6 +493,7 @@ datum/reagent/sarin
 	reagent_state = LIQUID
 	color = "#C7C7C7"
 	metabolization_rate = 0.1
+	penetrates_skin = 1
 
 /datum/chemical_reaction/sarin
 	name = "sarin"

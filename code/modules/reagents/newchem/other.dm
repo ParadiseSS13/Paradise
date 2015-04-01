@@ -182,6 +182,7 @@ datum/reagent/hairgrownium
 	description = "A mysterious chemical purported to help grow hair. Often found on late-night TV infomercials."
 	reagent_state = LIQUID
 	color = "#5DDA5D"
+	penetrates_skin = 1
 
 /datum/chemical_reaction/hairgrownium
 	name = "hairgrownium"
@@ -206,6 +207,8 @@ datum/reagent/super_hairgrownium
 	description = "A mysterious and powerful chemical purported to cause rapid hair growth."
 	reagent_state = LIQUID
 	color = "#5DD95D"
+	penetrates_skin = 1
+
 
 /datum/chemical_reaction/super_hairgrownium
 	name = "Super Hairgrownium"
