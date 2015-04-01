@@ -39,3 +39,10 @@
 /obj/item/weapon/reagent_containers/food/snacks/meat/pug
 	name = "Pug meat"
 	desc = "Tastes like... well you know..."
+
+/obj/item/weapon/reagent_containers/food/snacks/meat/ham
+	name = "Ham"
+	desc = "Taste like bacon."
+	New()
+		..()
+		reagents.add_reagent("porktonium", 10)

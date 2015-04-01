@@ -631,8 +631,9 @@ datum
 			id = "fluorine"
 			description = "A highly-reactive chemical element."
 			reagent_state = GAS
-			color = "#808080" // rgb: 128, 128, 128
+			color = "#6A6054"
 			penetrates_skin = 1
+
 
 			on_mob_life(var/mob/living/M as mob)
 				if(!M) M = holder.my_atom
@@ -681,7 +682,6 @@ datum
 			overdose_threshold = 200 // Hyperglycaemic shock
 
 			on_mob_life(var/mob/living/M as mob)
-				M.nutrition += 1*REM
 				if(prob(4))
 					M.reagents.add_reagent("epinephrine", 1.2)
 				if(prob(50))
@@ -952,7 +952,7 @@ datum
 		silver
 			name = "Silver"
 			id = "silver"
-			description = "A soft, white, lustrous transition metal, it has the highest electrical conductivity of any element and the highest thermal conductivity of any metal."
+			description = "A lustrous metallic element regarded as one of the precious metals."
 			reagent_state = SOLID
 			color = "#D0D0D0" // rgb: 208, 208, 208
 
@@ -995,7 +995,7 @@ datum
 			id = "fuel"
 			description = "Required for welders. Flamable."
 			reagent_state = LIQUID
-			color = "#660000" // rgb: 102, 0, 0
+			color = "#060606"
 
 			reaction_mob(var/mob/living/M, var/method=TOUCH, var/volume)//Splashing people with welding fuel to make them easy to ignite!
 				if(!istype(M, /mob/living))
@@ -1105,9 +1105,9 @@ datum
 		plasma
 			name = "Plasma"
 			id = "plasma"
-			description = "Plasma in its liquid form."
+			description = "The liquid phase of an unusual extraterrestrial compound."
 			reagent_state = LIQUID
-			color = "#C8A5DC" // rgb: 200, 165, 220
+			color = "#7A2B94"
 
 			on_mob_life(var/mob/living/M as mob)
 				if(!M) M = holder.my_atom
@@ -1664,11 +1664,11 @@ datum
 					M.adjustToxLoss(rand(15,30))
 
 		sodiumchloride
-			name = "Table Salt"
+			name = "Salt"
 			id = "sodiumchloride"
-			description = "A salt made of sodium chloride. Commonly used to season food."
+			description = "Sodium chloride, common table salt."
 			reagent_state = SOLID
-			color = "#FFFFFF" // rgb: 255,255,255
+			color = "#B1B0B0"
 
 		blackpepper
 			name = "Black Pepper"

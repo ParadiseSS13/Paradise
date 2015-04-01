@@ -143,3 +143,20 @@ datum/reagent/mugwort/on_mob_life(var/mob/living/M as mob)
 			M.adjustFireLoss(-1*REM)
 	..()
 	return
+
+/datum/reagent/porktonium
+	name = "Porktonium"
+	id = "porktonium"
+	description = "A highly-radioactive pork byproduct first discovered in hotdogs."
+	reagent_state = LIQUID
+	color = "#AB5D5D"
+	metabolization_rate = 0.2
+	overdose_threshold = 125
+
+datum/reagent/porktonium/overdose_process(var/mob/living/M as mob)
+	if(volume > 125)
+		if(prob(8))
+			M.reagents.add_reagent("cyanide", 10)
+			M.reagents.add_reagent("radium", 15)
+	..()
+	return
