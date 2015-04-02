@@ -645,3 +645,56 @@ datum/reagent/capulettium_plus/on_mob_life(var/mob/living/M as mob)
 	M.silent += REM + 1
 	..()
 	return
+
+datum/reagent/toxic_slurry
+	name = "Toxic Slurry"
+	id = "toxic_slurry"
+	description = "A filthy, carcinogenic sludge produced by the Slurrypod plant."
+	reagent_state = LIQUID
+	color = "#00C81E"
+
+datum/reagent/toxic_slurry/on_mob_life(var/mob/living/M as mob)
+	if(!M) M = holder.my_atom
+	if(prob(10))
+		M.adjustToxLoss(rand(2,4))
+	if(prob(7))
+		switch(pick(1,2))
+			if(1)
+				M.fakevomit(1)
+			if(2)
+				M.Stun(rand(4,10))
+				M << "<span class='warning'>A horrible migraine overpowers you.</span>"
+	..()
+	return
+
+datum/reagent/glowing_slurry
+	name = "Glowing Slurry"
+	id = "glowing_slurry"
+	description = "This is probably not good for you."
+	reagent_state = LIQUID
+	color = "#00FD00"
+
+datum/reagent/glowing_slurry/reaction_mob(var/mob/M, var/method=TOUCH, var/volume) //same as mutagen
+	if(!..())	return
+	if(!M.dna) return //No robots, AIs, aliens, Ians or other mobs should be affected by this.
+	src = null
+	if((method==TOUCH && prob(33)) || method==INGEST)
+		if(prob(98))
+			randmutb(M)
+		else
+			randmutg(M)
+		domutcheck(M, null)
+		M.UpdateAppearance()
+	return
+
+datum/reagent/glowing_slurry/on_mob_life(var/mob/living/M as mob)
+	if(!M) M = holder.my_atom
+	M.apply_effect(2*REM,IRRADIATE,0)
+	if(prob(15))
+		randmutb(M)
+	if(prob(5))
+		randmutg(M)
+	domutcheck(M, null)
+	M.UpdateAppearance()
+	..()
+	return
