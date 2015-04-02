@@ -1442,8 +1442,10 @@ mob/proc/yank_out_object()
 
 
 /mob/proc/fakevomit() //for aesthetic vomits that need to be instant and do not stun. -Fox
+	if(stat==DEAD)
+		return
 	src.visible_message("<span class='warning'>[src] pukes all over \himself!</span>","<span class='warning'>You puke all over yourself!</span>")
-	playsound(loc, 'sound/effects/splat.ogg', 50, 1)
 	var/turf/location = loc
 	if (istype(location, /turf/simulated))
+		playsound(location, 'sound/effects/splat.ogg', 50, 1)
 		location.add_vomit_floor(src, 1)
