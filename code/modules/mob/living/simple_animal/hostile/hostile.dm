@@ -26,7 +26,7 @@
 	var/list/wanted_objects = list() //A list of objects that will be checked against to attack, should we have search_objects enabled
 	var/stat_attack = 0 //Mobs with stat_attack to 1 will attempt to attack things that are unconscious, Mobs with stat_attack set to 2 will attempt to attack the dead.
 	var/stat_exclusive = 0 //Mobs with this set to 1 will exclusively attack things defined by stat_attack, stat_attack 2 means they will only attack corpses
-
+	var/AIenabled = 1 //Badminnery and general AI toggle.
 
 /mob/living/simple_animal/hostile/Life()
 
@@ -34,7 +34,7 @@
 	if(!.)
 		walk(src, 0)
 		return 0
-	if(client)
+	if(client || !AIenabled)
 		return 0
 	if(!stat)
 		switch(stance)
