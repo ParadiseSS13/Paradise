@@ -392,7 +392,7 @@ datum/reagent/sulfonal
 	id = "sulfonal"
 	description = "Deals some toxin damage, and puts you to sleep after 66 seconds."
 	reagent_state = LIQUID
-	color = "#CF3600"
+	color = "#6BA688"
 	metabolization_rate = 0.1
 
 /datum/chemical_reaction/sulfonal
@@ -401,12 +401,22 @@ datum/reagent/sulfonal
 	result = "sulfonal"
 	required_reagents = list("acetone" = 1, "diethylamine" = 1, "sulfur" = 1)
 	result_amount = 3
+	mix_message = "The mixture gives off quite a stench."
 
 datum/reagent/sulfonal/on_mob_life(var/mob/living/M as mob)
 	if(!M) M = holder.my_atom
-	if(current_cycle >= 22)
-		M.sleeping += 3
 	M.adjustToxLoss(1)
+	if(current_cycle >= 11)
+		M.drowsyness = max(M.drowsyness, 20)
+	switch(current_cycle)
+		if(0 to 10)
+			if(prob(5))
+				M.emote("yawn")
+		if(22)
+			M.emote("faint")
+		if(23 to INFINITY)
+			if(prob(20))
+				M.emote("faint")
 	..()
 	return
 
@@ -471,16 +481,18 @@ datum/reagent/coniine/on_mob_life(var/mob/living/M as mob)
 datum/reagent/curare
 	name = "Curare"
 	id = "curare"
-	description = "Does some oxygen and toxin damage, weakens you after 33 seconds."
+	description = "A highly dangerous paralytic poison."
 	reagent_state = LIQUID
-	color = "#CF3600"
+	color = "#191919"
 	metabolization_rate = 0.1
 	penetrates_skin = 1
 
 datum/reagent/curare/on_mob_life(var/mob/living/M as mob)
 	if(!M) M = holder.my_atom
+	if(prob(5))
+		M.emote(pick("gasp","drool", "pale"))
 	if(current_cycle >= 11)
-		M.Weaken(3)
+		M.Weaken(15)
 	M.adjustToxLoss(1)
 	M.adjustOxyLoss(1)
 	..()
