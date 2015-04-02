@@ -40,7 +40,7 @@
 
 	anchored = 1 //otherwise people can literally fucking pull spaceworms apart
 
-//	faction = list("spaceworms") - Pretty sure this is only a thing on -tg- code
+	faction = list("spaceworms")
 
 	var/mob/living/simple_animal/hostile/spaceWorm/previousWorm //next/previous segments, correspondingly
 	var/mob/living/simple_animal/hostile/spaceWorm/nextWorm     //head is the nextest segment
@@ -76,6 +76,8 @@
 
 	AIenabled = 1//The head is conscious
 	stop_automated_movement = 0 //Ditto ^
+
+	faction = list("spaceworms") //head and body both have this faction JIC
 
 	//head specific variables
 	var/spawnWithSegments = 6
