@@ -861,7 +861,6 @@ datum
 				if(!M.dna) return //No robots, AIs, aliens, Ians or other mobs should be affected by this.
 				src = null
 				if((method==TOUCH && prob(33)) || method==INGEST)
-					randmuti(M)
 					if(prob(98))
 						randmutb(M)
 					else
@@ -873,6 +872,8 @@ datum
 				if(!M.dna) return //No robots, AIs, aliens, Ians or other mobs should be affected by this.
 				if(!M) M = holder.my_atom
 				M.apply_effect(2*REM,IRRADIATE,0)
+				if(prob(4))
+					randmutb(M)
 				..()
 				return
 

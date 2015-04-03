@@ -97,6 +97,12 @@
 	var/list/datum/disease2/disease/virus2 = list()
 
 
+/obj/effect/decal/cleanable/vomit/green
+	name = "green vomit"
+	desc = "It's all gummy. Ew."
+	icon_state = "gvomit_1"
+	random_icon_states = list("gvomit_1", "gvomit_2", "gvomit_3", "gvomit_4")
+
 /obj/effect/decal/cleanable/poop
 	name = "poop"
 	desc = "Gosh, how unpleasant."
