@@ -156,7 +156,7 @@ obj/structure/sign/poster/New(serial,subtype)
 				desc += " Borg Fancy, Now only taking the most fancy."
 			if(22)
 				name += " - Kosmicheskaya Stantsiya 13 Does Not Exist"
-				desc += " A poster denying the existence of the derelict station near Space Station 13."
+				desc += " A poster denying the existence of the derelict station near [station_name()]."
 			if(23)
 				name += " - Rebels Unite!"
 				desc += " A poster telling the viewer to rebel against Nanotrasen."
