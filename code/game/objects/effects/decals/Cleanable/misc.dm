@@ -16,13 +16,6 @@
 	icon_state = "ash"
 	anchored = 1
 
-/obj/effect/decal/cleanable/greenglow
-
-	New()
-		..()
-		spawn(1200)// 2 minutes
-			qdel(src)
-
 /obj/effect/decal/cleanable/dirt
 	name = "dirt"
 	desc = "Someone should clean that up."
@@ -45,6 +38,16 @@
 	icon = 'icons/effects/effects.dmi'
 	icon_state = "flour"
 
+/obj/effect/decal/cleanable/flour/foam
+	name = "Fire fighting foam"
+	desc = "It's foam."
+	color = "#EBEBEB"
+
+	New()
+		..()
+		spawn(150)// 15 seconds
+			qdel(src)
+
 /obj/effect/decal/cleanable/greenglow
 	name = "glowing goo"
 	desc = "Jeez. I hope that's not for lunch."
@@ -55,6 +58,11 @@
 	luminosity = 1
 	icon = 'icons/effects/effects.dmi'
 	icon_state = "greenglow"
+
+	New()
+		..()
+		spawn(1200)// 2 minutes
+			qdel(src)
 
 /obj/effect/decal/cleanable/cobweb
 	name = "cobweb"
