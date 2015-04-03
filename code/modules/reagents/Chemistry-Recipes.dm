@@ -102,7 +102,8 @@ datum
 			id = "lube"
 			result = "lube"
 			required_reagents = list("water" = 1, "silicon" = 1, "oxygen" = 1)
-			result_amount = 4
+			result_amount = 3
+			mix_message = "The substance turns a striking cyan and becomes oily."
 
 		mitocholide
 			name = "mitocholide"
@@ -273,6 +274,7 @@ datum
 			result = "fluorosurfactant"
 			required_reagents = list("fluorine" = 2, "carbon" = 2, "sacid" = 1)
 			result_amount = 5
+			mix_message = "A head of foam results from the mixture's constant fizzing."
 
 
 		foam
@@ -308,7 +310,7 @@ datum
 			name = "Metal Foam"
 			id = "metalfoam"
 			result = null
-			required_reagents = list("aluminum" = 3, "foaming_agent" = 1, "facid" = 1)
+			required_reagents = list("aluminum" = 3, "fluorosurfactant" = 1, "sacid" = 1)
 			result_amount = 5
 
 			on_reaction(var/datum/reagents/holder, var/created_volume)
@@ -328,7 +330,7 @@ datum
 			name = "Iron Foam"
 			id = "ironlfoam"
 			result = null
-			required_reagents = list("iron" = 3, "foaming_agent" = 1, "facid" = 1)
+			required_reagents = list("iron" = 3, "fluorosurfactant" = 1, "sacid" = 1)
 			result_amount = 5
 
 			on_reaction(var/datum/reagents/holder, var/created_volume)
@@ -343,15 +345,6 @@ datum
 				s.set_up(created_volume, location, holder, 2)
 				s.start()
 				return
-
-
-
-		foaming_agent
-			name = "Foaming Agent"
-			id = "foaming_agent"
-			result = "foaming_agent"
-			required_reagents = list("lithium" = 1, "hydrogen" = 1)
-			result_amount = 1
 
 		// Synthesizing these three chemicals is pretty complex in real life, but fuck it, it's just a game!
 		ammonia
