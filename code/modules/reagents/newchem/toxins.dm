@@ -355,7 +355,7 @@ datum/reagent/sodium_thiopental
 	id = "sodium_thiopental"
 	description = "Puts you to sleep after 30 seconds, along with some major stamina loss."
 	reagent_state = LIQUID
-	color = "#CF3600"
+	color = "#658EDF"
 	metabolization_rate = 0.7
 
 datum/reagent/sodium_thiopental/on_mob_life(var/mob/living/M as mob)
@@ -519,7 +519,6 @@ datum/reagent/sarin
 datum/reagent/sarin/on_mob_life(var/mob/living/M as mob)
 	if(!M) M = holder.my_atom
 	M.adjustFireLoss(1)
-	M.adjustToxLoss(1)
 	if(prob(20))
 		M.emote(pick("twitch","drool", "quiver"))
 	if(prob(10))
@@ -542,8 +541,10 @@ datum/reagent/sarin/on_mob_life(var/mob/living/M as mob)
 	switch(current_cycle)
 		if(0 to 60)
 			M.adjustBrainLoss(1)
+			M.adjustToxLoss(1)
 		if(61 to INFINITY)
 			M.adjustBrainLoss(2)
+			M.adjustToxLoss(2)
 			M.Paralyse(5)
 			M.losebreath += 5
 	..()

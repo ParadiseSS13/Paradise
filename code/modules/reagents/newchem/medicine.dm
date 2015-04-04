@@ -171,8 +171,8 @@ datum/reagent/omnizine/on_mob_life(var/mob/living/M as mob)
 	if(!M) M = holder.my_atom
 	M.adjustToxLoss(-1*REM)
 	M.adjustOxyLoss(-1*REM)
-	M.adjustBruteLoss(-1*REM)
-	M.adjustFireLoss(-1*REM)
+	M.adjustBruteLoss(-2*REM)
+	M.adjustFireLoss(-2*REM)
 	..()
 	return
 
