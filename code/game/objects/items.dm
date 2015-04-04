@@ -135,11 +135,12 @@
 /obj/item/attack_hand(mob/user as mob)
 	if (!user) return 0
 	if (hasorgans(user))
-		var/datum/organ/external/temp = user:organs_by_name["r_hand"]
+		var/mob/living/carbon/human/H = user
+		var/obj/item/organ/external/temp = H.organs_by_name["r_hand"]
 		if (user.hand)
-			temp = user:organs_by_name["l_hand"]
+			temp = H.organs_by_name["l_hand"]
 		if(temp && !temp.is_usable())
-			user << "<span class='notice'>You try to move your [temp.display_name], but cannot!"
+			user << "<span class='notice'>You try to move your [temp.name], but cannot!"
 			return 0
 
 	if (istype(src.loc, /obj/item/weapon/storage))
@@ -630,14 +631,14 @@
 			"\red [user] has stabbed themself with [src]!", \
 			"\red You stab yourself in the eyes with [src]!" \
 		)
-	if(istype(M, /mob/living/carbon/human))
-		var/datum/organ/internal/eyes/eyes = H.internal_organs_by_name["eyes"]
+	if(istype(H))
+		var/obj/item/organ/eyes/eyes = H.internal_organs_by_name["eyes"]
 		if(!eyes)
 			return
 		eyes.take_damage(rand(3,4), 1)
 		if(eyes.damage >= eyes.min_bruised_damage)
 			if(M.stat != 2)
-				if(!(istype(eyes, /datum/organ/internal/eyes/robotic)) || istype(eyes, /datum/organ/internal/eyes/assisted)) //robot eyes bleeding might be a bit silly
+				if(!(eyes & ORGAN_ROBOT) || !(eyes & ORGAN_ASSISTED))  //robot eyes bleeding might be a bit silly
 					M << "\red Your eyes start to bleed profusely!"
 			if(prob(50))
 				if(M.stat != 2)
@@ -649,9 +650,9 @@
 			if (eyes.damage >= eyes.min_broken_damage)
 				if(M.stat != 2)
 					M << "\red You go blind!"
-		var/datum/organ/external/affecting = M:get_organ("head")
+		var/obj/item/organ/external/affecting = H.get_organ("head")
 		if(affecting.take_damage(7))
-			M:UpdateDamageIcon()
+			H.UpdateDamageIcon()
 	else
 		M.take_organ_damage(7)
 	M.eye_blurry += rand(3,4)

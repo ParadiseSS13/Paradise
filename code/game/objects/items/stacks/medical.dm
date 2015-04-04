@@ -22,7 +22,7 @@
 
 	if (istype(M, /mob/living/carbon/human))
 		var/mob/living/carbon/human/H = M
-		var/datum/organ/external/affecting = H.get_organ(user.zone_sel.selecting)
+		var/obj/item/organ/external/affecting = H.get_organ(user.zone_sel.selecting)
 
 		if(isliving(M))
 			if(!M.can_inject(user, 1))
@@ -32,9 +32,6 @@
 			user << "<span class='danger'>This can't be used on a robotic limb.</span>"
 			return 1
 
-		if(affecting.status & ORGAN_PEG)
-			user << "<span class='danger'>This can't be used on a peg limb.</span>"
-			return 1
 
 		H.UpdateDamageIcon()
 
@@ -58,25 +55,25 @@
 
 	if (istype(M, /mob/living/carbon/human))
 		var/mob/living/carbon/human/H = M
-		var/datum/organ/external/affecting = H.get_organ(user.zone_sel.selecting)
+		var/obj/item/organ/external/affecting = H.get_organ(user.zone_sel.selecting)
 
 		if(affecting.open == 0)
 			if(!affecting.bandage())
-				user << "\red The wounds on [M]'s [affecting.display_name] have already been bandaged."
+				user << "\red The wounds on [M]'s [affecting.name] have already been bandaged."
 				return 1
 			else
 				for (var/datum/wound/W in affecting.wounds)
 					if (W.internal)
 						continue
 					if (W.current_stage <= W.max_bleeding_stage)
-						user.visible_message( 	"\blue [user] bandages \the [W.desc] on [M]'s [affecting.display_name].", \
-										"\blue You bandage \the [W.desc] on [M]'s [affecting.display_name]." )
+						user.visible_message( 	"\blue [user] bandages \the [W.desc] on [M]'s [affecting.name].", \
+										"\blue You bandage \the [W.desc] on [M]'s [affecting.name]." )
 					else if (istype(W,/datum/wound/bruise))
-						user.visible_message( 	"\blue [user] places a bruise patch over \the [W.desc] on [M]'s [affecting.display_name].", \
-										"\blue You place a bruise patch over \the [W.desc] on [M]'s [affecting.display_name]." )
+						user.visible_message( 	"\blue [user] places a bruise patch over \the [W.desc] on [M]'s [affecting.name].", \
+										"\blue You place a bruise patch over \the [W.desc] on [M]'s [affecting.name]." )
 					else
-						user.visible_message( 	"\blue [user] places a bandaid over \the [W.desc] on [M]'s [affecting.display_name].", \
-										"\blue You place a bandaid over \the [W.desc] on [M]'s [affecting.display_name]." )
+						user.visible_message( 	"\blue [user] places a bandaid over \the [W.desc] on [M]'s [affecting.name].", \
+										"\blue You place a bandaid over \the [W.desc] on [M]'s [affecting.name]." )
 
 					affecting.heal_damage(src.heal_brute, src.heal_burn, 0)
 					use(1)
@@ -99,15 +96,15 @@
 
 	if (istype(M, /mob/living/carbon/human))
 		var/mob/living/carbon/human/H = M
-		var/datum/organ/external/affecting = H.get_organ(user.zone_sel.selecting)
+		var/obj/item/organ/external/affecting = H.get_organ(user.zone_sel.selecting)
 
 		if(affecting.open == 0)
 			if(!affecting.salve())
-				user << "\red The wounds on [M]'s [affecting.display_name] have already been salved."
+				user << "\red The wounds on [M]'s [affecting.name] have already been salved."
 				return 1
 			else
-				user.visible_message( 	"\blue [user] salves the wounds on [M]'s [affecting.display_name].", \
-										"\blue You salve the wounds on [M]'s [affecting.display_name]." )
+				user.visible_message( 	"\blue [user] salves the wounds on [M]'s [affecting.name].", \
+										"\blue You salve the wounds on [M]'s [affecting.name]." )
 				affecting.heal_damage(src.heal_brute, src.heal_burn, 0)
 				use(1)
 		else
@@ -115,7 +112,7 @@
 				if (do_surgery(H,user,src))
 					return
 			else
-				user << "<span class='notice'>The [affecting.display_name] is cut open, you'll need more than some ointment!</span>"
+				user << "<span class='notice'>The [affecting.name] is cut open, you'll need more than some ointment!</span>"
 
 /obj/item/stack/medical/bruise_pack/tajaran
 	name = "\improper S'rendarr's Hand leaf"
@@ -147,29 +144,29 @@
 
 	if (istype(M, /mob/living/carbon/human))
 		var/mob/living/carbon/human/H = M
-		var/datum/organ/external/affecting = H.get_organ(user.zone_sel.selecting)
+		var/obj/item/organ/external/affecting = H.get_organ(user.zone_sel.selecting)
 
 		if(affecting.open == 0)
 			var/bandaged = affecting.bandage()
 			var/disinfected = affecting.disinfect()
 
 			if(!(bandaged || disinfected))
-				user << "\red The wounds on [M]'s [affecting.display_name] have already been treated."
+				user << "\red The wounds on [M]'s [affecting.name] have already been treated."
 				return 1
 			else
 				for (var/datum/wound/W in affecting.wounds)
 					if (W.internal)
 						continue
 					if (W.current_stage <= W.max_bleeding_stage)
-						user.visible_message( 	"\blue [user] cleans \the [W.desc] on [M]'s [affecting.display_name] and seals the edges with bioglue.", \
-										"\blue You clean and seal \the [W.desc] on [M]'s [affecting.display_name]." )
+						user.visible_message( 	"\blue [user] cleans \the [W.desc] on [M]'s [affecting.name] and seals the edges with bioglue.", \
+										"\blue You clean and seal \the [W.desc] on [M]'s [affecting.name]." )
 						//H.add_side_effect("Itch")
 					else if (istype(W,/datum/wound/bruise))
-						user.visible_message( 	"\blue [user] places a medicine patch over \the [W.desc] on [M]'s [affecting.display_name].", \
-										"\blue You place a medicine patch over \the [W.desc] on [M]'s [affecting.display_name]." )
+						user.visible_message( 	"\blue [user] places a medicine patch over \the [W.desc] on [M]'s [affecting.name].", \
+										"\blue You place a medicine patch over \the [W.desc] on [M]'s [affecting.name]." )
 					else
-						user.visible_message( 	"\blue [user] smears some bioglue over [W.desc] on [M]'s [affecting.display_name].", \
-										"\blue You smear some bioglue over [W.desc] on [M]'s [affecting.display_name]." )
+						user.visible_message( 	"\blue [user] smears some bioglue over [W.desc] on [M]'s [affecting.name].", \
+										"\blue You smear some bioglue over [W.desc] on [M]'s [affecting.name]." )
 				if (bandaged)
 					affecting.heal_damage(heal_brute,0)
 				use(1)
@@ -178,7 +175,7 @@
 				if (do_surgery(H,user,src))
 					return
 			else
-				user << "<span class='notice'>The [affecting.display_name] is cut open, you'll need more than a bandage!</span>"
+				user << "<span class='notice'>The [affecting.name] is cut open, you'll need more than a bandage!</span>"
 
 /obj/item/stack/medical/advanced/ointment
 	name = "advanced burn kit"
@@ -195,15 +192,15 @@
 
 	if (istype(M, /mob/living/carbon/human))
 		var/mob/living/carbon/human/H = M
-		var/datum/organ/external/affecting = H.get_organ(user.zone_sel.selecting)
+		var/obj/item/organ/external/affecting = H.get_organ(user.zone_sel.selecting)
 
 		if(affecting.open == 0)
 			if(!affecting.salve())
-				user << "\red The wounds on [M]'s [affecting.display_name] have already been salved."
+				user << "\red The wounds on [M]'s [affecting.name] have already been salved."
 				return 1
 			else
-				user.visible_message( 	"\blue [user] covers the wounds on [M]'s [affecting.display_name] with regenerative membrane.", \
-										"\blue You cover the wounds on [M]'s [affecting.display_name] with regenerative membrane." )
+				user.visible_message( 	"\blue [user] covers the wounds on [M]'s [affecting.name] with regenerative membrane.", \
+										"\blue You cover the wounds on [M]'s [affecting.name] with regenerative membrane." )
 				affecting.heal_damage(0,heal_burn)
 				use(1)
 		else
@@ -211,7 +208,7 @@
 				if (do_surgery(H,user,src))
 					return
 			else
-				user << "<span class='notice'>The [affecting.display_name] is cut open, you'll need more than a bandage!</span>"
+				user << "<span class='notice'>The [affecting.name] is cut open, you'll need more than a bandage!</span>"
 
 /obj/item/stack/medical/splint
 	name = "medical splints"
@@ -230,8 +227,8 @@
 
 	if (istype(M, /mob/living/carbon/human))
 		var/mob/living/carbon/human/H = M
-		var/datum/organ/external/affecting = H.get_organ(user.zone_sel.selecting)
-		var/limb = affecting.display_name
+		var/obj/item/organ/external/affecting = H.get_organ(user.zone_sel.selecting)
+		var/limb = affecting.name
 		if(!((affecting.name == "l_arm") || (affecting.name == "r_arm") || (affecting.name == "l_leg") || (affecting.name == "r_leg")))
 			user << "\red You can't apply a splint there!"
 			return

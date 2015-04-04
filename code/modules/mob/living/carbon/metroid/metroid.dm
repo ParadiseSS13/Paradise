@@ -44,6 +44,9 @@
 
 	var/mood = "" // To show its face
 	var/is_adult = 0
+
+	var/core_removal_stage = 0 //For removing cores.
+
 	///////////TIME FOR SUBSPECIES
 
 	var/colour = "grey"

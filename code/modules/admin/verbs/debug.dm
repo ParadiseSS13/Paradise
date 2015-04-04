@@ -596,6 +596,8 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 		for (var/obj/item/I in M)
 			if (istype(I, /obj/item/weapon/implant))
 				continue
+			if(istype(I, /obj/item/organ))
+				continue
 			del(I)
 	switch(dresscode)
 		if ("strip")

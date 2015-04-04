@@ -22,7 +22,7 @@
 	var/obj/mecha = null//This does not appear to be used outside of reference in mecha.dm.
 
 	attackby(var/obj/item/O as obj, var/mob/user as mob, params)
-		if(istype(O,/obj/item/brain) && !brainmob) //Time to stick a brain in it --NEO
+		if(istype(O,/obj/item/organ/brain) && !brainmob) //Time to stick a brain in it --NEO
 			if(!O:brainmob)
 				user << "\red You aren't sure where this brain came from, but you're pretty sure it's a useless brain."
 				return
@@ -38,7 +38,7 @@
 			living_mob_list += brainmob
 
 			user.drop_item()
-			if(istype(O,/obj/item/brain/alien))
+			if(istype(O,/obj/item/organ/brain/xeno))
 				name = "Man-Machine Interface: Alien - [brainmob.real_name]"
 				icon = 'icons/mob/alien.dmi'
 				icon_state = "AlienMMI"
@@ -78,10 +78,10 @@
 		else
 			user << "\blue You upend the MMI, spilling the brain onto the floor."
 			if(alien)
-				var/obj/item/brain/alien/brain = new(user.loc)
+				var/obj/item/organ/brain/xeno/brain = new(user.loc)
 				dropbrain(brain,get_turf(user))
 			else
-				var/obj/item/brain/brain = new(user.loc)
+				var/obj/item/organ/brain/brain = new(user.loc)
 				dropbrain(brain,get_turf(user))
 			icon = 'icons/obj/assemblies.dmi'
 			icon_state = "mmi_empty"
@@ -101,7 +101,7 @@
 			return
 //I made this proc as a way to have a brainmob be transferred to any created brain, and to solve the
 //problem i was having with alien/nonalien brain drops.
-		dropbrain(var/obj/item/brain/brain, var/turf/dropspot)
+		dropbrain(var/obj/item/organ/brain/brain, var/turf/dropspot)
 			brainmob.container = null//Reset brainmob mmi var.
 			brainmob.loc = brain//Throw mob into brain.
 			respawnable_list += brainmob

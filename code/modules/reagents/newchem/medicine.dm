@@ -514,7 +514,7 @@ datum/reagent/oculine/on_mob_life(var/mob/living/M as mob)
 	M.eye_blind = max(M.eye_blind-5 , 0)
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
-		var/datum/organ/internal/eyes/E = H.internal_organs_by_name["eyes"]
+		var/obj/item/organ/eyes/E = H.internal_organs_by_name["eyes"]
 		if(istype(E))
 			if(E.damage > 0)
 				E.damage -= 1

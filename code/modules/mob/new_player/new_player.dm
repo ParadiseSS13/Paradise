@@ -510,6 +510,10 @@
 		domutcheck(new_character)
 		new_character.dna.UpdateSE()
 
+		// Do the initial caching of the player's body icons.
+		new_character.force_update_limbs()
+		new_character.update_eyes()
+		new_character.regenerate_icons()
 
 		new_character.key = key		//Manually transfer the key to log them in
 

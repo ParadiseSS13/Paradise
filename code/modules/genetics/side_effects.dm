@@ -26,7 +26,7 @@
 	finish(mob/living/carbon/human/H)
 		if(!H.reagents.has_reagent("salbutamol"))
 			for(var/organ_name in list("chest","l_arm","r_arm","r_leg","l_leg","head","groin"))
-				var/datum/organ/external/E = H.get_organ(organ_name)
+				var/obj/item/organ/external/E = H.get_organ(organ_name)
 				E.take_damage(0, 5, 0)
 
 /datum/genetics/side_effect/bone_snap
@@ -42,7 +42,7 @@
 	finish(mob/living/carbon/human/H)
 		if(!H.reagents.has_reagent("styptic_powder"))
 			var/organ_name = pick("chest","l_arm","r_arm","r_leg","l_leg","head","groin")
-			var/datum/organ/external/E = H.get_organ(organ_name)
+			var/obj/item/organ/external/E = H.get_organ(organ_name)
 			E.take_damage(20, 0, 0)
 			E.fracture()
 

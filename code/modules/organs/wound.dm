@@ -209,9 +209,9 @@
 
 /** WOUND DEFINITIONS **/
 
-//Note that the MINIMUM damage before a wound can be applied should correspond to 
+//Note that the MINIMUM damage before a wound can be applied should correspond to
 //the damage amount for the stage with the same name as the wound.
-//e.g. /datum/wound/cut/deep should only be applied for 15 damage and up, 
+//e.g. /datum/wound/cut/deep should only be applied for 15 damage and up,
 //because in it's stages list, "deep cut" = 15.
 /proc/get_wound_type(var/type = CUT, var/damage)
 	switch(type)
@@ -323,4 +323,4 @@ datum/wound/cut/massive
         return 0 //cannot be merged
 
 /datum/wound/lost_limb/small
-    stages = list("ripped stump" = 40, "bloody stump" = 30, "clotted stump" = 15, "scarred stump" = 0)
+    stages = list("ripped hole" = 40, "bloody hole" = 30, "clotted hole" = 15, "scarred hole" = 0)

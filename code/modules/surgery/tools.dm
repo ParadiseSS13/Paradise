@@ -107,6 +107,8 @@
 	origin_tech = "biotech=1"
 	attack_verb = list("slapped")
 
+/*
 /obj/item/weapon/surgical_drapes/attack(mob/living/M, mob/user)
 	if(!attempt_initiate_surgery(src, M, user))
 		..()
+*/

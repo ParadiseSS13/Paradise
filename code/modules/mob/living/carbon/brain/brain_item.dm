@@ -1,107 +1,90 @@
-/obj/item/brain
+/obj/item/organ/brain
 	name = "brain"
-	desc = "A piece of juicy meat found in a persons head."
-	icon = 'icons/obj/surgery.dmi'
+	health = 400 //They need to live awhile longer than other organs.
 	icon_state = "brain2"
 	force = 1.0
-	w_class = 1.0
+	w_class = 2.0
 	throwforce = 1.0
 	throw_speed = 3
 	throw_range = 5
 	origin_tech = "biotech=3"
 	attack_verb = list("attacked", "slapped", "whacked")
-
 	var/mob/living/carbon/brain/brainmob = null
+	organ_tag = "brain"
+	parent_organ = "head"
+	vital = 1
 
-	New()
-		..()
-		//Shifting the brain "mob" over to the brain object so it's easier to keep track of. --NEO
-		//WASSSSSUUUPPPP /N
-		spawn(5)
-			if(brainmob && brainmob.client)
-				brainmob.client.screen.len = null //clear the hud
-
-	proc
-		transfer_identity(var/mob/living/carbon/H)
-			name = "[H]'s brain"
-			brainmob = new(src)
-			brainmob.name = H.real_name
-			brainmob.real_name = H.real_name
-			brainmob.dna = H.dna.Clone()
-			brainmob.timeofhostdeath = H.timeofdeath
-			if(H.mind)
-				H.mind.transfer_to(brainmob)
-			respawnable_list += brainmob
-
-			brainmob << "\blue You feel slightly disoriented. That's normal when you're just a brain."
-			callHook("debrain", list(brainmob))
-
-/obj/item/brain/examine() // -- TLE
-	set src in oview(12)
-	if (!( usr ))
-		return
-	usr << "This is \icon[src] \an [name]."
-
-	if(brainmob && brainmob.client)//if thar be a brain inside... the brain.
-		usr << "You can feel the small spark of life still left in this one."
-	else
-		usr << "This one seems particularly lifeless. Perhaps it will regain some of its luster later.."
-
-/obj/item/brain/attack(mob/living/carbon/M as mob, mob/living/carbon/user as mob)
-	if(!istype(M, /mob))
-		return
-
-	add_fingerprint(user)
-
-	if(!(user.zone_sel.selecting == ("head")) || !istype(M, /mob/living/carbon/human))
-		return ..()
-
-	if(	!(locate(/obj/machinery/optable, M.loc) && M.resting) && ( !(locate(/obj/structure/table/, M.loc) && M.lying) && prob(50) ) )
-		return ..()
-
-	var/mob/living/carbon/human/H = M
-	if(istype(M, /mob/living/carbon/human) && ((H.head && H.head.flags & HEADCOVERSEYES) || (H.wear_mask && H.wear_mask.flags & MASKCOVERSEYES) || (H.glasses && H.glasses.flags & GLASSESCOVERSEYES)))
-		// you can't stab someone in the eyes wearing a mask!
-		user << "\blue You're going to need to remove their head cover first."
-		return
-
-//since these people will be dead M != usr
-
-	if(M:brain_op_stage == 4.0)
-		for(var/mob/O in viewers(M, null))
-			if(O == (user || M))
-				continue
-			if(M == user)
-				O.show_message(text("\red [user] inserts [src] into his head!"), 1)
-			else
-				O.show_message(text("\red [M] has [src] inserted into his head by [user]."), 1)
-
-		if(M != user)
-			M << "\red [user] inserts [src] into your head!"
-			user << "\red You insert [src] into [M]'s head!"
-		else
-			user << "\red You insert [src] into your head!"
-
-		//this might actually be outdated since barring badminnery, a debrain'd body will have any client sucked out to the brain's internal mob. Leaving it anyway to be safe. --NEO
-		if(M.key)//Revised. /N
-			M.ghostize()
-
-		if(brainmob.mind)
-			respawnable_list -= brainmob
-			brainmob.mind.transfer_to(M)
-		else
-			M.key = brainmob.key
-
-		M:brain_op_stage = 3.0
-
-		del(src)
-	else
-		..()
-	return
-
-/obj/item/brain/alien
-	name = "alien brain"
-	desc = "We barely understand the brains of terrestial animals. Who knows what we may find in the brain of such an advanced species?"
+/obj/item/organ/brain/xeno
+	name = "thinkpan"
+	desc = "It looks kind of like an enormous wad of purple bubblegum."
 	icon = 'icons/mob/alien.dmi'
-	icon_state = "AlienBrain"
-	origin_tech = "biotech=7"
+	icon_state = "chitin"
+
+/obj/item/organ/brain/New()
+	..()
+	spawn(5)
+		if(brainmob && brainmob.client)
+			brainmob.client.screen.len = null //clear the hud
+
+/obj/item/organ/brain/proc/transfer_identity(var/mob/living/carbon/H)
+	name = "\the [H]'s [initial(src.name)]"
+	brainmob = new(src)
+	brainmob.name = H.real_name
+	brainmob.real_name = H.real_name
+	brainmob.dna = H.dna.Clone()
+	brainmob.timeofhostdeath = H.timeofdeath
+	if(H.mind)
+		H.mind.transfer_to(brainmob)
+
+	brainmob << "<span class='notice'>You feel slightly disoriented. That's normal when you're just a [initial(src.name)].</span>"
+	callHook("debrain", list(brainmob))
+
+/obj/item/organ/brain/examine(mob/user) // -- TLE
+	..(user)
+	if(brainmob && brainmob.client)//if thar be a brain inside... the brain.
+		user << "You can feel the small spark of life still left in this one."
+	else
+		user << "This one seems particularly lifeless. Perhaps it will regain some of its luster later.."
+
+/obj/item/organ/brain/removed(var/mob/living/user)
+
+	name = "[owner.real_name]'s brain"
+
+	var/mob/living/simple_animal/borer/borer = owner.has_brain_worms()
+
+	if(borer)
+		borer.detatch() //Should remove borer if the brain is removed - RR
+
+	owner.brain_op_stage = 4.0
+
+	var/obj/item/organ/brain/B = src
+	if(istype(B) && istype(owner))
+		B.transfer_identity(owner)
+
+	..()
+
+/obj/item/organ/brain/replaced(var/mob/living/target)
+
+	if(target.key)
+		target.ghostize()
+
+	if(brainmob)
+		if(brainmob.mind)
+			brainmob.mind.transfer_to(target)
+		else
+			target.key = brainmob.key
+	..()
+
+/obj/item/organ/brain/slime
+	name = "slime core"
+	desc = "A complex, organic knot of jelly and crystalline particles."
+	robotic = 2
+	icon = 'icons/mob/slimes.dmi'
+	icon_state = "green slime extract"
+
+/obj/item/organ/brain/golem
+	name = "chem"
+	desc = "A tightly furled roll of paper, covered with indecipherable runes."
+	robotic = 2
+	icon = 'icons/obj/wizard.dmi'
+	icon_state = "scroll"

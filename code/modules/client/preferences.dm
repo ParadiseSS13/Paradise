@@ -154,6 +154,7 @@ datum/preferences
 	// maps each organ to either null(intact), "cyborg" or "amputated"
 	// will probably not be able to do this for head and torso ;)
 	var/list/organ_data = list()
+	var/list/rlimb_data = list()
 
 	var/list/player_alt_titles = new()		// the default name of a job like "Medical Doctor"
 //	var/accent = "en-us"
@@ -276,13 +277,13 @@ datum/preferences
 						++ind
 						if(ind > 1)
 							dat += ", "
-						dat += "\tMechanical [organ_name] prothesis"
+						var/datum/robolimb/R
+						if(rlimb_data[name] && all_robolimbs[rlimb_data[name]])
+							R = all_robolimbs[rlimb_data[name]]
+						else
+							R = basic_robolimb
+						dat += "\t[R.company] [organ_name] prothesis"
 
-					else if(status == "peg")
-						++ind
-						if(ind > 1)
-							dat += ", "
-						dat += "\tWooden [organ_name] prothesis"
 
 					else if(status == "amputated")
 						++ind
@@ -1259,11 +1260,9 @@ datum/preferences
 							if("Left Leg")
 								limb = "l_leg"
 								second_limb = "l_foot"
-								valid_limb_states += "Peg Leg"
 							if("Right Leg")
 								limb = "r_leg"
 								second_limb = "r_foot"
-								valid_limb_states += "Peg Leg"
 							if("Left Arm")
 								limb = "l_arm"
 								second_limb = "l_hand"
@@ -1289,20 +1288,25 @@ datum/preferences
 						switch(new_state)
 							if("Normal")
 								organ_data[limb] = null
+								rlimb_data[limb] = null
 								if(third_limb)
 									organ_data[third_limb] = null
+									rlimb_data[third_limb] = null
 							if("Amputated")
 								organ_data[limb] = "amputated"
+								rlimb_data[limb] = null
 								if(second_limb)
 									organ_data[second_limb] = "amputated"
+									rlimb_data[second_limb] = null
 							if("Prothesis")
+								var/choice = input(user, "Which manufacturer do you wish to use for this limb?") as null|anything in chargen_robolimbs
+								if(!choice)
+									return
+								rlimb_data[limb] = choice
 								organ_data[limb] = "cyborg"
 								if(second_limb)
+									rlimb_data[second_limb] = choice
 									organ_data[second_limb] = "cyborg"
-							if("Peg Leg")
-								organ_data[limb] = "peg"
-								if(second_limb)
-									organ_data[second_limb] = "amputated"
 
 					if("organs")
 						var/organ_name = input(user, "Which internal function do you want to change?") as null|anything in list("Heart", "Eyes")
@@ -1478,28 +1482,34 @@ datum/preferences
 
 		character.slime_color = slime_color
 
+
 		// Destroy/cyborgize organs
+
 		for(var/name in organ_data)
-			var/datum/organ/external/O = character.organs_by_name[name]
-			var/datum/organ/internal/I = character.internal_organs_by_name[name]
+
 			var/status = organ_data[name]
-			if(status == "amputated")
-				O.status &= ~ORGAN_ROBOT
-				O.status &= ~ORGAN_PEG
-				O.amputated = 1
-				O.status |= ORGAN_DESTROYED
-				O.destspawn = 1
-			if(status == "cyborg")
-				O.status &= ~ORGAN_PEG
-				O.status |= ORGAN_ROBOT
-			if(status == "peg")
-				O.status &= ~ORGAN_ROBOT
-				O.status |= ORGAN_PEG
-			if(status == "assisted")
-				I.mechassist()
-			else if(status == "mechanical")
-				I.mechanize()
-			else continue
+			var/obj/item/organ/external/O = character.organs_by_name[name]
+			if(O)
+				if(status == "amputated")
+					character.organs_by_name[O.limb_name] = null
+					character.organs -= O
+					if(O.children) // This might need to become recursive.
+						for(var/obj/item/organ/external/child in O.children)
+							character.organs_by_name[child.limb_name] = null
+							character.organs -= child
+
+				else if(status == "cyborg")
+					if(rlimb_data[name])
+						O.robotize(rlimb_data[name])
+					else
+						O.robotize()
+			else
+				var/obj/item/organ/I = character.internal_organs_by_name[name]
+				if(I)
+					if(status == "assisted")
+						I.mechassist()
+					else if(status == "mechanical")
+						I.robotize()
 
 		if(disabilities & DISABILITY_FLAG_FAT && character.species.flags & CAN_BE_FAT)//character.species.flags & CAN_BE_FAT)
 			character.mutations += FAT
@@ -1512,8 +1522,8 @@ datum/preferences
 			character.sdisabilities|=DEAF
 
 		// Wheelchair necessary?
-		var/datum/organ/external/l_foot = character.get_organ("l_foot")
-		var/datum/organ/external/r_foot = character.get_organ("r_foot")
+		var/obj/item/organ/external/l_foot = character.get_organ("l_foot")
+		var/obj/item/organ/external/r_foot = character.get_organ("r_foot")
 		if((!l_foot || l_foot.status & ORGAN_DESTROYED) && (!r_foot || r_foot.status & ORGAN_DESTROYED))
 			var/obj/structure/stool/bed/chair/wheelchair/W = new /obj/structure/stool/bed/chair/wheelchair (character.loc)
 			character.buckled = W

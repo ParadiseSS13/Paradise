@@ -752,7 +752,7 @@ datum
 					if(!M.unacidable)
 						if(prob(15) && istype(M, /mob/living/carbon/human) && volume >= 30)
 							var/mob/living/carbon/human/H = M
-							var/datum/organ/external/affecting = H.get_organ("head")
+							var/obj/item/organ/external/affecting = H.get_organ("head")
 							if(affecting)
 								if(affecting.take_damage(25, 0))
 									H.UpdateDamageIcon()
@@ -1179,7 +1179,7 @@ datum
 				M.eye_blind = 0
 				if(ishuman(M))
 					var/mob/living/carbon/human/H = M
-					var/datum/organ/internal/eyes/E = H.internal_organs_by_name["eyes"]
+					var/obj/item/organ/eyes/E = H.internal_organs_by_name["eyes"]
 					if(istype(E))
 						E.damage = max(E.damage-5 , 0)
 				M.SetWeakened(0)
@@ -1251,7 +1251,7 @@ datum
 
 					//Mitocholide is hard enough to get, it's probably fair to make this all internal organs
 					for(var/name in H.internal_organs_by_name)
-						var/datum/organ/internal/I = H.internal_organs_by_name[name]
+						var/obj/item/organ/I = H.internal_organs_by_name[name]
 						if(I.damage > 0)
 							I.damage -= 0.20
 				..()
@@ -2441,7 +2441,7 @@ datum
 					M:drowsyness  = max(M:drowsyness, 30/sober_str)
 					if(ishuman(M))
 						var/mob/living/carbon/human/H = M
-						var/datum/organ/internal/liver/L = H.internal_organs_by_name["liver"]
+						var/obj/item/organ/liver/L = H.internal_organs_by_name["liver"]
 						if (istype(L))
 							L.take_damage(0.1, 1)
 						H.adjustToxLoss(0.1)

@@ -59,7 +59,7 @@
 	component_parts += new /obj/item/weapon/stock_parts/console_screen(null)
 	RefreshParts()
 	files = new /datum/research(src) //Setup the research data holder.
-	
+
 /obj/machinery/mecha_part_fabricator/upgraded/New()
 	..()
 	component_parts = list()
@@ -513,7 +513,7 @@
 			return 1
 		else
 			user << "<span class='danger'>You can't load \the [name] while it's opened.</span>"
-			return 1	
+			return 1
 
 	if(istype(W, /obj/item/stack))
 		var/material
@@ -558,9 +558,9 @@
 		else
 			user << "\The [src] cannot hold any more [sname] sheet\s."
 		return
-		
-/obj/machinery/mecha_part_fabricator/emag_act(user as mob)	
-	emag()	
+
+/obj/machinery/mecha_part_fabricator/emag_act(user as mob)
+	emag()
 
 /obj/machinery/mecha_part_fabricator/proc/material2name(var/ID)
 	return copytext(ID,2)

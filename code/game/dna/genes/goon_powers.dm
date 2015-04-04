@@ -256,11 +256,11 @@
 	if(ishuman(user))
 		var/mob/living/carbon/human/H=user
 		for(var/name in H.organs_by_name)
-			var/datum/organ/external/affecting = null
+			var/obj/item/organ/external/affecting = null
 			if(!H.organs[name])
 				continue
 			affecting = H.organs[name]
-			if(!istype(affecting, /datum/organ/external))
+			if(!istype(affecting, /obj/item/organ/external))
 				continue
 			affecting.heal_damage(4, 0)
 		H.UpdateDamageIcon()
@@ -282,22 +282,22 @@
 		if(the_item.gender==FEMALE)
 			t_his="her"
 		var/mob/living/carbon/human/H = the_item
-		var/datum/organ/external/limb = H.get_organ(usr.zone_sel.selecting)
+		var/obj/item/organ/external/limb = H.get_organ(usr.zone_sel.selecting)
 		if(!istype(limb))
 			usr << "\red You can't eat this part of them!"
 			revert_cast()
 			return 0
-		if(istype(limb,/datum/organ/external/head))
+		if(istype(limb,/obj/item/organ/external/head))
 			// Bullshit, but prevents being unable to clone someone.
 			usr << "\red You try to put \the [limb] in your mouth, but [t_his] ears tickle your throat!"
 			revert_cast()
 			return 0
-		if(istype(limb,/datum/organ/external/chest))
+		if(istype(limb,/obj/item/organ/external/chest))
 			// Bullshit, but prevents being able to instagib someone.
 			usr << "\red You try to put their [limb] in your mouth, but it's too big to fit!"
 			revert_cast()
 			return 0
-		usr.visible_message("\red <b>[usr] begins stuffing [the_item]'s [limb.display_name] into [m_his] gaping maw!</b>")
+		usr.visible_message("\red <b>[usr] begins stuffing [the_item]'s [limb.name] into [m_his] gaping maw!</b>")
 		var/oldloc = H.loc
 		if(!do_mob(usr,H,EAT_MOB_DELAY))
 			usr << "\red You were interrupted before you could eat [the_item]!"
@@ -309,9 +309,9 @@
 				return
 			usr.visible_message("\red [usr] [pick("chomps","bites")] off [the_item]'s [limb]!")
 			playsound(usr.loc, 'sound/items/eatfood.ogg', 50, 0)
-			var/obj/limb_obj=limb.droplimb(1,1)
+			var/obj/limb_obj=limb.droplimb(0,DROPLIMB_BLUNT)
 			if(limb_obj)
-				var/datum/organ/external/chest=usr:get_organ("chest")
+				var/obj/item/organ/external/chest=usr:get_organ("chest")
 				chest.implants += limb_obj
 				limb_obj.loc=usr
 			doHeal(usr)

@@ -112,7 +112,7 @@
 				M.adjustBruteLoss(damage)
 				return
 
-			var/datum/organ/external/affecting
+			var/obj/item/organ/external/affecting
 
 			switch(pick(list("ankle","wrist","head","knee","elbow")))
 				if("ankle")
@@ -127,7 +127,7 @@
 					affecting = H.get_organ("head")
 
 			if(affecting)
-				M << "\red You land heavily on your [affecting.display_name]!"
+				M << "\red You land heavily on your [affecting.name]!"
 				affecting.take_damage(damage, 0)
 				if(affecting.parent)
 					affecting.parent.add_autopsy_data("Misadventure", damage)
