@@ -80,8 +80,13 @@ obj/structure/sign/poster
 	var/ruined = 0
 	var/subtype = 0
 
-obj/structure/sign/poster/New(serial,subtype)
+obj/structure/sign/poster/legit // For mappers looking to pre-spawn NT approved posters.
+	subtype = 1
+
+obj/structure/sign/poster/New(serial,var/subtypeIn = -1)
 	serial_number = serial
+	if(subtypeIn != -1)
+		subtype = subtypeIn
 
 	if(serial_number == loc)
 		if(subtype == 0)
@@ -332,7 +337,11 @@ obj/structure/sign/poster/attackby(obj/item/I, mob/user, params)
 			return
 
 /obj/structure/sign/poster/proc/roll_and_drop(turf/location)
-	var/obj/item/weapon/contraband/poster/P = new(src, serial_number)
+	var/obj/item/weapon/contraband/poster/P
+	if(subtype == 1)
+		P = new/obj/item/weapon/contraband/poster/legit/(src, serial_number)
+	else
+		P = new(src, serial_number)
 	P.resulting_poster = src
 	P.loc = location
 	loc = P
@@ -358,8 +367,27 @@ obj/structure/sign/poster/attackby(obj/item/I, mob/user, params)
 	var/obj/structure/sign/poster/D = P.resulting_poster
 
 	var/temp_loc = user.loc
+
+	switch(getRelativeDirection(user, src))
+		if(NORTH)
+			D.pixel_x = 0
+			D.pixel_y = 32
+		if(EAST)
+			D.pixel_x = 32
+			D.pixel_y = 0
+		if(SOUTH)
+			D.pixel_x = 0
+			D.pixel_y = -32
+		if(WEST)
+			D.pixel_x = -32
+			D.pixel_y = 0
+		else
+			user << "<span class='notice'>You cannot reach the wall from here!</span>"
+			return
+
 	flick("poster_being_set",D)
-	D.loc = src
+	D.loc = temp_loc
+
 	qdel(P)	//delete it now to cut down on sanity checks afterwards. Agouri's code supports rerolling it anyway
 	playsound(D.loc, 'sound/items/poster_being_created.ogg', 100, 1)
 
