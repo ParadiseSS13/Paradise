@@ -577,7 +577,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 ****************************************************/
 
 //Handles dismemberment
-/obj/item/organ/external/proc/droplimb(var/clean, var/disintegrate, var/ignore_children)
+/obj/item/organ/external/proc/droplimb(var/clean, var/disintegrate, var/ignore_children, var/nodamage)
 
 	if(cannot_amputate || !owner)
 		return
@@ -608,7 +608,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 	victim.traumatic_shock += 30
 
 	wounds.Cut()
-	if(parent)
+	if(parent && !nodamage)
 		var/datum/wound/W
 		if(clean || max_damage < 50)
 			W = new/datum/wound/lost_limb/small(max_damage)
@@ -868,8 +868,8 @@ Note that amputating the affected organ does in fact remove the infection from t
 	name = "upper body"
 	limb_name = "chest"
 	icon_name = "torso"
-	health = 100
-	min_broken_damage = 35
+	max_damage = 100
+	min_broken_damage = 50
 	body_part = UPPER_TORSO
 	vital = 1
 	amputation_point = "spine"
@@ -882,8 +882,8 @@ Note that amputating the affected organ does in fact remove the infection from t
 	name = "lower body"
 	limb_name = "groin"
 	icon_name = "groin"
-	health = 100
-	min_broken_damage = 35
+	max_damage = 100
+	min_broken_damage = 50
 	body_part = LOWER_TORSO
 	vital = 1
 	parent_organ = "chest"
@@ -894,7 +894,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 	limb_name = "l_arm"
 	name = "left arm"
 	icon_name = "l_arm"
-	health = 50
+	max_damage = 60
 	min_broken_damage = 30
 	body_part = ARM_LEFT
 	parent_organ = "chest"
@@ -912,7 +912,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 	limb_name = "l_leg"
 	name = "left leg"
 	icon_name = "l_leg"
-	health = 50
+	max_damage = 60
 	min_broken_damage = 30
 	body_part = LEG_LEFT
 	icon_position = LEFT
@@ -932,7 +932,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 	limb_name = "l_foot"
 	name = "left foot"
 	icon_name = "l_foot"
-	health = 30
+	max_damage = 30
 	min_broken_damage = 15
 	body_part = FOOT_LEFT
 	icon_position = LEFT
@@ -957,7 +957,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 	limb_name = "l_hand"
 	name = "left hand"
 	icon_name = "l_hand"
-	health = 30
+	max_damage = 30
 	min_broken_damage = 15
 	body_part = HAND_LEFT
 	parent_organ = "l_arm"
@@ -980,7 +980,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 	limb_name = "head"
 	icon_name = "head"
 	name = "head"
-	health = 75
+	max_damage = 70
 	min_broken_damage = 35
 	body_part = HEAD
 	vital = 1
