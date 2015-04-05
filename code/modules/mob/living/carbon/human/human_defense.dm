@@ -240,7 +240,7 @@ emp_act
 			del(src)
 
 	var/obj/item/organ/external/affecting = get_organ(ran_zone(user.zone_sel.selecting))
-	if(affecting.is_stump() || !affecting || affecting.status & ORGAN_DESTROYED)
+	if(!affecting || affecting.is_stump() || (affecting.status & ORGAN_DESTROYED))
 		user << "<span class='danger'>They are missing that limb!</span>"
 		return 1
 	var/hit_area = affecting.name
