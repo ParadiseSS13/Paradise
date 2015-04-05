@@ -260,6 +260,7 @@
 		name = "Spiky"
 		icon_state = "hair_spikey"
 		species_allowed = list("Human","Unathi")
+
 	kusangi
 		name = "Kusanagi Hair"
 		icon_state = "hair_kusanagi"
@@ -302,6 +303,44 @@
 		name = "Balding Hair"
 		icon_state = "hair_e"
 		gender = MALE // turnoff!
+//////////////////////////////
+//////START VG HAIRSTYLES/////
+//////////////////////////////
+	birdnest
+		name = "Bird Nest"
+		icon_state = "hair_birdnest"
+
+	unkept
+		name = "Unkempt"
+		icon_state = "hair_unkept"
+
+	duelist
+		name = "Duelist"
+		icon_state = "hair_duelist"
+		gender = MALE
+
+	modern
+		name = "Modern"
+		icon_state = "hair_modern"
+		gender = FEMALE
+
+	unshavenmohawk
+		name = "Unshaven Mohawk"
+		icon_state = "hair_unshavenmohawk"
+		gender = MALE
+
+	drills
+		name = "Twincurls"
+		icon_state = "hair_twincurl"
+		gender = FEMALE
+
+	minidrills
+		name = "Twincurls 2"
+		icon_state = "hair_twincurl2"
+		gender = FEMALE
+//////////////////////////////
+//////END VG HAIRSTYLES///////
+//////////////////////////////
 
 	icp_screen_pink
 		name = "pink IPC screen"
@@ -462,6 +501,33 @@
 	dwarf
 		name = "Dwarf Beard"
 		icon_state = "facial_dwarf"
+
+//////////////////////////////
+//////START VG HAIRSTYLES/////
+//////////////////////////////
+	britstache
+		name = "Brit Stache"
+		icon_state = "facial_britstache"
+
+	martialartist
+		name = "Martial Artist"
+		icon_state = "facial_martialartist"
+
+	moonshiner
+		name = "Moonshiner"
+		icon_state = "facial_moonshiner"
+
+	tribeard
+		name = "Tri-beard"
+		icon_state = "facial_tribeard"
+
+	unshaven
+		name = "Unshaven"
+		icon_state = "facial_unshaven"
+//////////////////////////////
+//////END VG HAIRSTYLES///////
+//////////////////////////////
+
 
 /*
 ///////////////////////////////////

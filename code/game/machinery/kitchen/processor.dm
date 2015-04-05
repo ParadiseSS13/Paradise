@@ -1,4 +1,3 @@
-
 /obj/machinery/processor
 	name = "Food Processor"
 	icon = 'icons/obj/kitchen.dmi'
@@ -6,95 +5,108 @@
 	layer = 2.9
 	density = 1
 	anchored = 1
+
 	var/broken = 0
 	var/processing = 0
+
 	use_power = 1
 	idle_power_usage = 5
 	active_power_usage = 50
 
 
-
+//RECIPE DATUMS
 /datum/food_processor_process
 	var/input
 	var/output
 	var/time = 40
-	proc/process(loc, what)
-		if (src.output && loc)
-			new src.output(loc)
-		if (what)
-			del(what)
 
-	/* objs */
-	meat
-		input = /obj/item/weapon/reagent_containers/food/snacks/meat
-		output = /obj/item/weapon/reagent_containers/food/snacks/meatball
+/datum/food_processor_process/proc/process(loc, what)
+	if (src.output && loc)
+		new src.output(loc)
+	if (what)
+		del(what)
 
-	potato
-		input = /obj/item/weapon/reagent_containers/food/snacks/grown/potato
-		output = /obj/item/weapon/reagent_containers/food/snacks/fries
+/////////////////////////
+/////OBJECT RECIPIES/////
+/////////////////////////
+/datum/food_processor_process/meat
+	input = /obj/item/weapon/reagent_containers/food/snacks/meat
+	output = /obj/item/weapon/reagent_containers/food/snacks/meatball
 
-	carrot
-		input = /obj/item/weapon/reagent_containers/food/snacks/grown/carrot
-		output = /obj/item/weapon/reagent_containers/food/snacks/carrotfries
+/datum/food_processor_process/potato
+	input = /obj/item/weapon/reagent_containers/food/snacks/grown/potato
+	output = /obj/item/weapon/reagent_containers/food/snacks/fries
 
-	soybeans
-		input = /obj/item/weapon/reagent_containers/food/snacks/grown/soybeans
-		output = /obj/item/weapon/reagent_containers/food/snacks/soydope
+/datum/food_processor_process/carrot
+	input = /obj/item/weapon/reagent_containers/food/snacks/grown/carrot
+	output = /obj/item/weapon/reagent_containers/food/snacks/carrotfries
 
-	wheat
-		input = /obj/item/weapon/reagent_containers/food/snacks/grown/wheat
-		output = /obj/item/weapon/reagent_containers/food/snacks/flour
+/datum/food_processor_process/soybeans
+	input = /obj/item/weapon/reagent_containers/food/snacks/grown/soybeans
+	output = /obj/item/weapon/reagent_containers/food/snacks/soydope
 
-	spaghetti
-		input = /obj/item/weapon/reagent_containers/food/snacks/flour
-		output = /obj/item/weapon/reagent_containers/food/snacks/spagetti
+/datum/food_processor_process/wheat
+	input = /obj/item/weapon/reagent_containers/food/snacks/grown/wheat
+	output = /obj/item/weapon/reagent_containers/food/snacks/flour
 
-	/* mobs */
-	mob
-		process(loc, what)
-			..()
+/datum/food_processor_process/spaghetti
+	input = /obj/item/weapon/reagent_containers/food/snacks/flour
+	output = /obj/item/weapon/reagent_containers/food/snacks/spagetti
+/////////////////////////
+///END OBJECT RECIPIES///
+/////////////////////////
 
+/datum/food_processor_process/mob/process(loc, what)
+	..()
 
-		slime
-			process(loc, what)
-				var/mob/living/carbon/slime/S = what
-				var/C = S.cores
-				if(S.stat != DEAD)
-					S.loc = loc
-					S.visible_message("<span class='notice'>[C] crawls free of the processor!</span>")
-					return
-				for(var/i = 1, i <= C, i++)
-					new S.coretype(loc)
-					feedback_add_details("slime_core_harvested","[replacetext(S.colour," ","_")]")
-				..()
+//////////////////////
+/////MOB RECIPIES/////
+//////////////////////
+/datum/food_processor_process/mob/slime
+	input = /mob/living/carbon/slime
+	output = null
 
-			input = /mob/living/carbon/slime
-			output = null
+/datum/food_processor_process/mob/slime/process(loc, what)
+	var/mob/living/carbon/slime/S = what
+	var/C = S.cores
+	if(S.stat != DEAD)
+		S.loc = loc
+		S.visible_message("<span class='notice'>[S] crawls free of the processor!</span>")
+		return
+	for(var/i = 1, i <= C, i++)
+		new S.coretype(loc)
+		feedback_add_details("slime_core_harvested","[replacetext(S.colour," ","_")]")
+	..()
 
-		monkey
-			process(loc, what)
-				var/mob/living/carbon/monkey/O = what
-				if (O.client) //grief-proof
-					O.loc = loc
-					O.visible_message("\blue Suddenly [O] jumps out from the processor!", \
-							"You jump out from the processor", \
-							"You hear chimp")
-					return
-				var/obj/item/weapon/reagent_containers/glass/bucket/bucket_of_blood = new(loc)
-				var/datum/reagent/blood/B = new()
-				B.holder = bucket_of_blood
-				B.volume = 70
-				//set reagent data
-				B.data["donor"] = O
-				B.data["blood_DNA"] = copytext(O.dna.unique_enzymes,1,0)
-				bucket_of_blood.reagents.reagent_list += B
-				bucket_of_blood.reagents.update_total()
-				bucket_of_blood.on_reagent_change()
-				//bucket_of_blood.reagents.handle_reactions() //blood doesn't react
-				..()
+/datum/food_processor_process/mob/monkey
+	input = /mob/living/carbon/monkey
+	output = null
 
-			input = /mob/living/carbon/monkey
-			output = null
+/datum/food_processor_process/mob/monkey/process(loc, what)
+	var/mob/living/carbon/monkey/O = what
+	if (O.client) //grief-proof
+		O.loc = loc
+		O.visible_message("<span class='notice'>Suddenly [O] jumps out from the processor!</span>", \
+				"<span class='notice'>You jump out of \the [src].</span>", \
+				"<span class='notice'>You hear a chimp.</span>")
+		return
+	var/obj/item/weapon/reagent_containers/glass/bucket/bucket_of_blood = new(loc)
+	var/datum/reagent/blood/B = new()
+	B.holder = bucket_of_blood
+	B.volume = 70
+	//set reagent data
+	B.data["donor"] = O.name
+	B.data["blood_DNA"] = copytext(O.dna.unique_enzymes,1,0)
+	bucket_of_blood.reagents.reagent_list += B
+	bucket_of_blood.reagents.update_total()
+	bucket_of_blood.on_reagent_change()
+	//bucket_of_blood.reagents.handle_reactions() //blood doesn't react
+	..()
+////////////////////////
+////END MOB RECIPIES////
+////////////////////////
+
+//END RECIPE DATUMS
 
 /obj/machinery/processor/proc/select_recipe(var/X)
 	for (var/Type in typesof(/datum/food_processor_process) - /datum/food_processor_process - /datum/food_processor_process/mob)
@@ -105,51 +117,69 @@
 	return 0
 
 /obj/machinery/processor/attackby(var/obj/item/O as obj, var/mob/user as mob, params)
+	if(!istype(O))
+		return
+
+	var/obj/item/what = O
+
 	if(src.processing)
-		user << "\red The processor is in the process of processing."
+		user << "<span class='warning'>\the [src] is already processing something!</span>"
 		return 1
+
 	if(src.contents.len > 0) //TODO: several items at once? several different items?
-		user << "\red Something is already in the processing chamber."
+		user << "<span class='warning'>Something is already in the processing chamber.</span>"
 		return 1
-	var/what = O
+
+
 	if (istype(O, /obj/item/weapon/grab))
 		var/obj/item/weapon/grab/G = O
 		what = G.affecting
 
 	var/datum/food_processor_process/P = select_recipe(what)
+
 	if (!P)
-		user << "\red That probably won't blend."
+		user << "<span class='warning'>That probably won't blend.</span>"
 		return 1
-	user.visible_message("[user] put [what] into [src].", \
-		"You put the [what] into [src].")
+
+	user.visible_message("<span class='notice'>\the [user] puts \the [what] into \the [src].</span>", \
+		"<span class='notice'>You put \the [what] into \the [src].")
+
 	user.drop_item()
-	what:loc = src
+
+	what.loc = src
 	return
 
 /obj/machinery/processor/attack_hand(var/mob/user as mob)
-	if (src.stat != 0) //NOPOWER etc
+	if(stat & (NOPOWER|BROKEN)) //no power or broken
 		return
+
 	if(src.processing)
-		user << "\red The processor is in the process of processing."
+		user << "<span class='warning'>\the [src] is already processing something!</span>"
 		return 1
+
 	if(src.contents.len == 0)
-		user << "\red The processor is empty."
+		user << "<span class='warning'>\the [src] is empty.</span>"
 		return 1
+
 	for(var/O in src.contents)
 		var/datum/food_processor_process/P = select_recipe(O)
 		if (!P)
-			log_admin("DEBUG: [O] in processor havent suitable recipe. How do you put it in?") //-rastaf0
+			log_admin("DEBUG: WARNING: The [O] in processor([src]) does not have a suitable recipe, but it was somehow put inside of the processor anyways.") //-rastaf0
 			continue
+
 		src.processing = 1
-		user.visible_message("\blue [user] turns on \a [src].", \
-			"You turn on \a [src].", \
-			"You hear a food processor.")
+		user.visible_message("<span class='notice'> \the [user] turns on \the [src].", \
+			"<span class='notice'>You turn on \the [src].</span>", \
+			"<span class='notice'>You hear a food processor.</span>")
+
 		playsound(src.loc, 'sound/machines/blender.ogg', 50, 1)
 		use_power(500)
+
 		sleep(P.time)
+
 		P.process(src.loc, O)
 		src.processing = 0
-	src.visible_message("\blue \the [src] finished processing.", \
-		"You hear the food processor stopping/")
 
-
+	src.visible_message("<span class='notice'>\the [src] has finished processing.</span>", \
+		"<span class='notice'>\the [src] has finished processing.</span>", \
+		"<span class='notice'>You hear a food processor stopping.</span>")

@@ -288,7 +288,7 @@ datum
 			id = "lube"
 			description = "Lubricant is a substance introduced between two moving surfaces to reduce the friction and wear between them. giggity."
 			reagent_state = LIQUID
-			color = "#009CA8" // rgb: 0, 156, 168
+			color = "#1BB1AB"
 
 			reaction_turf(var/turf/simulated/T, var/volume)
 				if (!istype(T)) return
@@ -994,7 +994,7 @@ datum
 		fuel
 			name = "Welding fuel"
 			id = "fuel"
-			description = "Required for welders. Flamable."
+			description = "A highly flammable blend of basic hydrocarbons, mostly Acetylene. Useful for both welding and organic chemistry, and can be fortified into a heavier oil."
 			reagent_state = LIQUID
 			color = "#060606"
 
@@ -1144,7 +1144,7 @@ datum
 			id = "lexorin"
 			description = "Lexorin temporarily stops respiration. Causes tissue damage."
 			reagent_state = LIQUID
-			color = "#32127A" // rgb: 50, 18, 122
+			color = "#52685D"
 			metabolization_rate = 0.2
 
 			on_mob_life(var/mob/living/M as mob)
@@ -1280,7 +1280,7 @@ datum
 			id = "clonexadone"
 			description = "A liquid compound similar to that used in the cloning process. Can be used to 'finish' clones that get ejected early when used in conjunction with a cryo tube."
 			reagent_state = LIQUID
-			color = "#C8A5DC" // rgb: 200, 165, 220
+			color = "#0000C8" // rgb: 200, 165, 220
 
 			on_mob_life(var/mob/living/M as mob)
 				if(!M) M = holder.my_atom
@@ -1423,7 +1423,7 @@ datum
 
 				return
 
-//foam precursor
+//foam
 
 		fluorosurfactant
 			name = "Fluorosurfactant"
@@ -1434,13 +1434,6 @@ datum
 
 // metal foaming agent
 // this is lithium hydride. Add other recipies (e.g. LiH + H2O -> LiOH + H2) eventually
-
-		foaming_agent
-			name = "Foaming agent"
-			id = "foaming_agent"
-			description = "A agent that yields metallic foam when mixed with light metal and a strong acid."
-			reagent_state = SOLID
-			color = "#664B63" // rgb: 102, 75, 99
 
 		ammonia
 			name = "Ammonia"

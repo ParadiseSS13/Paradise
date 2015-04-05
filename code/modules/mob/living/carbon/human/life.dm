@@ -213,31 +213,14 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 					if(3)
 						emote("drool")
 
-        /*
-		if(species.name == "Tajaran")
-			if(prob(1))
-				if(prob(1))
-					vomit(1) // Hairball
+		if(getBrainLoss() >= 100 && stat != 2) //you lapse into a coma and die without immediate aid; RIP. -Fox
+			Weaken(20)
+			losebreath += 10
+			silent += 2
 
-        */
-
-		if(stat != 2)
-			var/rn = rand(0, 200)
-			if(getBrainLoss() >= 5)
-				if(0 <= rn && rn <= 3)
-					custom_pain("Your head feels numb and painful.")
-			if(getBrainLoss() >= 15)
-				if(4 <= rn && rn <= 6) if(eye_blurry <= 0)
-					src << "\red It becomes hard to see for some reason."
-					eye_blurry = 10
-			if(getBrainLoss() >= 35)
-				if(7 <= rn && rn <= 9) if(hand && equipped())
-					src << "\red Your hand won't respond properly, you drop what you're holding."
-					drop_item()
-			if(getBrainLoss() >= 50)
-				if(10 <= rn && rn <= 12) if(!lying)
-					src << "\red Your legs won't respond properly, you fall down."
-					resting = 1
+		if(getBrainLoss() >= 120 && stat != 2) //they died from stupidity--literally. -Fox
+			visible_message("<span class='danger'><B>[src]</B> goes limp, their facial expression utterly blank.</span>")
+			death()
 
 	proc/handle_stasis_bag()
 		// Handle side effects from stasis bag
@@ -1908,7 +1891,7 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 	else
 		losebreath += 5
 		adjustOxyLoss(10)
-		adjustBrainLoss(10)
+		adjustBrainLoss(rand(4,10))
 		Paralyse(2)
 	return
 

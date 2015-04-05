@@ -218,7 +218,7 @@
 	src.icon_state = "pod_1"
 	//Get the clone body ready
 	H.adjustCloneLoss(190) //new damage var so you can't eject a clone early then stab them to abuse the current damage system --NeoFite
-	H.adjustBrainLoss(190) // The rand(10, 30) will come out as extra brain damage
+	H.adjustBrainLoss(90) // The rand(10, 30) will come out as extra brain damage
 	H.Paralyse(4)
 
 	//Here let's calculate their health so the pod doesn't immediately eject them!!!
@@ -298,7 +298,7 @@
 			src.occupant.adjustCloneLoss(-((speed_coeff/2)))
 
 			//Premature clones may have brain damage.
-			src.occupant.adjustBrainLoss(-((speed_coeff/2)))
+			src.occupant.adjustBrainLoss(-((speed_coeff/20)*efficiency))
 
 			//So clones don't die of oxyloss in a running pod.
 			if (src.occupant.reagents.get_reagent_amount("salbutamol") < 5)

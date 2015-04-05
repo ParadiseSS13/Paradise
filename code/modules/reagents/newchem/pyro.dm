@@ -22,7 +22,7 @@
 /datum/reagent/clf3
 	name = "Chlorine Trifluoride"
 	id = "clf3"
-	description = "Makes a temporary 3x3 fireball when it comes into existence, so be careful when mixing. ClF3 applied to a surface burns things that wouldn't otherwise burn, sometimes through the very floors of the station and exposing it to the vacuum of space."
+	description = "An extremely volatile substance, handle with the utmost care."
 	reagent_state = LIQUID
 	color = "#FF0000"
 	metabolization_rate = 4
@@ -511,4 +511,71 @@ datum/reagent/pyrosium/on_tick()
 /datum/chemical_reaction/azide/on_reaction(var/datum/reagents/holder, var/created_volume)
 	var/location = get_turf(holder.my_atom)
 	explosion(location,0,1,3)
+	return
+
+datum/reagent/firefighting_foam
+	name = "Firefighting foam"
+	id = "firefighting_foam"
+	description = "Carbon Tetrachloride is a foam used for fire suppression."
+	reagent_state = LIQUID
+	color = "#A0A090"
+	var/cooling_temperature = 3 // more effective than water
+
+/datum/chemical_reaction/firefighting_foam
+	name = "firefighting_foam"
+	id = "firefighting_foam"
+	result = "firefighting_foam"
+	required_reagents = list("carbon" = 1, "chlorine" = 1, "sulfur" = 1)
+	result_amount = 3
+	mix_message = "The mixture bubbles gently."
+
+datum/reagent/firefighting_foam/reaction_mob(var/mob/living/M, var/method=TOUCH, var/volume)
+	if(!istype(M, /mob/living))
+		return
+
+// Put out fire
+	if(method == TOUCH)
+		M.adjust_fire_stacks(-(volume / 5)) // more effective than water
+		if(M.fire_stacks <= 0)
+			M.ExtinguishMob()
+		return
+
+datum/reagent/firefighting_foam/reaction_turf(var/turf/simulated/T, var/volume)
+	if (!istype(T)) return
+	var/CT = cooling_temperature
+	src = null
+	if(!istype(T, /turf/space))
+		new /obj/effect/decal/cleanable/flour/foam(T) //foam mess; clears up quickly.
+	var/hotspot = (locate(/obj/fire) in T)
+	if(hotspot && !istype(T, /turf/space))
+		var/datum/gas_mixture/lowertemp = T.remove_air( T:air:total_moles() )
+		lowertemp.temperature = max( min(lowertemp.temperature-(CT*1000),lowertemp.temperature / CT) ,0)
+		lowertemp.react()
+		T.assume_air(lowertemp)
+		qdel(hotspot)
+	return
+
+datum/reagent/firefighting_foam/reaction_obj(var/obj/O, var/volume)
+	src = null
+	var/turf/T = get_turf(O)
+	var/hotspot = (locate(/obj/fire) in T)
+	if(hotspot && !istype(T, /turf/space))
+		var/datum/gas_mixture/lowertemp = T.remove_air( T:air:total_moles() )
+		lowertemp.temperature = max( min(lowertemp.temperature-2000,lowertemp.temperature / 2) ,0)
+		lowertemp.react()
+		T.assume_air(lowertemp)
+		del(hotspot)
+	return
+
+/datum/chemical_reaction/clf3_firefighting
+	name = "clf3_firefighting"
+	id = "clf3_firefighting"
+	result = null
+	required_reagents = list("firefighting_foam" = 1, "clf3" = 1)
+	result_amount = 1
+	mix_message = "The substance violently detonates!"
+
+/datum/chemical_reaction/clf3_firefighting/on_reaction(var/datum/reagents/holder, var/created_volume)
+	var/location = get_turf(holder.my_atom)
+	explosion(location,0,0,3)
 	return
