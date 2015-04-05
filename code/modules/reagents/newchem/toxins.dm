@@ -333,6 +333,22 @@ datum/reagent/initropidril/on_mob_life(var/mob/living/M as mob)
 	..()
 	return
 
+datum/reagent/concentrated_initro
+	name = "Concentrated Initropidril"
+	id = "concentrated_initro"
+	description = "A guaranteed heart-stopper!"
+	reagent_state = LIQUID
+	color = "#AB1CCF"
+	metabolization_rate = 0.4
+
+datum/reagent/concentrated_initro/on_mob_life(var/mob/living/M as mob)
+	if(!M) M = holder.my_atom
+	if(volume >=5)
+		var/mob/living/carbon/human/H = M
+		if(!H.heart_attack)
+			H.visible_message("<span class = 'userdanger'>[H] clutches at their chest!</span>")
+			H.heart_attack = 1 // rip in pepperoni
+
 datum/reagent/pancuronium
 	name = "Pancuronium"
 	id = "pancuronium"
@@ -426,9 +442,9 @@ datum/reagent/sulfonal/on_mob_life(var/mob/living/M as mob)
 datum/reagent/amanitin
 	name = "Amanitin"
 	id = "amanitin"
-	description = "On the last second that it's in you, it hits you with a stack of toxin damage based on how long it's been in you. The more you use, the longer it takes before anything happens, but the harder it hits when it does."
+	description = "A toxin produced by certain mushrooms. Very deadly."
 	reagent_state = LIQUID
-	color = "#CF3600"
+	color = "#D9D9D9"
 
 datum/reagent/amanitin/on_mob_life(var/mob/living/M as mob)
 	if(!M) M = holder.my_atom
