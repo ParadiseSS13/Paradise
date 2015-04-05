@@ -273,6 +273,16 @@
 		src.pixel_x = rand(-10.0, 10)
 		src.pixel_y = rand(-10.0, 10)
 
+/obj/item/weapon/reagent_containers/food/drinks/chicken_soup
+	name = "Cup Chicken Soup"
+	desc = "A delicious and soothing cup of chicken noodle soup; just like spessmom used to make it."
+	icon_state = "ramen"
+	New()
+		..()
+		reagents.add_reagent("chicken_soup", 30)
+		src.pixel_x = rand(-10.0, 10)
+		src.pixel_y = rand(-10.0, 10)
+
 /obj/item/weapon/reagent_containers/food/drinks/sillycup
 	name = "Paper Cup"
 	desc = "A paper water cup."

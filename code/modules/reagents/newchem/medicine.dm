@@ -422,6 +422,7 @@ datum/reagent/diphenhydramine/on_mob_life(var/mob/living/M as mob)
 	M.drowsyness += 1
 	M.jitteriness -= 1
 	M.reagents.remove_reagent("histamine",3)
+	M.reagents.remove_reagent("itching_powder",3)
 	..()
 	return
 

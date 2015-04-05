@@ -126,6 +126,19 @@ datum/reagent/honey/reaction_turf(var/turf/T, var/volume)
 		new /obj/item/weapon/reagent_containers/food/snacks/honeycomb(T)
 		return */
 
+/datum/reagent/chocolate
+	name = "Chocolate"
+	id = "chocolate"
+	description = "Chocolate is a delightful product derived from the seeds of the theobroma cacao tree."
+	reagent_state = LIQUID
+	color = "#2E2418"
+
+datum/reagent/chocolate/on_mob_life(var/mob/living/M as mob)
+	if(!M) M = holder.my_atom
+	M.reagents.add_reagent("sugar", 0.8)
+	..()
+	return
+
 /datum/reagent/mugwort
 	name = "Mugwort"
 	id = "mugwort"
@@ -158,5 +171,51 @@ datum/reagent/porktonium/overdose_process(var/mob/living/M as mob)
 		if(prob(8))
 			M.reagents.add_reagent("cyanide", 10)
 			M.reagents.add_reagent("radium", 15)
+	..()
+	return
+
+/datum/reagent/fungus
+	name = "Space fungus"
+	id = "fungus"
+	description = "Scrapings of some unknown fungus found growing on the station walls."
+	reagent_state = LIQUID
+	color = "#C87D28"
+
+datum/reagent/fungus/reaction_mob(var/mob/M, var/method=TOUCH, var/volume)
+	if(!istype(M, /mob/living))
+		return
+	if(method == INGEST)
+		M << "<span class = 'danger'>Yuck!</span>"
+
+/datum/reagent/chicken_soup
+	name = "Chicken soup"
+	id = "chicken_soup"
+	description = "An old household remedy for mild illnesses."
+	reagent_state = LIQUID
+	color = "#B4B400"
+
+/datum/reagent/chicken_soup/on_mob_life(var/mob/living/M as mob)
+	M.nutrition += 2
+	..()
+	return
+
+/datum/reagent/msg
+	name = "Monosodium glutamate"
+	id = "msg"
+	description = "Monosodium Glutamate is a sodium salt known chiefly for its use as a controversial flavor enhancer."
+	reagent_state = LIQUID
+	color = "#F5F5F5"
+
+datum/reagent/msg/reaction_mob(var/mob/M, var/method=TOUCH, var/volume)
+	if(!istype(M, /mob/living))
+		return
+	if(method == INGEST)
+		M << "<span class = 'notice'>That tasted amazing!</span>"
+
+
+/datum/reagent/msg/on_mob_life(var/mob/living/M as mob)
+	if(prob(1))
+		M.Stun(rand(4,10))
+		M << "<span class='warning'>A horrible migraine overpowers you.</span>"
 	..()
 	return
