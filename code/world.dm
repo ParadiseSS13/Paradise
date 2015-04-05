@@ -41,6 +41,9 @@
 
 	sleep_offline = 1
 
+	// Create robolimbs for chargen.
+	populate_robolimb_list()
+
 	processScheduler = new
 	master_controller = new /datum/controller/game_controller()
 	spawn(1)

@@ -250,7 +250,7 @@ datum/reagent/facid/reaction_mob(var/mob/living/M, var/method=TOUCH, var/volume)
 				return
 
 			if(!H.unacidable)
-				var/datum/organ/external/affecting = H.get_organ("head")
+				var/obj/item/organ/external/affecting = H.get_organ("head")
 				if(affecting.take_damage(15, 0))
 					H.UpdateDamageIcon()
 				H.emote("scream")
@@ -272,7 +272,7 @@ datum/reagent/facid/reaction_mob(var/mob/living/M, var/method=TOUCH, var/volume)
 		if(!M.unacidable)
 			if(ishuman(M))
 				var/mob/living/carbon/human/H = M
-				var/datum/organ/external/affecting = H.get_organ("head")
+				var/obj/item/organ/external/affecting = H.get_organ("head")
 				if(affecting.take_damage(15, 0))
 					H.UpdateDamageIcon()
 				H.emote("scream")

@@ -32,7 +32,7 @@
 
 		force = 5
 
-		var/datum/organ/external/affecting = user.zone_sel.selecting //Find what the player is aiming at
+		var/obj/item/organ/external/affecting = user.zone_sel.selecting //Find what the player is aiming at
 
 		var/armor_block = 0 //Get the target's armour values for normal attack damage.
 

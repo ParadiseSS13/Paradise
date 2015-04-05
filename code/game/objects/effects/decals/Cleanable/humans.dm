@@ -51,8 +51,8 @@ var/global/list/image/splatter_cache=list()
 	if(amount < 1)
 		return
 
-	var/datum/organ/external/l_foot = perp.get_organ("l_foot")
-	var/datum/organ/external/r_foot = perp.get_organ("r_foot")
+	var/obj/item/organ/external/l_foot = perp.get_organ("l_foot")
+	var/obj/item/organ/external/r_foot = perp.get_organ("r_foot")
 	var/hasfeet = 1
 	if((!l_foot || l_foot.status & ORGAN_DESTROYED) && (!r_foot || r_foot.status & ORGAN_DESTROYED))
 		hasfeet = 0

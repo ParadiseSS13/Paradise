@@ -526,11 +526,11 @@ client/proc/one_click_antag()
 	new_vox.h_style = "Short Vox Quills"
 	new_vox.f_style = "Shaved"
 
-	for(var/datum/organ/external/limb in new_vox.organs)
+	for(var/obj/item/organ/external/limb in new_vox.organs)
 		limb.status &= ~(ORGAN_DESTROYED | ORGAN_ROBOT)
 
 	//Now apply cortical stack.
-	var/datum/organ/external/E = new_vox.get_organ("head")
+	var/obj/item/organ/external/E = new_vox.get_organ("head")
 	var/obj/item/weapon/implant/cortical/I = new(new_vox)
 	I.imp_in = new_vox
 	I.implanted = 1

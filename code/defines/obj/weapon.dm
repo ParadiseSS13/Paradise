@@ -370,8 +370,8 @@
 							qdel(src)
 
 		proc/dead_legs(mob/living/carbon/human/H as mob)
-			var/datum/organ/external/l = H.get_organ("l_leg")
-			var/datum/organ/external/r = H.get_organ("r_leg")
+			var/obj/item/organ/external/l = H.get_organ("l_leg")
+			var/obj/item/organ/external/r = H.get_organ("r_leg")
 			if(l && !(l.status & ORGAN_DESTROYED))
 				l.status |= ORGAN_DESTROYED
 			if(r && !(r.status & ORGAN_DESTROYED))

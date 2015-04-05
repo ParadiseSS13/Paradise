@@ -787,8 +787,8 @@ var/list/slot_equipment_priority = list( \
 		var/mob/living/carbon/human/H = src
 		if(H.health - H.halloss <= config.health_threshold_softcrit)
 			for(var/name in H.organs_by_name)
-				var/datum/organ/external/e = H.organs_by_name[name]
-				if(H.lying)
+				var/obj/item/organ/external/e = H.organs_by_name[name]
+				if(e && H.lying)
 					if(((e.status & ORGAN_BROKEN && !(e.status & ORGAN_SPLINTED)) || e.status & ORGAN_BLEEDING) && (H.getBruteLoss() + H.getFireLoss() >= 100))
 						return 1
 						break
@@ -1071,14 +1071,15 @@ var/list/slot_equipment_priority = list( \
 		lying = 1
 		canmove = 0
 	else if( stunned )
-//		lying = 0
 		canmove = 0
-	else if (!buckled)
-		lying = !can_stand
-		canmove = has_limbs
+	else
+		lying = 0
+		canmove = 1
 
 	if(lying)
 		density = 0
+		drop_l_hand()
+		drop_r_hand()
 	else
 		density = 1
 
@@ -1296,9 +1297,9 @@ mob/proc/yank_out_object()
 	if(ishuman(src))
 
 		var/mob/living/carbon/human/H = src
-		var/datum/organ/external/affected
+		var/obj/item/organ/external/affected
 
-		for(var/datum/organ/external/organ in H.organs) //Grab the organ holding the implant.
+		for(var/obj/item/organ/external/organ in H.organs) //Grab the organ holding the implant.
 			for(var/obj/item/weapon/O in organ.implants)
 				if(O == selection)
 					affected = organ
@@ -1316,6 +1317,8 @@ mob/proc/yank_out_object()
 			human_user.bloody_hands(H)
 
 	selection.loc = get_turf(src)
+	if(!(U.l_hand && U.r_hand))
+		U.put_in_hands(selection)
 
 	for(var/obj/item/weapon/O in pinned)
 		if(O == selection)

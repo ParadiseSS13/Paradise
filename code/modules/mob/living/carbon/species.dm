@@ -53,6 +53,8 @@
 
 	var/blood_color = "#A10808" //Red.
 	var/flesh_color = "#FFC896" //Pink.
+	var/single_gib_type = /obj/effect/decal/cleanable/blood/gibs
+
 	var/base_color      //Used when setting species.
 
 	//Used in icon caching.
@@ -66,6 +68,31 @@
 	var/list/speech_sounds                   // A list of sounds to potentially play when speaking.
 	var/list/speech_chance                   // The likelihood of a speech sound playing.
 
+                              // Determines the organs that the species spawns with and
+	var/list/has_organ = list(    // which required-organ checks are conducted.
+		"heart" =    /obj/item/organ/heart,
+		"lungs" =    /obj/item/organ/lungs,
+		"liver" =    /obj/item/organ/liver,
+		"kidneys" =  /obj/item/organ/kidneys,
+		"brain" =    /obj/item/organ/brain,
+		"appendix" = /obj/item/organ/appendix,
+		"eyes" =     /obj/item/organ/eyes
+		)
+
+	var/list/has_limbs = list(
+		"chest" =  list("path" = /obj/item/organ/external/chest),
+		"groin" =  list("path" = /obj/item/organ/external/groin),
+		"head" =   list("path" = /obj/item/organ/external/head),
+		"l_arm" =  list("path" = /obj/item/organ/external/arm),
+		"r_arm" =  list("path" = /obj/item/organ/external/arm/right),
+		"l_leg" =  list("path" = /obj/item/organ/external/leg),
+		"r_leg" =  list("path" = /obj/item/organ/external/leg/right),
+		"l_hand" = list("path" = /obj/item/organ/external/hand),
+		"r_hand" = list("path" = /obj/item/organ/external/hand/right),
+		"l_foot" = list("path" = /obj/item/organ/external/foot),
+		"r_foot" = list("path" = /obj/item/organ/external/foot/right)
+		)
+
 /datum/species/New()
 	unarmed = new unarmed_type()
 
@@ -74,33 +101,44 @@
 	return species_language.get_random_name(gender)
 
 /datum/species/proc/create_organs(var/mob/living/carbon/human/H) //Handles creation of mob organs.
-	//This is a basic humanoid limb setup.
+
+	for(var/obj/item/organ/organ in H.contents)
+		if((organ in H.organs) || (organ in H.internal_organs))
+			del(organ)
+
+	if(H.organs)                  H.organs.Cut()
+	if(H.internal_organs)         H.internal_organs.Cut()
+	if(H.organs_by_name)          H.organs_by_name.Cut()
+	if(H.internal_organs_by_name) H.internal_organs_by_name.Cut()
+
 	H.organs = list()
-	H.organs_by_name["chest"] = new/datum/organ/external/chest()
-	H.organs_by_name["groin"] = new/datum/organ/external/groin(H.organs_by_name["chest"])
-	H.organs_by_name["head"] = new/datum/organ/external/head(H.organs_by_name["chest"])
-	H.organs_by_name["l_arm"] = new/datum/organ/external/l_arm(H.organs_by_name["chest"])
-	H.organs_by_name["r_arm"] = new/datum/organ/external/r_arm(H.organs_by_name["chest"])
-	H.organs_by_name["r_leg"] = new/datum/organ/external/r_leg(H.organs_by_name["groin"])
-	H.organs_by_name["l_leg"] = new/datum/organ/external/l_leg(H.organs_by_name["groin"])
-	H.organs_by_name["l_hand"] = new/datum/organ/external/l_hand(H.organs_by_name["l_arm"])
-	H.organs_by_name["r_hand"] = new/datum/organ/external/r_hand(H.organs_by_name["r_arm"])
-	H.organs_by_name["l_foot"] = new/datum/organ/external/l_foot(H.organs_by_name["l_leg"])
-	H.organs_by_name["r_foot"] = new/datum/organ/external/r_foot(H.organs_by_name["r_leg"])
+	H.internal_organs = list()
+	H.organs_by_name = list()
+	H.internal_organs_by_name = list()
 
-	if (name != "Slime People")
-		new/datum/organ/internal/heart(H)
-		new/datum/organ/internal/lungs(H)
-		new/datum/organ/internal/liver(H)
-		new/datum/organ/internal/kidney(H)
-		new/datum/organ/internal/brain(H)
-		new/datum/organ/internal/eyes(H)
+	for(var/limb_type in has_limbs)
+		var/list/organ_data = has_limbs[limb_type]
+		var/limb_path = organ_data["path"]
+		var/obj/item/organ/O = new limb_path(H)
+		organ_data["descriptor"] = O.name
 
-	for(var/n in H.organs_by_name)
-		var/datum/organ/external/O = H.organs_by_name[n]
+	for(var/organ in has_organ)
+		var/organ_type = has_organ[organ]
+		H.internal_organs_by_name[organ] = new organ_type(H,1)
+
+	for(var/name in H.organs_by_name)
+		H.organs |= H.organs_by_name[name]
+
+	for(var/obj/item/organ/external/O in H.organs)
 		O.owner = H
-		H.organs += O
-	return
+
+	if(flags & IS_SYNTHETIC)
+		for(var/obj/item/organ/external/E in H.organs)
+			if(E.status & ORGAN_CUT_AWAY || E.status & ORGAN_DESTROYED) continue
+			E.robotize()
+		for(var/obj/item/organ/I in H.internal_organs)
+			I.robotize()
+
 
 /datum/species/proc/handle_breath(var/datum/gas_mixture/breath, var/mob/living/carbon/human/H)
 	var/safe_oxygen_min = 16 // Minimum safe partial pressure of O2, in kPa
@@ -480,29 +518,15 @@
 	tail = "armalis_tail"
 	icon_template = 'icons/mob/human_races/r_armalis.dmi'
 
-/datum/species/vox/create_organs(var/mob/living/carbon/human/H)
-
-	..() //create organs first.
-
-	//Now apply cortical stack.
-	var/datum/organ/external/affected = H.get_organ("head")
-
-	//To avoid duplicates.
-	for(var/obj/item/weapon/implant/cortical/imp in H.contents)
-		affected.implants -= imp
-		del(imp)
-
-	var/obj/item/weapon/implant/cortical/I = new(H)
-	I.imp_in = H
-	I.implanted = 1
-	affected.implants += I
-	I.part = affected
-
-	if(ticker.mode && ( istype( ticker.mode,/datum/game_mode/heist ) ) )
-		var/datum/game_mode/heist/M = ticker.mode
-		M.cortical_stacks += I
-
-
+	has_organ = list(
+		"heart" =    /obj/item/organ/heart,
+		"lungs" =    /obj/item/organ/lungs,
+		"liver" =    /obj/item/organ/liver,
+		"kidneys" =  /obj/item/organ/kidneys,
+		"brain" =    /obj/item/organ/brain,
+		"eyes" =     /obj/item/organ/eyes,
+		"stack" =    /obj/item/organ/stack/vox
+		)
 
 /datum/species/kidan
 	name = "Kidan"
@@ -531,6 +555,11 @@
 
 	flags = IS_WHITELISTED | NO_BREATHE | HAS_LIPS | NO_INTORGANS | NO_SCAN
 	bloodflags = BLOOD_SLIME
+
+	has_organ = list(
+		"brain" = /obj/item/organ/brain/slime
+		)
+
 
 /datum/species/slime/handle_post_spawn(var/mob/living/carbon/human/H)
 	H.dna = new /datum/dna(null)
@@ -611,6 +640,29 @@
 
 	reagent_tag = IS_DIONA
 
+	has_organ = list(
+		"nutrient channel" =   /obj/item/organ/diona/nutrients,
+		"neural strata" =      /obj/item/organ/diona/strata,
+		"response node" =      /obj/item/organ/diona/node,
+		"gas bladder" =        /obj/item/organ/diona/bladder,
+		"polyp segment" =      /obj/item/organ/diona/polyp,
+		"anchoring ligament" = /obj/item/organ/diona/ligament
+		)
+
+	has_limbs = list(
+		"chest" =  list("path" = /obj/item/organ/external/diona/chest),
+		"groin" =  list("path" = /obj/item/organ/external/diona/groin),
+		"head" =   list("path" = /obj/item/organ/external/diona/head),
+		"l_arm" =  list("path" = /obj/item/organ/external/diona/arm),
+		"r_arm" =  list("path" = /obj/item/organ/external/diona/arm/right),
+		"l_leg" =  list("path" = /obj/item/organ/external/diona/leg),
+		"r_leg" =  list("path" = /obj/item/organ/external/diona/leg/right),
+		"l_hand" = list("path" = /obj/item/organ/external/diona/hand),
+		"r_hand" = list("path" = /obj/item/organ/external/diona/hand/right),
+		"l_foot" = list("path" = /obj/item/organ/external/diona/foot),
+		"r_foot" = list("path" = /obj/item/organ/external/diona/foot/right)
+		)
+
 /datum/species/diona/can_understand(var/mob/other)
 	var/mob/living/carbon/monkey/diona/D = other
 	if(istype(D))
@@ -673,42 +725,11 @@
 	for(var/organ_name in H.organs_by_name)
 		if (organ_name == "head")			// do the head last as that's when the user will be transfered to the posibrain
 			continue
-		var/datum/organ/external/O = H.organs_by_name[organ_name]
+		var/obj/item/organ/external/O = H.organs_by_name[organ_name]
 		if((O.body_part != UPPER_TORSO) && (O.body_part != LOWER_TORSO))  // We're making them fall apart, not gibbing them!
 			O.droplimb(1)
-	var/datum/organ/external/O = H.organs_by_name["head"]
+	var/obj/item/organ/external/O = H.organs_by_name["head"]
 	O.droplimb(1)
-
-/datum/species/machine/create_organs(var/mob/living/carbon/human/H)
-
-	H.organs = new /list()
-	H.organs_by_name["chest"] = new/datum/organ/external/chest()
-	H.organs_by_name["groin"] = new/datum/organ/external/groin(H.organs_by_name["chest"])
-	H.organs_by_name["head"] = new/datum/organ/external/head(H.organs_by_name["chest"])
-	H.organs_by_name["l_arm"] = new/datum/organ/external/l_arm(H.organs_by_name["chest"])
-	H.organs_by_name["r_arm"] = new/datum/organ/external/r_arm(H.organs_by_name["chest"])
-	H.organs_by_name["r_leg"] = new/datum/organ/external/r_leg(H.organs_by_name["groin"])
-	H.organs_by_name["l_leg"] = new/datum/organ/external/l_leg(H.organs_by_name["groin"])
-	H.organs_by_name["l_hand"] = new/datum/organ/external/l_hand(H.organs_by_name["l_arm"])
-	H.organs_by_name["r_hand"] = new/datum/organ/external/r_hand(H.organs_by_name["r_arm"])
-	H.organs_by_name["l_foot"] = new/datum/organ/external/l_foot(H.organs_by_name["l_leg"])
-	H.organs_by_name["r_foot"] = new/datum/organ/external/r_foot(H.organs_by_name["r_leg"])
-
-	new/datum/organ/internal/heart/robotic(H)
-	new/datum/organ/internal/lungs/robotic(H)
-	new/datum/organ/internal/liver/robotic(H)
-	new/datum/organ/internal/kidney/robotic(H)
-	new/datum/organ/internal/brain/robotic(H)
-	new/datum/organ/internal/eyes/robotic(H)
-
-
-	for(var/n in H.organs_by_name)
-		var/datum/organ/external/O = H.organs_by_name[n]
-		O.owner = H
-		if(!(O.status & ORGAN_CUT_AWAY || O.status & ORGAN_DESTROYED))
-			O.status |= ORGAN_ROBOT
-		H.organs += O
-	return
 
 
 //Species unarmed attacks

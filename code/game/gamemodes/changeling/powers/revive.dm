@@ -35,13 +35,12 @@
 		spawn(1)
 			H.fixblood()
 		for(var/organ_name in H.organs_by_name)
-			var/datum/organ/external/O = H.organs_by_name[organ_name]
+			var/obj/item/organ/external/O = H.organs_by_name[organ_name]
 			for(var/obj/item/weapon/shard/shrapnel/s in O.implants)
 				if(istype(s))
 					O.implants -= s
 					H.contents -= s
 					del(s)
-			O.amputated = 0
 			O.brute_dam = 0
 			O.burn_dam = 0
 			O.damage_state = "00"
@@ -55,8 +54,7 @@
 			O.trace_chemicals = list()
 			O.wounds = list()
 			O.wound_update_accuracy = 1
-		for(var/n in H.internal_organs_by_name)
-			var/datum/organ/internal/IO = H.internal_organs_by_name[n]
+		for(var/obj/item/organ/IO in H.internal_organs)
 			IO.damage = 0
 			IO.trace_chemicals = list()
 		H.updatehealth()

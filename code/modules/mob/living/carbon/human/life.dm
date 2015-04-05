@@ -319,7 +319,7 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 						updatehealth()
 
 				if(damage && organs.len)
-					var/datum/organ/external/O = pick(organs)
+					var/obj/item/organ/external/O = pick(organs)
 					if(istype(O)) O.add_autopsy_data("Radiation Poisoning", damage)
 
 	proc/breathe()
@@ -446,7 +446,7 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 				adjustOxyLoss(oxyloss)
 				failed_last_breath = 1
 
-			var/datum/organ/external/affected = get_organ("chest")
+			var/obj/item/organ/external/affected = get_organ("chest")
 			affected.add_autopsy_data("Suffocation", oxyloss)
 
 			oxygen_alert = max(oxygen_alert, 1)
@@ -1275,7 +1275,7 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 					healthdoll.icon_state = "healthdoll_DEAD"
 				else
 					healthdoll.icon_state = "healthdoll_OVERLAY"
-					for(var/datum/organ/external/O in organs)
+					for(var/obj/item/organ/external/O in organs)
 						var/damage = O.burn_dam + O.brute_dam
 						var/comparison = (O.max_damage/5)
 						var/icon_num = 0
@@ -1290,7 +1290,7 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 						if(damage > (comparison*4))
 							icon_num = 5
 						if(icon_num)
-							healthdoll.overlays += image('icons/mob/screen_gen.dmi',"[O.name][icon_num]")
+							healthdoll.overlays += image('icons/mob/screen_gen.dmi',"[O.limb_name][icon_num]")
 
 			if(nutrition_icon)
 				switch(nutrition)
@@ -1641,8 +1641,8 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 	proc/handle_heartbeat()
 		var/client/C = src.client
 		if(C && C.prefs.sound & SOUND_HEARTBEAT) //disable heartbeat by pref
-			var/datum/organ/internal/heart/H = internal_organs_by_name["heart"]
-			if(istype(H,/datum/organ/internal/heart/robotic)) //Handle robotic hearts specially with a wuuuubb. This also applies to machine-people.
+			var/obj/item/organ/heart/H = internal_organs_by_name["heart"]
+			if(H.status & ORGAN_ROBOT) //Handle robotic hearts specially with a wuuuubb. This also applies to machine-people.
 				if(shock_stage >= 10 || istype(get_turf(src), /turf/space))
 					//PULSE_THREADY - maximum value for pulse, currently it 5.
 					//High pulse value corresponds to a fast rate of heartbeat.
@@ -1671,7 +1671,7 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 
 				if(heartbeat >= rate)
 					heartbeat = 0
-					if(istype(H,/datum/organ/internal/heart/assisted))
+					if(H.status & ORGAN_ASSISTED)
 						src << sound('sound/effects/pacemakebeat.ogg',0,0,0,50)
 					else
 						src << sound('sound/effects/singlebeat.ogg',0,0,0,50)

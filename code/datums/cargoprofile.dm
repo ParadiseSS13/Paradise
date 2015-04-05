@@ -656,7 +656,7 @@
 		var/bruteloss = M.bruteloss
 		if(istype(M,/mob/living/carbon/human))
 			var/mob/living/carbon/human/C = M
-			for(var/datum/organ/external/L in C.organs)
+			for(var/obj/item/organ/external/L in C.organs)
 				bruteloss += L.brute_dam
 		if(bruteloss < 100) // requires tenderization
 			M.apply_damage(rand(5,15),BRUTE)
@@ -765,7 +765,7 @@
 			if(maxpunches > 1 && prob(50)) // Follow through on a miss, 50% chance
 				return punch(M,maxpunches - 1) + 1
 			return 1
-		var/datum/organ/external/affecting = M.get_organ(ran_zone("chest",50))
+		var/obj/item/organ/external/affecting = M.get_organ(ran_zone("chest",50))
 		var/armor_block = M.run_armor_check(affecting, "melee")
 
 		playsound(master.loc, "punch", 25, 1, -1)

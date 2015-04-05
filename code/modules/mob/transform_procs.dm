@@ -189,6 +189,8 @@
 	invisibility = 101
 	for(var/t in organs)
 		del(t)
+	for(var/i in internal_organs)
+		del(i)
 
 	var/mob/living/silicon/robot/O = new /mob/living/silicon/robot( loc )
 

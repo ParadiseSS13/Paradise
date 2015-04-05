@@ -38,7 +38,9 @@ emp_act
 
 	//Shrapnel
 	if (P.damage_type == BRUTE)
-		var/datum/organ/external/organ = get_organ(check_zone(def_zone))
+		var/obj/item/organ/external/organ = get_organ(check_zone(def_zone))
+		if(!organ)
+			return
 		var/armor = getarmor_organ(organ, "bullet")
 		if((P.embed && prob(20 + max(P.damage - armor, -10))))
 			var/obj/item/weapon/shard/shrapnel/SP = new()
@@ -48,13 +50,13 @@ emp_act
 			organ.embed(SP)
 
 	var/mob/living/carbon/human/M = src
-	var/datum/organ/external/affected = M.get_organ(def_zone)
+	var/obj/item/organ/external/affected = M.get_organ(def_zone)
 	affected.add_autopsy_data(P.name, P.damage) // Add the bullet's name to the autopsy data
 
 	return (..(P , def_zone))
 
 /mob/living/carbon/human/stun_effect_act(var/stun_amount, var/agony_amount, var/def_zone, var/used_weapon = null)
-	var/datum/organ/external/affected = get_organ(check_zone(def_zone))
+	var/obj/item/organ/external/affected = get_organ(check_zone(def_zone))
 	var/siemens_coeff = get_siemens_coefficient_organ(affected)
 	stun_amount *= siemens_coeff
 	agony_amount *= siemens_coeff
@@ -74,10 +76,10 @@ emp_act
 
 				unEquip(c_hand)
 				if (affected.status & ORGAN_ROBOT)
-					emote("me", 1, "drops what they were holding, their [affected.display_name] malfunctioning!")
+					emote("me", 1, "drops what they were holding, their [affected.name] malfunctioning!")
 				else
 					var/emote_scream = pick("screams in pain and", "lets out a sharp cry and", "cries out and")
-					emote("me", 1, "[(species && species.flags & NO_PAIN) ? "" : emote_scream ] drops what they were holding in their [affected.display_name]!")
+					emote("me", 1, "[(species && species.flags & NO_PAIN) ? "" : emote_scream ] drops what they were holding in their [affected.name]!")
 
 	if(used_weapon)
 		var/obj/item/W = used_weapon
@@ -92,20 +94,21 @@ emp_act
 	if(def_zone)
 		if(isorgan(def_zone))
 			return getarmor_organ(def_zone, type)
-		var/datum/organ/external/affecting = get_organ(def_zone)
-		return getarmor_organ(affecting, type)
+		var/obj/item/organ/external/affecting = get_organ(def_zone)
+		if(affecting)
+			return getarmor_organ(affecting, type)
 		//If a specific bodypart is targetted, check how that bodypart is protected and return the value.
 
 	//If you don't specify a bodypart, it checks ALL your bodyparts for protection, and averages out the values
-	for(var/datum/organ/external/organ in organs)
+	for(var/obj/item/organ/external/organ in organs)
 		armorval += getarmor_organ(organ, type)
 		organnum++
 	return (armorval/max(organnum, 1))
 
 
 //this proc returns the armour value for a particular external organ.
-/mob/living/carbon/human/proc/getarmor_organ(var/datum/organ/external/def_zone, var/type)
-	if(!type)	return 0
+/mob/living/carbon/human/proc/getarmor_organ(var/obj/item/organ/external/def_zone, var/type)
+	if(!type || !def_zone)	return 0
 	var/protection = 0
 	var/list/body_parts = list(head, wear_mask, wear_suit, w_uniform)
 	for(var/bp in body_parts)
@@ -117,7 +120,7 @@ emp_act
 	return protection
 
 //this proc returns the Siemens coefficient of electrical resistivity for a particular external organ.
-/mob/living/carbon/human/proc/get_siemens_coefficient_organ(var/datum/organ/external/def_zone)
+/mob/living/carbon/human/proc/get_siemens_coefficient_organ(var/obj/item/organ/external/def_zone)
 	if (!def_zone)
 		return 1.0
 
@@ -191,21 +194,23 @@ emp_act
 	for(var/obj/O in src)
 		if(!O)	continue
 		O.emp_act(severity)
-	for(var/datum/organ/external/O  in organs)
+	for(var/obj/item/organ/external/O  in organs)
 		if(O.status & ORGAN_DESTROYED)	continue
 		O.emp_act(severity)
-		for(var/datum/organ/internal/I  in O.internal_organs)
+		for(var/obj/item/organ/I  in O.internal_organs)
 			I.emp_act(severity)
 	..()
 
-/mob/living/carbon/human/emag_act(user as mob, var/datum/organ/external/affecting)
+/mob/living/carbon/human/emag_act(user as mob, var/obj/item/organ/external/affecting)
+	if(!istype(affecting))
+		return
 	if(!(affecting.status & ORGAN_ROBOT))
 		user << "\red That limb isn't robotic."
 		return
 	if(affecting.sabotaged)
-		user << "\red [src]'s [affecting.display_name] is already sabotaged!"
+		user << "\red [src]'s [affecting.name] is already sabotaged!"
 	else
-		user << "\red You sneakily slide the card into the dataport on [src]'s [affecting.display_name] and short out the safeties."
+		user << "\red You sneakily slide the card into the dataport on [src]'s [affecting.name] and short out the safeties."
 		affecting.sabotaged = 1
 	return 1
 
@@ -234,13 +239,11 @@ emp_act
 
 			del(src)
 
-	var/datum/organ/external/affecting = get_organ(ran_zone(user.zone_sel.selecting))
-	if (!affecting)
-		return 0
-	if(affecting.status & ORGAN_DESTROYED)
-		user << "What [affecting.display_name]?"
-		return 0
-	var/hit_area = affecting.display_name
+	var/obj/item/organ/external/affecting = get_organ(ran_zone(user.zone_sel.selecting))
+	if(!affecting || affecting.is_stump() || (affecting.status & ORGAN_DESTROYED))
+		user << "<span class='danger'>They are missing that limb!</span>"
+		return 1
+	var/hit_area = affecting.name
 
 	if(user != src)
 		user.do_attack_animation(src)
@@ -285,35 +288,36 @@ emp_act
 					H.bloody_body(src)
 					H.bloody_hands(src)
 
-		switch(hit_area)
-			if("head")//Harder to score a stun but if you do it lasts a bit longer
-				if(stat == CONSCIOUS && prob(I.force) && armor < 50)
-					visible_message("<span class='danger'>[src] has been knocked down!</span>", \
-									"<span class='userdanger'>[src] has been knocked down!</span>")
-					apply_effect(5, WEAKEN, armor)
-					confused += 15
-					if(src != user && I.damtype == BRUTE)
-						ticker.mode.remove_revolutionary(mind)
+		if(!stat)
+			switch(hit_area)
+				if("head")//Harder to score a stun but if you do it lasts a bit longer
+					if(stat == CONSCIOUS && prob(I.force) && armor < 50)
+						visible_message("<span class='danger'>[src] has been knocked down!</span>", \
+										"<span class='userdanger'>[src] has been knocked down!</span>")
+						apply_effect(5, WEAKEN, armor)
+						confused += 15
+						if(src != user && I.damtype == BRUTE)
+							ticker.mode.remove_revolutionary(mind)
 
-				if(bloody)//Apply blood
-					if(wear_mask)
-						wear_mask.add_blood(src)
-						update_inv_wear_mask(0)
-					if(head)
-						head.add_blood(src)
-						update_inv_head(0,0)
-					if(glasses && prob(33))
-						glasses.add_blood(src)
-						update_inv_glasses(0)
+					if(bloody)//Apply blood
+						if(wear_mask)
+							wear_mask.add_blood(src)
+							update_inv_wear_mask(0)
+						if(head)
+							head.add_blood(src)
+							update_inv_head(0,0)
+						if(glasses && prob(33))
+							glasses.add_blood(src)
+							update_inv_glasses(0)
 
-			if("chest")//Easier to score a stun but lasts less time
-				if(stat == CONSCIOUS && I.force && prob(I.force + 10))
-					visible_message("<span class='danger'>[src] has been knocked down!</span>", \
-									"<span class='userdanger'>[src] has been knocked down!</span>")
-					apply_effect(5, WEAKEN, armor)
+				if("chest")//Easier to score a stun but lasts less time
+					if(stat == CONSCIOUS && I.force && prob(I.force + 10))
+						visible_message("<span class='danger'>[src] has been knocked down!</span>", \
+										"<span class='userdanger'>[src] has been knocked down!</span>")
+						apply_effect(5, WEAKEN, armor)
 
-				if(bloody)
-					bloody_body(src)
+					if(bloody)
+						bloody_body(src)
 
 
 	if(Iforce > 10 || Iforce >= 5 && prob(33))
@@ -364,8 +368,8 @@ emp_act
 		if ((O.thrower != src) && check_shields(throw_damage, "[O]"))
 			return
 
-		var/datum/organ/external/affecting = get_organ(zone)
-		var/hit_area = affecting.display_name
+		var/obj/item/organ/external/affecting = get_organ(zone)
+		var/hit_area = affecting.name
 
 		src.visible_message("\red [src] has been hit in the [hit_area] by [O].")
 		var/armor = run_armor_check(affecting, "melee", "Your armor has protected your [hit_area].", "Your armor has softened hit to your [hit_area].") //I guess "melee" is the best fit here
@@ -457,7 +461,7 @@ emp_act
 	if(M.occupant.a_intent == "harm")
 		if(M.damtype == "brute")
 			step_away(src,M,15)
-		var/datum/organ/external/affecting = get_organ(pick("chest", "chest", "chest", "head"))
+		var/obj/item/organ/external/affecting = get_organ(pick("chest", "chest", "chest", "head"))
 		if(affecting)
 			var/update = 0
 			switch(M.damtype)
