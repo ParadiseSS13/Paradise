@@ -183,7 +183,21 @@
 				burn = max(0, burn - can_inflict)
 		//If there are still hurties to dispense
 		if (burn || brute)
-			owner.shock_stage += brute+burn
+			if (status & ORGAN_ROBOT && body_part != UPPER_TORSO && body_part != LOWER_TORSO)
+				droplimb(1) //Robot limbs just kinda fail at full damage.
+			else
+				//List organs we can pass it to
+				var/list/obj/item/organ/external/possible_points = list()
+				if(parent)
+					possible_points += parent
+				if(children)
+					possible_points += children
+				if(forbidden_limbs.len)
+					possible_points -= forbidden_limbs
+				if(possible_points.len)
+					//And pass the pain around
+					var/datum/organ/external/target = pick(possible_points)
+					target.take_damage(brute, burn, sharp, edge, used_weapon, forbidden_limbs + src)
 
 	// sync the organ's damage with its wounds
 	src.update_damages()
@@ -613,7 +627,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 		if(clean || max_damage < 50)
 			W = new/datum/wound/lost_limb/small(max_damage)
 		else
-			W = new/datum/wound/lost_limb(max_damage/2)
+			W = new/datum/wound/lost_limb(max_damage)
 		parent.children -= src
 		if(clean)
 			parent.wounds |= W
