@@ -2131,11 +2131,15 @@ datum
 				adj_temp = 25
 
 				on_mob_life(var/mob/living/M as mob)
-					..()
 					M.Jitter(5)
 					if(adj_temp > 0 && holder.has_reagent("frostoil"))
 						holder.remove_reagent("frostoil", 10*REAGENTS_METABOLISM)
-					holder.remove_reagent(src.id, 0.1)
+					if(prob(50))
+						M.AdjustParalysis(-1)
+						M.AdjustStunned(-1)
+						M.AdjustWeakened(-1)
+					..()
+					return
 
 				icecoffee
 					name = "Iced Coffee"
