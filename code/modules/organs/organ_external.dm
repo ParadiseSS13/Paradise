@@ -196,7 +196,7 @@
 					possible_points -= forbidden_limbs
 				if(possible_points.len)
 					//And pass the pain around
-					var/datum/organ/external/target = pick(possible_points)
+					var/obj/item/organ/external/target = pick(possible_points)
 					target.take_damage(brute, burn, sharp, edge, used_weapon, forbidden_limbs + src)
 
 	// sync the organ's damage with its wounds
