@@ -328,7 +328,6 @@ datum/reagent/initropidril/on_mob_life(var/mob/living/M as mob)
 			if(3)
 				var/mob/living/carbon/human/H = M
 				if(!H.heart_attack)
-					H.visible_message("<span class = 'userdanger'>[H] clutches at their chest!</span>")
 					H.heart_attack = 1 // rip in pepperoni
 	..()
 	return
@@ -346,7 +345,6 @@ datum/reagent/concentrated_initro/on_mob_life(var/mob/living/M as mob)
 	if(volume >=5)
 		var/mob/living/carbon/human/H = M
 		if(!H.heart_attack)
-			H.visible_message("<span class = 'userdanger'>[H] clutches at their chest!</span>")
 			H.heart_attack = 1 // rip in pepperoni
 
 datum/reagent/pancuronium
