@@ -17,7 +17,7 @@
 	blood_overlay_type = "armor"
 	flags = ONESIZEFITSALL
 	armor = list(melee = 50, bullet = 15, laser = 50, energy = 10, bomb = 25, bio = 0, rad = 0)
-	
+
 /obj/item/clothing/suit/armor/vest/jacket
 	name = "military jacket"
 	desc = "An old military jacket, it has armoring."
@@ -216,6 +216,7 @@
 	desc = "A heavily armored suit that protects against moderate damage."
 	icon_state = "heavy"
 	item_state = "swat_suit"
+	armor = list(melee = 65, bullet = 30, laser = 50, energy = 10, bomb = 25, bio = 0, rad = 0)
 	w_class = 4//bulky item
 	gas_transfer_coefficient = 0.90
 	flags = THICKMATERIAL
@@ -225,6 +226,7 @@
 	siemens_coefficient = 0
 
 /obj/item/clothing/suit/armor/tdome
+	armor = list(melee = 65, bullet = 30, laser = 50, energy = 10, bomb = 25, bio = 0, rad = 0)
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
 	flags_inv = HIDEGLOVES|HIDESHOES|HIDEJUMPSUIT
 	flags = THICKMATERIAL
@@ -232,19 +234,19 @@
 	heat_protection = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
 
 /obj/item/clothing/suit/armor/tdome/red
-	name = "Thunderdome suit (red)"
-	desc = "Reddish armor."
+	name = "Red Thunderdome Armor"
+	desc = "Armor worn by the red Thunderodome team"
 	icon_state = "tdred"
 	item_state = "tdred"
 	siemens_coefficient = 1
 
 /obj/item/clothing/suit/armor/tdome/green
-	name = "Thunderdome suit (green)"
-	desc = "Pukish armor."
+	name = "Green Thunderdome Armor"
+	desc = "Armor worn by the green Thunderodome team"
 	icon_state = "tdgreen"
 	item_state = "tdgreen"
 	siemens_coefficient = 1
-	
+
 //Non-hardsuit ERT armor.
 /obj/item/clothing/suit/armor/vest/ert
 	name = "emergency response team armor"
@@ -275,7 +277,7 @@
 	name = "emergency response team medical armor"
 	desc = "A set of armor worn by medical members of the Nanotrasen Emergency Response Team. Has red and white highlights."
 	icon_state = "ertarmor_med"
-	
+
 //Janitorial
 /obj/item/clothing/suit/armor/vest/ert/janitor
 	name = "emergency response team janitor armor"

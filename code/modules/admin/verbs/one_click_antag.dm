@@ -609,7 +609,7 @@ client/proc/one_click_antag()
 				if(teamOneMembers<=0)
 					break
 
-				var/mob/living/carbon/human/newMember = new(L)
+				var/mob/living/carbon/human/newMember = new(L.loc)
 
 				newMember.gender = pick(MALE,FEMALE)
 				A.randomize_appearance_for(newMember)
@@ -627,17 +627,18 @@ client/proc/one_click_antag()
 					candidates.Remove(theghost)
 
 				if(!theghost)
-					del(newMember)
+					qdel(newMember)
 					break
 
 				newMember.key = theghost.key
 				teamOneMembers--
+				newMember << "You are a member of the <font color = 'green'><b>GREEN</b></font> Thunderdome team! Gear up and help your team destroy the red team!"
 
 			if(L.name == "tdome2")
 				if(teamTwoMembers<=0)
 					break
 
-				var/mob/living/carbon/human/newMember = new(L)
+				var/mob/living/carbon/human/newMember = new(L.loc)
 
 				newMember.gender = pick(MALE,FEMALE)
 				A.randomize_appearance_for(newMember)
@@ -655,11 +656,12 @@ client/proc/one_click_antag()
 					candidates.Remove(theghost)
 
 				if(!theghost)
-					del(newMember)
+					qdel(newMember)
 					break
 
 				newMember.key = theghost.key
 				teamTwoMembers--
+				newMember << "You are a member of the <font color = 'red'><b>RED</b></font> Thunderdome team! Gear up and help your team destroy the green team!"
 	else
 		return 0
 	return 1
