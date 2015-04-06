@@ -288,7 +288,7 @@ datum
 			id = "lube"
 			description = "Lubricant is a substance introduced between two moving surfaces to reduce the friction and wear between them. giggity."
 			reagent_state = LIQUID
-			color = "#009CA8" // rgb: 0, 156, 168
+			color = "#1BB1AB"
 
 			reaction_turf(var/turf/simulated/T, var/volume)
 				if (!istype(T)) return
@@ -752,7 +752,7 @@ datum
 					if(!M.unacidable)
 						if(prob(15) && istype(M, /mob/living/carbon/human) && volume >= 30)
 							var/mob/living/carbon/human/H = M
-							var/datum/organ/external/affecting = H.get_organ("head")
+							var/obj/item/organ/external/affecting = H.get_organ("head")
 							if(affecting)
 								if(affecting.take_damage(25, 0))
 									H.UpdateDamageIcon()
@@ -994,7 +994,7 @@ datum
 		fuel
 			name = "Welding fuel"
 			id = "fuel"
-			description = "Required for welders. Flamable."
+			description = "A highly flammable blend of basic hydrocarbons, mostly Acetylene. Useful for both welding and organic chemistry, and can be fortified into a heavier oil."
 			reagent_state = LIQUID
 			color = "#060606"
 
@@ -1144,7 +1144,7 @@ datum
 			id = "lexorin"
 			description = "Lexorin temporarily stops respiration. Causes tissue damage."
 			reagent_state = LIQUID
-			color = "#32127A" // rgb: 50, 18, 122
+			color = "#52685D"
 			metabolization_rate = 0.2
 
 			on_mob_life(var/mob/living/M as mob)
@@ -1180,7 +1180,7 @@ datum
 				M.eye_blind = 0
 				if(ishuman(M))
 					var/mob/living/carbon/human/H = M
-					var/datum/organ/internal/eyes/E = H.internal_organs_by_name["eyes"]
+					var/obj/item/organ/eyes/E = H.internal_organs_by_name["eyes"]
 					if(istype(E))
 						E.damage = max(E.damage-5 , 0)
 				M.SetWeakened(0)
@@ -1252,7 +1252,7 @@ datum
 
 					//Mitocholide is hard enough to get, it's probably fair to make this all internal organs
 					for(var/name in H.internal_organs_by_name)
-						var/datum/organ/internal/I = H.internal_organs_by_name[name]
+						var/obj/item/organ/I = H.internal_organs_by_name[name]
 						if(I.damage > 0)
 							I.damage -= 0.20
 				..()
@@ -1280,7 +1280,7 @@ datum
 			id = "clonexadone"
 			description = "A liquid compound similar to that used in the cloning process. Can be used to 'finish' clones that get ejected early when used in conjunction with a cryo tube."
 			reagent_state = LIQUID
-			color = "#C8A5DC" // rgb: 200, 165, 220
+			color = "#0000C8" // rgb: 200, 165, 220
 
 			on_mob_life(var/mob/living/M as mob)
 				if(!M) M = holder.my_atom
@@ -1423,7 +1423,7 @@ datum
 
 				return
 
-//foam precursor
+//foam
 
 		fluorosurfactant
 			name = "Fluorosurfactant"
@@ -1434,13 +1434,6 @@ datum
 
 // metal foaming agent
 // this is lithium hydride. Add other recipies (e.g. LiH + H2O -> LiOH + H2) eventually
-
-		foaming_agent
-			name = "Foaming agent"
-			id = "foaming_agent"
-			description = "A agent that yields metallic foam when mixed with light metal and a strong acid."
-			reagent_state = SOLID
-			color = "#664B63" // rgb: 102, 75, 99
 
 		ammonia
 			name = "Ammonia"
@@ -2138,11 +2131,15 @@ datum
 				adj_temp = 25
 
 				on_mob_life(var/mob/living/M as mob)
-					..()
 					M.Jitter(5)
 					if(adj_temp > 0 && holder.has_reagent("frostoil"))
 						holder.remove_reagent("frostoil", 10*REAGENTS_METABOLISM)
-					holder.remove_reagent(src.id, 0.1)
+					if(prob(50))
+						M.AdjustParalysis(-1)
+						M.AdjustStunned(-1)
+						M.AdjustWeakened(-1)
+					..()
+					return
 
 				icecoffee
 					name = "Iced Coffee"
@@ -2442,7 +2439,7 @@ datum
 					M:drowsyness  = max(M:drowsyness, 30/sober_str)
 					if(ishuman(M))
 						var/mob/living/carbon/human/H = M
-						var/datum/organ/internal/liver/L = H.internal_organs_by_name["liver"]
+						var/obj/item/organ/liver/L = H.internal_organs_by_name["liver"]
 						if (istype(L))
 							L.take_damage(0.1, 1)
 						H.adjustToxLoss(0.1)
@@ -2481,6 +2478,12 @@ datum
 					..()
 					M:jitteriness = max(M:jitteriness-3,0)
 					return
+
+			cider
+				name = "Cider"
+				id = "cider"
+				description = "An alcoholic beverage derived from apples."
+				color = "#174116"
 
 			whiskey
 				name = "Whiskey"
@@ -2579,15 +2582,18 @@ datum
 				dizzy_adj = 4
 				confused_start = 115	//amount absorbed after which mob starts confusing directions
 
-			hooch
-				name = "Hooch"
-				id = "hooch"
-				description = "Either someone's failure at cocktail making or attempt in alchohol production. In any case, do you really want to drink that?"
-				color = "#664300" // rgb: 102, 67, 0
-				dizzy_adj = 6
-				slurr_adj = 5
-				slur_start = 35			//amount absorbed after which mob starts slurring
-				confused_start = 90	//amount absorbed after which mob starts confusing directions
+			suicider //otherwise known as "I want to get so smashed my liver gives out and I die from alcohol poisoning".
+				name = "Suicider"
+				id = "suicider"
+				description = "An unbelievably strong and potent variety of Cider."
+				color = "#CF3811"
+				dizzy_adj = 20
+				slurr_adj = 20
+				confused_adj = 3
+				slur_start = 15
+				confused_start = 40
+				blur_start = 60
+				pass_out = 80
 
 			ale
 				name = "Ale"

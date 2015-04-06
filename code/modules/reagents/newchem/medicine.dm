@@ -171,8 +171,8 @@ datum/reagent/omnizine/on_mob_life(var/mob/living/M as mob)
 	if(!M) M = holder.my_atom
 	M.adjustToxLoss(-1*REM)
 	M.adjustOxyLoss(-1*REM)
-	M.adjustBruteLoss(-1*REM)
-	M.adjustFireLoss(-1*REM)
+	M.adjustBruteLoss(-2*REM)
+	M.adjustFireLoss(-2*REM)
 	..()
 	return
 
@@ -422,6 +422,7 @@ datum/reagent/diphenhydramine/on_mob_life(var/mob/living/M as mob)
 	M.drowsyness += 1
 	M.jitteriness -= 1
 	M.reagents.remove_reagent("histamine",3)
+	M.reagents.remove_reagent("itching_powder",3)
 	..()
 	return
 
@@ -514,7 +515,7 @@ datum/reagent/oculine/on_mob_life(var/mob/living/M as mob)
 	M.eye_blind = max(M.eye_blind-5 , 0)
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
-		var/datum/organ/internal/eyes/E = H.internal_organs_by_name["eyes"]
+		var/obj/item/organ/eyes/E = H.internal_organs_by_name["eyes"]
 		if(istype(E))
 			if(E.damage > 0)
 				E.damage -= 1
@@ -714,7 +715,8 @@ proc/chemical_mob_spawn(var/datum/reagents/holder, var/amount_to_spawn, var/reac
 			/mob/living/simple_animal/hostile/asteroid/hivelord,
 			/mob/living/simple_animal/hostile/asteroid/hivelordbrood,
 			/mob/living/simple_animal/hostile/carp/holocarp,
-			/mob/living/simple_animal/hostile/mining_drone
+			/mob/living/simple_animal/hostile/mining_drone,
+			/mob/living/simple_animal/hostile/spaceWorm
 			)//exclusion list for things you don't want the reaction to create.
 		var/list/critters = typesof(/mob/living/simple_animal/hostile) - blocked // list of possible hostile mobs
 		var/atom/A = holder.my_atom

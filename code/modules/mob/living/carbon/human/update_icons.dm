@@ -200,7 +200,9 @@ proc/get_damage_icon_part(damage_state, body_part)
 	// first check whether something actually changed about damage appearance
 	var/damage_appearance = ""
 
-	for(var/datum/organ/external/O in organs)
+	for(var/obj/item/organ/external/O in organs)
+		if(O.is_stump())
+			continue
 		if(O.status & ORGAN_DESTROYED) damage_appearance += "d"
 		else
 			damage_appearance += O.damage_state
@@ -216,7 +218,9 @@ proc/get_damage_icon_part(damage_state, body_part)
 	var/image/standing_image = new /image("icon" = standing)
 
 	// blend the individual damage states with our icons
-	for(var/datum/organ/external/O in organs)
+	for(var/obj/item/organ/external/O in organs)
+		if(O.is_stump())
+			continue
 		if(!(O.status & ORGAN_DESTROYED))
 			O.update_icon()
 			if(O.damage_state == "00") continue
@@ -234,112 +238,68 @@ proc/get_damage_icon_part(damage_state, body_part)
 
 	var/husk_color_mod = rgb(96,88,80)
 	var/hulk_color_mod = rgb(48,224,40)
-	var/necrosis_color_mod = rgb(10,50,0)
 
-	var/husk = (HUSK in src.mutations)  //100% unnecessary -Agouri	//nope, do you really want to iterate through src.mutations repeatedly? -Pete
+	var/husk = (HUSK in src.mutations)
 	var/fat = (FAT in src.mutations)
 	var/hulk = (HULK in src.mutations)
+	var/skeleton = (SKELETON in src.mutations)
 
 	var/g = (gender == FEMALE ? "f" : "m")
-	var/has_head = 0
-	var/brain_showing = 0
-
 
 	//CACHING: Generate an index key from visible bodyparts.
 	//0 = destroyed, 1 = normal, 2 = robotic, 3 = necrotic.
-
 	//Create a new, blank icon for our mob to use.
 	if(stand_icon)
 		del(stand_icon)
-
 	stand_icon = new(species.icon_template ? species.icon_template : 'icons/mob/human.dmi',"blank")
+	var/icon_key = "[species.race_key][g][s_tone][r_skin][g_skin][b_skin]"
+	var/obj/item/organ/eyes/eyes = internal_organs_by_name["eyes"]
 
-	var/icon_key = "[species.race_key][g][s_tone]"
-	for(var/datum/organ/external/part in organs)
+	if(eyes)
+		icon_key += "[rgb(eyes.eye_colour[1], eyes.eye_colour[2], eyes.eye_colour[3])]"
+	else
+		icon_key += "#000000"
 
-		if(istype(part,/datum/organ/external/head) && !(part.status & ORGAN_DESTROYED))
-			has_head = 1
-			var/datum/organ/external/head/head = part
-			if(head.brained==1)
-				brain_showing = 1
-			else brain_showing = 0
-
-		if(part.status & ORGAN_DESTROYED)
-			icon_key = "[icon_key]0"
+	for(var/organ_tag in species.has_limbs)
+		var/obj/item/organ/external/part = organs_by_name[organ_tag]
+		if(isnull(part) || part.is_stump() || (part.status & ORGAN_DESTROYED))
+			icon_key += "0"
 		else if(part.status & ORGAN_ROBOT)
-			icon_key = "[icon_key]2"
+			icon_key += "2[part.model ? "-[part.model]": ""]"
 		else if(part.status & ORGAN_DEAD)
-			icon_key = "[icon_key]3"
+			icon_key += "3"
 		else
-			icon_key = "[icon_key]1"
+			icon_key += "1"
 
-	icon_key = "[icon_key][husk ? 1 : 0][fat ? 1 : 0][hulk ? 1 : 0][skeleton ? 1 : 0][s_tone]"
+	icon_key = "[icon_key][husk ? 1 : 0][fat ? 1 : 0][hulk ? 1 : 0][skeleton ? 1 : 0]"
 
 	var/icon/base_icon
 	if(human_icon_cache[icon_key])
-		//Icon is cached, use existing icon.
 		base_icon = human_icon_cache[icon_key]
-
-		//log_debug("Retrieved cached mob icon ([icon_key] \icon[human_icon_cache[icon_key]]) for [src].")
-
 	else
+		//BEGIN CACHED ICON GENERATION.
+		var/obj/item/organ/external/chest = get_organ("chest")
+		base_icon = chest.get_icon()
 
-	//BEGIN CACHED ICON GENERATION.
-
-		//Icon is not cached, generate and store it.
-		//Robotic limbs are handled in get_icon() so all we worry about are missing or dead limbs.
-		//No icon stored, so we need to start with a basic one.
-		var/datum/organ/external/chest = get_organ("chest")
-		if(chest)
-			base_icon = chest.get_icon(g,fat)
-
-			if(chest.status & ORGAN_DEAD)
-				base_icon.ColorTone(necrosis_color_mod)
-				base_icon.SetIntensity(0.7)
-
-		for(var/datum/organ/external/part in organs)
-
-			var/icon/temp //Hold the bodypart icon for processing.
-
-			if(part.status & ORGAN_DESTROYED)
-				continue
-
-			if (istype(part, /datum/organ/external/groin) || istype(part, /datum/organ/external/head))
-				temp = part.get_icon(g,fat)
-			else
-				temp = part.get_icon()
-
-			if(part.status & ORGAN_DEAD)
-				temp.ColorTone(necrosis_color_mod)
-				temp.SetIntensity(0.7)
-
+		for(var/obj/item/organ/external/part in organs)
+			var/icon/temp = part.get_icon(skeleton)
 			//That part makes left and right legs drawn topmost and lowermost when human looks WEST or EAST
 			//And no change in rendering for other parts (they icon_position is 0, so goes to 'else' part)
 			if(part.icon_position&(LEFT|RIGHT))
-
 				var/icon/temp2 = new('icons/mob/human.dmi',"blank")
-
 				temp2.Insert(new/icon(temp,dir=NORTH),dir=NORTH)
 				temp2.Insert(new/icon(temp,dir=SOUTH),dir=SOUTH)
-
 				if(!(part.icon_position & LEFT))
 					temp2.Insert(new/icon(temp,dir=EAST),dir=EAST)
-
 				if(!(part.icon_position & RIGHT))
 					temp2.Insert(new/icon(temp,dir=WEST),dir=WEST)
-
 				base_icon.Blend(temp2, ICON_OVERLAY)
-
 				if(part.icon_position & LEFT)
 					temp2.Insert(new/icon(temp,dir=EAST),dir=EAST)
-
 				if(part.icon_position & RIGHT)
 					temp2.Insert(new/icon(temp,dir=WEST),dir=WEST)
-
 				base_icon.Blend(temp2, ICON_UNDERLAY)
-
 			else
-
 				base_icon.Blend(temp, ICON_OVERLAY)
 
 		if(!skeleton)
@@ -350,55 +310,24 @@ proc/get_damage_icon_part(damage_state, body_part)
 				base_icon.MapColors(rgb(tone[1],0,0),rgb(0,tone[2],0),rgb(0,0,tone[3]))
 
 		//Handle husk overlay.
-		if(husk)
+		if(husk && ("overlay_husk" in icon_states(species.icobase)))
 			var/icon/mask = new(base_icon)
 			var/icon/husk_over = new(species.icobase,"overlay_husk")
 			mask.MapColors(0,0,0,1, 0,0,0,1, 0,0,0,1, 0,0,0,1, 0,0,0,0)
 			husk_over.Blend(mask, ICON_ADD)
 			base_icon.Blend(husk_over, ICON_OVERLAY)
 
-
-		//Skin tone.
-		if(!husk && !hulk)
-			if(species.bodyflags & HAS_SKIN_TONE)
-				if(s_tone >= 0)
-					base_icon.Blend(rgb(s_tone, s_tone, s_tone), ICON_ADD)
-				else
-					base_icon.Blend(rgb(-s_tone,  -s_tone,  -s_tone), ICON_SUBTRACT)
-
 		human_icon_cache[icon_key] = base_icon
 
-		//log_debug("Generated new cached mob icon ([icon_key] \icon[human_icon_cache[icon_key]]) for [src]. [human_icon_cache.len] cached mob icons.")
-
 	//END CACHED ICON GENERATION.
-
 	stand_icon.Blend(base_icon,ICON_OVERLAY)
 
-	//Skin colour. Not in cache because highly variable (and relatively benign).
-	if (species.bodyflags & HAS_SKIN_COLOR)
-		stand_icon.Blend(rgb(r_skin, g_skin, b_skin), ICON_ADD)
-
-	if(has_head)
-		//Eyes
-		if(!skeleton)
-			var/icon/eyes = new/icon('icons/mob/human_face.dmi', species.eyes)
-			eyes.Blend(rgb(r_eyes, g_eyes, b_eyes), ICON_ADD)
-			stand_icon.Blend(eyes, ICON_OVERLAY)
-
-		//Mouth	(lipstick!)
-		if(lip_style && (species && species.flags & HAS_LIPS))	//skeletons are allowed to wear lipstick no matter what you think, agouri.
-			stand_icon.Blend(new/icon('icons/mob/human_face.dmi', "lips_[lip_style]_s"), ICON_OVERLAY)
-
-		//Brain showing
-		if(brain_showing)
-			stand_icon.Blend(new/icon('icons/mob/dam_human.dmi', "brain"), ICON_OVERLAY)
 	//Underwear
-	if(underwear >0 && underwear < 12 && species.flags & HAS_UNDERWEAR)
-		if(!fat && !skeleton)
-			stand_icon.Blend(new /icon('icons/mob/human.dmi', "underwear[underwear]_[g]_s"), ICON_OVERLAY)
+	if(underwear && species.flags & HAS_UNDERWEAR)
+		stand_icon.Blend(new /icon('icons/mob/human.dmi', underwear), ICON_OVERLAY)
 
-	if(undershirt>0 && undershirt < 45 && species.flags & HAS_UNDERWEAR)
-		stand_icon.Blend(new /icon('icons/mob/human.dmi', "undershirt[undershirt]_s"), ICON_OVERLAY)
+	if(undershirt && species.flags & HAS_UNDERWEAR)
+		stand_icon.Blend(new /icon('icons/mob/human.dmi', undershirt), ICON_OVERLAY)
 
 	if(update_icons)
 		update_icons()
@@ -407,14 +336,12 @@ proc/get_damage_icon_part(damage_state, body_part)
 	update_tail_showing(0)
 
 
-
-
 //HAIR OVERLAY
 /mob/living/carbon/human/proc/update_hair(var/update_icons=1)
 	//Reset our hair
 	overlays_standing[HAIR_LAYER]	= null
 
-	var/datum/organ/external/head/head_organ = get_organ("head")
+	var/obj/item/organ/external/head/head_organ = get_organ("head")
 	if( !head_organ || (head_organ.status & ORGAN_DESTROYED) )
 		if(update_icons)   update_icons()
 		return
@@ -1068,6 +995,11 @@ proc/get_damage_icon_part(damage_state, body_part)
 
 	var/image/face_lying_image = new /image(icon = face_lying)
 	return face_lying_image
+
+/mob/living/carbon/human/proc/force_update_limbs()
+	for(var/obj/item/organ/external/O in organs)
+		O.sync_colour_to_human(src)
+	update_body(0)
 
 //Human Overlays Indexes/////////
 #undef MUTANTRACE_LAYER

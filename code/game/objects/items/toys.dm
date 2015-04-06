@@ -429,6 +429,11 @@
 	attack_verb = list("attacked", "slashed", "stabbed", "sliced")
 	hitsound = 'sound/weapons/bladeslice.ogg'
 
+/obj/item/toy/katana/suicide_act(mob/user)
+	var/dmsg = pick("[user] tries to stab \the [src] into their abdomen, but it shatters! They look as if they might die from the shame.","[user] tries to stab \the [src] into their abdomen, but \the [src] bends and breaks in half! They look as if they might die from the shame.","[user] tries to slice their own throat, but the plastic blade has no sharpness, causing them to lose their balance, slip over, and break their neck with a loud snap!")
+	user.visible_message("<span class='suicide'>[dmsg] It looks like they are trying to commit suicide.</span>")
+	return (BRUTELOSS)
+
 /*
  * Crayons
  */

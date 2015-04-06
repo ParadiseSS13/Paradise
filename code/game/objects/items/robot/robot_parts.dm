@@ -9,41 +9,61 @@
 	var/list/construction_cost = list("metal"=20000,"glass"=5000)
 	var/list/part = null
 	var/sabotaged = 0 //Emagging limbs can have repercussions when installed as prosthetics.
+	var/model_info
+	dir = SOUTH
+
+
+/obj/item/robot_parts/New(var/newloc, var/model)
+	..(newloc)
+	if(model_info && model)
+		model_info = model
+		var/datum/robolimb/R = all_robolimbs[model]
+		if(R)
+			name = "[R.company] [initial(name)]"
+			desc = "[R.desc]"
+			if(icon_state in icon_states(R.icon))
+				icon = R.icon
+	else
+		name = "robot [initial(name)]"
 
 /obj/item/robot_parts/l_arm
-	name = "robot left arm"
+	name = "left arm"
 	desc = "A skeletal limb wrapped in pseudomuscles, with a low-conductivity case."
 	icon_state = "l_arm"
 	construction_time = 200
 	construction_cost = list("metal"=10000)
 	part = list("l_arm","l_hand")
+	model_info = 1
 
 /obj/item/robot_parts/r_arm
-	name = "robot right arm"
+	name = "right arm"
 	desc = "A skeletal limb wrapped in pseudomuscles, with a low-conductivity case."
 	icon_state = "r_arm"
 	construction_time = 200
 	construction_cost = list("metal"=10000)
 	part = list("r_arm","r_hand")
+	model_info = 1
 
 /obj/item/robot_parts/l_leg
-	name = "robot left leg"
+	name = "left leg"
 	desc = "A skeletal limb wrapped in pseudomuscles, with a low-conductivity case."
 	icon_state = "l_leg"
 	construction_time = 200
 	construction_cost = list("metal"=10000)
 	part = list("l_leg","l_foot")
+	model_info = 1
 
 /obj/item/robot_parts/r_leg
-	name = "robot right leg"
+	name = "right leg"
 	desc = "A skeletal limb wrapped in pseudomuscles, with a low-conductivity case."
 	icon_state = "r_leg"
 	construction_time = 200
 	construction_cost = list("metal"=10000)
 	part = list("r_leg","r_foot")
+	model_info = 1
 
 /obj/item/robot_parts/chest
-	name = "robot torso"
+	name = "torso"
 	desc = "A heavily reinforced case containing cyborg logic boards, with space for a standard power cell."
 	icon_state = "chest"
 	construction_time = 350
@@ -52,7 +72,7 @@
 	var/obj/item/weapon/stock_parts/cell/cell = null
 
 /obj/item/robot_parts/head
-	name = "robot head"
+	name = "head"
 	desc = "A standard reinforced braincase, with spine-plugged neural socket and sensor gimbals."
 	icon_state = "head"
 	construction_time = 350
@@ -61,7 +81,7 @@
 	var/obj/item/device/flash/flash2 = null
 
 /obj/item/robot_parts/robot_suit
-	name = "robot endoskeleton"
+	name = "endoskeleton"
 	desc = "A complex metal backbone with standard limb sockets and pseudomuscle anchors."
 	icon_state = "robo_suit"
 	construction_time = 500

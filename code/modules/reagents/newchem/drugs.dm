@@ -277,7 +277,7 @@ datum/reagent/crank/addiction_act_stage4(var/mob/living/M as mob)
 	name = "bath_salts"
 	id = "bath_salts"
 	result = "bath_salts"
-	required_reagents = list("????" = 1, "saltpetre" = 1, "nutriment" = 1, "cleaner" = 1, "enzyme" = 1, "mugwort" = 1, "mercury" = 1)
+	required_reagents = list("????" = 1, "saltpetre" = 1, "msg" = 1, "cleaner" = 1, "enzyme" = 1, "mugwort" = 1, "mercury" = 1)
 	result_amount = 6
 	required_temp = 374
 	mix_message = "Tiny cubic crystals precipitate out of the mixture. Huh."

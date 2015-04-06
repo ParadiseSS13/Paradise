@@ -47,23 +47,6 @@
 		B.reagents.add_reagent("holywater",100)
 		beakers += B
 
-/obj/item/weapon/grenade/chem_grenade/soap
-	payload_name = "soap"
-	desc = "Not necessarily as clean as the name implies."
-	stage = 2
-
-	New()
-		..()
-		var/obj/item/weapon/reagent_containers/glass/beaker/B1 = new(src)
-		var/obj/item/weapon/reagent_containers/glass/beaker/B2 = new(src)
-
-		B1.reagents.add_reagent("cornoil",60)
-		B2.reagents.add_reagent("enzyme",5)
-		B2.reagents.add_reagent("ammonia",30)
-
-		beakers += B1
-		beakers += B2
-		update_icon()
 
 /obj/item/weapon/grenade/chem_grenade/drugs
 	payload_name = "miracle"
@@ -348,9 +331,6 @@
 /obj/item/weapon/grenade/clusterbuster/xmas
 	name = "Christmas Miracle"
 	payload = /obj/item/weapon/a_gift
-/obj/item/weapon/grenade/clusterbuster/soap
-	name = "Megamaid's Passive-Aggressive Soap-creation Grenade"
-	payload = /obj/item/weapon/grenade/chem_grenade/soap
 /obj/item/weapon/grenade/clusterbuster/dirt
 	name = "Megamaid's Job Security Grenade"
 	payload = /obj/effect/decal/cleanable/random

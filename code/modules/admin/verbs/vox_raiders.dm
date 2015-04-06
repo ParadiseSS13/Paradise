@@ -65,7 +65,7 @@ var/global/vox_tick = 1
 	var/obj/item/weapon/implant/cortical/I = new(src)
 	I.imp_in = src
 	I.implanted = 1
-	var/datum/organ/external/affected = src.get_organ("head")
+	var/obj/item/organ/external/affected = src.get_organ("head")
 	affected.implants += I
 	I.part = affected
 

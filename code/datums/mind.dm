@@ -73,7 +73,7 @@ datum/mind
 			current.mind = null
 
 			nanomanager.user_transferred(current, new_character)
-			
+
 		if(new_character.mind)		//remove any mind currently in our new body's mind variable
 			new_character.mind.current = null
 
@@ -609,7 +609,7 @@ datum/mind
 			switch(href_list["implant"])
 				if("remove")
 					for(var/obj/item/weapon/implant/loyalty/I in H.contents)
-						for(var/datum/organ/external/organs in H.organs)
+						for(var/obj/item/organ/external/organs in H.organs)
 							if(I in organs.implants)
 								I.Destroy()
 					H << "\blue <Font size =3><B>Your loyalty implant has been deactivated.</B></FONT>"
@@ -617,7 +617,7 @@ datum/mind
 					var/obj/item/weapon/implant/loyalty/L = new/obj/item/weapon/implant/loyalty(H)
 					L.imp_in = H
 					L.implanted = 1
-					var/datum/organ/external/affected = H.organs_by_name["head"]
+					var/obj/item/organ/external/affected = H.organs_by_name["head"]
 					affected.implants += L
 					L.part = affected
 

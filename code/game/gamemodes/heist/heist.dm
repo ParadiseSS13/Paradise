@@ -20,7 +20,7 @@ var/global/list/obj/cortical_stacks = list() //Stacks for 'leave nobody behind' 
 
 	var/const/waittime_l = 600 //lower bound on time before intercept arrives (in tenths of seconds)
 	var/const/waittime_h = 1800 //upper bound on time before intercept arrives (in tenths of seconds)
-	
+
 	var/list/obj/cortical_stacks = list() //Stacks for 'leave nobody behind' objective.
 
 /datum/game_mode/heist/announce()
@@ -113,11 +113,11 @@ var/global/list/obj/cortical_stacks = list() //Stacks for 'leave nobody behind' 
 	vox.h_style = "Short Vox Quills"
 	vox.f_style = "Shaved"
 
-	for(var/datum/organ/external/limb in vox.organs)
+	for(var/obj/item/organ/external/limb in vox.organs)
 		limb.status &= ~(ORGAN_DESTROYED | ORGAN_ROBOT)
 
 	//Now apply cortical stack.
-	var/datum/organ/external/E = vox.get_organ("head")	
+	var/obj/item/organ/external/E = vox.get_organ("head")
 	var/obj/item/weapon/implant/cortical/I = new(vox)
 	I.imp_in = vox
 	I.implanted = 1

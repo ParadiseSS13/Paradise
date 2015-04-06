@@ -37,7 +37,7 @@
 		W.time_inflicted = time_inflicted
 		return W
 
-/obj/item/weapon/autopsy_scanner/proc/add_data(var/datum/organ/external/O)
+/obj/item/weapon/autopsy_scanner/proc/add_data(var/obj/item/organ/external/O)
 	if(!O.autopsy_data.len && !O.trace_chemicals.len) return
 
 	for(var/V in O.autopsy_data)
@@ -64,9 +64,9 @@
 
 		if(!D.organs_scanned[O.name])
 			if(D.organ_names == "")
-				D.organ_names = O.display_name
+				D.organ_names = O.name
 			else
-				D.organ_names += ", [O.display_name]"
+				D.organ_names += ", [O.name]"
 
 		del D.organs_scanned[O.name]
 		D.organs_scanned[O.name] = W.copy()
@@ -189,7 +189,7 @@
 
 	src.timeofdeath = M.timeofdeath
 
-	var/datum/organ/external/S = M.get_organ(user.zone_sel.selecting)
+	var/obj/item/organ/external/S = M.get_organ(user.zone_sel.selecting)
 	if(!S)
 		usr << "<b>You can't scan this body part.</b>"
 		return
@@ -197,7 +197,7 @@
 		usr << "<b>You have to cut the limb open first!</b>"
 		return
 	for(var/mob/O in viewers(M))
-		O.show_message("\red [user.name] scans the wounds on [M.name]'s [S.display_name] with \the [src.name]", 1)
+		O.show_message("\red [user.name] scans the wounds on [M.name]'s [S.name] with \the [src.name]", 1)
 
 	src.add_data(S)
 

@@ -15,6 +15,8 @@
 		for (var/obj/item/I in H)
 			if (istype(I, /obj/item/weapon/implant))
 				continue
+			if(istype (I, /obj/item/organ))
+				continue
 			del(I)
 
 		H << "<B>You are part of the [station_name()] dodgeball tournament. Throw dodgeballs at crewmembers wearing a different color than you. OOC: Use THROW on an EMPTY-HAND to catch thrown dodgeballs.</B>"

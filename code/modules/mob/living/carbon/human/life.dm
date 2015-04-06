@@ -213,31 +213,14 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 					if(3)
 						emote("drool")
 
-        /*
-		if(species.name == "Tajaran")
-			if(prob(1))
-				if(prob(1))
-					vomit(1) // Hairball
+		if(getBrainLoss() >= 100 && stat != 2) //you lapse into a coma and die without immediate aid; RIP. -Fox
+			Weaken(20)
+			losebreath += 10
+			silent += 2
 
-        */
-
-		if(stat != 2)
-			var/rn = rand(0, 200)
-			if(getBrainLoss() >= 5)
-				if(0 <= rn && rn <= 3)
-					custom_pain("Your head feels numb and painful.")
-			if(getBrainLoss() >= 15)
-				if(4 <= rn && rn <= 6) if(eye_blurry <= 0)
-					src << "\red It becomes hard to see for some reason."
-					eye_blurry = 10
-			if(getBrainLoss() >= 35)
-				if(7 <= rn && rn <= 9) if(hand && equipped())
-					src << "\red Your hand won't respond properly, you drop what you're holding."
-					drop_item()
-			if(getBrainLoss() >= 50)
-				if(10 <= rn && rn <= 12) if(!lying)
-					src << "\red Your legs won't respond properly, you fall down."
-					resting = 1
+		if(getBrainLoss() >= 120 && stat != 2) //they died from stupidity--literally. -Fox
+			visible_message("<span class='danger'><B>[src]</B> goes limp, their facial expression utterly blank.</span>")
+			death()
 
 	proc/handle_stasis_bag()
 		// Handle side effects from stasis bag
@@ -336,7 +319,7 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 						updatehealth()
 
 				if(damage && organs.len)
-					var/datum/organ/external/O = pick(organs)
+					var/obj/item/organ/external/O = pick(organs)
 					if(istype(O)) O.add_autopsy_data("Radiation Poisoning", damage)
 
 	proc/breathe()
@@ -463,7 +446,7 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 				adjustOxyLoss(oxyloss)
 				failed_last_breath = 1
 
-			var/datum/organ/external/affected = get_organ("chest")
+			var/obj/item/organ/external/affected = get_organ("chest")
 			affected.add_autopsy_data("Suffocation", oxyloss)
 
 			oxygen_alert = max(oxygen_alert, 1)
@@ -1292,7 +1275,7 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 					healthdoll.icon_state = "healthdoll_DEAD"
 				else
 					healthdoll.icon_state = "healthdoll_OVERLAY"
-					for(var/datum/organ/external/O in organs)
+					for(var/obj/item/organ/external/O in organs)
 						var/damage = O.burn_dam + O.brute_dam
 						var/comparison = (O.max_damage/5)
 						var/icon_num = 0
@@ -1307,7 +1290,7 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 						if(damage > (comparison*4))
 							icon_num = 5
 						if(icon_num)
-							healthdoll.overlays += image('icons/mob/screen_gen.dmi',"[O.name][icon_num]")
+							healthdoll.overlays += image('icons/mob/screen_gen.dmi',"[O.limb_name][icon_num]")
 
 			if(nutrition_icon)
 				switch(nutrition)
@@ -1586,6 +1569,9 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 		if(stat == DEAD)
 			return PULSE_NONE	//that's it, you're dead, nothing can influence your pulse
 
+		if(heart_attack)
+			return PULSE_NONE
+
 		var/temp = PULSE_NORM
 
 		if(round(vessel.get_reagent_amount("blood")) <= BLOOD_VOLUME_BAD)	//how much blood do we have
@@ -1658,8 +1644,8 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 	proc/handle_heartbeat()
 		var/client/C = src.client
 		if(C && C.prefs.sound & SOUND_HEARTBEAT) //disable heartbeat by pref
-			var/datum/organ/internal/heart/H = internal_organs_by_name["heart"]
-			if(istype(H,/datum/organ/internal/heart/robotic)) //Handle robotic hearts specially with a wuuuubb. This also applies to machine-people.
+			var/obj/item/organ/heart/H = internal_organs_by_name["heart"]
+			if(H.status & ORGAN_ROBOT) //Handle robotic hearts specially with a wuuuubb. This also applies to machine-people.
 				if(shock_stage >= 10 || istype(get_turf(src), /turf/space))
 					//PULSE_THREADY - maximum value for pulse, currently it 5.
 					//High pulse value corresponds to a fast rate of heartbeat.
@@ -1688,7 +1674,7 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 
 				if(heartbeat >= rate)
 					heartbeat = 0
-					if(istype(H,/datum/organ/internal/heart/assisted))
+					if(H.status & ORGAN_ASSISTED)
 						src << sound('sound/effects/pacemakebeat.ogg',0,0,0,50)
 					else
 						src << sound('sound/effects/singlebeat.ogg',0,0,0,50)
@@ -1908,7 +1894,7 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 	else
 		losebreath += 5
 		adjustOxyLoss(10)
-		adjustBrainLoss(10)
+		adjustBrainLoss(rand(4,10))
 		Paralyse(2)
 	return
 
