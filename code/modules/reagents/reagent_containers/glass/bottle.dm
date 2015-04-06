@@ -251,3 +251,15 @@
 	New()
 		..()
 		reagents.add_reagent("formaldehyde", 50)
+
+
+////////////////////Traitor Poison Bottle//////////////////////////////
+
+/obj/item/weapon/reagent_containers/glass/bottle/traitor
+	desc = "It has a small skull and crossbones on it. Uh-oh!"
+	possible_transfer_amounts = list(5,10,15,25,30,40)
+	volume = 40
+
+	New()
+		..()
+		reagents.add_reagent(pick("polonium","initropidril","concentrated_initro","pancuronium","sodium_thiopental","ketamine","sulfonal","amanitin","coniine","curare","sarin","histamine","venom","cyanide"), 40)
