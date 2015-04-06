@@ -193,7 +193,8 @@
 						/obj/item/clothing/head/helmet/space/santahat,
 						/obj/item/clothing/head/collectable/paper,
 						/obj/item/clothing/head/soft,
-						/obj/item/clothing/head/hardhat/reindeer
+						/obj/item/clothing/head/hardhat/reindeer,
+						/obj/item/clothing/head/helmet/space/deathsquad
 					)
 
 					if( ! ( item_to_add.type in allowed_types ) )
@@ -219,7 +220,9 @@
 
 					var/list/allowed_types = list(
 						/obj/item/clothing/suit/armor/vest,
-						/obj/item/device/radio
+						/obj/item/device/radio,
+						/obj/item/clothing/suit/space/deathsquad
+						
 					)
 
 					if( ! ( item_to_add.type in allowed_types ) )
@@ -304,6 +307,10 @@
 			emote_hear = list("lights the way", "illuminates", "yaps")
 			desc = "He has a very shiny nose."
 			SetLuminosity(1)
+		if(/obj/item/clothing/head/helmet/space/deathsquad, /obj/item/clothing/suit/space/deathsquad)
+			name = "Trooper [real_name]"
+			emote_hear = list("barks LOUDLY!")
+			desc = "That's not red paint. That's real corgi blood."
 
 
 //IAN! SQUEEEEEEEEE~
