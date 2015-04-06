@@ -9,7 +9,7 @@
 	can_use(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
 		if (!hasorgans(target))
 			return 0
-		var/datum/organ/external/affected = target.get_organ(target_zone)
+		var/obj/item/organ/external/affected = target.get_organ(target_zone)
 		if (!affected)
 			return 0
 		return target_zone == "mouth"
@@ -38,7 +38,7 @@
 		target.op_stage.face = 1
 
 	fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
-		var/datum/organ/external/affected = target.get_organ(target_zone)
+		var/obj/item/organ/external/affected = target.get_organ(target_zone)
 		user.visible_message("\red [user]'s hand slips, slicing [target]'s throat wth \the [tool]!" , \
 		"\red Your hand slips, slicing [target]'s throat wth \the [tool]!" )
 		affected.createwound(CUT, 60)
@@ -95,7 +95,7 @@
 		target.op_stage.face = 3
 
 	fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
-		var/datum/organ/external/affected = target.get_organ(target_zone)
+		var/obj/item/organ/external/affected = target.get_organ(target_zone)
 		user.visible_message("\red [user]'s hand slips, tearing skin on [target]'s face with \the [tool]!", \
 		"\red Your hand slips, tearing skin on [target]'s face with \the [tool]!")
 		target.apply_damage(10, BRUTE, affected, sharp=1, sharp=1)
@@ -120,20 +120,20 @@
 		..()
 
 	end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
-		var/datum/organ/external/affected = target.get_organ(target_zone)
+		var/obj/item/organ/external/affected = target.get_organ(target_zone)
 		user.visible_message("\blue [user] cauterizes the incision on [target]'s face and neck with \the [tool].", \
 		"\blue You cauterize the incision on [target]'s face and neck with \the [tool].")
 		affected.open = 0
 		affected.status &= ~ORGAN_BLEEDING
 		if (target.op_stage.face == 3)
-			var/datum/organ/external/head/h = affected
+			var/obj/item/organ/external/head/h = affected
 			h.disfigured = 0
 			h.update_icon()
 			target.regenerate_icons()
 		target.op_stage.face = 0
 
 	fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
-		var/datum/organ/external/affected = target.get_organ(target_zone)
+		var/obj/item/organ/external/affected = target.get_organ(target_zone)
 		user.visible_message("\red [user]'s hand slips, leaving a small burn on [target]'s face with \the [tool]!", \
 		"\red Your hand slips, leaving a small burn on [target]'s face with \the [tool]!")
 		target.apply_damage(4, BURN, affected)

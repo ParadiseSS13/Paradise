@@ -8,146 +8,11 @@
 	can_use(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
 		if (!hasorgans(target))
 			return 0
-		var/datum/organ/external/affected = target.get_organ(target_zone)
-		if (!affected)
+		var/obj/item/organ/external/affected = target.get_organ(target_zone)
+		if (affected)
 			return 0
-		if (!(affected.status & ORGAN_DESTROYED))
-			return 0
-		if (affected.parent)
-			if (affected.parent.status & ORGAN_DESTROYED)
-				return 0
-		return affected.name != "head"
-
-
-/datum/surgery_step/limb/cut
-	allowed_tools = list(
-	/obj/item/weapon/scalpel = 100,		\
-	/obj/item/weapon/kitchenknife = 75,	\
-	/obj/item/weapon/shard = 50, 		\
-	)
-
-	min_duration = 80
-	max_duration = 100
-
-	can_use(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
-		if (!hasorgans(target))
-			return 0
-		var/datum/organ/external/affected = target.get_organ(target_zone)
-		return ..() && !(affected.status & ORGAN_CUT_AWAY)
-
-	begin_step(mob/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
-		var/datum/organ/external/affected = target.get_organ(target_zone)
-		if(!(target.species.flags & IS_SYNTHETIC))
-			user.visible_message("[user] starts cutting away flesh where [target]'s [affected.display_name] used to be with \the [tool].", \
-			"You start cutting away flesh where [target]'s [affected.display_name] used to be with \the [tool].")
-		else
-			user.visible_message("[user] starts cutting away metal where [target]'s [affected.display_name] used to be with \the [tool].", \
-			"You start cutting away metal where [target]'s [affected.display_name] used to be with \the [tool].")
-		..()
-
-	end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
-		var/datum/organ/external/affected = target.get_organ(target_zone)
-		if(!(target.species.flags & IS_SYNTHETIC))
-			user.visible_message("\blue [user] cuts away flesh where [target]'s [affected.display_name] used to be with \the [tool].",	\
-			"\blue You cut away flesh where [target]'s [affected.display_name] used to be with \the [tool].")
-		else 
-			user.visible_message("\blue [user] cuts away metal where [target]'s [affected.display_name] used to be with \the [tool].",	\
-			"\blue You cut away metal where [target]'s [affected.display_name] used to be with \the [tool].")
-		affected.status |= ORGAN_CUT_AWAY
-
-	fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
-		var/datum/organ/external/affected = target.get_organ(target_zone)
-		if (affected.parent)
-			affected = affected.parent
-			user.visible_message("\red [user]'s hand slips, cutting [target]'s [affected.display_name] open!", \
-			"\red Your hand slips, cutting [target]'s [affected.display_name] open!")
-			affected.createwound(CUT, 10)
-
-
-/datum/surgery_step/limb/mend
-	allowed_tools = list(
-	/obj/item/weapon/retractor = 100, 	\
-	/obj/item/weapon/crowbar = 75,	\
-	/obj/item/weapon/kitchen/utensil/fork = 50)
-
-	min_duration = 80
-	max_duration = 100
-
-	can_use(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
-		var/datum/organ/external/affected = target.get_organ(target_zone)
-		return ..() && affected.status & ORGAN_CUT_AWAY && affected.open < 3 && !(affected.status & ORGAN_ATTACHABLE)
-
-	begin_step(mob/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
-		var/datum/organ/external/affected = target.get_organ(target_zone)
-		if(!(target.species.flags & IS_SYNTHETIC))
-			user.visible_message("[user] is beginning to reposition flesh and nerve endings where where [target]'s [affected.display_name] used to be with [tool].", \
-			"You start repositioning flesh and nerve endings where where [target]'s [affected.display_name] used to be with [tool].")
-		else
-			user.visible_message("[user] is beginning to reposition metal and wire endings where where [target]'s [affected.display_name] used to be with [tool].", \
-			"You start repositioning metal and wire endings where where [target]'s [affected.display_name] used to be with [tool].")
-		..()
-
-	end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
-		var/datum/organ/external/affected = target.get_organ(target_zone)
-		if(!(target.species.flags & IS_SYNTHETIC))
-			user.visible_message("\blue [user] has finished repositioning flesh and nerve endings where [target]'s [affected.display_name] used to be with [tool].",	\
-			"\blue You have finished repositioning flesh and nerve endings where [target]'s [affected.display_name] used to be with [tool].")
-		else
-			user.visible_message("\blue [user] has finished repositioning metal and wire endings where [target]'s [affected.display_name] used to be with [tool].",	\
-			"\blue You have finished repositioning metal and wire endings where [target]'s [affected.display_name] used to be with [tool].")
-		affected.open = 3
-
-	fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
-		var/datum/organ/external/affected = target.get_organ(target_zone)
-		if (affected.parent)
-			affected = affected.parent
-			if(!(target.species.flags & IS_SYNTHETIC))
-				user.visible_message("\red [user]'s hand slips, tearing flesh on [target]'s [affected.display_name]!", \
-				"\red Your hand slips, tearing flesh on [target]'s [affected.display_name]!")
-			else 
-				user.visible_message("\red [user]'s hand slips, tearing metal on [target]'s [affected.display_name]!", \
-				"\red Your hand slips, tearing metal on [target]'s [affected.display_name]!")			
-			target.apply_damage(10, BRUTE, affected, sharp=1)
-
-
-/datum/surgery_step/limb/prepare
-	allowed_tools = list(
-	/obj/item/weapon/cautery = 100,			\
-	/obj/item/clothing/mask/cigarette = 75,	\
-	/obj/item/weapon/lighter = 50,			\
-	/obj/item/weapon/weldingtool = 25
-	)
-
-	min_duration = 60
-	max_duration = 70
-
-	can_use(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
-		var/datum/organ/external/affected = target.get_organ(target_zone)
-		return ..() && affected.open == 3
-
-	begin_step(mob/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
-		var/datum/organ/external/affected = target.get_organ(target_zone)
-		user.visible_message("[user] starts adjusting area around [target]'s [affected.display_name] with \the [tool].", \
-		"You start adjusting area around [target]'s [affected.display_name] with \the [tool].")
-		..()
-
-	end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
-		var/datum/organ/external/affected = target.get_organ(target_zone)
-		user.visible_message("\blue [user] has finished adjusting the area around [target]'s [affected.display_name] with \the [tool].",	\
-		"\blue You have finished adjusting the area around [target]'s [affected.display_name] with \the [tool].")
-		affected.status |= ORGAN_ATTACHABLE
-		affected.amputated = 1
-		affected.setAmputatedTree()
-		affected.open = 0
-
-	fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
-		var/datum/organ/external/affected = target.get_organ(target_zone)
-		if (affected.parent)
-			affected = affected.parent
-			user.visible_message("\red [user]'s hand slips, searing [target]'s [affected.display_name]!", \
-			"\red Your hand slips, searing [target]'s [affected.display_name]!")
-			target.apply_damage(10, BURN, affected)
-
+		var/list/organ_data = target.species.has_limbs["[target_zone]"]
+		return !isnull(organ_data) && !(target_zone in list("head","groin","chest"))
 
 /datum/surgery_step/limb/attach
 	allowed_tools = list(/obj/item/robot_parts = 100)
@@ -156,40 +21,40 @@
 	max_duration = 100
 
 	can_use(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
-		var/obj/item/robot_parts/p = tool
-		if (p.part)
-			if (!(target_zone in p.part))
-				return 0
-		var/datum/organ/external/affected = target.get_organ(target_zone)
-		return ..() && affected.status & ORGAN_ATTACHABLE
+		if(..())
+			var/obj/item/robot_parts/p = tool
+			if (p.part)
+				if (!(target_zone in p.part))
+					return 0
+			return isnull(target.get_organ(target_zone))
 
 	begin_step(mob/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
-		var/datum/organ/external/affected = target.get_organ(target_zone)
-		user.visible_message("[user] starts attaching [tool] where [target]'s [affected.display_name] used to be.", \
-		"You start attaching [tool] where [target]'s [affected.display_name] used to be.")
+		user.visible_message("[user] starts attaching \the [tool] to [target].", \
+		"You start attaching \the [tool] to [target].")
 
 	end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
 		var/obj/item/robot_parts/L = tool
-		var/datum/organ/external/affected = target.get_organ(target_zone)
-		user.visible_message("\blue [user] has attached [tool] where [target]'s [affected.display_name] used to be.",	\
-		"\blue You have attached [tool] where [target]'s [affected.display_name] used to be.")
+		user.visible_message("\blue [user] has attached \the [tool] to [target].",	\
+		"\blue You have attached \the [tool] to [target].")
 
-		affected.germ_level = 0
-		affected.robotize()
-		if(L.sabotaged)
-			affected.sabotaged = 1
-		else
-			affected.sabotaged = 0
-		affected.amputated = 0
-		affected.setAmputatedTree()
-		target.handle_organs()
+		if(L.part)
+			for(var/part_name in L.part)
+				if(!isnull(target.get_organ(part_name))) continue
+				var/list/organ_data = target.species.has_limbs["[part_name]"]
+				if(!organ_data) continue
+				var/new_limb_type = organ_data["path"]
+				var/obj/item/organ/external/new_limb = new new_limb_type(target)
+				new_limb.robotize(L.model_info)
+				if(L.sabotaged)
+					new_limb.sabotaged = 1
+
 		target.update_body()
 		target.updatehealth()
 		target.UpdateDamageIcon()
+
 		del(tool)
 
 	fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
-		var/datum/organ/external/affected = target.get_organ(target_zone)
-		user.visible_message("\red [user]'s hand slips, damaging connectors on [target]'s [affected.display_name]!", \
-		"\red Your hand slips, damaging connectors on [target]'s [affected.display_name]!")
-		target.apply_damage(10, BRUTE, affected, sharp=1)
+		user.visible_message("\red [user]'s hand slips, damaging [target]'s flesh!", \
+		"\red Your hand slips, damaging [target]'s flesh!")
+		target.apply_damage(10, BRUTE, null, sharp=1)

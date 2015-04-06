@@ -7,12 +7,14 @@
 		M << "\red Do not touch Admin-Frozen people."
 		return
 
-	var/datum/organ/external/temp = M:organs_by_name["r_hand"]
-	if (M.hand)
-		temp = M:organs_by_name["l_hand"]
-	if(temp && !temp.is_usable())
-		M << "\red You can't use your [temp.display_name]."
-		return
+	var/mob/living/carbon/human/H = M
+	if(istype(H))
+		var/obj/item/organ/external/temp = H.organs_by_name["r_hand"]
+		if (H.hand)
+			temp = H.organs_by_name["l_hand"]
+		if(!temp || !temp.is_usable())
+			H << "\red You can't use your hand."
+			return
 
 	..()
 
@@ -29,7 +31,7 @@
 				playsound(loc, 'sound/weapons/punchmiss.ogg', 25, 1, -1)
 				visible_message("\red <B>[M] has attempted to punch [src]!</B>")
 				return 0
-			var/datum/organ/external/affecting = get_organ(ran_zone(M.zone_sel.selecting))
+			var/obj/item/organ/external/affecting = get_organ(ran_zone(M.zone_sel.selecting))
 			var/armor_block = run_armor_check(affecting, "melee")
 
 			if(HULK in M.mutations)
@@ -138,7 +140,7 @@
 				return 0
 
 
-			var/datum/organ/external/affecting = get_organ(ran_zone(M.zone_sel.selecting))
+			var/obj/item/organ/external/affecting = get_organ(ran_zone(M.zone_sel.selecting))
 			var/armor_block = run_armor_check(affecting, "melee")
 
 			if(HULK in M.mutations)
@@ -165,7 +167,7 @@
 
 			if(w_uniform)
 				w_uniform.add_fingerprint(M)
-			var/datum/organ/external/affecting = get_organ(ran_zone(M.zone_sel.selecting))
+			var/obj/item/organ/external/affecting = get_organ(ran_zone(M.zone_sel.selecting))
 			var/randn = rand(1, 100)
 			if (randn <= 25)
 				apply_effect(2, WEAKEN, run_armor_check(affecting, "melee"))

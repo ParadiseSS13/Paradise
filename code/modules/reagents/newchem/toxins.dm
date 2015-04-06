@@ -11,6 +11,7 @@ datum/reagent/polonium
 	reagent_state = LIQUID
 	color = "#CF3600"
 	metabolization_rate = 0.1
+	penetrates_skin = 1
 
 datum/reagent/polonium/on_mob_life(var/mob/living/M as mob)
 	if(!M) M = holder.my_atom
@@ -22,11 +23,16 @@ datum/reagent/polonium/on_mob_life(var/mob/living/M as mob)
 datum/reagent/histamine
 	name = "Histamine"
 	id = "histamine"
-	description = "A dose-dependent toxin, ranges from annoying to incredibly lethal."
+	description = "Immune-system neurotransmitter. If detected in blood, the subject is likely undergoing an allergic reaction."
 	reagent_state = LIQUID
-	color = "#CF3600"
+	color = "#E7C4C4"
 	metabolization_rate = 0.2
 	overdose_threshold = 30
+
+datum/reagent/histamine/reaction_mob(var/mob/living/M as mob, var/method=TOUCH, var/volume) //dumping histamine on someone is VERY mean.
+	if(iscarbon(M))
+		if(method == TOUCH)
+			M.reagents.add_reagent("histamine",10)
 
 datum/reagent/histamine/on_mob_life(var/mob/living/M as mob)
 	if(!M) M = holder.my_atom
@@ -57,7 +63,8 @@ datum/reagent/formaldehyde
 	id = "formaldehyde"
 	description = "Formaldehyde is a common industrial chemical and is used to preserve corpses and medical samples. It is highly toxic and irritating."
 	reagent_state = LIQUID
-	color = "#CF3600"
+	color = "#DED6D0"
+	penetrates_skin = 1
 
 datum/reagent/formaldehyde/on_mob_life(var/mob/living/M as mob)
 	if(!M) M = holder.my_atom
@@ -143,6 +150,7 @@ datum/reagent/cyanide
 	reagent_state = LIQUID
 	color = "#CF3600"
 	metabolization_rate = 0.1
+	penetrates_skin = 1
 
 datum/reagent/cyanide/on_mob_life(var/mob/living/M as mob)
 	if(!M) M = holder.my_atom
@@ -172,15 +180,11 @@ datum/reagent/cyanide/on_mob_life(var/mob/living/M as mob)
 datum/reagent/itching_powder
 	name = "Itching Powder"
 	id = "itching_powder"
-	description = "Lots of annoying random effects, chances to do some brute damage from scratching. 6% chance to decay into 1-3 units of histamine."
+	description = "An abrasive powder beloved by cruel pranksters."
 	reagent_state = LIQUID
-	color = "#CF3600"
+	color = "#B0B0B0"
 	metabolization_rate = 0.3
-
-/datum/reagent/itching_powder/reaction_mob(var/mob/living/M, var/method=TOUCH, var/volume)
-	if(method == TOUCH)
-		M.reagents.add_reagent("itching_powder", volume)
-		return
+	penetrates_skin = 1
 
 datum/reagent/itching_powder/on_mob_life(var/mob/living/M as mob)
 	if(!M) M = holder.my_atom
@@ -195,7 +199,6 @@ datum/reagent/itching_powder/on_mob_life(var/mob/living/M as mob)
 		M.adjustBruteLoss(0.2*REM)
 	if(prob(6))
 		M.reagents.add_reagent("histamine",rand(1,3))
-		M.reagents.remove_reagent("itching_powder",1)
 	..()
 	return
 
@@ -205,6 +208,7 @@ datum/reagent/itching_powder/on_mob_life(var/mob/living/M as mob)
 	result = "itching_powder"
 	required_reagents = list("fuel" = 1, "ammonia" = 1, "charcoal" = 1)
 	result_amount = 3
+	mix_message = "The mixture congeals and dries up, leaving behind an abrasive powder."
 
 datum/reagent/facid/on_mob_life(var/mob/living/M as mob)
 	if(!M) M = holder.my_atom
@@ -246,7 +250,7 @@ datum/reagent/facid/reaction_mob(var/mob/living/M, var/method=TOUCH, var/volume)
 				return
 
 			if(!H.unacidable)
-				var/datum/organ/external/affecting = H.get_organ("head")
+				var/obj/item/organ/external/affecting = H.get_organ("head")
 				if(affecting.take_damage(15, 0))
 					H.UpdateDamageIcon()
 				H.emote("scream")
@@ -268,7 +272,7 @@ datum/reagent/facid/reaction_mob(var/mob/living/M, var/method=TOUCH, var/volume)
 		if(!M.unacidable)
 			if(ishuman(M))
 				var/mob/living/carbon/human/H = M
-				var/datum/organ/external/affecting = H.get_organ("head")
+				var/obj/item/organ/external/affecting = H.get_organ("head")
 				if(affecting.take_damage(15, 0))
 					H.UpdateDamageIcon()
 				H.emote("scream")
@@ -324,10 +328,24 @@ datum/reagent/initropidril/on_mob_life(var/mob/living/M as mob)
 			if(3)
 				var/mob/living/carbon/human/H = M
 				if(!H.heart_attack)
-					H.visible_message("<span class = 'userdanger'>[H] clutches at their chest!</span>")
 					H.heart_attack = 1 // rip in pepperoni
 	..()
 	return
+
+datum/reagent/concentrated_initro
+	name = "Concentrated Initropidril"
+	id = "concentrated_initro"
+	description = "A guaranteed heart-stopper!"
+	reagent_state = LIQUID
+	color = "#AB1CCF"
+	metabolization_rate = 0.4
+
+datum/reagent/concentrated_initro/on_mob_life(var/mob/living/M as mob)
+	if(!M) M = holder.my_atom
+	if(volume >=5)
+		var/mob/living/carbon/human/H = M
+		if(!H.heart_attack)
+			H.heart_attack = 1 // rip in pepperoni
 
 datum/reagent/pancuronium
 	name = "Pancuronium"
@@ -349,16 +367,19 @@ datum/reagent/pancuronium/on_mob_life(var/mob/living/M as mob)
 datum/reagent/sodium_thiopental
 	name = "Sodium Thiopental"
 	id = "sodium_thiopental"
-	description = "Puts you to sleep after 30 seconds, along with some major stamina loss."
+	description = "An rapidly-acting barbituate tranquilizer."
 	reagent_state = LIQUID
-	color = "#CF3600"
+	color = "#5F8BE1"
 	metabolization_rate = 0.7
 
 datum/reagent/sodium_thiopental/on_mob_life(var/mob/living/M as mob)
 	if(!M) M = holder.my_atom
-	if(current_cycle >= 10)
-		M.sleeping += 3
-	M.adjustStaminaLoss(10)
+	if(current_cycle == 1)
+		M.emote("drool")
+	if(current_cycle >= 2)
+		M.drowsyness = max(M.drowsyness, 20)
+	if(current_cycle >= 5)
+		M.Paralyse(4)
 	..()
 	return
 
@@ -369,6 +390,7 @@ datum/reagent/ketamine
 	reagent_state = LIQUID
 	color = "#646EA0"
 	metabolization_rate = 0.8
+	penetrates_skin = 1
 
 datum/reagent/ketamine/on_mob_life(var/mob/living/M as mob)
 	if(!M) M = holder.my_atom
@@ -387,7 +409,7 @@ datum/reagent/sulfonal
 	id = "sulfonal"
 	description = "Deals some toxin damage, and puts you to sleep after 66 seconds."
 	reagent_state = LIQUID
-	color = "#CF3600"
+	color = "#6BA688"
 	metabolization_rate = 0.1
 
 /datum/chemical_reaction/sulfonal
@@ -396,21 +418,31 @@ datum/reagent/sulfonal
 	result = "sulfonal"
 	required_reagents = list("acetone" = 1, "diethylamine" = 1, "sulfur" = 1)
 	result_amount = 3
+	mix_message = "The mixture gives off quite a stench."
 
 datum/reagent/sulfonal/on_mob_life(var/mob/living/M as mob)
 	if(!M) M = holder.my_atom
-	if(current_cycle >= 22)
-		M.sleeping += 3
 	M.adjustToxLoss(1)
+	if(current_cycle >= 11)
+		M.drowsyness = max(M.drowsyness, 20)
+	switch(current_cycle)
+		if(0 to 10)
+			if(prob(5))
+				M.emote("yawn")
+		if(22)
+			M.emote("faint")
+		if(23 to INFINITY)
+			if(prob(20))
+				M.emote("faint")
 	..()
 	return
 
 datum/reagent/amanitin
 	name = "Amanitin"
 	id = "amanitin"
-	description = "On the last second that it's in you, it hits you with a stack of toxin damage based on how long it's been in you. The more you use, the longer it takes before anything happens, but the harder it hits when it does."
+	description = "A toxin produced by certain mushrooms. Very deadly."
 	reagent_state = LIQUID
-	color = "#CF3600"
+	color = "#D9D9D9"
 
 datum/reagent/amanitin/on_mob_life(var/mob/living/M as mob)
 	if(!M) M = holder.my_atom
@@ -426,9 +458,9 @@ datum/reagent/amanitin/reagent_deleted(var/mob/living/M as mob)
 datum/reagent/lipolicide
 	name = "Lipolicide"
 	id = "lipolicide"
-	description = "Deals some toxin damage unless they keep eating food. Will reduce nutrition values."
-	reagent_state = LIQUID
-	color = "#CF3600"
+	description = "A compound found in many seedy dollar stores in the form of a weight-loss tonic."
+	reagent_state = SOLID
+	color = "#D1DED1"
 
 /datum/chemical_reaction/lipolicide
 	name = "lipolicide"
@@ -451,9 +483,9 @@ datum/reagent/lipolicide/on_mob_life(var/mob/living/M as mob)
 datum/reagent/coniine
 	name = "Coniine"
 	id = "coniine"
-	description = "Does moderate toxin damage and oxygen loss."
+	description = "A neurotoxin that rapidly causes respiratory failure."
 	reagent_state = LIQUID
-	color = "#CF3600"
+	color = "#C2D8CD"
 	metabolization_rate = 0.05
 
 datum/reagent/coniine/on_mob_life(var/mob/living/M as mob)
@@ -466,15 +498,18 @@ datum/reagent/coniine/on_mob_life(var/mob/living/M as mob)
 datum/reagent/curare
 	name = "Curare"
 	id = "curare"
-	description = "Does some oxygen and toxin damage, weakens you after 33 seconds."
+	description = "A highly dangerous paralytic poison."
 	reagent_state = LIQUID
-	color = "#CF3600"
+	color = "#191919"
 	metabolization_rate = 0.1
+	penetrates_skin = 1
 
 datum/reagent/curare/on_mob_life(var/mob/living/M as mob)
 	if(!M) M = holder.my_atom
+	if(prob(5))
+		M.emote(pick("gasp","drool", "pale"))
 	if(current_cycle >= 11)
-		M.Weaken(3)
+		M.Weaken(15)
 	M.adjustToxLoss(1)
 	M.adjustOxyLoss(1)
 	..()
@@ -487,6 +522,7 @@ datum/reagent/sarin
 	reagent_state = LIQUID
 	color = "#C7C7C7"
 	metabolization_rate = 0.1
+	penetrates_skin = 1
 
 /datum/chemical_reaction/sarin
 	name = "sarin"
@@ -500,7 +536,6 @@ datum/reagent/sarin
 datum/reagent/sarin/on_mob_life(var/mob/living/M as mob)
 	if(!M) M = holder.my_atom
 	M.adjustFireLoss(1)
-	M.adjustToxLoss(1)
 	if(prob(20))
 		M.emote(pick("twitch","drool", "quiver"))
 	if(prob(10))
@@ -523,8 +558,10 @@ datum/reagent/sarin/on_mob_life(var/mob/living/M as mob)
 	switch(current_cycle)
 		if(0 to 60)
 			M.adjustBrainLoss(1)
+			M.adjustToxLoss(1)
 		if(61 to INFINITY)
 			M.adjustBrainLoss(2)
+			M.adjustToxLoss(2)
 			M.Paralyse(5)
 			M.losebreath += 5
 	..()
@@ -636,5 +673,79 @@ datum/reagent/capulettium_plus
 datum/reagent/capulettium_plus/on_mob_life(var/mob/living/M as mob)
 	if(!M) M = holder.my_atom
 	M.silent += REM + 1
+	..()
+	return
+
+datum/reagent/toxic_slurry
+	name = "Toxic Slurry"
+	id = "toxic_slurry"
+	description = "A filthy, carcinogenic sludge produced by the Slurrypod plant."
+	reagent_state = LIQUID
+	color = "#00C81E"
+
+datum/reagent/toxic_slurry/on_mob_life(var/mob/living/M as mob)
+	if(!M) M = holder.my_atom
+	if(prob(10))
+		M.adjustToxLoss(rand(2,4))
+	if(prob(7))
+		switch(pick(1,2))
+			if(1)
+				M.fakevomit(1)
+			if(2)
+				M.Stun(rand(4,10))
+				M << "<span class='warning'>A horrible migraine overpowers you.</span>"
+	..()
+	return
+
+datum/reagent/glowing_slurry
+	name = "Glowing Slurry"
+	id = "glowing_slurry"
+	description = "This is probably not good for you."
+	reagent_state = LIQUID
+	color = "#00FD00"
+
+datum/reagent/glowing_slurry/reaction_mob(var/mob/M, var/method=TOUCH, var/volume) //same as mutagen
+	if(!..())	return
+	if(!M.dna) return //No robots, AIs, aliens, Ians or other mobs should be affected by this.
+	src = null
+	if((method==TOUCH && prob(33)) || method==INGEST)
+		if(prob(98))
+			randmutb(M)
+		else
+			randmutg(M)
+		domutcheck(M, null)
+		M.UpdateAppearance()
+	return
+
+datum/reagent/glowing_slurry/on_mob_life(var/mob/living/M as mob)
+	if(!M) M = holder.my_atom
+	M.apply_effect(2*REM,IRRADIATE,0)
+	if(prob(15))
+		randmutb(M)
+	if(prob(5))
+		randmutg(M)
+	domutcheck(M, null)
+	M.UpdateAppearance()
+	..()
+	return
+
+datum/reagent/ants
+	name = "Ants"
+	id = "ants"
+	description = "A sample of a lost breed of Space Ants (formicidae bastardium tyrannus), they are well-known for ravaging the living shit out of pretty much anything."
+	reagent_state = SOLID
+	color = "#993333"
+
+datum/reagent/ants/reaction_mob(var/mob/living/M as mob, var/method=TOUCH, var/volume) //NOT THE ANTS
+	if(iscarbon(M))
+		if(method == TOUCH || method==INGEST)
+			M.adjustBruteLoss(4)
+			M.emote("scream")
+			M << "<span class='warning'>OH SHIT ANTS!!!!</span>"
+
+
+datum/reagent/ants/on_mob_life(var/mob/living/M as mob)
+	if(!M) M = holder.my_atom
+	M.adjustBruteLoss(2)
 	..()
 	return

@@ -61,7 +61,7 @@
 //	identify_probability = 0
 	New()
 		..()
-		var/global/list/chems_only = list("slimejelly","blood","water","lube","charcoal","toxin","cyanide","morphine","epinephrine","space_drugs","serotrotium","oxygen","copper","nitrogen","hydrogen","potassium","mercury","sulfur","carbon","chlorine","fluorine","sodium","phosphorus","lithium","sugar","sacid","facid","glycerol","radium","mutadone","thermite","mutagen","virusfood","iron","gold","silver","uranium","aluminum","silicon","fuel","cleaner","atrazine","plasma","teporone","cryptobiolin","lexorin","silver_sulfadiazine","salbutamol","perfluorodecalin","omnizine","synaptizine","haloperidol","potass_iodide","pen_acid","mannitol","oculine","styptic_powder","methamphetamine","cryoxadone","clonexadone","spaceacillin","carpotoxin","mindbreaker","fluorosurfactant","foaming_agent","ethanol","ammonia","diethylamine","antihol","pancuronium","lipolicide","condensedcapsaicin","frostoil","amanitin","psilocybin","enzyme","nothing","salglu_solution","antifreeze","neurotoxin")
+		var/global/list/chems_only = list("slimejelly","blood","water","lube","charcoal","toxin","cyanide","morphine","epinephrine","space_drugs","serotrotium","oxygen","copper","nitrogen","hydrogen","potassium","mercury","sulfur","carbon","chlorine","fluorine","sodium","phosphorus","lithium","sugar","sacid","facid","glycerol","radium","mutadone","thermite","mutagen","virusfood","iron","gold","silver","uranium","aluminum","silicon","fuel","cleaner","atrazine","plasma","teporone","cryptobiolin","lexorin","silver_sulfadiazine","salbutamol","perfluorodecalin","omnizine","synaptizine","haloperidol","potass_iodide","pen_acid","mannitol","oculine","styptic_powder","methamphetamine","cryoxadone","clonexadone","spaceacillin","carpotoxin","mindbreaker","fluorosurfactant","fluorosurfactant","ethanol","ammonia","diethylamine","antihol","pancuronium","lipolicide","condensedcapsaicin","frostoil","amanitin","psilocybin","enzyme","nothing","salglu_solution","antifreeze","neurotoxin")
 		var/global/list/rare_chems = list("minttoxin","nanites","xenomicrobes","adminordrazine")
 
 		var/datum/reagent/R = pick(chems_only + rare_chems)
@@ -325,7 +325,7 @@
 	icon_state = "flashbang"
 	var/list/grenadelist = list(/obj/item/weapon/grenade/chem_grenade/metalfoam, /obj/item/weapon/grenade/chem_grenade/incendiary,
 	/obj/item/weapon/grenade/chem_grenade/antiweed, /obj/item/weapon/grenade/chem_grenade/cleaner, /obj/item/weapon/grenade/chem_grenade/teargas,
-	/obj/item/weapon/grenade/chem_grenade/holywater, /obj/item/weapon/grenade/chem_grenade/soap, /obj/item/weapon/grenade/chem_grenade/meat,
+	/obj/item/weapon/grenade/chem_grenade/holywater, /obj/item/weapon/grenade/chem_grenade/meat,
 	/obj/item/weapon/grenade/chem_grenade/dirt, /obj/item/weapon/grenade/chem_grenade/lube, /obj/item/weapon/grenade/smokebomb,
 	/obj/item/weapon/grenade/chem_grenade/drugs, /obj/item/weapon/grenade/chem_grenade/ethanol) // holy list batman
 

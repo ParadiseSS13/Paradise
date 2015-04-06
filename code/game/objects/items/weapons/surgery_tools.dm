@@ -68,7 +68,7 @@ LOOK FOR SURGERY.DM*/
 				if(M == user && prob(25))
 					user << "\red You mess up!"
 					if(istype(M, /mob/living/carbon/human))
-						var/datum/organ/external/affecting = M:get_organ("head")
+						var/obj/item/organ/external/affecting = M:get_organ("head")
 						if(affecting.take_damage(15))
 							M:UpdateDamageIcon()
 						M.updatehealth()
@@ -100,7 +100,7 @@ LOOK FOR SURGERY.DM*/
 					if(M == user && prob(25))
 						user << "\red You mess up!"
 						if(istype(M, /mob/living/carbon/human))
-							var/datum/organ/external/affecting = M:get_organ("chest")
+							var/obj/item/organ/external/affecting = M:get_organ("chest")
 							if(affecting.take_damage(30))
 								M:UpdateDamageIcon()
 						else
@@ -207,7 +207,7 @@ LOOK FOR SURGERY.DM*/
 				if(M == user && prob(25))
 					user << "\red You mess up!"
 					if(istype(M, /mob/living/carbon/human))
-						var/datum/organ/external/affecting = M:get_organ("head")
+						var/obj/item/organ/external/affecting = M:get_organ("head")
 						if(affecting.take_damage(15))
 							M:UpdateDamageIcon()
 						M.updatehealth()
@@ -231,7 +231,7 @@ LOOK FOR SURGERY.DM*/
 				if(M == user && prob(25))
 					user << "\red You mess up!"
 					if(istype(M, /mob/living/carbon/human))
-						var/datum/organ/external/affecting = M:get_organ("chest")
+						var/obj/item/organ/external/affecting = M:get_organ("chest")
 						if(affecting.take_damage(30))
 							M:UpdateDamageIcon()
 					else
@@ -331,7 +331,7 @@ LOOK FOR SURGERY.DM*/
 				if(M == user && prob(25))
 					user << "\red You mess up!"
 					if(istype(M, /mob/living/carbon/human))
-						var/datum/organ/external/affecting = M:get_organ("head")
+						var/obj/item/organ/external/affecting = M:get_organ("head")
 						if(affecting.take_damage(15))
 							M:UpdateDamageIcon()
 						M.updatehealth()
@@ -475,14 +475,14 @@ LOOK FOR SURGERY.DM*/
 				if(M == user && prob(25))
 					user << "\red You mess up!"
 					if(istype(M, /mob/living/carbon/human))
-						var/datum/organ/external/affecting = M:get_organ("head")
+						var/obj/item/organ/external/affecting = M:get_organ("head")
 						if(affecting.take_damage(15))
 							M:UpdateDamageIcon()
 					else
 						M.take_organ_damage(15)
 
 				if(istype(M, /mob/living/carbon/human))
-					var/datum/organ/external/affecting = M:get_organ("head")
+					var/obj/item/organ/external/affecting = M:get_organ("head")
 					affecting.take_damage(7)
 				else
 					M.take_organ_damage(7)
@@ -521,14 +521,14 @@ LOOK FOR SURGERY.DM*/
 				if(M == user && prob(25))
 					user << "\red You nick an artery!"
 					if(istype(M, /mob/living/carbon/human))
-						var/datum/organ/external/affecting = M:get_organ("head")
+						var/obj/item/organ/external/affecting = M:get_organ("head")
 						if(affecting.take_damage(75))
 							M:UpdateDamageIcon()
 					else
 						M.take_organ_damage(75)
 
 				if(istype(M, /mob/living/carbon/human))
-					var/datum/organ/external/affecting = M:get_organ("head")
+					var/obj/item/organ/external/affecting = M:get_organ("head")
 					affecting.take_damage(7)
 				else
 					M.take_organ_damage(7)
@@ -577,7 +577,7 @@ LOOK FOR SURGERY.DM*/
 				if(M == user && prob(25))
 					user << "\red You mess up!"
 					if(istype(M, /mob/living/carbon/human))
-						var/datum/organ/external/affecting = M:get_organ("head")
+						var/obj/item/organ/external/affecting = M:get_organ("head")
 						if(affecting.take_damage(15))
 							M:UpdateDamageIcon()
 					else
@@ -605,7 +605,7 @@ LOOK FOR SURGERY.DM*/
 					if(M == user && prob(25))
 						user << "\red You mess up!"
 						if(istype(M, /mob/living/carbon/human))
-							var/datum/organ/external/affecting = M:get_organ("chest")
+							var/obj/item/organ/external/affecting = M:get_organ("chest")
 							if(affecting.take_damage(15))
 								M:UpdateDamageIcon()
 						else
@@ -693,7 +693,7 @@ LOOK FOR SURGERY.DM*/
 				if(M == user && prob(25))
 					user << "\red You mess up!"
 					if(istype(M, /mob/living/carbon/human))
-						var/datum/organ/external/affecting = M:get_organ("head")
+						var/obj/item/organ/external/affecting = M:get_organ("head")
 						if(affecting.take_damage(40))
 							M:UpdateDamageIcon()
 						M.updatehealth()
@@ -701,7 +701,7 @@ LOOK FOR SURGERY.DM*/
 						M.take_organ_damage(40)
 
 				if(istype(M, /mob/living/carbon/human))
-					var/datum/organ/external/affecting = M:get_organ("head")
+					var/obj/item/organ/external/affecting = M:get_organ("head")
 					affecting.take_damage(7)
 				else
 					M.take_organ_damage(7)
@@ -778,7 +778,7 @@ LOOK FOR SURGERY.DM*/
 					if(M == user && prob(25))
 						user << "\red You mess up!"
 						if(istype(M, /mob/living/carbon/human))
-							var/datum/organ/external/affecting = M:get_organ("chest")
+							var/obj/item/organ/external/affecting = M:get_organ("chest")
 							if(affecting.take_damage(15))
 								M:UpdateDamageIcon()
 						else

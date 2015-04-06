@@ -38,9 +38,6 @@ var/global/list/language_keys[0]					// Table of say codes for all languages
 var/global/list/all_nations[0]
 var/global/list/whitelisted_species = list()
 
-// Posters
-var/global/list/datum/poster/poster_designs = typesof(/datum/poster) - /datum/poster
-
 //Preferences stuff
 	//Hairstyles
 var/global/list/hair_styles_list = list()			//stores /datum/sprite_accessory/hair indexed by name
@@ -142,7 +139,7 @@ var/global/slime_colorh = list("grey", "gold", "silver", "metal", "purple", "dar
 
 		if(S.flags & IS_WHITELISTED)
 			whitelisted_species += S.name
-			
+
 	init_subtypes(/datum/table_recipe, table_recipes)
 
 	return 1

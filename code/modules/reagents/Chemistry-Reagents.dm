@@ -25,38 +25,24 @@ datum
 		//var/list/viruses = list()
 		var/color = "#000000" // rgb: 0, 0, 0 (does not support alpha channels - yet!)
 		var/shock_reduction = 0
+		var/penetrates_skin = 0 //Whether or not a reagent penetrates the skin
 		proc
-			reaction_mob(var/mob/M, var/method=TOUCH, var/volume) //By default we have a chance to transfer some
+			reaction_mob(var/mob/M, var/method=TOUCH, var/volume) //Some reagents transfer on touch, others don't; dependent on if they penetrate the skin or not.
 				if(!istype(M, /mob/living))	return 0
 				var/datum/reagent/self = src
-				src = null										  //of the reagent to the mob on TOUCHING it.
+				src = null
 
 				if(self.holder)		//for catching rare runtimes
-					if(!istype(self.holder.my_atom, /obj/effect/effect/chem_smoke))
-						// If the chemicals are in a smoke cloud, do not try to let the chemicals "penetrate" into the mob's system (balance station 13) -- Doohl
-
-						if(method == TOUCH)
-
-							var/chance = 1
-							var/block  = 0
-
-							for(var/obj/item/clothing/C in M.get_equipped_items())
-								if(C.permeability_coefficient < chance) chance = C.permeability_coefficient
-								if(istype(C, /obj/item/clothing/suit/bio_suit))
-									// bio suits are just about completely fool-proof - Doohl
-									// kind of a hacky way of making bio suits more resistant to chemicals but w/e
-									if(prob(75))
-										block = 1
-
-								if(istype(C, /obj/item/clothing/head/bio_hood))
-									if(prob(75))
-										block = 1
-
-							chance = chance * 100
-
-							if(prob(chance) && !block)
-								if(M.reagents)
-									M.reagents.add_reagent(self.id,self.volume/2)
+					if(method == TOUCH && self.penetrates_skin)
+						var/block  = 0
+						for(var/obj/item/clothing/C in M.get_equipped_items())
+							if(istype(C, /obj/item/clothing/suit/bio_suit))
+								block += 1
+							if(istype(C, /obj/item/clothing/head/bio_hood))
+								block += 1
+						if(block < 2)
+							if(M.reagents)
+								M.reagents.add_reagent(self.id,self.volume)
 
 /*
 					if(method == INGEST && istype(M, /mob/living/carbon))
@@ -302,7 +288,7 @@ datum
 			id = "lube"
 			description = "Lubricant is a substance introduced between two moving surfaces to reduce the friction and wear between them. giggity."
 			reagent_state = LIQUID
-			color = "#009CA8" // rgb: 0, 156, 168
+			color = "#1BB1AB"
 
 			reaction_turf(var/turf/simulated/T, var/volume)
 				if (!istype(T)) return
@@ -596,6 +582,7 @@ datum
 			reagent_state = LIQUID
 			color = "#484848" // rgb: 72, 72, 72
 			metabolization_rate = 0.2
+			penetrates_skin = 1
 
 			on_mob_life(var/mob/living/M as mob)
 				if(!M) M = holder.my_atom
@@ -631,6 +618,7 @@ datum
 			description = "A chemical element."
 			reagent_state = GAS
 			color = "#808080" // rgb: 128, 128, 128
+			penetrates_skin = 1
 
 			on_mob_life(var/mob/living/M as mob)
 				if(!M) M = holder.my_atom
@@ -643,7 +631,9 @@ datum
 			id = "fluorine"
 			description = "A highly-reactive chemical element."
 			reagent_state = GAS
-			color = "#808080" // rgb: 128, 128, 128
+			color = "#6A6054"
+			penetrates_skin = 1
+
 
 			on_mob_life(var/mob/living/M as mob)
 				if(!M) M = holder.my_atom
@@ -692,7 +682,6 @@ datum
 			overdose_threshold = 200 // Hyperglycaemic shock
 
 			on_mob_life(var/mob/living/M as mob)
-				M.nutrition += 1*REM
 				if(prob(4))
 					M.reagents.add_reagent("epinephrine", 1.2)
 				if(prob(50))
@@ -763,7 +752,7 @@ datum
 					if(!M.unacidable)
 						if(prob(15) && istype(M, /mob/living/carbon/human) && volume >= 30)
 							var/mob/living/carbon/human/H = M
-							var/datum/organ/external/affecting = H.get_organ("head")
+							var/obj/item/organ/external/affecting = H.get_organ("head")
 							if(affecting)
 								if(affecting.take_damage(25, 0))
 									H.UpdateDamageIcon()
@@ -811,6 +800,7 @@ datum
 			reagent_state = SOLID
 			color = "#C7C7C7" // rgb: 199,199,199
 			metabolization_rate = 0.4
+			penetrates_skin = 1
 
 			on_mob_life(var/mob/living/M as mob)
 				if(!M) M = holder.my_atom
@@ -871,7 +861,6 @@ datum
 				if(!M.dna) return //No robots, AIs, aliens, Ians or other mobs should be affected by this.
 				src = null
 				if((method==TOUCH && prob(33)) || method==INGEST)
-					randmuti(M)
 					if(prob(98))
 						randmutb(M)
 					else
@@ -883,6 +872,8 @@ datum
 				if(!M.dna) return //No robots, AIs, aliens, Ians or other mobs should be affected by this.
 				if(!M) M = holder.my_atom
 				M.apply_effect(2*REM,IRRADIATE,0)
+				if(prob(4))
+					randmutb(M)
 				..()
 				return
 
@@ -962,7 +953,7 @@ datum
 		silver
 			name = "Silver"
 			id = "silver"
-			description = "A soft, white, lustrous transition metal, it has the highest electrical conductivity of any element and the highest thermal conductivity of any metal."
+			description = "A lustrous metallic element regarded as one of the precious metals."
 			reagent_state = SOLID
 			color = "#D0D0D0" // rgb: 208, 208, 208
 
@@ -1003,9 +994,9 @@ datum
 		fuel
 			name = "Welding fuel"
 			id = "fuel"
-			description = "Required for welders. Flamable."
+			description = "A highly flammable blend of basic hydrocarbons, mostly Acetylene. Useful for both welding and organic chemistry, and can be fortified into a heavier oil."
 			reagent_state = LIQUID
-			color = "#660000" // rgb: 102, 0, 0
+			color = "#060606"
 
 			reaction_mob(var/mob/living/M, var/method=TOUCH, var/volume)//Splashing people with welding fuel to make them easy to ignite!
 				if(!istype(M, /mob/living))
@@ -1115,9 +1106,9 @@ datum
 		plasma
 			name = "Plasma"
 			id = "plasma"
-			description = "Plasma in its liquid form."
+			description = "The liquid phase of an unusual extraterrestrial compound."
 			reagent_state = LIQUID
-			color = "#C8A5DC" // rgb: 200, 165, 220
+			color = "#7A2B94"
 
 			on_mob_life(var/mob/living/M as mob)
 				if(!M) M = holder.my_atom
@@ -1153,7 +1144,7 @@ datum
 			id = "lexorin"
 			description = "Lexorin temporarily stops respiration. Causes tissue damage."
 			reagent_state = LIQUID
-			color = "#32127A" // rgb: 50, 18, 122
+			color = "#52685D"
 			metabolization_rate = 0.2
 
 			on_mob_life(var/mob/living/M as mob)
@@ -1189,7 +1180,7 @@ datum
 				M.eye_blind = 0
 				if(ishuman(M))
 					var/mob/living/carbon/human/H = M
-					var/datum/organ/internal/eyes/E = H.internal_organs_by_name["eyes"]
+					var/obj/item/organ/eyes/E = H.internal_organs_by_name["eyes"]
 					if(istype(E))
 						E.damage = max(E.damage-5 , 0)
 				M.SetWeakened(0)
@@ -1259,9 +1250,9 @@ datum
 				if(ishuman(M))
 					var/mob/living/carbon/human/H = M
 
-					//Peridaxon is hard enough to get, it's probably fair to make this all internal organs
+					//Mitocholide is hard enough to get, it's probably fair to make this all internal organs
 					for(var/name in H.internal_organs_by_name)
-						var/datum/organ/internal/I = H.internal_organs_by_name[name]
+						var/obj/item/organ/I = H.internal_organs_by_name[name]
 						if(I.damage > 0)
 							I.damage -= 0.20
 				..()
@@ -1289,7 +1280,7 @@ datum
 			id = "clonexadone"
 			description = "A liquid compound similar to that used in the cloning process. Can be used to 'finish' clones that get ejected early when used in conjunction with a cryo tube."
 			reagent_state = LIQUID
-			color = "#C8A5DC" // rgb: 200, 165, 220
+			color = "#0000C8" // rgb: 200, 165, 220
 
 			on_mob_life(var/mob/living/M as mob)
 				if(!M) M = holder.my_atom
@@ -1432,7 +1423,7 @@ datum
 
 				return
 
-//foam precursor
+//foam
 
 		fluorosurfactant
 			name = "Fluorosurfactant"
@@ -1443,13 +1434,6 @@ datum
 
 // metal foaming agent
 // this is lithium hydride. Add other recipies (e.g. LiH + H2O -> LiOH + H2) eventually
-
-		foaming_agent
-			name = "Foaming agent"
-			id = "foaming_agent"
-			description = "A agent that yields metallic foam when mixed with light metal and a strong acid."
-			reagent_state = SOLID
-			color = "#664B63" // rgb: 102, 75, 99
 
 		ammonia
 			name = "Ammonia"
@@ -1674,11 +1658,11 @@ datum
 					M.adjustToxLoss(rand(15,30))
 
 		sodiumchloride
-			name = "Table Salt"
+			name = "Salt"
 			id = "sodiumchloride"
-			description = "A salt made of sodium chloride. Commonly used to season food."
+			description = "Sodium chloride, common table salt."
 			reagent_state = SOLID
-			color = "#FFFFFF" // rgb: 255,255,255
+			color = "#B1B0B0"
 
 		blackpepper
 			name = "Black Pepper"
@@ -2147,11 +2131,15 @@ datum
 				adj_temp = 25
 
 				on_mob_life(var/mob/living/M as mob)
-					..()
 					M.Jitter(5)
 					if(adj_temp > 0 && holder.has_reagent("frostoil"))
 						holder.remove_reagent("frostoil", 10*REAGENTS_METABOLISM)
-					holder.remove_reagent(src.id, 0.1)
+					if(prob(50))
+						M.AdjustParalysis(-1)
+						M.AdjustStunned(-1)
+						M.AdjustWeakened(-1)
+					..()
+					return
 
 				icecoffee
 					name = "Iced Coffee"
@@ -2451,7 +2439,7 @@ datum
 					M:drowsyness  = max(M:drowsyness, 30/sober_str)
 					if(ishuman(M))
 						var/mob/living/carbon/human/H = M
-						var/datum/organ/internal/liver/L = H.internal_organs_by_name["liver"]
+						var/obj/item/organ/liver/L = H.internal_organs_by_name["liver"]
 						if (istype(L))
 							L.take_damage(0.1, 1)
 						H.adjustToxLoss(0.1)
@@ -2490,6 +2478,12 @@ datum
 					..()
 					M:jitteriness = max(M:jitteriness-3,0)
 					return
+
+			cider
+				name = "Cider"
+				id = "cider"
+				description = "An alcoholic beverage derived from apples."
+				color = "#174116"
 
 			whiskey
 				name = "Whiskey"
@@ -2588,15 +2582,18 @@ datum
 				dizzy_adj = 4
 				confused_start = 115	//amount absorbed after which mob starts confusing directions
 
-			hooch
-				name = "Hooch"
-				id = "hooch"
-				description = "Either someone's failure at cocktail making or attempt in alchohol production. In any case, do you really want to drink that?"
-				color = "#664300" // rgb: 102, 67, 0
-				dizzy_adj = 6
-				slurr_adj = 5
-				slur_start = 35			//amount absorbed after which mob starts slurring
-				confused_start = 90	//amount absorbed after which mob starts confusing directions
+			suicider //otherwise known as "I want to get so smashed my liver gives out and I die from alcohol poisoning".
+				name = "Suicider"
+				id = "suicider"
+				description = "An unbelievably strong and potent variety of Cider."
+				color = "#CF3811"
+				dizzy_adj = 20
+				slurr_adj = 20
+				confused_adj = 3
+				slur_start = 15
+				confused_start = 40
+				blur_start = 60
+				pass_out = 80
 
 			ale
 				name = "Ale"

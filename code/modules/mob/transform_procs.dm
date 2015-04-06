@@ -123,7 +123,7 @@
 	O.rename_self("ai",1)
 	. = O
 	qdel(src)
-	
+
 /mob/living/carbon/human/make_into_mask(var/should_gib = 0)
 	for(var/t in organs)
 		qdel(t)
@@ -189,6 +189,8 @@
 	invisibility = 101
 	for(var/t in organs)
 		del(t)
+	for(var/i in internal_organs)
+		del(i)
 
 	var/mob/living/silicon/robot/O = new /mob/living/silicon/robot( loc )
 
@@ -383,7 +385,7 @@
 	if(!MP)
 		return 0	//Sanity, this should never happen.
 
-	if(ispath(MP, /mob/living/simple_animal/space_worm))
+	if(ispath(MP, /mob/living/simple_animal/hostile/spaceWorm))
 		return 0 //Unfinished. Very buggy, they seem to just spawn additional space worms everywhere and eating your own tail results in new worms spawning.
 
 	if(ispath(MP, /mob/living/simple_animal/construct/behemoth))

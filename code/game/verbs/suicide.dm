@@ -59,7 +59,7 @@
 				if(!(damagetype | BRUTELOSS) && !(damagetype | FIRELOSS) && !(damagetype | TOXLOSS) && !(damagetype | OXYLOSS))
 					adjustOxyLoss(max(175 - getToxLoss() - getFireLoss() - getBruteLoss() - getOxyLoss(), 0))
 
-				var/datum/organ/external/affected = get_organ("head")
+				var/obj/item/organ/external/affected = get_organ("head")
 				affected.add_autopsy_data("Suicide by [held_item]", 175)
 
 				updatehealth()
@@ -72,7 +72,7 @@
 							"\red <b>[src] is holding \his breath! It looks like \he's trying to commit suicide.</b>")
 		adjustOxyLoss(max(175 - getToxLoss() - getFireLoss() - getBruteLoss() - getOxyLoss(), 0))
 
-		var/datum/organ/external/affected = get_organ("head")
+		var/obj/item/organ/external/affected = get_organ("head")
 		affected.add_autopsy_data("Suicide", 175)
 
 		updatehealth()

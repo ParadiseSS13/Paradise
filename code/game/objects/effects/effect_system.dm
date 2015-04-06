@@ -11,7 +11,7 @@ would spawn and follow the beaker, even if it is carried or thrown.
 	icon = 'icons/effects/effects.dmi'
 	mouse_opacity = 0
 	unacidable = 1//So effect are not targeted by alien acid.
-	
+
 /datum/effect/effect/proc/fadeOut(var/atom/A, var/frames = 16)
 	if(A.alpha == 0) //Handle already transparent case
 		return
@@ -426,7 +426,7 @@ steam.start() -- spawns the effect
 /obj/effect/effect/chem_smoke/Move()
 	..()
 	for(var/atom/A in view(2, src))
-		if(reagents.has_reagent("radium")||reagents.has_reagent("uranium")||reagents.has_reagent("carbon")||reagents.has_reagent("thermite"))//Prevents unholy radium spam by reducing the number of 'greenglows' down to something reasonable -Sieve
+		if(reagents.has_reagent("radium")||reagents.has_reagent("uranium")||reagents.has_reagent("carbon")||reagents.has_reagent("thermite")||reagents.has_reagent("synthflesh")||reagents.has_reagent("firefighting_foam")||reagents.has_reagent("honey"))//Prevents unholy radium spam by reducing the number of 'greenglows' down to something reasonable -Sieve
 			if(prob(5))
 				reagents.reaction(A)
 		else

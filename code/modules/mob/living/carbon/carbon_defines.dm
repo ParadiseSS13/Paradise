@@ -20,5 +20,4 @@
 
 	var/pulse = PULSE_NORM	//current pulse level
 
-	var/list/internal_organs = list() //List of /obj/item/organ in the mob. they don't go in the contents.
 	var/heart_attack = 0

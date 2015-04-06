@@ -8,30 +8,23 @@ var/list/random_color_list = list("#00aedb","#a200ff","#f47835","#d41243","#d111
 datum/reagent/oil
 	name = "Oil"
 	id = "oil"
-	description = "Burns in a small smoky fire, mostly used to get Ash."
+	description = "A decent lubricant for machines. High in benzene, naptha and other hydrocarbons."
 	reagent_state = LIQUID
-	color = "#C8A5DC"
+	color = "#3C3C3C"
 
 datum/reagent/iodine
 	name = "Iodine"
 	id = "iodine"
-	description = "A slippery solution."
-	reagent_state = LIQUID
-	color = "#C8A5DC"
-
-datum/reagent/fluorine
-	name = "Fluorine"
-	id = "fluorine"
-	description = "A slippery solution."
-	reagent_state = LIQUID
-	color = "#C8A5DC"
+	description = "A purple gaseous element."
+	reagent_state = GAS
+	color = "#493062"
 
 datum/reagent/carpet
 	name = "Carpet"
 	id = "carpet"
-	description = "A slippery solution."
+	description = "A covering of thick fabric used on floors. This type looks particularly gross."
 	reagent_state = LIQUID
-	color = "#C8A5DC"
+	color = "#701345"
 
 /datum/reagent/carpet/reaction_turf(var/turf/simulated/T, var/volume)
 	if(T.is_plating() || T.is_plasteel_floor())
@@ -43,30 +36,30 @@ datum/reagent/carpet
 datum/reagent/bromine
 	name = "Bromine"
 	id = "bromine"
-	description = "A slippery solution."
+	description = "A red-brown liquid element."
 	reagent_state = LIQUID
-	color = "#C8A5DC"
+	color = "#4E3A3A"
 
 datum/reagent/phenol
 	name = "Phenol"
 	id = "phenol"
-	description = "Used for certain medical recipes."
+	description = "Also known as carbolic acid, this is a useful building block in organic chemistry."
 	reagent_state = LIQUID
-	color = "#C8A5DC"
+	color = "#525050"
 
 datum/reagent/ash
 	name = "Ash"
 	id = "ash"
-	description = "Basic ingredient in a couple of recipes."
+	description = "Ashes to ashes, dust to dust."
 	reagent_state = LIQUID
-	color = "#C8A5DC"
+	color = "#191919"
 
 datum/reagent/acetone
 	name = "Acetone"
 	id = "acetone"
-	description = "Common ingredient in other recipes."
+	description = "Pure 100% nail polish remover, also works as an industrial solvent."
 	reagent_state = LIQUID
-	color = "#C8A5DC"
+	color = "#474747"
 
 /datum/chemical_reaction/acetone
 	name = "acetone"
@@ -74,6 +67,7 @@ datum/reagent/acetone
 	result = "acetone"
 	required_reagents = list("oil" = 1, "fuel" = 1, "oxygen" = 1)
 	result_amount = 3
+	mix_message = "The smell of paint thinner assaults you as the solution bubbles."
 
 /datum/chemical_reaction/carpet
 	name = "carpet"
@@ -81,6 +75,7 @@ datum/reagent/acetone
 	result = "carpet"
 	required_reagents = list("space_drugs" = 1, "blood" = 1)
 	result_amount = 2
+	mix_message = "The substance turns thick and stiff, yet soft."
 
 
 /datum/chemical_reaction/oil
@@ -97,21 +92,22 @@ datum/reagent/acetone
 	result = "phenol"
 	required_reagents = list("water" = 1, "chlorine" = 1, "oil" = 1)
 	result_amount = 3
+	mix_message = "The mixture bubbles and gives off an unpleasant medicinal odor."
 
 /datum/chemical_reaction/ash
 	name = "Ash"
 	id = "ash"
 	result = "ash"
 	required_reagents = list("oil" = 1)
-	result_amount = 1
+	result_amount = 0.5
 	required_temp = 480
 
 datum/reagent/colorful_reagent
 	name = "Colorful Reagent"
 	id = "colorful_reagent"
-	description = "A solution."
+	description = "It's pure liquid colors. That's a thing now."
 	reagent_state = LIQUID
-	color = "#C8A5DC"
+	color = "#FFFFFF"
 
 /datum/chemical_reaction/colorful_reagent
 	name = "colorful_reagent"
@@ -119,6 +115,7 @@ datum/reagent/colorful_reagent
 	result = "colorful_reagent"
 	required_reagents = list("plasma" = 1, "radium" = 1, "space_drugs" = 1, "cryoxadone" = 1, "triple_citrus" = 1, "stabilizing_agent" = 1)
 	result_amount = 6
+	mix_message = "The substance flashes multiple colors and emits the smell of a pocket protector."
 
 datum/reagent/colorful_reagent/reaction_obj(var/obj/O, var/volume)
 	if(O)
@@ -134,7 +131,7 @@ datum/reagent/colorful_reagent/reaction_turf(var/turf/T, var/volume)
 /datum/chemical_reaction/corgium
 	name = "corgium"
 	id = "corgium"
-	result = "corgium"
+	result = null
 	required_reagents = list("nutriment" = 1, "colorful_reagent" = 1, "strange_reagent" = 1, "blood" = 1)
 	result_amount = 3
 	required_temp = 374
@@ -142,9 +139,9 @@ datum/reagent/colorful_reagent/reaction_turf(var/turf/T, var/volume)
 datum/reagent/corgium
 	name = "Corgium"
 	id = "corgium"
-	description = "Creates a corgi at the reaction location."
+	description = "Corgi in liquid form. Don't ask."
 	reagent_state = LIQUID
-	color = "#C8A5DC"
+	color = "#F9A635"
 
 /datum/chemical_reaction/corgium/on_reaction(var/datum/reagents/holder, var/created_volume)
 	var/location = get_turf(holder.my_atom)
@@ -155,9 +152,9 @@ datum/reagent/corgium
 datum/reagent/hair_dye
 	name = "Quantum Hair Dye"
 	id = "hair_dye"
-	description = "A solution."
+	description = "A rather tubular and gnarly way of coloring totally bodacious hair. Duuuudddeee."
 	reagent_state = LIQUID
-	color = "#C8A5DC"
+	color = "#960096"
 
 /datum/chemical_reaction/hair_dye
 	name = "hair_dye"
@@ -182,9 +179,10 @@ datum/reagent/hair_dye/reaction_mob(var/mob/living/M, var/volume)
 datum/reagent/hairgrownium
 	name = "Hairgrownium"
 	id = "hairgrownium"
-	description = "A solution to hair loss across the world."
+	description = "A mysterious chemical purported to help grow hair. Often found on late-night TV infomercials."
 	reagent_state = LIQUID
-	color = "#C8A5DC"
+	color = "#5DDA5D"
+	penetrates_skin = 1
 
 /datum/chemical_reaction/hairgrownium
 	name = "hairgrownium"
@@ -192,6 +190,7 @@ datum/reagent/hairgrownium
 	result = "hairgrownium"
 	required_reagents = list("carpet" = 1, "synthflesh" = 1, "ephedrine" = 1)
 	result_amount = 3
+	mix_message = "The liquid becomes slightly hairy."
 
 datum/reagent/hairgrownium/reaction_mob(var/mob/living/M, var/volume)
 	if(M && ishuman(M))
@@ -205,9 +204,11 @@ datum/reagent/hairgrownium/reaction_mob(var/mob/living/M, var/volume)
 datum/reagent/super_hairgrownium
 	name = "Super Hairgrownium"
 	id = "super_hairgrownium"
-	description = "A concentrated solution to hair loss across the world."
+	description = "A mysterious and powerful chemical purported to cause rapid hair growth."
 	reagent_state = LIQUID
-	color = "#C8A5DC"
+	color = "#5DD95D"
+	penetrates_skin = 1
+
 
 /datum/chemical_reaction/super_hairgrownium
 	name = "Super Hairgrownium"
@@ -215,6 +216,7 @@ datum/reagent/super_hairgrownium
 	result = "super_hairgrownium"
 	required_reagents = list("iron" = 1, "methamphetamine" = 1, "hairgrownium" = 1)
 	result_amount = 3
+	mix_message = "The liquid becomes amazingly furry and smells peculiar."
 
 datum/reagent/super_hairgrownium/on_mob_life(var/mob/living/M as mob)
 	if(!M) M = holder.my_atom

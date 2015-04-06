@@ -35,7 +35,7 @@
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
 		var/heal_amt = 10
-		for(var/datum/organ/external/affecting in H.organs)
+		for(var/obj/item/organ/external/affecting in H.organs)
 			if(affecting.heal_damage(heal_amt, heal_amt))
 				H.UpdateDamageIcon()
 	return
@@ -74,9 +74,6 @@
 //		return
 
 	if (M.stat !=2)
-		if(M.mind && (M.mind.assigned_role == "Chaplain"))
-			user << "\red You can't heal yourself!"
-			return
 		/*if((M.mind in ticker.mode.cult) && (prob(20)))
 			M << "\red The power of [src.deity_name] clears your mind of heresy!"
 			user << "\red You see how [M]'s eyes become clear, the cult no longer holds control over him!"

@@ -173,8 +173,8 @@
 	New()
 		..()
 		reagents.add_reagent("aluminum", 15)
-		reagents.add_reagent("foaming_agent", 5)
-		reagents.add_reagent("facid", 5)
+		reagents.add_reagent("fluorosurfactant", 5)
+		reagents.add_reagent("sacid", 5)
 
 //This one is for future syringe guns update
 /obj/item/projectile/bullet/dart/syringe

@@ -962,6 +962,36 @@
 	icon_state = "retpoluniform"
 	_color = "retpoluniform"
 
+////// Blue and Bloody Set //deimosvezzati: Hiro Mezu
+
+/obj/item/clothing/under/fluff/customblue // Personal jumpsuit (blue tie / belt buckle)
+	name = "custom-fitted blue jumpsuit"
+	desc = "A custom blue uniform made for a trapped soul. It has the initials H.M. on the tag."
+	icon= 'icons/obj/clothing/uniforms.dmi'
+	icon_state = "hm_suit"
+	_color = "hm_suit"
+	item_state = "hm_suit"
+	has_sensor = 1 // Just to make sure it has a sensor
+	armor = list(melee = 0, bullet = 0, laser = 0,energy = 0, bomb = 0, bio = 0, rad = 0) // Standard Jumpsuit stats
+
+/obj/item/clothing/suit/armor/vest/fluff/bloody //Bloody armor vest
+	name = "bloodied security armor"
+	desc = "A vest drenched in the blood of Greytide. It has seen better days. It has the initials H.M. scratched into the inside."
+	icon = 'icons/obj/custom_items.dmi'
+	icon_state = "hm_armorvest"
+	item_state = "hm_armorvest"
+
+/obj/item/clothing/mask/gas/sechailer/fluff/bluemask //Blue security mask
+	name = "custom SWAT mask"
+	desc = "A neon blue swat mask, used for demoralizing Greytide in the wild. It has the initials H.M. on the side."
+	action_button_name = "HALT!"
+	icon = 'icons/obj/custom_items.dmi'
+	icon_state = "hm_sec_mask"
+	item_state = "hm_sec_mask"
+	aggressiveness = 3
+	ignore_maskadjust = 1
+
+
 //////////// Weapons ////////////
 
 ///// Well-used baton - Oen'g Issek - Donofnyc3

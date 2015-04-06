@@ -37,7 +37,7 @@
 /mob/living/carbon/alien/New()
 	verbs += /mob/living/carbon/verb/mob_sleep
 	verbs += /mob/living/verb/lay_down
-	internal_organs += new /obj/item/brain/alien
+	internal_organs += new /obj/item/organ/brain/xeno
 
 	..()
 

@@ -423,7 +423,7 @@
 						dat += "<th>Other Wounds</th>"
 						dat += "</tr>"
 
-						for(var/datum/organ/external/e in occupant.organs)
+						for(var/obj/item/organ/external/e in occupant.organs)
 
 							dat += "<tr>"
 							var/AN = ""
@@ -438,7 +438,7 @@
 							for(var/datum/wound/W in e.wounds) if(W.internal)
 								internal_bleeding = "<br>Internal bleeding"
 								break
-							if(istype(e, /datum/organ/external/chest) && occupant.is_lung_ruptured())
+							if(istype(e, /obj/item/organ/external/chest) && occupant.is_lung_ruptured())
 								lung_ruptured = "Lung ruptured:"
 							if(e.status & ORGAN_SPLINTED)
 								splint = "Splinted:"
@@ -478,12 +478,11 @@
 							if(!AN && !open && !infected & !imp)
 								AN = "None:"
 							if(!(e.status & ORGAN_DESTROYED))
-								dat += "<td>[e.display_name]</td><td>[e.burn_dam]</td><td>[e.brute_dam]</td><td>[robot][bled][AN][splint][open][infected][imp][internal_bleeding][lung_ruptured]</td>"
+								dat += "<td>[e.name]</td><td>[e.burn_dam]</td><td>[e.brute_dam]</td><td>[robot][bled][AN][splint][open][infected][imp][internal_bleeding][lung_ruptured]</td>"
 							else
-								dat += "<td>[e.display_name]</td><td>-</td><td>-</td><td>Not Found</td>"
+								dat += "<td>[e.name]</td><td>-</td><td>-</td><td>Not Found</td>"
 							dat += "</tr>"
-						for(var/n in occupant.internal_organs_by_name)
-							var/datum/organ/internal/i = occupant.internal_organs_by_name[n]
+						for(var/obj/item/organ/i in occupant.internal_organs)
 							var/mech = i.desc
 							var/infection = "None"
 							switch (i.germ_level)

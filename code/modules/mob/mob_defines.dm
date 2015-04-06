@@ -217,7 +217,6 @@
 	var/alien_talk_understand = 0
 
 	var/has_limbs = 1 //Whether this mob have any limbs he can move with
-	var/can_stand = 1 //Whether this mob have ability to stand
 
 	//SSD var, changed it up some so people can have special things happen for different mobs when SSD.
 	var/player_logged = 0
@@ -227,6 +226,7 @@
 
 	var/kills=0
 
+	var/stance_damage = 0 //Whether this mob's ability to stand has been affected
 
 	var/list/active_genes=list()
 

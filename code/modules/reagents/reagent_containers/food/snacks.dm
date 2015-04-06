@@ -388,7 +388,7 @@
 	New()
 		..()
 		reagents.add_reagent("nutriment", 2)
-		reagents.add_reagent("sugar", 2)
+		reagents.add_reagent("chocolate",2)
 		reagents.add_reagent("coco", 2)
 		bitesize = 2
 
@@ -401,7 +401,7 @@
 	New()
 		..()
 		reagents.add_reagent("nutriment", 3)
-		reagents.add_reagent("sugar", 2)
+		reagents.add_reagent("chocolate",2)
 		reagents.add_reagent("coco", 2)
 		bitesize = 2
 
@@ -589,6 +589,7 @@
 	New()
 		..()
 		reagents.add_reagent("nutriment", 2)
+		reagents.add_reagent("egg", 5)
 		reagents.add_reagent("sodiumchloride", 1)
 		reagents.add_reagent("blackpepper", 1)
 		bitesize = 1
@@ -602,6 +603,7 @@
 	New()
 		..()
 		reagents.add_reagent("nutriment", 2)
+		reagents.add_reagent("egg", 5)
 
 /obj/item/weapon/reagent_containers/food/snacks/flour
 	name = "flour"
@@ -1260,6 +1262,7 @@
 	New()
 		..()
 		reagents.add_reagent("nutriment", 6)
+		reagents.add_reagent("msg",4)
 		bitesize = 2
 
 /obj/item/weapon/reagent_containers/food/snacks/chinese/tao
@@ -1269,6 +1272,7 @@
 	New()
 		..()
 		reagents.add_reagent("nutriment", 6)
+		reagents.add_reagent("msg",4)
 		bitesize = 2
 
 /obj/item/weapon/reagent_containers/food/snacks/chinese/newdles
@@ -1278,6 +1282,7 @@
 	New()
 		..()
 		reagents.add_reagent("nutriment", 6)
+		reagents.add_reagent("msg",4)
 		bitesize = 2
 
 /obj/item/weapon/reagent_containers/food/snacks/chinese/rice
@@ -1288,6 +1293,7 @@
 		..()
 		reagents.add_reagent("nutriment", 3)
 		reagents.add_reagent("rice", 3)
+		reagents.add_reagent("msg",4)
 		bitesize = 2
 
 /obj/item/weapon/reagent_containers/food/snacks/syndicake
@@ -1621,6 +1627,7 @@
 	New()
 		..()
 		reagents.add_reagent("nutriment", 4)
+		reagents.add_reagent("porktonium", 10)
 		baconbeacon = new /obj/item/device/radio/beacon/bacon(src)
 	On_Consume()
 		if(!reagents.total_volume)
@@ -1669,9 +1676,9 @@
 			surprise.transform *= 0.6
 			surprise.add_blood(M)
 			var/mob/living/carbon/human/H = M
-			var/datum/organ/external/E = H.get_organ("chest")
+			var/obj/item/organ/external/E = H.get_organ("chest")
 			E.fracture()
-			for (var/datum/organ/internal/I in E.internal_organs)
+			for (var/obj/item/organ/I in E.internal_organs)
 				I.take_damage(rand(I.min_bruised_damage, I.min_broken_damage+1))
 
 			if (!E.hidden && prob(60)) //set it snuggly
@@ -2539,6 +2546,7 @@
 	New()
 		..()
 		reagents.add_reagent("nutriment", 20)
+		reagents.add_reagent("chocolate",20)
 
 /obj/item/weapon/reagent_containers/food/snacks/chocolatecakeslice
 	name = "Chocolate Cake slice"
@@ -3152,7 +3160,7 @@
         New()
                 ..()
                 reagents.add_reagent("nutriment", 4)
-                reagents.add_reagent("sugar",8)
+                reagents.add_reagent("chocolate",8)
                 reagents.add_reagent("ice",2)
                 bitesize = 6
 
