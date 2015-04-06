@@ -104,6 +104,7 @@
 				dat += {"
 					<B>Fun Secrets</B><BR>
 					<BR>
+					<A href='?src=\ref[src];secretsfun=tdomereset'>Reset Thunderdome to default state</A><BR>
 					<A href='?src=\ref[src];secretsfun=sec_clothes'>Remove 'internal' clothing</A><BR>
 					<A href='?src=\ref[src];secretsfun=sec_all_clothes'>Remove ALL clothing</A><BR>
 					<A href='?src=\ref[src];secretsfun=monkey'>Turn all humans into monkeys</A><BR>
