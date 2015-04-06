@@ -96,6 +96,10 @@
 					icon_state = "beerglass"
 					name = "Beer glass"
 					desc = "A freezing pint of beer"
+				if("cider")
+					icon_state = "rewriter"
+					name = "Cider"
+					desc = "a refreshing glass of traditional cider"
 				if("beer2")
 					icon_state = "beerglass"
 					name = "Beer glass"
@@ -308,9 +312,9 @@
 					icon_state = "irishcoffeeglass"
 					name = "Irish Coffee"
 					desc = "Coffee and alcohol. More fun than a Mimosa to drink in the morning."
-				if("hooch")
-					icon_state = "glass_brown2"
-					name = "Hooch"
+				if("suicider")
+					icon_state = "suicider"
+					name = "Suicider"
 					desc = "You've really hit rock bottom now... your liver packed its bags and left last night."
 				if("whiskeysoda")
 					icon_state = "whiskeysodaglass2"
