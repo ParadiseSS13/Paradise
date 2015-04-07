@@ -718,7 +718,8 @@ var/list/admin_verbs_mentor = list(
 	var/list/result=list()
 	for (var/C in (typesof(/datum/design)-/datum/design))
 		var/datum/design/instance = new C()
-		usr << "Processing... [C]"	result[C]=list("materials"=instance.materials,"requires"=instance.req_tech,"lockbox"=instance.locked,"builds"=instance.build_path,"machines"=list_of_build_machines(C))
+		usr << "Processing... [C]"	
+		result[C]=list("materials"=instance.materials,"requires"=instance.req_tech,"lockbox"=instance.locked,"builds"=instance.build_path,"machines"=list_of_build_machines(C))
 		instance.Del()
 	return result
 

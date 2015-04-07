@@ -327,7 +327,7 @@
 	w_class = 4
 	max_w_class = 2
 	max_combined_w_class = 21 // = 14 * 1.5, not 14 * 2.  This is deliberate
-	origin_tech = "bluespace=4"
+	origin_tech = "bluespace=4;materials=6"
 	can_hold = list()
 
 	proc/failcheck(mob/user as mob)

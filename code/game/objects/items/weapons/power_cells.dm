@@ -61,7 +61,7 @@
 
 /obj/item/weapon/stock_parts/cell/super
 	name = "super-capacity power cell"
-	origin_tech = "powerstorage=5"
+	origin_tech="powerstorage=5;materials=2"
 	icon_state = "scell"
 	maxcharge = 20000
 	g_amt = 70
@@ -74,12 +74,13 @@
 
 /obj/item/weapon/stock_parts/cell/hyper
 	name = "hyper-capacity power cell"
-	origin_tech = "powerstorage=6"
+	origin_tech = "powerstorage=5;materials=4"
 	icon_state = "hpcell"
 	maxcharge = 30000
 	rating = 5
 	g_amt = 80
 	construction_cost = list("metal"=500,"glass"=150,"gold"=200,"silver"=200)
+	origin_tech="powerstorage=5;materials=4"
 
 /obj/item/weapon/stock_parts/cell/hyper/empty/New()
 	..()

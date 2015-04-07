@@ -20,7 +20,7 @@ datum/design/shield_gen_ex
 	name = "Circuit Design (Experimental hull shield generator)"
 	desc = "Allows for the construction of circuit boards used to build an experimental hull shield generator."
 	id = "shield_gen"
-	req_tech = list("bluespace" = 4, "plasmatech" = 3)
+	req_tech = list("powerstorage" = 4, "magnets" = 3)
 	build_type = IMPRINTER
 	materials = list("$glass" = 2000, "sacid" = 20, "$plasma" = 10000, "$diamond" = 5000, "$gold" = 10000)
 	build_path = "/obj/machinery/shield_gen/external"
@@ -46,7 +46,7 @@ datum/design/shield_gen
 	name = "Circuit Design (Experimental shield generator)"
 	desc = "Allows for the construction of circuit boards used to build an experimental shield generator."
 	id = "shield_gen"
-	req_tech = list("bluespace" = 4, "plasmatech" = 3)
+	req_tech = list("powerstorage" = 4, "magnets" = 3)
 	build_type = IMPRINTER
 	materials = list("$glass" = 2000, "sacid" = 20, "$plasma" = 10000, "$diamond" = 5000, "$gold" = 10000)
 	build_path = "/obj/machinery/shield_gen/external"
