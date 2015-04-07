@@ -725,7 +725,7 @@ var/list/admin_verbs_mentor = list(
 
 
 /client/proc/write_RD_json()
-	set category = "Admin"
+	set category = "Debug"
 	set name = "Write RD Json"
 	set desc = "Writes a json file describing the R&D components."
 	text2file(list2json(list("objects"=object_classes_to_origin_tech(),"designs"=design_classes_to_materials_and_origin())),"data/origin_data.txt")
