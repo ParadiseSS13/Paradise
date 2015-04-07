@@ -437,7 +437,7 @@
 	gygax/targeting
 		name = "Circuit board (Gygax Weapon Control and Targeting module)"
 		icon_state = "mcontroller"
-		origin_tech = "programming=4;combat=4"
+		origin_tech = "programming=4;combat=2"
 
 	gygax/main
 		name = "Circuit board (Gygax Central Control module)"
@@ -453,7 +453,7 @@
 	durand/targeting
 		name = "Circuit board (Durand Weapon Control and Targeting module)"
 		icon_state = "mcontroller"
-		origin_tech = "programming=4;combat=4"
+		origin_tech = "programming=4;combat=2"
 
 	durand/main
 		name = "Circuit board (Durand Central Control module)"
@@ -465,18 +465,20 @@
 	phazon/peripherals
 		name = "Circuit board (Phazon Peripherals Control module)"
 		icon_state = "mcontroller"
+		origin_tech = "programming=5;bluespace=6"
 
 	phazon/targeting
 		name = "Circuit board (Phazon Weapon Control and Targeting module)"
 		icon_state = "mcontroller"
-		origin_tech = "programming=4;combat=4"
+		origin_tech = "programming=5;magnets=6"
 
 	phazon/main
 		name = "Circuit board (Phazon Central Control module)"
 		icon_state = "mainboard"
+		origin_tech="programming=5;materials=7;powerstorage=6"
 
 	honker
-		origin_tech = "programming=4"
+		origin_tech = "programming=3"
 
 	honker/peripherals
 		name = "Circuit board (H.O.N.K Peripherals Control module)"
@@ -491,7 +493,7 @@
 		icon_state = "mainboard"
 
 	odysseus
-		origin_tech = "programming=3"
+		origin_tech = "programming=3;biotech=2"
 
 	odysseus/peripherals
 		name = "Circuit board (Odysseus Peripherals Control module)"

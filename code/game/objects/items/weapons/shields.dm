@@ -97,6 +97,7 @@
 	throw_range = 4
 	w_class = 3
 	var/active = 0
+	origin_tech="combat=4;materials=3;engineering=3"
 
 /obj/item/weapon/shield/riot/tele/IsShield()
 	return (active)

@@ -277,7 +277,7 @@
 	throwforce = 0
 	throw_speed = 3
 	throw_range = 7
-	origin_tech = "programming=3"
+	origin_tech = "programming=3;magnets=3;powerstorage=2"
 	var/list/signs = list()
 	var/max_signs = 10
 
@@ -620,6 +620,7 @@
 	collection_mode = 1
 	max_w_class = 3
 	max_combined_w_class = 100
+	origin_tech = "engineering=3;materials=3"
 
 /obj/item/weapon/storage/part_replacer/proc/play_rped_sound()
 	//Plays the sound for RPED exchanging or installing parts.
@@ -707,7 +708,7 @@
 	name = "nano-manipulator"
 	desc = "A tiny little manipulator used in the construction of certain devices."
 	icon_state = "nano_mani"
-	origin_tech = "materials=3,programming=2"
+	origin_tech = "materials=3;programming=2"
 	rating = 2
 	m_amt = 30
 
@@ -743,7 +744,7 @@
 	name = "phasic scanning module"
 	desc = "A compact, high resolution phasic scanning module used in the construction of certain devices."
 	icon_state = "super_scan_module"
-	origin_tech = "magnets=5"
+	origin_tech = "magnets=5;materials=3"
 	rating = 3
 	m_amt = 50
 	g_amt = 20
@@ -752,7 +753,7 @@
 	name = "pico-manipulator"
 	desc = "A tiny little manipulator used in the construction of certain devices."
 	icon_state = "pico_mani"
-	origin_tech = "materials=5,programming=2"
+	origin_tech = "materials=5;programming=2"
 	rating = 3
 	m_amt = 30
 
@@ -760,10 +761,10 @@
 	name = "ultra-high-power micro-laser"
 	icon_state = "ultra_high_micro_laser"
 	desc = "A tiny laser used in certain devices."
-	origin_tech = "magnets=5"
 	rating = 3
 	m_amt = 10
 	g_amt = 20
+	origin_tech="magnets=5;materials=5"
 
 /obj/item/weapon/stock_parts/matter_bin/super
 	name = "super matter bin"
@@ -779,7 +780,7 @@
 	name = "subspace ansible"
 	icon_state = "subspace_ansible"
 	desc = "A compact module capable of sensing extradimensional activity."
-	origin_tech = "programming=2;magnets=3;materials=2;bluespace=1"
+	origin_tech = "programming=2;magnets=2;materials=2;bluespace=1"
 	m_amt = 30
 	g_amt = 10
 
@@ -787,7 +788,7 @@
 	name = "hyperwave filter"
 	icon_state = "hyperwave_filter"
 	desc = "A tiny device capable of filtering and converting super-intense radiowaves."
-	origin_tech = "programming=2;magnets=1"
+	origin_tech = "programming=2;magnets=2"
 	m_amt = 30
 	g_amt = 10
 
@@ -795,7 +796,7 @@
 	name = "subspace amplifier"
 	icon_state = "subspace_amplifier"
 	desc = "A compact micro-machine capable of amplifying weak subspace transmissions."
-	origin_tech = "programming=2;magnets=2;materials=1;bluespace=1"
+	origin_tech = "programming=2;magnets=2;materials=2;bluespace=1"
 	m_amt = 30
 	g_amt = 10
 
@@ -803,7 +804,7 @@
 	name = "subspace treatment disk"
 	icon_state = "treatment_disk"
 	desc = "A compact micro-machine capable of stretching out hyper-compressed radio waves."
-	origin_tech = "programming=2;magnets=1;materials=3;bluespace=1"
+	origin_tech = "programming=2;magnets=1;materials=2;bluespace=1"
 	m_amt = 30
 	g_amt = 10
 
