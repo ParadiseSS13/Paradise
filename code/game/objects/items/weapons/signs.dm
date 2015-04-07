@@ -8,6 +8,8 @@
 	w_class = 4.0
 	attack_verb = list("bashed","smacked")
 
+	var/delayed = 0 //used to do delays
+
 	var/label = ""
 
 /obj/item/weapon/picket_sign/attackby(obj/item/weapon/W, mob/user, params)
@@ -20,11 +22,19 @@
 	..()
 
 /obj/item/weapon/picket_sign/attack_self(mob/living/carbon/human/user)
+	if(delayed)
+		user.show_message("<span class='warning'>Your arm is too tired to do that again so soon!</span>")
+		return
+
+	delayed = 1
 	if(label)
-		user.visible_message("<span class='warning'>[user] waves around \the \"[label]\" sign.</span>")
+		user.visible_message("<span class='notice'>[user] waves around \the \"[label]\" sign.</span>")
 	else
-		user.visible_message("<span class='warning'>[user] waves around blank sign.</span>")
+		user.visible_message("<span class='notice'>[user] waves around blank sign.</span>")
 	user.changeNext_move(CLICK_CD_MELEE)
+
+	sleep(8)
+	delayed = 0
 
 /datum/table_recipe/picket_sign
 	name = "Picket Sign"
