@@ -1143,6 +1143,7 @@ datum
 			result = "gintonic"
 			required_reagents = list("gin" = 2, "tonic" = 1)
 			result_amount = 3
+			mix_message = "The tonic water and gin mix together perfectly."
 
 		cuba_libre
 			name = "Cuba Libre"

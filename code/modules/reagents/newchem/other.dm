@@ -149,6 +149,22 @@ datum/reagent/corgium
 	..()
 	return
 
+
+/datum/chemical_reaction/flaptonium
+	name = "Flaptonium"
+	id = "flaptonium"
+	result = null
+	required_reagents = list("egg" = 1, "colorful_reagent" = 1, "chicken_soup" = 1, "strange_reagent" = 1, "blood" = 1)
+	result_amount = 5
+	required_temp = 374
+
+/datum/chemical_reaction/flaptonium/on_reaction(var/datum/reagents/holder, var/created_volume)
+	var/location = get_turf(holder.my_atom)
+	new /mob/living/simple_animal/parrot(location)
+	..()
+	return
+
+
 datum/reagent/hair_dye
 	name = "Quantum Hair Dye"
 	id = "hair_dye"
@@ -231,5 +247,44 @@ datum/reagent/super_hairgrownium/on_mob_life(var/mob/living/M as mob)
 			var/obj/item/clothing/mask/fakemoustache = new /obj/item/clothing/mask/fakemoustache
 			H.equip_to_slot(fakemoustache, slot_wear_mask)
 			H << "<span class = 'notice'>Hair bursts forth from your every follicle!"
+	..()
+	return
+
+datum/reagent/fartonium
+	name = "Fartonium"
+	id = "fartonium"
+	description = "Oh god it never ends, IT NEVER STOPS!"
+	reagent_state = GAS
+	color = "#D06E27"
+
+/datum/chemical_reaction/fartonium
+	name = "Fartonium"
+	id = "fartonium"
+	result = "fartonium"
+	required_reagents = list("fake_cheese" = 1, "beans" = 1, "????" = 1, "egg" = 1)
+	result_amount = 2
+	mix_message = "The substance makes a little 'toot' noise and starts to smell pretty bad."
+
+datum/reagent/fartonium/on_mob_life(var/mob/living/M as mob)
+	if(!M) M = holder.my_atom
+	M.emote("fart")
+	if(holder.has_reagent("simethicone"))
+		if(prob(30))
+			switch(pick(1,2))
+				if(1)
+					M << "<span class = 'danger'>Something isn't right!"
+					M.adjustBruteLoss(1)
+				if(2)
+					M.emote("me",1,"strains, but nothing happens.")
+					M.adjustBruteLoss(2)
+				if(3)
+					M.emote("scream")
+					M.adjustBruteLoss(2)
+				if(4)
+					M << "<span class = 'danger'>Oh gosh, the pain!"
+					M.adjustBruteLoss(1)
+				if(5)
+					M << "<span class = 'danger'>THE PAIN!"
+					M.adjustBruteLoss(1)
 	..()
 	return
