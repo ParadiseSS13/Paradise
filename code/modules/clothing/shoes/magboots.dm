@@ -8,7 +8,6 @@
 	action_button_name = "Toggle Magboots"
 	icon_action_button = "action_magboots"
 	species_restricted = null
-	origin_tech="materials=4;magnets=4;engineering=5"
 
 /obj/item/clothing/shoes/magboots/attack_self(mob/user)
 	if(src.magpulse)

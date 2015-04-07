@@ -122,7 +122,6 @@
 	ammo_type = "/obj/item/ammo_casing/c9mm"
 	caliber = "9mm"
 	max_ammo = 20
-	origin_tech = "combat=4;materials=3"
 
 /obj/item/ammo_box/magazine/smgm9mm/update_icon()
 	..()

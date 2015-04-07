@@ -3,7 +3,7 @@
 	desc = "A lightweight, prototype 9mm submachine gun, designated 'SABR'. Has a threaded barrel for suppressors."
 	icon_state = "saber"
 	w_class = 3.0
-	origin_tech = "combat=4;materials=3"
+	origin_tech = "combat=4;materials=2"
 	automatic = 1
 	mag_type = "/obj/item/ammo_box/magazine/smgm9mm"
 	var/alarmed = 0

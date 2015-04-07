@@ -132,7 +132,7 @@
 	desc = "A revolution in convenience, this satchel allows for infinite ore storage. It's been outfitted with anti-malfunction safety measures."
 	storage_slots = INFINITY
 	max_combined_w_class = INFINITY
-	origin_tech = "bluespace=3;materials=4"
+	origin_tech = "bluespace=3"
 	icon_state = "satchel_bspace"
 	
 // -----------------------------

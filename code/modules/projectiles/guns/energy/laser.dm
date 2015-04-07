@@ -105,7 +105,7 @@ obj/item/weapon/gun/energy/laser/retro
 	desc = "A high-power laser gun capable of expelling concentrated xray blasts."
 	icon_state = "xray"
 	fire_sound = 'sound/weapons/laser3.ogg'
-	origin_tech = "combat=6;materials=5;biotech=5;powerstorage=4"
+	origin_tech = "combat=5;materials=3;magnets=2;syndicate=2"
 	projectile_type = "/obj/item/projectile/beam/xray"
 	charge_cost = 500
 

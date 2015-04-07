@@ -40,7 +40,7 @@
 	name = "Super-Capacity Power Cell"
 	desc = "A power cell that holds 20000 units of energy"
 	id = "super_cell"
-	req_tech = list("powerstorage" = 5, "materials" = 2)
+	req_tech = list("powerstorage" = 3, "materials" = 2)
 	reliability_base = 75
 	build_type = PROTOLATHE | MECHFAB | PODFAB
 	materials = list("$metal" = 700, "$glass" = 70)

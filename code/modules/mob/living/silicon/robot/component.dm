@@ -179,7 +179,7 @@
 	w_class = 2.0
 	throw_speed = 5
 	throw_range = 10
-	origin_tech = "programming=2;magnets=2;biotech=2"
+	origin_tech = "magnets=1;biotech=1"
 	var/mode = 1;
 
 /obj/item/device/robotanalyzer/attack(mob/living/M as mob, mob/living/user as mob)

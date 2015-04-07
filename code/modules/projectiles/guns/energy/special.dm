@@ -19,7 +19,7 @@
 	desc = "The MK.II Prototype Ion Projector is a lightweight carbine version of the larger ion rifle, built to be ergonomic and efficient."
 	icon_state = "ioncarbine"
 	item_state = "ioncarbine"
-	origin_tech = "combat=5;magnets=4;materials=4"
+	origin_tech = "combat=4;magnets=4;materials=4"
 	w_class = 3
 	slot_flags = SLOT_BELT
 
@@ -28,7 +28,7 @@
 	desc = "A gun that discharges high amounts of controlled radiation to slowly break a target into component elements."
 	icon_state = "decloner"
 	fire_sound = 'sound/weapons/pulse3.ogg'
-	origin_tech = "combat=6;materials=7;biotech=5;powerstorage=6"
+	origin_tech = "combat=5;materials=4;powerstorage=3"
 	projectile_type = "/obj/item/projectile/energy/declone"
 
 
@@ -278,7 +278,7 @@ modules/mob/living/carbon/human/life.dm if you die, you will be zoomed out.
 	icon_state = "crossbowlarge"
 	w_class = 3
 	m_amt = 4000
-	origin_tech = "combat=5;materials=5;engineering=3;biotech=4;syndicate=3" //can be further researched for more syndie tech
+	origin_tech = "combat=2;magnets=2;syndicate=3" //can be further researched for more syndie tech
 	silenced = 0
 	projectile_type = "/obj/item/projectile/energy/bolt/large"
 

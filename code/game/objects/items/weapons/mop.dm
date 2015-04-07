@@ -69,4 +69,3 @@
 	throwforce = 8
 	throw_range = 4
 	mopspeed = 20
-	origin_tech = "engineering=3;materials=4"

@@ -59,7 +59,7 @@
 	name = "Defibrillator"
 	desc = "A device that delivers powerful shocks to detachable paddles that resuscitate incapacitated patients."
 	id = "defib"
-	req_tech = list("biotech" = 4)
+	req_tech = list("materials" = 7, "biotech" = 5, "powerstorage" = 5)
 	build_type = PROTOLATHE
 	materials = list("$metal" = 5000, "$glass" = 2000, "$silver" = 1000)
 	reliability = 76
@@ -105,7 +105,7 @@
 	name = "Positronic Brain"
 	desc = "Allows for the construction of a positronic brain"
 	id = "posibrain"
-	req_tech = list("engineering" = 4, "materials" = 4, "bluespace" = 2, "programming" = 4)
+	req_tech = list("engineering" = 4, "materials" = 6, "bluespace" = 2, "programming" = 4)
 	build_type = PROTOLATHE
 	materials = list("$metal" = 2000, "$glass" = 1000, "$silver" = 1000, "$gold" = 500, "$plasma" = 500, "$diamond" = 100)
 	build_path = /obj/item/device/mmi/posibrain
