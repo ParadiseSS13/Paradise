@@ -31,3 +31,11 @@
 
 	user.set_machine(src)
 	song.interact(user)
+
+/datum/table_recipe/guitar
+	name = "Guitar"
+	result = /obj/item/device/guitar
+	reqs = list(/obj/item/stack/sheet/wood = 5,
+				/obj/item/stack/cable_coil = 6)
+	tools = list(/obj/item/weapon/screwdriver, /obj/item/weapon/wirecutters)
+	time = 80
