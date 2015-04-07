@@ -404,7 +404,7 @@ steam.start() -- spawns the effect
 
 /obj/effect/effect/chem_smoke
 	name = "smoke"
-	opacity = 1
+	opacity = 0
 	anchored = 0.0
 	mouse_opacity = 0
 	var/amount = 6.0
@@ -415,28 +415,12 @@ steam.start() -- spawns the effect
 
 /obj/effect/effect/chem_smoke/New()
 	..()
-	var/datum/reagents/R = new/datum/reagents(500)
-	reagents = R
-	R.my_atom = src
-
 	spawn (200+rand(10,30))
 		delete()
 	return
 
 /obj/effect/effect/chem_smoke/Move()
 	..()
-	for(var/atom/A in view(2, src))
-		if(reagents.has_reagent("radium")||reagents.has_reagent("uranium")||reagents.has_reagent("carbon")||reagents.has_reagent("thermite")||reagents.has_reagent("synthflesh")||reagents.has_reagent("firefighting_foam")||reagents.has_reagent("honey"))//Prevents unholy radium spam by reducing the number of 'greenglows' down to something reasonable -Sieve
-			if(prob(5))
-				reagents.reaction(A)
-		else
-			reagents.reaction(A)
-
-	return
-
-/obj/effect/effect/chem_smoke/Crossed(mob/living/carbon/M as mob )
-	..()
-	reagents.reaction(M)
 
 	return
 
@@ -488,11 +472,18 @@ steam.start() -- spawns the effect
 				msg_admin_attack("A chemical smoke reaction has taken place in ([whereLink]). No associated key.", 0, 1)
 				log_game("A chemical smoke reaction has taken place in ([where])[contained]. No associated key.")
 
-	start()
+	start(effect_range = 2)
 		var/i = 0
 
 		var/color = mix_color_from_reagents(chemholder.reagents.reagent_list)
-
+		var/obj/effect/effect/chem_smoke/smokeholder = new /obj/effect/effect/chem_smoke(src.location)
+		for(var/atom/A in view(effect_range, smokeholder))
+			chemholder.reagents.reaction(A)
+			if(iscarbon(A))
+				var/mob/living/carbon/C = A
+				if(!(C.wear_mask && (C.internals != null || C.wear_mask.flags & BLOCK_GAS_SMOKE_EFFECT)))
+					chemholder.reagents.copy_to(C, chemholder.reagents.total_volume)
+		qdel(smokeholder)
 		for(i=0, i<src.number, i++)
 			if(src.total_smoke > 20)
 				return
@@ -508,16 +499,12 @@ steam.start() -- spawns the effect
 					else
 						direction = pick(alldirs)
 
-				if(chemholder.reagents.total_volume != 1) // can't split 1 very well
-					chemholder.reagents.copy_to(smoke, chemholder.reagents.total_volume / number) // copy reagents to each smoke, divide evenly
-
 				if(color)
 					smoke.icon += color // give the smoke color, if it has any to begin with
 				else
 					// if no color, just use the old smoke icon
 					smoke.icon = 'icons/effects/96x96.dmi'
 					smoke.icon_state = "smoke"
-
 				for(i=0, i<pick(0,1,1,1,2,2,2,3), i++)
 					sleep(10)
 					step(smoke,direction)

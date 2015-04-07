@@ -848,7 +848,7 @@ var/global/list/obj/item/device/pda/PDAs = list()
 		empulse(P.loc, 3, 6, 1)
 		message += "Your [P] emits a wave of electromagnetic energy!"
 	if(i>=25 && i<=40) //Smoke
-		var/datum/effect/effect/system/chem_smoke_spread/S = new /datum/effect/effect/system/chem_smoke_spread
+		var/datum/effect/effect/system/harmless_smoke_spread/S = new /datum/effect/effect/system/harmless_smoke_spread //Why was this chem_smoke_spread when there are no chems involved?
 		S.attach(P.loc)
 		S.set_up(P, 10, 0, P.loc)
 		playsound(P.loc, 'sound/effects/smoke.ogg', 50, 1, -3)
@@ -884,9 +884,9 @@ var/global/list/obj/item/device/pda/PDAs = list()
 			message += "It melts in a puddle of plastic."
 		else
 			message += "Your [P] shatters in a thousand pieces!"
-	
+
 	JFLOG("[M]'s PDA Detonated >>> [message]")
-	
+
 	if(M && isliving(M))
 		message = "\red" + message
 		M.show_message(message, 1)
@@ -1402,26 +1402,26 @@ var/global/list/obj/item/device/pda/PDAs = list()
 		A.emp_act(severity)
 
 /**
-*	
+*
 *	JFLOG
-*	
+*
 *	These functions as well as all the log statements are being used to gather user data for how
-*	people are using the PDA files with the intent of revising them based on this data. 
-*	
-*	They are being added on 28/03/2015 and the intent is to remove them in two weeks. If you're 
-*	reading this and it's substantially past that point, you should remove anything marked with 
-*	'JFLOG'. 
-*	
-*	All changes should be contained to PDA.dm except the creation function which is contained in 
+*	people are using the PDA files with the intent of revising them based on this data.
+*
+*	They are being added on 28/03/2015 and the intent is to remove them in two weeks. If you're
+*	reading this and it's substantially past that point, you should remove anything marked with
+*	'JFLOG'.
+*
+*	All changes should be contained to PDA.dm except the creation function which is contained in
 *	job_controller.dm.
-*	
-*																				- Jack Fractal	
+*
+*																				- Jack Fractal
 **/
 
 
 /obj/item/device/pda/proc/JFLOG_DescribeSelf()
 	return "([src]|[cartridge ? cartridge.name : "None"])"
-	
+
 /obj/item/device/pda/proc/JFLOG(message as text)
 	if (config)
 		log_pda("[JFLOG_DescribeSelf()] >>> [message]")

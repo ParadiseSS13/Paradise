@@ -94,13 +94,12 @@ datum/reagent/synthflesh/reaction_mob(var/mob/living/M, var/method=TOUCH, var/vo
 	..()
 	return
 
-/*      //again, not until smoke rewrite--so many gibs,aghh!
 datum/reagent/synthflesh/reaction_turf(var/turf/T, var/volume) //let's make a mess!
 	src = null
 	if(volume >= 5)
 		new /obj/effect/decal/cleanable/blood/gibs(T)
 		playsound(T, 'sound/effects/splat.ogg', 50, 1, -3)
-		return */
+		return
 
 datum/reagent/charcoal
 	name = "Charcoal"

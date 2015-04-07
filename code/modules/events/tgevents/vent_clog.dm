@@ -32,5 +32,5 @@
 		var/datum/effect/effect/system/chem_smoke_spread/smoke = new
 		smoke.set_up(R, rand(1, 2), 0, vent, 0, silent = 1)
 		playsound(vent.loc, 'sound/effects/smoke.ogg', 50, 1, -3)
-		smoke.start()
+		smoke.start(3)
 		R.delete()	//GC the reagents
