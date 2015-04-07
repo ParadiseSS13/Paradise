@@ -1250,12 +1250,13 @@ datum
 			required_reagents = list ("beer" = 1, "ale" = 2)
 			result_amount = 3
 
-		hooch
-			name = "Hooch"
-			id = "hooch"
-			result = "hooch"
-			required_reagents = list ("sugar" = 1, "ethanol" = 2, "fuel" = 1)
-			result_amount = 3
+		suicider
+			name = "Suicider"
+			id = "suicider"
+			result = "suicider"
+			required_reagents = list ("vodka" = 1, "cider" = 1, "fuel" = 1, "epinephrine" = 1)
+			result_amount = 4
+			mix_message = "The drinks and chemicals mix together, emitting a potent smell."
 
 		irish_coffee
 			name = "Irish Coffee"

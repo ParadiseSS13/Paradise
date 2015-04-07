@@ -2657,6 +2657,35 @@
 				feedback_inc("admin_secrets_fun_used",1)
 				feedback_add_details("admin_secrets_fun_used","SM")
 				usr.rightandwrong(1)
+			if("tdomereset")
+				var/delete_mobs = alert("Clear all mobs?","Confirm","Yes","No","Cancel")
+				if(delete_mobs == "Cancel")
+					return
+
+				var/area/thunderdome = locate(/area/tdome/arena)
+				if(delete_mobs == "Yes")
+					for(var/mob/living/mob in thunderdome)
+						qdel(mob) //Clear mobs
+				for(var/obj/obj in thunderdome)
+					if(!istype(obj,/obj/machinery/camera))
+						qdel(obj) //Clear objects
+
+				var/area/template = locate(/area/tdome/arena_source)
+				template.copy_contents_to(thunderdome)
+
+				log_admin("[key_name(usr)] reset the thunderdome to default with delete_mobs==[delete_mobs].", 1)
+				message_admins("<span class='adminnotice'>[key_name_admin(usr)] reset the thunderdome to default with delete_mobs==[delete_mobs].</span>")
+
+			if("tdomestart")
+				var/confirmation = alert("Start a Thunderdome match?","Confirm","Yes","No")
+				if(confirmation == "No")
+					return
+				if(makeThunderdomeTeams())
+					log_admin("[key_name(usr)] started a Thunderdome match!", 1)
+					message_admins("<span class='adminnotice'>[key_name_admin(usr)] has started a Thunderdome match!</span>")
+				else
+					log_admin("[key_name(usr)] attempted to start a Thunderdome match, but no ghosts signed up.", 1)
+					message_admins("<span class='adminnotice'>[key_name_admin(usr)] tried starting a Thunderdome match, but no ghosts signed up.</span>")
 			if("securitylevel0")
 				set_security_level(0)
 				message_admins("\blue [key_name_admin(usr)] change security level to Green.", 1)

@@ -137,7 +137,7 @@
 		icon_state = "diamonddrill"
 		item_state = "jackhammer"
 		digspeed = 5 //Digs through walls, girders, and can dig up sand
-		origin_tech = "materials=6;powerstorage=4;engineering=5"
+		origin_tech = "materials=6;powerstorage=4;engineering=4"
 		hitsound = 'sound/weapons/drill.ogg'
 		digsound = list('sound/weapons/drill.ogg')
 		desc = "Yours is the drill that will pierce the heavens!"

@@ -2479,6 +2479,12 @@ datum
 					M:jitteriness = max(M:jitteriness-3,0)
 					return
 
+			cider
+				name = "Cider"
+				id = "cider"
+				description = "An alcoholic beverage derived from apples."
+				color = "#174116"
+
 			whiskey
 				name = "Whiskey"
 				id = "whiskey"
@@ -2576,15 +2582,18 @@ datum
 				dizzy_adj = 4
 				confused_start = 115	//amount absorbed after which mob starts confusing directions
 
-			hooch
-				name = "Hooch"
-				id = "hooch"
-				description = "Either someone's failure at cocktail making or attempt in alchohol production. In any case, do you really want to drink that?"
-				color = "#664300" // rgb: 102, 67, 0
-				dizzy_adj = 6
-				slurr_adj = 5
-				slur_start = 35			//amount absorbed after which mob starts slurring
-				confused_start = 90	//amount absorbed after which mob starts confusing directions
+			suicider //otherwise known as "I want to get so smashed my liver gives out and I die from alcohol poisoning".
+				name = "Suicider"
+				id = "suicider"
+				description = "An unbelievably strong and potent variety of Cider."
+				color = "#CF3811"
+				dizzy_adj = 20
+				slurr_adj = 20
+				confused_adj = 3
+				slur_start = 15
+				confused_start = 40
+				blur_start = 60
+				pass_out = 80
 
 			ale
 				name = "Ale"

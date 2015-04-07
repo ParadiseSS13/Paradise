@@ -574,3 +574,94 @@ client/proc/one_click_antag()
 		return 1
 
 	return 0
+
+/datum/admins/proc/makeThunderdomeTeams() // Not strictly an antag, but this seemed to be the best place to put it.
+
+	var/list/mob/candidates = list()
+	var/mob/theghost = null
+	var/time_passed = world.time
+
+	//Generates a list of candidates from active ghosts.
+	for(var/mob/G in respawnable_list)
+		spawn(0)
+			switch(alert(G,"Do you wish to be considered for a Thunderdome match about to start?","Please answer in 30 seconds!","Yes","No"))
+				if("Yes")
+					if((world.time-time_passed)>300)//If more than 30 game seconds passed.
+						return
+					candidates += G
+				if("No")
+					return
+				else
+					return
+
+	sleep(300) //Debug.
+
+	for(var/mob/dead/observer/G in candidates)
+		if(!G.key)
+			candidates.Remove(G)
+
+	if(candidates.len)
+		var/teamOneMembers = 5
+		var/teamTwoMembers = 5
+		var/datum/preferences/A = new()
+		for (var/obj/effect/landmark/L in world)
+			if(L.name == "tdome1")
+				if(teamOneMembers<=0)
+					break
+
+				var/mob/living/carbon/human/newMember = new(L.loc)
+
+				newMember.gender = pick(MALE,FEMALE)
+				A.randomize_appearance_for(newMember)
+				if(newMember.gender == MALE)
+					newMember.real_name = "[pick(first_names_male)] [pick(last_names)]"
+				else
+					newMember.real_name = "[pick(first_names_female)] [pick(last_names)]"
+				newMember.name = newMember.real_name
+				newMember.age = rand(17,45)
+
+				newMember.dna.ready_dna(newMember)
+
+				while((!theghost || !theghost.client) && candidates.len)
+					theghost = pick(candidates)
+					candidates.Remove(theghost)
+
+				if(!theghost)
+					qdel(newMember)
+					break
+
+				newMember.key = theghost.key
+				teamOneMembers--
+				newMember << "You are a member of the <font color = 'green'><b>GREEN</b></font> Thunderdome team! Gear up and help your team destroy the red team!"
+
+			if(L.name == "tdome2")
+				if(teamTwoMembers<=0)
+					break
+
+				var/mob/living/carbon/human/newMember = new(L.loc)
+
+				newMember.gender = pick(MALE,FEMALE)
+				A.randomize_appearance_for(newMember)
+				if(newMember.gender == MALE)
+					newMember.real_name = "[pick(first_names_male)] [pick(last_names)]"
+				else
+					newMember.real_name = "[pick(first_names_female)] [pick(last_names)]"
+				newMember.name = newMember.real_name
+				newMember.age = rand(17,45)
+
+				newMember.dna.ready_dna(newMember)
+
+				while((!theghost || !theghost.client) && candidates.len)
+					theghost = pick(candidates)
+					candidates.Remove(theghost)
+
+				if(!theghost)
+					qdel(newMember)
+					break
+
+				newMember.key = theghost.key
+				teamTwoMembers--
+				newMember << "You are a member of the <font color = 'red'><b>RED</b></font> Thunderdome team! Gear up and help your team destroy the green team!"
+	else
+		return 0
+	return 1

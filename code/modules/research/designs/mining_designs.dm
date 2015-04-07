@@ -11,12 +11,12 @@
 	reliability_base = 79
 	build_path = /obj/item/weapon/pickaxe/diamonddrill
 	category = list("Mining")
-	
+
 /datum/design/pick_diamond
 	name = "Diamond Pickaxe"
 	desc = "A pickaxe with a diamond pick head, this is just like minecraft."
 	id = "pick_diamond"
-	req_tech = list("materials" = 6)
+	req_tech = list("materials" = 6, "engineering" = 4)
 	build_type = PROTOLATHE
 	materials = list("$diamond" = 3000)
 	build_path = /obj/item/weapon/pickaxe/diamond
@@ -30,8 +30,8 @@
 	build_type = PROTOLATHE
 	materials = list("$metal" = 6000, "$glass" = 1000)
 	build_path = /obj/item/weapon/pickaxe/drill
-	category = list("Mining")	
-	
+	category = list("Mining")
+
 /datum/design/plasmacutter
 	name = "Plasma Cutter"
 	desc = "You could use it to cut limbs off of xenos! Or, you know, mine stuff."
@@ -42,7 +42,7 @@
 	reliability_base = 79
 	build_path = /obj/item/weapon/pickaxe/plasmacutter
 	category = list("Mining")
-	
+
 /datum/design/jackhammer
 	name = "Sonic Jackhammer"
 	desc = "Cracks rocks with sonic blasts, perfect for killing cave lizards."

@@ -25,7 +25,7 @@
 		if(!isarea(a))
 			user << "\red The [name] blinks red as you try to insert the item!"
 			return
-		if(a.power_equip == 0)
+		if(a.power_equip == 0 && a.requires_power)
 			user << "\red The [name] blinks red as you try to insert the item!"
 			return
 
