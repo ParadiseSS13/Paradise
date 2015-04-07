@@ -87,7 +87,6 @@
 	icon_state = "stunshell"
 	projectile_type = "/obj/item/projectile/bullet/stunshot"
 	m_amt = 200
-	origin_tech="combat=3;materials=3"
 
 
 /obj/item/ammo_casing/shotgun/meteorshot
@@ -144,7 +143,6 @@
 	desc = "A high-tech shotgun shell which can be loaded with materials to produce unique effects."
 	icon_state = "cshell"
 	projectile_type = null
-	origin_tech="combat=3;materials=3;powerstorage=4;magnets=3"
 
 /obj/item/ammo_casing/shotgun/dart
 	name = "shotgun dart"

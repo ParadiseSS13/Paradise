@@ -147,4 +147,3 @@
 	w_class = 2
 	var/oldsound = null
 	var/initial_w_class = null
-	origin_tech="combat=6;engineering=5;syndicate=3"

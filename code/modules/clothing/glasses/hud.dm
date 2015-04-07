@@ -27,7 +27,6 @@
 	item_state = "glasses"
 	darkness_view = 8
 	see_darkness = 0
-	origin_tech="biotech=4;magnets=5"
 
 /obj/item/clothing/glasses/hud/health/process_hud(var/mob/M)
 	process_med_hud(M,1)
@@ -40,7 +39,6 @@
 	name = "Security HUD"
 	desc = "A heads-up display that scans the humans in view and provides accurate data about their ID status and security records."
 	icon_state = "securityhud"
-	origin_tech = "magnets=3;combat=2"
 	var/global/list/jobs[0]
 
 /obj/item/clothing/glasses/hud/security/jensenshades
@@ -57,7 +55,6 @@
 	icon_state = "securityhudnight"
 	darkness_view = 8
 	see_darkness = 0
-	origin_tech = "magnets=5;combat=4;"
 
 /obj/item/clothing/glasses/hud/security/process_hud(var/mob/M)
 

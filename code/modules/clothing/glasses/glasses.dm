@@ -15,7 +15,7 @@
 	desc = "Used for seeing walls, floors, and stuff through anything."
 	icon_state = "meson"
 	item_state = "glasses"
-	origin_tech = "materials=3;magnets=3;engineering=3"
+	origin_tech = "magnets=2;engineering=2"
 	vision_flags = SEE_TURFS
 	species_fit = list("Vox")
 	sprite_sheets = list(
@@ -29,7 +29,6 @@
 	item_state = "glasses"
 	darkness_view = 8
 	see_darkness = 0
-	origin_tech="materials=5;magnets=5;engineering=4"
 
 /obj/item/clothing/glasses/meson/prescription
 	name = "prescription mesons"
@@ -64,7 +63,7 @@
 	desc = "You can totally see in the dark now!"
 	icon_state = "night"
 	item_state = "glasses"
-	origin_tech = "magnets=4"
+	origin_tech = "magnets=2"
 	darkness_view = 8
 	see_darkness = 0
 	species_fit = list("Vox")

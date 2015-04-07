@@ -311,7 +311,7 @@
 	bomb_state = "largebomb"
 	allowed_containers = list(/obj/item/weapon/reagent_containers/glass,/obj/item/weapon/reagent_containers/food/condiment,
 								/obj/item/weapon/reagent_containers/food/drinks)
-	origin_tech = "combat=3;materials=2"
+	origin_tech = "combat=3;materials=3"
 	affected_area = 4
 
 

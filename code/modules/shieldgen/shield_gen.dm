@@ -31,7 +31,6 @@
 							//2 use active power
 	idle_power_usage = 20
 	active_power_usage = 100
-	origin_tech="bluespace=4;plasmatech=3"
 
 /obj/machinery/shield_gen/New()
 	spawn(10)

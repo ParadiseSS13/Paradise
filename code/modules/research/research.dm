@@ -274,7 +274,6 @@ datum/tech/robotics
 	m_amt = 30
 	g_amt = 10
 	var/datum/tech/stored
-	origin_tech="programming=1"
 
 /obj/item/weapon/disk/tech_disk/New()
 	src.pixel_x = rand(-5.0, 5)
@@ -290,7 +289,6 @@ datum/tech/robotics
 	m_amt = 30
 	g_amt = 10
 	var/datum/design/blueprint
-	origin_tech = "programming=1"
 
 /obj/item/weapon/disk/design_disk/New()
 	src.pixel_x = rand(-5.0, 5)
