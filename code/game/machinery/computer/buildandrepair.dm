@@ -33,14 +33,14 @@
 /obj/item/weapon/circuitboard/message_monitor
 	name = "Circuit board (Message Monitor)"
 	build_path = "/obj/machinery/computer/message_monitor"
-	origin_tech = "programming=3"
+	origin_tech = "programming=5"
 /obj/item/weapon/circuitboard/camera
 	name = "Circuit board (Camera Monitor)"
 	build_path = "/obj/machinery/computer/security"
 	origin_tech = "programming=2"
 /obj/item/weapon/circuitboard/aicore
 	name = "Circuit board (AI Core)"
-	origin_tech = "programming=4;biotech=2"
+	origin_tech = "programming=4;biotech=3"
 	board_type = "other"
 /obj/item/weapon/circuitboard/aiupload
 	name = "Circuit board (AI Upload)"
@@ -60,7 +60,7 @@
 /obj/item/weapon/circuitboard/scan_consolenew
 	name = "Circuit board (DNA Machine)"
 	build_path = "/obj/machinery/computer/scan_consolenew"
-	origin_tech = "programming=2;biotech=2"
+	origin_tech = "programming=2;biotech=3"
 /obj/item/weapon/circuitboard/communications
 	name = "Circuit board (Communications Console)"
 	build_path = "/obj/machinery/computer/communications"
@@ -74,7 +74,7 @@
 /obj/item/weapon/circuitboard/teleporter
 	name = "Circuit board (Teleporter Console)"
 	build_path = "/obj/machinery/computer/teleporter"
-	origin_tech = "programming=2;bluespace=2"
+	origin_tech = "programming=3;bluespace=2"
 /obj/item/weapon/circuitboard/secure_data
 	name = "Circuit board (Security Records)"
 	build_path = "/obj/machinery/computer/secure_data"
@@ -102,11 +102,11 @@
 /obj/item/weapon/circuitboard/robotics
 	name = "Circuit board (Robotics Control Console)"
 	build_path = "/obj/machinery/computer/robotics"
-	origin_tech = "programming=3"
+	origin_tech = "programming=4"
 /obj/item/weapon/circuitboard/drone_control
 	name = "Circuit board (Drone Control)"
 	build_path = "/obj/machinery/computer/drone_control"
-	origin_tech = "programming=3"
+	origin_tech = "programming=4"
 /obj/item/weapon/circuitboard/cloning
 	name = "Circuit board (Cloning Machine Console)"
 	build_path = "/obj/machinery/computer/cloning"
@@ -144,12 +144,15 @@
 /obj/item/weapon/circuitboard/rdconsole
 	name = "Circuit Board (RD Console)"
 	build_path = "/obj/machinery/computer/rdconsole/core"
+	origin_tech = "programming=4"
 /obj/item/weapon/circuitboard/mecha_control
 	name = "Circuit Board (Exosuit Control Console)"
 	build_path = "/obj/machinery/computer/mecha"
+	origin_tech = "programming=3"
 /obj/item/weapon/circuitboard/rdservercontrol
 	name = "Circuit Board (RD Server Control)"
 	build_path = "/obj/machinery/computer/rdservercontrol"
+	origin_tech = "programming=3"
 /obj/item/weapon/circuitboard/crew
 	name = "Circuit board (Crew Monitoring Computer)"
 	build_path = "/obj/machinery/computer/crew"

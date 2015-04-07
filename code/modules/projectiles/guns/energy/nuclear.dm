@@ -42,7 +42,7 @@
 	name = "Advanced Energy Gun"
 	desc = "An energy gun with an experimental miniaturized reactor."
 	icon_state = "nucgun"
-	origin_tech = "combat=3;materials=5;powerstorage=3"
+	origin_tech = "combat=4;materials=5;powerstorage=3"
 	var/lightfail = 0
 	var/charge_tick = 0
 	can_flashlight = 0
