@@ -79,7 +79,7 @@
 	name = "guitar"
 	desc = "It's made of wood and has bronze strings."
 	typepath = /obj/item/device/guitar
-	cost = 500
+	cost = 700
 
 /datum/storeitem/baby
 	name = "Toddler"
