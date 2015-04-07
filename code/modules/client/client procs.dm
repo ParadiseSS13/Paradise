@@ -307,17 +307,21 @@
 
 	var/DBQuery/query_ip = dbcon.NewQuery("SELECT ckey FROM erro_player WHERE ip = '[address]'")
 	query_ip.Execute()
-	related_accounts_ip = ""
+	related_accounts_ip = list()
 	while(query_ip.NextRow())
-		related_accounts_ip += "[query_ip.item[1]], "
-		break
+		if(ckey != query_ip.item[1])
+			related_accounts_ip.Add("[query_ip.item[1]]")
 
 	var/DBQuery/query_cid = dbcon.NewQuery("SELECT ckey FROM erro_player WHERE computerid = '[computer_id]'")
 	query_cid.Execute()
-	related_accounts_cid = ""
+	related_accounts_cid = list()
 	while(query_cid.NextRow())
-		related_accounts_cid += "[query_cid.item[1]], "
-		break
+		if(ckey != query_cid.item[1])
+			related_accounts_cid.Add("[query_cid.item[1]]")
+
+	//Log all the alts
+	if(related_accounts_cid.len)
+		log_access("Alts: [key_name(src)]:[list2text(related_accounts_cid, " - ")]")
 
 	//Just the standard check to see if it's actually a number
 	if(sql_id)
