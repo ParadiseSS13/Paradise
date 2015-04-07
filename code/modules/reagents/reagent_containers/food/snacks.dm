@@ -2566,6 +2566,7 @@
 	New()
 		..()
 		reagents.add_reagent("nutriment", 20)
+		reagents.add_reagent("fake_cheese", 5)
 		bitesize = 2
 
 /obj/item/weapon/reagent_containers/food/snacks/cheesewedge
@@ -2976,6 +2977,7 @@
 	New()
 		..()
 		reagents.add_reagent("nutriment", 10)
+		reagents.add_reagent("beans",10)
 		bitesize = 2
 
 /obj/item/weapon/reagent_containers/food/snacks/benedict
@@ -2985,6 +2987,7 @@
 	New()
 		..()
 		reagents.add_reagent("nutriment", 3)
+		reagents.add_reagent("egg", 3)
 		bitesize = 3
 
 /obj/item/weapon/reagent_containers/food/snacks/hotdog

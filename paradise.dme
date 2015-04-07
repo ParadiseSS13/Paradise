@@ -1470,6 +1470,7 @@
 #include "code\modules\reagents\reagent_dispenser.dm"
 #include "code\modules\reagents\syringe_gun.dm"
 #include "code\modules\reagents\newchem\chem_heater.dm"
+#include "code\modules\reagents\newchem\drinks.dm"
 #include "code\modules\reagents\newchem\drugs.dm"
 #include "code\modules\reagents\newchem\food.dm"
 #include "code\modules\reagents\newchem\medicine.dm"

@@ -219,3 +219,27 @@ datum/reagent/msg/reaction_mob(var/mob/M, var/method=TOUCH, var/volume)
 		M << "<span class='warning'>A horrible migraine overpowers you.</span>"
 	..()
 	return
+
+/datum/reagent/fake_cheese
+	name = "Cheese substitute"
+	id = "fake_cheese"
+	description = "A cheese-like substance derived loosely from actual cheese."
+	reagent_state = LIQUID
+	color = "#B2B139"
+
+datum/reagent/beans
+	name = "Refried beans"
+	id = "beans"
+	description = "A dish made of mashed beans cooked with lard."
+	reagent_state = LIQUID
+	color = "#684435"
+
+datum/reagent/beans/on_mob_life(var/mob/living/M as mob)
+	if(!M) M = holder.my_atom
+	if(prob(8))
+		M.emote("fart")
+	..()
+	return
+
+
+

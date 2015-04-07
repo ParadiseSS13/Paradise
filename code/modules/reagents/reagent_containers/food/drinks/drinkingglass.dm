@@ -208,6 +208,10 @@
 					icon_state = "gintonicglass"
 					name = "Gin and Tonic"
 					desc = "A mild but still great cocktail. Drink up, like a true Englishman."
+				if("ginsonic")
+					icon_state = "ginsonic"
+					name = "Gin and Sonic"
+					desc = "An extremely high amperage drink. Absolutely not for the true Englishman."
 				if("whiskeycola")
 					icon_state = "whiskeycolaglass"
 					name = "Whiskey Cola"
