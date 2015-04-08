@@ -32,9 +32,9 @@
 	if(on)
 		if(beaker)
 			if(beaker.reagents.chem_temp > desired_temp)
-				beaker.reagents.chem_temp += min(-1, (desired_temp - beaker.reagents.chem_temp) * heater_coefficient)
+				beaker.reagents.chem_temp += min(-1, max((desired_temp - beaker.reagents.chem_temp) * heater_coefficient, -15))
 			if(beaker.reagents.chem_temp < desired_temp)
-				beaker.reagents.chem_temp += max(1, (desired_temp - beaker.reagents.chem_temp) * heater_coefficient)
+				beaker.reagents.chem_temp += max(1, min((desired_temp - beaker.reagents.chem_temp) * heater_coefficient, 15))
 			beaker.reagents.chem_temp = round(beaker.reagents.chem_temp) //stops stuff like 456.12312312302
 
 			beaker.reagents.handle_reactions()
