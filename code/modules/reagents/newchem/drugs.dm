@@ -346,7 +346,7 @@ datum/reagent/crank/addiction_act_stage4(var/mob/living/M as mob)
 	return
 
 /datum/chemical_reaction/aranesp
-	name = "aranesp"
+	name = "Aranesp"
 	id = "aranesp"
 	result = "aranesp"
 	required_reagents = list("epinephrine" = 1, "atropine" = 1, "insulin" = 1)
@@ -361,14 +361,14 @@ datum/reagent/crank/addiction_act_stage4(var/mob/living/M as mob)
 
 /datum/reagent/aranesp/on_mob_life(var/mob/living/M as mob)
 	if(!M) M = holder.my_atom
-	var/high_message = pick("You feel amped up.", "You feel ready.", "You feel like you can push it to the limit.")
+	var/high_message = pick("You feel like you're made of steel!", "You feel invigorated!", "You feel really buff!", "You feel on top of the world!", "You feel full of energy!")
 	if(prob(5))
 		M << "<span class='notice'>[high_message]</span>"
 	M.adjustStaminaLoss(-35)
 	M.adjustToxLoss(1)
-	if(prob(rand(1,100)))
-		M.losebreath++
-		M.adjustOxyLoss(20)
+	if(prob(3))
+		M.losebreath += 2
+		M.Stun(2)
 	..()
 	return
 

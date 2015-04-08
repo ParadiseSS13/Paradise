@@ -16,7 +16,7 @@
 	id = "stabilizing_agent"
 	result = "stabilizing_agent"
 	required_reagents = list("iron" = 1, "oxygen" = 1, "hydrogen" = 1)
-	result_amount = 3
+	result_amount = 2
 	mix_message = "The mixture becomes a yellow liquid!"
 
 /datum/reagent/clf3

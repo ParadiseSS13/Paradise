@@ -112,7 +112,7 @@ datum
 					if(preserve_data)
 						trans_data = copy_data(current_reagent)
 
-					R.add_reagent(current_reagent.id, (current_reagent_transfer * multiplier), trans_data)
+					R.add_reagent(current_reagent.id, (current_reagent_transfer * multiplier), trans_data, src.chem_temp)
 					src.remove_reagent(current_reagent.id, current_reagent_transfer)
 
 				src.update_total()
@@ -205,7 +205,7 @@ datum
 					if(current_reagent.id == reagent)
 						if(preserve_data)
 							trans_data = copy_data(current_reagent)
-						R.add_reagent(current_reagent.id, amount, trans_data)
+						R.add_reagent(current_reagent.id, amount, trans_data, src.chem_temp)
 						src.remove_reagent(current_reagent.id, amount, 1)
 						break
 
@@ -325,7 +325,7 @@ datum
 								if(C.result)
 									feedback_add_details("chemical_reaction","[C.result]|[C.result_amount*multiplier]")
 									multiplier = max(multiplier, 1) //this shouldnt happen ...
-									add_reagent(C.result, C.result_amount*multiplier)
+									add_reagent(C.result, C.result_amount*multiplier, null, chem_temp)
 									set_data(C.result, preserved_data)
 
 									//add secondary products
@@ -436,10 +436,11 @@ datum
 									else R.reaction_obj(A, R.volume+volume_modifier)
 				return
 
-			add_reagent(var/reagent, var/amount, var/list/data=null)
+			add_reagent(var/reagent, var/amount, var/list/data=null, var/reagtemp = 300)
 				if(!isnum(amount)) return 1
 				update_total()
 				if(total_volume + amount > maximum_volume) amount = (maximum_volume - total_volume) //Doesnt fit in. Make it disappear. Shouldnt happen. Will happen.
+				chem_temp = round(((amount * reagtemp) + (total_volume * chem_temp)) / (total_volume + amount)) //equalize with new chems
 
 				for(var/A in reagent_list)
 
