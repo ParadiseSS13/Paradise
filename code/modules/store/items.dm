@@ -45,6 +45,18 @@
 	typepath = /obj/item/weapon/storage/box/snappops
 	cost = 200
 
+/datum/storeitem/d&d
+	name = "Dungeons & Dragons set"
+	desc = "A box containing minifigures suitable for a good game of D&D."
+	typepath = /obj/item/weapon/storage/box/characters
+	cost = 200
+
+/datum/storeitem/dice
+	name = "Dice set"
+	desc = "A box containing multiple different types of die."
+	typepath = /obj/item/weapon/storage/box/dice
+	cost = 200
+
 /datum/storeitem/crayons
 	name = "Crayons"
 	desc = "Let security know how they're doing by scrawling lovenotes all over their hallways."

@@ -87,3 +87,17 @@
 /obj/item/weapon/dice/update_icon()
 	overlays.Cut()
 	overlays += "[src.icon_state][src.result]"
+/obj/item/weapon/storage/box/dice
+	name = "Box of dice"
+	desc = "ANOTHER ONE!? FUCK!"
+	icon_state = "box"
+
+/obj/item/weapon/storage/box/dice/New()
+	..()
+	new /obj/item/weapon/dice/d2(src)
+	new /obj/item/weapon/dice/d4(src)
+	new /obj/item/weapon/dice/d8(src)
+	new /obj/item/weapon/dice/d10(src)
+	new /obj/item/weapon/dice/d00(src)
+	new /obj/item/weapon/dice/d12(src)
+	new /obj/item/weapon/dice/d20(src)
