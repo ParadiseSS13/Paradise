@@ -124,3 +124,17 @@
 	category = list("Pod_Weaponry")
 	materials = list("$metal"=10000,"$glass"=5000,"$gold"=1000,"$silver"=2000)
 	locked = 1
+//////////////////////////////////////////
+//////SPACEPOD MISC. ITEMS////////////////
+//////////////////////////////////////////
+
+/datum/design/pod_misc_tracker
+	construction_time = 100
+	name = "Spacepod Tracking Module"
+	desc = "Allows for the construction of a Space Pod Tracking Module."
+	id = "podmisc_tracker"
+	req_tech = list("materials" = 2) //Materials 2: easy to get, no trackers with 0 science progress
+	build_type = PODFAB
+	materials = list("$metal"=5000)
+	build_path = /obj/item/device/spacepod_equipment/misc/tracker
+	category = list("Pod_Parts")
