@@ -716,61 +716,35 @@ datum
 			reaction_mob(var/mob/living/M, var/method=TOUCH, var/volume)
 				if(!istype(M, /mob/living))
 					return
-				if(method == TOUCH)
+				if(method == TOUCH || method == INGEST)
 					if(ishuman(M))
 						var/mob/living/carbon/human/H = M
 
-						if(H.wear_mask)
-							if(!H.wear_mask.unacidable)
-								del (H.wear_mask)
-								H.update_inv_wear_mask()
-								H << "\red Your mask melts away but protects you from the acid!"
-							else
-								H << "\red Your mask protects you from the acid!"
-							return
+						if(volume > 25)
 
-						if(H.head)
-							if(prob(15) && !H.head.unacidable)
-								del(H.head)
-								H.update_inv_head()
-								H << "\red Your helmet melts away but protects you from the acid"
-							else
-								H << "\red Your helmet protects you from the acid!"
-							return
+							if(method == TOUCH)
+								if(H.wear_mask)
+									H << "\red Your mask protects you from the acid!"
+									return
 
-					else if(ismonkey(M))
-						var/mob/living/carbon/monkey/MK = M
-						if(MK.wear_mask)
-							if(!MK.wear_mask.unacidable)
-								del (MK.wear_mask)
-								MK.update_inv_wear_mask()
-								MK << "\red Your mask melts away but protects you from the acid!"
-							else
-								MK << "\red Your mask protects you from the acid!"
-							return
+								if(H.head)
+									H << "\red Your helmet protects you from the acid!"
+									return
 
-					if(!M.unacidable)
-						if(prob(15) && istype(M, /mob/living/carbon/human) && volume >= 30)
-							var/mob/living/carbon/human/H = M
-							var/obj/item/organ/external/affecting = H.get_organ("head")
-							if(affecting)
-								if(affecting.take_damage(25, 0))
-									H.UpdateDamageIcon()
-								H.status_flags |= DISFIGURED
-								H.emote("scream")
+							if(!M.unacidable)
+								if(prob(75))
+									var/obj/item/organ/external/affecting = H.get_organ("head")
+									if(affecting)
+										affecting.take_damage(20, 0)
+										H.UpdateDamageIcon()
+										H.emote("scream")
+								else
+									M.take_organ_damage(15,0)
 						else
-							M.take_organ_damage(min(15, volume * 2)) // uses min() and volume to make sure they aren't being sprayed in trace amounts (1 unit != insta rape) -- Doohl
-				else
-					if(!M.unacidable)
-						M.take_organ_damage(min(15, volume * 2))
+							M.take_organ_damage(15,0)
 
 			reaction_obj(var/obj/O, var/volume)
-				if(istype(O,/obj/item/weapon/organ/head))
-					new/obj/item/weapon/skeleton/head(O.loc)
-					for(var/mob/M in viewers(5, O))
-						M << "\red \the [O] melts."
-					del(O)
-				if((istype(O,/obj/item) || istype(O,/obj/effect/glowshroom)) && prob(10))
+				if((istype(O,/obj/item) || istype(O,/obj/effect/glowshroom)) && prob(40))
 					if(!O.unacidable)
 						var/obj/effect/decal/cleanable/molten_item/I = new/obj/effect/decal/cleanable/molten_item(O.loc)
 						I.desc = "Looks like this was \an [O] some time ago."
