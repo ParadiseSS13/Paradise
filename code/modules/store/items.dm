@@ -75,6 +75,12 @@
 	typepath = /obj/item/device/violin
 	cost = 500
 
+/datum/storeitem/guitar
+	name = "guitar"
+	desc = "It's made of wood and has bronze strings."
+	typepath = /obj/item/device/guitar
+	cost = 700
+
 /datum/storeitem/baby
 	name = "Toddler"
 	desc = "This baby looks almost real. Wait, did it just burp?"

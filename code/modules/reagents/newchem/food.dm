@@ -119,12 +119,12 @@ datum/reagent/honey/on_mob_life(var/mob/living/M as mob)
 	M.reagents.add_reagent("sugar", 0.8)
 	..()
 	return
-/*        //Commenting this out until smoke is rewritten, otherwise, this spam so much honeycomb it's not funny
+
 datum/reagent/honey/reaction_turf(var/turf/T, var/volume)
 	src = null
 	if(volume >= 5)
 		new /obj/item/weapon/reagent_containers/food/snacks/honeycomb(T)
-		return */
+		return
 
 /datum/reagent/chocolate
 	name = "Chocolate"

@@ -1253,3 +1253,51 @@ obj/item/toy/cards/deck/syndicate/black
 		spawn(30) cooldown = 0
 		return
 	..()
+
+// DND Character minis. Use the naming convention (type)character for the icon states.
+/obj/item/toy/character
+	icon = 'icons/obj/toy.dmi'
+	w_class = 2
+	pixel_z = 5
+
+/obj/item/toy/character/alien
+	name = "Xenomorph Miniature"
+	desc = "A miniature xenomorph. Scary!"
+	icon_state = "aliencharacter"
+/obj/item/toy/character/cleric
+	name = "Cleric Miniature"
+	desc = "A wee little cleric, with his wee little staff."
+	icon_state = "clericcharacter"
+/obj/item/toy/character/warrior
+	name = "Warrior Miniature"
+	desc = "That sword would make a decent toothpick."
+	icon_state = "warriorcharacter"
+/obj/item/toy/character/thief
+	name = "Thief Miniature"
+	desc = "Hey, where did my wallet go!?"
+	icon_state = "thiefcharacter"
+/obj/item/toy/character/wizard
+	name = "Wizard Miniature"
+	desc = "MAGIC!"
+	icon_state = "wizardcharacter"
+/obj/item/toy/character/cthulhu
+	name = "Cthulhu Miniature"
+	desc = "The dark lord has risen!"
+	icon_state = "darkmastercharacter"
+/obj/item/toy/character/lich
+	name = "Lich Miniature"
+	desc = "Murderboner extraordinaire."
+	icon_state = "lichcharacter"
+/obj/item/weapon/storage/box/characters
+	name = "Box of Miniatures"
+	desc = "The nerd's best friends."
+	icon_state = "box"
+/obj/item/weapon/storage/box/characters/New()
+	..()
+	new /obj/item/toy/character/alien(src)
+	new /obj/item/toy/character/cleric(src)
+	new /obj/item/toy/character/warrior(src)
+	new /obj/item/toy/character/thief(src)
+	new /obj/item/toy/character/wizard(src)
+	new /obj/item/toy/character/cthulhu(src)
+	new /obj/item/toy/character/lich(src)
