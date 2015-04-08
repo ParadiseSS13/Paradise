@@ -231,6 +231,15 @@ datum/reagent/facid/reaction_mob(var/mob/living/M, var/method=TOUCH, var/volume)
 		if(ishuman(M))
 			var/mob/living/carbon/human/H = M
 
+			if(volume < 5)
+				M << "<span class = 'danger'>The blueish acidic substance stings you, but isn't concentrated enough to harm you!</span>"
+
+			if(volume >=5 && volume <=10)
+				if(!H.unacidable)
+					M.take_organ_damage(max(volume-5,2)*4,0)
+					M.emote("scream")
+
+
 			if(volume > 10)
 
 				if(method == TOUCH)
