@@ -377,7 +377,7 @@ datum
 			id = "sacid"
 			result = "sacid"
 			required_reagents = list("sulfur" = 1, "oxygen" = 1, "hydrogen" = 1)
-			result_amount = 3
+			result_amount = 2
 			mix_message = "The mixture gives off a sharp acidic tang."
 
 ///////Changeling Blood Test/////////////
