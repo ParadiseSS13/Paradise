@@ -112,7 +112,7 @@
 /obj/item/device/spacepod_equipment/misc/tracker
 	name = "\improper spacepod tracking system"
 	desc = "A tracking device for spacepods."
-	icon_state = "pod_taser"
+	icon_state = "pod_locator"
 	enabled = 0
 
 /obj/item/device/spacepod_equipment/misc/tracker/attackby(obj/item/I as obj, mob/user as mob, params)

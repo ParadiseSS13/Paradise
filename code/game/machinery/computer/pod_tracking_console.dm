@@ -1,7 +1,7 @@
 /obj/machinery/computer/podtracker
 	name = "Pod Tracking Console"
 	icon = 'icons/obj/computer.dmi'
-	icon_state = "mecha"
+	icon_state = "podtracking"
 	req_access = list(access_robotics)
 	circuit = "/obj/item/weapon/circuitboard/pod_locater"
 
