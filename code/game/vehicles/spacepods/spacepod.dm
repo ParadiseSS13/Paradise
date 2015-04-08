@@ -233,6 +233,19 @@
 				equipment_system.weapon_system = W
 				equipment_system.weapon_system.my_atom = src
 				return
+
+		if(istype(W, /obj/item/device/spacepod_equipment/misc))
+			if(equipment_system.misc_system)
+				user << "<span class='notice'>The pod already has a miscellaneous system, remove it first.</span>"
+				return
+			else
+				user << "<span class='notice'>You insert \the [W] into the equipment system.</span>"
+				user.drop_item(W)
+				W.loc = equipment_system
+				equipment_system.misc_system = W
+				equipment_system.misc_system.my_atom = src
+				return
+
 	if(istype(W, /obj/item/weapon/weldingtool))
 		if(!hatch_open)
 			user << "\red You must open the maintenance hatch before attempting repairs."
@@ -265,6 +278,8 @@
 		possible.Add("Energy Cell")
 	if(equipment_system.weapon_system)
 		possible.Add("Weapon System")
+	if(equipment_system.misc_system)
+		possible.Add("Misc. System")
 	/* Not yet implemented
 	if(equipment_system.engine_system)
 		possible.Add("Engine System")
@@ -283,6 +298,14 @@
 				user << "<span class='notice'>You remove \the [SPE] from the equipment system.</span>"
 				SPE.my_atom = null
 				equipment_system.weapon_system = null
+			else
+				user << "<span class='warning'>You need an open hand to do that.</span>"
+		if("Misc. System")
+			SPE = equipment_system.misc_system
+			if(user.put_in_any_hand_if_possible(SPE))
+				user << "<span class='notice'>You remove \the [SPE] from the equipment system.</span>"
+				SPE.my_atom = null
+				equipment_system.misc_system = null
 			else
 				user << "<span class='warning'>You need an open hand to do that.</span>"
 		/*
@@ -323,6 +346,11 @@
 	T.loc = equipment_system
 	equipment_system.weapon_system = T
 	equipment_system.weapon_system.my_atom = src
+	var/obj/item/device/spacepod_equipment/misc/tracker/L = new /obj/item/device/spacepod_equipment/misc/tracker
+	L.loc = equipment_system
+	equipment_system.misc_system = L
+	equipment_system.misc_system.my_atom = src
+	equipment_system.misc_system.enabled = 1
 	return
 
 /obj/spacepod/random/New()
