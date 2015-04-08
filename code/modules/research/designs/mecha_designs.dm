@@ -68,7 +68,7 @@
 	name = "Exosuit Board (\"Gygax\" Weapons & Targeting Control module)"
 	desc = "Allows for the construction of a \"Gygax\" Weapons & Targeting Control module."
 	id = "gygax_targ"
-	req_tech = list("programming" = 4, "combat" = 2)
+	req_tech = list("programming" = 4, "combat" = 4)
 	build_type = IMPRINTER
 	materials = list("$glass" = 1000, "sacid" = 20)
 	build_path = /obj/item/weapon/circuitboard/mecha/gygax/targeting
@@ -99,7 +99,7 @@
 	name = "Exosuit Board (\"Durand\" Weapons & Targeting Control module)"
 	desc = "Allows for the construction of a \"Durand\" Weapons & Targeting Control module."
 	id = "durand_targ"
-	req_tech = list("programming" = 4, "combat" = 2)
+	req_tech = list("programming" = 4, "combat" = 4)
 	build_type = IMPRINTER
 	materials = list("$glass" = 1000, "sacid" = 20)
 	build_path = /obj/item/weapon/circuitboard/mecha/durand/targeting
@@ -130,7 +130,7 @@
 	name = "Exosuit Design (\"Phazon\" Weapons & Targeting Control module)"
 	desc = "Allows for the construction of a \"Phazon\" Weapons & Targeting Control module."
 	id = "phazon_targ"
-	req_tech = list("programming" = 5, "magnets" = 6)
+	req_tech = list("programming" = 5, "combat" = 4, "magnets" = 6)
 	build_type = IMPRINTER
 	materials = list("$glass" = 1000, "sacid" = 20)
 	build_path = /obj/item/weapon/circuitboard/mecha/phazon/targeting

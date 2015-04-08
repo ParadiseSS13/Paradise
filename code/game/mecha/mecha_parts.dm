@@ -437,7 +437,7 @@
 	gygax/targeting
 		name = "Circuit board (Gygax Weapon Control and Targeting module)"
 		icon_state = "mcontroller"
-		origin_tech = "programming=4;combat=2"
+		origin_tech = "programming=4;combat=4"
 
 	gygax/main
 		name = "Circuit board (Gygax Central Control module)"
@@ -453,7 +453,7 @@
 	durand/targeting
 		name = "Circuit board (Durand Weapon Control and Targeting module)"
 		icon_state = "mcontroller"
-		origin_tech = "programming=4;combat=2"
+		origin_tech = "programming=4;combat=4"
 
 	durand/main
 		name = "Circuit board (Durand Central Control module)"
@@ -470,7 +470,7 @@
 	phazon/targeting
 		name = "Circuit board (Phazon Weapon Control and Targeting module)"
 		icon_state = "mcontroller"
-		origin_tech = "programming=5;magnets=6"
+		origin_tech = "programming=5;combat=4;magnets=6"
 
 	phazon/main
 		name = "Circuit board (Phazon Central Control module)"

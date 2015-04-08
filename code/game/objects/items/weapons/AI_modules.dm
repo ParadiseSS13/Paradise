@@ -187,7 +187,7 @@ AI MODULES
 /obj/item/weapon/aiModule/supplied/protectStation
 	name = "'ProtectStation' AI Module"
 	desc = "A 'protect station' AI module: 'Protect the space station against damage. Anyone you see harming the station is to be no longer considered crew, and is a threat to the station which must be neutralized.'"
-	origin_tech = "programming=3;materials=6" //made of gold
+	origin_tech = "programming=3;materials=4" //made of gold
 	laws = list("Protect the space station against damage. Anyone you see harming the station is to be no longer considered crew, and is a threat to the station which must be neutralized.")
 	lawpos = 5
 
@@ -255,7 +255,7 @@ AI MODULES
 	name = "'Reset' AI Module"
 	var/targetName = "name"
 	desc = "A 'reset' AI module: Resets back to the original core laws."
-	origin_tech = "programming=3;materials=6"
+	origin_tech = "programming=3;materials=4"
 	laws = list("This is a bug.")  //This won't give the AI a message reading "these are now your laws: 1. this is a bug" because this list is only read in aiModule's subtypes.
 
 /obj/item/weapon/aiModule/reset/transmitInstructions(var/mob/living/silicon/ai/target, var/mob/sender)
@@ -409,7 +409,7 @@ AI MODULES
 /obj/item/weapon/aiModule/core/freeformcore // Slightly more dynamic freeform module -- TLE
 	name = "'Freeform' Core AI Module"
 	desc = "A 'freeform' Core AI module: '<freeform>'"
-	origin_tech = "programming=4;materials=6"
+	origin_tech = "programming=4;materials=4"
 	laws = list("")
 
 /obj/item/weapon/aiModule/core/freeformcore/attack_self(var/mob/user as mob)
