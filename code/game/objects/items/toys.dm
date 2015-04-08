@@ -1227,6 +1227,7 @@ obj/item/toy/cards/deck/syndicate/black
 /obj/item/toy/flash/attack(mob/living/M, mob/user)
 	playsound(src.loc, 'sound/weapons/flash.ogg', 100, 1)
 	flick("[initial(icon_state)]2", src)
+	user.visible_message("<span class='disarm'>[user] blinds [M] with the flash!</span>")
 
 
 /*
