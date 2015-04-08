@@ -275,11 +275,6 @@
 		icon_state = "hair_himecut"
 		gender = FEMALE
 
-	braid
-		name = "Floorlength Braid"
-		icon_state = "hair_braid"
-		gender = FEMALE
-
 	odango
 		name = "Odango"
 		icon_state = "hair_odango"
