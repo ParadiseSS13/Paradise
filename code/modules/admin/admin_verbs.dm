@@ -63,7 +63,8 @@ var/list/admin_verbs_admin = list(
 	/client/proc/delbook,
 	/client/proc/empty_ai_core_toggle_latejoin,
 	/client/proc/freeze,
-	/client/proc/freezemecha
+	/client/proc/freezemecha,
+	/client/proc/alt_check
 
 )
 var/list/admin_verbs_ban = list(

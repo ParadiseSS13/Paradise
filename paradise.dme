@@ -831,6 +831,7 @@
 #include "code\modules\admin\verbs\adminjump.dm"
 #include "code\modules\admin\verbs\adminpm.dm"
 #include "code\modules\admin\verbs\adminsay.dm"
+#include "code\modules\admin\verbs\alt_check.dm"
 #include "code\modules\admin\verbs\atmosdebug.dm"
 #include "code\modules\admin\verbs\BrokenInhands.dm"
 #include "code\modules\admin\verbs\cinematic.dm"
