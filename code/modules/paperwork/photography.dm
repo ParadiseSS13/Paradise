@@ -1,10 +1,24 @@
 /*	Photography!
  *	Contains:
+ *      Film
  *		Camera
- *		Camera Film
+ *      Polaroid
+ *		DSS Card
  *		Photos
  *		Photo Albums
  */
+
+/**********
+* DSS Card *
+**********/
+/obj/item/device/dss_card
+	name = "DSS Card"
+	icon = 'icons/obj/items.dmi'
+	desc = "A DSS card. Insert it into a digital camera to reload it."
+	icon_state = "dss_card"
+	item_state = "electropack"
+	w_class = 1.0
+
 
 /*******
 * film *
@@ -12,11 +26,10 @@
 /obj/item/device/camera_film
 	name = "film cartridge"
 	icon = 'icons/obj/items.dmi'
-	desc = "A camera film cartridge. Insert it into a camera to reload it."
+	desc = "A polaroid film cartridge. Insert it into a polaroid to reload it."
 	icon_state = "film"
 	item_state = "electropack"
 	w_class = 1.0
-
 
 /********
 * photo *
@@ -138,11 +151,12 @@
 /obj/item/device/camera
 	name = "camera"
 	icon = 'icons/obj/items.dmi'
-	desc = "A polaroid camera. 10 photos left."
+	desc = "A digital camera. 10 photos left."
 	icon_state = "camera"
 	item_state = "electropack"
 	w_class = 2.0
 	slot_flags = SLOT_BELT
+	var/can_hold = list("/obj/item/device/sd_card")
 	var/list/matter = list("metal" = 2000)
 	var/pictures_max = 10
 	var/pictures_left = 10
@@ -166,20 +180,24 @@
 	on = !on
 	if(on)
 		src.icon_state = icon_on
+		playsound(loc, 'sound/items/camera_onoff.ogg', 75, 1, -3)
 	else
 		src.icon_state = icon_off
+		playsound(loc, 'sound/items/camera_onoff.ogg', 75, 1, -3)
 	user << "You switch the camera [on ? "on" : "off"]."
 	return
 
 /obj/item/device/camera/attackby(obj/item/I as obj, mob/user as mob, params)
-	if(istype(I, /obj/item/device/camera_film))
+	if(istype(I, /obj/item/device/dss_card))
 		if(pictures_left)
-			user << "<span class='notice'>[src] still has some film in it!</span>"
+			user << "<span class='notice'>[src] still has some space left in it's card!</span>"
 			return
-		user << "<span class='notice'>You insert [I] into [src].</span>"
+		user << "<span class='notice'>You insert the [I] into [src].</span>"
 		user.drop_item()
 		del(I)
 		pictures_left = pictures_max
+	else
+		user << "<span class='notice'> This can't be inserted into the camera! </span>"
 		return
 	..()
 
@@ -195,7 +213,7 @@
 
 	var/atoms[] = list()
 	for(var/turf/the_turf in turfs)
-		// Add outselves to the list of stuff to draw
+		// Add ourselves to the list of stuff to draw
 		atoms.Add(the_turf);
 		// As well as anything that isn't invisible.
 		for(var/atom/A in the_turf)
@@ -256,10 +274,10 @@
 	if(!on || !pictures_left || ismob(target.loc)) return
 	captureimage(target, user, flag)
 
-	playsound(loc, pick('sound/items/polaroid1.ogg', 'sound/items/polaroid2.ogg'), 75, 1, -3)
+	playsound(loc, 'sound/items/camera_shutter.ogg', 75, 1, -3)
 
 	pictures_left--
-	desc = "A polaroid camera. It has [pictures_left] photos left."
+	desc = "A digital camera. It has [pictures_left] photos left."
 	user << "<span class='notice'>[pictures_left] photos left.</span>"
 	icon_state = icon_off
 	on = 0
@@ -404,3 +422,47 @@
 			talk_into(M, msg)
 		for(var/mob/living/carbon/human/H in watcherslist)
 			H.show_message(text("\blue (Newscaster) [] says, '[]'",M,msg), 1)
+
+/***********
+* polaroid *
+***********/
+/obj/item/device/camera/polaroid
+	name = "polaroid"
+	icon = 'icons/obj/items.dmi'
+	desc = "A polaroid camera. 10 photos left."
+	icon_state = "polaroid"
+	item_state = "electropack"
+	w_class = 2.0
+	slot_flags = SLOT_BELT
+	var/icon_onp = "polaroid"
+	var/icon_offp = "polaroid_off"
+
+/obj/item/device/camera/polaroid/afterattack(atom/target as mob|obj|turf|area, mob/user as mob, flag)
+	if(!on || !pictures_left || ismob(target.loc)) return
+	captureimage(target, user, flag)
+
+	playsound(loc, pick('sound/items/polaroid1.ogg', 'sound/items/polaroid2.ogg'), 75, 1, -3)
+
+	pictures_left--
+	desc = "A polaroid camera. It has [pictures_left] photos left."
+	user << "<span class='notice'>[pictures_left] photos left.</span>"
+	icon_state = icon_off
+	on = 0
+	spawn(64)
+		icon_state = icon_on
+		on = 1
+
+/obj/item/device/camera/attackby(obj/item/I as obj, mob/user as mob, params)
+	if(istype(I, /obj/item/device/camera_film))
+		if(pictures_left)
+			user << "<span class='notice'>[src] still has some photos left on it's film!</span>"
+			return
+		user << "<span class='notice'>You insert the [I] into [src].</span>"
+		user.drop_item()
+		del(I)
+		pictures_left = pictures_max
+	else
+		user << "<span class='notice'> This can't be inserted into the polaroid! </span>"
+		return
+	..()
+
