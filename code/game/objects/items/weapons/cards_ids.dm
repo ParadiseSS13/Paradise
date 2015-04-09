@@ -75,7 +75,7 @@
 
 /obj/item/weapon/card/emag/afterattack(atom/target, mob/user, proximity)
 	var/atom/A = target
-	if(!proximity) 
+	if(!proximity)
 		return
 	A.emag_act(user)
 
@@ -110,13 +110,16 @@
 /obj/item/weapon/card/id/New()
 	..()
 	spawn(30)
+	updatedat()
+
+/obj/item/weapon/card/id/proc/updatedat()
 	if(istype(loc, /mob/living/carbon/human))
 		blood_type = loc:dna:b_type
 		dna_hash = loc:dna:unique_enzymes
 		fingerprint_hash = md5(loc:dna:uni_identity)
 		dat = ("<table><tr><td>")
 		dat +=text("Name: []</A><BR>", registered_name)
-		dat +=text("Sex: []</A><BR>\n", name)
+		dat +=text("Sex: []</A><BR>\n", sex)
 		dat +=text("Age: []</A><BR>\n", age)
 		dat +=text("Rank: []</A><BR>\n", assignment)
 		dat +=text("Fingerprint: []</A><BR>\n", fingerprint_hash)
@@ -224,8 +227,8 @@
 	var/registered_user=null
 
 /obj/item/weapon/card/id/syndicate/New(mob/user as mob)
-	..()
-	if(!isnull(user)) // Runtime prevention on laggy starts or where users log out because of lag at round start.
+//	..() - Intentionally does not call parent, doesn't need to
+	if(!isnull(user) && iscarbon(user)) // Runtime prevention on laggy starts or where users log out because of lag at round start. Also stops the ID from inheriting anything but a mob name
 		registered_name = ishuman(user) ? user.real_name : user.name
 	else
 		registered_name = "Agent Card"
@@ -257,8 +260,14 @@
 			return
 		src.assignment = u
 		src.name = "[src.registered_name]'s ID Card ([src.assignment])"
-		user << "\blue You successfully forge the ID card."
 		registered_user = user
+		var/s = input(user, "Would you like to update this card's details with your own?\nNote: This will take a picture of how you currently look, so put any items in your hand down first (other than this ID), and it will assume your age, and gender.", "Agent card update choice", "No") in list("Yes","No")
+		if(s == "Yes")
+			src.setupdat()
+			spawn(0)
+			src.updatedat()
+		user << "\blue You successfully forge the ID card."
+
 	else if(!registered_user || registered_user == user)
 
 		if(!registered_user) registered_user = user  //
@@ -278,12 +287,52 @@
 					return
 				src.assignment = u
 				src.name = "[src.registered_name]'s ID Card ([src.assignment])"
+				var/s = input(user, "Would you like to update this card's details with your own?\nNote: This will take a picture of how you currently look, so put any items in your hand down first (other than this ID), and it will assume your age, and gender.", "Agent card update choice", "No") in list("Yes","No")
+				if(s == "Yes")
+					src.setupdat()
+					spawn(0)
+					src.updatedat()
 				user << "\blue You successfully forge the ID card."
 				return
 			if("Show")
 				..()
 	else
 		..()
+
+/obj/item/weapon/card/id/syndicate/proc/setupdat() //fake initilization, taken mostly from job_controller.dm
+	if(istype(src.loc, /mob/living/carbon/human)) //just adopt the syndie stuff, it would be annoying to ask them to set all of this, and the use would be limited
+		var/mob/living/carbon/human/H = loc
+		src.sex = capitalize(H.gender)
+		src.rank = src.assignment
+		src.age = H.age
+		src.photo = fake_id_photo(H)
+		var/icon/photoside = fake_id_photo(H,1)
+		front = new(photo)
+		side = new(photoside)
+
+/obj/item/weapon/card/id/syndicate/proc/fake_id_photo(var/mob/living/carbon/human/H, var/side=0)//get_id_photo wouldn't work correctly
+	if(!istype(H))
+		return
+	var/storedDir = H.dir //don't want to lose track of this
+
+	var/icon/faked
+	if(!side)
+		if(!H.equip_to_slot_if_possible(src, slot_l_store, 0, 1))
+			H << "<span class='warning'>You need to empty your pockets before taking the ID picture.</span>"
+			return
+
+	if(side)
+		H.dir = WEST //ensure the icon is actually the proper direction before copying it
+		faked = getFlatIcon(H)
+		H.dir = storedDir //reset the user back to their original direction, not even noticable they changed
+		H.equip_to_slot_if_possible(src, slot_l_hand, 0, 1)
+
+	else
+		H.dir = SOUTH
+		faked = getFlatIcon(H)
+		H.dir = storedDir
+
+	return faked
 
 /obj/item/weapon/card/id/syndicate_command
 	name = "syndicate ID card"
