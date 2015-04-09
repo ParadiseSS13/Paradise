@@ -29,3 +29,156 @@
 	icon_state = "soylentsoybeans"
 	filling_color = "#808080"
 	plantname = "soylentsoybeans"
+
+/obj/item/weapon/reagent_containers/food/snacks/grown/purplegoop
+	name = "strange soybean"
+	desc = "Something isn't right about this."
+	gender = PLURAL
+	icon_state = "soylentsoybeans"
+	filling_color = "#808080"
+	plantname = "dripper"
+
+/obj/item/weapon/reagent_containers/food/snacks/grown/glowfruit
+	name = "strange soybean"
+	desc = "Something isn't right about this."
+	gender = PLURAL
+	icon_state = "soylentsoybeans"
+	filling_color = "#808080"
+	plantname = "light_lotus"
+
+/obj/item/weapon/reagent_containers/food/snacks/grown/contusine
+	name = "strange soybean"
+	desc = "Something isn't right about this."
+	gender = PLURAL
+	icon_state = "soylentsoybeans"
+	filling_color = "#808080"
+	plantname = "contusine"
+
+/obj/item/weapon/reagent_containers/food/snacks/grown/shiveringcontusine
+	name = "strange soybean"
+	desc = "Something isn't right about this."
+	gender = PLURAL
+	icon_state = "soylentsoybeans"
+	filling_color = "#808080"
+	plantname = "shiveringcontusine"
+
+/obj/item/weapon/reagent_containers/food/snacks/grown/quiveringcontusine
+	name = "strange soybean"
+	desc = "Something isn't right about this."
+	gender = PLURAL
+	icon_state = "soylentsoybeans"
+	filling_color = "#808080"
+	plantname = "quiveringcontusine"
+
+/obj/item/weapon/reagent_containers/food/snacks/grown/nureous
+	name = "strange soybean"
+	desc = "Something isn't right about this."
+	gender = PLURAL
+	icon_state = "soylentsoybeans"
+	filling_color = "#808080"
+	plantname = "nureous"
+
+/obj/item/weapon/reagent_containers/food/snacks/grown/fuzzynureous
+	name = "strange soybean"
+	desc = "Something isn't right about this."
+	gender = PLURAL
+	icon_state = "soylentsoybeans"
+	filling_color = "#808080"
+	plantname = "fuzzynureous"
+
+/obj/item/weapon/reagent_containers/food/snacks/grown/asomna
+	name = "strange soybean"
+	desc = "Something isn't right about this."
+	gender = PLURAL
+	icon_state = "soylentsoybeans"
+	filling_color = "#808080"
+	plantname = "asomna"
+
+/obj/item/weapon/reagent_containers/food/snacks/grown/robustasomna
+	name = "strange soybean"
+	desc = "Something isn't right about this."
+	gender = PLURAL
+	icon_state = "soylentsoybeans"
+	filling_color = "#808080"
+	plantname = "robustasomna"
+
+/obj/item/weapon/reagent_containers/food/snacks/grown/commol
+	name = "strange soybean"
+	desc = "Something isn't right about this."
+	gender = PLURAL
+	icon_state = "soylentsoybeans"
+	filling_color = "#808080"
+	plantname = "commol"
+
+/obj/item/weapon/reagent_containers/food/snacks/grown/burningcommol
+	name = "strange soybean"
+	desc = "Something isn't right about this."
+	gender = PLURAL
+	icon_state = "soylentsoybeans"
+	filling_color = "#808080"
+	plantname = "burningcommol"
+
+/obj/item/weapon/reagent_containers/food/snacks/grown/venne
+	name = "strange soybean"
+	desc = "Something isn't right about this."
+	gender = PLURAL
+	icon_state = "soylentsoybeans"
+	filling_color = "#808080"
+	plantname = "venne"
+
+/obj/item/weapon/reagent_containers/food/snacks/grown/toxicvenne
+	name = "strange soybean"
+	desc = "Something isn't right about this."
+	gender = PLURAL
+	icon_state = "soylentsoybeans"
+	filling_color = "#808080"
+	plantname = "toxicvenne"
+
+/obj/item/weapon/reagent_containers/food/snacks/grown/curativevenne
+	name = "strange soybean"
+	desc = "Something isn't right about this."
+	gender = PLURAL
+	icon_state = "soylentsoybeans"
+	filling_color = "#808080"
+	plantname = "curativevenne"
+
+/obj/item/weapon/reagent_containers/food/snacks/grown/cannabis
+	name = "strange soybean"
+	desc = "Something isn't right about this."
+	gender = PLURAL
+	icon_state = "soylentsoybeans"
+	filling_color = "#808080"
+	plantname = "cannabis"
+
+/obj/item/weapon/reagent_containers/food/snacks/grown/lifeweed
+	name = "strange soybean"
+	desc = "Something isn't right about this."
+	gender = PLURAL
+	icon_state = "soylentsoybeans"
+	filling_color = "#808080"
+	plantname = "lifeweed"
+
+/obj/item/weapon/reagent_containers/food/snacks/grown/deathweed
+	name = "strange soybean"
+	desc = "Something isn't right about this."
+	gender = PLURAL
+	icon_state = "soylentsoybeans"
+	filling_color = "#808080"
+	plantname = "deathweed"
+
+/obj/item/weapon/reagent_containers/food/snacks/grown/rainbowweed
+	name = "strange soybean"
+	desc = "Something isn't right about this."
+	gender = PLURAL
+	icon_state = "soylentsoybeans"
+	filling_color = "#808080"
+	plantname = "rainbowweed"
+
+/obj/item/weapon/reagent_containers/food/snacks/grown/omegaweed
+	name = "strange soybean"
+	desc = "Something isn't right about this."
+	gender = PLURAL
+	icon_state = "soylentsoybeans"
+	filling_color = "#808080"
+	plantname = "omegaweed"
+

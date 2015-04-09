@@ -46,7 +46,7 @@
 	packet_icon = "seed-nureous"
 	plant_icon = "nureous"
 	harvest_repeat = 1
-	chems = list("hyronalin" = list(1,10))
+	chems = list("potass_iodide" = list(1,10))
 
 	lifespan = 25
 	maturation = 6
@@ -68,7 +68,7 @@
 /datum/seed/asomna
 	name = "asomna"
 	seed_name = "asomna"
-	display_name = "nureous"
+	display_name = "asomna"
 	products = list(/obj/item/weapon/reagent_containers/food/snacks/grown/asomna)
 	mutants = list("robustasomna")
 	packet_icon = "seed-asomna"
@@ -90,7 +90,7 @@
 	mutants = null
 	packet_icon = "seed-robustasomna"
 	plant_icon = "robustasomna"
-	chems = list("hyperzine" = list(1,10))
+	chems = list("methamphetamine" = list(1,10))
 
 //Asomna/varieties.
 /datum/seed/commol
@@ -102,7 +102,7 @@
 	packet_icon = "seed-commol"
 	plant_icon = "commol"
 	harvest_repeat = 1
-	chems = list("kelotane" = list(1,10))
+	chems = list("silver_sulfadiazine" = list(1,10))
 
 	lifespan = 25
 	maturation = 6
@@ -118,7 +118,7 @@
 	mutants = null
 	packet_icon = "seed-burningcommol"
 	plant_icon = "burningcommol"
-	chems = list("napalm" = list(1,10))
+	chems = list("phlogiston" = list(1,10))
 
 //Asomna/varieties.
 /datum/seed/venne
@@ -156,7 +156,7 @@
 	mutants = null
 	packet_icon = "seed-curativevenne"
 	plant_icon = "curativevenne"
-	chems = list("oculine" = list(1,10), "mannitol" = list(1,10), "ryetalyn" = list(1,10))
+	chems = list("oculine" = list(1,10), "mannitol" = list(1,10), "mutadone" = list(1,10))
 
 //Asomna/varieties.
 /datum/seed/cannabis
@@ -168,7 +168,7 @@
 	packet_icon = "seed-cannabis"
 	plant_icon = "cannabis"
 	harvest_repeat = 1
-	chems = list("spacedrugs" = list(1,10))
+	chems = list("thc" = list(1,10))
 
 	lifespan = 25
 	maturation = 6
@@ -215,7 +215,7 @@
 	packet_icon = "seed-omegaweed"
 	plant_icon = "omegaweed"
 	chems = list("LSD" = list(1,10),"suicider" = list(1,10),"space_drugs" = list(1,10),"mercury" = list(1,10),"lithium" = list(1,10),
-	"atropine" = list(1,10), "ephedrine" = list(1,10), "impedrezene" = list(1,10),"hyperzine" = list(1,10),"THC" = list(1,10),"capsaicin" = list(1,10),"psilocybin" = list(1,10),"hairgrownium" = list(1,10),
+	"atropine" = list(1,10), "ephedrine" = list(1,10), "impedrezene" = list(1,10),"methamphetamine" = list(1,10),"THC" = list(1,10),"capsaicin" = list(1,10),"psilocybin" = list(1,10),"hairgrownium" = list(1,10),
 	"ectoplasm" = list(1,10),"bathsalts" = list(1,10),"itching_powder" = list(1,10),"crank" = list(1,10),"krokodil" = list(1,10),"catdrugs" = list(1,10),"histamine" = list(1,10))
 
 /* I'd prefer not to tempt the furries snowflaking this up with cattebeest garbage code. - Iamgoofball

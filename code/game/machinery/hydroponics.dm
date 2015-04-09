@@ -422,7 +422,7 @@
 	if(closed_system)
 		user << "You can't harvest from the plant while the lid is shut."
 		return
-
+	seed.on_harvest(user)
 	seed.harvest(user,yield_mod)
 	//Increases harvest count for round-end score
 	//Currently per-plant (not per-item) harvested
@@ -879,6 +879,10 @@
 			A.icon_state = src.icon_state
 			A.hydrotray_type = src.type
 			del(src)
+	else
+		if(seed)
+			seed.on_attack(user, O)
+			return
 	return
 
 /obj/machinery/portable_atmospherics/hydroponics/attack_tk(mob/user as mob)

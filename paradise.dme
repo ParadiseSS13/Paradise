@@ -1071,8 +1071,6 @@
 #include "code\modules\hydroponics\goon\grown_food.dm"
 #include "code\modules\hydroponics\goon\herb_seeds.dm"
 #include "code\modules\hydroponics\goon\mutation_seeds.dm"
-#include "code\modules\hydroponics\goon\seed_datums.dm"
-#include "code\modules\hydroponics\goon\seeds.dm"
 #include "code\modules\hydroponics\goon\weed_seeds.dm"
 #include "code\modules\jungle\falsewall.dm"
 #include "code\modules\jungle\jungle.dm"

@@ -16,8 +16,8 @@
 	if(prob(20))
 		if(hydro_tray)
 			if(hydro_tray.age >= maturation)
-				hydro_tray.visible_message("<span class='warning'>The [name] vomits profusely!</span>"
-				playsound(loc, 'sound/effects/splat.ogg', 50, 1)
+				hydro_tray.visible_message("<span class='warning'>The [name] vomits profusely!</span>")
+				playsound(hydro_tray.loc, 'sound/effects/splat.ogg', 50, 1)
 				var/turf/location = get_turf(hydro_tray)
 				if(istype(location, /turf/simulated))
 					location.add_vomit_floor(hydro_tray, 1)
@@ -42,11 +42,11 @@
 			if(hydro_tray.age >= maturation)
 				var/list/stuff_to_look_at = list()
 				for(var/mob/living/M in range(7,hydro_tray))
-					stuff_to_look_at.Add("[M.name]")
+					stuff_to_look_at.Add(M)
 				for(var/obj/item/O in range(7,hydro_tray))
-					stuff_to_look_at.Add("[O.name]")
+					stuff_to_look_at.Add(O)
 				if(stuff_to_look_at.len > 1) // The clown says "please stop staring at me plant :("
-					hydro_tray.visible_message("<span class='warning'>The [name] stares at [pick(stuffnearby)].</span>"
+					hydro_tray.visible_message("<span class='warning'>The [name] stares at [pick(stuff_to_look_at)].</span>")
 
 /datum/seed/dripper
 	name = "dripper"

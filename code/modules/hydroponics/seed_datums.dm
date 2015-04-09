@@ -464,6 +464,14 @@ proc/populate_seed_list()
 /datum/seed/proc/on_tick()
 	return
 
+// Effects we want to trigger on harvest.
+/datum/seed/proc/on_harvest(var/mob/living/user)
+	return
+
+// Effects we want to trigger when you hit the hydro tray.
+/datum/seed/proc/on_attack(var/mob/living/user, var/obj/item/I)
+	return
+
 // Actual roundstart seed types after this point.
 // Chili plants/variants.
 /datum/seed/chili
