@@ -1450,21 +1450,6 @@ datum
 			reagent_state = LIQUID
 			color = "#322D00"
 
-		Spores
-			name = "Spores"
-			id = "spores"
-			description = "A toxic spore cloud which blocks vision when ingested."
-			reagent_state = LIQUID
-			color = "#9ACD32" // rgb: 0, 51, 51
-
-			on_mob_life(var/mob/living/M as mob)
-				if(!M) M = holder.my_atom
-				M.adjustToxLoss(0.5*REM)
-				..()
-				M.damageoverlaytemp = 60
-				M.eye_blurry = max(M.eye_blurry, 3)
-				return
-
 		beer2	//disguised as normal beer for use by emagged brobots
 			name = "Beer"
 			id = "beer2"

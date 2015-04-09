@@ -206,13 +206,6 @@
 	amount_per_transfer_from_this = (amount_per_transfer_from_this == 10 ? 5 : 10)
 	user << "<span class='notice'>You adjust the output switch. You'll now use [amount_per_transfer_from_this] units per spray.</span>"
 
-/obj/item/weapon/reagent_containers/spray/chemsprayer/bioterror/New()
-	..()
-	reagents.add_reagent("spores", 150)
-	reagents.add_reagent("cryptobiolin", 150)
-	reagents.add_reagent("mutagen", 150)
-	reagents.add_reagent("pancuronium", 150)
-
 
 // Plant-B-Gone
 /obj/item/weapon/reagent_containers/spray/plantbgone // -- Skie
