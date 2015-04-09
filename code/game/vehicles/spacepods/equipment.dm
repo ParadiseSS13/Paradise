@@ -49,6 +49,7 @@
 /datum/spacepod/equipment
 	var/obj/spacepod/my_atom
 	var/obj/item/device/spacepod_equipment/weaponry/weapon_system // weapons system
+	var/obj/item/device/spacepod_equipment/misc/misc_system // misc system
 	//var/obj/item/device/spacepod_equipment/engine/engine_system // engine system
 	//var/obj/item/device/spacepod_equipment/shield/shield_system // shielding system
 
@@ -100,3 +101,27 @@
 	fire_sound = 'sound/weapons/Laser.ogg'
 	fire_delay = 30
 
+//base item for spacepod misc equipment (tracker)
+/obj/item/device/spacepod_equipment/misc
+	name = "pod misc"
+	desc = "You shouldn't be seeing this"
+	icon = 'icons/pods/ship.dmi'
+	icon_state = "blank"
+	var/enabled
+
+/obj/item/device/spacepod_equipment/misc/tracker
+	name = "\improper spacepod tracking system"
+	desc = "A tracking device for spacepods."
+	icon_state = "pod_locator"
+	enabled = 0
+
+/obj/item/device/spacepod_equipment/misc/tracker/attackby(obj/item/I as obj, mob/user as mob, params)
+	if(isscrewdriver(I))
+		if(enabled)
+			enabled = 0
+			user.show_message("<span class='notice'>You disable \the [src]'s power.")
+			return
+		enabled = 1
+		user.show_message("<span class='notice'>You enable \the [src]'s power.</span>")
+	else
+		..()

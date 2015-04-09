@@ -11,7 +11,7 @@
 	materials = list("$glass" = 1000, "sacid" = 20)
 	build_path = /obj/item/weapon/circuitboard/aicore
 	category = list("Computer Boards")
-	
+
 /datum/design/aifixer
 	name = "Console Board (AI Integrity Restorer)"
 	desc = "Allows for the construction of circuit boards used to build an AI Integrity Restorer."
@@ -31,7 +31,7 @@
 	materials = list("$glass" = 1000, "sacid" = 20)
 	build_path = /obj/item/weapon/circuitboard/aiupload
 	category = list("Computer Boards")
-	
+
 /datum/design/atmosalerts
 	name = "Console Board (Atmospheric Alerts)"
 	desc = "Allows for the construction of circuit boards used to build an atmosphere alert console.."
@@ -41,7 +41,7 @@
 	materials = list("$glass" = 1000, "sacid" = 20)
 	build_path = /obj/item/weapon/circuitboard/atmos_alert
 	category = list("Computer Boards")
-	
+
 /datum/design/air_management
 	name = "Console Board (Atmospheric Monitor)"
 	desc = "Allows for the construction of circuit boards used to build an Atmospheric Monitor."
@@ -51,7 +51,7 @@
 	materials = list("$glass" = 1000, "sacid" = 20)
 	build_path = /obj/item/weapon/circuitboard/air_management
 	category = list("Computer Boards")
-	
+
 /datum/design/seccamera
 	name = "Console Board (Camera Monitor)"
 	desc = "Allows for the construction of circuit boards used to build camera monitors."
@@ -61,7 +61,7 @@
 	materials = list("$glass" = 1000, "sacid" = 20)
 	build_path = /obj/item/weapon/circuitboard/camera
 	category = list("Computer Boards")
-	
+
 /datum/design/clonecontrol
 	name = "Console Board (Cloning Machine Console)"
 	desc = "Allows for the construction of circuit boards used to build a new Cloning Machine console."
@@ -70,8 +70,8 @@
 	build_type = IMPRINTER
 	materials = list("$glass" = 1000, "sacid" = 20)
 	build_path = /obj/item/weapon/circuitboard/cloning
-	category = list("Computer Boards")	
-	
+	category = list("Computer Boards")
+
 /datum/design/comconsole
 	name = "Console Board (Communications Console)"
 	desc = "Allows for the construction of circuit boards used to build a communications console."
@@ -81,7 +81,7 @@
 	materials = list("$glass" = 1000, "sacid" = 20)
 	build_path = /obj/item/weapon/circuitboard/communications
 	category = list("Computer Boards")
-	
+
 /datum/design/crewconsole
 	name = "Console Board (Crew Monitoring Computer)"
 	desc = "Allows for the construction of circuit boards used to build a Crew monitoring computer."
@@ -101,7 +101,7 @@
 	materials = list("$glass" = 1000, "sacid" = 20)
 	build_path = /obj/item/weapon/circuitboard/borgupload
 	category = list("Computer Boards")
-	
+
 /datum/design/scan_console
 	name = "Console Board (DNA Machine)"
 	desc = "Allows for the construction of circuit boards used to build a new DNA scanning console."
@@ -111,7 +111,7 @@
 	materials = list("$glass" = 1000, "sacid" = 20)
 	build_path = /obj/item/weapon/circuitboard/scan_consolenew
 	category = list("Computer Boards")
-	
+
 /datum/design/dronecontrol
 	name = "Console Board (Drone Control Console)"
 	desc = "Allows for the construction of circuit boards used to build a Drone Control console."
@@ -121,7 +121,7 @@
 	materials = list("$glass" = 1000, "sacid" = 20)
 	build_path = /obj/item/weapon/circuitboard/drone_control
 	category = list("Computer Boards")
-	
+
 /datum/design/mechacontrol
 	name = "Console Board (Exosuit Control Console)"
 	desc = "Allows for the construction of circuit boards used to build an exosuit control console."
@@ -131,7 +131,7 @@
 	materials = list("$glass" = 1000, "sacid" = 20)
 	build_path = /obj/item/weapon/circuitboard/mecha_control
 	category = list("Computer Boards")
-	
+
 /datum/design/idcardconsole
 	name = "Console Board (ID Computer)"
 	desc = "Allows for the construction of circuit boards used to build an ID computer."
@@ -150,8 +150,8 @@
 	build_type = IMPRINTER
 	materials = list("$glass" = 1000, "sacid" = 20)
 	build_path = /obj/item/weapon/circuitboard/mech_bay_power_console
-	category = list("Computer Boards")	
-	
+	category = list("Computer Boards")
+
 /datum/design/med_data
 	name = "Console Board (Medical Records)"
 	desc = "Allows for the construction of circuit boards used to build a medical records console."
@@ -161,7 +161,7 @@
 	materials = list("$glass" = 1000, "sacid" = 20)
 	build_path = /obj/item/weapon/circuitboard/med_data
 	category = list("Computer Boards")
-	
+
 /datum/design/message_monitor
 	name = "Console Board (Messaging Monitor Console)"
 	desc = "Allows for the construction of circuit boards used to build a messaging monitor console."
@@ -191,7 +191,7 @@
 	materials = list("$glass" = 1000, "sacid" = 20)
 	build_path = /obj/item/weapon/circuitboard/pandemic
 	category = list("Computer Boards")
-	
+
 /datum/design/powermonitor
 	name = "Console Board (Power Monitor)"
 	desc = "Allows for the construction of circuit boards used to build a new power monitor"
@@ -201,7 +201,7 @@
 	materials = list("$glass" = 1000, "sacid" = 20)
 	build_path = /obj/item/weapon/circuitboard/powermonitor
 	category = list("Computer Boards")
-	
+
 /datum/design/prisonmanage
 	name = "Console Board (Prisoner Management Console)"
 	desc = "Allows for the construction of circuit boards used to build a prisoner management console."
@@ -211,7 +211,7 @@
 	materials = list("$glass" = 1000, "sacid" = 20)
 	build_path = /obj/item/weapon/circuitboard/prisoner
 	category = list("Computer Boards")
-	
+
 /datum/design/rdconsole
 	name = "Console Board (R&D Console)"
 	desc = "Allows for the construction of circuit boards used to build a new R&D console."
@@ -221,7 +221,7 @@
 	materials = list("$glass" = 1000, "sacid" = 20)
 	build_path = /obj/item/weapon/circuitboard/rdconsole
 	category = list("Computer Boards")
-	
+
 /datum/design/rdservercontrol
 	name = "Console Board (R&D Server Control Console)"
 	desc = "The circuit board for a R&D Server Control Console"
@@ -241,7 +241,7 @@
 	materials = list("$glass" = 1000, "sacid" = 20)
 	build_path = /obj/item/weapon/circuitboard/robotics
 	category = list("Computer Boards")
-	
+
 /datum/design/secdata
 	name = "Console Board (Security Records Console)"
 	desc = "Allows for the construction of circuit boards used to build a security records console."
@@ -251,7 +251,7 @@
 	materials = list("$glass" = 1000, "sacid" = 20)
 	build_path = /obj/item/weapon/circuitboard/secure_data
 	category = list("Computer Boards")
-	
+
 /datum/design/solarcontrol
 	name = "Console Board (Solar Control)"
 	desc = "Allows for the construction of circuit boards used to build a solar control console"
@@ -261,7 +261,17 @@
 	materials = list("$glass" = 1000, "sacid" = 20)
 	build_path = /obj/item/weapon/circuitboard/solar_control
 	category = list("Computer Boards")
-	
+
+/datum/design/spacepodlocator
+	name = "Console Board (Spacepod Locator)"
+	desc = "Allows for the construction of circuit boards used to build a space-pod locating console"
+	id = "spacepodc"
+	req_tech = list("programming" = 2)
+	build_type = IMPRINTER
+	materials = list("$glass" = 1000, "sacid" = 20)
+	build_path = /obj/item/weapon/circuitboard/pod_locater
+	category = list("Computer Boards")
+
 /datum/design/ordercomp
 	name = "Console Board (Supply Ordering Console)"
 	desc = "Allows for the construction of circuit boards used to build a supply ordering console."
@@ -271,7 +281,7 @@
 	materials = list("$glass" = 1000, "sacid" = 20)
 	build_path = /obj/item/weapon/circuitboard/ordercomp
 	category = list("Computer Boards")
-	
+
 /datum/design/supplycomp
 	name = "Console Board (Supply Shuttle Console)"
 	desc = "Allows for the construction of circuit boards used to build a supply shuttle console."
@@ -281,7 +291,7 @@
 	materials = list("$glass" = 1000, "sacid" = 20)
 	build_path = /obj/item/weapon/circuitboard/supplycomp
 	category = list("Computer Boards")
-	
+
 /datum/design/comm_monitor
 	name = "Console Board (Telecommunications Monitoring Console)"
 	desc = "Allows for the construction of circuit boards used to build a telecommunications monitor."
@@ -291,7 +301,7 @@
 	materials = list("$glass" = 1000, "sacid" = 20)
 	build_path = /obj/item/weapon/circuitboard/comm_monitor
 	category = list("Computer Boards")
-	
+
 /datum/design/comm_server
 	name = "Console Board (Telecommunications Server Monitoring Console)"
 	desc = "Allows for the construction of circuit boards used to build a telecommunication server browser and monitor."
@@ -301,7 +311,7 @@
 	materials = list("$glass" = 1000, "sacid" = 20)
 	build_path = /obj/item/weapon/circuitboard/comm_server
 	category = list("Computer Boards")
-	
+
 /datum/design/comm_traffic
 	name = "Console Board (Telecommunications Traffic Control Console)"
 	desc = "Allows for the construction of circuit boards used to build a telecommunications traffic control console."
