@@ -106,7 +106,6 @@
 	var/icon/side
 	var/dat
 	var/stamped=0
-	var/waiting=0
 
 /obj/item/weapon/card/id/New()
 	..()
@@ -332,20 +331,6 @@
 		H.dir = SOUTH
 		faked = getFlatIcon(H)
 		H.dir = storedDir
-
-	return faked
-
-/obj/item/weapon/card/id/syndicate/proc/fake_id_photo_2(var/mob/living/carbon/human/H)
-	if(!istype(H))
-		return
-
-	var/storedDir = H.dir
-
-	H.dir = WEST
-
-	var/icon/faked = getFlatIcon(H)
-
-	H.dir = storedDir
 
 	return faked
 
