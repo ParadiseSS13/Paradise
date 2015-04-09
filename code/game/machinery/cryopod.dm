@@ -451,6 +451,10 @@
 					M.client.perspective = EYE_PERSPECTIVE
 					M.client.eye = src
 
+			else //because why the fuck would you keep going if the mob isn't in the pod
+				user << "<span class='notice'>You stop putting [M] into the cryopod.</span>"
+				return
+
 			if(orient_right)
 				icon_state = "[occupied_icon_state]-r"
 			else
@@ -458,8 +462,16 @@
 
 			M << "<span class='notice'>[on_enter_occupant_message]</span>"
 			M << "<span class='notice'><b>If you ghost, log out or close your client now, your character will shortly be permanently removed from the round.</b></span>"
+
 			occupant = M
 			time_entered = world.time
+
+			if(findtext("[M.key]","@",1,2))
+				var/FT = replacetext(M.key, "@", "")
+				for(var/mob/dead/observer/Gh in respawnable_list) //this may not be foolproof but it seemed like a better option than 'in world'
+					if(Gh.key == FT)
+						if(Gh.client && Gh.client.holder) //just in case someone has a byond name with @ at the start, which I don't think is even possible but whatever
+							Gh << "<span style='color: #800080;font-weight: bold;font-size:4;'>Warning: Your body has entered cryostorage.</span>"
 
 			// Book keeping!
 			var/turf/location = get_turf(src)
@@ -530,6 +542,9 @@
 			if(L.client)
 				L.client.perspective = EYE_PERSPECTIVE
 				L.client.eye = src
+		else
+			user << "<span class='notice'>You stop [L == user ? "climbing into the cryo pod." : "putting [L] into the cryo pod."]</span>"
+			return
 
 		if(orient_right)
 			icon_state = "[occupied_icon_state]-r"
@@ -540,6 +555,13 @@
 		L << "<span class='notice'><b>If you ghost, log out or close your client now, your character will shortly be permanently removed from the round.</b></span>"
 		occupant = L
 		time_entered = world.time
+
+		if(findtext("[L.key]","@",1,2))
+			var/FT = replacetext(L.key, "@", "")
+			for(var/mob/dead/observer/Gh in respawnable_list) //this may not be foolproof but it seemed like a better option than 'in world'
+				if(Gh.key == FT)
+					if(Gh.client && Gh.client.holder) //just in case someone has a byond name with @ at the start, which I don't think is even possible but whatever
+						Gh << "<span style='color: #800080;font-weight: bold;font-size:4;'>Warning: Your body has entered cryostorage.</span>"
 
 		// Book keeping!
 		log_admin("[key_name_admin(L)] has entered a stasis pod. (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)")
