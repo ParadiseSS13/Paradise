@@ -11,14 +11,12 @@
  *		Crayons
  *		Snap pops
  *		Water flower
-<<<<<<< HEAD
  *		Toy Nuke
- *		Card Deck -- Ported from /TG/
-=======
+ *		Card Deck
  *      Therapy dolls
  *      Toddler doll
  *      Inflatable duck
->>>>>>> 5d2bba3... Adds paths for therapy dolls
+ *		Foam armblade
  */
 
 
@@ -1189,7 +1187,48 @@ obj/item/toy/cards/deck/syndicate/black
 	desc = "An adorable stuffed toy that resembles a space carp."
 	icon = 'icons/obj/toy.dmi'
 	icon_state = "carpplushie"
+	attack_verb = list("bit", "ate", "fin slapped")
+	var/bitesound = 'sound/weapons/bite.ogg'
 	w_class = 2.0
+
+/obj/item/toy/carpplushie/attack(mob/living/carbon/M as mob, mob/living/carbon/user as mob)
+	playsound(loc, bitesound, 20, 1)	// Play bite sound in local area
+	return ..()
+
+/obj/item/toy/carpplushie/attack_self(mob/user as mob)
+	playsound(src.loc, bitesound, 20, 1)
+	return ..()
+
+/*
+ * Foam Armblade
+ */
+
+ /obj/item/toy/foamblade
+ 	name = "foam armblade"
+ 	desc = "it says \"Sternside Changs #1 fan\" on it. "
+ 	icon = 'icons/obj/toy.dmi'
+ 	icon_state = "foamblade"
+ 	item_state = "arm_blade"
+ 	icon_override = 'icons/mob/in-hand/changeling.dmi'
+ 	attack_verb = list("pricked", "absorbed", "gored")
+ 	w_class = 2
+
+/*
+ * Toy/fake flash
+ */
+/obj/item/toy/flash
+	name = "toy flash"
+	desc = "FOR THE REVOLU- Oh wait, that's just a toy."
+	icon = 'icons/obj/device.dmi'
+	icon_state = "flash"
+	item_state = "flashbang"
+	w_class = 1
+
+/obj/item/toy/flash/attack(mob/living/M, mob/user)
+	playsound(src.loc, 'sound/weapons/flash.ogg', 100, 1)
+	flick("[initial(icon_state)]2", src)
+	user.visible_message("<span class='disarm'>[user] blinds [M] with the flash!</span>")
+
 
 /*
  * Toy big red button
