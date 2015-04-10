@@ -59,7 +59,9 @@
 		/mob/living/simple_animal/hostile/panther,
 		/mob/living/simple_animal/hostile/snake,
 		/mob/living/simple_animal/hostile/retaliate,
-		/mob/living/simple_animal/hostile/retaliate/clown
+		/mob/living/simple_animal/hostile/retaliate/clown,
+		/mob/living/simple_animal/hostile/spaceWorm/,
+		/mob/living/simple_animal/hostile/spaceWorm/wormHead/
 		)//exclusion list for things you don't want the reaction to create.
 		var/list/critters = typesof(/mob/living/simple_animal/hostile) - blocked // list of possible hostile mobs
 
