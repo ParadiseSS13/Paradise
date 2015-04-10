@@ -392,6 +392,18 @@
 		reagents.add_reagent("coco", 2)
 		bitesize = 2
 
+/obj/item/weapon/reagent_containers/food/snacks/reagentchocolatebar //for reagent chocolate
+	name = "Chocolate Bar"
+	desc = "A plain chocolate bar. Is it dark chocolate, milk chocolate? Who knows!"
+	icon_state = "chocolatebar"
+	filling_color = "#7D5F46"
+
+	New()
+		..()
+		reagents.add_reagent("sugar", 10)
+		reagents.add_reagent("chocolate",10)
+		bitesize = 2
+
 /obj/item/weapon/reagent_containers/food/snacks/chocolateegg
 	name = "Chocolate Egg"
 	desc = "Such sweet, fattening food."
@@ -2576,7 +2588,18 @@
 	filling_color = "#FFF700"
 	bitesize = 2
 
-
+/obj/item/weapon/reagent_containers/food/snacks/weirdcheesewedge
+	name = "Weird Cheese"
+	desc = "Some kind of... gooey, messy, gloopy thing. Similar to cheese, but only in the looser sense of the word."
+	icon_state = "weirdcheesewedge"
+	filling_color = "#00FF33"
+	bitesize = 2
+	New()
+		..()
+		reagents.add_reagent("mercury", 5)
+		reagents.add_reagent("mindbreaker", 5)
+		reagents.add_reagent("ethanol", 5)
+		reagents.add_reagent("weird_cheese", 5)
 
 /obj/item/weapon/reagent_containers/food/snacks/sliceable/birthdaycake
 	name = "Birthday Cake"
@@ -2604,12 +2627,13 @@
 	icon_state = "Some plain old Earthen bread."
 	icon_state = "bread"
 	slice_path = /obj/item/weapon/reagent_containers/food/snacks/breadslice
-	slices_num = 5
+	slices_num = 6
 	filling_color = "#FFE396"
 
 	New()
 		..()
 		reagents.add_reagent("nutriment", 6)
+		reagents.add_reagent("bread", 30)
 		bitesize = 2
 
 /obj/item/weapon/reagent_containers/food/snacks/breadslice
@@ -3334,3 +3358,11 @@
 		..()
 		reagents.add_reagent("nutriment", 3)
 
+/obj/item/weapon/reagent_containers/food/snacks/ectoplasm
+	name = "ectoplasm"
+	desc = "A luminescent blob of what scientists refer to as 'ghost goo'."
+	icon = 'icons/obj/wizard.dmi'
+	icon_state = "ectoplasm"
+	New()
+		..()
+		reagents.add_reagent("ectoplasm", 10)

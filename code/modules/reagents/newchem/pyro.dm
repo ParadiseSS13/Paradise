@@ -262,6 +262,7 @@
 	result = "smoke_powder"
 	required_reagents = list("stabilizing_agent" = 1, "potassium" = 1, "sugar" = 1, "phosphorus" = 1)
 	result_amount = 1
+	mix_message = "The mixture sets into a greyish powder!"
 
 /datum/chemical_reaction/smoke
 	name = "smoke"
@@ -269,6 +270,7 @@
 	result = null
 	required_reagents = list("potassium" = 1, "sugar" = 1, "phosphorus" = 1)
 	result_amount = 1
+	mix_message = "The mixture quickly turns into a pall of smoke!"
 
 /datum/chemical_reaction/smoke/on_reaction(var/datum/reagents/holder, var/created_volume)
 	var/forbidden_reagents = list(id, "sugar", "phosphorus", "potassium") //Do not transfer this stuff through smoke.
