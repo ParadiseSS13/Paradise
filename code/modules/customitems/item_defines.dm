@@ -991,6 +991,34 @@
 	aggressiveness = 3
 	ignore_maskadjust = 1
 
+///// Noble's Clothes Set //theoricus: Baron Robot VII
+
+/obj/item/clothing/under/fluff/noble_clothes // Custom jumpsuit
+	name = "noble clothes"
+	desc = "They fall just short of majestic."
+	icon = 'icons/obj/clothing/uniforms.dmi'
+	icon_state = "noble_clothes"
+	_color = "noble_clothes"
+	item_state = "noble_clothes"
+	has_sensor = 1 // Just to make sure it has a sensor
+	armor = list(melee = 0, bullet = 0, laser = 0,energy = 0, bomb = 0, bio = 0, rad = 0) // Standard Jumpsuit stats
+
+/obj/item/clothing/suit/fluff/noble_coat // A nauseatingly colored coat
+	name = "noble coat"
+	desc = "The livid blues, purples and greens are awesome enough to evoke a visceral response in you; it is not dissimilar to indigestion."
+	icon = 'icons/obj/custom_items.dmi'
+	icon_state = "noble_coat"
+	item_state = "noble_coat"
+	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
+
+/obj/item/clothing/shoes/fluff/noble_boot
+	name = "noble boots"
+	desc = "The boots are economically designed to balance function and comfort, so that you can step on peasants without having to worry about blisters. The leather also resists unwanted blood stains."
+	icon = 'icons/obj/custom_items.dmi'
+	icon_state = "noble_boot"
+	_color = "noble_boot"
+	item_state = "noble_boot"
+
 
 //////////// Weapons ////////////
 
