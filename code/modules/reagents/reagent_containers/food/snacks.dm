@@ -2633,7 +2633,6 @@
 	New()
 		..()
 		reagents.add_reagent("nutriment", 6)
-		reagents.add_reagent("bread", 30)
 		bitesize = 2
 
 /obj/item/weapon/reagent_containers/food/snacks/breadslice
@@ -2644,6 +2643,9 @@
 	filling_color = "#D27332"
 	bitesize = 2
 
+	New()
+		..()
+		reagents.add_reagent("bread", 5)
 
 /obj/item/weapon/reagent_containers/food/snacks/sliceable/creamcheesebread
 	name = "Cream Cheese Bread"

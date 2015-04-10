@@ -471,11 +471,11 @@ datum/reagent/pepperoni/reaction_mob(var/mob/living/M, var/method=TOUCH, var/vol
 			var/mob/living/carbon/human/H = M
 
 			if(H.wear_mask)
-				H << "<span class='warning'Your mask protects you from the errant pepperoni!</span>"
+				H << "<span class='warning'>The pepperoni bounces off your mask!</span>"
 				return
 
 			if(H.head)
-				H << "<span class='warning'The pepperoni bounces off your mask!</span>"
+				H << "<span class='warning'>Your mask protects you from the errant pepperoni!</span>"
 				return
 
 			if(prob(50))
