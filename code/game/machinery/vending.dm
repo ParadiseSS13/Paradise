@@ -745,10 +745,11 @@
 	product_slogans = "I hope nobody asks me for a bloody cup o' tea...;Alcohol is humanity's friend. Would you abandon a friend?;Quite delighted to serve you!;Is nobody thirsty on this station?"
 	product_ads = "Drink up!;Booze is good for you!;Alcohol is humanity's best friend.;Quite delighted to serve you!;Care for a nice, cold beer?;Nothing cures you like booze!;Have a sip!;Have a drink!;Have a beer!;Beer is good for you!;Only the finest alcohol!;Best quality booze since 2053!;Award-winning wine!;Maximum alcohol!;Man loves beer.;A toast for progress!"
 	refill_canister = /obj/item/weapon/vending_refill/boozeomat
+
 /obj/machinery/vending/assist
-	products = list(	/obj/item/device/assembly/prox_sensor = 5,/obj/item/device/assembly/igniter = 3,/obj/item/device/assembly/signaler = 4,
-						/obj/item/weapon/wirecutters = 1, /obj/item/weapon/cartridge/signal = 4)
-	contraband = list(/obj/item/device/flashlight = 5,/obj/item/device/assembly/timer = 2)
+	products = list(	/obj/item/device/assembly/prox_sensor = 8,/obj/item/device/assembly/igniter = 6,/obj/item/device/assembly/signaler = 8,
+						/obj/item/weapon/wirecutters = 1,/obj/item/device/assembly/timer = 8, /obj/item/weapon/cartridge/signal = 4)
+	contraband = list(/obj/item/device/flashlight = 2)
 	product_ads = "Only the finest!;Have some tools.;The most robust equipment.;The finest gear in space!"
 
 /obj/machinery/vending/boozeomat/New()

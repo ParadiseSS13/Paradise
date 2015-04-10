@@ -155,9 +155,15 @@
 			spawn(5) src.reagents.clear_reagents()
 			return
 
-	attackby(obj/item/weapon/W as obj, mob/user as mob, params)
-		..()
-		if(istype(W, /obj/item/weapon/pen) || istype(W, /obj/item/device/flashlight/pen))
+	attackby(var/obj/item/I, mob/user as mob, params)
+		if(istype(I, /obj/item/clothing/mask/cigarette)) //ciggies are weird
+			return
+		if(is_hot(I))
+			if(src.reagents)
+				src.reagents.chem_temp += 15
+				user << "<span class='notice'>You heat [src] with [I].</span>"
+				src.reagents.handle_reactions()
+		if(istype(I, /obj/item/weapon/pen) || istype(I, /obj/item/device/flashlight/pen))
 			var/tmp_label = sanitize(input(user, "Enter a label for [src.name]","Label",src.label_text))
 			if(length(tmp_label) > 10)
 				user << "\red The label can be at most 10 characters long."
@@ -297,8 +303,8 @@
 			user.put_in_hands(new /obj/item/weapon/bucket_sensor)
 			user.unEquip(src)
 			qdel(src)
-
-		..()
+		else
+			..()
 
 /obj/item/weapon/reagent_containers/glass/beaker/vial
 	name = "vial"

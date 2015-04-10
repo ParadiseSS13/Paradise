@@ -45,6 +45,16 @@
 	build_path = /obj/item/device/robotanalyzer
 	category = list("Medical")
 
+/datum/design/healthanalyzer
+	name = "Health Analyzer "
+	desc = "A standard health analyzer for scanning and reporting a patient's basic vitals."
+	id = "healthanalyzer"
+	req_tech = list("biotech" = 2, "magnets" = 1)
+	build_type = PROTOLATHE
+	materials = list("$metal" = 50, "$glass" = 50)
+	build_path = /obj/item/device/healthanalyzer
+	category = list("Medical")
+
 /datum/design/healthanalyzer_upgrade
 	name = "Health Analyzer Upgrade"
 	desc = "An upgrade unit for expanding the functionality of a health analyzer."

@@ -269,9 +269,9 @@
 	result = null
 	required_reagents = list("potassium" = 1, "sugar" = 1, "phosphorus" = 1)
 	result_amount = 1
+	var/forbidden_reagents = list("sugar", "phosphorus", "potassium") //Do not transfer this stuff through smoke.
 
 /datum/chemical_reaction/smoke/on_reaction(var/datum/reagents/holder, var/created_volume)
-	var/forbidden_reagents = list(id, "sugar", "phosphorus", "potassium") //Do not transfer this stuff through smoke.
 	for(var/f_reagent in forbidden_reagents)
 		if(holder.has_reagent(f_reagent))
 			holder.remove_reagent(f_reagent, holder.get_reagent_amount(f_reagent))
@@ -294,6 +294,7 @@
 	required_temp = 374
 	secondary = 1
 	result_amount = 1
+	forbidden_reagents = list()
 
 /datum/reagent/sonic_powder
 	name = "Sonic Powder"
