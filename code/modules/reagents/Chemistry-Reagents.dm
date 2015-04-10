@@ -2094,6 +2094,12 @@ datum
 					description = "The fatty, still liquid part of milk. Why don't you mix this with sum scotch, eh?"
 					color = "#DFD7AF" // rgb: 223, 215, 175
 
+				chocolate_milk
+					name = "Chocolate milk"
+					id ="chocolate_milk"
+					description = "Chocolate-flavored milk, tastes like being a kid again."
+					color = "#85432C"
+
 			hot_coco
 				name = "Hot Chocolate"
 				id = "hot_coco"

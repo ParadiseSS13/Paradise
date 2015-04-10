@@ -979,6 +979,14 @@ datum
 			required_reagents = list("water" = 5, "coco" = 1)
 			result_amount = 5
 
+		chocolate_milk
+			name = "Chocolate Milk"
+			id = "chocolate_milk"
+			result = "chocolate_milk"
+			required_reagents = list("chocolate" = 1, "milk" = 1)
+			result_amount = 2
+			mix_message = "The mixture turns a nice brown color."
+
 		coffee
 			name = "Coffee"
 			id = "coffee"
