@@ -130,6 +130,15 @@
 
 		return
 
+	attackby(var/obj/item/I, mob/user as mob, params)
+		if(istype(I, /obj/item/clothing/mask/cigarette)) //ciggies are weird
+			return
+		if(is_hot(I))
+			if(src.reagents)
+				src.reagents.chem_temp += 15
+				user << "<span class='notice'>You heat [src] with [I].</span>"
+				src.reagents.handle_reactions()
+
 	examine()
 		set src in view()
 		..()
