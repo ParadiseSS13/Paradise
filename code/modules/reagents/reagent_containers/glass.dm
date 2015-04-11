@@ -43,134 +43,147 @@
 		/obj/machinery/portable_atmospherics/hydroponics,
 		/obj/machinery/constructable_frame)
 
-	New()
-		..()
-		base_name = name
+/obj/item/weapon/reagent_containers/glass/New()
+	..()
+	base_name = name
 
-	examine()
-		set src in view()
-		..()
-		if (!(usr in view(2)) && usr!=src.loc) return
-		usr << "\blue It contains:"
-		if(reagents && reagents.reagent_list.len)
-			usr << "\blue [src.reagents.total_volume] units of liquid."
+/obj/item/weapon/reagent_containers/glass/examine()
+	set src in view()
+	..()
+	if (!(usr in view(2)) && usr!=src.loc) return
+	usr << "\blue It contains:"
+	if(reagents && reagents.reagent_list.len)
+		usr << "\blue [src.reagents.total_volume] units of liquid."
+	else
+		usr << "\blue Nothing."
+	if (!is_open_container())
+		usr << "\blue Airtight lid seals it completely."
+
+/obj/item/weapon/reagent_containers/glass/attack_self()
+	..()
+	if (is_open_container())
+		usr << "<span class = 'notice'>You put the lid on \the [src]."
+		flags ^= OPENCONTAINER
+	else
+		usr << "<span class = 'notice'>You take the lid off \the [src]."
+		flags |= OPENCONTAINER
+	update_icon()
+
+/obj/item/weapon/reagent_containers/glass/afterattack(obj/target, mob/user, proximity)
+	if(!proximity) return
+	if (!is_open_container())
+		return
+
+	for(var/type in src.can_be_placed_into)
+		if(istype(target, type))
+			return
+
+	if(ismob(target) && target.reagents && reagents.total_volume)
+		user << "\blue You splash the solution onto [target]."
+
+		var/mob/living/M = target
+		var/list/injected = list()
+		for(var/datum/reagent/R in src.reagents.reagent_list)
+			injected += R.name
+		var/contained = english_list(injected)
+		M.attack_log += text("\[[time_stamp()]\] <font color='orange'>Has been splashed with [src.name] by [user.name] ([user.ckey]). Reagents: [contained]</font>")
+		user.attack_log += text("\[[time_stamp()]\] <font color='red'>Used the [src.name] to splash [M.name] ([M.key]). Reagents: [contained]</font>")
+		if(M.ckey)
+			msg_admin_attack("[user.name] ([user.ckey]) splashed [M.name] ([M.key]) with [src.name]. Reagents: [contained] (INTENT: [uppertext(user.a_intent)]) (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[user.x];Y=[user.y];Z=[user.z]'>JMP</a>)")
+		if(!iscarbon(user))
+			M.LAssailant = null
 		else
-			usr << "\blue Nothing."
-		if (!is_open_container())
-			usr << "\blue Airtight lid seals it completely."
+			M.LAssailant = user
 
-	attack_self()
-		..()
-		if (is_open_container())
-			usr << "<span class = 'notice'>You put the lid on \the [src]."
-			flags ^= OPENCONTAINER
+		for(var/mob/O in viewers(world.view, user))
+			O.show_message(text("\red [] has been splashed with something by []!", target, user), 1)
+		src.reagents.reaction(target, TOUCH)
+		spawn(5)
+			src.reagents.clear_reagents()
+		return
+
+	else if(istype(target, /obj/structure/reagent_dispensers)) //A dispenser. Transfer FROM it TO us.
+
+		if(!target.reagents.total_volume && target.reagents)
+			user << "\red [target] is empty."
+			return
+
+		if(reagents.total_volume >= reagents.maximum_volume)
+			user << "\red [src] is full."
+			return
+
+		var/trans = target.reagents.trans_to(src, target:amount_per_transfer_from_this)
+		user << "\blue You fill [src] with [trans] units of the contents of [target]."
+
+	else if(target.is_open_container() && target.reagents) //Something like a glass. Player probably wants to transfer TO it.
+		if(!reagents.total_volume)
+			user << "\red [src] is empty."
+			return
+
+		if(target.reagents.total_volume >= target.reagents.maximum_volume)
+			user << "\red [target] is full."
+			return
+
+		if(istype(target, /obj/item/weapon/reagent_containers))
+			var/obj/item/weapon/reagent_containers/RC = target
+			for(var/bad_reg in RC.banned_reagents)
+				if(reagents.has_reagent(bad_reg, 1)) //Message is a bit "Game-y" but I can't think up a better one.
+					user << "<span class='warning'>A chemical in [src] is far too dangerous to transfer to [RC]!</span>"
+					return
+
+		// /vg/: Logging transfers of bad things
+		if(target.reagents_to_log.len)
+			var/list/badshit=list()
+			for(var/bad_reagent in target.reagents_to_log)
+				if(reagents.has_reagent(bad_reagent))
+					badshit += reagents_to_log[bad_reagent]
+			if(badshit.len)
+				var/hl="\red <b>([english_list(badshit)])</b> \black"
+				message_admins("[user.name] ([user.ckey]) added [reagents.get_reagent_ids(1)] to \a [target] with [src].[hl] (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[user.x];Y=[user.y];Z=[user.z]'>JMP</a>)")
+				log_game("[user.name] ([user.ckey]) added [reagents.get_reagent_ids(1)] to \a [target] with [src].")
+
+		var/trans = src.reagents.trans_to(target, amount_per_transfer_from_this)
+		user << "\blue You transfer [trans] units of the solution to [target]."
+
+	else if(istype(target, /obj/machinery/bunsen_burner))
+		return
+
+	else if(istype(target, /obj/machinery/radiocarbon_spectrometer))
+		return
+
+	else if(reagents.total_volume)
+		user << "\blue You splash the solution onto [target]."
+		src.reagents.reaction(target, TOUCH)
+		spawn(5)
+			src.reagents.clear_reagents()
+		return
+
+/obj/item/weapon/reagent_containers/glass/attackby(obj/item/I as obj, mob/user as mob, params)
+	..()
+
+	if(istype(I, /obj/item/clothing/mask/cigarette)) //ciggies are weird
+		return
+	if(is_hot(I))
+		var/added_heat = (is_hot(I) / 100) //ishot returns a temperature
+		if(src.reagents)
+			src.reagents.chem_temp += added_heat
+			user << "<span class='notice'>You heat [src] with [I].</span>"
+			src.reagents.handle_reactions()
+
+	if(istype(I, /obj/item/weapon/pen) || istype(I, /obj/item/device/flashlight/pen))
+		var/tmp_label = sanitize(input(user, "Enter a label for [src.name]","Label",src.label_text))
+		if(length(tmp_label) > 10)
+			user << "\red The label can be at most 10 characters long."
 		else
-			usr << "<span class = 'notice'>You take the lid off \the [src]."
-			flags |= OPENCONTAINER
-		update_icon()
+			user << "\blue You set the label to \"[tmp_label]\"."
+			src.label_text = tmp_label
+			src.update_name_label()
 
-	afterattack(obj/target, mob/user, proximity)
-		if(!proximity) return
-		if (!is_open_container())
-			return
-
-		for(var/type in src.can_be_placed_into)
-			if(istype(target, type))
-				return
-
-		if(ismob(target) && target.reagents && reagents.total_volume)
-			user << "\blue You splash the solution onto [target]."
-
-			var/mob/living/M = target
-			var/list/injected = list()
-			for(var/datum/reagent/R in src.reagents.reagent_list)
-				injected += R.name
-			var/contained = english_list(injected)
-			M.attack_log += text("\[[time_stamp()]\] <font color='orange'>Has been splashed with [src.name] by [user.name] ([user.ckey]). Reagents: [contained]</font>")
-			user.attack_log += text("\[[time_stamp()]\] <font color='red'>Used the [src.name] to splash [M.name] ([M.key]). Reagents: [contained]</font>")
-			if(M.ckey)
-				msg_admin_attack("[user.name] ([user.ckey]) splashed [M.name] ([M.key]) with [src.name]. Reagents: [contained] (INTENT: [uppertext(user.a_intent)]) (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[user.x];Y=[user.y];Z=[user.z]'>JMP</a>)")
-			if(!iscarbon(user))
-				M.LAssailant = null
-			else
-				M.LAssailant = user
-
-			for(var/mob/O in viewers(world.view, user))
-				O.show_message(text("\red [] has been splashed with something by []!", target, user), 1)
-			src.reagents.reaction(target, TOUCH)
-			spawn(5) src.reagents.clear_reagents()
-			return
-		else if(istype(target, /obj/structure/reagent_dispensers)) //A dispenser. Transfer FROM it TO us.
-
-			if(!target.reagents.total_volume && target.reagents)
-				user << "\red [target] is empty."
-				return
-
-			if(reagents.total_volume >= reagents.maximum_volume)
-				user << "\red [src] is full."
-				return
-
-			var/trans = target.reagents.trans_to(src, target:amount_per_transfer_from_this)
-			user << "\blue You fill [src] with [trans] units of the contents of [target]."
-
-		else if(target.is_open_container() && target.reagents) //Something like a glass. Player probably wants to transfer TO it.
-			if(!reagents.total_volume)
-				user << "\red [src] is empty."
-				return
-
-			if(target.reagents.total_volume >= target.reagents.maximum_volume)
-				user << "\red [target] is full."
-				return
-
-			if(istype(target, /obj/item/weapon/reagent_containers))
-				var/obj/item/weapon/reagent_containers/RC = target
-				for(var/bad_reg in RC.banned_reagents)
-					if(reagents.has_reagent(bad_reg, 1)) //Message is a bit "Game-y" but I can't think up a better one.
-						user << "<span class='warning'>A chemical in [src] is far too dangerous to transfer to [RC]!</span>"
-						return
-
-			// /vg/: Logging transfers of bad things
-			if(target.reagents_to_log.len)
-				var/list/badshit=list()
-				for(var/bad_reagent in target.reagents_to_log)
-					if(reagents.has_reagent(bad_reagent))
-						badshit += reagents_to_log[bad_reagent]
-				if(badshit.len)
-					var/hl="\red <b>([english_list(badshit)])</b> \black"
-					message_admins("[user.name] ([user.ckey]) added [reagents.get_reagent_ids(1)] to \a [target] with [src].[hl] (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[user.x];Y=[user.y];Z=[user.z]'>JMP</a>)")
-					log_game("[user.name] ([user.ckey]) added [reagents.get_reagent_ids(1)] to \a [target] with [src].")
-
-			var/trans = src.reagents.trans_to(target, amount_per_transfer_from_this)
-			user << "\blue You transfer [trans] units of the solution to [target]."
-
-		else if(istype(target, /obj/machinery/bunsen_burner))
-			return
-
-		else if(istype(target, /obj/machinery/radiocarbon_spectrometer))
-			return
-
-		else if(reagents.total_volume)
-			user << "\blue You splash the solution onto [target]."
-			src.reagents.reaction(target, TOUCH)
-			spawn(5) src.reagents.clear_reagents()
-			return
-
-	attackby(obj/item/weapon/W as obj, mob/user as mob, params)
-		..()
-		if(istype(W, /obj/item/weapon/pen) || istype(W, /obj/item/device/flashlight/pen))
-			var/tmp_label = sanitize(input(user, "Enter a label for [src.name]","Label",src.label_text))
-			if(length(tmp_label) > 10)
-				user << "\red The label can be at most 10 characters long."
-			else
-				user << "\blue You set the label to \"[tmp_label]\"."
-				src.label_text = tmp_label
-				src.update_name_label()
-
-	proc/update_name_label()
-		if(src.label_text == "")
-			src.name = src.base_name
-		else
-			src.name = "[src.base_name] ([src.label_text])"
+/obj/item/weapon/reagent_containers/glass/proc/update_name_label()
+	if(src.label_text == "")
+		src.name = src.base_name
+	else
+		src.name = "[src.base_name] ([src.label_text])"
 
 /obj/item/weapon/reagent_containers/glass/beaker
 	name = "beaker"
@@ -181,43 +194,50 @@
 	m_amt = 0
 	g_amt = 500
 
-	on_reagent_change()
-		update_icon()
-
-	pickup(mob/user)
-		..()
-		update_icon()
-
-	dropped(mob/user)
-		..()
-		update_icon()
-
-	attack_hand()
-		..()
-		update_icon()
-
+/obj/item/weapon/reagent_containers/glass/beaker/on_reagent_change()
 	update_icon()
-		overlays.Cut()
 
-		if(reagents.total_volume)
-			var/image/filling = image('icons/obj/reagentfillings.dmi', src, "[icon_state]10")
+/obj/item/weapon/reagent_containers/glass/beaker/pickup(mob/user)
+	..()
+	update_icon()
 
-			var/percent = round((reagents.total_volume / volume) * 100)
-			switch(percent)
-				if(0 to 9)		filling.icon_state = "[icon_state]-10"
-				if(10 to 24) 	filling.icon_state = "[icon_state]10"
-				if(25 to 49)	filling.icon_state = "[icon_state]25"
-				if(50 to 74)	filling.icon_state = "[icon_state]50"
-				if(75 to 79)	filling.icon_state = "[icon_state]75"
-				if(80 to 90)	filling.icon_state = "[icon_state]80"
-				if(91 to INFINITY)	filling.icon_state = "[icon_state]100"
+/obj/item/weapon/reagent_containers/glass/beaker/dropped(mob/user)
+	..()
+	update_icon()
 
-			filling.icon += mix_color_from_reagents(reagents.reagent_list)
-			overlays += filling
+/obj/item/weapon/reagent_containers/glass/beaker/attack_hand()
+	..()
+	update_icon()
 
-		if (!is_open_container())
-			var/image/lid = image(icon, src, "lid_[initial(icon_state)]")
-			overlays += lid
+/obj/item/weapon/reagent_containers/glass/beaker/update_icon()
+	overlays.Cut()
+
+	if(reagents.total_volume)
+		var/image/filling = image('icons/obj/reagentfillings.dmi', src, "[icon_state]10")
+
+		var/percent = round((reagents.total_volume / volume) * 100)
+		switch(percent)
+			if(0 to 9)
+				filling.icon_state = "[icon_state]-10"
+			if(10 to 24)
+				filling.icon_state = "[icon_state]10"
+			if(25 to 49)
+				filling.icon_state = "[icon_state]25"
+			if(50 to 74)
+				filling.icon_state = "[icon_state]50"
+			if(75 to 79)
+				filling.icon_state = "[icon_state]75"
+			if(80 to 90)
+				filling.icon_state = "[icon_state]80"
+			if(91 to INFINITY)
+				filling.icon_state = "[icon_state]100"
+
+		filling.icon += mix_color_from_reagents(reagents.reagent_list)
+		overlays += filling
+
+	if (!is_open_container())
+		var/image/lid = image(icon, src, "lid_[initial(icon_state)]")
+		overlays += lid
 
 /obj/item/weapon/reagent_containers/glass/beaker/large
 	name = "large beaker"
@@ -259,22 +279,25 @@
 	flags = OPENCONTAINER
 
 /obj/item/weapon/reagent_containers/glass/beaker/cryoxadone
-	New()
-		..()
-		reagents.add_reagent("cryoxadone", 30)
-		update_icon()
+
+/obj/item/weapon/reagent_containers/glass/beaker/cryoxadone/New()
+	..()
+	reagents.add_reagent("cryoxadone", 30)
+	update_icon()
 
 /obj/item/weapon/reagent_containers/glass/beaker/sulphuric
-	New()
-		..()
-		reagents.add_reagent("sacid", 50)
-		update_icon()
+
+/obj/item/weapon/reagent_containers/glass/beaker/sulphuric/New()
+	..()
+	reagents.add_reagent("sacid", 50)
+	update_icon()
 
 /obj/item/weapon/reagent_containers/glass/beaker/slime
-	New()
-		..()
-		reagents.add_reagent("slimejelly", 50)
-		update_icon()
+
+/obj/item/weapon/reagent_containers/glass/beaker/slime/New()
+	..()
+	reagents.add_reagent("slimejelly", 50)
+	update_icon()
 
 /obj/item/weapon/reagent_containers/glass/bucket
 	desc = "It's a bucket."
@@ -290,14 +313,15 @@
 	volume = 120
 	flags = OPENCONTAINER
 
-	attackby(var/obj/D, mob/user as mob, params)
-		if(isprox(D))
-			user << "You add [D] to [src]."
-			del(D)
-			user.put_in_hands(new /obj/item/weapon/bucket_sensor)
-			user.unEquip(src)
-			qdel(src)
+/obj/item/weapon/reagent_containers/glass/bucket/attackby(var/obj/D, mob/user as mob, params)
+	if(isprox(D))
+		user << "You add [D] to [src]."
+		del(D)
+		user.put_in_hands(new /obj/item/weapon/bucket_sensor)
+		user.unEquip(src)
+		qdel(src)
 
+	else
 		..()
 
 /obj/item/weapon/reagent_containers/glass/beaker/vial
