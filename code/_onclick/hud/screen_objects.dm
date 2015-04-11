@@ -105,7 +105,7 @@
 	master = null
 	dir = 2
 
-	move
+	/*move
 		name = "Allow Walking"
 		icon_state = "no_walk0"
 		screen_loc = ui_gun2
@@ -113,7 +113,7 @@
 	run
 		name = "Allow Running"
 		icon_state = "no_run0"
-		screen_loc = ui_gun3
+		screen_loc = ui_gun3*/
 
 	item
 		name = "Allow Item Use"
