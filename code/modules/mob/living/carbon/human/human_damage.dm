@@ -32,8 +32,6 @@
 	timeofdeath = 0
 
 /mob/living/carbon/human/getBrainLoss()
-	if(species && species.flags & NO_INTORGANS)
-		return
 	var/res = brainloss
 	var/obj/item/organ/brain/sponge = internal_organs_by_name["brain"]
 	if(!sponge)
