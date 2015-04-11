@@ -1623,6 +1623,10 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 		var/client/C = src.client
 		if(C && C.prefs.sound & SOUND_HEARTBEAT) //disable heartbeat by pref
 			var/obj/item/organ/heart/H = internal_organs_by_name["heart"]
+
+			if(!H) //H.status will runtime if there is no H (obviously)
+				return
+
 			if(H.status & ORGAN_ROBOT) //Handle robotic hearts specially with a wuuuubb. This also applies to machine-people.
 				if(shock_stage >= 10 || istype(get_turf(src), /turf/space))
 					//PULSE_THREADY - maximum value for pulse, currently it 5.
@@ -1639,9 +1643,6 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 				return
 
 			if(pulse == PULSE_NONE)
-				return
-
-			if(!H)
 				return
 
 			if(pulse >= PULSE_2FAST || shock_stage >= 10 || istype(get_turf(src), /turf/space))
