@@ -720,57 +720,54 @@ datum
 					if(ishuman(M))
 						var/mob/living/carbon/human/H = M
 
-						if(H.wear_mask)
-							if(!H.wear_mask.unacidable)
-								del (H.wear_mask)
-								H.update_inv_wear_mask()
-								H << "\red Your mask melts away but protects you from the acid!"
-							else
+						if(volume > 25)
+
+							if(H.wear_mask)
 								H << "\red Your mask protects you from the acid!"
-							return
+								return
 
-						if(H.head)
-							if(prob(15) && !H.head.unacidable)
-								del(H.head)
-								H.update_inv_head()
-								H << "\red Your helmet melts away but protects you from the acid"
-							else
+							if(H.head)
 								H << "\red Your helmet protects you from the acid!"
-							return
+								return
 
-					else if(ismonkey(M))
-						var/mob/living/carbon/monkey/MK = M
-						if(MK.wear_mask)
-							if(!MK.wear_mask.unacidable)
-								del (MK.wear_mask)
-								MK.update_inv_wear_mask()
-								MK << "\red Your mask melts away but protects you from the acid!"
-							else
-								MK << "\red Your mask protects you from the acid!"
-							return
-
-					if(!M.unacidable)
-						if(prob(15) && istype(M, /mob/living/carbon/human) && volume >= 30)
-							var/mob/living/carbon/human/H = M
-							var/obj/item/organ/external/affecting = H.get_organ("head")
-							if(affecting)
-								if(affecting.take_damage(25, 0))
-									H.UpdateDamageIcon()
-								H.status_flags |= DISFIGURED
-								H.emote("scream")
+							if(!M.unacidable)
+								if(prob(75))
+									var/obj/item/organ/external/affecting = H.get_organ("head")
+									if(affecting)
+										affecting.take_damage(20, 0)
+										H.UpdateDamageIcon()
+										H.emote("scream")
+								else
+									M.take_organ_damage(15,0)
 						else
-							M.take_organ_damage(min(15, volume * 2)) // uses min() and volume to make sure they aren't being sprayed in trace amounts (1 unit != insta rape) -- Doohl
-				else
-					if(!M.unacidable)
-						M.take_organ_damage(min(15, volume * 2))
+							M.take_organ_damage(15,0)
+
+				if(method == INGEST)
+					if(ishuman(M))
+						var/mob/living/carbon/human/H = M
+
+						if(volume < 10)
+							M << "<span class = 'danger'>The greenish acidic substance stings you, but isn't concentrated enough to harm you!</span>"
+
+						if(volume >=10 && volume <=25)
+							if(!H.unacidable)
+								M.take_organ_damage(min(max(volume-10,2)*2,20),0)
+								M.emote("scream")
+
+
+						if(volume > 25)
+							if(!M.unacidable)
+								if(prob(75))
+									var/obj/item/organ/external/affecting = H.get_organ("head")
+									if(affecting)
+										affecting.take_damage(20, 0)
+										H.UpdateDamageIcon()
+										H.emote("scream")
+								else
+									M.take_organ_damage(15,0)
 
 			reaction_obj(var/obj/O, var/volume)
-				if(istype(O,/obj/item/weapon/organ/head))
-					new/obj/item/weapon/skeleton/head(O.loc)
-					for(var/mob/M in viewers(5, O))
-						M << "\red \the [O] melts."
-					del(O)
-				if((istype(O,/obj/item) || istype(O,/obj/effect/glowshroom)) && prob(10))
+				if((istype(O,/obj/item) || istype(O,/obj/effect/glowshroom)) && prob(40))
 					if(!O.unacidable)
 						var/obj/effect/decal/cleanable/molten_item/I = new/obj/effect/decal/cleanable/molten_item(O.loc)
 						I.desc = "Looks like this was \an [O] some time ago."
@@ -1449,21 +1446,6 @@ datum
 			description = "A secondary amine, useful as a plant nutrient and as building block for other compounds."
 			reagent_state = LIQUID
 			color = "#322D00"
-
-		Spores
-			name = "Spores"
-			id = "spores"
-			description = "A toxic spore cloud which blocks vision when ingested."
-			reagent_state = LIQUID
-			color = "#9ACD32" // rgb: 0, 51, 51
-
-			on_mob_life(var/mob/living/M as mob)
-				if(!M) M = holder.my_atom
-				M.adjustToxLoss(0.5*REM)
-				..()
-				M.damageoverlaytemp = 60
-				M.eye_blurry = max(M.eye_blurry, 3)
-				return
 
 		beer2	//disguised as normal beer for use by emagged brobots
 			name = "Beer"

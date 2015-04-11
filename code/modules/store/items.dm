@@ -45,6 +45,18 @@
 	typepath = /obj/item/weapon/storage/box/snappops
 	cost = 200
 
+/datum/storeitem/dnd
+	name = "Dungeons & Dragons set"
+	desc = "A box containing minifigures suitable for a good game of D&D."
+	typepath = /obj/item/weapon/storage/box/characters
+	cost = 200
+
+/datum/storeitem/dice
+	name = "Dice set"
+	desc = "A box containing multiple different types of die."
+	typepath = /obj/item/weapon/storage/box/dice
+	cost = 200
+
 /datum/storeitem/crayons
 	name = "Crayons"
 	desc = "Let security know how they're doing by scrawling lovenotes all over their hallways."
@@ -74,6 +86,12 @@
 	desc = "A wooden musical instrument with four strings and a bow. \"The devil went down to space, he was looking for an assistant to grief.\""
 	typepath = /obj/item/device/violin
 	cost = 500
+
+/datum/storeitem/guitar
+	name = "guitar"
+	desc = "It's made of wood and has bronze strings."
+	typepath = /obj/item/device/guitar
+	cost = 700
 
 /datum/storeitem/baby
 	name = "Toddler"

@@ -180,6 +180,10 @@ var/global/nologevent = 0
 			<A href='?src=\ref[src];tdomeadmin=\ref[M]'>Thunderdome Admin</A> |
 			<A href='?src=\ref[src];tdomeobserve=\ref[M]'>Thunderdome Observer</A> |
 		"}
+		if(M.client.related_accounts_cid.len)
+			body += "<br><br><b>Related accounts by CID:</b> [list2text(M.client.related_accounts_cid, " - ")]<br>"
+		if(M.client.related_accounts_ip.len)
+			body += "<b>Related accounts by IP:</b> [list2text(M.client.related_accounts_ip, " - ")]<br>"
 
 	body += {"<br>
 		</body></html>

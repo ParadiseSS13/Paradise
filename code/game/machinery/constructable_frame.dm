@@ -319,13 +319,23 @@ to destroy them and players will be able to make replacements.
 	build_path = /obj/machinery/chem_dispenser/constructable
 	board_type = "machine"
 	origin_tech = "materials=4;engineering=4;programming=4;plasmatech=3;biotech=3"
-	frame_desc = "Requires 1 Matter Bin, 1 Capacitor, 1 Manipulator, 1 Console Screen, and 1 Power Cell."
+	frame_desc = "Requires 2 Matter Bins, 1 Capacitor, 1 Manipulator, 1 Console Screen, and 1 Power Cell."
 	req_components = list(
 							/obj/item/weapon/stock_parts/matter_bin = 2,
 							/obj/item/weapon/stock_parts/capacitor = 1,
 							/obj/item/weapon/stock_parts/manipulator = 1,
 							/obj/item/weapon/stock_parts/console_screen = 1,
 							/obj/item/weapon/stock_parts/cell = 1)
+
+/obj/item/weapon/circuitboard/chem_heater
+	name = "circuit board (Chemical Heater)"
+	build_path = /obj/machinery/chem_heater
+	board_type = "machine"
+	origin_tech = "materials=2;engineering=2"
+	frame_desc = "Requires 1 Micro Laser and 1 Console Screen."
+	req_components = list(
+							/obj/item/weapon/stock_parts/micro_laser = 1,
+							/obj/item/weapon/stock_parts/console_screen = 1)
 
 /obj/item/weapon/circuitboard/destructive_analyzer
 	name = "Circuit board (Destructive Analyzer)"
