@@ -751,6 +751,7 @@ var/list/TAGGERLOCATIONS = list("Disposals",
 #define BE_VAMPIRE		2048
 #define BE_MUTINEER		4096
 #define BE_BLOB			8192
+#define BE_SHADOWLING	16384
 
 var/list/be_special_flags = list(
 	"traitor" = BE_TRAITOR,

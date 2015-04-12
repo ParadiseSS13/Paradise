@@ -61,6 +61,7 @@ h1.alert, h2.alert		{color: #000000;}
 .notice					{color: #000099;}
 .boldnotice				{color: #000099;	font-weight: bold;}
 .suicide				{color: #ff5050;	font-style: italic;}
+.shadowling				{color: #311648;}
 
 
 .newscaster				{color: #800000;}
