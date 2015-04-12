@@ -41,7 +41,7 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 	set invisibility = 0
 	//set background = 1
 
-	if (monkeyizing)	return
+	if (notransform)	return
 	if(!loc)			return	// Fixing a null error that occurs when the mob isn't found in the world -- TLE
 
 	..()
@@ -254,7 +254,7 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 		if (radiation)
 			if (radiation > 100)
 				radiation = 100
-				if(!(species.flags & RAD_ABSORB))
+				if(!(species.flags & RAD_ABSORB) && !(species.flags & RAD_IMMUNE))
 					Weaken(10)
 					if(!lying)
 						src << "\red You feel weak."
@@ -273,6 +273,8 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 					adjustOxyLoss(-(rads))
 					adjustToxLoss(-(rads))
 					updatehealth()
+					return
+				if(species.flags & RAD_IMMUNE)
 					return
 
 				var/damage = 0
@@ -807,6 +809,24 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 					//adjustToxLoss(-(light_amount))
 					adjustOxyLoss(-(light_amount))
 					//TODO: heal wounds, heal broken limbs.
+		if(species.flags & REQUIRE_DARK)
+			var/light_amount = 0
+			nutrition = 450 //i aint never get hongry
+			if(isturf(src.loc)) //Copypasta
+				var/turf/T = loc
+				var/area/A = T.loc
+				if(A)
+					if(A.lighting_use_dynamic)	light_amount = T.lighting_lumcount
+					else						light_amount =  10
+				if(light_amount > 2) //Rapid death while in the light, countered by...
+					take_overall_damage(0,6)
+					src << "<span class='userdanger'>The light burns you!</span>"
+					src << 'sound/weapons/sear.ogg'
+				else if (light_amount < 2)  //...extreme benefits while in the dark
+					heal_overall_damage(5,3)
+					adjustToxLoss(-3)
+					SetWeakened(0)
+					SetStunned(0)
 
 		if(dna && dna.mutantrace == "shadow")
 			var/light_amount = 0

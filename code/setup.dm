@@ -832,7 +832,7 @@ var/list/restricted_camera_networks = list( //Those networks can only be accesse
 #define IS_SLOW 		4
 #define RAD_ABSORB		8
 #define NO_SCAN 		16
-#define NO_PAIN 	32
+#define NO_PAIN 		32
 #define REQUIRE_LIGHT 	64
 #define IS_WHITELISTED 	128
 #define HAS_LIPS 		512
@@ -840,8 +840,10 @@ var/list/restricted_camera_networks = list( //Those networks can only be accesse
 #define IS_SYNTHETIC	2048
 #define IS_PLANT 		4096
 #define CAN_BE_FAT 		8192
-#define HAS_CHITTIN 	16384
-#define NO_INTORGANS	32768
+#define NO_INTORGANS 	16384
+#define RAD_IMMUNE		32768
+#define REQUIRE_DARK	65536
+
 
 //Species Blood Flags
 #define BLOOD_SLIME		1

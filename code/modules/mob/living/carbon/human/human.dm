@@ -1042,6 +1042,8 @@
 		number += 1
 	if(istype(src.glasses, /obj/item/clothing/glasses/hud/health_advanced)) // New blueshield / brig phys no flash medi hud
 		number += 1
+	if(istype(src.glasses, /obj/item/clothing/glasses/night/shadowling))
+		number += 2
 	if(istype(src.glasses, /obj/item/clothing/glasses/welding))
 		var/obj/item/clothing/glasses/welding/W = src.glasses
 		if(!W.up)

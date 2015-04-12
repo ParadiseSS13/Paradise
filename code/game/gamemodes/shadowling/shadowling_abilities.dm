@@ -1,11 +1,11 @@
-/obj/effect/proc_holder/spell/targeted/glare
+/obj/effect/proc_holder/spell/wizard/targeted/glare
 	name = "Glare"
 	desc = "Stuns and mutes a target for a decent duration."
 	panel = "Shadowling Abilities"
 	charge_max = 300
 	clothes_req = 0
 
-/obj/effect/proc_holder/spell/targeted/glare/cast(list/targets)
+/obj/effect/proc_holder/spell/wizard/targeted/glare/cast(list/targets)
 	for(var/mob/living/carbon/human/target in targets)
 		if(!ishuman(target))
 			charge_counter = charge_max
@@ -30,7 +30,7 @@
 
 
 
-/obj/effect/proc_holder/spell/aoe_turf/veil
+/obj/effect/proc_holder/spell/wizard/aoe_turf/veil
 	name = "Veil"
 	desc = "Extinguishes all electronic lights in a decent radius."
 	panel = "Shadowling Abilities"
@@ -38,7 +38,7 @@
 	clothes_req = 0
 	range = 5
 
-/obj/effect/proc_holder/spell/aoe_turf/veil/cast(list/targets)
+/obj/effect/proc_holder/spell/wizard/aoe_turf/veil/cast(list/targets)
 	usr << "<span class='deadsay'>You silently disable all nearby lights.</span>"
 	var/list/blacklisted_lights = list(/obj/item/device/flashlight/flare, /obj/item/device/flashlight/slime)
 	for(var/turf/T in targets)
@@ -59,7 +59,7 @@
 
 
 
-/obj/effect/proc_holder/spell/targeted/shadow_walk
+/obj/effect/proc_holder/spell/wizard/targeted/shadow_walk
 	name = "Shadow Walk"
 	desc = "Phases you into the space between worlds for a short time, allowing movement through walls and invisbility."
 	panel = "Shadowling Abilities"
@@ -68,7 +68,7 @@
 	range = -1
 	include_user = 1
 
-/obj/effect/proc_holder/spell/targeted/shadow_walk/cast(list/targets)
+/obj/effect/proc_holder/spell/wizard/targeted/shadow_walk/cast(list/targets)
 	for(var/mob/living/user in targets)
 		playsound(user.loc, 'sound/effects/bamf.ogg', 50, 1)
 		user.visible_message("<span class='danger'>[user] vanishes into thin air!</span>", "<span class='deadsay'>You enter the space between worlds as a passageway.</span>")
@@ -77,7 +77,7 @@
 		user.incorporeal_move = 1
 		user.alpha = 0
 		if(user.buckled)
-			user.buckled.unbuckle_mob()
+			user.buckled.unbuckle()
 		sleep(40) //4 seconds
 		user.visible_message("<span class='danger'>[user] appears out of nowhere!</span>", "<span class='deadsay'>The pressure becomes too much and you vacate the interdimensional darkness.</span>")
 		user.incorporeal_move = 0
@@ -85,7 +85,7 @@
 
 
 
-/obj/effect/proc_holder/spell/aoe_turf/flashfreeze
+/obj/effect/proc_holder/spell/wizard/aoe_turf/flashfreeze
 	name = "Flash Freeze"
 	desc = "Instantly freezes the blood of nearby people, stunning them and causing burn damage."
 	panel = "Shadowling Abilities"
@@ -93,7 +93,7 @@
 	charge_max = 1200
 	clothes_req = 0
 
-/obj/effect/proc_holder/spell/aoe_turf/flashfreeze/cast(list/targets)
+/obj/effect/proc_holder/spell/wizard/aoe_turf/flashfreeze/cast(list/targets)
 	usr << "<span class='deadsay'>You freeze the nearby air.</span>"
 	playsound(usr.loc, 'sound/effects/ghost2.ogg', 50, 1)
 
@@ -115,7 +115,7 @@
 
 
 //Enthrall is the single most important spell
-/obj/effect/proc_holder/spell/targeted/enthrall
+/obj/effect/proc_holder/spell/wizard/targeted/enthrall
 	name = "Enthrall"
 	desc = "Allows you to enslave a conscious, non-braindead, non-catatonic human to your will. This takes some time to cast."
 	panel = "Shadowling Abilities"
@@ -124,7 +124,7 @@
 	range = 1 //Adjacent to user
 	var/enthralling = 0
 
-/obj/effect/proc_holder/spell/targeted/enthrall/cast(list/targets)
+/obj/effect/proc_holder/spell/wizard/targeted/enthrall/cast(list/targets)
 	for(var/mob/living/carbon/human/target in targets)
 		if(!in_range(usr, target))
 			usr << "<span class='warning'>You need to be closer to enthrall [target].</span>"
@@ -183,12 +183,11 @@
 		target.adjustOxyLoss(-200) //In case the shadowling was choking them out
 		ticker.mode.add_thrall(target.mind)
 		target.mind.special_role = "Thrall"
-		var/datum/mind/thrall_mind = target.mind
-		thrall_mind.spell_list += new /obj/effect/proc_holder/spell/targeted/shadowling_hivemind //Lets thralls hive-chat
+		target.spell_list += new /obj/effect/proc_holder/spell/wizard/targeted/shadowling_hivemind //Lets thralls hive-chat
 
 
 
-/obj/effect/proc_holder/spell/targeted/shadowling_hivemind
+/obj/effect/proc_holder/spell/wizard/targeted/shadowling_hivemind
 	name = "Hivemind Commune"
 	desc = "Allows you to silently communicate with all other shadowlings and thralls."
 	panel = "Shadowling Abilities"
@@ -197,7 +196,7 @@
 	range = -1
 	include_user = 1
 
-/obj/effect/proc_holder/spell/targeted/shadowling_hivemind/cast(list/targets)
+/obj/effect/proc_holder/spell/wizard/targeted/shadowling_hivemind/cast(list/targets)
 	for(var/mob/living/user in targets)
 		var/text = stripped_input(user, "What do you want to say to fellow thralls and shadowlings?.", "Hive Chat", "")
 		if(!text)
@@ -208,7 +207,7 @@
 
 
 
-/obj/effect/proc_holder/spell/targeted/collective_mind
+/obj/effect/proc_holder/spell/wizard/targeted/collective_mind
 	name = "Collective Hivemind"
 	desc = "Gathers the power of all of your thralls and compares it to what is needed for ascendance. Also gains you new abilities."
 	panel = "Shadowling Abilities"
@@ -221,7 +220,7 @@
 	var/drain_thrall_acquired
 	var/thrall_swap_acquired
 
-/obj/effect/proc_holder/spell/targeted/collective_mind/cast(list/targets)
+/obj/effect/proc_holder/spell/wizard/targeted/collective_mind/cast(list/targets)
 	for(var/mob/living/user in targets)
 		var/thralls = 0
 		var/victory_threshold = 15
@@ -242,23 +241,23 @@
 			blind_smoke_acquired = 1
 			user << "<span class='shadowling'><i>The power of your thralls has granted you the <b>Blinding Smoke</b> ability. It will create a choking cloud that will blind any non-thralls who enter. \
 			</i></span>"
-			user.mind.spell_list += new /obj/effect/proc_holder/spell/targeted/blindness_smoke
+			user.spell_list += new /obj/effect/proc_holder/spell/wizard/targeted/blindness_smoke
 
 		if(thralls >= 5 && !drain_thrall_acquired)
 			drain_thrall_acquired = 1
 			user << "<span class='shadowling'><i>The power of your thralls has granted you the <b>Drain Thrall</b> ability. You can now drain nearby thralls to heal yourself.</i></span>"
-			user.mind.spell_list += new /obj/effect/proc_holder/spell/aoe_turf/drain_thralls
+			user.spell_list += new /obj/effect/proc_holder/spell/wizard/aoe_turf/drain_thralls
 
 		if(thralls >= 7 && !screech_acquired)
 			screech_acquired = 1
 			user << "<span class='shadowling'><i>The power of your thralls has granted you the <b>Sonic Screech</b> ability. This ability will shatter nearby windows and deafen enemies.</span>"
-			user.mind.spell_list += new /obj/effect/proc_holder/spell/aoe_turf/unearthly_screech
+			user.spell_list += new /obj/effect/proc_holder/spell/wizard/aoe_turf/unearthly_screech
 
 		if(thralls >= 10 && !thrall_swap_acquired)
 			thrall_swap_acquired = 1
 			user << "<span class='shadowling'><i>The power of your thralls has granted you the <b>Spatial Relocation</b> ability. This will, allow you to instantly swap places with one of your thralls in \
 			addition to shattering nearby lights.</i></span>"
-			user.mind.spell_list += new /obj/effect/proc_holder/spell/targeted/spatial_relocation
+			user.spell_list += new /obj/effect/proc_holder/spell/wizard/targeted/spatial_relocation
 
 		if(thralls < victory_threshold)
 			user << "<span class='shadowling'>You do not have the power to ascend. You require [victory_threshold] thralls, but only [thralls] living thralls are present.</span>"
@@ -268,7 +267,7 @@
 			usr << "<span class='shadowling'><b>You may find Ascendance in the Shadowling Evolution tab.</b></span>"
 			for(M in living_mob_list)
 				if(is_shadow(M))
-					M.mind.spell_list -= /obj/effect/proc_holder/spell/targeted/collective_mind
+					M.mind.current.spell_list -= /obj/effect/proc_holder/spell/wizard/targeted/collective_mind
 					M.mind.current.verbs -= /mob/living/carbon/human/proc/shadowling_hatch //In case a shadowling hasn't hatched
 					M.mind.current.verbs += /mob/living/carbon/human/proc/shadowling_ascendance
 					if(M == usr)
@@ -277,7 +276,7 @@
 
 
 
-/obj/effect/proc_holder/spell/targeted/blindness_smoke
+/obj/effect/proc_holder/spell/wizard/targeted/blindness_smoke
 	name = "Blindness Smoke"
 	desc = "Spews a cloud of smoke which will blind enemies."
 	panel = "Shadowling Abilities"
@@ -286,7 +285,7 @@
 	range = -1
 	include_user = 1
 
-/obj/effect/proc_holder/spell/targeted/blindness_smoke/cast(list/targets) //Extremely hacky
+/obj/effect/proc_holder/spell/wizard/targeted/blindness_smoke/cast(list/targets) //Extremely hacky
 	for(var/mob/living/user in targets)
 		user.visible_message("<span class='warning'>[user] suddenly bends over and coughs out a cloud of black smoke, which begins to spread rapidly!</span>")
 		user << "<span class='deadsay'>You regurgitate a vast cloud of blinding smoke.</span>"
@@ -329,7 +328,7 @@ datum/reagent/shadowling_blindness_smoke/on_mob_life(var/mob/living/M as mob)
 
 
 
-/obj/effect/proc_holder/spell/aoe_turf/unearthly_screech
+/obj/effect/proc_holder/spell/wizard/aoe_turf/unearthly_screech
 	name = "Sonic Screech"
 	desc = "Deafens, stuns, and confuses nearby people. Also shatters windows."
 	panel = "Shadowling Abilities"
@@ -337,7 +336,7 @@ datum/reagent/shadowling_blindness_smoke/on_mob_life(var/mob/living/M as mob)
 	charge_max = 300
 	clothes_req = 0
 
-/obj/effect/proc_holder/spell/aoe_turf/unearthly_screech/cast(list/targets)
+/obj/effect/proc_holder/spell/wizard/aoe_turf/unearthly_screech/cast(list/targets)
 	usr.audible_message("<span class='warning'><b>[usr] lets out a horrible scream!</b></span>")
 	playsound(usr.loc, 'sound/effects/screech.ogg', 100, 1)
 
@@ -353,7 +352,7 @@ datum/reagent/shadowling_blindness_smoke/on_mob_life(var/mob/living/M as mob)
 				M << "<span class='danger'><b>A spike of pain drives into your head and scrambles your thoughts!</b></span>"
 				M.Weaken(2)
 				M.confused += 10
-				M.setEarDamage(M.ear_damage + 3)
+				M.ear_damage += 3
 			else if(issilicon(target))
 				var/mob/living/silicon/S = target
 				S << "<span class='warning'><b>ERROR $!(@ ERROR )#^! SENSOR INTERFERENCE DETECTED</b></span>"
@@ -368,7 +367,7 @@ datum/reagent/shadowling_blindness_smoke/on_mob_life(var/mob/living/M as mob)
 
 
 
-/obj/effect/proc_holder/spell/aoe_turf/drain_thralls
+/obj/effect/proc_holder/spell/wizard/aoe_turf/drain_thralls
 	name = "Drain Thralls"
 	desc = "Damages nearby thralls, draining their life and healing yourself."
 	panel = "Shadowling Abilities"
@@ -378,7 +377,7 @@ datum/reagent/shadowling_blindness_smoke/on_mob_life(var/mob/living/M as mob)
 	var/thralls_drained = 0
 	var/list/nearby_thralls = list()
 
-/obj/effect/proc_holder/spell/aoe_turf/drain_thralls/cast(list/targets)
+/obj/effect/proc_holder/spell/wizard/aoe_turf/drain_thralls/cast(list/targets)
 	thralls_drained = 0
 	nearby_thralls = list()
 	for(var/turf/T in targets)
@@ -400,7 +399,7 @@ datum/reagent/shadowling_blindness_smoke/on_mob_life(var/mob/living/M as mob)
 
 
 
-/obj/effect/proc_holder/spell/targeted/spatial_relocation
+/obj/effect/proc_holder/spell/wizard/targeted/spatial_relocation
 	name = "Spatial Relocation"
 	desc = "Swaps places with a thrall and breaks nearby lights."
 	panel = "Shadowling Abilities"
@@ -410,7 +409,7 @@ datum/reagent/shadowling_blindness_smoke/on_mob_life(var/mob/living/M as mob)
 	include_user = 1
 	var/list/thralls_in_world = list()
 
-/obj/effect/proc_holder/spell/targeted/spatial_relocation/cast(list/targets, distanceoverride)
+/obj/effect/proc_holder/spell/wizard/targeted/spatial_relocation/cast(list/targets, distanceoverride)
 	for(var/mob/living/carbon/human/M in world)
 		if(is_thrall(M))
 			thralls_in_world += M
@@ -433,7 +432,7 @@ datum/reagent/shadowling_blindness_smoke/on_mob_life(var/mob/living/M as mob)
 
 // ASCENDANT ABILITIES BEYOND THIS POINT //
 
-/obj/effect/proc_holder/spell/targeted/annihilate
+/obj/effect/proc_holder/spell/wizard/targeted/annihilate
 	name = "Annihilate"
 	desc = "Gibs a human after a short time."
 	panel = "Ascendant"
@@ -441,7 +440,7 @@ datum/reagent/shadowling_blindness_smoke/on_mob_life(var/mob/living/M as mob)
 	charge_max = 300
 	clothes_req = 0
 
-/obj/effect/proc_holder/spell/targeted/annihilate/cast(list/targets)
+/obj/effect/proc_holder/spell/wizard/targeted/annihilate/cast(list/targets)
 	var/mob/living/simple_animal/ascendant_shadowling/SHA = usr
 	if(SHA.phasing)
 		usr << "<span class='warning'>You are not in the same plane of existence. Unphase first.</span>"
@@ -465,7 +464,7 @@ datum/reagent/shadowling_blindness_smoke/on_mob_life(var/mob/living/M as mob)
 
 
 
-/obj/effect/proc_holder/spell/targeted/hypnosis
+/obj/effect/proc_holder/spell/wizard/targeted/hypnosis
 	name = "Hypnosis"
 	desc = "Instantly enthralls a human."
 	panel = "Ascendant"
@@ -473,7 +472,7 @@ datum/reagent/shadowling_blindness_smoke/on_mob_life(var/mob/living/M as mob)
 	charge_max = 450
 	clothes_req = 0
 
-/obj/effect/proc_holder/spell/targeted/hypnosis/cast(list/targets)
+/obj/effect/proc_holder/spell/wizard/targeted/hypnosis/cast(list/targets)
 	var/mob/living/simple_animal/ascendant_shadowling/SHA = usr
 	if(SHA.phasing)
 		charge_counter = charge_max
@@ -506,12 +505,11 @@ datum/reagent/shadowling_blindness_smoke/on_mob_life(var/mob/living/M as mob)
 		target << "<span class='deadsay'>You can communicate with the other enlightened ones by using the Hivemind Commune ability.</span>"
 		ticker.mode.add_thrall(target.mind)
 		target.mind.special_role = "Thrall"
-		var/datum/mind/thrall_mind = target.mind
-		thrall_mind.spell_list += new /obj/effect/proc_holder/spell/targeted/shadowling_hivemind
+		target.spell_list += new /obj/effect/proc_holder/spell/wizard/targeted/shadowling_hivemind
 
 
 
-/obj/effect/proc_holder/spell/targeted/shadowling_phase_shift
+/obj/effect/proc_holder/spell/wizard/targeted/shadowling_phase_shift
 	name = "Phase Shift"
 	desc = "Phases you into the space between worlds at will, allowing you to move through walls and become invisible."
 	panel = "Ascendant"
@@ -520,7 +518,7 @@ datum/reagent/shadowling_blindness_smoke/on_mob_life(var/mob/living/M as mob)
 	charge_max = 15
 	clothes_req = 0
 
-/obj/effect/proc_holder/spell/targeted/shadowling_phase_shift/cast(list/targets)
+/obj/effect/proc_holder/spell/wizard/targeted/shadowling_phase_shift/cast(list/targets)
 	var/mob/living/simple_animal/ascendant_shadowling/SHA = usr
 	for(SHA in targets)
 		SHA.phasing = !SHA.phasing
@@ -537,7 +535,7 @@ datum/reagent/shadowling_blindness_smoke/on_mob_life(var/mob/living/M as mob)
 
 
 
-/obj/effect/proc_holder/spell/aoe_turf/glacial_blast
+/obj/effect/proc_holder/spell/wizard/aoe_turf/glacial_blast
 	name = "Glacial Blast"
 	desc = "Extremely empowered version of Flash Freeze."
 	panel = "Ascendant"
@@ -545,7 +543,7 @@ datum/reagent/shadowling_blindness_smoke/on_mob_life(var/mob/living/M as mob)
 	charge_max = 600
 	clothes_req = 0
 
-/obj/effect/proc_holder/spell/aoe_turf/glacial_blast/cast(list/targets)
+/obj/effect/proc_holder/spell/wizard/aoe_turf/glacial_blast/cast(list/targets)
 	var/mob/living/simple_animal/ascendant_shadowling/SHA = usr
 	if(SHA.phasing)
 		usr << "<span class='warning'>You are not in the same plane of existence. Unphase first.</span>"
@@ -570,7 +568,7 @@ datum/reagent/shadowling_blindness_smoke/on_mob_life(var/mob/living/M as mob)
 
 
 
-/obj/effect/proc_holder/spell/targeted/vortex
+/obj/effect/proc_holder/spell/wizard/targeted/vortex
 	name = "Vortex"
 	desc = "Tears open a hole in reality. Anyone, INCLUDING YOU, walking through it will be trapped there for eternity."
 	panel = "Ascendant"
@@ -579,7 +577,7 @@ datum/reagent/shadowling_blindness_smoke/on_mob_life(var/mob/living/M as mob)
 	charge_max = 1200
 	clothes_req = 0
 
-/obj/effect/proc_holder/spell/targeted/vortex/cast(list/targets)
+/obj/effect/proc_holder/spell/wizard/targeted/vortex/cast(list/targets)
 	var/mob/living/simple_animal/ascendant_shadowling/SHA = usr
 	if(SHA.phasing)
 		usr << "<span class='warning'>You are not in the same plane of existence. Unphase first.</span>"
@@ -593,7 +591,7 @@ datum/reagent/shadowling_blindness_smoke/on_mob_life(var/mob/living/M as mob)
 
 
 
-/obj/effect/proc_holder/spell/targeted/shadowling_hivemind_ascendant
+/obj/effect/proc_holder/spell/wizard/targeted/shadowling_hivemind_ascendant
 	name = "Ascendant Commune"
 	desc = "Allows you to silently communicate with all other shadowlings and thralls."
 	panel = "Ascendant"
@@ -602,7 +600,7 @@ datum/reagent/shadowling_blindness_smoke/on_mob_life(var/mob/living/M as mob)
 	range = -1
 	include_user = 1
 
-/obj/effect/proc_holder/spell/targeted/shadowling_hivemind_ascendant/cast(list/targets)
+/obj/effect/proc_holder/spell/wizard/targeted/shadowling_hivemind_ascendant/cast(list/targets)
 	for(var/mob/living/user in targets)
 		var/text = stripped_input(user, "What do you want to say to fellow thralls and shadowlings?.", "Hive Chat", "")
 		if(!text)

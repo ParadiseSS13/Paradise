@@ -16,7 +16,7 @@
 	item_state = "golem"
 	body_parts_covered = FULL_BODY //Shadowlings are immune to space
 	cold_protection = FULL_BODY
-	min_cold_protection_temperature = SPACE_SUIT_MIN_TEMP_PROTECT
+	min_cold_protection_temperature = SPACE_SUIT_MIN_COLD_PROTECTION_TEMPERATURE
 	flags_inv = HIDEGLOVES | HIDESHOES | HIDEJUMPSUIT
 	flags = ABSTRACT | NODROP | THICKMATERIAL
 	slowdown = 0
@@ -74,8 +74,7 @@
 	origin_tech = null
 	vision_flags = SEE_MOBS
 	darkness_view = 3
-	invis_view = 2
-	flash_protect = 2
+	invisa_view = 2
 	unacidable = 1
 	flags = ABSTRACT | NODROP
 
@@ -89,7 +88,7 @@
 
 /obj/structure/shadow_vortex/New()
 	src.audible_message("<span class='warning'><b>\The [src] lets out a dismaying screech as dimensional barriers are torn apart!</span>")
-	playsound(loc, 'sound/effects/supermatter.ogg', 100, 1)
+	playsound(loc, 'sound/effects/eleczap.ogg', 100, 1)
 	sleep(100)
 	qdel(src)
 

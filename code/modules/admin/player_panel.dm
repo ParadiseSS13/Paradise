@@ -502,10 +502,10 @@
 			dat += check_role_table("Traitors", ticker.mode.traitors, src)
 
 		if(ticker.mode.shadows.len)
-			dat += check_role_table("Shadowlings", ticker.mode.shadowlings, src)
+			dat += check_role_table("Shadowlings", ticker.mode.shadows, src)
 
 		if(ticker.mode.thralls.len)
-			dat += check_role_table("Shadowling Thralls", ticker.thralls, src)
+			dat += check_role_table("Shadowling Thralls", ticker.mode.thralls, src)
 
 		if(ticker.mode.vampires.len)
 			dat += check_role_table("Vampires", ticker.mode.vampires, src)

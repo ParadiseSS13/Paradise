@@ -41,7 +41,7 @@ Made by Xhuis
 
 /datum/game_mode
 	var/list/datum/mind/shadows = list()
-	var/list/datum/mind/thralls = list()
+	var/list/datum/mind/shadowling_thralls = list()
 	var/list/shadow_objectives = list()
 	var/required_thralls = 15 //How many thralls are needed (hardcoded for now)
 	var/shadowling_ascended = 0 //If at least one shadowling has ascended
@@ -49,11 +49,11 @@ Made by Xhuis
 
 
 /proc/is_thrall(var/mob/living/M)
-	return istype(M) && M.mind && ticker && ticker.mode && (M.mind in ticker.mode.thralls)
+	return istype(M) && M.mind && ticker && ticker.mode && (M.mind in ticker.mode.shadowling_thralls)
 
 
 /proc/is_shadow_or_thrall(var/mob/living/M)
-	return istype(M) && M.mind && ticker && ticker.mode && ((M.mind in ticker.mode.thralls) || (M.mind in ticker.mode.shadows))
+	return istype(M) && M.mind && ticker && ticker.mode && ((M.mind in ticker.mode.shadowling_thralls) || (M.mind in ticker.mode.shadows))
 
 
 /proc/is_shadow(var/mob/living/M)
@@ -63,7 +63,6 @@ Made by Xhuis
 /datum/game_mode/shadowling
 	name = "shadowling"
 	config_tag = "shadowling"
-	antag_flag = BE_SHADOWLING
 	required_players = 30
 	required_enemies = 2
 	recommended_enemies = 2
@@ -78,20 +77,22 @@ Made by Xhuis
 	if(config.protect_roles_from_antagonist)
 		restricted_jobs += protected_jobs
 
-	if(config.protect_assistant_from_antagonist)
-		restricted_jobs += "Assistant"
+	var/list/datum/mind/possible_shadowlings = get_players_for_role(BE_SHADOWLING)
 
-	for(var/datum/mind/player in antag_candidates)
+	if(!possible_shadowlings.len)
+		return 0
+
+	for(var/datum/mind/player in possible_shadowlings)
 		for(var/job in restricted_jobs)
 			if(player.assigned_role == job)
-				antag_candidates -= player
+				possible_shadowlings -= player
 
 	var/shadowlings = 2 //How many shadowlings there are; hardcoded to 2
 
 	while(shadowlings)
-		var/datum/mind/shadow = pick(antag_candidates)
+		var/datum/mind/shadow = pick(possible_shadowlings)
 		shadows += shadow
-		antag_candidates -= shadow
+		possible_shadowlings -= shadow
 		modePlayer += shadow
 		shadow.special_role = "Shadowling"
 		shadowlings--
@@ -130,17 +131,17 @@ Made by Xhuis
 /datum/game_mode/proc/finalize_shadowling(var/datum/mind/shadow_mind)
 	var/mob/living/carbon/human/S = shadow_mind.current
 	shadow_mind.current.verbs += /mob/living/carbon/human/proc/shadowling_hatch
-	shadow_mind.spell_list += new /obj/effect/proc_holder/spell/targeted/enthrall
-	shadow_mind.spell_list += new /obj/effect/proc_holder/spell/targeted/shadowling_hivemind
+	S.spell_list += new /obj/effect/proc_holder/spell/wizard/targeted/enthrall
+	S.spell_list += new /obj/effect/proc_holder/spell/wizard/targeted/shadowling_hivemind
 	if(shadow_mind.assigned_role == "Clown")
 		S << "<span class='notice'>Your alien nature has allowed you to overcome your clownishness.</span>"
-		S.dna.remove_mutation(CLOWNMUT)
+		S.mutations.Remove(CLUMSY)
 
 /datum/game_mode/proc/add_thrall(datum/mind/new_thrall_mind)
 	if (!istype(new_thrall_mind))
 		return 0
-	if(!(new_thrall_mind in thralls))
-		thralls += new_thrall_mind
+	if(!(new_thrall_mind in shadowling_thralls))
+		shadowling_thralls += new_thrall_mind
 		new_thrall_mind.current.attack_log += "\[[time_stamp()]\] <span class='danger'>Became a thrall</span>"
 		return 1
 
@@ -174,11 +175,11 @@ Made by Xhuis
 
 
 /datum/game_mode/shadowling/declare_completion()
-	if(check_shadow_victory() && SSshuttle.emergency.mode >= SHUTTLE_ESCAPE) //Doesn't end instantly - this is hacky and I don't know of a better way ~X
+	if(check_shadow_victory() && emergency_shuttle.returned()) //Doesn't end instantly - this is hacky and I don't know of a better way ~X
 		world << "<font size=3 color=green><b>The shadowlings have ascended and taken over the station!</FONT></b></span>"
 	else if(shadowling_dead && !check_shadow_victory()) //If the shadowlings have ascended, they can not lose the round
 		world << "<span class='danger'><font size=3><b>The shadowlings have been killed by the crew!</b></FONT></span>"
-	else if(!check_shadow_victory() && SSshuttle.emergency.mode >= SHUTTLE_ESCAPE)
+	else if(!check_shadow_victory() && emergency_shuttle.returned())
 		world << "<span class='danger'><font size=3><b>The crew has escaped the station before the shadowlings could ascend!</b></FONT></span>"
 	..()
 	return 1
@@ -189,13 +190,32 @@ Made by Xhuis
 	if(shadows.len)
 		text += "<br><font size=2><b>The shadowlings were:</b></font>"
 		for(var/datum/mind/shadow in shadows)
-			text += printplayer(shadow)
-		if(thralls.len)
+			text += "<br>[shadow.key] was [shadow.name] ("
+			if(shadow.current)
+				if(shadow.current.stat == DEAD)
+					text += "died"
+				else
+					text += "survived"
+			if(shadow.current.real_name != shadow.name)
+				text += " as <b>[shadow.current.real_name]</b>"
+			else
+				text += "body destroyed"
+		text += ")"
+		if(shadowling_thralls.len)
 			text += "<br><font size=2><b>The thralls were:</b></font>"
-			for(var/datum/mind/thrall in thralls)
-				text += printplayer(thrall)
+			for(var/datum/mind/thrall in shadowling_thralls)
+				text += "<br>[thrall.key] was [thrall.name] ("
+				if(thrall.current)
+					if(thrall.current.stat == DEAD)
+						text += "died"
+					else
+						text += "survived"
+					if(thrall.current.real_name != thrall.name)
+						text += " as <b>[thrall.current.real_name]</b>"
+					else
+						text += "body destroyed"
 	else
-		world << "<font size=3>Round-end code broke! Please report this and its circumstances on GitHub at https://github.com/tgstation/-tg-station/issues</font>"
+		world << "<font size=3>Round-end code broke! Please report this and its circumstances on GitHub at https://github.com/ParadiseSS13/Paradise/issues</font>"
 	text += "<br>"
 	world << text
 
@@ -205,31 +225,12 @@ Made by Xhuis
 */
 
 
-/datum/species/shadow/ling
+/datum/species/shadowling
 	//Normal shadowpeople but with enhanced effects
 	name = "Shadowling"
-	id = "shadowling"
-	say_mod = "chitters"
-	specflags = list(NOBREATH,NOBLOOD,RADIMMUNE,NOGUNS) //Can't use guns due to muzzle flash
-	burnmod = 2 //2x burn damage lel
-	heatmod = 2
-
-/datum/species/shadow/ling/spec_life(mob/living/carbon/human/H)
-	//H.shadowling_status = 1 //If they are affected more strongly by flashes and stuff
-	var/light_amount = 0
-	H.nutrition = NUTRITION_LEVEL_WELL_FED //i aint never get hongry
-	if(isturf(H.loc)) //Copypasta
-		var/turf/T = H.loc
-		var/area/A = T.loc
-		if(A)
-			if(A.lighting_use_dynamic)	light_amount = T.lighting_lumcount
-			else						light_amount =  10
-		if(light_amount > 2) //Rapid death while in the light, countered by...
-			H.take_overall_damage(0,6)
-			H << "<span class='userdanger'>The light burns you!</span>"
-			H << 'sound/weapons/sear.ogg'
-		else if (light_amount < 2)  //...extreme benefits while in the dark
-			H.heal_overall_damage(5,3)
-			H.adjustToxLoss(-3)
-			H.SetWeakened(0)
-			H.SetStunned(0)
+	flags = NO_BREATHE | NO_BLOOD | RAD_IMMUNE | REQUIRE_DARK
+	burn_mod = 2 //2x burn damage
+	//heatmod = 2
+	blood_color = "#000000"
+	flesh_color = "#000000"
+	darksight = 8

@@ -376,8 +376,8 @@ datum
 				if(!M) M = holder.my_atom
 				if(istype(M, /mob/living/carbon) && M.stat != DEAD)
 					M << "\red Your flesh rapidly mutates!"
-					if(M.monkeyizing)	return
-					M.monkeyizing = 1
+					if(M.notransform)	return
+					M.notransform = 1
 					M.canmove = 0
 					M.icon = null
 					M.overlays.Cut()

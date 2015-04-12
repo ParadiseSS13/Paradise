@@ -66,7 +66,6 @@
 			var/mob/living/carbon/human/M = usr
 			M.underwear = "Nude"
 			M.undershirt = "Nude"
-			M.socks = "Nude"
 			M.faction |= "faithless"
 
 			usr.equip_to_slot_or_del(new /obj/item/clothing/under/shadowling(usr), slot_w_uniform)
@@ -76,15 +75,15 @@
 			usr.equip_to_slot_or_del(new /obj/item/clothing/gloves/shadowling(usr), slot_gloves)
 			usr.equip_to_slot_or_del(new /obj/item/clothing/mask/gas/shadowling(usr), slot_wear_mask)
 			usr.equip_to_slot_or_del(new /obj/item/clothing/glasses/night/shadowling(usr), slot_glasses)
-			hardset_dna(usr, null, null, null, null, /datum/species/shadow/ling) //can't be a shadowling without being a shadowling
+			set_species("Shadowling")
 
 			sleep(10)
 			usr << "<span class='shadowling'><b><i>Your powers are awoken. You may now live to your fullest extent. Remember your goal. Cooperate with your thralls and allies.</b></i></span>"
-			usr.mind.spell_list += new /obj/effect/proc_holder/spell/targeted/glare
-			usr.mind.spell_list += new /obj/effect/proc_holder/spell/aoe_turf/veil
-			usr.mind.spell_list += new /obj/effect/proc_holder/spell/targeted/shadow_walk
-			usr.mind.spell_list += new /obj/effect/proc_holder/spell/aoe_turf/flashfreeze
-			usr.mind.spell_list += new /obj/effect/proc_holder/spell/targeted/collective_mind
+			usr.spell_list += new /obj/effect/proc_holder/spell/wizard/targeted/glare
+			usr.spell_list += new /obj/effect/proc_holder/spell/wizard/aoe_turf/veil
+			usr.spell_list += new /obj/effect/proc_holder/spell/wizard/targeted/shadow_walk
+			usr.spell_list += new /obj/effect/proc_holder/spell/wizard/aoe_turf/flashfreeze
+			usr.spell_list += new /obj/effect/proc_holder/spell/wizard/targeted/collective_mind
 
 
 
@@ -141,14 +140,15 @@
 			for(var/obj/machinery/power/apc/A in world)
 				A.overload_lighting()
 			var/mob/A = new /mob/living/simple_animal/ascendant_shadowling(usr.loc)
-			usr.mind.spell_list = list()
-			usr.mind.spell_list += new /obj/effect/proc_holder/spell/targeted/annihilate
-			usr.mind.spell_list += new /obj/effect/proc_holder/spell/targeted/hypnosis
-			usr.mind.spell_list += new /obj/effect/proc_holder/spell/targeted/shadowling_phase_shift
-			usr.mind.spell_list += new /obj/effect/proc_holder/spell/aoe_turf/glacial_blast
-			usr.mind.spell_list += new /obj/effect/proc_holder/spell/targeted/vortex
-			usr.mind.spell_list += new /obj/effect/proc_holder/spell/targeted/shadowling_hivemind_ascendant
+			usr.spell_list = list()
+			usr.spell_list += new /obj/effect/proc_holder/spell/wizard/targeted/annihilate
+			usr.spell_list += new /obj/effect/proc_holder/spell/wizard/targeted/hypnosis
+			usr.spell_list += new /obj/effect/proc_holder/spell/wizard/targeted/shadowling_phase_shift
+			usr.spell_list += new /obj/effect/proc_holder/spell/wizard/aoe_turf/glacial_blast
+			usr.spell_list += new /obj/effect/proc_holder/spell/wizard/targeted/vortex
+			usr.spell_list += new /obj/effect/proc_holder/spell/wizard/targeted/shadowling_hivemind_ascendant
 			usr.mind.transfer_to(A)
+			A.spell_list = usr.spell_list
 			A.name = usr.real_name
 			if(A.real_name)
 				A.real_name = usr.real_name
@@ -157,5 +157,7 @@
 			usr.notransform = 1
 			sleep(50)
 			if(!ticker.mode.shadowling_ascended)
-				SSshuttle.emergency.request(null, 0.3)
+				if(emergency_shuttle && emergency_shuttle.can_call())
+					emergency_shuttle.call_evac()
+					emergency_shuttle.launch_time = 0	// Cannot recall
 			qdel(usr)

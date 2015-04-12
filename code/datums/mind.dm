@@ -319,8 +319,8 @@ datum/mind
 			text = "<i><b>[text]</b></i>: "
 			if(src in ticker.mode.shadows)
 				text += "<b>SHADOWLING</b>|thrall|<a href='?src=\ref[src];shadowling=clear'>human</a>"
-			else if(src in ticker.mode.thralls)
-				text += "shadowling|<b>THRALL</b>|<a href='?src=\ref[src];shadowling=clear'>human</a>"
+			else if(src in ticker.mode.shadowling_thralls)
+				text += "Shadowling|<b>THRALL</b>|<a href='?src=\ref[src];shadowling=clear'>human</a>"
 			else
 				text += "<a href='?src=\ref[src];shadowling=shadowling'>shadowling</a>|<a href='?src=\ref[src];shadowling=thrall'>thrall</a>|<b>HUMAN</b>"
 
@@ -965,18 +965,18 @@ datum/mind
 		else if(href_list["shadowling"])
 			switch(href_list["shadowling"])
 				if("clear")
-					src.spell_list = null
+					current.spell_list = null
 					if(src in ticker.mode.shadows)
 						ticker.mode.shadows -= src
 						special_role = null
 						current << "<span class='userdanger'>Your powers have been quenched! You are no longer a shadowling!</span>"
-						src.spell_list = null
+						current.spell_list = null
 						message_admins("[key_name_admin(usr)] has de-shadowling'ed [current].")
 						log_admin("[key_name(usr)] has de-shadowling'ed [current].")
 						current.verbs -= /mob/living/carbon/human/proc/shadowling_hatch
 						current.verbs -= /mob/living/carbon/human/proc/shadowling_ascendance
-					else if(src in ticker.mode.thralls)
-						ticker.mode.thralls -= src
+					else if(src in ticker.mode.shadowling_thralls)
+						ticker.mode.shadowling_thralls -= src
 						special_role = null
 						current << "<span class='userdanger'>You have been brainwashed! You are no longer a thrall!</span>"
 						message_admins("[key_name_admin(usr)] has de-thrall'ed [current].")
@@ -990,8 +990,8 @@ datum/mind
 					current << "<span class='deadsay'><b>You notice a brightening around you. No, it isn't that. The shadows grow, darken, swirl. The darkness has a new welcome for you, and you realize with a \
 					start that you can't be human. No, you are a shadowling, a harbringer of the shadows! Your alien abilities have been unlocked from within, and you may both commune with your allies and use \
 					a chrysalis to reveal your true form. You are to ascend at all costs.</b></span>"
-					src.spell_list += new /obj/effect/proc_holder/spell/targeted/shadowling_hivemind
-					src.spell_list += new /obj/effect/proc_holder/spell/targeted/enthrall
+					current.spell_list += new /obj/effect/proc_holder/spell/wizard/targeted/shadowling_hivemind
+					current.spell_list += new /obj/effect/proc_holder/spell/wizard/targeted/enthrall
 					current.verbs += /mob/living/carbon/human/proc/shadowling_hatch
 				if("thrall")
 					if(!ishuman(current))
@@ -1004,11 +1004,11 @@ datum/mind
 					current << "<span class='danger'>You may use the Hivemind Commune ability to communicate with your fellow enlightened ones.</span>"
 					message_admins("[key_name_admin(usr)] has thrall'ed [current].")
 					log_admin("[key_name(usr)] has thrall'ed [current].")
-					src.spell_list += new /obj/effect/proc_holder/spell/targeted/shadowling_hivemind
+					current.spell_list += new /obj/effect/proc_holder/spell/wizard/targeted/shadowling_hivemind
 
 		else if (href_list["monkey"])
 			var/mob/living/L = current
-			if (L.monkeyizing)
+			if (L.notransform)
 				return
 			switch(href_list["monkey"])
 				if("healthy")

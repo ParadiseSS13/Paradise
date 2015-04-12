@@ -12,7 +12,7 @@
 /mob/living/carbon/monkey/Life()
 	set invisibility = 0
 	//set background = 1
-	if (monkeyizing)	return
+	if (notransform)	return
 	if (update_muts)
 		update_muts=0
 		domutcheck(src,null,MUTCHK_FORCED)
