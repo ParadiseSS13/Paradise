@@ -411,8 +411,9 @@ Buildable meters
 	// no conflicts found
 
 	var/pipefailtext = "\red There's nothing to connect this pipe section to!" //(with how the pipe code works, at least one end needs to be connected to something, otherwise the game deletes the segment)"
+	var/obj/machinery/atmospherics/machineReference = null //If somebody wants to overhaul that switch statement below, be my guest. Easier to set a reference here and then transfer logs after the switch statement.
 
-	switch(pipe_type)
+	switch(pipe_type) //What kind of heartless person thought of doing this?
 		if(PIPE_SIMPLE_STRAIGHT, PIPE_SIMPLE_BENT)
 			var/obj/machinery/atmospherics/pipe/simple/P = new( src.loc )
 			P.pipe_color = color
@@ -431,6 +432,8 @@ Buildable meters
 			if (P.node2)
 				P.node2.initialize()
 				P.node2.build_network()
+			machineReference = P
+
 
 		if(PIPE_SUPPLY_STRAIGHT, PIPE_SUPPLY_BENT)
 			var/obj/machinery/atmospherics/pipe/simple/hidden/supply/P = new( src.loc )
@@ -450,6 +453,7 @@ Buildable meters
 			if (P.node2)
 				P.node2.initialize()
 				P.node2.build_network()
+			machineReference = P
 
 		if(PIPE_SCRUBBERS_STRAIGHT, PIPE_SCRUBBERS_BENT)
 			var/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers/P = new( src.loc )
@@ -469,6 +473,7 @@ Buildable meters
 			if (P.node2)
 				P.node2.initialize()
 				P.node2.build_network()
+			machineReference = P
 
 		if(PIPE_UNIVERSAL)
 			var/obj/machinery/atmospherics/pipe/simple/hidden/universal/P = new( src.loc )
@@ -488,6 +493,7 @@ Buildable meters
 			if (P.node2)
 				P.node2.initialize()
 				P.node2.build_network()
+			machineReference = P
 
 		if(PIPE_HE_STRAIGHT, PIPE_HE_BENT)
 			var/obj/machinery/atmospherics/pipe/simple/heat_exchanging/P = new ( src.loc )
@@ -507,6 +513,7 @@ Buildable meters
 			if (P.node2)
 				P.node2.initialize()
 				P.node2.build_network()
+			machineReference = P
 
 		if(PIPE_CONNECTOR)		// connector
 			var/obj/machinery/atmospherics/portables_connector/C = new( src.loc )
@@ -521,6 +528,7 @@ Buildable meters
 			if (C.node)
 				C.node.initialize()
 				C.node.build_network()
+			machineReference = C
 
 
 		if(PIPE_MANIFOLD)		//manifold
@@ -545,6 +553,7 @@ Buildable meters
 			if (M.node3)
 				M.node3.initialize()
 				M.node3.build_network()
+			machineReference = M
 
 		if(PIPE_SUPPLY_MANIFOLD)		//manifold
 			var/obj/machinery/atmospherics/pipe/manifold/hidden/supply/M = new( src.loc )
@@ -568,6 +577,7 @@ Buildable meters
 			if (M.node3)
 				M.node3.initialize()
 				M.node3.build_network()
+			machineReference = M
 
 		if(PIPE_SCRUBBERS_MANIFOLD)		//manifold
 			var/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers/M = new( src.loc )
@@ -591,6 +601,7 @@ Buildable meters
 			if (M.node3)
 				M.node3.initialize()
 				M.node3.build_network()
+			machineReference = M
 
 		if(PIPE_MANIFOLD4W)		//4-way manifold
 			var/obj/machinery/atmospherics/pipe/manifold4w/M = new( src.loc )
@@ -617,6 +628,7 @@ Buildable meters
 			if (M.node4)
 				M.node4.initialize()
 				M.node4.build_network()
+			machineReference = M
 
 		if(PIPE_SUPPLY_MANIFOLD4W)		//4-way manifold
 			var/obj/machinery/atmospherics/pipe/manifold4w/hidden/supply/M = new( src.loc )
@@ -644,6 +656,7 @@ Buildable meters
 			if (M.node4)
 				M.node4.initialize()
 				M.node4.build_network()
+			machineReference = M
 
 		if(PIPE_SCRUBBERS_MANIFOLD4W)		//4-way manifold
 			var/obj/machinery/atmospherics/pipe/manifold4w/hidden/scrubbers/M = new( src.loc )
@@ -671,6 +684,7 @@ Buildable meters
 			if (M.node4)
 				M.node4.initialize()
 				M.node4.build_network()
+			machineReference = M
 
 		if(PIPE_JUNCTION)
 			var/obj/machinery/atmospherics/pipe/simple/heat_exchanging/junction/P = new ( src.loc )
@@ -690,6 +704,7 @@ Buildable meters
 			if (P.node2)
 				P.node2.initialize()
 				P.node2.build_network()
+			machineReference = P
 
 		if(PIPE_UVENT)		//unary vent
 			var/obj/machinery/atmospherics/unary/vent_pump/V = new( src.loc )
@@ -704,6 +719,7 @@ Buildable meters
 			if (V.node)
 				V.node.initialize()
 				V.node.build_network()
+			machineReference = V
 
 
 		if(PIPE_MVALVE)		//manual valve
@@ -724,6 +740,7 @@ Buildable meters
 //					world << "[V.node2.name] is connected to valve, forcing it to update its nodes."
 				V.node2.initialize()
 				V.node2.build_network()
+			machineReference = V
 
 		if(PIPE_PUMP)		//gas pump
 			var/obj/machinery/atmospherics/binary/pump/P = new(src.loc)
@@ -741,6 +758,7 @@ Buildable meters
 			if (P.node2)
 				P.node2.initialize()
 				P.node2.build_network()
+			machineReference = P
 
 		if(PIPE_GAS_FILTER)		//gas filter
 			var/obj/machinery/atmospherics/trinary/filter/P = new(src.loc)
@@ -761,6 +779,7 @@ Buildable meters
 			if (P.node3)
 				P.node3.initialize()
 				P.node3.build_network()
+			machineReference = P
 
 		if(PIPE_GAS_MIXER)		//gas mixer
 			var/obj/machinery/atmospherics/trinary/mixer/P = new(src.loc)
@@ -781,6 +800,7 @@ Buildable meters
 			if (P.node3)
 				P.node3.initialize()
 				P.node3.build_network()
+			machineReference = P
 
 		if(PIPE_GAS_FILTER_M)		//gas filter mirrored
 			var/obj/machinery/atmospherics/trinary/filter/m_filter/P = new(src.loc)
@@ -801,6 +821,7 @@ Buildable meters
 			if (P.node3)
 				P.node3.initialize()
 				P.node3.build_network()
+			machineReference = P
 
 		if(PIPE_GAS_MIXER_T)		//gas mixer-t
 			var/obj/machinery/atmospherics/trinary/mixer/t_mixer/P = new(src.loc)
@@ -821,6 +842,7 @@ Buildable meters
 			if (P.node3)
 				P.node3.initialize()
 				P.node3.build_network()
+			machineReference = P
 
 		if(PIPE_GAS_MIXER_M)		//gas mixer mirrored
 			var/obj/machinery/atmospherics/trinary/mixer/m_mixer/P = new(src.loc)
@@ -841,6 +863,7 @@ Buildable meters
 			if (P.node3)
 				P.node3.initialize()
 				P.node3.build_network()
+			machineReference = P
 
 		if(PIPE_SCRUBBER)		//scrubber
 			var/obj/machinery/atmospherics/unary/vent_scrubber/S = new(src.loc)
@@ -855,6 +878,7 @@ Buildable meters
 			if (S.node)
 				S.node.initialize()
 				S.node.build_network()
+			machineReference = S
 
 		if(PIPE_INSULATED_STRAIGHT, PIPE_INSULATED_BENT)
 			var/obj/machinery/atmospherics/pipe/simple/insulated/P = new( src.loc )
@@ -873,6 +897,7 @@ Buildable meters
 			if (P.node2)
 				P.node2.initialize()
 				P.node2.build_network()
+			machineReference = P
 
 		if(PIPE_MTVALVE)		//manual t-valve
 			var/obj/machinery/atmospherics/tvalve/V = new(src.loc)
@@ -893,6 +918,7 @@ Buildable meters
 			if (V.node3)
 				V.node3.initialize()
 				V.node3.build_network()
+			machineReference = V
 
 		if(PIPE_CAP)
 			var/obj/machinery/atmospherics/pipe/cap/C = new(src.loc)
@@ -903,6 +929,7 @@ Buildable meters
 			if(C.node)
 				C.node.initialize()
 				C.node.build_network()
+			machineReference = C
 
 		if(PIPE_SUPPLY_CAP)
 			var/obj/machinery/atmospherics/pipe/cap/hidden/supply/C = new(src.loc)
@@ -913,6 +940,7 @@ Buildable meters
 			if(C.node)
 				C.node.initialize()
 				C.node.build_network()
+			machineReference = C
 
 		if(PIPE_SCRUBBERS_CAP)
 			var/obj/machinery/atmospherics/pipe/cap/hidden/scrubbers/C = new(src.loc)
@@ -923,6 +951,7 @@ Buildable meters
 			if(C.node)
 				C.node.initialize()
 				C.node.build_network()
+			machineReference = C
 
 		if(PIPE_PASSIVE_GATE)		//passive gate
 			var/obj/machinery/atmospherics/binary/passive_gate/P = new(src.loc)
@@ -940,6 +969,7 @@ Buildable meters
 			if (P.node2)
 				P.node2.initialize()
 				P.node2.build_network()
+			machineReference = P
 
 		if(PIPE_VOLUME_PUMP)		//volume pump
 			var/obj/machinery/atmospherics/binary/volume_pump/P = new(src.loc)
@@ -957,6 +987,7 @@ Buildable meters
 			if (P.node2)
 				P.node2.initialize()
 				P.node2.build_network()
+			machineReference = P
 
 		if(PIPE_HEAT_EXCHANGE)		// heat exchanger
 			var/obj/machinery/atmospherics/unary/heat_exchanger/C = new( src.loc )
@@ -971,6 +1002,8 @@ Buildable meters
 			if (C.node)
 				C.node.initialize()
 				C.node.build_network()
+			machineReference = C
+
 ///// Z-Level stuff
 /*		if(PIPE_UP)
 			var/obj/machinery/atmospherics/pipe/zpipe/up/P = new(src.loc)
@@ -1005,24 +1038,30 @@ Buildable meters
 				P.node2.initialize()
 				P.node2.build_network()*/
 ///// Z-Level stuff
+
 		if(PIPE_OMNI_MIXER)
 			var/obj/machinery/atmospherics/omni/mixer/P = new(loc)
 			var/turf/T = P.loc
 			P.level = T.intact ? 2 : 1
 			P.initialize()
 			P.build_network()
+			machineReference = P
 		if(PIPE_OMNI_FILTER)
 			var/obj/machinery/atmospherics/omni/filter/P = new(loc)
 			var/turf/T = P.loc
 			P.level = T.intact ? 2 : 1
 			P.initialize()
 			P.build_network()
+			machineReference = P
 
 	playsound(src.loc, 'sound/items/Ratchet.ogg', 50, 1)
 	user.visible_message( \
 		"[user] fastens the [src].", \
 		"\blue You have fastened the [src].", \
 		"You hear ratchet.")
+	if(machineReference)
+		transfer_fingerprints_to(machineReference)
+		machineReference.add_fingerprint(user)
 	del(src)	// remove the pipe item
 
 	return
