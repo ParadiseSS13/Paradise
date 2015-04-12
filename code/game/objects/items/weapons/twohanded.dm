@@ -355,6 +355,44 @@ obj/item/weapon/twohanded/
 	desc = "A spear brought over from the Kidan homeworld."
 
 
+///CHAINSAW///
+
+/obj/item/weapon/twohanded/chainsaw
+	icon_override = 'icons/mob/in-hand/swords.dmi'
+	icon_state = "chainsaw0"
+	name = "Chainsaw"
+	desc = "Perfect for felling trees or fellow spaceman."
+	force = 15
+	throwforce = 15
+	throw_speed = 1
+	throw_range = 5
+	w_class = 4.0
+	force_unwielded = 15
+	force_wielded = 35
+	wieldsound = 'sound/weapons/drill.ogg'
+	flags = NOSHIELD
+	origin_tech = "materials=3;syndicate=4"
+	attack_verb = list("sawed", "cut", "hacked", "carved", "cleave")
+	sharp = 1
+	edge = 1
+	no_embed = 1 // Like with the single-handed esword, this shouldn't be embedding in people.
+
+
+/obj/item/weapon/twohanded/chainsaw/update_icon()
+	if(wielded)
+		icon_state = "chainsaw[wielded]"
+	else
+		icon_state = "chainsaw0"
+
+
+/obj/item/weapon/twohanded/chainsaw/unwield()
+	..()
+	hitsound = "swing_hit"
+
+/obj/item/weapon/twohanded/chainsaw/wield()
+	..()
+	hitsound = 'sound/weapons/circsawhit.ogg'
+
 // SINGULOHAMMER
 
 /obj/item/weapon/twohanded/singularityhammer
