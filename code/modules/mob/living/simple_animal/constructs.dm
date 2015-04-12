@@ -35,7 +35,7 @@
 
 /mob/living/simple_animal/construct/Die()
 	..()
-	new /obj/item/weapon/ectoplasm (src.loc)
+	new /obj/item/weapon/reagent_containers/food/snacks/ectoplasm (src.loc)
 	for(var/mob/M in viewers(src, null))
 		if((M.client && !( M.blinded )))
 			M.show_message("\red [src] collapses in a shattered heap. ")

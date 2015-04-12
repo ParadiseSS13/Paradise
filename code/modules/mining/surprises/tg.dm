@@ -54,7 +54,7 @@
 		/obj/item/toy/crayon/red=2,
 		/obj/effect/decal/cleanable/blood=4,
 		/obj/structure/table/woodentable=2,
-		/obj/item/weapon/ectoplasm=3
+		/obj/item/weapon/reagent_containers/food/snacks/ectoplasm=3
 	)
 
 	flags = CONTIGUOUS_WALLS | CONTIGUOUS_FLOORS
