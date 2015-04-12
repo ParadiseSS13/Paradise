@@ -368,7 +368,7 @@ obj/item/weapon/twohanded/
 	throw_range = 5
 	w_class = 4.0 // can't fit in backpacks
 	force_unwielded = 15 //still pretty robust
-	force_wielded = 40  //you'll gouge their eye out! Or a limb...maybe even their entire body!
+	force_wielded = 50  //you'll gouge their eye out! Or a limb...maybe even their entire body!
 	wieldsound = 'sound/weapons/chainsawstart.ogg'
 	hitsound = null
 	flags = NOSHIELD
