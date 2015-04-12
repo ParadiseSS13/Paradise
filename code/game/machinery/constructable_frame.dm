@@ -216,7 +216,7 @@ to destroy them and players will be able to make replacements.
 	name = "circuit board (SMES)"
 	build_path = /obj/machinery/power/smes
 	board_type = "machine"
-	origin_tech = "programming=4;powerstorage=5;engineering=5"
+	origin_tech = "programming=4;power=5;engineering=4"
 	frame_desc = "Requires 5 pieces of cable, 5 Power Cells and 1 Capacitor."
 	req_components = list(
 							/obj/item/stack/cable_coil = 5,
@@ -386,7 +386,7 @@ to destroy them and players will be able to make replacements.
 	name = "Circuit Board (PACMAN-type Generator)"
 	build_path = "/obj/machinery/power/port_gen/pacman"
 	board_type = "machine"
-	origin_tech = "programming=3:powerstorage=3;plasmatech=3;engineering=3"
+	origin_tech = "programming=3;powerstorage=3;plasmatech=3;engineering=3"
 	frame_desc = "Requires 1 Matter Bin, 1 Micro-Laser, 2 Pieces of Cable, and 1 Capacitor."
 	req_components = list(
 							/obj/item/weapon/stock_parts/matter_bin = 1,
@@ -455,7 +455,7 @@ obj/item/weapon/circuitboard/rdserver
 	name = "Circuit board (Cloning Scanner)"
 	build_path = "/obj/machinery/dna_scannernew"
 	board_type = "machine"
-	origin_tech = "programming=2;biotech=2"
+	origin_tech = "programming=3;biotech=3"
 	frame_desc = "Requires 1 Scanning Module, 1 Manipulator, 1 Micro-Laser, 2 pieces of cable and 1 Console Screen."
 	req_components = list(
 							/obj/item/weapon/stock_parts/scanning_module = 1,
@@ -578,7 +578,7 @@ obj/item/weapon/circuitboard/rdserver
 	name = "Circuit Board (Subspace Receiver)"
 	build_path = /obj/machinery/telecomms/receiver
 	board_type = "machine"
-	origin_tech = "programming=2;engineering=2;bluespace=1"
+	origin_tech = "programming=2;engineering=1;bluespace=1"
 	frame_desc = "Requires 1 Subspace Ansible, 1 Hyperwave Filter, 2 Manipulators, and 1 Micro-Laser."
 	req_components = list(
 							/obj/item/weapon/stock_parts/subspace/ansible = 1,
@@ -601,7 +601,7 @@ obj/item/weapon/circuitboard/rdserver
 	name = "Circuit Board (Relay Mainframe)"
 	build_path = /obj/machinery/telecomms/relay
 	board_type = "machine"
-	origin_tech = "programming=2;engineering=2;bluespace=2"
+	origin_tech = "programming=1;engineering=2;bluespace=2"
 	frame_desc = "Requires 2 Manipulators, 2 Cable Coil and 2 Hyperwave Filters."
 	req_components = list(
 							/obj/item/weapon/stock_parts/manipulator = 2,

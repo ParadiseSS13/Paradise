@@ -36,7 +36,7 @@
 	name = "AI Module (ProtectStation)"
 	desc = "Allows for the construction of a ProtectStation AI Module."
 	id = "protectstation_module"
-	req_tech = list("programming" = 3, "materials" = 6)
+	req_tech = list("programming" = 3, "materials" = 4)
 	build_type = IMPRINTER
 	materials = list("$glass" = 1000, "sacid" = 20, "$gold" = 100)
 	build_path = /obj/item/weapon/aiModule/supplied/protectStation
@@ -66,7 +66,7 @@
 	name = "AI Module (Reset)"
 	desc = "Allows for the construction of a Reset AI Module."
 	id = "reset_module"
-	req_tech = list("programming" = 3, "materials" = 6)
+	req_tech = list("programming" = 3, "materials" = 4)
 	build_type = IMPRINTER
 	materials = list("$glass" = 1000, "sacid" = 20, "$gold" = 100)
 	build_path = /obj/item/weapon/aiModule/reset

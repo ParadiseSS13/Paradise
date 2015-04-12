@@ -60,6 +60,7 @@ var/list/admin_verbs_admin = list(
 	/client/proc/toggledrones,
 	/client/proc/man_up,
 	/client/proc/global_man_up,
+	/client/proc/write_RD_json,
 	/client/proc/delbook,
 	/client/proc/empty_ai_core_toggle_latejoin,
 	/client/proc/freeze,
@@ -687,3 +688,46 @@ var/list/admin_verbs_mentor = list(
 
 	log_admin("[key_name(usr)] told everyone to man up and deal with it.")
 	message_admins("\blue [key_name_admin(usr)] told everyone to man up and deal with it.", 1)
+
+
+/client/proc/object_classes_to_origin_tech()
+	usr << "Creating origin classes..."
+	var/list/result = list()
+	for (var/C in (typesof(/obj)-/obj))
+		usr << "Processing... [C]"
+		if (initial(C:origin_tech))
+			var/list/origin_tech = params2list(initial(C:origin_tech))
+			for (var/t in origin_tech)
+				origin_tech[t]=text2num(origin_tech[t])
+			result[C]=list("tech"=origin_tech,"name"=initial(C:name))
+	return result
+	
+
+/client/proc/list_of_build_machines(var/C)
+	var/build_type=initial(C:build_type)
+	var/list/result=list()
+	result["IMPRINTER"]=(build_type & IMPRINTER) ? 1 : 0
+	result["PROTOLATHE"]=(build_type & PROTOLATHE) ? 1 : 0
+	result["AUTOLATHE"]=(build_type & AUTOLATHE) ? 1 : 0
+	result["CRAFTLATHE"]=(build_type & CRAFTLATHE) ? 1 : 0
+	result["MECHFAB"]=(build_type & MECHFAB) ? 1 : 0
+	result["PODFAB"]=(build_type & PODFAB) ? 1 : 0
+	return result
+	
+	
+/client/proc/design_classes_to_materials_and_origin()
+	usr << "Creating designs..."
+	var/list/result=list()
+	for (var/C in (typesof(/datum/design)-/datum/design))
+		var/datum/design/instance = new C()
+		usr << "Processing... [C]"	
+		result[C]=list("materials"=instance.materials,"requires"=instance.req_tech,"lockbox"=instance.locked,"builds"=instance.build_path,"machines"=list_of_build_machines(C))
+		instance.Del()
+	return result
+
+
+/client/proc/write_RD_json()
+	set category = "Debug"
+	set name = "Write RD Json"
+	set desc = "Writes a json file describing the R&D components."
+	text2file(list2json(list("objects"=object_classes_to_origin_tech(),"designs"=design_classes_to_materials_and_origin())),"data/origin_data.txt")

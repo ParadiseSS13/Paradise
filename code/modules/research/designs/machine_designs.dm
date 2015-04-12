@@ -16,7 +16,7 @@
 	name = "Machine Board (SMES)"
 	desc = "The circuit board for a SMES."
 	id = "smes"
-	req_tech = list("programming" = 4, "power" = 5, "engineering" = 4)
+	req_tech = list("programming" = 4, "powerstorage" = 5, "engineering" = 4)
 	build_type = IMPRINTER
 	materials = list("$glass" = 1000, "sacid" = 20)
 	build_path = /obj/item/weapon/circuitboard/smes
@@ -306,7 +306,7 @@
 	name = "Machine Board (Programmable Unloader)"
 	desc = "The circuit board for a Programmable Unloader."
 	id = "selunload"
-	req_tech = list("programming" = 5)
+	req_tech = list("engineering"=3, "programming" = 6)
 	build_type = IMPRINTER
 	materials = list("$glass" = 2000, "sacid" = 20)
 	build_path = /obj/item/weapon/circuitboard/programmable

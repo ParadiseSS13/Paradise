@@ -8,8 +8,7 @@
 	build_path = "/obj/machinery/shield_gen/external"
 	origin_tech = "bluespace=4;plasmatech=3"
 	frame_desc = "Requires 2 Pico Manipulators, 1 Subspace Transmitter, 5 Pieces of cable, 1 Subspace Crystal, 1 Subspace Amplifier and 1 Console Screen."
-	req_components = list(
-							"/obj/item/weapon/stock_parts/manipulator/pico" = 2,
+	req_components = list(  "/obj/item/weapon/stock_parts/manipulator/pico" = 2,
 							"/obj/item/weapon/stock_parts/subspace/transmitter" = 1,
 							"/obj/item/weapon/stock_parts/subspace/crystal" = 1,
 							"/obj/item/weapon/stock_parts/subspace/amplifier" = 1,
@@ -23,7 +22,7 @@ datum/design/shield_gen_ex
 	req_tech = list("bluespace" = 4, "plasmatech" = 3)
 	build_type = IMPRINTER
 	materials = list("$glass" = 2000, "sacid" = 20, "$plasma" = 10000, "$diamond" = 5000, "$gold" = 10000)
-	build_path = "/obj/machinery/shield_gen/external"
+	build_path = "/obj/item/weapon/circuitboard/shield_gen_ex"
 
 ////////////////////////////////////////
 // Shield Generator
@@ -49,7 +48,7 @@ datum/design/shield_gen
 	req_tech = list("bluespace" = 4, "plasmatech" = 3)
 	build_type = IMPRINTER
 	materials = list("$glass" = 2000, "sacid" = 20, "$plasma" = 10000, "$diamond" = 5000, "$gold" = 10000)
-	build_path = "/obj/machinery/shield_gen/external"
+	build_path = "/obj/item/weapon/circuitboard/shield_gen"
 
 ////////////////////////////////////////
 // Shield Capacitor

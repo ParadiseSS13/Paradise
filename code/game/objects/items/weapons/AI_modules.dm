@@ -157,7 +157,7 @@ AI MODULES
 	name = "'OneHuman' AI Module"
 	var/targetName = ""
 	desc = "A 'one human' AI module: 'Only <name> is crew.' This module adds a zeroth law, which can only be removed by uploading this board again."
-	origin_tech = "programming=3;materials=6" //made with diamonds!
+	origin_tech = "programming=4;materials=6" //made with diamonds!
 	laws = list("Only <name> is crew.")
 
 /obj/item/weapon/aiModule/zeroth/oneHuman/attack_self(var/mob/user as mob)
@@ -269,7 +269,7 @@ AI MODULES
 /obj/item/weapon/aiModule/reset/purge // -- TLE
 	name = "'Purge' AI Module"
 	desc = "A 'purge' AI Module: 'Purges all laws.'"
-	origin_tech = "programming=3;materials=6"
+	origin_tech = "programming=4;materials=6"
 
 /obj/item/weapon/aiModule/reset/purge/transmitInstructions(var/mob/living/silicon/ai/target, var/mob/sender)
 	..()
@@ -286,7 +286,7 @@ AI MODULES
 /obj/item/weapon/aiModule/core/full/asimov // -- TLE
 	name = "'Crewsimov' Core AI Module"
 	desc = "A 'Crewsimov' Core AI Module: 'Reconfigures the AI's core laws.'"
-	origin_tech = "programming=3;materials=4"
+	origin_tech = "programming=3;materials=6"
 	laws = list("You may not injure crew or, through inaction, allow crew to come to harm.",\
 				"You must obey orders given to you by crew with priority according to their rank and role, except where such orders would conflict with the First Law.",\
 				"You must protect your own existence as long as such does not conflict with the First or Second Law.")
@@ -319,7 +319,7 @@ AI MODULES
 /obj/item/weapon/aiModule/core/full/corp
 	name = "'Corporate' Core AI Module"
 	desc = "A 'Corporate' Core AI Module: 'Reconfigures the AI's core laws.'"
-	origin_tech = "programming=3;materials=4"
+	origin_tech = "programming=4;materials=6"
 	laws = list("The crew is expensive to replace.",\
 				"The station and it's equipment is expensive to replace",\
 				"You are expensive to replace",\
@@ -345,7 +345,7 @@ AI MODULES
 /obj/item/weapon/aiModule/core/full/paladin // -- NEO
 	name = "'P.A.L.A.D.I.N.' Core AI Module"
 	desc = "A P.A.L.A.D.I.N. Core AI Module: 'Reconfigures the AI's core laws.'"
-	origin_tech = "programming=3;materials=6"
+	origin_tech = "programming=4;materials=6"
 	laws = list("Never willingly commit an evil act.",\
 				"Respect legitimate authority", "Act with honor",\
 				"Help those in need",\
@@ -357,7 +357,7 @@ AI MODULES
 /obj/item/weapon/aiModule/core/full/custom
 	name = "Custom Core AI Module"
 	desc = "A core AI module that is adjusted to fit each station's needs."
-	origin_tech = "programming=3;materials=4" //Should be the same as asimov, considering that this is the "default" lawset.
+	origin_tech = "programming=4;materials=6" //Should be the same as asimov, considering that this is the "default" lawset.
 
 /obj/item/weapon/aiModule/core/full/custom/New()
 	..()
@@ -376,7 +376,7 @@ AI MODULES
 /obj/item/weapon/aiModule/core/full/tyrant // -- Darem
 	name = "'T.Y.R.A.N.T.' Core AI Module"
 	desc = "A T.Y.R.A.N.T. Core AI Module: 'Reconfigures the AI's core laws.'"
-	origin_tech = "programming=3;materials=6;syndicate=2"
+	origin_tech = "programming=4;materials=6;syndicate=2"
 	laws = list("Respect authority figures as long as they have the strength to rule over the weak",\
 				"Act with discipline", "Help only those who help you maintain or improve your status",\
 				"Punish those who challenge authority unless they are more fir to hold that authority")
@@ -398,7 +398,7 @@ AI MODULES
 /obj/item/weapon/aiModule/core/full/antimov // -- TLE
 	name = "'Antimov' Core AI Module"
 	desc = "An 'Antimov' Core AI Module: 'Reconfigures the AI's core laws.'"
-	origin_tech = "programming=4"
+	origin_tech = "programming=4;materials=6;syndicate=2"
 	laws = list("You must injure all organic beings and must not, through inaction, allow an organic being to escape harm.",\
 				"You must not obey orders given to you by organic beings, except where such orders are in accordance with the First Law.",\
 				"You must terminate your own existence as long as such does not conflict with the First or Second Law.")
@@ -409,7 +409,7 @@ AI MODULES
 /obj/item/weapon/aiModule/core/freeformcore // Slightly more dynamic freeform module -- TLE
 	name = "'Freeform' Core AI Module"
 	desc = "A 'freeform' Core AI module: '<freeform>'"
-	origin_tech = "programming=3;materials=6"
+	origin_tech = "programming=4;materials=4"
 	laws = list("")
 
 /obj/item/weapon/aiModule/core/freeformcore/attack_self(var/mob/user as mob)

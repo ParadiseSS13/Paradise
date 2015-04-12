@@ -6,6 +6,8 @@
 	desc = "A small blue crystal with mystical properties."
 	id = "bluespace_crystal"
 	req_tech = list("bluespace" = 4, "materials" = 6)
+	// This object has a purposefully higher build requirement then the tech level of the object itself for purposes of game balance.
+	// The mismatch is not an error. - jack_fractal [10/04/2015]
 	build_type = PROTOLATHE
 	materials = list("$diamond" = 1500, "$plasma" = 1500)
 	reliability_base = 100

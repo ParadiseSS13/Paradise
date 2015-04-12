@@ -54,6 +54,7 @@
 	projectile_type = "/obj/item/projectile/energy/electrode"
 	cell_type = "/obj/item/weapon/stock_parts/cell"
 	fire_delay = 15
+	origin_tech="combat=3;materials=3;powerstorage=2"
 
 
 
