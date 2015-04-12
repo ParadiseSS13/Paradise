@@ -2094,6 +2094,12 @@ datum
 					description = "The fatty, still liquid part of milk. Why don't you mix this with sum scotch, eh?"
 					color = "#DFD7AF" // rgb: 223, 215, 175
 
+				chocolate_milk
+					name = "Chocolate milk"
+					id ="chocolate_milk"
+					description = "Chocolate-flavored milk, tastes like being a kid again."
+					color = "#85432C"
+
 			hot_coco
 				name = "Hot Chocolate"
 				id = "hot_coco"
@@ -2383,6 +2389,7 @@ datum
 			var/confused_adj = 2
 			var/slur_start = 65			//amount absorbed after which mob starts slurring
 			var/confused_start = 130	//amount absorbed after which mob starts confusing directions
+			var/vomit_start = 180	//amount absorbed after which mob starts vomitting
 			var/blur_start = 260	//amount absorbed after which mob starts getting blurred vision
 			var/pass_out = 325	//amount absorbed after which mob starts passing out
 
@@ -2416,6 +2423,9 @@ datum
 				if(d >= blur_start)
 					M.eye_blurry = max(M.eye_blurry, 10/sober_str)
 					M:drowsyness  = max(M:drowsyness, 0)
+				if(d >= vomit_start)
+					if(prob(8))
+						M.fakevomit()
 				if(d >= pass_out)
 					M:paralysis = max(M:paralysis, 20/sober_str)
 					M:drowsyness  = max(M:drowsyness, 30/sober_str)

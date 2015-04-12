@@ -177,7 +177,7 @@
 /datum/recipe/microwave/ghostburger
 	items = list(
 		/obj/item/weapon/reagent_containers/food/snacks/bun,
-		/obj/item/weapon/ectoplasm //where do you even find this stuff
+		/obj/item/weapon/reagent_containers/food/snacks/ectoplasm //where do you even find this stuff
 	)
 	result = /obj/item/weapon/reagent_containers/food/snacks/ghostburger
 

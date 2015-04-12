@@ -222,6 +222,17 @@
 					message = "<B>[src]</B> makes a strong noise."
 					m_type = 2
 
+		if ("burp")
+			if(miming)
+				message = "<B>[src]</B> opens their mouth rather obnoxiously."
+				m_type = 1
+			else
+				if (!muzzled)
+					message = "<B>[src]</B> burps."
+					m_type = 2
+				else
+					message = "<B>[src]</B> makes a peculiar noise."
+					m_type = 2
 		if ("clap")
 			if (!src.restrained())
 				message = "<B>[src]</B> claps."

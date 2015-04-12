@@ -1032,7 +1032,7 @@ proc/populate_seed_list()
 	products = list(/obj/item/weapon/reagent_containers/food/snacks/grown/soybeans)
 	plant_icon = "soybean"
 	harvest_repeat = 1
-	chems = list("nutriment" = list(1,20))
+	chems = list("nutriment" = list(1,20), "soybeanoil" = list(1,20))
 
 	lifespan = 25
 	maturation = 4

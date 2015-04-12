@@ -112,11 +112,14 @@
 			"[user] unfastens \the [src].", \
 			"\blue You have unfastened \the [src].", \
 			"You hear ratchet.")
-		new /obj/item/pipe(loc, make_from=src)
+		var/obj/item/P = new /obj/item/pipe(loc, make_from=src)
 		for (var/obj/machinery/meter/meter in T)
 			if (meter.target == src)
 				new /obj/item/pipe_meter(T)
 				del(meter)
+		if(P)
+			transfer_fingerprints_to(P)
+			P.add_fingerprint(user)
 		qdel(src)
 	return 1
 
