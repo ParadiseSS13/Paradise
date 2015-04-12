@@ -135,7 +135,7 @@ var/global/wcColored
 		var/pdiff=performWallPressureCheck(src.loc)
 		if(pdiff>0)
 			if(M)
-				msg_admin_attack("Window with pdiff [pdiff] at [formatJumpTo(loc)] deanchored by [M.real_name] ([formatPlayerPanel(M,M.ckey)])!")
+				msg_admin_attack("Window with pdiff [pdiff] at [formatJumpTo(loc)] deanchored by [M.real_name][isAntag(M) ? "(ANTAG)" : ""] ([formatPlayerPanel(M,M.ckey)])!")
 				log_admin("Window with pdiff [pdiff] at [loc] deanchored by [M.real_name] ([M.ckey])!")
 			else
 				msg_admin_attack("Window with pdiff [pdiff] at [formatJumpTo(loc)] deanchored by [AM]!")
@@ -144,7 +144,7 @@ var/global/wcColored
 		var/pdiff=performWallPressureCheck(src.loc)
 		if(pdiff>0)
 			if(M)
-				msg_admin_attack("Window with pdiff [pdiff] at [formatJumpTo(loc)] destroyed by [M.real_name] ([formatPlayerPanel(M,M.ckey)])!")
+				msg_admin_attack("Window with pdiff [pdiff] at [formatJumpTo(loc)] destroyed by [M.real_name][isAntag(M) ? "(ANTAG)" : ""] ([formatPlayerPanel(M,M.ckey)])!")
 				log_admin("Window with pdiff [pdiff] at [loc] destroyed by [M.real_name] ([M.ckey])!")
 			else
 				msg_admin_attack("Window with pdiff [pdiff] at [formatJumpTo(loc)] destroyed by [AM]!")
@@ -158,7 +158,7 @@ var/global/wcColored
 		user.visible_message("<span class='danger'>[user] smashes through [src]!</span>")
 		var/pdiff=performWallPressureCheck(src.loc)
 		if(pdiff>0)
-			msg_admin_attack("Window destroyed by hulk [user.real_name] ([formatPlayerPanel(user,user.ckey)]) with pdiff [pdiff] at [formatJumpTo(loc)]!")
+			msg_admin_attack("Window destroyed by hulk [user.real_name][isAntag(user) ? "(ANTAG)" : ""] ([formatPlayerPanel(user,user.ckey)]) with pdiff [pdiff] at [formatJumpTo(loc)]!")
 			log_admin("Window destroyed by hulk [user.real_name] ([user.ckey]) with pdiff [pdiff] at [loc]!")
 		destroy()
 	else if (usr.a_intent == "harm")
@@ -187,7 +187,7 @@ var/global/wcColored
 		user.visible_message("<span class='danger'>[user] smashes through [src]!</span>")
 		var/pdiff=performWallPressureCheck(src.loc)
 		if(pdiff>0)
-			msg_admin_attack("Window destroyed by [user.real_name] ([formatPlayerPanel(user,user.ckey)]) with pdiff [pdiff] at [formatJumpTo(loc)]!")
+			msg_admin_attack("Window destroyed by [user.real_name][isAntag(user) ? "(ANTAG)" : ""] ([formatPlayerPanel(user,user.ckey)]) with pdiff [pdiff] at [formatJumpTo(loc)]!")
 		destroy()
 	else	//for nicer text~
 		user.visible_message("<span class='danger'>[user] smashes into [src]!</span>")
@@ -258,7 +258,7 @@ var/global/wcColored
 			if(!anchored)
 				var/pdiff=performWallPressureCheck(src.loc)
 				if(pdiff>0)
-					msg_admin_attack("Window with pdiff [pdiff] deanchored by [user.real_name] ([formatPlayerPanel(user,user.ckey)]) at [formatJumpTo(loc)]!")
+					msg_admin_attack("Window with pdiff [pdiff] deanchored by [user.real_name][isAntag(user) ? "(ANTAG)" : ""] ([formatPlayerPanel(user,user.ckey)]) at [formatJumpTo(loc)]!")
 					log_admin("Window with pdiff [pdiff] deanchored by [user.real_name] ([user.ckey]) at [loc]!")
 		else if(!reinf)
 			anchored = !anchored
@@ -268,7 +268,7 @@ var/global/wcColored
 			if(!anchored)
 				var/pdiff=performWallPressureCheck(src.loc)
 				if(pdiff>0)
-					msg_admin_attack("Window with pdiff [pdiff] deanchored by [user.real_name] ([formatPlayerPanel(user,user.ckey)]) at [formatJumpTo(loc)]!")
+					msg_admin_attack("Window with pdiff [pdiff] deanchored by [user.real_name][isAntag(user) ? "(ANTAG)" : ""] ([formatPlayerPanel(user,user.ckey)]) at [formatJumpTo(loc)]!")
 					log_admin("Window with pdiff [pdiff] deanchored by [user.real_name] ([user.ckey]) at [loc]!")
 	else if(istype(W, /obj/item/weapon/crowbar) && reinf && state <= 1)
 		state = 1 - state
@@ -310,7 +310,7 @@ var/global/wcColored
 				step(src, get_dir(user, src))
 				var/pdiff=performWallPressureCheck(src.loc)
 				if(pdiff>0)
-					msg_admin_attack("Window with pdiff [pdiff] deanchored by [user.real_name] ([formatPlayerPanel(user,user.ckey)]) at [formatJumpTo(loc)]!")
+					msg_admin_attack("Window with pdiff [pdiff] deanchored by [user.real_name][isAntag(user) ? "(ANTAG)" : ""] ([formatPlayerPanel(user,user.ckey)]) at [formatJumpTo(loc)]!")
 					log_admin("Window with pdiff [pdiff] deanchored by [user.real_name] ([user.ckey]) at [loc]!")
 		else
 			playsound(loc, 'sound/effects/Glasshit.ogg', 75, 1)

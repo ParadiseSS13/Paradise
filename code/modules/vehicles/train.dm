@@ -55,7 +55,7 @@
 			if(istype(load, /mob/living/carbon/human))
 				var/mob/living/D = load
 				D << "\red You hit [M]!"
-				msg_admin_attack("[D.name] ([D.ckey]) hit [M.name] ([M.ckey]) with [src]. (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[src.x];Y=[src.y];Z=[src.z]'>JMP</a>)")
+				msg_admin_attack("[D.name] ([D.ckey])[isAntag(D) ? "(ANTAG)" : ""] hit [M.name] ([M.ckey]) with [src]. (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[src.x];Y=[src.y];Z=[src.z]'>JMP</a>)")
 
 
 //-------------------------------------------
@@ -143,7 +143,7 @@
 	if (T.tow)
 		user << "\red [T] is already towing something."
 		return
-	
+
 	//check for cycles.
 	var/obj/vehicle/train/next_car = T
 	while (next_car)
@@ -151,7 +151,7 @@
 			user << "\red That seems very silly."
 			return
 		next_car = next_car.lead
-	
+
 	//latch with src as the follower
 	lead = T
 	T.tow = src
@@ -208,7 +208,7 @@
 		if (T.tow == src)
 			lead.tow = null
 			lead.update_stats()
-			
+
 			lead = null
 			update_stats()
 			return

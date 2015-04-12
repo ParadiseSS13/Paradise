@@ -156,6 +156,13 @@ proc/isorgan(A)
 			return 1
 	return 0
 
+proc/isAntag(A)
+	if(istype(A, /mob/living/carbon))
+		var/mob/living/carbon/C = A
+		if(C.mind && C.mind.special_role)
+			return 1
+	return 0
+
 proc/isnewplayer(A)
 	if(istype(A, /mob/new_player))
 		return 1

@@ -806,12 +806,12 @@
 			user << "You plant the [S.seed.seed_name] [S.seed.seed_noun]."
 
 			if(S.seed.spread == 1)
-				msg_admin_attack("[key_name(user)] has planted a creeper packet.")
+				msg_admin_attack("[key_name(user)][isAntag(user) ? "(ANTAG)" : ""] has planted a creeper packet.")
 				var/obj/effect/plant_controller/creeper/PC = new(get_turf(src))
 				if(PC)
 					PC.seed = S.seed
 			else if(S.seed.spread == 2)
-				msg_admin_attack("[key_name(user)] has planted a spreading vine packet.")
+				msg_admin_attack("[key_name(user)][isAntag(user) ? "(ANTAG)" : ""] has planted a spreading vine packet.")
 				var/obj/effect/plant_controller/PC = new(get_turf(src))
 				if(PC)
 					PC.seed = S.seed
