@@ -452,9 +452,6 @@ proc/get_damage_icon_part(damage_state, body_part)
 			else
 				overlays_standing[MUTANTRACE_LAYER]	= null
 
-	if(!dna || !(dna.mutantrace in list("metroid")))
-		update_body(0)
-
 	update_hair(0)
 	if(update_icons)   update_icons()
 

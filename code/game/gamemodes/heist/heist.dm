@@ -103,7 +103,6 @@ var/global/list/obj/cortical_stacks = list() //Stacks for 'leave nobody behind' 
 	vox.name = vox.real_name
 	newraider.name = vox.name
 	vox.age = rand(12,20)
-	vox.dna.mutantrace = "vox"
 	vox.set_species("Vox")
 	vox.languages = list() // Removing language from chargen.
 	vox.flavor_text = ""

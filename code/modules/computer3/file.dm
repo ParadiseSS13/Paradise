@@ -140,7 +140,6 @@
 
 /datum/file/data/genome/SE
 	name = "Structural Enzymes"
-	var/mutantrace = null
 
 /datum/file/data/genome/UE
 	name = "Unique Enzymes"
