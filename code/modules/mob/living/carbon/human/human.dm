@@ -1382,7 +1382,6 @@
 		dna = new /datum/dna(null)
 		dna.species = species.name
 		dna.real_name = real_name
-	dna.mutantrace = null
 
 	species.handle_post_spawn(src)
 
@@ -1631,9 +1630,6 @@
 	if(istype(head, /obj/item/clothing/head/wizard) || istype(head, /obj/item/clothing/head/helmet/space/rig/wizard))
 		threatcount += 2
 
-	//Check for nonhuman scum
-	if(dna && dna.mutantrace && dna.mutantrace != "none")
-		threatcount += 1
 
 	//Loyalty implants imply trustworthyness
 	if(isloyal(src))

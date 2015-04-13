@@ -187,37 +187,30 @@
 				src << "\red You feel your face freezing and an icicle forming in your lungs!"
 		else if(breath.temperature > heat_level_1)
 			if(prob(20))
-				if(H.dna.mutantrace == "slime")
-					src << "\red You feel supercharged by the extreme heat!"
-				else
-					src << "\red You feel your face burning and a searing heat in your lungs!"
-		if(H.dna.mutantrace == "slime")
-			if(breath.temperature < cold_level_1)
-				H.adjustToxLoss(round(cold_level_1 - breath.temperature))
+				src << "\red You feel your face burning and a searing heat in your lungs!"
+
+		switch(breath.temperature)
+			if(-INFINITY to cold_level_3)
+				H.apply_damage(COLD_GAS_DAMAGE_LEVEL_3, BURN, "head", used_weapon = "Excessive Cold")
 				H.fire_alert = max(H.fire_alert, 1)
-		else
-			switch(breath.temperature)
-				if(-INFINITY to cold_level_3)
-					H.apply_damage(COLD_GAS_DAMAGE_LEVEL_3, BURN, "head", used_weapon = "Excessive Cold")
-					H.fire_alert = max(H.fire_alert, 1)
 
-				if(cold_level_3 to cold_level_2)
-					H.apply_damage(COLD_GAS_DAMAGE_LEVEL_2, BURN, "head", used_weapon = "Excessive Cold")
-					H.fire_alert = max(H.fire_alert, 1)
+			if(cold_level_3 to cold_level_2)
+				H.apply_damage(COLD_GAS_DAMAGE_LEVEL_2, BURN, "head", used_weapon = "Excessive Cold")
+				H.fire_alert = max(H.fire_alert, 1)
 
-				if(cold_level_2 to cold_level_1)
-					H.apply_damage(COLD_GAS_DAMAGE_LEVEL_1, BURN, "head", used_weapon = "Excessive Cold")
-					H.fire_alert = max(H.fire_alert, 1)
+			if(cold_level_2 to cold_level_1)
+				H.apply_damage(COLD_GAS_DAMAGE_LEVEL_1, BURN, "head", used_weapon = "Excessive Cold")
+				H.fire_alert = max(H.fire_alert, 1)
 
-				if(heat_level_1 to heat_level_2)
-					H.apply_damage(HEAT_GAS_DAMAGE_LEVEL_1, BURN, "head", used_weapon = "Excessive Heat")
-					H.fire_alert = max(H.fire_alert, 2)
+			if(heat_level_1 to heat_level_2)
+				H.apply_damage(HEAT_GAS_DAMAGE_LEVEL_1, BURN, "head", used_weapon = "Excessive Heat")
+				H.fire_alert = max(H.fire_alert, 2)
 
-				if(heat_level_2 to heat_level_3)
-					H.apply_damage(HEAT_GAS_DAMAGE_LEVEL_2, BURN, "head", used_weapon = "Excessive Heat")
-					H.fire_alert = max(H.fire_alert, 2)
+			if(heat_level_2 to heat_level_3)
+				H.apply_damage(HEAT_GAS_DAMAGE_LEVEL_2, BURN, "head", used_weapon = "Excessive Heat")
+				H.fire_alert = max(H.fire_alert, 2)
 
-				if(heat_level_3 to INFINITY)
-					H.apply_damage(HEAT_GAS_DAMAGE_LEVEL_3, BURN, "head", used_weapon = "Excessive Heat")
-					H.fire_alert = max(H.fire_alert, 2)
+			if(heat_level_3 to INFINITY)
+				H.apply_damage(HEAT_GAS_DAMAGE_LEVEL_3, BURN, "head", used_weapon = "Excessive Heat")
+				H.fire_alert = max(H.fire_alert, 2)
 	return 1

@@ -1112,11 +1112,6 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 			if(healths)		healths.icon_state = "health7"	//DEAD healthmeter
 		else
 			sight &= ~(SEE_TURFS|SEE_MOBS|SEE_OBJS)
-			if(dna)
-				switch(dna.mutantrace)
-					if("slime")
-						see_in_dark = 3
-						see_invisible = SEE_INVISIBLE_LEVEL_ONE
 
 			if(mind && mind.vampire)
 				if((VAMP_VISION in mind.vampire.powers) && !(VAMP_FULL in mind.vampire.powers))
