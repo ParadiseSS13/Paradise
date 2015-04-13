@@ -185,9 +185,9 @@ mob/living/proc/Targeted(var/obj/item/weapon/gun/I) //Self explanitory.
 		else
 			I.lower_aim()
 			return
-		if(m_intent == "run" && T.client.target_can_move == 1 && T.client.target_can_run == 0 && (ishuman(T)))
+		/*if(m_intent == "run" && T.client.target_can_move == 1 && T.client.target_can_run == 0 && (ishuman(T)))
 			src << "\red Your move intent is now set to walk, as your targeter permits it."  //Self explanitory.
-			set_m_intent("walk")
+			set_m_intent("walk")*/
 
 		//Processing the aiming. Should be probably in separate object with process() but lasy.
 		while(targeted_by && T.client)
@@ -249,18 +249,18 @@ client/var
 //These are called by the on-screen buttons, adjusting what the victim can and cannot do.
 client/proc/add_gun_icons()
 	screen += usr.item_use_icon
-	screen += usr.gun_move_icon
+	/*screen += usr.gun_move_icon
 	if (target_can_move)
-		screen += usr.gun_run_icon
+		screen += usr.gun_run_icon*/
 
 
 
 client/proc/remove_gun_icons()
 	if(!usr) return
 	screen -= usr.item_use_icon
-	screen -= usr.gun_move_icon
+	/*screen -= usr.gun_move_icon
 	if (target_can_move)
-		screen -= usr.gun_run_icon
+		screen -= usr.gun_run_icon*/
 
 client/verb/ToggleGunMode()
 	set hidden = 1
@@ -276,7 +276,7 @@ client/verb/ToggleGunMode()
 		usr.gun_setting_icon.icon_state = "gun[gun_mode]"
 
 
-client/verb/AllowTargetMove()
+/*client/verb/AllowTargetMove()
 	set hidden=1
 
 	//Changing client's permissions
@@ -339,7 +339,7 @@ client/verb/AllowTargetRun()
 				if(target_can_run)
 					M << "Your character may now <b>run</b> at the discretion of their targeter."
 				else
-					M << "\red <b>Your character will now be shot if they run.</b>"
+					M << "\red <b>Your character will now be shot if they run.</b>"*/
 
 client/verb/AllowTargetClick()
 	set hidden=1
