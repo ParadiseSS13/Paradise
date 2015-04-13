@@ -3372,7 +3372,7 @@
 ////Discount Dan's Burritos//////       May God have mercy on your souls---and stomachs.    -Fox
 
 /obj/item/weapon/reagent_containers/food/snacks/danburrito
-	name = "Discoutn Dan's Burrito"
+	name = "Discount Dan's Burrito"
 	desc = "Quite possibly the worst burrito in all of space."
 	icon_state = "danburrito"
 	bitesize = 10
