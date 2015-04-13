@@ -26,7 +26,7 @@
 			target << "<span class='userdanger'>Red lights suddenly dance in your vision, and you are mesmerized by the heavenly lights...</span>"
 		target.Stun(10)
 		if(target.reagents)
-			target.reagents.add_reagent("mutetoxin", 4) //This is really bad but it's the only way it works.
+			target.reagents.add_reagent("capulettium_plus", 4) //This is really bad but it's the only way it works.
 
 
 

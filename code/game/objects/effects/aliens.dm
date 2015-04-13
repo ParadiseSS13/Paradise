@@ -51,6 +51,7 @@
 	name = "chrysalis wall"
 	desc = "Some sort of purple substance in an egglike shape. It pulses and throbs from within and seems impenetrable."
 	health = INFINITY
+	icon_state = "wall0"
 
 /obj/structure/alien/resin/membrane
 	name = "resin membrane"
