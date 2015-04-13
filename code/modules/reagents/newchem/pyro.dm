@@ -32,7 +32,7 @@
 	id = "clf3"
 	result = "clf3"
 	required_reagents = list("chlorine" = 1, "fluorine" = 3)
-	result_amount = 4
+	result_amount = 3
 	required_temp = 424
 
 /datum/reagent/clf3/on_mob_life(var/mob/living/M as mob)
@@ -46,7 +46,6 @@
 	var/turf/T = get_turf(holder.my_atom)
 	for(var/turf/turf in range(1,T))
 		new /obj/fire(turf)
-	holder.chem_temp = 1000 // hot as shit
 	return
 
 /datum/reagent/clf3/reaction_turf(var/turf/simulated/T, var/volume)
