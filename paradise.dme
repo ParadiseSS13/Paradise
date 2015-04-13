@@ -1217,6 +1217,7 @@
 #include "code\modules\mob\living\carbon\human\say.dm"
 #include "code\modules\mob\living\carbon\human\update_icons.dm"
 #include "code\modules\mob\living\carbon\human\whisper.dm"
+#include "code\modules\mob\living\carbon\human\species\golem.dm"
 #include "code\modules\mob\living\carbon\human\species\plasmaman.dm"
 #include "code\modules\mob\living\carbon\human\species\shadow.dm"
 #include "code\modules\mob\living\carbon\metroid\death.dm"
