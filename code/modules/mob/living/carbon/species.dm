@@ -42,6 +42,8 @@
 	var/brute_mod = null    // Physical damage reduction/malus.
 	var/burn_mod = null     // Burn damage reduction/malus.
 
+	var/light_dam
+
 	var/max_hurt_damage = 9 // Max melee damage dealt + 5 if hulk
 	var/list/default_genes = list()
 

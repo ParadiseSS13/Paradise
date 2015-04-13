@@ -808,7 +808,7 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 					adjustOxyLoss(-(light_amount))
 					//TODO: heal wounds, heal broken limbs.
 
-		if(dna && dna.mutantrace == "shadow")
+		if(species.light_dam)
 			var/light_amount = 0
 			if(isturf(loc))
 				var/turf/T = loc
@@ -816,10 +816,11 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 				if(A)
 					if(A.lighting_use_dynamic)	light_amount = T.lighting_lumcount
 					else						light_amount =  10
-			if(light_amount > 2) //if there's enough light, start dying
+			if(light_amount > species.light_dam) //if there's enough light, start dying
 				take_overall_damage(1,1)
-			else if (light_amount < 2) //heal in the dark
+			else //heal in the dark
 				heal_overall_damage(1,1)
+
 
 		//The fucking FAT mutation is the greatest shit ever. It makes everyone so hot and bothered.
 		if(species.flags & CAN_BE_FAT)

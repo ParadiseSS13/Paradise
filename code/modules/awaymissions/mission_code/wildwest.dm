@@ -80,19 +80,40 @@
 				user.mutations.Add(LASER)
 				user.mutations.Add(RESIST_COLD)
 				user.mutations.Add(XRAY)
-				user.dna.mutantrace = "shadow"
+				if(ishuman(user))
+					var/mob/living/carbon/human/human = user
+					if(human.species.name != "Shadow")
+						user << "\red Your flesh rapidly mutates!"
+						user << "<b>You are now a Shadow Person, a mutant race of darkness-dwelling humanoids.</b>"
+						user << "\red Your body reacts violently to light. \green However, it naturally heals in darkness."
+						user << "Aside from your new traits, you are mentally unchanged and retain your prior obligations."
+						human.set_species("Shadow")
 				user.regenerate_icons()
 			if("Wealth")
 				user << "<B>Your wish is granted, but at a terrible cost...</B>"
 				user << "The Wish Granter punishes you for your selfishness, claiming your soul and warping your body to match the darkness in your heart."
 				new /obj/structure/closet/syndicate/resources/everything(loc)
-				user.dna.mutantrace = "shadow"
+				if(ishuman(user))
+					var/mob/living/carbon/human/human = user
+					if(human.species.name != "Shadow")
+						user << "\red Your flesh rapidly mutates!"
+						user << "<b>You are now a Shadow Person, a mutant race of darkness-dwelling humanoids.</b>"
+						user << "\red Your body reacts violently to light. \green However, it naturally heals in darkness."
+						user << "Aside from your new traits, you are mentally unchanged and retain your prior obligations."
+						human.set_species("Shadow")
 				user.regenerate_icons()
 			if("Immortality")
 				user << "<B>Your wish is granted, but at a terrible cost...</B>"
 				user << "The Wish Granter punishes you for your selfishness, claiming your soul and warping your body to match the darkness in your heart."
 				user.verbs += /mob/living/carbon/proc/immortality
-				user.dna.mutantrace = "shadow"
+				if(ishuman(user))
+					var/mob/living/carbon/human/human = user
+					if(human.species.name != "Shadow")
+						user << "\red Your flesh rapidly mutates!"
+						user << "<b>You are now a Shadow Person, a mutant race of darkness-dwelling humanoids.</b>"
+						user << "\red Your body reacts violently to light. \green However, it naturally heals in darkness."
+						user << "Aside from your new traits, you are mentally unchanged and retain your prior obligations."
+						human.set_species("Shadow")
 				user.regenerate_icons()
 			if("To Kill")
 				user << "<B>Your wish is granted, but at a terrible cost...</B>"
@@ -107,7 +128,14 @@
 				for(var/datum/objective/OBJ in user.mind.objectives)
 					user << "<B>Objective #[obj_count]</B>: [OBJ.explanation_text]"
 					obj_count++
-				user.dna.mutantrace = "shadow"
+				if(ishuman(user))
+					var/mob/living/carbon/human/human = user
+					if(human.species.name != "Shadow")
+						user << "\red Your flesh rapidly mutates!"
+						user << "<b>You are now a Shadow Person, a mutant race of darkness-dwelling humanoids.</b>"
+						user << "\red Your body reacts violently to light. \green However, it naturally heals in darkness."
+						user << "Aside from your new traits, you are mentally unchanged and retain your prior obligations."
+						human.set_species("Shadow")
 				user.regenerate_icons()
 			if("Peace")
 				user << "<B>Whatever alien sentience that the Wish Granter possesses is satisfied with your wish. There is a distant wailing as the last of the Faithless begin to die, then silence.</B>"

@@ -98,6 +98,10 @@
 	h_style = "blue IPC screen"
 	..(new_loc, "Machine")
 
+/mob/living/carbon/human/shadow/New(var/new_loc)
+	h_style = "Bald"
+	..(new_loc, "Shadow")
+
 /mob/living/carbon/human/Bump(atom/movable/AM as mob|obj, yes)
 	if ((!( yes ) || now_pushing))
 		return
