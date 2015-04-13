@@ -89,7 +89,7 @@
 			update_icon()
 		else if(clown_check(user))
 			// This used to go before the assembly check, but that has absolutely zero to do with priming the damn thing.  You could spam the admins with it.
-			var/log_str = "[key_name(usr)]<A HREF='?_src_=holder;adminmoreinfo=\ref[usr]'>?</A> has primed a [name] for detonation at <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[bombturf.x];Y=[bombturf.y];Z=[bombturf.z]'>[A.name] (JMP)</a>."
+			var/log_str = "[key_name(usr)][isAntag(usr) ? "(ANTAG)" : ""]<A HREF='?_src_=holder;adminmoreinfo=\ref[usr]'>?</A> has primed a [name] for detonation at <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[bombturf.x];Y=[bombturf.y];Z=[bombturf.z]'>[A.name] (JMP)</a>."
 			msg_admin_attack(log_str)
 			log_game(log_str)
 			bombers += "[log_str]"
@@ -137,7 +137,7 @@
 						contained = "\[[contained]\]"
 				var/turf/bombturf = get_turf(loc)
 				var/area/A = bombturf.loc
-				var/log_str = "[key_name(usr)]<A HREF='?_src_=holder;adminmoreinfo=\ref[usr]'>?</A> has completed [name] at <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[bombturf.x];Y=[bombturf.y];Z=[bombturf.z]'>[A.name] (JMP)</a> [contained]."
+				var/log_str = "[key_name(usr)][isAntag(usr) ? "(ANTAG)" : ""]<A HREF='?_src_=holder;adminmoreinfo=\ref[usr]'>?</A> has completed [name] at <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[bombturf.x];Y=[bombturf.y];Z=[bombturf.z]'>[A.name] (JMP)</a> [contained]."
 				msg_admin_attack(log_str)
 				log_game(log_str)
 			else

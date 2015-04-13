@@ -61,7 +61,7 @@ proc/random_name(gender, species = "Human")
 		else
 			return capitalize(pick(first_names_male)) + " " + capitalize(pick(last_names))
 	else
-		return current_species.get_random_name(gender)	
+		return current_species.get_random_name(gender)
 
 proc/random_skin_tone()
 	switch(pick(60;"caucasian", 15;"afroamerican", 10;"african", 10;"latino", 5;"albino"))
@@ -130,7 +130,7 @@ Proc for attack log creation, because really why not
 5 is additional information, anything that needs to be added
 */
 
-proc/add_logs(mob/target, mob/user, what_done, var/object=null, var/addition=null)
+proc/add_logs(mob/target, mob/user, what_done, var/object=null, var/addition=null) //Victim : Attacker : what they did : what they did it with : extra notes
 	var/list/ignore=list("shaked","CPRed","grabbed","punched")
 	if(!user)
 		return
@@ -142,5 +142,5 @@ proc/add_logs(mob/target, mob/user, what_done, var/object=null, var/addition=nul
 	if(target.client)
 		if(what_done in ignore) return
 		if(target == user)return
-		msg_admin_attack("[user.name][ismob(user) ? "([user.ckey])" : ""] [what_done] [target.name][ismob(target) ? "([target.ckey])" : ""][object ? " with [object]" : " "][addition](<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[target.x];Y=[target.y];Z=[target.z]'>JMP</a>)")
+		msg_admin_attack("[user.name][ismob(user) ? "([user.ckey])" : ""][isAntag(user) ? "(ANTAG)" : ""] [what_done] [target.name][ismob(target) ? "([target.ckey])" : ""][object ? " with [object]" : " "][addition](<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[target.x];Y=[target.y];Z=[target.z]'>JMP</a>)")
 
