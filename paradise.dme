@@ -377,6 +377,7 @@
 #include "code\game\machinery\OpTable.dm"
 #include "code\game\machinery\overview.dm"
 #include "code\game\machinery\PDApainter.dm"
+#include "code\game\machinery\photo_printer.dm"
 #include "code\game\machinery\poolcontroller.dm"
 #include "code\game\machinery\portable_tag_turret.dm"
 #include "code\game\machinery\portable_turret.dm"
