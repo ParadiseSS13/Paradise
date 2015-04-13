@@ -28,6 +28,7 @@ var/global/list/datum/stack_recipe/metal_recipes = list ( \
 		), 2), \
 	null, \
 	new/datum/stack_recipe("table parts", /obj/item/weapon/table_parts, 2), \
+	new/datum/stack_recipe("glass table frame parts", /obj/item/weapon/table_parts/glass, 2), \
 	new/datum/stack_recipe("rack parts", /obj/item/weapon/rack_parts), \
 	new/datum/stack_recipe("closet", /obj/structure/closet, 2, time = 15, one_per_turf = 1, on_floor = 1), \
 	null, \

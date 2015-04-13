@@ -485,6 +485,12 @@
 	icon_state = "wood_tableparts"
 	flags = null
 
+/obj/item/weapon/table_parts/glass
+	name = "glass table parts"
+	desc = "fragile!"
+	icon_state = "glass_tableparts"
+	flags = null
+
 /obj/item/weapon/wire
 	desc = "This is just a simple piece of regular insulated wire."
 	name = "wire"
