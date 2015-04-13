@@ -555,20 +555,13 @@
 	unarmed_type = /datum/unarmed_attack/punch
 
 	flags = IS_WHITELISTED | NO_BREATHE | HAS_LIPS | NO_INTORGANS | NO_SCAN
+	bodyflags = HAS_SKIN_COLOR
 	bloodflags = BLOOD_SLIME
 
 	has_organ = list(
 		"brain" = /obj/item/organ/brain/slime
 		)
 
-
-/datum/species/slime/handle_post_spawn(var/mob/living/carbon/human/H)
-	H.dna = new /datum/dna(null)
-	H.dna.real_name = H.real_name
-	H.dna.species = H.species.name
-	H.dna.mutantrace = "slime"
-
-	..()
 
 /datum/species/grey
 	name = "Grey"

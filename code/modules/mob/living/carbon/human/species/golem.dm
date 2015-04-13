@@ -10,6 +10,8 @@
 	blood_color = "#515573"
 	flesh_color = "#137E8F"
 
+	brute_mod = 0.8
+
 	has_organ = list(
 		"brain" = /obj/item/organ/brain/golem
 		)
