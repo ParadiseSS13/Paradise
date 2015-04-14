@@ -257,3 +257,24 @@
 	IgniteMob()
 
 //Mobs on Fire end
+
+/mob/living/proc/grabbedby(mob/living/carbon/user,var/supress_message = 0)
+	if(user == src || anchored)
+		return 0
+	if(!(status_flags & CANPUSH))
+		return 0
+
+	add_logs(user, src, "grabbed", addition="passively")
+
+	var/obj/item/weapon/grab/G = new /obj/item/weapon/grab(user, src)
+	if(buckled)
+		user << "<span class='notice'>You cannot grab [src], \he is buckled in!</span>"
+	if(!G)	//the grab will delete itself in New if src is anchored
+		return 0
+	user.put_in_active_hand(G)
+	G.synch()
+	LAssailant = user
+
+	playsound(src.loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
+	if(!supress_message)
+		visible_message("<span class='warning'>[user] has grabbed [src] passively!</span>")
