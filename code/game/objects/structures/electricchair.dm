@@ -9,6 +9,16 @@
 /obj/structure/stool/bed/chair/e_chair/New()
 	..()
 	overlays += image('icons/obj/objects.dmi', src, "echair_over", MOB_LAYER + 1, dir)
+	spawn(2)
+		if(isnull(part)) //This e-chair was not custom built
+			part = new(src)
+			var/obj/item/clothing/head/helmet/part1 = new(part)
+			var/obj/item/device/radio/electropack/part2 = new(part)
+			part2.frequency = 1445
+			part2.code = 6
+			part2.master = part
+			part.part1 = part1
+			part.part2 = part2
 	return
 
 /obj/structure/stool/bed/chair/e_chair/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
@@ -16,12 +26,6 @@
 		var/obj/structure/stool/bed/chair/C = new /obj/structure/stool/bed/chair(loc)
 		playsound(loc, 'sound/items/Ratchet.ogg', 50, 1)
 		C.dir = dir
-		if(isnull(part))
-			part = new(src)
-			var/obj/item/clothing/head/helmet/part1 = new(part)
-			var/obj/item/device/radio/electropack/part2 = new(part)
-			part.part1 = part1
-			part.part2 = part2
 		part.loc = loc
 		part.master = null
 		part = null
@@ -78,7 +82,7 @@
 		sleep(1)
 		buckled_mob.burn_skin(90)
 		sleep(5)
-		buckled_mob.burn_skin(max(rand(5,20),rand(5,20)))
+		buckled_mob.burn_skin(max(rand(5,20),rand(5,20),rand(5,20)))
 
 	A.power_light = light
 	A.updateicon()
