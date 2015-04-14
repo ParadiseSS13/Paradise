@@ -901,8 +901,8 @@
 				usr << "The plant looks \red unhealthy."
 		else
 			usr << "[src] is empty."
-		usr << "Water: [round(waterlevel,0.1)]/100"
-		usr << "Nutrient: [round(nutrilevel,0.1)]/10"
+		usr << "Water: [round(waterlevel,0.1)]/[maxwater]"
+		usr << "Nutrient: [round(nutrilevel,0.1)]/[maxnutri]"
 		if(weedlevel >= 5)
 			usr << "[src] is \red filled with weeds!"
 		if(pestlevel >= 5)
