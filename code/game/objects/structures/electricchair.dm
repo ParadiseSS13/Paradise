@@ -1,11 +1,10 @@
-
 /obj/structure/stool/bed/chair/e_chair
 	name = "electric chair"
 	desc = "Looks absolutely SHOCKING!"
 	icon_state = "echair0"
-	var/on = 0
 	var/obj/item/assembly/shock_kit/part = null
 	var/last_time = 1.0
+	var/delay_time = 50
 
 /obj/structure/stool/bed/chair/e_chair/New()
 	..()
@@ -17,6 +16,12 @@
 		var/obj/structure/stool/bed/chair/C = new /obj/structure/stool/bed/chair(loc)
 		playsound(loc, 'sound/items/Ratchet.ogg', 50, 1)
 		C.dir = dir
+		if(isnull(part))
+			part = new(src)
+			var/obj/item/clothing/head/helmet/part1 = new(part)
+			var/obj/item/device/radio/electropack/part2 = new(part)
+			part.part1 = part1
+			part.part2 = part2
 		part.loc = loc
 		part.master = null
 		part = null
@@ -24,20 +29,17 @@
 		return
 	return
 
-/obj/structure/stool/bed/chair/e_chair/verb/toggle()
-	set name = "Toggle Electric Chair"
+/obj/structure/stool/bed/chair/e_chair/verb/activate_e_chair()
+	set name = "Activate Electric Chair"
 	set category = "Object"
 	set src in oview(1)
 	if(usr.stat || !usr.canmove || usr.restrained())
 		return
-	if(on)
-		on = 0
-		icon_state = "echair0"
-	else
-		on = 1
-		icon_state = "echair1"
-		shock()
-	usr << "<span class='notice'>You switch [on ? "on" : "off"] [src].</span>"
+	if(last_time + delay_time > world.time)
+		usr << "<span class='warning'>\The [src] is not ready yet!</span>"
+		return
+	usr << "<span class='notice'>You activate \the [src].</span>"
+	shock()
 	return
 
 /obj/structure/stool/bed/chair/e_chair/rotate()
@@ -47,11 +49,13 @@
 	return
 
 /obj/structure/stool/bed/chair/e_chair/proc/shock()
-	if(!on)
-		return
-	if(last_time + 50 > world.time)
+	if(last_time + delay_time > world.time)
 		return
 	last_time = world.time
+
+	icon_state = "echair1"
+	spawn(delay_time)
+		icon_state = "echair0"
 
 	// special power handling
 	var/area/A = get_area(src)
@@ -59,22 +63,22 @@
 		return
 	if(!A.powered(EQUIP))
 		return
-	A.use_power(EQUIP, 5000)
+	A.use_power(5000, EQUIP)
 	var/light = A.power_light
 	A.updateicon()
 
-	flick("echair1", src)
+	flick("echair_shock", src)
 	var/datum/effect/effect/system/spark_spread/s = new /datum/effect/effect/system/spark_spread
 	s.set_up(12, 1, src)
 	s.start()
+	visible_message("<span class='danger'>The electric chair went off!</span>", "<span class='danger'>You hear a deep sharp shock!</span>")
 	if(buckled_mob)
-		buckled_mob.burn_skin(85)
+		buckled_mob.burn_skin(90)
 		buckled_mob << "<span class='danger'>You feel a deep shock course through your body!</span>"
 		sleep(1)
-		buckled_mob.burn_skin(85)
-		buckled_mob.Stun(600)
-	on = 0
-	visible_message("<span class='danger'>The electric chair went off!</span>", "<span class='danger'>You hear a deep sharp shock!</span>")
+		buckled_mob.burn_skin(90)
+		sleep(5)
+		buckled_mob.burn_skin(max(rand(5,20),rand(5,20)))
 
 	A.power_light = light
 	A.updateicon()
