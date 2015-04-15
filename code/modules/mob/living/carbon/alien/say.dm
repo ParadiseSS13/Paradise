@@ -15,11 +15,21 @@
 	if(copytext(message,1,2) == "*")
 		return emote(copytext(message,2))
 
+	var/needtohack = 1 //hacky way to get around stupid byond shit
 	var/datum/language/speaking = parse_language(message)
+
+	if(speaking == null)
+		var/quickcheck = get_default_language()
+		if(quickcheck == null)
+			speaking = all_languages["Xenomorph"] //this is the hackiest thing, no clue how to avoid it
+			needtohack = 0
+		else
+			speaking = get_default_language()
+			needtohack = 0
+
 	if(speaking)
-		message = copytext(message,2+length(speaking.key))
-	else
-		speaking = all_languages["Xenomorph"]
+		if(needtohack)
+			message = copytext(message,2+length(speaking.key))
 
 	var/ending = copytext(message, length(message))
 	if (speaking)

@@ -69,10 +69,17 @@
 			message = trim(copytext(message,3))
 
 	//parse language key and consume it
+	var/needtohack = 1 //hacky way to get around stupid byond shit
 	var/datum/language/speaking = parse_language(message)
-	if (speaking)
+
+	if(speaking == null)
+		speaking = get_default_language()
+		needtohack = 0
+
+	if (speaking && !(speaking == null))
 		verb = speaking.speech_verb
-		message = trim(copytext(message,2+length(speaking.key)))
+		if(needtohack)
+			message = trim(copytext(message,2+length(speaking.key)))
 
 		if(speaking.flags & HIVEMIND)
 			speaking.broadcast(src,trim(message))
