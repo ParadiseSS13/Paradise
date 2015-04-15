@@ -18,7 +18,6 @@ var/list/organ_cache = list()
 	var/robotic = 0 //For being a robot
 	var/rejecting   // Is this organ already being rejected?
 
-	var/list/transplant_data
 	var/list/datum/autopsy_data/autopsy_data = list()
 	var/list/trace_chemicals = list() // traces of chemicals in the organ,
 									  // links chemical IDs to number of ticks for which they'll stay in the blood
@@ -76,14 +75,14 @@ var/list/organ_cache = list()
 		if(B && prob(40))
 			reagents.remove_reagent("blood",0.1)
 			blood_splatter(src,B,1)
+		if(prob(5)) //How about we not have organs become completely useless less than a minute after removal?
+			damage += 1
 
-		damage += rand(1,3)
 		if(damage >= max_damage)
 			die()
 	else if(owner.bodytemperature >= 170)	//cryo stops germs from moving and doing their bad stuffs
 		//** Handle antibiotics and curing infections
 		handle_antibiotics()
-		handle_rejection()
 		handle_germ_effects()
 
 /obj/item/organ/proc/handle_germ_effects()
@@ -110,28 +109,6 @@ var/list/organ_cache = list()
 
 		if (prob(3))	//about once every 30 seconds
 			take_damage(1,silent=prob(30))
-
-/obj/item/organ/proc/handle_rejection()
-	// Process unsuitable transplants. TODO: consider some kind of
-	// immunosuppressant that changes transplant data to make it match.
-	if(transplant_data)
-		if(!rejecting && prob(20) && owner.dna && blood_incompatible(transplant_data["blood_type"],owner.dna.b_type,owner.species,transplant_data["species"]))
-			rejecting = 1
-		else
-			rejecting++ //Rejection severity increases over time.
-			if(rejecting % 10 == 0) //Only fire every ten rejection ticks.
-				switch(rejecting)
-					if(1 to 50)
-						take_damage(1)
-					if(51 to 200)
-						owner.reagents.add_reagent("toxin", 1)
-						take_damage(1)
-					if(201 to 500)
-						take_damage(rand(2,3))
-						owner.reagents.add_reagent("toxin", 2)
-					if(501 to INFINITY)
-						take_damage(4)
-						owner.reagents.add_reagent("toxin", rand(3,5))
 
 /obj/item/organ/proc/receive_chem(chemical as obj)
 	return 0
@@ -261,17 +238,6 @@ var/list/organ_cache = list()
 /obj/item/organ/proc/replaced(var/mob/living/carbon/human/target,var/obj/item/organ/external/affected)
 
 	if(!istype(target)) return
-
-	var/datum/reagent/blood/transplant_blood = locate(/datum/reagent/blood) in reagents.reagent_list
-	transplant_data = list()
-	if(!transplant_blood)
-		transplant_data["species"] =    target.species.name
-		transplant_data["blood_type"] = target.dna.b_type
-		transplant_data["blood_DNA"] =  target.dna.unique_enzymes
-	else
-		transplant_data["species"] =    transplant_blood.data["species"]
-		transplant_data["blood_type"] = transplant_blood.data["blood_type"]
-		transplant_data["blood_DNA"] =  transplant_blood.data["blood_DNA"]
 
 	owner = target
 	processing_objects -= src
