@@ -244,6 +244,9 @@
 /mob/living/carbon/proc/eyecheck()
 	return 0
 
+/mob/living/carbon/proc/tintcheck()
+	return 0
+
 /mob/living/carbon/proc/getDNA()
 	return dna
 

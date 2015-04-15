@@ -24,6 +24,10 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 	"4" = image("icon" = 'icons/mob/screen1_full.dmi', "icon_state" = "brutedamageoverlay4"),\
 	"5" = image("icon" = 'icons/mob/screen1_full.dmi', "icon_state" = "brutedamageoverlay5"),\
 	"6" = image("icon" = 'icons/mob/screen1_full.dmi', "icon_state" = "brutedamageoverlay6"))
+
+#define TINT_IMPAIR 2			//Threshold of tint level to apply weld mask overlay
+#define TINT_BLIND 3			//Threshold of tint level to obscure vision fully
+
 /mob/living/carbon/human
 	var/oxygen_alert = 0
 	var/toxins_alert = 0
@@ -36,6 +40,7 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 	var/exposedtimenow = 0
 	var/firstexposed = 0
 	var/heartbeat = 0
+	var/tinttotal = 0				// Total level of visually impairing items
 
 /mob/living/carbon/human/Life()
 	set invisibility = 0
@@ -52,6 +57,7 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 	//to find it.
 	blinded = null
 	fire_alert = 0 //Reset this here, because both breathe() and handle_environment() have a chance to set it.
+	tinttotal = tintcheck() //here as both hud updates and status updates call it
 
 	//TODO: seperate this out
 	// update the current life tick, can be used to e.g. only do something every 4 ticks
@@ -1008,9 +1014,9 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 			else if(eye_blind)			//blindness, heals slowly over time
 				eye_blind = max(eye_blind-1,0)
 				blinded = 1
-			else if(istype(glasses, /obj/item/clothing/glasses/sunglasses/blindfold))	//resting your eyes with a blindfold heals blurry eyes faster
+			else if(tinttotal >= TINT_BLIND)	//covering your eyes heals blurry eyes faster
 				eye_blurry = max(eye_blurry-3, 0)
-				blinded = 1
+			//	blinded = 1						//now handled under /handle_regular_hud_updates()
 			else if(eye_blurry)	//blurry eyes heal slowly
 				eye_blurry = max(eye_blurry-1, 0)
 
@@ -1338,6 +1344,16 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 							bodytemp.icon_state = "temp-1"
 						else
 							bodytemp.icon_state = "temp0"
+
+//	This checks how much the mob's eyewear impairs their vision
+			if(tinttotal >= TINT_IMPAIR)
+				if(tinted_weldhelh)
+					if(tinttotal >= TINT_BLIND)
+						blinded = 1								// You get the sudden urge to learn to play keyboard
+						client.screen += global_hud.darkMask
+					else
+						client.screen += global_hud.darkMask
+
 			if(blind)
 				if(blinded)		blind.layer = 18
 				else			blind.layer = 0
@@ -1352,19 +1368,6 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 
 			if(eye_blurry)			client.screen += global_hud.blurry
 			if(druggy)				client.screen += global_hud.druggy
-
-			var/masked = 0
-
-			if( istype(head, /obj/item/clothing/head/welding) || istype(head, /obj/item/clothing/head/helmet/space/unathi))
-				var/obj/item/clothing/head/welding/O = head
-				if(!O.up && tinted_weldhelh)
-					client.screen += global_hud.darkMask
-					masked = 1
-
-			if(!masked && istype(glasses, /obj/item/clothing/glasses/welding) )
-				var/obj/item/clothing/glasses/welding/O = glasses
-				if(!O.up && tinted_weldhelh)
-					client.screen += global_hud.darkMask
 
 			if(machine)
 				if(!machine.check_eye(src))		reset_view(null)

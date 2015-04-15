@@ -137,6 +137,8 @@
 	icon_state = "sun"
 	item_state = "sunglasses"
 	darkness_view = 1
+	flash_protect = 1
+	tint = 1
 	species_fit = list("Vox")
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/eyes.dmi'
@@ -148,6 +150,8 @@
 	icon_state = "sun"
 	item_state = "sunglasses"
 	darkness_view = 1
+	flash_protect = 1
+	tint = 1
 	species_fit = list("Vox")
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/eyes.dmi'
@@ -160,6 +164,8 @@
 	item_state = "welding-g"
 	icon_action_button = "action_welding_g"
 	var/up = 0
+	flash_protect = 2
+	tint = 2
 	species_fit = list("Vox")
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/eyes.dmi'
@@ -184,12 +190,16 @@
 			flags_inv |= HIDEEYES
 			icon_state = initial(icon_state)
 			usr << "You flip the [src] down to protect your eyes."
+			flash_protect = 2
+			tint = initial(tint) //better than istype
 		else
 			src.up = !src.up
 			src.flags &= ~HEADCOVERSEYES
 			flags_inv &= ~HIDEEYES
 			icon_state = "[initial(icon_state)]up"
 			usr << "You push the [src] up out of your face."
+			flash_protect = 0
+			tint = 0
 
 		usr.update_inv_glasses()
 
@@ -198,6 +208,8 @@
 	desc = "Welding goggles made from more expensive materials, strangely smells like potatoes."
 	icon_state = "rwelding-g"
 	item_state = "rwelding-g"
+	flash_protect = 2
+	tint = 0
 	icon_action_button = "action_welding_g"
 	species_fit = list("Vox")
 	sprite_sheets = list(
@@ -213,6 +225,8 @@
 	icon_state = "blindfold"
 	item_state = "blindfold"
 	//vision_flags = BLIND
+	flash_protect = 2
+	tint = 3				//to make them blind
 	species_fit = list("Vox")
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/eyes.dmi'
@@ -230,6 +244,8 @@
 	desc = "Strangely ancient technology used to help provide rudimentary eye cover. Larger than average enhanced shielding blocks many flashes."
 	icon_state = "bigsunglasses"
 	item_state = "bigsunglasses"
+	flash_protect = 1
+	tint = 1
 	species_fit = list("Vox")
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/eyes.dmi'
@@ -240,6 +256,8 @@
 	desc = "Sunglasses with a HUD."
 	icon_state = "sunhud"
 	darkness_view = 1
+	flash_protect = 1
+	tint = 1
 	var/obj/item/clothing/glasses/hud/security/hud = null
 	species_fit = list("Vox")
 	sprite_sheets = list(
@@ -259,6 +277,7 @@
 	origin_tech = "magnets=3"
 	vision_flags = SEE_MOBS
 	invisa_view = 2
+	flash_protect = -1
 
 	emp_act(severity)
 		if(istype(src.loc, /mob/living/carbon/human))

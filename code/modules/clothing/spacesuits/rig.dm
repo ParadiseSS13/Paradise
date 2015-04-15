@@ -490,6 +490,7 @@
 	_color = "medical"
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES
 	armor = list(melee = 10, bullet = 5, laser = 10, energy = 5, bomb = 10, bio = 100, rad = 50)
+	flash_protect = 0
 
 /obj/item/clothing/suit/space/rig/medical
 	icon_state = "rig-medical"
