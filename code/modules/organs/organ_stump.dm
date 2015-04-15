@@ -1,7 +1,7 @@
 /obj/item/organ/external/stump
 	name = "limb stump"
 	icon_name = ""
-	cannot_amputate = 1
+	cannot_amputate = 0 //You need to remove stumps to attach new limbs, but you can't remove stumps... What the fuck?
 
 /obj/item/organ/external/stump/New(var/mob/living/carbon/holder, var/internal, var/obj/item/organ/external/limb)
 	if(istype(limb))
