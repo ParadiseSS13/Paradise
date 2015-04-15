@@ -718,13 +718,16 @@
 
 /obj/structure/table/glass
 	name = "glass table"
-	desc = "Looks fragile. You should totally flip it. It's begging you too."
+	desc = "Looks fragile. You should totally flip it. It is begging for it."
 	icon_state = "glass_table"
 	parts = /obj/item/weapon/table_parts/glass
 	health = 10
 
 /obj/structure/table/glass/flip(var/direction)
-	src.visible_message("<span class='warning'>\The [src] shatters, and the frame collapses!</span>")
+	src.collapse()
+
+/obj/structure/table/glass/proc/collapse() //glass table collapse is called twice in this code, more efficent to just have a proc
+	src.visible_message("<span class='warning'>\The [src] shatters, and the frame collapses!</span>", "<span class='warning'>You hear metal collapsing and glass shattering.</span>")
 	new /obj/item/weapon/table_parts/glass(loc)
 	getFromPool(/obj/item/weapon/shard, loc)
 	if(prob(50)) //50% chance to spawn two shards
@@ -744,9 +747,10 @@
 		if(!G.confirm())
 			return
 		G.affecting.loc = src.loc
-		G.affecting.Weaken(5)
-		visible_message("\red [G.assailant] puts [G.affecting] on the table.")
+		G.affecting.Weaken(7)
+		visible_message("<span class='warning'>[G.assailant] smashes [G.affecting] onto \the [src]!</span>")
 		del(I)
+		src.collapse()
 		return
 
 	if (istype(I, /obj/item/weapon/wrench))
@@ -768,7 +772,7 @@
 		playsound(src.loc, 'sound/weapons/blade1.ogg', 50, 1)
 		playsound(src.loc, "sparks", 50, 1)
 		for(var/mob/O in viewers(user, 4))
-			O.show_message("\blue The wooden table was sliced apart by [user]!", 1, "\red You hear glass being sliced apart.", 2)
+			O.show_message("<span class='notice'>\The [src] was sliced apart by [user]!</span>", 1, "<span class='warning'>You hear glass being sliced apart.</span>", 2)
 		new /obj/item/weapon/table_parts/glass( src.loc )
 		new /obj/item/stack/sheet/glass( src.loc )
 		del(src)
