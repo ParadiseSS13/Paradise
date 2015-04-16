@@ -134,6 +134,7 @@
 #include "code\datums\computerfiles.dm"
 #include "code\datums\datacore.dm"
 #include "code\datums\datumvars.dm"
+#include "code\datums\martial.dm"
 #include "code\datums\medical_effects.dm"
 #include "code\datums\mind.dm"
 #include "code\datums\mixed.dm"

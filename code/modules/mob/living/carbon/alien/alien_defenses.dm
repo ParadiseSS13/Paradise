@@ -1,6 +1,6 @@
 /mob/living/carbon/alien/hitby(atom/movable/AM)
 	..(AM, 1)
-	
+
 /*Code for aliens attacking aliens. Because aliens act on a hivemind, I don't see them as very aggressive with each other.
 As such, they can either help or harm other aliens. Help works like the human help command while harm is a simple nibble.
 In all, this is a lot like the monkey code. /N
@@ -25,23 +25,8 @@ In all, this is a lot like the monkey code. /N
 			visible_message("<span class='notice'>[M.name] nuzzles [src] trying to wake it up!</span>")
 
 		if ("grab")
-			if (M == src || anchored)
-				return
-			if (!(status_flags & CANPUSH))
-				return
-
-			var/obj/item/weapon/grab/G = new /obj/item/weapon/grab(M, src )
-
-			M.put_in_active_hand(G)
-
-			grabbed_by += G
-			G.synch()
-
-			LAssailant = M
-
-			for(var/mob/O in viewers(src, null))
-				if ((O.client && !( O.blinded )))
-					O.show_message(text("\red [] has grabbed [] passively!", M, src), 1)
+			src.grabbedby(M)
+			return 1
 
 		else
 			if (health > 0)
@@ -69,23 +54,7 @@ In all, this is a lot like the monkey code. /N
 		if("help")
 			help_shake_act(M)
 		if("grab")
-			if (M == src || anchored)
-				return
-			if (!(status_flags & CANPUSH))
-				return
-
-			var/obj/item/weapon/grab/G = new /obj/item/weapon/grab(M, src )
-
-			M.put_in_active_hand(G)
-
-			grabbed_by += G
-			G.synch()
-
-			LAssailant = M
-
-			for(var/mob/O in viewers(src, null))
-				if ((O.client && !( O.blinded )))
-					O.show_message(text("\red [] has grabbed [] passively!", M, src), 1)
+			src.grabbedby(M)
 		if ("harm", "disarm")
 			return 1
 	return 0
