@@ -98,6 +98,14 @@
 	build_path = /obj/item/weapon/wrench
 	category = list("initial","Tools")
 
+/datum/design/spraycan
+	name = "Spraycan"
+	id = "spraycan"
+	build_type = AUTOLATHE
+	materials = list("$metal" = 100, "$glass" = 100)
+	build_path = /obj/item/toy/crayon/spraycan
+	category = list("initial", "Tools")
+
 /datum/design/airalarm_electronics
 	name = "Air Alarm Electronics"
 	id = "airalarm_electronics"

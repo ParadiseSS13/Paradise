@@ -42,7 +42,9 @@ var/global/list/limb_icon_cache = list()
 			mob_icon.Blend(eyes_icon, ICON_OVERLAY)
 
 	if(owner.lip_style && (owner.species && (owner.species.flags & HAS_LIPS)))
-		mob_icon.Blend(new/icon('icons/mob/human_face.dmi', "lips_[owner.lip_style]_s"), ICON_OVERLAY)
+		var/image/lips = image("icon"='icons/mob/human_face.dmi', "icon_state"="lips_[owner.lip_style]_s")
+		lips.color = owner.lip_color
+		mob_icon.Blend(lips, ICON_OVERLAY)
 
 	if(owner.f_style)
 		var/datum/sprite_accessory/facial_hair_style = facial_hair_styles_list[owner.f_style]
