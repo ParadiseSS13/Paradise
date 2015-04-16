@@ -16,7 +16,7 @@
 		if(stat == 2)
 			return say_dead(message)
 		return
-		
+
 	if (is_muzzled())
 		src << "<span class='danger'>You're muzzled and cannot speak!</span>"
 		return
@@ -40,8 +40,8 @@
 	var/datum/language/speaking = parse_language(message)
 	if(speaking)
 		message = copytext(message,2+length(speaking.key))
-	else if(species.default_language)
-		speaking = all_languages[species.default_language]
+	else
+		speaking = get_default_language()
 
 	var/ending = copytext(message, length(message))
 	if (speaking)

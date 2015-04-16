@@ -1397,6 +1397,15 @@
 	else
 		return 0
 
+/mob/living/carbon/human/get_default_language()
+	if(default_language)
+		return default_language
+
+	if(!species)
+		return null
+	return species.default_language ? all_languages[species.default_language] : null
+
+
 /mob/living/carbon/human/proc/bloody_doodle()
 	set category = "IC"
 	set name = "Write in blood"
