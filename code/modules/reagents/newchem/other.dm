@@ -288,3 +288,41 @@ datum/reagent/fartonium/on_mob_life(var/mob/living/M as mob)
 					M.adjustBruteLoss(1)
 	..()
 	return
+
+
+///Alchemical Reagents
+
+datum/reagent/eyenewt
+	name = "Eye of newt"
+	id = "eyenewt"
+	description = "A potent alchemic ingredient."
+	reagent_state = LIQUID
+	color = "#050519"
+
+datum/reagent/toefrog
+	name = "Toe of frog"
+	id = "toefrog"
+	description = "A potent alchemic ingredient."
+	reagent_state = LIQUID
+	color = "#092D09"
+
+datum/reagent/woolbat
+	name = "Wool of bat"
+	id = "woolbat"
+	description = "A potent alchemic ingredient."
+	reagent_state = LIQUID
+	color = "#080808"
+
+datum/reagent/tonguedog
+	name = "Tongue of dog"
+	id = "tonguedog"
+	description = "A potent alchemic ingredient."
+	reagent_state = LIQUID
+	color = "#2D0909"
+
+datum/reagent/triplepiss
+	name = "Triplepiss"
+	id = "triplepiss"
+	description = "Ewwwwwwwww."
+	reagent_state = LIQUID
+	color = "#857400"

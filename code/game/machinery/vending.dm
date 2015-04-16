@@ -768,9 +768,11 @@
 	icon_state = "coffee"
 	icon_vend = "coffee-vend"
 	vend_delay = 34
-	products = list(/obj/item/weapon/reagent_containers/food/drinks/coffee = 25,/obj/item/weapon/reagent_containers/food/drinks/tea = 25,/obj/item/weapon/reagent_containers/food/drinks/h_chocolate = 25)
+	products = list(/obj/item/weapon/reagent_containers/food/drinks/coffee = 25,/obj/item/weapon/reagent_containers/food/drinks/tea = 25,/obj/item/weapon/reagent_containers/food/drinks/h_chocolate = 25,
+					/obj/item/weapon/reagent_containers/food/drinks/chocolate = 10, /obj/item/weapon/reagent_containers/food/drinks/chicken_soup = 10,/obj/item/weapon/reagent_containers/food/drinks/weightloss = 10)
 	contraband = list(/obj/item/weapon/reagent_containers/food/drinks/ice = 10)
-	prices = list(/obj/item/weapon/reagent_containers/food/drinks/coffee = 25, /obj/item/weapon/reagent_containers/food/drinks/tea = 25, /obj/item/weapon/reagent_containers/food/drinks/h_chocolate = 25)
+	prices = list(/obj/item/weapon/reagent_containers/food/drinks/coffee = 25, /obj/item/weapon/reagent_containers/food/drinks/tea = 25, /obj/item/weapon/reagent_containers/food/drinks/h_chocolate = 25, /obj/item/weapon/reagent_containers/food/drinks/chocolate = 25,
+				  /obj/item/weapon/reagent_containers/food/drinks/chicken_soup = 30,/obj/item/weapon/reagent_containers/food/drinks/weightloss = 50)
 	refill_canister = /obj/item/weapon/vending_refill/coffee
 
 /obj/machinery/vending/coffee/New()
@@ -786,16 +788,16 @@
 /obj/machinery/vending/snack
 	name = "Getmore Chocolate Corp"
 	desc = "A snack machine courtesy of the Getmore Chocolate Corporation, based out of Mars"
-	product_slogans = "Try our new nougat bar!;Twice the calories for half the price!"
+	product_slogans = "Try our new nougat bar!;Twice the calories for half the price!;Now featuring Discount Dan's food line!"
 	product_ads = "The healthiest!;Award-winning chocolate bars!;Mmm! So good!;Oh my god it's so juicy!;Have a snack.;Snacks are good for you!;Have some more Getmore!;Best quality snacks straight from mars.;We love chocolate!;Try our new jerky!"
 	icon_state = "snack"
-	products = list(/obj/item/weapon/reagent_containers/food/snacks/candy/candybar = 6,/obj/item/weapon/reagent_containers/food/drinks/dry_ramen = 6,/obj/item/weapon/reagent_containers/food/drinks/chicken_soup = 6,
-					/obj/item/weapon/reagent_containers/food/snacks/chips =6,/obj/item/weapon/reagent_containers/food/snacks/sosjerky = 6,/obj/item/weapon/reagent_containers/food/snacks/no_raisin = 6,
-					/obj/item/weapon/reagent_containers/food/snacks/spacetwinkie = 6,/obj/item/weapon/reagent_containers/food/snacks/cheesiehonkers = 6)
+	products = list(/obj/item/weapon/reagent_containers/food/snacks/candy/candybar = 6,/obj/item/weapon/reagent_containers/food/drinks/dry_ramen = 6,/obj/item/weapon/reagent_containers/food/snacks/chips =6,
+					/obj/item/weapon/reagent_containers/food/snacks/sosjerky = 6,/obj/item/weapon/reagent_containers/food/snacks/no_raisin = 6,/obj/item/weapon/reagent_containers/food/snacks/spacetwinkie = 6,
+					/obj/item/weapon/reagent_containers/food/snacks/cheesiehonkers = 6,/obj/item/weapon/reagent_containers/food/drinks/dansoup/random = 20,/obj/item/weapon/reagent_containers/food/snacks/danburrito/random = 20)
 	contraband = list(/obj/item/weapon/reagent_containers/food/snacks/syndicake = 6)
-	prices = list(/obj/item/weapon/reagent_containers/food/snacks/candy/candybar = 20,/obj/item/weapon/reagent_containers/food/drinks/dry_ramen = 30,/obj/item/weapon/reagent_containers/food/drinks/chicken_soup = 30,
+	prices = list(/obj/item/weapon/reagent_containers/food/snacks/candy/candybar = 20,/obj/item/weapon/reagent_containers/food/drinks/dry_ramen = 30,
 					/obj/item/weapon/reagent_containers/food/snacks/chips =25,/obj/item/weapon/reagent_containers/food/snacks/sosjerky = 30,/obj/item/weapon/reagent_containers/food/snacks/no_raisin = 20,
-					/obj/item/weapon/reagent_containers/food/snacks/spacetwinkie = 30,/obj/item/weapon/reagent_containers/food/snacks/cheesiehonkers = 25)
+					/obj/item/weapon/reagent_containers/food/snacks/spacetwinkie = 30,/obj/item/weapon/reagent_containers/food/snacks/cheesiehonkers = 25,/obj/item/weapon/reagent_containers/food/drinks/dansoup/random = 10,/obj/item/weapon/reagent_containers/food/snacks/danburrito/random = 12)
 	refill_canister = /obj/item/weapon/vending_refill/snack
 
 /obj/machinery/vending/snack/New()
@@ -842,6 +844,21 @@
 	component_parts += new /obj/item/weapon/vending_refill/cola(0)
 	component_parts += new /obj/item/weapon/vending_refill/cola(0)
 	component_parts += new /obj/item/weapon/vending_refill/cola(0)
+
+//New Cola Machine
+/obj/machinery/vending/soda
+	name = "Donk Co. Cola"
+	desc = "A cola vendor provided by Donk Company, Inc."
+	icon_state = "soda"
+	product_slogans = "Donk Co. Cola: Refreshing, delicious, and robust!"
+	product_ads = "Refreshing!;Hope you're thirsty!;Over 1 million drinks sold!;Thirsty? Why not cola?;Please, have a drink!;Drink up!;The best drinks in space."
+	products = list(/obj/item/weapon/reagent_containers/food/drinks/cans/robust = 10, /obj/item/weapon/reagent_containers/food/drinks/cans/pubber = 10, /obj/item/weapon/reagent_containers/food/drinks/cans/grifeo = 10,
+					/obj/item/weapon/reagent_containers/food/drinks/cans/grones = 10, /obj/item/weapon/reagent_containers/food/drinks/cans/runoff = 10, /obj/item/weapon/reagent_containers/food/drinks/cans/horror = 10,
+					/obj/item/weapon/reagent_containers/food/drinks/cans/orangeaid = 10, /obj/item/weapon/reagent_containers/food/drinks/cans/limeaid = 10, /obj/item/weapon/reagent_containers/food/drinks/cans/decirprevo = 10)
+	prices = list(/obj/item/weapon/reagent_containers/food/drinks/cans/robust = 35, /obj/item/weapon/reagent_containers/food/drinks/cans/pubber = 35, /obj/item/weapon/reagent_containers/food/drinks/cans/grifeo = 35,
+					  /obj/item/weapon/reagent_containers/food/drinks/cans/grones =	35, /obj/item/weapon/reagent_containers/food/drinks/cans/runoff = 35, /obj/item/weapon/reagent_containers/food/drinks/cans/horror = 35,
+					  /obj/item/weapon/reagent_containers/food/drinks/cans/orangeaid = 50, /obj/item/weapon/reagent_containers/food/drinks/cans/limeaid = 50, /obj/item/weapon/reagent_containers/food/drinks/cans/decirprevo = 60)
+
 
 //This one's from bay12
 /obj/machinery/vending/cart
