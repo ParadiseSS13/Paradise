@@ -332,6 +332,12 @@ proc/get_damage_icon_part(damage_state, body_part)
 	if(update_icons)
 		update_icons()
 
+	if(lip_style  && species && species.flags & HAS_LIPS)
+		var/icon/lips = icon("icon"='icons/mob/human_face.dmi', "icon_state"="lips_[lip_style]_s")
+		lips.Blend(lip_color, ICON_ADD)
+
+		stand_icon.Blend(lips, ICON_OVERLAY)
+
 	//tail
 	update_tail_showing(0)
 
