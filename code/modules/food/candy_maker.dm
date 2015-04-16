@@ -323,8 +323,7 @@
 		for(var/i=1,i<efficiency,i++)
 			cooked = new cooked.type(loc)
 		if(byproduct)
-			byproduct.loc = src.loc
-			byproduct = new byproduct.type(loc)
+			new byproduct(loc)
 		return
 
 /obj/machinery/candy_maker/proc/wzhzhzh(var/seconds as num)
