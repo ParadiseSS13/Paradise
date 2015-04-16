@@ -38,6 +38,33 @@ var/global/list/language_keys[0]					// Table of say codes for all languages
 var/global/list/all_nations[0]
 var/global/list/whitelisted_species = list()
 
+//global var of unsafe-to-spawn-on-reaction mobs
+var/global/list/blocked_mobs = list(/mob/living/simple_animal/hostile,
+			/mob/living/simple_animal/hostile/pirate,
+			/mob/living/simple_animal/hostile/pirate/ranged,
+			/mob/living/simple_animal/hostile/russian,
+			/mob/living/simple_animal/hostile/russian/ranged,
+			/mob/living/simple_animal/hostile/syndicate,
+			/mob/living/simple_animal/hostile/syndicate/melee,
+			/mob/living/simple_animal/hostile/syndicate/melee/space,
+			/mob/living/simple_animal/hostile/syndicate/ranged,
+			/mob/living/simple_animal/hostile/syndicate/ranged/space,
+			/mob/living/simple_animal/hostile/alien/queen/large,
+			/mob/living/simple_animal/hostile/retaliate,
+			/mob/living/simple_animal/hostile/retaliate/clown,
+			/mob/living/simple_animal/hostile/mushroom,
+			/mob/living/simple_animal/hostile/asteroid,
+			/mob/living/simple_animal/hostile/asteroid/basilisk,
+			/mob/living/simple_animal/hostile/asteroid/goldgrub,
+			/mob/living/simple_animal/hostile/asteroid/goliath,
+			/mob/living/simple_animal/hostile/asteroid/hivelord,
+			/mob/living/simple_animal/hostile/asteroid/hivelordbrood,
+			/mob/living/simple_animal/hostile/carp/holocarp,
+			/mob/living/simple_animal/hostile/mining_drone,
+			/mob/living/simple_animal/hostile/spaceWorm,
+			/mob/living/simple_animal/hostile/spaceWorm/wormHead
+			)
+
 //Preferences stuff
 	//Hairstyles
 var/global/list/hair_styles_list = list()			//stores /datum/sprite_accessory/hair indexed by name

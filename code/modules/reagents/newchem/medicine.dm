@@ -693,30 +693,8 @@ datum/reagent/life
 
 proc/chemical_mob_spawn(var/datum/reagents/holder, var/amount_to_spawn, var/reaction_name, var/mob_faction = "chemicalsummon")
 	if(holder && holder.my_atom)
-		var/blocked = list(/mob/living/simple_animal/hostile,
-			/mob/living/simple_animal/hostile/pirate,
-			/mob/living/simple_animal/hostile/pirate/ranged,
-			/mob/living/simple_animal/hostile/russian,
-			/mob/living/simple_animal/hostile/russian/ranged,
-			/mob/living/simple_animal/hostile/syndicate,
-			/mob/living/simple_animal/hostile/syndicate/melee,
-			/mob/living/simple_animal/hostile/syndicate/melee/space,
-			/mob/living/simple_animal/hostile/syndicate/ranged,
-			/mob/living/simple_animal/hostile/syndicate/ranged/space,
-			/mob/living/simple_animal/hostile/alien/queen/large,
-			/mob/living/simple_animal/hostile/retaliate,
-			/mob/living/simple_animal/hostile/retaliate/clown,
-			/mob/living/simple_animal/hostile/mushroom,
-			/mob/living/simple_animal/hostile/asteroid,
-			/mob/living/simple_animal/hostile/asteroid/basilisk,
-			/mob/living/simple_animal/hostile/asteroid/goldgrub,
-			/mob/living/simple_animal/hostile/asteroid/goliath,
-			/mob/living/simple_animal/hostile/asteroid/hivelord,
-			/mob/living/simple_animal/hostile/asteroid/hivelordbrood,
-			/mob/living/simple_animal/hostile/carp/holocarp,
-			/mob/living/simple_animal/hostile/mining_drone,
-			/mob/living/simple_animal/hostile/spaceWorm
-			)//exclusion list for things you don't want the reaction to create.
+		var/blocked =  blocked_mobs //global variable for blocked mobs
+
 		var/list/critters = typesof(/mob/living/simple_animal/hostile) - blocked // list of possible hostile mobs
 		var/atom/A = holder.my_atom
 		var/turf/T = get_turf(A)
