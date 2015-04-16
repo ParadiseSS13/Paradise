@@ -718,7 +718,7 @@
 
 	New()
 		..()
-		reagents.add_reagent("lexorin", 20)
+		reagents.add_reagent("sulfonal", 20)
 		reagents.del_reagent("sugar")
 		reagents.update_total()
 		bitesize = 4
