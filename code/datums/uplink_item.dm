@@ -272,6 +272,12 @@ var/list/uplink_items = list()
 	item = /obj/item/weapon/melee/energy/sword
 	cost = 8
 
+/datum/uplink_item/dangerous/chainsaw
+	name = "Chainsaw"
+	desc = "A high powered chainsaw for cutting up ...you know...."
+	item = /obj/item/weapon/twohanded/chainsaw
+	cost = 13
+
 /datum/uplink_item/dangerous/manhacks
 	name = "Viscerator Delivery Grenade"
 	desc = "A unique grenade that deploys a swarm of viscerators upon activation, which will chase down and shred any non-operatives in the area."
