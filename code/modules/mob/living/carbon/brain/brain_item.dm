@@ -67,7 +67,9 @@
 
 	if(target.key)
 		target.ghostize()
-
+	var/mob/living/carbon/C = target
+	if(istype(C))
+		C.brain_op_stage = 1.0
 	if(brainmob)
 		if(brainmob.mind)
 			brainmob.mind.transfer_to(target)
