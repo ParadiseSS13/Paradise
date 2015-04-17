@@ -1124,23 +1124,6 @@ datum
 					M.adjust_fire_stacks(volume / 5)
 					..()
 					return
-
-		cryptobiolin
-			name = "Cryptobiolin"
-			id = "cryptobiolin"
-			description = "Cryptobiolin causes confusion and dizzyness."
-			reagent_state = LIQUID
-			color = "#FFD1DC" // rgb: 255, 209, 220
-
-			on_mob_life(var/mob/living/M as mob)
-				if(!M) M = holder.my_atom
-				M.Dizzy(1)
-				if(!M.confused) M.confused = 1
-				M.confused = max(M.confused, 20)
-				holder.remove_reagent(src.id, 0.5 * REAGENTS_METABOLISM)
-				..()
-				return
-
 		lexorin
 			name = "Lexorin"
 			id = "lexorin"
@@ -1322,9 +1305,9 @@ datum
 		spaceacillin
 			name = "Spaceacillin"
 			id = "spaceacillin"
-			description = "An all-purpose antiviral agent."
+			description = "An all-purpose antibiotic agent extracted from space fungus."
 			reagent_state = LIQUID
-			color = "#228B22" // rgb: 34, 139, 34
+			color = "#0AB478"
 
 			on_mob_life(var/mob/living/M as mob)
 				..()
@@ -1356,12 +1339,12 @@ datum
 				data = max(data - 1, 3)
 				..()
 
-		mindbreaker
-			name = "Mindbreaker Toxin"
-			id = "mindbreaker"
-			description = "A powerful hallucinogen. Not a thing to be messed with."
+		lsd
+			name = "Lysergic acid diethylamide"
+			id = "lsd"
+			description = "A highly potent hallucinogenic substance. Far out, maaaan."
 			reagent_state = LIQUID
-			color = "#B31008" // rgb: 139, 166, 233
+			color = "#0000D8"
 
 			on_mob_life(var/mob/living/M)
 				if(!M) M = holder.my_atom

@@ -73,7 +73,7 @@ datum/reagent/acetone
 	name = "carpet"
 	id = "carpet"
 	result = "carpet"
-	required_reagents = list("space_drugs" = 1, "blood" = 1)
+	required_reagents = list("fungus" = 1, "blood" = 1)
 	result_amount = 2
 	mix_message = "The substance turns thick and stiff, yet soft."
 

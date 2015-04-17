@@ -148,6 +148,9 @@
 		else if(istype(target, /obj/machinery/radiocarbon_spectrometer))
 			return
 
+		else if(istype(target, /obj/effect/decal/cleanable)) //stops splashing while scooping up fluids
+			return
+
 		else if(reagents.total_volume)
 			user << "\blue You splash the solution onto [target]."
 			src.reagents.reaction(target, TOUCH)

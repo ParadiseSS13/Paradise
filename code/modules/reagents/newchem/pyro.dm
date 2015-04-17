@@ -175,12 +175,18 @@
 	required_temp = 474
 	mix_message = "sparks start flying about."
 
+datum/reagent/blackpowder/reaction_turf(var/turf/T, var/volume) //oh shit
+	src = null
+	if(volume >= 5)
+		new /obj/effect/decal/cleanable/dirt/blackpowder(T)
+		return
+
 /datum/chemical_reaction/blackpowder_explosion/on_reaction(var/datum/reagents/holder, var/created_volume)
 	var/location = get_turf(holder.my_atom)
 	var/datum/effect/effect/system/spark_spread/s = new /datum/effect/effect/system/spark_spread
 	s.set_up(2, 1, location)
 	s.start()
-	sleep(rand(30,50))
+	sleep(rand(20,30))
 	blackpowder_detonate(holder, created_volume)
 	return
 
@@ -192,10 +198,11 @@
 	var/turf/simulated/T = get_turf(holder.my_atom)
 	var/ex_severe = round(created_volume / 100)
 	var/ex_heavy = round(created_volume / 42)
-	var/ex_light = round(created_volume / 21)
+	var/ex_light = round(created_volume / 20)
 	var/ex_flash = round(created_volume / 8)
 	explosion(T,ex_severe,ex_heavy,ex_light,ex_flash, 1)
 	return
+
 /datum/reagent/flash_powder
 	name = "Flash Powder"
 	id = "flash_powder"

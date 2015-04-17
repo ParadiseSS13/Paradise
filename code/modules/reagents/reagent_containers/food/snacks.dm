@@ -2597,7 +2597,7 @@
 	New()
 		..()
 		reagents.add_reagent("mercury", 5)
-		reagents.add_reagent("mindbreaker", 5)
+		reagents.add_reagent("lsd", 5)
 		reagents.add_reagent("ethanol", 5)
 		reagents.add_reagent("weird_cheese", 5)
 
