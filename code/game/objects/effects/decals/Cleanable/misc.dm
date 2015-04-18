@@ -33,8 +33,6 @@
 
 /obj/effect/decal/cleanable/dirt/blackpowder
 	name = "black powder"
-	icon_state = "flour"
-	color = "#323232"
 	mouse_opacity = 1
 	noscoop = 1
 

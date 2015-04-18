@@ -192,6 +192,7 @@ datum/reagent/blackpowder/reaction_turf(var/turf/T, var/volume) //oh shit
 
 /datum/reagent/blackpowder/on_ex_act()
 	blackpowder_detonate(holder, volume)
+	holder.remove_reagent("blackpowder", volume)
 	return
 
 /proc/blackpowder_detonate(var/datum/reagents/holder, var/created_volume)
