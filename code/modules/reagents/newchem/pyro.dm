@@ -69,7 +69,7 @@
 	if(method == TOUCH && isliving(M))
 		M.adjust_fire_stacks(5)
 		M.IgniteMob()
-		new /obj/fire(M.loc)
+		M.bodytemperature += 30
 		return
 
 /datum/reagent/sorium
@@ -144,9 +144,11 @@
 		if(istype(X, /atom/movable))
 			if((X) && !X.anchored)
 				if(setting_type)
+					playsound(T, 'sound/effects/bang.ogg', 25, 1)
 					for(var/i = 0, i < pull_times, i++)
 						step_away(X,T)
 				else
+					playsound(T, 'sound/effects/whoosh.ogg', 25, 1) //credit to Robinhood76 of Freesound.org for this.
 					for(var/i = 0, i < pull_times, i++)
 						step_towards(X,T)
 
