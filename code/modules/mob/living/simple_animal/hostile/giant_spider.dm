@@ -23,18 +23,18 @@
 	response_disarm = "gently pushes aside"
 	response_harm   = "hits"
 	stop_automated_movement_when_pulled = 0
-	maxHealth = 60
-	health = 60
+	maxHealth = 200
+	health = 200
 	melee_damage_lower = 15
 	melee_damage_upper = 20
-	heat_damage_per_tick = 20
-	cold_damage_per_tick = 20
 	var/poison_per_bite = 5
-	var/poison_type = "toxin"
+	var/poison_type = "venom"
 	faction = list("spiders")
 	var/busy = 0
 	pass_flags = PASSTABLE
 	move_to_delay = 6
+	attacktext = "bites"
+	attack_sound = 'sound/weapons/bite.ogg'
 
 //nursemaids - these create webs and eggs
 /mob/living/simple_animal/hostile/giant_spider/nurse
@@ -43,6 +43,7 @@
 	icon_living = "nurse"
 	icon_dead = "nurse_dead"
 	meat_type = /obj/item/weapon/reagent_containers/food/snacks/spidereggs
+	meat_amount = 4
 	maxHealth = 40
 	health = 40
 	melee_damage_lower = 5
@@ -58,19 +59,19 @@
 	icon_state = "hunter"
 	icon_living = "hunter"
 	icon_dead = "hunter_dead"
-	maxHealth = 50
-	health = 50
+	maxHealth = 120
+	health = 120
 	melee_damage_lower = 10
 	melee_damage_upper = 20
 	poison_per_bite = 5
-	move_to_delay = 4
+	move_to_delay = 5
 
 /mob/living/simple_animal/hostile/giant_spider/AttackingTarget()
 	..()
 	if(isliving(target))
 		var/mob/living/L = target
 		if(L.reagents)
-			L.reagents.add_reagent("toxin", poison_per_bite)
+			L.reagents.add_reagent("venom", poison_per_bite)
 			if(prob(poison_per_bite))
 				L << "\red You feel a tiny prick."
 				L.reagents.add_reagent(poison_type, 5)
