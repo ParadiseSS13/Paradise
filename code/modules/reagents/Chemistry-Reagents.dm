@@ -2389,10 +2389,12 @@ datum
 			reagent_state = LIQUID
 			nutriment_factor = 0 //So alcohol can fill you up! If they want to.
 			color = "#404030" // rgb: 64, 64, 48
+			var/datum/martial_art/drunk_brawling/F = new
 			var/dizzy_adj = 3
 			var/slurr_adj = 3
 			var/confused_adj = 2
 			var/slur_start = 65			//amount absorbed after which mob starts slurring
+			var/brawl_start = 75		//amount absorbed after which mob switches to drunken brawling as a fighting style
 			var/confused_start = 130	//amount absorbed after which mob starts confusing directions
 			var/vomit_start = 180	//amount absorbed after which mob starts vomitting
 			var/blur_start = 260	//amount absorbed after which mob starts getting blurred vision
@@ -2422,6 +2424,12 @@ datum
 				if(d >= slur_start && d < pass_out)
 					if (!M:slurring) M:slurring = 1
 					M:slurring += slurr_adj/sober_str
+				if(d >= brawl_start && ishuman(M))
+					var/mob/living/carbon/human/H = M
+					F.teach(H,1)
+					if(src.volume < 3)
+						if(H.martial_art == F)
+							F.remove(H)
 				if(d >= confused_start && prob(33))
 					if (!M:confused) M:confused = 1
 					M.confused = max(M:confused+(confused_adj/sober_str),0)
@@ -2495,6 +2503,7 @@ datum
 				description = "Just when you thought regular station whiskey was good... This silky, amber goodness has to come along and ruin everything."
 				color = "#664300" // rgb: 102, 67, 0
 				slur_start = 30		//amount absorbed after which mob starts slurring
+				brawl_start = 40
 
 			gin
 				name = "Gin"
@@ -2511,6 +2520,7 @@ datum
 				overdose_threshold = 30
 				dizzy_adj = 5
 				slur_start = 25
+				brawl_start = 40
 				confused_start = 100
 
 				//copy paste from LSD... shoot me
@@ -2588,6 +2598,7 @@ datum
 				slurr_adj = 20
 				confused_adj = 3
 				slur_start = 15
+				brawl_start = 25
 				confused_start = 40
 				blur_start = 60
 				pass_out = 80
