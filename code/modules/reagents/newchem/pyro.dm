@@ -178,8 +178,9 @@
 datum/reagent/blackpowder/reaction_turf(var/turf/T, var/volume) //oh shit
 	src = null
 	if(volume >= 5)
-		new /obj/effect/decal/cleanable/dirt/blackpowder(T)
-		return
+		if(!locate(/obj/effect/decal/cleanable/dirt/blackpowder) in get_turf(T)) //let's not have hundreds of decals of black powder on the same turf
+			new /obj/effect/decal/cleanable/dirt/blackpowder(T)
+			return
 
 /datum/chemical_reaction/blackpowder_explosion/on_reaction(var/datum/reagents/holder, var/created_volume)
 	var/location = get_turf(holder.my_atom)
