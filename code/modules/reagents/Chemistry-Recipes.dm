@@ -120,13 +120,6 @@ datum
 			result_amount = 3
 			mix_message = "The water somehow seems purified. Or maybe defiled."
 
-		cryptobiolin
-			name = "Cryptobiolin"
-			id = "cryptobiolin"
-			result = "cryptobiolin"
-			required_reagents = list("potassium" = 1, "oxygen" = 1, "sugar" = 1)
-			result_amount = 3
-
 		cryoxadone
 			name = "Cryoxadone"
 			id = "cryoxadone"
@@ -147,8 +140,9 @@ datum
 			name = "Spaceacillin"
 			id = "spaceacillin"
 			result = "spaceacillin"
-			required_reagents = list("cryptobiolin" = 1, "epinephrine" = 1)
+			required_reagents = list("fungus" = 1, "ethanol" = 1)
 			result_amount = 2
+			mix_message = "The solvent extracts an antibiotic compound from the fungus."
 
 		Audioline
 			name = "Audioline"
@@ -190,15 +184,16 @@ datum
 			name = "Rezadone"
 			id = "rezadone"
 			result = "rezadone"
-			required_reagents = list("carpotoxin" = 1, "cryptobiolin" = 1, "copper" = 1)
+			required_reagents = list("carpotoxin" = 1, "spaceacillin" = 1, "copper" = 1)
 			result_amount = 3
 
-		mindbreaker
-			name = "Mindbreaker Toxin"
-			id = "mindbreaker"
-			result = "mindbreaker"
-			required_reagents = list("silicon" = 1, "hydrogen" = 1, "charcoal" = 1)
-			result_amount = 5
+		lsd
+			name = "Lysergic acid diethylamide"
+			id = "lsd"
+			result = "lsd"
+			required_reagents = list("diethylamine" = 1, "fungus" = 1)
+			result_amount = 3
+			mix_message = "The mixture turns a rather unassuming color and settles."
 
 		plastication
 			name = "Plastic"

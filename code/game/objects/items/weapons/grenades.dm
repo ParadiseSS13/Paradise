@@ -59,7 +59,7 @@
 		var/obj/item/weapon/reagent_containers/glass/beaker/large/B2 = new(src)
 
 		B1.reagents.add_reagent("space_drugs", 25)
-		B1.reagents.add_reagent("mindbreaker", 25)
+		B1.reagents.add_reagent("lsd", 25)
 		B1.reagents.add_reagent("potassium", 25)
 		B2.reagents.add_reagent("phosphorus", 25)
 		B2.reagents.add_reagent("sugar", 25)

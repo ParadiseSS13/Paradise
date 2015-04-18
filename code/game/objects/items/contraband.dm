@@ -40,9 +40,9 @@
 
 	name = pick("lunar","vorpal","hardcore","willow", "void","loopy","electro", "cyber","heavy", "ninja", "hydro", "blue", "red", "green", "purple", "strong", "divine","carp" ,"deadly","dead","vicious" ,"wild" ,"demon", "chill", "solid", "liquid", "crazy", "super", "hyper", "space", "wizard", "rainbow", "star", "turbo", "prism", "sticky") + " " + pick("jack","zero","null","beat","nip","bubbles" ,"ice","medicine","venom","shock","solar" ,"spice" ,"shredder", "heart" , "heat", "pill","hopper","scum","fruit", "bolt", "deck", "butter", "runoff", "grease", "flair", "sweat", "zone", "blast")
 
-	reagents.add_reagent(pick("pancuronium","neurotoxin","frostoil", "toxin","morphine", "carpotoxin", "hippiesdelight","methamphetamine","haloperidol" ,"cryptobiolin", "hydrocodone", "psilocybin", "mindbreaker", "capsaicin", "space_drugs" , "epinephrine", "serotrotium"), pick(5,7,10,13,15))
-	reagents.add_reagent(pick("pancuronium","neurotoxin","frostoil", "toxin","morphine", "carpotoxin", "hippiesdelight","methamphetamine","haloperidol" ,"cryptobiolin", "hydrocodone", "psilocybin", "mindbreaker", "capsaicin", "space_drugs" , "epinephrine", "serotrotium"), pick(5,7,10,13,15))
-	reagents.add_reagent(pick("pancuronium","neurotoxin","frostoil", "toxin","morphine", "carpotoxin", "hippiesdelight","methamphetamine","haloperidol" ,"cryptobiolin", "hydrocodone", "psilocybin", "mindbreaker", "capsaicin", "space_drugs" , "epinephrine", "serotrotium"), pick(5,7,10,13,15))
+	reagents.add_reagent(pick("pancuronium","neurotoxin","frostoil", "toxin","morphine", "carpotoxin", "hippiesdelight","methamphetamine","haloperidol" , "hydrocodone", "psilocybin", "lsd", "capsaicin", "space_drugs" , "epinephrine", "serotrotium"), pick(5,7,10,13,15))
+	reagents.add_reagent(pick("pancuronium","neurotoxin","frostoil", "toxin","morphine", "carpotoxin", "hippiesdelight","methamphetamine","haloperidol" ,"hydrocodone", "psilocybin", "lsd", "capsaicin", "space_drugs" , "epinephrine", "serotrotium"), pick(5,7,10,13,15))
+	reagents.add_reagent(pick("pancuronium","neurotoxin","frostoil", "toxin","morphine", "carpotoxin", "hippiesdelight","methamphetamine","haloperidol" , "hydrocodone", "psilocybin", "lsd", "capsaicin", "space_drugs" , "epinephrine", "serotrotium"), pick(5,7,10,13,15))
 
 
 
