@@ -1287,7 +1287,7 @@ proc/populate_seed_list()
 	packet_icon = "seed-wheat"
 	products = list(/obj/item/weapon/reagent_containers/food/snacks/grown/wheat)
 	plant_icon = "wheat"
-	chems = list("nutriment" = list(1,25), "corn_starch" = list(3,5))
+	chems = list("nutriment" = list(1,25))
 
 	lifespan = 25
 	maturation = 6
