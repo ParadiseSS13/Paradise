@@ -9,6 +9,20 @@ Used In File(s): \code\game\machinery\poolcontroller.dm
 	<div class="itemContent">
 		<font color={{:data.TempColor}}>{{:data.currentTemp}}</font>
 	</div>
+	{{if data.linkedfalls >= 1}}
+		<div class="itemLabel">
+			<b>Waterfall Status</b>:
+		</div>
+		<div class="itemContent">
+			<font color="#00FFFF">{{:data.wfallstatus}}</font>
+		</div>
+		<div class="itemLabel">
+			<b>Linked Waterfalls</b>:
+		</div>
+		<div class="itemContent">
+			<font color="#00FFFF">{{:data.linkedfalls}}</font>
+		</div>
+	{{/if}}
 </div>
 <div class="item">
 	<div class="itemContent">
@@ -21,7 +35,7 @@ Used In File(s): \code\game\machinery\poolcontroller.dm
 </div>
 <div class="item">
 	<div class="itemContent">
-		<b>Temperature Selection:</b>
+		<b>Temperature Selection</b>:
 	</div>
 	{{if data.emagged}}
 		<div class="itemContentWide" style="width: 100%;">
@@ -43,3 +57,16 @@ Used In File(s): \code\game\machinery\poolcontroller.dm
 		</div>
 	{{/if}}
 </div>
+{{if data.linkedfalls >= 1}}
+<div class="item">
+	<div class="itemContent">
+		<b>Waterfall Settings</b>:
+	</div>
+	<div class="itemContentWide" style="width: 100%">
+		{{:helper.link('Turn Waterfalls On', 'circle-triangle-s', { 'WFtoggle' : 'wfallon' })}}
+	</div>
+	<div class="itemContentWide" style="width: 100%">
+		{{:helper.link('Turn Waterfalls Off', 'circle-triangle-n', { 'WFtoggle' : 'wfalloff' })}}
+	</div>
+</div>
+{{/if}}
