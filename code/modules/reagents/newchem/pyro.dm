@@ -32,7 +32,7 @@
 	id = "clf3"
 	result = "clf3"
 	required_reagents = list("chlorine" = 1, "fluorine" = 3)
-	result_amount = 3
+	result_amount = 2
 	required_temp = 424
 
 /datum/reagent/clf3/on_mob_life(var/mob/living/M as mob)
@@ -174,6 +174,7 @@
 	result_amount = 1
 	required_temp = 474
 	mix_message = "sparks start flying about."
+	mix_sound = null
 
 datum/reagent/blackpowder/reaction_turf(var/turf/T, var/volume) //oh shit
 	src = null
@@ -216,7 +217,7 @@ datum/reagent/blackpowder/reaction_turf(var/turf/T, var/volume) //oh shit
 	name = "Flash powder"
 	id = "flash_powder"
 	result = "flash_powder"
-	required_reagents = list("aluminum" = 1, "potassium" = 1, "sulfur" = 1 )
+	required_reagents = list("aluminum" = 1, "potassium" = 1, "sulfur" = 1, "chlorine" = 1)
 	result_amount = 3
 
 /datum/chemical_reaction/flash_powder_flash
@@ -269,7 +270,7 @@ datum/reagent/blackpowder/reaction_turf(var/turf/T, var/volume) //oh shit
 	id = "smoke_powder"
 	result = "smoke_powder"
 	required_reagents = list("stabilizing_agent" = 1, "potassium" = 1, "sugar" = 1, "phosphorus" = 1)
-	result_amount = 1
+	result_amount = 3
 	mix_message = "The mixture sets into a greyish powder!"
 
 /datum/chemical_reaction/smoke
@@ -305,6 +306,7 @@ datum/reagent/blackpowder/reaction_turf(var/turf/T, var/volume) //oh shit
 	secondary = 1
 	result_amount = 1
 	forbidden_reagents = list()
+	mix_sound = null
 
 /datum/reagent/sonic_powder
 	name = "Sonic Powder"
