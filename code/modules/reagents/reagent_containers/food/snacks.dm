@@ -799,14 +799,11 @@
 		..()
 		reagents.add_reagent("nutriment", 4)
 
-	var/warm = 0
-	proc/cooltime() //Not working, derp?
-		if (src.warm)
-			spawn( 4200 )
-				src.warm = 0
-				src.reagents.del_reagent("omnizine")
-				src.name = "donk-pocket"
-		return
+/obj/item/weapon/reagent_containers/food/snacks/donkpocket/warm
+	name = "Warm Donk-pocket"
+	New()
+		..()
+		reagents.add_reagent("omnizine", 4)
 
 /obj/item/weapon/reagent_containers/food/snacks/syndidonkpocket
 	name = "Donk-pocket"
