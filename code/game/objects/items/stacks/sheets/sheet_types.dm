@@ -64,12 +64,12 @@ var/global/list/datum/stack_recipe/metal_recipes = list ( \
 		), 4), \
 	null, \
 	new/datum/stack_recipe("grenade casing", /obj/item/weapon/grenade/chem_grenade), \
-	new/datum/stack_recipe("light fixture frame", /obj/item/light_fixture_frame, 2), \
-	new/datum/stack_recipe("small light fixture frame", /obj/item/light_fixture_frame/small, 1), \
+	new/datum/stack_recipe("light fixture frame", /obj/item/mounted/frame/light_fixture, 2), \
+	new/datum/stack_recipe("small light fixture frame", /obj/item/mounted/frame/light_fixture/small, 1), \
 	null, \
-	new/datum/stack_recipe("apc frame", /obj/item/apc_frame, 2), \
-	new/datum/stack_recipe("air alarm frame", /obj/item/alarm_frame, 2), \
-	new/datum/stack_recipe("fire alarm frame", /obj/item/firealarm_frame, 2), \
+	new/datum/stack_recipe("apc frame", /obj/item/mounted/frame/apc_frame, 2), \
+	new/datum/stack_recipe("air alarm frame", /obj/item/mounted/frame/alarm_frame, 2), \
+	new/datum/stack_recipe("fire alarm frame", /obj/item/mounted/frame/firealarm, 2), \
 	null, \
 )
 
