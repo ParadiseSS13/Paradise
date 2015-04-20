@@ -307,6 +307,9 @@
 	update_icon()
 	return
 
+/obj/machinery/atmospherics/unary/vent_pump/can_crawl_through()
+	return !welded
+
 /obj/machinery/atmospherics/unary/vent_pump/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/weapon/weldingtool))
 		var/obj/item/weapon/weldingtool/WT = W
