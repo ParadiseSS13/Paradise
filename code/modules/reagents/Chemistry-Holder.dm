@@ -352,7 +352,7 @@ datum
 											ME2.name = "used slime extract"
 											ME2.desc = "This extract has been used up."
 
-								playsound(get_turf(my_atom), 'sound/effects/bubbles.ogg', 80, 1)
+								playsound(get_turf(my_atom), C.mix_sound, 80, 1)
 
 								C.on_reaction(src, created_volume)
 								reaction_occured = 1

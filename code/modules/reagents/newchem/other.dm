@@ -101,6 +101,7 @@ datum/reagent/acetone
 	required_reagents = list("oil" = 1)
 	result_amount = 0.5
 	required_temp = 480
+	mix_sound = null
 
 datum/reagent/colorful_reagent
 	name = "Colorful Reagent"
@@ -163,6 +164,7 @@ datum/reagent/corgium
 	required_reagents = list("egg" = 1, "colorful_reagent" = 1, "chicken_soup" = 1, "strange_reagent" = 1, "blood" = 1)
 	result_amount = 5
 	required_temp = 374
+	mix_message = "The substance turns an airy sky-blue and foams up into a new shape."
 
 /datum/chemical_reaction/flaptonium/on_reaction(var/datum/reagents/holder, var/created_volume)
 	var/location = get_turf(holder.my_atom)

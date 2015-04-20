@@ -142,6 +142,7 @@ datum/reagent/neurotoxin2/on_mob_life(var/mob/living/M as mob)
 	required_reagents = list("space_drugs" = 1)
 	result_amount = 1
 	required_temp = 674
+	mix_sound = null
 
 datum/reagent/cyanide
 	name = "Cyanide"
@@ -209,6 +210,7 @@ datum/reagent/itching_powder/on_mob_life(var/mob/living/M as mob)
 	required_reagents = list("fuel" = 1, "ammonia" = 1, "fungus" = 1)
 	result_amount = 3
 	mix_message = "The mixture congeals and dries up, leaving behind an abrasive powder."
+	mix_sound = 'sound/effects/blobattack.ogg'
 
 datum/reagent/facid/on_mob_life(var/mob/living/M as mob)
 	if(!M) M = holder.my_atom

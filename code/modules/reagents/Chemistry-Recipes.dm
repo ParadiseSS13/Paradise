@@ -16,6 +16,7 @@ datum
 		var/list/secondary_results = list()		//additional reagents produced by the reaction
 		var/required_temp = 0
 		var/mix_message = "The solution begins to bubble."
+		var/mix_sound = 'sound/effects/bubbles.ogg'
 
 
 		proc
@@ -30,6 +31,8 @@ datum
 			result = null
 			required_reagents = list("water" = 1, "potassium" = 1)
 			result_amount = 2
+			mix_message = "The mixture explodes!"
+
 			on_reaction(var/datum/reagents/holder, var/created_volume)
 				var/datum/effect/effect/system/reagents_explosion/e = new()
 				e.set_up(round (created_volume/10, 1), holder.my_atom, 0, 0)

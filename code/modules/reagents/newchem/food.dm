@@ -407,6 +407,7 @@ datum/reagent/ectoplasm/reaction_turf(var/turf/T, var/volume)
 	required_reagents = list("corn_starch" = 1, "blood" = 1)
 	result_amount = 2
 	mix_message = "The mixture congeals into a bloody mass."
+	mix_sound = 'sound/effects/blobattack.ogg'
 
 /datum/reagent/mashedpotatoes
 	name = "Mashed potatoes"
@@ -457,6 +458,7 @@ datum/reagent/ectoplasm/reaction_turf(var/turf/T, var/volume)
 	required_reagents = list("hydrogenated_soybeanoil" = 2, "meatslurry" = 1, "plasma" = 1)
 	result_amount = 4
 	mix_message = "The mixture solidifies, taking a crystalline appearance."
+	mix_sound = 'sound/effects/blobattack.ogg'
 
 /datum/reagent/pepperoni
 	name = "Pepperoni"
@@ -494,3 +496,4 @@ datum/reagent/pepperoni/reaction_mob(var/mob/living/M, var/method=TOUCH, var/vol
 	required_reagents = list("beff" = 1, "saltpetre" = 1, "synthflesh" = 1)
 	result_amount = 2
 	mix_message = "The beff and the synthflesh combine to form a smoky red log."
+	mix_sound = 'sound/effects/blobattack.ogg'
