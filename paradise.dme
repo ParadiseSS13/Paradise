@@ -1671,6 +1671,7 @@
 #include "code\modules\vehicle\train\trains\ambulance.dm"
 #include "code\modules\vehicle\train\trains\janicart.dm"
 #include "code\modules\vehicle\train\trains\cargo\cargo_train.dm"
+#include "code\modules\vehicle\train\trains\cargo\cargo_subtypes\fourwheeler.dm"
 #include "code\modules\vehicle\train\trains\cargo\cargo_subtypes\motorcycle.dm"
 #include "code\modules\vehicle\train\trains\cargo\cargo_subtypes\sportscar.dm"
 #include "code\modules\virus2\analyser.dm"
