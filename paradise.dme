@@ -1672,6 +1672,7 @@
 #include "code\modules\vehicle\train\trains\janicart.dm"
 #include "code\modules\vehicle\train\trains\cargo\cargo_train.dm"
 #include "code\modules\vehicle\train\trains\cargo\cargo_subtypes\motorcycle.dm"
+#include "code\modules\vehicle\train\trains\cargo\cargo_subtypes\sportscar.dm"
 #include "code\modules\virus2\analyser.dm"
 #include "code\modules\virus2\antibodies.dm"
 #include "code\modules\virus2\centrifuge.dm"
