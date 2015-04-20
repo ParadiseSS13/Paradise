@@ -44,3 +44,6 @@
 	var/silent = null 		//Can't talk. Value goes down every life proc.
 	var/floating = 0
 	var/nightvision = 0
+
+	var/list/icon/pipes_shown = list()
+	var/last_played_vent
