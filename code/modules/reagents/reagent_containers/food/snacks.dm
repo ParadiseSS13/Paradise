@@ -799,10 +799,14 @@
 		..()
 		reagents.add_reagent("nutriment", 4)
 
-/obj/item/weapon/reagent_containers/food/snacks/donkpocket/warm
+/obj/item/weapon/reagent_containers/food/snacks/warmdonkpocket
 	name = "Warm Donk-pocket"
+	desc = "The food of choice for the seasoned traitor."
+	icon_state = "donkpocket"
+	filling_color = "#DEDEAB"
 	New()
 		..()
+		reagents.add_reagent("nutriment", 4)
 		reagents.add_reagent("omnizine", 4)
 
 /obj/item/weapon/reagent_containers/food/snacks/syndidonkpocket

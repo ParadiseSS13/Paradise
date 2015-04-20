@@ -220,12 +220,11 @@
 	)
 	result = /obj/item/weapon/reagent_containers/food/snacks/donkpocket
 
-/datum/recipe/microwave/donkpocket/warm
-	reagents = list() //This is necessary since this is a child object of the above recipe and we don't want donk pockets to need flour
+/datum/recipe/microwave/warmdonkpocket
 	items = list(
 		/obj/item/weapon/reagent_containers/food/snacks/donkpocket
 	)
-	result = /obj/item/weapon/reagent_containers/food/snacks/donkpocket/warm
+	result = /obj/item/weapon/reagent_containers/food/snacks/warmdonkpocket
 
 
 /*
