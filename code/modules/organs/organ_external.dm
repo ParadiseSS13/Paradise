@@ -75,7 +75,11 @@
 				if(contents.len)
 					var/obj/item/removing = pick(contents)
 					removing.loc = get_turf(user.loc)
-					if(!(user.l_hand && user.r_hand))
+					var/obj/item/organ/O = removing
+					if(istype(O))
+						O.status |= ORGAN_CUT_AWAY
+						O.removed(user)
+					else if(!(user.l_hand && user.r_hand))
 						user.put_in_hands(removing)
 					user.visible_message("<span class='danger'><b>[user]</b> extracts [removing] from [src] with [W]!")
 				else
