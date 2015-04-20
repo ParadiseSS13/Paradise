@@ -310,6 +310,7 @@ This function restores all organs.
 				damage = damage*species.brute_mod
 			if(organ.take_damage(damage, 0, sharp, edge, used_weapon))
 				UpdateDamageIcon()
+			receive_damage()
 		if(BURN)
 			damageoverlaytemp = 20
 			if(species && species.burn_mod)
