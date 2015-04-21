@@ -273,6 +273,14 @@
 /obj/item/weapon/bombcore/badmin/explosion/detonate()
 	explosion(get_turf(src),HeavyExplosion,MediumExplosion,LightExplosion)
 
+/obj/item/weapon/bombcore/miniature
+	name = "small bomb core"
+	w_class = 2
+
+/obj/item/weapon/bombcore/miniature/detonate()
+	explosion(src.loc,1,2,4) //Identical to a minibomb
+	qdel(src)
+
 ///Syndicate Detonator (aka the big red button)///
 
 /obj/item/device/syndicatedetonator
