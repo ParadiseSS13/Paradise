@@ -516,7 +516,6 @@ client/proc/one_click_antag()
 	new_vox.real_name = capitalize(newname)
 	new_vox.name = new_vox.real_name
 	new_vox.age = rand(12,20)
-	new_vox.dna.mutantrace = "vox"
 	new_vox.set_species("Vox")
 	new_vox.languages = list() // Removing language from chargen.
 	new_vox.flavor_text = ""

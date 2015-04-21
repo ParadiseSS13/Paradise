@@ -604,7 +604,7 @@ datum/reagent/atrazine/reaction_mob(var/mob/living/M, var/method=TOUCH, var/volu
 		if(ismonkey(M))
 			var/mob/living/carbon/monkey/MO = M
 			if(MO.dna)
-				if(MO.dna.mutantrace == "plant") //plantmen monkeys (diona) take EVEN MORE damage
+				if(istype(MO,/mob/living/carbon/monkey/diona)) //plantmen monkeys (diona) take EVEN MORE damage
 					MO.adjustToxLoss(100)
 					..()
 					return

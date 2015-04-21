@@ -14,7 +14,6 @@
 	var/tail                     // Name of tail image in species effects icon file.
 	var/unarmed                  //For empty hand harm-intent attack
 	var/unarmed_type = /datum/unarmed_attack
-	var/mutantrace               // Safeguard due to old code.
 
 	var/breath_type = "oxygen"   // Non-oxygen gas breathed, if any.
 	var/poison_type = "plasma"   // Poisonous air.
@@ -41,6 +40,8 @@
 
 	var/brute_mod = null    // Physical damage reduction/malus.
 	var/burn_mod = null     // Burn damage reduction/malus.
+
+	var/light_dam
 
 	var/max_hurt_damage = 9 // Max melee damage dealt + 5 if hulk
 	var/list/default_genes = list()
@@ -250,41 +251,34 @@
 				H << "\red You feel your face freezing and an icicle forming in your lungs!"
 		else if(breath.temperature > heat_level_1)
 			if(prob(20))
-				if(H.dna.mutantrace == "slime")
-					H << "\red You feel supercharged by the extreme heat!"
-				else
-					H << "\red You feel your face burning and a searing heat in your lungs!"
+				H << "\red You feel your face burning and a searing heat in your lungs!"
 
-		if(H.dna.mutantrace == "slime")
-			if(breath.temperature < cold_level_1)
-				H.adjustToxLoss(round(cold_level_1 - breath.temperature))
+
+
+		switch(breath.temperature)
+			if(-INFINITY to cold_level_3)
+				H.apply_damage(COLD_GAS_DAMAGE_LEVEL_3, BURN, "head", used_weapon = "Excessive Cold")
 				H.fire_alert = max(H.fire_alert, 1)
 
-		if(H.dna.mutantrace != "slime")
-			switch(breath.temperature)
-				if(-INFINITY to cold_level_3)
-					H.apply_damage(COLD_GAS_DAMAGE_LEVEL_3, BURN, "head", used_weapon = "Excessive Cold")
-					H.fire_alert = max(H.fire_alert, 1)
+			if(cold_level_3 to cold_level_2)
+				H.apply_damage(COLD_GAS_DAMAGE_LEVEL_2, BURN, "head", used_weapon = "Excessive Cold")
+				H.fire_alert = max(H.fire_alert, 1)
 
-				if(cold_level_3 to cold_level_2)
-					H.apply_damage(COLD_GAS_DAMAGE_LEVEL_2, BURN, "head", used_weapon = "Excessive Cold")
-					H.fire_alert = max(H.fire_alert, 1)
+			if(cold_level_2 to cold_level_1)
+				H.apply_damage(COLD_GAS_DAMAGE_LEVEL_1, BURN, "head", used_weapon = "Excessive Cold")
+				H.fire_alert = max(H.fire_alert, 1)
 
-				if(cold_level_2 to cold_level_1)
-					H.apply_damage(COLD_GAS_DAMAGE_LEVEL_1, BURN, "head", used_weapon = "Excessive Cold")
-					H.fire_alert = max(H.fire_alert, 1)
+			if(heat_level_1 to heat_level_2)
+				H.apply_damage(HEAT_GAS_DAMAGE_LEVEL_1, BURN, "head", used_weapon = "Excessive Heat")
+				H.fire_alert = max(H.fire_alert, 2)
 
-				if(heat_level_1 to heat_level_2)
-					H.apply_damage(HEAT_GAS_DAMAGE_LEVEL_1, BURN, "head", used_weapon = "Excessive Heat")
-					H.fire_alert = max(H.fire_alert, 2)
+			if(heat_level_2 to heat_level_3_breathe)
+				H.apply_damage(HEAT_GAS_DAMAGE_LEVEL_2, BURN, "head", used_weapon = "Excessive Heat")
+				H.fire_alert = max(H.fire_alert, 2)
 
-				if(heat_level_2 to heat_level_3_breathe)
-					H.apply_damage(HEAT_GAS_DAMAGE_LEVEL_2, BURN, "head", used_weapon = "Excessive Heat")
-					H.fire_alert = max(H.fire_alert, 2)
-
-				if(heat_level_3_breathe to INFINITY)
-					H.apply_damage(HEAT_GAS_DAMAGE_LEVEL_3, BURN, "head", used_weapon = "Excessive Heat")
-					H.fire_alert = max(H.fire_alert, 2)
+			if(heat_level_3_breathe to INFINITY)
+				H.apply_damage(HEAT_GAS_DAMAGE_LEVEL_3, BURN, "head", used_weapon = "Excessive Heat")
+				H.fire_alert = max(H.fire_alert, 2)
 	return
 
 /datum/species/proc/handle_post_spawn(var/mob/living/carbon/C) //Handles anything not already covered by basic species assignment.
@@ -554,20 +548,13 @@
 	unarmed_type = /datum/unarmed_attack/punch
 
 	flags = IS_WHITELISTED | NO_BREATHE | HAS_LIPS | NO_INTORGANS | NO_SCAN
+	bodyflags = HAS_SKIN_COLOR
 	bloodflags = BLOOD_SLIME
 
 	has_organ = list(
 		"brain" = /obj/item/organ/brain/slime
 		)
 
-
-/datum/species/slime/handle_post_spawn(var/mob/living/carbon/human/H)
-	H.dna = new /datum/dna(null)
-	H.dna.real_name = H.real_name
-	H.dna.species = H.species.name
-	H.dna.mutantrace = "slime"
-
-	..()
 
 /datum/species/grey
 	name = "Grey"

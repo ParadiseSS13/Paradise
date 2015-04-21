@@ -15,7 +15,6 @@
 
 	..()
 	gender = NEUTER
-	dna.mutantrace = "plant"
 	greaterform = "Diona"
 	add_language("Rootspeak")
 	verbs -= /mob/living/carbon/monkey/verb/ventcrawl
@@ -46,7 +45,6 @@
 
 	..()
 	gender = NEUTER
-	dna.mutantrace = "plant"
 	greaterform = "Diona"
 	add_language("Rootspeak")
 	src.verbs += /mob/living/carbon/monkey/diona/proc/merge

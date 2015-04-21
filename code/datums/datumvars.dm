@@ -262,7 +262,6 @@ client
 			body += "<option value='?_src_=vars;remverb=\ref[D]'>Remove Verb</option>"
 			if(ishuman(D))
 				body += "<option value>---</option>"
-				body += "<option value='?_src_=vars;setmutantrace=\ref[D]'>Set Mutantrace</option>"
 				body += "<option value='?_src_=vars;setspecies=\ref[D]'>Set Species</option>"
 				body += "<option value='?_src_=vars;makeai=\ref[D]'>Make AI</option>"
 				body += "<option value='?_src_=vars;makemask=\ref[D]'>Make Mask of Nar'sie</option>"
@@ -789,27 +788,6 @@ client
 			return
 		holder.Topic(href, list("makemask"=href_list["makemask"]))
 
-
-	else if(href_list["setmutantrace"])
-		if(!check_rights(R_SPAWN))	return
-
-		var/mob/living/carbon/human/H = locate(href_list["setmutantrace"])
-		if(!istype(H))
-			usr << "This can only be done to instances of type /mob/living/carbon/human"
-			return
-
-		var/new_mutantrace = input("Please choose a new mutantrace","Mutantrace",null) as null|anything in list("NONE","golem","lizard","slime","plant","shadow","tajaran","skrell","vox")
-		switch(new_mutantrace)
-			if(null)
-				return
-			if("NONE")
-				new_mutantrace = ""
-		if(!H)
-			usr << "Mob doesn't exist anymore"
-			return
-		if(H.dna)
-			H.dna.mutantrace = new_mutantrace
-			H.update_mutantrace()
 
 	else if(href_list["setspecies"])
 		if(!check_rights(R_SPAWN))	return

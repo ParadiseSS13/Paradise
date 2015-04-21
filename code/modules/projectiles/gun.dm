@@ -104,7 +104,8 @@
 			M << "\red Your meaty finger is much too large for the trigger guard!"
 			return
 	if(ishuman(user))
-		if(user.dna && user.dna.mutantrace == "adamantine")
+		var/mob/living/carbon/human/H = user
+		if(H.species.name == "Golem")
 			user << "\red Your metal fingers don't fit in the trigger guard!"
 			return
 
@@ -128,7 +129,7 @@
 
 	if(!in_chamber)
 		return
-		
+
 	if(heavy_weapon)
 		if(user.get_inactive_hand())
 			recoil = 4 //one-handed kick
@@ -154,7 +155,7 @@
 		user.visible_message("<span class='warning'>[user] fires [src][reflex ? " by reflex":""]!</span>", \
 		"<span class='warning'>You fire [src][reflex ? "by reflex":""]!</span>", \
 		"You hear a [istype(in_chamber, /obj/item/projectile/beam) ? "laser blast" : "gunshot"]!")
-		
+
 	if(heavy_weapon)
 		if(user.get_inactive_hand())
 			if(prob(15))
