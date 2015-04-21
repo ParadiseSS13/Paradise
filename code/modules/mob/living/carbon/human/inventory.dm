@@ -111,6 +111,9 @@
 	if(!. || !I)
 		return
 
+	var/obj/item/organ/O = I //Organs shouldn't be removed unless you call droplimb.
+	if(istype(O) && O.owner == src)
+		return
 
 	if(I == wear_suit)
 		if(s_store)
