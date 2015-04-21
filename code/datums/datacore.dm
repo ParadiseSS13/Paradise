@@ -179,9 +179,6 @@ proc/get_id_photo(var/mob/living/carbon/human/H)
 		facial_s.Blend(rgb(H.r_facial, H.g_facial, H.b_facial), ICON_ADD)
 		eyes_s.Blend(facial_s, ICON_OVERLAY)
 
-	if(H.species.bloodflags & BLOOD_SLIME)
-		var/icon/blendingslime = new/icon("icon" = 'icons/effects/slimemutant.dmi', "icon_state" = "[H.slime_color]_slime_[H.gender]_s")
-		preview_icon.Blend(blendingslime, ICON_OVERLAY)
 
 	var/icon/clothes_s = null
 	switch(H.mind.assigned_role)

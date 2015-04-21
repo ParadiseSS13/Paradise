@@ -210,7 +210,8 @@ proc/wabbajack(mob/living/M)
 					new_mob.universal_speak = 1
 				if("human")
 					new_mob = new /mob/living/carbon/human/human(M.loc)
-
+					var/mob/living/carbon/human/H = new_mob
+					H.set_species(pick(all_species))
 					var/datum/preferences/A = new()	//Randomize appearance for the human
 					A.copy_to(new_mob)
 

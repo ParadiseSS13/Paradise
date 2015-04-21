@@ -13,13 +13,11 @@
 	flesh_color = "#AAAAAA"
 
 	has_organ = list(
-		"brain" = /obj/item/organ/brain/slime
+		"brain" = /obj/item/organ/brain
 		)
 
 	flags = NO_BLOOD | NO_BREATHE | NO_SCAN
 	bodyflags = FEET_NOSLIP
 
 /datum/species/shadow/handle_death(var/mob/living/carbon/human/H)
-	spawn(1)
-		new /obj/effect/decal/cleanable/ash(H.loc)
-		del(H)
+	H.dust()
