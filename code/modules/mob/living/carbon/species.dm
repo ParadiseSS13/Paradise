@@ -543,6 +543,8 @@
 	name = "Slime People"
 	default_language = "Galactic Common"
 	language = "Bubblish"
+	icobase = 'icons/mob/human_races/r_slime.dmi'
+	deform = 'icons/mob/human_races/r_slime.dmi'
 	path = /mob/living/carbon/human/slime
 	primitive = /mob/living/carbon/slime
 	unarmed_type = /datum/unarmed_attack/punch
