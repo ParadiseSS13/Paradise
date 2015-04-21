@@ -1189,14 +1189,15 @@ obj/item/toy/cards/deck/syndicate/black
 	desc = "An adorable stuffed toy that resembles a space carp."
 	icon = 'icons/obj/toy.dmi'
 	icon_state = "carpplushie"
-	attack_verb = list("bit", "ate", "fin slapped")
+	attack_verb = list("bitten", "eaten", "fin slapped")
 	var/bitesound = 'sound/weapons/bite.ogg'
-	w_class = 2.0
 
-/obj/item/toy/carpplushie/attack(mob/living/carbon/M as mob, mob/living/carbon/user as mob)
+// Attack mob
+/obj/item/toy/carpplushie/attack(mob/M as mob, mob/user as mob)
 	playsound(loc, bitesound, 20, 1)	// Play bite sound in local area
 	return ..()
 
+// Attack self
 /obj/item/toy/carpplushie/attack_self(mob/user as mob)
 	playsound(src.loc, bitesound, 20, 1)
 	return ..()

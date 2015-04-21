@@ -42,6 +42,9 @@
 	prev_gender = gender // Debug for plural genders
 	make_blood()
 
+	var/mob/M = src
+	faction |= "\ref[M]"
+
 	// Set up DNA.
 	if(!delay_ready_dna)
 		dna.ready_dna(src)
