@@ -313,19 +313,6 @@ var/MAX_EX_FLASH_RANGE = 14
 #define THERMAL_PROTECTION_HAND_RIGHT	0.025
 
 
-//bitflags for mutations
-	// Extra powers:
-#define SHADOW			(1<<10)	// shadow teleportation (create in/out portals anywhere) (25%)
-#define SCREAM			(1<<11)	// supersonic screaming (25%)
-#define EXPLOSIVE		(1<<12)	// exploding on-demand (15%)
-#define REGENERATION	(1<<13)	// superhuman regeneration (30%)
-#define REPROCESSOR		(1<<14)	// eat anything (50%)
-#define SHAPESHIFTING	(1<<15)	// take on the appearance of anything (40%)
-#define PHASING			(1<<16)	// ability to phase through walls (40%)
-#define SHIELD			(1<<17)	// shielding from all projectile attacks (30%)
-#define SHOCKWAVE		(1<<18)	// attack a nearby tile and cause a massive shockwave, knocking most people on their asses (25%)
-#define ELECTRICITY		(1<<19)	// ability to shoot electric attacks (15%)
-
 
 // String identifiers for associative list lookup
 
@@ -733,8 +720,9 @@ var/list/TAGGERLOCATIONS = list("Disposals",
 #define SOUND_LOBBY		8
 #define SOUND_STREAMING	16
 #define SOUND_HEARTBEAT	32
+#define SOUND_BUZZ		64
 
-#define SOUND_DEFAULT (SOUND_ADMINHELP|SOUND_MIDI|SOUND_AMBIENCE|SOUND_LOBBY|SOUND_STREAMING|SOUND_HEARTBEAT)
+#define SOUND_DEFAULT (SOUND_ADMINHELP|SOUND_MIDI|SOUND_AMBIENCE|SOUND_LOBBY|SOUND_STREAMING|SOUND_HEARTBEAT|SOUND_BUZZ)
 #define TOGGLES_DEFAULT (CHAT_OOC|CHAT_DEAD|CHAT_GHOSTEARS|CHAT_GHOSTSIGHT|CHAT_PRAYER|CHAT_RADIO|CHAT_ATTACKLOGS|CHAT_LOOC)
 
 #define BE_TRAITOR		1
@@ -840,10 +828,8 @@ var/list/restricted_camera_networks = list( //Those networks can only be accesse
 #define IS_SYNTHETIC	2048
 #define IS_PLANT 		4096
 #define CAN_BE_FAT 		8192
-#define NO_INTORGANS 	16384
-#define RAD_IMMUNE		32768
-#define REQUIRE_DARK	65536
-
+#define IS_RESTRICTED 	16384
+#define NO_INTORGANS	32768
 
 //Species Blood Flags
 #define BLOOD_SLIME		1

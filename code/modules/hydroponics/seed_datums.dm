@@ -762,7 +762,7 @@ proc/populate_seed_list()
 	mutants = list("reishi","amanita","plumphelmet")
 	packet_icon = "mycelium-chanter"
 	plant_icon = "chanter"
-	chems = list("nutriment" = list(1,25))
+	chems = list("nutriment" = list(1,25), "fungus" = list(1,10))
 
 	lifespan = 35
 	maturation = 7
@@ -1255,7 +1255,7 @@ proc/populate_seed_list()
 	packet_icon = "seed-corn"
 	products = list(/obj/item/weapon/reagent_containers/food/snacks/grown/corn)
 	plant_icon = "corn"
-	chems = list("nutriment" = list(1,10))
+	chems = list("nutriment" = list(1,10), "corn_starch" = list(3,5))
 
 	lifespan = 25
 	maturation = 8
@@ -1287,7 +1287,7 @@ proc/populate_seed_list()
 	packet_icon = "seed-wheat"
 	products = list(/obj/item/weapon/reagent_containers/food/snacks/grown/wheat)
 	plant_icon = "wheat"
-	chems = list("nutriment" = list(1,25), "corn_starch" = list(3,5))
+	chems = list("nutriment" = list(1,25))
 
 	lifespan = 25
 	maturation = 6

@@ -42,6 +42,9 @@
 	prev_gender = gender // Debug for plural genders
 	make_blood()
 
+	var/mob/M = src
+	faction |= "\ref[M]"
+
 	// Set up DNA.
 	if(!delay_ready_dna)
 		dna.ready_dna(src)
@@ -97,6 +100,14 @@
 /mob/living/carbon/human/machine/New(var/new_loc)
 	h_style = "blue IPC screen"
 	..(new_loc, "Machine")
+
+/mob/living/carbon/human/shadow/New(var/new_loc)
+	h_style = "Bald"
+	..(new_loc, "Shadow")
+
+/mob/living/carbon/human/golem/New(var/new_loc)
+	h_style = "Bald"
+	..(new_loc, "Golem")
 
 /mob/living/carbon/human/Bump(atom/movable/AM as mob|obj, yes)
 	if ((!( yes ) || now_pushing))
@@ -1027,29 +1038,32 @@
 ///Returns a number between -1 to 2
 /mob/living/carbon/human/eyecheck()
 	var/number = 0
-	if(istype(src.head, /obj/item/clothing/head/welding))
-		if(!src.head:up)
-			number += 2
-	if(istype(src.head, /obj/item/clothing/head/helmet/space))
-		number += 2
-	if(istype(src.head, /obj/item/clothing/head/helmet/space/eva))
-		number -= 2
-	if(istype(src.head, /obj/item/clothing/head/helmet/space/rig/medical))
-		number -= 2
-	if(istype(src.glasses, /obj/item/clothing/glasses/thermal))
-		number -= 1
-	if(istype(src.glasses, /obj/item/clothing/glasses/sunglasses))
-		number += 1
-	if(istype(src.glasses, /obj/item/clothing/glasses/hud/health_advanced)) // New blueshield / brig phys no flash medi hud
-		number += 1
-	if(istype(src.glasses, /obj/item/clothing/glasses/night/shadowling))
-		number += 2
-	if(istype(src.glasses, /obj/item/clothing/glasses/welding))
-		var/obj/item/clothing/glasses/welding/W = src.glasses
-		if(!W.up)
-			number += 2
+	if(istype(src.head, /obj/item/clothing/head))			//are they wearing something on their head
+		var/obj/item/clothing/head/HFP = src.head			//if yes gets the flash protection value from that item
+		number += HFP.flash_protect
+	if(istype(src.glasses, /obj/item/clothing/glasses))		//glasses
+		var/obj/item/clothing/glasses/GFP = src.glasses
+		number += GFP.flash_protect
+	if(istype(src.wear_mask, /obj/item/clothing/mask))		//mask
+		var/obj/item/clothing/mask/MFP = src.wear_mask
+		number += MFP.flash_protect
 	return number
 
+///tintcheck()
+///Checks eye covering items for visually impairing tinting, such as welding masks
+///Checked in life.dm. 0 & 1 = no impairment, 2 = welding mask overlay, 3 = You can see jack, but you can't see shit.
+/mob/living/carbon/human/tintcheck()
+	var/tinted = 0
+	if(istype(src.head, /obj/item/clothing/head))
+		var/obj/item/clothing/head/HT = src.head
+		tinted += HT.tint
+	if(istype(src.glasses, /obj/item/clothing/glasses))
+		var/obj/item/clothing/glasses/GT = src.glasses
+		tinted += GT.tint
+	if(istype(src.wear_mask, /obj/item/clothing/mask))
+		var/obj/item/clothing/mask/MT = src.wear_mask
+		tinted += MT.tint
+	return tinted
 
 /mob/living/carbon/human/IsAdvancedToolUser()
 	return 1//Humans can use guns and such
@@ -1073,9 +1087,6 @@
 
 	if(!species)
 		set_species()
-
-	if(dna && dna.mutantrace == "golem")
-		return "Animated Construct"
 
 	return species.name
 
@@ -1379,7 +1390,6 @@
 		dna = new /datum/dna(null)
 		dna.species = species.name
 		dna.real_name = real_name
-	dna.mutantrace = null
 
 	species.handle_post_spawn(src)
 
@@ -1393,6 +1403,15 @@
 		return 1
 	else
 		return 0
+
+/mob/living/carbon/human/get_default_language()
+	if(default_language)
+		return default_language
+
+	if(!species)
+		return null
+	return species.default_language ? all_languages[species.default_language] : null
+
 
 /mob/living/carbon/human/proc/bloody_doodle()
 	set category = "IC"
@@ -1628,9 +1647,6 @@
 	if(istype(head, /obj/item/clothing/head/wizard) || istype(head, /obj/item/clothing/head/helmet/space/rig/wizard))
 		threatcount += 2
 
-	//Check for nonhuman scum
-	if(dna && dna.mutantrace && dna.mutantrace != "none")
-		threatcount += 1
 
 	//Loyalty implants imply trustworthyness
 	if(isloyal(src))

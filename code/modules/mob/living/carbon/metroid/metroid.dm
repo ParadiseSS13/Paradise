@@ -686,15 +686,6 @@ mob/living/carbon/slime/var/temperature_resistance = T0C+75
 		..()
 		create_reagents(100)
 
-/obj/item/slime_extract/attack(mob/living/carbon/human/M as mob, mob/user as mob) //changing slime people colors
-		if(M.dna.mutantrace != "slime" || M != user) return
-
-		M.slime_color = _color
-		user <<"You absorb the core and your color shifts!"
-		M.update_mutantrace()
-		del(src) //Finally a tidy way to remove all the used cores lying about
-
-
 
 /obj/item/slime_extract/grey
 	name = "grey slime extract"
@@ -899,90 +890,6 @@ mob/living/carbon/slime/var/temperature_resistance = T0C+75
 	icon = 'icons/obj/chemical.dmi'
 	icon_state = "bottle17"
 
-	/*afterattack(obj/target, mob/user , flag)
-		if(istype(target, /obj/item/slime_extract))
-			if(target.enhanced == 1)
-				user << "<span class='warning'> This extract has already been enhanced!</span>"
-				return ..()
-			if(target.Uses == 0)
-				user << "<span class='warning'> You can't enhance a used extract!</span>"
-				return ..()
-			user <<"You apply the enhancer. It now has triple the amount of uses."
-			target.Uses = 3
-			target.enahnced = 1
-			del(src)*/
-
-////////Adamantine Golem stuff I dunno where else to put it
-
-// This will eventually be removed.
-
-/obj/item/clothing/under/golem
-	name = "adamantine skin"
-	desc = "a golem's skin"
-	icon_state = "golem"
-	item_state = "golem"
-	_color = "golem"
-	has_sensor = 0
-	flags = ABSTRACT | NODROP
-	armor = list(melee = 10, bullet = 0, laser = 0,energy = 0, bomb = 0, bio = 0, rad = 0)
-
-/obj/item/clothing/suit/golem
-	name = "adamantine shell"
-	desc = "a golem's thick outter shell"
-	icon_state = "golem"
-	item_state = "golem"
-	w_class = 4//bulky item
-	gas_transfer_coefficient = 0.90
-	permeability_coefficient = 0.50
-	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS|HEAD
-	slowdown = 1.0
-	flags_inv = HIDEGLOVES|HIDESHOES|HIDEJUMPSUIT
-	flags = ONESIZEFITSALL | STOPSPRESSUREDMAGE | ABSTRACT | NODROP
-	heat_protection = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS | HEAD
-	max_heat_protection_temperature = FIRESUIT_MAX_HEAT_PROTECTION_TEMPERATURE
-	cold_protection = UPPER_TORSO | LOWER_TORSO | LEGS | FEET | ARMS | HANDS | HEAD
-	min_cold_protection_temperature = SPACE_SUIT_MIN_COLD_PROTECTION_TEMPERATURE
-	armor = list(melee = 80, bullet = 20, laser = 20, energy = 10, bomb = 0, bio = 0, rad = 0)
-
-/obj/item/clothing/shoes/golem
-	name = "golem's feet"
-	desc = "sturdy adamantine feet"
-	icon_state = "golem"
-	item_state = "golem"
-	flags = NOSLIP | ABSTRACT | MASKINTERNALS | MASKCOVERSMOUTH | NODROP
-	slowdown = SHOES_SLOWDOWN+1
-
-
-/obj/item/clothing/mask/gas/golem
-	name = "golem's face"
-	desc = "the imposing face of an adamantine golem"
-	icon_state = "golem"
-	item_state = "golem"
-	siemens_coefficient = 0
-	unacidable = 1
-	flags = ABSTRACT | NODROP
-
-
-/obj/item/clothing/gloves/golem
-	name = "golem's hands"
-	desc = "strong adamantine hands"
-	icon_state = "golem"
-	item_state = null
-	siemens_coefficient = 0
-	flags = ABSTRACT | NODROP
-
-
-/obj/item/clothing/head/space/golem
-	icon_state = "golem"
-	item_state = "dermal"
-	_color = "dermal"
-	name = "golem's head"
-	desc = "a golem's head"
-	unacidable = 1
-	flags = STOPSPRESSUREDMAGE | ABSTRACT | NODROP
-	heat_protection = HEAD
-	max_heat_protection_temperature = FIRE_HELMET_MAX_HEAT_PROTECTION_TEMPERATURE
-	armor = list(melee = 80, bullet = 20, laser = 20, energy = 10, bomb = 0, bio = 0, rad = 0)
 
 /obj/effect/goleRUNe
 	anchored = 1
@@ -1014,16 +921,8 @@ mob/living/carbon/slime/var/temperature_resistance = T0C+75
 		if(!ghost)
 			user << "The rune fizzles uselessly. There is no spirit nearby."
 			return
-		var/mob/living/carbon/human/G = new /mob/living/carbon/human
-		G.dna.mutantrace = "adamantine"
+		var/mob/living/carbon/human/golem/G = new /mob/living/carbon/human/golem
 		if(prob(50))	G.gender = "female"
-		G.real_name = text("Adamantine Golem ([rand(1, 1000)])")
-		G.equip_to_slot_or_del(new /obj/item/clothing/under/golem(G), slot_w_uniform)
-		G.equip_to_slot_or_del(new /obj/item/clothing/suit/golem(G), slot_wear_suit)
-		G.equip_to_slot_or_del(new /obj/item/clothing/shoes/golem(G), slot_shoes)
-		G.equip_to_slot_or_del(new /obj/item/clothing/mask/gas/golem(G), slot_wear_mask)
-		G.equip_to_slot_or_del(new /obj/item/clothing/gloves/golem(G), slot_gloves)
-		//G.equip_to_slot_or_del(new /obj/item/clothing/head/space/golem(G), slot_head)
 		G.loc = src.loc
 		G.key = ghost.key
 		G << "You are an adamantine golem. You move slowly, but are highly resistant to heat and cold as well as blunt trauma. You are unable to wear clothes, but can still use most tools. Serve [user], and assist them in completing their goals at any cost."
@@ -1065,114 +964,3 @@ mob/living/carbon/slime/var/temperature_resistance = T0C+75
 				return
 			ghosts.Add(O)
 			O << "\blue You are signed up to be a golem."
-
-//////////////////////////////Old shit from metroids/RoRos, and the old cores, would not take much work to re-add them////////////////////////
-
-/*
-// Basically this slime Core catalyzes reactions that normally wouldn't happen anywhere
-/obj/item/slime_core
-	name = "slime extract"
-	desc = "Goo extracted from a slime. Legends claim these to have \"magical powers\"."
-	icon = 'icons/mob/slimes.dmi'
-	icon_state = "slime extract"
-	force = 1.0
-	w_class = 1.0
-	throwforce = 1.0
-	throw_speed = 2
-	throw_range = 6
-	origin_tech = "biotech=4"
-	var/POWERFLAG = 0 // sshhhhhhh
-	var/Flush = 30
-	var/Uses = 5 // uses before it goes inert
-
-/obj/item/slime_core/New()
-		..()
-		create_reagents(100)
-		POWERFLAG = rand(1,10)
-		Uses = rand(7, 25)
-		//flags |= NOREACT
-/*
-		spawn()
-			Life()
-
-	proc/Life()
-		while(src)
-			sleep(25)
-			Flush--
-			if(Flush <= 0)
-				reagents.clear_reagents()
-				Flush = 30
-*/
-
-
-
-/obj/item/weapon/reagent_containers/food/snacks/egg/slime
-	name = "slime egg"
-	desc = "A small, gelatinous egg."
-	icon = 'icons/mob/mob.dmi'
-	icon_state = "slime egg-growing"
-	bitesize = 12
-	origin_tech = "biotech=4"
-	var/grown = 0
-
-/obj/item/weapon/reagent_containers/food/snacks/egg/slime/New()
-	..()
-	reagents.add_reagent("nutriment", 4)
-	reagents.add_reagent("slimejelly", 1)
-	spawn(rand(1200,1500))//the egg takes a while to "ripen"
-		Grow()
-
-/obj/item/weapon/reagent_containers/food/snacks/egg/slime/proc/Grow()
-	grown = 1
-	icon_state = "slime egg-grown"
-	processing_objects.Add(src)
-	return
-
-/obj/item/weapon/reagent_containers/food/snacks/egg/slime/proc/Hatch()
-	processing_objects.Remove(src)
-	var/turf/T = get_turf(src)
-	src.visible_message("<span class='warning'> The [name] pulsates and quivers!</span>")
-	spawn(rand(50,100))
-		src.visible_message("<span class='warning'> The [name] bursts open!</span>")
-		new/mob/living/carbon/slime(T)
-		del(src)
-
-
-/obj/item/weapon/reagent_containers/food/snacks/egg/slime/process()
-	var/turf/location = get_turf(src)
-	var/datum/gas_mixture/environment = location.return_air()
-	if (environment.toxins > MOLES_PLASMA_VISIBLE)//plasma exposure causes the egg to hatch
-		src.Hatch()
-
-/obj/item/weapon/reagent_containers/food/snacks/egg/slime/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
-	if(istype( W, /obj/item/toy/crayon ))
-		return
-	else
-		..()
-*/
-
-/obj/item/slime_color
-	name = "slimeperson color selector"
-	desc = "Allows you to change your slimeperson color, once."
-	icon = 'icons/obj/device.dmi'
-	icon_state = "t-ray0"
-	force = 1.0
-	w_class = 1.0
-	throwforce = 1.0
-	throw_speed = 3
-	throw_range = 6
-	origin_tech = "biotech=4"
-	_color = "grey"
-	var/Uses = 1 // uses before it goes inert
-	var/list/slimecolor = list("grey","gold","silver","metal","purple","darkpurple","orange","yellow","red","blue","darkblue","pink","green","lightpink","black","oil","adamantine")
-
-
-/obj/item/slime_color/attack(mob/living/carbon/human/M as mob, mob/user as mob) //changing slime people colors
-	if(M.dna.mutantrace != "slime" || M != user) return
-
-
-	var/pickedcolor = input("Please select a slime color", "Slimeperson color chooser")  as null|anything in slimecolor
-	M.slime_color = pickedcolor
-	user << "You absorb the pigment and your color shifts!"
-	M.update_mutantrace()
-	del(src) //Finally a tidy way to remove all the used cores lying about

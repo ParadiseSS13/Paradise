@@ -237,6 +237,22 @@
 					icon_state = "wood_tabledir2"
 				if(6)
 					icon_state = "wood_tabledir3"
+		else if(istype(src,/obj/structure/table/glass))
+			switch(table_type)
+				if(0)
+					icon_state = "glass_table"
+				if(1)
+					icon_state = "glass_table_1tileendtable"
+				if(2)
+					icon_state = "glass_table_1tilethick"
+				if(3)
+					icon_state = "glass_table_dir"
+				if(4)
+					icon_state = "glass_table_middle"
+				if(5)
+					icon_state = "glass_tabledir2"
+				if(6)
+					icon_state = "glass_tabledir3"
 		else
 			switch(table_type)
 				if(0)
@@ -665,6 +681,113 @@
 			//Clamp it so that the icon never moves more than 16 pixels in either direction (thus leaving the table turf)
 			W.pixel_x = Clamp(text2num(click_params["icon-x"]) - 16, -(world.icon_size/2), world.icon_size/2)
 			W.pixel_y = Clamp(text2num(click_params["icon-y"]) - 16, -(world.icon_size/2), world.icon_size/2)
+
+	return 1
+
+/obj/structure/glasstable_frame
+	name = "glass table frame"
+	desc = "A metal frame for a glass table."
+	icon = 'icons/obj/structures.dmi'
+	icon_state = "glass_table_frame"
+	density = 1
+
+/obj/structure/glasstable_frame/attackby(obj/item/I as obj, mob/user as mob, params)
+	if(istype(I, /obj/item/stack/sheet/glass))
+		var/obj/item/stack/sheet/glass/G = I
+		if(G.amount >= 2)
+			user << "<span class='notice'>You start to add the glass to \the [src].</span>"
+			if(do_after(user, 10))
+				G.use(2)
+				user << "<span class='notice'>You add the glass to \the [src].</span>"
+				playsound(get_turf(src), 'sound/items/Deconstruct.ogg', 50, 1)
+				new /obj/structure/table/glass(loc)
+				del(src)
+		else
+			user << "<span class='notice'>You don't have enough glass! You need at least 2 sheets.</span>"
+			return
+
+	if(iswrench(I))
+		user << "<span class='notice'>You start to deconstruct \the [src].</span>"
+		playsound(src.loc, 'sound/items/Ratchet.ogg', 75, 1)
+		if(do_after(user, 10))
+			playsound(src.loc, 'sound/items/Deconstruct.ogg', 75, 1)
+			user << "<span class='notice'>You dismantle \the [src].</span>"
+			new /obj/item/stack/sheet/metal(loc)
+			new /obj/item/stack/sheet/metal(loc)
+			del(src)
+
+/obj/structure/table/glass
+	name = "glass table"
+	desc = "Looks fragile. You should totally flip it. It is begging for it."
+	icon_state = "glass_table"
+	parts = /obj/item/weapon/table_parts/glass
+	health = 10
+
+/obj/structure/table/glass/flip(var/direction)
+	src.collapse()
+
+/obj/structure/table/glass/proc/collapse() //glass table collapse is called twice in this code, more efficent to just have a proc
+	src.visible_message("<span class='warning'>\The [src] shatters, and the frame collapses!</span>", "<span class='warning'>You hear metal collapsing and glass shattering.</span>")
+	new /obj/item/weapon/table_parts/glass(loc)
+	getFromPool(/obj/item/weapon/shard, loc)
+	if(prob(50)) //50% chance to spawn two shards
+		getFromPool(/obj/item/weapon/shard, loc)
+	qdel(src)
+
+/obj/structure/table/glass/attackby(obj/item/I as obj, mob/user as mob, params)
+
+	if (istype(I, /obj/item/weapon/grab))
+		var/obj/item/weapon/grab/G = I
+		if(G.affecting.buckled)
+			user << "<span class='notice'>[G.affecting] is buckled to [G.affecting.buckled]!</span>"
+			return
+		if(G.state < GRAB_AGGRESSIVE)
+			user << "<span class='notice'>You need a better grip to do that!</span>"
+			return
+		if(!G.confirm())
+			return
+		G.affecting.loc = src.loc
+		G.affecting.Weaken(7)
+		visible_message("<span class='warning'>[G.assailant] smashes [G.affecting] onto \the [src]!</span>")
+		del(I)
+		src.collapse()
+		return
+
+	if (istype(I, /obj/item/weapon/wrench))
+		user << "\blue Now disassembling the glass table"
+		playsound(src.loc, 'sound/items/Ratchet.ogg', 50, 1)
+		sleep(50)
+		new /obj/item/weapon/table_parts/glass( src.loc )
+		new /obj/item/stack/sheet/glass( src.loc )
+		playsound(src.loc, 'sound/items/Deconstruct.ogg', 50, 1)
+		del(src)
+		return
+
+	if(isrobot(user))
+		return
+	if(istype(I, /obj/item/weapon/melee/energy/blade))
+		var/datum/effect/effect/system/spark_spread/spark_system = new /datum/effect/effect/system/spark_spread()
+		spark_system.set_up(5, 0, src.loc)
+		spark_system.start()
+		playsound(src.loc, 'sound/weapons/blade1.ogg', 50, 1)
+		playsound(src.loc, "sparks", 50, 1)
+		for(var/mob/O in viewers(user, 4))
+			O.show_message("<span class='notice'>\The [src] was sliced apart by [user]!</span>", 1, "<span class='warning'>You hear glass being sliced apart.</span>", 2)
+		new /obj/item/weapon/table_parts/glass( src.loc )
+		new /obj/item/stack/sheet/glass( src.loc )
+		del(src)
+		return
+
+	if(!(I.flags & ABSTRACT))
+		if(user.drop_item())
+			I.Move(loc)
+			var/list/click_params = params2list(params)
+			//Center the icon where the user clicked.
+			if(!click_params || !click_params["icon-x"] || !click_params["icon-y"])
+				return
+			//Clamp it so that the icon never moves more than 16 pixels in either direction (thus leaving the table turf)
+			I.pixel_x = Clamp(text2num(click_params["icon-x"]) - 16, -(world.icon_size/2), world.icon_size/2)
+			I.pixel_y = Clamp(text2num(click_params["icon-y"]) - 16, -(world.icon_size/2), world.icon_size/2)
 
 	return 1
 

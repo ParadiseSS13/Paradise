@@ -65,9 +65,9 @@
 	return (tally + move_delay_add + config.alien_delay)
 
 /mob/living/carbon/alien/humanoid/Process_Spacemove(var/check_drift = 0)
-	if(..())	
+	if(..())
 		return 1
-		
+
 	return 0
 
 ///mob/living/carbon/alien/humanoid/bullet_act(var/obj/item/projectile/Proj) taken care of in living

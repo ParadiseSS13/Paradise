@@ -133,7 +133,7 @@
 				M.attack_log += "\[[time_stamp()]\] <b>[firer]/[firer.ckey]</b> shot <b>[M]/[M.ckey]</b> with a <b>[src.type]</b>[reagent_note]"
 				firer.attack_log += "\[[time_stamp()]\] <b>[firer]/[firer.ckey]</b> shot <b>[M]/[M.ckey]</b> with a <b>[src.type]</b>[reagent_note]"
 				if(M.ckey && chatlog_attacks)
-					msg_admin_attack("[firer] ([firer.ckey]) shot [M] ([M.ckey]) with a [src][reagent_note] (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[firer.x];Y=[firer.y];Z=[firer.z]'>JMP</a>)") //BS12 EDIT ALG
+					msg_admin_attack("[firer] ([firer.ckey])[isAntag(firer) ? "(ANTAG)" : ""] shot [M] ([M.ckey]) with a [src][reagent_note] (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[firer.x];Y=[firer.y];Z=[firer.z]'>JMP</a>)") //BS12 EDIT ALG
 				if(!iscarbon(firer))
 					M.LAssailant = null
 				else

@@ -67,7 +67,9 @@
 
 	if(target.key)
 		target.ghostize()
-
+	var/mob/living/carbon/C = target
+	if(istype(C))
+		C.brain_op_stage = 1.0
 	if(brainmob)
 		if(brainmob.mind)
 			brainmob.mind.transfer_to(target)
@@ -78,13 +80,11 @@
 /obj/item/organ/brain/slime
 	name = "slime core"
 	desc = "A complex, organic knot of jelly and crystalline particles."
-	robotic = 2
 	icon = 'icons/mob/slimes.dmi'
 	icon_state = "green slime extract"
 
 /obj/item/organ/brain/golem
 	name = "chem"
 	desc = "A tightly furled roll of paper, covered with indecipherable runes."
-	robotic = 2
 	icon = 'icons/obj/wizard.dmi'
 	icon_state = "scroll"

@@ -105,7 +105,7 @@
 	master = null
 	dir = 2
 
-	move
+	/*move
 		name = "Allow Walking"
 		icon_state = "no_walk0"
 		screen_loc = ui_gun2
@@ -113,7 +113,7 @@
 	run
 		name = "Allow Running"
 		icon_state = "no_run0"
-		screen_loc = ui_gun3
+		screen_loc = ui_gun3*/
 
 	item
 		name = "Allow Item Use"
@@ -421,7 +421,7 @@
 			if(istype(usr, /mob/living/silicon/robot))
 				usr:toggle_module(3)
 
-		if("Allow Walking")
+		/*if("Allow Walking")
 			if(gun_click_time > world.time - 30)	//give them 3 seconds between mode changes.
 				return
 			if(!istype(usr.equipped(),/obj/item/weapon/gun))
@@ -455,7 +455,7 @@
 				usr << "You need your gun in your active hand to do that!"
 				return
 			usr.client.AllowTargetRun()
-			gun_click_time = world.time
+			gun_click_time = world.time*/
 
 		if("Allow Item Use")
 			if(gun_click_time > world.time - 30)	//give them 3 seconds between mode changes.

@@ -332,6 +332,12 @@ proc/get_damage_icon_part(damage_state, body_part)
 	if(update_icons)
 		update_icons()
 
+	if(lip_style  && species && species.flags & HAS_LIPS)
+		var/icon/lips = icon("icon"='icons/mob/human_face.dmi', "icon_state"="lips_[lip_style]_s")
+		lips.Blend(lip_color, ICON_ADD)
+
+		stand_icon.Blend(lips, ICON_OVERLAY)
+
 	//tail
 	update_tail_showing(0)
 
@@ -433,29 +439,12 @@ proc/get_damage_icon_part(damage_state, body_part)
 
 
 /mob/living/carbon/human/proc/update_mutantrace(var/update_icons=1)
-	var/fat
-	if( FAT in mutations )
-		fat = "fat"
-//	var/g = "m"
-//	if (gender == FEMALE)	g = "f"
 //BS12 EDIT
 	var/skel = (SKELETON in src.mutations)
 	if(skel)
 		skeleton = 'icons/mob/human_races/r_skeleton.dmi'
 	else
 		skeleton = null
-
-	if(dna)
-		switch(dna.mutantrace)
-			if("golem","shadow","adamantine")
-				overlays_standing[MUTANTRACE_LAYER]	= image("icon" = 'icons/effects/genetics.dmi', "icon_state" = "[dna.mutantrace][fat]_[gender]_s")
-			if("slime")
-				overlays_standing[MUTANTRACE_LAYER]	= image("icon" = 'icons/effects/slimemutant.dmi', "icon_state" = "[slime_color]_[dna.mutantrace][fat]_[gender]_s")
-			else
-				overlays_standing[MUTANTRACE_LAYER]	= null
-
-	if(!dna || !(dna.mutantrace in list("golem","metroid")))
-		update_body(0)
 
 	update_hair(0)
 	if(update_icons)   update_icons()

@@ -44,7 +44,7 @@
 
 			M.attack_log += text("\[[time_stamp()]\] <font color='orange'>Has been fed [src.name] by [user.name] ([user.ckey]) Reagents: [reagentlist(src)]</font>")
 			user.attack_log += text("\[[time_stamp()]\] <font color='red'>Fed [M.name] by [M.name] ([M.ckey]) Reagents: [reagentlist(src)]</font>")
-			msg_admin_attack("[key_name(user)] fed [key_name(M)] with [src.name] Reagents: [reagentlist(src)] (INTENT: [uppertext(user.a_intent)]) (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[user.x];Y=[user.y];Z=[user.z]'>JMP</a>)")
+			msg_admin_attack("[key_name(user)][isAntag(user) ? "(ANTAG)" : ""] fed [key_name(M)] with [src.name] Reagents: [reagentlist(src)] (INTENT: [uppertext(user.a_intent)]) (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[user.x];Y=[user.y];Z=[user.z]'>JMP</a>)")
 
 			if(reagents.total_volume)
 				reagents.trans_to_ingest(M, gulp_size)
@@ -318,3 +318,96 @@
 	New()
 		..()
 		reagents.add_reagent("sodawater", 50)
+
+//Donk Co. Cola//
+
+/obj/item/weapon/reagent_containers/food/drinks/cans/pubber
+	name = "Dr. Pubber"
+	desc = "The beverage of an original crowd. Tastes like an industrial tranquilizer."
+	icon_state = "dr_gibb"
+	New()
+		..()
+		reagents.add_reagent("haloperidol", 4)
+		reagents.add_reagent("morphine", 4)
+		reagents.add_reagent("vhfcs", 10)
+		reagents.add_reagent("cola", 12)
+
+/obj/item/weapon/reagent_containers/food/drinks/cans/robust
+	name = "Robust-Eeze"
+	desc = "A carbonated robustness tonic. It has quite a kick."
+	icon_state = "cola"
+	New()
+		..()
+		reagents.add_reagent("methamphetamine", 3)
+		reagents.add_reagent("vhfcs", 10)
+		reagents.add_reagent("cola", 17)
+
+/obj/item/weapon/reagent_containers/food/drinks/cans/grifeo
+	name = "Grife-O"
+	desc = "The carbonated beverage of a space generation. Contains actual space dust!"
+	icon_state = "griefo"
+	New()
+		..()
+		reagents.add_reagent("radium", 3)
+		reagents.add_reagent("ephedrine", 6)
+		reagents.add_reagent("vhfcs", 10)
+		reagents.add_reagent("cola", 11)
+
+/obj/item/weapon/reagent_containers/food/drinks/cans/orangeaid
+	name = "Orange-Aid"
+	desc = "A vitamin tonic that promotes good eyesight and health."
+	icon_state = "starkist"
+	New()
+		..()
+		reagents.add_reagent("orangejuice", 20)
+		reagents.add_reagent("oculine", 20)
+
+/obj/item/weapon/reagent_containers/food/drinks/cans/limeaid
+	name = "Lime-Aid"
+	desc = "Antihol mixed with lime juice. A well-known cure for hangovers."
+	icon_state = "space-up"
+	New()
+		..()
+		reagents.add_reagent("limejuice", 20)
+		reagents.add_reagent("antihol", 20)
+
+/obj/item/weapon/reagent_containers/food/drinks/cans/runoff
+	name = "Spooky Dan's Runoffa Cola"
+	desc = "A spoooky cola for Halloween!  Rumors that Runoff Cola contains actual industrial runoff are unsubstantiated."
+	icon_state = "purple_can"
+	New()
+		..()
+		reagents.add_reagent("chlorine", 5)
+		reagents.add_reagent("phosphorus", 5)
+		reagents.add_reagent("mercury", 5)
+		reagents.add_reagent("vhfcs", 10)
+		reagents.add_reagent("cola", 15)
+
+/obj/item/weapon/reagent_containers/food/drinks/cans/horror
+	name = "Spooky Dan's Horrortastic Cola"
+	desc = "A terrifying Halloween soda.  It's especially frightening if you're diabetic."
+	icon_state = "glowingbeer"
+	New()
+		..()
+		reagents.add_reagent("ectoplasm", 10)
+		reagents.add_reagent("sulfur", 5)
+		reagents.add_reagent("vhfcs", 5)
+		reagents.add_reagent("cola", 20)
+
+/obj/item/weapon/reagent_containers/food/drinks/cans/grones
+	name = "Grones Soda"
+	desc = "Bursting with 10 different flavors!"
+	icon_state = "grones"
+	New()
+		..()
+		reagents.add_reagent("cola", 20)
+		reagents.add_reagent(pick("atropine","serotrotium","lithium","mercury","charcoal","diphenhydramine","spaceacillin","hairgrownium","ephedrine","capsaicin"), 10)
+
+/obj/item/weapon/reagent_containers/food/drinks/cans/decirprevo
+	name = "Decirprevo Bottled Water"
+	desc = "Bottled from our cool natural springs on Europa."
+	icon_state = "waterbottle"
+	New()
+		..()
+		reagents.add_reagent("water", 45)
+		reagents.add_reagent("iodine", 5)

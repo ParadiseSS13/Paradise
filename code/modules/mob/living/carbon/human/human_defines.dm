@@ -24,6 +24,7 @@
 	var/b_skin = 0
 
 	var/lip_style = null	//no lipstick by default- arguably misleading, as it could be used for general makeup
+	var/lip_color = "white"
 
 	var/age = 30		//Player's age (pure fluff)
 	var/b_type = "A+"	//Player's bloodtype
@@ -54,6 +55,8 @@
 	var/voice = ""	//Instead of new say code calling GetVoice() over and over and over, we're just going to ask this variable, which gets updated in Life()
 
 	var/speech_problem_flag = 0
+
+	var/datum/martial_art/martial_art = null
 
 	var/miming = null //Toggle for the mime's abilities.
 	var/special_voice = "" // For changing our voice. Used by a symptom.

@@ -138,6 +138,17 @@
 	new /obj/item/clothing/head/helmet/space/syndicate/black/red(src)
 	return
 
+/obj/item/weapon/storage/box/syndie_kit/hardsuit
+	name = "Boxed Blood Red Suit and Helmet"
+	can_hold = list(/obj/item/clothing/suit/space/rig/syndi, /obj/item/clothing/head/helmet/space/rig/syndi)
+	max_w_class = 3
+
+/obj/item/weapon/storage/box/syndie_kit/hardsuit/New()
+	..()
+	new /obj/item/clothing/suit/space/rig/syndi(src)
+	new /obj/item/clothing/head/helmet/space/rig/syndi(src)
+	return
+
 /obj/item/weapon/storage/box/syndie_kit/conversion
 	name = "box (CK)"
 

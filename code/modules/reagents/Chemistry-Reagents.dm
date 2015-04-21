@@ -268,6 +268,10 @@ datum
 					var/obj/item/weapon/reagent_containers/food/snacks/monkeycube/cube = O
 					if(!cube.wrapped)
 						cube.Expand()
+				// Dehydrated carp
+				if(istype(O,/obj/item/toy/carpplushie/dehy_carp))
+					var/obj/item/toy/carpplushie/dehy_carp/dehy = O
+					dehy.Swell() // Makes a carp
 				return
 
 		hellwater
@@ -355,15 +359,16 @@ datum
 				if(!M) M = holder.my_atom
 				if(ishuman(M))
 					var/mob/living/carbon/human/human = M
-					if(human.dna.mutantrace == null)
+					if(human.species.name != "Shadow")
 						M << "\red Your flesh rapidly mutates!"
 						M << "<b>You are now a Shadow Person, a mutant race of darkness-dwelling humanoids.</b>"
 						M << "\red Your body reacts violently to light. \green However, it naturally heals in darkness."
 						M << "Aside from your new traits, you are mentally unchanged and retain your prior obligations."
-						human.dna.mutantrace = "shadow"
-						human.update_mutantrace()
+						human.set_species("Shadow")
 				..()
 				return
+
+
 
 		aslimetoxin
 			name = "Advanced Mutation Toxin"
@@ -1075,6 +1080,11 @@ datum
 			reaction_mob(var/mob/M, var/method=TOUCH, var/volume)
 				if(iscarbon(M))
 					var/mob/living/carbon/C = M
+					if(istype(M,/mob/living/carbon/human))
+						var/mob/living/carbon/human/H = M
+						if(H.lip_style)
+							H.lip_style = null
+							H.update_body()
 					if(C.r_hand)
 						C.r_hand.clean_blood()
 					if(C.l_hand)
@@ -1119,23 +1129,6 @@ datum
 					M.adjust_fire_stacks(volume / 5)
 					..()
 					return
-
-		cryptobiolin
-			name = "Cryptobiolin"
-			id = "cryptobiolin"
-			description = "Cryptobiolin causes confusion and dizzyness."
-			reagent_state = LIQUID
-			color = "#FFD1DC" // rgb: 255, 209, 220
-
-			on_mob_life(var/mob/living/M as mob)
-				if(!M) M = holder.my_atom
-				M.Dizzy(1)
-				if(!M.confused) M.confused = 1
-				M.confused = max(M.confused, 20)
-				holder.remove_reagent(src.id, 0.5 * REAGENTS_METABOLISM)
-				..()
-				return
-
 		lexorin
 			name = "Lexorin"
 			id = "lexorin"
@@ -1317,9 +1310,9 @@ datum
 		spaceacillin
 			name = "Spaceacillin"
 			id = "spaceacillin"
-			description = "An all-purpose antiviral agent."
+			description = "An all-purpose antibiotic agent extracted from space fungus."
 			reagent_state = LIQUID
-			color = "#228B22" // rgb: 34, 139, 34
+			color = "#0AB478"
 
 			on_mob_life(var/mob/living/M as mob)
 				..()
@@ -1351,12 +1344,12 @@ datum
 				data = max(data - 1, 3)
 				..()
 
-		mindbreaker
-			name = "Mindbreaker Toxin"
-			id = "mindbreaker"
-			description = "A powerful hallucinogen. Not a thing to be messed with."
+		lsd
+			name = "Lysergic acid diethylamide"
+			id = "lsd"
+			description = "A highly potent hallucinogenic substance. Far out, maaaan."
 			reagent_state = LIQUID
-			color = "#B31008" // rgb: 139, 166, 233
+			color = "#0000D8"
 
 			on_mob_life(var/mob/living/M)
 				if(!M) M = holder.my_atom
@@ -2384,10 +2377,12 @@ datum
 			reagent_state = LIQUID
 			nutriment_factor = 0 //So alcohol can fill you up! If they want to.
 			color = "#404030" // rgb: 64, 64, 48
+			var/datum/martial_art/drunk_brawling/F = new
 			var/dizzy_adj = 3
 			var/slurr_adj = 3
 			var/confused_adj = 2
 			var/slur_start = 65			//amount absorbed after which mob starts slurring
+			var/brawl_start = 75		//amount absorbed after which mob switches to drunken brawling as a fighting style
 			var/confused_start = 130	//amount absorbed after which mob starts confusing directions
 			var/vomit_start = 180	//amount absorbed after which mob starts vomitting
 			var/blur_start = 260	//amount absorbed after which mob starts getting blurred vision
@@ -2417,6 +2412,12 @@ datum
 				if(d >= slur_start && d < pass_out)
 					if (!M:slurring) M:slurring = 1
 					M:slurring += slurr_adj/sober_str
+				if(d >= brawl_start && ishuman(M))
+					var/mob/living/carbon/human/H = M
+					F.teach(H,1)
+					if(src.volume < 3)
+						if(H.martial_art == F)
+							F.remove(H)
 				if(d >= confused_start && prob(33))
 					if (!M:confused) M:confused = 1
 					M.confused = max(M:confused+(confused_adj/sober_str),0)
@@ -2490,6 +2491,7 @@ datum
 				description = "Just when you thought regular station whiskey was good... This silky, amber goodness has to come along and ruin everything."
 				color = "#664300" // rgb: 102, 67, 0
 				slur_start = 30		//amount absorbed after which mob starts slurring
+				brawl_start = 40
 
 			gin
 				name = "Gin"
@@ -2506,6 +2508,7 @@ datum
 				overdose_threshold = 30
 				dizzy_adj = 5
 				slur_start = 25
+				brawl_start = 40
 				confused_start = 100
 
 				//copy paste from LSD... shoot me
@@ -2583,6 +2586,7 @@ datum
 				slurr_adj = 20
 				confused_adj = 3
 				slur_start = 15
+				brawl_start = 25
 				confused_start = 40
 				blur_start = 60
 				pass_out = 80

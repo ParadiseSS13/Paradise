@@ -9,6 +9,7 @@
 	icon_override = 'icons/mob/in-hand/tools.dmi'
 	force = 10
 	var/datum/song/handheld/song
+	hitsound = 'sound/effects/guitarsmash.ogg'
 
 /obj/item/device/guitar/New()
 	song = new("guitar", src)

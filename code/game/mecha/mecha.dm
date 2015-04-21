@@ -264,8 +264,8 @@
 /obj/mecha/proc/mech_toxin_damage(mob/living/target)
 	playsound(src, 'sound/effects/spray2.ogg', 50, 1)
 	if(target.reagents)
-		if(target.reagents.get_reagent_amount("cryptobiolin") + force < force*2)
-			target.reagents.add_reagent("cryptobiolin", force/2)
+		if(target.reagents.get_reagent_amount("atropine") + force < force*2)
+			target.reagents.add_reagent("atropine", force/2)
 		if(target.reagents.get_reagent_amount("toxin") + force < force*2)
 			target.reagents.add_reagent("toxin", force/2.5)
 

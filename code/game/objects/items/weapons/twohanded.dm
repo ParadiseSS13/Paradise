@@ -355,6 +355,59 @@ obj/item/weapon/twohanded/
 	desc = "A spear brought over from the Kidan homeworld."
 
 
+///CHAINSAW///
+
+/obj/item/weapon/twohanded/chainsaw
+	icon_override = 'icons/mob/in-hand/swords.dmi'
+	icon_state = "chainsaw0"
+	name = "Chainsaw"
+	desc = "Perfect for felling trees or fellow spaceman."
+	force = 15
+	throwforce = 15
+	throw_speed = 1
+	throw_range = 5
+	w_class = 4.0 // can't fit in backpacks
+	force_unwielded = 15 //still pretty robust
+	force_wielded = 50  //you'll gouge their eye out! Or a limb...maybe even their entire body!
+	wieldsound = 'sound/weapons/chainsawstart.ogg'
+	hitsound = null
+	flags = NOSHIELD
+	origin_tech = "materials=6;syndicate=4"
+	attack_verb = list("sawed", "cut", "hacked", "carved", "cleaved", "butchered", "felled", "timbered")
+	sharp = 1
+	edge = 1
+	no_embed = 1
+
+
+/obj/item/weapon/twohanded/chainsaw/update_icon()
+	if(wielded)
+		icon_state = "chainsaw[wielded]"
+	else
+		icon_state = "chainsaw0"
+
+
+/obj/item/weapon/twohanded/chainsaw/attack(mob/target as mob, mob/living/user as mob)
+	if(wielded)
+		playsound(loc, 'sound/weapons/chainsaw.ogg', 100, 1, -1) //incredibly loud; you ain't goin' for stealth with this thing. Credit to Lonemonk of Freesound for this sound.
+		if(isrobot(target))
+			..()
+			return
+		if(!isliving(target))
+			return
+		else
+			target.Weaken(4)
+			..()
+		return
+	else
+		playsound(loc, "swing_hit", 50, 1, -1)
+		return ..()
+
+/obj/item/weapon/twohanded/chainsaw/IsShield() //Disarming someone with a chainsaw should be difficult.
+	if(wielded)
+		return 1
+	else
+		return 0
+
 // SINGULOHAMMER
 
 /obj/item/weapon/twohanded/singularityhammer

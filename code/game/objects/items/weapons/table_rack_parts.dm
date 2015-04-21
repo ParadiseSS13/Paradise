@@ -63,6 +63,21 @@
 	return
 
 /*
+ * Glass Table Parts
+ */
+/obj/item/weapon/table_parts/glass/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
+	if (istype(W, /obj/item/weapon/wrench))
+		new /obj/item/stack/sheet/metal( user.loc )
+		new /obj/item/stack/sheet/metal( user.loc )
+		del(src)
+
+/obj/item/weapon/table_parts/glass/attack_self(mob/user as mob)
+	new /obj/structure/glasstable_frame( user.loc )
+	user.drop_item()
+	del(src)
+	return
+
+/*
  * Rack Parts
  */
 /obj/item/weapon/rack_parts/attackby(obj/item/weapon/W as obj, mob/user as mob, params)

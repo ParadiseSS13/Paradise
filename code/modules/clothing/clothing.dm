@@ -133,6 +133,9 @@
 	var/vision_flags = 0
 	var/darkness_view = 0//Base human is 2
 	var/invisa_view = 0
+	var/flash_protect = 0		//Mal: What level of bright light protection item has. 1 = Flashers, Flashes, & Flashbangs | 2 = Welding | -1 = OH GOD WELDING BURNT OUT MY RETINAS
+	var/tint = 0				//Mal: Sets the item's level of visual impairment tint, normally set to the same as flash_protect
+								//	   but seperated to allow items to protect but not impair vision, like space helmets
 	species_restricted = list("exclude","Kidan")
 /*
 SEE_SELF  // can see self, no matter what
@@ -236,7 +239,8 @@ BLIND     // can't see anything
 	slot_flags = SLOT_HEAD
 	var/loose = 10 // probability (0..100) of coming off your head when you fall over or lay down
 	var/blockTracking // Do we block AI tracking?
-
+	var/flash_protect = 0
+	var/tint = 0
 
 //Mask
 /obj/item/clothing/mask
@@ -247,6 +251,8 @@ BLIND     // can't see anything
 	var/mask_adjusted = 0
 	var/ignore_maskadjust = 1
 	var/adjusted_flags = null
+	var/flash_protect = 0
+	var/tint = 0
 
 //Proc that moves gas/breath masks out of the way
 /obj/item/clothing/mask/proc/adjustmask(var/mob/user)
@@ -324,6 +330,7 @@ BLIND     // can't see anything
 	siemens_coefficient = 0.9
 	species_restricted = list("exclude","Diona","Vox")
 	loose = 0 // What kind of idiot designs a pressurized suit where the helmet can fall off?
+	flash_protect = 2
 
 /obj/item/clothing/suit/space
 	name = "Space suit"

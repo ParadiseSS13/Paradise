@@ -177,6 +177,10 @@
 
 			R.add_reagent(href_list["dispense"], min(amount, energy * 10, space))
 			energy = max(energy - min(amount, energy * 10, space) / 10, 0)
+			overlays.Cut()
+			icon_beaker = image('icons/obj/chemical.dmi', src, "disp_beaker") //randomize beaker overlay position.
+			icon_beaker.pixel_x = rand(-10,5)
+			overlays += icon_beaker
 
 	if(href_list["remove"])
 		if(beaker)
