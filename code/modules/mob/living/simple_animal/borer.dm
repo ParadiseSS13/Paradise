@@ -456,11 +456,11 @@ mob/living/simple_animal/borer/proc/detatch()
 	host_brain.real_name = M.real_name
 	host.status_flags |= PASSEMOTES
 
-/mob/living/simple_animal/borer/verb/ventcrawl()
+/mob/living/simple_animal/borer/verb/ventcrawl(var/atom/pipe)
 	set name = "Crawl through vent (borer)"
 	set desc = "Enter an air vent and crawl through the pipe system."
 	set category = "Alien"
-	handle_ventcrawl()
+	handle_ventcrawl(pipe)
 
 /mob/living/simple_animal/borer/can_use_vents()
 	return
