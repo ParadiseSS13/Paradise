@@ -97,6 +97,8 @@ proc/populate_seed_list()
 	var/flower_icon = "vine_fruit"  // Which overlay to use.
 	var/flower_colour               // Which colour to use.
 
+	// Other bullshit.
+	var/obj/machinery/portable_atmospherics/hydroponics/hydro_tray // The tray it's inside of.
 //Returns a key corresponding to an entry in the global seed list.
 /datum/seed/proc/get_mutant_variant()
 	if(!mutants || !mutants.len || immutable > 0) return 0
@@ -456,6 +458,19 @@ proc/populate_seed_list()
 	new_seed.alter_temp = 			alter_temp
 
 	return new_seed
+
+
+// Effects we want to trigger every tick while it's planted.
+/datum/seed/proc/on_tick()
+	return
+
+// Effects we want to trigger on harvest.
+/datum/seed/proc/on_harvest(var/mob/living/user)
+	return
+
+// Effects we want to trigger when you hit the hydro tray.
+/datum/seed/proc/on_attack(var/mob/living/user, var/obj/item/I)
+	return
 
 // Actual roundstart seed types after this point.
 // Chili plants/variants.
@@ -1287,6 +1302,7 @@ proc/populate_seed_list()
 	packet_icon = "seed-wheat"
 	products = list(/obj/item/weapon/reagent_containers/food/snacks/grown/wheat)
 	plant_icon = "wheat"
+	mutants = list("steelwheat")
 	chems = list("nutriment" = list(1,25))
 
 	lifespan = 25

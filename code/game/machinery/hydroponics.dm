@@ -214,6 +214,8 @@
 	if(!seed || dead)
 		return
 
+	if(seed)
+		seed.on_tick()
 	// Advance plant age.
 	if(prob(25)) age += 1 * HYDRO_SPEED_MULTIPLIER
 
@@ -420,7 +422,7 @@
 	if(closed_system)
 		user << "You can't harvest from the plant while the lid is shut."
 		return
-
+	seed.on_harvest(user)
 	seed.harvest(user,yield_mod)
 	//Increases harvest count for round-end score
 	//Currently per-plant (not per-item) harvested
@@ -800,7 +802,7 @@
 
 			if(!S.seed)
 				user << "The packet seems to be empty. You throw it away."
-				del(O)
+				qdel(O)
 				return
 
 			user << "You plant the [S.seed.seed_name] [S.seed.seed_noun]."
@@ -810,13 +812,16 @@
 				var/obj/effect/plant_controller/creeper/PC = new(get_turf(src))
 				if(PC)
 					PC.seed = S.seed
+					PC.seed.hydro_tray = src
 			else if(S.seed.spread == 2)
 				msg_admin_attack("[key_name(user)][isAntag(user) ? "(ANTAG)" : ""] has planted a spreading vine packet.")
 				var/obj/effect/plant_controller/PC = new(get_turf(src))
 				if(PC)
 					PC.seed = S.seed
+					PC.seed.hydro_tray = src
 			else
 				seed = S.seed //Grab the seed datum.
+				seed.hydro_tray = src
 				dead = 0
 				age = 1
 				//Snowflakey, maybe move this to the seed datum
@@ -874,6 +879,10 @@
 			A.icon_state = src.icon_state
 			A.hydrotray_type = src.type
 			del(src)
+	else
+		if(seed)
+			seed.on_attack(user, O)
+			return
 	return
 
 /obj/machinery/portable_atmospherics/hydroponics/attack_tk(mob/user as mob)
