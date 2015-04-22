@@ -463,7 +463,7 @@ datum
 			reaction_mob(var/mob/living/M, var/method=TOUCH, var/volume)
 				// Vampires have their powers weakened by holy water applied to the skin.
 				if(ishuman(M))
-					if((M.mind in ticker.mode.vampires))
+					if((M.mind in ticker.mode.vampires) && !(VAMP_FULL in M.mind.vampire.powers))
 						var/mob/living/carbon/human/H=M
 						if(method == TOUCH)
 							if(H.wear_mask)
@@ -1474,7 +1474,8 @@ datum
 			on_mob_life(var/mob/living/M as mob)
 				if(!M) M = holder.my_atom
 				if(prob(50)) M.heal_organ_damage(1,0)
-				M.nutrition += nutriment_factor	// For hunger and fatness
+				if(!(M.mind in ticker.mode.vampires))
+					M.nutrition += nutriment_factor	// For hunger and fatness
 				..()
 				return
 
