@@ -6,14 +6,14 @@
 
 /mob/living/simple_animal/hostile/poison
 	var/poison_per_bite = 5
-	var/poison_type = "venom"
+	var/poison_type = "spidertoxin"
 
 /mob/living/simple_animal/hostile/poison/AttackingTarget()
 	..()
 	if(isliving(target))
 		var/mob/living/L = target
 		if(L.reagents)
-			L.reagents.add_reagent("venom", poison_per_bite)
+			L.reagents.add_reagent("spidertoxin", poison_per_bite)
 			if(prob(poison_per_bite))
 				L << "<span class='danger'>You feel a tiny prick.</span>"
 				L.reagents.add_reagent(poison_type, poison_per_bite)
