@@ -64,8 +64,8 @@
 				qdel(N)
 			usr.visible_message("<span class='warning'>The chrysalis explodes in a shower of purple flesh and fluid!</span>")
 			var/mob/living/carbon/human/M = usr
-			M.underwear = "Nude"
-			M.undershirt = "Nude"
+			M.underwear = "None"
+			M.undershirt = "None"
 			M.faction |= "faithless"
 
 			usr.equip_to_slot_or_del(new /obj/item/clothing/under/shadowling(usr), slot_w_uniform)

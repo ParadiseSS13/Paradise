@@ -225,12 +225,16 @@ Made by Xhuis
 */
 
 
-/datum/species/shadowling
+/datum/species/shadow/ling
 	//Normal shadowpeople but with enhanced effects
 	name = "Shadowling"
-	flags = NO_BREATHE | NO_BLOOD | RAD_IMMUNE | REQUIRE_DARK
+
+	icobase = 'icons/mob/human_races/r_shadowling.dmi'
+	deform = 'icons/mob/human_races/r_shadowling.dmi'
+
+	light_effect_amp = 1
+	blood_color = "#AAAAAA"
+	flesh_color = "#777777"
+
+	flags = NO_BLOOD | NO_BREATHE | NO_SCAN | NO_INTORGANS
 	burn_mod = 2 //2x burn damage
-	//heatmod = 2
-	blood_color = "#000000"
-	flesh_color = "#000000"
-	darksight = 8

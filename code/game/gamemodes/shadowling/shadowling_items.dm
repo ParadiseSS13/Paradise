@@ -76,6 +76,7 @@
 	darkness_view = 3
 	invisa_view = 2
 	unacidable = 1
+	flash_protect = -1
 	flags = ABSTRACT | NODROP
 
 /obj/structure/shadow_vortex
