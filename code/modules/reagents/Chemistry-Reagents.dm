@@ -26,6 +26,7 @@ datum
 		var/color = "#000000" // rgb: 0, 0, 0 (does not support alpha channels - yet!)
 		var/shock_reduction = 0
 		var/penetrates_skin = 0 //Whether or not a reagent penetrates the skin
+		var/affected = ORGANIC | SYNTHETIC
 		proc
 			reaction_mob(var/mob/M, var/method=TOUCH, var/volume) //Some reagents transfer on touch, others don't; dependent on if they penetrate the skin or not.
 				if(!istype(M, /mob/living))	return 0
@@ -93,6 +94,7 @@ datum
 			description = "A gooey semi-liquid produced from one of the deadliest lifeforms in existence. SO REAL."
 			reagent_state = LIQUID
 			color = "#801E28" // rgb: 128, 30, 40
+			affected = ORGANIC
 			on_mob_life(var/mob/living/M as mob)
 				if(prob(10))
 					M << "\red Your insides are burning!"
@@ -109,6 +111,7 @@ datum
 			id = "blood"
 			reagent_state = LIQUID
 			color = "#C80000" // rgb: 200, 0, 0
+			affected = ORGANIC
 
 			reaction_mob(var/mob/M, var/method=TOUCH, var/volume)
 				var/datum/reagent/blood/self = src
@@ -314,7 +317,7 @@ datum
 			description = "A Toxic chemical."
 			reagent_state = LIQUID
 			color = "#CF3600" // rgb: 207, 54, 0
-
+			affected = ORGANIC
 			on_mob_life(var/mob/living/M as mob)
 				if(!M) M = holder.my_atom
 				M.adjustToxLoss(2)
@@ -340,6 +343,7 @@ datum
 			description = "Useful for dealing with undesirable customers."
 			reagent_state = LIQUID
 			color = "#CF3600" // rgb: 207, 54, 0
+			affected = ORGANIC
 
 			on_mob_life(var/mob/living/M as mob)
 				if(!M) M = holder.my_atom
@@ -354,6 +358,7 @@ datum
 			description = "A corruptive toxin produced by slimes."
 			reagent_state = LIQUID
 			color = "#13BC5E" // rgb: 19, 188, 94
+			affected = ORGANIC
 
 			on_mob_life(var/mob/living/M as mob)
 				if(!M) M = holder.my_atom
@@ -376,6 +381,7 @@ datum
 			description = "An advanced corruptive toxin produced by slimes."
 			reagent_state = LIQUID
 			color = "#13BC5E" // rgb: 19, 188, 94
+			affected = ORGANIC
 
 			on_mob_life(var/mob/living/M as mob)
 				if(!M) M = holder.my_atom
@@ -412,6 +418,7 @@ datum
 			reagent_state = LIQUID
 			color = "#9087A2"
 			metabolization_rate = 0.2
+			affected = ORGANIC
 
 			on_mob_life(var/mob/living/M as mob)
 				if(!M) M = holder.my_atom
@@ -483,6 +490,7 @@ datum
 			description = "A chemical compound that promotes concentrated production of the serotonin neurotransmitter in humans."
 			reagent_state = LIQUID
 			color = "#202040" // rgb: 20, 20, 40
+			affected = ORGANIC
 
 			on_mob_life(var/mob/living/M as mob)
 				if(ishuman(M))
@@ -532,6 +540,7 @@ datum
 			description = "A colorless, odorless gas."
 			reagent_state = GAS
 			color = "#808080" // rgb: 128, 128, 128
+			affected = ORGANIC
 
 			on_mob_life(var/mob/living/M as mob, var/alien)
 				if(M.stat == 2) return
@@ -554,7 +563,7 @@ datum
 			description = "A colorless, odorless, tasteless gas."
 			reagent_state = GAS
 			color = "#808080" // rgb: 128, 128, 128
-
+			affected = ORGANIC
 
 			on_mob_life(var/mob/living/M as mob, var/alien)
 				if(M.stat == 2) return
@@ -588,6 +597,7 @@ datum
 			color = "#484848" // rgb: 72, 72, 72
 			metabolization_rate = 0.2
 			penetrates_skin = 1
+			affected = ORGANIC
 
 			on_mob_life(var/mob/living/M as mob)
 				if(!M) M = holder.my_atom
@@ -624,6 +634,7 @@ datum
 			reagent_state = GAS
 			color = "#808080" // rgb: 128, 128, 128
 			penetrates_skin = 1
+			affected = ORGANIC
 
 			on_mob_life(var/mob/living/M as mob)
 				if(!M) M = holder.my_atom
@@ -669,6 +680,7 @@ datum
 			description = "A chemical element."
 			reagent_state = SOLID
 			color = "#808080" // rgb: 128, 128, 128
+			affected = ORGANIC
 
 			on_mob_life(var/mob/living/M as mob)
 				if(!M) M = holder.my_atom
@@ -685,6 +697,7 @@ datum
 			reagent_state = SOLID
 			color = "#FFFFFF" // rgb: 255, 255, 255
 			overdose_threshold = 200 // Hyperglycaemic shock
+			affected = ORGANIC
 
 			on_mob_life(var/mob/living/M as mob)
 				if(prob(4))
@@ -803,6 +816,7 @@ datum
 			color = "#C7C7C7" // rgb: 199,199,199
 			metabolization_rate = 0.4
 			penetrates_skin = 1
+			affected = ORGANIC
 
 			on_mob_life(var/mob/living/M as mob)
 				if(!M) M = holder.my_atom
@@ -857,6 +871,7 @@ datum
 			reagent_state = LIQUID
 			color = "#04DF27"
 			metabolization_rate = 0.3
+			affected = ORGANIC
 
 			reaction_mob(var/mob/M, var/method=TOUCH, var/volume)
 				if(!..())	return
@@ -887,6 +902,7 @@ datum
 			color = "#C805DC"
 			metabolization_rate = 0.3 // Lasts 1.5 minutes for 15 units
 			shock_reduction = 200
+			affected = ORGANIC
 
 			on_mob_life(var/mob/living/M as mob)
 				if(!M) M = holder.my_atom
@@ -900,6 +916,7 @@ datum
 			reagent_state = LIQUID
 			nutriment_factor = 2 * REAGENTS_METABOLISM
 			color = "#899613" // rgb: 137, 150, 19
+			affected = ORGANIC
 
 			on_mob_life(var/mob/living/M as mob)
 				if(!M) M = holder.my_atom
@@ -913,6 +930,7 @@ datum
 			description = "Sterilizes wounds in preparation for surgery."
 			reagent_state = LIQUID
 			color = "#C8A5DC" // rgb: 200, 165, 220
+			affected = ORGANIC
 
 			//makes you squeaky clean
 			reaction_mob(var/mob/living/M, var/method=TOUCH, var/volume)
@@ -1205,6 +1223,7 @@ datum
 			description = "Synaptizine is used to treat neuroleptic shock. Can be used to help remove disabling symptoms such as paralysis."
 			reagent_state = LIQUID
 			color = "#FA46FA"
+			affected = ORGANIC
 
 			on_mob_life(var/mob/living/M as mob)
 				if(!M) M = holder.my_atom
@@ -1220,6 +1239,7 @@ datum
 			description = "Heals ear damage."
 			reagent_state = LIQUID
 			color = "#6600FF" // rgb: 100, 165, 255
+			affected = ORGANIC
 
 			on_mob_life(var/mob/living/M as mob)
 				if(!M) M = holder.my_atom
@@ -1234,6 +1254,7 @@ datum
 			description = "A specialized drug that stimulates the mitochondria of cells to encourage healing of internal organs."
 			reagent_state = LIQUID
 			color = "#C8A5DC" // rgb: 200, 165, 220
+			affected = ORGANIC
 
 			on_mob_life(var/mob/living/M as mob)
 				if(!M) M = holder.my_atom
@@ -1254,6 +1275,7 @@ datum
 			description = "A plasma mixture with almost magical healing powers. Its main limitation is that the targets body temperature must be under 265K for it to metabolise correctly."
 			reagent_state = LIQUID
 			color = "#0000C8" // rgb: 200, 165, 220
+			affected = ORGANIC
 
 			on_mob_life(var/mob/living/M as mob)
 				if(!M) M = holder.my_atom
@@ -1271,6 +1293,7 @@ datum
 			description = "A liquid compound similar to that used in the cloning process. Can be used to 'finish' clones that get ejected early when used in conjunction with a cryo tube."
 			reagent_state = LIQUID
 			color = "#0000C8" // rgb: 200, 165, 220
+			affected = ORGANIC
 
 			on_mob_life(var/mob/living/M as mob)
 				if(!M) M = holder.my_atom
@@ -1286,6 +1309,7 @@ datum
 			description = "A powder derived from fish toxin, this substance can effectively treat genetic damage in humanoids, though excessive consumption has side effects."
 			reagent_state = SOLID
 			color = "#669900" // rgb: 102, 153, 0
+			affected = ORGANIC
 
 			on_mob_life(var/mob/living/M as mob)
 				if(!M) M = holder.my_atom
@@ -1313,6 +1337,7 @@ datum
 			description = "An all-purpose antibiotic agent extracted from space fungus."
 			reagent_state = LIQUID
 			color = "#0AB478"
+			affected = ORGANIC
 
 			on_mob_life(var/mob/living/M as mob)
 				..()
@@ -1324,6 +1349,7 @@ datum
 			description = "A deadly neurotoxin produced by the dreaded spess carp."
 			reagent_state = LIQUID
 			color = "#003333" // rgb: 0, 51, 51
+			affected = ORGANIC
 
 			on_mob_life(var/mob/living/M as mob)
 				if(!M) M = holder.my_atom
@@ -1338,6 +1364,7 @@ datum
 			reagent_state = LIQUID
 			color = "#6E2828"
 			data = 13
+			affected = ORGANIC
 
 			on_mob_life(var/mob/living/M)
 				M.adjustStaminaLoss(REM * data)
@@ -1350,6 +1377,7 @@ datum
 			description = "A highly potent hallucinogenic substance. Far out, maaaan."
 			reagent_state = LIQUID
 			color = "#0000D8"
+			affected = ORGANIC
 
 			on_mob_life(var/mob/living/M)
 				if(!M) M = holder.my_atom
@@ -1393,6 +1421,7 @@ datum
 			color = "#CE760A" // rgb: 206, 118, 10
 			var/client/blob_client = null
 			var/blob_point_rate = 3
+			affected = ORGANIC
 
 			on_mob_life(var/mob/living/M)
 				if(!M) M = holder.my_atom
@@ -1445,6 +1474,7 @@ datum
 			id = "beer2"
 			description = "An alcoholic beverage made from malted grains, hops, yeast, and water."
 			color = "#664300" // rgb: 102, 67, 0
+			affected = ORGANIC
 
 			on_mob_life(var/mob/living/M as mob)
 				if(!data)
@@ -1470,6 +1500,7 @@ datum
 			reagent_state = SOLID
 			nutriment_factor = 15 * REAGENTS_METABOLISM
 			color = "#664330" // rgb: 102, 67, 48
+			affected = ORGANIC
 
 			on_mob_life(var/mob/living/M as mob)
 				if(!M) M = holder.my_atom
@@ -1502,6 +1533,7 @@ datum
 			description = "This is what makes chilis hot."
 			reagent_state = LIQUID
 			color = "#B31008" // rgb: 179, 16, 8
+			affected = ORGANIC
 
 			on_mob_life(var/mob/living/M as mob)
 				if(!M) M = holder.my_atom
@@ -1532,6 +1564,7 @@ datum
 			description = "This shit goes in pepperspray."
 			reagent_state = LIQUID
 			color = "#B31008" // rgb: 179, 16, 8
+			affected = ORGANIC
 
 			reaction_mob(var/mob/living/M, var/method=TOUCH, var/volume)
 				if(!istype(M, /mob/living))
@@ -1667,6 +1700,7 @@ datum
 			reagent_state = LIQUID
 			nutriment_factor = 2 * REAGENTS_METABOLISM
 			color = "#403010" // rgb: 64, 48, 16
+			affected = ORGANIC
 
 			on_mob_life(var/mob/living/M as mob)
 				if (M.bodytemperature < 310)//310 is the normal bodytemp. 310.055
@@ -1680,6 +1714,7 @@ datum
 			id = "psilocybin"
 			description = "A strong psycotropic derived from certain species of mushroom."
 			color = "#E700E7" // rgb: 231, 0, 231
+			affected = ORGANIC
 
 			on_mob_life(var/mob/living/M as mob)
 				if(!M) M = holder.my_atom
@@ -1712,6 +1747,7 @@ datum
 			description = "Multi-colored little bits of sugar, commonly found on donuts. Loved by cops."
 			nutriment_factor = 1 * REAGENTS_METABOLISM
 			color = "#FF00FF" // rgb: 255, 0, 255
+			affected = ORGANIC
 
 			on_mob_life(var/mob/living/M as mob)
 				M.nutrition += nutriment_factor
@@ -1730,6 +1766,7 @@ datum
 			reagent_state = LIQUID
 			nutriment_factor = 20 * REAGENTS_METABOLISM
 			color = "#302000" // rgb: 48, 32, 0
+			affected = ORGANIC
 
 			on_mob_life(var/mob/living/M as mob)
 				M.nutrition += nutriment_factor
@@ -1776,6 +1813,7 @@ datum
 			reagent_state = SOLID
 			nutriment_factor = 1 * REAGENTS_METABOLISM
 			color = "#302000" // rgb: 48, 32, 0
+			affected = ORGANIC
 
 			on_mob_life(var/mob/living/M as mob)
 				M.nutrition += nutriment_factor
@@ -1789,6 +1827,7 @@ datum
 			reagent_state = LIQUID
 			nutriment_factor = 5 * REAGENTS_METABOLISM
 			color = "#302000" // rgb: 48, 32, 0
+			affected = ORGANIC
 
 			on_mob_life(var/mob/living/M as mob)
 				M.nutrition += nutriment_factor
@@ -1804,6 +1843,7 @@ datum
 			reagent_state = LIQUID
 			nutriment_factor = 5 * REAGENTS_METABOLISM
 			color = "#302000" // rgb: 48, 32, 0
+			affected = ORGANIC
 
 			on_mob_life(var/mob/living/M as mob)
 				M.nutrition += nutriment_factor
@@ -1819,6 +1859,7 @@ datum
 			reagent_state = SOLID
 			nutriment_factor = 1 * REAGENTS_METABOLISM
 			color = "#FFFFFF" // rgb: 0, 0, 0
+			affected = ORGANIC
 
 			on_mob_life(var/mob/living/M as mob)
 				M.nutrition += nutriment_factor
@@ -1837,6 +1878,7 @@ datum
 			reagent_state = SOLID
 			nutriment_factor = 1 * REAGENTS_METABOLISM
 			color = "#FFFFFF" // rgb: 0, 0, 0
+			affected = ORGANIC
 
 			on_mob_life(var/mob/living/M as mob)
 				M.nutrition += nutriment_factor
@@ -1850,6 +1892,7 @@ datum
 			reagent_state = LIQUID
 			nutriment_factor = 1 * REAGENTS_METABOLISM
 			color = "#801E28" // rgb: 128, 30, 40
+			affected = ORGANIC
 
 			on_mob_life(var/mob/living/M as mob)
 				M.nutrition += nutriment_factor
@@ -1904,6 +1947,7 @@ datum
 			reagent_state = LIQUID
 			nutriment_factor = 1 * REAGENTS_METABOLISM
 			color = "#E78108" // rgb: 231, 129, 8
+			affected = ORGANIC
 			var/adj_dizzy = 0
 			var/adj_drowsy = 0
 			var/adj_sleepy = 0
@@ -2343,6 +2387,7 @@ datum
 			description = "You just don't get it maaaan."
 			reagent_state = LIQUID
 			color = "#664300" // rgb: 102, 67, 0
+			affected = ORGANIC
 
 			on_mob_life(var/mob/living/M as mob)
 				if(!M) M = holder.my_atom
@@ -2378,6 +2423,7 @@ datum
 			reagent_state = LIQUID
 			nutriment_factor = 0 //So alcohol can fill you up! If they want to.
 			color = "#404030" // rgb: 64, 64, 48
+			affected = ORGANIC
 			var/datum/martial_art/drunk_brawling/F = new
 			var/dizzy_adj = 3
 			var/slurr_adj = 3
