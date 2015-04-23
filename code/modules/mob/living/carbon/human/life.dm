@@ -767,7 +767,7 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 					else						light_amount =  10
 			if(light_amount > species.light_dam) //if there's enough light, start dying
 				if(species.light_effect_amp)
-					adjustFireLoss(10)
+					adjustFireLoss(5) //This gets doubled by Shadowling's innate fire weakness, so it ends up being 10.
 				else
 					adjustFireLoss(1)
 					adjustBruteLoss(1)

@@ -71,7 +71,7 @@ Made by Xhuis
 
 /datum/game_mode/shadowling/announce()
 	world << "<b>The current game mode is - Shadowling!</b>"
-	world << "<b>There are alien <span class='userdanger'>shadowlings</span> on the station. Crew: Kill the shadowlings before they can eat or enthrall the crew. Shadowlings: Enthrall the crew while remaining in hiding.</b>"
+	world << "<b>There are alien <span class='deadsay'>shadowlings</span> on the station. Crew: Kill the shadowlings before they can eat or enthrall the crew. Shadowlings: Enthrall the crew while remaining in hiding.</b>"
 
 /datum/game_mode/shadowling/pre_setup()
 	if(config.protect_roles_from_antagonist)
@@ -115,6 +115,7 @@ Made by Xhuis
 /datum/game_mode/proc/greet_shadow(var/datum/mind/shadow)
 	shadow.current << "<b>Currently, you are disguised as an employee aboard [world.name].</b>"
 	shadow.current << "<b>In your limited state, you have three abilities: Enthrall, Hatch, and Hivemind Commune.</b>"
+	shadow.current << "<b>Any other shadowlings are you allies. You must assist them as they shall assist you.</b>"
 	shadow.current << "<b>If you are new to shadowling, or want to read about abilities, check the wiki page at https://tgstation13.org/wiki/Shadowling</b><br>"
 
 
@@ -132,17 +133,25 @@ Made by Xhuis
 	var/mob/living/carbon/human/S = shadow_mind.current
 	shadow_mind.current.verbs += /mob/living/carbon/human/proc/shadowling_hatch
 	S.spell_list += new /obj/effect/proc_holder/spell/wizard/targeted/enthrall
-	S.spell_list += new /obj/effect/proc_holder/spell/wizard/targeted/shadowling_hivemind
-	if(shadow_mind.assigned_role == "Clown")
-		S << "<span class='notice'>Your alien nature has allowed you to overcome your clownishness.</span>"
-		S.mutations.Remove(CLUMSY)
+	spawn(0)
+		shadow_mind.current.spell_list += new /obj/effect/proc_holder/spell/wizard/targeted/shadowling_hivemind
+		update_shadow_icons_added(shadow_mind)
+		if(shadow_mind.assigned_role == "Clown")
+			S << "<span class='notice'>Your alien nature has allowed you to overcome your clownishness.</span>"
+			S.mutations.Remove(CLUMSY)
 
 /datum/game_mode/proc/add_thrall(datum/mind/new_thrall_mind)
 	if (!istype(new_thrall_mind))
 		return 0
 	if(!(new_thrall_mind in shadowling_thralls))
 		shadowling_thralls += new_thrall_mind
+		update_shadow_icons_added(new_thrall_mind)
 		new_thrall_mind.current.attack_log += "\[[time_stamp()]\] <span class='danger'>Became a thrall</span>"
+		new_thrall_mind.memory += "<b>The Shadowlings' Objectives:</b> Ascend to your true form by use of the Ascendance ability. \
+		This may only be used with [required_thralls] collective thralls, while hatched, and is unlocked with the Collective Mind ability."
+		new_thrall_mind.current << "<b>The objectives of your shadowlings:</b>: Ascend to your true form by use of the Ascendance ability. \
+		This may only be used with [required_thralls] collective thralls, while hatched, and is unlocked with the Collective Mind ability."
+		new_thrall_mind.current.spell_list += new /obj/effect/proc_holder/spell/wizard/targeted/shadowling_hivemind
 		return 1
 
 
@@ -176,11 +185,11 @@ Made by Xhuis
 
 /datum/game_mode/shadowling/declare_completion()
 	if(check_shadow_victory() && emergency_shuttle.returned()) //Doesn't end instantly - this is hacky and I don't know of a better way ~X
-		world << "<font size=3 color=green><b>The shadowlings have ascended and taken over the station!</FONT></b></span>"
+		world << "<span class='greentext'><b>The shadowlings have ascended and taken over the station!</b></span>"
 	else if(shadowling_dead && !check_shadow_victory()) //If the shadowlings have ascended, they can not lose the round
-		world << "<span class='danger'><font size=3><b>The shadowlings have been killed by the crew!</b></FONT></span>"
+		world << "<span class='redtext'><b>The shadowlings have been killed by the crew!</b></span>"
 	else if(!check_shadow_victory() && emergency_shuttle.returned())
-		world << "<span class='danger'><font size=3><b>The crew has escaped the station before the shadowlings could ascend!</b></FONT></span>"
+		world << "<span class='redtext'><b>The crew has escaped the station before the shadowlings could ascend!</b></span>"
 	..()
 	return 1
 
@@ -188,7 +197,7 @@ Made by Xhuis
 /datum/game_mode/proc/auto_declare_completion_shadowling()
 	var/text = ""
 	if(shadows.len)
-		text += "<br><font size=2><b>The shadowlings were:</b></font>"
+		text += "<br><span class='big'><b>The shadowlings were:</b></span>"
 		for(var/datum/mind/shadow in shadows)
 			text += "<br>[shadow.key] was [shadow.name] ("
 			if(shadow.current)
@@ -201,8 +210,9 @@ Made by Xhuis
 			else
 				text += "body destroyed"
 		text += ")"
+		text += "<br>"
 		if(shadowling_thralls.len)
-			text += "<br><font size=2><b>The thralls were:</b></font>"
+			text += "<br><span class='big'><b>The thralls were:</b></span>"
 			for(var/datum/mind/thrall in shadowling_thralls)
 				text += "<br>[thrall.key] was [thrall.name] ("
 				if(thrall.current)
@@ -214,8 +224,6 @@ Made by Xhuis
 						text += " as <b>[thrall.current.real_name]</b>"
 					else
 						text += "body destroyed"
-	else
-		world << "<font size=3>Round-end code broke! Please report this and its circumstances on GitHub at https://github.com/ParadiseSS13/Paradise/issues</font>"
 	text += "<br>"
 	world << text
 
@@ -233,8 +241,51 @@ Made by Xhuis
 	deform = 'icons/mob/human_races/r_shadowling.dmi'
 
 	light_effect_amp = 1
-	blood_color = "#AAAAAA"
-	flesh_color = "#777777"
+	blood_color = "#555555"
+	flesh_color = "#222222"
 
 	flags = NO_BLOOD | NO_BREATHE | NO_SCAN | NO_INTORGANS
 	burn_mod = 2 //2x burn damage
+
+/datum/game_mode/proc/update_shadow_icons_added(datum/mind/shadow_mind)
+	spawn(0)
+		for(var/datum/mind/shadowling in shadows)
+			if(shadowling.current)
+				if(shadowling.current.client)
+					var/I = image('icons/mob/mob.dmi', loc = shadowling.current, icon_state = "shadowling")
+					shadowling.current.client.images += I
+			if(shadow_mind.current)
+				if(shadow_mind.current.client)
+					var/image/J = image('icons/mob/mob.dmi', loc = shadowling.current, icon_state = "shadowling")
+					shadow_mind.current.client.images += J
+		for(var/datum/mind/thrall in shadowling_thralls)
+			if(thrall.current)
+				if(thrall.current.client)
+					var/I = image('icons/mob/mob.dmi', loc = thrall.current, icon_state = "thrall")
+					thrall.current.client.images += I
+			if(shadow_mind.current)
+				if(shadow_mind.current.client)
+					var/image/J = image('icons/mob/mob.dmi', loc = thrall.current, icon_state = "thrall")
+					shadow_mind.current.client.images += J
+
+/datum/game_mode/proc/update_shadow_icons_removed(datum/mind/shadow_mind)
+	spawn(0)
+		for(var/datum/mind/shadowling in shadows)
+			if(shadowling.current)
+				if(shadowling.current.client)
+					for(var/image/I in shadowling.current.client.images)
+						if((I.icon_state == "thrall" || I.icon_state == "shadowling") && I.loc == shadow_mind.current)
+							del(I)
+
+		for(var/datum/mind/thrall in thralls)
+			if(thrall.current)
+				if(thrall.current.client)
+					for(var/image/I in thrall.current.client.images)
+						if((I.icon_state == "thrall" || I.icon_state == "shadowling") && I.loc == shadow_mind.current)
+							del(I)
+
+		if(shadow_mind.current)
+			if(shadow_mind.current.client)
+				for(var/image/I in shadow_mind.current.client.images)
+					if(I.icon_state == "thrall" || I.icon_state == "shadowling")
+						del(I)

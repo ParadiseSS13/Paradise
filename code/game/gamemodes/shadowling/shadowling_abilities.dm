@@ -21,7 +21,7 @@
 		usr.visible_message("<span class='warning'><b>[usr]'s eyes flash a blinding red!</b></span>")
 		target.visible_message("<span class='danger'>[target] freezes in place, their eyes glazing over...</span>")
 		if(in_range(target, usr))
-			target << "<span class='userdanger'>Your gaze is forcibly drawn into [src]'s eyes, and you are mesmerized by the heavenly lights...</span>"
+			target << "<span class='userdanger'>Your gaze is forcibly drawn into [usr]'s eyes, and you are mesmerized by the heavenly lights...</span>"
 		else //Only alludes to the shadowling if the target is close by
 			target << "<span class='userdanger'>Red lights suddenly dance in your vision, and you are mesmerized by the heavenly lights...</span>"
 		target.Stun(10)
@@ -53,9 +53,26 @@
 			L.on = 0
 			L.visible_message("<span class='danger'>[L] flickers and falls dark.</span>")
 			L.update(0)
-		for(var/obj/item/device/pda/P in orange(5, usr))
+		for(var/obj/item/device/pda/P in T.contents)
 			P.fon = 0
-			P.SetLuminosity(0) //failsafe
+			P.SetLuminosity(0)
+		for(var/obj/effect/glowshroom/G in orange(2, usr)) //Very small radius
+			G.visible_message("<span class='warning'>\The [G] withers away!</span>")
+			qdel(G)
+		for(var/mob/living/carbon/human/H in T.contents)
+			for(var/obj/item/device/flashlight/F in H)
+				if(is_type_in_list(F, blacklisted_lights))
+					F.visible_message("<span class='danger'>[F] goes slightly dim for a moment.</span>")
+					return
+				F.on = 0
+				F.visible_message("<span class='danger'>[F] gutters and falls dark.</span>")
+				F.update_brightness()
+			for(var/obj/item/device/pda/P in H)
+				P.fon = 0
+				P.SetLuminosity(0) //failsafe
+			if(H != usr)
+				H << "<span class='boldannounce'>You feel a chill and are plunged into darkness.</span>"
+			H.luminosity = 0 //This might not be required, but it just acts as another failsafe.
 
 
 
@@ -164,11 +181,23 @@
 					usr.visible_message("<span class='danger'>[usr] leans over [target], their eyes glowing a deep crimson, and stares into their face.</span>")
 					target << "<span class='danger'>Your gaze is forcibly drawn into a blinding red light. You fall to the floor as conscious thought is wiped away.</span>"
 					target.Weaken(12)
+					sleep(20)
+					if(isloyal(target))
+						usr << "<span class='notice'>They are enslaved by Nanotrasen. You begin to shut down the nanobot implant - this will take some time.</span>"
+						usr.visible_message("<span class='danger'>[usr] halts for a moment, then begins passing its hand over [target]'s body.</span>")
+						target << "<span class='danger'>You feel your loyalties begin to weaken!</span>"
+						sleep(150) //15 seconds - not spawn() so the enthralling takes longer
+						usr << "<span class='notice'>The nanobots composing the loyalty implant have been rendered inert. Now to continue.</span>"
+						usr.visible_message("<span class='danger'>[usr] halts thier hand and resumes staring into [target]'s face.</span>")
+						for(var/obj/item/weapon/implant/loyalty/L in target)
+							if(L && L.implanted)
+								qdel(L)
+								target << "<span class='danger'>Your unwavering loyalty to Nanotrasen falters, dims, dies.</span>"
 				if(3)
 					usr << "<span class='notice'>You begin rearranging [target]'s memories.</span>"
 					usr.visible_message("<span class='danger'>[usr]'s eyes flare brightly, and a horrible grin begins to spread across [target]'s face...</span>")
 					target << "<span class='danger'>Your head cries out. The veil of reality begins to crumple and something evil bleeds through.</span>" //Ow the edge
-			if(!do_mob(usr, target, 100)) //around 30 seconds total for enthralling
+			if(!do_mob(usr, target, 100)) //around 30 seconds total for enthralling, 45 for someone with a loyalty implant
 				usr << "<span class='danger'>The enthralling has been interrupted - your target's mind returns to its previous state.</span>"
 				target << "<span class='warning'>Your thoughts become coherent once more. Already you can barely remember what's happened to you.</span>"
 				enthralling = 0
@@ -183,8 +212,6 @@
 		target.adjustOxyLoss(-200) //In case the shadowling was choking them out
 		ticker.mode.add_thrall(target.mind)
 		target.mind.special_role = "Thrall"
-		target.spell_list += new /obj/effect/proc_holder/spell/wizard/targeted/shadowling_hivemind //Lets thralls hive-chat
-
 
 
 /obj/effect/proc_holder/spell/wizard/targeted/shadowling_hivemind
@@ -253,7 +280,7 @@
 			user << "<span class='shadowling'><i>The power of your thralls has granted you the <b>Sonic Screech</b> ability. This ability will shatter nearby windows and deafen enemies.</span>"
 			user.spell_list += new /obj/effect/proc_holder/spell/wizard/aoe_turf/unearthly_screech
 
-		if(thralls >= 10 && !thrall_swap_acquired)
+		if(thralls >= 9 && !thrall_swap_acquired)
 			thrall_swap_acquired = 1
 			user << "<span class='shadowling'><i>The power of your thralls has granted you the <b>Spatial Relocation</b> ability. This will, allow you to instantly swap places with one of your thralls in \
 			addition to shattering nearby lights.</i></span>"
@@ -363,7 +390,7 @@ datum/reagent/shadowling_blindness_smoke/on_mob_life(var/mob/living/M as mob)
 				sp.start()
 				S.Weaken(6)
 		for(var/obj/structure/window/W in T.contents)
-			W.hit(rand(25,50))
+			W.hit(rand(50,100))
 
 
 
@@ -447,7 +474,7 @@ datum/reagent/shadowling_blindness_smoke/on_mob_life(var/mob/living/M as mob)
 		charge_counter = charge_max
 		return
 
-	for(var/mob/boom in targets)
+	for(var/mob/living/carbon/human/boom in targets)
 		if(is_shadow_or_thrall(boom))
 			usr << "<span class='warning'>Making an ally explode seems unwise.<span>"
 			charge_counter = charge_max

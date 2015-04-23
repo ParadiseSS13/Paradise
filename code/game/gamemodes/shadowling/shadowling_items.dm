@@ -4,6 +4,7 @@
 	item_state = "golem"
 	origin_tech = null
 	icon_state = "golem"
+	_color = "golem"
 	flags = ABSTRACT | NODROP
 	has_sensor = 0
 	unacidable = 1
@@ -46,7 +47,7 @@
 
 /obj/item/clothing/gloves/shadowling
 	name = "chitin hands"
-	desc = "An electricity-resistant yet thin covering of the hands."
+	desc = "An electricity-resistant covering of the hands."
 	icon_state = "golem"
 	item_state = null
 	origin_tech = null

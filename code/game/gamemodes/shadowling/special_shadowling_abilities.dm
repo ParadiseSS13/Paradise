@@ -160,4 +160,5 @@
 				if(emergency_shuttle && emergency_shuttle.can_call())
 					emergency_shuttle.call_evac()
 					emergency_shuttle.launch_time = 0	// Cannot recall
+			ticker.mode.shadowling_ascended = 1
 			qdel(usr)
