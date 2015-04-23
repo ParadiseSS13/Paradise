@@ -51,6 +51,10 @@
 
 	return
 
+/obj/item/weapon/reagent_containers/hypospray/CMO
+	name = "Ancient Hypospray"
+	desc = "An older model of the DeForest Medical Coroperation hypospray without those pesky reagent restrictions."
+
 /obj/item/weapon/reagent_containers/hypospray/CMO/New()
 	..()
 	reagents.add_reagent("omnizine", 30)
@@ -152,3 +156,12 @@
 	reagents.add_reagent("stimulants", 50)
 	update_icon()
 	return
+
+/obj/item/weapon/reagent_containers/hypospray/MD
+	name = "medical hypospray"
+	desc = "The newest model of DeForest Medical Corporation hypospray is a sterile, air-needle autoinjector for rapid administration of drugs to patients."
+	allowed = list (/datum/reagent/silver_sulfadiazine, /datum/reagent/styptic_powder, /datum/reagent/salglu_solution, /datum/reagent/charcoal, /datum/reagent/omnizine, /datum/reagent/potass_iodide, /datum/reagent/sal_acid, /datum/reagent/salbutamol, /datum/reagent/perfluorodecalin, /datum/reagent/ephedrine, /datum/reagent/diphenhydramine, /datum/reagent/morphine, /datum/reagent/oculine, /datum/reagent/epinephrine, /datum/reagent/mannitol, /datum/reagent/antihol, /datum/reagent/insulin, /datum/reagent/haloperidol)
+
+/obj/item/weapon/reagent_containers/hypospray/MD/New()
+	..()
+	reagents.add_reagent("salglu_solution", 30)
