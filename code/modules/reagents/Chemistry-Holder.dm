@@ -334,7 +334,8 @@ datum
 
 								var/list/seen = viewers(4, get_turf(my_atom))
 								for(var/mob/M in seen)
-									M << "\blue \icon[my_atom] [C.mix_message]"
+									if(!C.no_message)
+										M << "\blue \icon[my_atom] [C.mix_message]"
 
 							/*	if(istype(my_atom, /obj/item/slime_core))
 									var/obj/item/slime_core/ME = my_atom

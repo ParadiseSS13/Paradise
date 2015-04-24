@@ -143,6 +143,7 @@ datum/reagent/neurotoxin2/on_mob_life(var/mob/living/M as mob)
 	result_amount = 1
 	required_temp = 674
 	mix_sound = null
+	no_message = 1
 
 datum/reagent/cyanide
 	name = "Cyanide"
