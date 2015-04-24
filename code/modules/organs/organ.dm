@@ -22,6 +22,13 @@ var/list/organ_cache = list()
 									  // links chemical IDs to number of ticks for which they'll stay in the blood
 	germ_level = 0
 
+/obj/item/organ/attack_self(mob/user as mob)
+
+	// Convert it to an edible form, yum yum.
+	if(!robotic && user.a_intent == "harm")
+		bitten(user)
+		return
+
 /obj/item/organ/proc/update_health()
 	return
 
@@ -256,3 +263,21 @@ var/list/organ_cache = list()
 		target.update_eyes()
 	..()
 
+/obj/item/organ/proc/bitten(mob/user)
+
+	if(robotic)
+		return
+
+	user << "\blue You take a bite out of \the [src]."
+
+	user.unEquip(src)
+	var/obj/item/weapon/reagent_containers/food/snacks/organ/O = new(get_turf(src))
+	O.name = name
+	O.icon_state = dead_icon ? dead_icon : icon_state
+
+	if(fingerprints) O.fingerprints = fingerprints.Copy()
+	if(fingerprintshidden) O.fingerprintshidden = fingerprintshidden.Copy()
+	if(fingerprintslast) O.fingerprintslast = fingerprintslast
+
+	user.put_in_active_hand(O)
+	del(src)
