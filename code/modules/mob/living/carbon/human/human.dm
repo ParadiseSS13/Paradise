@@ -48,6 +48,7 @@
 	// Set up DNA.
 	if(!delay_ready_dna)
 		dna.ready_dna(src)
+	UpdateAppearance()
 
 /mob/living/carbon/human/dummy
 	real_name = "Test Dummy"
