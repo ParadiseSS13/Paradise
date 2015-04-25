@@ -102,6 +102,7 @@ datum/reagent/acetone
 	result_amount = 0.5
 	required_temp = 480
 	mix_sound = null
+	no_message = 1
 
 datum/reagent/colorful_reagent
 	name = "Colorful Reagent"

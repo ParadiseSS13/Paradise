@@ -17,6 +17,7 @@ datum
 		var/required_temp = 0
 		var/mix_message = "The solution begins to bubble."
 		var/mix_sound = 'sound/effects/bubbles.ogg'
+		var/no_message = 0
 
 
 		proc

@@ -175,7 +175,7 @@
 	required_reagents = list("blackpowder" = 1)
 	result_amount = 1
 	required_temp = 474
-	mix_message = "sparks start flying about."
+	no_message = 1
 	mix_sound = null
 
 datum/reagent/blackpowder/reaction_turf(var/turf/T, var/volume) //oh shit
