@@ -9,7 +9,7 @@
 	opacity = 1
 	density = 1
 	blocks_air = 1
-	temperature = TCMB
+	temperature = T0C
 	var/mineral/mineral
 	var/mined_ore = 0
 	var/last_act = 0
@@ -392,7 +392,7 @@
 	icon_state = "asteroid"
 	oxygen = 0.01
 	nitrogen = 0.01
-	temperature = TCMB
+	temperature = T0C
 	icon_plating = "asteroid"
 	var/dug = 0       //0 = has not yet been dug, 1 = has already been dug
 	has_resources = 1
