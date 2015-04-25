@@ -5,7 +5,11 @@
 	set name = "Set Default Language"
 	set category = "IC"
 
-	if(language)
+	if(default_language == "unathi")
+		src << "<span class='notice'>You will now speak Sinta'unathi if you do not specify a language when speaking.</span>"
+	else if(default_language == "tajaran")
+		src << "<span class='notice'>You will now speak Siik'tajr if you do not specify a language when speaking.</span>"
+	else if(language)
 		src << "<span class='notice'>You will now speak [language] if you do not specify a language when speaking.</span>"
 	else
 		src << "<span class='notice'>You will now speak whatever your standard default language is if you do not specify one when speaking.</span>"
