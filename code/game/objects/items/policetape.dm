@@ -9,12 +9,33 @@
 	var/tape_type = /obj/item/tape
 	var/icon_base
 
+var/list/image/hazard_overlays
+var/list/tape_roll_applications = list()
+
 /obj/item/tape
 	name = "tape"
 	icon = 'icons/policetape.dmi'
 	anchored = 1
 	density = 1
 	var/icon_base
+
+/obj/item/tape/New()
+	..()
+	if(!hazard_overlays)
+		hazard_overlays = list()
+		hazard_overlays["[NORTH]"]	= new/image('icons/effects/warning_stripes.dmi', icon_state = "N")
+		hazard_overlays["[EAST]"]	= new/image('icons/effects/warning_stripes.dmi', icon_state = "E")
+		hazard_overlays["[SOUTH]"]	= new/image('icons/effects/warning_stripes.dmi', icon_state = "S")
+		hazard_overlays["[WEST]"]	= new/image('icons/effects/warning_stripes.dmi', icon_state = "W")
+
+/obj/item/taperoll/New() //just using tape is not enough to guarantee the overlays are genned
+	..()
+	if(!hazard_overlays)
+		hazard_overlays = list()
+		hazard_overlays["[NORTH]"]	= new/image('icons/effects/warning_stripes.dmi', icon_state = "N")
+		hazard_overlays["[EAST]"]	= new/image('icons/effects/warning_stripes.dmi', icon_state = "E")
+		hazard_overlays["[SOUTH]"]	= new/image('icons/effects/warning_stripes.dmi', icon_state = "S")
+		hazard_overlays["[WEST]"]	= new/image('icons/effects/warning_stripes.dmi', icon_state = "W")
 
 /obj/item/taperoll/police
 	name = "police tape"
@@ -97,13 +118,33 @@
 		usr << "\blue You finish placing the [src]."	//Git Test
 
 /obj/item/taperoll/afterattack(var/atom/A, mob/user as mob, proximity)
-	if (proximity && istype(A, /obj/machinery/door/airlock))
+	if (!proximity)
+		return
+
+	if(istype(A, /obj/machinery/door/airlock))
 		var/turf/T = get_turf(A)
 		var/obj/item/tape/P = new tape_type(T.x,T.y,T.z)
 		P.loc = locate(T.x,T.y,T.z)
 		P.icon_state = "[src.icon_base]_door"
 		P.layer = 3.2
 		user << "\blue You finish placing the [src]."
+
+	if (istype(A, /turf/simulated/floor) ||istype(A, /turf/unsimulated/floor))
+		var/turf/F = A
+		var/direction = user.loc == F ? user.dir : turn(user.dir, 180)
+		var/icon/hazard_overlay = hazard_overlays["[direction]"]
+		if(tape_roll_applications[F] == null)
+			tape_roll_applications[F] = 0
+
+		if(tape_roll_applications[F] & direction) // hazard_overlay in F.overlays wouldn't work.
+			user.visible_message("[user] uses the adhesive of \the [src] to remove area markings from \the [F].", "You use the adhesive of \the [src] to remove area markings from \the [F].")
+			F.overlays -= hazard_overlay
+			tape_roll_applications[F] &= ~direction
+		else
+			user.visible_message("[user] applied \the [src] on \the [F] to create area markings.", "You apply \the [src] on \the [F] to create area markings.")
+			F.overlays |= hazard_overlay
+			tape_roll_applications[F] |= direction
+		return
 
 /obj/item/tape/Bumped(M as mob)
 	if(src.allowed(M))
