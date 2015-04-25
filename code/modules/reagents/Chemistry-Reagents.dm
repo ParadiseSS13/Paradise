@@ -321,6 +321,19 @@ datum
 				..()
 				return
 
+		spider_venom
+			name = "Spider venom"
+			id = "spidertoxin"
+			description = "A toxic venom injected by spacefaring arachnids."
+			reagent_state = LIQUID
+			color = "#CF3600" // rgb: 207, 54, 0
+
+			on_mob_life(var/mob/living/M as mob)
+				if(!M) M = holder.my_atom
+				M.adjustToxLoss(1.5)
+				..()
+				return
+
 		plasticide
 			name = "Plasticide"
 			id = "plasticide"
