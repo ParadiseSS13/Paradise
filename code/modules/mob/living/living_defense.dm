@@ -264,6 +264,11 @@
 	if(!(status_flags & CANPUSH))
 		return 0
 
+	for(var/obj/item/weapon/grab/G in src.grabbed_by)
+		if(G.assailant == user)
+			user << "<span class='notice'>You already grabbed [src].</span>"
+			return
+
 	add_logs(user, src, "grabbed", addition="passively")
 
 	var/obj/item/weapon/grab/G = new /obj/item/weapon/grab(user, src)
@@ -276,5 +281,11 @@
 	LAssailant = user
 
 	playsound(src.loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
-	if(!supress_message)
-		visible_message("<span class='warning'>[user] has grabbed [src] passively!</span>")
+	if(user.dir == src.dir)
+		G.state = GRAB_AGGRESSIVE
+		G.adjust_position()
+		if(!supress_message)
+			visible_message("<span class='warning'>[user] has grabbed [src] from behind!</span>")
+	else
+		if(!supress_message)
+			visible_message("<span class='warning'>[user] has grabbed [src] passively!</span>")
