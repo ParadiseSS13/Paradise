@@ -995,8 +995,9 @@ proc/formatPlayerPanel(var/mob/U,var/text="PP")
 		return //extra sanity check to make sure only observers are shoved into things
 
 	//same as assume-direct-control perm requirements.
-	if (!check_rights(R_VAREDIT,0) || !check_rights(R_ADMIN|R_DEBUG,0))
-		return 0
+	if (!check_rights(R_VAREDIT,0)) //no varedit, check if they have r_admin and r_debug
+		if(!check_rights(R_ADMIN|R_DEBUG,0)) //if they don't have r_admin and r_debug, return
+			return 0 //otherwise, if they have no varedit, but do have r_admin and r_debug, execute the rest of the code
 
 	if (!frommob.ckey)
 		return 0
