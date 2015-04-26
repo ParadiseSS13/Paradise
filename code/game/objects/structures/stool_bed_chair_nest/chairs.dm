@@ -166,7 +166,7 @@
 	name = "old ratty sofa"
 	icon_state = "sofamiddle"
 	anchored = 1
-	density = 1
+
 /obj/structure/stool/bed/chair/sofa/left
 	icon_state = "sofaend_left"
 /obj/structure/stool/bed/chair/sofa/right
