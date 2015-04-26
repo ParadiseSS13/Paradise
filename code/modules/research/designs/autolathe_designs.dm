@@ -178,6 +178,14 @@
 	build_path = /obj/item/device/assembly/prox_sensor
 	category = list("initial", "Miscellaneous")
 
+/datum/design/mousetrap
+	name = "Mousetrap"
+	id = "mousetrap"
+	build_type = AUTOLATHE
+	materials = list("$metal" = 800, "$glass" = 200)
+	build_path = /obj/item/device/assembly/mousetrap
+	category = list("initial", "Miscellaneous")
+
 /datum/design/timer
 	name = "Timer"
 	id = "timer"
