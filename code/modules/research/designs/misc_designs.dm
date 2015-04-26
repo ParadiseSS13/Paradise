@@ -40,3 +40,13 @@
 	materials = list("$metal" = 30, "$glass" = 10)
 	build_path = /obj/item/weapon/disk/tech_disk
 	category = list("Miscellaneous")
+
+/datum/design/digital_camera
+	name = "Digital Camera"
+	desc = "Produce an enhanced version of the standard issue camera."
+	id = "digitalcamera"
+	req_tech = list("programming" = 2, "materials" = 2)
+	build_type = PROTOLATHE
+	materials = list("$metal" = 500, "$glass" = 300)
+	build_path = /obj/item/device/camera/digital
+	category = list("Miscellaneous")
