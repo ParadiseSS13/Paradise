@@ -25,6 +25,10 @@ var/global/list/datum/stack_recipe/metal_recipes = list ( \
 		new/datum/stack_recipe("brown comfy chair", /obj/structure/stool/bed/chair/comfy/brown, 2, one_per_turf = 1, on_floor = 1), \
 		new/datum/stack_recipe("lime comfy chair", /obj/structure/stool/bed/chair/comfy/lime, 2, one_per_turf = 1, on_floor = 1), \
 		new/datum/stack_recipe("teal comfy chair", /obj/structure/stool/bed/chair/comfy/teal, 2, one_per_turf = 1, on_floor = 1), \
+		new/datum/stack_recipe("red comfy chair", /obj/structure/stool/bed/chair/comfy/red, 2, one_per_turf = 1, on_floor = 1), \
+		new/datum/stack_recipe("blue comfy chair", /obj/structure/stool/bed/chair/comfy/blue, 2, one_per_turf = 1, on_floor = 1), \
+		new/datum/stack_recipe("purple comfy chair", /obj/structure/stool/bed/chair/comfy/purp, 2, one_per_turf = 1, on_floor = 1), \
+		new/datum/stack_recipe("green comfy chair", /obj/structure/stool/bed/chair/comfy/green, 2, one_per_turf = 1, on_floor = 1), \
 		), 2), \
 	null, \
 	new/datum/stack_recipe("table parts", /obj/item/weapon/table_parts, 2), \
