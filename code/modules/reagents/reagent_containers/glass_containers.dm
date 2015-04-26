@@ -271,6 +271,10 @@
 	if(assembly)
 		assembly.Crossed(AM)
 
+/obj/item/weapon/reagent_containers/glass/beaker/on_found(mob/finder as mob) //for mousetraps
+	if(assembly)
+		assembly.on_found(finder)
+
 /obj/item/weapon/reagent_containers/glass/beaker/hear_talk(mob/living/M, msg)
 	if(assembly)
 		assembly.hear_talk(M, msg)
