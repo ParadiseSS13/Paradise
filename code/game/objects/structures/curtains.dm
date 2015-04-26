@@ -1,14 +1,17 @@
+#define SHOWER_OPEN_LAYER OBJ_LAYER + 0.4
+#define SHOWER_CLOSED_LAYER MOB_LAYER + 0.1
+
 /obj/structure/curtain
 	icon = 'icons/obj/curtain.dmi'
 	name = "curtain"
 	icon_state = "closed"
-	layer = MOB_LAYER + 0.1
+	layer = SHOWER_CLOSED_LAYER
 	opacity = 1
 	density = 0
 
 /obj/structure/curtain/open
 	icon_state = "open"
-	layer = OBJ_LAYER
+	layer = SHOWER_OPEN_LAYER
 	opacity = 0
 
 /obj/structure/curtain/bullet_act(obj/item/projectile/P, def_zone)
@@ -27,10 +30,10 @@
 	opacity = !opacity
 	if(opacity)
 		icon_state = "closed"
-		layer = MOB_LAYER + 0.1
+		layer = SHOWER_CLOSED_LAYER
 	else
 		icon_state = "open"
-		layer = OBJ_LAYER
+		layer = SHOWER_OPEN_LAYER
 
 /obj/structure/curtain/black
 	name = "black curtain"
@@ -45,3 +48,12 @@
 	name = "shower curtain"
 	color = "#ACD1E9"
 	alpha = 200
+
+/obj/structure/curtain/open/shower/engineering
+	color = "#FFA500"
+
+/obj/structure/curtain/open/shower/security
+	color = "#AA0000"
+
+#undef SHOWER_OPEN_LAYER
+#undef SHOWER_CLOSED_LAYER
