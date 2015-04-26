@@ -7,8 +7,8 @@
 	health = 50
 	speak_emote = list("whinnys")
 	emote_hear = list("excitedly says")
-	response_help  = "nuzzles"
-	response_disarm = "flails it's hooves at"
+	response_help  = "pets"
+	response_disarm = "pushes"
 	response_harm   = "kicks"
 	melee_damage_lower = 5
 	melee_damage_upper = 15
@@ -25,37 +25,20 @@
 	status_flags = CANPUSH
 	universal_speak = 1
 
-	Life()
-		..()
-		if(stat == 2)
-			new /obj/item/weapon/reagent_containers/food/snacks/ectoplasm (src.loc)
-			for(var/mob/M in viewers(src, null))
-				if((M.client && !( M.blinded )))
-					M.show_message("\red [src] lets out a contented sigh as their form unwinds. ")
-					ghostize()
-			del src
-			return
-
-
-	attackby(var/obj/item/O as obj, var/mob/user as mob)  //Marker -Agouri
-		if(istype(O, /obj/item/device/soulstone))
-			O.transfer_soul("SHADE", src, user)
-		else
-			if(O.force)
-				var/damage = O.force
-				if (O.damtype == STAMINA)
-					damage = 0
-				health -= damage
-				for(var/mob/M in viewers(src, null))
-					if ((M.client && !( M.blinded )))
-						M.show_message("\red \b [src] has been attacked with the [O] by [user]. ")
-			else
-				usr << "\red This weapon is ineffective, it does no damage."
-				for(var/mob/M in viewers(src, null))
-					if ((M.client && !( M.blinded )))
-						M.show_message("\red [user] gently taps [src] with the [O]. ")
+/mob/living/simple_animal/pony/Life()
+	..()
+	if(stat == 2)
+		new /obj/item/weapon/reagent_containers/food/snacks/ectoplasm(src.loc)
+		src.visible_message("<span class='warning'>\The [src] lets out a contented sigh as their form unwinds.</span>")
+		src.ghostize()
+		qdel(src)
 		return
 
+/mob/living/simple_animal/pony/attackby(var/obj/item/O as obj, var/mob/user as mob)  //Marker -Agouri
+	if(istype(O, /obj/item/device/soulstone))
+		O.transfer_soul("SHADE", src, user)
+	else
+		..()
 
 /mob/living/simple_animal/pony/twilight
 	name = "Twilight Sparkle"
@@ -146,4 +129,3 @@ mob/living/simple_animal/pony/mac
 	real_name = "Mac"
 	icon_state = "mac"
 	icon_living = "mac"
-
