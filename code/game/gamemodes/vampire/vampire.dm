@@ -293,7 +293,7 @@ You are weak to holy things and starlight. Don't go into space and avoid the Cha
 		H.vessel.remove_reagent("blood",25)
 		if(ishuman(src))
 			var/mob/living/carbon/human/V = src
-			V.nutrition += blood
+			V.nutrition = min(450,V.nutrition+(blood/2))
 
 	src.mind.vampire.draining = null
 	src << "\blue You stop draining [H.name] of blood."

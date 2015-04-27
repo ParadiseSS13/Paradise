@@ -1486,9 +1486,9 @@ datum
 
 			on_mob_life(var/mob/living/M as mob)
 				if(!M) M = holder.my_atom
-				if(prob(50)) M.heal_organ_damage(1,0)
 				if(!(M.mind in ticker.mode.vampires))
 					M.nutrition += nutriment_factor	// For hunger and fatness
+					if(prob(50)) M.heal_organ_damage(1,0)
 				..()
 				return
 
