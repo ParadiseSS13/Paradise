@@ -240,9 +240,9 @@ datum/reagent/cheese/reaction_turf(var/turf/T, var/volume)
 		return
 
 /datum/chemical_reaction/cheese
-	name = "weird_cheese"
-	id = "weird_cheese"
-	result = "weird_cheese"
+	name = "cheese"
+	id = "cheese"
+	result = "cheese"
 	required_reagents = list("vomit" = 1, "milk" = 1)
 	result_amount = 1
 	mix_message = "The mixture curdles up."
