@@ -214,6 +214,13 @@ datum
 				if(!istype(M, /mob/living))
 					return
 
+			// Put out fire
+				if(method == TOUCH)
+					M.adjust_fire_stacks(-(volume / 10))
+					if(M.fire_stacks <= 0)
+						M.ExtinguishMob()
+					return
+
 			reaction_turf(var/turf/simulated/T, var/volume)
 				if (!istype(T)) return
 				src = null
@@ -272,8 +279,10 @@ datum
 			description = "YOUR FLESH! IT BURNS!"
 
 			on_mob_life(var/mob/living/M as mob)
+				M.fire_stacks = min(5,M.fire_stacks + 3)
+				M.IgniteMob()			//Only problem with igniting people is currently the commonly availible fire suits make you immune to being on fire
 				M.adjustToxLoss(1)
-				M.adjustFireLoss(5)		//does more damage since mob fire isn't a thing anymore
+				M.adjustFireLoss(1)		//Hence the other damages... ain't I a bastard?
 				M.adjustBrainLoss(5)
 				holder.remove_reagent(src.id, 1)
 
@@ -456,7 +465,9 @@ datum
 								M << "<span class = 'danger'>You suddenly ignite in a holy fire!</span>"
 								for(var/mob/O in viewers(M, null))
 									O.show_message(text("<span class = 'danger'>[] suddenly bursts into flames!<span>", M), 1)
-								M.adjustFireLoss(9)		//Hence the other damages... ain't I a bastard?
+								M.fire_stacks = min(5,M.fire_stacks + 3)
+								M.IgniteMob()			//Only problem with igniting people is currently the commonly availible fire suits make you immune to being on fire
+								M.adjustFireLoss(3)		//Hence the other damages... ain't I a bastard?
 								M.mind.vampire.nullified = max(5, M.mind.vampire.nullified + 2)
 				holder.remove_reagent(src.id, 10 * REAGENTS_METABOLISM) //high metabolism to prevent extended uncult rolls.
 
@@ -1004,6 +1015,8 @@ datum
 			reaction_mob(var/mob/living/M, var/method=TOUCH, var/volume)//Splashing people with welding fuel to make them easy to ignite!
 				if(!istype(M, /mob/living))
 					return
+				if(method == TOUCH)
+					M.adjust_fire_stacks(volume / 10)
 				return
 			/*
 			reaction_obj(var/obj/O, var/volume)
@@ -1032,6 +1045,8 @@ datum
 			reaction_mob(var/mob/living/M, var/method=TOUCH, var/volume)//Splashing people with welding fuel to make them easy to ignite!
 				if(!istype(M, /mob/living))
 					return
+				if(method == TOUCH)
+					M.adjust_fire_stacks(volume / 10)
 				return
 
 			reaction_obj(var/obj/O, var/volume)
@@ -1119,10 +1134,12 @@ datum
 				M.adjustToxLoss(3*REM)
 				..()
 				return
+
 			reaction_mob(var/mob/living/M, var/method=TOUCH, var/volume)//Splashing people with plasma is stronger than fuel!
 				if(!istype(M, /mob/living))
 					return
 				if(method == TOUCH)
+					M.adjust_fire_stacks(volume / 5)
 					..()
 					return
 		lexorin
@@ -2453,6 +2470,9 @@ datum
 
 			reaction_mob(var/mob/living/M, var/method=TOUCH, var/volume)//Splashing people with ethanol isn't quite as good as fuel.
 				if(!istype(M, /mob/living))
+					return
+				if(method == TOUCH)
+					M.adjust_fire_stacks(volume / 15)
 					return
 
 			beer	//It's really much more stronger than other drinks.

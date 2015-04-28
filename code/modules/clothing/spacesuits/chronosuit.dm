@@ -82,6 +82,7 @@
 		phaseanim.density = 1
 		phaseanim.layer = FLY_LAYER
 		phaseanim.master = user
+		user.ExtinguishMob()
 		if(user.buckled)
 			user.buckled.unbuckle()
 		user.loc = holder

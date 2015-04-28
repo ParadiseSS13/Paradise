@@ -377,6 +377,7 @@
 			animation.icon_state = "liquify"
 			animation.layer = 5
 			animation.master = holder
+			M.current.ExtinguishMob()
 			if(M.current.buckled)
 				M.current.buckled.unbuckle()
 			flick("liquify",animation)
@@ -450,6 +451,7 @@
 
 			if(!picked || !isturf(picked))
 				return
+			M.current.ExtinguishMob()
 			if(M.current.buckled)
 				M.current.buckled.unbuckle()
 			var/atom/movable/overlay/animation = new /atom/movable/overlay( get_turf(usr) )

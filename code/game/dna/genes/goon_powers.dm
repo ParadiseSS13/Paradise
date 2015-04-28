@@ -175,6 +175,7 @@
 	if(!handle_suit)
 		C.bodytemperature = max(0, C.bodytemperature - 100)
 		C.adjustFireLoss(10)
+		C.ExtinguishMob()
 
 		C.visible_message("\red [usr] sprays a cloud of fine ice crystals, engulfing [C]!")
 		log_admin("[ckey(usr.key)] has used cryokinesis on [ckey(C.key)], internals no, suit no")
@@ -533,6 +534,11 @@
 		"their hair","what to do next","their job","space","amusing things","sad things",
 		"annoying things","happy things","something incoherent","something they did wrong")
 		var/thoughts = "thinking about [pick(randomthoughts)]"
+
+		if(M.fire_stacks)
+			pain_condition -= 50
+			thoughts = "preoccupied with the fire"
+
 		if (M.radiation)
 			pain_condition -= 25
 

@@ -373,6 +373,8 @@
 			V.welded = 1
 			V.update_icon()
 			V.visible_message("<span class='danger'>[V] was frozen shut!</span>")
+		for(var/mob/living/L in T)
+			L.ExtinguishMob()
 	return
 
 /datum/effect/effect/system/freezing_smoke_spread

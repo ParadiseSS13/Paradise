@@ -441,6 +441,7 @@
 //	M.metabslow = 1
 	add_fingerprint(usr)
 	update_icon()
+	M.ExtinguishMob()
 	return 1
 
 /obj/machinery/atmospherics/unary/cryo_cell/verb/move_eject()

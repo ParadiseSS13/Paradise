@@ -90,14 +90,13 @@
 
 /obj/item/projectile/bullet/incendiary
 
-/*
 /obj/item/projectile/bullet/incendiary/on_hit(var/atom/target, var/blocked = 0)
 	..()
 	if(istype(target, /mob/living/carbon))
 		var/mob/living/carbon/M = target
-	//	M.adjust_fire_stacks(1)
-	//	M.IgniteMob() // need to find out linda shit later for this
-*/
+		M.adjust_fire_stacks(1)
+		M.IgniteMob()
+
 /obj/item/projectile/bullet/incendiary/shell
 	name = "incendiary slug"
 	damage = 20

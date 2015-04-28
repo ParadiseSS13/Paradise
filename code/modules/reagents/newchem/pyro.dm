@@ -37,6 +37,7 @@
 
 /datum/reagent/clf3/on_mob_life(var/mob/living/M as mob)
 	if(!M) M = holder.my_atom
+	M.adjust_fire_stacks(4)
 	M.adjustFireLoss(0.35*1)
 	..()
 	return
@@ -66,6 +67,8 @@
 
 /datum/reagent/clf3/reaction_mob(var/mob/living/M, var/method=TOUCH, var/volume)
 	if(method == TOUCH && isliving(M))
+		M.adjust_fire_stacks(5)
+		M.IgniteMob()
 		M.bodytemperature += 30
 		return
 
@@ -417,7 +420,9 @@ datum/reagent/blackpowder/reaction_turf(var/turf/T, var/volume) //oh shit
 
 /datum/reagent/phlogiston/on_mob_life(var/mob/living/M as mob)
 	if(!M) M = holder.my_atom
-	M.adjustFireLoss(0.2*1)
+	M.adjust_fire_stacks(1)
+	M.IgniteMob()
+	M.adjustFireLoss(0.2*M.fire_stacks)
 	..()
 	return
 
@@ -430,11 +435,13 @@ datum/reagent/blackpowder/reaction_turf(var/turf/T, var/volume) //oh shit
 
 /datum/reagent/napalm/on_mob_life(var/mob/living/M as mob)
 	if(!M) M = holder.my_atom
+	M.adjust_fire_stacks(1)
 	..()
 	return
 
 /datum/reagent/napalm/reaction_mob(var/mob/living/M, var/method=TOUCH, var/volume)
 	if(method == TOUCH && isliving(M))
+		M.adjust_fire_stacks(7)
 		return
 
 /datum/chemical_reaction/napalm
@@ -540,6 +547,9 @@ datum/reagent/firefighting_foam/reaction_mob(var/mob/living/M, var/method=TOUCH,
 
 // Put out fire
 	if(method == TOUCH)
+		M.adjust_fire_stacks(-(volume / 5)) // more effective than water
+		if(M.fire_stacks <= 0)
+			M.ExtinguishMob()
 		return
 
 datum/reagent/firefighting_foam/reaction_turf(var/turf/simulated/T, var/volume)

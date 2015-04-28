@@ -328,6 +328,8 @@
 	ear_deaf = 0
 	ear_damage = 0
 	heal_overall_damage(1000, 1000)
+	fire_stacks = 0
+	on_fire = 0
 	suiciding = 0
 	buckled = initial(src.buckled)
 
@@ -350,6 +352,7 @@
 		timeofdeath = 0
 
 	stat = CONSCIOUS
+	update_fire()
 	regenerate_icons()
 	hud_updateflag |= 1 << HEALTH_HUD
 	hud_updateflag |= 1 << STATUS_HUD
@@ -541,7 +544,6 @@
 			for(var/mob/O in viewers(usr, null))
 				O.show_message(text("\red <B>[] resists!</B>", L), 1)
 
-
 	//unbuckling yourself
 	if(L.buckled && (L.last_special <= world.time) )
 		if(iscarbon(L))
@@ -635,6 +637,21 @@
 	//breaking out of handcuffs
 	else if(iscarbon(L))
 		var/mob/living/carbon/CM = L
+
+		if(CM.on_fire && CM.canmove)
+			CM.fire_stacks -= 5
+			CM.weakened = max(CM.weakened, 3)//We dont check for CANWEAKEN, I don't care how immune to weakening you are, if you're rolling on the ground, you're busy.
+			CM.update_canmove()
+			CM.spin(32,2)
+			CM.visible_message("<span class='danger'>[CM] rolls on the floor, trying to put themselves out!</span>", \
+				"<span class='notice'>You stop, drop, and roll!</span>")
+			sleep(30)
+			if(fire_stacks <= 0)
+				CM.visible_message("<span class='danger'>[CM] has successfully extinguished themselves!</span>", \
+					"<span class='notice'>You extinguish yourself.</span>")
+				ExtinguishMob()
+			return
+
 		if(CM.handcuffed && CM.canmove && (CM.last_special <= world.time))
 			CM.changeNext_move(CLICK_CD_BREAKOUT)
 			CM.last_special = world.time + CLICK_CD_BREAKOUT
