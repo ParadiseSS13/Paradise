@@ -38,9 +38,9 @@ obj/structure/windoor_assembly/Destroy()
 	..()
 
 /obj/structure/windoor_assembly/Move()
-	air_update_turf(1)
+	var/turf/T = loc
 	..()
-	air_update_turf(1)
+	move_update_air(T)
 
 /obj/structure/windoor_assembly/update_icon()
 	icon_state = "[facing]_[secure ? "secure_" : ""]windoor_assembly[state]"

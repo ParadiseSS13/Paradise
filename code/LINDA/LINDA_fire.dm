@@ -60,7 +60,7 @@
 
 /obj/effect/hotspot/proc/perform_exposure()
 	var/turf/simulated/floor/location = loc
-	if(!istype(location))	return 0
+	if(!istype(location) || !(location.air))	return 0
 
 	if(volume > CELL_VOLUME*0.95)	bypassing = 1
 	else bypassing = 0
@@ -95,13 +95,13 @@
 		return
 
 	if(location.excited_group)
-		location.excited_group.breakdown = 0
+		location.excited_group.reset_cooldowns()
 
 	if((temperature < FIRE_MINIMUM_TEMPERATURE_TO_EXIST) || (volume <= 1))
 		Kill()
 		return
 
-	if(location.air.toxins < 0.5 || location.air.oxygen < 0.5)
+	if((!(location.air) || location.air.toxins < 0.5 || location.air.oxygen < 0.5))
 		Kill()
 		return
 
@@ -144,9 +144,9 @@
 /obj/effect/hotspot/proc/Kill()
 	air_master.hotspots -= src
 	DestroyTurf()
-	garbage_collect()
+	qdel(src)
 
-/obj/effect/hotspot/proc/garbage_collect()
+/obj/effect/hotspot/Destroy()
 	if(istype(loc, /turf/simulated))
 		var/turf/simulated/T = loc
 		if(T.active_hotspot == src)

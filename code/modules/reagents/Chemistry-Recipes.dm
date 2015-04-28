@@ -648,9 +648,9 @@ datum
 				for(var/mob/O in viewers(get_turf(holder.my_atom), null))
 					O.show_message(text("\red The slime extract begins to vibrate violently !"), 1)
 				sleep(50)
-				var/turf/simulated/T = get_turf(src)
+				var/turf/simulated/T = get_turf(holder.my_atom)
 				if(istype(T))
-					T.atmos_spawn_air("fire", 50)
+					T.atmos_spawn_air(SPAWN_HEAT | SPAWN_TOXINS, 50)
 
 //Yellow
 		slimeoverload

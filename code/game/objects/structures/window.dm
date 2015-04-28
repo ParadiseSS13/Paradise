@@ -352,10 +352,10 @@ var/global/wcColored
 
 
 /obj/structure/window/Move()
-	air_update_turf(1)
+	var/turf/T = loc
 	..()
 	dir = ini_dir
-	air_update_turf(1)
+	move_update_air(T)
 
 //checks if this window is full-tile one
 /obj/structure/window/proc/is_fulltile()
