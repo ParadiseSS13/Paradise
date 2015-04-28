@@ -22,5 +22,5 @@
 /datum/artifact_effect/gasco2/DoEffectAura()
 	if(holder)
 		var/datum/gas_mixture/env = holder.loc.return_air()
-		if(env && env.total_moles < max_pressure)
+		if(env && env.total_moles() < max_pressure)
 			env.carbon_dioxide += pick(0, 0, 0.1, rand())

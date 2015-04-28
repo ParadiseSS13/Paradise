@@ -357,8 +357,8 @@
 			var/datum/gas_mixture/G = T.air
 			if(get_dist(T, src) < 2) // Otherwise we'll get silliness like people using Nanofrost to kill people through walls with cold air
 				G.temperature = 2
-			update_nearby_tiles()
-			var/hotspot = (locate(/obj/fire) in T)
+			air_update_turf()
+			var/hotspot = (locate(/obj/effect/hotspot) in T)
 			if(hotspot && !istype(T, /turf/space))
 				var/CT = 10
 				var/datum/gas_mixture/lowertemp = T.remove_air( T:air:total_moles() )
@@ -373,8 +373,6 @@
 			V.welded = 1
 			V.update_icon()
 			V.visible_message("<span class='danger'>[V] was frozen shut!</span>")
-		for(var/mob/living/L in T)
-			L.ExtinguishMob()
 	return
 
 /datum/effect/effect/system/freezing_smoke_spread

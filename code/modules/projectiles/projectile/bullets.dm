@@ -90,13 +90,14 @@
 
 /obj/item/projectile/bullet/incendiary
 
+/*
 /obj/item/projectile/bullet/incendiary/on_hit(var/atom/target, var/blocked = 0)
 	..()
 	if(istype(target, /mob/living/carbon))
 		var/mob/living/carbon/M = target
-		M.adjust_fire_stacks(1)
-		M.IgniteMob()
-
+	//	M.adjust_fire_stacks(1)
+	//	M.IgniteMob() // need to find out linda shit later for this
+*/
 /obj/item/projectile/bullet/incendiary/shell
 	name = "incendiary slug"
 	damage = 20
@@ -104,7 +105,7 @@
 /obj/item/projectile/bullet/incendiary/shell/Move()
 	..()
 	var/turf/location = get_turf(src)
-	new/obj/fire(location)
+	new/obj/effect/hotspot(location)
 	location.hotspot_expose(700, 50, 1)
 
 /obj/item/projectile/bullet/incendiary/shell/dragonsbreath

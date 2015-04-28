@@ -171,7 +171,6 @@ steam.start() -- spawns the effect
 	..()
 	playsound(src.loc, "sparks", 100, 1)
 	var/turf/T = loc
-
 	if (istype(T, /turf))
 		T.hotspot_expose(1000, 100)
 	spawn (100)
@@ -1040,15 +1039,18 @@ steam.start() -- spawns the effect
 
 	New()
 		..()
-		update_nearby_tiles(1)
-
-
+		air_update_turf(1)
 
 	Destroy()
 
 		density = 0
-		update_nearby_tiles(1)
+		air_update_turf(1)
 		..()
+
+	Move()
+		air_update_turf(1)
+		..()
+		air_update_turf(1)
 
 	proc/updateicon()
 		if(metal == 1)
@@ -1107,6 +1109,9 @@ steam.start() -- spawns the effect
 
 	CanPass(atom/movable/mover, turf/target, height=1.5, air_group = 0)
 		if(air_group) return 0
+		return !density
+
+	CanAtmosPass()
 		return !density
 
 /datum/effect/effect/system/reagents_explosion

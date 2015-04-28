@@ -128,7 +128,7 @@
 
 	if(!tank || !..()) return //Only do this on a successful shot.
 
-	var/lost_gas_amount = tank.air_contents.total_moles*(pressure_setting/100)
+	var/lost_gas_amount = tank.air_contents.total_moles()*(pressure_setting/100)
 	var/datum/gas_mixture/removed = tank.air_contents.remove(lost_gas_amount)
 	user.loc.assume_air(removed)
 

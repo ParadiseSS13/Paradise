@@ -120,7 +120,7 @@
 	if(istype(T))
 		var/datum/gas_mixture/payload = new
 		payload.toxins = 60
-		T.zone.air.merge(payload)
+		T.air.merge(payload)
 		T.hotspot_expose(1000, CELL_VOLUME)
 
 /////////////////////

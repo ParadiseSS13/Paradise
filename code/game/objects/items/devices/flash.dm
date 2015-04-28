@@ -96,10 +96,6 @@
 
 	if(iscarbon(M))
 		flash_carbon(M, user, 5, 1)
-		if(overcharged)
-			M.adjust_fire_stacks(6)
-			M.IgniteMob()
-			burn_out()
 		return 1
 
 	else if(issilicon(M))

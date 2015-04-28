@@ -20,7 +20,6 @@
 	update_inv_r_hand(0)
 	update_inv_l_hand(0)
 	update_inv_handcuffed(0)
-	update_fire()
 	update_icons()
 	//Hud Stuff
 	update_hud()
@@ -112,15 +111,6 @@
 	if (!targeted_by)
 		overlays_standing[TARGETED_LAYER]	= null
 	if(update_icons)		update_icons()
-
-/mob/living/carbon/monkey/update_fire()
-	overlays -= overlays_standing[M_FIRE_LAYER]
-	if(on_fire)
-		overlays_standing[M_FIRE_LAYER] = image("icon"='icons/mob/OnFire.dmi', "icon_state"="Standing", "layer"= -M_FIRE_LAYER)
-		overlays += overlays_standing[M_FIRE_LAYER]
-		return
-	else
-		overlays_standing[M_FIRE_LAYER] = null
 
 //Monkey Overlays Indexes////////
 #undef M_MASK_LAYER

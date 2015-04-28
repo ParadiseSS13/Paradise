@@ -490,17 +490,8 @@ mob/living/carbon/human/proc/vamp_burn()
 			if(60 to 80)
 				src << "<span class='warning'>Your skin sizzles!</span>"
 			if((-INFINITY) to 60)
-				if(!on_fire)
-					src << "<b>\red Your skin catches fire!</b>"
-				else
-					src << "<b>\red You continue to burn!</b>"
-				fire_stacks += 5
-				IgniteMob()
+				src << "<b>\red You continue to burn!</b>"
 		emote("scream")
-	else
-		switch(health)
-			if((-INFINITY) to 60)
-				fire_stacks++
-				IgniteMob()
+
 	adjustFireLoss(3)
 	return

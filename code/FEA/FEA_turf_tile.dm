@@ -119,38 +119,6 @@ turf/simulated
 			if("sleeping_agent")
 				overlays.Add(slmaster)
 
-			if(model.graphics & GRAPHICS_COLD)
-		if(!was_icy)
-			wet=3 // Custom ice
-			was_icy=1
-			var/o=""
-			//if(is_plating())
-			//	o="snowfloor_s"
-			//else
-			if(is_plasteel_floor())
-				o="snowfloor"
-			if(o!="")
-				overlays += image('icons/turf/overlays.dmi',o)
-	else
-		if(was_icy)
-			wet=0
-			was_icy=0
-			if(prob(10))
-				wet = 1
-				if(wet_overlay)
-					overlays -= wet_overlay
-					wet_overlay = null
-				wet_overlay = image('icons/effects/water.dmi',src,"wet_floor")
-				overlays += wet_overlay
-
-				spawn(800)
-					if (!istype(src)) return
-					if(wet >= 2) return
-					wet = 0
-					if(wet_overlay)
-						overlays -= wet_overlay
-						wet_overlay = null
-
 
 
 	New()
@@ -188,8 +156,8 @@ turf/simulated
 			else
 				air_master.active_singletons.Remove(src)
 		if(active_hotspot)
-			active_hotspot.Kill()
-		if(blocks_air)
+			active_hotspot.garbage_collect()
+		if(air_master && blocks_air)
 			for(var/direction in list(NORTH, SOUTH, EAST, WEST))
 				var/turf/simulated/tile = get_step(src,direction)
 				if(istype(tile) && !tile.blocks_air)
@@ -230,6 +198,14 @@ turf/simulated
 
 	proc/mimic_air_with_tile(turf/T)
 		return air.mimic(T)
+
+	proc/copy_air_with_tile(turf/simulated/T)
+		if(istype(T) && T.air && air)
+			air.copy_from(T.air)
+
+	proc/copy_air(datum/gas_mixture/copy)
+		if(air && copy)
+			air.copy_from(copy)
 
 	return_air()
 		if(air)
@@ -286,16 +262,14 @@ turf/simulated
 						//See what kind of border it is
 						if(istype(T,/turf/space))
 							if(parent.space_borders)
-								parent.space_borders -= src
-								parent.space_borders += src
+								parent.space_borders |= src
 							else
 								parent.space_borders = list(src)
 							length_space_border++
 
 						else
 							if(parent.borders)
-								parent.borders -= src
-								parent.borders += src
+								parent.borders |= src
 							else
 								parent.borders = list(src)
 
@@ -572,7 +546,7 @@ turf/simulated
 		if(air)
 			if(air.temperature < (starting?MINIMUM_TEMPERATURE_START_SUPERCONDUCTION:MINIMUM_TEMPERATURE_FOR_SUPERCONDUCTION))
 				return 0
-			if(air.heat_capacity() < MOLES_CELLSTANDARD*0.1*0.05)
+			if(air.heat_capacity() < M_CELL_WITH_RATIO) // Was: MOLES_CELLSTANDARD*0.1*0.05 Since there are no variables here we can make this a constant.
 				return 0
 		else
 			if(temperature < (starting?MINIMUM_TEMPERATURE_START_SUPERCONDUCTION:MINIMUM_TEMPERATURE_FOR_SUPERCONDUCTION))

@@ -71,17 +71,10 @@
 			if(/obj/item/stack/sheet/metal, /obj/item/stack/sheet/metal/cyborg)
 				if(!anchored)
 					if(S.amount < 2) return
-					var/pdiff=performWallPressureCheck(src.loc)
-					if(!pdiff)
-						S.use(2)
-						user << "\blue You create a false wall! Push on it to open or close the passage."
-						new /obj/structure/falsewall (src.loc)
-						del(src)
-					else
-						user << "\red There is too much air moving through the gap!  The door wouldn't stay closed if you built it."
-						message_admins("Attempted false wall made by [user.real_name] ([formatPlayerPanel(user,user.ckey)]) at [formatJumpTo(loc)] had a pressure difference of [pdiff]!")
-						log_admin("Attempted false wall made by [user.real_name] (user.ckey) at [loc] had a pressure difference of [pdiff]!")
-						return
+					S.use(2)
+					user << "\blue You create a false wall! Push on it to open or close the passage."
+					new /obj/structure/falsewall (src.loc)
+					del(src)
 				else
 					if(S.amount < 2) return ..()
 					user << "\blue Now adding plating..."
@@ -99,17 +92,10 @@
 			if(/obj/item/stack/sheet/plasteel)
 				if(!anchored)
 					if(S.amount < 2) return
-					var/pdiff=performWallPressureCheck(src.loc)
-					if(!pdiff)
-						S.use(2)
-						user << "\blue You create a false wall! Push on it to open or close the passage."
-						new /obj/structure/falsewall/reinforced (src.loc)
-						del(src)
-					else
-						user << "\red There is too much air moving through the gap!  The door wouldn't stay closed if you built it."
-						message_admins("Attempted false rwall made by [user.real_name] ([formatPlayerPanel(user,user.ckey)]) at [formatJumpTo(loc)] had a pressure difference of [pdiff]!")
-						log_admin("Attempted false rwall made by [user.real_name] ([user.ckey]) at [loc] had a pressure difference of [pdiff]!")
-						return
+					S.use(2)
+					user << "\blue You create a false wall! Push on it to open or close the passage."
+					new /obj/structure/falsewall/reinforced (src.loc)
+					del(src)
 				else
 					if (src.icon_state == "reinforced") //I cant believe someone would actually write this line of code...
 						if(S.amount < 1) return ..()
@@ -139,18 +125,11 @@
 			var/M = S.sheettype
 			if(!anchored)
 				if(S.amount < 2) return
-				var/pdiff=performWallPressureCheck(src.loc)
-				if(!pdiff)
-					S.use(2)
-					user << "\blue You create a false wall! Push on it to open or close the passage."
-					var/F = text2path("/obj/structure/falsewall/[M]")
-					new F (src.loc)
-					del(src)
-				else
-					user << "\red There is too much air moving through the gap!  The door wouldn't stay closed if you built it."
-					message_admins("Attempted false [M] wall made by [user.real_name] ([formatPlayerPanel(user,user.ckey)]) at [formatJumpTo(loc)] had a pressure difference of [pdiff]!")
-					log_admin("Attempted false [M] wall made by [user.real_name] ([user.ckey]) at [loc] had a pressure difference of [pdiff]!")
-					return
+				S.use(2)
+				user << "\blue You create a false wall! Push on it to open or close the passage."
+				var/F = text2path("/obj/structure/falsewall/[M]")
+				new F (src.loc)
+				del(src)
 			else
 				if(S.amount < 2) return ..()
 				user << "\blue Now adding plating..."
@@ -187,7 +166,7 @@
 		if(health <= 0)
 			new /obj/item/stack/sheet/metal(get_turf(src))
 			del(src)
-		
+
 	if(istype(Proj ,/obj/item/projectile/beam/pulse))
 		src.ex_act(2)
 	..()
@@ -248,7 +227,7 @@
 	else if(istype(W, /obj/item/weapon/pickaxe/diamonddrill))
 		user << "\blue You drill through the girder!"
 		dismantle()
-		
+
 /obj/structure/cultgirder/proc/dismantle()
 	new /obj/effect/decal/remains/human(get_turf(src))
 	qdel(src)
@@ -256,7 +235,7 @@
 /obj/structure/cultgirder/blob_act()
 	if(prob(40))
 		dismantle()
-		
+
 /obj/structure/cultgirder/bullet_act(var/obj/item/projectile/Proj) //No beam check- How else will you destroy the cult girder with silver bullets?????
 	health -= Proj.damage
 	..()

@@ -16,25 +16,6 @@
 	icon_state = "plasmaman_suit"
 	item_state = "plasmaman_suit"
 
-	var/next_extinguish=0
-	var/extinguish_cooldown=10 SECONDS
-	var/extinguishes_left=10 // Yeah yeah, reagents, blah blah blah.  This should be simple.
-
-/obj/item/clothing/suit/space/eva/plasmaman/examine(mob/user)
-	..()
-	user << "<span class='info'>There are [extinguishes_left] extinguisher canisters left in this suit.</span>"
-
-/obj/item/clothing/suit/space/eva/plasmaman/proc/Extinguish(var/mob/user)
-	var/mob/living/carbon/human/H=user
-	if(extinguishes_left)
-		if(next_extinguish > world.time)
-			return
-
-		next_extinguish = world.time + extinguish_cooldown
-		extinguishes_left--
-		H << "<span class='warning'>Your suit automatically extinguishes the fire.</span>"
-		H.ExtinguishMob()
-
 /obj/item/clothing/head/helmet/space/eva/plasmaman
 	name = "plasmaman helmet"
 	desc = "A special containment helmet designed to protect a plasmaman's volatile body from outside exposure and quickly extinguish it in emergencies."

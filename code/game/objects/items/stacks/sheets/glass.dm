@@ -30,7 +30,7 @@
 	icon_state = "sheet-glass"
 	g_amt = 0
 	created_window = /obj/structure/window/basic
-	
+
 /obj/item/stack/sheet/glass/full/New()
 	..()
 	amount = 50
@@ -106,6 +106,7 @@
 			W.ini_dir = W.dir
 			W.state = 0
 			W.anchored = 0
+			W.air_update_turf(1)
 			src.use(1)
 		if("Full Window")
 			if(!src)	return 1
@@ -119,6 +120,7 @@
 			var/obj/structure/window/W = new full_window( user.loc, 0 )
 			W.state = 0
 			W.anchored = 0
+			W.air_update_turf(1)
 			src.use(2)
 	return 0
 

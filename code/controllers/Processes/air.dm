@@ -8,7 +8,7 @@
 
 /datum/controller/process/air/doWork()
 	if(!air_processing_killed)
-		if(!air_master.Tick()) //Runtimed.
+		if(!air_master.process()) //Runtimed.
 			air_master.failed_ticks++
 
 			if(air_master.failed_ticks > 5)

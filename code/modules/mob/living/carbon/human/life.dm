@@ -105,9 +105,6 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 
 		handle_virus_updates()
 
-		//Check if we're on fire
-		handle_fire()
-
 		//stuff in the stomach
 		handle_stomach()
 
@@ -371,7 +368,7 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 					breath = loc.remove_air(breath_moles)
 
 					if(!is_lung_ruptured())
-						if(!breath || breath.total_moles < BREATH_MOLES / 5 || breath.total_moles > BREATH_MOLES * 5)
+						if(!breath || breath.total_moles() < BREATH_MOLES / 5 || breath.total_moles() > BREATH_MOLES * 5)
 							if(prob(5))
 								rupture_lung()
 
@@ -381,18 +378,6 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 					location_as_object.handle_internal_lifeform(src, 0)
 
 		handle_breath(breath)
-
-		if(species.name=="Plasmaman")
-
-			// Check if we're wearing our biosuit and mask.
-			if (!istype(wear_suit,/obj/item/clothing/suit/space/eva/plasmaman) || !istype(head,/obj/item/clothing/head/helmet/space/eva/plasmaman))
-				//testing("Plasmaman [src] leakin'.  coverflags=[cover_flags]")
-				// OH FUCK HE LEAKIN'.
-				// This was OP.
-				//environment.adjust(tx = environment.total_moles()*BREATH_PERCENTAGE) // About one breath's worth. (I know we aren't breathing it out, but this should be about the right amount)
-				src << "<span class='warning'>Your body reacts with the atmosphere and bursts into flame!</span>"
-				adjust_fire_stacks(0.5)
-				IgniteMob()
 
 		if(breath)
 			loc.assume_air(breath)
@@ -451,17 +436,16 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 			stabilize_temperature_from_calories()
 
 		//After then, it reacts to the surrounding atmosphere based on your thermal protection
-		if(!on_fire) //If you're on fire, you do not heat up or cool down based on surrounding gases
-			if(loc_temp < bodytemperature)
-				//Place is colder than we are
-				var/thermal_protection = get_cold_protection(loc_temp) //This returns a 0 - 1 value, which corresponds to the percentage of protection based on what you're wearing and what you're exposed to.
-				if(thermal_protection < 1)
-					bodytemperature += min((1-thermal_protection) * ((loc_temp - bodytemperature) / BODYTEMP_COLD_DIVISOR), BODYTEMP_COOLING_MAX)
-			else
-				//Place is hotter than we are
-				var/thermal_protection = get_heat_protection(loc_temp) //This returns a 0 - 1 value, which corresponds to the percentage of protection based on what you're wearing and what you're exposed to.
-				if(thermal_protection < 1)
-					bodytemperature += min((1-thermal_protection) * ((loc_temp - bodytemperature) / BODYTEMP_HEAT_DIVISOR), BODYTEMP_HEATING_MAX)
+		if(loc_temp < bodytemperature)
+			//Place is colder than we are
+			var/thermal_protection = get_cold_protection(loc_temp) //This returns a 0 - 1 value, which corresponds to the percentage of protection based on what you're wearing and what you're exposed to.
+			if(thermal_protection < 1)
+				bodytemperature += min((1-thermal_protection) * ((loc_temp - bodytemperature) / BODYTEMP_COLD_DIVISOR), BODYTEMP_COOLING_MAX)
+		else
+			//Place is hotter than we are
+			var/thermal_protection = get_heat_protection(loc_temp) //This returns a 0 - 1 value, which corresponds to the percentage of protection based on what you're wearing and what you're exposed to.
+			if(thermal_protection < 1)
+				bodytemperature += min((1-thermal_protection) * ((loc_temp - bodytemperature) / BODYTEMP_HEAT_DIVISOR), BODYTEMP_HEATING_MAX)
 
 		// +/- 50 degrees from 310.15K is the 'safe' zone, where no damage is dealt.
 		if(bodytemperature > species.heat_level_1)
@@ -476,12 +460,8 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 				take_overall_damage(burn=HEAT_DAMAGE_LEVEL_2, used_weapon = "High Body Temperature")
 				fire_alert = max(fire_alert, 2)
 			if(bodytemperature > species.heat_level_3 && bodytemperature < INFINITY)
-				if(on_fire)
-					take_overall_damage(burn=HEAT_DAMAGE_LEVEL_3, used_weapon = "Fire")
-					fire_alert = max(fire_alert, 2)
-				else
-					take_overall_damage(burn=HEAT_DAMAGE_LEVEL_2, used_weapon = "High Body Temperature")
-					fire_alert = max(fire_alert, 2)
+				take_overall_damage(burn=HEAT_DAMAGE_LEVEL_3, used_weapon = "Fire")
+				fire_alert = max(fire_alert, 2)
 
 		else if(bodytemperature < species.cold_level_1)
 			fire_alert = max(fire_alert, 1)
@@ -525,28 +505,6 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 				pressure_alert = -2
 
 		return
-
-	///FIRE CODE
-	handle_fire()
-		if(..())
-			return
-		var/thermal_protection = 0 //Simple check to estimate how protected we are against multiple temperatures
-		if(wear_suit)
-			if(wear_suit.max_heat_protection_temperature >= FIRESUIT_MAX_HEAT_PROTECTION_TEMPERATURE)
-				thermal_protection += (wear_suit.max_heat_protection_temperature*0.7)
-		if(head)
-			if(head.max_heat_protection_temperature >= FIRE_HELMET_MAX_HEAT_PROTECTION_TEMPERATURE)
-				thermal_protection += (head.max_heat_protection_temperature*THERMAL_PROTECTION_HEAD)
-		thermal_protection = round(thermal_protection)
-		if(thermal_protection >= FIRE_IMMUNITY_SUIT_MAX_TEMP_PROTECT)
-			return
-		if(thermal_protection >= FIRESUIT_MAX_HEAT_PROTECTION_TEMPERATURE)
-			bodytemperature += 11
-			return
-		else
-			bodytemperature += BODYTEMP_HEATING_MAX
-		return
-	//END FIRE CODE
 
 	/*
 	proc/adjust_body_temperature(current, loc_temp, boost)
@@ -727,12 +685,6 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 			if(species && species.reagent_tag)
 				alien = species.reagent_tag
 			reagents.metabolize(src,alien)
-
-			var/total_plasmaloss = 0
-			for(var/obj/item/I in src)
-				if(I.contaminated)
-					total_plasmaloss += vsc.plc.CONTAMINATION_LOSS
-			if(!(status_flags & GODMODE)) adjustToxLoss(total_plasmaloss)
 
 		if(status_flags & GODMODE)	return 0	//godmode
 

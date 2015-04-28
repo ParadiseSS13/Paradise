@@ -50,9 +50,6 @@
 	//stuff in the stomach
 	handle_stomach()
 
-	//Handle being on fire
-	handle_fire()
-
 	//Status updates, death etc.
 	handle_regular_status_updates()
 	update_canmove()

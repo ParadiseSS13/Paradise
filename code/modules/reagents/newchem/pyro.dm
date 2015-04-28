@@ -37,15 +37,14 @@
 
 /datum/reagent/clf3/on_mob_life(var/mob/living/M as mob)
 	if(!M) M = holder.my_atom
-	M.adjust_fire_stacks(4)
-	M.adjustFireLoss(0.35*M.fire_stacks)
+	M.adjustFireLoss(0.35*1)
 	..()
 	return
 
 /datum/chemical_reaction/clf3/on_reaction(var/datum/reagents/holder, var/created_volume)
 	var/turf/T = get_turf(holder.my_atom)
 	for(var/turf/turf in range(1,T))
-		new /obj/fire(turf)
+		new /obj/effect/hotspot(turf)
 	return
 
 /datum/reagent/clf3/reaction_turf(var/turf/simulated/T, var/volume)
@@ -58,7 +57,7 @@
 		if(prob(volume/10))
 			F.make_plating()
 		if(istype(F, /turf/simulated/floor/))
-			new /obj/fire(F)
+			new /obj/effect/hotspot(F)
 	if(istype(T, /turf/simulated/wall/))
 		var/turf/simulated/wall/W = T
 		if(prob(volume/10))
@@ -67,8 +66,6 @@
 
 /datum/reagent/clf3/reaction_mob(var/mob/living/M, var/method=TOUCH, var/volume)
 	if(method == TOUCH && isliving(M))
-		M.adjust_fire_stacks(5)
-		M.IgniteMob()
 		M.bodytemperature += 30
 		return
 
@@ -415,14 +412,12 @@ datum/reagent/blackpowder/reaction_turf(var/turf/T, var/volume) //oh shit
 		return
 	var/turf/simulated/T = get_turf(holder.my_atom)
 	for(var/turf/simulated/turf in range(created_volume/10,T))
-		new /obj/fire(turf)
+		new /obj/effect/hotspot(turf)
 	return
 
 /datum/reagent/phlogiston/on_mob_life(var/mob/living/M as mob)
 	if(!M) M = holder.my_atom
-	M.adjust_fire_stacks(1)
-	M.IgniteMob()
-	M.adjustFireLoss(0.2*M.fire_stacks)
+	M.adjustFireLoss(0.2*1)
 	..()
 	return
 
@@ -435,13 +430,11 @@ datum/reagent/blackpowder/reaction_turf(var/turf/T, var/volume) //oh shit
 
 /datum/reagent/napalm/on_mob_life(var/mob/living/M as mob)
 	if(!M) M = holder.my_atom
-	M.adjust_fire_stacks(1)
 	..()
 	return
 
 /datum/reagent/napalm/reaction_mob(var/mob/living/M, var/method=TOUCH, var/volume)
 	if(method == TOUCH && isliving(M))
-		M.adjust_fire_stacks(7)
 		return
 
 /datum/chemical_reaction/napalm
@@ -547,9 +540,6 @@ datum/reagent/firefighting_foam/reaction_mob(var/mob/living/M, var/method=TOUCH,
 
 // Put out fire
 	if(method == TOUCH)
-		M.adjust_fire_stacks(-(volume / 5)) // more effective than water
-		if(M.fire_stacks <= 0)
-			M.ExtinguishMob()
 		return
 
 datum/reagent/firefighting_foam/reaction_turf(var/turf/simulated/T, var/volume)
@@ -558,7 +548,7 @@ datum/reagent/firefighting_foam/reaction_turf(var/turf/simulated/T, var/volume)
 	src = null
 	if(!istype(T, /turf/space))
 		new /obj/effect/decal/cleanable/flour/foam(T) //foam mess; clears up quickly.
-	var/hotspot = (locate(/obj/fire) in T)
+	var/hotspot = (locate(/obj/effect/hotspot) in T)
 	if(hotspot && !istype(T, /turf/space))
 		var/datum/gas_mixture/lowertemp = T.remove_air( T:air:total_moles() )
 		lowertemp.temperature = max( min(lowertemp.temperature-(CT*1000),lowertemp.temperature / CT) ,0)
@@ -570,7 +560,7 @@ datum/reagent/firefighting_foam/reaction_turf(var/turf/simulated/T, var/volume)
 datum/reagent/firefighting_foam/reaction_obj(var/obj/O, var/volume)
 	src = null
 	var/turf/T = get_turf(O)
-	var/hotspot = (locate(/obj/fire) in T)
+	var/hotspot = (locate(/obj/effect/hotspot) in T)
 	if(hotspot && !istype(T, /turf/space))
 		var/datum/gas_mixture/lowertemp = T.remove_air( T:air:total_moles() )
 		lowertemp.temperature = max( min(lowertemp.temperature-2000,lowertemp.temperature / 2) ,0)

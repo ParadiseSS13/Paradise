@@ -110,11 +110,15 @@
 	icon = 'icons/mob/screen1.dmi'
 	icon_state = "x"
 	var/btype = 0 // 0=radio, 1=prox, 2=time
+	var/btemp1 = 1500
+	var/btemp2 = 1000	// tank temperatures
 
 	timer
 		btype = 2
 
 		syndicate
+			btemp1 = 150
+			btemp2 = 20
 
 	proximity
 		btype = 1
@@ -136,14 +140,8 @@
 	PT.master = V
 	OT.master = V
 
-	PT.air_contents.temperature = PLASMA_FLASHPOINT
-	PT.air_contents.toxins = 12
-	PT.air_contents.carbon_dioxide = 8
-	PT.air_contents.update_values()
-
-	OT.air_contents.temperature = PLASMA_FLASHPOINT
-	OT.air_contents.oxygen = 20
-	OT.air_contents.update_values()
+	PT.air_contents.temperature = btemp1 + T0C
+	OT.air_contents.temperature = btemp2 + T0C
 
 	var/obj/item/device/assembly/S
 

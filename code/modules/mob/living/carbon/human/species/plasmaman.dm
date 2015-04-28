@@ -21,8 +21,6 @@
 	return message
 
 /datum/species/plasmaman/equip(var/mob/living/carbon/human/H)
-	H.fire_sprite = "Plasmaman"
-
 	// Unequip existing suits and hats.
 	H.unEquip(H.wear_suit)
 	H.unEquip(H.head)
