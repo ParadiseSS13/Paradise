@@ -246,7 +246,7 @@
 	else
 		usr << "<span class='notice'>There is no assembly to remove.</span>"
 
-/obj/item/weapon/reagent_containers/glass/beaker/fire_act()
+/obj/item/weapon/reagent_containers/glass/beaker/proc/ignite()
 	if(reagents)
 		reagents.chem_temp += 30
 		reagents.handle_reactions()
