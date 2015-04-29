@@ -172,7 +172,7 @@
 
 	src.brainmob = new(src)
 	src.brainmob.name = "[pick(list("PBU","HIU","SINA","ARMA","OSI"))]-[rand(100, 999)]"
-	src.brainmob.real_name = src.brainmob.name
+	src.brainmob.real_name = src.brainmob.name //WHY THE FUCK IS THIS RUNTIMING? "Undefined variable /obj/item/device/mmi/posibrain/var/real_name" WHY ARE YOU CHECKING THE POSIBRAIN AND NOT THE BRAINMOB?!
 	src.brainmob.loc = src
 	src.brainmob.container = src
 	src.brainmob.robot_talk_understand = 1

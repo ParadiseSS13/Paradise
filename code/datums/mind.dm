@@ -976,9 +976,17 @@ datum/mind
 						log_admin("[key_name(usr)] has de-shadowling'ed [current].")
 						current.verbs -= /mob/living/carbon/human/proc/shadowling_hatch
 						current.verbs -= /mob/living/carbon/human/proc/shadowling_ascendance
+						if(current.languages)
+							for(var/datum/language/L in current.languages)
+								if(L.name == "Shadowling Hivemind")
+									del(L)
 					else if(src in ticker.mode.shadowling_thralls)
 						ticker.mode.shadowling_thralls -= src
 						special_role = null
+						if(current.languages)
+							for(var/datum/language/L in current.languages)
+								if(L.name == "Shadowling Hivemind")
+									del(L)
 						current << "<span class='userdanger'>You have been brainwashed! You are no longer a thrall!</span>"
 						message_admins("[key_name_admin(usr)] has de-thrall'ed [current].")
 						log_admin("[key_name(usr)] has de-thrall'ed [current].")

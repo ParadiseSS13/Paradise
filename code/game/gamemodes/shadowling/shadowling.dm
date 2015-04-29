@@ -63,9 +63,9 @@ Made by Xhuis
 /datum/game_mode/shadowling
 	name = "shadowling"
 	config_tag = "shadowling"
-	required_players = 30
-	required_enemies = 2
-	recommended_enemies = 2
+	required_players = 1
+	required_enemies = 1
+	recommended_enemies = 1
 	restricted_jobs = list("AI", "Cyborg")
 	protected_jobs = list("Security Officer", "Warden", "Detective", "Head of Security", "Captain")
 
@@ -87,7 +87,7 @@ Made by Xhuis
 			if(player.assigned_role == job)
 				possible_shadowlings -= player
 
-	var/shadowlings = 2 //How many shadowlings there are; hardcoded to 2
+	var/shadowlings = 1 //How many shadowlings there are; hardcoded to 2
 
 	while(shadowlings)
 		var/datum/mind/shadow = pick(possible_shadowlings)
@@ -114,9 +114,9 @@ Made by Xhuis
 
 /datum/game_mode/proc/greet_shadow(var/datum/mind/shadow)
 	shadow.current << "<b>Currently, you are disguised as an employee aboard [world.name].</b>"
-	shadow.current << "<b>In your limited state, you have three abilities: Enthrall, Hatch, and Hivemind Commune.</b>"
-	shadow.current << "<b>Any other shadowlings are you allies. You must assist them as they shall assist you.</b>"
-	shadow.current << "<b>If you are new to shadowling, or want to read about abilities, check the wiki page at https://tgstation13.org/wiki/Shadowling</b><br>"
+	shadow.current << "<b>In your limited state, you have three abilities: Enthrall, Hatch, and Shadowling Hivemind (:8).</b>"
+	shadow.current << "<b>Any other shadowlings are your allies. You must assist them as they shall assist you.</b>"
+	shadow.current << "<b>If you are new to shadowling, or want to read about abilities, check the wiki page at http://nanotrasen.se/wiki/index.php/Shadowling</b><br>"
 
 
 /datum/game_mode/proc/process_shadow_objectives(var/datum/mind/shadow_mind)
@@ -134,7 +134,7 @@ Made by Xhuis
 	shadow_mind.current.verbs += /mob/living/carbon/human/proc/shadowling_hatch
 	S.spell_list += new /obj/effect/proc_holder/spell/wizard/targeted/enthrall
 	spawn(0)
-		shadow_mind.current.spell_list += new /obj/effect/proc_holder/spell/wizard/targeted/shadowling_hivemind
+		shadow_mind.current.add_language("Shadowling Hivemind")
 		update_shadow_icons_added(shadow_mind)
 		if(shadow_mind.assigned_role == "Clown")
 			S << "<span class='notice'>Your alien nature has allowed you to overcome your clownishness.</span>"
@@ -151,7 +151,7 @@ Made by Xhuis
 		This may only be used with [required_thralls] collective thralls, while hatched, and is unlocked with the Collective Mind ability."
 		new_thrall_mind.current << "<b>The objectives of your shadowlings:</b>: Ascend to your true form by use of the Ascendance ability. \
 		This may only be used with [required_thralls] collective thralls, while hatched, and is unlocked with the Collective Mind ability."
-		new_thrall_mind.current.spell_list += new /obj/effect/proc_holder/spell/wizard/targeted/shadowling_hivemind
+		new_thrall_mind.current.add_language("Shadowling Hivemind")
 		return 1
 
 
@@ -250,9 +250,9 @@ Made by Xhuis
 /datum/game_mode/proc/update_shadow_icons_added(datum/mind/shadow_mind)
 	spawn(0)
 		for(var/datum/mind/shadowling in shadows)
-			if(shadowling.current)
+			if(shadowling.current && shadowling != shadow_mind)
 				if(shadowling.current.client)
-					var/I = image('icons/mob/mob.dmi', loc = shadowling.current, icon_state = "shadowling")
+					var/I = image('icons/mob/mob.dmi', loc = shadow_mind.current, icon_state = "thrall")
 					shadowling.current.client.images += I
 			if(shadow_mind.current)
 				if(shadow_mind.current.client)
@@ -261,7 +261,7 @@ Made by Xhuis
 		for(var/datum/mind/thrall in shadowling_thralls)
 			if(thrall.current)
 				if(thrall.current.client)
-					var/I = image('icons/mob/mob.dmi', loc = thrall.current, icon_state = "thrall")
+					var/I = image('icons/mob/mob.dmi', loc = shadow_mind.current, icon_state = "thrall")
 					thrall.current.client.images += I
 			if(shadow_mind.current)
 				if(shadow_mind.current.client)

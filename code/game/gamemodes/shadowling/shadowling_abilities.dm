@@ -213,27 +213,6 @@
 		ticker.mode.add_thrall(target.mind)
 		target.mind.special_role = "Thrall"
 
-
-/obj/effect/proc_holder/spell/wizard/targeted/shadowling_hivemind
-	name = "Hivemind Commune"
-	desc = "Allows you to silently communicate with all other shadowlings and thralls."
-	panel = "Shadowling Abilities"
-	charge_max = 25
-	clothes_req = 0
-	range = -1
-	include_user = 1
-
-/obj/effect/proc_holder/spell/wizard/targeted/shadowling_hivemind/cast(list/targets)
-	for(var/mob/living/user in targets)
-		var/text = stripped_input(user, "What do you want to say to fellow thralls and shadowlings?.", "Hive Chat", "")
-		if(!text)
-			return
-		for(var/mob/M in mob_list)
-			if(is_shadow_or_thrall(M) || (M in dead_mob_list))
-				M << "<span class='shadowling'><b>\[Hive Chat\]</b><i> [usr.real_name]</i>: [text]</span>"
-
-
-
 /obj/effect/proc_holder/spell/wizard/targeted/collective_mind
 	name = "Collective Hivemind"
 	desc = "Gathers the power of all of your thralls and compares it to what is needed for ascendance. Also gains you new abilities."
@@ -529,10 +508,10 @@ datum/reagent/shadowling_blindness_smoke/on_mob_life(var/mob/living/M as mob)
 		target << "<span class='deadsay'><b>And you see the Truth. Reality has been torn away and you realize what a fool you've been.</b></span>"
 		target << "<span class='deadsay'><b>The shadowlings are your masters.</b> Serve them above all else and ensure they complete their goals.</span>"
 		target << "<span class='deadsay'>You may not harm other thralls or the shadowlings. However, you do not need to obey other thralls.</span>"
-		target << "<span class='deadsay'>You can communicate with the other enlightened ones by using the Hivemind Commune ability.</span>"
+		target << "<span class='deadsay'>You can communicate with the other enlightened ones by using the Shadowling Hivemind (:8).</span>"
 		ticker.mode.add_thrall(target.mind)
 		target.mind.special_role = "Thrall"
-		target.spell_list += new /obj/effect/proc_holder/spell/wizard/targeted/shadowling_hivemind
+		target.add_language("Shadowling Hivemind")
 
 
 
