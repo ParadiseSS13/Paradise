@@ -1139,6 +1139,7 @@ FIRE ALARM
 				
 				else if(istype(W, /obj/item/weapon/wirecutters))  // cutting the wires out
 					user << "You cut the wires!"
+					playsound(get_turf(src), 'sound/items/Wirecutter.ogg', 50, 1)
 					var/obj/item/stack/cable_coil/new_coil = new /obj/item/stack/cable_coil()
 					new_coil.amount = 5
 					new_coil.loc = user.loc
