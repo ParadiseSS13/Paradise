@@ -319,6 +319,7 @@ atom/movable/proc/experience_pressure_difference(pressure_difference, direction)
 	var/datum/gas/sleeping_agent/S = new
 	A.trace_gases += S
 	for(var/turf/simulated/T in turf_list)
+		if(T == null || !istype(T))	return
 		A.oxygen 		+= T.air.oxygen
 		A.carbon_dioxide+= T.air.carbon_dioxide
 		A.nitrogen 		+= T.air.nitrogen
