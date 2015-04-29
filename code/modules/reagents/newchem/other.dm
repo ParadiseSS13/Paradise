@@ -120,7 +120,7 @@ datum/reagent/colorful_reagent
 	mix_message = "The substance flashes multiple colors and emits the smell of a pocket protector."
 
 datum/reagent/colorful_reagent/reaction_mob(var/mob/living/simple_animal/M, var/method=TOUCH, var/volume)
-    if(M)
+    if(M && istype(M))
         M.color = pick(random_color_list)
     ..()
     return
