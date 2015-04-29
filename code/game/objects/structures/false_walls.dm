@@ -261,6 +261,16 @@
 	mineral = "plasma"
 	walltype = "plasma"
 
+/obj/structure/falsewall/plasma/proc/burnbabyburn(user)
+	playsound(src, 'sound/items/Welder.ogg', 100, 1)
+	atmos_spawn_air(SPAWN_HEAT | SPAWN_TOXINS, 400)
+	new /obj/structure/girder/displaced(loc)
+	qdel(src)
+
+/obj/structure/falsewall/plasma/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
+	if(exposed_temperature > 300)
+		burnbabyburn()
+
 //-----------wtf?-----------start
 /obj/structure/falsewall/clown
 	name = "bananium wall"
