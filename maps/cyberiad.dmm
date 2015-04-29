@@ -2865,7 +2865,7 @@
 "bde" = (/obj/machinery/hologram/holopad,/turf/simulated/floor,/area/storage/tools)
 "bdf" = (/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,/turf/simulated/floor,/area/hallway/primary/central/nw)
 "bdg" = (/obj/structure/sign/securearea{desc = "A warning sign which reads 'HIGH VOLTAGE'"; icon_state = "shock"; name = "HIGH VOLTAGE"; pixel_y = 32},/obj/machinery/door/firedoor/border_only,/turf/simulated/floor{dir = 5; icon_state = "blue"},/area/hallway/primary/central/nw)
-"bdh" = (/obj/machinery/lapvend,/turf/simulated/floor,/area/quartermaster/office)
+"bdh" = (/obj/machinery/vending/cart,/turf/simulated/floor,/area/quartermaster/office)
 "bdi" = (/obj/machinery/door/poddoor{density = 0; icon_state = "pdoor0"; id = "bridge blast"; name = "Bridge Blast Doors"; opacity = 0},/obj/structure/sign/securearea{pixel_x = 32; pixel_y = 0},/obj/machinery/door/firedoor/border_only,/turf/simulated/floor{icon_state = "delivery"; name = "floor"},/area/bridge)
 "bdj" = (/turf/simulated/floor{icon_state = "redcorner"; dir = 1},/area/bridge)
 "bdk" = (/turf/simulated/floor{icon_state = "redcorner"; dir = 4},/area/bridge)
