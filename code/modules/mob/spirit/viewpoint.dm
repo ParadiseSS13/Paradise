@@ -113,7 +113,7 @@ var/obj/cult_viewpoint/list/cult_viewpoints = list()
 /obj/cult_viewpoint/proc/get_cult_name()
 	if (cult_name)
 		return cult_name
-	return "An Unknown Servent"
+	return "An Unknown Servant"
 
 
 /obj/cult_viewpoint/proc/set_cult_name(var/newName)
