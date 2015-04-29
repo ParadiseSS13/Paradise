@@ -4,14 +4,44 @@
 /obj/machinery/door/firedoor
 	name = "Firelock"
 	desc = "Apply crowbar"
-	icon = 'icons/obj/doors/Doorfire.dmi'
+	icon = 'icons/obj/doors/Doorfireglass.dmi'
 	icon_state = "door_open"
 	opacity = 0
 	density = 0
+	heat_proof = 1
+	glass = 1
 	power_channel = ENVIRON
+
+	var/list/areas_added
+
 	var/blocked = 0
 	var/nextstate = null
 
+/obj/machinery/door/firedoor/New()
+	. = ..()
+	for(var/obj/machinery/door/firedoor/F in loc)
+		if(F != src)
+			spawn(1)
+				del src
+			return .
+
+	var/area/A = get_area(src)
+	ASSERT(istype(A))
+
+	A.all_doors.Add(src)
+	areas_added = list(A)
+
+	for(var/direction in cardinal)
+		A = get_area(get_step(src,direction))
+		if(istype(A) && !(A in areas_added))
+			A.all_doors.Add(src)
+			areas_added += A
+
+
+/obj/machinery/door/firedoor/Destroy()
+	for(var/area/A in areas_added)
+		A.all_doors.Remove(src)
+	. = ..()
 
 /obj/machinery/door/firedoor/Bumped(atom/AM)
 	if(p_open || operating)	return
@@ -59,6 +89,13 @@
 		close()
 	return
 
+/obj/machinery/door/firedoor/do_animate(animation)
+	switch(animation)
+		if("opening")
+			flick("door_opening", src)
+		if("closing")
+			flick("door_closing", src)
+	return
 
 /obj/machinery/door/firedoor/update_icon()
 	overlays.Cut()
@@ -79,6 +116,9 @@
 
 /obj/machinery/door/firedoor/close()
 	..()
+	if(locate(/mob/living) in get_turf(src))
+		open()
+		return
 	latetoggle()
 	return
 
@@ -97,10 +137,6 @@
 
 /obj/machinery/door/firedoor/border_only
 	icon = 'icons/obj/doors/edge_Doorfire.dmi'
-	glass = 1 //There is a glass window so you can see through the door
-			  //This is needed due to BYOND limitations in controlling visibility
-	heat_proof = 1
-
 	flags = ON_BORDER
 
 /obj/machinery/door/firedoor/border_only/CanPass(atom/movable/mover, turf/target, height=0, air_group=0)

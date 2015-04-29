@@ -309,6 +309,9 @@
 
 /obj/machinery/door/Move(new_loc, new_dir)
 	var/turf/T = loc
+	..()
+	move_update_air(T)
+
 	. = ..()
 	if(width > 1)
 		if(dir in list(EAST, WEST))
@@ -317,8 +320,6 @@
 		else
 			bound_width = world.icon_size
 			bound_height = width * world.icon_size
-
-	move_update_air(T)
 
 /obj/machinery/door/BlockSuperconductivity()
 	if(opacity || heat_proof)
