@@ -1149,7 +1149,7 @@ FIRE ALARM
 				if(istype(W, /obj/item/stack/cable_coil))
 					var/obj/item/stack/cable_coil/coil = W
 					if(coil.amount < 5)
-					user << "<span class='warning'>You cut the wires!</span>"
+						user << "<span class='warning'>You cut the wires!</span>"
 						return
 
 					coil.amount -= 5
