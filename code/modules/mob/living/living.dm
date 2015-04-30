@@ -460,6 +460,9 @@
 		for(var/mob/living/carbon/slime/M in view(1,src))
 			M.UpdateFeed(src)
 
+/*//////////////////////
+	START RESIST PROCS
+*///////////////////////
 
 /mob/living/verb/resist()
 	set name = "Resist"
@@ -473,260 +476,327 @@
 
 	//Getting out of someone's inventory.
 	if(istype(src.loc,/obj/item/weapon/holder))
-		var/obj/item/weapon/holder/H = src.loc //Get our item holder.
-		var/mob/M = H.loc                      //Get our mob holder (if any).
-
-		if(istype(M))
-			M.unEquip(H)
-			M << "[H] wriggles out of your grip!"
-			src << "You wriggle out of [M]'s grip!"
-		else if(istype(H.loc,/obj/item))
-			src << "You struggle free of [H.loc]."
-			H.loc = get_turf(H)
-
-		if(istype(M))
-			for(var/atom/A in M.contents)
-				if(istype(A,/mob/living/simple_animal/borer) || istype(A,/obj/item/weapon/holder))
-					return
-
-		M.status_flags &= ~PASSEMOTES
-		return
+		resist_holder()
 
 	//Resisting control by an alien mind.
 	if(istype(src.loc,/mob/living/simple_animal/borer))
-		var/mob/living/simple_animal/borer/B = src.loc
-		var/mob/living/captive_brain/H = src
-
-		H << "\red <B>You begin doggedly resisting the parasite's control (this will take approximately sixty seconds).</B>"
-		B.host << "\red <B>You feel the captive mind of [src] begin to resist your control.</B>"
-
-		spawn(rand(350,450)+B.host.brainloss)
-
-			if(!B || !B.controlling)
-				return
-
-			B.host.adjustBrainLoss(rand(5,10))
-			H << "\red <B>With an immense exertion of will, you regain control of your body!</B>"
-			B.host << "\red <B>You feel control of the host brain ripped from your grasp, and retract your probosci before the wild neural impulses can damage you.</b>"
-
-			B.detatch()
-
-			verbs -= /mob/living/carbon/proc/release_control
-			verbs -= /mob/living/carbon/proc/punish_host
-			verbs -= /mob/living/carbon/proc/spawn_larvae
-
-			return
+		resist_borer()
 
 	//resisting grabs (as if it helps anyone...)
-	if ((!( L.stat ) && !( L.restrained() )))
-		var/resisting = 0
-		for(var/obj/O in L.requests)
-			L.requests.Remove(O)
-			del(O)
-			resisting++
-		for(var/obj/item/weapon/grab/G in usr.grabbed_by)
-			resisting++
-			if (G.state == 1)
-				del(G)
-			else
-				if (G.state == 2)
-					if (prob(25))
-						for(var/mob/O in viewers(L, null))
-							O.show_message(text("\red [] has broken free of []'s grip!", L, G.assailant), 1)
-						del(G)
-				else
-					if (G.state == 3)
-						if (prob(5))
-							for(var/mob/O in viewers(usr, null))
-								O.show_message(text("\red [] has broken free of []'s headlock!", L, G.assailant), 1)
-							del(G)
-		if(resisting)
-			for(var/mob/O in viewers(usr, null))
-				O.show_message(text("\red <B>[] resists!</B>", L), 1)
+	if ((!(L.stat) && !(L.restrained())))
+		resist_grab(L) //this passes L because the proc requires a typecasted mob/living instead of just 'src'
 
 	//unbuckling yourself
 	if(L.buckled && (L.last_special <= world.time) )
-		if(iscarbon(L))
-			var/mob/living/carbon/C = L
-			if( C.handcuffed )
-				C.changeNext_move(CLICK_CD_BREAKOUT)
-				C.last_special = world.time + CLICK_CD_BREAKOUT
-				C << "\red You attempt to unbuckle yourself. (This will take around 2 minutes and you need to stand still)"
-				for(var/mob/O in viewers(L))
-					O.show_message("\red <B>[usr] attempts to unbuckle themself!</B>", 1)
-				spawn(0)
-					if(do_after(usr, 1200))
-						if(!C.buckled)
-							return
-						for(var/mob/O in viewers(C))
-							O.show_message("\red <B>[usr] manages to unbuckle themself!</B>", 1)
-						C << "\blue You successfully unbuckle yourself."
-						C.buckled.manual_unbuckle(C)
-		else
-			L.buckled.manual_unbuckle(L)
+		resist_buckle(L) //this passes L because the proc requires a typecasted mob/living instead of just 'src'
 
 	//Breaking out of a locker?
-	else if( src.loc && (istype(src.loc, /obj/structure/closet)) )
-		var/breakout_time = 2 //2 minutes by default
-
-		var/obj/structure/closet/C = L.loc
-		if(C.opened)
-			return //Door's open... wait, why are you in it's contents then?
-		if(istype(L.loc, /obj/structure/closet/secure_closet))
-			var/obj/structure/closet/secure_closet/SC = L.loc
-			if(!SC.locked && !SC.welded)
-				return //It's a secure closet, but isn't locked. Easily escapable from, no need to 'resist'
-		else
-			if(!C.welded)
-				return //closed but not welded...
-		//	else Meh, lets just keep it at 2 minutes for now
-		//		breakout_time++ //Harder to get out of welded lockers than locked lockers
-
-		//okay, so the closet is either welded or locked... resist!!!
-		L.changeNext_move(CLICK_CD_BREAKOUT)
-		L.last_special = world.time + CLICK_CD_BREAKOUT
-		L << "\red You lean on the back of \the [C] and start pushing the door open. (this will take about [breakout_time] minutes)"
-		for(var/mob/O in viewers(usr.loc))
-			O.show_message("\red <B>The [L.loc] begins to shake violently!</B>", 1)
-
-
-		spawn(0)
-			if(do_after(usr,(breakout_time*60*10))) //minutes * 60seconds * 10deciseconds
-				if(!C || !L || L.stat != CONSCIOUS || L.loc != C || C.opened) //closet/user destroyed OR user dead/unconcious OR user no longer in closet OR closet opened
-					return
-
-				//Perform the same set of checks as above for weld and lock status to determine if there is even still a point in 'resisting'...
-				if(istype(L.loc, /obj/structure/closet/secure_closet))
-					var/obj/structure/closet/secure_closet/SC = L.loc
-					if(!SC.locked && !SC.welded)
-						return
-				else
-					if(!C.welded)
-						return
-
-				//Well then break it!
-				if(istype(usr.loc, /obj/structure/closet/secure_closet))
-					var/obj/structure/closet/secure_closet/SC = L.loc
-					SC.desc = "It appears to be broken."
-					SC.icon_state = SC.icon_off
-					flick(SC.icon_broken, SC)
-					sleep(10)
-					flick(SC.icon_broken, SC)
-					sleep(10)
-					SC.broken = 1
-					SC.locked = 0
-					SC.update_icon()
-					usr << "\red You successfully break out!"
-					for(var/mob/O in viewers(L.loc))
-						O.show_message("\red <B>\the [usr] successfully broke out of \the [SC]!</B>", 1)
-					if(istype(SC.loc, /obj/structure/bigDelivery)) //Do this to prevent contents from being opened into nullspace (read: bluespace)
-						var/obj/structure/bigDelivery/BD = SC.loc
-						BD.attack_hand(usr)
-					SC.open()
-				else
-					C.welded = 0
-					C.update_icon()
-					usr << "\red You successfully break out!"
-					for(var/mob/O in viewers(L.loc))
-						O.show_message("\red <B>\the [usr] successfully broke out of \the [C]!</B>", 1)
-					if(istype(C.loc, /obj/structure/bigDelivery)) //nullspace ect.. read the comment above
-						var/obj/structure/bigDelivery/BD = C.loc
-						BD.attack_hand(usr)
-					C.open()
+	else if(src.loc && (istype(src.loc, /obj/structure/closet)))
+		resist_closet()
 
 	//breaking out of handcuffs
 	else if(iscarbon(L))
 		var/mob/living/carbon/CM = L
 
 		if(CM.on_fire && CM.canmove)
-			CM.fire_stacks -= 5
-			CM.weakened = max(CM.weakened, 3)//We dont check for CANWEAKEN, I don't care how immune to weakening you are, if you're rolling on the ground, you're busy.
-			CM.update_canmove()
-			CM.spin(32,2)
-			CM.visible_message("<span class='danger'>[CM] rolls on the floor, trying to put themselves out!</span>", \
-				"<span class='notice'>You stop, drop, and roll!</span>")
-			sleep(30)
-			if(fire_stacks <= 0)
-				CM.visible_message("<span class='danger'>[CM] has successfully extinguished themselves!</span>", \
-					"<span class='notice'>You extinguish yourself.</span>")
-				ExtinguishMob()
+			resist_stop_drop_roll(CM) //this passes CM because the proc requires a typecasted mob/living/carbon instead of just 'src'
+
+		if(CM.handcuffed && CM.canmove && (CM.last_special <= world.time))//this passes CM because the proc requires a typecasted mob/living/carbon instead of just 'src'
+			resist_handcuffs(CM)
+
+		else if(CM.legcuffed && CM.canmove && (CM.last_special <= world.time)) //this passes CM because the proc requires a typecasted mob/living/carbon instead of just 'src'
+			resist_legcuffs(CM)
+
+/*////////////////////
+	RESIST SUBPROCS
+*/////////////////////
+
+/* resist_holder allows small mobs that can be picked up to get out of their holder, so they aren't stuck forever.
+*/////
+/mob/living/proc/resist_holder()
+	var/obj/item/weapon/holder/H = src.loc //Get our item holder.
+	var/mob/M = H.loc                      //Get our mob holder (if any).
+
+	if(istype(M))
+		M.unEquip(H)
+		M << "[H] wriggles out of your grip!"
+		src << "You wriggle out of [M]'s grip!"
+	else if(istype(H.loc,/obj/item))
+		src << "You struggle free of [H.loc]."
+		H.loc = get_turf(H)
+
+	if(istype(M))
+		for(var/atom/A in M.contents)
+			if(istype(A,/mob/living/simple_animal/borer) || istype(A,/obj/item/weapon/holder))
+				return
+
+	M.status_flags &= ~PASSEMOTES
+	return
+
+/* resist_borer allows a mob to regain control of their body after a borer has assumed control.
+*/////
+/mob/living/proc/resist_borer()
+	var/mob/living/simple_animal/borer/B = src.loc
+	var/mob/living/captive_brain/H = src
+
+	H << "\red <B>You begin doggedly resisting the parasite's control (this will take approximately sixty seconds).</B>"
+	B.host << "\red <B>You feel the captive mind of [src] begin to resist your control.</B>"
+
+	spawn(rand(350,450)+B.host.brainloss)
+
+		if(!B || !B.controlling)
 			return
 
-		if(CM.handcuffed && CM.canmove && (CM.last_special <= world.time))
-			CM.changeNext_move(CLICK_CD_BREAKOUT)
-			CM.last_special = world.time + CLICK_CD_BREAKOUT
-			if(isalienadult(CM) || (HULK in usr.mutations))//Don't want to do a lot of logic gating here.
-				usr << "\red You attempt to break your handcuffs. (This will take around 5 seconds and you need to stand still)"
-				for(var/mob/O in viewers(CM))
-					O.show_message(text("\red <B>[] is trying to break the handcuffs!</B>", CM), 1)
-				spawn(0)
-					if(do_after(CM, 50))
-						if(!CM.handcuffed || CM.buckled)
-							return
-						for(var/mob/O in viewers(CM))
-							O.show_message(text("\red <B>[] manages to break the handcuffs!</B>", CM), 1)
-						CM << "\red You successfully break your handcuffs."
-						CM.say(pick(";RAAAAAAAARGH!", ";HNNNNNNNNNGGGGGGH!", ";GWAAAAAAAARRRHHH!", "NNNNNNNNGGGGGGGGHH!", ";AAAAAAARRRGH!" ))
-						del(CM.handcuffed)
-						CM.handcuffed = null
-						CM.update_inv_handcuffed()
-			else
-				var/obj/item/weapon/restraints/handcuffs/HC = CM.handcuffed
-				var/breakouttime = 1200 //A default in case you are somehow handcuffed with something that isn't an obj/item/weapon/restraints/handcuffs type
-				var/displaytime = 2 //Minutes to display in the "this will take X minutes."
-				if(istype(HC)) //If you are handcuffed with actual handcuffs... Well what do I know, maybe someone will want to handcuff you with toilet paper in the future...
-					breakouttime = HC.breakouttime
-					displaytime = breakouttime / 600 //Minutes
-				CM << "\red You attempt to remove \the [HC]. (This will take around [displaytime] minutes and you need to stand still)"
-				for(var/mob/O in viewers(CM))
-					O.show_message( "\red <B>[usr] attempts to remove \the [HC]!</B>", 1)
-				spawn(0)
-					if(do_after(CM, breakouttime))
-						if(!CM.handcuffed || CM.buckled)
-							return // time leniency for lag which also might make this whole thing pointless but the server
-						for(var/mob/O in viewers(CM))//                                         lags so hard that 40s isn't lenient enough - Quarxink
-							O.show_message("\red <B>[CM] manages to remove the handcuffs!</B>", 1)
-						CM << "\blue You successfully remove \the [CM.handcuffed]."
-						CM.unEquip(CM.handcuffed)
+		B.host.adjustBrainLoss(rand(5,10))
+		H << "\red <B>With an immense exertion of will, you regain control of your body!</B>"
+		B.host << "\red <B>You feel control of the host brain ripped from your grasp, and retract your probosci before the wild neural impulses can damage you.</b>"
 
-		else if(CM.legcuffed && CM.canmove && (CM.last_special <= world.time))
-			CM.changeNext_move(CLICK_CD_BREAKOUT)
-			CM.last_special = world.time + CLICK_CD_BREAKOUT
-			if(isalienadult(CM) || (HULK in usr.mutations))//Don't want to do a lot of logic gating here.
-				usr << "\red You attempt to break your legcuffs. (This will take around 5 seconds and you need to stand still)"
-				for(var/mob/O in viewers(CM))
-					O.show_message(text("\red <B>[] is trying to break the legcuffs!</B>", CM), 1)
-				spawn(0)
-					if(do_after(CM, 50))
-						if(!CM.legcuffed || CM.buckled)
-							return
-						for(var/mob/O in viewers(CM))
-							O.show_message(text("\red <B>[] manages to break the legcuffs!</B>", CM), 1)
-						CM << "\red You successfully break your legcuffs."
-						CM.say(pick(";RAAAAAAAARGH!", ";HNNNNNNNNNGGGGGGH!", ";GWAAAAAAAARRRHHH!", "NNNNNNNNGGGGGGGGHH!", ";AAAAAAARRRGH!" ))
-						del(CM.legcuffed)
-						CM.legcuffed = null
-						CM.update_inv_legcuffed()
+		B.detatch()
+
+		verbs -= /mob/living/carbon/proc/release_control
+		verbs -= /mob/living/carbon/proc/punish_host
+		verbs -= /mob/living/carbon/proc/spawn_larvae
+
+		return
+
+/* resist_grab allows a mob to resist a grab from another mob when disarming is not an option/neckgrabbed.
+*/////
+/mob/living/proc/resist_grab(var/mob/living/L)
+	var/resisting = 0
+
+	for(var/obj/O in L.requests)
+		L.requests.Remove(O)
+		del(O)
+		resisting++
+
+	for(var/obj/item/weapon/grab/G in usr.grabbed_by)
+		resisting++
+		if (G.state == 1)
+			del(G)
+
+		else
+			if(G.state == 2)
+				if(prob(25))
+					for(var/mob/O in viewers(L, null))
+						O.show_message(text("\red [] has broken free of []'s grip!", L, G.assailant), 1)
+					del(G)
+
 			else
-				var/obj/item/weapon/restraints/legcuffs/HC = CM.legcuffed
-				var/breakouttime = 1200 //A default in case you are somehow legcuffed with something that isn't an obj/item/weapon/legcuffs type
-				var/displaytime = 2 //Minutes to display in the "this will take X minutes."
-				if(istype(HC)) //If you are legcuffed with actual legcuffs... Well what do I know, maybe someone will want to legcuff you with toilet paper in the future...
-					breakouttime = HC.breakouttime
-					displaytime = breakouttime / 600 //Minutes
-				CM << "\red You attempt to remove \the [HC]. (This will take around [displaytime] minutes and you need to stand still)"
-				for(var/mob/O in viewers(CM))
-					O.show_message( "\red <B>[usr] attempts to remove \the [HC]!</B>", 1)
-				spawn(0)
-					if(do_after(CM, breakouttime))
-						if(!CM.legcuffed || CM.buckled)
-							return // time leniency for lag which also might make this whole thing pointless but the server
-						for(var/mob/O in viewers(CM))//                                         lags so hard that 40s isn't lenient enough - Quarxink
-							O.show_message("\red <B>[CM] manages to remove the legcuffs!</B>", 1)
-						CM << "\blue You successfully remove \the [CM.legcuffed]."
-						CM.unEquip(CM.legcuffed)
-						CM.legcuffed = null
-						CM.update_inv_legcuffed()
+				if(G.state == 3)
+					if(prob(5))
+						for(var/mob/O in viewers(usr, null))
+							O.show_message(text("\red [] has broken free of []'s headlock!", L, G.assailant), 1)
+						del(G)
+
+	if(resisting)
+		for(var/mob/O in viewers(usr, null))
+			O.show_message(text("\red <B>[] resists!</B>", L), 1)
+
+/* resist_buckle allows a mob that is bucklecuffed to break free of the chair/bed/whatever
+*/////
+/mob/living/proc/resist_buckle(var/mob/living/L)
+	if(iscarbon(L))
+		var/mob/living/carbon/C = L
+
+		if(C.handcuffed)
+			C.changeNext_move(CLICK_CD_BREAKOUT)
+			C.last_special = world.time + CLICK_CD_BREAKOUT
+
+			C << "\red You attempt to unbuckle yourself. (This will take around 2 minutes and you need to stay still)</span>"
+			for(var/mob/O in viewers(L))
+				O.show_message("\red <B>[usr] attempts to unbuckle themself!</B>", 1)
+
+			spawn(0)
+				if(do_after(usr, 1200))
+					if(!C.buckled)
+						return
+					for(var/mob/O in viewers(C))
+						O.show_message("\red <B>[usr] manages to unbuckle themself!</B>", 1)
+					C << "\blue You successfully unbuckle yourself."
+					C.buckled.manual_unbuckle(C)
+
+	else
+		L.buckled.manual_unbuckle(L)
+
+/* resist_closet() allows a mob to break out of a welded/locked closet
+*/////
+/mob/living/proc/resist_closet()
+	var/breakout_time = 2 //2 minutes by default
+	var/mob/living/L = src
+	var/obj/structure/closet/C = L.loc
+	if(C.opened)
+		return //Door's open... wait, why are you in it's contents then?
+	if(istype(L.loc, /obj/structure/closet/secure_closet))
+		var/obj/structure/closet/secure_closet/SC = L.loc
+		if(!SC.locked && !SC.welded)
+			return //It's a secure closet, but isn't locked. Easily escapable from, no need to 'resist'
+	else
+		if(!C.welded)
+			return //closed but not welded...
+	//	else Meh, lets just keep it at 2 minutes for now
+	//		breakout_time++ //Harder to get out of welded lockers than locked lockers
+
+	//okay, so the closet is either welded or locked... resist!!!
+	L.changeNext_move(CLICK_CD_BREAKOUT)
+	L.last_special = world.time + CLICK_CD_BREAKOUT
+	L << "\red You lean on the back of \the [C] and start pushing the door open. (this will take about [breakout_time] minutes)"
+	for(var/mob/O in viewers(usr.loc))
+		O.show_message("\red <B>The [L.loc] begins to shake violently!</B>", 1)
+
+
+	spawn(0)
+		if(do_after(usr,(breakout_time*60*10))) //minutes * 60seconds * 10deciseconds
+			if(!C || !L || L.stat != CONSCIOUS || L.loc != C || C.opened) //closet/user destroyed OR user dead/unconcious OR user no longer in closet OR closet opened
+				return
+
+			//Perform the same set of checks as above for weld and lock status to determine if there is even still a point in 'resisting'...
+			if(istype(L.loc, /obj/structure/closet/secure_closet))
+				var/obj/structure/closet/secure_closet/SC = L.loc
+				if(!SC.locked && !SC.welded)
+					return
+			else
+				if(!C.welded)
+					return
+
+			//Well then break it!
+			if(istype(usr.loc, /obj/structure/closet/secure_closet))
+				var/obj/structure/closet/secure_closet/SC = L.loc
+				SC.desc = "It appears to be broken."
+				SC.icon_state = SC.icon_off
+				flick(SC.icon_broken, SC)
+				sleep(10)
+				flick(SC.icon_broken, SC)
+				sleep(10)
+				SC.broken = 1
+				SC.locked = 0
+				SC.update_icon()
+				usr << "\red You successfully break out!"
+				for(var/mob/O in viewers(L.loc))
+					O.show_message("\red <B>\the [usr] successfully broke out of \the [SC]!</B>", 1)
+				if(istype(SC.loc, /obj/structure/bigDelivery)) //Do this to prevent contents from being opened into nullspace (read: bluespace)
+					var/obj/structure/bigDelivery/BD = SC.loc
+					BD.attack_hand(usr)
+				SC.open()
+			else
+				C.welded = 0
+				C.update_icon()
+				usr << "\red You successfully break out!"
+				for(var/mob/O in viewers(L.loc))
+					O.show_message("\red <B>\the [usr] successfully broke out of \the [C]!</B>", 1)
+				if(istype(C.loc, /obj/structure/bigDelivery)) //nullspace ect.. read the comment above
+					var/obj/structure/bigDelivery/BD = C.loc
+					BD.attack_hand(usr)
+				C.open()
+
+/* resist_stop_drop_roll allows a mob to stop, drop, and roll in order to put out a fire burning on them.
+*/////
+/mob/living/proc/resist_stop_drop_roll(var/mob/living/carbon/CM)
+	CM.fire_stacks -= 5
+	CM.weakened = max(CM.weakened, 3)//We dont check for CANWEAKEN, I don't care how immune to weakening you are, if you're rolling on the ground, you're busy.
+	CM.update_canmove()
+	CM.spin(32,2)
+	CM.visible_message("<span class='danger'>[CM] rolls on the floor, trying to put themselves out!</span>", \
+		"<span class='notice'>You stop, drop, and roll!</span>")
+	sleep(30)
+	if(fire_stacks <= 0)
+		CM.visible_message("<span class='danger'>[CM] has successfully extinguished themselves!</span>", \
+			"<span class='notice'>You extinguish yourself.</span>")
+		ExtinguishMob()
+	return
+
+/* resist_handcuffs allows a mob to break/remove their handcuffs after a delay
+*/////
+/mob/living/proc/resist_handcuffs(var/mob/living/carbon/CM)
+	CM.changeNext_move(CLICK_CD_BREAKOUT)
+	CM.last_special = world.time + CLICK_CD_BREAKOUT
+	var/obj/item/weapon/restraints/handcuffs/HC = CM.handcuffed
+
+	var/breakouttime = 1200 //A default in case you are somehow handcuffed with something that isn't an obj/item/weapon/restraints/handcuffs type
+	var/displaytime = 2 //Minutes to display in the "this will take X minutes."
+
+	var/hulklien = 0 //variable used to define if someone is a hulk or alien
+
+	if(istype(HC)) //If you are handcuffed with actual handcuffs... Well what do I know, maybe someone will want to handcuff you with toilet paper in the future...
+		breakouttime = HC.breakouttime
+		displaytime = breakouttime / 600 //Minutes
+
+	if(isalienadult(CM) || (HULK in usr.mutations))
+		hulklien = 1
+		breakouttime = 50
+		displaytime = 5
+
+	CM << "\red You attempt to remove \the [HC]. (This will take around [displaytime] [hulklien ? "seconds" : "minute[displaytime==1 ? "" : "s"]"] and you need to stand still)"
+	for(var/mob/O in viewers(CM))
+		O.show_message( "\red <B>[usr] attempts to [hulklien ? "break" : "remove"] \the [HC]!</B>", 1)
+	spawn(0)
+		if(do_after(CM, breakouttime))
+			if(!CM.handcuffed || CM.buckled)
+				return // time leniency for lag which also might make this whole thing pointless but the server
+
+			for(var/mob/O in viewers(CM))//                                         lags so hard that 40s isn't lenient enough - Quarxink
+				O.show_message("\red <B>[CM] manages to [hulklien ? "break" : "remove"] the handcuffs!</B>", 1)
+
+			CM << "\blue You successfully [hulklien ? "break" : "remove"] \the [CM.handcuffed]."
+
+			if(hulklien)
+				CM.say(pick(";RAAAAAAAARGH!", ";HNNNNNNNNNGGGGGGH!", ";GWAAAAAAAARRRHHH!", "NNNNNNNNGGGGGGGGHH!", ";AAAAAAARRRGH!" ))
+				del(CM.handcuffed)
+				CM.handcuffed = null
+				CM.update_inv_handcuffed()
+				return
+
+			CM.unEquip(CM.handcuffed)
+
+/* resist_legcuffs allows a mob to break/remove their legcuffs after a delay
+*/////
+/mob/living/proc/resist_legcuffs(var/mob/living/carbon/CM)
+	var/obj/item/weapon/restraints/legcuffs/HC = CM.legcuffed
+
+	var/breakouttime = 1200 //A default in case you are somehow legcuffed with something that isn't an obj/item/weapon/legcuffs type
+	var/displaytime = 2 //Minutes to display in the "this will take X minutes."
+
+	var/hulklien = 0 //variable used to define if someone is a hulk or alien
+
+	if(istype(HC)) //If you are legcuffed with actual legcuffs... Well what do I know, maybe someone will want to legcuff you with toilet paper in the future...
+		breakouttime = HC.breakouttime
+		displaytime = breakouttime / 600 //Minutes
+
+	if(isalienadult(CM) || (HULK in usr.mutations))
+		hulklien = 1
+		breakouttime = 50
+		displaytime = 5
+
+	CM << "\red You attempt to remove \the [HC]. (This will take around [displaytime] [hulklien ? "seconds" : "minute[displaytime==1 ? "" : "s"]"] and you need to stand still)"
+
+	for(var/mob/O in viewers(CM))
+		O.show_message( "\red <B>[usr] attempts to [hulklien ? "break" : "remove"] \the [HC]!</B>", 1)
+
+	spawn(0)
+		if(do_after(CM, breakouttime))
+			if(!CM.legcuffed || CM.buckled)
+				return // time leniency for lag which also might make this whole thing pointless but the server
+			for(var/mob/O in viewers(CM))//                                         lags so hard that 40s isn't lenient enough - Quarxink
+				O.show_message("\red <B>[CM] manages to [hulklien ? "break" : "remove"] the legcuffs!</B>", 1)
+
+			CM << "\blue You successfully [hulklien ? "break" : "remove"] \the [CM.legcuffed]."
+
+			if(!hulklien)
+				CM.unEquip(CM.legcuffed)
+
+			if(hulklien)
+				CM.say(pick(";RAAAAAAAARGH!", ";HNNNNNNNNNGGGGGGH!", ";GWAAAAAAAARRRHHH!", "NNNNNNNNGGGGGGGGHH!", ";AAAAAAARRRGH!" ))
+				qdel(CM.legcuffed)
+
+			CM.legcuffed = null
+			CM.update_inv_legcuffed()
+
+/*//////////////////////
+	END RESIST PROCS
+*///////////////////////
+
+
+
+
 
 /mob/living/carbon/proc/spin(spintime, speed)
 	spawn()
