@@ -156,7 +156,7 @@ RCD
 						if(do_after(user, 50))
 							if(!useResource(20, user)) return 0
 							activate()
-							del(A)
+							qdel(A)
 							return 1
 					return	0
 				return 0
