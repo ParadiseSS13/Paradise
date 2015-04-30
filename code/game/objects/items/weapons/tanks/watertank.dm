@@ -357,8 +357,8 @@
 			var/datum/gas_mixture/G = T.air
 			if(get_dist(T, src) < 2) // Otherwise we'll get silliness like people using Nanofrost to kill people through walls with cold air
 				G.temperature = 2
-			update_nearby_tiles()
-			var/hotspot = (locate(/obj/fire) in T)
+			air_update_turf()
+			var/hotspot = (locate(/obj/effect/hotspot) in T)
 			if(hotspot && !istype(T, /turf/space))
 				var/CT = 10
 				var/datum/gas_mixture/lowertemp = T.remove_air( T:air:total_moles() )

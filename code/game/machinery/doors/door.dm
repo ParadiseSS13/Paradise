@@ -33,7 +33,6 @@
 	. = ..()
 	if(density)
 		layer = closed_layer
-		update_heat_protection(get_turf(src))
 	else
 		layer = open_layer
 
@@ -46,14 +45,16 @@
 			bound_width = world.icon_size
 			bound_height = width * world.icon_size
 
-	update_nearby_tiles(need_rebuild=1)
+	air_update_turf(1)
+	update_freelok_sight()
 	airlocks += src
 	return
 
 
 /obj/machinery/door/Destroy()
 	density = 0
-	update_nearby_tiles()
+	air_update_turf(1)
+	update_freelok_sight()
 	airlocks -= src
 	..()
 	return
@@ -95,11 +96,13 @@
 
 
 /obj/machinery/door/CanPass(atom/movable/mover, turf/target, height=0, air_group=0)
-	if(air_group) return !block_air_zones
+	if(air_group) return 0
 	if(istype(mover) && mover.checkpass(PASSGLASS))
 		return !opacity
 	return !density
 
+/obj/machinery/door/CanAtmosPass()
+	return !density
 
 //used in the AStar algorithm to determinate if the turf the door is on is passable
 /obj/machinery/door/proc/CanAStarPass(var/obj/item/weapon/card/id/ID)
@@ -107,9 +110,9 @@
 
 /obj/machinery/door/proc/bumpopen(mob/user as mob)
 	if(operating)	return
-	if(user.last_airflow > world.time - vsc.airflow_delay) //Fakkit
+//	if(user.last_airflow > world.time) //Fakkit //remind me to figure out the linda equiv
 //	if(user.last_airflow > world.time - zas_settings.Get("airflow_delay")) //Fakkit
-		return
+//		return
 	src.add_fingerprint(user)
 	if(!src.requiresID())
 		user = null
@@ -240,7 +243,8 @@
 	update_icon()
 	SetOpacity(0)
 	operating = 0
-	update_nearby_tiles()
+	air_update_turf(1)
+	update_freelok_sight()
 
 	if(autoclose  && normalspeed)
 		spawn(150)
@@ -267,12 +271,13 @@
 	if(visible && !glass)
 		SetOpacity(1)	//caaaaarn!
 	operating = 0
-	update_nearby_tiles()
+	air_update_turf(1)
+	update_freelok_sight()
 
 	//I shall not add a check every x ticks if a door has closed over some fire.
-	var/obj/fire/fire = locate() in loc
+	var/obj/effect/hotspot/fire = locate() in loc
 	if(fire)
-		del fire
+		qdel(fire)
 	return
 
 /obj/machinery/door/proc/crush()
@@ -296,14 +301,6 @@
 /obj/machinery/door/proc/requiresID()
 	return 1
 
-
-/obj/machinery/door/proc/update_heat_protection(var/turf/simulated/source)
-	if(istype(source))
-		if(src.density && (src.opacity || src.heat_proof))
-			source.thermal_conductivity = DOOR_HEAT_TRANSFER_COEFFICIENT
-		else
-			source.thermal_conductivity = initial(source.thermal_conductivity)
-
 /obj/machinery/door/proc/autoclose()
 	var/obj/machinery/door/airlock/A = src
 	if(!A.density && !A.operating && !A.locked && !A.welded && A.autoclose)
@@ -311,7 +308,10 @@
 	return
 
 /obj/machinery/door/Move(new_loc, new_dir)
-	update_nearby_tiles()
+	var/turf/T = loc
+	..()
+	move_update_air(T)
+
 	. = ..()
 	if(width > 1)
 		if(dir in list(EAST, WEST))
@@ -321,7 +321,10 @@
 			bound_width = world.icon_size
 			bound_height = width * world.icon_size
 
-	update_nearby_tiles()
+/obj/machinery/door/BlockSuperconductivity()
+	if(opacity || heat_proof)
+		return 1
+	return 0
 
 /obj/machinery/door/morgue
 	icon = 'icons/obj/doors/doormorgue.dmi'

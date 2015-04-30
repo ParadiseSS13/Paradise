@@ -534,9 +534,11 @@
 		"their hair","what to do next","their job","space","amusing things","sad things",
 		"annoying things","happy things","something incoherent","something they did wrong")
 		var/thoughts = "thinking about [pick(randomthoughts)]"
-		if (M.fire_stacks)
+
+		if(M.fire_stacks)
 			pain_condition -= 50
 			thoughts = "preoccupied with the fire"
+
 		if (M.radiation)
 			pain_condition -= 25
 

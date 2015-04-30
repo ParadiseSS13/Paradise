@@ -118,10 +118,7 @@
 	..()
 	var/turf/simulated/T = get_turf(src)
 	if(istype(T))
-		var/datum/gas_mixture/payload = new
-		payload.toxins = 60
-		T.zone.air.merge(payload)
-		T.hotspot_expose(1000, CELL_VOLUME)
+		T.atmos_spawn_air(SPAWN_HEAT | SPAWN_TOXINS, 3)
 
 /////////////////////
 

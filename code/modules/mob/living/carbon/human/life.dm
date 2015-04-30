@@ -74,7 +74,7 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 
 	//No need to update all of these procs if the guy is dead.
 	if(stat != DEAD && !in_stasis)
-		if(air_master.current_cycle%4==2 || failed_last_breath) 	//First, resolve location and get a breath
+		if(mob_master.current_cycle%4==2 || failed_last_breath) 	//First, resolve location and get a breath
 			breathe() 				//Only try to take a breath every 4 ticks, unless suffocating
 
 		else //Still give containing object the chance to interact
@@ -371,7 +371,7 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 					breath = loc.remove_air(breath_moles)
 
 					if(!is_lung_ruptured())
-						if(!breath || breath.total_moles < BREATH_MOLES / 5 || breath.total_moles > BREATH_MOLES * 5)
+						if(!breath || breath.total_moles() < BREATH_MOLES / 5 || breath.total_moles() > BREATH_MOLES * 5)
 							if(prob(5))
 								rupture_lung()
 
@@ -382,8 +382,7 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 
 		handle_breath(breath)
 
-		if(species.name=="Plasmaman")
-
+		if(species.name=="Plasmaman") //this is stupid as fuck
 			// Check if we're wearing our biosuit and mask.
 			if (!istype(wear_suit,/obj/item/clothing/suit/space/eva/plasmaman) || !istype(head,/obj/item/clothing/head/helmet/space/eva/plasmaman))
 				//testing("Plasmaman [src] leakin'.  coverflags=[cover_flags]")
@@ -547,6 +546,7 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 			bodytemperature += BODYTEMP_HEATING_MAX
 		return
 	//END FIRE CODE
+
 
 	/*
 	proc/adjust_body_temperature(current, loc_temp, boost)
@@ -727,12 +727,6 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 			if(species && species.reagent_tag)
 				alien = species.reagent_tag
 			reagents.metabolize(src,alien)
-
-			var/total_plasmaloss = 0
-			for(var/obj/item/I in src)
-				if(I.contaminated)
-					total_plasmaloss += vsc.plc.CONTAMINATION_LOSS
-			if(!(status_flags & GODMODE)) adjustToxLoss(total_plasmaloss)
 
 		if(status_flags & GODMODE)	return 0	//godmode
 
@@ -1418,7 +1412,7 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 						stomach_contents.Remove(M)
 						del(M)
 						continue
-					if(air_master.current_cycle%3==1)
+					if(mob_master.current_cycle%3==1)
 						if(!(M.status_flags & GODMODE))
 							M.adjustBruteLoss(5)
 						nutrition += 10

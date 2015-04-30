@@ -20,11 +20,16 @@
 		..()
 		icon_state = mineralType
 		name = "[mineralType] door"
-		update_nearby_tiles(need_rebuild=1)
+		air_update_turf(1)
 
 	Destroy()
-		update_nearby_tiles()
+		air_update_turf(1)
 		..()
+
+	Move()
+		var/turf/T = loc
+		..()
+		move_update_air(T)
 
 	Bumped(atom/user)
 		..()
@@ -49,6 +54,9 @@
 		if(air_group) return 0
 		if(istype(mover, /obj/effect/beam))
 			return !opacity
+		return !density
+
+	CanAtmosPass()
 		return !density
 
 	proc/TryToSwitchState(atom/user)
@@ -82,7 +90,7 @@
 		state = 1
 		update_icon()
 		isSwitchingStates = 0
-		update_nearby_tiles()
+		air_update_turf()
 
 	proc/Close()
 		isSwitchingStates = 1
@@ -94,7 +102,7 @@
 		state = 0
 		update_icon()
 		isSwitchingStates = 0
-		update_nearby_tiles()
+		air_update_turf()
 
 	update_icon()
 		if(state)
@@ -187,34 +195,21 @@
 /obj/structure/mineral_door/transparent/plasma
 	mineralType = "plasma"
 
-/*
-	attackby(obj/item/weapon/W as obj, mob/user as mob, params)
+	attackby(obj/item/weapon/W as obj, mob/user as mob)
 		if(istype(W,/obj/item/weapon/weldingtool))
 			var/obj/item/weapon/weldingtool/WT = W
 			if(WT.remove_fuel(0, user))
 				TemperatureAct(100)
 		..()
 
-	fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume)
+	temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
 		if(exposed_temperature > 300)
 			TemperatureAct(exposed_temperature)
 
 	proc/TemperatureAct(temperature)
-		for(var/turf/simulated/floor/target_tile in range(2,loc))
-
-			var/datum/gas_mixture/napalm = new
-
-			var/toxinsToDeduce = temperature/10
-
-			napalm.toxins = toxinsToDeduce
-			napalm.temperature = 200+T0C
-
-			target_tile.assume_air(napalm)
-			spawn (0) target_tile.hotspot_expose(temperature, 400)
-
-			hardness -= toxinsToDeduce/100
-			CheckHardness()
-*/
+		atmos_spawn_air(SPAWN_HEAT | SPAWN_TOXINS, 500)
+		hardness = 0
+		CheckHardness()
 
 /obj/structure/mineral_door/transparent/diamond
 	mineralType = "diamond"

@@ -35,7 +35,9 @@
 	..()
 
 /obj/structure/alien/resin/Move()
+	var/turf/T = loc
 	..()
+	move_update_air(T)
 
 /obj/structure/alien/resin/wall
 	name = "resin wall"
@@ -229,7 +231,7 @@
 		del(src)
 
 
-/obj/structure/alien/weeds/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume)
+/obj/structure/alien/weeds/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
 	if(exposed_temperature > 300)
 		health -= 5
 		healthcheck()
@@ -387,7 +389,7 @@
 			del(src)	//Remove the egg after it has been hit after bursting.
 
 
-/obj/structure/alien/egg/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume)
+/obj/structure/alien/egg/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
 	if(exposed_temperature > 500)
 		health -= 5
 		healthcheck()

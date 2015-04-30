@@ -60,13 +60,9 @@ var/global/wcColored
 /obj/structure/window/bullet_act(var/obj/item/projectile/Proj)
 	if((Proj.damage_type == BRUTE || Proj.damage_type == BURN))
 		health -= Proj.damage
-		update_nearby_icons()
+		air_update_turf(1)
 	..()
 	if(health <= 0)
-		var/pdiff=performWallPressureCheck(src.loc)
-		if(pdiff>0)
-			msg_admin_attack("Window destroyed by [Proj.firer.name] ([formatPlayerPanel(Proj.firer,Proj.firer.ckey)]) via \an [Proj]! pdiff = [pdiff] at [formatJumpTo(loc)]!")
-			log_admin("Window destroyed by ([Proj.firer.ckey]) via \an [Proj]! pdiff = [pdiff] at [loc]!")
 		destroy()
 	return
 
@@ -118,11 +114,7 @@ var/global/wcColored
 	..()
 	visible_message("<span class='danger'>[src] was hit by [AM].</span>")
 	var/tforce = 0
-	var/mob/M=null
-	if(ismob(AM))
-		tforce = 40
-		M=AM
-	else if(isobj(AM))
+	if(isobj(AM))
 		var/obj/item/I = AM
 		tforce = I.throwforce
 	if(reinf) tforce *= 0.25
@@ -132,23 +124,7 @@ var/global/wcColored
 		anchored = 0
 		update_nearby_icons()
 		step(src, get_dir(AM, src))
-		var/pdiff=performWallPressureCheck(src.loc)
-		if(pdiff>0)
-			if(M)
-				msg_admin_attack("Window with pdiff [pdiff] at [formatJumpTo(loc)] deanchored by [M.real_name][isAntag(M) ? "(ANTAG)" : ""] ([formatPlayerPanel(M,M.ckey)])!")
-				log_admin("Window with pdiff [pdiff] at [loc] deanchored by [M.real_name] ([M.ckey])!")
-			else
-				msg_admin_attack("Window with pdiff [pdiff] at [formatJumpTo(loc)] deanchored by [AM]!")
-				log_admin("Window with pdiff [pdiff] at [loc] deanchored by [AM]!")
 	if(health <= 0)
-		var/pdiff=performWallPressureCheck(src.loc)
-		if(pdiff>0)
-			if(M)
-				msg_admin_attack("Window with pdiff [pdiff] at [formatJumpTo(loc)] destroyed by [M.real_name][isAntag(M) ? "(ANTAG)" : ""] ([formatPlayerPanel(M,M.ckey)])!")
-				log_admin("Window with pdiff [pdiff] at [loc] destroyed by [M.real_name] ([M.ckey])!")
-			else
-				msg_admin_attack("Window with pdiff [pdiff] at [formatJumpTo(loc)] destroyed by [AM]!")
-				log_admin("Window with pdiff [pdiff] at [loc] destroyed by [AM]!")
 		destroy()
 
 
@@ -156,10 +132,6 @@ var/global/wcColored
 	if(HULK in user.mutations)
 		user.say(pick(";RAAAAAAAARGH!", ";HNNNNNNNNNGGGGGGH!", ";GWAAAAAAAARRRHHH!", "NNNNNNNNGGGGGGGGHH!", ";AAAAAAARRRGH!"))
 		user.visible_message("<span class='danger'>[user] smashes through [src]!</span>")
-		var/pdiff=performWallPressureCheck(src.loc)
-		if(pdiff>0)
-			msg_admin_attack("Window destroyed by hulk [user.real_name][isAntag(user) ? "(ANTAG)" : ""] ([formatPlayerPanel(user,user.ckey)]) with pdiff [pdiff] at [formatJumpTo(loc)]!")
-			log_admin("Window destroyed by hulk [user.real_name] ([user.ckey]) with pdiff [pdiff] at [loc]!")
 		destroy()
 	else if (usr.a_intent == "harm")
 		user.changeNext_move(CLICK_CD_MELEE)
@@ -185,9 +157,6 @@ var/global/wcColored
 	health -= damage
 	if(health <= 0)
 		user.visible_message("<span class='danger'>[user] smashes through [src]!</span>")
-		var/pdiff=performWallPressureCheck(src.loc)
-		if(pdiff>0)
-			msg_admin_attack("Window destroyed by [user.real_name][isAntag(user) ? "(ANTAG)" : ""] ([formatPlayerPanel(user,user.ckey)]) with pdiff [pdiff] at [formatJumpTo(loc)]!")
 		destroy()
 	else	//for nicer text~
 		user.visible_message("<span class='danger'>[user] smashes into [src]!</span>")
@@ -255,21 +224,11 @@ var/global/wcColored
 			update_nearby_icons()
 			playsound(loc, 'sound/items/Screwdriver.ogg', 75, 1)
 			user << (anchored ? "<span class='notice'>You have fastened the frame to the floor.</span>" : "<span class='notice'>You have unfastened the frame from the floor.</span>")
-			if(!anchored)
-				var/pdiff=performWallPressureCheck(src.loc)
-				if(pdiff>0)
-					msg_admin_attack("Window with pdiff [pdiff] deanchored by [user.real_name][isAntag(user) ? "(ANTAG)" : ""] ([formatPlayerPanel(user,user.ckey)]) at [formatJumpTo(loc)]!")
-					log_admin("Window with pdiff [pdiff] deanchored by [user.real_name] ([user.ckey]) at [loc]!")
 		else if(!reinf)
 			anchored = !anchored
 			update_nearby_icons()
 			playsound(loc, 'sound/items/Screwdriver.ogg', 75, 1)
 			user << (anchored ? "<span class='notice'>You have fastened the window to the floor.</span>" : "<span class='notice'>You have unfastened the window.</span>")
-			if(!anchored)
-				var/pdiff=performWallPressureCheck(src.loc)
-				if(pdiff>0)
-					msg_admin_attack("Window with pdiff [pdiff] deanchored by [user.real_name][isAntag(user) ? "(ANTAG)" : ""] ([formatPlayerPanel(user,user.ckey)]) at [formatJumpTo(loc)]!")
-					log_admin("Window with pdiff [pdiff] deanchored by [user.real_name] ([user.ckey]) at [loc]!")
 	else if(istype(W, /obj/item/weapon/crowbar) && reinf && state <= 1)
 		state = 1 - state
 		playsound(loc, 'sound/items/Crowbar.ogg', 75, 1)
@@ -297,7 +256,7 @@ var/global/wcColored
 		user << "<span class='notice'>You have disassembled the window.</span>"
 		disassembled = 1
 		density = 0
-		update_nearby_tiles()
+		air_update_turf(1)
 		update_nearby_icons()
 		del(src)
 	else
@@ -308,10 +267,6 @@ var/global/wcColored
 				anchored = 0
 				update_nearby_icons()
 				step(src, get_dir(user, src))
-				var/pdiff=performWallPressureCheck(src.loc)
-				if(pdiff>0)
-					msg_admin_attack("Window with pdiff [pdiff] deanchored by [user.real_name][isAntag(user) ? "(ANTAG)" : ""] ([formatPlayerPanel(user,user.ckey)]) at [formatJumpTo(loc)]!")
-					log_admin("Window with pdiff [pdiff] deanchored by [user.real_name] ([user.ckey]) at [loc]!")
 		else
 			playsound(loc, 'sound/effects/Glasshit.ogg', 75, 1)
 		..()
@@ -328,9 +283,6 @@ var/global/wcColored
 	if(sound_effect)
 		playsound(loc, 'sound/effects/Glasshit.ogg', 75, 1)
 	if(health <= 0)
-		var/pdiff=performWallPressureCheck(src.loc)
-		if(pdiff>0)
-			msg_admin_attack("Window with pdiff [pdiff] broken at [formatJumpTo(loc)]!")
 		destroy()
 		return
 
@@ -344,10 +296,9 @@ var/global/wcColored
 		usr << "It is fastened to the floor therefore you can't rotate it!"
 		return 0
 
-	update_nearby_tiles(need_rebuild=1) //Compel updates before
 	dir = turn(dir, 90)
 //	updateSilicate()
-	update_nearby_tiles(need_rebuild=1)
+	air_update_turf(1)
 	ini_dir = dir
 	return
 
@@ -361,10 +312,9 @@ var/global/wcColored
 		usr << "It is fastened to the floor therefore you can't rotate it!"
 		return 0
 
-	update_nearby_tiles(need_rebuild=1) //Compel updates before
 	dir = turn(dir, 270)
 //	updateSilicate()
-	update_nearby_tiles(need_rebuild=1)
+	air_update_turf(1)
 	ini_dir = dir
 	return
 
@@ -389,24 +339,23 @@ var/global/wcColored
 	ini_dir = dir
 	if(!color && !istype(src,/obj/structure/window/plasmabasic) && !istype(src,/obj/structure/window/plasmareinforced))
 		color = color_windows(src)
-	update_nearby_tiles(need_rebuild=1)
+	air_update_turf(1)
 	update_nearby_icons()
 	return
 
 /obj/structure/window/Destroy()
 	density = 0
-	update_nearby_tiles()
+	air_update_turf(1)
 	if(loc && !disassembled)
 		playsound(get_turf(src), "shatter", 70, 1)
-	update_nearby_icons()
 	..()
 
 
 /obj/structure/window/Move()
-	update_nearby_tiles(need_rebuild=1)
+	var/turf/T = loc
 	..()
 	dir = ini_dir
-	update_nearby_tiles(need_rebuild=1)
+	move_update_air(T)
 
 //checks if this window is full-tile one
 /obj/structure/window/proc/is_fulltile()
@@ -414,7 +363,14 @@ var/global/wcColored
 		return 1
 	return 0
 
-//This proc is used to update the icons of nearby windows. It should not be confused with update_nearby_tiles(), which is an atmos proc!
+/obj/structure/window/CanAtmosPass(turf/T)
+	if(get_dir(loc, T) == dir)
+		return !density
+	if(dir == SOUTHWEST || dir == SOUTHEAST || dir == NORTHWEST || dir == NORTHEAST)
+		return !density
+	return 1
+
+//This proc is used to update the icons of nearby windows.
 /obj/structure/window/proc/update_nearby_icons()
 	if(!loc) return 0
 	update_icon()
@@ -425,7 +381,7 @@ var/global/wcColored
 /obj/structure/window/update_icon()
 	return
 
-/obj/structure/window/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume)
+/obj/structure/window/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
 	if(exposed_temperature > T0C + 800)
 		hit(round(exposed_volume / 100), 0)
 	..()
@@ -447,7 +403,7 @@ var/global/wcColored
 /obj/structure/window/plasmabasic/New(Loc,re=0)
 	..()
 	ini_dir = dir
-	update_nearby_tiles(need_rebuild=1)
+	air_update_turf()
 	update_nearby_icons()
 	return
 
@@ -470,7 +426,7 @@ var/global/wcColored
 /obj/structure/window/plasmareinforced/New(Loc,re=0)
 	..()
 	ini_dir = dir
-	update_nearby_tiles(need_rebuild=1)
+	air_update_turf()
 	update_nearby_icons()
 	return
 

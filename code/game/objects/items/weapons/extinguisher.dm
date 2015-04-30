@@ -34,7 +34,7 @@
 	m_amt = 0
 	max_water = 30
 	sprite_name = "miniFE"
-	
+
 /obj/item/weapon/extinguisher/examine()
 	set src in usr
 
@@ -160,6 +160,7 @@
 						if(isliving(atm)) //For extinguishing mobs on fire
 							var/mob/living/M = atm
 							M.ExtinguishMob()
+
 					if(W.loc == my_target) break
 					sleep(2)
 
@@ -168,4 +169,3 @@
 			step(user, user.inertia_dir)
 	else
 		return ..()
-		

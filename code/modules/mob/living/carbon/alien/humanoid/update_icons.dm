@@ -65,6 +65,7 @@
 	update_fire()
 
 
+
 /mob/living/carbon/alien/humanoid/update_hud()
 	//TODO
 	if (client)

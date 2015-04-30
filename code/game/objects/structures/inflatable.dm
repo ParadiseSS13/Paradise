@@ -28,10 +28,10 @@
 
 	New(location)
 		..()
-		update_nearby_tiles(need_rebuild=1)
+		air_update_turf()
 
 	Del()
-		update_nearby_tiles()
+		air_update_turf()
 		..()
 
 	CanPass(atom/movable/mover, turf/target, height=0, air_group=0)
@@ -217,7 +217,7 @@
 			Close()
 		else
 			Open()
-		update_nearby_tiles()
+		air_update_turf()
 
 	proc/Open()
 		isSwitchingStates = 1

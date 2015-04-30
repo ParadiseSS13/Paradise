@@ -30,20 +30,32 @@ obj/structure/windoor_assembly
 obj/structure/windoor_assembly/New(dir=NORTH)
 	..()
 	src.ini_dir = src.dir
-	update_nearby_tiles(need_rebuild=1)
+	air_update_turf(1)
 
 obj/structure/windoor_assembly/Destroy()
 	density = 0
-	update_nearby_tiles()
+	air_update_turf(1)
 	..()
+
+/obj/structure/windoor_assembly/Move()
+	var/turf/T = loc
+	..()
+	move_update_air(T)
 
 /obj/structure/windoor_assembly/update_icon()
 	icon_state = "[facing]_[secure ? "secure_" : ""]windoor_assembly[state]"
 
-/obj/structure/windoor_assembly/CanPass(atom/movable/mover, turf/target, height=0)
+/obj/structure/windoor_assembly/CanPass(atom/movable/mover, turf/target, height=0, air_group=0)
 	if(istype(mover) && mover.checkpass(PASSGLASS))
 		return 1
 	if(get_dir(loc, target) == dir) //Make sure looking at appropriate border
+		if(air_group) return 0
+		return !density
+	else
+		return 1
+
+/obj/structure/windoor_assembly/CanAtmosPass(var/turf/T)
+	if(get_dir(loc, T) == dir)
 		return !density
 	else
 		return 1

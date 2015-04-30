@@ -152,13 +152,13 @@ datum/controller/game_controller/proc/process()
 
 					air_master.current_cycle++
 //					if(!air_master.tick()) Runtimed.
-					if(!air_master.Tick())
+					if(!air_master.process())
 						air_master.failed_ticks++
 						if(air_master.failed_ticks > 5)
 							world << "<font color='red'><b>RUNTIMES IN ATMOS TICKER.  Killing air simulation!</font></b>"
-							world.log << "### ZAS SHUTDOWN"
-							message_admins("ZASALERT: unable to run [air_master.tick_progress], shutting down!")
-							log_admin("ZASALERT: unable run zone/process() -- [air_master.tick_progress]")
+							world.log << "### LINDA SHUTDOWN"
+							message_admins("LINDAALERT: unable to run [air_master.tick_progress], shutting down!")
+							log_admin("LINDAALERT: unable run zone/process() -- [air_master.tick_progress]")
 							air_processing_killed = 1
 							air_master.failed_ticks = 0
 				air_cost = (world.timeofday - timer) / 10

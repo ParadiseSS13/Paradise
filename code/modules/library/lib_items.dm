@@ -20,8 +20,6 @@
 	opacity = 1
 	var/health = 50
 
-	autoignition_temperature = AUTOIGNITION_WOOD
-
 /obj/structure/bookcase/initialize()
 	for(var/obj/item/I in loc)
 		if(istype(I, /obj/item/weapon/book))
@@ -150,8 +148,6 @@
 	throw_range = 5
 	w_class = 3		 //upped to three because books are, y'know, pretty big. (and you could hide them inside eachother recursively forever)
 	attack_verb = list("bashed", "whacked", "educated")
-
-	autoignition_temperature = AUTOIGNITION_PAPER
 
 	var/dat			 // Actual page content
 	var/due_date = 0 // Game time in 1/10th seconds

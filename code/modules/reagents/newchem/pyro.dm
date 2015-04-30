@@ -45,7 +45,7 @@
 /datum/chemical_reaction/clf3/on_reaction(var/datum/reagents/holder, var/created_volume)
 	var/turf/T = get_turf(holder.my_atom)
 	for(var/turf/turf in range(1,T))
-		new /obj/fire(turf)
+		new /obj/effect/hotspot(turf)
 	return
 
 /datum/reagent/clf3/reaction_turf(var/turf/simulated/T, var/volume)
@@ -58,7 +58,7 @@
 		if(prob(volume/10))
 			F.make_plating()
 		if(istype(F, /turf/simulated/floor/))
-			new /obj/fire(F)
+			new /obj/effect/hotspot(F)
 	if(istype(T, /turf/simulated/wall/))
 		var/turf/simulated/wall/W = T
 		if(prob(volume/10))
@@ -415,7 +415,7 @@ datum/reagent/blackpowder/reaction_turf(var/turf/T, var/volume) //oh shit
 		return
 	var/turf/simulated/T = get_turf(holder.my_atom)
 	for(var/turf/simulated/turf in range(created_volume/10,T))
-		new /obj/fire(turf)
+		new /obj/effect/hotspot(turf)
 	return
 
 /datum/reagent/phlogiston/on_mob_life(var/mob/living/M as mob)
@@ -558,7 +558,7 @@ datum/reagent/firefighting_foam/reaction_turf(var/turf/simulated/T, var/volume)
 	src = null
 	if(!istype(T, /turf/space))
 		new /obj/effect/decal/cleanable/flour/foam(T) //foam mess; clears up quickly.
-	var/hotspot = (locate(/obj/fire) in T)
+	var/hotspot = (locate(/obj/effect/hotspot) in T)
 	if(hotspot && !istype(T, /turf/space))
 		var/datum/gas_mixture/lowertemp = T.remove_air( T:air:total_moles() )
 		lowertemp.temperature = max( min(lowertemp.temperature-(CT*1000),lowertemp.temperature / CT) ,0)
@@ -570,7 +570,7 @@ datum/reagent/firefighting_foam/reaction_turf(var/turf/simulated/T, var/volume)
 datum/reagent/firefighting_foam/reaction_obj(var/obj/O, var/volume)
 	src = null
 	var/turf/T = get_turf(O)
-	var/hotspot = (locate(/obj/fire) in T)
+	var/hotspot = (locate(/obj/effect/hotspot) in T)
 	if(hotspot && !istype(T, /turf/space))
 		var/datum/gas_mixture/lowertemp = T.remove_air( T:air:total_moles() )
 		lowertemp.temperature = max( min(lowertemp.temperature-2000,lowertemp.temperature / 2) ,0)

@@ -81,6 +81,12 @@
 	else
 		return 1
 
+/obj/machinery/door/window/CanAtmosPass(var/turf/T)
+	if(get_dir(loc, T) == dir)
+		return !density
+	else
+		return 1
+
 //used in the AStar algorithm to determinate if the turf the door is on is passable
 /obj/machinery/door/window/CanAStarPass(var/obj/item/weapon/card/id/ID, var/to_dir)
 	return !density || (dir != to_dir) || check_access(ID)
@@ -113,7 +119,8 @@
 
 	src.density = 0
 //	src.sd_SetOpacity(0)	//TODO: why is this here? Opaque windoors? ~Carn
-	update_nearby_tiles()
+	air_update_turf(1)
+	update_freelok_sight()
 
 	if(operating == 1) //emag again
 		src.operating = 0
@@ -136,7 +143,8 @@
 	src.density = 1
 //	if(src.visible)
 //		SetOpacity(1)	//TODO: why is this here? Opaque windoors? ~Carn
-	update_nearby_tiles()
+	air_update_turf(1)
+	update_freelok_sight()
 	sleep(10)
 
 	src.operating = 0

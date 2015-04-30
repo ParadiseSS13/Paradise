@@ -74,14 +74,14 @@
 /turf/simulated/floor/engine/n20
 	New()
 		. = ..()
-		//var/datum/gas_mixture/adding = new
+		var/datum/gas_mixture/adding = new
 		var/datum/gas/sleeping_agent/trace_gas = new
 
-		air.trace_gases += trace_gas
-		trace_gas.moles = 70000
-		air.oxygen = 0
-		air.nitrogen = 0
-		air.update_values()
+		trace_gas.moles = 2000
+		adding.trace_gases += trace_gas
+		adding.temperature = T20C
+
+		assume_air(adding)
 
 /turf/simulated/floor/engine/vacuum
 	name = "vacuum floor"
@@ -120,7 +120,7 @@
 /turf/simulated/floor/greengrid
 	icon = 'icons/turf/floors.dmi'
 	icon_state = "gcircuit"
-	
+
 /turf/simulated/floor/greengrid/airless
 	icon_state = "gcircuit"
 	name = "airless floor"
@@ -154,7 +154,7 @@
 	name = "plating"
 	icon = 'icons/turf/floors.dmi'
 	icon_state = "plating"
-	
+
 /turf/simulated/shuttle/plating/vox	//Vox skipjack plating
 	oxygen = 0
 	nitrogen = MOLES_N2STANDARD + MOLES_O2STANDARD
@@ -162,7 +162,7 @@
 /turf/simulated/shuttle/floor4 // Added this floor tile so that I have a seperate turf to check in the shuttle -- Polymorph
 	name = "Brig floor"        // Also added it into the 2x3 brig area of the shuttle.
 	icon_state = "floor4"
-	
+
 /turf/simulated/shuttle/floor4/vox	//Vox skipjack floors
 	name = "skipjack floor"
 	oxygen = 0
@@ -235,10 +235,10 @@
 	name = "snow"
 	icon = 'icons/turf/snow.dmi'
 	icon_state = "snow"
-	
+
 /turf/simulated/floor/plating/snow/ex_act(severity)
 	return
-	
+
 /turf/simulated/floor/snow
 	name = "snow"
 	icon = 'icons/turf/snow.dmi'

@@ -544,7 +544,6 @@
 			for(var/mob/O in viewers(usr, null))
 				O.show_message(text("\red <B>[] resists!</B>", L), 1)
 
-
 	//unbuckling yourself
 	if(L.buckled && (L.last_special <= world.time) )
 		if(iscarbon(L))
@@ -638,6 +637,7 @@
 	//breaking out of handcuffs
 	else if(iscarbon(L))
 		var/mob/living/carbon/CM = L
+
 		if(CM.on_fire && CM.canmove)
 			CM.fire_stacks -= 5
 			CM.weakened = max(CM.weakened, 3)//We dont check for CANWEAKEN, I don't care how immune to weakening you are, if you're rolling on the ground, you're busy.
@@ -651,6 +651,7 @@
 					"<span class='notice'>You extinguish yourself.</span>")
 				ExtinguishMob()
 			return
+
 		if(CM.handcuffed && CM.canmove && (CM.last_special <= world.time))
 			CM.changeNext_move(CLICK_CD_BREAKOUT)
 			CM.last_special = world.time + CLICK_CD_BREAKOUT

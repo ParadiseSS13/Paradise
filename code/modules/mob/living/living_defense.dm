@@ -199,29 +199,9 @@
 
 		return
 
-//This is called when the mob is thrown into a dense turf
-/mob/living/proc/turf_collision(var/turf/T, var/speed)
-	src.take_organ_damage(speed*5)
-
-/mob/living/proc/near_wall(var/direction,var/distance=1)
-	var/turf/T = get_step(get_turf(src),direction)
-	var/turf/last_turf = src.loc
-	var/i = 1
-
-	while(i>0 && i<=distance)
-		if(T.density) //Turf is a wall!
-			return last_turf
-		i++
-		last_turf = T
-		T = get_step(T,direction)
-
-	return 0
-
-// End BS12 momentum-transfer code.
-
 //Mobs on Fire
 /mob/living/proc/IgniteMob()
-	if(fire_stacks > 0)
+	if(fire_stacks > 0 && !on_fire)
 		on_fire = 1
 		src.AddLuminosity(3)
 		update_fire()
@@ -237,7 +217,7 @@
 	return
 
 /mob/living/proc/adjust_fire_stacks(add_fire_stacks) //Adjusting the amount of fire_stacks we have on person
-	fire_stacks = Clamp(fire_stacks + add_fire_stacks, min = -20, max = 20)
+    fire_stacks = Clamp(fire_stacks + add_fire_stacks, min = -20, max = 20)
 
 /mob/living/proc/handle_fire()
 	if(fire_stacks < 0)
@@ -257,6 +237,26 @@
 	IgniteMob()
 
 //Mobs on Fire end
+
+//This is called when the mob is thrown into a dense turf
+/mob/living/proc/turf_collision(var/turf/T, var/speed)
+	src.take_organ_damage(speed*5)
+
+/mob/living/proc/near_wall(var/direction,var/distance=1)
+	var/turf/T = get_step(get_turf(src),direction)
+	var/turf/last_turf = src.loc
+	var/i = 1
+
+	while(i>0 && i<=distance)
+		if(T.density) //Turf is a wall!
+			return last_turf
+		i++
+		last_turf = T
+		T = get_step(T,direction)
+
+	return 0
+
+// End BS12 momentum-transfer code.
 
 /mob/living/proc/grabbedby(mob/living/carbon/user,var/supress_message = 0)
 	if(user == src || anchored)

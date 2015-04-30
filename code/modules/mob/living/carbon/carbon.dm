@@ -439,7 +439,12 @@ mob/living
 
 
 		item.throw_at(target, item.throw_range, item.throw_speed, src)
-
+/*
+/mob/living/carbon/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume)
+	..()
+	src.IgniteMob()
+	bodytemperature = max(bodytemperature, BODYTEMP_HEAT_DAMAGE_LIMIT+10)
+*/
 /mob/living/carbon/can_use_hands()
 	if(handcuffed)
 		return 0
