@@ -407,10 +407,16 @@ var/global/wcColored
 	update_nearby_icons()
 	return
 
+/obj/structure/window/plasmabasic/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
+	if(exposed_temperature > T0C + 32000)
+		hit(round(exposed_volume / 1000), 0)
+	..()
+
 /obj/structure/window/plasmabasic/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume)
 	if(exposed_temperature > T0C + 32000)
 		hit(round(exposed_volume / 1000), 0)
 	..()
+
 
 /obj/structure/window/plasmareinforced
 	name = "reinforced plasma window"
@@ -428,6 +434,9 @@ var/global/wcColored
 	ini_dir = dir
 	air_update_turf()
 	update_nearby_icons()
+	return
+
+/obj/structure/window/plasmareinforced/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
 	return
 
 /obj/structure/window/plasmareinforced/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume)
