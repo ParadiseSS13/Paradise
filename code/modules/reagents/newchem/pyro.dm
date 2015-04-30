@@ -38,7 +38,7 @@
 /datum/reagent/clf3/on_mob_life(var/mob/living/M as mob)
 	if(!M) M = holder.my_atom
 	M.adjust_fire_stacks(4)
-	M.adjustFireLoss(0.35*1)
+	M.adjustFireLoss(0.35*M.fire_stacks)
 	..()
 	return
 
