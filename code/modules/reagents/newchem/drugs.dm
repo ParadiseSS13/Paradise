@@ -11,14 +11,14 @@ datum/reagent/nicotine
 	reagent_state = LIQUID
 	color = "#60A584" // rgb: 96, 165, 132
 	overdose_threshold = 35
-	addiction_threshold = 30
+	addiction_threshold = 0.1
 
 datum/reagent/nicotine/on_mob_life(var/mob/living/M as mob)
 	if(!M) M = holder.my_atom
 	var/smoke_message = pick("You can just feel your lungs dying!", "You feel relaxed.", "You feel calmed.", "You feel the lung cancer forming.", "You feel the money you wasted.", "You feel like a space cowboy.", "You feel rugged.")
 	if(prob(5))
 		M << "<span class='notice'>[smoke_message]</span>"
-	if(prob(50))
+	if(volume >= 0.2 && prob(50)) // Trace amounts of nicotine are ineffective
 		M.AdjustParalysis(-1)
 		M.AdjustStunned(-1)
 		M.AdjustWeakened(-1)

@@ -68,12 +68,14 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 	var/lastHolder = null
 	var/smoketime = 300
 	var/chem_volume = 15
+	var/has_nicotine = 1
 
 /obj/item/clothing/mask/cigarette/New()
 	..()
 	flags |= NOREACT // so it doesn't react until you light it
 	create_reagents(chem_volume) // making the cigarrete a chemical holder with a maximum volume of 15
-	reagents.add_reagent("nicotine", 15)
+	if(has_nicotine)
+		reagents.add_reagent("nicotine", 15)
 
 /obj/item/clothing/mask/cigarette/Destroy()
 	..()
@@ -162,7 +164,6 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 
 
 /obj/item/clothing/mask/cigarette/process()
-	var/turf/location = get_turf(src)
 	var/mob/living/M = loc
 	if(isliving(loc))
 		M.IgniteMob()
@@ -170,20 +171,7 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 	if(smoketime < 1)
 		die()
 		return
-	if(location)
-		location.hotspot_expose(700, 5)
-	if(reagents && reagents.total_volume)	//	check if it has any reagents at all
-		if(iscarbon(loc) && (src == loc:wear_mask)) // if it's in the human/monkey mouth, transfer reagents to the mob
-			if(istype(loc, /mob/living/carbon/human))
-				var/mob/living/carbon/human/H = loc
-				if(H.species.flags & IS_SYNTHETIC)
-					return
-			var/mob/living/carbon/C = loc
-			if(prob(15)) // so it's not an instarape in case of acid
-				reagents.reaction(C, INGEST)
-			reagents.trans_to(C, REAGENTS_METABOLISM)
-		else // else just remove some of the reagents
-			reagents.remove_any(REAGENTS_METABOLISM)
+	smoke()
 	return
 
 
@@ -192,6 +180,32 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 		user.visible_message("<span class='notice'>[user] calmly drops and treads on the lit [src], putting it out instantly.</span>")
 		die()
 	return ..()
+
+/obj/item/clothing/mask/cigarette/proc/smoke()
+	var/turf/location = get_turf(src)
+	var/smoker_is_synthetic = 0
+	if(istype(loc, /mob/living/carbon/human))
+		var/mob/living/carbon/human/H = loc
+		if(H.species.flags & IS_SYNTHETIC)
+			smoker_is_synthetic = 1 // Synthetics can't smoke!
+	if(location)
+		location.hotspot_expose(700, 5)
+	if(reagents && reagents.total_volume)	//	check if it has any reagents at all
+		if(iscarbon(loc) && (src == loc:wear_mask) && !smoker_is_synthetic) // if it's in the human/monkey mouth, transfer reagents to the mob
+			var/mob/living/carbon/C = loc
+			if(prob(15)) // so it's not an instarape in case of acid
+				reagents.reaction(C, INGEST)
+			reagents.trans_to(C, REAGENTS_METABOLISM)
+			if(!reagents.total_volume) // There were reagents, but now they're gone
+				C << "<span class='notice'>Your [name] no longer tastes the same...</span>"
+		else // else just remove some of the reagents
+			reagents.remove_any(REAGENTS_METABOLISM)
+
+	if(has_nicotine && iscarbon(loc) && (src == loc:wear_mask) && !smoker_is_synthetic)
+		var/mob/living/carbon/C = loc
+		if (!C.reagents.has_reagent("nicotine"))
+			C.reagents.add_reagent("nicotine", 0.1)
+	return
 
 /obj/item/clothing/mask/cigarette/proc/die()
 	var/turf/T = get_turf(src)
@@ -216,6 +230,7 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 	item_state = "spliffoff"
 	smoketime = 180
 	chem_volume = 50
+	has_nicotine = 0 // The plants these are made from don't actually contain nicotine
 
 /obj/item/clothing/mask/cigarette/joint/New()
 	..()
@@ -331,20 +346,7 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 			M.update_inv_wear_mask(0)
 		processing_objects.Remove(src)
 		return
-	if(location)
-		location.hotspot_expose(700, 5)
-	if(reagents && reagents.total_volume)	//	check if it has any reagents at all
-		if(iscarbon(loc) && (src == loc:wear_mask)) // if it's in the human/monkey mouth, transfer reagents to the mob
-			if(istype(loc, /mob/living/carbon/human))
-				var/mob/living/carbon/human/H = loc
-				if(H.species.flags & IS_SYNTHETIC)
-					return
-			var/mob/living/carbon/C = loc
-			if(prob(15)) // so it's not an instarape in case of acid
-				reagents.reaction(C, INGEST)
-			reagents.trans_to(C, REAGENTS_METABOLISM)
-		else // else just remove some of the reagents
-			reagents.remove_any(REAGENTS_METABOLISM)
+	smoke()
 	return
 
 /obj/item/clothing/mask/cigarette/pipe/attack_self(mob/user as mob) //Refills the pipe. Can be changed to an attackby later, if loose tobacco is added to vendors or something.
