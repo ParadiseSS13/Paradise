@@ -176,22 +176,28 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 
 
 /obj/item/clothing/mask/cigarette/attack_self(mob/user as mob)
-	if(lit == 1)
+	if(lit)
 		user.visible_message("<span class='notice'>[user] calmly drops and treads on the lit [src], putting it out instantly.</span>")
 		die()
 	return ..()
 
 /obj/item/clothing/mask/cigarette/proc/smoke()
 	var/turf/location = get_turf(src)
-	var/smoker_is_synthetic = 0
-	if(istype(loc, /mob/living/carbon/human))
-		var/mob/living/carbon/human/H = loc
-		if(H.species.flags & IS_SYNTHETIC)
-			smoker_is_synthetic = 1 // Synthetics can't smoke!
+	var/is_being_smoked = 0
+	// Check whether this is actually in a mouth, being smoked
+	if(iscarbon(loc))
+		var/mob/living/carbon/C = loc
+		if(src == C.wear_mask)
+			if(istype(loc, /mob/living/carbon/human))
+				var/mob/living/carbon/human/H = loc
+				if(!(H.species.flags & IS_SYNTHETIC)) // Silly synthetics, you can't smoke. You don't even have mouths.
+					is_being_smoked = 1
+			else
+				is_being_smoked = 1
 	if(location)
 		location.hotspot_expose(700, 5)
 	if(reagents && reagents.total_volume)	//	check if it has any reagents at all
-		if(iscarbon(loc) && (src == loc:wear_mask) && !smoker_is_synthetic) // if it's in the human/monkey mouth, transfer reagents to the mob
+		if(is_being_smoked) // if it's being smoked, transfer reagents to the mob
 			var/mob/living/carbon/C = loc
 			if(prob(15)) // so it's not an instarape in case of acid
 				reagents.reaction(C, INGEST)
@@ -345,7 +351,7 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 	return
 
 /obj/item/clothing/mask/cigarette/pipe/attack_self(mob/user as mob) //Refills the pipe. Can be changed to an attackby later, if loose tobacco is added to vendors or something.
-	if(lit == 1)
+	if(lit)
 		user.visible_message("<span class='notice'>[user] puts out [src].</span>")
 		lit = 0
 		icon_state = icon_off
