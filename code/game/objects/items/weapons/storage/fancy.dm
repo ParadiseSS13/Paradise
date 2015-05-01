@@ -154,6 +154,8 @@
 	slot_flags = SLOT_BELT
 	storage_slots = 6
 	can_hold = list("/obj/item/clothing/mask/cigarette")
+	cant_hold = list("/obj/item/clothing/mask/cigarette/cigar",
+		"/obj/item/clothing/mask/cigarette/pipe")
 	icon_type = "cigarette"
 	var/list/unlaced_cigarettes = list() // Cigarettes that haven't received reagents yet
 	var/default_reagents = list("nicotine" = 15) // List of reagents to pre-generate for each cigarette
