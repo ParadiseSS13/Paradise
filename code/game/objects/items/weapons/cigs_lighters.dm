@@ -68,14 +68,11 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 	var/lastHolder = null
 	var/smoketime = 300
 	var/chem_volume = 15
-	var/has_nicotine = 1
 
 /obj/item/clothing/mask/cigarette/New()
 	..()
 	flags |= NOREACT // so it doesn't react until you light it
 	create_reagents(chem_volume) // making the cigarrete a chemical holder with a maximum volume of 15
-	if(has_nicotine)
-		reagents.add_reagent("nicotine", 15)
 
 /obj/item/clothing/mask/cigarette/Destroy()
 	..()
@@ -231,7 +228,6 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 	item_state = "spliffoff"
 	smoketime = 180
 	chem_volume = 50
-	has_nicotine = 0 // The plants these are made from don't actually contain nicotine
 
 /obj/item/clothing/mask/cigarette/joint/New()
 	..()
@@ -267,6 +263,10 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 	item_state = "cigaroff"
 	smoketime = 1500
 	chem_volume = 20
+
+/obj/item/clothing/mask/cigarette/cigar/New()
+	..()
+	reagents.add_reagent("nicotine", chem_volume)
 
 /obj/item/clothing/mask/cigarette/cigar/cohiba
 	name = "Cohiba Robusto Cigar"
@@ -322,6 +322,10 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 	icon_off = "pipeoff"
 	smoketime = 1000
 	chem_volume = 50
+
+/obj/item/clothing/mask/cigarette/pipe/New()
+	..()
+	reagents.add_reagent("nicotine", chem_volume)
 
 /obj/item/clothing/mask/cigarette/pipe/light(var/flavor_text = "[usr] lights the [name].")
 	if(!src.lit)
