@@ -966,12 +966,12 @@ datum/mind
 			switch(href_list["shadowling"])
 				if("clear")
 					ticker.mode.update_shadow_icons_removed(src)
-					current.spell_list = null
+					current.spell_list.Cut()
 					if(src in ticker.mode.shadows)
 						ticker.mode.shadows -= src
 						special_role = null
 						current << "<span class='userdanger'>Your powers have been quenched! You are no longer a shadowling!</span>"
-						current.spell_list = null
+						current.spell_list.Cut()
 						message_admins("[key_name_admin(usr)] has de-shadowling'ed [current].")
 						log_admin("[key_name(usr)] has de-shadowling'ed [current].")
 						current.verbs -= /mob/living/carbon/human/proc/shadowling_hatch

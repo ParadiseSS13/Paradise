@@ -23,8 +23,8 @@
 /obj/item/organ/brain/New()
 	..()
 	spawn(5)
-		if(brainmob && brainmob.client) //This is runtiming too. What the fuck? "runtime error: undefined variable /obj/item/organ/brain/var/client" BUT YOU'RE SUPPOSED TO BE CHECKING THE BRAINMOB.
-			brainmob.client.screen.len = null //clear the hud
+		for(var/mob/living/carbon/brain/bmob in src) //I'm going to hell for this, but there's no other way to stop these runtimes.
+			bmob.client.screen.len = null //clear the hud
 
 /obj/item/organ/brain/proc/transfer_identity(var/mob/living/carbon/H)
 	name = "\the [H]'s [initial(src.name)]"

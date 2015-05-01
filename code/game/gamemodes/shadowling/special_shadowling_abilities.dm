@@ -19,6 +19,8 @@
 
 			for(var/obj/item/I in usr) //drops all items
 				usr.unEquip(I)
+				if(istype(I, /obj/item/organ) && (I in src.internal_organs)) //Shadowlings only have a brain, the other organs would drop otherwise.
+					qdel(I)
 
 			sleep(50)
 			var/turf/simulated/floor/F
@@ -31,7 +33,7 @@
 
 			usr.visible_message("<span class='warning'>A chrysalis forms around [usr], sealing them inside.</span>", \
 								"<span class='shadowling'>You create your chrysalis and begin to contort within.</span>")
-
+			usr.Weaken(30)
 			sleep(100)
 			usr.visible_message("<span class='warning'><b>The skin on [usr]'s back begins to split apart. Black spines slowly emerge from the divide.</b></span>", \
 								"<span class='shadowling'>Spines pierce your back. Your claws break apart your fingers. You feel excruciating pain as your true form begins its exit.</span>")

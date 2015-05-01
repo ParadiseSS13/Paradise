@@ -988,7 +988,7 @@ var/list/slot_equipment_priority = list( \
 	if(mind && mind.changeling)
 		add_stings_to_statpanel(mind.changeling.purchasedpowers)
 
-	if(spell_list && spell_list.len) //YAY RUNTIMES "runtime error: undefined variable /obj/effect/proc_holder/spell/wizard/targeted/enthrall/var/len" BYOND is fucking up references for some reason. This one breaks admin-made shadowlings.
+	if(spell_list && spell_list.len)
 		for(var/obj/effect/proc_holder/spell/wizard/S in spell_list)
 			switch(S.charge_type)
 				if("recharge")
