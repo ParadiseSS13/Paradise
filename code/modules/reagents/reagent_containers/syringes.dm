@@ -86,7 +86,6 @@
 						user << "\red There is already a blood sample in this syringe"
 						return
 					if(istype(target, /mob/living/carbon))//maybe just add a blood reagent to all mobs. Then you can suck them dry...With hundreds of syringes. Jolly good idea.
-						var/amount = src.reagents.maximum_volume - src.reagents.total_volume
 						var/mob/living/carbon/T = target
 						if(!T.dna)
 							usr << "You are unable to locate any blood. (To be specific, your target seems to be missing their DNA datum)"
@@ -110,6 +109,11 @@
 							for(var/mob/O in viewers(world.view, user))
 								O.show_message(text("\red <B>[] is trying to take a blood sample from []!</B>", user, target), 1)
 						if(!do_mob(user, target, time))
+							return
+
+						var/amount = src.reagents.maximum_volume - src.reagents.total_volume
+						if(amount == 0)
+							usr << "<span class='warning'>The syringe is full!</span>"
 							return
 
 						var/datum/reagent/B
