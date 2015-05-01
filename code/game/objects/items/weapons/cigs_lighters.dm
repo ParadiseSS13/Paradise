@@ -200,12 +200,6 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 				C << "<span class='notice'>Your [name] no longer tastes the same...</span>"
 		else // else just remove some of the reagents
 			reagents.remove_any(REAGENTS_METABOLISM)
-
-	if(has_nicotine && iscarbon(loc) && (src == loc:wear_mask) && !smoker_is_synthetic)
-		// If the cigarette has nicotine, make sure the smoker is getting a bit, even if it's not in the reagents
-		var/mob/living/carbon/C = loc
-		if (!C.reagents.has_reagent("nicotine"))
-			C.reagents.add_reagent("nicotine", 0.1)
 	return
 
 /obj/item/clothing/mask/cigarette/proc/die()
