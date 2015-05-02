@@ -625,6 +625,19 @@
 		..()
 		reagents.add_reagent("nutriment", 1)
 
+/obj/item/weapon/reagent_containers/food/snacks/organ
+
+	name = "organ"
+	desc = "It's good for you."
+	icon = 'icons/obj/surgery.dmi'
+	icon_state = "appendix"
+	filling_color = "#E00D34"
+
+	New()
+		..()
+		reagents.add_reagent("nutriment", 4)
+		src.bitesize = 3
+
 /obj/item/weapon/reagent_containers/food/snacks/appendix
 //yes, this is the same as meat. I might do something different in future
 	name = "appendix"
@@ -3369,118 +3382,3 @@
 	New()
 		..()
 		reagents.add_reagent("ectoplasm", 10)
-
-////Discount Dan's Burritos//////       May God have mercy on your souls---and stomachs.    -Fox
-
-/obj/item/weapon/reagent_containers/food/snacks/danburrito
-	name = "Discount Dan's Burrito"
-	desc = "Quite possibly the worst burrito in all of space."
-	icon_state = "danburrito"
-	bitesize = 10
-	var/selfheat = 0
-
-/obj/item/weapon/reagent_containers/food/snacks/danburrito/attack_self(mob/user as mob) //self-heating action!
-	if(selfheat)
-		return
-	else
-		selfheat = 1
-		user << "<span class='notice'>You crack the burrito like a glow stick, activating the heater mechanism.</span>"
-		reagents.add_reagent("pyrosium", 2)
-		reagents.add_reagent("oxygen", 2)
-
-/obj/item/weapon/reagent_containers/food/snacks/danburrito/random
-	New()
-		..()
-		var/list/list = typesof(/obj/item/weapon/reagent_containers/food/snacks/danburrito) - list(/obj/item/weapon/reagent_containers/food/snacks/danburrito,/obj/item/weapon/reagent_containers/food/snacks/danburrito/random)
-		var/T = pick(list)
-		new T(loc)
-		spawn(0)
-			del src
-
-/obj/item/weapon/reagent_containers/food/snacks/danburrito/pizza
-	name = "Sconto Danilo's Burritos - 50% Real Mozzarella Pepperoni Pizza Party Flavor"
-	desc = "A self-heating pizza burrito."
-	New()
-		..()
-		reagents.add_reagent("soybeanoil", 3)
-		reagents.add_reagent("msg", 9)
-		reagents.add_reagent("fake_cheese", 3)
-		reagents.add_reagent("cheese", 3)
-		reagents.add_reagent("pepperoni", 3)
-
-/obj/item/weapon/reagent_containers/food/snacks/danburrito/pancake
-	name = "Descuento Danito's Burritos - Pancake Sausage Brunch Flavor"
-	desc = "A self-heating breakfast burrito with a buttermilk pancake in lieu of a tortilla. A little frightening."
-	New()
-		..()
-		reagents.add_reagent("hydrogenated_soybeanoil", 3)
-		reagents.add_reagent("msg", 9)
-		reagents.add_reagent("porktonium", 4)
-		reagents.add_reagent("vhfcs", 2)
-		reagents.add_reagent("coffee", 4)
-
-/obj/item/weapon/reagent_containers/food/snacks/danburrito/beans
-	name = "Descuento Danito's Burritos - Spicy Beans and Wieners Ole! Flavor"
-	desc = "A self-heating convenience reinterpretation of Mexican cuisine. The exact mechanism used to heat it is probably best left to speculation."
-	New()
-		..()
-		reagents.add_reagent("soybeanoil", 3)
-		reagents.add_reagent("msg", 9)
-		reagents.add_reagent("lithium", 4)
-		reagents.add_reagent("capsaicin", 6)
-		reagents.add_reagent("beans", 10)
-
-/obj/item/weapon/reagent_containers/food/snacks/danburrito/homestyle
-	name = "Descuento Danito's Burritos - Homestyle Comfort Flavor"
-	desc = "A self-heating burrito just like Mom used to make, if your mother was a souless, automated burrito production line."
-	New()
-		..()
-		reagents.add_reagent("soybeanoil", 3)
-		reagents.add_reagent("msg", 9)
-		reagents.add_reagent("mashedpotatoes", 5)
-		reagents.add_reagent("gravy", 3)
-		reagents.add_reagent("diethylamine", 2)
-
-/obj/item/weapon/reagent_containers/food/snacks/danburrito/texas
-	name = "Spooky Dan's BOO-ritos - Texas Toast Chainsaw Massacre Flavor"
-	desc = "A self-heating burrito.  Isn't that concept scary enough on its own?"
-	New()
-		..()
-		reagents.add_reagent("soybeanoil", 3)
-		reagents.add_reagent("msg", 9)
-		reagents.add_reagent("fake_cheese", 3)
-		reagents.add_reagent("space_drugs", 3)
-//		reagents.add_reagent("cblood", 4)   uncomment once actual changeling blood is added
-
-/obj/item/weapon/reagent_containers/food/snacks/danburrito/beff
-	name = "Descuento Danito's Burritos - Beff and Bean Flavor"
-	desc = "A self-heating convenience reinterpretation of Mexican cuisine. The exact mechanism used to heat it is probably best left to speculation."
-	New()
-		..()
-		reagents.add_reagent("hydrogenated_soybeanoil", 3)
-		reagents.add_reagent("msg", 9)
-		reagents.add_reagent("uranium", 2)
-		reagents.add_reagent("beff", 4)
-		reagents.add_reagent("fake_cheese", 4)
-		reagents.add_reagent("beans", 10)
-
-/obj/item/weapon/reagent_containers/food/snacks/danburrito/nightmare
-	name = "Spooky Dan's BOO-ritos - Nightmare on Elm Meat Flavor"
-	desc = "A self-heating burrito that purports to contain elm-smoked meat. Of some sort. Probably from an animal."
-	New()
-		..()
-		reagents.add_reagent("soybeanoil", 3)
-		reagents.add_reagent("msg", 9)
-		reagents.add_reagent("beff", 3)
-		reagents.add_reagent("synthflesh", 2)
-		reagents.add_reagent("tonguedog", 9)
-
-/obj/item/weapon/reagent_containers/food/snacks/danburrito/strawberry
-	name = "Descuento Danito's Burritos - Strawberrito Churro Flavor"
-	desc = "There is no way anyone could possibly justify this."
-	New()
-		..()
-		reagents.add_reagent("soybeanoil", 3)
-		reagents.add_reagent("msg", 9)
-		reagents.add_reagent("vhfcs", 8)
-		reagents.add_reagent("oil", 2)

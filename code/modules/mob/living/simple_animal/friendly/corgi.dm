@@ -56,7 +56,7 @@
 			if(11 to 15)			healths.icon_state = "health4"
 			if(6 to 10)				healths.icon_state = "health5"
 			if(1 to 5)				healths.icon_state = "health6"
-			else					healths.icon_state = "health7"
+			if(0)					healths.icon_state = "health7"
 	regenerate_icons()
 
 /mob/living/simple_animal/corgi/Die()

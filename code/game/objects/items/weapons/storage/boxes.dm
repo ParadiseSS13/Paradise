@@ -26,9 +26,6 @@
 	item_state = "syringe_kit"
 	foldable = /obj/item/stack/sheet/cardboard	//BubbleWrap
 
-	autoignition_temperature = 522 // Kelvin
-
-
 /obj/item/weapon/storage/box/large
 	name = "large box"
 	desc = "You could build a fort with this."
@@ -38,8 +35,6 @@
 	foldable = /obj/item/stack/sheet/cardboard  //BubbleWrap
 	storage_slots = 21
 	max_combined_w_class = 42 // 21*2
-
-	autoignition_temperature = 530 // Kelvin
 
 /obj/item/weapon/storage/box/survival
 	New()

@@ -45,7 +45,7 @@
 /datum/chemical_reaction/clf3/on_reaction(var/datum/reagents/holder, var/created_volume)
 	var/turf/T = get_turf(holder.my_atom)
 	for(var/turf/turf in range(1,T))
-		new /obj/fire(turf)
+		new /obj/effect/hotspot(turf)
 	return
 
 /datum/reagent/clf3/reaction_turf(var/turf/simulated/T, var/volume)
@@ -58,7 +58,7 @@
 		if(prob(volume/10))
 			F.make_plating()
 		if(istype(F, /turf/simulated/floor/))
-			new /obj/fire(F)
+			new /obj/effect/hotspot(F)
 	if(istype(T, /turf/simulated/wall/))
 		var/turf/simulated/wall/W = T
 		if(prob(volume/10))
@@ -175,7 +175,7 @@
 	required_reagents = list("blackpowder" = 1)
 	result_amount = 1
 	required_temp = 474
-	mix_message = "sparks start flying about."
+	no_message = 1
 	mix_sound = null
 
 datum/reagent/blackpowder/reaction_turf(var/turf/T, var/volume) //oh shit
@@ -295,7 +295,14 @@ datum/reagent/blackpowder/reaction_turf(var/turf/T, var/volume) //oh shit
 	spawn(0)
 		if(S)
 			S.set_up(holder, 10, 0, location)
-			S.start(created_volume >= 10 ? 3 : 2)
+			if(created_volume < 5)
+				S.start(1)
+			if(created_volume >=5 && created_volume < 10)
+				S.start(2)
+			if(created_volume >= 10 && created_volume < 15)
+				S.start(3)
+			if(created_volume >=15)
+				S.start(4)
 		if(holder && holder.my_atom)
 			holder.clear_reagents()
 	return
@@ -408,7 +415,7 @@ datum/reagent/blackpowder/reaction_turf(var/turf/T, var/volume) //oh shit
 		return
 	var/turf/simulated/T = get_turf(holder.my_atom)
 	for(var/turf/simulated/turf in range(created_volume/10,T))
-		new /obj/fire(turf)
+		new /obj/effect/hotspot(turf)
 	return
 
 /datum/reagent/phlogiston/on_mob_life(var/mob/living/M as mob)
@@ -551,7 +558,7 @@ datum/reagent/firefighting_foam/reaction_turf(var/turf/simulated/T, var/volume)
 	src = null
 	if(!istype(T, /turf/space))
 		new /obj/effect/decal/cleanable/flour/foam(T) //foam mess; clears up quickly.
-	var/hotspot = (locate(/obj/fire) in T)
+	var/hotspot = (locate(/obj/effect/hotspot) in T)
 	if(hotspot && !istype(T, /turf/space))
 		var/datum/gas_mixture/lowertemp = T.remove_air( T:air:total_moles() )
 		lowertemp.temperature = max( min(lowertemp.temperature-(CT*1000),lowertemp.temperature / CT) ,0)
@@ -563,7 +570,7 @@ datum/reagent/firefighting_foam/reaction_turf(var/turf/simulated/T, var/volume)
 datum/reagent/firefighting_foam/reaction_obj(var/obj/O, var/volume)
 	src = null
 	var/turf/T = get_turf(O)
-	var/hotspot = (locate(/obj/fire) in T)
+	var/hotspot = (locate(/obj/effect/hotspot) in T)
 	if(hotspot && !istype(T, /turf/space))
 		var/datum/gas_mixture/lowertemp = T.remove_air( T:air:total_moles() )
 		lowertemp.temperature = max( min(lowertemp.temperature-2000,lowertemp.temperature / 2) ,0)

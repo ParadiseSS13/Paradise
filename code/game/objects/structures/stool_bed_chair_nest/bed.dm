@@ -54,13 +54,20 @@
 	buckle_mob(M, user)
 	return
 
+/obj/structure/stool/bed/proc/afterbuckle(mob/M as mob) //Called after somebody buckled / unbuckled
+	return
+
 /obj/structure/stool/bed/proc/unbuckle()
 	if(buckled_mob)
 		if(buckled_mob.buckled == src)	//this is probably unneccesary, but it doesn't hurt
 			buckled_mob.buckled = null
 			buckled_mob.anchored = initial(buckled_mob.anchored)
 			buckled_mob.update_canmove()
+
+			var/M = buckled_mob
 			buckled_mob = null
+
+			afterbuckle(M)
 	return
 
 /obj/structure/stool/bed/proc/manual_unbuckle(mob/user as mob)
@@ -110,6 +117,7 @@
 	M.update_canmove()
 	src.buckled_mob = M
 	src.add_fingerprint(user)
+	afterbuckle(M)
 	return
 
 /*

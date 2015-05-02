@@ -90,7 +90,7 @@ datum/reagent/crank/addiction_act_stage4(var/mob/living/M as mob)
 /datum/chemical_reaction/crank/on_reaction(var/datum/reagents/holder, var/created_volume)
 	var/turf/T = get_turf(holder.my_atom)
 	for(var/turf/turf in range(1,T))
-		new /obj/fire(turf)
+		new /obj/effect/hotspot(turf)
 	explosion(T,0,0,2)
 	return
 

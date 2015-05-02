@@ -252,6 +252,9 @@ its easier to just keep the beam vertical.
 /atom/proc/blob_act()
 	return
 
+/atom/proc/fire_act()
+	return
+
 /atom/proc/emag_act()
 	return
 

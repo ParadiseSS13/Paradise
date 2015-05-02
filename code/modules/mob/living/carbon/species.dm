@@ -221,6 +221,7 @@
 		if(H.reagents)
 			H.reagents.add_reagent("plasma", Clamp(ratio, MIN_PLASMA_DAMAGE, MAX_PLASMA_DAMAGE))
 		H.toxins_alert = max(H.toxins_alert, 1)
+
 	else if(O2_pp > vox_oxygen_max && name == "Vox") //Oxygen is toxic to vox.
 		var/ratio = (breath.oxygen/vox_oxygen_max) * 1000
 		H.adjustToxLoss(Clamp(ratio, MIN_PLASMA_DAMAGE, MAX_PLASMA_DAMAGE))

@@ -324,10 +324,10 @@ proc/get_damage_icon_part(damage_state, body_part)
 
 	//Underwear
 	if(underwear && species.flags & HAS_UNDERWEAR)
-		stand_icon.Blend(new /icon('icons/mob/human.dmi', underwear), ICON_OVERLAY)
+		stand_icon.Blend(new /icon('icons/mob/human.dmi', "underwear[underwear]_[g]_s"), ICON_OVERLAY)
 
 	if(undershirt && species.flags & HAS_UNDERWEAR)
-		stand_icon.Blend(new /icon('icons/mob/human.dmi', undershirt), ICON_OVERLAY)
+		stand_icon.Blend(new /icon('icons/mob/human.dmi', "undershirt[undershirt]_s"), ICON_OVERLAY)
 
 	if(update_icons)
 		update_icons()
@@ -460,15 +460,12 @@ proc/get_damage_icon_part(damage_state, body_part)
 	if(update_icons)		update_icons()
 
 /mob/living/carbon/human/update_fire()
-
 	remove_overlay(FIRE_LAYER)
 	if(on_fire)
 		overlays_standing[FIRE_LAYER] = image("icon"=fire_dmi, "icon_state"=fire_sprite, "layer"=-FIRE_LAYER)
 	else
 		overlays_standing[FIRE_LAYER] = null
-
 	apply_overlay(FIRE_LAYER)
-
 
 /* --------------------------------------- */
 //For legacy support.

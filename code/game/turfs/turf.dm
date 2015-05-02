@@ -36,6 +36,16 @@
 			return
 	return
 
+// Adds the adjacent turfs to the current atmos processing
+/turf/Destroy()
+	if(air_master)
+		for(var/direction in cardinal)
+			if(atmos_adjacent_turfs & direction)
+				var/turf/simulated/T = get_step(src, direction)
+				if(istype(T))
+					air_master.add_to_active(T)
+	..()
+
 /turf/ex_act(severity)
 	return 0
 
@@ -213,117 +223,65 @@
 		del L
 
 //Creates a new turf
-/turf/proc/ChangeTurf(var/turf/N)
-	if (!N)
-		return
-
+/turf/proc/ChangeTurf(var/path)
+	if(!path)			return
+	if(path == type)	return src
 	var/old_lumcount = lighting_lumcount - initial(lighting_lumcount)
 	var/old_opacity = opacity
-	//world << "Replacing [src.type] with [N]"
+	if(air_master)
+		air_master.remove_from_active(src)
 
-	if(connections) connections.erase_all()
+	var/turf/W = new path(src)
 
-	if(istype(src,/turf/simulated))
-		//Yeah, we're just going to rebuild the whole thing.
-		//Despite this being called a bunch during explosions,
-		//the zone will only really do heavy lifting once.
-		var/turf/simulated/S = src
-		if(S.zone) S.zone.rebuild()
+	if(istype(W, /turf/simulated))
+		W:Assimilate_Air()
+		W.RemoveLattice()
 
-	if(ispath(N, /turf/simulated/floor))
-		//if the old turf had a zone, connect the new turf to it as well - Cael
-		//Adjusted by SkyMarshal 5/10/13 - The air master will handle the addition of the new turf.
-		//if(zone)
-		//	zone.RemoveTurf(src)
-		//	if(!zone.CheckStatus())
-		//		zone.SetStatus(ZONE_ACTIVE)
+	W.lighting_lumcount += old_lumcount
+	if(old_lumcount != W.lighting_lumcount)	//light levels of the turf have changed. We need to shift it to another lighting-subarea
+		W.lighting_changed = 1
+		lighting_controller.changed_turfs += W
 
-		var/turf/simulated/W = new N( locate(src.x, src.y, src.z) )
-		//W.Assimilate_Air()
+	if(old_opacity != W.opacity)			//opacity has changed. Need to update surrounding lights
+		if(W.lighting_lumcount)				//unless we're being illuminated, don't bother (may be buggy, hard to test)
+			W.UpdateAffectingLights()
 
-		W.lighting_lumcount += old_lumcount
-		if(old_lumcount != W.lighting_lumcount)
-			W.lighting_changed = 1
-			lighting_controller.changed_turfs += W
+	W.levelupdate()
+	W.CalculateAdjacentTurfs()
+	return W
 
-
-		if(old_opacity != W.opacity)			//opacity has changed. Need to update surrounding lights
-			if(W.lighting_lumcount)				//unless we're being illuminated, don't bother (may be buggy, hard to test)
-				W.UpdateAffectingLights()
-
-		if (istype(W,/turf/simulated/floor))
-			W.RemoveLattice()
-
-		if(air_master)
-			air_master.mark_for_update(src)
-
-		W.levelupdate()
-		return W
-
-	else
-		//if(zone)
-		//	zone.RemoveTurf(src)
-		//	if(!zone.CheckStatus())
-		//		zone.SetStatus(ZONE_ACTIVE)
-
-		var/turf/W = new N( locate(src.x, src.y, src.z) )
-		W.lighting_lumcount += old_lumcount
-		if(old_lumcount != W.lighting_lumcount)
-			W.lighting_changed = 1
-			lighting_controller.changed_turfs += W
-
-		if(air_master)
-			air_master.mark_for_update(src)
-
-		W.levelupdate()
-		return W
-
-/*
 //////Assimilate Air//////
 /turf/simulated/proc/Assimilate_Air()
-	var/aoxy = 0//Holders to assimilate air from nearby turfs
-	var/anitro = 0
-	var/aco = 0
-	var/atox = 0
-	var/atemp = 0
-	var/turf_count = 0
+	if(air)
+		var/aoxy = 0//Holders to assimilate air from nearby turfs
+		var/anitro = 0
+		var/aco = 0
+		var/atox = 0
+		var/atemp = 0
+		var/turf_count = 0
 
-	for(var/direction in cardinal)//Only use cardinals to cut down on lag
-		var/turf/T = get_step(src,direction)
-		if(istype(T,/turf/space))//Counted as no air
-			turf_count++//Considered a valid turf for air calcs
-			continue
-		else if(istype(T,/turf/simulated/floor))
-			var/turf/simulated/S = T
-			if(S.air)//Add the air's contents to the holders
-				aoxy += S.air.oxygen
-				anitro += S.air.nitrogen
-				aco += S.air.carbon_dioxide
-				atox += S.air.toxins
-				atemp += S.air.temperature
-			turf_count ++
-	air.oxygen = (aoxy/max(turf_count,1))//Averages contents of the turfs, ignoring walls and the like
-	air.nitrogen = (anitro/max(turf_count,1))
-	air.carbon_dioxide = (aco/max(turf_count,1))
-	air.toxins = (atox/max(turf_count,1))
-	air.temperature = (atemp/max(turf_count,1))//Trace gases can get bant
-	air.update_values()
+		for(var/direction in cardinal)//Only use cardinals to cut down on lag
+			var/turf/T = get_step(src,direction)
+			if(istype(T,/turf/space))//Counted as no air
+				turf_count++//Considered a valid turf for air calcs
+				continue
+			else if(istype(T,/turf/simulated/floor))
+				var/turf/simulated/S = T
+				if(S.air)//Add the air's contents to the holders
+					aoxy += S.air.oxygen
+					anitro += S.air.nitrogen
+					aco += S.air.carbon_dioxide
+					atox += S.air.toxins
+					atemp += S.air.temperature
+				turf_count ++
+		air.oxygen = (aoxy/max(turf_count,1))//Averages contents of the turfs, ignoring walls and the like
+		air.nitrogen = (anitro/max(turf_count,1))
+		air.carbon_dioxide = (aco/max(turf_count,1))
+		air.toxins = (atox/max(turf_count,1))
+		air.temperature = (atemp/max(turf_count,1))//Trace gases can get bant
+		if(air_master)
+			air_master.add_to_active(src)
 
-	//cael - duplicate the averaged values across adjacent turfs to enforce a seamless atmos change
-	for(var/direction in cardinal)//Only use cardinals to cut down on lag
-		var/turf/T = get_step(src,direction)
-		if(istype(T,/turf/space))//Counted as no air
-			continue
-		else if(istype(T,/turf/simulated/floor))
-			var/turf/simulated/S = T
-			if(S.air)//Add the air's contents to the holders
-				S.air.oxygen = air.oxygen
-				S.air.nitrogen = air.nitrogen
-				S.air.carbon_dioxide = air.carbon_dioxide
-				S.air.toxins = air.toxins
-				S.air.temperature = air.temperature
-				S.air.update_values()
-*/
 /turf/proc/ReplaceWithLattice()
 	src.ChangeTurf(/turf/space)
 	new /obj/structure/lattice( locate(src.x, src.y, src.z) )

@@ -33,7 +33,7 @@
 	component_parts += new /obj/item/weapon/stock_parts/console_screen(src)
 	component_parts += new /obj/item/stack/cable_coil(src, 1)
 	RefreshParts()
-	
+
 /obj/machinery/atmospherics/unary/cold_sink/freezer/RefreshParts()
 	var/H
 	var/T
@@ -58,7 +58,7 @@
 	if (istype(I, /obj/item/weapon/wrench))
 		if(!panel_open)
 			user << "<span class='notice'>Open the maintenance panel first.</span>"
-			return	
+			return
 		playsound(src.loc, 'sound/items/Ratchet.ogg', 50, 1)
 		dir = pick(WEST,EAST,SOUTH,NORTH)
 		var/node_connect = dir
@@ -88,7 +88,7 @@
 /obj/machinery/atmospherics/unary/cold_sink/freezer/attack_hand(mob/user as mob)
 	if(panel_open)
 		user << "<span class='notice'>Close the maintenance panel first.</span>"
-		return	
+		return
 	src.ui_interact(user)
 
 /obj/machinery/atmospherics/unary/cold_sink/freezer/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
@@ -98,13 +98,13 @@
 	data["gasPressure"] = round(air_contents.return_pressure())
 	data["gasTemperature"] = round(air_contents.temperature)
 	data["gasTemperatureCelsius"] = round(air_contents.temperature - T0C,1)
-	if(air_contents.total_moles == 0 && air_contents.temperature == 0)
+	if(air_contents.total_moles() == 0 && air_contents.temperature == 0)
 		data["gasTemperatureCelsius"] = 0
 	data["minGasTemperature"] = round(min_temperature)
 	data["maxGasTemperature"] = round(T20C)
 	data["targetGasTemperature"] = round(current_temperature)
 	data["targetGasTemperatureCelsius"] = round(current_temperature - T0C,1)
-	
+
 	var/temp_class = "good"
 	if (air_contents.temperature > (T0C - 20))
 		temp_class = "bad"
@@ -175,7 +175,7 @@
 	component_parts += new /obj/item/weapon/stock_parts/console_screen(src)
 	component_parts += new /obj/item/stack/cable_coil(src, 1)
 	RefreshParts()
-	
+
 /obj/machinery/atmospherics/unary/heat_reservoir/heater/upgraded/New()
 	..()
 	var/obj/item/weapon/circuitboard/thermomachine/H = new /obj/item/weapon/circuitboard/thermomachine(null)
@@ -215,7 +215,7 @@
 	if (istype(I, /obj/item/weapon/wrench))
 		if(!panel_open)
 			user << "<span class='notice'>Open the maintenance panel first.</span>"
-			return	
+			return
 		playsound(src.loc, 'sound/items/Ratchet.ogg', 50, 1)
 		dir = pick(WEST,EAST,SOUTH,NORTH)
 		var/node_connect = dir
@@ -245,7 +245,7 @@
 /obj/machinery/atmospherics/unary/heat_reservoir/heater/attack_hand(mob/user as mob)
 	if(panel_open)
 		user << "<span class='notice'>Close the maintenance panel first.</span>"
-		return	
+		return
 	src.ui_interact(user)
 
 /obj/machinery/atmospherics/unary/heat_reservoir/heater/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
@@ -255,13 +255,13 @@
 	data["gasPressure"] = round(air_contents.return_pressure())
 	data["gasTemperature"] = round(air_contents.temperature)
 	data["gasTemperatureCelsius"] = round(air_contents.temperature - T0C,1)
-	if(air_contents.total_moles == 0 && air_contents.temperature == 0)
+	if(air_contents.total_moles() == 0 && air_contents.temperature == 0)
 		data["gasTemperatureCelsius"] = 0
 	data["minGasTemperature"] = round(T20C)
 	data["maxGasTemperature"] = round(T20C+max_temperature)
 	data["targetGasTemperature"] = round(current_temperature)
 	data["targetGasTemperatureCelsius"] = round(current_temperature - T0C,1)
-	
+
 	var/temp_class = "normal"
 	if (air_contents.temperature > (T20C+40))
 		temp_class = "bad"

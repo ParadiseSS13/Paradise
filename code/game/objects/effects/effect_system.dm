@@ -171,7 +171,6 @@ steam.start() -- spawns the effect
 	..()
 	playsound(src.loc, "sparks", 100, 1)
 	var/turf/T = loc
-
 	if (istype(T, /turf))
 		T.hotspot_expose(1000, 100)
 	spawn (100)
@@ -953,7 +952,7 @@ steam.start() -- spawns the effect
 
 // foam disolves when heated
 // except metal foams
-/obj/effect/effect/foam/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume)
+/obj/effect/effect/foam/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
 	if(!metal && prob(max(0, exposed_temperature - 475)))
 		flick("[icon_state]-disolve", src)
 
@@ -1040,15 +1039,18 @@ steam.start() -- spawns the effect
 
 	New()
 		..()
-		update_nearby_tiles(1)
-
-
+		air_update_turf(1)
 
 	Destroy()
 
 		density = 0
-		update_nearby_tiles(1)
+		air_update_turf(1)
 		..()
+
+	Move()
+		var/turf/T = loc
+		..()
+		move_update_air(T)
 
 	proc/updateicon()
 		if(metal == 1)
@@ -1107,6 +1109,9 @@ steam.start() -- spawns the effect
 
 	CanPass(atom/movable/mover, turf/target, height=1.5, air_group = 0)
 		if(air_group) return 0
+		return !density
+
+	CanAtmosPass()
 		return !density
 
 /datum/effect/effect/system/reagents_explosion

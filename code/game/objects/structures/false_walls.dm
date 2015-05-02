@@ -6,68 +6,6 @@
 // Also affects admin alerts.
 #define FALSEDOOR_MAX_PRESSURE_DIFF 25.0
 
-/**
-* Gets the highest and lowest pressures from the tiles in cardinal directions
-* around us, then checks the difference.
-*/
-/proc/getOPressureDifferential(var/turf/loc)
-	var/minp=16777216;
-	var/maxp=0;
-	for(var/dir in cardinal)
-		var/turf/simulated/T=get_turf(get_step(loc,dir))
-		var/cp=0
-		if(T && istype(T) && T.zone)
-			var/datum/gas_mixture/environment = T.return_air()
-			cp = environment.return_pressure()
-		else
-			if(istype(T,/turf/simulated))
-				continue
-		if(cp<minp)minp=cp
-		if(cp>maxp)maxp=cp
-	return abs(minp-maxp)
-
-// Checks pressure here vs. around us.
-/proc/performFalseWallPressureCheck(var/turf/loc)
-	var/turf/simulated/lT=loc
-	if(!istype(lT) || !lT.zone)
-		return 0
-	var/datum/gas_mixture/myenv=lT.return_air()
-	var/pressure=myenv.return_pressure()
-
-	for(var/dir in cardinal)
-		var/turf/simulated/T=get_turf(get_step(loc,dir))
-		if(T && istype(T) && T.zone)
-			var/datum/gas_mixture/environment = T.return_air()
-			var/pdiff = abs(pressure - environment.return_pressure())
-			if(pdiff > FALSEDOOR_MAX_PRESSURE_DIFF)
-				return pdiff
-	return 0
-
-/proc/performWallPressureCheck(var/turf/loc)
-	var/pdiff = getOPressureDifferential(loc)
-	if(pdiff > FALSEDOOR_MAX_PRESSURE_DIFF)
-		return pdiff
-	return 0
-
-/client/proc/pdiff()
-	set name = "Get PDiff"
-	set category = "Debug"
-
-	if(!mob || !holder)
-		return
-	var/turf/T = mob.loc
-
-	if (!( istype(T, /turf) ))
-		return
-
-	var/pdiff = getOPressureDifferential(T)
-	var/fwpcheck=performFalseWallPressureCheck(T)
-	var/wpcheck=performWallPressureCheck(T)
-
-	src << "Pressure Differential (cardinals): [pdiff]"
-	src << "FWPCheck: [fwpcheck]"
-	src << "WPCheck: [wpcheck]"
-
 /obj/structure/falsewall
 	name = "wall"
 	desc = "A huge chunk of metal used to seperate rooms."
@@ -97,7 +35,7 @@
 	for(var/obj/structure/falsewall/W in range(temploc,1))
 		W.relativewall()
 	..()
-	
+
 /obj/structure/falsewall/relativewall()
 
 	if(!density)
@@ -140,7 +78,7 @@
 		SetOpacity(1)
 		update_icon()
 	opening = 0
-	
+
 /obj/structure/falsewall/proc/do_the_flick()
 	if(density)
 		flick("[walltype]fwall_opening", src)
@@ -154,7 +92,7 @@
 			relativewall()
 	else
 		icon_state = "[walltype]fwall_open"
-		
+
 /obj/structure/falsewall/proc/ChangeToWall(delete = 1)
 	var/turf/T = get_turf(src)
 	if(!walltype || walltype == "metal")
@@ -257,7 +195,7 @@
 				junction |= get_dir(src,W)
 	icon_state = "rwall[junction]"
 	return
-	
+
 /*
  * Uranium Falsewalls
  */
@@ -321,7 +259,17 @@
 	desc = "A wall with plasma plating. This is definately a bad idea."
 	icon_state = ""
 	mineral = "plasma"
-	walltype = "plasma"	
+	walltype = "plasma"
+
+/obj/structure/falsewall/plasma/proc/burnbabyburn(user)
+	playsound(src, 'sound/items/Welder.ogg', 100, 1)
+	atmos_spawn_air(SPAWN_HEAT | SPAWN_TOXINS, 400)
+	new /obj/structure/girder/displaced(loc)
+	qdel(src)
+
+/obj/structure/falsewall/plasma/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
+	if(exposed_temperature > 300)
+		burnbabyburn()
 
 //-----------wtf?-----------start
 /obj/structure/falsewall/clown

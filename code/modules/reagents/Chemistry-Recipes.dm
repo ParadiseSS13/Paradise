@@ -17,6 +17,7 @@ datum
 		var/required_temp = 0
 		var/mix_message = "The solution begins to bubble."
 		var/mix_sound = 'sound/effects/bubbles.ogg'
+		var/no_message = 0
 
 
 		proc
@@ -379,6 +380,7 @@ datum
 			mix_message = "The mixture gives off a sharp acidic tang."
 
 ///////Changeling Blood Test/////////////
+/*
 		changeling_test
 			name = "Changeling blood test"
 			id = "changelingblood"
@@ -403,6 +405,7 @@ datum
 						M.show_message( "<span class ='notice'>The blood seems to break apart in the fuel.</span>", 1)
 				holder.del_reagent("blood")
 				return
+*/
 
 /////////////////////////////////////////////NEW SLIME CORE REACTIONS/////////////////////////////////////////////
 
@@ -641,19 +644,13 @@ datum
 			required_container = /obj/item/slime_extract/orange
 			required_other = 1
 			on_reaction(var/datum/reagents/holder)
-				for(var/mob/O in viewers(get_turf_loc(holder.my_atom), null))
+				feedback_add_details("slime_cores_used","[replacetext(name," ","_")]")
+				for(var/mob/O in viewers(get_turf(holder.my_atom), null))
 					O.show_message(text("\red The slime extract begins to vibrate violently !"), 1)
 				sleep(50)
-				var/turf/location = get_turf(holder.my_atom.loc)
-				for(var/turf/simulated/floor/target_tile in range(0,location))
-
-					var/datum/gas_mixture/napalm = new
-
-					napalm.toxins = 25
-					napalm.temperature = 1400
-
-					target_tile.assume_air(napalm)
-					spawn (0) target_tile.hotspot_expose(700, 400)
+				var/turf/simulated/T = get_turf(holder.my_atom)
+				if(istype(T))
+					T.atmos_spawn_air(SPAWN_HEAT | SPAWN_TOXINS, 50)
 
 //Yellow
 		slimeoverload

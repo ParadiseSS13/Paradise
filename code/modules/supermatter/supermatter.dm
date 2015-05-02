@@ -155,84 +155,67 @@
 	if(grav_pulling)
 		supermatter_pull()
 
-	//Ok, get the air from the turf
-	var/datum/gas_mixture/removed = null
-	var/datum/gas_mixture/env = null
+		//Ok, get the air from the turf
+	var/datum/gas_mixture/env = L.return_air()
 
-	//ensure that damage doesn't increase too quickly due to super high temperatures resulting from no coolant, for example. We dont want the SM exploding before anyone can react.
-	//We want the cap to scale linearly with power (and explosion_point). Let's aim for a cap of 5 at power = 900 (based on testing, equals roughly 5% per SM alert announcement).
-	var/damage_inc_limit = (power/900)*(explosion_point/1000)*DAMAGE_RATE_LIMIT
+	//Remove gas from surrounding area
+	var/datum/gas_mixture/removed = env.remove(gasefficency * env.total_moles())
 
-	if(!istype(L, /turf/space))
-		env = L.return_air()
-		removed = env.remove(gasefficency * env.total_moles)	//Remove gas from surrounding area
+	if(!removed || !removed.total_moles())
+		damage += max((power-1600)/10, 0)
+		power = min(power, 1600)
+		return 1
 
-	if(!env || !removed || !removed.total_moles)
-		damage += max(((power-(1600*POWER_FACTOR)))/10, 0)	//exciting the supermatter in a vacuum means the internal energy is mostly locked inside.
-	else if (grav_pulling) //If supermatter is detonating, remove all air from the zone
-		env.remove(env.total_moles)
+	damage_archived = damage
+	damage = max( damage + ( (removed.temperature - 800) / 150 ) , 0 )
+	//Ok, 100% oxygen atmosphere = best reaction
+	//Maxes out at 100% oxygen pressure
+	oxygen = max(min((removed.oxygen - (removed.nitrogen * NITROGEN_RETARDATION_FACTOR)) / MOLES_CELLSTANDARD, 1), 0)
+
+	var/temp_factor = 50
+
+	if(oxygen > 0.8)
+		// with a perfect gas mix, make the power less based on heat
+		icon_state = "[base_icon_state]_glow"
 	else
-		damage_archived = damage
+		// in normal mode, base the produced energy around the heat
+		temp_factor = 30
+		icon_state = base_icon_state
 
-		damage = max( damage + min( ( (removed.temperature - 800) / 150 ), damage_inc_limit ) , 0 )
-		//Ok, 100% oxygen atmosphere = best reaction
-		//Maxes out at 100% oxygen pressure
-		oxygen = max(min((removed.oxygen - (removed.nitrogen * NITROGEN_RETARDATION_FACTOR)) / MOLES_CELLSTANDARD, 1), 0)
+	power = max( (removed.temperature * temp_factor / T0C) * oxygen + power, 0) //Total laser power plus an overload
 
-		var/temp_factor = 100
+	//We've generated power, now let's transfer it to the collectors for storing/usage
+	transfer_energy()
 
-		if(oxygen > 0.8)
-			// with a perfect gas mix, make the power less based on heat
-			icon_state = "[base_icon_state]_glow"
-		else
-			// in normal mode, base the produced energy around the heat
-			temp_factor = 60
-			icon_state = base_icon_state
+	var/device_energy = power * REACTION_POWER_MODIFIER
 
-		power = max( (removed.temperature * temp_factor / T0C) * oxygen + power, 0) //Total laser power plus an overload
+	//To figure out how much temperature to add each tick, consider that at one atmosphere's worth
+	//of pure oxygen, with all four lasers firing at standard energy and no N2 present, at room temperature
+	//that the device energy is around 2140. At that stage, we don't want too much heat to be put out
+	//Since the core is effectively "cold"
 
-		//We've generated power, now let's transfer it to the collectors for storing/usage
-		transfer_energy()
+	//Also keep in mind we are only adding this temperature to (efficiency)% of the one tile the rock
+	//is on. An increase of 4*C @ 25% efficiency here results in an increase of 1*C / (#tilesincore) overall.
+	removed.temperature += (device_energy / THERMAL_RELEASE_MODIFIER)
 
-		var/device_energy = power * REACTION_POWER_MODIFIER
+	removed.temperature = max(0, min(removed.temperature, 2500))
 
-		//To figure out how much temperature to add each tick, consider that at one atmosphere's worth
-		//of pure oxygen, with all four lasers firing at standard energy and no N2 present, at room temperature
-		//that the device energy is around 2140. At that stage, we don't want too much heat to be put out
-		//Since the core is effectively "cold"
+	//Calculate how much gas to release
+	removed.toxins += max(device_energy / PLASMA_RELEASE_MODIFIER, 0)
 
-		//Also keep in mind we are only adding this temperature to (efficiency)% of the one tile the rock
-		//is on. An increase of 4*C @ 25% efficiency here results in an increase of 1*C / (#tilesincore) overall.
+	removed.oxygen += max((device_energy + removed.temperature - T0C) / OXYGEN_RELEASE_MODIFIER, 0)
 
-		var/thermal_power = THERMAL_RELEASE_MODIFIER
-
-		//This shouldn't be necessary. If the number of moles is low, then heat_capacity should be tiny.
-		//if(removed.total_moles < 35) thermal_power += 750   //If you don't add coolant, you are going to have a bad time.
-
-		removed.temperature += ((device_energy * thermal_power) / removed.heat_capacity())
-
-		removed.temperature = max(0, min(removed.temperature, 10000))
-
-		//Calculate how much gas to release
-		removed.toxins += max(device_energy / PLASMA_RELEASE_MODIFIER, 0)
-
-		removed.oxygen += max((device_energy + removed.temperature - T0C) / OXYGEN_RELEASE_MODIFIER, 0)
-
-		removed.update_values()
-
-		env.merge(removed)
+	env.merge(removed)
 
 	for(var/mob/living/carbon/human/l in view(src, min(7, round(power ** 0.25)))) // If they can see it without mesons on.  Bad on them.
 		if(!istype(l.glasses, /obj/item/clothing/glasses/meson))
-			l.hallucination = max(0, min(200, l.hallucination + power * config_hallucination_power * sqrt( 1 / max(1,get_dist(l, src)) ) ) )
+			l.hallucination = max(0, min(200, l.hallucination + power * config_hallucination_power * sqrt( 1 / max(1, get_dist(l, src)) ) ) )
 
-	//adjusted range so that a power of 600 (pretty high) results in 8 tiles, roughly the distance from the core to the engine monitoring room.
-	//at power of 1210 this becomes 9 tiles --> increases very very slowly.
-	for(var/mob/living/l in range(src, round((power / 0.146484375) ** 0.25)))
-		var/rads = (power / 10) * sqrt( 1 / get_dist(l, src) )
-		l.apply_effect(rads, IRRADIATE)
+	for(var/mob/living/l in range(src, round((power / 100) ** 0.25)))
+		var/rads = (power / 10) * sqrt( 1 / max(get_dist(l, src),1) )
+		l.apply_effect(irradiate=rads)
 
-	power -= (power/500)**3		//energy losses due to radiation
+	power -= (power/500)**3
 
 	return 1
 
@@ -354,11 +337,4 @@
 
 	if(defer_powernet_rebuild != 2)
 		defer_powernet_rebuild = 0
-	return
-
-
-/obj/machinery/power/supermatter/GotoAirflowDest(n) //Supermatter not pushed around by airflow
-	return
-
-/obj/machinery/power/supermatter/RepelAirflowDest(n)
 	return

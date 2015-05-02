@@ -230,11 +230,11 @@
 			open = 0
 			if(!unwrenched && !circuit_removed)
 				src.stat &= ~MAINT
-			user << "You open the [src]'s maintenance panel."
+			user << "You close \the [src]'s maintenance panel."
 		else
 			open = 1
 			src.stat |= MAINT
-			user << "You close the [src]'s maintenance panel."
+			user << "You open \the [src]'s maintenance panel."
 	if(istype(I,/obj/item/weapon/crowbar))
 		if(open)
 			user << "\blue You begin to pry out the [src]'s circuits."
@@ -257,6 +257,7 @@
 				return
 		else
 			..(I,user)
+
 	if(istype(I,/obj/item/weapon/circuitboard/programmable))
 		if(!open)
 			user << "You have to open the machine first!"
@@ -553,9 +554,9 @@
 	origin_tech = "engineering=3;programming=6"
 	frame_desc = "Requires 2 Manipulators, 1 Scanning Module, 1 Cable."
 	req_components = list(
-							"/obj/item/weapon/stock_parts/scanning_module" = 1,
-							"/obj/item/weapon/stock_parts/manipulator" = 2,
-							"/obj/item/stack/cable_coil" = 1)
+							/obj/item/weapon/stock_parts/scanning_module = 1,
+							/obj/item/weapon/stock_parts/manipulator = 2,
+							/obj/item/stack/cable_coil = 1)
 
 	//Customization of the machine
 	var/datum/cargoprofile/default = new/datum/cargoprofile()

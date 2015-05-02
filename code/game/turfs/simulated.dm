@@ -15,6 +15,9 @@
 	..()
 	levelupdate()
 
+/turf/simulated/proc/burn_tile()
+	return
+
 /turf/simulated/proc/MakeSlippery(var/wet_setting = 1) // 1 = Water, 2 = Lube
 	if(wet >= wet_setting)
 		return
@@ -157,7 +160,7 @@
 					else
 						M.inertia_dir = 0
 						return
-				else if(!istype(M, /mob/living/carbon/metroid) || (M:species.bodyflags & FEET_NOSLIP))
+				else if(!istype(M, /mob/living/carbon/slime) || (M:species.bodyflags & FEET_NOSLIP))
 					if (M.m_intent == "run" && prob(30))
 						M.stop_pulling()
 						step(M, M.dir)

@@ -1223,10 +1223,10 @@ var/global/list/obj/item/device/pda/PDAs = list()
 
 			if (istype(A, /obj/machinery/atmospherics/pipe/tank))
 				var/obj/icon = A
-				for (var/mob/O in viewers(user, null))
-					O << "\red [user] has used [src] on \icon[icon] [A]"
-
 				var/obj/machinery/atmospherics/pipe/tank/T = A
+				for (var/mob/O in viewers(user, null))
+					O << "\red [user] has used [src] on \icon[icon] [T]"
+
 				var/pressure = T.parent.air.return_pressure()
 				var/total_moles = T.parent.air.total_moles()
 

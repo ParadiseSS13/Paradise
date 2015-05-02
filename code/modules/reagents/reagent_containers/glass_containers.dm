@@ -1,4 +1,4 @@
-////////////////////////////////////////////////////////////////////////////////
+ ////////////////////////////////////////////////////////////////////////////////
 /// (Mixing)Glass.
 ////////////////////////////////////////////////////////////////////////////////
 /obj/item/weapon/reagent_containers/glass
@@ -190,6 +190,7 @@
 	item_state = "beaker"
 	m_amt = 0
 	g_amt = 500
+	var/obj/item/device/assembly_holder/assembly = null
 
 	on_reagent_change()
 		update_icon()
@@ -228,6 +229,55 @@
 		if (!is_open_container())
 			var/image/lid = image(icon, src, "lid_[initial(icon_state)]")
 			overlays += lid
+		if(assembly)
+			overlays += "assembly"
+
+/obj/item/weapon/reagent_containers/glass/beaker/verb/remove_assembly()
+	set name = "Remove Assembly"
+	set category = "Object"
+	set src in usr
+	if(usr.stat || !usr.canmove || usr.restrained())
+		return
+	if (assembly)
+		usr << "<span class='notice'>You detach [assembly] from \the [src]</span>"
+		usr.put_in_hands(assembly)
+		assembly = null
+		update_icon()
+	else
+		usr << "<span class='notice'>There is no assembly to remove.</span>"
+
+/obj/item/weapon/reagent_containers/glass/beaker/proc/heat_beaker()
+	if(reagents)
+		reagents.chem_temp += 30
+		reagents.handle_reactions()
+
+/obj/item/weapon/reagent_containers/glass/beaker/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
+	if (istype(W,/obj/item/device/assembly_holder))
+		if (assembly)
+			usr << "<span class='warning'>The [src] already has an assembly.</span>"
+			return ..()
+		assembly = W
+		user.drop_item()
+		W.loc = src
+		overlays += "assembly"
+	else
+		..()
+
+/obj/item/weapon/reagent_containers/glass/beaker/HasProximity(atom/movable/AM)
+	if(assembly)
+		assembly.HasProximity(AM)
+
+/obj/item/weapon/reagent_containers/glass/beaker/Crossed(atom/movable/AM)
+	if(assembly)
+		assembly.Crossed(AM)
+
+/obj/item/weapon/reagent_containers/glass/beaker/on_found(mob/finder as mob) //for mousetraps
+	if(assembly)
+		assembly.on_found(finder)
+
+/obj/item/weapon/reagent_containers/glass/beaker/hear_talk(mob/living/M, msg)
+	if(assembly)
+		assembly.hear_talk(M, msg)
 
 /obj/item/weapon/reagent_containers/glass/beaker/large
 	name = "large beaker"

@@ -310,7 +310,11 @@
 	pc.Blend(tiny_img,ICON_OVERLAY, 12, 19)
 
 	var/datum/picture/P = new()
-	P.fields["name"] = "photo"
+	if(istype(src,/obj/item/device/camera/digital))
+		P.fields["name"] = input(user,"Name photo:","photo")
+		P.name = P.fields["name"]//So the name is displayed on the print/delete list.
+	else
+		P.fields["name"] = "photo"
 	P.fields["author"] = user
 	P.fields["icon"] = ic
 	P.fields["tiny"] = pc
@@ -351,6 +355,82 @@
 
 	return p
 
+/*****************
+* digital camera *
+******************/
+/obj/item/device/camera/digital
+	name = "digital camera"
+	desc = "A digital camera. A small screen shows there is space for 10 photos left."
+	var/list/datum/picture/saved_pictures = list()
+	pictures_left = 30
+	var/max_storage = 10
+
+/obj/item/device/camera/digital/afterattack(atom/target as mob|obj|turf|area, mob/user as mob, flag)
+	if(!on || !pictures_left || ismob(target.loc)) return
+	captureimage(target, user, flag)
+
+	playsound(loc, pick('sound/items/polaroid1.ogg', 'sound/items/polaroid2.ogg'), 75, 1, -3)
+
+	desc = "A digital camera. A small screen shows that there are currently [saved_pictures.len] pictures stored."
+	icon_state = icon_off
+	on = 0
+	spawn(64)
+		icon_state = icon_on
+		on = 1
+
+/obj/item/device/camera/digital/captureimage(atom/target, mob/user, flag)
+	if(saved_pictures.len >= max_storage)
+		user << "<span class='notice'>Maximum photo storage capacity reached.</span>"
+		return
+	user << "Picture saved."
+	var/x_c = target.x - (size-1)/2
+	var/y_c = target.y + (size-1)/2
+	var/z_c	= target.z
+	var/list/turfs = list()
+	var/mobs = ""
+	for(var/i = 1; i <= size; i++)
+		for(var/j = 1; j <= size; j++)
+			var/turf/T = locate(x_c, y_c, z_c)
+			if(can_capture_turf(T, user))
+				turfs.Add(T)
+				mobs += get_mobs(T)
+			x_c++
+		y_c--
+		x_c = x_c - size
+
+	var/datum/picture/P = createpicture(target, user, turfs, mobs, flag)
+	saved_pictures += P
+
+/obj/item/device/camera/digital/verb/print_picture()
+	set name = "Print picture"
+	set category = "Object"
+	set src in usr
+
+	if(saved_pictures.len == 0)
+		usr << "<span class='userdanger'>No images saved.</span>"
+		return
+	if(pictures_left == 0)
+		usr << "<span class='userdanger'>There is no film left to print.</span>"
+		return
+
+	var/datum/picture/P = null
+	P = input("Select image to print:",P) as null|anything in saved_pictures
+	if(P)
+		printpicture(usr,P)
+		pictures_left --
+
+/obj/item/device/camera/digital/verb/delete_picture()
+	set name = "Delete picture"
+	set category = "Object"
+	set src in usr
+
+	if(saved_pictures.len == 0)
+		usr << "<span class='userdanger'>No images saved</span>"
+		return
+	var/datum/picture/P = null
+	P = input("Select image to delete:",P) as null|anything in saved_pictures
+	if(P)
+		saved_pictures -= P
 
 /**************
 *video camera *

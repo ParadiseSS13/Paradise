@@ -7,3 +7,4 @@
 	else
 		biomass_infestation()
 	spacevines_spawned = 1
+v

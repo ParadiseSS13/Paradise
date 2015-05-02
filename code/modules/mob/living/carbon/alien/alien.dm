@@ -152,6 +152,7 @@
 	bodytemperature += BODYTEMP_HEATING_MAX //If you're on fire, you heat up!
 	return
 
+
 /mob/living/carbon/alien/IsAdvancedToolUser()
 	return has_fine_manipulation
 

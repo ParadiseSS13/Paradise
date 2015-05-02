@@ -32,11 +32,11 @@
 	else
 		heal_overall_damage(0, -amount)
 
-/mob/living/silicon/robot/proc/get_damaged_components(var/brute, var/burn)
+/mob/living/silicon/robot/proc/get_damaged_components(var/brute, var/burn, var/get_all)
 	var/list/datum/robot_component/parts = list()
 	for(var/V in components)
 		var/datum/robot_component/C = components[V]
-		if(C.installed == 1) if((brute && C.brute_damage) || (burn && C.electronics_damage))
+		if(C.installed == 1 || get_all) if((brute && C.brute_damage) || (burn && C.electronics_damage))
 			parts += C
 	return parts
 

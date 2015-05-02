@@ -8,8 +8,6 @@
 	var/mob/affecting = null
 	var/deity_name = "Christ"
 
-	autoignition_temperature = 522 // Kelvin
-
 	suicide_act(mob/user)
 		viewers(user) << "<span class='warning'><b>[user] stares into [src.name] and attempts to trascend understanding of the universe!</b></span>"
 		return (user.dust())
@@ -19,8 +17,6 @@
 	name = "bible"
 	desc = "To be applied to the head repeatedly."
 	icon_state ="bible"
-
-	autoignition_temperature = 0 // Not actually paper
 
 /obj/item/weapon/storage/bible/booze/New()
 	..()

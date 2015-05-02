@@ -53,7 +53,8 @@
 	sleep(5)
 	src.density = 0
 	sleep(5)
-	update_nearby_tiles()
+	air_update_turf(1)
+	update_freelok_sight()
 
 	if(operating == 1) //emag again
 		src.operating = 0
@@ -69,7 +70,8 @@
 	flick("pdoorc1", src)
 	src.icon_state = "pdoor1"
 	src.SetOpacity(initial(opacity))
-	update_nearby_tiles()
+	air_update_turf(1)
+	update_freelok_sight()
 	sleep(5)
 	crush()
 	src.density = 1
@@ -147,7 +149,8 @@
 	f3.density = 0
 	f3.SetOpacity(0)
 
-	update_nearby_tiles()
+	air_update_turf(1)
+	update_freelok_sight()
 
 	if(operating == 1) //emag again
 		src.operating = 0
@@ -173,7 +176,8 @@
 
 	if (src.visible)
 		src.SetOpacity(1)
-	update_nearby_tiles()
+	air_update_turf(1)
+	update_freelok_sight()
 
 	sleep(10)
 	src.operating = 0
@@ -201,7 +205,8 @@
 	f4.density = 0
 	f4.SetOpacity(0)
 
-	update_nearby_tiles()
+	air_update_turf(1)
+	update_freelok_sight()
 
 	if(operating == 1) //emag again
 		src.operating = 0
@@ -229,7 +234,8 @@
 
 	if (src.visible)
 		src.SetOpacity(1)
-	update_nearby_tiles()
+	air_update_turf(1)
+	update_freelok_sight()
 
 	sleep(10)
 	src.operating = 0
@@ -304,7 +310,8 @@
 	f3.density = 0
 	f3.SetOpacity(0)
 
-	update_nearby_tiles()
+	air_update_turf(1)
+	update_freelok_sight()
 
 	if(operating == 1) //emag again
 		src.operating = 0
@@ -330,7 +337,8 @@
 
 	if (src.visible)
 		src.SetOpacity(1)
-	update_nearby_tiles()
+	air_update_turf(1)
+	update_freelok_sight()
 
 	sleep(10)
 	src.operating = 0
@@ -358,7 +366,8 @@
 	f4.density = 0
 	f4.SetOpacity(0)
 
-	update_nearby_tiles()
+	air_update_turf(1)
+	update_freelok_sight()
 
 	if(operating == 1) //emag again
 		src.operating = 0
@@ -386,7 +395,8 @@
 
 	if (src.visible)
 		src.SetOpacity(1)
-	update_nearby_tiles()
+	air_update_turf(1)
+	update_freelok_sight()
 
 	sleep(10)
 	src.operating = 0
