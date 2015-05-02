@@ -11,9 +11,14 @@
 	var/linkedmist = list() //Used to keep track of created mist
 	var/misted = 0 //Used to check for mist.
 
+	var/list/linkedfalls = list()
+	var/wfon = 0
+
 /obj/machinery/poolcontroller/New() //This proc automatically happens on world start
 	for(var/turf/simulated/floor/beach/water/W in range(srange,src)) //Search for /turf/simulated/floor/beach/water in the range of var/srange
 		src.linkedturfs += W //Add found pool turfs to the central list.
+	for(var/obj/machinery/poolwaterfall/WF in range(srange,src)) //Search for waterfall objects in var/srange
+		src.linkedfalls += WF
 	..() //Changed to call parent as per MarkvA's recommendation
 
 /obj/machinery/poolcontroller/emag_act(user as mob) //Emag_act, this is called when it is hit with a cryptographic sequencer.
@@ -92,12 +97,30 @@
 		del(M)
 	misted = 0 //no mist left, turn off the tracking var
 
+/obj/machinery/poolcontroller/proc/WFtoggle(var/state=0)
+	for(var/obj/machinery/poolwaterfall/WF in linkedfalls)
+		WF.ToggleState(state)
+	wfon = state
+
+/obj/machinery/poolcontroller/proc/getWFnum()
+	return src.linkedfalls.len
+
+/obj/machinery/poolcontroller/proc/getWFstat()
+	switch(wfon)
+		if(1)
+			return "On"
+		if(0)
+			return "Off"
+	return "Off"
+
 /obj/machinery/poolcontroller/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
 	var/data[0]
 
 	data["currentTemp"] = capitalize(src.temperature)
 	data["emagged"] = emagged
 	data["TempColor"] = temperaturecolor
+	data["wfallstatus"] = getWFstat()
+	data["linkedfalls"] = getWFnum()
 
 	ui = nanomanager.try_update_ui(user, src, ui_key, ui, data, force_open)
 	if(!ui)
@@ -108,30 +131,82 @@
 /obj/machinery/poolcontroller/Topic(href, href_list)
 	if(..())	return 1
 
-	switch(href_list["temp"])
-		if("Scalding")
-			if(!src.emagged)
-				return 0
-			src.temperature = "scalding"
-			src.temperaturecolor = "#FF0000"
-			miston()
-		if("Frigid")
-			if(!src.emagged)
-				return 0
-			src.temperature = "frigid"
-			src.temperaturecolor = "#00CCCC"
-			mistoff()
-		if("Warm")
-			src.temperature = "warm"
-			src.temperaturecolor = "#990000"
-			mistoff()
-		if("Cool")
-			src.temperature = "cool"
-			src.temperaturecolor = "#009999"
-			mistoff()
-		if("Normal")
-			src.temperature = "normal"
-			src.temperaturecolor = ""
-			mistoff()
+	if(href_list["temp"])
+		switch(href_list["temp"])
+			if("Scalding")
+				if(!src.emagged)
+					return 0
+				src.temperature = "scalding"
+				src.temperaturecolor = "#FF0000"
+				miston()
+			if("Frigid")
+				if(!src.emagged)
+					return 0
+				src.temperature = "frigid"
+				src.temperaturecolor = "#00CCCC"
+				mistoff()
+			if("Warm")
+				src.temperature = "warm"
+				src.temperaturecolor = "#990000"
+				mistoff()
+			if("Cool")
+				src.temperature = "cool"
+				src.temperaturecolor = "#009999"
+				mistoff()
+			if("Normal")
+				src.temperature = "normal"
+				src.temperaturecolor = ""
+				mistoff()
+
+	else if(href_list["WFtoggle"])
+		switch(href_list["WFtoggle"])
+			if("wfallon")
+				src.WFtoggle(1)
+			if("wfalloff")
+				src.WFtoggle(0)
 
 	return 1
+
+/////////////////////////////
+/////// MISC OBJECTS ////////
+/////////////////////////////
+
+/obj/machinery/poolwaterfall
+	name = "waterfall port"
+	desc = "Wooossshh."
+	icon = 'icons/obj/stationobjs.dmi'
+	icon_state = "wfnozzle_0"
+	var/on = 0
+
+/obj/machinery/poolwaterfall/New()
+	..()
+	src.layer = MOB_LAYER + 0.2 //intended to be on pool turfs, needs to be above the pool overlay
+
+/obj/machinery/poolwaterfall/update_icon()
+	flick("wfnozzle_a[on]",src)
+	icon_state = "wfnozzle_[on]"
+
+/obj/machinery/poolwaterfall/proc/SwitchOn()
+	src.visible_message("<span class='notice'>\The [src] switches on.</span>", \
+	 "<span class='notice'>\The [src] switches on.</span>", \
+	 "<span class='notice'>You hear water falling.</span>")
+	src.on = 1
+	src.update_icon()
+
+/obj/machinery/poolwaterfall/proc/SwitchOff()
+	src.visible_message("<span class='notice'>\The [src] switches off.</span>", \
+	 "<span class='notice'>\The [src] switches off.</span>", \
+	 "<span class='notice'>You hear water abruptly stop falling.</span>")
+	src.on = 0
+	src.update_icon()
+
+/obj/machinery/poolwaterfall/proc/ToggleState(var/state=0)
+	switch(state)
+		if(1)
+			if(!src.on)
+				src.SwitchOn()
+		if(0)
+			if(src.on)
+				src.SwitchOff()
+		else
+			return

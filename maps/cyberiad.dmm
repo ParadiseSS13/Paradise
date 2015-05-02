@@ -1822,7 +1822,7 @@
 "aJb" = (/obj/machinery/door/airlock/maintenance{name = "Bar Office Maintenance"; req_access_txt = "25"},/obj/structure/disposalpipe/segment{dir = 4},/turf/simulated/floor/plating,/area/maintenance/fsmaint2)
 "aJc" = (/obj/structure/cable{d1 = 1; d2 = 2; icon_state = "1-2"; tag = ""},/obj/structure/disposalpipe/sortjunction{sortType = 19},/turf/simulated/floor/plating,/area/maintenance/fsmaint2)
 "aJd" = (/obj/structure/window/reinforced,/obj/structure/window/reinforced{dir = 8},/turf/simulated/floor/beach/water{icon_state = "seadeep"},/area/crew_quarters/fitness)
-"aJe" = (/obj/structure/window/reinforced,/turf/simulated/floor/beach/water{icon_state = "seadeep"},/area/crew_quarters/fitness)
+"aJe" = (/obj/structure/window/reinforced,/obj/machinery/poolwaterfall{pixel_y = 7},/turf/simulated/floor/beach/water{icon_state = "seadeep"},/area/crew_quarters/fitness)
 "aJf" = (/obj/structure/window/reinforced,/obj/machinery/light,/obj/machinery/camera{c_tag = "Fitness Room Pool"; dir = 1; network = list("SS13")},/turf/simulated/floor/beach/water{icon_state = "seadeep"},/area/crew_quarters/fitness)
 "aJg" = (/obj/structure/window/reinforced,/obj/structure/window/reinforced{dir = 4},/turf/simulated/floor/beach/water{icon_state = "seadeep"},/area/crew_quarters/fitness)
 "aJh" = (/obj/structure/cable{icon_state = "0-4"; d2 = 4},/obj/machinery/power/apc{dir = 8; name = "Fore Starboard Solar APC"; pixel_x = -25; pixel_y = 3},/turf/simulated/floor/plating,/area/maintenance/auxsolarstarboard)
