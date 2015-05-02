@@ -49,6 +49,8 @@ In all, this is a lot like the monkey code. /N
 /mob/living/carbon/alien/attack_hand(mob/living/carbon/human/M as mob)
 	if(..())	//to allow surgery to return properly.
 		return 0
+	if(istype(src,/mob/living/carbon/alien/humanoid))
+		return 0 //this is horrible but 100% necessary
 
 	switch(M.a_intent)
 		if("help")
