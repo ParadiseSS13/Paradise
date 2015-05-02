@@ -5,6 +5,7 @@
 	anchored = 1
 	w_class = 4.0
 	canhear_range = 2
+	flags = CONDUCT | NOBLOODY
 	var/number = 0
 	var/anyai = 1
 	var/circuitry_installed=1
@@ -56,15 +57,15 @@
 			return -1
 	if (!src.listening)
 		return -1
-	if(freq == SYND_FREQ)
+	if(freq in ANTAG_FREQS)
 		if(!(src.syndie))
 			return -1//Prevents broadcast of messages over devices lacking the encryption
 
 	return canhear_range
 
 
-/obj/item/device/radio/intercom/hear_talk(message, atom/movable/speaker, message_langs, raw_message, radio_freq)
-	if(!src.anyai && !(speaker in src.ai))
+/obj/item/device/radio/intercom/hear_talk(mob/M as mob, msg)
+	if(!src.anyai && !(M in src.ai))
 		return
 	..()
 
