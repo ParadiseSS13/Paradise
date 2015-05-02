@@ -200,7 +200,7 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 				reagents.reaction(C, INGEST)
 			reagents.trans_to(C, REAGENTS_METABOLISM)
 			if(!reagents.total_volume) // There were reagents, but now they're gone
-				C << "<span class='notice'>Your [name] no longer tastes the same...</span>"
+				C << "<span class='notice'>Your [name] loses its flavor.</span>"
 		else // else just remove some of the reagents
 			reagents.remove_any(REAGENTS_METABOLISM)
 	return
