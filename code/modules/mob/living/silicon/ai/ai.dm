@@ -6,7 +6,6 @@ var/list/ai_verbs_default = list(
 	/mob/living/silicon/ai/proc/ai_alerts,
 	/mob/living/silicon/ai/proc/announcement,
 	/mob/living/silicon/ai/proc/ai_call_shuttle,
-	/mob/living/silicon/ai/proc/ai_cancel_call,
 	/mob/living/silicon/ai/proc/ai_camera_track,
 	/mob/living/silicon/ai/proc/ai_camera_list,
 	/mob/living/silicon/ai/proc/ai_goto_location,
