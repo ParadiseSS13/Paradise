@@ -819,9 +819,9 @@ var/list/robot_verbs_default = list(
 		return ..()
 
 /mob/living/silicon/robot/emag_act(user as mob)
-	if(!ishuman(user))
+	if(!ishuman(user) && !issilicon(user))
 		return
-	var/mob/living/carbon/human/H = user
+	var/mob/living/M = user
 	if(!opened)//Cover is closed
 		if(locked)
 			if(prob(90))
@@ -844,8 +844,8 @@ var/list/robot_verbs_default = list(
 			sleep(6)
 			if(prob(50))
 				emagged = 1
-				if(H.hud_used)
-					H.hud_used.update_robot_modules_display()	//Shows/hides the emag item if the inventory screen is already open.
+				if(src.hud_used)
+					src.hud_used.update_robot_modules_display()	//Shows/hides the emag item if the inventory screen is already open.
 				lawupdate = 0
 				connected_ai = null
 				user << "You emag [src]'s interface."
@@ -855,8 +855,8 @@ var/list/robot_verbs_default = list(
 				clear_inherent_laws()
 				laws = new /datum/ai_laws/syndicate_override
 				var/time = time2text(world.realtime,"hh:mm:ss")
-				lawchanges.Add("[time] <B>:</B> [H.name]([H.key]) emagged [name]([key])")
-				set_zeroth_law("Only [H.real_name] and people he designates as being such are Syndicate Agents.")
+				lawchanges.Add("[time] <B>:</B> [M.name]([M.key]) emagged [name]([key])")
+				set_zeroth_law("Only [M.real_name] and people he designates as being such are Syndicate Agents.")
 				src << "\red ALERT: Foreign software detected."
 				sleep(5)
 				src << "\red Initiating diagnostics..."
@@ -872,7 +872,7 @@ var/list/robot_verbs_default = list(
 				src << "\red ERRORERRORERROR"
 				src << "<b>Obey these laws:</b>"
 				laws.show_laws(src)
-				src << "\red \b ALERT: [H.real_name] is your new master. Obey your new laws and his commands."
+				src << "\red \b ALERT: [M.real_name] is your new master. Obey your new laws and his commands."
 				if(src.module && istype(src.module, /obj/item/weapon/robot_module/miner))
 					for(var/obj/item/weapon/pickaxe/borgdrill/D in src.module.modules)
 						del(D)
