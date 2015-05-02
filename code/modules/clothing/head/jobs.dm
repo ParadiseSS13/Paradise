@@ -117,6 +117,11 @@
 	desc = "A beret with the engineering insignia emblazoned on it. For engineers that are more inclined towards style than safety."
 	icon_state = "e_beret_badge"
 
+/obj/item/clothing/head/beret/atmos
+	name = "atmospherics beret"
+	desc = "A beret for those who have shown immaculate proficienty in piping. Or plumbing."
+	icon_state = "a_beret_badge"
+
 //Medical
 /obj/item/clothing/head/surgery
 	name = "surgical cap"
