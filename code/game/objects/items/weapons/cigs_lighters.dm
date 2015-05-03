@@ -67,12 +67,12 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 	var/type_butt = /obj/item/weapon/cigbutt
 	var/lastHolder = null
 	var/smoketime = 300
-	var/chem_volume = 15
+	var/chem_volume = 30
 
 /obj/item/clothing/mask/cigarette/New()
 	..()
 	flags |= NOREACT // so it doesn't react until you light it
-	create_reagents(chem_volume) // making the cigarrete a chemical holder with a maximum volume of 15
+	create_reagents(chem_volume) // making the cigarrete a chemical holder with a maximum volume of 30
 
 /obj/item/clothing/mask/cigarette/Destroy()
 	..()
@@ -258,11 +258,11 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 	throw_speed = 0.5
 	item_state = "cigaroff"
 	smoketime = 1500
-	chem_volume = 20
+	chem_volume = 40
 
 /obj/item/clothing/mask/cigarette/cigar/New()
 	..()
-	reagents.add_reagent("nicotine", chem_volume)
+	reagents.add_reagent("nicotine", chem_volume/2)
 
 /obj/item/clothing/mask/cigarette/cigar/cohiba
 	name = "Cohiba Robusto Cigar"
@@ -278,7 +278,7 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 	icon_on = "cigar2on"
 	icon_off = "cigar2off"
 	smoketime = 7200
-	chem_volume = 30
+	chem_volume = 60
 
 /obj/item/weapon/cigbutt
 	name = "cigarette butt"

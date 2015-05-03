@@ -163,7 +163,7 @@
 /obj/item/weapon/storage/fancy/cigarettes/New()
 	..()
 	flags |= NOREACT
-	create_reagents(15 * storage_slots)//so people can inject cigarettes without opening a packet, now with being able to inject the whole one
+	create_reagents(30 * storage_slots)//so people can inject cigarettes without opening a packet, now with being able to inject the whole one
 	for(var/i = 1 to storage_slots)
 		var/obj/item/clothing/mask/cigarette/C = new /obj/item/clothing/mask/cigarette(src)
 		unlaced_cigarettes += C
@@ -185,7 +185,7 @@
 	if(istype(C) && (C in unlaced_cigarettes)) // Only transfer reagents to each cigarette once
 		reagents.trans_to(C, (reagents.total_volume/unlaced_cigarettes.len))
 		unlaced_cigarettes -= C
-		reagents.maximum_volume = 15 * unlaced_cigarettes.len
+		reagents.maximum_volume = 30 * unlaced_cigarettes.len
 
 /obj/item/weapon/storage/fancy/cigarettes/remove_from_storage(obj/item/W as obj, atom/new_location)
 	lace_cigarette(W)
@@ -228,7 +228,7 @@
 	desc = "An obscure brand of cigarettes."
 	icon_state = "syndiepacket"
 	item_state = "cigpacket"
-	default_reagents = list("omnizine" = 15)
+	default_reagents = list("nicotine" = 15, "omnizine" = 15)
 
 /obj/item/weapon/storage/fancy/cigarettes/cigpack_uplift
 	name = "\improper Uplift Smooth packet"
@@ -247,7 +247,7 @@
 	desc = "Smoked by the truly robust."
 	icon_state = "robustgpacket"
 	item_state = "cigpacket"
-	default_reagents = list("nicotine" = 14, "gold" = 1)
+	default_reagents = list("nicotine" = 15, "gold" = 1)
 
 /obj/item/weapon/storage/fancy/cigarettes/cigpack_carp
 	name = "\improper Carp Classic packet"
@@ -266,8 +266,8 @@
 	desc = "Is your weight slowing you down? Having trouble running away from gravitational singularities? Can't stop stuffing your mouth? Smoke Shady Jim's Super Slims and watch all that fat burn away. Guaranteed results!"
 	icon_state = "shadyjimpacket"
 	item_state = "cigpacket"
-	default_reagents = list("nicotine" = 6.5,
-		"lipolicide" = 4,
+	default_reagents = list("nicotine" = 15,
+		"lipolicide" = 7.5,
 		"ammonia" = 2,
 		"atrazine" = 1,
 		"toxin" = 1.5)
