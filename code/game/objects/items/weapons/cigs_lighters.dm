@@ -185,12 +185,8 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 	if(iscarbon(loc))
 		var/mob/living/carbon/C = loc
 		if(src == C.wear_mask)
-			if(istype(loc, /mob/living/carbon/human))
-				var/mob/living/carbon/human/H = loc
-				if(!(H.species.flags & IS_SYNTHETIC)) // Silly synthetics, you can't smoke. You don't even have mouths.
-					is_being_smoked = 1
-			else
-				is_being_smoked = 1
+			// There used to be a species check here, but synthetics can smoke now
+			is_being_smoked = 1
 	if(location)
 		location.hotspot_expose(700, 5)
 	if(reagents && reagents.total_volume)	//	check if it has any reagents at all
