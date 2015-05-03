@@ -213,7 +213,7 @@
 			del(src)
 
 /obj/item/weapon/grab/proc/checkvalid(var/mob/attacker, var/mob/prey) //does all the checking for the attack proc to see if a mob can eat another with the grab
-	if(ishuman(attacker) && (FAT in attacker.mutations) && iscarbon(prey)) //Fat people eating carbon mobs
+	if(ishuman(attacker) && (FAT in attacker.mutations) && iscarbon(prey) && !isalien(prey)) //Fat people eating carbon mobs but not xenos
 		return 1
 
 	if(isalien(attacker) && iscarbon(prey)) //Xenomorphs eating carbon mobs
