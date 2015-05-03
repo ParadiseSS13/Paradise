@@ -122,6 +122,14 @@
 	build_path = /obj/item/weapon/airlock_electronics
 	category = list("initial", "Electronics")
 
+/datum/design/intercom_electronics
+	name = "Intercom Electronics"
+	id = "intercom_electronics"
+	build_type = AUTOLATHE
+	materials = list("$metal" = 50, "$glass" = 50)
+	build_path = /obj/item/weapon/intercom_electronics
+	category = list("initial", "Electronics")
+
 /datum/design/console_screen
 	name = "Console Screen"
 	id = "console_screen"
