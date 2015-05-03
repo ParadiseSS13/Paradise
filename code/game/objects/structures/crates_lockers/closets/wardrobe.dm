@@ -186,9 +186,9 @@
 	new /obj/item/clothing/head/hardhat/red(src)
 	new /obj/item/clothing/head/hardhat/red(src)
 	new /obj/item/clothing/head/hardhat/red(src)
-	new /obj/item/clothing/head/beret/eng(src)
-	new /obj/item/clothing/head/beret/eng(src)
-	new /obj/item/clothing/head/beret/eng(src)
+	new /obj/item/clothing/head/beret/atmos(src)
+	new /obj/item/clothing/head/beret/atmos(src)
+	new /obj/item/clothing/head/beret/atmos(src)
 	return
 
 

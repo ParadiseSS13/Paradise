@@ -31,6 +31,7 @@
 		new /obj/item/device/multitool(src)
 		new /obj/item/device/flash(src)
 		new /obj/item/taperoll/engineering(src)
+		new /obj/item/clothing/head/beret/eng(src)
 		return
 
 /obj/structure/closet/secure_closet/engineering_electrical
@@ -58,6 +59,7 @@
 		new /obj/item/device/multitool(src)
 		new /obj/item/device/multitool(src)
 		new /obj/item/device/multitool(src)
+		new /obj/item/clothing/head/beret/eng
 		return
 
 
@@ -113,6 +115,7 @@
 		new /obj/item/clothing/glasses/meson(src)
 		new /obj/item/weapon/cartridge/engineering(src)
 		new /obj/item/taperoll/engineering(src)
+		new /obj/item/clothing/head/beret/eng(src)
 		return
 
 /obj/structure/closet/secure_closet/atmos_personal
