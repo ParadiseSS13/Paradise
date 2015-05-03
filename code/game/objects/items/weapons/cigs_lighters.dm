@@ -67,13 +67,12 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 	var/type_butt = /obj/item/weapon/cigbutt
 	var/lastHolder = null
 	var/smoketime = 300
-	var/chem_volume = 15
+	var/chem_volume = 30
 
 /obj/item/clothing/mask/cigarette/New()
 	..()
 	flags |= NOREACT // so it doesn't react until you light it
-	create_reagents(chem_volume) // making the cigarrete a chemical holder with a maximum volume of 15
-	reagents.add_reagent("nicotine", 15)
+	create_reagents(chem_volume) // making the cigarrete a chemical holder with a maximum volume of 30
 
 /obj/item/clothing/mask/cigarette/Destroy()
 	..()
@@ -162,7 +161,6 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 
 
 /obj/item/clothing/mask/cigarette/process()
-	var/turf/location = get_turf(src)
 	var/mob/living/M = loc
 	if(isliving(loc))
 		M.IgniteMob()
@@ -170,28 +168,38 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 	if(smoketime < 1)
 		die()
 		return
-	if(location)
-		location.hotspot_expose(700, 5)
-	if(reagents && reagents.total_volume)	//	check if it has any reagents at all
-		if(iscarbon(loc) && (src == loc:wear_mask)) // if it's in the human/monkey mouth, transfer reagents to the mob
-			if(istype(loc, /mob/living/carbon/human))
-				var/mob/living/carbon/human/H = loc
-				if(H.species.flags & IS_SYNTHETIC)
-					return
-			var/mob/living/carbon/C = loc
-			if(prob(15)) // so it's not an instarape in case of acid
-				reagents.reaction(C, INGEST)
-			reagents.trans_to(C, REAGENTS_METABOLISM)
-		else // else just remove some of the reagents
-			reagents.remove_any(REAGENTS_METABOLISM)
+	smoke()
 	return
 
 
 /obj/item/clothing/mask/cigarette/attack_self(mob/user as mob)
-	if(lit == 1)
+	if(lit)
 		user.visible_message("<span class='notice'>[user] calmly drops and treads on the lit [src], putting it out instantly.</span>")
 		die()
 	return ..()
+
+/obj/item/clothing/mask/cigarette/proc/smoke()
+	var/turf/location = get_turf(src)
+	var/is_being_smoked = 0
+	// Check whether this is actually in a mouth, being smoked
+	if(iscarbon(loc))
+		var/mob/living/carbon/C = loc
+		if(src == C.wear_mask)
+			// There used to be a species check here, but synthetics can smoke now
+			is_being_smoked = 1
+	if(location)
+		location.hotspot_expose(700, 5)
+	if(reagents && reagents.total_volume)	//	check if it has any reagents at all
+		if(is_being_smoked) // if it's being smoked, transfer reagents to the mob
+			var/mob/living/carbon/C = loc
+			if(prob(15)) // so it's not an instarape in case of acid
+				reagents.reaction(C, INGEST)
+			reagents.trans_to(C, REAGENTS_METABOLISM)
+			if(!reagents.total_volume) // There were reagents, but now they're gone
+				C << "<span class='notice'>Your [name] loses its flavor.</span>"
+		else // else just remove some of the reagents
+			reagents.remove_any(REAGENTS_METABOLISM)
+	return
 
 /obj/item/clothing/mask/cigarette/proc/die()
 	var/turf/T = get_turf(src)
@@ -250,7 +258,11 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 	throw_speed = 0.5
 	item_state = "cigaroff"
 	smoketime = 1500
-	chem_volume = 20
+	chem_volume = 40
+
+/obj/item/clothing/mask/cigarette/cigar/New()
+	..()
+	reagents.add_reagent("nicotine", chem_volume/2)
 
 /obj/item/clothing/mask/cigarette/cigar/cohiba
 	name = "Cohiba Robusto Cigar"
@@ -266,7 +278,7 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 	icon_on = "cigar2on"
 	icon_off = "cigar2off"
 	smoketime = 7200
-	chem_volume = 30
+	chem_volume = 60
 
 /obj/item/weapon/cigbutt
 	name = "cigarette butt"
@@ -307,6 +319,10 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 	smoketime = 1000
 	chem_volume = 50
 
+/obj/item/clothing/mask/cigarette/pipe/New()
+	..()
+	reagents.add_reagent("nicotine", chem_volume)
+
 /obj/item/clothing/mask/cigarette/pipe/light(var/flavor_text = "[usr] lights the [name].")
 	if(!src.lit)
 		src.lit = 1
@@ -331,24 +347,11 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 			M.update_inv_wear_mask(0)
 		processing_objects.Remove(src)
 		return
-	if(location)
-		location.hotspot_expose(700, 5)
-	if(reagents && reagents.total_volume)	//	check if it has any reagents at all
-		if(iscarbon(loc) && (src == loc:wear_mask)) // if it's in the human/monkey mouth, transfer reagents to the mob
-			if(istype(loc, /mob/living/carbon/human))
-				var/mob/living/carbon/human/H = loc
-				if(H.species.flags & IS_SYNTHETIC)
-					return
-			var/mob/living/carbon/C = loc
-			if(prob(15)) // so it's not an instarape in case of acid
-				reagents.reaction(C, INGEST)
-			reagents.trans_to(C, REAGENTS_METABOLISM)
-		else // else just remove some of the reagents
-			reagents.remove_any(REAGENTS_METABOLISM)
+	smoke()
 	return
 
 /obj/item/clothing/mask/cigarette/pipe/attack_self(mob/user as mob) //Refills the pipe. Can be changed to an attackby later, if loose tobacco is added to vendors or something.
-	if(lit == 1)
+	if(lit)
 		user.visible_message("<span class='notice'>[user] puts out [src].</span>")
 		lit = 0
 		icon_state = icon_off
