@@ -10,7 +10,7 @@ var/list/robot_verbs_default = list(
 	icon_state = "robot"
 	maxHealth = 100
 	health = 100
-	universal_speak = 1
+	universal_understand = 1
 
 	var/sight_mode = 0
 	var/custom_name = ""
