@@ -86,7 +86,10 @@
 		wrapped.loc = user
 
 		//Pass the attack on to the target. This might delete/relocate wrapped.
-		target.attackby(wrapped,user, params)
+		if(!target.attackby(wrapped, user, params) && target && wrapped)
+			// If the attackby didn't resolve or delete the target or wrapped, afterattack
+			// (Certain things, such as mountable frames, rely on afterattack)
+			wrapped.afterattack(target, user, 1, params)
 
 		//If wrapped did neither get deleted nor put into target, put it back into the gripper.
 		if(wrapped && user && (wrapped.loc == user))
