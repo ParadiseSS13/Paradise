@@ -473,6 +473,7 @@ proc/get_damage_icon_part(damage_state, body_part)
 	..()
 	if(monkeyizing)		return
 	update_mutations(0)
+	force_update_limbs()
 	update_mutantrace(0)
 	update_inv_w_uniform(0,0)
 	update_inv_wear_id(0)
