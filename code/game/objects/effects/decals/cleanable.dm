@@ -31,11 +31,13 @@
 			src.reagents.handle_reactions()
 			user << "<span class='notice'>You heat [src] with [W]!</span>"
 
+/*
 /obj/effect/decal/cleanable/ex_act()
 	if(reagents)
 		for(var/datum/reagent/R in reagents.reagent_list)
 			R.on_ex_act()
 	..()
+*/
 
 /obj/effect/decal/cleanable/fire_act()
 	reagents.chem_temp += 30
