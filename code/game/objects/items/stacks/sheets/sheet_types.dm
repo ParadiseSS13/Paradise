@@ -180,7 +180,35 @@ var/global/list/datum/stack_recipe/wood_recipes = list ( \
 	singular_name = "cloth roll"
 	icon_state = "sheet-cloth"
 	origin_tech = "materials=2"
+/*
+ * Fabric
+ */
+/obj/item/stack/sheet/fabric
+	name = "fabric"
+	desc = "This roll of fabric is made from bits and peices of old uniforms."
+	singular_name = "fabric peice"
+	f_amt = 3750
+	icon_state = "sheet-cloth"
+	origin_tech = "materials=2"
 
+/obj/item/stack/sheet/fabric/full/New()
+	..()
+	amount = 50
+
+/*
+ * Plastic
+ */
+/obj/item/stack/sheet/plastic
+	name = "plastic"
+	desc = "This sheet of plastic is made from odd chemicals"
+	singular_name = "plastic"
+	p_amt = 3750
+	icon_state = "plastic"
+	origin_tech = "materials=2"
+
+/obj/item/stack/sheet/fabric/full/New()
+	..()
+	amount = 50
 /*
  * Cardboard
  */

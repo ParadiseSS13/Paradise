@@ -493,6 +493,22 @@
 	filling_color = "#F7E186"
 	plantname = "wheat"
 
+/obj/item/weapon/reagent_containers/food/snacks/grown/cotton
+	name = "cotton"
+	desc = "Cotton.. In Space!"
+	gender = PLURAL
+	icon_state = "wheat"
+	filling_color = "#F7E186"
+	plantname = "cotton"
+/obj/item/weapon/reagent_containers/food/snacks/grown/cotton/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
+	..()
+	if(istype(W, /obj/item/weapon/wirecutters))
+		user << ("You cut away the stems leaving only the fabric behind!")
+		var/obj/item/stack/sheet/fabric/cotton = new /obj/item/stack/sheet/fabric()
+		cotton.loc = user.loc
+		del(src)
+		return
+
 /obj/item/weapon/reagent_containers/food/snacks/grown/ricestalk
 	name = "rice stalk"
 	desc = "Rice to see you."

@@ -135,7 +135,7 @@
 	id="plastic"
 	value=1
 	oretype=null
-	sheettype=/obj/item/stack/sheet/mineral/plastic
+	sheettype=/obj/item/stack/sheet/plastic
 	cointype=null
 
 /datum/material/fabric
@@ -143,5 +143,5 @@
 	id="fabric"
 	value=20
 	oretype=/obj/item/weapon/ore/fabric
-	sheettype=null
+	sheettype=/obj/item/stack/sheet/fabric
 	cointype=null

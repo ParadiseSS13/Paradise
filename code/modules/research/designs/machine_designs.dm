@@ -172,6 +172,16 @@
 	build_path = /obj/item/weapon/circuitboard/autolathe
 	category = list("Research Machinery")
 
+/datum/design/fabricator
+	name = "Machine Board (Fabricator)"
+	desc = "The circuit board for an Fabricator."
+	id = "fabricator"
+	req_tech = list("programming" = 2, "engineering" = 2)
+	build_type = IMPRINTER
+	materials = list("$glass" = 1000, "sacid" = 20)
+	build_path = /obj/item/weapon/circuitboard/fabricator
+	category = list("Research Machinery")
+
 /datum/design/circuit_imprinter
 	name = "Machine Board (Circuit Imprinter)"
 	desc = "The circuit board for a Circuit Imprinter."

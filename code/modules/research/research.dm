@@ -140,7 +140,7 @@ research holder datum.
 						D.reliability = min(100, D.reliability + rand(1,3))
 						if(I.crit_fail)
 							D.reliability = min(100, D.reliability + rand(3, 5))
-							
+
 /datum/research/proc/FindDesignByID(var/id)
 	for(var/datum/design/D in known_designs)
 		if(D.id == id)
@@ -158,6 +158,21 @@ research holder datum.
 
 /datum/research/autolathe/AddDesign2Known(var/datum/design/D)
 	if(!(D.build_type & AUTOLATHE))
+		return
+	..()
+
+//Fabricator files
+/datum/research/fabricator/New()
+	for(var/T in (typesof(/datum/tech) - /datum/tech))
+		possible_tech += new T(src)
+	for(var/path in typesof(/datum/design) - /datum/design)
+		var/datum/design/D = new path(src)
+		possible_designs += D
+		if((D.build_type & FABRICATOR) && ("initial" in D.category))  //fabricator starts without hacked designs
+			AddDesign2Known(D)
+
+/datum/research/fabricator/AddDesign2Known(var/datum/design/D)
+	if(!(D.build_type & FABRICATOR))
 		return
 	..()
 
@@ -278,7 +293,7 @@ datum/tech/robotics
 /obj/item/weapon/disk/tech_disk/New()
 	src.pixel_x = rand(-5.0, 5)
 	src.pixel_y = rand(-5.0, 5)
-	
+
 /obj/item/weapon/disk/design_disk
 	name = "Component Design Disk"
 	desc = "A disk for storing device design data for construction in lathes."

@@ -206,7 +206,7 @@ datum
 			required_reagents = list("facid" = 10, "plasticide" = 20)
 			result_amount = 1
 			on_reaction(var/datum/reagents/holder)
-				var/obj/item/stack/sheet/metal/M = new /obj/item/stack/sheet/mineral/plastic
+				var/obj/item/stack/sheet/metal/M = new /obj/item/stack/sheet/plastic
 				M.amount = 10
 				M.loc = get_turf_loc(holder.my_atom)
 				return
