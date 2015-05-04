@@ -841,6 +841,11 @@ var/list/restricted_camera_networks = list( //Those networks can only be accesse
 #define HAS_SKIN_COLOR	32
 #define TAIL_WAGGING    64
 
+//Reagent Flags
+#define ORGANIC			1
+#define SYNTHETIC		2
+
+
 //Language flags.
 #define WHITELISTED 1  		// Language is available if the speaker is whitelisted.
 #define RESTRICTED 2   		// Language can only be accquired by spawning or an admin.

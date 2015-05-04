@@ -722,7 +722,10 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 
 	proc/handle_chemicals_in_body()
 
-		if(reagents) //Synths don't process reagents. // fuck you they do now - Iamgoofball
+		if(reagents)
+			for(var/datum/reagent/R in reagents.reagent_list)
+				if(!R.affected & SYNTHETIC && species.flags & IS_SYNTHETIC)
+					return
 			var/alien = 0
 			if(species && species.reagent_tag)
 				alien = species.reagent_tag
