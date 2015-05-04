@@ -1299,15 +1299,13 @@ proc/populate_seed_list()
 	name = "cotton"
 	seed_name = "cotton"
 	display_name = "cotton"
-	packet_icon = "seed-wheat"
+	packet_icon = "seed-cotton"
 	products = list(/obj/item/weapon/reagent_containers/food/snacks/grown/cotton)
-	plant_icon = "wheat"
-	chems = list("nutriment" = list(1,25))
-
+	plant_icon = "cotton"
 	lifespan = 25
 	maturation = 6
 	production = 1
-	yield = 4
+	yield = 3
 	potency = 5
 
 /datum/seed/rice

@@ -497,7 +497,7 @@
 	name = "cotton"
 	desc = "Cotton.. In Space!"
 	gender = PLURAL
-	icon_state = "wheat"
+	icon_state = "cotton"
 	filling_color = "#F7E186"
 	plantname = "cotton"
 /obj/item/weapon/reagent_containers/food/snacks/grown/cotton/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
