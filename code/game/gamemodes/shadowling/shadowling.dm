@@ -63,9 +63,9 @@ Made by Xhuis
 /datum/game_mode/shadowling
 	name = "shadowling"
 	config_tag = "shadowling"
-	required_players = 1
-	required_enemies = 1
-	recommended_enemies = 1
+	required_players = 30
+	required_enemies = 2
+	recommended_enemies = 2
 	restricted_jobs = list("AI", "Cyborg")
 	protected_jobs = list("Security Officer", "Warden", "Detective", "Head of Security", "Captain")
 
@@ -87,7 +87,7 @@ Made by Xhuis
 			if(player.assigned_role == job)
 				possible_shadowlings -= player
 
-	var/shadowlings = 1 //How many shadowlings there are; hardcoded to 2
+	var/shadowlings = 2 //How many shadowlings there are; hardcoded to 2
 
 	while(shadowlings)
 		var/datum/mind/shadow = pick(possible_shadowlings)
