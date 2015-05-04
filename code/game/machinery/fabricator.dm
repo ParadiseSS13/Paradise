@@ -46,8 +46,15 @@
 	var/list/categories = list(
 
 							"Uniforms",
-
+							"Hats",
+							"Glasses",
+							"Masks",
+							"Jackets",
+							"Pants",
+							"Gloves",
 							"Shoes",
+							"Storage",
+							"Accessorys",
 							)
 
 /obj/machinery/fabricator/New()
