@@ -12,12 +12,18 @@
 
 /datum/superheros/proc/assign_genes(var/mob/living/carbon/human/H)
 	if(default_genes.len)
-		for(var/gene in default_genes.len)
+		for(var/gene in default_genes)
 			H.mutations |= gene
 		H.update_mutations()
 	return
 
 /datum/superheros/proc/assign_spells(var/mob/living/carbon/human/H)
+	if(default_spells.len)
+		for(var/spell in default_spells)
+			var/obj/effect/proc_holder/spell/wizard/S = spell
+			if(!S) return
+			H.spell_list += new S
+			H.update_power_buttons()
 	return
 
 
@@ -64,7 +70,26 @@
 
 	H.regenerate_icons()
 
-/*		Dont fill out until ready (sprites + powers)
+
 /datum/superheros/lightnian
 	name = "LightnIan"
-*/
+	default_genes = list(REGEN, NO_BREATH)
+	default_spells = list(/obj/effect/proc_holder/spell/wizard/targeted/lightning)
+
+/datum/superheros/lightnian/equip(var/mob/living/carbon/human/H)
+	..()
+
+	H.equip_to_slot_or_del(new /obj/item/clothing/shoes/brown(H), slot_shoes)
+	H.equip_to_slot_or_del(new /obj/item/clothing/under/color/brown(H), slot_w_uniform)
+	H.equip_to_slot_or_del(new /obj/item/clothing/suit/corgisuit(H), slot_wear_suit)
+	H.equip_to_slot_or_del(new /obj/item/clothing/head/corgi(H), slot_head)
+	H.equip_to_slot_or_del(new /obj/item/clothing/gloves/color/yellow(H), slot_gloves)
+
+	var/obj/item/weapon/card/id/syndicate/W = new(H)
+	W.name = "[H.real_name]'s ID Card (Superhero)"
+	W.access = get_all_accesses()
+	W.assignment = "Superhero"
+	W.registered_name = H.real_name
+	H.equip_to_slot_or_del(W, slot_wear_id)
+
+	H.regenerate_icons()
