@@ -1183,6 +1183,7 @@
 #include "code\modules\mob\living\carbon\life.dm"
 #include "code\modules\mob\living\carbon\shock.dm"
 #include "code\modules\mob\living\carbon\species.dm"
+#include "code\modules\mob\living\carbon\superheros.dm"
 #include "code\modules\mob\living\carbon\alien\alien.dm"
 #include "code\modules\mob\living\carbon\alien\alien_defenses.dm"
 #include "code\modules\mob\living\carbon\alien\death.dm"
