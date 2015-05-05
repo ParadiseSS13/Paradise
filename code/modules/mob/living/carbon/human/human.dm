@@ -1400,6 +1400,8 @@
 		regenerate_icons()
 		fixblood()
 
+	UpdateAppearance()
+
 	if(species)
 		return 1
 	else

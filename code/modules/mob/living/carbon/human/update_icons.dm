@@ -471,7 +471,7 @@ proc/get_damage_icon_part(damage_state, body_part)
 //For legacy support.
 /mob/living/carbon/human/regenerate_icons()
 	..()
-	if(monkeyizing)		return
+	if(notransform)		return
 	update_mutations(0)
 	force_update_limbs()
 	update_mutantrace(0)
