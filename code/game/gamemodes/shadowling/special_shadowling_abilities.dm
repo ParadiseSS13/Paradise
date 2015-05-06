@@ -18,9 +18,9 @@
 								"<span class='shadowling'>You remove any equipment which would hinder your hatching and begin regurgitating the resin which will protect you.</span>")
 
 			for(var/obj/item/I in usr) //drops all items
-				usr.unEquip(I)
-				if(istype(I, /obj/item/organ) && (I in src.internal_organs)) //Shadowlings only have a brain, the other organs would drop otherwise.
-					qdel(I)
+				var/obj/item/organ/O = I
+				if(!istype(O) || O.owner != src)
+					usr.unEquip(I)
 
 			sleep(50)
 			var/turf/simulated/floor/F
@@ -148,10 +148,10 @@
 			usr.spell_list += new /obj/effect/proc_holder/spell/wizard/targeted/shadowling_phase_shift
 			usr.spell_list += new /obj/effect/proc_holder/spell/wizard/aoe_turf/glacial_blast
 			usr.spell_list += new /obj/effect/proc_holder/spell/wizard/targeted/vortex
-			usr.spell_list += new /obj/effect/proc_holder/spell/wizard/targeted/shadowling_hivemind_ascendant
 			usr.mind.transfer_to(A)
 			A.spell_list = usr.spell_list
 			A.name = usr.real_name
+			A.languages = usr.languages
 			if(A.real_name)
 				A.real_name = usr.real_name
 			usr.alpha = 0 //This is pretty bad, but is also necessary for the shuttle call to function properly
