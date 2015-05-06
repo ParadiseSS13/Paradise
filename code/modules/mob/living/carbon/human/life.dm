@@ -46,7 +46,7 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 	set invisibility = 0
 	//set background = 1
 
-	if (monkeyizing)	return
+	if (notransform)	return
 	if(!loc)			return	// Fixing a null error that occurs when the mob isn't found in the world -- TLE
 
 	..()
@@ -760,9 +760,24 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 					if(A.lighting_use_dynamic)	light_amount = T.lighting_lumcount
 					else						light_amount =  10
 			if(light_amount > species.light_dam) //if there's enough light, start dying
-				take_overall_damage(1,1)
+				if(species.light_effect_amp)
+					adjustFireLoss(5) //This gets doubled by Shadowling's innate fire weakness, so it ends up being 10.
+				else
+					adjustFireLoss(1)
+					adjustBruteLoss(1)
+				src << "<span class='userdanger'>The light burns you!</span>"
+				src << 'sound/weapons/sear.ogg'
 			else //heal in the dark
-				heal_overall_damage(1,1)
+				if(species.light_effect_amp)
+					adjustFireLoss(-5)
+					adjustBruteLoss(-5)
+					adjustBrainLoss(-25) //gibbering shadowlings are hilarious but also bad to have
+					adjustCloneLoss(-1)
+					SetWeakened(0)
+					SetStunned(0)
+				else
+					adjustFireLoss(-1)
+					adjustBruteLoss(-1)
 
 
 		//The fucking FAT mutation is the greatest shit ever. It makes everyone so hot and bothered.

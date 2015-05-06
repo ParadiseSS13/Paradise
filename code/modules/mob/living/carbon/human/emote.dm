@@ -36,7 +36,7 @@
 				on_CD = handle_emote_CD()			//proc located in code\modules\mob\emote.dm
 			else								//Everyone else fails, skip the emote attempt
 				return
-		if("scream", "fart", "flip")
+		if("scream", "fart", "flip", "snap")
 			on_CD = handle_emote_CD()				//proc located in code\modules\mob\emote.dm
 		//Everything else, including typos of the above emotes
 		else
@@ -719,6 +719,29 @@
 					message = "<B>[src]</B> makes a very loud noise."
 					m_type = 2
 
+
+		if ("snap")
+			if(prob(95))
+				m_type = 2
+				var/mob/living/carbon/human/H = src
+				var/obj/item/organ/external/L = H.get_organ("l_hand")
+				var/obj/item/organ/external/R = H.get_organ("r_hand")
+				var/left_hand_good = 0
+				var/right_hand_good = 0
+				if(L && (!(L.status & ORGAN_DESTROYED)) && (!(L.status & ORGAN_SPLINTED)) && (!(L.status & ORGAN_BROKEN)))
+					left_hand_good = 1
+				if(R && (!(R.status & ORGAN_DESTROYED)) && (!(R.status & ORGAN_SPLINTED)) && (!(R.status & ORGAN_BROKEN)))
+					right_hand_good = 1
+
+				if (!left_hand_good && !right_hand_good)
+					usr << "You need at least one hand in good working order to snap your fingers."
+					return
+
+				message = "<b>[src]</b> snaps \his fingers."
+				playsound(src.loc, 'sound/effects/fingersnap.ogg', 50, 1, -3)
+			else
+				message = "<span class='danger'><b>[src]</b> snaps \his fingers right off!</span>"
+				playsound(src.loc, 'sound/effects/snap.ogg', 50, 1)
 
 
 		// Needed for M_TOXIC_FART

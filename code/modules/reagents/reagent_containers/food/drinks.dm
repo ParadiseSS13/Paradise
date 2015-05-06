@@ -46,7 +46,7 @@
 
 			var/mob/living/carbon/human/H = M
 			if(H.species.flags & IS_SYNTHETIC)
-				H << "\red They have a monitor for a head, where do you think you're going to put that?"
+				user << "\red They have a monitor for a head, where do you think you're going to put that?"
 				return
 
 			for(var/mob/O in viewers(world.view, user))
@@ -83,6 +83,13 @@
 
 	afterattack(obj/target, mob/user, proximity)
 		if(!proximity) return
+
+		// Moved from the can code; not necessary since closed cans aren't open containers now, but, eh.
+		if (istype(target, /obj/item/weapon/reagent_containers/food/drinks/cans))
+			var/obj/item/weapon/reagent_containers/food/drinks/cans/cantarget = target
+			if(cantarget.canopened == 0)
+				user << "<span class='notice'>You need to open the drink you want to pour into!</span>"
+				return
 
 		if(istype(target, /obj/structure/reagent_dispensers)) //A dispenser. Transfer FROM it TO us.
 

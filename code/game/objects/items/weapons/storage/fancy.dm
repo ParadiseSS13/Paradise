@@ -154,14 +154,22 @@
 	slot_flags = SLOT_BELT
 	storage_slots = 6
 	can_hold = list("/obj/item/clothing/mask/cigarette")
+	cant_hold = list("/obj/item/clothing/mask/cigarette/cigar",
+		"/obj/item/clothing/mask/cigarette/pipe")
 	icon_type = "cigarette"
+	var/list/unlaced_cigarettes = list() // Cigarettes that haven't received reagents yet
+	var/default_reagents = list("nicotine" = 15) // List of reagents to pre-generate for each cigarette
 
 /obj/item/weapon/storage/fancy/cigarettes/New()
 	..()
 	flags |= NOREACT
+	create_reagents(30 * storage_slots)//so people can inject cigarettes without opening a packet, now with being able to inject the whole one
 	for(var/i = 1 to storage_slots)
-		new /obj/item/clothing/mask/cigarette(src)
-	create_reagents(15 * storage_slots)//so people can inject cigarettes without opening a packet, now with being able to inject the whole one
+		var/obj/item/clothing/mask/cigarette/C = new /obj/item/clothing/mask/cigarette(src)
+		unlaced_cigarettes += C
+		for(var/R in default_reagents)
+			reagents.add_reagent(R, default_reagents[R])
+	
 
 /obj/item/weapon/storage/fancy/cigarettes/Destroy()
 	del(reagents)
@@ -173,22 +181,25 @@
 	desc = "There are [contents.len] cig\s left!"
 	return
 
+/obj/item/weapon/storage/fancy/cigarettes/proc/lace_cigarette(var/obj/item/clothing/mask/cigarette/C as obj)
+	if(istype(C) && (C in unlaced_cigarettes)) // Only transfer reagents to each cigarette once
+		reagents.trans_to(C, (reagents.total_volume/unlaced_cigarettes.len))
+		unlaced_cigarettes -= C
+		reagents.maximum_volume = 30 * unlaced_cigarettes.len
+
 /obj/item/weapon/storage/fancy/cigarettes/remove_from_storage(obj/item/W as obj, atom/new_location)
-		var/obj/item/clothing/mask/cigarette/C = W
-		if(!istype(C)) return // what
-		reagents.trans_to(C, (reagents.total_volume/contents.len))
-		..()
+	lace_cigarette(W)
+	..()
 
 /obj/item/weapon/storage/fancy/cigarettes/attack(mob/living/carbon/M as mob, mob/living/carbon/user as mob)
 	if(!istype(M, /mob))
 		return
 
-	if(M == user && user.zone_sel.selecting == "mouth" && contents.len > 0 && !user.wear_mask)
-		var/obj/item/clothing/mask/cigarette/W = new /obj/item/clothing/mask/cigarette(user)
-		reagents.trans_to(W, (reagents.total_volume/contents.len))
-		user.equip_to_slot_if_possible(W, slot_wear_mask)
-		reagents.maximum_volume = 15 * contents.len
-		contents.len--
+	if(istype(M) && M == user && user.zone_sel.selecting == "mouth" && contents.len > 0 && !user.wear_mask)
+		var/obj/item/clothing/mask/cigarette/C = contents[contents.len]
+		if(!istype(C)) return
+		lace_cigarette(C)
+		user.equip_to_slot_if_possible(C, slot_wear_mask)
 		user << "<span class='notice'>You take a cigarette out of the pack.</span>"
 		update_icon()
 	else
@@ -217,11 +228,7 @@
 	desc = "An obscure brand of cigarettes."
 	icon_state = "syndiepacket"
 	item_state = "cigpacket"
-
-/obj/item/weapon/storage/fancy/cigarettes/cigpack_syndicate/New()
-	..()
-	for(var/i = 1 to storage_slots)
-		reagents.add_reagent("omnizine",15)
+	default_reagents = list("nicotine" = 15, "omnizine" = 15)
 
 /obj/item/weapon/storage/fancy/cigarettes/cigpack_uplift
 	name = "\improper Uplift Smooth packet"
@@ -240,11 +247,7 @@
 	desc = "Smoked by the truly robust."
 	icon_state = "robustgpacket"
 	item_state = "cigpacket"
-
-/obj/item/weapon/storage/fancy/cigarettes/cigpack_robustgold/New()
-	..()
-	for(var/i = 1 to storage_slots)
-		reagents.add_reagent("gold",1)
+	default_reagents = list("nicotine" = 15, "gold" = 1)
 
 /obj/item/weapon/storage/fancy/cigarettes/cigpack_carp
 	name = "\improper Carp Classic packet"
@@ -263,14 +266,11 @@
 	desc = "Is your weight slowing you down? Having trouble running away from gravitational singularities? Can't stop stuffing your mouth? Smoke Shady Jim's Super Slims and watch all that fat burn away. Guaranteed results!"
 	icon_state = "shadyjimpacket"
 	item_state = "cigpacket"
-
-/obj/item/weapon/storage/fancy/cigarettes/cigpack_shadyjims/New()
-	..()
-	for(var/i = 1 to storage_slots)
-		reagents.add_reagent("lipolicide",4)
-		reagents.add_reagent("ammonia",2)
-		reagents.add_reagent("atrazine",1)
-		reagents.add_reagent("toxin",1.5)
+	default_reagents = list("nicotine" = 15,
+		"lipolicide" = 7.5,
+		"ammonia" = 2,
+		"atrazine" = 1,
+		"toxin" = 1.5)
 
 /*
  * Vial Box

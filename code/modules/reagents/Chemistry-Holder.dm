@@ -63,7 +63,7 @@ datum
 					if(current_list_element > reagent_list.len) current_list_element = 1
 					var/datum/reagent/current_reagent = reagent_list[current_list_element]
 
-					src.remove_reagent(current_reagent.id, 1)
+					src.remove_reagent(current_reagent.id, min(1, amount - total_transfered))
 
 					current_list_element++
 					total_transfered++
