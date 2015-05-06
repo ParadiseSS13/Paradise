@@ -101,17 +101,17 @@
 			return
 	return
 
-//Ctrl+Middle click points.
+//Ctrl+Middle click cycles through modules
 /mob/living/silicon/robot/proc/CtrlMiddleClickOn(var/atom/A)
+	cycle_modules()
+	return
+
+//Middle click points
+/mob/living/silicon/robot/MiddleClickOn(var/atom/A)
 	if(istype(src, /mob/living/silicon/robot/drone))
 		// Drones cannot point.
 		return
 	A.point()
-	return
-
-//Middle click cycles through selected modules.
-/mob/living/silicon/robot/MiddleClickOn(var/atom/A)
-	cycle_modules()
 	return
 
 //Give cyborgs hotkey clicks without breaking existing uses of hotkey clicks
