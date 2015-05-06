@@ -10,19 +10,17 @@
 	var/list/can_hold = list(
 		/obj/item/weapon/stock_parts/cell,
 		/obj/item/weapon/firealarm_electronics,
+		/obj/item/weapon/intercom_electronics,
 		/obj/item/weapon/airalarm_electronics,
 		/obj/item/weapon/airlock_electronics,
-		/obj/item/weapon/intercom_electronics,
 		/obj/item/weapon/module/power_control,
 		/obj/item/weapon/stock_parts,
 		/obj/item/mounted/frame/light_fixture,
+		/obj/item/mounted/frame/light_fixture/small,
 		/obj/item/mounted/frame/apc_frame,
+		/obj/item/mounted/frame/newscaster_frame,
 		/obj/item/mounted/frame/alarm_frame,
 		/obj/item/mounted/frame/firealarm,
-<<<<<<< HEAD
-=======
-		/obj/item/mounted/frame/newscaster_frame,
->>>>>>> 5a427555fd74e7a4919d29a6d329937336b421b3
 		/obj/item/mounted/frame/intercom,
 		/obj/item/weapon/table_parts,
 		/obj/item/weapon/rack_parts,
@@ -92,10 +90,7 @@
 		wrapped.loc = user
 
 		//Pass the attack on to the target. This might delete/relocate wrapped.
-		if(!target.attackby(wrapped, user, params) && target && wrapped)
-			// If the attackby didn't resolve or delete the target or wrapped, afterattack
-			// (Certain things, such as mountable frames, rely on afterattack)
-			wrapped.afterattack(target, user, 1, params)
+		target.attackby(wrapped,user, params)
 
 		//If wrapped did neither get deleted nor put into target, put it back into the gripper.
 		if(wrapped && user && (wrapped.loc == user))
