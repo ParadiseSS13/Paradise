@@ -310,7 +310,7 @@
 							temp = "You have learned flesh to stone."
 						if("lightningbolt")
 							feedback_add_details("wizard_spell_learned","LB") //please do not change the abbreviation to keep data processing consistent. Add a unique id to any new spells
-							H.mind.spell_list += new /obj/effect/proc_holder/spell/targeted/lightning(null)
+							H.spell_list += new /obj/effect/proc_holder/spell/wizard/targeted/lightning(null)
 							temp = "You have learned lightning bolt."
 						if("summonitem")
 							feedback_add_details("wizard_spell_learned","IS") //please do not change the abbreviation to keep data processing consistent. Add a unique id to any new spells
