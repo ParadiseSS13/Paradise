@@ -29,7 +29,7 @@
 
 /datum/superheros/owlman
 	name = "Owlman"
-	default_genes = list(LASER, RESIST_COLD, RESIST_HEAT, REGEN, NO_BREATH)
+	default_genes = list(REGEN, NO_BREATH)
 
 /datum/superheros/owlman/equip(var/mob/living/carbon/human/H)
 	..()
@@ -38,6 +38,8 @@
 	H.equip_to_slot_or_del(new /obj/item/clothing/under/owl(H), slot_w_uniform)
 	H.equip_to_slot_or_del(new /obj/item/clothing/suit/toggle/owlwings(H), slot_wear_suit)
 	H.equip_to_slot_or_del(new /obj/item/clothing/mask/gas/owl_mask(H), slot_wear_mask)
+	H.equip_to_slot_or_del(new /obj/item/weapon/storage/belt/bluespace/owlman(H), slot_belt)
+	H.equip_to_slot_or_del(new /obj/item/clothing/glasses/night(H), slot_glasses)
 
 	var/obj/item/weapon/card/id/syndicate/W = new(H)
 	W.name = "[H.real_name]'s ID Card (Superhero)"

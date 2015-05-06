@@ -191,7 +191,7 @@
 		"/obj/item/weapon/soap",
 		"/obj/item/weapon/holosign_creator"
 		)
-		
+
 /obj/item/weapon/storage/belt/janitor/full/New()
 	..()
 	new /obj/item/device/lightreplacer(src)
@@ -352,15 +352,15 @@
 	origin_tech = "bluespace=4;syndicate=2"
 	allow_quick_empty = 1
 	can_hold = list()
+	flags = NODROP
 	New()
 		..()
-		new /obj/item/clothing/mask/gas/owl_mask(src)
-		new /obj/item/clothing/under/owl(src)
 		new /obj/item/weapon/grenade/smokebomb(src)
 		new /obj/item/weapon/grenade/smokebomb(src)
-		new /obj/item/device/detective_scanner(src)
-
-
+		new /obj/item/weapon/grenade/smokebomb(src)
+		new /obj/item/weapon/grenade/smokebomb(src)
+		new /obj/item/weapon/legcuffs/bolas(src)
+		new /obj/item/weapon/legcuffs/bolas(src)
 
  // As a last resort, the belt can be used as a plastic explosive with a fixed timer (15 seconds).  Naturally, you'll lose all your gear...
  // Of course, it could be worse.  It could spawn a singularity!
