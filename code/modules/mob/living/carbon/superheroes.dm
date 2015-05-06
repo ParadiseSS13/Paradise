@@ -1,23 +1,27 @@
-/datum/superheros
+/datum/game_mode
+	var/list/datum/mind/superheroes = list()
+	var/list/datum/mind/supervillains = list()
+
+/datum/superheroes
 	var/name
 	var/list/default_genes = list()
 	var/list/default_spells = list()
 
 
-/datum/superheros/proc/equip(var/mob/living/carbon/human/H)
+/datum/superheroes/proc/equip(var/mob/living/carbon/human/H)
 	H.fully_replace_character_name(H.real_name, name)
 	for(var/obj/item/W in H)
 		if(istype(W,/obj/item/organ)) continue
 		H.unEquip(W)
 
-/datum/superheros/proc/assign_genes(var/mob/living/carbon/human/H)
+/datum/superheroes/proc/assign_genes(var/mob/living/carbon/human/H)
 	if(default_genes.len)
 		for(var/gene in default_genes)
 			H.mutations |= gene
 		H.update_mutations()
 	return
 
-/datum/superheros/proc/assign_spells(var/mob/living/carbon/human/H)
+/datum/superheroes/proc/assign_spells(var/mob/living/carbon/human/H)
 	if(default_spells.len)
 		for(var/spell in default_spells)
 			var/obj/effect/proc_holder/spell/wizard/S = spell
@@ -27,11 +31,11 @@
 	return
 
 
-/datum/superheros/owlman
+/datum/superheroes/owlman
 	name = "Owlman"
 	default_genes = list(REGEN, NO_BREATH)
 
-/datum/superheros/owlman/equip(var/mob/living/carbon/human/H)
+/datum/superheroes/owlman/equip(var/mob/living/carbon/human/H)
 	..()
 
 	H.equip_to_slot_or_del(new /obj/item/clothing/shoes/black(H), slot_shoes)
@@ -50,12 +54,13 @@
 
 	H.regenerate_icons()
 
+	ticker.mode.superheroes += H
 
-/datum/superheros/griffin
+/datum/superheroes/griffin
 	name = "The Griffin"
 	default_genes = list(LASER, RESIST_COLD, RESIST_HEAT, REGEN, NO_BREATH)
 
-/datum/superheros/griffin/equip(var/mob/living/carbon/human/H)
+/datum/superheroes/griffin/equip(var/mob/living/carbon/human/H)
 	..()
 
 	H.equip_to_slot_or_del(new /obj/item/clothing/shoes/griffin(H), slot_shoes)
@@ -72,13 +77,14 @@
 
 	H.regenerate_icons()
 
+	ticker.mode.supervillains += H
 
-/datum/superheros/lightnian
+/datum/superheroes/lightnian
 	name = "LightnIan"
 	default_genes = list(REGEN, NO_BREATH)
 	default_spells = list(/obj/effect/proc_holder/spell/wizard/targeted/lightning/lightnian)
 
-/datum/superheros/lightnian/equip(var/mob/living/carbon/human/H)
+/datum/superheroes/lightnian/equip(var/mob/living/carbon/human/H)
 	..()
 
 	H.equip_to_slot_or_del(new /obj/item/clothing/shoes/brown(H), slot_shoes)
@@ -95,3 +101,5 @@
 	H.equip_to_slot_or_del(W, slot_wear_id)
 
 	H.regenerate_icons()
+
+	ticker.mode.superheroes += H

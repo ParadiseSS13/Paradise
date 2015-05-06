@@ -289,8 +289,8 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 		alert("Wait until the game starts")
 		return
 	if(ishuman(M))
-		var/type = input("Pick the Superhero","Superhero") as null|anything in all_superheros
-		var/datum/superheros/S = all_superheros[type]
+		var/type = input("Pick the Superhero","Superhero") as null|anything in all_superheroes
+		var/datum/superheroes/S = all_superheroes[type]
 		if(S)
 			S.assign_genes(M)
 			S.assign_spells(M)

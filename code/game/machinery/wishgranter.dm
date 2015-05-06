@@ -11,7 +11,7 @@
 	var/list/types = list()
 
 /obj/machinery/wish_granter/New()
-	for(var/supname in all_superheros)
+	for(var/supname in all_superheroes)
 		types |= supname
 	..()
 
@@ -37,7 +37,7 @@
 		if(!wish) return
 
 		var/mob/living/carbon/human/M = user
-		var/datum/superheros/S = all_superheros[wish]
+		var/datum/superheroes/S = all_superheroes[wish]
 		if(S)
 			S.assign_genes(M)
 			S.assign_spells(M)
