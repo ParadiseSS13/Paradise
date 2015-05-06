@@ -40,23 +40,6 @@ var/global/list/datum/stack_recipe/plasma_recipes = list ( \
 	new/datum/stack_recipe("plasma door", /obj/structure/mineral_door/transparent/plasma, 10, one_per_turf = 1, on_floor = 1), \
 	)
 
-var/global/list/datum/stack_recipe/plastic_recipes = list ( \
-	new/datum/stack_recipe("plastic crate", /obj/structure/closet/crate/plastic, 10, one_per_turf = 1, on_floor = 1), \
-	new/datum/stack_recipe("plastic ashtray", /obj/item/ashtray/plastic, 2, one_per_turf = 1, on_floor = 1), \
-	new/datum/stack_recipe("plastic fork", /obj/item/weapon/kitchen/utensil/pfork, 1, on_floor = 1), \
-	new/datum/stack_recipe("plastic spoon", /obj/item/weapon/kitchen/utensil/pspoon, 1, on_floor = 1), \
-	new/datum/stack_recipe("plastic knife", /obj/item/weapon/kitchen/utensil/pknife, 1, on_floor = 1), \
-	new/datum/stack_recipe("plastic bag", /obj/item/weapon/storage/bag/plasticbag, 3, on_floor = 1), \
-	new/datum/stack_recipe("bear mould", /obj/item/weapon/kitchen/mould/bear, 1, on_floor = 1), \
-	new/datum/stack_recipe("worm mould", /obj/item/weapon/kitchen/mould/worm, 1, on_floor = 1), \
-	new/datum/stack_recipe("bean mould", /obj/item/weapon/kitchen/mould/bean, 1, on_floor = 1), \
-	new/datum/stack_recipe("ball mould", /obj/item/weapon/kitchen/mould/ball, 1, on_floor = 1), \
-	new/datum/stack_recipe("cane mould", /obj/item/weapon/kitchen/mould/cane, 1, on_floor = 1), \
-	new/datum/stack_recipe("cash mould", /obj/item/weapon/kitchen/mould/cash, 1, on_floor = 1), \
-	new/datum/stack_recipe("coin mould", /obj/item/weapon/kitchen/mould/coin, 1, on_floor = 1), \
-	new/datum/stack_recipe("sucker mould", /obj/item/weapon/kitchen/mould/loli, 1, on_floor = 1), \
-	)
-
 var/global/list/datum/stack_recipe/clown_recipes = list ( \
 	new/datum/stack_recipe("bananium computer frame", /obj/structure/computerframe/HONKputer, 50, time = 25, one_per_turf = 1, on_floor = 1), \
 	new/datum/stack_recipe("bananium grenade casing", /obj/item/weapon/grenade/bananade/casing, 4, on_floor = 1), \
@@ -144,10 +127,6 @@ obj/item/stack/sheet/mineral/iron/New()
 	icon_state = "sheet-plastic"
 	origin_tech = "materials=3"
 	perunit = 2000
-
-/obj/item/stack/sheet/mineral/plastic/New()
-	..()
-	recipes = plastic_recipes
 
 /obj/item/stack/sheet/mineral/plastic/cyborg
 	name = "plastic sheets"
