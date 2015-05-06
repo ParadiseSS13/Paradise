@@ -7,6 +7,11 @@
 	//If they're SSD, remove it so they can wake back up.
 	player_logged = 0
 
+	//login during ventcrawl
+	if(istype(loc, /obj/machinery/atmospherics)) //attach us back into the pipes
+		remove_ventcrawl()
+		add_ventcrawl(loc)
+
 	//Round specific stuff like hud updates
 	if(ticker && ticker.mode)
 		var/ref = "\ref[mind]"
@@ -27,4 +32,7 @@
 			if("vampire")
 				if((ref in ticker.mode.thralls) || (mind in ticker.mode.enthralled))
 					ticker.mode.update_vampire_icons_added(mind)
+			if("shadowling")
+				if((mind in ticker.mode.shadowling_thralls) || (mind in ticker.mode.shadows))
+					ticker.mode.update_shadow_icons_added(src.mind)
 	return .

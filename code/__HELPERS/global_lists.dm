@@ -62,7 +62,8 @@ var/global/list/blocked_mobs = list(/mob/living/simple_animal/hostile,
 			/mob/living/simple_animal/hostile/carp/holocarp,
 			/mob/living/simple_animal/hostile/mining_drone,
 			/mob/living/simple_animal/hostile/spaceWorm,
-			/mob/living/simple_animal/hostile/spaceWorm/wormHead
+			/mob/living/simple_animal/hostile/spaceWorm/wormHead,
+			/mob/living/simple_animal/ascendant_shadowling
 			)
 
 //Preferences stuff

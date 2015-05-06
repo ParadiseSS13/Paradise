@@ -1,6 +1,13 @@
 #define UPGRADE_COOLDOWN  40
 #define UPGRADE_KILL_TIMER  100
 
+//times it takes for a mob to eat
+#define EAT_TIME_XENO 30
+#define EAT_TIME_FAT 100
+
+//time it takes for a mob to be eaten (in deciseconds) (overrides mob eat time)
+#define EAT_TIME_MOUSE 30
+
 /obj/item/weapon/grab
 	name = "grab"
 	flags = NOBLUDGEON | ABSTRACT
@@ -187,22 +194,47 @@
 	if(!affecting)
 		return
 
-	if(M == affecting)
+	if(M == affecting) //what the actual fuck is this
 		s_click(hud)
 		return
-	if(M == assailant && state >= GRAB_AGGRESSIVE)
-		if( (ishuman(user) && (FAT in user.mutations) && iscarbon(affecting) ) || ( isalien(user) && iscarbon(affecting) ) || ( istype(user,/mob/living/carbon/human/kidan) && istype(affecting,/mob/living/carbon/monkey/diona) ) || ( ishuman(user) && user.get_species() == "Tajaran"  && istype(affecting,/mob/living/simple_animal/mouse) ) )
+
+	if(M == assailant && state >= GRAB_AGGRESSIVE) //no eatin unless you have an agressive grab
+		if(checkvalid(user, affecting)) //wut
 			var/mob/living/carbon/attacker = user
 			user.visible_message("<span class='danger'>[user] is attempting to devour \the [affecting]!</span>")
-			if(istype(user, /mob/living/carbon/alien/humanoid/hunter) || istype(affecting, /mob/living/simple_animal/mouse)) //mice are easy to eat
-				if(!do_mob(user, affecting)||!do_after(user, 30)) return
-			else
-				if(!do_mob(user, affecting)||!do_after(user, 100)) return
+
+			if(!do_mob(user, affecting) || !do_after(user, checktime(user, affecting))) return
+
 			user.visible_message("<span class='danger'>[user] devours \the [affecting]!</span>")
-			affecting.loc = user
-			attacker.stomach_contents.Add(affecting)
+
+			affecting.loc = user //add the mob to the user
+			attacker.stomach_contents.Add(affecting) //list keeping
+
 			del(src)
 
+/obj/item/weapon/grab/proc/checkvalid(var/mob/attacker, var/mob/prey) //does all the checking for the attack proc to see if a mob can eat another with the grab
+	if(ishuman(attacker) && (FAT in attacker.mutations) && iscarbon(prey) && !isalien(prey)) //Fat people eating carbon mobs but not xenos
+		return 1
+
+	if(isalien(attacker) && iscarbon(prey)) //Xenomorphs eating carbon mobs
+		return 1
+
+	if(ishuman(attacker) && attacker.get_species() == "Kidan" && istype(prey,/mob/living/carbon/monkey/diona)) //Kidan eating nymphs
+		return 1
+
+	if(ishuman(attacker) && attacker.get_species() == "Tajaran"  && istype(prey,/mob/living/simple_animal/mouse)) //Tajaran eating mice. Meow!
+		return 1
+
+	return 0
+
+/obj/item/weapon/grab/proc/checktime(var/mob/attacker, var/mob/prey) //Returns the time the attacker has to wait before they eat the prey
+	if(isalien(attacker))
+		return EAT_TIME_XENO //xenos get a speed boost
+
+	if(istype(prey,/mob/living/simple_animal/mouse)) //mice get eaten at xeno-eating-speed regardless
+		return EAT_TIME_MOUSE
+
+	return EAT_TIME_FAT //if it doesn't fit into the above, it's probably a fat guy, take EAT_TIME_FAT to do it
 
 /obj/item/weapon/grab/dropped()
 	del(src)
@@ -211,3 +243,8 @@
 /obj/item/weapon/grab/Destroy()
 	del(hud)
 	..()
+
+#undef EAT_TIME_XENO
+#undef EAT_TIME_FAT
+
+#undef EAT_TIME_MOUSE
