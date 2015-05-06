@@ -60,7 +60,7 @@
 
 /datum/superheroes/griffin
 	name = "The Griffin"
-	default_genes = list(LASER, RESIST_COLD, RESIST_HEAT, REGEN, NO_BREATH)
+	default_genes = list(REGEN, NO_BREATH)
 	default_spells = list(/obj/effect/proc_holder/spell/wizard/targeted/recruit)
 
 /datum/superheroes/griffin/equip(var/mob/living/carbon/human/H)
