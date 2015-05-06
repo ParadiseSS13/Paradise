@@ -281,6 +281,25 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 	else
 		alert("Invalid mob")
 
+/client/proc/cmd_admin_super(var/mob/M in mob_list)
+	set category = "Event"
+	set name = "Make Superhero"
+
+	if(!ticker)
+		alert("Wait until the game starts")
+		return
+	if(ishuman(M))
+		var/type = input("Pick the Superhero","Superhero") as null|anything in all_superheros
+		var/datum/superheros/S = all_superheros[type]
+		if(S)
+			S.assign_genes(M)
+			S.assign_spells(M)
+			S.equip(M)
+		log_admin("[key_name(src)] has turned [M.key] into a Superhero.")
+		message_admins("\blue [key_name_admin(usr)] made [key_name(M)] into a Superhero.", 1)
+	else
+		alert("Invalid mob")
+
 /*
 /client/proc/cmd_admin_monkeyize(var/mob/M in world)
 	set category = "Event"
