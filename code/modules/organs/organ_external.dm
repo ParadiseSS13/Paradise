@@ -664,6 +664,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 			return
 		if(DROPLIMB_BURN)
 			new /obj/effect/decal/cleanable/ash(get_turf(victim))
+			qdel(src)
 		if(DROPLIMB_BLUNT)
 			var/obj/effect/decal/cleanable/blood/gibs/gore = new victim.species.single_gib_type(get_turf(victim))
 			if(victim.species.flesh_color)
@@ -677,8 +678,8 @@ Note that amputating the affected organ does in fact remove the infection from t
 				I.removed()
 				if(istype(loc,/turf))
 					I.throw_at(get_edge_target_turf(src,pick(alldirs)),rand(1,3),30)
+			qdel(src)
 
-	del(src)
 
 /****************************************************
 			   HELPERS
