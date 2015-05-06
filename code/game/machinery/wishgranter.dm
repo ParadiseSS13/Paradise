@@ -39,9 +39,7 @@
 		var/mob/living/carbon/human/M = user
 		var/datum/superheroes/S = all_superheroes[wish]
 		if(S)
-			S.assign_genes(M)
-			S.assign_spells(M)
-			S.equip(M)
+			S.create(M)
 
 		//Remove the wishgranter or teleport it randomly on the station
 		if(!types.len)

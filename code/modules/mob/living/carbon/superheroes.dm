@@ -5,9 +5,15 @@
 
 /datum/superheroes
 	var/name
+	var/class
 	var/list/default_genes = list()
 	var/list/default_spells = list()
 
+/datum/superheroes/proc/create(var/mob/living/carbon/human/H)
+	assign_genes(H)
+	assign_spells(H)
+	equip(H)
+	assign_id(H)
 
 /datum/superheroes/proc/equip(var/mob/living/carbon/human/H)
 	H.fully_replace_character_name(H.real_name, name)
@@ -20,7 +26,6 @@
 		for(var/gene in default_genes)
 			H.mutations |= gene
 		H.update_mutations()
-	return
 
 /datum/superheroes/proc/assign_spells(var/mob/living/carbon/human/H)
 	if(default_spells.len)
@@ -29,12 +34,27 @@
 			if(!S) return
 			H.spell_list += new S
 			H.update_power_buttons()
-	return
 
+/datum/superheroes/proc/assign_id(var/mob/living/carbon/human/H)
+	var/obj/item/weapon/card/id/syndicate/W = new(H)
+	W.registered_name = H.real_name
+	W.access = get_all_accesses()
+	if(class == "Superhero")
+		W.name = "[H.real_name]'s ID Card (Superhero)"
+		W.assignment = "Superhero"
+		ticker.mode.superheroes += H.mind
+	else if(class == "Supervillain")
+		W.name = "[H.real_name]'s ID Card (Supervillain)"
+		W.assignment = "Supervillain"
+		ticker.mode.supervillains += H.mind
+
+	H.equip_to_slot_or_del(W, slot_wear_id)
+	H.regenerate_icons()
 
 /datum/superheroes/owlman
 	name = "Owlman"
 	default_genes = list(REGEN, NO_BREATH)
+	class = "Superhero"
 
 /datum/superheroes/owlman/equip(var/mob/living/carbon/human/H)
 	..()
@@ -46,22 +66,12 @@
 	H.equip_to_slot_or_del(new /obj/item/weapon/storage/belt/bluespace/owlman(H), slot_belt)
 	H.equip_to_slot_or_del(new /obj/item/clothing/glasses/night(H), slot_glasses)
 
-	var/obj/item/weapon/card/id/syndicate/W = new(H)
-	W.name = "[H.real_name]'s ID Card (Superhero)"
-	W.access = get_all_accesses()
-	W.assignment = "Superhero"
-	W.registered_name = H.real_name
-	H.equip_to_slot_or_del(W, slot_wear_id)
-
-	H.regenerate_icons()
-
-	ticker.mode.superheroes += H.mind
-
 
 /datum/superheroes/griffin
 	name = "The Griffin"
 	default_genes = list(REGEN, NO_BREATH)
 	default_spells = list(/obj/effect/proc_holder/spell/wizard/targeted/recruit)
+	class = "Supervillain"
 
 /datum/superheroes/griffin/equip(var/mob/living/carbon/human/H)
 	..()
@@ -71,22 +81,12 @@
 	H.equip_to_slot_or_del(new /obj/item/clothing/suit/toggle/owlwings/griffinwings(H), slot_wear_suit)
 	H.equip_to_slot_or_del(new /obj/item/clothing/head/griffin(H), slot_head)
 
-	var/obj/item/weapon/card/id/syndicate/W = new(H)
-	W.name = "[H.real_name]'s ID Card (Supervillain)"
-	W.access = get_all_accesses()
-	W.assignment = "Supervillain"
-	W.registered_name = H.real_name
-	H.equip_to_slot_or_del(W, slot_wear_id)
-
-	H.regenerate_icons()
-
-	ticker.mode.supervillains += H.mind
-
 
 /datum/superheroes/lightnian
 	name = "LightnIan"
 	default_genes = list(REGEN, NO_BREATH)
 	default_spells = list(/obj/effect/proc_holder/spell/wizard/targeted/lightning/lightnian)
+	class = "Superhero"
 
 /datum/superheroes/lightnian/equip(var/mob/living/carbon/human/H)
 	..()
@@ -97,16 +97,13 @@
 	H.equip_to_slot_or_del(new /obj/item/clothing/head/corgi(H), slot_head)
 	H.equip_to_slot_or_del(new /obj/item/clothing/gloves/color/yellow(H), slot_gloves)
 
-	var/obj/item/weapon/card/id/syndicate/W = new(H)
-	W.name = "[H.real_name]'s ID Card (Superhero)"
-	W.access = get_all_accesses()
-	W.assignment = "Superhero"
-	W.registered_name = H.real_name
-	H.equip_to_slot_or_del(W, slot_wear_id)
 
-	H.regenerate_icons()
 
-	ticker.mode.superheroes += H.mind
+
+
+
+
+///////////////////////////////POWERS/ABILITIES CODE/////////////////////////////////////////
 
 
 //The Griffin's special recruit abilitiy
