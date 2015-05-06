@@ -1769,9 +1769,9 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 				if("mutineer")
 					holder.icon_state = "mutineer"
 				if("Shadowling")
-					holder.icon_state = "shadowling"
+					holder.icon_state = "hudshadowling"
 				if("Shadowling Thrall")
-					holder.icon_state = "thrall"
+					holder.icon_state = "hudshadowlingthrall"
 
 			hud_list[SPECIALROLE_HUD] = holder
 
