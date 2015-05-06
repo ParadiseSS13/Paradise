@@ -3,7 +3,7 @@
 	desc = "Throws a lightning bolt at the nearby enemy. Classic."
 	charge_type = "recharge"
 	charge_max	= 300
-	clothes_req = 0
+	clothes_req = 1
 	invocation = "UN'LTD P'WAH!"
 	invocation_type = "shout"
 	range = 7
@@ -14,6 +14,10 @@
 	var/ready = 0
 	var/image/halo = null
 	icon_power_button = "spell_tech"
+
+/obj/effect/proc_holder/spell/wizard/targeted/lightning/lightnian
+	clothes_req = 0
+
 
 /obj/effect/proc_holder/spell/wizard/targeted/lightning/Click()
 	if(!ready)

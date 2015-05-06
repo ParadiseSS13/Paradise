@@ -76,7 +76,7 @@
 /datum/superheros/lightnian
 	name = "LightnIan"
 	default_genes = list(REGEN, NO_BREATH)
-	default_spells = list(/obj/effect/proc_holder/spell/wizard/targeted/lightning)
+	default_spells = list(/obj/effect/proc_holder/spell/wizard/targeted/lightning/lightnian)
 
 /datum/superheros/lightnian/equip(var/mob/living/carbon/human/H)
 	..()
