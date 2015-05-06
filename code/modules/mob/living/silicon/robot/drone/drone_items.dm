@@ -12,12 +12,14 @@
 		/obj/item/weapon/firealarm_electronics,
 		/obj/item/weapon/airalarm_electronics,
 		/obj/item/weapon/airlock_electronics,
+		/obj/item/weapon/intercom_electronics,
 		/obj/item/weapon/module/power_control,
 		/obj/item/weapon/stock_parts,
 		/obj/item/mounted/frame/light_fixture,
 		/obj/item/mounted/frame/apc_frame,
 		/obj/item/mounted/frame/alarm_frame,
 		/obj/item/mounted/frame/firealarm,
+		/obj/item/mounted/frame/intercom,
 		/obj/item/weapon/table_parts,
 		/obj/item/weapon/rack_parts,
 		/obj/item/weapon/camera_assembly,
@@ -356,7 +358,7 @@
 					stack = stack_wood
 				if("plastic")
 					if(!stack_plastic)
-						stack_plastic = new /obj/item/stack/sheet/mineral/plastic/cyborg(src.module)
+						stack_plastic = new /obj/item/stack/sheet/plastic/cyborg(src.module)
 						stack_plastic.amount = 1
 					stack = stack_plastic
 

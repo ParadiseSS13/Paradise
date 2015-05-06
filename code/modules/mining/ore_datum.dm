@@ -14,7 +14,7 @@
 	oretag = "hematite"
 
 /datum/ore/coal
-	smelts_to = /obj/item/stack/sheet/mineral/plastic
+	smelts_to = /obj/item/stack/sheet/plastic
 	alloy = 1
 	oretag = "coal"
 

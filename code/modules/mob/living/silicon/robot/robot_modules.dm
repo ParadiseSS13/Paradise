@@ -382,7 +382,7 @@
 	name = "drone module"
 	stacktypes = list(
 		/obj/item/stack/sheet/wood = 1,
-		/obj/item/stack/sheet/mineral/plastic = 1,
+		/obj/item/stack/sheet/plastic = 1,
 		/obj/item/stack/sheet/rglass = 5,
 		/obj/item/stack/tile/wood = 5,
 		/obj/item/stack/rods = 15,

@@ -297,9 +297,9 @@
 			else
 				user << "\blue You need at least five segments of cable coil to complete this task."
 			return
-	else if(istype(W,/obj/item/stack/sheet/mineral/plastic))
+	else if(istype(W,/obj/item/stack/sheet/plastic))
 		if(buildstate == 3)
-			var/obj/item/stack/sheet/mineral/plastic/P = W
+			var/obj/item/stack/sheet/plastic/P = W
 			if(P.amount >= 3)
 				P.use(3)
 				user << "\blue You assemble and install a heavy plastic lath onto the crossbow."

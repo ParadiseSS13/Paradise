@@ -206,9 +206,26 @@ var/global/list/datum/stack_recipe/wood_recipes = list ( \
 	icon_state = "plastic"
 	origin_tech = "materials=2"
 
-/obj/item/stack/sheet/fabric/full/New()
+/obj/item/stack/sheet/plastic/full/New()
 	..()
 	amount = 50
+
+/obj/item/stack/sheet/plastic/full/New()
+	..()
+	recipes = plastic_recipes
+/*
+ * Plastic
+ */
+/obj/item/stack/sheet/plastic/cyborg
+	name = "plastic"
+	desc = "This sheet of plastic is made from odd chemicals"
+	singular_name = "plastic"
+	p_amt = 00
+	icon_state = "plastic"
+
+/obj/item/stack/sheet/metal/New(var/loc, var/amount=null)
+..()
+	recipes = plastic_recipes
 /*
  * Cardboard
  */
