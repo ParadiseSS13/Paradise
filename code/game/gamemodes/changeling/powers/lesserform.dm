@@ -23,7 +23,7 @@
 	for(var/obj/item/weapon/implant/W in C)
 		implants += W
 
-	C.monkeyizing = 1
+	C.notransform = 1
 	C.canmove = 0
 	C.icon = null
 	C.overlays.Cut()

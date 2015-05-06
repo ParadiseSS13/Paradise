@@ -108,6 +108,8 @@
 		if(H.species.name == "Golem")
 			user << "\red Your metal fingers don't fit in the trigger guard!"
 			return
+		if(user.dna && user.dna.species == "Shadowling")
+			user << "<span class='danger'>The muzzle flash would cause damage to your form!</span>"
 
 	add_fingerprint(user)
 

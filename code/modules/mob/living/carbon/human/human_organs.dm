@@ -91,7 +91,7 @@
 		stance_damage = 0
 
 	// standing is poor
-	if(stance_damage >= 4 || (stance_damage >= 2 && prob(5)))
+	if(stance_damage >= 4)
 		if(!(lying || resting))
 			if(species && !(species.flags & NO_PAIN))
 				emote("scream")

@@ -14,6 +14,9 @@
 		if(!height || air_group) return 0
 		else return ..()
 
+	CanAtmosPass(turf/T)
+		return !density
+
 /obj/structure/shuttle/engine
 	name = "engine"
 	density = 1

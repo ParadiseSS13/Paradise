@@ -8,27 +8,43 @@
 	flags = CONDUCT | NOBLOODY
 	var/number = 0
 	var/anyai = 1
+	var/circuitry_installed=1
 	var/mob/living/silicon/ai/ai = list()
 	var/last_tick //used to delay the powercheck
+	var/buildstage = 0
 
-/obj/item/device/radio/intercom/New()
+/obj/item/device/radio/intercom/universe/New()
+	tag = "UNIVERSE"
+	return ..()
+
+/obj/item/device/radio/intercom/New(turf/loc, var/ndir = 0, var/building = 3)
 	..()
-	processing_objects += src
+	buildstage = building
+	if(buildstage)
+		processing_objects.Add(src)
+	else
+		pixel_x = (ndir & 3)? 0 : (ndir == 4 ? 28 : -28)
+		pixel_y = (ndir & 3)? (ndir ==1 ? 28 : -28) : 0
+		dir=ndir
+		b_stat=1
+		on = 0
+	update_icon()
 
-/obj/item/device/radio/intercom/Del()
-	processing_objects -= src
+/obj/item/device/radio/intercom/Destroy()
+	processing_objects.Remove(src)
 	..()
 
 /obj/item/device/radio/intercom/attack_ai(mob/user as mob)
-	src.add_fingerprint(user)
+	add_hiddenprint(user)
+	add_fingerprint(user)
 	spawn (0)
 		attack_self(user)
-		
+
 /obj/item/device/radio/intercom/attack_paw(mob/user as mob)
-	return src.attack_hand(user)
+	return attack_hand(user)
 
 /obj/item/device/radio/intercom/attack_hand(mob/user as mob)
-	src.add_fingerprint(user)
+	add_fingerprint(user)
 	spawn (0)
 		attack_self(user)
 
@@ -53,20 +69,95 @@
 		return
 	..()
 
+/obj/item/device/radio/intercom/attackby(obj/item/weapon/W as obj, mob/user as mob)
+	switch(buildstage)
+		if(3)
+			if(iswirecutter(W) && b_stat && wires.IsAllCut())
+				user << "<span class='notice'>You cut out the intercoms wiring and disconnect its electronics.</span>"
+				playsound(get_turf(src), 'sound/items/Wirecutter.ogg', 50, 1)
+				if(do_after(user, 10))
+					new /obj/item/stack/cable_coil(get_turf(src),5)
+					on = 0
+					b_stat = 1
+					buildstage = 1
+					update_icon()
+					processing_objects.Remove(src)
+				return 1
+			else return ..()
+		if(2)
+			if(isscrewdriver(W))
+				playsound(get_turf(src), 'sound/items/Screwdriver.ogg', 50, 1)
+				if(do_after(user, 10))
+					update_icon()
+					on = 1
+					b_stat = 0
+					buildstage = 3
+					user << "<span class='notice'>You secure the electronics!</span>"
+					update_icon()
+					processing_objects.Add(src)
+					for(var/i, i<= 5, i++)
+						wires.UpdateCut(i,1)
+				return 1
+		if(1)
+			if(iscoil(W))
+				var/obj/item/stack/cable_coil/coil = W
+				if(coil.amount < 5)
+					user << "<span class='warning'>You need more cable for this!</span>"
+					return
+				if(do_after(user, 10))
+					coil.use(5)
+					user << "<span class='notice'>You wire \the [src]!</span>"
+					buildstage = 2
+				return 1
+			if(iscrowbar(W))
+				user << "<span class='notice'>You begin removing the electronics...</span>"
+				playsound(get_turf(src), 'sound/items/Deconstruct.ogg', 50, 1)
+				if(do_after(user, 10))
+					new /obj/item/weapon/intercom_electronics(get_turf(src))
+					user << "<span class='notice'>The circuitboard pops out!</span>"
+					buildstage = 0
+				return 1
+		if(0)
+			if(istype(W,/obj/item/weapon/intercom_electronics))
+				playsound(get_turf(src), 'sound/items/Deconstruct.ogg', 50, 1)
+				if(do_after(user, 10))
+					qdel(W)
+					user << "<span class='notice'>You insert \the [W] into \the [src]!</span>"
+					buildstage = 1
+				return 1
+			if(iswelder(W))
+				var/obj/item/weapon/weldingtool/WT=W
+				playsound(get_turf(src), 'sound/items/Welder.ogg', 50, 1)
+				if(!WT.remove_fuel(3, user))
+					user << "<span class='warning'>You're out of welding fuel.</span>"
+					return 1
+				if(do_after(user, 10))
+					user << "<span class='notice'>You cut the intercom frame from the wall!</span>"
+					new /obj/item/mounted/frame/intercom(get_turf(src))
+					qdel(src)
+					return 1
+
+/obj/item/device/radio/intercom/update_icon()
+	if(!circuitry_installed)
+		icon_state="intercom-frame"
+		return
+	icon_state = "intercom[!on?"-p":""][b_stat ? "-open":""]"
+
 /obj/item/device/radio/intercom/process()
 	if(((world.timeofday - last_tick) > 30) || ((world.timeofday - last_tick) < 0))
 		last_tick = world.timeofday
-
-		if(!src.loc)
+		if(!areaMaster)
 			on = 0
-		else
-			var/area/A = src.loc.loc
-			if(!A || !isarea(A) || !A.master)
-				on = 0
-			else
-				on = A.master.powered(EQUIP) // set "on" to the power status
+			update_icon()
+			return
+		on = areaMaster.powered(EQUIP) // set "on" to the power status
+		update_icon()
 
-		if(!on)
-			icon_state = "intercom-p"
-		else
-			icon_state = "intercom"
+/obj/item/weapon/intercom_electronics
+	name = "intercom electronics"
+	icon = 'icons/obj/doors/door_assembly.dmi'
+	icon_state = "door_electronics"
+	desc = "Looks like a circuit. Probably is."
+	w_class = 2.0
+	m_amt = 50
+	g_amt = 50

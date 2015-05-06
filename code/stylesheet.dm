@@ -62,7 +62,6 @@ h1.alert, h2.alert		{color: #000000;}
 .boldnotice				{color: #000099;	font-weight: bold;}
 .suicide				{color: #ff5050;	font-style: italic;}
 
-
 .newscaster				{color: #800000;}
 .ghostalert				{color: #5c00e6;	font-style: italic; font-weight: bold;}
 
@@ -84,6 +83,7 @@ h1.alert, h2.alert		{color: #000000;}
 .kidan					{color: #664205;}
 .slime					{color: #0077AA;}
 .clown					{color: #ff0000;}
+.shadowling				{color: #311648;}
 .rough					{font-family: "Trebuchet MS", cursive, sans-serif;}
 .say_quote				{font-family: Georgia, Verdana, sans-serif;}
 .sans					{font-family: "Comic Sans MS", cursive, sans-serif; font-weight: bold;}
@@ -91,6 +91,11 @@ h1.alert, h2.alert		{color: #000000;}
 .say_quote				{font-family: Georgia, Verdana, sans-serif;}
 
 .interface				{color: #330033;}
+
+.big					{font-size: 3;}
+.greentext				{color: #00FF00;	font-size: 3;}
+.redtext				{color: #FF0000;	font-size: 3;}
+
 BIG IMG.icon 			{width: 32px; height: 32px;}
 
 

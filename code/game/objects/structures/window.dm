@@ -417,6 +417,8 @@ var/global/wcColored
 		hit(round(exposed_volume / 1000), 0)
 	..()
 
+/obj/structure/window/plasmabasic/BlockSuperconductivity()
+	return 1
 
 /obj/structure/window/plasmareinforced
 	name = "reinforced plasma window"
@@ -441,6 +443,9 @@ var/global/wcColored
 
 /obj/structure/window/plasmareinforced/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume)
 	return
+
+/obj/structure/window/plasmareinforced/BlockSuperconductivity()
+	return 1 //okay this SHOULD MAKE THE TOXINS CHAMBER WORK
 
 /obj/structure/window/reinforced
 	name = "reinforced window"

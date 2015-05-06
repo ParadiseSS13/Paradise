@@ -45,6 +45,7 @@
 	var/weaken = 0
 	var/paralyze = 0
 	var/irradiate = 0
+	var/slur = 0
 	var/stutter = 0
 	var/eyeblur = 0
 	var/drowsy = 0
@@ -79,7 +80,7 @@
 		if(!isliving(target))	return 0
 		if(isanimal(target))	return 0
 		var/mob/living/L = target
-		return L.apply_effects(stun, weaken, paralyze, irradiate, stutter, eyeblur, drowsy, agony, blocked, stamina, jitter)
+		return L.apply_effects(stun, weaken, paralyze, irradiate, slur, stutter, eyeblur, drowsy, agony, blocked, stamina, jitter)
 
 	proc/check_fire(var/mob/living/target as mob, var/mob/living/user as mob)  //Checks if you can hit them or not.
 		if(!istype(target) || !istype(user))
