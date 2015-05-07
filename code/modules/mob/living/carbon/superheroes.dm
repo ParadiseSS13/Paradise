@@ -113,6 +113,7 @@
 	charge_max = 450
 	clothes_req = 0
 	range = 1 //Adjacent to user
+	icon_power_button = "spell_greytide"
 	var/recruiting = 0
 
 /obj/effect/proc_holder/spell/wizard/targeted/recruit/cast(list/targets)
