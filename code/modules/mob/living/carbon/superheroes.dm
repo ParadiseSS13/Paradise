@@ -52,9 +52,14 @@
 	H.equip_to_slot_or_del(W, slot_wear_id)
 	H.regenerate_icons()
 
+	H << desc
+
 /datum/superheroes/owlman
 	name = "Owlman"
 	class = "Superhero"
+	desc = "You are Owlman, the oldest and some say greatest superhero this station has ever known. You have faced countless \
+	foes, and protected the station for years. Your tech gadgets make you a force to be reckoned with. You are the hero this \
+	station deserves."
 
 /datum/superheroes/owlman/equip(var/mob/living/carbon/human/H)
 	..()
@@ -71,6 +76,9 @@
 	name = "The Griffin"
 	default_spells = list(/obj/effect/proc_holder/spell/wizard/targeted/recruit)
 	class = "Supervillain"
+	desc = "You are The Griffin, the ultimate supervillain. You thrive on chaos and have no respect for the supposed authority \
+	of the command staff of this station. Along with your gang of dim-witted yet trusty henchmen, you will be able to execute \
+	the most dastardly plans."
 
 /datum/superheroes/griffin/equip(var/mob/living/carbon/human/H)
 	..()
@@ -83,8 +91,11 @@
 
 /datum/superheroes/lightnian
 	name = "LightnIan"
-	default_spells = list(/obj/effect/proc_holder/spell/wizard/targeted/lightning/lightnian)
 	class = "Superhero"
+	desc = "You are LightnIan, the lord of lightning! A freak electrical accident while working in the station's kennel \
+	has given you mastery over lightning and a peculiar desire to sniff butts. Although you are a recent addition to the \
+	station's hero roster, you intend to leave your mark."
+	default_spells = list(/obj/effect/proc_holder/spell/wizard/targeted/lightning/lightnian)
 
 /datum/superheroes/lightnian/equip(var/mob/living/carbon/human/H)
 	..()
