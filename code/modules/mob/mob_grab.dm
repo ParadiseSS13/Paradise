@@ -66,6 +66,7 @@
 	confirm()
 
 	if(assailant.client)
+		if(!hud)	return //this somehow can runtime under the right circumstances
 		assailant.client.screen -= hud
 		assailant.client.screen += hud
 
@@ -126,7 +127,7 @@
 			if(affecting.loc != assailant.loc)
 				force_down = 0
 			else
-				affecting.Weaken(1)
+				affecting.Weaken(3) //1 wears off too quick
 
 	if(state >= GRAB_NECK)
 		affecting.Stun(5)  //It will hamper your voice, being choked and all.
@@ -282,7 +283,7 @@
 						assailant << "<span class='warning'>You require a better grab to do this.</span>"
 						return
 					var/obj/item/organ/external/organ = affected.get_organ(check_zone(last_hit_zone))
-					if(!organ || organ.is_broken())
+					if(!organ || organ.is_broken() || organ.limb_name == "chest" || organ.limb_name == "groin") //necessary to prevent chest and groin
 						return
 					assailant.visible_message("<span class='danger'>[user] is jointlocking [affecting]'s [organ.name]!</span>")
 					var/armor = affected.run_armor_check(affecting, "melee")
