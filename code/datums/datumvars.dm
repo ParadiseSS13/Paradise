@@ -777,6 +777,7 @@ client
 		if(!H)
 			usr << "Mob doesn't exist anymore"
 			return
+		holder.Topic(href, list("makesuper"=href_list["makesuper"]))
 
 	else if(href_list["makeai"])
 		if(!check_rights(R_SPAWN))	return
