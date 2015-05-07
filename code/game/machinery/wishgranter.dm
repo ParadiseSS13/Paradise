@@ -35,7 +35,7 @@
 		else
 			wish = input("You want to become...","Wish") as null|anything in types
 		if(!wish) return
-
+		types -= wish
 		var/mob/living/carbon/human/M = user
 		var/datum/superheroes/S = all_superheroes[wish]
 		if(S)
