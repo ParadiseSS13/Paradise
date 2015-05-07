@@ -18,6 +18,7 @@ The currently supporting non-reagent materials:
 - $uranium (/obj/item/stack/uranium). One sheet = 3750 units.
 - $diamond (/obj/item/stack/diamond). One sheet = 3750 units.
 - $clown (/obj/item/stack/clown). One sheet = 3750 units. ("Bananium")
+- $fabric (/obj/item/stack/fabric).
 (Insert new ones here)
 
 Don't add new keyword/IDs if they are made from an existing one (such as rods which are made from metal). Only add raw materials.
@@ -30,11 +31,13 @@ reliability_mod (starts at 0, gets improved through experimentation). Example: P
 - A single sheet of anything is 3750 units of material. Materials besides metal/glass require help from other jobs (mining for
 other types of metals and chemistry for reagents).
 - Add the AUTOLATHE tag to
-
-
 */
+#define	IMPRINTER	1	//For circuits. Uses glass/chemicals.
+#define PROTOLATHE	2	//New stuff. Uses glass/metal/chemicals
+#define	AUTOLATHE	4	//Uses glass/metal only.
+#define FABRICATOR  5
 
-/datum/design						//Datum for object designs, used in construction
+datum/design						//Datum for object designs, used in construction
 	var/name = "Name"					//Name of the created object.
 	var/desc = "Desc"					//Description of the created object.
 	var/id = "id"						//ID of the created object for easy refernece. Alphanumeric, lower-case, no symbols
@@ -60,4 +63,3 @@ other types of metals and chemistry for reagents).
 	new_reliability = Clamp(new_reliability, reliability, 100)
 	reliability = new_reliability
 	return
-	

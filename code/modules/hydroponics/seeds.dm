@@ -120,6 +120,9 @@
 /obj/item/seeds/wheatseed
 	seed_type = "wheat"
 
+/obj/item/seeds/cottonseed
+	seed_type = "cotton"
+
 /obj/item/seeds/riceseed
 	seed_type = "rice"
 
