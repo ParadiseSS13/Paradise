@@ -191,10 +191,15 @@
 		ticker.mode.greyshirts += target.mind
 		target.set_species("Human")
 		target.h_style = "Bald"
-		target.fully_replace_character_name(target.real_name, "Generic Henchman ([rand(1, 1000)])")
+		target.f_style = "Shaved"
+		target.s_tone = 35
+		target.r_eyes = 1
+		target.b_eyes = 1
+		target.g_eyes = 1
 		for(var/obj/item/W in target)
 			if(istype(W,/obj/item/organ)) continue
 			target.unEquip(W)
+		target.fully_replace_character_name(target.real_name, "Generic Henchman ([rand(1, 1000)])")
 		target.equip_to_slot_or_del(new /obj/item/clothing/under/color/grey/greytide(target), slot_w_uniform)
 		target.equip_to_slot_or_del(new /obj/item/clothing/shoes/black/greytide(target), slot_shoes)
 		target.equip_to_slot_or_del(new /obj/item/weapon/storage/toolbox/mechanical/greytide(target), slot_l_hand)
