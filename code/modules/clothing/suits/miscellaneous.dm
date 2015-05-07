@@ -162,6 +162,15 @@
 	name = "E-N Suit"
 	icon_state = "ensuit"
 
+/obj/item/clothing/suit/corgisuit/en/New()
+	..()
+	processing_objects.Add(src)
+
+/obj/item/clothing/suit/corgisuit/en/process()
+	if(prob(2))
+			if(!M.anchored && (M.flags & CONDUCT))
+			if(istype(S, /mob/living/silicon/ai)) continue
+
 /obj/item/clothing/suit/monkeysuit
 	name = "Monkey Suit"
 	desc = "A suit that looks like a primate"
