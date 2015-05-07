@@ -364,6 +364,12 @@
 	key = "8"
 	flags = RESTRICTED | HIVEMIND
 
+/datum/language/shadowling/broadcast(var/mob/living/speaker, var/message, var/speaker_mask)
+	if(speaker.mind && speaker.mind.special_role)
+		..(speaker, message, "([speaker.mind.special_role]) [speaker]")
+	else
+		..(speaker, message)
+
 /datum/language/ling/broadcast(var/mob/living/speaker,var/message,var/speaker_mask)
 
 	if(speaker.mind && speaker.mind.changeling)

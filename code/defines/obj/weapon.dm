@@ -624,12 +624,18 @@
 	allow_quick_gather = 1
 	allow_quick_empty = 1
 	collection_mode = 1
+	display_contents_with_number = 1
 	max_w_class = 3
 	max_combined_w_class = 100
 
 /obj/item/weapon/storage/part_replacer/proc/play_rped_sound()
 	//Plays the sound for RPED exchanging or installing parts.
 	playsound(src, 'sound/items/rped.ogg', 40, 1)
+
+//Sorts stock parts inside an RPED by their rating.
+//Only use /obj/item/weapon/stock_parts/ with this sort proc!
+/proc/cmp_rped_sort(var/obj/item/weapon/stock_parts/A, var/obj/item/weapon/stock_parts/B)
+	return B.rating - A.rating
 
 /obj/item/weapon/stock_parts
 	name = "stock part"

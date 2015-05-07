@@ -70,6 +70,14 @@
 			for(var/obj/item/device/pda/P in H)
 				P.fon = 0
 				P.SetLuminosity(0) //failsafe
+			for(var/obj/item/clothing/head/helmet/space/rig/R in H)
+				if(R.on)
+					R.on = 0
+					R.icon_state = "rig[R.on]-[R._color]"
+					H.update_inv_head()
+					R.visible_message("<span class='danger'>[R]'s light fades and turns off.</span>")
+					H.SetLuminosity(H.luminosity - R.brightness_on)
+					R.SetLuminosity(0)
 			if(H != usr)
 				H << "<span class='boldannounce'>You feel a chill and are plunged into darkness.</span>"
 			H.luminosity = 0 //This might not be required, but it just acts as another failsafe.
@@ -208,10 +216,10 @@
 		target << "<span class='deadsay'><b>You see the Truth. Reality has been torn away and you realize what a fool you've been.</b></span>"
 		target << "<span class='deadsay'><b>The shadowlings are your masters.</b> Serve them above all else and ensure they complete their goals.</span>"
 		target << "<span class='deadsay'>You may not harm other thralls or the shadowlings. However, you do not need to obey other thralls.</span>"
-		target << "<span class='deadsay'>You can communicate with the other enlightened ones by using the Hivemind Commune ability.</span>"
+		target << "<span class='deadsay'>You can communicate with the other enlightened ones by using the Shadowling Hivemind (:8) ability.</span>"
 		target.adjustOxyLoss(-200) //In case the shadowling was choking them out
 		ticker.mode.add_thrall(target.mind)
-		target.mind.special_role = "Thrall"
+		target.mind.special_role = "Shadowling Thrall"
 
 /obj/effect/proc_holder/spell/wizard/targeted/collective_mind
 	name = "Collective Hivemind"
@@ -304,9 +312,8 @@
 		S.attach(B)
 		if(S)
 			S.set_up(B.reagents, 10, 0, B.loc)
-			S.start()
+			S.start(4)
 			sleep(10)
-			S.start()
 		qdel(B)
 
 datum/reagent/shadowling_blindness_smoke //Blinds non-shadowlings, heals shadowlings/thralls
@@ -594,24 +601,3 @@ datum/reagent/shadowling_blindness_smoke/on_mob_life(var/mob/living/M as mob)
 						"<span class='shadowling'>You tear open a rift to the black space between worlds. <b><font size=3>It would be wise to avoid it.</font></b></span>")
 
 		new /obj/structure/shadow_vortex(SHA.loc)
-
-
-
-/obj/effect/proc_holder/spell/wizard/targeted/shadowling_hivemind_ascendant
-	name = "Ascendant Commune"
-	desc = "Allows you to silently communicate with all other shadowlings and thralls."
-	panel = "Ascendant"
-	charge_max = 20
-	clothes_req = 0
-	range = -1
-	include_user = 1
-
-/obj/effect/proc_holder/spell/wizard/targeted/shadowling_hivemind_ascendant/cast(list/targets)
-	for(var/mob/living/user in targets)
-		var/text = stripped_input(user, "What do you want to say to fellow thralls and shadowlings?.", "Hive Chat", "")
-		if(!text)
-			return
-		text = "<font size=3>[text]</font>"
-		for(var/mob/M in mob_list)
-			if(is_shadow_or_thrall(M) || (M in dead_mob_list))
-				M << "<span class='shadowling'><b>\[Hive Chat\]<i> [usr.real_name] (ASCENDANT)</i>: [text]</b></span>" //Bigger text for ascendants.

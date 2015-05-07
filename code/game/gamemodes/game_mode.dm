@@ -290,7 +290,8 @@ Implants;
 		else if(special_role == "traitor" && prob(40) || \
 		   special_role == "Changeling" && prob(50) || \
 		   special_role == "Cultist" && prob(30) || \
-		   special_role == "Head Revolutionary" && prob(30))
+		   special_role == "Head Revolutionary" && prob(30) || \
+		   special_role == "Shadowling" && prob(15))
 			suspects += man
 
 			// If they're a traitor or likewise, give them extra TC in exchange.

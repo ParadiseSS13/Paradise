@@ -67,7 +67,10 @@ Made by Xhuis
 	required_enemies = 2
 	recommended_enemies = 2
 	restricted_jobs = list("AI", "Cyborg")
-	protected_jobs = list("Security Officer", "Warden", "Detective", "Head of Security", "Captain")
+	protected_jobs = list("Security Officer", "Warden", "Detective", "Head of Security", "Captain", "Blueshield", "Nanotrasen Representative", "Security Pod Pilot", "Magistrate", "Brig Physician", "Internal Affairs Agent")
+
+	var/const/waittime_l = 600 //lower bound on time before intercept arrives (in tenths of seconds)
+	var/const/waittime_h = 1800 //upper bound on time before intercept arrives (in tenths of seconds)
 
 /datum/game_mode/shadowling/announce()
 	world << "<b>The current game mode is - Shadowling!</b>"
@@ -109,6 +112,8 @@ Made by Xhuis
 		finalize_shadowling(shadow)
 		process_shadow_objectives(shadow)
 		//give_shadowling_abilities(shadow)
+		spawn (rand(waittime_l, waittime_h))
+			send_intercept()
 	..()
 	return
 
@@ -139,6 +144,7 @@ Made by Xhuis
 		if(shadow_mind.assigned_role == "Clown")
 			S << "<span class='notice'>Your alien nature has allowed you to overcome your clownishness.</span>"
 			S.mutations.Remove(CLUMSY)
+		shadow_mind.current.hud_updateflag |= (1 << SPECIALROLE_HUD)
 
 /datum/game_mode/proc/add_thrall(datum/mind/new_thrall_mind)
 	if (!istype(new_thrall_mind))
@@ -152,6 +158,7 @@ Made by Xhuis
 		new_thrall_mind.current << "<b>The objectives of your shadowlings:</b>: Ascend to your true form by use of the Ascendance ability. \
 		This may only be used with [required_thralls] collective thralls, while hatched, and is unlocked with the Collective Mind ability."
 		new_thrall_mind.current.add_language("Shadowling Hivemind")
+		new_thrall_mind.current.hud_updateflag |= (1 << SPECIALROLE_HUD)
 		return 1
 
 

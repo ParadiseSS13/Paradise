@@ -169,17 +169,16 @@
 	..()
 
 /obj/item/device/mmi/posibrain/New()
-	for(var/mob/living/carbon/brain/bmob in src) //Also going to hell for this, but this should fix the runtimes.
-		bmob = new /mob/living/carbon/brain(src)
-		bmob.name = "[pick(list("PBU","HIU","SINA","ARMA","OSI"))]-[rand(100, 999)]"
-		bmob.real_name = src.brainmob.name
-		bmob.loc = src
-		bmob.container = src
-		bmob.robot_talk_understand = 1
-		bmob.stat = 0
-		bmob.silent = 0
-		bmob.brain_op_stage = 4.0
-		dead_mob_list -= bmob
+	src.brainmob = new(src)
+	src.brainmob.name = "[pick(list("PBU","HIU","SINA","ARMA","OSI"))]-[rand(100, 999)]"
+	src.brainmob.real_name = src.brainmob.name
+	src.brainmob.loc = src
+	src.brainmob.container = src
+	src.brainmob.robot_talk_understand = 1
+	src.brainmob.stat = 0
+	src.brainmob.silent = 0
+	src.brainmob.brain_op_stage = 4.0
+	dead_mob_list -= src.brainmob
 
 	..()
 

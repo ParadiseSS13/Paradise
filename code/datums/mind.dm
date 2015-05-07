@@ -995,7 +995,7 @@ datum/mind
 						usr << "<span class='warning'>This only works on humans!</span>"
 						return
 					ticker.mode.shadows += src
-					special_role = "shadowling"
+					special_role = "Shadowling"
 					current << "<span class='deadsay'><b>You notice a brightening around you. No, it isn't that. The shadows grow, darken, swirl. The darkness has a new welcome for you, and you realize with a \
 					start that you can't be human. No, you are a shadowling, a harbringer of the shadows! Your alien abilities have been unlocked from within, and you may both commune with your allies and use \
 					a chrysalis to reveal your true form. You are to ascend at all costs.</b></span>"
@@ -1006,7 +1006,7 @@ datum/mind
 						usr << "<span class='warning'>This only works on humans!</span>"
 						return
 					ticker.mode.add_thrall(src)
-					special_role = "thrall"
+					special_role = "Shadowling Thrall"
 					current << "<span class='deadsay'>All at once it becomes clear to you. Where others see darkness, you see an ally. You realize that the shadows are not dead and dark as one would think, but \
 					living, and breathing, and <b>eating</b>. Their children, the Shadowlings, are to be obeyed and protected at all costs.</span>"
 					current << "<span class='danger'>You may use the Hivemind Commune ability to communicate with your fellow enlightened ones.</span>"

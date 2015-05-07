@@ -504,11 +504,14 @@
 		if(ticker.mode.shadows.len)
 			dat += check_role_table("Shadowlings", ticker.mode.shadows, src)
 
-		if(ticker.mode.thralls.len)
-			dat += check_role_table("Shadowling Thralls", ticker.mode.thralls, src)
+		if(ticker.mode.shadowling_thralls.len)
+			dat += check_role_table("Shadowling Thralls", ticker.mode.shadowling_thralls, src)
 
 		if(ticker.mode.vampires.len)
 			dat += check_role_table("Vampires", ticker.mode.vampires, src)
+
+		if(ticker.mode.enthralled.len)
+			dat += check_role_table("Vampire Thralls", ticker.mode.enthralled, src)
 
 		if(ticker.mode.xenos.len)
 			dat += check_role_table("Xenos", ticker.mode.xenos, src)
