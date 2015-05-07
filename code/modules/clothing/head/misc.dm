@@ -237,7 +237,7 @@
 	desc = "Woof!"
 	icon_state = "corgihead"
 	item_state = "chickensuit"
-	flags = BLOCKHAIR
+	flags = BLOCKHAIR | NODROP
 	siemens_coefficient = 2.0
 
 /obj/item/clothing/head/bearpelt

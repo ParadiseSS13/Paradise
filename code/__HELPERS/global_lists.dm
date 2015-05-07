@@ -36,6 +36,7 @@ var/global/list/all_species[0]
 var/global/list/all_languages[0]
 var/global/list/language_keys[0]					// Table of say codes for all languages
 var/global/list/all_nations[0]
+var/global/list/all_superheroes[0]
 var/global/list/whitelisted_species = list()
 
 //global var of unsafe-to-spawn-on-reaction mobs
@@ -62,7 +63,8 @@ var/global/list/blocked_mobs = list(/mob/living/simple_animal/hostile,
 			/mob/living/simple_animal/hostile/carp/holocarp,
 			/mob/living/simple_animal/hostile/mining_drone,
 			/mob/living/simple_animal/hostile/spaceWorm,
-			/mob/living/simple_animal/hostile/spaceWorm/wormHead
+			/mob/living/simple_animal/hostile/spaceWorm/wormHead,
+			/mob/living/simple_animal/ascendant_shadowling
 			)
 
 //Preferences stuff
@@ -139,6 +141,11 @@ var/global/list/backbaglist = list("Nothing", "Backpack", "Satchel", "Satchel Al
 	for(var/T in paths)
 		var/datum/nations/N = new T
 		all_nations[N.name] = N
+
+	paths = typesof(/datum/superheroes)-/datum/superheroes
+	for(var/T in paths)
+		var/datum/superheroes/S = new T
+		all_superheroes[S.name] = S
 
 	//Languages and species.
 	paths = typesof(/datum/language)-/datum/language

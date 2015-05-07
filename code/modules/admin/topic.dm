@@ -1397,6 +1397,16 @@
 
 		usr.client.cmd_admin_slimeize(H)
 
+	else if(href_list["makesuper"])
+		if(!check_rights(R_SPAWN))	return
+
+		var/mob/living/carbon/human/H = locate(href_list["makesuper"])
+		if(!istype(H))
+			usr << "This can only be used on instances of type /mob/living/carbon/human"
+			return
+
+		usr.client.cmd_admin_super(H)
+
 	else if(href_list["makerobot"])
 		if(!check_rights(R_SPAWN))	return
 

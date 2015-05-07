@@ -13,7 +13,7 @@
 		src << "<span class='danger'>The wiki URL is not set in the server configuration.</span>"
 	return
 
-#define CHANGELOG "https://github.com/ParadiseSS13/Paradise/issues?q=is%3Apr+is%3Aclosed"
+#define CHANGELOG "https://github.com/ParadiseSS13/Paradise/pulls?q=is%3Apr+is%3Amerged+sort%3Aupdated-desc"
 /client/verb/changes()
 	set name = "Changelog"
 	set desc = "Visit Github to check out the commits."
@@ -68,9 +68,9 @@ Hotkey-Mode: (hotkey-mode must be on)
 \ts = down
 \td = right
 \tw = up
-\tq = drop
+\tq = drop item / deselect cyborg module
 \te = equip
-\tr = throw
+\tr = toggle throw / unequip cyborg module
 \tt = say
 \tx = swap-hand
 \tz = activate held object (or y)
@@ -88,9 +88,9 @@ Any-Mode: (hotkey doesn't need to be on)
 \tCtrl+s = down
 \tCtrl+d = right
 \tCtrl+w = up
-\tCtrl+q = drop
+\tCtrl+q = drop item / deselect cyborg module
 \tCtrl+e = equip
-\tCtrl+r = throw
+\tCtrl+r = toggle throw / unequip cyborg module
 \tCtrl+x = swap-hand
 \tCtrl+z = activate held object (or Ctrl+y)
 \tCtrl+f = cycle-intents-left
@@ -101,10 +101,10 @@ Any-Mode: (hotkey doesn't need to be on)
 \tCtrl+4 = harm-intent
 \tDEL = pull
 \tINS = cycle-intents-right
-\tHOME = drop
+\tHOME = drop item / deselect cyborg module
 \tPGUP = swap-hand
 \tPGDN = activate held object
-\tEND = throw
+\tEND = toggle throw / unequip cyborg module
 </font>"}
 
 	var/admin = {"<font color='purple'>

@@ -210,11 +210,11 @@
 	if(owner && loc == owner)
 		if(!cannot_amputate && config.limbs_can_break && (brute_dam + burn_dam) >= (max_damage * config.organ_health_multiplier))
 			var/dropped
-			if(burn >= 20 && prob(burn))
+			if(burn >= 20 && prob(burn / 2))
 				if(body_part == HEAD) return
 				dropped = 1
 				droplimb(0,DROPLIMB_BURN)
-			if(!dropped && prob(brute))
+			if(!dropped && prob(brute / 2))
 				if(edge)
 					droplimb(0,DROPLIMB_EDGE)
 				else
@@ -664,6 +664,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 			return
 		if(DROPLIMB_BURN)
 			new /obj/effect/decal/cleanable/ash(get_turf(victim))
+			qdel(src)
 		if(DROPLIMB_BLUNT)
 			var/obj/effect/decal/cleanable/blood/gibs/gore = new victim.species.single_gib_type(get_turf(victim))
 			if(victim.species.flesh_color)
@@ -673,12 +674,12 @@ Note that amputating the affected organ does in fact remove the infection from t
 			gore.update_icon()
 			gore.throw_at(get_edge_target_turf(src,pick(alldirs)),rand(1,3),30)
 
-			for(var/obj/item/organ/I in internal_organs)
-				I.removed()
+			for(var/obj/item/organ/I in contents)
+				I.loc = loc
 				if(istype(loc,/turf))
 					I.throw_at(get_edge_target_turf(src,pick(alldirs)),rand(1,3),30)
+			qdel(src)
 
-	del(src)
 
 /****************************************************
 			   HELPERS

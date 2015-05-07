@@ -356,6 +356,20 @@
 	key = "g"
 	flags = RESTRICTED | HIVEMIND
 
+/datum/language/shadowling
+	name = "Shadowling Hivemind"
+	desc = "Shadowlings and their thralls are capable of communicating over a psychic hivemind."
+	speech_verb = "says"
+	colour = "shadowling"
+	key = "8"
+	flags = RESTRICTED | HIVEMIND
+
+/datum/language/shadowling/broadcast(var/mob/living/speaker, var/message, var/speaker_mask)
+	if(speaker.mind && speaker.mind.special_role)
+		..(speaker, message, "([speaker.mind.special_role]) [speaker]")
+	else
+		..(speaker, message)
+
 /datum/language/ling/broadcast(var/mob/living/speaker,var/message,var/speaker_mask)
 
 	if(speaker.mind && speaker.mind.changeling)

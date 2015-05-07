@@ -24,7 +24,7 @@
 		"Cat" = "cat",
 		"Mouse" = "mouse",
 		"Monkey" = "monkey",
-		"Corgi" = "corgi",
+		"Corgi" = "borgi",
 		"Fox" = "fox"
 		)
 
