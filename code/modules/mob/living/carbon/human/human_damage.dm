@@ -310,6 +310,20 @@ This function restores all organs.
 				damage = damage*species.brute_mod
 			if(organ.take_damage(damage, 0, sharp, edge, used_weapon))
 				UpdateDamageIcon()
+			if(LAssailant && ishuman(LAssailant))
+				var/mob/living/carbon/human/H = LAssailant
+				if(H.mind && H.mind in (ticker.mode.superheroes || ticker.mode.supervillains || ticker.mode.greyshirts))
+					var/list/attack_bubble_recipients = list()
+					var/mob/living/user
+					for(var/mob/O in viewers(user, src))
+						if (O.client && !( O.blinded ))
+							attack_bubble_recipients.Add(O.client)
+					spawn(0)
+						var/image/dmgIcon = image('icons/effects/hit_blips.dmi', src, "dmg[rand(1,2)]",MOB_LAYER+1)
+						dmgIcon.pixel_x = (!lying) ? rand(-3,3) : rand(-11,12)
+						dmgIcon.pixel_y = (!lying) ? rand(-11,9) : rand(-10,1)
+						//world << "x: [dmgIcon.pixel_x] AND y: [dmgIcon.pixel_y]"
+						flick_overlay(dmgIcon, attack_bubble_recipients, 9)
 			receive_damage()
 		if(BURN)
 			damageoverlaytemp = 20

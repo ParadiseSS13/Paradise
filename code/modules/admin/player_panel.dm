@@ -516,6 +516,15 @@
 		if(ticker.mode.xenos.len)
 			dat += check_role_table("Xenos", ticker.mode.xenos, src)
 
+		if(ticker.mode.superheroes.len)
+			dat += check_role_table("Superheroes", ticker.mode.superheroes, src)
+
+		if(ticker.mode.supervillains.len)
+			dat += check_role_table("Supervillains", ticker.mode.supervillains, src)
+
+		if(ticker.mode.greyshirts.len)
+			dat += check_role_table("Greyshirts", ticker.mode.greyshirts, src)
+
 		var/datum/game_mode/mutiny/mutiny = get_mutiny_mode()
 		if(mutiny)
 			dat += mutiny.check_antagonists_ui(src)

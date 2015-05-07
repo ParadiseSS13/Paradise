@@ -50,6 +50,9 @@
 	flags = ONESIZEFITSALL
 	species_fit = list("Vox")
 
+/obj/item/clothing/under/color/grey/greytide
+	flags = ONESIZEFITSALL | NODROP
+
 /obj/item/clothing/under/color/orange
 	name = "orange jumpsuit"
 	desc = "Don't wear this near paranoid security officers"

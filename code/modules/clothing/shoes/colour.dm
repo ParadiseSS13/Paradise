@@ -13,6 +13,9 @@
 	redcoat
 		_color = "redcoat"	//Exists for washing machines. Is not different from black shoes in any way.
 
+/obj/item/clothing/shoes/black/greytide
+	flags = NODROP
+
 /obj/item/clothing/shoes/brown
 	name = "brown shoes"
 	desc = "A pair of brown shoes."

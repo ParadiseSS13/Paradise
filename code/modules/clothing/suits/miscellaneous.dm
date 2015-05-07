@@ -156,6 +156,7 @@
 	body_parts_covered = UPPER_TORSO|ARMS|LOWER_TORSO|LEGS|FEET
 	flags_inv = HIDESHOES|HIDEJUMPSUIT
 	siemens_coefficient = 2.0
+	flags = NODROP
 
 /obj/item/clothing/suit/monkeysuit
 	name = "Monkey Suit"
