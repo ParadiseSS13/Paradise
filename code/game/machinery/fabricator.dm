@@ -1,7 +1,7 @@
-#define fabricATOR_MAIN_MENU       1
-#define fabricATOR_CATEGORY_MENU   2
-#define fabricATOR_SEARCH_MENU     3
-#define fabricATOR 5
+#define FABRICATOR_MAIN_MENU       1
+#define FABRICATOR_CATEGORY_MENU   2
+#define FABRICATOR_SEARCH_MENU     3
+#define FABRICATOR 5
 /obj/machinery/fabricator
 	name = "fabricator"
 	desc = "It produces clothing from fabric and other materials!"
@@ -11,8 +11,8 @@
 	var/p_amount = 0.0
 	var/max_p_amount = 750000.0
 
-	var/c_amount = 0.0
-	var/max_c_amount = 75000.0
+	var/g_amount = 0.0
+	var/max_g_amount = 75000.0
 
 	var/f_amount = 0.0
 	var/max_f_amount = 150000.0
@@ -95,11 +95,11 @@
 
 	else
 		switch(screen)
-			if(fabricATOR_MAIN_MENU)
+			if(FABRICATOR_MAIN_MENU)
 				dat = main_win(user)
-			if(fabricATOR_CATEGORY_MENU)
+			if(FABRICATOR_CATEGORY_MENU)
 				dat = category_win(user,selected_category)
-			if(fabricATOR_SEARCH_MENU)
+			if(FABRICATOR_SEARCH_MENU)
 				dat = search_win(user)
 
 	var/datum/browser/popup = new(user, "fabricator", name, 800, 500)
@@ -125,12 +125,12 @@
 			if(p_amount >= MINERAL_MATERIAL_AMOUNT)
 				var/obj/item/stack/sheet/plastic/P = new /obj/item/stack/sheet/plastic(src.loc)
 				P.amount = round(p_amount / MINERAL_MATERIAL_AMOUNT)
+			if(g_amount >= MINERAL_MATERIAL_AMOUNT)
+				var/obj/item/stack/sheet/glass/G = new /obj/item/stack/sheet/glass(src.loc)
+				G.amount = round(g_amount / MINERAL_MATERIAL_AMOUNT)
 			if(f_amount >= MINERAL_MATERIAL_AMOUNT)
 				var/obj/item/stack/sheet/fabric/F = new /obj/item/stack/sheet/fabric(src.loc)
 				F.amount = round(f_amount / MINERAL_MATERIAL_AMOUNT)
-			if(c_amount >= MINERAL_MATERIAL_AMOUNT)
-				var/obj/item/stack/sheet/fabric/C = new /obj/item/stack/sheet/fabric(src.loc)
-				C.amount = round(c_amount / MINERAL_MATERIAL_AMOUNT)
 			default_deconstruction_crowbar(O)
 			return 1
 		else
@@ -142,20 +142,20 @@
 	if (src.p_amount + O.p_amt > max_p_amount)
 		user << "<span class=\"alert\">The fabricator is full. Please remove plastic from the fabricator in order to insert more.</span>"
 		return 1
-	if (src.c_amount + O.c_amt > max_c_amount)
-		user << "<span class=\"alert\">The fabricator is full. Please remove fur from the fabricator in order to insert more.</span>"
+	if (src.g_amount + O.g_amt > max_g_amount)
+		user << "<span class=\"alert\">The fabricator is full. Please remove glass from the fabricator in order to insert more.</span>"
 		return 1
 	if (src.f_amount + O.f_amt > max_f_amount)
 		user << "<span class=\"alert\">The fabricator is full. Please remove fabric from the fabricator in order to insert more.</span>"
 		return 1
-	if (O.p_amt == 0 && O.c_amt == 0 && O.f_amt == 0)
+	if (O.p_amt == 0 && O.g_amt == 0 && O.f_amt == 0)
 		user << "<span class=\"alert\">This object does not contain significant amounts of materials, or cannot be accepted by the fabricator due to size or hazardous materials.</span>"
 		return 1
 
 	var/amount = 1
 	var/obj/item/stack/stack
 	var/p_amt = O.p_amt
-	var/c_amt = O.c_amt
+	var/g_amt = O.g_amt
 	var/f_amt = O.f_amt
 	if (istype(O, /obj/item/stack))
 		stack = O
@@ -163,8 +163,8 @@
 		if (p_amt)
 			amount = min(amount, round((max_p_amount-src.p_amount)/p_amt))
 			flick("fabricator_o",src)//plays insertion animation
-		if (c_amt)
-			amount = min(amount, round((max_c_amount-src.c_amount)/c_amt))
+		if (g_amt)
+			amount = min(amount, round((max_g_amount-src.g_amount)/g_amt))
 			flick("fabricator_r",src)//plays insertion animation
 		if (f_amt)
 			amount = min(amount, round((max_f_amount-src.f_amount)/f_amt))
@@ -176,9 +176,9 @@
 		O.loc = src
 	icon_state = "fabricator"
 	busy = 1
-	use_power(max(1000, (p_amt+c_amt+f_amt)*amount/10))
+	use_power(max(1000, (p_amt+g_amt+f_amt)*amount/10))
 	src.p_amount += p_amt * amount
-	src.c_amount += c_amt * amount
+	src.g_amount += g_amt * amount
 	src.f_amount += f_amt * amount
 	user << "You insert [amount] sheet[amount>1 ? "s" : ""] to the fabricator."
 	if (O && O.loc == src)
@@ -212,12 +212,12 @@
 		design_last_ordered = files.FindDesignByID(href_list["make"]) //check if it's a valid design
 		if(!design_last_ordered)
 			return
-		if(!(design_last_ordered.build_type & fabricATOR))
+		if(!(design_last_ordered.build_type & FABRICATOR))
 			return
 
 		//multiplier checks : only stacks can have one and its value is 1, 10 ,25 or max_multiplier
 		var/multiplier = text2num(href_list["multiplier"])
-		var/max_multiplier = min(50, design_last_ordered.materials["$plastic"] ?round(p_amount/design_last_ordered.materials["$plastic"]):INFINITY,design_last_ordered.materials["$fabric"]?round(c_amount/design_last_ordered.materials["$fabric"]):INFINITY)
+		var/max_multiplier = min(50, design_last_ordered.materials["$plastic"] ?round(p_amount/design_last_ordered.materials["$plastic"]):INFINITY,design_last_ordered.materials["$fabric"]?round(g_amount/design_last_ordered.materials["$fabric"]):INFINITY)
 		var/is_stack = ispath(design_last_ordered.build_path, /obj/item/stack)
 
 		if(!is_stack && (multiplier > 1))
@@ -266,7 +266,7 @@
 		tot_rating += MB.rating
 	tot_rating *= 25000
 	max_p_amount = tot_rating
-	max_c_amount = tot_rating
+	max_g_amount = tot_rating
 	max_f_amount = tot_rating
 	for(var/obj/item/weapon/stock_parts/manipulator/M in component_parts)
 		prod_coeff += M.rating - 1
@@ -280,9 +280,9 @@
 	var/is_stack = ispath(D.build_path, /obj/item/stack)
 	var/coeff = get_coeff(D)
 	var/plastic_cost = D.materials["$plastic"]
-	var/fur_cost = D.materials["$fur"]
+	var/glass_cost = D.materials["$glass"]
 	var/fabric_cost = D.materials["$fabric"]
-	var/power = max(2000, (plastic_cost+fur_cost+fabric_cost)*multiplier/5)
+	var/power = max(2000, (plastic_cost+glass_cost+fabric_cost)*multiplier/5)
 	if (can_build(D,multiplier))
 		being_built = list(D,multiplier)
 		use_power(power)
@@ -290,11 +290,11 @@
 		flick("fabricator_n",src)
 		if(is_stack)
 			p_amount -= plastic_cost*multiplier
-			c_amount -= fur_cost*multiplier
+			g_amount -= glass_cost*multiplier
 			f_amount -= fabric_cost*multiplier
 		else
 			p_amount -= plastic_cost/coeff
-			c_amount -= fur_cost/coeff
+			g_amount -= glass_cost/coeff
 			f_amount -= fabric_cost/coeff
 		updateUsrDialog()
 		sleep(32/coeff)
@@ -304,33 +304,33 @@
 		else
 			var/obj/item/new_item = new D.build_path(BuildTurf)
 			new_item.p_amt /= coeff
-			new_item.c_amt /= coeff
+			new_item.g_amt /= coeff
 			new_item.f_amt /= coeff
 		if(p_amount < 0)
 			p_amount = 0
-		if(c_amount < 0)
-			c_amount = 0
+		if(g_amount < 0)
+			g_amount = 0
 		if(f_amount < 0)
 			f_amount = 0
 	updateUsrDialog()
 	desc = initial(desc)
 
-/obj/machinery/fabricator/proc/can_build(var/datum/design/D,var/multiplier=1,var/custom_plastic,var/custom_fur,var/custom_fabric)
+/obj/machinery/fabricator/proc/can_build(var/datum/design/D,var/multiplier=1,var/custom_plastic,var/custom_glass,var/custom_fabric)
 	var/coeff = get_coeff(D)
 
 	var/plastic_amount = p_amount
 	if(custom_plastic)
 		plastic_amount = custom_plastic
-	var/fur_amount = c_amount
-	if(custom_fur)
-		fur_amount = custom_fur
+	var/glass_amount = g_amount
+	if(custom_glass)
+		glass_amount = custom_glass
 	var/fabric_amount = f_amount
 	if(custom_fabric)
 		fabric_amount = custom_fabric
 
 	if(D.materials["$plastic"] && (plastic_amount < (multiplier*D.materials["$plastic"] / coeff)))
 		return 0
-	if(D.materials["$fur"] && (fur_amount < (multiplier*D.materials["$fur"] / coeff)))
+	if(D.materials["$glass"] && (glass_amount < (multiplier*D.materials["$glass"] / coeff)))
 		return 0
 	if(D.materials["$fabric"] && (fabric_amount < (multiplier*D.materials["$fabric"] / coeff)))
 		return 0
@@ -341,8 +341,8 @@
 	var/coeff = get_coeff(D)
 	if(D.materials["$plastic"])
 		OutputList[1] = (D.materials["$plastic"] / coeff)*multiplier
-	if(D.materials["$fur"])
-		OutputList[2] = (D.materials["$fur"] / coeff)*multiplier
+	if(D.materials["$glass"])
+		OutputList[2] = (D.materials["$glass"] / coeff)*multiplier
 	if(D.materials["$fabric"])
 		OutputList[3] = (D.materials["$fabric"] / coeff)*multiplier
 	return OutputList
@@ -356,7 +356,7 @@
 
 /obj/machinery/fabricator/proc/get_queue()
 	var/temp_plastic = p_amount
-	var/temp_fur = c_amount
+	var/temp_glass = g_amount
 	var/temp_fabric = f_amount
 	var/output = "<td valign='top' style='width: 300px'>"
 	output += "<div class='statusDisplay'>"
@@ -382,9 +382,9 @@
 			var/multiplier = L[2]
 			var/list/LL = get_design_cost_as_list(D,multiplier)
 			var/is_stack = (multiplier>1)
-			output += "<li[!can_build(D,multiplier,temp_plastic,temp_fur,temp_fabric)?" style='color: #f00;'":null]>[initial(D.name)][is_stack?" (x[multiplier])":null] - [i>1?"<a href='?src=\ref[src];queue_move=-1;index=[i]' class='arrow'>&uarr;</a>":null] [i<queue.len?"<a href='?src=\ref[src];queue_move=+1;index=[i]' class='arrow'>&darr;</a>":null] <a href='?src=\ref[src];remove_from_queue=[i]'>Remove</a></li>"
+			output += "<li[!can_build(D,multiplier,temp_plastic,temp_glass,temp_fabric)?" style='color: #f00;'":null]>[initial(D.name)][is_stack?" (x[multiplier])":null] - [i>1?"<a href='?src=\ref[src];queue_move=-1;index=[i]' class='arrow'>&uarr;</a>":null] [i<queue.len?"<a href='?src=\ref[src];queue_move=+1;index=[i]' class='arrow'>&darr;</a>":null] <a href='?src=\ref[src];remove_from_queue=[i]'>Remove</a></li>"
 			temp_plastic = max(temp_plastic-LL[1],1)
-			temp_fur = max(temp_fur-LL[2],1)
+			temp_glass = max(temp_glass-LL[2],1)
 			temp_fabric = max(temp_fabric-LL[3],1)
 
 		output += "</ol>"
@@ -434,15 +434,15 @@
 /obj/machinery/fabricator/proc/main_win(mob/user)
 	var/dat = "<table style='width:100%'><tr>"
 	dat += "<td valign='top' style='margin-right: 300px'>"
-	dat += "<div class='statusDisplay'><h3>fabricator Menu:</h3><br>"
+	dat += "<div class='statusDisplay'><h3>Fabricator Menu:</h3><br>"
 	dat += "<b>Plastic amount:</b> [src.p_amount] / [max_p_amount] cm<sup>3</sup><br>"
-	dat += "<b>Fabric amount:</b> [src.c_amount] / [max_c_amount] cm<sup>3</sup>"
-	dat += "<b>Fur amount:</b> [src.f_amount] / [max_f_amount] cm<sup>3</sup><hr>"
+	dat += "<b>Glass amount:</b> [src.g_amount] / [max_g_amount] cm<sup>3</sup>"
+	dat += "<b>Fabric amount:</b> [src.f_amount] / [max_f_amount] cm<sup>3</sup>"
 
 	dat += "<form name='search' action='?src=\ref[src]'> \
 	<input type='hidden' name='src' value='\ref[src]'> \
 	<input type='hidden' name='search' value='to_search'> \
-	<input type='hidden' name='menu' value='[fabricATOR_SEARCH_MENU]'> \
+	<input type='hidden' name='menu' value='[FABRICATOR_SEARCH_MENU]'> \
 	<input type='text' name='to_search'> \
 	<input type='submit' value='Search'> \
 	</form><hr>"
@@ -455,7 +455,7 @@
 			dat += "</tr><tr>"
 			line_length = 1
 
-		dat += "<td><A href='?src=\ref[src];category=[C];menu=[fabricATOR_CATEGORY_MENU]'>[C]</A></td>"
+		dat += "<td><A href='?src=\ref[src];category=[C];menu=[FABRICATOR_CATEGORY_MENU]'>[C]</A></td>"
 		line_length++
 
 	dat += "</tr></table></div>"
@@ -467,11 +467,11 @@
 /obj/machinery/fabricator/proc/category_win(mob/user,var/selected_category)
 	var/dat = "<table style='width:100%'><tr><td valign='top' style='margin-right: 300px'>"
 	dat += "<div class='statusDisplay'>"
-	dat += "<A href='?src=\ref[src];menu=[fabricATOR_MAIN_MENU]'>Return to main menu</A>"
+	dat += "<A href='?src=\ref[src];menu=[FABRICATOR_MAIN_MENU]'>Return to main menu</A>"
 	dat += "<h3>Browsing [selected_category]:</h3><br>"
-	dat += "<b>Plastic amount:</b> [src.p_amount] / [max_p_amount] cm<sup>3</sup><br>"
-	dat += "<b>Fabric amount:</b> [src.c_amount] / [max_c_amount] cm<sup>3</sup>"
-	dat += "<b>Fur amount:</b> [src.f_amount] / [max_f_amount] cm<sup>3</sup><hr>"
+	dat += "<b>plastic amount:</b> [src.p_amount] / [max_p_amount] cm<sup>3</sup><br>"
+	dat += "<b>Glass amount:</b> [src.g_amount] / [max_g_amount] cm<sup>3</sup><hr>"
+	dat += "<b>Fabric amount:</b> [src.f_amount] / [max_f_amount] cm<sup>3</sup><hr>"
 
 
 	for(var/datum/design/D in files.known_designs)
@@ -484,7 +484,7 @@
 			dat += "<a href='?src=\ref[src];make=[D.id];multiplier=1'>[D.name]</a>"
 
 		if(ispath(D.build_path, /obj/item/stack))
-			var/max_multiplier = min(50, D.materials["$plastic"] ?round(p_amount/D.materials["$plastic"]):INFINITY,D.materials["$fur"]?round(c_amount/D.materials["$fur"]):INFINITY,D.materials["$fabric"] ?round(p_amount/D.materials["$fabric"]):INFINITY)
+			var/max_multiplier = min(50, D.materials["$plastic"] ?round(p_amount/D.materials["$plastic"]):INFINITY,D.materials["$glass"]?round(g_amount/D.materials["$glass"]):INFINITY,D.materials["$fabric"] ?round(p_amount/D.materials["$fabric"]):INFINITY)
 			if (max_multiplier>10 && !disabled)
 				dat += " <a href='?src=\ref[src];make=[D.id];multiplier=10'>x10</a>"
 			if (max_multiplier>25 && !disabled)
@@ -506,8 +506,8 @@
 	dat += "<A href='?src=\ref[src];menu=[AUTOLATHE_MAIN_MENU]'>Return to main menu</A>"
 	dat += "<h3>Search results:</h3><br>"
 	dat += "<b>Plastic amount:</b> [src.p_amount] / [max_p_amount] cm<sup>3</sup><br>"
-	dat += "<b>Fabic amount:</b> [src.c_amount] / [max_c_amount] cm<sup>3</sup>"
-	dat += "<b>Fur amount:</b> [src.f_amount] / [max_f_amount] cm<sup>3</sup><hr>"
+	dat += "<b>Glass amount:</b> [src.g_amount] / [max_g_amount] cm<sup>3</sup><hr>"
+	dat += "<b>Fabric amount:</b> [src.f_amount] / [max_f_amount] cm<sup>3</sup><hr>"
 
 	for(var/datum/design/D in matching_designs)
 		if(disabled || !can_build(D))
@@ -516,7 +516,7 @@
 			dat += "<a href='?src=\ref[src];make=[D.id];multiplier=1'>[D.name]</a>"
 
 		if(ispath(D.build_path, /obj/item/stack))
-			var/max_multiplier = min(50, D.materials["$plastic"] ?round(p_amount/D.materials["$plastic"]):INFINITY,D.materials["$fur"]?round(c_amount/D.materials["$fur"]):INFINITY, D.materials["$fabric"] ?round(p_amount/D.materials["$fabric"]):INFINITY)
+			var/max_multiplier = min(50, D.materials["$plastic"] ?round(p_amount/D.materials["$plastic"]):INFINITY,D.materials["$glass"]?round(g_amount/D.materials["$glass"]):INFINITY, D.materials["$fabric"] ?round(p_amount/D.materials["$fabric"]):INFINITY)
 			if (max_multiplier>10 && !disabled)
 				dat += " <a href='?src=\ref[src];make=[D.id];multiplier=10'>x10</a>"
 			if (max_multiplier>25 && !disabled)
@@ -537,8 +537,8 @@
 	var/dat
 	if(D.materials["$plastic"])
 		dat += "[D.materials["$plastic"] / coeff] plastic "
-	if(D.materials["$fur"])
-		dat += "[D.materials["$fur"] / coeff] fur"
+	if(D.materials["$glass"])
+		dat += "[D.materials["$glass"] / coeff] glass"
 	if(D.materials["$fabric"])
 		dat += "[D.materials["$fabric"] / coeff] fabric"
 	return dat
@@ -561,7 +561,7 @@
 
 	if(hack)
 		for(var/datum/design/D in files.possible_designs)
-			if((D.build_type & fabricATOR) && ("hacked" in D.category))
+			if((D.build_type & FABRICATOR) && ("hacked" in D.category))
 				files.known_designs += D
 	else
 		for(var/datum/design/D in files.known_designs)

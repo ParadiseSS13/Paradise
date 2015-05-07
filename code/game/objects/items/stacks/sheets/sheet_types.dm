@@ -187,7 +187,7 @@ var/global/list/datum/stack_recipe/wood_recipes = list ( \
 	name = "fabric"
 	desc = "This roll of fabric is made from bits and peices of old uniforms."
 	singular_name = "fabric peice"
-	c_amt = 1000
+	f_amt = 3750
 	icon_state = "sheet-cloth"
 	origin_tech = "materials=2"
 
@@ -222,7 +222,7 @@ var/global/list/datum/stack_recipe/plastic_recipes = list ( \
 	desc = "This sheet of plastic is made from odd chemicals"
 	singular_name = "plastic"
 	p_amt = 3750
-	icon_state = "sheet-plastic"
+	icon_state = "plastic"
 	origin_tech = "materials=3"
 
 /obj/item/stack/sheet/plastic/full/New()
