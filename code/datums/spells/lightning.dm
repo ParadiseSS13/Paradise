@@ -17,7 +17,7 @@
 
 /obj/effect/proc_holder/spell/wizard/targeted/lightning/lightnian
 	clothes_req = 0
-
+	invocation_type = "none"
 
 /obj/effect/proc_holder/spell/wizard/targeted/lightning/Click()
 	if(!ready)
