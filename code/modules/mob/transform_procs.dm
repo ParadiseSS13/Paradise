@@ -5,14 +5,14 @@
 
 /*
 /mob/living/carbon/human/proc/monkeyize()
-	if (notransform)
+	if (monkeyizing)
 		return
 	for(var/obj/item/W in src)
 		if (W==w_uniform) // will be torn
 			continue
 		unEquip(W)
 	regenerate_icons()
-	notransform = 1
+	monkeyizing = 1
 	canmove = 0
 	stunned = 1
 	icon = null
@@ -62,7 +62,7 @@
 	return ..()
 
 /mob/living/carbon/human/AIize(move=1) // 'move' argument needs defining here too because BYOND is dumb
-	if (notransform)
+	if (monkeyizing)
 		return
 	for(var/t in organs)
 		del(t)
@@ -70,11 +70,11 @@
 	return ..(move)
 
 /mob/living/carbon/AIize()
-	if (notransform)
+	if (monkeyizing)
 		return
 	for(var/obj/item/W in src)
 		unEquip(W)
-	notransform = 1
+	monkeyizing = 1
 	canmove = 0
 	icon = null
 	invisibility = 101
@@ -178,12 +178,12 @@
 
 //human -> robot
 /mob/living/carbon/human/proc/Robotize()
-	if (notransform)
+	if (monkeyizing)
 		return
 	for(var/obj/item/W in src)
 		unEquip(W)
 	regenerate_icons()
-	notransform = 1
+	monkeyizing = 1
 	canmove = 0
 	icon = null
 	invisibility = 101
@@ -236,12 +236,12 @@
 
 //human -> alien
 /mob/living/carbon/human/proc/Alienize()
-	if (notransform)
+	if (monkeyizing)
 		return
 	for(var/obj/item/W in src)
 		unEquip(W)
 	regenerate_icons()
-	notransform = 1
+	monkeyizing = 1
 	canmove = 0
 	icon = null
 	invisibility = 101
@@ -267,12 +267,12 @@
 	return
 
 /mob/living/carbon/human/proc/slimeize(adult as num, reproduce as num)
-	if (notransform)
+	if (monkeyizing)
 		return
 	for(var/obj/item/W in src)
 		unEquip(W)
 	regenerate_icons()
-	notransform = 1
+	monkeyizing = 1
 	canmove = 0
 	icon = null
 	invisibility = 101
@@ -302,12 +302,12 @@
 	return
 
 /mob/living/carbon/human/proc/corgize()
-	if (notransform)
+	if (monkeyizing)
 		return
 	for(var/obj/item/W in src)
 		unEquip(W)
 	regenerate_icons()
-	notransform = 1
+	monkeyizing = 1
 	canmove = 0
 	icon = null
 	invisibility = 101
@@ -332,13 +332,13 @@
 		usr << "\red Sorry but this mob type is currently unavailable."
 		return
 
-	if(notransform)
+	if(monkeyizing)
 		return
 	for(var/obj/item/W in src)
 		unEquip(W)
 
 	regenerate_icons()
-	notransform = 1
+	monkeyizing = 1
 	canmove = 0
 	icon = null
 	invisibility = 101

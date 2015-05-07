@@ -475,9 +475,6 @@
 				P.loc = src
 				P.level = 2
 		return
-	// The magnetic gripper does a separate attackby, so bail from this one
-	else if(istype(W, /obj/item/weapon/gripper))
-		return
 
 	else
 		return attack_hand(user)

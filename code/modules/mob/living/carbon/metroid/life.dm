@@ -9,7 +9,7 @@
 	set invisibility = 0
 	//set background = 1
 
-	if (src.notransform)
+	if (src.monkeyizing)
 		return
 
 	..()

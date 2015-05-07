@@ -635,11 +635,3 @@ obj/structure/cable/proc/cableColor(var/colorC)
 
 	else
 		return ..()
-
-/obj/item/stack/cable_coil/cyborg
-	name = "cyborg cable coil"
-
-/obj/item/stack/cable_coil/cyborg/attack_self(mob/user)
-	var/cable_color = input(user,"Pick a cable color.","Cable Color") in list("red","yellow","green","blue","pink","orange","cyan","white")
-	_color = cable_color
-	update_icon()

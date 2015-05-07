@@ -19,7 +19,7 @@
 /mob/living/carbon/brain/gib()
 	death(1)
 	var/atom/movable/overlay/animation = null
-	notransform = 1
+	monkeyizing = 1
 	canmove = 0
 	icon = null
 	invisibility = 101

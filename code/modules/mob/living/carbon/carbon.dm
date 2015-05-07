@@ -27,47 +27,34 @@ mob/living
 		if(germ_level < GERM_LEVEL_MOVE_CAP && prob(8))
 			germ_level++
 
-#define STOMACH_ATTACK_DELAY 4
-
-/mob/living/carbon/var/last_stomach_attack //defining this here because no one would look in carbon_defines for it
-
 /mob/living/carbon/relaymove(var/mob/user, direction)
 	if(user in src.stomach_contents)
-		if(last_stomach_attack + STOMACH_ATTACK_DELAY > world.time)	return
-
-		last_stomach_attack = world.time
-		for(var/mob/M in hearers(4, src))
-			if(M.client)
-				M.show_message(text("\red You hear something rumbling inside [src]'s stomach..."), 2)
-
-		var/obj/item/I = user.get_active_hand()
-		if(I && I.force)
-			var/d = rand(round(I.force / 4), I.force)
-
-			if(istype(src, /mob/living/carbon/human))
-				var/mob/living/carbon/human/H = src
-				var/obj/item/organ/external/organ = H.get_organ("chest")
-				if (istype(organ))
-					if(organ.take_damage(d, 0))
-						H.UpdateDamageIcon()
-
-				H.updatehealth()
-
-			else
-				src.take_organ_damage(d)
-
-			for(var/mob/M in viewers(user, null))
+		if(prob(40))
+			for(var/mob/M in hearers(4, src))
 				if(M.client)
-					M.show_message(text("\red <B>[user] attacks [src]'s stomach wall with the [I.name]!"), 2)
-			playsound(user.loc, 'sound/effects/attackblob.ogg', 50, 1)
+					M.show_message(text("\red You hear something rumbling inside [src]'s stomach..."), 2)
+			var/obj/item/I = user.get_active_hand()
+			if(I && I.force)
+				var/d = rand(round(I.force / 4), I.force)
+				if(istype(src, /mob/living/carbon/human))
+					var/mob/living/carbon/human/H = src
+					var/obj/item/organ/external/organ = H.get_organ("chest")
+					if (istype(organ))
+						if(organ.take_damage(d, 0))
+							H.UpdateDamageIcon()
+					H.updatehealth()
+				else
+					src.take_organ_damage(d)
+				for(var/mob/M in viewers(user, null))
+					if(M.client)
+						M.show_message(text("\red <B>[user] attacks [src]'s stomach wall with the [I.name]!"), 2)
+				playsound(user.loc, 'sound/effects/attackblob.ogg', 50, 1)
 
-			if(prob(src.getBruteLoss() - 50))
-				for(var/atom/movable/A in stomach_contents)
-					A.loc = loc
-					stomach_contents.Remove(A)
-				src.gib()
-
-#undef STOMACH_ATTACK_DELAY
+				if(prob(src.getBruteLoss() - 50))
+					for(var/atom/movable/A in stomach_contents)
+						A.loc = loc
+						stomach_contents.Remove(A)
+					src.gib()
 
 /mob/living/carbon/gib()
 	for(var/mob/M in src)
@@ -334,24 +321,21 @@ mob/living
 		src << "You must be conscious to do this!"
 	return
 
-/mob/living/proc/add_ventcrawl(obj/machinery/atmospherics/starting_machine)
-	var/datum/pipe_network/network = starting_machine.return_network(starting_machine)
-	if(!network)
-		return
-	for(var/datum/pipeline/pipeline in network.line_members)
-		for(var/obj/machinery/atmospherics/A in (pipeline.members || pipeline.edges))
-			if(!A.pipe_image)
-				A.pipe_image = image(A, A.loc, layer = 20, dir = A.dir) //the 20 puts it above Byond's darkness (not its opacity view)
-			pipes_shown += A.pipe_image
-			client.images += A.pipe_image
+/mob/living/proc/add_ventcrawl(obj/machinery/atmospherics/unary/starting_machine)
+	for(var/datum/pipeline/pipeline in starting_machine.network.line_members)
+		for(var/atom/A in (pipeline.members || pipeline.edges))
+			var/image/new_image = image(A, A.loc, dir = A.dir)
+			pipes_shown += new_image
+			client.images += new_image
 
 /mob/living/proc/remove_ventcrawl()
-	if(client)
-		for(var/image/current_image in pipes_shown)
-			client.images -= current_image
-		client.eye = src
+	for(var/image/current_image in pipes_shown)
+		client.images -= current_image
 
 	pipes_shown.len = 0
+
+	if(client)
+		client.eye = src
 
 /mob/living/carbon/clean_blood()
 	. = ..()

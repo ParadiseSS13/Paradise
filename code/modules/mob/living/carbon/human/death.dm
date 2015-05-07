@@ -1,7 +1,7 @@
 /mob/living/carbon/human/gib()
 	death(1)
 	var/atom/movable/overlay/animation = null
-	notransform = 1
+	monkeyizing = 1
 	canmove = 0
 	icon = null
 	invisibility = 101
@@ -42,7 +42,7 @@
 /mob/living/carbon/human/dust()
 	death(1)
 	var/atom/movable/overlay/animation = null
-	notransform = 1
+	monkeyizing = 1
 	canmove = 0
 	icon = null
 	invisibility = 101
@@ -62,7 +62,7 @@
 /mob/living/carbon/human/melt()
 	death(1)
 	var/atom/movable/overlay/animation = null
-	notransform = 1
+	monkeyizing = 1
 	canmove = 0
 	icon = null
 	invisibility = 101

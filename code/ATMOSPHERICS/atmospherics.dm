@@ -25,16 +25,12 @@ Pipelines + Other Objects -> Pipe network
 	var/initialize_directions = 0
 	var/pipe_color
 
-	var/image/pipe_image
-
 	var/global/datum/pipe_icon_manager/icon_manager
 
 /obj/machinery/atmospherics/Destroy()
 	for(var/mob/living/M in src) //ventcrawling is serious business
 		M.remove_ventcrawl()
-		M.forceMove(src.loc)
-	if(pipe_image)
-		del(pipe_image) //we have to del it, or it might keep a ref somewhere else
+		M.loc = src.loc
 	..()
 
 // Find a connecting /obj/machinery/atmospherics in specified direction.
@@ -167,9 +163,6 @@ obj/machinery/atmospherics/proc/check_connect_types_construction(obj/machinery/a
 			user.forceMove(target_move.loc) //handles entering and so on
 			user.visible_message("You hear something squeezing through the ducts.", "You climb out the ventilation system.")
 		else if(target_move.can_crawl_through())
-			if(target_move.return_network(target_move) != return_network(src))
-				user.remove_ventcrawl()
-				user.add_ventcrawl(target_move)
 			user.loc = target_move
 			user.client.eye = target_move //if we don't do this, Byond only updates the eye every tick - required for smooth movement
 			if(world.time - user.last_played_vent > VENT_SOUND_DELAY)

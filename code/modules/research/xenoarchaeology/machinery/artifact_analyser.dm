@@ -92,14 +92,13 @@
 			reconnect_scanner()
 		if(owned_scanner)
 			var/artifact_in_use = 0
-			scanned_object = null
 			for(var/obj/O in owned_scanner.loc)
 				if(O == owned_scanner)
 					continue
 				if(O.invisibility)
 					continue
-				if(istype(O, /obj/machinery/artifact))
-					var/obj/machinery/artifact/A = O
+				if(istype(scanned_object, /obj/machinery/artifact))
+					var/obj/machinery/artifact/A = scanned_object
 					if(A.being_used)
 						artifact_in_use = 1
 					else

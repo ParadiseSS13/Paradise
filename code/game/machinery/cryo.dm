@@ -60,9 +60,10 @@
 
 /obj/machinery/atmospherics/unary/cryo_cell/initialize()
 	if(node) return
-	for(var/cdir in cardinal)
-		node = findConnecting(cdir)
-		if(node)
+	var/node_connect = dir
+	for(var/obj/machinery/atmospherics/target in get_step(src,node_connect))
+		if(target.initialize_directions & get_dir(target,src))
+			node = target
 			break
 
 /obj/machinery/atmospherics/unary/cryo_cell/Destroy()

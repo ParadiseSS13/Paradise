@@ -144,7 +144,7 @@
 		if(pod1 && pod1.biomass >= CLONE_BIOMASS)
 			data["enoughbiomass"] = 1
 		else
-			data["enoughbiomass"] = 0
+			data["enougbiomass"] = 0
 	
 	// Set up the Nano UI
 	ui = nanomanager.try_update_ui(user, src, ui_key, ui, data, force_open)

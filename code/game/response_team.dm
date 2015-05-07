@@ -82,10 +82,6 @@ var/can_call_ert
 		usr << "<span class='warning'>This role is not yet available to you. You need to wait another [player_age_check] days.</span>"
 		return
 
-	if(src.has_enabled_antagHUD == 1 && config.antag_hud_restricted)
-		usr << "\blue <B>Upon using the antagHUD you forfeited the ability to join the round.</B>"
-		return
-
 	if(response_team_members.len > 6) 
 		usr << "The emergency response team is already full!"
 		return

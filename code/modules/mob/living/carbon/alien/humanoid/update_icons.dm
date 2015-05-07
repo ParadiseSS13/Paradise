@@ -53,7 +53,7 @@
 
 /mob/living/carbon/alien/humanoid/regenerate_icons()
 	..()
-	if (notransform)	return
+	if (monkeyizing)	return
 
 	update_inv_head(0,0)
 	update_inv_wear_suit(0,0)

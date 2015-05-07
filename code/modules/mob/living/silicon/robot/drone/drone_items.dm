@@ -18,8 +18,6 @@
 		/obj/item/mounted/frame/apc_frame,
 		/obj/item/mounted/frame/alarm_frame,
 		/obj/item/mounted/frame/firealarm,
-		/obj/item/mounted/frame/newscaster_frame,
-		/obj/item/mounted/frame/intercom,
 		/obj/item/weapon/table_parts,
 		/obj/item/weapon/rack_parts,
 		/obj/item/weapon/camera_assembly,
@@ -88,10 +86,7 @@
 		wrapped.loc = user
 
 		//Pass the attack on to the target. This might delete/relocate wrapped.
-		if(!target.attackby(wrapped, user, params) && target && wrapped)
-			// If the attackby didn't resolve or delete the target or wrapped, afterattack
-			// (Certain things, such as mountable frames, rely on afterattack)
-			wrapped.afterattack(target, user, 1, params)
+		target.attackby(wrapped,user, params)
 
 		//If wrapped did neither get deleted nor put into target, put it back into the gripper.
 		if(wrapped && user && (wrapped.loc == user))

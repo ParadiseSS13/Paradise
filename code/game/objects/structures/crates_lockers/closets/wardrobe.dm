@@ -105,10 +105,6 @@
 	new /obj/item/weapon/storage/backpack/cultpack (src)
 	new /obj/item/weapon/storage/fancy/candle_box(src)
 	new /obj/item/weapon/storage/fancy/candle_box(src)
-	new /obj/item/clothing/gloves/ring/silver(src)
-	new /obj/item/clothing/gloves/ring/silver(src)
-	new /obj/item/clothing/gloves/ring/gold(src)
-	new /obj/item/clothing/gloves/ring/gold(src)
 	return
 
 
@@ -186,9 +182,9 @@
 	new /obj/item/clothing/head/hardhat/red(src)
 	new /obj/item/clothing/head/hardhat/red(src)
 	new /obj/item/clothing/head/hardhat/red(src)
-	new /obj/item/clothing/head/beret/atmos(src)
-	new /obj/item/clothing/head/beret/atmos(src)
-	new /obj/item/clothing/head/beret/atmos(src)
+	new /obj/item/clothing/head/beret/eng(src)
+	new /obj/item/clothing/head/beret/eng(src)
+	new /obj/item/clothing/head/beret/eng(src)
 	return
 
 

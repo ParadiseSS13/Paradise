@@ -201,11 +201,6 @@
 						break
 				return 0
 
-	if(biomass >= CLONE_BIOMASS)
-		src.biomass -= CLONE_BIOMASS
-	else
-		return 0
-
 	src.attempting = 1 //One at a time!!
 	src.locked = 1
 
@@ -447,9 +442,11 @@
 	src.occupant.loc = src.loc
 	src.icon_state = "pod_0"
 	src.eject_wait = 0 //If it's still set somehow.
-	domutcheck(src.occupant) //Waiting until they're out before possible notransform.
+	domutcheck(src.occupant) //Waiting until they're out before possible monkeyizing.
 	src.occupant.add_side_effect("Bad Stomach") // Give them an extra side-effect for free.
 	src.occupant = null
+
+	src.biomass -= CLONE_BIOMASS
 
 	return
 

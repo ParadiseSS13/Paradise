@@ -193,17 +193,16 @@
 
 	var/slot_num
 	if(slot_start == 0)
-		slot_num = 0
-		slot_start = 3
+		slot_num = 1
+		slot_start = 2
 	else
-		slot_num = slot_start
+		slot_num = slot_start + 1
 
-	do
-		slot_num++
-		if(slot_num > 3) slot_num = 1 //Wrap around.
+	while(slot_start != slot_num) //If we wrap around without finding any free slots, just give up.
 		if(module_active(slot_num))
 			select_module(slot_num)
 			return
-	while(slot_start != slot_num) //If we wrap around without finding any free slots, just give up.
+		slot_num++
+		if(slot_num > 3) slot_num = 1 //Wrap around.
 
 	return

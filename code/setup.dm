@@ -739,7 +739,6 @@ var/list/TAGGERLOCATIONS = list("Disposals",
 #define BE_VAMPIRE		2048
 #define BE_MUTINEER		4096
 #define BE_BLOB			8192
-#define BE_SHADOWLING	16384
 
 var/list/be_special_flags = list(
 	"traitor" = BE_TRAITOR,
@@ -820,7 +819,7 @@ var/list/restricted_camera_networks = list( //Those networks can only be accesse
 #define IS_SLOW 		4
 #define RAD_ABSORB		8
 #define NO_SCAN 		16
-#define NO_PAIN 		32
+#define NO_PAIN 	32
 #define REQUIRE_LIGHT 	64
 #define IS_WHITELISTED 	128
 #define HAS_LIPS 		512

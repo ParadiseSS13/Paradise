@@ -23,7 +23,7 @@
 		///////////////
 		//SOUND STUFF//
 		///////////////
-	var/ambience_playing = 0
+	var/ambience_playing= null
 	var/played			= 0
 
 		////////////
