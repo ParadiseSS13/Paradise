@@ -43,6 +43,14 @@
 	if(iscarbon(usr))
 		var/mob/living/carbon/C = usr
 		C.toggle_throw_mode()
+	else if(isrobot(usr))
+		var/mob/living/silicon/robot/R = usr
+		var/module = R.get_selected_module()
+		if(!module)
+			usr << "\red You have no module selected."
+			return
+		R.cycle_modules()
+		R.uneq_numbered(module)
 	else
 		usr << "\red This mob type cannot throw items."
 	return
@@ -55,6 +63,12 @@
 			usr << "\red You have nothing to drop in your hand."
 			return
 		drop_item()
+	else if(isrobot(usr))
+		var/mob/living/silicon/robot/R = usr
+		if(!R.get_selected_module())
+			usr << "\red You have no module selected."
+			return
+		R.deselect_module(R.get_selected_module())
 	else
 		usr << "\red This mob type cannot drop items."
 	return

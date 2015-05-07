@@ -37,6 +37,8 @@
 	else if(module_state_3 == O)
 		module_state_3 = null
 		inv3.icon_state = "inv3"
+	if(hud_used)
+		hud_used.update_robot_modules_display()
 	return 1
 
 /mob/living/silicon/robot/proc/activate_module(var/obj/item/O)
@@ -76,6 +78,17 @@
 	uneq_module(module_state_1)
 	uneq_module(module_state_2)
 	uneq_module(module_state_3)
+
+/mob/living/silicon/robot/proc/uneq_numbered(var/module)
+	if(module < 1 || module > 3) return
+
+	switch(module)
+		if(1)
+			uneq_module(module_state_1)
+		if(2)
+			uneq_module(module_state_2)
+		if(3)
+			uneq_module(module_state_3)
 
 /mob/living/silicon/robot/proc/activated(obj/item/O)
 	if(module_state_1 == O)
