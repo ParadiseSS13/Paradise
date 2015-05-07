@@ -120,7 +120,6 @@
 /obj/effect/proc_holder/spell/wizard/targeted/recruit
 	name = "Recruit Greyshirt"
 	desc = "Allows you to recruit a conscious, non-braindead, non-catatonic human to be part of the Greyshirts, your personal henchmen. This works on Civilians only and you can recruit a maximum of 3!."
-	panel = "Shadowling Abilities"
 	charge_max = 450
 	clothes_req = 0
 	range = 1 //Adjacent to user
