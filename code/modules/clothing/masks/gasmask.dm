@@ -136,7 +136,24 @@
 	icon_state = "owl"
 	species_fit = list("Vox")
 	flags = MASKCOVERSMOUTH | MASKCOVERSEYES | BLOCK_GAS_SMOKE_EFFECT | MASKINTERNALS | NODROP
+	var/cooldown = 0
+	action_button_name = "Hoot"
+	icon_action_button = "action_owlman"
 
+/obj/item/clothing/mask/gas/owl_mask/attack_self()
+	hoot()
+
+/obj/item/clothing/mask/gas/owl_mask/verb/hoot()
+
+	set category = "Object"
+	set name = "Hoot"
+	set src in usr
+	if(!istype(usr, /mob/living)) return
+	if(usr.stat) return
+
+	if(cooldown < world.time - 35) // A cooldown, to stop people being jerks
+		playsound(src.loc, "sound/misc/hoot.ogg", 50, 1)
+		cooldown = world.time
 
 // ********************************************************************
 
