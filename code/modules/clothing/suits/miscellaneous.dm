@@ -158,6 +158,10 @@
 	siemens_coefficient = 2.0
 	flags = NODROP
 
+/obj/item/clothing/suit/corgisuit/en
+	name = "E-N Suit"
+	icon_state = "ensuit"
+
 /obj/item/clothing/suit/monkeysuit
 	name = "Monkey Suit"
 	desc = "A suit that looks like a primate"

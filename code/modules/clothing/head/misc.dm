@@ -240,6 +240,10 @@
 	flags = BLOCKHAIR | NODROP
 	siemens_coefficient = 2.0
 
+/obj/item/clothing/head/corgi/en
+	name = "E-N suit head"
+	icon_state = "enhead"
+
 /obj/item/clothing/head/bearpelt
 	name = "bear pelt hat"
 	desc = "Fuzzy."

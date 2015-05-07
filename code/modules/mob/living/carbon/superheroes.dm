@@ -117,7 +117,22 @@
 	H.equip_to_slot_or_del(new /obj/item/weapon/bedsheet/orange(H), slot_back)
 
 
+/datum/superheroes/electro
+	name = "Electro Negmatic"
+	class = "Supevillain"
+//	desc = "You are LightnIan, the lord of lightning! A freak electrical accident while working in the station's kennel \
+	has given you mastery over lightning and a peculiar desire to sniff butts. Although you are a recent addition to the \
+	station's hero roster, you intend to leave your mark."
+//	default_spells = list(/obj/effect/proc_holder/spell/wizard/targeted/lightning/lightnian)
 
+/datum/superheroes/electro/equip(var/mob/living/carbon/human/H)
+	..()
+
+	H.equip_to_slot_or_del(new /obj/item/clothing/shoes/grey(H), slot_shoes)
+	H.equip_to_slot_or_del(new /obj/item/clothing/under/color/grey(H), slot_w_uniform)
+	H.equip_to_slot_or_del(new /obj/item/clothing/suit/corgisuit/en(H), slot_wear_suit)
+	H.equip_to_slot_or_del(new /obj/item/clothing/head/corgi/en(H), slot_head)
+	H.equip_to_slot_or_del(new /obj/item/weapon/bedsheet/cult(H), slot_back)
 
 
 
