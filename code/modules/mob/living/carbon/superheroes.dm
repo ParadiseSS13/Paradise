@@ -89,6 +89,14 @@
 	H.equip_to_slot_or_del(new /obj/item/clothing/suit/toggle/owlwings/griffinwings(H), slot_wear_suit)
 	H.equip_to_slot_or_del(new /obj/item/clothing/head/griffin(H), slot_head)
 
+	var/obj/item/weapon/implant/freedom/L = new/obj/item/weapon/implant/freedom(H)
+	L.imp_in = H
+	L.implanted = 1
+	var/obj/item/organ/external/affected = H.organs_by_name["head"]
+	affected.implants += L
+	L.part = affected
+	return 1
+
 
 /datum/superheroes/lightnian
 	name = "LightnIan"
