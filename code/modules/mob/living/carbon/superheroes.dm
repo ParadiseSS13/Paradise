@@ -21,6 +21,7 @@
 	for(var/obj/item/W in H)
 		if(istype(W,/obj/item/organ)) continue
 		H.unEquip(W)
+	H.equip_to_slot_or_del(new /obj/item/device/radio/headset(H), slot_l_ear)
 
 /datum/superheroes/proc/assign_genes(var/mob/living/carbon/human/H)
 	if(default_genes.len)
@@ -197,4 +198,12 @@
 		target.equip_to_slot_or_del(new /obj/item/clothing/under/color/grey/greytide(target), slot_w_uniform)
 		target.equip_to_slot_or_del(new /obj/item/clothing/shoes/black/greytide(target), slot_shoes)
 		target.equip_to_slot_or_del(new /obj/item/weapon/storage/toolbox/mechanical/greytide(target), slot_l_hand)
+		var/obj/item/weapon/card/id/syndicate/W = new(target)
+		W.registered_name = target.real_name
+		W.access = list(access_maint_tunnels)
+		W.name = "[target.real_name]'s ID Card (Greyshirt)"
+		W.assignment = "Greyshirt"
+		target.equip_to_slot_or_del(W, slot_wear_id)
+		target.equip_to_slot_or_del(new /obj/item/device/radio/headset(target), slot_l_ear)
 		target.regenerate_icons()
+
