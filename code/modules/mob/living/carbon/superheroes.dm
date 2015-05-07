@@ -65,7 +65,7 @@
 /datum/superheroes/owlman/equip(var/mob/living/carbon/human/H)
 	..()
 
-	H.equip_to_slot_or_del(new /obj/item/clothing/shoes/black(H), slot_shoes)
+	H.equip_to_slot_or_del(new /obj/item/clothing/shoes/black/greytide(H), slot_shoes)
 	H.equip_to_slot_or_del(new /obj/item/clothing/under/owl(H), slot_w_uniform)
 	H.equip_to_slot_or_del(new /obj/item/clothing/suit/toggle/owlwings(H), slot_wear_suit)
 	H.equip_to_slot_or_del(new /obj/item/clothing/mask/gas/owl_mask(H), slot_wear_mask)
@@ -109,7 +109,7 @@
 /datum/superheroes/lightnian/equip(var/mob/living/carbon/human/H)
 	..()
 
-	H.equip_to_slot_or_del(new /obj/item/clothing/shoes/brown(H), slot_shoes)
+	H.equip_to_slot_or_del(new /obj/item/clothing/shoes/orange(H), slot_shoes)
 	H.equip_to_slot_or_del(new /obj/item/clothing/under/color/brown(H), slot_w_uniform)
 	H.equip_to_slot_or_del(new /obj/item/clothing/suit/corgisuit(H), slot_wear_suit)
 	H.equip_to_slot_or_del(new /obj/item/clothing/head/corgi(H), slot_head)
@@ -128,7 +128,7 @@
 /datum/superheroes/electro/equip(var/mob/living/carbon/human/H)
 	..()
 
-	H.equip_to_slot_or_del(new /obj/item/clothing/shoes/grey(H), slot_shoes)
+	H.equip_to_slot_or_del(new /obj/item/clothing/shoes/black/greytide(H), slot_shoes)
 	H.equip_to_slot_or_del(new /obj/item/clothing/under/color/grey(H), slot_w_uniform)
 	H.equip_to_slot_or_del(new /obj/item/clothing/suit/corgisuit/en(H), slot_wear_suit)
 	H.equip_to_slot_or_del(new /obj/item/clothing/head/corgi/en(H), slot_head)
