@@ -6,7 +6,7 @@
 /datum/superheroes
 	var/name
 	var/class
-	var/list/default_genes = list()
+	var/list/default_genes = list(REGEN, NO_BREATH, RESIST_COLD)
 	var/list/default_spells = list()
 
 /datum/superheroes/proc/create(var/mob/living/carbon/human/H)
@@ -53,7 +53,6 @@
 
 /datum/superheroes/owlman
 	name = "Owlman"
-	default_genes = list(REGEN, NO_BREATH)
 	class = "Superhero"
 
 /datum/superheroes/owlman/equip(var/mob/living/carbon/human/H)
@@ -69,7 +68,6 @@
 
 /datum/superheroes/griffin
 	name = "The Griffin"
-	default_genes = list(REGEN, NO_BREATH)
 	default_spells = list(/obj/effect/proc_holder/spell/wizard/targeted/recruit)
 	class = "Supervillain"
 
@@ -84,7 +82,6 @@
 
 /datum/superheroes/lightnian
 	name = "LightnIan"
-	default_genes = list(REGEN, NO_BREATH)
 	default_spells = list(/obj/effect/proc_holder/spell/wizard/targeted/lightning/lightnian)
 	class = "Superhero"
 
@@ -96,6 +93,7 @@
 	H.equip_to_slot_or_del(new /obj/item/clothing/suit/corgisuit(H), slot_wear_suit)
 	H.equip_to_slot_or_del(new /obj/item/clothing/head/corgi(H), slot_head)
 	H.equip_to_slot_or_del(new /obj/item/clothing/gloves/color/yellow(H), slot_gloves)
+	H.equip_to_slot_or_del(new /obj/item/weapon/bedsheet/orange(H), slot_back)
 
 
 
@@ -177,5 +175,14 @@
 		target << "<span class='deadsay'><b>You have decided to enroll as a henchman for [usr]. You are now part of the feared 'Greyshirts'.</b></span>"
 		target << "<span class='deadsay'><b>You must follow the orders of [usr], and help him succeed in his dastardly schemes.</span>"
 		target << "<span class='deadsay'>You may not harm other Greyshirt or [usr]. However, you do not need to obey other Greyshirts.</span>"
-		target.adjustOxyLoss(-200) //In case the shadowling was choking them out
 		ticker.mode.greyshirts += target.mind
+		target.set_species("Human")
+		target.h_style = "Bald"
+		target.fully_replace_character_name(target.real_name, "Generic Henchman ([rand(1, 1000)])")
+		for(var/obj/item/W in target)
+			if(istype(W,/obj/item/organ)) continue
+			target.unEquip(W)
+		target.equip_to_slot_or_del(new /obj/item/clothing/under/color/grey/greytide(target), slot_w_uniform)
+		target.equip_to_slot_or_del(new /obj/item/clothing/shoes/black/greytide(target), slot_shoes)
+		target.equip_to_slot_or_del(new /obj/item/weapon/storage/toolbox/mechanical/greytide(target), slot_l_hand)
+		target.regenerate_icons()
