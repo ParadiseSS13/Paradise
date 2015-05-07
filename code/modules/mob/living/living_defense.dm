@@ -284,6 +284,7 @@
 	if(user.dir == src.dir)
 		G.state = GRAB_AGGRESSIVE
 		G.adjust_position()
+		G.last_upgrade = world.time
 		if(!supress_message)
 			visible_message("<span class='warning'>[user] has grabbed [src] from behind!</span>")
 	else

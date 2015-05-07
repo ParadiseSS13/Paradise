@@ -249,7 +249,7 @@
 	if(organ.limb_name == "chest" || organ.limb_name == "groin")
 		return 0 //what how do you dislocate a chest with your hands or a groin really
 
-	user.visible_message("<span class='warning'>[user] begins to dislocate [src]'s [organ.name]!</span>")
+	user.visible_message("<span class='warning'>[user] begins to fracture [src]'s [organ.name]!</span>")
 	if(do_after(user, 100))
 		organ.fracture()
 		src.visible_message("<span class='danger'>[src]'s [organ.name] [pick("cracks","gives way","snaps","collapses")]!</span>")
