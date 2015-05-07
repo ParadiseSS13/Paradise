@@ -3,7 +3,9 @@
 	var/m_amt = 0	// metal
 	var/g_amt = 0	// glass
 	var/w_amt = 0	// waster amounts
-	var/p_amt = 0
+	var/p_amt = 0	// plastics amount
+	var/c_amt = 0	// fabic amount
+	var/f_amt = 0	// fur amount
 	var/origin_tech = null	//Used by R&D to determine what research bonuses it grants.
 	var/reliability = 100	//Used by SOME devices to determine how reliable they are.
 	var/crit_fail = 0

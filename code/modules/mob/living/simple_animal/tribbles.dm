@@ -221,10 +221,6 @@ var/global/totaltribbles = 0   //global variable so it updates for all tribbles,
 
 
 //||Fur and Fur Products ||
-/obj
-	var/f_amt = 0	// registers fur amount as an object variable
-
-
 /obj/item/stack/sheet/fur //basic fur sheets (very lumpy furry piles of sheets)
 	name = "pile of fur"
 	desc = "The by-product of tribbles."
