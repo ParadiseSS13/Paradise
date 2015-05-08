@@ -46,7 +46,7 @@
 	desc = "A 12 gauge buckshot shell."
 	icon_state = "gshell"
 	projectile_type = "/obj/item/projectile/bullet/pellet"
-	buck = 5
+	pellets = 5
 	deviation = 0.8
 
 
@@ -64,7 +64,7 @@
 	icon_state = "gshell"
 	projectile_type = "/obj/item/projectile/bullet/pellet/weak"
 	m_amt = 250
-	buck = 5
+	pellets = 5
 	deviation = 0.8
 
 /obj/item/ammo_casing/shotgun/improvised/overload
@@ -74,12 +74,12 @@
 	icon_state = "improvshell"
 	projectile_type = /obj/item/projectile/bullet/pellet/random
 	m_amt = 250
-	buck = 5
+	pellets = 5
 	deviation = 1.0
 
 /obj/item/ammo_casing/shotgun/improvised/overload/New()
 	..()
-	buck = rand(3, 8)
+	pellets = rand(3, 8)
 
 /obj/item/ammo_casing/shotgun/stunslug
 	name = "taser slug"
@@ -120,7 +120,7 @@
 	desc = "A shotgun shell which fires a spread of incendiary pellets."
 	icon_state = "ishell2"
 	projectile_type = "/obj/item/projectile/bullet/incendiary/shell/dragonsbreath"
-	buck = 4
+	pellets = 4
 	deviation = 0.9
 
 /obj/item/ammo_casing/shotgun/ion
@@ -129,7 +129,7 @@
 	The unique properties of the crystal splot the pulse into a spread of individually weaker bolts."
 	icon_state = "ionshell"
 	projectile_type = /obj/item/projectile/ion/weak
-	buck = 4
+	pellets = 4
 	deviation = 0.9
 
 /obj/item/ammo_casing/shotgun/laserslug

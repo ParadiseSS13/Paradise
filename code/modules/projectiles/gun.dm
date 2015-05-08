@@ -35,13 +35,14 @@
 	var/automatic = 0 //Used to determine if you can target multiple people.
 	var/tmp/mob/living/last_moved_mob //Used to fire faster at more than one person.
 	var/tmp/told_cant_shoot = 0 //So that it doesn't spam them with the fact they cannot hit them.
-	var/firerate = 1 	// 0 for one bullet after tarrget moves and aim is lowered,
+	var/firerate = 1     // 0 for one bullet after tarrget moves and aim is lowered,
 						//1 for keep shooting until aim is lowered
 	var/fire_delay = 0
 	var/last_fired = 0
 	var/obj/item/device/flashlight/F = null
 	var/can_flashlight = 0
 	var/heavy_weapon = 0
+	var/randomspread = 0
 
 	proc/ready_to_fire()
 		if(world.time >= last_fired + fire_delay)
@@ -73,8 +74,8 @@
 		return
 
 /obj/item/weapon/gun/afterattack(atom/A as mob|obj|turf|area, mob/living/user as mob|obj, flag, params)
-	if(flag)	return //we're placing gun on a table or in backpack
-	if(istype(target, /obj/machinery/recharger) && istype(src, /obj/item/weapon/gun/energy))	return//Shouldnt flag take care of this?
+	if(flag)    return //we're placing gun on a table or in backpack
+	if(istype(target, /obj/machinery/recharger) && istype(src, /obj/item/weapon/gun/energy))    return//Shouldnt flag take care of this?
 	if(user && user.client && user.client.gun_mode && !(A in target))
 		PreFire(A,user,params) //They're using the new gun system, locate what they're aiming at.
 	else
@@ -180,28 +181,47 @@
 	in_chamber.yo = targloc.y - curloc.y
 	in_chamber.xo = targloc.x - curloc.x
 
-	if(istype(user, /mob/living/carbon))
+
+	var/spread = 0
+	if(istype(user, /mob/living/carbon)) //Instead of modifying projectile's originl pixels, we can increase spread.
 		var/mob/living/carbon/mob = user
 		if(mob.shock_stage > 120)
-			in_chamber.yo += rand(-2,2)
-			in_chamber.xo += rand(-2,2)
+			spread += rand(-2,2)
 		else if(mob.shock_stage > 70)
-			in_chamber.yo += rand(-1,1)
-			in_chamber.xo += rand(-1,1)
+			spread  += rand(-1,1)
 
+	if(params)
+		var/list/mouse_control = params2list(params)
+		if(mouse_control["icon-x"])
+			in_chamber.p_x = text2num(mouse_control["icon-x"])
+		if(mouse_control["icon-y"])
+			in_chamber.p_y = text2num(mouse_control["icon-y"])
+		if(mouse_control["screen-loc"])
+			//Split screen-loc up into X+Pixel_X and Y+Pixel_Y
+			var/list/screen_loc_params = text2list(mouse_control["screen-loc"], ",")
 
-	if(chambered) // Beep boop buckshot
-		var/target_x = targloc.x
-		var/target_y = targloc.y
-		var/target_z = targloc.z
-		if(in_chamber)
-			in_chamber.process()
-		while(chambered.buck > 0)
-			var/dx = round(gaussian(0,chambered.deviation),1)
-			var/dy = round(gaussian(0,chambered.deviation),1)
-			targloc = locate(target_x+dx, target_y+dy, target_z)
-			if(!targloc || targloc == curloc)
-				break
+			//Split X+Pixel_X up into list(X, Pixel_X)
+			var/list/screen_loc_X = text2list(screen_loc_params[1],":")
+
+			//Split Y+Pixel_Y up into list(Y, Pixel_Y)
+			var/list/screen_loc_Y = text2list(screen_loc_params[2],":")
+
+			var/x = text2num(screen_loc_X[1]) * 32 + text2num(screen_loc_X[2]) - 32
+			var/y = text2num(screen_loc_Y[1]) * 32 + text2num(screen_loc_Y[2]) - 32
+			var/ox = round(544/2) //"origin" x - Basically center of the screen. This is a bad way of doing it because if you are able to view MORE than 17 tiles at a time your aim will get fucked.
+			var/oy = round(544/2) //"origin" y - Basically center of the screen.
+
+			var/angle = Atan2(y - oy, x - ox)
+
+			in_chamber.Angle = angle
+
+	if(chambered)
+		for (var/i = max(1, chambered.pellets), i > 0, i--) //Previous way of doing it fucked up math for spreading. This way, even the first projectile is part of the spread code.
+			if(randomspread) //Random spread
+				spread = (rand() - 0.5) * chambered.deviation
+			else //Smart spread
+				spread = (i / chambered.pellets - 0.5) * chambered.deviation
+
 			in_chamber = new chambered.projectile_type()
 			prepare_shot(in_chamber)
 			in_chamber.original = target
@@ -210,26 +230,19 @@
 			in_chamber.current = curloc
 			in_chamber.yo = targloc.y - curloc.y
 			in_chamber.xo = targloc.x - curloc.x
+			if(spread)
+				in_chamber.Angle += chambered.spread
 			if(in_chamber)
 				in_chamber.process()
-			chambered.buck--
-
-
-	if(params)
-		var/list/mouse_control = params2list(params)
-		if(mouse_control["icon-x"])
-			in_chamber.p_x = text2num(mouse_control["icon-x"])
-		if(mouse_control["icon-y"])
-			in_chamber.p_y = text2num(mouse_control["icon-y"])
-
-	spawn()
+	else
+		if(spread)
+			in_chamber.Angle += chambered.spread
 		if(in_chamber)
 			in_chamber.process()
-	sleep(1)
-	in_chamber = null
+		sleep(1)
+		in_chamber = null
 
 	update_icon()
-
 	if(user.hand)
 		user.update_inv_l_hand()
 	else
@@ -379,3 +392,4 @@
 		if(F.on)
 			user.AddLuminosity(-F.brightness_on)
 			SetLuminosity(F.brightness_on)
+

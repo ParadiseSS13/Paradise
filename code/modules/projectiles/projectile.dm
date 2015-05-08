@@ -60,6 +60,10 @@
 
 	var/chatlog_attacks = 1
 
+	var/speed = 1 //Amount of deciseconds it takes for projectile to travel. Animation is adjusted accordingly.
+	var/Angle = 0 //For new projectiles
+	var/spread = 0 //Amount of degrees by which the projectiles will be spread DURING MOVEMENT. It exists for chaotic types of projectiles, like bees or something.
+
 	proc/delete()
 		// Garbage collect the projectiles
 		loc = null
