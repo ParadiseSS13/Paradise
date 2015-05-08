@@ -38,6 +38,18 @@
 			show_to(M)
 			return
 
+		if((allow_quick_empty || allow_quick_gather) && istype(over_object, /obj/structure/table) \
+			&& contents.len && over_object.Adjacent(usr))
+			var/turf/T = get_turf(over_object)
+			hide_from(usr)
+			usr.face_atom(src)
+			usr.visible_message("<span class='notice'>[usr] empties \the [src] onto \the [over_object].</span>",
+				"<span class='notice'>You empty \the [src] onto \the [over_object].</span>")
+			for(var/obj/item/I in contents)
+				remove_from_storage(I, T)
+			update_icon() // For content-sensitive icons
+			return
+
 		if (!( istype(over_object, /obj/screen) ))
 			return ..()
 		if (!(src.loc == usr) || (src.loc && src.loc.loc == usr))
