@@ -1022,6 +1022,13 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 	containername = "sandstone blocks crate"
 
 
+/datum/supply_packs/materials/plastic30
+	name = "30 Plastic Sheets"
+	contains = list(/obj/item/stack/sheet/mineral/plastic)
+	amount = 30
+	cost = 25
+	containername = "plastic sheets crate"
+
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////// Miscellaneous ///////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
