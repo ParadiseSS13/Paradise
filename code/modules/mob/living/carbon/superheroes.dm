@@ -118,12 +118,12 @@
 
 
 /datum/superheroes/electro
-	name = "Electro Negmatic"
+	name = "Electro-Negmatic"
 	class = "Supevillain"
-//	desc = "You are LightnIan, the lord of lightning! A freak electrical accident while working in the station's kennel \
-	has given you mastery over lightning and a peculiar desire to sniff butts. Although you are a recent addition to the \
-	station's hero roster, you intend to leave your mark."
-//	default_spells = list(/obj/effect/proc_holder/spell/wizard/targeted/lightning/lightnian)
+	desc = "You were a roboticist, once. Now you are Electro-Negmatic, a name this station will learn to fear. You designed \
+	your costume to resemble E-N, your faithful dog that some callous RD destroyed because it was sparking up the plasma. You \
+	intend to take your revenge and make them all pay thanks to your magnetic powers."
+	default_spells = list(/obj/effect/proc_holder/spell/wizard/targeted/magnet)
 
 /datum/superheroes/electro/equip(var/mob/living/carbon/human/H)
 	..()
