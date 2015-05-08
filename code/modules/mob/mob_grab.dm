@@ -20,6 +20,7 @@
 	var/last_upgrade = 0
 	var/last_hit_zone = 0
 	var/force_down //determines if the affecting mob will be pinned to the ground
+	var/dancing //determines if assailant and affecting keep looking at each other. Basically a wrestling position
 
 	layer = 21
 	item_state = "nothing"
@@ -43,6 +44,15 @@
 	icon_state = "grabbed"
 	hud.name = "reinforce grab"
 	hud.master = src
+
+	//check if assailant is grabbed by victim as well
+	if(assailant.grabbed_by)
+		for (var/obj/item/weapon/grab/G in assailant.grabbed_by)
+			if(G.assailant == affecting && G.affecting == assailant)
+				G.dancing = 1
+				G.adjust_position()
+				dancing = 1
+	adjust_position()
 
 //Used by throw code to hand over the mob, instead of throwing the grab. The grab is then deleted by the throw code.
 /obj/item/weapon/grab/proc/throw()
@@ -112,22 +122,24 @@
 		if(hit_zone != last_hit_zone)
 			announce = 1
 		last_hit_zone = hit_zone
-		switch(hit_zone)
-			if("mouth")
-				if(announce)
-					assailant.visible_message("<span class='warning'>[assailant] covers [affecting]'s mouth!</span>")
-				if(affecting.silent < 3)
-					affecting.silent = 3
-			if("eyes")
-				if(announce)
-					assailant.visible_message("<span class='warning'>[assailant] covers [affecting]'s eyes!</span>")
-				if(affecting.eye_blind < 3)
-					affecting.eye_blind = 3
+		if(ishuman(affecting))
+			switch(hit_zone)
+				if("mouth")
+					if(announce)
+						assailant.visible_message("<span class='warning'>[assailant] covers [affecting]'s mouth!</span>")
+					if(affecting.silent < 3)
+						affecting.silent = 3
+				if("eyes")
+					if(announce)
+						assailant.visible_message("<span class='warning'>[assailant] covers [affecting]'s eyes!</span>")
+					if(affecting.eye_blind < 3)
+						affecting.eye_blind = 3
+
 		if(force_down)
 			if(affecting.loc != assailant.loc)
 				force_down = 0
 			else
-				affecting.Weaken(3) //1 wears off too quick
+				affecting.Weaken(3)
 
 	if(state >= GRAB_NECK)
 		affecting.Stun(5)  //It will hamper your voice, being choked and all.
@@ -162,7 +174,10 @@
 	affecting.layer = 4
 	switch(state)
 		if(GRAB_PASSIVE)
-			shift = 6
+			shift = 8
+			if(dancing) //look at partner
+				shift = 10
+				assailant.set_dir(get_dir(assailant, affecting))
 		if(GRAB_AGGRESSIVE)
 			shift = 12
 		if(GRAB_NECK, GRAB_UPGRADING)
@@ -175,7 +190,6 @@
 			adir = 1
 			affecting.set_dir(SOUTH)//face up
 			affecting.loc = assailant.loc
-
 
 	switch(adir)
 		if(NORTH)
@@ -236,6 +250,7 @@
 			affecting.LAssailant = assailant
 		hud.icon_state = "kill"
 		hud.name = "kill"
+		affecting.Stun(10) //10 ticks of ensured grab
 	else if(state < GRAB_UPGRADING)
 		assailant.visible_message("<span class='danger'>[assailant] starts to tighten \his grip on [affecting]'s neck!</span>")
 		hud.icon_state = "kill1"
@@ -285,7 +300,7 @@
 					var/obj/item/organ/external/organ = affected.get_organ(check_zone(last_hit_zone))
 					if(!organ || organ.is_broken() || organ.limb_name == "chest" || organ.limb_name == "groin") //necessary to prevent chest and groin
 						return
-					assailant.visible_message("<span class='danger'>[user] is jointlocking [affecting]'s [organ.name]!</span>")
+					assailant.visible_message("<span class='danger'>[assailant] begins [pick("bending", "twisting")] [affecting]'s [organ.name] into a jointlock!</span>")
 					var/armor = affected.run_armor_check(affecting, "melee")
 					if(armor < 2)
 						affecting << "<span class='danger'>You feel extreme pain!</span>"
@@ -315,9 +330,9 @@
 						if (eyes.damage >= eyes.min_broken_damage)
 							if(M.stat != 2)
 								M << "\red You go blind!"
-					else if(last_hit_zone != "chest" && last_hit_zone != "groin")
-						if(state < GRAB_NECK)
-							assailant << "<span class='warning'>You require a better grab to do this.</span>"
+					else if(last_hit_zone != "chest" && last_hit_zone != "groin") //headbutting should probably use head hitzone,
+						if(state < GRAB_NECK)//										but, chest and groin being fractured doesn't paticulary make sense in this context
+							assailant << "<span class='warning'>You require a better grab to do this.</span>"//and head does
 							return
 						if(affected.grab_joint(assailant))
 							playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
