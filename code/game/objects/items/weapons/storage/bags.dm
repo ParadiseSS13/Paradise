@@ -78,7 +78,8 @@
 	throwforce = 0
 	w_class = 4
 	max_w_class = 2
-	storage_slots = 21
+	storage_slots = 7
+	display_contents_with_number = 0 //or else this will lead to stupid behavior.
 	can_hold = list() // any
 	cant_hold = list("/obj/item/weapon/disk/nuclear","/obj/item/flag/nation")
 	var/head = 0
@@ -107,7 +108,7 @@
 			H.losebreath += 1
 	else
 		head = 0
-		storage_slots = 21
+		storage_slots = 7
 		processing_objects.Remove(src)
 	return
 
