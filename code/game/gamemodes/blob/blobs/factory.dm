@@ -33,8 +33,8 @@
 	icon_state = "blobpod"
 	icon_living = "blobpod"
 	pass_flags = PASSBLOB
-	health = 40
-	maxHealth = 40
+	health = 20
+	maxHealth = 20
 	melee_damage_lower = 2
 	melee_damage_upper = 4
 	attacktext = "hits"
@@ -89,8 +89,8 @@
 	health = maxHealth
 	name = "blob zombie"
 	desc = "A shambling corpse animated by the blob."
-	melee_damage_lower = 10
-	melee_damage_upper = 15
+	melee_damage_lower = 6
+	melee_damage_upper = 12
 	icon = H.icon
 	icon_state = "husk_s"
 	H.h_style = null
@@ -107,10 +107,9 @@
 	var/turf/location = get_turf(src)
 
 	// Create the reagents to put into the air, s-acid is yellow and stings a little
-	create_reagents(50)
-	reagents.add_reagent("condensedcapsaicin", 10)
-	reagents.add_reagent("neurotoxin2", 25)
-	reagents.add_reagent("haloperidol", 15)
+	create_reagents(25)
+	reagents.add_reagent(pick("spore", "pyrosium","clf3","polonium","histamine","neurotoxin2","cyanide","facid","spore","pancuronium","sodium_thiopental","spore","ketamine","sulfonal","curare"), 25)
+
 
 	// Attach the smoke spreader and setup/start it.
 	S.attach(location)
