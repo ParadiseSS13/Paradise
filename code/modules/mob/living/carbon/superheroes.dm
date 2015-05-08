@@ -21,6 +21,7 @@
 	for(var/obj/item/W in H)
 		if(istype(W,/obj/item/organ)) continue
 		H.unEquip(W)
+	H.equip_to_slot_or_del(new /obj/item/device/radio/headset(H), slot_l_ear)
 
 /datum/superheroes/proc/assign_genes(var/mob/living/carbon/human/H)
 	if(default_genes.len)
@@ -39,7 +40,7 @@
 /datum/superheroes/proc/assign_id(var/mob/living/carbon/human/H)
 	var/obj/item/weapon/card/id/syndicate/W = new(H)
 	W.registered_name = H.real_name
-	W.access = get_all_accesses()
+	W.access = list(access_maint_tunnels)
 	if(class == "Superhero")
 		W.name = "[H.real_name]'s ID Card (Superhero)"
 		W.assignment = "Superhero"
@@ -64,7 +65,7 @@
 /datum/superheroes/owlman/equip(var/mob/living/carbon/human/H)
 	..()
 
-	H.equip_to_slot_or_del(new /obj/item/clothing/shoes/black(H), slot_shoes)
+	H.equip_to_slot_or_del(new /obj/item/clothing/shoes/black/greytide(H), slot_shoes)
 	H.equip_to_slot_or_del(new /obj/item/clothing/under/owl(H), slot_w_uniform)
 	H.equip_to_slot_or_del(new /obj/item/clothing/suit/toggle/owlwings(H), slot_wear_suit)
 	H.equip_to_slot_or_del(new /obj/item/clothing/mask/gas/owl_mask(H), slot_wear_mask)
@@ -88,6 +89,14 @@
 	H.equip_to_slot_or_del(new /obj/item/clothing/suit/toggle/owlwings/griffinwings(H), slot_wear_suit)
 	H.equip_to_slot_or_del(new /obj/item/clothing/head/griffin(H), slot_head)
 
+	var/obj/item/weapon/implant/freedom/L = new/obj/item/weapon/implant/freedom(H)
+	L.imp_in = H
+	L.implanted = 1
+	var/obj/item/organ/external/affected = H.organs_by_name["head"]
+	affected.implants += L
+	L.part = affected
+	return 1
+
 
 /datum/superheroes/lightnian
 	name = "LightnIan"
@@ -100,7 +109,7 @@
 /datum/superheroes/lightnian/equip(var/mob/living/carbon/human/H)
 	..()
 
-	H.equip_to_slot_or_del(new /obj/item/clothing/shoes/brown(H), slot_shoes)
+	H.equip_to_slot_or_del(new /obj/item/clothing/shoes/orange(H), slot_shoes)
 	H.equip_to_slot_or_del(new /obj/item/clothing/under/color/brown(H), slot_w_uniform)
 	H.equip_to_slot_or_del(new /obj/item/clothing/suit/corgisuit(H), slot_wear_suit)
 	H.equip_to_slot_or_del(new /obj/item/clothing/head/corgi(H), slot_head)
@@ -108,7 +117,22 @@
 	H.equip_to_slot_or_del(new /obj/item/weapon/bedsheet/orange(H), slot_back)
 
 
+/datum/superheroes/electro
+	name = "Electro-Negmatic"
+	class = "Supevillain"
+	desc = "You were a roboticist, once. Now you are Electro-Negmatic, a name this station will learn to fear. You designed \
+	your costume to resemble E-N, your faithful dog that some callous RD destroyed because it was sparking up the plasma. You \
+	intend to take your revenge and make them all pay thanks to your magnetic powers."
+	default_spells = list(/obj/effect/proc_holder/spell/wizard/targeted/magnet)
 
+/datum/superheroes/electro/equip(var/mob/living/carbon/human/H)
+	..()
+
+	H.equip_to_slot_or_del(new /obj/item/clothing/shoes/black/greytide(H), slot_shoes)
+	H.equip_to_slot_or_del(new /obj/item/clothing/under/color/grey(H), slot_w_uniform)
+	H.equip_to_slot_or_del(new /obj/item/clothing/suit/corgisuit/en(H), slot_wear_suit)
+	H.equip_to_slot_or_del(new /obj/item/clothing/head/corgi/en(H), slot_head)
+	H.equip_to_slot_or_del(new /obj/item/weapon/bedsheet/cult(H), slot_back)
 
 
 
@@ -120,7 +144,6 @@
 /obj/effect/proc_holder/spell/wizard/targeted/recruit
 	name = "Recruit Greyshirt"
 	desc = "Allows you to recruit a conscious, non-braindead, non-catatonic human to be part of the Greyshirts, your personal henchmen. This works on Civilians only and you can recruit a maximum of 3!."
-	panel = "Shadowling Abilities"
 	charge_max = 450
 	clothes_req = 0
 	range = 1 //Adjacent to user
@@ -191,11 +214,24 @@
 		ticker.mode.greyshirts += target.mind
 		target.set_species("Human")
 		target.h_style = "Bald"
-		target.fully_replace_character_name(target.real_name, "Generic Henchman ([rand(1, 1000)])")
+		target.f_style = "Shaved"
+		target.s_tone = 35
+		target.r_eyes = 1
+		target.b_eyes = 1
+		target.g_eyes = 1
 		for(var/obj/item/W in target)
 			if(istype(W,/obj/item/organ)) continue
 			target.unEquip(W)
+		target.fully_replace_character_name(target.real_name, "Generic Henchman ([rand(1, 1000)])")
 		target.equip_to_slot_or_del(new /obj/item/clothing/under/color/grey/greytide(target), slot_w_uniform)
 		target.equip_to_slot_or_del(new /obj/item/clothing/shoes/black/greytide(target), slot_shoes)
 		target.equip_to_slot_or_del(new /obj/item/weapon/storage/toolbox/mechanical/greytide(target), slot_l_hand)
+		var/obj/item/weapon/card/id/syndicate/W = new(target)
+		W.registered_name = target.real_name
+		W.access = list(access_maint_tunnels)
+		W.name = "[target.real_name]'s ID Card (Greyshirt)"
+		W.assignment = "Greyshirt"
+		target.equip_to_slot_or_del(W, slot_wear_id)
+		target.equip_to_slot_or_del(new /obj/item/device/radio/headset(target), slot_l_ear)
 		target.regenerate_icons()
+
