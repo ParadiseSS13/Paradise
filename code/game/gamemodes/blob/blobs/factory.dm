@@ -21,7 +21,7 @@
 			return 0
 		if(spore_delay > world.time)
 			return 0
-		spore_delay = world.time + 150 // 15 seconds
+		spore_delay = world.time + 100 // 10 seconds
 		new/mob/living/simple_animal/hostile/blobspore(src.loc, src)
 		return 1
 
@@ -73,14 +73,15 @@
 
 /mob/living/simple_animal/hostile/blobspore/Life()
 
-	if(!is_zombie)
-		for(var/mob/living/carbon/human/H in ListTargets(0)) //Only for people in the same tile
+	if(!is_zombie && isturf(src.loc))
+		for(var/mob/living/carbon/human/H in oview(src,1)) //Only for corpse right next to/on same tile
 			if(H.stat == DEAD)
 				Zombify(H)
 				break
 	..()
 
 /mob/living/simple_animal/hostile/blobspore/proc/Zombify(var/mob/living/carbon/human/H)
+	is_zombie = 1
 	if(H.wear_suit)
 		var/obj/item/clothing/suit/armor/A = H.wear_suit
 		if(A.armor && A.armor["melee"])
@@ -92,13 +93,13 @@
 	melee_damage_lower = 10
 	melee_damage_upper = 15
 	icon = H.icon
-	icon_state = "husk_s"
+	speak_emote = list("groans")
+	icon_state = "zombie2_s"
 	H.h_style = null
 	H.update_hair()
 	overlays = H.overlays
 	overlays += image('icons/mob/blob.dmi', icon_state = "blob_head")
 	H.loc = src
-	is_zombie = 1
 	loc.visible_message("<span class='warning'> The corpse of [H.name] suddenly rises!</span>")
 
 /mob/living/simple_animal/hostile/blobspore/Die()
@@ -107,17 +108,16 @@
 	var/turf/location = get_turf(src)
 
 	// Create the reagents to put into the air, s-acid is yellow and stings a little
-	create_reagents(50)
-	reagents.add_reagent("condensedcapsaicin", 10)
-	reagents.add_reagent("neurotoxin2", 25)
-	reagents.add_reagent("haloperidol", 15)
+	create_reagents(25)
+
+	reagents.add_reagent("spores", 25)
 
 	// Attach the smoke spreader and setup/start it.
 	S.attach(location)
 	S.set_up(reagents, 1, 1, location, 15, 1) // only 1-2 smoke cloud
 	S.start()
 
-	del(src)
+	qdel(src)
 
 
 /mob/living/simple_animal/hostile/blobspore/Destroy()
