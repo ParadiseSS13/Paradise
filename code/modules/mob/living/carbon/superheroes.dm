@@ -40,7 +40,7 @@
 /datum/superheroes/proc/assign_id(var/mob/living/carbon/human/H)
 	var/obj/item/weapon/card/id/syndicate/W = new(H)
 	W.registered_name = H.real_name
-	W.access = get_all_accesses()
+	W.access = list(access_maint_tunnels)
 	if(class == "Superhero")
 		W.name = "[H.real_name]'s ID Card (Superhero)"
 		W.assignment = "Superhero"
