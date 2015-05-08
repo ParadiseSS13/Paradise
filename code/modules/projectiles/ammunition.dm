@@ -10,7 +10,7 @@
 	var/caliber = ""							//Which kind of guns it can be loaded into
 	var/projectile_type = ""//The bullet type to create when New() is called
 	var/obj/item/projectile/BB = null 			//The loaded bullet
-	var/pellets = 0
+	var/pellets = 1
 	var/deviation = 0
 	var/spread = 0
 
