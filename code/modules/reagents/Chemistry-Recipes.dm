@@ -113,8 +113,8 @@ datum
 			name = "mitocholide"
 			id = "mitocholide"
 			result = "mitocholide"
-			required_reagents = list("synthflesh" = 1, "clonexadone" = 1)
-			result_amount = 2
+			required_reagents = list("synthflesh" = 1, "cryoxadone" = 1, "plasma" = 1)
+			result_amount = 3
 
 		holy_water
 			name = "Holy Water"
@@ -131,14 +131,6 @@ datum
 			required_reagents = list("cryostylane" = 1, "plasma" = 1, "acetone" = 1, "mutagen" = 1)
 			result_amount = 4
 			mix_message = "The solution bubbles softly."
-
-		clonexadone
-			name = "Clonexadone"
-			id = "clonexadone"
-			result = "clonexadone"
-			required_reagents = list("cryoxadone" = 1, "sodium" = 1)
-			required_catalysts = list("plasma" = 5)
-			result_amount = 2
 
 		spaceacillin
 			name = "Spaceacillin"
@@ -983,7 +975,7 @@ datum
 			name = "Syntiflesh"
 			id = "syntiflesh"
 			result = null
-			required_reagents = list("blood" = 5, "clonexadone" = 1)
+			required_reagents = list("blood" = 5, "cryoxadone" = 1)
 			result_amount = 1
 			on_reaction(var/datum/reagents/holder, var/created_volume)
 				var/location = get_turf(holder.my_atom)

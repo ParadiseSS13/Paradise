@@ -30,7 +30,7 @@
 		B1.reagents.add_reagent("blood",60)
 		if(prob(5))
 			B1.reagents.add_reagent("blood",1) // Quality control problems, causes a mess
-		B2.reagents.add_reagent("clonexadone",30)
+		B2.reagents.add_reagent("cryoxadone",30)
 
 		beakers += B1
 		beakers += B2
