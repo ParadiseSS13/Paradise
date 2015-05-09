@@ -92,7 +92,6 @@ mob/living
 			return
 	return
 
-
 /mob/living/carbon/electrocute_act(var/shock_damage, var/obj/source, var/siemens_coeff = 1.0, var/def_zone = null)
 	if(status_flags & GODMODE)	//godmode
 		return 0
