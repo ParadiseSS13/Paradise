@@ -24,6 +24,7 @@
 
 /obj/machinery/gibber/autogibber
 	var/acceptdir = NORTH
+	var/lastacceptdir = NORTH
 	var/turf/lturf
 
 /obj/machinery/gibber/autogibber/New()
@@ -36,6 +37,13 @@
 /obj/machinery/gibber/autogibber/process()
 	if(!lturf || occupant || locked || dirty || operating)
 		return
+
+	if(acceptdir != lastacceptdir)
+		lturf = null
+		lastacceptdir = acceptdir
+		var/turf/T = get_step(src, acceptdir)
+		if(istype(T))
+			lturf = T
 
 	for(var/mob/living/carbon/human/H in lturf)
 		if(istype(H) && H.loc == lturf)
@@ -379,10 +387,9 @@
 	src.occupant.emote("scream")
 	playsound(src.loc, 'sound/effects/gib.ogg', 50, 1)
 
+	victims += "\[[time_stamp()]\] [occupant.name] ([occupant.ckey]) killed by [UserOverride ? "Autogibbing" : "[user] ([user.ckey])"]" //have to do this before ghostizing
 	src.occupant.death(1)
 	src.occupant.ghostize()
-
-	victims += "\[[time_stamp()]\] [occupant.name] ([occupant.ckey]) killed."
 
 	del(src.occupant)
 
