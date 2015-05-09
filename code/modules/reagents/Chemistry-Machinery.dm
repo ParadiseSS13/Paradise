@@ -1008,18 +1008,7 @@
 		/obj/item/stack/sheet/mineral/clown = list("banana" = 20),
 		/obj/item/stack/sheet/mineral/silver = list("silver" = 20),
 		/obj/item/stack/sheet/mineral/gold = list("gold" = 20),
-		/obj/item/weapon/grown/nettle = list("sacid" = 0),
-		/obj/item/weapon/grown/deathnettle = list("facid" = 0),
 		/obj/item/weapon/grown/novaflower = list("capsaicin" = 0),
-
-		//Blender Stuff
-		/obj/item/weapon/reagent_containers/food/snacks/grown/soybeans = list("soymilk" = 0),
-		/obj/item/weapon/reagent_containers/food/snacks/grown/tomato = list("ketchup" = 0),
-		/obj/item/weapon/reagent_containers/food/snacks/grown/corn = list("cornoil" = 0),
-		///obj/item/weapon/reagent_containers/food/snacks/grown/wheat = list("flour" = -5),
-		/obj/item/weapon/reagent_containers/food/snacks/grown/ricestalk = list("rice" = -5),
-		/obj/item/weapon/reagent_containers/food/snacks/grown/cherries = list("cherryjelly" = 0),
-		/obj/item/weapon/reagent_containers/food/snacks/grown/plastellium = list("plasticide" = 5),
 
 
 		//archaeology!
@@ -1032,20 +1021,33 @@
 		/obj/item/weapon/reagent_containers/food = list()
 	)
 
-	var/list/juice_items = list (
+	var/list/blend_tags = list (
+		"nettle" = list("sacid" = 0),
+		"deathnettle" = list("facid" = 0),
+		"soybeans" = list("soymilk" = 0),
+		"tomato" = list("ketchup" = 0),
+		///obj/item/weapon/reagent_containers/food/snacks/grown/wheat = list("flour" = -5),
+		"ricestalk" = list("rice" = -5),
+		"cherries" = list("cherryjelly" = 0),
+		"plastellium" = list("plasticide" = 5),
+	)
 
-		//Juicer Stuff
-		/obj/item/weapon/reagent_containers/food/snacks/grown/tomato = list("tomatojuice" = 0),
-		/obj/item/weapon/reagent_containers/food/snacks/grown/carrot = list("carrotjuice" = 0),
-		/obj/item/weapon/reagent_containers/food/snacks/grown/berries = list("berryjuice" = 0),
-		/obj/item/weapon/reagent_containers/food/snacks/grown/banana = list("banana" = 0),
-		/obj/item/weapon/reagent_containers/food/snacks/grown/potato = list("potato" = 0),
-		/obj/item/weapon/reagent_containers/food/snacks/grown/lemon = list("lemonjuice" = 0),
-		/obj/item/weapon/reagent_containers/food/snacks/grown/orange = list("orangejuice" = 0),
-		/obj/item/weapon/reagent_containers/food/snacks/grown/lime = list("limejuice" = 0),
+	var/list/juice_items = list (
 		/obj/item/weapon/reagent_containers/food/snacks/watermelonslice = list("watermelonjuice" = 0),
-		/obj/item/weapon/reagent_containers/food/snacks/grown/poisonberries = list("poisonberryjuice" = 0),
-		/obj/item/weapon/reagent_containers/food/snacks/grown/grapes = list("grapejuice" = 0),
+	)
+
+	var/list/juice_tags = list (
+		"tomato" = list("tomatojuice" = 0),
+		"carrot" = list("carrotjuice" = 0),
+		"berries" = list("berryjuice" = 0),
+		"banana" = list("banana" = 0),
+		"potato" = list("potato" = 0),
+		"lemon" = list("lemonjuice" = 0),
+		"orange" = list("orangejuice" = 0),
+		"lime" = list("limejuice" = 0),
+		"poisonberries" = list("poisonberryjuice" = 0),
+		"grapes" = list("grapejuice" = 0),
+		"corn" = list("cornoil" = 0),
 	)
 
 
@@ -1223,9 +1225,19 @@
 			return blend_items[i]
 
 /obj/machinery/reagentgrinder/proc/get_allowed_juice_by_id(var/obj/item/weapon/reagent_containers/food/snacks/O)
-	for(var/i in juice_items)
+	for(var/i in juice_tags)
 		if(istype(O, i))
 			return juice_items[i]
+
+/obj/machinery/reagentgrinder/proc/get_allowed_snack_by_tag(var/obj/item/weapon/reagent_containers/food/snacks/grown/O)
+	for(var/i in blend_tags)
+		if(O.seed.kitchen_tag == i)
+			return blend_tags[i]
+
+/obj/machinery/reagentgrinder/proc/get_allowed_juice_by_tag(var/obj/item/weapon/reagent_containers/food/snacks/grown/O)
+	for(var/i in juice_tags)
+		if(O.seed.kitchen_tag == i)
+			return juice_tags[i]
 
 /obj/machinery/reagentgrinder/proc/get_grownweapon_amount(var/obj/item/weapon/grown/O)
 	if (!istype(O))
@@ -1263,7 +1275,11 @@
 		if (beaker.reagents.total_volume >= beaker.reagents.maximum_volume)
 			break
 
-		var/allowed = get_allowed_juice_by_id(O)
+		var/allowed = null
+		if(istype(O, /obj/item/weapon/reagent_containers/food/snacks/grown))
+			allowed = get_allowed_juice_by_tag(O)
+		else
+			allowed = get_allowed_juice_by_id(O)
 		if(isnull(allowed))
 			break
 
@@ -1296,7 +1312,11 @@
 		if (beaker.reagents.total_volume >= beaker.reagents.maximum_volume)
 			break
 
-		var/allowed = get_allowed_snack_by_id(O)
+		var/allowed = null
+		if(istype(O, /obj/item/weapon/reagent_containers/food/snacks/grown))
+			allowed = get_allowed_snack_by_tag(O)
+		else
+			allowed = get_allowed_snack_by_id(O)
 		if(isnull(allowed))
 			break
 
