@@ -47,7 +47,6 @@
 	icon_state = "gshell"
 	projectile_type = "/obj/item/projectile/bullet/pellet"
 	pellets = 5
-	deviation = 0.8
 	deviation = 30
 
 
@@ -76,7 +75,7 @@
 	projectile_type = /obj/item/projectile/bullet/pellet/random
 	m_amt = 250
 	pellets = 5
-	deviation = 1.0
+	deviation = 30
 
 /obj/item/ammo_casing/shotgun/improvised/overload/New()
 	..()

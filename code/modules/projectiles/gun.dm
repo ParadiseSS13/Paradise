@@ -114,11 +114,6 @@
 
 	add_fingerprint(user)
 
-	var/turf/curloc = get_turf(user)
-	var/turf/targloc = get_turf(target)
-	if (!istype(targloc) || !istype(curloc))
-		return
-
 	if(!special_check(user))
 		return
 
@@ -130,22 +125,39 @@
 	if(!process_chambered()) //CHECK
 		return click_empty(user)
 
-	if(!in_chamber)
-		return
-
 	if(heavy_weapon)
 		if(user.get_inactive_hand())
 			recoil = 4 //one-handed kick
 		else
 			recoil = initial(recoil)
 
-	in_chamber.firer = user
-	in_chamber.def_zone = user.zone_sel.selecting
-	if(targloc == curloc)
-		user.bullet_act(in_chamber)
-		qdel(in_chamber)
-		update_icon()
+	if (istype(in_chamber, /obj/item/projectile/bullet/blank)) // A hacky way of making blank shotgun shells work again. Honk.
+		in_chamber.delete()
+		in_chamber = null
 		return
+
+	user.changeNext_move(CLICK_CD_RANGE)
+
+	var/spread = 0
+	var/turf/targloc = get_turf(target)
+	if(chambered)
+		for (var/i = max(1, chambered.pellets), i > 0, i--) //Previous way of doing it fucked up math for spreading. This way, even the first projectile is part of the spread code.
+			if(i != max(1, chambered.pellets)) //Have we fired the initial chambered bullet yet?
+				in_chamber = new chambered.projectile_type()
+			ready_projectile(target, user)
+			prepare_shot(in_chamber)
+			if(chambered.deviation)
+				if(randomspread) //Random spread
+					spread = (rand() - 0.5) * chambered.deviation
+				else //Smart spread
+					spread = (i / chambered.pellets - 0.5) * chambered.deviation
+			if(!process_projectile(targloc, user, params, spread))
+				return 0
+	else
+		ready_projectile(target, user)
+		prepare_shot(in_chamber)
+		if(!process_projectile(targloc, user, params, spread))
+			return 0
 
 	if(recoil)
 		spawn()
@@ -165,31 +177,33 @@
 				user.visible_message("<span class='danger'>[src] flies out of [user]'s hands!</span>", "<span class='userdanger'>[src] kicks out of your grip!</span>")
 				user.drop_item()
 
-	if (istype(in_chamber, /obj/item/projectile/bullet/blank)) // A hacky way of making blank shotgun shells work again. Honk.
-		in_chamber.delete()
-		in_chamber = null
-		return
+	update_icon()
+	if(user.hand)
+		user.update_inv_l_hand()
+	else
+		user.update_inv_r_hand()
 
-
+/obj/item/weapon/gun/proc/ready_projectile(atom/target as mob|obj|turf, mob/living/user)
+	in_chamber.firer = user
+	in_chamber.def_zone = user.zone_sel.selecting
 	in_chamber.original = target
+	return
+
+/obj/item/weapon/gun/proc/process_projectile(var/turf/targloc, mob/living/user as mob|obj, params, spread)
+	var/turf/curloc = user.loc
+	if (!istype(targloc) || !istype(curloc) || !in_chamber)
+		return 0
+	if(targloc == curloc)			//Fire the projectile
+		user.bullet_act(in_chamber)
+		qdel(in_chamber)
+		update_icon()
+		return 1
+
 	in_chamber.loc = get_turf(user)
 	in_chamber.starting = get_turf(user)
-	in_chamber.shot_from = src
-	user.changeNext_move(CLICK_CD_RANGE)
-	in_chamber.silenced = silenced
 	in_chamber.current = curloc
 	in_chamber.yo = targloc.y - curloc.y
 	in_chamber.xo = targloc.x - curloc.x
-
-
-	var/spread = 0
-	if(istype(user, /mob/living/carbon)) //Instead of modifying projectile's originl pixels, we can increase spread.
-		var/mob/living/carbon/mob = user
-		if(mob.shock_stage > 120)
-			spread += rand(-2,2)
-		else if(mob.shock_stage > 70)
-			spread  += rand(-1,1)
-
 	if(params)
 		var/list/mouse_control = params2list(params)
 		if(mouse_control["icon-x"])
@@ -215,38 +229,19 @@
 
 			in_chamber.Angle = angle
 
-	if(chambered)
-		for (var/i = max(1, chambered.pellets), i > 0, i--) //Previous way of doing it fucked up math for spreading. This way, even the first projectile is part of the spread code.
-			if(randomspread) //Random spread
-				spread = (rand() - 0.5) * chambered.deviation
-			else //Smart spread
-				spread = (i / chambered.pellets - 0.5) * chambered.deviation
+	if(istype(user, /mob/living/carbon)) //Increase spread based on shock
+		var/mob/living/carbon/mob = user
+		if(mob.shock_stage > 120)
+			spread += rand(-5,5)
+		else if(mob.shock_stage > 70)
+			spread += rand(-2,2)
 
-			in_chamber = new chambered.projectile_type()
-			prepare_shot(in_chamber)
-			in_chamber.original = target
-			in_chamber.loc = get_turf(user)
-			in_chamber.starting = get_turf(user)
-			in_chamber.current = curloc
-			in_chamber.yo = targloc.y - curloc.y
-			in_chamber.xo = targloc.x - curloc.x
-			if(spread)
-				in_chamber.Angle += chambered.spread
-			if(in_chamber)
-				in_chamber.process()
-	else
-		if(spread)
-			in_chamber.Angle += chambered.spread
-		if(in_chamber)
-			in_chamber.process()
-		sleep(1)
-		in_chamber = null
-
-	update_icon()
-	if(user.hand)
-		user.update_inv_l_hand()
-	else
-		user.update_inv_r_hand()
+	if(spread)
+		in_chamber.Angle += spread
+	if(in_chamber)
+		in_chamber.process()
+	in_chamber = null
+	return 1
 
 /obj/item/weapon/gun/proc/can_fire()
 	return process_chambered()
