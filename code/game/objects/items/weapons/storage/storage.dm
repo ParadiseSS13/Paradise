@@ -38,11 +38,19 @@
 			show_to(M)
 			return
 
-		if((allow_quick_empty || allow_quick_gather) && istype(over_object, /obj/structure/table) \
-			&& contents.len && over_object.Adjacent(usr))
+		if ((istype(over_object, /obj/structure/table) || istype(over_object, /turf/simulated/floor)) \
+			&& contents.len && loc == usr && !usr.stat && !usr.restrained() && over_object.Adjacent(usr) \
+			&& !istype(src, /obj/item/weapon/storage/lockbox))
 			var/turf/T = get_turf(over_object)
+			if (istype(over_object, /turf/simulated/floor))
+				if (get_turf(usr) != T)
+					return // Can only empty containers onto the floor under you
+				if("Yes" != alert(usr,"Empty \the [src] onto \the [T]?","Confirm","Yes","No"))
+					return
+				if(!(usr && over_object && contents.len && loc == usr && !usr.stat && !usr.restrained() && get_turf(usr) == T))
+					return // Something happened while the player was thinking
 			hide_from(usr)
-			usr.face_atom(src)
+			usr.face_atom(over_object)
 			usr.visible_message("<span class='notice'>[usr] empties \the [src] onto \the [over_object].</span>",
 				"<span class='notice'>You empty \the [src] onto \the [over_object].</span>")
 			for(var/obj/item/I in contents)
