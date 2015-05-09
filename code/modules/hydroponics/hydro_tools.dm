@@ -1,4 +1,4 @@
-//Analyzer, pestkillers, weedkillers, nutrients, hatchets, cutters.
+//Analyzer, pestkillers, weedkillers, nutrients, hatchets, cutters, Rapid-Seed-Producer (RSP), corn cob.
 
 /obj/item/weapon/wirecutters/clippers
 	name = "plant clippers"
@@ -346,21 +346,17 @@
 	icon_state = "hatchet"
 	flags = CONDUCT
 	force = 12.0
+	sharp = 1
+	edge = 1
 	w_class = 2.0
 	throwforce = 15.0
 	throw_speed = 4
 	throw_range = 4
-	sharp = 1
-	edge = 1
-	m_amt = 10000
+	m_amt = 15000
 	origin_tech = "materials=2;combat=1"
 	attack_verb = list("chopped", "torn", "cut")
+	hitsound = 'sound/weapons/bladeslice.ogg'
 
-/obj/item/weapon/hatchet/attack(mob/living/carbon/M as mob, mob/living/carbon/user as mob)
-	playsound(loc, 'sound/weapons/bladeslice.ogg', 50, 1, -1)
-	return ..()
-
-//If it's a hatchet it goes here. I guess
 /obj/item/weapon/hatchet/unathiknife
 	name = "duelling knife"
 	desc = "A length of leather-bound wood studded with razor-sharp teeth. How crude."
@@ -374,18 +370,55 @@
 	desc = "A sharp and curved blade on a long fibremetal handle, this tool makes it easy to reap what you sow."
 	force = 13.0
 	throwforce = 5.0
-	throw_speed = 1
+	sharp = 1
+	edge = 1
+	throw_speed = 2
 	throw_range = 3
 	w_class = 4.0
 	flags = NOSHIELD
 	slot_flags = SLOT_BACK
 	origin_tech = "materials=2;combat=2"
 	attack_verb = list("chopped", "sliced", "cut", "reaped")
+	hitsound = 'sound/weapons/bladeslice.ogg'
 
 /obj/item/weapon/scythe/afterattack(atom/A, mob/user as mob, proximity)
 	if(!proximity) return
 	if(istype(A, /obj/effect/plantsegment))
 		for(var/obj/effect/plantsegment/B in orange(A,1))
 			if(prob(80))
-				del B
-		del A
+				qdel(B)
+		qdel(A)
+
+/obj/item/weapon/rsp
+	name = "\improper Rapid-Seed-Producer (RSP)"
+	desc = "A device used to rapidly deploy seeds."
+	icon = 'icons/obj/items.dmi'
+	icon_state = "rcd"
+	opacity = 0
+	density = 0
+	anchored = 0.0
+	var/matter = 0
+	var/mode = 1
+	w_class = 3.0
+
+/obj/item/weapon/bananapeel
+	name = "banana peel"
+	desc = "A peel from a banana."
+	icon = 'icons/obj/items.dmi'
+	icon_state = "banana_peel"
+	item_state = "banana_peel"
+	w_class = 1.0
+	throwforce = 0
+	throw_speed = 4
+	throw_range = 20
+
+/obj/item/weapon/corncob
+	name = "corn cob"
+	desc = "A reminder of meals gone by."
+	icon = 'icons/obj/harvest.dmi'
+	icon_state = "corncob"
+	item_state = "corncob"
+	w_class = 1.0
+	throwforce = 0
+	throw_speed = 4
+	throw_range = 20
