@@ -93,22 +93,14 @@
 			user << "You can't place that item inside the disposal unit."
 			return
 
-		if(istype(I, /obj/item/weapon/storage/bag/trash))
-			var/obj/item/weapon/storage/bag/trash/T = I
-			if(T.contents.len)
-				user << "\blue You empty the bag."
-				for(var/obj/item/O in T.contents)
-					T.remove_from_storage(O,src)
-				T.update_icon()
-				update()
-				return
-
-		if(istype(I, /obj/item/weapon/storage/part_replacer))
-			var/obj/item/weapon/storage/part_replacer/P = I
-			if(P.contents.len)
-				user << "\blue You empty the RPED's contents."
-				for(var/obj/item/O in P.contents)
-					P.remove_from_storage(O,src)
+		if(istype(I, /obj/item/weapon/storage))
+			var/obj/item/weapon/storage/S = I
+			if((S.allow_quick_empty || S.allow_quick_gather) && S.contents.len)
+				S.hide_from(user)
+				user.visible_message("[user] empties \the [S] into \the [src].", "You empty \the [S] into \the [src].")
+				for(var/obj/item/O in S.contents)
+					S.remove_from_storage(O, src)
+				S.update_icon() // For content-sensitive icons
 				update()
 				return
 

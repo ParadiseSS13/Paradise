@@ -11,6 +11,7 @@
 	icon_state = "gold0"
 	walltype = "gold"
 	mineral = "gold"
+	explosion_block = 0 //gold is a soft metal you dingus.
 	//var/electro = 1
 	//var/shocked = null
 
@@ -29,6 +30,7 @@
 	icon_state = "diamond0"
 	walltype = "diamond"
 	mineral = "diamond"
+	explosion_block = 3
 
 /turf/simulated/wall/mineral/clown
 	name = "bananium wall"
@@ -43,6 +45,7 @@
 	icon_state = "sandstone0"
 	walltype = "sandstone"
 	mineral = "sandstone"
+	explosion_block = 0
 
 /turf/simulated/wall/mineral/uranium
 	name = "uranium wall"
@@ -50,6 +53,7 @@
 	icon_state = "uranium0"
 	walltype = "uranium"
 	mineral = "uranium"
+	explosion_block = 0
 
 /turf/simulated/wall/mineral/uranium/proc/radiate()
 	if(!active)

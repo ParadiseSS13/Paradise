@@ -4,7 +4,7 @@
 	icon_state = "r_wall"
 	opacity = 1
 	density = 1
-
+	explosion_block = 2
 	damage_cap = 200
 	max_temperature = 6000
 

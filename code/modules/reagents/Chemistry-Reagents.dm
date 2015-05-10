@@ -1270,25 +1270,11 @@ datum
 
 			on_mob_life(var/mob/living/M as mob)
 				if(!M) M = holder.my_atom
-				if(M.bodytemperature < 170)
-					M.adjustCloneLoss(-1)
+				if(M.bodytemperature < 265)
+					M.adjustCloneLoss(-4)
 					M.adjustOxyLoss(-10)
 					M.heal_organ_damage(12,12)
 					M.adjustToxLoss(-3)
-				..()
-				return
-
-		clonexadone
-			name = "Clonexadone"
-			id = "clonexadone"
-			description = "A liquid compound similar to that used in the cloning process. Can be used to 'finish' clones that get ejected early when used in conjunction with a cryo tube."
-			reagent_state = LIQUID
-			color = "#0000C8" // rgb: 200, 165, 220
-
-			on_mob_life(var/mob/living/M as mob)
-				if(!M) M = holder.my_atom
-				if(M.bodytemperature < 170)
-					M.adjustCloneLoss(-3)
 					M.status_flags &= ~DISFIGURED
 				..()
 				return
