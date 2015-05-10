@@ -313,7 +313,7 @@
 		for(var/obj/effect/plant/B in orange(A,1))
 			if(prob(80))
 				B.die_off(1)
-			qdel A
+			qdel(A)
 
 /obj/item/weapon/rsp
 	name = "\improper Rapid-Seed-Producer (RSP)"
