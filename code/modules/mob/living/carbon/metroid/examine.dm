@@ -32,6 +32,20 @@
 			if(10)
 				msg += "<span class='warning'><B>It is radiating with massive levels of electrical activity!</B></span>\n"
 
+	msg += "<span class='warning'>"
+	switch(wetlevel)
+		if(1)
+			msg += "It looks a bit damp.\n"
+		if(2)
+			msg += "It looks a little bit wet.\n"
+		if(3)
+			msg += "It looks wet.\n"
+		if(4)
+			msg += "It looks very wet.\n"
+		if(5)
+			msg += "It looks absolutely soaked.\n"
+	msg += "</span>"
+
 	msg += "*---------*</span>"
 	usr << msg
 	return

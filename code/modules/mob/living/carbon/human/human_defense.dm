@@ -496,3 +496,8 @@ emp_act
 			if(MB.magpulse)
 				return 0
 	..()
+
+/mob/living/carbon/human/water_act(volume, temperature, source)
+	..()
+	if(temperature >= 330)	bodytemperature = bodytemperature + (temperature - bodytemperature)
+	if(temperature <= 280)	bodytemperature = bodytemperature - (bodytemperature - temperature)
