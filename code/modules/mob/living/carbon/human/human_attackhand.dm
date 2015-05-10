@@ -227,31 +227,3 @@
 
 /mob/living/carbon/human/proc/afterattack(atom/target as mob|obj|turf|area, mob/living/user as mob|obj, inrange, params)
 	return
-
-/mob/living/carbon/human/proc/grab_joint(var/mob/living/user, var/def_zone)
-	var/has_grab = 0
-	for(var/obj/item/weapon/grab/G in list(user.l_hand, user.r_hand))
-		if(G.affecting == src && G.state == GRAB_NECK)
-			has_grab = 1
-			break
-
-	if(!has_grab)
-		return 0
-
-	if(!def_zone) def_zone = user.zone_sel.selecting
-	var/target_zone = check_zone(def_zone)
-	if(!target_zone)
-		return 0
-	var/obj/item/organ/external/organ = get_organ(check_zone(target_zone))
-	if(!organ || organ.is_broken())
-		return 0
-
-	if(organ.limb_name == "chest" || organ.limb_name == "groin")
-		return 0 //what how do you dislocate a chest with your hands or a groin really
-
-	user.visible_message("<span class='warning'>[user] begins to fracture [src]'s [organ.name]!</span>")
-	if(do_after(user, 100))
-		organ.fracture()
-		src.visible_message("<span class='danger'>[src]'s [organ.name] [pick("cracks","gives way","snaps","collapses")]!</span>")
-		return 1
-	return 0

@@ -293,21 +293,11 @@
 						assailant << "<span class='warning'>You no longer pin [affecting] to the ground.</span>"
 						force_down = 0
 						return
-				if("grab")
-					if(state < GRAB_AGGRESSIVE)
-						assailant << "<span class='warning'>You require a better grab to do this.</span>"
-						return
-					var/obj/item/organ/external/organ = affected.get_organ(check_zone(last_hit_zone))
-					if(!organ || organ.is_broken() || organ.limb_name == "chest" || organ.limb_name == "groin") //necessary to prevent chest and groin
-						return
-					assailant.visible_message("<span class='danger'>[assailant] begins [pick("bending", "twisting")] [affecting]'s [organ.name] into a jointlock!</span>")
-					var/armor = affected.run_armor_check(affecting, "melee")
-					if(armor < 2)
-						affecting << "<span class='danger'>You feel extreme pain!</span>"
-						affecting.apply_damage(40, HALLOSS, last_hit_zone, armor)
-					return
-				if("harm")
 
+				if("grab")
+					return
+
+				if("harm")
 					if(last_hit_zone == "eyes")
 						if(state < GRAB_NECK)
 							assailant << "<span class='warning'>You require a better grab to do this.</span>"
@@ -330,14 +320,7 @@
 						if (eyes.damage >= eyes.min_broken_damage)
 							if(M.stat != 2)
 								M << "\red You go blind!"
-					else if(last_hit_zone != "chest" && last_hit_zone != "groin") //headbutting should probably use head hitzone,
-						if(state < GRAB_NECK)//										but, chest and groin being fractured doesn't paticulary make sense in this context
-							assailant << "<span class='warning'>You require a better grab to do this.</span>"//and head does
-							return
-						if(affected.grab_joint(assailant))
-							playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
-							return
-					else
+					else if(last_hit_zone == "head")
 						if(affecting.lying)
 							return
 						assailant.visible_message("<span class='danger'>[assailant] thrusts \his head into [affecting]'s skull!</span>")
@@ -352,6 +335,7 @@
 						affecting.attack_log += text("\[[time_stamp()]\] <font color='orange'>Headbutted by [assailant.name] ([assailant.ckey])</font>")
 						msg_admin_attack("[key_name(assailant)] has headbutted [key_name(affecting)]")
 						return
+
 				if("disarm")
 					if(state < GRAB_AGGRESSIVE)
 						assailant << "<span class='warning'>You require a better grab to do this.</span>"
