@@ -68,7 +68,7 @@
 		invisibility = pick(0,60,60,invisibility)
 	..()
 /mob/living/simple_animal/hostile/retaliate/ghost/Die()
-	new /obj/item/weapon/ectoplasm(loc)
+	new /obj/item/weapon/reagent_containers/food/snacks/ectoplasm(loc)
 	del src
 	return
 

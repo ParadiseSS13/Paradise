@@ -323,8 +323,7 @@
 		for(var/i=1,i<efficiency,i++)
 			cooked = new cooked.type(loc)
 		if(byproduct)
-			byproduct.loc = src.loc
-			byproduct = new byproduct.type(loc)
+			new byproduct(loc)
 		return
 
 /obj/machinery/candy_maker/proc/wzhzhzh(var/seconds as num)
@@ -406,7 +405,7 @@
 		del(O)
 	src.reagents.clear_reagents()
 	ffuu.reagents.add_reagent("carbon", amount)
-	ffuu.reagents.add_reagent("toxin", amount/10)
+	ffuu.reagents.add_reagent("????", amount/10)
 	return ffuu
 
 /obj/machinery/candy_maker/Topic(href, href_list)

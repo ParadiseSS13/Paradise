@@ -14,7 +14,11 @@ datum
 		var/result_amount = 0
 		var/secondary = 0 // set to nonzero if secondary reaction
 		var/list/secondary_results = list()		//additional reagents produced by the reaction
-		var/requires_heating = 0
+		var/required_temp = 0
+		var/mix_message = "The solution begins to bubble."
+		var/mix_sound = 'sound/effects/bubbles.ogg'
+		var/no_message = 0
+
 
 		proc
 			on_reaction(var/datum/reagents/holder, var/created_volume)
@@ -28,6 +32,8 @@ datum
 			result = null
 			required_reagents = list("water" = 1, "potassium" = 1)
 			result_amount = 2
+			mix_message = "The mixture explodes!"
+
 			on_reaction(var/datum/reagents/holder, var/created_volume)
 				var/datum/effect/effect/system/reagents_explosion/e = new()
 				e.set_up(round (created_volume/10, 1), holder.my_atom, 0, 0)
@@ -57,68 +63,28 @@ datum
 			required_reagents = list("aluminum" = 1, "silicon" = 1, "oxygen" = 1)
 			result_amount = 3
 */
-		stoxin
-			name = "Sleep Toxin"
-			id = "stoxin"
-			result = "stoxin"
-			required_reagents = list("chloralhydrate" = 1, "sugar" = 4)
-			result_amount = 5
 
 		sterilizine
 			name = "Sterilizine"
 			id = "sterilizine"
 			result = "sterilizine"
-			required_reagents = list("ethanol" = 1, "anti_toxin" = 1, "chlorine" = 1)
-			result_amount = 3
-
-		inaprovaline
-			name = "Inaprovaline"
-			id = "inaprovaline"
-			result = "inaprovaline"
-			required_reagents = list("oxygen" = 1, "carbon" = 1, "sugar" = 1)
-			result_amount = 3
-
-		anti_toxin
-			name = "Anti-Toxin (Dylovene)"
-			id = "anti_toxin"
-			result = "anti_toxin"
-			required_reagents = list("silicon" = 1, "potassium" = 1, "nitrogen" = 1)
+			required_reagents = list("ethanol" = 1, "charcoal" = 1, "chlorine" = 1)
 			result_amount = 3
 
 		mutagen
 			name = "Unstable mutagen"
 			id = "mutagen"
 			result = "mutagen"
-			required_reagents = list("radium" = 1, "phosphorus" = 1, "chlorine" = 1)
+			required_reagents = list("radium" = 1, "plasma" = 1, "chlorine" = 1)
 			result_amount = 3
+			mix_message = "The substance turns neon green and bubbles unnervingly."
 
-		tramadol
-			name = "Tramadol"
-			id = "tramadol"
-			result = "tramadol"
-			required_reagents = list("inaprovaline" = 1, "ethanol" = 1, "oxygen" = 1)
-			result_amount = 3
-
-		paracetamol
-			name = "Paracetamol"
-			id = "paracetamol"
-			result = "paracetamol"
-			required_reagents = list("tramadol" = 1, "sugar" = 1, "water" = 1)
-			result_amount = 3
-
-		oxycodone
-			name = "Oxycodone"
-			id = "oxycodone"
-			result = "oxycodone"
-			required_reagents = list("ethanol" = 1, "tramadol" = 1, "plasma" = 1)
-			result_amount = 1
-
-		//cyanide
-		//	name = "Cyanide"
-		//	id = "cyanide"
-		//	result = "cyanide"
-		//	required_reagents = list("hydrogen" = 1, "carbon" = 1, "nitrogen" = 1)
-		//	result_amount = 1
+		hydrocodone
+			name = "Hydrocodone"
+			id = "hydrocodone"
+			result = "hydrocodone"
+			required_reagents = list("morphine" = 1, "sacid" = 1, "water" = 1, "oil" = 1)
+			result_amount = 2
 
 		thermite
 			name = "Thermite"
@@ -127,76 +93,28 @@ datum
 			required_reagents = list("aluminum" = 1, "iron" = 1, "oxygen" = 1)
 			result_amount = 3
 
-		lexorin
-			name = "Lexorin"
-			id = "lexorin"
-			result = "lexorin"
-			required_reagents = list("plasma" = 1, "hydrogen" = 1, "nitrogen" = 1)
-			result_amount = 3
-
 		space_drugs
 			name = "Space Drugs"
 			id = "space_drugs"
 			result = "space_drugs"
 			required_reagents = list("mercury" = 1, "sugar" = 1, "lithium" = 1)
 			result_amount = 3
+			mix_message = "Slightly dizzying fumes drift from the solution."
 
 		lube
 			name = "Space Lube"
 			id = "lube"
 			result = "lube"
 			required_reagents = list("water" = 1, "silicon" = 1, "oxygen" = 1)
-			result_amount = 4
-
-		pacid
-			name = "Polytrinic acid"
-			id = "pacid"
-			result = "pacid"
-			required_reagents = list("sacid" = 1, "chlorine" = 1, "potassium" = 1)
 			result_amount = 3
+			mix_message = "The substance turns a striking cyan and becomes oily."
 
-		synaptizine
-			name = "Synaptizine"
-			id = "synaptizine"
-			result = "synaptizine"
-			required_reagents = list("sugar" = 1, "lithium" = 1, "water" = 1)
+		mitocholide
+			name = "mitocholide"
+			id = "mitocholide"
+			result = "mitocholide"
+			required_reagents = list("synthflesh" = 1, "cryoxadone" = 1, "plasma" = 1)
 			result_amount = 3
-
-		hyronalin
-			name = "Hyronalin"
-			id = "hyronalin"
-			result = "hyronalin"
-			required_reagents = list("radium" = 1, "anti_toxin" = 1)
-			result_amount = 2
-
-		arithrazine
-			name = "Arithrazine"
-			id = "arithrazine"
-			result = "arithrazine"
-			required_reagents = list("hyronalin" = 1, "hydrogen" = 1)
-			result_amount = 2
-
-		impedrezene
-			name = "Impedrezene"
-			id = "impedrezene"
-			result = "impedrezene"
-			required_reagents = list("mercury" = 1, "oxygen" = 1, "sugar" = 1)
-			result_amount = 2
-
-		kelotane
-			name = "Kelotane"
-			id = "kelotane"
-			result = "kelotane"
-			required_reagents = list("silicon" = 1, "carbon" = 1)
-			result_amount = 2
-
-		peridaxon
-			name = "Peridaxon"
-			id = "peridaxon"
-			result = "peridaxon"
-			required_reagents = list("bicaridine" = 2, "clonexadone" = 2)
-			required_catalysts = list("plasma" = 5)
-			result_amount = 2
 
 		holy_water
 			name = "Holy Water"
@@ -204,127 +122,29 @@ datum
 			result = "holywater"
 			required_reagents = list("water" = 1, "mercury" = 1, "wine" = 1)
 			result_amount = 3
-
-		virus_food
-			name = "Virus Food"
-			id = "virusfood"
-			result = "virusfood"
-			required_reagents = list("water" = 1, "milk" = 1)
-			result_amount = 5
-
-		leporazine
-			name = "Leporazine"
-			id = "leporazine"
-			result = "leporazine"
-			required_reagents = list("silicon" = 1, "copper" = 1)
-			required_catalysts = list("plasma" = 5)
-			result_amount = 2
-
-		cryptobiolin
-			name = "Cryptobiolin"
-			id = "cryptobiolin"
-			result = "cryptobiolin"
-			required_reagents = list("potassium" = 1, "oxygen" = 1, "sugar" = 1)
-			result_amount = 3
-
-		tricordrazine
-			name = "Tricordrazine"
-			id = "tricordrazine"
-			result = "tricordrazine"
-			required_reagents = list("inaprovaline" = 1, "anti_toxin" = 1)
-			result_amount = 2
-
-		alkysine
-			name = "Alkysine"
-			id = "alkysine"
-			result = "alkysine"
-			required_reagents = list("chlorine" = 1, "nitrogen" = 1, "anti_toxin" = 1)
-			result_amount = 2
-
-		dexalin
-			name = "Dexalin"
-			id = "dexalin"
-			result = "dexalin"
-			required_reagents = list("oxygen" = 2)
-			required_catalysts = list("plasma" = 5)
-			result_amount = 1
-
-		dermaline
-			name = "Dermaline"
-			id = "dermaline"
-			result = "dermaline"
-			required_reagents = list("oxygen" = 1, "phosphorus" = 1, "kelotane" = 1)
-			result_amount = 3
-
-		dexalinp
-			name = "Dexalin Plus"
-			id = "dexalinp"
-			result = "dexalinp"
-			required_reagents = list("dexalin" = 1, "carbon" = 1, "iron" = 1)
-			result_amount = 3
-
-		bicaridine
-			name = "Bicaridine"
-			id = "bicaridine"
-			result = "bicaridine"
-			required_reagents = list("inaprovaline" = 1, "carbon" = 1)
-			result_amount = 2
-
-		hyperzine
-			name = "Hyperzine"
-			id = "hyperzine"
-			result = "hyperzine"
-			required_reagents = list("sugar" = 1, "phosphorus" = 1, "sulfur" = 1,)
-			result_amount = 3
-
-		ryetalyn
-			name = "Ryetalyn"
-			id = "ryetalyn"
-			result = "ryetalyn"
-			required_reagents = list("arithrazine" = 1, "carbon" = 1)
-			result_amount = 2
+			mix_message = "The water somehow seems purified. Or maybe defiled."
 
 		cryoxadone
 			name = "Cryoxadone"
 			id = "cryoxadone"
 			result = "cryoxadone"
-			required_reagents = list("dexalin" = 1, "water" = 1, "oxygen" = 1)
-			result_amount = 3
-
-		clonexadone
-			name = "Clonexadone"
-			id = "clonexadone"
-			result = "clonexadone"
-			required_reagents = list("cryoxadone" = 1, "sodium" = 1)
-			required_catalysts = list("plasma" = 5)
-			result_amount = 2
+			required_reagents = list("cryostylane" = 1, "plasma" = 1, "acetone" = 1, "mutagen" = 1)
+			result_amount = 4
+			mix_message = "The solution bubbles softly."
 
 		spaceacillin
 			name = "Spaceacillin"
 			id = "spaceacillin"
 			result = "spaceacillin"
-			required_reagents = list("cryptobiolin" = 1, "inaprovaline" = 1)
+			required_reagents = list("fungus" = 1, "ethanol" = 1)
 			result_amount = 2
+			mix_message = "The solvent extracts an antibiotic compound from the fungus."
 
-		imidazoline
-			name = "imidazoline"
-			id = "imidazoline"
-			result = "imidazoline"
-			required_reagents = list("carbon" = 1, "hydrogen" = 1, "anti_toxin" = 1)
-			result_amount = 2
-
-		inacusiate
-			name = "inacusiate"
-			id = "inacusiate"
-			result = "inacusiate"
-			required_reagents = list("water" = 1, "carbon" = 1, "anti_toxin" = 1)
-			result_amount = 2
-
-		ethylredoxrazine
-			name = "Ethylredoxrazine"
-			id = "ethylredoxrazine"
-			result = "ethylredoxrazine"
-			required_reagents = list("oxygen" = 1, "anti_toxin" = 1, "carbon" = 1)
+		Audioline
+			name = "Audioline"
+			id = "audioline"
+			result = "audioline"
+			required_reagents = list("spaceacillin" = 1, "salglu_solution" = 1, "epinephrine" = 1)
 			result_amount = 3
 
 		glycerol
@@ -338,7 +158,7 @@ datum
 			name = "Nitroglycerin"
 			id = "nitroglycerin"
 			result = "nitroglycerin"
-			required_reagents = list("glycerol" = 1, "pacid" = 1, "sacid" = 1)
+			required_reagents = list("glycerol" = 1, "facid" = 1, "sacid" = 1)
 			result_amount = 2
 			on_reaction(var/datum/reagents/holder, var/created_volume)
 				var/datum/effect/effect/system/reagents_explosion/e = new()
@@ -352,127 +172,30 @@ datum
 			name = "Sodium Chloride"
 			id = "sodiumchloride"
 			result = "sodiumchloride"
-			required_reagents = list("sodium" = 1, "chlorine" = 1)
-			result_amount = 2
-
-		flash_powder
-			name = "Flash powder"
-			id = "flash_powder"
-			result = null
-			required_reagents = list("aluminum" = 1, "potassium" = 1, "sulfur" = 1 )
-			result_amount = null
-			on_reaction(var/datum/reagents/holder, var/created_volume)
-				var/location = get_turf(holder.my_atom)
-				var/datum/effect/effect/system/spark_spread/s = new /datum/effect/effect/system/spark_spread
-				s.set_up(2, 1, location)
-				s.start()
-				for(var/mob/living/carbon/C in hearers(5, location))
-					if(C.eyecheck())
-						continue
-					flick("e_flash", C.flash)
-					if(get_dist(C, location) < 4)
-						C.Weaken(5)
-						continue
-					C.Stun(5)
-
-		napalm
-			name = "Napalm"
-			id = "napalm"
-			result = null
-			required_reagents = list("aluminum" = 1, "plasma" = 1, "sacid" = 1 )
-			result_amount = 1
-			on_reaction(var/datum/reagents/holder, var/created_volume)
-				var/turf/simulated/T = get_turf(holder.my_atom)
-				for(var/turf/simulated/turf in range(created_volume/10,T))
-					new /obj/fire(turf)
-				holder.del_reagent("napalm")
-				return
-
-		chemsmoke
-			name = "Chemsmoke"
-			id = "chemsmoke"
-			result = null
-			required_reagents = list("potassium" = 1, "sugar" = 1, "phosphorus" = 1)
-			result_amount = null
-			secondary = 1
-			on_reaction(var/datum/reagents/holder, var/created_volume)
-				var/location = get_turf(holder.my_atom)
-				var/datum/effect/effect/system/chem_smoke_spread/S = new /datum/effect/effect/system/chem_smoke_spread
-				S.attach(location)
-				S.set_up(holder, 10, 0, location)
-				playsound(location, 'sound/effects/smoke.ogg', 50, 1, -3)
-				spawn(0)
-					S.start()
-					sleep(10)
-					S.start()
-				holder.clear_reagents()
-				return
-
-		chloralhydrate
-			name = "Chloral Hydrate"
-			id = "chloralhydrate"
-			result = "chloralhydrate"
-			required_reagents = list("ethanol" = 1, "chlorine" = 3, "water" = 1)
-			result_amount = 1
-
-		stoxin
-			name = "Sleep Toxin"
-			id = "stoxin"
-			result = "stoxin"
-			required_reagents = list("chloralhydrate" = 1, "sugar" = 4)
-			result_amount = 5
-
-		zombiepowder
-			name = "Zombie Powder"
-			id = "zombiepowder"
-			result = "zombiepowder"
-			required_reagents = list("carpotoxin" = 5, "stoxin" = 5, "copper" = 5)
-			result_amount = 2
-
-		mutetoxin
-			name = "Mute toxin"
-			id = "mutetoxin"
-			result = "mutetoxin"
-			required_reagents = list("uranium" = 2, "water" = 1, "carbon" = 1)
-			result_amount = 2
+			required_reagents = list("sodium" = 1, "chlorine" = 1, "water" = 1)
+			result_amount = 3
+			mix_message = "The solution crystallizes with a brief flare of light."
 
 		rezadone
 			name = "Rezadone"
 			id = "rezadone"
 			result = "rezadone"
-			required_reagents = list("carpotoxin" = 1, "cryptobiolin" = 1, "copper" = 1)
+			required_reagents = list("carpotoxin" = 1, "spaceacillin" = 1, "copper" = 1)
 			result_amount = 3
 
-		mindbreaker
-			name = "Mindbreaker Toxin"
-			id = "mindbreaker"
-			result = "mindbreaker"
-			required_reagents = list("silicon" = 1, "hydrogen" = 1, "anti_toxin" = 1)
-			result_amount = 5
-
-		lipozine
-			name = "Lipozine"
-			id = "Lipozine"
-			result = "lipozine"
-			required_reagents = list("sodiumchloride" = 1, "ethanol" = 1, "radium" = 1)
+		lsd
+			name = "Lysergic acid diethylamide"
+			id = "lsd"
+			result = "lsd"
+			required_reagents = list("diethylamine" = 1, "fungus" = 1)
 			result_amount = 3
-
-		plasmasolidification
-			name = "Solid Plasma"
-			id = "solidplasma"
-			result = null
-			required_reagents = list("iron" = 5, "frostoil" = 5, "plasma" = 20)
-			result_amount = 1
-			on_reaction(var/datum/reagents/holder, var/created_volume)
-				var/location = get_turf(holder.my_atom)
-				new /obj/item/stack/sheet/mineral/plasma(location)
-				return
+			mix_message = "The mixture turns a rather unassuming color and settles."
 
 		plastication
 			name = "Plastic"
 			id = "solidplastic"
 			result = null
-			required_reagents = list("pacid" = 10, "plasticide" = 20)
+			required_reagents = list("facid" = 10, "plasticide" = 20)
 			result_amount = 1
 			on_reaction(var/datum/reagents/holder)
 				var/obj/item/stack/sheet/metal/M = new /obj/item/stack/sheet/mineral/plastic
@@ -484,8 +207,8 @@ datum
 			name = "Virus Food"
 			id = "virusfood"
 			result = "virusfood"
-			required_reagents = list("water" = 5, "milk" = 5, "oxygen" = 5)
-			result_amount = 15
+			required_reagents = list("water" = 1, "milk" = 1, "oxygen" = 1)
+			result_amount = 3
 /*
 		mix_virus
 			name = "Mix Virus"
@@ -542,6 +265,7 @@ datum
 			result = "fluorosurfactant"
 			required_reagents = list("fluorine" = 2, "carbon" = 2, "sacid" = 1)
 			result_amount = 5
+			mix_message = "A head of foam results from the mixture's constant fizzing."
 
 
 		foam
@@ -577,7 +301,7 @@ datum
 			name = "Metal Foam"
 			id = "metalfoam"
 			result = null
-			required_reagents = list("aluminum" = 3, "foaming_agent" = 1, "pacid" = 1)
+			required_reagents = list("aluminum" = 3, "fluorosurfactant" = 1, "sacid" = 1)
 			result_amount = 5
 
 			on_reaction(var/datum/reagents/holder, var/created_volume)
@@ -597,7 +321,7 @@ datum
 			name = "Iron Foam"
 			id = "ironlfoam"
 			result = null
-			required_reagents = list("iron" = 3, "foaming_agent" = 1, "pacid" = 1)
+			required_reagents = list("iron" = 3, "fluorosurfactant" = 1, "sacid" = 1)
 			result_amount = 5
 
 			on_reaction(var/datum/reagents/holder, var/created_volume)
@@ -613,15 +337,6 @@ datum
 				s.start()
 				return
 
-
-
-		foaming_agent
-			name = "Foaming Agent"
-			id = "foaming_agent"
-			result = "foaming_agent"
-			required_reagents = list("lithium" = 1, "hydrogen" = 1)
-			result_amount = 1
-
 		// Synthesizing these three chemicals is pretty complex in real life, but fuck it, it's just a game!
 		ammonia
 			name = "Ammonia"
@@ -629,6 +344,7 @@ datum
 			result = "ammonia"
 			required_reagents = list("hydrogen" = 3, "nitrogen" = 1)
 			result_amount = 3
+			mix_message = "The mixture bubbles, emitting an acrid reek."
 
 		diethylamine
 			name = "Diethylamine"
@@ -636,22 +352,27 @@ datum
 			result = "diethylamine"
 			required_reagents = list ("ammonia" = 1, "ethanol" = 1)
 			result_amount = 2
+			required_temp = 374
+			mix_message = "A horrible smell pours forth from the mixture."
 
 		space_cleaner
 			name = "Space cleaner"
 			id = "cleaner"
 			result = "cleaner"
-			required_reagents = list("ammonia" = 1, "water" = 1)
-			result_amount = 2
-
-		plantbgone
-			name = "Plant-B-Gone"
-			id = "plantbgone"
-			result = "plantbgone"
-			required_reagents = list("chlorine" = 1, "hydrogen" = 1, "nitrogen" = 1)
+			required_reagents = list("ammonia" = 1, "water" = 1, "ethanol" = 1)
 			result_amount = 3
+			mix_message = "Ick, this stuff really stinks. Sure does make the container sparkle though!"
+
+		sulfuric_acid
+			name = "Sulfuric Acid"
+			id = "sacid"
+			result = "sacid"
+			required_reagents = list("sulfur" = 1, "oxygen" = 1, "hydrogen" = 1)
+			result_amount = 2
+			mix_message = "The mixture gives off a sharp acidic tang."
 
 ///////Changeling Blood Test/////////////
+/*
 		changeling_test
 			name = "Changeling blood test"
 			id = "changelingblood"
@@ -676,6 +397,7 @@ datum
 						M.show_message( "<span class ='notice'>The blood seems to break apart in the fuel.</span>", 1)
 				holder.del_reagent("blood")
 				return
+*/
 
 /////////////////////////////////////////////NEW SLIME CORE REACTIONS/////////////////////////////////////////////
 
@@ -696,9 +418,9 @@ datum
 
 
 		slimeinaprov
-			name = "Slime Inaprovaline"
-			id = "m_inaprov"
-			result = "inaprovaline"
+			name = "Slime Epinephrine"
+			id = "m_epinephrine"
+			result = "epinephrine"
 			required_reagents = list("water" = 5)
 			result_amount = 3
 			required_other = 1
@@ -758,23 +480,8 @@ datum
 			required_other = 1
 			on_reaction(var/datum/reagents/holder)
 
-				var/blocked = list(/mob/living/simple_animal/hostile,
-					/mob/living/simple_animal/hostile/pirate,
-					/mob/living/simple_animal/hostile/pirate/ranged,
-					/mob/living/simple_animal/hostile/russian,
-					/mob/living/simple_animal/hostile/russian/ranged,
-					/mob/living/simple_animal/hostile/syndicate,
-					/mob/living/simple_animal/hostile/syndicate/melee,
-					/mob/living/simple_animal/hostile/syndicate/melee/space,
-					/mob/living/simple_animal/hostile/syndicate/ranged,
-					/mob/living/simple_animal/hostile/syndicate/ranged/space,
-					/mob/living/simple_animal/hostile/alien/queen/large,
-					/mob/living/simple_animal/hostile/faithless,
-					/mob/living/simple_animal/hostile/panther,
-					/mob/living/simple_animal/hostile/snake,
-					/mob/living/simple_animal/hostile/retaliate,
-					/mob/living/simple_animal/hostile/retaliate/clown
-					)//exclusion list for things you don't want the reaction to create.
+				var/blocked = blocked_mobs //global variable of blocked mobs
+
 				var/list/critters = typesof(/mob/living/simple_animal/hostile) - blocked // list of possible hostile mobs
 
 				playsound(get_turf_loc(holder.my_atom), 'sound/effects/phasein.ogg', 100, 1)
@@ -806,34 +513,13 @@ datum
 			on_reaction(var/datum/reagents/holder)
 				feedback_add_details("slime_cores_used","[replacetext(name," ","_")]")
 				for(var/mob/O in viewers(get_turf(holder.my_atom), null))
-					O.show_message(text("<span class='danger'>The slime extract begins to vibrate violently !</span>"), 1)
+					O.show_message(text("<span class='danger'>The slime extract begins to vibrate violently!</span>"), 1)
 				spawn(50)
 
 				if(holder && holder.my_atom)
 
-					var/blocked = list(/mob/living/simple_animal/hostile,
-						/mob/living/simple_animal/hostile/pirate,
-						/mob/living/simple_animal/hostile/pirate/ranged,
-						/mob/living/simple_animal/hostile/russian,
-						/mob/living/simple_animal/hostile/russian/ranged,
-						/mob/living/simple_animal/hostile/syndicate,
-						/mob/living/simple_animal/hostile/syndicate/melee,
-						/mob/living/simple_animal/hostile/syndicate/melee/space,
-						/mob/living/simple_animal/hostile/syndicate/ranged,
-						/mob/living/simple_animal/hostile/syndicate/ranged/space,
-						/mob/living/simple_animal/hostile/alien/queen/large,
-						/mob/living/simple_animal/hostile/retaliate,
-						/mob/living/simple_animal/hostile/retaliate/clown,
-						/mob/living/simple_animal/hostile/mushroom,
-						/mob/living/simple_animal/hostile/asteroid,
-						/mob/living/simple_animal/hostile/asteroid/basilisk,
-						/mob/living/simple_animal/hostile/asteroid/goldgrub,
-						/mob/living/simple_animal/hostile/asteroid/goliath,
-						/mob/living/simple_animal/hostile/asteroid/hivelord,
-						/mob/living/simple_animal/hostile/asteroid/hivelordbrood,
-						/mob/living/simple_animal/hostile/carp/holocarp,
-						/mob/living/simple_animal/hostile/mining_drone
-						)//exclusion list for things you don't want the reaction to create.
+					var/blocked = blocked_mobs
+
 					var/list/critters = typesof(/mob/living/simple_animal/hostile) - blocked // list of possible hostile mobs
 
 					playsound(get_turf(holder.my_atom), 'sound/effects/phasein.ogg', 100, 1)
@@ -950,19 +636,13 @@ datum
 			required_container = /obj/item/slime_extract/orange
 			required_other = 1
 			on_reaction(var/datum/reagents/holder)
-				for(var/mob/O in viewers(get_turf_loc(holder.my_atom), null))
+				feedback_add_details("slime_cores_used","[replacetext(name," ","_")]")
+				for(var/mob/O in viewers(get_turf(holder.my_atom), null))
 					O.show_message(text("\red The slime extract begins to vibrate violently !"), 1)
 				sleep(50)
-				var/turf/location = get_turf(holder.my_atom.loc)
-				for(var/turf/simulated/floor/target_tile in range(0,location))
-
-					var/datum/gas_mixture/napalm = new
-
-					napalm.toxins = 25
-					napalm.temperature = 1400
-
-					target_tile.assume_air(napalm)
-					spawn (0) target_tile.hotspot_expose(700, 400)
+				var/turf/simulated/T = get_turf(holder.my_atom)
+				if(istype(T))
+					T.atmos_spawn_air(SPAWN_HEAT | SPAWN_TOXINS, 50)
 
 //Yellow
 		slimeoverload
@@ -1250,6 +930,14 @@ datum
 			required_reagents = list("water" = 5, "coco" = 1)
 			result_amount = 5
 
+		chocolate_milk
+			name = "Chocolate Milk"
+			id = "chocolate_milk"
+			result = "chocolate_milk"
+			required_reagents = list("chocolate" = 1, "milk" = 1)
+			result_amount = 2
+			mix_message = "The mixture turns a nice brown color."
+
 		coffee
 			name = "Coffee"
 			id = "coffee"
@@ -1287,7 +975,7 @@ datum
 			name = "Syntiflesh"
 			id = "syntiflesh"
 			result = null
-			required_reagents = list("blood" = 5, "clonexadone" = 1)
+			required_reagents = list("blood" = 5, "cryoxadone" = 1)
 			result_amount = 1
 			on_reaction(var/datum/reagents/holder, var/created_volume)
 				var/location = get_turf(holder.my_atom)
@@ -1414,6 +1102,7 @@ datum
 			result = "gintonic"
 			required_reagents = list("gin" = 2, "tonic" = 1)
 			result_amount = 3
+			mix_message = "The tonic water and gin mix together perfectly."
 
 		cuba_libre
 			name = "Cuba Libre"
@@ -1503,7 +1192,7 @@ datum
 			name = "The Doctor's Delight"
 			id = "doctordelight"
 			result = "doctorsdelight"
-			required_reagents = list("limejuice" = 1, "tomatojuice" = 1, "orangejuice" = 1, "cream" = 1, "tricordrazine" = 1)
+			required_reagents = list("limejuice" = 1, "tomatojuice" = 1, "orangejuice" = 1, "cream" = 1)
 			result_amount = 5
 
 		irish_cream
@@ -1520,12 +1209,13 @@ datum
 			required_reagents = list ("beer" = 1, "ale" = 2)
 			result_amount = 3
 
-		hooch
-			name = "Hooch"
-			id = "hooch"
-			result = "hooch"
-			required_reagents = list ("sugar" = 1, "ethanol" = 2, "fuel" = 1)
-			result_amount = 3
+		suicider
+			name = "Suicider"
+			id = "suicider"
+			result = "suicider"
+			required_reagents = list ("vodka" = 1, "cider" = 1, "fuel" = 1, "epinephrine" = 1)
+			result_amount = 4
+			mix_message = "The drinks and chemicals mix together, emitting a potent smell."
 
 		irish_coffee
 			name = "Irish Coffee"
@@ -1759,7 +1449,7 @@ datum
 			name = "Neurotoxin"
 			id = "neurotoxin"
 			result = "neurotoxin"
-			required_reagents = list("gargleblaster" = 1, "stoxin" = 1)
+			required_reagents = list("gargleblaster" = 1, "morphine" = 1)
 			result_amount = 2
 
 		snowwhite

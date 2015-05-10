@@ -5,7 +5,7 @@
 	name = "Dropper"
 	desc = "A dropper. Transfers 5 units."
 	icon = 'icons/obj/chemical.dmi'
-	icon_state = "dropper0"
+	icon_state = "dropper"
 	amount_per_transfer_from_this = 5
 	possible_transfer_amounts = list(1,2,3,4,5)
 	volume = 5
@@ -56,7 +56,7 @@
 						user << "\blue You transfer [trans] units of the solution."
 						if (src.reagents.total_volume<=0)
 							filled = 0
-							icon_state = "dropper[filled]"
+							icon_state = "[initial(icon_state)]"
 						return
 
 
@@ -73,7 +73,7 @@
 				M.attack_log += text("\[[time_stamp()]\] <font color='orange'>Has been squirted with [src.name] by [user.name] ([user.ckey]). Reagents: [contained]</font>")
 				user.attack_log += text("\[[time_stamp()]\] <font color='red'>Used the [src.name] to squirt [M.name] ([M.key]). Reagents: [contained]</font>")
 				if(M.ckey)
-					msg_admin_attack("[user.name] ([user.ckey]) squirted [M.name] ([M.key]) with [src.name]. Reagents: [contained] (INTENT: [uppertext(user.a_intent)]) (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[user.x];Y=[user.y];Z=[user.z]'>JMP</a>)")
+					msg_admin_attack("[user.name] ([user.ckey])[isAntag(user) ? "(ANTAG)" : ""] squirted [M.name] ([M.key]) with [src.name]. Reagents: [contained] (INTENT: [uppertext(user.a_intent)]) (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[user.x];Y=[user.y];Z=[user.z]'>JMP</a>)")
 				if(!iscarbon(user))
 					M.LAssailant = null
 				else
@@ -95,7 +95,7 @@
 			user << "\blue You transfer [trans] units of the solution."
 			if (src.reagents.total_volume<=0)
 				filled = 0
-				icon_state = "dropper[filled]"
+				icon_state = "[initial(icon_state)]"
 
 		else
 
@@ -109,13 +109,22 @@
 
 			var/trans = target.reagents.trans_to(src, amount_per_transfer_from_this)
 
-			user << "\blue You fill the dropper with [trans] units of the solution."
+			user << "\blue You fill the [src] with [trans] units of the solution."
 
 			filled = 1
-			icon_state = "dropper[filled]"
+			icon_state = "[initial(icon_state)][filled]"
 
 		return
 
 ////////////////////////////////////////////////////////////////////////////////
 /// Droppers. END
 ////////////////////////////////////////////////////////////////////////////////
+
+/obj/item/weapon/reagent_containers/dropper/precision
+	name = "Pipette"
+	desc = "A high precision pippette. Holds 1 unit."
+	icon = 'icons/obj/chemical.dmi'
+	icon_state = "pipette"
+	amount_per_transfer_from_this = 1
+	possible_transfer_amounts = list(0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9,1)
+	volume = 1

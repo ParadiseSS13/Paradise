@@ -24,6 +24,7 @@
 	var/b_skin = 0
 
 	var/lip_style = null	//no lipstick by default- arguably misleading, as it could be used for general makeup
+	var/lip_color = "white"
 
 	var/age = 30		//Player's age (pure fluff)
 	var/b_type = "A+"	//Player's bloodtype
@@ -55,6 +56,8 @@
 
 	var/speech_problem_flag = 0
 
+	var/datum/martial_art/martial_art = null
+
 	var/miming = null //Toggle for the mime's abilities.
 	var/special_voice = "" // For changing our voice. Used by a symptom.
 	var/said_last_words=0
@@ -79,5 +82,5 @@
 
 	var/frozen = 0 //used for preventing attacks on admin-frozen people
 
-	fire_dmi = 'icons/mob/OnFire.dmi'
-	fire_sprite = "Standing"
+	var/fire_dmi = 'icons/mob/OnFire.dmi'
+	var/fire_sprite = "Standing"

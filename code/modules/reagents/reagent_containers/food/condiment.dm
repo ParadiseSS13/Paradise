@@ -51,7 +51,7 @@
 		M.attack_log += text("\[[time_stamp()]\] <font color='orange'>Has been fed [src.name] by [user.name] ([user.ckey]) Reagents: [reagentlist(src)]</font>")
 		user.attack_log += text("\[[time_stamp()]\] <font color='red'>Fed [src.name] by [M.name] ([M.ckey]) Reagents: [reagentlist(src)]</font>")
 		if(M.ckey)
-			msg_admin_attack("[user.name] ([user.ckey]) fed [M.name] ([M.ckey]) with [src.name] (INTENT: [uppertext(user.a_intent)]) (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[user.x];Y=[user.y];Z=[user.z]'>JMP</a>)")
+			msg_admin_attack("[user.name] ([user.ckey])[isAntag(user) ? "(ANTAG)" : ""] fed [M.name] ([M.ckey]) with [src.name] (INTENT: [uppertext(user.a_intent)]) (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[user.x];Y=[user.y];Z=[user.z]'>JMP</a>)")
 		if(!iscarbon(user))
 			M.LAssailant = null
 		else
@@ -157,12 +157,12 @@
 
 /obj/item/weapon/reagent_containers/food/condiment/syndisauce
 	name = "Chef Excellence's Special Sauce"
-	desc = "A potent sauce distilled from the toxin glands of 1000 Space Carp with an extra touch of LSD because why not?"
-	amount_per_transfer_from_this = 1
-	volume = 20
+	desc = "A potent sauce extracted from the potent amanita mushrooms. Death never tasted quite so delicious."
+	amount_per_transfer_from_this = 5
+	volume = 50
 	New()
 		..()
-		reagents.add_reagent("chefspecial", 20)
+		reagents.add_reagent("amanitin", 50)
 
 //Food packs. To easily apply deadly toxi... delicious sauces to your food!
 /obj/item/weapon/reagent_containers/food/condiment/pack

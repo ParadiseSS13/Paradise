@@ -502,6 +502,14 @@ var/list/ghostteleportlocs = list()
 	icon_state = "thunder"
 	requires_power = 0
 
+/area/tdome/arena_source
+	name = "\improper Thunderdome Arena Template"
+	icon_state = "thunder"
+
+/area/tdome/arena
+	name = "\improper Thunderdome Arena"
+	icon_state = "thunder"
+
 /area/tdome/tdome1
 	name = "\improper Thunderdome (Team 1)"
 	icon_state = "green"
@@ -1717,7 +1725,7 @@ area/security/podbay
 /area/toxins/misc_lab
 	name = "\improper Research Testing Lab"
 	icon_state = "toxmisc"
-	
+
 /area/toxins/test_chamber
 	name = "\improper Research Testing Chamber"
 	icon_state = "toxtest"

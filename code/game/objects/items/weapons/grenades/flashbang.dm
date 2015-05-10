@@ -38,7 +38,7 @@
 //Flash
 	if(!eye_safety)
 		var/mob/living/carbon/human/H = M
-		var/datum/organ/internal/eyes/E = H.internal_organs_by_name["eyes"]
+		var/obj/item/organ/eyes/E = H.internal_organs_by_name["eyes"]
 		flick("e_flash", M.flash)
 		E.damage += rand(1, 3)
 		M.Stun(max(10/distance, 3))

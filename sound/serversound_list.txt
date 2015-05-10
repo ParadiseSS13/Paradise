@@ -1,0 +1,10 @@
+sound/music/b12_combined_start.ogg
+sound/music/main.ogg
+sound/music/THUNDERDOME.ogg
+sound/music/space.ogg
+sound/music/title1.ogg
+sound/music/title2.ogg
+sound/music/traitor.ogg
+sound/items/bikehorn.ogg
+sound/effects/siren.ogg
+sound/ambience/song_game.ogg

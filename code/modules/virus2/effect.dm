@@ -104,12 +104,12 @@
 
 ////////////////////////STAGE 4/////////////////////////////////
 
-/datum/disease2/effect/doctorsdelight
+/datum/disease2/effect/omnizine
 	name = "Panacea Effect"
 	stage = 4
 	activate(var/mob/living/carbon/mob,var/multiplier)
-		if (mob.reagents.get_reagent_amount("doctorsdelight") < 1)
-			mob.reagents.add_reagent("doctorsdelight", 1)
+		if (mob.reagents.get_reagent_amount("omnizine") < 1)
+			mob.reagents.add_reagent("omnizine", 1)
 
 /datum/disease2/effect/viralsputum_major
 	name = "Hemoptysis"
@@ -202,7 +202,7 @@
 	activate(var/mob/living/carbon/mob,var/multiplier)
 		if(istype(mob, /mob/living/carbon/human))
 			var/mob/living/carbon/human/H = mob
-			var/datum/organ/internal/brain/B = H.internal_organs_by_name["brain"]
+			var/obj/item/organ/brain/B = H.internal_organs_by_name["brain"]
 			if (B.damage < B.min_broken_damage)
 				B.take_damage(5)
 		else
@@ -217,11 +217,11 @@
 		if(istype(mob, /mob/living/carbon/human))
 			var/mob/living/carbon/human/H = mob
 			var/organ = pick(list("r_arm","l_arm","r_leg","r_leg"))
-			var/datum/organ/external/E = H.organs_by_name[organ]
+			var/obj/item/organ/external/E = H.organs_by_name[organ]
 			if (!(E.status & ORGAN_DEAD))
 				E.status |= ORGAN_DEAD
-				H << "<span class='notice'>You can't feel your [E.display_name] anymore...</span>"
-				for (var/datum/organ/external/C in E.children)
+				H << "<span class='notice'>You can't feel your [E.name] anymore...</span>"
+				for (var/obj/item/organ/external/C in E.children)
 					C.status |= ORGAN_DEAD
 			H.update_body(1)
 			if(multiplier < 1) multiplier = 1
@@ -232,9 +232,9 @@
 	deactivate(var/mob/living/carbon/mob,var/multiplier)
 		if(istype(mob, /mob/living/carbon/human))
 			var/mob/living/carbon/human/H = mob
-			for (var/datum/organ/external/E in H.organs)
+			for (var/obj/item/organ/external/E in H.organs)
 				E.status &= ~ORGAN_DEAD
-				for (var/datum/organ/external/C in E.children)
+				for (var/obj/item/organ/external/C in E.children)
 					C.status &= ~ORGAN_DEAD
 
 
@@ -244,7 +244,7 @@
 	activate(var/mob/living/carbon/mob,var/multiplier)
 		if(istype(mob, /mob/living/carbon/human))
 			var/mob/living/carbon/human/H = mob
-			for (var/datum/organ/external/E in H.organs)
+			for (var/obj/item/organ/external/E in H.organs)
 				if (E.status & ORGAN_BROKEN && prob(30))
 					E.status ^= ORGAN_BROKEN
 		var/heal_amt = -5*multiplier
@@ -291,7 +291,7 @@
 	name = "Spontaneous Cellular Collapse"
 	stage = 4
 	activate(var/mob/living/carbon/mob,var/multiplier)
-		mob.reagents.add_reagent("pacid", 1)
+		mob.reagents.add_reagent("facid", 1)
 		mob << "<span class = 'warning'> Your body burns as your cells break down.</span>"
 		shake_camera(mob,5*multiplier)
 
@@ -331,14 +331,14 @@
 							new /obj/effect/decal/cleanable/blood/gibs(Tx,i)
 			if(2)
 				if(ishuman(mob))
-					for (var/datum/organ/external/E in H.organs)
+					for (var/obj/item/organ/external/E in H.organs)
 						if(pick(1,0))
-							E.droplimb(1)
+							E.droplimb(0,DROPLIMB_BLUNT)
 			if(3)
 				if(ishuman(mob))
 					if(H.species.name != "Skellington")
 						mob << "<span class = 'warning'> Your necrotic skin ruptures!</span>"
-						for (var/datum/organ/external/E in H.organs)
+						for (var/obj/item/organ/external/E in H.organs)
 							if(pick(1,0))
 								E.createwound(CUT, pick(2,4))
 						if(prob(30))
@@ -419,8 +419,8 @@
 	name = "Regenerative Synapse Effect"
 	stage = 3
 	activate(var/mob/living/carbon/mob,var/multiplier)
-		if (mob.reagents.get_reagent_amount("alkysine") < 1)
-			mob.reagents.add_reagent("alkysine", 1)
+		if (mob.reagents.get_reagent_amount("mannitol") < 1)
+			mob.reagents.add_reagent("mannitol", 1)
 
 /datum/disease2/effect/paroxetine
 	name = "Psyche Collapse Syndrome"
@@ -471,7 +471,7 @@
 	activate(var/mob/living/carbon/mob,var/multiplier)
 		if(istype(mob, /mob/living/carbon/human))
 			var/mob/living/carbon/human/H = mob
-			var/datum/organ/internal/brain/B = H.internal_organs_by_name["brain"]
+			var/obj/item/organ/brain/B = H.internal_organs_by_name["brain"]
 			if (B.damage < B.min_broken_damage)
 				B.take_damage(1)
 		else
@@ -501,13 +501,13 @@
 	activate(var/mob/living/carbon/mob,var/multiplier)
 		if(istype(mob, /mob/living/carbon/human))
 			var/mob/living/carbon/human/H = mob
-			for (var/datum/organ/external/E in H.organs)
+			for (var/obj/item/organ/external/E in H.organs)
 				E.min_broken_damage = max(5, E.min_broken_damage - 30)
 
 	deactivate(var/mob/living/carbon/mob,var/multiplier)
 		if(istype(mob, /mob/living/carbon/human))
 			var/mob/living/carbon/human/H = mob
-			for (var/datum/organ/external/E in H.organs)
+			for (var/obj/item/organ/external/E in H.organs)
 				E.min_broken_damage = initial(E.min_broken_damage)
 
 /datum/disease2/effect/shakey
@@ -686,37 +686,8 @@ var/list/compatible_mobs = list(/mob/living/carbon/human, /mob/living/carbon/mon
 			flags |= NODROP		//curses!
 		..()
 
-
-//Lets not make people nearly immortal. ~Alex-gh
-/*
-/datum/disease2/effect/spaceadapt
-	name = "Space Adaptation Effect"
-	stage = 3
-	activate(var/mob/living/carbon/mob,var/multiplier)
-		var/mob/living/carbon/human/H = mob
-		if (mob.reagents.get_reagent_amount("dexalinp") < 10)
-			mob.reagents.add_reagent("dexalinp", 4)
-		if (mob.reagents.get_reagent_amount("leporazine") < 10)
-			mob.reagents.add_reagent("leporazine", 4)
-		if (mob.reagents.get_reagent_amount("bicaridine") < 10)
-			mob.reagents.add_reagent("bicaridine", 4)
-		if (mob.reagents.get_reagent_amount("dermaline") < 10)
-			mob.reagents.add_reagent("dermaline", 4)
-		mob.emote("me",1,"exhales slowly.")
-		var/datum/organ/external/chest/chest = H.get_organ("chest")
-		for(var/datum/organ/internal/I in chest.internal_organs)
-			I.damage = 0
-*/
-
-
 ////////////////////////STAGE 2/////////////////////////////////
 
-/datum/disease2/effect/methylphenidate
-	name = "Mental Stability Phenomenon"
-	stage = 2
-	activate(var/mob/living/carbon/mob,var/multiplier)
-		if (mob.reagents.get_reagent_amount("methylphenidate") < 5)
-			mob.reagents.add_reagent("methylphenidate", 1)
 
 /datum/disease2/effect/pain
 	name = "Acute Muscle Ache"
@@ -760,7 +731,7 @@ var/list/compatible_mobs = list(/mob/living/carbon/human, /mob/living/carbon/mon
 	activate(var/mob/living/carbon/mob,var/multiplier)
 		if(istype(mob, /mob/living/carbon/human))
 			var/mob/living/carbon/human/H = mob
-			var/datum/organ/internal/brain/B = H.internal_organs_by_name["brain"]
+			var/obj/item/organ/brain/B = H.internal_organs_by_name["brain"]
 			if (B.damage < B.min_broken_damage)
 				B.take_damage(0.5)
 		else
@@ -827,8 +798,8 @@ var/list/compatible_mobs = list(/mob/living/carbon/human, /mob/living/carbon/mon
 	name = "Adrenal Overload"
 	stage = 2
 	activate(var/mob/living/carbon/mob,var/multiplier)
-		if (mob.reagents.get_reagent_amount("hyperzine") < 40)
-			mob.reagents.add_reagent("hyperzine", 4)
+		if (mob.reagents.get_reagent_amount("methamphetamine") < 40)
+			mob.reagents.add_reagent("methamphetamine", 4)
 		if (prob(30))
 			mob << "<span class='notice'>You feel a rush of energy inside you!</span>"
 			mob.jitteriness += 10
@@ -904,18 +875,12 @@ var/list/compatible_mobs = list(/mob/living/carbon/human, /mob/living/carbon/mon
 	stage = 2
 	activate(var/mob/living/carbon/mob,var/multiplier)
 		mob << "<span class = 'notice'> You feel optimistic!</span>"
-		if (mob.reagents.get_reagent_amount("tricordrazine") < 1)
-			mob.reagents.add_reagent("tricordrazine", 1)
+		if (mob.reagents.get_reagent_amount("salglu_solution") < 1)
+			mob.reagents.add_reagent("salglu_solution", 1)
 
 
 ////////////////////////STAGE 1/////////////////////////////////
 
-/datum/disease2/effect/citalopram
-	name = "Reality Check"
-	stage = 1
-	activate(var/mob/living/carbon/mob,var/multiplier)
-		if (mob.reagents.get_reagent_amount("citalopram") < 5)
-			mob.reagents.add_reagent("citalopram", 1)
 
 /datum/disease2/effect/pain_minor
 	name = "Heightened Sensitivity"
@@ -929,8 +894,8 @@ var/list/compatible_mobs = list(/mob/living/carbon/human, /mob/living/carbon/mon
 	name = "Adrenaline Extra"
 	stage = 1
 	activate(var/mob/living/carbon/mob,var/multiplier)
-		if (mob.reagents.get_reagent_amount("hyperzine") < 10)
-			mob.reagents.add_reagent("hyperzine", 4)
+		if (mob.reagents.get_reagent_amount("ephedrine") < 10)
+			mob.reagents.add_reagent("ephedrine", 4)
 		if (prob(30))
 			mob << "<span class='notice'>You feel a rush of energy inside you!</span>"
 			mob.jitteriness += 10

@@ -35,7 +35,9 @@
 	..()
 
 /obj/structure/alien/resin/Move()
+	var/turf/T = loc
 	..()
+	move_update_air(T)
 
 /obj/structure/alien/resin/wall
 	name = "resin wall"
@@ -46,6 +48,12 @@
 /obj/structure/alien/resin/wall/New()
 	relativewall_neighbours()
 	..()
+
+/obj/structure/alien/resin/wall/shadowling //For chrysalis
+	name = "chrysalis wall"
+	desc = "Some sort of purple substance in an egglike shape. It pulses and throbs from within and seems impenetrable."
+	health = INFINITY
+	icon_state = "wall0"
 
 /obj/structure/alien/resin/membrane
 	name = "resin membrane"
@@ -229,7 +237,7 @@
 		del(src)
 
 
-/obj/structure/alien/weeds/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume)
+/obj/structure/alien/weeds/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
 	if(exposed_temperature > 300)
 		health -= 5
 		healthcheck()
@@ -387,7 +395,7 @@
 			del(src)	//Remove the egg after it has been hit after bursting.
 
 
-/obj/structure/alien/egg/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume)
+/obj/structure/alien/egg/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
 	if(exposed_temperature > 500)
 		health -= 5
 		healthcheck()

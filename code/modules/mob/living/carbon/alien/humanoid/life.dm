@@ -20,7 +20,7 @@
 
 		//First, resolve location and get a breath
 
-		if(air_master.current_cycle%4==2)
+		if(mob_master.current_cycle%4==2)
 			//Only try to take a breath every 4 seconds, unless suffocating
 			spawn(0) breathe()
 
@@ -123,7 +123,7 @@
 			if( health <= 20 && prob(1) )
 				spawn(0)
 					emote("gasp")
-			if(!reagents.has_reagent("inaprovaline"))
+			if(!reagents.has_reagent("epinephrine"))
 				adjustOxyLoss(1)
 			Paralyse(3)
 

@@ -37,7 +37,7 @@
 			add_logs(user, C, "handcuffed")
 		else
 			user << "<span class='warning'>You fail to handcuff [C].</span>"
-			
+
 /obj/item/weapon/restraints/handcuffs/proc/apply_cuffs(mob/living/carbon/target, mob/user)
 	if(!target.handcuffed)
 		user.drop_item()
@@ -52,29 +52,29 @@
 
 var/last_chew = 0
 /mob/living/carbon/human/RestrainedClickOn(var/atom/A)
-	if (A != src) 
+	if (A != src)
 		return ..()
-	if (last_chew + 26 > world.time) 
+	if (last_chew + 26 > world.time)
 		return
 
 	var/mob/living/carbon/human/H = A
-	if (!H.handcuffed) 
+	if (!H.handcuffed)
 		return
-	if (H.a_intent != "harm") 
+	if (H.a_intent != "harm")
 		return
-	if (H.zone_sel.selecting != "mouth") 
+	if (H.zone_sel.selecting != "mouth")
 		return
-	if (H.wear_mask) 
+	if (H.wear_mask)
 		return
-	if (istype(H.wear_suit, /obj/item/clothing/suit/straight_jacket)) 
-		return
-
-	var/datum/organ/external/O = H.organs_by_name[H.hand ? "l_hand" : "r_hand"]
-	if (!O) 
+	if (istype(H.wear_suit, /obj/item/clothing/suit/straight_jacket))
 		return
 
-	var/s = "<span class='danger'>[H.name] chews on \his [O.display_name]!</span>"
-	H.visible_message(s, "<span class='userdanger'>You chew on your [O.display_name]!</span>")
+	var/obj/item/organ/external/O = H.organs_by_name[H.hand ? "l_hand" : "r_hand"]
+	if (!O)
+		return
+
+	var/s = "<span class='danger'>[H.name] chews on \his [O.name]!</span>"
+	H.visible_message(s, "<span class='userdanger'>You chew on your [O.name]!</span>")
 	H.attack_log += text("\[[time_stamp()]\] <font color='red'>[s] ([H.ckey])</font>")
 	log_attack("[s] ([H.ckey])")
 
@@ -135,14 +135,14 @@ var/last_chew = 0
 		else
 			user << "<span class='warning'>You need one rod to make a wired rod.</span>"
 			return
-	
+
 /obj/item/weapon/restraints/handcuffs/cable/zipties
 	name = "zipties"
 	desc = "Plastic, disposable zipties that can be used to restrain temporarily but are destroyed after use."
 	icon_state = "cuff_white"
 	breakouttime = 450 //Deciseconds = 45s
 	trashtype = /obj/item/weapon/restraints/handcuffs/cable/zipties/used
-	
+
 /obj/item/weapon/restraints/handcuffs/cable/zipties/cyborg/attack(mob/living/carbon/C, mob/user)
 	if(isrobot(user))
 		if(!C.handcuffed)
@@ -156,11 +156,11 @@ var/last_chew = 0
 					user << "<span class='notice'>You handcuff [C].</span>"
 					add_logs(user, C, "handcuffed")
 			else
-				user << "<span class='warning'>You fail to handcuff [C].</span>"		
+				user << "<span class='warning'>You fail to handcuff [C].</span>"
 
 /obj/item/weapon/restraints/handcuffs/cable/zipties/used/attack()
 	return
-				
+
 //Legcuffs
 /obj/item/weapon/restraints/legcuffs
 	name = "leg cuffs"

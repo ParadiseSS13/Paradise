@@ -21,10 +21,10 @@
 		var/obj/vent = pick_n_take(vents)
 
 		var/list/gunk = list("water","carbon","flour","radium","toxin","cleaner","nutriment","condensedcapsaicin","psilocybin","lube",
-							"plantbgone","banana","anti_toxin","space_drugs","hyperzine","holywater","ethanol","hot_coco","pacid",
-							"blood","stoxin","fluorine","ryetalyn","mutagen","oxycodone","fuel","cryptobiolin",
-							"impedrezene","mindbreaker","nanites","lipozine","frostoil","doctorsdelight","beepskysmash",
-							"tricordrazine", "amatoxin", "adminordrazine", "neurotoxin", "zombiepowder", "synaptizine")
+							"atrazine","banana","charcoal","space_drugs","methamphetamine","holywater","ethanol","hot_coco","facid",
+							"blood","morphine","fluorine","mutadone","mutagen","hydrocodone","fuel",
+							"haloperidol","lsd","nanites","lipolicide","frostoil","salglu_solution","beepskysmash",
+							"omnizine", "amanitin", "adminordrazine", "neurotoxin", "synaptizine")
 		var/datum/reagents/R = new/datum/reagents(50)
 		R.my_atom = vent
 		R.add_reagent(pick(gunk), 50)
@@ -32,5 +32,5 @@
 		var/datum/effect/effect/system/chem_smoke_spread/smoke = new
 		smoke.set_up(R, rand(1, 2), 0, vent, 0, silent = 1)
 		playsound(vent.loc, 'sound/effects/smoke.ogg', 50, 1, -3)
-		smoke.start()
+		smoke.start(3)
 		R.delete()	//GC the reagents

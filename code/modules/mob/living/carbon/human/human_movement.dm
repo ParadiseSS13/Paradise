@@ -2,6 +2,8 @@
 	var/tally = 0
 	if(status_flags & GOTTAGOFAST)
 		tally -= 1
+	if(status_flags & GOTTAGOREALLYFAST)
+		tally -= 2
 
 	if(species && species.flags & IS_SLOW)
 		tally = 5
@@ -30,21 +32,23 @@
 		if(shoes)
 			tally += shoes.slowdown
 
+/*
 		for(var/organ_name in list("l_foot","r_foot","l_leg","r_leg"))
-			var/datum/organ/external/E = get_organ(organ_name)
+			var/obj/item/organ/external/E = get_organ(organ_name)
 			if(!E || (E.status & ORGAN_DESTROYED))
 				tally += 4
-			if(E.status & ORGAN_SPLINTED)
+			else if(E.status & ORGAN_SPLINTED)
 				tally += 0.5
 			else if(E.status & ORGAN_BROKEN)
 				tally += 1.5
+*/
 
 	if(buckled && istype(buckled, /obj/structure/stool/bed/chair/wheelchair))
 		for(var/organ_name in list("l_hand","r_hand","l_arm","r_arm"))
-			var/datum/organ/external/E = get_organ(organ_name)
+			var/obj/item/organ/external/E = get_organ(organ_name)
 			if(!E || (E.status & ORGAN_DESTROYED))
 				tally += 4
-			if(E.status & ORGAN_SPLINTED)
+			else if(E.status & ORGAN_SPLINTED)
 				tally += 0.5
 			else if(E.status & ORGAN_BROKEN)
 				tally += 1.5
@@ -60,7 +64,11 @@
 	if (bodytemperature < 283.222)
 		tally += (283.222 - bodytemperature) / 10 * 1.75
 
+	tally += 2*stance_damage //damaged/missing feet or legs is slow
+
 	if(RUN in mutations)
+		tally = 0
+	if(status_flags & IGNORESLOWDOWN) // make sure this is always at the end so we don't have ignore slowdown getting ignored itself
 		tally = 0
 
 	return (tally+config.human_delay)

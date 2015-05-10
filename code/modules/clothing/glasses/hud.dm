@@ -19,6 +19,7 @@
 	name = "Advanced Health Scanner HUD"
 	desc = "A heads-up display that scans the humans in view and provides accurate data about their health status.  Includes anti-flash filter."
 	icon_state = "advmedhud"
+	flash_protect = 1
 
 /obj/item/clothing/glasses/hud/health/night
 	name = "Night Vision Health Scanner HUD"
@@ -40,6 +41,7 @@
 	desc = "A heads-up display that scans the humans in view and provides accurate data about their ID status and security records."
 	icon_state = "securityhud"
 	var/global/list/jobs[0]
+	flash_protect = 1
 
 /obj/item/clothing/glasses/hud/security/jensenshades
 	name = "Augmented shades"

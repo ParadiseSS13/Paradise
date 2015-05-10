@@ -44,15 +44,6 @@ var/list/wood_icons = list("wood","wood-broken")
 	else
 		icon_regular_floor = icon_state
 
-/turf/simulated/floor/ignite(var/temperature)
-	on_fire=1
-	visible_message("\The [src] bursts into flame!")
-	overlays += image(fire_dmi,fire_sprite)
-	spawn(rand(fire_time_min,fire_time_max) SECONDS)
-		if(!on_fire)
-			return
-		burn_tile()
-
 //turf/simulated/floor/CanPass(atom/movable/mover, turf/target, height=0, air_group=0)
 //	if ((istype(mover, /obj/machinery/vehicle) && !(src.burnt)))
 //		if (!( locate(/obj/machinery/mass_driver, src) ))
@@ -302,7 +293,7 @@ turf/simulated/floor/proc/update_icon()
 		src.icon_state = "sand[pick("1","2","3")]"
 		broken = 1
 
-/turf/simulated/floor/proc/burn_tile()
+/turf/simulated/floor/burn_tile()
 	if(istype(src,/turf/simulated/floor/engine)) return
 	if(istype(src,/turf/simulated/floor/plating/airless/asteroid)) return//Asteroid tiles don't burn
 	if(broken || burnt) return

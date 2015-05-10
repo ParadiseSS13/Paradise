@@ -15,7 +15,7 @@
 	amount_per_transfer_from_this = 5
 	volume = 250
 	possible_transfer_amounts = null
-	banned_reagents = list("pacid","sacid")
+	banned_reagents = list("facid","sacid")
 
 
 /obj/item/weapon/reagent_containers/spray/afterattack(atom/A as mob|obj, mob/user as mob)
@@ -47,13 +47,13 @@
 
 	playsound(src.loc, 'sound/effects/spray2.ogg', 50, 1, -6)
 	user.changeNext_move(CLICK_CD_RANGE*2)
-	
+
 	if(reagents.has_reagent("sacid"))
 		message_admins("[key_name_admin(user)] fired sulphuric acid from \a [src].")
 		log_game("[key_name(user)] fired sulphuric acid from \a [src].")
-	if(reagents.has_reagent("pacid"))
-		message_admins("[key_name_admin(user)] fired Polyacid from \a [src].")
-		log_game("[key_name(user)] fired Polyacid from \a [src].")
+	if(reagents.has_reagent("facid"))
+		message_admins("[key_name_admin(user)] fired Fluorosulfuric Acid from \a [src].")
+		log_game("[key_name(user)] fired Fluorosulfuric Acid from \a [src].")
 	if(reagents.has_reagent("lube"))
 		message_admins("[key_name_admin(user)] fired Space lube from \a [src].")
 		log_game("[key_name(user)] fired Space lube from \a [src].")
@@ -172,7 +172,7 @@
 		D.create_reagents(amount_per_transfer_from_this)
 		src.reagents.trans_to(D, amount_per_transfer_from_this)
 
-		D.color = mix_color_from_reagents(D.reagents.reagent_list)
+		D.icon += mix_color_from_reagents(D.reagents.reagent_list)
 
 		Sprays[i] = D
 
@@ -206,13 +206,6 @@
 	amount_per_transfer_from_this = (amount_per_transfer_from_this == 10 ? 5 : 10)
 	user << "<span class='notice'>You adjust the output switch. You'll now use [amount_per_transfer_from_this] units per spray.</span>"
 
-/obj/item/weapon/reagent_containers/spray/chemsprayer/bioterror/New()
-	..()
-	reagents.add_reagent("spores", 150)
-	reagents.add_reagent("cryptobiolin", 150)
-	reagents.add_reagent("mutagen", 150)
-	reagents.add_reagent("chloralhydrate", 150)
-
 
 // Plant-B-Gone
 /obj/item/weapon/reagent_containers/spray/plantbgone // -- Skie
@@ -226,7 +219,7 @@
 
 /obj/item/weapon/reagent_containers/spray/plantbgone/New()
 	..()
-	reagents.add_reagent("plantbgone", 100)
+	reagents.add_reagent("atrazine", 100)
 
 
 /obj/item/weapon/reagent_containers/spray/plantbgone/afterattack(atom/A as mob|obj, mob/user as mob, proximity)

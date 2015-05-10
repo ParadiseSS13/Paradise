@@ -15,26 +15,42 @@ Pipelines + Other Objects -> Pipe network
 	active_power_usage = 0
 	power_channel = ENVIRON
 	var/nodealert = 0
-	
-	layer = 2.4 //under wires with their 2.44	
+
+	layer = 2.4 //under wires with their 2.44
 
 	var/connect_types[] = list(1) //1=regular, 2=supply, 3=scrubber
 	var/connected_to = 1 //same as above, currently not used for anything
 	var/icon_connect_type = "" //"-supply" or "-scrubbers"
-	
+
 	var/initialize_directions = 0
 	var/pipe_color
-	
+
+	var/image/pipe_image
+
 	var/global/datum/pipe_icon_manager/icon_manager
+
+/obj/machinery/atmospherics/Destroy()
+	for(var/mob/living/M in src) //ventcrawling is serious business
+		M.remove_ventcrawl()
+		M.forceMove(src.loc)
+	if(pipe_image)
+		del(pipe_image) //we have to del it, or it might keep a ref somewhere else
+	..()
+
+// Find a connecting /obj/machinery/atmospherics in specified direction.
+/obj/machinery/atmospherics/proc/findConnecting(var/direction)
+	for(var/obj/machinery/atmospherics/target in get_step(src,direction))
+		if(target.initialize_directions & get_dir(target,src))
+			return target
 
 /obj/machinery/atmospherics/New()
 	if(!icon_manager)
 		icon_manager = new()
-	
+
 	if(!pipe_color)
 		pipe_color = color
 	color = null
-	
+
 	if(!pipe_color_check(pipe_color))
 		pipe_color = null
 	..()
@@ -84,22 +100,22 @@ obj/machinery/atmospherics/proc/check_connect_types_construction(obj/machinery/a
 			if(list1[i] == list2[j])
 				var/n = list1[i]
 				return n
-	return 0		
-		
+	return 0
+
 /obj/machinery/atmospherics/proc/check_icon_cache(var/safety = 0)
 	if(!istype(icon_manager))
 		if(!safety) //to prevent infinite loops
 			icon_manager = new()
 			check_icon_cache(1)
 		return 0
-	
+
 	return 1
 
 /obj/machinery/atmospherics/proc/color_cache_name(var/obj/machinery/atmospherics/node)
 	//Don't use this for standard pipes
 	if(!istype(node))
 		return null
-	
+
 	return node.pipe_color
 
 /obj/machinery/atmospherics/process()
@@ -135,3 +151,38 @@ obj/machinery/atmospherics/proc/check_connect_types_construction(obj/machinery/a
 
 /obj/machinery/atmospherics/update_icon()
 	return null
+
+#define VENT_SOUND_DELAY 30
+
+/obj/machinery/atmospherics/relaymove(mob/living/user, direction)
+	if(!(direction & initialize_directions)) //can't go in a way we aren't connecting to
+		return
+	if(user.machine == src) //temporary fix until we overhaul movement code
+		return
+
+	var/obj/machinery/atmospherics/target_move = findConnecting(direction)
+	if(target_move)
+		if(is_type_in_list(target_move, ventcrawl_machinery) && target_move.can_crawl_through())
+			user.remove_ventcrawl()
+			user.forceMove(target_move.loc) //handles entering and so on
+			user.visible_message("You hear something squeezing through the ducts.", "You climb out the ventilation system.")
+		else if(target_move.can_crawl_through())
+			if(target_move.return_network(target_move) != return_network(src))
+				user.remove_ventcrawl()
+				user.add_ventcrawl(target_move)
+			user.loc = target_move
+			user.client.eye = target_move //if we don't do this, Byond only updates the eye every tick - required for smooth movement
+			if(world.time - user.last_played_vent > VENT_SOUND_DELAY)
+				user.last_played_vent = world.time
+				playsound(src, 'sound/machines/ventcrawl.ogg', 50, 1, -3)
+	else
+		if((direction & initialize_directions) || is_type_in_list(src, ventcrawl_machinery) && target_move.can_crawl_through()) //if we move in a way the pipe can connect, but doesn't - or we're in a vent
+			user.remove_ventcrawl()
+			user.forceMove(src.loc)
+			user.visible_message("You hear something squeezing through the pipes.", "You climb out the ventilation system.")
+	user.canmove = 0
+	spawn(1)
+		user.canmove = 1
+
+/obj/machinery/atmospherics/proc/can_crawl_through()
+	return 1

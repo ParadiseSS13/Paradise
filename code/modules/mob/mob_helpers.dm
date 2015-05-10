@@ -146,13 +146,20 @@ proc/isovermind(A)
 	return 0
 
 proc/isorgan(A)
-	if(istype(A, /datum/organ/external))
+	if(istype(A, /obj/item/organ/external))
 		return 1
 	return 0
 
 /proc/isloyal(A) //Checks to see if the person contains a loyalty implant, then checks that the implant is actually inside of them
 	for(var/obj/item/weapon/implant/loyalty/L in A)
 		if(L && L.implanted)
+			return 1
+	return 0
+
+proc/isAntag(A)
+	if(istype(A, /mob/living/carbon))
+		var/mob/living/carbon/C = A
+		if(C.mind && C.mind.special_role)
 			return 1
 	return 0
 

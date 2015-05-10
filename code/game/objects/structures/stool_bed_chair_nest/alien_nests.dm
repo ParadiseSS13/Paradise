@@ -23,7 +23,7 @@
 					return
 				buckled_mob.visible_message(\
 					"<span class='warning'>[buckled_mob.name] struggles to break free of the gelatinous resin...</span>",\
-					"<span class='warning'>You struggle to break free from the gelatinous resin...</span>",\
+					"<span class='warning'>You struggle to break free from the gelatinous resin... (This will take around 2 minutes and you need to stay still)</span>",\
 					"<span class='notice'>You hear squelching...</span>")
 				spawn(NEST_RESIST_TIME)
 					if(user && buckled_mob && user.buckled == src)

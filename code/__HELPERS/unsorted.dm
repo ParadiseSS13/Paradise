@@ -4,6 +4,24 @@
  * A large number of misc global procs.
  */
 
+ /* Get the direction of startObj relative to endObj.
+  * Return values: To the right, 1. Below, 2. To the left, 3. Above, 4. Not found adjacent in cardinal directions, 0.
+  */
+/proc/getRelativeDirection(var/atom/movable/startObj, var/atom/movable/endObj)
+	if(endObj.x == startObj.x + 1 && endObj.y == startObj.y)
+		return EAST
+
+	if(endObj.x == startObj.x - 1 && endObj.y == startObj.y)
+		return WEST
+
+	if(endObj.y == startObj.y + 1 && endObj.x == startObj.x)
+		return NORTH
+
+	if(endObj.y == startObj.y - 1 && endObj.x == startObj.x)
+		return SOUTH
+
+	return 0
+
 //Inverts the colour of an HTML string
 /proc/invertHTML(HTMLstring)
 
@@ -949,13 +967,11 @@ proc/anim(turf/location as turf,target as mob|obj,a_icon,a_icon_state as text,fl
 					X.icon_state = old_icon_state1
 					X.icon = old_icon1 //Shuttle floors are in shuttle.dmi while the defaults are floors.dmi
 
-					var/turf/simulated/ST = T
-					if(istype(ST) && ST.zone)
-						var/turf/simulated/SX = X
-						if(!SX.air)
-							SX.make_air()
-						SX.air.copy_from(ST.zone.air)
-						ST.zone.remove(ST)
+					// Give the new turf our air, if simulated
+					if(istype(X, /turf/simulated) && istype(T, /turf/simulated))
+						var/turf/simulated/sim = X
+						sim.copy_air_with_tile(T)
+
 
 					/* Quick visual fix for some weird shuttle corner artefacts when on transit space tiles */
 					if(direction && findtext(X.icon_state, "swall_s"))
@@ -1016,28 +1032,16 @@ proc/anim(turf/location as turf,target as mob|obj,a_icon,a_icon_state as text,fl
 					refined_trg -= B
 					continue moving
 
-	var/list/doors = new/list()
-
 	if(toupdate.len)
 		for(var/turf/simulated/T1 in toupdate)
-			for(var/obj/machinery/door/D2 in T1)
-				doors += D2
-			/*if(T1.parent)
-				air_master.groups_to_rebuild += T1.parent
-			else
-				air_master.tiles_to_update += T1*/
+			T1.CalculateAdjacentTurfs()
+			air_master.add_to_active(T1,1)
 
 	if(fromupdate.len)
 		for(var/turf/simulated/T2 in fromupdate)
-			for(var/obj/machinery/door/D2 in T2)
-				doors += D2
-			/*if(T2.parent)
-				air_master.groups_to_rebuild += T2.parent
-			else
-				air_master.tiles_to_update += T2*/
+			T2.CalculateAdjacentTurfs()
+			air_master.add_to_active(T2,1)
 
-	for(var/obj/O in doors)
-		O:update_nearby_tiles(1)
 
 
 
@@ -1181,22 +1185,10 @@ proc/DuplicateObject(obj/original, var/perfectcopy = 0 , var/sameloc = 0)
 
 
 
-
-	var/list/doors = new/list()
-
 	if(toupdate.len)
 		for(var/turf/simulated/T1 in toupdate)
-			for(var/obj/machinery/door/D2 in T1)
-				doors += D2
-			/*if(T1.parent)
-				air_master.groups_to_rebuild += T1.parent
-			else
-				air_master.tiles_to_update += T1*/
-
-	for(var/obj/O in doors)
-		O:update_nearby_tiles(1)
-
-
+			T1.CalculateAdjacentTurfs()
+			air_master.add_to_active(T1,1)
 
 
 	return copiedobjs
@@ -1367,38 +1359,55 @@ var/global/list/common_tools = list(
 		return 1
 	return 0
 
-proc/is_hot(obj/item/W as obj)
-	switch(W.type)
-		if(/obj/item/weapon/weldingtool)
-			var/obj/item/weapon/weldingtool/WT = W
-			if(WT.isOn())
-				return 3800
-			else
-				return 0
-		if(/obj/item/weapon/lighter)
-			if(W:lit)
-				return 1500
-			else
-				return 0
-		if(/obj/item/weapon/match)
-			if(W:lit)
-				return 1000
-			else
-				return 0
-		if(/obj/item/clothing/mask/cigarette)
-			if(W:lit)
-				return 1000
-			else
-				return 0
-		if(/obj/item/weapon/pickaxe/plasmacutter)
+/proc/is_hot(obj/item/W as obj)
+	if(istype(W, /obj/item/weapon/weldingtool))
+		var/obj/item/weapon/weldingtool/O = W
+		if(O.isOn())
 			return 3800
-		if(/obj/item/weapon/melee/energy)
+		else
+			return 0
+	if(istype(W, /obj/item/weapon/lighter))
+		var/obj/item/weapon/lighter/O = W
+		if(O.lit)
+			return 1500
+		else
+			return 0
+	if(istype(W, /obj/item/weapon/match))
+		var/obj/item/weapon/match/O = W
+		if(O.lit == 1)
+			return 1000
+		else
+			return 0
+	if(istype(W, /obj/item/clothing/mask/cigarette))
+		var/obj/item/clothing/mask/cigarette/O = W
+		if(O.lit)
+			return 1000
+		else
+			return 0
+	if(istype(W, /obj/item/candle))
+		var/obj/item/candle/O = W
+		if(O.lit)
+			return 1000
+		else
+			return 0
+	if(istype(W, /obj/item/device/flashlight/flare))
+		var/obj/item/device/flashlight/flare/O = W
+		if(O.on)
+			return 1000
+		else
+			return 0
+	if(istype(W, /obj/item/weapon/pickaxe/plasmacutter))
+		return 3800
+	if(istype(W, /obj/item/weapon/melee/energy))
+		var/obj/item/weapon/melee/energy/O = W
+		if(O.active)
 			return 3500
 		else
 			return 0
-
-	return 0
-
+	if(istype(W, /obj/item/device/assembly/igniter))
+		return 1000
+	else
+		return 0
 
 //Whether or not the given item counts as sharp in terms of dealing damage
 /proc/is_sharp(obj/O as obj)
@@ -1476,7 +1485,8 @@ var/list/WALLITEMS = list(
 	"/obj/machinery/newscaster", "/obj/machinery/firealarm", "/obj/structure/noticeboard", "/obj/machinery/door_control",
 	"/obj/machinery/computer/security/telescreen", "/obj/machinery/embedded_controller/radio/simple_vent_controller",
 	"/obj/item/weapon/storage/secure/safe", "/obj/machinery/door_timer", "/obj/machinery/flasher", "/obj/machinery/keycard_auth",
-	"/obj/structure/mirror", "/obj/structure/closet/fireaxecabinet", "/obj/machinery/computer/security/telescreen/entertainment"
+	"/obj/structure/mirror", "/obj/structure/closet/fireaxecabinet", "/obj/machinery/computer/security/telescreen/entertainment",
+	"/obj/structure/sign"
 	)
 /proc/gotwallitem(loc, dir)
 	for(var/obj/O in loc)
@@ -1506,7 +1516,7 @@ var/list/WALLITEMS = list(
 	for(var/obj/O in get_step(loc, dir))
 		for(var/item in WALLITEMS)
 			if(istype(O, text2path(item)))
-				if(O.pixel_x == 0 && O.pixel_y == 0)
+				if(abs(O.pixel_x) <= 10 && abs(O.pixel_y) <= 10)
 					return 1
 	return 0
 

@@ -54,7 +54,7 @@
 		/obj/item/toy/crayon/red=2,
 		/obj/effect/decal/cleanable/blood=4,
 		/obj/structure/table/woodentable=2,
-		/obj/item/weapon/ectoplasm=3
+		/obj/item/weapon/reagent_containers/food/snacks/ectoplasm=3
 	)
 
 	flags = CONTIGUOUS_WALLS | CONTIGUOUS_FLOORS
@@ -175,7 +175,7 @@
 		/obj/structure/table/reinforced=2,
 		/obj/machinery/portable_atmospherics/hydroponics=1,
 		/obj/effect/glowshroom/single=2,
-		/obj/item/weapon/reagent_containers/syringe/antitoxin=2,
+		/obj/item/weapon/reagent_containers/syringe/charcoal=2,
 		/obj/item/weapon/reagent_containers/glass/bottle/diethylamine=3,
 		/obj/item/weapon/reagent_containers/glass/bottle/ammonia=3
 	)

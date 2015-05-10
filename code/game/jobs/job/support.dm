@@ -53,6 +53,10 @@
 
 	equip(var/mob/living/carbon/human/H)
 		if(!H)	return 0
+		switch(H.backbag)
+			if(2) H.equip_or_collect(new /obj/item/weapon/storage/backpack(H), slot_back)
+			if(3) H.equip_or_collect(new /obj/item/weapon/storage/backpack/satchel_norm(H), slot_back)
+			if(4) H.equip_or_collect(new /obj/item/weapon/storage/backpack/satchel(H), slot_back)
 		H.equip_or_collect(new /obj/item/device/radio/headset/headset_service(H), slot_l_ear)
 		H.equip_or_collect(new /obj/item/clothing/under/rank/chef(H), slot_w_uniform)
 		H.equip_or_collect(new /obj/item/clothing/suit/chef(H), slot_wear_suit)
@@ -77,7 +81,7 @@
 	selection_color = "#dddddd"
 	access = list(access_hydroponics, access_bar, access_kitchen, access_morgue) // Removed tox and chem access because STOP PISSING OFF THE CHEMIST GUYS // //Removed medical access because WHAT THE FUCK YOU AREN'T A DOCTOR YOU GROW WHEAT //Given Morgue access because they have a viable means of cloning.
 	minimal_access = list(access_hydroponics, access_morgue, access_maint_tunnels) // Removed tox and chem access because STOP PISSING OFF THE CHEMIST GUYS // //Removed medical access because WHAT THE FUCK YOU AREN'T A DOCTOR YOU GROW WHEAT //Given Morgue access because they have a viable means of cloning.
-	alt_titles = list("Hydroponicist")
+	alt_titles = list("Hydroponicist", "Botanical Researcher")
 
 
 	equip(var/mob/living/carbon/human/H)
@@ -114,6 +118,10 @@
 
 	equip(var/mob/living/carbon/human/H)
 		if(!H)	return 0
+		switch(H.backbag)
+			if(2) H.equip_or_collect(new /obj/item/weapon/storage/backpack(H), slot_back)
+			if(3) H.equip_or_collect(new /obj/item/weapon/storage/backpack/satchel_norm(H), slot_back)
+			if(4) H.equip_or_collect(new /obj/item/weapon/storage/backpack/satchel(H), slot_back)
 		H.equip_or_collect(new /obj/item/device/radio/headset/headset_cargo(H), slot_l_ear)
 		H.equip_or_collect(new /obj/item/clothing/under/rank/cargo(H), slot_w_uniform)
 		H.equip_or_collect(new /obj/item/clothing/shoes/brown(H), slot_shoes)
@@ -142,6 +150,10 @@
 
 	equip(var/mob/living/carbon/human/H)
 		if(!H)	return 0
+		switch(H.backbag)
+			if(2) H.equip_or_collect(new /obj/item/weapon/storage/backpack(H), slot_back)
+			if(3) H.equip_or_collect(new /obj/item/weapon/storage/backpack/satchel_norm(H), slot_back)
+			if(4) H.equip_or_collect(new /obj/item/weapon/storage/backpack/satchel(H), slot_back)
 		H.equip_or_collect(new /obj/item/device/radio/headset/headset_cargo(H), slot_l_ear)
 		H.equip_or_collect(new /obj/item/clothing/under/rank/cargotech(H), slot_w_uniform)
 		H.equip_or_collect(new /obj/item/clothing/shoes/black(H), slot_shoes)
@@ -284,6 +296,10 @@
 
 	equip(var/mob/living/carbon/human/H)
 		if(!H)	return 0
+		switch(H.backbag)
+			if(2) H.equip_or_collect(new /obj/item/weapon/storage/backpack(H), slot_back)
+			if(3) H.equip_or_collect(new /obj/item/weapon/storage/backpack/satchel_norm(H), slot_back)
+			if(4) H.equip_or_collect(new /obj/item/weapon/storage/backpack/satchel(H), slot_back)
 		H.equip_or_collect(new /obj/item/device/radio/headset/headset_service(H), slot_l_ear)
 		H.equip_or_collect(new /obj/item/clothing/under/rank/janitor(H), slot_w_uniform)
 		H.equip_or_collect(new /obj/item/clothing/shoes/black(H), slot_shoes)
@@ -312,6 +328,10 @@
 
 	equip(var/mob/living/carbon/human/H)
 		if(!H)	return 0
+		switch(H.backbag)
+			if(2) H.equip_or_collect(new /obj/item/weapon/storage/backpack(H), slot_back)
+			if(3) H.equip_or_collect(new /obj/item/weapon/storage/backpack/satchel_norm(H), slot_back)
+			if(4) H.equip_or_collect(new /obj/item/weapon/storage/backpack/satchel(H), slot_back)
 		H.equip_or_collect(new /obj/item/device/radio/headset/headset_service(H), slot_l_ear)
 		H.equip_or_collect(new /obj/item/clothing/under/suit_jacket/red(H), slot_w_uniform)
 		H.equip_or_collect(new /obj/item/device/pda/librarian(H), slot_wear_pda)
@@ -338,6 +358,10 @@
 
 	equip(var/mob/living/carbon/human/H)
 		if(!H)	return 0
+		switch(H.backbag)
+			if(2) H.equip_or_collect(new /obj/item/weapon/storage/backpack(H), slot_back)
+			if(3) H.equip_or_collect(new /obj/item/weapon/storage/backpack/satchel_norm(H), slot_back)
+			if(4) H.equip_or_collect(new /obj/item/weapon/storage/backpack/satchel(H), slot_back)
 		H.equip_or_collect(new /obj/item/device/radio/headset/headset_service(H), slot_l_ear)
 		H.equip_or_collect(new /obj/item/clothing/under/barber(H), slot_w_uniform)
 		H.equip_or_collect(new /obj/item/clothing/shoes/black(H), slot_shoes)

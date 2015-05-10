@@ -82,7 +82,7 @@
 /atom/proc/visible_message(var/message, var/blind_message)
 	for(var/mob/M in viewers(src))
 		M.show_message( message, 1, blind_message, 2)
-	
+
 // Show a message to all mobs in earshot of this one
 // This would be for audible actions by the src mob
 // message is the message output to anyone who can hear.
@@ -98,7 +98,7 @@
 		if(self_message && M==src)
 			msg = self_message
 		M.show_message( msg, 2, deaf_message, 1)
-		
+
 // Show a message to all mobs in earshot of this atom
 // Use for objects performing audible actions
 // message is the message output to anyone who can hear.
@@ -787,8 +787,8 @@ var/list/slot_equipment_priority = list( \
 		var/mob/living/carbon/human/H = src
 		if(H.health - H.halloss <= config.health_threshold_softcrit)
 			for(var/name in H.organs_by_name)
-				var/datum/organ/external/e = H.organs_by_name[name]
-				if(H.lying)
+				var/obj/item/organ/external/e = H.organs_by_name[name]
+				if(e && H.lying)
 					if(((e.status & ORGAN_BROKEN && !(e.status & ORGAN_SPLINTED)) || e.status & ORGAN_BLEEDING) && (H.getBruteLoss() + H.getFireLoss() >= 100))
 						return 1
 						break
@@ -1023,7 +1023,7 @@ var/list/slot_equipment_priority = list( \
 	if(world.time < client.move_delay)	return 0
 	if(stat==2)							return 0
 	if(anchored)						return 0
-	if(monkeyizing)						return 0
+	if(notransform)						return 0
 	if(restrained())					return 0
 	return 1
 
@@ -1071,14 +1071,15 @@ var/list/slot_equipment_priority = list( \
 		lying = 1
 		canmove = 0
 	else if( stunned )
-//		lying = 0
 		canmove = 0
-	else if (!buckled)
-		lying = !can_stand
-		canmove = has_limbs
+	else
+		lying = 0
+		canmove = 1
 
 	if(lying)
 		density = 0
+		drop_l_hand()
+		drop_r_hand()
 	else
 		density = 1
 
@@ -1296,9 +1297,9 @@ mob/proc/yank_out_object()
 	if(ishuman(src))
 
 		var/mob/living/carbon/human/H = src
-		var/datum/organ/external/affected
+		var/obj/item/organ/external/affected
 
-		for(var/datum/organ/external/organ in H.organs) //Grab the organ holding the implant.
+		for(var/obj/item/organ/external/organ in H.organs) //Grab the organ holding the implant.
 			for(var/obj/item/weapon/O in organ.implants)
 				if(O == selection)
 					affected = organ
@@ -1316,6 +1317,8 @@ mob/proc/yank_out_object()
 			human_user.bloody_hands(H)
 
 	selection.loc = get_turf(src)
+	if(!(U.l_hand && U.r_hand))
+		U.put_in_hands(selection)
 
 	for(var/obj/item/weapon/O in pinned)
 		if(O == selection)
@@ -1439,3 +1442,17 @@ mob/proc/yank_out_object()
 				if(G.can_reenter_corpse || even_if_they_cant_reenter)
 					return G
 				break
+
+
+/mob/proc/fakevomit(green=0) //for aesthetic vomits that need to be instant and do not stun. -Fox
+	if(stat==DEAD)
+		return
+	var/turf/location = loc
+	if (istype(location, /turf/simulated))
+		if(green)
+			src.visible_message("<span class='warning'>[src] vomits up some green goo!</span>","<span class='warning'>You vomit up some green goo!</span>")
+			new /obj/effect/decal/cleanable/vomit/green(location)
+		else
+			src.visible_message("<span class='warning'>[src] pukes all over \himself!</span>","<span class='warning'>You puke all over yourself!</span>")
+			location.add_vomit_floor(src, 1)
+		playsound(location, 'sound/effects/splat.ogg', 50, 1)

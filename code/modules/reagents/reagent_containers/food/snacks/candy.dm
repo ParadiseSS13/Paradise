@@ -27,7 +27,7 @@
 	New()
 		..()
 		reagents.add_reagent("nutriment", 2)
-		reagents.add_reagent("sugar", 2)
+		reagents.add_reagent("chocolate",2)
 		reagents.add_reagent("coco", 2)
 		bitesize = 2
 
@@ -89,7 +89,7 @@
 	New()
 		..()
 		reagents.add_reagent("cream", 3)
-		reagents.add_reagent("sugar", 3)
+		reagents.add_reagent("chocolate",3)
 		reagents.add_reagent("coco", 3)
 		bitesize = 3
 
@@ -145,7 +145,7 @@
 	New()
 		..()
 		reagents.add_reagent("nutriment", 2)
-		reagents.add_reagent("sugar", 5)
+		reagents.add_reagent("chocolate",5)
 		bitesize = 3
 
 /obj/item/weapon/reagent_containers/food/snacks/candy/candycane
@@ -226,7 +226,7 @@
 	New()
 		..()
 		reagents.add_reagent("nutriment", 2)
-		reagents.add_reagent("sugar", 2)
+		reagents.add_reagent("chocolate",2)
 		reagents.add_reagent("coco", 2)
 		bitesize = 3
 
@@ -535,7 +535,7 @@
 
 	New()
 		..()
-		reagents.add_reagent("coco" = 2)
+		reagents.add_reagent("chocolate",2)
 		bitesize = 3
 
 /obj/item/weapon/reagent_containers/food/snacks/candy/jellybean/popcorn
@@ -704,7 +704,7 @@
 
 	New()
 		..()
-		reagents.add_reagent("tricordrazine", 20)
+		reagents.add_reagent("omnizine", 20)
 		reagents.del_reagent("sugar")
 		reagents.update_total()
 		bitesize = 4
@@ -718,7 +718,7 @@
 
 	New()
 		..()
-		reagents.add_reagent("lexorin", 20)
+		reagents.add_reagent("sulfonal", 20)
 		reagents.del_reagent("sugar")
 		reagents.update_total()
 		bitesize = 4

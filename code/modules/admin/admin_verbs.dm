@@ -62,8 +62,10 @@ var/list/admin_verbs_admin = list(
 	/client/proc/global_man_up,
 	/client/proc/delbook,
 	/client/proc/empty_ai_core_toggle_latejoin,
+	/client/proc/aooc,
 	/client/proc/freeze,
-	/client/proc/freezemecha
+	/client/proc/freezemecha,
+	/client/proc/alt_check
 
 )
 var/list/admin_verbs_ban = list(
@@ -72,7 +74,8 @@ var/list/admin_verbs_ban = list(
 	)
 var/list/admin_verbs_sounds = list(
 	/client/proc/play_local_sound,
-	/client/proc/play_sound
+	/client/proc/play_sound,
+	/client/proc/play_server_sound
 	)
 var/list/admin_verbs_event = list(
 	/client/proc/object_talk,
@@ -126,8 +129,6 @@ var/list/admin_verbs_server = list(
 var/list/admin_verbs_debug = list(
 	/client/proc/cmd_admin_list_open_jobs,
 	/client/proc/Debug2,
-	/client/proc/kill_air,
-	/client/proc/ZASSettings,
 	/client/proc/cmd_debug_make_powernets,
 	/client/proc/debug_controller,
 	/client/proc/cmd_debug_mob_lists,
@@ -142,7 +143,9 @@ var/list/admin_verbs_debug = list(
 	/client/proc/callproc_datum,
 	/client/proc/toggledebuglogs,
 	/client/proc/qdel_toggle, // /vg/
-	/client/proc/gc_dump_hdl
+	/client/proc/gc_dump_hdl,
+	/client/proc/debugNatureMapGenerator,
+	/client/proc/check_bomb_impacts
 	)
 var/list/admin_verbs_possess = list(
 	/proc/possess,
@@ -570,6 +573,7 @@ var/list/admin_verbs_mentor = list(
 		M.r_eyes = hex2num(copytext(new_eyes, 2, 4))
 		M.g_eyes = hex2num(copytext(new_eyes, 4, 6))
 		M.b_eyes = hex2num(copytext(new_eyes, 6, 8))
+		M.update_eyes()
 
 	var/new_skin = input("Please select body color. This is for Tajaran, Unathi, and Skrell only!", "Character Generation") as color
 	if(new_skin)

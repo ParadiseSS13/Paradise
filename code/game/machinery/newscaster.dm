@@ -40,7 +40,7 @@
 	src.backup_author = ""
 	src.censored = 0
 	src.is_admin_channel = 0
-	
+
 /datum/feed_channel/proc/announce_news()
 	return "Breaking news from [channel_name]!"
 
@@ -54,36 +54,6 @@
 var/datum/feed_network/news_network = new /datum/feed_network     //The global news-network, which is coincidentally a global list.
 
 var/list/obj/machinery/newscaster/allCasters = list() //Global list that will contain reference to all newscasters in existence.
-
-/obj/item/newscaster_frame
-	name = "newscaster frame"
-	desc = "Used to build newscasters, just secure to the wall."
-	icon_state = "newscaster"
-	item_state = "syringe_kit"
-	m_amt = 14000
-	g_amt = 8000
-
-/obj/item/newscaster_frame/proc/try_build(turf/on_wall)
-	if (get_dist(on_wall,usr)>1)
-		return
-	var/ndir = get_dir(usr,on_wall)
-	if (!(ndir in cardinal))
-		return
-	var/turf/loc = get_turf(usr)
-	var/area/A = loc.loc
-	if (!istype(loc, /turf/simulated/floor))
-		usr << "<span class='alert'>Newscaster cannot be placed on this spot.</span>"
-		return
-	if (A.requires_power == 0 || A.name == "Space")
-		usr << "<span class='alert'>Newscaster cannot be placed in this area.</span>"
-		return
-	for(var/obj/machinery/newscaster/T in loc)
-		usr << "<span class='alert'>There is another newscaster here.</span>"
-		return
-	var/obj/machinery/newscaster/N = new(loc)
-	N.pixel_y -= (loc.y - on_wall.y) * 32
-	N.pixel_x -= (loc.x - on_wall.x) * 32
-	qdel(src)
 
 /obj/machinery/newscaster
 	name = "newscaster"
@@ -741,7 +711,7 @@ var/list/obj/machinery/newscaster/allCasters = list() //Global list that will co
 		user << "<span class='notice'>Now [anchored ? "un" : ""]securing [name]</span>"
 		playsound(src.loc, 'sound/items/Ratchet.ogg', 50, 1)
 		if(do_after(user, 60))
-			new /obj/item/newscaster_frame(loc)
+			new /obj/item/mounted/frame/newscaster_frame(loc)
 			playsound(src.loc, 'sound/items/Deconstruct.ogg', 50, 1)
 			qdel(src)
 		return

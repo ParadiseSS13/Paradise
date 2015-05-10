@@ -419,7 +419,7 @@
 			data["temperature"] = round(env.temperature)
 			data["temperatureC"] = round(env.temperature-T0C)
 
-			var/t_moles = env.total_moles
+			var/t_moles = env.total_moles()
 			var/gases[0]
 			if(t_moles)
 				var/n2[0]

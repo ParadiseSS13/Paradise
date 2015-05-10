@@ -38,7 +38,7 @@
 	uni_append = list(0x044,0xC5D) // 044C5D
 
 /mob/living/carbon/monkey/New()
-	var/datum/reagents/R = new/datum/reagents(1000)
+	var/datum/reagents/R = new/datum/reagents(330)
 	reagents = R
 	R.my_atom = src
 
@@ -80,7 +80,6 @@
 /mob/living/carbon/monkey/unathi/New()
 
 	..()
-	dna.mutantrace = "lizard"
 	greaterform = "Unathi"
 	dna.species = "Unathi"
 	add_language("Sinta'unathi")
@@ -88,7 +87,6 @@
 /mob/living/carbon/monkey/skrell/New()
 
 	..()
-	dna.mutantrace = "skrell"
 	greaterform = "Skrell"
 	dna.species = "Skrell"
 	add_language("Skrellian")
@@ -96,7 +94,6 @@
 /mob/living/carbon/monkey/tajara/New()
 
 	..()
-	dna.mutantrace = "tajaran"
 	greaterform = "Tajaran"
 	dna.species = "Tajaran"
 	add_language("Siik'tajr")
@@ -106,7 +103,6 @@
 	..()
 	alien = 1
 	gender = NEUTER
-	dna.mutantrace = "plant"
 	greaterform = "Diona"
 	dna.species = "Diona"
 	add_language("Rootspeak")

@@ -125,14 +125,14 @@
 
 		src.emag = new /obj/item/weapon/reagent_containers/spray(src)
 
-		src.emag.reagents.add_reagent("pacid", 250)
+		src.emag.reagents.add_reagent("facid", 250)
 		src.emag.name = "Polyacid spray"
 		return
 
 /obj/item/weapon/robot_module/medical/respawn_consumable(var/mob/living/silicon/robot/R)
 	if(src.emag)
 		var/obj/item/weapon/reagent_containers/spray/PS = src.emag
-		PS.reagents.add_reagent("pacid", 2)
+		PS.reagents.add_reagent("facid", 2)
 	..()
 
 /obj/item/weapon/robot_module/engineering
@@ -142,7 +142,7 @@
 		/obj/item/stack/sheet/metal = 50,
 		/obj/item/stack/sheet/glass = 50,
 		/obj/item/stack/sheet/rglass = 50,
-		/obj/item/stack/cable_coil = 50,
+		/obj/item/stack/cable_coil/cyborg = 50,
 		/obj/item/stack/rods = 15,
 		/obj/item/stack/tile/plasteel = 15
 		)
@@ -179,7 +179,7 @@
 		G.amount = 50
 		src.modules += G
 
-		var/obj/item/stack/cable_coil/W = new /obj/item/stack/cable_coil(src)
+		var/obj/item/stack/cable_coil/cyborg/W = new /obj/item/stack/cable_coil/cyborg(src)
 		W.amount = 50
 		src.modules += W
 
@@ -365,13 +365,13 @@
 		src.modules += new /obj/item/device/flash/cyborg/alien(src)
 		src.modules += new /obj/item/borg/sight/thermal/alien(src)
 		var/obj/item/weapon/reagent_containers/spray/alien/stun/S = new /obj/item/weapon/reagent_containers/spray/alien/stun(src)
-		S.reagents.add_reagent("stoxin",250) //nerfed to sleeptoxin to make it less instant drop.
+		S.reagents.add_reagent("morphine",250) //nerfed to sleeptoxin to make it less instant drop.
 		src.modules += S
 		var/obj/item/weapon/reagent_containers/spray/alien/smoke/A = new /obj/item/weapon/reagent_containers/spray/alien/smoke(src)
 		S.reagents.add_reagent("water",50) //Water is used as a dummy reagent for the smoke bombs. More of an ammo counter.
 		src.modules += A
 		src.emag = new /obj/item/weapon/reagent_containers/spray/alien/acid(src)
-		src.emag.reagents.add_reagent("pacid", 125)
+		src.emag.reagents.add_reagent("facid", 125)
 		src.emag.reagents.add_reagent("sacid", 125)
 
 /obj/item/weapon/robot_module/alien/hunter/add_languages(var/mob/living/silicon/robot/R)
@@ -389,7 +389,7 @@
 		/obj/item/stack/tile/plasteel = 15,
 		/obj/item/stack/sheet/metal = 20,
 		/obj/item/stack/sheet/glass = 20,
-		/obj/item/stack/cable_coil = 30
+		/obj/item/stack/cable_coil/cyborg = 30
 		)
 
 	New()

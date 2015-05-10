@@ -38,7 +38,6 @@
 	icon_state = "amaurifruit"
 	New(var/loc, var/potency)
 		..()
-		reagents.add_reagent("zombiepowder", potency * 10)
 		reagents.add_reagent("condensedcapsaicin", potency * 5)
 		reagents.add_reagent("nutriment", potency)
 		bitesize = 1+round(reagents.total_volume / 2, 1)
@@ -51,7 +50,7 @@
 	New(var/loc, var/potency)
 		..()
 		//this may prove a little strong
-		reagents.add_reagent("stoxin", (potency * potency) / 5)
+		reagents.add_reagent("morphine", (potency * potency) / 5)
 		reagents.add_reagent("capsaicin", (potency * potency) / 5)
 		reagents.add_reagent("nutriment", potency)
 		bitesize = 1+round(reagents.total_volume / 2, 1)
@@ -63,8 +62,8 @@
 	icon_state = "valeleaves"
 	New(var/loc, var/potency)
 		..()
-		reagents.add_reagent("paracetamol", potency * 5)
-		reagents.add_reagent("dexalin", potency * 2)
+		reagents.add_reagent("sal_acid", potency * 5)
+		reagents.add_reagent("salbutamol", potency * 2)
 		reagents.add_reagent("nutriment", potency)
 		bitesize = 1+round(reagents.total_volume / 2, 1)
 
@@ -75,7 +74,7 @@
 	icon_state = "surikfruit"
 	New(var/loc, var/potency)
 		..()
-		reagents.add_reagent("impedrezene", potency * 3)
+		reagents.add_reagent("haloperidol", potency * 3)
 		reagents.add_reagent("synaptizine", potency * 2)
 		reagents.add_reagent("nutriment", potency)
 		bitesize = 1+round(reagents.total_volume / 2, 1)

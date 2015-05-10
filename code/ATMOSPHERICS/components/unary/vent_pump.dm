@@ -39,7 +39,7 @@
 
 	var/radio_filter_out
 	var/radio_filter_in
-	
+
 	connect_types = list(1,2) //connects to regular and supply pipes
 
 /obj/machinery/atmospherics/unary/vent_pump/on
@@ -80,7 +80,7 @@
 		return
 
 	overlays.Cut()
-	
+
 	var/vent_icon = "vent"
 
 	var/turf/T = get_turf(src)
@@ -89,7 +89,7 @@
 
 	if(T.intact && node && node.level == 1 && istype(node, /obj/machinery/atmospherics/pipe))
 		vent_icon += "h"
-		
+
 	if(welded)
 		vent_icon += "weld"
 	else if(!powered())
@@ -148,6 +148,7 @@
 				var/datum/gas_mixture/removed = air_contents.remove(transfer_moles)
 
 				loc.assume_air(removed)
+				air_update_turf()
 
 				if(network)
 					network.update = 1
@@ -168,6 +169,7 @@
 					return
 
 				air_contents.merge(removed)
+				air_update_turf()
 
 				if(network)
 					network.update = 1
@@ -307,6 +309,9 @@
 	update_icon()
 	return
 
+/obj/machinery/atmospherics/unary/vent_pump/can_crawl_through()
+	return !welded
+
 /obj/machinery/atmospherics/unary/vent_pump/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/weapon/weldingtool))
 		var/obj/item/weapon/weldingtool/WT = W
@@ -375,16 +380,3 @@
 		initial_loc.air_vent_names -= id_tag
 	..()
 	return
-
-/*
-	Alt-click to ventcrawl - Monkeys, aliens, slimes and mice.
-	This is a little buggy but somehow that just seems to plague ventcrawl.
-	I am sorry, I don't know why.
-*/
-/obj/machinery/atmospherics/unary/vent_pump/AltClick(var/mob/living/ML)
-	if(istype(ML))
-		var/list/ventcrawl_verbs = list(/mob/living/carbon/monkey/verb/ventcrawl, /mob/living/carbon/alien/verb/alien_ventcrawl, /mob/living/carbon/slime/verb/ventcrawl,/mob/living/simple_animal/mouse/verb/ventcrawl)
-		if(length(ML.verbs & ventcrawl_verbs)) // alien queens have this removed, an istype would be complicated
-			ML.handle_ventcrawl(src)
-			return
-	..()

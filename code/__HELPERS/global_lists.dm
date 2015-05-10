@@ -36,10 +36,36 @@ var/global/list/all_species[0]
 var/global/list/all_languages[0]
 var/global/list/language_keys[0]					// Table of say codes for all languages
 var/global/list/all_nations[0]
+var/global/list/all_superheroes[0]
 var/global/list/whitelisted_species = list()
 
-// Posters
-var/global/list/datum/poster/poster_designs = typesof(/datum/poster) - /datum/poster
+//global var of unsafe-to-spawn-on-reaction mobs
+var/global/list/blocked_mobs = list(/mob/living/simple_animal/hostile,
+			/mob/living/simple_animal/hostile/pirate,
+			/mob/living/simple_animal/hostile/pirate/ranged,
+			/mob/living/simple_animal/hostile/russian,
+			/mob/living/simple_animal/hostile/russian/ranged,
+			/mob/living/simple_animal/hostile/syndicate,
+			/mob/living/simple_animal/hostile/syndicate/melee,
+			/mob/living/simple_animal/hostile/syndicate/melee/space,
+			/mob/living/simple_animal/hostile/syndicate/ranged,
+			/mob/living/simple_animal/hostile/syndicate/ranged/space,
+			/mob/living/simple_animal/hostile/alien/queen/large,
+			/mob/living/simple_animal/hostile/retaliate,
+			/mob/living/simple_animal/hostile/retaliate/clown,
+			/mob/living/simple_animal/hostile/mushroom,
+			/mob/living/simple_animal/hostile/asteroid,
+			/mob/living/simple_animal/hostile/asteroid/basilisk,
+			/mob/living/simple_animal/hostile/asteroid/goldgrub,
+			/mob/living/simple_animal/hostile/asteroid/goliath,
+			/mob/living/simple_animal/hostile/asteroid/hivelord,
+			/mob/living/simple_animal/hostile/asteroid/hivelordbrood,
+			/mob/living/simple_animal/hostile/carp/holocarp,
+			/mob/living/simple_animal/hostile/mining_drone,
+			/mob/living/simple_animal/hostile/spaceWorm,
+			/mob/living/simple_animal/hostile/spaceWorm/wormHead,
+			/mob/living/simple_animal/ascendant_shadowling
+			)
 
 //Preferences stuff
 	//Hairstyles
@@ -59,9 +85,6 @@ var/global/list/undershirt_t = list("White Shirt", "White Tank top", "Black shir
 var/global/list/undershirt_list = undershirt_t
 	//Backpacks
 var/global/list/backbaglist = list("Nothing", "Backpack", "Satchel", "Satchel Alt")
-	//Slime Colors
-var/global/slime_colorh = list("grey", "gold", "silver", "metal", "purple", "darkpurple", "orange", "yellow", "red", "blue", "darkblue", "pink", "green", "lightpink", "black", "oil", "adamantine")
-
 
 
 //////////////////////////
@@ -119,6 +142,11 @@ var/global/slime_colorh = list("grey", "gold", "silver", "metal", "purple", "dar
 		var/datum/nations/N = new T
 		all_nations[N.name] = N
 
+	paths = typesof(/datum/superheroes)-/datum/superheroes
+	for(var/T in paths)
+		var/datum/superheroes/S = new T
+		all_superheroes[S.name] = S
+
 	//Languages and species.
 	paths = typesof(/datum/language)-/datum/language
 	for(var/T in paths)
@@ -142,7 +170,7 @@ var/global/slime_colorh = list("grey", "gold", "silver", "metal", "purple", "dar
 
 		if(S.flags & IS_WHITELISTED)
 			whitelisted_species += S.name
-			
+
 	init_subtypes(/datum/table_recipe, table_recipes)
 
 	return 1

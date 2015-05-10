@@ -10,6 +10,8 @@
 #define CELL_VOLUME 2500	//liters in a cell
 #define MOLES_CELLSTANDARD (ONE_ATMOSPHERE*CELL_VOLUME/(T20C*R_IDEAL_GAS_EQUATION))	//moles in a 2.5 m^3 cell at 101.325 Pa and 20 degC
 
+#define M_CELL_WITH_RATIO (MOLES_CELLSTANDARD * 0.005)
+
 #define O2STANDARD 0.21
 #define N2STANDARD 0.79
 
@@ -144,8 +146,6 @@
 #define T0C  273.15					// 0degC
 #define T20C 293.15					// 20degC
 #define TCMB 2.7					// -270.3degC
-
-var/turf/space/Space_Tile = locate(/turf/space) // A space tile to reference when atmos wants to remove excess heat.
 
 #define TANK_LEAK_PRESSURE		(30.*ONE_ATMOSPHERE)	// Tank starts leaking
 #define TANK_RUPTURE_PRESSURE	(40.*ONE_ATMOSPHERE) // Tank spills all contents into atmosphere
@@ -312,19 +312,6 @@ var/MAX_EX_FLASH_RANGE = 14
 #define THERMAL_PROTECTION_HAND_LEFT	0.025
 #define THERMAL_PROTECTION_HAND_RIGHT	0.025
 
-
-//bitflags for mutations
-	// Extra powers:
-#define SHADOW			(1<<10)	// shadow teleportation (create in/out portals anywhere) (25%)
-#define SCREAM			(1<<11)	// supersonic screaming (25%)
-#define EXPLOSIVE		(1<<12)	// exploding on-demand (15%)
-#define REGENERATION	(1<<13)	// superhuman regeneration (30%)
-#define REPROCESSOR		(1<<14)	// eat anything (50%)
-#define SHAPESHIFTING	(1<<15)	// take on the appearance of anything (40%)
-#define PHASING			(1<<16)	// ability to phase through walls (40%)
-#define SHIELD			(1<<17)	// shielding from all projectile attacks (30%)
-#define SHOCKWAVE		(1<<18)	// attack a nearby tile and cause a massive shockwave, knocking most people on their asses (25%)
-#define ELECTRICITY		(1<<19)	// ability to shoot electric attacks (15%)
 
 
 // String identifiers for associative list lookup
@@ -516,6 +503,8 @@ var/list/global_mutations = list() // list of hidden mutation things
 #define LEAPING		16
 #define PASSEMOTES	32      //Mob has a cortical borer or holders inside of it that need to see emotes.
 #define GOTTAGOFAST	64
+#define GOTTAGOREALLYFAST	128
+#define IGNORESLOWDOWN	256
 #define GODMODE		4096
 #define FAKEDEATH	8192	//Replaces stuff like changeling.changeling_fakedeath
 #define DISFIGURED	16384	//I'll probably move this elsewhere if I ever get wround to writing a bitflag mob-damage system
@@ -668,18 +657,23 @@ var/list/TAGGERLOCATIONS = list("Disposals",
 
 ///////////////////ORGAN DEFINES///////////////////
 
-#define ORGAN_CUT_AWAY 1
-#define ORGAN_GAUZED 2
+// Organ defines.
+#define ORGAN_CUT_AWAY   1
+#define ORGAN_GAUZED     2
 #define ORGAN_ATTACHABLE 4
-#define ORGAN_BLEEDING 8
-#define ORGAN_BROKEN 32
-#define ORGAN_DESTROYED 64
-#define ORGAN_ROBOT 128
-#define ORGAN_SPLINTED 256
-#define SALVED 512
-#define ORGAN_DEAD 1024
-#define ORGAN_MUTATED 2048
-#define ORGAN_PEG      4096 // ROB'S MAGICAL PEGLEGS v2
+#define ORGAN_BLEEDING   8
+#define ORGAN_BROKEN     32
+#define ORGAN_DESTROYED  64
+#define ORGAN_ROBOT      128
+#define ORGAN_SPLINTED   256
+#define SALVED           512
+#define ORGAN_DEAD       1024
+#define ORGAN_MUTATED    2048
+#define ORGAN_ASSISTED   4096
+
+#define DROPLIMB_EDGE 0
+#define DROPLIMB_BLUNT 1
+#define DROPLIMB_BURN 2
 
 #define ROUNDSTART_LOGOUT_REPORT_TIME 6000 //Amount of time (in deciseconds) after the rounds starts, that the player disconnect report is issued.
 
@@ -726,8 +720,9 @@ var/list/TAGGERLOCATIONS = list("Disposals",
 #define SOUND_LOBBY		8
 #define SOUND_STREAMING	16
 #define SOUND_HEARTBEAT	32
+#define SOUND_BUZZ		64
 
-#define SOUND_DEFAULT (SOUND_ADMINHELP|SOUND_MIDI|SOUND_AMBIENCE|SOUND_LOBBY|SOUND_STREAMING|SOUND_HEARTBEAT)
+#define SOUND_DEFAULT (SOUND_ADMINHELP|SOUND_MIDI|SOUND_AMBIENCE|SOUND_LOBBY|SOUND_STREAMING|SOUND_HEARTBEAT|SOUND_BUZZ)
 #define TOGGLES_DEFAULT (CHAT_OOC|CHAT_DEAD|CHAT_GHOSTEARS|CHAT_GHOSTSIGHT|CHAT_PRAYER|CHAT_RADIO|CHAT_ATTACKLOGS|CHAT_LOOC)
 
 #define BE_TRAITOR		1
@@ -744,6 +739,7 @@ var/list/TAGGERLOCATIONS = list("Disposals",
 #define BE_VAMPIRE		2048
 #define BE_MUTINEER		4096
 #define BE_BLOB			8192
+#define BE_SHADOWLING	16384
 
 var/list/be_special_flags = list(
 	"traitor" = BE_TRAITOR,
@@ -798,9 +794,9 @@ var/list/be_special_flags = list(
 #define PULSE_2FAST		4	//>120 bpm
 #define PULSE_THREADY	5	//occurs during hypovolemic shock
 //feel free to add shit to lists below
-var/list/tachycardics = list("coffee", "inaprovaline", "hyperzine", "nitroglycerin", "thirteenloko", "nicotine")	//increase heart rate
-var/list/bradycardics = list("neurotoxin", "cryoxadone", "clonexadone", "space_drugs", "stoxin")					//decrease heart rate
-var/list/heartstopper = list("zombie_powder") //this stops the heart
+var/list/tachycardics = list("coffee", "methamphetamine", "nitroglycerin", "thirteenloko", "nicotine")	//increase heart rate
+var/list/bradycardics = list("neurotoxin", "cryoxadone", "space_drugs")					//decrease heart rate
+var/list/heartstopper = list("capulettium", "capulettium_plus") //this stops the heart
 var/list/cheartstopper = list() //this stops the heart when overdose is met -- c = conditional
 
 //proc/get_pulse methods
@@ -824,7 +820,7 @@ var/list/restricted_camera_networks = list( //Those networks can only be accesse
 #define IS_SLOW 		4
 #define RAD_ABSORB		8
 #define NO_SCAN 		16
-#define NO_PAIN 	32
+#define NO_PAIN 		32
 #define REQUIRE_LIGHT 	64
 #define IS_WHITELISTED 	128
 #define HAS_LIPS 		512
@@ -832,7 +828,7 @@ var/list/restricted_camera_networks = list( //Those networks can only be accesse
 #define IS_SYNTHETIC	2048
 #define IS_PLANT 		4096
 #define CAN_BE_FAT 		8192
-#define HAS_CHITTIN 	16384
+#define IS_RESTRICTED 	16384
 #define NO_INTORGANS	32768
 
 //Species Blood Flags

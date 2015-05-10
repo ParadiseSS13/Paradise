@@ -510,7 +510,7 @@ var/global/datum/controller/occupations/job_master
 			C.registered_name = H.real_name
 			C.rank = rank
 			C.assignment = title ? title : rank
-			C.sex = H.gender
+			C.sex = capitalize(H.gender)
 			C.age = H.age
 			C.name = "[C.registered_name]'s ID Card ([C.assignment])"
 			C.photo = get_id_photo(H)
@@ -528,6 +528,7 @@ var/global/datum/controller/occupations/job_master
 			pda.ownjob = C.assignment
 			pda.ownrank = C.rank
 			pda.name = "PDA-[H.real_name] ([pda.ownjob])"
+			pda.JFLOG("Created")
 
 		return 1
 

@@ -41,7 +41,7 @@
 	result = /obj/item/weapon/reagent_containers/food/snacks/boiledegg
 
 /datum/recipe/microwave/dionaroast
-	reagents = list("pacid" = 5) //It dissolves the carapace. Still poisonous, though.
+	reagents = list("facid" = 5) //It dissolves the carapace. Still poisonous, though.
 	items = list(
 		/obj/item/weapon/holder/diona,
 		/obj/item/weapon/reagent_containers/food/snacks/grown/apple
@@ -142,7 +142,7 @@
 /datum/recipe/microwave/brainburger
 	items = list(
 		/obj/item/weapon/reagent_containers/food/snacks/bun,
-		/obj/item/brain
+		/obj/item/organ/brain
 	)
 	result = /obj/item/weapon/reagent_containers/food/snacks/brainburger
 
@@ -177,7 +177,7 @@
 /datum/recipe/microwave/ghostburger
 	items = list(
 		/obj/item/weapon/reagent_containers/food/snacks/bun,
-		/obj/item/weapon/ectoplasm //where do you even find this stuff
+		/obj/item/weapon/reagent_containers/food/snacks/ectoplasm //where do you even find this stuff
 	)
 	result = /obj/item/weapon/reagent_containers/food/snacks/ghostburger
 
@@ -218,29 +218,14 @@
 		/obj/item/weapon/reagent_containers/food/snacks/dough,
 		/obj/item/weapon/reagent_containers/food/snacks/meatball
 	)
-	result = /obj/item/weapon/reagent_containers/food/snacks/donkpocket //SPECIAL
-	proc/warm_up(var/obj/item/weapon/reagent_containers/food/snacks/donkpocket/being_cooked)
-		being_cooked.warm = 1
-		being_cooked.reagents.add_reagent("tricordrazine", 5)
-		being_cooked.bitesize = 6
-		being_cooked.name = "Warm " + being_cooked.name
-		being_cooked.cooltime()
-	make_food(var/obj/container as obj)
-		var/obj/item/weapon/reagent_containers/food/snacks/donkpocket/being_cooked = ..(container)
-		warm_up(being_cooked)
-		return being_cooked
+	result = /obj/item/weapon/reagent_containers/food/snacks/donkpocket
 
-/datum/recipe/microwave/donkpocket/warm
-	reagents = list() //This is necessary since this is a child object of the above recipe and we don't want donk pockets to need flour
+/datum/recipe/microwave/warmdonkpocket
 	items = list(
 		/obj/item/weapon/reagent_containers/food/snacks/donkpocket
 	)
-	result = /obj/item/weapon/reagent_containers/food/snacks/donkpocket //SPECIAL
-	make_food(var/obj/container as obj)
-		var/obj/item/weapon/reagent_containers/food/snacks/donkpocket/being_cooked = locate() in container
-		if(being_cooked && !being_cooked.warm)
-			warm_up(being_cooked)
-		return being_cooked
+	result = /obj/item/weapon/reagent_containers/food/snacks/warmdonkpocket
+
 
 /*
 /datum/recipe/microwave/meatbread
@@ -629,7 +614,7 @@
 	result = /obj/item/weapon/reagent_containers/food/snacks/amanitajelly
 	make_food(var/obj/container as obj)
 		var/obj/item/weapon/reagent_containers/food/snacks/amanitajelly/being_cooked = ..(container)
-		being_cooked.reagents.del_reagent("amatoxin")
+		being_cooked.reagents.del_reagent("amanitin")
 		return being_cooked
 
 /datum/recipe/microwave/meatballsoup

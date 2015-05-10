@@ -116,6 +116,7 @@ var/global/nologevent = 0
 					<A href='?src=\ref[src];makerobot=\ref[M]'>Make Robot</A> |
 					<A href='?src=\ref[src];makealien=\ref[M]'>Make Alien</A> |
 					<A href='?src=\ref[src];makeslime=\ref[M]'>Make slime</A>
+					<A href='?src=\ref[src];makesuper=\ref[M]'>Make Superhero</A>
 				"}
 
 			//Simple Animals
@@ -180,6 +181,10 @@ var/global/nologevent = 0
 			<A href='?src=\ref[src];tdomeadmin=\ref[M]'>Thunderdome Admin</A> |
 			<A href='?src=\ref[src];tdomeobserve=\ref[M]'>Thunderdome Observer</A> |
 		"}
+		if(M.client.related_accounts_cid.len)
+			body += "<br><br><b>Related accounts by CID:</b> [list2text(M.client.related_accounts_cid, " - ")]<br>"
+		if(M.client.related_accounts_ip.len)
+			body += "<b>Related accounts by IP:</b> [list2text(M.client.related_accounts_ip, " - ")]<br>"
 
 	body += {"<br>
 		</body></html>
@@ -568,9 +573,6 @@ var/global/nologevent = 0
 		<A href='?src=\ref[src];quick_create_object=1'>Quick Create Object</A><br>
 		<A href='?src=\ref[src];create_turf=1'>Create Turf</A><br>
 		<A href='?src=\ref[src];create_mob=1'>Create Mob</A><br>
-		<br><A href='?src=\ref[src];vsc=airflow'>Edit Airflow Settings</A><br>
-		<A href='?src=\ref[src];vsc=plasma'>Edit Plasma Settings</A><br>
-		<A href='?src=\ref[src];vsc=default'>Choose a default ZAS setting</A><br>
 		"}
 
 	usr << browse(dat, "window=admin2;size=210x280")
@@ -983,3 +985,42 @@ proc/formatLocation(var/location)
 
 proc/formatPlayerPanel(var/mob/U,var/text="PP")
 	return "<A HREF='?_src_=holder;adminplayeropts=\ref[U]'>[text]</A>"
+
+//returns 1 to let the dragdrop code know we are trapping this event
+//returns 0 if we don't plan to trap the event
+/datum/admins/proc/cmd_ghost_drag(var/mob/dead/observer/frommob, var/mob/living/tomob)
+	if(!istype(frommob))
+		return //extra sanity check to make sure only observers are shoved into things
+
+	//same as assume-direct-control perm requirements.
+	if (!check_rights(R_VAREDIT,0)) //no varedit, check if they have r_admin and r_debug
+		if(!check_rights(R_ADMIN|R_DEBUG,0)) //if they don't have r_admin and r_debug, return
+			return 0 //otherwise, if they have no varedit, but do have r_admin and r_debug, execute the rest of the code
+
+	if (!frommob.ckey)
+		return 0
+
+
+	var/question = ""
+	if (tomob.ckey)
+		question = "This mob already has a user ([tomob.key]) in control of it! "
+	question += "Are you sure you want to place [frommob.name]([frommob.key]) in control of [tomob.name]?"
+
+	var/ask = alert(question, "Place ghost in control of mob?", "Yes", "No")
+	if (ask != "Yes")
+		return 1
+
+	if(!frommob || !tomob) //make sure the mobs don't go away while we waited for a response
+		return 1
+
+	if(tomob.client) //no need to ghostize if there is no client
+		tomob.ghostize(0)
+
+	message_admins("<span class='adminnotice'>[key_name_admin(usr)] has put [frommob.ckey] in control of [tomob.name].</span>")
+	log_admin("[key_name(usr)] stuffed [frommob.ckey] into [tomob.name].")
+	feedback_add_details("admin_verb","CGD")
+
+	tomob.ckey = frommob.ckey
+	qdel(frommob)
+
+	return 1

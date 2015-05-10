@@ -54,15 +54,6 @@
 
 				breath = loc.remove_air(breath_moles)
 
-				// Handle chem smoke effect  -- Doohl
-				for(var/obj/effect/effect/chem_smoke/smoke in view(1, src))
-					if(smoke.reagents.total_volume)
-						smoke.reagents.reaction(src, INGEST)
-						spawn(5)
-							if(smoke)
-								smoke.reagents.copy_to(src, 10) // I dunno, maybe the reagents enter the blood stream through the lungs?
-						break // If they breathe in the nasty stuff once, no need to continue checking
-
 
 		else //Still give containing object the chance to interact
 			if(istype(loc, /obj/))
@@ -125,7 +116,7 @@
 					stomach_contents.Remove(M)
 					qdel(M)
 					continue
-				if(air_master.current_cycle%3==1)
+				if(mob_master.current_cycle%3==1)
 					if(!(M.status_flags & GODMODE))
 						M.adjustBruteLoss(5)
 					nutrition += 10

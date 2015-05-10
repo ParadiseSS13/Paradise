@@ -97,7 +97,7 @@
 				if(ishuman(player.current))
 					var/mob/living/carbon/human/H = player.current
 					for(var/obj/item/weapon/implant/loyalty/I in H.contents)
-						for(var/datum/organ/external/organs in H.organs)
+						for(var/obj/item/organ/external/organs in H.organs)
 							if(I in organs.implants)
 								possible_traitors -= player
 
@@ -174,7 +174,7 @@
 				traitorcount += 1
 		//message_admins("Live Players: [playercount]")
 		//message_admins("Live Traitors: [traitorcount]")
-		
+
 		//var/r = rand(5)
 		//var/target_traitors = 1
 		var/max_traitors = 2
@@ -189,7 +189,7 @@
 		if (traitorcount < max_traitors)
 			for(var/job in restricted_jobs)
 				if(character.mind.assigned_role == job || !ishuman(character))
-					return	
+					return
 			//message_admins("Number of Traitors is below maximum.  Rolling for New Arrival Traitor.")
 			//message_admins("The probability of a new traitor is [traitor_prob]%")
 			if(prob(traitor_prob))

@@ -32,7 +32,7 @@ var/global/list/rad_collectors = list()
 			P.air_contents.toxins = 0
 			eject()
 		else
-			P.air_contents.adjust(tx = -0.001*drainratio)
+			P.air_contents.toxins -= 0.001*drainratio
 	return
 
 

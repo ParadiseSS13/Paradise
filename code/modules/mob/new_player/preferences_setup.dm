@@ -215,15 +215,16 @@ datum/preferences
 
 		for(var/name in list("r_arm","r_hand","r_leg","r_foot","l_leg","l_foot","l_arm","l_hand"))
 			if(organ_data[name] == "amputated") continue
-
-			var/icon/temp = new /icon(icobase, "[name]")
 			if(organ_data[name] == "cyborg")
-				temp.MapColors(rgb(77,77,77), rgb(150,150,150), rgb(28,28,28), rgb(0,0,0))
-
-			preview_icon.Blend(temp, ICON_OVERLAY)
+				var/datum/robolimb/R
+				if(rlimb_data[name]) R = all_robolimbs[rlimb_data[name]]
+				if(!R) R = basic_robolimb
+				preview_icon.Blend(icon(R.icon, "[name]"), ICON_OVERLAY) // This doesn't check gendered_icon. Not an issue while only limbs can be robotic.
+				continue
+			preview_icon.Blend(new /icon(icobase, "[name]"), ICON_OVERLAY)
 
 		//Tail
-		if(current_species && (current_species.flags & HAS_TAIL))
+		if(current_species && (current_species.bodyflags & HAS_TAIL))
 			var/icon/temp = new/icon("icon" = 'icons/effects/species.dmi', "icon_state" = "[current_species.tail]_s")
 			preview_icon.Blend(temp, ICON_OVERLAY)
 
@@ -232,7 +233,7 @@ datum/preferences
 			preview_icon.Blend(rgb(r_skin, g_skin, b_skin), ICON_ADD)
 
 		// Skin tone
-		if(current_species && (current_species.flags & HAS_SKIN_TONE))
+		if(current_species && (current_species.bodyflags & HAS_SKIN_TONE))
 			if (s_tone >= 0)
 				preview_icon.Blend(rgb(s_tone, s_tone, s_tone), ICON_ADD)
 			else
@@ -253,10 +254,6 @@ datum/preferences
 			facial_s.Blend(rgb(r_facial, g_facial, b_facial), ICON_ADD)
 			eyes_s.Blend(facial_s, ICON_OVERLAY)
 
-		//Slime People Overlays
-		if(current_species && (current_species.bloodflags & BLOOD_SLIME))
-			var/icon/temp = new/icon("icon" = 'icons/effects/slimemutant.dmi', "icon_state" = "[slime_color]_slime[fat]_[gender]_s")
-			preview_icon.Blend(temp, ICON_OVERLAY)
 
 		var/icon/underwear_s = null
 		if(underwear > 0 && underwear < 7 && current_species.flags & HAS_UNDERWEAR)

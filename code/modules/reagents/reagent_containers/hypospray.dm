@@ -30,7 +30,7 @@
 		user << "\blue You inject [M] with [src]."
 		M << "\red You feel a tiny prick!"
 
-		src.reagents.reaction(M, INGEST)
+		src.reagents.add_reagent(M)
 		if(M.reagents)
 
 			var/list/injected = list()
@@ -40,7 +40,7 @@
 			M.attack_log += text("\[[time_stamp()]\] <font color='orange'>Has been injected with [src.name] by [user.name] ([user.ckey]). Reagents: [contained]</font>")
 			user.attack_log += text("\[[time_stamp()]\] <font color='red'>Used the [src.name] to inject [M.name] ([M.key]). Reagents: [contained]</font>")
 			if(M.ckey)
-				msg_admin_attack("[user.name] ([user.ckey]) injected [M.name] ([M.key]) with [src.name]. Reagents: [contained] (INTENT: [uppertext(user.a_intent)]) (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[user.x];Y=[user.y];Z=[user.z]'>JMP</a>)")
+				msg_admin_attack("[user.name] ([user.ckey])[isAntag(user) ? "(ANTAG)" : ""] injected [M.name] ([M.key]) with [src.name]. Reagents: [contained] (INTENT: [uppertext(user.a_intent)]) (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[user.x];Y=[user.y];Z=[user.z]'>JMP</a>)")
 			if(!iscarbon(user))
 				M.LAssailant = null
 			else
@@ -53,7 +53,7 @@
 
 /obj/item/weapon/reagent_containers/hypospray/CMO/New()
 	..()
-	reagents.add_reagent("doctorsdelight", 30)
+	reagents.add_reagent("omnizine", 30)
 
 /obj/item/weapon/reagent_containers/hypospray/combat
 	name = "combat stimulant injector"
@@ -90,7 +90,7 @@
 
 /obj/item/weapon/reagent_containers/hypospray/autoinjector/New()
 	..()
-	reagents.add_reagent("inaprovaline", 10)
+	reagents.add_reagent("epinephrine", 10)
 	update_icon()
 	return
 
@@ -112,15 +112,15 @@
 	else
 		usr << "\blue It is spent."
 
-/obj/item/weapon/reagent_containers/hypospray/autoinjector/leporazine //basilisks
-	name = "leporazine autoinjector"
+/obj/item/weapon/reagent_containers/hypospray/autoinjector/teporone //basilisks
+	name = "teporone autoinjector"
 	desc = "A rapid way to regulate your body's temperature in the event of a hardsuit malfunction at the cost of some shortness of breath."
 	icon_state = "lepopen"
 
-/obj/item/weapon/reagent_containers/hypospray/autoinjector/leporazine/New()
+/obj/item/weapon/reagent_containers/hypospray/autoinjector/teporone/New()
 	..()
-	reagents.remove_reagent("inaprovaline", 10)
-	reagents.add_reagent("leporazine", 9)
+	reagents.remove_reagent("epinephrine", 10)
+	reagents.add_reagent("teporone", 9)
 	reagents.add_reagent("lexorin", 1)
 	update_icon()
 	return
@@ -132,8 +132,23 @@
 
 /obj/item/weapon/reagent_containers/hypospray/autoinjector/stimpack/New()
 	..()
-	reagents.remove_reagent("inaprovaline", 10)
-	reagents.add_reagent("hyperzine", 9)
+	reagents.remove_reagent("epinephrine", 10)
+	reagents.add_reagent("methamphetamine", 9)
 	reagents.add_reagent("lexorin", 1)
+	update_icon()
+	return
+
+/obj/item/weapon/reagent_containers/hypospray/autoinjector/stimulants
+	name = "Stimulants autoinjector"
+	desc = "Rapidly stimulates and regernates the body's organ system."
+	icon_state = "stimpen"
+	amount_per_transfer_from_this = 50
+	possible_transfer_amounts = list(50)
+	volume = 50
+
+/obj/item/weapon/reagent_containers/hypospray/autoinjector/stimulants/New()
+	..()
+	reagents.remove_reagent("epinephrine", 10)
+	reagents.add_reagent("stimulants", 50)
 	update_icon()
 	return

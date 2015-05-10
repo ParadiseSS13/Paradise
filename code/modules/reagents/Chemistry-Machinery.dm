@@ -19,13 +19,13 @@
 	var/hackedcheck = 0
 	var/list/dispensable_reagents = list("hydrogen","lithium","carbon","nitrogen","oxygen","fluorine",
 	"sodium","aluminum","silicon","phosphorus","sulfur","chlorine","potassium","iron",
-	"copper","mercury","radium","water","ethanol","sugar","sacid","tungsten")
-	var/list/hacked_reagents = list("plasma","toxin")
+	"copper","mercury","plasma","radium","water","ethanol","sugar","tungsten","iodine","bromine","silver")
+	var/list/hacked_reagents = list("toxin")
 	var/hack_message = "You disable the safety safeguards, enabling the \"Mad Scientist\" mode."
 	var/unhack_message = "You re-enable the safety safeguards, enabling the \"NT Standard\" mode."
 	var/list/broken_requirements = list()
 	var/broken_on_spawn = 0
-	var/recharge_delay = 15
+	var/recharge_delay = 5
 	var/image/icon_beaker = null //cached overlay
 
 
@@ -129,7 +129,7 @@
 	var beakerCurrentVolume = 0
 	if(beaker && beaker:reagents && beaker:reagents.reagent_list.len)
 		for(var/datum/reagent/R in beaker:reagents.reagent_list)
-			beakerContents.Add(list(list("name" = R.name, "volume" = R.volume))) // list in a list because Byond merges the first list...
+			beakerContents.Add(list(list("name" = R.name, "id"=R.id, "volume" = R.volume))) // list in a list because Byond merges the first list...
 			beakerCurrentVolume += R.volume
 	data["beakerContents"] = beakerContents
 
@@ -177,6 +177,20 @@
 
 			R.add_reagent(href_list["dispense"], min(amount, energy * 10, space))
 			energy = max(energy - min(amount, energy * 10, space) / 10, 0)
+			overlays.Cut()
+			icon_beaker = image('icons/obj/chemical.dmi', src, "disp_beaker") //randomize beaker overlay position.
+			icon_beaker.pixel_x = rand(-10,5)
+			overlays += icon_beaker
+
+	if(href_list["remove"])
+		if(beaker)
+			if(href_list["removeamount"])
+				var/amount = text2num(href_list["removeamount"])
+				if(isnum(amount) && (amount > 0))
+					var/obj/item/weapon/reagent_containers/glass/B = beaker
+					var/datum/reagents/R = B.reagents
+					var/id = href_list["remove"]
+					R.remove_reagent(id, amount)
 
 	if(href_list["ejectBeaker"])
 		if(beaker)
@@ -264,7 +278,7 @@
 	energy = 100
 	max_energy = 100
 	desc = "A technological marvel, supposedly able to mix just the mixture you'd like to drink the moment you ask for one."
-	dispensable_reagents = list("ice","cream","beer","kahlua","whiskey","wine","vodka","gin","rum","tequilla","vermouth","cognac","ale","mead")
+	dispensable_reagents = list("ice","cream", "cider", "beer","kahlua","whiskey","wine","vodka","gin","rum","tequilla","vermouth","cognac","ale","mead")
 	hack_message = "You disable the 'nanotrasen-are-cheap-bastards' lock, enabling hidden and very expensive boozes."
 	unhack_message = "You re-enable the 'nanotrasen-are-cheap-bastards' lock, disabling hidden and very expensive boozes."
 	hacked_reagents = list("goldschlager","patron", "absinthe", "ethanol", "nothing")
@@ -279,11 +293,11 @@
 	energy = 5
 	max_energy = 5
 	amount = 5
-	recharge_delay = 30
+	recharge_delay = 10
 	dispensable_reagents = list()
-	var/list/special_reagents = list(list("hydrogen", "oxygen", "silicon", "phosphorus", "sulfur", "carbon", "nitrogen"),
-						 		list("lithium", "sugar", "sacid", "water", "copper", "mercury", "sodium"),
-								list("ethanol", "chlorine", "potassium", "aluminium", "radium", "fluorine", "iron"))
+	var/list/special_reagents = list(list("hydrogen", "oxygen", "silicon", "phosphorus", "sulfur", "carbon", "nitrogen", "tungsten", "water"),
+						 		list("lithium", "sugar", "copper", "mercury", "sodium","iodine","bromine"),
+								list("ethanol", "chlorine", "potassium", "aluminum","plasma", "radium", "fluorine", "iron", "silver"))
 
 /obj/machinery/chem_dispenser/constructable/New()
 	..()
@@ -309,7 +323,7 @@
 		time += C.rating
 	for(var/obj/item/weapon/stock_parts/cell/P in component_parts)
 		time += round(P.maxcharge, 10000) / 10000
-	recharge_delay /= time/2         //delay between recharges, double the usual time on lowest 50% less than usual on highest
+	recharge_delay = 10 / (time/2)         //delay between recharges, double the usual time on lowest 33% less than usual on highest
 	for(var/obj/item/weapon/stock_parts/manipulator/M in component_parts)
 		for(i=1, i<=M.rating, i++)
 			dispensable_reagents = sortList(dispensable_reagents | special_reagents[i])
@@ -364,6 +378,7 @@
 	var/condi = 0
 	var/useramount = 30 // Last used amount
 	var/pillamount = 10
+	var/patchamount = 10
 	var/bottlesprite = "1" //yes, strings
 	var/pillsprite = "1"
 	var/client/has_sprites = list()
@@ -566,6 +581,21 @@
 				P.name = "[name] pack"
 				P.desc = "A small condiment pack. The label says it contains [name]."
 				reagents.trans_to(P,10)
+		else if (href_list["createpatch"] || href_list["createpatch_multiple"])
+			if(!condi)
+				var/count = 1
+				if (href_list["createpatch_multiple"]) count = isgoodnumber(input("Select the number of patches to make.", 10, patchamount) as num)
+				if (count > 20) count = 20	//Pevent people from creating huge stacks of patches easily. Maybe move the number to defines?
+				var/amount_per_patch = reagents.total_volume/count
+				if (amount_per_patch > 50) amount_per_patch = 50
+				var/name = reject_bad_text(input(usr,"Name:","Name your patch!","[reagents.get_master_reagent_name()] ([amount_per_patch] units)"))
+				while (count--)
+					var/obj/item/weapon/reagent_containers/pill/patch/P = new/obj/item/weapon/reagent_containers/pill/patch(src.loc)
+					if(!name) name = reagents.get_master_reagent_name()
+					P.name = "[name] patch"
+					P.pixel_x = rand(-7, 7) //random position
+					P.pixel_y = rand(-7, 7)
+					reagents.trans_to(P,amount_per_patch)
 		else if (href_list["createbottle"])
 			if(!condi)
 				var/name = reject_bad_text(input(usr,"Name:","Name your bottle!",reagents.get_master_reagent_name()))
@@ -663,6 +693,8 @@
 		if(!condi)
 			dat += "<HR><BR><A href='?src=\ref[src];createpill=1'>Create pill (50 units max)</A><a href=\"?src=\ref[src]&change_pill=1\"><img src=\"pill[pillsprite].png\" /></a><BR>"
 			dat += "<A href='?src=\ref[src];createpill_multiple=1'>Create multiple pills</A><BR>"
+			dat += "<HR><BR><A href='?src=\ref[src];createpatch=1'>Create patch (50 units max)</A><BR>"
+			dat += "<A href='?src=\ref[src];createpatch_multiple=1'>Create multiple patches</A><BR>"
 			dat += "<A href='?src=\ref[src];createbottle=1'>Create bottle (30 units max)</A>"
 		else
 			dat += "<HR><BR><A href='?src=\ref[src];createpill=1'>Create pack (10 units max)</A><BR>"
@@ -977,7 +1009,7 @@
 		/obj/item/stack/sheet/mineral/silver = list("silver" = 20),
 		/obj/item/stack/sheet/mineral/gold = list("gold" = 20),
 		/obj/item/weapon/grown/nettle = list("sacid" = 0),
-		/obj/item/weapon/grown/deathnettle = list("pacid" = 0),
+		/obj/item/weapon/grown/deathnettle = list("facid" = 0),
 		/obj/item/weapon/grown/novaflower = list("capsaicin" = 0),
 
 		//Blender Stuff

@@ -10,7 +10,7 @@
 
 /datum/table_recipe/IED
 	name = "IED"
-	result = /obj/item/weapon/grenade/iedcasing
+	result = /obj/item/weapon/grenade/iedcasing/filled
 	reqs = list(/datum/reagent/fuel = 50,
 				/obj/item/stack/cable_coil = 1,
 				/obj/item/device/assembly/igniter = 1,
@@ -123,7 +123,7 @@
 	reqs = list(/obj/item/ammo_casing/shotgun/techshell = 1,
 				/datum/reagent/glycerol = 5,
 				/datum/reagent/sacid = 5,
-				/datum/reagent/pacid = 5,)
+				/datum/reagent/facid = 5,)
 	tools = list(/obj/item/weapon/screwdriver)
 	time = 5
 
@@ -150,8 +150,7 @@
 	name = "Overload Improvised Shell"
 	result = /obj/item/ammo_casing/shotgun/improvised/overload
 	reqs = list(/obj/item/ammo_casing/shotgun/improvised = 1,
-				/datum/reagent/water = 5,
-				/datum/reagent/potassium = 5)
+				/datum/reagent/blackpowder = 5)
 	tools = list(/obj/item/weapon/screwdriver)
 	time = 5
 

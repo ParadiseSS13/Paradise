@@ -291,6 +291,9 @@ You are weak to holy things and starlight. Don't go into space and avoid the Cha
 			src << "\blue <b>You have accumulated [src.mind.vampire.bloodtotal] [src.mind.vampire.bloodtotal > 1 ? "units" : "unit"] of blood[src.mind.vampire.bloodusable != bloodusable ?", and have [src.mind.vampire.bloodusable] left to use" : "."]"
 		check_vampire_upgrade(mind)
 		H.vessel.remove_reagent("blood",25)
+		if(ishuman(src))
+			var/mob/living/carbon/human/V = src
+			V.nutrition = min(450,V.nutrition+(blood/2))
 
 	src.mind.vampire.draining = null
 	src << "\blue You stop draining [H.name] of blood."

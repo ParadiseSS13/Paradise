@@ -73,7 +73,6 @@
 
 // Chair types
 /obj/structure/stool/bed/chair/wood
-	autoignition_temperature = AUTOIGNITION_WOOD
 	// TODO:  Special ash subtype that looks like charred chair legs
 
 /obj/structure/stool/bed/chair/wood/normal
@@ -97,25 +96,52 @@
 /obj/structure/stool/bed/chair/comfy
 	name = "comfy chair"
 	desc = "It looks comfy."
+	icon_state = "comfychair"
+	color = rgb(255,255,255)
+	var/image/armrest = null
+
+/obj/structure/stool/bed/chair/comfy/New()
+	armrest = image("icons/obj/objects.dmi", "comfychair_armrest")
+	armrest.layer = MOB_LAYER + 0.1
+
+	return ..()
+
+/obj/structure/stool/bed/chair/comfy/afterbuckle()
+	if(buckled_mob)
+		overlays += armrest
+	else
+		overlays -= armrest
 
 /obj/structure/stool/bed/chair/comfy/brown
-	icon_state = "comfychair_brown"
+	color = rgb(141,70,0)
 
-/obj/structure/stool/bed/chair/comfy/beige
-	icon_state = "comfychair_beige"
+/obj/structure/stool/bed/chair/comfy/red
+	color = rgb(218,2,10)
 
 /obj/structure/stool/bed/chair/comfy/teal
-	icon_state = "comfychair_teal"
+	color = rgb(0,234,250)
+
+/obj/structure/stool/bed/chair/comfy/black
+	color = rgb(60,60,60)
+
+/obj/structure/stool/bed/chair/comfy/green
+	color = rgb(1,196,8)
+
+/obj/structure/stool/bed/chair/comfy/purp
+	color = rgb(112,2,176)
+
+/obj/structure/stool/bed/chair/comfy/blue
+	color = rgb(2,9,210)
+
+/obj/structure/stool/bed/chair/comfy/beige
+	color = rgb(255,253,195)
+
+/obj/structure/stool/bed/chair/comfy/lime
+	color = rgb(255,251,0)
 
 /obj/structure/stool/bed/chair/office
 	anchored = 0
 	movable = 1
-
-/obj/structure/stool/bed/chair/comfy/black
-	icon_state = "comfychair_black"
-
-/obj/structure/stool/bed/chair/comfy/lime
-	icon_state = "comfychair_lime"
 
 /obj/structure/stool/bed/chair/office/Move()
 	..()
@@ -166,7 +192,7 @@
 	name = "old ratty sofa"
 	icon_state = "sofamiddle"
 	anchored = 1
-	density = 1
+
 /obj/structure/stool/bed/chair/sofa/left
 	icon_state = "sofaend_left"
 /obj/structure/stool/bed/chair/sofa/right

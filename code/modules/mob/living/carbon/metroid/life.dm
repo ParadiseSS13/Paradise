@@ -9,7 +9,7 @@
 	set invisibility = 0
 	//set background = 1
 
-	if (src.monkeyizing)
+	if (src.notransform)
 		return
 
 	..()
@@ -185,9 +185,9 @@
 	if (reagents.get_reagent_amount("plasma")>=5)
 		mutation_chance = min(mutation_chance + 5,50) //Prevents mutation chance going >50%
 		reagents.remove_reagent("plasma", 5)
-	if (reagents.get_reagent_amount("inaprovaline")>=5)
+	if (reagents.get_reagent_amount("epinephrine")>=5)
 		mutation_chance = max(mutation_chance - 5,0) //Prevents muation chance going <0%
-		reagents.remove_reagent("inaprovaline", 5)
+		reagents.remove_reagent("epinephrine", 5)
 	src.updatehealth()
 
 	return //TODO: DEFERRED
@@ -205,7 +205,7 @@
 
 	else if(src.health <= config.health_threshold_crit)
 
-		if(!src.reagents.has_reagent("inaprovaline"))
+		if(!src.reagents.has_reagent("epinephrine"))
 			src.adjustOxyLoss(10)
 
 		if(src.stat != DEAD)
@@ -345,11 +345,10 @@
 					if(issilicon(L) && (rabid || attacked)) // They can't eat silicons, but they can glomp them in defence
 						targets += L // Possible target found!
 
-					if(istype(L, /mob/living/carbon/human) && dna) //Ignore slime(wo)men
+					if(istype(L, /mob/living/carbon/human)) //Ignore slime(wo)men
 						var/mob/living/carbon/human/H = L
-						if(H.dna)
-							if(H.dna.mutantrace == "slime")
-								continue
+						if(H.species.name == "Slime People")
+							continue
 
 					if(!L.canmove) // Only one slime can latch on at a time.
 						var/notarget = 0

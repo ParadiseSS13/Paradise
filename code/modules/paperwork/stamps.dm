@@ -75,7 +75,7 @@
 /obj/item/weapon/stamp/centcom
 	name = "Nanotrasen Representative's rubber stamp"
 	icon_state = "stamp-cent"
-	_color = "centcom"
+	_color = "internalaffairs"
 
 /obj/item/weapon/stamp/attack_paw(mob/user as mob)
 	return attack_hand(user)

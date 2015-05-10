@@ -45,13 +45,13 @@
 	// Reagent information for process(), consider moving this to a controller along
 	// with cycle information under 'mechanical concerns' at some point.
 	var/global/list/toxic_reagents = list(
-		"anti_toxin" =     -2,
+		"charcoal" =       -2,
 		"toxin" =           2,
 		"fluorine" =        2.5,
 		"chlorine" =        1.5,
 		"sacid" =           1.5,
-		"pacid" =           3,
-		"plantbgone" =      3,
+		"facid" =           3,
+		"atrazine" =      	3,
 		"cryoxadone" =     -3,
 		"radium" =          2
 		)
@@ -75,8 +75,8 @@
 		"phosphorus" =     -2,
 		"sugar" =           2,
 		"sacid" =          -2,
-		"pacid" =          -4,
-		"plantbgone" =     -8,
+		"facid" =          -4,
+		"atrazine" =  	   -8,
 		"adminordrazine" = -5
 		)
 	var/global/list/pestkiller_reagents = list(
@@ -104,8 +104,8 @@
 		"phosphorus" =     list( -0.75, 0,   0   ),
 		"sodawater" =      list(  0.1,  0,   0   ),
 		"sacid" =          list( -1,    0,   0   ),
-		"pacid" =          list( -2,    0,   0   ),
-		"plantbgone" =     list( -2,    0,   0.2 ),
+		"facid" =          list( -2,    0,   0   ),
+		"atrazine" =       list( -2,    0,   0.2 ),
 		"cryoxadone" =     list(  3,    0,   0   ),
 		"ammonia" =        list(  0.5,  0,   0   ),
 		"diethylamine" =   list(  1,    0,   0   ),
@@ -806,12 +806,12 @@
 			user << "You plant the [S.seed.seed_name] [S.seed.seed_noun]."
 
 			if(S.seed.spread == 1)
-				msg_admin_attack("[key_name(user)] has planted a creeper packet.")
+				msg_admin_attack("[key_name(user)][isAntag(user) ? "(ANTAG)" : ""] has planted a creeper packet.")
 				var/obj/effect/plant_controller/creeper/PC = new(get_turf(src))
 				if(PC)
 					PC.seed = S.seed
 			else if(S.seed.spread == 2)
-				msg_admin_attack("[key_name(user)] has planted a spreading vine packet.")
+				msg_admin_attack("[key_name(user)][isAntag(user) ? "(ANTAG)" : ""] has planted a spreading vine packet.")
 				var/obj/effect/plant_controller/PC = new(get_turf(src))
 				if(PC)
 					PC.seed = S.seed
@@ -901,8 +901,8 @@
 				usr << "The plant looks \red unhealthy."
 		else
 			usr << "[src] is empty."
-		usr << "Water: [round(waterlevel,0.1)]/100"
-		usr << "Nutrient: [round(nutrilevel,0.1)]/10"
+		usr << "Water: [round(waterlevel,0.1)]/[maxwater]"
+		usr << "Nutrient: [round(nutrilevel,0.1)]/[maxnutri]"
 		if(weedlevel >= 5)
 			usr << "[src] is \red filled with weeds!"
 		if(pestlevel >= 5)

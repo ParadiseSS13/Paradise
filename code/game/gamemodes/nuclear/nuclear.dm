@@ -163,7 +163,7 @@ proc/issyndicate(mob/living/M as mob)
 	spawn (rand(waittime_l, waittime_h))
 		send_intercept()
 	return ..()
-	
+
 /datum/game_mode/proc/create_syndicate(var/datum/mind/synd_mind) // So we don't have inferior species as ops - randomize a human
 	var/mob/living/carbon/human/M = synd_mind.current
 	M.set_species("Human",1)
@@ -268,7 +268,7 @@ proc/issyndicate(mob/living/M as mob)
 	if(synd_mob.backbag == 2) synd_mob.equip_to_slot_or_del(new /obj/item/weapon/storage/backpack(synd_mob), slot_back)
 	if(synd_mob.backbag == 3) synd_mob.equip_to_slot_or_del(new /obj/item/weapon/storage/backpack/satchel_norm(synd_mob), slot_back)
 	if(synd_mob.backbag == 4) synd_mob.equip_to_slot_or_del(new /obj/item/weapon/storage/backpack/satchel(synd_mob), slot_back)
-	synd_mob.equip_to_slot_or_del(new /obj/item/weapon/reagent_containers/pill/cyanide(synd_mob), slot_in_backpack)
+	synd_mob.equip_to_slot_or_del(new /obj/item/weapon/reagent_containers/pill/initropidril(synd_mob), slot_in_backpack)
 	synd_mob.equip_to_slot_or_del(new /obj/item/weapon/gun/projectile/automatic/pistol(synd_mob), slot_belt)
 	synd_mob.equip_to_slot_or_del(new /obj/item/weapon/storage/box/engineer(synd_mob.back), slot_in_backpack)
 

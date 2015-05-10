@@ -19,7 +19,7 @@
 /mob/living/carbon/brain/gib()
 	death(1)
 	var/atom/movable/overlay/animation = null
-	monkeyizing = 1
+	notransform = 1
 	canmove = 0
 	icon = null
 	invisibility = 101
@@ -36,7 +36,7 @@
 	if(container && istype(container, /obj/item/device/mmi))
 		del(container)//Gets rid of the MMI if there is one
 	if(loc)
-		if(istype(loc,/obj/item/brain))
+		if(istype(loc,/obj/item/organ/brain))
 			del(loc)//Gets rid of the brain item
 	spawn(15)
 		if(animation)	del(animation)

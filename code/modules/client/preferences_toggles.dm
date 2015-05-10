@@ -131,8 +131,21 @@
 	else
 		src << "You will no longer hear ambient sounds."
 		src << sound(null, repeat = 0, wait = 0, volume = 0, channel = 1)
-		src << sound(null, repeat = 0, wait = 0, volume = 0, channel = 2)
 	feedback_add_details("admin_verb","TAmbi") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+
+/client/verb/Toggle_Buzz() //No more headaches because headphones bump up shipambience.ogg to insanity levels.
+	set name = "Hear/Silence White Noise"
+	set category = "Preferences"
+	set desc = "Toggles hearing ambient white noise"
+	prefs.sound ^= SOUND_BUZZ
+	prefs.save_preferences(src)
+	if(prefs.sound & SOUND_BUZZ)
+		src << "You will now hear ambient white noise."
+	else
+		src << "You will no longer hear ambient white noise."
+		src << sound(null, repeat = 0, wait = 0, volume = 0, channel = 2)
+	feedback_add_details("admin_verb","TBuzz") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+
 
 /client/verb/Toggle_Heartbeat() //to toggle off heartbeat sounds, in case they get too annoying
 	set name = "Hear/Silence Heartbeat"

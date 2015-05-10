@@ -19,6 +19,10 @@
 				var/obj/structure/reagent_dispensers/fueltank/tank = src.loc.loc
 				if (tank)
 					tank.explode()
+			if (istype(src.loc.loc, /obj/item/weapon/reagent_containers/glass/beaker/))
+				var/obj/item/weapon/reagent_containers/glass/beaker/beakerbomb = src.loc.loc
+				if(beakerbomb)
+					beakerbomb.heat_beaker()
 
 		var/datum/effect/effect/system/spark_spread/s = new /datum/effect/effect/system/spark_spread
 		s.set_up(3, 1, src)

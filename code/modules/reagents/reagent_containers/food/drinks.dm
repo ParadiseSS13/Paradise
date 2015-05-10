@@ -46,7 +46,7 @@
 
 			var/mob/living/carbon/human/H = M
 			if(H.species.flags & IS_SYNTHETIC)
-				H << "\red They have a monitor for a head, where do you think you're going to put that?"
+				user << "\red They have a monitor for a head, where do you think you're going to put that?"
 				return
 
 			for(var/mob/O in viewers(world.view, user))
@@ -83,6 +83,13 @@
 
 	afterattack(obj/target, mob/user, proximity)
 		if(!proximity) return
+
+		// Moved from the can code; not necessary since closed cans aren't open containers now, but, eh.
+		if (istype(target, /obj/item/weapon/reagent_containers/food/drinks/cans))
+			var/obj/item/weapon/reagent_containers/food/drinks/cans/cantarget = target
+			if(cantarget.canopened == 0)
+				user << "<span class='notice'>You need to open the drink you want to pour into!</span>"
+				return
 
 		if(istype(target, /obj/structure/reagent_dispensers)) //A dispenser. Transfer FROM it TO us.
 
@@ -129,6 +136,15 @@
 					user << "Cyborg [src] refilled."
 
 		return
+
+	attackby(var/obj/item/I, mob/user as mob, params)
+		if(istype(I, /obj/item/clothing/mask/cigarette)) //ciggies are weird
+			return
+		if(is_hot(I))
+			if(src.reagents)
+				src.reagents.chem_temp += 15
+				user << "<span class='notice'>You heat [src] with [I].</span>"
+				src.reagents.handle_reactions()
 
 	examine()
 		set src in view()
@@ -229,6 +245,17 @@
 		src.pixel_x = rand(-10.0, 10)
 		src.pixel_y = rand(-10.0, 10)
 
+/obj/item/weapon/reagent_containers/food/drinks/mugwort
+	name = "Mugwort Tea"
+	desc = "A bitter herbal tea."
+	icon_state = "manlydorfglass"
+	item_state = "coffee"
+	New()
+		..()
+		reagents.add_reagent("mugwort", 30)
+		src.pixel_x = rand(-10.0, 10)
+		src.pixel_y = rand(-10.0, 10)
+
 /obj/item/weapon/reagent_containers/food/drinks/ice
 	name = "Ice Cup"
 	desc = "Careful, cold ice, do not chew."
@@ -250,6 +277,30 @@
 		src.pixel_x = rand(-10.0, 10)
 		src.pixel_y = rand(-10.0, 10)
 
+/obj/item/weapon/reagent_containers/food/drinks/chocolate
+	name = "Hot Chocolate"
+	desc = "Made in Space Switzerland."
+	icon_state = "hot_coco"
+	item_state = "coffee"
+	New()
+		..()
+		reagents.add_reagent("chocolate", 45)
+		src.pixel_x = rand(-10.0, 10)
+		src.pixel_y = rand(-10.0, 10)
+
+/obj/item/weapon/reagent_containers/food/drinks/weightloss
+	name = "Weight-Loss Shake"
+	desc = "A shake designed to cause weight loss.  The package proudly proclaims that it is 'tapeworm free.'"
+	icon_state = "coffee"
+	item_state = "coffee"
+	New()
+		..()
+		reagents.add_reagent("lipolicide", 30)
+		reagents.add_reagent("chocolate", 5)
+		src.pixel_x = rand(-10.0, 10)
+		src.pixel_y = rand(-10.0, 10)
+
+
 /obj/item/weapon/reagent_containers/food/drinks/dry_ramen
 	name = "Cup Ramen"
 	desc = "Just add 10ml water, self heats! A taste that reminds you of your school years."
@@ -257,6 +308,16 @@
 	New()
 		..()
 		reagents.add_reagent("dry_ramen", 30)
+		src.pixel_x = rand(-10.0, 10)
+		src.pixel_y = rand(-10.0, 10)
+
+/obj/item/weapon/reagent_containers/food/drinks/chicken_soup
+	name = "Cup Chicken Soup"
+	desc = "A delicious and soothing cup of chicken noodle soup; just like spessmom used to make it."
+	icon_state = "ramen"
+	New()
+		..()
+		reagents.add_reagent("chicken_soup", 30)
 		src.pixel_x = rand(-10.0, 10)
 		src.pixel_y = rand(-10.0, 10)
 

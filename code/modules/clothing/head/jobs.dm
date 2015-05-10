@@ -34,6 +34,13 @@
 	armor = list(melee = 50, bullet = 15, laser = 50, energy = 10, bomb = 25, bio = 0, rad = 0)
 	loose = 43 // not the answer
 
+//Nanotrasen Representative
+/obj/item/clothing/head/ntrep
+	name = "Nanotrasen Representative hat"
+	desc = "A cap issued to the Nanotrasen Representative"
+	icon_state = "ntrep"
+
+
 //Chaplain
 /obj/item/clothing/head/chaplain_hood
 	name = "chaplain's hood"
@@ -109,6 +116,11 @@
 	name = "engineering beret"
 	desc = "A beret with the engineering insignia emblazoned on it. For engineers that are more inclined towards style than safety."
 	icon_state = "e_beret_badge"
+
+/obj/item/clothing/head/beret/atmos
+	name = "atmospherics beret"
+	desc = "A beret for those who have shown immaculate proficienty in piping. Or plumbing."
+	icon_state = "a_beret_badge"
 
 //Medical
 /obj/item/clothing/head/surgery

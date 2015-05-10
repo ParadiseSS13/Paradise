@@ -62,6 +62,7 @@
 	var/automute_on = 0					//enables automuting/spam prevention
 	var/jobs_have_minimal_access = 0	//determines whether jobs use minimal access or expanded access.
 
+	var/reactionary_explosions = 0 //If we use reactionary explosions, explosions that react to walls and doors
 
 	var/assistantlimit = 0 //enables assistant limiting
 	var/assistantratio = 2 //how many assistants to security members
@@ -92,8 +93,8 @@
 	var/organ_health_multiplier = 1
 	var/organ_regeneration_multiplier = 1
 
-	var/bones_can_break = 0
-	var/limbs_can_break = 0
+	var/bones_can_break = 1
+	var/limbs_can_break = 1
 
 	var/revival_pod_plants = 1
 	var/revival_cloning = 1
@@ -339,6 +340,9 @@
 
 				if("protect_roles_from_antagonist")
 					config.protect_roles_from_antagonist = 1
+
+				if("reactionary_explosions")
+					config.reactionary_explosions	= 1
 
 				if ("probability")
 					var/prob_pos = findtext(value, " ")

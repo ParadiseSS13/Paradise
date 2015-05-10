@@ -71,9 +71,15 @@
 	//parse language key and consume it
 	var/datum/language/speaking = parse_language(message)
 	if (speaking)
-		verb = speaking.speech_verb
-		message = trim(copytext(message,2+length(speaking.key)))
 
+		message = trim(copytext(message,2+length(speaking.key)))
+	else
+		speaking = get_default_language()
+
+	if (speaking)
+		verb = speaking.speech_verb
+		// This is broadcast to all mobs with the language,
+		// irrespective of distance or anything else.
 		if(speaking.flags & HIVEMIND)
 			speaking.broadcast(src,trim(message))
 			return 1

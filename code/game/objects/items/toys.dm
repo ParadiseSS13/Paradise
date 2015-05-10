@@ -11,14 +11,12 @@
  *		Crayons
  *		Snap pops
  *		Water flower
-<<<<<<< HEAD
  *		Toy Nuke
- *		Card Deck -- Ported from /TG/
-=======
+ *		Card Deck
  *      Therapy dolls
  *      Toddler doll
  *      Inflatable duck
->>>>>>> 5d2bba3... Adds paths for therapy dolls
+ *		Foam armblade
  */
 
 
@@ -62,7 +60,7 @@
 			if(O.reagents.total_volume < 1)
 				user << "The [O] is empty."
 			else if(O.reagents.total_volume >= 1)
-				if(O.reagents.has_reagent("pacid", 1))
+				if(O.reagents.has_reagent("facid", 1))
 					user << "The acid chews through the balloon!"
 					O.reagents.reaction(user)
 					del(src)
@@ -429,6 +427,11 @@
 	attack_verb = list("attacked", "slashed", "stabbed", "sliced")
 	hitsound = 'sound/weapons/bladeslice.ogg'
 
+/obj/item/toy/katana/suicide_act(mob/user)
+	var/dmsg = pick("[user] tries to stab \the [src] into their abdomen, but it shatters! They look as if they might die from the shame.","[user] tries to stab \the [src] into their abdomen, but \the [src] bends and breaks in half! They look as if they might die from the shame.","[user] tries to slice their own throat, but the plastic blade has no sharpness, causing them to lose their balance, slip over, and break their neck with a loud snap!")
+	user.visible_message("<span class='suicide'>[dmsg] It looks like they are trying to commit suicide.</span>")
+	return (BRUTELOSS)
+
 /*
  * Crayons
  */
@@ -448,6 +451,7 @@
 	var/instant = 0
 	var/colourName = "red" //for updateIcon purposes
 	var/dat
+	var/list/validSurfaces = list(/turf/simulated/floor)
 
 /obj/item/toy/crayon/suicide_act(mob/user)
 	user.visible_message("<span class='suicide'>[user] is jamming the [src.name] up \his nose and into \his brain. It looks like \he's trying to commit suicide.</span>")
@@ -494,7 +498,7 @@
 		if("random_letter")
 			temp = pick(letters)
 		if("letter")
-			temp = input("Choose the letter.", "Crayon scribbles") in letters
+			temp = input("Choose the letter.", "Scribbles") in letters
 		if("random_rune")
 			temp = "rune[rand(1,6)]"
 		if("random_graffiti")
@@ -508,7 +512,7 @@
 
 /obj/item/toy/crayon/afterattack(atom/target, mob/user as mob, proximity)
 	if(!proximity) return
-	if(istype(target,/turf/simulated/floor))
+	if(is_type_in_list(target,validSurfaces))
 		var/temp = "rune"
 		if(letters.Find(drawtype))
 			temp = "letter"
@@ -521,18 +525,19 @@
 			if(uses)
 				uses--
 				if(!uses)
-					user << "<span class='danger'>You used up your crayon!</span>"
+					user << "<span class='danger'>You used up your [src.name]!</span>"
 					qdel(src)
 	return
 
 /obj/item/toy/crayon/attack(mob/M as mob, mob/user as mob)
+	var/huffable = istype(src,/obj/item/toy/crayon/spraycan)
 	if(M == user)
-		user << "You take a bite of the crayon. Delicious!"
+		user << "You take a [huffable ? "huff" : "bite"] of the [src.name]. Delicious!"
 		user.nutrition += 5
 		if(uses)
 			uses -= 5
 			if(uses <= 0)
-				user << "<span class='danger'>You ate your crayon!</span>"
+				user << "<span class='danger'>There is no more of [src.name] left!</span>"
 				qdel(src)
 	else
 		..()
@@ -1184,7 +1189,49 @@ obj/item/toy/cards/deck/syndicate/black
 	desc = "An adorable stuffed toy that resembles a space carp."
 	icon = 'icons/obj/toy.dmi'
 	icon_state = "carpplushie"
-	w_class = 2.0
+	attack_verb = list("bitten", "eaten", "fin slapped")
+	var/bitesound = 'sound/weapons/bite.ogg'
+
+// Attack mob
+/obj/item/toy/carpplushie/attack(mob/M as mob, mob/user as mob)
+	playsound(loc, bitesound, 20, 1)	// Play bite sound in local area
+	return ..()
+
+// Attack self
+/obj/item/toy/carpplushie/attack_self(mob/user as mob)
+	playsound(src.loc, bitesound, 20, 1)
+	return ..()
+
+/*
+ * Foam Armblade
+ */
+
+ /obj/item/toy/foamblade
+ 	name = "foam armblade"
+ 	desc = "it says \"Sternside Changs #1 fan\" on it. "
+ 	icon = 'icons/obj/toy.dmi'
+ 	icon_state = "foamblade"
+ 	item_state = "arm_blade"
+ 	icon_override = 'icons/mob/in-hand/changeling.dmi'
+ 	attack_verb = list("pricked", "absorbed", "gored")
+ 	w_class = 2
+
+/*
+ * Toy/fake flash
+ */
+/obj/item/toy/flash
+	name = "toy flash"
+	desc = "FOR THE REVOLU- Oh wait, that's just a toy."
+	icon = 'icons/obj/device.dmi'
+	icon_state = "flash"
+	item_state = "flashbang"
+	w_class = 1
+
+/obj/item/toy/flash/attack(mob/living/M, mob/user)
+	playsound(src.loc, 'sound/weapons/flash.ogg', 100, 1)
+	flick("[initial(icon_state)]2", src)
+	user.visible_message("<span class='disarm'>[user] blinds [M] with the flash!</span>")
+
 
 /*
  * Toy big red button
@@ -1248,3 +1295,51 @@ obj/item/toy/cards/deck/syndicate/black
 		spawn(30) cooldown = 0
 		return
 	..()
+
+// DND Character minis. Use the naming convention (type)character for the icon states.
+/obj/item/toy/character
+	icon = 'icons/obj/toy.dmi'
+	w_class = 2
+	pixel_z = 5
+
+/obj/item/toy/character/alien
+	name = "Xenomorph Miniature"
+	desc = "A miniature xenomorph. Scary!"
+	icon_state = "aliencharacter"
+/obj/item/toy/character/cleric
+	name = "Cleric Miniature"
+	desc = "A wee little cleric, with his wee little staff."
+	icon_state = "clericcharacter"
+/obj/item/toy/character/warrior
+	name = "Warrior Miniature"
+	desc = "That sword would make a decent toothpick."
+	icon_state = "warriorcharacter"
+/obj/item/toy/character/thief
+	name = "Thief Miniature"
+	desc = "Hey, where did my wallet go!?"
+	icon_state = "thiefcharacter"
+/obj/item/toy/character/wizard
+	name = "Wizard Miniature"
+	desc = "MAGIC!"
+	icon_state = "wizardcharacter"
+/obj/item/toy/character/cthulhu
+	name = "Cthulhu Miniature"
+	desc = "The dark lord has risen!"
+	icon_state = "darkmastercharacter"
+/obj/item/toy/character/lich
+	name = "Lich Miniature"
+	desc = "Murderboner extraordinaire."
+	icon_state = "lichcharacter"
+/obj/item/weapon/storage/box/characters
+	name = "Box of Miniatures"
+	desc = "The nerd's best friends."
+	icon_state = "box"
+/obj/item/weapon/storage/box/characters/New()
+	..()
+	new /obj/item/toy/character/alien(src)
+	new /obj/item/toy/character/cleric(src)
+	new /obj/item/toy/character/warrior(src)
+	new /obj/item/toy/character/thief(src)
+	new /obj/item/toy/character/wizard(src)
+	new /obj/item/toy/character/cthulhu(src)
+	new /obj/item/toy/character/lich(src)

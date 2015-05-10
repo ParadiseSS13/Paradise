@@ -172,6 +172,7 @@
 	icon_state = "beartrap0"
 	desc = "A trap used to catch bears and other legged creatures."
 	var/armed = 0
+	var/obj/item/weapon/grenade/iedcasing/IED = null
 
 	suicide_act(mob/user)
 		viewers(user) << "<span class='suicide'>[user] is putting the [src.name] on \his head! It looks like \he's trying to commit suicide.</span>"
@@ -184,33 +185,184 @@
 		icon_state = "beartrap[armed]"
 		user << "<span class='notice'>[src] is now [armed ? "armed" : "disarmed"]</span>"
 
-
-/obj/item/weapon/legcuffs/beartrap/Crossed(AM as mob|obj)
-	if(armed && isturf(src.loc))
-		if( (iscarbon(AM) || isanimal(AM)) && !istype(AM, /mob/living/simple_animal/parrot) && !istype(AM, /mob/living/simple_animal/construct) && !istype(AM, /mob/living/simple_animal/shade) && !istype(AM, /mob/living/simple_animal/hostile/viscerator))
-			var/mob/living/L = AM
-			armed = 0
-			icon_state = "beartrap0"
-			playsound(src.loc, 'sound/effects/snap.ogg', 50, 1)
-			L.visible_message("<span class='danger'>[L] triggers \the [src].</span>", \
-					"<span class='userdanger'>You trigger \the [src]!</span>")
-
-			if(ishuman(AM))
-				var/mob/living/carbon/H = AM
-				if(H.lying)
-					H.apply_damage(20,BRUTE,"chest")
-				else
-					H.apply_damage(20,BRUTE,(pick("l_leg", "r_leg")))
-				if(!H.legcuffed) //beartrap can't cuff you leg if there's already a beartrap or legcuffs.
-					H.legcuffed = src
-					src.loc = H
-					H.update_inv_legcuffed(0)
-					feedback_add_details("handcuffs","B") //Yes, I know they're legcuffs. Don't change this, no need for an extra variable. The "B" is used to tell them apart.
-
+/obj/item/weapon/legcuffs/beartrap/attackby(var/obj/item/I, mob/user as mob) //Let's get explosive.
+	if(istype(I, /obj/item/weapon/grenade/iedcasing))
+		if(IED)
+			user << "<span class='warning'>This beartrap already has an IED hooked up to it!</span>"
+			return
+		IED = I
+		switch(IED.assembled)
+			if(0,1) //if it's not fueled/hooked up
+				user << "<span class='warning'>You haven't prepared this IED yet!</span>"
+				IED = null
+				return
+			if(2,3)
+				user.drop_item(src)
+				I.loc = src
+				var/turf/bombturf = get_turf(src)
+				var/area/A = get_area(bombturf)
+				var/log_str = "[key_name(usr)]<A HREF='?_src_=holder;adminmoreinfo=\ref[user]'>?</A> has rigged a beartrap with an IED at <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[bombturf.x];Y=[bombturf.y];Z=[bombturf.z]'>[A.name] (JMP)</a>."
+				message_admins(log_str)
+				log_game(log_str)
+				user << "<span class='notice'>You sneak the [IED] underneath the pressure plate and connect the trigger wire.</span>"
+				desc = "A trap used to catch bears and other legged creatures. <span class='warning'>There is an IED hooked up to it.</span>"
 			else
-				L.apply_damage(20,BRUTE)
+				user << "<span class='danger'>You shouldn't be reading this message! Contact a coder or someone, something broke!</span>"
+				IED = null
+				return
+	if(istype(I, /obj/item/weapon/screwdriver))
+		if(IED)
+			IED.loc = get_turf(src.loc)
+			IED = null
+			user << "<span class='notice'>You remove the IED from the [src].</span>"
+			return
 	..()
 
+/obj/item/weapon/legcuffs/beartrap/Crossed(AM as mob|obj)
+	if(armed)
+		if(IED && isturf(src.loc))
+			IED.active = 1
+			IED.overlays -= image('icons/obj/grenade.dmi', icon_state = "improvised_grenade_filled")
+			IED.icon_state = initial(icon_state) + "_active"
+			IED.assembled = 3
+			var/turf/bombturf = get_turf(src)
+			var/area/A = get_area(bombturf)
+			var/log_str = "[key_name(usr)]<A HREF='?_src_=holder;adminmoreinfo=\ref[AM]'>?</A> has triggered an IED-rigged [name] at <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[bombturf.x];Y=[bombturf.y];Z=[bombturf.z]'>[A.name] (JMP)</a>."
+			message_admins(log_str)
+			log_game(log_str)
+			spawn(IED.det_time)
+				IED.prime()
+		if(ishuman(AM))
+			if(isturf(src.loc))
+				var/mob/living/carbon/H = AM
+				if(H.m_intent == "run")
+					if(H.lying)
+						H.apply_damage(20,BRUTE,"chest")
+					else
+						H.apply_damage(20,BRUTE,(pick("l_leg", "r_leg")))
+					armed = 0
+					icon_state = "beartrap0"
+					playsound(src.loc, 'sound/effects/snap.ogg', 50, 1)
+					H.visible_message("<span class='danger'>[H] triggers \the [src].</span>", \
+					"<span class='userdanger'>You trigger \the [src]!</span>")
+					H.legcuffed = src
+					src.loc = H
+					H.update_inv_legcuffed()
+					H << "<span class='danger'>You step on \the [src]!</span>"
+					if(IED && IED.active)
+						H << "<span class='danger'>The [src]'s IED has been activated!</span>"
+					feedback_add_details("handcuffs","B") //Yes, I know they're legcuffs. Don't change this, no need for an extra variable. The "B" is used to tell them apart.
+					for(var/mob/O in viewers(H, null))
+						if(O == H)
+							continue
+						O.show_message("\red <B>[H] steps on \the [src].</B>", 1)
+		if(isanimal(AM) && !istype(AM, /mob/living/simple_animal/parrot) && !istype(AM, /mob/living/simple_animal/construct) && !istype(AM, /mob/living/simple_animal/shade) && !istype(AM, /mob/living/simple_animal/hostile/viscerator))
+			armed = 0
+			icon_state = "beartrap0"
+			var/mob/living/simple_animal/SA = AM
+			playsound(src.loc, 'sound/effects/snap.ogg', 50, 1)
+			SA.visible_message("<span class='danger'>[SA] triggers \the [src].</span>", \
+			"<span class='userdanger'>You trigger \the [src]!</span>")
+			SA.health -= 20
+	..()
+
+/obj/item/weapon/legcuffs/bolas
+	name = "bolas"
+	desc = "An entangling bolas. Throw at your foes to trip them and prevent them from running."
+	gender = NEUTER
+	icon = 'icons/obj/weapons.dmi'
+	icon_override = 'icons/mob/in-hand/swords.dmi'
+	icon_state = "bolas"
+	siemens_coefficient = 1
+	slot_flags = SLOT_BELT
+	throwforce = 2
+	w_class = 2
+	origin_tech = "materials=1"
+	attack_verb = list("lashed", "bludgeoned", "whipped")
+	force = 4
+	breakouttime = 50 //10 seconds
+	throw_speed = 1
+	throw_range = 10
+	var/dispenser = 0
+	var/throw_sound = 'sound/weapons/whip.ogg'
+	var/trip_prob = 60
+	var/thrown_from
+
+/obj/item/weapon/legcuffs/bolas/suicide_act(mob/living/user)
+		viewers(user) << "<span class='danger'>[user] is wrapping the [src.name] around \his neck! It looks like \he's trying to commit suicide.</span>"
+		return(OXYLOSS)
+
+/obj/item/weapon/legcuffs/bolas/throw_at(var/atom/A, throw_range, throw_speed)
+	if(usr && !istype(thrown_from, /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/bolas)) //if there is a user, but not a mech
+		if(istype(usr, /mob/living/carbon/human)) //if the user is human
+			var/mob/living/carbon/human/H = usr
+			if((CLUMSY in H.mutations) && prob(50))
+				H <<"<span class='warning'>You smack yourself in the face while swinging the [src]!</span>"
+				H.Stun(2)
+				H.drop_item(src)
+				return
+	if (!thrown_from && usr) //if something hasn't set it already (like a mech does when it launches)
+		thrown_from = usr //then the user must have thrown it
+	if (!istype(thrown_from, /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/bolas))
+		playsound(src, throw_sound, 20, 1) //because mechs play the sound anyways
+	var/turf/target = get_turf(A)
+	var/atom/movable/adjtarget = new /atom/movable
+	var/xadjust = 0
+	var/yadjust = 0
+	var/scaler = 0 //used to changed the normalised vector to the proper size
+	scaler = throw_range / max(abs(target.x - src.x), abs(target.y - src.y)) //whichever is larger magnitude is what we normalise to
+	if (target.x - src.x != 0) //just to avoid fucking with math for no reason
+		xadjust = round((target.x - src.x) * scaler) //normalised vector is now scaled up to throw_range
+		adjtarget.x = src.x + xadjust //the new target at max range
+	else
+		adjtarget.x = src.x
+	if (target.y - src.y != 0)
+		yadjust = round((target.y - src.y) * scaler)
+		adjtarget.y = src.y + yadjust
+	else
+		adjtarget.y = src.y
+	// log_admin("Adjusted target of [adjtarget.x] and [adjtarget.y], adjusted with [xadjust] and [yadjust] from [scaler]")
+	..(get_turf(adjtarget), throw_range, throw_speed)
+	thrown_from = null
+
+/obj/item/weapon/legcuffs/bolas/throw_impact(atom/hit_atom) //Pomf was right, I was wrong - Comic
+	if(isliving(hit_atom) && hit_atom != usr) //if the target is a live creature other than the thrower
+		var/mob/living/M = hit_atom
+		if(ishuman(M)) //if they're a human species
+			var/mob/living/carbon/human/H = M
+			if(H.m_intent == "run") //if they're set to run (though not necessarily running at that moment)
+				if(prob(trip_prob)) //this probability is up for change and mostly a placeholder - Comic
+					step(H, H.dir)
+					H.visible_message("<span class='warning'>[H] was tripped by the bolas!</span>","<span class='warning'>Your legs have been tangled!</span>");
+					H.Stun(2) //used instead of setting damage in vars to avoid non-human targets being affected
+					H.Weaken(4)
+					H.legcuffed = src //applies legcuff properties inherited through legcuffs
+					src.loc = H
+					H.update_inv_legcuffed()
+					if(!H.legcuffed) //in case it didn't happen, we need a safety net
+						throw_failed()
+			else if(H.legcuffed) //if the target is already legcuffed (has to be walking)
+				throw_failed()
+				return
+			else //walking, but uncuffed, or the running prob() failed
+				H << "<span class='notice'>You stumble over the thrown bolas</span>"
+				step(H, H.dir)
+				H.Stun(1)
+				throw_failed()
+				return
+		else
+			M.Stun(2) //minor stun damage to anything not human
+			throw_failed()
+			return
+
+/obj/item/weapon/legcuffs/bolas/proc/throw_failed() //called when the throw doesn't entangle
+	//log_admin("Logged as [thrown_from]")
+	if(!thrown_from || !istype(thrown_from, /mob/living)) //in essence, if we don't know whether a person threw it
+		qdel(src) //destroy it, to stop infinite bolases
+
+/obj/item/weapon/legcuffs/bolas/Bump()
+	..()
+	throw_failed() //allows a mech bolas to be destroyed
 
 /obj/item/weapon/holosign_creator
 	name = "holographic sign projector"
@@ -309,15 +461,15 @@
 					var/mob/living/carbon/C = AM
 					if(C.m_intent != "walk")
 						src.visible_message("The [src.name] beeps, \"Running on wet floors is hazardous to your health.\"")
-						explosion(src.loc,-1,2,0)
+						explosion(src.loc,-1,0,2)
 						if(ishuman(C))
 							dead_legs(C)
 						if(src)
 							qdel(src)
 
 		proc/dead_legs(mob/living/carbon/human/H as mob)
-			var/datum/organ/external/l = H.get_organ("l_leg")
-			var/datum/organ/external/r = H.get_organ("r_leg")
+			var/obj/item/organ/external/l = H.get_organ("l_leg")
+			var/obj/item/organ/external/r = H.get_organ("r_leg")
 			if(l && !(l.status & ORGAN_DESTROYED))
 				l.status |= ORGAN_DESTROYED
 			if(r && !(r.status & ORGAN_DESTROYED))
@@ -429,6 +581,12 @@
 	name = "wooden table parts"
 	desc = "Keep away from fire."
 	icon_state = "wood_tableparts"
+	flags = null
+
+/obj/item/weapon/table_parts/glass
+	name = "glass table parts"
+	desc = "fragile!"
+	icon_state = "glass_tableparts"
 	flags = null
 
 /obj/item/weapon/wire
@@ -564,12 +722,18 @@
 	allow_quick_gather = 1
 	allow_quick_empty = 1
 	collection_mode = 1
+	display_contents_with_number = 1
 	max_w_class = 3
 	max_combined_w_class = 100
 
 /obj/item/weapon/storage/part_replacer/proc/play_rped_sound()
 	//Plays the sound for RPED exchanging or installing parts.
 	playsound(src, 'sound/items/rped.ogg', 40, 1)
+
+//Sorts stock parts inside an RPED by their rating.
+//Only use /obj/item/weapon/stock_parts/ with this sort proc!
+/proc/cmp_rped_sort(var/obj/item/weapon/stock_parts/A, var/obj/item/weapon/stock_parts/B)
+	return B.rating - A.rating
 
 /obj/item/weapon/stock_parts
 	name = "stock part"
@@ -774,13 +938,6 @@
 	desc = "A large piece of equipment used to open a window into the subspace dimension."
 	origin_tech = "magnets=3;materials=3;bluespace=2"
 	m_amt = 50
-
-/obj/item/weapon/ectoplasm
-	name = "ectoplasm"
-	desc = "spooky"
-	gender = PLURAL
-	icon = 'icons/obj/wizard.dmi'
-	icon_state = "ectoplasm"
 
 /obj/item/weapon/research//Makes testing much less of a pain -Sieve
 	name = "research"

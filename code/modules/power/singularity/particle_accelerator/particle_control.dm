@@ -113,7 +113,7 @@
 		if(strength > strength_upper_limit)
 			strength = strength_upper_limit
 		else
-			msg_admin_attack("PA Control Computer increased to [strength] by [key_name(usr, usr.client)](<A HREF='?_src_=holder;adminmoreinfo=\ref[usr]'>?</A>) in ([x],[y],[z] - <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)",0,1)
+			msg_admin_attack("PA Control Computer increased to [strength] by [key_name(usr, usr.client)][isAntag(usr) ? "(ANTAG)" : ""](<A HREF='?_src_=holder;adminmoreinfo=\ref[usr]'>?</A>) in ([x],[y],[z] - <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)",0,1)
 			log_game("PA Control Computer increased to [strength] by [usr.ckey]([usr]) in ([x],[y],[z])")
 			use_log += text("\[[time_stamp()]\] <font color='red'>[usr.name] ([usr.ckey]) has increased the PA Control Computer to [strength].</font>")
 			investigate_log("increased to <font color='red'>[strength]</font> by [usr.key]","singulo")
@@ -206,7 +206,7 @@
 	src.active = !src.active
 	investigate_log("turned [active?"<font color='red'>ON</font>":"<font color='green'>OFF</font>"] by [usr ? usr.key : "outside forces"]","singulo")
 	if (active)
-		msg_admin_attack("PA Control Computer turned ON by [key_name(usr, usr.client)](<A HREF='?_src_=holder;adminmoreinfo=\ref[usr]'>?</A>) in ([x],[y],[z] - <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)",0,1)
+		msg_admin_attack("PA Control Computer turned ON by [key_name(usr, usr.client)][isAntag(usr) ? "(ANTAG)" : ""](<A HREF='?_src_=holder;adminmoreinfo=\ref[usr]'>?</A>) in ([x],[y],[z] - <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)",0,1)
 		log_game("PA Control Computer turned ON by [usr.ckey]([usr]) in ([x],[y],[z])")
 		use_log += text("\[[time_stamp()]\] <font color='red'>[usr.name] ([usr.ckey]) has turned on the PA Control Computer.</font>")
 	if(src.active)

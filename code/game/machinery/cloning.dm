@@ -201,6 +201,11 @@
 						break
 				return 0
 
+	if(biomass >= CLONE_BIOMASS)
+		src.biomass -= CLONE_BIOMASS
+	else
+		return 0
+
 	src.attempting = 1 //One at a time!!
 	src.locked = 1
 
@@ -218,7 +223,7 @@
 	src.icon_state = "pod_1"
 	//Get the clone body ready
 	H.adjustCloneLoss(190) //new damage var so you can't eject a clone early then stab them to abuse the current damage system --NeoFite
-	H.adjustBrainLoss(190) // The rand(10, 30) will come out as extra brain damage
+	H.adjustBrainLoss(90) // The rand(10, 30) will come out as extra brain damage
 	H.Paralyse(4)
 
 	//Here let's calculate their health so the pod doesn't immediately eject them!!!
@@ -298,13 +303,13 @@
 			src.occupant.adjustCloneLoss(-((speed_coeff/2)))
 
 			//Premature clones may have brain damage.
-			src.occupant.adjustBrainLoss(-((speed_coeff/2)))
+			src.occupant.adjustBrainLoss(-((speed_coeff/20)*efficiency))
 
 			//So clones don't die of oxyloss in a running pod.
-			if (src.occupant.reagents.get_reagent_amount("inaprovaline") < 30)
-				src.occupant.reagents.add_reagent("inaprovaline", 60)
+			if (src.occupant.reagents.get_reagent_amount("salbutamol") < 5)
+				src.occupant.reagents.add_reagent("salbutamol", 5)
 
-			//Also heal some oxyloss ourselves because inaprovaline is so bad at preventing it!!
+			//Also heal some oxyloss ourselves just in case!!
 			src.occupant.adjustOxyLoss(-4)
 
 			use_power(7500) //This might need tweaking.
@@ -442,11 +447,9 @@
 	src.occupant.loc = src.loc
 	src.icon_state = "pod_0"
 	src.eject_wait = 0 //If it's still set somehow.
-	domutcheck(src.occupant) //Waiting until they're out before possible monkeyizing.
+	domutcheck(src.occupant) //Waiting until they're out before possible notransform.
 	src.occupant.add_side_effect("Bad Stomach") // Give them an extra side-effect for free.
 	src.occupant = null
-
-	src.biomass -= CLONE_BIOMASS
 
 	return
 

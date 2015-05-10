@@ -32,7 +32,7 @@
 
 		force = 5
 
-		var/datum/organ/external/affecting = user.zone_sel.selecting //Find what the player is aiming at
+		var/obj/item/organ/external/affecting = user.zone_sel.selecting //Find what the player is aiming at
 
 		var/armor_block = 0 //Get the target's armour values for normal attack damage.
 
@@ -96,6 +96,10 @@
 					icon_state = "beerglass"
 					name = "Beer glass"
 					desc = "A freezing pint of beer"
+				if("cider")
+					icon_state = "rewriter"
+					name = "Cider"
+					desc = "a refreshing glass of traditional cider"
 				if("beer2")
 					icon_state = "beerglass"
 					name = "Beer glass"
@@ -204,6 +208,10 @@
 					icon_state = "gintonicglass"
 					name = "Gin and Tonic"
 					desc = "A mild but still great cocktail. Drink up, like a true Englishman."
+				if("ginsonic")
+					icon_state = "ginsonic"
+					name = "Gin and Sonic"
+					desc = "An extremely high amperage drink. Absolutely not for the true Englishman."
 				if("whiskeycola")
 					icon_state = "whiskeycolaglass"
 					name = "Whiskey Cola"
@@ -308,9 +316,9 @@
 					icon_state = "irishcoffeeglass"
 					name = "Irish Coffee"
 					desc = "Coffee and alcohol. More fun than a Mimosa to drink in the morning."
-				if("hooch")
-					icon_state = "glass_brown2"
-					name = "Hooch"
+				if("suicider")
+					icon_state = "suicider"
+					name = "Suicider"
 					desc = "You've really hit rock bottom now... your liver packed its bags and left last night."
 				if("whiskeysoda")
 					icon_state = "whiskeysodaglass2"

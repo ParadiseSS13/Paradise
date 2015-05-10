@@ -65,9 +65,9 @@
 	return (tally + move_delay_add + config.alien_delay)
 
 /mob/living/carbon/alien/humanoid/Process_Spacemove(var/check_drift = 0)
-	if(..())	
+	if(..())
 		return 1
-		
+
 	return 0
 
 ///mob/living/carbon/alien/humanoid/bullet_act(var/obj/item/projectile/Proj) taken care of in living
@@ -254,18 +254,7 @@
 			help_shake_act(M)
 
 		if ("grab")
-			if (M == src || anchored)
-				return
-			var/obj/item/weapon/grab/G = new /obj/item/weapon/grab(M, src)
-
-			M.put_in_active_hand(G)
-
-			G.synch()
-
-			LAssailant = M
-
-			playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
-			visible_message("<span class='warning'>[M] has grabbed [src] passively!</span>")
+			grabbedby(M)
 
 		if ("harm")
 			M.do_attack_animation(src)

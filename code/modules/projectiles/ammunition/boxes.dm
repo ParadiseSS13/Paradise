@@ -69,3 +69,9 @@
 	name = "Ammunition Box (beanbag shells)"
 	ammo_type = /obj/item/ammo_casing/shotgun/beanbag
 	m_amt = 4000
+
+/obj/item/ammo_box/shotgun/tranquilizer
+	name = "Ammunition Box (tranquilizer darts)"
+	icon_state = "45box"
+	ammo_type = /obj/item/ammo_casing/shotgun/tranquilizer
+	m_amt = 2000

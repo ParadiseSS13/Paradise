@@ -49,6 +49,9 @@
 		new /obj/item/device/analyzer(src)
 		new /obj/item/weapon/wirecutters(src)
 
+/obj/item/weapon/storage/toolbox/mechanical/greytide
+	flags = NODROP
+
 /obj/item/weapon/storage/toolbox/electrical
 	name = "electrical toolbox"
 	icon_state = "yellow"

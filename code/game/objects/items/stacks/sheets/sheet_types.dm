@@ -25,9 +25,14 @@ var/global/list/datum/stack_recipe/metal_recipes = list ( \
 		new/datum/stack_recipe("brown comfy chair", /obj/structure/stool/bed/chair/comfy/brown, 2, one_per_turf = 1, on_floor = 1), \
 		new/datum/stack_recipe("lime comfy chair", /obj/structure/stool/bed/chair/comfy/lime, 2, one_per_turf = 1, on_floor = 1), \
 		new/datum/stack_recipe("teal comfy chair", /obj/structure/stool/bed/chair/comfy/teal, 2, one_per_turf = 1, on_floor = 1), \
+		new/datum/stack_recipe("red comfy chair", /obj/structure/stool/bed/chair/comfy/red, 2, one_per_turf = 1, on_floor = 1), \
+		new/datum/stack_recipe("blue comfy chair", /obj/structure/stool/bed/chair/comfy/blue, 2, one_per_turf = 1, on_floor = 1), \
+		new/datum/stack_recipe("purple comfy chair", /obj/structure/stool/bed/chair/comfy/purp, 2, one_per_turf = 1, on_floor = 1), \
+		new/datum/stack_recipe("green comfy chair", /obj/structure/stool/bed/chair/comfy/green, 2, one_per_turf = 1, on_floor = 1), \
 		), 2), \
 	null, \
 	new/datum/stack_recipe("table parts", /obj/item/weapon/table_parts, 2), \
+	new/datum/stack_recipe("glass table frame parts", /obj/item/weapon/table_parts/glass, 2), \
 	new/datum/stack_recipe("rack parts", /obj/item/weapon/rack_parts), \
 	new/datum/stack_recipe("closet", /obj/structure/closet, 2, time = 15, one_per_turf = 1, on_floor = 1), \
 	null, \
@@ -63,12 +68,13 @@ var/global/list/datum/stack_recipe/metal_recipes = list ( \
 		), 4), \
 	null, \
 	new/datum/stack_recipe("grenade casing", /obj/item/weapon/grenade/chem_grenade), \
-	new/datum/stack_recipe("light fixture frame", /obj/item/light_fixture_frame, 2), \
-	new/datum/stack_recipe("small light fixture frame", /obj/item/light_fixture_frame/small, 1), \
+	new/datum/stack_recipe("light fixture frame", /obj/item/mounted/frame/light_fixture, 2), \
+	new/datum/stack_recipe("small light fixture frame", /obj/item/mounted/frame/light_fixture/small, 1), \
 	null, \
-	new/datum/stack_recipe("apc frame", /obj/item/apc_frame, 2), \
-	new/datum/stack_recipe("air alarm frame", /obj/item/alarm_frame, 2), \
-	new/datum/stack_recipe("fire alarm frame", /obj/item/firealarm_frame, 2), \
+	new/datum/stack_recipe("apc frame", /obj/item/mounted/frame/apc_frame, 2), \
+	new/datum/stack_recipe("air alarm frame", /obj/item/mounted/frame/alarm_frame, 2), \
+	new/datum/stack_recipe("fire alarm frame", /obj/item/mounted/frame/firealarm, 2), \
+	new/datum/stack_recipe("intercom frame", /obj/item/mounted/frame/intercom, 2), \
 	null, \
 )
 

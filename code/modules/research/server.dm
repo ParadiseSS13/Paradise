@@ -117,21 +117,22 @@
 					removed.temperature = min((removed.temperature*heat_capacity + heating_power)/heat_capacity, 1000)
 
 				env.merge(removed)
+				air_update_turf()
 
 /obj/machinery/r_n_d/server/attackby(var/obj/item/O as obj, var/mob/user as mob, params)
 	if (disabled)
 		return
-		
+
 	if (shocked)
 		shock(user,50)
-	
-	if(istype(O, /obj/item/weapon/screwdriver))	
+
+	if(istype(O, /obj/item/weapon/screwdriver))
 		default_deconstruction_screwdriver(user, "server_o", "server")
 		return 1
-		
+
 	if(exchange_parts(user, O))
 		return 1
-		
+
 	if (panel_open)
 		if(istype(O, /obj/item/weapon/crowbar))
 			griefProtection()
@@ -141,7 +142,7 @@
 /obj/machinery/r_n_d/server/attack_hand(mob/user as mob)
 	if (disabled)
 		return
-		
+
 	if (shocked)
 		shock(user,50)
 	return

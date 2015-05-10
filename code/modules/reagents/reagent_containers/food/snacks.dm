@@ -316,7 +316,7 @@
 	New()
 		..()
 		reagents.add_reagent("nutriment", 8)
-		reagents.add_reagent("tricordrazine", 8)
+		reagents.add_reagent("omnizine", 8)
 		bitesize = 3
 
 /*
@@ -388,8 +388,20 @@
 	New()
 		..()
 		reagents.add_reagent("nutriment", 2)
-		reagents.add_reagent("sugar", 2)
+		reagents.add_reagent("chocolate",2)
 		reagents.add_reagent("coco", 2)
+		bitesize = 2
+
+/obj/item/weapon/reagent_containers/food/snacks/reagentchocolatebar //for reagent chocolate
+	name = "Chocolate Bar"
+	desc = "A plain chocolate bar. Is it dark chocolate, milk chocolate? Who knows!"
+	icon_state = "chocolatebar"
+	filling_color = "#7D5F46"
+
+	New()
+		..()
+		reagents.add_reagent("sugar", 10)
+		reagents.add_reagent("chocolate",10)
 		bitesize = 2
 
 /obj/item/weapon/reagent_containers/food/snacks/chocolateegg
@@ -401,7 +413,7 @@
 	New()
 		..()
 		reagents.add_reagent("nutriment", 3)
-		reagents.add_reagent("sugar", 2)
+		reagents.add_reagent("chocolate",2)
 		reagents.add_reagent("coco", 2)
 		bitesize = 2
 
@@ -457,7 +469,7 @@
 			if(9)
 				reagents.add_reagent("berryjuice", 3)
 			if(10)
-				reagents.add_reagent("tricordrazine", 3)
+				reagents.add_reagent("omnizine", 3)
 		if(prob(30))
 			src.icon_state = "donut2"
 			src.name = "Frosted Chaos Donut"
@@ -524,6 +536,7 @@
 	New()
 		..()
 		reagents.add_reagent("nutriment", 1)
+		reagents.add_reagent("egg", 5)
 
 	throw_impact(atom/hit_atom)
 		..()
@@ -588,6 +601,7 @@
 	New()
 		..()
 		reagents.add_reagent("nutriment", 2)
+		reagents.add_reagent("egg", 5)
 		reagents.add_reagent("sodiumchloride", 1)
 		reagents.add_reagent("blackpepper", 1)
 		bitesize = 1
@@ -601,6 +615,7 @@
 	New()
 		..()
 		reagents.add_reagent("nutriment", 2)
+		reagents.add_reagent("egg", 5)
 
 /obj/item/weapon/reagent_containers/food/snacks/flour
 	name = "flour"
@@ -609,6 +624,19 @@
 	New()
 		..()
 		reagents.add_reagent("nutriment", 1)
+
+/obj/item/weapon/reagent_containers/food/snacks/organ
+
+	name = "organ"
+	desc = "It's good for you."
+	icon = 'icons/obj/surgery.dmi'
+	icon_state = "appendix"
+	filling_color = "#E00D34"
+
+	New()
+		..()
+		reagents.add_reagent("nutriment", 4)
+		src.bitesize = 3
 
 /obj/item/weapon/reagent_containers/food/snacks/appendix
 //yes, this is the same as meat. I might do something different in future
@@ -649,7 +677,7 @@
 	New()
 		..()
 		reagents.add_reagent("nutriment", 12)
-		reagents.add_reagent("stoxin", 3)
+		reagents.add_reagent("morphine", 3)
 		bitesize = 3
 
 /obj/item/weapon/reagent_containers/food/snacks/stuffing
@@ -719,7 +747,7 @@
 	New()
 		..()
 		reagents.add_reagent("nutriment", 12)
-		reagents.add_reagent("hyperzine", 5)
+		reagents.add_reagent("methamphetamine", 5)
 		src.bitesize = 3
 
 /obj/item/weapon/reagent_containers/food/snacks/xenomeat
@@ -784,14 +812,32 @@
 		..()
 		reagents.add_reagent("nutriment", 4)
 
-	var/warm = 0
-	proc/cooltime() //Not working, derp?
-		if (src.warm)
-			spawn( 4200 )
-				src.warm = 0
-				src.reagents.del_reagent("tricordrazine")
-				src.name = "donk-pocket"
-		return
+/obj/item/weapon/reagent_containers/food/snacks/warmdonkpocket
+	name = "Warm Donk-pocket"
+	desc = "The food of choice for the seasoned traitor."
+	icon_state = "donkpocket"
+	filling_color = "#DEDEAB"
+	New()
+		..()
+		reagents.add_reagent("nutriment", 4)
+		reagents.add_reagent("omnizine", 4)
+
+/obj/item/weapon/reagent_containers/food/snacks/syndidonkpocket
+	name = "Donk-pocket"
+	desc = "This donk-pocket is emitting a small amount of heat."
+	icon_state = "donkpocket"
+	filling_color = "#DEDEAB"
+	volume = 90
+	bitesize = 100 //nom the whole thing at once.
+
+	New()
+		..()
+		reagents.add_reagent("omnizine", 15)
+		reagents.add_reagent("teporone", 15)
+		reagents.add_reagent("synaptizine", 15)
+		reagents.add_reagent("salglu_solution", 15)
+		reagents.add_reagent("salbutamol", 15)
+		reagents.add_reagent("methamphetamine", 15)
 
 /obj/item/weapon/reagent_containers/food/snacks/brainburger
 	name = "brainburger"
@@ -802,7 +848,7 @@
 	New()
 		..()
 		reagents.add_reagent("nutriment", 6)
-		reagents.add_reagent("alkysine", 6)
+		reagents.add_reagent("mannitol", 6)
 		bitesize = 2
 
 /obj/item/weapon/reagent_containers/food/snacks/ghostburger
@@ -1072,7 +1118,7 @@
 	New()
 		..()
 		reagents.add_reagent("nutriment", 5)
-		reagents.add_reagent("amatoxin", 3)
+		reagents.add_reagent("amanitin", 3)
 		reagents.add_reagent("psilocybin", 1)
 		bitesize = 3
 
@@ -1088,7 +1134,7 @@
 			name = "exceptional plump pie"
 			desc = "Microwave is taken by a fey mood! It has cooked an exceptional plump pie!"
 			reagents.add_reagent("nutriment", 8)
-			reagents.add_reagent("tricordrazine", 5)
+			reagents.add_reagent("omnizine", 5)
 			bitesize = 2
 		else
 			reagents.add_reagent("nutriment", 8)
@@ -1242,6 +1288,7 @@
 	New()
 		..()
 		reagents.add_reagent("nutriment", 6)
+		reagents.add_reagent("msg",4)
 		bitesize = 2
 
 /obj/item/weapon/reagent_containers/food/snacks/chinese/tao
@@ -1251,6 +1298,7 @@
 	New()
 		..()
 		reagents.add_reagent("nutriment", 6)
+		reagents.add_reagent("msg",4)
 		bitesize = 2
 
 /obj/item/weapon/reagent_containers/food/snacks/chinese/newdles
@@ -1260,6 +1308,7 @@
 	New()
 		..()
 		reagents.add_reagent("nutriment", 6)
+		reagents.add_reagent("msg",4)
 		bitesize = 2
 
 /obj/item/weapon/reagent_containers/food/snacks/chinese/rice
@@ -1270,6 +1319,7 @@
 		..()
 		reagents.add_reagent("nutriment", 3)
 		reagents.add_reagent("rice", 3)
+		reagents.add_reagent("msg",4)
 		bitesize = 2
 
 /obj/item/weapon/reagent_containers/food/snacks/syndicake
@@ -1282,7 +1332,7 @@
 	New()
 		..()
 		reagents.add_reagent("nutriment", 4)
-		reagents.add_reagent("doctorsdelight", 5)
+		reagents.add_reagent("salglu_solution", 5)
 		bitesize = 3
 
 /obj/item/weapon/reagent_containers/food/snacks/loadedbakedpotato
@@ -1362,7 +1412,7 @@
 
 	New()
 		..()
-		reagents.add_reagent("toxin", 1)
+		reagents.add_reagent("????", 1)
 		reagents.add_reagent("carbon", 3)
 		bitesize = 2
 
@@ -1407,7 +1457,7 @@
 	New()
 		..()
 		reagents.add_reagent("nutriment", 6)
-		reagents.add_reagent("amatoxin", 6)
+		reagents.add_reagent("amanitin", 6)
 		reagents.add_reagent("psilocybin", 3)
 		bitesize = 3
 
@@ -1499,7 +1549,7 @@
 		..()
 		reagents.add_reagent("nutriment", 8)
 		reagents.add_reagent("water", 5)
-		reagents.add_reagent("tricordrazine", 5)
+		reagents.add_reagent("omnizine", 5)
 		bitesize = 5
 
 /obj/item/weapon/reagent_containers/food/snacks/mysterysoup
@@ -1524,7 +1574,7 @@
 			if(3)
 				reagents.add_reagent("nutriment", 5)
 				reagents.add_reagent("water", 5)
-				reagents.add_reagent("tricordrazine", 5)
+				reagents.add_reagent("omnizine", 5)
 			if(4)
 				reagents.add_reagent("nutriment", 5)
 				reagents.add_reagent("water", 10)
@@ -1546,7 +1596,7 @@
 			if(10)
 				reagents.add_reagent("nutriment", 6)
 				reagents.add_reagent("tomatojuice", 5)
-				reagents.add_reagent("imidazoline", 5)
+				reagents.add_reagent("oculine", 5)
 		bitesize = 5
 
 /obj/item/weapon/reagent_containers/food/snacks/wishsoup
@@ -1603,6 +1653,7 @@
 	New()
 		..()
 		reagents.add_reagent("nutriment", 4)
+		reagents.add_reagent("porktonium", 10)
 		baconbeacon = new /obj/item/device/radio/beacon/bacon(src)
 	On_Consume()
 		if(!reagents.total_volume)
@@ -1651,9 +1702,9 @@
 			surprise.transform *= 0.6
 			surprise.add_blood(M)
 			var/mob/living/carbon/human/H = M
-			var/datum/organ/external/E = H.get_organ("chest")
+			var/obj/item/organ/external/E = H.get_organ("chest")
 			E.fracture()
-			for (var/datum/organ/internal/I in E.internal_organs)
+			for (var/obj/item/organ/I in E.internal_organs)
 				I.take_damage(rand(I.min_bruised_damage, I.min_broken_damage+1))
 
 			if (!E.hidden && prob(60)) //set it snuggly
@@ -1860,7 +1911,7 @@
 		..()
 		reagents.add_reagent("nutriment", 10)
 		reagents.add_reagent("tomatojuice", 5)
-		reagents.add_reagent("imidazoline", 5)
+		reagents.add_reagent("oculine", 5)
 		reagents.add_reagent("water", 5)
 		bitesize = 10
 
@@ -2021,7 +2072,7 @@
 	New()
 		..()
 		reagents.add_reagent("nutriment", 3)
-		reagents.add_reagent("imidazoline", 3)
+		reagents.add_reagent("oculine", 3)
 		bitesize = 2
 
 /obj/item/weapon/reagent_containers/food/snacks/superbiteburger
@@ -2146,7 +2197,7 @@
 			name = "exceptional plump helmet biscuit"
 			desc = "Microwave is taken by a fey mood! It has cooked an exceptional plump helmet biscuit!"
 			reagents.add_reagent("nutriment", 8)
-			reagents.add_reagent("tricordrazine", 5)
+			reagents.add_reagent("omnizine", 5)
 			bitesize = 2
 		else
 			reagents.add_reagent("nutriment", 5)
@@ -2211,7 +2262,7 @@
 	New()
 		..()
 		reagents.add_reagent("nutriment", 8)
-		reagents.add_reagent("doctorsdelight", 5)
+		reagents.add_reagent("omnizine", 5)
 		bitesize = 3
 
 /obj/item/weapon/reagent_containers/food/snacks/appletart
@@ -2383,7 +2434,7 @@
 	New()
 		..()
 		reagents.add_reagent("nutriment", 25)
-		reagents.add_reagent("imidazoline", 10)
+		reagents.add_reagent("oculine", 10)
 		bitesize = 2
 
 /obj/item/weapon/reagent_containers/food/snacks/carrotcakeslice
@@ -2404,7 +2455,7 @@
 	New()
 		..()
 		reagents.add_reagent("nutriment", 25)
-		reagents.add_reagent("alkysine", 10)
+		reagents.add_reagent("mannitol", 10)
 		bitesize = 2
 
 /obj/item/weapon/reagent_containers/food/snacks/braincakeslice
@@ -2521,6 +2572,7 @@
 	New()
 		..()
 		reagents.add_reagent("nutriment", 20)
+		reagents.add_reagent("chocolate",20)
 
 /obj/item/weapon/reagent_containers/food/snacks/chocolatecakeslice
 	name = "Chocolate Cake slice"
@@ -2540,6 +2592,7 @@
 	New()
 		..()
 		reagents.add_reagent("nutriment", 20)
+		reagents.add_reagent("cheese", 20)
 		bitesize = 2
 
 /obj/item/weapon/reagent_containers/food/snacks/cheesewedge
@@ -2549,7 +2602,18 @@
 	filling_color = "#FFF700"
 	bitesize = 2
 
-
+/obj/item/weapon/reagent_containers/food/snacks/weirdcheesewedge
+	name = "Weird Cheese"
+	desc = "Some kind of... gooey, messy, gloopy thing. Similar to cheese, but only in the looser sense of the word."
+	icon_state = "weirdcheesewedge"
+	filling_color = "#00FF33"
+	bitesize = 2
+	New()
+		..()
+		reagents.add_reagent("mercury", 5)
+		reagents.add_reagent("lsd", 5)
+		reagents.add_reagent("ethanol", 5)
+		reagents.add_reagent("weird_cheese", 5)
 
 /obj/item/weapon/reagent_containers/food/snacks/sliceable/birthdaycake
 	name = "Birthday Cake"
@@ -2577,7 +2641,7 @@
 	icon_state = "Some plain old Earthen bread."
 	icon_state = "bread"
 	slice_path = /obj/item/weapon/reagent_containers/food/snacks/breadslice
-	slices_num = 5
+	slices_num = 6
 	filling_color = "#FFE396"
 
 	New()
@@ -2593,6 +2657,9 @@
 	filling_color = "#D27332"
 	bitesize = 2
 
+	New()
+		..()
+		reagents.add_reagent("bread", 5)
 
 /obj/item/weapon/reagent_containers/food/snacks/sliceable/creamcheesebread
 	name = "Cream Cheese Bread"
@@ -2746,7 +2813,7 @@
 		..()
 		reagents.add_reagent("nutriment", 30)
 		reagents.add_reagent("tomatojuice", 6)
-		reagents.add_reagent("imidazoline", 12)
+		reagents.add_reagent("oculine", 12)
 		bitesize = 2
 
 /obj/item/weapon/reagent_containers/food/snacks/vegetablepizzaslice
@@ -2950,6 +3017,7 @@
 	New()
 		..()
 		reagents.add_reagent("nutriment", 10)
+		reagents.add_reagent("beans",10)
 		bitesize = 2
 
 /obj/item/weapon/reagent_containers/food/snacks/benedict
@@ -2959,6 +3027,7 @@
 	New()
 		..()
 		reagents.add_reagent("nutriment", 3)
+		reagents.add_reagent("egg", 3)
 		bitesize = 3
 
 /obj/item/weapon/reagent_containers/food/snacks/hotdog
@@ -3026,7 +3095,7 @@
 	New()
 		..()
 		reagents.add_reagent("nutriment", 12)
-		reagents.add_reagent("stoxin", 3)
+		reagents.add_reagent("morphine", 3)
 		bitesize = 3
 
 /obj/item/weapon/reagent_containers/food/snacks/stuffing
@@ -3134,7 +3203,7 @@
         New()
                 ..()
                 reagents.add_reagent("nutriment", 4)
-                reagents.add_reagent("sugar",8)
+                reagents.add_reagent("chocolate",8)
                 reagents.add_reagent("ice",2)
                 bitesize = 6
 
@@ -3305,3 +3374,11 @@
 		..()
 		reagents.add_reagent("nutriment", 3)
 
+/obj/item/weapon/reagent_containers/food/snacks/ectoplasm
+	name = "ectoplasm"
+	desc = "A luminescent blob of what scientists refer to as 'ghost goo'."
+	icon = 'icons/obj/wizard.dmi'
+	icon_state = "ectoplasm"
+	New()
+		..()
+		reagents.add_reagent("ectoplasm", 10)

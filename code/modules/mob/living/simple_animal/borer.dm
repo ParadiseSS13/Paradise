@@ -259,7 +259,7 @@
 	if(chemicals < 50)
 		src << "You don't have enough chemicals!"
 
-	var/chem = input("Select a chemical to secrete.", "Chemicals") as null|anything in list("alkysine","bicaridine","hyperzine","tramadol")
+	var/chem = input("Select a chemical to secrete.", "Chemicals") as null|anything in list("mannitol","styptic_powder","methamphetamine","sal_acid")
 
 	if(!chem || chemicals < 50 || !host || controlling || !src || stat) //Sanity check.
 		return
@@ -307,7 +307,7 @@ mob/living/simple_animal/borer/proc/detatch()
 
 	if(istype(host,/mob/living/carbon/human))
 		var/mob/living/carbon/human/H = host
-		var/datum/organ/external/head = H.get_organ("head")
+		var/obj/item/organ/external/head = H.get_organ("head")
 		head.implants -= src
 
 	controlling = 0
@@ -433,7 +433,7 @@ mob/living/simple_animal/borer/proc/detatch()
 
 		if(istype(M,/mob/living/carbon/human))
 			var/mob/living/carbon/human/H = M
-			var/datum/organ/external/head = H.get_organ("head")
+			var/obj/item/organ/external/head = H.get_organ("head")
 			head.implants += src
 
 		host.status_flags |= PASSEMOTES
@@ -449,18 +449,18 @@ mob/living/simple_animal/borer/proc/detatch()
 
 	if(istype(M,/mob/living/carbon/human))
 		var/mob/living/carbon/human/H = M
-		var/datum/organ/external/head = H.get_organ("head")
+		var/obj/item/organ/external/head = H.get_organ("head")
 		head.implants += src
 
 	host_brain.name = M.name
 	host_brain.real_name = M.real_name
 	host.status_flags |= PASSEMOTES
 
-/mob/living/simple_animal/borer/verb/ventcrawl()
+/mob/living/simple_animal/borer/verb/ventcrawl(var/atom/pipe)
 	set name = "Crawl through vent (borer)"
 	set desc = "Enter an air vent and crawl through the pipe system."
 	set category = "Alien"
-	handle_ventcrawl()
+	handle_ventcrawl(pipe)
 
 /mob/living/simple_animal/borer/can_use_vents()
 	return

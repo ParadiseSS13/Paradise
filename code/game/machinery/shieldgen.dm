@@ -13,17 +13,25 @@
 /obj/machinery/shield/New()
 	src.dir = pick(1,2,3,4)
 	..()
-	update_nearby_tiles(need_rebuild=1)
+	air_update_turf(1)
 
 /obj/machinery/shield/Destroy()
 	opacity = 0
 	density = 0
-	update_nearby_tiles()
+	air_update_turf(1)
 	..()
+
+/obj/machinery/shield/Move()
+	var/turf/T = loc
+	..()
+	move_update_air(T)
 
 /obj/machinery/shield/CanPass(atom/movable/mover, turf/target, height, air_group)
 	if(!height || air_group) return 0
 	else return ..()
+
+/obj/machinery/shield/CanAtmosPass(var/turf/T)
+	return !density
 
 /obj/machinery/shield/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
 	if(!istype(W)) return

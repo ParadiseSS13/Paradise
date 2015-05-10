@@ -23,13 +23,14 @@
 
 	var/volume_rate = 120
 	var/panic = 0 //is this scrubber panicked?
+	var/welded = 0
 
 	var/area_uid
 	var/radio_filter_out
 	var/radio_filter_in
 
 	connect_types = list(1,3) //connects to regular and scrubber pipes
-	
+
 
 /obj/machinery/atmospherics/unary/vent_scrubber/New()
 	icon = null
@@ -50,7 +51,7 @@
 		return
 
 	overlays.Cut()
-	
+
 	var/scrubber_icon = "scrubber"
 
 	var/turf/T = get_turf(src)
@@ -61,6 +62,8 @@
 		scrubber_icon += "off"
 	else
 		scrubber_icon += "[on ? "[scrubbing ? "on" : "in"]" : "off"]"
+	if(welded)
+		scrubber_icon = "scrubberweld"
 
 	overlays += icon_manager.get_atmos_icon("device", , , scrubber_icon)
 
@@ -127,6 +130,8 @@
 		return
 	if (!node)
 		on = 0
+	if(welded)
+		return 0
 	//broadcast_status()
 	if(!on)
 		return 0
@@ -151,7 +156,7 @@
 				removed.oxygen = 0
 			if(scrub_N2)
 				filtered_out.nitrogen = removed.nitrogen
-				removed.nitrogen = 0				
+				removed.nitrogen = 0
 			if(scrub_Toxins)
 				filtered_out.toxins = removed.toxins
 				removed.toxins = 0
@@ -173,6 +178,7 @@
 			air_contents.merge(filtered_out)
 
 			loc.assume_air(removed)
+			air_update_turf()
 
 			if(network)
 				network.update = 1
@@ -186,6 +192,7 @@
 		var/datum/gas_mixture/removed = loc.remove_air(transfer_moles)
 
 		air_contents.merge(removed)
+		air_update_turf()
 
 		if(network)
 			network.update = 1
@@ -229,7 +236,7 @@
 		scrubbing = text2num(signal.data["scrubbing"])
 	if(signal.data["toggle_scrubbing"])
 		scrubbing = !scrubbing
-	
+
 	if(signal.data["o2_scrub"] != null)
 		scrub_O2 = text2num(signal.data["o2_scrub"])
 	if(signal.data["toggle_o2_scrub"])
@@ -276,7 +283,30 @@
 	if(old_stat != stat)
 		update_icon()
 
+/obj/machinery/atmospherics/unary/vent_scrubber/can_crawl_through()
+	return !welded
+
 /obj/machinery/atmospherics/unary/vent_scrubber/attackby(var/obj/item/weapon/W as obj, var/mob/user as mob, params)
+	if(istype(W, /obj/item/weapon/weldingtool))
+		var/obj/item/weapon/weldingtool/WT = W
+		if (WT.remove_fuel(0,user))
+			user << "<span class='notice'>Now welding the scrubber.</span>"
+			if(do_after(user, 20))
+				if(!src || !WT.isOn()) return
+				playsound(get_turf(src), 'sound/items/Welder2.ogg', 50, 1)
+				if(!welded)
+					user.visible_message("[user] welds the scrubber shut.", "You weld the vent scrubber.", "You hear welding.")
+					welded = 1
+					update_icon()
+				else
+					user.visible_message("[user] unwelds the scrubber.", "You unweld the scrubber.", "You hear welding.")
+					welded = 0
+					update_icon()
+			else
+				user << "<span class='notice'>The welding tool needs to be on to start this task.</span>"
+		else
+			user << "<span class='notice'>You need more welding fuel to complete this task.</span>"
+			return 1
 	if (!istype(W, /obj/item/weapon/wrench))
 		return ..()
 	if (!(stat & NOPOWER) && on)

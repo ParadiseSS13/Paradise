@@ -43,6 +43,14 @@
 	if(iscarbon(usr))
 		var/mob/living/carbon/C = usr
 		C.toggle_throw_mode()
+	else if(isrobot(usr))
+		var/mob/living/silicon/robot/R = usr
+		var/module = R.get_selected_module()
+		if(!module)
+			usr << "\red You have no module selected."
+			return
+		R.cycle_modules()
+		R.uneq_numbered(module)
 	else
 		usr << "\red This mob type cannot throw items."
 	return
@@ -55,6 +63,12 @@
 			usr << "\red You have nothing to drop in your hand."
 			return
 		drop_item()
+	else if(isrobot(usr))
+		var/mob/living/silicon/robot/R = usr
+		if(!R.get_selected_module())
+			usr << "\red You have no module selected."
+			return
+		R.deselect_module(R.get_selected_module())
 	else
 		usr << "\red This mob type cannot drop items."
 	return
@@ -190,7 +204,7 @@
 	if(isAI(mob))
 		return AIMove(n,direct,mob)
 
-	if(mob.monkeyizing)	return//This is sota the goto stop mobs from moving var
+	if(mob.notransform)	return//This is sota the goto stop mobs from moving var
 
 	if(isliving(mob))
 		var/mob/living/L = mob
@@ -273,8 +287,8 @@
 			else if(istype(mob.buckled, /obj/structure/stool/bed/chair/wheelchair))
 				if(ishuman(mob.buckled))
 					var/mob/living/carbon/human/driver = mob.buckled
-					var/datum/organ/external/l_hand = driver.get_organ("l_hand")
-					var/datum/organ/external/r_hand = driver.get_organ("r_hand")
+					var/obj/item/organ/external/l_hand = driver.get_organ("l_hand")
+					var/obj/item/organ/external/r_hand = driver.get_organ("r_hand")
 					if((!l_hand || (l_hand.status & ORGAN_DESTROYED)) && (!r_hand || (r_hand.status & ORGAN_DESTROYED)))
 						return // No hands to drive your chair? Tough luck!
 				move_delay += 2

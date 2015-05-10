@@ -10,7 +10,7 @@
 	icon_state = "brain1"
 
 	New()
-		var/datum/reagents/R = new/datum/reagents(1000)
+		var/datum/reagents/R = new/datum/reagents(330)
 		reagents = R
 		R.my_atom = src
 		..()

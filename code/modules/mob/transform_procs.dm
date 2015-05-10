@@ -5,14 +5,14 @@
 
 /*
 /mob/living/carbon/human/proc/monkeyize()
-	if (monkeyizing)
+	if (notransform)
 		return
 	for(var/obj/item/W in src)
 		if (W==w_uniform) // will be torn
 			continue
 		unEquip(W)
 	regenerate_icons()
-	monkeyizing = 1
+	notransform = 1
 	canmove = 0
 	stunned = 1
 	icon = null
@@ -62,7 +62,7 @@
 	return ..()
 
 /mob/living/carbon/human/AIize(move=1) // 'move' argument needs defining here too because BYOND is dumb
-	if (monkeyizing)
+	if (notransform)
 		return
 	for(var/t in organs)
 		del(t)
@@ -70,11 +70,11 @@
 	return ..(move)
 
 /mob/living/carbon/AIize()
-	if (monkeyizing)
+	if (notransform)
 		return
 	for(var/obj/item/W in src)
 		unEquip(W)
-	monkeyizing = 1
+	notransform = 1
 	canmove = 0
 	icon = null
 	invisibility = 101
@@ -123,7 +123,7 @@
 	O.rename_self("ai",1)
 	. = O
 	qdel(src)
-	
+
 /mob/living/carbon/human/make_into_mask(var/should_gib = 0)
 	for(var/t in organs)
 		qdel(t)
@@ -178,17 +178,19 @@
 
 //human -> robot
 /mob/living/carbon/human/proc/Robotize()
-	if (monkeyizing)
+	if (notransform)
 		return
 	for(var/obj/item/W in src)
 		unEquip(W)
 	regenerate_icons()
-	monkeyizing = 1
+	notransform = 1
 	canmove = 0
 	icon = null
 	invisibility = 101
 	for(var/t in organs)
 		del(t)
+	for(var/i in internal_organs)
+		del(i)
 
 	var/mob/living/silicon/robot/O = new /mob/living/silicon/robot( loc )
 
@@ -234,12 +236,12 @@
 
 //human -> alien
 /mob/living/carbon/human/proc/Alienize()
-	if (monkeyizing)
+	if (notransform)
 		return
 	for(var/obj/item/W in src)
 		unEquip(W)
 	regenerate_icons()
-	monkeyizing = 1
+	notransform = 1
 	canmove = 0
 	icon = null
 	invisibility = 101
@@ -265,12 +267,12 @@
 	return
 
 /mob/living/carbon/human/proc/slimeize(adult as num, reproduce as num)
-	if (monkeyizing)
+	if (notransform)
 		return
 	for(var/obj/item/W in src)
 		unEquip(W)
 	regenerate_icons()
-	monkeyizing = 1
+	notransform = 1
 	canmove = 0
 	icon = null
 	invisibility = 101
@@ -300,12 +302,12 @@
 	return
 
 /mob/living/carbon/human/proc/corgize()
-	if (monkeyizing)
+	if (notransform)
 		return
 	for(var/obj/item/W in src)
 		unEquip(W)
 	regenerate_icons()
-	monkeyizing = 1
+	notransform = 1
 	canmove = 0
 	icon = null
 	invisibility = 101
@@ -330,13 +332,13 @@
 		usr << "\red Sorry but this mob type is currently unavailable."
 		return
 
-	if(monkeyizing)
+	if(notransform)
 		return
 	for(var/obj/item/W in src)
 		unEquip(W)
 
 	regenerate_icons()
-	monkeyizing = 1
+	notransform = 1
 	canmove = 0
 	icon = null
 	invisibility = 101
@@ -383,7 +385,7 @@
 	if(!MP)
 		return 0	//Sanity, this should never happen.
 
-	if(ispath(MP, /mob/living/simple_animal/space_worm))
+	if(ispath(MP, /mob/living/simple_animal/hostile/spaceWorm))
 		return 0 //Unfinished. Very buggy, they seem to just spawn additional space worms everywhere and eating your own tail results in new worms spawning.
 
 	if(ispath(MP, /mob/living/simple_animal/construct/behemoth))
@@ -463,8 +465,6 @@
 
 //Antag Creatures!
 /*	if(ispath(MP, /mob/living/simple_animal/hostile/carp) && !jobban_isbanned(src, "Syndicate"))
-		return 1
-	if(ispath(MP, /mob/living/simple_animal/hostile/giant_spider) && !jobban_isbanned(src, "Syndicate"))
 		return 1 */
 	if(ispath(MP, /mob/living/simple_animal/borer) && !jobban_isbanned(src, "alien") && !jobban_isbanned(src, "Syndicate"))
 		return 1

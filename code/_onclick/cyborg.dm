@@ -22,6 +22,9 @@
 	if(modifiers["shift"] && modifiers["alt"])
 		AltShiftClickOn(A)
 		return
+	if(modifiers["middle"] && modifiers["ctrl"])
+		CtrlMiddleClickOn(A)
+		return
 	if(modifiers["middle"])
 		MiddleClickOn(A)
 		return
@@ -98,9 +101,17 @@
 			return
 	return
 
-//Middle click cycles through selected modules.
-/mob/living/silicon/robot/MiddleClickOn(var/atom/A)
+//Ctrl+Middle click cycles through modules
+/mob/living/silicon/robot/proc/CtrlMiddleClickOn(var/atom/A)
 	cycle_modules()
+	return
+
+//Middle click points
+/mob/living/silicon/robot/MiddleClickOn(var/atom/A)
+	if(istype(src, /mob/living/silicon/robot/drone))
+		// Drones cannot point.
+		return
+	A.point()
 	return
 
 //Give cyborgs hotkey clicks without breaking existing uses of hotkey clicks

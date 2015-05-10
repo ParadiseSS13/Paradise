@@ -86,7 +86,6 @@
 						user << "\red There is already a blood sample in this syringe"
 						return
 					if(istype(target, /mob/living/carbon))//maybe just add a blood reagent to all mobs. Then you can suck them dry...With hundreds of syringes. Jolly good idea.
-						var/amount = src.reagents.maximum_volume - src.reagents.total_volume
 						var/mob/living/carbon/T = target
 						if(!T.dna)
 							usr << "You are unable to locate any blood. (To be specific, your target seems to be missing their DNA datum)"
@@ -110,6 +109,11 @@
 							for(var/mob/O in viewers(world.view, user))
 								O.show_message(text("\red <B>[] is trying to take a blood sample from []!</B>", user, target), 1)
 						if(!do_mob(user, target, time))
+							return
+
+						var/amount = src.reagents.maximum_volume - src.reagents.total_volume
+						if(amount == 0)
+							usr << "<span class='warning'>The syringe is full!</span>"
 							return
 
 						var/datum/reagent/B
@@ -158,6 +162,11 @@
 				if(!target.is_open_container() && !ismob(target) && !istype(target, /obj/item/weapon/reagent_containers/food) && !istype(target, /obj/item/slime_extract) && !istype(target, /obj/item/clothing/mask/cigarette) && !istype(target, /obj/item/weapon/storage/fancy/cigarettes))
 					user << "\red You cannot directly fill this object."
 					return
+				if(istype(target, /obj/item/clothing/mask/cigarette))
+					var/obj/item/clothing/mask/cigarette/C = target
+					if(istype(C.loc, /obj/item/weapon/storage/fancy/cigarettes))
+						user << "\red You cannot inject a cigarette while it's still in the pack."
+						return
 				if(target.reagents.total_volume >= target.reagents.maximum_volume)
 					user << "\red [target] is full."
 					return
@@ -189,7 +198,7 @@
 						M.attack_log += text("\[[time_stamp()]\] <font color='orange'>Has been injected with [src.name] by [user.name] ([user.ckey]). Reagents: [contained]</font>")
 						user.attack_log += text("\[[time_stamp()]\] <font color='red'>Used the [src.name] to inject [M.name] ([M.key]). Reagents: [contained]</font>")
 						if(M.ckey)
-							msg_admin_attack("[user.name] ([user.ckey]) injected [M.name] ([M.key]) with [src.name]. Reagents: [contained] (INTENT: [uppertext(user.a_intent)]) (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[user.x];Y=[user.y];Z=[user.z]'>JMP</a>)")
+							msg_admin_attack("[user.name] ([user.ckey])[isAntag(user) ? "(ANTAG)" : ""] injected [M.name] ([M.key]) with [src.name]. Reagents: [contained] (INTENT: [uppertext(user.a_intent)]) (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[user.x];Y=[user.y];Z=[user.z]'>JMP</a>)")
 						if(!iscarbon(user))
 							M.LAssailant = null
 						else
@@ -274,7 +283,7 @@
 		user.attack_log += "\[[time_stamp()]\]<font color='red'> Attacked [target.name] ([target.ckey]) with [src.name] (INTENT: [uppertext(user.a_intent)])</font>"
 		target.attack_log += "\[[time_stamp()]\]<font color='orange'> Attacked by [user.name] ([user.ckey]) with [src.name] (INTENT: [uppertext(user.a_intent)])</font>"
 		if(target.ckey)
-			msg_admin_attack("[user.name] ([user.ckey]) attacked [target.name] ([target.ckey]) with [src.name] (INTENT: [uppertext(user.a_intent)]) (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[user.x];Y=[user.y];Z=[user.z]'>JMP</a>)")
+			msg_admin_attack("[user.name] ([user.ckey])[isAntag(user) ? "(ANTAG)" : ""] attacked [target.name] ([target.ckey]) with [src.name] (INTENT: [uppertext(user.a_intent)]) (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[user.x];Y=[user.y];Z=[user.z]'>JMP</a>)")
 		if(!iscarbon(user))
 			target.LAssailant = null
 		else
@@ -283,14 +292,12 @@
 		if(istype(target, /mob/living/carbon/human))
 
 			var/target_zone = ran_zone(check_zone(user.zone_sel.selecting, target))
-			var/datum/organ/external/affecting = target:get_organ(target_zone)
+			var/obj/item/organ/external/affecting = target:get_organ(target_zone)
 
-			if (!affecting)
+			if (!affecting || (affecting.status & ORGAN_DESTROYED) || affecting.is_stump())
+				user << "<span class='danger'>They are missing that limb!</span>"
 				return
-			if(affecting.status & ORGAN_DESTROYED)
-				user << "What [affecting.display_name]?"
-				return
-			var/hit_area = affecting.display_name
+			var/hit_area = affecting.name
 
 			var/mob/living/carbon/human/H = target
 			if((user != target) && H.check_shields(7, "the [src.name]"))
@@ -442,25 +449,6 @@
 ////////////////////////////////////////////////////////////////////////////////
 
 
-
-/obj/item/weapon/reagent_containers/syringe/inaprovaline
-	name = "Syringe (inaprovaline)"
-	desc = "Contains inaprovaline - used to stabilize patients."
-	New()
-		..()
-		reagents.add_reagent("inaprovaline", 15)
-		mode = SYRINGE_INJECT
-		update_icon()
-
-/obj/item/weapon/reagent_containers/syringe/antitoxin
-	name = "Syringe (anti-toxin)"
-	desc = "Contains anti-toxins."
-	New()
-		..()
-		reagents.add_reagent("anti_toxin", 15)
-		mode = SYRINGE_INJECT
-		update_icon()
-
 /obj/item/weapon/reagent_containers/syringe/antiviral
 	name = "Syringe (spaceacillin)"
 	desc = "Contains antiviral agents."
@@ -470,40 +458,60 @@
 		mode = SYRINGE_INJECT
 		update_icon()
 
-/obj/item/weapon/reagent_containers/ld50_syringe/choral
+/obj/item/weapon/reagent_containers/ld50_syringe/lethal
 	New()
 		..()
-		reagents.add_reagent("chloralhydrate", 50)
+		reagents.add_reagent("sulfonal", 4)
+		reagents.add_reagent("pancuronium", 6)
+		reagents.add_reagent("neurotoxin2", 40)
 		mode = SYRINGE_INJECT
 		update_icon()
 
 
 //Robot syringes
 //Not special in any way, code wise. They don't have added variables or procs.
-/obj/item/weapon/reagent_containers/syringe/robot/antitoxin
-	name = "Syringe (anti-toxin)"
-	desc = "Contains anti-toxins."
+/obj/item/weapon/reagent_containers/syringe/robot/charcoal
+	name = "Syringe (charcoal)"
+	desc = "Contains charcoal."
 	New()
 		..()
-		reagents.add_reagent("anti_toxin", 15)
+		reagents.add_reagent("charcoal", 15)
 		mode = SYRINGE_INJECT
 		update_icon()
 
-/obj/item/weapon/reagent_containers/syringe/robot/inoprovaline
-	name = "Syringe (inoprovaline)"
-	desc = "Contains inaprovaline - used to stabilize patients."
+/obj/item/weapon/reagent_containers/syringe/robot/epinephrine
+	name = "Syringe (Epinephrine)"
+	desc = "Contains epinephrine - used to stabilize patients."
 	New()
 		..()
-		reagents.add_reagent("inaprovaline", 15)
+		reagents.add_reagent("epinephrine", 15)
 		mode = SYRINGE_INJECT
 		update_icon()
 
 /obj/item/weapon/reagent_containers/syringe/robot/mixed
 	name = "Syringe (mixed)"
-	desc = "Contains inaprovaline & anti-toxins."
+	desc = "Contains epinephrine & charcoal."
 	New()
 		..()
-		reagents.add_reagent("inaprovaline", 7)
-		reagents.add_reagent("anti_toxin", 8)
+		reagents.add_reagent("epinephrine", 7)
+		reagents.add_reagent("charcoal", 8)
+		mode = SYRINGE_INJECT
+		update_icon()
+
+/obj/item/weapon/reagent_containers/syringe/charcoal
+	name = "Syringe (charcoal)"
+	desc = "Contains charcoal - used to treat toxins and damage from toxins."
+	New()
+		..()
+		reagents.add_reagent("charcoal", 15)
+		mode = SYRINGE_INJECT
+		update_icon()
+
+/obj/item/weapon/reagent_containers/syringe/insulin
+	name = "Syringe (insulin)"
+	desc = "Contains insulin - used to treat diabetes."
+	New()
+		..()
+		reagents.add_reagent("insulin", 15)
 		mode = SYRINGE_INJECT
 		update_icon()

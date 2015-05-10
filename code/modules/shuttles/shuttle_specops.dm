@@ -5,8 +5,8 @@
 
 /obj/machinery/computer/shuttle_control/specops/attack_ai(user as mob)
 	user << "\red Access Denied."
-	return 1	
-	
+	return 1
+
 //for shuttles that may use a different docking port at each location
 /datum/shuttle/ferry/multidock
 	var/docking_controller_tag_station
@@ -33,11 +33,13 @@
 /datum/shuttle/ferry/multidock/specops/New()
 	..()
 	announcer = new /obj/item/device/radio/intercom(null)//We need a fake AI to announce some stuff below. Otherwise it will be wonky.
-	announcer.config(list("Response Team" = 0))
+	announcer.config(list("Response Team" = 0, "Special Ops" = 1))
 
-/datum/shuttle/ferry/multidock/specops/proc/radio_announce(var/message)
+/datum/shuttle/ferry/multidock/specops/proc/radio_announce(var/message, var/specOpsFreqOnly = 0)
 	if(announcer)
-		announcer.autosay(message, "A.L.I.C.E.", "Response Team", list(1,2))
+		announcer.autosay(message, "A.L.I.C.E.", "Special Ops", list(1,2))
+		if(!specOpsFreqOnly)
+			announcer.autosay(message, "A.L.I.C.E.", "Response Team", list(1,2))
 
 /datum/shuttle/ferry/multidock/specops/launch(var/user)
 	if (!can_launch())
@@ -60,6 +62,7 @@
 		radio_announce("THE SPECIAL OPERATIONS SHUTTLE IS PREPARING TO RETURN")
 	else
 		radio_announce("THE SPECIAL OPERATIONS SHUTTLE IS PREPARING FOR LAUNCH")
+		radio_announce("ARMORED SQUAD TAKE YOUR POSITION ON GRAVITY LAUNCH PAD", 1)
 
 	sleep_until_launch()
 

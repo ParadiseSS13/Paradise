@@ -19,7 +19,7 @@
 /obj/item/weapon/storage/bag
 	allow_quick_gather = 1
 	allow_quick_empty = 1
-	display_contents_with_number = 0 // UNStABLE AS FuCK, turn on when it stops crashing clients
+	display_contents_with_number = 1 // should work fine now
 	use_to_pickup = 1
 	slot_flags = SLOT_BELT
 
@@ -38,7 +38,7 @@
 	storage_slots = 30
 	can_hold = list() // any
 	cant_hold = list("/obj/item/weapon/disk/nuclear","/obj/item/flag/nation")
-	
+
 /obj/item/weapon/storage/bag/trash/suicide_act(mob/user)
 	user.visible_message("<span class='suicide'>[user] puts the [src.name] over their head and starts chomping at the insides! Disgusting!</span>")
 	playsound(loc, 'sound/items/eatfood.ogg', 50, 1, -1)
@@ -53,13 +53,13 @@
 		icon_state = "trashbag2"
 	else icon_state = "trashbag3"
 
-/obj/item/weapon/storage/bag/trash/cyborg	
-	
+/obj/item/weapon/storage/bag/trash/cyborg
+
 /obj/item/weapon/storage/bag/trash/proc/janicart_insert(mob/user, obj/structure/janitorialcart/J)
 	J.put_in_cart(src, user)
 	J.mybag=src
 	J.update_icon()
-	
+
 /obj/item/weapon/storage/bag/trash/cyborg/janicart_insert(mob/user, obj/structure/janitorialcart/J)
 	return
 
@@ -78,7 +78,8 @@
 	throwforce = 0
 	w_class = 4
 	max_w_class = 2
-	storage_slots = 21
+	storage_slots = 7
+	display_contents_with_number = 0 //or else this will lead to stupid behavior.
 	can_hold = list() // any
 	cant_hold = list("/obj/item/weapon/disk/nuclear","/obj/item/flag/nation")
 	var/head = 0
@@ -107,7 +108,7 @@
 			H.losebreath += 1
 	else
 		head = 0
-		storage_slots = 21
+		storage_slots = 7
 		processing_objects.Remove(src)
 	return
 
@@ -126,7 +127,7 @@
 	max_combined_w_class = 200 //Doesn't matter what this is, so long as it's more or equal to storage_slots * ore.w_class
 	max_w_class = 3
 	can_hold = list("/obj/item/weapon/ore")
-	
+
 /obj/item/weapon/storage/bag/ore/holding //miners, your messiah has arrived
 	name = "mining satchel of holding"
 	desc = "A revolution in convenience, this satchel allows for infinite ore storage. It's been outfitted with anti-malfunction safety measures."
@@ -134,7 +135,7 @@
 	max_combined_w_class = INFINITY
 	origin_tech = "bluespace=3"
 	icon_state = "satchel_bspace"
-	
+
 // -----------------------------
 //          Plant bag
 // -----------------------------
@@ -341,7 +342,7 @@
 	max_w_class = 3
 	w_class = 4 //Bigger than a book because physics
 	can_hold = list(/obj/item/weapon/book, /obj/item/weapon/spellbook) //No bibles, consistent with bookcase
-	
+
 /*
  * Trays - Agouri
  */
@@ -394,8 +395,8 @@
 	overlays += image("icon" = I.icon, "icon_state" = I.icon_state, "layer" = -1)
 	..()
 
-/obj/item/weapon/storage/bag/tray/cyborg	
-	
+/obj/item/weapon/storage/bag/tray/cyborg
+
 /obj/item/weapon/storage/bag/tray/cyborg/afterattack(atom/target, mob/user as mob)
 	if ( isturf(target) || istype(target,/obj/structure/table) )
 		var foundtable = istype(target,/obj/structure/table/)

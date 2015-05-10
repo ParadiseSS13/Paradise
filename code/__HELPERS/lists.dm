@@ -168,11 +168,9 @@ proc/listclearnulls(list/list)
 
 //Return a list with no duplicate entries
 /proc/uniquelist(var/list/L)
-	var/list/K = list()
-	for(var/item in L)
-		if(!(item in K))
-			K += item
-	return K
+	. = list()
+	for(var/i in L)
+		. |= i
 
 //Mergesort: divides up the list into halves to begin the sort
 /proc/sortKey(var/list/client/L, var/order = 1)

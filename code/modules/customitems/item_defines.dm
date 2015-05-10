@@ -404,7 +404,7 @@
 	icon_state = "pill9"
 	New()
 		..()
-		reagents.add_reagent("stoxin", 5)
+		reagents.add_reagent("morphine", 5)
 		reagents.add_reagent("sugar", 10)
 		reagents.add_reagent("ethanol", 5)
 
@@ -430,7 +430,7 @@
 
 /obj/item/weapon/reagent_containers/hypospray/fluff/asher_spock_1/New()
 	..()
-	reagents.add_reagent("oxycodone", 15)
+	reagents.add_reagent("hydrocodone", 15)
 	update_icon()
 	return
 
@@ -961,6 +961,64 @@
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "retpoluniform"
 	_color = "retpoluniform"
+
+////// Blue and Bloody Set //deimosvezzati: Hiro Mezu
+
+/obj/item/clothing/under/fluff/customblue // Personal jumpsuit (blue tie / belt buckle)
+	name = "custom-fitted blue jumpsuit"
+	desc = "A custom blue uniform made for a trapped soul. It has the initials H.M. on the tag."
+	icon= 'icons/obj/clothing/uniforms.dmi'
+	icon_state = "hm_suit"
+	_color = "hm_suit"
+	item_state = "hm_suit"
+	has_sensor = 1 // Just to make sure it has a sensor
+	armor = list(melee = 0, bullet = 0, laser = 0,energy = 0, bomb = 0, bio = 0, rad = 0) // Standard Jumpsuit stats
+
+/obj/item/clothing/suit/armor/vest/fluff/bloody //Bloody armor vest
+	name = "bloodied security armor"
+	desc = "A vest drenched in the blood of Greytide. It has seen better days. It has the initials H.M. scratched into the inside."
+	icon = 'icons/obj/custom_items.dmi'
+	icon_state = "hm_armorvest"
+	item_state = "hm_armorvest"
+
+/obj/item/clothing/mask/gas/sechailer/fluff/bluemask //Blue security mask
+	name = "custom SWAT mask"
+	desc = "A neon blue swat mask, used for demoralizing Greytide in the wild. It has the initials H.M. on the side."
+	action_button_name = "HALT!"
+	icon = 'icons/obj/custom_items.dmi'
+	icon_state = "hm_sec_mask"
+	item_state = "hm_sec_mask"
+	aggressiveness = 3
+	ignore_maskadjust = 1
+
+///// Noble's Clothes Set //theoricus: Baron Robot VII
+
+/obj/item/clothing/under/fluff/noble_clothes // Custom jumpsuit
+	name = "noble clothes"
+	desc = "They fall just short of majestic."
+	icon = 'icons/obj/clothing/uniforms.dmi'
+	icon_state = "noble_clothes"
+	_color = "noble_clothes"
+	item_state = "noble_clothes"
+	has_sensor = 1 // Just to make sure it has a sensor
+	armor = list(melee = 0, bullet = 0, laser = 0,energy = 0, bomb = 0, bio = 0, rad = 0) // Standard Jumpsuit stats
+
+/obj/item/clothing/suit/fluff/noble_coat // A nauseatingly colored coat
+	name = "noble coat"
+	desc = "The livid blues, purples and greens are awesome enough to evoke a visceral response in you; it is not dissimilar to indigestion."
+	icon = 'icons/obj/custom_items.dmi'
+	icon_state = "noble_coat"
+	item_state = "noble_coat"
+	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
+
+/obj/item/clothing/shoes/fluff/noble_boot
+	name = "noble boots"
+	desc = "The boots are economically designed to balance function and comfort, so that you can step on peasants without having to worry about blisters. The leather also resists unwanted blood stains."
+	icon = 'icons/obj/custom_items.dmi'
+	icon_state = "noble_boot"
+	_color = "noble_boot"
+	item_state = "noble_boot"
+
 
 //////////// Weapons ////////////
 

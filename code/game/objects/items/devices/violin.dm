@@ -7,6 +7,7 @@
 	icon_state = "violin"
 	item_state = "violin"
 	force = 10
+	hitsound = 'sound/weapons/smash.ogg'
 	var/datum/song/handheld/song
 
 /obj/item/device/violin/New()

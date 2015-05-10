@@ -156,6 +156,26 @@
 	body_parts_covered = UPPER_TORSO|ARMS|LOWER_TORSO|LEGS|FEET
 	flags_inv = HIDESHOES|HIDEJUMPSUIT
 	siemens_coefficient = 2.0
+	flags = NODROP
+
+/obj/item/clothing/suit/corgisuit/en
+	name = "E-N Suit"
+	icon_state = "ensuit"
+
+/obj/item/clothing/suit/corgisuit/en/New()
+	..()
+	processing_objects.Add(src)
+
+/obj/item/clothing/suit/corgisuit/en/process()
+	if(prob(2))
+		for(var/obj/M in orange(2,src))
+			if(!M.anchored && (M.flags & CONDUCT))
+				step_towards(M,src)
+		for(var/mob/living/silicon/S in orange(2,src))
+			if(istype(S, /mob/living/silicon/ai)) continue
+			step_towards(S,src)
+		for(var/mob/living/carbon/human/machine/M in orange(2,src))
+			step_towards(M,src)
 
 /obj/item/clothing/suit/monkeysuit
 	name = "Monkey Suit"

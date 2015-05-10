@@ -16,10 +16,15 @@
 		return emote(copytext(message,2))
 
 	var/datum/language/speaking = parse_language(message)
+
 	if(speaking)
 		message = copytext(message,2+length(speaking.key))
 	else
-		speaking = all_languages["Xenomorph"]
+		var/quickcheck = get_default_language()
+		if(quickcheck)
+			speaking = get_default_language()
+		else //because no clue how to actually set xeno's default language since they aren't a species, just do it here
+			speaking = all_languages["Xenomorph"]
 
 	var/ending = copytext(message, length(message))
 	if (speaking)

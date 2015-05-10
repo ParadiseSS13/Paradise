@@ -382,7 +382,7 @@
 		/obj/item/weapon/reagent_containers/food/snacks/egg,
 		/obj/item/weapon/reagent_containers/food/snacks/egg,
 		/obj/item/weapon/reagent_containers/food/snacks/egg,
-		/obj/item/brain
+		/obj/item/organ/brain
 	)
 	result = /obj/item/weapon/reagent_containers/food/snacks/sliceable/braincake
 

@@ -1,7 +1,7 @@
 /mob/living/carbon/human/gib()
 	death(1)
 	var/atom/movable/overlay/animation = null
-	monkeyizing = 1
+	notransform = 1
 	canmove = 0
 	icon = null
 	invisibility = 101
@@ -13,13 +13,18 @@
 
 		playsound(src.loc, 'sound/effects/gib.ogg', 100, 1, 10)
 
-	for(var/datum/organ/external/E in src.organs)
-		if(istype(E, /datum/organ/external/chest))
+	for(var/obj/item/organ/I in internal_organs)
+		if(istype(loc,/turf))
+			I.removed(src)
+			I.throw_at(get_edge_target_turf(src,pick(alldirs)),rand(1,3),5)
+
+	for(var/obj/item/organ/external/E in src.organs)
+		if(istype(E, /obj/item/organ/external/chest))
 			continue
 		// Only make the limb drop if it's not too damaged
 		if(prob(100 - E.get_damage()))
 			// Override the current limb status and don't cause an explosion
-			E.droplimb(1,1)
+			E.droplimb(1,pick(DROPLIMB_EDGE,DROPLIMB_BLUNT))
 
 	if(!(species.flags & IS_SYNTHETIC))
 		flick("gibbed-h", animation)
@@ -37,7 +42,7 @@
 /mob/living/carbon/human/dust()
 	death(1)
 	var/atom/movable/overlay/animation = null
-	monkeyizing = 1
+	notransform = 1
 	canmove = 0
 	icon = null
 	invisibility = 101
@@ -57,7 +62,7 @@
 /mob/living/carbon/human/melt()
 	death(1)
 	var/atom/movable/overlay/animation = null
-	monkeyizing = 1
+	notransform = 1
 	canmove = 0
 	icon = null
 	invisibility = 101
@@ -91,7 +96,7 @@
 	if(species) species.handle_death(src)
 
 	//Handle brain slugs.
-	var/datum/organ/external/head = get_organ("head")
+	var/obj/item/organ/external/head = get_organ("head")
 	var/mob/living/simple_animal/borer/B
 
 	if(istype(head))
@@ -145,6 +150,7 @@
 	update_hair(0)
 
 	mutations.Add(SKELETON)
+	mutations.Add(NOCLONE)
 	status_flags |= DISFIGURED
 	update_body(0)
 	update_mutantrace()

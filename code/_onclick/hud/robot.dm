@@ -154,14 +154,14 @@
 			if (mymob.client.target_can_click)
 				mymob.item_use_icon.dir = 1
 			src.adding += mymob.item_use_icon
-			mymob.gun_move_icon = new /obj/screen/gun/move(null)
+			/*mymob.gun_move_icon = new /obj/screen/gun/move(null)
 			if (mymob.client.target_can_move)
 				mymob.gun_move_icon.dir = 1
 				mymob.gun_run_icon = new /obj/screen/gun/run(null)
 				if (mymob.client.target_can_run)
 					mymob.gun_run_icon.dir = 1
 				src.adding += mymob.gun_run_icon
-			src.adding += mymob.gun_move_icon
+			src.adding += mymob.gun_move_icon*/
 
 	mymob.client.screen = null
 

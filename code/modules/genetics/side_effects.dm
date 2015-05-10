@@ -16,7 +16,7 @@
 /datum/genetics/side_effect/genetic_burn
 	name = "Genetic Burn"
 	symptom = "Subject's skin turns unusualy red."
-	treatment = "Inject small dose of dexalin."
+	treatment = "Inject small dose of salbutamol."
 	effect = "Subject's skin burns."
 	duration = 10*30
 
@@ -24,15 +24,15 @@
 		H.emote("me", 1, "starts turning very red..")
 
 	finish(mob/living/carbon/human/H)
-		if(!H.reagents.has_reagent("dexalin"))
+		if(!H.reagents.has_reagent("salbutamol"))
 			for(var/organ_name in list("chest","l_arm","r_arm","r_leg","l_leg","head","groin"))
-				var/datum/organ/external/E = H.get_organ(organ_name)
+				var/obj/item/organ/external/E = H.get_organ(organ_name)
 				E.take_damage(0, 5, 0)
 
 /datum/genetics/side_effect/bone_snap
 	name = "Bone Snap"
 	symptom = "Subject's limbs tremble notably."
-	treatment = "Inject small dose of bicaridine."
+	treatment = "Inject small dose of Styptic Powder."
 	effect = "Subject's bone breaks."
 	duration = 10*60
 
@@ -40,16 +40,16 @@
 		H.emote("me", 1, "'s limbs start shivering uncontrollably.")
 
 	finish(mob/living/carbon/human/H)
-		if(!H.reagents.has_reagent("bicaridine"))
+		if(!H.reagents.has_reagent("styptic_powder"))
 			var/organ_name = pick("chest","l_arm","r_arm","r_leg","l_leg","head","groin")
-			var/datum/organ/external/E = H.get_organ(organ_name)
+			var/obj/item/organ/external/E = H.get_organ(organ_name)
 			E.take_damage(20, 0, 0)
 			E.fracture()
 
 /datum/genetics/side_effect/monkey
 	name = "Monkey"
 	symptom = "Subject starts drooling uncontrollably."
-	treatment = "Inject small dose of dylovene."
+	treatment = "Inject small dose of charcoal."
 	effect = "Subject turns into monkey."
 	duration = 10*90
 
@@ -57,13 +57,13 @@
 		H.emote("me", 1, "has drool running down from his mouth.")
 
 	finish(mob/living/carbon/human/H)
-		if(!H.reagents.has_reagent("anti_toxin"))
+		if(!H.reagents.has_reagent("charcoal"))
 			H.monkeyize()
 
 /datum/genetics/side_effect/confuse
 	name = "Confuse"
 	symptom = "Subject starts drooling uncontrollably."
-	treatment = "Inject small dose of dylovene."
+	treatment = "Inject small dose of charcoal."
 	effect = "Subject becomes confused."
 	duration = 10*30
 
@@ -71,7 +71,7 @@
 		H.emote("me", 1, "has drool running down from his mouth.")
 
 	finish(mob/living/carbon/human/H)
-		if(!H.reagents.has_reagent("anti_toxin"))
+		if(!H.reagents.has_reagent("charcoal"))
 			H.confused += 100
 
 proc/trigger_side_effect(mob/living/carbon/human/H)

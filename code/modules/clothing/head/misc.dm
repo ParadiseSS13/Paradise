@@ -237,8 +237,12 @@
 	desc = "Woof!"
 	icon_state = "corgihead"
 	item_state = "chickensuit"
-	flags = BLOCKHAIR
+	flags = BLOCKHAIR | NODROP
 	siemens_coefficient = 2.0
+
+/obj/item/clothing/head/corgi/en
+	name = "E-N suit head"
+	icon_state = "enhead"
 
 /obj/item/clothing/head/bearpelt
 	name = "bear pelt hat"
@@ -344,6 +348,25 @@
 	item_state = "griffinhat"
 	flags = BLOCKHAIR|NODROP
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE
+	var/cooldown = 0
+	action_button_name = "Caw"
+	icon_action_button = "action_griffin"
+
+/obj/item/clothing/head/griffin/attack_self()
+	caw()
+
+/obj/item/clothing/head/griffin/verb/caw()
+
+	set category = "Object"
+	set name = "Caw"
+	set src in usr
+	if(!istype(usr, /mob/living)) return
+	if(usr.stat) return
+
+	if(cooldown < world.time - 20) // A cooldown, to stop people being jerks
+		playsound(src.loc, "sound/misc/caw.ogg", 50, 1)
+		cooldown = world.time
+
 
 /obj/item/clothing/head/lordadmiralhat
 	name = "Lord Admiral's Hat"

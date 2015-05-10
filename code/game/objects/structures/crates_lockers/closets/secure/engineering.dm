@@ -8,7 +8,6 @@
 	icon_broken = "securecebroken"
 	icon_off = "secureceoff"
 
-
 	New()
 		..()
 		sleep(2)
@@ -17,7 +16,8 @@
 		else
 			new /obj/item/weapon/storage/backpack/satchel_eng(src)
 		new /obj/item/weapon/storage/backpack/duffel/engineering(src)
-		new /obj/item/blueprints(src)
+		new /obj/item/areaeditor/blueprints(src)
+		new /obj/item/weapon/storage/box/permits(src)
 		new /obj/item/clothing/under/rank/chief_engineer(src)
 		new /obj/item/clothing/head/hardhat/white(src)
 		new /obj/item/clothing/glasses/welding/superior(src)
@@ -31,9 +31,8 @@
 		new /obj/item/device/multitool(src)
 		new /obj/item/device/flash(src)
 		new /obj/item/taperoll/engineering(src)
+		new /obj/item/clothing/head/beret/eng(src)
 		return
-
-
 
 /obj/structure/closet/secure_closet/engineering_electrical
 	name = "Electrical Supplies"
@@ -60,6 +59,7 @@
 		new /obj/item/device/multitool(src)
 		new /obj/item/device/multitool(src)
 		new /obj/item/device/multitool(src)
+		new /obj/item/clothing/head/beret/eng
 		return
 
 
@@ -115,6 +115,7 @@
 		new /obj/item/clothing/glasses/meson(src)
 		new /obj/item/weapon/cartridge/engineering(src)
 		new /obj/item/taperoll/engineering(src)
+		new /obj/item/clothing/head/beret/eng(src)
 		return
 
 /obj/structure/closet/secure_closet/atmos_personal

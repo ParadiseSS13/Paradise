@@ -273,6 +273,7 @@
 		new /obj/item/clothing/under/lawyer/oldman(src)
 		new /obj/item/clothing/under/lawyer/black(src)
 		new /obj/item/clothing/under/lawyer/female(src)
+		new /obj/item/clothing/head/ntrep(src)
 		return
 
 
@@ -361,8 +362,8 @@
 	New()
 		..()
 		sleep(2)
-		new /obj/item/weapon/reagent_containers/ld50_syringe/choral(src)
-		new /obj/item/weapon/reagent_containers/ld50_syringe/choral(src)
+		new /obj/item/weapon/reagent_containers/ld50_syringe/lethal(src)
+		new /obj/item/weapon/reagent_containers/ld50_syringe/lethal(src)
 		return
 
 

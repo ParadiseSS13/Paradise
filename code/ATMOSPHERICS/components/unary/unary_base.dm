@@ -66,7 +66,7 @@
 	return_network(obj/machinery/atmospherics/reference)
 		build_network()
 
-		if(reference==node)
+		if(reference == node || reference == src)
 			return network
 
 		return null
@@ -89,7 +89,7 @@
 		if(reference==node)
 			del(network)
 			node = null
-			
+
 		update_icon()
 		update_underlays()
 

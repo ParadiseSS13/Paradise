@@ -12,11 +12,14 @@
 /mob/living/carbon/human/New(var/new_loc, var/new_species = null, var/delay_ready_dna=0)
 	if(!species)
 		if(new_species)
-			set_species(new_species,null,1)
+			set_species(new_species,1)
 		else
 			set_species()
 
-	var/datum/reagents/R = new/datum/reagents(1000)
+	if(species)
+		name = species.get_random_name(gender)
+
+	var/datum/reagents/R = new/datum/reagents(330)
 	reagents = R
 	R.my_atom = src
 
@@ -39,9 +42,13 @@
 	prev_gender = gender // Debug for plural genders
 	make_blood()
 
+	var/mob/M = src
+	faction |= "\ref[M]"
+
 	// Set up DNA.
 	if(!delay_ready_dna)
 		dna.ready_dna(src)
+	UpdateAppearance()
 
 /mob/living/carbon/human/dummy
 	real_name = "Test Dummy"
@@ -94,6 +101,14 @@
 /mob/living/carbon/human/machine/New(var/new_loc)
 	h_style = "blue IPC screen"
 	..(new_loc, "Machine")
+
+/mob/living/carbon/human/shadow/New(var/new_loc)
+	h_style = "Bald"
+	..(new_loc, "Shadow")
+
+/mob/living/carbon/human/golem/New(var/new_loc)
+	h_style = "Bald"
+	..(new_loc, "Golem")
 
 /mob/living/carbon/human/Bump(atom/movable/AM as mob|obj, yes)
 	if ((!( yes ) || now_pushing))
@@ -228,12 +243,12 @@
 				throw_at(target, 200, 4)
 
 				var/limbs_affected = pick(2,3,4)
-				var/datum/organ/external/processing_dismember
+				var/obj/item/organ/external/processing_dismember
 
 				while(limbs_affected != 0)
 					processing_dismember = pick(organs)
-					if(processing_dismember.name != "chest" && processing_dismember.name != "groin" && processing_dismember.name != "head")
-						processing_dismember.droplimb(1,1,1)
+					if(processing_dismember.limb_name != "chest" && processing_dismember.limb_name != "head" && processing_dismember.limb_name != "groin")
+						processing_dismember.droplimb(1,pick(0,1,2),0,1)
 						limbs_affected -= 1
 
 
@@ -251,23 +266,23 @@
 				b_loss = b_loss/1.5
 				f_loss = f_loss/1.5
 
-				var/limbs_affected = pick(0, 1, 2)
-				var/datum/organ/external/processing_dismember
+				var/limbs_affected = pick(1, 1, 2)
+				var/obj/item/organ/external/processing_dismember
 
 				while(limbs_affected != 0)
 					processing_dismember = pick(organs)
-					if(processing_dismember.name != "chest" && processing_dismember.name != "groin" && processing_dismember.name != "head")
-						processing_dismember.droplimb(1,1,1)
+					if(processing_dismember.limb_name != "chest" && processing_dismember.limb_name != "head" && processing_dismember.limb_name != "groin")
+						processing_dismember.droplimb(1,pick(0,2),0,1)
 						limbs_affected -= 1
 
 			else
 				var/limbs_affected = pick(1, 2, 3)
-				var/datum/organ/external/processing_dismember
+				var/obj/item/organ/external/processing_dismember
 
 				while(limbs_affected != 0)
 					processing_dismember = pick(organs)
-					if(processing_dismember.name != "chest" && processing_dismember.name != "groin" && processing_dismember.name != "head")
-						processing_dismember.droplimb(1,1,1)
+					if(processing_dismember.limb_name != "chest" && processing_dismember.limb_name != "head" && processing_dismember.limb_name != "groin")
+						processing_dismember.droplimb(1,pick(0,2),0,1)
 						limbs_affected -= 1
 
 			if (!istype(l_ear, /obj/item/clothing/ears/earmuffs) && !istype(r_ear, /obj/item/clothing/ears/earmuffs))
@@ -284,12 +299,12 @@
 			else
 
 				var/limbs_affected = pick(0, 1)
-				var/datum/organ/external/processing_dismember
+				var/obj/item/organ/external/processing_dismember
 
 				while(limbs_affected != 0)
 					processing_dismember = pick(organs)
-					if(processing_dismember.name != "chest" && processing_dismember.name != "groin" && processing_dismember.name != "head")
-						processing_dismember.droplimb(1,1,1)
+					if(processing_dismember.limb_name != "chest" && processing_dismember.limb_name != "head" && processing_dismember.limb_name != "groin")
+						processing_dismember.droplimb(1,1,0,1)
 						limbs_affected -= 1
 
 			if (!istype(l_ear, /obj/item/clothing/ears/earmuffs) && !istype(r_ear, /obj/item/clothing/ears/earmuffs))
@@ -300,8 +315,8 @@
 
 	var/update = 0
 	var/weapon_message = "Explosive Blast"
-	for(var/datum/organ/external/temp in organs)
-		switch(temp.name)
+	for(var/obj/item/organ/external/temp in organs)
+		switch(temp.limb_name)
 			if("head")
 				update |= temp.take_damage(b_loss * 0.2, f_loss * 0.2, used_weapon = weapon_message)
 			if("chest")
@@ -332,7 +347,7 @@
 	if(stat == 2)	return
 	show_message("\red The blob attacks you!")
 	var/dam_zone = pick("chest", "l_hand", "r_hand", "l_leg", "r_leg")
-	var/datum/organ/external/affecting = get_organ(ran_zone(dam_zone))
+	var/obj/item/organ/external/affecting = get_organ(ran_zone(dam_zone))
 	apply_damage(rand(20,30), BRUTE, affecting, run_armor_check(affecting, "melee"))
 	return
 
@@ -341,7 +356,7 @@
 		if ((M.client && !( M.blinded )))
 			M.show_message("\red [src] has been hit by [O]", 1)
 	if (health > 0)
-		var/datum/organ/external/affecting = get_organ(pick("chest", "chest", "chest", "head"))
+		var/obj/item/organ/external/affecting = get_organ(pick("chest", "chest", "chest", "head"))
 		if(!affecting)	return
 		if (istype(O, /obj/effect/immovablerod))
 			if(affecting.take_damage(101, 0))
@@ -365,10 +380,10 @@
 		src.attack_log += text("\[[time_stamp()]\] <font color='orange'>was attacked by [M.name] ([M.ckey])</font>")
 		var/damage = rand(M.melee_damage_lower, M.melee_damage_upper)
 		var/dam_zone = pick("chest", "l_hand", "r_hand", "l_leg", "r_leg")
-		var/datum/organ/external/affecting = get_organ(ran_zone(dam_zone))
+		var/obj/item/organ/external/affecting = get_organ(ran_zone(dam_zone))
 		var/armor = run_armor_check(affecting, "melee")
 
-		var/datum/organ/external/affected = src.get_organ(dam_zone)
+		var/obj/item/organ/external/affected = src.get_organ(dam_zone)
 		affected.add_autopsy_data(M.name, damage) // Add the mob's name to the autopsy data
 		apply_damage(damage, BRUTE, affecting, armor, M.name)
 		if(armor >= 2)	return
@@ -389,14 +404,14 @@
 
 			if(stat != DEAD)
 				L.amount_grown = min(L.amount_grown + damage, L.max_grown)
-			var/datum/organ/external/affecting = get_organ(ran_zone(L.zone_sel.selecting))
+			var/obj/item/organ/external/affecting = get_organ(ran_zone(L.zone_sel.selecting))
 			var/armor_block = run_armor_check(affecting, "melee")
 			apply_damage(damage, BRUTE, affecting, armor_block)
 
 /mob/living/carbon/human/proc/is_loyalty_implanted(mob/living/carbon/human/M)
 	for(var/L in M.contents)
 		if(istype(L, /obj/item/weapon/implant/loyalty))
-			for(var/datum/organ/external/O in M.organs)
+			for(var/obj/item/organ/external/O in M.organs)
 				if(L in O.implants)
 					return 1
 	return 0
@@ -420,7 +435,7 @@
 
 		var/dam_zone = pick("head", "chest", "l_arm", "r_arm", "l_leg", "r_leg", "groin")
 
-		var/datum/organ/external/affecting = get_organ(ran_zone(dam_zone))
+		var/obj/item/organ/external/affecting = get_organ(ran_zone(dam_zone))
 		var/armor_block = run_armor_check(affecting, "melee")
 		apply_damage(damage, BRUTE, affecting, armor_block)
 
@@ -597,7 +612,7 @@
 
 //Returns "Unknown" if facially disfigured and real_name if not. Useful for setting name when polyacided or when updating a human's name variable
 /mob/living/carbon/human/proc/get_face_name()
-	var/datum/organ/external/head/head = get_organ("head")
+	var/obj/item/organ/external/head = get_organ("head")
 	if( !head || head.disfigured || (head.status & ORGAN_DESTROYED) || !real_name || (HUSK in mutations) )	//disfigured. use id-name if possible
 		return "Unknown"
 	return real_name
@@ -632,7 +647,7 @@
 	if (!def_zone)
 		def_zone = pick("l_hand", "r_hand")
 
-	var/datum/organ/external/affected_organ = get_organ(check_zone(def_zone))
+	var/obj/item/organ/external/affected_organ = get_organ(check_zone(def_zone))
 	var/siemens_coeff = base_siemens_coeff * get_siemens_coefficient_organ(affected_organ)
 
 	return ..(shock_damage, source, siemens_coeff, def_zone)
@@ -1024,27 +1039,32 @@
 ///Returns a number between -1 to 2
 /mob/living/carbon/human/eyecheck()
 	var/number = 0
-	if(istype(src.head, /obj/item/clothing/head/welding))
-		if(!src.head:up)
-			number += 2
-	if(istype(src.head, /obj/item/clothing/head/helmet/space))
-		number += 2
-	if(istype(src.head, /obj/item/clothing/head/helmet/space/eva))
-		number -= 2
-	if(istype(src.head, /obj/item/clothing/head/helmet/space/rig/medical))
-		number -= 2
-	if(istype(src.glasses, /obj/item/clothing/glasses/thermal))
-		number -= 1
-	if(istype(src.glasses, /obj/item/clothing/glasses/sunglasses))
-		number += 1
-	if(istype(src.glasses, /obj/item/clothing/glasses/hud/health_advanced)) // New blueshield / brig phys no flash medi hud
-		number += 1
-	if(istype(src.glasses, /obj/item/clothing/glasses/welding))
-		var/obj/item/clothing/glasses/welding/W = src.glasses
-		if(!W.up)
-			number += 2
+	if(istype(src.head, /obj/item/clothing/head))			//are they wearing something on their head
+		var/obj/item/clothing/head/HFP = src.head			//if yes gets the flash protection value from that item
+		number += HFP.flash_protect
+	if(istype(src.glasses, /obj/item/clothing/glasses))		//glasses
+		var/obj/item/clothing/glasses/GFP = src.glasses
+		number += GFP.flash_protect
+	if(istype(src.wear_mask, /obj/item/clothing/mask))		//mask
+		var/obj/item/clothing/mask/MFP = src.wear_mask
+		number += MFP.flash_protect
 	return number
 
+///tintcheck()
+///Checks eye covering items for visually impairing tinting, such as welding masks
+///Checked in life.dm. 0 & 1 = no impairment, 2 = welding mask overlay, 3 = You can see jack, but you can't see shit.
+/mob/living/carbon/human/tintcheck()
+	var/tinted = 0
+	if(istype(src.head, /obj/item/clothing/head))
+		var/obj/item/clothing/head/HT = src.head
+		tinted += HT.tint
+	if(istype(src.glasses, /obj/item/clothing/glasses))
+		var/obj/item/clothing/glasses/GT = src.glasses
+		tinted += GT.tint
+	if(istype(src.wear_mask, /obj/item/clothing/mask))
+		var/obj/item/clothing/mask/MT = src.wear_mask
+		tinted += MT.tint
+	return tinted
 
 /mob/living/carbon/human/IsAdvancedToolUser()
 	return 1//Humans can use guns and such
@@ -1068,9 +1088,6 @@
 
 	if(!species)
 		set_species()
-
-	if(dna && dna.mutantrace == "golem")
-		return "Animated Construct"
 
 	return species.name
 
@@ -1151,35 +1168,24 @@
 		germ_level += n
 
 /mob/living/carbon/human/revive()
-	for (var/datum/organ/external/O in organs)
-		O.status &= ~ORGAN_BROKEN
-		O.status &= ~ORGAN_BLEEDING
-		O.status &= ~ORGAN_SPLINTED
-		O.status &= ~ORGAN_CUT_AWAY
-		O.status &= ~ORGAN_ATTACHABLE
-		if (!O.amputated)
-			O.status &= ~ORGAN_DESTROYED
-			O.destspawn = 0
-		O.wounds.Cut()
-		O.heal_damage(1000,1000,1,1)
-
-	var/datum/organ/external/head/h = organs_by_name["head"]
-	h.disfigured = 0
 
 	if(species && !(species.flags & NO_BLOOD))
 		vessel.add_reagent("blood",560-vessel.total_volume)
 		fixblood()
 
-	for (var/obj/item/weapon/organ/head/H in world)
-		if(H.brainmob)
-			if(H.brainmob.real_name == src.real_name)
-				if(H.brainmob.mind)
-					H.brainmob.mind.transfer_to(src)
-					del(H)
+	// Fix up all organs.
+	// This will ignore any prosthetics in the prefs currently.
+	species.create_organs(src)
 
-	for(var/name in internal_organs_by_name)
-		var/datum/organ/internal/I = internal_organs_by_name[name]
-		I.damage = 0
+	if(!client || !key) //Don't boot out anyone already in the mob.
+		for (var/obj/item/organ/brain/H in world)
+			if(H.brainmob)
+				if(H.brainmob.real_name == src.real_name)
+					if(H.brainmob.mind)
+						H.brainmob.mind.transfer_to(src)
+						del(H)
+
+
 
 	for (var/ID in virus2)
 		var/datum/disease2/disease/V = virus2[ID]
@@ -1188,14 +1194,14 @@
 	..()
 
 /mob/living/carbon/human/proc/is_lung_ruptured()
-	var/datum/organ/internal/lungs/L = internal_organs_by_name["lungs"]
+	var/obj/item/organ/lungs/L = internal_organs_by_name["lungs"]
 	if(!L)
 		return 0
 
 	return L.is_bruised()
 
 /mob/living/carbon/human/proc/rupture_lung()
-	var/datum/organ/internal/lungs/L = internal_organs_by_name["lungs"]
+	var/obj/item/organ/lungs/L = internal_organs_by_name["lungs"]
 	if(!L)
 		return 0
 
@@ -1258,7 +1264,7 @@
 /mob/living/carbon/human/get_visible_implants(var/class = 0)
 
 	var/list/visible_implants = list()
-	for(var/datum/organ/external/organ in src.organs)
+	for(var/obj/item/organ/external/organ in src.organs)
 		for(var/obj/item/weapon/O in organ.implants)
 			if(!istype(O,/obj/item/weapon/implant) && (O.w_class > class) && !istype(O,/obj/item/weapon/shard/shrapnel))
 				visible_implants += O
@@ -1272,7 +1278,7 @@
 
 /mob/living/carbon/human/proc/handle_embedded_objects()
 
-	for(var/datum/organ/external/organ in src.organs)
+	for(var/obj/item/organ/external/organ in src.organs)
 		if(organ.status & ORGAN_SPLINTED) //Splints prevent movement.
 			continue
 		for(var/obj/item/weapon/O in organ.implants)
@@ -1281,11 +1287,11 @@
 				var/msg = null
 				switch(rand(1,3))
 					if(1)
-						msg ="<span class='warning'>A spike of pain jolts your [organ.display_name] as you bump [O] inside.</span>"
+						msg ="<span class='warning'>A spike of pain jolts your [organ.name] as you bump [O] inside.</span>"
 					if(2)
-						msg ="<span class='warning'>Your movement jostles [O] in your [organ.display_name] painfully.</span>"
+						msg ="<span class='warning'>Your movement jostles [O] in your [organ.name] painfully.</span>"
 					if(3)
-						msg ="<span class='warning'>[O] in your [organ.display_name] twists painfully as you move.</span>"
+						msg ="<span class='warning'>[O] in your [organ.name] twists painfully as you move.</span>"
 				src << msg
 
 				organ.take_damage(rand(1,3), 0, 0)
@@ -1325,7 +1331,7 @@
 	else
 		usr << "\blue [self ? "Your" : "[src]'s"] pulse is [src.get_pulse(GETPULSE_HAND)]."
 
-/mob/living/carbon/human/proc/set_species(var/new_species, var/force_organs, var/default_colour)
+/mob/living/carbon/human/proc/set_species(var/new_species, var/default_colour)
 
 	var/datum/species/oldspecies = species
 	if(!dna)
@@ -1353,9 +1359,6 @@
 		if(oldspecies.default_genes.len)
 			oldspecies.handle_dna(src,1) // Remove any genes that belong to the old species
 
-	if(force_organs || !organs || !organs.len)
-		species.create_organs(src)
-
 	if(vessel)
 		vessel = null
 	make_blood()
@@ -1372,9 +1375,6 @@
 	else
 		see_invisible = SEE_INVISIBLE_LIVING
 
-	spawn(0)
-		update_icons()
-
 	if(species.base_color && default_colour)
 		//Apply colour.
 		r_skin = hex2num(copytext(species.base_color,2,4))
@@ -1385,23 +1385,36 @@
 		g_skin = 0
 		b_skin = 0
 
+	species.create_organs(src)
+
 	if(!dna)
 		dna = new /datum/dna(null)
 		dna.species = species.name
 		dna.real_name = real_name
-	dna.mutantrace = null
 
 	species.handle_post_spawn(src)
 
 	spawn(0)
 		overlays.Cut()
 		update_mutantrace(1)
+		regenerate_icons()
 		fixblood()
+
+	UpdateAppearance()
 
 	if(species)
 		return 1
 	else
 		return 0
+
+/mob/living/carbon/human/get_default_language()
+	if(default_language)
+		return default_language
+
+	if(!species)
+		return null
+	return species.default_language ? all_languages[species.default_language] : null
+
 
 /mob/living/carbon/human/proc/bloody_doodle()
 	set category = "IC"
@@ -1453,20 +1466,6 @@
 
 		W.add_fingerprint(src)
 
-/mob/living/carbon/human/proc/expose_brain()
-	var/datum/organ/external/head/H = get_organ("head")
-	if(H)
-		H.brained=1
-		h_style = "Bald"
-		update_hair()
-		update_body()
-
-/mob/living/carbon/human/proc/unexpose_brain()
-	var/datum/organ/external/head/H = get_organ("head")
-	if(H)
-		H.brained=0
-		update_hair()
-		update_body()
 
 
 /mob/living/carbon/human/canSingulothPull(var/obj/machinery/singularity/singulo)
@@ -1651,9 +1650,6 @@
 	if(istype(head, /obj/item/clothing/head/wizard) || istype(head, /obj/item/clothing/head/helmet/space/rig/wizard))
 		threatcount += 2
 
-	//Check for nonhuman scum
-	if(dna && dna.mutantrace && dna.mutantrace != "none")
-		threatcount += 1
 
 	//Loyalty implants imply trustworthyness
 	if(isloyal(src))

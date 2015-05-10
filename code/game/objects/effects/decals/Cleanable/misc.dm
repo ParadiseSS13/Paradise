@@ -16,12 +16,9 @@
 	icon_state = "ash"
 	anchored = 1
 
-/obj/effect/decal/cleanable/greenglow
-
-	New()
-		..()
-		spawn(1200)// 2 minutes
-			qdel(src)
+/obj/effect/decal/cleanable/ash/New()
+	..()
+	reagents.add_reagent("ash", 10)
 
 /obj/effect/decal/cleanable/dirt
 	name = "dirt"
@@ -34,6 +31,14 @@
 	icon_state = "dirt"
 	mouse_opacity = 0
 
+/obj/effect/decal/cleanable/dirt/blackpowder
+	name = "black powder"
+	mouse_opacity = 1
+	noscoop = 1
+
+/obj/effect/decal/cleanable/dirt/blackpowder/New()
+	..()
+	reagents.add_reagent("blackpowder", 40) //size 2 explosion when activated
 
 /obj/effect/decal/cleanable/flour
 	name = "flour"
@@ -45,6 +50,16 @@
 	icon = 'icons/effects/effects.dmi'
 	icon_state = "flour"
 
+/obj/effect/decal/cleanable/flour/foam
+	name = "Fire fighting foam"
+	desc = "It's foam."
+	color = "#EBEBEB"
+
+	New()
+		..()
+		spawn(150)// 15 seconds
+			qdel(src)
+
 /obj/effect/decal/cleanable/greenglow
 	name = "glowing goo"
 	desc = "Jeez. I hope that's not for lunch."
@@ -55,6 +70,11 @@
 	luminosity = 1
 	icon = 'icons/effects/effects.dmi'
 	icon_state = "greenglow"
+
+	New()
+		..()
+		spawn(1200)// 2 minutes
+			qdel(src)
 
 /obj/effect/decal/cleanable/cobweb
 	name = "cobweb"
@@ -95,7 +115,23 @@
 	icon_state = "vomit_1"
 	random_icon_states = list("vomit_1", "vomit_2", "vomit_3", "vomit_4")
 	var/list/datum/disease2/disease/virus2 = list()
+	noclear = 1
 
+/obj/effect/decal/cleanable/vomit/New()
+	..()
+	reagents.add_reagent("vomit", 5)
+
+
+/obj/effect/decal/cleanable/vomit/green
+	name = "green vomit"
+	desc = "It's all gummy. Ew."
+	icon_state = "gvomit_1"
+	random_icon_states = list("gvomit_1", "gvomit_2", "gvomit_3", "gvomit_4")
+
+/obj/effect/decal/cleanable/vomit/green/New()
+	..()
+	reagents.remove_reagent("vomit", 5)
+	reagents.add_reagent("green_vomit", 5)
 
 /obj/effect/decal/cleanable/poop
 	name = "poop"
@@ -134,3 +170,17 @@
 	layer = 2
 	icon = 'icons/effects/tomatodecal.dmi'
 	random_icon_states = list("smashed_pie")
+
+/obj/effect/decal/cleanable/fungus
+	name = "space fungus"
+	desc = "A fungal growth. Looks pretty nasty."
+	density = 0
+	anchored = 1
+	layer = 2
+	icon = 'icons/effects/effects.dmi'
+	icon_state = "flour"
+	color = "#D5820B"
+
+/obj/effect/decal/cleanable/fungus/New()
+	..()
+	reagents.add_reagent("fungus", 10)

@@ -43,7 +43,7 @@
 
 	force = 15 //Smashing bottles over someoen's head hurts.
 
-	var/datum/organ/external/affecting = user.zone_sel.selecting //Find what the player is aiming at
+	var/obj/item/organ/external/affecting = user.zone_sel.selecting //Find what the player is aiming at
 
 	var/armor_block = 0 //Get the target's armour values for normal attack damage.
 	var/armor_duration = 0 //The more force the bottle has, the longer the duration.
@@ -100,7 +100,7 @@
 	user.attack_log += text("\[[time_stamp()]\] <font color='red'>Has attacked [target.name] ([target.ckey]) with a bottle!</font>")
 	target.attack_log += text("\[[time_stamp()]\] <font color='orange'>Has been smashed with a bottle by [user.name] ([user.ckey])</font>")
 	if(target.ckey)
-		msg_admin_attack("[user.name] ([user.ckey]) attacked [target.name] ([target.ckey]) with a bottle. (INTENT: [uppertext(user.a_intent)]) (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[user.x];Y=[user.y];Z=[user.z]'>JMP</a>)")
+		msg_admin_attack("[user.name] ([user.ckey])[isAntag(user) ? "(ANTAG)" : ""] attacked [target.name] ([target.ckey]) with a bottle. (INTENT: [uppertext(user.a_intent)]) (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[user.x];Y=[user.y];Z=[user.z]'>JMP</a>)")
 	if(!iscarbon(user))
 		target.LAssailant = null
 	else

@@ -24,6 +24,10 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 	"4" = image("icon" = 'icons/mob/screen1_full.dmi', "icon_state" = "brutedamageoverlay4"),\
 	"5" = image("icon" = 'icons/mob/screen1_full.dmi', "icon_state" = "brutedamageoverlay5"),\
 	"6" = image("icon" = 'icons/mob/screen1_full.dmi', "icon_state" = "brutedamageoverlay6"))
+
+#define TINT_IMPAIR 2			//Threshold of tint level to apply weld mask overlay
+#define TINT_BLIND 3			//Threshold of tint level to obscure vision fully
+
 /mob/living/carbon/human
 	var/oxygen_alert = 0
 	var/toxins_alert = 0
@@ -36,12 +40,13 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 	var/exposedtimenow = 0
 	var/firstexposed = 0
 	var/heartbeat = 0
+	var/tinttotal = 0				// Total level of visually impairing items
 
 /mob/living/carbon/human/Life()
 	set invisibility = 0
 	//set background = 1
 
-	if (monkeyizing)	return
+	if (notransform)	return
 	if(!loc)			return	// Fixing a null error that occurs when the mob isn't found in the world -- TLE
 
 	..()
@@ -52,6 +57,7 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 	//to find it.
 	blinded = null
 	fire_alert = 0 //Reset this here, because both breathe() and handle_environment() have a chance to set it.
+	tinttotal = tintcheck() //here as both hud updates and status updates call it
 
 	//TODO: seperate this out
 	// update the current life tick, can be used to e.g. only do something every 4 ticks
@@ -68,7 +74,7 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 
 	//No need to update all of these procs if the guy is dead.
 	if(stat != DEAD && !in_stasis)
-		if(air_master.current_cycle%4==2 || failed_last_breath) 	//First, resolve location and get a breath
+		if(mob_master.current_cycle%4==2 || failed_last_breath) 	//First, resolve location and get a breath
 			breathe() 				//Only try to take a breath every 4 ticks, unless suffocating
 
 		else //Still give containing object the chance to interact
@@ -112,6 +118,8 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 		handle_medical_side_effects()
 
 		handle_heartbeat()
+
+		handle_heartattack()
 
 	if(stat == DEAD)
 		handle_decay()
@@ -211,31 +219,14 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 					if(3)
 						emote("drool")
 
-        /*
-		if(species.name == "Tajaran")
-			if(prob(1))
-				if(prob(1))
-					vomit(1) // Hairball
+		if(getBrainLoss() >= 100 && stat != 2) //you lapse into a coma and die without immediate aid; RIP. -Fox
+			Weaken(20)
+			losebreath += 10
+			silent += 2
 
-        */
-
-		if(stat != 2)
-			var/rn = rand(0, 200)
-			if(getBrainLoss() >= 5)
-				if(0 <= rn && rn <= 3)
-					custom_pain("Your head feels numb and painful.")
-			if(getBrainLoss() >= 15)
-				if(4 <= rn && rn <= 6) if(eye_blurry <= 0)
-					src << "\red It becomes hard to see for some reason."
-					eye_blurry = 10
-			if(getBrainLoss() >= 35)
-				if(7 <= rn && rn <= 9) if(hand && equipped())
-					src << "\red Your hand won't respond properly, you drop what you're holding."
-					drop_item()
-			if(getBrainLoss() >= 50)
-				if(10 <= rn && rn <= 12) if(!lying)
-					src << "\red Your legs won't respond properly, you fall down."
-					resting = 1
+		if(getBrainLoss() >= 120 && stat != 2) //they died from stupidity--literally. -Fox
+			visible_message("<span class='danger'><B>[src]</B> goes limp, their facial expression utterly blank.</span>")
+			death()
 
 	proc/handle_stasis_bag()
 		// Handle side effects from stasis bag
@@ -334,7 +325,7 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 						updatehealth()
 
 				if(damage && organs.len)
-					var/datum/organ/external/O = pick(organs)
+					var/obj/item/organ/external/O = pick(organs)
 					if(istype(O)) O.add_autopsy_data("Radiation Poisoning", damage)
 
 	proc/breathe()
@@ -380,31 +371,9 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 					breath = loc.remove_air(breath_moles)
 
 					if(!is_lung_ruptured())
-						if(!breath || breath.total_moles < BREATH_MOLES / 5 || breath.total_moles > BREATH_MOLES * 5)
+						if(!breath || breath.total_moles() < BREATH_MOLES / 5 || breath.total_moles() > BREATH_MOLES * 5)
 							if(prob(5))
 								rupture_lung()
-
-					// Handle chem smoke effect  -- Doohl
-					var/block = 0
-					if(wear_mask)
-						if(wear_mask.flags & BLOCK_GAS_SMOKE_EFFECT)
-							block = 1
-					if(glasses)
-						if(glasses.flags & BLOCK_GAS_SMOKE_EFFECT)
-							block = 1
-					if(head)
-						if(head.flags & BLOCK_GAS_SMOKE_EFFECT)
-							block = 1
-
-					if(!block)
-
-						for(var/obj/effect/effect/chem_smoke/smoke in view(1, src))
-							if(smoke.reagents.total_volume)
-								smoke.reagents.reaction(src, INGEST)
-								spawn(5)
-									if(smoke)
-										smoke.reagents.copy_to(src, 10) // I dunno, maybe the reagents enter the blood stream through the lungs?
-								break // If they breathe in the nasty stuff once, no need to continue checking
 
 			else //Still give containing object the chance to interact
 				if(istype(loc, /obj/))
@@ -413,8 +382,7 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 
 		handle_breath(breath)
 
-		if(species.name=="Plasmaman")
-
+		if(species.name=="Plasmaman") //this is stupid as fuck
 			// Check if we're wearing our biosuit and mask.
 			if (!istype(wear_suit,/obj/item/clothing/suit/space/eva/plasmaman) || !istype(head,/obj/item/clothing/head/helmet/space/eva/plasmaman))
 				//testing("Plasmaman [src] leakin'.  coverflags=[cover_flags]")
@@ -446,8 +414,6 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 
 		if(!breath || (breath.total_moles() == 0) || suiciding)
 			var/oxyloss = 0
-			if(reagents.has_reagent("inaprovaline"))
-				return
 			if(suiciding)
 				oxyloss = 2
 				adjustOxyLoss(oxyloss)//If you are suiciding, you should die a little bit faster
@@ -463,7 +429,7 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 				adjustOxyLoss(oxyloss)
 				failed_last_breath = 1
 
-			var/datum/organ/external/affected = get_organ("chest")
+			var/obj/item/organ/external/affected = get_organ("chest")
 			affected.add_autopsy_data("Suffocation", oxyloss)
 
 			oxygen_alert = max(oxygen_alert, 1)
@@ -580,6 +546,7 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 			bodytemperature += BODYTEMP_HEATING_MAX
 		return
 	//END FIRE CODE
+
 
 	/*
 	proc/adjust_body_temperature(current, loc_temp, boost)
@@ -734,63 +701,6 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 
 		return min(1,thermal_protection)
 
-	/*
-	proc/add_fire_protection(var/temp)
-		var/fire_prot = 0
-		if(head)
-			if(head.protective_temperature > temp)
-				fire_prot += (head.protective_temperature/10)
-		if(wear_mask)
-			if(wear_mask.protective_temperature > temp)
-				fire_prot += (wear_mask.protective_temperature/10)
-		if(glasses)
-			if(glasses.protective_temperature > temp)
-				fire_prot += (glasses.protective_temperature/10)
-		if(ears)
-			if(ears.protective_temperature > temp)
-				fire_prot += (ears.protective_temperature/10)
-		if(wear_suit)
-			if(wear_suit.protective_temperature > temp)
-				fire_prot += (wear_suit.protective_temperature/10)
-		if(w_uniform)
-			if(w_uniform.protective_temperature > temp)
-				fire_prot += (w_uniform.protective_temperature/10)
-		if(gloves)
-			if(gloves.protective_temperature > temp)
-				fire_prot += (gloves.protective_temperature/10)
-		if(shoes)
-			if(shoes.protective_temperature > temp)
-				fire_prot += (shoes.protective_temperature/10)
-
-		return fire_prot
-
-	proc/handle_temperature_damage(body_part, exposed_temperature, exposed_intensity)
-		if(nodamage)
-			return
-		//world <<"body_part = [body_part], exposed_temperature = [exposed_temperature], exposed_intensity = [exposed_intensity]"
-		var/discomfort = min(abs(exposed_temperature - bodytemperature)*(exposed_intensity)/2000000, 1.0)
-
-		if(exposed_temperature > bodytemperature)
-			discomfort *= 4
-
-		if(mutantrace == "plant")
-			discomfort *= TEMPERATURE_DAMAGE_COEFFICIENT * 2 //I don't like magic numbers. I'll make mutantraces a datum with vars sometime later. -- Urist
-		else
-			discomfort *= TEMPERATURE_DAMAGE_COEFFICIENT //Dangercon 2011 - now with less magic numbers!
-		//world <<"[discomfort]"
-
-		switch(body_part)
-			if(HEAD)
-				apply_damage(2.5*discomfort, BURN, "head")
-			if(UPPER_TORSO)
-				apply_damage(2.5*discomfort, BURN, "chest")
-			if(LEGS)
-				apply_damage(0.6*discomfort, BURN, "l_leg")
-				apply_damage(0.6*discomfort, BURN, "r_leg")
-			if(ARMS)
-				apply_damage(0.4*discomfort, BURN, "l_arm")
-				apply_damage(0.4*discomfort, BURN, "r_arm")
-	*/
 
 	proc/get_covered_bodyparts()
 		var/covered = 0
@@ -812,17 +722,11 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 
 	proc/handle_chemicals_in_body()
 
-		if(reagents && !(species.flags & IS_SYNTHETIC)) //Synths don't process reagents.
+		if(reagents) //Synths don't process reagents. // fuck you they do now - Iamgoofball
 			var/alien = 0
 			if(species && species.reagent_tag)
 				alien = species.reagent_tag
 			reagents.metabolize(src,alien)
-
-			var/total_plasmaloss = 0
-			for(var/obj/item/I in src)
-				if(I.contaminated)
-					total_plasmaloss += vsc.plc.CONTAMINATION_LOSS
-			if(!(status_flags & GODMODE)) adjustToxLoss(total_plasmaloss)
 
 		if(status_flags & GODMODE)	return 0	//godmode
 
@@ -847,7 +751,7 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 					adjustOxyLoss(-(light_amount))
 					//TODO: heal wounds, heal broken limbs.
 
-		if(dna && dna.mutantrace == "shadow")
+		if(species.light_dam)
 			var/light_amount = 0
 			if(isturf(loc))
 				var/turf/T = loc
@@ -855,10 +759,26 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 				if(A)
 					if(A.lighting_use_dynamic)	light_amount = T.lighting_lumcount
 					else						light_amount =  10
-			if(light_amount > 2) //if there's enough light, start dying
-				take_overall_damage(1,1)
-			else if (light_amount < 2) //heal in the dark
-				heal_overall_damage(1,1)
+			if(light_amount > species.light_dam) //if there's enough light, start dying
+				if(species.light_effect_amp)
+					adjustFireLoss(5) //This gets doubled by Shadowling's innate fire weakness, so it ends up being 10.
+				else
+					adjustFireLoss(1)
+					adjustBruteLoss(1)
+				src << "<span class='userdanger'>The light burns you!</span>"
+				src << 'sound/weapons/sear.ogg'
+			else //heal in the dark
+				if(species.light_effect_amp)
+					adjustFireLoss(-5)
+					adjustBruteLoss(-5)
+					adjustBrainLoss(-25) //gibbering shadowlings are hilarious but also bad to have
+					adjustCloneLoss(-1)
+					SetWeakened(0)
+					SetStunned(0)
+				else
+					adjustFireLoss(-1)
+					adjustBruteLoss(-1)
+
 
 		//The fucking FAT mutation is the greatest shit ever. It makes everyone so hot and bothered.
 		if(species.flags & CAN_BE_FAT)
@@ -971,7 +891,7 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 				if( health <= 20 && prob(1) )
 					spawn(0)
 						emote("gasp")
-				if(!reagents.has_reagent("inaprovaline"))
+				if(!reagents.has_reagent("epinephrine"))
 					adjustOxyLoss(1)*/
 
 			if(hallucination && !(species.flags & IS_SYNTHETIC))
@@ -1006,7 +926,7 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 				adjustStaminaLoss(-10)
 				adjustHalLoss(-3)
 				if (mind)
-					//Are they SSD? If so we'll keep them asleep but work off some of that sleep var in case of stoxin or similar.
+					//Are they SSD? If so we'll keep them asleep but work off some of that sleep var in case of morphine or similar.
 					if(player_logged)
 						sleeping = max(sleeping-1, 2)
 					else
@@ -1047,9 +967,9 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 			else if(eye_blind)			//blindness, heals slowly over time
 				eye_blind = max(eye_blind-1,0)
 				blinded = 1
-			else if(istype(glasses, /obj/item/clothing/glasses/sunglasses/blindfold))	//resting your eyes with a blindfold heals blurry eyes faster
+			else if(tinttotal >= TINT_BLIND)	//covering your eyes heals blurry eyes faster
 				eye_blurry = max(eye_blurry-3, 0)
-				blinded = 1
+			//	blinded = 1						//now handled under /handle_regular_hud_updates()
 			else if(eye_blurry)	//blurry eyes heal slowly
 				eye_blurry = max(eye_blurry-1, 0)
 
@@ -1207,14 +1127,6 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 			if(healths)		healths.icon_state = "health7"	//DEAD healthmeter
 		else
 			sight &= ~(SEE_TURFS|SEE_MOBS|SEE_OBJS)
-			if(dna)
-				switch(dna.mutantrace)
-					if("slime")
-						see_in_dark = 3
-						see_invisible = SEE_INVISIBLE_LEVEL_ONE
-					if("shadow")
-						see_in_dark = 8
-						see_invisible = SEE_INVISIBLE_OBSERVER_NOLIGHTING
 
 			if(mind && mind.vampire)
 				if((VAMP_VISION in mind.vampire.powers) && !(VAMP_FULL in mind.vampire.powers))
@@ -1292,7 +1204,7 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 					healthdoll.icon_state = "healthdoll_DEAD"
 				else
 					healthdoll.icon_state = "healthdoll_OVERLAY"
-					for(var/datum/organ/external/O in organs)
+					for(var/obj/item/organ/external/O in organs)
 						var/damage = O.burn_dam + O.brute_dam
 						var/comparison = (O.max_damage/5)
 						var/icon_num = 0
@@ -1307,7 +1219,7 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 						if(damage > (comparison*4))
 							icon_num = 5
 						if(icon_num)
-							healthdoll.overlays += image('icons/mob/screen_gen.dmi',"[O.name][icon_num]")
+							healthdoll.overlays += image('icons/mob/screen_gen.dmi',"[O.limb_name][icon_num]")
 
 			if(nutrition_icon)
 				switch(nutrition)
@@ -1377,6 +1289,16 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 							bodytemp.icon_state = "temp-1"
 						else
 							bodytemp.icon_state = "temp0"
+
+//	This checks how much the mob's eyewear impairs their vision
+			if(tinttotal >= TINT_IMPAIR)
+				if(tinted_weldhelh)
+					if(tinttotal >= TINT_BLIND)
+						blinded = 1								// You get the sudden urge to learn to play keyboard
+						client.screen += global_hud.darkMask
+					else
+						client.screen += global_hud.darkMask
+
 			if(blind)
 				if(blinded)		blind.layer = 18
 				else			blind.layer = 0
@@ -1391,19 +1313,6 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 
 			if(eye_blurry)			client.screen += global_hud.blurry
 			if(druggy)				client.screen += global_hud.druggy
-
-			var/masked = 0
-
-			if( istype(head, /obj/item/clothing/head/welding) || istype(head, /obj/item/clothing/head/helmet/space/unathi))
-				var/obj/item/clothing/head/welding/O = head
-				if(!O.up && tinted_weldhelh)
-					client.screen += global_hud.darkMask
-					masked = 1
-
-			if(!masked && istype(glasses, /obj/item/clothing/glasses/welding) )
-				var/obj/item/clothing/glasses/welding/O = glasses
-				if(!O.up && tinted_weldhelh)
-					client.screen += global_hud.darkMask
 
 			if(machine)
 				if(!machine.check_eye(src))		reset_view(null)
@@ -1518,7 +1427,7 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 						stomach_contents.Remove(M)
 						del(M)
 						continue
-					if(air_master.current_cycle%3==1)
+					if(mob_master.current_cycle%3==1)
 						if(!(M.status_flags & GODMODE))
 							M.adjustBruteLoss(5)
 						nutrition += 10
@@ -1586,6 +1495,9 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 		if(stat == DEAD)
 			return PULSE_NONE	//that's it, you're dead, nothing can influence your pulse
 
+		if(heart_attack)
+			return PULSE_NONE
+
 		var/temp = PULSE_NORM
 
 		if(round(vessel.get_reagent_amount("blood")) <= BLOOD_VOLUME_BAD)	//how much blood do we have
@@ -1611,7 +1523,7 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 				break
 		for(var/datum/reagent/R in reagents.reagent_list) //Conditional heart-stoppage
 			if(R.id in cheartstopper)
-				if(R.volume >= R.overdose)
+				if(R.volume >= R.overdose_threshold)
 					temp = PULSE_NONE
 					break
 
@@ -1621,6 +1533,9 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 		var/decaytime = world.time - timeofdeath
 
 		if(species.flags & IS_SYNTHETIC)
+			return
+
+		if(reagents.has_reagent("formaldehyde")) //embalming fluid stops decay
 			return
 
 		if(decaytime <= 6000) //10 minutes for decaylevel1 -- stinky
@@ -1649,14 +1564,20 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 					var/obj/item/clothing/mask/M = H.wear_mask
 					if(M && (M.flags & MASKCOVERSMOUTH))
 						return
+					if(H.species && H.species.flags & NO_BREATHE)
+						return //no puking if you can't smell!
 					H << "<spawn class='warning'>You smell something foul..."
-					H.vomit()
+					H.fakevomit()
 
 	proc/handle_heartbeat()
 		var/client/C = src.client
 		if(C && C.prefs.sound & SOUND_HEARTBEAT) //disable heartbeat by pref
-			var/datum/organ/internal/heart/H = internal_organs_by_name["heart"]
-			if(istype(H,/datum/organ/internal/heart/robotic)) //Handle robotic hearts specially with a wuuuubb. This also applies to machine-people.
+			var/obj/item/organ/heart/H = internal_organs_by_name["heart"]
+
+			if(!H) //H.status will runtime if there is no H (obviously)
+				return
+
+			if(H.status & ORGAN_ROBOT) //Handle robotic hearts specially with a wuuuubb. This also applies to machine-people.
 				if(shock_stage >= 10 || istype(get_turf(src), /turf/space))
 					//PULSE_THREADY - maximum value for pulse, currently it 5.
 					//High pulse value corresponds to a fast rate of heartbeat.
@@ -1674,9 +1595,6 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 			if(pulse == PULSE_NONE)
 				return
 
-			if(!H)
-				return
-
 			if(pulse >= PULSE_2FAST || shock_stage >= 10 || istype(get_turf(src), /turf/space))
 				//PULSE_THREADY - maximum value for pulse, currently it 5.
 				//High pulse value corresponds to a fast rate of heartbeat.
@@ -1685,7 +1603,7 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 
 				if(heartbeat >= rate)
 					heartbeat = 0
-					if(istype(H,/datum/organ/internal/heart/assisted))
+					if(H.status & ORGAN_ASSISTED)
 						src << sound('sound/effects/pacemakebeat.ogg',0,0,0,50)
 					else
 						src << sound('sound/effects/singlebeat.ogg',0,0,0,50)
@@ -1844,6 +1762,10 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 					holder.icon_state = "mutineer"
 				if("mutineer")
 					holder.icon_state = "mutineer"
+				if("Shadowling")
+					holder.icon_state = "hudshadowling"
+				if("Shadowling Thrall")
+					holder.icon_state = "hudshadowlingthrall"
 
 			hud_list[SPECIALROLE_HUD] = holder
 
@@ -1886,9 +1808,6 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 	return slurring
 
 /mob/living/carbon/human/handle_stunned()
-	if(species.flags & NO_PAIN)
-		stunned = 0
-		return 0
 	if(..())
 		speech_problem_flag = 1
 	return stunned
@@ -1897,6 +1816,17 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 	if(..())
 		speech_problem_flag = 1
 	return stuttering
+
+
+/mob/living/carbon/human/proc/handle_heartattack()
+	if(!heart_attack)
+		return
+	else
+		losebreath += 5
+		adjustOxyLoss(10)
+		adjustBrainLoss(rand(4,10))
+		Paralyse(2)
+	return
 
 
 // Need this in species.

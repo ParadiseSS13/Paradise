@@ -7,7 +7,7 @@
 /obj/machinery/door/poddoor/shutters/New()
 	..()
 	layer = 3.1
-	
+
 /obj/machinery/door/poddoor/shutters/preopen
 	icon_state = "shutter0"
 	density = 0
@@ -41,7 +41,8 @@
 	sleep(10)
 	density = 0
 	SetOpacity(0)
-	update_nearby_tiles()
+	air_update_turf(1)
+	update_freelok_sight()
 
 	if(operating == 1) //emag again
 		operating = 0
@@ -59,7 +60,8 @@
 	density = 1
 	if(visible)
 		SetOpacity(1)
-	update_nearby_tiles()
+	air_update_turf(1)
+	update_freelok_sight()
 
 	sleep(10)
 	operating = 0

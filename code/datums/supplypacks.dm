@@ -535,12 +535,12 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 
 /datum/supply_packs/medical/supplies
 	name = "Medical Supplies Crate"
-	contains = list(/obj/item/weapon/reagent_containers/glass/bottle/antitoxin,
-					/obj/item/weapon/reagent_containers/glass/bottle/antitoxin,
-					/obj/item/weapon/reagent_containers/glass/bottle/inaprovaline,
-					/obj/item/weapon/reagent_containers/glass/bottle/inaprovaline,
-					/obj/item/weapon/reagent_containers/glass/bottle/stoxin,
-					/obj/item/weapon/reagent_containers/glass/bottle/stoxin,
+	contains = list(/obj/item/weapon/reagent_containers/glass/bottle/charcoal,
+					/obj/item/weapon/reagent_containers/glass/bottle/charcoal,
+					/obj/item/weapon/reagent_containers/glass/bottle/epinephrine,
+					/obj/item/weapon/reagent_containers/glass/bottle/epinephrine,
+					/obj/item/weapon/reagent_containers/glass/bottle/morphine,
+					/obj/item/weapon/reagent_containers/glass/bottle/morphine,
 					/obj/item/weapon/reagent_containers/glass/bottle/toxin,
 					/obj/item/weapon/reagent_containers/glass/bottle/toxin,
 					/obj/item/weapon/reagent_containers/glass/beaker/large,
@@ -1022,6 +1022,13 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 	containername = "sandstone blocks crate"
 
 
+/datum/supply_packs/materials/plastic30
+	name = "30 Plastic Sheets"
+	contains = list(/obj/item/stack/sheet/mineral/plastic)
+	amount = 30
+	cost = 25
+	containername = "plastic sheets crate"
+
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////// Miscellaneous ///////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
@@ -1123,12 +1130,22 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 	/obj/item/weapon/reagent_containers/glass/paint/black,
 	/obj/item/weapon/reagent_containers/glass/paint/white,
 	/obj/item/weapon/reagent_containers/glass/paint/remover,
-	/obj/item/weapon/contraband/poster,
+	/obj/item/weapon/contraband/poster/legit,
 	/obj/item/stack/wrapping_paper,
 	/obj/item/stack/wrapping_paper,
 	/obj/item/stack/wrapping_paper)
 	cost = 10
 	containername = "Arts and Crafts crate"
+
+/datum/supply_packs/misc/posters
+	name = "Corporate Posters Crate"
+	contains = list(/obj/item/weapon/contraband/poster/legit,
+					/obj/item/weapon/contraband/poster/legit,
+					/obj/item/weapon/contraband/poster/legit,
+					/obj/item/weapon/contraband/poster/legit,
+					/obj/item/weapon/contraband/poster/legit)
+	cost = 8
+	containername = "Corporate Posters Crate"
 
 ///////////// Janitor Supplies
 
@@ -1246,9 +1263,7 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 
 /datum/supply_packs/misc/randomised/contraband
 	num_contained = 5
-	contains = list(/obj/item/weapon/storage/pill_bottle/zoom,
-					/obj/item/weapon/storage/pill_bottle/happy,
-					/obj/item/weapon/storage/pill_bottle/random_drug_bottle,
+	contains = list(/obj/item/weapon/storage/pill_bottle/random_drug_bottle,
 					/obj/item/weapon/contraband/poster,
 					/obj/item/weapon/storage/fancy/cigarettes/dromedaryco,
 					/obj/item/weapon/storage/fancy/cigarettes/cigpack_shadyjims)

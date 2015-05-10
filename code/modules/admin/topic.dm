@@ -45,16 +45,18 @@
 				if(!src.makeVoxRaiders())
 					usr << "\red Unfortunately there weren't enough candidates available."
 
-	else if(href_list["dbsearchckey"] || href_list["dbsearchadmin"] || href_list["dbsearchip"] || href_list["dbpban"] || href_list["dbtban"] || href_list["dbjpban"] || href_list["dbjtban"])
+	else if(href_list["dbsearchckey"] || href_list["dbsearchadmin"] || href_list["dbsearchip"] || href_list["dbsearchcid"] || href_list["dbsearchbantype"])
 		var/adminckey = href_list["dbsearchadmin"]
 		var/playerckey = href_list["dbsearchckey"]
 		var/playerip = href_list["dbsearchip"]
-		var/pban = href_list["dbpban"]
-		var/tban = href_list["dbtban"]
-		var/jpban = href_list["dbjpban"]
-		var/jtban = href_list["dbjtban"]
+		var/playercid = href_list["dbsearchcid"]
+		var/dbbantype = text2num(href_list["dbsearchbantype"])
+		var/match = 0
 
-		DB_ban_panel(playerckey, adminckey, playerip, pban, tban, jpban, jtban)
+		if("dbmatch" in href_list)
+			match = 1
+
+		DB_ban_panel(playerckey, adminckey, playerip, playercid, dbbantype, match)
 		return
 
 	else if(href_list["dbbanedit"])
@@ -66,11 +68,12 @@
 		DB_ban_edit(banid, banedit)
 		return
 
-
 	else if(href_list["dbbanaddtype"])
 
 		var/bantype = text2num(href_list["dbbanaddtype"])
 		var/banckey = href_list["dbbanaddckey"]
+		var/banip = href_list["dbbanaddip"]
+		var/bancid = href_list["dbbanaddcid"]
 		var/banduration = text2num(href_list["dbbaddduration"])
 		var/banjob = href_list["dbbanaddjob"]
 		var/banreason = href_list["dbbanreason"]
@@ -98,6 +101,12 @@
 				if(!banckey || !banreason || !banjob || !banduration)
 					usr << "Not enough parameters (Requires ckey, reason and job)"
 					return
+			if(BANTYPE_APPEARANCE)
+				if(!banckey || !banreason)
+					usr << "Not enough parameters (Requires ckey and reason)"
+					return
+				banduration = null
+				banjob = null
 
 		var/mob/playermob
 
@@ -106,9 +115,19 @@
 				playermob = M
 				break
 
+
 		banreason = "(MANUAL BAN) "+banreason
 
-		DB_ban_record(bantype, playermob, banduration, banreason, banjob, null, banckey)
+		if(!playermob)
+			if(banip)
+				banreason = "[banreason] (CUSTOM IP)"
+			if(bancid)
+				banreason = "[banreason] (CUSTOM CID)"
+		else
+			message_admins("Ban process: A mob matching [playermob.ckey] was found at location [playermob.x], [playermob.y], [playermob.z]. Custom ip and computer id fields replaced with the ip and computer id from the located mob")
+
+		DB_ban_record(bantype, playermob, banduration, banreason, banjob, null, banckey, banip, bancid )
+
 
 	else if(href_list["editrights"])
 		if(!check_rights(R_PERMISSIONS))
@@ -1015,7 +1034,8 @@
 				return
 
 	else if(href_list["mute"])
-		if(!check_rights(R_ADMIN))	return
+		if(!check_rights(R_MOD))
+			return
 
 		var/mob/M = locate(href_list["mute"])
 		if(!ismob(M))	return
@@ -1376,6 +1396,16 @@
 			return
 
 		usr.client.cmd_admin_slimeize(H)
+
+	else if(href_list["makesuper"])
+		if(!check_rights(R_SPAWN))	return
+
+		var/mob/living/carbon/human/H = locate(href_list["makesuper"])
+		if(!istype(H))
+			usr << "This can only be used on instances of type /mob/living/carbon/human"
+			return
+
+		usr.client.cmd_admin_super(H)
 
 	else if(href_list["makerobot"])
 		if(!check_rights(R_SPAWN))	return
@@ -2220,7 +2250,7 @@
 					if(!security)
 						//strip their stuff before they teleport into a cell :downs:
 						for(var/obj/item/weapon/W in H)
-							if(istype(W, /datum/organ/external))
+							if(istype(W, /obj/item/organ/external))
 								continue
 								//don't strip organs
 							H.unEquip(W)
@@ -2656,6 +2686,35 @@
 				feedback_inc("admin_secrets_fun_used",1)
 				feedback_add_details("admin_secrets_fun_used","SM")
 				usr.rightandwrong(1)
+			if("tdomereset")
+				var/delete_mobs = alert("Clear all mobs?","Confirm","Yes","No","Cancel")
+				if(delete_mobs == "Cancel")
+					return
+
+				var/area/thunderdome = locate(/area/tdome/arena)
+				if(delete_mobs == "Yes")
+					for(var/mob/living/mob in thunderdome)
+						qdel(mob) //Clear mobs
+				for(var/obj/obj in thunderdome)
+					if(!istype(obj,/obj/machinery/camera))
+						qdel(obj) //Clear objects
+
+				var/area/template = locate(/area/tdome/arena_source)
+				template.copy_contents_to(thunderdome)
+
+				log_admin("[key_name(usr)] reset the thunderdome to default with delete_mobs==[delete_mobs].", 1)
+				message_admins("<span class='adminnotice'>[key_name_admin(usr)] reset the thunderdome to default with delete_mobs==[delete_mobs].</span>")
+
+			if("tdomestart")
+				var/confirmation = alert("Start a Thunderdome match?","Confirm","Yes","No")
+				if(confirmation == "No")
+					return
+				if(makeThunderdomeTeams())
+					log_admin("[key_name(usr)] started a Thunderdome match!", 1)
+					message_admins("<span class='adminnotice'>[key_name_admin(usr)] has started a Thunderdome match!</span>")
+				else
+					log_admin("[key_name(usr)] attempted to start a Thunderdome match, but no ghosts signed up.", 1)
+					message_admins("<span class='adminnotice'>[key_name_admin(usr)] tried starting a Thunderdome match, but no ghosts signed up.</span>")
 			if("securitylevel0")
 				set_security_level(0)
 				message_admins("\blue [key_name_admin(usr)] change security level to Green.", 1)
@@ -2998,18 +3057,6 @@
 	else if(href_list["ac_set_signature"])
 		src.admincaster_signature = adminscrub(input(usr, "Provide your desired signature", "Network Identity Handler", ""))
 		src.access_news_network()
-
-	else if(href_list["vsc"])
-		if(check_rights(R_ADMIN|R_SERVER))
-			if(href_list["vsc"] == "airflow")
-				vsc.ChangeSettingsDialog(usr,vsc.settings)
-			if(href_list["vsc"] == "plasma")
-				vsc.ChangeSettingsDialog(usr,vsc.plc.settings)
-//				zas_settings.ChangeSettingsDialog(usr,zas_settings.settings)
-			if(href_list["vsc"] == "default")
-				vsc.SetDefault(usr)
-//				zas_settings.SetDefault(usr)
-	// player info stuff
 
 	if(href_list["add_player_info"])
 		var/key = href_list["add_player_info"]

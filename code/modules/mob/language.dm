@@ -260,7 +260,7 @@
 	desc = "The common galactic tongue."
 	speech_verb = "says"
 	whisper_verb = "whispers"
-	key = "0"
+	key = "9"
 	flags = RESTRICTED
 	syllables = list("blah","blah","blah","bleh","meh","neh","nah","wah")
 
@@ -355,6 +355,20 @@
 	colour = "changeling"
 	key = "g"
 	flags = RESTRICTED | HIVEMIND
+
+/datum/language/shadowling
+	name = "Shadowling Hivemind"
+	desc = "Shadowlings and their thralls are capable of communicating over a psychic hivemind."
+	speech_verb = "says"
+	colour = "shadowling"
+	key = "8"
+	flags = RESTRICTED | HIVEMIND
+
+/datum/language/shadowling/broadcast(var/mob/living/speaker, var/message, var/speaker_mask)
+	if(speaker.mind && speaker.mind.special_role)
+		..(speaker, message, "([speaker.mind.special_role]) [speaker]")
+	else
+		..(speaker, message)
 
 /datum/language/ling/broadcast(var/mob/living/speaker,var/message,var/speaker_mask)
 
@@ -468,6 +482,12 @@
 	. = (L in languages)
 	languages.Remove(L)
 
+/mob/living/remove_language(rem_language)
+	var/datum/language/L = all_languages[rem_language]
+	if(default_language == L)
+		default_language = null
+	return ..()
+
 // Can we speak this language, as opposed to just understanding it?
 /mob/proc/can_speak(datum/language/speaking)
 
@@ -487,5 +507,33 @@
 
 	src << browse(dat, "window=checklanguage")
 	return
+
+/mob/living/check_languages()
+	var/dat = "<b><font size = 5>Known Languages</font></b><br/><br/>"
+
+	if(default_language)
+		dat += "Current default language: [default_language] - <a href='byond://?src=\ref[src];default_lang=reset'>reset</a><br/><br/>"
+
+	for(var/datum/language/L in languages)
+		if(!(L.flags & NONGLOBAL))
+			if(L == default_language)
+				dat += "<b>[L.name] (:[L.key])</b> - default - <a href='byond://?src=\ref[src];default_lang=reset'>reset</a><br/>[L.desc]<br/><br/>"
+			else
+				dat += "<b>[L.name] (:[L.key])</b> - <a href=\"byond://?src=\ref[src];default_lang=[L]\">set default</a><br/>[L.desc]<br/><br/>"
+
+	src << browse(dat, "window=checklanguage")
+
+/mob/living/Topic(href, href_list)
+	if(href_list["default_lang"])
+		if(href_list["default_lang"] == "reset")
+			set_default_language(null)
+		else
+			var/datum/language/L = all_languages[href_list["default_lang"]]
+			if(L)
+				set_default_language(L)
+		check_languages()
+		return 1
+	else
+		return ..()
 
 #undef SCRAMBLE_CACHE_LEN

@@ -61,6 +61,19 @@ var/const/BLOOD_VOLUME_SURVIVE = 122
 			if(blood_volume < 560 && blood_volume)
 				var/datum/reagent/blood/B = locate() in vessel.reagent_list //Grab some blood
 				if(B) // Make sure there's some blood at all
+
+					if(src.mind) //Handles vampires "eating" blood that isn't their own.
+						if(src.mind in ticker.mode.vampires)
+							for(var/datum/reagent/blood/BL in vessel.reagent_list)
+								if(src.nutrition >= 450)
+									break //We don't want blood tranfusions making vampires fat.
+								if(BL.data["donor"] != src)
+									src.nutrition += (15 * REAGENTS_METABOLISM)
+									BL.volume -= REAGENTS_METABOLISM
+									if(BL.volume <= 0)
+										del(BL)
+									break //Only process one blood per tick, to maintain the same metabolism as nutriment for non-vampires.
+
 					if(B.data["donor"] != src) //If it's not theirs, then we look for theirs
 						for(var/datum/reagent/blood/D in vessel.reagent_list)
 							if(D.data["donor"] == src)
@@ -74,10 +87,13 @@ var/const/BLOOD_VOLUME_SURVIVE = 122
 					if (reagents.has_reagent("iron"))	//Hematogen candy anyone?
 						B.volume += 0.8
 						reagents.remove_reagent("iron", 0.1)
+					if (reagents.has_reagent("salglu_solution"))	//saline is good for blood regeneration
+						if(prob(33))
+							B.volume += 1.0
 
 		// Damaged heart virtually reduces the blood volume, as the blood isn't
 		// being pumped properly anymore.
-		var/datum/organ/internal/heart/heart = internal_organs_by_name["heart"]
+		var/obj/item/organ/heart/heart = internal_organs_by_name["heart"]
 
 		if(heart)
 			if(heart.damage > 1 && heart.damage < heart.min_bruised_damage)
@@ -143,7 +159,7 @@ var/const/BLOOD_VOLUME_SURVIVE = 122
 
 		//Bleeding out
 		var/blood_max = 0
-		for(var/datum/organ/external/temp in organs)
+		for(var/obj/item/organ/external/temp in organs)
 			if(!(temp.status & ORGAN_BLEEDING) || temp.status & ORGAN_ROBOT)
 				continue
 			for(var/datum/wound/W in temp.wounds) if(W.bleeding())

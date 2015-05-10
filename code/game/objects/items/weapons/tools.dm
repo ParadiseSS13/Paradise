@@ -256,7 +256,7 @@
 		playsound(src.loc, 'sound/effects/refill.ogg', 50, 1, -6)
 		return
 	else if (istype(O, /obj/structure/reagent_dispensers/fueltank) && get_dist(src,O) <= 1 && src.welding)
-		msg_admin_attack("[key_name_admin(user)] triggered a fueltank explosion.")
+		msg_admin_attack("[key_name_admin(user)][isAntag(user) ? "(ANTAG)" : ""] triggered a fueltank explosion.")
 		log_game("[key_name(user)] triggered a fueltank explosion.")
 		user << "\red That was stupid of you."
 		var/obj/structure/reagent_dispensers/fueltank/tank = O
@@ -267,7 +267,6 @@
 		var/turf/location = get_turf(user)
 		if (istype(location, /turf))
 			location.hotspot_expose(700, 50, 1)
-
 		if(isliving(O))
 			var/mob/living/L = O
 			L.IgniteMob()
@@ -369,7 +368,7 @@
 	var/safety = user:eyecheck()
 	if(istype(user, /mob/living/carbon/human))
 		var/mob/living/carbon/human/H = user
-		var/datum/organ/internal/eyes/E = H.internal_organs_by_name["eyes"]
+		var/obj/item/organ/eyes/E = H.internal_organs_by_name["eyes"]
 		if(H.species.flags & IS_SYNTHETIC)
 			return
 		switch(safety)
@@ -475,7 +474,7 @@
 /obj/item/weapon/weldingtool/attack(mob/M as mob, mob/user as mob)
 	if(hasorgans(M))
 
-		var/datum/organ/external/S = M:organs_by_name[user.zone_sel.selecting]
+		var/obj/item/organ/external/S = M:organs_by_name[user.zone_sel.selecting]
 
 		if (!S) return
 		if(!(S.status & ORGAN_ROBOT) || user.a_intent != "help")
@@ -493,7 +492,7 @@
 			if (WT.remove_fuel(0,null))
 				playsound(src.loc, 'sound/items/Welder2.ogg', 50, 1)
 				S.heal_damage(15,0,0,1)
-				user.visible_message("\red \The [user] patches some dents on \the [M]'s [S.display_name] with \the [src].")
+				user.visible_message("\red \The [user] patches some dents on \the [M]'s [S.name] with \the [src].")
 				if(istype(M,/mob/living/carbon/human))
 					var/mob/living/carbon/human/H = M
 					H.updatehealth()

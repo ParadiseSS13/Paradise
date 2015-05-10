@@ -98,6 +98,14 @@
 	build_path = /obj/item/weapon/wrench
 	category = list("initial","Tools")
 
+/datum/design/spraycan
+	name = "Spraycan"
+	id = "spraycan"
+	build_type = AUTOLATHE
+	materials = list("$metal" = 100, "$glass" = 100)
+	build_path = /obj/item/toy/crayon/spraycan
+	category = list("initial", "Tools")
+
 /datum/design/airalarm_electronics
 	name = "Air Alarm Electronics"
 	id = "airalarm_electronics"
@@ -112,6 +120,14 @@
 	build_type = AUTOLATHE
 	materials = list("$metal" = 50, "$glass" = 50)
 	build_path = /obj/item/weapon/airlock_electronics
+	category = list("initial", "Electronics")
+
+/datum/design/intercom_electronics
+	name = "Intercom Electronics"
+	id = "intercom_electronics"
+	build_type = AUTOLATHE
+	materials = list("$metal" = 50, "$glass" = 50)
+	build_path = /obj/item/weapon/intercom_electronics
 	category = list("initial", "Electronics")
 
 /datum/design/console_screen
@@ -168,6 +184,14 @@
 	build_type = AUTOLATHE
 	materials = list("$metal" = 800, "$glass" = 200)
 	build_path = /obj/item/device/assembly/prox_sensor
+	category = list("initial", "Miscellaneous")
+
+/datum/design/mousetrap
+	name = "Mousetrap"
+	id = "mousetrap"
+	build_type = AUTOLATHE
+	materials = list("$metal" = 800, "$glass" = 200)
+	build_path = /obj/item/device/assembly/mousetrap
 	category = list("initial", "Miscellaneous")
 
 /datum/design/timer
@@ -247,7 +271,7 @@
 	id = "newscaster_frame"
 	build_type = AUTOLATHE
 	materials = list("$metal" = 14000, "$glass" = 8000)
-	build_path = /obj/item/newscaster_frame
+	build_path = /obj/item/mounted/frame/newscaster_frame
 	category = list("initial", "Construction")
 
 /datum/design/rcd_ammo

@@ -1,3 +1,6 @@
+mob/living
+	var/canEnterVentWith = "/obj/item/weapon/implant=0&/obj/item/clothing/mask/facehugger=0&/obj/item/device/radio/borg=0&/obj/machinery/camera=0"
+
 /mob/living/carbon/Login()
 	..()
 	update_hud()
@@ -24,35 +27,47 @@
 		if(germ_level < GERM_LEVEL_MOVE_CAP && prob(8))
 			germ_level++
 
+#define STOMACH_ATTACK_DELAY 4
+
+/mob/living/carbon/var/last_stomach_attack //defining this here because no one would look in carbon_defines for it
+
 /mob/living/carbon/relaymove(var/mob/user, direction)
 	if(user in src.stomach_contents)
-		if(prob(40))
-			for(var/mob/M in hearers(4, src))
-				if(M.client)
-					M.show_message(text("\red You hear something rumbling inside [src]'s stomach..."), 2)
-			var/obj/item/I = user.get_active_hand()
-			if(I && I.force)
-				var/d = rand(round(I.force / 4), I.force)
-				if(istype(src, /mob/living/carbon/human))
-					var/mob/living/carbon/human/H = src
-					var/organ = H.get_organ("chest")
-					if (istype(organ, /datum/organ/external))
-						var/datum/organ/external/temp = organ
-						if(temp.take_damage(d, 0))
-							H.UpdateDamageIcon()
-					H.updatehealth()
-				else
-					src.take_organ_damage(d)
-				for(var/mob/M in viewers(user, null))
-					if(M.client)
-						M.show_message(text("\red <B>[user] attacks [src]'s stomach wall with the [I.name]!"), 2)
-				playsound(user.loc, 'sound/effects/attackblob.ogg', 50, 1)
+		if(last_stomach_attack + STOMACH_ATTACK_DELAY > world.time)	return
 
-				if(prob(src.getBruteLoss() - 50))
-					for(var/atom/movable/A in stomach_contents)
-						A.loc = loc
-						stomach_contents.Remove(A)
-					src.gib()
+		last_stomach_attack = world.time
+		for(var/mob/M in hearers(4, src))
+			if(M.client)
+				M.show_message(text("\red You hear something rumbling inside [src]'s stomach..."), 2)
+
+		var/obj/item/I = user.get_active_hand()
+		if(I && I.force)
+			var/d = rand(round(I.force / 4), I.force)
+
+			if(istype(src, /mob/living/carbon/human))
+				var/mob/living/carbon/human/H = src
+				var/obj/item/organ/external/organ = H.get_organ("chest")
+				if (istype(organ))
+					if(organ.take_damage(d, 0))
+						H.UpdateDamageIcon()
+
+				H.updatehealth()
+
+			else
+				src.take_organ_damage(d)
+
+			for(var/mob/M in viewers(user, null))
+				if(M.client)
+					M.show_message(text("\red <B>[user] attacks [src]'s stomach wall with the [I.name]!"), 2)
+			playsound(user.loc, 'sound/effects/attackblob.ogg', 50, 1)
+
+			if(prob(src.getBruteLoss() - 50))
+				for(var/atom/movable/A in stomach_contents)
+					A.loc = loc
+					stomach_contents.Remove(A)
+				src.gib()
+
+#undef STOMACH_ATTACK_DELAY
 
 /mob/living/carbon/gib()
 	for(var/mob/M in src)
@@ -67,12 +82,13 @@
 
 /mob/living/carbon/attack_hand(mob/M as mob)
 	if(!istype(M, /mob/living/carbon)) return
-	if (hasorgans(M))
-		var/datum/organ/external/temp = M:organs_by_name["r_hand"]
-		if (M.hand)
-			temp = M:organs_by_name["l_hand"]
+	if (ishuman(M))
+		var/mob/living/carbon/human/H = M
+		var/obj/item/organ/external/temp = H.organs_by_name["r_hand"]
+		if (H.hand)
+			temp = H.organs_by_name["l_hand"]
 		if(temp && !temp.is_usable())
-			M << "\red You can't use your [temp.display_name]"
+			H << "\red You can't use your [temp.name]"
 			return
 	return
 
@@ -88,6 +104,8 @@
 
 	src.apply_damage(shock_damage, BURN, def_zone, used_weapon="Electrocution")
 
+	if(heart_attack && prob(25))
+		heart_attack = 0
 	playsound(loc, "sparks", 50, 1, -1)
 	if (shock_damage < 10)
 		src.visible_message(
@@ -164,7 +182,7 @@
 				"\blue You check yourself for injuries." \
 				)
 
-			for(var/datum/organ/external/org in H.organs)
+			for(var/obj/item/organ/external/org in H.organs)
 				var/status = ""
 				var/brutedamage = org.brute_dam
 				var/burndamage = org.burn_dam
@@ -195,7 +213,7 @@
 					status = "weirdly shapen."
 				if(status == "")
 					status = "OK"
-				src.show_message(text("\t []My [] is [].",status=="OK"?"\blue ":"\red ",org.display_name,status),1)
+				src.show_message(text("\t []My [] is [].",status=="OK"?"\blue ":"\red ",org.name,status),1)
 			if(staminaloss)
 				if(staminaloss > 30)
 					src << "<span class='info'>You're completely exhausted.</span>"
@@ -242,6 +260,9 @@
 /mob/living/carbon/proc/eyecheck()
 	return 0
 
+/mob/living/carbon/proc/tintcheck()
+	return 0
+
 /mob/living/carbon/proc/getDNA()
 	return dna
 
@@ -251,104 +272,86 @@
 /mob/living/carbon/can_use_vents()
 	return
 
-/mob/living/proc/handle_ventcrawl(var/obj/machinery/atmospherics/unary/vent_pump/vent_found = null, var/ignore_items = 0) // -- TLE -- Merged by Carn
-	if(stat)
-		src << "You must be conscious to do this!"
-		return
-	if(lying)
-		src << "You can't vent crawl while you're stunned!"
-		return
+/mob/living/proc/handle_ventcrawl(var/atom/clicked_on) // -- TLE -- Merged by Carn
+	diary << "[src] is ventcrawling."
+	if(!stat)
+		if(!lying)
 
-	var/special_fail_msg = can_use_vents()
-	if(special_fail_msg)
-		src << "\red [special_fail_msg]"
-		return
+/*
+			if(clicked_on)
+				world << "We start with [clicked_on], and [clicked_on.type]"
+*/
+			var/obj/machinery/atmospherics/unary/vent_found
 
-	if(vent_found) // one was passed in, probably from vent/AltClick()
-		if(vent_found.welded)
-			src << "That vent is welded shut."
-			return
-		if(!vent_found.Adjacent(src))
-			return // don't even acknowledge that
+			if(clicked_on && Adjacent(clicked_on))
+				vent_found = clicked_on
+				if(!istype(vent_found) || !vent_found.can_crawl_through())
+					vent_found = null
+
+
+			if(!vent_found)
+				for(var/obj/machinery/atmospherics/machine in range(1,src))
+					if(is_type_in_list(machine, ventcrawl_machinery))
+						vent_found = machine
+
+					if(!vent_found.can_crawl_through())
+						vent_found = null
+
+					if(vent_found)
+						break
+
+			if(vent_found)
+				if(vent_found.network && (vent_found.network.normal_members.len || vent_found.network.line_members.len))
+
+					src << "You begin climbing into the ventilation system..."
+					if(!do_after(src, 45))
+						return
+
+					if(!client)
+						return
+
+					if(contents.len && !isrobot(src))
+						for(var/obj/item/carried_item in contents)//If the ventcrawler got on objects.
+							if(!(isInTypes(carried_item, canEnterVentWith)))
+								src << "<SPAN CLASS='warning'>You can't be carrying items or have items equipped when vent crawling!</SPAN>"
+								return
+
+					visible_message("<B>[src] scrambles into the ventilation ducts!</B>", "You climb into the ventilation system.")
+
+					loc = vent_found
+					add_ventcrawl(vent_found)
+
+				else
+					src << "This vent is not connected to anything."
+
+			else
+				src << "You must be standing on or beside an air vent to enter it."
+
+		else
+			src << "You can't vent crawl while you're stunned!"
+
 	else
-		for(var/obj/machinery/atmospherics/unary/vent_pump/v in range(1,src))
-			if(!v.welded)
-				if(v.Adjacent(src))
-					vent_found = v
-	if(!vent_found)
-		src << "You'll need a non-welded vent to crawl into!"
+		src << "You must be conscious to do this!"
+	return
+
+/mob/living/proc/add_ventcrawl(obj/machinery/atmospherics/starting_machine)
+	var/datum/pipe_network/network = starting_machine.return_network(starting_machine)
+	if(!network)
 		return
+	for(var/datum/pipeline/pipeline in network.line_members)
+		for(var/obj/machinery/atmospherics/A in (pipeline.members || pipeline.edges))
+			if(!A.pipe_image)
+				A.pipe_image = image(A, A.loc, layer = 20, dir = A.dir) //the 20 puts it above Byond's darkness (not its opacity view)
+			pipes_shown += A.pipe_image
+			client.images += A.pipe_image
 
-	if(!vent_found.network || !vent_found.network.normal_members.len)
-		src << "This vent is not connected to anything."
-		return
+/mob/living/proc/remove_ventcrawl()
+	if(client)
+		for(var/image/current_image in pipes_shown)
+			client.images -= current_image
+		client.eye = src
 
-	var/list/vents = list()
-	for(var/obj/machinery/atmospherics/unary/vent_pump/temp_vent in vent_found.network.normal_members)
-		if(temp_vent.welded)
-			continue
-		if(temp_vent in loc)
-			continue
-		var/turf/T = get_turf(temp_vent)
-
-		if(!T || T.z != loc.z)
-			continue
-
-		var/i = 1
-		var/index = "[T.loc.name]\[[i]\]"
-		while(index in vents)
-			i++
-			index = "[T.loc.name]\[[i]\]"
-		vents[index] = temp_vent
-	if(!vents.len)
-		src << "\red There are no available vents to travel to, they could be welded."
-		return
-
-	var/obj/selection = input("Select a destination.", "Duct System") as null|anything in sortAssoc(vents)
-	if(!selection)	return
-
-	if(!vent_found.Adjacent(src))
-		src << "Never mind, you left."
-		return
-
-	if(!ignore_items)
-		for(var/obj/item/carried_item in contents)//If the monkey got on objects.
-			if( !istype(carried_item, /obj/item/weapon/implant) && !istype(carried_item, /obj/item/clothing/mask/facehugger) )//If it's not an implant or a facehugger
-				src << "\red You can't be carrying items or have items equipped when vent crawling!"
-				return
-
-	if(isslime(src))
-		var/mob/living/carbon/slime/S = src
-		if(S.Victim)
-			src << "\red You'll have to let [S.Victim] go or finish eating \him first."
-			return
-
-	var/obj/machinery/atmospherics/unary/vent_pump/target_vent = vents[selection]
-	if(!target_vent)
-		return
-
-	for(var/mob/O in viewers(src, null))
-		O.show_message(text("<B>[src] scrambles into the ventillation ducts!</B>"), 1)
-	loc = target_vent
-
-	var/travel_time = round(get_dist(loc, target_vent.loc) / 2)
-
-	spawn(travel_time)
-
-		if(!target_vent)	return
-		for(var/mob/O in hearers(target_vent,null))
-			O.show_message("You hear something squeezing through the ventilation ducts.",2)
-
-		sleep(travel_time)
-
-		if(!target_vent)	return
-		if(target_vent.welded)			//the vent can be welded while alien scrolled through the list or travelled.
-			target_vent = vent_found 	//travel back. No additional time required.
-			src << "\red The vent you were heading to appears to be welded."
-		loc = target_vent.loc
-		var/area/new_area = get_area(loc)
-		if(new_area)
-			new_area.Entered(src)
+	pipes_shown.len = 0
 
 /mob/living/carbon/clean_blood()
 	. = ..()
@@ -412,7 +415,7 @@
 
 				M.attack_log += text("\[[time_stamp()]\] <font color='orange'>Has been thrown by [usr.name] ([usr.ckey]) from [start_T_descriptor] with the target [end_T_descriptor]</font>")
 				usr.attack_log += text("\[[time_stamp()]\] <font color='red'>Has thrown [M.name] ([M.ckey]) from [start_T_descriptor] with the target [end_T_descriptor]</font>")
-				msg_admin_attack("[usr.name] ([usr.ckey]) has thrown [M.name] ([M.ckey]) from [start_T_descriptor] with the target [end_T_descriptor] (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[usr.x];Y=[usr.y];Z=[usr.z]'>JMP</a>)")
+				msg_admin_attack("[usr.name] ([usr.ckey])[isAntag(usr) ? "(ANTAG)" : ""] has thrown [M.name] ([M.ckey]) from [start_T_descriptor] with the target [end_T_descriptor] (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[usr.x];Y=[usr.y];Z=[usr.z]'>JMP</a>)")
 
 				if(!iscarbon(usr))
 					M.LAssailant = null
@@ -452,7 +455,12 @@
 
 
 		item.throw_at(target, item.throw_range, item.throw_speed, src)
-
+/*
+/mob/living/carbon/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume)
+	..()
+	src.IgniteMob()
+	bodytemperature = max(bodytemperature, BODYTEMP_HEAT_DAMAGE_LIMIT+10)
+*/
 /mob/living/carbon/can_use_hands()
 	if(handcuffed)
 		return 0

@@ -26,9 +26,6 @@
 	item_state = "syringe_kit"
 	foldable = /obj/item/stack/sheet/cardboard	//BubbleWrap
 
-	autoignition_temperature = 522 // Kelvin
-
-
 /obj/item/weapon/storage/box/large
 	name = "large box"
 	desc = "You could build a fort with this."
@@ -38,8 +35,6 @@
 	foldable = /obj/item/stack/sheet/cardboard  //BubbleWrap
 	storage_slots = 21
 	max_combined_w_class = 42 // 21*2
-
-	autoignition_temperature = 530 // Kelvin
 
 /obj/item/weapon/storage/box/survival
 	New()
@@ -149,7 +144,6 @@
 		new /obj/item/ammo_casing/shotgun(src)
 		new /obj/item/ammo_casing/shotgun(src)
 		new /obj/item/ammo_casing/shotgun(src)
-
 
 /obj/item/weapon/storage/box/flashbangs
 	name = "box of flashbangs (WARNING)"
@@ -356,6 +350,20 @@
 		new /obj/item/weapon/reagent_containers/food/snacks/donkpocket(src)
 		new /obj/item/weapon/reagent_containers/food/snacks/donkpocket(src)
 
+/obj/item/weapon/storage/box/syndidonkpockets
+	name = "box of donk-pockets"
+	desc = "This box feels slightly warm"
+	icon_state = "donk_kit"
+
+	New()
+		..()
+		new /obj/item/weapon/reagent_containers/food/snacks/syndidonkpocket(src)
+		new /obj/item/weapon/reagent_containers/food/snacks/syndidonkpocket(src)
+		new /obj/item/weapon/reagent_containers/food/snacks/syndidonkpocket(src)
+		new /obj/item/weapon/reagent_containers/food/snacks/syndidonkpocket(src)
+		new /obj/item/weapon/reagent_containers/food/snacks/syndidonkpocket(src)
+		new /obj/item/weapon/reagent_containers/food/snacks/syndidonkpocket(src)
+
 /obj/item/weapon/storage/box/monkeycubes
 	name = "monkey cube box"
 	desc = "Drymate brand monkey cubes. Just add water!"
@@ -402,6 +410,19 @@
 		..()
 		for(var/i = 1; i <= 5; i++)
 			new /obj/item/weapon/reagent_containers/food/snacks/monkeycube/wrapped/neaeracube(src)
+
+
+/obj/item/weapon/storage/box/permits
+	name = "box of construction permits"
+	desc = "A box for containing construction permits, used to officially declare built rooms as additions to the station."
+	icon_state = "id"
+
+/obj/item/weapon/storage/box/permits/New() //There's only a few, so blueprints are still useful beyond setting every room's name to PRIMARY FART STORAGE
+	..()
+	new /obj/item/areaeditor/permit(src)
+	new /obj/item/areaeditor/permit(src)
+	new /obj/item/areaeditor/permit(src)
+
 
 /obj/item/weapon/storage/box/ids
 	name = "spare IDs"
@@ -569,8 +590,8 @@
 
 	New()
 		..()
-		new /obj/item/weapon/reagent_containers/hypospray/autoinjector/leporazine(src)
-		new /obj/item/weapon/reagent_containers/hypospray/autoinjector/leporazine(src)
+		new /obj/item/weapon/reagent_containers/hypospray/autoinjector/teporone(src)
+		new /obj/item/weapon/reagent_containers/hypospray/autoinjector/teporone(src)
 		new /obj/item/weapon/reagent_containers/hypospray/autoinjector/stimpack(src)
 		new /obj/item/weapon/reagent_containers/hypospray/autoinjector/stimpack(src)
 		new /obj/item/weapon/reagent_containers/hypospray/autoinjector/stimpack(src)

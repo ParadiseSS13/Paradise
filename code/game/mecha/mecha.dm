@@ -264,8 +264,8 @@
 /obj/mecha/proc/mech_toxin_damage(mob/living/target)
 	playsound(src, 'sound/effects/spray2.ogg', 50, 1)
 	if(target.reagents)
-		if(target.reagents.get_reagent_amount("cryptobiolin") + force < force*2)
-			target.reagents.add_reagent("cryptobiolin", force/2)
+		if(target.reagents.get_reagent_amount("atropine") + force < force*2)
+			target.reagents.add_reagent("atropine", force/2)
 		if(target.reagents.get_reagent_amount("toxin") + force < force*2)
 			target.reagents.add_reagent("toxin", force/2.5)
 
@@ -668,7 +668,7 @@
 	check_for_internal_damage(list(MECHA_INT_FIRE,MECHA_INT_TEMP_CONTROL,MECHA_INT_CONTROL_LOST,MECHA_INT_SHORT_CIRCUIT),1)
 	return
 
-/obj/mecha/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume)
+/obj/mecha/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
 	if(exposed_temperature>src.max_temperature)
 		src.log_message("Exposed to dangerous temperature.",1)
 		src.take_damage(5,"fire")

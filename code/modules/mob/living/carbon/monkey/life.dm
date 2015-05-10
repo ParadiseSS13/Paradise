@@ -12,7 +12,7 @@
 /mob/living/carbon/monkey/Life()
 	set invisibility = 0
 	//set background = 1
-	if (monkeyizing)	return
+	if (notransform)	return
 	if (update_muts)
 		update_muts=0
 		domutcheck(src,null,MUTCHK_FORCED)
@@ -25,7 +25,7 @@
 	if (stat != DEAD)
 		if(!istype(src,/mob/living/carbon/monkey/diona)) //still breathing
 			//First, resolve location and get a breath
-			if(air_master.current_cycle%4==2)
+			if(mob_master.current_cycle%4==2)
 				//Only try to take a breath every 4 seconds, unless suffocating
 				breathe()
 			else //Still give containing object the chance to interact
@@ -250,21 +250,6 @@
 					var/breath_moles = environment.total_moles()*BREATH_PERCENTAGE
 					breath = loc.remove_air(breath_moles)
 
-					// Handle chem smoke effect  -- Doohl
-					var/block = 0
-					if(wear_mask)
-						if(istype(wear_mask, /obj/item/clothing/mask/gas))
-							block = 1
-
-					if(!block)
-
-						for(var/obj/effect/effect/chem_smoke/smoke in view(1, src))
-							if(smoke.reagents.total_volume)
-								smoke.reagents.reaction(src, INGEST)
-								spawn(5)
-									if(smoke)
-										smoke.reagents.copy_to(src, 10) // I dunno, maybe the reagents enter the blood stream through the lungs?
-								break // If they breathe in the nasty stuff once, no need to continue checking
 
 
 			else //Still give containing object the chance to interact
@@ -281,7 +266,7 @@
 		if(status_flags & GODMODE)
 			return
 
-		if(!breath || (breath.total_moles == 0))
+		if(!breath || (breath.total_moles() == 0))
 			adjustOxyLoss(7)
 
 			oxygen_alert = max(oxygen_alert, 1)
@@ -503,7 +488,7 @@
 				if( health <= 20 && prob(1) )
 					spawn(0)
 						emote("gasp")
-				if(!reagents.has_reagent("inaprovaline"))
+				if(!reagents.has_reagent("epinephrine"))
 					adjustOxyLoss(1)
 				Paralyse(3)
 			if(halloss > 100)

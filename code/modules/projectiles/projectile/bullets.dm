@@ -104,7 +104,7 @@
 /obj/item/projectile/bullet/incendiary/shell/Move()
 	..()
 	var/turf/location = get_turf(src)
-	new/obj/fire(location)
+	new/obj/effect/hotspot(location)
 	location.hotspot_expose(700, 50, 1)
 
 /obj/item/projectile/bullet/incendiary/shell/dragonsbreath
@@ -172,15 +172,20 @@
 /obj/item/projectile/bullet/dart/metalfoam
 	New()
 		..()
-		reagents.add_reagent("aluminium", 15)
-		reagents.add_reagent("foaming_agent", 5)
-		reagents.add_reagent("pacid", 5)
+		reagents.add_reagent("aluminum", 15)
+		reagents.add_reagent("fluorosurfactant", 5)
+		reagents.add_reagent("sacid", 5)
 
 //This one is for future syringe guns update
 /obj/item/projectile/bullet/dart/syringe
 	name = "syringe"
 	icon = 'icons/obj/chemical.dmi'
 	icon_state = "syringeproj"
+
+/obj/item/projectile/bullet/dart/syringe/tranquilizer
+	New()
+		..()
+		reagents.add_reagent("haloperidol", 15)
 
 /obj/item/projectile/bullet/neurotoxin
 	name = "neurotoxin spit"

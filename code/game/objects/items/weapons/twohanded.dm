@@ -178,14 +178,14 @@ obj/item/weapon/twohanded/
 	if(A && wielded && (istype(A,/obj/structure/window) || istype(A,/obj/structure/grille))) //destroys windows and grilles in one hit
 
 		if(istype(A,/obj/structure/window))
-			var/pdiff=performWallPressureCheck(A.loc)
+		/*	var/pdiff=performWallPressureCheck(A.loc)
 			if(pdiff>0)
 				message_admins("[A] with pdiff [pdiff] fire-axed by [user.real_name] ([formatPlayerPanel(user,user.ckey)]) at [formatJumpTo(A.loc)]!")
-				log_admin("[A] with pdiff [pdiff] fire-axed by [user.real_name] ([user.ckey]) at [A.loc]!")
+				log_admin("[A] with pdiff [pdiff] fire-axed by [user.real_name] ([user.ckey]) at [A.loc]!")*///TODO: Figure out how the hell to remake this proc
 			var/obj/structure/window/W = A
 			W.destroy()
 		else
-			del(A)
+			qdel(A)
 
 
 /*
@@ -291,6 +291,7 @@ obj/item/weapon/twohanded/
 	force_wielded = 18 // Was 13, Buffed - RR
 	throwforce = 20
 	throw_speed = 3
+	no_spin = 1
 	flags = NOSHIELD
 	attack_verb = list("attacked", "poked", "jabbed", "torn", "gored")
 
@@ -302,11 +303,110 @@ obj/item/weapon/twohanded/
 	playsound(loc, 'sound/weapons/bladeslice.ogg', 50, 1, -1)
 	return ..()
 
+//Putting heads on spears
+/obj/item/weapon/organ/head/attackby(var/obj/item/weapon/W, var/mob/living/user, params)
+	if(istype(W, /obj/item/weapon/twohanded/spear))
+		user << "<span class='notice'>You stick the head onto the spear and stand it upright on the ground.</span>"
+		var/obj/structure/headspear/HS = new /obj/structure/headspear(user.loc)
+		var/matrix/M = matrix()
+		src.transform = M
+		user.drop_item()
+		src.loc = HS
+		var/image/IM = image(src.icon,src.icon_state)
+		IM.overlays = src.overlays.Copy()
+		HS.overlays += IM
+		qdel(W)
+		return
+	return ..()
+
+/obj/item/weapon/twohanded/spear/attackby(var/obj/item/I, var/mob/living/user)
+	if(istype(I, /obj/item/weapon/organ/head))
+		user << "<span class='notice'>You stick the head onto the spear and stand it upright on the ground.</span>"
+		var/obj/structure/headspear/HS = new /obj/structure/headspear(user.loc)
+		var/matrix/M = matrix()
+		I.transform = M
+		usr.drop_item()
+		I.loc = HS
+		var/image/IM = image(I.icon,I.icon_state)
+		IM.overlays = I.overlays.Copy()
+		HS.overlays += IM
+		qdel(src)
+		return
+	return ..()
+
+/obj/structure/headspear
+	name = "head on a spear"
+	desc = "How barbaric."
+	icon_state = "headspear"
+	density = 0
+	anchored = 1
+
+
+/obj/structure/headspear/attack_hand(mob/living/user)
+	user.visible_message("<span class='warning'>[user] kicks over \the [src]!</span>", "<span class='danger'>You kick down \the [src]!</span>")
+	new /obj/item/weapon/twohanded/spear(user.loc)
+	for(var/obj/item/weapon/organ/head/H in src)
+		H.loc = user.loc
+	qdel(src)
+
 /obj/item/weapon/twohanded/spear/kidan
 	icon_state = "kidanspear0"
 	name = "Kidan spear"
 	desc = "A spear brought over from the Kidan homeworld."
 
+
+///CHAINSAW///
+
+/obj/item/weapon/twohanded/chainsaw
+	icon_override = 'icons/mob/in-hand/swords.dmi'
+	icon_state = "chainsaw0"
+	name = "Chainsaw"
+	desc = "Perfect for felling trees or fellow spaceman."
+	force = 15
+	throwforce = 15
+	throw_speed = 1
+	throw_range = 5
+	w_class = 4.0 // can't fit in backpacks
+	force_unwielded = 15 //still pretty robust
+	force_wielded = 50  //you'll gouge their eye out! Or a limb...maybe even their entire body!
+	wieldsound = 'sound/weapons/chainsawstart.ogg'
+	hitsound = null
+	flags = NOSHIELD
+	origin_tech = "materials=6;syndicate=4"
+	attack_verb = list("sawed", "cut", "hacked", "carved", "cleaved", "butchered", "felled", "timbered")
+	sharp = 1
+	edge = 1
+	no_embed = 1
+
+
+/obj/item/weapon/twohanded/chainsaw/update_icon()
+	if(wielded)
+		icon_state = "chainsaw[wielded]"
+	else
+		icon_state = "chainsaw0"
+
+
+/obj/item/weapon/twohanded/chainsaw/attack(mob/target as mob, mob/living/user as mob)
+	if(wielded)
+		playsound(loc, 'sound/weapons/chainsaw.ogg', 100, 1, -1) //incredibly loud; you ain't goin' for stealth with this thing. Credit to Lonemonk of Freesound for this sound.
+		if(isrobot(target))
+			..()
+			return
+		if(!isliving(target))
+			return
+		else
+			target.Weaken(4)
+			..()
+		return
+	else
+		playsound(loc, "swing_hit", 50, 1, -1)
+		return ..()
+
+/obj/item/weapon/twohanded/chainsaw/IsShield() //Disarming someone with a chainsaw should be difficult.
+	if(wielded)
+		return 1
+	else
+		return 0
 
 // SINGULOHAMMER
 

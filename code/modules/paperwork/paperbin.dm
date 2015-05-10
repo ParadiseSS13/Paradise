@@ -10,7 +10,7 @@
 	pressure_resistance = 10
 	var/amount = 30					//How much paper is in the bin.
 	var/list/papers = new/list()	//List of papers put in the bin for reference.
-
+/*
 	autoignition_temperature = 519.15 // Kelvin
 
 /obj/item/weapon/paper_bin/ignite(var/temperature)
@@ -24,15 +24,15 @@
 		papers=0
 		amount=0
 		update_icon()
-
+*///LINDA shit figure out later
 /obj/item/weapon/paper_bin/MouseDrop(atom/over_object)
 	var/mob/M = usr
 	if(M.restrained() || M.stat || !Adjacent(M))
 		return
-	
+
 	if(over_object == M)
 		M.put_in_hands(src)
-	
+
 	else if(istype(over_object, /obj/screen))
 		switch(over_object.name)
 			if("r_hand")
@@ -43,7 +43,7 @@
 				if(!M.unEquip(src))
 					return
 				M.put_in_l_hand(src)
-	
+
 	add_fingerprint(M)
 
 
@@ -52,12 +52,13 @@
 
 
 /obj/item/weapon/paper_bin/attack_hand(mob/user as mob)
-	if (hasorgans(user))
-		var/datum/organ/external/temp = user:organs_by_name["r_hand"]
-		if (user.hand)
-			temp = user:organs_by_name["l_hand"]
+	if (ishuman(user))
+		var/mob/living/carbon/human/H = user
+		var/obj/item/organ/external/temp = H.organs_by_name["r_hand"]
+		if (H.hand)
+			temp = H.organs_by_name["l_hand"]
 		if(temp && !temp.is_usable())
-			user << "<span class='notice'>You try to move your [temp.display_name], but cannot!"
+			H << "<span class='notice'>You try to move your [temp.name], but cannot!"
 			return
 	if(amount >= 1)
 		amount--

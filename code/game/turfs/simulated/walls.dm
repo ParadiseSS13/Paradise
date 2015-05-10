@@ -16,6 +16,7 @@
 	opacity = 1
 	density = 1
 	blocks_air = 1
+	explosion_block = 1
 
 	thermal_conductivity = WALL_HEAT_TRANSFER_COEFFICIENT
 	heat_capacity = 312500 //a little over 5 cm thick , 312500 for 1 m by 2.5 m by 0.25 m plasteel wall
@@ -317,10 +318,6 @@
 		else if(!is_sharp(W) && W.force >= 10 || W.force >= 20)
 			user << "<span class='notice'>\The [src] crumbles away under the force of your [W.name].</span>"
 			src.dismantle_wall(1)
-
-			var/pdiff=performWallPressureCheck(src.loc)
-			if(pdiff)
-				message_admins("[user.real_name] ([formatPlayerPanel(user,user.ckey)]) broke a rotting wall with a pdiff of [pdiff] at [formatJumpTo(loc)]!")
 			return
 
 	//THERMITE related stuff. Calls src.thermitemelt() which handles melting simulated walls and the relevant effects
@@ -374,10 +371,6 @@
 
 				if( user.loc == T && user.get_active_hand() == WT )
 					user << "<span class='notice'>You remove the outer plating.</span>"
-					var/pdiff=performWallPressureCheck(src.loc)
-					if(pdiff)
-						message_admins("[user.real_name] ([formatPlayerPanel(user,user.ckey)]) dismanted a wall with a pdiff of [pdiff] at [formatJumpTo(loc)]!")
-						log_admin("[user.real_name] ([user.ckey]) dismanted a wall with a pdiff of [pdiff] at [loc]!")
 					dismantle_wall()
 			return
 		else
@@ -397,10 +390,6 @@
 		if( user.loc == T && user.get_active_hand() == W )
 			user << "<span class='notice'>You remove the outer plating.</span>"
 			dismantle_wall()
-			var/pdiff=performWallPressureCheck(src.loc)
-			if(pdiff)
-				message_admins("[user.real_name] ([formatPlayerPanel(user,user.ckey)]) dismantled with a pdiff of [pdiff] at [formatJumpTo(loc)]!")
-				log_admin("[user.real_name] ([user.ckey]) dismantled with a pdiff of [pdiff] at [loc]!")
 			for(var/mob/O in viewers(user, 5))
 				O.show_message("<span class='warning'>The wall was sliced apart by [user]!</span>", 1, "<span class='warning'>You hear metal being sliced apart.</span>", 2)
 		return
@@ -418,10 +407,6 @@
 		if( user.loc == T && user.get_active_hand() == W )
 			user << "<span class='notice'>Your drill tears though the last of the reinforced plating.</span>"
 			dismantle_wall()
-			var/pdiff=performWallPressureCheck(src.loc)
-			if(pdiff)
-				message_admins("[user.real_name] ([formatPlayerPanel(user,user.ckey)]) drilled a wall with a pdiff of [pdiff] at [formatJumpTo(loc)]!")
-				log_admin("[user.real_name] ([user.ckey]) drilled a wall with a pdiff of [pdiff] at [loc]!")
 			for(var/mob/O in viewers(user, 5))
 				O.show_message("<span class='warning'>The wall was drilled through by [user]!</span>", 1, "<span class='warning'>You hear the grinding of metal.</span>", 2)
 		return
@@ -443,54 +428,13 @@
 			playsound(src, "sparks", 50, 1)
 			playsound(src, 'sound/weapons/blade1.ogg', 50, 1)
 			dismantle_wall(1)
-			var/pdiff=performWallPressureCheck(src.loc)
-			if(pdiff)
-				message_admins("[user.real_name] ([formatPlayerPanel(user,user.ckey)]) sliced up a wall with a pdiff of [pdiff] at [formatJumpTo(loc)]!")
-				log_admin("[user.real_name] ([user.ckey]) sliced up a wall with a pdiff of [pdiff] at [loc]!")
 			for(var/mob/O in viewers(user, 5))
 				O.show_message("<span class='warning'>The wall was sliced apart by [user]!</span>", 1, "<span class='warning'>You hear metal being sliced apart and sparks flying.</span>", 2)
 		return
 
-	else if(istype(W,/obj/item/apc_frame))
-		var/obj/item/apc_frame/AH = W
-		AH.try_build(src)
+	else if(istype(W,/obj/item/mounted)) //if we place it, we don't want to have a silly message
 		return
 
-	else if(istype(W,/obj/item/newscaster_frame))
-		var/obj/item/newscaster_frame/AH = W
-		AH.try_build(src)
-		return 1
-
-	else if(istype(W,/obj/item/alarm_frame))
-		var/obj/item/alarm_frame/AH = W
-		AH.try_build(src)
-		return
-
-	else if(istype(W,/obj/item/firealarm_frame))
-		var/obj/item/firealarm_frame/AH = W
-		AH.try_build(src)
-		return
-
-	else if(istype(W,/obj/item/light_fixture_frame))
-		var/obj/item/light_fixture_frame/AH = W
-		AH.try_build(src)
-		return
-
-	else if(istype(W,/obj/item/light_fixture_frame/small))
-		var/obj/item/light_fixture_frame/small/AH = W
-		AH.try_build(src)
-		return
-/*
-	else if(istype(W,/obj/item/rust_fuel_compressor_frame))
-		var/obj/item/rust_fuel_compressor_frame/AH = W
-		AH.try_build(src)
-		return
-
-	else if(istype(W,/obj/item/rust_fuel_assembly_port_frame))
-		var/obj/item/rust_fuel_assembly_port_frame/AH = W
-		AH.try_build(src)
-		return
-*/
 	//Poster stuff
 	else if(istype(W,/obj/item/weapon/contraband/poster))
 		place_poster(W,user)
@@ -531,6 +475,9 @@
 				P.z = src.z
 				P.loc = src
 				P.level = 2
+		return
+	// The magnetic gripper does a separate attackby, so bail from this one
+	else if(istype(W, /obj/item/weapon/gripper))
 		return
 
 	else

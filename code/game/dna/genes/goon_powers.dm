@@ -164,12 +164,12 @@
 					H.visible_message("\red [usr] sprays a cloud of fine ice crystals, engulfing [H]!",
 										"<span class='notice'>[usr] sprays a cloud of fine ice crystals over your [H.head]'s visor.</span>")
 					log_admin("[ckey(usr.key)] has used cryokinesis on [ckey(C.key)], internals yes, suit yes")
-					msg_admin_attack("[usr.real_name] ([usr.ckey]) has cast cryokinesis on [C.real_name] ([C.ckey]), (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[usr.x];Y=[usr.y];Z=[usr.z]'>JMP</a>)")
+					msg_admin_attack("[usr.real_name] ([usr.ckey])[isAntag(usr) ? "(ANTAG)" : ""] has cast cryokinesis on [C.real_name] ([C.ckey]), (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[usr.x];Y=[usr.y];Z=[usr.z]'>JMP</a>)")
 				else
 					H.visible_message("\red [usr] sprays a cloud of fine ice crystals engulfing, [H]!",
 										"<span class='warning'>[usr] sprays a cloud of fine ice crystals cover your [H.head]'s visor and make it into your air vents!.</span>")
 					log_admin("[usr.real_name] ([ckey(usr.key)]) has used cryokinesis on [C.real_name] ([ckey(C.key)]), (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[usr.x];Y=[usr.y];Z=[usr.z]'>)")
-					msg_admin_attack("[usr.real_name] ([usr.ckey]) has cast cryokinesis on [C.real_name] ([C.ckey]), (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[usr.x];Y=[usr.y];Z=[usr.z]'>JMP</a>)")
+					msg_admin_attack("[usr.real_name] ([usr.ckey])[isAntag(usr) ? "(ANTAG)" : ""] has cast cryokinesis on [C.real_name] ([C.ckey]), (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[usr.x];Y=[usr.y];Z=[usr.z]'>JMP</a>)")
 					H.bodytemperature = max(0, H.bodytemperature - 50)
 					H.adjustFireLoss(5)
 	if(!handle_suit)
@@ -179,7 +179,7 @@
 
 		C.visible_message("\red [usr] sprays a cloud of fine ice crystals, engulfing [C]!")
 		log_admin("[ckey(usr.key)] has used cryokinesis on [ckey(C.key)], internals no, suit no")
-		msg_admin_attack("[usr.real_name] ([usr.ckey]) has cast cryokinesis on [C.real_name] ([C.ckey]), (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[usr.x];Y=[usr.y];Z=[usr.z]'>JMP</a>)")
+		msg_admin_attack("[usr.real_name] ([usr.ckey])[isAntag(usr) ? "(ANTAG)" : ""] has cast cryokinesis on [C.real_name] ([C.ckey]), (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[usr.x];Y=[usr.y];Z=[usr.z]'>JMP</a>)")
 
 	//playsound(usr.loc, 'bamf.ogg', 50, 0)
 
@@ -256,11 +256,11 @@
 	if(ishuman(user))
 		var/mob/living/carbon/human/H=user
 		for(var/name in H.organs_by_name)
-			var/datum/organ/external/affecting = null
+			var/obj/item/organ/external/affecting = null
 			if(!H.organs[name])
 				continue
 			affecting = H.organs[name]
-			if(!istype(affecting, /datum/organ/external))
+			if(!istype(affecting, /obj/item/organ/external))
 				continue
 			affecting.heal_damage(4, 0)
 		H.UpdateDamageIcon()
@@ -282,22 +282,22 @@
 		if(the_item.gender==FEMALE)
 			t_his="her"
 		var/mob/living/carbon/human/H = the_item
-		var/datum/organ/external/limb = H.get_organ(usr.zone_sel.selecting)
+		var/obj/item/organ/external/limb = H.get_organ(usr.zone_sel.selecting)
 		if(!istype(limb))
 			usr << "\red You can't eat this part of them!"
 			revert_cast()
 			return 0
-		if(istype(limb,/datum/organ/external/head))
+		if(istype(limb,/obj/item/organ/external/head))
 			// Bullshit, but prevents being unable to clone someone.
 			usr << "\red You try to put \the [limb] in your mouth, but [t_his] ears tickle your throat!"
 			revert_cast()
 			return 0
-		if(istype(limb,/datum/organ/external/chest))
+		if(istype(limb,/obj/item/organ/external/chest))
 			// Bullshit, but prevents being able to instagib someone.
 			usr << "\red You try to put their [limb] in your mouth, but it's too big to fit!"
 			revert_cast()
 			return 0
-		usr.visible_message("\red <b>[usr] begins stuffing [the_item]'s [limb.display_name] into [m_his] gaping maw!</b>")
+		usr.visible_message("\red <b>[usr] begins stuffing [the_item]'s [limb.name] into [m_his] gaping maw!</b>")
 		var/oldloc = H.loc
 		if(!do_mob(usr,H,EAT_MOB_DELAY))
 			usr << "\red You were interrupted before you could eat [the_item]!"
@@ -309,9 +309,9 @@
 				return
 			usr.visible_message("\red [usr] [pick("chomps","bites")] off [the_item]'s [limb]!")
 			playsound(usr.loc, 'sound/items/eatfood.ogg', 50, 0)
-			var/obj/limb_obj=limb.droplimb(1,1)
+			var/obj/limb_obj=limb.droplimb(0,DROPLIMB_BLUNT)
 			if(limb_obj)
-				var/datum/organ/external/chest=usr:get_organ("chest")
+				var/obj/item/organ/external/chest=usr:get_organ("chest")
 				chest.implants += limb_obj
 				limb_obj.loc=usr
 			doHeal(usr)
@@ -534,9 +534,11 @@
 		"their hair","what to do next","their job","space","amusing things","sad things",
 		"annoying things","happy things","something incoherent","something they did wrong")
 		var/thoughts = "thinking about [pick(randomthoughts)]"
-		if (M.fire_stacks)
+
+		if(M.fire_stacks)
 			pain_condition -= 50
 			thoughts = "preoccupied with the fire"
+
 		if (M.radiation)
 			pain_condition -= 25
 
