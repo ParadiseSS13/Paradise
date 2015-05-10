@@ -488,3 +488,11 @@ emp_act
 		..()
 
 	return
+
+/mob/living/carbon/human/experience_pressure_difference(pressure_difference, direction)
+	if(shoes)
+		if(istype(shoes,/obj/item/clothing/shoes/magboots)) //TODO: Make a not-shit shoe var system to negate airflow.
+			var/obj/item/clothing/shoes/magboots/MB = shoes
+			if(MB.magpulse)
+				return 0
+	..()
