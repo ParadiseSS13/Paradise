@@ -198,7 +198,7 @@
 				B.desc	= "Looks like the label fell off."
 //				B.identify_probability = 0
 
-
+/*
 /obj/structure/closet/crate/bin/flowers
 	name = "flower barrel"
 	desc = "A bin full of fresh flowers for the bereaved."
@@ -210,7 +210,6 @@
 			var/atom/movable/AM = new flowertype(src)
 			AM.pixel_x = rand(-10,10)
 			AM.pixel_y = rand(-5,5)
-
 
 /obj/structure/closet/crate/bin/plants
 	name = "plant barrel"
@@ -234,6 +233,7 @@
 			var/obj/O = new ptype(src)
 			O.pixel_x = rand(-10,10)
 			O.pixel_y = rand(-5,5)
+*/
 
 /obj/structure/closet/secure_closet/random_drinks
 	name = "Unlabelled Booze"

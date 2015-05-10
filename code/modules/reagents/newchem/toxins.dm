@@ -585,7 +585,7 @@ datum/reagent/atrazine/reaction_obj(var/obj/O, var/volume)
 		alien_weeds.healthcheck()
 	else if(istype(O,/obj/effect/glowshroom)) //even a small amount is enough to kill it
 		del(O)
-	else if(istype(O,/obj/effect/plantsegment))
+	else if(istype(O,/obj/effect/plant))
 		if(prob(50)) del(O) //Kills kudzu too.
 	// Damage that is done to growing plants is separately at code/game/machinery/hydroponics at obj/item/hydroponics
 

@@ -41,6 +41,7 @@
 
 	sleep_offline = 1
 
+	plant_controller = new()
 	// Create robolimbs for chargen.
 	populate_robolimb_list()
 

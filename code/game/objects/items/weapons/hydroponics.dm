@@ -146,7 +146,7 @@
 	if(!user.gloves)
 		user << "\red The [name] burns your bare hand!"
 		user.adjustFireLoss(rand(1,5))
-
+/*
 /*
  * Nettle
  */
@@ -237,3 +237,4 @@
 		new /obj/item/clothing/mask/cigarette/pipe/cobpipe (user.loc)
 		del(src)
 		return
+*/
