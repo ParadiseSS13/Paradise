@@ -795,7 +795,7 @@ var/list/be_special_flags = list(
 #define PULSE_THREADY	5	//occurs during hypovolemic shock
 //feel free to add shit to lists below
 var/list/tachycardics = list("coffee", "methamphetamine", "nitroglycerin", "thirteenloko", "nicotine")	//increase heart rate
-var/list/bradycardics = list("neurotoxin", "cryoxadone", "clonexadone", "space_drugs")					//decrease heart rate
+var/list/bradycardics = list("neurotoxin", "cryoxadone", "space_drugs")					//decrease heart rate
 var/list/heartstopper = list("capulettium", "capulettium_plus") //this stops the heart
 var/list/cheartstopper = list() //this stops the heart when overdose is met -- c = conditional
 
@@ -963,6 +963,8 @@ var/list/hit_appends = list("-OOF", "-ACK", "-UGH", "-HRNK", "-HURGH", "-GLORF")
 #define STATUS_UPDATE 1 // ORANGE Visability
 #define STATUS_DISABLED 0 // RED Visability
 #define STATUS_CLOSE -1 // Close the interface
+
+#define HYDRO_SPEED_MULTIPLIER 1
 
 #define NANO_IGNORE_DISTANCE 1
 

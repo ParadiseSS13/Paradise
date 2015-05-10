@@ -14,10 +14,104 @@
 	var/gib_throw_dir = WEST // Direction to spit meat and gibs in. Defaults to west.
 	var/gibtime = 40 // Time from starting until meat appears
 
+	var/list/victims = list()
+
 	use_power = 1
 	idle_power_usage = 2
 	active_power_usage = 500
 
+//gibs anything that stands on it's input
+
+/obj/machinery/gibber/autogibber
+	var/acceptdir = NORTH
+	var/lastacceptdir = NORTH
+	var/turf/lturf
+
+/obj/machinery/gibber/autogibber/New()
+	..()
+	spawn(5)
+		var/turf/T = get_step(src, acceptdir)
+		if(istype(T))
+			lturf = T
+
+/obj/machinery/gibber/autogibber/process()
+	if(!lturf || occupant || locked || dirty || operating)
+		return
+
+	if(acceptdir != lastacceptdir)
+		lturf = null
+		lastacceptdir = acceptdir
+		var/turf/T = get_step(src, acceptdir)
+		if(istype(T))
+			lturf = T
+
+	for(var/mob/living/carbon/human/H in lturf)
+		if(istype(H) && H.loc == lturf)
+			visible_message({"<span class='danger'>\The [src] states, "Food detected!"</span>"})
+			sleep(30)
+			if(H.loc == lturf) //still standing there
+				if(force_move_into_gibber(H))
+					ejectclothes(occupant)
+					cleanbay()
+					startgibbing(null, 1)
+			break
+
+/obj/machinery/gibber/autogibber/proc/force_move_into_gibber(var/mob/living/carbon/human/victim)
+	if(!istype(victim))	return 0
+	visible_message("<span class='danger'>\The [victim.name] gets sucked into \the [src]!</span>")
+
+	if(victim.client)
+		victim.client.perspective = EYE_PERSPECTIVE
+		victim.client.eye = src
+
+	victim.loc = src
+	src.occupant = victim
+
+	update_icon()
+	feedinTopanim()
+	return 1
+
+/obj/machinery/gibber/autogibber/proc/ejectclothes(var/mob/living/carbon/human/H)
+	if(!istype(H))	return 0
+	if(H != occupant)	return 0 //only using H as a shortcut to typecast
+	for(var/obj/O in H)
+		if(istype(O,/obj/item/clothing)) //clothing gets skipped to avoid cleaning out shit
+			continue
+		if(istype(O,/obj/item/weapon/implant))
+			var/obj/item/weapon/implant/I = O
+			if(I.implanted)
+				continue
+		if(istype(O,/obj/item/organ))
+			continue
+		if(O.flags & NODROP)
+			qdel(O) //they are already dead by now
+		H.unEquip(O)
+		O.loc = src.loc
+		O.throw_at(get_edge_target_turf(src,gib_throw_dir),rand(1,5),15)
+		sleep(1)
+
+	for(var/obj/item/clothing/C in H)
+		if(C.flags & NODROP)
+			qdel(C)
+		H.unEquip(C)
+		C.loc = src.loc
+		C.throw_at(get_edge_target_turf(src,gib_throw_dir),rand(1,5),15)
+		sleep(1)
+
+	visible_message("<span class='warning'>\The [src] spits out \the [H.name]'s possessions!")
+
+/obj/machinery/gibber/autogibber/proc/cleanbay()
+	var/spats = 0 //keeps track of how many items get spit out. Don't show a message if none are found.
+	for(var/obj/O in src)
+		if(istype(O))
+			O.loc = src.loc
+			O.throw_at(get_edge_target_turf(src,gib_throw_dir),rand(1,5),15)
+			spats++
+			sleep(1)
+	if(spats)
+		visible_message("<span class='warning'>\The [src] spits out more possessions!</span>")
+
+/*
 //auto-gibs anything that bumps into it
 /obj/machinery/gibber/autogibber
 	var/turf/input_plate
@@ -46,7 +140,7 @@
 		if(M.loc == input_plate)
 			M.loc = src
 			M.gib()
-
+*/
 
 /obj/machinery/gibber/New()
 	..()
@@ -233,9 +327,18 @@
 
 		sleep(1)
 
+	overlays -= feedee
+	overlays -= gibberoverlay
 	src.layer = 3
 
-/obj/machinery/gibber/proc/startgibbing(mob/user as mob)
+/obj/machinery/gibber/proc/startgibbing(var/mob/user, var/UserOverride=0)
+	if(!istype(user) && !UserOverride)
+		log_debug("Some shit just went down with the gibber at X[x], Y[y], Z[z] with an invalid user. (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[src.x];Y=[src.y];Z=[src.z]'>JMP</a>)")
+		return
+
+	if(UserOverride)
+		msg_admin_attack("[occupant] ([occupant.ckey]) was gibbed by an autogibber (\the [src]) at (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[src.x];Y=[src.y];Z=[src.z]'>JMP</a>)")
+
 	if(src.operating)
 		return
 
@@ -266,20 +369,25 @@
 
 	new /obj/effect/decal/cleanable/blood/gibs(src)
 
-	src.occupant.attack_log += "\[[time_stamp()]\] Was gibbed by <b>[user]/[user.ckey]</b>" //One shall not simply gib a mob unnoticed!
-	user.attack_log += "\[[time_stamp()]\] Gibbed <b>[src.occupant]/[src.occupant.ckey]</b>"
+	if(!UserOverride)
+		src.occupant.attack_log += "\[[time_stamp()]\] Was gibbed by <b>[user]/[user.ckey]</b>" //One shall not simply gib a mob unnoticed!
+		user.attack_log += "\[[time_stamp()]\] Gibbed <b>[src.occupant]/[src.occupant.ckey]</b>"
 
-	if(src.occupant.ckey)
-		msg_admin_attack("[user.name] ([user.ckey])[isAntag(user) ? "(ANTAG)" : ""] gibbed [src.occupant] ([src.occupant.ckey]) (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[user.x];Y=[user.y];Z=[user.z]'>JMP</a>)")
+		if(src.occupant.ckey)
+			msg_admin_attack("[user.name] ([user.ckey])[isAntag(user) ? "(ANTAG)" : ""] gibbed [src.occupant] ([src.occupant.ckey]) (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[user.x];Y=[user.y];Z=[user.z]'>JMP</a>)")
 
-	if(!iscarbon(user))
-		src.occupant.LAssailant = null
-	else
-		src.occupant.LAssailant = user
+		if(!iscarbon(user))
+			src.occupant.LAssailant = null
+		else
+			src.occupant.LAssailant = user
+
+	if(UserOverride) //this looks ugly but it's better than a copy-pasted startgibbing proc override
+		occupant.attack_log += "\[[time_stamp()]\] Was gibbed by <b>an autogibber (\the [src])</b>"
 
 	src.occupant.emote("scream")
 	playsound(src.loc, 'sound/effects/gib.ogg', 50, 1)
 
+	victims += "\[[time_stamp()]\] [occupant.name] ([occupant.ckey]) killed by [UserOverride ? "Autogibbing" : "[user] ([user.ckey])"]" //have to do this before ghostizing
 	src.occupant.death(1)
 	src.occupant.ghostize()
 
@@ -293,12 +401,12 @@
 		for (var/obj/item/thing in contents) //Meat is spawned inside the gibber and thrown out afterwards.
 			thing.loc = get_turf(thing) // Drop it onto the turf for throwing.
 			thing.throw_at(get_edge_target_turf(src,gib_throw_dir),rand(1,5),15) // Being pelted with bits of meat and bone would hurt.
+			sleep(1)
 
 		for (var/obj/effect/gibs in contents) //throw out the gibs too
 			gibs.loc = get_turf(gibs) //drop onto turf for throwing
 			gibs.throw_at(get_edge_target_turf(src,gib_throw_dir),rand(1,5),15)
+			sleep(1)
 
 		src.operating = 0
 		update_icon()
-
-

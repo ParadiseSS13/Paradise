@@ -62,6 +62,9 @@
 	//Check if we're on fire
 	handle_fire()
 
+	//Decrease wetness over time
+	handle_wetness()
+
 	//Status updates, death etc.
 	handle_regular_status_updates()
 	update_canmove()
@@ -661,3 +664,8 @@
 		adjustFireLoss(6)
 		return
 	//END FIRE CODE
+
+	proc/handle_wetness()
+		if(mob_master.current_cycle%20==2) //dry off a bit once every 20 ticks or so
+			wetlevel = max(wetlevel - 1,0)
+		return

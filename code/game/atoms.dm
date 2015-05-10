@@ -22,6 +22,10 @@ var/global/list/ghdel_profiling = list()
 	// replaced by OPENCONTAINER flags and atom/proc/is_open_container()
 	///Chemistry.
 
+
+	//Value used to increment ex_act() if reactionary_explosions is on
+	var/explosion_block = 0
+
 	//Detective Work, used for the duplicate data points kept in the scanners
 	var/list/original_atom
 
@@ -240,6 +244,10 @@ its easier to just keep the beam vertical.
 
 /atom/proc/relaymove()
 	return
+
+/atom/proc/set_dir(new_dir)
+	. = new_dir != dir
+	dir = new_dir
 
 /atom/proc/ex_act()
 	return

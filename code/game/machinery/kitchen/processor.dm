@@ -34,19 +34,19 @@
 	output = /obj/item/weapon/reagent_containers/food/snacks/meatball
 
 /datum/food_processor_process/potato
-	input = /obj/item/weapon/reagent_containers/food/snacks/grown/potato
+	input = "potato"
 	output = /obj/item/weapon/reagent_containers/food/snacks/fries
 
 /datum/food_processor_process/carrot
-	input = /obj/item/weapon/reagent_containers/food/snacks/grown/carrot
+	input = "carrot"
 	output = /obj/item/weapon/reagent_containers/food/snacks/carrotfries
 
 /datum/food_processor_process/soybeans
-	input = /obj/item/weapon/reagent_containers/food/snacks/grown/soybeans
+	input = "soybeans"
 	output = /obj/item/weapon/reagent_containers/food/snacks/soydope
 
 /datum/food_processor_process/wheat
-	input = /obj/item/weapon/reagent_containers/food/snacks/grown/wheat
+	input = "wheat"
 	output = /obj/item/weapon/reagent_containers/food/snacks/flour
 
 /datum/food_processor_process/spaghetti
@@ -111,7 +111,11 @@
 /obj/machinery/processor/proc/select_recipe(var/X)
 	for (var/Type in typesof(/datum/food_processor_process) - /datum/food_processor_process - /datum/food_processor_process/mob)
 		var/datum/food_processor_process/P = new Type()
-		if (!istype(X, P.input))
+		if(istype(X, /obj/item/weapon/reagent_containers/food/snacks/grown))
+			var/obj/item/weapon/reagent_containers/food/snacks/grown/G = X
+			if(G.seed.kitchen_tag != P.input)
+				continue
+		else if (!istype(X, P.input))
 			continue
 		return P
 	return 0

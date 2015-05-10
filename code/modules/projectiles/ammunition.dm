@@ -10,8 +10,9 @@
 	var/caliber = ""							//Which kind of guns it can be loaded into
 	var/projectile_type = ""//The bullet type to create when New() is called
 	var/obj/item/projectile/BB = null 			//The loaded bullet
-	var/buck = 0
+	var/pellets = 1
 	var/deviation = 0
+	var/spread = 0
 
 
 /obj/item/ammo_casing/New()
@@ -49,6 +50,12 @@
 				user << "\blue You can only inscribe a metal bullet."	//because inscribing beanbags is silly
 		else
 			user << "\blue There is no bullet in the casing to inscribe anything into."
+
+/obj/item/ammo_casing/proc/newshot() //For energy weapons, shotgun shells and wands (!).
+	if (!BB)
+		BB = new projectile_type(src)
+	return
+
 
 
 //Boxes of ammo

@@ -44,6 +44,7 @@
 				acceptable_reagents |= reagent
 			if (recipe.items)
 				max_n_of_items = max(max_n_of_items,recipe.items.len)
+		acceptable_items |= /obj/item/weapon/reagent_containers/food/snacks/grown
 
 	component_parts = list()
 	component_parts += new /obj/item/weapon/circuitboard/grill(null)

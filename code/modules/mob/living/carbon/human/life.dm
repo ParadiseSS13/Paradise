@@ -108,6 +108,9 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 		//Check if we're on fire
 		handle_fire()
 
+		//Decrease wetness over time
+		handle_wetness()
+
 		//stuff in the stomach
 		handle_stomach()
 
@@ -547,6 +550,10 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 		return
 	//END FIRE CODE
 
+	proc/handle_wetness()
+		if(mob_master.current_cycle%20==2) //dry off a bit once every 20 ticks or so
+			wetlevel = max(wetlevel - 1,0)
+		return
 
 	/*
 	proc/adjust_body_temperature(current, loc_temp, boost)

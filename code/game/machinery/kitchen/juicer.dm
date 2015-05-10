@@ -10,17 +10,21 @@
 	idle_power_usage = 5
 	active_power_usage = 100
 	var/obj/item/weapon/reagent_containers/beaker = null
-	var/global/list/allowed_items = list (
-		/obj/item/weapon/reagent_containers/food/snacks/grown/tomato  = "tomatojuice",
-		/obj/item/weapon/reagent_containers/food/snacks/grown/carrot  = "carrotjuice",
-		/obj/item/weapon/reagent_containers/food/snacks/grown/berries = "berryjuice",
-		/obj/item/weapon/reagent_containers/food/snacks/grown/banana  = "banana",
-		/obj/item/weapon/reagent_containers/food/snacks/grown/potato = "potato",
-		/obj/item/weapon/reagent_containers/food/snacks/grown/lemon = "lemonjuice",
-		/obj/item/weapon/reagent_containers/food/snacks/grown/orange = "orangejuice",
-		/obj/item/weapon/reagent_containers/food/snacks/grown/lime = "limejuice",
+	var/global/list/allowed_items = list(
 		/obj/item/weapon/reagent_containers/food/snacks/watermelonslice = "watermelonjuice",
-		/obj/item/weapon/reagent_containers/food/snacks/grown/poisonberries = "poisonberryjuice",
+		/obj/item/weapon/reagent_containers/food/snacks/grown = "water",
+	)
+
+	var/global/list/allowed_tags = list (
+		"tomato"  = "tomatojuice",
+		"carrot"  = "carrotjuice",
+		"berries" = "berryjuice",
+		"banana" = "banana",
+		"potato" = "potato",
+		"lemon" = "lemonjuice",
+		"orange" = "orangejuice",
+		"lime" = "limejuice",
+		"poisonberries" = "poisonberryjuice",
 	)
 
 /obj/machinery/juicer/New()
@@ -132,10 +136,15 @@
 	beaker = null
 	update_icon()
 
-/obj/machinery/juicer/proc/get_juice_id(var/obj/item/weapon/reagent_containers/food/snacks/grown/O)
-	for (var/i in allowed_items)
-		if (istype(O, i))
-			return allowed_items[i]
+/obj/machinery/juicer/proc/get_juice_id(var/obj/item/weapon/reagent_containers/food/snacks/O)
+	if (istype(O, /obj/item/weapon/reagent_containers/food/snacks/watermelonslice))
+		return "watermelonjuice"
+	else if(istype(O, /obj.item/weapon/reagent_containers/food/snacks/grown))
+		var/obj/item/weapon/reagent_containers/food/snacks/grown/G = O
+		for(var/i in allowed_tags)
+			if(G.seed.kitchen_tag == allowed_tags[i])
+				return allowed_tags[i]
+		return "water"
 
 /obj/machinery/juicer/proc/get_juice_amount(var/obj/item/weapon/reagent_containers/food/snacks/grown/O)
 	if (!istype(O))

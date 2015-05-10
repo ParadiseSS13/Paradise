@@ -245,6 +245,16 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 	src.pixel_x = rand(-5.0, 5)
 	src.pixel_y = rand(-5.0, 5)
 
+/obj/item/clothing/mask/cigarette/handroll
+	name = "hand-rolled cigarette"
+	desc = "A roll of tobacco and nicotine, freshly rolled by hand."
+	icon_state = "hr_cigoff"
+	item_state = "hr_cigoff"
+	icon_on = "hr_cigon"  //Note - these are in masks.dmi not in cigarette.dmi
+	icon_off = "hr_cigoff"
+	type_butt = /obj/item/weapon/cigbutt
+	chem_volume = 50
+
 ////////////
 // CIGARS //
 ////////////
@@ -498,7 +508,7 @@ obj/item/weapon/rollingpaper
 	name = "rolling paper"
 	desc = "A thin piece of paper used to make fine smokeables."
 	icon = 'icons/obj/cigarettes.dmi'
-	icon_state = "cig paper"
+	icon_state = "cig_paper"
 	w_class = 1
 
 
