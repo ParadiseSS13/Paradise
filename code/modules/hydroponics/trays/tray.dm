@@ -488,7 +488,7 @@
 		usr << "There is no label to remove."
 	return
 
-/obj/machinery/portable_atmospherics/hydroponics/verb/set_light()
+/obj/machinery/portable_atmospherics/hydroponics/verb/setlight()
 	set name = "Set Light"
 	set category = "Object"
 	set src in view(1)
