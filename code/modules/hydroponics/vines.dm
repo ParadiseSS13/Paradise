@@ -181,14 +181,14 @@
 
 	// Update bioluminescence.
 	if(seed.biolum)
-		SetLuminosity(1+round(seed.potency/10))
+		set_light(1+round(seed.potency/10))
 		if(seed.biolum_colour)
-			l_color = seed.biolum_colour
+			light_color = seed.biolum_colour
 		else
-			l_color = null
+			light_color = null
 		return
 	else
-		SetLuminosity(0)
+		set_light(0)
 
 	// Update flower/product overlay.
 	overlays.Cut()
@@ -270,9 +270,10 @@
 
 	var/area/A = T.loc
 	if(A)
+		var/atom/movable/lighting_overlay/L = locate(/atom/movable/lighting_overlay) in T
 		var/light_available
-		if(A.lighting_use_dynamic)
-			light_available = max(0,min(10,T.lighting_lumcount)-5)
+		if(L)
+			light_available = max(0,min(10,L.lum_r + L.lum_g + L.lum_b)-5)
 		else
 			light_available =  5
 		if(abs(light_available - seed.ideal_light) > seed.light_tolerance)

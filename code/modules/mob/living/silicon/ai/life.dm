@@ -9,7 +9,7 @@
 			src.cameraFollow = null
 			src.reset_view(null)
 			src.unset_machine()
-			
+
 		src.updatehealth()
 
 		if (src.malfhack)
@@ -48,7 +48,7 @@
 			loc = T.loc
 			if (istype(loc, /area))
 				//stage = 4
-				if (!loc.master.power_equip && !istype(src.loc,/obj/item))
+				if (!loc.power_equip && !istype(src.loc,/obj/item))
 					//stage = 5
 					blind = 1
 
@@ -89,6 +89,9 @@
 		else
 
 			//stage = 6
+
+			var/area/current_area = get_area(src)
+
 			src.blind.screen_loc = "1,1 to 15,15"
 			if (src.blind.layer!=18)
 				src.blind.layer = 18
@@ -98,7 +101,7 @@
 			src.see_in_dark = 0
 			src.see_invisible = SEE_INVISIBLE_LIVING
 
-			if (((!loc.master.power_equip) || istype(T, /turf/space)) && !istype(src.loc,/obj/item))
+			if (((!loc.power_equip) || istype(T, /turf/space)) && !istype(src.loc,/obj/item))
 				if (src:aiRestorePowerRoutine==0)
 					src:aiRestorePowerRoutine = 1
 
@@ -112,7 +115,7 @@
 					spawn(20)
 						src << "Backup battery online. Scanners, camera, and radio interface offline. Beginning fault-detection."
 						sleep(50)
-						if (loc.master.power_equip)
+						if (loc.power_equip)
 							if (!istype(T, /turf/space))
 								src << "Alert cancelled. Power has been restored without our assistance."
 								src:aiRestorePowerRoutine = 0
@@ -136,21 +139,20 @@
 									theAPC = something
 									break
 */
-						var/PRP //like ERP with the code, at least this stuff is no more 4x sametext
+						var/PRP
 						for (PRP=1, PRP<=4, PRP++)
-							var/area/AIarea = get_area(src)
-							for(var/area/A in AIarea.master.related)
-								for (var/obj/machinery/power/apc/APC in A)
-									if (!(APC.stat & BROKEN))
-										theAPC = APC
-										break
+							for (var/obj/machinery/power/apc/APC in current_area)
+								if (!(APC.stat & BROKEN))
+									theAPC = APC
+									break
+
 							if (!theAPC)
 								switch(PRP)
 									if (1) src << "Unable to locate APC!"
 									else src << "Lost connection with the APC!"
 								src:aiRestorePowerRoutine = 2
 								return
-							if (loc.master.power_equip)
+							if (loc.power_equip)
 								if (!istype(T, /turf/space))
 									src << "Alert cancelled. Power has been restored without our assistance."
 									src:aiRestorePowerRoutine = 0

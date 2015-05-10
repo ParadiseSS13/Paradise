@@ -11,7 +11,7 @@
 	idle_power_usage = 20
 	active_power_usage = 80
 
-	l_color = "#FF9933"
+	light_color = "#FF9933"
 
 //fix for issue 521, by QualityVan.
 //someone should really look into why circuits have a powernet var, it's several kinds of retarded.
@@ -23,14 +23,14 @@
 	if(isturf(T))
 		attached = locate() in T
 	if(attached)
-		powernet = attached.get_powernet()	
-		
+		powernet = attached.get_powernet()
+
 /obj/machinery/power/monitor/attack_ai(mob/user)
 	add_fingerprint(user)
 
 	if(stat & (BROKEN|NOPOWER))
 		return
-	interact(user)	
+	interact(user)
 
 /obj/machinery/power/monitor/attack_hand(mob/user)
 	add_fingerprint(user)

@@ -283,11 +283,11 @@
 */
 
 	// Handle light requirements.
-	var/area/A = T.loc
-	if(A)
+	var/atom/movable/lighting_overlay/L = locate(/atom/movable/lighting_overlay) in T
+	if(L)
 		var/light_available
-		if(A.lighting_use_dynamic)
-			light_available = max(0,min(10,T.lighting_lumcount)-5)
+		if(L)
+			light_available = max(0,min(10,L.lum_r + L.lum_g + L.lum_b)-5)
 		else
 			light_available =  5
 		if(abs(light_available - seed.ideal_light) > seed.light_tolerance)
@@ -502,14 +502,14 @@
 	// Update bioluminescence.
 	if(seed)
 		if(seed.biolum)
-			SetLuminosity(round(seed.potency/10))
+			set_light(round(seed.potency/10))
 			if(seed.biolum_colour)
-				l_color = seed.biolum_colour
+				light_color = seed.biolum_colour
 			else
-				l_color = null
+				light_color = null
 			return
 
-	SetLuminosity(0)
+	set_light(0)
 	return
 
  // If a weed growth is sufficient, this proc is called.
@@ -923,15 +923,16 @@
 			if(!environment) //We're in a crate or nullspace, bail out.
 				return
 
-			var/area/A = T.loc
+			var/atom/movable/lighting_overlay/L = locate(/atom/movable/lighting_overlay) in T
 			var/light_available
-			if(A)
-				if(A.lighting_use_dynamic)
-					light_available = max(0,min(10,T.lighting_lumcount)-5)
-				else
-					light_available =  5
+			var/light_string
+			if(L)
+				light_available = max(0,min(10,L.lum_r + L.lum_g + L.lum_b)-5)
+			else
+				light_available =  5
+			light_string = "a light level of [light_available] lumens"
 
-			usr << "The tray's sensor suite is reporting a light level of [light_available] lumens and a temperature of [environment.temperature]K."
+			usr << "The tray's sensor suite is reporting [light_string] and a temperature of [environment.temperature]K."
 
 /obj/machinery/portable_atmospherics/hydroponics/verb/close_lid()
 	set name = "Toggle Tray Lid"

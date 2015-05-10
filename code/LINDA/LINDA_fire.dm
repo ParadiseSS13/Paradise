@@ -47,7 +47,8 @@
 	icon = 'icons/effects/fire.dmi'
 	icon_state = "1"
 	layer = TURF_LAYER
-	luminosity = 3
+
+	light_color = "#ED9200"
 
 	var/volume = 125
 	var/temperature = FIRE_MINIMUM_TEMPERATURE_TO_EXIST
@@ -56,6 +57,7 @@
 
 /obj/effect/hotspot/New()
 	..()
+	set_light(7)
 	air_master.hotspots += src
 
 /obj/effect/hotspot/proc/perform_exposure()

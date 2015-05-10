@@ -120,7 +120,7 @@
 					emote_hear = list("barks", "woofs", "yaps","pants")
 					emote_see = list("shakes its head", "shivers")
 					desc = "It's a corgi."
-					SetLuminosity(0)
+					set_light(0)
 					inventory_head.loc = src.loc
 					inventory_head = null
 					regenerate_icons()
@@ -295,7 +295,7 @@
 			emote_hear = list("barks christmas songs", "yaps merrily")
 			emote_see = list("looks for presents", "checks his list")
 			desc = "He's very fond of milk and cookies."
-			SetLuminosity(6)
+			set_light(6)
 		if(/obj/item/clothing/head/soft)
 			name = "Corgi Tech [real_name]"
 			desc = "The reason your yellow gloves have chew-marks."
@@ -303,7 +303,7 @@
 			name = "[real_name] the red-nosed Corgi"
 			emote_hear = list("lights the way", "illuminates", "yaps")
 			desc = "He has a very shiny nose."
-			SetLuminosity(1)
+			set_light(1)
 
 
 //IAN! SQUEEEEEEEEE~

@@ -11,7 +11,7 @@
 
 /turf/simulated/floor/light
 	name = "Light floor"
-	luminosity = 5
+	light_range = 5
 	icon_state = "light_on"
 	floor_tile = new/obj/item/stack/tile/light
 
@@ -273,12 +273,11 @@
 	thermal_conductivity = OPEN_HEAT_TRANSFER_COEFFICIENT
 	heat_capacity = 700000
 
-	lighting_lumcount = 4		//starlight
 //	accepts_lighting=0 			// Don't apply overlays
 
 	New()
 		..()
-		// Fucking cockshit dickfuck shitslut
+		set_light(4) //starlight
 		name = "catwalk"
 		update_icon(1)
 

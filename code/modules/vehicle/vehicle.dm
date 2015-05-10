@@ -5,7 +5,7 @@
 	density = 1
 	anchored = 1
 	animate_movement=1
-	luminosity = 3
+	light_range = 3
 
 	var/attack_log = null
 	var/on = 0
@@ -179,13 +179,13 @@
 	if(powered && cell.charge < charge_use)
 		return 0
 	on = 1
-	luminosity = initial(luminosity)
+	set_light(initial(light_range))
 	update_icon()
 	return 1
 
 /obj/vehicle/proc/turn_off()
 	on = 0
-	luminosity = 0
+	set_light(0)
 	update_icon()
 
 /obj/vehicle/proc/Emag(mob/user as mob)

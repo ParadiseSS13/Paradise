@@ -9,7 +9,7 @@
 	var/damaged = 0
 	var/last_change = 0
 
-	l_color = "#7BF9FF"
+	light_color = "#7BF9FF"
 
 
 	attack_ai(var/mob/user as mob)
@@ -163,7 +163,7 @@
 
 /obj/machinery/computer/HolodeckControl/attackby(var/obj/item/weapon/D as obj, var/mob/user as mob, params)
 	return
-	
+
 /obj/machinery/computer/HolodeckControl/emag_act(user as mob)
 	if(!emagged)
 		playsound(src.loc, 'sound/effects/sparks4.ogg', 75, 1)

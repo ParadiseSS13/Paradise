@@ -13,7 +13,7 @@
 	var/area/A = get_area(O)
 
 	if (isarea(A))
-		return A.master
+		return A
 
 /proc/get_area(O)
 	var/atom/location = O
@@ -50,21 +50,6 @@
 	source.luminosity = lum
 
 	return heard
-
-
-
-
-//Magic constants obtained by using linear regression on right-angled triangles of sides 0<x<1, 0<y<1
-//They should approximate pythagoras theorem well enough for our needs.
-#define k1 0.934
-#define k2 0.427
-/proc/cheap_hypotenuse(Ax,Ay,Bx,By) // T is just the second atom to check distance to center with
-	var/dx = abs(Ax - Bx)	//sides of right-angled triangle
-	var/dy = abs(Ay - By)
-	if(dx>=dy)	return (k1*dx) + (k2*dy)	//No sqrt or powers :)
-	else		return (k1*dx) + (k2*dy)
-#undef k1
-#undef k2
 
 /proc/circlerange(center=usr,radius=3)
 
@@ -317,7 +302,7 @@ proc/isInSight(var/atom/A, var/atom/B)
 							if(override_age || player_old_enough_antag(G.client,be_special_flag))
 								candidates += G.client
 		afk_bracket += 600 // Add a minute to the bracket, for every attempt
-		
+
 	return candidates
 
 /proc/ScreenText(obj/O, maptext="", screen_loc="CENTER-7,CENTER-7", maptext_height=480, maptext_width=480)
@@ -456,6 +441,6 @@ proc/isInSight(var/atom/A, var/atom/B)
 
 /proc/MinutesToTicks(var/minutes as num)
 	return minutes * 60 * 10
-	
+
 /proc/SecondsToTicks(var/seconds)
 	return seconds * 10

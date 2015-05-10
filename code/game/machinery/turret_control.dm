@@ -46,12 +46,11 @@
 
 /obj/machinery/turretid/initialize()
 	if(!control_area)
-		var/area/CA = get_area(src)
-		control_area = CA.master
+		control_area = get_area(src)
 	else if(istext(control_area))
 		for(var/area/A in world)
 			if(A.name && A.name==control_area)
-				control_area = A.master
+				control_area = A
 				break
 
 	if(control_area)
@@ -88,7 +87,7 @@
 				user << "<span class='notice'>You [ locked ? "lock" : "unlock"] the panel.</span>"
 		return
 	return ..()
-	
+
 /obj/machinery/turretid/emag_act(user as mob)
 	if(!emagged)
 		user << "<span class='danger'>You short out the turret controls' access analysis module.</span>"
@@ -137,7 +136,7 @@
 /obj/machinery/turretid/Topic(href, href_list, var/nowindow = 0)
 	if(..())
 		return 1
-		
+
 	if(isLocked(usr))
 		return 1
 
@@ -176,9 +175,8 @@
 	TC.ailock = ailock
 
 	if(istype(control_area))
-		for(var/area/sub_area in control_area.related)
-			for (var/obj/machinery/porta_turret/aTurret in sub_area)
-				aTurret.setState(TC)
+		for (var/obj/machinery/porta_turret/aTurret in control_area)
+			aTurret.setState(TC)
 
 	update_icon()
 

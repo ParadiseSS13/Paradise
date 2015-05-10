@@ -93,9 +93,9 @@
 	..()
 	update_icon()
 	if(!(stat & (BROKEN|NOPOWER)))
-		SetLuminosity(2)
+		set_light(2)
 	else
-		SetLuminosity(0)
+		set_light(0)
 
 
 /obj/machinery/computer/proc/set_broken()
@@ -106,7 +106,7 @@
 	// Adds line breaks
 	text = replacetext(text, "\n", "<BR>")
 	return text
-	
+
 /obj/machinery/computer/attack_ghost(user as mob)
 	return src.attack_hand(user)
 
@@ -114,7 +114,7 @@
 	/* Observers can view computers, but not actually use them via Topic*/
 	if(istype(user, /mob/dead/observer)) return 0
 	return ..()
-	
+
 /obj/machinery/computer/attackby(I as obj, user as mob, params)
 	if(istype(I, /obj/item/weapon/screwdriver) && circuit)
 		playsound(src.loc, 'sound/items/Screwdriver.ogg', 50, 1)
