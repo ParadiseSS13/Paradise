@@ -111,12 +111,14 @@ var/list/ghostteleportlocs = list()
 	name = "\improper Admin Room"
 	icon_state = "start"
 	requires_power = 0
+	lighting_use_dynamic = 0
 
 
 /area/adminconstruction
 	name = "\improper Admin Testing Area"
 	icon_state = "start"
 	requires_power = 0
+	lighting_use_dynamic = 0
 
 
 //These are shuttle areas, they must contain two areas in a subgroup if you want to move a shuttle from one
@@ -452,7 +454,6 @@ var/list/ghostteleportlocs = list()
 	name = "\improper Syndicate Mothership"
 	icon_state = "syndie-ship"
 	requires_power = 0
-	lighting_use_dynamic = 0
 
 /area/syndicate_mothership/control
 	name = "\improper Syndicate Control Room"
