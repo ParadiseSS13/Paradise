@@ -14,6 +14,7 @@
 	var/tail                     // Name of tail image in species effects icon file.
 	var/unarmed                  //For empty hand harm-intent attack
 	var/unarmed_type = /datum/unarmed_attack
+	var/slowdown = 0              // Passive movement speed malus (or boost, if negative)
 
 	var/breath_type = "oxygen"   // Non-oxygen gas breathed, if any.
 	var/poison_type = "plasma"   // Poisonous air.
@@ -601,6 +602,7 @@
 	language = "Rootspeak"
 	unarmed_type = /datum/unarmed_attack/diona
 	primitive = /mob/living/carbon/monkey/diona
+	slowdown = 5
 
 	warning_low_pressure = 50
 	hazard_low_pressure = -1
@@ -622,7 +624,7 @@
 	even the simplest concepts of other minds. Their alien physiology allows them survive happily off a diet of nothing but light, \
 	water and other radiation."
 
-	flags = NO_BREATHE | REQUIRE_LIGHT | IS_PLANT | RAD_ABSORB | NO_BLOOD | IS_SLOW | NO_PAIN
+	flags = NO_BREATHE | REQUIRE_LIGHT | IS_PLANT | RAD_ABSORB | NO_BLOOD | NO_PAIN
 
 	body_temperature = T0C + 15		//make the plant people have a bit lower body temperature, why not
 

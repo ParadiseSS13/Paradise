@@ -5,8 +5,8 @@
 	if(status_flags & GOTTAGOREALLYFAST)
 		tally -= 2
 
-	if(species && species.flags & IS_SLOW)
-		tally = 5
+	if(species.slowdown)
+		tally = species.slowdown
 
 	if (istype(loc, /turf/space)) return -1 // It's hard to be slowed down in space by... anything
 
