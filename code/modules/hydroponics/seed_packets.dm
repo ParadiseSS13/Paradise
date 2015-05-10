@@ -1,8 +1,10 @@
+var/global/list/plant_seed_sprites = list()
+
 //Seed packet object/procs.
 /obj/item/seeds
 	name = "packet of seeds"
 	icon = 'icons/obj/seeds.dmi'
-	icon_state = "seed"
+	icon_state = "blank"
 	w_class = 2.0
 
 	var/seed_type
@@ -10,26 +12,57 @@
 	var/modified = 0
 
 /obj/item/seeds/New()
+	while(!plant_controller)
+		sleep(30)
 	update_seed()
 	..()
 
 //Grabs the appropriate seed datum from the global list.
 /obj/item/seeds/proc/update_seed()
-	if(!seed && seed_type && !isnull(seed_types) && seed_types[seed_type])
-		seed = seed_types[seed_type]
+	if(!seed && seed_type && !isnull(plant_controller.seeds) && plant_controller.seeds[seed_type])
+		seed = plant_controller.seeds[seed_type]
 	update_appearance()
 
 //Updates strings and icon appropriately based on seed datum.
 /obj/item/seeds/proc/update_appearance()
 	if(!seed) return
-	icon_state = seed.packet_icon
-	src.name = "packet of [seed.seed_name] [seed.seed_noun]"
-	src.desc = "It has a picture of [seed.display_name] on the front."
 
-/obj/item/seeds/examine()
-	..()
+	// Update icon.
+	overlays.Cut()
+	var/is_seeds = ((seed.seed_noun in list("seeds","pits","nodes")) ? 1 : 0)
+	var/image/seed_mask
+	var/seed_base_key = "base-[is_seeds ? seed.get_trait(TRAIT_PLANT_COLOUR) : "spores"]"
+	if(plant_seed_sprites[seed_base_key])
+		seed_mask = plant_seed_sprites[seed_base_key]
+	else
+		seed_mask = image('icons/obj/seeds.dmi',"[is_seeds ? "seed" : "spore"]-mask")
+		if(is_seeds) // Spore glass bits aren't coloured.
+			seed_mask.color = seed.get_trait(TRAIT_PLANT_COLOUR)
+		plant_seed_sprites[seed_base_key] = seed_mask
+
+	var/image/seed_overlay
+	var/seed_overlay_key = "[seed.get_trait(TRAIT_PRODUCT_ICON)]-[seed.get_trait(TRAIT_PRODUCT_COLOUR)]"
+	if(plant_seed_sprites[seed_overlay_key])
+		seed_overlay = plant_seed_sprites[seed_overlay_key]
+	else
+		seed_overlay = image('icons/obj/seeds.dmi',"[seed.get_trait(TRAIT_PRODUCT_ICON)]")
+		seed_overlay.color = seed.get_trait(TRAIT_PRODUCT_COLOUR)
+		plant_seed_sprites[seed_overlay_key] = seed_overlay
+
+	overlays |= seed_mask
+	overlays |= seed_overlay
+
+	if(is_seeds)
+		src.name = "packet of [seed.seed_name] [seed.seed_noun]"
+		src.desc = "It has a picture of [seed.display_name] on the front."
+	else
+		src.name = "sample of [seed.seed_name] [seed.seed_noun]"
+		src.desc = "It's labelled as coming from [seed.display_name]."
+
+/obj/item/seeds/examine(mob/user)
+	..(user)
 	if(seed && !seed.roundstart)
-		usr << "It's tagged as variety #[seed.uid]."
+		user << "It's tagged as variety #[seed.uid]."
 
 /obj/item/seeds/cutting
 	name = "cuttings"
@@ -39,11 +72,16 @@
 	..()
 	src.name = "packet of [seed.seed_name] cuttings"
 
+/obj/item/seeds/random
+	seed_type = null
+
+/obj/item/seeds/random/New()
+	seed = plant_controller.create_random_seed()
+	seed_type = seed.name
+	update_seed()
+
 /obj/item/seeds/replicapod
 	seed_type = "diona"
-
-/obj/item/seeds/poppyseed
-	seed_type = "poppies"
 
 /obj/item/seeds/chiliseed
 	seed_type = "chili"
@@ -81,9 +119,6 @@
 /obj/item/seeds/eggplantseed
 	seed_type = "eggplant"
 
-/obj/item/seeds/eggyseed
-	seed_type = "realeggplant"
-
 /obj/item/seeds/bloodtomatoseed
 	seed_type = "bloodtomato"
 
@@ -113,9 +148,6 @@
 
 /obj/item/seeds/soyaseed
 	seed_type = "soybean"
-
-/obj/item/seeds/koiseed
-	seed_type = "koibean"
 
 /obj/item/seeds/wheatseed
 	seed_type = "wheat"
@@ -222,11 +254,38 @@
 /obj/item/seeds/cherryseed
 	seed_type = "cherry"
 
+/obj/item/seeds/tobaccoseed
+	seed_type = "tobacco"
+
 /obj/item/seeds/kudzuseed
 	seed_type = "kudzu"
 
-/obj/item/seeds/tobaccoseed
-	seed_type = "tobacco"
+/obj/item/seeds/jurlmah
+	seed_type = "jurlmah"
+
+/obj/item/seeds/amauri
+	seed_type = "amauri"
+
+/obj/item/seeds/gelthi
+	seed_type = "gelthi"
+
+/obj/item/seeds/vale
+	seed_type = "vale"
+
+/obj/item/seeds/surik
+	seed_type = "surik"
+
+/obj/item/seeds/telriis
+	seed_type = "telriis"
+
+/obj/item/seeds/thaadra
+	seed_type = "thaadra"
+
+/obj/item/seeds/clown
+	seed_type = "clown"
+
+/obj/item/seeds/test
+	seed_type = "test"
 
 /obj/item/seeds/stobaccoseed
 	seed_type = "stobacco"
@@ -242,10 +301,3 @@
 
 /obj/item/seeds/coffeerseed
 	seed_type = "coffeer"
-
-/obj/item/seeds/moonflowerseed
-	seed_type = "moonflower"
-
-/obj/item/seeds/novaflowerseed
-	seed_type = "novaflower"
-

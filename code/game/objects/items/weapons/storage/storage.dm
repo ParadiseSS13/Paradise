@@ -38,6 +38,26 @@
 			show_to(M)
 			return
 
+		if ((istype(over_object, /obj/structure/table) || istype(over_object, /turf/simulated/floor)) \
+			&& contents.len && loc == usr && !usr.stat && !usr.restrained() && usr.canmove && over_object.Adjacent(usr) \
+			&& !istype(src, /obj/item/weapon/storage/lockbox))
+			var/turf/T = get_turf(over_object)
+			if (istype(over_object, /turf/simulated/floor))
+				if (get_turf(usr) != T)
+					return // Can only empty containers onto the floor under you
+				if("Yes" != alert(usr,"Empty \the [src] onto \the [T]?","Confirm","Yes","No"))
+					return
+				if(!(usr && over_object && contents.len && loc == usr && !usr.stat && !usr.restrained() && usr.canmove && get_turf(usr) == T))
+					return // Something happened while the player was thinking
+			hide_from(usr)
+			usr.face_atom(over_object)
+			usr.visible_message("<span class='notice'>[usr] empties \the [src] onto \the [over_object].</span>",
+				"<span class='notice'>You empty \the [src] onto \the [over_object].</span>")
+			for(var/obj/item/I in contents)
+				remove_from_storage(I, T)
+			update_icon() // For content-sensitive icons
+			return
+
 		if (!( istype(over_object, /obj/screen) ))
 			return ..()
 		if (!(src.loc == usr) || (src.loc && src.loc.loc == usr))

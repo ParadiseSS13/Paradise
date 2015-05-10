@@ -202,6 +202,16 @@ datum
 				return
 */
 
+		// Ported from Bay as part of the Botany Update
+		// Allows you to make planks from any plant that has this reagent in it.
+		// Also vines with this reagent are considered dense.
+		woodpulp
+			name = "Wood Pulp"
+			id = "woodpulp"
+			description = "A mass of wood fibers."
+			reagent_state = LIQUID
+			color = "#B97A57"
+
 		water
 			name = "Water"
 			id = "water"
@@ -1270,25 +1280,11 @@ datum
 
 			on_mob_life(var/mob/living/M as mob)
 				if(!M) M = holder.my_atom
-				if(M.bodytemperature < 170)
-					M.adjustCloneLoss(-1)
+				if(M.bodytemperature < 265)
+					M.adjustCloneLoss(-4)
 					M.adjustOxyLoss(-10)
 					M.heal_organ_damage(12,12)
 					M.adjustToxLoss(-3)
-				..()
-				return
-
-		clonexadone
-			name = "Clonexadone"
-			id = "clonexadone"
-			description = "A liquid compound similar to that used in the cloning process. Can be used to 'finish' clones that get ejected early when used in conjunction with a cryo tube."
-			reagent_state = LIQUID
-			color = "#0000C8" // rgb: 200, 165, 220
-
-			on_mob_life(var/mob/living/M as mob)
-				if(!M) M = holder.my_atom
-				if(M.bodytemperature < 170)
-					M.adjustCloneLoss(-3)
 					M.status_flags &= ~DISFIGURED
 				..()
 				return
@@ -1370,6 +1366,19 @@ datum
 				..()
 				return
 
+
+		spores
+			name = "Spore Toxin"
+			id = "spores"
+			description = "A toxic spore cloud which blocks vision when ingested."
+			color = "#9ACD32"
+
+			on_mob_life(var/mob/living/M as mob)
+				M.adjustToxLoss(0.5)
+				M.damageoverlaytemp = 60
+				M.eye_blurry = max(M.eye_blurry, 3)
+				..()
+				return
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /*

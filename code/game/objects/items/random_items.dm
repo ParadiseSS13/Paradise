@@ -61,7 +61,7 @@
 //	identify_probability = 0
 	New()
 		..()
-		var/global/list/chems_only = list("slimejelly","blood","water","lube","charcoal","toxin","cyanide","morphine","epinephrine","space_drugs","serotrotium","oxygen","copper","nitrogen","hydrogen","potassium","mercury","sulfur","carbon","chlorine","fluorine","sodium","phosphorus","lithium","sugar","sacid","facid","glycerol","radium","mutadone","thermite","mutagen","virusfood","iron","gold","silver","uranium","aluminum","silicon","fuel","cleaner","atrazine","plasma","teporone","lexorin","silver_sulfadiazine","salbutamol","perfluorodecalin","omnizine","synaptizine","haloperidol","potass_iodide","pen_acid","mannitol","oculine","styptic_powder","methamphetamine","cryoxadone","clonexadone","spaceacillin","carpotoxin","mindbreaker","fluorosurfactant","fluorosurfactant","ethanol","ammonia","diethylamine","antihol","pancuronium","lipolicide","condensedcapsaicin","frostoil","amanitin","psilocybin","enzyme","nothing","salglu_solution","antifreeze","neurotoxin")
+		var/global/list/chems_only = list("slimejelly","blood","water","lube","charcoal","toxin","cyanide","morphine","epinephrine","space_drugs","serotrotium","oxygen","copper","nitrogen","hydrogen","potassium","mercury","sulfur","carbon","chlorine","fluorine","sodium","phosphorus","lithium","sugar","sacid","facid","glycerol","radium","mutadone","thermite","mutagen","virusfood","iron","gold","silver","uranium","aluminum","silicon","fuel","cleaner","atrazine","plasma","teporone","lexorin","silver_sulfadiazine","salbutamol","perfluorodecalin","omnizine","synaptizine","haloperidol","potass_iodide","pen_acid","mannitol","oculine","styptic_powder","methamphetamine","cryoxadone","spaceacillin","carpotoxin","mindbreaker","fluorosurfactant","fluorosurfactant","ethanol","ammonia","diethylamine","antihol","pancuronium","lipolicide","condensedcapsaicin","frostoil","amanitin","psilocybin","enzyme","nothing","salglu_solution","antifreeze","neurotoxin")
 		var/global/list/rare_chems = list("minttoxin","nanites","xenomicrobes","adminordrazine")
 
 		var/datum/reagent/R = pick(chems_only + rare_chems)
@@ -198,7 +198,7 @@
 				B.desc	= "Looks like the label fell off."
 //				B.identify_probability = 0
 
-
+/*
 /obj/structure/closet/crate/bin/flowers
 	name = "flower barrel"
 	desc = "A bin full of fresh flowers for the bereaved."
@@ -210,7 +210,6 @@
 			var/atom/movable/AM = new flowertype(src)
 			AM.pixel_x = rand(-10,10)
 			AM.pixel_y = rand(-5,5)
-
 
 /obj/structure/closet/crate/bin/plants
 	name = "plant barrel"
@@ -234,6 +233,7 @@
 			var/obj/O = new ptype(src)
 			O.pixel_x = rand(-10,10)
 			O.pixel_y = rand(-5,5)
+*/
 
 /obj/structure/closet/secure_closet/random_drinks
 	name = "Unlabelled Booze"

@@ -67,6 +67,14 @@
 
 			return 1
 
+		update_connected_network()
+			if(!connected_port)
+				return
+
+			var/datum/pipe_network/network = connected_port.return_network(src)
+			if (network)
+				network.update = 1
+
 		disconnect()
 			if(!connected_port)
 				return 0

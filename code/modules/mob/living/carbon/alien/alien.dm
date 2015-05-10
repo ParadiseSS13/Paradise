@@ -152,6 +152,10 @@
 	bodytemperature += BODYTEMP_HEATING_MAX //If you're on fire, you heat up!
 	return
 
+/mob/living/carbon/alien/proc/handle_wetness()
+	if(mob_master.current_cycle%20==2) //dry off a bit once every 20 ticks or so
+		wetlevel = max(wetlevel - 1,0)
+	return
 
 /mob/living/carbon/alien/IsAdvancedToolUser()
 	return has_fine_manipulation

@@ -910,7 +910,9 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 					/obj/item/seeds/amanitamycelium,
 					/obj/item/seeds/reishimycelium,
 					/obj/item/seeds/bananaseed,
-					/obj/item/seeds/eggyseed)
+					/obj/item/seeds/random,
+					/obj/item/seeds/random,
+					)
 	cost = 15
 	containername = "exotic seeds crate"
 
@@ -1021,6 +1023,13 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 	cost = 20
 	containername = "sandstone blocks crate"
 
+
+/datum/supply_packs/materials/plastic30
+	name = "30 Plastic Sheets"
+	contains = list(/obj/item/stack/sheet/mineral/plastic)
+	amount = 30
+	cost = 25
+	containername = "plastic sheets crate"
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////// Miscellaneous ///////////////////////////////////

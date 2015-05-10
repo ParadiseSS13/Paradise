@@ -67,6 +67,7 @@
 		if("Engineering") prefix = ":e "
 		if("Security") prefix = ":s "
 		if("Supply") prefix = ":u "
+		if("Service") prefix = ":z "
 		if("Binary") prefix = ":b "
 		if("Holopad") prefix = ":h "
 		else prefix = ""
