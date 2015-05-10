@@ -1,5 +1,5 @@
 /atom/movable/lighting_overlay
-	name = "loverlay"
+	name = ""
 	mouse_opacity = 0
 	simulated = 0
 	anchored = 1

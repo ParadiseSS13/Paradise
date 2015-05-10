@@ -48,7 +48,7 @@
 	icon_state = "1"
 	layer = TURF_LAYER
 
-	light_color = "#ED9200"
+	blend_mode = BLEND_ADD
 
 	var/volume = 125
 	var/temperature = FIRE_MINIMUM_TEMPERATURE_TO_EXIST
@@ -57,7 +57,8 @@
 
 /obj/effect/hotspot/New()
 	..()
-	set_light(7)
+	color = heat2color(temperature)
+	set_light(3, 1, color)
 	air_master.hotspots += src
 
 /obj/effect/hotspot/proc/perform_exposure()
@@ -82,6 +83,9 @@
 	for(var/atom/item in loc)
 		if(item) // It's possible that the item is deleted in temperature_expose
 			item.fire_act(null, temperature, volume)
+
+	animate(src, color = heat2color(temperature), 5)
+	set_light(l_color = color)
 
 	return 0
 
@@ -113,6 +117,7 @@
 
 	if(bypassing)
 		icon_state = "3"
+		set_light(7,3)
 		location.burn_tile()
 
 		//Possible spread due to radiated heat
@@ -128,8 +133,10 @@
 	else
 		if(volume > CELL_VOLUME*0.4)
 			icon_state = "2"
+			set_light(5, 2)
 		else
 			icon_state = "1"
+			set_light(3, 1)
 
 	if(temperature > location.max_fire_temperature_sustained)
 		location.max_fire_temperature_sustained = temperature
@@ -149,6 +156,7 @@
 	qdel(src)
 
 /obj/effect/hotspot/Destroy()
+	set_light(0)
 	if(istype(loc, /turf/simulated))
 		var/turf/simulated/T = loc
 		if(T.active_hotspot == src)
