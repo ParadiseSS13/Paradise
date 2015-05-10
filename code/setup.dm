@@ -964,6 +964,8 @@ var/list/hit_appends = list("-OOF", "-ACK", "-UGH", "-HRNK", "-HURGH", "-GLORF")
 #define STATUS_DISABLED 0 // RED Visability
 #define STATUS_CLOSE -1 // Close the interface
 
+#define HYDRO_SPEED_MULTIPLIER 1
+
 #define NANO_IGNORE_DISTANCE 1
 
 //Click cooldowns, in tenths of a second

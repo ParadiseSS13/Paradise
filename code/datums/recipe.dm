@@ -34,11 +34,12 @@
  * */
 
 /datum/recipe
-	var/list/reagents // example:  = list("berryjuice" = 5) // do not list same reagent twice
-	var/list/items // example: =list(/obj/item/weapon/crowbar, /obj/item/weapon/welder) // place /foo/bar before /foo
-	var/result //example: = /obj/item/weapon/reagent_containers/food/snacks/donut/normal
-	var/time = 100 // 1/10 part of second
-	var/byproduct	//example: = /obj/item/weapon/kitchen/mould		// byproduct to return, such as a mould or trash
+	var/list/reagents	// example: = list("berryjuice" = 5) // do not list same reagent twice
+	var/list/items		// example: = list(/obj/item/weapon/crowbar, /obj/item/weapon/welder) // place /foo/bar before /foo
+	var/list/fruit		// example: = list("fruit" = 3)
+	var/result			// example: = /obj/item/weapon/reagent_containers/food/snacks/donut/normal
+	var/time = 100		// 1/10 part of second
+	var/byproduct		// example: = /obj/item/weapon/kitchen/mould		// byproduct to return, such as a mould or trash
 
 
 /datum/recipe/proc/check_reagents(var/datum/reagents/avail_reagents) //1=precisely, 0=insufficiently, -1=superfluous
@@ -54,25 +55,44 @@
 		return -1
 	return .
 
-/datum/recipe/proc/check_items(var/obj/container as obj) //1=precisely, 0=insufficiently, -1=superfluous
-	if (!items)
-		if (locate(/obj/) in container)
-			return -1
-		else
-			return 1
+/datum/recipe/proc/check_fruit(var/obj/container)
 	. = 1
-	var/list/checklist = items.Copy()
-	for (var/obj/O in container)
-		var/found = 0
-		for (var/type in checklist)
-			if (istype(O,type))
-				checklist-=type
-				found = 1
-				break
-		if (!found)
+	if(fruit && fruit.len)
+		var/list/checklist = list()
+		 // You should trust Copy().
+		checklist = fruit.Copy()
+		for(var/obj/item/weapon/reagent_containers/food/snacks/grown/G in container)
+			if(!G.seed || !G.seed.kitchen_tag || isnull(checklist[G.seed.kitchen_tag]))
+				continue
+			checklist[G.seed.kitchen_tag]--
+		for(var/ktag in checklist)
+			if(!isnull(checklist[ktag]))
+				if(checklist[ktag] < 0)
+					. = 0
+				else if(checklist[ktag] > 0)
+					. = -1
+					break
+	return .
+
+/datum/recipe/proc/check_items(var/obj/container as obj)
+	. = 1
+	if (items && items.len)
+		var/list/checklist = list()
+		checklist = items.Copy() // You should really trust Copy
+		for(var/obj/O in container)
+			if(istype(O,/obj/item/weapon/reagent_containers/food/snacks/grown))
+				continue // Fruit is handled in check_fruit().
+			var/found = 0
+			for(var/i = 1; i < checklist.len+1; i++)
+				var/item_type = checklist[i]
+				if (istype(O,item_type))
+					checklist.Cut(i, i+1)
+					found = 1
+					break
+			if (!found)
+				. = 0
+		if (checklist.len)
 			. = -1
-	if (checklist.len)
-		return 0
 	return .
 
 //general version
@@ -101,22 +121,19 @@
 		exact = -1
 	var/list/datum/recipe/possible_recipes = new
 	for (var/datum/recipe/recipe in avaiable_recipes)
-		if (recipe.check_reagents(obj.reagents)==exact && recipe.check_items(obj)==exact)
+		if (recipe.check_reagents(obj.reagents)==exact && recipe.check_items(obj)==exact && recipe.check_fruit(obj)==exact)
 			possible_recipes+=recipe
 	if (possible_recipes.len==0)
 		return null
 	else if (possible_recipes.len==1)
 		return possible_recipes[1]
 	else //okay, let's select the most complicated recipe
-		var/r_count = 0
-		var/i_count = 0
+		var/highest_count = 0
 		. = possible_recipes[1]
 		for (var/datum/recipe/recipe in possible_recipes)
-			var/N_i = (recipe.items)?(recipe.items.len):0
-			var/N_r = (recipe.reagents)?(recipe.reagents.len):0
-			if (N_i > i_count || (N_i== i_count && N_r > r_count ))
-				r_count = N_r
-				i_count = N_i
+			var/count = ((recipe.items)?(recipe.items.len):0) + ((recipe.reagents)?(recipe.reagents.len):0) + ((recipe.fruit)?(recipe.fruit.len):0)
+			if (count >= highest_count)
+				highest_count = count
 				. = recipe
 		return .
 

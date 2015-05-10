@@ -53,6 +53,9 @@
 	//Handle being on fire
 	handle_fire()
 
+	//Decrease wetness over time
+	handle_wetness()
+
 	//Status updates, death etc.
 	handle_regular_status_updates()
 	update_canmove()

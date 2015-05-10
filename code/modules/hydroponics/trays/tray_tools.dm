@@ -9,8 +9,38 @@
 	icon = 'icons/obj/device.dmi'
 	icon_state = "hydro"
 	item_state = "analyzer"
+	var/form_title
+	var/last_data
+
+/obj/item/device/analyzer/plant_analyzer/proc/print_report_verb()
+	set name = "Print Plant Report"
+	set category = "Object"
+	set src = usr
+
+	if(usr.stat || usr.restrained() || usr.lying)
+		return
+	print_report(usr)
+
+/obj/item/device/analyzer/plant_analyzer/Topic(href, href_list)
+	if(..())
+		return
+	if(href_list["print"])
+		print_report(usr)
+
+/obj/item/device/analyzer/plant_analyzer/proc/print_report(var/mob/living/user)
+	if(!last_data)
+		user << "There is no scan data to print."
+		return
+	var/obj/item/weapon/paper/P = new /obj/item/weapon/paper(get_turf(src))
+	P.name = "paper - [form_title]"
+	P.info = "[last_data]"
+	if(istype(user,/mob/living/carbon/human) && !(user.l_hand && user.r_hand))
+		user.put_in_hands(P)
+	user.visible_message("\The [src] spits out a piece of paper.")
+	return
 
 /obj/item/device/analyzer/plant_analyzer/attack_self(mob/user as mob)
+	print_report(user)
 	return 0
 
 /obj/item/device/analyzer/plant_analyzer/afterattack(obj/target, mob/user, flag)
@@ -29,16 +59,18 @@
 	var/tray_mutation_mod	//mutation modifier of the tray
 	//--FalseIncarnate
 
-	if(istype(target,/obj/item/weapon/reagent_containers/food/snacks/grown))
+	if(istype(target,/obj/structure/table))
+		return ..()
+	else if(istype(target,/obj/item/weapon/reagent_containers/food/snacks/grown))
 
 		var/obj/item/weapon/reagent_containers/food/snacks/grown/G = target
-		grown_seed = seed_types[G.plantname]
+		grown_seed = plant_controller.seeds[G.plantname]
 		grown_reagents = G.reagents
 
 	else if(istype(target,/obj/item/weapon/grown))
 
 		var/obj/item/weapon/grown/G = target
-		grown_seed = seed_types[G.plantname]
+		grown_seed = plant_controller.seeds[G.plantname]
 		grown_reagents = G.reagents
 
 	else if(istype(target,/obj/item/seeds))
@@ -66,21 +98,21 @@
 		grown_reagents = H.reagents
 
 	if(!grown_seed)
-		user << "\red [src] can tell you nothing about [target]."
+		user << "<span class='danger'>[src] can tell you nothing about \the [target].</span>"
 		return
 
-	var/dat = "<h3>Plant data for [target]</h3>"
-	user.visible_message("\blue [user] runs the scanner over [target].")
+	form_title = "[grown_seed.seed_name] (#[grown_seed.uid])"
+	var/dat = "<h3>Plant data for [form_title]</h3>"
+	user.visible_message("<span class='notice'>[user] runs the scanner over \the [target].</span>")
 
 	dat += "<h2>General Data</h2>"
 
 	dat += "<table>"
-	dat += "<tr><td><b>Endurance</b></td><td>[grown_seed.endurance]</td></tr>"
-	dat += "<tr><td><b>Yield</b></td><td>[grown_seed.yield]</td></tr>"
-	dat += "<tr><td><b>Lifespan</b></td><td>[grown_seed.lifespan]</td></tr>"
-	dat += "<tr><td><b>Maturation time</b></td><td>[grown_seed.maturation]</td></tr>"
-	dat += "<tr><td><b>Production time</b></td><td>[grown_seed.production]</td></tr>"
-	dat += "<tr><td><b>Potency</b></td><td>[grown_seed.potency]</td></tr>"
+	dat += "<tr><td><b>Endurance</b></td><td>[grown_seed.get_trait(TRAIT_ENDURANCE)]</td></tr>"
+	dat += "<tr><td><b>Yield</b></td><td>[grown_seed.get_trait(TRAIT_YIELD)]</td></tr>"
+	dat += "<tr><td><b>Maturation time</b></td><td>[grown_seed.get_trait(TRAIT_MATURATION)]</td></tr>"
+	dat += "<tr><td><b>Production time</b></td><td>[grown_seed.get_trait(TRAIT_PRODUCTION)]</td></tr>"
+	dat += "<tr><td><b>Potency</b></td><td>[grown_seed.get_trait(TRAIT_POTENCY)]</td></tr>"
 
 	//--FalseIncarnate
 	//Tray-specific stats like Age and Mutation Modifier, not shown if target was not a hydroponics tray or soil
@@ -105,29 +137,26 @@
 
 	dat += "<h2>Other Data</h2>"
 
-	if(grown_seed.harvest_repeat)
+	if(grown_seed.get_trait(TRAIT_HARVEST_REPEAT))
 		dat += "This plant can be harvested repeatedly.<br>"
 
-	if(grown_seed.immutable == -1)
+	if(grown_seed.get_trait(TRAIT_IMMUTABLE) == -1)
 		dat += "This plant is highly mutable.<br>"
-	else if(grown_seed.immutable > 0)
+	else if(grown_seed.get_trait(TRAIT_IMMUTABLE) > 0)
 		dat += "This plant does not possess genetics that are alterable.<br>"
 
-	if(grown_seed.products && grown_seed.products.len)
-		dat += "The mature plant will produce [grown_seed.products.len == 1 ? "fruit" : "[grown_seed.products.len] varieties of fruit"].<br>"
-
-	if(grown_seed.requires_nutrients)
-		if(grown_seed.nutrient_consumption < 0.05)
+	if(grown_seed.get_trait(TRAIT_REQUIRES_NUTRIENTS))
+		if(grown_seed.get_trait(TRAIT_NUTRIENT_CONSUMPTION) < 0.05)
 			dat += "It consumes a small amount of nutrient fluid.<br>"
-		else if(grown_seed.nutrient_consumption > 0.2)
+		else if(grown_seed.get_trait(TRAIT_NUTRIENT_CONSUMPTION) > 0.2)
 			dat += "It requires a heavy supply of nutrient fluid.<br>"
 		else
 			dat += "It requires a supply of nutrient fluid.<br>"
 
-	if(grown_seed.requires_water)
-		if(grown_seed.water_consumption < 1)
+	if(grown_seed.get_trait(TRAIT_REQUIRES_WATER))
+		if(grown_seed.get_trait(TRAIT_WATER_CONSUMPTION) < 1)
 			dat += "It requires very little water.<br>"
-		else if(grown_seed.water_consumption > 5)
+		else if(grown_seed.get_trait(TRAIT_WATER_CONSUMPTION) > 5)
 			dat += "It requires a large amount of water.<br>"
 		else
 			dat += "It requires a stable supply of water.<br>"
@@ -135,119 +164,83 @@
 	if(grown_seed.mutants && grown_seed.mutants.len)
 		dat += "It exhibits a high degree of potential subspecies shift.<br>"
 
-	dat += "It thrives in a temperature of [grown_seed.ideal_heat] Kelvin."
+	dat += "It thrives in a temperature of [grown_seed.get_trait(TRAIT_IDEAL_HEAT)] Kelvin."
 
-	if(grown_seed.lowkpa_tolerance < 20)
+	if(grown_seed.get_trait(TRAIT_LOWKPA_TOLERANCE) < 20)
 		dat += "<br>It is well adapted to low pressure levels."
-	if(grown_seed.highkpa_tolerance > 220)
+	if(grown_seed.get_trait(TRAIT_HIGHKPA_TOLERANCE) > 220)
 		dat += "<br>It is well adapted to high pressure levels."
 
-	if(grown_seed.heat_tolerance > 30)
+	if(grown_seed.get_trait(TRAIT_HEAT_TOLERANCE) > 30)
 		dat += "<br>It is well adapted to a range of temperatures."
-	else if(grown_seed.heat_tolerance < 10)
+	else if(grown_seed.get_trait(TRAIT_HEAT_TOLERANCE) < 10)
 		dat += "<br>It is very sensitive to temperature shifts."
 
-	dat += "<br>It thrives in a light level of [grown_seed.ideal_light] lumen[grown_seed.ideal_light == 1 ? "" : "s"]."
+	dat += "<br>It thrives in a light level of [grown_seed.get_trait(TRAIT_IDEAL_LIGHT)] lumen[grown_seed.get_trait(TRAIT_IDEAL_LIGHT) == 1 ? "" : "s"]."
 
-	if(grown_seed.light_tolerance > 10)
+	if(grown_seed.get_trait(TRAIT_LIGHT_TOLERANCE) > 10)
 		dat += "<br>It is well adapted to a range of light levels."
-	else if(grown_seed.light_tolerance < 3)
+	else if(grown_seed.get_trait(TRAIT_LIGHT_TOLERANCE) < 3)
 		dat += "<br>It is very sensitive to light level shifts."
 
-	if(grown_seed.toxins_tolerance < 3)
+	if(grown_seed.get_trait(TRAIT_TOXINS_TOLERANCE) < 3)
 		dat += "<br>It is highly sensitive to toxins."
-	else if(grown_seed.toxins_tolerance > 6)
+	else if(grown_seed.get_trait(TRAIT_TOXINS_TOLERANCE) > 6)
 		dat += "<br>It is remarkably resistant to toxins."
 
-	if(grown_seed.pest_tolerance < 3)
+	if(grown_seed.get_trait(TRAIT_PEST_TOLERANCE) < 3)
 		dat += "<br>It is highly sensitive to pests."
-	else if(grown_seed.pest_tolerance > 6)
+	else if(grown_seed.get_trait(TRAIT_PEST_TOLERANCE) > 6)
 		dat += "<br>It is remarkably resistant to pests."
 
-	if(grown_seed.weed_tolerance < 3)
+	if(grown_seed.get_trait(TRAIT_WEED_TOLERANCE) < 3)
 		dat += "<br>It is highly sensitive to weeds."
-	else if(grown_seed.weed_tolerance > 6)
+	else if(grown_seed.get_trait(TRAIT_WEED_TOLERANCE) > 6)
 		dat += "<br>It is remarkably resistant to weeds."
 
-	switch(grown_seed.spread)
+	switch(grown_seed.get_trait(TRAIT_SPREAD))
 		if(1)
-			dat += "<br>It is capable of growing beyond the confines of a tray."
+			dat += "<br>It is able to be planted outside of a tray."
 		if(2)
 			dat += "<br>It is a robust and vigorous vine that will spread rapidly."
 
-	switch(grown_seed.carnivorous)
+	switch(grown_seed.get_trait(TRAIT_CARNIVOROUS))
 		if(1)
 			dat += "<br>It is carniovorous and will eat tray pests for sustenance."
 		if(2)
 			dat	+= "<br>It is carnivorous and poses a significant threat to living things around it."
 
-	if(grown_seed.parasite)
+	if(grown_seed.get_trait(TRAIT_PARASITE))
 		dat += "<br>It is capable of parisitizing and gaining sustenance from tray weeds."
-	if(grown_seed.alter_temp)
-		dat += "<br>It will periodically alter the local temperature by [grown_seed.alter_temp] degrees Kelvin."
+	if(grown_seed.get_trait(TRAIT_ALTER_TEMP))
+		dat += "<br>It will periodically alter the local temperature by [grown_seed.get_trait(TRAIT_ALTER_TEMP)] degrees Kelvin."
 
-	if(grown_seed.biolum)
-		dat += "<br>It is [grown_seed.biolum_colour ? "<font color='[grown_seed.biolum_colour]'>bio-luminescent</font>" : "bio-luminescent"]."
-	if(grown_seed.flowers)
-		dat += "<br>It has [grown_seed.flower_colour ? "<font color='[grown_seed.flower_colour]'>flowers</font>" : "flowers"]."
+	if(grown_seed.get_trait(TRAIT_BIOLUM))
+		dat += "<br>It is [grown_seed.get_trait(TRAIT_BIOLUM_COLOUR)  ? "<font color='[grown_seed.get_trait(TRAIT_BIOLUM_COLOUR)]'>bio-luminescent</font>" : "bio-luminescent"]."
+
+	if(grown_seed.get_trait(TRAIT_PRODUCES_POWER))
+		dat += "<br>The fruit will function as a battery if prepared appropriately."
+
+	if(grown_seed.get_trait(TRAIT_STINGS))
+		dat += "<br>The fruit is covered in stinging spines."
+
+	if(grown_seed.get_trait(TRAIT_JUICY) == 1)
+		dat += "<br>The fruit is soft-skinned and juicy."
+	else if(grown_seed.get_trait(TRAIT_JUICY) == 2)
+		dat += "<br>The fruit is excessively juicy."
+
+	if(grown_seed.get_trait(TRAIT_EXPLOSIVE))
+		dat += "<br>The fruit is internally unstable."
+
+	if(grown_seed.get_trait(TRAIT_TELEPORTING))
+		dat += "<br>The fruit is temporal/spatially unstable."
 
 	if(dat)
+		last_data = dat
+		dat += "<br><br>\[<a href='?src=\ref[src];print=1'>print report</a>\]"
 		user << browse(dat,"window=plant_analyzer")
 
 	return
-
-// *************************************
-// Hydroponics Tools
-// *************************************
-
-/obj/item/weapon/plantspray
-	icon = 'icons/obj/hydroponics.dmi'
-	item_state = "spray"
-	flags = OPENCONTAINER | NOBLUDGEON
-	slot_flags = SLOT_BELT
-	throwforce = 4
-	w_class = 2.0
-	throw_speed = 2
-	throw_range = 10
-	var/toxicity = 4
-	var/pest_kill_str = 0
-	var/weed_kill_str = 0
-
-/obj/item/weapon/plantspray/weeds // -- Skie
-
-	name = "weed-spray"
-	desc = "It's a toxic mixture, in spray form, to kill small weeds."
-	icon_state = "weedspray"
-	weed_kill_str = 2
-
-/obj/item/weapon/plantspray/pests
-	name = "pest-spray"
-	desc = "It's some pest eliminator spray! <I>Do not inhale!</I>"
-	icon_state = "pestspray"
-	pest_kill_str = 2
-
-/obj/item/weapon/plantspray/pests/old
-	name = "bottle of pestkiller"
-	icon = 'icons/obj/chemical.dmi'
-	icon_state = "bottle16"
-
-/obj/item/weapon/plantspray/pests/old/carbaryl
-	name = "bottle of carbaryl"
-	icon_state = "bottle16"
-	toxicity = 4
-	pest_kill_str = 2
-
-/obj/item/weapon/plantspray/pests/old/lindane
-	name = "bottle of lindane"
-	icon_state = "bottle18"
-	toxicity = 6
-	pest_kill_str = 4
-
-/obj/item/weapon/plantspray/pests/old/phosmet
-	name = "bottle of phosmet"
-	icon_state = "bottle15"
-	toxicity = 8
-	pest_kill_str = 7
 
 /obj/item/weapon/minihoe // -- Numbers
 	name = "mini hoe"
@@ -259,84 +252,8 @@
 	force = 5.0
 	throwforce = 7.0
 	w_class = 2.0
+	m_amt = 50
 	attack_verb = list("slashed", "sliced", "cut", "clawed")
-
-
-// *************************************
-// Weedkiller defines for hydroponics
-// *************************************
-
-/obj/item/weedkiller
-	name = "bottle of weedkiller"
-	icon = 'icons/obj/chemical.dmi'
-	icon_state = "bottle16"
-	var/toxicity = 0
-	var/weed_kill_str = 0
-
-/obj/item/weedkiller/triclopyr
-	name = "bottle of glyphosate"
-	icon = 'icons/obj/chemical.dmi'
-	icon_state = "bottle16"
-	toxicity = 4
-	weed_kill_str = 2
-
-/obj/item/weedkiller/lindane
-	name = "bottle of triclopyr"
-	icon = 'icons/obj/chemical.dmi'
-	icon_state = "bottle18"
-	toxicity = 6
-	weed_kill_str = 4
-
-/obj/item/weedkiller/D24
-	name = "bottle of 2,4-D"
-	icon = 'icons/obj/chemical.dmi'
-	icon_state = "bottle15"
-	toxicity = 8
-	weed_kill_str = 7
-
-
-// *************************************
-// Nutrient defines for hydroponics
-// *************************************
-
-/obj/item/weapon/reagent_containers/glass/fertilizer
-	name = "fertilizer bottle"
-	desc = "A small glass bottle. Can hold up to 10 units."
-	icon = 'icons/obj/chemical.dmi'
-	icon_state = "bottle16"
-	flags = OPENCONTAINER
-	possible_transfer_amounts = null
-	w_class = 2.0
-
-	var/fertilizer //Reagent contained, if any.
-
-	//Like a shot glass!
-	amount_per_transfer_from_this = 10
-	volume = 10
-
-/obj/item/weapon/reagent_containers/glass/fertilizer/New()
-	..()
-
-	src.pixel_x = rand(-5.0, 5)
-	src.pixel_y = rand(-5.0, 5)
-
-	if(fertilizer)
-		reagents.add_reagent(fertilizer,10)
-
-/obj/item/weapon/reagent_containers/glass/fertilizer/ez
-	name = "bottle of E-Z-Nutrient"
-	icon_state = "bottle16"
-	fertilizer = "eznutrient"
-
-/obj/item/weapon/reagent_containers/glass/fertilizer/l4z
-	name = "bottle of Left 4 Zed"
-	icon_state = "bottle18"
-	fertilizer = "left4zed"
-
-/obj/item/weapon/reagent_containers/glass/fertilizer/rh
-	name = "bottle of Robust Harvest"
-	icon_state = "bottle15"
-	fertilizer = "robustharvest"
 
 //Hatchets and things to kill kudzu
 /obj/item/weapon/hatchet
@@ -368,6 +285,15 @@
 	icon_state = "unathiknife"
 	attack_verb = list("ripped", "torn", "cut")
 
+/obj/item/weapon/hatchet/tacknife
+	name = "tactical knife"
+	desc = "You'd be killing loads of people if this was Medal of Valor: Heroes of Nyx."
+	icon = 'icons/obj/weapons.dmi'
+	icon_state = "tacknife"
+	item_state = "knife"
+	attack_verb = list("stabbed", "chopped", "cut")
+
+
 /obj/item/weapon/scythe
 	icon_state = "scythe0"
 	name = "scythe"
@@ -384,8 +310,8 @@
 
 /obj/item/weapon/scythe/afterattack(atom/A, mob/user as mob, proximity)
 	if(!proximity) return
-	if(istype(A, /obj/effect/plantsegment))
-		for(var/obj/effect/plantsegment/B in orange(A,1))
+	if(istype(A, /obj/effect/plant))
+		for(var/obj/effect/plant/B in orange(A,1))
 			if(prob(80))
-				del B
+				B.die_off(1)
 		del A

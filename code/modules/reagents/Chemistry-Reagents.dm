@@ -202,6 +202,16 @@ datum
 				return
 */
 
+		// Ported from Bay as part of the Botany Update
+		// Allows you to make planks from any plant that has this reagent in it.
+		// Also vines with this reagent are considered dense.
+		woodpulp
+			name = "Wood Pulp"
+			id = "woodpulp"
+			description = "A mass of wood fibers."
+			reagent_state = LIQUID
+			color = "#B97A57"
+
 		water
 			name = "Water"
 			id = "water"

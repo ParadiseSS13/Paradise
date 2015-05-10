@@ -238,6 +238,10 @@
 
 //Mobs on Fire end
 
+/mob/living/water_act(volume, temperature)
+	if(volume >= 20)	fire_stacks -= 0.5
+	if(volume >= 50)	fire_stacks -= 1
+
 //This is called when the mob is thrown into a dense turf
 /mob/living/proc/turf_collision(var/turf/T, var/speed)
 	src.take_organ_damage(speed*5)
