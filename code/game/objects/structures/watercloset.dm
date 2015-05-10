@@ -308,6 +308,7 @@
 		check_heat(C)
 
 /obj/machinery/shower/proc/check_heat(mob/M as mob)
+	M.water_act(100, convertHeat(), src) //convenience
 	if(!on || watertemp == "normal") return
 	if(iscarbon(M))
 		var/mob/living/carbon/C = M

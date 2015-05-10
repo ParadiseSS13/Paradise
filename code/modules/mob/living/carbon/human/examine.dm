@@ -231,6 +231,18 @@
 	if(fire_stacks < 0)
 		msg += "[t_He] looks a little soaked.\n"
 
+	switch(wetlevel)
+		if(1)
+			msg += "[t_He] looks a bit damp.\n"
+		if(2)
+			msg += "[t_He] looks a little bit wet.\n"
+		if(3)
+			msg += "[t_He] looks wet.\n"
+		if(4)
+			msg += "[t_He] looks very wet.\n"
+		if(5)
+			msg += "[t_He] looks absolutely soaked.\n"
+
 	if(nutrition < 100)
 		msg += "[t_He] [t_is] severely malnourished.\n"
 	else if(nutrition >= 500)
