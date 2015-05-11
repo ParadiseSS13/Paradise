@@ -9,7 +9,7 @@
 	var/mob/living/carbon/human/victim = null
 	var/obj/machinery/optable/table = null
 
-	l_color = "#0000FF"
+	light_color = "#0000FF"
 
 /obj/machinery/computer/operating/New()
 	..()

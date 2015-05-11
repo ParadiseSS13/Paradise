@@ -468,3 +468,53 @@ var/global/wcColored
 	icon_state = "fwindow"
 	basestate = "fwindow"
 	health = 30
+
+/obj/structure/window/reinforced/polarized
+	name = "electrochromic window"
+	desc = "Adjusts its tint with voltage. Might take a few good hits to shatter it."
+	var/id
+
+/obj/structure/window/reinforced/polarized/proc/toggle()
+	if(opacity)
+		animate(src, color="#FFFFFF", time=5)
+		set_opacity(0)
+	else
+		animate(src, color="#222222", time=5)
+		set_opacity(1)
+
+
+
+/obj/machinery/button/windowtint
+	name = "window tint control"
+	icon = 'icons/obj/power.dmi'
+	icon_state = "light0"
+	desc = "A remote control switch for polarized windows."
+	var/range = 7
+	var/id = 0
+	var/active = 0
+
+/obj/machinery/button/windowtint/attack_hand(mob/user as mob)
+	if(..())
+		return 1
+
+	toggle_tint()
+
+/obj/machinery/button/windowtint/proc/toggle_tint()
+	use_power(5)
+
+	active = !active
+	update_icon()
+
+	for(var/obj/structure/window/reinforced/polarized/W in range(src,range))
+		if (W.id == src.id || !W.id)
+			spawn(0)
+				W.toggle()
+				return
+
+/obj/machinery/button/windowtint/power_change()
+	..()
+	if(active && !powered(power_channel))
+		toggle_tint()
+
+/obj/machinery/button/windowtint/update_icon()
+	icon_state = "light[active]"

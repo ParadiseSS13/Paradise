@@ -3,7 +3,7 @@
 	desc = "random arcade machine"
 	icon = 'icons/obj/computer.dmi'
 	icon_state = "arcade"
-	l_color = "#00FF00"
+	light_color = "#00FF00"
 
 	var/list/prizes = list(	/obj/item/weapon/storage/box/snappops			= 2,
 							/obj/item/clothing/under/syndicate/tacticool	= 2,
@@ -47,9 +47,9 @@
 /obj/machinery/computer/arcade/power_change()
 	..()
 	if(!(stat & (BROKEN|NOPOWER)))
-		SetLuminosity(2)
+		set_light(2)
 	else
-		SetLuminosity(0)
+		set_light(0)
 
 /obj/machinery/computer/arcade/New()
 	..()

@@ -35,24 +35,12 @@
 		icon_state = "rig[on]-[_color]"
 //		item_state = "rig[on]-[color]"
 
-		if(on)	user.SetLuminosity(user.luminosity + brightness_on)
-		else	user.SetLuminosity(user.luminosity - brightness_on)
+		if(on)	set_light(brightness_on)
+		else	set_light(0)
 
 		if(istype(user,/mob/living/carbon/human))
 			var/mob/living/carbon/human/H = user
 			H.update_inv_head()
-
-	pickup(mob/user)
-		if(on)
-			user.SetLuminosity(user.luminosity + brightness_on)
-//			user.UpdateLuminosity()
-			SetLuminosity(0)
-
-	dropped(mob/user)
-		if(on)
-			user.SetLuminosity(user.luminosity - brightness_on)
-//			user.UpdateLuminosity()
-			SetLuminosity(brightness_on)
 
 /obj/item/clothing/suit/space/rig
 	name = "hardsuit"
@@ -393,7 +381,7 @@
 		flags = HEADCOVERSEYES | BLOCKHAIR | HEADCOVERSMOUTH | STOPSPRESSUREDMAGE | THICKMATERIAL
 		flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE
 		cold_protection = HEAD
-		user.AddLuminosity(brightness_on)
+		set_light(brightness_on)
 	else
 		user << "<span class='notice'>You switch your helmet to combat mode.</span>"
 		name = "blood-red hardsuit helmet (combat)"
@@ -401,7 +389,7 @@
 		flags = BLOCKHAIR
 		flags_inv = HIDEEARS
 		cold_protection = null
-		user.AddLuminosity(-brightness_on)
+		set_light(0)
 
 	update_icon()
 	playsound(src.loc, 'sound/mecha/mechmove03.ogg', 50, 1)

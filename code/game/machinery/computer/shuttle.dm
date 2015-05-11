@@ -5,7 +5,7 @@
 	var/auth_need = 3.0
 	var/list/authorized = list(  )
 
-	l_color = "#7BF9FF"
+	light_color = "#7BF9FF"
 
 
 	attackby(var/obj/item/weapon/card/W as obj, var/mob/user as mob, params)
@@ -57,7 +57,7 @@
 					src.authorized.len = 0
 					src.authorized = list(  )
 		return
-		
+
 	emag_act(user as mob)
 		if (!emagged)
 			var/choice = alert(user, "Would you like to launch the shuttle?","Shuttle control", "Launch", "Cancel")

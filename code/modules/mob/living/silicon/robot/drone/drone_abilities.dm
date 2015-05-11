@@ -39,9 +39,9 @@
 	set category = "Drone"
 
 	if(luminosity)
-		SetLuminosity(0)
+		set_light(0)
 		return
-	SetLuminosity(2)
+	set_light(2)
 
 //Actual picking-up event.
 /mob/living/silicon/robot/drone/attack_hand(mob/living/carbon/human/M as mob)

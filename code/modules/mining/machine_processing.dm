@@ -104,7 +104,7 @@
 	icon_state = "furnace"
 	density = 1
 	anchored = 1
-	luminosity = 3
+	light_range = 3
 	var/obj/machinery/mineral/input = null
 	var/obj/machinery/mineral/output = null
 	var/obj/machinery/mineral/console = null

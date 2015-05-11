@@ -811,7 +811,6 @@ var/list/restricted_camera_networks = list( //Those networks can only be accesse
 
 #define NO_BLOOD		1
 #define NO_BREATHE 		2
-#define IS_SLOW 		4
 #define RAD_ABSORB		8
 #define NO_SCAN 		16
 #define NO_PAIN 		32
@@ -970,3 +969,5 @@ var/list/hit_appends = list("-OOF", "-ACK", "-UGH", "-HRNK", "-HURGH", "-GLORF")
 #define CLICK_CD_TKSTRANGLE 10
 #define CLICK_CD_POINT 10
 #define CLICK_CD_RESIST 20
+
+#define CLAMP01(x) max(0, min(1, x))

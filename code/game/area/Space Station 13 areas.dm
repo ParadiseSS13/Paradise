@@ -28,8 +28,8 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	icon = 'icons/turf/areas.dmi'
 	icon_state = "unknown"
 	layer = 10
+	luminosity = 1
 	mouse_opacity = 0
-	invisibility = INVISIBILITY_LIGHTING
 	var/lightswitch = 1
 
 	var/eject = null
@@ -50,9 +50,6 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	var/has_gravity = 1
 	var/list/apc = list()
 	var/no_air = null
-	var/area/master				// master area used for power calcluations
-								// (original area before splitting due to sd_DAL)
-	var/list/related			// the other areas of the same type as this
 //	var/list/lights				// list of all lights on this area
 	var/list/all_doors = list()		//Added by Strumpetplaya - Alarm Change - Contains a list of doors adjacent to this area
 	var/air_doors_activated = 0
@@ -113,25 +110,23 @@ var/list/ghostteleportlocs = list()
 /area/admin/
 	name = "\improper Admin Room"
 	icon_state = "start"
-	lighting_use_dynamic = 0
 	requires_power = 0
+	lighting_use_dynamic = 0
 
 
 /area/adminconstruction
 	name = "\improper Admin Testing Area"
 	icon_state = "start"
-	lighting_use_dynamic = 0
 	requires_power = 0
+	lighting_use_dynamic = 0
 
 
 //These are shuttle areas, they must contain two areas in a subgroup if you want to move a shuttle from one
 //place to another. Look at escape shuttle for example.
 //All shuttles show now be under shuttle since we have smooth-wall code.
 
-/area/shuttle //DO NOT TURN THE lighting_use_dynamic STUFF ON FOR SHUTTLES. IT BREAKS THINGS.
+/area/shuttle
 	requires_power = 0
-	luminosity = 1
-	lighting_use_dynamic = 0
 
 /area/shuttle/arrival
 	name = "\improper Arrival Shuttle"
@@ -232,29 +227,21 @@ var/list/ghostteleportlocs = list()
 	icon_state = "shuttle"
 	name = "\improper Alien Shuttle Base"
 	requires_power = 1
-	luminosity = 0
-	lighting_use_dynamic = 1
 
 /area/shuttle/alien/mine
 	icon_state = "shuttle"
 	name = "\improper Alien Shuttle Mine"
 	requires_power = 1
-	luminosity = 0
-	lighting_use_dynamic = 1
 
 /area/shuttle/gamma/space
 	icon_state = "shuttle"
 	name = "\improper Gamma Armory"
 	requires_power = 0
-	luminosity = 0
-	lighting_use_dynamic = 1
 
 /area/shuttle/gamma/station
 	icon_state = "shuttle"
 	name = "\improper Gamma Armory Station"
 	requires_power = 0
-	luminosity = 0
-	lighting_use_dynamic = 1
 
 /area/shuttle/prison/
 	name = "\improper Prison Shuttle"
@@ -429,6 +416,7 @@ var/list/ghostteleportlocs = list()
 	name = "\improper Centcom"
 	icon_state = "centcom"
 	requires_power = 0
+	lighting_use_dynamic = 0
 
 /area/centcom/control
 	name = "\improper Centcom Control"
@@ -1113,7 +1101,6 @@ var/list/ghostteleportlocs = list()
 /area/holodeck
 	name = "\improper Holodeck"
 	icon_state = "Holodeck"
-	luminosity = 1
 	lighting_use_dynamic = 0
 
 /area/holodeck/alphadeck
@@ -1249,7 +1236,6 @@ var/list/ghostteleportlocs = list()
 
 /area/solar
 	requires_power = 0
-	luminosity = 1
 	lighting_use_dynamic = 0
 
 	auxport

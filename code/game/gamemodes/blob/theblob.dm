@@ -2,7 +2,7 @@
 /obj/effect/blob
 	name = "blob"
 	icon = 'icons/mob/blob.dmi'
-	luminosity = 0
+	light_range = 0
 	desc = "Some blob creature thingy"
 	density = 0
 	opacity = 0
@@ -146,7 +146,7 @@
 		health -= damage
 		update_icon()
 		return
-		
+
 	attack_animal(mob/living/simple_animal/M as mob)
 		M.changeNext_move(CLICK_CD_MELEE)
 		M.do_attack_animation(src)

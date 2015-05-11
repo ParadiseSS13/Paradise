@@ -103,7 +103,7 @@
 /obj/item/device/lightreplacer/emag_act(user as mob)
 	if(!emagged)
 		Emag()
-			
+
 /obj/item/device/lightreplacer/attack_self(mob/user)
 	/* // This would probably be a bit OP. If you want it though, uncomment the code.
 	if(isrobot(user))
@@ -147,7 +147,9 @@
 				var/obj/item/weapon/light/L1 = new target.light_type(target.loc)
 				L1.status = target.status
 				L1.rigged = target.rigged
-				L1.brightness = target.brightness
+				L1.brightness_range = target.brightness_range
+				L1.brightness_power = target.brightness_power
+				L1.brightness_color = target.brightness_color
 				L1.switchcount = target.switchcount
 				target.switchcount = 0
 				L1.update()
@@ -160,7 +162,9 @@
 			target.status = L2.status
 			target.switchcount = L2.switchcount
 			target.rigged = emagged
-			target.brightness = L2.brightness
+			target.brightness_range = L2.brightness_range
+			target.brightness_power = L2.brightness_power
+			target.brightness_color = L2.brightness_color
 			target.on = target.has_power()
 			target.update()
 			del(L2)

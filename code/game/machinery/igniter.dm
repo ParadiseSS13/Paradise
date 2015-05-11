@@ -65,11 +65,11 @@
 	if ( powered() && disable == 0 )
 		stat &= ~NOPOWER
 		icon_state = "[base_state]"
-//		src.sd_SetLuminosity(2)
+//		src.sd_set_light(2)
 	else
 		stat |= ~NOPOWER
 		icon_state = "[base_state]-p"
-//		src.sd_SetLuminosity(0)
+//		src.sd_set_light(0)
 
 /obj/machinery/sparker/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
 	if(istype(W, /obj/item/device/detective_scanner))

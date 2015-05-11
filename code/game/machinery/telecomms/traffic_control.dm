@@ -14,10 +14,10 @@
 
 	var/storedcode = ""			// code stored
 
-	l_color = "#50AB00"
+	light_color = "#50AB00"
 
 	req_access = list(access_tcomsat)
-	circuit = "/obj/item/weapon/circuitboard/comm_traffic"	
+	circuit = "/obj/item/weapon/circuitboard/comm_traffic"
 
 
 	proc/update_ide()
@@ -235,7 +235,7 @@
 				del(src)
 	src.updateUsrDialog()
 	return
-	
+
 /obj/machinery/computer/telecomms/traffic/emag_act(user as mob)
 	if(!emagged)
 		playsound(get_turf(src), 'sound/effects/sparks4.ogg', 75, 1)

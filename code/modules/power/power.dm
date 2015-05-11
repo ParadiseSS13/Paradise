@@ -46,31 +46,20 @@
 		return 1
 
 	var/area/A = src.loc.loc		// make sure it's in an area
-	if(!A || !isarea(A) || !A.master)
+	if(!A || !isarea(A))
 		return 0					// if not, then not powered
 	if(chan == -1)
 		chan = power_channel
-	return A.master.powered(chan)	// return power status of the area
+	return A.powered(chan)	// return power status of the area
 
 // increment the power usage stats for an area
-
-
-/obj/machinery/proc/use_power(var/amount, var/chan = -1, var/autocalled = 0) // defaults to power_channel
-	var/A = getArea()
-
+/obj/machinery/proc/use_power(var/amount, var/chan = -1) // defaults to power_channel
+	var/area/A = get_area(src)		// make sure it's in an area
 	if(!A || !isarea(A))
 		return
-
-	var/area/B = A
-
-	if (!B.master)
-		return
-
-	if (-1 == chan)
+	if(chan == -1)
 		chan = power_channel
-
-
-	B.master.use_power(amount, chan)
+	A.use_power(amount, chan)
 
 /obj/machinery/proc/power_change()		// called whenever the power settings of the containing area change
 										// by default, check equipment channel & set flag
@@ -445,9 +434,9 @@
 	return null
 
 /area/proc/get_apc()
-	for(var/area/RA in src.related)
-		if (RA.apc.len >= 1)
-			return RA.apc[1]
+	var/obj/machinery/power/apc/FINDME = locate() in src
+	if (FINDME)
+		return FINDME
 
 
 //Determines how strong could be shock, deals damage to mob, uses power.

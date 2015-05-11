@@ -95,7 +95,7 @@
 					emote_hear = list("clicks")
 					emote_see = list("clacks")
 					desc = "Free crabs!"
-					src.sd_SetLuminosity(0)
+					src.sd_set_light(0)
 					inventory_head.loc = src.loc
 					inventory_head = null
 				else

@@ -56,7 +56,13 @@
 		var/turf/simulated/T = get_turf(M)
 		if(!istype(T))
 			return
-		if(T.lighting_lumcount <= 2)
+		var/atom/movable/lighting_overlay/L = locate(/atom/movable/lighting_overlay) in T
+		var/light_available
+		if(L)
+			light_available = max(0,min(10,L.lum_r + L.lum_g + L.lum_b)-5)
+		else
+			light_available = 5
+		if(light_available <= 2)
 			M.alpha = round(255 * 1.15)
 		else
 			M.alpha = round(255 * 0.80)

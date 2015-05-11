@@ -74,6 +74,7 @@ datum/controller/game_controller/proc/setup()
 
 	color_windows_init()
 	setup_objects()
+	setup_starlight()
 	setupgenetics()
 	setupfactions()
 	setup_economy()
@@ -83,7 +84,6 @@ datum/controller/game_controller/proc/setup()
 		make_mining_asteroid_secret()
 
 	populate_spawn_points()
-
 /* MOVED TO SCHEDULER
 
 	spawn(0)
@@ -125,6 +125,11 @@ datum/controller/game_controller/proc/setup_objects()
 	world << "\red \b Initializations complete."
 	sleep(-1)
 
+datum/controller/game_controller/proc/setup_starlight()
+	world << "\red \b Initializing Starlight"
+	for(var/turf/space/S in world)
+		S.update_starlight()
+	world << "\red \b Starlight Initilization Complete"
 
 datum/controller/game_controller/proc/process()
 	processing = 1

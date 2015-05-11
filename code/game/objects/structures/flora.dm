@@ -196,6 +196,7 @@
 	icon = 'icons/obj/flora/plants.dmi'
 	icon_state = "plant-1"
 	anchored = 0
+	layer = 5
 
 /obj/structure/flora/kirbyplants/New()
 	..()

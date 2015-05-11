@@ -152,6 +152,8 @@
 	// 15, 45, 70 minutes respectively
 	var/list/event_delay_upper = list(EVENT_LEVEL_MUNDANE = 9000,	EVENT_LEVEL_MODERATE = 27000,	EVENT_LEVEL_MAJOR = 42000)
 
+	var/starlight = 0	// Whether space turfs have ambient light or not
+
 /datum/configuration/New()
 	var/list/L = typesof(/datum/game_mode) - /datum/game_mode
 	for (var/T in L)
@@ -500,6 +502,10 @@
 					config.event_delay_upper[EVENT_LEVEL_MUNDANE] = MinutesToTicks(values[1])
 					config.event_delay_upper[EVENT_LEVEL_MODERATE] = MinutesToTicks(values[2])
 					config.event_delay_upper[EVENT_LEVEL_MAJOR] = MinutesToTicks(values[3])
+
+				if("starlight")
+					var/vvalue = text2num(value)
+					config.starlight = vvalue >= 0 ? vvalue : 0
 
 				else
 					diary << "Unknown setting in configuration: '[name]'"
