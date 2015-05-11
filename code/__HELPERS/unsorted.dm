@@ -1672,7 +1672,7 @@ atom/proc/GetTypeInAllContents(typepath)
 		chance = max(chance - (initial_chance / steps), 0)
 		steps--
 
-/proc/get_random_colour(var/simple, var/lower, var/upper)
+/proc/get_random_colour(var/simple, var/lower, var/upper) // IT'S NOT COLOUR, IT'S COLOR YOU FREEDOM HATING TEA DRINKERS
 	var/colour
 	if(simple)
 		colour = pick(list("FF0000","FF7F00","FFFF00","00FF00","0000FF","4B0082","8F00FF"))
@@ -1683,3 +1683,11 @@ atom/proc/GetTypeInAllContents(typepath)
 				temp_col  = "0[temp_col]"
 			colour += temp_col
 	return colour
+
+/proc/get_random_chemical()
+	var/list/blocked = list("polonium", "initropidril", "concentrated_initro", "pancuronium", "sodium_thiopental", "ketamine", "coniine", "adminordrazine", "nanites", "hellwater")
+	var/picked_chem = pick(safe_reagents_list)
+	if(blocked.Find(picked_chem))
+		return get_random_chemical()
+	return picked_chem
+

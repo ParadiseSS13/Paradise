@@ -23,6 +23,15 @@ datum
 				for(var/path in paths)
 					var/datum/reagent/D = new path()
 					chemical_reagents_list[D.id] = D
+			if(!safe_reagents_list)
+				//Filtered list to prevent shit like xenobotany spitting out 200 bar drinks
+				var/paths = typesof(/datum/reagent) - /datum/reagent
+				safe_reagents_list = list()
+				for(var/path in paths)
+					var/datum/reagent/D = new path()
+					if(!D.can_grow_in_plants)
+						continue
+					safe_reagents_list[D.id] = D
 			if(!chemical_reactions_list)
 				//Chemical Reactions - Initialises all /datum/chemical_reaction into a list
 				// It is filtered into multiple lists within a list.
