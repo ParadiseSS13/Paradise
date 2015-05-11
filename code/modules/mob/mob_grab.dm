@@ -116,13 +116,13 @@
 		affecting.hand = 1
 		affecting.drop_item()
 		affecting.hand = h
-/* BLOCK BEING LEFT AS EXAMPLE FOR ADDING NEW THINGS
+
 		var/hit_zone = assailant.zone_sel.selecting
-		var/announce = 0
-		if(hit_zone != last_hit_zone)
-			announce = 1
+		//var/announce = 0
+		//(hit_zone != last_hit_zone)
+			//announce = 1
 		last_hit_zone = hit_zone
-		if(ishuman(affecting))
+	/*	if(ishuman(affecting))
 			switch(hit_zone)
 				/*if("mouth")
 					if(announce)
@@ -304,6 +304,21 @@
 					return
 
 				if("harm") //This checks that the user is on harm intent.
+					if(last_hit_zone == "head") //This checks the hitzone the user has selected. In this specific case, they have the head selected.
+						if(affecting.lying)
+							return
+						assailant.visible_message("<span class='danger'>[assailant] thrusts \his head into [affecting]'s skull!</span>") //A visible message for what is going on.
+						var/damage = 5
+						var/obj/item/clothing/hat = attacker.head
+						if(istype(hat))
+							damage += hat.force * 3
+						affecting.apply_damage(damage*rand(90, 110)/100, BRUTE, "head", affected.run_armor_check(affecting, "melee"))
+						playsound(assailant.loc, "swing_hit", 25, 1, -1)
+						assailant.attack_log += text("\[[time_stamp()]\] <font color='red'>Headbutted [affecting.name] ([affecting.ckey])</font>")
+						affecting.attack_log += text("\[[time_stamp()]\] <font color='orange'>Headbutted by [assailant.name] ([assailant.ckey])</font>")
+						msg_admin_attack("[key_name(assailant)] has headbutted [key_name(affecting)]")
+						return
+
 					/*if(last_hit_zone == "eyes")
 						if(state < GRAB_NECK)
 							assailant << "<span class='warning'>You require a better grab to do this.</span>"
@@ -327,21 +342,6 @@
 							if(M.stat != 2)
 								M << "\red You go blind!"*///This is a demonstration of adding a new damaging type based on intent as well as hitzone.
 															//This specific example would allow you to squish people's eyes with a GRAB_NECK.
-					if(last_hit_zone == "head") //This checks the hitzone the user has selected. In this specific case, they have the head selected.
-						if(affecting.lying)
-							return
-						assailant.visible_message("<span class='danger'>[assailant] thrusts \his head into [affecting]'s skull!</span>") //A visible message for what is going on.
-						var/damage = 5
-						var/obj/item/clothing/hat = attacker.head
-						if(istype(hat))
-							damage += hat.force * 3
-						affecting.apply_damage(damage*rand(90, 110)/100, BRUTE, "head", affected.run_armor_check(affecting, "melee"))
-						assailant.apply_damage(3*rand(90, 110)/100, BRUTE, "head", attacker.run_armor_check("head", "melee"))
-						playsound(assailant.loc, "swing_hit", 25, 1, -1)
-						assailant.attack_log += text("\[[time_stamp()]\] <font color='red'>Headbutted [affecting.name] ([affecting.ckey])</font>")
-						affecting.attack_log += text("\[[time_stamp()]\] <font color='orange'>Headbutted by [assailant.name] ([assailant.ckey])</font>")
-						msg_admin_attack("[key_name(assailant)] has headbutted [key_name(affecting)]")
-						return
 
 				if("disarm") //This checks that the user is on disarm intent.
 				/*	if(state < GRAB_AGGRESSIVE)
