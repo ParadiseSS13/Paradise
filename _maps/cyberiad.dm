@@ -9,7 +9,8 @@ z3 = telecommunications center
 z4 = engineering ship
 z5 = mining
 z6 = russian derelict
-z7 = syndicate station
+z7 = empty
+z8 = syndicate station
 */
 
 #if !defined(MAP_FILE)
@@ -21,6 +22,7 @@ z7 = syndicate station
         #include "map_files\cyberiad\z5.dmm"
         #include "map_files\cyberiad\z6.dmm"
         #include "map_files\cyberiad\z7.dmm"
+        #include "map_files\cyberiad\z8.dmm"
 
         #define MAP_FILE "cyberiad.dmm"
         #define MAP_NAME "NCS Cyberiad"

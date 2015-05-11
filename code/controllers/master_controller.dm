@@ -357,4 +357,3 @@ datum/controller/game_controller/proc/Recover()		//Mostly a placeholder for now.
 				else
 					msg += "\t [varname] = [varval]\n"
 	world.log << msg
-

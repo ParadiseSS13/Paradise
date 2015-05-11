@@ -45,6 +45,8 @@
 	// Create robolimbs for chargen.
 	populate_robolimb_list()
 
+	setup_map_transitions() //Before the MC starts up
+
 	processScheduler = new
 	master_controller = new /datum/controller/game_controller()
 	spawn(1)
