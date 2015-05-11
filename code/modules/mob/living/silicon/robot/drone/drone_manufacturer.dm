@@ -97,6 +97,10 @@
 	if(jobban_isbanned(src,"nonhumandept") || jobban_isbanned(src,"Drone"))
 		usr << "\red You are banned from playing drones and cannot spawn as a drone."
 		return
+
+	if(!ticker || ticker.current_state < 3)
+		src << "<span class='warning'>You can't join as a drone before the game starts!</span>"
+		return
 		
 	var/drone_age = 14 // 14 days to play as a drone
 	var/player_age_check = check_client_age(usr.client, drone_age)
