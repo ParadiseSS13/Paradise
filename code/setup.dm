@@ -817,7 +817,6 @@ var/list/restricted_camera_networks = list( //Those networks can only be accesse
 
 #define NO_BLOOD		1
 #define NO_BREATHE 		2
-#define IS_SLOW 		4
 #define RAD_ABSORB		8
 #define NO_SCAN 		16
 #define NO_PAIN 		32
