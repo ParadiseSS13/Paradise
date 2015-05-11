@@ -37,7 +37,7 @@ var/list/image/ghost_darkness_images = list() //this is a list of images for thi
 	verbs += /mob/dead/observer/proc/dead_tele
 
 	// Our new boo spell.
-	spell_list += new /obj/effect/proc_holder/spell/wizard/aoe_turf/boo(src)
+	AddSpell(new /obj/effect/proc_holder/spell/wizard/aoe_turf/boo(src))
 
 	can_reenter_corpse = flags & GHOST_CAN_REENTER
 	started_as_observer = flags & GHOST_IS_OBSERVER

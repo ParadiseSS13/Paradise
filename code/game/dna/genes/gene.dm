@@ -117,11 +117,9 @@
 	if(activation_messages.len)
 		var/msg = pick(activation_messages)
 		M << "\blue [msg]"
-	M.update_power_buttons()
 
 /datum/dna/gene/basic/deactivate(var/mob/M)
 	M.mutations.Remove(mutation)
 	if(deactivation_messages.len)
 		var/msg = pick(deactivation_messages)
 		M << "\red [msg]"
-	M.update_power_buttons()

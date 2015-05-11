@@ -81,11 +81,11 @@
 
 			sleep(10)
 			usr << "<span class='shadowling'><b><i>Your powers are awoken. You may now live to your fullest extent. Remember your goal. Cooperate with your thralls and allies.</b></i></span>"
-			usr.spell_list += new /obj/effect/proc_holder/spell/wizard/targeted/glare
-			usr.spell_list += new /obj/effect/proc_holder/spell/wizard/aoe_turf/veil
-			usr.spell_list += new /obj/effect/proc_holder/spell/wizard/targeted/shadow_walk
-			usr.spell_list += new /obj/effect/proc_holder/spell/wizard/aoe_turf/flashfreeze
-			usr.spell_list += new /obj/effect/proc_holder/spell/wizard/targeted/collective_mind
+			usr.mind.AddSpell(new /obj/effect/proc_holder/spell/wizard/targeted/glare)
+			usr.mind.AddSpell(new /obj/effect/proc_holder/spell/wizard/aoe_turf/veil)
+			usr.mind.AddSpell(new /obj/effect/proc_holder/spell/wizard/targeted/shadow_walk)
+			usr.mind.AddSpell(new /obj/effect/proc_holder/spell/wizard/aoe_turf/flashfreeze)
+			usr.mind.AddSpell(new /obj/effect/proc_holder/spell/wizard/targeted/collective_mind)
 
 
 
@@ -143,11 +143,11 @@
 				A.overload_lighting()
 			var/mob/A = new /mob/living/simple_animal/ascendant_shadowling(usr.loc)
 			usr.spell_list = list()
-			usr.spell_list += new /obj/effect/proc_holder/spell/wizard/targeted/annihilate
-			usr.spell_list += new /obj/effect/proc_holder/spell/wizard/targeted/hypnosis
-			usr.spell_list += new /obj/effect/proc_holder/spell/wizard/targeted/shadowling_phase_shift
-			usr.spell_list += new /obj/effect/proc_holder/spell/wizard/aoe_turf/glacial_blast
-			usr.spell_list += new /obj/effect/proc_holder/spell/wizard/targeted/vortex
+			usr.mind.AddSpell(new /obj/effect/proc_holder/spell/wizard/targeted/annihilate)
+			usr.mind.AddSpell(new /obj/effect/proc_holder/spell/wizard/targeted/hypnosis)
+			usr.mind.AddSpell(new /obj/effect/proc_holder/spell/wizard/targeted/shadowling_phase_shift)
+			usr.mind.AddSpell(new /obj/effect/proc_holder/spell/wizard/aoe_turf/glacial_blast)
+			usr.mind.AddSpell(new /obj/effect/proc_holder/spell/wizard/targeted/vortex)
 			usr.mind.transfer_to(A)
 			A.spell_list = usr.spell_list
 			A.name = usr.real_name

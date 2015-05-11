@@ -48,12 +48,14 @@ var/list/spells = typesof(/obj/effect/proc_holder/spell) //needed for the badmin
 	var/critfailchance = 0
 	var/centcom_cancast = 1 //Whether or not the spell should be allowed on z2
 
-	var/icon_power_button
-	var/power_button_name
+	var/datum/action/spell_action/action = null
+	var/action_icon = 'icons/mob/actions.dmi'
+	var/action_icon_state = "spell_default"
+	var/action_background_icon_state = "bg_spell"
 
 /obj/effect/proc_holder/spell/wizard/proc/cast_check(skipcharge = 0, mob/living/user = usr) //checks if the spell can be cast based on its settings; skipcharge is used when an additional cast_check is called inside the spell
 
-	if(!(src in user.spell_list))
+	if(((!user.mind) || !(src in user.mind.spell_list)) && !(src in user.spell_list))
 		user << "<span class='warning'>You shouldn't have this spell! Something's wrong.</span>"
 		return 0
 	if (istype(user, /mob/living/carbon/human))
@@ -142,7 +144,6 @@ var/list/spells = typesof(/obj/effect/proc_holder/spell) //needed for the badmin
 	while(charge_counter < charge_max)
 		sleep(1)
 		charge_counter++
-	usr.update_power_buttons()
 
 /obj/effect/proc_holder/spell/wizard/proc/perform(list/targets, recharge = 1, mob/user = usr) //if recharge is started is important for the trigger spells
 	before_cast(targets)
@@ -195,7 +196,6 @@ var/list/spells = typesof(/obj/effect/proc_holder/spell) //needed for the badmin
 				var/datum/effect/effect/system/bad_smoke_spread/smoke = new /datum/effect/effect/system/bad_smoke_spread()
 				smoke.set_up(smoke_amt, 0, location) //no idea what the 0 is
 				smoke.start()
-	usr.update_power_buttons()
 
 /obj/effect/proc_holder/spell/wizard/proc/cast(list/targets)
 	return
@@ -337,4 +337,50 @@ var/list/spells = typesof(/obj/effect/proc_holder/spell) //needed for the badmin
 				qdel(dummy)
 				return 0
 	qdel(dummy)
+	return 1
+
+/obj/effect/proc_holder/spell/proc/can_cast(mob/user = usr)
+	if(((!user.mind) || !(src in user.mind.spell_list)) && !(src in user.spell_list))
+		return 0
+
+	if(user.z == 2 && !centcom_cancast) //Certain spells are not allowed on the centcom zlevel
+		return 0
+	if(user.z == 2 && ticker.mode.name == "ragin' mages")
+		return 0
+
+	switch(charge_type)
+		if("recharge")
+			if(charge_counter < charge_max)
+				return 0
+		if("charges")
+			if(!charge_counter)
+				return 0
+
+	if(user.stat && !stat_allowed)
+		return 0
+
+	if(ishuman(user))
+
+		var/mob/living/carbon/human/H = user
+
+		if((invocation_type == "whisper" || invocation_type == "shout") && H.is_muzzled())
+			return 0
+
+		var/obj/effect/proc_holder/spell/wizard/noclothes/clothcheck = locate() in user.spell_list
+		var/obj/effect/proc_holder/spell/wizard/noclothes/clothcheck2 = locate() in user.mind.spell_list
+		if(clothes_req && !(clothcheck && istype(clothcheck)) && !(clothcheck2 && istype(clothcheck2)))//clothes check
+			if(!istype(H.wear_suit, /obj/item/clothing/suit/wizrobe) && !istype(H.wear_suit, /obj/item/clothing/suit/space/rig/wizard))
+				user << "I don't feel strong enough without my robe."
+				return 0
+			if(!istype(H.shoes, /obj/item/clothing/shoes/sandal))
+				user << "I don't feel strong enough without my sandals."
+				return 0
+			if(!istype(H.head, /obj/item/clothing/head/wizard) && !istype(H.head, /obj/item/clothing/head/helmet/space/rig/wizard))
+				user << "<span class='notice'>I don't feel strong enough without my hat.</span>"
+				return 0
+	else
+		if(clothes_req)
+			return 0
+		if(isbrain(user) || ispAI(user))
+			return 0
 	return 1

@@ -10,7 +10,6 @@
 	slot_flags = SLOT_BACK
 	slowdown = 1
 	action_button_name = "Equip/Unequip TED Gun"
-	icon_action_button = "action_chronobackpack"
 	var/obj/item/weapon/gun/energy/chrono_gun/PA = null
 	var/list/erased_minds = list() //a collection of minds from the dead
 

@@ -36,7 +36,6 @@
 	permeability_coefficient = 0.01
 	armor = list(melee = 0, bullet = 0, laser = 0,energy = 0, bomb = 0, bio = 25, rad = 0)
 	action_button_name = "Adjust Sterile Mask"
-	icon_action_button = "action_sterile"
 	ignore_maskadjust = 0
 	species_fit = list("Vox")
 	sprite_sheets = list(
@@ -176,7 +175,6 @@
 	ignore_maskadjust = 0
 	adjusted_flags = SLOT_HEAD
 	icon_state = "bandbotany"
-	icon_action_button = "action_bandbotany"
 	action_button_name = "Adjust Bandana"
 
 /obj/item/clothing/mask/bandana/attack_self(var/mob/user)

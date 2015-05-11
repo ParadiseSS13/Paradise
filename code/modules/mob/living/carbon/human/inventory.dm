@@ -197,8 +197,6 @@
 		update_inv_l_hand()
 
 
-	update_action_buttons()
-
 
 
 //This is an UNSAFE proc. Use mob_can_equip() before calling this one! Or rather use equip_to_slot_if_possible() or advanced_equip_to_slot_if_possible()

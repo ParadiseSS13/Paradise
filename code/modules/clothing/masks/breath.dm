@@ -8,7 +8,6 @@
 	gas_transfer_coefficient = 0.10
 	permeability_coefficient = 0.50
 	species_fit = list("Vox")
-	icon_action_button = "action_breath"
 	action_button_name = "Adjust Breath Mask"
 	ignore_maskadjust = 0
 	species_fit = list("Vox", "Vox Armalis")
@@ -35,6 +34,5 @@
 	item_state = "voxmask"
 	permeability_coefficient = 0.01
 	species_restricted = list("Vox")
-	icon_action_button = null
 	action_button_name = null
 	ignore_maskadjust = 1

@@ -23,7 +23,6 @@
 	icon_state = "chronosuit"
 	item_state = "chronosuit"
 	action_button_name = "Toggle Chronosuit"
-	icon_action_button = "action_chronosuit"
 	slowdown = 2
 	armor = list(melee = 60, bullet = 60, laser = 60, energy = 60, bomb = 30, bio = 90, rad = 90)
 	var/obj/item/clothing/head/helmet/space/chronos/helmet = null

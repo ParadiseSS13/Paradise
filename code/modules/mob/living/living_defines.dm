@@ -49,3 +49,5 @@
 
 	var/list/icon/pipes_shown = list()
 	var/last_played_vent
+
+	var/list/datum/action/actions = list()

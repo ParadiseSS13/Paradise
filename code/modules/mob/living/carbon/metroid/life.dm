@@ -42,6 +42,8 @@
 
 	handle_regular_status_updates() // Status updates, death etc.
 
+	handle_actions()
+
 	handle_wetness()
 
 /mob/living/carbon/slime/proc/AIprocess()  // the master AI process

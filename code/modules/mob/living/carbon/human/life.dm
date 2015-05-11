@@ -138,6 +138,9 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 
 	//Status updates, death etc.
 	handle_regular_status_updates()		//Optimized a bit
+
+	handle_actions()
+
 	update_canmove()
 
 	//Update our name based on whether our face is obscured/disfigured
@@ -1044,19 +1047,18 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 		if(hud_updateflag)
 			handle_hud_list()
 
-
 		if(!client)	return 0
 
 		if(hud_updateflag)
 			handle_hud_list()
+
+		update_action_buttons()
 
 		for(var/image/hud in client.images)
 			if(copytext(hud.icon_state,1,4) == "hud") //ugly, but icon comparison is worse, I believe
 				client.images.Remove(hud)
 
 		client.screen.Remove(global_hud.blurry, global_hud.druggy, global_hud.vimpaired, global_hud.darkMask,/* global_hud.nvg*/)
-
-		update_action_buttons()
 
 		if(damageoverlay.overlays)
 			damageoverlay.overlays = list()
@@ -1796,7 +1798,6 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 					holder.icon_state = "hudscientopia"
 
 			hud_list[NATIONS_HUD] = holder
-	update_power_buttons()
 	hud_updateflag = 0
 
 /mob/living/carbon/human/proc/process_nations()
