@@ -164,6 +164,7 @@
 	allow_quick_gather = 1
 	use_to_pickup = 1
 	storage_slots = 14
+	display_contents_with_number = 1
 
 /obj/item/weapon/storage/pill_bottle/MouseDrop(obj/over_object as obj) //Quick pillbottle fix. -Agouri
 
