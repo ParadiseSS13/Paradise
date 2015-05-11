@@ -53,6 +53,12 @@
 
 		master_controller.setup()
 
+	#ifdef MAP_NAME
+	map_name = "[MAP_NAME]"
+	#else
+	map_name = "Unknown"
+	#endif
+
 	spawn(3000)		//so we aren't adding to the round-start lag
 		if(config.ToRban)
 			ToRban_autoupdate()
@@ -119,6 +125,7 @@ var/world_topic_spam_protect_time = world.timeofday
 
 //		if(revdata)	s["revision"] = revdata.revision
 		s["admins"] = admins
+		s["map_name"] = map_name ? map_name : "Unknown"
 
 		return list2params(s)
 
