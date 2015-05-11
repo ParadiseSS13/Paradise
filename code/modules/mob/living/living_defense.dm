@@ -285,11 +285,11 @@
 	LAssailant = user
 
 	playsound(src.loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
-	if(user.dir == src.dir)
+	/*if(user.dir == src.dir)
 		G.state = GRAB_AGGRESSIVE
 		G.last_upgrade = world.time
 		if(!supress_message)
 			visible_message("<span class='warning'>[user] has grabbed [src] from behind!</span>")
-	else
-		if(!supress_message)
-			visible_message("<span class='warning'>[user] has grabbed [src] passively!</span>")
+	else*///This is an example of how you can make special types of grabs simply based on direction.
+	if(!supress_message)
+		visible_message("<span class='warning'>[user] has grabbed [src] passively!</span>")

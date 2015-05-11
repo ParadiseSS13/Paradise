@@ -19,7 +19,7 @@
 	var/allow_upgrade = 1
 	var/last_upgrade = 0
 	var/last_hit_zone = 0
-	var/force_down //determines if the affecting mob will be pinned to the ground
+//	var/force_down //determines if the affecting mob will be pinned to the ground //disabled due to balance, kept for an example for any new things.
 	var/dancing //determines if assailant and affecting keep looking at each other. Basically a wrestling position
 
 	layer = 21
@@ -116,7 +116,7 @@
 		affecting.hand = 1
 		affecting.drop_item()
 		affecting.hand = h
-
+/* BLOCK BEING LEFT AS EXAMPLE FOR ADDING NEW THINGS
 		var/hit_zone = assailant.zone_sel.selecting
 		var/announce = 0
 		if(hit_zone != last_hit_zone)
@@ -124,7 +124,7 @@
 		last_hit_zone = hit_zone
 		if(ishuman(affecting))
 			switch(hit_zone)
-				if("mouth")
+				/*if("mouth")
 					if(announce)
 						assailant.visible_message("<span class='warning'>[assailant] covers [affecting]'s mouth!</span>")
 					if(affecting.silent < 3)
@@ -133,13 +133,15 @@
 					if(announce)
 						assailant.visible_message("<span class='warning'>[assailant] covers [affecting]'s eyes!</span>")
 					if(affecting.eye_blind < 3)
-						affecting.eye_blind = 3
+						affecting.eye_blind = 3*///These are being left in the code as an example for adding new hit-zone based things.
 
 		if(force_down)
 			if(affecting.loc != assailant.loc)
 				force_down = 0
 			else
-				affecting.Weaken(3)
+				affecting.Weaken(3) //This is being left in the code as an example of adding a new variable to do something in grab code.
+
+*/
 
 	if(state >= GRAB_NECK)
 		affecting.Stun(5)  //It will hamper your voice, being choked and all.
@@ -166,9 +168,10 @@
 		return
 	if(affecting.lying && state != GRAB_KILL)
 		animate(affecting, pixel_x = 0, pixel_y = 0, 5, 1, LINEAR_EASING)
-		if(force_down)
-			affecting.set_dir(SOUTH) //face up
-		return
+		return //KJK
+	/*	if(force_down) //THIS GOES ABOVE THE RETURN LABELED KJK
+			affecting.set_dir(SOUTH)*///This shows how you can apply special directions based on a variable. //face up
+
 	var/shift = 0
 	var/adir = get_dir(assailant, affecting)
 	affecting.layer = 4
@@ -220,15 +223,16 @@
 	if(state < GRAB_AGGRESSIVE)
 		if(!allow_upgrade)
 			return
-		if(!affecting.lying)
-			assailant.visible_message("<span class='warning'>[assailant] has grabbed [affecting] aggressively (now hands)!</span>")
-		else
+		//if(!affecting.lying)
+		assailant.visible_message("<span class='warning'>[assailant] has grabbed [affecting] aggressively (now hands)!</span>")
+		/* else
 			assailant.visible_message("<span class='warning'>[assailant] pins [affecting] down to the ground (now hands)!</span>")
 			force_down = 1
 			affecting.Weaken(3)
 			step_to(assailant, affecting)
 			assailant.set_dir(EAST) //face the victim
-			affecting.set_dir(SOUTH) //face up
+			affecting.set_dir(SOUTH) //face up  //This is an example of a new feature based on the context of the location of the victim.
+			*/									//It means that upgrading while someone is lying on the ground would cause you to go into pin mode.
 		state = GRAB_AGGRESSIVE
 		icon_state = "grabbed1"
 		hud.icon_state = "reinforce1"
@@ -289,16 +293,18 @@
 			var/mob/living/carbon/human/attacker = assailant
 			switch(assailant.a_intent)
 				if("help")
-					if(force_down)
+					/*if(force_down)
 						assailant << "<span class='warning'>You no longer pin [affecting] to the ground.</span>"
 						force_down = 0
-						return
+						return*///This is a very basic demonstration of a new feature based on attacking someone with the grab, based on intent.
+								//This specific example would allow you to stop pinning people to the floor without moving away from them.
+					return
 
 				if("grab")
 					return
 
-				if("harm")
-					if(last_hit_zone == "eyes")
+				if("harm") //This checks that the user is on harm intent.
+					/*if(last_hit_zone == "eyes")
 						if(state < GRAB_NECK)
 							assailant << "<span class='warning'>You require a better grab to do this.</span>"
 							return
@@ -319,25 +325,26 @@
 						eyes.damage += rand(3,4)
 						if (eyes.damage >= eyes.min_broken_damage)
 							if(M.stat != 2)
-								M << "\red You go blind!"
-					else if(last_hit_zone == "head")
+								M << "\red You go blind!"*///This is a demonstration of adding a new damaging type based on intent as well as hitzone.
+															//This specific example would allow you to squish people's eyes with a GRAB_NECK.
+					if(last_hit_zone == "head") //This checks the hitzone the user has selected. In this specific case, they have the head selected.
 						if(affecting.lying)
 							return
-						assailant.visible_message("<span class='danger'>[assailant] thrusts \his head into [affecting]'s skull!</span>")
-						var/damage = 20
+						assailant.visible_message("<span class='danger'>[assailant] thrusts \his head into [affecting]'s skull!</span>") //A visible message for what is going on.
+						var/damage = 5
 						var/obj/item/clothing/hat = attacker.head
 						if(istype(hat))
-							damage += hat.force * 10
+							damage += hat.force * 3
 						affecting.apply_damage(damage*rand(90, 110)/100, BRUTE, "head", affected.run_armor_check(affecting, "melee"))
-						assailant.apply_damage(10*rand(90, 110)/100, BRUTE, "head", attacker.run_armor_check("head", "melee"))
+						assailant.apply_damage(3*rand(90, 110)/100, BRUTE, "head", attacker.run_armor_check("head", "melee"))
 						playsound(assailant.loc, "swing_hit", 25, 1, -1)
 						assailant.attack_log += text("\[[time_stamp()]\] <font color='red'>Headbutted [affecting.name] ([affecting.ckey])</font>")
 						affecting.attack_log += text("\[[time_stamp()]\] <font color='orange'>Headbutted by [assailant.name] ([assailant.ckey])</font>")
 						msg_admin_attack("[key_name(assailant)] has headbutted [key_name(affecting)]")
 						return
 
-				if("disarm")
-					if(state < GRAB_AGGRESSIVE)
+				if("disarm") //This checks that the user is on disarm intent.
+				/*	if(state < GRAB_AGGRESSIVE)
 						assailant << "<span class='warning'>You require a better grab to do this.</span>"
 						return
 					if(!force_down)
@@ -351,7 +358,8 @@
 						return
 					else
 						assailant << "<span class='warning'>You are already pinning [affecting] to the ground.</span>"
-						return
+						return*///This is an example of something being done with an agressive grab + disarm intent.
+					return
 
 
 	if(M == assailant && state >= GRAB_AGGRESSIVE) //no eatin unless you have an agressive grab
