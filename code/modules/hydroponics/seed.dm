@@ -326,10 +326,12 @@
 /datum/seed/proc/randomize()
 
 	roundstart = 0
-	seed_name = "strange plant"     // TODO: name generator.
-	display_name = "strange plants" // TODO: name generator.
+	var/picked_name = pick("strange", "mysterious", "odd", "bulbous", "tendrily", "spiky", "leafy", "soft", "hard", "heavy", "light", "pretty", "ugly", "intriguing", "confusing", "unique", "scientific", "energizing")
+	var/picked_type = pick("plant", "mushroom", "vine", "flower", "rock", "crystal", "tree")
+	seed_name = picked_name + " " + picked_type
+	display_name = picked_name + " " + picked_type + "s"
 	mysterious = 1
-	seed_noun = pick("spores","nodes","cuttings","seeds", "saplings)
+	seed_noun = pick("spores","nodes","cuttings","seeds", "saplings")
 
 	set_trait(TRAIT_POTENCY,rand(5,30),200,0)
 	set_trait(TRAIT_PRODUCT_ICON,pick(plant_controller.plant_product_sprites))
