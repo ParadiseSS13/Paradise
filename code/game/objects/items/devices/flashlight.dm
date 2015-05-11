@@ -17,24 +17,18 @@
 	..()
 	if(on)
 		icon_state = "[initial(icon_state)]-on"
-		SetLuminosity(brightness_on)
+		set_light(brightness_on)
 	else
 		icon_state = initial(icon_state)
-		SetLuminosity(0)
+		set_light(0)
 
 /obj/item/device/flashlight/proc/update_brightness(var/mob/user = null)
 	if(on)
 		icon_state = "[initial(icon_state)]-on"
-		if(loc == user)
-			user.SetLuminosity(user.luminosity + brightness_on)
-		else if(isturf(loc))
-			SetLuminosity(brightness_on)
+		set_light(brightness_on)
 	else
 		icon_state = initial(icon_state)
-		if(loc == user)
-			user.SetLuminosity(user.luminosity - brightness_on)
-		else if(isturf(loc))
-			SetLuminosity(0)
+		set_light(0)
 
 /obj/item/device/flashlight/attack_self(mob/user)
 	if(!isturf(user.loc))
@@ -86,19 +80,6 @@
 					user << "<span class='notice'>[M]'s pupils narrow.</span>"
 	else
 		return ..()
-
-
-/obj/item/device/flashlight/pickup(mob/user)
-	if(on)
-		user.SetLuminosity(user.luminosity + brightness_on)
-		SetLuminosity(0)
-
-
-/obj/item/device/flashlight/dropped(mob/user)
-	if(on)
-		user.SetLuminosity(user.luminosity - brightness_on)
-		SetLuminosity(brightness_on)
-
 
 /obj/item/device/flashlight/pen
 	name = "penlight"
@@ -197,7 +178,7 @@
 	on = 1 //Bio-luminesence has one setting, on.
 
 /obj/item/device/flashlight/slime/New()
-	SetLuminosity(brightness_on)
+	set_light(brightness_on)
 	spawn(1) //Might be sloppy, but seems to be necessary to prevent further runtimes and make these work as intended... don't judge me!
 		update_brightness()
 		icon_state = initial(icon_state)

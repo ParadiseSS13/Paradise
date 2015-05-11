@@ -26,7 +26,7 @@
 	icon_state = "darkmatter"
 	density = 1
 	anchored = 0
-	luminosity = 4
+	light_range = 4
 
 	var/gasefficency = 0.25
 
@@ -41,7 +41,7 @@
 	var/emergency_alert = "CRYSTAL DELAMINATION IMMINENT."
 	var/explosion_point = 1000
 
-	l_color = "#8A8A00"
+	light_color = "#8A8A00"
 	var/warning_color = "#B8B800"
 	var/emergency_color = "#D9D900"
 
@@ -102,10 +102,8 @@
 
 //Changes color and luminosity of the light to these values if they were not already set
 /obj/machinery/power/supermatter/proc/shift_light(var/lum, var/clr)
-	if(l_color != clr)
-		l_color = clr
-	if(luminosity != lum)
-		SetLuminosity(lum)
+	if(lum != light_range || clr != light_color)
+		set_light(lum, l_color = clr)
 
 /obj/machinery/power/supermatter/process()
 
@@ -151,7 +149,7 @@
 
 			explode()
 	else
-		shift_light(4,initial(l_color))
+		shift_light(4,initial(light_color))
 	if(grav_pulling)
 		supermatter_pull()
 

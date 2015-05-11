@@ -16,7 +16,7 @@
 	..()
 	verbs -= /obj/machinery/portable_atmospherics/hydroponics/verb/close_lid_verb
 	verbs -= /obj/machinery/portable_atmospherics/hydroponics/verb/remove_label
-	verbs -= /obj/machinery/portable_atmospherics/hydroponics/verb/set_light
+	verbs -= /obj/machinery/portable_atmospherics/hydroponics/verb/setlight
 
 /obj/machinery/portable_atmospherics/hydroponics/soil/CanPass()
 	return 1

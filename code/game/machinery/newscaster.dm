@@ -98,7 +98,7 @@ var/list/obj/machinery/newscaster/allCasters = list() //Global list that will co
 	var/c_locked=0;        //Will our new channel be locked to public submissions?
 	var/hitstaken = 0      //Death at 3 hits from an item with force>=15
 	var/datum/feed_channel/viewing_channel = null
-	luminosity = 0
+	light_range = 0
 	anchored = 1
 
 

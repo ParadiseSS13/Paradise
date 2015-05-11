@@ -34,7 +34,7 @@ var/global/list/ghdel_profiling = list()
 
 
 /atom/Destroy()
-	SetOpacity(0)
+	set_opacity(0)
 
 
 	if(reagents)

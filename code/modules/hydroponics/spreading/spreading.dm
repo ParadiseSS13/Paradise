@@ -6,10 +6,9 @@
 		var/list/turf/simulated/floor/turfs = list() //list of all the empty floor turfs in the hallway areas
 		for(var/areapath in typesof(/area/hallway))
 			var/area/A = locate(areapath)
-			for(var/area/B in A.related)
-				for(var/turf/simulated/floor/F in B.contents)
-					if(!F.contents.len)
-						turfs += F
+			for(var/turf/simulated/floor/F in A.contents)
+				if(!F.contents.len)
+					turfs += F
 
 		if(turfs.len) //Pick a turf to spawn at if we can
 			var/turf/simulated/floor/T = pick(turfs)
@@ -149,14 +148,13 @@
 		color = icon_colour
 	// Apply colour and light from seed datum.
 	if(seed.get_trait(TRAIT_BIOLUM))
-		SetLuminosity(1+round(seed.get_trait(TRAIT_POTENCY)/20))
+		var/clr
 		if(seed.get_trait(TRAIT_BIOLUM_COLOUR))
-			l_color = seed.get_trait(TRAIT_BIOLUM_COLOUR)
-		else
-			l_color = null
+			clr = seed.get_trait(TRAIT_BIOLUM_COLOUR)
+		set_light(1+round(seed.get_trait(TRAIT_POTENCY)/20), l_color = clr)
 		return
 	else
-		SetLuminosity(0)
+		set_light(0)
 
 /obj/effect/plant/proc/refresh_icon()
 	var/growth = min(max_growth,round(health/growth_threshold))

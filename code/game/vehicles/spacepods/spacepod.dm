@@ -800,9 +800,9 @@ obj/spacepod/verb/toggleLights()
 /obj/spacepod/proc/lightsToggle()
 	lights = !lights
 	if(lights)
-		SetLuminosity(luminosity + lights_power)
+		set_light(luminosity + lights_power)
 	else
-		SetLuminosity(luminosity - lights_power)
+		set_light(luminosity - lights_power)
 	occupant << "Toggled lights [lights?"on":"off"]."
 	return
 

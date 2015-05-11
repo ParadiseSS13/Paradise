@@ -56,8 +56,8 @@ proc/explosion(turf/epicenter, devastation_range, heavy_impact_range, light_impa
 			msg_admin_attack("Explosion with size ([devastation_range], [heavy_impact_range], [light_impact_range]) in area [epicenter.loc.name] ([epicenter.x],[epicenter.y],[epicenter.z]) (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[epicenter.x];Y=[epicenter.y];Z=[epicenter.z]'>JMP</a>)")
 			log_game("Explosion with size ([devastation_range], [heavy_impact_range], [light_impact_range]) in area [epicenter.loc.name] ")
 
-		var/lighting_controller_was_processing = lighting_controller.processing	//Pause the lighting updates for a bit
-		lighting_controller.processing = 0
+		//var/lighting_controller_was_processing = lighting_controller.processing	//Pause the lighting updates for a bit
+		//lighting_controller.processing = 0
 		var/powernet_rebuild_was_deferred_already = defer_powernet_rebuild
 		if(defer_powernet_rebuild != 2)
 			defer_powernet_rebuild = 1
@@ -72,7 +72,7 @@ proc/explosion(turf/epicenter, devastation_range, heavy_impact_range, light_impa
 		var/z0 = epicenter.z
 
 		for(var/turf/T in trange(max_range, epicenter))
-			var/dist = cheap_pythag(T.x - x0,T.y - y0)
+			var/dist = sqrt((T.x - x0)**2 + (T.y - y0)**2)
 
 			if(config.reactionary_explosions)
 				var/turf/Trajectory = T
@@ -95,7 +95,7 @@ proc/explosion(turf/epicenter, devastation_range, heavy_impact_range, light_impa
 			if(T)
 				for(var/atom_movable in T.contents)	//bypass type checking since only atom/movable can be contained by turfs anyway
 					var/atom/movable/AM = atom_movable
-					if(AM)	AM.ex_act(dist)
+					if(AM && AM.simulated)	AM.ex_act(dist)
 //				if(flame_dist && prob(40) && !istype(T, /turf/space) && !T.density)
 //					PoolOrNew(/obj/effect/hotspot, T) //Mostly for ambience!
 				if(dist > 0)
@@ -124,7 +124,7 @@ proc/explosion(turf/epicenter, devastation_range, heavy_impact_range, light_impa
 
 		sleep(8)
 
-		if(!lighting_controller.processing)	lighting_controller.processing = lighting_controller_was_processing
+		//if(!lighting_controller.processing)	lighting_controller.processing = lighting_controller_was_processing
 		if(!powernet_rebuild_was_deferred_already)
 			if(defer_powernet_rebuild != 2)
 				defer_powernet_rebuild = 0

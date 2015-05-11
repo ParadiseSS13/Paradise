@@ -374,9 +374,6 @@
 	..()
 	if(!seed)
 		return
-	if(seed.get_trait(TRAIT_BIOLUM))
-		user.SetLuminosity(user.luminosity + seed.get_trait(TRAIT_BIOLUM))
-		SetLuminosity(0)
 	if(seed.get_trait(TRAIT_STINGS))
 		var/mob/living/carbon/human/H = user
 		if(istype(H) && H.gloves)
@@ -386,9 +383,3 @@
 		reagents.remove_any(rand(1,3)) //Todo, make it actually remove the reagents the seed uses.
 		seed.do_thorns(H,src)
 		seed.do_sting(H,src,pick("r_hand","l_hand"))
-
-/obj/item/weapon/reagent_containers/food/snacks/grown/dropped(mob/user)
-	..()
-	if(seed && seed.get_trait(TRAIT_BIOLUM))
-		user.SetLuminosity(user.luminosity - seed.get_trait(TRAIT_BIOLUM))
-		SetLuminosity(seed.get_trait(TRAIT_BIOLUM))

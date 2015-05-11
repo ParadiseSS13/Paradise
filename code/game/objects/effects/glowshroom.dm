@@ -45,7 +45,7 @@
 	processing_objects += src
 
 
-	SetLuminosity(round(potency/10))
+	set_light(round(potency/10))
 	lastTick = world.timeofday
 
 

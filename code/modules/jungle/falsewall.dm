@@ -44,7 +44,7 @@
 			flick("[mineral]fwall_opening", src)
 		sleep(15)
 		src.density = 0
-		SetOpacity(0)
+		set_opacity(0)
 		opening = 0
 	else
 		opening = 1
@@ -55,5 +55,5 @@
 			flick("[mineral]fwall_closing", src)
 		density = 1
 		sleep(15)
-		SetOpacity(1)
+		set_opacity(1)
 		opening = 0

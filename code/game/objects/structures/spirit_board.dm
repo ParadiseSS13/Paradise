@@ -62,13 +62,11 @@
 	//lighting check
 	var/light_amount = 0
 	var/turf/T = get_turf(src)
-	var/area/A = T.loc
-
-	if(A)
-		if(A.lighting_use_dynamic)
-			light_amount = T.lighting_lumcount
-		else
-			light_amount =  10
+	var/atom/movable/lighting_overlay/LO = locate(/atom/movable/lighting_overlay) in T
+	if(LO)
+		light_amount = max(0,min(10,LO.lum_r + LO.lum_g + LO.lum_b)-5)
+	else
+		light_amount =  5
 
 	if(light_amount > 2)
 		M << "<span class='warning'>It's too bright here to use [src.name]!</span>"

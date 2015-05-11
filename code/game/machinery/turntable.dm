@@ -57,17 +57,16 @@
 			//		M.music = 1
 			var/area/A = src.loc.loc
 
-			for(var/area/RA in A.related)
-				for(var/obj/machinery/party/lasermachine/L in RA)
-					L.turnon()
+			for(var/obj/machinery/party/lasermachine/L in A)
+				L.turnon()
 			playing = 1
 			while(playing == 1)
 				for(var/mob/M in world)
-					if((M.loc.loc in A.related) && M.music == 0)
+					if((M.loc.loc in A) && M.music == 0)
 						//world << "Found the song..."
 						M << S
 						M.music = 1
-					else if(!(M.loc.loc in A.related) && M.music == 1)
+					else if(!(M.loc.loc in A) && M.music == 1)
 						var/sound/Soff = sound(null)
 						Soff.channel = 10
 						M << Soff
@@ -148,9 +147,8 @@
 				M.music = 0
 			playing = 0
 			var/area/A = src.loc.loc
-			for(var/area/RA in A.related)
-				for(var/obj/machinery/party/lasermachine/L in RA)
-					L.turnoff()
+			for(var/obj/machinery/party/lasermachine/L in A)
+				L.turnoff()
 
 
 
@@ -278,6 +276,5 @@
 
 /obj/machinery/party/lasermachine/proc/turnoff()
 	var/area/A = src.loc.loc
-	for(var/area/RA in A.related)
-		for(var/obj/effects/laser/F in RA)
-			del(F)
+	for(var/obj/effects/laser/F in A)
+		del(F)

@@ -222,14 +222,14 @@
 	idle_power_usage = 1250
 	active_power_usage = 2500
 
-	l_color = "#7BF9FF"
+	light_color = "#7BF9FF"
 
 	power_change()
 		..()
 		if(!(stat & (BROKEN|NOPOWER)))
-			SetLuminosity(2)
+			set_light(2)
 		else
-			SetLuminosity(0)
+			set_light(0)
 
 /obj/machinery/sleeper/New()
 	..()

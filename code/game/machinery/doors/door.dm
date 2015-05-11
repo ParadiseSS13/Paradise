@@ -235,13 +235,13 @@
 	if(!operating)		operating = 1
 
 	do_animate("opening")
-	src.SetOpacity(0)
+	src.set_opacity(0)
 	sleep(5)
 	src.density = 0
 	sleep(5)
 	src.layer = 2.7
 	update_icon()
-	SetOpacity(0)
+	set_opacity(0)
 	operating = 0
 	air_update_turf(1)
 	update_freelok_sight()
@@ -269,7 +269,7 @@
 	sleep(5)
 	update_icon()
 	if(visible && !glass)
-		SetOpacity(1)	//caaaaarn!
+		set_opacity(1)	//caaaaarn!
 	operating = 0
 	air_update_turf(1)
 	update_freelok_sight()
