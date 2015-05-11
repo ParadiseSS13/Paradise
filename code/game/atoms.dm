@@ -245,6 +245,7 @@ its easier to just keep the beam vertical.
 /atom/proc/relaymove()
 	return
 
+//called to set the atom's dir and used to add behaviour to dir-changes - Not fully used (yet)
 /atom/proc/set_dir(new_dir)
 	. = new_dir != dir
 	dir = new_dir
