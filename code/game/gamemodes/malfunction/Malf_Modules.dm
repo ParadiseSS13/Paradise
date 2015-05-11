@@ -359,8 +359,6 @@ rcd light flash thingy on matter drain
 
 					if(!C.isXRay())
 						C.upgradeXRay()
-						//Update what it can see.
-						cameranet.updateVisibility(C, 0)
 						upgraded = 1
 
 					if(!C.isEmpProof())
@@ -370,8 +368,6 @@ rcd light flash thingy on matter drain
 					if(!C.isMotion())
 						C.upgradeMotion()
 						upgraded = 1
-						// Add it to machines that process
-						machines |= C
 
 					if(upgraded)
 						UC.uses --

@@ -103,6 +103,7 @@
 	Radio = new /obj/item/device/radio(src)
 	Radio.listening = 0 //Makes bot radios transmit only so no one hears things while adjacent to one.
 	Radio.config(list("[radio_name]" = 0))
+	Radio.follow_target = src
 
 
 /obj/machinery/bot/proc/add_to_beacons(bot_filter) //Master filter control for bots. Must be placed in the bot's local New() to support map spawned bots.

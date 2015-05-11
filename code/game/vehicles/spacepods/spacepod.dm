@@ -98,6 +98,7 @@
 	return
 
 /obj/spacepod/attack_alien(mob/user as mob)
+	user.changeNext_move(CLICK_CD_MELEE)
 	deal_damage(15)
 	playsound(src.loc, 'sound/weapons/slash.ogg', 50, 1, -1)
 	user << "\red You slash at the armored suit!"

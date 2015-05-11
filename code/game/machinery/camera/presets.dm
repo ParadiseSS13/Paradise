@@ -73,11 +73,15 @@
 /obj/machinery/camera/proc/upgradeXRay()
 	assembly.upgrades.Add(new /obj/item/device/analyzer(assembly))
 	setPowerUsage()
+	//Update what it can see.
+	cameranet.updateVisibility(src, 0)
 
 // If you are upgrading Motion, and it isn't in the camera's New(), add it to the machines list.
 /obj/machinery/camera/proc/upgradeMotion()
 	assembly.upgrades.Add(new /obj/item/device/assembly/prox_sensor(assembly))
 	setPowerUsage()
+	// Add it to machines that process
+	machines |= src
 
 /obj/machinery/camera/proc/setPowerUsage()
 	var/mult = 1

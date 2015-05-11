@@ -503,12 +503,12 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 		..()
 
 	if (href_list["track"])
-		var/mob/target = locate(href_list["track"]) in mob_list
+		var/atom/target = locate(href_list["track"])
 		if(target)
 			ManualFollow(target)
 
 	if (href_list["follow"])
-		var/mob/target = locate(href_list["follow"]) in mob_list
+		var/atom/target = locate(href_list["follow"])
 		var/mob/A = usr;
 		A << "You are now following [target]"
 		//var/mob/living/silicon/ai/A = locate(href_list["track2"]) in mob_list
