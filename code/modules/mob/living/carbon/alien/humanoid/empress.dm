@@ -10,6 +10,7 @@
 	move_delay_add = 3
 	max_plasma = 1000
 	large = 1
+	ventcrawler = 0
 
 /mob/living/carbon/alien/humanoid/empress/large
 	name = "alien empress"
@@ -47,7 +48,6 @@
 
 	real_name = src.name
 	verbs.Add(/mob/living/carbon/alien/humanoid/proc/corrosive_acid,/mob/living/carbon/alien/humanoid/proc/resin)
-	verbs -= /mob/living/carbon/alien/verb/ventcrawl
 	..()
 
 /mob/living/carbon/alien/humanoid/empress

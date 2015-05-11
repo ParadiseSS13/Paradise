@@ -51,6 +51,7 @@
 	small = 1
 	density = 0
 	pass_flags = PASSTABLE
+	ventcrawler = 2
 
 	var/used_dominate
 	var/chemicals = 10                      // Chemicals used for reproduction and spitting neurotoxin.
@@ -455,12 +456,6 @@ mob/living/simple_animal/borer/proc/detatch()
 	host_brain.name = M.name
 	host_brain.real_name = M.real_name
 	host.status_flags |= PASSEMOTES
-
-/mob/living/simple_animal/borer/verb/ventcrawl(var/atom/pipe)
-	set name = "Crawl through vent (borer)"
-	set desc = "Enter an air vent and crawl through the pipe system."
-	set category = "Alien"
-	handle_ventcrawl(pipe)
 
 /mob/living/simple_animal/borer/can_use_vents()
 	return

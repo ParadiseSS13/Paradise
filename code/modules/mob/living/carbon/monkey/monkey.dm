@@ -15,6 +15,7 @@
 	var/list/uni_append = list(0x12C,0x4E2)    // Same as above for DNA2.
 	var/update_muts = 1                        // Monkey gene must be set at start.
 	var/alien = 0								//Used for reagent metabolism.
+	ventcrawler = 2
 
 /mob/living/carbon/monkey/tajara
 	name = "farwa"

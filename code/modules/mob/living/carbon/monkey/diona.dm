@@ -10,6 +10,7 @@
 	icon_state = "nymph1"
 	var/list/donors = list()
 	var/ready_evolve = 0
+	ventcrawler = 1
 
 /mob/living/carbon/monkey/diona/New()
 
@@ -17,7 +18,6 @@
 	gender = NEUTER
 	greaterform = "Diona"
 	add_language("Rootspeak")
-	verbs -= /mob/living/carbon/monkey/verb/ventcrawl
 
 /mob/living/carbon/monkey/diona/attack_hand(mob/living/carbon/human/M as mob)
 
@@ -49,13 +49,6 @@
 	add_language("Rootspeak")
 	src.verbs += /mob/living/carbon/monkey/diona/proc/merge
 
-
-//Verbs after this point.
-/mob/living/carbon/monkey/diona/verb/dionaventcrawl()
-	set name = "Crawl through Vent"
-	set desc = "Enter an air vent and crawl through the pipe system."
-	set category = "Diona"
-	handle_ventcrawl()
 
 /mob/living/carbon/monkey/diona/proc/merge()
 

@@ -184,5 +184,11 @@ obj/machinery/atmospherics/proc/check_connect_types_construction(obj/machinery/a
 	spawn(1)
 		user.canmove = 1
 
+/obj/machinery/atmospherics/AltClick(var/mob/living/L)
+	if(is_type_in_list(src, ventcrawl_machinery))
+		L.handle_ventcrawl(src)
+		return
+	..()
+
 /obj/machinery/atmospherics/proc/can_crawl_through()
 	return 1
