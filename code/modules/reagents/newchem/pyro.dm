@@ -208,7 +208,8 @@ datum/reagent/blackpowder/reaction_turf(var/turf/T, var/volume) //oh shit
 	explosion(T,ex_severe,ex_heavy,ex_light,ex_flash, 1)
 	// If this black powder is in a decal, remove the decal, because it just exploded
 	if(istype(holder.my_atom, /obj/effect/decal/cleanable/dirt/blackpowder))
-		qdel(holder.my_atom)
+		spawn(0)
+			qdel(holder.my_atom)
 	return
 
 /datum/reagent/flash_powder
