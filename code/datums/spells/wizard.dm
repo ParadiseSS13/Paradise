@@ -147,7 +147,7 @@
 	smoke_spread = 1
 	smoke_amt = 5
 
-	action_icon_state = "teleport"
+	action_icon_state = "spell_teleport"
 
 /obj/effect/proc_holder/spell/wizard/aoe_turf/conjure/forcewall
 	name = "Forcewall"
@@ -164,7 +164,7 @@
 	summon_type = list("/obj/effect/forcefield")
 	summon_lifespan = 300
 
-	action_icon_state = "shield"
+	action_icon_state = "spell_forcewall"
 
 /obj/effect/proc_holder/spell/wizard/aoe_turf/conjure/carp
 	name = "Summon Carp"
