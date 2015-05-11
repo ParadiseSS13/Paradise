@@ -342,7 +342,7 @@
 	their native tongue is a heavy hissing laungage called Sinta'Unathi."
 
 	flags = HAS_LIPS | HAS_UNDERWEAR
-	bodyflags = FEET_CLAWS | HAS_TAIL | HAS_SKIN_COLOR
+	bodyflags = FEET_CLAWS | HAS_TAIL | HAS_SKIN_COLOR | TAIL_WAGGING
 
 	cold_level_1 = 280 //Default 260 - Lower is better
 	cold_level_2 = 220 //Default 200
@@ -357,6 +357,10 @@
 
 	reagent_tag = IS_UNATHI
 	base_color = "#066000"
+
+/datum/species/unathi/handle_death(var/mob/living/carbon/human/H)
+
+	H.stop_tail_wagging(1)
 
 /datum/species/tajaran
 	name = "Tajaran"

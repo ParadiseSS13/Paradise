@@ -46,8 +46,8 @@
 			if(udder && prob(5))
 				udder.add_reagent("milk", rand(5, 10))
 
-		if(locate(/obj/effect/plantsegment) in loc)
-			var/obj/effect/plantsegment/SV = locate(/obj/effect/plantsegment) in loc
+		if(locate(/obj/effect/plant) in loc)
+			var/obj/effect/plant/SV = locate(/obj/effect/plant) in loc
 			del(SV)
 			if(prob(10))
 				say("Nom")
@@ -56,7 +56,7 @@
 			for(var/direction in shuffle(list(1,2,4,8,5,6,9,10)))
 				var/step = get_step(src, direction)
 				if(step)
-					if(locate(/obj/effect/plantsegment) in step)
+					if(locate(/obj/effect/plant) in step)
 						Move(step)
 
 /mob/living/simple_animal/hostile/retaliate/goat/Retaliate()
@@ -66,8 +66,8 @@
 /mob/living/simple_animal/hostile/retaliate/goat/Move()
 	..()
 	if(!stat)
-		if(locate(/obj/effect/plantsegment) in loc)
-			var/obj/effect/plantsegment/SV = locate(/obj/effect/plantsegment) in loc
+		if(locate(/obj/effect/plant) in loc)
+			var/obj/effect/plant/SV = locate(/obj/effect/plant) in loc
 			del(SV)
 			if(prob(10))
 				say("Nom")
@@ -231,15 +231,19 @@ var/global/chicken_count = 0
 	chicken_count -= 1
 
 /mob/living/simple_animal/chicken/attackby(var/obj/item/O as obj, var/mob/user as mob, params)
-	if(istype(O, /obj/item/weapon/reagent_containers/food/snacks/grown/wheat)) //feedin' dem chickens
-		if(!stat && eggsleft < 8)
-			user.visible_message("\blue [user] feeds [O] to [name]! It clucks happily.","\blue You feed [O] to [name]! It clucks happily.")
-			user.drop_item()
-			del(O)
-			eggsleft += rand(1, 4)
-			//world << eggsleft
+	if(istype(O, /obj/item/weapon/reagent_containers/food/snacks/grown)) //feedin' dem chickens
+		var/obj/item/weapon/reagent_containers/food/snacks/grown/G = O
+		if(G.seed.kitchen_tag == "wheat")
+			if(!stat && eggsleft < 8)
+				user.visible_message("\blue [user] feeds [O] to [name]! It clucks happily.","\blue You feed [O] to [name]! It clucks happily.")
+				user.drop_item()
+				del(O)
+				eggsleft += rand(1, 4)
+				//world << eggsleft
+			else
+				user << "\blue [name] doesn't seem hungry!"
 		else
-			user << "\blue [name] doesn't seem hungry!"
+			user << "\blue [name] doesn't seem interested in [O]!"
 	else
 		..()
 

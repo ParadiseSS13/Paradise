@@ -46,7 +46,7 @@
 	category = list("Medical")
 
 /datum/design/healthanalyzer
-	name = "Health Analyzer Upgrade"
+	name = "Health Analyzer"
 	desc = "A hand-held body scanner able to distinguish vital signs of the subject."
 	id = "healthanalyzer"
 	req_tech = list("biotech" = 2, "magnets" = 2)

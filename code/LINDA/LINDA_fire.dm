@@ -57,6 +57,7 @@
 /obj/effect/hotspot/New()
 	..()
 	air_master.hotspots += src
+	perform_exposure()
 
 /obj/effect/hotspot/proc/perform_exposure()
 	var/turf/simulated/floor/location = loc
@@ -175,3 +176,7 @@
 	air_update_turf()
 	return
 
+/obj/effect/hotspot/Crossed(mob/living/L)
+	..()
+	if(isliving(L))
+		L.fire_act()

@@ -1,5 +1,4 @@
 /datum/seed
-	var/product_requires_player // If yes, product will ask for a player among the ghosts.
 	var/list/currently_querying // Used to avoid asking the same ghost repeatedly.
 
 // The following procs are used to grab players for mobs produced by a seed (mostly for dionaea).
@@ -7,25 +6,26 @@
 /*
 	if(!host || !istype(host)) return
 
-	if(product_requires_player)
-		spawn(0)
-			request_player(host)
-		spawn(75)
-			if(!host.ckey && !host.client)
-				host.death()  // This seems redundant, but a lot of mobs don't
-				host.stat = 2 // handle death() properly. Better safe than etc.
-				host.visible_message("\red <b>[host] is malformed and unable to survive. It expires pitifully, leaving behind some seeds.")
+	spawn(0)
+		request_player(host)
+	if(istype(host,/mob/living/simple_animal))
+		return
+	spawn(75)
+		if(!host.ckey && !host.client)
+			host.death()  // This seems redundant, but a lot of mobs don't
+			host.stat = 2 // handle death() properly. Better safe than etc.
+			host.visible_message("<span class='danger'>[host] is malformed and unable to survive. It expires pitifully, leaving behind some seeds.</span>")
 
-				var/total_yield = rand(1,3)
-				for(var/j = 0;j<=total_yield;j++)
-					var/obj/item/seeds/S = new(get_turf(host))
-					S.seed_type = name
-					S.update_seed()
+			var/total_yield = rand(1,3)
+			for(var/j = 0;j<=total_yield;j++)
+				var/obj/item/seeds/S = new(get_turf(host))
+				S.seed_type = name
+				S.update_seed()
 
 /datum/seed/proc/request_player(var/mob/living/host)
 	if(!host) return
 	for(var/mob/dead/observer/O in player_list)
-		if(jobban_isbanned(O, "Dionaea") || (!is_alien_whitelisted(src, "Diona") && config.usealienwhitelist))
+		if(jobban_isbanned(O, "Dionaea"))
 			continue
 		if(O.client)
 			if(O.client.prefs.be_special & BE_PLANT && !(O.client in currently_querying))
@@ -69,7 +69,7 @@
 	host << "\green <B>You awaken slowly, stirring into sluggish motion as the air caresses you.</B>"
 
 	// This is a hack, replace with some kind of species blurb proc.
-	if(istype(host,/mob/living/carbon/monkey/diona))
+	if(istype(host,/mob/living/carbon/alien/diona))
 		host << "<B>You are [host], one of a race of drifting interstellar plantlike creatures that sometimes share their seeds with human traders.</B>"
 		host << "<B>Too much darkness will send you into shock and starve you, but light will help you heal.</B>"
 

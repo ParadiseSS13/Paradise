@@ -40,6 +40,20 @@
 			msg += "It isn't responding to anything around it; it seems to be asleep.\n"
 		msg += "</span>"
 
+	msg += "<span class='warning'>"
+	switch(wetlevel)
+		if(1)
+			msg += "It looks a bit damp.\n"
+		if(2)
+			msg += "It looks a little bit wet.\n"
+		if(3)
+			msg += "It looks wet.\n"
+		if(4)
+			msg += "It looks very wet.\n"
+		if(5)
+			msg += "It looks absolutely soaked.\n"
+	msg += "</span>"
+
 	if (src.digitalcamo)
 		msg += "It is repulsively uncanny!\n"
 

@@ -15,3 +15,8 @@
 					throw_mode_off()
 					return
 	..()
+
+/mob/living/carbon/water_act(volume, temperature, source)
+	if(volume > 10) //anything over 10 volume will make the mob wetter.
+		wetlevel = min(wetlevel + 1,5)
+	..()

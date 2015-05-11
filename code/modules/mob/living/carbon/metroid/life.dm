@@ -42,6 +42,8 @@
 
 	handle_regular_status_updates() // Status updates, death etc.
 
+	handle_wetness()
+
 /mob/living/carbon/slime/proc/AIprocess()  // the master AI process
 
 	if(AIproc || stat == DEAD || client) return
@@ -284,6 +286,11 @@
 			Reproduce()
 		else
 			Evolve()
+
+/mob/living/carbon/slime/proc/handle_wetness()
+	if(mob_master.current_cycle%20==2) //dry off a bit once every 20 ticks or so
+		wetlevel = max(wetlevel - 1,0)
+	return
 
 /mob/living/carbon/slime/proc/handle_targets()
 	if(Tempstun)

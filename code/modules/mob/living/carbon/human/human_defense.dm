@@ -27,6 +27,7 @@ emp_act
 				P.current = curloc
 				P.yo = new_y - curloc.y
 				P.xo = new_x - curloc.x
+				P.Angle = ""//round(Get_Angle(P,P.original))
 
 			return -1 // complete projectile permutation
 
@@ -496,3 +497,8 @@ emp_act
 			if(MB.magpulse)
 				return 0
 	..()
+
+/mob/living/carbon/human/water_act(volume, temperature, source)
+	..()
+	if(temperature >= 330)	bodytemperature = bodytemperature + (temperature - bodytemperature)
+	if(temperature <= 280)	bodytemperature = bodytemperature - (bodytemperature - temperature)

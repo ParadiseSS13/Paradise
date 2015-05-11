@@ -146,8 +146,10 @@
 		if (M.loc == loc)
 			wash(M)
 			check_heat(M)
+			M.water_act(100, convertHeat(), src)
 		for (var/atom/movable/G in src.loc)
 			G.clean_blood()
+			G.water_act(100, convertHeat(), src)
 
 /obj/machinery/shower/attackby(obj/item/I as obj, mob/user as mob, params)
 	if(I.type == /obj/item/device/analyzer)
@@ -163,6 +165,8 @@
 				if("boiling")
 					watertemp = "normal"
 			user.visible_message("<span class='notice'>[user] adjusts the shower with the [I].</span>", "<span class='notice'>You adjust the shower with the [I].</span>")
+	if(on)
+		I.water_act(100, convertHeat(), src)
 
 /obj/machinery/shower/update_icon()	//this is terribly unreadable, but basically it makes the shower mist up
 	overlays.Cut()					//once it's been on for a while, in addition to handling the water overlay.
@@ -201,9 +205,20 @@
 		mobpresent -= 1
 	..()
 
+/obj/machinery/shower/proc/convertHeat()
+	switch(watertemp)
+		if("boiling")
+			return 340.15
+		if("normal")
+			return 310.15
+		if("freezing")
+			return 230.15
+
 //Yes, showers are super powerful as far as washing goes.
 /obj/machinery/shower/proc/wash(atom/movable/O as obj|mob)
 	if(!on) return
+
+	O.water_act(100, convertHeat(), src)
 
 	if(isliving(O))
 		var/mob/living/L = O
@@ -293,20 +308,20 @@
 		check_heat(C)
 
 /obj/machinery/shower/proc/check_heat(mob/M as mob)
+	M.water_act(100, convertHeat(), src) //convenience
 	if(!on || watertemp == "normal") return
 	if(iscarbon(M))
 		var/mob/living/carbon/C = M
 
 		if(watertemp == "freezing")
-			C.bodytemperature = max(80, C.bodytemperature - 80)
+			//C.bodytemperature = max(80, C.bodytemperature - 80)
 			C << "<span class='warning'>The water is freezing!</span>"
 			return
 		if(watertemp == "boiling")
-			C.bodytemperature = min(500, C.bodytemperature + 35)
+			//C.bodytemperature = min(500, C.bodytemperature + 35)
 			C.adjustFireLoss(5)
 			C << "<span class='danger'>The water is searing!</span>"
 			return
-
 
 
 /obj/item/weapon/bikehorn/rubberducky
@@ -372,7 +387,9 @@
 		user.visible_message("\blue [user] fills the [RG] using \the [src].","\blue You fill the [RG] using \the [src].")
 		return
 
-	else if (istype(O, /obj/item/weapon/melee/baton))
+	O.water_act(20,310.15,src)
+
+	if (istype(O, /obj/item/weapon/melee/baton))
 		var/obj/item/weapon/melee/baton/B = O
 		if (B.bcell.charge > 0 && B.status == 1)
 			flick("baton_active", src)

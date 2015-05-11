@@ -1722,6 +1722,9 @@
 			M.gib()
 		..()
 
+	water_act(volume, temperature)
+		if(volume >= 5)	return Expand()
+
 	proc/Expand()
 		for(var/mob/M in viewers(src,7))
 			M << "\red \The [src] expands!"

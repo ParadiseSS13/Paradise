@@ -1,7 +1,7 @@
 /obj/item/weapon/disk/botany
 	name = "flora data disk"
 	desc = "A small disk used for carrying data on plant genetics."
-	icon = 'icons/obj/hydroponics.dmi'
+	icon = 'icons/obj/hydroponics_machines.dmi'
 	icon_state = "disk"
 	w_class = 1.0
 
@@ -16,7 +16,7 @@
 /obj/item/weapon/disk/botany/attack_self(var/mob/user as mob)
 	if(genes.len)
 		var/choice = alert(user, "Are you sure you want to wipe the disk?", "Xenobotany Data", "No", "Yes")
-		if(src && user && genes && choice == "Yes")
+		if(src && user && genes && choice && choice == "Yes" && user.Adjacent(get_turf(src)))
 			user << "You wipe the disk data."
 			name = initial(name)
 			desc = initial(name)
@@ -33,7 +33,7 @@
 		new /obj/item/weapon/disk/botany(src)
 
 /obj/machinery/botany
-	icon = 'icons/obj/hydroponics.dmi'
+	icon = 'icons/obj/hydroponics_machines.dmi'
 	icon_state = "hydrotray3"
 	density = 1
 	anchored = 1
@@ -44,7 +44,7 @@
 
 	var/open = 0
 	var/active = 0
-	var/action_time = 100
+	var/action_time = 5
 	var/last_action = 0
 	var/eject_disk = 0
 	var/failed_task = 0
@@ -57,9 +57,6 @@
 
 	if(world.time > last_action + action_time)
 		finished_task()
-
-/obj/machinery/botany/attack_paw(mob/user as mob)
-	return attack_hand(user)
 
 /obj/machinery/botany/attack_ai(mob/user as mob)
 	return attack_hand(user)
@@ -82,13 +79,13 @@
 			visible_message("\icon[src] [src] beeps and spits out [loaded_disk].")
 			loaded_disk = null
 
-/obj/machinery/botany/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
+/obj/machinery/botany/attackby(obj/item/weapon/W as obj, mob/user as mob)
 	if(istype(W,/obj/item/seeds))
 		if(seed)
 			user << "There is already a seed loaded."
-
+			return
 		var/obj/item/seeds/S =W
-		if(S.seed && S.seed.immutable > 0)
+		if(S.seed && S.seed.get_trait(TRAIT_IMMUTABLE) > 0)
 			user << "That seed is not compatible with our genetics technology."
 		else
 			user.drop_item(W)
@@ -99,7 +96,7 @@
 
 	if(istype(W,/obj/item/weapon/screwdriver))
 		open = !open
-		user << "\blue You [open ? "open" : "close"] the maintenance panel."
+		user << "<span class='notice'>You [open ? "open" : "close"] the maintenance panel.</span>"
 		return
 
 	if(open)
@@ -147,8 +144,8 @@
 	var/list/data = list()
 
 	var/list/geneMasks[0]
-	for(var/gene_tag in gene_tag_masks)
-		geneMasks.Add(list(list("tag" = gene_tag, "mask" = gene_tag_masks[gene_tag])))
+	for(var/gene_tag in plant_controller.gene_tag_masks)
+		geneMasks.Add(list(list("tag" = gene_tag, "mask" = plant_controller.gene_tag_masks[gene_tag])))
 	data["geneMasks"] = geneMasks
 
 	data["activity"] = active
@@ -189,10 +186,10 @@
 		if(!seed) return
 		seed.loc = get_turf(src)
 
-		if(seed.seed.name == "new line" || isnull(seed_types[seed.seed.name]))
-			seed.seed.uid = seed_types.len + 1
+		if(seed.seed.name == "new line" || isnull(plant_controller.seeds[seed.seed.name]))
+			seed.seed.uid = plant_controller.seeds.len + 1
 			seed.seed.name = "[seed.seed.uid]"
-			seed_types[seed.seed.name] = seed.seed
+			plant_controller.seeds[seed.seed.name] = seed.seed
 
 		seed.update_seed()
 		visible_message("\icon[src] [src] beeps and spits out [seed].")
@@ -245,8 +242,8 @@
 		if(!genetics.roundstart)
 			loaded_disk.genesource += " (variety #[genetics.uid])"
 
-		loaded_disk.name += " ([gene_tag_masks[href_list["get_gene"]]], #[genetics.uid])"
-		loaded_disk.desc += " The label reads \'gene [gene_tag_masks[href_list["get_gene"]]], sampled from [genetics.display_name]\'."
+		loaded_disk.name += " ([plant_controller.gene_tag_masks[href_list["get_gene"]]], #[genetics.uid])"
+		loaded_disk.desc += " The label reads \'gene [plant_controller.gene_tag_masks[href_list["get_gene"]]], sampled from [genetics.display_name]\'."
 		eject_disk = 1
 
 		degradation += rand(20,60)
@@ -291,7 +288,7 @@
 
 		for(var/datum/plantgene/P in loaded_disk.genes)
 			if(data["locus"] != "") data["locus"] += ", "
-			data["locus"] += "[gene_tag_masks[P.genetype]]"
+			data["locus"] += "[plant_controller.gene_tag_masks[P.genetype]]"
 
 	else
 		data["disk"] = 0
@@ -321,7 +318,7 @@
 		last_action = world.time
 		active = 1
 
-		if(!isnull(seed_types[seed.seed.name]))
+		if(!isnull(plant_controller.seeds[seed.seed.name]))
 			seed.seed = seed.seed.diverge(1)
 			seed.seed_type = seed.seed.name
 			seed.update_seed()
