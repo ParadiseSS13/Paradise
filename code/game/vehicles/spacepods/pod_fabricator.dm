@@ -291,8 +291,9 @@
 	temp = "Updating local R&D database..."
 	updateUsrDialog()
 	sleep(30) //only sleep if called by user
+	var/area/localarea = get_area(src)
 
-	for(var/obj/machinery/computer/rdconsole/RDC in area_contents(get_area(src)))
+	for(var/obj/machinery/computer/rdconsole/RDC in localarea.contents)
 		if(!RDC.sync)
 			continue
 		for(var/datum/tech/T in RDC.files.known_tech)
