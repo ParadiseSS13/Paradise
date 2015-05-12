@@ -120,9 +120,9 @@
    #endif
 
    #if LIGHTING_LAMBERTIAN == 1
-	. = CLAMP01((1 - CLAMP01(sqrt(.) / light_range)) * (1 / (sqrt(. + 1))))
+	. = CLAMP01((1 - CLAMP01(sqrt(.) / max(1,light_range))) * (1 / (sqrt(. + 1))))
    #else
-	. = 1 - CLAMP01(sqrt(.) / light_range)
+	. = 1 - CLAMP01(sqrt(.) / max(1,light_range))
    #endif
 
   #elif LIGHTING_FALLOFF == 2 // square
@@ -133,9 +133,9 @@
    #endif
 
    #if LIGHTING_LAMBERTIAN == 1
-	. = CLAMP01((1 - CLAMP01(. / light_range)) * (1 / (sqrt(.)**2 + )))
+	. = CLAMP01((1 - CLAMP01(. / max(1,light_range))) * (1 / (sqrt(.)**2 + )))
    #else
-	. = 1 - CLAMP01(. / light_range)
+	. = 1 - CLAMP01(. / max(1,light_range))
    #endif
   #endif
 
