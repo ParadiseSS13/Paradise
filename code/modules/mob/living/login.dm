@@ -8,10 +8,6 @@
 	player_logged = 0
 
 	//Vents
-	if(ishuman(src))
-		var/mob/living/carbon/human/H
-		if(H.species.ventcrawler)
-			src << "<span class='notice'>You can ventcrawl! Use alt+click on vents to quickly travel about the station.</span>"
 	if(ventcrawler)
 		src << "<span class='notice'>You can ventcrawl! Use alt+click on vents to quickly travel about the station.</span>"
 	//Should update regardless of if we can ventcrawl, since we can end up in pipes in other ways.
