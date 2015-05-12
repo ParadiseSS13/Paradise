@@ -361,6 +361,8 @@
 	var/bolacount = 0
 	var/cooldown = 0
 
+
+
 /obj/item/weapon/storage/belt/bluespace/owlman/New()
 	..()
 	new /obj/item/weapon/grenade/smokebomb(src)
@@ -392,7 +394,12 @@
 				bolacount++
 		cooldown = world.time
 		update_icon()
-
+		orient2hud()
+		if(ishuman(loc))
+			var/mob/living/carbon/human/H = loc
+			if(H.belt && H.belt == src)
+				if(H.s_active && H.s_active == src)
+					H.s_active.show_to(H)
 
 
 /* DEPRECATED DUE TO SUPERHERO CODE AND NODROP

@@ -119,7 +119,7 @@
 
 /datum/superheroes/electro
 	name = "Electro-Negmatic"
-	class = "Supevillain"
+	class = "Supervillain"
 	desc = "You were a roboticist, once. Now you are Electro-Negmatic, a name this station will learn to fear. You designed \
 	your costume to resemble E-N, your faithful dog that some callous RD destroyed because it was sparking up the plasma. You \
 	intend to take your revenge and make them all pay thanks to your magnetic powers."
