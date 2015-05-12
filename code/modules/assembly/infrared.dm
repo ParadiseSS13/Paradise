@@ -151,6 +151,7 @@
 	var/visible = 0.0
 	var/left = null
 	anchored = 1.0
+	pass_flags = PASSTABLE | PASSGLASS | PASSGRILLE
 
 
 /obj/effect/beam/i_beam/proc/hit()
