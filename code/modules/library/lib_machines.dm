@@ -226,6 +226,8 @@ datum/borrowbook // Datum used to keep track of who has borrowed what when and f
 				dat += "<TT>Author: </TT><A href='?src=\ref[src];setauthor=1'>[scanner.cache.author]</A><BR>"
 				dat += "<TT>Category: </TT><A href='?src=\ref[src];setcategory=1'>[upload_category]</A><BR>"
 				dat += "<A href='?src=\ref[src];upload=1'>\[Upload\]</A><BR>"
+				dat += "OOC Upload Rules: No erotica, No real world literature. Only IC guides, stories and accounts."
+				dat += "Failure to follow these simple rules will lead to bans."
 			dat += "<A href='?src=\ref[src];switchscreen=0'>(Return to main menu)</A><BR>"
 		if(7)
 			dat += "<h3>Accessing Forbidden Lore Vault v 1.3</h3>"
@@ -246,7 +248,7 @@ datum/borrowbook // Datum used to keep track of who has borrowed what when and f
 			V.show_message("[src] lets out a low, short blip.", 2)
 	else
 		..()
-		
+
 /obj/machinery/librarycomp/emag_act(user as mob)
 	if (src.density)
 		src.emagged = 1
@@ -345,11 +347,12 @@ datum/borrowbook // Datum used to keep track of who has borrowed what when and f
 						var/sqlauthor = sanitizeSQL(scanner.cache.author)
 						var/sqlcontent = sanitizeSQL(scanner.cache.dat)
 						var/sqlcategory = sanitizeSQL(upload_category)
-						var/DBQuery/query = dbcon_old.NewQuery("INSERT INTO library (author, title, content, category) VALUES ('[sqlauthor]', '[sqltitle]', '[sqlcontent]', '[sqlcategory]')")
+						var/DBQuery/query = dbcon_old.NewQuery("INSERT INTO library (author, title, content, category, ckey) VALUES ('[sqlauthor]', '[sqltitle]', '[sqlcontent]', '[sqlcategory]', '[usr.key])")
 						if(!query.Execute())
 							usr << query.ErrorMsg()
 						else
 							log_game("[usr.name]/[usr.key] has uploaded the book titled [scanner.cache.name], [length(scanner.cache.dat)] signs")
+							message_admins("[usr.name]/[usr.key] has uploaded the book titled [scanner.cache.name], [length(scanner.cache.dat)] signs")
 							alert("Upload Complete.")
 
 	if(href_list["targetid"])
@@ -357,9 +360,9 @@ datum/borrowbook // Datum used to keep track of who has borrowed what when and f
 		establish_old_db_connection()
 		if(!dbcon_old.IsConnected())
 			alert("Connection to Archive has been severed. Aborting.")
-		
+
 // reused working printing call from bible code.. needs testing ((Lazureus))
-		
+
 		if(!bibledelay)
 			bibledelay = 1
 			spawn(60)
