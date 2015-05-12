@@ -117,6 +117,7 @@
 	desc = "A red Nanotrasen issued flare. There are instructions on the side, it reads 'pull cord, make light'."
 	w_class = 2.0
 	brightness_on = 7 // Pretty bright.
+	light_color = "#e58775"
 	icon_state = "flare"
 	item_state = "flare"
 	icon_action_button = null	//just pull it manually, neckbeard.
@@ -175,6 +176,7 @@
 	item_state = "slime"
 	w_class = 1
 	brightness_on = 6
+	light_color = "#FFBF00"
 	on = 1 //Bio-luminesence has one setting, on.
 
 /obj/item/device/flashlight/slime/New()

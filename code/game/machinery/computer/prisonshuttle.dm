@@ -14,6 +14,7 @@ var/prison_shuttle_timeleft = 0
 	name = "Prison Shuttle Console"
 	icon = 'icons/obj/computer.dmi'
 	icon_state = "shuttle"
+	light_color = "#00ffff"
 	req_access = list(access_security)
 	circuit = "/obj/item/weapon/circuitboard/prison_shuttle"
 	var/temp = null

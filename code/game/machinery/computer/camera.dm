@@ -280,6 +280,8 @@ var/camera_cache_id = 1
 	desc = "Damn, they better have Paradise TV on these things."
 	icon = 'icons/obj/status_display.dmi'
 	icon_state = "entertainment"
+	light_color = "#FFEEDB"
+	light_range_on = 2
 	network = list("news")
 	luminosity = 0
 
@@ -287,16 +289,20 @@ var/camera_cache_id = 1
 	name = "Security Camera Monitor"
 	desc = "An old TV hooked into the stations camera network."
 	icon_state = "security_det"
+	light_color = "#3848B3"
+	light_power_on = 0.5
 	network = list("SS13")
 
 /obj/machinery/computer/security/mining
 	name = "Outpost Camera Monitor"
 	desc = "Used to access the various cameras on the outpost."
 	icon_state = "miningcameras"
+	light_color = "#F9BBFC"
 	network = list("Mining Outpost")
 
 /obj/machinery/computer/security/engineering
 	name = "Engineering Camera Monitor"
 	desc = "Used to monitor fires and breaches."
 	icon_state = "engineeringcameras"
+	light_color = "#FAC54B"
 	network = list("Power Alarms","Atmosphere Alarms","Fire Alarms")

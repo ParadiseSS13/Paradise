@@ -8,7 +8,9 @@
 	active_power_usage = 300
 	var/obj/item/weapon/circuitboard/circuit = null //if circuit==null, computer can't disassembly
 	var/processing = 0
-	luminosity = 2
+
+	var/light_range_on = 3
+	var/light_power_on = 2
 
 /obj/machinery/computer/New()
 	..()
@@ -92,10 +94,10 @@
 /obj/machinery/computer/power_change()
 	..()
 	update_icon()
-	if(!(stat & (BROKEN|NOPOWER)))
-		set_light(2)
-	else
+	if((stat & (BROKEN|NOPOWER)))
 		set_light(0)
+	else
+		set_light(light_range_on, light_power_on)
 
 
 /obj/machinery/computer/proc/set_broken()

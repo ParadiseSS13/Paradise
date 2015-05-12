@@ -6,6 +6,8 @@
 	item_state = "candle1"
 	w_class = 1
 
+	light_color = "#E09D37"
+
 	var/wax = 200
 	var/lit = 0
 	proc

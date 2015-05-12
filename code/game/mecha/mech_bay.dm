@@ -38,7 +38,7 @@
 	component_parts += new /obj/item/stack/cable_coil(src, 1)
 	RefreshParts()
 	locate_recharge_turf()
-	
+
 /obj/machinery/mech_bay_recharge_port/upgraded/New()
 	..()
 	component_parts = list()
@@ -99,6 +99,7 @@
 	anchored = 1
 	icon = 'icons/obj/computer.dmi'
 	icon_state = "recharge_comp"
+	light_color = "#a97faa"
 	circuit = /obj/item/weapon/circuitboard/mech_bay_power_console
 	var/obj/machinery/mech_bay_recharge_port/recharge_port
 
