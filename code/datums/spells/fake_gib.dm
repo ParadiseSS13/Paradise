@@ -14,4 +14,4 @@
 	sparks_spread = 3
 	sparks_amt = 1
 
-	icon_power_button = "spell_disintegrate"
+	action_icon_state = "spell_disintegrate"

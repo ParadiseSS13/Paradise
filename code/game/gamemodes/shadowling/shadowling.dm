@@ -137,7 +137,7 @@ Made by Xhuis
 /datum/game_mode/proc/finalize_shadowling(var/datum/mind/shadow_mind)
 	var/mob/living/carbon/human/S = shadow_mind.current
 	shadow_mind.current.verbs += /mob/living/carbon/human/proc/shadowling_hatch
-	S.spell_list += new /obj/effect/proc_holder/spell/wizard/targeted/enthrall
+	S.mind.AddSpell(new /obj/effect/proc_holder/spell/wizard/targeted/enthrall)
 	spawn(0)
 		shadow_mind.current.add_language("Shadowling Hivemind")
 		update_shadow_icons_added(shadow_mind)

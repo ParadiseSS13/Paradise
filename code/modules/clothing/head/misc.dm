@@ -350,7 +350,6 @@
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE
 	var/cooldown = 0
 	action_button_name = "Caw"
-	icon_action_button = "action_griffin"
 
 /obj/item/clothing/head/griffin/attack_self()
 	caw()

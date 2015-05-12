@@ -6,17 +6,16 @@
 	flags = BLOCKHAIR
 	flags_inv = HIDEFACE
 	w_class = 2
-	icon_action_button = "action_balaclava"
 	action_button_name = "Adjust Balaclava"
 	ignore_maskadjust = 0
 	species_fit = list("Vox")
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/mask.dmi'
 		)
-		
+
 /obj/item/clothing/mask/balaclava/attack_self(var/mob/user)
-	adjustmask(user)		
-		
+	adjustmask(user)
+
 /obj/item/clothing/mask/luchador
 	name = "Luchador Mask"
 	desc = "Worn by robust fighters, flying high to defeat their foes!"

@@ -162,7 +162,7 @@
 	desc = "Protects the eyes from welders, approved by the mad scientist association."
 	icon_state = "welding-g"
 	item_state = "welding-g"
-	icon_action_button = "action_welding_g"
+	action_button_name = "Flip welding goggles"
 	var/up = 0
 	flash_protect = 2
 	tint = 2
@@ -210,7 +210,7 @@
 	item_state = "rwelding-g"
 	flash_protect = 2
 	tint = 0
-	icon_action_button = "action_welding_g"
+	action_button_name = "Flip welding goggles"
 	species_fit = list("Vox")
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/eyes.dmi'

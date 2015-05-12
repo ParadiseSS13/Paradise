@@ -145,7 +145,9 @@ var/list/admin_verbs_debug = list(
 	/client/proc/qdel_toggle, // /vg/
 	/client/proc/gc_dump_hdl,
 	/client/proc/debugNatureMapGenerator,
-	/client/proc/check_bomb_impacts
+	/client/proc/check_bomb_impacts,
+	/client/proc/test_movable_UI,
+	/client/proc/test_snap_UI
 	)
 var/list/admin_verbs_possess = list(
 	/proc/possess,
@@ -401,8 +403,10 @@ var/list/admin_verbs_mentor = list(
 	set desc = "Gives a spell to a mob."
 	var/obj/effect/proc_holder/spell/wizard/S = input("Choose the spell to give to that guy", "ABRAKADABRA") as null|anything in spells
 	if(!S) return
-	T.spell_list += new S
-	T.update_power_buttons()
+	if(T.mind)
+		T.mind.AddSpell(new S)
+	else
+		T.AddSpell(new S)
 	feedback_add_details("admin_verb","GS") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 	log_admin("[key_name(usr)] gave [key_name(T)] the spell [S].")
 	message_admins("\blue [key_name_admin(usr)] gave [key_name(T)] the spell [S].", 1)

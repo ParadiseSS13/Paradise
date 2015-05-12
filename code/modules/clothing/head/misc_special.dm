@@ -24,7 +24,7 @@
 	tint = 2
 	armor = list(melee = 10, bullet = 0, laser = 0,energy = 0, bomb = 0, bio = 0, rad = 0)
 	flags_inv = (HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE)
-	icon_action_button = "action_welding"
+	action_button_name = "flip welding helmet"
 	siemens_coefficient = 0.9
 	loose = 4
 	species_fit = list("Vox")

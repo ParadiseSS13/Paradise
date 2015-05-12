@@ -6,7 +6,7 @@
 	slot = "utility"
 	var/slots = 3
 	var/obj/item/weapon/storage/internal/hold
-	icon_action_button = "action_storage"
+	action_button_name = "View Storage"
 	w_class = 3.0 // so it doesn't fit in pockets
 
 /obj/item/clothing/accessory/storage/New()

@@ -10,7 +10,7 @@
 	var/brightness_on = 4 //luminosity when on
 	var/on = 0
 	_color = "engineering" //Determines used sprites: rig[on]-[color] and rig[on]-[color]2 (lying down sprite)
-	icon_action_button = "action_hardhat"
+	action_button_name = "Toggle Helmet Light"
 
 	//Species-specific stuff.
 	species_restricted = list("exclude","Unathi","Tajaran","Skrell","Diona","Vox")
@@ -362,7 +362,6 @@
 	on = 1
 	flags = HEADCOVERSEYES | BLOCKHAIR | HEADCOVERSMOUTH | STOPSPRESSUREDMAGE | THICKMATERIAL
 	action_button_name = "Toggle Helmet Mode"
-	icon_action_button = "Action_hardsuit1-syndi"
 	species_restricted = null
 	sprite_sheets = null
 
@@ -405,7 +404,6 @@
 	w_class = 3
 	var/on = 1
 	action_button_name = "Toggle Hardsuit Mode"
-	icon_action_button = "Action_hardsuit1-syndi"
 	armor = list(melee = 60, bullet = 50, laser = 30, energy = 15, bomb = 35, bio = 100, rad = 50)
 	allowed = list(/obj/item/weapon/gun,/obj/item/ammo_box,/obj/item/ammo_casing,/obj/item/weapon/melee/baton,/obj/item/weapon/melee/energy/sword,/obj/item/weapon/restraints/handcuffs,/obj/item/weapon/tank)
 	species_restricted = null
