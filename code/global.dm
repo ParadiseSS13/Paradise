@@ -17,18 +17,6 @@ var/global/list/sec_hud_users = list()
 
 var/global/defer_powernet_rebuild = 0		// true if net rebuild will be called manually after an event
 
-var/global/list/global_map = null
-	//list/global_map = list(list(1,5),list(4,3))//an array of map Z levels.
-	//Resulting sector map looks like
-	//|_1_|_4_|
-	//|_5_|_3_|
-	//
-	//1 - SS13
-	//4 - Derelict
-	//3 - AI satellite
-	//5 - empty space
-
-
 	//////////////
 var/list/paper_tag_whitelist = list("center","p","div","span","h1","h2","h3","h4","h5","h6","hr","pre",	\
 	"big","small","font","i","u","b","s","sub","sup","tt","br","hr","ol","ul","li","caption","col",	\
@@ -131,6 +119,8 @@ var/master_mode = "extended"//"extended"
 var/secret_force_mode = "secret" // if this is anything but "secret", the secret rotation will forceably choose this mode
 
 var/datum/engine_eject/engine_eject_control = null
+var/list/carplist = list()
+//	list/traitors = list()	//traitor list
 var/host = null
 var/aliens_allowed = 1
 var/ooc_allowed = 1
@@ -159,36 +149,9 @@ var/mouse_respawn_time = 5 //Amount of time that must pass between a player dyin
 var/CELLRATE = 0.002  // multiplier for watts per tick <> cell storage (eg: .002 means if there is a load of 1000 watts, 20 units will be taken from a cell per second)
 var/CHARGELEVEL = 0.0005 // Cap for how fast cells charge, as a percentage-per-tick (.001 means cellcharge is capped to 1% per second)
 
-var/shuttle_z = 2	//default
 var/airtunnel_start = 68 // default
 var/airtunnel_stop = 68 // default
 var/airtunnel_bottom = 72 // default
-var/list/monkeystart = list()
-var/list/wizardstart = list()
-var/list/newplayer_start = list()
-var/list/latejoin = list()
-var/list/latejoin_gateway = list()
-var/list/latejoin_cryo = list()
-var/list/latejoin_cyborg = list()
-var/list/prisonwarp = list()	//prisoners go to these
-var/list/holdingfacility = list()	//captured people go here
-var/list/xeno_spawn = list()//Aliens spawn at these.
-//	list/mazewarp = list()
-var/list/tdome1 = list()
-var/list/tdome2 = list()
-var/list/team_alpha = list()
-var/list/team_bravo = list()
-var/list/tdomeobserve = list()
-var/list/tdomeadmin = list()
-var/list/aroomwarp = list()
-var/list/prisonsecuritywarp = list()	//prison security goes to these
-var/list/prisonwarped = list()	//list of players already warped
-var/list/blobstart = list()
-var/list/ninjastart = list()
-var/list/carplist = list()
-//	list/traitors = list()	//traitor list
-var/list/cardinal = list( NORTH, SOUTH, EAST, WEST )
-var/list/alldirs = list(NORTH, SOUTH, EAST, WEST, NORTHEAST, NORTHWEST, SOUTHEAST, SOUTHWEST)
 // reverse_dir[dir] = reverse of dir
 var/list/reverse_dir = list(2, 1, 3, 8, 10, 9, 11, 4, 6, 5, 7, 12, 14, 13, 15, 32, 34, 33, 35, 40, 42, 41, 43, 36, 38, 37, 39, 44, 46, 45, 47, 16, 18, 17, 19, 24, 26, 25, 27, 20, 22, 21, 23, 28, 30, 29, 31, 48, 50, 49, 51, 56, 58, 57, 59, 52, 54, 53, 55, 60, 62, 61, 63)
 
@@ -243,8 +206,7 @@ var/datum/event_manager/event_manager = new()
 #define EVENT_LEVEL_MODERATE 2
 #define EVENT_LEVEL_MAJOR 3
 
-	//away missions
-var/list/awaydestinations = list()	//a list of landmarks that the warpgate can take you to
+
 
 	// MySQL configuration
 

@@ -10,6 +10,8 @@
 #define DEBUG
 // END_PREFERENCES
 // BEGIN_INCLUDE
+#include "_maps\cyberiad.dm"
+#include "_maps\map_files\cyberiad\z8.dmm"
 #include "code\global.dm"
 #include "code\hub.dm"
 #include "code\names.dm"
@@ -34,6 +36,8 @@
 #include "code\__HELPERS\timed_alerts.dm"
 #include "code\__HELPERS\type2type.dm"
 #include "code\__HELPERS\unsorted.dm"
+#include "code\_globalvars\mapping.dm"
+#include "code\_globalvars\station.dm"
 #include "code\_hooks\area.dm"
 #include "code\_hooks\hooks.dm"
 #include "code\_hooks\mob.dm"
@@ -1732,5 +1736,4 @@
 #include "code\modules\virus2\items_devices.dm"
 #include "interface\interface.dm"
 #include "interface\skin.dmf"
-#include "maps\cyberiad.dmm"
 // END_INCLUDE
