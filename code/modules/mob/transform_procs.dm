@@ -228,6 +228,8 @@
 
 	callHook("borgify", list(O))
 
+	O.update_pipe_vision()
+
 	O.Namepick()
 
 	spawn(0)//To prevent the proc from returning null.
@@ -262,6 +264,7 @@
 	new_xeno.key = key
 
 	new_xeno << "<B>You are now an alien.</B>"
+	new_xeno.update_pipe_vision()
 	spawn(0)//To prevent the proc from returning null.
 		del(src)
 	return
@@ -297,6 +300,7 @@
 	new_slime.key = key
 
 	new_slime << "<B>You are now a slime. Skreee!</B>"
+	new_slime.update_pipe_vision()
 	spawn(0)//To prevent the proc from returning null.
 		del(src)
 	return
@@ -319,6 +323,7 @@
 	new_corgi.key = key
 
 	new_corgi << "<B>You are now a Corgi. Yap Yap!</B>"
+	new_corgi.update_pipe_vision()
 	spawn(0)//To prevent the proc from returning null.
 		del(src)
 	return
@@ -353,6 +358,7 @@
 
 
 	new_mob << "You suddenly feel more... animalistic."
+	new_mob.update_pipe_vision()
 	spawn()
 		del(src)
 	return
@@ -371,6 +377,7 @@
 	new_mob.key = key
 	new_mob.a_intent = "harm"
 	new_mob << "You feel more... animalistic"
+	new_mob.update_pipe_vision()
 
 	del(src)
 

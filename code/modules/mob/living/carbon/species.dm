@@ -48,6 +48,8 @@
 	var/max_hurt_damage = 9 // Max melee damage dealt + 5 if hulk
 	var/list/default_genes = list()
 
+	var/ventcrawler = 0 //Determines if the mob can go through the vents.
+
 	var/flags = 0       // Various specific features.
 	var/bloodflags=0
 	var/bodyflags=0
@@ -560,10 +562,11 @@
 	bodyflags = HAS_SKIN_COLOR
 	bloodflags = BLOOD_SLIME
 
+	//ventcrawler = 1 //ventcrawling commented out
+
 	has_organ = list(
 		"brain" = /obj/item/organ/brain/slime
 		)
-
 
 /datum/species/grey
 	name = "Grey"

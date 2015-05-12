@@ -41,6 +41,7 @@
 	small = 1
 	speak_emote = list("beeps","clicks","chirps")
 	can_hide = 1
+	ventcrawler = 2
 
 /mob/living/simple_animal/spiderbot/attackby(var/obj/item/O as obj, var/mob/user as mob, params)
 
@@ -217,13 +218,6 @@
 	robogibs(src.loc, viruses)
 	src.Destroy()
 	return
-
-//copy paste from alien/larva, if that func is updated please update this one also
-/mob/living/simple_animal/spiderbot/verb/ventcrawl(var/atom/pipe)
-	set name = "Crawl through Vent"
-	set desc = "Enter an air vent and crawl through the pipe system."
-	set category = "Spiderbot"
-	handle_ventcrawl(pipe)
 //Cannibalized from the parrot mob. ~Zuhayr
 
 /mob/living/simple_animal/spiderbot/verb/drop_held_item()
