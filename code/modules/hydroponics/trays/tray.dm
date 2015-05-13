@@ -810,7 +810,7 @@
 			var/atom/movable/lighting_overlay/L = locate(/atom/movable/lighting_overlay) in T
 			var/light_available
 			if(L)
-				light_available = max(0,min(10,L.lum_r + L.lum_g + L.lum_b)-5)
+				light_available = max(0,min(10,L.lum_r + L.lum_g + L.lum_b))
 			else
 				light_available =  5
 			light_string = "a light level of [light_available] lumens"
@@ -842,9 +842,9 @@
 		return
 
 	if(!holding)
-		usr << "\red There is no tank loaded into the [src] to eject."
+		usr << "\red There is no tank loaded into [src] to eject."
 
 	if(istype(holding, /obj/item/weapon/tank))
-		usr << "\blue You eject the [holding.name] from the [src]."
+		usr << "\blue You eject [holding.name] from [src]."
 		holding.loc = loc
 		holding = null
