@@ -252,6 +252,21 @@
 		if(A.CheckRemoval(src))
 			A.Remove(src)
 	for(var/obj/item/I in src)
+		if(istype(I,/obj/item/clothing/under))
+			var/obj/item/clothing/under/U = I
+			for(var/obj/item/IU in U)
+				if(istype(IU, /obj/item/clothing/accessory))
+					var/obj/item/clothing/accessory/A = IU
+					if(A.action_button_name)
+						if(!A.action)
+							if(A.action_button_is_hands_free)
+								A.action = new/datum/action/item_action/hands_free
+							else
+								A.action = new/datum/action/item_action
+							A.action.name = A.action_button_name
+							A.action.target = A
+						A.action.check_flags &= ~AB_CHECK_INSIDE
+						A.action.Grant(src)
 		if(I.action_button_name)
 			if(!I.action)
 				if(I.action_button_is_hands_free)
