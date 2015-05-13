@@ -343,9 +343,9 @@ var/list/spells = typesof(/obj/effect/proc_holder/spell) //needed for the badmin
 	if(((!user.mind) || !(src in user.mind.spell_list)) && !(src in user.spell_list))
 		return 0
 
-	if(user.z == 2 && !centcom_cancast) //Certain spells are not allowed on the centcom zlevel
+	if(user.z == ZLEVEL_CENTCOMM && !centcom_cancast) //Certain spells are not allowed on the centcom zlevel
 		return 0
-	if(user.z == 2 && ticker.mode.name == "ragin' mages")
+	if(user.z == ZLEVEL_CENTCOMM && ticker.mode.name == "ragin' mages")
 		return 0
 
 	switch(charge_type)
