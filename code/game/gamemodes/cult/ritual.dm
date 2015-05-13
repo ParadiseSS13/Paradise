@@ -30,7 +30,6 @@ var/engwords = list("travel", "blood", "join", "hell", "destroy", "technology", 
 	icon_state = "1"
 	var/visibility = 0
 	var/view_range = 7
-	var/runecolor="#A10808" // Ready for species blood color intergration
 	unacidable = 1
 	layer = TURF_LAYER
 
@@ -74,7 +73,6 @@ var/engwords = list("travel", "blood", "join", "hell", "destroy", "technology", 
 	for(var/mob/living/silicon/ai/AI in player_list)
 		AI.client.images += blood
 	cult_viewpoints += src
-	color = runecolor // also part of the species specific blood
 
 /obj/effect/rune/Del()
 	..()
@@ -171,10 +169,6 @@ var/engwords = list("travel", "blood", "join", "hell", "destroy", "technology", 
 
 /obj/effect/rune/proc/check_icon()
 	icon = get_uristrune_cult(word1, word2, word3)
-
-/obj/effect/rune/update_icon()
-	if(runecolor == "rainbow") runecolor = "#[pick(list("FF0000","FF7F00","FFFF00","00FF00","0000FF","4B0082","8F00FF"))]"
-	color = runecolor
 
 /obj/item/weapon/tome
 	name = "arcane tome"
