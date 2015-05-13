@@ -301,6 +301,7 @@
 	throw_speed = 2
 	throw_range = 3
 	w_class = 4.0
+	var/extend = 1
 	flags = NOSHIELD
 	slot_flags = SLOT_BACK
 	origin_tech = "materials=2;combat=2"
@@ -309,11 +310,70 @@
 
 /obj/item/weapon/scythe/afterattack(atom/A, mob/user as mob, proximity)
 	if(!proximity) return
-	if(istype(A, /obj/effect/plant))
+	if(istype(A, /obj/effect/plant) && extend == 1)
 		for(var/obj/effect/plant/B in orange(A,1))
 			if(prob(80))
 				B.die_off(1)
 			qdel(A)
+
+/obj/item/weapon/scythe/tele
+	icon_state = "tscythe0"
+	name = "telescopic scythe"
+	desc = "A sharp and curved blade on a collapsable fibremetal handle, this tool is the pinnacle of covert reaping technology."
+	force = 3.0
+	sharp = 0
+	edge = 0
+	throw_speed = 2
+	throw_range = 3
+	w_class = 2.0
+	extend = 0
+	flags = NOSHIELD
+	slot_flags = SLOT_BELT
+	origin_tech = "materials=3;combat=3"
+	attack_verb = list("chopped", "sliced", "cut", "reaped")
+	hitsound = "swing_hit"
+
+/obj/item/weapon/scythe/tele/attack_self(mob/user as mob)
+	extend = !extend
+	if(extend)
+		user << "<span class ='warning'>With a flick of the wrist, you extend the scythe. It's reaping time!</span>"
+		icon_state = "tscythe1"
+		item_state = "scythe0"
+		slot_flags &= ~SLOT_BELT
+		w_class = 4 //doesnt fit in backpack when its on for balance
+		force = 13 //normal scythe damage
+		attack_verb = list("chopped", "sliced", "cut", "reaped")
+		hitsound = 'sound/weapons/bladeslice.ogg'
+		//Extend sound (blade unsheath)
+		playsound(src.loc, 'sound/weapons/blade_unsheath.ogg', 50, 1)	//Sound credit to Qat of Freesound.org
+	else
+		user << "<span class ='notice'>You collapse the scythe, folding it for easy storage.</span>"
+		icon_state = "tscythe0"
+		item_state = "tscythe0" //no sprite in other words
+		slot_flags |= SLOT_BELT
+		w_class = 2
+		force = 3 //not so robust now
+		attack_verb = list("hit", "poked")
+		hitsound = "swing_hit"
+		//Collapse sound (blade sheath)
+		playsound(src.loc, 'sound/weapons/blade_sheath.ogg', 50, 1)		//Sound credit to Q.K. of Freesound.org
+	if(istype(user,/mob/living/carbon/human))
+		var/mob/living/carbon/human/H = user
+		H.update_inv_l_hand()
+		H.update_inv_r_hand()
+	add_fingerprint(user)
+	if (!blood_DNA) return
+	if(blood_overlay && (blood_DNA.len >= 1)) //updates blood overlay, if any
+		overlays.Cut()//this might delete other item overlays as well but eeeeeeeh
+
+		var/icon/I = new /icon(src.icon, src.icon_state)
+		I.Blend(new /icon('icons/effects/blood.dmi', rgb(255,255,255)),ICON_ADD)
+		I.Blend(new /icon('icons/effects/blood.dmi', "itemblood"),ICON_MULTIPLY)
+		blood_overlay = I
+
+		overlays += blood_overlay
+
+	return
 
 /obj/item/weapon/rsp
 	name = "\improper Rapid-Seed-Producer (RSP)"

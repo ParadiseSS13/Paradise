@@ -830,3 +830,21 @@
 	closed_system = !closed_system
 	user << "You [closed_system ? "close" : "open"] the tray's lid."
 	update_icon()
+
+/obj/machinery/portable_atmospherics/hydroponics/verb/eject_tank_verb()
+	set name = "Eject Internal Tank"
+	set category = "Object"
+	set src in view(1)
+	eject_tank(usr)
+
+/obj/machinery/portable_atmospherics/hydroponics/proc/eject_tank(var/mob/living/user)
+	if(!user || user.stat || user.restrained())
+		return
+
+	if(!holding)
+		usr << "\red There is no tank loaded into the [src] to eject."
+
+	if(istype(holding, /obj/item/weapon/tank))
+		usr << "\blue You eject the [holding.name] from the [src]."
+		holding.loc = loc
+		holding = null
