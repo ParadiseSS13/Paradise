@@ -275,14 +275,16 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 	if(!Adjacent(clicked_on))
 		return
 
-	var/IsVentcrawler = 1
+	var/ventcrawlerlocal = 0
+	if(ventcrawler)
+		ventcrawlerlocal = ventcrawler
+
 	if(!ventcrawler)
-		IsVentcrawler = 0
 		if(ishuman(src))
 			var/mob/living/carbon/human/H = src
-			if(!H.species.ventcrawler)	IsVentcrawler = 1
+			if(!H.species.ventcrawler)	ventcrawlerlocal = H.species.ventcrawler
 
-	if(!IsVentcrawler)	return
+	if(!ventcrawlerlocal)	return
 
 	if(stat)
 		src << "You must be conscious to do this!"
@@ -322,10 +324,12 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 			if(!client)
 				return
 
-			if(iscarbon(src) && contents.len && ventcrawler < 2)//It must have atleast been 1 to get this far
+			if(iscarbon(src) && contents.len && ventcrawlerlocal < 2)//It must have atleast been 1 to get this far
 				for(var/obj/item/I in contents)
 					var/failed = 0
 					if(istype(I, /obj/item/weapon/implant))
+						continue
+					if(istype(I, /obj/item/organ))
 						continue
 					else
 						failed++
