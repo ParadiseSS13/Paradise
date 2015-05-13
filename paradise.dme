@@ -512,6 +512,7 @@
 #include "code\game\mecha\mecha_control_console.dm"
 #include "code\game\mecha\mecha_parts.dm"
 #include "code\game\mecha\mecha_wreckage.dm"
+#include "code\game\mecha\paintkits.dm"
 #include "code\game\mecha\combat\combat.dm"
 #include "code\game\mecha\combat\durand.dm"
 #include "code\game\mecha\combat\gygax.dm"
