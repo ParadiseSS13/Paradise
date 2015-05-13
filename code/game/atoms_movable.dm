@@ -14,7 +14,6 @@
 	var/no_spin = 0
 	var/moved_recently = 0
 	var/mob/pulledby = null
-	var/simulated //filter for actions - used by lighting overlays
 
 	var/area/areaMaster
 	var/hard_deleted = 0
