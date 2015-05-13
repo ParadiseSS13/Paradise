@@ -130,6 +130,8 @@
 
 				if(client.prefs.be_random_name)
 					client.prefs.real_name = random_name(client.prefs.gender,client.prefs.species)
+				if(client.prefs.dummy)
+					qdel(client.prefs.dummy)
 				observer.real_name = client.prefs.real_name
 				observer.name = observer.real_name
 				if(!client.holder && !config.antag_hud_allowed)           // For new ghosts we remove the verb from even showing up if it's not allowed.
@@ -471,7 +473,8 @@
 			client.prefs.randomize_appearance_for(new_character)
 		else
 			client.prefs.copy_to(new_character)
-
+		if(client.prefs.dummy)
+			qdel(client.prefs.dummy)
 		src << sound(null, repeat = 0, wait = 0, volume = 85, channel = 1) // MAD JAMS cant last forever yo
 
 		if(mind)

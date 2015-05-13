@@ -127,6 +127,7 @@ datum/preferences
 	var/speciesprefs = 0//I hate having to do this, I really do (Using this for oldvox code, making names universal I guess
 
 		//Mob preview
+	var/mob/living/carbon/human/dummy //the mannequin
 	var/icon/preview_icon = null
 	var/icon/preview_icon_front = null
 	var/icon/preview_icon_side = null
