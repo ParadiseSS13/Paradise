@@ -49,6 +49,18 @@
 
 	return
 
+/obj/structure/closet/redcorp
+	name = "corporate security wardrobe"
+	icon_state = "red"
+	icon_closed = "red"
+
+/obj/structure/closet/redcorp/New()
+	new /obj/item/clothing/under/rank/security/corp(src)
+	new /obj/item/clothing/under/rank/security/corp(src)
+	new /obj/item/clothing/under/rank/security/corp(src)
+	new /obj/item/clothing/head/soft/sec/corp(src)
+	new /obj/item/clothing/head/soft/sec/corp(src)
+	new /obj/item/clothing/head/soft/sec/corp(src)
 
 /obj/structure/closet/wardrobe/pink
 	name = "pink wardrobe"
