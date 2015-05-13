@@ -244,7 +244,7 @@
 		S.update_starlight()
 
 	W.levelupdate()
-	W.CalculateAdjacentTurfs()
+	W.air_update_turf(1)
 	. = W
 
 	affecting_lights = old_affecting_lights
