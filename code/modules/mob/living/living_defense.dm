@@ -265,6 +265,7 @@
 								A.action = new/datum/action/item_action
 							A.action.name = A.action_button_name
 							A.action.target = A
+						A.action.check_flags &= ~AB_CHECK_INSIDE
 						A.action.Grant(src)
 		if(I.action_button_name)
 			if(!I.action)
