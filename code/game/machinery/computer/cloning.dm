@@ -16,7 +16,7 @@
 	var/autoprocess = 0
 	var/data[0]
 
-	light_color = "#0000FF"
+	light_color = "#315AB4"
 
 /obj/machinery/computer/cloning/New()
 	..()

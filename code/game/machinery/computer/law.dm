@@ -9,6 +9,7 @@
 	var/opened = 0
 
 	light_color = "#FFFFFF"
+	light_range_on = "2"
 
 
 	verb/AccessInternals()
