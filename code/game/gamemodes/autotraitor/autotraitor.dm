@@ -20,12 +20,6 @@
 
 	possible_traitors = get_players_for_role(BE_TRAITOR)
 
-	for(var/datum/mind/player in possible_traitors)
-		for(var/job in restricted_jobs)
-			if(player.assigned_role == job)
-				possible_traitors -= player
-
-
 	for(var/mob/new_player/P in world)
 		if(P.client && P.ready)
 			num_players++
@@ -60,6 +54,7 @@
 			continue
 		if(istype(traitor))
 			traitor.special_role = "traitor"
+			traitor.restricted_roles = restricted_jobs
 
 //	if(!traitors.len)
 //		return 0
