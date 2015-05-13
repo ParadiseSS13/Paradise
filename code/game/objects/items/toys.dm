@@ -460,7 +460,7 @@
 /obj/item/toy/crayon/New()
 	..()
 	name = "[colourName] crayon" //Makes crayons identifiable in things like grinders
-	drawtype = pick(pick(graffiti), pick(letters), "rune[rand(1,6)]")
+	drawtype = pick(pick(graffiti), pick(letters), "rune[rand(1,10)]")
 
 /obj/item/toy/crayon/attack_self(mob/living/user as mob)
 	update_window(user)
@@ -471,7 +471,7 @@
 	dat += "<hr>"
 	dat += "<h3>Runes:</h3><br>"
 	dat += "<a href='?src=\ref[src];type=random_rune'>Random rune</a>"
-	for(var/i = 1; i <= 6; i++)
+	for(var/i = 1; i <= 10; i++)
 		dat += "<a href='?src=\ref[src];type=rune[i]'>Rune[i]</a>"
 		if(!((i + 1) % 3)) //3 buttons in a row
 			dat += "<br>"
@@ -500,7 +500,7 @@
 		if("letter")
 			temp = input("Choose the letter.", "Scribbles") in letters
 		if("random_rune")
-			temp = "rune[rand(1,6)]"
+			temp = "rune[rand(1,10)]"
 		if("random_graffiti")
 			temp = pick(graffiti)
 		else
