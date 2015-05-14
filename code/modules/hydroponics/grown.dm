@@ -201,6 +201,8 @@
 				del(src)
 				return
 		else if(W.sharp)
+			var/reagents_per_slice
+			var/obj/slice
 			if(seed.kitchen_tag == "pumpkin") // Ugggh these checks are awful.
 				user.show_message("<span class='notice'>You carve a face into [src]!</span>", 1)
 				new /obj/item/clothing/head/hardhat/pumpkinhead (user.loc)
@@ -208,23 +210,31 @@
 				return
 			else if(seed.kitchen_tag == "potato")
 				user << "You slice \the [src] into sticks."
-				new /obj/item/weapon/reagent_containers/food/snacks/rawsticks(get_turf(src))
+				reagents_per_slice = reagents.total_volume
+				slice = new /obj/item/weapon/reagent_containers/food/snacks/rawsticks(get_turf(src))
+				reagents.trans_to(slice, reagents_per_slice)
 				del(src)
 				return
 			else if(seed.kitchen_tag == "carrot")
 				user << "You slice \the [src] into sticks."
-				new /obj/item/weapon/reagent_containers/food/snacks/carrotfries(get_turf(src))
+				reagents_per_slice = reagents.total_volume
+				slice = new /obj/item/weapon/reagent_containers/food/snacks/carrotfries(get_turf(src))
+				reagents.trans_to(slice, reagents_per_slice)
 				del(src)
 				return
 			else if(seed.kitchen_tag == "watermelon")
 				user << "You slice \the [src] into large slices."
+				reagents_per_slice = reagents.total_volume/5
 				for(var/i=0,i<5,i++)
-					new /obj/item/weapon/reagent_containers/food/snacks/watermelonslice(get_turf(src))
+					slice = new /obj/item/weapon/reagent_containers/food/snacks/watermelonslice(get_turf(src))
+					reagents.trans_to(slice, reagents_per_slice)
 				del(src)
 				return
 			else if(seed.kitchen_tag == "soybeans")
 				user << "You roughly chop up \the [src]."
-				new /obj/item/weapon/reagent_containers/food/snacks/soydope(get_turf(src))
+				reagents_per_slice = reagents.total_volume
+				slice = new /obj/item/weapon/reagent_containers/food/snacks/soydope(get_turf(src))
+				reagents.trans_to(slice, reagents_per_slice)
 				del(src)
 				return
 			else if(seed.chems)
