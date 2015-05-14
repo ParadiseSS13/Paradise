@@ -52,11 +52,6 @@
 
 	var/list/datum/mind/possible_vampires = get_players_for_role(BE_VAMPIRE)
 
-	for(var/datum/mind/player in possible_vampires)
-		for(var/job in restricted_jobs)//Removing robots from the list
-			if(player.assigned_role == job)
-				possible_vampires -= player
-
 	vampire_amount = 1 + round(num_players() / 10)
 
 	if(possible_vampires.len>0)
@@ -65,6 +60,7 @@
 			var/datum/mind/vampire = pick(possible_vampires)
 			possible_vampires -= vampire
 			vampires += vampire
+			vampire.restricted_roles = restricted_jobs
 			modePlayer += vampires
 		return 1
 	else

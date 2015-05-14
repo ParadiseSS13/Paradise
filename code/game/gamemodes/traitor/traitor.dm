@@ -50,17 +50,13 @@
 	else
 		num_traitors = max(1, min(num_players(), traitors_possible))
 
-	for(var/datum/mind/player in possible_traitors)
-		for(var/job in restricted_jobs)
-			if(player.assigned_role == job)
-				possible_traitors -= player
-
 	for(var/j = 0, j < num_traitors, j++)
 		if (!possible_traitors.len)
 			break
 		var/datum/mind/traitor = pick(possible_traitors)
 		traitors += traitor
 		traitor.special_role = "traitor"
+		traitor.restricted_roles = restricted_jobs
 		possible_traitors.Remove(traitor)
 
 	if(!traitors.len)

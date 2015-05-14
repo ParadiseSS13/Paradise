@@ -55,17 +55,13 @@
 			head_check = 1
 			break
 
-	for(var/datum/mind/player in possible_headrevs)
-		for(var/job in restricted_jobs)//Removing heads and such from the list
-			if(player.assigned_role == job)
-				possible_headrevs -= player
-
 	for (var/i=1 to max_headrevs)
 		if (possible_headrevs.len==0)
 			break
 		var/datum/mind/lenin = pick(possible_headrevs)
 		possible_headrevs -= lenin
 		head_revolutionaries += lenin
+		lenin.restricted_roles = restricted_jobs
 
 	if((head_revolutionaries.len==0)||(!head_check))
 		return 0

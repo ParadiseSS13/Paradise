@@ -104,8 +104,9 @@ var/global/datum/controller/gameticker/ticker
 
 	//Configure mode and assign player to special mode stuff
 	src.mode.pre_pre_setup()
+	var/can_continue
+	can_continue = src.mode.pre_setup()//Setup special modes
 	job_master.DivideOccupations() //Distribute jobs
-	var/can_continue = src.mode.pre_setup()//Setup special modes
 	if(!can_continue)
 		del(mode)
 		current_state = GAME_STATE_PREGAME
