@@ -45,64 +45,62 @@
 
 /turf/simulated/Entered(atom/A, atom/OL)
 
-	if (istype(A,/mob/living/carbon/human))
+	if(ishuman(A))
 		var/mob/living/carbon/human/M = A
 		if(M.lying)	return
 		if(prob(80))
 			dirt++
-		var/obj/effect/decal/cleanable/dirt/dirtoverlay = locate(/obj/effect/decal/cleanable/dirt, src)
+		var/obj/effect/decal/cleanable/dirt/dirtoverlay = locate(/obj/effect/decal/cleanable/dirt) in src
 		if(dirt >= 100)
 			if(!dirtoverlay)
 				dirtoverlay = new/obj/effect/decal/cleanable/dirt(src)
 				dirtoverlay.alpha = 10
 			else if(dirt > 100)
 				dirtoverlay.alpha = min(dirtoverlay.alpha+10, 200)
-		if(istype(M, /mob/living/carbon/human))
-			var/mob/living/carbon/human/H = M
-			if(istype(H.shoes, /obj/item/clothing/shoes/clown_shoes))
-				var/obj/item/clothing/shoes/clown_shoes/O = H.shoes
-				if(H.m_intent == "run")
-					if(O.footstep >= 2)
-						O.footstep = 0
-						playsound(src, "clownstep", 50, 1) // this will get annoying very fast.
-					else
-						O.footstep++
+		if(istype(M.shoes, /obj/item/clothing/shoes/clown_shoes))
+			var/obj/item/clothing/shoes/clown_shoes/O = M.shoes
+			if(M.m_intent == "run")
+				if(O.footstep >= 2)
+					O.footstep = 0
+					playsound(src, "clownstep", 50, 1) // this will get annoying very fast.
 				else
-					playsound(src, "clownstep", 20, 1)
-			if(istype(H.shoes, /obj/item/clothing/shoes/jackboots))
-				var/obj/item/clothing/shoes/jackboots/O = H.shoes
-				if(H.m_intent == "run")
-					if(O.footstep >= 2)
-						O.footstep = 0
-						playsound(src, "jackboot", 50, 1) // this will get annoying very fast.
-					else
-						O.footstep++
-				else
-					playsound(src, "jackboot", 20, 1)
-
-
-			// Tracking blood
-			var/list/bloodDNA = null
-			var/bloodcolor=""
-			if(H.shoes)
-				var/obj/item/clothing/shoes/S = H.shoes
-				if(S.track_blood && S.blood_DNA)
-					bloodDNA = S.blood_DNA
-					bloodcolor=S.blood_color
-					S.track_blood--
+					O.footstep++
 			else
-				if(H.track_blood && H.feet_blood_DNA)
-					bloodDNA = H.feet_blood_DNA
-					bloodcolor=H.feet_blood_color
-					H.track_blood--
+				playsound(src, "clownstep", 20, 1)
+		if(istype(M.shoes, /obj/item/clothing/shoes/jackboots))
+			var/obj/item/clothing/shoes/jackboots/O = M.shoes
+			if(M.m_intent == "run")
+				if(O.footstep >= 2)
+					O.footstep = 0
+					playsound(src, "jackboot", 50, 1) // this will get annoying very fast.
+				else
+					O.footstep++
+			else
+				playsound(src, "jackboot", 20, 1)
 
-			if (bloodDNA)
-				src.AddTracks(/obj/effect/decal/cleanable/blood/tracks/footprints,bloodDNA,H.dir,0,bloodcolor) // Coming
-				var/turf/simulated/from = get_step(H,reverse_direction(H.dir))
-				if(istype(from) && from)
-					from.AddTracks(/obj/effect/decal/cleanable/blood/tracks/footprints,bloodDNA,0,H.dir,bloodcolor) // Going
 
-				bloodDNA = null
+		// Tracking blood
+		var/list/bloodDNA = null
+		var/bloodcolor=""
+		if(M.shoes)
+			var/obj/item/clothing/shoes/S = M.shoes
+			if(S.track_blood && S.blood_DNA)
+				bloodDNA = S.blood_DNA
+				bloodcolor=S.blood_color
+				S.track_blood--
+		else
+			if(M.track_blood && M.feet_blood_DNA)
+				bloodDNA = M.feet_blood_DNA
+				bloodcolor=M.feet_blood_color
+				M.track_blood--
+
+		if (bloodDNA)
+			src.AddTracks(/obj/effect/decal/cleanable/blood/tracks/footprints,bloodDNA,M.dir,0,bloodcolor) // Coming
+			var/turf/simulated/from = get_step(M,reverse_direction(M.dir))
+			if(istype(from) && from)
+				from.AddTracks(/obj/effect/decal/cleanable/blood/tracks/footprints,bloodDNA,0,M.dir,bloodcolor) // Going
+
+			bloodDNA = null
 
 		var/noslip = 0
 		for (var/obj/structure/stool/bed/chair/C in loc)
@@ -112,31 +110,20 @@
 			return // no slipping while sitting in a chair, plz
 		switch (src.wet)
 			if(1)
-				if(istype(M, /mob/living/carbon/human)) // Added check since monkeys don't have shoes
-					if ((M.m_intent == "run") && !(istype(M:shoes, /obj/item/clothing/shoes) && M.shoes.flags&NOSLIP))
-						M.stop_pulling()
-						step(M, M.dir)
-						M << "\blue You slipped on the wet floor!"
-						playsound(src, 'sound/misc/slip.ogg', 50, 1, -3)
-						M.Stun(5)
-						M.Weaken(3)
-					else
-						M.inertia_dir = 0
-						return
-				else if(!istype(M, (/mob/living/carbon/human/slime)) || (M.species.bodyflags & FEET_NOSLIP))
-					if (M.m_intent == "run")
-						M.stop_pulling()
-						step(M, M.dir)
-						M << "\blue You slipped on the wet floor!"
-						playsound(src, 'sound/misc/slip.ogg', 50, 1, -3)
-						M.Stun(5)
-						M.Weaken(3)
-					else
-						M.inertia_dir = 0
-						return
+				if ((M.m_intent == "run") && !(istype(M:shoes, /obj/item/clothing/shoes) && M.shoes.flags&NOSLIP))
+					M.stop_pulling()
+					step(M, M.dir)
+					M << "\blue You slipped on the wet floor!"
+					playsound(src, 'sound/misc/slip.ogg', 50, 1, -3)
+					M.Stun(5)
+					M.Weaken(3)
+				else
+					M.inertia_dir = 0
+					return
+
 
 			if(2) //lube                //can cause infinite loops - needs work
-				if(!istype(M, /mob/living/carbon/slime) && !M.buckled)
+				if(!M.buckled)
 					M.stop_pulling()
 					step(M, M.dir)
 					spawn(1) step(M, M.dir)
@@ -149,28 +136,16 @@
 					M.Weaken(10)
 
 			if(3) // Ice
-				if(istype(M, /mob/living/carbon/human)) // Added check since monkeys don't have shoes
-					if ((M.m_intent == "run") && !(istype(M:shoes, /obj/item/clothing/shoes) && M:shoes.flags&NOSLIP) && prob(30))
-						M.stop_pulling()
-						step(M, M.dir)
-						M << "\blue You slipped on the icy floor!"
-						playsound(src, 'sound/misc/slip.ogg', 50, 1, -3)
-						M.Stun(4)
-						M.Weaken(5)
-					else
-						M.inertia_dir = 0
-						return
-				else if(!istype(M, /mob/living/carbon/slime) || (M:species.bodyflags & FEET_NOSLIP))
-					if (M.m_intent == "run" && prob(30))
-						M.stop_pulling()
-						step(M, M.dir)
-						M << "\blue You slipped on the icy floor!"
-						playsound(src, 'sound/misc/slip.ogg', 50, 1, -3)
-						M.Stun(4)
-						M.Weaken(5)
-					else
-						M.inertia_dir = 0
-						return
+				if ((M.m_intent == "run") && !(istype(M:shoes, /obj/item/clothing/shoes) && M:shoes.flags&NOSLIP) && prob(30))
+					M.stop_pulling()
+					step(M, M.dir)
+					M << "\blue You slipped on the icy floor!"
+					playsound(src, 'sound/misc/slip.ogg', 50, 1, -3)
+					M.Stun(4)
+					M.Weaken(5)
+				else
+					M.inertia_dir = 0
+					return
 
 	..()
 
