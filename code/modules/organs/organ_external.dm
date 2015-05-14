@@ -984,7 +984,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 	can_grasp = 1
 
 /obj/item/organ/external/hand/removed()
-	owner.unEquip(owner.gloves)
+	if(owner) owner.unEquip(owner.gloves)
 	..()
 
 /obj/item/organ/external/hand/right
