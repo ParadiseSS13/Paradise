@@ -46,7 +46,7 @@
 	..()
 
 /obj/machinery/camera/initialize()
-	if(z == 1 && prob(3) && !start_active)
+	if(z == ZLEVEL_STATION && prob(3) && !start_active)
 		deactivate()
 
 /obj/machinery/camera/Destroy()

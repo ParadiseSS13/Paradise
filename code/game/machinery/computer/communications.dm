@@ -264,7 +264,7 @@ var/shuttle_call/shuttle_calls[0]
 	if(..(user))
 		return
 
-	if (!(src.z in list(STATION_Z, CENTCOMM_Z)))
+	if (!(src.z in list(ZLEVEL_STATION, ZLEVEL_CENTCOMM)))
 		user << "\red <b>Unable to establish a connection</b>: \black You're too far away from the station!"
 		return
 
