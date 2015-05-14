@@ -1859,7 +1859,19 @@ area/security/podbay
 	name = "Derelict EVA Storage"
 	icon_state = "eva"
 
-/area/derelict/ship
+/area/shuttle/derelict/ship/start
+	name = "\improper Abandoned Ship"
+	icon_state = "yellow"
+
+/area/shuttle/derelict/ship/transit
+	name = "\improper Abandoned Ship"
+	icon_state = "yellow"
+
+/area/shuttle/derelict/ship/engipost
+	name = "\improper Abandoned Ship"
+	icon_state = "yellow"
+
+/area/shuttle/derelict/ship/station
 	name = "\improper Abandoned Ship"
 	icon_state = "yellow"
 
