@@ -1092,7 +1092,7 @@
 	alpha = 255
 
 	overlays.Cut()
-	overlays += icon_manager.get_atmos_icon("pipe", , pipe_color, "cap")
+	overlays += icon_manager.get_atmos_icon("pipe", , pipe_color, "cap" + icon_connect_type)
 
 /obj/machinery/atmospherics/pipe/cap/initialize()
 	for(var/obj/machinery/atmospherics/target in get_step(src, dir))
@@ -1138,7 +1138,7 @@
 /obj/machinery/atmospherics/pipe/cap/hidden/scrubbers
 	name = "scrubbers pipe endcap"
 	desc = "An endcap for scrubbers pipes"
-	icon_state = "cap-f-scrubbers"
+	icon_state = "cap-scrubbers"
 	connect_types = list(3)
 	layer = 2.38
 	icon_connect_type = "-scrubbers"
@@ -1147,7 +1147,7 @@
 /obj/machinery/atmospherics/pipe/cap/hidden/supply
 	name = "supply pipe endcap"
 	desc = "An endcap for supply pipes"
-	icon_state = "cap-f-supply"
+	icon_state = "cap-supply"
 	connect_types = list(2)
 	layer = 2.39
 	icon_connect_type = "-supply"
