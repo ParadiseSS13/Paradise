@@ -366,12 +366,15 @@
 		for(var/mob/living/carbon/M in mob_list)
 			if(M.mind in ticker.mode.syndicates)
 				nearest_op = M
+		active = 0
+		icon_state = "pinoff"
 
 /obj/item/weapon/pinpointer/operative/proc/workop()
 	scan_for_ops()
 	point_at(nearest_op, 0)
-	spawn(5)
-		.()
+	if(active && nearest_op) 
+		spawn(5)
+			.()
 
 /obj/item/weapon/pinpointer/operative/examine(mob/user)
 	..()
