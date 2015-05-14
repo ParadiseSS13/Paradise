@@ -220,7 +220,7 @@
 				else
 					droplimb(0,DROPLIMB_BLUNT)
 
-	owner_old.updatehealth()
+	if(owner_old) owner_old.updatehealth()
 	return update_icon()
 
 /obj/item/organ/external/proc/heal_damage(brute, burn, internal = 0, robo_repair = 0)

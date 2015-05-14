@@ -726,10 +726,10 @@
 		if (organ_name == "head")			// do the head last as that's when the user will be transfered to the posibrain
 			continue
 		var/obj/item/organ/external/O = H.organs_by_name[organ_name]
-		if((O.body_part != UPPER_TORSO) && (O.body_part != LOWER_TORSO))  // We're making them fall apart, not gibbing them!
+		if(O && (O.body_part != UPPER_TORSO) && (O.body_part != LOWER_TORSO))  // We're making them fall apart, not gibbing them!
 			O.droplimb(1)
 	var/obj/item/organ/external/O = H.organs_by_name["head"]
-	O.droplimb(1)
+	if(O) O.droplimb(1)
 
 
 //Species unarmed attacks
