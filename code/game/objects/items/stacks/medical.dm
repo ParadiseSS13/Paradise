@@ -28,7 +28,11 @@
 			if(!M.can_inject(user, 1))
 				return 1
 
-		if(affecting && (affecting.status & ORGAN_ROBOT))
+		if(!affecting)
+			user << "<span class='danger'>That limb is missing!</span>"
+			return 1
+
+		if(affecting.status & ORGAN_ROBOT)
 			user << "<span class='danger'>This can't be used on a robotic limb.</span>"
 			return 1
 
