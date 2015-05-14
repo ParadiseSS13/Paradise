@@ -9,6 +9,8 @@
 /obj/machinery/portable_atmospherics/hydroponics/soil/attackby(var/obj/item/O as obj, var/mob/user as mob)
 	if(istype(O,/obj/item/weapon/tank))
 		return
+	else if(istype(O,/obj/item/weapon/crowbar))
+		return
 	else
 		..()
 
@@ -17,6 +19,7 @@
 	verbs -= /obj/machinery/portable_atmospherics/hydroponics/verb/close_lid_verb
 	verbs -= /obj/machinery/portable_atmospherics/hydroponics/verb/remove_label
 	verbs -= /obj/machinery/portable_atmospherics/hydroponics/verb/setlight
+	verbs -= /obj/machinery/portable_atmospherics/hydroponics/verb/eject_tank_verb
 
 /obj/machinery/portable_atmospherics/hydroponics/soil/CanPass()
 	return 1

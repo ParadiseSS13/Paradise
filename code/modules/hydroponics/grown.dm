@@ -54,8 +54,23 @@
 				rtotal += round(potency/reagent_data[2])
 			reagents.add_reagent(rid,max(1,rtotal))
 	update_desc()
+	update_trash()
 	if(reagents.total_volume > 0)
 		bitesize = 1+round(reagents.total_volume / 2, 1)
+
+/obj/item/weapon/reagent_containers/food/snacks/grown/proc/update_trash()
+	if(!seed)
+		return
+	trash = seed.trash_type
+	if(seed.kitchen_tag)
+		if(seed.kitchen_tag == "watermelon")	// 15% chance to leave behind a pack of watermelon seeds
+			if(prob(15))
+				var/obj/item/seeds/seeds = new()
+				seeds.seed = seed
+				seeds.update_seed()
+				trash = seeds
+			else
+				trash = null
 
 /obj/item/weapon/reagent_containers/food/snacks/grown/proc/update_desc()
 
