@@ -26,4 +26,6 @@
 			color = BlendRGB(color, reagent_color, vol_temp/vol_counter)
 		else
 			color = BlendRGB(reagent_color, color, vol_temp/vol_counter)
+	return color
+
 
