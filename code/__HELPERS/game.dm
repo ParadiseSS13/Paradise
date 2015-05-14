@@ -405,22 +405,6 @@ proc/isInSight(var/atom/A, var/atom/B)
 			GetBluePart(hexa)
 		)
 
-/proc/MixColors(const/list/colors)
-	var/list/reds = list()
-	var/list/blues = list()
-	var/list/greens = list()
-	var/list/weights = list()
-
-	for (var/i = 0, ++i <= colors.len)
-		reds.Add(GetRedPart(colors[i]))
-		blues.Add(GetBluePart(colors[i]))
-		greens.Add(GetGreenPart(colors[i]))
-		weights.Add(1)
-
-	var/r = mixOneColor(weights, reds)
-	var/g = mixOneColor(weights, greens)
-	var/b = mixOneColor(weights, blues)
-	return rgb(r,g,b)
 
 /proc/alone_in_area(var/area/the_area, var/mob/must_be_alone, var/check_type = /mob/living/carbon)
 	var/area/our_area = get_area_master(the_area)
