@@ -69,7 +69,7 @@
 	lighting_update_lights += src
 
 /datum/light_source/proc/check()
-	if(!source_atom)
+	if(!source_atom || !light_range || !light_power)
 		destroy()
 		return 1
 
