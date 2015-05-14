@@ -366,6 +366,7 @@
 		for(var/mob/living/carbon/M in mob_list)
 			if(M.mind in ticker.mode.syndicates)
 				nearest_op = M
+	if(!nearest_op) // There are simply no operatives left to point to
 		active = 0
 		icon_state = "pinoff"
 
