@@ -128,12 +128,13 @@
 			C << "\red <B>[user] begins to cut off your antennae!<B>"
 			do_after(C, 150)
 			if(p_loc == user.loc && p_loc_m == C.loc)
-				del(C.internal_organs_by_name["antennae"])
+				var/obj/item/organ/wryn/hivenode/H = C.internal_organs_by_name["antennae"]
+				H.removed(user)
 				C.remove_language("Wryn Hivemind")
 				new /obj/item/organ/wryn/hivenode(user.loc)
-				user << "\blue You hear a loud crunch as you mercilessly off cut [C]'s antennae."
-				C << "\red <B>You hear a loud crunch as the wirecutters rip through your antennae.</B>"
-				C << "\red <B>Its so quiet...</B>"
+				user << "<span class='warning'> You hear a loud crunch as you mercilessly off cut [C]'s antennae.</span>"
+				C << "<span class='warning'><B>You hear a loud crunch as the wirecutters rip through your antennae.</B></span>"
+				C << "<span class='notice'><B>Its so quiet...</B></span>"
 				C.h_style = "Bald"
 				C.update_hair()
 		else
