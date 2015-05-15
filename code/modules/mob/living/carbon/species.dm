@@ -745,6 +745,10 @@
 /datum/unarmed_attack/punch
 	attack_verb = list("punch")
 
+/datum/unarmed_attack/punch/weak
+	attack_verb = list("flail")
+	damage = 1
+
 /datum/unarmed_attack/diona
 	attack_verb = list("lash", "bludgeon")
 

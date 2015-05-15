@@ -117,14 +117,33 @@
 		icon_state = "cutters-y"
 		item_state = "cutters_yellow"
 
-/obj/item/weapon/wirecutters/attack(mob/living/carbon/C as mob, mob/user as mob)
-	if((C.handcuffed) && (istype(C.handcuffed, /obj/item/weapon/restraints/handcuffs/cable)))
-		usr.visible_message("\The [usr] cuts \the [C]'s restraints with \the [src]!",\
-		"You cut \the [C]'s restraints with \the [src]!",\
-		"You hear cable being cut.")
-		C.handcuffed = null
-		C.update_inv_handcuffed()
-		return
+/obj/item/weapon/wirecutters/attack(mob/living/carbon/human/C as mob, mob/user as mob)
+	if(C.handcuffed)
+		if(C.species.name == "Wryn" && (locate(C.internal_organs_by_name["antennae"]) in C.internal_organs))
+
+			var/turf/p_loc = user.loc
+			var/turf/p_loc_m = C.loc
+
+			user.visible_message("\blue [user] begins to cut off [C]'s antennae.")
+			C << "\red <B>[user] begins to cut off your antennae!<B>"
+			do_after(C, 150)
+			if(p_loc == user.loc && p_loc_m == C.loc)
+				del(C.internal_organs_by_name["antennae"])
+				C.remove_language("Wryn Hivemind")
+				new /obj/item/organ/wryn/hivenode(user.loc)
+				user << "\blue You hear a loud crunch as you mercilessly off cut [C]'s antennae."
+				C << "\red <B>You hear a loud crunch as the wirecutters rip through your antennae.</B>"
+				C << "\red <B>Its so quiet...</B>"
+				C.h_style = "Bald"
+				C.update_hair()
+		else
+			if(istype(C.handcuffed, /obj/item/weapon/restraints/handcuffs/cable))
+				usr.visible_message("\The [usr] cuts \the [C]'s restraints with \the [src]!",\
+				"You cut \the [C]'s restraints with \the [src]!",\
+				"You hear cable being cut.")
+				C.handcuffed = null
+				C.update_inv_handcuffed()
+				return
 	else
 		..()
 
