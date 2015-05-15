@@ -16,7 +16,7 @@
 
 	process()
 		if(emitter)
-			parent.send_signal(list ("tag" = emitter, "command"="set","state"=on))
+			parent.send_signal(list("tag" = emitter, "command"="set", "state" = on, "hiddenprints" = parent.fingerprintshidden))
 		return 0
 
 	GetText()
