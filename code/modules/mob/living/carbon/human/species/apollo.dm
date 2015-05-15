@@ -43,7 +43,7 @@
 
 
 /datum/species/wryn/handle_death(var/mob/living/carbon/human/H)
-	for(var/mob/living/carbon/C in world)
+	for(var/mob/living/carbon/C in living_mob_list)
 		if(locate(/obj/item/organ/wryn/hivenode) in C.internal_organs)
 			C << "<span class='danger'><B>Your antennae tingle as you are overcome with pain...</B></span>"
 			C << "<span class='danger'>It feels like part of you has died.</span>"
