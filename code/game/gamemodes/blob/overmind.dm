@@ -118,4 +118,5 @@
 	else
 		return 0
 
-
+/mob/camera/experience_pressure_difference()
+	return 0

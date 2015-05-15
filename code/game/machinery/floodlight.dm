@@ -11,7 +11,9 @@
 	var/use = 5
 	var/unlocked = 0
 	var/open = 0
-	var/brightness_on = 999		//can't remember what the maxed out value is
+	var/brightness_on = 14
+	light_power = 20
+	//var/brightness_on = 999		//can't remember what the maxed out value is //Lighting overhaul: No max, stop TRYING TO ILLUMINATE MORE TILES THAN THE MAP CONSISTS OF.
 
 /obj/machinery/floodlight/New()
 	src.cell = new(src)
