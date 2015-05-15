@@ -39,7 +39,6 @@
 	var/frequency = 1439
 	var/datum/radio_frequency/radio_connection
 	Mtoollink = 1
-	settagwhitelist = list("id_tag")
 	var/advcontrol = 0//does this device listen to the AAC
 
 	var/radio_filter_out
@@ -186,6 +185,12 @@
 	frequency = new_frequency
 	if(frequency)
 		radio_connection = radio_controller.add_object(src, frequency,radio_filter_in)
+	if(frequency != 1439)
+		initial_loc.air_vent_info -= id_tag
+		initial_loc.air_vent_names -= id_tag
+		name = "Vent Pump"
+	else
+		broadcast_status()
 
 /obj/machinery/atmospherics/unary/vent_pump/proc/broadcast_status()
 	if(!radio_connection)
@@ -207,12 +212,12 @@
 		"timestamp" = world.time,
 		"sigtype" = "status"
 	)
-
-	if(!initial_loc.air_vent_names[id_tag])
-		var/new_name = "[initial_loc.name] Vent Pump #[initial_loc.air_vent_names.len+1]"
-		initial_loc.air_vent_names[id_tag] = new_name
-		src.name = new_name
-	initial_loc.air_vent_info[id_tag] = signal.data
+	if(frequency == 1439)//We're on the frequency the air alarms and stuff use
+		if(!initial_loc.air_vent_names[id_tag])
+			var/new_name = "[initial_loc.name] Vent Pump #[initial_loc.air_vent_names.len+1]"
+			initial_loc.air_vent_names[id_tag] = new_name
+			src.name = new_name
+		initial_loc.air_vent_info[id_tag] = signal.data
 
 	radio_connection.post_signal(src, signal, radio_filter_out)
 
@@ -369,13 +374,24 @@
 	"}
 
 /obj/machinery/atmospherics/unary/vent_pump/multitool_topic(var/mob/user, var/list/href_list, var/obj/O)
-	. = ..()
-	if(.)
-		return .
-
 	if("toggleadvcontrol" in href_list)
 		advcontrol = !advcontrol
 		return MT_UPDATE
+
+	if("set_id" in href_list)
+		var/newid = copytext(reject_bad_text(input(usr, "Specify the new ID tag for this machine", src, src.id_tag) as null|text), 1, MAX_MESSAGE_LEN)
+		if(!newid)
+			return
+		if(frequency == 1439)
+			initial_loc.air_vent_info -= id_tag
+			initial_loc.air_vent_names -= id_tag
+
+		id_tag = newid
+		broadcast_status()
+
+		return MT_UPDATE
+
+	return ..()
 
 /obj/machinery/atmospherics/unary/vent_pump/attackby(var/obj/item/weapon/W as obj, var/mob/user as mob, params)
 	if (istype(W, /obj/item/device/multitool))
@@ -403,11 +419,10 @@
 			"\blue You have unfastened \the [src].", \
 			"You hear ratchet.")
 		new /obj/item/pipe(loc, make_from=src)
-		del(src)
+		qdel(src)
 
-/obj/machinery/atmospherics/unary/vent_pump/Del()
+/obj/machinery/atmospherics/unary/vent_pump/Destroy()
 	if(initial_loc)
 		initial_loc.air_vent_info -= id_tag
 		initial_loc.air_vent_names -= id_tag
-	..()
-	return
+	return ..()

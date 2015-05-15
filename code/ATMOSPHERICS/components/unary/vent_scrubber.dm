@@ -14,7 +14,6 @@
 	var/id_tag = null
 	var/frequency = 1439
 	var/datum/radio_frequency/radio_connection
-	settagwhitelist = list("id_tag")
 	var/advcontrol = 0//does this device listen to the AAC?
 
 	var/on = 0
@@ -87,6 +86,12 @@
 	radio_controller.remove_object(src, frequency)
 	frequency = new_frequency
 	radio_connection = radio_controller.add_object(src, frequency, radio_filter_in)
+	if(frequency != 1439)
+		initial_loc.air_scrub_info -= id_tag
+		initial_loc.air_scrub_names -= id_tag
+		name = "air Scrubber"
+	else
+		broadcast_status()
 
 /obj/machinery/atmospherics/unary/vent_scrubber/proc/broadcast_status()
 	if(!radio_connection)
@@ -110,11 +115,12 @@
 		"filter_n2o" = scrub_N2O,
 		"sigtype" = "status"
 	)
-	if(!initial_loc.air_scrub_names[id_tag])
-		var/new_name = "[initial_loc.name] Air Scrubber #[initial_loc.air_scrub_names.len+1]"
-		initial_loc.air_scrub_names[id_tag] = new_name
-		src.name = new_name
-	initial_loc.air_scrub_info[id_tag] = signal.data
+	if(frequency == 1439)//We're on the frequency the air alarms and stuff use
+		if(!initial_loc.air_scrub_names[id_tag])
+			var/new_name = "[initial_loc.name] Air Scrubber #[initial_loc.air_scrub_names.len+1]"
+			initial_loc.air_scrub_names[id_tag] = new_name
+			src.name = new_name
+		initial_loc.air_scrub_info[id_tag] = signal.data
 	radio_connection.post_signal(src, signal, radio_filter_out)
 
 	return 1
@@ -123,7 +129,7 @@
 	..()
 	radio_filter_in = frequency==initial(frequency)?(RADIO_FROM_AIRALARM):null
 	radio_filter_out = frequency==initial(frequency)?(RADIO_TO_AIRALARM):null
-	if (frequency)
+	if(frequency)
 		set_frequency(frequency)
 
 /obj/machinery/atmospherics/unary/vent_scrubber/process()
@@ -289,19 +295,31 @@
 	return {"
 	<ul>
 		<li><b>Frequency:</b> <a href="?src=\ref[src];set_freq=-1">[format_frequency(frequency)] GHz</a> (<a href="?src=\ref[src];set_freq=[1439]">Reset</a>)</li>
-		<li>[format_tag("ID Tag","id_tag")]</li>
+		<li>[format_tag("ID Tag","id_tag", "set_id")]</li>
 		<li><b>AAC Acces:</b> <a href="?src=\ref[src];toggleadvcontrol=1">[advcontrol ? "Allowed" : "Blocked"]</a>
 	</ul>
 	"}
 
 /obj/machinery/atmospherics/unary/vent_scrubber/multitool_topic(var/mob/user, var/list/href_list, var/obj/O)
-	. = ..()
-	if(.)
-		return .
 	if("toggleadvcontrol" in href_list)
 		advcontrol = !advcontrol
 		return MT_UPDATE
 
+	if("set_id" in href_list)
+		var/newid = copytext(reject_bad_text(input(usr, "Specify the new ID tag for this machine", src, src:id_tag) as null|text),1,MAX_MESSAGE_LEN)
+		if(!newid)
+			return
+
+		if(frequency == 1439)
+			initial_loc.air_scrub_info -= id_tag
+			initial_loc.air_scrub_names -= id_tag
+
+		id_tag = newid
+		broadcast_status()
+
+		return MT_UPDATE
+
+	return ..()
 
 /obj/machinery/atmospherics/unary/vent_scrubber/attackby(var/obj/item/weapon/W as obj, var/mob/user as mob, params)
 	if(istype(W, /obj/item/weapon/weldingtool))
@@ -350,11 +368,10 @@
 			"\blue You have unfastened \the [src].", \
 			"You hear ratchet.")
 		new /obj/item/pipe(loc, make_from=src)
-		del(src)
+		qdel(src)
 
-/obj/machinery/atmospherics/unary/vent_scrubber/Del()
-	if(initial_loc)
+/obj/machinery/atmospherics/unary/vent_scrubber/Destroy()
+	if(initial_loc  && frequency == 1439)
 		initial_loc.air_scrub_info -= id_tag
 		initial_loc.air_scrub_names -= id_tag
-	..()
-	return
+	return ..()
