@@ -119,7 +119,7 @@
 	if (building==0)
 		init()
 	else
-		area = src.loc.loc:master
+		area = src.loc.loc
 		area.apc |= src
 		opened = 1
 		operating = 0
