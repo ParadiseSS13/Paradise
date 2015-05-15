@@ -182,38 +182,39 @@ obj/machinery/air_sensor
 
 	proc/return_text()
 		var/sensor_data
-		if(sensors.len)
-			for(var/id_tag in sensors)
-				var/long_name = sensors[id_tag]
-				var/list/data = sensor_information[id_tag]
-				var/sensor_part = "<fieldset><legend>[long_name]</legend>"
+		if(show_sensors)
+			if(sensors.len)
+				for(var/id_tag in sensors)
+					var/long_name = sensors[id_tag]
+					var/list/data = sensor_information[id_tag]
+					var/sensor_part = "<fieldset><legend>[long_name]</legend>"
 
-				if(data)
-					sensor_part += "<table>"
-					if(data["pressure"])
-						sensor_part += "<tr><th>Pressure:</th><td>[data["pressure"]] kPa</td></tr>"
-					if(data["temperature"])
-						sensor_part += "<tr><th>Temperature:</th><td>[data["temperature"]] K</td></tr>"
-					if(data["oxygen"]||data["toxins"]||data["nitrogen"]||data["carbon_dioxide"])
-						sensor_part += "<tr><th>Gas Composition :</th><td><ul>"
-						if(data["oxygen"])
-							sensor_part += "<li>[data["oxygen"]]% O<sub>2</sub></li>"
-						if(data["nitrogen"])
-							sensor_part += "<li>[data["nitrogen"]]% N</li>"
-						if(data["carbon_dioxide"])
-							sensor_part += "<li>[data["carbon_dioxide"]]% CO<sub>2</sub></li>"
-						if(data["toxins"])
-							sensor_part += "<li>[data["toxins"]]% Plasma</li>"
-						sensor_part += "</ul></td></tr>"
-					sensor_part += "</table>"
+					if(data)
+						sensor_part += "<table>"
+						if(data["pressure"])
+							sensor_part += "<tr><th>Pressure:</th><td>[data["pressure"]] kPa</td></tr>"
+						if(data["temperature"])
+							sensor_part += "<tr><th>Temperature:</th><td>[data["temperature"]] K</td></tr>"
+						if(data["oxygen"]||data["toxins"]||data["nitrogen"]||data["carbon_dioxide"])
+							sensor_part += "<tr><th>Gas Composition :</th><td><ul>"
+							if(data["oxygen"])
+								sensor_part += "<li>[data["oxygen"]]% O<sub>2</sub></li>"
+							if(data["nitrogen"])
+								sensor_part += "<li>[data["nitrogen"]]% N</li>"
+							if(data["carbon_dioxide"])
+								sensor_part += "<li>[data["carbon_dioxide"]]% CO<sub>2</sub></li>"
+							if(data["toxins"])
+								sensor_part += "<li>[data["toxins"]]% Plasma</li>"
+							sensor_part += "</ul></td></tr>"
+						sensor_part += "</table>"
 
-				else
-					sensor_part += "<FONT color='red'>[long_name] can not be found!</FONT><BR>"
-				sensor_part += "</fieldset>"
-				sensor_data += sensor_part
+					else
+						sensor_part += "<FONT color='red'>[long_name] can not be found!</FONT><BR>"
+					sensor_part += "</fieldset>"
+					sensor_data += sensor_part
 
-		else
-			sensor_data = "<em>No sensors connected.</em>"
+			else
+				sensor_data = "<em>No sensors connected.</em>"
 
 		var/output = {"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
@@ -255,8 +256,8 @@ legend {
 	</head>
 	<body>
 		<h1>[name]</h1>
-		<h2>Sensor Data:</h2>
-		[sensor_data]"}
+		[show_sensors ? "<h2>Sensor Data:</h2>" + sensor_data : ""]
+		"}
 
 		return output
 
@@ -536,7 +537,7 @@ legend {
 
 		Topic(href, href_list)
 			if(..())
-				return
+				return 1
 
 			add_fingerprint(usr)
 
@@ -552,19 +553,19 @@ legend {
 			signal.source = src
 			if(href_list["in_refresh_status"])
 				input_info = null
-				signal.data = list ("tag" = input_tag, "status")
+				signal.data = list ("tag" = input_tag, "status" = 1)
 
 			else if(href_list["in_toggle_injector"])
 				input_info = null
-				signal.data = list ("tag" = input_tag, "power_toggle")
+				signal.data = list ("tag" = input_tag, "power_toggle" = 1)
 
 			else if(href_list["out_refresh_status"])
 				output_info = null
-				signal.data = list ("tag" = output_tag, "status")
+				signal.data = list ("tag" = output_tag, "status" = 1)
 
 			else if(href_list["out_toggle_power"])
 				output_info = null
-				signal.data = list ("tag" = output_tag, "power_toggle")
+				signal.data = list ("tag" = output_tag, "power_toggle" = 1)
 
 			else if(href_list["out_set_pressure"])
 				output_info = null
@@ -573,7 +574,7 @@ legend {
 				testing("Bad Topic() to GAC \"[src.name]\": [href]")
 				return*/ // NOPE. // disabling because it spams when multitool menus are used
 
-			signal.data["sigtype"]="command"
+			signal.data["sigtype"] = "command"
 			radio_connection.post_signal(src, signal, filter = RADIO_ATMOSIA)
 			src.updateUsrDialog()
 

@@ -191,10 +191,9 @@
 
 
 /obj/machinery/power/emitter/attackby(obj/item/W, mob/user, params)
-
-
 	if(istype(W, /obj/item/device/multitool))
 		update_multitool_menu(user)
+		return 1
 
 	if(istype(W, /obj/item/weapon/wrench))
 		if(active)

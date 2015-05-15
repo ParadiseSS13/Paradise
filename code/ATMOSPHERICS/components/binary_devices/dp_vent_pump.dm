@@ -145,6 +145,8 @@
 
 				if(network1)
 					network1.update = 1
+				air_update_turf()
+
 
 	else //external -> output
 		var/pressure_delta = 10000
@@ -164,6 +166,8 @@
 
 				if(network2)
 					network2.update = 1
+				air_update_turf()
+
 
 	return 1
 
@@ -206,16 +210,16 @@
 /obj/machinery/atmospherics/binary/dp_vent_pump/receive_signal(datum/signal/signal)
 	if(!signal.data["tag"] || (signal.data["tag"] != id_tag) || (signal.data["sigtype"]!="command") || (signal.data["advcontrol"] && !advcontrol))
 		return 0
-	if(signal.data["power"])
+	if(signal.data["power"] != null)
 		on = text2num(signal.data["power"])
 
-	if(signal.data["power_toggle"])
+	if(signal.data["power_toggle"] != null)
 		on = !on
 
-	if(signal.data["direction"])
+	if(signal.data["direction"] != null)
 		pump_direction = text2num(signal.data["direction"])
 
-	if(signal.data["checks"])
+	if(signal.data["checks"] != null)
 		pressure_checks = text2num(signal.data["checks"])
 
 	if(signal.data["purge"])
@@ -226,21 +230,21 @@
 		pressure_checks |= 1
 		pump_direction = 1
 
-	if(signal.data["set_input_pressure"])
+	if(signal.data["set_input_pressure"] != null)
 		input_pressure_min = between(
 			0,
 			text2num(signal.data["set_input_pressure"]),
 			ONE_ATMOSPHERE*50
 		)
 
-	if(signal.data["set_output_pressure"])
+	if(signal.data["set_output_pressure"] != null)
 		output_pressure_max = between(
 			0,
 			text2num(signal.data["set_output_pressure"]),
 			ONE_ATMOSPHERE*50
 		)
 
-	if(signal.data["set_external_pressure"])
+	if(signal.data["set_external_pressure"] != null)
 		external_pressure_bound = between(
 			0,
 			text2num(signal.data["set_external_pressure"]),

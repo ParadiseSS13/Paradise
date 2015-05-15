@@ -1,103 +1,121 @@
 /datum/automation/set_vent_pump_mode
 	name="Vent Pump: Mode"
 
-	var/vent_pump=null
-	var/mode="stabilize"
+	var/vent_pump = null
+	var/mode = "stabilize"
+	var/vent_type = 0//0 for unary vents, 1 for DP vents
 
 	var/list/modes = list("stabilize","purge")
 
 	Export()
 		var/list/json = ..()
-		json["vent_pump"]=vent_pump
-		json["mode"]=mode
+		json["vent_pump"] = vent_pump
+		json["mode"] = mode
+		json["vent_type"] = vent_type
 		return json
 
 	Import(var/list/json)
 		..(json)
 		vent_pump = json["vent_pump"]
 		mode = json["mode"]
-
-	New(var/obj/machinery/computer/general_air_control/atmos_automation/aa)
-		..(aa)
-		children=list(null)
+		vent_type = text2num(json["vent_type"])
 
 	process()
 		if(vent_pump)
-			var/dirvalue = (mode == "stabalize" ? 1 : mode == "purge" ? 0 : 1)
-			parent.send_signal(list ("tag" = vent_pump, "direction" = dirvalue),filter = RADIO_FROM_AIRALARM)
+			var/dirvalue = (mode == "stabilize" ? 1 : mode == "purge" ? 0 : 1)
+			parent.send_signal(list("tag" = vent_pump, "direction" = dirvalue), filter = (vent_type ? RADIO_ATMOSIA : RADIO_FROM_AIRALARM))
 		return 0
 
 	GetText()
-		return "Set vent pump <a href=\"?src=\ref[src];set_vent_pump=1\">[fmtString(vent_pump)]</a> mode to <a href=\"?src=\ref[src];set_mode=1\">[mode]</a>."
+		return "Set <a href=\"?src=\ref[src];toggle_type=1\">[vent_type ? "Dual-Port" : "Unary"]</a> vent pump <a href=\"?src=\ref[src];set_vent_pump=1\">[fmtString(vent_pump)]</a> mode to <a href=\"?src=\ref[src];set_mode=1\">[mode]</a>."
 
 	Topic(href,href_list)
 		if(..())
 			return 1
+
 		if(href_list["set_mode"])
 			mode = input("Select a mode to put this pump into.",mode) in modes
 			parent.updateUsrDialog()
 			return 1
+
 		if(href_list["set_vent_pump"])
-			var/list/injector_names=list()
-			for(var/obj/machinery/atmospherics/unary/vent_pump/I in machines)
-				if(!isnull(I.id_tag) && I.frequency == parent.frequency)
-					injector_names|=I.id_tag
-			for(var/obj/machinery/atmospherics/binary/dp_vent_pump/I in world)
-				//world << "test"
-				if(!isnull(I.id_tag) && I.frequency == parent.frequency)
-					injector_names|=I.id_tag
+			var/list/injector_names = list()
+			if(!vent_type)
+				for(var/obj/machinery/atmospherics/unary/vent_pump/I in machines)
+					if(!isnull(I.id_tag) && I.frequency == parent.frequency)
+						injector_names |= I.id_tag
+			else
+				for(var/obj/machinery/atmospherics/binary/dp_vent_pump/I in world)
+					//world << "test"
+					if(!isnull(I.id_tag) && I.frequency == parent.frequency)
+						injector_names |= I.id_tag
+
 			vent_pump = input("Select a vent:", "Vent Pumps", vent_pump) as null|anything in injector_names
+			parent.updateUsrDialog()
+			return 1
+
+		if(href_list["toggle_type"])
+			vent_type = !vent_type
 			parent.updateUsrDialog()
 			return 1
 
 /datum/automation/set_vent_pump_power
 	name="Vent Pump: Power"
 
-	var/vent_pump=null
-	var/state=0
+	var/vent_pump = null
+	var/state = 0
+	var/mode = 0//0 for unary vents, 1 for DP vents.
 
 	Export()
 		var/list/json = ..()
-		json["vent_pump"]=vent_pump
-		json["state"]=state
+		json["vent_pump"] = vent_pump
+		json["state"] = state
+		json["mode"] = mode
 		return json
 
 	Import(var/list/json)
 		..(json)
 		vent_pump = json["vent_pump"]
 		state = text2num(json["state"])
-
-	New(var/obj/machinery/computer/general_air_control/atmos_automation/aa)
-		..(aa)
+		mode = text2num(json["mode"])
 
 	process()
 		if(vent_pump)
-			parent.send_signal(list ("tag" = vent_pump, "power"=state), filter = RADIO_FROM_AIRALARM)
+			parent.send_signal(list ("tag" = vent_pump, "power" = state), filter = (mode ? RADIO_ATMOSIA : RADIO_FROM_AIRALARM))
 
 	GetText()
-		return "Set vent pump <a href=\"?src=\ref[src];set_vent_pump=1\">[fmtString(vent_pump)]</a> power to <a href=\"?src=\ref[src];set_power=1\">[state ? "on" : "off"]</a>."
+		return "Set <a href=\"?src=\ref[src];toggle_mode=1\">[mode ? "Dual-Port" : "Unary"]</a> vent pump <a href=\"?src=\ref[src];set_vent_pump=1\">[fmtString(vent_pump)]</a> power to <a href=\"?src=\ref[src];set_power=1\">[state ? "on" : "off"]</a>."
 
 	Topic(href,href_list)
 		if(..())
 			return 1
+
 		if(href_list["set_power"])
 			state = !state
 			parent.updateUsrDialog()
 			return 1
+
 		if(href_list["set_vent_pump"])
 			var/list/injector_names=list()
-			for(var/obj/machinery/atmospherics/unary/vent_pump/I in machines)
-				if(!isnull(I.id_tag) && I.frequency == parent.frequency)
-					injector_names|=I.id_tag
-			for(var/obj/machinery/atmospherics/binary/dp_vent_pump/I in world)
-				if(!isnull(I.id_tag) && I.frequency == parent.frequency)
-					injector_names|=I.id_tag
+			if(!mode)
+				for(var/obj/machinery/atmospherics/unary/vent_pump/I in machines)
+					if(!isnull(I.id_tag) && I.frequency == parent.frequency)
+						injector_names|=I.id_tag
+			else
+				for(var/obj/machinery/atmospherics/binary/dp_vent_pump/I in world)
+					if(!isnull(I.id_tag) && I.frequency == parent.frequency)
+						injector_names|=I.id_tag
 			vent_pump = input("Select a vent:", "Vent Pumps", vent_pump) as null|anything in injector_names
 			parent.updateUsrDialog()
 			return 1
 
+		if(href_list["toggle_mode"])
+			mode = !mode
+			parent.updateUsrDialog()
+			return 1
+
 /datum/automation/set_vent_pump_pressure//controls the internal/external pressure bounds of a vent pump.
-	name = "Vent pump: Pressure settings"
+	name = "Vent Pump: Pressure Settings"
 
 	var/vent_pump = null
 	var/intpressureout = 0//these 2 are for DP vents, if it's a unary vent you're sending to it will take intpressureout as var
@@ -207,7 +225,7 @@
 			return 1
 
 /datum/automation/set_vent_pressure_checks
-	name = "Vent pump: pressure checks"
+	name = "Vent Pump: Pressure Checks"
 
 	var/vent_pump = null
 	var/checks = 1

@@ -101,7 +101,7 @@ var/global/automation_types=typesof(/datum/automation) - /datum/automation
 	return str
 
 /datum/automation/Topic(href,href_list)
-	if(parent.CanUseTopic(usr, href_list))//dumb hack to check sanity, empty topic shouldn't trigger a 1 on anything but sanity checks
+	if(parent.Topic("src=\ref[parent]", list("src" = parent)))//dumb hack to check sanity, empty topic shouldn't trigger a 1 on anything but sanity checks
 		return 1
 
 	if(href_list["add"])

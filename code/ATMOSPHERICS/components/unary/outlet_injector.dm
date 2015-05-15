@@ -117,20 +117,20 @@
 	set_frequency(frequency)
 
 /obj/machinery/atmospherics/unary/outlet_injector/receive_signal(datum/signal/signal)
-	if(!signal.data["tag"] || (signal.data["tag"] != id_tag) || (signal.data["sigtype"]!="command"))
+	if(!signal.data["tag"] || (signal.data["tag"] != id_tag) || (signal.data["sigtype"] != "command"))
 		return 0
 
-	if(signal.data["power"])
+	if(signal.data["power"] != null)
 		on = text2num(signal.data["power"])
 
-	if(signal.data["power_toggle"])
+	if(signal.data["power_toggle"] != null)
 		on = !on
 
-	if(signal.data["inject"])
+	if(signal.data["inject"] != null)
 		spawn inject()
 		return
 
-	if(signal.data["set_volume_rate"])
+	if(signal.data["set_volume_rate"] != null)
 		var/number = text2num(signal.data["set_volume_rate"])
 		volume_rate = between(0, number, air_contents.volume)
 

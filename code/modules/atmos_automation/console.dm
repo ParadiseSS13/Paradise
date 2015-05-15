@@ -10,7 +10,7 @@
 
 	name = "Atmospherics Automations Console"
 
-	var/list/datum/automation/automations=list()
+	var/list/datum/automation/automations = list()
 
 	receive_signal(datum/signal/signal)
 		if(!signal || signal.encryption) return
@@ -118,7 +118,8 @@
 
 	Topic(href,href_list)
 		if(..())
-			return
+			return 1
+
 		if(href_list["on"])
 			on = !on
 			updateUsrDialog()

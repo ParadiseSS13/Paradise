@@ -290,7 +290,7 @@ Class Procs:
 			update_multitool_menu(usr)
 			return 1
 
-/obj/machinery/Topic(href, href_list, var/nowindow = 0, var/checkrange = 1)
+/obj/machinery/Topic(href, href_list, var/nowindow = 0, var/datum/topic_state/custom_state = default_state)
 	if(..())
 		return 1
 	handle_multitool_topic(href,href_list,usr)
@@ -311,8 +311,8 @@ Class Procs:
 /obj/machinery/CouldNotUseTopic(var/mob/user)
 	usr.unset_machine()
 
-////////////////////////////////////////////////////////////////////////////////////////////	
-	
+////////////////////////////////////////////////////////////////////////////////////////////
+
 /obj/machinery/attack_ai(var/mob/user as mob)
 	if(isrobot(user))
 		// For some reason attack_robot doesn't work
@@ -468,7 +468,7 @@ Class Procs:
 		I.loc = loc
 	del(src)
 	return 1
-	
+
 /obj/machinery/proc/on_assess_perp(mob/living/carbon/human/perp)
 	return 0
 

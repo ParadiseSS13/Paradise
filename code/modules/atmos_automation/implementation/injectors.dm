@@ -44,13 +44,13 @@
 
 /datum/automation/set_injector_rate
 	name = "Injector: Rate"
-	var/injector=null
-	var/rate=0
+	var/injector = null
+	var/rate = 0
 
 	Export()
 		var/list/json = ..()
-		json["injector"]=injector
-		json["rate"]=rate
+		json["injector"] = injector
+		json["rate"] = rate
 		return json
 
 	Import(var/list/json)
