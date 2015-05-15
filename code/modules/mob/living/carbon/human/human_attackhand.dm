@@ -55,6 +55,8 @@
 
 	var/datum/martial_art/attacker_style = M.martial_art
 
+	species.handle_attack_hand(src,M)
+
 	switch(M.a_intent)
 		if("help")
 			if(health >= config.health_threshold_crit)
@@ -116,30 +118,6 @@
 						message_admins("[M.name] ([M.ckey]) vampirebit [src.name] ([src.ckey])")
 						return
 				//end vampire codes
-
-				if(src.species.name == "Wryn")
-					if(src.handcuffed)
-						if(!(locate(src.internal_organs_by_name["antennae"]) in src.internal_organs))	return
-						var/turf/p_loc = M.loc
-						var/turf/p_loc_m = src.loc
-
-						M.visible_message("\blue [M] begins to violently pull off [src]'s antennae.")
-						src << "\red <B>[M] grips your antennae and starts violently pulling!<B>"
-						do_after(src, 250)
-						if(p_loc == M.loc && p_loc_m == src.loc)
-							del(src.internal_organs_by_name["antennae"])
-							src.remove_language("Wryn Hivemind")
-							new /obj/item/organ/wryn/hivenode(M.loc)
-							M << "\blue You hear a loud crunch as you mercilessly pull off [src]'s antennae."
-							src << "\red <B>You hear a loud crunch as your antennae is ripped off your head by [M].</B>"
-							src << "\red <B>Its so quiet...</B>"
-							src.h_style = "Bald"
-							src.update_hair()
-
-							M.attack_log += text("\[[time_stamp()]\] <font color='red'>removed antennae [src.name] ([src.ckey])</font>")
-							src.attack_log += text("\[[time_stamp()]\] <font color='orange'>Has had their antennae removed by [M.name] ([M.ckey])</font>")
-							msg_admin_attack("[key_name(M)] removed [key_name(src)]'s antennae")
-						return 0
 
 				M.do_attack_animation(src)
 				add_logs(src, M, "[pick(attack.attack_verb)]ed")

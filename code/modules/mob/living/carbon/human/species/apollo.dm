@@ -45,10 +45,33 @@
 /datum/species/wryn/handle_death(var/mob/living/carbon/human/H)
 	for(var/mob/living/carbon/C in world)
 		if(locate(/obj/item/organ/wryn/hivenode) in C.internal_organs)
-			C << "\red <B>Your antennae tingle as you are overcome with pain...</B>"
-			C << "\red It feels like part of you has died."
+			C << "<span class='danger'><B>Your antennae tingle as you are overcome with pain...</B></span>"
+			C << "<span class='danger'>It feels like part of you has died.</span>"
 
+/datum/species/wryn/handle_attack_hand(var/mob/living/carbon/human/H, var/mob/living/carbon/human/M)
+	if(M.a_intent == "harm")
+		if(H.handcuffed)
+			if(!(locate(H.internal_organs_by_name["antennae"]) in H.internal_organs))	return
+			var/turf/p_loc = M.loc
+			var/turf/p_loc_m = H.loc
 
+			M.visible_message("<span class='notice'>[M] begins to violently pull off [H]'s antennae.</span>")
+			H << "<span class='danger'><B>[M] grips your antennae and starts violently pulling!<B></span>"
+			do_after(H, 250)
+			if(p_loc == M.loc && p_loc_m == H.loc)
+				del(H.internal_organs_by_name["antennae"])
+				H.remove_language("Wryn Hivemind")
+				new /obj/item/organ/wryn/hivenode(M.loc)
+				M << "<span class='notice'>You hear a loud crunch as you mercilessly pull off [H]'s antennae.</span>"
+				H << "<span class='danger'><B>You hear a loud crunch as your antennae is ripped off your head by [M].</span></B>"
+				H << "<span class='danger'><span class='danger'><B>Its so quiet...</B></span>"
+				H.h_style = "Bald"
+				H.update_hair()
+
+				M.attack_log += text("\[[time_stamp()]\] <font color='red'>removed antennae [H.name] ([H.ckey])</font>")
+				H.attack_log += text("\[[time_stamp()]\] <font color='orange'>Has had their antennae removed by [M.name] ([M.ckey])</font>")
+				msg_admin_attack("[key_name(M)] removed [key_name(H)]'s antennae")
+			return 0
 
 /datum/species/nucleation
 	name = "Nucleation"
