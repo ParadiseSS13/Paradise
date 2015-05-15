@@ -6,29 +6,7 @@
 		tally -= 2
 
 	if(species.slowdown)
-		if(src.species.name == "Wryn")		//handles Wryn specific movement
-			if(!istype(get_turf(src), /turf/space))		//Space is 20c whut..
-				var/loc_temp = T0C
-				var/datum/gas_mixture/environment = loc.return_air()
-				if(istype(src.loc, /obj/mecha))
-					var/obj/mecha/M = src.loc
-					loc_temp =  M.return_temperature()
-				else
-					loc_temp = environment.temperature
-
-				switch(loc_temp)			//messy switch statement to assign the proper speed
-					if(0 to 213.15)			tally = -6	 //you deserve this, god speed to you
-					if(213.15 to 250.15) 	tally = -5	 //must get colder..
-					if(260.15 to 273.15)	tally = -4
-					if(273.15 to 283.15) 	tally = -3	 //pretty fast, though will likely never happen
-					if(283.15 to 300.15)	tally = 2	 //slower than humans at normal room temperatures
-					if(300.15 to 310.15)	tally = 5
-					if(317.15 to 400)		tally = 8
-					else					tally = 12	//Stop running into fire you stupid bug
-			else
-				tally = -7
-		else
-			tally = species.slowdown
+		tally = species.slowdown
 
 	if (istype(loc, /turf/space)) return -1 // It's hard to be slowed down in space by... anything
 
