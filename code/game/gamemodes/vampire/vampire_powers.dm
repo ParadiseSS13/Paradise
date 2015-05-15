@@ -273,9 +273,9 @@
 	var/atom/movable/lighting_overlay/L = locate(/atom/movable/lighting_overlay) in T
 	var/light_available
 	if(L)
-		light_available = max(0,min(10,L.lum_r + L.lum_g + L.lum_b)-5)
+		light_available = L.get_clamped_lum(0.5)*10
 	else
-		light_available = 5
+		light_available = 10
 
 	if(!istype(T))
 		return 0
@@ -446,7 +446,7 @@
 				if(T.y>world.maxy-outer_tele_radius || T.y<outer_tele_radius)	continue
 
 				var/atom/movable/lighting_overlay/L = locate(/atom/movable/lighting_overlay) in T
-				var/lightingcount =  max(0,min(10,L.lum_r + L.lum_g + L.lum_b)-5)
+				var/lightingcount =  L.get_clamped_lum(0.5)*10
 
 				// LIGHTING CHECK
 				if(lightingcount > max_lum) continue

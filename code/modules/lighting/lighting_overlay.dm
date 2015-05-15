@@ -25,6 +25,15 @@
 	. = ..()
 	verbs.Cut()
 
+/atom/movable/lighting_overlay/proc/get_clamped_lum(var/minlum = 0, var/maxlum = 1)
+	var/lum = max(lum_r, lum_g, lum_b)
+	if(lum <= minlum)
+		return 0
+	else if(lum >= maxlum)
+		return 1
+	else
+		return (lum - minlum) / (maxlum - minlum)
+
 /atom/movable/lighting_overlay/proc/update_lumcount(delta_r, delta_g, delta_b)
 	lum_r += delta_r
 	lum_g += delta_g
