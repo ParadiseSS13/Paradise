@@ -121,7 +121,7 @@
 		light_amount =  5
 	var/atom/movable/lighting_overlay/DL = locate(/atom/movable/lighting_overlay) in destination
 	if(DL)
-		DLlight_amount = L.lum_r + L.lum_g + L.lum_b
+		DLlight_amount = DL.lum_r + DL.lum_g + DL.lum_b
 	else
 		DLlight_amount =  5
 	if(T && destination)
