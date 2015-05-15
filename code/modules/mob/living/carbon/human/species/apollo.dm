@@ -64,7 +64,7 @@
 				new /obj/item/organ/wryn/hivenode(M.loc)
 				M << "<span class='notice'>You hear a loud crunch as you mercilessly pull off [H]'s antennae.</span>"
 				H << "<span class='danger'><B>You hear a loud crunch as your antennae is ripped off your head by [M].</span></B>"
-				H << "<span class='danger'><span class='danger'><B>Its so quiet...</B></span>"
+				H << "<span class='danger'><span class='danger'><B>It's so quiet...</B></span>"
 				H.h_style = "Bald"
 				H.update_hair()
 

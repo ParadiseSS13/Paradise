@@ -366,7 +366,7 @@
 
 /obj/item/organ/nucleation/strange_crystal
 	name = "strange crystal"
-	icon_state = "stramge-crystal"
+	icon_state = "strange-crystal"
 	organ_tag = "strange crystal"
 	parent_organ = "chest"
 
