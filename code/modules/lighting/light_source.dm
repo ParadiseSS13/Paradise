@@ -50,7 +50,7 @@
 /datum/light_source/proc/destroy()
 	destroyed = 1
 	force_update()
-	if(source_atom) source_atom.light_sources -= src
+	if(source_atom && source_atom.light_sources) source_atom.light_sources -= src
 	if(top_atom) top_atom.light_sources -= src
 
 /datum/light_source/proc/update(atom/new_top_atom)
