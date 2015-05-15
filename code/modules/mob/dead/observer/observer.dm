@@ -229,6 +229,9 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	if(A)
 		A.Entered(src)
 
+/mob/dead/observer/experience_pressure_difference()
+	return 0
+
 /mob/dead/observer/examine()
 	if(usr)
 		usr << desc

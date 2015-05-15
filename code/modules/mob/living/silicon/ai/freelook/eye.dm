@@ -77,6 +77,9 @@
 			return
 		return ai.eyeobj.loc
 
+/mob/aiEye/experience_pressure_difference()
+	return 0
+
 // AI MOVEMENT
 
 // The AI's "eye". Described on the top of the page.
