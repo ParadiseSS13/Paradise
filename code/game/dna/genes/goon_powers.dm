@@ -63,9 +63,9 @@
 		else
 			light_available = 5
 		if(light_available <= 2)
-			M.alpha = round(255 * 1.15)
+			M.alpha = round(M.alpha * 0.8)
 		else
-			M.alpha = round(255 * 0.80)
+			M.alpha = 255
 
 //WAS: /datum/bioEffect/chameleon
 /datum/dna/gene/basic/stealth/chameleon
