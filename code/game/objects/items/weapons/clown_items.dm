@@ -27,6 +27,8 @@
 			return
 		if(istype(M, /mob/living/carbon/human) && M:species.bodyflags & FEET_NOSLIP)
 			return
+		if(M.flying)
+			return
 
 		M.stop_pulling()
 		M << "\blue You slipped on the [name]!"
@@ -41,6 +43,8 @@
 	if (istype(AM, /mob/living/carbon))
 		var/mob/M =	AM
 		if (istype(M, /mob/living/carbon/human) && (isobj(M:shoes) && M:shoes.flags&NOSLIP) || M.buckled)
+			return
+		if(M.flying)
 			return
 
 		M.stop_pulling()

@@ -78,6 +78,8 @@
 			else
 				playsound(src, "jackboot", 20, 1)
 
+		if(M.flying)
+			return ..()
 
 		// Tracking blood
 		var/list/bloodDNA = null

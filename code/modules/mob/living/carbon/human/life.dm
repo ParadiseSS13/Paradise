@@ -1043,6 +1043,14 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 			if(jitteriness)
 				do_jitter_animation(jitteriness)
 
+			//Flying
+			if(flying)
+				spawn()
+					animate(src, pixel_y = pixel_y + 5 , time = 10, loop = 1, easing = SINE_EASING)
+				spawn(10)
+					if(flying)
+						animate(src, pixel_y = pixel_y - 5, time = 10, loop = 1, easing = SINE_EASING)
+
 			//Other
 			handle_statuses()
 
