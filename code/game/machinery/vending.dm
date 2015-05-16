@@ -168,9 +168,7 @@
 
 /obj/machinery/vending/RefreshParts()         //Better would be to make constructable child
 	if(component_parts)
-		build_inventory(products, start_empty = 1)
-		build_inventory(contraband, 1, 1)
-		build_inventory(premium, 0, 1, 1)
+		build_inventory()
 		for(var/obj/item/weapon/vending_refill/VR in component_parts)
 			refill_inventory(VR, product_records)
 
