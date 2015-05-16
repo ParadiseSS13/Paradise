@@ -62,54 +62,6 @@
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "fountainpen"
 
-/obj/item/weapon/lighter/zippo/fluff/li_matsuda_1 //mangled: Li Matsuda
-	name = "blue zippo lighter"
-	desc = "A zippo lighter made of some blue metal."
-	icon = 'icons/obj/custom_items.dmi'
-	icon_state = "bluezippo"
-	icon_on = "bluezippoon"
-	icon_off = "bluezippo"
-
-/obj/item/weapon/lighter/zippo/fluff/michael_guess_1 //Dragor23: Michael Guess
-	name = "engraved lighter"
-	desc = "A golden lighter, engraved with some ornaments and a G."
-	icon = 'icons/obj/custom_items.dmi'
-	icon_state = "guessip"
-	icon_on = "guessipon"
-	icon_off = "guessip"
-
-/obj/item/weapon/lighter/zippo/fluff/executivekill_1 //executivekill: Hunter Duke
-	name = "Gonzo Fist zippo"
-	desc = "A Zippo lighter with the iconic Gonzo Fist on a matte black finish."
-	icon = 'icons/obj/custom_items.dmi'
-	icon_state = "gonzozippo"
-	icon_on = "gonzozippoon"
-	icon_off = "gonzozippo"
-
-/obj/item/weapon/lighter/zippo/fluff/naples_1 //naples: Russell Vierson
-	name = "Engraved zippo"
-	desc = "A intricately engraved Zippo lighter."
-	icon = 'icons/obj/custom_items.dmi'
-	icon_state = "engravedzippo"
-	icon_on = "engravedzippoon"
-	icon_off = "engravedzippo"
-
-/obj/item/weapon/lighter/zippo/fluff/nt_rep
-	name = "gold engraved zippo"
-	desc = "An engraved golden Zippo lighter with the letters NT on it."
-	icon = 'icons/obj/custom_items.dmi'
-	icon_state = "zippo_nt_off"
-	icon_on = "zippo_nt_on"
-	icon_off = "zippo_nt_off"
-
-/obj/item/weapon/lighter/zippo/fluff/purple
-	name = "purple engraved zippo"
-	desc = "All craftsspacemanship is of the highest quality. It is encrusted with refined plasma sheets. On the item is an image of a dwarf and the words 'Strike the Earth!' etched onto the side."
-	icon = 'icons/obj/custom_items.dmi'
-	icon_state = "purple_zippo_off"
-	icon_on = "purple_zippo_on"
-	icon_off = "purple_zippo_off"
-
 /obj/item/weapon/card/id/fluff/lifetime	//fastler: Fastler Greay; it seemed like something multiple people would have
 	name = "Lifetime ID Card"
 	desc = "A modified ID card given only to those people who have devoted their lives to the better interests of Nanotrasen. It sparkles blue."

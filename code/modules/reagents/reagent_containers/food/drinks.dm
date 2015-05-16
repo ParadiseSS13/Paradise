@@ -372,3 +372,30 @@
 	desc = "A cup with the british flag emblazoned on it."
 	icon_state = "britcup"
 	volume = 30
+
+/obj/item/weapon/reagent_containers/food/drinks/flask/hand_made
+	name = "handmade flask"
+	desc = "A wooden flask with a silver lid and bottom. It has a matte, dark blue paint on it with the initials \"W.H.\" etched in black."
+	icon = 'icons/obj/custom_items.dmi'
+	icon_state = "williamhackett"
+
+/obj/item/weapon/reagent_containers/food/drinks/flask/thermos
+	name = "vintage thermos"
+	desc = "An older thermos with a faint shine."
+	icon = 'icons/obj/custom_items.dmi'
+	icon_state = "johann_erzatz_1"
+	volume = 50
+
+/obj/item/weapon/reagent_containers/food/drinks/flask/shiny
+	name = "shiny flask"
+	desc = "A shiny metal flask. It appears to have a Greek symbol inscribed on it."
+	icon = 'icons/obj/custom_items.dmi'
+	icon_state = "shinyflask"
+	volume = 50
+
+/obj/item/weapon/reagent_containers/food/drinks/flask/lithium
+	name = "Lithium Flask"
+	desc = "A flask with a Lithium Atom symbol on it."
+	icon = 'icons/obj/custom_items.dmi'
+	icon_state = "lithiumflask"
+	volume = 50

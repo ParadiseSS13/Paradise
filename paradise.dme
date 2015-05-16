@@ -11,7 +11,6 @@
 // END_PREFERENCES
 // BEGIN_INCLUDE
 #include "_maps\cyberiad.dm"
-#include "_maps\map_files\cyberiad\z8.dmm"
 #include "code\global.dm"
 #include "code\hub.dm"
 #include "code\names.dm"
@@ -669,6 +668,7 @@
 #include "code\game\objects\items\weapons\hydroponics.dm"
 #include "code\game\objects\items\weapons\kitchen.dm"
 #include "code\game\objects\items\weapons\legcuffs.dm"
+#include "code\game\objects\items\weapons\lighters.dm"
 #include "code\game\objects\items\weapons\manuals.dm"
 #include "code\game\objects\items\weapons\misc.dm"
 #include "code\game\objects\items\weapons\module.dm"
