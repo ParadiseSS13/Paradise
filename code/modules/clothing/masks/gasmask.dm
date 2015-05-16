@@ -138,7 +138,6 @@
 	flags = MASKCOVERSMOUTH | MASKCOVERSEYES | BLOCK_GAS_SMOKE_EFFECT | MASKINTERNALS | NODROP
 	var/cooldown = 0
 	action_button_name = "Hoot"
-	icon_action_button = "action_owlman"
 
 /obj/item/clothing/mask/gas/owl_mask/attack_self()
 	hoot()
@@ -170,7 +169,6 @@
 	ignore_maskadjust = 0
 	species_fit = list()
 	action_button_name = "HALT!"
-	icon_action_button = "action_sechailer"
 
 /obj/item/clothing/mask/gas/sechailer/swat
 	name = "\improper SWAT mask"

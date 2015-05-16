@@ -270,6 +270,12 @@
 		alpha = 255
 		return
 	var/turf/simulated/T = get_turf(src)
+	var/atom/movable/lighting_overlay/L = locate(/atom/movable/lighting_overlay) in T
+	var/light_available
+	if(L)
+		light_available = L.get_clamped_lum(0.5)*10
+	else
+		light_available = 10
 
 	if(!istype(T))
 		return 0
@@ -277,7 +283,7 @@
 	if(!mind.vampire.iscloaking)
 		alpha = 255
 		return 0
-	if(T.lighting_lumcount <= 2)
+	if(light_available <= 2)
 		alpha = round((255 * 0.15))
 		return 1
 	else
@@ -439,8 +445,11 @@
 				if(T.x>world.maxx-outer_tele_radius || T.x<outer_tele_radius)	continue	//putting them at the edge is dumb
 				if(T.y>world.maxy-outer_tele_radius || T.y<outer_tele_radius)	continue
 
+				var/atom/movable/lighting_overlay/L = locate(/atom/movable/lighting_overlay) in T
+				var/lightingcount =  L.get_clamped_lum(0.5)*10
+
 				// LIGHTING CHECK
-				if(T.lighting_lumcount > max_lum) continue
+				if(lightingcount > max_lum) continue
 				turfs += T
 
 			if(!turfs.len)

@@ -14,6 +14,7 @@
 	var/tail                     // Name of tail image in species effects icon file.
 	var/unarmed                  //For empty hand harm-intent attack
 	var/unarmed_type = /datum/unarmed_attack
+	var/slowdown = 0              // Passive movement speed malus (or boost, if negative)
 
 	var/breath_type = "oxygen"   // Non-oxygen gas breathed, if any.
 	var/poison_type = "plasma"   // Poisonous air.
@@ -46,6 +47,8 @@
 
 	var/max_hurt_damage = 9 // Max melee damage dealt + 5 if hulk
 	var/list/default_genes = list()
+
+	var/ventcrawler = 0 //Determines if the mob can go through the vents.
 
 	var/flags = 0       // Various specific features.
 	var/bloodflags=0
@@ -298,6 +301,8 @@
 /datum/species/proc/handle_death(var/mob/living/carbon/human/H) //Handles any species-specific death events (such as dionaea nymph spawns).
 	return
 
+/datum/species/proc/handle_attack_hand(var/mob/living/carbon/human/H, var/mob/living/carbon/human/M) //Handles any species-specific attackhand events.
+	return
 
 /datum/species/proc/say_filter(mob/M, message, datum/language/speaking)
 	return message
@@ -342,7 +347,7 @@
 	their native tongue is a heavy hissing laungage called Sinta'Unathi."
 
 	flags = HAS_LIPS | HAS_UNDERWEAR
-	bodyflags = FEET_CLAWS | HAS_TAIL | HAS_SKIN_COLOR
+	bodyflags = FEET_CLAWS | HAS_TAIL | HAS_SKIN_COLOR | TAIL_WAGGING
 
 	cold_level_1 = 280 //Default 260 - Lower is better
 	cold_level_2 = 220 //Default 200
@@ -357,6 +362,10 @@
 
 	reagent_tag = IS_UNATHI
 	base_color = "#066000"
+
+/datum/species/unathi/handle_death(var/mob/living/carbon/human/H)
+
+	H.stop_tail_wagging(1)
 
 /datum/species/tajaran
 	name = "Tajaran"
@@ -555,10 +564,11 @@
 	bodyflags = HAS_SKIN_COLOR
 	bloodflags = BLOOD_SLIME
 
+	//ventcrawler = 1 //ventcrawling commented out
+
 	has_organ = list(
 		"brain" = /obj/item/organ/brain/slime
 		)
-
 
 /datum/species/grey
 	name = "Grey"
@@ -601,6 +611,7 @@
 	language = "Rootspeak"
 	unarmed_type = /datum/unarmed_attack/diona
 	primitive = /mob/living/carbon/monkey/diona
+	slowdown = 5
 
 	warning_low_pressure = 50
 	hazard_low_pressure = -1
@@ -622,7 +633,7 @@
 	even the simplest concepts of other minds. Their alien physiology allows them survive happily off a diet of nothing but light, \
 	water and other radiation."
 
-	flags = NO_BREATHE | REQUIRE_LIGHT | IS_PLANT | RAD_ABSORB | NO_BLOOD | IS_SLOW | NO_PAIN
+	flags = NO_BREATHE | REQUIRE_LIGHT | IS_PLANT | RAD_ABSORB | NO_BLOOD | NO_PAIN
 
 	body_temperature = T0C + 15		//make the plant people have a bit lower body temperature, why not
 
@@ -717,10 +728,10 @@
 		if (organ_name == "head")			// do the head last as that's when the user will be transfered to the posibrain
 			continue
 		var/obj/item/organ/external/O = H.organs_by_name[organ_name]
-		if((O.body_part != UPPER_TORSO) && (O.body_part != LOWER_TORSO))  // We're making them fall apart, not gibbing them!
+		if(O && (O.body_part != UPPER_TORSO) && (O.body_part != LOWER_TORSO))  // We're making them fall apart, not gibbing them!
 			O.droplimb(1)
 	var/obj/item/organ/external/O = H.organs_by_name["head"]
-	O.droplimb(1)
+	if(O) O.droplimb(1)
 
 
 //Species unarmed attacks
@@ -735,6 +746,10 @@
 
 /datum/unarmed_attack/punch
 	attack_verb = list("punch")
+
+/datum/unarmed_attack/punch/weak
+	attack_verb = list("flail")
+	damage = 1
 
 /datum/unarmed_attack/diona
 	attack_verb = list("lash", "bludgeon")

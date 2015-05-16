@@ -2,14 +2,30 @@
 	icon = 'icons/turf/space.dmi'
 	name = "\proper space"
 	icon_state = "0"
+	dynamic_lighting = 0
 
 	temperature = TCMB
 	thermal_conductivity = OPEN_HEAT_TRANSFER_COEFFICIENT
 	heat_capacity = 700000
 
+	var/transition //These is used in transistions as a way to tell where on the "cube" of space you're transitioning from/to
+	var/destination_x
+	var/destination_y
+
 /turf/space/New()
 	if(!istype(src, /turf/space/transit))
 		icon_state = "[((x + y) ^ ~(x * y) + z) % 25]"
+	if(config)
+		update_starlight() //MC will initialize all the space turfs that get created before config
+
+/turf/space/proc/update_starlight()
+	if(!config)	return
+	if(!config.starlight)
+		return
+	if(locate(/turf/simulated) in orange(src,1))
+		set_light(config.starlight)
+	else
+		set_light(0)
 
 /turf/space/attack_paw(mob/user as mob)
 	return src.attack_hand(user)
@@ -77,109 +93,53 @@
 
 	inertial_drift(A)
 
-	if(ticker && ticker.mode)
+	if(transition)
 
-		// Okay, so let's make it so that people can travel z levels but not nuke disks!
-		// if(ticker.mode.name == "nuclear emergency")	return
-		if(A.z > MAX_Z) return // For "Unenterable" z levels, they have their own entrance/exit code, eg: Away missions
-		if (A.x <= TRANSITIONEDGE || A.x >= (world.maxx - TRANSITIONEDGE - 1) || A.y <= TRANSITIONEDGE || A.y >= (world.maxy - TRANSITIONEDGE - 1))
-			if(istype(A, /obj/effect/meteor)||istype(A, /obj/effect/space_dust))
-				del(A)
-				return
+		if(A.z > MAX_Z)	return //for away missions
 
-			if(istype(A, /obj/item/weapon/disk/nuclear)) // Don't let nuke disks travel Z levels  ... And moving this shit down here so it only fires when they're actually trying to change z-level.
-				del(A) //The disk's Destroy() proc ensures a new one is created
-				return
-			if(istype(A, /obj/item/flag/nation)) // Don't letflags travel Z levels  ... And moving this shit down here so it only fires when they're actually trying to change z-level.
-				var/obj/item/flag/nation/N = A
-				N.loc = N.startloc //The flag returns to base.
-				return
-			var/mob/living/MM = null
-			var/fukkendisk = A.GetTypeInAllContents(/obj/item/weapon/disk/nuclear)
-			var/obj/item/flag/nation/fukkenflag = A.GetTypeInAllContents(/obj/item/flag/nation)
-			if(fukkenflag)
-				fukkenflag.loc = fukkenflag.startloc
-				if(isliving(A))
-					A << "<span class='warning'>The flag you were carrying was just returned to it's base. Nice try.</span>"
-			if(fukkendisk)
-				if(isliving(A))
-					MM = A
-					if(MM.client && !MM.stat)
-						MM << "<span class='warning'>Something you are carrying is preventing you from leaving. Don't play stupid; you know exactly what it is.</span>"
-						if(MM.x <= TRANSITIONEDGE)
-							MM.inertia_dir = 4
-						else if(MM.x >= world.maxx -TRANSITIONEDGE)
-							MM.inertia_dir = 8
-						else if(MM.y <= TRANSITIONEDGE)
-							MM.inertia_dir = 1
-						else if(MM.y >= world.maxy -TRANSITIONEDGE)
-							MM.inertia_dir = 2
-					else
-						qdel(fukkendisk)//Make the disk respawn if it is on a clientless mob or corpse
-				else
-					qdel(fukkendisk)//Make the disk respawn if it is floating on its own
-				return
+		if(destination_x)
+			A.x = destination_x
 
+		if(destination_y)
+			A.y = destination_y
 
-			//Check if it's a mob pulling an object. Have the object transition with the mob if it's not the nuke disk
-			var/obj/was_pulling = null
+		var/mob/living/MM = null
+		var/fukkendisk = A.GetTypeInAllContents(/obj/item/weapon/disk/nuclear)
+		var/obj/item/flag/nation/fukkenflag = A.GetTypeInAllContents(/obj/item/flag/nation)
+		if(fukkenflag)
+			fukkenflag.loc = fukkenflag.startloc
+			if(isliving(A))
+				A << "<span class='warning'>The flag you were carrying was just returned to it's base. Nice try.</span>"
+		if(fukkendisk)
 			if(isliving(A))
 				MM = A
-				if(MM.pulling)
-					//Check for that fucking disk
-					if(istype(MM.pulling, /obj/item/weapon/disk/nuclear))
-						qdel(MM.pulling)
-					else
-						was_pulling = MM.pulling
-						fukkenflag = null
-						fukkendisk = was_pulling.GetTypeInAllContents(/obj/item/weapon/disk/nuclear)
-						fukkenflag = was_pulling.GetTypeInAllContents(/obj/item/flag/nation)
-						if(fukkenflag)
-							fukkenflag.loc = fukkenflag.startloc
-							if(isliving(A))
-								A << "<span class='warning'>The flag you were carrying was just returned to it's base. Nice try.</span>"
-						if(fukkendisk)
-							MM << "<span class='warning'>You think you saw something slip out of [was_pulling], but you couldn't tell where it went...</span>"
-							qdel(fukkendisk)
+				if(MM.client && !MM.stat)
+					MM << "<span class='warning'>Something you are carrying is preventing you from leaving. Don't play stupid; you know exactly what it is.</span>"
+					if(MM.x <= TRANSITIONEDGE)
+						MM.inertia_dir = 4
+					else if(MM.x >= world.maxx -TRANSITIONEDGE)
+						MM.inertia_dir = 8
+					else if(MM.y <= TRANSITIONEDGE)
+						MM.inertia_dir = 1
+					else if(MM.y >= world.maxy -TRANSITIONEDGE)
+						MM.inertia_dir = 2
+				else
+					qdel(fukkendisk)//Make the disk respawn if it is on a clientless mob or corpse
+			else
+				qdel(fukkendisk)//Make the disk respawn if it is floating on its own
+			return
 
-			var/move_to_z = src.z
-			var/safety = 1
+		A.z =  text2num(transition)
 
-			while(move_to_z == src.z)
-				var/move_to_z_str = pickweight(accessable_z_levels)
-				move_to_z = text2num(move_to_z_str)
-				safety++
-				if(safety > 10)
-					break
+		if(isliving(A))
+			var/mob/living/L = A
+			if(L.pulling)
+				var/turf/T = get_step(L.loc,turn(A.dir, 180))
+				L.pulling.loc = T
 
-			if(!move_to_z)
-				return
-
-			A.z = move_to_z
-
-			if(src.x <= TRANSITIONEDGE)
-				A.x = world.maxx - TRANSITIONEDGE - 2
-				A.y = rand(TRANSITIONEDGE + 2, world.maxy - TRANSITIONEDGE - 2)
-
-			else if (A.x >= (world.maxx - TRANSITIONEDGE - 1))
-				A.x = TRANSITIONEDGE + 1
-				A.y = rand(TRANSITIONEDGE + 2, world.maxy - TRANSITIONEDGE - 2)
-
-			else if (src.y <= TRANSITIONEDGE)
-				A.y = world.maxy - TRANSITIONEDGE -2
-				A.x = rand(TRANSITIONEDGE + 2, world.maxx - TRANSITIONEDGE - 2)
-
-			else if (A.y >= (world.maxy - TRANSITIONEDGE - 1))
-				A.y = TRANSITIONEDGE + 1
-				A.x = rand(TRANSITIONEDGE + 2, world.maxx - TRANSITIONEDGE - 2)
-
-			spawn (0)
-				if(was_pulling && MM)
-					was_pulling.loc = MM.loc
-					MM.pulling = was_pulling
-					was_pulling.pulledby = MM
-				if ((A && A.loc))
-					A.loc.Entered(A)
+		//now we're on the new z_level, proceed the space drifting
+		if ((A && A.loc))
+			A.loc.Entered(A)
 
 /turf/space/proc/Sandbox_Spacemove(atom/movable/A as mob|obj)
 	var/cur_x
@@ -289,3 +249,98 @@
 				if ((A && A.loc))
 					A.loc.Entered(A)
 	return
+
+
+/turf/space/proc/Assign_Destination()
+
+	if(transition)
+		if(x <= TRANSITIONEDGE) 							//west
+			destination_x = world.maxx - TRANSITIONEDGE - 2
+		else if (x >= (world.maxx - TRANSITIONEDGE - 1)) 	//east
+			destination_x = TRANSITIONEDGE + 1
+		else if (y <= TRANSITIONEDGE) 						//south
+			destination_y = world.maxy - TRANSITIONEDGE - 2
+		else if (y >= (world.maxy - TRANSITIONEDGE - 1)) 	//north
+			destination_y = TRANSITIONEDGE + 1
+
+/*
+  Set the space turf transitions for the "space cube"
+  Connections:
+     ___     ___
+   /_A_/|  /_F_/|
+  |   |C| |   |E|
+  |_B_|/  |_D_|/
+  Note that all maps except F are oriented with north towards A. A and F are oriented with north towards D.
+  The characters on the second cube should be upside down in this illustration, but aren't because of a lack of unicode support.
+*/
+proc/setup_map_transitions() //listamania
+
+	var/list/unplaced_z_levels = 			accessable_z_levels
+	var/list/free_zones = 					list("A", "B", "C", "D", "E", "F")
+	var/list/zone_connections = 			list("D ","C ","B ","E ","A ","C ","F ","E ","A ","D ","F ","B ","A ","E ","F ","C ","A ","B ","F ","D ","D ","C ","B ","E") //This describes the borders of a cube based on free zones, really!
+	var/text_zone_connections = 			list2text(zone_connections)
+	var/list/final_zone_connections =		list()
+	var/list/turfs_needing_transition =		list()
+	var/list/turfs_needing_destinations = 	list()
+	var/list/z_level_order = 				list()
+	var/z_level
+	var/placement
+	var/total_processed = 0
+
+	for(var/turf/space/S in world) //Define the transistions of the z levels
+		total_processed++
+		if (S.x == TRANSITIONEDGE || S.x == (world.maxx - TRANSITIONEDGE - 1) || S.y == TRANSITIONEDGE || S.y == (world.maxy - TRANSITIONEDGE - 1))
+			turfs_needing_transition += S
+
+	//if we've processed lots of turfs, switch to background processing to prevent being mistaken for an infinite loop
+	if(total_processed > 450000)
+		set background = 1
+
+	while(free_zones.len != 0) //Assign the sides of the cube
+		if(!unplaced_z_levels || !unplaced_z_levels.len) //if we're somehow unable to fill the cube, pad with deep space
+			z_level =  6
+		else
+			z_level = pick(unplaced_z_levels)
+		if(z_level > world.maxz) //A safety if one of the unplaced_z_levels doesn't actually exist
+			z_level =  6
+		placement = pick(free_zones)
+		text_zone_connections = replacetext(text_zone_connections, placement, "[z_level]")
+
+		for(var/turf/space/S in turfs_needing_transition) //pass the identity zone to the relevent turfs
+			if(S.transition && prob(50)) //In z = 6 (deep space) it's a bit of a crapshoot in terms of navigation
+				continue
+			if(S.z == z_level)
+				S.transition = num2text(z_level)
+				if(!(S in turfs_needing_destinations))
+					turfs_needing_destinations += S
+				if(S.z != 6) //deep space turfs need to hang around in case they get reassigned a zone
+					turfs_needing_transition -= S
+
+		z_level_order += num2text(z_level)
+		unplaced_z_levels -= z_level
+		free_zones -= placement
+
+	zone_connections = text2list(replacetext(text_zone_connections, " ", "\n")) //Convert the string back into a list
+
+	final_zone_connections.len = z_level_order.len
+
+	var/list/temp = list()
+
+	for(var/j=1, j<= 24, j++)
+		temp += zone_connections[j]
+		if(temp.len == 4) //Chunks of cardinal directions
+			final_zone_connections[z_level_order[j/4]] += temp
+			temp = list()
+
+	for(var/turf/space/S in turfs_needing_destinations) //replace the identity zone with the destination z-level
+		var/list/directions = final_zone_connections[S.transition]
+		if(S.x <= TRANSITIONEDGE)
+			S.transition = directions[Z_WEST]
+		else if(S.x >= (world.maxx - TRANSITIONEDGE - 1))
+			S.transition = directions[Z_EAST]
+		else if(S.y <= TRANSITIONEDGE)
+			S.transition = directions[Z_SOUTH]
+		else
+			S.transition = directions[Z_NORTH]
+
+		S.Assign_Destination()

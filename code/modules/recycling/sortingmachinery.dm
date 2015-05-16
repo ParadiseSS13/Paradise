@@ -6,24 +6,24 @@
 	density = 1
 	mouse_drag_pointer = MOUSE_ACTIVE_POINTER
 	var/obj/wrapped = null
+	var/init_welded = 0
 	var/giftwrapped = 0
 	var/sortTag = 0
 
 
 /obj/structure/bigDelivery/attack_hand(mob/user as mob)
 	playsound(src.loc, 'sound/items/poster_ripped.ogg', 50, 1)
-	qdel(src)
-
-/obj/structure/bigDelivery/Destroy()
-	if(wrapped) //sometimes items can disappear. For example, bombs. --rastaf0
-		wrapped.loc = (get_turf(loc))
+	if(wrapped)
+		wrapped.loc = get_turf(src)
 		if(istype(wrapped, /obj/structure/closet))
 			var/obj/structure/closet/O = wrapped
-			O.welded = 0
+			O.welded = init_welded
 	var/turf/T = get_turf(src)
-	for(var/atom/movable/AM in contents)
+	for(var/atom/movable/AM in src)
 		AM.loc = T
-	..()
+
+	qdel(src)
+
 
 /obj/structure/bigDelivery/attackby(obj/item/W as obj, mob/user as mob, params)
 	if(istype(W, /obj/item/device/destTagger))
@@ -170,6 +170,7 @@
 		if(use(3))
 			var/obj/structure/bigDelivery/P = new /obj/structure/bigDelivery(get_turf(O.loc))
 			P.wrapped = O
+			P.init_welded = O.welded
 			O.welded = 1
 			O.loc = P
 		else

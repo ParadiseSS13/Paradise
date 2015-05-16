@@ -33,6 +33,7 @@
 	if (can_operate(M))  //Checks if mob is lying down on table for surgery
 		if (do_surgery(M,user,src))
 			return 0
+
 	if (istype(M,/mob/living/carbon/brain))
 		messagesource = M:container
 	if (hitsound && force > 0)

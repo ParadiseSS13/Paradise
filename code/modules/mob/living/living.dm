@@ -529,8 +529,8 @@
 		for(var/atom/A in M.contents)
 			if(istype(A,/mob/living/simple_animal/borer) || istype(A,/obj/item/weapon/holder))
 				return
+		M.status_flags &= ~PASSEMOTES
 
-	M.status_flags &= ~PASSEMOTES
 	return
 
 /* resist_borer allows a mob to regain control of their body after a borer has assumed control.
@@ -572,21 +572,21 @@
 	for(var/obj/item/weapon/grab/G in usr.grabbed_by)
 		resisting++
 		if (G.state == 1)
-			del(G)
+			qdel(G)
 
 		else
 			if(G.state == 2)
-				if(prob(25))
+				if(prob(60))
 					for(var/mob/O in viewers(L, null))
 						O.show_message(text("\red [] has broken free of []'s grip!", L, G.assailant), 1)
-					del(G)
+					qdel(G)
 
 			else
 				if(G.state == 3)
 					if(prob(5))
 						for(var/mob/O in viewers(usr, null))
 							O.show_message(text("\red [] has broken free of []'s headlock!", L, G.assailant), 1)
-						del(G)
+						qdel(G)
 
 	if(resisting)
 		for(var/mob/O in viewers(usr, null))

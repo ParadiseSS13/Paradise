@@ -16,7 +16,7 @@
 	var/locked = 1
 
 	attack_self(mob/user as mob)
-		if (!ishuman(user) && !istype(user,/mob/living/silicon/robot/drone))
+		if (!ishuman(user) && !istype(user,/mob/living/silicon/robot))
 			return ..(user)
 
 		var/mob/living/carbon/human/H = user

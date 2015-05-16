@@ -55,7 +55,7 @@
 			L.update(0)
 		for(var/obj/item/device/pda/P in T.contents)
 			P.fon = 0
-			P.SetLuminosity(0)
+			P.set_light(0)
 		for(var/obj/effect/glowshroom/G in orange(2, usr)) //Very small radius
 			G.visible_message("<span class='warning'>\The [G] withers away!</span>")
 			qdel(G)
@@ -69,15 +69,15 @@
 				F.update_brightness()
 			for(var/obj/item/device/pda/P in H)
 				P.fon = 0
-				P.SetLuminosity(0) //failsafe
+				P.set_light(0) //failsafe
 			for(var/obj/item/clothing/head/helmet/space/rig/R in H)
 				if(R.on)
 					R.on = 0
 					R.icon_state = "rig[R.on]-[R._color]"
 					H.update_inv_head()
 					R.visible_message("<span class='danger'>[R]'s light fades and turns off.</span>")
-					H.SetLuminosity(H.luminosity - R.brightness_on)
-					R.SetLuminosity(0)
+					H.set_light(H.luminosity - R.brightness_on)
+					R.set_light(0)
 			if(H != usr)
 				H << "<span class='boldannounce'>You feel a chill and are plunged into darkness.</span>"
 			H.luminosity = 0 //This might not be required, but it just acts as another failsafe.
@@ -255,23 +255,23 @@
 			blind_smoke_acquired = 1
 			user << "<span class='shadowling'><i>The power of your thralls has granted you the <b>Blinding Smoke</b> ability. It will create a choking cloud that will blind any non-thralls who enter. \
 			</i></span>"
-			user.spell_list += new /obj/effect/proc_holder/spell/wizard/targeted/blindness_smoke
+			user.mind.AddSpell(new /obj/effect/proc_holder/spell/wizard/targeted/blindness_smoke)
 
 		if(thralls >= 5 && !drain_thrall_acquired)
 			drain_thrall_acquired = 1
 			user << "<span class='shadowling'><i>The power of your thralls has granted you the <b>Drain Thrall</b> ability. You can now drain nearby thralls to heal yourself.</i></span>"
-			user.spell_list += new /obj/effect/proc_holder/spell/wizard/aoe_turf/drain_thralls
+			user.mind.AddSpell(new /obj/effect/proc_holder/spell/wizard/aoe_turf/drain_thralls)
 
 		if(thralls >= 7 && !screech_acquired)
 			screech_acquired = 1
 			user << "<span class='shadowling'><i>The power of your thralls has granted you the <b>Sonic Screech</b> ability. This ability will shatter nearby windows and deafen enemies.</span>"
-			user.spell_list += new /obj/effect/proc_holder/spell/wizard/aoe_turf/unearthly_screech
+			user.mind.AddSpell(new /obj/effect/proc_holder/spell/wizard/aoe_turf/unearthly_screech)
 
 		if(thralls >= 9 && !thrall_swap_acquired)
 			thrall_swap_acquired = 1
 			user << "<span class='shadowling'><i>The power of your thralls has granted you the <b>Spatial Relocation</b> ability. This will, allow you to instantly swap places with one of your thralls in \
 			addition to shattering nearby lights.</i></span>"
-			user.spell_list += new /obj/effect/proc_holder/spell/wizard/targeted/spatial_relocation
+			user.mind.AddSpell(new /obj/effect/proc_holder/spell/wizard/targeted/spatial_relocation)
 
 		if(thralls < victory_threshold)
 			user << "<span class='shadowling'>You do not have the power to ascend. You require [victory_threshold] thralls, but only [thralls] living thralls are present.</span>"

@@ -157,6 +157,7 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 		item_state = icon_on
 		var/turf/T = get_turf(src)
 		T.visible_message(flavor_text)
+		set_light(2, 0.25, "#E38F46")
 		processing_objects.Add(src)
 
 
@@ -203,6 +204,7 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 
 /obj/item/clothing/mask/cigarette/proc/die()
 	var/turf/T = get_turf(src)
+	set_light(0)
 	var/obj/item/butt = new type_butt(T)
 	transfer_fingerprints_to(butt)
 	if(ismob(loc))
@@ -442,7 +444,7 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 					user.adjustFireLoss(5)
 					user.visible_message("<span class='notice'>After a few attempts, [user] manages to light the [src], they however burn their finger in the process.</span>")
 
-			user.SetLuminosity(user.luminosity + 2)
+			set_light(2)
 			processing_objects.Add(src)
 		else
 			lit = 0
@@ -455,7 +457,7 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 			else
 				user.visible_message("<span class='notice'>[user] quietly shuts off the [src].")
 
-			user.SetLuminosity(user.luminosity - 2)
+			set_light(0)
 			processing_objects.Remove(src)
 	else
 		return ..()
@@ -487,19 +489,6 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 		location.hotspot_expose(700, 5)
 	return
 
-
-/obj/item/weapon/lighter/pickup(mob/user)
-	if(lit)
-		SetLuminosity(0)
-		user.SetLuminosity(user.luminosity+2)
-	return
-
-
-/obj/item/weapon/lighter/dropped(mob/user)
-	if(lit)
-		user.SetLuminosity(user.luminosity-2)
-		SetLuminosity(2)
-	return
 
 ///////////
 //ROLLING//

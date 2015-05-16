@@ -16,7 +16,7 @@
 	var/autoprocess = 0
 	var/data[0]
 
-	l_color = "#0000FF"
+	light_color = "#315AB4"
 
 /obj/machinery/computer/cloning/New()
 	..()
@@ -36,8 +36,8 @@
 		for(var/datum/dna2/record/R in src.records)
 			if(!(pod1.occupant || pod1.mess))
 				if(pod1.growclone(R))
-					records.Remove(R)	
-	
+					records.Remove(R)
+
 /obj/machinery/computer/cloning/proc/updatemodules()
 	src.scanner = findscanner()
 	src.pod1 = findcloner()
@@ -113,7 +113,7 @@
 	data["pod"] = src.pod1
 	data["loading"] = loading
 	data["autoprocess"] = autoprocess
-	if(scanner && pod1 && ((scanner.scan_level > 2) || (pod1.efficiency > 5)))	
+	if(scanner && pod1 && ((scanner.scan_level > 2) || (pod1.efficiency > 5)))
 		data["autoallowed"] = 1
 	else
 		data["autoallowed"] = 0
@@ -123,19 +123,19 @@
 	data["temp"] = temp
 	data["scantemp"] = scantemp
 	data["disk"] = src.diskette
-	var/list/temprecords[0] 
+	var/list/temprecords[0]
 	for(var/datum/dna2/record/R in src.records)
 		var tempRealName = R.dna.real_name
 		temprecords.Add(list(list("record" = "\ref[R]", "realname" = tempRealName)))
 	data["records"] = temprecords
-	
+
 	if(src.menu == 3)
 		if (src.active_record)
 			data["activerecord"] = "\ref[src.active_record]"
 			var/obj/item/weapon/implant/health/H = null
 			if(src.active_record.implant)
 				H = locate(src.active_record.implant)
-			
+
 			if ((H) && (istype(H)))
 				data["health"] = H.sensehealth()
 			data["realname"] = src.active_record.dna.real_name
@@ -145,13 +145,13 @@
 			data["enoughbiomass"] = 1
 		else
 			data["enoughbiomass"] = 0
-	
+
 	// Set up the Nano UI
 	ui = nanomanager.try_update_ui(user, src, ui_key, ui, data, force_open)
 	if (!ui)
 		ui = new(user, src, ui_key, "cloning_console.tmpl", "Cloning Console UI", 640, 480)
-		ui.set_initial_data(data)		
-		ui.open()	
+		ui.set_initial_data(data)
+		ui.open()
 
 /obj/machinery/computer/cloning/Topic(href, href_list)
 	if(..())
@@ -179,7 +179,7 @@
 				nanomanager.update_uis(src)
 			if("stopautoprocess")
 				autoprocess = 0
-				nanomanager.update_uis(src)			
+				nanomanager.update_uis(src)
 
 	//No locking an open scanner.
 	else if ((href_list["lock"]) && (!isnull(src.scanner)))
@@ -267,7 +267,7 @@
 	else if (href_list["refresh"])
 		nanomanager.update_uis(src)
 
-	else if (href_list["clone"])		
+	else if (href_list["clone"])
 		var/datum/dna2/record/C = locate(href_list["clone"])
 		//Look for that player! They better be dead!
 		if(C)

@@ -474,7 +474,6 @@
 	armor = list(melee = 5, bullet = 0, laser = 0,energy = 0, bomb = 0, bio = 0, rad = 0)
 	allowed = list(/obj/item/weapon/gun/energy,/obj/item/weapon/reagent_containers/spray/pepper,/obj/item/weapon/gun/projectile,/obj/item/ammo_box,/obj/item/ammo_casing,/obj/item/weapon/melee/baton,/obj/item/weapon/restraints/handcuffs,/obj/item/device/flashlight/seclite)
 	action_button_name = "Toggle Owl Wings"
-	icon_action_button = "action_wings"
 	flags = NODROP
 
 /obj/item/clothing/suit/toggle/owlwings/griffinwings

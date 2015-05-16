@@ -75,7 +75,7 @@
 			src.playsound_local(source, speech_sound, sound_vol, 1)
 
 
-/mob/proc/hear_radio(var/message, var/verb="says", var/datum/language/language=null, var/part_a, var/part_b, var/mob/speaker = null, var/hard_to_hear = 0, var/vname ="")
+/mob/proc/hear_radio(var/message, var/verb="says", var/datum/language/language=null, var/part_a, var/part_b, var/mob/speaker = null, var/hard_to_hear = 0, var/vname ="", var/atom/follow_target)
 
 	if(!client)
 		return
@@ -85,6 +85,8 @@
 		return
 
 	var/track = null
+	if(!follow_target)
+		follow_target = speaker
 
 	//non-verbal languages are garbled if you can't see the speaker. Yes, this includes if they are inside a closet.
 	if (language && (language.flags & NONVERBAL))
@@ -160,12 +162,15 @@
 			else
 				track = "[speaker_name] ([jobname])"
 		else
-			track = "<a href='byond://?src=\ref[src];trackname=[html_encode(speaker_name)];track=\ref[speaker]'>[speaker_name] ([jobname])</a>"
+			if(istype(follow_target, /obj/machinery/bot) && isAI(src))
+				track = "<a href='byond://?src=\ref[src];track2=\ref[src];trackbot=\ref[follow_target]'>[speaker_name] ([jobname])</a>"
+			else
+				track = "<a href='byond://?src=\ref[src];trackname=[html_encode(speaker_name)];track=\ref[speaker]'>[speaker_name] ([jobname])</a>"
 
 	if(istype(src, /mob/dead/observer))
 		if(speaker_name != speaker.real_name && !isAI(speaker)) //Announce computer and various stuff that broadcasts doesn't use it's real name but AI's can't pretend to be other mobs.
 			speaker_name = "[speaker.real_name] ([speaker_name])"
-		track = "[speaker_name] (<a href='byond://?src=\ref[src];track=\ref[speaker]'>follow</a>)"
+		track = "[speaker_name] (<a href='byond://?src=\ref[src];track=\ref[follow_target]'>follow</a>)"
 
 	var/formatted
 	if(language)

@@ -9,7 +9,7 @@
 	slot_flags = SLOT_BELT
 	m_amt = 50
 	g_amt = 20
-	icon_action_button = "action_flashlight"
+	action_button_name = "Flashlight"
 	var/on = 0
 	var/brightness_on = 4 //luminosity when on
 
@@ -17,24 +17,18 @@
 	..()
 	if(on)
 		icon_state = "[initial(icon_state)]-on"
-		SetLuminosity(brightness_on)
+		set_light(brightness_on)
 	else
 		icon_state = initial(icon_state)
-		SetLuminosity(0)
+		set_light(0)
 
 /obj/item/device/flashlight/proc/update_brightness(var/mob/user = null)
 	if(on)
 		icon_state = "[initial(icon_state)]-on"
-		if(loc == user)
-			user.SetLuminosity(user.luminosity + brightness_on)
-		else if(isturf(loc))
-			SetLuminosity(brightness_on)
+		set_light(brightness_on)
 	else
 		icon_state = initial(icon_state)
-		if(loc == user)
-			user.SetLuminosity(user.luminosity - brightness_on)
-		else if(isturf(loc))
-			SetLuminosity(0)
+		set_light(0)
 
 /obj/item/device/flashlight/attack_self(mob/user)
 	if(!isturf(user.loc))
@@ -87,19 +81,6 @@
 	else
 		return ..()
 
-
-/obj/item/device/flashlight/pickup(mob/user)
-	if(on)
-		user.SetLuminosity(user.luminosity + brightness_on)
-		SetLuminosity(0)
-
-
-/obj/item/device/flashlight/dropped(mob/user)
-	if(on)
-		user.SetLuminosity(user.luminosity - brightness_on)
-		SetLuminosity(brightness_on)
-
-
 /obj/item/device/flashlight/pen
 	name = "penlight"
 	desc = "A pen-sized light, used by medical staff."
@@ -135,10 +116,10 @@
 	name = "flare"
 	desc = "A red Nanotrasen issued flare. There are instructions on the side, it reads 'pull cord, make light'."
 	w_class = 2.0
-	brightness_on = 7 // Pretty bright.
+	brightness_on = 8 // Made it brighter (from 7 to 8).
+	light_color = "#ff0000" // changed colour to a more brighter red.
 	icon_state = "flare"
 	item_state = "flare"
-	icon_action_button = null	//just pull it manually, neckbeard.
 	var/fuel = 0
 	var/on_damage = 7
 	var/produce_heat = 1500
@@ -194,10 +175,11 @@
 	item_state = "slime"
 	w_class = 1
 	brightness_on = 6
+	light_color = "#FFBF00"
 	on = 1 //Bio-luminesence has one setting, on.
 
 /obj/item/device/flashlight/slime/New()
-	SetLuminosity(brightness_on)
+	set_light(brightness_on)
 	spawn(1) //Might be sloppy, but seems to be necessary to prevent further runtimes and make these work as intended... don't judge me!
 		update_brightness()
 		icon_state = initial(icon_state)

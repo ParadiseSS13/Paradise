@@ -63,6 +63,8 @@
 		var/turf/simulated/wall/W = T
 		if(prob(volume/10))
 			W.ChangeTurf(/turf/simulated/floor)
+	if(istype(T, /turf/simulated/shuttle/))
+		new /obj/effect/hotspot(T)
 	return
 
 /datum/reagent/clf3/reaction_mob(var/mob/living/M, var/method=TOUCH, var/volume)
@@ -195,6 +197,11 @@ datum/reagent/blackpowder/reaction_turf(var/turf/T, var/volume) //oh shit
 	return
 
 /datum/reagent/blackpowder/on_ex_act()
+	var/location = get_turf(holder.my_atom)
+	var/datum/effect/effect/system/spark_spread/s = new /datum/effect/effect/system/spark_spread
+	s.set_up(2, 1, location)
+	s.start()
+	sleep(rand(10,15))
 	blackpowder_detonate(holder, volume)
 	holder.remove_reagent("blackpowder", volume)
 	return
@@ -206,6 +213,10 @@ datum/reagent/blackpowder/reaction_turf(var/turf/T, var/volume) //oh shit
 	var/ex_light = round(created_volume / 20)
 	var/ex_flash = round(created_volume / 8)
 	explosion(T,ex_severe,ex_heavy,ex_light,ex_flash, 1)
+	// If this black powder is in a decal, remove the decal, because it just exploded
+	if(istype(holder.my_atom, /obj/effect/decal/cleanable/dirt/blackpowder))
+		spawn(0)
+			qdel(holder.my_atom)
 	return
 
 /datum/reagent/flash_powder

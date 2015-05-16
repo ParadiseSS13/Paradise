@@ -1337,6 +1337,10 @@ mob/proc/yank_out_object()
 		usr << "<span class='warning'>You are banned from playing as NPC's.</span>"
 		return
 
+	if(!ticker || ticker.current_state < 3)
+		src << "<span class='warning'>You can't respawn as an NPC before the game starts!</span>"
+		return
+
 	if((usr in respawnable_list) && (stat==2 || istype(usr,/mob/dead/observer)))
 		var/list/creatures = list("Mouse")
 		for(var/mob/living/L in living_mob_list)
@@ -1456,3 +1460,16 @@ mob/proc/yank_out_object()
 			src.visible_message("<span class='warning'>[src] pukes all over \himself!</span>","<span class='warning'>You puke all over yourself!</span>")
 			location.add_vomit_floor(src, 1)
 		playsound(location, 'sound/effects/splat.ogg', 50, 1)
+
+/mob/proc/AddSpell(var/obj/effect/proc_holder/spell/spell)
+	spell_list += spell
+	if(!spell.action)
+		spell.action = new/datum/action/spell_action
+		spell.action.target = spell
+		spell.action.name = spell.name
+		spell.action.button_icon = spell.action_icon
+		spell.action.button_icon_state = spell.action_icon_state
+		spell.action.background_icon_state = spell.action_background_icon_state
+	if(isliving(src))
+		spell.action.Grant(src)
+	return

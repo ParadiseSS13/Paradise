@@ -27,6 +27,7 @@ emp_act
 				P.current = curloc
 				P.yo = new_y - curloc.y
 				P.xo = new_x - curloc.x
+				P.Angle = ""//round(Get_Angle(P,P.original))
 
 			return -1 // complete projectile permutation
 
@@ -491,10 +492,8 @@ emp_act
 
 /mob/living/carbon/human/experience_pressure_difference(pressure_difference, direction)
 	if(shoes)
-		if(istype(shoes,/obj/item/clothing/shoes/magboots)) //TODO: Make a not-shit shoe var system to negate airflow.
-			var/obj/item/clothing/shoes/magboots/MB = shoes
-			if(MB.magpulse)
-				return 0
+		if(istype(shoes,/obj/item/clothing/shoes/magboots) && (shoes.flags & NOSLIP)) //TODO: Make a not-shit shoe var system to negate airflow.
+			return 0
 	..()
 
 /mob/living/carbon/human/water_act(volume, temperature, source)

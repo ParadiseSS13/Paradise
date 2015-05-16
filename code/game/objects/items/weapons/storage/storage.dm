@@ -207,7 +207,7 @@
 		for(var/obj/item/I in contents)
 			var/found = 0
 			for(var/datum/numbered_display/ND in numbered_contents)
-				if(ND.sample_object.type == I.type)
+				if(ND.sample_object.type == I.type && ND.sample_object.name == I.name)
 					ND.number++
 					found = 1
 					break

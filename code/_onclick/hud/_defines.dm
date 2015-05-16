@@ -13,29 +13,6 @@
 	Therefore, the top right corner (except during admin shenanigans) is at "15,15"
 */
 
-//Upper left action buttons, displayed when you pick up an item that has this enabled.
-#define ui_action_slot1 "1:6,16:26"
-#define ui_action_slot2 "2:8,16:26"
-#define ui_action_slot3 "3:10,16:26"
-#define ui_action_slot4 "4:12,16:26"
-#define ui_action_slot5 "5:14,16:26"
-#define ui_action_slot6 "6:16,16:26"
-#define ui_action_slot7 "7:18,16:26"
-#define ui_action_slot8 "8:20,16:26"
-#define ui_action_slot9 "9:22,16:26"
-#define ui_action_slot10 "10:24,16:26"
-
-#define ui_power_slot1 "1:6,15:24"
-#define ui_power_slot2 "2:8,15:24"
-#define ui_power_slot3 "3:10,15:24"
-#define ui_power_slot4 "4:12,15:24"
-#define ui_power_slot5 "5:14,15:24"
-#define ui_power_slot6 "6:16,15:24"
-#define ui_power_slot7 "7:18,15:24"
-#define ui_power_slot8 "8:20,15:24"
-#define ui_power_slot9 "9:22,15:24"
-#define ui_power_slot10 "10:24,15:24"
-
 //Middle left indicators
 #define ui_alienplasmadisplay "1,6:15"
 

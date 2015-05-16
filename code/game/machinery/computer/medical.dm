@@ -16,7 +16,7 @@
 	var/temp = null
 	var/printing = null
 
-	l_color = "#0000FF"
+	light_color = "#315AB4"
 
 /obj/machinery/computer/med_data/attack_ai(user as mob)
 	return src.attack_hand(user)

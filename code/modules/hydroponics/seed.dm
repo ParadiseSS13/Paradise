@@ -162,10 +162,11 @@
 		var/obj/effect/plant/splat = new splat_type(T, src)
 		if(!istype(splat)) // Plants handle their own stuff.
 			splat.name = "[thrown.name] [pick("smear","smudge","splatter")]"
+			var/clr
 			if(get_trait(TRAIT_BIOLUM))
 				if(get_trait(TRAIT_BIOLUM_COLOUR))
-					splat.l_color = get_trait(TRAIT_BIOLUM_COLOUR)
-				splat.SetLuminosity(get_trait(TRAIT_BIOLUM))
+					clr = get_trait(TRAIT_BIOLUM_COLOUR)
+				splat.set_light(get_trait(TRAIT_BIOLUM), l_color = clr)
 			if(get_trait(TRAIT_PRODUCT_COLOUR))
 				splat.color = get_trait(TRAIT_PRODUCT_COLOUR)
 
@@ -278,12 +279,12 @@
 
 	// Handle light requirements.
 	if(!light_supplied)
-		var/area/A = get_area(current_turf)
-		if(A)
-			if(A.lighting_use_dynamic)
-				light_supplied = max(0,min(10,current_turf.lighting_lumcount)-5)
-			else
-				light_supplied =  5
+		var/atom/movable/lighting_overlay/L = locate(/atom/movable/lighting_overlay) in current_turf
+		if(L)
+			light_supplied = L.get_clamped_lum()*10
+		else
+			light_supplied =  5
+
 	if(light_supplied)
 		if(abs(light_supplied - get_trait(TRAIT_IDEAL_LIGHT)) > get_trait(TRAIT_LIGHT_TOLERANCE))
 			health_change += rand(1,3) * HYDRO_SPEED_MULTIPLIER
@@ -650,7 +651,8 @@
 			else
 				product = new /obj/item/weapon/reagent_containers/food/snacks/grown(get_turf(user),name)
 			if(get_trait(TRAIT_PRODUCT_COLOUR))
-				product.color = get_trait(TRAIT_PRODUCT_COLOUR)
+				if(!has_mob_product || (has_mob_product && has_mob_product != /mob/living/carbon/monkey/diona))
+					product.color = get_trait(TRAIT_PRODUCT_COLOUR)
 				if(istype(product,/obj/item/weapon/reagent_containers/food))
 					var/obj/item/weapon/reagent_containers/food/food = product
 					food.filling_color = get_trait(TRAIT_PRODUCT_COLOUR)
@@ -660,9 +662,10 @@
 				product.desc += " On second thought, something about this one looks strange."
 
 			if(get_trait(TRAIT_BIOLUM))
+				var/clr
 				if(get_trait(TRAIT_BIOLUM_COLOUR))
-					product.l_color = get_trait(TRAIT_BIOLUM_COLOUR)
-				product.SetLuminosity(get_trait(TRAIT_BIOLUM))
+					clr = get_trait(TRAIT_BIOLUM_COLOUR)
+				product.set_light(get_trait(TRAIT_BIOLUM), l_color = clr)
 
 			//Handle spawning in living, mobile products (like dionaea).
 			if(istype(product,/mob/living))

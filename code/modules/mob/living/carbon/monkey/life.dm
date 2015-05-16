@@ -67,6 +67,9 @@
 
 	//Status updates, death etc.
 	handle_regular_status_updates()
+
+	handle_actions()
+
 	update_canmove()
 
 	if(client)
@@ -437,10 +440,11 @@
 			var/light_amount = 0 //how much light there is in the place, affects receiving nutrition and healing
 			if(isturf(loc)) //else, there's considered to be no light
 				var/turf/T = loc
-				var/area/A = T.loc
-				if(A)
-					if(A.lighting_use_dynamic)	light_amount = min(10,T.lighting_lumcount) - 5 //hardcapped so it's not abused by having a ton of flashlights
-					else						light_amount =  5
+				var/atom/movable/lighting_overlay/L = locate(/atom/movable/lighting_overlay) in T
+				if(L)
+					light_amount = (L.get_clamped_lum()*10) - 5 //hardcapped so it's not abused by having a ton of flashlights
+				else
+					light_amount =  5
 
 			nutrition += light_amount
 			traumatic_shock -= light_amount

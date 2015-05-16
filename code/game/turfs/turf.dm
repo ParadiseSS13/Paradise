@@ -28,6 +28,8 @@
 
 	var/PathNode/PNode = null //associated PathNode in the A* algorithm
 
+	var/dynamic_lighting = 1
+
 /turf/New()
 	..()
 	for(var/atom/movable/AM as mob|obj in src)
@@ -115,7 +117,7 @@
 		return
 
 	var/atom/movable/M = atom
-
+	if(!M.simulated) return
 	var/loopsanity = 100
 	if(ismob(M))
 		if(!M:lastarea)
@@ -135,6 +137,7 @@
 	..()
 	var/objects = 0
 	for(var/atom/A as mob|obj|turf|area in range(1))
+		if(!A.simulated) return
 		if(objects > loopsanity)	break
 		objects++
 		spawn( 0 )
@@ -226,8 +229,9 @@
 /turf/proc/ChangeTurf(var/path)
 	if(!path)			return
 	if(path == type)	return src
-	var/old_lumcount = lighting_lumcount - initial(lighting_lumcount)
 	var/old_opacity = opacity
+	var/old_dynamic_lighting = dynamic_lighting
+	var/list/old_affecting_lights = affecting_lights
 	if(air_master)
 		air_master.remove_from_active(src)
 
@@ -237,18 +241,21 @@
 		W:Assimilate_Air()
 		W.RemoveLattice()
 
-	W.lighting_lumcount += old_lumcount
-	if(old_lumcount != W.lighting_lumcount)	//light levels of the turf have changed. We need to shift it to another lighting-subarea
-		W.lighting_changed = 1
-		lighting_controller.changed_turfs += W
-
-	if(old_opacity != W.opacity)			//opacity has changed. Need to update surrounding lights
-		if(W.lighting_lumcount)				//unless we're being illuminated, don't bother (may be buggy, hard to test)
-			W.UpdateAffectingLights()
+	for(var/turf/space/S in range(W,1))
+		S.update_starlight()
 
 	W.levelupdate()
-	W.CalculateAdjacentTurfs()
-	return W
+	W.air_update_turf(1)
+	. = W
+
+	affecting_lights = old_affecting_lights
+	if((old_opacity != opacity) || (dynamic_lighting != old_dynamic_lighting))
+		reconsider_lights()
+	if(dynamic_lighting != old_dynamic_lighting)
+		if(dynamic_lighting)
+			lighting_build_overlays()
+		else
+			lighting_clear_overlays()
 
 //////Assimilate Air//////
 /turf/simulated/proc/Assimilate_Air()

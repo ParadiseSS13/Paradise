@@ -24,23 +24,8 @@
 
 
 /atom/movable/Destroy()
-	if(opacity)
-		if(isturf(loc))
-			if(loc:lighting_lumcount > 1)
-				UpdateAffectingLights()
-	gcDestroyed = "Bye, world!"
-	tag = null
+	. = ..()
 	loc = null
-/*
-	if(istype(beams) && beams.len)
-		for(var/obj/effect/beam/B in beams)
-			if(B && B.target == src)
-				B.target = null
-			if(B.master && B.master.target == src)
-				B.master.target = null
-		beams.len = 0
-*/
-	..()
 
 /proc/delete_profile(var/type, code = 0)
 	if(!ticker || !ticker.current_state < 3) return

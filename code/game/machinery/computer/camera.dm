@@ -1,7 +1,8 @@
+var/camera_cache_id = 1
+
 /proc/invalidateCameraCache()
-	for(var/obj/machinery/computer/security/s in world)
-		s.camera_cache = null
-	
+	camera_cache_id = (++camera_cache_id % 999999)
+
 /obj/machinery/computer/security
 	name = "Camera Monitor"
 	desc = "Used to access the various cameras networks on the station."
@@ -10,8 +11,9 @@
 	var/obj/machinery/camera/current = null
 	var/list/network = list("")
 	var/last_pic = 1.0
-	l_color = "#B40000"
-	var/mapping = 0 
+	light_color = "#B40000"
+	var/mapping = 0
+	var/cache_id = 0
 	var/list/networks[0]
 	var/list/tempnets[0]
 	var/list/data[0]
@@ -26,21 +28,21 @@
 		networks["Research"] = list(access_rd,access_hos,access_captain)
 		networks["Prison"] = list(access_hos,access_captain)
 		networks["Labor"] = list(access_hos,access_captain)
-		networks["Interrogation"] = list(access_hos,access_captain)	
+		networks["Interrogation"] = list(access_hos,access_captain)
 		networks["Atmosphere Alarms"] = list(access_ce,access_hos,access_captain)
-		networks["Fire Alarms"] = list(access_ce,access_hos,access_captain)	
+		networks["Fire Alarms"] = list(access_ce,access_hos,access_captain)
 		networks["Power Alarms"] = list(access_ce,access_hos,access_captain)
-		networks["Supermatter"] = list(access_ce,access_hos,access_captain)	
-		networks["MiniSat"] = list(access_rd,access_hos,access_captain)	
-		networks["Singularity"] = list(access_ce,access_hos,access_captain)	
+		networks["Supermatter"] = list(access_ce,access_hos,access_captain)
+		networks["MiniSat"] = list(access_rd,access_hos,access_captain)
+		networks["Singularity"] = list(access_ce,access_hos,access_captain)
 		networks["Anomaly Isolation"] = list(access_rd,access_hos,access_captain)
 		networks["Toxins"] = list(access_rd,access_hos,access_captain)
 		networks["Telepad"] = list(access_rd,access_hos,access_captain)
 		networks["TestChamber"] = list(access_rd,access_hos,access_captain)
-		networks["ERT"] = list(access_cent_specops_commander,access_cent_commander)		
+		networks["ERT"] = list(access_cent_specops_commander,access_cent_commander)
 		networks["CentCom"] = list(access_cent_security,access_cent_commander)
 		networks["Thunderdome"] = list(access_cent_thunder,access_cent_commander)
-		
+
 	attack_ai(var/mob/user as mob)
 		return attack_hand(user)
 
@@ -52,17 +54,17 @@
 			return null
 		user.reset_view(current)
 		return 1
-		
+
 	// Network configuration
 	attackby(I as obj, user as mob, params)
 		access = list()
 		if(istype(I,/obj/item/weapon/card/id)) // If hit by a regular ID card.
-			var/obj/item/weapon/card/id/E = I	
+			var/obj/item/weapon/card/id/E = I
 			access = E.access
 			ui_interact(user)
 		else
 			..()
-			
+
 	emag_act(user as mob)
 		if(!emagged)
 			emagged = 1
@@ -70,12 +72,12 @@
 			ui_interact(user)
 		else
 			ui_interact(user)
-			
+
 	ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
 		if(src.z > 6) return
 		if(stat & (NOPOWER|BROKEN)) return
-		if(user.stat) return						
-		
+		if(user.stat) return
+
 		var/data[0]
 
 
@@ -104,14 +106,14 @@
 				data["current"] = cam
 
 		data["cameras"] = cameras
-		
+
 		tempnets.Cut()
 		if(emagged)
 			access = list(access_captain) // Assume captain level access when emagged
 			data["emagged"] = 1
 		if(isAI(user) || isrobot(user))
 			access = list(access_captain) // Assume captain level access when AI
-			
+
 		// Loop through the ID's permission, and check which networks the ID has access to.
 		for(var/l in networks) // Loop through networks.
 			for(var/m in networks[l]) // Loop through access levels of the networks.
@@ -119,10 +121,10 @@
 					if(l in network) // Checks if the network is currently active.
 						tempnets.Add(list(list("name" = l, "active" = 1)))
 					else
-						tempnets.Add(list(list("name" = l, "active" = 0)))	
+						tempnets.Add(list(list("name" = l, "active" = 0)))
 					break
 		data["networks"] = tempnets
-		
+
 		ui = nanomanager.try_update_ui(user, src, ui_key, ui, data, force_open)
 		if (!ui)
 			ui = new(user, src, ui_key, "sec_camera.tmpl", "Camera Console", 900, 800)
@@ -135,7 +137,7 @@
 			ui.set_initial_data(data)
 			ui.open()
 			ui.set_auto_update(1)
-			
+
 	Topic(href, href_list)
 		if(href_list["switchTo"])
 			if(src.z>6 || stat&(NOPOWER|BROKEN)) return
@@ -165,7 +167,7 @@
 			nanomanager.update_uis(src)
 		else
 			. = ..()
-						
+
 	attack_hand(var/mob/user as mob)
 		access = list()
 		if (src.z > 6)
@@ -175,22 +177,22 @@
 
 		if(!isAI(user))
 			user.set_machine(src)
-			
+
 		if(ishuman(user))
 			var/mob/living/carbon/human/H = user
 			if(H.wear_id)
 				var/obj/item/weapon/card/id/gold/C = H.wear_id
 				access = C.access
-		
+
 		ui_interact(user)
-	
+
 	// Check if camera is accessible when jumping
 	proc/can_access_camera(var/obj/machinery/camera/C)
 		var/list/shared_networks = src.network & C.network
 		if(shared_networks.len)
 			return 1
 		return 0
-	
+
 	// Switching to cameras
 	proc/switch_to_camera(var/mob/user, var/obj/machinery/camera/C)
 		if ((get_dist(user, src) > 1 || user.machine != src || user.blinded || !( user.canmove ) || !( C.can_use() )) && (!istype(user, /mob/living/silicon/ai)))
@@ -239,14 +241,14 @@
 			return
 		if(can_access_camera(jump_to))
 			switch_to_camera(user,jump_to)
-			
+
 // Camera control: mouse.
 /atom/DblClick()
 	..()
 	if(istype(usr.machine,/obj/machinery/computer/security))
 		var/obj/machinery/computer/security/console = usr.machine
 		console.jump_on_click(usr,src)
-		
+
 // Camera control: arrow keys.
 /mob/Move(n,direct)
 	if(istype(machine,/obj/machinery/computer/security))
@@ -278,6 +280,8 @@
 	desc = "Damn, they better have Paradise TV on these things."
 	icon = 'icons/obj/status_display.dmi'
 	icon_state = "entertainment"
+	light_color = "#FFEEDB"
+	light_range_on = 2
 	network = list("news")
 	luminosity = 0
 
@@ -285,16 +289,20 @@
 	name = "Security Camera Monitor"
 	desc = "An old TV hooked into the stations camera network."
 	icon_state = "security_det"
+	light_color = "#3848B3"
+	light_power_on = 0.5
 	network = list("SS13")
 
 /obj/machinery/computer/security/mining
 	name = "Outpost Camera Monitor"
 	desc = "Used to access the various cameras on the outpost."
 	icon_state = "miningcameras"
+	light_color = "#F9BBFC"
 	network = list("Mining Outpost")
 
 /obj/machinery/computer/security/engineering
 	name = "Engineering Camera Monitor"
 	desc = "Used to monitor fires and breaches."
 	icon_state = "engineeringcameras"
+	light_color = "#FAC54B"
 	network = list("Power Alarms","Atmosphere Alarms","Fire Alarms")

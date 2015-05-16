@@ -155,7 +155,6 @@
 	mag_type = "/obj/item/ammo_box/magazine/m545"
 	fire_sound = 'sound/weapons/Gunshot_smg.ogg'
 	action_button_name = "Toggle Grenade Launcher"
-	icon_action_button = "Action_c90gl"
 	can_suppress = 0
 	var/select = 1 //1 for boolets, 0 for explosions.
 	var/obj/item/weapon/gun/projectile/revolver/grenadelauncher/underbarrel

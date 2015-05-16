@@ -24,13 +24,13 @@
 	var/speed_coeff
 	var/efficiency
 
-	l_color = "#00FF00"
+	light_color = "#00FF00"
 	power_change()
 		..()
 		if(!(stat & (BROKEN|NOPOWER)))
-			SetLuminosity(2)
+			set_light(2)
 		else
-			SetLuminosity(0)
+			set_light(0)
 
 /obj/machinery/clonepod/New()
 	..()

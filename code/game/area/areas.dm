@@ -1,17 +1,5 @@
 // Areas.dm
 
-// Added to fix mech fabs 05/2013 ~Sayu
-// This is necessary due to lighting subareas.  If you were to go in assuming that things in
-// the same logical /area have the parent /area object... well, you would be mistaken.  If you
-// want to find machines, mobs, etc, in the same logical area, you will need to check all the
-// related areas.  This returns a master contents list to assist in that.
-/proc/area_contents(var/area/A)
-	if(!istype(A)) return null
-	var/list/contents = list()
-	for(var/area/LSA in A.related)
-		contents += LSA.contents
-	return contents
-
 // ===
 /area
 	var/global/global_uid = 0
@@ -20,9 +8,7 @@
 /area/New()
 	icon_state = ""
 	layer = 10
-	master = src //moved outside the spawn(1) to avoid runtimes in lighting.dm when it references loc.loc.master ~Carn
 	uid = ++global_uid
-	related = list(src)
 	active_areas += src
 	all_areas += src
 
@@ -36,20 +22,15 @@
 //		lighting_state = 4
 		//has_gravity = 0    // Space has gravity.  Because.. because.
 
-	if(requires_power)
-		luminosity = 0
-	else
+	if(!requires_power)
 		power_light = 0			//rastaf0
 		power_equip = 0			//rastaf0
 		power_environ = 0		//rastaf0
-		luminosity = 1
-		lighting_use_dynamic = 0
 
 	..()
 
 //	spawn(15)
 	power_change()		// all machines set to current power level, also updates lighting icon
-	InitializeLighting()
 
 
 /area/proc/poweralert(var/state, var/obj/source as obj)
@@ -57,16 +38,15 @@
 		poweralm = state
 		if(istype(source))	//Only report power alarms on the z-level where the source is located.
 			var/list/cameras = list()
-			for (var/area/RA in related)
-				for (var/obj/machinery/camera/C in RA)
-					if(!report_alerts)
-						break
-					cameras += C
-					if(state == 1)
+			for (var/obj/machinery/camera/C in src)
+				if(!report_alerts)
+					break
+				cameras += C
+				if(state == 1)
 
-						C.network.Remove("Power Alarms")
-					else
-						C.network.Add("Power Alarms")
+					C.network.Remove("Power Alarms")
+				else
+					C.network.Add("Power Alarms")
 			for (var/mob/living/silicon/aiPlayer in player_list)
 				if(!report_alerts)
 					break
@@ -93,15 +73,14 @@
 	var/danger_level = 0
 
 	// Determine what the highest DL reported by air alarms is
-	for (var/area/RA in related)
-		for(var/obj/machinery/alarm/AA in RA)
-			if((AA.stat & (NOPOWER|BROKEN)) || AA.shorted || AA.buildstage != 2)
-				continue
-			var/reported_danger_level=AA.local_danger_level
-			if(AA.alarmActivated)
-				reported_danger_level=2
-			if(reported_danger_level>danger_level)
-				danger_level=reported_danger_level
+	for(var/obj/machinery/alarm/AA in src)
+		if((AA.stat & (NOPOWER|BROKEN)) || AA.shorted || AA.buildstage != 2)
+			continue
+		var/reported_danger_level=AA.local_danger_level
+		if(AA.alarmActivated)
+			reported_danger_level=2
+		if(reported_danger_level>danger_level)
+			danger_level=reported_danger_level
 //			testing("Danger level at [AA.name]: [AA.local_danger_level] (reported [reported_danger_level])")
 
 //	testing("Danger level decided upon in [name]: [danger_level] (from [atmosalm])")
@@ -111,13 +90,11 @@
 		// Going to danger level 2 from something else
 		if (danger_level == 2)
 			var/list/cameras = list()
-			for(var/area/RA in related)
-				//updateicon()
-				for(var/obj/machinery/camera/C in RA)
-					if(!report_alerts)
-						break
-					cameras += C
-					C.network.Add("Atmosphere Alarms")
+			for(var/obj/machinery/camera/C in src)
+				if(!report_alerts)
+					break
+				cameras += C
+				C.network.Add("Atmosphere Alarms")
 			for(var/mob/living/silicon/aiPlayer in player_list)
 				if(!report_alerts)
 					break
@@ -130,11 +107,10 @@
 			CloseFirelocks()
 		// Dropping from danger level 2.
 		else if (atmosalm == 2)
-			for(var/area/RA in related)
-				for(var/obj/machinery/camera/C in RA)
-					if(!report_alerts)
-						break
-					C.network.Remove("Atmosphere Alarms")
+			for(var/obj/machinery/camera/C in src)
+				if(!report_alerts)
+					break
+				C.network.Remove("Atmosphere Alarms")
 			for(var/mob/living/silicon/aiPlayer in player_list)
 				if(!report_alerts)
 					break
@@ -179,12 +155,11 @@
 		mouse_opacity = 0
 		CloseFirelocks()
 		var/list/cameras = list()
-		for(var/area/RA in related)
-			for (var/obj/machinery/camera/C in RA)
-				if(!report_alerts)
-					continue
-				cameras.Add(C)
-				C.network.Add("Fire Alarms")
+		for (var/obj/machinery/camera/C in src)
+			if(!report_alerts)
+				continue
+			cameras.Add(C)
+			C.network.Add("Fire Alarms")
 		for (var/mob/living/silicon/ai/aiPlayer in player_list)
 			if(!report_alerts)
 				continue
@@ -199,11 +174,10 @@
 		fire = 0
 		mouse_opacity = 0
 		updateicon()
-		for(var/area/RA in related)
-			for (var/obj/machinery/camera/C in RA)
-				if(!report_alerts)
-					continue
-				C.network.Remove("Fire Alarms")
+		for (var/obj/machinery/camera/C in src)
+			if(!report_alerts)
+				continue
+			C.network.Remove("Fire Alarms")
 		for (var/mob/living/silicon/ai/aiPlayer in player_list)
 			if(!report_alerts)
 				continue
@@ -293,67 +267,66 @@
 
 /area/proc/powered(var/chan)		// return true if the area has power to given channel
 
-	if(!master.requires_power)
+	if(!requires_power)
 		return 1
-	if(master.always_unpowered)
+	if(always_unpowered)
 		return 0
 	switch(chan)
 		if(EQUIP)
-			return master.power_equip
+			return power_equip
 		if(LIGHT)
-			return master.power_light
+			return power_light
 		if(ENVIRON)
-			return master.power_environ
+			return power_environ
 
 	return 0
 
 // called when power status changes
 
 /area/proc/power_change()
-	master.powerupdate = 2
-	for(var/area/RA in related)
-		for(var/obj/machinery/M in RA)	// for each machine in the area
-			M.power_change()				// reverify power status (to update icons etc.)
-		if (fire || eject || party)
-			RA.updateicon()
+	powerupdate = 2
+	for(var/obj/machinery/M in src)	// for each machine in the area
+		M.power_change()				// reverify power status (to update icons etc.)
+	if (fire || eject || party)
+		updateicon()
 
 /area/proc/usage(var/chan)
 	var/used = 0
 	switch(chan)
 		if(LIGHT)
-			used += master.used_light
+			used += used_light
 		if(EQUIP)
-			used += master.used_equip
+			used += used_equip
 		if(ENVIRON)
-			used += master.used_environ
+			used += used_environ
 		if(TOTAL)
-			used += master.used_light + master.used_equip + master.used_environ
+			used += used_light + used_equip + used_environ
 
 	return used
 
 /area/proc/clear_usage()
 
-	master.used_equip = 0
-	master.used_light = 0
-	master.used_environ = 0
+	used_equip = 0
+	used_light = 0
+	used_environ = 0
 
 /area/proc/use_power(var/amount, var/chan)
 	switch(chan)
 		if(EQUIP)
-			master.used_equip += amount
+			used_equip += amount
 		if(LIGHT)
-			master.used_light += amount
+			used_light += amount
 		if(ENVIRON)
-			master.used_environ += amount
+			used_environ += amount
 
 /area/proc/use_battery_power(var/amount, var/chan)
 	switch(chan)
 		if(EQUIP)
-			master.used_equip += amount
+			used_equip += amount
 		if(LIGHT)
-			master.used_light += amount
+			used_light += amount
 		if(ENVIRON)
-			master.used_environ += amount
+			used_environ += amount
 
 
 /area/Entered(A)
@@ -418,15 +391,11 @@
 						L.client.played = 0
 
 /area/proc/gravitychange(var/gravitystate = 0, var/area/A)
-
 	A.has_gravity = gravitystate
 
-	for(var/area/SubA in A.related)
-		SubA.has_gravity = gravitystate
-
-		if(gravitystate)
-			for(var/mob/living/carbon/human/M in SubA)
-				thunk(M)
+	if(gravitystate)
+		for(var/mob/living/carbon/human/M in A)
+			thunk(M)
 
 /area/proc/thunk(var/mob/living/carbon/human/M)
 	if(istype(M,/mob/living/carbon/human/))  // Only humans can wear magboots, so we give them a chance to.

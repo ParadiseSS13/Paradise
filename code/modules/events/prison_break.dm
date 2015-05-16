@@ -3,8 +3,8 @@
 
 	var/releaseWhen = 25
 	var/list/area/prisonAreas = list()
-	var/list/area/potentialAreas = list(/area/security/prison,/area/security/brig,/area/security/processing,/area/security/permabrig,/area/security/lobby,/area/security/lobby)
-	var/list/area/candidateAreas = list()
+	var/list/potentialAreas = list("/area/security/prison","/area/security/brig","/area/security/processing","/area/security/permabrig","/area/security/lobby","/area/security/lobby")
+	var/list/candidateAreas = list()
 
 /datum/event/prison_break/setup()
 	announceWhen = rand(50, 60)
@@ -13,39 +13,23 @@
 	src.startWhen = src.releaseWhen-1
 	src.endWhen = src.releaseWhen+1
 
-
-/datum/event/prison_break/announce()
-	if(prisonAreas && prisonAreas.len > 0)
-		command_announcement.Announce("[pick("Gr3y.T1d3 virus","Malignant trojan")] detected in [station_name()] imprisonment subroutines. Recommend station AI involvement.", "Security Alert")
-	else
-		world.log << "ERROR: Could not initate grey-tide. Unable find prison or brig area."
-		kill()
-
-/datum/event/prison_break/setup()
-	announceWhen = rand(50, 60)
-	releaseWhen = rand(20, 30)
-
-	src.startWhen = src.releaseWhen-1
-	src.endWhen = src.releaseWhen+1
-
-
-/datum/event/prison_break/announce()
-	if(prisonAreas && prisonAreas.len > 0)
-		command_announcement.Announce("[pick("Gr3y.T1d3 virus","Malignant trojan")] detected in [station_name()] imprisonment subroutines. Recommend station AI involvement.", "Security Alert")
-	else
-		world.log << "ERROR: Could not initate grey-tide. Unable find prison or brig area."
-		kill()
-
-
-/datum/event/prison_break/start()
-	for(var/areapath in potentialAreas)
-		candidateAreas += typesof(areapath)
+	for(var/areaa in potentialAreas)
+		var/path = text2path(areaa)
+		candidateAreas += typesof(path)
 
 	for(var/area/A in world)
-		if(istype(A, candidateAreas))
+		if(is_type_in_list(A, candidateAreas))
 			prisonAreas += A
 
 
+/datum/event/prison_break/announce()
+	if(prisonAreas && prisonAreas.len > 0)
+		command_announcement.Announce("[pick("Gr3y.T1d3 virus","Malignant trojan")] detected in [station_name()] imprisonment subroutines. Recommend station AI involvement.", "Security Alert")
+	else
+		world.log << "ERROR: Could not initate grey-tide. Unable find prison or brig area."
+		kill()
+
+/datum/event/prison_break/start()
 	if(prisonAreas && prisonAreas.len > 0)
 		for(var/area/A in prisonAreas)
 			for(var/obj/machinery/light/L in A)

@@ -108,6 +108,8 @@
 	handle_weakened()
 	handle_paralysed()
 
+	handle_actions()
+
 	//Movement
 	if(!client && !stop_automated_movement && wander && (ckey == null))
 		if(isturf(src.loc) && !resting && !buckled && canmove)		//This is so it only moves if it's not inside a closet, gentics machine, etc.

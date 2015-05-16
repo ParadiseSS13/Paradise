@@ -119,7 +119,7 @@
 	if (building==0)
 		init()
 	else
-		area = src.loc.loc:master
+		area = src.loc.loc
 		area.apc |= src
 		opened = 1
 		operating = 0
@@ -1325,11 +1325,10 @@ obj/machinery/power/apc/proc/autoset(var/val, var/on)
 	if( cell && cell.charge>=20)
 		cell.use(20);
 		spawn(0)
-			for(var/area/A in area.related)
-				for(var/obj/machinery/light/L in A)
-					L.on = 1
-					L.broken()
-					sleep(1)
+			for(var/obj/machinery/light/L in area)
+				L.on = 1
+				L.broken()
+				sleep(1)
 
 /obj/machinery/power/apc/Destroy()
 	if(malfai && operating)

@@ -66,7 +66,7 @@ Obviously, requires DNA2.
 
 	invocation_type = "none"
 
-	icon_power_button = "genetic_hulk"
+	action_icon_state = "genetic_hulk"
 
 /obj/effect/proc_holder/spell/wizard/targeted/hulk/New()
 	desc = "Get mad!  For [HULK_DURATION/10] seconds, anyway."
@@ -118,7 +118,7 @@ Obviously, requires DNA2.
 	include_user = 1
 	selection_type = "range"
 
-	icon_power_button = "genetic_morph"
+	action_icon_state = "genetic_morph"
 
 /obj/effect/proc_holder/spell/wizard/targeted/morph/cast(list/targets)
 	if(!ishuman(usr))	return
@@ -217,7 +217,7 @@ Obviously, requires DNA2.
 	range = -2
 	selection_type = "range"
 
-	icon_power_button = "genetic_project"
+	action_icon_state = "genetic_project"
 
 /obj/effect/proc_holder/spell/wizard/targeted/remotetalk/choose_targets(mob/user = usr)
 	var/list/targets = new /list()
@@ -277,7 +277,7 @@ Obviously, requires DNA2.
 	range = -2
 	selection_type = "range"
 
-	icon_power_button = "genetic_view"
+	action_icon_state = "genetic_view"
 
 /obj/effect/proc_holder/spell/wizard/targeted/remoteview/choose_targets(mob/user = usr)
 	var/list/targets = living_mob_list

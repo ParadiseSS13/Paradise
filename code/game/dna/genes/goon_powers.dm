@@ -56,10 +56,16 @@
 		var/turf/simulated/T = get_turf(M)
 		if(!istype(T))
 			return
-		if(T.lighting_lumcount <= 2)
-			M.alpha = round(255 * 1.15)
+		var/atom/movable/lighting_overlay/L = locate(/atom/movable/lighting_overlay) in T
+		var/light_available
+		if(L)
+			light_available = L.get_clamped_lum()*10
 		else
-			M.alpha = round(255 * 0.80)
+			light_available = 5
+		if(light_available <= 2)
+			M.alpha = round(M.alpha * 0.8)
+		else
+			M.alpha = 255
 
 //WAS: /datum/bioEffect/chameleon
 /datum/dna/gene/basic/stealth/chameleon
@@ -84,7 +90,7 @@
 	var/obj/effect/proc_holder/spell/wizard/spelltype
 
 	activate(var/mob/M, var/connected, var/flags)
-		M.spell_list += new spelltype(M)
+		M.AddSpell(new spelltype(M))
 		..()
 		return 1
 
@@ -138,7 +144,7 @@
 //	centcomm_cancast = 0
 	var/list/compatible_mobs = list(/mob/living/carbon/human, /mob/living/carbon/monkey)
 
-	icon_power_button = "genetic_cryo"
+	action_icon_state = "genetic_cryo"
 
 /obj/effect/proc_holder/spell/wizard/targeted/cryokinesis/cast(list/targets)
 	if(!targets.len)
@@ -232,7 +238,7 @@
 	range = 1
 	selection_type = "view"
 
-	icon_power_button = "genetic_eat"
+	action_icon_state = "genetic_eat"
 
 	var/list/types_allowed=list(/obj/item,/mob/living/simple_animal, /mob/living/carbon/monkey, /mob/living/carbon/human)
 
@@ -354,7 +360,7 @@
 	stat_allowed = 0
 	invocation_type = "none"
 
-	icon_power_button = "genetic_jump"
+	action_icon_state = "genetic_jump"
 
 /obj/effect/proc_holder/spell/wizard/targeted/leap/cast(list/targets)
 	var/failure = 0
@@ -451,7 +457,7 @@
 	range = 1
 	selection_type = "range"
 
-	icon_power_button = "genetic_poly"
+	action_icon_state = "genetic_poly"
 
 /obj/effect/proc_holder/spell/wizard/targeted/polymorph/cast(list/targets)
 	var/mob/living/M=targets[1]
@@ -499,7 +505,7 @@
 	range = -2
 	selection_type = "range"
 
-	icon_power_button = "genetic_empath"
+	action_icon_state = "genetic_empath"
 
 /obj/effect/proc_holder/spell/wizard/targeted/empath/choose_targets(mob/user = usr)
 	var/list/targets = new /list()

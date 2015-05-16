@@ -17,13 +17,13 @@
 	var/current_heat_capacity = 50
 	var/efficiency
 
-	l_color = "#FFFFFF"
+	light_color = "#FFFFFF"
 	power_change()
 		..()
 		if(!(stat & (BROKEN|NOPOWER)))
-			SetLuminosity(2)
+			set_light(2)
 		else
-			SetLuminosity(0)
+			set_light(0)
 
 /obj/machinery/atmospherics/unary/cryo_cell/New()
 	..()

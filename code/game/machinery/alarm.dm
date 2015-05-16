@@ -95,11 +95,10 @@
 
 /obj/machinery/alarm/proc/apply_preset(var/no_cycle_after=0)
 	// Propogate settings.
-	for (var/area/A in alarm_area.related)
-		for (var/obj/machinery/alarm/AA in A)
-			if ( !(AA.stat & (NOPOWER|BROKEN)) && !AA.shorted && AA.preset != src.preset)
-				AA.preset=preset
-				apply_preset(1) // Only this air alarm should send a cycle.
+	for (var/obj/machinery/alarm/AA in alarm_area)
+		if ( !(AA.stat & (NOPOWER|BROKEN)) && !AA.shorted && AA.preset != src.preset)
+			AA.preset=preset
+			apply_preset(1) // Only this air alarm should send a cycle.
 
 	TLV["oxygen"] =			list(16, 19, 135, 140) // Partial pressure, kpa
 	TLV["nitrogen"] =		list(-1, -1,  -1,  -1) // Partial pressure, kpa
@@ -151,8 +150,6 @@
 
 /obj/machinery/alarm/proc/first_run()
 	alarm_area = get_area(src)
-	if (alarm_area.master)
-		alarm_area = alarm_area.master
 	area_uid = alarm_area.uid
 	if (name == "alarm")
 		name = "[alarm_area.name] Air Alarm"
@@ -296,11 +293,10 @@
 
 
 /obj/machinery/alarm/proc/elect_master()
-	for (var/area/A in alarm_area.related)
-		for (var/obj/machinery/alarm/AA in A)
-			if (!(AA.stat & (NOPOWER|BROKEN)))
-				alarm_area.master_air_alarm = AA
-				return 1
+	for (var/obj/machinery/alarm/AA in alarm_area)
+		if (!(AA.stat & (NOPOWER|BROKEN)))
+			alarm_area.master_air_alarm = AA
+			return 1
 	return 0
 
 /obj/machinery/alarm/proc/get_danger_level(var/current_value, var/list/danger_levels)
@@ -471,9 +467,9 @@
 
 /obj/machinery/alarm/proc/air_doors_close(manual)
 	var/area/A = get_area(src)
-	if(!A.master.air_doors_activated)
-		A.master.air_doors_activated = 1
-		for(var/obj/machinery/door/E in A.master.all_doors)
+	if(!A.air_doors_activated)
+		A.air_doors_activated = 1
+		for(var/obj/machinery/door/E in A.all_doors)
 			if(istype(E,/obj/machinery/door/firedoor))
 				if(!E:blocked)
 					if(E.operating)
@@ -507,9 +503,9 @@
 
 /obj/machinery/alarm/proc/air_doors_open(manual)
 	var/area/A = get_area(loc)
-	if(A.master.air_doors_activated)
-		A.master.air_doors_activated = 0
-		for(var/obj/machinery/door/E in A.master.all_doors)
+	if(A.air_doors_activated)
+		A.air_doors_activated = 0
+		for(var/obj/machinery/door/E in A.all_doors)
 			if(istype(E, /obj/machinery/door/firedoor))
 				if(!E:blocked)
 					if(E.operating)
@@ -1327,7 +1323,7 @@ FIRE ALARM
 		pixel_x = (dir & 3)? 0 : (dir == 4 ? -24 : 24)
 		pixel_y = (dir & 3)? (dir ==1 ? -24 : 24) : 0
 
-	if(z == 1 || z == 5)
+	if(z == ZLEVEL_STATION || ZLEVEL_ASTEROID == 5)
 		if(security_level)
 			src.overlays += image('icons/obj/monitors.dmi', "overlay_[get_security_level()]")
 		else
@@ -1381,8 +1377,6 @@ Just a object used in constructing fire alarms
 	user.machine = src
 	var/area/A = get_area(src)
 	ASSERT(isarea(A))
-	if(A.master)
-		A = A.master
 	var/d1
 	var/d2
 	if (istype(user, /mob/living/carbon/human) || istype(user, /mob/living/silicon/ai))
@@ -1421,8 +1415,6 @@ Just a object used in constructing fire alarms
 		return
 	var/area/A = get_area(src)
 	ASSERT(isarea(A))
-	if(A.master)
-		A = A.master
 	A.partyreset()
 	return
 
@@ -1431,8 +1423,6 @@ Just a object used in constructing fire alarms
 		return
 	var/area/A = get_area(src)
 	ASSERT(isarea(A))
-	if(A.master)
-		A = A.master
 	A.partyalert()
 	return
 

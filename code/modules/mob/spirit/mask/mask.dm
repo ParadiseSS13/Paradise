@@ -4,9 +4,9 @@
 
 /mob/spirit/mask/New()
 	..()
-	spell_list += new /obj/effect/proc_holder/spell/wizard/aoe_turf/conjure/create_talisman(src)
-	spell_list += new /obj/effect/proc_holder/spell/wizard/aoe_turf/blood_speech(src)
-	spell_list += new /obj/effect/proc_holder/spell/wizard/aoe_turf/shatter_lights(src)
+	AddSpell(new /obj/effect/proc_holder/spell/wizard/aoe_turf/conjure/create_talisman(src))
+	AddSpell(new /obj/effect/proc_holder/spell/wizard/aoe_turf/blood_speech(src))
+	AddSpell(new /obj/effect/proc_holder/spell/wizard/aoe_turf/shatter_lights(src))
 
 
 /mob/spirit/mask/verb/go_to_follower()

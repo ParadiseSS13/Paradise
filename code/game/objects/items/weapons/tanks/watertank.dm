@@ -9,7 +9,6 @@
 	slot_flags = SLOT_BACK
 	slowdown = 1
 	action_button_name = "Toggle Mister"
-	icon_action_button = "action_waterbackpack"
 
 	var/obj/item/weapon/noz
 	var/on = 0

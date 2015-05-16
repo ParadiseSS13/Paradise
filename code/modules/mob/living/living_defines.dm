@@ -47,5 +47,8 @@
 	var/floating = 0
 	var/nightvision = 0
 
+	var/ventcrawler = 0 //0 No vent crawling, 1 vent crawling in the nude, 2 vent crawling always
 	var/list/icon/pipes_shown = list()
 	var/last_played_vent
+
+	var/list/datum/action/actions = list()

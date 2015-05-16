@@ -6,7 +6,6 @@
 	var/magpulse = 0
 	var/slowdown_active = 2
 	action_button_name = "Toggle Magboots"
-	icon_action_button = "action_magboots"
 	species_restricted = null
 
 /obj/item/clothing/shoes/magboots/attack_self(mob/user)

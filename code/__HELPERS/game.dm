@@ -13,19 +13,13 @@
 	var/area/A = get_area(O)
 
 	if (isarea(A))
-		return A.master
+		return A
 
 /proc/get_area(O)
-	var/atom/location = O
-	var/i
-	for(i=1, i<=20, i++)
-		if(isarea(location))
-			return location
-		else if (istype(location))
-			location = location.loc
-		else
-			return null
-	return 0
+	var/turf/loc = get_turf(O)
+	if(loc)
+		var/area/res = loc.loc
+		.= res
 
 /proc/get_area_name(N) //get area by its name
 	for(var/area/A in world)
@@ -50,21 +44,6 @@
 	source.luminosity = lum
 
 	return heard
-
-
-
-
-//Magic constants obtained by using linear regression on right-angled triangles of sides 0<x<1, 0<y<1
-//They should approximate pythagoras theorem well enough for our needs.
-#define k1 0.934
-#define k2 0.427
-/proc/cheap_hypotenuse(Ax,Ay,Bx,By) // T is just the second atom to check distance to center with
-	var/dx = abs(Ax - Bx)	//sides of right-angled triangle
-	var/dy = abs(Ay - By)
-	if(dx>=dy)	return (k1*dx) + (k2*dy)	//No sqrt or powers :)
-	else		return (k1*dx) + (k2*dy)
-#undef k1
-#undef k2
 
 /proc/circlerange(center=usr,radius=3)
 
@@ -317,7 +296,7 @@ proc/isInSight(var/atom/A, var/atom/B)
 							if(override_age || player_old_enough_antag(G.client,be_special_flag))
 								candidates += G.client
 		afk_bracket += 600 // Add a minute to the bracket, for every attempt
-		
+
 	return candidates
 
 /proc/ScreenText(obj/O, maptext="", screen_loc="CENTER-7,CENTER-7", maptext_height=480, maptext_width=480)
@@ -426,22 +405,6 @@ proc/isInSight(var/atom/A, var/atom/B)
 			GetBluePart(hexa)
 		)
 
-/proc/MixColors(const/list/colors)
-	var/list/reds = list()
-	var/list/blues = list()
-	var/list/greens = list()
-	var/list/weights = list()
-
-	for (var/i = 0, ++i <= colors.len)
-		reds.Add(GetRedPart(colors[i]))
-		blues.Add(GetBluePart(colors[i]))
-		greens.Add(GetGreenPart(colors[i]))
-		weights.Add(1)
-
-	var/r = mixOneColor(weights, reds)
-	var/g = mixOneColor(weights, greens)
-	var/b = mixOneColor(weights, blues)
-	return rgb(r,g,b)
 
 /proc/alone_in_area(var/area/the_area, var/mob/must_be_alone, var/check_type = /mob/living/carbon)
 	var/area/our_area = get_area_master(the_area)
@@ -456,6 +419,6 @@ proc/isInSight(var/atom/A, var/atom/B)
 
 /proc/MinutesToTicks(var/minutes as num)
 	return minutes * 60 * 10
-	
+
 /proc/SecondsToTicks(var/seconds)
 	return seconds * 10

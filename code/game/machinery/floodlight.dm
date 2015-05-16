@@ -11,7 +11,9 @@
 	var/use = 5
 	var/unlocked = 0
 	var/open = 0
-	var/brightness_on = 999		//can't remember what the maxed out value is
+	var/brightness_on = 14
+	light_power = 20
+	//var/brightness_on = 999		//can't remember what the maxed out value is //Lighting overhaul: No max, stop TRYING TO ILLUMINATE MORE TILES THAN THE MAP CONSISTS OF.
 
 /obj/machinery/floodlight/New()
 	src.cell = new(src)
@@ -26,7 +28,7 @@
 		if(cell.charge <= 0)
 			on = 0
 			updateicon()
-			SetLuminosity(0)
+			set_light(0)
 			src.visible_message("<span class='warning'>[src] shuts down due to lack of power!</span>")
 			return
 
@@ -50,7 +52,7 @@
 	if(on)
 		on = 0
 		user << "\blue You turn off the light"
-		SetLuminosity(0)
+		set_light(0)
 	else
 		if(!cell)
 			return
@@ -58,7 +60,7 @@
 			return
 		on = 1
 		user << "\blue You turn on the light"
-		SetLuminosity(brightness_on)
+		set_light(brightness_on)
 
 	updateicon()
 

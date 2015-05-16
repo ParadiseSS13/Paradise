@@ -2,8 +2,11 @@
 language: c
 
 env:
-  BYOND_MAJOR="503"
-  BYOND_MINOR="1224"
+    global:
+    - BYOND_MAJOR="503"
+    - BYOND_MINOR="1224"
+    matrix:
+    - DM_MAPFILE="cyberiad"
 
 before_install:
   - sudo apt-get update -qq
@@ -18,5 +21,5 @@ install:
 
 script:
   - shopt -s globstar
-  - (! grep 'step_[xy]' maps/**/*.dmm)
-  - DreamMaker paradise.dme
+  - (! grep 'step_[xy]' _maps/map_files/**/*.dmm)
+  - bash dm.sh -M${DM_MAPFILE} paradise.dme

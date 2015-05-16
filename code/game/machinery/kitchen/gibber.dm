@@ -233,11 +233,11 @@
 		user << "<span class='danger'>Subject may not have abiotic items on.</span>"
 		return
 
-	user.visible_message("\red [user] starts to put [victim] into the gibber!")
+	user.visible_message("<span class='danger'>[user] starts to put [victim] into the gibber!</span>")
 	src.add_fingerprint(user)
 	if(do_after(user, 30) && user.Adjacent(src) && victim.Adjacent(user) && !occupant)
 
-		user.visible_message("\red [user] stuffs [victim] into the gibber!")
+		user.visible_message("<span class='danger'>[user] stuffs [victim] into the gibber!</span>")
 
 		if(victim.client)
 			victim.client.perspective = EYE_PERSPECTIVE

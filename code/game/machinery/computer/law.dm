@@ -8,7 +8,8 @@
 	var/mob/living/silicon/ai/current = null
 	var/opened = 0
 
-	l_color = "#FFFFFF"
+	light_color = "#FFFFFF"
+	light_range_on = "2"
 
 
 	verb/AccessInternals()
@@ -86,6 +87,6 @@
 		else
 			usr << "[src.current.name] selected for law changes."
 		return
-		
+
 	attack_ghost(user as mob)
 		return 1

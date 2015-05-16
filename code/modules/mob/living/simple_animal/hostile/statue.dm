@@ -56,9 +56,9 @@
 /mob/living/simple_animal/hostile/statue/New(loc, var/mob/living/creator)
 	..()
 	// Give spells
-	spell_list += new /obj/effect/proc_holder/spell/wizard/aoe_turf/flicker_lights(src)
-	spell_list += new /obj/effect/proc_holder/spell/wizard/aoe_turf/blindness(src)
-	spell_list += new /obj/effect/proc_holder/spell/wizard/targeted/night_vision(src)
+	AddSpell(new /obj/effect/proc_holder/spell/wizard/aoe_turf/flicker_lights(src))
+	AddSpell(new /obj/effect/proc_holder/spell/wizard/aoe_turf/blindness(src))
+	AddSpell(new /obj/effect/proc_holder/spell/wizard/targeted/night_vision(src))
 
 	// Give nightvision
 	see_invisible = SEE_INVISIBLE_OBSERVER_NOLIGHTING
@@ -112,11 +112,23 @@
 /mob/living/simple_animal/hostile/statue/proc/can_be_seen(var/turf/destination)
 	// Check for darkness
 	var/turf/T = get_turf(loc)
+	var/light_amount
+	var/DLlight_amount
+	var/atom/movable/lighting_overlay/L = locate(/atom/movable/lighting_overlay) in T
+	if(L)
+		light_amount = L.lum_r + L.lum_g + L.lum_b
+	else
+		light_amount =  5
+	var/atom/movable/lighting_overlay/DL = locate(/atom/movable/lighting_overlay) in destination
+	if(DL)
+		DLlight_amount = DL.lum_r + DL.lum_g + DL.lum_b
+	else
+		DLlight_amount =  5
 	if(T && destination)
 		// Don't check it twice if our destination is the tile we are on or we can't even get to our destination
 		if(T == destination)
 			destination = null
-		else if(!T.lighting_lumcount && !destination.lighting_lumcount) // No one can see us in the darkness, right?
+		else if(light_amount < 0.1 && DLlight_amount < 0.1) // No one can see us in the darkness, right?
 			return null
 
 	// We aren't in darkness, loop for viewers.

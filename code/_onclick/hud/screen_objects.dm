@@ -38,36 +38,6 @@
 			S.close(usr)
 	return 1
 
-/obj/screen/power_action
-	var/obj/effect/proc_holder/spell/wizard/owner
-
-/obj/screen/power_action/Click()
-	owner.Click()
-
-/obj/screen/item_action
-	var/obj/item/owner
-
-/obj/screen/item_action/Click()
-	if(!usr || !owner)
-		return 1
-	if(usr.next_move >= world.time)
-		return
-
-	if(usr.stat || usr.restrained() || usr.stunned || usr.lying)
-		return 1
-
-
-	if(!(owner in usr) && !(owner.loc.loc == usr))
-		return 1
-
-
-	owner.ui_action_click()
-	return 1
-
-//This is the proc used to update all the action buttons. It just returns for all mob types except humans.
-/mob/proc/update_action_buttons()
-	return
-
 /obj/screen/grab
 	name = "grab"
 
@@ -278,7 +248,7 @@
 							return 1
 						if(C.wear_mask.mask_adjusted)
 							C << "<span class='notice'>Put your mask on first.</span>"
-							return 1						
+							return 1
 						else
 							var/list/nicename = null
 							var/list/tankcheck = null
@@ -407,8 +377,8 @@
 		if("Toggle Sensor Augmentation")
 			if(isrobot(usr))
 				var/mob/living/silicon/robot/R = usr
-				R.sensor_mode()				
-				
+				R.sensor_mode()
+
 		if("module1")
 			if(istype(usr, /mob/living/silicon/robot))
 				usr:toggle_module(1)
@@ -550,22 +520,22 @@
 			if(isAI(usr))
 				var/mob/living/silicon/ai/AI = usr
 				AI.aiCamera.viewpictures()
-				
+
 		if("Set Sensor Augmentation")
 			if(isAI(usr))
 				var/mob/living/silicon/ai/AI = usr
 				AI.sensor_mode()
-				
+
 		// Alien
 		if("night vision")
 			var/mob/living/carbon/alien/humanoid/A = usr
 			A.nightvisiontoggle()
-			
+
 		if("toggle leap")
 			if(istype(usr, /mob/living/carbon/alien/humanoid))
 				var/mob/living/carbon/alien/humanoid/hunter/AH = usr
 				AH.toggle_leap()
-			
+
 		else
 			return 0
 	return 1

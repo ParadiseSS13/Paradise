@@ -39,44 +39,59 @@
 	ui_interact(user)
 
 /obj/machinery/poolcontroller/process()
-	updateMobs() //Call the mob affecting proc
+	updatePool() //Call the mob affecting/decal cleaning proc
 
-/obj/machinery/poolcontroller/proc/updateMobs()
+/obj/machinery/poolcontroller/proc/updatePool()
 	for(var/turf/simulated/floor/beach/water/W in linkedturfs) //Check for pool-turfs linked to the controller.
 		for(var/mob/M in W) //Check for mobs in the linked pool-turfs.
 			//Sanity checks, don't affect robuts, AI eyes, and observers
 			if(isAIEye(M))
-				return
+				continue
 			if(issilicon(M))
-				return
+				continue
 			if(isobserver(M))
-				return
+				continue
 			//End sanity checks, go on
 			switch(temperature) //Apply different effects based on what the temperature is set to.
 				if("scalding") //Burn the mob.
 					M.bodytemperature = min(500, M.bodytemperature + 35) //heat mob at 35k(elvin) per cycle
 					M << "<span class='danger'>The water is searing hot!</span>"
-					return
 
 				if("frigid") //Freeze the mob.
 					M.bodytemperature = max(80, M.bodytemperature - 35) //cool mob at -35k per cycle
 					M << "<span class='danger'>The water is freezing!</span>"
-					return
 
 				if("normal") //Normal temp does nothing, because it's just room temperature water.
-					return
 
 				if("warm") //Gently warm the mob.
 					M.bodytemperature = min(330, M.bodytemperature + 10) //Heats up mobs to just over normal, not enough to burn
 					if(prob(50)) //inform the mob of warm water half the time
 						M << "<span class='warning'>The water is quite warm.</span>" //Inform the mob it's warm water.
-					return
 
 				if("cool") //Gently cool the mob.
 					M.bodytemperature = max(290, M.bodytemperature - 10) //Cools mobs to just below normal, not enough to burn
 					if(prob(50)) //inform the mob of cold water half the time
 						M << "<span class='warning'>The water is chilly.</span>" //Inform the mob it's chilly water.
-					return
+
+			if(ishuman(M)) //Make sure they are human before typecasting.
+				var/mob/living/carbon/human/drownee = M //Typecast them as human.
+				if(drownee.stat == DEAD) //Check stat, if they are dead, ignore them.
+					continue
+				if(drownee && drownee.lying && !drownee.internal && !(drownee.species.flags & NO_BREATHE) && !(drownee.species.reagent_tag == IS_SKRELL) && !(NO_BREATH in drownee.mutations))
+				//Establish that there is a mob, the mob is lying down, has no internals, species does breathe, is not a skrell, and does not have NO_BREATHE
+					if(drownee.stat != CONSCIOUS) //Mob is in critical.
+						drownee.adjustOxyLoss(9) //Kill em quickly.
+						drownee << "<span class='danger'>You're quickly drowning!</span>" //inform them that they are fucked.
+					else
+						if(!drownee.internal) //double check they have no internals, just in case.
+							drownee.adjustOxyLoss(5) //5 oxyloss per cycle.
+							if(prob(35)) //35% chance to tell them what is going on. They should probably figure it out before then.
+								drownee << "<span class='danger'>You're lacking air!</span>" //*gasp* *gasp* *gasp* *gasp* *gasp*
+
+		for(var/obj/effect/decal/cleanable/decal in W)
+			animate(decal, alpha = 10, time = 20)
+			spawn(25)
+				qdel(decal)
 
 /obj/machinery/poolcontroller/proc/miston() //Spawn /obj/effect/mist (from the shower) on all linked pool tiles
 	for(var/turf/simulated/floor/beach/water/W in linkedturfs)
@@ -89,7 +104,7 @@
 
 /obj/machinery/poolcontroller/proc/mistoff() //Delete all /obj/effect/mist from all linked pool tiles.
 	for(var/obj/effect/mist/M in linkedmist)
-		del(M)
+		qdel(M)
 	misted = 0 //no mist left, turn off the tracking var
 
 /obj/machinery/poolcontroller/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)

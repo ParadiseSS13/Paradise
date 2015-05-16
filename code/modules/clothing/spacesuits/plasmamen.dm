@@ -57,22 +57,22 @@
 		return
 	on = !on
 	icon_state = "[base_state][on]"
-	if(on)	user.SetLuminosity(user.luminosity + brightness_on)
-	else	user.SetLuminosity(user.luminosity - brightness_on)
+	if(on)	user.set_light(user.luminosity + brightness_on)
+	else	user.set_light(user.luminosity - brightness_on)
 	user.update_inv_head()
 
 
 /obj/item/clothing/head/helmet/space/eva/plasmaman/pickup(mob/user)
 	if(on)
-		user.SetLuminosity(user.luminosity + brightness_on)
+		user.set_light(user.luminosity + brightness_on)
 //		user.UpdateLuminosity()
-		SetLuminosity(0)
+		set_light(0)
 
 /obj/item/clothing/head/helmet/space/eva/plasmaman/dropped(mob/user)
 	if(on)
-		user.SetLuminosity(user.luminosity - brightness_on)
+		user.set_light(user.luminosity - brightness_on)
 //		user.UpdateLuminosity()
-		SetLuminosity(brightness_on)
+		set_light(brightness_on)
 
 
 

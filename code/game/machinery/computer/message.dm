@@ -8,6 +8,7 @@
 	name = "Message Monitor Console"
 	desc = "Used to Monitor the crew's messages, that are sent via PDA. Can also be used to view Request Console messages."
 	icon_state = "comm_logs"
+	light_color = "#00b000"
 	var/hack_icon = "comm_logsc"
 	var/normal_icon = "comm_logs"
 	circuit = "/obj/item/weapon/circuitboard/message_monitor"
@@ -33,7 +34,7 @@
 	var/customjob		= "Admin"
 	var/custommessage 	= "This is a test, please ignore."
 
-	l_color = "#50AB00"
+	light_color = "#50AB00"
 
 
 /obj/machinery/computer/message_monitor/attackby(obj/item/weapon/O as obj, mob/living/user as mob, params)
@@ -48,7 +49,7 @@
 
 	..()
 	return
-	
+
 /obj/machinery/computer/message_monitor/emag_act(user as mob)
 	// Will create sparks and print out the console's password. You will then have to wait a while for the console to be back online.
 	// It'll take more time if there's more characters in the password..

@@ -30,6 +30,7 @@
 	g_amt = 25
 	var/const/FREQ_LISTENING = 1
 	var/prison_radio = 0
+	var/atom/follow_target // Custom follow target for autosay-using bots
 
 
 /obj/item/device/radio
@@ -189,7 +190,7 @@
 	Broadcast_Message(connection, A,
 						0, "*garbled automated announcement*", src,
 						message, from, "Automated Announcement", from, "synthesized voice",
-						4, 0, zlevel, connection.frequency)
+						4, 0, zlevel, connection.frequency, follow_target=follow_target)
 	del(A)
 	return
 

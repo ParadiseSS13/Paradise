@@ -98,6 +98,7 @@
 	return
 
 /obj/spacepod/attack_alien(mob/user as mob)
+	user.changeNext_move(CLICK_CD_MELEE)
 	deal_damage(15)
 	playsound(src.loc, 'sound/weapons/slash.ogg', 50, 1, -1)
 	user << "\red You slash at the armored suit!"
@@ -787,6 +788,9 @@
 		set desc = "Fire the weapons."
 		set category = "Spacepod"
 		set src = usr.loc
+		if(!equipment_system.weapon_system)
+			usr << "<span class='warning'>\The [src] has no weapons!</span>"
+			return
 		equipment_system.weapon_system.fire_weapons()
 
 obj/spacepod/verb/toggleLights()
@@ -799,9 +803,9 @@ obj/spacepod/verb/toggleLights()
 /obj/spacepod/proc/lightsToggle()
 	lights = !lights
 	if(lights)
-		SetLuminosity(luminosity + lights_power)
+		set_light(luminosity + lights_power)
 	else
-		SetLuminosity(luminosity - lights_power)
+		set_light(luminosity - lights_power)
 	occupant << "Toggled lights [lights?"on":"off"]."
 	return
 

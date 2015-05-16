@@ -37,7 +37,7 @@ var/list/image/ghost_darkness_images = list() //this is a list of images for thi
 	verbs += /mob/dead/observer/proc/dead_tele
 
 	// Our new boo spell.
-	spell_list += new /obj/effect/proc_holder/spell/wizard/aoe_turf/boo(src)
+	AddSpell(new /obj/effect/proc_holder/spell/wizard/aoe_turf/boo(src))
 
 	can_reenter_corpse = flags & GHOST_CAN_REENTER
 	started_as_observer = flags & GHOST_IS_OBSERVER
@@ -228,6 +228,9 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	var/area/A = get_area_master(src)
 	if(A)
 		A.Entered(src)
+
+/mob/dead/observer/experience_pressure_difference()
+	return 0
 
 /mob/dead/observer/examine()
 	if(usr)
@@ -503,12 +506,12 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 		..()
 
 	if (href_list["track"])
-		var/mob/target = locate(href_list["track"]) in mob_list
+		var/atom/target = locate(href_list["track"])
 		if(target)
 			ManualFollow(target)
 
 	if (href_list["follow"])
-		var/mob/target = locate(href_list["follow"]) in mob_list
+		var/atom/target = locate(href_list["follow"])
 		var/mob/A = usr;
 		A << "You are now following [target]"
 		//var/mob/living/silicon/ai/A = locate(href_list["track2"]) in mob_list

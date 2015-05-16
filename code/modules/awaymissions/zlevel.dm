@@ -4,7 +4,7 @@ proc/createRandomZlevel()
 
 	var/list/potentialRandomZlevels = list()
 	world << "<span class='userdanger'>Searching for away missions...</span>"
-	var/list/Lines = file2list("maps/RandomZLevels/fileList.txt")
+	var/list/Lines = file2list("_maps/map_files/RandomZLevels/fileList.txt")
 
 	if(!Lines.len)	return
 	for (var/t in Lines)

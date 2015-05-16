@@ -91,7 +91,7 @@
 			powernet.cut_cable(src)				// update the powernets
 	cable_list -= src
 /*	if(istype(attached))
-		attached.SetLuminosity(0)
+		attached.set_light(0)
 		attached.icon_state = "powersink0"
 		attached.mode = 0
 		processing_objects.Remove(attached)

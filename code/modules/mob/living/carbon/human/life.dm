@@ -138,6 +138,9 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 
 	//Status updates, death etc.
 	handle_regular_status_updates()		//Optimized a bit
+
+	handle_actions()
+
 	update_canmove()
 
 	//Update our name based on whether our face is obscured/disfigured
@@ -261,6 +264,16 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 				gene.OnMobLife(src)
 
 		if (radiation)
+
+			if((locate(src.internal_organs_by_name["resonant crystal"]) in src.internal_organs))
+				var/rads = radiation/25
+				radiation -= rads
+				radiation -= 0.1
+				reagents.add_reagent("radium", rads/10)
+				if( prob(10) )
+					src << "\blue You feel relaxed."
+				return
+
 			if (radiation > 100)
 				radiation = 100
 				if(!(species.flags & RAD_ABSORB))
@@ -273,7 +286,6 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 				radiation = 0
 
 			else
-
 				if(species.flags & RAD_ABSORB)
 					var/rads = radiation/25
 					radiation -= rads
@@ -741,10 +753,11 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 			var/light_amount = 0 //how much light there is in the place, affects receiving nutrition and healing
 			if(isturf(loc)) //else, there's considered to be no light
 				var/turf/T = loc
-				var/area/A = T.loc
-				if(A)
-					if(A.lighting_use_dynamic)	light_amount = min(10,T.lighting_lumcount) - 5 //hardcapped so it's not abused by having a ton of flashlights
-					else						light_amount =  5
+				var/atom/movable/lighting_overlay/L = locate(/atom/movable/lighting_overlay) in T
+				if(L)
+					light_amount = (L.get_clamped_lum()*10) - 5 //hardcapped so it's not abused by having a ton of flashlights
+				else
+					light_amount =  5
 			nutrition += light_amount
 			traumatic_shock -= light_amount
 
@@ -762,10 +775,11 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 			var/light_amount = 0
 			if(isturf(loc))
 				var/turf/T = loc
-				var/area/A = T.loc
-				if(A)
-					if(A.lighting_use_dynamic)	light_amount = T.lighting_lumcount
-					else						light_amount =  10
+				var/atom/movable/lighting_overlay/L = locate(/atom/movable/lighting_overlay) in T
+				if(L)
+					light_amount = L.get_clamped_lum()*10
+				else
+					light_amount =  10
 			if(light_amount > species.light_dam) //if there's enough light, start dying
 				if(species.light_effect_amp)
 					adjustFireLoss(5) //This gets doubled by Shadowling's innate fire weakness, so it ends up being 10.
@@ -1044,19 +1058,18 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 		if(hud_updateflag)
 			handle_hud_list()
 
-
 		if(!client)	return 0
 
 		if(hud_updateflag)
 			handle_hud_list()
+
+		update_action_buttons()
 
 		for(var/image/hud in client.images)
 			if(copytext(hud.icon_state,1,4) == "hud") //ugly, but icon comparison is worse, I believe
 				client.images.Remove(hud)
 
 		client.screen.Remove(global_hud.blurry, global_hud.druggy, global_hud.vimpaired, global_hud.darkMask,/* global_hud.nvg*/)
-
-		update_action_buttons()
 
 		if(damageoverlay.overlays)
 			damageoverlay.overlays = list()
@@ -1356,7 +1369,8 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 		//0.1% chance of playing a scary sound to someone who's in complete darkness
 		if(isturf(loc) && rand(1,1000) == 1)
 			var/turf/currentTurf = loc
-			if(!currentTurf.lighting_lumcount)
+			var/atom/movable/lighting_overlay/L = locate(/atom/movable/lighting_overlay) in currentTurf
+			if(L && L.lum_r + L.lum_g + L.lum_b == 0)
 				playsound_local(src,pick(scarySounds),50, 1, -1)
 
 	// Separate proc so we can jump out of it when we've succeeded in spreading disease.
@@ -1796,7 +1810,6 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 					holder.icon_state = "hudscientopia"
 
 			hud_list[NATIONS_HUD] = holder
-	update_power_buttons()
 	hud_updateflag = 0
 
 /mob/living/carbon/human/proc/process_nations()

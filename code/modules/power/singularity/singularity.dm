@@ -5,6 +5,7 @@ var/global/narsie_cometh = 0
 var/global/list/uneatable = list(
 	/turf/space,
 	/obj/effect/overlay,
+	/atom/movable/lighting_overlay,
 	/mob/dead,
 	/mob/camera,
 	/mob/new_player
@@ -18,7 +19,7 @@ var/global/list/uneatable = list(
 	anchored = 1
 	density = 1
 	layer = 6
-	luminosity = 6
+	light_range = 6
 	unacidable = 1 //Don't comment this out.
 	use_power = 0
 	var/current_size = 1
@@ -222,6 +223,7 @@ var/global/list/uneatable = list(
 	for(var/atom/X in orange(grav_pull,src))
 		// N3X: Move this up here since get_dist is slow.
 		if(is_type_in_list(X, uneatable))	continue
+		if(!X.simulated)	continue
 
 		var/dist = get_dist(X, src)
 
@@ -264,6 +266,8 @@ var/global/list/uneatable = list(
 /obj/machinery/singularity/proc/consume(var/atom/A)
 	var/gain = 0
 	if(is_type_in_list(A, uneatable))
+		return 0
+	if(!A.simulated)
 		return 0
 	if (istype(A,/mob/living))//Mobs get gibbed
 		var/mob/living/M = A
@@ -560,6 +564,8 @@ var/global/list/uneatable = list(
 
 /obj/machinery/singularity/narsie/consume(var/atom/A)
 	if(is_type_in_list(A, uneatable))
+		return 0
+	if(!A.simulated)
 		return 0
 	if (istype(A,/mob/living))//Mobs get gibbed
 		A:gib()

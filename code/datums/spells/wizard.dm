@@ -24,7 +24,7 @@
 	proj_trail_lifespan = 5
 	proj_trail_icon_state = "magicmd"
 
-	icon_power_button = "spell_missile"
+	action_icon_state = "magicm"
 
 /obj/effect/proc_holder/spell/wizard/targeted/inflict_handler/magic_missile
 	amt_weakened = 3
@@ -52,6 +52,8 @@
 	duration = 300
 	cooldown_min = 300 //25 deciseconds reduction per rank
 
+	action_icon_state = "mutate"
+
 /obj/effect/proc_holder/spell/wizard/targeted/inflict_handler/disintegrate
 	name = "Disintegrate"
 	desc = "This spell instantly kills somebody adjacent to you with the vilest of magick."
@@ -69,7 +71,7 @@
 	sparks_spread = 1
 	sparks_amt = 4
 
-	icon_power_button = "spell_disintegrate"
+	action_icon_state = "gib"
 
 /obj/effect/proc_holder/spell/wizard/targeted/smoke
 	name = "Smoke"
@@ -87,7 +89,7 @@
 	smoke_spread = 2
 	smoke_amt = 10
 
-	icon_power_button = "spell_smoke"
+	action_icon_state = "smoke"
 
 /obj/effect/proc_holder/spell/wizard/targeted/emplosion/disable_tech
 	name = "Disable Tech"
@@ -103,7 +105,7 @@
 	emp_heavy = 6
 	emp_light = 10
 
-	icon_power_button = "spell_tech"
+	action_icon_state = "tech"
 
 /obj/effect/proc_holder/spell/wizard/targeted/turf_teleport/blink
 	name = "Blink"
@@ -127,7 +129,7 @@
 
 	centcom_cancast = 0 //prevent people from getting to centcom
 
-	icon_power_button = "spell_blink"
+	action_icon_state = "blink"
 
 /obj/effect/proc_holder/spell/wizard/targeted/area_teleport/teleport
 	name = "Teleport"
@@ -145,7 +147,7 @@
 	smoke_spread = 1
 	smoke_amt = 5
 
-	icon_power_button = "spell_teleport"
+	action_icon_state = "spell_teleport"
 
 /obj/effect/proc_holder/spell/wizard/aoe_turf/conjure/forcewall
 	name = "Forcewall"
@@ -162,7 +164,7 @@
 	summon_type = list("/obj/effect/forcefield")
 	summon_lifespan = 300
 
-	icon_power_button = "spell_forcewall"
+	action_icon_state = "spell_forcewall"
 
 /obj/effect/proc_holder/spell/wizard/aoe_turf/conjure/carp
 	name = "Summon Carp"
@@ -191,6 +193,7 @@
 
 	summon_type = list(/obj/structure/constructshell)
 
+	action_icon_state = "artificer"
 
 /obj/effect/proc_holder/spell/wizard/aoe_turf/conjure/creature
 	name = "Summon Creature Swarm"
@@ -220,7 +223,7 @@
 
 	starting_spells = list("/obj/effect/proc_holder/spell/wizard/targeted/inflict_handler/blind","/obj/effect/proc_holder/spell/wizard/targeted/genetic/blind")
 
-	icon_power_button = "spell_blind"
+	action_icon_state = "blind"
 
 /obj/effect/proc_holder/spell/wizard/targeted/inflict_handler/blind
 	amt_eye_blind = 10
@@ -245,7 +248,7 @@
 
 	summon_type = "/obj/structure/closet/statue"
 
-	icon_power_button = "spell_stone"
+	action_icon_state = "statue"
 
 /obj/effect/proc_holder/spell/wizard/dumbfire/fireball
 	name = "Fireball"
@@ -266,7 +269,7 @@
 	proj_lifespan = 200
 	proj_step_delay = 1
 
-	icon_power_button = "spell_fireball"
+	action_icon_state = "fireball"
 
 /obj/effect/proc_holder/spell/wizard/turf/fireball/cast(var/turf/T)
 	explosion(T, -1, 0, 2, 3, 0)
@@ -292,6 +295,8 @@
 	cooldown_min = 150
 	selection_type = "view"
 	var/maxthrow = 5
+
+	action_icon_state = "repulse"
 
 /obj/effect/proc_holder/spell/wizard/aoe_turf/repulse/cast(list/targets)
 	var/mob/user = usr

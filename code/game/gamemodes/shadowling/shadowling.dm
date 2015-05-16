@@ -85,11 +85,6 @@ Made by Xhuis
 	if(!possible_shadowlings.len)
 		return 0
 
-	for(var/datum/mind/player in possible_shadowlings)
-		for(var/job in restricted_jobs)
-			if(player.assigned_role == job)
-				possible_shadowlings -= player
-
 	var/shadowlings = 2 //How many shadowlings there are; hardcoded to 2
 
 	while(shadowlings)
@@ -98,6 +93,7 @@ Made by Xhuis
 		possible_shadowlings -= shadow
 		modePlayer += shadow
 		shadow.special_role = "Shadowling"
+		shadow.restricted_roles = restricted_jobs
 		shadowlings--
 	return 1
 
@@ -137,7 +133,7 @@ Made by Xhuis
 /datum/game_mode/proc/finalize_shadowling(var/datum/mind/shadow_mind)
 	var/mob/living/carbon/human/S = shadow_mind.current
 	shadow_mind.current.verbs += /mob/living/carbon/human/proc/shadowling_hatch
-	S.spell_list += new /obj/effect/proc_holder/spell/wizard/targeted/enthrall
+	S.mind.AddSpell(new /obj/effect/proc_holder/spell/wizard/targeted/enthrall)
 	spawn(0)
 		shadow_mind.current.add_language("Shadowling Hivemind")
 		update_shadow_icons_added(shadow_mind)

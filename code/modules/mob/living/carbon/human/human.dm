@@ -110,6 +110,14 @@
 	h_style = "Bald"
 	..(new_loc, "Golem")
 
+/mob/living/carbon/human/wryn/New(var/new_loc)
+	h_style = "Antennae"
+	..(new_loc, "Wryn")
+
+/mob/living/carbon/human/nucleation/New(var/new_loc)
+	h_style = "Nucleation Crystals"
+	..(new_loc, "Nucleation")
+
 /mob/living/carbon/human/Bump(atom/movable/AM as mob|obj, yes)
 	if ((!( yes ) || now_pushing))
 		return
@@ -244,12 +252,15 @@
 
 				var/limbs_affected = pick(2,3,4)
 				var/obj/item/organ/external/processing_dismember
+				var/list/valid_limbs = organs.Copy()
 
-				while(limbs_affected != 0)
-					processing_dismember = pick(organs)
+				while(limbs_affected != 0 && valid_limbs.len > 0)
+					processing_dismember = pick(valid_limbs)
 					if(processing_dismember.limb_name != "chest" && processing_dismember.limb_name != "head" && processing_dismember.limb_name != "groin")
 						processing_dismember.droplimb(1,pick(0,1,2),0,1)
+						valid_limbs -= processing_dismember
 						limbs_affected -= 1
+					else valid_limbs -= processing_dismember
 
 
 			//return
@@ -262,28 +273,25 @@
 
 			f_loss += 60
 
+			var/limbs_affected = 0
+			var/obj/item/organ/external/processing_dismember
+			var/list/valid_limbs = organs.Copy()
+
 			if (prob(getarmor(null, "bomb")))
 				b_loss = b_loss/1.5
 				f_loss = f_loss/1.5
 
-				var/limbs_affected = pick(1, 1, 2)
-				var/obj/item/organ/external/processing_dismember
-
-				while(limbs_affected != 0)
-					processing_dismember = pick(organs)
-					if(processing_dismember.limb_name != "chest" && processing_dismember.limb_name != "head" && processing_dismember.limb_name != "groin")
-						processing_dismember.droplimb(1,pick(0,2),0,1)
-						limbs_affected -= 1
-
+				limbs_affected = pick(1, 1, 2)
 			else
-				var/limbs_affected = pick(1, 2, 3)
-				var/obj/item/organ/external/processing_dismember
+				limbs_affected = pick(1, 2, 3)
 
-				while(limbs_affected != 0)
-					processing_dismember = pick(organs)
-					if(processing_dismember.limb_name != "chest" && processing_dismember.limb_name != "head" && processing_dismember.limb_name != "groin")
-						processing_dismember.droplimb(1,pick(0,2),0,1)
-						limbs_affected -= 1
+			while(limbs_affected != 0 && valid_limbs.len > 0)
+				processing_dismember = pick(valid_limbs)
+				if(processing_dismember.limb_name != "chest" && processing_dismember.limb_name != "head" && processing_dismember.limb_name != "groin")
+					processing_dismember.droplimb(1,pick(0,2),0,1)
+					valid_limbs -= processing_dismember
+					limbs_affected -= 1
+				else valid_limbs -= processing_dismember
 
 			if (!istype(l_ear, /obj/item/clothing/ears/earmuffs) && !istype(r_ear, /obj/item/clothing/ears/earmuffs))
 				ear_damage += 30
@@ -300,12 +308,15 @@
 
 				var/limbs_affected = pick(0, 1)
 				var/obj/item/organ/external/processing_dismember
+				var/list/valid_limbs = organs.Copy()
 
-				while(limbs_affected != 0)
-					processing_dismember = pick(organs)
+				while(limbs_affected != 0 && valid_limbs.len > 0)
+					processing_dismember = pick(valid_limbs)
 					if(processing_dismember.limb_name != "chest" && processing_dismember.limb_name != "head" && processing_dismember.limb_name != "groin")
 						processing_dismember.droplimb(1,1,0,1)
+						valid_limbs -= processing_dismember
 						limbs_affected -= 1
+					else valid_limbs -= processing_dismember
 
 			if (!istype(l_ear, /obj/item/clothing/ears/earmuffs) && !istype(r_ear, /obj/item/clothing/ears/earmuffs))
 				ear_damage += 15

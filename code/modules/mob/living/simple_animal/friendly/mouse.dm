@@ -29,6 +29,7 @@
 	maxbodytemp = 323	//Above 50 Degrees Celcius
 	universal_speak = 0
 	can_hide = 1
+	ventcrawler = 2
 
 /mob/living/simple_animal/mouse/Life()
 	..()
@@ -68,13 +69,6 @@
 	layer = MOB_LAYER
 	if(client)
 		client.time_died_as_mouse = world.time
-
-//copy paste from alien/larva, if that func is updated please update this one also
-/mob/living/simple_animal/mouse/verb/ventcrawl(var/atom/pipe)
-	set name = "Crawl through Vent"
-	set desc = "Enter an air vent and crawl through the pipe system."
-	set category = "Mouse"
-	handle_ventcrawl(pipe)
 
 //make mice fit under tables etc? this was hacky, and not working
 /*

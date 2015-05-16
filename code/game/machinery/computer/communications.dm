@@ -55,11 +55,11 @@ var/shuttle_call/shuttle_calls[0]
 	var/stat_msg1
 	var/stat_msg2
 	var/display_type="blank"
-	
+
 	var/datum/announcement/priority/crew_announcement = new
 
-	l_color = "#0000FF"
-	
+	light_color = "#0099FF"
+
 /obj/machinery/computer/communications/New()
 	..()
 	crew_announcement.newscast = 1
@@ -252,7 +252,7 @@ var/shuttle_call/shuttle_calls[0]
 	if(!emagged)
 		src.emagged = 1
 		user << "You scramble the communication routing circuits!"
-		
+
 /obj/machinery/computer/communications/attack_ai(var/mob/user as mob)
 	return src.attack_hand(user)
 
@@ -264,7 +264,7 @@ var/shuttle_call/shuttle_calls[0]
 	if(..(user))
 		return
 
-	if (!(src.z in list(STATION_Z, CENTCOMM_Z)))
+	if (!(src.z in list(ZLEVEL_STATION, ZLEVEL_CENTCOMM)))
 		user << "\red <b>Unable to establish a connection</b>: \black You're too far away from the station!"
 		return
 
@@ -426,7 +426,7 @@ var/shuttle_call/shuttle_calls[0]
 		if(world.time < 54000) // 30 minute grace period to let the game get going
 			user << "The shuttle is refueling. Please wait another [round((54000-world.time)/60)] minutes before trying again."
 			return
-			
+
 		if(ticker.mode.name == "epidemic")
 			user << "Under directive 7-10, [station_name()] is quarantined until further notice."
 			return

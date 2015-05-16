@@ -46,7 +46,7 @@
 	..()
 
 /obj/machinery/camera/initialize()
-	if(z == 1 && prob(3) && !start_active)
+	if(z == ZLEVEL_STATION && prob(3) && !start_active)
 		deactivate()
 
 /obj/machinery/camera/Destroy()
@@ -71,7 +71,7 @@
 			network = list()
 			cameranet.removeCamera(src)
 			stat |= EMPED
-			SetLuminosity(0)
+			set_light(0)
 			triggerCameraAlarm()
 			emped = emped+1  //Increase the number of consecutive EMP's
 			var/thisemp = emped //Take note of which EMP this proc is for
@@ -197,7 +197,7 @@
 			if(istype(O, /mob/living/silicon/ai))
 				var/mob/living/silicon/ai/AI = O
 				if(U.name == "Unknown") AI << "<b>[U]</b> holds <a href='?_src_=usr;show_paper=1;'>\a [itemname]</a> up to one of your cameras ..."
-				else AI << "<b><a href='byond://?src=\ref[O];track2=\ref[O];track=\ref[U]'>[U]</a></b> holds <a href='?_src_=usr;show_paper=1;'>\a [itemname]</a> up to one of your cameras ..."
+				else AI << "<b><a href='byond://?src=\ref[O];trackname=[html_encode(U)];track=\ref[U]'>[U]</a></b> holds <a href='?_src_=usr;show_paper=1;'>\a [itemname]</a> up to one of your cameras ..."
 				AI.last_paper_seen = "<HTML><HEAD><TITLE>[itemname]</TITLE></HEAD><BODY><TT>[info]</TT></BODY></HTML>"
 			else if (O.client && O.client.eye == src)
 				O << "[U] holds \a [itemname] up to one of the cameras ..."

@@ -140,6 +140,9 @@
 	// event needs to be responsible for this, as stuff like APLUs currently make their own events for curious reasons
 	event_manager.active_events += src
 
+	if(!EM)
+		EM = new /datum/event_meta(EVENT_LEVEL_MAJOR, "Unknown, Most likely admin called", src.type)
+
 	event_meta = EM
 	severity = event_meta.severity
 	if(severity < EVENT_LEVEL_MUNDANE) severity = EVENT_LEVEL_MUNDANE

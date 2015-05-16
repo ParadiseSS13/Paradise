@@ -9,7 +9,7 @@
 	_color = "yellow" //Determines used sprites: hardhat[on]_[color] and hardhat[on]_[color]2 (lying down sprite)
 	armor = list(melee = 30, bullet = 5, laser = 20,energy = 10, bomb = 20, bio = 10, rad = 20)
 	flags_inv = 0
-	icon_action_button = "action_hardhat"
+	action_button_name = "Toggle Helmet Light"
 	siemens_coefficient = 0.9
 	loose = 4
 
@@ -21,20 +21,8 @@
 		icon_state = "hardhat[on]_[_color]"
 		item_state = "hardhat[on]_[_color]"
 
-		if(on)	user.SetLuminosity(user.luminosity + brightness_on)
-		else	user.SetLuminosity(user.luminosity - brightness_on)
-
-	pickup(mob/user)
-		if(on)
-			user.SetLuminosity(user.luminosity + brightness_on)
-//			user.UpdateLuminosity()	//TODO: Carn
-			SetLuminosity(0)
-
-	dropped(mob/user)
-		if(on)
-			user.SetLuminosity(user.luminosity - brightness_on)
-//			user.UpdateLuminosity()
-			SetLuminosity(brightness_on)
+		if(on)	set_light(brightness_on)
+		else	set_light(0)
 
 
 /obj/item/clothing/head/hardhat/orange

@@ -326,6 +326,26 @@
 	key = "0"
 	syllables = list ("honk","squeak","bonk","toot","narf","zub","wee","wub","norf")
 
+/datum/language/wryn
+	name = "Wryn Hivemind"
+	desc = "Wryn have the strange ability to commune over a psychic hivemind."
+	speech_verb = "chitters"
+	ask_verb = "chitters"
+	exclaim_verb = "chitters"
+	colour = "alien"
+	key = "y"
+	flags = RESTRICTED | HIVEMIND
+
+/datum/language/wryn/check_special_condition(var/mob/other)
+
+	var/mob/living/carbon/M = other
+	if(!istype(M))
+		return 1
+	if(locate(/obj/item/organ/wryn/hivenode) in M.internal_organs)
+		return 1
+
+	return 0
+
 /datum/language/xenocommon
 	name = "Xenomorph"
 	colour = "alien"

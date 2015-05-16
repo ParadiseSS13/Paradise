@@ -15,6 +15,7 @@ var/specops_shuttle_timeleft = 0
 	name = "Spec. Ops. Shuttle Console"
 	icon = 'icons/obj/computer.dmi'
 	icon_state = "shuttle"
+	light_color = "#00ffff"
 	req_access = list(access_cent_specops)
 //	req_access = list(ACCESS_CENT_SPECOPS)
 	var/temp = null
@@ -93,14 +94,14 @@ var/specops_shuttle_timeleft = 0
 
 	for(var/obj/machinery/computer/specops_shuttle/S in world)
 		S.specops_shuttle_timereset = world.time + SPECOPS_RETURN_DELAY
-		
+
 	del(announcer)
 
 /proc/specops_process()
 	var/area/centcom/specops/special_ops = locate()//Where is the specops area located?
 	var/obj/item/device/radio/intercom/announcer = new /obj/item/device/radio/intercom(null)//We need a fake AI to announce some stuff below. Otherwise it will be wonky.
 	announcer.config(list("Response Team" = 0))
-	
+
 	var/message_tracker[] = list(0,1,2,3,5,10,30,45)//Create a a list with potential time values.
 	var/message = "\"THE SPECIAL OPERATIONS SHUTTLE IS PREPARING FOR LAUNCH\""//Initial message shown.
 	if(announcer)
@@ -234,7 +235,7 @@ var/specops_shuttle_timeleft = 0
 
 	for(var/obj/machinery/computer/specops_shuttle/S in world)
 		S.specops_shuttle_timereset = world.time + SPECOPS_RETURN_DELAY
-		
+
 	del(announcer)
 
 /proc/specops_can_move()

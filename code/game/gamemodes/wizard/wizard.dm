@@ -277,7 +277,6 @@
 	for(var/obj/effect/proc_holder/spell/wizard/spell_to_remove in src.spell_list)
 		if (spell_to_remove.name == "Artificer" && !removeallspells) continue
 		del(spell_to_remove)
-		update_power_buttons()
 
 /*Checks if the wizard can cast spells.
 Made a proc so this is not repeated 14 (or more) times.*/

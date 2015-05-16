@@ -34,8 +34,7 @@
 		for(var/spell in default_spells)
 			var/obj/effect/proc_holder/spell/wizard/S = spell
 			if(!S) return
-			H.spell_list += new S
-			H.update_power_buttons()
+			H.AddSpell(new S)
 
 /datum/superheroes/proc/assign_id(var/mob/living/carbon/human/H)
 	var/obj/item/weapon/card/id/syndicate/W = new(H)
@@ -119,7 +118,7 @@
 
 /datum/superheroes/electro
 	name = "Electro-Negmatic"
-	class = "Supevillain"
+	class = "Supervillain"
 	desc = "You were a roboticist, once. Now you are Electro-Negmatic, a name this station will learn to fear. You designed \
 	your costume to resemble E-N, your faithful dog that some callous RD destroyed because it was sparking up the plasma. You \
 	intend to take your revenge and make them all pay thanks to your magnetic powers."
@@ -147,7 +146,7 @@
 	charge_max = 450
 	clothes_req = 0
 	range = 1 //Adjacent to user
-	icon_power_button = "spell_greytide"
+	action_icon_state = "spell_greytide"
 	var/recruiting = 0
 
 /obj/effect/proc_holder/spell/wizard/targeted/recruit/cast(list/targets)

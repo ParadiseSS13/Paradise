@@ -13,7 +13,7 @@
 	var/energy = 0
 	var/ready = 0
 	var/image/halo = null
-	icon_power_button = "spell_tech"
+	action_icon_state = "lightning"
 
 /obj/effect/proc_holder/spell/wizard/targeted/lightning/lightnian
 	clothes_req = 0

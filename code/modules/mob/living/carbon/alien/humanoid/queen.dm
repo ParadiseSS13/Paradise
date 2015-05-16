@@ -8,6 +8,7 @@
 	heal_rate = 5
 	plasma_rate = 20
 	large = 1
+	ventcrawler = 0
 
 /mob/living/carbon/alien/humanoid/queen/New()
 	var/datum/reagents/R = new/datum/reagents(100)
@@ -24,7 +25,6 @@
 
 	real_name = src.name
 	verbs.Add(/mob/living/carbon/alien/humanoid/proc/corrosive_acid,/mob/living/carbon/alien/humanoid/proc/neurotoxin,/mob/living/carbon/alien/humanoid/proc/resin)
-	verbs -= /mob/living/carbon/alien/verb/ventcrawl
 	..()
 
 

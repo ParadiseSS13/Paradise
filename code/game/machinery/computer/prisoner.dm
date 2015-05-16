@@ -14,7 +14,7 @@
 	var/screen = 0 // 0 - No Access Denied, 1 - Access allowed
 	var/obj/item/weapon/card/id/prisoner/inserted_id
 
-	l_color = "#B40000"
+	light_color = "#A91515"
 
 
 	attack_ai(var/mob/user as mob)

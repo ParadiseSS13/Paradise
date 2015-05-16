@@ -1019,7 +1019,7 @@ proc/anim(turf/location as turf,target as mob|obj,a_icon,a_icon_state as text,fl
 
 //					if(AR.lighting_use_dynamic)							//TODO: rewrite this code so it's not messed by lighting ~Carn
 //						X.opacity = !X.opacity
-//						X.SetOpacity(!X.opacity)
+//						X.set_opacity(!X.opacity)
 
 					toupdate += X
 
@@ -1175,7 +1175,7 @@ proc/DuplicateObject(obj/original, var/perfectcopy = 0 , var/sameloc = 0)
 
 //					if(AR.lighting_use_dynamic)
 //						X.opacity = !X.opacity
-//						X.sd_SetOpacity(!X.opacity)			//TODO: rewrite this code so it's not messed by lighting ~Carn
+//						X.sd_set_opacity(!X.opacity)			//TODO: rewrite this code so it's not messed by lighting ~Carn
 
 					toupdate += X
 
@@ -1690,4 +1690,22 @@ atom/proc/GetTypeInAllContents(typepath)
 	if(blocked.Find(picked_chem))
 		return get_random_chemical()
 	return picked_chem
+
+/proc/get_distant_turf(var/turf/T,var/direction,var/distance)
+	if(!T || !direction || !distance)	return
+
+	var/dest_x = T.x
+	var/dest_y = T.y
+	var/dest_z = T.z
+
+	if(direction & NORTH)
+		dest_y = min(world.maxy, dest_y+distance)
+	if(direction & SOUTH)
+		dest_y = max(0, dest_y-distance)
+	if(direction & EAST)
+		dest_x = min(world.maxy, dest_x+distance)
+	if(direction & WEST)
+		dest_x = max(0, dest_x-distance)
+
+	return locate(dest_x,dest_y,dest_z)
 
