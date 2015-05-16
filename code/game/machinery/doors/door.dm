@@ -239,7 +239,7 @@
 	sleep(5)
 	src.density = 0
 	sleep(5)
-	src.layer = 2.7
+	src.layer = open_layer
 	update_icon()
 	set_opacity(0)
 	operating = 0
@@ -263,7 +263,7 @@
 	operating = 1
 
 	do_animate("closing")
-	src.layer = 3.1
+	src.layer = closed_layer
 	sleep(5)
 	src.density = 1
 	sleep(5)
