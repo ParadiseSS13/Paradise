@@ -6,7 +6,13 @@ var/datum/nanomanager/nanomanager = new()
 // event manager, the manager for events
 var/datum/event_manager/event_manager = new()
 // Announcer intercom, because too much stuff creates an intercom for one message then hard del()s it.
-var/global/obj/item/device/radio/intercom/global_announcer = new(null)
+var/global/obj/item/device/radio/intercom/global_announcer = create_global_announcer()
+// Load order issues means this can't be new'd until other code runs
+// This is probably not the way I should be doing this, but I don't know how to do it right!
+proc/create_global_announcer()
+  spawn(0)
+    global_announcer = new(null)
+  return
 
 var/list/paper_tag_whitelist = list("center","p","div","span","h1","h2","h3","h4","h5","h6","hr","pre",	\
 	"big","small","font","i","u","b","s","sub","sup","tt","br","hr","ol","ul","li","caption","col",	\
