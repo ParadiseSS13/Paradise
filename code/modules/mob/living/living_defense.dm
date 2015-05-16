@@ -362,7 +362,7 @@
 			user << "<span class='notice'>You already grabbed [src].</span>"
 			return
 
-	add_logs(user, src, "grabbed", addition="passively")
+	add_logs(src, user, "grabbed", addition="passively")
 
 	var/obj/item/weapon/grab/G = new /obj/item/weapon/grab(user, src)
 	if(buckled)

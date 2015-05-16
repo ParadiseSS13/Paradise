@@ -151,7 +151,7 @@
 				"<span class='userdanger'>[M] [M.attacktext] [src]!</span>")
 		var/damage = rand(M.melee_damage_lower, M.melee_damage_upper)
 		adjustBruteLoss(damage)
-		add_logs(M, src, "attacked", admin=0)
+		add_logs(src, M, "attacked", admin=0)
 		updatehealth()
 
 
