@@ -51,7 +51,7 @@
 	destroyed = 1
 	force_update()
 	if(source_atom && source_atom.light_sources) source_atom.light_sources -= src
-	if(top_atom) top_atom.light_sources -= src
+	if(top_atom && top_atom.light_sources) top_atom.light_sources -= src
 
 /datum/light_source/proc/update(atom/new_top_atom)
 	if(new_top_atom && new_top_atom != top_atom)
