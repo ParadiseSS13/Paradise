@@ -106,7 +106,7 @@ datum/reagent/charcoal
 	id = "charcoal"
 	description = "Activated charcoal helps to absorb toxins."
 	reagent_state = LIQUID
-	color = "#C8A5DC"
+	color = "#000000"
 
 datum/reagent/charcoal/on_mob_life(var/mob/living/M as mob)
 	if(!M) M = holder.my_atom
