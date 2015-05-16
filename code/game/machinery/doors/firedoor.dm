@@ -18,6 +18,7 @@
 	var/nextstate = null
 
 	var/logged_users
+	closed_layer = 3.11
 
 /obj/machinery/door/firedoor/New()
 	. = ..()
