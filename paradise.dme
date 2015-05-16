@@ -1719,6 +1719,7 @@
 #include "code\modules\shuttles\shuttle_specops.dm"
 #include "code\modules\shuttles\shuttle_supply.dm"
 #include "code\modules\shuttles\shuttles_multi.dm"
+#include "code\modules\shuttles\whiteship.dm"
 #include "code\modules\store\items.dm"
 #include "code\modules\store\store.dm"
 #include "code\modules\supermatter\supermatter.dm"

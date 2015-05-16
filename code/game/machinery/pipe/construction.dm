@@ -422,7 +422,7 @@ Buildable meters
 			var/turf/T = P.loc
 			P.level = T.intact ? 2 : 1
 			P.initialize()
-			if (!P)
+			if (!P || (!P.node1 && !P.node2) )
 				usr << pipefailtext
 				return 1
 			P.build_network()
@@ -434,7 +434,6 @@ Buildable meters
 				P.node2.build_network()
 			machineReference = P
 
-
 		if(PIPE_SUPPLY_STRAIGHT, PIPE_SUPPLY_BENT)
 			var/obj/machinery/atmospherics/pipe/simple/hidden/supply/P = new( src.loc )
 			P.color = color
@@ -443,7 +442,7 @@ Buildable meters
 			var/turf/T = P.loc
 			P.level = T.intact ? 2 : 1
 			P.initialize()
-			if (!P)
+			if (!P || (!P.node1 && !P.node2) )
 				usr << pipefailtext
 				return 1
 			P.build_network()
@@ -463,7 +462,7 @@ Buildable meters
 			var/turf/T = P.loc
 			P.level = T.intact ? 2 : 1
 			P.initialize()
-			if (!P)
+			if (!P || (!P.node1 && !P.node2) )
 				usr << pipefailtext
 				return 1
 			P.build_network()
@@ -483,7 +482,7 @@ Buildable meters
 			var/turf/T = P.loc
 			P.level = T.intact ? 2 : 1
 			P.initialize()
-			if (!P)
+			if (!P || (!P.node1 && !P.node2) )
 				usr << pipefailtext
 				return 1
 			P.build_network()
@@ -694,7 +693,7 @@ Buildable meters
 			//var/turf/T = P.loc
 			//P.level = T.intact ? 2 : 1
 			P.initialize()
-			if (!P)
+			if (!P || (!P.node1 && !P.node2) )
 				usr << pipefailtext //"There's nothing to connect this pipe to! (with how the pipe code works, at least one end needs to be connected to something, otherwise the game deletes the segment)"
 				return 1
 			P.build_network()
@@ -887,7 +886,7 @@ Buildable meters
 			var/turf/T = P.loc
 			P.level = T.intact ? 2 : 1
 			P.initialize()
-			if (!P)
+			if (!P || (!P.node1 && !P.node2) )
 				usr << pipefailtext
 				return 1
 			P.build_network()

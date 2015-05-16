@@ -198,6 +198,11 @@
 	name = "Circuit board (Mining Shuttle)"
 	build_path = "/obj/machinery/computer/shuttle_control/mining"
 	origin_tech = "programming=2"
+/obj/item/weapon/circuitboard/white_ship
+	name = "circuit Board (White Ship)"
+	desc = {"A dusty circuitboard, marked "property of the NGV Venal"."}
+	build_path = "/obj/machinery/computer/shuttle_control/multi/whiteship"
+	origin_tech = "programming=2"
 /obj/item/weapon/circuitboard/engineering_shuttle
 	name = "Circuit board (Engineering Shuttle)"
 	build_path = "/obj/machinery/computer/shuttle_control/engineering"
