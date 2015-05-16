@@ -27,6 +27,8 @@
 			return
 		if(istype(M, /mob/living/carbon/human) && M:species.bodyflags & FEET_NOSLIP)
 			return
+		if(M.flying)
+			return
 
 		M.stop_pulling()
 		M << "\blue You slipped on the [name]!"
@@ -41,6 +43,8 @@
 	if (istype(AM, /mob/living/carbon))
 		var/mob/M =	AM
 		if (istype(M, /mob/living/carbon/human) && (isobj(M:shoes) && M:shoes.flags&NOSLIP) || M.buckled)
+			return
+		if(M.flying)
 			return
 
 		M.stop_pulling()
@@ -57,7 +61,7 @@
 		user << "<span class='notice'>You need to take that [target.name] off before cleaning it.</span>"
 	else if(istype(target,/obj/effect/decal/cleanable))
 		user.visible_message("<span class='warning'>[user] begins to scrub \the [target.name] out with [src].</span>")
-		if(do_after(user, src.cleanspeed))
+		if(do_after(user, src.cleanspeed) && target)
 			user << "<span class='notice'>You scrub \the [target.name] out.</span>"
 			del(target)
 	else

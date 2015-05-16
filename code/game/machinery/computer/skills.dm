@@ -4,6 +4,7 @@
 	name = "Employment Records"
 	desc = "Used to view personnel's employment records"
 	icon_state = "medlaptop"
+	light_color = "#00b000"
 	req_one_access = list(access_heads)
 	circuit = "/obj/item/weapon/circuitboard/skills"
 	var/obj/item/weapon/card/id/scan = null
@@ -286,7 +287,7 @@ What a mess.*/
 					temp += "<a href='?src=\ref[src];choice=Clear Screen'>No</a>"
 //RECORD CREATE
 			if ("New Record (General)")
-				
+
 				if(PDA_Manifest.len)
 					PDA_Manifest.Cut()
 				var/datum/data/record/G = new /datum/data/record()

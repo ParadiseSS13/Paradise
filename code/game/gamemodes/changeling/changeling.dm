@@ -51,11 +51,6 @@ var/list/possible_changeling_IDs = list("Alpha","Beta","Gamma","Delta","Epsilon"
 
 	var/list/datum/mind/possible_changelings = get_players_for_role(BE_CHANGELING)
 
-	for(var/datum/mind/player in possible_changelings)
-		for(var/job in restricted_jobs)//Removing robots from the list
-			if(player.assigned_role == job)
-				possible_changelings -= player
-
 	changeling_amount = 1 + round(num_players() / 10)
 
 	if(possible_changelings.len>0)
@@ -64,6 +59,7 @@ var/list/possible_changeling_IDs = list("Alpha","Beta","Gamma","Delta","Epsilon"
 			var/datum/mind/changeling = pick(possible_changelings)
 			possible_changelings -= changeling
 			changelings += changeling
+			changeling.restricted_roles = restricted_jobs
 			modePlayer += changelings
 		return 1
 	else
@@ -125,7 +121,7 @@ var/list/possible_changeling_IDs = list("Alpha","Beta","Gamma","Delta","Epsilon"
 				var/mob/living/carbon/human/H = identity_theft.target.current
 				if(H.species && H.species.flags && H.species.flags & NO_SCAN) // For species that can't be absorbed - should default to an escape objective instead
 					return
-				else	
+				else
 					identity_theft.explanation_text = "Escape on the shuttle or an escape pod with the identity of [identity_theft.target_real_name], the [identity_theft.target.assigned_role] while wearing their identification card."
 			changeling.objectives += identity_theft
 
@@ -312,4 +308,4 @@ var/list/possible_changeling_IDs = list("Alpha","Beta","Gamma","Delta","Epsilon"
 		user << "<span class='warning'>We already have this DNA in storage!</span>"
 
 	return 1
-	
+

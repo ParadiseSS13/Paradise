@@ -788,6 +788,9 @@
 		set desc = "Fire the weapons."
 		set category = "Spacepod"
 		set src = usr.loc
+		if(!equipment_system.weapon_system)
+			usr << "<span class='warning'>\The [src] has no weapons!</span>"
+			return
 		equipment_system.weapon_system.fire_weapons()
 
 obj/spacepod/verb/toggleLights()

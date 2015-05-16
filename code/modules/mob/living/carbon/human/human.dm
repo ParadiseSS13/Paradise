@@ -110,6 +110,14 @@
 	h_style = "Bald"
 	..(new_loc, "Golem")
 
+/mob/living/carbon/human/wryn/New(var/new_loc)
+	h_style = "Antennae"
+	..(new_loc, "Wryn")
+
+/mob/living/carbon/human/nucleation/New(var/new_loc)
+	h_style = "Nucleation Crystals"
+	..(new_loc, "Nucleation")
+
 /mob/living/carbon/human/Bump(atom/movable/AM as mob|obj, yes)
 	if ((!( yes ) || now_pushing))
 		return
@@ -244,12 +252,15 @@
 
 				var/limbs_affected = pick(2,3,4)
 				var/obj/item/organ/external/processing_dismember
+				var/list/valid_limbs = organs.Copy()
 
-				while(limbs_affected != 0)
-					processing_dismember = pick(organs)
+				while(limbs_affected != 0 && valid_limbs.len > 0)
+					processing_dismember = pick(valid_limbs)
 					if(processing_dismember.limb_name != "chest" && processing_dismember.limb_name != "head" && processing_dismember.limb_name != "groin")
 						processing_dismember.droplimb(1,pick(0,1,2),0,1)
+						valid_limbs -= processing_dismember
 						limbs_affected -= 1
+					else valid_limbs -= processing_dismember
 
 
 			//return
@@ -262,28 +273,25 @@
 
 			f_loss += 60
 
+			var/limbs_affected = 0
+			var/obj/item/organ/external/processing_dismember
+			var/list/valid_limbs = organs.Copy()
+
 			if (prob(getarmor(null, "bomb")))
 				b_loss = b_loss/1.5
 				f_loss = f_loss/1.5
 
-				var/limbs_affected = pick(1, 1, 2)
-				var/obj/item/organ/external/processing_dismember
-
-				while(limbs_affected != 0)
-					processing_dismember = pick(organs)
-					if(processing_dismember.limb_name != "chest" && processing_dismember.limb_name != "head" && processing_dismember.limb_name != "groin")
-						processing_dismember.droplimb(1,pick(0,2),0,1)
-						limbs_affected -= 1
-
+				limbs_affected = pick(1, 1, 2)
 			else
-				var/limbs_affected = pick(1, 2, 3)
-				var/obj/item/organ/external/processing_dismember
+				limbs_affected = pick(1, 2, 3)
 
-				while(limbs_affected != 0)
-					processing_dismember = pick(organs)
-					if(processing_dismember.limb_name != "chest" && processing_dismember.limb_name != "head" && processing_dismember.limb_name != "groin")
-						processing_dismember.droplimb(1,pick(0,2),0,1)
-						limbs_affected -= 1
+			while(limbs_affected != 0 && valid_limbs.len > 0)
+				processing_dismember = pick(valid_limbs)
+				if(processing_dismember.limb_name != "chest" && processing_dismember.limb_name != "head" && processing_dismember.limb_name != "groin")
+					processing_dismember.droplimb(1,pick(0,2),0,1)
+					valid_limbs -= processing_dismember
+					limbs_affected -= 1
+				else valid_limbs -= processing_dismember
 
 			if (!istype(l_ear, /obj/item/clothing/ears/earmuffs) && !istype(r_ear, /obj/item/clothing/ears/earmuffs))
 				ear_damage += 30
@@ -300,12 +308,15 @@
 
 				var/limbs_affected = pick(0, 1)
 				var/obj/item/organ/external/processing_dismember
+				var/list/valid_limbs = organs.Copy()
 
-				while(limbs_affected != 0)
-					processing_dismember = pick(organs)
+				while(limbs_affected != 0 && valid_limbs.len > 0)
+					processing_dismember = pick(valid_limbs)
 					if(processing_dismember.limb_name != "chest" && processing_dismember.limb_name != "head" && processing_dismember.limb_name != "groin")
 						processing_dismember.droplimb(1,1,0,1)
+						valid_limbs -= processing_dismember
 						limbs_affected -= 1
+					else valid_limbs -= processing_dismember
 
 			if (!istype(l_ear, /obj/item/clothing/ears/earmuffs) && !istype(r_ear, /obj/item/clothing/ears/earmuffs))
 				ear_damage += 15
@@ -656,13 +667,16 @@
 /mob/living/carbon/human/Topic(href, href_list)
 	var/pickpocket = 0
 
+	if(ishuman(usr))
+		var/mob/living/carbon/human/H = usr
+		var/obj/item/clothing/gloves/G = H.gloves
+		if(G)
+			pickpocket = G.pickpocket
+
 	if(!usr.stat && usr.canmove && !usr.restrained() && in_range(src, usr))
 
 		// if looting pockets with gloves, do it quietly
 		if(href_list["pockets"])
-			if(usr:gloves)
-				var/obj/item/clothing/gloves/G = usr:gloves
-				pickpocket = G.pickpocket
 			var/pocket_side = href_list["pockets"]
 			var/pocket_id = (pocket_side == "right" ? slot_r_store : slot_l_store)
 			var/obj/item/pocket_item = (pocket_id == slot_r_store ? src.r_store : src.l_store)
@@ -701,9 +715,6 @@
 		if(href_list["item"])
 			var/itemTarget = href_list["item"]
 			if(itemTarget == "id")
-				if(usr:gloves)
-					var/obj/item/clothing/gloves/G = usr:gloves
-					pickpocket = G.pickpocket
 				if(pickpocket)
 					var/obj/item/worn_id = src.wear_id
 					var/obj/item/place_item = usr.get_active_hand() // Item to place in the pocket, if it's empty
@@ -748,9 +759,6 @@
 
 	if ((href_list["item"] && !( usr.stat ) && usr.canmove && !( usr.restrained() ) && in_range(src, usr) && ticker)) //if game hasn't started, can't make an equip_e
 		var/obj/effect/equip_e/human/O = new /obj/effect/equip_e/human(  )
-		if(ishuman(usr) && usr:gloves)
-			var/obj/item/clothing/gloves/G = usr:gloves
-			pickpocket = G.pickpocket
 		if(!pickpocket || href_list["item"] != "id")  // Stop the non-stealthy verbose strip if pickpocketing id.
 			O.source = usr
 			O.target = src

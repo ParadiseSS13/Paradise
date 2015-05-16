@@ -95,7 +95,6 @@
 
 /obj/item/weapon/tank/plasma/New()
 	..()
-
 	src.air_contents.toxins = (3*ONE_ATMOSPHERE)*70/(R_IDEAL_GAS_EQUATION*T20C)
 	return
 
@@ -110,6 +109,12 @@
 		F.ptank = src
 		user.unEquip(src)
 		src.loc = F
+		F.update_icon()
+	return
+
+/obj/item/weapon/tank/plasma/full/New()
+	..()
+	src.air_contents.toxins = (10*ONE_ATMOSPHERE)*volume/(R_IDEAL_GAS_EQUATION*T20C)
 	return
 
 /obj/item/weapon/tank/plasma/plasmaman

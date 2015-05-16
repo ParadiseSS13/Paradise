@@ -117,7 +117,7 @@
 		return
 
 	var/atom/movable/M = atom
-
+	if(!M.simulated) return
 	var/loopsanity = 100
 	if(ismob(M))
 		if(!M:lastarea)
@@ -137,6 +137,7 @@
 	..()
 	var/objects = 0
 	for(var/atom/A as mob|obj|turf|area in range(1))
+		if(!A.simulated) return
 		if(objects > loopsanity)	break
 		objects++
 		spawn( 0 )

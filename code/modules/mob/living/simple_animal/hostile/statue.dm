@@ -116,19 +116,19 @@
 	var/DLlight_amount
 	var/atom/movable/lighting_overlay/L = locate(/atom/movable/lighting_overlay) in T
 	if(L)
-		light_amount = min(10,L.lum_r + L.lum_g + L.lum_b) - 5 //hardcapped so it's not abused by having a ton of flashlights
+		light_amount = L.lum_r + L.lum_g + L.lum_b
 	else
 		light_amount =  5
 	var/atom/movable/lighting_overlay/DL = locate(/atom/movable/lighting_overlay) in destination
 	if(DL)
-		DLlight_amount = min(10,L.lum_r + L.lum_g + L.lum_b) - 5 //hardcapped so it's not abused by having a ton of flashlights
+		DLlight_amount = DL.lum_r + DL.lum_g + DL.lum_b
 	else
 		DLlight_amount =  5
 	if(T && destination)
 		// Don't check it twice if our destination is the tile we are on or we can't even get to our destination
 		if(T == destination)
 			destination = null
-		else if(light_amount <= 1 && DLlight_amount <= 1) // No one can see us in the darkness, right?
+		else if(light_amount < 0.1 && DLlight_amount < 0.1) // No one can see us in the darkness, right?
 			return null
 
 	// We aren't in darkness, loop for viewers.

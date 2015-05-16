@@ -810,7 +810,7 @@
 			var/atom/movable/lighting_overlay/L = locate(/atom/movable/lighting_overlay) in T
 			var/light_available
 			if(L)
-				light_available = max(0,min(10,L.lum_r + L.lum_g + L.lum_b)-5)
+				light_available = L.get_clamped_lum()*10
 			else
 				light_available =  5
 			light_string = "a light level of [light_available] lumens"
@@ -830,3 +830,21 @@
 	closed_system = !closed_system
 	user << "You [closed_system ? "close" : "open"] the tray's lid."
 	update_icon()
+
+/obj/machinery/portable_atmospherics/hydroponics/verb/eject_tank_verb()
+	set name = "Eject Internal Tank"
+	set category = "Object"
+	set src in view(1)
+	eject_tank(usr)
+
+/obj/machinery/portable_atmospherics/hydroponics/proc/eject_tank(var/mob/living/user)
+	if(!user || user.stat || user.restrained())
+		return
+
+	if(!holding)
+		usr << "\red There is no tank loaded into [src] to eject."
+
+	if(istype(holding, /obj/item/weapon/tank))
+		usr << "\blue You eject [holding.name] from [src]."
+		holding.loc = loc
+		holding = null

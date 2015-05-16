@@ -30,7 +30,7 @@ var/global/datum/controller/mob_system/mob_master
 	var/starttime
 
 /datum/controller/mob_system/proc/Setup()
-	world << "\red Mob ticker starting up."
+	world << "\red \b Mob ticker starting up."
 	starttime = world.timeofday
 
 /datum/controller/mob_system/proc/process()

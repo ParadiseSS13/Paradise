@@ -33,7 +33,11 @@
 	if (!available_recipes)
 		available_recipes = new
 		for (var/type in (typesof(/datum/recipe/candy)-/datum/recipe/candy))
-			available_recipes+= new type
+			var/datum/recipe/recipe = new type
+			if(recipe.result) // Ignore recipe subtypes that lack a result
+				available_recipes += recipe
+			else
+				del(recipe)
 		acceptable_items = new
 		acceptable_reagents = new
 		for (var/datum/recipe/candy/recipe in available_recipes)

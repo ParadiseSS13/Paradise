@@ -28,7 +28,7 @@
 		speech_buffer.Add(lowertext(html_decode(message)))
 	..()
 
-/mob/living/carbon/slime/hear_radio(var/message, var/verb="says", var/datum/language/language=null, var/part_a, var/part_b, var/mob/speaker = null, var/hard_to_hear = 0, var/vname ="")
+/mob/living/carbon/slime/hear_radio(var/message, var/verb="says", var/datum/language/language=null, var/part_a, var/part_b, var/mob/speaker = null, var/hard_to_hear = 0, var/vname ="", var/atom/follow_target)
 	if (speaker in Friends)
 		speech_buffer = list()
 		speech_buffer.Add(speaker)

@@ -34,7 +34,7 @@
 			else
 				feedback_add_details("handcuffs","H")
 
-			add_logs(user, C, "handcuffed")
+			add_logs(C, user, "handcuffed", src)
 		else
 			user << "<span class='warning'>You fail to handcuff [C].</span>"
 

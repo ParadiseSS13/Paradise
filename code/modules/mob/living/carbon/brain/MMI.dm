@@ -22,6 +22,9 @@
 	var/obj/mecha = null//This does not appear to be used outside of reference in mecha.dm.
 
 	attackby(var/obj/item/O as obj, var/mob/user as mob, params)
+		if(istype(O, /obj/item/organ/brain/crystal ))
+			user << "<span class='warning'> This brain is too malformed to be able to use with the [src].</span>"
+			return
 		if(istype(O,/obj/item/organ/brain) && !brainmob) //Time to stick a brain in it --NEO
 			if(!O:brainmob)
 				user << "\red You aren't sure where this brain came from, but you're pretty sure it's a useless brain."

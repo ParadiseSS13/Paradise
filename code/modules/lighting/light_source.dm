@@ -50,8 +50,8 @@
 /datum/light_source/proc/destroy()
 	destroyed = 1
 	force_update()
-	if(source_atom) source_atom.light_sources -= src
-	if(top_atom) top_atom.light_sources -= src
+	if(source_atom && source_atom.light_sources) source_atom.light_sources -= src
+	if(top_atom && top_atom.light_sources) top_atom.light_sources -= src
 
 /datum/light_source/proc/update(atom/new_top_atom)
 	if(new_top_atom && new_top_atom != top_atom)
@@ -69,7 +69,7 @@
 	lighting_update_lights += src
 
 /datum/light_source/proc/check()
-	if(!source_atom)
+	if(!source_atom || !light_range || !light_power)
 		destroy()
 		return 1
 

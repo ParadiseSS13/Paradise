@@ -40,6 +40,7 @@ datum/mind
 
 	var/assigned_role
 	var/special_role
+	var/list/restricted_roles = list()
 
 	var/list/spell_list = list() // Wizard mode & "Give Spell" badmin button.
 

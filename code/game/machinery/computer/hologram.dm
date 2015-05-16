@@ -20,7 +20,7 @@
 		return
 	return
 
-/obj/machinery/computer/hologram_comp/DblClick()
+/obj/machinery/computer/hologram_comp/attack_hand()
 	if (!in_range(src, usr))
 		return 0
 	src.show_console(usr)

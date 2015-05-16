@@ -3,6 +3,7 @@
 	desc = "A little security robot.  He looks less than thrilled."
 	icon = 'icons/obj/aibots.dmi'
 	icon_state = "secbot0"
+	light_color = "#FF0000"
 	layer = 5.0
 	density = 0
 	anchored = 0
@@ -217,14 +218,14 @@ Auto Patrol: []"},
 	switch(mode)
 
 		if(BOT_IDLE)		// idle
-
+			flashing_lights() //make sure they disengage properly
 			walk_to(src,0)
 			look_for_perp()	// see if any criminals are in range
 			if(!mode && auto_patrol)	// still idle, and set to patrol
 				mode = BOT_START_PATROL	// switch to patrol mode
 
 		if(BOT_HUNT)		// hunting for perp
-
+			flashing_lights()
 			// if can't reach perp for long enough, go idle
 			if(frustration >= 8)
 				walk_to(src,0)
@@ -274,7 +275,7 @@ Auto Patrol: []"},
 				back_to_idle()
 
 		if(BOT_PREP_ARREST)		// preparing to arrest target
-
+			flashing_lights() //make sure they disengage properly
 			// see if he got away. If he's no no longer adjacent or inside a closet or about to get up, we hunt again.
 			if( !Adjacent(target) || !isturf(target.loc) ||  target.weakened < 2 )
 				back_to_hunt()
@@ -409,6 +410,16 @@ Auto Patrol: []"},
 	if(!isalien(target))
 		target = user
 		mode = BOT_HUNT
+
+/obj/machinery/bot/secbot/proc/flashing_lights()
+	if(mode == BOT_HUNT)
+		switch(light_color)
+			if("#FF0000")
+				light_color = "#0000FF"
+			if("#0000FF")
+				light_color = "#FF0000"
+	else
+		light_color = "#FF0000"
 
 //Secbot Construction
 

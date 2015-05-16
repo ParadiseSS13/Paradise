@@ -75,6 +75,7 @@ CREATE TABLE `characters` (
   `disabilities` mediumint(8) NOT NULL,
   `player_alt_titles` mediumtext NOT NULL,
   `organ_data` mediumtext NOT NULL,
+  `rlimb_data` mediumtext NOT NULL,
   `nanotrasen_relation` varchar(45) NOT NULL,
   `speciesprefs` int(1) NOT NULL,
   `slime_color` mediumtext NOT NULL,

@@ -6,7 +6,12 @@
 		src << "Only administrators may use this command."
 		return
 
-	usr.loc = pick(get_area_turfs(A))
+	var/list/area_turfs = get_area_turfs(A)
+	if(area_turfs && area_turfs.len)
+		usr.loc = pick(area_turfs)
+	else
+		src << "That area has no turfs to jump to!"
+		return
 	log_admin("[key_name(usr)] jumped to [A]")
 	message_admins("[key_name_admin(usr)] jumped to [A]", 1)
 	feedback_add_details("admin_verb","JA") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!

@@ -39,7 +39,7 @@
 		if("JoinLate")
 			latejoin += loc
 			del(src)
-			
+
 		if("JoinLateGateway")
 			latejoin_gateway += loc
 			del(src)
@@ -47,7 +47,7 @@
 		if("JoinLateCryo")
 			latejoin_cryo += loc
 			del(src)
-			
+
 		if("JoinLateCyborg")
 			latejoin_cyborg += loc
 			del(src)
@@ -90,7 +90,7 @@
 
 		if("carpspawn")
 			carplist += loc
-			
+
 		if("voxstart")
 			raider_spawn += loc
 
@@ -252,13 +252,13 @@
 /obj/effect/landmark/costume/cutewitch/New()
 	new /obj/item/clothing/under/sundress(src.loc)
 	new /obj/item/clothing/head/witchwig(src.loc)
-	new /obj/item/weapon/staff/broom(src.loc)
+	new /obj/item/weapon/twohanded/staff/broom(src.loc)
 	del(src)
 
 /obj/effect/landmark/costume/fakewizard/New()
 	new /obj/item/clothing/suit/wizrobe/fake(src.loc)
 	new /obj/item/clothing/head/wizard/fake(src.loc)
-	new /obj/item/weapon/staff/(src.loc)
+	new /obj/item/weapon/twohanded/staff/(src.loc)
 	del(src)
 
 /obj/effect/landmark/costume/sexyclown/New()

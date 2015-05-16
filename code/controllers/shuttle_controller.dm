@@ -247,6 +247,25 @@ var/global/datum/shuttle_controller/shuttle_controller
 	MS.warmup_time = 0
 	shuttles["Syndicate"] = MS
 
+	//Vox Shuttle.
+	var/datum/shuttle/multi_shuttle/WS = new/datum/shuttle/multi_shuttle()
+	WS.origin = locate(/area/shuttle/derelict/ship/start)
+
+	WS.destinations = list(
+		"NCS Cyberiad" = locate(/area/shuttle/derelict/ship/station),
+		"Engineering Outpost" = locate(/area/shuttle/derelict/ship/engipost),
+		)
+
+	WS.announcer = "NSV Icarus"
+	WS.arrival_message = "Attention, [station_name()], we just tracked a large medical vessel approaching the station from the telecommunications satellite. Can't fire on them without hitting the station - prepare for visitors."
+	WS.departure_message = "Your guests are pulling away, [station_name()] - moving too fast for us to draw a bead on them. Looks like they're heading back to the telecommunications satellite."
+	WS.interim = locate(/area/shuttle/derelict/ship/transit)
+
+	WS.cloaked = 0
+	WS.move_time = 180
+	WS.warmup_time = 0
+	shuttles["White Ship"] = WS
+
 
 //This is called by gameticker after all the machines and radio frequencies have been properly initialized
 /datum/shuttle_controller/proc/setup_shuttle_docks()

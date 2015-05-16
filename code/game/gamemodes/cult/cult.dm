@@ -65,10 +65,6 @@
 		restricted_jobs += protected_jobs
 
 	var/list/cultists_possible = get_players_for_role(BE_CULTIST)
-	for(var/datum/mind/player in cultists_possible)
-		for(var/job in restricted_jobs)//Removing heads and such from the list
-			if(player.assigned_role == job)
-				cultists_possible -= player
 
 	for(var/cultists_number = 1 to max_cultists_to_start)
 		if(!cultists_possible.len)
@@ -76,6 +72,7 @@
 		var/datum/mind/cultist = pick(cultists_possible)
 		cultists_possible -= cultist
 		cult += cultist
+		cultist.restricted_roles = restricted_jobs
 
 	return (cult.len>0)
 

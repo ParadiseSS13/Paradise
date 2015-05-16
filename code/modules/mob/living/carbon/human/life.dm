@@ -264,6 +264,16 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 				gene.OnMobLife(src)
 
 		if (radiation)
+
+			if((locate(src.internal_organs_by_name["resonant crystal"]) in src.internal_organs))
+				var/rads = radiation/25
+				radiation -= rads
+				radiation -= 0.1
+				reagents.add_reagent("radium", rads/10)
+				if( prob(10) )
+					src << "\blue You feel relaxed."
+				return
+
 			if (radiation > 100)
 				radiation = 100
 				if(!(species.flags & RAD_ABSORB))
@@ -276,7 +286,6 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 				radiation = 0
 
 			else
-
 				if(species.flags & RAD_ABSORB)
 					var/rads = radiation/25
 					radiation -= rads
@@ -746,7 +755,7 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 				var/turf/T = loc
 				var/atom/movable/lighting_overlay/L = locate(/atom/movable/lighting_overlay) in T
 				if(L)
-					light_amount = min(10,L.lum_r + L.lum_g + L.lum_b) - 5 //hardcapped so it's not abused by having a ton of flashlights
+					light_amount = (L.get_clamped_lum()*10) - 5 //hardcapped so it's not abused by having a ton of flashlights
 				else
 					light_amount =  5
 			nutrition += light_amount
@@ -768,7 +777,7 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 				var/turf/T = loc
 				var/atom/movable/lighting_overlay/L = locate(/atom/movable/lighting_overlay) in T
 				if(L)
-					light_amount = L.lum_r + L.lum_g + L.lum_b //hardcapped so it's not abused by having a ton of flashlights
+					light_amount = L.get_clamped_lum()*10
 				else
 					light_amount =  10
 			if(light_amount > species.light_dam) //if there's enough light, start dying
@@ -1033,6 +1042,14 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 			//Jitteryness
 			if(jitteriness)
 				do_jitter_animation(jitteriness)
+
+			//Flying
+			if(flying)
+				spawn()
+					animate(src, pixel_y = pixel_y + 5 , time = 10, loop = 1, easing = SINE_EASING)
+				spawn(10)
+					if(flying)
+						animate(src, pixel_y = pixel_y - 5, time = 10, loop = 1, easing = SINE_EASING)
 
 			//Other
 			handle_statuses()

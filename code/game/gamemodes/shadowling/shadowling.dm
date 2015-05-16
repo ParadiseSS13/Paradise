@@ -85,11 +85,6 @@ Made by Xhuis
 	if(!possible_shadowlings.len)
 		return 0
 
-	for(var/datum/mind/player in possible_shadowlings)
-		for(var/job in restricted_jobs)
-			if(player.assigned_role == job)
-				possible_shadowlings -= player
-
 	var/shadowlings = 2 //How many shadowlings there are; hardcoded to 2
 
 	while(shadowlings)
@@ -98,6 +93,7 @@ Made by Xhuis
 		possible_shadowlings -= shadow
 		modePlayer += shadow
 		shadow.special_role = "Shadowling"
+		shadow.restricted_roles = restricted_jobs
 		shadowlings--
 	return 1
 

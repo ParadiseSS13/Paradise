@@ -281,7 +281,7 @@
 	if(!light_supplied)
 		var/atom/movable/lighting_overlay/L = locate(/atom/movable/lighting_overlay) in current_turf
 		if(L)
-			light_supplied = max(0,min(10,L.lum_r + L.lum_g + L.lum_b)-5)
+			light_supplied = L.get_clamped_lum()*10
 		else
 			light_supplied =  5
 
@@ -689,7 +689,8 @@
 			else
 				product = new /obj/item/weapon/reagent_containers/food/snacks/grown(get_turf(user),name)
 			if(get_trait(TRAIT_PRODUCT_COLOUR))
-				product.color = get_trait(TRAIT_PRODUCT_COLOUR)
+				if(!has_mob_product || (has_mob_product && has_mob_product != /mob/living/carbon/monkey/diona))
+					product.color = get_trait(TRAIT_PRODUCT_COLOUR)
 				if(istype(product,/obj/item/weapon/reagent_containers/food))
 					var/obj/item/weapon/reagent_containers/food/food = product
 					food.filling_color = get_trait(TRAIT_PRODUCT_COLOUR)
