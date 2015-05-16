@@ -116,8 +116,8 @@
 	name = "flare"
 	desc = "A red Nanotrasen issued flare. There are instructions on the side, it reads 'pull cord, make light'."
 	w_class = 2.0
-	brightness_on = 7 // Pretty bright.
-	light_color = "#e58775"
+	brightness_on = 8 // Made it brighter (from 7 to 8).
+	light_color = "#ff0000" // changed colour to a more brighter red.
 	icon_state = "flare"
 	item_state = "flare"
 	var/fuel = 0
