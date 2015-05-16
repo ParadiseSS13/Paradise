@@ -869,14 +869,15 @@ Note that amputating the affected organ does in fact remove the infection from t
 /obj/item/organ/external/proc/disfigure(var/type = "brute")
 	if (disfigured)
 		return
-	if(type == "brute")
-		owner.visible_message("\red You hear a sickening cracking sound coming from \the [owner]'s [name].",	\
-		"\red <b>Your [name] becomes a mangled mess!</b>",	\
-		"\red You hear a sickening crack.")
-	else
-		owner.visible_message("\red \The [owner]'s [name] melts away, turning into mangled mess!",	\
-		"\red <b>Your [name] melts away!</b>",	\
-		"\red You hear a sickening sizzle.")
+	if(owner)
+		if(type == "brute")
+			owner.visible_message("\red You hear a sickening cracking sound coming from \the [owner]'s [name].",	\
+			"\red <b>Your [name] becomes a mangled mess!</b>",	\
+			"\red You hear a sickening crack.")
+		else
+			owner.visible_message("\red \The [owner]'s [name] melts away, turning into mangled mess!",	\
+			"\red <b>Your [name] melts away!</b>",	\
+			"\red You hear a sickening sizzle.")
 	disfigured = 1
 
 /****************************************************
@@ -1016,6 +1017,8 @@ Note that amputating the affected organ does in fact remove the infection from t
 		owner.unEquip(owner.l_ear)
 		owner.unEquip(owner.r_ear)
 		owner.unEquip(owner.wear_mask)
+		spawn(1)
+			owner.update_hair()
 	..()
 
 /obj/item/organ/external/head/take_damage(brute, burn, sharp, edge, used_weapon = null, list/forbidden_limbs = list())
