@@ -134,7 +134,8 @@
 				dat += "<div class='statusDisplay'>Error: No growns inside.<BR>Please put growns into reactor.</div>"
 				menustat = "menu"
 			if("nobeakerspace")
-				dat += "<div class='statusDisplay'>Not enough space left in container. Unable to create product.</div>"
+			//	dat += "<div class='statusDisplay'>Not enough space left in container. Unable to create product.</div>"
+				user << "<span class='warning'>Not enough space left in container. Unable to create product. Please empty container.</span>"
 				menustat = "menu"
 		if(beaker)
 			dat += "<div class='statusDisplay'>Biomass: [points] units.</div><BR>"
