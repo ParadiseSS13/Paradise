@@ -119,3 +119,7 @@
 */
 /mob/new_player/ClickOn()
 	return
+
+// pAIs are not intended to interact with anything in the world
+/mob/living/silicon/pai/UnarmedAttack(var/atom/A)
+	return

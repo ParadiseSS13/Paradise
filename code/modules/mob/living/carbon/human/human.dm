@@ -667,13 +667,16 @@
 /mob/living/carbon/human/Topic(href, href_list)
 	var/pickpocket = 0
 
+	if(ishuman(usr))
+		var/mob/living/carbon/human/H = usr
+		var/obj/item/clothing/gloves/G = H.gloves
+		if(G)
+			pickpocket = G.pickpocket
+
 	if(!usr.stat && usr.canmove && !usr.restrained() && in_range(src, usr))
 
 		// if looting pockets with gloves, do it quietly
 		if(href_list["pockets"])
-			if(usr:gloves)
-				var/obj/item/clothing/gloves/G = usr:gloves
-				pickpocket = G.pickpocket
 			var/pocket_side = href_list["pockets"]
 			var/pocket_id = (pocket_side == "right" ? slot_r_store : slot_l_store)
 			var/obj/item/pocket_item = (pocket_id == slot_r_store ? src.r_store : src.l_store)
@@ -712,9 +715,6 @@
 		if(href_list["item"])
 			var/itemTarget = href_list["item"]
 			if(itemTarget == "id")
-				if(usr:gloves)
-					var/obj/item/clothing/gloves/G = usr:gloves
-					pickpocket = G.pickpocket
 				if(pickpocket)
 					var/obj/item/worn_id = src.wear_id
 					var/obj/item/place_item = usr.get_active_hand() // Item to place in the pocket, if it's empty
@@ -759,9 +759,6 @@
 
 	if ((href_list["item"] && !( usr.stat ) && usr.canmove && !( usr.restrained() ) && in_range(src, usr) && ticker)) //if game hasn't started, can't make an equip_e
 		var/obj/effect/equip_e/human/O = new /obj/effect/equip_e/human(  )
-		if(ishuman(usr) && usr:gloves)
-			var/obj/item/clothing/gloves/G = usr:gloves
-			pickpocket = G.pickpocket
 		if(!pickpocket || href_list["item"] != "id")  // Stop the non-stealthy verbose strip if pickpocketing id.
 			O.source = usr
 			O.target = src

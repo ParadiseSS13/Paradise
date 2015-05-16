@@ -307,6 +307,13 @@
 		W.loc = src
 
 		if(W.contents.len) //Make sure we catch anything not handled by del() on the items.
+			var/preserve = null
+			for(var/T in preserve_items)
+				if(istype(W,T))
+					preserve = 1
+					break
+			if(preserve) // Don't remove the contents of things that need preservation
+				continue
 			for(var/obj/item/O in W.contents)
 				if(istype(O,/obj/item/weapon/tank)) //Stop eating pockets, you fuck!
 					continue

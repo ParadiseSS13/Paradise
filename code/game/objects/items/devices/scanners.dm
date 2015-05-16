@@ -227,6 +227,8 @@ REAGENT SCANNER
 
 		for(var/name in H.organs_by_name)
 			var/obj/item/organ/external/e = H.organs_by_name[name]
+			if(!e)
+				continue
 			if(e.status & ORGAN_BROKEN)
 				user.show_message(text("\red Bone fractures detected. Advanced scanner required for location."), 1)
 				break
