@@ -24,7 +24,7 @@
 	var/speed_coeff
 	var/efficiency
 
-	light_color = "#00FF00"
+	light_color = LIGHT_COLOR_PURE_GREEN
 	power_change()
 		..()
 		if(!(stat & (BROKEN|NOPOWER)))

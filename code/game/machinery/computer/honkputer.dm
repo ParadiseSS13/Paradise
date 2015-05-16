@@ -3,7 +3,7 @@
 	desc = "A yellow computer used in case of critically low levels of HONK."
 	icon = 'icons/obj/machines/HONKputer.dmi'
 	icon_state = "honk"
-	light_color = "#FF33CC"
+	light_color = LIGHT_COLOR_PINK
 	req_access = list(access_clown)
 	circuit = "/obj/item/weapon/circuitboard/HONKputer"
 	var/authenticated = 0

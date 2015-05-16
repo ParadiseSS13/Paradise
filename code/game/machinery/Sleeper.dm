@@ -222,7 +222,7 @@
 	idle_power_usage = 1250
 	active_power_usage = 2500
 
-	light_color = "#7BF9FF"
+	light_color = LIGHT_COLOR_CYAN
 
 	power_change()
 		..()
