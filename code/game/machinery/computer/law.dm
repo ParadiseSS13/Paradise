@@ -8,7 +8,7 @@
 	var/mob/living/silicon/ai/current = null
 	var/opened = 0
 
-	light_color = "#FFFFFF"
+	light_color = LIGHT_COLOR_WHITE
 	light_range_on = 2
 
 
