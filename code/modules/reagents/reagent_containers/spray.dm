@@ -15,7 +15,6 @@
 	amount_per_transfer_from_this = 5
 	volume = 250
 	possible_transfer_amounts = null
-	banned_reagents = list("facid","sacid")
 
 
 /obj/item/weapon/reagent_containers/spray/afterattack(atom/A as mob|obj, mob/user as mob)
@@ -63,7 +62,7 @@
 /obj/item/weapon/reagent_containers/spray/proc/spray(var/atom/A)
 	var/obj/effect/decal/chempuff/D = new /obj/effect/decal/chempuff(get_turf(src))
 	D.create_reagents(amount_per_transfer_from_this)
-	reagents.trans_to(D, amount_per_transfer_from_this, 1/spray_currentrange)
+	reagents.trans_to(D, amount_per_transfer_from_this)
 	D.icon += mix_color_from_reagents(D.reagents.reagent_list)
 	spawn(0)
 		for(var/i=0, i<spray_currentrange, i++)
@@ -80,6 +79,11 @@
 	amount_per_transfer_from_this = (amount_per_transfer_from_this == 10 ? 5 : 10)
 	spray_currentrange = (spray_currentrange == 1 ? spray_maxrange : 1)
 	user << "<span class='notice'>You [amount_per_transfer_from_this == 10 ? "remove" : "fix"] the nozzle. You'll now use [amount_per_transfer_from_this] units per spray.</span>"
+
+/obj/item/weapon/reagent_containers/spray/examine(mob/user)
+	if(..(user, 0) && user==src.loc)
+		user << "[round(src.reagents.total_volume)] units left."
+	return
 
 /obj/item/weapon/reagent_containers/spray/verb/empty()
 
@@ -161,7 +165,6 @@
 	amount_per_transfer_from_this = 10
 	volume = 600
 	origin_tech = "combat=3;materials=3;engineering=3"
-	banned_reagents = list()//the safeties are off, spray and pay!
 
 
 /obj/item/weapon/reagent_containers/spray/chemsprayer/spray(var/atom/A)
