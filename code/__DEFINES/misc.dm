@@ -83,6 +83,28 @@
 #define EVENT_LEVEL_MODERATE 2
 #define EVENT_LEVEL_MAJOR 3
 
+#define JANUARY		1
+#define FEBRUARY	2
+#define MARCH		3
+#define APRIL		4
+#define MAY			5
+#define JUNE		6
+#define JULY		7
+#define AUGUST		8
+#define SEPTEMBER	9
+#define OCTOBER		10
+#define NOVEMBER	11
+#define DECEMBER	12
+
+//Select holiday names -- If you test for a holiday in the code, make the holiday's name a define and test for that instead
+#define NEW_YEAR				"New Year"
+#define VALENTINES				"Valentine's Day"
+#define APRIL_FOOLS				"April Fool's Day"
+#define EASTER					"Easter"
+#define HALLOWEEN				"Halloween"
+#define CHRISTMAS				"Christmas"
+#define FRIDAY_13TH				"Friday the 13th"
+
 //Light color defs, for light-emitting things
 //Some defs may be pure color- this is for neatness, and configurability. Changing #define COLOR_ is a bad idea.
 #define LIGHT_COLOR_CYAN		"#7BF9FF"
