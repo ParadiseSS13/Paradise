@@ -58,7 +58,7 @@ var/shuttle_call/shuttle_calls[0]
 
 	var/datum/announcement/priority/crew_announcement = new
 
-	light_color = "#0099FF"
+	light_color = LIGHT_COLOR_LIGHTBLUE
 
 /obj/machinery/computer/communications/New()
 	..()

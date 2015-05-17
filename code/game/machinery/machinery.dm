@@ -114,6 +114,7 @@ Class Procs:
 	var/area/myArea
 	var/interact_offline = 0 // Can the machine be interacted with while de-powered.
 	var/use_log = list()
+	var/list/settagwhitelist = list()//WHITELIST OF VARIABLES THAT THE set_tag HREF CAN MODIFY, DON'T PUT SHIT YOU DON'T NEED ON HERE, AND IF YOU'RE GONNA USE set_tag (format_tag() proc), ADD TO THIS LIST.
 
 /obj/machinery/New()
 	addAtProcessing()
@@ -184,6 +185,119 @@ Class Procs:
 		use_power(active_power_usage,power_channel, 1)
 	return 1
 
+/obj/machinery/proc/multitool_topic(var/mob/user,var/list/href_list,var/obj/O)
+	if("set_id" in href_list)
+		if(!("id_tag" in vars))
+			warning("set_id: [type] has no id_tag var.")
+		var/newid = copytext(reject_bad_text(input(usr, "Specify the new ID tag for this machine", src, src:id_tag) as null|text),1,MAX_MESSAGE_LEN)
+		if(newid)
+			src:id_tag = newid
+			return MT_UPDATE|MT_REINIT
+	if("set_freq" in href_list)
+		if(!("frequency" in vars))
+			warning("set_freq: [type] has no frequency var.")
+			return 0
+		var/newfreq=src:frequency
+		if(href_list["set_freq"]!="-1")
+			newfreq=text2num(href_list["set_freq"])
+		else
+			newfreq = input(usr, "Specify a new frequency (GHz). Decimals assigned automatically.", src, src:frequency) as null|num
+		if(newfreq)
+			if(findtext(num2text(newfreq), "."))
+				newfreq *= 10 // shift the decimal one place
+			if(newfreq < 10000)
+				src:frequency = newfreq
+				return MT_UPDATE|MT_REINIT
+	return 0
+
+/obj/machinery/proc/handle_multitool_topic(var/href, var/list/href_list, var/mob/user)
+	if(!allowed(user))//no, not even HREF exploits
+		return 0
+	var/obj/item/device/multitool/P = get_multitool(usr)
+	if(P && istype(P))
+		var/update_mt_menu=0
+		var/re_init=0
+		if("set_tag" in href_list)
+			if(!(href_list["set_tag"] in settagwhitelist))//I see you're trying Href exploits, I see you're failing, I SEE ADMIN WARNING. (seriously though, this is a powerfull HREF, I originally found this loophole, I'm not leaving it in on my PR)
+				message_admins("set_tag HREF (var attempted to edit: [href_list["set_tag"]]) exploit attempted by [key_name(user, user.client)] (<A HREF='?_src_=holder;adminmoreinfo=\ref[user]'>?</A>) on [src] ([x],[y],[z] - <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)")
+				return 1
+			if(!(href_list["set_tag"] in vars))
+				usr << "<span class='warning'>Something went wrong: Unable to find [href_list["set_tag"]] in vars!</span>"
+				return 1
+			var/current_tag = src.vars[href_list["set_tag"]]
+			var/newid = copytext(reject_bad_text(input(usr, "Specify the new value", src, current_tag) as null|text),1,MAX_MESSAGE_LEN)
+			if(newid)
+				vars[href_list["set_tag"]] = newid
+				re_init=1
+
+		if("unlink" in href_list)
+			var/idx = text2num(href_list["unlink"])
+			if (!idx)
+				return 1
+
+			var/obj/O = getLink(idx)
+			if(!O)
+				return 1
+			if(!canLink(O))
+				usr << "\red You can't link with that device."
+				return 1
+
+			if(unlinkFrom(usr, O))
+				usr << "\blue A green light flashes on \the [P], confirming the link was removed."
+			else
+				usr << "\red A red light flashes on \the [P].  It appears something went wrong when unlinking the two devices."
+			update_mt_menu=1
+
+		if("link" in href_list)
+			var/obj/O = P.buffer
+			if(!O)
+				return 1
+			if(!canLink(O,href_list))
+				usr << "\red You can't link with that device."
+				return 1
+			if (isLinkedWith(O))
+				usr << "\red A red light flashes on \the [P]. The two devices are already linked."
+				return 1
+
+			if(linkWith(usr, O, href_list))
+				usr << "\blue A green light flashes on \the [P], confirming the link was added."
+			else
+				usr << "\red A red light flashes on \the [P].  It appears something went wrong when linking the two devices."
+			update_mt_menu=1
+
+		if("buffer" in href_list)
+			P.buffer = src
+			usr << "\blue A green light flashes, and the device appears in the multitool buffer."
+			update_mt_menu=1
+
+		if("flush" in href_list)
+			usr << "\blue A green light flashes, and the device disappears from the multitool buffer."
+			P.buffer = null
+			update_mt_menu=1
+
+		var/ret = multitool_topic(usr,href_list,P.buffer)
+		if(ret == MT_ERROR)
+			return 1
+		if(ret & MT_UPDATE)
+			update_mt_menu=1
+		if(ret & MT_REINIT)
+			re_init=1
+
+		if(re_init)
+			initialize()
+		if(update_mt_menu)
+			//usr.set_machine(src)
+			update_multitool_menu(usr)
+			return 1
+
+/obj/machinery/Topic(href, href_list, var/nowindow = 0, var/datum/topic_state/custom_state = default_state)
+	if(..())
+		return 1
+	handle_multitool_topic(href,href_list,usr)
+	add_fingerprint(usr)
+	return 0
+
+
 /obj/machinery/CanUseTopic(var/mob/user, var/be_close)
 	if(!interact_offline && (stat & (NOPOWER|BROKEN)))
 		return STATUS_CLOSE
@@ -197,8 +311,8 @@ Class Procs:
 /obj/machinery/CouldNotUseTopic(var/mob/user)
 	usr.unset_machine()
 
-////////////////////////////////////////////////////////////////////////////////////////////	
-	
+////////////////////////////////////////////////////////////////////////////////////////////
+
 /obj/machinery/attack_ai(var/mob/user as mob)
 	if(isrobot(user))
 		// For some reason attack_robot doesn't work
@@ -354,7 +468,7 @@ Class Procs:
 		I.loc = loc
 	del(src)
 	return 1
-	
+
 /obj/machinery/proc/on_assess_perp(mob/living/carbon/human/perp)
 	return 0
 

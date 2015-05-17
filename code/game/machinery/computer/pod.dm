@@ -4,7 +4,7 @@
 	name = "Pod Launch Control"
 	desc = "A controll for launching pods. Some people prefer firing Mechas."
 	icon_state = "computer_generic"
-	light_color = "#00B000"
+	light_color = LIGHT_COLOR_GREEN
 	circuit = /obj/item/weapon/circuitboard/pod
 	var/id = 1.0
 	var/obj/machinery/mass_driver/connected = null

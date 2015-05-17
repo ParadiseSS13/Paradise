@@ -14,7 +14,7 @@
 
 	var/storedcode = ""			// code stored
 
-	light_color = "#50AB00"
+	light_color = LIGHT_COLOR_DARKGREEN
 
 	req_access = list(access_tcomsat)
 	circuit = "/obj/item/weapon/circuitboard/comm_traffic"

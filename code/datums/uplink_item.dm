@@ -265,6 +265,14 @@ var/list/uplink_items = list()
 	excludefrom = list("nuclear emergency")
 	surplus = 50
 
+/datum/uplink_item/dangerous/flamethrower
+	name = "Flamethrower"
+	desc = "A flamethrower, fueled by a portion of highly flammable biotoxins stolen previously from Nanotrasen stations. Make a statement by roasting the filth in their own greed. Use with caution."
+	item = /obj/item/weapon/flamethrower/full/tank
+	cost = 11
+	gamemodes = list("nuclear emergency")
+	surplus = 40
+
 /datum/uplink_item/dangerous/sword
 	name = "Energy Sword"
 	desc = "The esword is an edged weapon with a blade of pure energy. The sword is small enough to be pocketed when inactive. Activating it produces a loud, distinctive noise."
@@ -586,6 +594,14 @@ var/list/uplink_items = list()
 	desc = "When used with an upload console, this module allows you to upload priority laws to an artificial intelligence. Be careful with their wording, as artificial intelligences may look for loopholes to exploit."
 	item = /obj/item/weapon/aiModule/syndicate
 	cost = 14
+
+/datum/uplink_item/device_tools/magboots
+	name = "Blood-Red Magboots"
+	desc = "A pair of magnetic boots with a Syndicate paintjob that assist with freer movement in space or on-station during gravitational generator failures. \
+	These reverse-engineered knockoffs of Nanotrasen's 'Advanced Magboots' slow you down in simulated-gravity environments much like the standard issue variety."
+	item = /obj/item/clothing/shoes/magboots/syndie
+	cost = 5
+	gamemodes = list("nuclear emergency")
 
 /datum/uplink_item/device_tools/plastic_explosives
 	name = "Composition C-4"

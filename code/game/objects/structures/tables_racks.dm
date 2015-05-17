@@ -334,6 +334,10 @@
 	if(air_group || (height==0)) return 1
 	if(istype(mover,/obj/item/projectile))
 		return (check_cover(mover,target))
+	if(ismob(mover))
+		var/mob/M = mover
+		if(M.flying)
+			return 1
 	if(istype(mover) && mover.checkpass(PASSTABLE))
 		return 1
 	if(locate(/obj/structure/table) in get_turf(mover))

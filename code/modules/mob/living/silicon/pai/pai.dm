@@ -457,8 +457,9 @@
 	if(istype(T)) T.visible_message("<b>[src]</b> neatly folds inwards, compacting down to a rectangular card.")
 
 	src.stop_pulling()
-	src.client.perspective = EYE_PERSPECTIVE
-	src.client.eye = card
+	if(src.client)
+		src.client.perspective = EYE_PERSPECTIVE
+		src.client.eye = card
 
 	//This seems redundant but not including the forced loc setting messes the behavior up.
 	src.loc = card

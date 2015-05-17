@@ -264,6 +264,16 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 				gene.OnMobLife(src)
 
 		if (radiation)
+
+			if((locate(src.internal_organs_by_name["resonant crystal"]) in src.internal_organs))
+				var/rads = radiation/25
+				radiation -= rads
+				radiation -= 0.1
+				reagents.add_reagent("radium", rads/10)
+				if( prob(10) )
+					src << "\blue You feel relaxed."
+				return
+
 			if (radiation > 100)
 				radiation = 100
 				if(!(species.flags & RAD_ABSORB))
@@ -276,7 +286,6 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 				radiation = 0
 
 			else
-
 				if(species.flags & RAD_ABSORB)
 					var/rads = radiation/25
 					radiation -= rads
@@ -1033,6 +1042,14 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 			//Jitteryness
 			if(jitteriness)
 				do_jitter_animation(jitteriness)
+
+			//Flying
+			if(flying)
+				spawn()
+					animate(src, pixel_y = pixel_y + 5 , time = 10, loop = 1, easing = SINE_EASING)
+				spawn(10)
+					if(flying)
+						animate(src, pixel_y = pixel_y - 5, time = 10, loop = 1, easing = SINE_EASING)
 
 			//Other
 			handle_statuses()

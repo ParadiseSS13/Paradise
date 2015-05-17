@@ -301,6 +301,8 @@
 /datum/species/proc/handle_death(var/mob/living/carbon/human/H) //Handles any species-specific death events (such as dionaea nymph spawns).
 	return
 
+/datum/species/proc/handle_attack_hand(var/mob/living/carbon/human/H, var/mob/living/carbon/human/M) //Handles any species-specific attackhand events.
+	return
 
 /datum/species/proc/say_filter(mob/M, message, datum/language/speaking)
 	return message
@@ -744,6 +746,10 @@
 
 /datum/unarmed_attack/punch
 	attack_verb = list("punch")
+
+/datum/unarmed_attack/punch/weak
+	attack_verb = list("flail")
+	damage = 1
 
 /datum/unarmed_attack/diona
 	attack_verb = list("lash", "bludgeon")

@@ -55,6 +55,8 @@
 
 	var/datum/martial_art/attacker_style = M.martial_art
 
+	species.handle_attack_hand(src,M)
+
 	switch(M.a_intent)
 		if("help")
 			if(health >= config.health_threshold_crit)

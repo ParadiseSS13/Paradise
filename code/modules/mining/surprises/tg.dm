@@ -82,7 +82,7 @@
 		/obj/item/weapon/storage/belt/soulstone=1,
 		/obj/item/trash/candle=3,
 		/obj/item/weapon/dice=3,
-		/obj/item/weapon/staff=2,
+		/obj/item/weapon/twohanded/staff=2,
 		/obj/effect/decal/cleanable/dirt=3,
 	)
 

@@ -116,8 +116,8 @@
 	name = "flare"
 	desc = "A red Nanotrasen issued flare. There are instructions on the side, it reads 'pull cord, make light'."
 	w_class = 2.0
-	brightness_on = 7 // Pretty bright.
-	light_color = "#e58775"
+	brightness_on = 8 // Made it brighter (from 7 to 8).
+	light_color = "#ff0000" // changed colour to a more brighter red.
 	icon_state = "flare"
 	item_state = "flare"
 	var/fuel = 0
@@ -223,7 +223,7 @@
 											"<span class='userdanger'>[user] blinks \the [src] at \the [A].")
 		if(ismob(A))
 			var/mob/M = A
-			add_logs(user, M, "attacked", object="EMP-light")
+			add_logs(M, user, "attacked", object="EMP-light")
 		user << "\The [src] now has [emp_cur_charges] charge\s."
 		A.emp_act(1)
 	else
