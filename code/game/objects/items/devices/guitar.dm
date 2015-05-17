@@ -37,6 +37,7 @@
 	name = "Guitar"
 	result = /obj/item/device/guitar
 	reqs = list(/obj/item/stack/sheet/wood = 5,
-				/obj/item/stack/cable_coil = 6)
+				/obj/item/stack/cable_coil = 6,
+				/obj/item/stack/tape_roll = 5)
 	tools = list(/obj/item/weapon/screwdriver, /obj/item/weapon/wirecutters)
 	time = 80
