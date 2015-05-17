@@ -105,7 +105,7 @@
 			bloodDNA = null
 
 		var/noslip = 0
-		for (var/obj/structure/stool/bed/chair/C in loc)
+		for (var/obj/structure/stool/bed/chair/C in contents)
 			if (C.buckled_mob == M)
 				noslip = 1
 		if (noslip)
