@@ -19,6 +19,7 @@
 <A href='?src=\ref[src];make=1;dir=5'>Bent Pipe</A><BR>
 <A href='?src=\ref[src];make=5;dir=1'>Manifold</A><BR>
 <A href='?src=\ref[src];make=8;dir=1'>Manual Valve</A><BR>
+<A href='?src=\ref[src];make=40;dir=1'>Digital Valve</A><BR>
 <A href='?src=\ref[src];make=20;dir=1'>Pipe Cap</A><BR>
 <A href='?src=\ref[src];make=19;dir=1'>4-Way Manifold</A><BR>
 <A href='?src=\ref[src];make=18;dir=1'>Manual T-Valve</A><BR>
@@ -43,8 +44,12 @@
 <A href='?src=\ref[src];make=16;dir=1'>Volume Pump</A><BR>
 <A href='?src=\ref[src];make=10;dir=1'>Scrubber</A><BR>
 <A href='?src=\ref[src];makemeter=1'>Meter</A><BR>
+<A href='?src=\ref[src];makegsensor=1'>Gas Sensor</A><BR>
 <A href='?src=\ref[src];make=13;dir=1'>Gas Filter</A><BR>
 <A href='?src=\ref[src];make=14;dir=1'>Gas Mixer</A><BR>
+<A href='?src=\ref[src];make=39;dir=1'>Air Injector</A><BR>
+<A href='?src=\ref[src];make=41;dir=1'>Dual-Port Vent Pump</A><BR>
+<A href='?src=\ref[src];make=42;dir=1'>Passive Vent</A><BR>
 <b>Heat exchange:</b><BR>
 <A href='?src=\ref[src];make=2;dir=1'>Pipe</A><BR>
 <A href='?src=\ref[src];make=3;dir=5'>Bent Pipe</A><BR>
@@ -56,6 +61,7 @@
 
 "}
 //What number the make points to is in the define # at the top of construction.dm in same folder
+//which for some reason couldn't just be left defined, so it could be used here, top kek
 
 	user << browse("<HEAD><TITLE>[src]</TITLE></HEAD><TT>[dat]</TT>", "window=pipedispenser")
 	onclose(user, "pipedispenser")
@@ -82,6 +88,12 @@
 	if(href_list["makemeter"])
 		if(!wait)
 			new /obj/item/pipe_meter(/*usr.loc*/ src.loc)
+			wait = 1
+			spawn(15)
+				wait = 0
+	if(href_list["makegsensor"])
+		if(!wait)
+			new /obj/item/pipe_gsensor(/*usr.loc*/ src.loc)
 			wait = 1
 			spawn(15)
 				wait = 0

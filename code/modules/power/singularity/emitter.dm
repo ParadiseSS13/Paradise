@@ -21,6 +21,17 @@
 	var/state = 0
 	var/locked = 0
 
+	var/frequency = 0
+	var/id_tag = null
+	var/datum/radio_frequency/radio_connection
+
+	//Radio remote control
+/obj/machinery/power/emitter/proc/set_frequency(new_frequency)
+	radio_controller.remove_object(src, frequency)
+	frequency = new_frequency
+	if(frequency)
+		radio_connection = radio_controller.add_object(src, frequency, RADIO_ATMOSIA)
+
 
 /obj/machinery/power/emitter/verb/rotate()
 	set name = "Rotate"
@@ -38,6 +49,41 @@
 	if(state == 2 && anchored)
 		connect_to_network()
 		src.directwired = 1
+	if(frequency)
+		set_frequency(frequency)
+/obj/machinery/power/emitter/multitool_menu(var/mob/user,var/obj/item/device/multitool/P)
+	return {"
+	<ul>
+		<li><b>Frequency:</b> <a href="?src=\ref[src];set_freq=-1">[format_frequency(frequency)] GHz</a> (<a href="?src=\ref[src];set_freq=[1439]">Reset</a>)</li>
+		<li>[format_tag("ID Tag","id_tag","set_id")]</a></li>
+	</ul>
+	"}
+
+/obj/machinery/power/emitter/receive_signal(datum/signal/signal)
+	if(!signal.data["tag"] || (signal.data["tag"] != id_tag))
+		return 0
+
+	var/on=0
+	switch(signal.data["command"])
+		if("on")
+			on=1
+
+		if("off")
+			on=0
+
+		if("set")
+			on = signal.data["state"] > 0
+
+		if("toggle")
+			on = !active
+
+	if(anchored && state == 2 && on != active)
+		active=on
+		var/statestr=on?"on":"off"
+		// Spammy message_admins("Emitter turned [statestr] by radio signal ([signal.data["command"]] @ [frequency]) in [formatJumpTo(src)]",0,1)
+		log_game("Emitter turned [statestr] by radio signal ([signal.data["command"]] @ [frequency]) in ([x],[y],[z]) AAC prints: [list2text(signal.data["hiddenprints"])]")
+		investigate_log("turned <font color='orange'>[statestr]</font> by radio signal ([signal.data["command"]] @ [frequency]) AAC prints: [list2text(signal.data["hiddenprints"])]","singulo")
+		update_icon()
 
 /obj/machinery/power/emitter/Destroy()
 	msg_admin_attack("Emitter deleted at ([x],[y],[z] - <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)",0,1)
@@ -145,6 +191,9 @@
 
 
 /obj/machinery/power/emitter/attackby(obj/item/W, mob/user, params)
+	if(istype(W, /obj/item/device/multitool))
+		update_multitool_menu(user)
+		return 1
 
 	if(istype(W, /obj/item/weapon/wrench))
 		if(active)

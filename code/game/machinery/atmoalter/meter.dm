@@ -8,13 +8,19 @@
 	power_channel = ENVIRON
 	var/frequency = 0
 	var/id
+	var/id_tag
 	use_power = 1
 	idle_power_usage = 2
 	active_power_usage = 5
+	req_one_access_txt = "24;10"
+	Mtoollink = 1
+	settagwhitelist = list("id_tag")
 
 /obj/machinery/meter/New()
 	..()
 	src.target = locate(/obj/machinery/atmospherics/pipe) in loc
+	if(id && !id_tag)//i'm not dealing with further merge conflicts, fuck it
+		id_tag = id
 	return 1
 
 /obj/machinery/meter/initialize()
@@ -59,7 +65,7 @@
 		signal.source = src
 		signal.transmission_method = 1
 		signal.data = list(
-			"tag" = id,
+			"tag" = id_tag,
 			"device" = "AM",
 			"pressure" = round(env_pressure),
 			"sigtype" = "status"
@@ -106,6 +112,10 @@
 	return ..()
 
 /obj/machinery/meter/attackby(var/obj/item/weapon/W as obj, var/mob/user as mob, params)
+	if(istype(W, /obj/item/device/multitool))
+		update_multitool_menu(user)
+		return 1
+
 	if (!istype(W, /obj/item/weapon/wrench))
 		return ..()
 	playsound(src.loc, 'sound/items/Ratchet.ogg', 50, 1)
@@ -132,3 +142,11 @@
 
 /obj/machinery/meter/turf/attackby(var/obj/item/weapon/W as obj, var/mob/user as mob, params)
 	return
+
+/obj/machinery/meter/multitool_menu(var/mob/user, var/obj/item/device/multitool/P)
+	return {"
+	<b>Main</b>
+	<ul>
+		<li><b>Frequency:</b> <a href="?src=\ref[src];set_freq=-1">[format_frequency(frequency)] GHz</a> (<a href="?src=\ref[src];set_freq=[initial(frequency)]">Reset</a>)</li>
+		<li>[format_tag("ID Tag","id_tag")]</li>
+	</ul>"}

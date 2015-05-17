@@ -7,16 +7,26 @@
 	name = "Air Injector"
 	desc = "Has a valve and pump attached to it"
 
+	req_one_access_txt = "24;10"
+
 	var/on = 0
 	var/injecting = 0
 
 	var/volume_rate = 50
 
 	var/frequency = 0
-	var/id = null
+	var/id
+	var/id_tag = null
 	var/datum/radio_frequency/radio_connection
+	Mtoollink = 1
+	settagwhitelist = list("id_tag")
 
 	level = 1
+
+/obj/machinery/atmospherics/unary/outlet_injector/New()
+	..()
+	if(id && !id_tag)//I'm not dealing with any more merge conflicts
+		id_tag = id
 
 /obj/machinery/atmospherics/unary/outlet_injector/update_icon()
 	if(!powered())
@@ -91,7 +101,7 @@
 	signal.source = src
 
 	signal.data = list(
-		"tag" = id,
+		"tag" = id_tag,
 		"device" = "AO",
 		"power" = on,
 		"volume_rate" = volume_rate,
@@ -104,24 +114,23 @@
 
 /obj/machinery/atmospherics/unary/outlet_injector/initialize()
 	..()
-
 	set_frequency(frequency)
 
 /obj/machinery/atmospherics/unary/outlet_injector/receive_signal(datum/signal/signal)
-	if(!signal.data["tag"] || (signal.data["tag"] != id) || (signal.data["sigtype"]!="command"))
+	if(!signal.data["tag"] || (signal.data["tag"] != id_tag) || (signal.data["sigtype"] != "command"))
 		return 0
 
-	if(signal.data["power"])
+	if(signal.data["power"] != null)
 		on = text2num(signal.data["power"])
 
-	if(signal.data["power_toggle"])
+	if(signal.data["power_toggle"] != null)
 		on = !on
 
-	if(signal.data["inject"])
+	if(signal.data["inject"] != null)
 		spawn inject()
 		return
 
-	if(signal.data["set_volume_rate"])
+	if(signal.data["set_volume_rate"] != null)
 		var/number = text2num(signal.data["set_volume_rate"])
 		volume_rate = between(0, number, air_contents.volume)
 
@@ -136,5 +145,57 @@
 		broadcast_status()
 	update_icon()
 
+	/*hide(var/i) //to make the little pipe section invisible, the icon changes.
+		if(node)
+			if(on)
+				icon_state = "[i == 1 && istype(loc, /turf/simulated) ? "h" : "" ]on"
+			else
+				icon_state = "[i == 1 && istype(loc, /turf/simulated) ? "h" : "" ]off"
+		else
+			icon_state = "[i == 1 && istype(loc, /turf/simulated) ? "h" : "" ]exposed"
+			on = 0
+		return*/
+
+/obj/machinery/atmospherics/unary/outlet_injector/multitool_menu(var/mob/user,var/obj/item/device/multitool/P)
+	return {"
+	<ul>
+		<li><b>Frequency:</b> <a href="?src=\ref[src];set_freq=-1">[format_frequency(frequency)] GHz</a> (<a href="?src=\ref[src];set_freq=[1439]">Reset</a>)</li>
+		<li>[format_tag("ID Tag","id_tag","set_id")]</a></li>
+	</ul>
+"}
+
+/obj/machinery/atmospherics/unary/outlet_injector/attackby(var/obj/item/weapon/W as obj, var/mob/user as mob)
+	if(istype(W, /obj/item/device/multitool))
+		interact(user)
+		return 1
+	if (!istype(W, /obj/item/weapon/wrench))
+		return ..()
+	if (!(stat & NOPOWER) && on)
+		user << "\red You cannot unwrench this [src], turn it off first."
+		return 1
+	var/turf/T = src.loc
+	if (level==1 && isturf(T) && T.intact)
+		user << "\red You must remove the plating first."
+		return 1
+	var/datum/gas_mixture/int_air = return_air()
+	var/datum/gas_mixture/env_air = loc.return_air()
+	if ((int_air.return_pressure()-env_air.return_pressure()) > 2*ONE_ATMOSPHERE)
+		user << "\red You cannot unwrench this [src], it too exerted due to internal pressure."
+		add_fingerprint(user)
+		return 1
+	playsound(get_turf(src), 'sound/items/Ratchet.ogg', 50, 1)
+	user << "\blue You begin to unfasten \the [src]..."
+	if (do_after(user, 40))
+		user.visible_message( \
+			"[user] unfastens \the [src].", \
+			"\blue You have unfastened \the [src].", \
+			"You hear ratchet.")
+		new /obj/item/pipe(loc, make_from=src)
+		del(src)
+
+/obj/machinery/atmospherics/unary/outlet_injector/interact(mob/user as mob)
+	update_multitool_menu(user)
+
 /obj/machinery/atmospherics/unary/outlet_injector/hide(var/i)
 	update_underlays()
+
