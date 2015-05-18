@@ -349,7 +349,7 @@ datum/design/GAC
 	req_tech = list("programming" = 3, "magnets" = 2)
 	build_type = IMPRINTER
 	materials = list("$glass" = 1000, "sacid" = 20)
-	build_path = "/obj/item/weapon/circtuiboard/air_management"
+	build_path = /obj/item/weapon/circuitboard/air_management
 
 datum/design/tank_control
 	name = "Circuit Design (Large Tank Control)"
@@ -358,7 +358,7 @@ datum/design/tank_control
 	req_tech = list("programming" = 3, "magnets" = 2)
 	build_type = IMPRINTER
 	materials = list("$glass" = 1000, "sacid" = 20)
-	build_path = "/obj/item/weapon/circtuiboard/general_air_control/large_tank_control"
+	build_path = /obj/item/weapon/circuitboard/large_tank_control
 
 datum/design/AAC
 	name = "Circuit Design (Atmospheric Automations Console)"
@@ -367,4 +367,4 @@ datum/design/AAC
 	req_tech = list("programming" = 4, "magnets" = 2)
 	build_type = IMPRINTER
 	materials = list("$glass" = 1000, "sacid" = 20)
-	build_path = "/obj/item/weapon/circtuiboard/general_air_control/atmos_automation"
+	build_path = /obj/item/weapon/circuitboard/atmos_automation
