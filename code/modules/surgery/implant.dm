@@ -13,7 +13,7 @@
 		return affected && affected.open == (affected.encased ? 3 : 2) && !(affected.status & ORGAN_BLEEDING)
 
 	proc/get_max_wclass(obj/item/organ/external/affected)
-		switch (affected.name)
+		switch (affected.limb_name)
 			if ("head")
 				return 1
 			if ("chest")
@@ -23,7 +23,7 @@
 		return 0
 
 	proc/get_cavity(obj/item/organ/external/affected)
-		switch (affected.name)
+		switch (affected.limb_name)
 			if ("head")
 				return "cranial"
 			if ("chest")
@@ -111,7 +111,7 @@
 		if (!ishuman(target))
 			return 0
 		var/obj/item/organ/external/affected = target.get_organ(target_zone)
-		var/can_fit = !affected.hidden && affected.cavity && tool.w_class <= get_max_wclass(affected)
+		var/can_fit = affected && !affected.hidden && affected.cavity && tool.w_class <= get_max_wclass(affected)
 		return ..() && can_fit
 
 	begin_step(mob/user, mob/living/carbon/human/target, target_zone, obj/item/tool)

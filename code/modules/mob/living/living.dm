@@ -337,12 +337,14 @@
 		var/mob/living/carbon/C = src
 		C.handcuffed = initial(C.handcuffed)
 		C.heart_attack = 0
+		C.brain_op_stage = 0
 
 		// restore all of the human's blood and reset their shock stage
 		if(ishuman(src))
 			var/mob/living/carbon/human/human_mob = src
 			human_mob.restore_blood()
 			human_mob.shock_stage = 0
+			human_mob.decaylevel = 0
 
 	restore_all_organs()
 	if(stat == 2)
