@@ -4,6 +4,7 @@
 	icon_state = "floor"
 	var/obj/tram/tram_controller/controller
 	anchored = 1
+	layer = TURF_LAYER + 0.2
 
 /obj/tram/floor/proc/spread_floors()
 	var/turf/T = get_turf(src)

@@ -12,22 +12,43 @@
 	var/list/collide_list = list()
 
 	var/list/stored_anchor = list()
+	var/last_played_rail
+
+	var/automode = 0
+	var/list/blacklist = list(/obj/tram/rail,/atom/movable/lighting_overlay)
 
 /obj/tram/tram_controller/New()
-	init_floors() //Search and link floors
-	init_walls() //Search and link walls
 	spawn(1)
-		init_tram() //Combine walls and floors and anything inside the tram
-		init_controllers() //Find control pads
-		gen_collision() //Generate collision system
-		processing_objects.Add(src) //Add to processing objects manually
+		init_floors() //Search and link floors
+		init_walls() //Search and link walls
+		spawn(1)
+			init_tram() //Combine walls and floors and anything inside the tram
+			init_controllers() //Find control pads
+			gen_collision() //Generate collision system
+			processing_objects.Add(src) //Add to processing objects manually
 
 /obj/tram/tram_controller/process()
 	update_tram() //Update combine to account for new mobs and/or objects
+	if(automode)
+		tram_rail_follow()
 
 /obj/tram/tram_controller/proc/update_tram()
 	tram.Cut()
 	init_tram()
+
+/obj/tram/tram_controller/proc/tram_rail_follow()
+	var/stored_rail = null
+	for(var/obj/tram/rail/RT in get_turf(src))
+		if(RT.godir)
+			handle_move(RT.godir)
+			last_played_rail = RT
+			return
+		stored_rail = RT
+	for(var/cdir in cardinal)
+		for(var/obj/tram/rail/R in get_step(src,cdir))
+			if(R != last_played_rail)
+				handle_move(get_dir(src,R))
+				last_played_rail = stored_rail
 
 //INITIALIZATION PROCS
 
@@ -66,6 +87,7 @@
 		var/turf/T = get_turf(OT)
 		for(var/atom/movable/AM in T) //Including anything inside of it
 			if(AM in tram)	continue
+			if(is_type_in_list(AM, blacklist))	continue
 			tram += AM
 
 /obj/tram/tram_controller/proc/init_controllers()
@@ -129,6 +151,17 @@
 						if(A.density)
 							if(tram.Find(A))	continue
 							collisions += cdir
+	for(var/obj/tram/floor/F in tram_floors)
+		for(var/cdir in cardinal)
+			var/turf/T = get_step(F, cdir)
+			if(istype(T))
+				if(T.density)
+					collisions += cdir
+				if(!T.density)
+					for(var/atom/movable/A in T)
+						if(A.density)
+							if(tram.Find(A))	continue
+							collisions += cdir
 	collide_list = collisions
 
 /obj/tram/tram_controller/proc/handle_move(var/dir)
@@ -138,5 +171,7 @@
 	for(var/atom/movable/A in tram)
 		var/turf/T = get_step(A,dir)
 		A.forceMove(T) //Move everything inside the tram and the tram itself manually
+		if(A.light_range)
+			A.set_light()
 	gen_collision() //Generate collision again
 	return 1
