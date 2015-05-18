@@ -51,19 +51,27 @@
 	thermal_conductivity = 0.025
 	heat_capacity = 325000
 
+/turf/simulated/floor/engine/break_tile()
+	return //unbreakable
+
+/turf/simulated/floor/engine/burn_tile()
+	return //unburnable
+
+/turf/simulated/floor/engine/make_plating(var/force = 0)
+	if(force)
+		..()
+	return //unplateable
+
+
 /turf/simulated/floor/engine/attackby(obj/item/weapon/C as obj, mob/user as mob, params)
-	if(!C)
-		return
-	if(!user)
+	if(!C || !user)
 		return
 	if(istype(C, /obj/item/weapon/wrench))
-		user << "\blue Removing rods..."
+		user << "<span class='notice'>You begin removing rods...</span>"
 		playsound(src, 'sound/items/Ratchet.ogg', 80, 1)
 		if(do_after(user, 30))
 			new /obj/item/stack/rods(src, 2)
-			ChangeTurf(/turf/simulated/floor)
-			var/turf/simulated/floor/F = src
-			F.make_plating()
+			ChangeTurf(/turf/simulated/floor/plating)
 			return
 
 /turf/simulated/floor/engine/ex_act(severity,target)
@@ -84,23 +92,22 @@
 	icon_state = "cult"
 
 
-/turf/simulated/floor/engine/n20
-	New()
-		. = ..()
-		var/datum/gas_mixture/adding = new
-		var/datum/gas/sleeping_agent/trace_gas = new
+/turf/simulated/floor/engine/n20/New()
+	..()
+	var/datum/gas_mixture/adding = new
+	var/datum/gas/sleeping_agent/trace_gas = new
 
-		trace_gas.moles = 2000
-		adding.trace_gases += trace_gas
-		adding.temperature = T20C
+	trace_gas.moles = 6000
+	adding.trace_gases += trace_gas
+	adding.temperature = T20C
 
-		assume_air(adding)
+	assume_air(adding)
 
 /turf/simulated/floor/engine/vacuum
 	name = "vacuum floor"
 	icon_state = "engine"
 	oxygen = 0
-	nitrogen = 0.001
+	nitrogen = 0
 	temperature = TCMB
 
 /turf/simulated/floor/plating
