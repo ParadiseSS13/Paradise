@@ -27,19 +27,18 @@
 		var/mob/living/carbon/human/H = M
 		var/obj/item/organ/external/S = H.get_organ(user.zone_sel.selecting)
 
-		if(S.open == 1)
-			if (S && (S.status & ORGAN_ROBOT))
-				if(S.get_damage())
-					S.heal_damage(15, 15, robo_repair = 1)
-					H.updatehealth()
-					use(1)
-					user.visible_message("<span class='notice'>\The [user] applies some nanite paste at[user != M ? " \the [M]'s" : " \the"][S.name] with \the [src].</span>",\
-					"<span class='notice'>You apply some nanite paste at [user == M ? "your" : "[M]'s"] [S.name].</span>")
-				else
-					user << "<span class='notice'>Nothing to fix here.</span>"
-		else
-			if (can_operate(H))
-				if (do_surgery(H,user,src))
-					return
+		if(can_operate(H))
+			if (do_surgery(H,user,src))
+				return
+
+		if (S && (S.status & ORGAN_ROBOT))
+			if(S.get_damage())
+				S.heal_damage(15, 15, robo_repair = 1)
+				H.updatehealth()
+				use(1)
+				user.visible_message("<span class='notice'>\The [user] applies some nanite paste at[user != M ? " \the [M]'s" : " \the"][S.name] with \the [src].</span>",\
+				"<span class='notice'>You apply some nanite paste at [user == M ? "your" : "[M]'s"] [S.name].</span>")
 			else
-				user << "<span class='notice'>Nothing to fix in here.</span>"
+				user << "<span class='notice'>Nothing to fix here.</span>"
+		else
+			user << "<span class='notice'>[src] won't work on that.</span>"
