@@ -1753,6 +1753,7 @@
 #include "code\modules\telesci\gps.dm"
 #include "code\modules\telesci\telepad.dm"
 #include "code\modules\telesci\telesci_computer.dm"
+#include "code\modules\tram\tram.dm"
 #include "code\modules\vehicle\vehicle.dm"
 #include "code\modules\vehicle\train\train.dm"
 #include "code\modules\vehicle\train\trains\ambulance.dm"
