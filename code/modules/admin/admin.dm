@@ -362,7 +362,7 @@ var/global/nologevent = 0
 		if(3)
 			dat+={"
 				Creating new Feed Message...
-				<HR><B><A href='?src=\ref[src];ac_set_channel_receiving=1'>Receiving Channel</A>:</B> [src.admincaster_feed_channel.channel_name]<BR>" //MARK
+				<HR><B><A href='?src=\ref[src];ac_set_channel_receiving=1'>Receiving Channel</A>:</B> [src.admincaster_feed_channel.channel_name]<BR>
 				<B>Message Author:</B> <FONT COLOR='green'>[src.admincaster_signature]</FONT><BR>
 				<B><A href='?src=\ref[src];ac_set_new_message=1'>Message Body</A>:</B> [src.admincaster_feed_message.body] <BR>
 				<BR><A href='?src=\ref[src];ac_submit_new_message=1'>Submit</A><BR><BR><A href='?src=\ref[src];ac_setScreen=[0]'>Cancel</A><BR>
@@ -908,7 +908,11 @@ var/global/nologevent = 0
 			var/mob/living/silicon/robot/R = S
 			usr << "<b>CYBORG [key_name(S, usr)] [R.connected_ai?"(Slaved to: [R.connected_ai])":"(Independent)"]: laws:</b>"
 		else if (ispAI(S))
+			var/mob/living/silicon/pai/P = S
 			usr << "<b>pAI [key_name(S, usr)]'s laws:</b>"
+			usr << "[P.pai_law0]"
+			if(P.pai_laws) usr << "[P.pai_laws]"
+			continue // Skip showing normal silicon laws for pAIs - they don't have any
 		else
 			usr << "<b>SOMETHING SILICON [key_name(S, usr)]'s laws:</b>"
 
