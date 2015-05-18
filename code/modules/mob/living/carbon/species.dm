@@ -319,6 +319,7 @@
 	deform = 'icons/mob/human_races/r_def_human.dmi'
 	primitive = /mob/living/carbon/monkey
 	path = /mob/living/carbon/human/human
+	language = "Sol Common"
 	flags = HAS_LIPS | HAS_UNDERWEAR | CAN_BE_FAT
 	bodyflags = HAS_SKIN_TONE
 	unarmed_type = /datum/unarmed_attack/punch
