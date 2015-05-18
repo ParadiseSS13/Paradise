@@ -138,6 +138,7 @@ turf/simulated/proc/share_temperature_mutual_solid(turf/simulated/sharer, conduc
 
 
 /turf/simulated/proc/process_cell()
+
 	if(archived_cycle < air_master.current_cycle) //archive self if not already done
 		archive()
 	current_cycle = air_master.current_cycle
@@ -319,7 +320,6 @@ atom/movable/proc/experience_pressure_difference(pressure_difference, direction)
 	var/datum/gas/sleeping_agent/S = new
 	A.trace_gases += S
 	for(var/turf/simulated/T in turf_list)
-		if(T == null || !istype(T))	return
 		A.oxygen 		+= T.air.oxygen
 		A.carbon_dioxide+= T.air.carbon_dioxide
 		A.nitrogen 		+= T.air.nitrogen
@@ -352,8 +352,9 @@ atom/movable/proc/experience_pressure_difference(pressure_difference, direction)
 	for(var/turf/simulated/T in turf_list)
 		T.excited = 0
 		T.recently_active = 0
+		T.excited_group = null
 		air_master.active_turfs -= T
-	air_master.excited_groups -= src
+	garbage_collect()
 
 /datum/excited_group/proc/garbage_collect()
 	for(var/turf/simulated/T in turf_list)
