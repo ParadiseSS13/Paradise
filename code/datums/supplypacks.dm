@@ -1093,6 +1093,7 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 	contains = list(/obj/structure/filingcabinet/chestdrawer,
 					/obj/item/device/camera_film,
 					/obj/item/weapon/hand_labeler,
+					/obj/item/stack/tape_roll,
 					/obj/item/weapon/paper_bin,
 					/obj/item/weapon/pen,
 					/obj/item/weapon/pen/blue,
