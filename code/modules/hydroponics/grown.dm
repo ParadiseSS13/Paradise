@@ -105,7 +105,7 @@
 			descriptors |= "radioactive"
 		if(reagents.has_reagent("amanitin") || reagents.has_reagent("toxin"))
 			descriptors |= "poisonous"
-		if(reagents.has_reagent("lsd") || reagents.has_reagent("space_drugs"))
+		if(reagents.has_reagent("lsd") || reagents.has_reagent("space_drugs") || reagents.has_reagent("psilocybin"))
 			descriptors |= "hallucinogenic"
 		if(reagents.has_reagent("styptic_powder"))
 			descriptors |= "medicinal"
