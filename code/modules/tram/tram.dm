@@ -1,3 +1,40 @@
+/obj/tram/ex_act(severity)
+	switch(severity)
+		if(1.0)
+			qdel(src)
+			return
+		if(2.0)
+			if(prob(50))
+				qdel(src)
+			return
+		if(3.0)
+			if(prob(25))
+				qdel(src)
+			return
+
+/obj/tram/blob_act()
+	if(prob(50))
+		qdel(src)
+
+/obj/tram/meteorhit()
+	qdel(src)
+
+/obj/tram/attack_animal(var/mob/living/simple_animal/M as mob)
+	if(M.melee_damage_upper == 0)	return
+	if(prob(M.melee_damage_upper))
+		qdel(src)
+	src.visible_message("\red <B>[M] has [M.attacktext] [src]!</B>")
+	M.attack_log += text("\[[time_stamp()]\] <font color='red'>attacked [src.name]</font>")
+
+/obj/tram/bullet_act(var/obj/item/projectile/proj)
+	if(prob(proj.damage))
+		qdel(src)
+	..()
+
+/obj/tram/emp_act(severity)
+	if(automode)	automode = 0
+	..()
+
 /obj/tram/tram_controller
 	name = ""
 	desc = "tram controller"
@@ -26,6 +63,15 @@
 			init_controllers() //Find control pads
 			gen_collision() //Generate collision system
 			processing_objects.Add(src) //Add to processing objects manually
+
+/obj/tram/tram_controller/Destroy()
+	for(var/obj/tram/floor/F in tram_floors)
+		remove_floor(F)
+	for(var/obj/tram/wall/TW in tram_walls)
+		remove_wall(TW)
+	for(var/obj/tram/controlpad/CP in controllers)
+		remove_controller(CP)
+	..()
 
 /obj/tram/tram_controller/process()
 	update_tram() //Update combine to account for new mobs and/or objects
@@ -87,8 +133,17 @@
 		var/turf/T = get_turf(OT)
 		for(var/atom/movable/AM in T) //Including anything inside of it
 			if(AM in tram)	continue
-			if(is_type_in_list(AM, blacklist))	continue
+			if(!check_validity(AM))	continue
 			tram += AM
+
+/obj/tram/tram_controller/proc/check_validity(var/atom/movable/AM)
+	if(!AM)	return 0
+	if(is_type_in_list(AM, blacklist))	return 0
+	if(!AM.simulated)	return 0
+	if(AM.anchored)
+		if(!istype(AM,/obj/tram) || !istype(AM,/obj/vehicle))
+			return 0
+	return 1
 
 /obj/tram/tram_controller/proc/init_controllers()
 	for(var/obj/tram/controlpad/CCP in tram)
