@@ -2,7 +2,7 @@
 	name = ""
 	desc = "tram controller"
 	anchored = 1
-	simulated = 0
+
 	var/list/tram_floors = list()
 	var/list/tram_walls = list()
 	var/list/controllers = list()
@@ -14,57 +14,66 @@
 	var/list/stored_anchor = list()
 
 /obj/tram/tram_controller/New()
-	init_floors()
-	init_walls()
+	init_floors() //Search and link floors
+	init_walls() //Search and link walls
 	spawn(1)
-		init_tram()
-		init_controllers()
-		gen_collision()
-		processing_objects.Add(src)
+		init_tram() //Combine walls and floors and anything inside the tram
+		init_controllers() //Find control pads
+		gen_collision() //Generate collision system
+		processing_objects.Add(src) //Add to processing objects manually
 
 /obj/tram/tram_controller/process()
-	update_tram()
+	update_tram() //Update combine to account for new mobs and/or objects
+
+/obj/tram/tram_controller/proc/update_tram()
+	tram.Cut()
+	init_tram()
+
+//INITIALIZATION PROCS
 
 /obj/tram/tram_controller/proc/init_floors()
 	var/turf/T = get_turf(src)
 	if(!T)	return
-	var/obj/tram/floor/TTF = locate(/obj/tram/floor in T)
-	if(istype(TTF))	add_floor(TTF)
+	var/obj/tram/floor/TTF = locate(/obj/tram/floor) in T
+	if(istype(TTF))	add_floor(TTF) //Find and link floor on controller turf
 	for(var/cdir in cardinal)
 		var/turf/T2 = get_step(T,cdir)
 		var/obj/tram/floor/TF = locate(/obj/tram/floor) in T2
 		if(istype(TF))
 			if(TF in tram_floors)	continue
-			add_floor(TF)
+			add_floor(TF) //Find and link all cardinally surrounding floors
 			spawn(1)
-				TF.spread_floors()
+				TF.spread_floors() //Do the same thing over again from the floor itself
 
 /obj/tram/tram_controller/proc/init_walls()
 	var/turf/T = get_turf(src)
 	if(!T)	return
 	if(!tram_floors.len)	return
-	var/obj/tram/floor/TTW = locate(/obj/tram/wall in T)
+	var/obj/tram/floor/TTW = locate(/obj/tram/wall) in T //Find and link wall on controller turf
 	if(istype(TTW))	add_wall(TTW)
 	for(var/obj/tram/floor/TF in tram_floors)
 		for(var/cdir in cardinal)
 			var/obj/tram/wall/TW = locate(/obj/tram/wall) in get_step(TF,cdir)
 			if(istype(TW))
 				if(TW in tram_walls)	continue
-				add_wall(TW)
+				add_wall(TW) //Find and link all cardinally surrounding walls
 				spawn(1)
-					TW.spread_walls()
+					TW.spread_walls() //Do the same thing over again from the wall itself
 
 /obj/tram/tram_controller/proc/init_tram()
-	tram = tram_floors + tram_walls
+	tram = tram_floors + tram_walls //Tram is everything that makes up the tram
 	for(var/obj/tram/OT in tram)
 		var/turf/T = get_turf(OT)
-		for(var/atom/movable/AM in T)
+		for(var/atom/movable/AM in T) //Including anything inside of it
 			if(AM in tram)	continue
 			tram += AM
 
 /obj/tram/tram_controller/proc/init_controllers()
 	for(var/obj/tram/controlpad/CCP in tram)
-		add_controller(CCP)
+		add_controller(CCP) //Control pad not necessary until now, easiest to search through tram
+
+//SYNC PROCS
+//These procs are used for un/linking floors, walls, and control pads to the central tram controller
 
 /obj/tram/tram_controller/proc/add_floor(var/obj/tram/floor/TF)
 	if(!istype(TF))	return
@@ -78,8 +87,6 @@
 		tram_floors -= TF
 	TF.controller = null
 
-
-
 /obj/tram/tram_controller/proc/add_wall(var/obj/tram/wall/TW)
 	if(!istype(TW))	return
 	if(TW in tram_walls)	return
@@ -91,8 +98,6 @@
 	if(TW in tram_walls)
 		tram_walls -= TW
 	TW.controller = null
-
-
 
 /obj/tram/tram_controller/proc/add_controller(var/obj/tram/controlpad/CCT)
 	if(!istype(CCT))	return
@@ -106,7 +111,9 @@
 		controllers -= CCT
 	CCT.tram_linked = null
 
-
+//COLLISION & MOVEMENT
+//Collision detection system to prevent going through walls
+//Tram does not use built-in byond Move(), it uses it's own logic and then forceMove()s itself.
 
 /obj/tram/tram_controller/proc/gen_collision()
 	collide_list.Cut()
@@ -124,75 +131,12 @@
 							collisions += cdir
 	collide_list = collisions
 
-/obj/tram/tram_controller/proc/update_tram()
-	tram.Cut()
-	init_tram()
-
 /obj/tram/tram_controller/proc/handle_move(var/dir)
-	gen_collision()
-	if(dir in collide_list)
+	gen_collision() //Look for collisions
+	if(dir in collide_list) //Prevent moving if there are collisions in that direction
 		return 0
 	for(var/atom/movable/A in tram)
 		var/turf/T = get_step(A,dir)
-		A.forceMove(T)
-	gen_collision()
+		A.forceMove(T) //Move everything inside the tram and the tram itself manually
+	gen_collision() //Generate collision again
 	return 1
-
-/obj/tram/floor
-	name = "floor"
-	icon = 'icons/turf/floors.dmi'
-	icon_state = "floor"
-	var/obj/tram/tram_controller/controller
-	anchored = 1
-
-/obj/tram/floor/proc/spread_floors()
-	var/turf/T = get_turf(src)
-	if(!T)	return
-	if(!controller)	return
-	for(var/cdir in cardinal)
-		var/turf/T2 = get_step(T,cdir)
-		var/obj/tram/floor/TF = locate(/obj/tram/floor) in T2
-		if(istype(TF))
-			if(TF in controller.tram_floors)	continue
-			controller.add_floor(TF)
-			TF.spread_floors()
-
-/obj/tram/wall
-	name = "reinforced wall"
-	desc = "A huge chunk of reinforced metal used to seperate rooms."
-	icon = 'icons/turf/walls.dmi'
-	icon_state = "r_wall"
-	var/obj/tram/tram_controller/controller
-	anchored = 1
-
-/obj/tram/wall/proc/spread_walls()
-	var/turf/T = get_turf(src)
-	if(!T)	return
-	if(!controller)	return
-	for(var/cdir in cardinal)
-		var/turf/T2 = get_step(T,cdir)
-		var/obj/tram/wall/TW = locate(/obj/tram/wall) in T2
-		if(istype(TW))
-			if(TW in controller.tram_walls)	continue
-			controller.add_wall(TW)
-			TW.spread_walls()
-
-/obj/tram/controlpad
-	name = "tram controller interface"
-	desc = "Controls the tram."
-	icon = 'icons/obj/airlock_machines.dmi'
-	icon_state = "airlock_control_standby"
-	var/obj/tram/tram_controller/tram_linked
-
-/obj/tram/controlpad/attack_hand(var/mob/user)
-	if(!tram_linked)	return
-	var/dat = "Tram Controller"
-	for(var/cdir in cardinal)
-		dat += "<br>Move to: <a href=?src=\ref[src];movedir=[cdir]>[cdir]</a>"
-	user << browse(dat, "window=trampad")
-	onclose(user,"trampad")
-
-/obj/tram/controlpad/Topic(href, href_list)
-	if(href_list["movedir"])
-		var/dir = text2num(href_list["movedir"])
-		tram_linked.handle_move(dir)
