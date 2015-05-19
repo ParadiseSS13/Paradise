@@ -1519,7 +1519,7 @@ datum
 				if(!(M.mind in ticker.mode.vampires))
 					if(ishuman(M))
 						var/mob/living/carbon/human/H = M
-						if(H.species && H.species.dietflags && !(H.species.dietflags & DIET_HERB))	//Make sure the species has it's dietflag set, otherwise it can't digest any nutrients
+						if(H.species && H.species.dietflags && !(H.species.dietflags & DIET_HERB))	//Make sure the species has it's dietflag set, and that it is not a herbivore
 							H.nutrition += nutriment_factor	// For hunger and fatness
 							if(prob(50)) M.heal_organ_damage(1,0)
 					if(istype(M,/mob/living/simple_animal))		//Any nutrients can heal simple animals
@@ -1540,7 +1540,7 @@ datum
 				if(!(M.mind in ticker.mode.vampires))
 					if(ishuman(M))
 						var/mob/living/carbon/human/H = M
-						if(H.species && H.species.dietflags && !(H.species.dietflags & DIET_CARN))	//Make sure the species has it's dietflag set, otherwise it can't digest any nutrients
+						if(H.species && H.species.dietflags && !(H.species.dietflags & DIET_CARN))	//Make sure the species has it's dietflag set, and that it is not a carnivore
 							H.nutrition += nutriment_factor	// For hunger and fatness
 							if(prob(50)) M.heal_organ_damage(1,0)
 					if(istype(M,/mob/living/simple_animal))		//Any nutrients can heal simple animals

@@ -553,7 +553,7 @@
 
 	flags = IS_WHITELISTED
 	bodyflags = FEET_CLAWS
-	dietflags = DIET_OMNI
+	dietflags = DIET_HERB
 
 	blood_color = "#FB9800"
 
@@ -644,7 +644,7 @@
 	water and other radiation."
 
 	flags = NO_BREATHE | REQUIRE_LIGHT | IS_PLANT | RAD_ABSORB | NO_BLOOD | NO_PAIN
-	dietflags = DIET_HERB		//Diona regenerate nutrition in light, but could assimilate plantmatter if they ingest it
+	dietflags = 0		//Diona regenerate nutrition in light, no diet necessary
 
 	body_temperature = T0C + 15		//make the plant people have a bit lower body temperature, why not
 
@@ -730,7 +730,7 @@
 	synth_temp_gain = 10 //this should cause IPCs to stabilize at ~80 C in a 20 C environment.
 
 	flags = IS_WHITELISTED | NO_BREATHE | NO_SCAN | NO_BLOOD | NO_PAIN | IS_SYNTHETIC | NO_INTORGANS
-	dietflags = DIET_OMNI		//IPCs can't eat, this is here for the sake of standardized code
+	dietflags = 0		//IPCs can't eat, so no diet
 	blood_color = "#1F181F"
 	flesh_color = "#AAAAAA"
 
