@@ -271,7 +271,7 @@ mob/living
 
 var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump, /obj/machinery/atmospherics/unary/vent_scrubber)
 
-/mob/living/proc/handle_ventcrawl(var/atom/clicked_on) // -- TLE -- Merged by Carn
+/mob/living/handle_ventcrawl(var/atom/clicked_on) // -- TLE -- Merged by Carn
 	if(!Adjacent(clicked_on))
 		return
 
