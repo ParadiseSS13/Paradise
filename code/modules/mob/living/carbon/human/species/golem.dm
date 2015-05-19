@@ -6,6 +6,7 @@
 
 	default_language = "Galactic Common"
 	flags = NO_BREATHE | NO_PAIN | NO_BLOOD | NO_SCAN
+	dietflags = DIET_OMNI		//golems can eat anything because they are magic or something
 
 	blood_color = "#515573"
 	flesh_color = "#137E8F"
