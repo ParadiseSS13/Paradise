@@ -31,10 +31,6 @@
 		qdel(src)
 	..()
 
-/obj/tram/emp_act(severity)
-	if(automode)	automode = 0
-	..()
-
 /obj/tram/tram_controller
 	name = ""
 	desc = "tram controller"
@@ -73,6 +69,10 @@
 		remove_controller(CP)
 	..()
 
+/obj/tram/tram_controller/emp_act(severity)
+	if(automode)	automode = 0
+	..()
+
 /obj/tram/tram_controller/process()
 	update_tram() //Update combine to account for new mobs and/or objects
 	if(automode)
@@ -92,6 +92,7 @@
 		stored_rail = RT
 	for(var/cdir in cardinal)
 		for(var/obj/tram/rail/R in get_step(src,cdir))
+			if(!istype(R))	continue
 			if(R != last_played_rail)
 				handle_move(get_dir(src,R))
 				last_played_rail = stored_rail
@@ -135,14 +136,17 @@
 			if(AM in tram)	continue
 			if(!check_validity(AM))	continue
 			tram += AM
+			if(!(src in tram))
+				tram += src
 
 /obj/tram/tram_controller/proc/check_validity(var/atom/movable/AM)
 	if(!AM)	return 0
 	if(is_type_in_list(AM, blacklist))	return 0
 	if(!AM.simulated)	return 0
 	if(AM.anchored)
-		if(!istype(AM,/obj/tram) || !istype(AM,/obj/vehicle))
-			return 0
+		if(istype(AM,/obj/tram) || istype(AM,/obj/vehicle))
+			return 1
+		return 0
 	return 1
 
 /obj/tram/tram_controller/proc/init_controllers()

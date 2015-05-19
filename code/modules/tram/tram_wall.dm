@@ -1,6 +1,6 @@
 /obj/tram/wall
-	name = "reinforced wall"
-	desc = "A huge chunk of reinforced metal used to seperate rooms."
+	name = "reinforced tram wall"
+	desc = "A huge chunk of reinforced metal used to shield a tram system."
 	icon = 'icons/turf/walls.dmi'
 	icon_state = "r_wall"
 	var/obj/tram/tram_controller/controller
