@@ -4,3 +4,4 @@
 	icon = 'icons/obj/tram/tram_rail.dmi'
 	icon_state = "rail"
 	var/godir = null
+	layer = TURF_LAYER + 0.1

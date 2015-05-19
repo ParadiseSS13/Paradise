@@ -1,6 +1,6 @@
 /obj/tram/controlpad
 	name = "tram controller interface"
-	desc = "Controls the tram."
+	desc = "Controls a tram."
 	icon = 'icons/obj/airlock_machines.dmi'
 	icon_state = "airlock_control_standby"
 	var/obj/tram/tram_controller/tram_linked
