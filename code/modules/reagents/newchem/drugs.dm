@@ -389,6 +389,163 @@ datum/reagent/crank/addiction_act_stage4(var/mob/living/M as mob)
 	..()
 	return
 
+/datum/reagent/seratonin
+	name = "Seratonin"
+	id = "seratonin"
+	description = "Makes you happy. Very Happy."
+	reagent_state = LIQUID
+	color = "#F8CF80"
+
+/datum/chemical_reaction/seratonin
+	name = "seratonin"
+	id = "seratonin"
+	result = "seratonin"
+	required_reagents = list("bath_salts" = 1, "holywater" = 1)
+	result_amount = 3
+	required_temp = 401
+	mix_message = "The mixture begins to... smile?"
+	overdose_threshold = 40
+	addiction_threshold = 20
+	metabolization_rate = 4.5
+	
+/datum/reagent/seratonin/on_mob_life(var/mob/living/M as mob)
+	if(!M) M = holder.my_atom
+	var/high_message = pick("You feel happy", "You taste happiness, like you just had a space-cola", "Happiness coarses through your veins")
+	if(prob(5))
+		M << "<span class='notice'>[high_message]</span>"
+	if(prob(20))
+		M.emote("smile")
+	M.adjustBrainLoss(1)
+	..()
+	return
+
+/datum/reagent/seratonin/overdose_process(var/mob/living/M as mob)
+	if(prob(33))
+		M.visible_message("<span class = 'danger'>[M]'s hands flip out and flail everywhere!</span>")
+		var/obj/item/I = M.get_active_hand()
+		if(I)
+			M.drop_item()
+	if(prob(50))
+		M.emote(pick("twitch","smile","laugh"))
+	
+	..()
+	return
+/datum/reagent/seratonin/addiction_act_stage1(var/mob/living/M as mob)
+	if(prob(1))
+		M.emote(pick("cry","moan","scream"))
+	if(prob(15))
+		M.emote(pick("cry","moan")
+	if(prob(25))
+		M << "<span class='danger'>You need happies!</span>"
+	..()
+	return
+/datum/reagent/seratonin/addiction_act_stage2(var/mob/living/M as mob)
+	if(prob(2))
+		M.emote(pick("cry","moan","scream"))
+	if(prob(20))
+		M.emote(pick("cry","moan")
+	if(prob(30))
+		M << "<span class='danger'>You need happies!</span>"
+	..()
+	return
+/datum/reagent/seratonin/addiction_act_stage3(var/mob/living/M as mob)
+	if(prob(3))
+		M.emote(pick("cry","moan","scream"))
+	if(prob(25))
+		M.emote(pick("cry","moan")
+	if(prob(35))
+		M << "<span class='danger'>You need happies!</span>"
+	..()
+	return
+
+/datum/reagent/seratonin/addiction_act_stage4(var/mob/living/carbon/human/M as mob)
+	if(prob(35))
+		M << "<span class='userdanger'>You feel like you have zero happies</span>"
+	if(prob(50))
+		M.adjustBrainLoss(-3)
+	..()
+	return
+datum/reagent/seratonin/overdose_process(var/mob/living/M as mob)
+	if(volume > 40)
+		switch(pick(1, 2, 3))
+			if(1)
+				M.emote("smile")
+				M.adjustToxLoss(1)
+				M.adjustBrainLoss(3)
+			if(2)
+				
+				M.Weaken(15)
+				M.emote(pick("smile","cry"))
+				M.adjustBrainLoss(2)
+			if(3)
+				M.emote("twitch")
+				M.emote("cry")
+				M.adjustToxLoss(1)
+				M.emote("flip")
+		if(prob(25))
+			M << "<span class = 'danger'>[M] can't seem to control their muscles!</span>"
+			M.emote(pick("flip"))
+			M.Stun(2)
+	..()
+	return
+/datum/chemical_reaction/ecstasy
+	name = "ecstasy"
+	id = "ecstasy"
+	result = "ecstasy"
+	required_reagents = list("chocolate" = 1,"pentetic_acid")
+	required_catalysts = list("plasma" = 1)
+	result_amount = 1
+	required_temp = 374
+	mix_message = "The mixture begins to emit an oder of pure happiness and spiraling depression."
+
+/datum/reagent/ecstasy
+	name = "ecstasy"
+	id = "ecstasy"
+	description = "A drug that causes the brain to release massive amounts of seratonin."
+	reagent_state = LIQUID
+	color = "#C8A5DC"
+	metabolization_rate = 1000
+	
+/datum/reagent/ecstasy/on_mob_life(var/mob/living/M as mob)
+	if(!M) M = holder.my_atom
+	M.reagents.add_reagent("seratonin", 80)
+	M.reagents.add_reagent("depressonium", 20)
+	..()
+	return
+
+/datum/chemical_reaction/ecstasy
+	name = "ecstasy"
+	id = "ecstasy"
+	result = "ecstasy"
+	required_reagents = list("chocolate" = 1,"pentetic_acid")
+	required_catalysts = list("plasma" = 1)
+	result_amount = 1
+	required_temp = 374
+	mix_message = "The mixture begins to emit an oder of pure happiness and spiraling depression."
+
+/datum/reagent/depressonium
+	name = "Depressonium"
+	id = "depressonium"
+	description = "A drug that causes sadness. Pure Sadness."
+	reagent_state = LIQUID
+	color = "#C8A5DC"
+	metabolization_rate = 0.1
+
+/datum/reagent/seratonin/on_mob_life(var/mob/living/M as mob)
+	if(!M) M = holder.my_atom
+	if(!holder.has_reagent("seratonin"))
+		if(prob(20))
+			M.emote(pick("cry","twitch","moan","flap"))
+			M.adjustBrainLoss(-1)
+		if(prob(10))
+			M.adjustStaminaLoss(-35)
+			M.weaken()
+			M << "<span class = 'danger'>[M] FALLS into a spiraling depression!</span>"
+		if(prob(5))
+			M.reagents.add_reagents("Vodka",2)
+	..()
+	return
+
 /datum/reagent/fliptonium
 	name = "Fliptonium"
 	id = "fliptonium"
