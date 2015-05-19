@@ -48,7 +48,7 @@
 
 	can_use(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
 		var/obj/item/organ/external/affected = target.get_organ(target_zone)
-		return affected && affected.name != "head" && affected.open == 2 && affected.stage == 1
+		return affected && affected.limb_name != "head" && affected.open == 2 && affected.stage == 1
 
 	begin_step(mob/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
 		var/obj/item/organ/external/affected = target.get_organ(target_zone)
@@ -85,7 +85,7 @@
 
 	can_use(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
 		var/obj/item/organ/external/affected = target.get_organ(target_zone)
-		return affected && affected.name == "head" && affected.open == 2 && affected.stage == 1
+		return affected && affected.limb_name == "head" && affected.open == 2 && affected.stage == 1
 
 	begin_step(mob/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
 		user.visible_message("[user] is beginning piece together [target]'s skull with \the [tool]."  , \

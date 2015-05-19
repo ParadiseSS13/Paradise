@@ -18,6 +18,8 @@
 	var/datum/pipe_network/network_node1
 	var/datum/pipe_network/network_node2
 
+	req_one_access_txt = "24;10"
+
 /obj/machinery/atmospherics/valve/open
 	open = 1
 	icon_state = "map_valve1"
@@ -179,7 +181,7 @@
 				break
 
 	build_network()
-	
+
 	update_icon()
 	update_underlays()
 
@@ -238,10 +240,11 @@
 	name = "digital valve"
 	desc = "A digitally controlled valve."
 	icon = 'icons/atmos/digital_valve.dmi'
-	
-	var/frequency = 0
-	var/id = null
+
+	var/frequency = 1439
+	var/id_tag = null
 	var/datum/radio_frequency/radio_connection
+	settagwhitelist = list("id_tag")
 
 /obj/machinery/atmospherics/valve/digital/attack_ai(mob/user as mob)
 	return src.attack_hand(user)
@@ -281,7 +284,7 @@
 		set_frequency(frequency)
 
 /obj/machinery/atmospherics/valve/digital/receive_signal(datum/signal/signal)
-	if(!signal.data["tag"] || (signal.data["tag"] != id))
+	if(!signal.data["tag"] || (signal.data["tag"] != id_tag))
 		return 0
 
 	switch(signal.data["command"])
@@ -298,13 +301,24 @@
 				close()
 			else
 				open()
+		if("valve_set")
+			if(signal.data["valve_set"] == 1)
+				if(!open)
+					open()
+			else
+				if(open)
+					close()
+
+/obj/machinery/atmospherics/valve/digital/attackby(var/obj/item/weapon/W as obj, var/mob/user as mob)
+	if(istype(W, /obj/item/device/multitool))
+		update_multitool_menu(user)
+		return 1
+	..()
 
 /obj/machinery/atmospherics/valve/attackby(var/obj/item/weapon/W as obj, var/mob/user as mob, params)
 	if (!istype(W, /obj/item/weapon/wrench))
 		return ..()
-	if (istype(src, /obj/machinery/atmospherics/valve/digital) && src:frequency)
-		user << "\red You cannot unwrench this [src], it's too complicated."
-		return 1
+
 	var/datum/gas_mixture/int_air = return_air()
 	var/datum/gas_mixture/env_air = loc.return_air()
 	if ((int_air.return_pressure()-env_air.return_pressure()) > 2*ONE_ATMOSPHERE)
@@ -320,3 +334,11 @@
 			"You hear ratchet.")
 		new /obj/item/pipe(loc, make_from=src)
 		del(src)
+
+/obj/machinery/atmospherics/valve/digital/multitool_menu(var/mob/user,var/obj/item/device/multitool/P)
+	return {"
+		<ul>
+			<li><b>Frequency:</b> <a href="?src=\ref[src];set_freq=-1">[format_frequency(frequency)] GHz</a> (<a href="?src=\ref[src];set_freq=[1439]">Reset</a>)</li>
+			<li>[format_tag("ID Tag","id_tag","set_id")]</a></li>
+		</ul>
+		"}

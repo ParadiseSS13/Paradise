@@ -99,7 +99,7 @@
 	anchored = 1
 	icon = 'icons/obj/computer.dmi'
 	icon_state = "recharge_comp"
-	light_color = "#a97faa"
+	light_color = LIGHT_COLOR_FADEDPURPLE
 	circuit = /obj/item/weapon/circuitboard/mech_bay_power_console
 	var/obj/machinery/mech_bay_recharge_port/recharge_port
 

@@ -126,7 +126,7 @@
 		if (R.one_per_turf && (locate(R.result_type) in usr.loc))
 			usr << "\red There is another [R.title] here!"
 			return
-		if (R.on_floor && !istype(usr.loc, /turf/simulated/floor))
+		if (R.on_floor && !istype(usr.loc, /turf/simulated))
 			usr << "\red \The [R.title] must be constructed on the floor!"
 			return
 		if (R.time)

@@ -71,7 +71,7 @@
 			papers.Remove(P)
 		else
 			P = new /obj/item/weapon/paper
-			if(Holiday == "April Fool's Day")
+			if(holiday_master.holidays && holiday_master.holidays[APRIL_FOOLS])
 				if(prob(30))
 					P.info = "<font face=\"[P.crayonfont]\" color=\"red\"><b>HONK HONK HONK HONK HONK HONK HONK<br>HOOOOOOOOOOOOOOOOOOOOOONK<br>APRIL FOOLS</b></font>"
 					P.rigged = 1

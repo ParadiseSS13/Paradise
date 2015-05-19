@@ -20,11 +20,6 @@
 
 	var/list/datum/mind/possible_changelings = get_players_for_role(BE_CHANGELING)
 
-	for(var/datum/mind/player in possible_changelings)
-		for(var/job in restricted_jobs)//Removing robots from the list
-			if(player.assigned_role == job)
-				possible_changelings -= player
-
 	for(var/mob/new_player/player in player_list)
 		if((player.mind in possible_changelings) && (player.client.prefs.species in protected_species_changeling))
 			possible_changelings -= player.mind
@@ -34,6 +29,7 @@
 		//possible_changelings-=changeling
 		changelings += changeling
 		modePlayer += changelings
+		changeling.restricted_roles = restricted_jobs
 		return ..()
 	else
 		return 0

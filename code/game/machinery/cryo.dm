@@ -17,7 +17,7 @@
 	var/current_heat_capacity = 50
 	var/efficiency
 
-	light_color = "#FFFFFF"
+	light_color = LIGHT_COLOR_WHITE
 	power_change()
 		..()
 		if(!(stat & (BROKEN|NOPOWER)))

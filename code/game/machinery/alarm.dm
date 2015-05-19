@@ -720,7 +720,7 @@
 			return
 
 
-	if(wiresexposed && !istype(user, /mob/living/silicon))
+	if(wiresexposed && !istype(user, /mob/living/silicon/ai))
 		wires.Interact(user)
 	if(!shorted)
 		ui_interact(user)

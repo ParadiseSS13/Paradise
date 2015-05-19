@@ -213,7 +213,7 @@ var/global/datum/emergency_shuttle_controller/emergency_shuttle
 
 /datum/emergency_shuttle_controller/proc/get_status_panel_eta()
 	if (online())
-		if (shuttle.has_arrive_time())
+		if (emergency_shuttle.has_eta())
 			var/timeleft = emergency_shuttle.estimate_arrival_time()
 			return "ETA-[(timeleft / 60) % 60]:[add_zero(num2text(timeleft % 60), 2)]"
 

@@ -153,6 +153,7 @@
 	var/list/event_delay_upper = list(EVENT_LEVEL_MUNDANE = 9000,	EVENT_LEVEL_MODERATE = 27000,	EVENT_LEVEL_MAJOR = 42000)
 
 	var/starlight = 0	// Whether space turfs have ambient light or not
+	var/allow_holidays = 0
 
 /datum/configuration/New()
 	var/list/L = typesof(/datum/game_mode) - /datum/game_mode
@@ -377,7 +378,7 @@
 					config.popup_admin_pm = 1
 
 				if("allow_holidays")
-					Holiday = 1
+					config.allow_holidays = 1
 
 				if("use_irc_bot")
 					use_irc_bot = 1

@@ -166,14 +166,6 @@
 
 /obj/item/weapon/card/id/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
 	..()
-	if(istype(W,/obj/item/weapon/id_wallet))
-		user << "You slip [src] into [W]."
-		src.name = "[src.registered_name]'s [W.name] ([src.assignment])"
-		src.desc = W.desc
-		src.icon = W.icon
-		src.icon_state = W.icon_state
-		del(W)
-		return
 
 	if(istype(W, /obj/item/weapon/id_decal/))
 		var/obj/item/weapon/id_decal/decal = W

@@ -3,7 +3,7 @@
 
 /obj/item/clothing/under/color/random/New()
 	..()
-	var/list/excluded = list(/obj/item/clothing/under/color/random, /obj/item/clothing/under/color, /obj/item/clothing/under/color/blackf, /obj/item/clothing/under/color/blue/dodgeball, /obj/item/clothing/under/color/orange/prison, /obj/item/clothing/under/color/red/dodgeball)
+	var/list/excluded = list(/obj/item/clothing/under/color/random, /obj/item/clothing/under/color, /obj/item/clothing/under/color/blackf, /obj/item/clothing/under/color/blue/dodgeball, /obj/item/clothing/under/color/orange/prison, /obj/item/clothing/under/color/red/dodgeball, /obj/item/clothing/under/color/red/jersey, /obj/item/clothing/under/color/blue/jersey)
 	var/obj/item/clothing/under/color/C = pick(typesof(/obj/item/clothing/under/color) - excluded)
 	name = initial(C.name)
 	icon_state = initial(C.icon_state)
@@ -172,4 +172,20 @@
 	name = "dark red jumpsuit"
 	icon_state = "darkred"
 	_color = "darkred"
+	flags = ONESIZEFITSALL
+
+/obj/item/clothing/under/color/red/jersey
+	name = "red team jersey"
+	desc = "The jersey of the Nanotrasen Phi-ghters!"
+	icon_state = "redjersey"
+	item_state = "r_suit"
+	_color = "redjersey"
+	flags = ONESIZEFITSALL
+
+/obj/item/clothing/under/color/blue/jersey
+	name = "blue team jersey"
+	desc = "The jersey of the Nanotrasen Pi-rates!"
+	icon_state = "bluejersey"
+	item_state = "b_suit"
+	_color = "bluejersey"
 	flags = ONESIZEFITSALL

@@ -45,7 +45,7 @@
 	//Set species_restricted list
 	switch(target_species)
 		if("Human", "Skrell")	//humanoid bodytypes
-			species_restricted = list("exclude","Unathi","Tajaran","Diona","Vox")
+			species_restricted = list("exclude","Unathi","Tajaran","Diona","Vox","Wryn")
 		else
 			species_restricted = list(target_species)
 
@@ -161,7 +161,7 @@ BLIND     // can't see anything
 	var/transfer_prints = FALSE
 	var/pickpocket = 0 //Master pickpocket?
 	var/clipped = 0
-	species_restricted = list("exclude","Unathi","Tajaran")
+	species_restricted = list("exclude","Unathi","Tajaran","Wryn")
 
 /obj/item/clothing/gloves/attackby(obj/item/weapon/W, mob/user, params)
 	if(istype(W, /obj/item/weapon/wirecutters))
@@ -295,7 +295,7 @@ BLIND     // can't see anything
 
 	permeability_coefficient = 0.50
 	slowdown = SHOES_SLOWDOWN
-	species_restricted = list("exclude","Unathi","Tajaran")
+	species_restricted = list("exclude","Unathi","Tajaran","Wryn")
 
 /obj/item/proc/negates_gravity()
 	return 0
@@ -328,7 +328,7 @@ BLIND     // can't see anything
 	heat_protection = HEAD
 	max_heat_protection_temperature = SPACE_HELMET_MAX_HEAT_PROTECTION_TEMPERATURE
 	siemens_coefficient = 0.9
-	species_restricted = list("exclude","Diona","Vox")
+	species_restricted = list("exclude","Diona","Vox","Wryn")
 	loose = 0 // What kind of idiot designs a pressurized suit where the helmet can fall off?
 	flash_protect = 2
 
@@ -351,7 +351,7 @@ BLIND     // can't see anything
 	heat_protection = UPPER_TORSO | LOWER_TORSO | LEGS | FEET | ARMS | HANDS
 	max_heat_protection_temperature = SPACE_SUIT_MAX_HEAT_PROTECTION_TEMPERATURE
 	siemens_coefficient = 0.9
-	species_restricted = list("exclude","Diona","Vox")
+	species_restricted = list("exclude","Diona","Vox","Wryn")
 
 //Under clothing
 /obj/item/clothing/under

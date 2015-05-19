@@ -54,12 +54,15 @@
 	if(istype(O, /obj/item/weapon/reagent_containers/glass) && !panel_open)
 		if(beaker)
 			user << "<span class='warning'>A container is already loaded into the machine.</span>"
+			return
 		else
 			user.unEquip(O)
 			O.loc = src
 			beaker = O
 			user << "<span class='notice'>You add the container to the machine.</span>"
 			updateUsrDialog()
+			update_icon()
+			return
 
 	if(!processing)
 		if(default_deconstruction_screwdriver(user, "biogen-empty-o", "biogen-empty", O))
@@ -205,10 +208,12 @@
 		menustat = "void"
 	return
 
-/obj/machinery/biogenerator/proc/check_cost(var/cost)
+/obj/machinery/biogenerator/proc/check_cost(var/cost, var/checkonly)
 	if (cost > points)
 		menustat = "nopoints"
 		return 1
+	else if(checkonly)
+		return 0
 	else
 		points -= cost
 		processing = 1
@@ -235,26 +240,29 @@
 			if (check_cost(250/efficiency)) return 0
 			else new/obj/item/weapon/reagent_containers/food/snacks/monkeycube(src.loc)
 		if("ez")
-			if (check_cost(10/efficiency)) return 0
+			if (check_cost(10/efficiency, 1)) return 0
 			if(in_beaker)
 				if(check_container_volume(10)) return 0
 				else beaker.reagents.add_reagent("eznutrient",10)
 			else
 				new/obj/item/weapon/reagent_containers/glass/fertilizer/ez(src.loc)
+			if (check_cost(10/efficiency)) return 0
 		if("l4z")
-			if (check_cost(20/efficiency)) return 0
+			if (check_cost(20/efficiency, 1)) return 0
 			if(in_beaker)
 				if(check_container_volume(10)) return 0
 				else beaker.reagents.add_reagent("left4zed",10)
 			else
 				new/obj/item/weapon/reagent_containers/glass/fertilizer/l4z(src.loc)
+			if (check_cost(20/efficiency)) return 0
 		if("rh")
-			if (check_cost(25/efficiency)) return 0
+			if (check_cost(25/efficiency, 1)) return 0
 			if(in_beaker)
 				if(check_container_volume(10)) return 0
 				else beaker.reagents.add_reagent("robustharvest",10)
 			else
 				new/obj/item/weapon/reagent_containers/glass/fertilizer/rh(src.loc)
+			if (check_cost(25/efficiency)) return 0
 		if("wallet")
 			if (check_cost(100/efficiency)) return 0
 			else new/obj/item/weapon/storage/wallet(src.loc)
@@ -319,6 +327,7 @@
 		while(i >= 1)
 			create_product(C)
 			i--
+		processing = 0
 		updateUsrDialog()
 
 	else if(href_list["menu"])

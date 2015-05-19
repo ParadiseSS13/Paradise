@@ -11,7 +11,7 @@
 	var/mode = 0.0
 	var/printing = null
 
-	light_color = "#0099FF"
+	light_color = LIGHT_COLOR_LIGHTBLUE
 
 	proc/is_centcom()
 		return istype(src, /obj/machinery/computer/card/centcom)

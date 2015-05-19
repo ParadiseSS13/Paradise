@@ -16,10 +16,7 @@
 	aSignal = new(src)
 	aSignal.code = rand(1,100)
 
-	aSignal.frequency = rand(1200, 1599)
-	if(IsMultiple(aSignal.frequency, 2))//signaller frequencies are always uneven!
-		aSignal.frequency++
-
+	aSignal.frequency = sanitize_frequency(rand(1441, 1489))
 
 /obj/effect/anomaly/proc/anomalyEffect()
 	if(prob(50))

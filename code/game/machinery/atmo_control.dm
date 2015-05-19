@@ -2,12 +2,16 @@ obj/machinery/air_sensor
 	icon = 'icons/obj/stationobjs.dmi'
 	icon_state = "gsensor1"
 	name = "Gas Sensor"
+	req_one_access_txt = "24;10"
 
 	anchored = 1
 	var/state = 0
+	var/bolts = 1
 
 	var/id_tag
 	var/frequency = 1439
+	Mtoollink = 1
+	settagwhitelist = list("id_tag")
 
 	var/on = 1
 	var/output = 3
@@ -24,6 +28,62 @@ obj/machinery/air_sensor
 
 	update_icon()
 		icon_state = "gsensor[on]"
+
+	multitool_menu(var/mob/user, var/obj/item/device/multitool/P)
+		return {"
+		<b>Main</b>
+		<ul>
+			<li><b>Frequency:</b> <a href="?src=\ref[src];set_freq=-1">[format_frequency(frequency)] GHz</a> (<a href="?src=\ref[src];set_freq=[initial(frequency)]">Reset</a>)</li>
+			<li>[format_tag("ID Tag","id_tag")]</li>
+			<li>Floor Bolts: <a href="?src=\ref[src];toggle_bolts=1">[bolts ? "Enabled" : "Disabled"]</a>
+			<li>Monitor Pressure: <a href="?src=\ref[src];toggle_out_flag=1">[output&1 ? "Yes" : "No"]</a>
+			<li>Monitor Temperature: <a href="?src=\ref[src];toggle_out_flag=2">[output&2 ? "Yes" : "No"]</a>
+			<li>Monitor Oxygen Concentration: <a href="?src=\ref[src];toggle_out_flag=4">[output&4 ? "Yes" : "No"]</a>
+			<li>Monitor Plasma Concentration: <a href="?src=\ref[src];toggle_out_flag=8">[output&8 ? "Yes" : "No"]</a>
+			<li>Monitor Nitrogen Concentration: <a href="?src=\ref[src];toggle_out_flag=16">[output&16 ? "Yes" : "No"]</a>
+			<li>Monitor Carbon Dioxide Concentration: <a href="?src=\ref[src];toggle_out_flag=32">[output&32 ? "Yes" : "No"]</a>
+		</ul>"}
+
+	multitool_topic(var/mob/user, var/list/href_list, var/obj/O)
+		. = ..()
+		if(.)
+			return .
+
+		if("toggle_out_flag" in href_list)
+			var/bitflag_value = text2num(href_list["toggle_out_flag"])//this is a string normally
+			if(!(bitflag_value in list(1, 2, 4, 8, 16, 32))) //Here to prevent breaking the sensors with HREF exploits
+				return 0
+			if(output&bitflag_value)//the bitflag is on ATM
+				output &= ~bitflag_value
+			else//can't not be off
+				output |= bitflag_value
+			return MT_UPDATE
+		if("toggle_bolts" in href_list)
+			bolts = !bolts
+			if(bolts)
+				visible_message("You hear a quite click as the [src] bolts to the floor", "You hear a quite click")
+			else
+				visible_message("You hear a quite click as the [src]'s floor bolts raise", "You hear a quite click")
+			return MT_UPDATE
+
+
+	attackby(var/obj/item/W as obj, var/mob/user as mob)
+		if(istype(W, /obj/item/device/multitool))
+			update_multitool_menu(user)
+			return 1
+		if(istype(W, /obj/item/weapon/wrench))
+			if(bolts)
+				usr << "The [src] is bolted to the floor! You can't detach it like this."
+				return 1
+			playsound(src.loc, 'sound/items/Ratchet.ogg', 50, 1)
+			user << "\blue You begin to unfasten \the [src]..."
+			if(do_after(user, 40))
+				user.visible_message("[user] unfastens \the [src].", "\blue You have unfastened \the [src].", "You hear ratchet.")
+				new /obj/item/pipe_gsensor(src.loc)
+				del(src)
+				return 1
+		if(..())
+			return 1
 
 	process()
 		if(on)
@@ -77,11 +137,15 @@ obj/machinery/air_sensor
 /obj/machinery/computer/general_air_control
 	icon = 'icons/obj/computer.dmi'
 	icon_state = "tank"
+	circuit = "/obj/item/weapon/circuitboard/air_management"
+	req_one_access_txt = "24;10"
 
 	name = "Computer"
 
 	var/frequency = 1439
+	var/show_sensors=1
 	var/list/sensors = list()
+	Mtoollink = 1
 
 	var/list/sensor_information = list()
 	var/datum/radio_frequency/radio_connection
@@ -97,42 +161,16 @@ obj/machinery/air_sensor
 	process()
 		..()
 		if(!sensors)
-			warning("[src.type] at [x],[y],[z] has null sensors.  Please fix.")
+			//warning("[src.type] at [x],[y],[z] has null sensors.  Please fix.")//commenting this line out because the admins will get a warning like this every time somebody builds another GAC
 			sensors = list()
 		src.updateUsrDialog()
 
 	attackby(I as obj, user as mob, params)
-		if(istype(I, /obj/item/weapon/screwdriver))
-			playsound(get_turf(src), 'sound/items/Screwdriver.ogg', 50, 1)
-			if(do_after(user, 20))
-				if (src.stat & BROKEN)
-					user << "\blue The broken glass falls out."
-					var/obj/structure/computerframe/A = new /obj/structure/computerframe( src.loc )
-					getFromPool(/obj/item/weapon/shard, loc)
-					var/obj/item/weapon/circuitboard/air_management/M = new /obj/item/weapon/circuitboard/air_management( A )
-					for (var/obj/C in src)
-						C.loc = src.loc
-					M.frequency = src.frequency
-					A.circuit = M
-					A.state = 3
-					A.icon_state = "3"
-					A.anchored = 1
-					del(src)
-				else
-					user << "\blue You disconnect the monitor."
-					var/obj/structure/computerframe/A = new /obj/structure/computerframe( src.loc )
-					var/obj/item/weapon/circuitboard/air_management/M = new /obj/item/weapon/circuitboard/air_management( A )
-					for (var/obj/C in src)
-						C.loc = src.loc
-					M.frequency = src.frequency
-					A.circuit = M
-					A.state = 4
-					A.icon_state = "4"
-					A.anchored = 1
-					del(src)
-		else
-			src.attack_hand(user)
-		return
+		if(istype(I, /obj/item/device/multitool))
+			update_multitool_menu(user)
+		if(..())
+			return 1
+
 
 	receive_signal(datum/signal/signal)
 		if(!signal || signal.encryption) return
@@ -144,38 +182,39 @@ obj/machinery/air_sensor
 
 	proc/return_text()
 		var/sensor_data
-		if(sensors.len)
-			for(var/id_tag in sensors)
-				var/long_name = sensors[id_tag]
-				var/list/data = sensor_information[id_tag]
-				var/sensor_part = "<fieldset><legend>[long_name]</legend>"
+		if(show_sensors)
+			if(sensors.len)
+				for(var/id_tag in sensors)
+					var/long_name = sensors[id_tag]
+					var/list/data = sensor_information[id_tag]
+					var/sensor_part = "<fieldset><legend>[long_name]</legend>"
 
-				if(data)
-					sensor_part += "<table>"
-					if(data["pressure"])
-						sensor_part += "<tr><th>Pressure:</th><td>[data["pressure"]] kPa</td></tr>"
-					if(data["temperature"])
-						sensor_part += "<tr><th>Temperature:</th><td>[data["temperature"]] K</td></tr>"
-					if(data["oxygen"]||data["toxins"]||data["nitrogen"]||data["carbon_dioxide"])
-						sensor_part += "<tr><th>Gas Composition :</th><td><ul>"
-						if(data["oxygen"])
-							sensor_part += "<li>[data["oxygen"]]% O<sub>2</sub></li>"
-						if(data["nitrogen"])
-							sensor_part += "<li>[data["nitrogen"]]% N</li>"
-						if(data["carbon_dioxide"])
-							sensor_part += "<li>[data["carbon_dioxide"]]% CO<sub>2</sub></li>"
-						if(data["toxins"])
-							sensor_part += "<li>[data["toxins"]]% Plasma</li>"
-						sensor_part += "</ul></td></tr>"
-					sensor_part += "</table>"
+					if(data)
+						sensor_part += "<table>"
+						if(data["pressure"])
+							sensor_part += "<tr><th>Pressure:</th><td>[data["pressure"]] kPa</td></tr>"
+						if(data["temperature"])
+							sensor_part += "<tr><th>Temperature:</th><td>[data["temperature"]] K</td></tr>"
+						if(data["oxygen"]||data["toxins"]||data["nitrogen"]||data["carbon_dioxide"])
+							sensor_part += "<tr><th>Gas Composition :</th><td><ul>"
+							if(data["oxygen"])
+								sensor_part += "<li>[data["oxygen"]]% O<sub>2</sub></li>"
+							if(data["nitrogen"])
+								sensor_part += "<li>[data["nitrogen"]]% N</li>"
+							if(data["carbon_dioxide"])
+								sensor_part += "<li>[data["carbon_dioxide"]]% CO<sub>2</sub></li>"
+							if(data["toxins"])
+								sensor_part += "<li>[data["toxins"]]% Plasma</li>"
+							sensor_part += "</ul></td></tr>"
+						sensor_part += "</table>"
 
-				else
-					sensor_part += "<FONT color='red'>[long_name] can not be found!</FONT><BR>"
-				sensor_part += "</fieldset>"
-				sensor_data += sensor_part
+					else
+						sensor_part += "<FONT color='red'>[long_name] can not be found!</FONT><BR>"
+					sensor_part += "</fieldset>"
+					sensor_data += sensor_part
 
-		else
-			sensor_data = "<em>No sensors connected.</em>"
+			else
+				sensor_data = "<em>No sensors connected.</em>"
 
 		var/output = {"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
@@ -217,8 +256,8 @@ legend {
 	</head>
 	<body>
 		<h1>[name]</h1>
-		<h2>Sensor Data:</h2>
-		[sensor_data]"}
+		[show_sensors ? "<h2>Sensor Data:</h2>" + sensor_data : ""]
+		"}
 
 		return output
 
@@ -231,9 +270,96 @@ legend {
 	initialize()
 		set_frequency(frequency)
 
+	multitool_menu(var/mob/user, var/obj/item/device/multitool/P)
+		var/dat= {"
+		<b>Main</b>
+		<ul>
+		<li><b>Frequency:</b> <a href="?src=\ref[src];set_freq=-1">[format_frequency(frequency)] GHz</a> (<a href="?src=\ref[src];set_freq=[initial(frequency)]">Reset</a>)</li>
+		</ul>
+		<b>Sensors:</b>
+		<ul>"}
+		for(var/id_tag in sensors)
+			dat += {"<li><a href="?src=\ref[src];edit_sensor=[id_tag]">[sensors[id_tag]]</a></li>"}
+		dat += {"<li><a href="?src=\ref[src];add_sensor=1">\[+\]</a></li></ul>"}
+		return dat
+
+	multitool_topic(var/mob/user,var/list/href_list,var/obj/O)
+		. = ..()
+		if(.) return .
+		if("add_sensor" in href_list)
+
+			// Make a list of all available sensors on the same frequency
+			var/list/sensor_list = list()
+			for(var/obj/machinery/air_sensor/G in machines)
+				if(!isnull(G.id_tag) && G.frequency == frequency)
+					sensor_list|=G.id_tag
+			if(!sensor_list.len)
+				user << "<span class=\"warning\">No sensors on this frequency.</span>"
+				return MT_ERROR
+
+			// Have the user pick one of them and name its label
+			var/sensor = input(user, "Select a sensor:", "Sensor Data") as null|anything in sensor_list
+			if(!sensor)
+				return MT_ERROR
+			var/label = reject_bad_name( input(user, "Choose a sensor label:", "Sensor Label")  as text|null, allow_numbers=1)
+			if(!label)
+				return MT_ERROR
+
+			// Add the sensor's information to general_air_controler
+			sensors[sensor] = label
+			return MT_UPDATE
+
+		if("edit_sensor" in href_list)
+			var/list/sensor_list = list()
+			for(var/obj/machinery/air_sensor/G in machines)
+				if(!isnull(G.id_tag) && G.frequency == frequency)
+					sensor_list|=G.id_tag
+			if(!sensor_list.len)
+				user << "<span class=\"warning\">No sensors on this frequency.</span>"
+				return MT_ERROR
+			var/label = sensors[href_list["edit_sensor"]]
+			var/sensor = input(user, "Select a sensor:", "Sensor Data", href_list["edit_sensor"]) as null|anything in sensor_list
+			if(!sensor)
+				return MT_ERROR
+			sensors.Remove(href_list["edit_sensor"])
+			sensors[sensor] = label
+			return MT_UPDATE
+
+	unlinkFrom(var/mob/user, var/obj/O)
+		..()
+		if("id_tag" in O.vars && (istype(O,/obj/machinery/air_sensor) || istype(O, /obj/machinery/meter)))
+			sensors.Remove(O:id_tag)
+			return 1
+		return 0
+
+	linkMenu(var/obj/O)
+		if(isLinkedWith(O))
+			return
+
+		var/dat=""
+
+		if(istype(O,/obj/machinery/air_sensor) || istype(O, /obj/machinery/meter))
+			dat += " <a href='?src=\ref[src];link=1'>\[New Sensor\]</a> "
+		return dat
+
+	canLink(var/obj/O, var/list/context)
+		if(istype(O,/obj/machinery/air_sensor) || istype(O, /obj/machinery/meter))
+			return O:id_tag
+
+	isLinkedWith(var/obj/O)
+		if(istype(O,/obj/machinery/air_sensor) || istype(O, /obj/machinery/meter))
+			return O:id_tag in sensors
+
+	linkWith(var/mob/user, var/obj/O, var/link/context)
+		sensors[O:id_tag] = reject_bad_name(input(user, "Choose a sensor label:", "Sensor Label") as text|null, allow_numbers=1)
+		return 1
+
 	large_tank_control
 		icon = 'icons/obj/computer.dmi'
 		icon_state = "tank"
+		circuit = "/obj/item/weapon/circuitboard/large_tank_control"
+		req_one_access_txt = "24;10"
+		settagwhitelist = list("input_tag", "output_tag")
 
 		var/input_tag
 		var/output_tag
@@ -241,7 +367,89 @@ legend {
 		var/list/input_info
 		var/list/output_info
 
+		var/list/input_linkable=list(
+			/obj/machinery/atmospherics/unary/outlet_injector,
+			/obj/machinery/atmospherics/unary/vent_pump
+		)
+
+		var/list/output_linkable=list(
+			/obj/machinery/atmospherics/unary/vent_pump
+		)
+
 		var/pressure_setting = ONE_ATMOSPHERE * 45
+
+		attackby(I as obj, user as mob)
+			if(istype(I, /obj/item/device/multitool))
+				update_multitool_menu(user)
+			if(..())
+				return 1
+
+
+		multitool_menu(var/mob/user, var/obj/item/device/multitool/P)
+			var/dat= {"
+			<ul>
+				<li><b>Frequency:</b> <a href="?src=\ref[src];set_freq=-1">[format_frequency(frequency)] GHz</a> (<a href="?src=\ref[src];set_freq=[initial(frequency)]">Reset</a>)</li>
+				<li>[format_tag("Input","input_tag")]</li>
+				<li>[format_tag("Output","output_tag")]</li>
+			</ul>
+			<b>Sensors:</b>
+			<ul>"}
+			for(var/id_tag in sensors)
+				dat += {"<li><a href="?src=\ref[src];edit_sensor=[id_tag]">[sensors[id_tag]]</a></li>"}
+			dat += {"<li><a href="?src=\ref[src];add_sensor=1">\[+\]</a></li></ul>"}
+			return dat
+
+
+		linkWith(var/mob/user, var/obj/O, var/list/context)
+			if(context["slot"]=="input" && is_type_in_list(O,input_linkable))
+				input_tag = O:id_tag
+				input_info = null
+				if(istype(O,/obj/machinery/atmospherics/unary/vent_pump))
+					send_signal(list("tag"=input_tag,
+						"direction"=1, // Release
+						"checks"   =0  // No pressure checks.
+						))
+				return 1
+			if(context["slot"]=="output" && is_type_in_list(O,output_linkable))
+				output_tag = O:id_tag
+				output_info = null
+				if(istype(O,/obj/machinery/atmospherics/unary/vent_pump))
+					send_signal(list("tag"=output_tag,
+						"direction"=0, // Siphon
+						"checks"   =2  // Internal pressure checks.
+						))
+				return 1
+
+		unlinkFrom(var/mob/user, var/obj/O)
+			if("id_tag" in O.vars)
+				if(O:id_tag == input_tag)
+					input_tag=null
+					input_info=null
+					return 1
+				if(O:id_tag == output_tag)
+					output_tag=null
+					output_info=null
+					return 1
+			return 0
+
+		linkMenu(var/obj/O)
+			var/dat=""
+			if(canLink(O,list("slot"="input")))
+				dat += " <a href='?src=\ref[src];link=1;slot=input'>\[Link @ Input\]</a> "
+			if(canLink(O,list("slot"="output")))
+				dat += " <a href='?src=\ref[src];link=1;slot=output'>\[Link @ Output\]</a> "
+			return dat
+
+		canLink(var/obj/O, var/list/context)
+			return (context["slot"]=="input" && is_type_in_list(O,input_linkable)) || (context["slot"]=="output" && is_type_in_list(O,output_linkable))
+
+		isLinkedWith(var/obj/O)
+			if(O:id_tag == input_tag)
+				return 1
+			if(O:id_tag == output_tag)
+				return 1
+			return 0
+
 
 		process()
 			..()
@@ -329,7 +537,7 @@ legend {
 
 		Topic(href, href_list)
 			if(..())
-				return
+				return 1
 
 			add_fingerprint(usr)
 
@@ -345,34 +553,35 @@ legend {
 			signal.source = src
 			if(href_list["in_refresh_status"])
 				input_info = null
-				signal.data = list ("tag" = input_tag, "status")
+				signal.data = list ("tag" = input_tag, "status" = 1)
 
 			else if(href_list["in_toggle_injector"])
 				input_info = null
-				signal.data = list ("tag" = input_tag, "power_toggle")
+				signal.data = list ("tag" = input_tag, "power_toggle" = 1)
 
 			else if(href_list["out_refresh_status"])
 				output_info = null
-				signal.data = list ("tag" = output_tag, "status")
+				signal.data = list ("tag" = output_tag, "status" = 1)
 
 			else if(href_list["out_toggle_power"])
 				output_info = null
-				signal.data = list ("tag" = output_tag, "power_toggle")
+				signal.data = list ("tag" = output_tag, "power_toggle" = 1)
 
 			else if(href_list["out_set_pressure"])
 				output_info = null
 				signal.data = list ("tag" = output_tag, "set_internal_pressure" = "[pressure_setting]")
-			else
+			/*else
 				testing("Bad Topic() to GAC \"[src.name]\": [href]")
-				return // NOPE.
+				return*/ // NOPE. // disabling because it spams when multitool menus are used
 
-			signal.data["sigtype"]="command"
+			signal.data["sigtype"] = "command"
 			radio_connection.post_signal(src, signal, filter = RADIO_ATMOSIA)
 			src.updateUsrDialog()
 
 	fuel_injection
 		icon = 'icons/obj/computer.dmi'
 		icon_state = "atmos"
+		circuit = "/obj/item/weapon/circuitboard/injector_control"
 
 		var/device_tag
 		var/list/device_info
@@ -383,37 +592,10 @@ legend {
 		var/on_temperature = 1200
 
 		attackby(I as obj, user as mob, params)
-			if(istype(I, /obj/item/weapon/screwdriver))
-				playsound(get_turf(src), 'sound/items/Screwdriver.ogg', 50, 1)
-				if(do_after(user, 20))
-					if (src.stat & BROKEN)
-						user << "\blue The broken glass falls out."
-						var/obj/structure/computerframe/A = new /obj/structure/computerframe( src.loc )
-						getFromPool(/obj/item/weapon/shard, loc)
-						var/obj/item/weapon/circuitboard/injector_control/M = new /obj/item/weapon/circuitboard/injector_control( A )
-						for (var/obj/C in src)
-							C.loc = src.loc
-						M.frequency = src.frequency
-						A.circuit = M
-						A.state = 3
-						A.icon_state = "3"
-						A.anchored = 1
-						del(src)
-					else
-						user << "\blue You disconnect the monitor."
-						var/obj/structure/computerframe/A = new /obj/structure/computerframe( src.loc )
-						var/obj/item/weapon/circuitboard/injector_control/M = new /obj/item/weapon/circuitboard/injector_control( A )
-						for (var/obj/C in src)
-							C.loc = src.loc
-						M.frequency = src.frequency
-						A.circuit = M
-						A.state = 4
-						A.icon_state = "4"
-						A.anchored = 1
-						del(src)
-			else
-				src.attack_hand(user)
-			return
+			if(istype(I, /obj/item/device/multitool))
+				update_multitool_menu(user)
+			if(..())
+				return 1
 
 		process()
 			if(automation)

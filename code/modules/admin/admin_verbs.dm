@@ -108,8 +108,8 @@ var/list/admin_verbs_spawn = list(
 	/client/proc/respawn_character
 	)
 var/list/admin_verbs_server = list(
-	/client/proc/Set_Holiday,
 	/client/proc/ToRban,
+	/client/proc/Set_Holiday,
 	/datum/admins/proc/startnow,
 	/datum/admins/proc/restart,
 	/datum/admins/proc/delay,

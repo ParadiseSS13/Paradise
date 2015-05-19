@@ -21,8 +21,12 @@
 
 	New()
 		..()
-		spawn(40)
-			set_frequency(frequency)
+		if(!radio_controller)
+			spawn(40)
+				set_frequency(frequency)
+		else
+			spawn(1) // For things that set the frequency directly
+				set_frequency(frequency)
 		return
 	describe()
 		return "\The [src]'s power light is [receiving?"on":"off"]"
@@ -83,7 +87,7 @@
 
 		if (href_list["freq"])
 			var/new_frequency = (frequency + text2num(href_list["freq"]))
-			if(new_frequency < 1200 || new_frequency > 1600)
+			if(new_frequency < 1441 || new_frequency > 1489)
 				new_frequency = sanitize_frequency(new_frequency)
 			set_frequency(new_frequency)
 
@@ -144,13 +148,14 @@
 
 
 	proc/set_frequency(new_frequency)
-		spawn(20)
-			if(!radio_controller)
-				return
-			radio_controller.remove_object(src, frequency)
-			frequency = new_frequency
-			radio_connection = radio_controller.add_object(src, frequency, RADIO_CHAT)
+		if(!radio_controller)
+			sleep(20)
+		if(!radio_controller)
 			return
+		radio_controller.remove_object(src, frequency)
+		frequency = new_frequency
+		radio_connection = radio_controller.add_object(src, frequency, RADIO_CHAT)
+		return
 
 // Embedded signaller used in anomalies.
 /obj/item/device/assembly/signaler/anomaly

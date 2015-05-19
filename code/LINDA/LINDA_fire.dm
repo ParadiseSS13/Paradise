@@ -63,7 +63,7 @@
 	perform_exposure()
 
 /obj/effect/hotspot/proc/perform_exposure()
-	var/turf/simulated/floor/location = loc
+	var/turf/simulated/location = loc
 	if(!istype(location) || !(location.air))	return 0
 
 	if(volume > CELL_VOLUME*0.95)	bypassing = 1
@@ -82,7 +82,7 @@
 		location.assume_air(affected)
 
 	for(var/atom/item in loc)
-		if(item) // It's possible that the item is deleted in temperature_expose
+		if(item && item != src) // It's possible that the item is deleted in temperature_expose
 			item.fire_act(null, temperature, volume)
 
 	animate(src, color = heat2color(temperature), 5)
@@ -96,7 +96,7 @@
 		just_spawned = 0
 		return 0
 
-	var/turf/simulated/floor/location = loc
+	var/turf/simulated/location = loc
 	if(!istype(location))
 		Kill()
 		return
@@ -108,7 +108,7 @@
 		Kill()
 		return
 
-	if((!(location.air) || location.air.toxins < 0.5 || location.air.oxygen < 0.5))
+	if(!(location.air) || location.air.toxins < 0.5 || location.air.oxygen < 0.5)
 		Kill()
 		return
 

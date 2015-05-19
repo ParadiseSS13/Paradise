@@ -1093,6 +1093,7 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 	contains = list(/obj/structure/filingcabinet/chestdrawer,
 					/obj/item/device/camera_film,
 					/obj/item/weapon/hand_labeler,
+					/obj/item/stack/tape_roll,
 					/obj/item/weapon/paper_bin,
 					/obj/item/weapon/pen,
 					/obj/item/weapon/pen/blue,
@@ -1217,7 +1218,7 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 
 /datum/supply_packs/misc/wizard
 	name = "Wizard Costume Crate"
-	contains = list(/obj/item/weapon/staff,
+	contains = list(/obj/item/weapon/twohanded/staff,
 					/obj/item/clothing/suit/wizrobe/fake,
 					/obj/item/clothing/shoes/sandal,
 					/obj/item/clothing/head/wizard/fake)
@@ -1312,3 +1313,37 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 					/obj/item/weapon/lipstick/random)
 	cost = 30 //Lots of very expensive items. You gotta pay up to look good!
 	containername = "formal-wear crate"
+
+/datum/supply_packs/misc/teamcolors		//For team sports like space polo
+	name = "Team Jerseys Crate"
+	// 4 red jerseys, 4 blue jerseys, and 1 beach ball
+	contains = list(/obj/item/clothing/under/color/red/jersey,
+					/obj/item/clothing/under/color/red/jersey,
+					/obj/item/clothing/under/color/red/jersey,
+					/obj/item/clothing/under/color/red/jersey,
+					/obj/item/clothing/under/color/blue/jersey,
+					/obj/item/clothing/under/color/blue/jersey,
+					/obj/item/clothing/under/color/blue/jersey,
+					/obj/item/clothing/under/color/blue/jersey,
+					/obj/item/weapon/beach_ball)
+	cost = 15
+	containername = "team jerseys crate"
+
+/datum/supply_packs/misc/polo			//For space polo! Or horsehead Quiditch
+	name = "Polo Supply Crate"
+	// 6 brooms, 6 horse masks for the brooms, and 1 beach ball
+	contains = list(/obj/item/weapon/twohanded/staff/broom,
+					/obj/item/weapon/twohanded/staff/broom,
+					/obj/item/weapon/twohanded/staff/broom,
+					/obj/item/weapon/twohanded/staff/broom,
+					/obj/item/weapon/twohanded/staff/broom,
+					/obj/item/weapon/twohanded/staff/broom,
+					/obj/item/clothing/mask/horsehead,
+					/obj/item/clothing/mask/horsehead,
+					/obj/item/clothing/mask/horsehead,
+					/obj/item/clothing/mask/horsehead,
+					/obj/item/clothing/mask/horsehead,
+					/obj/item/clothing/mask/horsehead,
+					/obj/item/weapon/beach_ball)
+	cost = 20
+	containername = "polo supply crate"

@@ -11,7 +11,7 @@
 	idle_power_usage = 20
 	active_power_usage = 80
 
-	light_color = "#FF9933"
+	light_color = LIGHT_COLOR_ORANGE
 
 //fix for issue 521, by QualityVan.
 //someone should really look into why circuits have a powernet var, it's several kinds of retarded.
