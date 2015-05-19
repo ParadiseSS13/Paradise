@@ -64,7 +64,7 @@
 		return
 
 	Stat()
-		if(ticker.current_state == GAME_STATE_PREGAME)
+		if((!ticker) || ticker.current_state == GAME_STATE_PREGAME)
 			statpanel("Lobby") // First tab during pre-game.
 		..()
 
