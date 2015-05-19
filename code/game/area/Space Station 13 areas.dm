@@ -1721,8 +1721,8 @@ area/security/podbay
 	icon_state = "server"
 
 /area/toxins/server_coldroom
-name = "\improper Server Coldroom"
-icon_state = "servercold"
+	name = "\improper Server Coldroom"
+	icon_state = "servercold"
 
 //Storage
 
