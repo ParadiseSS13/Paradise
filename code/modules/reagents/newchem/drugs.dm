@@ -395,7 +395,9 @@ datum/reagent/crank/addiction_act_stage4(var/mob/living/M as mob)
 	description = "Makes you happy. Very Happy."
 	reagent_state = LIQUID
 	color = "#F8CF80"
-
+	overdose_threshold = 40
+	addiction_threshold = 20
+	metabolization_rate = 4.5
 /datum/chemical_reaction/seratonin
 	name = "seratonin"
 	id = "seratonin"
@@ -404,9 +406,7 @@ datum/reagent/crank/addiction_act_stage4(var/mob/living/M as mob)
 	result_amount = 3
 	required_temp = 401
 	mix_message = "The mixture begins to... smile?"
-	overdose_threshold = 40
-	addiction_threshold = 20
-	metabolization_rate = 4.5
+	
 	
 /datum/reagent/seratonin/on_mob_life(var/mob/living/M as mob)
 	if(!M) M = holder.my_atom
@@ -539,10 +539,10 @@ datum/reagent/seratonin/overdose_process(var/mob/living/M as mob)
 			M.adjustBrainLoss(-1)
 		if(prob(10))
 			M.adjustStaminaLoss(-35)
-			M.weaken()
+			M.Weaken(5)
 			M << "<span class = 'danger'>[M] FALLS into a spiraling depression!</span>"
 		if(prob(5))
-			M.reagents.add_reagents("Vodka",2)
+			M.reagents.add_reagent("Vodka",2)
 	..()
 	return
 
