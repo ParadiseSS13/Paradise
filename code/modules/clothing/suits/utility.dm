@@ -23,9 +23,9 @@
 	flags_inv = HIDEGLOVES|HIDESHOES|HIDEJUMPSUIT|HIDETAIL
 	flags = STOPSPRESSUREDMAGE | THICKMATERIAL
 	heat_protection = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
-	max_heat_protection_temperature = FIRESUIT_MAX_HEAT_PROTECTION_TEMPERATURE
+	max_heat_protection_temperature = FIRE_SUIT_MAX_TEMP_PROTECT
 	cold_protection = UPPER_TORSO | LOWER_TORSO | LEGS | FEET | ARMS | HANDS
-	min_cold_protection_temperature = FIRESUIT_MIN_COLD_PROTECTION_TEMPERATURE
+	min_cold_protection_temperature = FIRE_SUIT_MIN_TEMP_PROTECT
 
 
 /obj/item/clothing/suit/fire/firefighter
@@ -59,9 +59,9 @@
 	armor = list(melee = 40, bullet = 0, laser = 20,energy = 10, bomb = 100, bio = 0, rad = 0)
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES
 	cold_protection = HEAD
-	min_cold_protection_temperature = HELMET_MIN_COLD_PROTECTION_TEMPERATURE
+	min_cold_protection_temperature = HELMET_MIN_TEMP_PROTECT
 	heat_protection = HEAD
-	max_heat_protection_temperature = HELMET_MAX_HEAT_PROTECTION_TEMPERATURE
+	max_heat_protection_temperature = HELMET_MAX_TEMP_PROTECT
 	siemens_coefficient = 0
 	loose = 5
 
@@ -80,9 +80,9 @@
 	armor = list(melee = 40, bullet = 0, laser = 20,energy = 10, bomb = 100, bio = 0, rad = 0)
 	flags_inv = HIDEJUMPSUIT|HIDETAIL
 	heat_protection = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
-	max_heat_protection_temperature = ARMOR_MAX_HEAT_PROTECTION_TEMPERATURE
+	max_heat_protection_temperature = ARMOR_MAX_TEMP_PROTECT
 	cold_protection = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
-	min_cold_protection_temperature = ARMOR_MIN_COLD_PROTECTION_TEMPERATURE
+	min_cold_protection_temperature = ARMOR_MIN_TEMP_PROTECT
 	siemens_coefficient = 0
 
 

@@ -94,9 +94,9 @@
 	siemens_coefficient = 0.7
 
 	cold_protection = FEET
-	min_cold_protection_temperature = SHOE_MIN_COLD_PROTECTION_TEMPERATURE
+	min_cold_protection_temperature = SHOES_MIN_TEMP_PROTECT
 	heat_protection = FEET
-	max_heat_protection_temperature = SHOE_MAX_HEAT_PROTECTION_TEMPERATURE
+	max_heat_protection_temperature = SHOES_MAX_TEMP_PROTECT
 	species_restricted = null
 
 /obj/item/clothing/shoes/cyborg
