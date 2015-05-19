@@ -389,26 +389,26 @@ datum/reagent/crank/addiction_act_stage4(var/mob/living/M as mob)
 	..()
 	return
 
-/datum/reagent/seratonin
-	name = "Seratonin"
-	id = "seratonin"
+/datum/reagent/serotonin
+	name = "Serotonin"
+	id = "serotonin"
 	description = "Makes you happy. Very Happy."
 	reagent_state = LIQUID
 	color = "#F8CF80"
 	overdose_threshold = 40
 	addiction_threshold = 20
 	metabolization_rate = 4.5
-/datum/chemical_reaction/seratonin
-	name = "seratonin"
-	id = "seratonin"
-	result = "seratonin"
+/datum/chemical_reaction/serotonin
+	name = "serotonin"
+	id = "serotonin"
+	result = "serotonin"
 	required_reagents = list("bath_salts" = 1, "holywater" = 1)
 	result_amount = 3
 	required_temp = 401
 	mix_message = "The mixture begins to... smile?"
 	
 	
-/datum/reagent/seratonin/on_mob_life(var/mob/living/M as mob)
+/datum/reagent/serotonin/on_mob_life(var/mob/living/M as mob)
 	if(!M) M = holder.my_atom
 	var/high_message = pick("You feel happy", "You taste happiness, like you just had a space-cola", "Happiness coarses through your veins")
 	if(prob(5))
@@ -419,7 +419,7 @@ datum/reagent/crank/addiction_act_stage4(var/mob/living/M as mob)
 	..()
 	return
 
-/datum/reagent/seratonin/overdose_process(var/mob/living/M as mob)
+/datum/reagent/serotonin/overdose_process(var/mob/living/M as mob)
 	if(prob(33))
 		M.visible_message("<span class = 'danger'>[M]'s hands flip out and flail everywhere!</span>")
 		var/obj/item/I = M.get_active_hand()
@@ -430,7 +430,7 @@ datum/reagent/crank/addiction_act_stage4(var/mob/living/M as mob)
 	
 	..()
 	return
-/datum/reagent/seratonin/addiction_act_stage1(var/mob/living/M as mob)
+/datum/reagent/serotonin/addiction_act_stage1(var/mob/living/M as mob)
 	if(prob(1))
 		M.emote(pick("cry","moan","scream"))
 	if(prob(15))
@@ -439,7 +439,7 @@ datum/reagent/crank/addiction_act_stage4(var/mob/living/M as mob)
 		M << "<span class='danger'>You need happies!</span>"
 	..()
 	return
-/datum/reagent/seratonin/addiction_act_stage2(var/mob/living/M as mob)
+/datum/reagent/serotonin/addiction_act_stage2(var/mob/living/M as mob)
 	if(prob(2))
 		M.emote(pick("cry","moan","scream"))
 	if(prob(20))
@@ -448,7 +448,7 @@ datum/reagent/crank/addiction_act_stage4(var/mob/living/M as mob)
 		M << "<span class='danger'>You need happies!</span>"
 	..()
 	return
-/datum/reagent/seratonin/addiction_act_stage3(var/mob/living/M as mob)
+/datum/reagent/serotonin/addiction_act_stage3(var/mob/living/M as mob)
 	if(prob(3))
 		M.emote(pick("cry","moan","scream"))
 	if(prob(25))
@@ -458,14 +458,14 @@ datum/reagent/crank/addiction_act_stage4(var/mob/living/M as mob)
 	..()
 	return
 
-/datum/reagent/seratonin/addiction_act_stage4(var/mob/living/carbon/human/M as mob)
+/datum/reagent/serotonin/addiction_act_stage4(var/mob/living/carbon/human/M as mob)
 	if(prob(35))
 		M << "<span class='userdanger'>You feel like you have zero happies</span>"
 	if(prob(50))
 		M.adjustBrainLoss(-3)
 	..()
 	return
-datum/reagent/seratonin/overdose_process(var/mob/living/M as mob)
+datum/reagent/serotonin/overdose_process(var/mob/living/M as mob)
 	if(volume > 40)
 		switch(pick(1, 2, 3))
 			if(1)
@@ -501,14 +501,14 @@ datum/reagent/seratonin/overdose_process(var/mob/living/M as mob)
 /datum/reagent/ecstasy
 	name = "ecstasy"
 	id = "ecstasy"
-	description = "A drug that causes the brain to release massive amounts of seratonin."
+	description = "A drug that causes the brain to release massive amounts of serotonin."
 	reagent_state = LIQUID
 	color = "#C8A5DC"
 	metabolization_rate = 1000
 	
 /datum/reagent/ecstasy/on_mob_life(var/mob/living/M as mob)
 	if(!M) M = holder.my_atom
-	M.reagents.add_reagent("seratonin", 80)
+	M.reagents.add_reagent("serotonin", 80)
 	M.reagents.add_reagent("depressonium", 20)
 	..()
 	return
@@ -531,9 +531,9 @@ datum/reagent/seratonin/overdose_process(var/mob/living/M as mob)
 	color = "#C8A5DC"
 	metabolization_rate = 0.1
 
-/datum/reagent/seratonin/on_mob_life(var/mob/living/M as mob)
+/datum/reagent/depressonium/on_mob_life(var/mob/living/M as mob)
 	if(!M) M = holder.my_atom
-	if(!holder.has_reagent("seratonin"))
+	if(!holder.has_reagent("serotonin"))
 		if(prob(20))
 			M.emote(pick("cry","twitch","moan","flap"))
 			M.adjustBrainLoss(-1)
