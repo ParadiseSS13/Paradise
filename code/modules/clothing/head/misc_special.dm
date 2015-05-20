@@ -112,7 +112,7 @@
 	item_state = "ushankadown"
 	flags_inv = HIDEEARS
 	cold_protection = HEAD
-	min_cold_protection_temperature = FIRE_HELMET_MIN_COLD_PROTECTION_TEMPERATURE
+	min_cold_protection_temperature = FIRE_HELM_MIN_TEMP_PROTECT
 	loose = 1 // too warm, your head doesn't want to leave
 
 /obj/item/clothing/head/ushanka/attack_self(mob/user as mob)

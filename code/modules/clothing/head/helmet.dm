@@ -7,9 +7,9 @@
 	armor = list(melee = 50, bullet = 15, laser = 50,energy = 10, bomb = 25, bio = 0, rad = 0)
 	flags_inv = HIDEEARS|HIDEEYES
 	cold_protection = HEAD
-	min_cold_protection_temperature = HELMET_MIN_COLD_PROTECTION_TEMPERATURE
+	min_cold_protection_temperature = HELMET_MIN_TEMP_PROTECT
 	heat_protection = HEAD
-	max_heat_protection_temperature = HELMET_MAX_HEAT_PROTECTION_TEMPERATURE
+	max_heat_protection_temperature = HELMET_MAX_TEMP_PROTECT
 	siemens_coefficient = 0.7
 	loose = 4 // generally well seated
 
@@ -39,9 +39,9 @@
 	armor = list(melee = 80, bullet = 60, laser = 50,energy = 25, bomb = 50, bio = 10, rad = 0)
 	flags_inv = HIDEEARS|HIDEEYES
 	cold_protection = HEAD
-	min_cold_protection_temperature = SPACE_HELMET_MIN_COLD_PROTECTION_TEMPERATURE
+	min_cold_protection_temperature = SPACE_HELM_MIN_TEMP_PROTECT
 	heat_protection = HEAD
-	max_heat_protection_temperature = SPACE_HELMET_MAX_HEAT_PROTECTION_TEMPERATURE
+	max_heat_protection_temperature = SPACE_HELM_MAX_TEMP_PROTECT
 	siemens_coefficient = 0.5
 
 /obj/item/clothing/head/helmet/swat/syndicate
@@ -58,9 +58,9 @@
 	item_state = "thunderdome"
 	armor = list(melee = 80, bullet = 60, laser = 50,energy = 10, bomb = 25, bio = 10, rad = 0)
 	cold_protection = HEAD
-	min_cold_protection_temperature = SPACE_HELMET_MIN_COLD_PROTECTION_TEMPERATURE
+	min_cold_protection_temperature = SPACE_HELM_MIN_TEMP_PROTECT
 	heat_protection = HEAD
-	max_heat_protection_temperature = SPACE_HELMET_MAX_HEAT_PROTECTION_TEMPERATURE
+	max_heat_protection_temperature = SPACE_HELM_MAX_TEMP_PROTECT
 	siemens_coefficient = 1
 
 /obj/item/clothing/head/helmet/roman
@@ -114,7 +114,7 @@ obj/item/clothing/head/blob
 	item_state = "blobhat"
 	flags = HEADCOVERSEYES|HEADCOVERSMOUTH
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES
-	
+
 //Commander
 /obj/item/clothing/head/helmet/ert/command
 	name = "emergency response team commander helmet"
@@ -137,7 +137,7 @@ obj/item/clothing/head/blob
 	name = "emergency response team medical helmet"
 	desc = "A set of armor worn by medical members of the NanoTrasen Emergency Response Team. Has red and white highlights."
 	icon_state = "erthelmet_med"
-	
+
 //Medical
 /obj/item/clothing/head/helmet/ert/janitor
 	name = "emergency response team janitor helmet"

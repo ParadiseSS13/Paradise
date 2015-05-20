@@ -3,7 +3,7 @@
 	name = "Skrellian helmet"
 	desc = "Smoothly contoured and polished to a shine. Still looks like a fishbowl."
 	armor = list(melee = 20, bullet = 20, laser = 50,energy = 50, bomb = 50, bio = 100, rad = 100)
-	max_heat_protection_temperature = SPACE_SUIT_MAX_HEAT_PROTECTION_TEMPERATURE
+	max_heat_protection_temperature = SPACE_SUIT_MAX_TEMP_PROTECT
 	species_restricted = list("Skrell","Human")
 
 /obj/item/clothing/head/helmet/space/skrell/white
@@ -22,7 +22,7 @@
 	armor = list(melee = 20, bullet = 20, laser = 50,energy = 50, bomb = 50, bio = 100, rad = 100)
 	allowed = list(/obj/item/device/flashlight,/obj/item/weapon/tank,/obj/item/weapon/storage/bag/ore,/obj/item/device/t_scanner,/obj/item/weapon/pickaxe, /obj/item/weapon/rcd)
 	heat_protection = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
-	max_heat_protection_temperature = SPACE_SUIT_MAX_HEAT_PROTECTION_TEMPERATURE
+	max_heat_protection_temperature = SPACE_SUIT_MAX_TEMP_PROTECT
 	species_restricted = list("Skrell","Human")
 
 /obj/item/clothing/suit/space/skrell/white
@@ -39,7 +39,7 @@
 /obj/item/clothing/head/helmet/space/unathi
 	armor = list(melee = 40, bullet = 30, laser = 30,energy = 15, bomb = 35, bio = 100, rad = 50)
 	heat_protection = HEAD
-	max_heat_protection_temperature = SPACE_SUIT_MAX_HEAT_PROTECTION_TEMPERATURE
+	max_heat_protection_temperature = SPACE_SUIT_MAX_TEMP_PROTECT
 	var/up = 0 //So Unathi helmets play nicely with the weldervision check.
 	species_restricted = list("Unathi")
 
@@ -54,7 +54,7 @@
 	armor = list(melee = 40, bullet = 30, laser = 30,energy = 15, bomb = 35, bio = 100, rad = 50)
 	allowed = list(/obj/item/device/flashlight,/obj/item/weapon/tank,/obj/item/weapon/storage/bag/ore,/obj/item/device/t_scanner,/obj/item/weapon/pickaxe, /obj/item/weapon/rcd)
 	heat_protection = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
-	max_heat_protection_temperature = SPACE_SUIT_MAX_HEAT_PROTECTION_TEMPERATURE
+	max_heat_protection_temperature = SPACE_SUIT_MAX_TEMP_PROTECT
 	species_restricted = list("Unathi")
 
 /obj/item/clothing/suit/space/unathi/rig_cheap
@@ -88,7 +88,7 @@
 	armor = list(melee = 60, bullet = 50, laser = 30,energy = 15, bomb = 30, bio = 30, rad = 30)
 	siemens_coefficient = 0.6
 	heat_protection = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
-	max_heat_protection_temperature = SPACE_SUIT_MAX_HEAT_PROTECTION_TEMPERATURE
+	max_heat_protection_temperature = SPACE_SUIT_MAX_TEMP_PROTECT
 	species_restricted = list("Vox", "Vox Armalis")
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/suit.dmi',

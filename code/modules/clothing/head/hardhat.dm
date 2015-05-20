@@ -37,9 +37,9 @@
 	name = "firefighter helmet"
 	flags = STOPSPRESSUREDMAGE
 	heat_protection = HEAD
-	max_heat_protection_temperature = FIRE_HELMET_MAX_HEAT_PROTECTION_TEMPERATURE
+	max_heat_protection_temperature = FIRE_HELM_MAX_TEMP_PROTECT
 	cold_protection = HEAD
-	min_cold_protection_temperature = FIRE_HELMET_MIN_COLD_PROTECTION_TEMPERATURE
+	min_cold_protection_temperature = FIRE_HELM_MIN_TEMP_PROTECT
 
 /obj/item/clothing/head/hardhat/white
 	icon_state = "hardhat0_white"
@@ -47,9 +47,9 @@
 	_color = "white"
 	flags = STOPSPRESSUREDMAGE
 	heat_protection = HEAD
-	max_heat_protection_temperature = FIRE_HELMET_MAX_HEAT_PROTECTION_TEMPERATURE
+	max_heat_protection_temperature = FIRE_HELM_MAX_TEMP_PROTECT
 	cold_protection = HEAD
-	min_cold_protection_temperature = FIRE_HELMET_MIN_COLD_PROTECTION_TEMPERATURE
+	min_cold_protection_temperature = FIRE_HELM_MIN_TEMP_PROTECT
 
 
 /obj/item/clothing/head/hardhat/dblue
@@ -68,4 +68,4 @@
 	heat_protection = HEAD
 	max_heat_protection_temperature = FIRE_IMMUNITY_HELM_MAX_TEMP_PROTECT
 	cold_protection = HEAD
-	min_cold_protection_temperature = FIRE_HELMET_MIN_COLD_PROTECTION_TEMPERATURE
+	min_cold_protection_temperature = FIRE_HELM_MIN_TEMP_PROTECT
