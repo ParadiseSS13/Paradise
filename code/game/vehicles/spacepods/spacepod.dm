@@ -172,11 +172,11 @@
 			var/mob/living/carbon/human/H = occupant
 			var/mob/living/carbon/human/H2 = occupant2
 			if(H)
-				H.loc = get_turf(src)
+				H.forceMove(get_turf(src))
 				H.ex_act(severity + 1)
 				H << "<span class='warning'>You are forcefully thrown from \the [src]!</span>"
 			if(H2)
-				H2.loc = get_turf(src)
+				H2.forceMove(get_turf(src))
 				H2.ex_act(severity + 1)
 				H2 << "<span class='warning'>You are forcefully thrown from \the [src]!</span>"
 			del(ion_trail)
@@ -225,7 +225,7 @@
 			return
 		user.drop_item(W)
 		battery = W
-		W.loc = src
+		W.forceMove(src)
 		return
 	if(istype(W, /obj/item/device/spacepod_equipment))
 		if(!hatch_open)
@@ -241,7 +241,7 @@
 			else
 				user << "<span class='notice'>You insert \the [W] into the equipment system.</span>"
 				user.drop_item(W)
-				W.loc = equipment_system
+				W.forceMove(equipment_system)
 				equipment_system.weapon_system = W
 				equipment_system.weapon_system.my_atom = src
 				return
@@ -253,7 +253,7 @@
 			else
 				user << "<span class='notice'>You insert \the [W] into the equipment system.</span>"
 				user.drop_item(W)
-				W.loc = equipment_system
+				W.forceMove(equipment_system)
 				equipment_system.misc_system = W
 				equipment_system.misc_system.my_atom = src
 				return
@@ -587,12 +587,12 @@
 		if(0)	return
 		if(1)
 			if(occupant2)	occupant2 << "<span class='notice'>[occupant.name] climbs out of the pod!</span>"
-			occupant.loc = src.loc
+			occupant.forceMove(src.loc)
 			occupant = null
 			user << "<span class='notice'>You climb out of \the [src].</span>"
 		if(2)
 			if(occupant)	occupant << "<span class='notice'>[occupant2.name] climbs out of the pod!</span>"
-			occupant2.loc = src.loc
+			occupant2.forceMove(src.loc)
 			occupant2 = null
 			user << "<span class='notice'>You climb out of \the [src].</span>"
 
@@ -613,7 +613,7 @@
 		usr << "<span class='notice'>You eject [occupant2.name].</span>"
 		occupant2 << "<span class='danger'>\The [src] ejects you forcefully!</span>"
 		inertia_dir = 0
-		occupant2.loc = src.loc
+		occupant2.forceMove(src.loc)
 		occupant2 = null
 
 /obj/spacepod/verb/locksecondseat()
