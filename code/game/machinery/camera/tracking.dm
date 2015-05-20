@@ -229,7 +229,7 @@
 
 /proc/trackable(atom/movable/M)
 	var/turf/T = get_turf(M)
-	if(T && (T.z in config.contact_levels) && hassensorlevel(M, SUIT_SENSOR_TRACKING))
+	if(T && (T.z in config.contact_levels) && (hassensorlevel(M, SUIT_SENSOR_TRACKING) || M in aibots))
 		return 1
 
 	return near_camera(M)
