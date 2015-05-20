@@ -3,7 +3,7 @@
 	desc = "That looks like it doesn't open easily."
 	icon = 'icons/obj/doors/rapid_pdoor.dmi'
 	icon_state = "pdoor1"
-	var/id = 1.0
+	var/id_tag = 1.0
 	explosion_block = 3
 
 /obj/machinery/door/poddoor/preopen

@@ -321,3 +321,13 @@
 	materials = list("$glass" = 1000, "sacid" = 20)
 	build_path = /obj/item/weapon/circuitboard/vendor
 	category = list("Misc. Machinery")
+
+/datum/design/pod
+	name = "Machine Board (Mass Driver and Pod Doors Control)"
+	desc = "Allows for the construction of circuit boards used to build a Mass Driver and Pod Doors Control."
+	id = "pod"
+	req_tech = list("programming" = 2,"engineering" = 4)
+	build_type = IMPRINTER
+	materials = list("$glass" = 2000, "sacid" = 20)
+	build_path = /obj/item/weapon/circuitboard/pod
+	category = list("Misc. Machinery")

@@ -218,7 +218,7 @@
 				compressor = C
 		doors = new /list()
 		for(var/obj/machinery/door/poddoor/P in machines)
-			if(P.id == id)
+			if(P.id_tag == id)
 				doors += P
 
 /*

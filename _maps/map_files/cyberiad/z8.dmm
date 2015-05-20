@@ -172,7 +172,7 @@
 "dp" = (/obj/structure/grille,/obj/structure/window/reinforced{dir = 4},/obj/structure/window/reinforced{dir = 8},/obj/structure/window/reinforced{dir = 1},/obj/structure/window/reinforced,/turf/simulated/floor/plating,/area/traitor/tox)
 "dq" = (/obj/machinery/igniter{icon_state = "igniter0"; id = "SyndieToxinsIgnitor"; on = 0},/turf/simulated/floor/engine,/area/traitor/tox)
 "dr" = (/obj/machinery/air_sensor{id_tag = "burn_sensor"},/turf/simulated/floor/engine,/area/traitor/tox)
-"ds" = (/obj/machinery/door/poddoor{id = "SyndieToxVent"; name = "Toxins Venting Bay Door"; use_power = 0},/turf/simulated/floor/engine,/area/traitor/tox)
+"ds" = (/obj/machinery/door/poddoor{id_tag = "SyndieToxVent"; name = "Toxins Venting Bay Door"; use_power = 0},/turf/simulated/floor/engine,/area/traitor/tox)
 "dt" = (/obj/structure/cable,/obj/machinery/power/apc{dir = 4; pixel_x = 24},/turf/simulated/floor{icon_state = "vault"; dir = 5},/area/traitor/rnd)
 "du" = (/turf/simulated/floor{icon_state = "vault"; dir = 5},/area/traitor/hall)
 "dv" = (/obj/machinery/atmospherics/pipe/manifold/hidden/supply{dir = 8; initialize_directions = 11; level = 1},/obj/structure/cable{d1 = 1; d2 = 2; icon_state = "1-2"; tag = ""},/turf/simulated/floor{icon_state = "vault"; dir = 5},/area/traitor/hall)
