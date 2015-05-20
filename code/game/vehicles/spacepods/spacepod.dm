@@ -672,22 +672,14 @@
 	set category = "Spacepod"
 	set src = usr.loc
 
+	if(CheckIfOccupant2(usr))
+		if(src.occupant)
+			src.occupant.visible_message("<span class='notice'>[src.occupant2.name] climbs out of the pod!</span>") //Inform the remaining occupant that someone ejected.
+		inertia_dir = 0 // engage reverse thruster and power down pod
+		src.occupant2.loc = src.loc
+		src.occupant2 = null
+		usr << "<span class='notice'>You climb out of the pod.</span>"
 
-	if(usr != src.occupant)
-		if(src.occupant2)
-			if(usr != src.occupant2)
-				return
-			else
-				if(src.occupant)
-					src.occupant.visible_message("<span class='notice'>[src.occupant2.name] climbs out of the pod!</span>") //Inform the remaining occupant that someone ejected.
-				inertia_dir = 0 // engage reverse thruster and power down pod
-				src.occupant2.loc = src.loc
-				src.occupant2 = null
-				usr << "<span class='notice'>You climb out of the pod.</span>"
-
-
-		else
-			return
 	else
 		if(src.occupant2)
 			src.occupant2.visible_message("<span class='notice'>[src.occupant2.name] climbs out of the pod!</span>") //Inform the remaining occupant that someone ejected.
@@ -724,63 +716,47 @@
 	set category = "Spacepod"
 	set src = usr.loc
 
-	if(occupant2 == usr)
+	if(CheckIfOccupant2(usr))
 		if(!allow2enter)
 			usr << "<span class='notice'>You can't unlock the doors from your seat.</span>"
 			return
 		else
 			usr << "<span class='notice'>You can't lock the doors from your seat.</span>"
 			return
+
+	if(src.allow2enter)
+		src.allow2enter = 0
+		usr << "<span class='notice'>You lock the doors.</span>"
 	else
-		if(src.allow2enter)
-			src.allow2enter = 0
-			usr << "<span class='notice'>You lock the doors.</span>"
-		else
-			src.allow2enter = 1
-			usr << "<span class='notice'>You unlock the doors.</span>"
+		src.allow2enter = 1
+		usr << "<span class='notice'>You unlock the doors.</span>"
 
 /obj/spacepod/verb/toggleDoors()
-	if(src.occupant2)
-		if(usr.ckey != src.occupant2.ckey)
-			set name = "Toggle Nearby Pod Doors"
-			set category = "Spacepod"
-			set src = usr.loc
+	set name = "Toggle Nearby Pod Doors"
+	set category = "Spacepod"
+	set src = usr.loc
 
-			for(var/obj/machinery/door/poddoor/P in oview(3,src))
-				if(istype(P, /obj/machinery/door/poddoor/three_tile_hor) || istype(P, /obj/machinery/door/poddoor/three_tile_ver) || istype(P, /obj/machinery/door/poddoor/four_tile_hor) || istype(P, /obj/machinery/door/poddoor/four_tile_ver))
-					var/mob/living/carbon/human/L = usr
-					if(P.check_access(L.get_active_hand()) || P.check_access(L.wear_id))
-						if(P.density)
-							P.open()
-							return 1
-						else
-							P.close()
-							return 1
-					usr << "<span class='warning'>Access denied.</span>"
-					return
-			usr << "<span class='warning'>You are not close to any pod doors.</span>"
-			return
-		else
-			return
-	else
-		set name = "Toggle Nearby Pod Doors"
-		set category = "Spacepod"
-		set src = usr.loc
+	var/list/pod_door_types = list(/obj/machinery/door/poddoor/two_tile_hor/, /obj/machinery/door/poddoor/two_tile_ver/, \
+									/obj/machinery/door/poddoor/three_tile_hor, /obj/machinery/door/poddoor/three_tile_ver, \
+									/obj/machinery/door/poddoor/four_tile_hor, /obj/machinery/door/poddoor/four_tile_ver)
 
-		for(var/obj/machinery/door/poddoor/P in oview(3,src))
-			if(istype(P, /obj/machinery/door/poddoor/three_tile_hor) || istype(P, /obj/machinery/door/poddoor/three_tile_ver) || istype(P, /obj/machinery/door/poddoor/four_tile_hor) || istype(P, /obj/machinery/door/poddoor/four_tile_ver))
-				var/mob/living/carbon/human/L = usr
-				if(P.check_access(L.get_active_hand()) || P.check_access(L.wear_id))
-					if(P.density)
-						P.open()
-						return 1
-					else
-						P.close()
-						return 1
-				usr << "<span class='warning'>Access denied.</span>"
-				return
-		usr << "<span class='warning'>You are not close to any pod doors.</span>"
-		return
+	if(CheckIfOccupant2(usr))	return
+	for(var/obj/machinery/door/poddoor/P in oview(3,src))
+		if(is_type_in_list(P,pod_door_types))
+			var/mob/living/carbon/human/L = usr
+			if(P.check_access(L.get_active_hand()) || P.check_access(L.wear_id))
+				if(P.density)
+					P.open()
+					return 1
+				else
+					P.close()
+					return 1
+			usr << "<span class='warning'>Access denied.</span>"
+			return
+
+	usr << "<span class='warning'>You are not close to any pod doors.</span>"
+	return
+
 
 /obj/spacepod/verb/fireWeapon()
 	if(!CheckIfOccupant2(usr))
