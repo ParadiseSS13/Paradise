@@ -28,6 +28,7 @@
 /obj/structure/alien/resin/New(location)
 	relativewall_neighbours()
 	..()
+	air_update_turf(1)
 	return
 
 /obj/structure/alien/resin/Destroy()

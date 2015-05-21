@@ -90,7 +90,7 @@
 		state = 1
 		update_icon()
 		isSwitchingStates = 0
-		air_update_turf()
+		air_update_turf(1)
 
 	proc/Close()
 		isSwitchingStates = 1
@@ -102,7 +102,7 @@
 		state = 0
 		update_icon()
 		isSwitchingStates = 0
-		air_update_turf()
+		air_update_turf(1)
 
 	update_icon()
 		if(state)
