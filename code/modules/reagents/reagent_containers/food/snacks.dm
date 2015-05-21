@@ -44,7 +44,7 @@
 		return 0
 
 	if(istype(M, /mob/living/carbon))
-		var/fullness = M.nutrition + (M.reagents.get_reagent_amount("nutriment") * 25)
+		var/fullness = M.nutrition + (M.reagents.get_reagent_amount("nutriment") * 20) + (M.reagents.get_reagent_amount("protein") * 25) + (M.reagents.get_reagent_amount("plantmatter") * 25)
 		if(M == user)								//If you're eating it yourself
 			if(istype(M,/mob/living/carbon/human))
 				var/mob/living/carbon/human/H = M
@@ -535,7 +535,7 @@
 
 	New()
 		..()
-		reagents.add_reagent("nutriment", 1)
+		reagents.add_reagent("protein", 1)
 		reagents.add_reagent("egg", 5)
 
 	throw_impact(atom/hit_atom)
@@ -635,7 +635,7 @@
 
 	New()
 		..()
-		reagents.add_reagent("nutriment", 4)
+		reagents.add_reagent("protein", 4)
 		src.bitesize = 3
 
 /obj/item/weapon/reagent_containers/food/snacks/appendix
@@ -648,7 +648,7 @@
 
 	New()
 		..()
-		reagents.add_reagent("nutriment", 3)
+		reagents.add_reagent("protein", 3)
 		src.bitesize = 3
 
 /obj/item/weapon/reagent_containers/food/snacks/appendix/inflamed
@@ -699,7 +699,7 @@
 
 	New()
 		..()
-		reagents.add_reagent("nutriment", 3)
+		reagents.add_reagent("protein", 3)
 		reagents.add_reagent("carpotoxin", 3)
 		src.bitesize = 6
 
@@ -723,7 +723,7 @@
 
 	New()
 		..()
-		reagents.add_reagent("nutriment", 3)
+		reagents.add_reagent("plantmatter", 3)
 		reagents.add_reagent("psilocybin", 3)
 		src.bitesize = 6
 
@@ -735,7 +735,7 @@
 
 	New()
 		..()
-		reagents.add_reagent("nutriment", 3)
+		reagents.add_reagent("protein", 3)
 		src.bitesize = 6
 
 /obj/item/weapon/reagent_containers/food/snacks/bearmeat
@@ -746,7 +746,7 @@
 
 	New()
 		..()
-		reagents.add_reagent("nutriment", 12)
+		reagents.add_reagent("protein", 12)
 		reagents.add_reagent("methamphetamine", 5)
 		src.bitesize = 3
 
@@ -758,7 +758,7 @@
 
 	New()
 		..()
-		reagents.add_reagent("nutriment", 3)
+		reagents.add_reagent("protein", 3)
 		src.bitesize = 6
 
 /obj/item/weapon/reagent_containers/food/snacks/spidermeat
@@ -767,7 +767,7 @@
 	icon_state = "spidermeat"
 	New()
 		..()
-		reagents.add_reagent("nutriment", 3)
+		reagents.add_reagent("protein", 3)
 		reagents.add_reagent("toxin", 3)
 		bitesize = 3
 
@@ -777,7 +777,7 @@
 	icon_state = "spiderleg"
 	New()
 		..()
-		reagents.add_reagent("nutriment", 2)
+		reagents.add_reagent("protein", 2)
 		reagents.add_reagent("toxin", 2)
 		bitesize = 2
 
@@ -788,7 +788,7 @@
 	filling_color = "#DB0000"
 	New()
 		..()
-		reagents.add_reagent("nutriment", 3)
+		reagents.add_reagent("protein", 3)
 		bitesize = 2
 
 /obj/item/weapon/reagent_containers/food/snacks/sausage
@@ -799,7 +799,7 @@
 
 	New()
 		..()
-		reagents.add_reagent("nutriment", 6)
+		reagents.add_reagent("protein", 6)
 		bitesize = 2
 
 /obj/item/weapon/reagent_containers/food/snacks/donkpocket
@@ -1244,7 +1244,7 @@
 
 	New()
 		..()
-		reagents.add_reagent("nutriment", 4)
+		reagents.add_reagent("protein", 4)
 		bitesize = 2
 
 /obj/item/weapon/reagent_containers/food/snacks/no_raisin
@@ -1256,7 +1256,7 @@
 
 	New()
 		..()
-		reagents.add_reagent("nutriment", 6)
+		reagents.add_reagent("plantmatter", 6)
 
 /obj/item/weapon/reagent_containers/food/snacks/spacetwinkie
 	name = "Space Twinkie"
@@ -1299,7 +1299,8 @@
 	icon_state = "chinese2"
 	New()
 		..()
-		reagents.add_reagent("nutriment", 6)
+		reagents.add_reagent("nutriment", 4)
+		reagents.add_reagent("protein", 2)
 		reagents.add_reagent("msg",4)
 		bitesize = 2
 
@@ -1674,7 +1675,7 @@
 
 	New()
 		..()
-		reagents.add_reagent("nutriment",10)
+		reagents.add_reagent("protein",10)
 
 	afterattack(obj/O as obj, mob/user as mob, proximity)
 		if(!proximity) return
@@ -2076,7 +2077,7 @@
 
 	New()
 		..()
-		reagents.add_reagent("nutriment", 3)
+		reagents.add_reagent("plantmatter", 3)
 		reagents.add_reagent("oculine", 3)
 		bitesize = 2
 
@@ -2334,7 +2335,8 @@
 	filling_color = "#FF7575"
 	New()
 		..()
-		reagents.add_reagent("nutriment", 30)
+		reagents.add_reagent("protein", 20)
+		reagents.add_reagent("nutriment", 10)
 		bitesize = 2
 
 /obj/item/weapon/reagent_containers/food/snacks/meatbreadslice
@@ -2354,7 +2356,8 @@
 	filling_color = "#8AFF75"
 	New()
 		..()
-		reagents.add_reagent("nutriment", 30)
+		reagents.add_reagent("protein", 20)
+		reagents.add_reagent("nutriment", 10)
 		bitesize = 2
 
 /obj/item/weapon/reagent_containers/food/snacks/xenomeatbreadslice
@@ -2373,7 +2376,8 @@
 	slices_num = 5
 	New()
 		..()
-		reagents.add_reagent("nutriment", 30)
+		reagents.add_reagent("protein", 20)
+		reagents.add_reagent("nutriment", 10)
 		reagents.add_reagent("toxin", 15)
 		bitesize = 2
 
@@ -2459,7 +2463,8 @@
 	filling_color = "#E6AEDB"
 	New()
 		..()
-		reagents.add_reagent("nutriment", 25)
+		reagents.add_reagent("protein", 15)
+		reagents.add_reagent("nutriment", 10)
 		reagents.add_reagent("mannitol", 10)
 		bitesize = 2
 
@@ -2779,7 +2784,8 @@
 	slices_num = 6
 	New()
 		..()
-		reagents.add_reagent("nutriment", 50)
+		reagents.add_reagent("protein", 30)
+		reagents.add_reagent("nutriment", 20)
 		reagents.add_reagent("tomatojuice", 6)
 		bitesize = 2
 
@@ -2798,7 +2804,8 @@
 	slices_num = 6
 	New()
 		..()
-		reagents.add_reagent("nutriment", 35)
+		reagents.add_reagent("plantmatter", 25)
+		reagents.add_reagent("nutriment", 10)
 		bitesize = 2
 
 /obj/item/weapon/reagent_containers/food/snacks/mushroompizzaslice
@@ -2816,7 +2823,8 @@
 	slices_num = 6
 	New()
 		..()
-		reagents.add_reagent("nutriment", 30)
+		reagents.add_reagent("plantmatter", 20)
+		reagents.add_reagent("nutriment", 10)
 		reagents.add_reagent("tomatojuice", 6)
 		reagents.add_reagent("oculine", 12)
 		bitesize = 2
@@ -3121,7 +3129,8 @@
 
 	New()
 		..()
-		reagents.add_reagent("nutriment", 6)
+		reagents.add_reagent("plantmatter", 4)
+		reagents.add_reagent("nutriment", 2)
 		reagents.add_reagent("radium", 2)
 		bitesize = 2
 
@@ -3142,7 +3151,7 @@
 	icon_state = "spidereggs"
 	New()
 		..()
-		reagents.add_reagent("nutriment", 2)
+		reagents.add_reagent("protein", 2)
 		reagents.add_reagent("toxin", 3)
 		bitesize = 2
 
@@ -3319,7 +3328,7 @@
 	bitesize = 1
 	New()
 		..()
-		reagents.add_reagent("nutriment", 1)
+		reagents.add_reagent("protein", 1)
 
 /obj/item/weapon/reagent_containers/food/snacks/cutlet
 	name = "cutlet"
@@ -3329,7 +3338,7 @@
 	bitesize = 2
 	New()
 		..()
-		reagents.add_reagent("nutriment", 2)
+		reagents.add_reagent("protein", 2)
 
 /obj/item/weapon/reagent_containers/food/snacks/rawmeatball
 	name = "raw meatball"
@@ -3339,7 +3348,7 @@
 	bitesize = 2
 	New()
 		..()
-		reagents.add_reagent("nutriment", 2)
+		reagents.add_reagent("protein", 2)
 
 /obj/item/weapon/reagent_containers/food/snacks/hotdog
 	name = "hotdog"
@@ -3348,7 +3357,7 @@
 	bitesize = 2
 	New()
 		..()
-		reagents.add_reagent("nutriment", 6)
+		reagents.add_reagent("protein", 6)
 
 /obj/item/weapon/reagent_containers/food/snacks/flatbread
 	name = "flatbread"
@@ -3377,7 +3386,7 @@
 	bitesize = 2
 	New()
 		..()
-		reagents.add_reagent("nutriment", 3)
+		reagents.add_reagent("plantmatter", 3)
 
 /obj/item/weapon/reagent_containers/food/snacks/ectoplasm
 	name = "ectoplasm"
