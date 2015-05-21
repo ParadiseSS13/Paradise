@@ -262,6 +262,21 @@
 		reagents.add_reagent("formaldehyde", 50)
 
 
+/obj/item/weapon/reagent_containers/glass/bottle/reagent/morphine
+	name = "Morphine Bottle"
+	desc = "A reagent bottle. Contains morphine."
+	New()
+		..()
+		reagents.add_reagent("morphine", 50)
+
+/obj/item/weapon/reagent_containers/glass/bottle/reagent/insulin
+	name = "Insulin Bottle"
+	desc = "A reagent bottle. Contains insulin."
+	New()
+		..()
+		reagents.add_reagent("insulin", 50)
+
+
 ////////////////////Traitor Poison Bottle//////////////////////////////
 
 /obj/item/weapon/reagent_containers/glass/bottle/traitor
