@@ -84,8 +84,8 @@ datum/controller/air_system
 			if(istype(S))
 				air_master.add_to_active(S)
 
-/datum/controller/air_system/proc/setup_allturfs()
-	for(var/turf/simulated/T in world)
+/datum/controller/air_system/proc/setup_allturfs(var/turfs_in = world)
+	for(var/turf/simulated/T in turfs_in)
 		T.CalculateAdjacentTurfs()
 		if(!T.blocks_air)
 			if(T.air.check_tile_graphic())
