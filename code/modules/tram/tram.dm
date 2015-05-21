@@ -49,6 +49,7 @@
 
 	var/automode = 0
 	var/list/blacklist = list(/obj/tram/rail,/atom/movable/lighting_overlay)
+	var/list/ancwhitelist = list(/obj/tram, /obj/vehicle, /obj/structure/stool/bed/chair, /obj/structure/grille, /obj/structure/window)
 
 /obj/tram/tram_controller/New()
 	spawn(1)
@@ -144,7 +145,7 @@
 	if(is_type_in_list(AM, blacklist))	return 0
 	if(!AM.simulated)	return 0
 	if(AM.anchored)
-		if(istype(AM,/obj/tram) || istype(AM,/obj/vehicle))
+		if(is_type_in_list(AM, ancwhitelist))
 			return 1
 		return 0
 	return 1
