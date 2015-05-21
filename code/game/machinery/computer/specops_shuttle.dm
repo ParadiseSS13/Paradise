@@ -142,7 +142,7 @@ var/specops_shuttle_timeleft = 0
 	//Begin Marauder launchpad.
 	spawn(0)//So it parallel processes it.
 		for(var/obj/machinery/door/poddoor/M in special_ops)
-			switch(M.id)
+			switch(M.id_tag)
 				if("ASSAULT0")
 					spawn(10)//1 second delay between each.
 						M.open()
@@ -173,7 +173,7 @@ var/specops_shuttle_timeleft = 0
 		sleep(10)
 
 		for(var/obj/machinery/mass_driver/M in special_ops)
-			switch(M.id)
+			switch(M.id_tag)
 				if("ASSAULT0")
 					spawn(10)
 						M.drive()
@@ -190,7 +190,7 @@ var/specops_shuttle_timeleft = 0
 		sleep(50)//Doors remain open for 5 seconds.
 
 		for(var/obj/machinery/door/poddoor/M in special_ops)
-			switch(M.id)//Doors close at the same time.
+			switch(M.id_tag)//Doors close at the same time.
 				if("ASSAULT0")
 					spawn(0)
 						M.close()
