@@ -241,6 +241,7 @@
 		src.modules += new /obj/item/weapon/pen(src)
 		src.modules += new /obj/item/weapon/razor(src)
 		src.modules += new /obj/item/device/violin(src)
+		src.modules += new /obj/item/device/guitar(src)
 
 		var/obj/item/weapon/rsf/M = new /obj/item/weapon/rsf(src)
 		M.matter = 30
@@ -334,7 +335,8 @@
 	src.modules += new /obj/item/device/flash/cyborg(src)
 	src.modules += new /obj/item/device/flashlight(src)
 	src.modules += new /obj/item/weapon/melee/energy/sword/cyborg(src)
-	src.modules += new /obj/item/weapon/gun/energy/kinetic_accelerator/crossbow/large/cyborg(src)
+	src.modules += new /obj/item/weapon/gun/energy/printer(src)
+	src.modules += new /obj/item/weapon/gun/projectile/revolver/grenadelauncher/multi/cyborg(src)
 	src.modules += new /obj/item/weapon/card/emag(src)
 	src.modules += new /obj/item/weapon/tank/jetpack/carbondioxide(src)
 	src.modules += new /obj/item/weapon/crowbar(src)
