@@ -1485,10 +1485,31 @@ datum
 /////////////////////////Food Reagents////////////////////////////
 // Part of the food code. Nutriment is used instead of the old "heal_amt" code. Also is where all the food
 // 	condiments, additives, and such go.
-		nutriment
+		nutriment		// Pure nutriment, universally digestable and thus slightly less effective
 			name = "Nutriment"
 			id = "nutriment"
-			description = "All the vitamins, minerals, and carbohydrates the body needs in pure form."
+			description = "A questionable mixture of various pure nutrients commonly found in processed foods."
+			reagent_state = SOLID
+			nutriment_factor = 12 * REAGENTS_METABOLISM
+			color = "#664330" // rgb: 102, 67, 48
+
+			on_mob_life(var/mob/living/M as mob)
+				if(!M) M = holder.my_atom
+				if(!(M.mind in ticker.mode.vampires))
+					if(ishuman(M))
+						var/mob/living/carbon/human/H = M
+						if(H.species && H.species.dietflags)	//Make sure the species has it's dietflag set, otherwise it can't digest any nutrients
+							H.nutrition += nutriment_factor	// For hunger and fatness
+							if(prob(50)) M.heal_organ_damage(1,0)
+					if(istype(M,/mob/living/simple_animal))		//Any nutrients can heal simple animals
+						if(prob(50)) M.heal_organ_damage(1,0)
+				..()
+				return
+
+		protein			// Meat-based protein, digestable by carnivores and omnivores, worthless to herbivores
+			name = "Protein"
+			id = "protein"
+			description = "Various essential proteins and fats commonly found in animal flesh and blood."
 			reagent_state = SOLID
 			nutriment_factor = 15 * REAGENTS_METABOLISM
 			color = "#664330" // rgb: 102, 67, 48
@@ -1496,8 +1517,34 @@ datum
 			on_mob_life(var/mob/living/M as mob)
 				if(!M) M = holder.my_atom
 				if(!(M.mind in ticker.mode.vampires))
-					M.nutrition += nutriment_factor	// For hunger and fatness
-					if(prob(50)) M.heal_organ_damage(1,0)
+					if(ishuman(M))
+						var/mob/living/carbon/human/H = M
+						if(H.species && H.species.dietflags && !(H.species.dietflags & DIET_HERB))	//Make sure the species has it's dietflag set, and that it is not a herbivore
+							H.nutrition += nutriment_factor	// For hunger and fatness
+							if(prob(50)) M.heal_organ_damage(1,0)
+					if(istype(M,/mob/living/simple_animal))		//Any nutrients can heal simple animals
+						if(prob(50)) M.heal_organ_damage(1,0)
+				..()
+				return
+
+		plantmatter		// Plant-based biomatter, digestable by herbivores and omnivores, worthless to carnivores
+			name = "Plant-matter"
+			id = "plantmatter"
+			description = "Vitamin-rich fibers and natural sugars commonly found in fresh produce."
+			reagent_state = SOLID
+			nutriment_factor = 15 * REAGENTS_METABOLISM
+			color = "#664330" // rgb: 102, 67, 48
+
+			on_mob_life(var/mob/living/M as mob)
+				if(!M) M = holder.my_atom
+				if(!(M.mind in ticker.mode.vampires))
+					if(ishuman(M))
+						var/mob/living/carbon/human/H = M
+						if(H.species && H.species.dietflags && !(H.species.dietflags & DIET_CARN))	//Make sure the species has it's dietflag set, and that it is not a carnivore
+							H.nutrition += nutriment_factor	// For hunger and fatness
+							if(prob(50)) M.heal_organ_damage(1,0)
+					if(istype(M,/mob/living/simple_animal))		//Any nutrients can heal simple animals
+						if(prob(50)) M.heal_organ_damage(1,0)
 				..()
 				return
 
