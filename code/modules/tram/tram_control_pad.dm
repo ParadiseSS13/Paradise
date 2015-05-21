@@ -3,8 +3,8 @@
 	desc = "Controls a tram."
 	icon = 'icons/obj/airlock_machines.dmi'
 	icon_state = "airlock_control_standby"
+	anchored = 1
 	var/obj/tram/tram_controller/tram_linked
-	var/list/cdir2readable = list("North","South",null,"East",null,null,null,"West")
 
 /obj/tram/controlpad/attack_hand(var/mob/user)
 	usr.set_machine(src)

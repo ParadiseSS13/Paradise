@@ -35,7 +35,7 @@
 		)
 
 	flags = IS_WHITELISTED | HAS_LIPS | HAS_UNDERWEAR | NO_BREATHE | HAS_SKIN_COLOR | NO_SCAN | NO_SCAN | HIVEMIND
-
+	dietflags = DIET_HERB		//bees feed off nectar, so bee people feed off plants too
 
 	base_color = "#704300"
 	flesh_color = "#704300"
@@ -88,6 +88,7 @@
 	burn_mod = 4 // holy shite, poor guys wont survive half a second cooking smores
 	brute_mod = 2 // damn, double wham, double dam
 	flags = IS_WHITELISTED | NO_BREATHE | NO_BLOOD | NO_PAIN | HAS_LIPS | NO_SCAN
+	dietflags = DIET_OMNI		//still human at their core, so they maintain their eating habits and diet
 
 	has_organ = list(
 		"heart" =    /obj/item/organ/heart,
