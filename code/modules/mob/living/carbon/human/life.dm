@@ -373,7 +373,7 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 			if(!breath)
 				if(isobj(loc))
 					var/obj/location_as_object = loc
-					breath = location_as_object.handle_internal_lifeform(src, BREATH_VOLUME)
+					breath = location_as_object.handle_internal_lifeform(src, BREATH_MOLES)
 				else if(isturf(loc))
 					var/breath_moles = 0
 					/*if(environment.return_pressure() > ONE_ATMOSPHERE)
