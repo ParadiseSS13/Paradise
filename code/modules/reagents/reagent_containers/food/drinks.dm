@@ -242,6 +242,8 @@
 	New()
 		..()
 		reagents.add_reagent("tea", 30)
+		if(prob(20))
+			reagents.add_reagent("mugwort", 3)
 		src.pixel_x = rand(-10.0, 10)
 		src.pixel_y = rand(-10.0, 10)
 
@@ -308,6 +310,8 @@
 	New()
 		..()
 		reagents.add_reagent("dry_ramen", 30)
+		if(prob(20))
+			reagents.add_reagent("enzyme", 3)
 		src.pixel_x = rand(-10.0, 10)
 		src.pixel_y = rand(-10.0, 10)
 

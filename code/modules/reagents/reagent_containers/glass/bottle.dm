@@ -150,6 +150,15 @@
 		..()
 		reagents.add_reagent("morphine", 30)
 
+/obj/item/weapon/reagent_containers/glass/bottle/insulin
+	name = "Insulin Bottle"
+	desc = "A small bottle. Contains insulin."
+	icon = 'icons/obj/chemical.dmi'
+	icon_state = "bottle17"
+	New()
+		..()
+		reagents.add_reagent("insulin", 30)
+
 /obj/item/weapon/reagent_containers/glass/bottle/charcoal
 	name = "Charcoal Bottle"
 	desc = "A small bottle. Contains charcoal."

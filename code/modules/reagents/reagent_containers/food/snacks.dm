@@ -1279,6 +1279,7 @@
 	New()
 		..()
 		reagents.add_reagent("nutriment", 4)
+		reagents.add_reagent("fake_cheese", 2)
 		bitesize = 2
 
 /obj/item/weapon/reagent_containers/food/snacks/chinese/chowmein
@@ -1288,6 +1289,7 @@
 	New()
 		..()
 		reagents.add_reagent("nutriment", 6)
+		reagents.add_reagent("beans", 3)
 		reagents.add_reagent("msg",4)
 		bitesize = 2
 
