@@ -1,7 +1,7 @@
 proc/sql_report_karma(var/mob/spender, var/mob/receiver)
-	var/sqlspendername = spender.name
+	var/sqlspendername = sanitizeSQL(spender.name)
 	var/sqlspenderkey = spender.key
-	var/sqlreceivername = receiver.name
+	var/sqlreceivername = sanitizeSQL(receiver.name)
 	var/sqlreceiverkey = receiver.key
 	var/sqlreceiverrole = "None"
 	var/sqlreceiverspecial = "None"
@@ -10,9 +10,9 @@ proc/sql_report_karma(var/mob/spender, var/mob/receiver)
 
 	if(receiver.mind)
 		if(receiver.mind.special_role)
-			sqlreceiverspecial = receiver.mind.special_role
+			sqlreceiverspecial = sanitizeSQL(receiver.mind.special_role)
 		if(receiver.mind.assigned_role)
-			sqlreceiverrole = receiver.mind.assigned_role
+			sqlreceiverrole = sanitizeSQL(receiver.mind.assigned_role)
 
 	if(!dbcon.IsConnected())
 		log_game("SQL ERROR during karma logging. Failed to connect.")

@@ -53,6 +53,7 @@
 	var/flags = 0       // Various specific features.
 	var/bloodflags=0
 	var/bodyflags=0
+	var/dietflags  = 0	// Make sure you set this, otherwise it won't be able to digest a lot of foods
 
 	var/list/abilities = list()	// For species-derived or admin-given powers
 
@@ -322,6 +323,7 @@
 	language = "Sol Common"
 	flags = HAS_LIPS | HAS_UNDERWEAR | CAN_BE_FAT
 	bodyflags = HAS_SKIN_TONE
+	dietflags = DIET_OMNI
 	unarmed_type = /datum/unarmed_attack/punch
 	blurb = "Humanity originated in the Sol system, and over the last five centuries has spread \
 	colonies across a wide swathe of space. They hold a wide range of forms and creeds.<br/><br/> \
@@ -349,6 +351,7 @@
 
 	flags = HAS_LIPS | HAS_UNDERWEAR
 	bodyflags = FEET_CLAWS | HAS_TAIL | HAS_SKIN_COLOR | TAIL_WAGGING
+	dietflags = DIET_CARN
 
 	cold_level_1 = 280 //Default 260 - Lower is better
 	cold_level_2 = 220 //Default 200
@@ -398,6 +401,7 @@
 
 	flags = HAS_LIPS | HAS_UNDERWEAR | CAN_BE_FAT
 	bodyflags = FEET_PADDED | HAS_TAIL | HAS_SKIN_COLOR | TAIL_WAGGING
+	dietflags = DIET_OMNI
 
 	flesh_color = "#AFA59E"
 	base_color = "#333333"
@@ -424,6 +428,7 @@
 
 	flags = HAS_LIPS | HAS_UNDERWEAR
 	bodyflags = HAS_SKIN_COLOR
+	dietflags = DIET_HERB
 
 	flesh_color = "#8CD7A3"
 	blood_color = "#1D2CBF"
@@ -462,6 +467,7 @@
 	poison_type = "oxygen"
 
 	flags = NO_SCAN | IS_WHITELISTED
+	dietflags = DIET_OMNI
 
 	blood_color = "#2299FC"
 	flesh_color = "#808D11"
@@ -515,6 +521,7 @@
 	poison_type = "oxygen"
 
 	flags = NO_SCAN | NO_BLOOD | HAS_TAIL | NO_PAIN | IS_WHITELISTED
+	dietflags = DIET_OMNI	//should inherit this from vox, this is here just in case
 
 	blood_color = "#2299FC"
 	flesh_color = "#808D11"
@@ -547,6 +554,7 @@
 
 	flags = IS_WHITELISTED
 	bodyflags = FEET_CLAWS
+	dietflags = DIET_HERB
 
 	blood_color = "#FB9800"
 
@@ -564,6 +572,7 @@
 	flags = IS_WHITELISTED | NO_BREATHE | HAS_LIPS | NO_INTORGANS | NO_SCAN
 	bodyflags = HAS_SKIN_COLOR
 	bloodflags = BLOOD_SLIME
+	dietflags = DIET_CARN
 
 	//ventcrawler = 1 //ventcrawling commented out
 
@@ -588,6 +597,7 @@
 	primitive = /mob/living/carbon/monkey // TODO
 
 	flags = IS_WHITELISTED | HAS_LIPS | HAS_UNDERWEAR | CAN_BE_FAT
+	dietflags = DIET_HERB
 
 	blood_color = "#A200FF"
 
@@ -635,6 +645,7 @@
 	water and other radiation."
 
 	flags = NO_BREATHE | REQUIRE_LIGHT | IS_PLANT | RAD_ABSORB | NO_BLOOD | NO_PAIN
+	dietflags = 0		//Diona regenerate nutrition in light, no diet necessary
 
 	body_temperature = T0C + 15		//make the plant people have a bit lower body temperature, why not
 
@@ -720,6 +731,7 @@
 	synth_temp_gain = 10 //this should cause IPCs to stabilize at ~80 C in a 20 C environment.
 
 	flags = IS_WHITELISTED | NO_BREATHE | NO_SCAN | NO_BLOOD | NO_PAIN | IS_SYNTHETIC | NO_INTORGANS
+	dietflags = 0		//IPCs can't eat, so no diet
 	blood_color = "#1F181F"
 	flesh_color = "#AAAAAA"
 

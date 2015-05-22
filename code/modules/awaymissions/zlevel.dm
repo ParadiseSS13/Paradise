@@ -40,6 +40,9 @@ proc/createRandomZlevel()
 		var/file = file(map)
 		if(isfile(file))
 			maploader.load_map(file)
+			// Initialize air for the away mission's turfs
+			if(air_master)
+				air_master.setup_allturfs(block(locate(1, 1, world.maxz), locate(world.maxx, world.maxy, world.maxz)))
 			world.log << "away mission loaded: [map]"
 
 		for(var/obj/effect/landmark/L in landmarks_list)

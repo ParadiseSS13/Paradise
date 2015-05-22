@@ -648,7 +648,7 @@ datum/objective/steal/exchange
 		else if(faction == "blue")
 			targetinfo = new /datum/theft_objective/unique/docs_red
 		explanation_text = "Acquire [targetinfo.name] held by [target.current.real_name], the [target.assigned_role] and syndicate agent"
-		steal_target = targetinfo.typepath
+		steal_target = targetinfo
 
 datum/objective/steal/exchange/backstab
 
@@ -659,7 +659,7 @@ datum/objective/steal/exchange/backstab
 		else if(faction == "blue")
 			targetinfo = new /datum/theft_objective/unique/docs_blue
 		explanation_text = "Do not give up or lose [targetinfo.name]."
-		steal_target = targetinfo.typepath
+		steal_target = targetinfo
 
 datum/objective/download
 	proc/gen_amount_goal()

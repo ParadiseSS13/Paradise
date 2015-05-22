@@ -60,6 +60,11 @@
 #define HAS_SKIN_COLOR	32
 #define TAIL_WAGGING    64
 
+//Species Diet Flags
+#define DIET_CARN		1
+#define DIET_OMNI		2
+#define DIET_HERB		4
+
 
 //bitflags for door switches.
 #define OPEN	1

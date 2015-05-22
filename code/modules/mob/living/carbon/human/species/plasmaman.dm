@@ -6,6 +6,7 @@
 	unarmed_type = /datum/unarmed_attack/punch
 
 	flags = IS_WHITELISTED | NO_BLOOD
+	dietflags = DIET_OMNI
 
 	//default_mutations=list(SKELETON) // This screws things up
 
