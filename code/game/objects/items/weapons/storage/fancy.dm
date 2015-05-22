@@ -91,10 +91,20 @@
 	slot_flags = SLOT_BELT
 
 
-/obj/item/weapon/storage/fancy/candle_box/New()
+/obj/item/weapon/storage/fancy/candle_box/full/New()
 	..()
 	for(var/i=1; i <= storage_slots; i++)
 		new /obj/item/candle(src)
+	return
+
+/obj/item/weapon/storage/fancy/candle_box/eternal
+	name = "Eternal Candle pack"
+	desc = "A pack of red candles made with a special wax."
+
+/obj/item/weapon/storage/fancy/candle_box/eternal/New()
+	..()
+	for(var/i=1; i <= storage_slots; i++)
+		new /obj/item/candle/eternal(src)
 	return
 
 /*
@@ -169,7 +179,7 @@
 		unlaced_cigarettes += C
 		for(var/R in default_reagents)
 			reagents.add_reagent(R, default_reagents[R])
-	
+
 
 /obj/item/weapon/storage/fancy/cigarettes/Destroy()
 	del(reagents)

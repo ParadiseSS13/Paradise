@@ -1027,7 +1027,7 @@
 		"soybeans" = list("soymilk" = 0),
 		"tomato" = list("ketchup" = 0),
 		///obj/item/weapon/reagent_containers/food/snacks/grown/wheat = list("flour" = -5),
-		"ricestalk" = list("rice" = -5),
+		"ricestalk" = list("rice" = 5),
 		"cherries" = list("cherryjelly" = 0),
 		"plastellium" = list("plasticide" = 5),
 	)

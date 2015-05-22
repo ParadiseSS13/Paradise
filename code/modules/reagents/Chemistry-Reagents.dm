@@ -2606,6 +2606,12 @@ datum
 						M:adjustToxLoss(1)
 					return
 
+			mojito
+				name = "Mojito"
+				id = "mojito"
+				description = "If it's good enough for Spesscuba, it's good enough for you."
+				color = "#664300" // rgb: 102, 67, 0
+
 			vodka
 				name = "Vodka"
 				id = "vodka"

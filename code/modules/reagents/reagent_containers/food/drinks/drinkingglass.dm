@@ -188,6 +188,14 @@
 					icon_state = "vermouthglass"
 					name = "Glass of Vermouth"
 					desc = "You wonder why you're even drinking this straight."
+				if("triple_citrus")
+					icon_state = "triplecitrus"
+					name = "Glass of Triplecitrus Juice"
+					desc = "As colorful and healthy as it is delicious."
+				if("mojito")
+					icon_state = "mojito"
+					name = "Glass of Mojito"
+					desc = "Fresh from Spesscuba."
 				if("tequilla")
 					icon_state = "tequillaglass"
 					name = "Glass of Tequilla"

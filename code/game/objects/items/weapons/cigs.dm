@@ -290,8 +290,8 @@ LIGHTERS ARE IN LIGHTERS.DM
 	item_state = "pipeoff"
 	icon_on = "pipeon"  //Note - these are in masks.dmi
 	icon_off = "pipeoff"
-	smoketime = 1000
-	chem_volume = 50
+	smoketime = 500
+	chem_volume = 200
 
 /obj/item/clothing/mask/cigarette/pipe/New()
 	..()
@@ -334,6 +334,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 		return
 	if(smoketime <= 0)
 		user << "<span class='notice'>You refill the pipe with tobacco.</span>"
+		reagents.add_reagent("nicotine", chem_volume)
 		smoketime = initial(smoketime)
 	return
 
