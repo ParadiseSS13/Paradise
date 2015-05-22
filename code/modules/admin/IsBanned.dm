@@ -69,7 +69,7 @@ world/IsBanned(key,address,computer_id)
 			var/expires = ""
 			if(text2num(duration) > 0)
 				expires = "The ban is for [duration] minutes and expires on [expiration] (server time)."
-			if(bantype == "PERMABAN")
+			if(istext(bantype) && (bantype == "PERMABAN"))
 				var/appealmsg = ""
 				if(config && config.banappeals)
 					appealmsg = " You may appeal it at <a href='[config.banappeals]'>[config.banappeals]</a>."
