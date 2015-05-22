@@ -19,7 +19,7 @@
 		if (src.mount_reqs.Find("simfloor") && !istype(turf_loc, /turf/simulated/floor))
 			user << "<span class='rose'>[src] cannot be placed on this spot.</span>"
 			return
-		if (src.mount_reqs.Find("nospace") && (areaMaster.requires_power == 0 || areaMaster.name == "Space"))
+		if (src.mount_reqs.Find("nospace") && (areaMaster.requires_power == 0 || istype(areaMaster,/area/space)))
 			user << "<span class='rose'>[src] cannot be placed in this area.</span>"
 			return
 		return 1
