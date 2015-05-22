@@ -51,6 +51,11 @@
 	thermal_conductivity = 0.025
 	heat_capacity = 325000
 
+/turf/simulated/floor/engine/New()
+	..()
+	spawn(20) //engine floors tend to have gas on them
+		update_icon()
+
 /turf/simulated/floor/engine/break_tile()
 	return //unbreakable
 
