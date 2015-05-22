@@ -94,10 +94,14 @@ var/list/wood_icons = list("wood","wood-broken")
 /turf/simulated/floor/blob_act()
 	return
 
-turf/simulated/floor/proc/update_icon()
+/turf/simulated/floor/proc/update_icon()
 	if(lava)
 		return
-	else if(is_plasteel_floor())
+
+	if(air)
+		update_visuals(air)
+
+	if(is_plasteel_floor())
 		if(!broken && !burnt)
 			icon_state = icon_regular_floor
 	else if(is_plating())
@@ -175,10 +179,7 @@ turf/simulated/floor/proc/update_icon()
 			if( !(icon_state in wood_icons) )
 				icon_state = "wood"
 				//world << "[icon_state]y's got [icon_state]"
-	/*spawn(1)
-		if(istype(src,/turf/simulated/floor)) //Was throwing runtime errors due to a chance of it changing to space halfway through.
-			if(air)
-				update_visuals(air)*/
+
 
 /turf/simulated/floor/return_siding_icon_state()
 	..()
