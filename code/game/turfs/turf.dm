@@ -244,10 +244,6 @@
 	for(var/turf/space/S in range(W,1))
 		S.update_starlight()
 
-	W.levelupdate()
-	W.air_update_turf(1)
-	. = W
-
 	affecting_lights = old_affecting_lights
 	if((old_opacity != opacity) || (dynamic_lighting != old_dynamic_lighting))
 		reconsider_lights()
@@ -256,6 +252,10 @@
 			lighting_build_overlays()
 		else
 			lighting_clear_overlays()
+
+	W.levelupdate()
+	W.air_update_turf(1)
+	return W
 
 //////Assimilate Air//////
 /turf/simulated/proc/Assimilate_Air()

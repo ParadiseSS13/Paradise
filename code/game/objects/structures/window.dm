@@ -403,7 +403,7 @@ var/global/wcColored
 /obj/structure/window/plasmabasic/New(Loc,re=0)
 	..()
 	ini_dir = dir
-	air_update_turf()
+	air_update_turf(1)
 	update_nearby_icons()
 	return
 
@@ -434,7 +434,7 @@ var/global/wcColored
 /obj/structure/window/plasmareinforced/New(Loc,re=0)
 	..()
 	ini_dir = dir
-	air_update_turf()
+	air_update_turf(1)
 	update_nearby_icons()
 	return
 
