@@ -193,4 +193,21 @@
 		item_state = "cigoff"
 		name = "burnt match"
 		desc = "A match. This one has seen better days."
+		processing_objects.Remove(src)
 	return ..()
+
+/obj/item/weapon/match/attack(mob/living/carbon/M as mob, mob/living/carbon/user as mob)
+	if(!isliving(M))
+		return ..()
+	if(lit == 1) M.IgniteMob()
+	if(!istype(M, /mob))
+		return ..()
+
+	if(istype(M.wear_mask, /obj/item/clothing/mask/cigarette) && user.zone_sel.selecting == "mouth" && lit == 1)
+		var/obj/item/clothing/mask/cigarette/cig = M.wear_mask
+		if(M == user)
+			cig.attackby(src, user)
+		else
+			cig.light("<span class='notice'>[user] holds the [name] out for [M], and lights the [cig.name].</span>")
+	else
+		..()
