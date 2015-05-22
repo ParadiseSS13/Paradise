@@ -72,7 +72,7 @@
 /datum/storeitem/candle
 	name = "Candles"
 	desc = "A box of chandles. Use them to fool others into thinking you're out for a romantic dinner...or something."
-	typepath = /obj/item/weapon/storage/fancy/candle_box
+	typepath = /obj/item/weapon/storage/fancy/candle_box/full
 	cost = 200
 
 /datum/storeitem/katana
