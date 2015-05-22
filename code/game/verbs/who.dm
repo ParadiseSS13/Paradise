@@ -69,7 +69,7 @@
 		for(var/client/C in admins)
 			if(R_ADMIN & C.holder.rights || !R_MOD & C.holder.rights)
 
-				if(C.holder.fakekey && !R_ADMIN & holder.rights)		//Mentors/Mods can't see stealthmins
+				if(C.holder.fakekey && !(R_ADMIN & holder.rights))		//Mentors/Mods can't see stealthmins
 					continue
 
 
