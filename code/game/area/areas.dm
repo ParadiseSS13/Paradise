@@ -258,6 +258,9 @@
 		icon_state = null
 		blend_mode = BLEND_DEFAULT
 
+/area/space/updateicon()
+	icon_state = null
+
 
 /*
 #define EQUIP 1
@@ -279,6 +282,9 @@
 		if(ENVIRON)
 			return power_environ
 
+	return 0
+
+/area/space/powered(chan) //Nope.avi
 	return 0
 
 // called when power status changes

@@ -120,6 +120,13 @@ var/list/ghostteleportlocs = list()
 	requires_power = 0
 	lighting_use_dynamic = 0
 
+/area/space
+	icon_state = "space"
+	requires_power = 1
+	always_unpowered = 1
+	power_light = 0
+	power_equip = 0
+	power_environ = 0
 
 //These are shuttle areas, they must contain two areas in a subgroup if you want to move a shuttle from one
 //place to another. Look at escape shuttle for example.

@@ -1,4 +1,4 @@
-"aa" = (/turf/space,/area)
+"aa" = (/turf/space,/area/space)
 "ab" = (/turf/unsimulated/wall,/area/planet/clown)
 "ac" = (/turf/simulated/mineral,/area/planet/clown)
 "ad" = (/turf/unsimulated/floor/plating/snow,/area/planet/clown)
