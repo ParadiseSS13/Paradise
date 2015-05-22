@@ -623,7 +623,7 @@
 	icon_state = "flour"
 	New()
 		..()
-		reagents.add_reagent("nutriment", 1)
+		reagents.add_reagent("flour", 5)
 
 /obj/item/weapon/reagent_containers/food/snacks/organ
 
