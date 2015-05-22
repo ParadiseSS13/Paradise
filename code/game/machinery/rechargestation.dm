@@ -134,6 +134,7 @@
 					if(istype(O,/obj/item/stack/sheet/metal) || istype(O,/obj/item/stack/sheet/rglass) || istype(O,/obj/item/stack/cable_coil))
 						if(O:amount < 50)
 							O:amount += 1 * coeff
+							O:update_icon()
 					// Security
 					if(istype(O,/obj/item/device/flash))
 						if(O:broken)
@@ -156,9 +157,10 @@
 							O.reagents.add_reagent("enzyme", 2 * coeff)
 					//Medical
 					if(istype(O,/obj/item/weapon/reagent_containers/glass/bottle/robot))
-						var/obj/item/weapon/reagent_containers/glass/bottle/robot/B = O
-						if(B.reagent && (B.reagents.get_reagent_amount(B.reagent) < B.volume))
-							B.reagents.add_reagent(B.reagent, 2 * coeff)
+						var/obj/item/weapon/reagent_containers/glass/bottle/robot/B = O //B = 0 - Changed the 'B's to '0's below
+						if(O.reagent && (O.reagents.get_reagent_amount(O.reagent) < O.volume))
+							O.reagents.add_reagent(O.reagent, 2 * coeff)
+							O:update_icon()
 					//Janitor
 					if(istype(O, /obj/item/device/lightreplacer))
 						var/obj/item/device/lightreplacer/LR = O
