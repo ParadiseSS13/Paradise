@@ -254,7 +254,7 @@
 			lighting_clear_overlays()
 
 	W.levelupdate()
-	W.CalculateAdjacentTurfs()
+	W.air_update_turf(1)
 	return W
 
 //////Assimilate Air//////
