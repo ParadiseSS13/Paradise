@@ -158,6 +158,10 @@ var/last_chew = 0
 			else
 				user << "<span class='warning'>You fail to handcuff [C].</span>"
 
+/obj/item/weapon/restraints/handcuffs/cable/zipties/used
+	desc = "A pair of broken zipties."
+	icon_state = "cuff_white_used"
+
 /obj/item/weapon/restraints/handcuffs/cable/zipties/used/attack()
 	return
 
