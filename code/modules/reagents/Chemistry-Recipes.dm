@@ -1111,6 +1111,13 @@ datum
 			required_reagents = list("rum" = 2, "cola" = 1)
 			result_amount = 3
 
+		mojito
+			name = "Mojito"
+			id = "mojito"
+			result = "mojito"
+			required_reagents = list("rum" = 1, "sugar" = 1, "limejuice" = 1, "sodawater" = 1)
+			result_amount = 4
+
 		martini
 			name = "Classic Martini"
 			id = "martini"

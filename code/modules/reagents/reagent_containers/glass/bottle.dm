@@ -150,6 +150,15 @@
 		..()
 		reagents.add_reagent("morphine", 30)
 
+/obj/item/weapon/reagent_containers/glass/bottle/insulin
+	name = "Insulin Bottle"
+	desc = "A small bottle. Contains insulin."
+	icon = 'icons/obj/chemical.dmi'
+	icon_state = "bottle17"
+	New()
+		..()
+		reagents.add_reagent("insulin", 30)
+
 /obj/item/weapon/reagent_containers/glass/bottle/charcoal
 	name = "Charcoal Bottle"
 	desc = "A small bottle. Contains charcoal."
@@ -251,6 +260,21 @@
 	New()
 		..()
 		reagents.add_reagent("formaldehyde", 50)
+
+
+/obj/item/weapon/reagent_containers/glass/bottle/reagent/morphine
+	name = "Morphine Bottle"
+	desc = "A reagent bottle. Contains morphine."
+	New()
+		..()
+		reagents.add_reagent("morphine", 50)
+
+/obj/item/weapon/reagent_containers/glass/bottle/reagent/insulin
+	name = "Insulin Bottle"
+	desc = "A reagent bottle. Contains insulin."
+	New()
+		..()
+		reagents.add_reagent("insulin", 50)
 
 
 ////////////////////Traitor Poison Bottle//////////////////////////////

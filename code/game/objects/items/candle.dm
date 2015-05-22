@@ -75,3 +75,7 @@
 			lit = 0
 			update_icon()
 			set_light(0)
+
+/obj/item/candle/eternal
+	desc = "A candle. This one seems to have an odd quality about the wax."
+	wax = 10000
