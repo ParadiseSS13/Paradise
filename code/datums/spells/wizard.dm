@@ -32,7 +32,7 @@
 
 /obj/effect/proc_holder/spell/wizard/noclothes
 	name = "No Clothes"
-	desc = "This is a placeholder for knowing if you dont need clothes for any spell"
+	desc = "This always-on spell allows you to cast magic without your garments."
 
 /obj/effect/proc_holder/spell/wizard/targeted/genetic/mutate
 	name = "Mutate"
