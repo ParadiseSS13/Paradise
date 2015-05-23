@@ -185,42 +185,43 @@
 	//Handle temperature adjustment here.
 	if(environment.temperature < target_temperature - 2 || environment.temperature > target_temperature + 2 || regulating_temperature)
 		//If it goes too far, we should adjust ourselves back before stopping.
-		if(get_danger_level(target_temperature, TLV["temperature"]))
-			return
+		if(!get_danger_level(target_temperature, TLV["temperature"]))
 
-		if(!regulating_temperature)
-			regulating_temperature = 1
-			visible_message("\The [src] clicks as it starts [environment.temperature > target_temperature ? "cooling" : "heating"] the room.",\
-			"You hear a click and a faint electronic hum.")
+			if(!regulating_temperature)
+				regulating_temperature = 1
+				visible_message("\The [src] clicks as it starts [environment.temperature > target_temperature ? "cooling" : "heating"] the room.",\
+				"You hear a click and a faint electronic hum.")
 
-		if(target_temperature > T0C + MAX_TEMPERATURE)
-			target_temperature = T0C + MAX_TEMPERATURE
+			if(target_temperature > T0C + MAX_TEMPERATURE)
+				target_temperature = T0C + MAX_TEMPERATURE
 
-		if(target_temperature < T0C + MIN_TEMPERATURE)
-			target_temperature = T0C + MIN_TEMPERATURE
+			if(target_temperature < T0C + MIN_TEMPERATURE)
+				target_temperature = T0C + MIN_TEMPERATURE
 
-		var/datum/gas_mixture/gas = location.remove_air(0.25*environment.total_moles())
-		var/heat_capacity = gas.heat_capacity()
-		var/energy_used = max( abs( heat_capacity*(gas.temperature - target_temperature) ), MAX_ENERGY_CHANGE)
+			var/datum/gas_mixture/gas = location.remove_air(0.25*environment.total_moles())
+			var/heat_capacity = gas.heat_capacity()
+			var/energy_used = max( abs( heat_capacity*(gas.temperature - target_temperature) ), MAX_ENERGY_CHANGE)
 
-		//Use power.  Assuming that each power unit represents 1000 watts....
-		use_power(energy_used/1000, ENVIRON)
+			//Use power.  Assuming that each power unit represents 1000 watts....
+			use_power(energy_used/1000, ENVIRON)
 
-		//We need to cool ourselves.
-		if(environment.temperature > target_temperature)
-			gas.temperature -= energy_used/heat_capacity
-		else
-			gas.temperature += energy_used/heat_capacity
+			//We need to cool ourselves.
+			if(environment.temperature > target_temperature)
+				gas.temperature -= energy_used/heat_capacity
+			else
+				gas.temperature += energy_used/heat_capacity
 
-		environment.merge(gas)
+			environment.merge(gas)
 
-		if(abs(environment.temperature - target_temperature) <= 0.5)
-			regulating_temperature = 0
-			visible_message("\The [src] clicks quietly as it stops [environment.temperature > target_temperature ? "cooling" : "heating"] the room.",\
-			"You hear a click as a faint electronic humming stops.")
+			if(abs(environment.temperature - target_temperature) <= 0.5)
+				regulating_temperature = 0
+				visible_message("\The [src] clicks quietly as it stops [environment.temperature > target_temperature ? "cooling" : "heating"] the room.",\
+				"You hear a click as a faint electronic humming stops.")
+
 
 	var/old_level = local_danger_level
 	var/new_danger = calculate_local_danger_level()
+
 	if(new_danger < old_level)
 		danger_averted_confidence++
 	// Only change danger level if:
