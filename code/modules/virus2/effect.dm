@@ -110,12 +110,13 @@
 	activate(var/mob/living/carbon/mob,var/multiplier)
 		mob << "\red You feel like booping and beeping."
 		if(prob(50))
+			var/location = get_turf(mob.loc)
 			if(mob.client)
-				mob.client.mob = new/mob/living/silicon/robot(mob.loc)
+				mob.client.mob = new/mob/living/silicon/robot(location)
 			else
-				new/mob/living/silicon/robot(mob.loc)
-			var/datum/disease2/disease/D = mob:virus2
-			mob:gib()
+				new/mob/living/silicon/robot(location)
+			var/datum/disease2/disease/D = mob.virus2
+			mob.gib()
 			del D
 
 /datum/disease2/effect/omnizine
