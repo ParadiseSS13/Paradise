@@ -273,7 +273,7 @@ atom/movable/var/pressure_resistance = 5
 atom/movable/var/last_forced_movement = 0
 
 atom/movable/proc/experience_pressure_difference(pressure_difference, direction)
-	if(last_forced_movement >= air_master.current_cycle+2)
+	if(last_forced_movement >= air_master.current_cycle)
 		return 0
 	else if(!anchored)
 		if(pressure_difference > pressure_resistance)
