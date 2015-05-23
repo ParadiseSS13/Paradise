@@ -469,7 +469,7 @@ datum/mind
 				if(!def_value)//If it's a custom objective, it will be an empty string.
 					def_value = "custom"
 
-			var/new_obj_type = input("Select objective type:", "Objective type", def_value) as null|anything in list("assassinate", "blood", "debrain", "protect", "prevent", "harm", "speciesist", "brig", "hijack", "escape", "survive", "steal", "download", "nuclear", "capture", "absorb", "destroy", "maroon", "identity theft", "custom")
+			var/new_obj_type = input("Select objective type:", "Objective type", def_value) as null|anything in list("assassinate", "blood", "debrain", "protect", "prevent", "harm", "brig", "hijack", "escape", "survive", "steal", "download", "nuclear", "capture", "absorb", "destroy", "maroon", "identity theft", "custom")
 			if (!new_obj_type) return
 
 			var/datum/objective/new_objective = null
@@ -517,11 +517,6 @@ datum/mind
 						new_objective.explanation_text = "Destroy [new_target.name], the experimental AI."
 					else
 						usr << "No active AIs with minds"
-
-				if ("speciesist")
-					new_objective = new /datum/objective/speciesist
-					new_objective.owner = src
-					new_objective.find_target()
 
 				if ("prevent")
 					new_objective = new /datum/objective/block

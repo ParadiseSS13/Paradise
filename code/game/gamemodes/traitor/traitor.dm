@@ -160,23 +160,17 @@
 								var/datum/objective/minimize_casualties/escape_objective = new
 								escape_objective.owner = traitor
 								traitor.objectives += escape_objective
-			if(31 to 90)
+			if(31 to 85)
 				if (!(locate(/datum/objective/escape) in traitor.objectives))
 					var/datum/objective/escape/escape_objective = new
 					escape_objective.owner = traitor
 					traitor.objectives += escape_objective
 			else
-				if(prob(50))
-					if (!(locate(/datum/objective/hijack) in traitor.objectives))
-						var/datum/objective/hijack/hijack_objective = new
-						hijack_objective.owner = traitor
-						traitor.objectives += hijack_objective
-				else // Honk
-					if (!(locate(/datum/objective/speciesist) in traitor.objectives))
-						var/datum/objective/speciesist/speciesist_objective = new
-						speciesist_objective.owner = traitor
-						speciesist_objective.find_target()
-						traitor.objectives += speciesist_objective
+				if (!(locate(/datum/objective/hijack) in traitor.objectives))
+					var/datum/objective/hijack/hijack_objective = new
+					hijack_objective.owner = traitor
+					traitor.objectives += hijack_objective
+
 	return
 
 
