@@ -1558,7 +1558,7 @@
 		src.owner << "Name = <b>[M.name]</b>; Real_name = [M.real_name]; Mind_name = [M.mind?"[M.mind.name]":""]; Key = <b>[M.key]</b>;"
 		src.owner << "Location = [location_description];"
 		src.owner << "[special_role_description]"
-		src.owner << "(<a href='?src=\ref[usr];priv_msg=\ref[M]'>PM</a>) (<A HREF='?src=\ref[src];adminplayeropts=\ref[M]'>PP</A>) (<A HREF='?_src_=vars;Vars=\ref[M]'>VV</A>) (<A HREF='?src=\ref[src];subtlemessage=\ref[M]'>SM</A>) (<A HREF='?src=\ref[src];adminplayerobservejump=\ref[M]'>JMP</A>) (<A HREF='?src=\ref[src];secretsadmin=check_antagonist'>CA</A>)"
+		src.owner << "(<a href='?src=\ref[usr];priv_msg=\ref[M]'>PM</a>) (<A HREF='?src=\ref[src];adminplayeropts=\ref[M]'>PP</A>) (<A HREF='?_src_=vars;Vars=\ref[M]'>VV</A>) (<A HREF='?src=\ref[src];subtlemessage=\ref[M]'>SM</A>) ([admin_jump_link(M, src)]) (<A HREF='?src=\ref[src];secretsadmin=check_antagonist'>CA</A>)"
 
 	else if(href_list["adminspawncookie"])
 		if(!check_rights(R_ADMIN|R_EVENT))	return
@@ -2990,3 +2990,20 @@
 				current_tab = text2num(href_list["tab"])
 				Secrets(usr)
 				return 1
+
+/proc/admin_jump_link(var/atom/target, var/source, var/tmsg = "JMP", var/emsg = "EYE", var/sep = "|")
+	if(!target) return
+	// The way admin jump links handle their src is weirdly inconsistent...
+	if(istype(source, /datum/admins))
+		source = "src=\ref[source]"
+	else
+		source = "_src_=holder"
+
+	if(isAI(target)) // AI core/eye follow links
+		var/mob/living/silicon/ai/A = target
+		. = "<A HREF='?[source];adminplayerobservejump=\ref[target]'>[tmsg]</A>"
+		if(A.client && A.eyeobj) // No point following clientless AI eyes
+			. += "[sep]<A HREF='?[source];adminplayerobservejump=\ref[A.eyeobj]'>[emsg]</A>"
+		return
+	else
+		return "<A HREF='?[source];adminplayerobservejump=\ref[target]'>[tmsg]</A>"

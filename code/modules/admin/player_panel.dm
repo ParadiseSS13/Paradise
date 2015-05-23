@@ -61,7 +61,7 @@
 
 				}
 
-				function expand(id,job,name,real_name,image,key,ip,antagonist,ref){
+				function expand(id,job,name,real_name,image,key,ip,antagonist,ref,eyeref){
 
 					clearAll();
 
@@ -81,7 +81,10 @@
 					body += "<a href='?src=\ref[src];traitor="+ref+"'>TP</a> - "
 					body += "<a href='?src=\ref[usr];priv_msg=\ref"+ref+"'>PM</a> - "
 					body += "<a href='?src=\ref[src];subtlemessage="+ref+"'>SM</a> - "
-					body += "<a href='?src=\ref[src];adminplayerobservejump="+ref+"'>JMP</a><br>"
+					body += "<a href='?src=\ref[src];adminplayerobservejump="+ref+"'>JMP</a>"
+					if(eyeref)
+						body += "|<a href='?src=\ref[src];adminplayerobservejump="+eyeref+"'>EYE</a>"
+					body += "<br>"
 					if(antagonist > 0)
 						body += "<font size='2'><a href='?src=\ref[src];check_antagonist=1'><font color='red'><b>Antagonist</b></font></a></font>";
 
@@ -287,6 +290,11 @@
 			M_key = replacetext(M_key, "\"", "")
 			M_key = replacetext(M_key, "\\", "")
 
+			var/M_eyeref = ""
+			if(isAI(M))
+				var/mob/living/silicon/ai/A = M
+				if(A.client && A.eyeobj) // No point following clientless AI eyes
+					M_eyeref = "\ref[A.eyeobj]"
 			//output for each mob
 			dat += {"
 
@@ -294,7 +302,7 @@
 					<td align='center' bgcolor='[color]'>
 						<span id='notice_span[i]'></span>
 						<a id='link[i]'
-						onmouseover='expand("item[i]","[M_job]","[M_name]","[M_rname]","--unused--","[M_key]","[M.lastKnownIP]",[is_antagonist],"\ref[M]")'
+						onmouseover='expand("item[i]","[M_job]","[M_name]","[M_rname]","--unused--","[M_key]","[M.lastKnownIP]",[is_antagonist],"\ref[M]", "[M_eyeref]")'
 						>
 						<b id='search[i]'>[M_name] - [M_rname] - [M_key] ([M_job])</b>
 						</a>
