@@ -16,7 +16,6 @@
 	levelupdate()
 
 /turf/simulated/proc/burn_tile()
-	return
 
 /turf/simulated/proc/MakeSlippery(var/wet_setting = 1) // 1 = Water, 2 = Lube
 	if(wet >= wet_setting)
