@@ -844,13 +844,6 @@ var/list/compatible_mobs = list(/mob/living/carbon/human, /mob/living/carbon/mon
 	activate(var/mob/living/carbon/mob,var/multiplier)
 		mob.fakevomit()
 
-
-/datum/disease2/effect/goon
-	name = "Goon Syndrome"
-	stage = 1
-	activate(var/mob/living/carbon/mob,var/multiplier)
-		mob.say("*fart")
-
 /datum/disease2/effect/pain_minor
 	name = "Heightened Sensitivity"
 	stage = 1
