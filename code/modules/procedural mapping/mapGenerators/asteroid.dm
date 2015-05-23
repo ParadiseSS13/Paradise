@@ -1,22 +1,3 @@
-//Border walls
-/datum/mapGeneratorModule/border
-	clusterCheckFlags = CLUSTER_CHECK_NONE
-
-/datum/mapGeneratorModule/border/generate()
-	if(!mother)
-		return
-	var/list/map = mother.map
-	for(var/turf/T in map)
-		if(is_border(T))
-			place(T)
-
-/datum/mapGeneratorModule/border/proc/is_border(var/turf/T)
-	for(var/direction in list(SOUTH,EAST,WEST,NORTH))
-		if (get_step(T,direction) in mother.map)
-			continue
-		return 1
-	return 0
-
 //Asteroid turfs
 /datum/mapGeneratorModule/bottomLayer/asteroidTurfs
 	spawnableTurfs = list(/turf/simulated/floor/plating/airless/asteroid = 100)

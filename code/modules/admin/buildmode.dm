@@ -181,7 +181,9 @@
 			if(AREA_BUILDMODE)
 				var/list/gen_paths = typesof(/datum/mapGenerator) - /datum/mapGenerator
 
-				var/type = input(usr,"Select Generator Type","Type") in gen_paths
+				var/type = input(usr,"Select Generator Type","Type") as null|anything in gen_paths
+				if(!type)	return
+
 				master.generator_path = type
 	return 1
 

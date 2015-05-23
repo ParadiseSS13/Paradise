@@ -1524,6 +1524,7 @@
 #include "code\modules\procedural mapping\mapGenerator.dm"
 #include "code\modules\procedural mapping\mapGeneratorModule.dm"
 #include "code\modules\procedural mapping\mapGeneratorReadme.dm"
+#include "code\modules\procedural mapping\mapGeneratorModules\helpers.dm"
 #include "code\modules\procedural mapping\mapGeneratorModules\nature.dm"
 #include "code\modules\procedural mapping\mapGenerators\asteroid.dm"
 #include "code\modules\procedural mapping\mapGenerators\nature.dm"
