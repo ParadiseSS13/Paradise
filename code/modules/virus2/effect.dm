@@ -107,6 +107,7 @@
 /datum/disease2/effect/borg
 	name = "Borgification Disorder"
 	stage = 4
+	badness = 2
 	activate(var/mob/living/carbon/mob,var/multiplier)
 		mob << "\red You feel like booping and beeping."
 		if(prob(50))
