@@ -1,9 +1,5 @@
 /mob/living/carbon/human/movement_delay()
 	var/tally = 0
-	if(status_flags & GOTTAGOFAST)
-		tally -= 1
-	if(status_flags & GOTTAGOREALLYFAST)
-		tally -= 2
 
 	if(species.slowdown)
 		tally = species.slowdown
@@ -15,13 +11,10 @@
 	if(embedded_flag)
 		handle_embedded_objects() //Moving with objects stuck in you can cause bad times.
 
-	if((RUN in mutations)) return -1
 
 	var/health_deficiency = (100 - health + staminaloss)
 	if(health_deficiency >= 40)
 		tally += (health_deficiency / 25)
-
-	if(halloss >= 10) tally += (halloss / 10)
 
 	var/hungry = (500 - nutrition)/5 // So overeat would be 100 and default level would be 80
 	if (hungry >= 70)
@@ -33,17 +26,6 @@
 	if(!buckled || (buckled && !istype(buckled, /obj/structure/stool/bed/chair/wheelchair)))
 		if(shoes)
 			tally += shoes.slowdown
-
-/*
-		for(var/organ_name in list("l_foot","r_foot","l_leg","r_leg"))
-			var/obj/item/organ/external/E = get_organ(organ_name)
-			if(!E || (E.status & ORGAN_DESTROYED))
-				tally += 4
-			else if(E.status & ORGAN_SPLINTED)
-				tally += 0.5
-			else if(E.status & ORGAN_BROKEN)
-				tally += 1.5
-*/
 
 	if(buckled && istype(buckled, /obj/structure/stool/bed/chair/wheelchair))
 		for(var/organ_name in list("l_hand","r_hand","l_arm","r_arm"))
@@ -63,8 +45,8 @@
 
 	if(FAT in src.mutations)
 		tally += 1.5
-	if (bodytemperature < 283.222)
-		tally += (283.222 - bodytemperature) / 10 * 1.75
+	if (bodytemperature < BODYTEMP_COLD_DAMAGE_LIMIT)
+		tally += (BODYTEMP_COLD_DAMAGE_LIMIT - bodytemperature) / COLD_SLOWDOWN_FACTOR
 
 	tally += 2*stance_damage //damaged/missing feet or legs is slow
 
@@ -72,6 +54,11 @@
 		tally = 0
 	if(status_flags & IGNORESLOWDOWN) // make sure this is always at the end so we don't have ignore slowdown getting ignored itself
 		tally = 0
+
+	if(status_flags & GOTTAGOFAST)
+		tally -= 1
+	if(status_flags & GOTTAGOREALLYFAST)
+		tally -= 2
 
 	return (tally+config.human_delay)
 
