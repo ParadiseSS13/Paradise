@@ -1381,19 +1381,31 @@ datum
 				return
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
-/*
-		nanites
+
+		nanomachines
 			name = "Nanomachines"
-			id = "nanites"
+			id = "nanomachines"
 			description = "Microscopic construction robots."
 			reagent_state = LIQUID
 			color = "#535E66" // rgb: 83, 94, 102
 
-			reaction_mob(var/mob/M, var/method=TOUCH, var/volume)
-				src = null
-				if( (prob(10) && method==TOUCH) || method==INGEST)
-					M.contract_disease(new /datum/disease/robotic_transformation(0),1)
+			on_mob_life(var/mob/living/M as mob)
+				var/datum/disease2/disease/borg = new /datum/disease2/disease
+				var/datum/disease2/effectholder/holder = new /datum/disease2/effectholder
+				var/datum/disease2/effect/borg/O = new /datum/disease2/effect/borg
+				holder.effect += O
+				holder.chance = 10
+				borg.infectionchance = 100
+				borg.antigen |= text2num(pick(ANTIGENS))
+				borg.spreadtype = "None"
+				borg.uniqueID = 1337
+				borg.effects += holder
+				borg.speed = 1
+				borg.stage = 2
+				borg.clicks = 185
+				infect_virus2(M,borg,0)
 
+/*
 		xenomicrobes
 			name = "Xenomicrobes"
 			id = "xenomicrobes"

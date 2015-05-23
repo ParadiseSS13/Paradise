@@ -918,7 +918,7 @@ var/list/slot_equipment_priority = list( \
 	if(mind && istype(src, /mob/living) && mind.spell_list && mind.spell_list.len)
 		for(var/obj/effect/proc_holder/spell/wizard/S in mind.spell_list)
 			add_spell_to_statpanel(S)
-			
+
 
 	if(client && client.holder)
 
@@ -1467,6 +1467,15 @@ mob/proc/yank_out_object()
 		else
 			src.visible_message("<span class='warning'>[src] pukes all over \himself!</span>","<span class='warning'>You puke all over yourself!</span>")
 			location.add_vomit_floor(src, 1)
+		playsound(location, 'sound/effects/splat.ogg', 50, 1)
+
+/mob/proc/fakepoop() //for aesthetic craps. Whyyyyy -Fox
+	if(stat==DEAD)
+		return
+	var/turf/location = loc
+	if (istype(location, /turf/simulated))
+		src.visible_message("<span class='warning'>[src] has explosive diarrhea all over the floor!</span>","<span class='warning'>You have explosive diarrhea all over the floor!</span>")
+		location.add_poop_floor()
 		playsound(location, 'sound/effects/splat.ogg', 50, 1)
 
 /mob/proc/AddSpell(var/obj/effect/proc_holder/spell/spell)
