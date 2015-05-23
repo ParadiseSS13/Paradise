@@ -473,7 +473,7 @@ var/list/intents = list("help","disarm","grab","harm")
 			var/lname
 			if(subject)
 				if(subject != M)
-					follow = "(<a href='byond://?src=\ref[M];track=\ref[subject]'>follow</a>) "
+					follow = "([ghost_follow_link(subject, ghost=M)]) "
 				if(M.stat != DEAD && M.client.holder)
 					follow = "(<a href='?src=\ref[M.client.holder];adminplayerobservejump=\ref[subject]'>JMP</a>) "
 				var/mob/dead/observer/DM
