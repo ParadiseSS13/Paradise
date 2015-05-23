@@ -287,6 +287,9 @@ var/global/list/plant_seed_sprites = list()
 /obj/item/seeds/test
 	seed_type = "test"
 
+/obj/item/seeds/test2
+	seed_type = "test2"
+
 /obj/item/seeds/stobaccoseed
 	seed_type = "stobacco"
 

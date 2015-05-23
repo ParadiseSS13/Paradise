@@ -45,7 +45,7 @@
 	// Handle life.
 	var/turf/simulated/T = get_turf(src)
 	if(istype(T))
-		health -= seed.handle_environment(T,T.return_air(),null,1)
+		health -= seed.handle_environment(T,T.return_air(),null,null,1)
 	if(health < max_health)
 		health += rand(3,5)
 		refresh_icon()

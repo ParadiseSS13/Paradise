@@ -62,6 +62,8 @@
 	var/datum/gas_mixture/environment
 	// If we're closed, take from our internal sources.
 	if(closed_system && (connected_port || holding))
+		if(holding)
+			air_contents = holding.air_contents
 		environment = air_contents
 	// If atmos input is not there, grab from turf.
 	if(!environment && istype(T)) environment = T.return_air()
@@ -69,9 +71,11 @@
 
 	// Seed datum handles gasses, light and pressure.
 	if(mechanical && closed_system)
-		health -= seed.handle_environment(T,environment,tray_light)
+		health -= seed.handle_environment(T,environment,tray_light, holding)
 	else
 		health -= seed.handle_environment(T,environment)
+
+	T.air_update_turf()
 
 	// If we're attached to a pipenet, then we should let the pipenet know we might have modified some gasses
 	if (closed_system && connected_port)
