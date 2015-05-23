@@ -1727,6 +1727,10 @@ area/security/podbay
 	name = "\improper Server Room"
 	icon_state = "server"
 
+/area/toxins/server_coldroom
+	name = "\improper Server Coldroom"
+	icon_state = "servercold"
+
 //Storage
 
 /area/storage/tools
