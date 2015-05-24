@@ -434,7 +434,7 @@
 		name = "Shaved"
 		icon_state = "bald"
 		gender = NEUTER
-		species_allowed = list("Human","Unathi","Tajaran","Skrell","Vox","Diona","Kidan","Greys","Machine")
+		species_allowed = list("Human","Unathi","Tajaran","Skrell","Vox","Diona","Kidan","Greys","Machine", "Vulpkanin")
 
 
 	watson
@@ -659,6 +659,33 @@
 		icon_state = "hair_messy"
 		species_allowed = list("Tajaran")
 
+//Vulpkanin
+
+	vulp_hair_none
+		name = "None"
+		icon_state = "bald"
+		species_allowed = list("Vulpkanin")
+
+	vulp_hair_short
+		name = "Kajam"
+		icon_state = "kajam"
+		species_allowed = list("Vulpkanin")
+
+	vulp_hair_long
+		name = "Keid"
+		icon_state = "keid"
+		species_allowed = list("Vulpkanin")
+
+	vulp_hair_fluffy
+		name = "Adhara"
+		icon_state = "adhara"
+		species_allowed = list("Vulpkanin")
+
+	vulp_hair_ponytail
+		name = "Kleeia"
+		icon_state = "kleeia"
+		species_allowed = list("Vulpkanin")
+
 	vox_quills_short
 		name = "Short Vox Quills"
 		icon_state = "vox_shortquills"
@@ -788,6 +815,12 @@
 		icon_state = "default"
 		icon = 'icons/mob/human_races/r_tajaran.dmi'
 		species_allowed = list("Tajaran")
+
+	vulpkanin
+		name = "Default Vulpkanin skin"
+		icon_state = "default"
+		icon = 'icons/mob/human_races/r_vulpkanin.dmi'
+		species_allowed = list("Vulpkanin")
 
 	unathi
 		name = "Default Unathi skin"

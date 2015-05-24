@@ -62,6 +62,10 @@
 	h_style = "Tajaran Ears"
 	..(new_loc, "Tajaran")
 
+/mob/living/carbon/human/vulpkanin/New(var/new_loc)
+	h_style = "Bald"
+	..(new_loc, "Vulpkanin")
+
 /mob/living/carbon/human/unathi/New(var/new_loc)
 	h_style = "Unathi Horns"
 	..(new_loc, "Unathi")

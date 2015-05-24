@@ -164,6 +164,13 @@
 						else
 							src.DB_species_unlock("Plasmaman",100)
 							return
+					if("7")
+						if(karma <50)
+							usr << "You do not have enough karma!"
+							return
+						else
+							src.DB_species_unlock("Vulpkanin",50)
+							return
 			if(href_list["KarmaRefund"])
 				var/type = href_list["KarmaRefundType"]
 				var/job = href_list["KarmaRefund"]
