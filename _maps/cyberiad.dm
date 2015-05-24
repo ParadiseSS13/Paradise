@@ -29,6 +29,6 @@ z8 = syndicate station
 
 #elif !defined(MAP_OVERRIDE)
 
-	#warn a map has already been included, ignoring MetaStation.
+	#warn a map has already been included, ignoring Cyberiad.
 
 #endif
