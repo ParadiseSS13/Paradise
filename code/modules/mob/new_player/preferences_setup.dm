@@ -198,6 +198,12 @@ datum/preferences
 		dummy.flags |= GODMODE
 		copy_to(dummy)
 
+		for (var/obj/item/I in dummy)
+			if(!istype(I,/obj/item/organ))
+				dummy.unEquip(I)
+				if(I.loc != dummy)
+					qdel(I)
+
 		var/jobflag
 		var/dept
 		if(job_support_high)
