@@ -104,12 +104,28 @@
 
 ////////////////////////STAGE 4/////////////////////////////////
 
+/datum/disease2/effect/borg
+	name = "Borgification Disorder"
+	stage = 4
+	badness = 2
+	activate(var/mob/living/carbon/mob,var/multiplier)
+		mob << "\red You feel like booping and beeping."
+		if(prob(50))
+			var/location = get_turf(mob.loc)
+			if(mob.client)
+				mob.client.mob = new/mob/living/silicon/robot(location)
+			else
+				new/mob/living/silicon/robot(location)
+			var/datum/disease2/disease/D = mob.virus2
+			mob.gib()
+			del D
+
 /datum/disease2/effect/omnizine
 	name = "Panacea Effect"
 	stage = 4
 	activate(var/mob/living/carbon/mob,var/multiplier)
-		if (mob.reagents.get_reagent_amount("omnizine") < 1)
-			mob.reagents.add_reagent("omnizine", 1)
+		if (mob.reagents.get_reagent_amount("omnizine") < 2)
+			mob.reagents.add_reagent("omnizine", 2)
 
 /datum/disease2/effect/viralsputum_major
 	name = "Hemoptysis"
@@ -250,14 +266,6 @@
 		var/heal_amt = -5*multiplier
 		mob.apply_damages(heal_amt,heal_amt,heal_amt,heal_amt)
 
-	deactivate(var/mob/living/carbon/mob,var/multiplier)
-		if(istype(mob, /mob/living/carbon/human))
-			var/mob/living/carbon/human/H = mob
-			H << "<span class='notice'>You suddenly feel hurt and old...</span>"
-			H.age += 8
-		var/backlash_amt = 5*multiplier
-		mob.apply_damages(backlash_amt,backlash_amt,backlash_amt,backlash_amt)
-
 /datum/disease2/effect/gmagnitis
 	name = "Greater Magnitis"
 	stage = 4
@@ -350,47 +358,6 @@
 						return
 
 
-/datum/disease2/effect/fizzle
-	name = "Fizzle Effect"
-	stage = 4
-	activate(var/mob/living/carbon/mob,var/multiplier)
-		mob.emote("me",1,pick("sniffles...", "clears their throat..."))
-
-/* commented out for now, fuck spiders
-/datum/disease2/effect/spider
-	name = "Arachnogenesis Effect"
-	stage = 4
-	activate(var/mob/living/carbon/mob,var/multiplier)
-		//var/mob/living/carbon/human/H = mob
-		var/placemob = locate(mob.x + pick(1,-1), mob.y, mob.z)
-		playsound(mob.loc, 'sound/effects/splat.ogg', 50, 1)
-		new /obj/effect/spider/spiderling(placemob)
-		mob.emote("me",1,"vomits up a live spider!")
-
-*/
-
-/*
-/datum/disease2/effect/orbweapon         //peopel are just griefing the shit out of each other with this..and with a constantly regenerating weapon that has a throwforce of 30? I can see why.
-	name = "Biolobulin Effect"
-	stage = 4
-	activate(var/mob/living/carbon/mob,var/multiplier)
-		var/obj/item/toy/snappop/virus = new /obj/item/toy/snappop/virus
-		mob.equip_to_slot(virus, slot_l_hand)
-
-
-
-/obj/item/clothing/mask/gas/virusclown_hat
-
-	dropped(mob/user as mob)
-		flags &= ~NODROP
-		..()
-
-	equipped(var/mob/user, var/slot)
-		if (slot == slot_l_hand)
-			flags &= ~NODROP		//curses!
-		..()
-*/
-
 /datum/disease2/effect/plasma
 	name = "Toxin Sublimation"
 	stage = 4
@@ -419,15 +386,15 @@
 	name = "Regenerative Synapse Effect"
 	stage = 3
 	activate(var/mob/living/carbon/mob,var/multiplier)
-		if (mob.reagents.get_reagent_amount("mannitol") < 1)
-			mob.reagents.add_reagent("mannitol", 1)
+		if (mob.reagents.get_reagent_amount("mannitol") < 10)
+			mob.reagents.add_reagent("mannitol", 10)
 
-/datum/disease2/effect/paroxetine
+/datum/disease2/effect/haloperidol
 	name = "Psyche Collapse Syndrome"
 	stage = 3
 	activate(var/mob/living/carbon/mob,var/multiplier)
-		if (mob.reagents.get_reagent_amount("paroxetine") < 10)
-			mob.reagents.add_reagent("paroxetine", 1)
+		if (mob.reagents.get_reagent_amount("haloperidol") < 10)
+			mob.reagents.add_reagent("haloperidol", 1)
 
 /datum/disease2/effect/pain_major
 	name = "Phantom Pain Syndrome"
@@ -798,7 +765,7 @@ var/list/compatible_mobs = list(/mob/living/carbon/human, /mob/living/carbon/mon
 	name = "Adrenal Overload"
 	stage = 2
 	activate(var/mob/living/carbon/mob,var/multiplier)
-		if (mob.reagents.get_reagent_amount("methamphetamine") < 40)
+		if (mob.reagents.get_reagent_amount("methamphetamine") < 5)
 			mob.reagents.add_reagent("methamphetamine", 4)
 		if (prob(30))
 			mob << "<span class='notice'>You feel a rush of energy inside you!</span>"
@@ -822,7 +789,6 @@ var/list/compatible_mobs = list(/mob/living/carbon/human, /mob/living/carbon/mon
 			mob.overeatduration = 1000
 
 
-
 /datum/disease2/effect/beard
 	name = "Bearding"
 	stage = 2
@@ -834,21 +800,6 @@ var/list/compatible_mobs = list(/mob/living/carbon/human, /mob/living/carbon/mon
 				spawn(50)
 					H.f_style = "Full Beard"
 					H.update_hair()
-
-
-/datum/disease2/effect/poop
-	name = "Uncontrollable Bowel Syndrome"
-	stage = 2
-	activate(var/mob/living/carbon/mob,var/multiplier)
-		if  (prob(70))  // Bone White - Lessened the chance for actually shitting yourself.
-			mob << "<span class='notice'>[pick("Your stomach rumbles strangely.", "You feel like you're going shit your pants any second now!")]</span>"
-		else
-			mob.visible_message("<B>[mob]</B> has explosive diarrhea all over the floor!")
-			mob.nutrition -= 20
-			mob.adjustToxLoss(-3)
-			var/obj/effect/decal/cleanable/poop/P = new(get_turf(mob))
-			P.virus2 = virus_copylist(mob.virus2)
-			playsound(P.loc, 'sound/effects/splat.ogg', 50, 1)
 
 /datum/disease2/effect/bloodynose
 	name = "Intranasal Hemorrhage"
@@ -881,6 +832,18 @@ var/list/compatible_mobs = list(/mob/living/carbon/human, /mob/living/carbon/mon
 
 ////////////////////////STAGE 1/////////////////////////////////
 
+/datum/disease2/effect/poop
+	name = "Uncontrollable Bowel Syndrome"
+	stage = 1
+	activate(var/mob/living/carbon/mob,var/multiplier)
+		mob.fakepoop()
+
+
+/datum/disease2/effect/vomit
+	name = "Projectile Vomit Syndrome"
+	stage = 1
+	activate(var/mob/living/carbon/mob,var/multiplier)
+		mob.fakevomit()
 
 /datum/disease2/effect/pain_minor
 	name = "Heightened Sensitivity"
