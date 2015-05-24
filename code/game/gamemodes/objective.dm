@@ -347,29 +347,6 @@ datum/objective/hijack
 						return 0
 		return 1
 
-datum/objective/speciesist
-	var/is_human = 0
-	find_target()
-		if(istype(owner.current,/mob/living/carbon/human/human))
-			explanation_text = "Do not allow any non-humans to escape on the shuttle."
-			is_human = 1
-		else
-			explanation_text = "Do not allow any humans to escape on the shuttle."
-		return 1
-
-	check_completion()
-		if(!emergency_shuttle.location())
-			return 0
-		var/area/shuttle = locate(/area/shuttle/escape/centcom)
-		for(var/mob/living/carbon/human/player in player_list)
-			if (player.mind)
-				if (is_human ? !istype(player,/mob/living/carbon/human/human) : istype(player,/mob/living/carbon/human/human))
-					if(player.stat != DEAD)			//they're not dead!
-						if(get_turf(player) in shuttle)
-							return 0
-		return 1
-
-
 datum/objective/block
 	explanation_text = "Do not allow any organic lifeforms to escape on the shuttle alive."
 
