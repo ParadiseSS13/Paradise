@@ -389,7 +389,7 @@
 		if (mob.reagents.get_reagent_amount("mannitol") < 10)
 			mob.reagents.add_reagent("mannitol", 10)
 
-/datum/disease2/effect/paroxetine
+/datum/disease2/effect/haloperidol
 	name = "Psyche Collapse Syndrome"
 	stage = 3
 	activate(var/mob/living/carbon/mob,var/multiplier)
@@ -765,7 +765,7 @@ var/list/compatible_mobs = list(/mob/living/carbon/human, /mob/living/carbon/mon
 	name = "Adrenal Overload"
 	stage = 2
 	activate(var/mob/living/carbon/mob,var/multiplier)
-		if (mob.reagents.get_reagent_amount("methamphetamine") < 15)
+		if (mob.reagents.get_reagent_amount("methamphetamine") < 5)
 			mob.reagents.add_reagent("methamphetamine", 4)
 		if (prob(30))
 			mob << "<span class='notice'>You feel a rush of energy inside you!</span>"
