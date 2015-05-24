@@ -104,7 +104,7 @@
 
 	for(var/mob/player in player_list)
 		if(istype(player,/mob/dead) && follow)
-			var/msg_dead = "<i><span class='game say'>[name], <span class='name'>[speaker_mask]</span> (<a href='byond://?src=\ref[player];follow2=\ref[player];follow=\ref[speaker]'>follow</a>) [format_message(message, get_spoken_verb(message))]</span></i>"
+			var/msg_dead = "<i><span class='game say'>[name], <span class='name'>[speaker_mask]</span> ([ghost_follow_link(speaker, ghost=player)]) [format_message(message, get_spoken_verb(message))]</span></i>"
 			player << msg_dead
 			continue
 
@@ -446,7 +446,7 @@
 
 	for (var/mob/M in dead_mob_list)
 		if(!istype(M,/mob/new_player) && !istype(M,/mob/living/carbon/brain))
-			var/message_start_dead = "<i><span class='game say'>[name], <span class='name'>[speaker.name] (<a href='byond://?src=\ref[M];follow2=\ref[M];follow=\ref[speaker]'>follow</a>)</span>"
+			var/message_start_dead = "<i><span class='game say'>[name], <span class='name'>[speaker.name] ([ghost_follow_link(speaker, ghost=M)])</span>"
 			M.show_message("[message_start_dead] [message_body]", 2)
 
 	for (var/mob/living/S in living_mob_list)

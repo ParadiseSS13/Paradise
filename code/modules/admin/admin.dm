@@ -56,7 +56,7 @@ var/global/nologevent = 0
 		<a href='?src=\ref[src];traitor=\ref[M]'>TP</a> -
 		<a href='?src=\ref[usr];priv_msg=\ref[M]'>PM</a> -
 		<a href='?src=\ref[src];subtlemessage=\ref[M]'>SM</a> -
-		<a href='?src=\ref[src];adminplayerobservejump=\ref[M]'>JMP</a>\] </b><br>
+		[admin_jump_link(M, src)]\] </b><br>
 		<b>Mob type</b> = [M.type]<br><br>
 		<A href='?src=\ref[src];boot2=\ref[M]'>Kick</A> |
 		<A href='?_src_=holder;warn=[M.ckey]'>Warn</A> |
@@ -79,8 +79,13 @@ var/global/nologevent = 0
 			(<A href='?src=\ref[src];mute=\ref[M];mute_type=[MUTE_ALL]'><font color='[(muted & MUTE_ALL)?"red":"blue"]'>toggle all</font></a>)
 		"}
 
+	var/jumptoeye = ""
+	if(isAI(M))
+		var/mob/living/silicon/ai/A = M
+		if(A.client && A.eyeobj) // No point following clientless AI eyes
+			jumptoeye = " <b>(<A href='?src=\ref[src];jumpto=\ref[A.eyeobj]'>Eye</A>)</b>"
 	body += {"<br><br>
-		<A href='?src=\ref[src];jumpto=\ref[M]'><b>Jump to</b></A> |
+		<A href='?src=\ref[src];jumpto=\ref[M]'><b>Jump to</b></A>[jumptoeye] |
 		<A href='?src=\ref[src];getmob=\ref[M]'>Get</A> |
 		<A href='?src=\ref[src];sendmob=\ref[M]'>Send To</A>
 		<br><br>

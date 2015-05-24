@@ -55,7 +55,7 @@
 			return
 		if(speaker_name != speaker.real_name && speaker.real_name)
 			speaker_name = "[speaker.real_name] ([speaker_name])"
-		track = "(<a href='byond://?src=\ref[src];track=\ref[speaker]'>follow</a>) "
+		track = "([ghost_follow_link(speaker, ghost=src)]) "
 		if(client.prefs.toggles & CHAT_GHOSTEARS && speaker in view(src))
 			message = "<b>[message]</b>"
 
@@ -170,7 +170,7 @@
 	if(istype(src, /mob/dead/observer))
 		if(speaker_name != speaker.real_name && !isAI(speaker)) //Announce computer and various stuff that broadcasts doesn't use it's real name but AI's can't pretend to be other mobs.
 			speaker_name = "[speaker.real_name] ([speaker_name])"
-		track = "[speaker_name] (<a href='byond://?src=\ref[src];track=\ref[follow_target]'>follow</a>)"
+		track = "[speaker_name] ([ghost_follow_link(follow_target, ghost=src)])"
 
 	var/formatted
 	if(language)
