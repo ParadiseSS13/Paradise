@@ -275,4 +275,4 @@
 
 	New()
 		..()
-		reagents.add_reagent(pick("polonium","initropidril","concentrated_initro","pancuronium","sodium_thiopental","ketamine","sulfonal","amanitin","coniine","curare","sarin","histamine","venom","cyanide", "nanomachines"), 40)
+		reagents.add_reagent(pick("polonium","initropidril","concentrated_initro","pancuronium","sodium_thiopental","ketamine","sulfonal","amanitin","coniine","curare","sarin","histamine","venom","cyanide"), 40)
