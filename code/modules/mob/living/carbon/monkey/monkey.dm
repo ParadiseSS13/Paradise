@@ -29,7 +29,7 @@
 	voice_name = "wolpin"
 	speak_emote = list("yaps")
 	icon_state = "tajkey1"
-	uni_append = list(0x066,0x4FE) // 0A0E00
+	uni_append = list(0x066,0x4FE)
 
 /mob/living/carbon/monkey/skrell
 	name = "neaera"

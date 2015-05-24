@@ -187,7 +187,7 @@
 	ask_verb = "rurs"
 	exclaim_verb = "barks"
 	colour = "vulpkanin"
-	key = "w"
+	key = "7"
 	flags = RESTRICTED
 	syllables = list("rur","ya","cen","rawr","bar","kuk","tek","qat","uk","wu","vuh","tah","tch","schz","auch", \
 	"ist","ein","entch","zwichs","tut","mir","wo","bis","es","vor","nic","gro","lll","enem","zandt","tzch","noch", \
