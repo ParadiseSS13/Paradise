@@ -236,5 +236,22 @@
 	icon_state = "noble_boot"
 	_color = "noble_boot"
 	item_state = "noble_boot"
+	
+/////Arachno-Man Costume set //the flagbearer: Willow Walker
+/obj/item/clothing/under/fluff/arachno_suit // Custom Jumpsuit
+	name = "Arachno-Man costume"
+	desc = "It's what an evil genius would design if he switched brains with the Amazing Arachno-Man. Actually, he'd probably add weird tentacles that come out the back, too."
+	icon = 'icons/obj/custom_items.dmi'
+	icon_state = "superior_suit"
+	item_state = "superior_suit"
+	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
+	
+/obj/item/clothing/head/fluff/arachno_mask
+	name = "Arachno-Man mask"
+	desc = "Put it on. The mask, it's gonna make you stronger!"
+	icon = 'icons/obj/custom_items.dmi'
+	icon_state = "superior_mask"
+	item_state = "superior_mask"
+	body_parts_covered = HEAD
 
 //////////// Weapons ////////////
