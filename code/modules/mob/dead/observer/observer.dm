@@ -507,6 +507,12 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 		if(A.client && A.eyeobj) // No point following clientless AI eyes
 			. += "|<a href='byond://?src=\ref[ghost];follow=\ref[A.eyeobj]'>eye</a>"
 		return
+	else if(istype(target, /mob/dead/observer))
+		var/mob/dead/observer/O = target
+		. = "<a href='byond://?src=\ref[ghost];follow=\ref[target]'>follow</a>"
+		if(O.mind && O.mind.current)
+			. += "|<a href='byond://?src=\ref[ghost];follow=\ref[O.mind.current]'>body</a>"
+		return
 	else
 		return "<a href='byond://?src=\ref[ghost];follow=\ref[target]'>follow</a>"
 

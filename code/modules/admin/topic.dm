@@ -2991,7 +2991,7 @@
 				Secrets(usr)
 				return 1
 
-/proc/admin_jump_link(var/atom/target, var/source, var/tmsg = "JMP", var/emsg = "EYE", var/sep = "|")
+/proc/admin_jump_link(var/atom/target, var/source)
 	if(!target) return
 	// The way admin jump links handle their src is weirdly inconsistent...
 	if(istype(source, /datum/admins))
@@ -3001,9 +3001,15 @@
 
 	if(isAI(target)) // AI core/eye follow links
 		var/mob/living/silicon/ai/A = target
-		. = "<A HREF='?[source];adminplayerobservejump=\ref[target]'>[tmsg]</A>"
+		. = "<A HREF='?[source];adminplayerobservejump=\ref[target]'>JMP</A>"
 		if(A.client && A.eyeobj) // No point following clientless AI eyes
-			. += "[sep]<A HREF='?[source];adminplayerobservejump=\ref[A.eyeobj]'>[emsg]</A>"
+			. += "|<A HREF='?[source];adminplayerobservejump=\ref[A.eyeobj]'>EYE</A>"
+		return
+	else if(istype(target, /mob/dead/observer))
+		var/mob/dead/observer/O = target
+		. = "<A HREF='?[source];adminplayerobservejump=\ref[target]'>JMP</A>"
+		if(O.mind && O.mind.current)
+			. += "|<A HREF='?[source];adminplayerobservejump=\ref[O.mind.current]'>BDY</A>"
 		return
 	else
-		return "<A HREF='?[source];adminplayerobservejump=\ref[target]'>[tmsg]</A>"
+		return "<A HREF='?[source];adminplayerobservejump=\ref[target]'>JMP</A>"
