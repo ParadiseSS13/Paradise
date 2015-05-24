@@ -7,10 +7,12 @@
 /area/mine/explored
 	name = "Mine"
 	icon_state = "explored"
+	ambientsounds = list('sound/ambience/ambimine.ogg')
 
 /area/mine/unexplored
 	name = "Mine"
 	icon_state = "unexplored"
+	ambientsounds = list('sound/ambience/ambimine.ogg')
 
 /area/mine/lobby
 	name = "Mining station"
