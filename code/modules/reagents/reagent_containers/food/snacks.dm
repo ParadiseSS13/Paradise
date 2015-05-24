@@ -928,7 +928,6 @@
 	New()
 		..()
 		reagents.add_reagent("nutriment", 2)
-		reagents.add_reagent("nanomachines", 5)
 		bitesize = 2
 
 /obj/item/weapon/reagent_containers/food/snacks/roburgerbig
