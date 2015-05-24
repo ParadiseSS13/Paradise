@@ -1236,6 +1236,7 @@
 	seed_name = "test"
 	display_name = "test trees"
 	chems = list("omnizine" = list(1,20))
+	consume_gasses = list("oxygen" = 5)
 
 /datum/seed/test/New()
 	..()
@@ -1249,3 +1250,20 @@
 	set_trait(TRAIT_PRODUCT_COLOUR,"#BB6AC4")
 	set_trait(TRAIT_PLANT_ICON,"tree")
 	set_trait(TRAIT_EXPLOSIVE, 1)
+
+/datum/seed/test2
+	name = "test2"
+	seed_name = "test2"
+	display_name = "test2 trees"
+	exude_gasses = list("toxins" = 5)
+
+/datum/seed/test2/New()
+	..()
+	set_trait(TRAIT_HARVEST_REPEAT,1)
+	set_trait(TRAIT_MATURATION,1)
+	set_trait(TRAIT_PRODUCTION,1)
+	set_trait(TRAIT_YIELD,4)
+	set_trait(TRAIT_POTENCY,15)
+	set_trait(TRAIT_PRODUCT_ICON,"treefruit")
+	set_trait(TRAIT_PRODUCT_COLOUR,"#BB6AC4")
+	set_trait(TRAIT_PLANT_ICON,"tree")

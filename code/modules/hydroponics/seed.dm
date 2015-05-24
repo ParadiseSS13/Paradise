@@ -243,39 +243,49 @@
 		origin_turf.visible_message("<span class='danger'>The [thrown.name] splatters against [target]!</span>")
 		del(thrown)
 
-/datum/seed/proc/handle_environment(var/turf/current_turf, var/datum/gas_mixture/environment, var/light_supplied, var/check_only)
+/datum/seed/proc/handle_environment(var/turf/current_turf, var/datum/gas_mixture/environment, var/light_supplied, var/obj/item/weapon/tank/holding, var/check_only)
 
 	var/health_change = 0
-	/*
-	// Handle gas consumption.
-	if(consume_gasses && consume_gasses.len)
-		var/missing_gas = 0
-		for(var/gas in consume_gasses)
-			if(environment && environment.gas && environment.gas[gas] && \
-			 environment.gas[gas] >= consume_gasses[gas])
-				if(!check_only)
-					environment.adjust_gas(gas,-consume_gasses[gas],1)
-			else
-				missing_gas++
 
-		if(missing_gas > 0)
-			health_change += missing_gas * HYDRO_SPEED_MULTIPLIER
-	*/
+	if(!environment)	//Someone called this without passing an environment. Punish their plant.
+		return -100
 
 	// Process it.
-	var/pressure = environment.return_pressure()
+	var/pressure
+	if(holding)		//Check if we are running from an internal source (portable tank)
+		//Use the tank's distribution pressure or it's internal pressure (whichever is lower) for pressure checks
+		pressure = min(environment.return_pressure(), holding.distribute_pressure)
+	else			//Not using an internal source
+		pressure = environment.return_pressure()
 	if(pressure < get_trait(TRAIT_LOWKPA_TOLERANCE)|| pressure > get_trait(TRAIT_HIGHKPA_TOLERANCE))
 		health_change += rand(1,3) * HYDRO_SPEED_MULTIPLIER
 
 	if(abs(environment.temperature - get_trait(TRAIT_IDEAL_HEAT)) > get_trait(TRAIT_HEAT_TOLERANCE))
 		health_change += rand(1,3) * HYDRO_SPEED_MULTIPLIER
 
-	/*
+	// Handle gas consumption.
+	if(consume_gasses && consume_gasses.len)
+		var/missing_gas = 0
+		for(var/gas in consume_gasses)
+			if(environment && environment.vars[gas] && environment.vars[gas] >= consume_gasses[gas])
+				if(!check_only)
+					environment = adjust_gas(environment, gas,-consume_gasses[gas])
+			else
+				missing_gas++
+
+		if(missing_gas > 0)
+			health_change += missing_gas * HYDRO_SPEED_MULTIPLIER
+
 	// Handle gas production.
 	if(exude_gasses && exude_gasses.len && !check_only)
 		for(var/gas in exude_gasses)
-			environment.adjust_gas(gas, max(1,round((exude_gasses[gas]*(get_trait(TRAIT_POTENCY)/5))/exude_gasses.len)))
-	*/
+			environment = adjust_gas(environment, gas, max(1,round((exude_gasses[gas]*(get_trait(TRAIT_POTENCY)/5))/exude_gasses.len)))
+
+	//Handle heat adjustment
+	if(get_trait(TRAIT_ALTER_TEMP))
+		environment.temperature += get_trait(TRAIT_ALTER_TEMP)
+		if(environment.temperature < 0)		//Make sure we didn't drop below absolute zero
+			environment.temperature = 0		//Set temperature back to zero if we did
 
 	// Handle light requirements.
 	if(!light_supplied)
@@ -290,6 +300,35 @@
 			health_change += rand(1,3) * HYDRO_SPEED_MULTIPLIER
 
 	return health_change
+
+//Screw it, making a new proc for this for the sake of readability or something. --FalseIncarnate
+/datum/seed/proc/adjust_gas(var/datum/gas_mixture/environment, var/gas, var/amount = 0)
+	if(!environment || !gas)	//no gas_mixture or gas defined to adjust
+		return
+
+	var/transfer_moles = environment.total_moles()
+	var/datum/gas_mixture/temp_holding
+	if(transfer_moles <= 0)		//Check if the transfer_moles is an unacceptable value for the remove proc
+		//The environment is empty (or somehow has negative moles), create a new gas_mixture for temp_holding
+		temp_holding = new /datum/gas_mixture()
+		temp_holding.temperature = T20C
+	else
+		//The environment is acceptable, transfer it's contents into temp_holding
+		temp_holding = environment.remove(transfer_moles)
+
+	if(!temp_holding)	return	//Just in case temp_holding has somehow avoided being set
+
+	switch(gas)
+		if("oxygen")
+			temp_holding.oxygen += amount
+		if("nitrogen")
+			temp_holding.nitrogen += amount
+		if("carbon_dioxide")
+			temp_holding.carbon_dioxide += amount
+		if("toxins")
+			temp_holding.toxins += amount
+
+	return environment.merge(temp_holding)
 
 /datum/seed/proc/apply_special_effect(var/mob/living/target,var/obj/item/thrown)
 
@@ -361,12 +400,12 @@
 
 	if(prob(5))
 		consume_gasses = list()
-		var/gas = pick("oxygen","nitrogen","plasma","carbon_dioxide")
+		var/gas = pick("oxygen","nitrogen","toxins","carbon_dioxide")
 		consume_gasses[gas] = rand(3,9)
 
 	if(prob(5))
 		exude_gasses = list()
-		var/gas = pick("oxygen","nitrogen","plasma","carbon_dioxide")
+		var/gas = pick("oxygen","nitrogen","toxins","carbon_dioxide")
 		exude_gasses[gas] = rand(3,9)
 
 	chems = list()
