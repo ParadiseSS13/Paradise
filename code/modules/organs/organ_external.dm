@@ -644,9 +644,10 @@ Note that amputating the affected organ does in fact remove the infection from t
 		parent = null
 
 	spawn(1)
-		victim.updatehealth()
-		victim.UpdateDamageIcon()
-		victim.regenerate_icons()
+		if(victim)
+			victim.updatehealth()
+			victim.UpdateDamageIcon()
+			victim.regenerate_icons()
 		dir = 2
 
 	switch(disintegrate)
