@@ -229,7 +229,8 @@ var/list/organ_cache = list()
 
 	loc = get_turf(owner)
 	processing_objects |= src
-	var/datum/reagent/blood/organ_blood = locate(/datum/reagent/blood) in reagents.reagent_list
+	var/datum/reagent/blood/organ_blood
+	if(reagents) organ_blood = locate(/datum/reagent/blood) in reagents.reagent_list
 	if(!organ_blood || !organ_blood.data["blood_DNA"])
 		owner.vessel.trans_to(src, 5, 1, 1)
 
