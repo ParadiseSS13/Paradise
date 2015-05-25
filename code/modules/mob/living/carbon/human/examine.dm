@@ -272,9 +272,9 @@
 
 		var/obj/item/organ/external/E = organs_by_name[organ_tag]
 		if(!E)
-			wound_flavor_text["[organ_descriptor]"] = "<span class='warning'><b>[t_He] is missing [t_his] [organ_descriptor].</b></span>\n"
+			wound_flavor_text["[organ_tag]"] = "<span class='warning'><b>[t_He] is missing [t_his] [organ_descriptor].</b></span>\n"
 		else if(E.is_stump())
-			wound_flavor_text["[organ_descriptor]"] = "<span class='warning'><b>[t_He] has a stump where [t_his] [organ_descriptor] should be.</b></span>\n"
+			wound_flavor_text["[organ_tag]"] = "<span class='warning'><b>[t_He] has a stump where [t_his] [organ_descriptor] should be.</b></span>\n"
 		else
 			continue
 
@@ -282,25 +282,25 @@
 		if(temp)
 			if(temp.status & ORGAN_ROBOT)
 				if(!(temp.brute_dam + temp.burn_dam))
-					if(!species.flags & IS_SYNTHETIC)
-						wound_flavor_text["[temp.name]"] = "<span class='warning'>[t_He] has a robot [temp.name]!</span>\n"
+					if(!(species.flags & IS_SYNTHETIC))
+						wound_flavor_text["[temp.limb_name]"] = "<span class='warning'>[t_He] has a robotic [temp.name]!</span>\n"
 						continue
 				else
-					wound_flavor_text["[temp.name]"] = "<span class='warning'>[t_He] has a robot [temp.name]. It has"
+					wound_flavor_text["[temp.limb_name]"] = "<span class='warning'>[t_He] has a robotic [temp.name]. It has"
 				if(temp.brute_dam) switch(temp.brute_dam)
 					if(0 to 20)
-						wound_flavor_text["[temp.name]"] += " some dents"
+						wound_flavor_text["[temp.limb_name]"] += " some dents"
 					if(21 to INFINITY)
-						wound_flavor_text["[temp.name]"] += pick(" a lot of dents"," severe denting")
+						wound_flavor_text["[temp.limb_name]"] += pick(" a lot of dents"," severe denting")
 				if(temp.brute_dam && temp.burn_dam)
-					wound_flavor_text["[temp.name]"] += " and"
+					wound_flavor_text["[temp.limb_name]"] += " and"
 				if(temp.burn_dam) switch(temp.burn_dam)
 					if(0 to 20)
-						wound_flavor_text["[temp.name]"] += " some burns"
+						wound_flavor_text["[temp.limb_name]"] += " some burns"
 					if(21 to INFINITY)
-						wound_flavor_text["[temp.name]"] += pick(" a lot of burns"," severe melting")
-				if(wound_flavor_text["[temp.name]"])
-					wound_flavor_text["[temp.name]"] += "!</span>\n"
+						wound_flavor_text["[temp.limb_name]"] += pick(" a lot of burns"," severe melting")
+				if(wound_flavor_text["[temp.limb_name]"])
+					wound_flavor_text["[temp.limb_name]"] += "!</span>\n"
 			else if(temp.wounds.len > 0)
 				var/list/wound_descriptors = list()
 				for(var/datum/wound/W in temp.wounds)
@@ -349,13 +349,13 @@
 							flavor_text_string += ","
 						flavor_text_string += flavor_text[text]
 					flavor_text_string += " on [t_his] [temp.name].</span><br>"
-					wound_flavor_text["[temp.name]"] = flavor_text_string
+					wound_flavor_text["[temp.limb_name]"] = flavor_text_string
 				else
-					wound_flavor_text["[temp.name]"] = ""
+					wound_flavor_text["[temp.limb_name]"] = ""
 				if(temp.status & ORGAN_BLEEDING)
-					is_bleeding["[temp.name]"] = 1
+					is_bleeding["[temp.limb_name]"] = 1
 			else
-				wound_flavor_text["[temp.name]"] = ""
+				wound_flavor_text["[temp.limb_name]"] = ""
 
 	//Handles the text strings being added to the actual description.
 	//If they have something that covers the limb, and it is not missing, put flavortext.  If it is covered but bleeding, add other flavortext.
@@ -370,41 +370,41 @@
 		msg += wound_flavor_text["chest"]
 	else if(is_bleeding["chest"])
 		display_chest = 1
-	if(wound_flavor_text["left arm"] && (is_destroyed["left arm"] || (!w_uniform && !skipjumpsuit)))
-		msg += wound_flavor_text["left arm"]
-	else if(is_bleeding["left arm"])
+	if(wound_flavor_text["l_arm"] && (is_destroyed["left arm"] || (!w_uniform && !skipjumpsuit)))
+		msg += wound_flavor_text["l_arm"]
+	else if(is_bleeding["l_arm"])
 		display_chest = 1
-	if(wound_flavor_text["left hand"] && (is_destroyed["left hand"] || (!gloves && !skipgloves)))
-		msg += wound_flavor_text["left hand"]
-	else if(is_bleeding["left hand"])
+	if(wound_flavor_text["l_hand"] && (is_destroyed["left hand"] || (!gloves && !skipgloves)))
+		msg += wound_flavor_text["l_hand"]
+	else if(is_bleeding["l_hand"])
 		display_gloves = 1
-	if(wound_flavor_text["right arm"] && (is_destroyed["right arm"] || (!w_uniform && !skipjumpsuit)))
-		msg += wound_flavor_text["right arm"]
-	else if(is_bleeding["right arm"])
+	if(wound_flavor_text["r_arm"] && (is_destroyed["right arm"] || (!w_uniform && !skipjumpsuit)))
+		msg += wound_flavor_text["r_arm"]
+	else if(is_bleeding["r_arm"])
 		display_chest = 1
-	if(wound_flavor_text["right hand"] && (is_destroyed["right hand"] || (!gloves && !skipgloves)))
-		msg += wound_flavor_text["right hand"]
-	else if(is_bleeding["right hand"])
+	if(wound_flavor_text["r_hand"] && (is_destroyed["right hand"] || (!gloves && !skipgloves)))
+		msg += wound_flavor_text["r_hand"]
+	else if(is_bleeding["r_hand"])
 		display_gloves = 1
 	if(wound_flavor_text["groin"] && (is_destroyed["groin"] || (!w_uniform && !skipjumpsuit)))
 		msg += wound_flavor_text["groin"]
 	else if(is_bleeding["groin"])
 		display_chest = 1
-	if(wound_flavor_text["left leg"] && (is_destroyed["left leg"] || (!w_uniform && !skipjumpsuit)))
-		msg += wound_flavor_text["left leg"]
-	else if(is_bleeding["left leg"])
+	if(wound_flavor_text["l_leg"] && (is_destroyed["left leg"] || (!w_uniform && !skipjumpsuit)))
+		msg += wound_flavor_text["l_leg"]
+	else if(is_bleeding["l_leg"])
 		display_chest = 1
-	if(wound_flavor_text["left foot"]&& (is_destroyed["left foot"] || (!shoes && !skipshoes)))
-		msg += wound_flavor_text["left foot"]
-	else if(is_bleeding["left foot"])
+	if(wound_flavor_text["l_foot"]&& (is_destroyed["left foot"] || (!shoes && !skipshoes)))
+		msg += wound_flavor_text["l_foot"]
+	else if(is_bleeding["l_foot"])
 		display_shoes = 1
-	if(wound_flavor_text["right leg"] && (is_destroyed["right leg"] || (!w_uniform && !skipjumpsuit)))
-		msg += wound_flavor_text["right leg"]
-	else if(is_bleeding["right leg"])
+	if(wound_flavor_text["r_leg"] && (is_destroyed["right leg"] || (!w_uniform && !skipjumpsuit)))
+		msg += wound_flavor_text["r_leg"]
+	else if(is_bleeding["r_leg"])
 		display_chest = 1
-	if(wound_flavor_text["right foot"]&& (is_destroyed["right foot"] || (!shoes  && !skipshoes)))
-		msg += wound_flavor_text["right foot"]
-	else if(is_bleeding["right foot"])
+	if(wound_flavor_text["r_foot"]&& (is_destroyed["right foot"] || (!shoes  && !skipshoes)))
+		msg += wound_flavor_text["r_foot"]
+	else if(is_bleeding["r_foot"])
 		display_shoes = 1
 	if(display_chest)
 		msg += "<span class='warning'><b>[src] has blood soaking through from under [t_his] clothing!</b></span>\n"
