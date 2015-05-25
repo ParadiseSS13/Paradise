@@ -769,7 +769,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 /obj/item/organ/external/robotize(var/company)
 	..()
 
-	if(company)
+	if(company && istext(company))
 		model = company
 		var/datum/robolimb/R = all_robolimbs[company]
 		if(R)
