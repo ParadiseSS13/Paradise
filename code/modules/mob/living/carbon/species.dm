@@ -422,13 +422,13 @@
 	unarmed_type = /datum/unarmed_attack/claws
 	darksight = 8
 
-	blurb = "Vulpkanin are a species of extremely quick canine-pideds residing on the planet Altam just barely within the \
+	blurb = "Vulpkanin are a species of sharp-witted canine-pideds residing on the planet Altam just barely within the \
 	dual-star Vazzend system. Their politically de-centralized society and independent natures have led them to become a species and \
 	culture both feared and respected for their scientific breakthroughs. Discovery, loyalty, and utilitarianism dominates their lifestyles \
 	to the degree it can cause conflict with more rigorous and strict authorities. They speak a guttural language known as 'Canilunzt' \
     which has a heavy emphasis on utilizing tail positioning and ear twitches to communicate intent."
 
-	flags = HAS_LIPS | HAS_UNDERWEAR | IS_WHITELISTED
+	flags = HAS_LIPS | HAS_UNDERWEAR
 	bodyflags = FEET_PADDED | HAS_TAIL | HAS_SKIN_COLOR | TAIL_WAGGING
 	dietflags = DIET_OMNI
 
