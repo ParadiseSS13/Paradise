@@ -160,7 +160,7 @@
 				for(var/mob/O in viewers(M, null))
 					O.show_message(text("\red [] has been injected with [] by [].", M, src, user), 1)
 					//Foreach goto(192)
-				if (!(istype(M, /mob/living/carbon/human) || istype(M, /mob/living/carbon/monkey)))
+				if (!(istype(M, /mob/living/carbon/human)))
 					user << "\red Apparently it didn't work."
 					return
 

@@ -128,7 +128,7 @@
 			eprojectile = /obj/item/projectile/beam	//If it has, going to kill mode
 			eshot_sound = 'sound/weapons/Laser.ogg'
 			egun = 1
-			
+
 		if(/obj/item/weapon/gun/energy/gun/turret)
 			eprojectile = /obj/item/projectile/beam	//If it has, going to copypaste mode
 			eshot_sound = 'sound/weapons/Laser.ogg'
@@ -210,7 +210,7 @@
 /obj/machinery/porta_turret/proc/HasController()
 	var/area/A = get_area(src)
 	return A && A.turret_controls.len > 0
-	
+
 /obj/machinery/porta_turret/CanUseTopic(var/mob/user)
 	if(HasController())
 		user << "<span class='notice'>Turrets can only be controlled using the assigned turret controller.</span>"
@@ -336,9 +336,9 @@
 				spawn()
 					sleep(60)
 					attacked = 0
-			
+
 		..()
-		
+
 /obj/machinery/porta_turret/emag_act(user as mob)
 	if(!emagged)
 		//Emagging the turret makes it go bonkers and stun everyone. It also makes
@@ -450,8 +450,8 @@
 		assess_and_assign(ME.occupant, targets, secondarytargets)
 
 	for(var/obj/spacepod/SP in view(7,src))
-		assess_and_assign(SP.occupant, targets, secondarytargets)		
-		
+		assess_and_assign(SP.occupant, targets, secondarytargets)
+
 	for(var/obj/vehicle/train/T in view(7,src))
 		assess_and_assign(T.load, targets, secondarytargets)
 
@@ -502,7 +502,7 @@
 	if(iscuffed(L)) // If the target is handcuffed, leave it alone
 		return TURRET_NOT_TARGET
 
-	if(isanimal(L) || ismonkey(L)) // Animals are not so dangerous
+	if(isanimal(L) || issmall(L)) // Animals are not so dangerous
 		return check_anomalies ? TURRET_SECONDARY_TARGET : TURRET_NOT_TARGET
 	if(isalien(L)) // Xenos are dangerous
 		return check_anomalies ? TURRET_PRIORITY_TARGET	: TURRET_NOT_TARGET
@@ -524,8 +524,8 @@
 		var/mob/living/M = pick(targets)
 		targets -= M
 		if(target(M))
-			return 1	
-	
+			return 1
+
 /obj/machinery/porta_turret/proc/popUp()	//pops the turret up
 	if(disabled)
 		return
@@ -562,7 +562,7 @@
 	raised = 0
 	invisibility = INVISIBILITY_LEVEL_TWO
 	update_icon()
-	
+
 /obj/machinery/porta_turret/on_assess_perp(mob/living/carbon/human/perp)
 	if((check_access || attacked) && !allowed(perp))
 		//if the turret has been attacked or is angry, target all non-authorized personnel, see req_access
@@ -616,8 +616,8 @@
 
 	// Lethal/emagged turrets use twice the power due to higher energy beams
 	// Emagged turrets again use twice as much power due to higher firing rates
-	use_power(reqpower * (2 * (emagged || lethal)) * (2 * emagged))	
-	
+	use_power(reqpower * (2 * (emagged || lethal)) * (2 * emagged))
+
 		//Shooting Code:
 	A.current = T
 	A.yo = U.y - T.y

@@ -234,7 +234,7 @@
 						M_job = M.job
 					else if(isslime(M))
 						M_job = "slime"
-					else if(ismonkey(M))
+					else if(issmall(M))
 						M_job = "Monkey"
 					else if(isalien(M)) //aliens
 						if(islarva(M))
@@ -355,7 +355,7 @@
 			dat += "<td>New Player</td>"
 		else if(isobserver(M))
 			dat += "<td>Ghost</td>"
-		else if(ismonkey(M))
+		else if(issmall(M))
 			dat += "<td>Monkey</td>"
 		else if(isalien(M))
 			dat += "<td>Alien</td>"

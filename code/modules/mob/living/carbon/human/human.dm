@@ -122,6 +122,18 @@
 	h_style = "Nucleation Crystals"
 	..(new_loc, "Nucleation")
 
+/mob/living/carbon/human/monkey/New(var/new_loc)
+	..(new_loc, "Monkey")
+
+/mob/living/carbon/human/farwa/New(var/new_loc)
+	..(new_loc, "Farwa")
+
+/mob/living/carbon/human/neara/New(var/new_loc)
+	..(new_loc, "Neara")
+
+/mob/living/carbon/human/stok/New(var/new_loc)
+	..(new_loc, "Stok")
+
 /mob/living/carbon/human/Bump(atom/movable/AM as mob|obj, yes)
 	if ((!( yes ) || now_pushing))
 		return
