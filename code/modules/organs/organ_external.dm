@@ -194,8 +194,8 @@
 				var/list/obj/item/organ/external/possible_points = list()
 				if(parent)
 					possible_points += parent
-				if(children)
-					possible_points += children
+				if(children) for(var/organ in children)
+					if(organ) possible_points += organ
 				if(forbidden_limbs.len)
 					possible_points -= forbidden_limbs
 				if(possible_points.len)
@@ -644,9 +644,10 @@ Note that amputating the affected organ does in fact remove the infection from t
 		parent = null
 
 	spawn(1)
-		victim.updatehealth()
-		victim.UpdateDamageIcon()
-		victim.regenerate_icons()
+		if(victim)
+			victim.updatehealth()
+			victim.UpdateDamageIcon()
+			victim.regenerate_icons()
 		dir = 2
 
 	switch(disintegrate)
@@ -769,7 +770,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 /obj/item/organ/external/robotize(var/company)
 	..()
 
-	if(company)
+	if(company && istext(company))
 		model = company
 		var/datum/robolimb/R = all_robolimbs[company]
 		if(R)

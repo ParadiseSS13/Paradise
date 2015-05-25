@@ -117,9 +117,11 @@
 		data["autoallowed"] = 1
 	else
 		data["autoallowed"] = 0
-	data["occupant"] = src.scanner.occupant
-	data["locked"] = src.scanner.locked
-	data["biomass"] = src.pod1.biomass
+	if(src.scanner)
+		data["occupant"] = src.scanner.occupant
+		data["locked"] = src.scanner.locked
+	if(src.pod1)
+		data["biomass"] = src.pod1.biomass
 	data["temp"] = temp
 	data["scantemp"] = scantemp
 	data["disk"] = src.diskette

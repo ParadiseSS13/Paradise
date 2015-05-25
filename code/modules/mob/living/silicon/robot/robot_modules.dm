@@ -101,7 +101,7 @@
 	New()
 		src.modules += new /obj/item/device/flashlight(src)
 		src.modules += new /obj/item/device/flash/cyborg(src)
-		src.modules += new /obj/item/device/healthanalyzer(src)
+		src.modules += new /obj/item/device/healthanalyzer/advanced(src)
 		src.modules += new /obj/item/device/reagent_scanner/adv(src)
 		src.modules += new /obj/item/weapon/borg_defib(src)
 		src.modules += new /obj/item/roller_holder(src)
