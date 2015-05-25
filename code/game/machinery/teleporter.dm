@@ -46,17 +46,13 @@
 	else
 		..()
 	return
-	
+
 /obj/machinery/computer/teleporter/emag_act(user as mob)
 	if(!emagged)
 		emagged = 1
 		user << "\blue The teleporter can now lock on to Syndicate beacons!"
 	else
 		ui_interact(user)
-
-/obj/machinery/computer/teleporter/attack_paw(mob/user)
-	usr << "You are too primitive to use this computer."
-	return
 
 /obj/machinery/computer/teleporter/attack_ai(mob/user)
 	src.attack_hand(user)
@@ -442,9 +438,6 @@
 			link_console_and_hub()
 			user << "<span class='caution'>You reconnect the station to nearby machinery.</span>"
 			return
-
-/obj/machinery/teleport/station/attack_paw()
-	src.attack_hand()
 
 /obj/machinery/teleport/station/attack_ai()
 	src.attack_hand()

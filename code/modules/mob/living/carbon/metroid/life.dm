@@ -379,7 +379,7 @@
 									Target = C
 									break
 
-							if(islarva(C) || ismonkey(C))
+							if(islarva(C) || issmall(C))
 								Target = C
 								break
 

@@ -202,7 +202,7 @@
 			A.unEquip(src)
 		user << "Your claws aren't capable of such fine manipulation."
 		return
-	attack_paw(A)
+	attack_hand(A)
 
 /obj/item/attack_ai(mob/user as mob)
 	if (istype(src.loc, /obj/item/weapon/robot_module))

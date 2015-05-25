@@ -206,15 +206,6 @@
 		return
 
 
-	// monkeys can only pull the flush lever
-	attack_paw(mob/user as mob)
-		if(stat & BROKEN)
-			return
-
-		flush = !flush
-		update()
-		return
-
 	// ai as human but can't flush
 	attack_ai(mob/user as mob)
 		interact(user, 1)

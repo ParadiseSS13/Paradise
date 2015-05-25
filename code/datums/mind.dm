@@ -137,7 +137,7 @@ datum/mind
 		)
 		var/text = ""
 		var/mob/living/carbon/human/H = current
-		if (istype(current, /mob/living/carbon/human) || istype(current, /mob/living/carbon/monkey))
+		if (istype(current, /mob/living/carbon/human))
 			/** Impanted**/
 			if(H.is_loyalty_implanted(H))
 				text = "Loyalty Implant:<a href='?src=\ref[src];implant=remove'>Remove</a>|<b>Implanted</b></br>"
@@ -343,13 +343,6 @@ datum/mind
 				text = "<i><b>[text]</b></i>: "
 				if (istype(current, /mob/living/carbon/human))
 					text += "<a href='?src=\ref[src];monkey=healthy'>healthy</a>|<a href='?src=\ref[src];monkey=infected'>infected</a>|<b>HUMAN</b>|other"
-				else if (istype(current, /mob/living/carbon/monkey))
-					var/found = 0
-
-					if(found)
-						text += "<a href='?src=\ref[src];monkey=healthy'>healthy</a>|<b>INFECTED</b>|<a href='?src=\ref[src];monkey=human'>human</a>|other"
-					else
-						text += "<b>HEALTHY</b>|<a href='?src=\ref[src];monkey=infected'>infected</a>|<a href='?src=\ref[src];monkey=human'>human</a>|other"
 
 				else
 					text += "healthy|infected|human|<b>OTHER</b>"

@@ -1,6 +1,5 @@
 /datum/species/monkey
 	name = "Monkey"
-	name_plural = "Monkeys"
 	blurb = "Ook."
 
 	icobase = 'icons/mob/human_races/monkeys/r_monkey.dmi'
@@ -12,22 +11,18 @@
 	default_language = "Chimpanzee"
 	greater_form = "Human"
 	is_small = 1
-	has_fine_manipulation = 0
+	//has_fine_manipulation = 0
 	show_ssd = 0
 	eyes = "blank_eyes"
 
-	gibbed_anim = "gibbed-m"
-	dusted_anim = "dust-m"
-	death_message = "lets out a faint chimper as it collapses and stops moving..."
 	tail = "chimptail"
 
-	unarmed_types = list(/datum/unarmed_attack/bite, /datum/unarmed_attack/claws)
-	inherent_verbs = list(/mob/living/proc/ventcrawl)
-	hud_type = /datum/hud_data/monkey
+	//unarmed_types = list(/datum/unarmed_attack/bite, /datum/unarmed_attack/claws)
+	//inherent_verbs = list(/mob/living/proc/ventcrawl)
+	//hud_type = /datum/hud_data/monkey
 	meat_type = /obj/item/weapon/reagent_containers/food/snacks/meat/monkey
 
-	rarity_value = 0.1
-	total_health = 75
+	//total_health = 75
 	brute_mod = 1.5
 	burn_mod = 1.5
 
@@ -48,7 +43,6 @@
 
 /datum/species/monkey/tajaran
 	name = "Farwa"
-	name_plural = "Farwa"
 
 	icobase = 'icons/mob/human_races/monkeys/r_farwa.dmi'
 	deform = 'icons/mob/human_races/monkeys/r_farwa.dmi'
@@ -61,7 +55,6 @@
 
 /datum/species/monkey/skrell
 	name = "Neara"
-	name_plural = "Neara"
 
 	icobase = 'icons/mob/human_races/monkeys/r_neara.dmi'
 	deform = 'icons/mob/human_races/monkeys/r_neara.dmi'
@@ -75,7 +68,6 @@
 
 /datum/species/monkey/unathi
 	name = "Stok"
-	name_plural = "Stok"
 
 	icobase = 'icons/mob/human_races/monkeys/r_stok.dmi'
 	deform = 'icons/mob/human_races/monkeys/r_stok.dmi'

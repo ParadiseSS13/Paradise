@@ -113,17 +113,6 @@
 		return
 	user.electrocute_act(10, src)
 
-/obj/machinery/camera/attack_paw(mob/living/carbon/alien/humanoid/user as mob)
-	if(!istype(user))
-		return
-	user.do_attack_animation(src)
-	status = 0
-	visible_message("<span class='warning'>\The [user] slashes at [src]!</span>")
-	playsound(src.loc, 'sound/weapons/slash.ogg', 100, 1)
-	icon_state = "[initial(icon_state)]1"
-	add_hiddenprint(user)
-	deactivate(user,0)
-
 /obj/machinery/camera/attackby(W as obj, mob/living/user as mob, params)
 	var/msg = "<span class='notice'>You attach [W] into the assembly inner circuits.</span>"
 	var/msg2 = "<span class='notice'>The camera already has that upgrade!</span>"

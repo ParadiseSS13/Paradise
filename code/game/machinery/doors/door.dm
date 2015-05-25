@@ -132,11 +132,6 @@
 /obj/machinery/door/attack_ai(mob/user as mob)
 	return src.attack_hand(user)
 
-
-/obj/machinery/door/attack_paw(mob/user as mob)
-	return src.attack_hand(user)
-
-
 /obj/machinery/door/attack_hand(mob/user as mob)
 	return src.attackby(user, user)
 
@@ -289,7 +284,7 @@
 			L.adjustBruteLoss(DOOR_CRUSH_DAMAGE)
 			L.emote("scream")
 			L.Weaken(5)
-		else if(ismonkey(L)) //For monkeys
+		else if(issmall(L)) //For monkeys
 			L.adjustBruteLoss(DOOR_CRUSH_DAMAGE)
 			L.Weaken(5)
 		else //for simple_animals & borgs

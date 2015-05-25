@@ -37,12 +37,12 @@
 		if(!istype(T))
 			return
 		add_underlay(T, node1, turn(dir, -180))
-		
+
 		if(istype(src, /obj/machinery/atmospherics/tvalve/mirrored))
 			add_underlay(T, node2, turn(dir, 90))
 		else
 			add_underlay(T, node2, turn(dir, -90))
-		
+
 		add_underlay(T, node3, dir)
 
 /obj/machinery/atmospherics/tvalve/hide(var/i)
@@ -172,9 +172,6 @@
 /obj/machinery/atmospherics/tvalve/attack_ai(mob/user as mob)
 	return
 
-/obj/machinery/atmospherics/tvalve/attack_paw(mob/user as mob)
-	return attack_hand(user)
-
 /obj/machinery/atmospherics/tvalve/attack_hand(mob/user as mob)
 	src.add_fingerprint(usr)
 	update_icon(1)
@@ -224,7 +221,7 @@
 				src.connected_to = c
 				node3 = target
 				break
-	
+
 	update_icon()
 	update_underlays()
 
@@ -419,7 +416,7 @@
 		if(target.initialize_directions & get_dir(target,src))
 			node3 = target
 			break
-	
+
 	update_icon()
 	update_underlays()
 

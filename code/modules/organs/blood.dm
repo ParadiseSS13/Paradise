@@ -326,12 +326,6 @@ proc/blood_splatter(var/target,var/datum/reagent/blood/source,var/large)
 	if(istype(source,/mob/living/carbon/human))
 		var/mob/living/carbon/human/M = source
 		source = M.get_blood(M.vessel)
-	else if(istype(source,/mob/living/carbon/monkey))
-		var/mob/living/carbon/monkey/donor = source
-		if(donor.dna)
-			source = new()
-			source.data["blood_DNA"] = donor.dna.unique_enzymes
-			source.data["blood_type"] = donor.dna.b_type
 
 	// Are we dripping or splattering?
 	var/list/drips = list()

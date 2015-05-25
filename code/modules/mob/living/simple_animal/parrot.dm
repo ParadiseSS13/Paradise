@@ -137,7 +137,7 @@
 		return
 
 	//Is the usr's mob type able to do this?
-	if(ishuman(usr) || ismonkey(usr) || isrobot(usr))
+	if(ishuman(usr) || issmall(usr) || isrobot(usr))
 
 		//Removing from inventory
 		if(href_list["remove_inv"])

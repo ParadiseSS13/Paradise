@@ -382,7 +382,7 @@
 	if(isalien(attacker) && iscarbon(prey)) //Xenomorphs eating carbon mobs
 		return 1
 
-	if(ishuman(attacker) && attacker.get_species() == "Kidan" && istype(prey,/mob/living/carbon/monkey/diona)) //Kidan eating nymphs
+	if(ishuman(attacker) && attacker.get_species() == "Kidan" && istype(prey,/mob/living/carbon/alien/diona)) //Kidan eating nymphs
 		return 1
 
 	if(ishuman(attacker) && attacker.get_species() == "Tajaran"  && istype(prey,/mob/living/simple_animal/mouse)) //Tajaran eating mice. Meow!

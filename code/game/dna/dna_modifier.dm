@@ -417,8 +417,6 @@
 		return
 	return
 */
-/obj/machinery/computer/scan_consolenew/attack_paw(user as mob)
-	attack_hand(user)
 
 /obj/machinery/computer/scan_consolenew/attack_ai(user as mob)
 	src.add_hiddenprint(user)
