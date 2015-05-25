@@ -135,6 +135,8 @@
 	else
 		icon_state = "doorctrl0"
 
+/obj/machinery/driver_button/var/range = 7
+
 /obj/machinery/driver_button/attack_ai(mob/user as mob)
 	return src.attack_hand(user)
 
@@ -185,21 +187,21 @@
 	active = 1
 	icon_state = "launcheract"
 
-	for(var/obj/machinery/door/poddoor/M in range(src,7))
-		if (M.id_tag == src.id_tag)
+	for(var/obj/machinery/door/poddoor/M in range(src,range))
+		if (M.id_tag == src.id_tag && !M.protected)
 			spawn()
 				M.open()
 
 	sleep(20)
 
-	for(var/obj/machinery/mass_driver/M in world)
+	for(var/obj/machinery/mass_driver/M in range(src,range))
 		if(M.id_tag == src.id_tag)
 			M.drive()
 
 	sleep(50)
 
-	for(var/obj/machinery/door/poddoor/M in world)
-		if (M.id_tag == src.id_tag)
+	for(var/obj/machinery/door/poddoor/M in range(src,range))
+		if (M.id_tag == src.id_tag && !M.protected)
 			spawn()
 				M.close()
 				return
