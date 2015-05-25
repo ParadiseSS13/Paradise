@@ -840,7 +840,7 @@ var/global/mulebot_count = 0
 	recv = signal.data["beacon"]
 
 	if(wires.BeaconRX())
-		if(recv == new_destination)	// if the recvd beacon location matches the set destination
+		if((recv == new_destination) && (destination != new_destination))	// if the recvd beacon location matches the set destination
 									// the we will navigate there
 			destination = new_destination
 			target = signal.source.loc
