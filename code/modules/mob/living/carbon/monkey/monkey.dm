@@ -24,6 +24,13 @@
 	icon_state = "tajkey1"
 	uni_append = list(0x0A0,0xE00) // 0A0E00
 
+/mob/living/carbon/monkey/vulpkanin
+	name = "wolpin"
+	voice_name = "wolpin"
+	speak_emote = list("yaps")
+	icon_state = "tajkey1"
+	uni_append = list(0x066,0x4FE)
+
 /mob/living/carbon/monkey/skrell
 	name = "neaera"
 	voice_name = "neaera"
@@ -105,6 +112,13 @@
 	greaterform = "Tajaran"
 	dna.species = "Tajaran"
 	add_language("Siik'tajr")
+
+/mob/living/carbon/monkey/vulpkanin/New()
+
+	..()
+	greaterform = "Vulpkanin"
+	dna.species = "Vulpkanin"
+	add_language("Canilunzt")
 
 /mob/living/carbon/monkey/diona/New()
 

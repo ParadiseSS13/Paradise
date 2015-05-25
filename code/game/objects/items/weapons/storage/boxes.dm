@@ -412,6 +412,18 @@
 			new /obj/item/weapon/reagent_containers/food/snacks/monkeycube/wrapped/neaeracube(src)
 
 
+/obj/item/weapon/storage/box/wolpincubes
+	name = "wolpin cube box"
+	desc = "Drymate brand wolpin cubes. Just add water!"
+	icon = 'icons/obj/food.dmi'
+	icon_state = "monkeycubebox"
+	storage_slots = 7
+	can_hold = list("/obj/item/weapon/reagent_containers/food/snacks/monkeycube/wrapped/wolpincube")
+	New()
+		..()
+		for(var/i = 1; i <= 5; i++)
+			new /obj/item/weapon/reagent_containers/food/snacks/monkeycube/wrapped/wolpincube(src)
+
 /obj/item/weapon/storage/box/permits
 	name = "box of construction permits"
 	desc = "A box for containing construction permits, used to officially declare built rooms as additions to the station."

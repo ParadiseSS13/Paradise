@@ -352,7 +352,7 @@ datum/preferences
 				dat += "<br><b>Eyes</b><br>"
 				dat += "<a href='?_src_=prefs;preference=eyes;task=input'>Change Color</a> <font face='fixedsys' size='3' color='#[num2hex(r_eyes, 2)][num2hex(g_eyes, 2)][num2hex(b_eyes, 2)]'><table  style='display:inline;' bgcolor='#[num2hex(r_eyes, 2)][num2hex(g_eyes, 2)][num2hex(b_eyes)]'><tr><td>__</td></tr></table></font><br>"
 
-				if(species == "Unathi" || species == "Tajaran" || species == "Skrell" || species == "Slime People")
+				if(species == "Unathi" || species == "Tajaran" || species == "Skrell" || species == "Slime People" || species == "Vulpkanin")
 					dat += "<br><b>Body Color</b><br>"
 					dat += "<a href='?_src_=prefs;preference=skin;task=input'>Change Color</a> <font face='fixedsys' size='3' color='#[num2hex(r_skin, 2)][num2hex(g_skin, 2)][num2hex(b_skin, 2)]'><table style='display:inline;' bgcolor='#[num2hex(r_skin, 2)][num2hex(g_skin, 2)][num2hex(b_skin)]'><tr><td>__</td></tr></table></font>"
 
@@ -970,7 +970,7 @@ datum/preferences
 					if("age")
 						age = rand(AGE_MIN, AGE_MAX)
 					if("hair")
-						if(species == "Human" || species == "Unathi" || species == "Tajaran" || species == "Skrell" || species == "Machine" || species == "Wryn")
+						if(species == "Human" || species == "Unathi" || species == "Tajaran" || species == "Skrell" || species == "Machine" || species == "Wryn" || species == "Vulpkanin")
 							r_hair = rand(0,255)
 							g_hair = rand(0,255)
 							b_hair = rand(0,255)
@@ -996,7 +996,7 @@ datum/preferences
 						if(species == "Human")
 							s_tone = random_skin_tone()
 					if("s_color")
-						if(species == "Unathi" || species == "Tajaran" || species == "Skrell" || species == "Slime People" || species == "Wryn")
+						if(species == "Unathi" || species == "Tajaran" || species == "Skrell" || species == "Slime People" || species == "Wryn" || species == "Vulpkanin")
 							r_skin = rand(0,255)
 							g_skin = rand(0,255)
 							b_skin = rand(0,255)
@@ -1023,7 +1023,7 @@ datum/preferences
 							age = max(min( round(text2num(new_age)), AGE_MAX),AGE_MIN)
 					if("species")
 
-						var/list/new_species = list("Human","Tajaran","Skrell","Unathi","Diona")
+						var/list/new_species = list("Human","Tajaran","Skrell","Unathi","Diona", "Vulpkanin")
 						var/prev_species = species
 //						var/whitelisted = 0
 
@@ -1119,7 +1119,7 @@ datum/preferences
 							b_type = new_b_type
 
 					if("hair")
-						if(species == "Human" || species == "Unathi" || species == "Tajaran" || species == "Skrell" || species == "Machine")
+						if(species == "Human" || species == "Unathi" || species == "Tajaran" || species == "Skrell" || species == "Machine" || species == "Vulpkanin")
 							var/input = "Choose your character's hair colour:"
 							if(species == "Machine")
 								input = "Choose your character's frame colour:"
@@ -1202,7 +1202,7 @@ datum/preferences
 							s_tone = 35 - max(min( round(new_s_tone), 220),1)
 
 					if("skin")
-						if(species == "Unathi" || species == "Tajaran" || species == "Skrell" || species == "Slime People")
+						if(species == "Unathi" || species == "Tajaran" || species == "Skrell" || species == "Slime People"|| species == "Vulpkanin")
 							var/new_skin = input(user, "Choose your character's skin colour: ", "Character Preference") as color|null
 							if(new_skin)
 								r_skin = hex2num(copytext(new_skin, 2, 4))

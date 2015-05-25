@@ -1751,6 +1751,13 @@
 	name = "farwa cube"
 	monkey_type =/mob/living/carbon/monkey/tajara
 
+/obj/item/weapon/reagent_containers/food/snacks/monkeycube/wolpincube
+	name = "wolpin cube"
+	monkey_type = /mob/living/carbon/monkey/vulpkanin
+/obj/item/weapon/reagent_containers/food/snacks/monkeycube/wrapped/wolpincube
+	name = "wolpin cube"
+	monkey_type = /mob/living/carbon/monkey/vulpkanin
+
 /obj/item/weapon/reagent_containers/food/snacks/monkeycube/stokcube
 	name = "stok cube"
 	monkey_type = /mob/living/carbon/monkey/unathi
