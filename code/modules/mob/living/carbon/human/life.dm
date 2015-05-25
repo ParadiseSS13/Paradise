@@ -764,7 +764,7 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 			if(species.flags & IS_PLANT)
 				if(nutrition > 450)
 					nutrition = 450
-				if(light_amount >= 5) //if there's enough light, heal
+				if((light_amount >= 5) && !suiciding) //if there's enough light, heal
 					adjustBruteLoss(-(light_amount/2))
 					adjustFireLoss(-(light_amount/4))
 					//adjustToxLoss(-(light_amount))
