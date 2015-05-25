@@ -421,7 +421,6 @@
 	tail = "vulptail"
 	unarmed_type = /datum/unarmed_attack/claws
 	darksight = 8
-	slowdown = -1
 	brute_mod = 1.1
 	burn_mod = 1.1
 
@@ -431,7 +430,7 @@
 	to the degree it can cause conflict with more rigorous and strict authorities. They speak a guttural language known as 'Canilunzt' \
     which has a heavy emphasis on utilizing tail positioning and ear twitches to communicate intent."
 
-	flags = HAS_LIPS | HAS_UNDERWEAR | IS_WHITELISTED
+	flags = HAS_LIPS | HAS_UNDERWEAR | UNENCUNBERED | IS_WHITELISTED
 	bodyflags = FEET_PADDED | HAS_TAIL | HAS_SKIN_COLOR | TAIL_WAGGING
 	dietflags = DIET_OMNI
 
