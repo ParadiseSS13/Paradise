@@ -388,14 +388,15 @@
 	if(ishuman(attacker) && attacker.get_species() == "Tajaran"  && istype(prey,/mob/living/simple_animal/mouse)) //Tajaran eating mice. Meow!
 		return 1
 
-	if(ishuman(attacker) && attacker.get_species() == "Vulpkanin") //MROW-
-		if(ishuman(prey) && prey.get_species() == "Tajaran")
+	if(ishuman(attacker) && attacker.get_species() == "Vulpkanin")
+		if(ishuman(prey) && prey.get_species() == "Tajaran") //MROW-
 			return 1
 		if(istype(prey, /mob/living/carbon/monkey/tajara))
 			return 1
 		if(istype(prey, /mob/living/carbon/monkey/vulpkanin))
 			return 1
-
+		if(istype(prey, /mob/living/simple_animal/cat))
+			return 1
 	return 0
 
 /obj/item/weapon/grab/proc/checktime(var/mob/attacker, var/mob/prey) //Returns the time the attacker has to wait before they eat the prey
