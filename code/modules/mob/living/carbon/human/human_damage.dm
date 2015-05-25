@@ -11,7 +11,7 @@
 		total_burn += O.burn_dam
 	health = 100 - getOxyLoss() - getToxLoss() - getCloneLoss() - total_burn - total_brute
 	//TODO: fix husking
-	if( (((100 - total_burn) < config.health_threshold_dead) && stat == DEAD) && (!species.flags & IS_SYNTHETIC))//100 only being used as the magic human max health number, feel free to change it if you add a var for it -- Urist
+	if( (((100 - total_burn) < config.health_threshold_dead) && stat == DEAD) && (!(species.flags & IS_SYNTHETIC)))//100 only being used as the magic human max health number, feel free to change it if you add a var for it -- Urist
 		ChangeToHusk()
 	if (species.flags & IS_SYNTHETIC)
 		var/obj/item/organ/external/head/H = organs_by_name["head"]
