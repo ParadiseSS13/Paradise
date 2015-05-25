@@ -13,7 +13,7 @@
 	var/brightness = 2
 
 /obj/item/weapon/shard/supermatter/New()
-	src.icon_state = pick("supermatter")
+	src.icon_state = "supermatter" + pick("large", "medium", "small")
 	switch(src.icon_state)
 		if("supermattersmall")
 			src.pixel_x = rand(-12, 12)
