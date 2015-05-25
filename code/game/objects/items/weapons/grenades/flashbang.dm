@@ -36,7 +36,7 @@
 				ear_safety++
 
 //Flash
-	if(!eye_safety)
+	if(!eye_safety && ishuman(M))
 		var/mob/living/carbon/human/H = M
 		var/obj/item/organ/eyes/E = H.internal_organs_by_name["eyes"]
 		flick("e_flash", M.flash)
