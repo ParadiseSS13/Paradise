@@ -5,6 +5,7 @@
 	icon_state = "pdoor1"
 	var/id_tag = 1.0
 	explosion_block = 3
+	var/protected = 1
 
 /obj/machinery/door/poddoor/preopen
 	icon_state = "pdoor0"
