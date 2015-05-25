@@ -253,7 +253,7 @@
 			if(uplink_true) text += " (used [TC_uses] TC) [purchases]"
 
 
-			if(traitor.objectives.len)//If the traitor had no objectives, don't need to process this.
+			if(traitor.objectives && traitor.objectives.len)//If the traitor had no objectives, don't need to process this.
 				var/count = 1
 				for(var/datum/objective/objective in traitor.objectives)
 					if(objective.check_completion())
