@@ -194,8 +194,8 @@
 				var/list/obj/item/organ/external/possible_points = list()
 				if(parent)
 					possible_points += parent
-				if(children)
-					possible_points += children
+				if(children) for(var/organ in children)
+					if(organ) possible_points += organ
 				if(forbidden_limbs.len)
 					possible_points -= forbidden_limbs
 				if(possible_points.len)
