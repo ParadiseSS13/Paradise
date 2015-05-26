@@ -246,6 +246,7 @@
 	item_state = "superior_suit"
 	_color = "superior_suit"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
+	flags_inv = HIDEGLOVES|HIDESHOES
 	
 /obj/item/clothing/head/fluff/arachno_mask
 	name = "Arachno-Man mask"
@@ -254,5 +255,7 @@
 	icon_state = "superior_mask"
 	item_state = "superior_mask"
 	body_parts_covered = HEAD
+	flags = BLOCKHAIR
+	flags_inv = HIDEFACE
 
 //////////// Weapons ////////////
