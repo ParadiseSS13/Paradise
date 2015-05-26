@@ -79,7 +79,7 @@
 		return
 
 	for(var/obj/item/W in H)
-		H.drop_from_inventory(W)
+		H.unEquip(W)
 	H.set_species(H.species.greater_form)
 
 	H << "<B>You are now [H.species.name]. </B>"

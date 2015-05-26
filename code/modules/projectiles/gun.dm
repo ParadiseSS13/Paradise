@@ -96,7 +96,7 @@
 				qdel(src)
 				return
 
-	if (!user.IsAdvancedToolUser() || istype(user, /mob/living/carbon/alien/diona))
+	if (!user.IsAdvancedToolUser() || istype(user, /mob/living/carbon/primitive/diona))
 		user << "\red You don't have the dexterity to do this!"
 		return
 	if(istype(user, /mob/living))

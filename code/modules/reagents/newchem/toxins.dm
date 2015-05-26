@@ -602,8 +602,8 @@ datum/reagent/atrazine/reaction_mob(var/mob/living/M, var/method=TOUCH, var/volu
 					H.adjustToxLoss(50)
 					..()
 					return
-		else if(istype(M,/mob/living/carbon/alien/diona)) //plantmen monkeys (diona) take EVEN MORE damage
-			var/mob/living/carbon/alien/diona/D = M
+		else if(istype(M,/mob/living/carbon/primitive/diona)) //plantmen monkeys (diona) take EVEN MORE damage
+			var/mob/living/carbon/primitive/diona/D = M
 			D.adjustToxLoss(100)
 			..()
 			return
