@@ -101,6 +101,31 @@
 		"/obj/item/device/sensor_device"
 	)
 
+/obj/item/weapon/storage/belt/botany
+	name = "botanist belt"
+	desc = "Can hold various botanical supplies."
+	icon_state = "botanybelt"
+	item_state = "botany"
+	can_hold = list(
+		"/obj/item/device/analyzer/plant_analyzer",
+		"/obj/item/weapon/minihoe",
+		"/obj/item/weapon/hatchet",
+		"/obj/item/weapon/reagent_containers/glass/fertilizer",
+		"/obj/item/weapon/reagent_containers/glass/bottle",
+		"/obj/item/weapon/plantspray",
+		"/obj/item/weapon/reagent_containers/syringe",
+		"/obj/item/weapon/reagent_containers/glass/beaker",
+		"/obj/item/weapon/lighter/zippo",
+		"/obj/item/weapon/storage/fancy/cigarettes",
+		"obj/item/weapon/rollingpaperpack",
+		"/obj/item/weapon/shovel/spade",
+		"/obj/item/device/flashlight/pen",
+		"/obj/item/seeds",
+		"/obj/item/weapon/wirecutters",
+        "/obj/item/weapon/wrench",
+		"/obj/item/weapon/disk/botany",
+	)
+
 
 /obj/item/weapon/storage/belt/security
 	name = "security belt"
@@ -127,13 +152,12 @@
 		"/obj/item/weapon/melee/telebaton"
 		)
 
-/obj/item/weapon/storage/belt/security/New()
+/obj/item/weapon/storage/belt/security/sec/New()
 	..()
 	new /obj/item/device/flashlight/seclite(src)
 
 /obj/item/weapon/storage/belt/security/response_team/New()
 	..()
-	contents.Cut()
 	new /obj/item/weapon/kitchenknife/combat(src)
 	new /obj/item/weapon/melee/baton/loaded(src)
 	new /obj/item/device/flash(src)
