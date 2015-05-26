@@ -852,41 +852,49 @@
 		name = "Blaze"
 		icon_state = "vulp_facial_blaze"
 		species_allowed = list("Vulpkanin")
+		gender = NEUTER
 
 	vulp_vulpine
 		name = "Vulpine"
 		icon_state = "vulp_facial_vulpine"
 		species_allowed = list("Vulpkanin")
+		gender = NEUTER
 
 	vulp_earfluff
 		name = "Earfluff"
 		icon_state = "vulp_facial_earfluff"
 		species_allowed = list("Vulpkanin")
+		gender = NEUTER
 
 	vulp_mask
 		name = "Mask"
 		icon_state = "vulp_facial_mask"
 		species_allowed = list("Vulpkanin")
+		gender = NEUTER
 
 	vulp_patch
 		name = "Patch"
 		icon_state = "vulp_facial_patch"
 		species_allowed = list("Vulpkanin")
+		gender = NEUTER
 
 	vulp_ruff
 		name = "Ruff"
 		icon_state = "vulp_facial_ruff"
 		species_allowed = list("Vulpkanin")
+		gender = NEUTER
 
 	vulp_kita
 		name = "Kita"
 		icon_state = "vulp_facial_kita"
 		species_allowed = list("Vulpkanin")
+		gender = NEUTER
 
 	vulp_swift
 		name = "Swift"
 		icon_state = "vulp_facial_swift"
 		species_allowed = list("Vulpkanin")
+		gender = NEUTER
 
 //skin styles - WIP
 //going to have to re-integrate this with surgery
