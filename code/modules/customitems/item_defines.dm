@@ -244,6 +244,7 @@
 	icon = 'icons/obj/clothing/uniforms.dmi'
 	icon_state = "superior_suit"
 	item_state = "superior_suit"
+	_color = "superior_suit"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
 	flags_inv = HIDEGLOVES|HIDESHOES
 	
