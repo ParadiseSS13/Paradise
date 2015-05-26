@@ -82,7 +82,7 @@
 /obj/effect/proc_holder/changeling/sting/transformation/can_sting(var/mob/user, var/mob/target)
 	if(!..())
 		return
-	if((HUSK in target.mutations) || (!ishuman(target) && !issmall(target)))
+	if((HUSK in target.mutations) || (!ishuman(target)) )
 		user << "<span class='warning'>Our sting appears ineffective against its DNA.</span>"
 		return 0
 	if(ishuman(target))

@@ -352,7 +352,7 @@ var/list/sting_paths
 /mob/proc/make_changeling()
 	if(!mind)
 		return
-	if(!ishuman(src) && !issmall(src))
+	if(!ishuman(src))
 		return
 	if(!mind.changeling)
 		mind.changeling = new /datum/changeling(gender)
@@ -400,7 +400,7 @@ var/list/sting_paths
 	mimicing = ""
 
 /mob/proc/remove_changeling_powers(var/keep_free_powers=0)
-	if(ishuman(src) || issmall(src))
+	if(ishuman(src))
 		if(mind && mind.changeling)
 			digitalcamo = 0
 			mind.changeling.changeling_speak = 0

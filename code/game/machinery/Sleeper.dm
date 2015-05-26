@@ -574,7 +574,7 @@
 	set name = "Enter Sleeper"
 	set category = null
 	set src in oview(1)
-	if(usr.stat != 0 || !(ishuman(usr) || issmall(usr)))
+	if(usr.stat != 0 || !(ishuman(usr)))
 		return
 	if(src.occupant)
 		usr << "\blue <B>The sleeper is already occupied!</B>"
