@@ -52,6 +52,8 @@
 		stat |= NOPOWER
 
 /obj/machinery/keycard_auth/attack_hand(mob/user as mob)
+	if(!user.IsAdvancedToolUser())
+		return 0
 	ui_interact(user)
 
 /obj/machinery/keycard_auth/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)

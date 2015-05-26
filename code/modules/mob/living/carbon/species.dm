@@ -56,6 +56,7 @@
 	var/list/default_genes = list()
 
 	var/ventcrawler = 0 //Determines if the mob can go through the vents.
+	var/has_fine_manipulation = 1 // Can use small items.
 
 	var/flags = 0       // Various specific features.
 	var/bloodflags=0

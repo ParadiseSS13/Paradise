@@ -1091,9 +1091,6 @@
 		tinted += MT.tint
 	return tinted
 
-/mob/living/carbon/human/IsAdvancedToolUser()
-	return 1//Humans can use guns and such
-
 
 /mob/living/carbon/human/abiotic(var/full_body = 0)
 	if(full_body && ((src.l_hand && !(src.l_hand.flags & ABSTRACT)) || (src.r_hand && !(src.r_hand.flags & ABSTRACT)) || (src.back || src.wear_mask || src.head || src.shoes || src.w_uniform || src.wear_suit || src.glasses || src.l_ear || src.r_ear || src.gloves)))
@@ -1691,3 +1688,11 @@
 
 /mob/living/carbon/human/InCritical()
 	return (health <= config.health_threshold_crit && stat == UNCONSCIOUS)
+
+
+/mob/living/carbon/human/IsAdvancedToolUser(var/silent)
+	if(species.has_fine_manipulation)
+		return 1
+	if(!silent)
+		src << "<span class='warning'>You don't have the dexterity to use that!<span>"
+	return 0

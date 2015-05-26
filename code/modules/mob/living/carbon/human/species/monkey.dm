@@ -11,7 +11,8 @@
 	default_language = "Chimpanzee"
 	greater_form = "Human"
 	is_small = 1
-	//has_fine_manipulation = 0
+	has_fine_manipulation = 0
+	ventcrawler = 1
 	show_ssd = 0
 	eyes = "blank_eyes"
 

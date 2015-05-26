@@ -811,6 +811,8 @@
 		return 0
 	if(!user.client)
 		return 0
+	if(!user.IsAdvancedToolUser())
+		return 0
 	if ( ! (istype(user, /mob/living/carbon/human) || \
 			istype(user, /mob/living/silicon)))
 		user << "\red You don't have the dexterity to use this [src]!"

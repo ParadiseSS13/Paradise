@@ -321,3 +321,6 @@
 		if ("Disable")
 			sensor_mode = 0
 			src << "Sensor augmentations disabled."
+
+/mob/living/silicon/IsAdvancedToolUser()
+	return 1

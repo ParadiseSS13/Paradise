@@ -30,6 +30,8 @@
 	src.ui_interact(user)
 
 /obj/machinery/embedded_controller/attack_hand(mob/user as mob)
+	if(!user.IsAdvancedToolUser())
+		return 0
 	src.ui_interact(user)
 
 /obj/machinery/embedded_controller/ui_interact()

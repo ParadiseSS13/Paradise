@@ -99,8 +99,7 @@
 		var/mob/living/carbon/human/H = M
 		if(H.species.flags & IS_SYNTHETIC)
 			return
-	if (!(istype(usr, /mob/living/carbon/human) || ticker) && ticker.mode.name != "monkey")
-		user << "\red You don't have the dexterity to do this!"
+	if (!usr.IsAdvancedToolUser())
 		return
 
 	M.attack_log += text("\[[time_stamp()]\] <font color='orange'>Has been injected with [name] by [user.name] ([user.ckey])</font>")
