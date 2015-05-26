@@ -197,8 +197,6 @@ var/global/totaltribbles = 0   //global variable so it updates for all tribbles,
 	..()
 	return
 
-/obj/structure/tribble_cage/attack_paw(mob/user as mob)
-	return src.attack_hand(user)
 
 /obj/structure/tribble_cage/attack_hand(mob/user as mob)
 	if (src.destroyed)

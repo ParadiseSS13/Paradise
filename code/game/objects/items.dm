@@ -165,7 +165,7 @@
 	return 1
 
 
-/obj/item/attack_paw(mob/user as mob)
+/obj/item/attack_alien(mob/user as mob)
 
 	if(isalien(user)) // -- TLE
 		var/mob/living/carbon/alien/A = user

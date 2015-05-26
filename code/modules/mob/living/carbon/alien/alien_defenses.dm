@@ -62,13 +62,6 @@ In all, this is a lot like the monkey code. /N
 	return 0
 
 
-/mob/living/carbon/alien/attack_paw(mob/living/carbon/monkey/M as mob)
-	if(..())
-		if (stat != DEAD)
-			adjustBruteLoss(rand(1, 3))
-			updatehealth()
-	return
-
 
 /mob/living/carbon/alien/attack_animal(mob/living/simple_animal/M as mob)
 	if(..())

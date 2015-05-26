@@ -80,7 +80,7 @@ var/bomb_set
 
 	if (istype(O, /obj/item/device/multitool) || istype(O, /obj/item/weapon/wirecutters))
 		ui_interact(user)
-		
+
 	if (src.extended)
 		if (istype(O, /obj/item/weapon/disk/nuclear))
 			usr.drop_item()
@@ -159,8 +159,6 @@ var/bomb_set
 				return
 	..()
 
-/obj/machinery/nuclearbomb/attack_paw(mob/user as mob)
-	return src.attack_hand(user)
 
 /obj/machinery/nuclearbomb/attack_hand(mob/user as mob)
 	if (src.extended)
@@ -182,9 +180,9 @@ var/bomb_set
 
 obj/machinery/nuclearbomb/proc/nukehack_win(mob/user as mob)
 	ui_interact(user)
-	
+
 /obj/machinery/nuclearbomb/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
-	var/data[0]	
+	var/data[0]
 	var/uiwidth
 	var/uiheight
 	var/uititle
@@ -197,12 +195,12 @@ obj/machinery/nuclearbomb/proc/nukehack_win(mob/user as mob)
 			else
 				data["authstatus"] = "Auth. S2"
 		else
-			if (src.timing)	
+			if (src.timing)
 				data["authstatus"] = "Set"
 			else
 				data["authstatus"] = "Auth. S1"
-		data["safe"] = src.safety ? "Safe" : "Engaged"			
-		data["time"] = src.timeleft	
+		data["safe"] = src.safety ? "Safe" : "Engaged"
+		data["time"] = src.timeleft
 		data["timer"] = src.timing
 		data["safety"] = src.safety
 		data["anchored"] = src.anchored
@@ -217,7 +215,7 @@ obj/machinery/nuclearbomb/proc/nukehack_win(mob/user as mob)
 		uititle = "Nuke Control Panel"
 	else
 		data["hacking"] = 1
-		var/list/tempwires[0] 
+		var/list/tempwires[0]
 		for(var/wire in src.wires)
 			tempwires.Add(list(list("name" = wire, "cut" = src.wires[wire])))
 		data["wires"] = tempwires
@@ -227,17 +225,17 @@ obj/machinery/nuclearbomb/proc/nukehack_win(mob/user as mob)
 		uiwidth = 420
 		uiheight = 440
 		uititle = "Nuclear Bomb Defusion"
-	ui = nanomanager.try_update_ui(user, src, ui_key, ui, data, force_open)	
+	ui = nanomanager.try_update_ui(user, src, ui_key, ui, data, force_open)
 	if (!ui)
 		ui = new(user, src, ui_key, "nuclear_bomb.tmpl", uititle, uiwidth, uiheight)
-		ui.set_initial_data(data)		
+		ui.set_initial_data(data)
 		ui.open()
 
 /obj/machinery/nuclearbomb/verb/make_deployable()
 	set category = "Object"
 	set name = "Make Deployable"
 	set src in oview(1)
-	
+
 	if(usr.stat || !usr.canmove || usr.restrained())
 		return
 
@@ -340,8 +338,8 @@ obj/machinery/nuclearbomb/proc/nukehack_win(mob/user as mob)
 					if (src.timing == -1.0)
 						return
 					if (src.safety)
-						usr << "\red The safety is still on."	
-						nanomanager.update_uis(src)						
+						usr << "\red The safety is still on."
+						nanomanager.update_uis(src)
 						return
 					src.timing = !( src.timing )
 					if (src.timing)
@@ -429,7 +427,7 @@ obj/machinery/nuclearbomb/proc/nukehack_win(mob/user as mob)
 			if(ticker.mode.name == "nuclear emergency")
 				ticker.mode:nukes_left --
 			else if(off_station == 1)
-				world << "<b>A nuclear device was set off, but the explosion was out of reach of the station!</b>"				
+				world << "<b>A nuclear device was set off, but the explosion was out of reach of the station!</b>"
 			else if(off_station == 2)
 				world << "<b>A nuclear device was set off, but the device was not on the station!</b>"
 			else

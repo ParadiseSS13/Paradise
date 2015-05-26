@@ -27,13 +27,13 @@
 		if(src.contents.len)
 
 			var/mob/living/M = locate() in contents
-			
+
 			var/obj/structure/closet/body_bag/B = locate() in contents
 			if(M==null) M = locate() in B
 
 			if(M)
 				var/mob/dead/observer/G = M.get_ghost()
-				
+
 				if(M.client)
 					src.icon_state = "morgue3"
 				else if(G && G.client) //There is a ghost and it is connected to the server
@@ -73,8 +73,6 @@
 /obj/structure/morgue/alter_health()
 	return src.loc
 
-/obj/structure/morgue/attack_paw(mob/user as mob)
-	return src.attack_hand(user)
 
 /obj/structure/morgue/attack_hand(mob/user as mob)
 	if (src.connected)
@@ -155,8 +153,6 @@
 	anchored = 1.0
 	throwpass = 1
 
-/obj/structure/m_tray/attack_paw(mob/user as mob)
-	return src.attack_hand(user)
 
 /obj/structure/m_tray/attack_hand(mob/user as mob)
 	if (src.connected)
@@ -240,8 +236,6 @@
 /obj/structure/crematorium/alter_health()
 	return src.loc
 
-/obj/structure/crematorium/attack_paw(mob/user as mob)
-	return src.attack_hand(user)
 
 /obj/structure/crematorium/attack_hand(mob/user as mob)
 //	if (cremating) AWW MAN! THIS WOULD BE SO MUCH MORE FUN ... TO WATCH
@@ -374,9 +368,6 @@
 	var/obj/structure/crematorium/connected = null
 	anchored = 1.0
 	throwpass = 1
-
-/obj/structure/c_tray/attack_paw(mob/user as mob)
-	return src.attack_hand(user)
 
 /obj/structure/c_tray/attack_hand(mob/user as mob)
 	if (src.connected)

@@ -55,10 +55,6 @@
 		opened = !opened
 	update_icon()
 
-/obj/structure/extinguisher_cabinet/attack_paw(mob/user)
-	attack_hand(user)
-	return
-
 
 /obj/structure/extinguisher_cabinet/update_icon()
 	if(!opened)

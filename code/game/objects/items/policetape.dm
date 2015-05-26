@@ -172,9 +172,6 @@ var/list/tape_roll_applications = list()
 	else
 		breaktape(/obj/item/weapon/soap, user)//cant be null, and can't be sharp.
 
-/obj/item/tape/attack_paw(mob/user as mob)
-	breaktape(/obj/item/weapon/wirecutters,user)
-
 /obj/item/tape/attack_alien(mob/user as mob)
 	breaktape(/obj/item/weapon/wirecutters,user)
 

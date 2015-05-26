@@ -165,8 +165,7 @@
 
 /obj/machinery/clonepod/attack_ai(mob/user as mob)
 	return attack_hand(user)
-/obj/machinery/clonepod/attack_paw(mob/user as mob)
-	return attack_hand(user)
+
 /obj/machinery/clonepod/attack_hand(mob/user as mob)
 	if ((isnull(src.occupant)) || (stat & NOPOWER))
 		return

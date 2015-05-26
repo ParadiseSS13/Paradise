@@ -328,10 +328,6 @@
 			spawn(30)
 				lastbang = 0
 
-
-/obj/structure/closet/attack_paw(mob/user as mob)
-	return src.attack_hand(user)
-
 /obj/structure/closet/attack_hand(mob/user as mob)
 	src.add_fingerprint(user)
 	src.toggle(user)

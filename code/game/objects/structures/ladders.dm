@@ -66,8 +66,5 @@
 
 	add_fingerprint(user)
 
-/obj/structure/ladder/attack_paw(mob/user as mob)
-	return attack_hand(user)
-
 /obj/structure/ladder/attackby(obj/item/weapon/W, mob/user as mob, params)
 	return attack_hand(user)

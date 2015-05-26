@@ -120,10 +120,6 @@
 	return attack_hand(user)
 
 
-/obj/machinery/computer/pod/attack_paw(var/mob/user as mob)
-	return attack_hand(user)
-
-
 /obj/machinery/computer/pod/attack_hand(var/mob/user as mob)
 	if(..())
 		return

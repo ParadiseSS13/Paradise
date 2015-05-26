@@ -50,10 +50,6 @@
 	for(var/i = 1; i <= starting_crystals; i++)
 		crystals += new /obj/item/bluespace_crystal/artificial(null) // starting crystals
 
-/obj/machinery/computer/telescience/attack_paw(mob/user)
-	user << "You are too primitive to use this computer."
-	return
-
 /obj/machinery/computer/telescience/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/bluespace_crystal))
 		if(crystals.len >= max_crystals)
@@ -80,7 +76,7 @@
 			updateUsrDialog()
 	else
 		..()
-		
+
 /obj/machinery/computer/telescience/emag_act(user as mob)
 	if (!emagged)
 		user << "\blue You scramble the Telescience authentication key to an unknown signal. You should be able to teleport to more places now!"

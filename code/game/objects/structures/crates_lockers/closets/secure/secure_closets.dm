@@ -100,9 +100,6 @@
 	else
 		src.toggle(user)
 
-/obj/structure/closet/secure_closet/attack_paw(mob/user as mob)
-	return src.attack_hand(user)
-
 /obj/structure/closet/secure_closet/verb/verb_togglelock()
 	set src in oview(1) // One square distance
 	set category = "Object"

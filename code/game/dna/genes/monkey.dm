@@ -11,14 +11,11 @@
 	if(!istype(H,/mob/living/carbon/human))
 //		testing("Cannot monkey-ify [M], type is [M.type].")
 		return
-	if(H.monkeyizing)
-		return
 	for(var/obj/item/W in H)
 		if (W==H.w_uniform) // will be torn
 			continue
-		H.drop_from_inventory(W)
+		H.unEquip(W)
 	H.regenerate_icons()
-	H.monkeyizing = 1
 	H.canmove = 0
 	H.stunned = 1
 	H.icon = null
@@ -33,7 +30,6 @@
 	sleep(48)
 	//animation = null
 
-	H.monkeyizing = 0
 	H.stunned = 0
 	H.update_canmove()
 	H.invisibility = initial(H.invisibility)
@@ -43,7 +39,7 @@
 		return
 
 	for(var/obj/item/W in H)
-		H.drop_from_inventory(W)
+		H.unEquip(W)
 	H.set_species(H.species.primitive_form)
 
 	H << "<B>You are now [H.species.name]. </B>"
@@ -55,14 +51,11 @@
 	if(!istype(H,/mob/living/carbon/human))
 //		testing("Cannot monkey-ify [M], type is [M.type].")
 		return
-	if(H.monkeyizing)
-		return
 	for(var/obj/item/W in H)
 		if (W==H.w_uniform) // will be torn
 			continue
-		H.drop_from_inventory(W)
+		H.unEquip(W)
 	H.regenerate_icons()
-	H.monkeyizing = 1
 	H.canmove = 0
 	H.stunned = 1
 	H.icon = null
@@ -77,7 +70,6 @@
 	sleep(48)
 	//animation = null
 
-	H.monkeyizing = 0
 	H.stunned = 0
 	H.update_canmove()
 	H.invisibility = initial(H.invisibility)

@@ -31,9 +31,6 @@ var/prison_shuttle_timeleft = 0
 		return src.attack_hand(user)
 
 
-	attack_paw(var/mob/user as mob)
-		return src.attack_hand(user)
-
 
 	attackby(I as obj, user as mob, params)
 		if(istype(I, /obj/item/weapon/screwdriver))

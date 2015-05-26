@@ -1105,10 +1105,6 @@ steam.start() -- spawns the effect
 		if(metal==1 || prob(50))
 			del(src)
 
-	attack_paw(var/mob/user)
-		attack_hand(user)
-		return
-
 	attack_hand(var/mob/user)
 		if ((HULK in user.mutations) || (prob(75 - metal*25)))
 			user << "\blue You smash through the metal foam wall."

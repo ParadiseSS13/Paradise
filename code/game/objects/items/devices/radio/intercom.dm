@@ -40,9 +40,6 @@
 	spawn (0)
 		attack_self(user)
 
-/obj/item/device/radio/intercom/attack_paw(mob/user as mob)
-	return attack_hand(user)
-
 /obj/item/device/radio/intercom/attack_hand(mob/user as mob)
 	add_fingerprint(user)
 	spawn (0)

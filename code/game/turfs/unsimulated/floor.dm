@@ -3,9 +3,6 @@
 	icon = 'icons/turf/floors.dmi'
 	icon_state = "Floor3"
 
-/turf/unsimulated/floor/attack_paw(user as mob)
-	return src.attack_hand(user)
-
 /turf/unsimulated/floor/attack_hand(var/mob/user as mob)
 	if ((!( user.canmove ) || user.restrained() || !( user.pulling )))
 		return

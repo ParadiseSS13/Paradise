@@ -26,9 +26,6 @@
 		buf.dna.ResetSE()
 		SetValue(value)
 
-/obj/item/weapon/dnainjector/attack_paw(mob/user as mob)
-	return attack_hand(user)
-
 /obj/item/weapon/dnainjector/proc/GetRealBlock(var/selblock)
 	if(selblock==0)
 		return block

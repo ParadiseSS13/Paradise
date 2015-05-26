@@ -252,22 +252,6 @@
 
 //Interactions
 
-/turf/simulated/wall/attack_paw(mob/living/user as mob)
-	user.changeNext_move(CLICK_CD_MELEE)
-	if ((HULK in user.mutations))
-		user.do_attack_animation(src)
-		if (prob(40))
-			usr << text("\blue You smash through the wall.")
-			usr.say(pick(";RAAAAAAAARGH!", ";HNNNNNNNNNGGGGGGH!", ";GWAAAAAAAARRRHHH!", "NNNNNNNNGGGGGGGGHH!", ";AAAAAAARRRGH!" ))
-			dismantle_wall(1)
-			return
-		else
-			usr << text("\blue You punch the wall.")
-			take_damage(rand(25, 75))
-			return
-
-	return src.attack_hand(user)
-
 /turf/simulated/wall/attack_animal(var/mob/living/simple_animal/M)
 	M.changeNext_move(CLICK_CD_MELEE)
 	M.do_attack_animation(src)
