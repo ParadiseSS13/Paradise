@@ -915,6 +915,7 @@ mob/living/carbon/slime/var/temperature_resistance = T0C+75
 		var/mob/dead/observer/ghost
 		for(var/mob/dead/observer/O in src.loc)
 			if(!check_observer(O))
+				O << "\red You are not eligible to become a golem."
 				continue
 			ghost = O
 			break
@@ -952,6 +953,8 @@ mob/living/carbon/slime/var/temperature_resistance = T0C+75
 			return 0
 		if(O.mind && O.mind.current && O.mind.current.stat != DEAD)
 			return 0
+		if(O.has_enabled_antagHUD == 1 && config.antag_hud_restricted)
+			return 0
 		return 1
 
 	proc/volunteer(var/mob/dead/observer/O)
@@ -960,7 +963,7 @@ mob/living/carbon/slime/var/temperature_resistance = T0C+75
 			O << "\red You are no longer signed up to be a golem."
 		else
 			if(!check_observer(O))
-				O << "\red You are not eligable."
+				O << "\red You are not eligible to become a golem."
 				return
 			ghosts.Add(O)
 			O << "\blue You are signed up to be a golem."
