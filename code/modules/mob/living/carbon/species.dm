@@ -52,6 +52,7 @@
 	var/light_dam //Light level above which species takes damage, and below which it heals.
 	var/light_effect_amp //If 0, takes/heals 1 burn and brute per tick. Otherwise, both healing and damage effects are amplified.
 
+	var/total_health = 100
 	var/max_hurt_damage = 9 // Max melee damage dealt + 5 if hulk
 	var/list/default_genes = list()
 

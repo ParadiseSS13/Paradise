@@ -1385,6 +1385,8 @@
 		vessel = null
 	make_blood()
 
+	maxHealth = species.total_health
+
 	if(species.language)
 		add_language(species.language)
 
