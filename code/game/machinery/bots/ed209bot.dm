@@ -411,7 +411,7 @@ Auto Patrol[]"},
 	new /obj/item/device/assembly/prox_sensor(Tsec)
 
 	if(!lasercolor)
-		var/obj/item/weapon/gun/energy/advtaser/G = new /obj/item/weapon/gun/energy/advtaser(Tsec)
+		var/obj/item/weapon/gun/energy/disabler/G = new /obj/item/weapon/gun/energy/disabler(Tsec)
 		G.power_supply.charge = 0
 		G.update_icon()
 	else if(lasercolor == "b")
@@ -641,7 +641,7 @@ Auto Patrol[]"},
 						return
 					name = "redtag ED-209 assembly"
 				if("")
-					if(!istype(W, /obj/item/weapon/gun/energy/advtaser))
+					if(!istype(W, /obj/item/weapon/gun/energy/disabler))
 						return
 					name = "taser ED-209 assembly"
 				else
