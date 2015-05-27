@@ -43,9 +43,6 @@
 	src.add_hiddenprint(user)
 	return attack_hand(user)
 
-/obj/machinery/computer/salvage_ship/attack_paw(mob/user as mob)
-	return attack_hand(user)
-
 /obj/machinery/computer/salvage_ship/attack_hand(mob/user as mob)
 	if(!allowed(user))
 		user << "\red Access Denied"

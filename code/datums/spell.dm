@@ -84,7 +84,7 @@ var/list/spells = typesof(/obj/effect/proc_holder/spell) //needed for the badmin
 			user << "Not when you're incapacitated."
 			return 0
 
-		if(ishuman(user) || ismonkey(user))
+		if(ishuman(user))
 			if(user.is_muzzled())
 				user << "Mmmf mrrfff!"
 				return 0

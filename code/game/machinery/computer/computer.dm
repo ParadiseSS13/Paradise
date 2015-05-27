@@ -141,20 +141,6 @@
 		src.attack_hand(user)
 	return
 
-/obj/machinery/computer/attack_paw(mob/living/user)
-	user.changeNext_move(CLICK_CD_MELEE)
-	user.do_attack_animation(src)
-	if(circuit)
-		if(prob(10))
-			user.visible_message("<span class='danger'>[user.name] smashes the [src.name] with its paws.</span>",\
-			"<span class='danger'>You smash the [src.name] with your paws.</span>",\
-			"<span class='danger'>You hear a smashing sound.</span>")
-			set_broken()
-			return
-	user.visible_message("<span class='danger'>[user.name] smashes against the [src.name] with its paws.</span>",\
-	"<span class='danger'>You smash against the [src.name] with your paws.</span>",\
-	"<span class='danger'>You hear a clicking sound.</span>")
-
 /obj/machinery/computer/attack_alien(mob/living/user)
 	user.changeNext_move(CLICK_CD_MELEE)
 	user.do_attack_animation(src)

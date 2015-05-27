@@ -174,10 +174,10 @@ datum/hud/New(mob/owner)
 	var/ui_color = mymob.client.prefs.UI_style_color
 	var/ui_alpha = mymob.client.prefs.UI_style_alpha
 
-	if(ishuman(mymob))
-		human_hud(ui_style, ui_color, ui_alpha) // Pass the player the UI style chosen in preferences
-	else if(ismonkey(mymob))
+	if(issmall(mymob))
 		monkey_hud(ui_style)
+	else if(ishuman(mymob))
+		human_hud(ui_style, ui_color, ui_alpha) // Pass the player the UI style chosen in preferences
 	else if(isbrain(mymob))
 		brain_hud(ui_style)
 	else if( islarva(mymob) || isfacehugger(mymob) )

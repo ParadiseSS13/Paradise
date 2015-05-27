@@ -82,7 +82,7 @@
 /obj/effect/proc_holder/changeling/sting/transformation/can_sting(var/mob/user, var/mob/target)
 	if(!..())
 		return
-	if((HUSK in target.mutations) || (!ishuman(target) && !ismonkey(target)))
+	if((HUSK in target.mutations) || (!ishuman(target)) )
 		user << "<span class='warning'>Our sting appears ineffective against its DNA.</span>"
 		return 0
 	if(ishuman(target))
@@ -95,7 +95,7 @@
 /obj/effect/proc_holder/changeling/sting/transformation/sting_action(var/mob/user, var/mob/target)
 	add_logs(target, user, "stung", object="transformation sting", addition=" new identity is [selected_dna.real_name]")
 	var/datum/dna/NewDNA = selected_dna
-	if(ismonkey(target))
+	if(issmall(target))
 		user << "<span class='notice'>We stealthily sting [target.name].</span>"
 	target.dna = NewDNA.Clone()
 	target.real_name = NewDNA.real_name

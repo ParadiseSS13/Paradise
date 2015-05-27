@@ -101,9 +101,6 @@
 /obj/machinery/sleep_console/attack_ai(mob/user as mob)
 	return src.attack_hand(user)
 
-/obj/machinery/sleep_console/attack_paw(mob/user as mob)
-	return src.attack_hand(user)
-
 /obj/machinery/sleep_console/attack_hand(mob/user as mob)
 	if(..())
 		return
@@ -577,7 +574,7 @@
 	set name = "Enter Sleeper"
 	set category = null
 	set src in oview(1)
-	if(usr.stat != 0 || !(ishuman(usr) || ismonkey(usr)))
+	if(usr.stat != 0 || !(ishuman(usr)))
 		return
 	if(src.occupant)
 		usr << "\blue <B>The sleeper is already occupied!</B>"

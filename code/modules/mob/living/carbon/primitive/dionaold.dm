@@ -3,7 +3,7 @@
 */
 
 //Mob defines.
-/mob/living/carbon/monkey/diona
+/mob/living/carbon/primitive/diona
 	name = "diona nymph"
 	voice_name = "diona nymph"
 	speak_emote = list("chirrups")
@@ -12,22 +12,22 @@
 	var/ready_evolve = 0
 	ventcrawler = 1
 
-/mob/living/carbon/monkey/diona/New()
+/mob/living/carbon/primitive/diona/New()
 
 	..()
 	gender = NEUTER
-	greaterform = "Diona"
+	//greaterform = "Diona"
 	add_language("Rootspeak")
 
-/mob/living/carbon/monkey/diona/attack_hand(mob/living/carbon/human/M as mob)
+/mob/living/carbon/primitive/diona/attack_hand(mob/living/carbon/human/M as mob)
 
 	//Let people pick the little buggers up.
 	if(M.a_intent == "help")
 		if(M.species && M.species.name == "Diona")
 			M << "You feel your being twine with that of [src] as it merges with your biomass."
 			src << "You feel your being twine with that of [M] as you merge with its biomass."
-			src.verbs += /mob/living/carbon/monkey/diona/proc/split
-			src.verbs -= /mob/living/carbon/monkey/diona/proc/merge
+			src.verbs += /mob/living/carbon/primitive/diona/proc/split
+			src.verbs -= /mob/living/carbon/primitive/diona/proc/merge
 			src.loc = M
 		else
 			var/obj/item/weapon/holder/diona/D = new(loc)
@@ -41,23 +41,23 @@
 
 	..()
 
-/mob/living/carbon/monkey/diona/New()
+/mob/living/carbon/primitive/diona/New()
 
 	..()
 	gender = NEUTER
-	greaterform = "Diona"
+	//greaterform = "Diona"
 	add_language("Rootspeak")
-	src.verbs += /mob/living/carbon/monkey/diona/proc/merge
+	src.verbs += /mob/living/carbon/primitive/diona/proc/merge
 
 
-/mob/living/carbon/monkey/diona/proc/merge()
+/mob/living/carbon/primitive/diona/proc/merge()
 
 	set category = "Diona"
 	set name = "Merge with gestalt"
 	set desc = "Merge with another diona."
 
 	if(istype(src.loc,/mob/living/carbon))
-		src.verbs -= /mob/living/carbon/monkey/diona/proc/merge
+		src.verbs -= /mob/living/carbon/primitive/diona/proc/merge
 		return
 
 	var/list/choices = list()
@@ -80,19 +80,19 @@
 
 		src << "You feel your being twine with that of [M] as you merge with its biomass."
 		src.loc = M
-		src.verbs += /mob/living/carbon/monkey/diona/proc/split
-		src.verbs -= /mob/living/carbon/monkey/diona/proc/merge
+		src.verbs += /mob/living/carbon/primitive/diona/proc/split
+		src.verbs -= /mob/living/carbon/primitive/diona/proc/merge
 	else
 		return
 
-/mob/living/carbon/monkey/diona/proc/split()
+/mob/living/carbon/primitive/diona/proc/split()
 
 	set category = "Diona"
 	set name = "Split from gestalt"
 	set desc = "Split away from your gestalt as a lone nymph."
 
 	if(!(istype(src.loc,/mob/living/carbon)))
-		src.verbs -= /mob/living/carbon/monkey/diona/proc/split
+		src.verbs -= /mob/living/carbon/primitive/diona/proc/split
 		return
 
 	src.loc << "You feel a pang of loss as [src] splits away from your biomass."
@@ -101,8 +101,8 @@
 	var/mob/living/M = src.loc
 
 	src.loc = get_turf(src)
-	src.verbs -= /mob/living/carbon/monkey/diona/proc/split
-	src.verbs += /mob/living/carbon/monkey/diona/proc/merge
+	src.verbs -= /mob/living/carbon/primitive/diona/proc/split
+	src.verbs += /mob/living/carbon/primitive/diona/proc/merge
 
 	if(istype(M))
 		for(var/atom/A in M.contents)
@@ -110,7 +110,7 @@
 				return
 	M.status_flags &= ~PASSEMOTES
 
-/mob/living/carbon/monkey/diona/verb/fertilize_plant()
+/mob/living/carbon/primitive/diona/verb/fertilize_plant()
 
 	set category = "Diona"
 	set name = "Fertilize plant"
@@ -129,7 +129,7 @@
 	target.nutrilevel = 10
 	src.visible_message("\red [src] secretes a trickle of green liquid from its tail, refilling [target]'s nutrient tray.","\red You secrete a trickle of green liquid from your tail, refilling [target]'s nutrient tray.")
 
-/mob/living/carbon/monkey/diona/verb/eat_weeds()
+/mob/living/carbon/primitive/diona/verb/eat_weeds()
 
 	set category = "Diona"
 	set name = "Eat Weeds"
@@ -148,7 +148,7 @@
 	target.weedlevel = 0
 	src.visible_message("\red [src] begins rooting through [target], ripping out weeds and eating them noisily.","\red You begin rooting through [target], ripping out weeds and eating them noisily.")
 
-/mob/living/carbon/monkey/diona/verb/evolve()
+/mob/living/carbon/primitive/diona/verb/evolve()
 
 	set category = "Diona"
 	set name = "Evolve"
@@ -188,7 +188,7 @@
 
 	del(src)
 
-/mob/living/carbon/monkey/diona/verb/steal_blood()
+/mob/living/carbon/primitive/diona/verb/steal_blood()
 	set category = "Diona"
 	set name = "Steal Blood"
 	set desc = "Take a blood sample from a suitable donor."
@@ -218,7 +218,7 @@
 	spawn(25)
 		update_progression()
 
-/mob/living/carbon/monkey/diona/proc/update_progression()
+/mob/living/carbon/primitive/diona/proc/update_progression()
 
 	if(!donors.len)
 		return
@@ -233,11 +233,11 @@
 		src << "\green The blood seeps into your small form, and you draw out the echoes of memories and personality from it, working them into your budding mind."
 
 
-/mob/living/carbon/monkey/diona/put_in_hands(obj/item/W)
+/mob/living/carbon/primitive/diona/put_in_hands(obj/item/W)
 	W.loc = get_turf(src)
 	W.layer = initial(W.layer)
 	W.dropped()
 
-/mob/living/carbon/monkey/diona/put_in_active_hand(obj/item/W)
+/mob/living/carbon/primitive/diona/put_in_active_hand(obj/item/W)
 	src << "\red You don't have any hands!"
 	return

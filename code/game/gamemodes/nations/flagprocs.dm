@@ -23,8 +23,6 @@
 /obj/item/flag/nation/attackby(var/obj/item/weapon/W, var/mob/user, params)
 	return
 
-/obj/item/flag/nation/attack_paw()
-	return
 
 /obj/item/flag/nation/ex_act()
 	return

@@ -180,9 +180,6 @@
 /obj/machinery/icemachine/attack_ai(mob/user)
 	return attack_hand(user)
 
-/obj/machinery/icemachine/attack_paw(mob/user)
-	return attack_hand(user)
-
 
 /obj/machinery/icemachine/proc/show_toppings()
 	var/dat = ""

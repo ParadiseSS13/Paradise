@@ -291,37 +291,6 @@
 		adjustBruteLoss(damage)
 		updatehealth()
 
-/mob/living/carbon/slime/attack_paw(mob/living/carbon/monkey/M as mob)
-	if(!(istype(M, /mob/living/carbon/monkey)))
-		return // Fix for aliens receiving double messages when attacking other aliens.
-
-	if (!ticker)
-		M << "You cannot attack people before the game has started."
-		return
-
-	if (istype(loc, /turf) && istype(loc.loc, /area/start))
-		M << "No attacking people at spawn, you jackass."
-		return
-
-	..()
-
-	switch(M.a_intent)
-
-		if ("help")
-			help_shake_act(M)
-		else
-			if (istype(wear_mask, /obj/item/clothing/mask/muzzle))
-				return
-			if (health > 0)
-				M.do_attack_animation(src)
-				attacked += 10
-				//playsound(loc, 'sound/weapons/bite.ogg', 50, 1, -1)
-				visible_message("<span class='danger'>[M.name] has attacked [src]!</span>", \
-						"<span class='userdanger'>[M.name] has attacked [src]!</span>")
-				adjustBruteLoss(rand(1, 3))
-				updatehealth()
-	return
-
 /mob/living/carbon/slime/attack_larva(mob/living/carbon/alien/larva/L as mob)
 
 	switch(L.a_intent)

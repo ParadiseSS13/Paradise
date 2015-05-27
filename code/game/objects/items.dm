@@ -165,7 +165,7 @@
 	return 1
 
 
-/obj/item/attack_paw(mob/user as mob)
+/obj/item/attack_alien(mob/user as mob)
 
 	if(isalien(user)) // -- TLE
 		var/mob/living/carbon/alien/A = user
@@ -202,7 +202,7 @@
 			A.unEquip(src)
 		user << "Your claws aren't capable of such fine manipulation."
 		return
-	attack_paw(A)
+	attack_hand(A)
 
 /obj/item/attack_ai(mob/user as mob)
 	if (istype(src.loc, /obj/item/weapon/robot_module))
@@ -494,34 +494,6 @@
 		return 0 //Unsupported slot
 		//END HUMAN
 
-	else if(ismonkey(M))
-		//START MONKEY
-		var/mob/living/carbon/monkey/MO = M
-		switch(slot)
-			if(slot_l_hand)
-				if(MO.l_hand)
-					return 0
-				return 1
-			if(slot_r_hand)
-				if(MO.r_hand)
-					return 0
-				return 1
-			if(slot_wear_mask)
-				if(MO.wear_mask)
-					return 0
-				if( !(slot_flags & SLOT_MASK) )
-					return 0
-				return 1
-			if(slot_back)
-				if(MO.back)
-					return 0
-				if( !(slot_flags & SLOT_BACK) )
-					return 0
-				return 1
-		return 0 //Unsupported slot
-
-		//END MONKEY
-
 
 /obj/item/verb/verb_pickup()
 	set src in oview(1)
@@ -581,14 +553,6 @@
 			(H.head && H.head.flags & HEADCOVERSEYES) || \
 			(H.wear_mask && H.wear_mask.flags & MASKCOVERSEYES) || \
 			(H.glasses && H.glasses.flags & GLASSESCOVERSEYES) \
-		))
-		// you can't stab someone in the eyes wearing a mask!
-		user << "\red You're going to need to remove that mask/helmet/glasses first."
-		return
-
-	var/mob/living/carbon/monkey/Mo = M
-	if(istype(Mo) && ( \
-			(Mo.wear_mask && Mo.wear_mask.flags & MASKCOVERSEYES) \
 		))
 		// you can't stab someone in the eyes wearing a mask!
 		user << "\red You're going to need to remove that mask/helmet/glasses first."

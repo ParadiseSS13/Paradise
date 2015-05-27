@@ -9,9 +9,6 @@
 /obj/machinery/computer/podtracker/attack_ai(var/mob/user as mob)
 	return src.attack_hand(user)
 
-/obj/machinery/computer/podtracker/attack_paw(var/mob/user as mob)
-	return src.attack_hand(user)
-
 /obj/machinery/computer/podtracker/attack_hand(var/mob/user as mob)
 	if(..())
 		return

@@ -132,9 +132,6 @@
 /obj/machinery/atmospherics/valve/attack_ai(mob/user as mob)
 	return
 
-/obj/machinery/atmospherics/valve/attack_paw(mob/user as mob)
-	return attack_hand(user)
-
 /obj/machinery/atmospherics/valve/attack_hand(mob/user as mob)
 	src.add_fingerprint(usr)
 	update_icon(1)

@@ -385,7 +385,7 @@
 /obj/item/weapon/grenade/clusterbuster/monkey
 	name = "Barrel of Monkeys"
 	desc = "Not really that much fun."
-	payload = /mob/living/carbon/monkey
+	payload = /mob/living/carbon/human/monkey
 /obj/item/weapon/grenade/clusterbuster/fluffy
 	name = "Fluffy Love Bomb"
 	desc = "Exactly as snuggly as it sounds."

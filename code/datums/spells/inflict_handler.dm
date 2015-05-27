@@ -26,7 +26,7 @@
 			if("gib")
 				target.gib()
 			if("gib_brain")
-				if(ishuman(target) || ismonkey(target))
+				if(ishuman(target))
 					var/mob/living/carbon/C = target
 					if(C.brain_op_stage != 4) // Their brain is already taken out
 						var/obj/item/organ/brain/B = new(C.loc)

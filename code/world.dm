@@ -1,3 +1,15 @@
+var/global/datum/global_init/init = new ()
+
+/*
+	Pre-map initialization stuff should go here.
+*/
+/datum/global_init/New()
+
+	makeDatumRefLists()
+	load_configuration()
+
+	del(src)
+
 /world
 	mob = /mob/new_player
 	turf = /turf/space
@@ -61,11 +73,7 @@
 	map_name = "Unknown"
 	#endif
 
-	spawn(3000)		//so we aren't adding to the round-start lag
-		if(config.ToRban)
-			ToRban_autoupdate()
-		/*if(config.kick_inactive) HANDLED IN PROCESS SCHEDULER
-			KickInactiveClients()*/
+
 
 
 #undef RECOMMENDED_VERSION
@@ -299,7 +307,7 @@ var/world_topic_spam_protect_time = world.timeofday
 	join_motd = file2text("config/motd.txt")
 
 
-/world/proc/load_configuration()
+/proc/load_configuration()
 	config = new /datum/configuration()
 	config.load("config/config.txt")
 	config.load("config/game_options.txt","game_options")

@@ -411,7 +411,7 @@
 		for(var/i = 1; i <= 5; i++)
 			new /obj/item/weapon/reagent_containers/food/snacks/monkeycube/wrapped/neaeracube(src)
 
-
+/*
 /obj/item/weapon/storage/box/wolpincubes
 	name = "wolpin cube box"
 	desc = "Drymate brand wolpin cubes. Just add water!"
@@ -423,6 +423,7 @@
 		..()
 		for(var/i = 1; i <= 5; i++)
 			new /obj/item/weapon/reagent_containers/food/snacks/monkeycube/wrapped/wolpincube(src)
+*/
 
 /obj/item/weapon/storage/box/permits
 	name = "box of construction permits"

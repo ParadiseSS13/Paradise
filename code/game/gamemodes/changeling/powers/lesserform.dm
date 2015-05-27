@@ -16,52 +16,18 @@
 		return
 	user << "<span class='warning'>Our genes cry out!</span>"
 
-	var/mob/living/carbon/C = user
+	var/mob/living/carbon/human/H = user
 
-	//TODO replace with monkeyize proc
+	if(!istype(H) || !H.species.primitive_form)
+		src << "<span class='warning'>We cannot perform this ability in this form!</span>"
+		return
+
+	H.visible_message("<span class='warning'>[H] transforms!</span>")
+	changeling.geneticdamage = 30
+	H << "<span class='warning'>Our genes cry out!</span>"
 	var/list/implants = list() //Try to preserve implants.
-	for(var/obj/item/weapon/implant/W in C)
+	for(var/obj/item/weapon/implant/W in H)
 		implants += W
-
-	C.notransform = 1
-	C.canmove = 0
-	C.icon = null
-	C.overlays.Cut()
-	C.invisibility = 101
-
-	var/atom/movable/overlay/animation = new /atom/movable/overlay( C.loc )
-	animation.icon_state = "blank"
-	animation.icon = 'icons/mob/mob.dmi'
-	animation.master = src
-	flick("h2monkey", animation)
-	sleep(30)
-	del(animation)
-
-	var/mob/living/carbon/monkey/O = new /mob/living/carbon/monkey(src)
-	O.dna = C.dna.Clone()
-	C.dna = null
-
-	for(var/obj/item/W in C)
-		C.unEquip(W)
-	for(var/obj/T in C)
-		del(T)
-
-	O.loc = C.loc
-	O.name = "monkey ([copytext(md5(C.real_name), 2, 6)])"
-	O.setToxLoss(C.getToxLoss())
-	O.adjustBruteLoss(C.getBruteLoss())
-	O.setOxyLoss(C.getOxyLoss())
-	O.adjustFireLoss(C.getFireLoss())
-	O.stat = C.stat
-	O.a_intent = "harm"
-	for(var/obj/item/weapon/implant/I in implants)
-		I.loc = O
-		I.implanted = O
-
-	C.mind.transfer_to(O)
-	O.mind.changeling.purchasedpowers += new /obj/effect/proc_holder/changeling/humanform(null)
-	O.changeling_update_languages(changeling.absorbed_languages)
-
+	H.monkeyize()
 	feedback_add_details("changeling_powers","LF")
-	qdel(C)
 	return 1

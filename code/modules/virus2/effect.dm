@@ -626,7 +626,7 @@
 		..()
 
 
-var/list/compatible_mobs = list(/mob/living/carbon/human, /mob/living/carbon/monkey)
+var/list/compatible_mobs = list(/mob/living/carbon/human)
 /datum/disease2/effect/horsethroat
 	name = "Horse Throat"
 	stage = 3

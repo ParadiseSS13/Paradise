@@ -340,8 +340,6 @@
 
 	default_deconstruction_crowbar(G)
 
-/obj/machinery/body_scanconsole/attack_paw(user as mob)
-	return src.attack_hand(user)
 
 /obj/machinery/body_scanconsole/attack_ai(user as mob)
 	return src.attack_hand(user)

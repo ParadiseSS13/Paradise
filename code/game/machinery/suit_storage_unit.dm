@@ -96,6 +96,8 @@
 		return
 	if(stat & NOPOWER)
 		return
+	if(!user.IsAdvancedToolUser())
+		return 0
 	if(src.panelopen) //The maintenance panel is open. Time for some shady stuff
 		dat+= "<HEAD><TITLE>Suit storage unit: Maintenance panel</TITLE></HEAD>"
 		dat+= "<Font color ='black'><B>Maintenance panel controls</B></font><HR>"
@@ -562,10 +564,6 @@
 	return src.attack_hand(user)
 
 
-/obj/machinery/suit_storage_unit/attack_paw(mob/user as mob)
-	user << "<font color='blue'>The console controls are far too complicated for your tiny brain!</font>"
-	return
-
 
 //////////////////////////////REMINDER: Make it lock once you place some fucker inside.
 
@@ -626,10 +624,6 @@
 
 /obj/machinery/suit_cycler/attack_ai(mob/user as mob)
 	return src.attack_hand(user)
-
-/obj/machinery/suit_cycler/attack_paw(mob/user as mob)
-	user << "\blue The console controls are far too complicated for your tiny brain!"
-	return
 
 /obj/machinery/suit_cycler/attackby(obj/item/I as obj, mob/user as mob, params)
 
@@ -750,6 +744,9 @@
 
 	if(..() || stat & (BROKEN|NOPOWER))
 		return
+
+	if(!user.IsAdvancedToolUser())
+		return 0
 
 	if(electrified != 0)
 		if(src.shock(user, 100))

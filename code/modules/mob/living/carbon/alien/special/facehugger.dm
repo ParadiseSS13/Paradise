@@ -240,7 +240,7 @@ var/const/MAX_ACTIVE_TIME = 400
 	if(M.stat == DEAD)
 		return 0
 
-	if(iscorgi(M) || ismonkey(M))
+	if(iscorgi(M))
 		return 1
 
 	var/mob/living/carbon/C = M

@@ -72,7 +72,7 @@
 	desc = "A display case for the captain's antique laser gun. It taunts you to kick it."
 
 /obj/structure/displaycase/captains_laser/New()
-	req_access = list(access_captain)	
+	req_access = list(access_captain)
 	locked = 1
 	spawn(5)
 		occupant = new /obj/item/weapon/gun/energy/laser/captain(src)
@@ -217,8 +217,6 @@
 			occupant=W
 			update_icon()
 
-/obj/structure/displaycase/attack_paw(mob/user as mob)
-	return src.attack_hand(user)
 
 /obj/structure/displaycase/attack_hand(mob/user as mob)
 	if (destroyed)

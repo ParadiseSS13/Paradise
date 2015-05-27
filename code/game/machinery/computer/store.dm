@@ -13,8 +13,6 @@
 /obj/machinery/computer/merch/New()
 	..()
 
-/obj/machinery/computer/merch/attack_paw(mob/user as mob)
-	return attack_hand(user)
 
 /obj/machinery/computer/merch/attack_ai(mob/user as mob)
 	src.add_hiddenprint(user)

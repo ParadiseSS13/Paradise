@@ -229,7 +229,7 @@ display round(lastgen) and plasmatank amount
 			if(panel_open)
 				user << "<span class='notice'>You open the access panel.</span>"
 			else
-				user << "<span class='notice'>You close the access panel.</span>"				
+				user << "<span class='notice'>You close the access panel.</span>"
 		else if(istype(O, /obj/item/weapon/storage/part_replacer) && panel_open)
 			exchange_parts(user, O)
 			return
@@ -238,8 +238,8 @@ display round(lastgen) and plasmatank amount
 
 /obj/machinery/power/port_gen/pacman/emag_act(user as mob)
 	emagged = 1
-	emp_act(1)			
-			
+	emp_act(1)
+
 /obj/machinery/power/port_gen/pacman/attack_hand(mob/user as mob)
 	..()
 	if (!anchored)
@@ -248,9 +248,6 @@ display round(lastgen) and plasmatank amount
 	interact(user)
 
 /obj/machinery/power/port_gen/pacman/attack_ai(mob/user as mob)
-	interact(user)
-
-/obj/machinery/power/port_gen/pacman/attack_paw(mob/user as mob)
 	interact(user)
 
 /obj/machinery/power/port_gen/pacman/interact(mob/user)

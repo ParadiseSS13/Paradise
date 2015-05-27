@@ -10,20 +10,18 @@
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/mask.dmi'
 		)
+
+// Clumsy folks can't take the mask off themselves.
+/obj/item/clothing/mask/muzzle/attack_hand(mob/user as mob)
+	if(user.wear_mask == src && !user.IsAdvancedToolUser())
+		return 0
+	..()
+
 /obj/item/clothing/mask/muzzle/gag
 	name = "gag"
 	desc = "Stick this in their mouth to stop the noise."
 	icon_state = "gag"
 	w_class = 1
-
-//Monkeys can not take the muzzle off of themself! Call PETA!
-/obj/item/clothing/mask/muzzle/attack_paw(mob/user as mob)
-	if (src == user.wear_mask)
-		return
-	else
-		..()
-	return
-
 
 /obj/item/clothing/mask/surgical
 	name = "sterile mask"

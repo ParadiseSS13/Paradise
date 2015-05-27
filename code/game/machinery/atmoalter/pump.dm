@@ -96,9 +96,6 @@
 	src.add_hiddenprint(user)
 	return src.attack_hand(user)
 
-/obj/machinery/portable_atmospherics/pump/attack_paw(var/mob/user as mob)
-	return src.attack_hand(user)
-
 /obj/machinery/portable_atmospherics/pump/attack_hand(var/mob/user as mob)
 
 	user.set_machine(src)

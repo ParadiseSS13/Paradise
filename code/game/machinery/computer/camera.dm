@@ -46,8 +46,6 @@ var/camera_cache_id = 1
 	attack_ai(var/mob/user as mob)
 		return attack_hand(user)
 
-	attack_paw(var/mob/user as mob)
-		return attack_hand(user)
 
 	check_eye(var/mob/user as mob)
 		if ((get_dist(user, src) > 1 || !( user.canmove ) || user.blinded || !( current ) || !( current.status )) && (!istype(user, /mob/living/silicon)))

@@ -570,4 +570,28 @@
 	else
 		return ..()
 
+/datum/language/human/monkey
+	name = "Chimpanzee"
+	desc = "Ook ook ook."
+	speech_verb = "chimpers"
+	ask_verb = "chimpers"
+	exclaim_verb = "screeches"
+	key = "mo"
+
+/datum/language/skrell/monkey
+	name = "Neara"
+	desc = "Squik squik squik."
+	key = "ne"
+
+/datum/language/unathi/monkey
+	name = "Stok"
+	desc = "Hiss hiss hiss."
+	key = "st"
+
+/datum/language/tajaran/monkey
+	name = "Farwa"
+	desc = "Meow meow meow."
+	key = "fa"
+
+
 #undef SCRAMBLE_CACHE_LEN

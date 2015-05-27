@@ -12,9 +12,6 @@
 	attack_ai(var/mob/user as mob)
 		return src.attack_hand(user)
 
-	attack_paw(var/mob/user as mob)
-		return src.attack_hand(user)
-
 	attack_hand(var/mob/user as mob)
 		if(..())
 			return

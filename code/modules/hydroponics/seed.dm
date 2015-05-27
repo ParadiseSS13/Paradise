@@ -728,7 +728,7 @@
 			else
 				product = new /obj/item/weapon/reagent_containers/food/snacks/grown(get_turf(user),name)
 			if(get_trait(TRAIT_PRODUCT_COLOUR))
-				if(!has_mob_product || (has_mob_product && has_mob_product != /mob/living/carbon/monkey/diona))
+				if(!has_mob_product || (has_mob_product && has_mob_product != /mob/living/carbon/primitive/diona))
 					product.color = get_trait(TRAIT_PRODUCT_COLOUR)
 				if(istype(product,/obj/item/weapon/reagent_containers/food))
 					var/obj/item/weapon/reagent_containers/food/food = product

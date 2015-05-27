@@ -30,9 +30,6 @@
 	..()
 	return
 
-/obj/structure/stool/bed/attack_paw(mob/user as mob)
-	return src.attack_hand(user)
-
 /obj/structure/stool/bed/attack_hand(mob/user as mob)
 	manual_unbuckle(user)
 	return

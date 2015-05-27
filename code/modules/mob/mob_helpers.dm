@@ -5,10 +5,12 @@
 		return 1
 	return 0
 
-/proc/ismonkey(A)
-	if(A && istype(A, /mob/living/carbon/monkey))
-		return 1
-	return 0
+/proc/issmall(A)
+	if(A && istype(A, /mob/living/carbon/human))
+		var/mob/living/carbon/human/H = A
+		if(H.species && H.species.is_small)
+			return 1
+ 	return 0
 
 /proc/isbrain(A)
 	if(A && istype(A, /mob/living/carbon/brain))
@@ -395,7 +397,7 @@ var/list/intents = list("help","disarm","grab","harm")
 		if(hud_used && hud_used.action_intent)
 			hud_used.action_intent.icon_state = "intent_[a_intent]"
 
-	else if(isrobot(src) || ismonkey(src) || islarva(src))
+	else if(isrobot(src) || islarva(src))
 		switch(input)
 			if("help")
 				a_intent = "help"

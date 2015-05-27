@@ -77,9 +77,6 @@
 	icon_state = "stamp-cent"
 	_color = "internalaffairs"
 
-/obj/item/weapon/stamp/attack_paw(mob/user as mob)
-	return attack_hand(user)
-
 // Syndicate stamp to forge documents.
 
 /obj/item/weapon/stamp/chameleon/attack_self(mob/user as mob)

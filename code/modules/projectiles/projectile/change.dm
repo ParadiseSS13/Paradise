@@ -33,11 +33,8 @@
 
 		var/mob/living/new_mob
 
-		var/randomize = pick("monkey","robot","slime","xeno","human")
+		var/randomize = pick("robot","slime","xeno","human")
 		switch(randomize)
-			if("monkey")
-				new_mob = new /mob/living/carbon/monkey(M.loc)
-				new_mob.universal_speak = 1
 			if("robot")
 				new_mob = new /mob/living/silicon/robot(M.loc)
 				new_mob.gender = M.gender

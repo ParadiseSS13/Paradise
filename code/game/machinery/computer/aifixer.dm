@@ -26,9 +26,6 @@
 /obj/machinery/computer/aifixer/attack_ai(var/mob/user as mob)
 	return attack_hand(user)
 
-/obj/machinery/computer/aifixer/attack_paw(var/mob/user as mob)
-	return attack_hand(user)
-
 /obj/machinery/computer/aifixer/attack_hand(var/mob/user as mob)
 	if(..())
 		return

@@ -256,9 +256,6 @@ var/shuttle_call/shuttle_calls[0]
 /obj/machinery/computer/communications/attack_ai(var/mob/user as mob)
 	return src.attack_hand(user)
 
-/obj/machinery/computer/communications/attack_paw(var/mob/user as mob)
-	return src.attack_hand(user)
-
 
 /obj/machinery/computer/communications/attack_hand(var/mob/user as mob)
 	if(..(user))

@@ -26,7 +26,7 @@
 //returns 1 if the master item's parent's MouseDrop() should be called, 0 otherwise. It's strange, but no other way of
 //doing it without the ability to call another proc's parent, really.
 /obj/item/weapon/storage/internal/proc/handle_mousedrop(mob/user as mob, obj/over_object as obj)
-	if (ishuman(user) || ismonkey(user)) //so monkeys can take off their backpacks -- Urist
+	if (ishuman(user)) //so monkeys can take off their backpacks -- Urist
 
 		if (istype(user.loc,/obj/mecha)) // stops inventory actions in a mech
 			return 0

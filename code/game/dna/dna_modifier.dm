@@ -132,7 +132,7 @@
 		return
 	if(usr.restrained() || usr.stat || usr.weakened || usr.stunned || usr.paralysis || usr.resting) //are you cuffed, dying, lying, stunned or other
 		return
-	if (!ishuman(usr) && !ismonkey(usr)) //Make sure they're a mob that has dna
+	if (!ishuman(usr)) //Make sure they're a mob that has dna
 		usr << "\blue Try as you might, you can not climb up into the scanner."
 		return
 	if (src.occupant)
@@ -417,8 +417,6 @@
 		return
 	return
 */
-/obj/machinery/computer/scan_consolenew/attack_paw(user as mob)
-	attack_hand(user)
 
 /obj/machinery/computer/scan_consolenew/attack_ai(user as mob)
 	src.add_hiddenprint(user)
