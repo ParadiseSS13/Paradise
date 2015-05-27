@@ -2469,7 +2469,7 @@
 "aVy" = (/turf/simulated/floor,/area/hallway/primary/central/ne)
 "aVz" = (/obj/machinery/disposal,/obj/structure/disposalpipe/trunk{dir = 4},/turf/simulated/floor{icon_state = "grimy"},/area/crew_quarters/bar)
 "aVA" = (/obj/machinery/atmospherics/pipe/simple/hidden/supply,/obj/structure/table/reinforced,/obj/item/stack/packageWrap,/obj/item/weapon/pen/blue{pixel_x = 0; pixel_y = 4},/obj/machinery/firealarm{dir = 2; pixel_y = 24},/obj/structure/disposalpipe/segment{dir = 4},/obj/item/weapon/book/manual/barman_recipes,/turf/simulated/floor{icon_state = "grimy"},/area/crew_quarters/bar)
-"aVB" = (/obj/structure/disposalpipe/segment{dir = 4},/mob/living/carbon/human/monkey{tag = "icon-punpun1"; name = "Pun Pun"; icon_state = "punpun1"},/turf/simulated/floor{icon_state = "grimy"},/area/crew_quarters/bar)
+"aVB" = (/obj/structure/disposalpipe/segment{dir = 4},/mob/living/carbon/human/monkey/punpun,/turf/simulated/floor{icon_state = "grimy"},/area/crew_quarters/bar)
 "aVC" = (/obj/structure/disposalpipe/segment{dir = 8; icon_state = "pipe-c"},/turf/simulated/floor{icon_state = "grimy"},/area/crew_quarters/bar)
 "aVD" = (/turf/simulated/floor{icon_state = "grimy"},/area/crew_quarters/bar)
 "aVE" = (/obj/structure/window/reinforced{dir = 4},/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,/obj/structure/table/reinforced,/obj/item/clothing/head/that{pixel_x = 4; pixel_y = 6},/obj/item/weapon/lighter/zippo,/turf/simulated/floor{icon_state = "grimy"},/area/crew_quarters/bar)

@@ -7,6 +7,7 @@
 	damage_overlays = 'icons/mob/human_races/masks/dam_monkey.dmi'
 	damage_mask = 'icons/mob/human_races/masks/dam_mask_monkey.dmi'
 	blood_mask = 'icons/mob/human_races/masks/blood_monkey.dmi'
+	path = /mob/living/carbon/human/monkey
 	language = null
 	default_language = "Chimpanzee"
 	greater_form = "Human"
@@ -36,6 +37,9 @@
 		step(H, pick(cardinal))
 	if(prob(1))
 		H.emote(pick("scratch","jump","roll","tail"))
+
+datum/species/monkey/get_random_name(var/gender)
+	return
 
 /datum/species/monkey/handle_post_spawn(var/mob/living/carbon/human/H)
 	H.real_name = "[lowertext(name)] ([rand(100,999)])"
