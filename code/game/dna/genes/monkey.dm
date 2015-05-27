@@ -42,6 +42,9 @@
 		H.unEquip(W)
 	H.set_species(H.species.primitive_form)
 
+	if(H.hud_used)
+		H.hud_used.monkey_hud()
+
 	H << "<B>You are now [H.species.name]. </B>"
 	qdel(animation)
 
@@ -77,6 +80,10 @@
 	if(!H.species.greater_form) //If the creature in question has no primitive set, this is going to be messy.
 		H.gib()
 		return
+
+	if(H.hud_used)
+		H.hud_used.human_hud()
+
 
 	for(var/obj/item/W in H)
 		H.unEquip(W)

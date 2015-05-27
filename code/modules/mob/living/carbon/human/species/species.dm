@@ -73,10 +73,6 @@
 
 	var/base_color      //Used when setting species.
 
-	// HUD data vars.
-	var/datum/hud_data/hud
-	var/hud_type
-
 	//Used in icon caching.
 	var/race_key = 0
 	var/icon/icon_template

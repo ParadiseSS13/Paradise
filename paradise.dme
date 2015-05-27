@@ -1317,6 +1317,7 @@
 #include "code\modules\mob\living\carbon\human\species\monkey.dm"
 #include "code\modules\mob\living\carbon\human\species\plasmaman.dm"
 #include "code\modules\mob\living\carbon\human\species\shadow.dm"
+#include "code\modules\mob\living\carbon\human\species\species_hud.dm"
 #include "code\modules\mob\living\carbon\human\species\station.dm"
 #include "code\modules\mob\living\carbon\metroid\death.dm"
 #include "code\modules\mob\living\carbon\metroid\emote.dm"
