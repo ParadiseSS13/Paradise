@@ -331,7 +331,6 @@
 	default_language = "Galactic Common"
 	language = "Rootspeak"
 	unarmed_type = /datum/unarmed_attack/diona
-	hud_type = /datum/hud_data/diona
 	//primitive_form = "Nymph"
 	slowdown = 5
 
