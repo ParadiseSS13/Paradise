@@ -11,8 +11,12 @@
 	if(!istype(H,/mob/living/carbon/human))
 //		testing("Cannot monkey-ify [M], type is [M.type].")
 		return
+	if(issmall(H)) // Already a monkey
+		return
 	for(var/obj/item/W in H)
 		if (W==H.w_uniform) // will be torn
+			continue
+		if(istype(W,/obj/item/organ))
 			continue
 		H.unEquip(W)
 	H.regenerate_icons()
@@ -56,6 +60,8 @@
 		return
 	for(var/obj/item/W in H)
 		if (W==H.w_uniform) // will be torn
+			continue
+		if(istype(W,/obj/item/organ))
 			continue
 		H.unEquip(W)
 	H.regenerate_icons()
