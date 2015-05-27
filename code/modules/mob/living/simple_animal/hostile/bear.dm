@@ -23,6 +23,8 @@
 	health = 60
 	melee_damage_lower = 20
 	melee_damage_upper = 30
+	attacktext = "mauls"
+	attack_sound = 'sound/weapons/genhit3.ogg'
 
 	//Space bears aren't affected by atmos.
 	min_oxy = 0
