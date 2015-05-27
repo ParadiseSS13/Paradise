@@ -206,37 +206,25 @@
 		return
 
 
-	// monkeys can only pull the flush lever
-	attack_paw(mob/user as mob)
-		if(stat & BROKEN)
-			return
-
-		flush = !flush
-		update()
-		return
-
 	// ai as human but can't flush
 	attack_ai(mob/user as mob)
 		interact(user, 1)
 
 	// human interact with machine
 	attack_hand(mob/user as mob)
+		if(stat & BROKEN)
+			return
+
 		if(user && user.loc == src)
 			usr << "\red You cannot reach the controls from inside."
 			return
-		/*
-		if(mode==-1)
-			usr << "\red The disposal units power is disabled."
-			return
-		*/
-		interact(user, 0)
 
-	// hostile mob escape from disposals
-	attack_animal(var/mob/living/simple_animal/M)
-		if(M.environment_smash)
-			M.do_attack_animation(src)
-			visible_message("<span class='danger'>[M.name] smashes \the [src] apart!</span>")
-			qdel(src)
+		// Clumsy folks can only flush it.
+		if(user.IsAdvancedToolUser(1))
+			interact(user, 0)
+		else
+			flush = !flush
+			update()
 		return
 
 	// user interaction

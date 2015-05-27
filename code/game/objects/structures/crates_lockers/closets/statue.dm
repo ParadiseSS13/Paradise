@@ -14,7 +14,7 @@
 
 /obj/structure/closet/statue/New(loc, var/mob/living/L)
 
-	if(ishuman(L) || ismonkey(L) || iscorgi(L))
+	if(ishuman(L) || iscorgi(L))
 		if(L.buckled)
 			L.buckled = 0
 			L.anchored = 0
@@ -28,13 +28,13 @@
 		intialFire = L.getFireLoss()
 		intialBrute = L.getBruteLoss()
 		intialOxy = L.getOxyLoss()
-		if(ishuman(L))
+		if(issmall(L))
+			name = "statue of a monkey"
+			icon_state = "monkey"
+		else if(ishuman(L))
 			name = "statue of [L.name]"
 			if(L.gender == "female")
 				icon_state = "human_female"
-		else if(ismonkey(L))
-			name = "statue of a monkey"
-			icon_state = "monkey"
 		else if(iscorgi(L))
 			name = "statue of a corgi"
 			icon_state = "corgi"

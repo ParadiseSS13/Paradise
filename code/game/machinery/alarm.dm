@@ -1109,8 +1109,6 @@ FIRE ALARM
 /obj/machinery/firealarm/bullet_act(BLAH)
 	return src.alarm()
 
-/obj/machinery/firealarm/attack_paw(mob/user as mob)
-	return src.attack_hand(user)
 
 /obj/machinery/firealarm/emp_act(severity)
 	if(prob(50/severity)) alarm()
@@ -1367,9 +1365,6 @@ Just a object used in constructing fire alarms
 	if (!( istype(A, /area) ))
 		return
 	master_area=A
-
-/obj/machinery/partyalarm/attack_paw(mob/user as mob)
-	return attack_hand(user)
 
 /obj/machinery/partyalarm/attack_hand(mob/user as mob)
 	if((user.stat && !isobserver(user)) || stat & (NOPOWER|BROKEN))

@@ -413,13 +413,13 @@ BLIND     // can't see anything
 			A.attack_hand(user)
 		return
 
-	if ((ishuman(usr) || ismonkey(usr)) && src.loc == user)	//make it harder to accidentally undress yourself
+	if (ishuman(usr) && src.loc == user)	//make it harder to accidentally undress yourself
 		return
 
 	..()
 
 /obj/item/clothing/under/MouseDrop(obj/over_object as obj)
-	if (ishuman(usr) || ismonkey(usr))
+	if (ishuman(usr))
 		//makes sure that the clothing is equipped so that we can't drag it into our hand from miles away.
 		if (!(src.loc == usr))
 			return

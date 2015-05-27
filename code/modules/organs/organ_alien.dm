@@ -9,7 +9,7 @@
 		del(src)
 
 	spawn(1) // So it has time to be thrown about by the gib() proc.
-		var/mob/living/carbon/alien/diona/D = new(get_turf(organ))
+		var/mob/living/carbon/primitive/diona/D = new(get_turf(organ))
 		diona.request_player(D)
 		del(organ)
 */

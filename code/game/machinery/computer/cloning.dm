@@ -86,8 +86,6 @@
 		..()
 	return
 
-/obj/machinery/computer/cloning/attack_paw(mob/user as mob)
-	return attack_hand(user)
 
 /obj/machinery/computer/cloning/attack_ai(mob/user as mob)
 	return attack_hand(user)

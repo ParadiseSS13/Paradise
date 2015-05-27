@@ -87,8 +87,6 @@ var/global/loopModeNames=list(
 /obj/machinery/media/jukebox/attack_ai(var/mob/user)
 	attack_hand(user)
 
-/obj/machinery/media/jukebox/attack_paw()
-	return
 
 /obj/machinery/media/jukebox/power_change()
 	..()

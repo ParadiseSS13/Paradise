@@ -42,19 +42,6 @@
 	if(prob(75))
 		del(src)
 
-/obj/machinery/optable/attack_paw(mob/user as mob)
-	if ((HULK in usr.mutations))
-		usr << text("\blue You destroy the operating table.")
-		visible_message("\red [usr] destroys the operating table!")
-		src.density = 0
-		del(src)
-	if (!( locate(/obj/machinery/optable, user.loc) ))
-		step(user, get_dir(user, src))
-		if (user.loc == src.loc)
-			user.layer = TURF_LAYER
-			visible_message("The monkey hides under the table!")
-	return
-
 /obj/machinery/optable/attack_hand(mob/user as mob)
 	if (HULK in usr.mutations)
 		usr << text("\blue You destroy the table.")
@@ -75,13 +62,13 @@
 /obj/machinery/optable/MouseDrop_T(atom/movable/O as mob|obj, mob/user as mob)
 	if(usr.stat || (!ishuman(user) && !isrobot(user)) || user.restrained() || !check_table(user) || user.weakened || user.stunned)
 		return
-		
+
 	if(!ismob(O)) //humans only
 		return
-		
+
 	if(istype(O, /mob/living/simple_animal) || istype(O, /mob/living/silicon)) //animals and robots dont fit
 		return
-		
+
 	var/mob/living/L = O
 	take_victim(L,usr)
 	return

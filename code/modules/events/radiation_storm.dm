@@ -58,14 +58,6 @@
 							randmutg(H) // Applies good mutation
 							domutcheck(H,null,1)
 
-
-			for(var/mob/living/carbon/monkey/M in living_mob_list)
-				var/turf/T = get_turf(M)
-				if(!T)
-					continue
-				if(!(T.z in config.station_levels))
-					continue
-				M.apply_effect((rand(5,25)),IRRADIATE,0)
 			sleep(100)
 
 

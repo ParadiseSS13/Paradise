@@ -26,9 +26,6 @@
 		buf.dna.ResetSE()
 		SetValue(value)
 
-/obj/item/weapon/dnainjector/attack_paw(mob/user as mob)
-	return attack_hand(user)
-
 /obj/item/weapon/dnainjector/proc/GetRealBlock(var/selblock)
 	if(selblock==0)
 		return block
@@ -102,8 +99,7 @@
 		var/mob/living/carbon/human/H = M
 		if(H.species.flags & IS_SYNTHETIC)
 			return
-	if (!(istype(usr, /mob/living/carbon/human) || ticker) && ticker.mode.name != "monkey")
-		user << "\red You don't have the dexterity to do this!"
+	if (!usr.IsAdvancedToolUser())
 		return
 
 	M.attack_log += text("\[[time_stamp()]\] <font color='orange'>Has been injected with [name] by [user.name] ([user.ckey])</font>")
@@ -160,7 +156,7 @@
 				for(var/mob/O in viewers(M, null))
 					O.show_message(text("\red [] has been injected with [] by [].", M, src, user), 1)
 					//Foreach goto(192)
-				if (!(istype(M, /mob/living/carbon/human) || istype(M, /mob/living/carbon/monkey)))
+				if (!(istype(M, /mob/living/carbon/human)))
 					user << "\red Apparently it didn't work."
 					return
 

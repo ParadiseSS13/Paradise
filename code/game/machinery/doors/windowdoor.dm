@@ -227,8 +227,6 @@
 		return
 	attack_generic(user, 25)
 
-/obj/machinery/door/window/attack_paw(mob/user as mob)
-		return src.attack_hand(user)
 
 /obj/machinery/door/window/attack_hand(mob/user as mob)
 	return src.attackby(user, user)

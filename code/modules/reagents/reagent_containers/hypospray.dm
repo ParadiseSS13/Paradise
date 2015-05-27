@@ -16,10 +16,6 @@
 	slot_flags = SLOT_BELT
 	var/ignore_flags = 0
 
-/obj/item/weapon/reagent_containers/hypospray/attack_paw(mob/user as mob)
-	return src.attack_hand(user)
-
-
 /obj/item/weapon/reagent_containers/hypospray/attack(mob/living/M, mob/user)
 	if(!reagents.total_volume)
 		user << "\red [src] is empty."

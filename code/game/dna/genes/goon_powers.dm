@@ -142,7 +142,7 @@
 	selection_type = "range"
 	include_user = 1
 //	centcomm_cancast = 0
-	var/list/compatible_mobs = list(/mob/living/carbon/human, /mob/living/carbon/monkey)
+	var/list/compatible_mobs = list(/mob/living/carbon/human)
 
 	action_icon_state = "genetic_cryo"
 
@@ -240,7 +240,7 @@
 
 	action_icon_state = "genetic_eat"
 
-	var/list/types_allowed=list(/obj/item,/mob/living/simple_animal, /mob/living/carbon/monkey, /mob/living/carbon/human)
+	var/list/types_allowed=list(/obj/item,/mob/living/simple_animal, /mob/living/carbon/human)
 
 /obj/effect/proc_holder/spell/wizard/targeted/eat/choose_targets(mob/user = usr)
 	var/list/targets = new /list()

@@ -77,9 +77,6 @@
 	else
 		..()
 
-/obj/machinery/shield_gen/attack_paw(user as mob)
-	return src.attack_hand(user)
-
 /obj/machinery/shield_gen/attack_ai(user as mob)
 	return src.attack_hand(user)
 

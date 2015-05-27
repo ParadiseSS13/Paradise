@@ -82,9 +82,6 @@
 /obj/machinery/atmospherics/unary/cold_sink/freezer/attack_ai(mob/user as mob)
 	src.attack_hand(user)
 
-/obj/machinery/atmospherics/unary/cold_sink/freezer/attack_paw(mob/user as mob)
-	src.attack_hand(user)
-
 /obj/machinery/atmospherics/unary/cold_sink/freezer/attack_hand(mob/user as mob)
 	if(panel_open)
 		user << "<span class='notice'>Close the maintenance panel first.</span>"
@@ -237,9 +234,6 @@
 	return
 
 /obj/machinery/atmospherics/unary/heat_reservoir/heater/attack_ai(mob/user as mob)
-	src.attack_hand(user)
-
-/obj/machinery/atmospherics/unary/heat_reservoir/heater/attack_paw(mob/user as mob)
 	src.attack_hand(user)
 
 /obj/machinery/atmospherics/unary/heat_reservoir/heater/attack_hand(mob/user as mob)

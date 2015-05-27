@@ -183,10 +183,6 @@
 			usr << "\blue The [src.name] is closed."
 		update_icon()
 
-	attack_paw(mob/user as mob)
-		attack_hand(user)
-		return
-
 	attack_ai(mob/user as mob)
 		if(src.smashed)
 			user << "\red The security of the cabinet is compromised."

@@ -352,7 +352,7 @@ var/list/sting_paths
 /mob/proc/make_changeling()
 	if(!mind)
 		return
-	if(!ishuman(src) && !ismonkey(src))
+	if(!ishuman(src))
 		return
 	if(!mind.changeling)
 		mind.changeling = new /datum/changeling(gender)
@@ -360,7 +360,7 @@ var/list/sting_paths
 		sting_paths = init_subtypes(/obj/effect/proc_holder/changeling)
 	if(mind.changeling.purchasedpowers)
 		remove_changeling_powers(1)
-		
+
 	add_language("Changeling")
 
 	for(var/language in languages)
@@ -377,7 +377,7 @@ var/list/sting_paths
 	var/mob/living/carbon/C = src		//only carbons have dna now, so we have to typecaste
 	mind.changeling.absorbed_dna |= C.dna
 	return 1
-	
+
 //Used to dump the languages from the changeling datum into the actual mob.
 /mob/proc/changeling_update_languages(var/updated_languages)
 
@@ -400,7 +400,7 @@ var/list/sting_paths
 	mimicing = ""
 
 /mob/proc/remove_changeling_powers(var/keep_free_powers=0)
-	if(ishuman(src) || ismonkey(src))
+	if(ishuman(src))
 		if(mind && mind.changeling)
 			digitalcamo = 0
 			mind.changeling.changeling_speak = 0

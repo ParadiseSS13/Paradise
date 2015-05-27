@@ -481,7 +481,7 @@
 		return 1
 
 //Friendly Creatures!
-	if(ispath(MP, /mob/living/carbon/monkey/diona) && !jobban_isbanned(src, "Dionaea"))
+	if(ispath(MP, /mob/living/carbon/primitive/diona) && !jobban_isbanned(src, "Dionaea"))
 		return 1
 
 	//Not in here? Must be untested!

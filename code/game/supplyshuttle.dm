@@ -40,6 +40,11 @@ var/list/mechtoys = list(
 	density = 0
 	anchored = 1
 	layer = 4
+	var/list/mobs_can_pass = list(
+		/mob/living/carbon/slime,
+		/mob/living/simple_animal/mouse,
+		/mob/living/silicon/robot/drone
+		)
 
 /obj/structure/plasticflaps/CanPass(atom/A, turf/T)
 	if(istype(A) && A.checkpass(PASSGLASS))
@@ -52,10 +57,19 @@ var/list/mechtoys = list(
 	if(istype(A, /obj/vehicle))	//no vehicles
 		return 0
 
-	if(istype(A, /mob/living)) // You Shall Not Pass!
-		var/mob/living/M = A
-		if(!M.lying && !istype(M, /mob/living/carbon/monkey) && !istype(M, /mob/living/carbon/slime) && !istype(M, /mob/living/simple_animal/mouse) && !istype(M, /mob/living/silicon/robot/drone))  //If your not laying down, or a small creature, no pass.
-			return 0
+	var/mob/living/M = A
+	if(istype(M))
+		if(M.lying)
+			return ..()
+		for(var/mob_type in mobs_can_pass)
+			if(istype(A, mob_type))
+				return ..()
+		if(istype(A, /mob/living/carbon/human))
+			var/mob/living/carbon/human/H = M
+			if(H.species.is_small)
+				return ..()
+		return 0
+
 	return ..()
 
 /obj/structure/plasticflaps/ex_act(severity)
@@ -314,14 +328,10 @@ var/list/mechtoys = list(
 /obj/machinery/computer/ordercomp/attack_ai(var/mob/user as mob)
 	return attack_hand(user)
 
-/obj/machinery/computer/ordercomp/attack_paw(var/mob/user as mob)
-	return attack_hand(user)
 
 /obj/machinery/computer/supplycomp/attack_ai(var/mob/user as mob)
 	return attack_hand(user)
 
-/obj/machinery/computer/supplycomp/attack_paw(var/mob/user as mob)
-	return attack_hand(user)
 
 /obj/machinery/computer/ordercomp/attack_hand(var/mob/user as mob)
 	if(..())

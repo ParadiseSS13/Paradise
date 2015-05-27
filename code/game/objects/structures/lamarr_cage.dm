@@ -72,9 +72,6 @@
 	..()
 	return
 
-/obj/structure/lamarr/attack_paw(mob/user as mob)
-	return src.attack_hand(user)
-
 /obj/structure/lamarr/attack_hand(mob/user as mob)
 	if (src.destroyed)
 		return

@@ -118,7 +118,7 @@
 		//if they are holding or wearing a card that has access, that works
 		if(src.check_access(H.get_active_hand()) || src.check_access(H.wear_id))
 			return 1
-	else if(istype(M, /mob/living/carbon/monkey) || istype(M, /mob/living/carbon/alien/humanoid))
+	else if(istype(M, /mob/living/carbon/alien/humanoid))
 		var/mob/living/carbon/george = M
 		//they can only hold things :(
 		if(src.check_access(george.get_active_hand()))
@@ -211,14 +211,14 @@
 		if("Special Operations Officer")
 			return get_all_centcom_access() + get_all_accesses()
 		if("Nanotrasen Navy Representative")
-			return get_all_centcom_access() + get_all_accesses()			
+			return get_all_centcom_access() + get_all_accesses()
 		if("Nanotrasen Navy Officer")
 			return get_all_centcom_access() + get_all_accesses()
 		if("Nanotrasen Navy Captain")
 			return get_all_centcom_access() + get_all_accesses()
 		if("Supreme Commander")
 			return get_all_centcom_access() + get_all_accesses()
-			
+
 /proc/get_syndicate_access(job)
 	switch(job)
 		if("Syndicate Operative")
@@ -226,12 +226,12 @@
 		if("Syndicate Operative Leader")
 			return list(access_syndicate, access_syndicate_leader)
 		if("Vox Raider")
-			return list(access_vox)			
+			return list(access_vox)
 		if("Vox Trader")
-			return list(access_vox)	
+			return list(access_vox)
 		if("Syndicate Commando")
-			return list(access_syndicate, access_syndicate_leader)				
-			
+			return list(access_syndicate, access_syndicate_leader)
+
 /proc/get_all_accesses()
 	return list(access_security, access_sec_doors, access_brig, access_armory, access_forensics_lockers, access_court,
 	            access_medical, access_genetics, access_morgue, access_rd,
@@ -470,7 +470,7 @@
 			return "Bridge"
 		if(access_cent_commander)
 			return "Commander"
-			
+
 /proc/get_syndicate_access_desc(A)
 	switch(A)
 		if(access_syndicate)
@@ -534,7 +534,7 @@
 		return assignment
 
 	return "Unknown"
-	
+
 proc/GetIdCard(var/mob/living/carbon/human/H)
 	if(H.wear_id)
 		var/id = H.wear_id.GetID()

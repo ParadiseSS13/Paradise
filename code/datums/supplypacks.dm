@@ -799,11 +799,13 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 	cost = 30
 	containername = "farwa crate"
 
+/*
 /datum/supply_packs/organic/wolpin
 	name = "Wolpin crate"
 	contains = list (/obj/item/weapon/storage/box/wolpincubes)
 	cost = 30
 	containername = "wolpin crate"
+*/
 
 /datum/supply_packs/organic/skrell
 	name = "Neaera crate"

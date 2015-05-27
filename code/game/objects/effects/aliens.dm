@@ -119,10 +119,6 @@
 		healthcheck()
 
 
-/obj/structure/alien/resin/attack_paw(mob/user)
-	return attack_hand(user)
-
-
 /obj/structure/alien/resin/attack_alien(mob/living/user)
 	user.changeNext_move(CLICK_CD_MELEE)
 	user.do_attack_animation(src)
@@ -314,7 +310,7 @@
 		Grow()
 
 
-/obj/structure/alien/egg/attack_paw(mob/user)
+/obj/structure/alien/egg/attack_alien(mob/user)
 	if(isalien(user))
 		switch(status)
 			if(BURST)

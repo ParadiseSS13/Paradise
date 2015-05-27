@@ -36,7 +36,7 @@
 
 /obj/effect/landmark/animal_spawner/monkey
 	name = "monkey spawner"
-	spawn_type = /mob/living/carbon/monkey
+	spawn_type = /mob/living/carbon/human/monkey
 
 /obj/effect/landmark/animal_spawner/snake
 	name = "snake spawner"

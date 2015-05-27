@@ -602,13 +602,11 @@ datum/reagent/atrazine/reaction_mob(var/mob/living/M, var/method=TOUCH, var/volu
 					H.adjustToxLoss(50)
 					..()
 					return
-		if(ismonkey(M))
-			var/mob/living/carbon/monkey/MO = M
-			if(MO.dna)
-				if(istype(MO,/mob/living/carbon/monkey/diona)) //plantmen monkeys (diona) take EVEN MORE damage
-					MO.adjustToxLoss(100)
-					..()
-					return
+		else if(istype(M,/mob/living/carbon/primitive/diona)) //plantmen monkeys (diona) take EVEN MORE damage
+			var/mob/living/carbon/primitive/diona/D = M
+			D.adjustToxLoss(100)
+			..()
+			return
 
 /datum/chemical_reaction/atrazine
 	name = "atrazine"

@@ -186,9 +186,6 @@
 		return 1
 	src.updateUsrDialog()
 
-/obj/machinery/grill/attack_paw(mob/user as mob)
-	return src.attack_hand(user)
-
 /obj/machinery/grill/attack_ai(mob/user as mob)
 	return 0
 

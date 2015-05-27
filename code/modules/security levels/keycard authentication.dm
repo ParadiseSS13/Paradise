@@ -25,10 +25,6 @@
 	user << "The station AI is not to interact with these devices."
 	return
 
-/obj/machinery/keycard_auth/attack_paw(mob/user as mob)
-	user << "You are too primitive to use this device."
-	return
-
 /obj/machinery/keycard_auth/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
 	if(stat & (NOPOWER|BROKEN))
 		user << "This device is not powered."
@@ -56,8 +52,10 @@
 		stat |= NOPOWER
 
 /obj/machinery/keycard_auth/attack_hand(mob/user as mob)
+	if(!user.IsAdvancedToolUser())
+		return 0
 	ui_interact(user)
-	
+
 /obj/machinery/keycard_auth/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
 	if(user.stat || stat & (NOPOWER|BROKEN))
 		user << "This device is not powered."
@@ -67,7 +65,7 @@
 		return
 
 	user.set_machine(src)
-	
+
 	var/data[0]
 	data["screen"] = screen
 	data["event"] = event
@@ -77,12 +75,12 @@
 		if((type in ert_chosen))
 			active = 1
 		data["erttypes"] += list(list("name" = type, "active" = active))
-	
-	ui = nanomanager.try_update_ui(user, src, ui_key, ui, data, force_open)	
+
+	ui = nanomanager.try_update_ui(user, src, ui_key, ui, data, force_open)
 	if (!ui)
 		ui = new(user, src, ui_key, "keycard_auth.tmpl", "Keycard Authentication Device UI", 520, 320)
-		ui.set_initial_data(data)		
-		ui.open()	
+		ui.set_initial_data(data)
+		ui.open()
 
 /obj/machinery/keycard_auth/Topic(href, href_list)
 	if(..())
@@ -184,7 +182,7 @@ var/global/maint_all_access = 0
 	world << "<font size=4 color='red'>Attention!</font>"
 	world << "<font color='red'>The maintenance access requirement has been revoked on all airlocks.</font>"
 	maint_all_access = 1
-	
+
 /proc/revoke_maint_all_access()
 	for(var/area/maintenance/A in world)
 		for(var/obj/machinery/door/airlock/D in A)

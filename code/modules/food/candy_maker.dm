@@ -183,9 +183,6 @@
 		return 1
 	src.updateUsrDialog()
 
-/obj/machinery/candy_maker/attack_paw(mob/user as mob)
-	return src.attack_hand(user)
-
 /obj/machinery/candy_maker/attack_ai(mob/user as mob)
 	return 0
 

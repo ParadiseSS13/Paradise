@@ -19,9 +19,6 @@
 	src.add_hiddenprint(user)
 	return interact(user)
 
-/obj/machinery/computer/atmoscontrol/attack_paw(var/mob/user as mob)
-	return interact(user)
-
 /obj/machinery/computer/atmoscontrol/attack_hand(mob/user)
 	if(..())
 		return
@@ -64,7 +61,7 @@
 		alarm_list+=alarm
 	for(var/obj/machinery/alarm/alarm in sortAtom(alarm_list))
 		if(!is_in_filter(alarm.alarm_area.type))
-			continue 
+			continue
 		if(!alarm.remote_control)
 			continue
 		if(alarm.hidden)

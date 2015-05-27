@@ -276,8 +276,6 @@
 		else
 			user << "\blue <b>\The [src] is fully repaired!</b>"
 
-/obj/spacepod/attack_paw(mob/user as mob)
-	return src.attack_hand(user)
 
 /obj/spacepod/attack_hand(mob/user as mob)
 	if(!hatch_open)

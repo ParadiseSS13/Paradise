@@ -122,6 +122,18 @@
 	h_style = "Nucleation Crystals"
 	..(new_loc, "Nucleation")
 
+/mob/living/carbon/human/monkey/New(var/new_loc)
+	..(new_loc, "Monkey")
+
+/mob/living/carbon/human/farwa/New(var/new_loc)
+	..(new_loc, "Farwa")
+
+/mob/living/carbon/human/neara/New(var/new_loc)
+	..(new_loc, "Neara")
+
+/mob/living/carbon/human/stok/New(var/new_loc)
+	..(new_loc, "Stok")
+
 /mob/living/carbon/human/Bump(atom/movable/AM as mob|obj, yes)
 	if ((!( yes ) || now_pushing))
 		return
@@ -1079,9 +1091,6 @@
 		tinted += MT.tint
 	return tinted
 
-/mob/living/carbon/human/IsAdvancedToolUser()
-	return 1//Humans can use guns and such
-
 
 /mob/living/carbon/human/abiotic(var/full_body = 0)
 	if(full_body && ((src.l_hand && !(src.l_hand.flags & ABSTRACT)) || (src.r_hand && !(src.r_hand.flags & ABSTRACT)) || (src.back || src.wear_mask || src.head || src.shoes || src.w_uniform || src.wear_suit || src.glasses || src.l_ear || src.r_ear || src.gloves)))
@@ -1375,6 +1384,8 @@
 	if(vessel)
 		vessel = null
 	make_blood()
+
+	maxHealth = species.total_health
 
 	if(species.language)
 		add_language(species.language)
@@ -1679,3 +1690,11 @@
 
 /mob/living/carbon/human/InCritical()
 	return (health <= config.health_threshold_crit && stat == UNCONSCIOUS)
+
+
+/mob/living/carbon/human/IsAdvancedToolUser(var/silent)
+	if(species.has_fine_manipulation)
+		return 1
+	if(!silent)
+		src << "<span class='warning'>You don't have the dexterity to use that!<span>"
+	return 0

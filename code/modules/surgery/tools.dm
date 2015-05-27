@@ -41,11 +41,13 @@
 	desc = "You can drill using this item. You dig?"
 	icon = 'icons/obj/surgery.dmi'
 	icon_state = "drill"
-	hitsound = 'sound/weapons/circsawhit.ogg'
+	hitsound = 'sound/weapons/drill.ogg'
 	m_amt = 10000
 	g_amt = 6000
 	flags = CONDUCT
 	force = 15.0
+	sharp = 1
+	edge = 1
 	w_class = 3.0
 	origin_tech = "materials=1;biotech=1"
 	attack_verb = list("drilled")
@@ -82,6 +84,44 @@
 		return (BRUTELOSS)
 
 
+/*
+ * Researchable Scalpels
+ */
+/obj/item/weapon/scalpel/laser1
+	name = "laser scalpel"
+	desc = "A scalpel augmented with a directed laser, for more precise cutting without blood entering the field.  This one looks basic and could be improved."
+	icon_state = "scalpel_laser1_on"
+	item_state = "scalpel"
+	damtype = "fire"
+	hitsound = 'sound/weapons/sear2.ogg'
+
+/obj/item/weapon/scalpel/laser2
+	name = "laser scalpel"
+	desc = "A scalpel augmented with a directed laser, for more precise cutting without blood entering the field.  This one looks somewhat advanced."
+	icon_state = "scalpel_laser2_on"
+	item_state = "scalpel"
+	damtype = "fire"
+	force = 12.0
+	hitsound = 'sound/weapons/sear2.ogg'
+
+/obj/item/weapon/scalpel/laser3
+	name = "laser scalpel"
+	desc = "A scalpel augmented with a directed laser, for more precise cutting without blood entering the field.  This one looks to be the pinnacle of precision energy cutlery!"
+	icon_state = "scalpel_laser3_on"
+	item_state = "scalpel"
+	damtype = "fire"
+	force = 15.0
+	hitsound = 'sound/weapons/sear2.ogg'
+
+/obj/item/weapon/scalpel/manager
+	name = "incision management system"
+	desc = "A true extension of the surgeon's body, this marvel instantly and completely prepares an incision allowing for the immediate commencement of therapeutic steps."
+	icon_state = "scalpel_manager_on"
+	item_state = "scalpel"
+	damtype = "fire"
+	force = 18.0
+	hitsound = 'sound/weapons/sear2.ogg'
+
 /obj/item/weapon/circular_saw
 	name = "circular saw"
 	desc = "For heavy duty cutting."
@@ -90,6 +130,8 @@
 	hitsound = 'sound/weapons/circsawhit.ogg'
 	flags = CONDUCT
 	force = 15.0
+	sharp = 1
+	edge = 1
 	w_class = 3.0
 	throwforce = 9.0
 	throw_speed = 3

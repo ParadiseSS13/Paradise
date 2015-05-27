@@ -590,7 +590,7 @@
 "lr" = (/turf/unsimulated/wall/fakeglass{tag = "icon-fakewindows2 (NORTH)"; icon_state = "fakewindows2"; dir = 1},/area/wizard_station)
 "ls" = (/turf/unsimulated/floor{dir = 8; icon_state = "chapel"},/area/wizard_station)
 "lt" = (/obj/effect/decal/cleanable/blood,/turf/unsimulated/floor{icon_state = "chapel"},/area/wizard_station)
-"lu" = (/mob/living/carbon/monkey,/turf/unsimulated/floor{dir = 8; icon_state = "chapel"},/area/wizard_station)
+"lu" = (/mob/living/carbon/human/monkey,/turf/unsimulated/floor{dir = 8; icon_state = "chapel"},/area/wizard_station)
 "lv" = (/turf/unsimulated/floor{icon_state = "chapel"},/area/wizard_station)
 "lw" = (/obj/machinery/light/spot{tag = "icon-tube1 (WEST)"; icon_state = "tube1"; dir = 8},/turf/simulated/shuttle/floor{icon_state = "floor4"},/area/shuttle/syndicate_elite/mothership)
 "lx" = (/obj/machinery/door/airlock/external{name = "Shuttle Airlock"; req_access_txt = "150"},/obj/machinery/door/poddoor{density = 0; icon_state = "pdoor0"; id_tag = "syndicate_elite"; name = "Side Hull Door"; opacity = 0; req_access_txt = "150"},/turf/simulated/shuttle/floor{icon_state = "floor4"},/area/shuttle/syndicate_elite/mothership)

@@ -315,7 +315,7 @@
 	invocation_type = "none"
 	range = 7
 	selection_type = "range"
-	var/list/compatible_mobs = list(/mob/living/carbon/human, /mob/living/carbon/monkey)
+	var/list/compatible_mobs = list(/mob/living/carbon/human)
 	include_user = 0
 
 	action_icon_state = "genetic_incendiary"

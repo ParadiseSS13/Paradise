@@ -67,9 +67,6 @@
 	//world << "glass at [x],[y],[z] Mhit"
 		deflate(1)
 
-	attack_paw(mob/user as mob)
-		return attack_generic(user, 15)
-
 	attack_hand(mob/user as mob)
 		add_fingerprint(user)
 		return
@@ -183,9 +180,6 @@
 		else if(isrobot(user)) //but cyborgs can
 			if(get_dist(user,src) <= 1) //not remotely though
 				return TryToSwitchState(user)
-
-	attack_paw(mob/user as mob)
-		return TryToSwitchState(user)
 
 	attack_hand(mob/user as mob)
 		return TryToSwitchState(user)

@@ -44,9 +44,6 @@
 			if(get_dist(user,src) <= 1) //not remotely though
 				return TryToSwitchState(user)
 
-	attack_paw(mob/user as mob)
-		return TryToSwitchState(user)
-
 	attack_hand(mob/user as mob)
 		return TryToSwitchState(user)
 

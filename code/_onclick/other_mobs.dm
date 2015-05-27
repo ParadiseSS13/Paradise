@@ -51,46 +51,13 @@
 	return
 
 /*
-	Monkeys
-*/
-/mob/living/carbon/monkey/UnarmedAttack(var/atom/A)
-	A.attack_paw(src)
-/atom/proc/attack_paw(mob/user as mob)
-	return
-
-/*
-	Monkey RestrainedClickOn() was apparently the
-	one and only use of all of the restrained click code
-	(except to stop you from doing things while handcuffed);
-	moving it here instead of various hand_p's has simplified
-	things considerably
-*/
-/mob/living/carbon/monkey/RestrainedClickOn(var/atom/A)
-	if(..())
-		return
-	if(a_intent != "harm" || !ismob(A)) return
-	if(is_muzzled())
-		return
-	var/mob/living/carbon/ML = A
-	var/dam_zone = ran_zone(pick("chest", "l_hand", "r_hand", "l_leg", "r_leg"))
-	var/armor = ML.run_armor_check(dam_zone, "melee")
-	if(prob(75))
-		ML.apply_damage(rand(1,3), BRUTE, dam_zone, armor)
-		for(var/mob/O in viewers(ML, null))
-			O.show_message("\red <B>[name] has bit [ML]!</B>", 1)
-		if(armor >= 2) return
-	else
-		for(var/mob/O in viewers(ML, null))
-			O.show_message("\red <B>[src] has attempted to bite [ML]!</B>", 1)
-
-/*
 	Aliens
 	Defaults to same as monkey in most places
 */
 /mob/living/carbon/alien/UnarmedAttack(var/atom/A)
 	A.attack_alien(src)
 /atom/proc/attack_alien(mob/user as mob)
-	attack_paw(user)
+	attack_hand(user)
 	return
 /mob/living/carbon/alien/RestrainedClickOn(var/atom/A)
 	return

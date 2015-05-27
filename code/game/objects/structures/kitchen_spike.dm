@@ -4,77 +4,57 @@
 	name = "a meat spike"
 	icon = 'icons/obj/kitchen.dmi'
 	icon_state = "spike"
-	desc = "A spike for collecting meat from animals"
+	desc = "A spike for collecting meat from animals."
 	density = 1
 	anchored = 1
 	var/meat = 0
-	var/occupied = 0
-	var/meattype = 0 // 0 - Nothing, 1 - Monkey, 2 - Xeno
+	var/occupied
+	var/meat_type
+	var/victim_name = "corpse"
 
-/obj/structure/kitchenspike
-	attack_paw(mob/user as mob)
-		return src.attack_hand(usr)
-
-	attackby(obj/item/weapon/grab/G as obj, mob/user as mob, params)
-		if(!istype(G, /obj/item/weapon/grab))
-			return
-		if(istype(G.affecting, /mob/living/carbon/monkey))
-			if(src.occupied == 0)
-				src.icon_state = "spikebloody"
-				src.occupied = 1
-				src.meat = 5
-				src.meattype = 1
-				for(var/mob/O in viewers(src, null))
-					O.show_message(text("\red [user] has forced [G.affecting] onto the spike, killing them instantly!"))
-				del(G.affecting)
-				del(G)
-
-			else
-				user << "\red The spike already has something on it, finish collecting its meat first!"
-		else if(istype(G.affecting, /mob/living/carbon/alien))
-			if(src.occupied == 0)
-				src.icon_state = "spikebloodygreen"
-				src.occupied = 1
-				src.meat = 5
-				src.meattype = 2
-				for(var/mob/O in viewers(src, null))
-					O.show_message(text("\red [user] has forced [G.affecting] onto the spike, killing them instantly!"))
-				del(G.affecting)
-				del(G)
-			else
-				user << "\red The spike already has something on it, finish collecting its meat first!"
+/obj/structure/kitchenspike/attackby(obj/item/weapon/grab/G as obj, mob/user as mob)
+	if(!istype(G, /obj/item/weapon/grab) || !G.affecting)
+		return
+	if(occupied)
+		user << "<span class = 'danger'>The spike already has something on it, finish collecting its meat first!</span>"
+	else
+		if(spike(G.affecting))
+			visible_message("<span class = 'danger'>[user] has forced [G.affecting] onto the spike, killing them instantly!</span>")
+			del(G.affecting)
+			del(G)
 		else
-			user << "\red They are too big for the spike, try something smaller!"
-			return
+			user << "<span class='danger'>They are too big for the spike, try something smaller!</span>"
 
-//	MouseDrop_T(var/atom/movable/C, mob/user)
-//		if(istype(C, /obj/mob/carbon/monkey)
-//		else if(istype(C, /obj/mob/carbon/alien) && !istype(C, /mob/living/carbon/alien/larva/slime))
-//		else if(istype(C, /obj/livestock/spesscarp
+/obj/structure/kitchenspike/proc/spike(var/mob/living/victim)
 
-	attack_hand(mob/user as mob)
-		if(..())
-			return
-		if(src.occupied)
-			if(src.meattype == 1)
-				if(src.meat > 1)
-					src.meat--
-					new /obj/item/weapon/reagent_containers/food/snacks/meat/monkey( src.loc )
-					usr << "You remove some meat from the monkey."
-				else if(src.meat == 1)
-					src.meat--
-					new /obj/item/weapon/reagent_containers/food/snacks/meat/monkey(src.loc)
-					usr << "You remove the last piece of meat from the monkey!"
-					src.icon_state = "spike"
-					src.occupied = 0
-			else if(src.meattype == 2)
-				if(src.meat > 1)
-					src.meat--
-					new /obj/item/weapon/reagent_containers/food/snacks/xenomeat( src.loc )
-					usr << "You remove some meat from the alien."
-				else if(src.meat == 1)
-					src.meat--
-					new /obj/item/weapon/reagent_containers/food/snacks/xenomeat(src.loc)
-					usr << "You remove the last piece of meat from the alien!"
-					src.icon_state = "spike"
-					src.occupied = 0
+	if(!istype(victim))
+		return
+
+	if(istype(victim, /mob/living/carbon/human))
+		var/mob/living/carbon/human/H = victim
+		if(!H.species.is_small)
+			return 0
+		meat_type = H.species.meat_type
+		icon_state = "spikebloody"
+	else if(istype(victim, /mob/living/carbon/alien))
+		meat_type = /obj/item/weapon/reagent_containers/food/snacks/xenomeat
+		icon_state = "spikebloodygreen"
+	else
+		return 0
+
+	victim_name = victim.name
+	occupied = 1
+	meat = 5
+	return 1
+
+/obj/structure/kitchenspike/attack_hand(mob/user as mob)
+	if(..() || !occupied)
+		return
+	meat--
+	new meat_type(get_turf(src))
+	if(src.meat > 1)
+		user << "You remove some meat from \the [victim_name]."
+	else if(src.meat == 1)
+		user << "You remove the last piece of meat from \the [victim_name]!"
+		icon_state = "spike"
+		occupied = 0

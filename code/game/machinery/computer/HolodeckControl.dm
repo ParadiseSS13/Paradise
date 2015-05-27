@@ -15,8 +15,6 @@
 	attack_ai(var/mob/user as mob)
 		return src.attack_hand(user)
 
-	attack_paw(var/mob/user as mob)
-		return
 
 	attack_hand(var/mob/user as mob)
 
@@ -389,9 +387,6 @@
 	throwpass = 1	//You can throw objects over this, despite it's density.
 
 
-/obj/structure/table/holotable/attack_paw(mob/user as mob)
-	return attack_hand(user)
-
 /obj/structure/table/holotable/attack_alien(mob/user as mob) //Removed code for larva since it doesn't work. Previous code is now a larva ability. /N
 	return attack_hand(user)
 
@@ -570,10 +565,6 @@
 
 /obj/machinery/readybutton/attack_ai(mob/user as mob)
 	user << "The station AI is not to interact with these devices"
-	return
-
-/obj/machinery/readybutton/attack_paw(mob/user as mob)
-	user << "You are too primitive to use this device"
 	return
 
 /obj/machinery/readybutton/New()

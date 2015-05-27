@@ -56,6 +56,8 @@
 
 
 	proc/special_check(var/mob/M) //Placeholder for any special checks, like detective's revolver.
+		if(!usr.IsAdvancedToolUser())
+			return 0
 		return 1
 
 
@@ -96,7 +98,7 @@
 				qdel(src)
 				return
 
-	if (!user.IsAdvancedToolUser() || istype(user, /mob/living/carbon/monkey/diona))
+	if (!user.IsAdvancedToolUser() || istype(user, /mob/living/carbon/primitive/diona))
 		user << "\red You don't have the dexterity to do this!"
 		return
 	if(istype(user, /mob/living))

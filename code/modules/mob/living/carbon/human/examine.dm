@@ -256,10 +256,11 @@
 	if(getBrainLoss() >= 60)
 		msg += "[t_He] [t_has] a stupid expression on [t_his] face.\n"
 
-	if(!key && brain_op_stage != 4 && stat != DEAD)
-		msg += "<span class='deadsay'>[t_He] [t_is] fast asleep. It doesn't look like they are waking up anytime soon.</span>\n"
-	else if(!client && brain_op_stage != 4 && stat != DEAD)
-		msg += "[t_He] [t_has] suddenly fallen asleep.\n"
+	if(species.show_ssd && (!species.has_organ["brain"] || brain_op_stage != 4) && stat != DEAD)
+		if(!key)
+			msg += "<span class='deadsay'>[t_He] [t_is] fast asleep. It doesn't look like they are waking up anytime soon.</span>\n"
+		else if(!client)
+			msg += "[t_He] [t_has] suddenly fallen asleep.\n"
 
 	var/list/wound_flavor_text = list()
 	var/list/is_destroyed = list()

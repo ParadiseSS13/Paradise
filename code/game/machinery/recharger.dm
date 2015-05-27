@@ -60,9 +60,6 @@
 		use_power = 1
 		update_icon()
 
-/obj/machinery/recharger/attack_paw(mob/user as mob)
-	return attack_hand(user)
-
 /obj/machinery/recharger/process()
 	if(stat & (NOPOWER|BROKEN) || !anchored)
 		return

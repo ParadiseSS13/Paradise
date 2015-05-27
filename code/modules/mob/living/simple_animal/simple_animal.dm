@@ -308,29 +308,6 @@
 
 	return
 
-/mob/living/simple_animal/attack_paw(mob/living/carbon/monkey/M as mob)
-	if(!(istype(M, /mob/living/carbon/monkey)))
-		return // Fix for aliens receiving double messages when attacking simple animals.
-
-	..()
-
-	switch(M.a_intent)
-
-		if ("help")
-			if (health > 0)
-				visible_message("<span class='notice'> [M] [response_help] [src].</span>")
-				playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
-		else
-			M.do_attack_animation(src)
-			if (istype(src.wear_mask, /obj/item/clothing/mask/muzzle))
-				return
-			playsound(loc, 'sound/weapons/bite.ogg', 50, 1, -1)
-			visible_message("<span class='danger'>[M.name] bites [src]!</span>", \
-						"<span class='userdanger'>[M.name] bites [src]!</span>")
-			if (health > -100)
-				adjustBruteLoss(rand(1, 3))
-	return
-
 /mob/living/simple_animal/attack_alien(mob/living/carbon/alien/humanoid/M as mob)
 
 	switch(M.a_intent)

@@ -250,9 +250,6 @@ var/specops_shuttle_timeleft = 0
 	user << "\red Access Denied."
 	return 1
 
-/obj/machinery/computer/specops_shuttle/attack_paw(var/mob/user as mob)
-	return attack_hand(user)
-
 /obj/machinery/computer/specops_shuttle/attackby(I as obj, user as mob, params)
 	if(istype(I,/obj/item/weapon/card/emag))
 		user << "\blue The electronic systems in this console are far too advanced for your primitive hacking peripherals."

@@ -152,14 +152,6 @@ Put (mob/proc)s here that are in dire need of a code cleanup.
 					//
 					world << "Shoes pass [passed]"
 			*/		//
-	else if(istype(src, /mob/living/carbon/monkey))
-		var/mob/living/carbon/monkey/M = src
-		switch(target_zone)
-			if(1)
-				if(M.wear_mask && isobj(M.wear_mask))
-					Cl = M.wear_mask
-					passed = prob((Cl.permeability_coefficient*100) - 1)
-					//world << "Mask pass [passed]"
 
 	if(!passed && spread_type == AIRBORNE && !internals)
 		passed = (prob((50*virus.permeability_mod) - 1))

@@ -3,7 +3,7 @@
 
 	name = "Embedded Controller"
 	anchored = 1
-	
+
 	use_power = 1
 	idle_power_usage = 10
 
@@ -29,11 +29,9 @@
 /obj/machinery/embedded_controller/attack_ai(mob/user as mob)
 	src.ui_interact(user)
 
-/obj/machinery/embedded_controller/attack_paw(mob/user as mob)
-	user << "You do not have the dexterity to use this."
-	return
-
 /obj/machinery/embedded_controller/attack_hand(mob/user as mob)
+	if(!user.IsAdvancedToolUser())
+		return 0
 	src.ui_interact(user)
 
 /obj/machinery/embedded_controller/ui_interact()
@@ -44,7 +42,7 @@
 	icon_state = "airlock_control_standby"
 	power_channel = ENVIRON
 	density = 0
-	
+
 	var/id_tag
 	//var/radio_power_use = 50 //power used to xmit signals
 
