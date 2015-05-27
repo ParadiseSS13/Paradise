@@ -284,9 +284,6 @@
 			L.adjustBruteLoss(DOOR_CRUSH_DAMAGE)
 			L.emote("scream")
 			L.Weaken(5)
-		else if(issmall(L)) //For monkeys
-			L.adjustBruteLoss(DOOR_CRUSH_DAMAGE)
-			L.Weaken(5)
 		else //for simple_animals & borgs
 			L.adjustBruteLoss(DOOR_CRUSH_DAMAGE)
 		var/turf/location = src.loc
