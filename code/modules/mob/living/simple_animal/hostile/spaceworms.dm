@@ -36,7 +36,7 @@
 
 	speed = -1
 
-	AIenabled = 0 //The body isn't conscious
+	AIStatus = AI_OFF
 
 	anchored = 1 //otherwise people can literally fucking pull spaceworms apart
 
@@ -74,7 +74,7 @@
 
 	animate_movement = SLIDE_STEPS
 
-	AIenabled = 1//The head is conscious
+	AIStatus = AI_ON//The head is conscious
 	stop_automated_movement = 0 //Ditto ^
 
 	faction = list("spaceworms") //head and body both have this faction JIC

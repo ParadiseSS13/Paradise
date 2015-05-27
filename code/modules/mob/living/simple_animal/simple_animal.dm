@@ -497,18 +497,16 @@
 	if(health < 1)
 		Die()
 
-/mob/living/simple_animal/proc/SA_attackable(target)
-	if (isliving(target))
-		var/mob/living/L = target
-		if(!L.stat)
+/mob/living/simple_animal/proc/CanAttack(var/atom/the_target)
+	if(see_invisible < the_target.invisibility)
+		return 0
+	if (isliving(the_target))
+		var/mob/living/L = the_target
+		if(L.stat != CONSCIOUS)
 			return 0
-	if (istype(target,/obj/mecha))
-		var/obj/mecha/M = target
+	if (istype(the_target, /obj/mecha))
+		var/obj/mecha/M = the_target
 		if (M.occupant)
-			return 0
-	if (istype(target,/obj/spacepod))
-		var/obj/spacepod/S = target
-		if (S.occupant || S.occupant2)
 			return 0
 	return 1
 
@@ -551,24 +549,6 @@
 /mob/living/simple_animal/proc/harvest()
 	gib()
 	return
-
-
-/mob/living/simple_animal/proc/CanAttack(var/atom/the_target)
-	if(see_invisible < the_target.invisibility)
-		return 0
-	if (isliving(the_target))
-		var/mob/living/L = the_target
-		if(L.stat != CONSCIOUS)
-			return 0
-	if (istype(the_target, /obj/mecha))
-		var/obj/mecha/M = the_target
-		if (M.occupant)
-			return 0
-	if (istype(the_target, /obj/spacepod))
-		var/obj/spacepod/S = the_target
-		if (S.occupant || S.occupant2)
-			return 0
-	return 1
 
 /mob/living/simple_animal/say(var/message)
 	if(stat)
