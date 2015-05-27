@@ -576,22 +576,22 @@
 	speech_verb = "chimpers"
 	ask_verb = "chimpers"
 	exclaim_verb = "screeches"
-	key = "6"
+	key = "m"
 
 /datum/language/skrell/monkey
 	name = "Neara"
 	desc = "Squik squik squik."
-	key = "8"
+	key = "n"
 
 /datum/language/unathi/monkey
 	name = "Stok"
 	desc = "Hiss hiss hiss."
-	key = "7"
+	key = "s"
 
 /datum/language/tajaran/monkey
 	name = "Farwa"
 	desc = "Meow meow meow."
-	key = "9"
+	key = "w"
 
 
 #undef SCRAMBLE_CACHE_LEN
