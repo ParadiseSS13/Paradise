@@ -20,7 +20,7 @@
 		var/grabbed = G.affecting
 		if(istype(grabbed, /mob/living/carbon/human))
 			var/mob/living/carbon/human/target = grabbed
-			if(target.species.name in list("Monkey", "Farwa", "Stok", "Neara"))
+			if(issmall(target))
 				if(target.stat == 0)
 					user << "\red The monkey is struggling far too much to put it in the recycler."
 				else
