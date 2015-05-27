@@ -162,13 +162,21 @@
 			dat += "Plant bag: <A href='?src=\ref[src];create=ptbag;amount=1'>Make</A> ([200/efficiency])<BR>"
 			dat += "Mining satchel: <A href='?src=\ref[src];create=mnbag;amount=1'>Make</A> ([200/efficiency])<BR>"
 			dat += "Botanical gloves: <A href='?src=\ref[src];create=gloves;amount=1'>Make</A> ([250/efficiency])<BR>"
-			dat += "Utility belt: <A href='?src=\ref[src];create=tbelt;amount=1'>Make</A> ([300/efficiency])<BR>"
 			dat += "Leather Satchel: <A href='?src=\ref[src];create=satchel;amount=1'>Make</A> ([400/efficiency])<BR>"
 			dat += "Cash Bag: <A href='?src=\ref[src];create=cashbag;amount=1'>Make</A> ([400/efficiency])<BR>"
 			dat += "Leather Jacket: <A href='?src=\ref[src];create=jacket;amount=1'>Make</A> ([500/efficiency])<BR>"
+			dat += "</div>"
+			dat += "<h3>Belts</h3>"
+			dat += "<div class='statusDisplay'>"
+			dat += "Utility belt: <A href='?src=\ref[src];create=tbelt;amount=1'>Make</A> ([300/efficiency])<BR>"
+			dat += "Botanist belt: <A href='?src=\ref[src];create=bbelt;amount=1'>Make</A> ([300/efficiency])<BR>"
+			dat += "Security belt: <A href='?src=\ref[src];create=sbelt;amount=1'>Make</A> ([300/efficiency])<BR>"
+			dat += "Medical belt: <A href='?src=\ref[src];create=mbelt;amount=1'>Make</A> ([300/efficiency])<BR>"
+			dat += "Janitor belt: <A href='?src=\ref[src];create=jbelt;amount=1'>Make</A> ([300/efficiency])<BR>"
+			dat += "Bandolier: <A href='?src=\ref[src];create=band;amount=1'>Make</A> ([300/efficiency])<BR>"
+			dat += "</div>"
 			//dat += "<h3>Other:</h3>"
 			//dat += "Monkey: <A href='?src=\ref[src];create=monkey;amount=1'>Make</A> ([400/efficiency])<BR>"
-			dat += "</div>"
 		else
 			dat += "<div class='statusDisplay'>No container inside. Please insert a container.</div>"
 
@@ -229,6 +237,7 @@
 
 /obj/machinery/biogenerator/proc/create_product(var/create)
 	switch(create)
+		//Food
 		if("milk")
 			if(check_container_volume(10)) return 0
 			else if (check_cost(20/efficiency)) return 0
@@ -240,6 +249,7 @@
 		if("meat")
 			if (check_cost(250/efficiency)) return 0
 			else new/obj/item/weapon/reagent_containers/food/snacks/monkeycube(src.loc)
+		//Nutrients
 		if("ez")
 			if (check_cost(10/efficiency, 1)) return 0
 			if(in_beaker)
@@ -264,6 +274,7 @@
 			else
 				new/obj/item/weapon/reagent_containers/glass/fertilizer/rh(src.loc)
 			if (check_cost(25/efficiency)) return 0
+		//Leather
 		if("wallet")
 			if (check_cost(100/efficiency)) return 0
 			else new/obj/item/weapon/storage/wallet(src.loc)
@@ -279,9 +290,6 @@
 		if("gloves")
 			if (check_cost(250/efficiency)) return 0
 			else new/obj/item/clothing/gloves/botanic_leather(src.loc)
-		if("tbelt")
-			if (check_cost(300/efficiency)) return 0
-			else new/obj/item/weapon/storage/belt/utility(src.loc)
 		if("satchel")
 			if (check_cost(400/efficiency)) return 0
 			else new/obj/item/weapon/storage/backpack/satchel(src.loc)
@@ -291,6 +299,25 @@
 		if("jacket")
 			if (check_cost(500/efficiency)) return 0
 			else new/obj/item/clothing/suit/jacket/leather(src.loc)
+		//Belts
+		if("tbelt")
+			if (check_cost(300/efficiency)) return 0
+			else new/obj/item/weapon/storage/belt/utility(src.loc)
+		if("bbelt")
+			if (check_cost(300/efficiency)) return 0
+			else new/obj/item/weapon/storage/belt/botany(src.loc)
+		if("sbelt")
+			if (check_cost(300/efficiency)) return 0
+			else new/obj/item/weapon/storage/belt/security(src.loc)
+		if("mbelt")
+			if (check_cost(300/efficiency)) return 0
+			else new/obj/item/weapon/storage/belt/medical(src.loc)
+		if("jbelt")
+			if (check_cost(300/efficiency)) return 0
+			else new/obj/item/weapon/storage/belt/janitor(src.loc)
+		if("band")
+			if (check_cost(300/efficiency)) return 0
+			else new/obj/item/weapon/storage/belt/bandolier(src.loc)
 	processing = 0
 	menustat = "complete"
 	update_icon()
