@@ -69,3 +69,6 @@ mob/proc/update_inv_wear_pda()
 
 /mob/proc/update_targeted()
 	return
+
+/mob/proc/update_transform()
+	return
