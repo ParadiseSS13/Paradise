@@ -318,9 +318,6 @@
 		if("band")
 			if (check_cost(300/efficiency)) return 0
 			else new/obj/item/weapon/storage/belt/bandolier(src.loc)
-		//if("monkey")
-		//	if (check_cost(500)) return 0
-		//	else new/mob/living/carbon/monkey(src.loc)
 	processing = 0
 	menustat = "complete"
 	update_icon()
