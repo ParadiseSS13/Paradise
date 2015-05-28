@@ -2,7 +2,7 @@ CREATE DATABASE  IF NOT EXISTS `paradise` /*!40100 DEFAULT CHARACTER SET utf8 */
 USE `paradise`;
 -- MySQL dump 10.13  Distrib 5.6.13, for Win32 (x86)
 --
--- Host: localhost    Database: paradise
+-- Host: nanotrasen.se    Database: paradise
 -- ------------------------------------------------------
 -- Server version	5.6.15-log
 
@@ -78,19 +78,9 @@ CREATE TABLE `characters` (
   `rlimb_data` mediumtext NOT NULL,
   `nanotrasen_relation` varchar(45) NOT NULL,
   `speciesprefs` int(1) NOT NULL,
-  `slime_color` mediumtext NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=18747 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `characters`
---
-
-LOCK TABLES `characters` WRITE;
-/*!40000 ALTER TABLE `characters` DISABLE KEYS */;
-/*!40000 ALTER TABLE `characters` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `customuseritems`
@@ -104,22 +94,14 @@ CREATE TABLE `customuseritems` (
   `cuiCKey` varchar(36) NOT NULL,
   `cuiRealName` varchar(60) NOT NULL,
   `cuiPath` varchar(255) NOT NULL,
-  `cuiDescription` text NOT NULL,
-  `cuiReason` text NOT NULL,
-  `cuiPropAdjust` text NOT NULL,
+  `cuiItemName` text,
+  `cuiDescription` text,
+  `cuiReason` text,
+  `cuiPropAdjust` text,
   `cuiJobMask` text NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=56 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `customuseritems`
---
-
-LOCK TABLES `customuseritems` WRITE;
-/*!40000 ALTER TABLE `customuseritems` DISABLE KEYS */;
-/*!40000 ALTER TABLE `customuseritems` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `death`
@@ -145,17 +127,8 @@ CREATE TABLE `death` (
   `fireloss` int(11) NOT NULL,
   `oxyloss` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=166546 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `death`
---
-
-LOCK TABLES `death` WRITE;
-/*!40000 ALTER TABLE `death` DISABLE KEYS */;
-/*!40000 ALTER TABLE `death` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `erro_admin`
@@ -171,17 +144,8 @@ CREATE TABLE `erro_admin` (
   `level` int(2) NOT NULL DEFAULT '0',
   `flags` int(16) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=99 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `erro_admin`
---
-
-LOCK TABLES `erro_admin` WRITE;
-/*!40000 ALTER TABLE `erro_admin` DISABLE KEYS */;
-/*!40000 ALTER TABLE `erro_admin` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `erro_admin_log`
@@ -199,15 +163,6 @@ CREATE TABLE `erro_admin_log` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `erro_admin_log`
---
-
-LOCK TABLES `erro_admin_log` WRITE;
-/*!40000 ALTER TABLE `erro_admin_log` DISABLE KEYS */;
-/*!40000 ALTER TABLE `erro_admin_log` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `erro_ban`
@@ -241,17 +196,8 @@ CREATE TABLE `erro_ban` (
   `unbanned_computerid` varchar(32) DEFAULT NULL,
   `unbanned_ip` varchar(32) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=10685 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `erro_ban`
---
-
-LOCK TABLES `erro_ban` WRITE;
-/*!40000 ALTER TABLE `erro_ban` DISABLE KEYS */;
-/*!40000 ALTER TABLE `erro_ban` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `erro_feedback`
@@ -268,17 +214,8 @@ CREATE TABLE `erro_feedback` (
   `var_value` int(16) DEFAULT NULL,
   `details` text,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=257638 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `erro_feedback`
---
-
-LOCK TABLES `erro_feedback` WRITE;
-/*!40000 ALTER TABLE `erro_feedback` DISABLE KEYS */;
-/*!40000 ALTER TABLE `erro_feedback` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `erro_player`
@@ -307,17 +244,8 @@ CREATE TABLE `erro_player` (
   `volume` smallint(4) DEFAULT '100',
   PRIMARY KEY (`id`),
   UNIQUE KEY `ckey` (`ckey`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=32446 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `erro_player`
---
-
-LOCK TABLES `erro_player` WRITE;
-/*!40000 ALTER TABLE `erro_player` DISABLE KEYS */;
-/*!40000 ALTER TABLE `erro_player` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `erro_poll_option`
@@ -341,15 +269,6 @@ CREATE TABLE `erro_poll_option` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `erro_poll_option`
---
-
-LOCK TABLES `erro_poll_option` WRITE;
-/*!40000 ALTER TABLE `erro_poll_option` DISABLE KEYS */;
-/*!40000 ALTER TABLE `erro_poll_option` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `erro_poll_question`
 --
 
@@ -366,15 +285,6 @@ CREATE TABLE `erro_poll_question` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `erro_poll_question`
---
-
-LOCK TABLES `erro_poll_question` WRITE;
-/*!40000 ALTER TABLE `erro_poll_question` DISABLE KEYS */;
-/*!40000 ALTER TABLE `erro_poll_question` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `erro_poll_textreply`
@@ -394,15 +304,6 @@ CREATE TABLE `erro_poll_textreply` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `erro_poll_textreply`
---
-
-LOCK TABLES `erro_poll_textreply` WRITE;
-/*!40000 ALTER TABLE `erro_poll_textreply` DISABLE KEYS */;
-/*!40000 ALTER TABLE `erro_poll_textreply` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `erro_poll_vote`
@@ -425,15 +326,6 @@ CREATE TABLE `erro_poll_vote` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `erro_poll_vote`
---
-
-LOCK TABLES `erro_poll_vote` WRITE;
-/*!40000 ALTER TABLE `erro_poll_vote` DISABLE KEYS */;
-/*!40000 ALTER TABLE `erro_poll_vote` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `erro_privacy`
 --
 
@@ -446,17 +338,8 @@ CREATE TABLE `erro_privacy` (
   `ckey` varchar(32) NOT NULL,
   `option` varchar(128) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=10000 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `erro_privacy`
---
-
-LOCK TABLES `erro_privacy` WRITE;
-/*!40000 ALTER TABLE `erro_privacy` DISABLE KEYS */;
-/*!40000 ALTER TABLE `erro_privacy` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `karma`
@@ -477,17 +360,8 @@ CREATE TABLE `karma` (
   `spenderip` text NOT NULL,
   `time` datetime NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=73614 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `karma`
---
-
-LOCK TABLES `karma` WRITE;
-/*!40000 ALTER TABLE `karma` DISABLE KEYS */;
-/*!40000 ALTER TABLE `karma` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `karmatotals`
@@ -502,17 +376,8 @@ CREATE TABLE `karmatotals` (
   `karma` int(11) NOT NULL,
   `karmaspent` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=6765 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `karmatotals`
---
-
-LOCK TABLES `karmatotals` WRITE;
-/*!40000 ALTER TABLE `karmatotals` DISABLE KEYS */;
-/*!40000 ALTER TABLE `karmatotals` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `library`
@@ -527,18 +392,10 @@ CREATE TABLE `library` (
   `title` text NOT NULL,
   `content` text NOT NULL,
   `category` text NOT NULL,
+  `ckey` varchar(45) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=929 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `library`
---
-
-LOCK TABLES `library` WRITE;
-/*!40000 ALTER TABLE `library` DISABLE KEYS */;
-/*!40000 ALTER TABLE `library` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `population`
@@ -553,17 +410,8 @@ CREATE TABLE `population` (
   `admincount` int(11) DEFAULT NULL,
   `time` datetime NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=2550 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `population`
---
-
-LOCK TABLES `population` WRITE;
-/*!40000 ALTER TABLE `population` DISABLE KEYS */;
-/*!40000 ALTER TABLE `population` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `whitelist`
@@ -578,17 +426,8 @@ CREATE TABLE `whitelist` (
   `job` text,
   `species` text,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=877 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `whitelist`
---
-
-LOCK TABLES `whitelist` WRITE;
-/*!40000 ALTER TABLE `whitelist` DISABLE KEYS */;
-/*!40000 ALTER TABLE `whitelist` ENABLE KEYS */;
-UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -599,4 +438,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2014-11-19  1:24:17
+-- Dump completed on 2015-05-28 19:57:44
