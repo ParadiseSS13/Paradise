@@ -133,17 +133,6 @@
 	reagents.remove_reagent("vomit", 5)
 	reagents.add_reagent("green_vomit", 5)
 
-/obj/effect/decal/cleanable/poop
-	name = "poop"
-	desc = "Gosh, how unpleasant."
-	gender = PLURAL
-	density = 0
-	anchored = 1
-	layer = 2
-	icon = 'icons/effects/poop.dmi'
-	random_icon_states = list("floor1", "floor2", "floor3", "floor4", "floor5", "floor6", "floor7")
-	var/list/datum/disease2/disease/virus2 = list()
-
 /obj/effect/decal/cleanable/tomato_smudge
 	name = "tomato smudge"
 	desc = "It's red."

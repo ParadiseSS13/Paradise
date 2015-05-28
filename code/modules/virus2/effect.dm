@@ -831,14 +831,6 @@ var/list/compatible_mobs = list(/mob/living/carbon/human)
 
 
 ////////////////////////STAGE 1/////////////////////////////////
-
-/datum/disease2/effect/poop
-	name = "Uncontrollable Bowel Syndrome"
-	stage = 1
-	activate(var/mob/living/carbon/mob,var/multiplier)
-		mob.fakepoop()
-
-
 /datum/disease2/effect/vomit
 	name = "Projectile Vomit Syndrome"
 	stage = 1
