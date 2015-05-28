@@ -128,6 +128,9 @@
 /mob/living/carbon/human/farwa/New(var/new_loc)
 	..(new_loc, "Farwa")
 
+/mob/living/carbon/human/wolpin/New(var/new_loc)
+	..(new_loc, "Wolpin")
+
 /mob/living/carbon/human/neara/New(var/new_loc)
 	..(new_loc, "Neara")
 

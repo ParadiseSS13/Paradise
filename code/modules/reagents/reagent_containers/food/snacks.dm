@@ -1754,14 +1754,14 @@
 	name = "farwa cube"
 	monkey_type = "Farwa"
 
-/*
+
 /obj/item/weapon/reagent_containers/food/snacks/monkeycube/wolpincube
 	name = "wolpin cube"
-	monkey_type = /mob/living/carbon/monkey/vulpkanin
+	monkey_type = "Wolpin"
 /obj/item/weapon/reagent_containers/food/snacks/monkeycube/wrapped/wolpincube
 	name = "wolpin cube"
-	monkey_type = /mob/living/carbon/monkey/vulpkanin
-*/
+	monkey_type = "Wolpin"
+
 
 /obj/item/weapon/reagent_containers/food/snacks/monkeycube/stokcube
 	name = "stok cube"

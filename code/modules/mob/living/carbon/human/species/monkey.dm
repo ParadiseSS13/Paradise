@@ -18,6 +18,7 @@
 	eyes = "blank_eyes"
 
 	tail = "chimptail"
+	bodyflags = FEET_PADDED | HAS_TAIL
 
 	//unarmed_types = list(/datum/unarmed_attack/bite, /datum/unarmed_attack/claws)
 	//inherent_verbs = list(/mob/living/proc/ventcrawl)
@@ -60,6 +61,20 @@ datum/species/monkey/get_random_name(var/gender)
 	base_color = "#333333"
 	tail = "farwatail"
 
+
+/datum/species/monkey/vulpkanin
+	name = "Wolpin"
+
+	icobase = 'icons/mob/human_races/monkeys/r_wolpin.dmi'
+	deform = 'icons/mob/human_races/monkeys/r_wolpin.dmi'
+
+	greater_form = "Vulpkanin"
+	default_language = "Wolpin"
+	flesh_color = "#966464"
+	base_color = "#BE8264"
+	tail = "wolpintail"
+
+
 /datum/species/monkey/skrell
 	name = "Neara"
 
@@ -73,6 +88,9 @@ datum/species/monkey/get_random_name(var/gender)
 	reagent_tag = IS_SKRELL
 	tail = null
 
+	bodyflags = FEET_PADDED
+
+
 /datum/species/monkey/unathi
 	name = "Stok"
 
@@ -85,3 +103,5 @@ datum/species/monkey/get_random_name(var/gender)
 	flesh_color = "#34AF10"
 	base_color = "#066000"
 	reagent_tag = IS_UNATHI
+
+	bodyflags = FEET_CLAWS | HAS_TAIL
