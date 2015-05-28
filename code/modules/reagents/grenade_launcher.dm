@@ -81,7 +81,7 @@
 	force = 5.0
 	clumsy_check = 0
 	grenades = new/list()
-	max_grenades = 3
+	max_grenades = 5
 	ammo_name = "cream pie"
 	ammo_type = /obj/item/weapon/reagent_containers/food/snacks/pie
 
