@@ -595,7 +595,7 @@
 
 /datum/language/vulpkanin/monkey
 	name = "Wolpin"
-	desc = "Bark bark barl."
+	desc = "Bark bark bark."
 	key = "vu"
 
 
