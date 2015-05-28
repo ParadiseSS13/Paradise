@@ -125,7 +125,7 @@
 							B = T.take_blood(src,amount)
 
 						if (B)
-							src.reagents.reagent_list += B
+							src.reagents.reagent_list |= B
 							src.reagents.update_total()
 							src.on_reagent_change()
 							src.reagents.handle_reactions()
