@@ -81,6 +81,7 @@
 	var/forumurl = "http://baystation12.net/forums/"
 
 	var/media_base_url = "http://nanotrasen.se/media" // http://ss13.nexisonline.net/media
+	var/overflow_server_url = "byond://nanotrasen.se:6666"
 
 	var/forbid_singulo_possession = 0
 
@@ -154,6 +155,7 @@
 
 	var/starlight = 0	// Whether space turfs have ambient light or not
 	var/allow_holidays = 0
+	var/player_overflow_cap = 0 //number of players before the server starts rerouting
 
 /datum/configuration/New()
 	var/list/L = typesof(/datum/game_mode) - /datum/game_mode
@@ -507,6 +509,13 @@
 				if("starlight")
 					var/vvalue = text2num(value)
 					config.starlight = vvalue >= 0 ? vvalue : 0
+
+				if("player_reroute_cap")
+					var/vvalue = text2num(value)
+					config.player_overflow_cap = vvalue >= 0 ? vvalue : 0
+
+				if("overflow_server_url")
+					config.overflow_server_url = value
 
 				else
 					diary << "Unknown setting in configuration: '[name]'"
