@@ -1400,14 +1400,6 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 					if (infect_virus2(src,V))
 						return 1
 
-		for(var/obj/effect/decal/cleanable/poop/P in get_turf(src))
-			if(P.virus2.len)
-				for (var/ID in P.virus2)
-					var/datum/disease2/disease/V = P.virus2[ID]
-					if (infect_virus2(src,V))
-						return 1
-
-
 		return 0
 
 	proc/handle_virus_updates()

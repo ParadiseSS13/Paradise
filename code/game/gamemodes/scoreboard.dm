@@ -142,7 +142,6 @@
 		if (istype(M, /obj/effect/decal/cleanable/blood/gibs/)) score_mess += 3
 		if (istype(M, /obj/effect/decal/cleanable/blood/)) score_mess += 1
 //		if (istype(M, /obj/effect/decal/cleanable/greenpuke)) score_mess += 1
-		if (istype(M, /obj/effect/decal/cleanable/poop)) score_mess += 1
 //		if (istype(M, /obj/decal/cleanable/urine)) score_mess += 1
 		if (istype(M, /obj/effect/decal/cleanable/vomit)) score_mess += 1
 
