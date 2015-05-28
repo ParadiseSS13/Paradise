@@ -1057,7 +1057,7 @@ var/list/slot_equipment_priority = list( \
 	if(istype(buckled, /obj/vehicle))
 		var/obj/vehicle/V = buckled
 		if(stat || weakened || paralysis || resting || sleeping || (status_flags & FAKEDEATH))
-			lying = 1
+			lying = 90
 			canmove = 0
 			pixel_y = V.mob_offset_y - 5
 		else
@@ -1070,13 +1070,13 @@ var/list/slot_equipment_priority = list( \
 		if( istype(buckled,/obj/structure/stool/bed/chair) )
 			lying = 0
 		else
-			lying = 1
+			lying = 90
 	else if(buckled && is_movable)
 		anchored = 0
 		canmove = 1
 		lying = 0
 	else if( stat || weakened || paralysis || resting || sleeping || (status_flags & FAKEDEATH))
-		lying = 1
+		lying = 90
 		canmove = 0
 	else if( stunned )
 		canmove = 0
@@ -1102,9 +1102,8 @@ var/list/slot_equipment_priority = list( \
 	if(update_icon)	//forces a full overlay update
 		update_icon = 0
 		regenerate_icons()
-	else if( lying != lying_prev )
-		update_icons()
-
+	update_transform()
+	lying_prev = lying
 	return canmove
 
 /mob/proc/fall(var/forced)
