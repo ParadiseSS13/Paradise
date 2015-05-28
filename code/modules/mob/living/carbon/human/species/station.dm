@@ -101,6 +101,7 @@
 	path = /mob/living/carbon/human/vulpkanin
 	default_language = "Galactic Common"
 	language = "Canilunzt"
+	primitive_form = "Wolpin"
 	tail = "vulptail"
 	unarmed_type = /datum/unarmed_attack/claws
 	darksight = 8

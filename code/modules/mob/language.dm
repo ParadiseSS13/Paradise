@@ -593,5 +593,11 @@
 	desc = "Meow meow meow."
 	key = "fa"
 
+/datum/language/vulpkanin/monkey
+	name = "Wolpin"
+	desc = "Bark bark barl."
+	key = "vu"
+
+
 
 #undef SCRAMBLE_CACHE_LEN
