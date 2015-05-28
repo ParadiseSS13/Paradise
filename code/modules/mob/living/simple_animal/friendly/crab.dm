@@ -18,6 +18,7 @@
 	response_harm   = "stomps the"
 	stop_automated_movement = 1
 	friendly = "pinches"
+	ventcrawler = 2
 	var/obj/item/inventory_head
 	var/obj/item/inventory_mask
 	can_hide = 1

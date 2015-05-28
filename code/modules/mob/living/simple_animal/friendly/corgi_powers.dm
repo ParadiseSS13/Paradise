@@ -1,4 +1,4 @@
-/mob/living/simple_animal/corgi/verb/chasetail()
+/mob/living/simple_animal/pet/corgi/verb/chasetail()
 	set name = "Chase your tail"
 	set desc = "d'awwww."
 	set category = "Corgi"

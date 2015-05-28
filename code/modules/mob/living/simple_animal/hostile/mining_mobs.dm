@@ -74,6 +74,7 @@
 	melee_damage_upper = 12
 	attacktext = "bites into"
 	a_intent = "harm"
+	speak_emote = list("chitters")
 	attack_sound = 'sound/weapons/bladeslice.ogg'
 	ranged_cooldown_cap = 4
 	aggro_vision_range = 9
@@ -97,8 +98,8 @@
 		stance = HOSTILE_STANCE_ATTACK
 		if(isliving(target))
 			var/mob/living/L = target
-			if(L.bodytemperature > 261)
-				L.bodytemperature = 261
+			if(L.bodytemperature > 200)
+				L.bodytemperature = 200
 				visible_message("<span class='danger'>The [src.name]'s stare chills [L.name] to the bone!</span>")
 	return
 
@@ -142,6 +143,7 @@
 	attacktext = "barrels into"
 	attack_sound = 'sound/weapons/punch1.ogg'
 	a_intent = "help"
+	speak_emote = list("screeches")
 	throw_message = "sinks in slowly, before being pushed out of "
 	status_flags = CANPUSH
 	search_objects = 1
@@ -181,7 +183,7 @@
 		ore_eaten++
 		if(!(O.type in ore_types_eaten))
 			ore_types_eaten += O.type
-		del(O)
+		qdel(O)
 	if(ore_eaten > 5)//Limit the scope of the reward you can get, or else things might get silly
 		ore_eaten = 5
 	visible_message("<span class='notice'>The ore was swallowed whole!</span>")
@@ -192,7 +194,7 @@
 		spawn(chase_time)
 		if(alerted)
 			visible_message("<span class='danger'>The [src.name] buries into the ground, vanishing from sight!</span>")
-			del(src)
+			qdel(src)
 
 /mob/living/simple_animal/hostile/asteroid/goldgrub/proc/Reward()
 	if(!ore_eaten || ore_types_eaten.len == 0)
@@ -242,6 +244,7 @@
 	melee_damage_upper = 0
 	attacktext = "lashes out at"
 	speak_emote = list("telepathically cries")
+	attack_sound = 'sound/weapons/pierce.ogg'
 	throw_message = "falls right through the strange body of the"
 	ranged_cooldown = 0
 	ranged_cooldown_cap = 0
@@ -262,6 +265,7 @@
 
 /mob/living/simple_animal/hostile/asteroid/hivelord/Die()
 	new /obj/item/asteroid/hivelord_core(src.loc)
+	mouse_opacity = 1
 	..()
 
 /obj/item/asteroid/hivelord_core
@@ -316,6 +320,7 @@
 	melee_damage_upper = 2
 	attacktext = "slashes"
 	speak_emote = list("telepathically cries")
+	attack_sound = 'sound/weapons/pierce.ogg'
 	throw_message = "falls right through the strange body of the"
 	environment_smash = 0
 	pass_flags = PASSTABLE

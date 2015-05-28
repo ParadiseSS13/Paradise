@@ -9,7 +9,7 @@
 	response_help = "passes through the"
 	response_disarm = "shoves"
 	response_harm = "hits the"
-	speed = -1
+	speed = 0
 	maxHealth = 80
 	health = 80
 
@@ -18,6 +18,7 @@
 	melee_damage_upper = 15
 	attacktext = "grips"
 	attack_sound = 'sound/hallucinations/growl1.ogg'
+	speak_emote = list("growls")
 
 	min_oxy = 0
 	max_oxy = 0
@@ -38,12 +39,13 @@
 /mob/living/simple_animal/hostile/faithless/FindTarget()
 	. = ..()
 	if(.)
-		emote("wails at [.]")
+		emote("me", 1, "wails at [.]!")
 
 /mob/living/simple_animal/hostile/faithless/AttackingTarget()
-	. =..()
-	var/mob/living/L = .
-	if(istype(L))
+	..()
+	if(iscarbon(target))
+		var/mob/living/carbon/C = target
 		if(prob(12))
-			L.Weaken(3)
-			L.visible_message("<span class='danger'>\the [src] knocks down \the [L]!</span>")
+			C.Weaken(3)
+			C.visible_message("<span class='danger'>\The [src] knocks down \the [C]!</span>", \
+					"<span class='userdanger'>\The [src] knocks you down!</span>")

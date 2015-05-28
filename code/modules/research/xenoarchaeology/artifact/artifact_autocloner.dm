@@ -32,9 +32,9 @@
 		)
 	else
 		spawn_type = pick(\
-		/mob/living/simple_animal/cat,\
-		/mob/living/simple_animal/corgi,\
-		/mob/living/simple_animal/corgi/puppy,\
+		/mob/living/simple_animal/pet/cat,\
+		/mob/living/simple_animal/pet/corgi,\
+		/mob/living/simple_animal/pet/corgi/puppy,\
 		/mob/living/simple_animal/chicken,\
 		/mob/living/simple_animal/cow,\
 		/mob/living/simple_animal/parrot,\

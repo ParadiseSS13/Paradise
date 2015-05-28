@@ -20,12 +20,16 @@
 	faction = list("neutral")
 	attack_same = 1
 	attacktext = "kicks"
+	attack_sound = 'sound/weapons/punch1.ogg'
 	health = 40
 	melee_damage_lower = 1
-	melee_damage_upper = 5
-	var/milk_content = 0
+	melee_damage_upper = 2
+	stop_automated_movement_when_pulled = 1
+	var/datum/reagents/udder = null
 
 /mob/living/simple_animal/hostile/retaliate/goat/New()
+	udder = new(50)
+	udder.my_atom = src
 	..()
 
 /mob/living/simple_animal/hostile/retaliate/goat/Life()
@@ -40,8 +44,9 @@
 			LoseTarget()
 			src.visible_message("\blue [src] calms down.")
 
-		if(stat == CONSCIOUS && prob(5))
-			milk_content = min(50, milk_content+rand(5, 10))
+	if(stat == CONSCIOUS)
+		if(udder && prob(5))
+			udder.add_reagent("milk", rand(5, 10))
 
 		if(locate(/obj/effect/plant) in loc)
 			var/obj/effect/plant/SV = locate(/obj/effect/plant) in loc
@@ -54,7 +59,7 @@
 				var/step = get_step(src, direction)
 				if(step)
 					if(locate(/obj/effect/plant) in step)
-						Move(step)
+						Move(step, get_dir(src, step))
 
 /mob/living/simple_animal/hostile/retaliate/goat/Retaliate()
 	..()
@@ -71,17 +76,13 @@
 
 /mob/living/simple_animal/hostile/retaliate/goat/attackby(var/obj/item/O as obj, var/mob/user as mob, params)
 	if(stat == CONSCIOUS && istype(O, /obj/item/weapon/reagent_containers/glass))
-		user.changeNext_move(CLICK_CD_MELEE)
+		user.visible_message("[user] milks [src] using \the [O].", "<span class='notice'>You milk [src] using \the [O].</span>")
 		var/obj/item/weapon/reagent_containers/glass/G = O
-		var/transfered = min(milk_content, rand(5,10), (G.volume - G.reagents.total_volume))
-		if(transfered > 0)
-			user.visible_message("<span class='notice'>[user] milks [src] using \the [O].</span>")
-			G.reagents.add_reagent("milk", transfered)
-			milk_content -= transfered
-		else if(G.reagents.total_volume >= G.volume)
-			user << "\red \The [O] is full."
-		else
-			user << "\red The udder is dry. Wait a bit longer..."
+		var/transfered = udder.trans_id_to(G, "milk", rand(5,10))
+		if(G.reagents.total_volume >= G.volume)
+			user << "<span class='warning'>[O] is full!</span>"
+		if(!transfered)
+			user << "<span class='warning'>The udder is dry! Wait a bit longer...</span>"
 	else
 		..()
 //cow
@@ -105,32 +106,32 @@
 	response_disarm = "gently pushes aside the"
 	response_harm   = "kicks the"
 	attacktext = "kicks"
+	attack_sound = 'sound/weapons/punch1.ogg'
 	health = 50
-	var/milk_content = 0
+	var/datum/reagents/udder = null
 
 /mob/living/simple_animal/cow/New()
+	udder = new(50)
+	udder.my_atom = src
 	..()
 
-/mob/living/simple_animal/cow/attackby(var/obj/item/O as obj, var/mob/user as mob, params, params)
+/mob/living/simple_animal/cow/attackby(var/obj/item/O as obj, var/mob/user as mob, params)
 	if(stat == CONSCIOUS && istype(O, /obj/item/weapon/reagent_containers/glass))
-		user.changeNext_move(CLICK_CD_MELEE)
+		user.visible_message("[user] milks [src] using \the [O].", "<span class='notice'>You milk [src] using \the [O].</span>")
 		var/obj/item/weapon/reagent_containers/glass/G = O
-		var/transfered = min(milk_content, rand(5,10), (G.volume - G.reagents.total_volume))
-		if(transfered > 0)
-			user.visible_message("<span class='notice'>[user] milks [src] using \the [O].</span>")
-			G.reagents.add_reagent("milk", transfered)
-			milk_content -= transfered
-		else if(G.reagents.total_volume >= G.volume)
-			user << "\red \The [O] is full."
-		else
-			user << "\red The udder is dry. Wait a bit longer..."
+		var/transfered = udder.trans_id_to(G, "milk", rand(5,10))
+		if(G.reagents.total_volume >= G.volume)
+			user << "<span class='danger'>[O] is full.</span>"
+		if(!transfered)
+			user << "<span class='danger'>The udder is dry. Wait a bit longer...</span>"
 	else
 		..()
 
 /mob/living/simple_animal/cow/Life()
 	. = ..()
-	if(stat == CONSCIOUS && prob(5))
-		milk_content = min(50, milk_content+rand(5, 10))
+	if(stat == CONSCIOUS)
+		if(udder && prob(5))
+			udder.add_reagent("milk", rand(5, 10))
 
 /mob/living/simple_animal/cow/attack_hand(mob/living/carbon/M as mob)
 	if(!stat && M.a_intent == "disarm" && icon_state != icon_dead)
@@ -159,6 +160,7 @@
 	speak_emote = list("cheeps")
 	emote_hear = list("cheeps")
 	emote_see = list("pecks at the ground","flaps its tiny wings")
+	density = 0
 	speak_chance = 2
 	turns_per_move = 2
 	meat_type = /obj/item/weapon/reagent_containers/food/snacks/meat
@@ -168,8 +170,9 @@
 	response_harm   = "kicks the"
 	attacktext = "kicks"
 	health = 1
+	ventcrawler = 2
 	var/amount_grown = 0
-	pass_flags = PASSTABLE | PASSGRILLE
+	pass_flags = PASSTABLE | PASSGRILLE | PASSMOB
 	small = 1
 	can_hide = 1
 
@@ -186,7 +189,7 @@
 		amount_grown += rand(1,2)
 		if(amount_grown >= 100)
 			new /mob/living/simple_animal/chicken(src.loc)
-			del(src)
+			qdel(src)
 
 var/const/MAX_CHICKENS = 50
 var/global/chicken_count = 0
@@ -201,6 +204,7 @@ var/global/chicken_count = 0
 	speak_emote = list("clucks","croons")
 	emote_hear = list("clucks")
 	emote_see = list("pecks at the ground","flaps its wings viciously")
+	density = 0
 	speak_chance = 2
 	turns_per_move = 3
 	meat_type = /obj/item/weapon/reagent_containers/food/snacks/meat
@@ -212,7 +216,7 @@ var/global/chicken_count = 0
 	health = 10
 	var/eggsleft = 0
 	var/_color
-	pass_flags = PASSTABLE
+	pass_flags = PASSTABLE | PASSMOB
 	small = 1
 	can_hide = 1
 

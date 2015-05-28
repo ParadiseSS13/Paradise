@@ -14,6 +14,7 @@
 	melee_damage_lower = 2
 	melee_damage_upper = 3
 	attacktext = "claws"
+	attack_sound = 'sound/weapons/bladeslice.ogg'
 	projectilesound = 'sound/weapons/Gunshot.ogg'
 	projectiletype = /obj/item/projectile/hivebotbullet
 	faction = list("hivebot")
@@ -26,7 +27,7 @@
 	min_n2 = 0
 	max_n2 = 0
 	minbodytemp = 0
-	speed = 4
+	speak_emote = list("states")
 
 /mob/living/simple_animal/hostile/hivebot/range
 	name = "Hivebot"
@@ -54,7 +55,8 @@
 	var/datum/effect/effect/system/spark_spread/s = new /datum/effect/effect/system/spark_spread
 	s.set_up(3, 1, src)
 	s.start()
-	del src
+	ghostize()
+	qdel(src)
 	return
 
 /mob/living/simple_animal/hostile/hivebot/tele//this still needs work

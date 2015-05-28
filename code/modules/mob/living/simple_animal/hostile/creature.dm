@@ -13,4 +13,4 @@
 	attacktext = "chomps"
 	attack_sound = 'sound/weapons/bite.ogg'
 	faction = list("creature")
-	speed = 4
+
