@@ -13,3 +13,20 @@
 	icon_state = "kidanstatue"
 	anchored = 1
 	density = 1
+
+/obj/structure/chickenstatue
+	name = "Bronze Chickenman Statue"
+	desc = "An antique and oriental-looking statue of a Chickenman made of bronze."
+	icon = 'icons/obj/decorations.dmi'
+	icon_state = "chickenstatue"
+	anchored = 1
+	density = 1
+
+
+/obj/structure/clownstatue
+	name = "Bananium Clown Statue"
+	desc = "A golden statue made of bananium, commemorating the coronation of King Squiggles the Eighth."
+	icon = 'icons/obj/decorations.dmi'
+	icon_state = "clownstatue"
+	anchored = 1
+	density = 1
