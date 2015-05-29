@@ -81,7 +81,7 @@
 	var/forumurl = "http://baystation12.net/forums/"
 
 	var/media_base_url = "http://nanotrasen.se/media" // http://ss13.nexisonline.net/media
-
+	var/overflow_server_url
 	var/forbid_singulo_possession = 0
 
 	//game_options.txt configs
@@ -154,6 +154,8 @@
 
 	var/starlight = 0	// Whether space turfs have ambient light or not
 	var/allow_holidays = 0
+	var/player_overflow_cap = 0 //number of players before the server starts rerouting
+	var/list/overflow_whitelist = list() //whitelist for overflow
 
 /datum/configuration/New()
 	var/list/L = typesof(/datum/game_mode) - /datum/game_mode
@@ -508,6 +510,13 @@
 					var/vvalue = text2num(value)
 					config.starlight = vvalue >= 0 ? vvalue : 0
 
+				if("player_reroute_cap")
+					var/vvalue = text2num(value)
+					config.player_overflow_cap = vvalue >= 0 ? vvalue : 0
+
+				if("overflow_server_url")
+					config.overflow_server_url = value
+
 				else
 					diary << "Unknown setting in configuration: '[name]'"
 
@@ -644,6 +653,19 @@
 				forum_authenticated_group = value
 			else
 				diary << "Unknown setting in configuration: '[name]'"
+
+/datum/configuration/proc/loadoverflowwhitelist(filename)
+	var/list/Lines = file2list(filename)
+	for(var/t in Lines)
+		if(!t)	continue
+
+		t = trim(t)
+		if (length(t) == 0)
+			continue
+		else if (copytext(t, 1, 2) == "#")
+			continue
+
+		config.overflow_whitelist += t
 
 /datum/configuration/proc/pick_mode(mode_name)
 	// I wish I didn't have to instance the game modes in order to look up
