@@ -39,7 +39,7 @@
 	return
 
 // Adds the adjacent turfs to the current atmos processing
-/turf/Destroy()
+/turf/Del()
 	if(air_master)
 		for(var/direction in cardinal)
 			if(atmos_adjacent_turfs & direction)
@@ -254,7 +254,7 @@
 			lighting_clear_overlays()
 
 	W.levelupdate()
-	W.air_update_turf(1)
+	W.CalculateAdjacentTurfs()
 	return W
 
 //////Assimilate Air//////
