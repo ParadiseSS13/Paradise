@@ -73,8 +73,8 @@
 	name = "pie cannon"
 	icon = 'icons/obj/gun.dmi'
 	icon_override = 'icons/mob/in-hand/guns.dmi'
-	icon_state = "piecannon0"
-	item_state = "piecannon0"
+	icon_state = "piecannon1"
+	item_state = "piecannon1"
 	w_class = 4.0
 	throw_speed = 2
 	throw_range = 10
