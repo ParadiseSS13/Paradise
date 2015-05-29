@@ -25,11 +25,9 @@
 	melee_damage_lower = 1
 	melee_damage_upper = 2
 	stop_automated_movement_when_pulled = 1
-	var/datum/reagents/udder = null
+	var/milk_content = 0
 
 /mob/living/simple_animal/hostile/retaliate/goat/New()
-	udder = new(50)
-	udder.my_atom = src
 	..()
 
 /mob/living/simple_animal/hostile/retaliate/goat/Life()
@@ -44,9 +42,8 @@
 			LoseTarget()
 			src.visible_message("\blue [src] calms down.")
 
-	if(stat == CONSCIOUS)
-		if(udder && prob(5))
-			udder.add_reagent("milk", rand(5, 10))
+		if(stat == CONSCIOUS && prob(5))
+			milk_content = min(50, milk_content+rand(5, 10))
 
 		if(locate(/obj/effect/plant) in loc)
 			var/obj/effect/plant/SV = locate(/obj/effect/plant) in loc
@@ -76,15 +73,20 @@
 
 /mob/living/simple_animal/hostile/retaliate/goat/attackby(var/obj/item/O as obj, var/mob/user as mob, params)
 	if(stat == CONSCIOUS && istype(O, /obj/item/weapon/reagent_containers/glass))
-		user.visible_message("[user] milks [src] using \the [O].", "<span class='notice'>You milk [src] using \the [O].</span>")
+		user.changeNext_move(CLICK_CD_MELEE)
 		var/obj/item/weapon/reagent_containers/glass/G = O
-		var/transfered = udder.trans_id_to(G, "milk", rand(5,10))
-		if(G.reagents.total_volume >= G.volume)
-			user << "<span class='warning'>[O] is full!</span>"
-		if(!transfered)
-			user << "<span class='warning'>The udder is dry! Wait a bit longer...</span>"
+		var/transfered = min(milk_content, rand(5,10), (G.volume - G.reagents.total_volume))
+		if(transfered > 0)
+			user.visible_message("<span class='notice'>[user] milks [src] using \the [O].</span>")
+			G.reagents.add_reagent("milk", transfered)
+			milk_content -= transfered
+		else if(G.reagents.total_volume >= G.volume)
+			user << "\red \The [O] is full."
+		else
+			user << "\red The udder is dry. Wait a bit longer..."
 	else
 		..()
+
 //cow
 /mob/living/simple_animal/cow
 	name = "cow"
@@ -108,30 +110,31 @@
 	attacktext = "kicks"
 	attack_sound = 'sound/weapons/punch1.ogg'
 	health = 50
-	var/datum/reagents/udder = null
+	var/milk_content = 0
 
 /mob/living/simple_animal/cow/New()
-	udder = new(50)
-	udder.my_atom = src
 	..()
 
-/mob/living/simple_animal/cow/attackby(var/obj/item/O as obj, var/mob/user as mob, params)
+/mob/living/simple_animal/cow/attackby(var/obj/item/O as obj, var/mob/user as mob, params, params)
 	if(stat == CONSCIOUS && istype(O, /obj/item/weapon/reagent_containers/glass))
-		user.visible_message("[user] milks [src] using \the [O].", "<span class='notice'>You milk [src] using \the [O].</span>")
+		user.changeNext_move(CLICK_CD_MELEE)
 		var/obj/item/weapon/reagent_containers/glass/G = O
-		var/transfered = udder.trans_id_to(G, "milk", rand(5,10))
-		if(G.reagents.total_volume >= G.volume)
-			user << "<span class='danger'>[O] is full.</span>"
-		if(!transfered)
-			user << "<span class='danger'>The udder is dry. Wait a bit longer...</span>"
+		var/transfered = min(milk_content, rand(5,10), (G.volume - G.reagents.total_volume))
+		if(transfered > 0)
+			user.visible_message("<span class='notice'>[user] milks [src] using \the [O].</span>")
+			G.reagents.add_reagent("milk", transfered)
+			milk_content -= transfered
+		else if(G.reagents.total_volume >= G.volume)
+			user << "\red \The [O] is full."
+		else
+			user << "\red The udder is dry. Wait a bit longer..."
 	else
 		..()
 
 /mob/living/simple_animal/cow/Life()
 	. = ..()
-	if(stat == CONSCIOUS)
-		if(udder && prob(5))
-			udder.add_reagent("milk", rand(5, 10))
+	if(stat == CONSCIOUS && prob(5))
+		milk_content = min(50, milk_content+rand(5, 10))
 
 /mob/living/simple_animal/cow/attack_hand(mob/living/carbon/M as mob)
 	if(!stat && M.a_intent == "disarm" && icon_state != icon_dead)
