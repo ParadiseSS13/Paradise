@@ -51,7 +51,7 @@
 	desc = "A high-tech revolver that fires internal, reusable stun cartidges in a revolving cylinder. Holds twice as much ammo as a standard taser."
 	icon_state = "stunrevolver"
 	fire_sound = "sound/weapons/gunshot.ogg"
-	projectile_type = "/obj/item/projectile/energy/electrode"
+	projectile_type = "/obj/item/projectile/energy/disabler"
 	cell_type = "/obj/item/weapon/stock_parts/cell"
 	fire_delay = 15
 
