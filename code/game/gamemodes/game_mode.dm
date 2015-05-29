@@ -272,8 +272,9 @@ Implants;
 	return 0
 
 
-/datum/game_mode/proc/send_intercept()
-	var/intercepttext = "<FONT size = 3><B>Cent. Com. Update</B> Requested status information:</FONT><HR>"
+/datum/game_mode/proc/send_intercept() //Disabled.
+	return
+/*	var/intercepttext = "<FONT size = 3><B>Cent. Com. Update</B> Requested status information:</FONT><HR>"
 	intercepttext += "<B> In case you have misplaced your copy, attached is a list of personnel whom reliable sources&trade; suspect may be affiliated with the Syndicate:</B><br>"
 
 
@@ -326,7 +327,7 @@ Implants;
 
 	command_announcement.Announce("Summary downloaded and printed out at all communications consoles.", "Enemy communication intercepted. Security Level Elevated.", new_sound = 'sound/AI/intercept.ogg')
 	if(security_level < SEC_LEVEL_BLUE)
-		set_security_level(SEC_LEVEL_BLUE)
+		set_security_level(SEC_LEVEL_BLUE)*/
 
 
 /datum/game_mode/proc/get_players_for_role(var/role, override_jobbans=0)
