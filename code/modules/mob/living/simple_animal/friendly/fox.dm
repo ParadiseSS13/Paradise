@@ -1,5 +1,5 @@
 //Foxxy
-/mob/living/simple_animal/fox
+/mob/living/simple_animal/pet/fox
 	name = "fox"
 	desc = "It's a fox. I wonder what it says?"
 	icon_state = "fox"
@@ -19,12 +19,12 @@
 	response_harm = "kicks"
 
 //Captain fox
-/mob/living/simple_animal/fox/Renault
+/mob/living/simple_animal/pet/fox/Renault
 	name = "Renault"
 	desc = "Renault, the Captain's trustworthy fox. I wonder what it says?"
 
 //Syndi fox
-/mob/living/simple_animal/fox/Syndifox
+/mob/living/simple_animal/pet/fox/Syndifox
 	name = "Syndifox"
 	desc = "Syndifox, the Syndicate's most respected mascot. I wonder what it says?"
 	icon_state = "Syndifox"

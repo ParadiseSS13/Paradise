@@ -8,11 +8,10 @@
 	icon_gib = "pine_1"
 	speak_chance = 0
 	turns_per_move = 5
-	meat_type = /obj/item/weapon/reagent_containers/food/snacks/carpmeat
 	response_help = "brushes the"
 	response_disarm = "pushes the"
 	response_harm = "hits the"
-	speed = -1
+	speed = 1
 	maxHealth = 250
 	health = 250
 
@@ -23,6 +22,7 @@
 	melee_damage_upper = 12
 	attacktext = "bites"
 	attack_sound = 'sound/weapons/bite.ogg'
+	speak_emote = list("pines")
 
 	//Space carp aren't affected by atmos.
 	min_oxy = 0
@@ -35,7 +35,7 @@
 	max_n2 = 0
 	minbodytemp = 0
 
-	faction = list("carp")
+	faction = list("hostile")
 
 /mob/living/simple_animal/hostile/tree/FindTarget()
 	. = ..()

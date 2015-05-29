@@ -9,7 +9,7 @@
 	response_disarm = "flails at"
 	response_harm   = "punches"
 	icon_dead = "shade_dead"
-	speed = -1
+	speed = 0
 	a_intent = "harm"
 	stop_automated_movement = 1
 	status_flags = CANPUSH
@@ -24,6 +24,7 @@
 	max_n2 = 0
 	minbodytemp = 0
 	faction = list("cult")
+	flying = 1
 	var/list/construct_spells = list()
 
 /mob/living/simple_animal/construct/New()
@@ -40,7 +41,7 @@
 		if((M.client && !( M.blinded )))
 			M.show_message("\red [src] collapses in a shattered heap. ")
 	ghostize()
-	del src
+	qdel(src)
 	return
 
 /mob/living/simple_animal/construct/examine()
@@ -221,7 +222,6 @@
 	melee_damage_lower = 25
 	melee_damage_upper = 25
 	attacktext = "slashes"
-	speed = -1
 	see_in_dark = 7
 	attack_sound = 'sound/weapons/bladeslice.ogg'
 	construct_spells = list(/obj/effect/proc_holder/spell/wizard/targeted/ethereal_jaunt/shift)
@@ -246,7 +246,6 @@
 	melee_damage_lower = 5
 	melee_damage_upper = 5
 	attacktext = "rams"
-	speed = 0
 	environment_smash = 2
 	attack_sound = 'sound/weapons/punch2.ogg'
 	construct_spells = list(/obj/effect/proc_holder/spell/wizard/aoe_turf/conjure/construct/lesser,

@@ -780,7 +780,7 @@
 "oZ" = (/turf/unsimulated/floor{icon = 'icons/turf/snow.dmi'; icon_state = "snow"},/obj/structure/flora/grass/brown,/turf/unsimulated/floor{tag = "icon-gravsnow_corner (EAST)"; icon = 'icons/turf/snow.dmi'; icon_state = "gravsnow_corner"; dir = 4},/area/syndicate_mothership)
 "pa" = (/obj/structure/noticeboard{pixel_x = -32},/obj/item/weapon/paper/syndimemo,/turf/unsimulated/floor{icon_state = "bar"; dir = 2},/area/syndicate_mothership)
 "pb" = (/obj/structure/stool{pixel_y = 8},/turf/unsimulated/floor{icon_state = "bar"; dir = 2},/area/syndicate_mothership)
-"pc" = (/mob/living/simple_animal/fox/Syndifox,/turf/unsimulated/floor{icon_state = "bar"; dir = 2},/area/syndicate_mothership)
+"pc" = (/mob/living/simple_animal/pet/fox/Syndifox,/turf/unsimulated/floor{icon_state = "bar"; dir = 2},/area/syndicate_mothership)
 "pd" = (/obj/effect/decal/warning_stripes/southeastcorner,/turf/unsimulated/floor{icon_state = "bar"; dir = 2},/area/syndicate_mothership)
 "pe" = (/obj/effect/decal/warning_stripes/south,/turf/unsimulated/floor{icon_state = "bar"; dir = 2},/area/syndicate_mothership)
 "pf" = (/obj/machinery/door/airlock/centcom{name = "Study"; opacity = 1; req_access_txt = "150"},/turf/unsimulated/floor{icon_state = "bar"; dir = 2},/area/syndicate_mothership)

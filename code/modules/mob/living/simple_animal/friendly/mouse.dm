@@ -9,7 +9,6 @@
 	speak_emote = list("squeeks","squeeks","squiks")
 	emote_hear = list("squeeks","squeaks","squiks")
 	emote_see = list("runs in a circle", "shakes", "scritches at something")
-	pass_flags = PASSTABLE
 	small = 1
 	speak_chance = 1
 	turns_per_move = 5
@@ -22,6 +21,8 @@
 	response_disarm = "gently pushes aside the"
 	response_harm   = "stamps on the"
 	density = 0
+	ventcrawler = 2
+	pass_flags = PASSTABLE | PASSGRILLE | PASSMOB
 	var/_color //brown, gray and white, leave blank for random
 	layer = MOB_LAYER
 	min_oxy = 16 //Require atleast 16kPA oxygen
@@ -29,7 +30,6 @@
 	maxbodytemp = 323	//Above 50 Degrees Celcius
 	universal_speak = 0
 	can_hide = 1
-	ventcrawler = 2
 
 /mob/living/simple_animal/mouse/Life()
 	..()

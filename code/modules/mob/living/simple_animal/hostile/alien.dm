@@ -9,7 +9,7 @@
 	response_help = "pokes the"
 	response_disarm = "shoves the"
 	response_harm = "hits the"
-	speed = -1
+	speed = 0
 	meat_type = /obj/item/weapon/reagent_containers/food/snacks/xenomeat
 	meat_amount = 3
 	maxHealth = 100
@@ -18,6 +18,7 @@
 	melee_damage_lower = 25
 	melee_damage_upper = 25
 	attacktext = "slashes"
+	speak_emote = list("hisses")
 	a_intent = "harm"
 	attack_sound = 'sound/weapons/bladeslice.ogg'
 	min_oxy = 0
@@ -33,6 +34,8 @@
 	faction = list("alien")
 	status_flags = CANPUSH
 	minbodytemp = 0
+	see_in_dark = 8
+	see_invisible = SEE_INVISIBLE_MINIMUM
 	heat_damage_per_tick = 20
 
 
@@ -44,6 +47,17 @@
 	health = 60
 	melee_damage_lower = 15
 	melee_damage_upper = 15
+	var/plant_cooldown = 30
+	var/plants_off = 0
+
+/mob/living/simple_animal/hostile/alien/drone/Life()
+	..()
+	if(!stat)
+		plant_cooldown--
+		if(stance==HOSTILE_STANCE_IDLE)
+			if(!plants_off && prob(10) && plant_cooldown<=0)
+				plant_cooldown = initial(plant_cooldown)
+				SpreadPlants()
 
 /mob/living/simple_animal/hostile/alien/sentinel
 	name = "alien sentinel"
@@ -72,11 +86,43 @@
 	ranged = 1
 	retreat_distance = 5
 	minimum_distance = 5
-	move_to_delay = 3
+	move_to_delay = 4
 	projectiletype = /obj/item/projectile/neurotox
 	projectilesound = 'sound/weapons/pierce.ogg'
-	rapid = 1
 	status_flags = 0
+	var/sterile = 1
+	var/plants_off = 0
+	var/egg_cooldown = 30
+	var/plant_cooldown = 30
+
+/mob/living/simple_animal/hostile/alien/queen/Life()
+	..()
+	if(!stat)
+		egg_cooldown--
+		plant_cooldown--
+		if(stance==HOSTILE_STANCE_IDLE)
+			if(!plants_off && prob(10) && plant_cooldown<=0)
+				plant_cooldown = initial(plant_cooldown)
+				SpreadPlants()
+			if(!sterile && prob(10) && egg_cooldown<=0)
+				egg_cooldown = initial(egg_cooldown)
+				LayEggs()
+
+/mob/living/simple_animal/hostile/alien/proc/SpreadPlants()
+	if(!isturf(loc) || istype(loc, /turf/space))
+		return
+	if(locate(/obj/structure/alien/weeds/node) in get_turf(src))
+		return
+	visible_message("<span class='alertalien'>[src] has planted some alien weeds!</span>")
+	new /obj/structure/alien/weeds/node(loc)
+
+/mob/living/simple_animal/hostile/alien/proc/LayEggs()
+	if(!isturf(loc) || istype(loc, /turf/space))
+		return
+	if(locate(/obj/structure/alien/egg) in get_turf(src))
+		return
+	visible_message("<span class='alertalien'>[src] has laid an egg!</span>")
+	new /obj/structure/alien/egg(loc)
 
 /mob/living/simple_animal/hostile/alien/queen/large
 	name = "alien empress"
@@ -89,6 +135,7 @@
 	health = 400
 
 /obj/item/projectile/neurotox
+	name = "neurotoxin"
 	damage = 30
 	icon_state = "toxin"
 

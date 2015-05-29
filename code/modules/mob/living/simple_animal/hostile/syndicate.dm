@@ -10,14 +10,14 @@
 	response_help = "pokes the"
 	response_disarm = "shoves the"
 	response_harm = "hits the"
-	speed = 4
-	stop_automated_movement_when_pulled = 0
+	speed = 0
 	maxHealth = 100
 	health = 100
 	harm_intent_damage = 5
 	melee_damage_lower = 10
 	melee_damage_upper = 10
 	attacktext = "punches"
+	attack_sound = 'sound/weapons/punch1.ogg'
 	a_intent = "harm"
 	var/corpse = /obj/effect/landmark/mobcorpse/syndicatesoldier
 	var/weapon1
@@ -55,6 +55,7 @@
 	weapon1 = /obj/item/weapon/melee/energy/sword/red
 	weapon2 = /obj/item/weapon/shield/energy
 	attacktext = "slashes"
+	attack_sound = 'sound/weapons/bladeslice.ogg'
 	status_flags = 0
 
 /mob/living/simple_animal/hostile/syndicate/melee/attackby(var/obj/item/O as obj, var/mob/user as mob, params)
@@ -67,6 +68,7 @@
 			visible_message("\red \b [src] has been attacked with the [O] by [user]. ")
 		else
 			visible_message("\red \b [src] blocks the [O] with its shield! ")
+		playsound(loc, O.hitsound, 25, 1, -1)
 	else
 		usr << "\red This weapon is ineffective, it does no damage."
 		visible_message("\red [user] gently taps [src] with the [O]. ")
@@ -96,7 +98,7 @@
 	icon_living = "syndicatemeleespace"
 	name = "Syndicate Commando"
 	corpse = /obj/effect/landmark/mobcorpse/syndicatecommando
-	speed = 0
+	speed = 1
 
 /mob/living/simple_animal/hostile/syndicate/melee/space/Process_Spacemove(var/check_drift = 0)
 	return
@@ -128,7 +130,7 @@
 	max_n2 = 0
 	minbodytemp = 0
 	corpse = /obj/effect/landmark/mobcorpse/syndicatecommando
-	speed = 0
+	speed = 1
 
 /mob/living/simple_animal/hostile/syndicate/ranged/space/Process_Spacemove(var/check_drift = 0)
 	return
@@ -158,6 +160,7 @@
 	min_n2 = 0
 	max_n2 = 0
 	minbodytemp = 0
+	flying = 1
 
 /mob/living/simple_animal/hostile/viscerator/Die()
 	..()
