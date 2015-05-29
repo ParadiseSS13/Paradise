@@ -38,8 +38,8 @@
 	response_help  = "pets"
 	response_disarm = "gently pushes aside"
 	response_harm   = "hits"
-	maxHealth = 100
-	health = 100
+	maxHealth = 200
+	health = 200
 	melee_damage_lower = 5
 	melee_damage_upper = 10
 	heat_damage_per_tick = 20	//amount of damage applied if animal's body temperature is higher than maxbodytemp
@@ -74,8 +74,8 @@
 	icon_state = "hunter"
 	icon_living = "hunter"
 	icon_dead = "hunter_dead"
-	maxHealth = 60
-	health = 60
+	maxHealth = 120
+	health = 120
 	melee_damage_lower = 1
 	melee_damage_upper = 10
 	poison_per_bite = 5
