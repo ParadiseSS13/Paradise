@@ -55,7 +55,7 @@
 
 /obj/structure/largecrate/lisa/attackby(obj/item/weapon/W as obj, mob/user as mob)	//ugly but oh well
 	if(istype(W, /obj/item/weapon/crowbar))
-		new /mob/living/simple_animal/corgi/Lisa(loc)
+		new /mob/living/simple_animal/pet/corgi/Lisa(loc)
 	..()
 
 /obj/structure/largecrate/cow
@@ -93,5 +93,5 @@
 
 /obj/structure/largecrate/cat/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
 	if(istype(W, /obj/item/weapon/crowbar))
-		new /mob/living/simple_animal/cat(loc)
+		new /mob/living/simple_animal/pet/cat(loc)
 	..()

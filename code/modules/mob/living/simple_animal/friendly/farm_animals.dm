@@ -20,9 +20,11 @@
 	faction = list("neutral")
 	attack_same = 1
 	attacktext = "kicks"
+	attack_sound = 'sound/weapons/punch1.ogg'
 	health = 40
 	melee_damage_lower = 1
-	melee_damage_upper = 5
+	melee_damage_upper = 2
+	stop_automated_movement_when_pulled = 1
 	var/milk_content = 0
 
 /mob/living/simple_animal/hostile/retaliate/goat/New()
@@ -54,7 +56,7 @@
 				var/step = get_step(src, direction)
 				if(step)
 					if(locate(/obj/effect/plant) in step)
-						Move(step)
+						Move(step, get_dir(src, step))
 
 /mob/living/simple_animal/hostile/retaliate/goat/Retaliate()
 	..()
@@ -84,6 +86,7 @@
 			user << "\red The udder is dry. Wait a bit longer..."
 	else
 		..()
+
 //cow
 /mob/living/simple_animal/cow
 	name = "cow"
@@ -105,6 +108,7 @@
 	response_disarm = "gently pushes aside the"
 	response_harm   = "kicks the"
 	attacktext = "kicks"
+	attack_sound = 'sound/weapons/punch1.ogg'
 	health = 50
 	var/milk_content = 0
 
@@ -159,6 +163,7 @@
 	speak_emote = list("cheeps")
 	emote_hear = list("cheeps")
 	emote_see = list("pecks at the ground","flaps its tiny wings")
+	density = 0
 	speak_chance = 2
 	turns_per_move = 2
 	meat_type = /obj/item/weapon/reagent_containers/food/snacks/meat
@@ -168,8 +173,9 @@
 	response_harm   = "kicks the"
 	attacktext = "kicks"
 	health = 1
+	ventcrawler = 2
 	var/amount_grown = 0
-	pass_flags = PASSTABLE | PASSGRILLE
+	pass_flags = PASSTABLE | PASSGRILLE | PASSMOB
 	small = 1
 	can_hide = 1
 
@@ -186,7 +192,7 @@
 		amount_grown += rand(1,2)
 		if(amount_grown >= 100)
 			new /mob/living/simple_animal/chicken(src.loc)
-			del(src)
+			qdel(src)
 
 var/const/MAX_CHICKENS = 50
 var/global/chicken_count = 0
@@ -201,6 +207,7 @@ var/global/chicken_count = 0
 	speak_emote = list("clucks","croons")
 	emote_hear = list("clucks")
 	emote_see = list("pecks at the ground","flaps its wings viciously")
+	density = 0
 	speak_chance = 2
 	turns_per_move = 3
 	meat_type = /obj/item/weapon/reagent_containers/food/snacks/meat
@@ -212,7 +219,7 @@ var/global/chicken_count = 0
 	health = 10
 	var/eggsleft = 0
 	var/_color
-	pass_flags = PASSTABLE
+	pass_flags = PASSTABLE | PASSMOB
 	small = 1
 	can_hide = 1
 

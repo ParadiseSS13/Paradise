@@ -1,7 +1,7 @@
 //Space bears!
 /mob/living/simple_animal/hostile/bear
 	name = "space bear"
-	desc = "RawrRawr!!"
+	desc = "You don't need to be faster than a space bear, you just need to outrun your crewmates."
 	icon_state = "bear"
 	icon_living = "bear"
 	icon_dead = "bear_dead"
@@ -14,7 +14,7 @@
 	turns_per_move = 5
 	see_in_dark = 6
 	meat_type = /obj/item/weapon/reagent_containers/food/snacks/bearmeat
-	meat_amount = 6
+	meat_amount = 5
 	response_help  = "pets"
 	response_disarm = "gently pushes aside"
 	response_harm   = "hits"

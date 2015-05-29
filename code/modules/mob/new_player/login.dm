@@ -34,3 +34,12 @@
 		if(client)
 			handle_privacy_poll()
 			client.playtitlemusic()
+
+	if(config.player_overflow_cap && config.overflow_server_url) //Overflow rerouting, if set, forces players to be moved to a different server once a player cap is reached. Less rough than a pure kick.
+		if(src.client.holder)	return //admins are immune to overflow rerouting
+		if(config.overflow_whitelist.Find(lowertext(src.ckey)))	return //Whitelisted people are immune to overflow rerouting.
+		var/tally = 0
+		for(var/client/C in clients)
+			tally++
+		if(tally > config.player_overflow_cap)
+			src << link(config.overflow_server_url)

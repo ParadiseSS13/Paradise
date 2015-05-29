@@ -21,6 +21,7 @@
 	melee_damage_upper = 12
 	attacktext = "attacks"
 	attack_sound = 'sound/weapons/bite.ogg'
+	speak_emote = list("creaks")
 
 	min_oxy = 0
 	max_oxy = 0
@@ -43,7 +44,8 @@
 /mob/living/simple_animal/hostile/mimic/Die()
 	..()
 	visible_message("\red <b>[src]</b> stops moving!")
-	del(src)
+	ghostize()
+	qdel(src)
 
 
 
@@ -177,6 +179,7 @@ var/global/list/protected_objects = list(/obj/structure/table, /obj/structure/ca
 		icon = O.icon
 		icon_state = O.icon_state
 		icon_living = icon_state
+		overlays = O.overlays
 
 		if(istype(O, /obj/structure) || istype(O, /obj/machinery))
 			health = (anchored * 50) + 50
@@ -197,7 +200,7 @@ var/global/list/protected_objects = list(/obj/structure/table, /obj/structure/ca
 			src.creator = creator
 			faction += "\ref[creator]" // very unique
 		if(destroy_original)
-			del(O)
+			qdel(O)
 		return 1
 	return
 
@@ -206,13 +209,14 @@ var/global/list/protected_objects = list(/obj/structure/table, /obj/structure/ca
 		..()
 
 /mob/living/simple_animal/hostile/mimic/copy/AttackingTarget()
-	. =..()
+	..()
 	if(knockdown_people)
-		var/mob/living/L = .
-		if(istype(L))
+		if(iscarbon(target))
+			var/mob/living/carbon/C = target
 			if(prob(15))
-				L.Weaken(1)
-				L.visible_message("<span class='danger'>\the [src] knocks down \the [L]!</span>")
+				C.Weaken(2)
+				C.visible_message("<span class='danger'>\The [src] knocks down \the [C]!</span>", \
+						"<span class='userdanger'>\The [src] knocks you down!</span>")
 
 //
 // Machine Mimics (Made by Malf AI)

@@ -10,14 +10,14 @@
 	response_help = "pokes the"
 	response_disarm = "shoves the"
 	response_harm = "hits the"
-	speed = 4
-	stop_automated_movement_when_pulled = 0
+	speed = 0
 	maxHealth = 100
 	health = 100
 	harm_intent_damage = 5
 	melee_damage_lower = 15
 	melee_damage_upper = 15
 	attacktext = "punches"
+	attack_sound = 'sound/weapons/punch1.ogg'
 	a_intent = "harm"
 	var/corpse = /obj/effect/landmark/mobcorpse/russian
 	var/weapon1 = /obj/item/weapon/kitchenknife

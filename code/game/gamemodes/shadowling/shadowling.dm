@@ -108,8 +108,8 @@ Made by Xhuis
 		finalize_shadowling(shadow)
 		process_shadow_objectives(shadow)
 		//give_shadowling_abilities(shadow)
-		spawn (rand(waittime_l, waittime_h))
-			send_intercept()
+	spawn (rand(waittime_l, waittime_h))
+		send_intercept()
 	..()
 	return
 

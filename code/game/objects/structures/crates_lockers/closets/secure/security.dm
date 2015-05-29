@@ -53,6 +53,7 @@
 		new /obj/item/clothing/suit/armor/vest(src)
 		new /obj/item/weapon/gun/energy/gun(src)
 		new /obj/item/device/flash(src)
+		new /obj/item/clothing/accessory/petcollar(src)
 		return
 
 /obj/structure/closet/secure_closet/hop2

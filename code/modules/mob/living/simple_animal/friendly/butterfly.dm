@@ -14,7 +14,9 @@
 	health = 2
 	harm_intent_damage = 1
 	friendly = "nudges"
-	pass_flags = PASSTABLE
+	density = 0
+	pass_flags = PASSTABLE | PASSGRILLE | PASSMOB
+	ventcrawler = 2
 
 /mob/living/simple_animal/butterfly/New()
 	..()

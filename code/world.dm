@@ -313,6 +313,7 @@ var/world_topic_spam_protect_time = world.timeofday
 	config.load("config/game_options.txt","game_options")
 	config.loadsql("config/dbconfig.txt")
 	config.loadforumsql("config/forumdbconfig.txt")
+	config.loadoverflowwhitelist("config/ofwhitelist.txt")
 	// apply some settings from config..
 
 /hook/startup/proc/loadMods()

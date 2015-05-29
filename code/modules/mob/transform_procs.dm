@@ -318,7 +318,7 @@
 	for(var/t in organs)	//this really should not be necessary
 		del(t)
 
-	var/mob/living/simple_animal/corgi/new_corgi = new /mob/living/simple_animal/corgi (loc)
+	var/mob/living/simple_animal/pet/corgi/new_corgi = new /mob/living/simple_animal/pet/corgi (loc)
 	new_corgi.a_intent = "harm"
 	new_corgi.key = key
 
@@ -408,9 +408,9 @@
 		return 0 //Verbs do not appear for players. These constructs should really have their own class simple_animal/construct/subtype
 
 //Good mobs!
-	if(ispath(MP, /mob/living/simple_animal/cat))
+	if(ispath(MP, /mob/living/simple_animal/pet/cat))
 		return 1
-	if(ispath(MP, /mob/living/simple_animal/corgi))
+	if(ispath(MP, /mob/living/simple_animal/pet/corgi))
 		return 1
 	if(ispath(MP, /mob/living/simple_animal/crab))
 		return 1
@@ -430,11 +430,11 @@
 		return 1 //Parrots are no longer unfinished! -Nodrak
 	if(ispath(MP, /mob/living/simple_animal/pony))
 		return 1 // ZOMG PONIES WHEEE
-	if(ispath(MP, /mob/living/simple_animal/fox))
+	if(ispath(MP, /mob/living/simple_animal/pet/fox))
 		return 1
 	if(ispath(MP, /mob/living/simple_animal/chick))
 		return 1
-	if(ispath(MP, /mob/living/simple_animal/pug))
+	if(ispath(MP, /mob/living/simple_animal/pet/pug))
 		return 1
 	if(ispath(MP, /mob/living/simple_animal/butterfly))
 		return 1
@@ -447,9 +447,9 @@
 		return 0	//Sanity, this should never happen.
 
 //Animals!
-	if(ispath(MP, /mob/living/simple_animal/cat))
+	if(ispath(MP, /mob/living/simple_animal/pet/cat))
 		return 1
-	if(ispath(MP, /mob/living/simple_animal/corgi))
+	if(ispath(MP, /mob/living/simple_animal/pet/corgi))
 		return 1
 	if(ispath(MP, /mob/living/simple_animal/crab))
 		return 1
@@ -461,11 +461,11 @@
 		return 1
 	if(ispath(MP, /mob/living/simple_animal/pony))
 		return 1
-	if(ispath(MP, /mob/living/simple_animal/fox))
+	if(ispath(MP, /mob/living/simple_animal/pet/fox))
 		return 1
 	if(ispath(MP, /mob/living/simple_animal/chick))
 		return 1
-	if(ispath(MP, /mob/living/simple_animal/pug))
+	if(ispath(MP, /mob/living/simple_animal/pet/pug))
 		return 1
 	if(ispath(MP, /mob/living/simple_animal/butterfly))
 		return 1

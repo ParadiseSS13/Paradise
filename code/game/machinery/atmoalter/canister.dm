@@ -252,6 +252,7 @@ update_flag
 	if (src.health <= 10)
 		var/atom/location = src.loc
 		location.assume_air(air_contents)
+		air_update_turf()
 
 		src.destroyed = 1
 		playsound(src.loc, 'sound/effects/spray.ogg', 10, 1, -3)
