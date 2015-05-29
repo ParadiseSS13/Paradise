@@ -21,7 +21,7 @@
 		set src in view()
 		..()
 		if (!(usr in view(2)) && usr!=src.loc) return
-		usr << "\icon [src] [name]:"
+		usr << "\icon [name]:"
 		usr << "\blue [grenades.len] / [max_grenades] [ammo_name]s."
 
 	attackby(obj/item/I as obj, mob/user as mob, params)
@@ -61,8 +61,8 @@
 			grenades -= F
 			F.loc = user.loc
 			F.throw_at(target, 30, 2, user)
-			message_admins("[key_name_admin(user)] fired a [ammo_name] ([F.name]) from a launcher ([src.name]).")
-			log_game("[key_name_admin(user)] used a [ammo_name] ([src.name]).")
+			message_admins("[key_name_admin(user)] fired a [ammo_name] ([F.name]) from a launcher ([name]).")
+			log_game("[key_name_admin(user)] used a [ammo_name] ([name]).")
 			F.active = 1
 			F.icon_state = initial(icon_state) + "_active"
 			playsound(user.loc, 'sound/weapons/armbomb.ogg', 75, 1, -3)
@@ -111,7 +111,5 @@
 	grenades -= P
 	P.loc = user.loc
 	P.throw_at(target, 30, 2, user)
-	message_admins("[key_name_admin(user)] fired a [ammo_name] ([P.name]) from a launcher ([src.name]).")
-	log_game("[key_name_admin(user)] used a [ammo_name] ([src.name]).")
 	if(!grenades.len)
 		icon_state = "piecannon0"
