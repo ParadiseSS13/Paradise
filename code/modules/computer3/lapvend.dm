@@ -105,9 +105,9 @@
 		else if(network == 3)
 			dat += "<A href='?src=\ref[src];choice=cable_rem'>Network card: Powernet (25)</a><br>"
 		else
-			dat += "Network card: None"
+			dat += "Network card: None<br>"
 		if (power == 0)
-			dat += "Power source: Regular"
+			dat += "Power source: Regular<br>"
 		else if (power == 1)
 			dat += "<A href='?src=\ref[src];choice=high_rem'>Power source: Extended (175)</a><br>"
 		else
@@ -117,10 +117,10 @@
 		dat += "<br><A href='?src=\ref[src];choice=vend'>Vend Laptop</a>"
 
 	if(vendmode == 1)
-		dat += "Please swipe your card and enter your PIN to complete the transaction"
+		dat += "Please swipe your card to complete the transaction"
 
 	if(vendmode == 3)
-		dat += "Please swipe your card and enter your PIN to be finish returning your computer<br>"
+		dat += "Please swipe your card to finish returning your computer<br>"
 		dat += "<a href='?src=\ref[src];choice=cancel'>Cancel</a>"
 
 
@@ -214,8 +214,10 @@
 		var/obj/item/weapon/card/id/C = I
 		visible_message("<span class='info'>[usr] swipes a card through [src].</span>")
 		if(vendor_account)
-			var/attempt_pin = input("Enter pin code", "Vendor transaction") as num
-			var/datum/money_account/D = attempt_account_access(C.associated_account_number, attempt_pin, 2)
+			var/datum/money_account/D = attempt_account_access_nosec(C.associated_account_number)
+			if(D && D.security_level)
+				var/attempt_pin = input("Enter pin code", "Vendor transaction") as num
+				D = attempt_account_access(C.associated_account_number, attempt_pin, 2)
 			if(D)
 				var/transaction_amount = total()
 				if(transaction_amount <= D.money)
