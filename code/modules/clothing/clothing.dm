@@ -387,7 +387,7 @@ BLIND     // can't see anything
 	if(istype(I, /obj/item/clothing/accessory))
 		var/obj/item/clothing/accessory/A = I
 		if(can_attach_accessory(A))
-			user.drop_item()
+			user.unEquip(I) // Make absolutely sure this accessory is removed from hands
 			accessories += A
 			A.on_attached(src, user)
 
