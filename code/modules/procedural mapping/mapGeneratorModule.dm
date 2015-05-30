@@ -70,7 +70,6 @@
 	if(checkPlaceAtom(T))
 
 		for(var/atomPath in spawnableAtoms)
-
 			//Clustering!
 			if(clusterMax && clusterMin)
 
