@@ -64,7 +64,7 @@ turf/simulated/New()
 
 		air.temperature = temperature
 
-turf/simulated/Destroy()
+turf/simulated/Del()
 	if(active_hotspot)
 		qdel(active_hotspot)
 	..()
