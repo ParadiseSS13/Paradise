@@ -252,7 +252,7 @@ var/global/datum/shuttle_controller/shuttle_controller
 	WS.origin = locate(/area/shuttle/derelict/ship/start)
 
 	WS.destinations = list(
-		"NCS Cyberiad" = locate(/area/shuttle/derelict/ship/station),
+		"NSS Cyberiad" = locate(/area/shuttle/derelict/ship/station),
 		"Engineering Outpost" = locate(/area/shuttle/derelict/ship/engipost),
 		)
 
