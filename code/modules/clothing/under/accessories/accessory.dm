@@ -326,3 +326,22 @@
 /obj/item/clothing/accessory/petcollar/attack_self(mob/user as mob)
 	tagname = copytext(sanitize(input(user, "Would you like to change the name on the tag?", "Name your new pet", "Spot") as null|text),1,MAX_NAME_LEN)
 	name = "[initial(name)] - [tagname]"
+
+/proc/english_accessory_list(obj/item/clothing/under/U)
+	if(!istype(U) || !U.accessories.len)
+		return
+	var/list/A = U.accessories
+	var/total = A.len
+	if (total == 1)
+		return "\a [A[1]]"
+	else if (total == 2)
+		return "\a [A[1]] and \a [A[2]]"
+	else
+		var/output = ""
+		var/index = 1
+		var/comma_text = ", "
+		while (index < total)
+			output += "\a [A[index]][comma_text]"
+			index++
+
+		return "[output]and \a [A[index]]"

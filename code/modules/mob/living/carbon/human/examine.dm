@@ -68,7 +68,7 @@
 		if(istype(w_uniform,/obj/item/clothing/under))
 			var/obj/item/clothing/under/U = w_uniform
 			if(U.accessories.len)
-				tie_msg += " with [lowertext(english_list(U.accessories))]"
+				tie_msg += " with [english_accessory_list(U)]"
 
 		if(w_uniform.blood_DNA)
 			msg += "<span class='warning'>[t_He] [t_is] wearing \icon[w_uniform] [w_uniform.gender==PLURAL?"some":"a"] blood-stained [w_uniform.name][tie_msg]!</span>\n"
@@ -280,7 +280,7 @@
 			continue
 
 	for(var/obj/item/organ/external/temp in organs)
-		if(temp)
+		if(temp && !temp.is_stump())
 			if(temp.status & ORGAN_ROBOT)
 				if(!(temp.brute_dam + temp.burn_dam))
 					if(!(species.flags & IS_SYNTHETIC))

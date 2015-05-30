@@ -964,21 +964,17 @@ datum/mind
 						special_role = null
 						current << "<span class='userdanger'>Your powers have been quenched! You are no longer a shadowling!</span>"
 						current.spell_list.Cut()
+						if(current.mind)
+							current.mind.spell_list.Cut()
 						message_admins("[key_name_admin(usr)] has de-shadowling'ed [current].")
 						log_admin("[key_name(usr)] has de-shadowling'ed [current].")
 						current.verbs -= /mob/living/carbon/human/proc/shadowling_hatch
 						current.verbs -= /mob/living/carbon/human/proc/shadowling_ascendance
-						if(current.languages)
-							for(var/datum/language/L in current.languages)
-								if(L.name == "Shadowling Hivemind")
-									del(L)
+						current.remove_language("Shadowling Hivemind")
 					else if(src in ticker.mode.shadowling_thralls)
 						ticker.mode.shadowling_thralls -= src
 						special_role = null
-						if(current.languages)
-							for(var/datum/language/L in current.languages)
-								if(L.name == "Shadowling Hivemind")
-									del(L)
+						current.remove_language("Shadowling Hivemind")
 						current << "<span class='userdanger'>You have been brainwashed! You are no longer a thrall!</span>"
 						message_admins("[key_name_admin(usr)] has de-thrall'ed [current].")
 						log_admin("[key_name(usr)] has de-thrall'ed [current].")

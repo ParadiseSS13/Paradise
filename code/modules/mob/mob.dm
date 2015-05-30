@@ -998,6 +998,8 @@ var/list/slot_equipment_priority = list( \
 			else
 				stat(null, "processScheduler is not running.")
 
+	statpanel("Status") // Switch to the Status panel again, for the sake of the lazy Stat procs
+
 
 /mob/proc/add_stings_to_statpanel(var/list/stings)
 	for(var/obj/effect/proc_holder/changeling/S in stings)
