@@ -225,10 +225,8 @@ obj/item/weapon/twohanded/
 /obj/item/weapon/twohanded/dualsaber/update_icon()
 	if(wielded)
 		icon_state = "dualsaber[blade_color][wielded]"
-		reflect_chance = 100
 	else
 		icon_state = "dualsaber0"
-		reflect_chance = 0
 
 /obj/item/weapon/twohanded/dualsaber/attack(target as mob, mob/living/user as mob)
 	..()
@@ -267,6 +265,10 @@ obj/item/weapon/twohanded/
 /obj/item/weapon/twohanded/dualsaber/unwield()
 	..()
 	hitsound = "swing_hit"
+
+/obj/item/weapon/twohanded/dualsaber/IsReflect()
+	if(wielded)
+		return 1
 
 /obj/item/weapon/twohanded/dualsaber/wield()
 	..()
