@@ -2,6 +2,7 @@
 	name = "flashbang"
 	icon_state = "flashbang"
 	item_state = "flashbang"
+	icon_override = 'icons/mob/in-hand/tools.dmi'
 	origin_tech = "materials=2;combat=1"
 	var/banglet = 0
 

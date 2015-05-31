@@ -2,7 +2,8 @@
 	name = "hailer"
 	desc = "Used by obese officers to save their breath for running."
 	icon_state = "voice0"
-	item_state = "flashbang"	//looks exactly like a flash (and nothing like a flashbang)
+	item_state = "flashtool"	//looks exactly like a flash (and nothing like a flashbang)
+	icon_override = 'icons/mob/in-hand/tools.dmi'
 	w_class = 1.0
 	flags = CONDUCT
 
@@ -28,4 +29,4 @@
 	if(!emagged)
 		user << "\red You overload \the [src]'s voice synthesizer."
 		emagged = 1
-		
+
