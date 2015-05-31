@@ -226,6 +226,38 @@
 	build_path = /obj/item/device/assembly/voice
 	category = list("initial", "Miscellaneous")
 
+/datum/design/canvas
+	name = "11px by 11px Canvas"
+	id = "canvas"
+	build_type = AUTOLATHE
+	materials = list("$metal" = 50)
+	build_path = /obj/item/weapon/canvas
+	category = list("initial", "Miscellaneous")
+
+/datum/design/canvas/nineteenXnineteen
+	name = "19px by 19px Canvas"
+	id = "canvas19x19"
+	build_type = AUTOLATHE
+	materials = list("$metal" = 50)
+	build_path = /obj/item/weapon/canvas/nineteenXnineteen
+	category = list("initial", "Miscellaneous")
+
+/datum/design/canvas/twentythreeXnineteen
+	name = "23px by 19px Canvas"
+	id = "canvas23x19"
+	build_type = AUTOLATHE
+	materials = list("$metal" = 70)
+	build_path = /obj/item/weapon/canvas/twentythreeXnineteen
+	category = list("initial", "Miscellaneous")
+
+/datum/design/canvas/twentythreeXtwentythree
+	name = "23px by 23px Canvas"
+	id = "canvas23x23"
+	build_type = AUTOLATHE
+	materials = list("$metal" = 100)
+	build_path = /obj/item/weapon/canvas/twentythreeXtwentythree
+	category = list("initial", "Miscellaneous")
+
 /datum/design/camera_assembly
 	name = "Camera Assembly"
 	id = "camera_assembly"

@@ -176,6 +176,17 @@
 
 /client/Move(n, direct)
 
+	if(viewingCanvas)
+		view = world.view //Reset the view
+		winset(src, "mapwindow.map", "icon-size=[src.reset_stretch]")
+		viewingCanvas = 0
+		mob.reset_view()
+		mob.button_pressed_F12()
+		if(!mob.hud_used.hud_shown)
+			mob.button_pressed_F12()
+		mob.update_hud()
+		mob.update_action_buttons()
+
 	if(mob.control_object)	Move_object(direct)
 
 	if(world.time < move_delay)  return
