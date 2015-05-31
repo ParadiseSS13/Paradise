@@ -56,7 +56,7 @@
 
 //Used by throw code to hand over the mob, instead of throwing the grab. The grab is then deleted by the throw code.
 /obj/item/weapon/grab/proc/throw()
-	if(affecting)
+	if(affecting && assailant.Adjacent(affecting))
 		if(affecting.buckled)
 			return null
 		if(state >= GRAB_AGGRESSIVE)
@@ -79,6 +79,9 @@
 		if(!hud)	return //this somehow can runtime under the right circumstances
 		assailant.client.screen -= hud
 		assailant.client.screen += hud
+
+	var/hit_zone = assailant.zone_sel.selecting
+	last_hit_zone = hit_zone
 
 	if(assailant.pulling == affecting)
 		assailant.stop_pulling()
@@ -117,11 +120,10 @@
 		affecting.drop_item()
 		affecting.hand = h
 
-		var/hit_zone = assailant.zone_sel.selecting
+
 		//var/announce = 0
 		//(hit_zone != last_hit_zone)
 			//announce = 1
-		last_hit_zone = hit_zone
 	/*	if(ishuman(affecting))
 			switch(hit_zone)
 				/*if("mouth")
