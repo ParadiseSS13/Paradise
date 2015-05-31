@@ -325,7 +325,7 @@
 			H.updatehealth() //forces health update before next life tick
 			playsound(get_turf(src), 'sound/machines/defib_zap.ogg', 50, 1, -1)
 			H.emote("gasp")
-			add_logs(user, M, "stunned", object="defibrillator")
+			add_logs(M, user, "stunned", object="defibrillator")
 			defib.deductcharge(revivecost)
 			cooldown = 1
 			busy = 0
@@ -379,7 +379,7 @@
 							if(tplus > tloss)
 								H.setBrainLoss( max(0, min(99, ((tlimit - tplus) / tlimit * 100))))
 							defib.deductcharge(revivecost)
-							add_logs(user, M, "revived", object="defibrillator")
+							add_logs(M, user, "revived", object="defibrillator")
 						else
 							if(tplus > tlimit)
 								user.visible_message("<span class='boldnotice'>[defib] buzzes: Resuscitation failed - Heart tissue damage beyond point of no return for defibrillation.</span>")
@@ -440,7 +440,7 @@
 			H.updatehealth() //forces health update before next life tick
 			playsound(get_turf(src), 'sound/machines/defib_zap.ogg', 50, 1, -1)
 			H.emote("gasp")
-			add_logs(user, M, "stunned", object="defibrillator")
+			add_logs(M, user, "stunned", object="defibrillator")
 			if(isrobot(user))
 				var/mob/living/silicon/robot/R = user
 				R.cell.use(revivecost)
@@ -490,7 +490,7 @@
 							if(isrobot(user))
 								var/mob/living/silicon/robot/R = user
 								R.cell.use(revivecost)
-							add_logs(user, M, "revived", object="defibrillator")
+							add_logs(M, user, "revived", object="defibrillator")
 						else
 							if(tplus > tlimit)
 								user.visible_message("<span class='warning'>[user] buzzes: Resuscitation failed - Heart tissue damage beyond point of no return for defibrillation.</span>")

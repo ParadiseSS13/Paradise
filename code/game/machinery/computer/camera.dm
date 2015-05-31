@@ -11,7 +11,7 @@ var/camera_cache_id = 1
 	var/obj/machinery/camera/current = null
 	var/list/network = list("")
 	var/last_pic = 1.0
-	light_color = "#B40000"
+	light_color = LIGHT_COLOR_RED
 	var/mapping = 0
 	var/cache_id = 0
 	var/list/networks[0]
@@ -46,8 +46,6 @@ var/camera_cache_id = 1
 	attack_ai(var/mob/user as mob)
 		return attack_hand(user)
 
-	attack_paw(var/mob/user as mob)
-		return attack_hand(user)
 
 	check_eye(var/mob/user as mob)
 		if ((get_dist(user, src) > 1 || !( user.canmove ) || user.blinded || !( current ) || !( current.status )) && (!istype(user, /mob/living/silicon)))

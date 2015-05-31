@@ -166,6 +166,18 @@
 
 	dat += "It thrives in a temperature of [grown_seed.get_trait(TRAIT_IDEAL_HEAT)] Kelvin."
 
+	if(grown_seed.consume_gasses && grown_seed.consume_gasses.len)
+		for(var/gas in grown_seed.consume_gasses)
+			if(gas == "carbon_dioxide")	gas = "carbon dioxide"
+			if(gas == "toxins")	gas = "plasma"
+			dat += "<br>It requires an environment rich in [gas] gas to thrive."
+
+	if(grown_seed.exude_gasses && grown_seed.exude_gasses.len)
+		for(var/gas in grown_seed.exude_gasses)
+			if(gas == "carbon_dioxide")	gas = "carbon dioxide"
+			if(gas == "toxins")	gas = "plasma"
+			dat += "<br>It releases [gas] gas as a byproduct of it's growth."
+
 	if(grown_seed.get_trait(TRAIT_LOWKPA_TOLERANCE) < 20)
 		dat += "<br>It is well adapted to low pressure levels."
 	if(grown_seed.get_trait(TRAIT_HIGHKPA_TOLERANCE) > 220)
@@ -213,7 +225,7 @@
 	if(grown_seed.get_trait(TRAIT_PARASITE))
 		dat += "<br>It is capable of parisitizing and gaining sustenance from tray weeds."
 	if(grown_seed.get_trait(TRAIT_ALTER_TEMP))
-		dat += "<br>It will periodically alter the local temperature by [grown_seed.get_trait(TRAIT_ALTER_TEMP)] degrees Kelvin."
+		dat += "<br>It will periodically alter the local temperature by [grown_seed.get_trait(TRAIT_ALTER_TEMP)] Kelvin."
 
 	if(grown_seed.get_trait(TRAIT_BIOLUM))
 		dat += "<br>It is [grown_seed.get_trait(TRAIT_BIOLUM_COLOUR)  ? "<font color='[grown_seed.get_trait(TRAIT_BIOLUM_COLOUR)]'>bio-luminescent</font>" : "bio-luminescent"]."

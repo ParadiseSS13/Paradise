@@ -84,8 +84,8 @@ datum/controller/air_system
 			if(istype(S))
 				air_master.add_to_active(S)
 
-/datum/controller/air_system/proc/setup_allturfs()
-	for(var/turf/simulated/T in world)
+/datum/controller/air_system/proc/setup_allturfs(var/turfs_in = world)
+	for(var/turf/simulated/T in turfs_in)
 		T.CalculateAdjacentTurfs()
 		if(!T.blocks_air)
 			if(T.air.check_tile_graphic())
@@ -234,7 +234,7 @@ turf/CanPass(atom/movable/mover, turf/target, height=1.5,air_group=0)
 	T.atmos_spawn_air(text, amount)
 
 var/const/SPAWN_HEAT = 1
-
+var/const/SPAWN_20C = 2
 var/const/SPAWN_TOXINS = 4
 var/const/SPAWN_OXYGEN = 8
 var/const/SPAWN_CO2 = 16
@@ -249,6 +249,9 @@ var/const/SPAWN_AIR = 256
 		return
 
 	var/datum/gas_mixture/G = new
+
+	if(flag & SPAWN_20C)
+		G.temperature = T20C
 
 	if(flag & SPAWN_HEAT)
 		G.temperature += 1000

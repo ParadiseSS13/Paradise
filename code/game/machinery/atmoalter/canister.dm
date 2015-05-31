@@ -252,6 +252,7 @@ update_flag
 	if (src.health <= 10)
 		var/atom/location = src.loc
 		location.assume_air(air_contents)
+		air_update_turf()
 
 		src.destroyed = 1
 		playsound(src.loc, 'sound/effects/spray.ogg', 10, 1, -3)
@@ -374,9 +375,6 @@ update_flag
 
 /obj/machinery/portable_atmospherics/canister/attack_ai(var/mob/user as mob)
 	src.add_hiddenprint(user)
-	return src.attack_hand(user)
-
-/obj/machinery/portable_atmospherics/canister/attack_paw(var/mob/user as mob)
 	return src.attack_hand(user)
 
 /obj/machinery/portable_atmospherics/canister/attack_alien(mob/living/carbon/alien/humanoid/user)

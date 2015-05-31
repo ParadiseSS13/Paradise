@@ -147,6 +147,7 @@ var/list/ai_verbs_default = list(
 	add_language("Gutter", 0)
 	add_language("Sinta'unathi", 0)
 	add_language("Siik'tajr", 0)
+	add_language("Canilunzt", 0)
 	add_language("Skrellian", 0)
 	add_language("Vox-pidgin", 0)
 	add_language("Rootspeak", 0)

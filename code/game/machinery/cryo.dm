@@ -17,7 +17,7 @@
 	var/current_heat_capacity = 50
 	var/efficiency
 
-	light_color = "#FFFFFF"
+	light_color = LIGHT_COLOR_WHITE
 	power_change()
 		..()
 		if(!(stat & (BROKEN|NOPOWER)))
@@ -399,7 +399,7 @@
 	expel_gas = air_contents.remove(remove_amount)
 	expel_gas.temperature = T20C // Lets expel hot gas and see if that helps people not die as they are removed
 	loc.assume_air(expel_gas)
-	air_update_turf(1)
+	air_update_turf()
 
 /obj/machinery/atmospherics/unary/cryo_cell/proc/go_out()
 	if(!( occupant ))

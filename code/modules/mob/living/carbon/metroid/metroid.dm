@@ -291,37 +291,6 @@
 		adjustBruteLoss(damage)
 		updatehealth()
 
-/mob/living/carbon/slime/attack_paw(mob/living/carbon/monkey/M as mob)
-	if(!(istype(M, /mob/living/carbon/monkey)))
-		return // Fix for aliens receiving double messages when attacking other aliens.
-
-	if (!ticker)
-		M << "You cannot attack people before the game has started."
-		return
-
-	if (istype(loc, /turf) && istype(loc.loc, /area/start))
-		M << "No attacking people at spawn, you jackass."
-		return
-
-	..()
-
-	switch(M.a_intent)
-
-		if ("help")
-			help_shake_act(M)
-		else
-			if (istype(wear_mask, /obj/item/clothing/mask/muzzle))
-				return
-			if (health > 0)
-				M.do_attack_animation(src)
-				attacked += 10
-				//playsound(loc, 'sound/weapons/bite.ogg', 50, 1, -1)
-				visible_message("<span class='danger'>[M.name] has attacked [src]!</span>", \
-						"<span class='userdanger'>[M.name] has attacked [src]!</span>")
-				adjustBruteLoss(rand(1, 3))
-				updatehealth()
-	return
-
 /mob/living/carbon/slime/attack_larva(mob/living/carbon/alien/larva/L as mob)
 
 	switch(L.a_intent)
@@ -915,6 +884,7 @@ mob/living/carbon/slime/var/temperature_resistance = T0C+75
 		var/mob/dead/observer/ghost
 		for(var/mob/dead/observer/O in src.loc)
 			if(!check_observer(O))
+				O << "\red You are not eligible to become a golem."
 				continue
 			ghost = O
 			break
@@ -952,6 +922,8 @@ mob/living/carbon/slime/var/temperature_resistance = T0C+75
 			return 0
 		if(O.mind && O.mind.current && O.mind.current.stat != DEAD)
 			return 0
+		if(O.has_enabled_antagHUD == 1 && config.antag_hud_restricted)
+			return 0
 		return 1
 
 	proc/volunteer(var/mob/dead/observer/O)
@@ -960,7 +932,7 @@ mob/living/carbon/slime/var/temperature_resistance = T0C+75
 			O << "\red You are no longer signed up to be a golem."
 		else
 			if(!check_observer(O))
-				O << "\red You are not eligable."
+				O << "\red You are not eligible to become a golem."
 				return
 			ghosts.Add(O)
 			O << "\blue You are signed up to be a golem."

@@ -61,7 +61,7 @@
 
 				}
 
-				function expand(id,job,name,real_name,image,key,ip,antagonist,ref){
+				function expand(id,job,name,real_name,image,key,ip,antagonist,ref,eyeref){
 
 					clearAll();
 
@@ -81,7 +81,10 @@
 					body += "<a href='?src=\ref[src];traitor="+ref+"'>TP</a> - "
 					body += "<a href='?src=\ref[usr];priv_msg=\ref"+ref+"'>PM</a> - "
 					body += "<a href='?src=\ref[src];subtlemessage="+ref+"'>SM</a> - "
-					body += "<a href='?src=\ref[src];adminplayerobservejump="+ref+"'>JMP</a><br>"
+					body += "<a href='?src=\ref[src];adminplayerobservejump="+ref+"'>JMP</a>"
+					if(eyeref)
+						body += "|<a href='?src=\ref[src];adminplayerobservejump="+eyeref+"'>EYE</a>"
+					body += "<br>"
 					if(antagonist > 0)
 						body += "<font size='2'><a href='?src=\ref[src];check_antagonist=1'><font color='red'><b>Antagonist</b></font></a></font>";
 
@@ -227,12 +230,13 @@
 			if(isliving(M))
 
 				if(iscarbon(M)) //Carbon stuff
-					if(ishuman(M))
+					if(issmall(M))
+						M_job = "Monkey"
+					else if(ishuman(M))
 						M_job = M.job
 					else if(isslime(M))
 						M_job = "slime"
-					else if(ismonkey(M))
-						M_job = "Monkey"
+
 					else if(isalien(M)) //aliens
 						if(islarva(M))
 							M_job = "Alien larva"
@@ -287,6 +291,11 @@
 			M_key = replacetext(M_key, "\"", "")
 			M_key = replacetext(M_key, "\\", "")
 
+			var/M_eyeref = ""
+			if(isAI(M))
+				var/mob/living/silicon/ai/A = M
+				if(A.client && A.eyeobj) // No point following clientless AI eyes
+					M_eyeref = "\ref[A.eyeobj]"
 			//output for each mob
 			dat += {"
 
@@ -294,7 +303,7 @@
 					<td align='center' bgcolor='[color]'>
 						<span id='notice_span[i]'></span>
 						<a id='link[i]'
-						onmouseover='expand("item[i]","[M_job]","[M_name]","[M_rname]","--unused--","[M_key]","[M.lastKnownIP]",[is_antagonist],"\ref[M]")'
+						onmouseover='expand("item[i]","[M_job]","[M_name]","[M_rname]","--unused--","[M_key]","[M.lastKnownIP]",[is_antagonist],"\ref[M]", "[M_eyeref]")'
 						>
 						<b id='search[i]'>[M_name] - [M_rname] - [M_key] ([M_job])</b>
 						</a>
@@ -339,6 +348,8 @@
 			dat += "<td>AI</td>"
 		else if(isrobot(M))
 			dat += "<td>Cyborg</td>"
+		else if(issmall(M))
+			dat += "<td>Monkey</td>"
 		else if(ishuman(M))
 			dat += "<td>[M.real_name]</td>"
 		else if(istype(M, /mob/living/silicon/pai))
@@ -347,8 +358,6 @@
 			dat += "<td>New Player</td>"
 		else if(isobserver(M))
 			dat += "<td>Ghost</td>"
-		else if(ismonkey(M))
-			dat += "<td>Monkey</td>"
 		else if(isalien(M))
 			dat += "<td>Alien</td>"
 		else if(ismask(M))
@@ -389,7 +398,7 @@
 	if (ticker && ticker.current_state >= GAME_STATE_PLAYING)
 		var/dat = "<html><head><title>Round Status</title></head><body><h1><B>Round Status</B></h1>"
 		dat += "Current Game Mode: <B>[ticker.mode.name]</B><BR>"
-		dat += "Round Duration: <B>[round(world.time / 36000)]:[add_zero(world.time / 600 % 60, 2)]:[world.time / 100 % 6][world.time / 100 % 10]</B><BR>"
+		dat += "Round Duration: <B>[round(world.time / 36000)]:[add_zero(num2text(world.time / 600 % 60), 2)]:[add_zero(num2text(world.time / 10 % 60), 2)]</B><BR>"
 		dat += "<B>Emergency shuttle</B><BR>"
 		if (!emergency_shuttle.online())
 			dat += "<a href='?src=\ref[src];call_shuttle=1'>Call Shuttle</a><br>"

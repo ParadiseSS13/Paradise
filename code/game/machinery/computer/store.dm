@@ -4,7 +4,7 @@
 	icon_state = "comm_logs"
 	circuit = "/obj/item/weapon/circuitboard/merch"
 
-	light_color = "#00CC00"
+	light_color = LIGHT_COLOR_GREEN
 
 /obj/item/weapon/circuitboard/merch
 	name = "\improper Merchandise Computer Circuitboard"
@@ -13,8 +13,6 @@
 /obj/machinery/computer/merch/New()
 	..()
 
-/obj/machinery/computer/merch/attack_paw(mob/user as mob)
-	return attack_hand(user)
 
 /obj/machinery/computer/merch/attack_ai(mob/user as mob)
 	src.add_hiddenprint(user)

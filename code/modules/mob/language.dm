@@ -104,7 +104,7 @@
 
 	for(var/mob/player in player_list)
 		if(istype(player,/mob/dead) && follow)
-			var/msg_dead = "<i><span class='game say'>[name], <span class='name'>[speaker_mask]</span> (<a href='byond://?src=\ref[player];follow2=\ref[player];follow=\ref[speaker]'>follow</a>) [format_message(message, get_spoken_verb(message))]</span></i>"
+			var/msg_dead = "<i><span class='game say'>[name], <span class='name'>[speaker_mask]</span> ([ghost_follow_link(speaker, ghost=player)]) [format_message(message, get_spoken_verb(message))]</span></i>"
 			player << msg_dead
 			continue
 
@@ -179,6 +179,20 @@
 	else
 		new_name += ..(gender,1)
 	return new_name
+
+/datum/language/vulpkanin
+	name = "Canilunzt"
+	desc = "The guttural language spoken and utilized by the inhabitants of Vazzend system, composed of growls, barks, yaps, and heavy utilization of ears and tail movements.Vulpkanin speak this language with ease."
+	speech_verb = "rawrs"
+	ask_verb = "rurs"
+	exclaim_verb = "barks"
+	colour = "vulpkanin"
+	key = "7"
+	flags = RESTRICTED
+	syllables = list("rur","ya","cen","rawr","bar","kuk","tek","qat","uk","wu","vuh","tah","tch","schz","auch", \
+	"ist","ein","entch","zwichs","tut","mir","wo","bis","es","vor","nic","gro","lll","enem","zandt","tzch","noch", \
+	"hel","ischt","far","wa","baram","iereng","tech","lach","sam","mak","lich","gen","or","ag","eck","gec","stag","onn", \
+	"bin","ket","jarl","vulf","einech","cresthz","azunein","ghzth")
 
 /datum/language/skrell
 	name = "Skrellian"
@@ -446,7 +460,7 @@
 
 	for (var/mob/M in dead_mob_list)
 		if(!istype(M,/mob/new_player) && !istype(M,/mob/living/carbon/brain))
-			var/message_start_dead = "<i><span class='game say'>[name], <span class='name'>[speaker.name] (<a href='byond://?src=\ref[M];follow2=\ref[M];follow=\ref[speaker]'>follow</a>)</span>"
+			var/message_start_dead = "<i><span class='game say'>[name], <span class='name'>[speaker.name] ([ghost_follow_link(speaker, ghost=M)])</span>"
 			M.show_message("[message_start_dead] [message_body]", 2)
 
 	for (var/mob/living/S in living_mob_list)
@@ -555,5 +569,35 @@
 		return 1
 	else
 		return ..()
+
+/datum/language/human/monkey
+	name = "Chimpanzee"
+	desc = "Ook ook ook."
+	speech_verb = "chimpers"
+	ask_verb = "chimpers"
+	exclaim_verb = "screeches"
+	key = "mo"
+
+/datum/language/skrell/monkey
+	name = "Neara"
+	desc = "Squik squik squik."
+	key = "ne"
+
+/datum/language/unathi/monkey
+	name = "Stok"
+	desc = "Hiss hiss hiss."
+	key = "st"
+
+/datum/language/tajaran/monkey
+	name = "Farwa"
+	desc = "Meow meow meow."
+	key = "fa"
+
+/datum/language/vulpkanin/monkey
+	name = "Wolpin"
+	desc = "Bark bark bark."
+	key = "vu"
+
+
 
 #undef SCRAMBLE_CACHE_LEN

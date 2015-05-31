@@ -9,8 +9,7 @@
 	response_help = "pushes the"
 	response_disarm = "shoves"
 	response_harm = "hits the"
-	speed = 4
-	stop_automated_movement_when_pulled = 0
+	speed = 0
 	maxHealth = 100
 	health = 100
 
@@ -29,6 +28,7 @@
 	min_n2 = 0
 	max_n2 = 0
 	unsuitable_atoms_damage = 15
+	speak_emote = list("yarrs")
 	var/corpse = /obj/effect/landmark/mobcorpse/pirate
 	var/weapon1 = /obj/item/weapon/melee/energy/sword/pirate
 
@@ -55,5 +55,6 @@
 		new corpse (src.loc)
 	if(weapon1)
 		new weapon1 (src.loc)
-	del src
+	ghostize()
+	qdel(src)
 	return

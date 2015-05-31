@@ -53,7 +53,7 @@
 	name = "red tie"
 	icon_state = "redtie"
 	_color = "redtie"
-	
+
 /obj/item/clothing/accessory/black
 	name = "black tie"
 	icon_state = "blacktie"
@@ -64,7 +64,7 @@
 	desc = "A neosilk clip-on tie. This one is disgusting."
 	icon_state = "horribletie"
 	_color = "horribletie"
-	
+
 /obj/item/clothing/accessory/waistcoat // No overlay
 	name = "waistcoat"
 	desc = "For some classy, murderous fun."
@@ -208,7 +208,7 @@
 			user << "[src] rejects your insufficient access rights."
 		return
 	..()
-	
+
 /obj/item/clothing/accessory/holobadge/emag_act(user as mob)
 	if (emagged)
 		user << "\red [src] is already cracked."
@@ -234,7 +234,7 @@
 		new /obj/item/clothing/accessory/holobadge/cord(src)
 		..()
 		return
-		
+
 
 ///////////
 //SCARVES//
@@ -317,3 +317,31 @@
 	icon_state = "stripedbluescarf"
 	_color = "stripedbluescarf"
 
+/obj/item/clothing/accessory/petcollar
+	name = "pet collar"
+	icon_state = "petcollar"
+	_color = "petcollar"
+	var/tagname = null
+
+/obj/item/clothing/accessory/petcollar/attack_self(mob/user as mob)
+	tagname = copytext(sanitize(input(user, "Would you like to change the name on the tag?", "Name your new pet", "Spot") as null|text),1,MAX_NAME_LEN)
+	name = "[initial(name)] - [tagname]"
+
+/proc/english_accessory_list(obj/item/clothing/under/U)
+	if(!istype(U) || !U.accessories.len)
+		return
+	var/list/A = U.accessories
+	var/total = A.len
+	if (total == 1)
+		return "\a [A[1]]"
+	else if (total == 2)
+		return "\a [A[1]] and \a [A[2]]"
+	else
+		var/output = ""
+		var/index = 1
+		var/comma_text = ", "
+		while (index < total)
+			output += "\a [A[index]][comma_text]"
+			index++
+
+		return "[output]and \a [A[index]]"

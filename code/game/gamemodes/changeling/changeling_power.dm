@@ -47,7 +47,7 @@
 
 //Fairly important to remember to return 1 on success >.<
 /obj/effect/proc_holder/changeling/proc/can_sting(var/mob/user, var/mob/target)
-	if(!ishuman(user) && !ismonkey(user)) //typecast everything from mob to carbon from this point onwards
+	if(!ishuman(user)) //typecast everything from mob to carbon from this point onwards
 		return 0
 	if(req_human && !ishuman(user))
 		user << "<span class='warning'>We cannot do that in this form!</span>"
@@ -72,7 +72,7 @@
 
 //used in /mob/Stat()
 /obj/effect/proc_holder/changeling/proc/can_be_used_by(var/mob/user)
-	if(!ishuman(user) && !ismonkey(user))
+	if(!ishuman(user))
 		return 0
 	if(req_human && !ishuman(user))
 		return 0

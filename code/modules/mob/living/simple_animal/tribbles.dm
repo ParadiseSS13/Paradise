@@ -197,8 +197,6 @@ var/global/totaltribbles = 0   //global variable so it updates for all tribbles,
 	..()
 	return
 
-/obj/structure/tribble_cage/attack_paw(mob/user as mob)
-	return src.attack_hand(user)
 
 /obj/structure/tribble_cage/attack_hand(mob/user as mob)
 	if (src.destroyed)
@@ -252,7 +250,7 @@ var/global/totaltribbles = 0   //global variable so it updates for all tribbles,
 	f_amt = 3000
 
 	cold_protection = HANDS
-	min_cold_protection_temperature = GLOVES_MIN_COLD_PROTECTION_TEMPERATURE
+	min_cold_protection_temperature = GLOVES_MIN_TEMP_PROTECT
 
 /obj/item/clothing/head/furcap
 	name = "fur cap"
@@ -263,7 +261,7 @@ var/global/totaltribbles = 0   //global variable so it updates for all tribbles,
 	f_amt = 5000
 
 	cold_protection = HEAD
-	min_cold_protection_temperature = HELMET_MIN_COLD_PROTECTION_TEMPERATURE
+	min_cold_protection_temperature = HELMET_MIN_TEMP_PROTECT
 
 /obj/item/clothing/shoes/furboots
 	name = "fur boots"
@@ -274,7 +272,7 @@ var/global/totaltribbles = 0   //global variable so it updates for all tribbles,
 	f_amt = 4000
 
 	cold_protection = FEET
-	min_cold_protection_temperature = SHOE_MIN_COLD_PROTECTION_TEMPERATURE
+	min_cold_protection_temperature = SHOES_MIN_TEMP_PROTECT
 
 /obj/item/clothing/suit/furcoat
 	name = "fur coat"
@@ -287,7 +285,7 @@ var/global/totaltribbles = 0   //global variable so it updates for all tribbles,
 	body_parts_covered = UPPER_TORSO|LEGS|ARMS|LOWER_TORSO
 	allowed = list (/obj/item/weapon/tank/emergency_oxygen)
 	cold_protection = UPPER_TORSO | LOWER_TORSO | LEGS | ARMS
-	min_cold_protection_temperature = SPACE_SUIT_MIN_COLD_PROTECTION_TEMPERATURE
+	min_cold_protection_temperature = SPACE_SUIT_MIN_TEMP_PROTECT
 
 /obj/item/clothing/suit/furcape
 	name = "fur cape"
@@ -299,4 +297,4 @@ var/global/totaltribbles = 0   //global variable so it updates for all tribbles,
 	f_amt = 10000
 	body_parts_covered = UPPER_TORSO|LEGS|ARMS
 	cold_protection = UPPER_TORSO | LEGS | ARMS
-	min_cold_protection_temperature = SPACE_SUIT_MIN_COLD_PROTECTION_TEMPERATURE
+	min_cold_protection_temperature = SPACE_SUIT_MIN_TEMP_PROTECT

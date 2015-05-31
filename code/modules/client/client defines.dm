@@ -71,3 +71,5 @@
 			"on" = "AZERTYon",
 			"off" = "AZERTYoff")
 	)
+
+	var/reset_stretch = 0 //Used by things that fiddle with client's stretch-to-fit.

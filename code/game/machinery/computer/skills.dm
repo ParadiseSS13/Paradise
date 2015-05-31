@@ -4,7 +4,7 @@
 	name = "Employment Records"
 	desc = "Used to view personnel's employment records"
 	icon_state = "medlaptop"
-	light_color = "#00b000"
+	light_color = LIGHT_COLOR_GREEN
 	req_one_access = list(access_heads)
 	circuit = "/obj/item/weapon/circuitboard/skills"
 	var/obj/item/weapon/card/id/scan = null
@@ -32,9 +32,6 @@
 	..()
 
 /obj/machinery/computer/skills/attack_ai(mob/user as mob)
-	return attack_hand(user)
-
-/obj/machinery/computer/skills/attack_paw(mob/user as mob)
 	return attack_hand(user)
 
 //Someone needs to break down the dat += into chunks instead of long ass lines.

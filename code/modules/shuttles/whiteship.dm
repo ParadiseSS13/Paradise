@@ -3,7 +3,7 @@
 	req_access = list()
 	shuttle_tag = "White Ship"
 	circuit = "/obj/item/weapon/circuitboard/white_ship"
-	light_color = "#CC0000"
+	light_color = LIGHT_COLOR_DARKRED
 
 /obj/machinery/computer/shuttle_control/multi/whiteship/attack_ai(user as mob)
 	user << "\red Access Denied."

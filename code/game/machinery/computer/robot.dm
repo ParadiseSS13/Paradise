@@ -10,7 +10,7 @@
 	circuit = /obj/item/weapon/circuitboard/robotics
 	var/temp = null
 
-	light_color = "#CD00CD"
+	light_color = LIGHT_COLOR_PURPLE
 
 /obj/machinery/computer/robotics/proc/can_control(var/mob/user, var/mob/living/silicon/robot/R)
 	if(!istype(R))

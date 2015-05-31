@@ -99,6 +99,9 @@
 /obj/item/weapon/circuitboard/pod
 	name = "Circuit board (Massdriver Control)"
 	build_path = "/obj/machinery/computer/pod"
+/obj/item/weapon/circuitboard/pod/deathsquad
+	name = "Circuit board (Deathsquad Massdriver control)"
+	build_path = "/obj/machinery/computer/pod/deathsquad"
 /obj/item/weapon/circuitboard/robotics
 	name = "Circuit board (Robotics Control Console)"
 	build_path = "/obj/machinery/computer/robotics"
@@ -231,6 +234,13 @@
 	name = "Circuit board (Telepad Control Console)"
 	build_path = "/obj/machinery/computer/telescience"
 	origin_tech = "programming=3;bluespace=2"
+
+/obj/item/weapon/circuitboard/atmos_automation
+	name = "Circuit board (Atmospherics Automation)"
+	build_path = "/obj/machinery/computer/general_air_control/atmos_automation"
+/obj/item/weapon/circuitboard/large_tank_control
+	name = "Circuit board (Atmospheric Tank Control)"
+	build_path = "/obj/machinery/computer/general_air_control/large_tank_control"
 
 /obj/item/weapon/circuitboard/HONKputer
 	name = "Circuit board (HONKputer)"

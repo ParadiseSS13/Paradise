@@ -44,9 +44,6 @@
 			if(get_dist(user,src) <= 1) //not remotely though
 				return TryToSwitchState(user)
 
-	attack_paw(mob/user as mob)
-		return TryToSwitchState(user)
-
 	attack_hand(mob/user as mob)
 		return TryToSwitchState(user)
 
@@ -90,7 +87,7 @@
 		state = 1
 		update_icon()
 		isSwitchingStates = 0
-		air_update_turf()
+		air_update_turf(1)
 
 	proc/Close()
 		isSwitchingStates = 1
@@ -102,7 +99,7 @@
 		state = 0
 		update_icon()
 		isSwitchingStates = 0
-		air_update_turf()
+		air_update_turf(1)
 
 	update_icon()
 		if(state)

@@ -308,29 +308,6 @@
 
 	return
 
-/mob/living/simple_animal/attack_paw(mob/living/carbon/monkey/M as mob)
-	if(!(istype(M, /mob/living/carbon/monkey)))
-		return // Fix for aliens receiving double messages when attacking simple animals.
-
-	..()
-
-	switch(M.a_intent)
-
-		if ("help")
-			if (health > 0)
-				visible_message("<span class='notice'> [M] [response_help] [src].</span>")
-				playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
-		else
-			M.do_attack_animation(src)
-			if (istype(src.wear_mask, /obj/item/clothing/mask/muzzle))
-				return
-			playsound(loc, 'sound/weapons/bite.ogg', 50, 1, -1)
-			visible_message("<span class='danger'>[M.name] bites [src]!</span>", \
-						"<span class='userdanger'>[M.name] bites [src]!</span>")
-			if (health > -100)
-				adjustBruteLoss(rand(1, 3))
-	return
-
 /mob/living/simple_animal/attack_alien(mob/living/carbon/alien/humanoid/M as mob)
 
 	switch(M.a_intent)
@@ -497,23 +474,33 @@
 	if(health < 1)
 		Die()
 
-/mob/living/simple_animal/proc/SA_attackable(target)
-	if (isliving(target))
-		var/mob/living/L = target
-		if(!L.stat)
+/mob/living/simple_animal/proc/CanAttack(var/atom/the_target)
+	if(see_invisible < the_target.invisibility)
+		return 0
+	if (isliving(the_target))
+		var/mob/living/L = the_target
+		if(L.stat != CONSCIOUS)
 			return 0
-	if (istype(target,/obj/mecha))
-		var/obj/mecha/M = target
+	if (istype(the_target, /obj/mecha))
+		var/obj/mecha/M = the_target
 		if (M.occupant)
-			return 0
-	if (istype(target,/obj/spacepod))
-		var/obj/spacepod/S = target
-		if (S.occupant || S.occupant2)
 			return 0
 	return 1
 
 /mob/living/simple_animal/update_fire()
 	return
+
+/mob/living/simple_animal/update_transform()
+	var/matrix/ntransform = matrix(transform) //aka transform.Copy()
+	var/changed = 0
+
+	if(resize != RESIZE_DEFAULT_SIZE)
+		changed++
+		ntransform.Scale(resize)
+		resize = RESIZE_DEFAULT_SIZE
+
+	if(changed)
+		animate(src, transform = ntransform, time = 2, easing = EASE_IN|EASE_OUT)
 
 /mob/living/simple_animal/revive()
 	..()
@@ -551,24 +538,6 @@
 /mob/living/simple_animal/proc/harvest()
 	gib()
 	return
-
-
-/mob/living/simple_animal/proc/CanAttack(var/atom/the_target)
-	if(see_invisible < the_target.invisibility)
-		return 0
-	if (isliving(the_target))
-		var/mob/living/L = the_target
-		if(L.stat != CONSCIOUS)
-			return 0
-	if (istype(the_target, /obj/mecha))
-		var/obj/mecha/M = the_target
-		if (M.occupant)
-			return 0
-	if (istype(the_target, /obj/spacepod))
-		var/obj/spacepod/S = the_target
-		if (S.occupant || S.occupant2)
-			return 0
-	return 1
 
 /mob/living/simple_animal/say(var/message)
 	if(stat)

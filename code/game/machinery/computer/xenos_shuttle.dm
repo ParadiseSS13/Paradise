@@ -24,11 +24,11 @@
 
 	moving = 1
 	lastMove = world.time
-					
+
 	for(var/obj/machinery/door/airlock/alien/A in world)
 		A.close()
 		A.locked = 1
-		A.update_icon()	
+		A.update_icon()
 
 	for(var/mob/M in curr_location)
 		if(M.client)
@@ -41,20 +41,20 @@
 					shake_camera(M, 10, 1)
 		if(istype(M, /mob/living/carbon) && !isalien(M))
 			if(!M.buckled)
-				M.Weaken(3)			
-	
+				M.Weaken(3)
+
 	if(curr_location.z != dest_location.z)
 		var/area/transit_location = locate(/area/xenos_station/transit)
 		curr_location.move_contents_to(transit_location)
 		curr_location = transit_location
 		sleep(XENOS_SHUTTLE_MOVE_TIME)
-					
+
 	for(var/obj/machinery/door/airlock/alien/A in world)
 		A.close()
-		if(dest_location != locate(/area/xenos_station/start))	
+		if(dest_location != locate(/area/xenos_station/start))
 			A.locked = 0
-			A.update_icon()	
-			
+			A.update_icon()
+
 	var/list/dstturfs = list()
 	var/throwy = world.maxy
 
@@ -78,7 +78,7 @@
 
 	for(var/mob/living/simple_animal/pest in dest_location) // And for the other kind of bug...
 		pest.gib()
-		
+
 	curr_location.move_contents_to(dest_location)
 	curr_location = dest_location
 	moving = 0
@@ -91,9 +91,6 @@
 /obj/machinery/computer/xenos_station/attack_ai(mob/user as mob)
 	return attack_hand(user)
 
-/obj/machinery/computer/xenos_station/attack_paw(mob/user as mob)
-	return attack_hand(user)
-	
 /obj/machinery/computer/xenos_station/attack_alien(mob/user as mob)
 	return attack_hand(user)
 
@@ -101,7 +98,7 @@
 	if(!allowed(user))
 		user << "\red Access denied."
 		return
-		
+
 	if(!isalien(user) && !isrobot(user) && !isAI(user))
 		user << "You do not know how to operate this terminal."
 		return
@@ -128,7 +125,7 @@
 /obj/machinery/computer/xenos_station/Topic(href, href_list)
 	if(..())
 		return 1
-		
+
 	if(!isliving(usr))	return
 	var/mob/living/user = usr
 
@@ -142,7 +139,7 @@
 	else if(href_list["station_ne"])
 		xenos_move_to(/area/xenos_station/northeast)
 	else if(href_list["station_e"])
-		xenos_move_to(/area/xenos_station/east)		
+		xenos_move_to(/area/xenos_station/east)
 	else if(href_list["station_sw"])
 		xenos_move_to(/area/xenos_station/southwest)
 	else if(href_list["station_se"])

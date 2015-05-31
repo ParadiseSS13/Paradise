@@ -14,15 +14,13 @@
 	var/screen = 0 // 0 - No Access Denied, 1 - Access allowed
 	var/obj/item/weapon/card/id/prisoner/inserted_id
 
-	light_color = "#A91515"
+	light_color = LIGHT_COLOR_DARKRED
 
 
 	attack_ai(var/mob/user as mob)
 		return src.attack_hand(user)
 
 
-	attack_paw(var/mob/user as mob)
-		return
 
 
 	attack_hand(var/mob/user as mob)

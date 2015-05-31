@@ -57,6 +57,12 @@
 	typepath = /obj/item/weapon/storage/box/dice
 	cost = 200
 
+/datum/storeitem/collar
+	name = "Pet Collar"
+	desc = "A box containing a pet collar; perfect for claiming a pet as your own personal accessory."
+	typepath = /obj/item/clothing/accessory/petcollar
+	cost = 350
+
 /datum/storeitem/crayons
 	name = "Crayons"
 	desc = "Let security know how they're doing by scrawling lovenotes all over their hallways."
@@ -72,7 +78,7 @@
 /datum/storeitem/candle
 	name = "Candles"
 	desc = "A box of chandles. Use them to fool others into thinking you're out for a romantic dinner...or something."
-	typepath = /obj/item/weapon/storage/fancy/candle_box
+	typepath = /obj/item/weapon/storage/fancy/candle_box/full
 	cost = 200
 
 /datum/storeitem/katana

@@ -54,12 +54,15 @@
 	if(istype(O, /obj/item/weapon/reagent_containers/glass) && !panel_open)
 		if(beaker)
 			user << "<span class='warning'>A container is already loaded into the machine.</span>"
+			return
 		else
 			user.unEquip(O)
 			O.loc = src
 			beaker = O
 			user << "<span class='notice'>You add the container to the machine.</span>"
 			updateUsrDialog()
+			update_icon()
+			return
 
 	if(!processing)
 		if(default_deconstruction_screwdriver(user, "biogen-empty-o", "biogen-empty", O))
@@ -159,13 +162,21 @@
 			dat += "Plant bag: <A href='?src=\ref[src];create=ptbag;amount=1'>Make</A> ([200/efficiency])<BR>"
 			dat += "Mining satchel: <A href='?src=\ref[src];create=mnbag;amount=1'>Make</A> ([200/efficiency])<BR>"
 			dat += "Botanical gloves: <A href='?src=\ref[src];create=gloves;amount=1'>Make</A> ([250/efficiency])<BR>"
-			dat += "Utility belt: <A href='?src=\ref[src];create=tbelt;amount=1'>Make</A> ([300/efficiency])<BR>"
 			dat += "Leather Satchel: <A href='?src=\ref[src];create=satchel;amount=1'>Make</A> ([400/efficiency])<BR>"
 			dat += "Cash Bag: <A href='?src=\ref[src];create=cashbag;amount=1'>Make</A> ([400/efficiency])<BR>"
 			dat += "Leather Jacket: <A href='?src=\ref[src];create=jacket;amount=1'>Make</A> ([500/efficiency])<BR>"
+			dat += "</div>"
+			dat += "<h3>Belts</h3>"
+			dat += "<div class='statusDisplay'>"
+			dat += "Utility belt: <A href='?src=\ref[src];create=tbelt;amount=1'>Make</A> ([300/efficiency])<BR>"
+			dat += "Botanist belt: <A href='?src=\ref[src];create=bbelt;amount=1'>Make</A> ([300/efficiency])<BR>"
+			dat += "Security belt: <A href='?src=\ref[src];create=sbelt;amount=1'>Make</A> ([300/efficiency])<BR>"
+			dat += "Medical belt: <A href='?src=\ref[src];create=mbelt;amount=1'>Make</A> ([300/efficiency])<BR>"
+			dat += "Janitor belt: <A href='?src=\ref[src];create=jbelt;amount=1'>Make</A> ([300/efficiency])<BR>"
+			dat += "Bandolier: <A href='?src=\ref[src];create=band;amount=1'>Make</A> ([300/efficiency])<BR>"
+			dat += "</div>"
 			//dat += "<h3>Other:</h3>"
 			//dat += "Monkey: <A href='?src=\ref[src];create=monkey;amount=1'>Make</A> ([400/efficiency])<BR>"
-			dat += "</div>"
 		else
 			dat += "<div class='statusDisplay'>No container inside. Please insert a container.</div>"
 
@@ -188,9 +199,10 @@
 	var/S = 0
 	for(var/obj/item/weapon/reagent_containers/food/snacks/grown/I in contents)
 		S += 5
-		if(I.reagents.get_reagent_amount("nutriment") < 0.1)
+		var/reagent_amount = I.reagents.get_reagent_amount("nutriment") + I.reagents.get_reagent_amount("plantmatter")
+		if(reagent_amount < 0.1)
 			points += 1*productivity
-		else points += I.reagents.get_reagent_amount("nutriment")*10*productivity
+		else points += reagent_amount*10*productivity
 		qdel(I)
 	if(S)
 		processing = 1
@@ -205,10 +217,12 @@
 		menustat = "void"
 	return
 
-/obj/machinery/biogenerator/proc/check_cost(var/cost)
+/obj/machinery/biogenerator/proc/check_cost(var/cost, var/checkonly)
 	if (cost > points)
 		menustat = "nopoints"
 		return 1
+	else if(checkonly)
+		return 0
 	else
 		points -= cost
 		processing = 1
@@ -223,6 +237,7 @@
 
 /obj/machinery/biogenerator/proc/create_product(var/create)
 	switch(create)
+		//Food
 		if("milk")
 			if(check_container_volume(10)) return 0
 			else if (check_cost(20/efficiency)) return 0
@@ -234,27 +249,32 @@
 		if("meat")
 			if (check_cost(250/efficiency)) return 0
 			else new/obj/item/weapon/reagent_containers/food/snacks/monkeycube(src.loc)
+		//Nutrients
 		if("ez")
-			if (check_cost(10/efficiency)) return 0
+			if (check_cost(10/efficiency, 1)) return 0
 			if(in_beaker)
 				if(check_container_volume(10)) return 0
 				else beaker.reagents.add_reagent("eznutrient",10)
 			else
 				new/obj/item/weapon/reagent_containers/glass/fertilizer/ez(src.loc)
+			if (check_cost(10/efficiency)) return 0
 		if("l4z")
-			if (check_cost(20/efficiency)) return 0
+			if (check_cost(20/efficiency, 1)) return 0
 			if(in_beaker)
 				if(check_container_volume(10)) return 0
 				else beaker.reagents.add_reagent("left4zed",10)
 			else
 				new/obj/item/weapon/reagent_containers/glass/fertilizer/l4z(src.loc)
+			if (check_cost(20/efficiency)) return 0
 		if("rh")
-			if (check_cost(25/efficiency)) return 0
+			if (check_cost(25/efficiency, 1)) return 0
 			if(in_beaker)
 				if(check_container_volume(10)) return 0
 				else beaker.reagents.add_reagent("robustharvest",10)
 			else
 				new/obj/item/weapon/reagent_containers/glass/fertilizer/rh(src.loc)
+			if (check_cost(25/efficiency)) return 0
+		//Leather
 		if("wallet")
 			if (check_cost(100/efficiency)) return 0
 			else new/obj/item/weapon/storage/wallet(src.loc)
@@ -270,9 +290,6 @@
 		if("gloves")
 			if (check_cost(250/efficiency)) return 0
 			else new/obj/item/clothing/gloves/botanic_leather(src.loc)
-		if("tbelt")
-			if (check_cost(300/efficiency)) return 0
-			else new/obj/item/weapon/storage/belt/utility(src.loc)
 		if("satchel")
 			if (check_cost(400/efficiency)) return 0
 			else new/obj/item/weapon/storage/backpack/satchel(src.loc)
@@ -282,9 +299,25 @@
 		if("jacket")
 			if (check_cost(500/efficiency)) return 0
 			else new/obj/item/clothing/suit/jacket/leather(src.loc)
-		//if("monkey")
-		//	if (check_cost(500)) return 0
-		//	else new/mob/living/carbon/monkey(src.loc)
+		//Belts
+		if("tbelt")
+			if (check_cost(300/efficiency)) return 0
+			else new/obj/item/weapon/storage/belt/utility(src.loc)
+		if("bbelt")
+			if (check_cost(300/efficiency)) return 0
+			else new/obj/item/weapon/storage/belt/botany(src.loc)
+		if("sbelt")
+			if (check_cost(300/efficiency)) return 0
+			else new/obj/item/weapon/storage/belt/security(src.loc)
+		if("mbelt")
+			if (check_cost(300/efficiency)) return 0
+			else new/obj/item/weapon/storage/belt/medical(src.loc)
+		if("jbelt")
+			if (check_cost(300/efficiency)) return 0
+			else new/obj/item/weapon/storage/belt/janitor(src.loc)
+		if("band")
+			if (check_cost(300/efficiency)) return 0
+			else new/obj/item/weapon/storage/belt/bandolier(src.loc)
 	processing = 0
 	menustat = "complete"
 	update_icon()
@@ -319,6 +352,7 @@
 		while(i >= 1)
 			create_product(C)
 			i--
+		processing = 0
 		updateUsrDialog()
 
 	else if(href_list["menu"])

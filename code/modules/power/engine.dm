@@ -1,5 +1,3 @@
-/turf/simulated/floor/engine/attack_paw(var/mob/user as mob)
-	return src.attack_hand(user)
 
 /turf/simulated/floor/engine/attack_hand(var/mob/user as mob)
 	if ((!( user.canmove ) || user.restrained() || !( user.pulling )))

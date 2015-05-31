@@ -34,7 +34,7 @@ proc/explosion(turf/epicenter, devastation_range, heavy_impact_range, light_impa
 			// Double check for client
 			if(M && M.client)
 				var/turf/M_turf = get_turf(M)
-				if(M_turf.z == epicenter.z)
+				if(M_turf && M_turf.z == epicenter.z)
 					var/dist = get_dist(M_turf, epicenter)
 					// If inside the blast radius + world.view - 2
 					if(dist <= round(max_range + world.view - 2, 1))

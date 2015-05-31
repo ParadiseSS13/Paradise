@@ -77,10 +77,11 @@ var/list/organ_cache = list()
 		owner = null
 
 	if(!owner)
-		var/datum/reagent/blood/B = locate(/datum/reagent/blood) in reagents.reagent_list
-		if(B && prob(40))
-			reagents.remove_reagent("blood",0.1)
-			blood_splatter(src,B,1)
+		if(reagents)
+			var/datum/reagent/blood/B = locate(/datum/reagent/blood) in reagents.reagent_list
+			if(B && prob(40))
+				reagents.remove_reagent("blood",0.1)
+				blood_splatter(src,B,1)
 		if(prob(5)) //How about we not have organs become completely useless less than a minute after removal?
 			damage += 1
 
@@ -228,7 +229,8 @@ var/list/organ_cache = list()
 
 	loc = get_turf(owner)
 	processing_objects |= src
-	var/datum/reagent/blood/organ_blood = locate(/datum/reagent/blood) in reagents.reagent_list
+	var/datum/reagent/blood/organ_blood
+	if(reagents) organ_blood = locate(/datum/reagent/blood) in reagents.reagent_list
 	if(!organ_blood || !organ_blood.data["blood_DNA"])
 		owner.vessel.trans_to(src, 5, 1, 1)
 

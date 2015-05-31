@@ -20,6 +20,8 @@
 	a_intent = "harm"
 	var/throw_message = "bounces off of"
 	var/icon_aggro = null // for swapping to when we get aggressive
+	see_in_dark = 8
+	see_invisible = SEE_INVISIBLE_MINIMUM
 
 /mob/living/simple_animal/hostile/asteroid/Aggro()
 	..()
@@ -72,6 +74,7 @@
 	melee_damage_upper = 12
 	attacktext = "bites into"
 	a_intent = "harm"
+	speak_emote = list("chitters")
 	attack_sound = 'sound/weapons/bladeslice.ogg'
 	ranged_cooldown_cap = 4
 	aggro_vision_range = 9
@@ -138,7 +141,9 @@
 	melee_damage_lower = 0
 	melee_damage_upper = 0
 	attacktext = "barrels into"
+	attack_sound = 'sound/weapons/punch1.ogg'
 	a_intent = "help"
+	speak_emote = list("screeches")
 	throw_message = "sinks in slowly, before being pushed out of "
 	status_flags = CANPUSH
 	search_objects = 1
@@ -178,7 +183,7 @@
 		ore_eaten++
 		if(!(O.type in ore_types_eaten))
 			ore_types_eaten += O.type
-		del(O)
+		qdel(O)
 	if(ore_eaten > 5)//Limit the scope of the reward you can get, or else things might get silly
 		ore_eaten = 5
 	visible_message("<span class='notice'>The ore was swallowed whole!</span>")
@@ -189,7 +194,7 @@
 		spawn(chase_time)
 		if(alerted)
 			visible_message("<span class='danger'>The [src.name] buries into the ground, vanishing from sight!</span>")
-			del(src)
+			qdel(src)
 
 /mob/living/simple_animal/hostile/asteroid/goldgrub/proc/Reward()
 	if(!ore_eaten || ore_types_eaten.len == 0)
@@ -238,6 +243,8 @@
 	melee_damage_lower = 0
 	melee_damage_upper = 0
 	attacktext = "lashes out at"
+	speak_emote = list("telepathically cries")
+	attack_sound = 'sound/weapons/pierce.ogg'
 	throw_message = "falls right through the strange body of the"
 	ranged_cooldown = 0
 	ranged_cooldown_cap = 0
@@ -258,6 +265,7 @@
 
 /mob/living/simple_animal/hostile/asteroid/hivelord/Die()
 	new /obj/item/asteroid/hivelord_core(src.loc)
+	mouse_opacity = 1
 	..()
 
 /obj/item/asteroid/hivelord_core
@@ -288,7 +296,7 @@
 				user << "<span class='notice'>You chomp into [src], barely managing to hold it down, but feel amazingly refreshed in mere moments.</span>"
 			playsound(src.loc,'sound/items/eatfood.ogg', rand(10,50), 1)
 			H.revive()
-			del(src)
+			qdel(src)
 	..()
 
 /mob/living/simple_animal/hostile/asteroid/hivelordbrood
@@ -311,6 +319,8 @@
 	melee_damage_lower = 2
 	melee_damage_upper = 2
 	attacktext = "slashes"
+	speak_emote = list("telepathically cries")
+	attack_sound = 'sound/weapons/pierce.ogg'
 	throw_message = "falls right through the strange body of the"
 	environment_smash = 0
 	pass_flags = PASSTABLE
@@ -318,10 +328,10 @@
 /mob/living/simple_animal/hostile/asteroid/hivelordbrood/New()
 	..()
 	spawn(100)
-		del(src)
+		qdel(src)
 
 /mob/living/simple_animal/hostile/asteroid/hivelordbrood/Die()
-	del(src)
+	qdel(src)
 
 /mob/living/simple_animal/hostile/asteroid/goliath
 	name = "goliath"
@@ -339,6 +349,7 @@
 	ranged_cooldown = 2 //By default, start the Goliath with his cooldown off so that people can run away quickly on first sight
 	ranged_cooldown_cap = 8
 	friendly = "wails at"
+	speak_emote = list("bellows")
 	vision_range = 4
 	speed = 3
 	maxHealth = 300
@@ -347,6 +358,7 @@
 	melee_damage_lower = 25
 	melee_damage_upper = 25
 	attacktext = "pulverizes"
+	attack_sound = 'sound/weapons/punch1.ogg'
 	throw_message = "does nothing to the rocky hide of the"
 	aggro_vision_range = 9
 	idle_vision_range = 5
@@ -398,6 +410,7 @@
 	name = "Goliath tentacle"
 	icon = 'icons/mob/animal.dmi'
 	icon_state = "Goliath_tentacle"
+	var/latched = 0
 
 /obj/effect/goliath_tentacle/New()
 	var/turftype = get_turf(src)
@@ -425,15 +438,15 @@
 
 /obj/effect/goliath_tentacle/proc/Trip()
 	for(var/mob/living/M in src.loc)
-		M.Weaken(5)
-		visible_message("<span class='warning'>The [src.name] knocks [M.name] down!</span>")
-	del(src)
-
-/obj/effect/goliath_tentacle/Crossed(AM as mob|obj)
-	if(isliving(AM))
-		Trip()
-		return
-	..()
+		M.Stun(5)
+		M.adjustBruteLoss(rand(10,15))
+		latched = 1
+		visible_message("<span class='danger'>The [src.name] grabs hold of [M.name]!</span>")
+	if(!latched)
+		qdel(src)
+	else
+		spawn(50)
+			qdel(src)
 
 /mob/living/simple_animal/hostile/asteroid/goliath/Die()
 	var/obj/item/asteroid/goliath_hide/G = new /obj/item/asteroid/goliath_hide(src.loc)
@@ -457,15 +470,18 @@
 			if(current_armor.["melee"] < 80)
 				current_armor.["melee"] = min(current_armor.["melee"] + 10, 80)
 				user << "<span class='info'>You strengthen [target], improving its resistance against melee attacks.</span>"
-				del(src)
+				qdel(src)
 			else
 				user << "<span class='info'>You can't improve [C] any further.</span>"
 				return
 		if(istype(target, /obj/mecha/working/ripley))
 			var/obj/mecha/D = target
 			var/list/damage_absorption = D.damage_absorption
-			if(damage_absorption.["brute"] > 0.3)
-				damage_absorption.["brute"] = max(damage_absorption.["brute"] - 0.1, 0.3)
+			if(damage_absorption["brute"] > 0.3)
+				damage_absorption["brute"] = max(damage_absorption["brute"] - 0.1, 0.3)
+				damage_absorption["bullet"] = damage_absorption["bullet"] - 0.05
+				damage_absorption["fire"] = damage_absorption["fire"] - 0.05
+				damage_absorption["laser"] = damage_absorption["laser"] - 0.025
 				user << "<span class='info'>You strengthen [target], improving its resistance against melee attacks.</span>"
 				qdel(src)
 				if(D.icon_state == "ripley-open")
@@ -478,7 +494,7 @@
 						D.overlays += image("icon"="mecha.dmi", "icon_state"="ripley-g-full-open")
 						D.desc = "Autonomous Power Loader Unit. It's wearing a fearsome carapace entirely composed of goliath hide plates - the pilot must be an experienced monster hunter."
 					else
-						user << "<span class='info'>You can't add armour onto the mech while someone is inside!</span>"
+						user << "<span class='warning'>You can't add armour onto the mech while someone is inside!</span>"
 			else
-				user << "<span class='info'>You can't improve [D] any further.</span>"
+				user << "<span class='warning'>You can't improve [D] any further!</span>"
 				return

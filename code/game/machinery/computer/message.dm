@@ -8,7 +8,7 @@
 	name = "Message Monitor Console"
 	desc = "Used to Monitor the crew's messages, that are sent via PDA. Can also be used to view Request Console messages."
 	icon_state = "comm_logs"
-	light_color = "#00b000"
+	light_color = LIGHT_COLOR_GREEN
 	var/hack_icon = "comm_logsc"
 	var/normal_icon = "comm_logs"
 	circuit = "/obj/item/weapon/circuitboard/message_monitor"
@@ -34,7 +34,7 @@
 	var/customjob		= "Admin"
 	var/custommessage 	= "This is a test, please ignore."
 
-	light_color = "#50AB00"
+	light_color = LIGHT_COLOR_DARKGREEN
 
 
 /obj/machinery/computer/message_monitor/attackby(obj/item/weapon/O as obj, mob/living/user as mob, params)

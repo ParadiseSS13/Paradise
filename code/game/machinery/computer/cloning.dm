@@ -16,7 +16,7 @@
 	var/autoprocess = 0
 	var/data[0]
 
-	light_color = "#315AB4"
+	light_color = LIGHT_COLOR_DARKBLUE
 
 /obj/machinery/computer/cloning/New()
 	..()
@@ -86,8 +86,6 @@
 		..()
 	return
 
-/obj/machinery/computer/cloning/attack_paw(mob/user as mob)
-	return attack_hand(user)
 
 /obj/machinery/computer/cloning/attack_ai(mob/user as mob)
 	return attack_hand(user)
@@ -117,9 +115,11 @@
 		data["autoallowed"] = 1
 	else
 		data["autoallowed"] = 0
-	data["occupant"] = src.scanner.occupant
-	data["locked"] = src.scanner.locked
-	data["biomass"] = src.pod1.biomass
+	if(src.scanner)
+		data["occupant"] = src.scanner.occupant
+		data["locked"] = src.scanner.locked
+	if(src.pod1)
+		data["biomass"] = src.pod1.biomass
 	data["temp"] = temp
 	data["scantemp"] = scantemp
 	data["disk"] = src.diskette

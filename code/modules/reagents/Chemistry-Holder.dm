@@ -455,7 +455,7 @@ datum
 					R.holder = src
 					R.volume = amount
 //					SetViruses(R, data) // Includes setting data
-					R.data = data
+					if(data) R.data = data
 					//debug
 					//world << "Adding data"
 					//for(var/D in R.data)

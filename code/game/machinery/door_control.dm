@@ -37,9 +37,6 @@
 	else
 		user << "Error, no route to host."
 
-/obj/machinery/door_control/attack_paw(mob/user as mob)
-	return src.attack_hand(user)
-
 /obj/machinery/door_control/attackby(obj/item/weapon/W, mob/user as mob, params)
 	/* For later implementation
 	if (istype(W, /obj/item/weapon/screwdriver))
@@ -58,7 +55,7 @@
 	if(istype(W, /obj/item/device/detective_scanner))
 		return
 	return src.attack_hand(user)
-	
+
 /obj/machinery/door_control/emag_act(user as mob)
 	if(!emagged)
 		emagged = 1
@@ -113,7 +110,7 @@
 
 	else
 		for(var/obj/machinery/door/poddoor/M in world)
-			if (M.id == src.id)
+			if (M.id_tag == src.id)
 				if (M.density)
 					spawn( 0 )
 						M.open()
@@ -135,17 +132,35 @@
 	else
 		icon_state = "doorctrl0"
 
-/obj/machinery/driver_button/attack_ai(mob/user as mob)
-	return src.attack_hand(user)
+/obj/machinery/driver_button/var/range = 7
 
-/obj/machinery/driver_button/attack_paw(mob/user as mob)
+/obj/machinery/driver_button/attack_ai(mob/user as mob)
 	return src.attack_hand(user)
 
 /obj/machinery/driver_button/attackby(obj/item/weapon/W, mob/user as mob, params)
 
 	if(istype(W, /obj/item/device/detective_scanner))
 		return
+
+	if(istype(W, /obj/item/device/multitool))
+		update_multitool_menu(user)
+		return 1
+
+	if(istype(W, /obj/item/weapon/wrench))
+		playsound(get_turf(src), 'sound/items/Ratchet.ogg', 50, 1)
+		if(do_after(user, 30))
+			user << "<span class='notice'>You detach \the [src] from the wall.</span>"
+			new/obj/item/mounted/frame/driver_button(get_turf(src))
+			del(src)
+		return 1
+
 	return src.attack_hand(user)
+
+/obj/machinery/driver_button/multitool_menu(var/mob/user, var/obj/item/device/multitool/P)
+	return {"
+	<ul>
+	<li>[format_tag("ID Tag","id_tag")]</li>
+	</ul>"}
 
 /obj/machinery/driver_button/attack_hand(mob/user as mob)
 
@@ -158,30 +173,32 @@
 
 	use_power(5)
 
+	launch_sequence()
+
+	return
+
+/obj/machinery/driver_button/proc/launch_sequence()
 	active = 1
 	icon_state = "launcheract"
 
-	for(var/obj/machinery/door/poddoor/M in world)
-		if (M.id == src.id)
-			spawn( 0 )
+	for(var/obj/machinery/door/poddoor/M in range(src,range))
+		if (M.id_tag == src.id_tag && !M.protected)
+			spawn()
 				M.open()
-				return
 
 	sleep(20)
 
-	for(var/obj/machinery/mass_driver/M in world)
-		if(M.id == src.id)
+	for(var/obj/machinery/mass_driver/M in range(src,range))
+		if(M.id_tag == src.id_tag)
 			M.drive()
 
 	sleep(50)
 
-	for(var/obj/machinery/door/poddoor/M in world)
-		if (M.id == src.id)
-			spawn( 0 )
+	for(var/obj/machinery/door/poddoor/M in range(src,range))
+		if (M.id_tag == src.id_tag && !M.protected)
+			spawn()
 				M.close()
 				return
 
 	icon_state = "launcherbtt"
 	active = 0
-
-	return

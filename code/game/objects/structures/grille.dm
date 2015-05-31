@@ -54,9 +54,6 @@
 	if(ismob(user)) shock(user, 70)
 
 
-/obj/structure/grille/attack_paw(mob/living/user as mob)
-	attack_hand(user)
-
 /obj/structure/grille/attack_hand(mob/living/user as mob)
 	user.changeNext_move(CLICK_CD_MELEE)
 	user.do_attack_animation(src)

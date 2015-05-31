@@ -56,7 +56,7 @@ var/global/nologevent = 0
 		<a href='?src=\ref[src];traitor=\ref[M]'>TP</a> -
 		<a href='?src=\ref[usr];priv_msg=\ref[M]'>PM</a> -
 		<a href='?src=\ref[src];subtlemessage=\ref[M]'>SM</a> -
-		<a href='?src=\ref[src];adminplayerobservejump=\ref[M]'>JMP</a>\] </b><br>
+		[admin_jump_link(M, src)]\] </b><br>
 		<b>Mob type</b> = [M.type]<br><br>
 		<A href='?src=\ref[src];boot2=\ref[M]'>Kick</A> |
 		<A href='?_src_=holder;warn=[M.ckey]'>Warn</A> |
@@ -79,8 +79,13 @@ var/global/nologevent = 0
 			(<A href='?src=\ref[src];mute=\ref[M];mute_type=[MUTE_ALL]'><font color='[(muted & MUTE_ALL)?"red":"blue"]'>toggle all</font></a>)
 		"}
 
+	var/jumptoeye = ""
+	if(isAI(M))
+		var/mob/living/silicon/ai/A = M
+		if(A.client && A.eyeobj) // No point following clientless AI eyes
+			jumptoeye = " <b>(<A href='?src=\ref[src];jumpto=\ref[A.eyeobj]'>Eye</A>)</b>"
 	body += {"<br><br>
-		<A href='?src=\ref[src];jumpto=\ref[M]'><b>Jump to</b></A> |
+		<A href='?src=\ref[src];jumpto=\ref[M]'><b>Jump to</b></A>[jumptoeye] |
 		<A href='?src=\ref[src];getmob=\ref[M]'>Get</A> |
 		<A href='?src=\ref[src];sendmob=\ref[M]'>Send To</A>
 		<br><br>
@@ -96,7 +101,7 @@ var/global/nologevent = 0
 			body += "<br>"
 
 			//Monkey
-			if(ismonkey(M))
+			if(issmall(M))
 				body += "<B>Monkeyized</B> | "
 			else
 				body += "<A href='?src=\ref[src];monkeyone=\ref[M]'>Monkeyize</A> | "
@@ -362,7 +367,7 @@ var/global/nologevent = 0
 		if(3)
 			dat+={"
 				Creating new Feed Message...
-				<HR><B><A href='?src=\ref[src];ac_set_channel_receiving=1'>Receiving Channel</A>:</B> [src.admincaster_feed_channel.channel_name]<BR>" //MARK
+				<HR><B><A href='?src=\ref[src];ac_set_channel_receiving=1'>Receiving Channel</A>:</B> [src.admincaster_feed_channel.channel_name]<BR>
 				<B>Message Author:</B> <FONT COLOR='green'>[src.admincaster_signature]</FONT><BR>
 				<B><A href='?src=\ref[src];ac_set_new_message=1'>Message Body</A>:</B> [src.admincaster_feed_message.body] <BR>
 				<BR><A href='?src=\ref[src];ac_submit_new_message=1'>Submit</A><BR><BR><A href='?src=\ref[src];ac_setScreen=[0]'>Cancel</A><BR>
@@ -908,7 +913,11 @@ var/global/nologevent = 0
 			var/mob/living/silicon/robot/R = S
 			usr << "<b>CYBORG [key_name(S, usr)] [R.connected_ai?"(Slaved to: [R.connected_ai])":"(Independent)"]: laws:</b>"
 		else if (ispAI(S))
+			var/mob/living/silicon/pai/P = S
 			usr << "<b>pAI [key_name(S, usr)]'s laws:</b>"
+			usr << "[P.pai_law0]"
+			if(P.pai_laws) usr << "[P.pai_laws]"
+			continue // Skip showing normal silicon laws for pAIs - they don't have any
 		else
 			usr << "<b>SOMETHING SILICON [key_name(S, usr)]'s laws:</b>"
 

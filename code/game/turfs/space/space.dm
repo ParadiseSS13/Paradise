@@ -27,9 +27,6 @@
 	else
 		set_light(0)
 
-/turf/space/attack_paw(mob/user as mob)
-	return src.attack_hand(user)
-
 /turf/space/attack_hand(mob/user as mob)
 	if ((user.restrained() || !( user.pulling )))
 		return

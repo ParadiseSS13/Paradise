@@ -20,18 +20,19 @@
 	pixel_x = -32
 
 /mob/living/carbon/alien/humanoid/empress/large/update_icons()
-	lying_prev = lying	//so we don't update overlays for lying/standing unless our stance changes again
+
 	update_hud()		//TODO: remove the need for this to be here
 	overlays.Cut()
-	if(lying)
-		if(resting)					icon_state = "empress_sleep"
-		else						icon_state = "empress_l"
-		for(var/image/I in overlays_lying)
-			overlays += I
+
+	if(stat == DEAD)
+		icon_state = "empress_dead"
+	else if(stat == UNCONSCIOUS || lying || resting)
+		icon_state = "empress_sleep"
 	else
 		icon_state = "empress_s"
-		for(var/image/I in overlays_standing)
-			overlays += I
+
+	for(var/image/I in overlays_standing)
+		overlays += I
 
 /mob/living/carbon/alien/humanoid/empress/New()
 	var/datum/reagents/R = new/datum/reagents(100)

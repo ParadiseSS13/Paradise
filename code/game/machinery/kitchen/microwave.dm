@@ -33,7 +33,11 @@
 	if (!available_recipes)
 		available_recipes = new
 		for (var/type in (typesof(/datum/recipe/microwave)-/datum/recipe/microwave))
-			available_recipes+= new type
+			var/datum/recipe/recipe = new type
+			if(recipe.result) // Ignore recipe subtypes that lack a result
+				available_recipes += recipe
+			else
+				del(recipe)
 		acceptable_items = new
 		acceptable_reagents = new
 		for (var/datum/recipe/microwave/recipe in available_recipes)
@@ -178,9 +182,6 @@
 		user << "\red You have no idea what you can cook with this [O]."
 		return 1
 	src.updateUsrDialog()
-
-/obj/machinery/microwave/attack_paw(mob/user as mob)
-	return src.attack_hand(user)
 
 /obj/machinery/microwave/attack_ai(mob/user as mob)
 	return 0

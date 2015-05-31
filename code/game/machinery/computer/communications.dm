@@ -58,7 +58,7 @@ var/shuttle_call/shuttle_calls[0]
 
 	var/datum/announcement/priority/crew_announcement = new
 
-	light_color = "#0099FF"
+	light_color = LIGHT_COLOR_LIGHTBLUE
 
 /obj/machinery/computer/communications/New()
 	..()
@@ -254,9 +254,6 @@ var/shuttle_call/shuttle_calls[0]
 		user << "You scramble the communication routing circuits!"
 
 /obj/machinery/computer/communications/attack_ai(var/mob/user as mob)
-	return src.attack_hand(user)
-
-/obj/machinery/computer/communications/attack_paw(var/mob/user as mob)
 	return src.attack_hand(user)
 
 

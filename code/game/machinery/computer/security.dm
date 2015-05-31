@@ -22,7 +22,7 @@
 	var/sortBy = "name"
 	var/order = 1 // -1 = Descending - 1 = Ascending
 
-	light_color = "#B40000"
+	light_color = LIGHT_COLOR_RED
 
 
 /obj/machinery/computer/secure_data/attackby(obj/item/O as obj, user as mob, params)
@@ -34,9 +34,6 @@
 	..()
 
 /obj/machinery/computer/secure_data/attack_ai(mob/user as mob)
-	return attack_hand(user)
-
-/obj/machinery/computer/secure_data/attack_paw(mob/user as mob)
 	return attack_hand(user)
 
 //Someone needs to break down the dat += into chunks instead of long ass lines.

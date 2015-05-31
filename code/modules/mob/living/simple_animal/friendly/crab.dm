@@ -18,6 +18,7 @@
 	response_harm   = "stomps the"
 	stop_automated_movement = 1
 	friendly = "pinches"
+	ventcrawler = 2
 	var/obj/item/inventory_head
 	var/obj/item/inventory_mask
 	can_hide = 1
@@ -83,7 +84,7 @@
 
 	//Removing from inventory
 	if(href_list["remove_inv"])
-		if(get_dist(src,usr) > 1 || !(ishuman(usr) || ismonkey(usr) || isrobot(usr) ||  isalienadult(usr)))
+		if(get_dist(src,usr) > 1 || !(ishuman(usr) || isrobot(usr) ||  isalienadult(usr)))
 			return
 		var/remove_from = href_list["remove_inv"]
 		switch(remove_from)
@@ -113,7 +114,7 @@
 
 	//Adding things to inventory
 	else if(href_list["add_inv"])
-		if(get_dist(src,usr) > 1 || !(ishuman(usr) || ismonkey(usr) || isrobot(usr) ||  isalienadult(usr)))
+		if(get_dist(src,usr) > 1 || !(ishuman(usr) || isrobot(usr) ||  isalienadult(usr)))
 			return
 		var/add_to = href_list["add_inv"]
 		if(!usr.get_active_hand())
@@ -254,27 +255,31 @@
 		//show_inv(usr) //Commented out because changing Ian's  name and then calling up his inventory opens a new inventory...which is annoying.
 	else
 		..()
+*/
 
-/mob/living/simple_animal/crab/GetMad()
+/mob/living/simple_animal/crab/proc/GetMad()
 	name = "MEGAMADCRAB"
 	real_name = "MEGAMADCRAB"
 	desc = "OH NO YOU DUN IT NOW."
-	icon = 'icons/mob/mob.dmi'
-	icon_state = "madcrab"
-	icon_living = "madcrab"
-	icon_dead = "madcrab_dead"
+	icon = 'icons/mob/animal.dmi'
+	icon_state = "evilcrab"
+	icon_living = "evilcrab"
+	icon_dead = "evilcrab_dead"
 	speak_emote = list("clicks")
 	emote_hear = list("clicks with fury", "clicks angrily")
 	emote_see = list("clacks")
 	speak_chance = 1
+	universal_speak = 1 //So that the entire station may know its fury.
 	turns_per_move = 15//Gotta go fast
+	speed = -1//Gotta go fast when controlled by a player.
 	maxHealth = 100//So they don't die as quickly
 	health = 100
 	melee_damage_lower = 3
 	melee_damage_upper = 10//Kill them. Kill them all
-	if(inventory_head)//Drops inventory so it doesn't have to be dealt with
+
+	/*if(inventory_head)//Drops inventory so it doesn't have to be dealt with
 		inventory_head.loc = src.loc
 		inventory_head = null
 	if(inventory_mask)
 		inventory_mask.loc = src.loc
-		inventory_mask = null*/
+		inventory_mask = null*/ //Currently does not have the ability to equip anything.

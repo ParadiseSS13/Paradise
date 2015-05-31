@@ -341,3 +341,30 @@
 	materials = list("$glass" = 1000, "sacid" = 20)
 	build_path = /obj/item/weapon/circuitboard/teleporter
 	category = list("Computer Boards")
+
+datum/design/GAC
+	name = "Circuit Design (General Air Control)"
+	desc = "Allows for the construction of circuit boards used to build a General Air Control Computer."
+	id = "GAC"
+	req_tech = list("programming" = 3, "magnets" = 2)
+	build_type = IMPRINTER
+	materials = list("$glass" = 1000, "sacid" = 20)
+	build_path = /obj/item/weapon/circuitboard/air_management
+
+datum/design/tank_control
+	name = "Circuit Design (Large Tank Control)"
+	desc = "Allows for the construction of circuit boards used to build a Large Tank Control Computer."
+	id = "tankcontrol"
+	req_tech = list("programming" = 3, "magnets" = 2)
+	build_type = IMPRINTER
+	materials = list("$glass" = 1000, "sacid" = 20)
+	build_path = /obj/item/weapon/circuitboard/large_tank_control
+
+datum/design/AAC
+	name = "Circuit Design (Atmospheric Automations Console)"
+	desc = "Allows for the construction of circuit boards used to build an Atmospheric Autmations Console."
+	id = "AAC"
+	req_tech = list("programming" = 4, "magnets" = 2)
+	build_type = IMPRINTER
+	materials = list("$glass" = 1000, "sacid" = 20)
+	build_path = /obj/item/weapon/circuitboard/atmos_automation

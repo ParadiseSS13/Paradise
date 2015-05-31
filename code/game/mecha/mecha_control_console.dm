@@ -2,7 +2,7 @@
 	name = "Exosuit Control"
 	icon = 'icons/obj/computer.dmi'
 	icon_state = "mecha"
-	light_color = "#a97faa"
+	light_color = LIGHT_COLOR_FADEDPURPLE
 	req_access = list(access_robotics)
 	circuit = "/obj/item/weapon/circuitboard/mecha_control"
 	var/list/located = list()
@@ -10,9 +10,6 @@
 	var/stored_data
 
 	attack_ai(var/mob/user as mob)
-		return src.attack_hand(user)
-
-	attack_paw(var/mob/user as mob)
 		return src.attack_hand(user)
 
 	attack_hand(var/mob/user as mob)

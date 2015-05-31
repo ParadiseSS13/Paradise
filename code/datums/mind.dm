@@ -137,7 +137,7 @@ datum/mind
 		)
 		var/text = ""
 		var/mob/living/carbon/human/H = current
-		if (istype(current, /mob/living/carbon/human) || istype(current, /mob/living/carbon/monkey))
+		if (istype(current, /mob/living/carbon/human))
 			/** Impanted**/
 			if(H.is_loyalty_implanted(H))
 				text = "Loyalty Implant:<a href='?src=\ref[src];implant=remove'>Remove</a>|<b>Implanted</b></br>"
@@ -343,13 +343,6 @@ datum/mind
 				text = "<i><b>[text]</b></i>: "
 				if (istype(current, /mob/living/carbon/human))
 					text += "<a href='?src=\ref[src];monkey=healthy'>healthy</a>|<a href='?src=\ref[src];monkey=infected'>infected</a>|<b>HUMAN</b>|other"
-				else if (istype(current, /mob/living/carbon/monkey))
-					var/found = 0
-
-					if(found)
-						text += "<a href='?src=\ref[src];monkey=healthy'>healthy</a>|<b>INFECTED</b>|<a href='?src=\ref[src];monkey=human'>human</a>|other"
-					else
-						text += "<b>HEALTHY</b>|<a href='?src=\ref[src];monkey=infected'>infected</a>|<a href='?src=\ref[src];monkey=human'>human</a>|other"
 
 				else
 					text += "healthy|infected|human|<b>OTHER</b>"
@@ -469,7 +462,7 @@ datum/mind
 				if(!def_value)//If it's a custom objective, it will be an empty string.
 					def_value = "custom"
 
-			var/new_obj_type = input("Select objective type:", "Objective type", def_value) as null|anything in list("assassinate", "blood", "debrain", "protect", "prevent", "harm", "speciesist", "brig", "hijack", "escape", "survive", "steal", "download", "nuclear", "capture", "absorb", "destroy", "maroon", "identity theft", "custom")
+			var/new_obj_type = input("Select objective type:", "Objective type", def_value) as null|anything in list("assassinate", "blood", "debrain", "protect", "prevent", "harm", "brig", "hijack", "escape", "survive", "steal", "download", "nuclear", "capture", "absorb", "destroy", "maroon", "identity theft", "custom")
 			if (!new_obj_type) return
 
 			var/datum/objective/new_objective = null
@@ -517,11 +510,6 @@ datum/mind
 						new_objective.explanation_text = "Destroy [new_target.name], the experimental AI."
 					else
 						usr << "No active AIs with minds"
-
-				if ("speciesist")
-					new_objective = new /datum/objective/speciesist
-					new_objective.owner = src
-					new_objective.find_target()
 
 				if ("prevent")
 					new_objective = new /datum/objective/block
@@ -976,21 +964,17 @@ datum/mind
 						special_role = null
 						current << "<span class='userdanger'>Your powers have been quenched! You are no longer a shadowling!</span>"
 						current.spell_list.Cut()
+						if(current.mind)
+							current.mind.spell_list.Cut()
 						message_admins("[key_name_admin(usr)] has de-shadowling'ed [current].")
 						log_admin("[key_name(usr)] has de-shadowling'ed [current].")
 						current.verbs -= /mob/living/carbon/human/proc/shadowling_hatch
 						current.verbs -= /mob/living/carbon/human/proc/shadowling_ascendance
-						if(current.languages)
-							for(var/datum/language/L in current.languages)
-								if(L.name == "Shadowling Hivemind")
-									del(L)
+						current.remove_language("Shadowling Hivemind")
 					else if(src in ticker.mode.shadowling_thralls)
 						ticker.mode.shadowling_thralls -= src
 						special_role = null
-						if(current.languages)
-							for(var/datum/language/L in current.languages)
-								if(L.name == "Shadowling Hivemind")
-									del(L)
+						current.remove_language("Shadowling Hivemind")
 						current << "<span class='userdanger'>You have been brainwashed! You are no longer a thrall!</span>"
 						message_admins("[key_name_admin(usr)] has de-thrall'ed [current].")
 						log_admin("[key_name(usr)] has de-thrall'ed [current].")
@@ -1016,36 +1000,6 @@ datum/mind
 					current << "<span class='danger'>You may use the Hivemind Commune ability to communicate with your fellow enlightened ones.</span>"
 					message_admins("[key_name_admin(usr)] has thrall'ed [current].")
 					log_admin("[key_name(usr)] has thrall'ed [current].")
-
-		else if (href_list["monkey"])
-			var/mob/living/L = current
-			if (L.notransform)
-				return
-			switch(href_list["monkey"])
-				if("healthy")
-					if (usr.client.holder.rights & R_ADMIN)
-						var/mob/living/carbon/human/H = current
-						var/mob/living/carbon/monkey/M = current
-						if (istype(H))
-							log_admin("[key_name(usr)] attempting to monkeyize [key_name(current)]")
-							message_admins("\blue [key_name_admin(usr)] attempting to monkeyize [key_name_admin(current)]")
-							src = null
-							M = H.monkeyize()
-							src = M.mind
-							//world << "DEBUG: \"healthy\": M=[M], M.mind=[M.mind], src=[src]!"
-							sleep(0) //because deleting of virus is done through spawn(0)
-				if("human")
-					var/mob/living/carbon/monkey/M = current
-					if (istype(M))
-						log_admin("[key_name(usr)] attempting to humanize [key_name(current)]")
-						message_admins("\blue [key_name_admin(usr)] attempting to humanize [key_name_admin(current)]")
-						var/obj/item/weapon/dnainjector/m2h/m2h = new
-						var/obj/item/weapon/implant/mobfinder = new(M) //hack because humanizing deletes mind --rastaf0
-						src = null
-						m2h.inject(M)
-						src = mobfinder.loc:mind
-						del(mobfinder)
-						current.radiation -= 50
 
 		else if (href_list["silicon"])
 			current.hud_updateflag |= (1 << SPECIALROLE_HUD)
@@ -1401,9 +1355,6 @@ datum/mind
 	mind_initialize()  //updates the mind (or creates and initializes one if one doesn't exist)
 	mind.active = 1    //indicates that the mind is currently synced with a client
 
-//MONKEY
-/mob/living/carbon/monkey/mind_initialize()
-	..()
 
 //slime
 /mob/living/carbon/slime/mind_initialize()
@@ -1461,7 +1412,7 @@ datum/mind
 	..()
 	mind.assigned_role = "Animal"
 
-/mob/living/simple_animal/corgi/mind_initialize()
+/mob/living/simple_animal/pet/corgi/mind_initialize()
 	..()
 	mind.assigned_role = "Corgi"
 

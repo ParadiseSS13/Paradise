@@ -76,7 +76,7 @@
 		loc = null
 
 		if (ismob(target))
-			add_logs(user, target, "planted [name] on")
+			add_logs(target, user, "planted [name] on")
 			user.visible_message("\red [user.name] finished planting an explosive on [target.name]!")
 			message_admins("[key_name(user, user.client)](<A HREF='?_src_=holder;adminmoreinfo=\ref[user]'>?</A>) planted C4 on [key_name(target)](<A HREF='?_src_=holder;adminmoreinfo=\ref[target]'>?</A>) with [timer] second fuse",0,1)
 			log_game("[key_name(user)] planted C4 on [key_name(target)] with [timer] second fuse")
@@ -107,8 +107,8 @@
 			target.ex_act(1)
 		if (isobj(target))
 			if (target)
-				del(target)
-	del(src)
+				qdel(target)
+	qdel(src)
 
 /obj/item/weapon/c4/attack(mob/M as mob, mob/user as mob, def_zone)
 	return

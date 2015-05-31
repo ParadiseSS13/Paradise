@@ -274,3 +274,12 @@ EVENT_CUSTOM_START_MAJOR 80;100
 
 ## Strength of ambient star light. Set to 0 or less to turn off.
 STARLIGHT 0
+
+## Player rerouting stuff
+## If not 0, players can be rerouted to an overflow server after a certain cap is reached
+
+## Cap before players start being rerouted
+PLAYER_REROUTE_CAP 0
+
+## Server to reroute to
+#OVERFLOW_SERVER_URL byond://example.org:1111

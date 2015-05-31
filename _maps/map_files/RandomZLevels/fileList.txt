@@ -7,9 +7,9 @@
 #Do NOT tick the maps during compile -- the game uses this list to decide which map to load. Ticking the maps will result in them ALL being loaded at once.
 #DO tick the associated code file for the away mission you are enabling. Otherwise, the map will be trying to reference objects which do not exist, which will cause runtime errors!
 
-#_maps/map_files/map_files/RandomZLevels/academy.dmm
-_maps/map_files/map_files/RandomZLevels/beach.dmm
-#_maps/map_files/map_files/RandomZLevels/blackmarketpackers.dmm
+#_maps/map_files/RandomZLevels/academy.dmm
+_maps/map_files/RandomZLevels/beach.dmm
+#_maps/map_files/RandomZLevels/blackmarketpackers.dmm
 _maps/map_files/RandomZLevels/challenge.dmm
 #_maps/map_files/RandomZLevels/centcomAway.dmm
 #_maps/map_files/RandomZLevels/clownplanet.dmm

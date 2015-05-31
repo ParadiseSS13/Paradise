@@ -44,8 +44,6 @@
 		..()
 		update_icon()
 
-	attack_paw()
-		return attack_hand()
 
 	attackby(obj/item/I as obj, mob/user as mob, params)
 
@@ -127,7 +125,7 @@
 							B = T.take_blood(src,amount)
 
 						if (B)
-							src.reagents.reagent_list += B
+							src.reagents.reagent_list |= B
 							src.reagents.update_total()
 							src.on_reagent_change()
 							src.reagents.handle_reactions()
@@ -361,8 +359,6 @@
 		..()
 		update_icon()
 
-	attack_paw()
-		return attack_hand()
 
 	attackby(obj/item/I as obj, mob/user as mob)
 

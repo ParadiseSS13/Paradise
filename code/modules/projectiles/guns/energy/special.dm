@@ -163,6 +163,7 @@ obj/item/weapon/gun/energy/staff/focus
 	icon_state = "energy"
 	projectile_type = "/obj/item/projectile/clown"
 	fire_sound = 'sound/weapons/Gunshot_smg.ogg'
+	clumsy_check = 0
 
 
 

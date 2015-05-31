@@ -160,23 +160,17 @@
 								var/datum/objective/minimize_casualties/escape_objective = new
 								escape_objective.owner = traitor
 								traitor.objectives += escape_objective
-			if(31 to 90)
+			if(31 to 85)
 				if (!(locate(/datum/objective/escape) in traitor.objectives))
 					var/datum/objective/escape/escape_objective = new
 					escape_objective.owner = traitor
 					traitor.objectives += escape_objective
 			else
-				if(prob(50))
-					if (!(locate(/datum/objective/hijack) in traitor.objectives))
-						var/datum/objective/hijack/hijack_objective = new
-						hijack_objective.owner = traitor
-						traitor.objectives += hijack_objective
-				else // Honk
-					if (!(locate(/datum/objective/speciesist) in traitor.objectives))
-						var/datum/objective/speciesist/speciesist_objective = new
-						speciesist_objective.owner = traitor
-						speciesist_objective.find_target()
-						traitor.objectives += speciesist_objective
+				if (!(locate(/datum/objective/hijack) in traitor.objectives))
+					var/datum/objective/hijack/hijack_objective = new
+					hijack_objective.owner = traitor
+					traitor.objectives += hijack_objective
+
 	return
 
 
@@ -259,7 +253,7 @@
 			if(uplink_true) text += " (used [TC_uses] TC) [purchases]"
 
 
-			if(traitor.objectives.len)//If the traitor had no objectives, don't need to process this.
+			if(traitor.objectives && traitor.objectives.len)//If the traitor had no objectives, don't need to process this.
 				var/count = 1
 				for(var/datum/objective/objective in traitor.objectives)
 					if(objective.check_completion())

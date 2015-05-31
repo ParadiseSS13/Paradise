@@ -155,13 +155,6 @@ datum
 					if(self.data["virus2"])
 						blood_prop.virus2 = virus_copylist(self.data["virus2"])
 
-
-				else if(istype(self.data["donor"], /mob/living/carbon/monkey))
-					var/obj/effect/decal/cleanable/blood/blood_prop = locate() in T
-					if(!blood_prop)
-						blood_prop = new(T)
-						blood_prop.blood_DNA["Non-Human DNA"] = "A+"
-
 				else if(istype(self.data["donor"], /mob/living/carbon/alien))
 					var/obj/effect/decal/cleanable/blood/xeno/blood_prop = locate() in T
 					if(!blood_prop)
@@ -1383,9 +1376,9 @@ datum
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /*
-		nanites
+		nanomachines
 			name = "Nanomachines"
-			id = "nanites"
+			id = "nanomachines"
 			description = "Microscopic construction robots."
 			reagent_state = LIQUID
 			color = "#535E66" // rgb: 83, 94, 102
@@ -1486,10 +1479,31 @@ datum
 /////////////////////////Food Reagents////////////////////////////
 // Part of the food code. Nutriment is used instead of the old "heal_amt" code. Also is where all the food
 // 	condiments, additives, and such go.
-		nutriment
+		nutriment		// Pure nutriment, universally digestable and thus slightly less effective
 			name = "Nutriment"
 			id = "nutriment"
-			description = "All the vitamins, minerals, and carbohydrates the body needs in pure form."
+			description = "A questionable mixture of various pure nutrients commonly found in processed foods."
+			reagent_state = SOLID
+			nutriment_factor = 12 * REAGENTS_METABOLISM
+			color = "#664330" // rgb: 102, 67, 48
+
+			on_mob_life(var/mob/living/M as mob)
+				if(!M) M = holder.my_atom
+				if(!(M.mind in ticker.mode.vampires))
+					if(ishuman(M))
+						var/mob/living/carbon/human/H = M
+						if(H.species && H.species.dietflags)	//Make sure the species has it's dietflag set, otherwise it can't digest any nutrients
+							H.nutrition += nutriment_factor	// For hunger and fatness
+							if(prob(50)) M.heal_organ_damage(1,0)
+					if(istype(M,/mob/living/simple_animal))		//Any nutrients can heal simple animals
+						if(prob(50)) M.heal_organ_damage(1,0)
+				..()
+				return
+
+		protein			// Meat-based protein, digestable by carnivores and omnivores, worthless to herbivores
+			name = "Protein"
+			id = "protein"
+			description = "Various essential proteins and fats commonly found in animal flesh and blood."
 			reagent_state = SOLID
 			nutriment_factor = 15 * REAGENTS_METABOLISM
 			color = "#664330" // rgb: 102, 67, 48
@@ -1497,8 +1511,34 @@ datum
 			on_mob_life(var/mob/living/M as mob)
 				if(!M) M = holder.my_atom
 				if(!(M.mind in ticker.mode.vampires))
-					M.nutrition += nutriment_factor	// For hunger and fatness
-					if(prob(50)) M.heal_organ_damage(1,0)
+					if(ishuman(M))
+						var/mob/living/carbon/human/H = M
+						if(H.species && H.species.dietflags && !(H.species.dietflags & DIET_HERB))	//Make sure the species has it's dietflag set, and that it is not a herbivore
+							H.nutrition += nutriment_factor	// For hunger and fatness
+							if(prob(50)) M.heal_organ_damage(1,0)
+					if(istype(M,/mob/living/simple_animal))		//Any nutrients can heal simple animals
+						if(prob(50)) M.heal_organ_damage(1,0)
+				..()
+				return
+
+		plantmatter		// Plant-based biomatter, digestable by herbivores and omnivores, worthless to carnivores
+			name = "Plant-matter"
+			id = "plantmatter"
+			description = "Vitamin-rich fibers and natural sugars commonly found in fresh produce."
+			reagent_state = SOLID
+			nutriment_factor = 15 * REAGENTS_METABOLISM
+			color = "#664330" // rgb: 102, 67, 48
+
+			on_mob_life(var/mob/living/M as mob)
+				if(!M) M = holder.my_atom
+				if(!(M.mind in ticker.mode.vampires))
+					if(ishuman(M))
+						var/mob/living/carbon/human/H = M
+						if(H.species && H.species.dietflags && !(H.species.dietflags & DIET_CARN))	//Make sure the species has it's dietflag set, and that it is not a carnivore
+							H.nutrition += nutriment_factor	// For hunger and fatness
+							if(prob(50)) M.heal_organ_damage(1,0)
+					if(istype(M,/mob/living/simple_animal))		//Any nutrients can heal simple animals
+						if(prob(50)) M.heal_organ_damage(1,0)
 				..()
 				return
 
@@ -2560,6 +2600,12 @@ datum
 					if(volume > overdose_threshold)
 						M:adjustToxLoss(1)
 					return
+
+			mojito
+				name = "Mojito"
+				id = "mojito"
+				description = "If it's good enough for Spesscuba, it's good enough for you."
+				color = "#664300" // rgb: 102, 67, 0
 
 			vodka
 				name = "Vodka"

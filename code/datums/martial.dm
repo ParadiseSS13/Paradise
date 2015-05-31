@@ -25,7 +25,7 @@
 	return
 
 /datum/martial_art/proc/basic_hit(var/mob/living/carbon/human/A,var/mob/living/carbon/human/D)
-	add_logs(A, D, "punched")
+	add_logs(D, A, "punched")
 	A.do_attack_animation(D)
 	var/damage = rand(0,9)
 
@@ -85,7 +85,7 @@
 	return 1
 
 /datum/martial_art/boxing/harm_act(var/mob/living/carbon/human/A, var/mob/living/carbon/human/D)
-	add_logs(A, D, "punched")
+	add_logs(D, A, "punched")
 	A.do_attack_animation(D)
 
 	var/atk_verb = pick("left hook","right hook","straight punch")
@@ -136,7 +136,7 @@
 	return 1
 
 /datum/martial_art/drunk_brawling/harm_act(var/mob/living/carbon/human/A, var/mob/living/carbon/human/D)
-	add_logs(A, D, "punched")
+	add_logs(D, A, "punched")
 	A.do_attack_animation(D)
 
 	var/atk_verb = pick("jab","uppercut","overhand punch","drunken right hook","drunken left hook")
@@ -197,7 +197,7 @@
 
 
 /datum/martial_art/wrestling/proc/Suplex(var/mob/living/carbon/human/A, var/mob/living/carbon/human/D)
-	add_logs(A, D, "suplexed")
+	add_logs(D, A, "suplexed")
 	D.visible_message("<span class='danger'>[A] suplexes [D]!</span>", \
 								"<span class='userdanger'>[A] suplexes [D]!</span>")
 	D.forceMove(A.loc)

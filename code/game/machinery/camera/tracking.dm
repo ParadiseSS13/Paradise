@@ -136,8 +136,8 @@
 				var/obj/item/clothing/head/hat = H.head
 				if(hat.blockTracking)
 					continue
-		 // Now, are they viewable by a camera? (This is last because it's the most intensive check)
-		if(!near_camera(M))
+		 // Now, are they trackable? (This is last because it's the most intensive check)
+		if(!trackable(M))
 			continue
 
 		var/name = M.name
@@ -219,19 +219,17 @@
 			sleep(10)
 
 /proc/near_camera(var/mob/living/M)
-	if (!isturf(M.loc))
-		return 0
 	if(isrobot(M))
 		var/mob/living/silicon/robot/R = M
 		if(!(R.camera && R.camera.can_use()) && !cameranet.checkCameraVis(M))
 			return 0
-	else if(!cameranet.checkCameraVis(M))
+	else if(!isturf(M.loc) || !cameranet.checkCameraVis(M))
 		return 0
 	return 1
 
 /proc/trackable(atom/movable/M)
 	var/turf/T = get_turf(M)
-	if(T && (T.z in config.contact_levels))
+	if(T && (T.z in config.contact_levels) && (hassensorlevel(M, SUIT_SENSOR_TRACKING) || M in aibots))
 		return 1
 
 	return near_camera(M)

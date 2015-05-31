@@ -11,7 +11,7 @@
 	var/mode = 0.0
 	var/printing = null
 
-	light_color = "#0099FF"
+	light_color = LIGHT_COLOR_LIGHTBLUE
 
 	proc/is_centcom()
 		return istype(src, /obj/machinery/computer/card/centcom)
@@ -74,8 +74,6 @@
 /obj/machinery/computer/card/attack_ai(var/mob/user as mob)
 	return attack_hand(user)
 
-/obj/machinery/computer/card/attack_paw(var/mob/user as mob)
-	return attack_hand(user)
 
 /obj/machinery/computer/card/attack_hand(mob/user as mob)
 	if(..()) return

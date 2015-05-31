@@ -16,7 +16,6 @@
 	levelupdate()
 
 /turf/simulated/proc/burn_tile()
-	return
 
 /turf/simulated/proc/MakeSlippery(var/wet_setting = 1) // 1 = Water, 2 = Lube
 	if(wet >= wet_setting)
@@ -78,6 +77,8 @@
 			else
 				playsound(src, "jackboot", 20, 1)
 
+		if(M.flying)
+			return ..()
 
 		// Tracking blood
 		var/list/bloodDNA = null
@@ -103,7 +104,7 @@
 			bloodDNA = null
 
 		var/noslip = 0
-		for (var/obj/structure/stool/bed/chair/C in loc)
+		for (var/obj/structure/stool/bed/chair/C in contents)
 			if (C.buckled_mob == M)
 				noslip = 1
 		if (noslip)
@@ -166,9 +167,7 @@
 
 // Only adds blood on the floor -- Skie
 /turf/simulated/proc/add_blood_floor(mob/living/carbon/M as mob)
-	if(istype(M, /mob/living/carbon/monkey))
-		blood_splatter(src,M,1)
-	else if( istype(M, /mob/living/carbon/alien ))
+	if( istype(M, /mob/living/carbon/alien ))
 		var/obj/effect/decal/cleanable/blood/xeno/this = new /obj/effect/decal/cleanable/blood/xeno(src)
 		this.blood_DNA["UNKNOWN BLOOD"] = "X*"
 	else if( istype(M, /mob/living/silicon/robot ))

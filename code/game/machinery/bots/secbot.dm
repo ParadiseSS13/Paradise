@@ -3,7 +3,7 @@
 	desc = "A little security robot.  He looks less than thrilled."
 	icon = 'icons/obj/aibots.dmi'
 	icon_state = "secbot0"
-	light_color = "#FF0000"
+	light_color = LIGHT_COLOR_PURE_RED
 	layer = 5.0
 	density = 0
 	anchored = 0
@@ -414,12 +414,12 @@ Auto Patrol: []"},
 /obj/machinery/bot/secbot/proc/flashing_lights()
 	if(mode == BOT_HUNT)
 		switch(light_color)
-			if("#FF0000")
-				light_color = "#0000FF"
-			if("#0000FF")
-				light_color = "#FF0000"
+			if(LIGHT_COLOR_PURE_RED)
+				light_color = LIGHT_COLOR_PURE_BLUE
+			if(LIGHT_COLOR_PURE_BLUE)
+				light_color = LIGHT_COLOR_PURE_RED
 	else
-		light_color = "#FF0000"
+		light_color = LIGHT_COLOR_PURE_RED
 
 //Secbot Construction
 

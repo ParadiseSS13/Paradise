@@ -124,6 +124,9 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 
 		handle_heartattack()
 
+		if(!client)
+			species.handle_npc(src)
+
 	if(stat == DEAD)
 		handle_decay()
 
@@ -546,15 +549,15 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 			return
 		var/thermal_protection = 0 //Simple check to estimate how protected we are against multiple temperatures
 		if(wear_suit)
-			if(wear_suit.max_heat_protection_temperature >= FIRESUIT_MAX_HEAT_PROTECTION_TEMPERATURE)
+			if(wear_suit.max_heat_protection_temperature >= FIRE_SUIT_MAX_TEMP_PROTECT)
 				thermal_protection += (wear_suit.max_heat_protection_temperature*0.7)
 		if(head)
-			if(head.max_heat_protection_temperature >= FIRE_HELMET_MAX_HEAT_PROTECTION_TEMPERATURE)
+			if(head.max_heat_protection_temperature >= FIRE_HELM_MAX_TEMP_PROTECT)
 				thermal_protection += (head.max_heat_protection_temperature*THERMAL_PROTECTION_HEAD)
 		thermal_protection = round(thermal_protection)
 		if(thermal_protection >= FIRE_IMMUNITY_SUIT_MAX_TEMP_PROTECT)
 			return
-		if(thermal_protection >= FIRESUIT_MAX_HEAT_PROTECTION_TEMPERATURE)
+		if(thermal_protection >= FIRE_SUIT_MAX_TEMP_PROTECT)
 			bodytemperature += 11
 			return
 		else
@@ -764,7 +767,7 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 			if(species.flags & IS_PLANT)
 				if(nutrition > 450)
 					nutrition = 450
-				if(light_amount >= 5) //if there's enough light, heal
+				if((light_amount >= 5) && !suiciding) //if there's enough light, heal
 					adjustBruteLoss(-(light_amount/2))
 					adjustFireLoss(-(light_amount/4))
 					//adjustToxLoss(-(light_amount))
@@ -1042,6 +1045,14 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 			//Jitteryness
 			if(jitteriness)
 				do_jitter_animation(jitteriness)
+
+			//Flying
+			if(flying)
+				spawn()
+					animate(src, pixel_y = pixel_y + 5 , time = 10, loop = 1, easing = SINE_EASING)
+				spawn(10)
+					if(flying)
+						animate(src, pixel_y = pixel_y - 5, time = 10, loop = 1, easing = SINE_EASING)
 
 			//Other
 			handle_statuses()

@@ -17,6 +17,9 @@
 	var/trashtype = null //For disposable cuffs
 
 /obj/item/weapon/restraints/handcuffs/attack(mob/living/carbon/C, mob/user)
+	if(!user.IsAdvancedToolUser())
+		return
+
 	if(CLUMSY in user.mutations && prob(50))
 		user << "<span class='warning'>Uh... how do those things work?!</span>"
 		apply_cuffs(user,user)
@@ -34,7 +37,7 @@
 			else
 				feedback_add_details("handcuffs","H")
 
-			add_logs(user, C, "handcuffed")
+			add_logs(C, user, "handcuffed", src)
 		else
 			user << "<span class='warning'>You fail to handcuff [C].</span>"
 
@@ -157,6 +160,10 @@ var/last_chew = 0
 					add_logs(user, C, "handcuffed")
 			else
 				user << "<span class='warning'>You fail to handcuff [C].</span>"
+
+/obj/item/weapon/restraints/handcuffs/cable/zipties/used
+	desc = "A pair of broken zipties."
+	icon_state = "cuff_white_used"
 
 /obj/item/weapon/restraints/handcuffs/cable/zipties/used/attack()
 	return

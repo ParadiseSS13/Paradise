@@ -24,7 +24,7 @@
 	var/speed_coeff
 	var/efficiency
 
-	light_color = "#00FF00"
+	light_color = LIGHT_COLOR_PURE_GREEN
 	power_change()
 		..()
 		if(!(stat & (BROKEN|NOPOWER)))
@@ -165,8 +165,7 @@
 
 /obj/machinery/clonepod/attack_ai(mob/user as mob)
 	return attack_hand(user)
-/obj/machinery/clonepod/attack_paw(mob/user as mob)
-	return attack_hand(user)
+
 /obj/machinery/clonepod/attack_hand(mob/user as mob)
 	if ((isnull(src.occupant)) || (stat & NOPOWER))
 		return

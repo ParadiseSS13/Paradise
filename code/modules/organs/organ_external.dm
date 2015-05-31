@@ -194,8 +194,8 @@
 				var/list/obj/item/organ/external/possible_points = list()
 				if(parent)
 					possible_points += parent
-				if(children)
-					possible_points += children
+				if(children) for(var/organ in children)
+					if(organ) possible_points += organ
 				if(forbidden_limbs.len)
 					possible_points -= forbidden_limbs
 				if(possible_points.len)
@@ -644,9 +644,10 @@ Note that amputating the affected organ does in fact remove the infection from t
 		parent = null
 
 	spawn(1)
-		victim.updatehealth()
-		victim.UpdateDamageIcon()
-		victim.regenerate_icons()
+		if(victim)
+			victim.updatehealth()
+			victim.UpdateDamageIcon()
+			victim.regenerate_icons()
 		dir = 2
 
 	switch(disintegrate)
@@ -769,7 +770,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 /obj/item/organ/external/robotize(var/company)
 	..()
 
-	if(company)
+	if(company && istext(company))
 		model = company
 		var/datum/robolimb/R = all_robolimbs[company]
 		if(R)
@@ -869,14 +870,15 @@ Note that amputating the affected organ does in fact remove the infection from t
 /obj/item/organ/external/proc/disfigure(var/type = "brute")
 	if (disfigured)
 		return
-	if(type == "brute")
-		owner.visible_message("\red You hear a sickening cracking sound coming from \the [owner]'s [name].",	\
-		"\red <b>Your [name] becomes a mangled mess!</b>",	\
-		"\red You hear a sickening crack.")
-	else
-		owner.visible_message("\red \The [owner]'s [name] melts away, turning into mangled mess!",	\
-		"\red <b>Your [name] melts away!</b>",	\
-		"\red You hear a sickening sizzle.")
+	if(owner)
+		if(type == "brute")
+			owner.visible_message("\red You hear a sickening cracking sound coming from \the [owner]'s [name].",	\
+			"\red <b>Your [name] becomes a mangled mess!</b>",	\
+			"\red You hear a sickening crack.")
+		else
+			owner.visible_message("\red \The [owner]'s [name] melts away, turning into mangled mess!",	\
+			"\red <b>Your [name] melts away!</b>",	\
+			"\red You hear a sickening sizzle.")
 	disfigured = 1
 
 /****************************************************
@@ -1016,6 +1018,8 @@ Note that amputating the affected organ does in fact remove the infection from t
 		owner.unEquip(owner.l_ear)
 		owner.unEquip(owner.r_ear)
 		owner.unEquip(owner.wear_mask)
+		spawn(1)
+			owner.update_hair()
 	..()
 
 /obj/item/organ/external/head/take_damage(brute, burn, sharp, edge, used_weapon = null, list/forbidden_limbs = list())

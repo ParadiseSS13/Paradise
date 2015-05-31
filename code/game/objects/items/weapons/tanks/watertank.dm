@@ -356,18 +356,12 @@
 			var/datum/gas_mixture/G = T.air
 			if(get_dist(T, src) < 2) // Otherwise we'll get silliness like people using Nanofrost to kill people through walls with cold air
 				G.temperature = 2
-			air_update_turf()
-			var/hotspot = (locate(/obj/effect/hotspot) in T)
-			if(hotspot && !istype(T, /turf/space))
-				var/CT = 10
-				var/datum/gas_mixture/lowertemp = T.remove_air( T:air:total_moles() )
-				lowertemp.temperature = max( min(lowertemp.temperature-(CT*1000),lowertemp.temperature / CT) ,0)
-				lowertemp.react()
-				T.assume_air(lowertemp)
-				qdel(hotspot)
-			if(G.toxins)
-				G.nitrogen += (G.toxins)
-				G.toxins = 0
+			T.air_update_turf()
+			for(var/obj/effect/hotspot/H in T)
+				H.Kill()
+				if(G.toxins)
+					G.nitrogen += (G.toxins)
+					G.toxins = 0
 		for(var/obj/machinery/atmospherics/unary/vent_pump/V in T)
 			V.welded = 1
 			V.update_icon()

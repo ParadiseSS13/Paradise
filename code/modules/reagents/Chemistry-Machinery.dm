@@ -250,9 +250,6 @@
 /obj/machinery/chem_dispenser/attack_ai(mob/user as mob)
 	return src.attack_hand(user)
 
-/obj/machinery/chem_dispenser/attack_paw(mob/user as mob)
-	return src.attack_hand(user)
-
 /obj/machinery/chem_dispenser/attack_hand(mob/user as mob)
 	if(stat & BROKEN)
 		return
@@ -634,9 +631,6 @@
 	return
 
 /obj/machinery/chem_master/attack_ai(mob/user as mob)
-	return src.attack_hand(user)
-
-/obj/machinery/chem_master/attack_paw(mob/user as mob)
 	return src.attack_hand(user)
 
 /obj/machinery/chem_master/attack_hand(mob/user as mob)
@@ -1027,7 +1021,7 @@
 		"soybeans" = list("soymilk" = 0),
 		"tomato" = list("ketchup" = 0),
 		///obj/item/weapon/reagent_containers/food/snacks/grown/wheat = list("flour" = -5),
-		"ricestalk" = list("rice" = -5),
+		"ricestalk" = list("rice" = 5),
 		"cherries" = list("cherryjelly" = 0),
 		"plastellium" = list("plasticide" = 5),
 	)
@@ -1113,9 +1107,6 @@
 	holdingitems += O
 	src.updateUsrDialog()
 	return 0
-
-/obj/machinery/reagentgrinder/attack_paw(mob/user as mob)
-	return src.attack_hand(user)
 
 /obj/machinery/reagentgrinder/attack_ai(mob/user as mob)
 	return 0

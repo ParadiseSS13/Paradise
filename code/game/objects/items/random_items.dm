@@ -301,12 +301,12 @@
 
 	attackby(obj/item/weapon/W as obj, mob/user as mob, params)
 		if(istype(W, /obj/item/weapon/crowbar))
-			var/mob/living/simple_animal/cat/Cat1 = new(loc)
+			var/mob/living/simple_animal/pet/cat/Cat1 = new(loc)
 			Cat1.apply_damage(250)//,TOX)
 			Cat1.name = "Schrodinger's Cat"
 			Cat1.desc = "It seems it's been dead for a while."
 
-			var/mob/living/simple_animal/cat/Cat2 = new(loc)
+			var/mob/living/simple_animal/pet/cat/Cat2 = new(loc)
 			Cat2.name = "Schrodinger's Cat"
 			Cat2.desc = "It's was alive the whole time!"
 			sleep(2)

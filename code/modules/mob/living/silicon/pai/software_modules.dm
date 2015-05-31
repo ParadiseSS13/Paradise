@@ -484,6 +484,7 @@
 		if(user.translator_on)
 			user.add_language("Sinta'unathi")
 			user.add_language("Siik'tajr")
+			user.add_language("Canilunzt")
 			user.add_language("Skrellian")
 			user.add_language("Vox-pidgin")
 			user.add_language("Rootspeak")
@@ -493,6 +494,7 @@
 		else
 			user.remove_language("Sinta'unathi")
 			user.remove_language("Siik'tajr")
+			user.remove_language("Canilunzt")
 			user.remove_language("Skrellian")
 			user.remove_language("Vox-pidgin")
 			user.remove_language("Rootspeak")

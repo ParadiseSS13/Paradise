@@ -165,3 +165,43 @@
 	reliability_base = 76
 	build_path = /obj/item/device/flash/synthetic
 	category = list("Misc")
+
+/datum/design/item/scalpel_laser1
+	name = "Basic Laser Scalpel"
+	desc = "A scalpel augmented with a directed laser, for more precise cutting without blood entering the field. This one looks basic and could be improved."
+	id = "scalpel_laser1"
+	req_tech = list("biotech" = 2, "materials" = 2, "magnets" = 2)
+	build_type = PROTOLATHE
+	materials = list("$metal" = 12500, "$glass" = 7500)
+	build_path = /obj/item/weapon/scalpel/laser1
+	category = list("Medical")
+
+/datum/design/item/scalpel_laser2
+	name = "Improved Laser Scalpel"
+	desc = "A scalpel augmented with a directed laser, for more precise cutting without blood entering the field. This one looks somewhat advanced."
+	id = "scalpel_laser2"
+	req_tech = list("biotech" = 3, "materials" = 4, "magnets" = 4)
+	build_type = PROTOLATHE
+	materials = list("$metal" = 12500, "$glass" = 7500, "$silver" = 2500)
+	build_path = /obj/item/weapon/scalpel/laser2
+	category = list("Medical")
+
+/datum/design/item/scalpel_laser3
+	name = "Advanced Laser Scalpel"
+	desc = "A scalpel augmented with a directed laser, for more precise cutting without blood entering the field. This one looks to be the pinnacle of precision energy cutlery!"
+	id = "scalpel_laser3"
+	req_tech = list("biotech" = 4, "materials" = 6, "magnets" = 5)
+	build_type = PROTOLATHE
+	materials = list("$metal" = 12500, "$glass" = 7500, "$silver" = 2000, "$gold" = 1500)
+	build_path = /obj/item/weapon/scalpel/laser3
+	category = list("Medical")
+
+/datum/design/item/scalpel_manager
+	name = "Incision Management System"
+	desc = "A true extension of the surgeon's body, this marvel instantly and completely prepares an incision allowing for the immediate commencement of therapeutic steps."
+	id = "scalpel_manager"
+	req_tech = list("biotech" = 4, "materials" = 7, "magnets" = 5, "programming" = 4)
+	build_type = PROTOLATHE
+	materials = list ("$metal" = 12500, "$glass" = 7500, "$silver" = 1500, "$gold" = 1500, "$diamond" = 750)
+	build_path = /obj/item/weapon/scalpel/manager
+	category = list("Medical")

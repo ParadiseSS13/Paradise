@@ -102,6 +102,7 @@
 	var/drowsyness = 0.0//Carbon
 	var/dizziness = 0//Carbon
 	var/jitteriness = 0//Carbon
+	var/flying = 0
 	var/charges = 0.0
 	var/nutrition = 400.0//Carbon
 
@@ -231,3 +232,5 @@
 	var/list/active_genes=list()
 
 	var/last_movement = -100 // Last world.time the mob actually moved of its own accord.
+
+	var/resize = 1 //Badminnery resize

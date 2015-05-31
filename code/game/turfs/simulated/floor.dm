@@ -94,10 +94,14 @@ var/list/wood_icons = list("wood","wood-broken")
 /turf/simulated/floor/blob_act()
 	return
 
-turf/simulated/floor/proc/update_icon()
+/turf/simulated/floor/proc/update_icon()
 	if(lava)
 		return
-	else if(is_plasteel_floor())
+
+	if(air)
+		update_visuals(air)
+
+	if(is_plasteel_floor())
 		if(!broken && !burnt)
 			icon_state = icon_regular_floor
 	else if(is_plating())
@@ -107,17 +111,28 @@ turf/simulated/floor/proc/update_icon()
 		var/obj/item/stack/tile/light/T = floor_tile
 		if(T.on)
 			switch(T.state)
-				if(0)
+				if(LIGHTFLOOR_ON)
 					icon_state = "light_on"
-					set_light(5)
-				if(1)
-					var/num = pick("1","2","3","4")
-					icon_state = "light_on_flicker[num]"
-					set_light(5)
-				if(2)
-					icon_state = "light_on_broken"
-					set_light(5)
-				if(3)
+					set_light(5,null,LIGHT_COLOR_LIGHTBLUE)
+				if(LIGHTFLOOR_WHITE)
+					icon_state = "light_on-w"
+					set_light(5,null,LIGHT_COLOR_WHITE)
+				if(LIGHTFLOOR_RED)
+					icon_state = "light_on-r"
+					set_light(5,null,LIGHT_COLOR_RED)
+				if(LIGHTFLOOR_GREEN)
+					icon_state = "light_on-g"
+					set_light(5,null,LIGHT_COLOR_PURE_GREEN)
+				if(LIGHTFLOOR_YELLOW)
+					icon_state = "light_on-y"
+					set_light(5,null,"#FFFF00")
+				if(LIGHTFLOOR_BLUE)
+					icon_state = "light_on-b"
+					set_light(5,null,LIGHT_COLOR_DARKBLUE)
+				if(LIGHTFLOOR_PURPLE)
+					icon_state = "light_on-p"
+					set_light(5,null,LIGHT_COLOR_PURPLE)
+				else
 					icon_state = "light_off"
 					set_light(0)
 		else
@@ -175,10 +190,7 @@ turf/simulated/floor/proc/update_icon()
 			if( !(icon_state in wood_icons) )
 				icon_state = "wood"
 				//world << "[icon_state]y's got [icon_state]"
-	/*spawn(1)
-		if(istype(src,/turf/simulated/floor)) //Was throwing runtime errors due to a chance of it changing to space halfway through.
-			if(air)
-				update_visuals(air)*/
+
 
 /turf/simulated/floor/return_siding_icon_state()
 	..()
@@ -192,10 +204,6 @@ turf/simulated/floor/proc/update_icon()
 			return "wood_siding[dir_sum]"
 		else
 			return 0
-
-
-/turf/simulated/floor/attack_paw(mob/user as mob)
-	return src.attack_hand(user)
 
 /turf/simulated/floor/attack_hand(mob/user as mob)
 	if (is_light_floor())
@@ -464,7 +472,7 @@ turf/simulated/floor/proc/update_icon()
 			else
 				user << "\blue The lightbulb seems fine, no need to replace it."
 
-	if(istype(C, /obj/item/weapon/crowbar) && (!(is_plating())))
+	if(istype(C, /obj/item/weapon/crowbar) && (!(is_plating())) && (!is_catwalk()))
 		if(broken || burnt)
 			user << "\red You remove the broken plating."
 		else
@@ -481,18 +489,26 @@ turf/simulated/floor/proc/update_icon()
 		return
 
 
-	if(istype(C, /obj/item/weapon/screwdriver) && is_wood_floor())
-		if(broken || burnt)
-			return
-		else
-			if(is_wood_floor())
-				user << "\red You unscrew the planks."
-				new floor_tile.type(src)
-		make_plating()
-		playsound(src, 'sound/items/Screwdriver.ogg', 80, 1)
-		if(is_catwalk())
+	if(istype(C, /obj/item/weapon/screwdriver))
+		if(is_wood_floor())
+			if(broken || burnt)
+				return
+			else
+				if(is_wood_floor())
+					user << "\red You unscrew the planks."
+					new floor_tile.type(src)
+			make_plating()
+			playsound(src, 'sound/items/Screwdriver.ogg', 80, 1)
+		else if(is_catwalk())
 			if(broken) return
+			user << "\red You unscrew the catwalk's rods."
+			new /obj/item/stack/rods(src, 2)
 			ReplaceWithLattice()
+			for(var/direction in cardinal)
+				var/turf/T = get_step(src,direction)
+				if(T.is_catwalk())
+					var/turf/simulated/floor/plating/airless/catwalk/CW=T
+					CW.update_icon(0)
 			playsound(src, 'sound/items/Screwdriver.ogg', 80, 1)
 		return
 

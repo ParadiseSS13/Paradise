@@ -5,10 +5,12 @@
 		return 1
 	return 0
 
-/proc/ismonkey(A)
-	if(A && istype(A, /mob/living/carbon/monkey))
-		return 1
-	return 0
+/proc/issmall(A)
+	if(A && istype(A, /mob/living/carbon/human))
+		var/mob/living/carbon/human/H = A
+		if(H.species && H.species.is_small)
+			return 1
+ 	return 0
 
 /proc/isbrain(A)
 	if(A && istype(A, /mob/living/carbon/brain))
@@ -56,7 +58,7 @@ proc/isembryo(A)
 	return 0
 
 /proc/iscorgi(A)
-	if(istype(A, /mob/living/simple_animal/corgi))
+	if(istype(A, /mob/living/simple_animal/pet/corgi))
 		return 1
 	return 0
 
@@ -66,7 +68,7 @@ proc/isembryo(A)
 	return 0
 
 /proc/iscat(A)
-	if(istype(A, /mob/living/simple_animal/cat))
+	if(istype(A, /mob/living/simple_animal/pet/cat))
 		return 1
 	return 0
 
@@ -395,7 +397,7 @@ var/list/intents = list("help","disarm","grab","harm")
 		if(hud_used && hud_used.action_intent)
 			hud_used.action_intent.icon_state = "intent_[a_intent]"
 
-	else if(isrobot(src) || ismonkey(src) || islarva(src))
+	else if(isrobot(src) || islarva(src))
 		switch(input)
 			if("help")
 				a_intent = "help"
@@ -429,13 +431,14 @@ var/list/intents = list("help","disarm","grab","harm")
 	src << "\blue You are now [resting ? "resting" : "getting up"]"
 
 /proc/get_multitool(mob/user as mob)
-	// Check distance for those that need it.
-	if(!isAI(user))
-		if(!in_range(user, src))
-			return null
-
 	// Get tool
-	var/obj/item/device/multitool/P = user.get_multitool()
+	var/obj/item/device/multitool/P
+	if(isrobot(user) || ishuman(user))
+		P = user.get_active_hand()
+	else if(isAI(user))
+		var/mob/living/silicon/ai/AI=user
+		P = AI.aiMulti
+
 	if(!istype(P))
 		return null
 	return P
@@ -472,9 +475,9 @@ var/list/intents = list("help","disarm","grab","harm")
 			var/lname
 			if(subject)
 				if(subject != M)
-					follow = "(<a href='byond://?src=\ref[M];track=\ref[subject]'>follow</a>) "
+					follow = "([ghost_follow_link(subject, ghost=M)]) "
 				if(M.stat != DEAD && M.client.holder)
-					follow = "(<a href='?src=\ref[M.client.holder];adminplayerobservejump=\ref[subject]'>JMP</a>) "
+					follow = "([admin_jump_link(subject, M.client.holder)]) "
 				var/mob/dead/observer/DM
 				if(istype(subject, /mob/dead/observer))
 					DM = subject

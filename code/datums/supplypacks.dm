@@ -523,6 +523,25 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 	cost = 20
 	containername = "Inflatable Barrier Crate"
 
+/datum/supply_packs/engineering/supermatter
+	name = "Supermatter Crystal Crate"
+	contains = list(/obj/machinery/power/supermatter)
+	cost = 50 //Yes that's a fucking lot.
+	containername = "Supermatter Shard Crate"
+	containertype = /obj/structure/closet/crate/secure/large/reinforced
+	access = access_ce
+
+/datum/supply_packs/engineering/teg
+	name = "Thermo-Electric Generator"
+	contains = list(
+		/obj/machinery/power/generator,
+		/obj/machinery/atmospherics/binary/circulator,
+		/obj/machinery/atmospherics/binary/circulator
+	)
+	cost = 25
+	containername = "Thermo-Electric Generator Components"
+	access = access_ce
+
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////// Medical /////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
@@ -780,6 +799,14 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 	cost = 30
 	containername = "farwa crate"
 
+
+/datum/supply_packs/organic/wolpin
+	name = "Wolpin crate"
+	contains = list (/obj/item/weapon/storage/box/wolpincubes)
+	cost = 30
+	containername = "wolpin crate"
+
+
 /datum/supply_packs/organic/skrell
 	name = "Neaera crate"
 	contains = list (/obj/item/weapon/storage/box/neaeracubes)
@@ -830,24 +857,28 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 	name = "Corgi Crate"
 	cost = 50
 	containertype = /obj/structure/closet/critter/corgi
+	contains = list(/obj/item/clothing/accessory/petcollar)
 	containername = "corgi crate"
 
 /datum/supply_packs/organic/cat
 	name = "Cat Crate"
 	cost = 50 //Cats are worth as much as corgis.
 	containertype = /obj/structure/closet/critter/cat
+	contains = list(/obj/item/clothing/accessory/petcollar)
 	containername = "cat crate"
 
 /datum/supply_packs/organic/pug
 	name = "Pug Crate"
 	cost = 50
 	containertype = /obj/structure/closet/critter/pug
+	contains = list(/obj/item/clothing/accessory/petcollar)
 	containername = "pug crate"
 
 /datum/supply_packs/organic/fox
 	name = "Fox Crate"
 	cost = 55 //Foxes are cool.
 	containertype = /obj/structure/closet/critter/fox
+	contains = list(/obj/item/clothing/accessory/petcollar)
 	containername = "fox crate"
 
 /datum/supply_packs/organic/butterfly
@@ -1093,6 +1124,7 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 	contains = list(/obj/structure/filingcabinet/chestdrawer,
 					/obj/item/device/camera_film,
 					/obj/item/weapon/hand_labeler,
+					/obj/item/stack/tape_roll,
 					/obj/item/weapon/paper_bin,
 					/obj/item/weapon/pen,
 					/obj/item/weapon/pen/blue,
@@ -1217,7 +1249,7 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 
 /datum/supply_packs/misc/wizard
 	name = "Wizard Costume Crate"
-	contains = list(/obj/item/weapon/staff,
+	contains = list(/obj/item/weapon/twohanded/staff,
 					/obj/item/clothing/suit/wizrobe/fake,
 					/obj/item/clothing/shoes/sandal,
 					/obj/item/clothing/head/wizard/fake)
@@ -1312,3 +1344,37 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 					/obj/item/weapon/lipstick/random)
 	cost = 30 //Lots of very expensive items. You gotta pay up to look good!
 	containername = "formal-wear crate"
+
+/datum/supply_packs/misc/teamcolors		//For team sports like space polo
+	name = "Team Jerseys Crate"
+	// 4 red jerseys, 4 blue jerseys, and 1 beach ball
+	contains = list(/obj/item/clothing/under/color/red/jersey,
+					/obj/item/clothing/under/color/red/jersey,
+					/obj/item/clothing/under/color/red/jersey,
+					/obj/item/clothing/under/color/red/jersey,
+					/obj/item/clothing/under/color/blue/jersey,
+					/obj/item/clothing/under/color/blue/jersey,
+					/obj/item/clothing/under/color/blue/jersey,
+					/obj/item/clothing/under/color/blue/jersey,
+					/obj/item/weapon/beach_ball)
+	cost = 15
+	containername = "team jerseys crate"
+
+/datum/supply_packs/misc/polo			//For space polo! Or horsehead Quiditch
+	name = "Polo Supply Crate"
+	// 6 brooms, 6 horse masks for the brooms, and 1 beach ball
+	contains = list(/obj/item/weapon/twohanded/staff/broom,
+					/obj/item/weapon/twohanded/staff/broom,
+					/obj/item/weapon/twohanded/staff/broom,
+					/obj/item/weapon/twohanded/staff/broom,
+					/obj/item/weapon/twohanded/staff/broom,
+					/obj/item/weapon/twohanded/staff/broom,
+					/obj/item/clothing/mask/horsehead,
+					/obj/item/clothing/mask/horsehead,
+					/obj/item/clothing/mask/horsehead,
+					/obj/item/clothing/mask/horsehead,
+					/obj/item/clothing/mask/horsehead,
+					/obj/item/clothing/mask/horsehead,
+					/obj/item/weapon/beach_ball)
+	cost = 20
+	containername = "polo supply crate"

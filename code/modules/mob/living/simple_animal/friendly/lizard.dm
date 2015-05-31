@@ -16,5 +16,7 @@
 	response_help  = "pets"
 	response_disarm = "shoos"
 	response_harm   = "stomps on"
-	pass_flags = PASSTABLE
+	ventcrawler = 2
+	density = 0
+	pass_flags = PASSTABLE | PASSMOB
 	can_hide = 1

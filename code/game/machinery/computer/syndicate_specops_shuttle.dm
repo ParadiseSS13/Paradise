@@ -14,7 +14,7 @@ var/syndicate_elite_shuttle_timeleft = 0
 	name = "Elite Syndicate Squad Shuttle Console"
 	icon = 'icons/obj/computer.dmi'
 	icon_state = "syndishuttle"
-	light_color = "#00ffff"
+	light_color = LIGHT_COLOR_PURE_CYAN
 	req_access = list(access_syndicate)
 	var/temp = null
 	var/hacked = 0
@@ -183,9 +183,6 @@ var/syndicate_elite_shuttle_timeleft = 0
 /obj/machinery/computer/syndicate_elite_shuttle/attack_ai(var/mob/user as mob)
 	user << "\red Access Denied."
 	return 1
-
-/obj/machinery/computer/syndicate_elite_shuttle/attack_paw(var/mob/user as mob)
-	return attack_hand(user)
 
 /obj/machinery/computer/syndicate_elite_shuttle/attackby(I as obj, user as mob, params)
 	if(istype(I,/obj/item/weapon/card/emag))

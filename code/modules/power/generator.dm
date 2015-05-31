@@ -17,6 +17,8 @@
 
 	var/image/overlay_image
 
+	var/powercap = 500000 //Not a hard cap, but outputs above this have a 10% chance to cause the TeG to lose half it's power.
+
 /obj/machinery/power/generator/New()
 	..()
 
@@ -101,12 +103,12 @@
 		circ2.network2.update = 1
 
 	// update icon overlays and power usage only if displayed level has changed
-	if(lastgen > 250000 && prob(10))
+	if(lastgen > powercap && prob(10))
 		var/datum/effect/effect/system/spark_spread/s = new /datum/effect/effect/system/spark_spread
 		s.set_up(3, 1, src)
 		s.start()
 		lastgen *= 0.5
-	var/genlev = max(0, min( round(11*lastgen / 250000), 11))
+	var/genlev = max(0, min( round(11*lastgen / powercap), 11))
 	if(lastgen > 100 && genlev == 0)
 		genlev = 1
 	if(genlev != lastgenlev)

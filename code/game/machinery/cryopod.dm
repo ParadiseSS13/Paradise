@@ -174,7 +174,7 @@
 	var/on_store_message = "has entered long-term storage."
 	var/on_store_name = "Cryogenic Oversight"
 	var/on_enter_occupant_message = "You feel cool air surround you. You go numb as your senses turn inward."
-	var/allow_occupant_types = list(/mob/living/carbon/human, /mob/living/carbon/monkey)
+	var/allow_occupant_types = list(/mob/living/carbon/human)
 	var/disallow_occupant_types = list()
 
 	var/mob/living/occupant = null       // Person waiting to be despawned.
@@ -307,6 +307,13 @@
 		W.loc = src
 
 		if(W.contents.len) //Make sure we catch anything not handled by del() on the items.
+			var/preserve = null
+			for(var/T in preserve_items)
+				if(istype(W,T))
+					preserve = 1
+					break
+			if(preserve) // Don't remove the contents of things that need preservation
+				continue
 			for(var/obj/item/O in W.contents)
 				if(istype(O,/obj/item/weapon/tank)) //Stop eating pockets, you fuck!
 					continue

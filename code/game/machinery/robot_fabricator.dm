@@ -40,9 +40,6 @@
 	else
 		stat |= NOPOWER
 
-/obj/machinery/robotic_fabricator/attack_paw(user as mob)
-	return src.attack_hand(user)
-
 /obj/machinery/robotic_fabricator/attack_hand(user as mob)
 	var/dat
 	if (..())

@@ -38,7 +38,7 @@
 		/obj/machinery/computer/centrifuge,
 		/obj/machinery/sleeper,
 		/obj/machinery/smartfridge/,
-//		/obj/machinery/biogenerator,
+		/obj/machinery/biogenerator,
 		/obj/machinery/portable_atmospherics/hydroponics,
 		/obj/machinery/constructable_frame)
 
@@ -120,13 +120,6 @@
 			if(target.reagents.total_volume >= target.reagents.maximum_volume)
 				user << "\red [target] is full."
 				return
-
-			if(istype(target, /obj/item/weapon/reagent_containers))
-				var/obj/item/weapon/reagent_containers/RC = target
-				for(var/bad_reg in RC.banned_reagents)
-					if(reagents.has_reagent(bad_reg, 1)) //Message is a bit "Game-y" but I can't think up a better one.
-						user << "<span class='warning'>A chemical in [src] is far too dangerous to transfer to [RC]!</span>"
-						return
 
 			// /vg/: Logging transfers of bad things
 			if(target.reagents_to_log.len)

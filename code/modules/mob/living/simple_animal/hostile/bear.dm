@@ -1,7 +1,7 @@
 //Space bears!
 /mob/living/simple_animal/hostile/bear
 	name = "space bear"
-	desc = "RawrRawr!!"
+	desc = "You don't need to be faster than a space bear, you just need to outrun your crewmates."
 	icon_state = "bear"
 	icon_living = "bear"
 	icon_dead = "bear_dead"
@@ -14,7 +14,7 @@
 	turns_per_move = 5
 	see_in_dark = 6
 	meat_type = /obj/item/weapon/reagent_containers/food/snacks/bearmeat
-	meat_amount = 6
+	meat_amount = 5
 	response_help  = "pets"
 	response_disarm = "gently pushes aside"
 	response_harm   = "hits"
@@ -23,6 +23,8 @@
 	health = 60
 	melee_damage_lower = 20
 	melee_damage_upper = 30
+	attacktext = "mauls"
+	attack_sound = 'sound/weapons/genhit3.ogg'
 
 	//Space bears aren't affected by atmos.
 	min_oxy = 0
@@ -75,7 +77,7 @@
 			stop_automated_movement = 1
 			var/found_mob = 0
 			if(target && target in ListTargets())
-				if(!(SA_attackable(target)))
+				if(CanAttack(target))
 					stance_step = max(0, stance_step) //If we have not seen a mob in a while, the stance_step will be negative, we need to reset it to 0 as soon as we see a mob again.
 					stance_step++
 					found_mob = 1

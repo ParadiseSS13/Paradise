@@ -956,8 +956,8 @@ datum
 			name = "Soy Sauce"
 			id = "soysauce"
 			result = "soysauce"
-			required_reagents = list("soymilk" = 4, "sacid" = 1)
-			result_amount = 5
+			required_reagents = list("soymilk" = 2, "flour" = 1, "sodiumchloride" = 1, "water" = 3)
+			result_amount = 7
 
 		cheesewheel
 			name = "Cheesewheel"
@@ -1084,18 +1084,25 @@ datum
 			name = "Sake"
 			id = "sake"
 			result = "sake"
-			required_reagents = list("rice" = 10)
+			required_reagents = list("rice" = 10,"water" = 5)
 			required_catalysts = list("enzyme" = 5)
-			result_amount = 10
+			result_amount = 15
 
 		kahlua
 			name = "Kahlua"
 			id = "kahlua"
 			result = "kahlua"
-			required_reagents = list("coffee" = 5, "sugar" = 5)
+			required_reagents = list("coffee" = 5, "sugar" = 5, "rum" = 5)
 			required_catalysts = list("enzyme" = 5)
 			result_amount = 5
-
+		
+		kahluaVodka
+			name = "KahluaVodka"
+			id = "kahlauVodka"
+			result = "kahlua"
+			required_reagents = list("coffee" = 5, "sugar" = 5, "vodka" = 5)
+			required_catalysts = list("enzyme" = 5)
+			result_amount = 5
 		gin_tonic
 			name = "Gin and Tonic"
 			id = "gintonic"
@@ -1110,6 +1117,13 @@ datum
 			result = "cubalibre"
 			required_reagents = list("rum" = 2, "cola" = 1)
 			result_amount = 3
+
+		mojito
+			name = "Mojito"
+			id = "mojito"
+			result = "mojito"
+			required_reagents = list("rum" = 1, "sugar" = 1, "limejuice" = 1, "sodawater" = 1)
+			result_amount = 4
 
 		martini
 			name = "Classic Martini"

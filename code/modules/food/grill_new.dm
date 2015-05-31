@@ -34,7 +34,11 @@
 	if (!available_recipes)
 		available_recipes = new
 		for (var/type in (typesof(/datum/recipe/grill)-/datum/recipe/grill))
-			available_recipes+= new type
+			var/datum/recipe/recipe = new type
+			if(recipe.result) // Ignore recipe subtypes that lack a result
+				available_recipes += recipe
+			else
+				del(recipe)
 		acceptable_items = new
 		acceptable_reagents = new
 		for (var/datum/recipe/grill/recipe in available_recipes)
@@ -181,9 +185,6 @@
 		user << "\red You have no idea what you can cook with this [O]."
 		return 1
 	src.updateUsrDialog()
-
-/obj/machinery/grill/attack_paw(mob/user as mob)
-	return src.attack_hand(user)
 
 /obj/machinery/grill/attack_ai(mob/user as mob)
 	return 0

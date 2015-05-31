@@ -7,7 +7,7 @@
 	var/mob/living/silicon/ai/occupant = null
 	var/active = 0
 
-	light_color = "#CD00CD"
+	light_color = LIGHT_COLOR_PURPLE
 
 /obj/machinery/computer/aifixer/New()
 	src.overlays += image('icons/obj/computer.dmi', "ai-fixer-empty")
@@ -24,9 +24,6 @@
 	return
 
 /obj/machinery/computer/aifixer/attack_ai(var/mob/user as mob)
-	return attack_hand(user)
-
-/obj/machinery/computer/aifixer/attack_paw(var/mob/user as mob)
 	return attack_hand(user)
 
 /obj/machinery/computer/aifixer/attack_hand(var/mob/user as mob)

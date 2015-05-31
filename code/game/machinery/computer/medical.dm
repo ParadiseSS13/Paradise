@@ -16,13 +16,11 @@
 	var/temp = null
 	var/printing = null
 
-	light_color = "#315AB4"
+	light_color = LIGHT_COLOR_DARKBLUE
 
 /obj/machinery/computer/med_data/attack_ai(user as mob)
 	return src.attack_hand(user)
 
-/obj/machinery/computer/med_data/attack_paw(user as mob)
-	return src.attack_hand(user)
 
 /obj/machinery/computer/med_data/attack_hand(mob/user as mob)
 	if(..())

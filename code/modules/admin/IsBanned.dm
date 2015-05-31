@@ -68,9 +68,14 @@ world/IsBanned(key,address,computer_id)
 
 			var/expires = ""
 			if(text2num(duration) > 0)
-				expires = " The ban is for [duration] minutes and expires on [expiration] (server time)."
+				expires = "The ban is for [duration] minutes and expires on [expiration] (server time)."
+			if(istext(bantype) && (bantype == "PERMABAN"))
+				var/appealmsg = ""
+				if(config && config.banappeals)
+					appealmsg = " You may appeal it at <a href='[config.banappeals]'>[config.banappeals]</a>."
+				expires = "The ban is permanent.[appealmsg]"
 
-			var/desc = "\nReason: You, or another user of this computer or connection ([pckey]) is banned from playing here. The ban reason is:\n[reason]\nThis ban was applied by [ackey] on [bantime], [expires]"
+			var/desc = "\nReason: You, or another user of this computer or connection ([pckey]) is banned from playing here. The ban reason is:\n[reason]\nThis ban was applied by [ackey] on [bantime]. [expires]"
 
 			return list("reason"="[bantype]", "desc"="[desc]")
 

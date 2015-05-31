@@ -53,6 +53,7 @@
 		new /obj/item/clothing/suit/armor/vest(src)
 		new /obj/item/weapon/gun/energy/gun(src)
 		new /obj/item/device/flash(src)
+		new /obj/item/clothing/accessory/petcollar(src)
 		return
 
 /obj/structure/closet/secure_closet/hop2
@@ -115,7 +116,7 @@
 		new /obj/item/clothing/mask/gas/sechailer/swat(src)
 		new /obj/item/weapon/shield/riot/tele(src)
 		new /obj/item/weapon/melee/baton/loaded(src)
-		new /obj/item/weapon/storage/belt/security(src)
+		new /obj/item/weapon/storage/belt/security/sec(src)
 		new /obj/item/taperoll/police(src)
 		new /obj/item/weapon/gun/energy/hos(src)
 		return
@@ -155,7 +156,7 @@
 		new /obj/item/weapon/reagent_containers/spray/pepper(src)
 		new /obj/item/weapon/melee/baton/loaded(src)
 		new /obj/item/weapon/gun/energy/advtaser(src)
-		new /obj/item/weapon/storage/belt/security(src)
+		new /obj/item/weapon/storage/belt/security/sec(src)
 		new /obj/item/weapon/storage/box/holobadge(src)
 		return
 
@@ -184,7 +185,7 @@
 		new /obj/item/weapon/reagent_containers/spray/pepper(src)
 		new /obj/item/device/flash(src)
 		new /obj/item/weapon/grenade/flashbang(src)
-		new /obj/item/weapon/storage/belt/security(src)
+		new /obj/item/weapon/storage/belt/security/sec(src)
 		new /obj/item/clothing/mask/gas/sechailer(src)
 		new /obj/item/clothing/glasses/sunglasses/sechud(src)
 		new /obj/item/weapon/melee/baton/loaded(src)
@@ -237,7 +238,7 @@
 		new /obj/item/weapon/storage/briefcase(src)
 		new	/obj/item/weapon/storage/firstaid/adv(src)
 		new /obj/item/weapon/gun/projectile/revolver/detective(src)
-		new /obj/item/weapon/storage/belt/security(src)
+		new /obj/item/weapon/storage/belt/security/sec(src)
 		new /obj/item/weapon/grenade/flashbang(src)
 		new /obj/item/device/flash(src)
 		new /obj/item/weapon/restraints/handcuffs(src)

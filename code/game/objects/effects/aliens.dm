@@ -21,11 +21,14 @@
 	density = 1
 	opacity = 1
 	anchored = 1
+	canSmoothWith = list(/obj/structure/alien/resin)
 	var/health = 200
 	var/resintype = null
+
 /obj/structure/alien/resin/New(location)
 	relativewall_neighbours()
 	..()
+	air_update_turf(1)
 	return
 
 /obj/structure/alien/resin/Destroy()
@@ -46,8 +49,8 @@
 	resintype = "wall"
 
 /obj/structure/alien/resin/wall/New()
-	relativewall_neighbours()
 	..()
+	relativewall_neighbours()
 
 /obj/structure/alien/resin/wall/shadowling //For chrysalis
 	name = "chrysalis wall"
@@ -114,10 +117,6 @@
 		user.visible_message("<span class='danger'>[user] destroys [src]!</span>")
 		health = 0
 		healthcheck()
-
-
-/obj/structure/alien/resin/attack_paw(mob/user)
-	return attack_hand(user)
 
 
 /obj/structure/alien/resin/attack_alien(mob/living/user)
@@ -311,7 +310,7 @@
 		Grow()
 
 
-/obj/structure/alien/egg/attack_paw(mob/user)
+/obj/structure/alien/egg/attack_alien(mob/user)
 	if(isalien(user))
 		switch(status)
 			if(BURST)

@@ -40,10 +40,10 @@
 
 /mob/living/proc/updatehealth()
 	if(status_flags & GODMODE)
-		health = 100
+		health = maxHealth
 		stat = CONSCIOUS
-	else
-		health = maxHealth - getOxyLoss() - getToxLoss() - getFireLoss() - getBruteLoss() - getCloneLoss() - halloss
+		return
+	health = maxHealth - getOxyLoss() - getToxLoss() - getFireLoss() - getBruteLoss() - getCloneLoss() - halloss
 
 
 //This proc is used for mobs which are affected by pressure to calculate the amount of pressure that actually
@@ -66,13 +66,6 @@
 			if(affecting.take_damage(0, divided_damage+extradam))	//TODO: fix the extradam stuff. Or, ebtter yet...rewrite this entire proc ~Carn
 				H.UpdateDamageIcon()
 		H.updatehealth()
-		return 1
-	else if(istype(src, /mob/living/carbon/monkey))
-		if (RESIST_HEAT in src.mutations) //fireproof
-			return 0
-		var/mob/living/carbon/monkey/M = src
-		M.adjustFireLoss(burn_amount)
-		M.updatehealth()
 		return 1
 	else if(istype(src, /mob/living/silicon/ai))
 		return 0
@@ -337,12 +330,14 @@
 		var/mob/living/carbon/C = src
 		C.handcuffed = initial(C.handcuffed)
 		C.heart_attack = 0
+		C.brain_op_stage = 0
 
 		// restore all of the human's blood and reset their shock stage
 		if(ishuman(src))
 			var/mob/living/carbon/human/human_mob = src
 			human_mob.restore_blood()
 			human_mob.shock_stage = 0
+			human_mob.decaylevel = 0
 
 	restore_all_organs()
 	if(stat == 2)
@@ -897,3 +892,9 @@
 	animate(src, pixel_x = pixel_x + pixel_x_diff, pixel_y = pixel_y + pixel_y_diff , time = 2, loop = 6)
 	animate(pixel_x = initial(pixel_x) , pixel_y = initial(pixel_y) , time = 2)
 	floating = 0 // If we were without gravity, the bouncing animation got stopped, so we make sure we restart the bouncing after the next movement.
+
+/mob/living/proc/get_standard_pixel_x_offset(lying = 0)
+	return initial(pixel_x)
+
+/mob/living/proc/get_standard_pixel_y_offset(lying = 0)
+	return initial(pixel_y)

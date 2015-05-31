@@ -123,9 +123,6 @@
 /obj/machinery/flasher_button/attack_ai(mob/user as mob)
 	return src.attack_hand(user)
 
-/obj/machinery/flasher_button/attack_paw(mob/user as mob)
-	return src.attack_hand(user)
-
 /obj/machinery/flasher_button/attackby(obj/item/weapon/W, mob/user as mob, params)
 	return src.attack_hand(user)
 

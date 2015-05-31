@@ -148,9 +148,6 @@ var/global/wcColored
 	return
 
 
-/obj/structure/window/attack_paw(mob/user as mob)
-	return attack_hand(user)
-
 /obj/structure/window/proc/attack_generic(mob/living/user as mob, damage = 0)	//used by attack_alien, attack_animal, and attack_slime
 	user.changeNext_move(CLICK_CD_MELEE)
 	user.do_attack_animation(src)
@@ -403,7 +400,7 @@ var/global/wcColored
 /obj/structure/window/plasmabasic/New(Loc,re=0)
 	..()
 	ini_dir = dir
-	air_update_turf()
+	air_update_turf(1)
 	update_nearby_icons()
 	return
 
@@ -434,7 +431,7 @@ var/global/wcColored
 /obj/structure/window/plasmareinforced/New(Loc,re=0)
 	..()
 	ini_dir = dir
-	air_update_turf()
+	air_update_turf(1)
 	update_nearby_icons()
 	return
 

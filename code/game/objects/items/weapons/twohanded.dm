@@ -59,11 +59,16 @@
 	unwield()
 
 /obj/item/weapon/twohanded/attack_self(mob/user as mob)
-	if( istype(user,/mob/living/carbon/monkey) )
-		user << "<span class='warning'>It's too heavy for you to wield fully.</span>"
+	..()
+
+	if(istype(user, /mob/living/carbon/human))
+		var/mob/living/carbon/human/H = user
+		if(H.species.is_small)
+			user << "<span class='warning'>It's too heavy for you to wield fully.</span>"
+			return
+	else
 		return
 
-	..()
 	if(wielded) //Trying to unwield it
 		unwield()
 		user << "<span class='notice'>You are now carrying the [name] with one hand.</span>"
@@ -220,10 +225,8 @@ obj/item/weapon/twohanded/
 /obj/item/weapon/twohanded/dualsaber/update_icon()
 	if(wielded)
 		icon_state = "dualsaber[blade_color][wielded]"
-		reflect_chance = 100
 	else
 		icon_state = "dualsaber0"
-		reflect_chance = 0
 
 /obj/item/weapon/twohanded/dualsaber/attack(target as mob, mob/living/user as mob)
 	..()
@@ -262,6 +265,10 @@ obj/item/weapon/twohanded/
 /obj/item/weapon/twohanded/dualsaber/unwield()
 	..()
 	hitsound = "swing_hit"
+
+/obj/item/weapon/twohanded/dualsaber/IsReflect()
+	if(wielded)
+		return 1
 
 /obj/item/weapon/twohanded/dualsaber/wield()
 	..()

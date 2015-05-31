@@ -17,10 +17,12 @@
 	var/damtype = "brute"
 	var/force = 0
 
+	var/Mtoollink = 0 // variable to decide if an object should show the multitool menu linking menu, not all objects use it
+
 	// What reagents should be logged when transferred TO this object?
 	// Reagent ID => friendly name
 	var/list/reagents_to_log=list()
-	
+
 /obj/Topic(href, href_list, var/nowindow = 0, var/datum/topic_state/custom_state = default_state)
 	// Calling Topic without a corresponding window open causes runtime errors
 	if(!nowindow && ..())
@@ -161,3 +163,85 @@
 		mo.show_message(rendered, 2)
 		*/
 	return
+
+/obj/proc/multitool_menu(var/mob/user,var/obj/item/device/multitool/P)
+	return "<b>NO MULTITOOL_MENU!</b>"
+
+/obj/proc/linkWith(var/mob/user, var/obj/buffer, var/link/context)
+	return 0
+
+/obj/proc/unlinkFrom(var/mob/user, var/obj/buffer)
+	return 0
+
+/obj/proc/canLink(var/obj/O, var/link/context)
+	return 0
+
+/obj/proc/isLinkedWith(var/obj/O)
+	return 0
+
+/obj/proc/getLink(var/idx)
+	return null
+
+/obj/proc/linkMenu(var/obj/O)
+	var/dat=""
+	if(canLink(O, list()))
+		dat += " <a href='?src=\ref[src];link=1'>\[Link\]</a> "
+	return dat
+
+/obj/proc/format_tag(var/label,var/varname, var/act="set_tag")
+	var/value = vars[varname]
+	if(!value || value=="")
+		value="-----"
+	return "<b>[label]:</b> <a href=\"?src=\ref[src];[act]=[varname]\">[value]</a>"
+
+
+/obj/proc/update_multitool_menu(mob/user as mob)
+	var/obj/item/device/multitool/P = get_multitool(user)
+
+	if(!istype(P))
+		return 0
+	var/dat = {"<html>
+	<head>
+		<title>[name] Configuration</title>
+		<style type="text/css">
+html,body {
+	font-family:courier;
+	background:#999999;
+	color:#333333;
+}
+
+a {
+	color:#000000;
+	text-decoration:none;
+	border-bottom:1px solid black;
+}
+		</style>
+	</head>
+	<body>
+		<h3>[name]</h3>
+"}
+	if(allowed(user))//no, assistants, you're not ruining all vents on the station with just a multitool
+		dat += multitool_menu(user,P)
+		if(Mtoollink)
+			if(P)
+				if(P.buffer)
+					var/id = null
+					if(istype(P.buffer, /obj/machinery/telecomms))
+						id=P.buffer:id
+					else if("id_tag" in P.buffer.vars)
+						id=P.buffer:id_tag
+					dat += "<p><b>MULTITOOL BUFFER:</b> [P.buffer] [id ? "([id])" : ""]"
+
+					dat += linkMenu(P.buffer)
+
+					if(P.buffer)
+						dat += "<a href='?src=\ref[src];flush=1'>\[Flush\]</a>"
+					dat += "</p>"
+				else
+					dat += "<p><b>MULTITOOL BUFFER:</b> <a href='?src=\ref[src];buffer=1'>\[Add Machine\]</a></p>"
+	else
+		dat += "<b>ACCESS DENIED</a>"
+	dat += "</body></html>"
+	user << browse(dat, "window=mtcomputer")
+	user.set_machine(src)
+	onclose(user, "mtcomputer")

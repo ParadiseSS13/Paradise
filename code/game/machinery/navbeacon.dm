@@ -128,10 +128,10 @@
 /obj/machinery/navbeacon/attack_ai(var/mob/user)
 	interact(user, 1)
 
-/obj/machinery/navbeacon/attack_paw()
-	return
 
 /obj/machinery/navbeacon/attack_hand(var/mob/user)
+	if(!user.IsAdvancedToolUser())
+		return 0
 	interact(user, 0)
 
 /obj/machinery/navbeacon/interact(var/mob/user, var/ai = 0)

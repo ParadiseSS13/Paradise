@@ -86,7 +86,7 @@
 
 /obj/item/weapon/paper/attack_self(mob/living/user as mob)
 	src.examine(user)
-	if(rigged && (Holiday == "April Fool's Day"))
+	if(rigged && (holiday_master.holidays && holiday_master.holidays[APRIL_FOOLS]))
 		if(spam_flag == 0)
 			spam_flag = 1
 			playsound(loc, 'sound/items/bikehorn.ogg', 50, 1)
@@ -357,6 +357,12 @@
 	var/clown = 0
 	if(user.mind && (user.mind.assigned_role == "Clown"))
 		clown = 1
+
+	if(istype(P, /obj/item/stack/tape_roll))
+		var/obj/item/stack/tape_roll/tape = P
+		tape.stick(src, user)
+		tape.use(1)
+		return
 
 	if(istype(P, /obj/item/weapon/paper) || istype(P, /obj/item/weapon/photo))
 		if (istype(P, /obj/item/weapon/paper/carbon))

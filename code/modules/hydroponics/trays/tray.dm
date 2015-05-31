@@ -138,8 +138,8 @@
 	return ..()
 
 /obj/machinery/portable_atmospherics/hydroponics/proc/attack_generic(var/mob/user)
-	if(istype(user,/mob/living/carbon/monkey/diona))
-		var/mob/living/carbon/monkey/diona/nymph = user
+	if(istype(user,/mob/living/carbon/primitive/diona))
+		var/mob/living/carbon/primitive/diona/nymph = user
 
 		if(nymph.stat == DEAD || nymph.paralysis || nymph.weakened || nymph.stunned || nymph.restrained())
 			return
@@ -740,6 +740,16 @@
 			A.icon_state = src.icon_state
 			A.hydrotray_type = src.type
 			del(src)
+	else if ((istype(O, /obj/item/weapon/tank) && !( src.destroyed )))
+		if (src.holding)
+			user << "\blue There is alreadu a tank loaded into the [src]."
+			return
+		var/obj/item/weapon/tank/T = O
+		user.drop_item()
+		T.loc = src
+		src.holding = T
+		update_icon()
+		return
 	else if(O && O.force && seed)
 		user.visible_message("<span class='danger'>\The [seed.display_name] has been attacked by [user] with \the [O]!</span>")
 		if(!dead)

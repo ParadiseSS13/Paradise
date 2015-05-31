@@ -130,16 +130,40 @@ var/list/forbidden_varedit_object_types = list(
 
 	if(!istype(L,/list)) src << "Not a List."
 
-	var/list/locked = list("vars", "key", "ckey", "client", "firemut", "ishulk", "telekinesis", "xray", "virus", "viruses", "cuffed", "ka", "last_eaten", "urine", "poo", "icon", "icon_state")
-	var/list/names = sortList(L)
+	if(L.len > 1000)
+		var/confirm = alert(src, "The list you're trying to edit is very long, continuing may crash the server.", "Warning", "Continue", "Abort")
+		if(confirm != "Continue")
+			return
 
-	var/variable = input("Which var?","Var") as null|anything in names + "(ADD VAR)"
+	var/list/locked = list("vars", "key", "ckey", "client", "firemut", "ishulk", "telekinesis", "xray", "virus", "viruses", "cuffed", "ka", "last_eaten", "urine", "poo", "icon", "icon_state", "step_x", "step_y")
+
+	var/assoc = 0
+	if(L.len > 0)
+		var/a = L[1]
+		if(istext(a) && L[a] != null)
+			assoc = 1 //This is pretty weak test but i can't think of anything else
+			usr << "List appears to be associative."
+
+	var/list/names = null
+	if(!assoc)
+		names = sortList(L)
+
+	var/variable
+	var/assoc_key
+	if(assoc)
+		variable = input("Which var?","Var") as null|anything in L + "(ADD VAR)"
+	else
+		variable = input("Which var?","Var") as null|anything in names + "(ADD VAR)"
 
 	if(variable == "(ADD VAR)")
 		mod_list_add(L)
 		return
 
-	if(!variable)
+	if(assoc)
+		assoc_key = variable
+		variable = L[assoc_key]
+
+	if(!assoc && !variable || assoc && !assoc_key)
 		return
 
 	var/default
@@ -231,7 +255,10 @@ var/list/forbidden_varedit_object_types = list(
 			mod_list(variable)
 
 		if("restore to default")
-			L[L.Find(variable)]=initial(variable)
+			if(assoc)
+				L[assoc_key] = initial(variable)
+			else
+				L[L.Find(variable)]=initial(variable)
 
 		if("edit referenced object")
 			modify_variables(variable)
@@ -241,28 +268,52 @@ var/list/forbidden_varedit_object_types = list(
 			return
 
 		if("text")
-			L[L.Find(variable)] = input("Enter new text:","Text") as text
+			if(assoc)
+				L[assoc_key] = input("Enter new text:","Text") as text
+			else
+				L[L.Find(variable)] = input("Enter new text:","Text") as text
 
 		if("num")
-			L[L.Find(variable)] = input("Enter new number:","Num") as num
+			if(assoc)
+				L[assoc_key] = input("Enter new number:","Num") as num
+			else
+				L[L.Find(variable)] = input("Enter new number:","Num") as num
 
 		if("type")
-			L[L.Find(variable)] = input("Enter type:","Type") in typesof(/obj,/mob,/area,/turf)
+			if(assoc)
+				L[assoc_key] = input("Enter type:","Type") in typesof(/obj,/mob,/area,/turf)
+			else
+				L[L.Find(variable)] = input("Enter type:","Type") in typesof(/obj,/mob,/area,/turf)
 
 		if("reference")
-			L[L.Find(variable)] = input("Select reference:","Reference") as mob|obj|turf|area in world
+			if(assoc)
+				L[assoc_key] = input("Select reference:","Reference") as mob|obj|turf|area in world
+			else
+				L[L.Find(variable)] = input("Select reference:","Reference") as mob|obj|turf|area in world
 
 		if("mob reference")
-			L[L.Find(variable)] = input("Select reference:","Reference") as mob in world
+			if(assoc)
+				L[assoc_key] = input("Select reference:","Reference") as mob in world
+			else
+				L[L.Find(variable)] = input("Select reference:","Reference") as mob in world
 
 		if("file")
-			L[L.Find(variable)] = input("Pick file:","File") as file
+			if(assoc)
+				L[assoc_key] = input("Pick file:","File") as file
+			else
+				L[L.Find(variable)] = input("Pick file:","File") as file
 
 		if("icon")
-			L[L.Find(variable)] = input("Pick icon:","Icon") as icon
+			if(assoc)
+				L[assoc_key] = input("Pick icon:","Icon") as icon
+			else
+				L[L.Find(variable)] = input("Pick icon:","Icon") as icon
 
 		if("marked datum")
-			L[L.Find(variable)] = holder.marked_datum
+			if(assoc)
+				L[assoc_key] = holder.marked_datum
+			else
+				L[L.Find(variable)] = holder.marked_datum
 
 
 /client/proc/modify_variables(var/atom/O, var/param_var_name = null, var/autodetect_class = 0)

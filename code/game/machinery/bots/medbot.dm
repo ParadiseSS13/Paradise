@@ -129,9 +129,6 @@
 	text_dehack = "You reset [name]'s reagent processor circuits."
 	text_dehack_fail = "[name] seems damaged and does not respond to reprogramming!"
 
-/obj/machinery/bot/medbot/attack_paw(mob/user as mob)
-	return attack_hand(user)
-
 /obj/machinery/bot/medbot/attack_hand(mob/user as mob)
 	. = ..()
 	if (.)

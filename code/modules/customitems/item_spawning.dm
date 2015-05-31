@@ -47,7 +47,10 @@
 		testing("\[CustomItem\] Setting up [path] for [M.ckey] ([M.real_name]).  jobmask=[jobmask];propadjust=[propadjust]")
 		var/ok=0
 		if(jobmask!="*")
-			var/allowed_jobs = text2list(jobmask,",")
+			var/list/allowed_jobs = text2list(jobmask,",")
+			for(var/i = 1, i <= allowed_jobs.len, i++)
+				if(istext(allowed_jobs[i]))
+					allowed_jobs[i] = trim(allowed_jobs[i])
 			var/alt_blocked=0
 			if(M.mind.role_alt_title)
 				if(!(M.mind.role_alt_title in allowed_jobs))
