@@ -80,6 +80,9 @@
 		assailant.client.screen -= hud
 		assailant.client.screen += hud
 
+	var/hit_zone = assailant.zone_sel.selecting
+	last_hit_zone = hit_zone
+
 	if(assailant.pulling == affecting)
 		assailant.stop_pulling()
 
@@ -117,11 +120,10 @@
 		affecting.drop_item()
 		affecting.hand = h
 
-		var/hit_zone = assailant.zone_sel.selecting
+
 		//var/announce = 0
 		//(hit_zone != last_hit_zone)
 			//announce = 1
-		last_hit_zone = hit_zone
 	/*	if(ishuman(affecting))
 			switch(hit_zone)
 				/*if("mouth")
