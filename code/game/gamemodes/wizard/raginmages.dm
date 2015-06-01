@@ -94,7 +94,7 @@
 			making_mage = 0
 			return
 		else
-			shuffle(candidates)
+			candidates = shuffle(candidates)
 			for(var/mob/i in candidates)
 				if(!i || !i.client) continue //Dont bother removing them from the list since we only grab one wizard
 
