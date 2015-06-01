@@ -2,7 +2,8 @@
 	name = "flash"
 	desc = "A powerful and versatile flashbulb device, with applications ranging from disorienting attackers to acting as visual receptors in robot production."
 	icon_state = "flash"
-	item_state = "flashbang"	//looks exactly like a flash (and nothing like a flashbang)
+	item_state = "flashtool"	//looks exactly like a flash (and nothing like a flashbang)
+	icon_override = 'icons/mob/in-hand/tools.dmi'
 	throwforce = 0
 	w_class = 1
 	throw_speed = 3
@@ -75,7 +76,7 @@
 
 
 /obj/item/device/flash/proc/flash_carbon(var/mob/living/carbon/M, var/mob/user = null, var/power = 5, convert = 1)
-	add_logs(M, user, "flashed", object="the flash")
+	add_logs(M, user, "flashed", object="[src.name]")
 	var/safety = M:eyecheck()
 	if(safety <= 0)
 		M.confused += power
@@ -83,11 +84,11 @@
 		if(user && convert)
 			terrible_conversion_proc(M, user)
 			M.Stun(1)
-			user.visible_message("<span class='disarm'>[user] blinds [M] with the flash!</span>")
+			user.visible_message("<span class='disarm'>[user] blinds [M] with the [src.name]!</span>")
 		return 1
 	else
 		if(user)
-			user.visible_message("<span class='disarm'>[user] fails to blind [M] with the flash!</span>")
+			user.visible_message("<span class='disarm'>[user] fails to blind [M] with the [src.name]!</span>")
 		return 0
 
 /obj/item/device/flash/attack(mob/living/M, mob/user)
@@ -105,15 +106,16 @@
 	else if(issilicon(M))
 		M.Weaken(rand(5,10))
 		add_logs(M, user, "flashed", object="[src.name]")
-		user.visible_message("<span class='disarm'>[user] overloads [M]'s sensors with the flash!</span>")
+		user.visible_message("<span class='disarm'>[user] overloads [M]'s sensors with the [src.name]!</span>", "<span class='danger'>You overload [M]'s sensors with the [src.name]!</span>")
 		return 1
 
-	user.visible_message("<span class='notice'>[user] fails to blind [M] with the flash!</span>")
+	user.visible_message("<span class='disarm'>[user] fails to blind [M] with the [src.name]!</span>", "<span class='warning'>You fail to blind [M] with the [src.name]!</span>")
 
 
 /obj/item/device/flash/attack_self(mob/living/carbon/user, flag = 0, emp = 0)
 	if(!try_use_flash(user))
 		return 0
+	user.visible_message("<span class='disarm'>[user]'s [src.name] emits a blinding light!</span>", "<span class='danger'>Your [src.name] emits a blinding light!</span>")
 	for(var/mob/living/carbon/M in oviewers(3, null))
 		flash_carbon(M, user, 3, 0)
 
@@ -129,7 +131,7 @@
 
 /obj/item/device/flash/proc/terrible_conversion_proc(var/mob/M, var/mob/user)
 	if(ishuman(M) && ishuman(user) && M.stat != DEAD)
-		if(user.mind && ((user.mind in ticker.mode.head_revolutionaries)))
+		if(user.mind && (user.mind in ticker.mode.head_revolutionaries))
 			if(M.client)
 				if(M.stat == CONSCIOUS)
 					M.mind_initialize() //give them a mind datum if they don't have one.
@@ -142,7 +144,7 @@
 						resisted = 1
 
 					if(resisted)
-						user << "<span class='warning'>This mind seems resistant to the flash!</span>"
+						user << "<span class='warning'>This mind seems resistant to the [src.name]!</span>"
 				else
 					user << "<span class='warning'>They must be conscious before you can convert them!</span>"
 			else
@@ -168,6 +170,12 @@
 	animation.master = user
 	flick("blspell", animation)
 	sleep(5)
-	del(animation)
+	qdel(animation)
+
+/obj/item/device/flash/memorizer
+	name = "memorizer"
+	desc = "If you see this, you're not likely to remember it any time soon."
+	icon_state = "memorizer"
+	item_state = "nullrod"
 
 /obj/item/device/flash/synthetic //just a regular flash now

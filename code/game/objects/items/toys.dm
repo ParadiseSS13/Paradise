@@ -1224,7 +1224,8 @@ obj/item/toy/cards/deck/syndicate/black
 	desc = "FOR THE REVOLU- Oh wait, that's just a toy."
 	icon = 'icons/obj/device.dmi'
 	icon_state = "flash"
-	item_state = "flashbang"
+	item_state = "flashtool"
+	icon_override = 'icons/mob/in-hand/tools.dmi'
 	w_class = 1
 
 /obj/item/toy/flash/attack(mob/living/M, mob/user)

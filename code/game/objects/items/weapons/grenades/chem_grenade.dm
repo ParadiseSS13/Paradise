@@ -7,6 +7,7 @@
 	desc = "A do it yourself grenade casing!"
 	icon_state = "chemg"
 	item_state = "flashbang"
+	icon_override = 'icons/mob/in-hand/tools.dmi'
 	var/bomb_state = "chembomb"
 	var/payload_name = null // used for spawned grenades
 	w_class = 2

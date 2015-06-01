@@ -8,6 +8,7 @@ var/turf/T
 	icon = 'icons/obj/grenade.dmi'
 	icon_state = "banana"
 	item_state = "flashbang"
+	icon_override = 'icons/mob/in-hand/tools.dmi'
 	var/deliveryamt = 8
 	var/spawner_type = /obj/item/weapon/bananapeel
 

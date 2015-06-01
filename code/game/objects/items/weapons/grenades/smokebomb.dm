@@ -5,6 +5,7 @@
 	icon_state = "flashbang"
 	det_time = 20
 	item_state = "flashbang"
+	icon_override = 'icons/mob/in-hand/tools.dmi'
 	slot_flags = SLOT_BELT
 	var/datum/effect/effect/system/bad_smoke_spread/smoke
 
