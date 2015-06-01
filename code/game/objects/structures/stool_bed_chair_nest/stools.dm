@@ -68,7 +68,6 @@
 		m.loc = get_turf(src)
 		del src
 		var/mob/living/T = M
-		T.Weaken(10)
-		T.apply_damage(20)
+		T.Weaken(5)
 		return
 	..()

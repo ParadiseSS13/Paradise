@@ -86,7 +86,7 @@
 				M.take_organ_damage(2) // Was 5 -- TLE
 				M << "\blue You slipped on \the [name]!"
 				playsound(src.loc, 'sound/misc/slip.ogg', 50, 1, -3)
-				M.Weaken(10)
+				M.Weaken(7)
 				M.take_overall_damage(0, burned)
 
 	throw_impact(atom/hit_atom)

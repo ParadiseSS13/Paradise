@@ -116,9 +116,9 @@
 		else
 			M.current << "\red Your piercing gaze knocks out [C.name]."
 			C << "\red You find yourself unable to move and barely able to speak"
-			C.Weaken(20)
-			C.Stun(20)
-			C.stuttering = 20
+			C.Weaken(10)
+			C.Stun(10)
+			C.stuttering = 10
 	else
 		M.current << "\red You broke your gaze."
 		return
@@ -184,8 +184,8 @@
 		for(var/mob/living/carbon/C in view(1))
 			if(!C.vampire_affected(M)) continue
 			if(!M.current.vampire_can_reach(C, 1)) continue
-			C.Stun(8)
-			C.Weaken(8)
+			C.Stun(5)
+			C.Weaken(5)
 			C.stuttering = 20
 			C << "\red You are blinded by [M.current]'s glare"
 
@@ -217,10 +217,10 @@
 			if(ishuman(C) && (C:l_ear || C:r_ear) && istype((C:l_ear || C:r_ear), /obj/item/clothing/ears/earmuffs)) continue
 			if(!C.vampire_affected(M)) continue
 			C << "<span class='warning'><font size='3'><b>You hear a ear piercing shriek and your senses dull!</font></b></span>"
-			C.Weaken(8)
+			C.Weaken(4)
 			C.ear_deaf = 20
 			C.stuttering = 20
-			C.Stun(8)
+			C.Stun(4)
 			C.Jitter(150)
 		for(var/obj/structure/window/W in view(4))
 			W.destroy()
