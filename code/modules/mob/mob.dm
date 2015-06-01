@@ -1048,6 +1048,8 @@ var/list/slot_equipment_priority = list( \
 			else
 				lying = pick(90, 270) //180 looks like shit since BYOND inverts rather than turns in that case
 	else if(stunned)
+		drop_l_hand()
+		drop_r_hand()
 		canmove = 0
 	else
 		lying = 0
@@ -1081,6 +1083,8 @@ var/list/slot_equipment_priority = list( \
 		lying = 90
 		canmove = 0
 	else if( stunned )
+		drop_l_hand()
+		drop_r_hand()
 		canmove = 0
 	else
 		lying = 0
