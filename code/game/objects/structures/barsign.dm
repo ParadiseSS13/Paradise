@@ -288,11 +288,6 @@
 	icon = "meadbay"
 	desc = "Still probably a better place to get treated than the real one."
 
-/datum/barsign/orchard
-	name = "The Orchard"
-	icon = "theorchard"
-	desc = "Juicy."
-
 /datum/barsign/whiskeyimplant
 	name = "Whiskey Implant"
 	icon = "whiskeyimplant"
