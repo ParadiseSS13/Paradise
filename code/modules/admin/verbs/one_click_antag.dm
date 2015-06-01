@@ -167,7 +167,7 @@ client/proc/one_click_antag()
 	sleep(300)
 
 	if(candidates.len)
-		shuffle(candidates)
+		candidates = shuffle(candidates)
 		for(var/mob/i in candidates)
 			if(!i || !i.client) continue //Dont bother removing them from the list since we only grab one wizard
 
