@@ -3372,7 +3372,7 @@
 "bmR" = (/obj/machinery/door/firedoor,/turf/simulated/floor,/area/hallway/primary/central/ne)
 "bmS" = (/obj/structure/sign/directions/evac{dir = 4},/obj/structure/sign/directions/medical{dir = 4; pixel_y = 7},/obj/structure/sign/directions/science{dir = 4},/turf/simulated/wall,/area/crew_quarters/bar)
 "bmT" = (/obj/machinery/door/firedoor,/obj/machinery/door/airlock/glass{name = "Diner"},/turf/simulated/floor,/area/crew_quarters/bar)
-"bmU" = (/obj/structure/sign/double/barsign,/turf/simulated/wall,/area/crew_quarters/bar)
+"bmU" = (/obj/structure/sign/barsign,/turf/simulated/wall,/area/crew_quarters/bar)
 "bmV" = (/obj/machinery/hologram/holopad,/turf/simulated/floor{dir = 1; icon_state = "whitecorner"},/area/hallway/primary/starboard/west)
 "bmW" = (/turf/simulated/floor{dir = 1; icon_state = "whitecorner"},/area/hallway/primary/starboard/west)
 "bmX" = (/obj/machinery/camera{c_tag = "Starboard Primary Hallway 2"; dir = 2; network = list("SS13")},/turf/simulated/floor{dir = 1; icon_state = "whitecorner"},/area/hallway/primary/starboard/west)
