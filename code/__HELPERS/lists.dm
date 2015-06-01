@@ -155,16 +155,15 @@ proc/listclearnulls(list/list)
 	return output
 
 //Randomize: Return the list in a random order
-/proc/shuffle(var/list/shufflelist)
-	if(!shufflelist)
+/proc/shuffle(var/list/L)
+	if(!L)
 		return
-	var/list/new_list = list()
-	var/list/old_list = shufflelist.Copy()
-	while(old_list.len)
-		var/item = pick(old_list)
-		new_list += item
-		old_list -= item
-	return new_list
+	L = L.Copy()
+
+	for(var/i=1, i<L.len, ++i)
+		L.Swap(i,rand(i,L.len))
+
+	return L
 
 //Return a list with no duplicate entries
 /proc/uniquelist(var/list/L)
