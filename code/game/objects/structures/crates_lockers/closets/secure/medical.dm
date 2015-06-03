@@ -109,7 +109,6 @@
 		new /obj/item/weapon/storage/firstaid/adv(src)
 		new /obj/item/weapon/storage/firstaid/brute(src)
 		new /obj/item/weapon/storage/firstaid/fire(src)
-		new /obj/item/weapon/storage/firstaid/brute(src)
 		new /obj/item/weapon/storage/firstaid/o2(src)
 		new /obj/item/weapon/storage/firstaid/toxin(src)
 		return
