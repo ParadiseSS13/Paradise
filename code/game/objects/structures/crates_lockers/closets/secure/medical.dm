@@ -104,7 +104,6 @@
 		new /obj/item/clothing/gloves/color/latex/nitrile(src)
 		new /obj/item/clothing/accessory/stethoscope(src)
 		new /obj/item/device/flashlight/pen(src)
-		new /obj/item/weapon/defibrillator/loaded(src)
 		new /obj/item/weapon/storage/firstaid/regular(src)
 		new /obj/item/weapon/storage/firstaid/adv(src)
 		new /obj/item/weapon/storage/firstaid/brute(src)
