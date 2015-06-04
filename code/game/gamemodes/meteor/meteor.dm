@@ -35,6 +35,7 @@
 	var/waveduration = world.timeofday + rand(3000,9000)
 	var/waitduration = rand(3000,9000)
 	while(waveduration - world.timeofday > 0)
+		sleep(20)
 		spawn() spawn_meteors(6)
 	spawn(waitduration)
 		nometeors = 0
