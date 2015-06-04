@@ -853,6 +853,11 @@ var/list/ghostteleportlocs = list()
 	name = "Waste Disposal"
 	icon_state = "disposal"
 
+
+/area/maintenance/electrical
+	name = "Electrical Maintenance"
+	icon_state = "yellow"
+
 /area/maintenance/abandonedbar
 	name = "Maintenance Bar"
 	icon_state = "yellow"
