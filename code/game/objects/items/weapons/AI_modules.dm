@@ -103,12 +103,12 @@ AI MODULES
 
 /obj/item/weapon/aiModule/zeroth
 	var/removeownlaw = 0
-		
+
 /obj/item/weapon/aiModule/zeroth/transmitInstructions(var/mob/living/silicon/ai/target, var/mob/sender)
 	if(target.laws.zeroth)
 		if(removeownlaw && (laws[1] == target.laws.zeroth))
 			target.clear_zeroth_law()
-			return 2		
+			return 2
 		else
 			target << "[sender.real_name] attempted to modify your zeroth law."
 			target << "It would be in your best interest to play along with [sender.real_name] that:"
@@ -178,7 +178,7 @@ AI MODULES
 	if(..() == 1)
 		return "[targetName], but the AI's existing zeroth law cannot be overriden."
 	if(..() == 2)
-		return "The AI's zeroth law has been overridden."		
+		return "The AI's zeroth law has been overridden."
 	return targetName
 
 
@@ -273,7 +273,7 @@ AI MODULES
 
 /obj/item/weapon/aiModule/reset/purge/transmitInstructions(var/mob/living/silicon/ai/target, var/mob/sender)
 	..()
-	target.clear_inherent_laws()	
+	target.clear_inherent_laws()
 
 /******************* Full Core Boards *******************/
 
@@ -445,7 +445,7 @@ AI MODULES
 	target.add_ion_law(laws[1])
 	return laws[1]
 
-/*
+
 /******************* Ion Module *******************/
 
 /obj/item/weapon/aiModule/toyAI // -- Incoming //No actual reason to inherit from ion boards here, either. *sigh* ~Miauw
@@ -467,5 +467,3 @@ AI MODULES
 	user << "<span class='notice'>You press the button on [src].</span>"
 	playsound(user, 'sound/machines/click.ogg', 20, 1)
 	src.loc.visible_message("<span class='warning'>\icon[src] [laws[1]]</span>")
-
-*/
